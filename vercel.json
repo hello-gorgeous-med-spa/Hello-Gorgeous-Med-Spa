@@ -52,6 +52,11 @@
         }
       ],
       "destination": "/book"
+    },
+    {
+      "source": "/",
+      "has": [{ "type": "host", "value": "hub.hellogorgeousmedspa.com" }],
+      "destination": "/hub"
     }
   ]
 }

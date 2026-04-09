@@ -8,17 +8,87 @@
 
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
+import {
+  HUB_SESSION_COOKIE_NAME,
+  hubPasswordGateEnabled,
+  verifyHubSessionToken,
+} from '@/lib/hub-session';
 
 // Routes that require authentication (admin guard applies only to these)
 const PROTECTED_ROUTES = ['/admin', '/provider', '/portal', '/pos'];
-export function middleware(request: NextRequest) {
+
+/** Real browser origin (Vercel sets x-forwarded-*). Avoids redirecting hub login to the deployment apex. */
+function requestOrigin(request: NextRequest): string {
+  const host =
+    request.headers.get('x-forwarded-host')?.split(',')[0]?.trim() ||
+    request.headers.get('host') ||
+    '';
+  const proto =
+    request.headers.get('x-forwarded-proto')?.split(',')[0]?.trim() ||
+    (request.nextUrl.protocol === 'https:' ? 'https' : 'http');
+  return `${proto}://${host}`;
+}
+
+function hubPasswordRedirect(request: NextRequest, nextPathWithSearch: string) {
+  const origin = requestOrigin(request);
+  const base = origin.endsWith('/') ? origin : `${origin}/`;
+  const loginUrl = new URL('/hub/login', base);
+  loginUrl.searchParams.set('next', nextPathWithSearch);
+  return NextResponse.redirect(loginUrl);
+}
+
+export async function middleware(request: NextRequest) {
   const url = request.nextUrl;
   const pathname = url.pathname;
   const hostname = request.headers.get('host') || '';
+  const isHubHost = hostname.startsWith('hub.');
+  // On hub subdomain, "/" is the Command Center (same as /hub) — must run auth before rewrite.
+  const pathForHubGate =
+    isHubHost && (pathname === '/' || pathname === '') ? '/hub' : pathname;
 
   // .well-known (Apple Pay, etc.) — never redirect, never auth
   if (pathname.startsWith('/.well-known/')) {
     return NextResponse.next();
+  }
+
+  // Command Center password gate (HUB_PASSWORD_*) — uses pathForHubGate so hub. + / is protected
+  if (hubPasswordGateEnabled()) {
+    const isHubLogin =
+      pathForHubGate === '/hub/login' || pathForHubGate.startsWith('/hub/login/');
+    const isHubApiPublic =
+      pathForHubGate.startsWith('/api/hub/auth') ||
+      pathForHubGate.startsWith('/api/hub/session');
+    const needsHubAuth =
+      pathForHubGate === '/hub' ||
+      (pathForHubGate.startsWith('/hub/') && !isHubLogin) ||
+      (pathForHubGate.startsWith('/api/hub/') && !isHubApiPublic);
+    if (needsHubAuth) {
+      const token = request.cookies.get(HUB_SESSION_COOKIE_NAME)?.value;
+      const sessionUser = await verifyHubSessionToken(token);
+      if (!sessionUser) {
+        if (pathForHubGate.startsWith('/api/hub/')) {
+          return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+        }
+        return hubPasswordRedirect(request, pathForHubGate + url.search);
+      }
+    }
+  }
+
+  // hub.hellogorgeousmedspa.com → internal /hub (after auth)
+  if (isHubHost) {
+    if (url.pathname === '/') {
+      url.pathname = '/hub';
+      return NextResponse.rewrite(url);
+    }
+    const allowed =
+      url.pathname.startsWith('/hub') ||
+      url.pathname.startsWith('/api/hub') ||
+      url.pathname.startsWith('/_next') ||
+      url.pathname.includes('.');
+    if (!allowed) {
+      const mainDomain = hostname.replace('hub.', '');
+      return NextResponse.redirect(`https://${mainDomain}${url.pathname}${url.search}`);
+    }
   }
 
   // Portal login/verify — always publicly accessible (magic link flow)

@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getSupabaseAdminClient } from "@/lib/hgos/supabase-admin";
+import { requireHubApi } from "@/lib/hub-api-auth";
 
 function userKeyFrom(req: NextRequest, bodyUser?: string | null): "dani" | "ryan" {
   const q = (req.nextUrl.searchParams.get("user") || bodyUser || "dani").toLowerCase();
@@ -7,6 +8,9 @@ function userKeyFrom(req: NextRequest, bodyUser?: string | null): "dani" | "ryan
 }
 
 export async function GET(req: NextRequest) {
+  const gate = await requireHubApi(req);
+  if (gate instanceof NextResponse) return gate;
+
   const supabase = getSupabaseAdminClient();
   if (!supabase) return NextResponse.json({ error: "Supabase not configured" }, { status: 500 });
 
@@ -25,10 +29,13 @@ export async function GET(req: NextRequest) {
 }
 
 export async function POST(req: NextRequest) {
+  const body = await req.json();
+  const gate = await requireHubApi(req, body);
+  if (gate instanceof NextResponse) return gate;
+
   const supabase = getSupabaseAdminClient();
   if (!supabase) return NextResponse.json({ error: "Supabase not configured" }, { status: 500 });
 
-  const body = await req.json();
   const userKey = userKeyFrom(req, body?.user);
   const clientId = String(body?.client_id || "").trim();
   const note = String(body?.note || "").trim();
@@ -48,4 +55,20 @@ export async function POST(req: NextRequest) {
 
   if (error) return NextResponse.json({ error: error.message }, { status: 500 });
   return NextResponse.json({ note: data }, { status: 201 });
+}
+
+export async function DELETE(req: NextRequest) {
+  const gate = await requireHubApi(req);
+  if (gate instanceof NextResponse) return gate;
+
+  const supabase = getSupabaseAdminClient();
+  if (!supabase) return NextResponse.json({ error: "Supabase not configured" }, { status: 500 });
+
+  const id = Number(req.nextUrl.searchParams.get("id"));
+  const userKey = userKeyFrom(req);
+  if (!Number.isFinite(id)) return NextResponse.json({ error: "id required" }, { status: 400 });
+
+  const { error } = await supabase.from("hg_notes").delete().eq("id", id).eq("user_key", userKey);
+  if (error) return NextResponse.json({ error: error.message }, { status: 500 });
+  return NextResponse.json({ success: true });
 }

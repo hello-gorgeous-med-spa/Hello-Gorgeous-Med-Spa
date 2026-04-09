@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getSupabaseAdminClient } from "@/lib/hgos/supabase-admin";
+import { requireHubApi } from "@/lib/hub-api-auth";
 
 function userKeyFrom(req: NextRequest, bodyUser?: string | null): "dani" | "ryan" {
   const q = (req.nextUrl.searchParams.get("user") || bodyUser || "dani").toLowerCase();
@@ -7,6 +8,9 @@ function userKeyFrom(req: NextRequest, bodyUser?: string | null): "dani" | "ryan
 }
 
 export async function GET(req: NextRequest) {
+  const gate = await requireHubApi(req);
+  if (gate instanceof NextResponse) return gate;
+
   const supabase = getSupabaseAdminClient();
   if (!supabase) return NextResponse.json({ error: "Supabase not configured" }, { status: 500 });
 
@@ -22,10 +26,13 @@ export async function GET(req: NextRequest) {
 }
 
 export async function POST(req: NextRequest) {
+  const body = await req.json();
+  const gate = await requireHubApi(req, body);
+  if (gate instanceof NextResponse) return gate;
+
   const supabase = getSupabaseAdminClient();
   if (!supabase) return NextResponse.json({ error: "Supabase not configured" }, { status: 500 });
 
-  const body = await req.json();
   const text = String(body?.text || "").trim();
   if (!text) return NextResponse.json({ error: "text required" }, { status: 400 });
 
@@ -44,10 +51,13 @@ export async function POST(req: NextRequest) {
 }
 
 export async function PUT(req: NextRequest) {
+  const body = await req.json();
+  const gate = await requireHubApi(req, body);
+  if (gate instanceof NextResponse) return gate;
+
   const supabase = getSupabaseAdminClient();
   if (!supabase) return NextResponse.json({ error: "Supabase not configured" }, { status: 500 });
 
-  const body = await req.json();
   const id = Number(body?.id);
   if (!Number.isFinite(id)) return NextResponse.json({ error: "id required" }, { status: 400 });
   const userKey = userKeyFrom(req, body?.user);
@@ -70,6 +80,9 @@ export async function PUT(req: NextRequest) {
 }
 
 export async function DELETE(req: NextRequest) {
+  const gate = await requireHubApi(req);
+  if (gate instanceof NextResponse) return gate;
+
   const supabase = getSupabaseAdminClient();
   if (!supabase) return NextResponse.json({ error: "Supabase not configured" }, { status: 500 });
 

@@ -21,14 +21,23 @@ export default function HubPage() {
   const [clientName, setClientName] = useState("");
   const [noteText, setNoteText] = useState("");
   const [loading, setLoading] = useState(false);
+  const [hubGate, setHubGate] = useState(false);
+
+  useEffect(() => {
+    fetch("/api/hub/session", { credentials: "include" })
+      .then((r) => r.json())
+      .then((j) => setHubGate(!!j.gate))
+      .catch(() => setHubGate(false));
+  }, []);
 
   async function loadAll(targetUser = user) {
     setLoading(true);
     try {
+      const cred = { credentials: "include" as RequestCredentials };
       const [t, n, s] = await Promise.all([
-        fetch(`/api/hub/tasks?user=${targetUser}`).then((r) => r.json()),
-        fetch(`/api/hub/notes?user=${targetUser}`).then((r) => r.json()),
-        fetch(`/api/hub/state?user=${targetUser}`).then((r) => r.json()),
+        fetch(`/api/hub/tasks?user=${targetUser}`, cred).then((r) => r.json()),
+        fetch(`/api/hub/notes?user=${targetUser}`, cred).then((r) => r.json()),
+        fetch(`/api/hub/state?user=${targetUser}`, cred).then((r) => r.json()),
       ]);
       setTasks(t.tasks || []);
       setNotes(n.notes || []);
@@ -55,6 +64,7 @@ export default function HubPage() {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ user, text: taskInput.trim(), assignee, created_by: user }),
+      credentials: "include",
     });
     setTaskInput("");
     await loadAll();
@@ -65,6 +75,7 @@ export default function HubPage() {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ user, id: task.id, done: !task.done }),
+      credentials: "include",
     });
     await loadAll();
   }
@@ -75,6 +86,7 @@ export default function HubPage() {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ user, client_id: clientId.trim(), client_name: clientName.trim() || null, note: noteText.trim(), created_by: user }),
+      credentials: "include",
     });
     setNoteText("");
     await loadAll();
@@ -87,6 +99,7 @@ export default function HubPage() {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ user, expenses: nextExpenses, bills: nextBills }),
+      credentials: "include",
     });
   }
 
@@ -101,12 +114,13 @@ export default function HubPage() {
   }
 
   async function loadSquareSummary() {
-    const json = await fetch("/api/hub/square-summary").then((r) => r.json());
+    const json = await fetch("/api/hub/square-summary", { credentials: "include" }).then((r) => r.json());
     if (json.transactions) {
       await fetch("/api/hub/state", {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ user, sq_data: json.transactions }),
+        credentials: "include",
       });
       alert(`Loaded ${json.transactions.length} Square transactions.`);
     } else {
@@ -120,6 +134,24 @@ export default function HubPage() {
         <div>
           <h1 className="text-3xl font-bold">Hello Gorgeous Command Center</h1>
           <p className="text-black/60 text-sm">Shared in Supabase · Live between Dani and Ryan</p>
+          <p className="text-sm mt-1">
+            <a href="/hub/classic" className="text-pink-600 underline">Classic UI</a>
+            {hubGate ? (
+              <>
+                {" · "}
+                <button
+                  type="button"
+                  className="text-black/50 underline"
+                  onClick={async () => {
+                    await fetch("/api/hub/auth", { method: "DELETE", credentials: "include" });
+                    window.location.href = "/hub/login";
+                  }}
+                >
+                  Sign out
+                </button>
+              </>
+            ) : null}
+          </p>
         </div>
         <div className="flex gap-2">
           <button className={`px-3 py-2 rounded ${user === "dani" ? "bg-pink-600 text-white" : "bg-black/5"}`} onClick={() => setUser("dani")}>Dani view</button>

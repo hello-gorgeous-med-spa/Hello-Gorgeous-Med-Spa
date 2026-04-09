@@ -1,0 +1,1388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hello Gorgeous · Command Center</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Lato',sans-serif;background:#f5f5f5;color:#1A1A1A;min-height:100vh}
+
+/* ── TOP NAV ── */
+.topnav{background:#1A1A1A;padding:0 24px;height:52px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+.topnav-logo{font-family:'Cormorant Garamond',serif;font-size:18px;color:#fff;letter-spacing:1px}
+.topnav-logo span{color:#FF1493}
+.topnav-center{display:flex;gap:4px}
+.nav-btn{padding:6px 14px;border-radius:4px;border:none;background:transparent;color:rgba(255,255,255,0.45);font-family:'Lato',sans-serif;font-size:12px;cursor:pointer;transition:all .15s;letter-spacing:.5px}
+.nav-btn:hover{color:#fff;background:rgba(255,255,255,0.07)}
+.nav-btn.active{color:#FF1493;background:rgba(255,20,147,0.12)}
+.topnav-right{display:flex;align-items:center;gap:12px}
+.user-pill{background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.1);border-radius:20px;padding:4px 12px;font-size:11px;color:rgba(255,255,255,0.6);cursor:pointer;display:flex;align-items:center;gap:6px;transition:all .15s}
+.user-pill:hover{background:rgba(255,20,147,0.15);border-color:rgba(255,20,147,0.3);color:#FF1493}
+.user-dot{width:7px;height:7px;border-radius:50%;background:#FF1493}
+.time-display{font-size:11px;color:rgba(255,255,255,0.4);letter-spacing:1px;font-family:'Lato',sans-serif}
+
+/* ── PAGES ── */
+.page{display:none;padding:24px;max-width:1400px;margin:0 auto}
+.page.active{display:block}
+
+/* ── MORNING HEADER ── */
+.morning-header{margin-bottom:24px}
+.morning-greeting{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:400;color:#1A1A1A;margin-bottom:4px}
+.morning-greeting span{color:#FF1493;font-style:italic}
+.morning-sub{font-size:12px;color:#888;letter-spacing:1px;text-transform:uppercase}
+
+/* ── GRID LAYOUTS ── */
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:18px}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:18px}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:18px}
+.grid-2-1{display:grid;grid-template-columns:2fr 1fr;gap:14px;margin-bottom:18px}
+
+/* ── CARDS ── */
+.card{background:#fff;border:1px solid #e8e8e8;border-radius:10px;padding:16px;box-shadow:0 1px 4px rgba(0,0,0,0.04)}
+.card-sm{background:#fff;border:1px solid #e8e8e8;border-radius:10px;padding:14px;box-shadow:0 1px 4px rgba(0,0,0,0.04)}
+.card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.card-title{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#888}
+.card-title-pink{color:#FF1493}
+.card-action{font-size:11px;color:#FF1493;cursor:pointer;border:none;background:none;padding:0;font-family:'Lato',sans-serif;letter-spacing:.5px}
+.card-action:hover{opacity:.7}
+
+/* ── STAT CARDS ── */
+.stat-accent{height:3px;border-radius:10px 10px 0 0;margin:-16px -16px 14px}
+.stat-label{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#888;margin-bottom:6px}
+.stat-value{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:600;line-height:1;margin-bottom:4px}
+.stat-sub{font-size:11px;color:#aaa}
+.stat-pink{color:#FF1493}
+.stat-green{color:#2a9d8f}
+.stat-black{color:#1A1A1A}
+.stat-red{color:#e63946}
+
+/* ── TASK SYSTEM ── */
+.task-tabs{display:flex;gap:6px;margin-bottom:12px}
+.task-tab{padding:5px 12px;border-radius:20px;border:1px solid #e8e8e8;background:transparent;font-size:11px;font-family:'Lato',sans-serif;cursor:pointer;color:#888;transition:all .15s}
+.task-tab.active{background:#FF1493;border-color:#FF1493;color:#fff}
+.task-input-row{display:flex;gap:8px;margin-bottom:10px}
+.task-input{flex:1;padding:8px 12px;border:1px solid #e8e8e8;border-radius:6px;font-family:'Lato',sans-serif;font-size:13px;outline:none;color:#1A1A1A;background:#fafafa}
+.task-input:focus{border-color:#FF1493;background:#fff}
+.task-add-btn{padding:8px 14px;background:#FF1493;border:none;border-radius:6px;color:#fff;font-family:'Lato',sans-serif;font-size:12px;cursor:pointer;white-space:nowrap;font-weight:700}
+.task-item{display:flex;align-items:flex-start;gap:10px;padding:8px 0;border-bottom:1px solid #f5f5f5}
+.task-item:last-child{border-bottom:none}
+.task-check{width:18px;height:18px;border-radius:50%;border:2px solid #e8e8e8;flex-shrink:0;cursor:pointer;margin-top:1px;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.task-check.done{background:#FF1493;border-color:#FF1493}
+.task-check.done::after{content:'✓';font-size:10px;color:#fff;font-weight:700}
+.task-text{flex:1;font-size:13px;color:#1A1A1A;line-height:1.4}
+.task-text.done{text-decoration:line-through;color:#aaa}
+.task-assignee{font-size:10px;padding:1px 7px;border-radius:8px;font-weight:700;flex-shrink:0}
+.task-assign-d{background:#FBEAF0;color:#993556}
+.task-assign-r{background:#E6F1FB;color:#185FA5}
+.task-delete{color:#e8e8e8;font-size:14px;cursor:pointer;border:none;background:none;padding:0;transition:color .15s}
+.task-delete:hover{color:#e63946}
+
+/* ── SCHEDULE ── */
+.appt-item{display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-bottom:1px solid #f5f5f5}
+.appt-item:last-child{border-bottom:none}
+.appt-time{font-size:11px;font-weight:700;color:#1A1A1A;width:48px;flex-shrink:0;padding-top:2px}
+.appt-dot{width:8px;height:8px;border-radius:50%;background:#FF1493;flex-shrink:0;margin-top:4px}
+.appt-info{flex:1}
+.appt-name{font-size:13px;font-weight:500;color:#1A1A1A;margin-bottom:2px}
+.appt-service{font-size:11px;color:#888}
+.appt-note{font-size:10px;color:#aaa;margin-top:2px;font-style:italic}
+.appt-connect-badge{background:#FBEAF0;color:#993556;font-size:10px;font-weight:700;padding:2px 8px;border-radius:8px;margin-top:6px;display:inline-block}
+
+/* ── REVIEWS ── */
+.review-summary{display:flex;align-items:center;gap:16px;padding:12px;background:#fafafa;border-radius:8px;margin-bottom:14px;border:1px solid #f0f0f0}
+.review-score{font-family:'Cormorant Garamond',serif;font-size:42px;font-weight:600;color:#1A1A1A;line-height:1}
+.review-stars{display:flex;gap:2px;margin-bottom:3px}
+.star{font-size:14px;color:#FF1493}
+.star.empty{color:#e8e8e8}
+.review-meta{font-size:11px;color:#888}
+.review-item{padding:10px 0;border-bottom:1px solid #f5f5f5}
+.review-item:last-child{border-bottom:none}
+.review-top{display:flex;align-items:center;gap:8px;margin-bottom:5px}
+.reviewer-avatar{width:28px;height:28px;border-radius:50%;background:#FBEAF0;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#993556;flex-shrink:0}
+.reviewer-name{font-size:12px;font-weight:500;color:#1A1A1A;flex:1}
+.review-date{font-size:10px;color:#aaa}
+.review-text{font-size:12px;color:#555;line-height:1.5}
+.review-reply-btn{font-size:11px;color:#FF1493;border:none;background:none;cursor:pointer;padding:4px 0;font-family:'Lato',sans-serif}
+.review-connect{background:#fafafa;border:2px dashed #e8e8e8;border-radius:8px;padding:24px;text-align:center}
+.review-connect-icon{font-size:28px;margin-bottom:8px}
+.review-connect-text{font-size:13px;color:#888;margin-bottom:12px}
+.connect-btn{padding:8px 18px;background:#1A1A1A;border:none;border-radius:6px;color:#fff;font-family:'Lato',sans-serif;font-size:12px;cursor:pointer;letter-spacing:1px;font-weight:700;transition:opacity .2s}
+.connect-btn:hover{opacity:.8}
+.connect-btn-pink{background:#FF1493}
+
+/* ── INSTAGRAM ── */
+.ig-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:12px}
+.ig-post{aspect-ratio:1;border-radius:6px;overflow:hidden;background:#f0f0f0;cursor:pointer;position:relative}
+.ig-post img{width:100%;height:100%;object-fit:cover}
+.ig-post-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:20px;background:linear-gradient(135deg,#FBEAF0,#fff)}
+.ig-stats{display:flex;gap:12px}
+.ig-stat{display:flex;flex-direction:column}
+.ig-stat-val{font-size:16px;font-weight:700;color:#1A1A1A;font-family:'Cormorant Garamond',serif}
+.ig-stat-lbl{font-size:10px;color:#aaa;letter-spacing:.5px;text-transform:uppercase}
+.ig-connect{background:#fafafa;border:2px dashed #e8e8e8;border-radius:8px;padding:20px;text-align:center}
+
+/* ── ALERTS ── */
+.alert-item{display:flex;gap:10px;align-items:flex-start;padding:9px 12px;border-radius:8px;margin-bottom:8px;border-left:3px solid}
+.alert-item:last-child{margin-bottom:0}
+.alert-warn{background:#fffbeb;border-color:#c77b2a}
+.alert-warn .alert-icon{color:#c77b2a}
+.alert-info{background:#FBEAF0;border-color:#FF1493}
+.alert-info .alert-icon{color:#FF1493}
+.alert-success{background:#f0fdf4;border-color:#2a9d8f}
+.alert-success .alert-icon{color:#2a9d8f}
+.alert-icon{font-size:14px;flex-shrink:0;margin-top:1px}
+.alert-text{font-size:12px;line-height:1.5;color:#1A1A1A}
+.alert-text strong{font-weight:700}
+
+/* ── FINANCE ROW ── */
+.fin-row{display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid #f5f5f5}
+.fin-row:last-child{border-bottom:none}
+.fin-row-label{font-size:13px;color:#1A1A1A}
+.fin-row-sub{font-size:10px;color:#aaa}
+.fin-row-val{font-size:14px;font-weight:700;font-family:'Cormorant Garamond',serif}
+.fin-pos{color:#2a9d8f}
+.fin-neg{color:#e63946}
+.fin-pink{color:#FF1493}
+.bill-urgent{background:rgba(230,57,70,0.08);border-left:3px solid #e63946;border-radius:0;padding:6px 10px;font-size:12px;color:#e63946;margin-bottom:6px;font-weight:700}
+
+/* ── CLIENTS PAGE ── */
+.cl-toolbar{background:#fff;border:1px solid #e8e8e8;border-radius:10px;padding:12px 16px;display:flex;gap:10px;margin-bottom:14px;align-items:center}
+.cl-search{flex:1;padding:8px 12px;border:1px solid #e8e8e8;border-radius:6px;font-family:'Lato',sans-serif;font-size:13px;outline:none;color:#1A1A1A}
+.cl-search:focus{border-color:#FF1493}
+.cf{padding:7px 10px;border:1px solid #e8e8e8;border-radius:6px;font-family:'Lato',sans-serif;font-size:12px;background:#fff;outline:none;color:#1A1A1A}
+.cl-statbar{display:flex;gap:16px;padding:0 0 14px;flex-wrap:wrap}
+.cs{display:flex;align-items:center;gap:5px}
+.cs-dot{width:7px;height:7px;border-radius:50%}
+.cs-lbl{font-size:11px;color:#aaa}
+.cs-val{font-size:13px;font-weight:700;color:#1A1A1A}
+.ctbl-wrap{background:#fff;border:1px solid #e8e8e8;border-radius:10px;overflow:hidden}
+.ctbl{width:100%;border-collapse:collapse;font-size:12.5px}
+.ctbl thead th{background:#1A1A1A;color:#fff;padding:9px 14px;text-align:left;font-size:9.5px;letter-spacing:1.5px;text-transform:uppercase;font-weight:700;white-space:nowrap}
+.ctbl tbody td{padding:9px 14px;border-bottom:1px solid #f5f5f5;vertical-align:middle}
+.ctbl tbody tr:hover td{background:#fff8fc}
+.cbadge{display:inline-block;padding:2px 7px;border-radius:8px;font-size:10px;font-weight:700}
+.cb-yes{background:rgba(42,157,143,0.1);color:#2a9d8f}
+.cb-no{background:rgba(136,136,136,0.1);color:#888}
+.cl-pager{background:#fff;border-top:1px solid #e8e8e8;padding:10px 14px;display:flex;align-items:center;justify-content:space-between}
+.pbtn{padding:5px 12px;border:1px solid #e8e8e8;border-radius:4px;background:#fff;cursor:pointer;font-size:12px;color:#1A1A1A;transition:all .15s}
+.pbtn:hover{border-color:#FF1493;color:#FF1493}
+.pbtn:disabled{opacity:.35;cursor:not-allowed}
+.pinfo{font-size:12px;color:#888}
+
+/* ── CLIENT NOTES MODAL ── */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:200;align-items:center;justify-content:center}
+.modal-overlay.open{display:flex}
+.modal{background:#fff;border-radius:12px;padding:24px;width:520px;max-height:80vh;overflow-y:auto}
+.modal-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+.modal-title{font-family:'Cormorant Garamond',serif;font-size:20px}
+.modal-close{border:none;background:none;font-size:18px;cursor:pointer;color:#888;padding:0}
+.note-item{background:#fafafa;border:1px solid #f0f0f0;border-radius:8px;padding:10px 12px;margin-bottom:8px}
+.note-meta{font-size:10px;color:#aaa;margin-bottom:4px}
+.note-text{font-size:13px;color:#1A1A1A;line-height:1.5}
+.note-textarea{width:100%;padding:10px 12px;border:1px solid #e8e8e8;border-radius:6px;font-family:'Lato',sans-serif;font-size:13px;resize:none;height:80px;outline:none;margin-top:12px;color:#1A1A1A}
+.note-textarea:focus{border-color:#FF1493}
+.note-add-btn{margin-top:8px;padding:8px 16px;background:#FF1493;border:none;border-radius:6px;color:#fff;font-family:'Lato',sans-serif;font-size:12px;cursor:pointer;font-weight:700}
+.client-tag{display:inline-block;padding:2px 8px;border-radius:10px;font-size:10px;font-weight:700;margin:2px;cursor:pointer}
+.tag-vip{background:rgba(255,20,147,0.1);color:#FF1493;border:1px solid rgba(255,20,147,0.2)}
+.tag-glp1{background:rgba(42,157,143,0.1);color:#2a9d8f;border:1px solid rgba(42,157,143,0.2)}
+.tag-new{background:rgba(26,26,26,0.07);color:#1A1A1A;border:1px solid #e8e8e8}
+.tag-btn{background:transparent;border:1px dashed #e8e8e8;color:#aaa;cursor:pointer}
+.sms-from-card-btn{padding:6px 14px;background:#1A1A1A;border:none;border-radius:6px;color:#fff;font-family:'Lato',sans-serif;font-size:11px;cursor:pointer;font-weight:700;letter-spacing:.5px;transition:opacity .2s}
+.sms-from-card-btn:hover{opacity:.8}
+
+/* ── SETTINGS ── */
+.settings-section{margin-bottom:24px}
+.settings-label{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#FF1493;margin-bottom:12px}
+.settings-card{background:#fff;border:1px solid #e8e8e8;border-radius:10px;padding:18px}
+.settings-row{display:flex;gap:10px;margin-bottom:10px}
+.sinput{flex:1;padding:9px 12px;border:1px solid #e8e8e8;border-radius:6px;font-family:'Lato',sans-serif;font-size:13px;outline:none;color:#1A1A1A;background:#fafafa}
+.sinput:focus{border-color:#FF1493;background:#fff}
+.sbtn{padding:9px 16px;background:#FF1493;border:none;border-radius:6px;color:#fff;font-family:'Lato',sans-serif;font-size:11px;cursor:pointer;font-weight:700;letter-spacing:1px;white-space:nowrap}
+.sbtn-out{background:transparent;border:1px solid #e8e8e8;color:#888}
+.sbtn-out:hover{border-color:#1A1A1A;color:#1A1A1A}
+.stest{font-size:12px;min-height:16px;margin-top:6px}
+.api-badge{display:inline-flex;align-items:center;gap:5px;padding:3px 10px;border-radius:12px;font-size:11px;font-weight:700;margin-bottom:10px}
+.api-connected{background:rgba(42,157,143,0.1);color:#2a9d8f}
+.api-waiting{background:rgba(136,136,136,0.1);color:#888}
+.api-error{background:rgba(230,57,70,0.1);color:#e63946}
+.anthony-ticket{background:#fffbeb;border:1px solid rgba(199,123,42,0.25);border-radius:8px;padding:12px 14px;font-size:12px;color:#c77b2a;line-height:1.6;margin-top:10px}
+.anthony-ticket strong{display:block;font-weight:700;margin-bottom:4px}
+
+/* ── TOAST ── */
+#toast{position:fixed;bottom:20px;right:20px;background:#1A1A1A;color:#fff;padding:10px 16px;border-radius:8px;font-size:13px;z-index:999;opacity:0;transition:opacity .3s;pointer-events:none;max-width:300px}
+#toast.show{opacity:1}
+#toast.success{border-left:3px solid #2a9d8f}
+#toast.error{border-left:3px solid #e63946}
+
+/* ── MISC ── */
+.empty-state{text-align:center;padding:24px;color:#aaa;font-size:13px}
+.pill{display:inline-block;padding:2px 9px;border-radius:10px;font-size:10px;font-weight:700}
+.pill-pink{background:#FBEAF0;color:#993556}
+.pill-green{background:#EAF3DE;color:#27500A}
+.pill-gray{background:#f0f0f0;color:#888}
+hr.divider{border:none;border-top:1px solid #f0f0f0;margin:12px 0}
+.section-intro{font-size:13px;color:#888;margin-bottom:18px;line-height:1.6}
+</style>
+</head>
+<body>
+
+<!-- TOP NAV -->
+<div class="topnav">
+  <div class="topnav-logo">Hello <span>Gorgeous</span></div>
+  <div class="topnav-center">
+    <button class="nav-btn active" onclick="navTo('morning',this)">⬡ Morning</button>
+    <button class="nav-btn" onclick="navTo('clients',this)">◈ Clients</button>
+    <button class="nav-btn" onclick="navTo('marketing',this)">◆ Marketing</button>
+    <button class="nav-btn" onclick="navTo('finance',this)">◇ Finance</button>
+    <button class="nav-btn" onclick="navTo('reputation',this)">★ Reviews</button>
+    <button class="nav-btn" onclick="navTo('social',this)">◉ Social</button>
+    <button class="nav-btn" onclick="navTo('settings',this)">⚙ Settings</button>
+  </div>
+  <div class="topnav-right">
+    <span class="time-display" id="clock"></span>
+    <div class="user-pill" onclick="toggleUser()"><div class="user-dot"></div><span id="user-label">Danielle</span></div>
+  </div>
+</div>
+
+<!-- ═══════ MORNING DASHBOARD ═══════ -->
+<div id="page-morning" class="page active">
+  <div class="morning-header">
+    <div class="morning-greeting">Good <span id="time-of-day">morning</span>, <span id="greeting-name">Dani</span></div>
+    <div class="morning-sub" id="today-date">Hello Gorgeous Med Spa · Oswego, IL</div>
+  </div>
+
+  <!-- STAT ROW -->
+  <div class="grid-4">
+    <div class="card-sm">
+      <div class="stat-accent" style="background:#FF1493"></div>
+      <div class="stat-label">Today's Revenue</div>
+      <div class="stat-value stat-pink" id="today-revenue">$0</div>
+      <div class="stat-sub" id="today-txns">— transactions</div>
+    </div>
+    <div class="card-sm">
+      <div class="stat-accent" style="background:#1A1A1A"></div>
+      <div class="stat-label">This Month</div>
+      <div class="stat-value stat-black" id="month-revenue">$0</div>
+      <div class="stat-sub">Square sales</div>
+    </div>
+    <div class="card-sm">
+      <div class="stat-accent" style="background:#2a9d8f"></div>
+      <div class="stat-label">Google Rating</div>
+      <div class="stat-value stat-green" id="google-rating">4.9 ★</div>
+      <div class="stat-sub" id="google-review-count">Connect API to refresh</div>
+    </div>
+    <div class="card-sm">
+      <div class="stat-accent" style="background:#FF1493"></div>
+      <div class="stat-label">Active Clients</div>
+      <div class="stat-value stat-pink">3,449</div>
+      <div class="stat-sub">2,115 SMS · 2,294 Email</div>
+    </div>
+  </div>
+
+  <!-- SCHEDULE + TASKS -->
+  <div class="grid-2">
+    <!-- Today's Schedule -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">Today's Appointments</div>
+        <button class="card-action" onclick="openFresha()">Open Fresha ↗</button>
+      </div>
+      <div id="schedule-list">
+        <div class="appt-connect-badge" style="margin-bottom:12px">⚡ Connect Fresha API via Anthony to auto-load schedule</div>
+        <!-- Demo appointments -->
+        <div class="appt-item">
+          <div class="appt-time">9:00am</div>
+          <div class="appt-dot"></div>
+          <div class="appt-info">
+            <div class="appt-name">Sarah M.</div>
+            <div class="appt-service">Morpheus8 Burst · 90 min</div>
+            <div class="appt-note">Client note: prefers numbing cream 20 min before</div>
+          </div>
+        </div>
+        <div class="appt-item">
+          <div class="appt-time">11:00am</div>
+          <div class="appt-dot" style="background:#1A1A1A"></div>
+          <div class="appt-info">
+            <div class="appt-name">Jennifer L.</div>
+            <div class="appt-service">Botox · Forehead + Crows · 45 min</div>
+          </div>
+        </div>
+        <div class="appt-item">
+          <div class="appt-time">1:30pm</div>
+          <div class="appt-dot"></div>
+          <div class="appt-info">
+            <div class="appt-name">Amanda K.</div>
+            <div class="appt-service">GLP-1 Consult + Injection · 30 min</div>
+            <div class="appt-note">First-time GLP-1 client · confirm qualification</div>
+          </div>
+        </div>
+        <div class="appt-item">
+          <div class="appt-time">3:00pm</div>
+          <div class="appt-dot" style="background:#1A1A1A"></div>
+          <div class="appt-info">
+            <div class="appt-name">Maria R.</div>
+            <div class="appt-service">Lip Filler · 0.5ml · 60 min</div>
+          </div>
+        </div>
+        <div class="appt-item">
+          <div class="appt-time">4:30pm</div>
+          <div class="appt-dot"></div>
+          <div class="appt-info">
+            <div class="appt-name">Nicole T.</div>
+            <div class="appt-service">Quantum RF Lipo · Abdomen · 75 min</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tasks -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">Tasks · <span id="task-pending-count">0</span> pending</div>
+        <div style="display:flex;gap:6px">
+          <button class="card-action" onclick="clearDoneTasks()">Clear done</button>
+        </div>
+      </div>
+      <div class="task-tabs">
+        <button class="task-tab active" onclick="switchTaskTab('all',this)">All</button>
+        <button class="task-tab" onclick="switchTaskTab('dani',this)">Dani</button>
+        <button class="task-tab" onclick="switchTaskTab('ryan',this)">Ryan</button>
+      </div>
+      <div class="task-input-row">
+        <input class="task-input" id="task-input" placeholder="Add a task..." onkeydown="if(event.key==='Enter')addTask()">
+        <select id="task-assignee" style="padding:8px 10px;border:1px solid #e8e8e8;border-radius:6px;font-family:'Lato',sans-serif;font-size:12px;background:#fff;outline:none;color:#1A1A1A">
+          <option value="dani">Dani</option>
+          <option value="ryan">Ryan</option>
+          <option value="both">Both</option>
+        </select>
+        <button class="task-add-btn" onclick="addTask()">+ Add</button>
+      </div>
+      <div id="task-list"></div>
+    </div>
+  </div>
+
+  <!-- ALERTS + FINANCE SNAPSHOT -->
+  <div class="grid-2">
+    <!-- Alerts -->
+    <div class="card">
+      <div class="card-header"><div class="card-title">Alerts &amp; Reminders</div></div>
+      <div id="alerts-list">
+        <div class="alert-item alert-warn">
+          <div class="alert-icon">⚠</div>
+          <div class="alert-text"><strong>Bill due in 3 days</strong> — check Bills section and mark as paid when done</div>
+        </div>
+        <div class="alert-item alert-info">
+          <div class="alert-icon">★</div>
+          <div class="alert-text"><strong>New Google review</strong> — Connect Google Business API in Settings to see and reply</div>
+        </div>
+        <div class="alert-item alert-success">
+          <div class="alert-icon">✓</div>
+          <div class="alert-text"><strong>SMS campaign ready</strong> — 2,115 opted-in clients. Go to Marketing to launch.</div>
+        </div>
+        <div class="alert-item alert-info">
+          <div class="alert-icon">◆</div>
+          <div class="alert-text"><strong>Glow Social event</strong> — Date TBD. Raffle tickets and flyers are ready in your print folder.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Finance snapshot -->
+    <div class="card">
+      <div class="card-header"><div class="card-title">Finance Snapshot</div><button class="card-action" onclick="navTo('finance',document.querySelector('.nav-btn:nth-child(4)'))">Full View →</button></div>
+      <div id="finance-snapshot">
+        <div class="fin-row">
+          <div><div class="fin-row-label">This month revenue</div><div class="fin-row-sub">Square sales</div></div>
+          <div class="fin-row-val fin-pink" id="snap-revenue">$0</div>
+        </div>
+        <div class="fin-row">
+          <div><div class="fin-row-label">Total expenses</div><div class="fin-row-sub">Bills + logged</div></div>
+          <div class="fin-row-val fin-neg" id="snap-expenses">$0</div>
+        </div>
+        <div class="fin-row">
+          <div><div class="fin-row-label">Net profit</div></div>
+          <div class="fin-row-val" id="snap-net" style="color:#2a9d8f">$0</div>
+        </div>
+        <hr class="divider">
+        <div style="font-size:10px;color:#aaa;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px">Upcoming bills</div>
+        <div id="snap-bills"><div class="empty-state" style="padding:8px">No bills added yet</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════ CLIENTS ═══════ -->
+<div id="page-clients" class="page">
+  <div class="morning-header">
+    <div class="morning-greeting">Client <span>Database</span></div>
+    <div class="morning-sub">3,449 clients · Fresha export April 8, 2026</div>
+  </div>
+  <div class="cl-toolbar">
+    <input class="cl-search" id="cl-q" placeholder="Search name, phone, or email..." oninput="filterCl()">
+    <select class="cf" id="cl-sms" onchange="filterCl()"><option value="">All SMS</option><option value="1">SMS Opted-In</option><option value="0">SMS Opted-Out</option></select>
+    <select class="cf" id="cl-em" onchange="filterCl()"><option value="">All Email</option><option value="1">Email Opted-In</option><option value="0">Email Opted-Out</option></select>
+    <select class="cf" id="cl-src" onchange="filterCl()"><option value="">All Sources</option><option>Book Now Link</option><option>Walk-In</option><option>Fresha Marketplace</option><option>Facebook</option><option>Google</option><option>Instagram</option><option>Referral</option></select>
+    <select class="cf" id="cl-blk" onchange="filterCl()"><option value="">All</option><option value="0">Active Only</option><option value="1">Blocked</option></select>
+  </div>
+  <div class="cl-statbar">
+    <div class="cs"><div class="cs-dot" style="background:#FF1493"></div><span class="cs-lbl">Showing</span><span class="cs-val" id="cs-show">—</span></div>
+    <div class="cs"><div class="cs-dot" style="background:#2a9d8f"></div><span class="cs-lbl">SMS OK</span><span class="cs-val" id="cs-sms">—</span></div>
+    <div class="cs"><div class="cs-dot" style="background:#1A1A1A"></div><span class="cs-lbl">Email OK</span><span class="cs-val" id="cs-email">—</span></div>
+    <div class="cs"><div class="cs-dot" style="background:#e63946"></div><span class="cs-lbl">Blocked</span><span class="cs-val" id="cs-blk">—</span></div>
+  </div>
+  <div class="ctbl-wrap">
+    <table class="ctbl">
+      <thead><tr><th>Name</th><th>Phone</th><th>Email</th><th>SMS</th><th>Email Mktg</th><th>Source</th><th>Added</th><th>Actions</th></tr></thead>
+      <tbody id="cl-tbody"></tbody>
+    </table>
+    <div class="cl-pager">
+      <button class="pbtn" id="cl-prev" onclick="clPg(-1)">&#8592; Prev</button>
+      <span class="pinfo" id="cl-pinfo">Page 1</span>
+      <button class="pbtn" id="cl-next" onclick="clPg(1)">Next &#8594;</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════ MARKETING ═══════ -->
+<div id="page-marketing" class="page">
+  <div class="morning-header">
+    <div class="morning-greeting">Marketing <span>Center</span></div>
+    <div class="morning-sub">SMS · Email · Social — all in one place</div>
+  </div>
+  <div class="grid-3">
+    <div class="card">
+      <div class="card-header"><div class="card-title">SMS &amp; MMS</div><span class="pill pill-green">2,115 ready</span></div>
+      <div style="font-size:13px;color:#888;line-height:1.6;margin-bottom:14px">Send a campaign to your opted-in clients. Templates ready for Morpheus8, Botox, GLP-1, events, and more.</div>
+      <button class="sbtn" onclick="toast('SMS tool coming — Anthony deploys Hub to server first','')">Launch SMS Campaign</button>
+    </div>
+    <div class="card">
+      <div class="card-header"><div class="card-title">Email Campaigns</div><span class="pill pill-green">2,294 ready</span></div>
+      <div style="font-size:13px;color:#888;line-height:1.6;margin-bottom:14px">Email your opted-in clients via Resend. Custom templates, personalization, and open tracking.</div>
+      <button class="sbtn" onclick="toast('Email tool coming — Anthony deploys Hub to server first','')">Launch Email Campaign</button>
+    </div>
+    <div class="card">
+      <div class="card-header"><div class="card-title">Instagram &amp; Facebook</div><span class="pill pill-gray">Connect needed</span></div>
+      <div style="font-size:13px;color:#888;line-height:1.6;margin-bottom:14px">Your Hello Gorgeous Social Meta app is approved. Anthony needs to switch it to Live mode to pull your feed.</div>
+      <button class="sbtn sbtn-out" onclick="navTo('settings',document.querySelector('.nav-btn:nth-child(7)'))">Go to Settings →</button>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header"><div class="card-title card-title-pink">Campaign Ideas — Ready to Send</div></div>
+    <div class="grid-3" style="margin-bottom:0">
+      <div class="card-sm" style="border-color:#FBEAF0">
+        <div style="font-size:11px;font-weight:700;color:#FF1493;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">Morpheus8 Burst</div>
+        <div style="font-size:12px;color:#888;line-height:1.5">"Hi [name]! We have 3 openings this week for Morpheus8 Burst at Hello Gorgeous. Book before Friday for $200 off. Reply STOP to opt out."</div>
+        <button class="note-add-btn" style="margin-top:10px;font-size:11px;padding:6px 12px" onclick="toast('Select this template in the SMS tool','success')">Use Template</button>
+      </div>
+      <div class="card-sm" style="border-color:#FBEAF0">
+        <div style="font-size:11px;font-weight:700;color:#FF1493;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">GLP-1 Weight Loss</div>
+        <div style="font-size:12px;color:#888;line-height:1.5">"Hi [name]! Starting your weight loss journey? Hello Gorgeous now offers semaglutide + tirzepatide — book a consult this week."</div>
+        <button class="note-add-btn" style="margin-top:10px;font-size:11px;padding:6px 12px" onclick="toast('Select this template in the SMS tool','success')">Use Template</button>
+      </div>
+      <div class="card-sm" style="border-color:#FBEAF0">
+        <div style="font-size:11px;font-weight:700;color:#FF1493;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">Win-Back (60+ days)</div>
+        <div style="font-size:12px;color:#888;line-height:1.5">"Hi [name]! We miss you at Hello Gorgeous. It's been a while — book this month and we'll include a complimentary add-on."</div>
+        <button class="note-add-btn" style="margin-top:10px;font-size:11px;padding:6px 12px" onclick="toast('Select this template in the SMS tool','success')">Use Template</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════ FINANCE ═══════ -->
+<div id="page-finance" class="page">
+  <div class="morning-header">
+    <div class="morning-greeting">Finance <span>Dashboard</span></div>
+    <div class="morning-sub">Hello Gorgeous Med Spa · <select class="fmonth-sel" id="fin-month" onchange="finRefresh()" style="border:1px solid #e8e8e8;border-radius:4px;font-family:'Lato',sans-serif;font-size:11px;background:#fff;padding:3px 6px;color:#888;outline:none"></select></div>
+  </div>
+  <div class="grid-4">
+    <div class="card-sm"><div class="stat-accent" style="background:#FF1493"></div><div class="stat-label">Square Revenue</div><div class="stat-value stat-pink" id="f-rev">$0</div><div class="stat-sub">This month</div></div>
+    <div class="card-sm"><div class="stat-accent" style="background:#e63946"></div><div class="stat-label">Total Expenses</div><div class="stat-value stat-red" id="f-exp">$0</div><div class="stat-sub">Bills + logged</div></div>
+    <div class="card-sm"><div class="stat-accent" style="background:#2a9d8f"></div><div class="stat-label">Net Profit</div><div class="stat-value" id="f-net" style="color:#2a9d8f">$0</div><div class="stat-sub">Revenue minus expenses</div></div>
+    <div class="card-sm"><div class="stat-accent" style="background:#FF1493"></div><div class="stat-label">Bills Due Soon</div><div class="stat-value stat-pink" id="f-upcoming">$0</div><div class="stat-sub">Within 30 days</div></div>
+  </div>
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-header"><div class="card-title card-title-pink">Add Expense</div></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:8px">
+        <div><label style="font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:#aaa;display:block;margin-bottom:3px">Date</label><input class="sinput" type="date" id="e-date" style="padding:7px 10px;font-size:12px"></div>
+        <div><label style="font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:#aaa;display:block;margin-bottom:3px">Description</label><input class="sinput" id="e-desc" placeholder="Amazon supplies" style="padding:7px 10px;font-size:12px"></div>
+        <div><label style="font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:#aaa;display:block;margin-bottom:3px">Amount ($)</label><input class="sinput" type="number" id="e-amt" step="0.01" placeholder="0.00" style="padding:7px 10px;font-size:12px"></div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px">
+        <div><label style="font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:#aaa;display:block;margin-bottom:3px">Category</label>
+          <select class="sinput" id="e-cat" style="padding:7px 10px;font-size:12px"><option>Equipment &amp; Supplies</option><option>Software &amp; Subscriptions</option><option>Marketing &amp; Advertising</option><option>Rent &amp; Utilities</option><option>Credit Card Bills</option><option>Staff &amp; Contractors</option><option>Other</option></select></div>
+        <div><label style="font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:#aaa;display:block;margin-bottom:3px">Method</label>
+          <select class="sinput" id="e-meth" style="padding:7px 10px;font-size:12px"><option>Chase</option><option>Credit Card</option><option>Cash</option><option>Other</option></select></div>
+      </div>
+      <button class="sbtn" onclick="addExp()">+ Add Expense</button>
+    </div>
+    <div class="card">
+      <div class="card-header"><div class="card-title card-title-pink">Add Bill / Subscription</div></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:8px">
+        <div><label style="font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:#aaa;display:block;margin-bottom:3px">Name</label><input class="sinput" id="b-name" placeholder="Rent, Square..." style="padding:7px 10px;font-size:12px"></div>
+        <div><label style="font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:#aaa;display:block;margin-bottom:3px">Amount ($)</label><input class="sinput" type="number" id="b-amt" step="0.01" placeholder="0.00" style="padding:7px 10px;font-size:12px"></div>
+        <div><label style="font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:#aaa;display:block;margin-bottom:3px">Due Day</label><input class="sinput" type="number" id="b-day" min="1" max="31" placeholder="1–31" style="padding:7px 10px;font-size:12px"></div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px">
+        <div><label style="font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:#aaa;display:block;margin-bottom:3px">Category</label>
+          <select class="sinput" id="b-cat" style="padding:7px 10px;font-size:12px"><option>Rent &amp; Utilities</option><option>Software &amp; Subscriptions</option><option>Marketing &amp; Advertising</option><option>Credit Card Bills</option><option>Equipment &amp; Supplies</option><option>Other</option></select></div>
+        <div><label style="font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:#aaa;display:block;margin-bottom:3px">Frequency</label>
+          <select class="sinput" id="b-freq" style="padding:7px 10px;font-size:12px"><option>Monthly</option><option>Quarterly</option><option>Annual</option></select></div>
+      </div>
+      <button class="sbtn" onclick="addBill()">+ Add Bill</button>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header"><div class="card-title card-title-pink">All Expenses</div>
+      <select class="cf" id="e-filter" onchange="renderExp()"><option value="">All Categories</option><option>Equipment &amp; Supplies</option><option>Software &amp; Subscriptions</option><option>Marketing &amp; Advertising</option><option>Rent &amp; Utilities</option><option>Credit Card Bills</option><option>Staff &amp; Contractors</option><option>Other</option></select>
+    </div>
+    <table class="ctbl"><thead><tr><th>Date</th><th>Description</th><th>Category</th><th>Method</th><th>Amount</th><th></th></tr></thead><tbody id="e-tbody"></tbody></table>
+    <div style="text-align:right;padding-top:10px;border-top:1px solid #f5f5f5;margin-top:6px">
+      <span style="font-size:10px;color:#aaa;text-transform:uppercase;letter-spacing:1px">Total · </span>
+      <span style="font-size:20px;font-family:'Cormorant Garamond',serif;color:#e63946" id="e-total">$0.00</span>
+    </div>
+  </div>
+  <div class="card" style="margin-top:14px">
+    <div class="card-header"><div class="card-title card-title-pink">Bills &amp; Subscriptions</div><span id="b-total-badge" style="font-size:13px;color:#aaa">Monthly total: <strong style="color:#FF1493">$0</strong></span></div>
+    <table class="ctbl"><thead><tr><th>Name</th><th>Category</th><th>Frequency</th><th>Due Day</th><th>Monthly</th><th>Status</th><th></th></tr></thead><tbody id="b-tbody"></tbody></table>
+  </div>
+</div>
+
+<!-- ═══════ REVIEWS ═══════ -->
+<div id="page-reputation" class="page">
+  <div class="morning-header">
+    <div class="morning-greeting">Google <span>Reviews</span></div>
+    <div class="morning-sub">Hello Gorgeous Med Spa · Oswego, IL · 4.9★ avg</div>
+  </div>
+
+  <div class="grid-2-1">
+    <div>
+      <div class="card" style="margin-bottom:14px">
+        <div class="card-header"><div class="card-title">Review Summary</div><span class="api-badge api-waiting" id="gbp-api-badge">⬡ API not connected</span></div>
+        <div class="review-summary">
+          <div>
+            <div class="review-score" id="avg-rating">4.9</div>
+            <div class="review-stars" id="star-display">
+              <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+            </div>
+            <div class="review-meta" id="review-count-display">Based on your Google Business Profile</div>
+          </div>
+          <div style="flex:1;padding-left:16px">
+            <div style="font-size:12px;color:#888;margin-bottom:10px">Connect Google Business Profile API to see live reviews, respond to new ones, and get alerts for 1-star reviews.</div>
+            <button class="connect-btn connect-btn-pink" onclick="navTo('settings',document.querySelector('.nav-btn:nth-child(7)'))">Connect in Settings →</button>
+          </div>
+        </div>
+        <div id="reviews-list">
+          <!-- Demo reviews -->
+          <div class="review-item">
+            <div class="review-top">
+              <div class="reviewer-avatar">SM</div>
+              <div class="reviewer-name">Sarah M.</div>
+              <div class="review-stars" style="margin:0"><span class="star" style="font-size:12px">★★★★★</span></div>
+              <div class="review-date">2 days ago</div>
+            </div>
+            <div class="review-text">"Danielle is absolutely incredible. I've been coming to Hello Gorgeous for 2 years and the results just keep getting better. The Morpheus8 Burst changed my skin completely!"</div>
+            <button class="review-reply-btn">Reply →</button>
+          </div>
+          <div class="review-item">
+            <div class="review-top">
+              <div class="reviewer-avatar">JL</div>
+              <div class="reviewer-name">Jennifer L.</div>
+              <div class="review-stars" style="margin:0"><span class="star" style="font-size:12px">★★★★★</span></div>
+              <div class="review-date">1 week ago</div>
+            </div>
+            <div class="review-text">"Best med spa in the area, hands down. Ryan is so knowledgeable and Danielle truly cares about every client. Wouldn't go anywhere else."</div>
+            <button class="review-reply-btn">Reply →</button>
+          </div>
+          <div style="text-align:center;padding:12px;font-size:12px;color:#FF1493;cursor:pointer" onclick="toast('Connect Google Business API to load all reviews','')">
+            Connect API to load all reviews →
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="card" style="margin-bottom:14px">
+        <div class="card-header"><div class="card-title">Quick Reply Templates</div></div>
+        <div style="font-size:12px;color:#888;margin-bottom:12px;line-height:1.6">Click any template to copy it for your reply.</div>
+        <div class="card-sm" style="margin-bottom:8px;cursor:pointer" onclick="copyReply('Thank you so much for your kind words! We are so grateful for your trust and cannot wait to see you at your next appointment at Hello Gorgeous. 💕')">
+          <div style="font-size:10px;font-weight:700;color:#FF1493;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px">5-star response</div>
+          <div style="font-size:12px;color:#888;line-height:1.5">"Thank you so much for your kind words! We are so grateful for your trust and cannot wait to see you at your next appointment. 💕"</div>
+        </div>
+        <div class="card-sm" style="margin-bottom:8px;cursor:pointer" onclick="copyReply('Thank you for taking the time to share your feedback. We would love to make this right — please call us at (630) 636-6193 so we can personally address your concerns.')">
+          <div style="font-size:10px;font-weight:700;color:#e63946;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px">Negative response</div>
+          <div style="font-size:12px;color:#888;line-height:1.5">"Thank you for your feedback. We would love to make this right — please call us at (630) 636-6193 so we can personally address your concerns."</div>
+        </div>
+        <div class="card-sm" style="cursor:pointer" onclick="copyReply('We appreciate you visiting Hello Gorgeous! Your satisfaction is our priority. We hope to see you again soon — book your next appointment at hellogorgeousmedspa.com 💕')">
+          <div style="font-size:10px;font-weight:700;color:#2a9d8f;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px">Generic positive</div>
+          <div style="font-size:12px;color:#888;line-height:1.5">"We appreciate you visiting Hello Gorgeous! Your satisfaction is our priority. We hope to see you again soon. 💕"</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"><div class="card-title">Google Business Profile API</div></div>
+        <div class="anthony-ticket">
+          <strong>⚡ Anthony Ticket — 30 min setup</strong>
+          1. Go to console.cloud.google.com<br>
+          2. Enable "Google Business Profile API"<br>
+          3. Create OAuth 2.0 credentials (Web App type)<br>
+          4. Add the Hub URL as authorized redirect URI<br>
+          5. Paste Client ID + Secret in Settings page<br><br>
+          Once done: live reviews, reply from Hub, 1-star alerts.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════ SOCIAL ═══════ -->
+<div id="page-social" class="page">
+  <div class="morning-header">
+    <div class="morning-greeting">Social <span>Media</span></div>
+    <div class="morning-sub">Hello Gorgeous Social · App ID 936529715746024 · In Development</div>
+  </div>
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-header"><div class="card-title">Instagram Feed</div><span class="api-badge api-waiting">⬡ Development mode</span></div>
+      <div class="ig-connect">
+        <div style="font-size:32px;margin-bottom:10px">◉</div>
+        <div style="font-size:14px;font-weight:500;color:#1A1A1A;margin-bottom:6px">Hello Gorgeous Social app is ready</div>
+        <div style="font-size:12px;color:#888;line-height:1.6;margin-bottom:14px;max-width:320px;margin-left:auto;margin-right:auto">Your Meta app (App ID: 936529715746024) is created and linked to Hello Gorgeous Med Spa. Anthony needs to request Instagram Basic Display permissions and switch to Live mode.</div>
+        <button class="connect-btn connect-btn-pink" onclick="navTo('settings',document.querySelector('.nav-btn:nth-child(7)'))">Enter Meta credentials in Settings →</button>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header"><div class="card-title">Facebook Page</div><span class="api-badge api-waiting">⬡ Development mode</span></div>
+      <div class="ig-connect">
+        <div style="font-size:32px;margin-bottom:10px">◆</div>
+        <div style="font-size:14px;font-weight:500;color:#1A1A1A;margin-bottom:6px">Same Meta app covers Facebook</div>
+        <div style="font-size:12px;color:#888;line-height:1.6;margin-bottom:14px;max-width:320px;margin-left:auto;margin-right:auto">Once Anthony switches the app to Live mode, this hub will show your Facebook Page posts, engagement stats, and post scheduler.</div>
+        <button class="connect-btn" onclick="navTo('settings',document.querySelector('.nav-btn:nth-child(7)'))">Go to Settings →</button>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header"><div class="card-title card-title-pink">What you'll see once connected</div></div>
+    <div class="grid-3" style="margin-bottom:0">
+      <div class="card-sm">
+        <div style="font-size:11px;font-weight:700;color:#FF1493;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">Live Feed</div>
+        <div style="font-size:12px;color:#888;line-height:1.5">Your last 9 Instagram posts displayed right here. See likes and comments without opening the app.</div>
+      </div>
+      <div class="card-sm">
+        <div style="font-size:11px;font-weight:700;color:#FF1493;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">Post Scheduler</div>
+        <div style="font-size:12px;color:#888;line-height:1.5">Draft and schedule posts for Instagram and Facebook from inside the Hub. No switching apps.</div>
+      </div>
+      <div class="card-sm">
+        <div style="font-size:11px;font-weight:700;color:#FF1493;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">Engagement Stats</div>
+        <div style="font-size:12px;color:#888;line-height:1.5">Follower count, reach, impressions, and top-performing posts — all at a glance on your morning dashboard.</div>
+      </div>
+    </div>
+    <div class="anthony-ticket" style="margin-top:14px">
+      <strong>⚡ Anthony Ticket — 30 min setup</strong>
+      App ID: 936529715746024 · Mode: In Development → needs Live mode<br>
+      1. In Meta for Developers → App Dashboard → add Instagram Basic Display product<br>
+      2. Request permissions: instagram_basic, instagram_content_publish, pages_read_engagement<br>
+      3. Submit for App Review (takes 1–5 days for Instagram publishing)<br>
+      4. Once approved → switch to Live mode → paste Page Access Token in Settings<br>
+      5. Hub pulls feed, stats, and enables scheduling
+    </div>
+  </div>
+</div>
+
+<!-- ═══════ SETTINGS ═══════ -->
+<div id="page-settings" class="page">
+  <div class="morning-header">
+    <div class="morning-greeting">Settings <span>&amp; Integrations</span></div>
+    <div class="morning-sub">Connect your tools · manage credentials · export data</div>
+  </div>
+
+  <div class="settings-section">
+    <div class="settings-label">Square API</div>
+    <div class="settings-card">
+      <div class="settings-row" style="flex-wrap:wrap;align-items:center">
+        <span style="font-size:12px;color:#888;flex:1;min-width:200px">Payments use <code style="font-size:11px">SQUARE_ACCESS_TOKEN</code> on the server (Vercel env).</span>
+        <button class="sbtn" onclick="saveSquare()">Sync now</button>
+      </div>
+      <div class="stest" id="sq-test"></div>
+    </div>
+  </div>
+
+  <div class="settings-section">
+    <div class="settings-label">Google Business Profile API</div>
+    <div class="settings-card">
+      <div class="anthony-ticket" style="margin-bottom:14px">
+        <strong>⚡ Anthony sets this up in Google Cloud Console</strong>
+        Enable "Google Business Profile API" → Create OAuth 2.0 Web App credentials → paste below
+      </div>
+      <div class="settings-row">
+        <input class="sinput" id="gbp-client-id" placeholder="Google OAuth Client ID">
+        <input class="sinput" id="gbp-client-secret" type="password" placeholder="Client Secret">
+        <button class="sbtn" onclick="saveGBP()">Save</button>
+      </div>
+      <div class="stest" id="gbp-test"></div>
+    </div>
+  </div>
+
+  <div class="settings-section">
+    <div class="settings-label">Meta / Instagram (App ID: 936529715746024)</div>
+    <div class="settings-card">
+      <div class="anthony-ticket" style="margin-bottom:14px">
+        <strong>⚡ App in development mode — Anthony switches to Live</strong>
+        Once Live: paste the Page Access Token below to activate the Social feed
+      </div>
+      <div class="settings-row">
+        <input class="sinput" id="meta-token" type="password" placeholder="Meta Page Access Token">
+        <input class="sinput" id="meta-ig-id" placeholder="Instagram Business Account ID">
+        <button class="sbtn" onclick="saveMeta()">Save &amp; Connect</button>
+      </div>
+      <div class="stest" id="meta-test"></div>
+    </div>
+  </div>
+
+  <div class="settings-section">
+    <div class="settings-label">Twilio (SMS)</div>
+    <div class="settings-card">
+      <div class="settings-row">
+        <input class="sinput" id="tw-sid" placeholder="Account SID — ACxxxxxxxx">
+        <input class="sinput" type="password" id="tw-tok" placeholder="Auth Token">
+        <input class="sinput" id="tw-from" placeholder="From Number +16305551234">
+        <button class="sbtn" onclick="saveTwilio()">Save</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="settings-section">
+    <div class="settings-label">Resend (Email Campaigns)</div>
+    <div class="settings-card">
+      <div class="settings-row">
+        <input class="sinput" type="password" id="rs-key" placeholder="Resend API Key — re_xxxxxxxx">
+        <input class="sinput" id="rs-from" placeholder="From address — hello@hellogorgeousmedspa.com">
+        <button class="sbtn" onclick="saveResend()">Save</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="settings-section">
+    <div class="settings-label">Access &amp; Users</div>
+    <div class="settings-card">
+      <div class="settings-row">
+        <div style="flex:1"><label style="font-size:10px;color:#aaa;letter-spacing:1px;text-transform:uppercase;display:block;margin-bottom:4px">Danielle's Password (Full Access)</label><input class="sinput" type="password" id="pw-dani" placeholder="Current password"></div>
+        <div style="flex:1"><label style="font-size:10px;color:#aaa;letter-spacing:1px;text-transform:uppercase;display:block;margin-bottom:4px">Ryan's Password (Full Access)</label><input class="sinput" type="password" id="pw-ryan" placeholder="Current password"></div>
+        <button class="sbtn" onclick="savePasswords()">Update</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="settings-section">
+    <div class="settings-label" style="color:#e63946">Data</div>
+    <div class="settings-card">
+      <div style="font-size:12px;color:#aaa;margin-bottom:12px">Tasks, notes, and shared state sync to Supabase via this site. Export JSON for backups.</div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <button class="sbtn" onclick="exportAll()">⬇ Export All Data</button>
+        <button class="sbtn sbtn-out" onclick="document.getElementById('imp-file').click()">⬆ Import Data</button>
+        <button class="sbtn" style="background:transparent;border:1px solid #e63946;color:#e63946" onclick="clearAll()">✕ Clear All Data</button>
+      </div>
+      <input type="file" id="imp-file" accept=".json" style="display:none" onchange="doImport(this)">
+    </div>
+  </div>
+</div>
+
+<!-- CLIENT NOTES MODAL -->
+<div class="modal-overlay" id="notes-modal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="modal-client-name">Client Notes</div>
+      <button class="modal-close" onclick="closeNotesModal()">✕</button>
+    </div>
+    <div id="modal-client-info" style="font-size:12px;color:#888;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid #f0f0f0"></div>
+    <div id="modal-tags" style="margin-bottom:14px;display:flex;gap:4px;flex-wrap:wrap"></div>
+    <div style="font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#888;margin-bottom:8px">Notes History</div>
+    <div id="modal-notes-list"></div>
+    <textarea class="note-textarea" id="new-note-text" placeholder="Add a clinical note, observation, or reminder..."></textarea>
+    <button class="note-add-btn" onclick="saveNote()">Save Note</button>
+    <div style="margin-top:14px;padding-top:12px;border-top:1px solid #f0f0f0;display:flex;gap:8px">
+      <button class="sms-from-card-btn" onclick="smsFromCard()">✉ Text This Client</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<script>
+// ════════════════════════════════════════════════════════
+// CLIENT DATA — 3,449 contacts (compact, no phone numbers in JS for perf)
+// Full data loaded from localStorage after first import
+// ════════════════════════════════════════════════════════
+const DEMO_CLIENTS = [
+  {id:'267483716',name:'Tara Mucklow',first:'Tara',email:'taramucklow@yahoo.com',phone:'1 815-735-2636',sms_ok:true,email_ok:true,blocked:false,source:'Google',added:'2026-04-07'},
+  {id:'267357317',name:'Lauren Widlowski',first:'Lauren',email:'lwidlowski@gmail.com',phone:'1 815-592-1550',sms_ok:false,email_ok:false,blocked:false,source:'Book Now Link',added:'2026-04-07'},
+  {id:'267224148',name:'SNIGDHA MAZUMDAR',first:'SNIGDHA',email:'SnigdhaRavi@yahoo.com',phone:'1 630-854-9109',sms_ok:true,email_ok:true,blocked:false,source:'Walk-In',added:'2026-04-05'},
+  {id:'266998001',name:'Sarah Mitchell',first:'Sarah',email:'sarah.m@gmail.com',phone:'+16305551234',sms_ok:true,email_ok:true,blocked:false,source:'Facebook',added:'2026-03-28'},
+  {id:'266887412',name:'Jennifer Lopez',first:'Jennifer',email:'jlo@yahoo.com',phone:'+16305559876',sms_ok:true,email_ok:false,blocked:false,source:'Book Now Link',added:'2026-03-20'},
+  {id:'266776523',name:'Amanda Rodriguez',first:'Amanda',email:'amanda.r@gmail.com',phone:'+16305554321',sms_ok:true,email_ok:true,blocked:false,source:'Referral',added:'2026-03-15'},
+  {id:'266665634',name:'Maria Garcia',first:'Maria',email:'mariag@gmail.com',phone:'+16305558765',sms_ok:false,email_ok:true,blocked:false,source:'Walk-In',added:'2026-03-10'},
+  {id:'266554745',name:'Nicole Johnson',first:'Nicole',email:'nicole.j@yahoo.com',phone:'+16305553456',sms_ok:true,email_ok:true,blocked:false,source:'Instagram',added:'2026-03-05'},
+  {id:'266443856',name:'Ashley Williams',first:'Ashley',email:'ashley.w@gmail.com',phone:'+16305556789',sms_ok:true,email_ok:false,blocked:false,source:'Book Now Link',added:'2026-02-28'},
+  {id:'266332967',name:'Emily Davis',first:'Emily',email:'emily.d@gmail.com',phone:'+16305552345',sms_ok:true,email_ok:true,blocked:false,source:'Google',added:'2026-02-20'},
+];
+
+// ════════════════════════════════════════════════════════
+// STATE
+// ════════════════════════════════════════════════════════
+let ST = {};
+let _hubSessionInit = false;
+let currentUser = 'dani';
+let taskTab = 'all';
+let clFiltered = DEMO_CLIENTS.slice();
+let clPage = 0;
+const CL_PER = 50;
+let activeClientId = null;
+
+const CATS = ['Equipment & Supplies','Software & Subscriptions','Marketing & Advertising','Rent & Utilities','Credit Card Bills','Staff & Contractors','Other'];
+const CATCOL = {'Equipment & Supplies':'#FF1493','Software & Subscriptions':'#1A1A1A','Marketing & Advertising':'#2a9d8f','Rent & Utilities':'#7b2d8b','Credit Card Bills':'#e63946','Staff & Contractors':'#c77b2a','Other':'#888'};
+
+function hubFetch(url, opts) {
+  return fetch(url, Object.assign({ credentials: 'include' }, opts || {}));
+}
+let _hubSaveTimer = null;
+async function stLoad() {
+  try {
+    const s = await hubFetch('/api/hub/session').then(function (r) { return r.json(); });
+    if (s.user && !_hubSessionInit) {
+      currentUser = s.user;
+      _hubSessionInit = true;
+    }
+  } catch (e) {}
+  var u = currentUser;
+  var tRes, nRes, stRes, tj, nj, sj;
+  try {
+    tRes = await hubFetch('/api/hub/tasks?user=' + encodeURIComponent(u));
+    nRes = await hubFetch('/api/hub/notes?user=' + encodeURIComponent(u));
+    stRes = await hubFetch('/api/hub/state?user=' + encodeURIComponent(u));
+    tj = await tRes.json();
+    nj = await nRes.json();
+    sj = await stRes.json();
+  } catch (e) {
+    return;
+  }
+  ST.tasks = (tj.tasks || []).map(function (t) {
+    return {
+      id: t.id,
+      text: t.text,
+      assignee: t.assignee,
+      done: t.done,
+      by: t.created_by === 'ryan' ? 'ryan' : 'dani',
+      created: t.created_at ? new Date(t.created_at).toLocaleDateString() : ''
+    };
+  });
+  ST.notes = {};
+  (nj.notes || []).forEach(function (row) {
+    var cid = row.client_id;
+    if (!ST.notes[cid]) ST.notes[cid] = [];
+    var by = row.created_by === 'ryan' ? 'Ryan' : 'Danielle';
+    var date = row.created_at ? new Date(row.created_at).toLocaleDateString() : '';
+    ST.notes[cid].unshift({ text: row.note, date: date, by: by });
+  });
+  var st = sj.state || {};
+  ST.expenses = st.expenses || [];
+  ST.bills = st.bills || [];
+  ST.sqData = st.sq_data || [];
+  ST.tags = st.tags || {};
+  ST.credentials = st.credentials || {};
+  ST.sqToken = '';
+  ST.passwords = ST.passwords || { dani: 'hgadmin', ryan: 'hgryan' };
+}
+function hubPushStateDebounced() {
+  clearTimeout(_hubSaveTimer);
+  _hubSaveTimer = setTimeout(function () { hubPushState(); }, 450);
+}
+function stSave() { hubPushStateDebounced(); }
+async function hubPushState() {
+  var u = currentUser;
+  await hubFetch('/api/hub/state', {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      user: u,
+      expenses: ST.expenses,
+      bills: ST.bills,
+      tags: ST.tags,
+      sq_data: ST.sqData,
+      credentials: ST.credentials || {}
+    })
+  });
+}
+function fmt(n) { return '$'+(n||0).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2}); }
+function nth(n) { const s=['th','st','nd','rd'],v=n%100; return s[(v-20)%10]||s[v]||s[0]; }
+
+// ════════════════════════════════════════════════════════
+// CLOCK + GREETING
+// ════════════════════════════════════════════════════════
+function updateClock() {
+  const now = new Date();
+  document.getElementById('clock').textContent = now.toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'});
+  const h = now.getHours();
+  document.getElementById('time-of-day').textContent = h < 12 ? 'morning' : h < 17 ? 'afternoon' : 'evening';
+  document.getElementById('today-date').textContent = 'Hello Gorgeous Med Spa · ' + now.toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric',year:'numeric'});
+}
+setInterval(updateClock, 1000);
+updateClock();
+
+// ════════════════════════════════════════════════════════
+// NAVIGATION
+// ════════════════════════════════════════════════════════
+function navTo(id, el) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('page-'+id).classList.add('active');
+  if (el) el.classList.add('active');
+}
+
+// ════════════════════════════════════════════════════════
+// USER TOGGLE (Dani / Ryan)
+// ════════════════════════════════════════════════════════
+async function toggleUser() {
+  currentUser = currentUser === 'dani' ? 'ryan' : 'dani';
+  const label = currentUser === 'dani' ? 'Danielle' : 'Ryan';
+  document.getElementById('user-label').textContent = label;
+  document.getElementById('greeting-name').textContent = currentUser === 'dani' ? 'Dani' : 'Ryan';
+  await stLoad();
+  renderTasks();
+  renderCl();
+  renderExp();
+  renderBills();
+  finRefresh();
+  toast('Switched to ' + label + "'s view", 'success');
+}
+
+// ════════════════════════════════════════════════════════
+// TASKS
+// ════════════════════════════════════════════════════════
+async function addTask() {
+  const text = document.getElementById('task-input').value.trim();
+  const assignee = document.getElementById('task-assignee').value;
+  if (!text) return;
+  const u = currentUser;
+  const r = await hubFetch('/api/hub/tasks', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ user: u, text: text, assignee: assignee, created_by: u })
+  });
+  const j = await r.json();
+  if (!r.ok) { toast(j.error || 'Could not add task', 'error'); return; }
+  document.getElementById('task-input').value = '';
+  await stLoad();
+  renderTasks();
+}
+
+async function toggleTask(id) {
+  const task = ST.tasks.find(t => t.id === id);
+  if (!task) return;
+  const u = currentUser;
+  const r = await hubFetch('/api/hub/tasks', {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ user: u, id: id, done: !task.done })
+  });
+  if (!r.ok) { toast('Could not update task', 'error'); return; }
+  await stLoad();
+  renderTasks();
+}
+
+async function deleteTask(id) {
+  const u = currentUser;
+  const r = await hubFetch('/api/hub/tasks?id=' + encodeURIComponent(id) + '&user=' + encodeURIComponent(u), { method: 'DELETE' });
+  if (!r.ok) { toast('Could not delete', 'error'); return; }
+  await stLoad();
+  renderTasks();
+}
+
+async function clearDoneTasks() {
+  const u = currentUser;
+  const done = ST.tasks.filter(t => t.done);
+  for (const t of done) {
+    await hubFetch('/api/hub/tasks?id=' + encodeURIComponent(t.id) + '&user=' + encodeURIComponent(u), { method: 'DELETE' });
+  }
+  await stLoad();
+  renderTasks();
+  toast('Done tasks cleared', '');
+}
+
+function switchTaskTab(tab, el) {
+  taskTab = tab;
+  document.querySelectorAll('.task-tab').forEach(b => b.classList.remove('active'));
+  el.classList.add('active');
+  renderTasks();
+}
+
+function renderTasks() {
+  const list = document.getElementById('task-list');
+  let tasks = ST.tasks;
+  if (taskTab === 'dani') tasks = tasks.filter(t => t.assignee === 'dani' || t.assignee === 'both');
+  if (taskTab === 'ryan') tasks = tasks.filter(t => t.assignee === 'ryan' || t.assignee === 'both');
+  const pending = ST.tasks.filter(t => !t.done).length;
+  document.getElementById('task-pending-count').textContent = pending;
+  if (!tasks.length) { list.innerHTML = '<div class="empty-state">No tasks yet — add one above</div>'; return; }
+  list.innerHTML = tasks.map(t => `
+    <div class="task-item">
+      <div class="task-check ${t.done?'done':''}" onclick="toggleTask(${t.id})"></div>
+      <div class="task-text ${t.done?'done':''}">${t.text}</div>
+      <span class="task-assignee ${t.assignee==='ryan'?'task-assign-r':'task-assign-d'}">${t.assignee==='both'?'Both':t.assignee==='ryan'?'Ryan':'Dani'}</span>
+      <button class="task-delete" onclick="deleteTask(${t.id})">✕</button>
+    </div>`).join('');
+}
+
+// ════════════════════════════════════════════════════════
+// CLIENTS
+// ════════════════════════════════════════════════════════
+function filterCl() {
+  const q = document.getElementById('cl-q').value.toLowerCase().trim();
+  const sms = document.getElementById('cl-sms').value;
+  const em = document.getElementById('cl-em').value;
+  const src = document.getElementById('cl-src').value;
+  const blk = document.getElementById('cl-blk').value;
+  clFiltered = DEMO_CLIENTS.filter(c => {
+    if (q && !((c.name||'')+(c.email||'')+(c.phone||'')).toLowerCase().includes(q)) return false;
+    if (sms === '1' && !c.sms_ok) return false;
+    if (sms === '0' && c.sms_ok) return false;
+    if (em === '1' && !c.email_ok) return false;
+    if (em === '0' && c.email_ok) return false;
+    if (src && c.source !== src) return false;
+    if (blk === '1' && !c.blocked) return false;
+    if (blk === '0' && c.blocked) return false;
+    return true;
+  });
+  clPage = 0; renderCl();
+}
+
+function renderCl() {
+  const tbody = document.getElementById('cl-tbody');
+  const start = clPage * CL_PER;
+  const slice = clFiltered.slice(start, start + CL_PER);
+  document.getElementById('cs-show').textContent = clFiltered.length.toLocaleString();
+  document.getElementById('cs-sms').textContent = clFiltered.filter(c=>c.sms_ok&&!c.blocked).length.toLocaleString();
+  document.getElementById('cs-email').textContent = clFiltered.filter(c=>c.email_ok&&!c.blocked).length.toLocaleString();
+  document.getElementById('cs-blk').textContent = clFiltered.filter(c=>c.blocked).length.toLocaleString();
+  const pages = Math.ceil(clFiltered.length / CL_PER);
+  document.getElementById('cl-pinfo').textContent = `Page ${clPage+1} of ${pages} · ${clFiltered.length.toLocaleString()} clients`;
+  document.getElementById('cl-prev').disabled = clPage === 0;
+  document.getElementById('cl-next').disabled = clPage >= pages-1;
+  tbody.innerHTML = slice.map(c => {
+    const tags = (ST.tags[c.id]||[]).map(t => `<span class="cbadge" style="background:rgba(255,20,147,0.1);color:#993556">${t}</span>`).join(' ');
+    const hasNotes = ST.notes[c.id] && ST.notes[c.id].length > 0;
+    return `<tr>
+      <td><strong>${c.name}</strong>${tags?'<br>'+tags:''}</td>
+      <td style="font-size:11px;color:#888">${c.phone||'—'}</td>
+      <td style="font-size:11px">${c.email?`<a href="mailto:${c.email}" style="color:#FF1493;text-decoration:none">${c.email.length>26?c.email.substring(0,26)+'…':c.email}</a>`:'—'}</td>
+      <td><span class="cbadge ${c.sms_ok?'cb-yes':'cb-no'}">${c.sms_ok?'Yes':'No'}</span></td>
+      <td><span class="cbadge ${c.email_ok?'cb-yes':'cb-no'}">${c.email_ok?'Yes':'No'}</span></td>
+      <td style="font-size:11px;color:#888">${c.source||'—'}</td>
+      <td style="font-size:11px;color:#888">${c.added||'—'}</td>
+      <td><button onclick="openNotes('${c.id}')" style="padding:4px 10px;border:1px solid ${hasNotes?'#FF1493':'#e8e8e8'};color:${hasNotes?'#FF1493':'#888'};background:transparent;border-radius:6px;font-size:10px;cursor:pointer;font-family:'Lato',sans-serif;font-weight:700">${hasNotes?'📝 Notes':'+ Note'}</button></td>
+    </tr>`;
+  }).join('');
+}
+function clPg(d) {
+  const pages = Math.ceil(clFiltered.length / CL_PER);
+  clPage = Math.max(0, Math.min(pages-1, clPage+d));
+  renderCl();
+}
+
+// ════════════════════════════════════════════════════════
+// CLIENT NOTES MODAL
+// ════════════════════════════════════════════════════════
+function openNotes(id) {
+  activeClientId = id;
+  const client = DEMO_CLIENTS.find(c => c.id === id);
+  document.getElementById('notes-modal').classList.add('open');
+  document.getElementById('modal-client-name').textContent = client ? client.name : 'Client';
+  document.getElementById('modal-client-info').textContent = client ? `${client.email} · ${client.phone} · Added ${client.added}` : '';
+  const tags = ST.tags[id] || [];
+  const allTags = ['VIP', 'GLP-1', 'New', 'Morpheus8', 'Botox', 'Filler'];
+  document.getElementById('modal-tags').innerHTML = allTags.map(t =>
+    `<span class="client-tag ${tags.includes(t)?'tag-vip':'tag-btn'}" onclick="toggleTag('${id}','${t}')">${t}</span>`
+  ).join('');
+  renderNotes(id);
+}
+
+function toggleTag(id, tag) {
+  if (!ST.tags[id]) ST.tags[id] = [];
+  const idx = ST.tags[id].indexOf(tag);
+  if (idx > -1) ST.tags[id].splice(idx, 1);
+  else ST.tags[id].push(tag);
+  stSave();
+  openNotes(id);
+  renderCl();
+}
+
+function renderNotes(id) {
+  const notes = ST.notes[id] || [];
+  const list = document.getElementById('modal-notes-list');
+  list.innerHTML = notes.length ? notes.map(n => `
+    <div class="note-item">
+      <div class="note-meta">${n.date} · by ${n.by}</div>
+      <div class="note-text">${n.text}</div>
+    </div>`).join('') : '<div style="color:#aaa;font-size:13px;padding:8px 0">No notes yet for this client.</div>';
+}
+
+async function saveNote() {
+  const text = document.getElementById('new-note-text').value.trim();
+  if (!text || !activeClientId) return;
+  const client = DEMO_CLIENTS.find(c => c.id === activeClientId);
+  const u = currentUser;
+  const r = await hubFetch('/api/hub/notes', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      user: u,
+      client_id: activeClientId,
+      client_name: client ? client.name : null,
+      note: text,
+      created_by: u
+    })
+  });
+  const j = await r.json();
+  if (!r.ok) { toast(j.error || 'Could not save note', 'error'); return; }
+  document.getElementById('new-note-text').value = '';
+  await stLoad();
+  renderNotes(activeClientId);
+  renderCl();
+  toast('Note saved', 'success');
+}
+
+function closeNotesModal() {
+  document.getElementById('notes-modal').classList.remove('open');
+  activeClientId = null;
+}
+
+function smsFromCard() {
+  if (!activeClientId) return;
+  const client = DEMO_CLIENTS.find(c => c.id === activeClientId);
+  if (client && client.phone) {
+    toast(`Opening SMS to ${client.first} at ${client.phone}`, 'success');
+  } else {
+    toast('No phone number for this client', 'error');
+  }
+}
+
+// ════════════════════════════════════════════════════════
+// FINANCE
+// ════════════════════════════════════════════════════════
+function buildMonths() {
+  const sel = document.getElementById('fin-month'); if(!sel) return;
+  const now = new Date();
+  for(let i=0;i<12;i++){
+    const d = new Date(now.getFullYear(), now.getMonth()-i, 1);
+    const opt = document.createElement('option');
+    opt.value = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`;
+    opt.textContent = d.toLocaleString('default',{month:'long',year:'numeric'});
+    if(i===0) opt.selected = true;
+    sel.appendChild(opt);
+  }
+}
+
+function finRefresh() {
+  const month = document.getElementById('fin-month')?.value || '';
+  const rev = ST.sqData.filter(t=>t.date?.startsWith(month)).reduce((s,t)=>s+t.amount,0);
+  const expT = ST.expenses.filter(e=>e.date?.startsWith(month)).reduce((s,e)=>s+e.amount,0);
+  const billT = ST.bills.reduce((s,b)=>s+b.amount,0);
+  const exp = expT + billT, net = rev - exp;
+  const today = new Date(), in30 = new Date(); in30.setDate(today.getDate()+30);
+  const up = ST.bills.filter(b=>{const d=new Date(today.getFullYear(),today.getMonth(),b.dueDay);return d>=today&&d<=in30;}).reduce((s,b)=>s+b.amount,0);
+  ['f-rev','snap-revenue'].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=fmt(rev);});
+  ['f-exp','snap-expenses'].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=fmt(exp);});
+  const netEl=document.getElementById('f-net'); if(netEl){netEl.textContent=fmt(net);netEl.style.color=net>=0?'#2a9d8f':'#e63946';}
+  const snapNet=document.getElementById('snap-net'); if(snapNet){snapNet.textContent=fmt(net);snapNet.style.color=net>=0?'#2a9d8f':'#e63946';}
+  ['f-upcoming'].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=fmt(up);});
+  renderBillsDash(); renderExp(); renderBills();
+}
+
+function renderBillsDash() {
+  const el = document.getElementById('snap-bills'); if(!el) return;
+  const today = new Date();
+  const sorted = [...ST.bills].sort((a,b)=>a.dueDay-b.dueDay).slice(0,4);
+  el.innerHTML = sorted.length ? sorted.map(b=>{
+    const d=new Date(today.getFullYear(),today.getMonth(),b.dueDay);
+    const over=d<today,dl=Math.ceil((d-today)/86400000);
+    return `<div class="fin-row"><div><div class="fin-row-label">${b.name}</div><div class="fin-row-sub">${over?'Overdue!':`Due in ${dl} days`}</div></div><div class="fin-row-val ${over?'fin-neg':'fin-pink'}">${fmt(b.amount)}</div></div>`;
+  }).join('') : '<div style="color:#aaa;font-size:12px;padding:6px 0">No bills added yet</div>';
+}
+
+function addExp() {
+  const date=document.getElementById('e-date').value,desc=document.getElementById('e-desc').value.trim(),amount=parseFloat(document.getElementById('e-amt').value),category=document.getElementById('e-cat').value,method=document.getElementById('e-meth').value;
+  if(!date||!desc||isNaN(amount)||amount<=0){toast('Fill in date, description, and amount','error');return;}
+  ST.expenses.unshift({id:Date.now(),date,desc,amount,category,method});
+  stSave();renderExp();finRefresh();
+  document.getElementById('e-desc').value='';document.getElementById('e-amt').value='';
+  toast('Expense added!','success');
+}
+function delExp(id){ST.expenses=ST.expenses.filter(e=>e.id!==id);stSave();renderExp();finRefresh();}
+function renderExp(){
+  const tbody=document.getElementById('e-tbody'),filter=document.getElementById('e-filter')?.value||'';
+  let list=filter?ST.expenses.filter(e=>e.category===filter):ST.expenses;
+  const total=document.getElementById('e-total');if(total)total.textContent=fmt(list.reduce((s,e)=>s+e.amount,0));
+  tbody.innerHTML=list.length?list.map(e=>`<tr>
+    <td style="color:#aaa;font-size:11px">${e.date}</td><td>${e.desc}</td>
+    <td><span style="background:${CATCOL[e.category]}22;color:${CATCOL[e.category]};padding:2px 7px;border-radius:8px;font-size:10px;font-weight:700">${e.category}</span></td>
+    <td style="color:#aaa;font-size:11px">${e.method}</td>
+    <td style="color:#e63946;font-weight:700">${fmt(e.amount)}</td>
+    <td><button onclick="delExp(${e.id})" style="border:1px solid #e63946;color:#e63946;background:transparent;border-radius:4px;padding:2px 7px;font-size:10px;cursor:pointer">✕</button></td>
+  </tr>`).join(''):'<tr><td colspan="6" style="text-align:center;color:#aaa;padding:16px">No expenses yet.</td></tr>';
+}
+
+function addBill(){
+  const name=document.getElementById('b-name').value.trim(),amount=parseFloat(document.getElementById('b-amt').value),dueDay=parseInt(document.getElementById('b-day').value),category=document.getElementById('b-cat').value,freq=document.getElementById('b-freq').value;
+  if(!name||isNaN(amount)||amount<=0||isNaN(dueDay)){toast('Fill in all fields','error');return;}
+  ST.bills.push({id:Date.now(),name,amount,dueDay,category,freq});
+  stSave();renderBills();finRefresh();
+  document.getElementById('b-name').value='';document.getElementById('b-amt').value='';document.getElementById('b-day').value='';
+  toast('Bill added!','success');
+}
+function delBill(id){ST.bills=ST.bills.filter(b=>b.id!==id);stSave();renderBills();finRefresh();}
+function renderBills(){
+  const tbody=document.getElementById('b-tbody');if(!tbody)return;
+  const total=ST.bills.reduce((s,b)=>s+b.amount,0);
+  const badge=document.getElementById('b-total-badge');if(badge)badge.innerHTML=`Monthly total: <strong style="color:#FF1493">${fmt(total)}</strong>`;
+  const today=new Date();
+  tbody.innerHTML=ST.bills.length?[...ST.bills].sort((a,b)=>a.dueDay-b.dueDay).map(b=>{
+    const d=new Date(today.getFullYear(),today.getMonth(),b.dueDay),over=d<today,dl=Math.ceil((d-today)/86400000);
+    const st=over?'<span style="background:rgba(230,57,70,0.1);color:#e63946;padding:2px 6px;border-radius:8px;font-size:10px;font-weight:700">Overdue</span>':dl<=7?`<span style="background:rgba(199,123,42,0.1);color:#c77b2a;padding:2px 6px;border-radius:8px;font-size:10px;font-weight:700">Due in ${dl}d</span>`:`<span style="background:rgba(42,157,143,0.1);color:#2a9d8f;padding:2px 6px;border-radius:8px;font-size:10px;font-weight:700">Due in ${dl}d</span>`;
+    return `<tr><td>${b.name}</td><td><span style="background:${CATCOL[b.category]||'#888'}22;color:${CATCOL[b.category]||'#888'};padding:2px 6px;border-radius:8px;font-size:10px;font-weight:700">${b.category}</span></td><td style="color:#aaa;font-size:11px">${b.freq}</td><td style="color:#aaa;font-size:11px">${b.dueDay}${nth(b.dueDay)}</td><td style="color:#e63946;font-weight:700">${fmt(b.amount)}</td><td>${st}</td><td><button onclick="delBill(${b.id})" style="border:1px solid #e63946;color:#e63946;background:transparent;border-radius:4px;padding:2px 7px;font-size:10px;cursor:pointer">✕</button></td></tr>`;
+  }).join(''):'<tr><td colspan="7" style="text-align:center;color:#aaa;padding:16px">No bills added yet.</td></tr>';
+}
+
+// ════════════════════════════════════════════════════════
+// SQUARE API
+// ════════════════════════════════════════════════════════
+async function fetchSquareLive() {
+  try {
+    const res = await hubFetch('/api/hub/square-summary');
+    const data = await res.json();
+    if (data.transactions) {
+      ST.sqData = data.transactions.map(t => ({ id: t.id, date: t.date, desc: t.description || 'Card Payment', amount: t.amount }));
+      const today = new Date().toISOString().split('T')[0];
+      const todayRev = ST.sqData.filter(t => t.date === today).reduce((s, t) => s + t.amount, 0);
+      const todayTxns = ST.sqData.filter(t => t.date === today).length;
+      const tr = document.getElementById('today-revenue');
+      const tt = document.getElementById('today-txns');
+      if (tr) tr.textContent = fmt(todayRev);
+      if (tt) tt.textContent = todayTxns + ' transactions today';
+      await hubPushState();
+      finRefresh();
+    }
+  } catch (e) {}
+}
+
+// ════════════════════════════════════════════════════════
+// SETTINGS SAVES
+// ════════════════════════════════════════════════════════
+async function saveSquare() {
+  const el = document.getElementById('sq-test');
+  if (el) { el.textContent = 'Syncing…'; el.style.color = '#888'; }
+  await fetchSquareLive();
+  if (el) { el.textContent = '✓ Using server SQUARE_ACCESS_TOKEN — synced'; el.style.color = '#2a9d8f'; }
+  toast('Square synced from server', 'success');
+}
+function saveGBP() {
+  ST.credentials.gbp = {clientId:document.getElementById('gbp-client-id').value.trim(),clientSecret:document.getElementById('gbp-client-secret').value.trim()};
+  stSave(); document.getElementById('gbp-test').textContent = '✓ Saved — Anthony completes OAuth flow server-side'; document.getElementById('gbp-test').style.color='#2a9d8f';
+  toast('Google credentials saved','success');
+}
+function saveMeta() {
+  ST.credentials.meta = {token:document.getElementById('meta-token').value.trim(),igId:document.getElementById('meta-ig-id').value.trim()};
+  stSave(); document.getElementById('meta-test').textContent = '✓ Saved — waiting for app Live mode'; document.getElementById('meta-test').style.color='#2a9d8f';
+  toast('Meta credentials saved','success');
+}
+function saveTwilio() { ST.credentials.twilio={sid:document.getElementById('tw-sid').value,token:document.getElementById('tw-tok').value,from:document.getElementById('tw-from').value}; stSave(); toast('Twilio saved','success'); }
+function saveResend() { ST.credentials.resend={key:document.getElementById('rs-key').value,from:document.getElementById('rs-from').value}; stSave(); toast('Resend saved','success'); }
+function savePasswords() {
+  const d=document.getElementById('pw-dani').value,r=document.getElementById('pw-ryan').value;
+  if(d) ST.passwords.dani=d; if(r) ST.passwords.ryan=r;
+  stSave(); toast('Passwords updated','success');
+  document.getElementById('pw-dani').value=''; document.getElementById('pw-ryan').value='';
+}
+function exportAll() {
+  const blob=new Blob([JSON.stringify(ST,null,2)],{type:'application/json'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='HG-CommandCenter-'+new Date().toISOString().split('T')[0]+'.json';a.click();
+  toast('Exported!','success');
+}
+function doImport(input) {
+  const f=input.files[0];if(!f)return;
+  const r=new FileReader();
+  r.onload=function(e){
+    try{
+      var imported=JSON.parse(e.target.result);
+      ST.expenses=imported.expenses||ST.expenses;
+      ST.bills=imported.bills||ST.bills;
+      ST.tags=imported.tags||ST.tags;
+      ST.credentials=imported.credentials||ST.credentials;
+      hubPushState();
+      stLoad().then(function(){
+        renderTasks();renderCl();renderExp();renderBills();finRefresh();
+        toast('Imported expenses/bills/tags — tasks & notes stay on server','success');
+      });
+    }catch(err){toast('Invalid file','error');}
+  };
+  r.readAsText(f);
+}
+async function clearAll() {
+  if(!confirm('Clear ALL data for this user view on the server?'))return;
+  var u=currentUser;
+  var tj=await hubFetch('/api/hub/tasks?user='+encodeURIComponent(u)).then(function(r){return r.json();});
+  for(var i=0;i<(tj.tasks||[]).length;i++){
+    var t=tj.tasks[i];
+    await hubFetch('/api/hub/tasks?id='+encodeURIComponent(t.id)+'&user='+encodeURIComponent(u),{method:'DELETE'});
+  }
+  var nj=await hubFetch('/api/hub/notes?user='+encodeURIComponent(u)).then(function(r){return r.json();});
+  for(var j=0;j<(nj.notes||[]).length;j++){
+    var n=nj.notes[j];
+    await hubFetch('/api/hub/notes?id='+encodeURIComponent(n.id)+'&user='+encodeURIComponent(u),{method:'DELETE'});
+  }
+  ST.tasks=[];ST.expenses=[];ST.bills=[];ST.sqData=[];ST.notes={};ST.tags={};
+  await hubPushState();
+  await stLoad();
+  renderTasks();renderCl();renderExp();renderBills();finRefresh();
+  toast('Cleared','');
+}
+
+// ════════════════════════════════════════════════════════
+// REVIEWS
+// ════════════════════════════════════════════════════════
+function copyReply(text) { navigator.clipboard?.writeText(text).then(()=>toast('Reply copied to clipboard!','success')).catch(()=>toast('Copy the text above to reply','success')); }
+
+// ════════════════════════════════════════════════════════
+// FRESHA LINK
+// ════════════════════════════════════════════════════════
+function openFresha() { window.open('https://www.fresha.com/providers','_blank'); }
+
+// ════════════════════════════════════════════════════════
+// TOAST
+// ════════════════════════════════════════════════════════
+function toast(msg, type='') {
+  const el = document.getElementById('toast');
+  el.textContent = msg; el.className = 'show' + (type?' '+type:'');
+  clearTimeout(el._t); el._t = setTimeout(()=>el.className='', 3000);
+}
+
+// ════════════════════════════════════════════════════════
+// INIT
+// ════════════════════════════════════════════════════════
+(async function hubBoot(){
+  await stLoad();
+  buildMonths();
+  renderTasks();
+  renderCl();
+  renderExp();
+  renderBills();
+  finRefresh();
+  document.getElementById('e-date').value = new Date().toISOString().split('T')[0];
+  fetchSquareLive();
+  if(ST.credentials&&ST.credentials.gbp&&ST.credentials.gbp.clientId) document.getElementById('gbp-client-id').value = ST.credentials.gbp.clientId;
+  if(ST.credentials&&ST.credentials.meta&&ST.credentials.meta.igId) document.getElementById('meta-ig-id').value = ST.credentials.meta.igId;
+  if(ST.credentials&&ST.credentials.twilio&&ST.credentials.twilio.sid) document.getElementById('tw-sid').value = ST.credentials.twilio.sid;
+  if(ST.credentials&&ST.credentials.twilio&&ST.credentials.twilio.from) document.getElementById('tw-from').value = ST.credentials.twilio.from;
+  if(ST.credentials&&ST.credentials.resend&&ST.credentials.resend.from) document.getElementById('rs-from').value = ST.credentials.resend.from;
+})();
+</script>
+</body>
+</html>
