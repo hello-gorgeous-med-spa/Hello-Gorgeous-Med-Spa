@@ -1,4 +1,7 @@
-export default function HubClassicPage() {
+import { requireHubPageSession } from "@/lib/hub-server-auth";
+
+export default async function HubClassicPage() {
+  await requireHubPageSession("/hub/classic");
   return (
     <div className="fixed inset-0 w-full h-[100dvh] bg-[#f5f5f5]">
       <iframe title="Hello Gorgeous Command Center (classic)" src="/hub/command-center.html" className="w-full h-full border-0" />

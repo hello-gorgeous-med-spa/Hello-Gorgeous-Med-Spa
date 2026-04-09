@@ -9,7 +9,7 @@ type Note = { id: number; client_id: string; client_name: string | null; note: s
 type Expense = { id: number; date: string; desc: string; amount: number; category: string; method: string };
 type Bill = { id: number; name: string; amount: number; dueDay: number; category: string; freq: string };
 
-export default function HubPage() {
+export default function HubPageClient() {
   const [user, setUser] = useState<UserKey>("dani");
   const [tasks, setTasks] = useState<Task[]>([]);
   const [notes, setNotes] = useState<Note[]>([]);
