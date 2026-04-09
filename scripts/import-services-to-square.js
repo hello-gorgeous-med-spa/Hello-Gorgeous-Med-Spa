@@ -1,6 +1,8 @@
 #!/usr/bin/env node
 /**
- * Upsert ITEM + one ITEM_VARIATION per row into Square Catalog from JSON.
+ * Upsert ITEM + one ITEM_VARIATION per row into Square Catalog from JSON (small default list).
+ * For the full ~85 Fresha services + categories + appointment durations, use:
+ *   node scripts/import-services-to-square.mjs
  *
  * Usage:
  *   SQUARE_ACCESS_TOKEN=EAAA... node scripts/import-services-to-square.js
