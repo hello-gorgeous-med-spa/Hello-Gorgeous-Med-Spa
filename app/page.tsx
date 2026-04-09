@@ -14,12 +14,9 @@ import {
   HomepageClosingCTARow,
 } from "@/components/homepage-v3";
 import { TheBookHomeSection } from "@/components/the-book";
-import { GlowUpEventBanner } from "@/components/GlowUpEventBanner";
-import { Morpheus8Banner } from "@/components/Morpheus8Banner";
+import { HomepagePromoRail } from "@/components/HomepagePromoRail";
 import { Morpheus8SkinRebuildSection } from "@/components/Morpheus8SkinRebuildSection";
 import { Morpheus8VerifiedProviderSection } from "@/components/Morpheus8VerifiedProviderSection";
-import { Morpheus8ModelCallBanner } from "@/components/Morpheus8ModelCallBanner";
-import { SolariaComingSoonBanner } from "@/components/SolariaComingSoonBanner";
 import {
   SITE,
   pageMetadata,
@@ -173,10 +170,7 @@ export default function HomePage() {
       />
 
       <main className="bg-white">
-        <Morpheus8ModelCallBanner />
-        <Morpheus8Banner />
-        <GlowUpEventBanner />
-        <SolariaComingSoonBanner />
+        <HomepagePromoRail />
         <HeroV3 />
         <TheBookHomeSection />
         <TrustStrip />
