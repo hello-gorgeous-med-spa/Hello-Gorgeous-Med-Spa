@@ -75,6 +75,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.85,
     },
     {
+      url: `${baseUrl}/hub`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.82,
+    },
+    {
+      url: `${baseUrl}/events/vip-device-night`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.9,
+    },
+    {
       url: `${baseUrl}/why-choose-us`,
       lastModified: currentDate,
       changeFrequency: 'monthly',

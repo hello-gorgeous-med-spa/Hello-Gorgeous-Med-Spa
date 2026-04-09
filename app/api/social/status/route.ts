@@ -9,8 +9,11 @@ export async function GET() {
     process.env.META_PAGE_ID &&
     process.env.META_PAGE_ACCESS_TOKEN
   );
+  const igAccountId =
+    process.env.META_INSTAGRAM_BUSINESS_ACCOUNT_ID ||
+    process.env.META_IG_ACCOUNT_ID;
   const instagram = !!(
-    process.env.META_INSTAGRAM_BUSINESS_ACCOUNT_ID &&
+    igAccountId &&
     process.env.META_PAGE_ACCESS_TOKEN
   );
   const google = !!(
