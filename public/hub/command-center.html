@@ -622,13 +622,13 @@ hr.divider{border:none;border-top:1px solid #f0f0f0;margin:12px 0}
       <div class="card">
         <div class="card-header"><div class="card-title">Google Business Profile API</div></div>
         <div class="anthony-ticket">
-          <strong>⚡ Anthony Ticket — 30 min setup</strong>
-          1. Go to console.cloud.google.com<br>
-          2. Enable "Google Business Profile API"<br>
-          3. Create OAuth 2.0 credentials (Web App type)<br>
-          4. Add the Hub URL as authorized redirect URI<br>
-          5. Paste Client ID + Secret in Settings page<br><br>
-          Once done: live reviews, reply from Hub, 1-star alerts.
+          <strong>⚡ Google Business — OAuth setup</strong>
+          1. console.cloud.google.com → Enable <strong>Google Business Profile API</strong><br>
+          2. OAuth client (Web) → Authorized redirect URI:<br>
+          <code style="font-size:10px;word-break:break-all">https://www.hellogorgeousmedspa.com/api/auth/google/callback</code><br>
+          3. Put <code>GOOGLE_CLIENT_ID</code> + <code>GOOGLE_CLIENT_SECRET</code> in <strong>Vercel env</strong> only (never in this form).<br>
+          4. Settings → <strong>Connect Google Business (OAuth)</strong> — tokens save to Supabase.<br>
+          <em>Live inbox reviews / reply-from-Hub still TBD in app.</em>
         </div>
       </div>
     </div>
@@ -710,14 +710,15 @@ hr.divider{border:none;border-top:1px solid #f0f0f0;margin:12px 0}
   <div class="settings-section">
     <div class="settings-label">Google Business Profile API</div>
     <div class="settings-card">
-      <div class="anthony-ticket" style="margin-bottom:14px">
-        <strong>⚡ Anthony sets this up in Google Cloud Console</strong>
-        Enable "Google Business Profile API" → Create OAuth 2.0 Web App credentials → paste below
-      </div>
-      <div class="settings-row">
-        <input class="sinput" id="gbp-client-id" placeholder="Google OAuth Client ID">
-        <input class="sinput" id="gbp-client-secret" type="password" placeholder="Client Secret">
-        <button class="sbtn" onclick="saveGBP()">Save</button>
+      <p style="font-size:12px;color:#666;line-height:1.65;margin-bottom:14px">
+        <strong>Never paste your Client Secret here.</strong> It belongs only in <strong>Vercel → Environment Variables</strong>
+        (<code style="font-size:11px">GOOGLE_CLIENT_ID</code>, <code style="font-size:11px">GOOGLE_CLIENT_SECRET</code>).
+        In Google Cloud, redirect URI must match exactly:<br>
+        <code style="font-size:11px;word-break:break-all">https://www.hellogorgeousmedspa.com/api/auth/google/callback</code>
+      </p>
+      <div class="settings-row" style="flex-wrap:wrap;align-items:center;gap:10px">
+        <button type="button" class="sbtn" onclick="connectGoogleBusinessOAuth()">Connect Google Business (OAuth)</button>
+        <span style="font-size:11px;color:#888">Opens Google sign-in · tokens stored in Supabase <code style="font-size:10px">hg_oauth_tokens</code></span>
       </div>
       <div class="stest" id="gbp-test"></div>
     </div>
@@ -889,8 +890,17 @@ async function stLoad() {
   ST.sqData = st.sq_data || [];
   ST.tags = st.tags || {};
   ST.credentials = st.credentials || {};
+  var hadInsecureGbp = false;
+  if (ST.credentials.gbp) {
+    hadInsecureGbp = true;
+    delete ST.credentials.gbp;
+  }
   ST.sqToken = '';
   ST.passwords = ST.passwords || { dani: 'hgadmin', ryan: 'hgryan' };
+  if (hadInsecureGbp) {
+    await hubPushState();
+    toast('Removed Google OAuth keys from Hub storage — use Vercel + Connect button only', 'success');
+  }
 }
 function hubPushStateDebounced() {
   clearTimeout(_hubSaveTimer);
@@ -899,6 +909,8 @@ function hubPushStateDebounced() {
 function stSave() { hubPushStateDebounced(); }
 async function hubPushState() {
   var u = currentUser;
+  var cred = JSON.parse(JSON.stringify(ST.credentials || {}));
+  delete cred.gbp;
   await hubFetch('/api/hub/state', {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
@@ -908,7 +920,7 @@ async function hubPushState() {
       bills: ST.bills,
       tags: ST.tags,
       sq_data: ST.sqData,
-      credentials: ST.credentials || {}
+      credentials: cred
     })
   });
 }
@@ -1283,10 +1295,8 @@ async function saveSquare() {
   if (el) { el.textContent = '✓ Using server SQUARE_ACCESS_TOKEN — synced'; el.style.color = '#2a9d8f'; }
   toast('Square synced from server', 'success');
 }
-function saveGBP() {
-  ST.credentials.gbp = {clientId:document.getElementById('gbp-client-id').value.trim(),clientSecret:document.getElementById('gbp-client-secret').value.trim()};
-  stSave(); document.getElementById('gbp-test').textContent = '✓ Saved — Anthony completes OAuth flow server-side'; document.getElementById('gbp-test').style.color='#2a9d8f';
-  toast('Google credentials saved','success');
+function connectGoogleBusinessOAuth() {
+  window.location.href = '/api/auth/google?state=hub';
 }
 function saveMeta() {
   ST.credentials.meta = {token:document.getElementById('meta-token').value.trim(),igId:document.getElementById('meta-ig-id').value.trim()};
@@ -1380,7 +1390,6 @@ function toast(msg, type='') {
   finRefresh();
   document.getElementById('e-date').value = new Date().toISOString().split('T')[0];
   fetchSquareLive();
-  if(ST.credentials&&ST.credentials.gbp&&ST.credentials.gbp.clientId) document.getElementById('gbp-client-id').value = ST.credentials.gbp.clientId;
   if(ST.credentials&&ST.credentials.meta&&ST.credentials.meta.igId) document.getElementById('meta-ig-id').value = ST.credentials.meta.igId;
   if(ST.credentials&&ST.credentials.twilio&&ST.credentials.twilio.sid) document.getElementById('tw-sid').value = ST.credentials.twilio.sid;
   if(ST.credentials&&ST.credentials.twilio&&ST.credentials.twilio.from) document.getElementById('tw-from').value = ST.credentials.twilio.from;
