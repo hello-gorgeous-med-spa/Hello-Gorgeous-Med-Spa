@@ -9,6 +9,15 @@ type Note = { id: number; client_id: string; client_name: string | null; note: s
 type Expense = { id: number; date: string; desc: string; amount: number; category: string; method: string };
 type Bill = { id: number; name: string; amount: number; dueDay: number; category: string; freq: string };
 
+const FRESHA_PARTNER_CALENDAR =
+  "https://partners.fresha.com/calendar?view=day&location_id=102610&calendar_selected_resources=e-working";
+
+function openFreshaPartnerCalendar() {
+  const date = new Date().toISOString().slice(0, 10);
+  const url = `${FRESHA_PARTNER_CALENDAR}&date=${encodeURIComponent(date)}`;
+  window.open(url, "_blank", "noopener,noreferrer");
+}
+
 export default function HubPageClient() {
   const [user, setUser] = useState<UserKey>("dani");
   const [tasks, setTasks] = useState<Task[]>([]);
@@ -242,6 +251,9 @@ export default function HubPageClient() {
       <section className="border rounded-xl p-4 space-y-3">
         <h2 className="font-semibold">Integrations</h2>
         <div className="flex flex-wrap gap-3 text-sm">
+          <button type="button" className="border rounded px-3 py-2" onClick={openFreshaPartnerCalendar}>
+            Open Fresha calendar ↗
+          </button>
           <button className="border rounded px-3 py-2" onClick={() => window.location.href = "/api/auth/google?state=hub"}>Connect Google Business OAuth</button>
           <button className="border rounded px-3 py-2" onClick={loadSquareSummary}>Sync Square month-to-date</button>
           <span className="text-black/60">SMS: uses `TWILIO_*` via existing `/api/sms/campaign`</span>

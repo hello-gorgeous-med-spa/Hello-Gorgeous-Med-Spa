@@ -1353,7 +1353,10 @@ function copyReply(text) { navigator.clipboard?.writeText(text).then(()=>toast('
 // ════════════════════════════════════════════════════════
 // FRESHA LINK
 // ════════════════════════════════════════════════════════
-function openFresha() { window.open('https://www.fresha.com/providers','_blank'); }
+function openFresha() {
+  var d = new Date().toISOString().slice(0, 10);
+  window.open('https://partners.fresha.com/calendar?date=' + encodeURIComponent(d) + '&view=day&location_id=102610&calendar_selected_resources=e-working', '_blank', 'noopener,noreferrer');
+}
 
 // ════════════════════════════════════════════════════════
 // TOAST
