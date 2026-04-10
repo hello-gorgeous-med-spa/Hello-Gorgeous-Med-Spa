@@ -51,9 +51,12 @@ export async function GET(request: NextRequest) {
     locationId = match?.[1] || "";
   }
 
+  let persistError: string | null = null;
   const supabase = getSupabaseAdminClient();
-  if (supabase) {
-    await supabase.from("hg_oauth_tokens").upsert(
+  if (!supabase) {
+    persistError = "Supabase admin client not configured (check NEXT_PUBLIC_SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY).";
+  } else {
+    const { error } = await supabase.from("hg_oauth_tokens").upsert(
       {
         provider: "google_business_profile",
         access_token: accessToken,
@@ -68,8 +71,19 @@ export async function GET(request: NextRequest) {
       },
       { onConflict: "provider" }
     );
+    if (error) {
+      console.error("[google/callback] hg_oauth_tokens upsert failed:", error.message);
+      persistError = error.message;
+    }
   }
 
-  const html = `<!doctype html><html><body style="font-family:system-ui;padding:24px;max-width:680px;margin:0 auto"><h1>Google Business connected</h1><p>Token saved to Supabase table <code>hg_oauth_tokens</code>.</p><p><strong>Account ID:</strong> ${accountId || "(not found)"}</p><p><strong>Location ID:</strong> ${locationId || "(not found)"}</p><p><a href="/hub">Back to Hub</a></p></body></html>`;
+  const errEsc = persistError
+    ? persistError.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;")
+    : "";
+  const okBlock = persistError
+    ? `<p style="color:#b00020"><strong>Could not save token to Supabase.</strong> ${errEsc}</p><p>OAuth succeeded, but the Hub will show “not connected” until this is fixed.</p>`
+    : `<p>Token saved to Supabase table <code>hg_oauth_tokens</code>.</p>`;
+
+  const html = `<!doctype html><html><body style="font-family:system-ui;padding:24px;max-width:680px;margin:0 auto"><h1>${persistError ? "Google sign-in OK — save failed" : "Google Business connected"}</h1>${okBlock}<p><strong>Account ID:</strong> ${accountId || "(not found)"}</p><p><strong>Location ID:</strong> ${locationId || "(not found)"}</p><p><a href="/hub">Back to Hub</a></p></body></html>`;
   return new NextResponse(html, { headers: { "Content-Type": "text/html; charset=utf-8" } });
 }

@@ -911,6 +911,40 @@ async function stLoad() {
     toast('Removed Google OAuth keys from Hub storage — use Vercel + Connect button only', 'success');
   }
 }
+async function refreshIntegrationsStatus() {
+  try {
+    var r = await hubFetch('/api/hub/integrations-status');
+    var j = await r.json();
+    if (!r.ok || j.error) return;
+    var gbp = document.getElementById('gbp-test');
+    var badge = document.getElementById('gbp-api-badge');
+    if (gbp) {
+      if (j.googleConnected) {
+        gbp.textContent = '\u2713 Google Business (OAuth) — connected' + (j.googleUpdatedAt ? ' · updated ' + new Date(j.googleUpdatedAt).toLocaleString(undefined, { dateStyle: 'short', timeStyle: 'short' }) : '');
+        gbp.style.color = '#2a9d8f';
+      } else {
+        gbp.textContent = j.supabaseConfigured === false
+          ? 'Server: Supabase not configured — tokens cannot be saved'
+          : 'Not connected — use Connect Google Business (OAuth)';
+        gbp.style.color = j.supabaseConfigured === false ? '#e63946' : '#888';
+      }
+    }
+    if (badge) {
+      if (j.googleConnected) {
+        badge.textContent = '\u2b21 API connected';
+        badge.className = 'api-badge api-connected';
+      } else {
+        badge.textContent = '\u2b21 API not connected';
+        badge.className = 'api-badge api-waiting';
+      }
+    }
+    var sqEl = document.getElementById('sq-test');
+    if (sqEl && j.squareOAuthActive && (!sqEl.textContent || sqEl.textContent === 'Syncing…')) {
+      sqEl.textContent = '\u2713 Square OAuth on file — use Sync now for month-to-date';
+      sqEl.style.color = '#2a9d8f';
+    }
+  } catch (e) {}
+}
 function hubPushStateDebounced() {
   clearTimeout(_hubSaveTimer);
   _hubSaveTimer = setTimeout(function () { hubPushState(); }, 450);
@@ -1345,6 +1379,15 @@ async function fetchSquareLive(silent) {
       ST.sqData = data.transactions.map(function (t) {
         return { id: t.id, date: t.date, desc: t.description || 'Card Payment', amount: t.amount };
       });
+      if (silent) {
+        var sqSilent = document.getElementById('sq-test');
+        if (sqSilent) {
+          sqSilent.textContent = data.connection === 'oauth'
+            ? '\u2713 OAuth (same connection as POS/Terminal)'
+            : '\u2713 Env token — prefer Admin → Settings → Payments → Connect Square';
+          sqSilent.style.color = '#2a9d8f';
+        }
+      }
       if (rev && rev.error) {
         applyMorningStatsFromSqData();
       }
@@ -1474,6 +1517,7 @@ function toast(msg, type='') {
 // ════════════════════════════════════════════════════════
 (async function hubBoot(){
   await stLoad();
+  await refreshIntegrationsStatus();
   buildMonths();
   renderTasks();
   renderCl();

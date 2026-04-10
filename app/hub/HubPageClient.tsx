@@ -28,12 +28,31 @@ export default function HubPageClient() {
   const [noteText, setNoteText] = useState("");
   const [loading, setLoading] = useState(false);
   const [hubGate, setHubGate] = useState(false);
+  const [integrations, setIntegrations] = useState<{
+    googleConnected: boolean;
+    squareOAuthActive: boolean;
+    supabaseConfigured: boolean;
+  } | null>(null);
 
   useEffect(() => {
     fetch("/api/hub/session", { credentials: "include" })
       .then((r) => r.json())
       .then((j) => setHubGate(!!j.gate))
       .catch(() => setHubGate(false));
+  }, []);
+
+  useEffect(() => {
+    fetch("/api/hub/integrations-status", { credentials: "include" })
+      .then((r) => r.json())
+      .then((j) => {
+        if (j.error) return;
+        setIntegrations({
+          googleConnected: !!j.googleConnected,
+          squareOAuthActive: !!j.squareOAuthActive,
+          supabaseConfigured: j.supabaseConfigured !== false,
+        });
+      })
+      .catch(() => setIntegrations(null));
   }, []);
 
   async function loadAll(targetUser = user) {
@@ -256,6 +275,14 @@ export default function HubPageClient() {
 
       <section className="border rounded-xl p-4 space-y-3">
         <h2 className="font-semibold">Integrations</h2>
+        {integrations && (
+          <p className="text-xs text-black/60">
+            Status: Google Business OAuth {integrations.googleConnected ? "connected" : "not connected"}
+            {integrations.supabaseConfigured ? "" : " (server Supabase not configured)"} · Square OAuth{" "}
+            {integrations.squareOAuthActive ? "on file" : "not active"}
+            {integrations.googleConnected || integrations.squareOAuthActive ? "" : " — connect below, then refresh the page."}
+          </p>
+        )}
         <p className="text-xs text-black/55 max-w-3xl">
           Square Hub sync uses <strong>Admin → Connect Square (OAuth)</strong> first — same token as POS/Terminal.
           Setup guide in the repo: <code className="text-[11px] bg-black/5 px-1 rounded">docs/HUB-SQUARE-SETUP.md</code>.
