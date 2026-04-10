@@ -6,6 +6,10 @@ export const FRESHA_BOOKING_URL =
 /** Primary booking CTA: Fresha (internal /book removed from site until OS is ready). */
 export const BOOKING_URL = FRESHA_BOOKING_URL;
 
+/** Public messaging: last day clients should expect Fresha online booking (transition to Square / site). */
+export const FRESHA_BOOKING_END_LABEL =
+  process.env.NEXT_PUBLIC_FRESHA_BOOKING_END_LABEL?.trim() || "May 31, 2026";
+
 /** GLP-1 HIPAA screening form (IntakeQ embed on `/glp1-intake`). Booking follows after qualification. */
 export const GLP1_INTAKE_PATH = "/glp1-intake";
 

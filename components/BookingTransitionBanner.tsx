@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { BOOKING_URL } from "@/lib/flows";
+import { BOOKING_URL, FRESHA_BOOKING_END_LABEL } from "@/lib/flows";
 
 function XIcon({ size = 18 }: { size?: number }) {
   return (
@@ -39,11 +39,26 @@ export default function BookingTransitionBanner() {
   };
 
   return (
-    <div className="w-full bg-black text-[#FF2D8E] text-sm md:text-base font-semibold text-center px-4 py-3 relative animate-fade sticky top-0 z-50 shrink-0">
-      <a href={BOOKING_URL} target="_blank" rel="noopener noreferrer" className="block w-full hover:opacity-90 transition pr-8">
-        Book your appointment online with Fresha — quick, easy, and secure.
-        <span className="underline ml-2">Book Now</span>
-      </a>
+    <div className="w-full bg-black text-[#FF2D8E] text-xs sm:text-sm md:text-base font-semibold text-center px-4 py-3 relative animate-fade sticky top-0 z-50 shrink-0">
+      <div className="pr-8 max-w-4xl mx-auto space-y-1">
+        <p className="text-white/95 font-normal text-[11px] sm:text-xs md:text-sm leading-snug">
+          <span className="text-[#FF2D8E] font-semibold">Memo:</span> Fresha online booking is available through{" "}
+          <strong className="text-white">{FRESHA_BOOKING_END_LABEL}</strong>
+          . We&apos;re transitioning to <strong className="text-white">Square</strong> — use Fresha until then, or book on{" "}
+          <a href="/book" className="underline text-[#FF2D8E] hover:text-pink-300">
+            our website
+          </a>
+          .
+        </p>
+        <a
+          href={BOOKING_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-block hover:opacity-90 transition"
+        >
+          Book on Fresha now <span className="underline">→</span>
+        </a>
+      </div>
 
       <button
         onClick={handleDismiss}

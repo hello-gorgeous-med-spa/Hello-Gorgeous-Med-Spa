@@ -9,6 +9,7 @@ import { createServerSupabaseClient } from '@/lib/hgos/supabase';
 import { DEFAULT_ONLINE_BOOKING_CONFIG, DEFAULT_BOOKING_POLICY, DEFAULT_CANCELLATION_POLICY } from '@/lib/hgos/policies';
 import type { Metadata } from 'next';
 import { SITE } from '@/lib/seo';
+import { BOOKING_URL, FRESHA_BOOKING_END_LABEL } from '@/lib/flows';
 
 export const metadata: Metadata = {
   title: 'Book Online | Free Consultation | Hello Gorgeous Med Spa',
@@ -146,6 +147,25 @@ export default async function PublicBookingPage({
       </header>
 
       <main className="max-w-3xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
+        {/* Fresha → Square transition */}
+        <aside className="mb-6 rounded-2xl border border-pink-200 bg-pink-50/90 px-4 py-3 sm:px-5 sm:py-4 text-sm text-black leading-relaxed">
+          <p className="font-semibold text-pink-900 mb-1">Fresha booking through {FRESHA_BOOKING_END_LABEL}</p>
+          <p>
+            If you usually book through <strong>Fresha</strong>, that option stays available through{" "}
+            <strong>{FRESHA_BOOKING_END_LABEL}</strong>. We&apos;re moving online scheduling to <strong>Square</strong>;
+            this page is part of that transition. Prefer Fresha for now?{" "}
+            <a
+              href={BOOKING_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[#FF2D8E] font-semibold underline hover:text-black"
+            >
+              Open Fresha booking
+            </a>
+            .
+          </p>
+        </aside>
+
         {/* Compact Hero */}
         <section className="mb-6 sm:mb-8">
           <h1 className="text-2xl sm:text-3xl font-bold text-black mb-2">
