@@ -123,17 +123,26 @@ export default function HubPageClient() {
   }
 
   async function loadSquareSummary() {
-    const json = await fetch("/api/hub/square-summary", { credentials: "include" }).then((r) => r.json());
-    if (json.transactions) {
+    const res = await fetch("/api/hub/square-summary", { credentials: "include" });
+    const json = await res.json();
+    if (json.transactions && Array.isArray(json.transactions)) {
       await fetch("/api/hub/state", {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ user, sq_data: json.transactions }),
         credentials: "include",
       });
-      alert(`Loaded ${json.transactions.length} Square transactions.`);
+      const parts = [`Loaded ${json.transactions.length} Square payments (month-to-date).`];
+      if (json.connection === "oauth") {
+        parts.push("Using the same Square OAuth connection as Admin / POS.");
+      }
+      if (json.warning) {
+        parts.push(`\n\nNote: ${json.warning}`);
+      }
+      alert(parts.join(""));
     } else {
-      alert(json.error || "Square summary unavailable.");
+      const hint = json.setupPath ? `\n\nOpen: ${window.location.origin}${json.setupPath}` : "";
+      alert((json.error || "Square summary unavailable.") + hint);
     }
   }
 
@@ -250,12 +259,24 @@ export default function HubPageClient() {
 
       <section className="border rounded-xl p-4 space-y-3">
         <h2 className="font-semibold">Integrations</h2>
+        <p className="text-xs text-black/55 max-w-3xl">
+          Square Hub sync uses <strong>Admin → Connect Square (OAuth)</strong> first — same token as POS/Terminal.
+          Setup guide in the repo: <code className="text-[11px] bg-black/5 px-1 rounded">docs/HUB-SQUARE-SETUP.md</code>.
+        </p>
         <div className="flex flex-wrap gap-3 text-sm">
           <button type="button" className="border rounded px-3 py-2" onClick={openFreshaPartnerCalendar}>
             Open Fresha calendar ↗
           </button>
           <button className="border rounded px-3 py-2" onClick={() => window.location.href = "/api/auth/google?state=hub"}>Connect Google Business OAuth</button>
-          <button className="border rounded px-3 py-2" onClick={loadSquareSummary}>Sync Square month-to-date</button>
+          <button type="button" className="border rounded px-3 py-2" onClick={loadSquareSummary}>
+            Sync Square month-to-date
+          </button>
+          <a
+            href="/admin/settings/payments"
+            className="inline-flex items-center border rounded px-3 py-2 text-pink-700 hover:bg-pink-50"
+          >
+            Admin: Square / Payments →
+          </a>
           <span className="text-black/60">SMS: uses `TWILIO_*` via existing `/api/sms/campaign`</span>
           <span className="text-black/60">Email: uses `RESEND_API_KEY` via existing `/api/email-campaigns/send`</span>
           <span className="text-black/60">Meta: uses `META_PAGE_ACCESS_TOKEN` + IG/Page IDs via existing social routes</span>

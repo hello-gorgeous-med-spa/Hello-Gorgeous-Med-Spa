@@ -697,10 +697,10 @@ hr.divider{border:none;border-top:1px solid #f0f0f0;margin:12px 0}
   </div>
 
   <div class="settings-section">
-    <div class="settings-label">Square API</div>
+    <div class="settings-label">Square (Hub sync)</div>
     <div class="settings-card">
       <div class="settings-row" style="flex-wrap:wrap;align-items:center">
-        <span style="font-size:12px;color:#888;flex:1;min-width:200px">Payments use <code style="font-size:11px">SQUARE_ACCESS_TOKEN</code> on the server (Vercel env).</span>
+        <span style="font-size:12px;color:#888;flex:1;min-width:220px;line-height:1.5">Uses <strong>Admin → Connect Square (OAuth)</strong> first — same as POS/Terminal. Falls back to <code style="font-size:11px">SQUARE_ACCESS_TOKEN</code> only if OAuth isn’t connected. Guide: <code style="font-size:10px">docs/HUB-SQUARE-SETUP.md</code></span>
         <button class="sbtn" onclick="saveSquare()">Sync now</button>
       </div>
       <div class="stest" id="sq-test"></div>
@@ -1266,10 +1266,14 @@ function renderBills(){
 // ════════════════════════════════════════════════════════
 // SQUARE API
 // ════════════════════════════════════════════════════════
-async function fetchSquareLive() {
+async function fetchSquareLive(silent) {
   try {
     const res = await hubFetch('/api/hub/square-summary');
     const data = await res.json();
+    if (data.error && (!data.transactions || !data.transactions.length)) {
+      if (!silent) toast(data.error + (data.setupPath ? ' Open Admin → Settings → Payments to connect Square.' : ''), 'error');
+      return data;
+    }
     if (data.transactions) {
       ST.sqData = data.transactions.map(t => ({ id: t.id, date: t.date, desc: t.description || 'Card Payment', amount: t.amount }));
       const today = new Date().toISOString().split('T')[0];
@@ -1281,19 +1285,35 @@ async function fetchSquareLive() {
       if (tt) tt.textContent = todayTxns + ' transactions today';
       await hubPushState();
       finRefresh();
+      if (!silent) {
+        var msg = 'Square synced: ' + data.transactions.length + ' payments (month-to-date)';
+        if (data.connection === 'oauth') msg += ' · OAuth';
+        if (data.warning) msg += ' — ' + data.warning;
+        toast(msg, 'success');
+      }
     }
-  } catch (e) {}
+    return data;
+  } catch (e) { return {}; }
 }
 
 // ════════════════════════════════════════════════════════
 // SETTINGS SAVES
 // ════════════════════════════════════════════════════════
 async function saveSquare() {
-  const el = document.getElementById('sq-test');
+  var el = document.getElementById('sq-test');
   if (el) { el.textContent = 'Syncing…'; el.style.color = '#888'; }
-  await fetchSquareLive();
-  if (el) { el.textContent = '✓ Using server SQUARE_ACCESS_TOKEN — synced'; el.style.color = '#2a9d8f'; }
-  toast('Square synced from server', 'success');
+  var data = await fetchSquareLive(false);
+  if (el) {
+    if (data.error && (!data.transactions || !data.transactions.length)) {
+      el.textContent = '✕ ' + String(data.error).slice(0, 140);
+      el.style.color = '#e63946';
+    } else if (data.transactions) {
+      el.textContent = data.connection === 'oauth'
+        ? '✓ OAuth (same connection as POS/Terminal)'
+        : '✓ Env token — prefer Admin → Settings → Payments → Connect Square';
+      el.style.color = '#2a9d8f';
+    }
+  }
 }
 function connectGoogleBusinessOAuth() {
   window.location.href = '/api/auth/google?state=hub';
@@ -1389,7 +1409,7 @@ function toast(msg, type='') {
   renderBills();
   finRefresh();
   document.getElementById('e-date').value = new Date().toISOString().split('T')[0];
-  fetchSquareLive();
+  fetchSquareLive(true);
   if(ST.credentials&&ST.credentials.meta&&ST.credentials.meta.igId) document.getElementById('meta-ig-id').value = ST.credentials.meta.igId;
   if(ST.credentials&&ST.credentials.twilio&&ST.credentials.twilio.sid) document.getElementById('tw-sid').value = ST.credentials.twilio.sid;
   if(ST.credentials&&ST.credentials.twilio&&ST.credentials.twilio.from) document.getElementById('tw-from').value = ST.credentials.twilio.from;
