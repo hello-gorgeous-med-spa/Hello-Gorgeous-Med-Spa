@@ -39,6 +39,7 @@ CREATE INDEX idx_video_library_status ON video_library(status);
 ALTER TABLE video_library ENABLE ROW LEVEL SECURITY;
 
 -- RLS Policy: Allow all operations for authenticated users
+DROP POLICY IF EXISTS "video_library_all_access" ON video_library;
 CREATE POLICY "video_library_all_access" ON video_library
   FOR ALL
   USING (true)

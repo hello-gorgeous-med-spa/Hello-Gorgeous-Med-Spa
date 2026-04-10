@@ -9,13 +9,10 @@ type Note = { id: number; client_id: string; client_name: string | null; note: s
 type Expense = { id: number; date: string; desc: string; amount: number; category: string; method: string };
 type Bill = { id: number; name: string; amount: number; dueDay: number; category: string; freq: string };
 
-const FRESHA_PARTNER_CALENDAR =
-  "https://partners.fresha.com/calendar?view=day&location_id=102610&calendar_selected_resources=e-working";
+const SQUARE_APPOINTMENTS_CALENDAR = "https://app.squareup.com/dashboard/appointments/calendar";
 
-function openFreshaPartnerCalendar() {
-  const date = new Date().toISOString().slice(0, 10);
-  const url = `${FRESHA_PARTNER_CALENDAR}&date=${encodeURIComponent(date)}`;
-  window.open(url, "_blank", "noopener,noreferrer");
+function openSquareAppointmentsCalendar() {
+  window.open(SQUARE_APPOINTMENTS_CALENDAR, "_blank", "noopener,noreferrer");
 }
 
 export default function HubPageClient() {
@@ -264,8 +261,8 @@ export default function HubPageClient() {
           Setup guide in the repo: <code className="text-[11px] bg-black/5 px-1 rounded">docs/HUB-SQUARE-SETUP.md</code>.
         </p>
         <div className="flex flex-wrap gap-3 text-sm">
-          <button type="button" className="border rounded px-3 py-2" onClick={openFreshaPartnerCalendar}>
-            Open Fresha calendar ↗
+          <button type="button" className="border rounded px-3 py-2" onClick={openSquareAppointmentsCalendar}>
+            Open Square appointments ↗
           </button>
           <button className="border rounded px-3 py-2" onClick={() => window.location.href = "/api/auth/google?state=hub"}>Connect Google Business OAuth</button>
           <button type="button" className="border rounded px-3 py-2" onClick={loadSquareSummary}>

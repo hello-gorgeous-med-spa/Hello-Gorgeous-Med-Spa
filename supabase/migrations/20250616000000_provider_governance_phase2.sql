@@ -39,4 +39,5 @@ CREATE INDEX IF NOT EXISTS idx_export_requests_created ON public.export_requests
 COMMENT ON TABLE public.export_requests IS 'Export requests require super_owner approval; all logged.';
 
 ALTER TABLE public.export_requests ENABLE ROW LEVEL SECURITY;
+DROP POLICY IF EXISTS "Service role full access export_requests" ON public.export_requests;
 CREATE POLICY "Service role full access export_requests" ON public.export_requests FOR ALL TO service_role USING (true) WITH CHECK (true);

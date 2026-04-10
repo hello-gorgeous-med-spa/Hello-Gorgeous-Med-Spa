@@ -184,10 +184,17 @@ ALTER TABLE public.business_assets ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.governance_audit_log ENABLE ROW LEVEL SECURITY;
 
 -- Placeholder policies: service_role and authenticated read for now; tighten in Phase 2
+DROP POLICY IF EXISTS "Service role full access provider_documents" ON public.provider_documents;
 CREATE POLICY "Service role full access provider_documents" ON public.provider_documents FOR ALL TO service_role USING (true) WITH CHECK (true);
+DROP POLICY IF EXISTS "Service role full access protocols" ON public.protocols;
 CREATE POLICY "Service role full access protocols" ON public.protocols FOR ALL TO service_role USING (true) WITH CHECK (true);
+DROP POLICY IF EXISTS "Service role full access standing_orders" ON public.standing_orders;
 CREATE POLICY "Service role full access standing_orders" ON public.standing_orders FOR ALL TO service_role USING (true) WITH CHECK (true);
+DROP POLICY IF EXISTS "Service role full access compensation_records" ON public.compensation_records;
 CREATE POLICY "Service role full access compensation_records" ON public.compensation_records FOR ALL TO service_role USING (true) WITH CHECK (true);
+DROP POLICY IF EXISTS "Service role full access financial_permissions" ON public.financial_permissions;
 CREATE POLICY "Service role full access financial_permissions" ON public.financial_permissions FOR ALL TO service_role USING (true) WITH CHECK (true);
+DROP POLICY IF EXISTS "Service role full access business_assets" ON public.business_assets;
 CREATE POLICY "Service role full access business_assets" ON public.business_assets FOR ALL TO service_role USING (true) WITH CHECK (true);
+DROP POLICY IF EXISTS "Service role full access governance_audit_log" ON public.governance_audit_log;
 CREATE POLICY "Service role full access governance_audit_log" ON public.governance_audit_log FOR ALL TO service_role USING (true) WITH CHECK (true);

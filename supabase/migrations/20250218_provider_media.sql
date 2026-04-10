@@ -33,6 +33,18 @@ CREATE TABLE IF NOT EXISTS providers (
   updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
+-- Legacy DBs already have `providers` with `is_active` (no `active`). Align before indexes/policies.
+ALTER TABLE providers ADD COLUMN IF NOT EXISTS active BOOLEAN DEFAULT true;
+DO $$
+BEGIN
+  IF EXISTS (
+    SELECT 1 FROM information_schema.columns
+    WHERE table_schema = 'public' AND table_name = 'providers' AND column_name = 'is_active'
+  ) THEN
+    UPDATE providers SET active = COALESCE(is_active, true);
+  END IF;
+END $$;
+
 -- ============================================================
 -- PROVIDER MEDIA TABLE (Videos + Before/After)
 -- ============================================================
@@ -100,12 +112,45 @@ ON CONFLICT (slug) DO NOTHING;
 -- INDEXES
 -- ============================================================
 CREATE INDEX IF NOT EXISTS idx_providers_slug ON providers(slug);
-CREATE INDEX IF NOT EXISTS idx_providers_active ON providers(active);
+-- `idx_providers_active` may already exist on (is_active) from 20240101000022_provider_media.sql
+CREATE INDEX IF NOT EXISTS idx_providers_active_column ON providers(active);
 CREATE INDEX IF NOT EXISTS idx_provider_media_provider ON provider_media(provider_id);
-CREATE INDEX IF NOT EXISTS idx_provider_media_type ON provider_media(type);
-CREATE INDEX IF NOT EXISTS idx_provider_media_service ON provider_media(service_tag);
-CREATE INDEX IF NOT EXISTS idx_provider_media_featured ON provider_media(featured);
-CREATE INDEX IF NOT EXISTS idx_provider_media_status ON provider_media(status);
+-- Legacy `provider_media` uses `media_type` / enum columns from 20240101000022; this file also defines `type` for greenfield.
+DO $$
+BEGIN
+  IF EXISTS (
+    SELECT 1 FROM information_schema.columns
+    WHERE table_schema = 'public' AND table_name = 'provider_media' AND column_name = 'type'
+  ) THEN
+    EXECUTE 'CREATE INDEX IF NOT EXISTS idx_provider_media_type ON provider_media(type)';
+  ELSIF EXISTS (
+    SELECT 1 FROM information_schema.columns
+    WHERE table_schema = 'public' AND table_name = 'provider_media' AND column_name = 'media_type'
+  ) THEN
+    EXECUTE 'CREATE INDEX IF NOT EXISTS idx_provider_media_media_type ON provider_media(media_type)';
+  END IF;
+
+  IF EXISTS (
+    SELECT 1 FROM information_schema.columns
+    WHERE table_schema = 'public' AND table_name = 'provider_media' AND column_name = 'service_tag'
+  ) THEN
+    EXECUTE 'CREATE INDEX IF NOT EXISTS idx_provider_media_service ON provider_media(service_tag)';
+  END IF;
+
+  IF EXISTS (
+    SELECT 1 FROM information_schema.columns
+    WHERE table_schema = 'public' AND table_name = 'provider_media' AND column_name = 'featured'
+  ) THEN
+    EXECUTE 'CREATE INDEX IF NOT EXISTS idx_provider_media_featured ON provider_media(featured)';
+  END IF;
+
+  IF EXISTS (
+    SELECT 1 FROM information_schema.columns
+    WHERE table_schema = 'public' AND table_name = 'provider_media' AND column_name = 'status'
+  ) THEN
+    EXECUTE 'CREATE INDEX IF NOT EXISTS idx_provider_media_status ON provider_media(status)';
+  END IF;
+END $$;
 
 -- ============================================================
 -- TRIGGERS
@@ -144,39 +189,46 @@ CREATE POLICY "Public read published media" ON provider_media FOR SELECT USING (
 CREATE POLICY "Public read service tags" ON provider_service_tags FOR SELECT USING (true);
 
 -- ============================================================
--- SEED DATA (Danielle & Ryan)
+-- SEED DATA (Danielle & Ryan) — only when this migration's `providers.name` shape exists
 -- ============================================================
-INSERT INTO providers (slug, name, credentials, role, bio, headshot_url, booking_url, telehealth_enabled, active) VALUES
-  (
-    'danielle',
-    'Danielle Alcala',
-    'Licensed CNA • CMAA • Phlebotomist',
-    'Founder, Hello Gorgeous Med Spa',
-    'Passionate about helping clients feel confident and beautiful. Patient-first care philosophy with a focus on personalized treatments.',
-    '/images/team/danielle.png',
-    '/book?provider=danielle',
-    false,
-    true
-  ),
-  (
-    'ryan',
-    'Ryan Kent',
-    'MSN, FNP-C, ABAAHP • Full Practice Authority Nurse Practitioner',
-    'Medical Director',
-    'Board-Certified Family Nurse Practitioner with full prescriptive authority. Specializing in weight management, hormone optimization, and regenerative medicine.',
-    '/images/providers/ryan-kent-clinic.jpg',
-    '/book?provider=ryan',
-    true,
-    true
-  )
-ON CONFLICT (slug) DO UPDATE SET
-  name = EXCLUDED.name,
-  credentials = EXCLUDED.credentials,
-  role = EXCLUDED.role,
-  bio = EXCLUDED.bio,
-  headshot_url = EXCLUDED.headshot_url,
-  booking_url = EXCLUDED.booking_url,
-  telehealth_enabled = EXCLUDED.telehealth_enabled;
+DO $$
+BEGIN
+  IF EXISTS (
+    SELECT 1 FROM information_schema.columns
+    WHERE table_schema = 'public' AND table_name = 'providers' AND column_name = 'name'
+  ) THEN
+    INSERT INTO providers (slug, name, credentials, role, bio, headshot_url, booking_url, telehealth_enabled, active) VALUES (
+        'danielle',
+        'Danielle Alcala',
+        'Licensed CNA • CMAA • Phlebotomist',
+        'Founder, Hello Gorgeous Med Spa',
+        'Passionate about helping clients feel confident and beautiful. Patient-first care philosophy with a focus on personalized treatments.',
+        '/images/team/danielle.png',
+        '/book?provider=danielle',
+        false,
+        true
+      ),
+      (
+        'ryan',
+        'Ryan Kent',
+        'MSN, FNP-C, ABAAHP • Full Practice Authority Nurse Practitioner',
+        'Medical Director',
+        'Board-Certified Family Nurse Practitioner with full prescriptive authority. Specializing in weight management, hormone optimization, and regenerative medicine.',
+        '/images/providers/ryan-kent-clinic.jpg',
+        '/book?provider=ryan',
+        true,
+        true
+      )
+    ON CONFLICT (slug) DO UPDATE SET
+      name = EXCLUDED.name,
+      credentials = EXCLUDED.credentials,
+      role = EXCLUDED.role,
+      bio = EXCLUDED.bio,
+      headshot_url = EXCLUDED.headshot_url,
+      booking_url = EXCLUDED.booking_url,
+      telehealth_enabled = EXCLUDED.telehealth_enabled;
+  END IF;
+END $$;
 
 -- ============================================================
 -- COMMENTS

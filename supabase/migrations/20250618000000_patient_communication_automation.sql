@@ -123,10 +123,15 @@ ALTER TABLE public.message_queue ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.message_logs ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.unsubscribes ENABLE ROW LEVEL SECURITY;
 
+DROP POLICY IF EXISTS "Service role full access message_templates" ON public.message_templates;
 CREATE POLICY "Service role full access message_templates" ON public.message_templates FOR ALL TO service_role USING (true) WITH CHECK (true);
+DROP POLICY IF EXISTS "Service role full access automation_rules" ON public.automation_rules;
 CREATE POLICY "Service role full access automation_rules" ON public.automation_rules FOR ALL TO service_role USING (true) WITH CHECK (true);
+DROP POLICY IF EXISTS "Service role full access message_queue" ON public.message_queue;
 CREATE POLICY "Service role full access message_queue" ON public.message_queue FOR ALL TO service_role USING (true) WITH CHECK (true);
+DROP POLICY IF EXISTS "Service role full access message_logs" ON public.message_logs;
 CREATE POLICY "Service role full access message_logs" ON public.message_logs FOR ALL TO service_role USING (true) WITH CHECK (true);
+DROP POLICY IF EXISTS "Service role full access unsubscribes" ON public.unsubscribes;
 CREATE POLICY "Service role full access unsubscribes" ON public.unsubscribes FOR ALL TO service_role USING (true) WITH CHECK (true);
 
 -- Seed default automation templates (can be edited in admin)

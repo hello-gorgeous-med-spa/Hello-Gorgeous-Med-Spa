@@ -31,7 +31,7 @@ INSERT INTO services (
 )
 SELECT 
   '33333333-3333-3333-3333-333333333001',
-  '11111111-1111-1111-1111-111111111009',
+  (SELECT id FROM service_categories WHERE slug = 'lash-spa' LIMIT 1),
   'Lash Spa',
   'lash-spa',
   'Full set, fill, lash perm & tint, mini fill.',
@@ -46,7 +46,8 @@ SELECT
   60, 2,
   true, true, false, 100,
   ARRAY['b7e6f872-3628-418a-aefb-aca2101f7cb2']::UUID[]
-WHERE NOT EXISTS (SELECT 1 FROM services WHERE slug = 'lash-spa');
+WHERE NOT EXISTS (SELECT 1 FROM services WHERE slug = 'lash-spa')
+  AND EXISTS (SELECT 1 FROM service_categories WHERE slug = 'lash-spa');
 
 -- Ensure existing lash-spa service has Danielle as provider
 UPDATE services 

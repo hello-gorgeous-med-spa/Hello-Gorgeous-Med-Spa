@@ -1174,7 +1174,37 @@ export function eventJsonLd(event: {
   startDate: string;
   endDate?: string;
   description?: string;
+  /** Off-site venue (e.g. restaurant). Omit to use med spa address. */
+  location?: {
+    name: string;
+    streetAddress: string;
+    addressLocality: string;
+    addressRegion: string;
+    postalCode: string;
+  };
 }) {
+  const place = event.location
+    ? {
+        "@type": "Place" as const,
+        name: event.location.name,
+        address: {
+          "@type": "PostalAddress" as const,
+          streetAddress: event.location.streetAddress,
+          addressLocality: event.location.addressLocality,
+          addressRegion: event.location.addressRegion,
+          postalCode: event.location.postalCode,
+          addressCountry: "US",
+        },
+      }
+    : {
+        "@type": "Place" as const,
+        name: SITE.name,
+        address: {
+          "@type": "PostalAddress" as const,
+          ...SITE.address,
+        },
+      };
+
   return {
     "@context": "https://schema.org",
     "@type": "Event",
@@ -1182,14 +1212,14 @@ export function eventJsonLd(event: {
     startDate: event.startDate,
     ...(event.endDate && { endDate: event.endDate }),
     ...(event.description && { description: event.description }),
-    location: {
-      "@type": "Place",
+    location: place,
+    organizer: {
+      "@type": "Organization",
       name: SITE.name,
-      address: {
-        "@type": "PostalAddress",
-        ...SITE.address,
-      },
+      url: SITE.url,
     },
+    eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+    eventStatus: "https://schema.org/EventScheduled",
   };
 }
 

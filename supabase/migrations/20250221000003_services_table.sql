@@ -94,8 +94,8 @@ INSERT INTO service_categories (id, name, slug, display_order) VALUES
   ('11111111-1111-1111-1111-111111111005', 'IV Therapy', 'iv-therapy', 5),
   ('11111111-1111-1111-1111-111111111006', 'Laser Treatments', 'laser-treatments', 6),
   ('11111111-1111-1111-1111-111111111007', 'Wellness', 'wellness', 7),
-  ('11111111-1111-1111-1111-111111111008', 'Consultations', 'consultations', 8)
-ON CONFLICT (id) DO NOTHING;
+   ('11111111-1111-1111-1111-111111111008', 'Consultations', 'consultations', 8)
+ON CONFLICT (slug) DO NOTHING;
 
 -- ============================================================
 -- SEED SOLARIA CO2 SERVICES

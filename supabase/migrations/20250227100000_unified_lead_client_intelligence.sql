@@ -49,12 +49,28 @@ CREATE TABLE IF NOT EXISTS public.leads (
   ))
 );
 
-CREATE INDEX IF NOT EXISTS idx_leads_created_at ON public.leads(created_at DESC);
-CREATE INDEX IF NOT EXISTS idx_leads_email ON public.leads(LOWER(TRIM(email)));
-CREATE INDEX IF NOT EXISTS idx_leads_source ON public.leads(source);
-CREATE INDEX IF NOT EXISTS idx_leads_lead_type ON public.leads(lead_type);
-CREATE INDEX IF NOT EXISTS idx_leads_converted ON public.leads(converted_to_client) WHERE converted_to_client = true;
-CREATE INDEX IF NOT EXISTS idx_leads_client_id ON public.leads(client_id) WHERE client_id IS NOT NULL;
+-- Legacy `leads` may predate this migration; only index columns that exist.
+DO $$
+BEGIN
+  IF EXISTS (SELECT 1 FROM information_schema.columns WHERE table_schema = 'public' AND table_name = 'leads' AND column_name = 'created_at') THEN
+    EXECUTE 'CREATE INDEX IF NOT EXISTS idx_leads_created_at ON public.leads(created_at DESC)';
+  END IF;
+  IF EXISTS (SELECT 1 FROM information_schema.columns WHERE table_schema = 'public' AND table_name = 'leads' AND column_name = 'email') THEN
+    EXECUTE 'CREATE INDEX IF NOT EXISTS idx_leads_email ON public.leads(LOWER(TRIM(email)))';
+  END IF;
+  IF EXISTS (SELECT 1 FROM information_schema.columns WHERE table_schema = 'public' AND table_name = 'leads' AND column_name = 'source') THEN
+    EXECUTE 'CREATE INDEX IF NOT EXISTS idx_leads_source ON public.leads(source)';
+  END IF;
+  IF EXISTS (SELECT 1 FROM information_schema.columns WHERE table_schema = 'public' AND table_name = 'leads' AND column_name = 'lead_type') THEN
+    EXECUTE 'CREATE INDEX IF NOT EXISTS idx_leads_lead_type ON public.leads(lead_type)';
+  END IF;
+  IF EXISTS (SELECT 1 FROM information_schema.columns WHERE table_schema = 'public' AND table_name = 'leads' AND column_name = 'converted_to_client') THEN
+    EXECUTE 'CREATE INDEX IF NOT EXISTS idx_leads_converted ON public.leads(converted_to_client) WHERE converted_to_client = true';
+  END IF;
+  IF EXISTS (SELECT 1 FROM information_schema.columns WHERE table_schema = 'public' AND table_name = 'leads' AND column_name = 'client_id') THEN
+    EXECUTE 'CREATE INDEX IF NOT EXISTS idx_leads_client_id ON public.leads(client_id) WHERE client_id IS NOT NULL';
+  END IF;
+END $$;
 
 COMMENT ON TABLE public.leads IS 'Unified lead capture: website, AI tools, social, quiz. Links to clients when converted.';
 

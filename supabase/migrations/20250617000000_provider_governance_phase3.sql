@@ -37,6 +37,7 @@ CREATE INDEX IF NOT EXISTS idx_chart_audits_audited_by ON public.chart_audits(au
 COMMENT ON TABLE public.chart_audits IS 'Chart audit checklist workflow; who audited, when, checklist result.';
 
 ALTER TABLE public.chart_audits ENABLE ROW LEVEL SECURITY;
+DROP POLICY IF EXISTS "Service role full access chart_audits" ON public.chart_audits;
 CREATE POLICY "Service role full access chart_audits" ON public.chart_audits FOR ALL TO service_role USING (true) WITH CHECK (true);
 
 -- ------------------------------------------------------------
@@ -60,4 +61,5 @@ CREATE INDEX IF NOT EXISTS idx_emergency_response_log_protocol ON public.emergen
 COMMENT ON TABLE public.emergency_response_log IS 'Log when emergency protocols (e.g. vascular occlusion, hyaluronidase) are used.';
 
 ALTER TABLE public.emergency_response_log ENABLE ROW LEVEL SECURITY;
+DROP POLICY IF EXISTS "Service role full access emergency_response_log" ON public.emergency_response_log;
 CREATE POLICY "Service role full access emergency_response_log" ON public.emergency_response_log FOR ALL TO service_role USING (true) WITH CHECK (true);

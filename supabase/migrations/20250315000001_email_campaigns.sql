@@ -14,10 +14,11 @@ CREATE TABLE IF NOT EXISTS email_campaigns (
 
 ALTER TABLE email_campaigns ENABLE ROW LEVEL SECURITY;
 
+DROP POLICY IF EXISTS "Service role full access on email_campaigns" ON email_campaigns;
 CREATE POLICY "Service role full access on email_campaigns"
   ON email_campaigns FOR ALL
   USING (true)
   WITH CHECK (true);
 
-CREATE INDEX idx_email_campaigns_status ON email_campaigns(status);
-CREATE INDEX idx_email_campaigns_created ON email_campaigns(created_at DESC);
+CREATE INDEX IF NOT EXISTS idx_email_campaigns_status ON email_campaigns(status);
+CREATE INDEX IF NOT EXISTS idx_email_campaigns_created ON email_campaigns(created_at DESC);

@@ -35,6 +35,9 @@ body{font-family:'Lato',sans-serif;background:#f5f5f5;color:#1A1A1A;min-height:1
 
 /* ── GRID LAYOUTS ── */
 .grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:18px}
+.grid-morning{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-bottom:18px}
+@media(max-width:1200px){.grid-morning{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:720px){.grid-morning{grid-template-columns:repeat(2,1fr)}}
 .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:18px}
 .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:18px}
 .grid-2-1{display:grid;grid-template-columns:2fr 1fr;gap:14px;margin-bottom:18px}
@@ -254,7 +257,7 @@ hr.divider{border:none;border-top:1px solid #f0f0f0;margin:12px 0}
   </div>
 
   <!-- STAT ROW -->
-  <div class="grid-4">
+  <div class="grid-morning">
     <div class="card-sm">
       <div class="stat-accent" style="background:#FF1493"></div>
       <div class="stat-label">Today's Revenue</div>
@@ -262,10 +265,16 @@ hr.divider{border:none;border-top:1px solid #f0f0f0;margin:12px 0}
       <div class="stat-sub" id="today-txns">— transactions</div>
     </div>
     <div class="card-sm">
+      <div class="stat-accent" style="background:#457b9d"></div>
+      <div class="stat-label">Last 7 Days</div>
+      <div class="stat-value stat-black" id="week-revenue">$0</div>
+      <div class="stat-sub" id="week-txns">— payments</div>
+    </div>
+    <div class="card-sm">
       <div class="stat-accent" style="background:#1A1A1A"></div>
       <div class="stat-label">This Month</div>
       <div class="stat-value stat-black" id="month-revenue">$0</div>
-      <div class="stat-sub">Square sales</div>
+      <div class="stat-sub" id="month-txns-sub">Square sales</div>
     </div>
     <div class="card-sm">
       <div class="stat-accent" style="background:#2a9d8f"></div>
@@ -287,10 +296,10 @@ hr.divider{border:none;border-top:1px solid #f0f0f0;margin:12px 0}
     <div class="card">
       <div class="card-header">
         <div class="card-title">Today's Appointments</div>
-        <button class="card-action" onclick="openFresha()">Open Fresha ↗</button>
+        <button class="card-action" onclick="openSquareAppointments()">Square appointments ↗</button>
       </div>
       <div id="schedule-list">
-        <div class="appt-connect-badge" style="margin-bottom:12px">⚡ Connect Fresha API via Anthony to auto-load schedule</div>
+        <div class="appt-connect-badge" style="margin-bottom:12px">⚡ Connect Square Appointments API to auto-load schedule (Anthony)</div>
         <!-- Demo appointments -->
         <div class="appt-item">
           <div class="appt-time">9:00am</div>
@@ -416,7 +425,7 @@ hr.divider{border:none;border-top:1px solid #f0f0f0;margin:12px 0}
 <div id="page-clients" class="page">
   <div class="morning-header">
     <div class="morning-greeting">Client <span>Database</span></div>
-    <div class="morning-sub">3,449 clients · Fresha export April 8, 2026</div>
+    <div class="morning-sub">3,449 clients · CRM snapshot April 8, 2026</div>
   </div>
   <div class="cl-toolbar">
     <input class="cl-search" id="cl-q" placeholder="Search name, phone, or email..." oninput="filterCl()">
@@ -1266,29 +1275,86 @@ function renderBills(){
 // ════════════════════════════════════════════════════════
 // SQUARE API
 // ════════════════════════════════════════════════════════
+function applyMorningStatsFromSqData() {
+  if (!ST.sqData || !ST.sqData.length) return;
+  const today = new Date().toISOString().split('T')[0];
+  const todayRev = ST.sqData.filter(function (t) { return t.date === today; }).reduce(function (s, t) { return s + t.amount; }, 0);
+  const todayTxns = ST.sqData.filter(function (t) { return t.date === today; }).length;
+  const weekCut = Date.now() - 7 * 86400000;
+  var weekRev = 0, weekN = 0;
+  for (var i = 0; i < ST.sqData.length; i++) {
+    var t = ST.sqData[i];
+    var ts = new Date(t.date + 'T12:00:00').getTime();
+    if (ts >= weekCut) { weekRev += t.amount; weekN++; }
+  }
+  var ym = new Date();
+  var mprefix = ym.getFullYear() + '-' + String(ym.getMonth() + 1).padStart(2, '0');
+  var mrev = ST.sqData.filter(function (t) { return t.date && t.date.indexOf(mprefix) === 0; }).reduce(function (s, t) { return s + t.amount; }, 0);
+  var mn = ST.sqData.filter(function (t) { return t.date && t.date.indexOf(mprefix) === 0; }).length;
+  var tr = document.getElementById('today-revenue');
+  var tt = document.getElementById('today-txns');
+  var wr = document.getElementById('week-revenue');
+  var wt = document.getElementById('week-txns');
+  var mr = document.getElementById('month-revenue');
+  var ms = document.getElementById('month-txns-sub');
+  if (tr) tr.textContent = fmt(todayRev);
+  if (tt) tt.textContent = todayTxns + ' transactions today';
+  if (wr) wr.textContent = fmt(weekRev);
+  if (wt) wt.textContent = weekN + ' in last 7 days (MTD list)';
+  if (mr) mr.textContent = fmt(mrev);
+  if (ms) ms.textContent = mn + ' payments this month (MTD list)';
+}
+
 async function fetchSquareLive(silent) {
   try {
-    const res = await hubFetch('/api/hub/square-summary');
-    const data = await res.json();
+    var sumRes, revRes;
+    try {
+      var pair = await Promise.all([hubFetch('/api/hub/square-summary'), hubFetch('/api/hub/square-revenue')]);
+      sumRes = pair[0];
+      revRes = pair[1];
+    } catch (e) {
+      return {};
+    }
+    var data = await sumRes.json();
+    var rev = await revRes.json();
+
+    function centsToDollars(c) { return (c || 0) / 100; }
+    if (rev && !rev.error && rev.today && rev.week && rev.month) {
+      var tr = document.getElementById('today-revenue');
+      var tt = document.getElementById('today-txns');
+      var wr = document.getElementById('week-revenue');
+      var wt = document.getElementById('week-txns');
+      var mr = document.getElementById('month-revenue');
+      var ms = document.getElementById('month-txns-sub');
+      if (tr) tr.textContent = fmt(centsToDollars(rev.today.total));
+      if (tt) tt.textContent = (rev.today.count || 0) + ' today · Chicago date';
+      if (wr) wr.textContent = fmt(centsToDollars(rev.week.total));
+      if (wt) wt.textContent = (rev.week.count || 0) + ' in last 7 days';
+      if (mr) mr.textContent = fmt(centsToDollars(rev.month.total));
+      if (ms) {
+        var syncLine = rev.synced ? new Date(rev.synced).toLocaleString(undefined, { dateStyle: 'short', timeStyle: 'short' }) : '';
+        ms.textContent = (rev.month.count || 0) + ' this month' + (syncLine ? ' · synced ' + syncLine : '');
+      }
+    }
+
     if (data.error && (!data.transactions || !data.transactions.length)) {
       if (!silent) toast(data.error + (data.setupPath ? ' Open Admin → Settings → Payments to connect Square.' : ''), 'error');
       return data;
     }
     if (data.transactions) {
-      ST.sqData = data.transactions.map(t => ({ id: t.id, date: t.date, desc: t.description || 'Card Payment', amount: t.amount }));
-      const today = new Date().toISOString().split('T')[0];
-      const todayRev = ST.sqData.filter(t => t.date === today).reduce((s, t) => s + t.amount, 0);
-      const todayTxns = ST.sqData.filter(t => t.date === today).length;
-      const tr = document.getElementById('today-revenue');
-      const tt = document.getElementById('today-txns');
-      if (tr) tr.textContent = fmt(todayRev);
-      if (tt) tt.textContent = todayTxns + ' transactions today';
+      ST.sqData = data.transactions.map(function (t) {
+        return { id: t.id, date: t.date, desc: t.description || 'Card Payment', amount: t.amount };
+      });
+      if (rev && rev.error) {
+        applyMorningStatsFromSqData();
+      }
       await hubPushState();
       finRefresh();
       if (!silent) {
         var msg = 'Square synced: ' + data.transactions.length + ' payments (month-to-date)';
         if (data.connection === 'oauth') msg += ' · OAuth';
         if (data.warning) msg += ' — ' + data.warning;
+        if (rev && rev.topDay && rev.topDay !== '—') msg += ' · Top day: ' + rev.topDay;
         toast(msg, 'success');
       }
     }
@@ -1316,7 +1382,14 @@ async function saveSquare() {
   }
 }
 function connectGoogleBusinessOAuth() {
-  window.location.href = '/api/auth/google?state=hub';
+  // Must use top window: this page runs inside an iframe on /hub/classic.
+  // Google OAuth refuses to load in iframes ("This content is blocked").
+  var url = window.location.origin + '/api/auth/google?state=hub';
+  if (window.top && window.top !== window.self) {
+    window.top.location.href = url;
+  } else {
+    window.location.href = url;
+  }
 }
 function saveMeta() {
   ST.credentials.meta = {token:document.getElementById('meta-token').value.trim(),igId:document.getElementById('meta-ig-id').value.trim()};
@@ -1381,11 +1454,10 @@ async function clearAll() {
 function copyReply(text) { navigator.clipboard?.writeText(text).then(()=>toast('Reply copied to clipboard!','success')).catch(()=>toast('Copy the text above to reply','success')); }
 
 // ════════════════════════════════════════════════════════
-// FRESHA LINK
+// SQUARE APPOINTMENTS (dashboard calendar)
 // ════════════════════════════════════════════════════════
-function openFresha() {
-  var d = new Date().toISOString().slice(0, 10);
-  window.open('https://partners.fresha.com/calendar?date=' + encodeURIComponent(d) + '&view=day&location_id=102610&calendar_selected_resources=e-working', '_blank', 'noopener,noreferrer');
+function openSquareAppointments() {
+  window.open('https://app.squareup.com/dashboard/appointments/calendar', '_blank', 'noopener,noreferrer');
 }
 
 // ════════════════════════════════════════════════════════
@@ -1410,6 +1482,7 @@ function toast(msg, type='') {
   finRefresh();
   document.getElementById('e-date').value = new Date().toISOString().split('T')[0];
   fetchSquareLive(true);
+  setInterval(function () { fetchSquareLive(true); }, 15 * 60 * 1000);
   if(ST.credentials&&ST.credentials.meta&&ST.credentials.meta.igId) document.getElementById('meta-ig-id').value = ST.credentials.meta.igId;
   if(ST.credentials&&ST.credentials.twilio&&ST.credentials.twilio.sid) document.getElementById('tw-sid').value = ST.credentials.twilio.sid;
   if(ST.credentials&&ST.credentials.twilio&&ST.credentials.twilio.from) document.getElementById('tw-from').value = ST.credentials.twilio.from;

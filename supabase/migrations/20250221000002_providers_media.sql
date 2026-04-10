@@ -11,7 +11,7 @@ CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 -- ============================================================
 
 CREATE TABLE IF NOT EXISTS providers (
-  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   name TEXT NOT NULL,
   first_name TEXT,
   last_name TEXT,
@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS providers (
 -- ============================================================
 
 CREATE TABLE IF NOT EXISTS provider_media (
-  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   provider_id UUID NOT NULL REFERENCES providers(id) ON DELETE CASCADE,
   type TEXT NOT NULL CHECK (type IN ('video', 'before_after', 'intro_video')),
   
@@ -74,19 +74,50 @@ CREATE TABLE IF NOT EXISTS provider_media (
   updated_at TIMESTAMPTZ DEFAULT NOW()
 );
 
--- Indexes for quick lookups
+-- Indexes for quick lookups (legacy `provider_media` may use `media_type` not `type`)
 CREATE INDEX IF NOT EXISTS idx_provider_media_provider ON provider_media(provider_id);
-CREATE INDEX IF NOT EXISTS idx_provider_media_type ON provider_media(type);
-CREATE INDEX IF NOT EXISTS idx_provider_media_service ON provider_media(service_tag);
-CREATE INDEX IF NOT EXISTS idx_provider_media_featured ON provider_media(featured) WHERE featured = TRUE;
-CREATE INDEX IF NOT EXISTS idx_provider_media_active ON provider_media(is_active) WHERE is_active = TRUE;
+DO $$
+BEGIN
+  IF EXISTS (
+    SELECT 1 FROM information_schema.columns
+    WHERE table_schema = 'public' AND table_name = 'provider_media' AND column_name = 'type'
+  ) THEN
+    EXECUTE 'CREATE INDEX IF NOT EXISTS idx_provider_media_type ON provider_media(type)';
+  ELSIF EXISTS (
+    SELECT 1 FROM information_schema.columns
+    WHERE table_schema = 'public' AND table_name = 'provider_media' AND column_name = 'media_type'
+  ) THEN
+    EXECUTE 'CREATE INDEX IF NOT EXISTS idx_provider_media_media_type ON provider_media(media_type)';
+  END IF;
+
+  IF EXISTS (
+    SELECT 1 FROM information_schema.columns
+    WHERE table_schema = 'public' AND table_name = 'provider_media' AND column_name = 'service_tag'
+  ) THEN
+    EXECUTE 'CREATE INDEX IF NOT EXISTS idx_provider_media_service ON provider_media(service_tag)';
+  END IF;
+
+  IF EXISTS (
+    SELECT 1 FROM information_schema.columns
+    WHERE table_schema = 'public' AND table_name = 'provider_media' AND column_name = 'featured'
+  ) THEN
+    EXECUTE 'CREATE INDEX IF NOT EXISTS idx_provider_media_featured ON provider_media(featured) WHERE featured = TRUE';
+  END IF;
+
+  IF EXISTS (
+    SELECT 1 FROM information_schema.columns
+    WHERE table_schema = 'public' AND table_name = 'provider_media' AND column_name = 'is_active'
+  ) THEN
+    EXECUTE 'CREATE INDEX IF NOT EXISTS idx_provider_media_active ON provider_media(is_active) WHERE is_active = TRUE';
+  END IF;
+END $$;
 
 -- ============================================================
 -- SERVICE TAGS (standardized tags for filtering)
 -- ============================================================
 
 CREATE TABLE IF NOT EXISTS media_service_tags (
-  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   name TEXT UNIQUE NOT NULL,
   display_name TEXT NOT NULL,
   category TEXT,
@@ -131,10 +162,40 @@ CREATE POLICY providers_update_policy ON providers FOR UPDATE USING (true);
 DROP POLICY IF EXISTS providers_delete_policy ON providers;
 CREATE POLICY providers_delete_policy ON providers FOR DELETE USING (true);
 
--- Provider media: Select requires consent confirmed for before_after
+-- Provider media: Select requires consent for before/after (legacy uses media_type + status, not type + is_active)
 DROP POLICY IF EXISTS media_select_policy ON provider_media;
-CREATE POLICY media_select_policy ON provider_media FOR SELECT 
-  USING (is_active = TRUE AND (type != 'before_after' OR consent_confirmed = TRUE));
+DO $$
+BEGIN
+  IF EXISTS (
+    SELECT 1 FROM information_schema.columns
+    WHERE table_schema = 'public' AND table_name = 'provider_media' AND column_name = 'type'
+  ) AND EXISTS (
+    SELECT 1 FROM information_schema.columns
+    WHERE table_schema = 'public' AND table_name = 'provider_media' AND column_name = 'is_active'
+  ) THEN
+    EXECUTE $p$
+      CREATE POLICY media_select_policy ON provider_media FOR SELECT USING (is_active = TRUE AND (type::text != 'before_after' OR consent_confirmed = TRUE))
+    $p$;
+  ELSIF EXISTS (
+    SELECT 1 FROM information_schema.columns
+    WHERE table_schema = 'public' AND table_name = 'provider_media' AND column_name = 'media_type'
+  ) AND EXISTS (
+    SELECT 1 FROM information_schema.columns
+    WHERE table_schema = 'public' AND table_name = 'provider_media' AND column_name = 'status'
+  ) THEN
+    EXECUTE $p$
+      CREATE POLICY media_select_policy ON provider_media FOR SELECT
+      USING (
+        status::text = 'published'
+        AND (media_type::text != 'before_after' OR consent_confirmed = TRUE)
+      )
+    $p$;
+  ELSE
+    EXECUTE $p$
+      CREATE POLICY media_select_policy ON provider_media FOR SELECT USING (true)
+    $p$;
+  END IF;
+END $$;
 
 DROP POLICY IF EXISTS media_admin_policy ON provider_media;
 CREATE POLICY media_admin_policy ON provider_media FOR ALL USING (true);
@@ -162,53 +223,61 @@ CREATE TRIGGER provider_media_updated_at
   EXECUTE FUNCTION update_provider_media_updated_at();
 
 -- ============================================================
--- SEED DEFAULT PROVIDERS
+-- SEED DEFAULT PROVIDERS (skip when legacy `providers` has no `name` column)
 -- ============================================================
 
-INSERT INTO providers (
-  id, name, first_name, last_name, credentials, title, bio, philosophy, headshot_url, email, booking_url, color, specialties, is_active, display_order
-) VALUES 
-(
-  'a8f2e9d1-4b7c-4e5a-9f3d-2c1b8a7e6f5d',
-  'Danielle Glazier-Alcala',
-  'Danielle',
-  'Glazier-Alcala',
-  'FNP-BC',
-  'Owner & Lead Aesthetic Injector',
-  'Danielle Glazier-Alcala, FNP-BC, is the founder and lead aesthetic injector at Hello Gorgeous Med Spa. With extensive experience in family medicine and aesthetic medicine, she brings a unique perspective that combines medical expertise with an artistic eye for natural-looking results.',
-  'Every face tells a story. My goal is to enhance your natural beauty while maintaining the features that make you uniquely you. I believe in conservative, gradual treatments that make you look refreshed, never overdone.',
-  '/images/team/danielle-glazier-alcala.jpg',
-  'danielle@hellogorgeousmedspa.com',
-  'https://hellogorgeousmedspa.com/book',
-  '#FF2D8E',
-  ARRAY['Botox & Dysport', 'Dermal Fillers', 'Lip Augmentation', 'CO₂ Laser', 'Hormone Therapy'],
-  TRUE,
-  1
-),
-(
-  'b7e6f872-3628-418a-aefb-aca2101f7cb2',
-  'Ryan Kent',
-  'Ryan',
-  'Kent',
-  'FNP-C',
-  'Aesthetic Injector',
-  'Ryan Kent, FNP-C, brings a precise and meticulous approach to aesthetic medicine. His background in emergency medicine gives him excellent assessment skills and the ability to create customized treatment plans for each patient.',
-  'I believe aesthetics is both a science and an art. By understanding facial anatomy at a deep level, I can create results that enhance your features while maintaining facial harmony and natural movement.',
-  '/images/team/ryan-kent.jpg',
-  'ryan@hellogorgeousmedspa.com',
-  'https://hellogorgeousmedspa.com/book',
-  '#2D63A4',
-  ARRAY['Botox & Dysport', 'Dermal Fillers', 'Jawline Contouring', 'PRP Treatments'],
-  TRUE,
-  2
-)
-ON CONFLICT (id) DO UPDATE SET
-  credentials = EXCLUDED.credentials,
-  title = EXCLUDED.title,
-  bio = EXCLUDED.bio,
-  philosophy = EXCLUDED.philosophy,
-  specialties = EXCLUDED.specialties,
-  updated_at = NOW();
+DO $$
+BEGIN
+  IF EXISTS (
+    SELECT 1 FROM information_schema.columns
+    WHERE table_schema = 'public' AND table_name = 'providers' AND column_name = 'name'
+  ) THEN
+    INSERT INTO providers (
+      id, name, first_name, last_name, credentials, title, bio, philosophy, headshot_url, email, booking_url, color, specialties, is_active, display_order
+    ) VALUES
+    (
+      'a8f2e9d1-4b7c-4e5a-9f3d-2c1b8a7e6f5d',
+      'Danielle Glazier-Alcala',
+      'Danielle',
+      'Glazier-Alcala',
+      'FNP-BC',
+      'Owner & Lead Aesthetic Injector',
+      'Danielle Glazier-Alcala, FNP-BC, is the founder and lead aesthetic injector at Hello Gorgeous Med Spa. With extensive experience in family medicine and aesthetic medicine, she brings a unique perspective that combines medical expertise with an artistic eye for natural-looking results.',
+      'Every face tells a story. My goal is to enhance your natural beauty while maintaining the features that make you uniquely you. I believe in conservative, gradual treatments that make you look refreshed, never overdone.',
+      '/images/team/danielle-glazier-alcala.jpg',
+      'danielle@hellogorgeousmedspa.com',
+      'https://hellogorgeousmedspa.com/book',
+      '#FF2D8E',
+      ARRAY['Botox & Dysport', 'Dermal Fillers', 'Lip Augmentation', 'CO₂ Laser', 'Hormone Therapy'],
+      TRUE,
+      1
+    ),
+    (
+      'b7e6f872-3628-418a-aefb-aca2101f7cb2',
+      'Ryan Kent',
+      'Ryan',
+      'Kent',
+      'FNP-C',
+      'Aesthetic Injector',
+      'Ryan Kent, FNP-C, brings a precise and meticulous approach to aesthetic medicine. His background in emergency medicine gives him excellent assessment skills and the ability to create customized treatment plans for each patient.',
+      'I believe aesthetics is both a science and an art. By understanding facial anatomy at a deep level, I can create results that enhance your features while maintaining facial harmony and natural movement.',
+      '/images/team/ryan-kent.jpg',
+      'ryan@hellogorgeousmedspa.com',
+      'https://hellogorgeousmedspa.com/book',
+      '#2D63A4',
+      ARRAY['Botox & Dysport', 'Dermal Fillers', 'Jawline Contouring', 'PRP Treatments'],
+      TRUE,
+      2
+    )
+    ON CONFLICT (id) DO UPDATE SET
+      credentials = EXCLUDED.credentials,
+      title = EXCLUDED.title,
+      bio = EXCLUDED.bio,
+      philosophy = EXCLUDED.philosophy,
+      specialties = EXCLUDED.specialties,
+      updated_at = NOW();
+  END IF;
+END $$;
 
 -- ============================================================
 -- GRANTS

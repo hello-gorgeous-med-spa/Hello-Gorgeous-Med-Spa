@@ -19,8 +19,9 @@ CREATE TABLE IF NOT EXISTS blog_social_posts (
 
 ALTER TABLE blog_social_posts ENABLE ROW LEVEL SECURITY;
 
+DROP POLICY IF EXISTS "Service role full access on blog_social_posts" ON blog_social_posts;
 CREATE POLICY "Service role full access on blog_social_posts"
   ON blog_social_posts FOR ALL USING (true) WITH CHECK (true);
 
-CREATE INDEX idx_blog_social_status ON blog_social_posts(status);
-CREATE INDEX idx_blog_social_slug ON blog_social_posts(blog_slug);
+CREATE INDEX IF NOT EXISTS idx_blog_social_status ON blog_social_posts(status);
+CREATE INDEX IF NOT EXISTS idx_blog_social_slug ON blog_social_posts(blog_slug);

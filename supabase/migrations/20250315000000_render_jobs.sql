@@ -14,10 +14,11 @@ CREATE TABLE IF NOT EXISTS render_jobs (
 
 ALTER TABLE render_jobs ENABLE ROW LEVEL SECURITY;
 
+DROP POLICY IF EXISTS "Service role full access on render_jobs" ON render_jobs;
 CREATE POLICY "Service role full access on render_jobs"
   ON render_jobs FOR ALL
   USING (true)
   WITH CHECK (true);
 
-CREATE INDEX idx_render_jobs_status ON render_jobs(status);
-CREATE INDEX idx_render_jobs_created ON render_jobs(created_at DESC);
+CREATE INDEX IF NOT EXISTS idx_render_jobs_status ON render_jobs(status);
+CREATE INDEX IF NOT EXISTS idx_render_jobs_created ON render_jobs(created_at DESC);
