@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { trackEvent } from "@/components/GoogleAnalytics";
+import { SMSDisclosure, SMSConsentCheckbox } from "@/components/SMSDisclosure";
 import { FadeUp, Section } from "@/components/Section";
 import { BOOKING_URL } from "@/lib/flows";
 

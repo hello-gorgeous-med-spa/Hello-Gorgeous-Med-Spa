@@ -1,5 +1,9 @@
+const path = require("path");
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // Pin tracing to this app when a parent folder also has a package-lock.json
+  outputFileTracingRoot: path.join(__dirname),
   reactStrictMode: true,
   eslint: {
     ignoreDuringBuilds: true,
