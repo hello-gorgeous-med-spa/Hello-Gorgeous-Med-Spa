@@ -84,6 +84,6 @@ export async function GET(request: NextRequest) {
     ? `<p style="color:#b00020"><strong>Could not save token to Supabase.</strong> ${errEsc}</p><p>OAuth succeeded, but the Hub will show “not connected” until this is fixed.</p>`
     : `<p>Token saved to Supabase table <code>hg_oauth_tokens</code>.</p>`;
 
-  const html = `<!doctype html><html><body style="font-family:system-ui;padding:24px;max-width:680px;margin:0 auto"><h1>${persistError ? "Google sign-in OK — save failed" : "Google Business connected"}</h1>${okBlock}<p><strong>Account ID:</strong> ${accountId || "(not found)"}</p><p><strong>Location ID:</strong> ${locationId || "(not found)"}</p><p><a href="/hub">Back to Hub</a></p></body></html>`;
+  const html = `<!doctype html><html><body style="font-family:system-ui;padding:24px;max-width:680px;margin:0 auto"><h1>${persistError ? "Google sign-in OK — save failed" : "Google Business connected"}</h1>${okBlock}<p><strong>Account ID:</strong> ${accountId || "(not found)"}</p><p><strong>Location ID:</strong> ${locationId || "(not found)"}</p><p><a href="/hub/classic">Back to Command Center</a></p></body></html>`;
   return new NextResponse(html, { headers: { "Content-Type": "text/html; charset=utf-8" } });
 }

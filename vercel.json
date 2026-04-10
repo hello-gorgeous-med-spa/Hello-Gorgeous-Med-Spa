@@ -60,7 +60,7 @@
     {
       "source": "/",
       "has": [{ "type": "host", "value": "hub.hellogorgeousmedspa.com" }],
-      "destination": "/hub"
+      "destination": "/hub/classic"
     }
   ]
 }

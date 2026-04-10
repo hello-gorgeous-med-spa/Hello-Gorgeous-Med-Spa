@@ -1,7 +1,8 @@
+import { redirect } from "next/navigation";
 import { requireHubPageSession } from "@/lib/hub-server-auth";
-import HubPageClient from "../HubPageClient";
 
+/** Hub root always opens the classic Command Center (static HTML UI). */
 export default async function HubPage() {
   await requireHubPageSession("/hub");
-  return <HubPageClient />;
+  redirect("/hub/classic");
 }

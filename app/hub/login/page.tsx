@@ -7,7 +7,7 @@ function HubLoginForm() {
   const [pw, setPw] = useState("");
   const [err, setErr] = useState("");
   const sp = useSearchParams();
-  const next = sp.get("next") || "/hub";
+  const next = sp.get("next") || "/hub/classic";
 
   async function submit(e: React.FormEvent) {
     e.preventDefault();
@@ -23,7 +23,7 @@ function HubLoginForm() {
       setErr(typeof j.error === "string" ? j.error : "Login failed");
       return;
     }
-    const dest = next.startsWith("/") ? next : "/hub";
+    const dest = next.startsWith("/") ? next : "/hub/classic";
     window.location.href = dest;
   }
 

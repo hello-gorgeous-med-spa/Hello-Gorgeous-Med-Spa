@@ -42,9 +42,9 @@ export async function middleware(request: NextRequest) {
   const pathname = url.pathname;
   const hostname = request.headers.get('host') || '';
   const isHubHost = hostname.startsWith('hub.');
-  // On hub subdomain, "/" is the Command Center (same as /hub) — must run auth before rewrite.
+  // On hub subdomain, "/" is the classic Command Center — must run auth before rewrite.
   const pathForHubGate =
-    isHubHost && (pathname === '/' || pathname === '') ? '/hub' : pathname;
+    isHubHost && (pathname === '/' || pathname === '') ? '/hub/classic' : pathname;
 
   // .well-known (Apple Pay, etc.) — never redirect, never auth
   if (pathname.startsWith('/.well-known/')) {
@@ -80,10 +80,10 @@ export async function middleware(request: NextRequest) {
     }
   }
 
-  // hub.hellogorgeousmedspa.com → internal /hub (after auth)
+  // hub.hellogorgeousmedspa.com → classic Command Center (after auth)
   if (isHubHost) {
     if (url.pathname === '/') {
-      url.pathname = '/hub';
+      url.pathname = '/hub/classic';
       return NextResponse.rewrite(url);
     }
     const allowed =
