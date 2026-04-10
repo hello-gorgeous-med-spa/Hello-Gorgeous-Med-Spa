@@ -129,7 +129,7 @@ const navigation = {
       { label: "Memberships", href: "/memberships", description: "Save with a membership plan", icon: "🎁" },
       { label: "Laser Hair Memberships", href: "/laser-hair-memberships", description: "30% less — from $69/month", icon: "🔥", badge: "30% OFF" },
       { label: "Give $25, Get $25", href: "/referral", description: "Refer a friend", icon: "💝" },
-      { label: "Current Promotions", href: "/book", description: "This month's deals", icon: "🔥" },
+      { label: "Book online (Fresha)", href: BOOKING_URL, description: "Schedule appointments — trusted booking link", icon: "🔥", external: true },
       { label: "Financing Options", href: "/financing", description: "CareCredit, Cherry & Affirm — apply through our clinic", icon: "💳" },
       { label: "Apply for CareCredit", href: CARECREDIT_URL, description: "0% APR financing — apply now", icon: "💳", external: true },
     ],

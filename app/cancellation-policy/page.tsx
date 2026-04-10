@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import { SITE } from "@/lib/seo";
+import { BOOKING_URL } from "@/lib/flows";
 
 export const metadata: Metadata = {
   title: "Appointment & Cancellation Policy | Hello Gorgeous Med Spa",
@@ -180,9 +181,14 @@ export default function CancellationPolicyPage() {
         </section>
 
         <p className="pt-8 text-sm">
-          <Link href="/book" className="text-[#FF2D8E] font-medium underline">
+          <a
+            href={BOOKING_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-[#FF2D8E] font-medium underline"
+          >
             Book an appointment
-          </Link>
+          </a>
           {" · "}
           <Link href="/terms" className="text-[#FF2D8E] font-medium underline">
             Terms of Service

@@ -1,4 +1,7 @@
-/** Booking and conversion URLs — public site links to Fresha (not the internal /book OS until ready). */
+/**
+ * Booking and conversion URLs — public site uses this trusted scheduler only.
+ * Custom `/book` routes redirect here (Fresha through May 2026, then Square online booking).
+ */
 export const FRESHA_BOOKING_URL =
   process.env.NEXT_PUBLIC_FRESHA_BOOKING_URL ||
   process.env.NEXT_PUBLIC_BOOKING_URL ||

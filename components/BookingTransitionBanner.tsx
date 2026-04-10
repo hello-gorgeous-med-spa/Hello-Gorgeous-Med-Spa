@@ -44,11 +44,8 @@ export default function BookingTransitionBanner() {
         <p className="text-white/95 font-normal text-[11px] sm:text-xs md:text-sm leading-snug">
           <span className="text-[#FF2D8E] font-semibold">Memo:</span> Fresha online booking is available through{" "}
           <strong className="text-white">{FRESHA_BOOKING_END_LABEL}</strong>
-          . We&apos;re transitioning to <strong className="text-white">Square</strong> — use Fresha until then, or book on{" "}
-          <a href="/book" className="underline text-[#FF2D8E] hover:text-pink-300">
-            our website
-          </a>
-          .
+          . We&apos;re transitioning to <strong className="text-white">Square</strong> — all online booking goes through
+          the scheduler below (not an in-site form).
         </p>
         <a
           href={BOOKING_URL}
