@@ -279,8 +279,8 @@ hr.divider{border:none;border-top:1px solid #f0f0f0;margin:12px 0}
     <div class="card-sm">
       <div class="stat-accent" style="background:#2a9d8f"></div>
       <div class="stat-label">Google Rating</div>
-      <div class="stat-value stat-green" id="google-rating">4.9 ★</div>
-      <div class="stat-sub" id="google-review-count">Connect API to refresh</div>
+      <div class="stat-value stat-green" id="google-rating">—</div>
+      <div class="stat-sub" id="google-review-count">Loading…</div>
     </div>
     <div class="card-sm">
       <div class="stat-accent" style="background:#FF1493"></div>
@@ -586,7 +586,7 @@ hr.divider{border:none;border-top:1px solid #f0f0f0;margin:12px 0}
 <div id="page-reputation" class="page">
   <div class="morning-header">
     <div class="morning-greeting">Google <span>Reviews</span></div>
-    <div class="morning-sub">Hello Gorgeous Med Spa · Oswego, IL · 4.9★ avg</div>
+    <div class="morning-sub" id="gbp-reputation-sub">Hello Gorgeous Med Spa · Oswego, IL — loading…</div>
   </div>
 
   <div class="grid-2-1">
@@ -595,42 +595,19 @@ hr.divider{border:none;border-top:1px solid #f0f0f0;margin:12px 0}
         <div class="card-header"><div class="card-title">Review Summary</div><span class="api-badge api-waiting" id="gbp-api-badge">⬡ API not connected</span></div>
         <div class="review-summary">
           <div>
-            <div class="review-score" id="avg-rating">4.9</div>
+            <div class="review-score" id="avg-rating">—</div>
             <div class="review-stars" id="star-display">
               <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
             </div>
-            <div class="review-meta" id="review-count-display">Based on your Google Business Profile</div>
+            <div class="review-meta" id="review-count-display">Loading Google Business Profile…</div>
           </div>
-          <div style="flex:1;padding-left:16px">
-            <div style="font-size:12px;color:#888;margin-bottom:10px">Connect Google Business Profile API to see live reviews, respond to new ones, and get alerts for 1-star reviews.</div>
+          <div style="flex:1;padding-left:16px" id="gbp-connect-cta">
+            <div style="font-size:12px;color:#888;margin-bottom:10px">Connect Google Business Profile OAuth in Settings to load live reviews and reply from here.</div>
             <button class="connect-btn connect-btn-pink" onclick="navTo('settings',document.querySelector('.nav-btn:nth-child(7)'))">Connect in Settings →</button>
           </div>
         </div>
         <div id="reviews-list">
-          <!-- Demo reviews -->
-          <div class="review-item">
-            <div class="review-top">
-              <div class="reviewer-avatar">SM</div>
-              <div class="reviewer-name">Sarah M.</div>
-              <div class="review-stars" style="margin:0"><span class="star" style="font-size:12px">★★★★★</span></div>
-              <div class="review-date">2 days ago</div>
-            </div>
-            <div class="review-text">"Danielle is absolutely incredible. I've been coming to Hello Gorgeous for 2 years and the results just keep getting better. The Morpheus8 Burst changed my skin completely!"</div>
-            <button class="review-reply-btn">Reply →</button>
-          </div>
-          <div class="review-item">
-            <div class="review-top">
-              <div class="reviewer-avatar">JL</div>
-              <div class="reviewer-name">Jennifer L.</div>
-              <div class="review-stars" style="margin:0"><span class="star" style="font-size:12px">★★★★★</span></div>
-              <div class="review-date">1 week ago</div>
-            </div>
-            <div class="review-text">"Best med spa in the area, hands down. Ryan is so knowledgeable and Danielle truly cares about every client. Wouldn't go anywhere else."</div>
-            <button class="review-reply-btn">Reply →</button>
-          </div>
-          <div style="text-align:center;padding:12px;font-size:12px;color:#FF1493;cursor:pointer" onclick="toast('Connect Google Business API to load all reviews','')">
-            Connect API to load all reviews →
-          </div>
+          <div style="text-align:center;padding:20px;font-size:12px;color:#aaa">Loading reviews…</div>
         </div>
       </div>
     </div>
@@ -661,7 +638,7 @@ hr.divider{border:none;border-top:1px solid #f0f0f0;margin:12px 0}
           <code style="font-size:10px;word-break:break-all">https://www.hellogorgeousmedspa.com/api/auth/google/callback</code><br>
           3. Put <code>GOOGLE_CLIENT_ID</code> + <code>GOOGLE_CLIENT_SECRET</code> in <strong>Vercel env</strong> only (never in this form).<br>
           4. Settings → <strong>Connect Google Business (OAuth)</strong> — tokens save to Supabase.<br>
-          <em>Live inbox reviews / reply-from-Hub still TBD in app.</em>
+          <em>Reviews refresh automatically from Google when OAuth is connected (Hub → Google Reviews).</em>
         </div>
       </div>
     </div>
@@ -985,6 +962,101 @@ async function refreshIntegrationsStatus() {
     }
   } catch (e) {}
 }
+function gbpStarRowHtml(n) {
+  var r = Math.max(0, Math.min(5, Math.round(Number(n) || 0)));
+  var s = '';
+  for (var i = 0; i < 5; i++) { s += '<span class="star" style="font-size:12px">' + (i < r ? '\u2605' : '\u2606') + '</span>'; }
+  return s;
+}
+function gbpInitials(name) {
+  var p = String(name || 'A').trim().split(/\s+/);
+  return ((p[0] || 'A')[0] + (p[1] || '')[0]).toUpperCase().slice(0, 2);
+}
+async function refreshGoogleBusinessLive() {
+  try {
+    var r = await hubFetch('/api/hub/google-reviews?limit=50');
+    var j = await r.json();
+    var avg = j.averageRating != null ? Number(j.averageRating) : null;
+    var total = j.totalReviewCount != null ? Number(j.totalReviewCount) : 0;
+    var list = j.reviews || [];
+    var err = j.error || (!r.ok ? 'Request failed' : '');
+    var morningRating = document.getElementById('google-rating');
+    var morningSub = document.getElementById('google-review-count');
+    var repSub = document.getElementById('gbp-reputation-sub');
+    var avgEl = document.getElementById('avg-rating');
+    var starEl = document.getElementById('star-display');
+    var countEl = document.getElementById('review-count-display');
+    var cta = document.getElementById('gbp-connect-cta');
+    var listEl = document.getElementById('reviews-list');
+    var badge = document.getElementById('gbp-api-badge');
+    if (err && !list.length) {
+      if (morningRating) morningRating.textContent = '\u2014';
+      if (morningSub) morningSub.textContent = err.length > 60 ? err.slice(0, 60) + '\u2026' : err;
+      if (repSub) repSub.textContent = 'Google reviews — ' + (err || 'not available');
+      if (avgEl) avgEl.textContent = '\u2014';
+      if (countEl) countEl.textContent = err || 'Connect in Settings';
+      if (cta) cta.style.display = 'block';
+      if (listEl) listEl.innerHTML = '<div style="text-align:center;padding:16px;font-size:12px;color:#888">' + escapePlaidHtml(err || 'Connect Google Business in Settings.') + '</div>';
+      if (badge) {
+        badge.textContent = '\u2b21 API error';
+        badge.className = 'api-badge api-waiting';
+      }
+      return;
+    }
+    if (avg != null && !isNaN(avg)) {
+      if (morningRating) morningRating.textContent = avg.toFixed(1) + ' \u2605';
+      if (morningSub) morningSub.textContent = total + ' Google reviews';
+      if (repSub) repSub.textContent = 'Hello Gorgeous Med Spa · Oswego, IL · ' + avg.toFixed(1) + '\u2605 avg · ' + total + ' reviews';
+      if (avgEl) avgEl.textContent = avg.toFixed(1);
+      if (countEl) countEl.textContent = total + ' reviews on Google Business Profile';
+      if (starEl) starEl.innerHTML = gbpStarRowHtml(avg);
+    }
+    if (cta) cta.style.display = list.length || total ? 'none' : 'block';
+    if (badge) {
+      badge.textContent = '\u2b21 Live from Google';
+      badge.className = 'api-badge api-connected';
+    }
+    if (listEl) {
+      if (!list.length) {
+        listEl.innerHTML = '<div style="text-align:center;padding:16px;font-size:12px;color:#888">No reviews returned yet (new listing or API delay).</div>';
+      } else {
+        listEl.innerHTML = list.map(function (rev) {
+          var dt = rev.createTime ? new Date(rev.createTime).toLocaleDateString(undefined, { dateStyle: 'medium' }) : '';
+          var rid = String(rev.reviewId || '').replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+          var replyLine = rev.reply ? '<div style="font-size:11px;color:#2a9d8f;margin-top:8px;padding:8px;background:rgba(42,157,143,0.08);border-radius:6px"><strong>Your reply:</strong> ' + escapePlaidHtml(rev.reply) + '</div>' : '';
+          return '<div class="review-item">' +
+            '<div class="review-top">' +
+            '<div class="reviewer-avatar">' + escapePlaidHtml(gbpInitials(rev.reviewer)) + '</div>' +
+            '<div class="reviewer-name">' + escapePlaidHtml(rev.reviewer || '') + '</div>' +
+            '<div class="review-stars" style="margin:0">' + gbpStarRowHtml(rev.rating) + '</div>' +
+            '<div class="review-date">' + escapePlaidHtml(dt) + '</div></div>' +
+            '<div class="review-text">' + escapePlaidHtml(rev.comment || '(No comment)') + '</div>' + replyLine +
+            '<button type="button" class="review-reply-btn" onclick="gbpPromptReply(\'' + rid + '\')">Reply on Google \u2192</button></div>';
+        }).join('');
+      }
+    }
+  } catch (e) {
+    var listEl2 = document.getElementById('reviews-list');
+    if (listEl2) listEl2.innerHTML = '<div style="text-align:center;padding:16px;font-size:12px;color:#e63946">Could not load Google reviews.</div>';
+  }
+}
+async function gbpPromptReply(reviewId) {
+  if (!reviewId) return;
+  var text = window.prompt('Public reply (posts to Google Business Profile):', '');
+  if (!text || !String(text).trim()) return;
+  var res = await hubFetch('/api/hub/google-reviews', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ reviewId: reviewId, comment: String(text).trim() })
+  });
+  var jr = await res.json().catch(function () { return {}; });
+  if (!res.ok || jr.error) {
+    toast(jr.error || 'Reply failed', 'error');
+    return;
+  }
+  toast('Reply posted', 'success');
+  await refreshGoogleBusinessLive();
+}
 function hubPushStateDebounced() {
   clearTimeout(_hubSaveTimer);
   _hubSaveTimer = setTimeout(function () { hubPushState(); }, 450);
@@ -1031,6 +1103,7 @@ function navTo(id, el) {
   document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
   document.getElementById('page-'+id).classList.add('active');
   if (el) el.classList.add('active');
+  if (id === 'reputation') refreshGoogleBusinessLive();
 }
 
 // ════════════════════════════════════════════════════════
@@ -1735,6 +1808,7 @@ function toast(msg, type='') {
 (async function hubBoot(){
   await stLoad();
   await refreshIntegrationsStatus();
+  await refreshGoogleBusinessLive();
   buildMonths();
   renderTasks();
   renderCl();
@@ -1744,6 +1818,7 @@ function toast(msg, type='') {
   document.getElementById('e-date').value = new Date().toISOString().split('T')[0];
   fetchSquareLive(true);
   setInterval(function () { fetchSquareLive(true); }, 15 * 60 * 1000);
+  setInterval(function () { refreshGoogleBusinessLive(); }, 20 * 60 * 1000);
   if(ST.credentials&&ST.credentials.meta&&ST.credentials.meta.igId) document.getElementById('meta-ig-id').value = ST.credentials.meta.igId;
   if(ST.credentials&&ST.credentials.twilio&&ST.credentials.twilio.sid) document.getElementById('tw-sid').value = ST.credentials.twilio.sid;
   if(ST.credentials&&ST.credentials.twilio&&ST.credentials.twilio.from) document.getElementById('tw-from').value = ST.credentials.twilio.from;
