@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import { PlaidLinkButton } from "@/app/hub/PlaidLinkButton";
 
 type UserKey = "dani" | "ryan";
 type Task = { id: number; text: string; assignee: "dani" | "ryan" | "both"; done: boolean; created_at: string };
@@ -291,6 +292,7 @@ export default function HubPageClient() {
           <button type="button" className="border rounded px-3 py-2" onClick={openSquareAppointmentsCalendar}>
             Open Square appointments ↗
           </button>
+          <PlaidLinkButton />
           <button className="border rounded px-3 py-2" onClick={() => window.location.href = "/api/auth/google?state=hub"}>Connect Google Business OAuth</button>
           <button type="button" className="border rounded px-3 py-2" onClick={loadSquareSummary}>
             Sync Square month-to-date

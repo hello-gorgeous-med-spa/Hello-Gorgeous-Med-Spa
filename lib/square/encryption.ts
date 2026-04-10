@@ -31,8 +31,8 @@ interface KeyConfig {
 
 function getKeyRegistry(): Record<number, KeyConfig> {
   return {
-    // Version 1: Current key
-    1: { key: process.env.SQUARE_ENCRYPTION_KEY },
+    // Version 1: Current key (Plaid tokens use PLAID_ENCRYPTION_KEY if Square key unset)
+    1: { key: process.env.SQUARE_ENCRYPTION_KEY || process.env.PLAID_ENCRYPTION_KEY },
     // When rotating, add version 2 and mark version 1 as deprecated:
     // 2: { key: process.env.SQUARE_ENCRYPTION_KEY_V2 },
     // 1: { key: process.env.SQUARE_ENCRYPTION_KEY, deprecated: true },
@@ -47,7 +47,9 @@ function getEncryptionKey(version: number = CURRENT_KEY_VERSION): Buffer {
   const config = registry[version];
   
   if (!config || !config.key) {
-    throw new Error(`SQUARE_ENCRYPTION_KEY (version ${version}) is not set`);
+    throw new Error(
+      `Token encryption key (version ${version}) is not set — use SQUARE_ENCRYPTION_KEY or PLAID_ENCRYPTION_KEY (64 hex chars)`
+    );
   }
   
   const key = config.key;

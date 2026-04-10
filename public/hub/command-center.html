@@ -35,7 +35,7 @@ body{font-family:'Lato',sans-serif;background:#f5f5f5;color:#1A1A1A;min-height:1
 
 /* ── GRID LAYOUTS ── */
 .grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:18px}
-.grid-morning{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-bottom:18px}
+.grid-morning{display:grid;grid-template-columns:repeat(auto-fit,minmax(148px,1fr));gap:14px;margin-bottom:18px}
 @media(max-width:1200px){.grid-morning{grid-template-columns:repeat(3,1fr)}}
 @media(max-width:720px){.grid-morning{grid-template-columns:repeat(2,1fr)}}
 .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:18px}
@@ -287,6 +287,18 @@ hr.divider{border:none;border-top:1px solid #f0f0f0;margin:12px 0}
       <div class="stat-label">Active Clients</div>
       <div class="stat-value stat-pink">3,449</div>
       <div class="stat-sub">2,115 SMS · 2,294 Email</div>
+    </div>
+    <div class="card-sm">
+      <div class="stat-accent" style="background:#0d6e3f"></div>
+      <div class="stat-label">Chase (Plaid)</div>
+      <div class="stat-value stat-black" id="plaid-chase-balance">—</div>
+      <div class="stat-sub" id="plaid-chase-sub">Business checking</div>
+    </div>
+    <div class="card-sm">
+      <div class="stat-accent" style="background:#1a237e"></div>
+      <div class="stat-label">Amex (Plaid)</div>
+      <div class="stat-value stat-black" id="plaid-amex-balance">—</div>
+      <div class="stat-sub" id="plaid-amex-sub">Business cards</div>
     </div>
   </div>
 
@@ -556,6 +568,18 @@ hr.divider{border:none;border-top:1px solid #f0f0f0;margin:12px 0}
     <div class="card-header"><div class="card-title card-title-pink">Bills &amp; Subscriptions</div><span id="b-total-badge" style="font-size:13px;color:#aaa">Monthly total: <strong style="color:#FF1493">$0</strong></span></div>
     <table class="ctbl"><thead><tr><th>Name</th><th>Category</th><th>Frequency</th><th>Due Day</th><th>Monthly</th><th>Status</th><th></th></tr></thead><tbody id="b-tbody"></tbody></table>
   </div>
+  <div class="card" style="margin-top:14px">
+    <div class="card-header"><div class="card-title card-title-pink">Bank transactions (Plaid)</div>
+      <span id="plaid-txn-totals" style="font-size:11px;color:#888">MTD totals after load</span>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:10px;font-size:12px">
+      <label>From <input class="sinput" type="date" id="plaid-t-from" style="padding:6px 8px;font-size:11px"></label>
+      <label>To <input class="sinput" type="date" id="plaid-t-to" style="padding:6px 8px;font-size:11px"></label>
+      <label>Institution <input class="sinput" id="plaid-t-inst" placeholder="Chase, Amex…" style="padding:6px 8px;font-size:11px;width:120px"></label>
+      <button type="button" class="sbtn" onclick="loadPlaidBankTable()">Load</button>
+    </div>
+    <table class="ctbl"><thead><tr><th>Date</th><th>Merchant</th><th>Plaid cat.</th><th>Hub category</th><th>Amount</th><th></th></tr></thead><tbody id="plaid-txn-tbody"></tbody></table>
+  </div>
 </div>
 
 <!-- ═══════ REVIEWS ═══════ -->
@@ -717,6 +741,21 @@ hr.divider{border:none;border-top:1px solid #f0f0f0;margin:12px 0}
   </div>
 
   <div class="settings-section">
+    <div class="settings-label">Bank accounts (Plaid)</div>
+    <div class="settings-card">
+      <p style="font-size:12px;color:#666;line-height:1.65;margin-bottom:12px">
+        Connect <strong>Chase Business</strong> and <strong>American Express</strong> in one flow. Tokens stay on the server; transactions sync to Finance below and the morning dashboard.
+        Set <code style="font-size:10px">PLAID_CLIENT_ID</code>, <code style="font-size:10px">PLAID_SECRET</code>, <code style="font-size:10px">PLAID_ENV</code> in Vercel and run the Supabase migration for <code style="font-size:10px">hg_plaid_*</code> tables.
+      </p>
+      <div class="settings-row" style="flex-wrap:wrap;align-items:center;gap:10px">
+        <button type="button" class="sbtn" onclick="openPlaidLink()">Connect bank account</button>
+        <span style="font-size:11px;color:#888">Uses Plaid Link · encrypts access token (same key as Square if <code style="font-size:10px">PLAID_ENCRYPTION_KEY</code> unset)</span>
+      </div>
+      <div id="plaid-accounts-list" style="margin-top:14px"></div>
+    </div>
+  </div>
+
+  <div class="settings-section">
     <div class="settings-label">Google Business Profile API</div>
     <div class="settings-card">
       <p style="font-size:12px;color:#666;line-height:1.65;margin-bottom:14px">
@@ -818,6 +857,7 @@ hr.divider{border:none;border-top:1px solid #f0f0f0;margin:12px 0}
 
 <div id="toast"></div>
 
+<script src="https://cdn.plaid.com/link/v2/stable/link-initialize.js"></script>
 <script>
 // ════════════════════════════════════════════════════════
 // CLIENT DATA — 3,449 contacts (compact, no phone numbers in JS for perf)
@@ -1503,6 +1543,183 @@ function openSquareAppointments() {
   window.open('https://app.squareup.com/dashboard/appointments/calendar', '_blank', 'noopener,noreferrer');
 }
 
+
+// PLAID (HG_DEV_PLAID_001)
+function escapePlaidHtml(s) {
+  return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+var PLAID_HG_CATS = ['Equipment & Supplies', 'Software & Subscriptions', 'Marketing & Advertising', 'Rent & Utilities', 'Credit Card Bills', 'Staff & Contractors', 'Other'];
+function plaidCategoryOptionsHtml(selected) {
+  return PLAID_HG_CATS.map(function (c) {
+    return '<option value="' + escapePlaidHtml(c) + '"' + (c === selected ? ' selected' : '') + '>' + escapePlaidHtml(c) + '</option>';
+  }).join('');
+}
+async function refreshPlaidMorningBalances() {
+  var balCh = document.getElementById('plaid-chase-balance');
+  var subCh = document.getElementById('plaid-chase-sub');
+  var balAm = document.getElementById('plaid-amex-balance');
+  var subAm = document.getElementById('plaid-amex-sub');
+  if (!balCh) return;
+  try {
+    var r = await hubFetch('/api/hub/plaid/accounts');
+    var j = await r.json();
+    if (!r.ok || !j.items || !j.items.length) {
+      balCh.textContent = '\u2014';
+      balAm.textContent = '\u2014';
+      if (subCh) subCh.textContent = 'Connect in Settings';
+      if (subAm) subAm.textContent = 'Connect in Settings';
+      return;
+    }
+    var chase = 0;
+    var amex = 0;
+    for (var i = 0; i < j.items.length; i++) {
+      var it = j.items[i];
+      var inst = (it.institution_name || '').toLowerCase();
+      var accs = it.accounts || [];
+      for (var k = 0; k < accs.length; k++) {
+        var a = accs[k];
+        var b = Number(a.current_balance != null ? a.current_balance : 0);
+        if (inst.indexOf('chase') >= 0 && (a.type || '').toLowerCase() === 'depository') chase += b;
+        if (inst.indexOf('amex') >= 0 || inst.indexOf('american express') >= 0) amex += b;
+      }
+    }
+    balCh.textContent = fmt(chase);
+    balAm.textContent = fmt(amex);
+    if (subCh) subCh.textContent = 'Checking balance (Plaid)';
+    if (subAm) subAm.textContent = 'Cards total (may be negative)';
+  } catch (e) {
+    balCh.textContent = '\u2014';
+    balAm.textContent = '\u2014';
+  }
+}
+async function refreshPlaidAccountsList() {
+  var el = document.getElementById('plaid-accounts-list');
+  if (!el) return;
+  try {
+    var r = await hubFetch('/api/hub/plaid/accounts');
+    var j = await r.json();
+    if (!r.ok || !j.items || !j.items.length) {
+      el.innerHTML = '<span style="color:#888">No bank accounts linked yet.</span>';
+      return;
+    }
+    el.innerHTML = j.items.map(function (it) {
+      var accs = (it.accounts || []).map(function (a) {
+        return '<div style="padding:6px 0;border-bottom:1px solid #eee">' + escapePlaidHtml(a.name || '') + ' \u00b7 ' + escapePlaidHtml(a.type || '') + ' \u00b7 ' + fmt(Number(a.current_balance != null ? a.current_balance : 0)) + '</div>';
+      }).join('');
+      var iid = String(it.item_id || '').replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+      return '<div style="margin-bottom:14px;padding:10px;background:#fafafa;border-radius:8px">' +
+        '<strong>' + escapePlaidHtml(it.institution_name || 'Bank') + '</strong> \u00b7 last sync ' + (it.last_synced_at ? new Date(it.last_synced_at).toLocaleString() : '\u2014') +
+        '<div style="margin-top:8px">' + accs + '</div>' +
+        '<button type="button" class="sbtn" style="margin-top:8px;margin-right:8px" onclick="plaidSyncItem(\'' + iid + '\')">Sync now</button>' +
+        '<button type="button" style="margin-top:8px;border:1px solid #e63946;color:#e63946;background:transparent;border-radius:4px;padding:6px 12px;cursor:pointer;font-size:11px" onclick="plaidDisconnect(\'' + iid + '\')">Disconnect</button>' +
+        '</div>';
+    }).join('');
+  } catch (e) {
+    el.innerHTML = '';
+  }
+}
+async function openPlaidLink() {
+  if (typeof Plaid === 'undefined') {
+    toast('Plaid script not loaded \u2014 refresh the page', 'error');
+    return;
+  }
+  var r = await hubFetch('/api/hub/plaid/link-token', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({})
+  });
+  var j = await r.json();
+  if (!r.ok || !j.link_token) {
+    toast(j.error || 'Could not start Plaid', 'error');
+    return;
+  }
+  var handler = Plaid.create({
+    token: j.link_token,
+    onSuccess: async function (public_token, metadata) {
+      var ex = await hubFetch('/api/hub/plaid/exchange', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ public_token: public_token, metadata: metadata })
+      });
+      var ej = await ex.json();
+      if (!ex.ok) {
+        toast(ej.error || 'Exchange failed', 'error');
+        return;
+      }
+      toast('Bank connected', 'success');
+      await refreshPlaidAccountsList();
+      await refreshPlaidMorningBalances();
+      await loadPlaidBankTable();
+    }
+  });
+  handler.open();
+}
+async function plaidSyncItem(itemId) {
+  await hubFetch('/api/hub/plaid/sync', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ item_id: itemId })
+  });
+  await refreshPlaidAccountsList();
+  await refreshPlaidMorningBalances();
+  await loadPlaidBankTable();
+  toast('Plaid sync complete', 'success');
+}
+async function plaidDisconnect(itemId) {
+  if (!confirm('Disconnect this bank from Plaid?')) return;
+  var r = await hubFetch('/api/hub/plaid/disconnect', {
+    method: 'DELETE',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ item_id: itemId })
+  });
+  if (!r.ok) {
+    var ej = await r.json().catch(function () { return {}; });
+    toast(ej.error || 'Disconnect failed', 'error');
+    return;
+  }
+  await refreshPlaidAccountsList();
+  await refreshPlaidMorningBalances();
+  await loadPlaidBankTable();
+  toast('Disconnected', 'success');
+}
+async function loadPlaidBankTable() {
+  var tbody = document.getElementById('plaid-txn-tbody');
+  if (!tbody) return;
+  var fromEl = document.getElementById('plaid-t-from');
+  var toEl = document.getElementById('plaid-t-to');
+  var instEl = document.getElementById('plaid-t-inst');
+  var from = fromEl && fromEl.value ? fromEl.value : '';
+  var to = toEl && toEl.value ? toEl.value : '';
+  var instF = instEl && instEl.value ? instEl.value : '';
+  var qs = '?limit=200';
+  if (from) qs += '&from=' + encodeURIComponent(from);
+  if (to) qs += '&to=' + encodeURIComponent(to);
+  if (instF) qs += '&institution=' + encodeURIComponent(instF);
+  try {
+    var r = await hubFetch('/api/hub/plaid/transactions' + qs);
+    var j = await r.json();
+    tbody.innerHTML = (j.transactions || []).map(function (t) {
+      var tid = String(t.transaction_id || '').replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+      var sel = '<select onchange="plaidSetCategory(\'' + tid + '\', this.value)" style="font-size:11px;padding:4px;max-width:160px">' + plaidCategoryOptionsHtml(t.hg_category) + '</select>';
+      return '<tr><td>' + escapePlaidHtml(t.date || '') + '</td><td>' + escapePlaidHtml(t.name || '') + '</td><td style="font-size:11px;color:#666">' + escapePlaidHtml(t.category || '') + '</td><td>' + sel + '</td><td>' + fmt(Number(t.amount != null ? t.amount : 0)) + '</td><td style="font-size:10px;color:#888">' + (t.pending ? 'pending' : '') + '</td></tr>';
+    }).join('');
+    var tot = document.getElementById('plaid-txn-totals');
+    if (tot && j.totals) {
+      tot.textContent = 'MTD Chase spend ' + fmt(j.totals.chase_month_spend) + ' \u00b7 Amex spend ' + fmt(j.totals.amex_month_spend);
+    }
+  } catch (e) {
+    tbody.innerHTML = '';
+  }
+}
+async function plaidSetCategory(tid, cat) {
+  await hubFetch('/api/hub/plaid/transactions', {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ transaction_id: tid, hg_category: cat })
+  });
+  toast('Category updated', 'success');
+}
+
 // ════════════════════════════════════════════════════════
 // TOAST
 // ════════════════════════════════════════════════════════
@@ -1531,6 +1748,9 @@ function toast(msg, type='') {
   if(ST.credentials&&ST.credentials.twilio&&ST.credentials.twilio.sid) document.getElementById('tw-sid').value = ST.credentials.twilio.sid;
   if(ST.credentials&&ST.credentials.twilio&&ST.credentials.twilio.from) document.getElementById('tw-from').value = ST.credentials.twilio.from;
   if(ST.credentials&&ST.credentials.resend&&ST.credentials.resend.from) document.getElementById('rs-from').value = ST.credentials.resend.from;
+  refreshPlaidMorningBalances();
+  refreshPlaidAccountsList();
+  loadPlaidBankTable();
 })();
 </script>
 </body>

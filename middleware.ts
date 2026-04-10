@@ -55,9 +55,15 @@ export async function middleware(request: NextRequest) {
   if (hubPasswordGateEnabled()) {
     const isHubLogin =
       pathForHubGate === '/hub/login' || pathForHubGate.startsWith('/hub/login/');
+    const plaidCronOk =
+      pathForHubGate === '/api/hub/plaid/sync' &&
+      request.method === 'GET' &&
+      !!process.env.CRON_SECRET &&
+      request.headers.get('authorization') === `Bearer ${process.env.CRON_SECRET}`;
     const isHubApiPublic =
       pathForHubGate.startsWith('/api/hub/auth') ||
-      pathForHubGate.startsWith('/api/hub/session');
+      pathForHubGate.startsWith('/api/hub/session') ||
+      plaidCronOk;
     const needsHubAuth =
       pathForHubGate === '/hub' ||
       (pathForHubGate.startsWith('/hub/') && !isHubLogin) ||
