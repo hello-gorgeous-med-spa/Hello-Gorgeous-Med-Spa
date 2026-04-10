@@ -369,7 +369,11 @@ export default async function PublicBookingPage({
               <strong>Booking:</strong> You can book appointments up to {DEFAULT_BOOKING_POLICY.maxAdvanceBookingDays / 30} months in advance.
             </p>
             <p>
-              <strong>Cancellation:</strong> Please provide at least {DEFAULT_CANCELLATION_POLICY.freeCancellationHours} hours notice to cancel or reschedule your appointment.
+              <strong>Cancellation:</strong> Please provide at least {DEFAULT_CANCELLATION_POLICY.freeCancellationHours} hours notice to cancel or reschedule. Cancellations within 24 hours and no-shows may incur a $50 fee per our{" "}
+              <Link href="/cancellation-policy" className="font-semibold text-amber-900 underline">
+                Appointment &amp; Cancellation Policy
+              </Link>
+              .
             </p>
             <p className="text-xs mt-3 text-amber-700 leading-relaxed">
               {DEFAULT_ONLINE_BOOKING_CONFIG.importantInfoText.split('\n')[0]}

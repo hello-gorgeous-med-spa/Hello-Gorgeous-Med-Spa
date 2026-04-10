@@ -131,6 +131,11 @@ export function Footer({ siteSettings }: { siteSettings?: SiteSettings | null })
             <h4 className="font-bold text-[#FF2D8E] mb-5 text-sm uppercase tracking-wider">Explore</h4>
             <ul className="space-y-3 text-sm text-white">
               <li>
+                <Link className="text-[#FF2D8E] hover:text-[#FF2D8E] font-medium transition-colors" href="/events/vip-device-night">
+                  ✨ VIP Device Night — May 7 @ Freddie&apos;s
+                </Link>
+              </li>
+              <li>
                 <Link className="text-[#FF2D8E] hover:text-[#FF2D8E] font-medium transition-colors" href="/spring-special-laser-hair">
                   🌸 Spring Special: Laser Hair $79
                 </Link>
@@ -371,6 +376,9 @@ export function Footer({ siteSettings }: { siteSettings?: SiteSettings | null })
               </Link>
               <Link className="hover:text-[#FF2D8E] transition-colors" href="/terms">
                 Terms of Service
+              </Link>
+              <Link className="hover:text-[#FF2D8E] transition-colors" href="/cancellation-policy">
+                Cancellation Policy
               </Link>
               <Link className="hover:text-[#FF2D8E] transition-colors" href="/privacy#hipaa">
                 HIPAA Notice
