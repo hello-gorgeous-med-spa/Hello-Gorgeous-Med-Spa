@@ -117,6 +117,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.85,
     },
     {
+      url: `${baseUrl}/newsletter/april`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly',
+      priority: 0.75,
+    },
+    {
       url: `${baseUrl}/glp1-intake`,
       lastModified: currentDate,
       changeFrequency: 'weekly',

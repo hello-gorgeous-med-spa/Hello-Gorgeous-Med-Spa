@@ -283,6 +283,12 @@ hr.divider{border:none;border-top:1px solid #f0f0f0;margin:12px 0}
       <div class="stat-sub" id="google-review-count">Loading…</div>
     </div>
     <div class="card-sm">
+      <div class="stat-accent" style="background:#25D366"></div>
+      <div class="stat-label">WhatsApp unread</div>
+      <div class="stat-value stat-green" id="wa-unread-morning">0</div>
+      <div class="stat-sub">Inbox (mark read when you open a client)</div>
+    </div>
+    <div class="card-sm">
       <div class="stat-accent" style="background:#FF1493"></div>
       <div class="stat-label">Active Clients</div>
       <div class="stat-value stat-pink">3,449</div>
@@ -356,6 +362,9 @@ hr.divider{border:none;border-top:1px solid #f0f0f0;margin:12px 0}
           </div>
         </div>
       </div>
+      <div style="font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#888;margin-top:16px;margin-bottom:8px">Live arrivals · QR check-in</div>
+      <div id="hub-arrivals-list" style="max-height:140px;overflow-y:auto;font-size:12px;color:#555"></div>
+      <p style="font-size:10px;color:#aaa;margin-top:8px">Print QR to <code style="font-size:10px">/checkin</code> on your site. Syncs with Supabase appointments.</p>
     </div>
 
     <!-- Tasks -->
@@ -445,6 +454,8 @@ hr.divider{border:none;border-top:1px solid #f0f0f0;margin:12px 0}
     <select class="cf" id="cl-em" onchange="filterCl()"><option value="">All Email</option><option value="1">Email Opted-In</option><option value="0">Email Opted-Out</option></select>
     <select class="cf" id="cl-src" onchange="filterCl()"><option value="">All Sources</option><option>Book Now Link</option><option>Walk-In</option><option>Fresha Marketplace</option><option>Facebook</option><option>Google</option><option>Instagram</option><option>Referral</option></select>
     <select class="cf" id="cl-blk" onchange="filterCl()"><option value="">All</option><option value="0">Active Only</option><option value="1">Blocked</option></select>
+    <select class="cf" id="cl-segment" onchange="applySavedSegment()" style="min-width:140px"><option value="">Saved segments…</option></select>
+    <button type="button" class="sbtn" style="padding:8px 12px;font-size:11px" onclick="saveCurrentSegmentPrompt()">Save segment</button>
   </div>
   <div class="cl-statbar">
     <div class="cs"><div class="cs-dot" style="background:#FF1493"></div><span class="cs-lbl">Showing</span><span class="cs-val" id="cs-show">—</span></div>
@@ -718,6 +729,16 @@ hr.divider{border:none;border-top:1px solid #f0f0f0;margin:12px 0}
   </div>
 
   <div class="settings-section">
+    <div class="settings-label">Check-in &amp; intake (HG_DEV_007 / 008)</div>
+    <div class="settings-card">
+      <p style="font-size:12px;color:#666;line-height:1.65;margin:0">
+        <strong>QR check-in:</strong> point a QR code at <code style="font-size:11px">/checkin</code> on this site (updates today&apos;s appointment <code style="font-size:10px">checked_in_at</code> + <code style="font-size:10px">hg_checkins</code>).<br>
+        <strong>General intake form:</strong> <a href="/forms/general-intake" target="_blank" rel="noopener noreferrer" style="color:#FF1493">/forms/general-intake</a> — submissions in Supabase <code style="font-size:10px">hg_form_submissions</code> (Hub API: <code style="font-size:10px">GET /api/hub/forms/submissions</code>).
+      </p>
+    </div>
+  </div>
+
+  <div class="settings-section">
     <div class="settings-label">Bank accounts (Plaid)</div>
     <div class="settings-card">
       <p style="font-size:12px;color:#666;line-height:1.65;margin-bottom:12px">
@@ -826,9 +847,24 @@ hr.divider{border:none;border-top:1px solid #f0f0f0;margin:12px 0}
     <div id="modal-notes-list"></div>
     <textarea class="note-textarea" id="new-note-text" placeholder="Add a clinical note, observation, or reminder..."></textarea>
     <button class="note-add-btn" onclick="saveNote()">Save Note</button>
-    <div style="margin-top:14px;padding-top:12px;border-top:1px solid #f0f0f0;display:flex;gap:8px">
-      <button class="sms-from-card-btn" onclick="smsFromCard()">✉ Text This Client</button>
+    <div style="font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#888;margin:18px 0 8px">Messages (SMS &amp; WhatsApp)</div>
+    <div id="modal-messages-thread" style="max-height:220px;overflow-y:auto;margin-bottom:10px;padding:10px;background:#fafafa;border-radius:8px;font-size:12px;border:1px solid #eee"></div>
+    <div style="display:flex;gap:8px;align-items:flex-start;margin-bottom:10px;flex-wrap:wrap">
+      <select id="msg-channel-sel" style="padding:8px 10px;border:1px solid #e8e8e8;border-radius:6px;font-family:'Lato',sans-serif;font-size:11px;background:#fff">
+        <option value="sms">SMS</option>
+        <option value="whatsapp">WhatsApp</option>
+      </select>
+      <textarea id="msg-out-text" placeholder="Type a message to send…" style="flex:1;min-width:160px;min-height:56px;padding:10px;border:1px solid #e8e8e8;border-radius:8px;font-family:'Lato',sans-serif;font-size:12px;resize:vertical"></textarea>
     </div>
+    <button type="button" class="note-add-btn" onclick="sendHubMessage()" style="margin-bottom:8px;background:#1A1A1A">Send message</button>
+    <div style="font-size:11px;color:#888;margin-bottom:4px">Uses Twilio (<code style="font-size:10px">TWILIO_PHONE_NUMBER</code> / <code style="font-size:10px">TWILIO_WHATSAPP_NUMBER</code>). WhatsApp inbound: POST webhook to <code style="font-size:10px">/api/hub/whatsapp/incoming</code>.</div>
+    <div style="font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#888;margin:18px 0 8px">Prepaid packages</div>
+    <div id="modal-packages-list" style="margin-bottom:10px;padding:10px;background:#fafafa;border-radius:8px;font-size:12px;border:1px solid #eee;min-height:36px"></div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:6px">
+      <select id="modal-pkg-sel" style="padding:8px 10px;border:1px solid #e8e8e8;border-radius:6px;font-family:'Lato',sans-serif;font-size:11px;background:#fff;flex:1;min-width:160px"></select>
+      <button type="button" class="note-add-btn" onclick="assignHubPackage()" style="background:#2a9d8f">Add package</button>
+    </div>
+    <p style="font-size:10px;color:#888">Tracks sessions in Hub; Square catalog sync is a follow-up. Assign Morpheus8 / GLP-1 / Trifecta bundles to this client ID.</p>
   </div>
 </div>
 
@@ -864,6 +900,259 @@ let clFiltered = DEMO_CLIENTS.slice();
 let clPage = 0;
 const CL_PER = 50;
 let activeClientId = null;
+
+function normalizePhoneE164Hub(s) {
+  if (!s) return '';
+  var d = String(s).replace(/\D/g, '');
+  if (d.length === 10) return '+1' + d;
+  if (d.length === 11 && d[0] === '1') return '+' + d;
+  if (String(s).trim().charAt(0) === '+' && d.length >= 10) return '+' + d;
+  return '';
+}
+
+function msgUnreadForClient(c) {
+  if (!ST.msgSummary || !ST.msgSummary.byPhone) return 0;
+  var p = normalizePhoneE164Hub(c.phone);
+  if (!p) return 0;
+  var e = ST.msgSummary.byPhone[p];
+  return e && e.total ? e.total : 0;
+}
+
+async function refreshMsgSummary() {
+  ST.msgSummary = ST.msgSummary || { byPhone: {}, unreadWhatsapp: 0 };
+  try {
+    var u = currentUser;
+    var r = await hubFetch('/api/hub/messages/summary?user=' + encodeURIComponent(u));
+    var j = await r.json();
+    if (!r.ok) return;
+    ST.msgSummary.byPhone = j.byPhone || {};
+    ST.msgSummary.unreadWhatsapp = j.unreadWhatsapp || 0;
+    var wEl = document.getElementById('wa-unread-morning');
+    if (wEl) wEl.textContent = String(ST.msgSummary.unreadWhatsapp);
+  } catch (e) {}
+}
+
+async function loadModalMessages() {
+  var thread = document.getElementById('modal-messages-thread');
+  if (!thread || !activeClientId) return;
+  var client = DEMO_CLIENTS.find(function (c) { return c.id === activeClientId; });
+  var phone = client ? normalizePhoneE164Hub(client.phone) : '';
+  if (!phone) {
+    thread.innerHTML = '<div style="color:#888">No phone on file for messaging.</div>';
+    return;
+  }
+  try {
+    var u = currentUser;
+    var r = await hubFetch('/api/hub/messages?user=' + encodeURIComponent(u) + '&phone=' + encodeURIComponent(phone) + '&mark_read=1');
+    var j = await r.json();
+    if (!r.ok) {
+      thread.innerHTML = '<div style="color:#e63946">' + escapePlaidHtml(j.error || 'Could not load messages') + '</div>';
+      return;
+    }
+    var msgs = j.messages || [];
+    if (!msgs.length) {
+      thread.innerHTML = '<div style="color:#888">No messages yet. Send below (Twilio + Supabase required).</div>';
+    } else {
+      thread.innerHTML = msgs.map(function (m) {
+        var out = m.direction === 'outbound';
+        var ch = m.channel === 'whatsapp' ? 'WA' : 'SMS';
+        var al = out ? 'flex-end' : 'flex-start';
+        var bg = out ? 'rgba(255,20,147,0.12)' : '#fff';
+        var border = out ? '1px solid rgba(255,20,147,0.25)' : '1px solid #e8e8e8';
+        var who = out ? ('You \u00b7 ' + ch) : ('Client \u00b7 ' + ch);
+        var t = m.sent_at ? new Date(m.sent_at).toLocaleString() : '';
+        return '<div style="display:flex;justify-content:' + al + ';margin-bottom:8px"><div style="max-width:90%;padding:8px 10px;border-radius:10px;background:' + bg + ';border:' + border + ';text-align:left"><div style="font-size:9px;color:#888;margin-bottom:4px">' + escapePlaidHtml(who) + ' \u00b7 ' + escapePlaidHtml(t) + '</div><div style="color:#1A1A1A;white-space:pre-wrap;word-break:break-word">' + escapePlaidHtml(m.body || '') + '</div></div></div>';
+      }).join('');
+    }
+  } catch (e) {
+    thread.innerHTML = '<div style="color:#888">Could not load messages.</div>';
+  }
+  await refreshMsgSummary();
+  renderCl();
+}
+
+async function sendHubMessage() {
+  if (!activeClientId) return;
+  var client = DEMO_CLIENTS.find(function (c) { return c.id === activeClientId; });
+  var phone = client ? normalizePhoneE164Hub(client.phone) : '';
+  var textEl = document.getElementById('msg-out-text');
+  var text = textEl ? textEl.value.trim() : '';
+  var sel = document.getElementById('msg-channel-sel');
+  var channel = sel ? sel.value : 'sms';
+  if (!phone || !text) {
+    toast('Phone and message required', 'error');
+    return;
+  }
+  var u = currentUser;
+  var r = await hubFetch('/api/hub/messages/send', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      user: u,
+      phone: phone,
+      hub_client_id: activeClientId,
+      channel: channel,
+      body: text,
+      created_by: u
+    })
+  });
+  var j = await r.json();
+  if (!r.ok) {
+    toast(j.error || 'Send failed', 'error');
+    return;
+  }
+  if (textEl) textEl.value = '';
+  if (!j.success && j.error) toast('Provider: ' + j.error, 'error');
+  else toast('Message sent', 'success');
+  await loadModalMessages();
+}
+
+ST.hubPackagesCatalog = ST.hubPackagesCatalog || [];
+ST.savedSegments = ST.savedSegments || [];
+
+async function refreshHubPackageCatalog() {
+  try {
+    var r = await hubFetch('/api/hub/packages/catalog');
+    var j = await r.json();
+    ST.hubPackagesCatalog = j.packages || [];
+    var sel = document.getElementById('modal-pkg-sel');
+    if (!sel) return;
+    sel.innerHTML = ST.hubPackagesCatalog.map(function (p) {
+      return '<option value="' + escapePlaidHtml(p.slug) + '">' + escapePlaidHtml(p.name) + ' (' + p.total_sessions + ')</option>';
+    }).join('');
+  } catch (e) {}
+}
+
+async function loadModalPackages() {
+  var el = document.getElementById('modal-packages-list');
+  var sel = document.getElementById('modal-pkg-sel');
+  if (!el || !activeClientId) return;
+  if (sel && sel.options.length === 0) await refreshHubPackageCatalog();
+  try {
+    var r = await hubFetch('/api/hub/packages/for-hub-client?hub_client_id=' + encodeURIComponent(activeClientId));
+    var j = await r.json();
+    if (!r.ok) {
+      el.innerHTML = '<span style="color:#e63946">' + escapePlaidHtml(j.error || 'Could not load') + '</span>';
+      return;
+    }
+    var rows = j.balances || [];
+    if (!rows.length) {
+      el.innerHTML = '<span style="color:#888">No active packages \u2014 add one below.</span>';
+      return;
+    }
+    el.innerHTML = rows.map(function (row) {
+      var pkg = row.hg_service_packages;
+      if (Array.isArray(pkg)) pkg = pkg[0];
+      var name = (pkg && pkg.name) ? pkg.name : 'Package';
+      return '<div style="padding:6px 0;border-bottom:1px solid #eee">' + escapePlaidHtml(name) + ' \u00b7 <strong>' + row.sessions_remaining + '</strong> left</div>';
+    }).join('');
+  } catch (e) {
+    el.textContent = 'Packages unavailable.';
+  }
+}
+
+async function assignHubPackage() {
+  if (!activeClientId) return;
+  var sel = document.getElementById('modal-pkg-sel');
+  var slug = sel ? sel.value : '';
+  if (!slug) {
+    toast('Choose a package', 'error');
+    return;
+  }
+  var u = currentUser;
+  var r = await hubFetch('/api/hub/packages/assign', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ user: u, hub_client_id: activeClientId, package_slug: slug })
+  });
+  var j = await r.json();
+  if (!r.ok) {
+    toast(j.error || 'Failed', 'error');
+    return;
+  }
+  toast('Package assigned', 'success');
+  await loadModalPackages();
+}
+
+async function refreshHubArrivals() {
+  var el = document.getElementById('hub-arrivals-list');
+  if (!el) return;
+  try {
+    var r = await hubFetch('/api/hub/checkins/today');
+    var j = await r.json();
+    if (!r.ok) {
+      el.innerHTML = '<span style="color:#888">\u2014</span>';
+      return;
+    }
+    var list = j.checkins || [];
+    if (!list.length) {
+      el.innerHTML = '<span style="color:#aaa">No QR check-ins yet today.</span>';
+      return;
+    }
+    el.innerHTML = list.map(function (c) {
+      var t = c.checked_in_at ? new Date(c.checked_in_at).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' }) : '';
+      return '<div style="padding:4px 0;border-bottom:1px solid #f0f0f0"><strong>' + escapePlaidHtml(c.display_name || 'Guest') + '</strong> <span style="color:#888;font-size:11px">' + escapePlaidHtml(t) + '</span></div>';
+    }).join('');
+  } catch (e) {
+    el.innerHTML = '';
+  }
+}
+
+async function refreshSegmentsDropdown() {
+  var sel = document.getElementById('cl-segment');
+  if (!sel) return;
+  try {
+    var u = currentUser;
+    var r = await hubFetch('/api/hub/segments?user=' + encodeURIComponent(u));
+    var j = await r.json();
+    ST.savedSegments = j.segments || [];
+    var cur = sel.value;
+    sel.innerHTML = '<option value="">Saved segments\u2026</option>' + ST.savedSegments.map(function (s) {
+      return '<option value="' + String(s.id) + '">' + escapePlaidHtml(s.name) + '</option>';
+    }).join('');
+    if (cur) sel.value = cur;
+  } catch (e) {}
+}
+
+async function saveCurrentSegmentPrompt() {
+  var name = prompt('Name this segment (saves current filters)');
+  if (!name || !name.trim()) return;
+  var filters = {
+    q: document.getElementById('cl-q').value || '',
+    sms: document.getElementById('cl-sms').value || '',
+    em: document.getElementById('cl-em').value || '',
+    src: document.getElementById('cl-src').value || '',
+    blk: document.getElementById('cl-blk').value || ''
+  };
+  var u = currentUser;
+  var r = await hubFetch('/api/hub/segments', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ user: u, name: name.trim(), filters_json: filters })
+  });
+  var j = await r.json();
+  if (!r.ok) {
+    toast(j.error || 'Save failed', 'error');
+    return;
+  }
+  toast('Segment saved', 'success');
+  await refreshSegmentsDropdown();
+}
+
+function applySavedSegment() {
+  var sel = document.getElementById('cl-segment');
+  if (!sel || !sel.value) return;
+  var id = parseInt(sel.value, 10);
+  var seg = (ST.savedSegments || []).find(function (s) { return s.id === id; });
+  if (!seg || !seg.filters_json) return;
+  var f = seg.filters_json;
+  if (f.q != null) document.getElementById('cl-q').value = f.q;
+  if (f.sms != null) document.getElementById('cl-sms').value = f.sms;
+  if (f.em != null) document.getElementById('cl-em').value = f.em;
+  if (f.src != null) document.getElementById('cl-src').value = f.src;
+  if (f.blk != null) document.getElementById('cl-blk').value = f.blk;
+  filterCl();
+}
 
 const CATS = ['Equipment & Supplies','Software & Subscriptions','Marketing & Advertising','Rent & Utilities','Credit Card Bills','Staff & Contractors','Other'];
 const CATCOL = {'Equipment & Supplies':'#FF1493','Software & Subscriptions':'#1A1A1A','Marketing & Advertising':'#2a9d8f','Rent & Utilities':'#7b2d8b','Credit Card Bills':'#e63946','Staff & Contractors':'#c77b2a','Other':'#888'};
@@ -927,6 +1216,8 @@ async function stLoad() {
     await hubPushState();
     toast('Removed Google OAuth keys from Hub storage — use Vercel + Connect button only', 'success');
   }
+  await refreshMsgSummary();
+  await refreshSegmentsDropdown();
 }
 async function refreshIntegrationsStatus() {
   try {
@@ -1238,6 +1529,11 @@ function renderCl() {
   tbody.innerHTML = slice.map(c => {
     const tags = (ST.tags[c.id]||[]).map(t => `<span class="cbadge" style="background:rgba(255,20,147,0.1);color:#993556">${t}</span>`).join(' ');
     const hasNotes = ST.notes[c.id] && ST.notes[c.id].length > 0;
+    const unreadMsg = msgUnreadForClient(c);
+    const noteLabel = hasNotes ? '\u{1F4DD} Notes' : '+ Note';
+    const noteBorder = (hasNotes || unreadMsg) ? '#FF1493' : '#e8e8e8';
+    const noteColor = (hasNotes || unreadMsg) ? '#FF1493' : '#888';
+    const msgBadge = unreadMsg ? ` <span style="display:inline-block;min-width:16px;padding:1px 5px;border-radius:8px;background:#25D366;color:#fff;font-size:9px;font-weight:800">${unreadMsg}</span>` : '';
     return `<tr>
       <td><strong>${c.name}</strong>${tags?'<br>'+tags:''}</td>
       <td style="font-size:11px;color:#888">${c.phone||'—'}</td>
@@ -1246,7 +1542,7 @@ function renderCl() {
       <td><span class="cbadge ${c.email_ok?'cb-yes':'cb-no'}">${c.email_ok?'Yes':'No'}</span></td>
       <td style="font-size:11px;color:#888">${c.source||'—'}</td>
       <td style="font-size:11px;color:#888">${c.added||'—'}</td>
-      <td><button onclick="openNotes('${c.id}')" style="padding:4px 10px;border:1px solid ${hasNotes?'#FF1493':'#e8e8e8'};color:${hasNotes?'#FF1493':'#888'};background:transparent;border-radius:6px;font-size:10px;cursor:pointer;font-family:'Lato',sans-serif;font-weight:700">${hasNotes?'📝 Notes':'+ Note'}</button></td>
+      <td><button onclick="openNotes('${c.id}')" style="padding:4px 10px;border:1px solid ${noteBorder};color:${noteColor};background:transparent;border-radius:6px;font-size:10px;cursor:pointer;font-family:'Lato',sans-serif;font-weight:700">${noteLabel}${msgBadge}</button></td>
     </tr>`;
   }).join('');
 }
@@ -1271,6 +1567,8 @@ function openNotes(id) {
     `<span class="client-tag ${tags.includes(t)?'tag-vip':'tag-btn'}" onclick="toggleTag('${id}','${t}')">${t}</span>`
   ).join('');
   renderNotes(id);
+  loadModalMessages();
+  loadModalPackages();
 }
 
 function toggleTag(id, tag) {
@@ -1318,19 +1616,11 @@ async function saveNote() {
   toast('Note saved', 'success');
 }
 
-function closeNotesModal() {
+async function closeNotesModal() {
   document.getElementById('notes-modal').classList.remove('open');
   activeClientId = null;
-}
-
-function smsFromCard() {
-  if (!activeClientId) return;
-  const client = DEMO_CLIENTS.find(c => c.id === activeClientId);
-  if (client && client.phone) {
-    toast(`Opening SMS to ${client.first} at ${client.phone}`, 'success');
-  } else {
-    toast('No phone number for this client', 'error');
-  }
+  await refreshMsgSummary();
+  renderCl();
 }
 
 // ════════════════════════════════════════════════════════
@@ -1826,6 +2116,10 @@ function toast(msg, type='') {
   refreshPlaidMorningBalances();
   refreshPlaidAccountsList();
   loadPlaidBankTable();
+  await refreshHubPackageCatalog();
+  await refreshHubArrivals();
+  await refreshSegmentsDropdown();
+  setInterval(function () { refreshHubArrivals(); }, 15000);
 })();
 </script>
 </body>

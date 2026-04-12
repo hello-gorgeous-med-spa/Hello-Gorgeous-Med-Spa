@@ -166,6 +166,36 @@ export async function POST(request: NextRequest) {
       console.log(`[sms/webhook] Help response sent to: ${from}`);
     }
 
+    // Hub Command Center unified thread (inbound SMS only; WhatsApp uses /api/hub/whatsapp/incoming)
+    if (
+      from &&
+      !isOptOut &&
+      (bodyText ?? '').trim() &&
+      messageSid &&
+      fromRaw &&
+      !String(fromRaw).toLowerCase().startsWith('whatsapp:')
+    ) {
+      const adminHg = createAdminSupabaseClient();
+      if (adminHg) {
+        const { data: dup } = await adminHg
+          .from('hg_messages')
+          .select('id')
+          .eq('twilio_sid', messageSid)
+          .maybeSingle();
+        if (!dup) {
+          await adminHg.from('hg_messages').insert({
+            client_phone: from,
+            direction: 'inbound',
+            channel: 'sms',
+            body: bodyText ?? '',
+            twilio_sid: messageSid,
+            status: 'received',
+            sent_at: new Date().toISOString(),
+          });
+        }
+      }
+    }
+
     return NextResponse.json({ received: true, kind: 'inbound' });
   } catch (error) {
     console.error('[sms/webhook] Twilio webhook error:', error);
