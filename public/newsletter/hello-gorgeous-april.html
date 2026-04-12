@@ -7,794 +7,514 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
-
-  body {
-    background: #f0ebe6;
-    font-family: 'Lato', sans-serif;
-    color: #333;
-  }
-
-  .email-wrapper {
-    max-width: 640px;
-    margin: 0 auto;
-    background: #ffffff;
-  }
-
-  /* ── HEADER BANNER ── */
-  .header-banner {
-    position: relative;
-    background: #1A1A1A;
-    height: 200px;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .header-banner::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background:
-      radial-gradient(ellipse at 30% 50%, rgba(212,83,126,0.25) 0%, transparent 60%),
-      radial-gradient(ellipse at 80% 30%, rgba(201,169,110,0.15) 0%, transparent 50%);
-  }
-
-  /* Decorative petals */
-  .petal {
-    position: absolute;
-    border-radius: 50% 0 50% 0;
-    opacity: 0.15;
-  }
-  .petal-1 { width:80px; height:120px; background:#D4537E; top:-10px; left:20px; transform: rotate(-30deg); }
-  .petal-2 { width:60px; height:90px; background:#C9A96E; top:20px; left:60px; transform: rotate(20deg); }
-  .petal-3 { width:50px; height:80px; background:#D4537E; bottom:-5px; left:40px; transform: rotate(10deg); }
-  .petal-4 { width:70px; height:100px; background:#C9A96E; top:0; right:30px; transform: rotate(40deg); }
-  .petal-5 { width:45px; height:70px; background:#D4537E; bottom:10px; right:60px; transform: rotate(-20deg); }
-
-  .header-text-block {
-    position: relative;
-    z-index: 2;
-    text-align: center;
-  }
-
-  .header-script {
-    font-family: 'Cormorant Garamond', serif;
-    font-style: italic;
-    font-size: 52px;
-    font-weight: 300;
-    color: #D4537E;
-    line-height: 1;
-    letter-spacing: 1px;
-  }
-
-  .header-serif {
-    font-family: 'Playfair Display', serif;
-    font-size: 26px;
-    font-weight: 400;
-    color: #ffffff;
-    letter-spacing: 8px;
-    text-transform: uppercase;
-    margin-top: 4px;
-  }
-
-  .header-logo-area {
-    position: absolute;
-    right: 24px;
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 2;
-    text-align: center;
-  }
-
-  .logo-icon {
-    width: 52px;
-    height: 52px;
-    margin: 0 auto 6px;
-  }
-
-  .logo-name {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 11px;
-    font-weight: 300;
-    letter-spacing: 3px;
-    color: #C9A96E;
-    text-transform: uppercase;
-    line-height: 1.6;
-  }
-
-  .logo-tagline {
-    font-family: 'Cormorant Garamond', serif;
-    font-style: italic;
-    font-size: 10px;
-    color: #D4537E;
-    letter-spacing: 1px;
-  }
-
-  /* ── GOLD RULE ── */
-  .gold-rule {
-    height: 6px;
-    background: linear-gradient(90deg, #8B4A4A, #C9A96E, #D4537E, #C9A96E, #8B4A4A);
-  }
-
-  /* ── SECTIONS ── */
-  .section {
-    padding: 36px 48px;
-  }
-
-  .section-light {
-    background: #ffffff;
-  }
-
-  .section-blush {
-    background: #FDF6F0;
-  }
-
-  .section-dark {
-    background: #1A1A1A;
-    color: #f7ede6;
-  }
-
-  /* ── SECTION BANNER IMAGES ── */
-  .section-banner {
-    width: 100%;
-    height: 72px;
-    object-fit: cover;
-    display: block;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .banner-label {
-    width: 100%;
-    height: 72px;
-    display: flex;
-    align-items: center;
-    padding: 0 36px;
-    gap: 16px;
-  }
-
-  .banner-label-glow {
-    background: #1A1A1A;
-  }
-
-  .banner-label-blush {
-    background: #F7E8E8;
-    border-top: 3px solid #C9A96E;
-    border-bottom: 3px solid #C9A96E;
-  }
-
-  .banner-label-pink {
-    background: linear-gradient(135deg, #D4537E, #8B4A4A);
-  }
-
-  .banner-script {
-    font-family: 'Cormorant Garamond', serif;
-    font-style: italic;
-    font-size: 32px;
-    font-weight: 300;
-    color: #D4537E;
-    line-height: 1;
-  }
-
-  .banner-label-blush .banner-script {
-    color: #8B4A4A;
-  }
-
-  .banner-label-pink .banner-script {
-    color: rgba(255,255,255,0.85);
-  }
-
-  .banner-sans {
-    font-family: 'Playfair Display', serif;
-    font-size: 20px;
-    font-weight: 400;
-    color: #ffffff;
-    letter-spacing: 4px;
-    text-transform: uppercase;
-  }
-
-  .banner-label-blush .banner-sans {
-    color: #1A1A1A;
-    letter-spacing: 3px;
-  }
-
-  .banner-label-pink .banner-sans {
-    color: #ffffff;
-  }
-
-  /* ── TYPOGRAPHY ── */
-  .section-headline {
-    font-family: 'Playfair Display', serif;
-    font-size: 22px;
-    font-weight: 700;
-    color: #1A1A1A;
-    text-align: center;
-    margin-bottom: 18px;
-    line-height: 1.3;
-  }
-
-  .section-headline.pink { color: #D4537E; }
-  .section-headline.gold { color: #C9A96E; }
-  .section-headline.white { color: #ffffff; }
-
-  .body-text {
-    font-family: 'Lato', sans-serif;
-    font-size: 15px;
-    line-height: 1.8;
-    color: #444;
-    margin-bottom: 14px;
-  }
-
-  .body-text.dark { color: #d4c5bb; }
-
-  .body-text a {
-    color: #D4537E;
-    text-decoration: underline;
-  }
-
-  /* ── SERVICE HIGHLIGHT CARDS ── */
-  .highlight-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
-    margin-top: 24px;
-  }
-
-  .highlight-card {
-    background: #1A1A1A;
-    border-radius: 4px;
-    padding: 20px 18px;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .highlight-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 3px;
-    background: linear-gradient(90deg, #D4537E, #C9A96E);
-  }
-
-  .highlight-card-label {
-    font-family: 'Cormorant Garamond', serif;
-    font-style: italic;
-    font-size: 13px;
-    color: #C9A96E;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    margin-bottom: 6px;
-  }
-
-  .highlight-card-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 16px;
-    font-weight: 700;
-    color: #ffffff;
-    margin-bottom: 8px;
-    line-height: 1.3;
-  }
-
-  .highlight-card-desc {
-    font-size: 13px;
-    color: #aaa;
-    line-height: 1.6;
-  }
-
-  /* ── DID YOU KNOW ── */
-  .did-you-know {
-    background: #FDF6F0;
-    border-left: 4px solid #D4537E;
-    padding: 20px 24px;
-    margin: 0;
-  }
-
-  .dyk-label {
-    font-family: 'Playfair Display', serif;
-    font-size: 17px;
-    font-weight: 700;
-    color: #D4537E;
-    letter-spacing: 1px;
-    margin-bottom: 8px;
-  }
-
-  .dyk-text {
-    font-size: 14px;
-    line-height: 1.7;
-    color: #555;
-  }
-
-  /* ── TIP BLOCKS ── */
-  .tip-block {
-    margin-bottom: 22px;
-  }
-
-  .tip-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 15px;
-    font-weight: 700;
-    color: #8B4A4A;
-    margin-bottom: 6px;
-  }
-
-  .tip-body {
-    font-size: 14px;
-    line-height: 1.75;
-    color: #555;
-  }
-
-  /* ── FEATURED PARTNER ── */
-  .partner-grid {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    gap: 24px;
-    align-items: start;
-    margin-top: 16px;
-  }
-
-  .partner-name {
-    font-family: 'Playfair Display', serif;
-    font-size: 18px;
-    font-weight: 700;
-    color: #1A1A1A;
-    margin-bottom: 4px;
-  }
-
-  .partner-info {
-    font-size: 13px;
-    color: #777;
-    line-height: 1.8;
-    margin-bottom: 10px;
-  }
-
-  .partner-info a { color: #D4537E; }
-
-  .partner-badge {
-    width: 100px;
-    height: 100px;
-    background: #1A1A1A;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    border: 3px solid #C9A96E;
-    flex-shrink: 0;
-    text-align: center;
-    padding: 12px;
-  }
-
-  .partner-badge-name {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 11px;
-    font-weight: 400;
-    color: #C9A96E;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    line-height: 1.4;
-    text-align: center;
-  }
-
-  /* ── TESTIMONIAL ── */
-  .testimonial-box {
-    background: #1A1A1A;
-    padding: 32px 36px;
-    position: relative;
-  }
-
-  .testimonial-quote-mark {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 80px;
-    color: #D4537E;
-    line-height: 0.6;
-    margin-bottom: 16px;
-    display: block;
-    opacity: 0.6;
-  }
-
-  .testimonial-text {
-    font-family: 'Cormorant Garamond', serif;
-    font-style: italic;
-    font-size: 17px;
-    line-height: 1.8;
-    color: #f0e6e0;
-    margin-bottom: 18px;
-  }
-
-  .testimonial-attribution {
-    font-size: 13px;
-    color: #C9A96E;
-    letter-spacing: 2px;
-    text-align: right;
-    text-transform: uppercase;
-    font-family: 'Lato', sans-serif;
-    font-weight: 700;
-  }
-
-  /* ── REFERRAL BANNER ── */
-  .referral-bar {
-    background: linear-gradient(135deg, #1A1A1A 0%, #2a1a22 100%);
-    border: 1px solid #D4537E;
-    padding: 28px 36px;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .referral-bar::before {
-    content: '';
-    position: absolute;
-    top: -30px; right: -30px;
-    width: 120px; height: 120px;
-    background: radial-gradient(circle, rgba(212,83,126,0.2) 0%, transparent 70%);
-    border-radius: 50%;
-  }
-
-  .referral-script {
-    font-family: 'Cormorant Garamond', serif;
-    font-style: italic;
-    font-size: 36px;
-    color: #D4537E;
-    line-height: 1;
-    margin-bottom: 8px;
-  }
-
-  .referral-text {
-    font-size: 14px;
-    color: #aaa;
-    line-height: 1.7;
-    margin-top: 8px;
-  }
-
-  /* ── CTA BUTTON ── */
-  .cta-btn {
-    display: inline-block;
-    margin-top: 16px;
-    padding: 12px 32px;
-    background: #D4537E;
-    color: #ffffff;
-    font-family: 'Lato', sans-serif;
-    font-size: 13px;
-    font-weight: 700;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    text-decoration: none;
-    border-radius: 2px;
-  }
-
-  /* ── DIVIDER ── */
-  .divider {
-    border: none;
-    border-top: 1px solid #e8ddd8;
-    margin: 0;
-  }
-
-  .divider-gold {
-    border-top-color: #C9A96E;
-    opacity: 0.4;
-  }
-
-  /* ── FOOTER ── */
-  .footer {
-    background: #1A1A1A;
-    padding: 36px 48px;
-    text-align: center;
-  }
-
-  .footer-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 24px;
-    margin-bottom: 28px;
-    text-align: left;
-  }
-
-  .footer-person-name {
-    font-family: 'Playfair Display', serif;
-    font-size: 13px;
-    font-weight: 700;
-    color: #ffffff;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    margin-bottom: 4px;
-  }
-
-  .footer-person-title {
-    font-size: 11px;
-    color: #C9A96E;
-    letter-spacing: 1px;
-    margin-bottom: 4px;
-  }
-
-  .footer-person-contact {
-    font-size: 11px;
-    color: #888;
-    line-height: 1.8;
-  }
-
-  .footer-person-contact a { color: #D4537E; text-decoration: none; }
-
-  .footer-brand {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 24px;
-    font-weight: 300;
-    color: #D4537E;
-    letter-spacing: 4px;
-    text-transform: uppercase;
-    margin-bottom: 4px;
-  }
-
-  .footer-brand-sub {
-    font-family: 'Lato', sans-serif;
-    font-size: 10px;
-    letter-spacing: 3px;
-    color: #C9A96E;
-    text-transform: uppercase;
-    margin-bottom: 20px;
-  }
-
-  .footer-legal {
-    font-size: 11px;
-    color: #555;
-    line-height: 1.8;
-    margin-top: 20px;
-  }
-
-  .footer-legal a { color: #D4537E; }
-
-  .stars {
-    color: #C9A96E;
-    font-size: 16px;
-    letter-spacing: 2px;
-    margin-bottom: 6px;
-  }
-
-  /* ── AWARDS ROW ── */
-  .awards-row {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    flex-wrap: wrap;
-    margin: 20px 0;
-  }
-
-  .award-badge {
-    background: #1A1A1A;
-    border: 1px solid #C9A96E;
-    border-radius: 50%;
-    width: 76px;
-    height: 76px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 8px;
-    text-align: center;
-  }
-
-  .award-badge-icon {
-    font-size: 16px;
-    margin-bottom: 3px;
-  }
-
-  .award-badge-text {
-    font-size: 8px;
-    color: #C9A96E;
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
-    line-height: 1.3;
-    font-family: 'Lato', sans-serif;
-    font-weight: 700;
-  }
-
-  .print-note {
-    background: #fff8f5;
-    border: 1px dashed #D4537E;
-    padding: 10px 20px;
-    text-align: center;
-    font-size: 12px;
-    color: #999;
-    font-style: italic;
-  }
+  body { background: #f0ebe6; font-family: 'Lato', sans-serif; color: #333; }
+  .email-wrapper { max-width: 640px; margin: 0 auto; background: #ffffff; }
+
+  .header-banner { position:relative; background:#1A1A1A; height:210px; overflow:hidden; display:flex; align-items:center; justify-content:center; }
+  .header-banner::before { content:''; position:absolute; inset:0; background: radial-gradient(ellipse at 30% 50%, rgba(212,83,126,0.28) 0%, transparent 60%), radial-gradient(ellipse at 80% 30%, rgba(201,169,110,0.18) 0%, transparent 50%); }
+  .petal { position:absolute; border-radius:50% 0 50% 0; opacity:0.13; }
+  .petal-1 { width:80px; height:120px; background:#D4537E; top:-10px; left:20px; transform:rotate(-30deg); }
+  .petal-2 { width:60px; height:90px; background:#C9A96E; top:20px; left:60px; transform:rotate(20deg); }
+  .petal-3 { width:50px; height:80px; background:#D4537E; bottom:-5px; left:40px; transform:rotate(10deg); }
+  .petal-4 { width:70px; height:100px; background:#C9A96E; top:0; right:30px; transform:rotate(40deg); }
+  .petal-5 { width:45px; height:70px; background:#D4537E; bottom:10px; right:60px; transform:rotate(-20deg); }
+  .header-text-block { position:relative; z-index:2; text-align:center; }
+  .header-script { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:54px; font-weight:300; color:#D4537E; line-height:1; }
+  .header-serif { font-family:'Playfair Display',serif; font-size:26px; font-weight:400; color:#fff; letter-spacing:8px; text-transform:uppercase; margin-top:4px; }
+  .header-logo-area { position:absolute; right:22px; top:50%; transform:translateY(-50%); z-index:2; text-align:center; }
+  .logo-icon { width:52px; height:52px; margin:0 auto 6px; }
+  .logo-name { font-family:'Cormorant Garamond',serif; font-size:11px; font-weight:300; letter-spacing:3px; color:#C9A96E; text-transform:uppercase; line-height:1.6; }
+  .logo-tagline { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:10px; color:#D4537E; letter-spacing:1px; }
+  .gold-rule { height:6px; background:linear-gradient(90deg,#8B4A4A,#C9A96E,#D4537E,#C9A96E,#8B4A4A); }
+  .divider { border:none; border-top:1px solid #e8ddd8; margin:0; }
+  .divider-gold { border-top-color:#C9A96E; opacity:0.4; }
+  .section { padding:36px 48px; }
+  .section-light { background:#ffffff; }
+  .section-blush { background:#FDF6F0; }
+
+  .banner-label { width:100%; height:72px; display:flex; align-items:center; padding:0 36px; gap:16px; }
+  .banner-label-glow { background:#1A1A1A; }
+  .banner-label-blush { background:#F7E8E8; border-top:3px solid #C9A96E; border-bottom:3px solid #C9A96E; }
+  .banner-label-pink { background:linear-gradient(135deg,#D4537E,#8B4A4A); }
+  .banner-script { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:32px; font-weight:300; color:#D4537E; line-height:1; }
+  .banner-label-blush .banner-script { color:#8B4A4A; }
+  .banner-label-pink .banner-script { color:rgba(255,255,255,0.85); }
+  .banner-sans { font-family:'Playfair Display',serif; font-size:20px; font-weight:400; color:#fff; letter-spacing:4px; text-transform:uppercase; }
+  .banner-label-blush .banner-sans { color:#1A1A1A; letter-spacing:3px; }
+
+  .body-text { font-family:'Lato',sans-serif; font-size:15px; line-height:1.8; color:#444; margin-bottom:14px; }
+  .body-text a { color:#D4537E; text-decoration:underline; }
+
+  /* EVENT HERO */
+  .event-hero { background:#1A1A1A; position:relative; overflow:hidden; padding:44px 36px 36px; text-align:center; }
+  .event-hero::before { content:''; position:absolute; inset:0; background: radial-gradient(ellipse at 50% 0%, rgba(212,83,126,0.38) 0%, transparent 65%), radial-gradient(ellipse at 20% 100%, rgba(201,169,110,0.2) 0%, transparent 55%); }
+  .event-hero-content { position:relative; z-index:2; }
+  .event-eyebrow { font-size:11px; letter-spacing:4px; text-transform:uppercase; color:#C9A96E; margin-bottom:8px; font-weight:700; }
+  .event-title-script { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:58px; font-weight:300; color:#D4537E; line-height:1; margin-bottom:2px; }
+  .event-title-sans { font-family:'Playfair Display',serif; font-size:16px; font-weight:400; color:#fff; letter-spacing:7px; text-transform:uppercase; margin-bottom:24px; }
+  .event-date-pill { display:inline-block; background:linear-gradient(135deg,#D4537E,#8B4A4A); padding:11px 30px; border-radius:30px; margin-bottom:22px; }
+  .event-date-text { font-size:14px; font-weight:700; letter-spacing:2px; color:#fff; text-transform:uppercase; }
+  .event-sub { font-size:14px; color:#ccc; line-height:1.8; margin-bottom:22px; }
+  .event-details-row { display:grid; grid-template-columns:1fr 1fr 1fr; gap:14px; margin-top:4px; }
+  .event-detail-box { background:rgba(255,255,255,0.06); border:1px solid rgba(212,83,126,0.3); border-radius:4px; padding:14px 10px; }
+  .event-detail-icon { font-size:20px; margin-bottom:6px; }
+  .event-detail-label { font-size:10px; letter-spacing:2px; text-transform:uppercase; color:#C9A96E; margin-bottom:4px; font-weight:700; }
+  .event-detail-value { font-family:'Playfair Display',serif; font-size:13px; color:#fff; line-height:1.5; }
+  .event-detail-note { font-size:10px; color:#888; }
+
+  /* PRIZES */
+  .prize-section { background:#FDF6F0; padding:32px 48px; }
+  .prize-headline { font-family:'Playfair Display',serif; font-size:21px; font-weight:700; color:#1A1A1A; text-align:center; margin-bottom:4px; }
+  .prize-sub { font-size:13px; color:#888; text-align:center; font-style:italic; margin-bottom:22px; }
+  .prize-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px; }
+  .prize-card { background:#1A1A1A; border-radius:4px; padding:22px 18px; position:relative; overflow:hidden; }
+  .prize-card::before { content:''; position:absolute; top:0;left:0;right:0; height:3px; }
+  .prize-card-1::before { background:linear-gradient(90deg,#D4537E,#C9A96E); }
+  .prize-card-2::before { background:#C9A96E; }
+  .prize-number { font-family:'Cormorant Garamond',serif; font-size:44px; font-weight:300; line-height:1; margin-bottom:4px; }
+  .prize-card-1 .prize-number { color:#D4537E; }
+  .prize-card-2 .prize-number { color:#C9A96E; }
+  .prize-winner-label { font-size:10px; letter-spacing:2px; text-transform:uppercase; color:#888; margin-bottom:8px; font-weight:700; }
+  .prize-name { font-family:'Playfair Display',serif; font-size:15px; font-weight:700; color:#fff; margin-bottom:6px; line-height:1.4; }
+  .prize-or { color:#C9A96E; font-size:12px; display:block; margin:3px 0; }
+  .prize-desc { font-size:12px; color:#999; line-height:1.6; }
+  .prize-all-attend { background:#fff; border:1px solid #f0ddd0; border-radius:4px; padding:18px 20px; text-align:center; }
+  .prize-all-label { font-size:11px; letter-spacing:2px; text-transform:uppercase; color:#C9A96E; font-weight:700; margin-bottom:6px; }
+  .prize-all-text { font-size:14px; color:#555; line-height:1.7; }
+
+  /* RAFFLE */
+  .raffle-section { background:#1A1A1A; padding:32px 48px; }
+  .raffle-headline { font-family:'Playfair Display',serif; font-size:20px; font-weight:700; color:#fff; text-align:center; margin-bottom:4px; }
+  .raffle-sub { font-size:13px; color:#888; text-align:center; font-style:italic; margin-bottom:22px; }
+  .raffle-earn-box { background:rgba(212,83,126,0.1); border:1px solid rgba(212,83,126,0.4); border-radius:4px; padding:22px 24px; text-align:center; margin-bottom:20px; }
+  .raffle-earn-amount { font-family:'Cormorant Garamond',serif; font-size:52px; color:#D4537E; font-weight:300; line-height:1; }
+  .raffle-earn-equals { font-size:11px; color:#888; letter-spacing:2px; text-transform:uppercase; margin:4px 0 6px; }
+  .raffle-earn-desc { font-size:14px; color:#ccc; line-height:1.7; }
+  .raffle-earn-note { font-size:12px; color:#C9A96E; margin-top:8px; font-style:italic; }
+  .raffle-bonus-title { font-size:11px; letter-spacing:2px; text-transform:uppercase; color:#C9A96E; font-weight:700; margin-bottom:12px; text-align:center; }
+  .raffle-bonus-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+  .raffle-bonus-item { background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08); border-radius:4px; padding:12px 14px; display:flex; align-items:center; gap:10px; }
+  .raffle-bonus-tickets { font-family:'Cormorant Garamond',serif; font-size:28px; color:#D4537E; font-weight:300; flex-shrink:0; line-height:1; min-width:32px; text-align:center; }
+  .raffle-bonus-action { font-size:12px; color:#bbb; line-height:1.5; }
+  .raffle-bonus-note { font-size:10px; color:#666; }
+  .raffle-deadline { text-align:center; margin-top:18px; font-size:13px; color:#777; font-style:italic; line-height:1.7; }
+  .raffle-deadline strong { color:#C9A96E; }
+  .cta-btn { display:inline-block; margin-top:16px; padding:12px 32px; background:#D4537E; color:#fff; font-family:'Lato',sans-serif; font-size:13px; font-weight:700; letter-spacing:2px; text-transform:uppercase; text-decoration:none; border-radius:2px; }
+
+  /* DID YOU KNOW */
+  .did-you-know { background:#FDF6F0; border-left:4px solid #D4537E; padding:20px 28px; }
+  .dyk-label { font-family:'Playfair Display',serif; font-size:17px; font-weight:700; color:#D4537E; margin-bottom:8px; }
+  .dyk-text { font-size:14px; line-height:1.75; color:#555; }
+
+  /* SKIN HEALTH */
+  .sun-intro { background:#fff9f5; border:1px solid #f0ddd0; padding:22px 26px; border-radius:4px; margin-bottom:22px; }
+  .sun-intro-headline { font-family:'Playfair Display',serif; font-size:17px; font-weight:700; color:#8B4A4A; margin-bottom:8px; }
+  .condition-cards { display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; margin:20px 0; }
+  .condition-card { border-radius:4px; padding:18px 14px; text-align:center; }
+  .cc-spots { background:#fff3ec; border-top:3px solid #C9A96E; }
+  .cc-melasma { background:#fdf0f4; border-top:3px solid #D4537E; }
+  .cc-moles { background:#f0f4f8; border-top:3px solid #1a3a6b; }
+  .condition-icon { font-size:24px; margin-bottom:8px; }
+  .condition-title { font-family:'Playfair Display',serif; font-size:12px; font-weight:700; color:#1A1A1A; margin-bottom:6px; line-height:1.4; }
+  .condition-desc { font-size:11px; line-height:1.6; color:#666; }
+  .tip-block { margin-bottom:22px; }
+  .tip-title { font-family:'Playfair Display',serif; font-size:15px; font-weight:700; color:#8B4A4A; margin-bottom:6px; }
+  .tip-body { font-size:14px; line-height:1.75; color:#555; }
+  .abcde-box { background:#1A1A1A; border-radius:4px; padding:22px 24px; margin:20px 0; }
+  .abcde-title { font-family:'Playfair Display',serif; font-size:13px; font-weight:700; color:#C9A96E; margin-bottom:14px; letter-spacing:1px; text-align:center; }
+  .abcde-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:8px; }
+  .abcde-item { text-align:center; }
+  .abcde-letter { font-family:'Cormorant Garamond',serif; font-size:30px; color:#D4537E; font-weight:400; line-height:1; }
+  .abcde-word { font-size:9px; color:#C9A96E; letter-spacing:1px; text-transform:uppercase; margin:4px 0 4px; font-weight:700; }
+  .abcde-def { font-size:10px; color:#888; line-height:1.4; }
+  .sun-cta-note { font-size:13px; color:#777; font-style:italic; line-height:1.7; text-align:center; margin-top:12px; }
+
+  /* HIGHLIGHT CARDS */
+  .highlight-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:20px; }
+  .highlight-card { background:#1A1A1A; border-radius:4px; padding:20px 18px; position:relative; overflow:hidden; }
+  .highlight-card::before { content:''; position:absolute; top:0;left:0;right:0; height:3px; background:linear-gradient(90deg,#D4537E,#C9A96E); }
+  .highlight-card-label { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:12px; color:#C9A96E; letter-spacing:2px; text-transform:uppercase; margin-bottom:5px; }
+  .highlight-card-title { font-family:'Playfair Display',serif; font-size:15px; font-weight:700; color:#fff; margin-bottom:7px; line-height:1.3; }
+  .highlight-card-desc { font-size:13px; color:#999; line-height:1.6; }
+
+  /* PARTNER */
+  .partner-grid { display:grid; grid-template-columns:1fr auto; gap:24px; align-items:start; margin-top:16px; }
+  .partner-name { font-family:'Playfair Display',serif; font-size:18px; font-weight:700; color:#1A1A1A; margin-bottom:4px; }
+  .partner-info { font-size:13px; color:#777; line-height:1.8; margin-bottom:10px; }
+  .partner-info a { color:#D4537E; }
+  .partner-badge { width:90px; height:90px; background:#1A1A1A; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-direction:column; border:3px solid #C9A96E; flex-shrink:0; padding:10px; }
+  .partner-badge-name { font-family:'Cormorant Garamond',serif; font-size:10px; color:#C9A96E; letter-spacing:1px; text-transform:uppercase; line-height:1.5; text-align:center; }
+
+  /* TESTIMONIAL */
+  .testimonial-box { background:#1A1A1A; padding:34px 40px; }
+  .testimonial-quote-mark { font-family:'Cormorant Garamond',serif; font-size:80px; color:#D4537E; line-height:0.6; margin-bottom:16px; display:block; opacity:0.6; }
+  .testimonial-text { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:17px; line-height:1.8; color:#f0e6e0; margin-bottom:18px; }
+  .testimonial-attribution { font-size:13px; color:#C9A96E; letter-spacing:2px; text-align:right; text-transform:uppercase; font-weight:700; }
+
+  /* AWARDS */
+  .awards-row { display:flex; justify-content:center; gap:20px; flex-wrap:wrap; margin:20px 0; }
+  .award-badge { background:#1A1A1A; border:1px solid #C9A96E; border-radius:50%; width:76px; height:76px; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:8px; text-align:center; }
+  .award-badge-icon { font-size:16px; margin-bottom:3px; }
+  .award-badge-text { font-size:8px; color:#C9A96E; letter-spacing:0.5px; text-transform:uppercase; line-height:1.3; font-weight:700; }
+  .stars { color:#C9A96E; font-size:16px; letter-spacing:2px; margin-bottom:6px; }
+
+  /* REFERRAL */
+  .referral-bar { background:linear-gradient(135deg,#1A1A1A 0%,#2a1a22 100%); border:1px solid #D4537E; padding:28px 36px; text-align:center; position:relative; overflow:hidden; }
+  .referral-bar::before { content:''; position:absolute; top:-30px; right:-30px; width:120px; height:120px; background:radial-gradient(circle,rgba(212,83,126,0.2) 0%,transparent 70%); border-radius:50%; }
+  .referral-script { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:36px; color:#D4537E; line-height:1; margin-bottom:8px; }
+  .referral-text { font-size:14px; color:#aaa; line-height:1.7; margin-top:8px; }
+
+  /* FOOTER */
+  .footer { background:#1A1A1A; padding:36px 48px; text-align:center; }
+  .footer-grid { display:grid; grid-template-columns:1fr 1fr; gap:24px; margin-bottom:28px; text-align:left; }
+  .footer-person-name { font-family:'Playfair Display',serif; font-size:13px; font-weight:700; color:#fff; letter-spacing:1px; text-transform:uppercase; margin-bottom:4px; }
+  .footer-person-title { font-size:11px; color:#C9A96E; letter-spacing:1px; margin-bottom:4px; }
+  .footer-person-contact { font-size:11px; color:#888; line-height:1.8; }
+  .footer-person-contact a { color:#D4537E; text-decoration:none; }
+  .footer-brand { font-family:'Cormorant Garamond',serif; font-size:24px; font-weight:300; color:#D4537E; letter-spacing:4px; text-transform:uppercase; margin-bottom:4px; }
+  .footer-brand-sub { font-size:10px; letter-spacing:3px; color:#C9A96E; text-transform:uppercase; margin-bottom:20px; }
+  .footer-legal { font-size:11px; color:#555; line-height:1.8; margin-top:20px; }
+  .footer-legal a { color:#D4537E; }
+  .print-note { background:#fff8f5; border:1px dashed #D4537E; padding:10px 20px; text-align:center; font-size:12px; color:#999; font-style:italic; }
 </style>
 </head>
 <body>
-
 <div class="email-wrapper">
 
-  <!-- Print/Preview note -->
-  <div class="print-note">📧 Hello Gorgeous Med Spa — April 2026 Newsletter Preview</div>
+  <div class="print-note">📧 Hello Gorgeous Med Spa — April 2026 Newsletter</div>
 
-  <!-- ── HEADER BANNER ── -->
+  <!-- HEADER -->
   <div class="header-banner">
-    <div class="petal petal-1"></div>
-    <div class="petal petal-2"></div>
-    <div class="petal petal-3"></div>
-    <div class="petal petal-4"></div>
-    <div class="petal petal-5"></div>
-
+    <div class="petal petal-1"></div><div class="petal petal-2"></div>
+    <div class="petal petal-3"></div><div class="petal petal-4"></div><div class="petal petal-5"></div>
     <div class="header-text-block">
       <div class="header-script">April</div>
       <div class="header-serif">Newsletter</div>
     </div>
-
     <div class="header-logo-area">
-      <!-- HG Monogram SVG -->
       <svg class="logo-icon" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
         <circle cx="26" cy="26" r="24" stroke="#C9A96E" stroke-width="1.5"/>
         <text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle"
-          font-family="Cormorant Garamond, serif" font-size="22" fill="#D4537E"
-          font-style="italic">HG</text>
+          font-family="Cormorant Garamond, serif" font-size="22" fill="#D4537E" font-style="italic">HG</text>
       </svg>
       <div class="logo-name">Hello<br>Gorgeous</div>
       <div class="logo-tagline">Med Spa · Oswego</div>
     </div>
   </div>
-
   <div class="gold-rule"></div>
 
-  <!-- ── OPENING LETTER ── -->
+  <!-- OPENING -->
   <div class="section section-light">
-    <h2 class="section-headline">Spring Is the Season of Renewal — and So Are You.</h2>
-    <p class="body-text">April has a way of reminding us that transformation is natural. The weather warms, everything blooms, and that energy spills into how we feel about ourselves. Here at Hello Gorgeous, we've felt it too — the phones are buzzing, treatment rooms are full, and our clients are walking out the door looking and feeling absolutely radiant.</p>
-    <p class="body-text">Spring is the perfect time to revisit your skin goals, explore a new treatment, or finally book that consultation you've been thinking about. Whether you're tackling stubborn texture, exploring weight loss support, or ready to turn back the clock with one of our InMode devices — we are here for all of it. The person who started this practice is still here, and she's excited to see you.</p>
-    <p class="body-text">We'd love to hear what's on your mind this month. Find us on <a href="#">Facebook</a> and <a href="#">Instagram</a>, or just call us at <strong>(630) 636-6193</strong>. We're always a real person, never a robot.</p>
-    <p class="body-text" style="font-family:'Cormorant Garamond',serif; font-style:italic; font-size:18px; color:#D4537E; margin-top:8px;">— Danielle Alcala-Glazier, Founder</p>
+    <h2 style="font-family:'Playfair Display',serif; font-size:22px; font-weight:700; color:#1A1A1A; text-align:center; margin-bottom:18px; line-height:1.3;">Spring Is the Season of Renewal — and So Are You.</h2>
+    <p class="body-text">April has a way of reminding us that transformation is natural. The weather warms, everything blooms, and that energy spills into how we feel about ourselves. Here at Hello Gorgeous, we've felt it too — the phones are buzzing, treatment rooms are full, and our clients are walking out looking and feeling absolutely radiant.</p>
+    <p class="body-text">Spring is the perfect time to revisit your skin goals, explore a new treatment, or finally book that consultation you've been thinking about. And this month, we have something truly special to share — our first-ever client celebration event is officially on the calendar. Keep reading. You don't want to miss it.</p>
+    <p class="body-text">We'd love to hear what's on your mind. Find us on <a href="#">Facebook</a> and <a href="#">Instagram</a>, or call us at <strong>(630) 636-6193</strong>. We're always a real person, never a robot.</p>
+    <p class="body-text" style="font-family:'Cormorant Garamond',serif; font-style:italic; font-size:18px; color:#D4537E; margin-top:4px;">— Danielle Alcala-Glazier, Founder</p>
   </div>
 
   <hr class="divider">
 
-  <!-- ── TREATMENT SPOTLIGHT BANNER ── -->
+  <!-- ═══════════════════════════════════ -->
+  <!-- THE GLOW SOCIAL — EVENT HERO       -->
+  <!-- ═══════════════════════════════════ -->
+  <div class="event-hero">
+    <div class="event-hero-content">
+      <div class="event-eyebrow">✦ You're Invited ✦</div>
+      <div class="event-title-script">The Glow</div>
+      <div class="event-title-sans">Social</div>
+      <div class="event-date-pill">
+        <span class="event-date-text">Wednesday, May 14th &nbsp;·&nbsp; 6:00 PM</span>
+      </div>
+      <p class="event-sub">Join us for an evening of glowing skin, great company, and life-changing prizes.<br>Our first-ever client celebration — and it's going to be <em style="color:#D4537E;">unforgettable.</em></p>
+      <div class="event-details-row">
+        <div class="event-detail-box">
+          <div class="event-detail-icon">📍</div>
+          <div class="event-detail-label">Venue</div>
+          <div class="event-detail-value">Freddie's Off The Chain</div>
+          <div class="event-detail-note">Downtown Oswego, IL</div>
+        </div>
+        <div class="event-detail-box">
+          <div class="event-detail-icon">🗓️</div>
+          <div class="event-detail-label">Date &amp; Time</div>
+          <div class="event-detail-value">May 14, 2026</div>
+          <div class="event-detail-note">Doors open at 6:00 PM</div>
+        </div>
+        <div class="event-detail-box">
+          <div class="event-detail-icon">💉</div>
+          <div class="event-detail-label">Every Attendee Gets</div>
+          <div class="event-detail-value">Free Vitamin Injection</div>
+          <div class="event-detail-note">B12 · B-Complex · MIC</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PRIZES -->
+  <div class="prize-section">
+    <div class="prize-headline">🏆 Win Something Life-Changing</div>
+    <div class="prize-sub">Two lucky winners will take home the gold at The Glow Social raffle.</div>
+
+    <div class="prize-grid">
+      <div class="prize-card prize-card-1">
+        <div class="prize-number">1<sup style="font-size:20px;">st</sup></div>
+        <div class="prize-winner-label">🥇 First Winner — Their Choice</div>
+        <div class="prize-name">Morpheus8 Burst</div>
+        <span class="prize-or">— or —</span>
+        <div class="prize-name">Solaria CO₂ Laser</div>
+        <div class="prize-desc" style="margin-top:8px;">One full treatment session, winner's choice. Two of our most powerful, results-driven devices — exclusively at Hello Gorgeous.</div>
+      </div>
+      <div class="prize-card prize-card-2">
+        <div class="prize-number">2<sup style="font-size:20px;">nd</sup></div>
+        <div class="prize-winner-label">🥈 Second Winner — The Other</div>
+        <div class="prize-name">Morpheus8 Burst</div>
+        <span class="prize-or">— or —</span>
+        <div class="prize-name">Solaria CO₂ Laser</div>
+        <div class="prize-desc" style="margin-top:8px;">The second winner receives whichever device the first winner didn't choose. Two prizes. Two winners. Two transformations.</div>
+      </div>
+    </div>
+
+    <div class="prize-all-attend">
+      <div class="prize-all-label">🎁 Every Single Attendee Receives</div>
+      <div class="prize-all-text">A complimentary <strong>Vitamin Injection</strong> (B12, B-Complex, or MIC Lipotropic) — on us, just for showing up and celebrating with us.</div>
+    </div>
+  </div>
+
+  <!-- RAFFLE -->
+  <div class="raffle-section">
+    <div class="raffle-headline">🎟️ Your Tickets Are Already Earning</div>
+    <div class="raffle-sub">Every dollar you spend at Hello Gorgeous now through May 14th counts.</div>
+
+    <div class="raffle-earn-box">
+      <div class="raffle-earn-amount">$1 Spent</div>
+      <div class="raffle-earn-equals">= 1 Raffle Ticket</div>
+      <div class="raffle-earn-desc">Every dollar spent on Hello Gorgeous services between now and May 14th automatically earns you raffle entries toward The Glow Social prizes. Book your Morpheus8, start your GLP-1 program, try a new injectable — your investment in yourself also enters you to win big.</div>
+      <div class="raffle-earn-note">Valid on all Hello Gorgeous services · April 12 – May 14, 2026</div>
+    </div>
+
+    <div class="raffle-bonus-title">Earn Even More Bonus Entries</div>
+    <div class="raffle-bonus-grid">
+      <div class="raffle-bonus-item">
+        <div class="raffle-bonus-tickets">+2</div>
+        <div><div class="raffle-bonus-action">Leave a Google Review</div><div class="raffle-bonus-note">Share your Hello Gorgeous experience</div></div>
+      </div>
+      <div class="raffle-bonus-item">
+        <div class="raffle-bonus-tickets">+1</div>
+        <div><div class="raffle-bonus-action">Follow on Instagram</div><div class="raffle-bonus-note">@hellogorgeousmedspa</div></div>
+      </div>
+      <div class="raffle-bonus-item">
+        <div class="raffle-bonus-tickets">+3</div>
+        <div><div class="raffle-bonus-action">Book a New Consultation</div><div class="raffle-bonus-note">For a service you haven't tried</div></div>
+      </div>
+      <div class="raffle-bonus-item">
+        <div class="raffle-bonus-tickets">+2</div>
+        <div><div class="raffle-bonus-action">Bring a Friend to the Event</div><div class="raffle-bonus-note">Per friend who attends</div></div>
+      </div>
+      <div class="raffle-bonus-item">
+        <div class="raffle-bonus-tickets">+1</div>
+        <div><div class="raffle-bonus-action">Tag Us in Your Story</div><div class="raffle-bonus-note">Must tag @hellogorgeousmedspa</div></div>
+      </div>
+      <div class="raffle-bonus-item">
+        <div class="raffle-bonus-tickets">+1</div>
+        <div><div class="raffle-bonus-action">Share the Event on Facebook</div><div class="raffle-bonus-note">Public post required</div></div>
+      </div>
+    </div>
+
+    <div class="raffle-deadline">Raffle drawn live at The Glow Social · <strong>May 14th, 6 PM · Freddie's Off The Chain</strong><br>Must be present to win.</div>
+    <div style="text-align:center;">
+      <a href="https://www.fresha.com/book-now/hello-gorgeous-tallrfb5/services?lid=102610&share=true&pId=95245" class="cta-btn">Book Now &amp; Start Earning →</a>
+    </div>
+  </div>
+
+  <!-- DID YOU KNOW -->
+  <div class="did-you-know">
+    <div class="dyk-label">✨ Did You Know…</div>
+    <p class="dyk-text">Your skin completely renews itself every 28–40 days — meaning the glow you invest in today is literally the face you'll be wearing into summer. And as sun exposure increases this spring, it's also the perfect time to take a closer look at what's changing on your skin. Which brings us to something important...</p>
+  </div>
+
+  <!-- SUN SKIN HEALTH BANNER -->
+  <div class="banner-label banner-label-blush">
+    <span class="banner-script" style="color:#8B4A4A;">Know</span>
+    <span class="banner-sans" style="color:#1A1A1A; font-size:17px;">Your Skin This Spring</span>
+  </div>
+
+  <!-- SUN SPOTS / MELASMA / MOLES -->
+  <div class="section section-blush" style="padding-top:24px;">
+    <div class="sun-intro">
+      <div class="sun-intro-headline">More Sunshine Means It's Time to Look Closer</div>
+      <p style="font-size:14px; color:#555; line-height:1.75;">As we spend more time outdoors, UV exposure increases — and so does the chance that things on your skin start to change, appear, or get darker. Most of it is completely harmless. But some of it deserves a closer look. Here's what to watch for, and what to do about each one.</p>
+    </div>
+
+    <div class="condition-cards">
+      <div class="condition-card cc-spots">
+        <div class="condition-icon">☀️</div>
+        <div class="condition-title">Sun Spots<br>(Solar Lentigines)</div>
+        <div class="condition-desc">Flat, brown spots caused by cumulative UV exposure. Common on the face, hands, and chest. Benign — but they can make skin look uneven and aged before its time.</div>
+      </div>
+      <div class="condition-card cc-melasma">
+        <div class="condition-icon">🌸</div>
+        <div class="condition-title">Melasma</div>
+        <div class="condition-desc">Hormonal pigmentation that darkens with sun. Appears on cheeks, forehead, and upper lip. Very common in women — and very treatable with the right approach.</div>
+      </div>
+      <div class="condition-card cc-moles">
+        <div class="condition-icon">🔍</div>
+        <div class="condition-title">Suspicious Moles</div>
+        <div class="condition-desc">Most moles are harmless. But changes in size, color, or shape — or a mole that bleeds or itches — deserve medical attention right away.</div>
+      </div>
+    </div>
+
+    <div class="tip-block">
+      <div class="tip-title">Sun Spots: You Don't Have to Live With Them</div>
+      <p class="tip-body">Sun spots are a natural result of years of UV exposure — not a sign that you did anything wrong. But they don't have to be permanent. Treatments like our <strong>Solaria CO₂ Laser</strong> and targeted brightening protocols can dramatically reduce their appearance and give you back an even, luminous complexion. At home, start with a vitamin C serum in the morning and a consistent SPF 30+ every day. Prevention is the best treatment there is, and spring is the moment to start.</p>
+    </div>
+
+    <div class="tip-block">
+      <div class="tip-title">Melasma: It's Hormonal, and It's Not Your Fault</div>
+      <p class="tip-body">Melasma is one of the most common — and most misunderstood — skin concerns we see. It's driven by hormones: pregnancy, birth control, and hormonal shifts can all be triggers. Sun exposure makes it significantly worse, which is why spring and summer are peak flare-up seasons. If your dark patches seem to deepen in warmer months and fade slightly in winter, melasma is very likely the culprit. The good news: with the right combination of topical brighteners, professional peels, and laser treatments, melasma is absolutely manageable. Come talk to us — we have a protocol designed specifically for you.</p>
+    </div>
+
+    <div class="tip-block">
+      <div class="tip-title">Suspicious Moles: Please Don't Wait</div>
+      <p class="tip-body">We want to be honest with you: we are not dermatologists, and we never diagnose. But as skin professionals who care deeply about every person who walks through our door, we feel it's our responsibility to say this clearly — <strong>if any mole concerns you, please see a board-certified dermatologist right away.</strong> Don't second-guess yourself. Don't wait until it's more convenient. Use the guide below as a starting point, and when in doubt, get it checked. Early detection is everything.</p>
+    </div>
+
+    <div class="abcde-box">
+      <div class="abcde-title">The ABCDE Rule — What to Look For When Checking Your Moles</div>
+      <div class="abcde-grid">
+        <div class="abcde-item">
+          <div class="abcde-letter">A</div>
+          <div class="abcde-word">Asymmetry</div>
+          <div class="abcde-def">One half doesn't match the other half</div>
+        </div>
+        <div class="abcde-item">
+          <div class="abcde-letter">B</div>
+          <div class="abcde-word">Border</div>
+          <div class="abcde-def">Edges are ragged, notched, or blurred</div>
+        </div>
+        <div class="abcde-item">
+          <div class="abcde-letter">C</div>
+          <div class="abcde-word">Color</div>
+          <div class="abcde-def">Multiple shades: brown, black, red, or white</div>
+        </div>
+        <div class="abcde-item">
+          <div class="abcde-letter">D</div>
+          <div class="abcde-word">Diameter</div>
+          <div class="abcde-def">Larger than a pencil eraser (6mm+)</div>
+        </div>
+        <div class="abcde-item">
+          <div class="abcde-letter">E</div>
+          <div class="abcde-word">Evolving</div>
+          <div class="abcde-def">Any change in size, shape, color, or new symptoms</div>
+        </div>
+      </div>
+    </div>
+
+    <p class="sun-cta-note">
+      ⚠️ If you notice any of these signs, please contact a dermatologist immediately — not us.<br><br>
+      For sun spot and melasma consultations, we're here and ready to help.<br>
+      <a href="https://www.fresha.com/book-now/hello-gorgeous-tallrfb5/services?lid=102610&share=true&pId=95245">Book online</a> or call <strong>(630) 636-6193</strong>.
+    </p>
+  </div>
+
+  <!-- TREATMENT SPOTLIGHT BANNER -->
   <div class="banner-label banner-label-glow">
     <span class="banner-script">Treatment</span>
     <span class="banner-sans">Spotlight</span>
   </div>
 
-  <!-- ── HIGHLIGHT CARDS ── -->
   <div class="section section-light" style="padding-top:20px;">
-    <p class="body-text" style="text-align:center; color:#777; font-style:italic;">This spring we're shining a light on our most-loved devices and services.</p>
-
+    <p class="body-text" style="text-align:center; color:#777; font-style:italic;">Our most-loved services — including the two up for grabs at The Glow Social.</p>
     <div class="highlight-grid">
       <div class="highlight-card">
-        <div class="highlight-card-label">InMode Device</div>
+        <div class="highlight-card-label">InMode · Prize Eligible</div>
         <div class="highlight-card-title">Morpheus8 Burst</div>
-        <div class="highlight-card-desc">Fractional RF microneedling reaching 8mm depth — the deepest available. Tighten, tone, and remodel from the inside out. Results that last.</div>
+        <div class="highlight-card-desc">8mm depth RF microneedling — the deepest available. Lifts, tightens, and remodels. Also exceptional for sun damage and texture. One of our raffle prizes.</div>
       </div>
       <div class="highlight-card">
-        <div class="highlight-card-label">InMode Device</div>
+        <div class="highlight-card-label">InMode · Prize Eligible</div>
         <div class="highlight-card-title">Solaria CO₂ Laser</div>
-        <div class="highlight-card-desc">Exclusively available at Hello Gorgeous in the western Chicago suburbs. Resurfacing, scar revision, and luminosity — all in one pass.</div>
+        <div class="highlight-card-desc">Exclusively at Hello Gorgeous in the western suburbs. Resurfacing, sun spot treatment, melasma reduction — in one powerful session. The other raffle prize.</div>
       </div>
       <div class="highlight-card">
-        <div class="highlight-card-label">Weight Loss</div>
+        <div class="highlight-card-label">Medical Weight Loss</div>
         <div class="highlight-card-title">GLP-1 Programs</div>
-        <div class="highlight-card-desc">Semaglutide &amp; tirzepatide under FNP-BC supervision, 7 days a week. A medically supported path that actually works.</div>
+        <div class="highlight-card-desc">Semaglutide &amp; tirzepatide with FNP-BC oversight, 7 days a week. Every dollar of your program earns raffle tickets toward May 14th.</div>
       </div>
       <div class="highlight-card">
         <div class="highlight-card-label">Injectables</div>
         <div class="highlight-card-title">Botox &amp; Filler</div>
-        <div class="highlight-card-desc">Natural-looking results with an artistic eye. Spring is the perfect time to refresh before summer events, weddings, and vacations.</div>
+        <div class="highlight-card-desc">Natural results, artistic eye. Refresh before summer events — and earn raffle entries with every service you book before May 14th.</div>
       </div>
     </div>
-
     <div style="text-align:center; margin-top:24px;">
-      <a href="https://www.fresha.com/book-now/hello-gorgeous-tallrfb5/services?lid=102610&share=true&pId=95245" class="cta-btn">Book a Consultation →</a>
-    </div>
-  </div>
-
-  <!-- ── DID YOU KNOW ── -->
-  <div class="did-you-know">
-    <div class="dyk-label">✨ Did You Know…</div>
-    <p class="dyk-text">Your skin completely renews itself roughly every 28–40 days — meaning the glow you invest in today is literally the face you'll be wearing into summer. Spring treatments aren't indulgence; they're strategy.</p>
-  </div>
-
-  <!-- ── SKIN TIPS BANNER ── -->
-  <div class="banner-label banner-label-blush">
-    <span class="banner-script" style="color:#8B4A4A;">Skincare</span>
-    <span class="banner-sans" style="color:#1A1A1A; font-size:18px;">Tips for Spring</span>
-  </div>
-
-  <!-- ── TIPS SECTION ── -->
-  <div class="section section-blush" style="padding-top:20px;">
-    <p class="body-text" style="color:#666; font-style:italic; margin-bottom:20px;">Three simple shifts that make a big difference as the seasons change.</p>
-
-    <div class="tip-block">
-      <div class="tip-title">Switch to a Lighter Moisturizer</div>
-      <p class="tip-body">The heavy creams that carried your skin through winter can start clogging pores as humidity rises in spring. Look for gel-based or water-gel formulas with hyaluronic acid that hydrate without weight. Your skin will breathe easier — and your makeup will sit better, too.</p>
-    </div>
-
-    <div class="tip-block">
-      <div class="tip-title">Sunscreen Is Non-Negotiable (Yes, Still)</div>
-      <p class="tip-body">Every treatment we offer works harder when protected from UV exposure. Morpheus8, peels, CO₂, even Botox — sun damage can reverse your investment faster than anything else. SPF 30+ minimum, every single day. Mineral-based formulas are our top recommendation.</p>
-    </div>
-
-    <div class="tip-block">
-      <div class="tip-title">Don't Skip Your Vitamin Injections</div>
-      <p class="tip-body">B12, B-Complex, and MIC lipotropic injections are a fast, effective way to support energy, metabolism, and mood as your body adjusts to the season. Most clients notice a difference within 24–48 hours. Ask us about adding one to your next visit.</p>
+      <a href="https://www.fresha.com/book-now/hello-gorgeous-tallrfb5/services?lid=102610&share=true&pId=95245" class="cta-btn">Book a Service &amp; Earn Raffle Tickets →</a>
     </div>
   </div>
 
   <hr class="divider divider-gold">
 
-  <!-- ── FEATURED CONNECTION BANNER ── -->
+  <!-- FEATURED CONNECTION -->
   <div class="banner-label banner-label-pink">
     <span class="banner-script">Featured</span>
     <span class="banner-sans">Connection</span>
   </div>
 
-  <!-- ── FEATURED PARTNER ── -->
   <div class="section section-light" style="padding-top:24px;">
-    <p class="body-text" style="color:#666; font-style:italic; margin-bottom:16px;">Each month we spotlight a trusted local business we genuinely believe in — because great self-care doesn't stop at our door.</p>
-
+    <p class="body-text" style="color:#666; font-style:italic; margin-bottom:16px;">Each month we spotlight a trusted local business we genuinely love — and this month, it's our event home.</p>
     <div class="partner-grid">
       <div>
         <div class="partner-name">Freddie's Off The Chain</div>
-        <div class="partner-info">
-          Downtown Oswego, IL<br>
-          <a href="#">@freddiesoffthechainos</a>
-        </div>
-        <p class="body-text" style="font-size:14px; color:#555;">Freddie's is the heartbeat of downtown Oswego — a gathering place owned by Mona and Adrian Herrada that brings the community together. We're thrilled to be partnering with them this spring as the venue for <strong>The Glow Social</strong>, our upcoming client appreciation event. Great food, great people, great vibes. Stay tuned for the date announcement!</p>
+        <div class="partner-info">Downtown Oswego, IL</div>
+        <p class="body-text" style="font-size:14px; color:#555;">Freddie's is the heartbeat of downtown Oswego — owned by Mona and Adrian Herrada, it's a space that brings this community together with warmth, energy, and great food. We couldn't imagine a better home for The Glow Social on May 14th. We're grateful for the partnership and proud to celebrate alongside such a beloved local business.</p>
       </div>
       <div class="partner-badge">
-        <div style="font-size:20px; margin-bottom:4px;">🍽️</div>
-        <div class="partner-badge-name">Local<br>Partner</div>
+        <div style="font-size:22px; margin-bottom:4px;">🍽️</div>
+        <div class="partner-badge-name">Event<br>Venue<br>Partner</div>
       </div>
     </div>
   </div>
 
   <hr class="divider">
 
-  <!-- ── TESTIMONIAL BANNER ── -->
+  <!-- TESTIMONIAL -->
   <div class="banner-label banner-label-glow">
     <span class="banner-script">Client</span>
     <span class="banner-sans">Love</span>
   </div>
 
-  <!-- ── TESTIMONIAL ── -->
   <div class="testimonial-box">
     <span class="testimonial-quote-mark">"</span>
     <p class="testimonial-text">I came in skeptical — I'd tried everything for my skin texture and nothing stuck. Dani sat with me for almost an hour just talking through my history and what I actually wanted. She didn't oversell me on anything. Two months into my Morpheus8 series and my skin looks better than it did in my twenties. I tell everyone I know. This place is the real deal.</p>
     <p class="testimonial-attribution">— Maria T., Oswego &nbsp;·&nbsp; Google Review ⭐⭐⭐⭐⭐</p>
   </div>
 
-  <!-- ── AWARDS ── -->
-  <div class="section section-light" style="text-align:center; padding: 28px 48px;">
+  <!-- AWARDS -->
+  <div class="section section-light" style="text-align:center; padding:28px 48px;">
     <div class="stars">★★★★★</div>
     <p style="font-size:13px; color:#888; margin-bottom:18px; font-style:italic;">4.9 Stars · Oswego, IL</p>
     <div class="awards-row">
-      <div class="award-badge">
-        <div class="award-badge-icon">🏆</div>
-        <div class="award-badge-text">#1 Best<br>Med Spa</div>
-      </div>
-      <div class="award-badge">
-        <div class="award-badge-icon">✨</div>
-        <div class="award-badge-text">Best<br>Skincare</div>
-      </div>
-      <div class="award-badge">
-        <div class="award-badge-icon">💪</div>
-        <div class="award-badge-text">Best<br>Weight Loss</div>
-      </div>
+      <div class="award-badge"><div class="award-badge-icon">🏆</div><div class="award-badge-text">#1 Best Med Spa</div></div>
+      <div class="award-badge"><div class="award-badge-icon">✨</div><div class="award-badge-text">Best Skincare</div></div>
+      <div class="award-badge"><div class="award-badge-icon">💪</div><div class="award-badge-text">Best Weight Loss</div></div>
     </div>
     <p style="font-size:12px; color:#aaa; margin-top:8px; font-style:italic;">Oswego, IL Community Awards</p>
   </div>
 
   <hr class="divider">
 
-  <!-- ── REFERRAL ── -->
+  <!-- REFERRAL -->
   <div class="referral-bar">
-    <div class="referral-script">We Love Referrals!</div>
-    <p class="referral-text">Your friends and family deserve to feel this good. Send them our way and we'll take care of them like family — because that's exactly what Hello Gorgeous is built on. Ask us about our referral perks at your next visit.</p>
-    <a href="https://www.fresha.com/book-now/hello-gorgeous-tallrfb5/services?lid=102610&share=true&pId=95245" class="cta-btn" style="margin-top:18px; background: transparent; border: 1px solid #D4537E; color: #D4537E;">Book Online →</a>
+    <div class="referral-script">Bring a Friend to The Glow Social!</div>
+    <p class="referral-text">Every friend you bring to the event earns you +2 bonus raffle tickets — and gives them a free vitamin injection just for attending. The more people you bring, the better your odds. Share the love. Share the glow.</p>
+    <a href="https://www.fresha.com/book-now/hello-gorgeous-tallrfb5/services?lid=102610&share=true&pId=95245" class="cta-btn" style="background:transparent; border:1px solid #D4537E; color:#D4537E;">Book a Service → Start Earning</a>
   </div>
 
-  <!-- ── CLOSING ── -->
+  <!-- CLOSING -->
   <div class="section section-light" style="text-align:center;">
-    <p class="body-text" style="text-align:center; font-size:16px; color:#555; line-height:1.9;">We are so grateful to serve this community. Whether you're a first-time visitor or a longtime regular — thank you for trusting us with your skin, your health, and your confidence. We look forward to seeing you soon.</p>
-    <p style="font-family:'Cormorant Garamond',serif; font-style:italic; font-size:20px; color:#D4537E; margin-top:8px;">Until next month,</p>
+    <p class="body-text" style="font-size:16px; color:#555; line-height:1.9; text-align:center;">We are so grateful to serve this community. Whether you're a first-time visitor or a longtime regular — thank you for trusting us with your skin, your health, and your confidence. We cannot wait to celebrate with you on May 14th.</p>
+    <p style="font-family:'Cormorant Garamond',serif; font-style:italic; font-size:20px; color:#D4537E; margin-top:8px;">Until next month — and see you at The Glow Social,</p>
   </div>
 
-  <!-- ── FOOTER ── -->
+  <!-- FOOTER -->
   <div class="footer">
     <div class="footer-grid">
       <div>
