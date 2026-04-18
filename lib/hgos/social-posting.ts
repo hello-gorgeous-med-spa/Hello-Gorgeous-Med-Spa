@@ -134,18 +134,20 @@ export async function postToGoogle(
 ): Promise<ChannelResult> {
   const { message, link, imageUrl } = input;
   try {
-    // STANDARD + callToAction — OFFER requires `event` + offer fields per GBP API; link-only posts must not use OFFER.
+    // STANDARD only. OFFER requires `event` + offer; many locations also return INVALID_ARGUMENT for callToAction
+    // (LEARN_MORE/BOOK) even though docs allow it — append link into summary instead.
+    const url =
+      link?.trim() &&
+      (link.trim().startsWith("http") ? link.trim() : `https://${link.trim()}`);
+    const summary =
+      url && !message.includes(url.replace(/^https:\/\//, ""))
+        ? `${message}\n\n${url}`
+        : message;
     const body: Record<string, unknown> = {
       languageCode: "en-US",
-      summary: message,
+      summary,
       topicType: "STANDARD",
     };
-    if (link) {
-      body.callToAction = {
-        actionType: "LEARN_MORE",
-        url: link.startsWith("http") ? link : `https://${link}`,
-      };
-    }
     if (imageUrl) {
       body.media = [{ mediaFormat: "PHOTO", sourceUrl: imageUrl }];
     }
@@ -161,8 +163,15 @@ export async function postToGoogle(
       }
     );
     if (!res.ok) {
-      const err = (await res.json()) as { error?: { message?: string } };
-      return { ok: false, error: err.error?.message ?? res.statusText };
+      const err = (await res.json()) as {
+        error?: { message?: string; status?: string; details?: unknown };
+      };
+      const details =
+        err.error?.details != null ? ` ${JSON.stringify(err.error.details)}` : "";
+      return {
+        ok: false,
+        error: `${err.error?.message ?? res.statusText}${details}`,
+      };
     }
     const data = (await res.json()) as { name?: string };
     return { ok: true, id: data.name ?? undefined };
