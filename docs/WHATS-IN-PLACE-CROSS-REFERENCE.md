@@ -90,7 +90,7 @@ Use this to cross-reference features, URLs, env vars, and docs.
 - Google Connect: `app/api/social/google-connect/route.ts`
 - Google Callback: `app/api/social/google-callback/route.ts`
 
-**Docs:** `docs/SOCIAL_POSTING_SETUP.md`, `docs/GOOGLE_SOCIAL_SETUP_STEP_BY_STEP.md`
+**Docs:** `docs/SOCIAL_POSTING_SETUP.md`, `docs/GOOGLE_SOCIAL_SETUP_STEP_BY_STEP.md`, **`docs/SOCIAL_POST_RUNBOOK.md`** (repeatable posting checklist)
 
 ---
 
