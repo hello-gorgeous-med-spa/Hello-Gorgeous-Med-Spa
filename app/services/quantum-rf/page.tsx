@@ -2,13 +2,24 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { TechBlogPromo } from "@/components/TechBlogPromo";
+import { CHERRY_PAY_URL } from "@/lib/flows";
 import { pageMetadata, SITE, siteJsonLd } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
-  title: "QuantumRF Skin Tightening | Subdermal RF Contouring | Oswego IL",
+  title: "InMode Quantum RF Body Contouring Oswego IL | Neck & Abdomen Packages + Free Morpheus8 Burst",
   description:
-    "QuantumRF by InMode at Hello Gorgeous Med Spa Oswego IL. Minimally invasive subdermal radiofrequency for skin tightening, fat reduction, jawline contouring. 10 & 25 pin probes. Book consultation.",
+    "New standard in body contouring — lipo-level results without surgery. InMode Quantum RF at Hello Gorgeous Med Spa (Oswego). Neck package $2,499 · Abdomen $3,999 · includes FREE Morpheus8 Burst. Cherry financing. Ryan Kent, FNP-BC & Danielle Alcala, RN-S. Book consultation.",
   path: "/services/quantum-rf",
+  keywords: [
+    "InMode Quantum RF",
+    "Quantum RF body contouring Oswego",
+    "non surgical lipo Oswego IL",
+    "neck tightening RF Naperville",
+    "abdomen contouring Aurora IL",
+    "post GLP-1 skin laxity Illinois",
+    "Morpheus8 Burst free",
+    "Hello Gorgeous Med Spa Quantum RF",
+  ],
 });
 
 const QUANTUM_FAQS = [
@@ -60,7 +71,7 @@ const QUANTUM_FAQS = [
   {
     question: "How much does QuantumRF cost?",
     answer:
-      "Pricing depends on the treatment area and extent of treatment. Consultations are complimentary, and we will provide personalized pricing based on your goals. Financing options are available.",
+      "Featured packages include the Neck Quantum RF package at $2,499 (one treatment) with a complimentary Morpheus8 Burst add-on, and the Abdomen Quantum RF package at $3,999 (one treatment) with a complimentary Morpheus8 Burst add-on. Pricing is confirmed at consultation. Cherry financing is available — apply at pay.withcherry.com/hellogorgeous.",
   },
 ];
 
@@ -139,6 +150,46 @@ function FAQJsonLd() {
   };
 }
 
+function QuantumLaunchOffersJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "InMode Quantum RF — featured body contouring packages",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        item: {
+          "@type": "Offer",
+          name: "Neck Quantum RF Package — includes FREE Morpheus8 Burst",
+          description:
+            "Neck tightening, fat reduction and skin contraction, local anesthesia, one session. Complimentary Morpheus8 Burst included.",
+          price: "2499",
+          priceCurrency: "USD",
+          url: `${SITE.url}/services/quantum-rf`,
+          availability: "https://schema.org/InStock",
+          seller: { "@type": "MedicalBusiness", name: SITE.name, url: SITE.url },
+        },
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        item: {
+          "@type": "Offer",
+          name: "Abdomen Quantum RF Package — includes FREE Morpheus8 Burst",
+          description:
+            "Abdomen contouring, stubborn fat and skin tightening, post–weight loss laxity. One session. Complimentary Morpheus8 Burst included.",
+          price: "3999",
+          priceCurrency: "USD",
+          url: `${SITE.url}/services/quantum-rf`,
+          availability: "https://schema.org/InStock",
+          seller: { "@type": "MedicalBusiness", name: SITE.name, url: SITE.url },
+        },
+      },
+    ],
+  };
+}
+
 export default function QuantumRFPage() {
   return (
     <>
@@ -154,22 +205,28 @@ export default function QuantumRFPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(FAQJsonLd()) }}
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(QuantumLaunchOffersJsonLd()) }}
+      />
       <main className="bg-white">
         {/* Hero */}
         <section className="relative bg-black text-white overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-br from-black via-black to-blue-950/30" />
+          <div className="absolute inset-0 bg-gradient-to-br from-black via-black to-rose-950/40" />
           <div className="relative max-w-6xl mx-auto px-4 py-16 md:py-24">
-            <div className="inline-flex items-center gap-2 bg-blue-500/20 text-blue-300 text-sm font-semibold px-4 py-2 rounded-full mb-6">
+            <div className="inline-flex items-center gap-2 bg-[#E6007E]/25 text-pink-200 text-sm font-semibold px-4 py-2 rounded-full mb-6 border border-[#E6007E]/40">
               <span className="animate-pulse">⚡</span>
-              <span>NOW AVAILABLE — Advanced Subdermal RF Technology</span>
+              <span>NOW INTRODUCING · INMODE QUANTUM RF</span>
             </div>
             <h1 className="text-4xl md:text-6xl font-bold leading-tight mb-6">
-              QuantumRF
-              <br />
-              <span className="text-blue-400">Subdermal Contouring</span>
+              The New Standard in{" "}
+              <span className="text-[#FF1493]">Body Contouring</span>
             </h1>
-            <p className="text-xl text-white/90 max-w-2xl mb-4">
-              Minimally invasive radiofrequency that works beneath the skin for dramatic skin tightening and fat reduction—without surgery.
+            <p className="text-xl md:text-2xl text-white/95 max-w-3xl mb-3 font-medium">
+              Lipo results. No surgery. No operating room.
+            </p>
+            <p className="text-lg text-white/80 max-w-2xl mb-4">
+              Minimally invasive subdermal RF — fractionated bipolar energy beneath the skin for fat reduction and tissue contraction in one session. Peak results build up to 6 months.
             </p>
             <p className="text-white/70 mb-6 max-w-xl">
               Featuring <strong>QuantumRF 10</strong> for precise facial contouring and <strong>QuantumRF 25</strong> for efficient body treatments.{" "}
@@ -229,12 +286,105 @@ export default function QuantumRFPage() {
           </div>
         </section>
 
-        {/* Quantum RF Pricing — Body Contouring / Lipo category */}
+        {/* Launch spotlight — flyer + featured packages */}
+        <section className="py-12 md:py-16 bg-zinc-100 border-y border-zinc-200">
+          <div className="max-w-6xl mx-auto px-4">
+            <p className="text-center text-sm font-semibold tracking-widest text-[#E6007E] uppercase mb-3">
+              Featured launch · Oswego, IL
+            </p>
+            <h2 className="text-3xl md:text-4xl font-bold text-black text-center mb-8 max-w-3xl mx-auto">
+              InMode Quantum RF packages — includes <span className="text-[#E6007E]">FREE Morpheus8 Burst</span>
+            </h2>
+            <div className="grid lg:grid-cols-2 gap-10 items-start">
+              <div className="rounded-2xl overflow-hidden border-2 border-black shadow-xl bg-black">
+                <Image
+                  src="/images/marketing/inmode-quantum-rf-launch-flyer.png"
+                  alt="Hello Gorgeous Med Spa — InMode Quantum RF body contouring. Ryan Kent FNP-BC, Danielle Alcala RN-S. Neck and abdomen packages with free Morpheus8 Burst."
+                  width={800}
+                  height={1200}
+                  className="w-full h-auto"
+                  priority
+                />
+              </div>
+              <div className="space-y-6">
+                <div className="rounded-2xl border-2 border-zinc-200 bg-white p-6 md:p-8 shadow-sm">
+                  <h3 className="text-xl font-bold text-black mb-1">Neck Quantum RF Package</h3>
+                  <p className="text-4xl font-bold text-[#E6007E] mb-2">$2,499</p>
+                  <p className="text-sm text-black/60 mb-4">One treatment · one session · local anesthesia · no OR</p>
+                  <ul className="space-y-2 text-black/80 text-sm mb-4">
+                    <li className="flex gap-2">
+                      <span className="text-[#E6007E]">◆</span> Neck tightening, fat reduction + skin contraction
+                    </li>
+                    <li className="flex gap-2">
+                      <span className="text-[#E6007E]">◆</span> Immediate visible results; builds up to 6 months
+                    </li>
+                    <li className="flex gap-2">
+                      <span className="text-[#E6007E]">◆</span> Includes FREE Morpheus8 Burst (skin texture &amp; surface tightening)
+                    </li>
+                  </ul>
+                  <p className="text-sm text-black/70">
+                    Financing: as low as <strong>$69/mo</strong> with Cherry — subject to approval.
+                  </p>
+                </div>
+                <div className="rounded-2xl border-2 border-[#E6007E] bg-white p-6 md:p-8 shadow-md relative">
+                  <span className="absolute -top-3 right-4 bg-[#E6007E] text-white text-xs font-bold px-3 py-1 rounded-full">
+                    BEST VALUE
+                  </span>
+                  <h3 className="text-xl font-bold text-black mb-1">Abdomen Quantum RF Package</h3>
+                  <p className="text-4xl font-bold text-[#E6007E] mb-2">$3,999</p>
+                  <p className="text-sm text-black/60 mb-4">One treatment · one session · post–GLP-1 laxity specialist</p>
+                  <ul className="space-y-2 text-black/80 text-sm mb-4">
+                    <li className="flex gap-2">
+                      <span className="text-[#E6007E]">◆</span> Abdomen contouring — stubborn fat + skin tightening
+                    </li>
+                    <li className="flex gap-2">
+                      <span className="text-[#E6007E]">◆</span> Immediate visible sculpting; results build up to 6 months
+                    </li>
+                    <li className="flex gap-2">
+                      <span className="text-[#E6007E]">◆</span> Includes FREE Morpheus8 Burst
+                    </li>
+                  </ul>
+                  <p className="text-sm text-black/70">
+                    Financing: as low as <strong>$111/mo</strong> with Cherry — subject to approval.
+                  </p>
+                </div>
+                <div className="flex flex-col sm:flex-row gap-3">
+                  <Link
+                    href="/book"
+                    className="inline-flex flex-1 items-center justify-center rounded-lg bg-[#E6007E] px-6 py-3 font-semibold text-white hover:bg-[#c9006e] transition text-center"
+                  >
+                    Book consultation
+                  </Link>
+                  <a
+                    href={CHERRY_PAY_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex flex-1 items-center justify-center rounded-lg border-2 border-black px-6 py-3 font-semibold text-black hover:bg-black hover:text-white transition text-center"
+                  >
+                    Apply with Cherry
+                  </a>
+                  <Link
+                    href="tel:6306366193"
+                    className="inline-flex flex-1 items-center justify-center rounded-lg border-2 border-zinc-300 px-6 py-3 font-semibold text-black hover:border-black transition text-center"
+                  >
+                    Call (630) 636-6193
+                  </Link>
+                </div>
+                <p className="text-xs text-black/50 text-center">
+                  Ryan Kent, FNP-BC · Danielle Alcala, RN-S · {SITE.address.addressLocality}, {SITE.address.addressRegion}{" "}
+                  · Individual results vary. Medical evaluation required.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Additional area pricing reference */}
         <section className="py-16 md:py-20 bg-white">
           <div className="max-w-6xl mx-auto px-4">
-            <h2 className="text-3xl font-bold text-black mb-2 text-center">Quantum RF Pricing</h2>
-            <p className="text-black/70 text-center mb-8 max-w-xl mx-auto">
-              Body Contouring &amp; Lipo category. Minimally invasive subdermal RF by treatment area.
+            <h2 className="text-2xl font-bold text-black mb-2 text-center">Other treatment areas</h2>
+            <p className="text-black/70 text-center mb-8 max-w-xl mx-auto text-sm">
+              Pricing varies by area. Your provider will confirm your personalized plan at consultation.
             </p>
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 max-w-5xl mx-auto">
               {[
@@ -246,11 +396,13 @@ export default function QuantumRFPage() {
               ].map((area) => (
                 <div key={area.name} className="rounded-xl border-2 border-zinc-200 bg-zinc-50 p-5 text-center">
                   <h3 className="font-bold text-black mb-1">{area.name}</h3>
-                  <p className="text-xl font-bold text-[#E6007E]">${area.price.toLocaleString()}</p>
+                  <p className="text-xl font-bold text-[#E6007E]">from ${area.price.toLocaleString()}</p>
                 </div>
               ))}
             </div>
-            <p className="text-center text-sm text-black/60 mt-6">Financing available. Consultation required.</p>
+            <p className="text-center text-sm text-black/60 mt-6">
+              Featured neck &amp; abdomen launch packages above may offer the best value — ask during your visit.
+            </p>
             <div className="text-center mt-6">
               <Link href="/book" className="inline-flex items-center justify-center rounded-lg bg-[#E6007E] px-6 py-3 font-semibold text-white hover:bg-[#c9006e] transition">
                 Book consultation

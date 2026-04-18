@@ -819,16 +819,19 @@ export function pageMetadata({
   title,
   description,
   path = "/",
+  keywords,
 }: {
   title: string;
   description: string;
   path?: string;
+  keywords?: string | string[];
 }): Metadata {
   const url = new URL(path, SITE.url).toString();
 
   return {
     title,
     description,
+    ...(keywords != null ? { keywords } : {}),
     alternates: { canonical: url },
     openGraph: {
       type: "website",

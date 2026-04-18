@@ -6,23 +6,23 @@ import { TreatmentPageTemplate } from "@/components/marketing/TreatmentPageTempl
 const t = treatments.quantumRF;
 
 export const metadata: Metadata = pageMetadata({
-  title: "QuantumRF Near Me | Oswego, Naperville, Aurora IL | Hello Gorgeous",
+  title: "InMode Quantum RF Body Contouring Near Me | Oswego, Naperville, Aurora IL",
   description:
-    "QuantumRF near me — subdermal skin tightening without surgery. Only Oswego-area med spa with QuantumRF. 15 min from Naperville, Aurora, Plainfield. Tighten loose skin, contour body. Book free consultation.",
+    "InMode Quantum RF — lipo-level body contouring without surgery. Neck package $2,499 · abdomen $3,999 · FREE Morpheus8 Burst included. Oswego med spa serving Naperville, Aurora, Plainfield. Post–GLP-1 skin laxity. Cherry financing. Book consultation.",
   path: "/quantum-rf-oswego-il",
   keywords: [
-    "QuantumRF near me",
+    "InMode Quantum RF near me",
+    "Quantum RF body contouring Oswego",
     "QuantumRF Oswego",
     "QuantumRF Naperville",
-    "QuantumRF Aurora",
-    "QuantumRF skin tightening",
+    "non surgical lipo Illinois",
+    "neck tightening RF Aurora IL",
+    "abdomen contouring without surgery",
+    "post GLP-1 skin laxity Oswego",
+    "Morpheus8 Burst Oswego",
     "subdermal RF tightening",
-    "non surgical skin tightening Oswego",
-    "non surgical facelift Naperville",
-    "body contouring Oswego IL",
-    "loose skin treatment after weight loss",
-    "skin tightening without surgery",
-    "radiofrequency skin tightening Illinois",
+    "Hello Gorgeous Quantum RF",
+    "Cherry financing med spa",
   ],
 });
 
