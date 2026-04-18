@@ -134,14 +134,15 @@ export async function postToGoogle(
 ): Promise<ChannelResult> {
   const { message, link, imageUrl } = input;
   try {
+    // STANDARD + callToAction — OFFER requires `event` + offer fields per GBP API; link-only posts must not use OFFER.
     const body: Record<string, unknown> = {
       languageCode: "en-US",
       summary: message,
-      topicType: link ? "OFFER" : "STANDARD",
+      topicType: "STANDARD",
     };
     if (link) {
       body.callToAction = {
-        actionType: "BOOK",
+        actionType: "LEARN_MORE",
         url: link.startsWith("http") ? link : `https://${link}`,
       };
     }
