@@ -86,6 +86,8 @@ Success looks like: `"results":{"google":{"ok":true,"id":"accounts/.../localPost
 |--------|------------|
 | `"Request contains an invalid argument"` (Google) | Do **not** rely on a separate CTA button from the API. Use **`link`** in the payload (it is merged into the caption) or put the URL **inside `message`**. Avoid `topicType: OFFER` unless you implement the full **`event`** + offer payload per Google’s API. |
 | Image post fails | Image URL must return **200** in a browser; use production domain. Prefer PNG/JPG under ~2MB. |
+| Facebook `(#200) ... pages_read_engagement and pages_manage_posts` | Regenerate a **Page** access token (Graph API Explorer: choose your **Page**, not your user) with scopes **`pages_manage_posts`** and **`pages_read_engagement`**. You must be a **Page admin**. If the app is in **Development** mode, only app roles can post; use **Live** mode or add testers, or complete App Review for those permissions. |
+| Facebook photo / `publish_actions` error | Usually the same token/permission issue; fix scopes first, then retry photo posts. |
 | Instagram fails | You must send **`imageUrl`**. Confirm **`META_INSTAGRAM_BUSINESS_ACCOUNT_ID`** (or alias) + Page token (**`META_PAGE_ACCESS_TOKEN`** or **`FACEBOOK_PAGE_ACCESS_TOKEN`**). |
 | `"configured": false` | Set missing env vars in **Vercel** (or host) and redeploy. See **`.env.example`** and **`docs/SOCIAL_POSTING_SETUP.md`**. |
 | Facebook env names | **`META_PAGE_ID`** + **`META_PAGE_ACCESS_TOKEN`** are preferred; **`FACEBOOK_PAGE_ID`** + **`FACEBOOK_PAGE_ACCESS_TOKEN`** work as aliases. **Meta App ID / Secret** are not used for basic Page feed posts (token is enough). |
