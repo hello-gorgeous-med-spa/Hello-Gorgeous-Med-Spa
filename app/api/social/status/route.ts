@@ -5,17 +5,14 @@
 import { NextResponse } from "next/server";
 
 export async function GET() {
-  const facebook = !!(
-    process.env.META_PAGE_ID &&
-    process.env.META_PAGE_ACCESS_TOKEN
-  );
+  const pageId = process.env.META_PAGE_ID || process.env.FACEBOOK_PAGE_ID;
+  const pageToken =
+    process.env.META_PAGE_ACCESS_TOKEN || process.env.FACEBOOK_PAGE_ACCESS_TOKEN;
+  const facebook = !!(pageId && pageToken);
   const igAccountId =
     process.env.META_INSTAGRAM_BUSINESS_ACCOUNT_ID ||
     process.env.META_IG_ACCOUNT_ID;
-  const instagram = !!(
-    igAccountId &&
-    process.env.META_PAGE_ACCESS_TOKEN
-  );
+  const instagram = !!(igAccountId && pageToken);
   const google = !!(
     process.env.GOOGLE_CLIENT_ID &&
     process.env.GOOGLE_CLIENT_SECRET &&

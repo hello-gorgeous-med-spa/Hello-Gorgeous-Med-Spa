@@ -187,8 +187,9 @@ export async function postToChannels(
   channels: SocialChannel[]
 ): Promise<Record<SocialChannel, ChannelResult | undefined>> {
   const results: Record<string, ChannelResult | undefined> = {};
-  const pageId = process.env.META_PAGE_ID;
-  const pageToken = process.env.META_PAGE_ACCESS_TOKEN;
+  const pageId = process.env.META_PAGE_ID || process.env.FACEBOOK_PAGE_ID;
+  const pageToken =
+    process.env.META_PAGE_ACCESS_TOKEN || process.env.FACEBOOK_PAGE_ACCESS_TOKEN;
   const igAccountId = process.env.META_INSTAGRAM_BUSINESS_ACCOUNT_ID;
   const googleAccountId = process.env.GOOGLE_BUSINESS_ACCOUNT_ID;
   const googleLocationId = process.env.GOOGLE_BUSINESS_LOCATION_ID;
@@ -197,7 +198,11 @@ export async function postToChannels(
     if (pageId && pageToken) {
       results.facebook = await postToFacebook(pageId, pageToken, input);
     } else {
-      results.facebook = { ok: false, error: "META_PAGE_ID and META_PAGE_ACCESS_TOKEN required." };
+      results.facebook = {
+        ok: false,
+        error:
+          "META_PAGE_ID (or FACEBOOK_PAGE_ID) and META_PAGE_ACCESS_TOKEN (or FACEBOOK_PAGE_ACCESS_TOKEN) required.",
+      };
     }
   }
   if (channels.includes("instagram")) {
@@ -206,7 +211,8 @@ export async function postToChannels(
     } else {
       results.instagram = {
         ok: false,
-        error: "META_INSTAGRAM_BUSINESS_ACCOUNT_ID and META_PAGE_ACCESS_TOKEN required.",
+        error:
+          "META_INSTAGRAM_BUSINESS_ACCOUNT_ID and a Page access token (META_PAGE_ACCESS_TOKEN or FACEBOOK_PAGE_ACCESS_TOKEN) required.",
       };
     }
   }
