@@ -3,6 +3,7 @@ import Link from "next/link";
 import { BOOKING_URL } from "@/lib/flows";
 import { SITE, breadcrumbJsonLd, eventJsonLd, faqJsonLd, pageMetadata } from "@/lib/seo";
 import { THE_GLOW_SOCIAL, theGlowSocialMapsUrl } from "@/lib/the-glow-social-event";
+import { GlowSocialPromoSlideshow } from "@/components/events/GlowSocialPromoSlideshow";
 
 const pagePath = "/events/the-glow-social";
 const pageUrl = `${SITE.url}${pagePath}`;
@@ -141,6 +142,16 @@ export default function TheGlowSocialPage() {
               </a>
             </div>
           </div>
+        </section>
+
+        <section className="py-12 md:py-16 px-4 md:px-6 bg-zinc-950 text-white border-b border-white/10">
+          <div className="max-w-4xl mx-auto text-center mb-8">
+            <h2 className="text-2xl md:text-3xl font-serif font-bold text-white">Event graphics</h2>
+            <p className="mt-2 text-sm text-white/65 max-w-xl mx-auto">
+              Swipe or use arrows — promo art for The Glow Social and a quick look at our signature resurfacing technologies.
+            </p>
+          </div>
+          <GlowSocialPromoSlideshow />
         </section>
 
         <section className="py-14 px-6 border-b border-black/5">

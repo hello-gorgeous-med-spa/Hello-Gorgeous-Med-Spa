@@ -55,6 +55,16 @@ const additionalImages = [
   
   // Events
   { src: "/images/events/botox-party.png", title: "Botox Party", caption: "Host a Botox party at Hello Gorgeous Med Spa" },
+  {
+    src: "/images/events/glow-social-win-big-may-14.png",
+    title: "The Glow Social — WIN BIG May 14",
+    caption: "Hello Gorgeous Glow Social VIP event May 14 at Freddie's Oswego — raffle, RSVP, WIN BIG promo",
+  },
+  {
+    src: "/images/events/signature-services-solaria-co2.png",
+    title: "Signature services — Solaria and CO2 laser",
+    caption: "Hello Gorgeous signature resurfacing technologies — Solaria and fractional CO2 infographic",
+  },
 ];
 
 export async function GET() {
@@ -138,6 +148,10 @@ export async function GET() {
     ),
     "/about": allImages.filter(img => 
       img.src.includes("team")
+    ),
+    "/events/the-glow-social": allImages.filter(
+      (img) =>
+        img.src.includes("glow-social-win-big") || img.src.includes("signature-services-solaria-co2")
     ),
   };
 
