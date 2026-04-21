@@ -11,6 +11,10 @@ import Link from 'next/link';
 const BOOKING_URL = 'https://www.hellogorgeousmedspa.com/book';
 const SPRING_SPECIAL_LASER_URL = 'https://www.hellogorgeousmedspa.com/spring-special-laser-hair';
 const GLOW_EVENT_URL = 'https://www.hellogorgeousmedspa.com/glow-event';
+const GLOW_SOCIAL_EVENT_URL =
+  'https://www.hellogorgeousmedspa.com/events/the-glow-social?utm_source=google_business_profile&utm_medium=post&utm_campaign=glow_social_may_2026';
+const VIP_DEVICE_NIGHT_URL =
+  'https://www.hellogorgeousmedspa.com/events/vip-device-night?utm_source=google_business_profile&utm_medium=post&utm_campaign=vip_device_night_may_2026';
 const VIP_URL = 'https://www.hellogorgeousmedspa.com/vip-skin-tightening';
 const WEIGHT_LOSS_URL = 'https://www.hellogorgeousmedspa.com/glp1-weight-loss';
 const REVIEW_URL = 'https://g.page/r/CYQOWmT_HcwQEBM/review';
@@ -26,6 +30,41 @@ type Campaign = {
 };
 
 const CAMPAIGNS: Campaign[] = [
+  {
+    id: 'glow-social-may-14',
+    title: "The Glow Social — May 14 @ Freddie's (paste as Event post)",
+    type: 'Event',
+    headline: 'The Glow Social — FREE VIP Night May 14 in Oswego',
+    description: `Join Hello Gorgeous for glow, glam & gratitude at Freddie's Off The Chain — downtown Oswego.
+
+When: Thursday, May 14, 2026 · 5:00–8:00 PM
+Where: 11 S Madison St, Oswego — appetizers on us · cash bar (21+ to drink)
+
+Live demos: Solaria CO₂, Morpheus8 Burst, Quantum RF. Free consults. Weight loss & wellness with Ryan Kent, FNP-BC.
+
+Every guest receives a FREE vitamin injection on site (B12, B-Complex, or MIC). Raffle with 3 grand prizes — bonus entries for Google reviews, social tags, and more. Full rules at check-in.
+
+FREE to attend — RSVP required. Spots are limited.
+Call (630) 636-6193 or tap through to RSVP online.`,
+    ctaText: 'RSVP & details',
+    ctaUrl: GLOW_SOCIAL_EVENT_URL,
+  },
+  {
+    id: 'vip-device-night-may-7',
+    title: "VIP Device Night — May 7 @ Freddie's (paste as Event post)",
+    type: 'Event',
+    headline: "VIP Device Night — May 7 at Freddie's Oswego",
+    description: `Meet Solaria CO₂, Morpheus8 Burst & Deep, and Quantum RF — tacos, apps & cocktails with your Hello Gorgeous team.
+
+When: Thursday, May 7, 2026 · 6:00 PM (ends ~9 PM)
+Where: Freddie's Off the Chain, 11 S Madison St, Oswego
+
+Event Botox pricing for qualified guests, raffles & VIP packages. Educational night — not a substitute for medical evaluation.
+
+RSVP encouraged. Call (630) 636-6193 or tap for details.`,
+    ctaText: 'Event details',
+    ctaUrl: VIP_DEVICE_NIGHT_URL,
+  },
   {
     id: 'our-story-blog',
     title: 'The Story Behind Hello Gorgeous',
@@ -275,7 +314,8 @@ export default function GooglePostsPage() {
           <ul className="text-sm text-amber-800 space-y-1 list-disc list-inside">
             <li>Use <strong>Offer</strong> for promos (Botox, lip filler, first-time free vitamin). Add an end date if you want.</li>
             <li>Use <strong>Update</strong> for education or news (weight loss, hormone, VIP coming soon, reviews).</li>
-            <li>Use <strong>Event</strong> for one-time things like the Glow-Up Event.</li>
+            <li>Use <strong>Event</strong> for one-time things — set start/end date & time to match the landing page.</li>
+            <li>For <strong>The Glow Social</strong>, upload your square promo art from the site: <code className="bg-amber-100 px-1 rounded">/images/events/glow-social-win-big-may-14.png</code> (full URL: your domain + that path).</li>
             <li>Always set the button link to the URL above so people can book or learn more.</li>
           </ul>
           <p className="mt-4 text-sm text-amber-800">
