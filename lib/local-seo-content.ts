@@ -4,15 +4,10 @@
  * Build FAILS if any required page < 850 words.
  */
 
-export type LocationContentSection = {
-  intro: string;
-  aboutTreatment: string;
-  candidacy: string;
-  whatToExpect: string;
-  safetyAndTraining: string;
-  communityContext: string;
-  callToAction: string;
-};
+import type { LocationContentSection } from "./local-seo-content-types.ts";
+import { ADDITIONAL_LOCATION_PAGE_CONTENT } from "./local-seo-content-additions.ts";
+
+export type { LocationContentSection } from "./local-seo-content-types.ts";
 
 export const LOCATION_PAGE_CONTENT: Record<string, LocationContentSection> = {
   "botox-oswego-il": {
@@ -95,6 +90,7 @@ export const LOCATION_PAGE_CONTENT: Record<string, LocationContentSection> = {
     callToAction:
       "Ready to explore what Hello Gorgeous has to offer? Book a consultation at our Oswego med spa. We will discuss your goals, answer your questions, and create a plan tailored to you. Serving Oswego, Naperville, Plainfield, Aurora, and Kendall County residents. Schedule your visit today and discover why so many clients trust us for their aesthetic and wellness needs. Our downtown Oswego location is your gateway to premium medical aesthetics in the Fox Valley.",
   },
+  ...ADDITIONAL_LOCATION_PAGE_CONTENT,
 };
 
 function wordCount(text: string): number {
@@ -107,12 +103,29 @@ export function getLocationPageWordCount(slug: string): number {
   return Object.values(content).reduce((sum, t) => sum + wordCount(t || ""), 0);
 }
 
+/** Every GBP service slug + med-spa city page must meet MIN_WORDS in prebuild check. */
 export const REQUIRED_SLUGS = [
   "botox-oswego-il",
-  "med-spa-oswego-il",
-  "weight-loss-oswego-il",
+  "lip-filler-oswego-il",
+  "microneedling-oswego-il",
   "prf-hair-restoration-oswego-il",
   "hormone-therapy-oswego-il",
+  "weight-loss-oswego-il",
+  "iv-therapy-oswego-il",
+  "botox-naperville-il",
+  "lip-filler-naperville-il",
+  "weight-loss-naperville-il",
+  "botox-aurora-il",
+  "weight-loss-aurora-il",
+  "dermal-fillers-aurora-il",
+  "lip-filler-aurora-il",
+  "botox-plainfield-il",
+  "weight-loss-plainfield-il",
+  "med-spa-oswego-il",
+  "med-spa-naperville-il",
+  "med-spa-aurora-il",
+  "med-spa-plainfield-il",
+  "med-spa-yorkville-il",
 ];
 
 const MIN_WORDS = 850;
