@@ -3,6 +3,8 @@
 // "Share the Gorgeous" - Client referral system
 // ============================================================
 
+import { SITE } from '@/lib/seo';
+
 export interface ReferralConfig {
   programName: string;
   referrerReward: ReferralReward;
@@ -58,7 +60,7 @@ export function generateReferralCode(clientName: string): string {
 }
 
 // Generate referral link
-export function generateReferralLink(code: string, baseUrl: string = 'https://hellogorgeousmedspa.com'): string {
+export function generateReferralLink(code: string, baseUrl: string = SITE.url): string {
   return `${baseUrl}/ref/${code}`;
 }
 

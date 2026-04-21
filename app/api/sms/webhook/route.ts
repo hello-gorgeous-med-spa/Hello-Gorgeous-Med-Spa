@@ -9,6 +9,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createServerSupabaseClient, createAdminSupabaseClient } from '@/lib/hgos/supabase';
 import { sendSms } from '@/lib/notifications/sms-outbound';
+import { SITE } from '@/lib/seo';
 
 export const dynamic = 'force-dynamic';
 
@@ -161,7 +162,7 @@ export async function POST(request: NextRequest) {
 
     if (text === 'HELP' && from) {
       const helpMessage =
-        'Hello Gorgeous Med Spa: For assistance call 630-636-6193 or visit https://hellogorgeousmedspa.com/contact';
+        `Hello Gorgeous Med Spa: For assistance call 630-636-6193 or visit ${SITE.url}/contact`;
       await sendSms(from, helpMessage);
       console.log(`[sms/webhook] Help response sent to: ${from}`);
     }

@@ -1,4 +1,5 @@
 import { DANIELLE_CREDENTIALS, RYAN_CREDENTIALS } from "@/lib/provider-credentials";
+import { SITE } from "@/lib/seo";
 
 /** Code-controlled provider images. Override DB values so you never need to run migrations for headshot changes. */
 export const PROVIDER_HEADSHOT_OVERRIDES: Record<string, string> = {
@@ -68,7 +69,7 @@ export const PROVIDER_FALLBACKS: Record<string, ProviderFallback> = {
     short_bio: "I've owned and operated my med spa since 2017. You can't break me—I'm here for the long haul. I live for being the person that made the difference.",
     philosophy: "If you get to know me as much as I can get to know you, you will find a practitioner for life. I don't believe in clients breaking the bank for self-care.",
     headshot_url: "/images/team/danielle.png",
-    hero_image_url: "https://hellogorgeousmedspa.com/images/gallery/treatment-1.png",
+    hero_image_url: `${SITE.url}/images/gallery/treatment-1.png`,
     intro_video_url: "/videos/providers/danielle/intro-clip.mp4",
     booking_url: "/book?provider=danielle",
   },
@@ -85,7 +86,7 @@ export const PROVIDER_FALLBACKS: Record<string, ProviderFallback> = {
     short_bio: "Nurse Practitioner leading hormone optimization, weight loss, and regenerative protocols.",
     philosophy: "Medical weight loss and hormone therapy built around safety, labs, and data. I take a comprehensive approach to wellness, understanding that true transformation comes from addressing the root cause, not just the symptoms.",
     headshot_url: "/images/providers/ryan-kent-clinic.jpg",
-    hero_image_url: "https://hellogorgeousmedspa.com/images/gallery/treatment-2.png",
+    hero_image_url: `${SITE.url}/images/gallery/treatment-2.png`,
     intro_video_url: "/videos/mascots/ryan/ryan-intro.mp4",
     booking_url: "/book?provider=ryan",
   },
@@ -138,9 +139,9 @@ export const PROVIDER_MEDIA_FALLBACK: Record<string, ProviderMediaFallback[]> = 
       service_tag: "lip_filler",
       title: "Balanced lip refresh",
       description: "Subtle volume restoration with softened borders and hydrated finish.",
-      before_image_url: "https://hellogorgeousmedspa.com/images/gallery/before-after.png",
-      after_image_url: "https://hellogorgeousmedspa.com/images/gallery/treatment-3.png",
-      thumbnail_url: "https://hellogorgeousmedspa.com/images/gallery/before-after.png",
+      before_image_url: `${SITE.url}/images/gallery/before-after.png`,
+      after_image_url: `${SITE.url}/images/gallery/treatment-3.png`,
+      thumbnail_url: `${SITE.url}/images/gallery/before-after.png`,
       featured: true,
       consent_confirmed: true,
       watermark_enabled: true,
@@ -169,9 +170,9 @@ export const PROVIDER_MEDIA_FALLBACK: Record<string, ProviderMediaFallback[]> = 
       service_tag: "weight_loss",
       title: "Medical weight loss milestone",
       description: "GLP-1 guided weight loss with metabolic oversight and custom labs.",
-      before_image_url: "https://hellogorgeousmedspa.com/images/gallery/treatment-1.png",
-      after_image_url: "https://hellogorgeousmedspa.com/images/gallery/treatment-2.png",
-      thumbnail_url: "https://hellogorgeousmedspa.com/images/gallery/treatment-2.png",
+      before_image_url: `${SITE.url}/images/gallery/treatment-1.png`,
+      after_image_url: `${SITE.url}/images/gallery/treatment-2.png`,
+      thumbnail_url: `${SITE.url}/images/gallery/treatment-2.png`,
       featured: true,
       consent_confirmed: true,
       watermark_enabled: true,

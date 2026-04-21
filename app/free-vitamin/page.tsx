@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { SITE } from "@/lib/seo";
 import { FreeVitaminContent } from "./FreeVitaminContent";
 
 export const metadata: Metadata = {
@@ -19,7 +20,7 @@ export const metadata: Metadata = {
     description:
       "Claim your FREE vitamin injection (up to $65 value). Choose B12, Vitamin D, Biotin, or Glutathione!",
     type: "website",
-    url: "https://hellogorgeousmedspa.com/free-vitamin",
+    url: `${SITE.url}/free-vitamin`,
     images: [
       {
         url: "/images/free-vitamin-og.jpg",

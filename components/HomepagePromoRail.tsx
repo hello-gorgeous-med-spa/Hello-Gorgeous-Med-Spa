@@ -18,7 +18,7 @@ const SLIDES: Slide[] = [
     id: "vip",
     badge: "Limited — first 20",
     line:
-      "Burst 8 model pricing — half off. Book by Apr 1 · FREE Solaria CO₂ (use or gift).",
+      "Burst 8 model pricing — half off. Limited model spots · FREE Solaria CO₂ (use or gift).",
     primary: { label: "Inquire & book", href: "/book" },
   },
   {

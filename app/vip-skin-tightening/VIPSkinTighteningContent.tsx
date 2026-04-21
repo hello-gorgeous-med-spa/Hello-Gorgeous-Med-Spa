@@ -1,12 +1,8 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { CHERRY_PAY_URL } from "@/lib/flows";
 import Image from "next/image";
-
-// Countdown target – launch through March 31; scheduling opens April 1
-const COUNTDOWN_TARGET = new Date("2026-04-01T00:00:00");
-const SCHEDULING_AVAILABLE_FROM = new Date("2026-04-01T00:00:00");
 
 const QUANTUM_TREATMENTS = [
   { id: "chin-neck", name: "Chin & Neck", price: 2800 },
@@ -31,28 +27,6 @@ export function VIPSkinTighteningContent() {
   const [phone, setPhone] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
-  const [countdown, setCountdown] = useState({ days: 0, hours: 0, mins: 0, secs: 0 });
-  const [schedulingOpen, setSchedulingOpen] = useState(false);
-
-  useEffect(() => {
-    setSchedulingOpen(Date.now() >= SCHEDULING_AVAILABLE_FROM.getTime());
-  }, []);
-
-  useEffect(() => {
-    const tick = () => {
-      const d = Math.max(0, COUNTDOWN_TARGET.getTime() - Date.now());
-      setCountdown({
-        days: Math.floor(d / 86400000),
-        hours: Math.floor((d % 86400000) / 3600000),
-        mins: Math.floor((d % 3600000) / 60000),
-        secs: Math.floor((d % 60000) / 1000),
-      });
-    };
-    tick();
-    const id = setInterval(tick, 1000);
-    return () => clearInterval(id);
-  }, []);
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
@@ -81,32 +55,17 @@ export function VIPSkinTighteningContent() {
 
   return (
     <div className="min-h-screen bg-black text-white">
-      {/* After March 31: scheduling is open; before: show countdown */}
-      {schedulingOpen ? (
-        <section className="border-b border-green-500/40 bg-green-950/30 py-4">
-          <div className="max-w-4xl mx-auto px-4 flex flex-wrap items-center justify-center gap-4 text-sm">
-            <span className="text-green-400 font-semibold uppercase tracking-wider">Booking now open</span>
-            <a
-              href="/book"
-              className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl font-bold bg-pink-500 text-white hover:bg-pink-600 transition-colors"
-            >
-              Schedule your appointment →
-            </a>
-          </div>
-        </section>
-      ) : (
-        <section className="border-b border-pink-500/30 bg-zinc-900/50 py-3">
-          <div className="max-w-4xl mx-auto px-4 flex flex-wrap items-center justify-center gap-4 text-sm">
-            <span className="text-pink-400 font-semibold uppercase tracking-wider">Launch countdown — scheduling from April 1st</span>
-            <div className="flex gap-4">
-              <span className="bg-black/50 px-3 py-1 rounded font-mono">{countdown.days}d</span>
-              <span className="bg-black/50 px-3 py-1 rounded font-mono">{countdown.hours}h</span>
-              <span className="bg-black/50 px-3 py-1 rounded font-mono">{countdown.mins}m</span>
-              <span className="bg-black/50 px-3 py-1 rounded font-mono">{countdown.secs}s</span>
-            </div>
-          </div>
-        </section>
-      )}
+      <section className="border-b border-green-500/40 bg-green-950/30 py-4">
+        <div className="max-w-4xl mx-auto px-4 flex flex-wrap items-center justify-center gap-4 text-sm">
+          <span className="text-green-400 font-semibold uppercase tracking-wider">Booking now open</span>
+          <a
+            href="/book"
+            className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl font-bold bg-pink-500 text-white hover:bg-pink-600 transition-colors"
+          >
+            Schedule your appointment →
+          </a>
+        </div>
+      </section>
 
       {/* Section 1: Quantum RF VIP Waitlist */}
       <section className="px-4 py-12 md:py-20">
@@ -251,14 +210,12 @@ export function VIPSkinTighteningContent() {
       <section id="secure-spot" className="px-4 py-16 md:py-20 border-t border-pink-500/30">
         <div className="max-w-lg mx-auto">
           <h2 className="text-2xl md:text-3xl font-bold text-center mb-2">Secure My VIP Spot</h2>
-          {schedulingOpen && (
-            <div className="mb-6 rounded-xl bg-green-900/40 border border-green-500/40 p-4 text-center">
-              <p className="text-green-300 font-semibold mb-2">Scheduling is now open.</p>
-              <a href="/book" className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg font-bold bg-pink-500 text-white hover:bg-pink-600 transition-colors">
-                Book your appointment →
-              </a>
-            </div>
-          )}
+          <div className="mb-6 rounded-xl bg-green-900/40 border border-green-500/40 p-4 text-center">
+            <p className="text-green-300 font-semibold mb-2">Scheduling is now open.</p>
+            <a href="/book" className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg font-bold bg-pink-500 text-white hover:bg-pink-600 transition-colors">
+              Book your appointment →
+            </a>
+          </div>
           <p className="text-white/70 text-center mb-8">
             Submit your details. We&apos;ll contact you to complete your $500 deposit and confirm your placement.
           </p>

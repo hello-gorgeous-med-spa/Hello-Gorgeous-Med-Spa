@@ -12,6 +12,7 @@ import {
   generateCalendarLinks,
 } from '@/lib/hgos/reminders';
 import { sendSms } from '@/lib/notifications/sms-outbound';
+import { SITE } from '@/lib/seo';
 
 // POST /api/reminders/send - Send a reminder
 export async function POST(request: NextRequest) {
@@ -68,10 +69,10 @@ export async function POST(request: NextRequest) {
       }),
       serviceName: appointment.service?.name || 'Your Service',
       providerName: `${appointment.provider?.first_name || ''} ${appointment.provider?.last_name || ''}`.trim() || 'Your Provider',
-      portalLink: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://hellogorgeousmedspa.com'}/portal/appointments`,
-      bookingLink: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://hellogorgeousmedspa.com'}/book`,
+      portalLink: `${process.env.NEXT_PUBLIC_SITE_URL || SITE.url}/portal/appointments`,
+      bookingLink: `${process.env.NEXT_PUBLIC_SITE_URL || SITE.url}/book`,
       calendarLink: calendarLinks.google,
-      shortLink: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://hellogorgeousmedspa.com'}/p/${appointmentId}`,
+      shortLink: `${process.env.NEXT_PUBLIC_SITE_URL || SITE.url}/p/${appointmentId}`,
       reviewUrl: 'https://g.page/r/CYQOWmT_HcwQEBM/review',
       includeReviewRequest: template === 'followUp',
     };

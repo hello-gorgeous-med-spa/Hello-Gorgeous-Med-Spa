@@ -44,7 +44,7 @@ const MEDICAL_PROCEDURE_SCHEMA = {
   code: {
     "@type": "MedicalCode",
     codeValue: "VIP-WAITLIST-2026",
-    codingSystem: "https://hellogorgeousmedspa.com",
+    codingSystem: SITE.url,
   },
   performer: {
     "@type": "MedicalBusiness",

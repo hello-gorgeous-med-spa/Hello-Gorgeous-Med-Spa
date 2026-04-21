@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { BOOKING_URL } from "@/lib/flows";
+import { SITE } from "@/lib/seo";
 
 const howItWorks = [
   {
@@ -90,7 +91,7 @@ export function ReferralContent() {
   };
 
   const shareMessage = encodeURIComponent(
-    "I love Hello Gorgeous Med Spa! Use my referral and we'll BOTH get $25 off. Book here: https://hellogorgeousmedspa.com/free-vitamin"
+    `I love Hello Gorgeous Med Spa! Use my referral and we'll BOTH get $25 off. Book here: ${SITE.url}/free-vitamin`
   );
 
   return (

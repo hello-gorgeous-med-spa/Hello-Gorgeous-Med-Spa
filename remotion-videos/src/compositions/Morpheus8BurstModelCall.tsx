@@ -140,7 +140,7 @@ const BeforeAfterWipeScene: React.FC<{
   );
 };
 
-// Scene 3: Offer — First 20 clients, April 1st bonus
+// Scene 3: Offer — First 20 clients, model + bonus
 const OfferScene: React.FC<{ format: VideoFormat }> = ({ format }) => {
   const frame = useCurrentFrame();
   const { fps, height } = useVideoConfig();
@@ -157,7 +157,7 @@ const OfferScene: React.FC<{ format: VideoFormat }> = ({ format }) => {
           FIRST 20 CLIENTS
         </div>
         <div style={{ fontSize: sz * 0.7, color: COLORS.white, fontWeight: 700, marginBottom: 12, lineHeight: 1.3 }}>
-          Book at hellogorgeousmedspa.com
+          Book at www.hellogorgeousmedspa.com
         </div>
         <div
           style={{
@@ -169,7 +169,7 @@ const OfferScene: React.FC<{ format: VideoFormat }> = ({ format }) => {
           }}
         >
           <div style={{ fontSize: sz * 0.5, color: brandColor, fontWeight: 800, marginBottom: 8 }}>
-            Book before April 1st
+            Book while model spots last
           </div>
           <div style={{ fontSize: sz * 0.6, color: COLORS.white, fontWeight: 700 }}>
             FREE CO₂ Solaria Laser Fractional
@@ -224,12 +224,12 @@ const CTAScene: React.FC<{ format: VideoFormat }> = ({ format }) => {
               boxShadow: SHADOWS.buttonGlow(brandColor),
             }}
           >
-            hellogorgeousmedspa.com
+            www.hellogorgeousmedspa.com
           </div>
         </div>
         <AnimatedText delay={35}>
           <div style={{ fontSize: 20, color: COLORS.textSecondary, fontWeight: 600 }}>
-            Half off for models · Free CO₂ laser when you book by April 1st
+            Half off for models · Free CO₂ laser for qualifying model bookings
           </div>
         </AnimatedText>
       </div>

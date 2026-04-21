@@ -9,6 +9,7 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
+import { SITE } from '@/lib/seo';
 
 // Service tags for filtering
 const SERVICE_TAGS = [
@@ -35,7 +36,7 @@ const FALLBACK_PROVIDERS: Record<string, Provider> = {
     bio: "Hi, I'm Danielle. I've owned and operated my med spa since 2017. I am nothing like you find out there—I practice and protect with heart. I don't believe in clients breaking the bank to make improvements on self-care. I care about my clients.\n\nIt all stemmed from the movie Steel Magnolias—family and friends getting together making a difference. It wasn't about how much money I could make. It never was.\n\nYou can't break me. I'm here for the long haul. I will do whatever it takes to take care of my clients and be the person that made the difference. I live for that.",
     philosophy: "Yes, there is a cost in doing business. But if you get to know me as much as I can get to know you, you will find a practitioner for life.",
     headshot_url: '/images/team/danielle.png',
-    booking_url: 'https://hellogorgeousmedspa.com/book',
+    booking_url: `${SITE.url}/book`,
     is_active: true,
     display_order: 1,
   },

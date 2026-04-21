@@ -4,6 +4,8 @@
 // FREE - Fresha charges per email/SMS after 100 free!
 // ============================================================
 
+import { SITE } from '@/lib/seo';
+
 // ============================================================
 // TYPES & INTERFACES
 // ============================================================
@@ -184,7 +186,7 @@ export const DEFAULT_BLOCKS: Record<BlockType, Partial<ContentBlock>> = {
     type: 'button',
     content: {
       text: 'Book Now',
-      link: 'https://hellogorgeousmedspa.com/book',
+      link: `${SITE.url}/book`,
       alignment: 'center',
       style: 'primary', // primary, secondary, outline
     },
@@ -216,7 +218,7 @@ export const DEFAULT_BLOCKS: Record<BlockType, Partial<ContentBlock>> = {
       salePrice: 149,
       expiresAt: '',
       ctaText: 'Book Now',
-      ctaLink: 'https://hellogorgeousmedspa.com/book',
+      ctaLink: `${SITE.url}/book`,
     },
   },
   spacer: {
@@ -257,13 +259,16 @@ export const CAMPAIGN_TEMPLATES: CampaignTemplate[] = [
       blocks: [
         { id: '1', type: 'title', content: { text: '⚡ FLASH SALE ⚡', level: 'h1', alignment: 'center' } },
         { id: '2', type: 'paragraph', content: { text: 'For the next 24 hours only, enjoy exclusive savings on your favorite treatments!', alignment: 'center' } },
-        { id: '3', type: 'deal', content: { title: '{service}', description: 'Limited spots available!', originalPrice: 200, salePrice: 149, ctaText: 'Claim Offer', ctaLink: 'https://hellogorgeousmedspa.com/book' } },
-        { id: '4', type: 'button', content: { text: 'Book Now - Limited Spots!', link: 'https://hellogorgeousmedspa.com/book', alignment: 'center', style: 'primary' } },
+        { id: '3', type: 'deal', content: { title: '{service}', description: 'Limited spots available!', originalPrice: 200, salePrice: 149, ctaText: 'Claim Offer', ctaLink: `${SITE.url}/book` } },
+        { id: '4', type: 'button', content: { text: 'Book Now - Limited Spots!', link: `${SITE.url}/book`, alignment: 'center', style: 'primary' } },
         { id: '5', type: 'divider', content: { style: 'solid', width: '80%' } },
         { id: '6', type: 'social', content: { platforms: [{ name: 'instagram', url: 'https://instagram.com/hellogorgeousmedspa' }], alignment: 'center' } },
       ],
     },
-    smsContent: '⚡ FLASH SALE at Hello Gorgeous! {discount}% OFF {service} - TODAY ONLY! Book now: hellogorgeousmedspa.com/book Reply STOP to opt out',
+    smsContent:
+      '⚡ FLASH SALE at Hello Gorgeous! {discount}% OFF {service} - TODAY ONLY! Book now: ' +
+      SITE.url +
+      '/book Reply STOP to opt out',
   },
   {
     id: 'new-service',
@@ -280,7 +285,7 @@ export const CAMPAIGN_TEMPLATES: CampaignTemplate[] = [
         { id: '2', type: 'image', content: { src: '', alt: 'New Service', width: '100%' } },
         { id: '3', type: 'title', content: { text: '{service}', level: 'h2', alignment: 'center' } },
         { id: '4', type: 'paragraph', content: { text: 'We\'re excited to announce the newest addition to our treatment menu! {description}', alignment: 'center' } },
-        { id: '5', type: 'button', content: { text: 'Learn More & Book', link: 'https://hellogorgeousmedspa.com/book', alignment: 'center', style: 'primary' } },
+        { id: '5', type: 'button', content: { text: 'Learn More & Book', link: `${SITE.url}/book`, alignment: 'center', style: 'primary' } },
       ],
     },
   },
@@ -298,11 +303,14 @@ export const CAMPAIGN_TEMPLATES: CampaignTemplate[] = [
         { id: '1', type: 'title', content: { text: 'We Miss You! 💕', level: 'h1', alignment: 'center' } },
         { id: '2', type: 'paragraph', content: { text: 'Hi {firstName}, it\'s been a while since we\'ve seen you at Hello Gorgeous. We\'d love to have you back!', alignment: 'center' } },
         { id: '3', type: 'paragraph', content: { text: 'As a special welcome back, enjoy:', alignment: 'center' } },
-        { id: '4', type: 'deal', content: { title: '15% OFF Your Next Visit', description: 'Use code: WELCOMEBACK', originalPrice: 0, salePrice: 0, ctaText: 'Book Now', ctaLink: 'https://hellogorgeousmedspa.com/book' } },
-        { id: '5', type: 'button', content: { text: 'Book Your Appointment', link: 'https://hellogorgeousmedspa.com/book', alignment: 'center', style: 'primary' } },
+        { id: '4', type: 'deal', content: { title: '15% OFF Your Next Visit', description: 'Use code: WELCOMEBACK', originalPrice: 0, salePrice: 0, ctaText: 'Book Now', ctaLink: `${SITE.url}/book` } },
+        { id: '5', type: 'button', content: { text: 'Book Your Appointment', link: `${SITE.url}/book`, alignment: 'center', style: 'primary' } },
       ],
     },
-    smsContent: 'Hi {firstName}! We miss you at Hello Gorgeous 💕 Here\'s 15% OFF your next visit - use code WELCOMEBACK. Book: hellogorgeousmedspa.com/book Reply STOP to opt out',
+    smsContent:
+      "Hi {firstName}! We miss you at Hello Gorgeous 💕 Here's 15% OFF your next visit - use code WELCOMEBACK. Book: " +
+      SITE.url +
+      '/book Reply STOP to opt out',
   },
   {
     id: 'birthday',
@@ -317,11 +325,14 @@ export const CAMPAIGN_TEMPLATES: CampaignTemplate[] = [
       blocks: [
         { id: '1', type: 'title', content: { text: '🎂 Happy Birthday! 🎂', level: 'h1', alignment: 'center' } },
         { id: '2', type: 'paragraph', content: { text: 'Dear {firstName}, wishing you the most gorgeous birthday! To celebrate YOU, we have a special gift:', alignment: 'center' } },
-        { id: '3', type: 'deal', content: { title: 'FREE Add-On Treatment', description: 'On us! With any service booking this month.', originalPrice: 50, salePrice: 0, ctaText: 'Claim Gift', ctaLink: 'https://hellogorgeousmedspa.com/book' } },
-        { id: '4', type: 'button', content: { text: 'Book & Redeem Gift', link: 'https://hellogorgeousmedspa.com/book', alignment: 'center', style: 'primary' } },
+        { id: '3', type: 'deal', content: { title: 'FREE Add-On Treatment', description: 'On us! With any service booking this month.', originalPrice: 50, salePrice: 0, ctaText: 'Claim Gift', ctaLink: `${SITE.url}/book` } },
+        { id: '4', type: 'button', content: { text: 'Book & Redeem Gift', link: `${SITE.url}/book`, alignment: 'center', style: 'primary' } },
       ],
     },
-    smsContent: '🎂 Happy Birthday {firstName}! Celebrate with a FREE add-on treatment at Hello Gorgeous! Book this month to redeem: hellogorgeousmedspa.com/book Reply STOP to opt out',
+    smsContent:
+      '🎂 Happy Birthday {firstName}! Celebrate with a FREE add-on treatment at Hello Gorgeous! Book this month to redeem: ' +
+      SITE.url +
+      '/book Reply STOP to opt out',
   },
   {
     id: 'appointment-reminder',
@@ -353,8 +364,8 @@ export const CAMPAIGN_TEMPLATES: CampaignTemplate[] = [
         { id: '1', type: 'title', content: { text: '👑 VIP Membership', level: 'h1', alignment: 'center' } },
         { id: '2', type: 'paragraph', content: { text: 'Join our exclusive VIP membership and enjoy premium benefits every month:', alignment: 'center' } },
         { id: '3', type: 'paragraph', content: { text: '✓ 10% OFF all services\n✓ Monthly complimentary treatment\n✓ Priority booking\n✓ Exclusive member events\n✓ Birthday rewards', alignment: 'left' } },
-        { id: '4', type: 'deal', content: { title: 'VIP Membership', description: 'Starting at just', originalPrice: 0, salePrice: 49, ctaText: 'Join Now', ctaLink: 'https://hellogorgeousmedspa.com/membership' } },
-        { id: '5', type: 'button', content: { text: 'Become a VIP', link: 'https://hellogorgeousmedspa.com/membership', alignment: 'center', style: 'primary' } },
+        { id: '4', type: 'deal', content: { title: 'VIP Membership', description: 'Starting at just', originalPrice: 0, salePrice: 49, ctaText: 'Join Now', ctaLink: `${SITE.url}/membership` } },
+        { id: '5', type: 'button', content: { text: 'Become a VIP', link: `${SITE.url}/membership`, alignment: 'center', style: 'primary' } },
       ],
     },
   },

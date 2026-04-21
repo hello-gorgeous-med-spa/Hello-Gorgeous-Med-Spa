@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import { SITE } from "@/lib/seo";
 
 interface Client {
   id: string;
@@ -59,7 +60,7 @@ const DEFAULT_BLOCKS: EmailBlock[] = [
     type: "button",
     content: {
       text: "BOOK NOW",
-      url: "https://hellogorgeousmedspa.com/book",
+      url: `${SITE.url}/book`,
       backgroundColor: "#E91E8C",
       textColor: "#ffffff",
     },
@@ -94,7 +95,7 @@ const TEMPLATE_PRESETS: EmailTemplate[] = [
       { id: "s3", type: "spacer", content: { height: "10px" } },
       { id: "t5", type: "text", content: { text: "✓ Quick 15-minute treatment\n✓ No downtime\n✓ Results in 3-5 days\n✓ Lasts 3-4 months", fontSize: "16px", textAlign: "left" } },
       { id: "s4", type: "spacer", content: { height: "20px" } },
-      { id: "b1", type: "button", content: { text: "BOOK YOUR APPOINTMENT", url: "https://hellogorgeousmedspa.com/book", backgroundColor: "#E91E8C", textColor: "#ffffff" } },
+      { id: "b1", type: "button", content: { text: "BOOK YOUR APPOINTMENT", url: `${SITE.url}/book`, backgroundColor: "#E91E8C", textColor: "#ffffff" } },
       { id: "s5", type: "spacer", content: { height: "30px" } },
       { id: "f1", type: "footer", content: { companyName: "Hello Gorgeous Med Spa", address: "74 W. Washington St., Oswego, IL 60543", phone: "630-636-6193", showUnsubscribe: true } },
     ],
@@ -115,7 +116,7 @@ const TEMPLATE_PRESETS: EmailTemplate[] = [
       { id: "t6", type: "text", content: { text: "VIP LAUNCH SPECIAL", fontSize: "14px", textAlign: "center", textColor: "#E91E8C" } },
       { id: "t7", type: "text", content: { text: "$1,895", fontSize: "48px", textAlign: "center", fontWeight: "bold", textColor: "#E91E8C" } },
       { id: "t8", type: "text", content: { text: "Regular $2,500", fontSize: "16px", textAlign: "center", textColor: "#999", textDecoration: "line-through" } },
-      { id: "b1", type: "button", content: { text: "BOOK CONSULTATION", url: "https://hellogorgeousmedspa.com/book", backgroundColor: "#E91E8C", textColor: "#ffffff" } },
+      { id: "b1", type: "button", content: { text: "BOOK CONSULTATION", url: `${SITE.url}/book`, backgroundColor: "#E91E8C", textColor: "#ffffff" } },
       { id: "f1", type: "footer", content: { companyName: "Hello Gorgeous Med Spa", address: "74 W. Washington St., Oswego, IL 60543", phone: "630-636-6193", showUnsubscribe: true } },
     ],
   },
@@ -132,7 +133,7 @@ const TEMPLATE_PRESETS: EmailTemplate[] = [
       { id: "t4", type: "text", content: { text: "10% OFF your first treatment!\nUse code: GORGEOUS10", fontSize: "18px", textAlign: "center", backgroundColor: "#FFF0F5", padding: "10px" } },
       { id: "t5", type: "text", content: { text: "Our Most Popular Services:", fontSize: "18px", textAlign: "left", fontWeight: "bold" } },
       { id: "t6", type: "text", content: { text: "• Botox & Fillers - Smooth wrinkles, restore volume\n• Morpheus8 - RF microneedling for skin tightening\n• Solaria CO2 Laser - Advanced skin resurfacing\n• Medical Weight Loss - Semaglutide programs", fontSize: "16px", textAlign: "left" } },
-      { id: "b1", type: "button", content: { text: "BOOK YOUR FIRST APPOINTMENT", url: "https://hellogorgeousmedspa.com/book", backgroundColor: "#E91E8C", textColor: "#ffffff" } },
+      { id: "b1", type: "button", content: { text: "BOOK YOUR FIRST APPOINTMENT", url: `${SITE.url}/book`, backgroundColor: "#E91E8C", textColor: "#ffffff" } },
       { id: "t7", type: "text", content: { text: "We can't wait to help you look and feel gorgeous!", fontSize: "16px", textAlign: "center", fontStyle: "italic", textColor: "#666" } },
       { id: "f1", type: "footer", content: { companyName: "Hello Gorgeous Med Spa", address: "74 W. Washington St., Oswego, IL 60543", phone: "630-636-6193", showUnsubscribe: true } },
     ],
@@ -150,7 +151,7 @@ const TEMPLATE_PRESETS: EmailTemplate[] = [
       { id: "t3", type: "text", content: { text: "🌟 THIS MONTH'S SPECIAL", fontSize: "20px", textAlign: "left", fontWeight: "bold", textColor: "#E91E8C" } },
       { id: "i1", type: "image", content: { url: "", alt: "Monthly Special", width: "100%" } },
       { id: "t4", type: "text", content: { text: "Add your special offer details here...", fontSize: "16px", textAlign: "left" } },
-      { id: "b1", type: "button", content: { text: "BOOK NOW", url: "https://hellogorgeousmedspa.com/book", backgroundColor: "#E91E8C", textColor: "#ffffff" } },
+      { id: "b1", type: "button", content: { text: "BOOK NOW", url: `${SITE.url}/book`, backgroundColor: "#E91E8C", textColor: "#ffffff" } },
       { id: "d2", type: "divider", content: { color: "#eee", style: "solid" } },
       { id: "t5", type: "text", content: { text: "📰 NEWS & UPDATES", fontSize: "20px", textAlign: "left", fontWeight: "bold", textColor: "#E91E8C" } },
       { id: "t6", type: "text", content: { text: "Share your latest news, new services, staff updates, etc.", fontSize: "16px", textAlign: "left" } },
@@ -166,7 +167,7 @@ const TEMPLATE_PRESETS: EmailTemplate[] = [
     blocks: [
       { id: "h1", type: "header", content: { title: "HELLO GORGEOUS", subtitle: "MED SPA", backgroundColor: "#E91E8C" } },
       { id: "t1", type: "text", content: { text: "Hi {{first_name}},\n\nYour message here...", fontSize: "16px", textAlign: "left" } },
-      { id: "b1", type: "button", content: { text: "BOOK NOW", url: "https://hellogorgeousmedspa.com/book", backgroundColor: "#E91E8C", textColor: "#ffffff" } },
+      { id: "b1", type: "button", content: { text: "BOOK NOW", url: `${SITE.url}/book`, backgroundColor: "#E91E8C", textColor: "#ffffff" } },
       { id: "f1", type: "footer", content: { companyName: "Hello Gorgeous Med Spa", address: "74 W. Washington St., Oswego, IL 60543", phone: "630-636-6193", showUnsubscribe: true } },
     ],
   },
@@ -305,7 +306,7 @@ export default function EmailCampaignsPage() {
       case "image":
         return { url: "", alt: "Image", width: "100%" };
       case "button":
-        return { text: "CLICK HERE", url: "https://hellogorgeousmedspa.com", backgroundColor: "#E91E8C", textColor: "#ffffff" };
+        return { text: "CLICK HERE", url: SITE.url, backgroundColor: "#E91E8C", textColor: "#ffffff" };
       case "divider":
         return { color: "#E91E8C", style: "solid" };
       case "spacer":

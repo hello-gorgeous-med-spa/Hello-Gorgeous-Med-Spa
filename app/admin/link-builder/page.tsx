@@ -7,6 +7,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { SITE } from '@/lib/seo';
 
 interface Service {
   id: string;
@@ -68,7 +69,7 @@ export default function LinkBuilderPage() {
   const [copied, setCopied] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
 
-  const baseUrl = typeof window !== 'undefined' ? window.location.origin : 'https://hellogorgeousmedspa.com';
+  const baseUrl = typeof window !== 'undefined' ? window.location.origin : SITE.url;
 
   // Fetch services and providers
   useEffect(() => {

@@ -6,6 +6,7 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { createAdminSupabaseClient } from '@/lib/hgos/supabase';
+import { SITE } from '@/lib/seo';
 
 export const dynamic = 'force-dynamic';
 
@@ -25,7 +26,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Prefer canonical app URL for redirect (reliable when called server-side from booking API)
-    const appUrl = (process.env.NEXT_PUBLIC_APP_URL || request.headers.get('origin') || request.nextUrl?.origin || 'https://hellogorgeousmedspa.com').replace(/\/$/, '');
+    const appUrl = (process.env.NEXT_PUBLIC_APP_URL || request.headers.get('origin') || request.nextUrl?.origin || SITE.url).replace(/\/$/, '');
     const redirectTo = `${appUrl}/auth/callback`;
 
     const { data: linkData, error: linkError } = await admin.auth.admin.generateLink({
@@ -52,7 +53,7 @@ export async function POST(request: NextRequest) {
     const fromEmail = process.env.RESEND_FROM_EMAIL || 'Hello Gorgeous <onboarding@resend.dev>';
 
     if (apiKey) {
-      const appUrlBase = process.env.NEXT_PUBLIC_APP_URL || 'https://hellogorgeousmedspa.com';
+      const appUrlBase = process.env.NEXT_PUBLIC_APP_URL || SITE.url;
       const getAppUrl = `${appUrlBase.replace(/\/$/, '')}/get-app`;
       const res = await fetch('https://api.resend.com/emails', {
         method: 'POST',

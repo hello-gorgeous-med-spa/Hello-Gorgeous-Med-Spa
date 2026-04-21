@@ -196,7 +196,7 @@ function getStaticKnowledge(): KnowledgeEntry[] {
   // VIP / Trifecta / Morpheus8 / Solaria / Quantum RF
   entries.push({
     title: "VIP Trifecta Morpheus8 Solaria Quantum RF skin tightening",
-    content: "VIP skin tightening includes Quantum RF (body: chin/neck, abdomen, arms, butt), Morpheus8 (face and body RF microneedling), and Solaria CO₂ laser. The Trifecta combines Solaria + Morpheus8 + Quantum. Scheduling opens April 1st; before that join the VIP waitlist for priority access and launch pricing. Morpheus8: single from $800, 3-pack $2,100. Solaria: single from $1,500, 3-pack from $4,000. Quantum: Chin & Neck $2,800; Lower Abdomen $3,900; Full Abdomen $4,250; Arms $2,950; Butt $3,900. Book from April 1 on the main booking page or join waitlist on VIP Skin Tightening or Solaria CO₂ VIP page.",
+    content: "VIP skin tightening includes Quantum RF (body: chin/neck, abdomen, arms, butt), Morpheus8 (face and body RF microneedling), and Solaria CO₂ laser. The Trifecta combines Solaria + Morpheus8 + Quantum. Scheduling is open—book on the main booking page; you can also join the VIP waitlist on VIP Skin Tightening or Solaria CO₂ VIP for priority access and launch-style pricing when offered. Morpheus8: single from $800, 3-pack $2,100. Solaria: single from $1,500, 3-pack from $4,000. Quantum: Chin & Neck $2,800; Lower Abdomen $3,900; Full Abdomen $4,250; Arms $2,950; Butt $3,900.",
   });
 
   // Pre & post care (summaries)

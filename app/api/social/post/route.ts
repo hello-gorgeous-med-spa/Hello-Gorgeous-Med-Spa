@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { createAdminSupabaseClient } from "@/lib/hgos/supabase";
 import { postToChannels, type SocialChannel } from "@/lib/hgos/social-posting";
+import { SITE } from "@/lib/seo";
 
 // ============================================================
 // POST /api/social/post
@@ -194,7 +195,7 @@ async function postToGoogleBusiness(videoUrl: string, caption: string): Promise<
           ],
           callToAction: {
             actionType: "BOOK",
-            url: "https://hellogorgeousmedspa.com/book",
+            url: `${SITE.url}/book`,
           },
         }),
       }

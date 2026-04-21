@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { SITE } from "@/lib/seo";
 import { ReferralContent } from "./ReferralContent";
 
 export const metadata: Metadata = {
@@ -18,7 +19,7 @@ export const metadata: Metadata = {
     description:
       "Refer a friend and you'll BOTH receive $25 off your next service!",
     type: "website",
-    url: "https://hellogorgeousmedspa.com/referral",
+    url: `${SITE.url}/referral`,
   },
 };
 

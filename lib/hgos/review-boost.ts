@@ -4,6 +4,8 @@
 // FREE - Fresha charges $14.95/month for this
 // ============================================================
 
+import { SITE } from '@/lib/seo';
+
 export interface ReviewRequest {
   appointmentId: string;
   clientId: string;
@@ -98,7 +100,7 @@ If you'd like to speak with us directly, please call (630) 636-6193.`,
  * Generate feedback collection URL
  */
 export function generateFeedbackUrl(appointmentId: string, token: string): string {
-  const baseUrl = process.env.NEXTAUTH_URL || 'https://hellogorgeousmedspa.com';
+  const baseUrl = process.env.NEXTAUTH_URL || SITE.url;
   return `${baseUrl}/feedback/${appointmentId}?token=${token}`;
 }
 
