@@ -12,7 +12,7 @@ const RSVP_URL = `${BOOKING_URL}${BOOKING_URL.includes("?") ? "&" : "?"}utm_sour
 const EVENT_FAQS = [
   {
     question: "When and where is VIP Device Night?",
-    answer: `Thursday, May 7, 2026, starting at 6:00 PM at Freddie's Off the Chain, 11 S Madison St, Oswego, IL 60543. We're hosting a fun night with appetizers, a taco station, and goodies — cash bar available (21+ to drink).`,
+    answer: `Thursday, May 14, 2026, starting at 6:00 PM at Freddie's Off the Chain, 11 S Madison St, Oswego, IL 60543. We're hosting a fun night with appetizers, a taco station, and goodies — cash bar available (21+ to drink).`,
   },
   {
     question: "What will Hello Gorgeous showcase at the event?",
@@ -37,8 +37,8 @@ const EVENT_FAQS = [
 
 export const metadata: Metadata = {
   ...pageMetadata({
-    title: "VIP Device Night May 7, 2026 | Solaria, Morpheus8, Quantum RF | Oswego",
-    description: `Hello Gorgeous VIP night at Freddie's Off the Chain, Oswego — May 7, 2026, 6 PM. Tacos, apps, cash bar. Solaria, Morpheus8 Burst & Deep, Quantum RF. Event Botox $10/unit (rules apply). Raffles & VIP packages. ${SITE.phone}`,
+    title: "VIP Device Night May 14, 2026 | Solaria, Morpheus8, Quantum RF | Oswego",
+    description: `Hello Gorgeous VIP night at Freddie's Off the Chain, Oswego — May 14, 2026, 6 PM. Tacos, apps, cash bar. Solaria, Morpheus8 Burst & Deep, Quantum RF. Event Botox $10/unit (rules apply). Raffles & VIP packages. ${SITE.phone}`,
     path: pagePath,
   }),
   keywords: [

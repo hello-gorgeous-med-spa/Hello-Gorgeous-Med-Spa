@@ -50,13 +50,13 @@ Call (630) 636-6193 or tap through to RSVP online.`,
     ctaUrl: GLOW_SOCIAL_EVENT_URL,
   },
   {
-    id: 'vip-device-night-may-7',
-    title: "VIP Device Night — May 7 @ Freddie's (paste as Event post)",
+    id: 'vip-device-night-may-14',
+    title: "VIP Device Night — May 14 @ Freddie's (paste as Event post)",
     type: 'Event',
-    headline: "VIP Device Night — May 7 at Freddie's Oswego",
+    headline: "VIP Device Night — May 14 at Freddie's Oswego",
     description: `Meet Solaria CO₂, Morpheus8 Burst & Deep, and Quantum RF — tacos, apps & cocktails with your Hello Gorgeous team.
 
-When: Thursday, May 7, 2026 · 6:00 PM (ends ~9 PM)
+When: Thursday, May 14, 2026 · 6:00 PM (ends ~9 PM)
 Where: Freddie's Off the Chain, 11 S Madison St, Oswego
 
 Event Botox pricing for qualified guests, raffles & VIP packages. Educational night — not a substitute for medical evaluation.

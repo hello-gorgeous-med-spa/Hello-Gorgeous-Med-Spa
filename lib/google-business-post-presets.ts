@@ -27,10 +27,10 @@ FREE — RSVP required. Spots limited. Call (630) 636-6193.`,
   imagePath: "/images/events/glow-social-win-big-may-14.png",
 };
 
-export const GBP_POST_PRESET_VIP_DEVICE_NIGHT_MAY_7: GbpPostPreset = {
-  id: "vip-device-night-may-7",
-  label: "VIP Device Night — May 7",
-  message: `VIP Device Night — Thu May 7 from 6 PM at Freddie's Off The Chain, Oswego.
+export const GBP_POST_PRESET_VIP_DEVICE_NIGHT_MAY_14: GbpPostPreset = {
+  id: "vip-device-night-may-14",
+  label: "VIP Device Night — May 14",
+  message: `VIP Device Night — Thu May 14 from 6 PM at Freddie's Off The Chain, Oswego.
 
 Meet Solaria CO₂, Morpheus8 Burst & Deep, and Quantum RF — tacos, apps & cash bar with your Hello Gorgeous team.
 
@@ -42,5 +42,5 @@ Event Botox pricing for qualified guests, raffles & VIP packages. RSVP encourage
 
 export const GBP_POST_PRESETS: GbpPostPreset[] = [
   GBP_POST_PRESET_GLOW_SOCIAL_MAY_14,
-  GBP_POST_PRESET_VIP_DEVICE_NIGHT_MAY_7,
+  GBP_POST_PRESET_VIP_DEVICE_NIGHT_MAY_14,
 ];

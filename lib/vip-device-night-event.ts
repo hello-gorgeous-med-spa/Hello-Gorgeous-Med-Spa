@@ -1,6 +1,6 @@
 /**
- * VIP Device Night — May 7, 2026 · Freddie's Off the Chain, Oswego
- * Update dates/venue/offers here; page and schema read from this file.
+ * VIP Device Night — May 14, 2026 · Freddie's Off the Chain, Oswego
+ * (Same evening as The Glow Social.) Update dates/venue/offers here; page and schema read from this file.
  */
 
 export const VIP_DEVICE_NIGHT = {
@@ -9,10 +9,10 @@ export const VIP_DEVICE_NIGHT = {
   headline: "Hello Gorgeous VIP Device Night",
   tagline: "Solaria · Morpheus8 Burst & Deep · Quantum RF — tacos, bites & cocktails",
   /** ISO 8601 for schema (Central Time — adjust if you publish exact end time) */
-  startDateIso: "2026-05-07T18:00:00-05:00",
-  endDateIso: "2026-05-07T21:00:00-05:00",
+  startDateIso: "2026-05-14T18:00:00-05:00",
+  endDateIso: "2026-05-14T21:00:00-05:00",
   display: {
-    dateLine: "Thursday, May 7, 2026",
+    dateLine: "Thursday, May 14, 2026",
     timeLine: "6:00 PM",
     endTimeHint: "~9:00 PM",
   },

@@ -132,7 +132,7 @@ export function Footer({ siteSettings }: { siteSettings?: SiteSettings | null })
             <ul className="space-y-3 text-sm text-white">
               <li>
                 <Link className="text-[#FF2D8E] hover:text-[#FF2D8E] font-medium transition-colors" href="/events/vip-device-night">
-                  ✨ VIP Device Night — May 7 @ Freddie&apos;s
+                  ✨ VIP Device Night — May 14 @ Freddie&apos;s
                 </Link>
               </li>
               <li>

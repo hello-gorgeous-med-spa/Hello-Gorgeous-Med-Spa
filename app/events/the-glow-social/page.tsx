@@ -248,7 +248,7 @@ export default function TheGlowSocialPage() {
           </p>
           <div className="mt-6 flex flex-wrap gap-4 justify-center">
             <Link href="/events/vip-device-night" className="text-[#E6007E] font-semibold hover:underline">
-              VIP Device Night (May 7) →
+              VIP Device Night (May 14) →
             </Link>
             <Link href="/" className="text-[#E6007E] font-semibold hover:underline">
               ← Back to Hello Gorgeous
