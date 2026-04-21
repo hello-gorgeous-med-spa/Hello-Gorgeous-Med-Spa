@@ -119,8 +119,6 @@ const nextConfig = {
     { source: "/prp-oswego-il", destination: "/services/prp", permanent: true },
     { source: "/prp-naperville-il", destination: "/services/prp", permanent: true },
     { source: "/prp-aurora-il", destination: "/services/prp", permanent: true },
-    // med-spa-montgomery-il has no page (only 5 med-spa slugs in gbp-urls)
-    { source: "/med-spa-montgomery-il", destination: "/montgomery-il", permanent: true },
     // GoDaddy legacy URLs (hellogorgeousmedspa.com)
     { source: "/home", destination: "/", permanent: true },
     { source: "/about-1", destination: "/about", permanent: true },

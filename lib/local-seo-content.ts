@@ -5,6 +5,7 @@
  */
 
 import type { LocationContentSection } from "./local-seo-content-types.ts";
+import { GBP_SERVICE_SLUGS, MED_SPA_LOCATION_SLUGS } from "./gbp-urls.ts";
 import { ADDITIONAL_LOCATION_PAGE_CONTENT } from "./local-seo-content-additions.ts";
 
 export type { LocationContentSection } from "./local-seo-content-types.ts";
@@ -104,29 +105,7 @@ export function getLocationPageWordCount(slug: string): number {
 }
 
 /** Every GBP service slug + med-spa city page must meet MIN_WORDS in prebuild check. */
-export const REQUIRED_SLUGS = [
-  "botox-oswego-il",
-  "lip-filler-oswego-il",
-  "microneedling-oswego-il",
-  "prf-hair-restoration-oswego-il",
-  "hormone-therapy-oswego-il",
-  "weight-loss-oswego-il",
-  "iv-therapy-oswego-il",
-  "botox-naperville-il",
-  "lip-filler-naperville-il",
-  "weight-loss-naperville-il",
-  "botox-aurora-il",
-  "weight-loss-aurora-il",
-  "dermal-fillers-aurora-il",
-  "lip-filler-aurora-il",
-  "botox-plainfield-il",
-  "weight-loss-plainfield-il",
-  "med-spa-oswego-il",
-  "med-spa-naperville-il",
-  "med-spa-aurora-il",
-  "med-spa-plainfield-il",
-  "med-spa-yorkville-il",
-];
+export const REQUIRED_SLUGS = [...GBP_SERVICE_SLUGS, ...MED_SPA_LOCATION_SLUGS];
 
 const MIN_WORDS = 850;
 
