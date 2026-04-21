@@ -23,6 +23,7 @@ const MAIN_NAV: { href: string; label: string; icon: string }[] = [
   { href: '/admin/campaign-analytics', label: 'Campaign Analytics', icon: '📊' },
   { href: '/admin/email-campaigns', label: 'Email Campaigns', icon: '📧' },
   { href: '/admin/marketing/blog-social', label: 'Blog → Social', icon: '📣' },
+  { href: '/admin/marketing/post-social', label: 'Post to Social', icon: '📲' },
   { href: '/admin/video-generator', label: 'Video Generator', icon: '🎬' },
   { href: '/admin/staff', label: 'Staff', icon: '👤' },
   { href: '/admin/reports', label: 'Reports', icon: '📊' },

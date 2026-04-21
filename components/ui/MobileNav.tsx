@@ -64,6 +64,7 @@ const NAV_SECTIONS: NavSection[] = [
     items: [
       { href: '/admin/insights', label: 'AI Insights', icon: '✨' },
       { href: '/admin/marketing/assistant', label: 'Marketing Assistant', icon: '🤖' },
+      { href: '/admin/marketing/post-social', label: 'Post to Social', icon: '📲' },
       { href: '/admin/marketing/contacts', label: 'Contact Collection', icon: '📋' },
       { href: '/admin/reports', label: 'Reports', icon: '📈' },
       { href: '/admin/sms', label: 'SMS / text', icon: '💬' },

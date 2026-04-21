@@ -64,7 +64,13 @@ function MarketingContent() {
         <p className="text-black mt-1">Campaigns, segments, promos, lead capture, referral, reviews, reactivation.</p>
       </div>
 
-      <div className="flex gap-2 border-b border-black pb-2">
+      <div className="flex flex-wrap items-center gap-2 border-b border-black pb-2">
+        <Link
+          href="/admin/marketing/post-social"
+          className="ml-auto px-3 py-1.5 text-sm font-medium rounded-lg bg-[#2D63A4] text-white hover:bg-[#234a7a] order-last sm:order-none"
+        >
+          Post to Social →
+        </Link>
         {[
           { id: 'overview', label: 'Overview' },
           { id: 'campaigns', label: 'Campaigns' },
@@ -85,26 +91,38 @@ function MarketingContent() {
       {tab === 'overview' && (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {[
-            { href: '#', onClick: () => setTab('campaigns'), icon: '📧', title: 'SMS / Email campaigns', desc: 'Create and send campaigns to segments' },
-            { href: '#', onClick: () => setTab('segments'), icon: '👥', title: 'Audience segments', desc: 'Never booked, no visit 90d, VIP, birthday, and more' },
-            { href: '#', onClick: () => setTab('promos'), icon: '🏷️', title: 'Promos & offers', desc: 'Banners, landing promos, seasonal offers' },
+            { href: '/admin/marketing/post-social', icon: '📲', title: 'Post to Social', desc: 'Google Business, Facebook, Instagram from one screen' },
+            { onClick: () => setTab('campaigns'), icon: '📧', title: 'SMS / Email campaigns', desc: 'Create and send campaigns to segments' },
+            { onClick: () => setTab('segments'), icon: '👥', title: 'Audience segments', desc: 'Never booked, no visit 90d, VIP, birthday, and more' },
+            { onClick: () => setTab('promos'), icon: '🏷️', title: 'Promos & offers', desc: 'Banners, landing promos, seasonal offers' },
             { icon: '📥', title: 'Lead capture', desc: 'Forms, waitlist, feature leads' },
             { icon: '🤝', title: 'Referral', desc: 'Refer-a-friend programs' },
             { icon: '⭐', title: 'Review requests', desc: 'Post-visit review prompts' },
             { icon: '🔄', title: 'Reactivation', desc: 'Re-engage lapsed clients' },
             { icon: '📞', title: 'Missed-call text-back', desc: 'Auto reply to missed calls' },
-          ].map((card) => (
-            <button
-              key={card.title}
-              type="button"
-              onClick={card.onClick}
-              className="text-left rounded-xl border-2 border-black p-4 bg-white hover:bg-[#2D63A4] hover:text-white hover:border-[#2D63A4] transition-colors"
-            >
-              <span className="text-2xl block mb-2">{card.icon}</span>
-              <div className="font-semibold text-black">{card.title}</div>
-              <div className="text-sm mt-1 opacity-90">{card.desc}</div>
-            </button>
-          ))}
+          ].map((card) => {
+            const cardClass =
+              'group text-left rounded-xl border-2 border-black p-4 bg-white hover:bg-[#2D63A4] hover:text-white hover:border-[#2D63A4] transition-colors block w-full';
+            const inner = (
+              <>
+                <span className="text-2xl block mb-2">{card.icon}</span>
+                <div className="font-semibold text-black group-hover:text-white">{card.title}</div>
+                <div className="text-sm mt-1 opacity-90">{card.desc}</div>
+              </>
+            );
+            if ('href' in card && card.href) {
+              return (
+                <Link key={card.title} href={card.href} className={cardClass}>
+                  {inner}
+                </Link>
+              );
+            }
+            return (
+              <button key={card.title} type="button" onClick={card.onClick} className={cardClass}>
+                {inner}
+              </button>
+            );
+          })}
         </div>
       )}
 

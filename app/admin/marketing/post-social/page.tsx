@@ -6,6 +6,7 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
+import { GBP_POST_PRESETS, type GbpPostPreset } from '@/lib/google-business-post-presets';
 
 type Channel = 'facebook' | 'instagram' | 'google';
 interface ChannelStatus {
@@ -57,6 +58,14 @@ export default function PostSocialPage() {
     setChannels((prev) =>
       prev.includes(ch) ? prev.filter((c) => c !== ch) : [...prev, ch]
     );
+  };
+
+  const applyGbpPreset = (preset: GbpPostPreset) => {
+    const origin = typeof window !== 'undefined' ? window.location.origin : '';
+    setMessage(preset.message);
+    setLink(origin ? `${origin}${preset.linkPath}` : preset.linkPath);
+    setImageUrl(origin ? `${origin}${preset.imagePath}` : preset.imagePath);
+    setChannels(['google']);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -115,6 +124,38 @@ export default function PostSocialPage() {
         <p className="text-black mb-6">
           Write once, publish to <strong>Facebook</strong>, <strong>Google Business</strong>, and/or Instagram. Use <strong>Square</strong> for email campaigns (links on the main Marketing page). Instagram is optional — connect when ready. Set env vars below per channel.
         </p>
+
+        <div className="mb-6 p-4 rounded-xl border border-pink-200 bg-pink-50/80">
+          <h2 className="font-semibold text-black mb-2">Google Business — one-click presets</h2>
+          <p className="text-sm text-black/80 mb-3">
+            If Vercel has <code className="bg-white px-1 rounded text-xs">GOOGLE_CLIENT_ID</code>,{' '}
+            <code className="bg-white px-1 rounded text-xs">GOOGLE_CLIENT_SECRET</code>,{' '}
+            <code className="bg-white px-1 rounded text-xs">GOOGLE_REFRESH_TOKEN</code>,{' '}
+            <code className="bg-white px-1 rounded text-xs">GOOGLE_BUSINESS_ACCOUNT_ID</code>, and{' '}
+            <code className="bg-white px-1 rounded text-xs">GOOGLE_BUSINESS_LOCATION_ID</code>, Google shows{' '}
+            <strong>✓</strong> above. Presets fill the form, select <strong>Google Business</strong> only, and use your{' '}
+            <strong>current site origin</strong> for the image URL so Google can fetch it.
+          </p>
+          <div className="flex flex-wrap gap-2">
+            {GBP_POST_PRESETS.map((p) => (
+              <button
+                key={p.id}
+                type="button"
+                onClick={() => applyGbpPreset(p)}
+                className="px-3 py-2 rounded-lg bg-[#E6007E] text-white text-sm font-medium hover:bg-[#c9006e] transition-colors"
+              >
+                Load: {p.label}
+              </button>
+            ))}
+          </div>
+          <p className="text-xs text-black/60 mt-2">
+            API posts use <strong>standard</strong> local posts (summary + photo + link in text). For dated “Event” cards in the GBP UI, still paste from{' '}
+            <Link href="/admin/marketing/google-posts" className="text-pink-700 underline font-medium">
+              Google Post Campaigns
+            </Link>
+            .
+          </p>
+        </div>
 
         <form onSubmit={handleSubmit} className="bg-white rounded-xl border p-6 space-y-5">
           <div>

@@ -265,6 +265,14 @@ export default function GooglePostsPage() {
           </a>
           {' '}→ Posts. Post 1–2 times per week for best visibility.
         </p>
+        <p className="text-black mb-6 text-sm bg-gray-50 border rounded-lg px-4 py-3">
+          <strong>Google API in Vercel?</strong> Publish the same copy + photo through the app:{' '}
+          <Link href="/admin/marketing/post-social" className="text-pink-600 font-semibold hover:underline">
+            Post to social
+          </Link>
+          {' '}→ <em>Google Business — one-click presets</em> → <strong>Post now</strong> (uses{' '}
+          <code className="bg-gray-200 px-1 rounded text-xs">/api/social/post</code>).
+        </p>
 
         <div className="space-y-4">
           {CAMPAIGNS.map((c) => (
