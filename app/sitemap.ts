@@ -87,6 +87,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
     },
     {
+      url: `${baseUrl}/events/the-glow-social`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.92,
+    },
+    {
       url: `${baseUrl}/why-choose-us`,
       lastModified: currentDate,
       changeFrequency: 'monthly',

@@ -202,9 +202,14 @@ export default function VipDeviceNightPage() {
             All treatments require evaluation; contraindications may apply. Alcohol does not mix with some medications —
             ask your clinician. Raffle and promotional rules available at the event.
           </p>
-          <Link href="/" className="inline-block mt-6 text-[#E6007E] font-semibold hover:underline">
-            ← Back to Hello Gorgeous
-          </Link>
+          <div className="mt-6 flex flex-wrap gap-4 justify-center">
+            <Link href="/events/the-glow-social" className="text-[#E6007E] font-semibold hover:underline">
+              The Glow Social (May 14) →
+            </Link>
+            <Link href="/" className="text-[#E6007E] font-semibold hover:underline">
+              ← Back to Hello Gorgeous
+            </Link>
+          </div>
         </section>
       </main>
     </>

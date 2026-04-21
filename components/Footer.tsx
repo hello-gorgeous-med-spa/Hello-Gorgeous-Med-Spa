@@ -136,6 +136,11 @@ export function Footer({ siteSettings }: { siteSettings?: SiteSettings | null })
                 </Link>
               </li>
               <li>
+                <Link className="text-[#FF2D8E] hover:text-[#FF2D8E] font-medium transition-colors" href="/events/the-glow-social">
+                  ★ The Glow Social — May 14 @ Freddie&apos;s (FREE RSVP)
+                </Link>
+              </li>
+              <li>
                 <Link className="text-[#FF2D8E] hover:text-[#FF2D8E] font-medium transition-colors" href="/spring-special-laser-hair">
                   🌸 Spring Special: Laser Hair $79
                 </Link>

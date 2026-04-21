@@ -15,6 +15,14 @@ type Slide = {
 
 const SLIDES: Slide[] = [
   {
+    id: "glow-social",
+    badge: "May 14 · Freddie's",
+    line:
+      "The Glow Social — FREE VIP night 5–8 PM · bites, bubbly, Trifecta demos, raffle & guest vitamin shot. RSVP required.",
+    primary: { label: "Event details & RSVP", href: "/events/the-glow-social" },
+    secondary: { label: "Flyer PDF", href: "/docs/events/the-glow-social-may-14-2026-flyer.pdf" },
+  },
+  {
     id: "vip",
     badge: "Limited — first 20",
     line:
