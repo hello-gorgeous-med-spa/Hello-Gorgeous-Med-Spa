@@ -114,6 +114,33 @@ export function InjectablesConversion() {
           ))}
         </div>
 
+        {/* Skin layers & injection depth — shared reference for neurotoxins, filler, RF */}
+        <div className="mb-16 max-w-4xl mx-auto">
+          <h3 className="text-2xl md:text-3xl font-semibold text-white text-center mb-2">
+            The right layer, the right result
+          </h3>
+          <p className="text-white/70 text-center text-sm md:text-base mb-6 max-w-2xl mx-auto">
+            Botox, fillers, and RF tightening do not all work at the same depth. This reference shows why mapping anatomy matters for natural outcomes.
+          </p>
+          <figure className="rounded-2xl overflow-hidden border border-white/15 bg-white/[0.03]">
+            <Image
+              src="/images/skin-layers-injection-depth-reference.png"
+              alt="Infographic of the five skin layers with millimeter depths: epidermis through periosteum, and where Botox, microneedling and RF, dermal filler, Morpheus8 Burst, RF lipo, and structural filler are placed."
+              width={1024}
+              height={682}
+              className="w-full h-auto"
+              sizes="(max-width: 896px) 100vw, 896px"
+            />
+            <figcaption className="px-4 py-4 text-center text-xs md:text-sm text-white/60">
+              Educational reference only; your plan is individualized at consultation. For RF depth and body contouring, see{" "}
+              <Link href="/services/morpheus8" className="text-[#E6007E] font-semibold hover:underline">
+                Morpheus8 Burst
+              </Link>
+              .
+            </figcaption>
+          </figure>
+        </div>
+
         {/* Authority Strip */}
         <div className="border-t border-b border-[#E6007E]/30 py-6 mb-16">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">

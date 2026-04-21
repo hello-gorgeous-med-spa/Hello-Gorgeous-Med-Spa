@@ -408,7 +408,21 @@ export default function Morpheus8Page() {
                 We invested in the most advanced Morpheus8 configuration available—Burst mode with the complete Quantum probe suite.
               </p>
             </div>
-            
+
+            <figure className="mb-12 max-w-4xl mx-auto rounded-2xl overflow-hidden border border-white/10 bg-white/5">
+              <Image
+                src="/images/skin-layers-injection-depth-reference.png"
+                alt="Medical infographic: five facial skin layers from epidermis to periosteum with depth markers in millimeters. Maps where Botox, microneedling and RF, dermal filler, Morpheus8 Burst up to 8mm, RF body contouring, and structural chin and jaw filler work in the face."
+                width={1024}
+                height={682}
+                className="w-full h-auto"
+                sizes="(max-width: 896px) 100vw, 896px"
+              />
+              <figcaption className="px-4 py-4 text-center text-sm text-white/65 max-w-3xl mx-auto leading-relaxed">
+                Understanding tissue depth is how we match the right energy and device to your goals. Morpheus8 Burst is built for meaningful depth—up to 8mm—while injectables and peels target shallower planes.
+              </figcaption>
+            </figure>
+
             <div className="grid md:grid-cols-2 gap-8">
               {/* Burst Technology */}
               <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-white/10">
