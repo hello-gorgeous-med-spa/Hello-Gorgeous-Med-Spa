@@ -1,8 +1,8 @@
 # Fresha + Hello Gorgeous — Hybrid operations
 
-**Last updated:** April 2026
+**Last updated:** April 2026 · **Model B (Fresha hybrid) — confirmed**
 
-Use this when **Fresha** is the system of record for **scheduling / online booking**, and **Hello Gorgeous (HGOS)** is the system for **charting, consents, compliance workflows, internal ops, and Square** (as configured).
+Use this when **Fresha** is the system of record for **scheduling / online booking**, and **Hello Gorgeous (HGOS)** is the system for **charting, consents, compliance workflows, internal ops, and Square** (as configured). **HG-first-party public booking is not enabled** until a formal cutover; `BOOKING_URL` in `lib/flows.ts` points at **Fresha** (via `NEXT_PUBLIC_FRESHA_BOOKING_URL` on Vercel).
 
 There is **no Fresha API**. The bridge is **CSV export → import** plus **client match by phone** at the front desk.
 

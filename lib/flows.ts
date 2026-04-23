@@ -1,6 +1,7 @@
 /**
- * Booking and conversion URLs — public site uses this trusted scheduler only.
- * Custom `/book` routes redirect here (Fresha through May 2026, then Square online booking).
+ * Booking and conversion URLs — Model B (Fresha hybrid): public booking = Fresha (`BOOKING_URL`).
+ * `/book` and `/book/[slug]` redirect here. No dual public booking with HG `/api/booking/*` until cutover.
+ * Override: `NEXT_PUBLIC_FRESHA_BOOKING_URL` (Vercel).
  */
 export const FRESHA_BOOKING_URL =
   process.env.NEXT_PUBLIC_FRESHA_BOOKING_URL ||

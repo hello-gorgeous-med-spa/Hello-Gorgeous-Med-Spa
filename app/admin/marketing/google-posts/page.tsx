@@ -7,8 +7,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-
-const BOOKING_URL = 'https://www.hellogorgeousmedspa.com/book';
+import { BOOKING_URL } from '@/lib/flows';
 const SPRING_SPECIAL_LASER_URL = 'https://www.hellogorgeousmedspa.com/spring-special-laser-hair';
 const GLOW_EVENT_URL = 'https://www.hellogorgeousmedspa.com/glow-event';
 const GLOW_SOCIAL_EVENT_URL =

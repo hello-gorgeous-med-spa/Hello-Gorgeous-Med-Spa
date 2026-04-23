@@ -7,6 +7,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import { BOOKING_URL } from '@/lib/flows';
 
 function CopyButton({ text, label }: { text: string; label: string }) {
   const [copied, setCopied] = useState(false);
@@ -26,7 +27,7 @@ function CopyButton({ text, label }: { text: string; label: string }) {
   );
 }
 
-const BOOK_URL = 'https://www.hellogorgeousmedspa.com/book';
+const BOOK_URL = BOOKING_URL;
 const GLOW_URL = 'https://www.hellogorgeousmedspa.com/glow-event';
 const VIP_URL = 'https://www.hellogorgeousmedspa.com/vip-skin-tightening';
 const REVIEW_URL = 'https://g.page/r/CYQOWmT_HcwQEBM/review';
