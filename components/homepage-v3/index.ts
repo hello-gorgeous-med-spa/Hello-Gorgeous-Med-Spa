@@ -1,4 +1,10 @@
 export { HeroV3 } from "./HeroV3";
+export {
+  ContourSignatureSection,
+  ContourWhoForSection,
+  ContourVideoPreviewSection,
+  ContourMobileStickyCta,
+} from "./ContourLiftHomeBlocks";
 export { TrustStrip } from "./TrustStrip";
 export { PartnerBadges } from "./PartnerBadges";
 export { InjectablesConversion } from "./InjectablesConversion";

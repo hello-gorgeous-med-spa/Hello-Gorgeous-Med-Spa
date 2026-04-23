@@ -4,71 +4,83 @@ import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { BOOKING_URL } from "@/lib/flows";
-import { SITE } from "@/lib/seo";
+
+const PINK = "#E6007E";
 
 export function HeroV3() {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    const t = setTimeout(() => setMounted(true), 100);
+    const t = setTimeout(() => setMounted(true), 80);
     return () => clearTimeout(t);
   }, []);
 
   return (
-    <section className="bg-white flex items-center py-12 md:py-16 lg:py-20">
-      <div className="max-w-7xl mx-auto px-6 md:px-12 grid md:grid-cols-2 gap-8 lg:gap-12 items-center">
-        {/* Left - Copy */}
+    <section className="bg-black text-white">
+      <div
+        className={`mx-auto grid max-w-7xl grid-cols-1 gap-8 px-6 py-10 transition-all duration-700 md:grid-cols-2 md:items-center md:gap-10 md:px-8 md:py-16 lg:py-20 ${
+          mounted ? "opacity-100" : "opacity-0"
+        }`}
+      >
+        {/* flex-col-reverse on small screens: image (strong result) first on mobile */}
         <div
-          className={`transition-all duration-700 ${
-            mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-          }`}
+          className={`relative order-1 flex min-h-[220px] w-full flex-col justify-center md:order-2 ${
+            mounted ? "translate-y-0" : "translate-y-3"
+          } transition-all delay-100 duration-700`}
         >
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold leading-[1.1] tracking-tight text-black">
-            Modern Aesthetic Medicine.
-            <br />
-            <span className="text-[#E6007E]">Built for Confidence.</span>
-          </h1>
-          <p className="mt-5 text-base md:text-lg text-black leading-relaxed max-w-xl">
-            Advanced injectables, skin treatments, and wellness — designed with
-            precision and delivered with intention.
-          </p>
-          <p className="mt-4 text-sm text-black/70">
-            🏆 #1 Best Med Spa · Newest Morpheus8 Burst (face & body) · Quantum RF · Solaria CO2 · Full-authority NP · Free consultation · {SITE.reviewRating}★ ({SITE.reviewCount} reviews) · Oswego, IL
-          </p>
-          <div className="mt-6 flex flex-col sm:flex-row gap-4">
-            <Link
-              href={BOOKING_URL}
-              data-book-now
-              className="inline-flex items-center justify-center bg-[#E6007E] text-white px-6 py-3 md:px-8 md:py-4 rounded-lg font-semibold uppercase tracking-wide hover:opacity-90 transition-all duration-300 hover:scale-[1.03]"
-            >
-              Book Free Consultation
-            </Link>
-            <Link
-              href="/services"
-              className="inline-flex items-center justify-center border-2 border-black text-black px-6 py-3 md:px-8 md:py-4 rounded-lg font-semibold uppercase tracking-wide hover:border-[#E6007E] hover:text-[#E6007E] transition-all duration-300"
-            >
-              Explore Services
-            </Link>
+          <div className="relative mx-auto aspect-[4/3] w-full max-w-xl overflow-hidden rounded-2xl border-2 border-white/10 shadow-2xl sm:aspect-[3/2]">
+            <Image
+              src="/images/quantum-rf/clinical-ba-abdomen-skin-tightening.png"
+              alt="Hello Gorgeous Contour Lift — clinical abdomen skin tightening and contour result powered by InMode Quantum RF, Oswego medical aesthetics"
+              fill
+              priority
+              className="object-cover object-[50%_32%] sm:object-[50%_38%] md:object-center"
+              sizes="(max-width: 768px) 100vw, 50vw"
+            />
+            <div
+              className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"
+              aria-hidden
+            />
           </div>
         </div>
 
-        {/* Right - Image */}
         <div
-          className={`relative transition-all duration-700 delay-200 ${
-            mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-          }`}
+          className={`order-2 space-y-4 md:order-1 ${
+            mounted ? "translate-y-0" : "translate-y-3"
+          } transition-all duration-700`}
         >
-          <div className="relative w-full aspect-[1742/614] rounded-2xl overflow-hidden mx-auto">
-            <Image
-              src="/images/hero-banner.png"
-              alt="Hello Gorgeous Med Spa - Luxury Medical Aesthetics"
-              fill
-              priority
-              className="object-contain object-center"
-              sizes="(max-width: 768px) 100vw, 50vw"
-            />
+          <h1 className="text-3xl font-semibold leading-[1.12] tracking-tight sm:text-4xl md:text-5xl lg:text-[3.1rem] lg:leading-[1.08]">
+            The Non-Surgical Alternative to Skin Tightening Surgery
+          </h1>
+          <p className="max-w-xl text-base leading-relaxed text-white/95 md:text-lg">
+            Advanced contouring designed to improve loose skin, refine targeted areas, and restore definition—without
+            surgery.
+          </p>
+          <div>
+            <p className="text-lg font-bold leading-snug text-white md:text-xl">
+              Introducing The Hello Gorgeous Contour Lift™
+            </p>
+            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-white/80">Powered by Quantum RF</p>
           </div>
-          <div className="absolute -bottom-4 -left-4 w-24 h-24 bg-[#E6007E] rounded-full opacity-20 blur-2xl" />
+          <p className="max-w-lg text-sm font-light leading-relaxed text-white/85">
+            Advanced contouring procedures performed under medical supervision.
+          </p>
+          <div className="flex flex-col gap-3 pt-1 sm:max-w-md sm:flex-row sm:gap-4">
+            <Link
+              href="/services/quantum-rf"
+              className="inline-flex min-h-[52px] flex-1 items-center justify-center rounded-md px-6 text-sm font-bold uppercase tracking-[0.12em] text-white transition hover:opacity-95"
+              style={{ backgroundColor: PINK }}
+            >
+              Explore Contour Lift
+            </Link>
+            <a
+              href={BOOKING_URL}
+              data-book-now
+              className="inline-flex min-h-[52px] flex-1 items-center justify-center rounded-md border-2 border-white px-6 text-sm font-bold uppercase tracking-[0.12em] text-white transition hover:bg-white hover:text-black"
+            >
+              Book consultation
+            </a>
+          </div>
         </div>
       </div>
     </section>

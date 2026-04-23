@@ -478,8 +478,8 @@ export default function QuantumRFPage() {
           </div>
         </section>
 
-        {/* 2. Videos + clinical proof */}
-        <section className="border-b-2 border-black bg-black py-10 md:py-14">
+        {/* 2. Videos + clinical proof — anchor for homepage "Watch procedure" link */}
+        <section id="contour-lift-videos" className="border-b-2 border-black bg-black py-10 md:py-14 scroll-mt-20">
           <div className="mx-auto max-w-6xl space-y-12 px-4">
             <div>
               <p

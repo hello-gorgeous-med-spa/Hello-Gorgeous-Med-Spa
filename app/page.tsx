@@ -12,6 +12,10 @@ import {
   HomepageProfessionalGrid,
   HomepageCherryFaqRow,
   HomepageClosingCTARow,
+  ContourSignatureSection,
+  ContourWhoForSection,
+  ContourVideoPreviewSection,
+  ContourMobileStickyCta,
 } from "@/components/homepage-v3";
 import { TheBookHomeSection } from "@/components/the-book";
 import { HomepagePromoRail } from "@/components/HomepagePromoRail";
@@ -37,9 +41,9 @@ import {
 } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Hello Gorgeous Med Spa | Newest Morpheus8 Burst Face & Body | Oswego, IL",
+  title: "Hello Gorgeous Contour Lift™ (Quantum RF) | Advanced Contouring, Oswego, IL | Hello Gorgeous",
   description:
-    "#1 Best Med Spa in Oswego, IL. Same-day appointments often available. Morpheus8 Burst, Quantum RF, Solaria CO2. Hello Gorgeous RX™, trigger point injections, Botox, fillers, Semaglutide. Naperville, Aurora, Plainfield. Book now.",
+    "The Hello Gorgeous Contour Lift™ is powered by InMode Quantum RF — a minimally invasive alternative to skin tightening surgery. Loose skin, definition, and contour without the OR. Medical supervision. Oswego, Naperville, Aurora, Fox Valley. Book a consultation. Full services: Morpheus8, Solaria CO₂, injectables, medical wellness.",
   path: "/",
 });
 
@@ -80,11 +84,11 @@ export default function HomePage() {
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(
             webPageJsonLd({
-              title: "Hello Gorgeous Med Spa - Newest Morpheus8 Burst Face & Body",
+              title: "Hello Gorgeous Med Spa — The Hello Gorgeous Contour Lift (Quantum RF) & full aesthetic medicine",
               description:
-                "#1 Best Med Spa in Oswego, IL. Same-day and next-day visits often available. Morpheus8 Burst, injectables, GLP-1, hormones, Solaria CO₂, IV therapy, Hello Gorgeous RX™, trigger point injections, cellulite, stretch marks, laser, IPL, lash bar. Naperville, Aurora, Plainfield.",
+                "Flagship: Hello Gorgeous Contour Lift, powered by InMode Quantum RF, for advanced minimally invasive body and face contouring. Oswego, IL. Also Morpheus8, Solaria CO₂, injectables, medical wellness, and same-day care when available.",
               path: "/",
-              image: "/images/hero-banner.png",
+              image: "/images/quantum-rf/clinical-ba-abdomen-skin-tightening.png",
               datePublished: "2023-01-01",
               dateModified: new Date().toISOString().split("T")[0],
             })
@@ -169,13 +173,13 @@ export default function HomePage() {
         }}
       />
 
-      <main className="bg-white">
-        <HomepagePromoRail />
+      <main className="bg-white pb-20 md:pb-0">
         <HeroV3 />
+        <ContourSignatureSection />
+        <ContourWhoForSection />
+        <ContourVideoPreviewSection />
         <TheBookHomeSection />
         <TrustStrip />
-        <Morpheus8SkinRebuildSection />
-        <Morpheus8VerifiedProviderSection />
         <TrifectaSection />
         <PartnerBadges />
         <ServicesSection />
@@ -185,7 +189,11 @@ export default function HomePage() {
         <HomepageProfessionalGrid />
         <HomepageTestimonials />
         <HomepageCherryFaqRow />
+        <Morpheus8SkinRebuildSection />
+        <Morpheus8VerifiedProviderSection />
+        <HomepagePromoRail />
         <HomepageClosingCTARow />
+        <ContourMobileStickyCta />
       </main>
     </>
   );

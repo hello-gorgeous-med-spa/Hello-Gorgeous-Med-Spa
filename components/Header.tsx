@@ -12,8 +12,32 @@ import { BOOKING_URL, CARECREDIT_URL, CHERRY_PAY_URL, VIP_MODEL_SQUARE_URL } fro
 // Navigation structure with dropdowns
 const navigation = {
   services: {
-    label: "Services",
+    label: "Procedures",
     href: "/services",
+    /** Shown first in the mega menu — hierarchy without removing other links */
+    procedurePriority: [
+      {
+        label: "Hello Gorgeous Contour Lift™ (Quantum RF)",
+        shortLabel: "Contour Lift",
+        href: "/services/quantum-rf",
+        icon: "👑",
+        sub: "Our flagship subdermal contouring",
+      },
+      {
+        label: "Morpheus8 RF",
+        shortLabel: "Morpheus8",
+        href: "/services/morpheus8",
+        icon: "⚡",
+        sub: "RF microneedling — surface to deep",
+      },
+      {
+        label: "Solaria CO₂ Laser",
+        shortLabel: "Solaria CO₂",
+        href: "/services/solaria-co2",
+        icon: "✨",
+        sub: "Fractional resurfacing",
+      },
+    ],
     columns: [
       {
         title: "Injectables",
@@ -70,10 +94,11 @@ const navigation = {
       },
     ],
     featured: {
-      title: "🔥 Morpheus8 RF Microneedling",
-      description: "NEW from InMode! Burst + Quantum technology for face & body contouring. The deepest RF microneedling available.",
-      cta: { label: "Learn More", href: "/services/morpheus8" },
-      image: "⚡",
+      title: "The Hello Gorgeous Contour Lift™",
+      description:
+        "Our signature minimally invasive procedure — powered by InMode Quantum RF. Improve loose skin and contour where surface treatments stop.",
+      cta: { label: "Explore Contour Lift", href: "/services/quantum-rf" },
+      image: "👑",
     },
   },
   about: {
@@ -201,6 +226,34 @@ function ServicesDropdown({ isOpen, onClose, onMouseEnter }: { isOpen: boolean; 
       onMouseLeave={onClose}
     >
       <div className="max-w-7xl mx-auto px-4 md:px-6 py-6 md:py-8">
+        {"procedurePriority" in data && (data as typeof navigation.services).procedurePriority && (
+          <div className="mb-6 md:mb-8">
+            <p className="text-[0.65rem] font-bold uppercase tracking-[0.3em] text-[#E6007E] mb-3">Priority procedures</p>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+              {(data as typeof navigation.services).procedurePriority!.map((p) => (
+                <Link
+                  key={p.href}
+                  href={p.href}
+                  onClick={onClose}
+                  className="group flex items-start gap-3 rounded-xl border-2 border-black p-4 transition hover:border-[#E6007E] hover:shadow-md"
+                >
+                  <span className="text-2xl" aria-hidden>
+                    {p.icon}
+                  </span>
+                  <div className="min-w-0">
+                    <p className="text-sm font-bold text-black group-hover:text-[#E6007E]">
+                      {"shortLabel" in p && p.shortLabel ? p.shortLabel : p.label}
+                    </p>
+                    <p className="text-xs text-black/60 mt-0.5 line-clamp-2">
+                      {"sub" in p && p.sub ? p.sub : p.label}
+                    </p>
+                  </div>
+                </Link>
+              ))}
+            </div>
+            <p className="mt-3 text-xs text-black/45">All procedures — browse by category below.</p>
+          </div>
+        )}
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-8">
           {/* Service columns */}
           {data.columns.map((column) => (
@@ -260,7 +313,7 @@ function ServicesDropdown({ isOpen, onClose, onMouseEnter }: { isOpen: boolean; 
             onClick={onClose}
             className="text-sm font-medium text-black hover:text-[#FF2D8E] flex items-center gap-2"
           >
-            View All Services
+            View all procedures
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
             </svg>
@@ -413,16 +466,16 @@ export function Header() {
               onMouseEnter={() => handleMouseEnter('services')}
               onMouseLeave={handleMouseLeave}
             >
-              <Link
-                href="/services"
-                className={cx(
-                  "flex items-center justify-center gap-1 h-9 px-2.5 rounded-lg text-sm font-medium transition-all whitespace-nowrap",
-                  pathname?.startsWith('/services')
-                    ? "text-white bg-[#FF2D8E]"
-                    : "text-black hover:bg-[#FF2D8E]/10 hover:text-[#FF2D8E]"
-                )}
-              >
-                Services
+                <Link
+            href="/services"
+            className={cx(
+              "flex items-center justify-center gap-1 h-9 px-2.5 rounded-lg text-sm font-medium transition-all whitespace-nowrap",
+              pathname?.startsWith('/services')
+                ? "text-white bg-[#FF2D8E]"
+                : "text-black hover:bg-[#FF2D8E]/10 hover:text-[#FF2D8E]"
+            )}
+          >
+            Procedures
                 <svg className={cx("w-3 h-3 transition-transform", activeDropdown === 'services' && "rotate-180")} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                 </svg>
@@ -712,7 +765,7 @@ export function Header() {
               >
                 <span className="flex items-center gap-3">
                   <span className="text-xl">💋</span>
-                  Services
+                  Procedures
                 </span>
                 <svg className={cx("w-5 h-5 transition-transform", mobileSubmenu === 'services' && "rotate-180")} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
@@ -720,6 +773,19 @@ export function Header() {
               </button>
               {mobileSubmenu === 'services' && (
                 <div className="mt-2 ml-4 space-y-4">
+                  <div className="space-y-2 px-0 pb-2">
+                    {navigation.services.procedurePriority.map((p) => (
+                      <Link
+                        key={p.href}
+                        href={p.href}
+                        onClick={() => setMobileMenuOpen(false)}
+                        className="flex items-center gap-2 rounded-lg border-2 border-black bg-black/5 px-3 py-2.5 text-sm font-bold text-[#FF2D8E]"
+                      >
+                        <span>{p.icon}</span>
+                        <span>{"shortLabel" in p && p.shortLabel ? p.shortLabel : p.label}</span>
+                      </Link>
+                    ))}
+                  </div>
                   {navigation.services.columns.map((column) => (
                     <div key={column.title}>
                       <p className="text-xs font-bold text-black uppercase tracking-wider px-4 mb-2">{column.title}</p>

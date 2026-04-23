@@ -16,6 +16,7 @@ const nextConfig = {
     remotePatterns: [
       { protocol: "https", hostname: "images.unsplash.com" },
       { protocol: "https", hostname: "*.supabase.co" },
+      { protocol: "https", hostname: "i.ytimg.com" },
     ],
     // Mitigate GHSA-3x4c-7xq6-9pq8 (unbounded image cache): reduce variant cardinality
     formats: ["image/webp"],
@@ -42,7 +43,7 @@ const nextConfig = {
             "img-src 'self' data: blob: https:",
             "font-src 'self' https://fonts.gstatic.com",
             "connect-src 'self' https://*.supabase.co https://api.openai.com https://api.stripe.com wss://*.supabase.co https://*.withcherry.com",
-            "frame-src 'self' https://js.stripe.com https://challenges.cloudflare.com https://www.alle.com https://*.alle.com https://*.withcherry.com https://pay.withcherry.com https://www.facebook.com",
+            "frame-src 'self' https://js.stripe.com https://challenges.cloudflare.com https://www.alle.com https://*.alle.com https://*.withcherry.com https://pay.withcherry.com https://www.facebook.com https://www.youtube.com https://www.youtube-nocookie.com",
             "frame-ancestors 'none'",
             "base-uri 'self'",
             "form-action 'self'",
@@ -64,7 +65,7 @@ const nextConfig = {
             "img-src 'self' data: blob: https:",
             "font-src 'self' https://fonts.gstatic.com",
             "connect-src 'self' https://*.supabase.co https://api.openai.com https://api.stripe.com wss://*.supabase.co https://*.withcherry.com",
-            "frame-src 'self' https://js.stripe.com https://challenges.cloudflare.com https://www.alle.com https://*.alle.com https://*.withcherry.com https://pay.withcherry.com https://www.facebook.com",
+            "frame-src 'self' https://js.stripe.com https://challenges.cloudflare.com https://www.alle.com https://*.alle.com https://*.withcherry.com https://pay.withcherry.com https://www.facebook.com https://www.youtube.com https://www.youtube-nocookie.com",
             "frame-ancestors 'self'",
             "base-uri 'self'",
             "form-action 'self'",
