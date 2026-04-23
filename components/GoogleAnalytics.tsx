@@ -3,6 +3,7 @@
 import { usePathname } from "next/navigation";
 import { useEffect } from "react";
 import Script from "next/script";
+import { pushContourLiftEvent } from "@/lib/contour-lift-analytics";
 
 const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID;
 const GA4_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA4_MEASUREMENT_ID;
@@ -43,9 +44,21 @@ function useTrackConversions(disabled: boolean) {
     if (disabled) return;
     const handleClick = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
-      const anchor = target.closest("a[href]");
+      const anchor = target.closest("a[href]") as HTMLAnchorElement | null;
       if (!anchor) return;
-      const href = (anchor as HTMLAnchorElement).getAttribute("href") || "";
+      const href = anchor.getAttribute("href") || "";
+      const contourHost = (anchor as HTMLElement).closest("[data-cl-event]") as HTMLElement | null;
+      if (contourHost) {
+        const clName = contourHost.getAttribute("data-cl-event");
+        if (clName) {
+          const placement = contourHost.getAttribute("data-cl-placement") || undefined;
+          const cla = contourHost.getAttribute("data-cl-action") || undefined;
+          pushContourLiftEvent(clName, { link_url: href, placement, cl_action: cla });
+        }
+        if (contourHost.hasAttribute("data-cl-only")) {
+          return;
+        }
+      }
       if (href.startsWith("tel:")) {
         trackEvent("phone_click", { link_url: href });
       } else if (href.startsWith("mailto:")) {

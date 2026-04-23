@@ -3,9 +3,11 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { BOOKING_URL } from "@/lib/flows";
+import { ContourBookLink } from "@/components/marketing/ContourBookLink";
+import { SITE } from "@/lib/seo";
 
 const PINK = "#E6007E";
+const SMS_HREF = `sms:${SITE.phone.replace(/\D/g, "")}`;
 
 export function HeroV3() {
   const [mounted, setMounted] = useState(false);
@@ -65,21 +67,46 @@ export function HeroV3() {
           <p className="max-w-lg text-sm font-light leading-relaxed text-white/85">
             Advanced contouring procedures performed under medical supervision.
           </p>
-          <div className="flex flex-col gap-3 pt-1 sm:max-w-md sm:flex-row sm:gap-4">
-            <Link
-              href="/services/quantum-rf"
-              className="inline-flex min-h-[52px] flex-1 items-center justify-center rounded-md px-6 text-sm font-bold uppercase tracking-[0.12em] text-white transition hover:opacity-95"
-              style={{ backgroundColor: PINK }}
-            >
-              Explore Contour Lift
-            </Link>
+          <div className="flex max-w-md flex-col gap-3 pt-1">
+            <div className="flex flex-col gap-3 sm:flex-row sm:gap-4">
+              <Link
+                href="/services/quantum-rf"
+                className="inline-flex min-h-[52px] flex-1 items-center justify-center rounded-md px-6 text-sm font-bold uppercase tracking-[0.12em] text-white transition hover:opacity-95"
+                style={{ backgroundColor: PINK }}
+                data-cl-only
+                data-cl-event="contour_lift_home_cta_click"
+                data-cl-action="explore"
+                data-cl-placement="hero"
+              >
+                Explore Contour Lift
+              </Link>
+              <ContourBookLink
+                className="inline-flex min-h-[52px] flex-1 items-center justify-center rounded-md border-2 border-white px-6 text-sm font-bold uppercase tracking-[0.12em] text-white transition hover:bg-white hover:text-black"
+                data-cl-placement="hero"
+              >
+                Book consultation
+              </ContourBookLink>
+            </div>
             <a
-              href={BOOKING_URL}
-              data-book-now
-              className="inline-flex min-h-[52px] flex-1 items-center justify-center rounded-md border-2 border-white px-6 text-sm font-bold uppercase tracking-[0.12em] text-white transition hover:bg-white hover:text-black"
+              href={SMS_HREF}
+              data-sms-click
+              data-cl-only
+              data-cl-event="contour_lift_sms_click"
+              data-cl-placement="hero"
+              className="inline-flex min-h-[52px] w-full items-center justify-center rounded-md border-2 border-white/80 bg-white/5 px-6 text-sm font-bold uppercase tracking-[0.12em] text-white transition hover:bg-white hover:text-black sm:w-auto sm:shrink-0"
             >
-              Book consultation
+              Text us
             </a>
+            <Link
+              href="/contour-lift/model-experience"
+              className="text-center text-sm text-white/85 underline decoration-white/50 underline-offset-4 transition hover:text-white sm:text-left"
+              data-cl-only
+              data-cl-event="contour_lift_home_cta_click"
+              data-cl-action="model_landing"
+              data-cl-placement="hero"
+            >
+              May 4 clinical model opportunity — learn more
+            </Link>
           </div>
         </div>
       </div>

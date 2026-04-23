@@ -1,0 +1,126 @@
+import { NextRequest, NextResponse } from "next/server";
+import { SITE } from "@/lib/seo";
+import { createAdminSupabaseClient } from "@/lib/hgos/supabase";
+import { getUTMFromRequest, recordLead } from "@/lib/leads";
+
+
+function trim(s: unknown, n: number): string {
+  if (s == null || typeof s !== "string") return "";
+  return s.trim().slice(0, n);
+}
+
+/**
+ * Contour Lift™ consultation / candidacy — minimal fields; staff notified via Resend, lead row when Supabase is available.
+ */
+export async function POST(request: NextRequest) {
+  try {
+    const body = (await request.json().catch(() => null)) as Record<string, unknown> | null;
+    if (!body) {
+      return NextResponse.json({ error: "Invalid JSON." }, { status: 400 });
+    }
+
+    const fullName = trim(body.name, 200);
+    const email = trim(body.email, 200).toLowerCase();
+    const phone = trim(body.phone, 50);
+    const areaOfConcern = trim(body.area_of_concern, 500);
+    const contactMethod = trim(body.contact_method, 30);
+    const leadSourceBucket = trim(body.lead_source_bucket, 100);
+
+    if (!fullName || !email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || !phone) {
+      return NextResponse.json(
+        { error: "Please add your name, a valid email, and phone so we can reach you." },
+        { status: 400 }
+      );
+    }
+
+    if (!areaOfConcern || !contactMethod) {
+      return NextResponse.json(
+        { error: "Please tell us your area of concern and how you’d like to be contacted." },
+        { status: 400 }
+      );
+    }
+
+    const url = request.url || "";
+    const utmFromUrl = getUTMFromRequest(url, request.headers.get("referer"));
+    const utm = {
+      utm_source: trim(body.utm_source, 255) || utmFromUrl.utm_source,
+      utm_medium: trim(body.utm_medium, 255) || utmFromUrl.utm_medium,
+      utm_campaign: trim(body.utm_campaign, 255) || utmFromUrl.utm_campaign,
+      referrer: utmFromUrl.referrer,
+    };
+
+    const sessionId = trim(body.session_id, 100);
+    const fromPage = trim(body.from_page, 500);
+
+    const textBody = [
+      "Contour Lift™ inquiry (Quantum RF)",
+      "",
+      `Name: ${fullName}`,
+      `Email: ${email}`,
+      `Phone: ${phone}`,
+      `Area of concern: ${areaOfConcern}`,
+      `Preferred contact: ${contactMethod}`,
+      `Lead source bucket: ${leadSourceBucket || "—"}`,
+      `From page: ${fromPage || "—"}`,
+      `UTM: source=${utm.utm_source || "—"} medium=${utm.utm_medium || "—"} campaign=${utm.utm_campaign || "—"}`,
+      `Session: ${sessionId || "—"}`,
+    ].join("\n");
+
+    const apiKey = process.env.RESEND_API_KEY;
+    const toEmail = process.env.CONTACT_FORM_TO_EMAIL || SITE.email;
+
+    if (apiKey) {
+      const res = await fetch("https://api.resend.com/emails", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${apiKey}`,
+        },
+        body: JSON.stringify({
+          from: process.env.RESEND_FROM_EMAIL || "Hello Gorgeous <onboarding@resend.dev>",
+          to: [toEmail],
+          subject: `Contour Lift inquiry — ${fullName}`,
+          text: textBody,
+        }),
+      });
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        console.error("Resend contour-lift error:", res.status, err);
+        return NextResponse.json(
+          { error: "We couldn’t send that just now. Please call or text us." },
+          { status: 502 }
+        );
+      }
+    } else {
+      console.warn("[contour-lift-inquiry] RESEND_API_KEY not set; email not sent.");
+    }
+
+    const supabase = createAdminSupabaseClient();
+    if (supabase) {
+      await recordLead(supabase, {
+        email,
+        phone,
+        full_name: fullName,
+        source: "website",
+        lead_type: "contour_lift",
+        session_id: sessionId || undefined,
+        ...utm,
+        metadata: {
+          area_of_concern: areaOfConcern,
+          contact_method: contactMethod,
+          lead_source_bucket: leadSourceBucket || undefined,
+          from_page: fromPage || undefined,
+          procedure: "contour_lift",
+        },
+      });
+    }
+
+    return NextResponse.json({ success: true });
+  } catch (e) {
+    console.error("contour-lift-inquiry", e);
+    return NextResponse.json(
+      { error: "Something went wrong. Please try again or call us." },
+      { status: 500 }
+    );
+  }
+}

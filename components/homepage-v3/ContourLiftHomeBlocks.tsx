@@ -1,9 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
-import { BOOKING_URL } from "@/lib/flows";
+import { ContourBookLink } from "@/components/marketing/ContourBookLink";
+import { SITE } from "@/lib/seo";
 
 const PINK = "#E6007E";
 const YT_PREVIEW_ID = "loJOgWGCkK8";
+const SMS_HREF = `sms:${SITE.phone.replace(/\D/g, "")}`;
 
 /** Signature procedure + who it’s for + video preview — homepage flagship stack */
 export function ContourSignatureSection() {
@@ -41,14 +43,45 @@ export function ContourSignatureSection() {
             areas by working beneath the surface of the skin.
           </p>
           <p className="mt-3 text-sm font-medium text-black/80">For patients exploring options beyond traditional surface-level treatments.</p>
-          <Link
-            href="/services/quantum-rf"
-            className="mt-6 inline-flex min-h-[48px] items-center gap-2 text-sm font-bold uppercase tracking-widest text-black underline decoration-2 underline-offset-4 transition hover:opacity-80"
-            style={{ textDecorationColor: PINK }}
-          >
-            Learn more
-            <span aria-hidden>→</span>
-          </Link>
+          <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4">
+            <Link
+              href="/services/quantum-rf"
+              className="inline-flex min-h-[48px] items-center gap-2 text-sm font-bold uppercase tracking-widest text-black underline decoration-2 underline-offset-4 transition hover:opacity-80"
+              style={{ textDecorationColor: PINK }}
+              data-cl-only
+              data-cl-event="contour_lift_home_cta_click"
+              data-cl-action="explore"
+              data-cl-placement="featured_signature"
+            >
+              Explore Contour Lift
+              <span aria-hidden>→</span>
+            </Link>
+            <Link
+              href="/contour-lift/inquiry"
+              className="inline-flex min-h-[48px] items-center text-sm font-bold uppercase tracking-widest text-black/90 underline decoration-2 underline-offset-4 transition hover:opacity-80"
+              style={{ textDecorationColor: PINK }}
+              data-cl-only
+              data-cl-event="contour_lift_candidate_cta_click"
+              data-cl-placement="featured_signature"
+            >
+              See if I’m a candidate
+            </Link>
+          </div>
+          <p className="mt-6 max-w-md border-t border-black/10 pt-5 text-sm leading-relaxed text-black/80">
+            <span className="font-semibold text-black">May 4 · Oswego —</span> Limited Contour Lift™ clinical model
+            spots. Full story, video, and application for candidates who are a fit.{" "}
+            <Link
+              href="/contour-lift/model-experience"
+              className="font-semibold text-black underline decoration-2 underline-offset-[3px] transition hover:opacity-80"
+              style={{ textDecorationColor: PINK }}
+              data-cl-only
+              data-cl-event="contour_lift_home_cta_click"
+              data-cl-action="model_landing"
+              data-cl-placement="featured_signature"
+            >
+              Model experience
+            </Link>
+          </p>
         </div>
       </div>
     </section>
@@ -89,6 +122,10 @@ export function ContourVideoPreviewSection() {
           <Link
             href="/services/quantum-rf#contour-lift-videos"
             className="group relative block aspect-video overflow-hidden border-2 border-black shadow-xl"
+            data-cl-only
+            data-cl-event="contour_lift_home_cta_click"
+            data-cl-action="video_preview"
+            data-cl-placement="home_video_card"
           >
             <Image
               src={`https://i.ytimg.com/vi/${YT_PREVIEW_ID}/hqdefault.jpg`}
@@ -126,20 +163,33 @@ export function ContourVideoPreviewSection() {
 export function ContourMobileStickyCta() {
   return (
     <div className="fixed bottom-0 left-0 right-0 z-40 border-t-2 border-black bg-black p-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] md:hidden">
-      <div className="mx-auto flex max-w-lg gap-2">
+      <div className="mx-auto grid max-w-lg grid-cols-3 gap-1.5">
         <Link
           href="/services/quantum-rf"
-          className="flex flex-1 min-h-[48px] items-center justify-center rounded-md text-xs font-bold uppercase tracking-widest text-white"
+          className="flex min-h-[48px] items-center justify-center rounded-md text-[0.65rem] font-bold uppercase leading-tight tracking-wide text-white sm:text-xs"
           style={{ backgroundColor: PINK }}
+          data-cl-only
+          data-cl-event="contour_lift_home_cta_click"
+          data-cl-action="explore"
+          data-cl-placement="home_sticky"
         >
           Contour Lift
         </Link>
-        <a
-          href={BOOKING_URL}
-          className="flex min-h-[48px] flex-1 items-center justify-center rounded-md border-2 border-white text-xs font-bold uppercase tracking-widest text-white"
-          data-book-now
+        <ContourBookLink
+          className="flex min-h-[48px] items-center justify-center rounded-md border-2 border-white text-[0.65rem] font-bold uppercase leading-tight tracking-wide text-white sm:text-xs"
+          data-cl-placement="home_sticky"
         >
           Book
+        </ContourBookLink>
+        <a
+          href={SMS_HREF}
+          data-sms-click
+          data-cl-only
+          data-cl-event="contour_lift_sms_click"
+          data-cl-placement="home_sticky"
+          className="flex min-h-[48px] items-center justify-center rounded-md border-2 border-white/80 bg-white/5 text-[0.65rem] font-bold uppercase leading-tight tracking-wide text-white sm:text-xs"
+        >
+          Text
         </a>
       </div>
     </div>

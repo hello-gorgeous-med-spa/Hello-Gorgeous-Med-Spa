@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { TechBlogPromo } from "@/components/TechBlogPromo";
+import { ContourBookLink } from "@/components/marketing/ContourBookLink";
+import { QuantumRFVideoEngagement } from "@/components/marketing/QuantumRFVideoEngagement";
 import { CHERRY_PAY_URL } from "@/lib/flows";
 import { pageMetadata, SITE, siteJsonLd } from "@/lib/seo";
 import { QuantumRFResultsSlideshow, type QuantumSlide } from "./QuantumRFResultsSlideshow";
@@ -15,9 +17,9 @@ const QUANTUM_OG_IMAGE = "/images/quantum-rf/quantum-rf-technology-inmode-overvi
 
 const _quantumBaseMeta = pageMetadata({
   title:
-    "Quantum RF — Non-Surgical Alternative to Liposuction & Skin Tightening | Oswego, IL",
+    "Hello Gorgeous Contour Lift™ — Quantum RF | Minimally Invasive Contouring | Oswego, IL",
   description:
-    "InMode QuantumRF: minimally invasive subdermal radiofrequency (Quantum RF) for soft tissue contraction—arms, jawline, neck, abdomen, knees & more. Watch procedure videos. Clinical before/after results. Non-surgical skin tightening at Hello Gorgeous Med Spa, Oswego, IL. Book a consultation. Morpheus8 Burst add-ons, Cherry financing.",
+    "The Hello Gorgeous Contour Lift™ is powered by InMode Quantum RF — a minimally invasive alternative to excisional surgery. Tighten, contour, and refine loose skin. Clinical videos & before/afters. Book a consult or see if you’re a candidate. Hello Gorgeous Med Spa, Oswego, IL. Morpheus8 Burst add-ons, Cherry financing.",
   path: "/services/quantum-rf",
   keywords: [
     "Quantum RF",
@@ -426,6 +428,7 @@ export default function QuantumRFPage() {
       />
 
       <main className="bg-white pb-24 text-black md:pb-0">
+        <QuantumRFVideoEngagement />
         {/* 1. Hero */}
         <section className="relative w-full overflow-hidden text-white">
           <div className="absolute inset-0 z-0">
@@ -460,20 +463,22 @@ export default function QuantumRFPage() {
               Minimally invasive contouring for patients who want real change without surgery.
             </p>
             <div className="mt-10 flex w-full max-w-md flex-col gap-4 sm:max-w-lg sm:flex-row sm:items-stretch sm:gap-5">
-              <Link
-                href="/book"
-                data-book-now
+              <ContourBookLink
                 className="inline-flex min-h-[56px] flex-1 items-center justify-center rounded-md px-7 py-3.5 text-center text-sm font-semibold uppercase tracking-[0.2em] text-white transition hover:opacity-95"
                 style={{ backgroundColor: PINK }}
+                data-cl-placement="quantum_hero"
               >
                 Book Consultation
-              </Link>
-              <a
-                href="#candidates"
+              </ContourBookLink>
+              <Link
+                href="/contour-lift/inquiry"
                 className="inline-flex min-h-[56px] flex-1 items-center justify-center rounded-md border-2 border-white bg-transparent px-7 py-3.5 text-center text-sm font-semibold uppercase tracking-[0.2em] text-white transition hover:bg-white hover:text-black"
+                data-cl-only
+                data-cl-event="contour_lift_candidate_cta_click"
+                data-cl-placement="quantum_hero"
               >
-                See If You’re a Candidate
-              </a>
+                See if I’m a candidate
+              </Link>
             </div>
           </div>
         </section>
@@ -606,14 +611,13 @@ export default function QuantumRFPage() {
                 Not surface level. Not a facial. Not a temporary tightening treatment.
               </div>
               <div className="mt-8">
-                <Link
-                  href="/book"
+                <ContourBookLink
                   className="inline-flex min-h-[48px] items-center justify-center rounded-md px-8 text-sm font-semibold uppercase tracking-widest text-white transition hover:opacity-95"
                   style={{ backgroundColor: PINK }}
-                  data-book-now
+                  data-cl-placement="quantum_procedure_block"
                 >
                   Book Consultation
-                </Link>
+                </ContourBookLink>
               </div>
             </div>
             <div className="relative aspect-[4/5] w-full overflow-hidden border-2 border-black shadow-xl">
@@ -800,14 +804,13 @@ export default function QuantumRFPage() {
               </div>
             </div>
             <div className="mt-8 text-center">
-              <Link
-                href="/book"
+              <ContourBookLink
                 className="inline-flex min-h-[48px] items-center justify-center rounded-md px-8 text-sm font-semibold uppercase tracking-widest text-white transition hover:opacity-95"
                 style={{ backgroundColor: PINK }}
-                data-book-now
+                data-cl-placement="quantum_candidacy"
               >
                 Book Consultation
-              </Link>
+              </ContourBookLink>
             </div>
           </div>
         </section>
@@ -952,18 +955,20 @@ export default function QuantumRFPage() {
             </p>
             <p className="mt-1 text-xs text-white/70 sm:text-sm">Limited availability by design — medical evaluation always comes first.</p>
             <div className="mx-auto mt-8 flex w-full max-w-md flex-col gap-4 sm:max-w-none sm:flex-row sm:justify-center sm:gap-5">
-              <Link
-                href="/book"
+              <ContourBookLink
                 className="inline-flex min-h-[58px] flex-1 items-center justify-center rounded-md px-6 text-sm font-semibold uppercase tracking-[0.2em] text-white sm:max-w-[220px]"
                 style={{ backgroundColor: PINK }}
-                data-book-now
+                data-cl-placement="quantum_final_cta"
               >
                 Book Consultation
-              </Link>
+              </ContourBookLink>
               <a
                 href={SMS_HREF}
                 className="inline-flex min-h-[58px] flex-1 items-center justify-center rounded-md border-2 border-white bg-transparent px-6 text-sm font-semibold uppercase tracking-[0.2em] text-white transition hover:bg-white hover:text-black sm:max-w-[220px]"
                 data-sms-click
+                data-cl-only
+                data-cl-event="contour_lift_sms_click"
+                data-cl-placement="quantum_final_cta"
               >
                 Text Us
               </a>
@@ -1011,9 +1016,12 @@ export default function QuantumRFPage() {
               <Link href="/services/morpheus8" className="underline decoration-black/30 underline-offset-4 hover:decoration-black">
                 Morpheus8
               </Link>
-              <Link href="/book" className="underline decoration-black/30 underline-offset-4 hover:decoration-black" data-book-now>
+              <ContourBookLink
+                className="underline decoration-black/30 underline-offset-4 hover:decoration-black"
+                data-cl-placement="quantum_page_footer"
+              >
                 Book
-              </Link>
+              </ContourBookLink>
             </div>
           </div>
         </section>

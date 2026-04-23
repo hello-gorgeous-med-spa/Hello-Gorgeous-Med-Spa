@@ -7,6 +7,8 @@ import { getDefaultSEO, getSiteSettings } from "@/lib/cms-readers";
 import { AuthWrapper } from "@/components/AuthWrapper";
 import { ConditionalLayout } from "@/components/ConditionalLayout";
 import { GoogleAnalytics } from "@/components/GoogleAnalytics";
+import { UtmSessionCapture } from "@/components/marketing/UtmSessionCapture";
+import { ContourLiftPageView } from "@/components/marketing/ContourLiftPageView";
 import { ConsultationRequestPopup } from "@/components/ConsultationRequestPopup";
 import { ClientErrorBoundary } from "@/components/ClientErrorBoundary";
 
@@ -163,6 +165,8 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       <body className="min-h-screen antialiased font-sans" suppressHydrationWarning>
         <ClientErrorBoundary>
           <GoogleAnalytics />
+          <UtmSessionCapture />
+          <ContourLiftPageView />
           <ConsultationRequestPopup />
           <AuthWrapper>
             <ConditionalLayout siteSettings={siteSettings ?? undefined}>

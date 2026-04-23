@@ -15,6 +15,7 @@ export const LEAD_TYPES = [
   'concern',
   'subscribe',
   'waitlist',
+  'contour_lift',
   'other',
 ] as const;
 
