@@ -10,7 +10,7 @@ import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 import { SITE } from '@/lib/seo';
-import { FRESHA_BOOKING_URL_DANIELLE, FRESHA_BOOKING_URL_RYAN } from '@/lib/flows';
+import { BOOKING_URL, FRESHA_BOOKING_URL_DANIELLE, FRESHA_BOOKING_URL_RYAN } from '@/lib/flows';
 
 // Service tags for filtering
 const SERVICE_TAGS = [
@@ -344,7 +344,7 @@ export default function ProviderProfilePage() {
               )}
 
               <a
-                href={provider.booking_url || 'https://hellogorgeousmedspa.janeapp.com'}
+                href={provider.booking_url || BOOKING_URL}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 bg-[#FF2D8E] text-white px-8 py-4 rounded-full font-semibold text-lg hover:bg-[#e0267d] transition-colors"
@@ -471,7 +471,7 @@ export default function ProviderProfilePage() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a
-              href={provider.booking_url || 'https://hellogorgeousmedspa.janeapp.com'}
+              href={provider.booking_url || BOOKING_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="bg-[#FF2D8E] text-white px-8 py-4 rounded-full font-semibold text-lg hover:bg-[#e0267d] transition-colors"
