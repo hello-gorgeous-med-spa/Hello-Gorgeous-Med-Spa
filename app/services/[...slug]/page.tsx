@@ -10,7 +10,7 @@ import { HarmonyAI } from "@/components/HarmonyAI";
 import { BotoxCalculator } from "@/components/BotoxCalculator";
 import { InjectablesBlogPromo } from "@/components/InjectablesBlogPromo";
 import { AlleEmbedSection } from "@/components/AlleEmbedSection";
-import { BOOKING_URL } from "@/lib/flows";
+import { BOOKING_URL, FRESHA_BOOKING_URL_DANIELLE, FRESHA_BOOKING_URL_RYAN } from "@/lib/flows";
 import {
   SERVICES,
   faqJsonLd,
@@ -429,13 +429,13 @@ function ServiceDetailPage({ serviceSlug }: { serviceSlug: string }) {
             <div className="mt-6 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-black/80">
               <span>Or book with:</span>
               <Link
-                href={`${BOOKING_URL}?provider=danielle`}
+                href={FRESHA_BOOKING_URL_DANIELLE}
                 className="text-[#FF2D8E] hover:text-[#FF2D8E] font-medium underline underline-offset-2"
               >
                 Danielle
               </Link>
               <Link
-                href={`${BOOKING_URL}?provider=ryan`}
+                href={FRESHA_BOOKING_URL_RYAN}
                 className="text-[#FF2D8E] hover:text-[#FF2D8E] font-medium underline underline-offset-2"
               >
                 Ryan

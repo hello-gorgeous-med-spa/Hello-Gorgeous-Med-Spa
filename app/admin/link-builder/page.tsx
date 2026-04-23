@@ -127,34 +127,31 @@ export default function LinkBuilderPage() {
         url = `${baseUrl}/book`;
         label = 'Book Now - All Services';
         break;
-      case 'services':
+      case 'services': {
+        // Model B: /book only forwards UTM + ad click IDs; it does not interpret service/provider/category.
+        // Staff- or service-specific Fresha URLs must come from Fresha Link Builder (paste as the shareable URL).
+        url = `${baseUrl}/book`;
         if (serviceIds.length === 1) {
-          url = `${baseUrl}/book?service=${serviceIds[0]}`;
           const service = services.find(s => s.id === serviceIds[0]);
           label = `Book - ${service?.name || 'Service'}`;
           filters.push(`Service: ${service?.name}`);
         } else if (serviceIds.length > 1) {
-          url = `${baseUrl}/book?services=${serviceIds.join(',')}`;
           label = `Book - ${serviceIds.length} Services`;
           filters.push(`${serviceIds.length} services selected`);
         } else if (selectedCategory !== 'all') {
-          url = `${baseUrl}/book?category=${encodeURIComponent(selectedCategory)}`;
           label = `Book - ${selectedCategory}`;
           filters.push(`Category: ${selectedCategory}`);
         } else {
-          url = `${baseUrl}/book`;
           label = 'Book Now - All Services';
         }
-        
         if (providerIds.length === 1) {
-          url += `${url.includes('?') ? '&' : '?'}provider=${providerIds[0]}`;
           const provider = providers.find(p => p.id === providerIds[0]);
           filters.push(`Provider: ${provider?.name}`);
         } else if (providerIds.length > 1) {
-          url += `${url.includes('?') ? '&' : '?'}providers=${providerIds.join(',')}`;
-          filters.push(`${providerIds.length} providers`);
+          filters.push(`${providerIds.length} providers selected`);
         }
         break;
+      }
       case 'memberships':
         url = `${baseUrl}/subscribe`;
         label = 'Join Membership';
@@ -454,6 +451,12 @@ export default function LinkBuilderPage() {
                   </span>
                 ))}
               </div>
+            )}
+            {generatedLink.type === 'services' && (
+              <p className="text-sm text-black/70 mt-3">
+                This URL is the site <code className="text-xs bg-white px-1 rounded">/book</code> entry only (UTM and ad click IDs are forwarded in production). For service- or
+                team-specific booking flows, build the link in Fresha Link Builder and use that full URL.
+              </p>
             )}
           </div>
 

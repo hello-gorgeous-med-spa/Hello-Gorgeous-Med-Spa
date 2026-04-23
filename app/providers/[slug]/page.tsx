@@ -10,6 +10,7 @@ import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 import { SITE } from '@/lib/seo';
+import { FRESHA_BOOKING_URL_DANIELLE, FRESHA_BOOKING_URL_RYAN } from '@/lib/flows';
 
 // Service tags for filtering
 const SERVICE_TAGS = [
@@ -36,7 +37,7 @@ const FALLBACK_PROVIDERS: Record<string, Provider> = {
     bio: "Hi, I'm Danielle. I've owned and operated my med spa since 2017. I am nothing like you find out there—I practice and protect with heart. I don't believe in clients breaking the bank to make improvements on self-care. I care about my clients.\n\nIt all stemmed from the movie Steel Magnolias—family and friends getting together making a difference. It wasn't about how much money I could make. It never was.\n\nYou can't break me. I'm here for the long haul. I will do whatever it takes to take care of my clients and be the person that made the difference. I live for that.",
     philosophy: "Yes, there is a cost in doing business. But if you get to know me as much as I can get to know you, you will find a practitioner for life.",
     headshot_url: '/images/team/danielle.png',
-    booking_url: `${SITE.url}/book`,
+    booking_url: FRESHA_BOOKING_URL_DANIELLE,
     is_active: true,
     display_order: 1,
   },
@@ -50,7 +51,7 @@ const FALLBACK_PROVIDERS: Record<string, Provider> = {
     bio: 'Ryan brings extensive medical experience to Hello Gorgeous Med Spa, specializing in weight loss management and hormone optimization. His evidence-based approach ensures safe, effective treatments for every patient. With a background in family practice, he understands the whole-body approach to wellness and aesthetics.',
     philosophy: 'Healthcare should be personalized and accessible. I work with each patient to develop a treatment plan that fits their lifestyle and goals. Whether you\'re looking to optimize your hormones or achieve your weight loss goals, we\'ll create a plan that works for you.',
     headshot_url: '/images/providers/ryan.jpg',
-    booking_url: 'https://hellogorgeousmedspa.janeapp.com/staff_members/2',
+    booking_url: FRESHA_BOOKING_URL_RYAN,
     is_active: true,
     display_order: 2,
   },

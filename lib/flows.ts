@@ -10,6 +10,37 @@ export const FRESHA_BOOKING_URL =
 /** Primary booking CTA: Fresha (internal /book removed from site until OS is ready). */
 export const BOOKING_URL = FRESHA_BOOKING_URL;
 
+/**
+ * Fresha Link Builder — optional per–team member entry URLs. Unset = org `FRESHA_BOOKING_URL`.
+ * Vercel: `NEXT_PUBLIC_FRESHA_BOOKING_URL_DANIELLE`, `NEXT_PUBLIC_FRESHA_BOOKING_URL_RYAN` (build real links in Fresha; do not use `?provider=` on the org URL).
+ */
+export const FRESHA_BOOKING_URL_DANIELLE =
+  process.env.NEXT_PUBLIC_FRESHA_BOOKING_URL_DANIELLE?.trim() || FRESHA_BOOKING_URL;
+export const FRESHA_BOOKING_URL_RYAN =
+  process.env.NEXT_PUBLIC_FRESHA_BOOKING_URL_RYAN?.trim() || FRESHA_BOOKING_URL;
+
+export function providerPublicBookingUrl(slug: string | null | undefined): string {
+  if (!slug) return BOOKING_URL;
+  const s = String(slug).toLowerCase();
+  if (s === "danielle") return FRESHA_BOOKING_URL_DANIELLE;
+  if (s === "ryan") return FRESHA_BOOKING_URL_RYAN;
+  return BOOKING_URL;
+}
+
+/**
+ * Public booking CTA: prefer a full `https?` `bookingUrl` from CMS/Link Builder when it is not a fake `?provider=` hack; otherwise per-slug Fresha env URL.
+ */
+export function getProviderPublicBookingHref(
+  slug: string,
+  bookingUrl?: string | null,
+): string {
+  const u = bookingUrl?.trim();
+  if (u && /^https?:\/\//i.test(u) && !/[?&]provider=/i.test(u)) {
+    return u;
+  }
+  return providerPublicBookingUrl(slug);
+}
+
 /** Public messaging: last day clients should expect Fresha online booking (transition to Square / site). */
 export const FRESHA_BOOKING_END_LABEL =
   process.env.NEXT_PUBLIC_FRESHA_BOOKING_END_LABEL?.trim() || "May 31, 2026";

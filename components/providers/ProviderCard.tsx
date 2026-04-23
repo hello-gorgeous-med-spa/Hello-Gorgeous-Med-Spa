@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useRef, useState } from "react";
+import { getProviderPublicBookingHref } from "@/lib/flows";
 
 type ProviderCardProps = {
   provider: {
@@ -105,7 +106,7 @@ export function ProviderCard({ provider }: ProviderCardProps) {
           View Results
         </Link>
         <Link
-          href={provider.booking_url || `/book?provider=${provider.slug}`}
+          href={getProviderPublicBookingHref(provider.slug, provider.booking_url)}
           className="flex-1 rounded-md bg-hg-pink hover:bg-hg-pinkDeep px-4 py-3 text-center text-sm font-semibold text-white uppercase tracking-widest transition-all duration-300 ease-out hover:-translate-y-[2px] hover:shadow-lg"
         >
           Book with {provider.display_name.split(" ")[0]}

@@ -40,8 +40,8 @@ When users land on `https://www.hellogorgeousmedspa.com/book?utm_source=...` (or
 
 | Param | Verdict |
 |--------|---------|
-| `provider=danielle` / `provider=ryan` (used on this site) | **Not** a documented Fresha query field for the standard **org** `book-now/.../services` URL. **We do not forward** these to Fresha in `mergeBookRedirectUrl` to avoid false expectations and **unknown** side effects. |
-| **True** team pre-book | Create links in **Fresha Link Builder** (per team member) and use those **full URLs** in CTAs, or add env/config entries per provider when we formalize. |
+| `provider=danielle` / `provider=ryan` (legacy query pattern) | **Not** a documented Fresha query field for the standard **org** `book-now/.../services` URL. **We do not forward** these in `mergeBookRedirectUrl`. Public “Book with Danielle/Ryan” uses **`NEXT_PUBLIC_FRESHA_BOOKING_URL_DANIELLE` / `RYAN`** in `lib/flows.ts` (or full Link Builder URLs from the CMS) — not `?provider=` on `/book` or the org Fresha base. |
+| **True** team pre-book | **Fresha Link Builder** (per team member) → optional env per slug in `lib/flows.ts`, or a full `https?` `booking_url` on the provider record when vetted. |
 | `pId` / `lid` on `BOOKING_URL` | **Preserved** as part of the **base** `BOOKING_URL` in `lib/flows` / Vercel — they are **not** from `/book?` on our side. |
 
 **Follow-up (optional product):** Map internal provider slugs to **Fresha-generated** deep links, not query hacks.

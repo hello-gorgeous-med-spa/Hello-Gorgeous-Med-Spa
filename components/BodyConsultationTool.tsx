@@ -6,7 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { CTA } from "@/components/CTA";
 import { FadeUp } from "@/components/Section";
-import { BOOKING_URL } from "@/lib/flows";
+import { BOOKING_URL, getProviderPublicBookingHref } from "@/lib/flows";
 
 const BRAND_PINK = "#E6007E";
 
@@ -122,7 +122,7 @@ export function BodyConsultationTool({
                     <span className="text-[#E6007E] hidden sm:inline">→</span>
                   </Link>
                   <Link
-                    href={rec.providerSlug ? `/book/${rec.bookSlug}?provider=${rec.providerSlug}` : `/book/${rec.bookSlug}`}
+                    href={rec.providerSlug ? getProviderPublicBookingHref(rec.providerSlug) : "/book"}
                     className="flex-shrink-0 w-full sm:w-auto inline-flex items-center justify-center min-h-[44px] px-6 py-3 bg-[#E6007E] hover:bg-[#E6007E]/90 text-white text-sm font-semibold uppercase tracking-widest rounded-md transition-all duration-300 ease-out hover:-translate-y-[2px] hover:shadow-lg"
                   >
                     Book with {rec.providerSlug === "danielle" ? "Danielle" : rec.providerSlug === "ryan" ? "Ryan" : "us"}

@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { DANIELLE_CREDENTIALS, RYAN_CREDENTIALS } from "@/lib/provider-credentials";
+import { providerPublicBookingUrl } from "@/lib/flows";
 
 const providers = [
   {
@@ -72,7 +73,7 @@ export function MeetProviders() {
                 <p className="text-sm mt-1">{provider.role}</p>
                 <p className="mt-4 leading-relaxed">{provider.bio}</p>
                 <div className="mt-6 flex flex-col sm:flex-row gap-3">
-                  <Link href={`/book?provider=${provider.slug}`} className="btn-primary text-sm">
+                  <Link href={providerPublicBookingUrl(provider.slug)} className="btn-primary text-sm">
                     Book with {provider.name.split(" ")[0]}
                   </Link>
                   <Link href={`/providers/${provider.slug}`} className="btn-outline text-sm">

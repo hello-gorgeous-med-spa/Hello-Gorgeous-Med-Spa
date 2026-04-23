@@ -173,7 +173,7 @@ export default function BookingForm({ service, providerPref: propProviderPref }:
     ? availabilitySlots.some((s) => s.available)
     : timeSlotsFromSchedule.length > 0;
 
-  // Auto-select provider: (1) URL ?provider=danielle/ryan matches, or (2) only one provider
+  // Auto-select provider: (1) `providerPref` (legacy; /book/[slug] now redirects to Fresha, so this is inert in production), or (2) only one provider
   useEffect(() => {
     if (loadingProviders || userChangedProvider || selectedProvider) return;
     if (availableProviders.length === 0) return;

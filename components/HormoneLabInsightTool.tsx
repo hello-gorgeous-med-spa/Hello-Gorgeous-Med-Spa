@@ -175,7 +175,7 @@ export function HormoneLabInsightTool() {
                   <p className="text-xs text-[#000000]/80 mb-4 italic">{DISCLAIMER_TEXT}</p>
                   <div className="flex flex-col sm:flex-row gap-4">
                     <a
-                      href={`${BOOKING_URL}?service=biote-hormone-therapy`}
+                      href={BOOKING_URL}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="flex-1 py-4 px-6 bg-[#FF2D8E] text-white font-bold rounded-full text-center hover:opacity-90 transition"

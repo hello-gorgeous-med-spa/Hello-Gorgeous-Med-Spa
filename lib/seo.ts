@@ -1389,7 +1389,7 @@ export function dermalFillersJsonLd(slug: "dermal-fillers" | "lip-filler") {
       "@type": "ReserveAction",
       target: {
         "@type": "EntryPoint",
-        urlTemplate: `${BOOKING_URL}?service=${slug}`,
+        urlTemplate: BOOKING_URL,
         actionPlatform: ["http://schema.org/DesktopWebPlatform", "http://schema.org/MobileWebPlatform"],
       },
       result: { "@type": "Reservation", name: `${name} Consultation` },
