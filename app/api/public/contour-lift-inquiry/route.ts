@@ -66,35 +66,7 @@ export async function POST(request: NextRequest) {
       `Session: ${sessionId || "—"}`,
     ].join("\n");
 
-    const apiKey = process.env.RESEND_API_KEY;
-    const toEmail = process.env.CONTACT_FORM_TO_EMAIL || SITE.email;
-
-    if (apiKey) {
-      const res = await fetch("https://api.resend.com/emails", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${apiKey}`,
-        },
-        body: JSON.stringify({
-          from: process.env.RESEND_FROM_EMAIL || "Hello Gorgeous <onboarding@resend.dev>",
-          to: [toEmail],
-          subject: `Contour Lift inquiry — ${fullName}`,
-          text: textBody,
-        }),
-      });
-      if (!res.ok) {
-        const err = await res.json().catch(() => ({}));
-        console.error("Resend contour-lift error:", res.status, err);
-        return NextResponse.json(
-          { error: "We couldn’t send that just now. Please call or text us." },
-          { status: 502 }
-        );
-      }
-    } else {
-      console.warn("[contour-lift-inquiry] RESEND_API_KEY not set; email not sent.");
-    }
-
+    /** Persist first so a Resend outage does not block thank-you or Supabase. */
     const supabase = createAdminSupabaseClient();
     if (supabase) {
       await recordLead(supabase, {
@@ -115,7 +87,38 @@ export async function POST(request: NextRequest) {
       });
     }
 
-    return NextResponse.json({ success: true });
+    const apiKey = process.env.RESEND_API_KEY;
+    const toEmail = process.env.CONTACT_FORM_TO_EMAIL || SITE.email;
+    let emailSent = false;
+
+    if (apiKey) {
+      const res = await fetch("https://api.resend.com/emails", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${apiKey}`,
+        },
+        body: JSON.stringify({
+          from: process.env.RESEND_FROM_EMAIL || "Hello Gorgeous <onboarding@resend.dev>",
+          to: [toEmail],
+          subject: `Contour Lift inquiry — ${fullName}`,
+          text: textBody,
+        }),
+      });
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        console.error("Resend contour-lift error:", res.status, err);
+        return NextResponse.json(
+          { success: true, emailSent: false, warning: "email_delivery_failed" },
+          { status: 200 }
+        );
+      }
+      emailSent = true;
+    } else {
+      console.warn("[contour-lift-inquiry] RESEND_API_KEY not set; email not sent.");
+    }
+
+    return NextResponse.json({ success: true, emailSent });
   } catch (e) {
     console.error("contour-lift-inquiry", e);
     return NextResponse.json(
