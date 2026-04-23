@@ -12,7 +12,7 @@ There is **no Fresha API**. The bridge is **CSV export → import** plus **clien
 
 | Item | Where |
 |------|--------|
-| Public “Book” / `/book` | **`lib/flows.ts`** — `BOOKING_URL` defaults to **Fresha** (`FRESHA_BOOKING_URL`). **`app/book/page.tsx`** **redirects** to that URL, so every internal link to `/book` still lands on Fresha. |
+| Public “Book” / `/book` | **`lib/flows.ts`** — `BOOKING_URL` defaults to **Fresha** (`FRESHA_BOOKING_URL`). **`app/book/page.tsx`** **redirects** and **merges** allowlisted marketing params (`utm_*`, `gclid`, …). Details: [TICKET-book-redirect-query-params.md](./tickets/TICKET-book-redirect-query-params.md). |
 | Override URL | **Vercel / `.env.local`:** `NEXT_PUBLIC_FRESHA_BOOKING_URL` or `NEXT_PUBLIC_BOOKING_URL` (see `lib/flows.ts`). |
 | Appointments in HG from Fresha | **`npm run import-fresha-appointments`** — `scripts/import-fresha-appointments.mjs` — dedupes by `Appt. ref.` via `booking_source: fresha:<ref>`. |
 | Limit import to near-term rows | Add **`--min-date=YYYY-MM-DD`** to avoid importing full history every time. |
