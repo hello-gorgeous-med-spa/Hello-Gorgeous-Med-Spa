@@ -14,7 +14,8 @@
     "seed-lash-spa": "node --env-file=.env.local scripts/seed-lash-spa.mjs",
     "import-square-catalog": "node scripts/import-services-to-square.js",
     "import-square-fresha": "node scripts/import-services-to-square.mjs",
-    "import-square-fresha:local": "node --env-file=.env.local scripts/import-services-to-square.mjs"
+    "import-square-fresha:local": "node --env-file=.env.local scripts/import-services-to-square.mjs",
+    "import-fresha-appointments": "node --env-file=.env.local scripts/import-fresha-appointments.mjs"
   },
   "keywords": [
     "medspa",

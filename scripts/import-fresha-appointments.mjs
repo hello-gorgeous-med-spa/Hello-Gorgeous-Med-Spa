@@ -1,12 +1,22 @@
 #!/usr/bin/env node
 
 /**
- * FRESHA APPOINTMENTS IMPORTER (HISTORICAL / REFERENCE ONLY)
- * Imports appointment history from Fresha CSV export into HGOS.
- * Use for legacy data and reporting only — NOT for availability enforcement.
- * This system is the canonical source for new appointments; Fresha is not live-integrated.
+ * FRESHA APPOINTMENTS IMPORTER
+ * Imports rows from a Fresha CSV export into Supabase `appointments` (deduped by Appt. ref.).
  *
- * Usage: node scripts/import-fresha-appointments.mjs /path/to/fresha-appointments.csv
+ * Fresha has no public API — CSV/Excel export is the practical bridge. Save Excel as CSV (UTF-8)
+ * before running. Expected columns match Fresha’s appointments export, including e.g.:
+ *   Appt. ref., Client, Team member, Status, Scheduled date, Appt. slot, Service, Category, …
+ *
+ * Use this so /admin/calendar, /checkin, and /kiosk can see “today’s” visits in HGOS. Client rows
+ * should exist in `clients` (import clients CSV first) and phone numbers should match for QR check-in.
+ *
+ * Usage:
+ *   node --env-file=.env.local scripts/import-fresha-appointments.mjs /path/to/export.csv
+ *   node --env-file=.env.local scripts/import-fresha-appointments.mjs /path/to/export.csv --min-date=2026-04-10
+ *
+ * --min-date=YYYY-MM-DD  Only import appointments on or after this local calendar day (reduces work when
+ *                        Fresha only lets you export “everything”).
  */
 
 import { createClient } from '@supabase/supabase-js';
@@ -87,8 +97,20 @@ function mapStatus(freshaStatus) {
   return statusMap[freshaStatus] || 'confirmed';
 }
 
-async function importAppointments(csvPath) {
+/** YYYY-MM-DD from a Date in local time (for --min-date compare). */
+function localDateString(d) {
+  const y = d.getFullYear();
+  const m = String(d.getMonth() + 1).padStart(2, '0');
+  const day = String(d.getDate()).padStart(2, '0');
+  return `${y}-${m}-${day}`;
+}
+
+async function importAppointments(csvPath, options = {}) {
+  const minDate = options.minDate || null; // 'YYYY-MM-DD' or null
   console.log('🚀 Starting Fresha Appointments Import...\n');
+  if (minDate) {
+    console.log(`   Only importing appointments on or after ${minDate} (local)\n`);
+  }
   
   // Read CSV
   const csvContent = readFileSync(csvPath, 'utf-8');
@@ -177,6 +199,7 @@ async function importAppointments(csvPath) {
   const batchSize = 100;
   let imported = 0;
   let skipped = 0;
+  let filteredByDate = 0;
   let errors = 0;
   let unmatchedClients = new Set();
   let unmatchedProviders = new Set();
@@ -249,6 +272,13 @@ async function importAppointments(csvPath) {
       if (!startsAt) {
         continue; // Skip if no valid date
       }
+
+      if (minDate) {
+        if (localDateString(startsAt) < minDate) {
+          filteredByDate++;
+          continue;
+        }
+      }
       
       // Create appointment record
       // Note: booked_by and cancelled_by are UUIDs, so we skip them for imports
@@ -295,6 +325,9 @@ async function importAppointments(csvPath) {
   console.log('\n\n✅ Import Complete!\n');
   console.log(`   📥 Imported: ${imported}`);
   console.log(`   ⏭️  Skipped (already exists): ${skipped}`);
+  if (minDate) {
+    console.log(`   🗓️  Filtered (before ${minDate}): ${filteredByDate}`);
+  }
   console.log(`   ❌ Errors: ${errors}`);
   
   if (unmatchedClients.size > 0) {
@@ -310,10 +343,25 @@ async function importAppointments(csvPath) {
 }
 
 // Run
-const csvPath = process.argv[2];
+const args = process.argv.slice(2);
+let minDate = null;
+const positional = [];
+for (const a of args) {
+  if (a.startsWith('--min-date=')) {
+    minDate = a.slice('--min-date='.length).trim();
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(minDate)) {
+      console.error('❌ --min-date= must be YYYY-MM-DD');
+      process.exit(1);
+    }
+  } else {
+    positional.push(a);
+  }
+}
+
+const csvPath = positional[0];
 if (!csvPath) {
-  console.error('Usage: node scripts/import-fresha-appointments.mjs /path/to/fresha-appointments.csv');
+  console.error('Usage: node scripts/import-fresha-appointments.mjs /path/to/fresha-appointments.csv [--min-date=YYYY-MM-DD]');
   process.exit(1);
 }
 
-importAppointments(csvPath).catch(console.error);
+importAppointments(csvPath, { minDate }).catch(console.error);
