@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import { SITE } from "@/lib/seo";
 import { createAdminSupabaseClient } from "@/lib/hgos/supabase";
+import { getResendFromAddress, getContactFormToEmail } from "@/lib/resend-config";
 import { getUTMFromRequest, recordLead } from "@/lib/leads";
 
 
@@ -88,7 +88,8 @@ export async function POST(request: NextRequest) {
     }
 
     const apiKey = process.env.RESEND_API_KEY;
-    const toEmail = process.env.CONTACT_FORM_TO_EMAIL || SITE.email;
+    const toEmail = getContactFormToEmail();
+    const fromAddress = getResendFromAddress();
     let emailSent = false;
 
     if (apiKey) {
@@ -99,15 +100,25 @@ export async function POST(request: NextRequest) {
           Authorization: `Bearer ${apiKey}`,
         },
         body: JSON.stringify({
-          from: process.env.RESEND_FROM_EMAIL || "Hello Gorgeous <onboarding@resend.dev>",
+          from: fromAddress,
           to: [toEmail],
+          reply_to: email,
           subject: `Contour Lift inquiry — ${fullName}`,
           text: textBody,
         }),
       });
       if (!res.ok) {
-        const err = await res.json().catch(() => ({}));
-        console.error("Resend contour-lift error:", res.status, err);
+        const err = (await res.json().catch(() => ({}))) as Record<string, unknown>;
+        const errMsg = typeof err.message === "string" ? err.message : JSON.stringify(err);
+        console.error(
+          "[contour-lift-inquiry] Resend failed:",
+          res.status,
+          errMsg,
+          "| to:",
+          toEmail,
+          "| fromDomainHint:",
+          fromAddress.replace(/.*<([^>]+)>.*/, "$1")
+        );
         return NextResponse.json(
           { success: true, emailSent: false, warning: "email_delivery_failed" },
           { status: 200 }

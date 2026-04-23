@@ -99,9 +99,10 @@ In Vercel: **Project → Settings → Environment Variables.** Add these for **P
 
 | Variable | Use |
 |----------|-----|
-| `RESEND_API_KEY` | Contact form + transactional email |
-| `RESEND_FROM_EMAIL` | e.g. `Hello Gorgeous <hello@yourdomain.com>` |
-| `CONTACT_FORM_TO_EMAIL` | Where contact form submissions go |
+| `RESEND_API_KEY` | Contact form + transactional email (must match [Resend](https://resend.com) project) |
+| `RESEND_FROM_EMAIL` | e.g. `Hello Gorgeous <leads@mail.yourdomain.com>` — **domain must be verified in Resend** |
+| `RESEND_FROM` | Optional alternative name for the same as `RESEND_FROM_EMAIL` (app checks both) |
+| `CONTACT_FORM_TO_EMAIL` | Staff inbox for contact + Contour Lift leads (defaults to `SITE.email` if unset) |
 | `AUTH_CREDENTIALS` or `ADMIN_ACCESS_KEY` / `OWNER_LOGIN_SECRET` | Admin login |
 | `OWNER_EMAIL` | Owner login fallback |
 
