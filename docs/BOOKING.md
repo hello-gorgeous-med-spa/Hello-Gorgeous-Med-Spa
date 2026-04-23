@@ -3,7 +3,7 @@
 ## Operating models (pick one for *consumer* booking)
 
 - **A — Hello Gorgeous only:** The calendar and `appointments` table are the only place **new** online/AI/admin bookings are created. See below and [BOOKING_READY.md](./BOOKING_READY.md).  
-- **B — Fresha (hybrid):** **Public booking** uses **Fresha**; the site’s **`/book`** route and **`BOOKING_URL`** in `lib/flows.ts` point there by default. Hello Gorgeous is used for **charting, consents, imports, and ops**. CSV imports bring Fresha rows into `appointments` for kiosk/calendar *reference*—not live two-way sync. **Runbook:** [OPERATIONS_FRESHA_HG_HYBRID.md](./OPERATIONS_FRESHA_HG_HYBRID.md).
+- **B — Fresha (hybrid):** **Public booking** uses **Fresha**; the site’s **`/book`** route (canonical branded entry) and org **`BOOKING_URL`** in `lib/flows.ts` point at the org Fresha URL; **Danielle** and **Ryan** use **staff-specific** Link Builder URLs in Vercel (see **live URL table** in the runbook). Hello Gorgeous is used for **charting, consents, imports, and ops**. CSV imports bring Fresha rows into `appointments` for kiosk/calendar *reference*—not live two-way sync. **Runbook (approved setup, no public `?provider=`):** [OPERATIONS_FRESHA_HG_HYBRID.md](./OPERATIONS_FRESHA_HG_HYBRID.md).
 
 If you use **A**, do not also run **B** for new online books without a cutover plan (double-book risk). If you use **B**, treat Fresha as the live schedule and HG as the clinical/ops layer plus batch import.
 

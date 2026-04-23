@@ -1,7 +1,7 @@
 # TICKET: `/book` → Fresha query param forwarding (Model B)
 
 **Status:** Implemented (marketing allowlist) + documented limitations  
-**Context:** [OPERATIONS_FRESHA_HG_HYBRID.md](../OPERATIONS_FRESHA_HG_HYBRID.md) · [lib/flows.ts](../../lib/flows.ts)
+**Context:** [OPERATIONS_FRESHA_HG_HYBRID.md](../OPERATIONS_FRESHA_HG_HYBRID.md) (org + staff **live booking URL** table) · [lib/flows.ts](../../lib/flows.ts)
 
 ---
 
