@@ -1,6 +1,13 @@
 # Booking: Single Source of Truth
 
-## Canonical calendar
+## Operating models (pick one for *consumer* booking)
+
+- **A — Hello Gorgeous only:** The calendar and `appointments` table are the only place **new** online/AI/admin bookings are created. See below and [BOOKING_READY.md](./BOOKING_READY.md).  
+- **B — Fresha (hybrid):** **Public booking** uses **Fresha**; the site’s **`/book`** route and **`BOOKING_URL`** in `lib/flows.ts` point there by default. Hello Gorgeous is used for **charting, consents, imports, and ops**. CSV imports bring Fresha rows into `appointments` for kiosk/calendar *reference*—not live two-way sync. **Runbook:** [OPERATIONS_FRESHA_HG_HYBRID.md](./OPERATIONS_FRESHA_HG_HYBRID.md).
+
+If you use **A**, do not also run **B** for new online books without a cutover plan (double-book risk). If you use **B**, treat Fresha as the live schedule and HG as the clinical/ops layer plus batch import.
+
+## Canonical calendar (Model A — HG only)
 
 **The Hello Gorgeous calendar and appointments table are the single source of truth for all new bookings.**
 
@@ -38,3 +45,4 @@
 - [AI Receptionist Initiative](./AI_RECEPTIONIST_INITIATIVE.md) — booking/cancel/reschedule APIs and flows
 - [Pre-Deploy Audit](./PRE_DEPLOY_AUDIT.md) — first-party booking and reviews
 - [Appointment Booking Flows](./APPOINTMENT_BOOKING_FLOWS.md) — calendar vs new-appointment date behavior
+- [Fresha + HG hybrid (operations)](./OPERATIONS_FRESHA_HG_HYBRID.md) — CSV imports, weekly checklist, daily flow
