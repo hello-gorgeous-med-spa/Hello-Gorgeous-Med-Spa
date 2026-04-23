@@ -3,7 +3,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getSupabaseAdminClient } from "@/lib/hgos/supabase-admin";
 import { checkInClientForToday, findClientsByPhoneLoose } from "@/lib/checkin-lookup";
+import { createKioskConsentSession } from "@/lib/kiosk/create-kiosk-session";
 import { normalizeToE164 } from "@/lib/phone-e164";
+import { originFromRequest } from "@/lib/url/request-origin";
 
 export const dynamic = "force-dynamic";
 
@@ -48,6 +50,21 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: result.error }, { status: result.status });
   }
 
+  let kiosk_url: string | null = null;
+  let consent_outstanding_count = 0;
+
+  if (result.appointment_id) {
+    const kiosk = await createKioskConsentSession(admin, result.appointment_id, {
+      staffUserId: null,
+      source: "self_checkin",
+    });
+    if (kiosk.ok) {
+      const origin = originFromRequest(req);
+      kiosk_url = `${origin}${kiosk.path}`;
+      consent_outstanding_count = kiosk.outstandingCount;
+    }
+  }
+
   return NextResponse.json({
     success: true,
     message: result.already_checked_in
@@ -56,6 +73,8 @@ export async function POST(req: NextRequest) {
     appointment_id: result.appointment_id,
     starts_at: result.starts_at,
     already_checked_in: result.already_checked_in ?? false,
+    kiosk_url,
+    consent_outstanding_count,
   });
 }
 
