@@ -4,23 +4,97 @@ import Link from "next/link";
 import { TechBlogPromo } from "@/components/TechBlogPromo";
 import { CHERRY_PAY_URL } from "@/lib/flows";
 import { pageMetadata, SITE, siteJsonLd } from "@/lib/seo";
+import { QuantumRFResultsSlideshow, type QuantumSlide } from "./QuantumRFResultsSlideshow";
+import { QuantumRFStickyCta } from "./QuantumRFStickyCta";
 
-export const metadata: Metadata = pageMetadata({
-  title: "InMode Quantum RF Body Contouring Oswego IL | Neck & Abdomen Packages + Free Morpheus8 Burst",
+const PINK = "#E6007E";
+const YT_DEMO_1 = "loJOgWGCkK8";
+const YT_DEMO_2 = "VSif40VosRc";
+
+const QUANTUM_OG_IMAGE = "/images/quantum-rf/quantum-rf-technology-inmode-overview.png";
+
+const _quantumBaseMeta = pageMetadata({
+  title:
+    "Quantum RF — Non-Surgical Alternative to Liposuction & Skin Tightening | Oswego, IL",
   description:
-    "New standard in body contouring — lipo-level results without surgery. InMode Quantum RF at Hello Gorgeous Med Spa (Oswego). Neck package $2,499 · Abdomen $3,999 · includes FREE Morpheus8 Burst. Cherry financing. Ryan Kent, FNP-BC & Danielle Alcala, RN-S. Book consultation.",
+    "InMode QuantumRF: minimally invasive subdermal radiofrequency (Quantum RF) for soft tissue contraction—arms, jawline, neck, abdomen, knees & more. Watch procedure videos. Clinical before/after results. Non-surgical skin tightening at Hello Gorgeous Med Spa, Oswego, IL. Book a consultation. Morpheus8 Burst add-ons, Cherry financing.",
   path: "/services/quantum-rf",
   keywords: [
+    "Quantum RF",
+    "QuantumRF by InMode",
+    "non-surgical lipo alternative",
     "InMode Quantum RF",
-    "Quantum RF body contouring Oswego",
-    "non surgical lipo Oswego IL",
-    "neck tightening RF Naperville",
-    "abdomen contouring Aurora IL",
-    "post GLP-1 skin laxity Illinois",
-    "Morpheus8 Burst free",
-    "Hello Gorgeous Med Spa Quantum RF",
+    "subdermal radiofrequency",
+    "fractionated RF",
+    "bipolar RF skin tightening",
+    "minimally invasive body contouring",
+    "soft tissue contraction",
+    "Hello Gorgeous Med Spa",
+    "body contouring Oswego",
   ],
 });
+
+export const metadata: Metadata = {
+  ..._quantumBaseMeta,
+  openGraph: {
+    ..._quantumBaseMeta.openGraph,
+    type: "website",
+    siteName: SITE.name,
+    images: [
+      {
+        url: `${SITE.url}${QUANTUM_OG_IMAGE}`,
+        width: 1200,
+        height: 630,
+        alt:
+          "InMode QuantumRF: minimally invasive subdermal radiofrequency for soft tissue contraction and contouring",
+      },
+    ],
+  },
+  twitter: {
+    ..._quantumBaseMeta.twitter,
+    card: "summary_large_image",
+    images: [`${SITE.url}${QUANTUM_OG_IMAGE}`],
+  },
+};
+
+const CLINICAL_RESULT_SLIDES: QuantumSlide[] = [
+  {
+    src: "/images/quantum-rf/clinical-ba-upper-arm-tightening.png",
+    label: "Upper arms",
+    alt: "Clinical before and after: Quantum RF non-surgical upper arm skin tightening and contouring, reduced laxity in triceps area, Oswego med spa",
+    caption: "Improved triceps contour; representative outcome — not a guarantee of your result.",
+  },
+  {
+    src: "/images/quantum-rf/clinical-ba-jawline-neck-tightening.png",
+    label: "Jawline & neck",
+    alt: "Before and after Quantum RF jawline and neck skin tightening, reduced jowling and submental laxity, non-surgical lower face contouring",
+    caption: "Sharper neck–jaw transition in appropriate candidates. Individual anatomy varies.",
+  },
+  {
+    src: "/images/quantum-rf/clinical-ba-knee-skin-tightening.png",
+    label: "Above the knee",
+    alt: "Quantum RF clinical before and after: skin tightening and crepe reduction above the knee, non-surgical leg RF treatment",
+    caption: "Texture and laxity often improve as collagen remodels. Multiple sessions are not always required.",
+  },
+  {
+    src: "/images/quantum-rf/clinical-ba-lower-face-jawline.png",
+    label: "Lower face profile",
+    alt: "Before and after Quantum RF lower face and jawline tightening, non-surgical skin contraction for jowling",
+    caption: "Defined lower face and jaw when soft tissue and goals align with the procedure.",
+  },
+  {
+    src: "/images/quantum-rf/clinical-ba-abdomen-skin-tightening.png",
+    label: "Abdomen",
+    alt: "Quantum RF abdomen before and after, non-surgical skin tightening and wrinkle reduction on midsection, post-laxity improvement",
+    caption: "Visible smoothing of skin envelope on the abdomen in selected patients.",
+  },
+  {
+    src: "/images/quantum-rf/clinical-ba-profile-jawline-submental.png",
+    label: "Submental & profile",
+    alt: "Side profile before and after Quantum RF jawline contouring, submental tightening, non-surgical double chin alternative",
+    caption: "Profile refinement where subdermal RF is the appropriate tool. Consultation required.",
+  },
+];
 
 const QUANTUM_FAQS = [
   {
@@ -75,45 +149,19 @@ const QUANTUM_FAQS = [
   },
 ];
 
-const TREATMENT_AREAS = [
-  { area: "Jawline & Jowls", icon: "👤", treatments: ["Sagging jowls", "Jawline definition", "Lower face laxity", "Pre-jowl sulcus"] },
-  { area: "Neck & Submental", icon: "🦢", treatments: ["Double chin", "Turkey neck", "Neck bands", "Submental fullness"] },
-  { area: "Arms", icon: "💪", treatments: ["Bat wings", "Upper arm laxity", "Crepey skin", "Arm contouring"] },
-  { area: "Abdomen", icon: "🎯", treatments: ["Loose belly skin", "Post-weight loss", "Mommy makeover", "Love handles"] },
-  { area: "Thighs", icon: "🦵", treatments: ["Inner thigh laxity", "Outer thigh", "Above the knee", "Cellulite improvement"] },
-  { area: "Back & Bra Area", icon: "✨", treatments: ["Bra bulge", "Back fat", "Flanks", "Skin tightening"] },
-];
-
-const BENEFITS = [
-  { icon: "🔬", title: "Subdermal RF Energy", desc: "Delivers RF beneath the skin for deeper, more dramatic tissue remodeling than surface treatments" },
-  { icon: "💎", title: "Skin Tightening", desc: "Stimulates collagen production for firmer, lifted skin that continues improving for months" },
-  { icon: "🎯", title: "Targeted Fat Reduction", desc: "Precisely targets and reduces small pockets of stubborn fat in treated areas" },
-  { icon: "⚡", title: "Single Treatment Results", desc: "Many patients achieve their goals with just one session—no series required" },
-  { icon: "🧬", title: "Precision Probes", desc: "10 & 25 pin options allow customized treatment for face and body areas" },
-  { icon: "✨", title: "Minimal Downtime", desc: "Return to normal activities within days—far less invasive than surgical options" },
-];
-
-const BADGES = [
-  { label: "FDA-Cleared", emoji: "🏥" },
-  { label: "InMode Technology", emoji: "🎓" },
-  { label: "Minimally Invasive", emoji: "💉" },
-  { label: "Single Treatment", emoji: "⚡" },
-];
-
 function QuantumJsonLd() {
   return {
     "@context": "https://schema.org",
     "@type": "MedicalProcedure",
     "@id": `${SITE.url}/services/quantum-rf#procedure`,
-    name: "QuantumRF Skin Tightening",
-    alternateName: ["QuantumRF 10", "QuantumRF 25", "Subdermal RF", "Radiofrequency Skin Tightening", "InMode QuantumRF"],
-    description: "QuantumRF minimally invasive subdermal radiofrequency treatment for skin tightening, fat reduction, and body contouring. Features 10 and 25 pin probes for customized face and body treatments.",
+    name: "QuantumRF — Subdermal Radiofrequency Contouring",
+    alternateName: ["QuantumRF 10", "QuantumRF 25", "InMode Quantum RF", "Subdermal RF body contouring"],
+    description:
+      "Minimally invasive subdermal radiofrequency to tighten skin, reduce small fat pockets, and rebuild collagen as an alternative to excisional surgery in appropriate candidates.",
     procedureType: "NoninvasiveProcedure",
-    bodyLocation: ["Face", "Jawline", "Neck", "Arms", "Abdomen", "Thighs", "Back"],
-    howPerformed: "QuantumRF uses a thin cannula placed beneath the skin to deliver controlled radiofrequency energy directly to deeper tissue layers, stimulating collagen production and reducing fat.",
-    preparation: "Local anesthesia applied to treatment area. Avoid blood thinners and anti-inflammatory medications prior to treatment.",
-    followup: "Temporary swelling and bruising for a few days. Results develop over 3-6 months as collagen rebuilds. Most patients return to normal activities within a week.",
-    status: "EventScheduled",
+    bodyLocation: ["Jawline", "Neck", "Abdomen", "Arms", "Thighs", "Back"],
+    howPerformed:
+      "A thin cannula is placed beneath the skin to deliver controlled radiofrequency energy to deeper tissue for contraction, fat reduction, and collagen remodeling.",
     provider: {
       "@type": "MedicalBusiness",
       "@id": `${SITE.url}/#organization`,
@@ -127,10 +175,7 @@ function QuantumJsonLd() {
         urlTemplate: `${SITE.url}/book`,
         actionPlatform: ["http://schema.org/DesktopWebPlatform", "http://schema.org/MobileWebPlatform"],
       },
-      result: {
-        "@type": "Reservation",
-        name: "QuantumRF Consultation",
-      },
+      result: { "@type": "Reservation", name: "Quantum RF Consultation" },
     },
   };
 }
@@ -142,10 +187,7 @@ function FAQJsonLd() {
     mainEntity: QUANTUM_FAQS.map((faq) => ({
       "@type": "Question",
       name: faq.question,
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: faq.answer,
-      },
+      acceptedAnswer: { "@type": "Answer", text: faq.answer },
     })),
   };
 }
@@ -178,7 +220,7 @@ function QuantumLaunchOffersJsonLd() {
           "@type": "Offer",
           name: "Abdomen Quantum RF Package — includes FREE Morpheus8 Burst",
           description:
-            "Abdomen contouring, stubborn fat and skin tightening, post–weight loss laxity. One session. Complimentary Morpheus8 Burst included.",
+            "Abdomen contouring, stubborn fat and skin tightening. One session. Complimentary Morpheus8 Burst included.",
           price: "3999",
           priceCurrency: "USD",
           url: `${SITE.url}/services/quantum-rf`,
@@ -188,6 +230,167 @@ function QuantumLaunchOffersJsonLd() {
       },
     ],
   };
+}
+
+function QuantumVideosJsonLd() {
+  const vids = [
+    {
+      id: YT_DEMO_1,
+      name: "Real Quantum RF procedure (clinical video)",
+      description:
+        "Minimally invasive InMode QuantumRF subdermal treatment video — clinical education for patients at Hello Gorgeous Med Spa, Oswego, IL.",
+    },
+    {
+      id: YT_DEMO_2,
+      name: "Quantum RF procedure — additional perspective",
+      description:
+        "Supplemental InMode Quantum RF procedure view for patients evaluating subdermal radiofrequency contouring and skin tightening in Oswego, Illinois.",
+    },
+  ];
+  return {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "Quantum RF procedure videos — Hello Gorgeous Med Spa",
+    itemListElement: vids.map((v, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      item: {
+        "@type": "VideoObject",
+        name: v.name,
+        description: v.description,
+        embedUrl: `https://www.youtube.com/embed/${v.id}`,
+        contentUrl: `https://www.youtube.com/watch?v=${v.id}`,
+        thumbnailUrl: `https://i.ytimg.com/vi/${v.id}/hqdefault.jpg`,
+        isAccessibleForFree: true,
+        inLanguage: "en-US",
+        publisher: { "@type": "Organization", name: SITE.name, url: SITE.url },
+      },
+    })),
+  };
+}
+
+function QuantumClinicalPhotoGalleryJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "Representative InMode Quantum RF clinical before and after — Hello Gorgeous Med Spa",
+    description:
+      "Side-by-side clinical photography illustrating skin tightening and contouring with QuantumRF (Quantum RF) for arms, face, neck, abdomen, and legs. Oswego, IL.",
+    numberOfItems: CLINICAL_RESULT_SLIDES.length,
+    itemListElement: CLINICAL_RESULT_SLIDES.map((s, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      item: {
+        "@type": "ImageObject",
+        name: s.label,
+        contentUrl: `${SITE.url}${s.src}`,
+        description: s.alt,
+        caption: s.caption,
+        representativeOfPage: {
+          "@type": "WebPage",
+          url: `${SITE.url}/services/quantum-rf`,
+          name: "Quantum RF — InMode at Hello Gorgeous Med Spa",
+        },
+        copyrightHolder: { "@type": "Organization", name: SITE.name, url: SITE.url },
+        creditText: `Individual results vary; not all patients are candidates. ${SITE.name}, Oswego, IL.`,
+      },
+    })),
+  };
+}
+
+function QuantumTechImageJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "ImageObject",
+    name: "What is QuantumRF — InMode technology summary",
+    contentUrl: `${SITE.url}/images/quantum-rf/quantum-rf-technology-inmode-overview.png`,
+    description:
+      "InMode QuantumRF: innovative minimally invasive technology indicated for soft tissue contraction; fractionated radiofrequency; subdermal bipolar RF; QuantumRF 10 for face and small body zones; QuantumRF 25 for abdomen, thighs, hips, and buttocks; multiple zones in one session when appropriate.",
+    caption:
+      "Educational product overview. Treatment plans are individualized. Hello Gorgeous Med Spa, Oswego, IL.",
+  };
+}
+
+const SMS_HREF = `sms:${SITE.phone.replace(/\D/g, "")}`;
+
+const HOW_STEPS: { lead: string; caption: string; src: string; alt: string }[] = [
+  {
+    lead: "Energy is delivered beneath the skin",
+    caption: "Subdermal delivery — not surface energy.",
+    src: "/images/trifecta/quantum-rf.png",
+    alt: "InMode Quantum RF handpiece for subdermal contouring",
+  },
+  {
+    lead: "Tissue contracts",
+    caption: "Immediate thermal response in treated tissue.",
+    src: "/images/morpheus8/quantumrf-10-jawline.png",
+    alt: "Clinical before and after showing tissue tightening and contouring",
+  },
+  {
+    lead: "Fat is remodeled",
+    caption: "Targeted effect alongside skin tightening.",
+    src: "/images/morpheus8/quantumrf-25-abdomen-skin.png",
+    alt: "Clinical before and after abdomen skin tightening and contouring",
+  },
+  {
+    lead: "Collagen rebuilds over time",
+    caption: "Ongoing structural remodeling for months post-procedure.",
+    src: "/images/morpheus8/quantumrf-10-face.png",
+    alt: "Clinical result illustrating collagen-driven refinement over time",
+  },
+];
+
+const TREATMENT_AREAS: { label: string; hint: string; icon: "face" | "neck" | "core" | "arm" | "thigh" | "bra" }[] = [
+  { label: "Jawline / Jowls", hint: "Lower face", icon: "face" },
+  { label: "Neck", hint: "Submental & banding", icon: "neck" },
+  { label: "Abdomen", hint: "Core", icon: "core" },
+  { label: "Arms", hint: "Upper arms", icon: "arm" },
+  { label: "Inner thighs", hint: "Medial contour", icon: "thigh" },
+  { label: "Bra line", hint: "Upper back", icon: "bra" },
+];
+
+function AreaIcon({ name }: { name: (typeof TREATMENT_AREAS)[number]["icon"] }) {
+  const common = "h-7 w-7 shrink-0";
+  if (name === "face")
+    return (
+      <svg className={common} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden>
+        <path d="M12 3c-3 0-5.5 2.2-5.5 5.5V12c0 1.2.3 2.2.8 3.1.5.9.7 1.8.6 2.6l-.1.8h8.4l-.1-.8c-.1-.8.1-1.7.6-2.6.5-.9.8-1.9.8-3.1V8.5C17.5 5.2 15 3 12 3z" />
+        <path d="M8.5 14.5c.8 1 1.7 1.5 3.5 1.5s2.7-.5 3.5-1.5" />
+      </svg>
+    );
+  if (name === "neck")
+    return (
+      <svg className={common} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden>
+        <path d="M8 4h8M10 4v3c0 1.1.5 2 1.3 2.6M14 4v3c0 1.1-.5 2-1.3 2.6M9.3 9.6C8.4 10.3 8 11.2 8 12.3V20h8v-7.7c0-1.1-.4-2-1.3-2.7" />
+      </svg>
+    );
+  if (name === "core")
+    return (
+      <svg className={common} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden>
+        <path d="M6 8c2-2 4-2.5 6-2.5s4 .5 6 2.5M6 8v10M18 8v10M6 8c-1.5 2-1.5 5 0 7M18 8c1.5 2 1.5 5 0 7" />
+        <path d="M8 20h8" />
+      </svg>
+    );
+  if (name === "arm")
+    return (
+      <svg className={common} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden>
+        <path d="M7 4.5C9.5 6 12 5.5 12 5.5s2.5.5 5-1" />
+        <path d="M7 4.5L5 20M12 5.5l-1.5 14.5" />
+        <path d="M5 20h3" />
+      </svg>
+    );
+  if (name === "thigh")
+    return (
+      <svg className={common} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden>
+        <path d="M9 3l-2 8v9M9 3h6M15 3l2 8v9M7 20h10" />
+      </svg>
+    );
+  return (
+    <svg className={common} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden>
+      <path d="M5 6h14M5 10h14M8 6v3c0 2 1.5 3.5 4 3.5s4-1.5 4-3.5V6" />
+      <path d="M8 9v4c0 1.5 1 2.5 2.5 2.5h3c1.5 0 2.5-1 2.5-2.5V9" />
+    </svg>
+  );
 }
 
 export default function QuantumRFPage() {
@@ -209,654 +412,590 @@ export default function QuantumRFPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(QuantumLaunchOffersJsonLd()) }}
       />
-      <main className="bg-white">
-        {/* Hero */}
-        <section className="relative bg-black text-white overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-br from-black via-black to-rose-950/40" />
-          <div className="relative max-w-6xl mx-auto px-4 py-16 md:py-24">
-            <div className="inline-flex items-center gap-2 bg-[#E6007E]/25 text-pink-200 text-sm font-semibold px-4 py-2 rounded-full mb-6 border border-[#E6007E]/40">
-              <span className="animate-pulse">⚡</span>
-              <span>NOW INTRODUCING · INMODE QUANTUM RF</span>
-            </div>
-            <h1 className="text-4xl md:text-6xl font-bold leading-tight mb-6">
-              The New Standard in{" "}
-              <span className="text-[#FF1493]">Body Contouring</span>
-            </h1>
-            <p className="text-xl md:text-2xl text-white/95 max-w-3xl mb-3 font-medium">
-              Lipo results. No surgery. No operating room.
-            </p>
-            <p className="text-lg text-white/80 max-w-2xl mb-4">
-              Minimally invasive subdermal RF — fractionated bipolar energy beneath the skin for fat reduction and tissue contraction in one session. Peak results build up to 6 months.
-            </p>
-            <p className="text-white/70 mb-6 max-w-xl">
-              Featuring <strong>QuantumRF 10</strong> for precise facial contouring and <strong>QuantumRF 25</strong> for efficient body treatments.{" "}
-              <a
-                href="https://www.inmodemd.com/workstation/luxora/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="font-semibold text-blue-300 hover:text-blue-200 underline underline-offset-2"
-              >
-                InMode Luxora
-              </a>{" "}
-              technology.
-            </p>
-            <p className="text-blue-200/90 text-sm mb-8">
-              Part of our <strong>Body Contouring &amp; Lipo</strong> category — minimally invasive skin tightening and fat reduction.
-            </p>
-            
-            <div className="flex flex-wrap gap-3 mb-8">
-              {BADGES.map((badge) => (
-                <span
-                  key={badge.label}
-                  className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-3 py-1.5 rounded-full text-sm text-white/90"
-                >
-                  <span>{badge.emoji}</span>
-                  <span>{badge.label}</span>
-                </span>
-              ))}
-            </div>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(QuantumVideosJsonLd()) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(QuantumClinicalPhotoGalleryJsonLd()) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(QuantumTechImageJsonLd()) }}
+      />
 
-            <div className="flex flex-wrap gap-4">
+      <main className="bg-white pb-24 text-black md:pb-0">
+        {/* 1. Hero */}
+        <section className="relative w-full overflow-hidden text-white">
+          <div className="absolute inset-0 z-0">
+            <Image
+              src="/images/morpheus8/quantumrf-25-abdomen.png"
+              alt=""
+              fill
+              className="object-cover object-[50%_28%] sm:object-[50%_32%] md:object-center"
+              priority
+              sizes="100vw"
+            />
+            <div
+              className="absolute inset-0 bg-gradient-to-r from-black via-black/90 to-rose-950/70"
+              aria-hidden
+            />
+            <div
+              className="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-black/30"
+              aria-hidden
+            />
+          </div>
+          <div className="relative z-10 mx-auto flex min-h-[100svh] max-w-6xl flex-col justify-center px-4 py-20 md:min-h-[min(100svh,880px)] md:py-20">
+            <h1 className="text-center text-4xl font-bold leading-[1.08] tracking-tight sm:text-5xl md:max-w-[20ch] md:text-left md:text-6xl lg:text-7xl">
+              The Non-Surgical Alternative to Liposuction &amp; Skin Removal
+            </h1>
+            <p className="mx-auto mt-6 max-w-2xl text-center text-lg font-medium leading-relaxed text-white md:mx-0 md:text-left md:text-xl">
+              Tighten loose skin. Sculpt stubborn areas. Restore definition — without surgery.
+            </p>
+            <p className="mx-auto mt-4 max-w-2xl text-center text-sm font-semibold text-white md:mx-0 md:text-left md:text-base">
+              Introducing Quantum RF — advanced minimally invasive contouring.
+            </p>
+            <p className="mx-auto mt-3 max-w-2xl text-center text-sm font-light leading-relaxed text-white/95 md:mx-0 md:max-w-xl md:text-left md:text-base">
+              Minimally invasive contouring for patients who want real change without surgery.
+            </p>
+            <div className="mt-10 flex w-full max-w-md flex-col gap-4 sm:max-w-lg sm:flex-row sm:items-stretch sm:gap-5">
               <Link
                 href="/book"
-                className="inline-flex items-center justify-center rounded-lg bg-[#E6007E] px-6 py-3 font-semibold text-white hover:bg-[#c9006e] transition"
+                data-book-now
+                className="inline-flex min-h-[56px] flex-1 items-center justify-center rounded-md px-7 py-3.5 text-center text-sm font-semibold uppercase tracking-[0.2em] text-white transition hover:opacity-95"
+                style={{ backgroundColor: PINK }}
               >
                 Book Consultation
               </Link>
-              <Link
-                href="#treatment-areas"
-                className="inline-flex items-center justify-center rounded-lg border-2 border-white px-6 py-3 font-semibold text-white hover:bg-white hover:text-black transition"
+              <a
+                href="#candidates"
+                className="inline-flex min-h-[56px] flex-1 items-center justify-center rounded-md border-2 border-white bg-transparent px-7 py-3.5 text-center text-sm font-semibold uppercase tracking-[0.2em] text-white transition hover:bg-white hover:text-black"
               >
-                View Treatment Areas
-              </Link>
-              <Link
-                href="tel:6306366193"
-                className="inline-flex items-center justify-center rounded-lg border-2 border-white/50 px-6 py-3 font-semibold text-white/90 hover:bg-white hover:text-black transition"
+                See If You’re a Candidate
+              </a>
+            </div>
+          </div>
+        </section>
+
+        {/* 2. Videos + clinical proof */}
+        <section className="border-b-2 border-black bg-black py-10 md:py-14">
+          <div className="mx-auto max-w-6xl space-y-12 px-4">
+            <div>
+              <p
+                className="mb-3 text-center text-[0.65rem] font-bold uppercase tracking-[0.4em] md:mb-4 md:text-xs"
+                style={{ color: PINK }}
               >
-                Call (630) 636-6193
-              </Link>
-            </div>
-            
-            <div className="mt-10 flex flex-wrap gap-6 text-sm text-white/70">
-              <span>✓ Local Anesthesia Only</span>
-              <span>✓ Single Treatment Option</span>
-              <span>✓ Results in 3-6 Months</span>
-              <span>✓ Face + Body</span>
-            </div>
-          </div>
-        </section>
-
-        {/* Launch spotlight — flyer + featured packages */}
-        <section className="py-12 md:py-16 bg-zinc-100 border-y border-zinc-200">
-          <div className="max-w-6xl mx-auto px-4">
-            <p className="text-center text-sm font-semibold tracking-widest text-[#E6007E] uppercase mb-3">
-              Featured launch · Oswego, IL
-            </p>
-            <h2 className="text-3xl md:text-4xl font-bold text-black text-center mb-8 max-w-3xl mx-auto">
-              InMode Quantum RF packages — includes <span className="text-[#E6007E]">FREE Morpheus8 Burst</span>
-            </h2>
-            <div className="grid lg:grid-cols-2 gap-10 items-start">
-              <div className="rounded-2xl overflow-hidden border-2 border-black shadow-xl bg-black">
-                <Image
-                  src="/images/marketing/inmode-quantum-rf-launch-flyer.png"
-                  alt="Hello Gorgeous Med Spa — InMode Quantum RF body contouring. Ryan Kent FNP-BC, Danielle Alcala RN-S. Neck and abdomen packages with free Morpheus8 Burst."
-                  width={800}
-                  height={1200}
-                  className="w-full h-auto"
-                  priority
-                />
-              </div>
-              <div className="space-y-6">
-                <div className="rounded-2xl border-2 border-zinc-200 bg-white p-6 md:p-8 shadow-sm">
-                  <h3 className="text-xl font-bold text-black mb-1">Neck Quantum RF Package</h3>
-                  <p className="text-4xl font-bold text-[#E6007E] mb-2">$2,499</p>
-                  <p className="text-sm text-black/60 mb-4">One treatment · one session · local anesthesia · no OR</p>
-                  <ul className="space-y-2 text-black/80 text-sm mb-4">
-                    <li className="flex gap-2">
-                      <span className="text-[#E6007E]">◆</span> Neck tightening, fat reduction + skin contraction
-                    </li>
-                    <li className="flex gap-2">
-                      <span className="text-[#E6007E]">◆</span> Immediate visible results; builds up to 6 months
-                    </li>
-                    <li className="flex gap-2">
-                      <span className="text-[#E6007E]">◆</span> Includes FREE Morpheus8 Burst (skin texture &amp; surface tightening)
-                    </li>
-                  </ul>
-                  <p className="text-sm text-black/70">
-                    Financing: as low as <strong>$69/mo</strong> with Cherry — subject to approval.
-                  </p>
-                </div>
-                <div className="rounded-2xl border-2 border-[#E6007E] bg-white p-6 md:p-8 shadow-md relative">
-                  <span className="absolute -top-3 right-4 bg-[#E6007E] text-white text-xs font-bold px-3 py-1 rounded-full">
-                    BEST VALUE
-                  </span>
-                  <h3 className="text-xl font-bold text-black mb-1">Abdomen Quantum RF Package</h3>
-                  <p className="text-4xl font-bold text-[#E6007E] mb-2">$3,999</p>
-                  <p className="text-sm text-black/60 mb-4">One treatment · one session · post–GLP-1 laxity specialist</p>
-                  <ul className="space-y-2 text-black/80 text-sm mb-4">
-                    <li className="flex gap-2">
-                      <span className="text-[#E6007E]">◆</span> Abdomen contouring — stubborn fat + skin tightening
-                    </li>
-                    <li className="flex gap-2">
-                      <span className="text-[#E6007E]">◆</span> Immediate visible sculpting; results build up to 6 months
-                    </li>
-                    <li className="flex gap-2">
-                      <span className="text-[#E6007E]">◆</span> Includes FREE Morpheus8 Burst
-                    </li>
-                  </ul>
-                  <p className="text-sm text-black/70">
-                    Financing: as low as <strong>$111/mo</strong> with Cherry — subject to approval.
-                  </p>
-                </div>
-                <div className="flex flex-col sm:flex-row gap-3">
-                  <Link
-                    href="/book"
-                    className="inline-flex flex-1 items-center justify-center rounded-lg bg-[#E6007E] px-6 py-3 font-semibold text-white hover:bg-[#c9006e] transition text-center"
-                  >
-                    Book consultation
-                  </Link>
-                  <a
-                    href={CHERRY_PAY_URL}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex flex-1 items-center justify-center rounded-lg border-2 border-black px-6 py-3 font-semibold text-black hover:bg-black hover:text-white transition text-center"
-                  >
-                    Apply with Cherry
-                  </a>
-                  <Link
-                    href="tel:6306366193"
-                    className="inline-flex flex-1 items-center justify-center rounded-lg border-2 border-zinc-300 px-6 py-3 font-semibold text-black hover:border-black transition text-center"
-                  >
-                    Call (630) 636-6193
-                  </Link>
-                </div>
-                <p className="text-xs text-black/50 text-center">
-                  Ryan Kent, FNP-BC · Danielle Alcala, RN-S · {SITE.address.addressLocality}, {SITE.address.addressRegion}{" "}
-                  · Individual results vary. Medical evaluation required.
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Additional area pricing reference */}
-        <section className="py-16 md:py-20 bg-white">
-          <div className="max-w-6xl mx-auto px-4">
-            <h2 className="text-2xl font-bold text-black mb-2 text-center">Other treatment areas</h2>
-            <p className="text-black/70 text-center mb-8 max-w-xl mx-auto text-sm">
-              Pricing varies by area. Your provider will confirm your personalized plan at consultation.
-            </p>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 max-w-5xl mx-auto">
-              {[
-                { name: "Chin & Neck", price: 2800 },
-                { name: "Lower Abdomen", price: 3900 },
-                { name: "Full Abdomen", price: 4250 },
-                { name: "Sagging Arms", price: 2950 },
-                { name: "Butt Tightening", price: 3900 },
-              ].map((area) => (
-                <div key={area.name} className="rounded-xl border-2 border-zinc-200 bg-zinc-50 p-5 text-center">
-                  <h3 className="font-bold text-black mb-1">{area.name}</h3>
-                  <p className="text-xl font-bold text-[#E6007E]">from ${area.price.toLocaleString()}</p>
-                </div>
-              ))}
-            </div>
-            <p className="text-center text-sm text-black/60 mt-6">
-              Featured neck &amp; abdomen launch packages above may offer the best value — ask during your visit.
-            </p>
-            <div className="text-center mt-6">
-              <Link href="/book" className="inline-flex items-center justify-center rounded-lg bg-[#E6007E] px-6 py-3 font-semibold text-white hover:bg-[#c9006e] transition">
-                Book consultation
-              </Link>
-            </div>
-          </div>
-        </section>
-
-        {/* What is QuantumRF */}
-        <section className="py-16 md:py-20 bg-zinc-50">
-          <div className="max-w-6xl mx-auto px-4">
-            <div className="grid md:grid-cols-2 gap-12 items-center">
-              <div>
-                <h2 className="text-3xl md:text-4xl font-bold text-black mb-6">
-                  What is QuantumRF?
-                </h2>
-                <p className="text-lg text-black/80 mb-4">
-                  QuantumRF is a <strong>minimally invasive radiofrequency treatment</strong> that delivers controlled RF energy directly beneath the skin using a thin cannula. Unlike surface-level treatments, it works at <strong>deeper tissue layers</strong> for more dramatic results.
-                </p>
-                <p className="text-black/70 mb-4">
-                  This subdermal approach allows QuantumRF to:
-                </p>
-                <ul className="space-y-2 text-black/80 mb-6">
-                  <li className="flex items-start gap-2">
-                    <span className="text-blue-500 mt-1">✓</span>
-                    <span>Tighten and lift loose, sagging skin from within</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-blue-500 mt-1">✓</span>
-                    <span>Reduce small, targeted areas of stubborn fat</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-blue-500 mt-1">✓</span>
-                    <span>Stimulate deep collagen production for lasting results</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-blue-500 mt-1">✓</span>
-                    <span>Achieve surgical-like results without the surgery</span>
-                  </li>
-                </ul>
-                <p className="text-black/70">
-                  Results develop over <strong>3-6 months</strong> as collagen rebuilds and skin continues to tighten—with many patients achieving their goals in just <strong>one treatment</strong>.
-                </p>
-              </div>
-              <div className="relative aspect-video rounded-2xl overflow-hidden bg-black shadow-2xl">
+                Live procedure demo
+              </p>
+              <h2 className="mb-5 text-center text-3xl font-bold leading-tight text-white md:mb-6 md:text-5xl">
+                Watch a Real Quantum RF Procedure
+              </h2>
+              <p className="mx-auto max-w-2xl text-center text-sm leading-relaxed text-white md:text-base">
+                Performed subdermally—where real contour change happens. Many patients who were
+                counseled toward surgery choose this first.
+              </p>
+              <p className="mx-auto mt-4 max-w-2xl text-center text-sm font-medium text-white/95">
+                See how Quantum RF works beneath the skin to tighten tissue and contour treated areas.
+              </p>
+              <div className="relative mt-8 aspect-video w-full overflow-hidden border-2 border-white shadow-2xl md:mt-9">
                 <iframe
-                  className="absolute inset-0 w-full h-full"
-                  src="https://www.youtube.com/embed/skWe-Z-5m_k?si=HiL-3BRzaFfDBcjC"
-                  title="InMode QuantumRF - Subdermal RF Technology"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  className="absolute left-0 top-0 h-full w-full"
+                  src={`https://www.youtube.com/embed/${YT_DEMO_1}?rel=0`}
+                  title="InMode Quantum RF procedure — real clinical video at Hello Gorgeous Med Spa, Oswego IL"
+                  allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen"
                   referrerPolicy="strict-origin-when-cross-origin"
                   allowFullScreen
+                  loading="eager"
                 />
               </div>
             </div>
-            <p className="mt-6 text-center">
-              <a
-                href="https://www.inmodemd.com/workstation/luxora/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-[#E6007E] font-semibold hover:underline"
-              >
-                Learn more about the Luxora / QuantumRF technology →
-              </a>
+            <div>
+              <h3 className="mb-3 text-center text-lg font-bold text-white sm:text-2xl">
+                Second procedure view
+              </h3>
+              <p className="mx-auto mb-6 max-w-2xl text-center text-sm text-white/90">
+                Additional in-procedure context for the same technology — helpful if you are comparing your candidacy
+                to real anatomy.
+              </p>
+              <div className="relative aspect-video w-full overflow-hidden border-2 border-white/90 shadow-2xl">
+                <iframe
+                  className="absolute left-0 top-0 h-full w-full"
+                  src={`https://www.youtube.com/embed/${YT_DEMO_2}?rel=0`}
+                  title="InMode Quantum RF — supplemental procedure video for subdermal radiofrequency contouring"
+                  allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen"
+                  referrerPolicy="strict-origin-when-cross-origin"
+                  allowFullScreen
+                  loading="lazy"
+                />
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="border-b-2 border-black bg-white py-12 md:py-16" aria-label="Representative results">
+          <div className="mx-auto max-w-4xl px-4">
+            <p
+              className="mb-2 text-center text-[0.65rem] font-bold uppercase tracking-[0.45em] text-black"
+              style={{ color: PINK }}
+            >
+              Results
             </p>
+            <h2 className="text-center text-3xl font-bold leading-tight text-black md:text-4xl">
+              Representative clinical before &amp; afters
+            </h2>
+            <p className="mx-auto mt-3 max-w-2xl text-center text-sm text-black">
+              A rotating gallery of side-by-side outcomes. Use arrows or dots — keyboard arrows work on desktop.
+            </p>
+            <div className="mt-8">
+              <QuantumRFResultsSlideshow slides={CLINICAL_RESULT_SLIDES} />
+            </div>
           </div>
         </section>
 
-        {/* Common Concerns We Treat */}
-        <section className="py-16 md:py-20">
-          <div className="max-w-6xl mx-auto px-4">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-black mb-4">
-                Common Concerns We Treat
+        <section className="border-b-2 border-black bg-black py-10 text-white md:py-12" aria-label="InMode technology overview">
+          <div className="mx-auto max-w-3xl px-4">
+            <h2 className="text-center text-2xl font-bold md:text-3xl">What is QuantumRF?</h2>
+            <p className="mx-auto mt-2 text-center text-sm text-white/85">
+              InMode technology overview — how QuantumRF 10 and QuantumRF 25 are used in practice.
+            </p>
+            <figure className="mt-6 border-2 border-white/80 bg-white p-1">
+              <div className="relative aspect-[4/3] w-full sm:aspect-[16/9]">
+                <Image
+                  src={QUANTUM_OG_IMAGE}
+                  alt="InMode QuantumRF overview: innovative minimally invasive technology for soft tissue contraction using subdermal fractionated bipolar radiofrequency, QuantumRF 10 for face and small body areas, QuantumRF 25 for abdomen, thighs, hips, and buttocks, polymer-coated handpieces, up to 60mm depth, Hello Gorgeous Med Spa offers Quantum RF in Oswego and Fox Valley, Illinois"
+                  fill
+                  className="object-contain"
+                  sizes="(max-width: 768px) 100vw, 720px"
+                  loading="lazy"
+                />
+              </div>
+              <figcaption className="px-2 py-3 text-center text-xs leading-relaxed text-white/80 sm:text-sm">
+                Educational use; device labeling and your candidacy are confirmed in consultation. QuantumRF
+                and InMode are trademarks of InMode Ltd.
+              </figcaption>
+            </figure>
+          </div>
+        </section>
+
+        {/* 3. What this really is */}
+        <section className="border-b-2 border-black py-16 md:py-24">
+          <div className="mx-auto grid max-w-6xl items-center gap-10 px-4 md:grid-cols-2 md:gap-16">
+            <div>
+              <h2 className="text-3xl font-bold leading-tight text-black md:text-5xl">
+                This Is a Procedure — Not a Facial
               </h2>
-              <p className="text-black/70 max-w-2xl mx-auto">
-                QuantumRF is an ideal solution for these common aesthetic concerns.
-              </p>
-            </div>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-              <div className="relative rounded-xl overflow-hidden group">
-                <Image
-                  src="/images/morpheus8/concern-ozempic-butt.png"
-                  alt="Ozempic butt and breasts - skin laxity after weight loss"
-                  width={300}
-                  height={350}
-                  className="w-full h-auto"
-                />
-              </div>
-              <div className="relative rounded-xl overflow-hidden group">
-                <Image
-                  src="/images/morpheus8/concern-loose-belly.png"
-                  alt="Loose belly skin treatment"
-                  width={300}
-                  height={350}
-                  className="w-full h-auto"
-                />
-              </div>
-              <div className="relative rounded-xl overflow-hidden group">
-                <Image
-                  src="/images/morpheus8/concern-tech-neck.png"
-                  alt="Tech neck treatment"
-                  width={300}
-                  height={350}
-                  className="w-full h-auto"
-                />
-              </div>
-              <div className="relative rounded-xl overflow-hidden group">
-                <Image
-                  src="/images/morpheus8/concern-jowls-cheeks.png"
-                  alt="Sagging jowls and hollow cheeks treatment"
-                  width={300}
-                  height={350}
-                  className="w-full h-auto"
-                />
-              </div>
-              <div className="relative rounded-xl overflow-hidden group">
-                <Image
-                  src="/images/morpheus8/concern-bat-wings.png"
-                  alt="Bat wings arm skin tightening"
-                  width={300}
-                  height={350}
-                  className="w-full h-auto"
-                />
-              </div>
-            </div>
-            <div className="text-center mt-8">
-              <Link
-                href="/book"
-                className="inline-flex items-center justify-center rounded-lg bg-[#E6007E] px-6 py-3 font-semibold text-white hover:bg-[#c9006e] transition"
+              <ul className="mt-8 space-y-0 divide-y-2 divide-black border-2 border-black">
+                {[
+                  "Works beneath the skin",
+                  "Tightens + melts fat + rebuilds collagen",
+                  "Minimally invasive with a small entry point",
+                ].map((line) => (
+                  <li
+                    key={line}
+                    className="px-4 py-4 text-lg font-bold leading-snug text-black sm:py-5 sm:text-xl md:text-2xl"
+                  >
+                    {line}
+                  </li>
+                ))}
+              </ul>
+              <div
+                className="mt-5 border-2 bg-black px-4 py-3 text-sm font-semibold leading-relaxed text-white sm:px-5 sm:text-base"
+                style={{ borderColor: PINK, boxShadow: `inset 0 0 0 1px ${PINK}` }}
               >
-                Book Your Consultation
-              </Link>
-            </div>
-          </div>
-        </section>
-
-        {/* Probe Options */}
-        <section className="py-16 md:py-20 bg-black text-white">
-          <div className="max-w-6xl mx-auto px-4">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">
-                QuantumRF 10 & 25 Probes
-              </h2>
-              <p className="text-white/70 max-w-2xl mx-auto">
-                Two specialized probes allow us to customize your treatment for optimal results in any area.
-              </p>
-            </div>
-            
-            <div className="grid md:grid-cols-2 gap-8">
-              <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-white/10">
-                <div className="flex items-center gap-4 mb-6">
-                  <div className="w-16 h-16 rounded-full bg-blue-500/20 flex items-center justify-center text-3xl font-bold">
-                    10
-                  </div>
-                  <div>
-                    <h3 className="text-2xl font-bold text-blue-400">QuantumRF 10</h3>
-                    <p className="text-white/60">Precision Facial Probe</p>
-                  </div>
-                </div>
-                <p className="text-white/80 mb-4">
-                  The QuantumRF 10 is designed for <strong>smaller, delicate treatment areas</strong> where precision is critical. Its compact size allows for detailed contouring and tightening.
-                </p>
-                <div className="space-y-2 mb-4">
-                  <p className="text-sm text-white/60">Ideal Treatment Areas:</p>
-                  <div className="flex flex-wrap gap-2">
-                    {["Jawline", "Jowls", "Under Chin", "Neck", "Brow Area"].map((area) => (
-                      <span key={area} className="px-3 py-1 bg-blue-500/20 text-blue-300 text-sm rounded-full">
-                        {area}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-                <p className="text-white/60 text-sm">
-                  Perfect for facial rejuvenation and defining the lower face contour.
-                </p>
+                Not surface level. Not a facial. Not a temporary tightening treatment.
               </div>
-
-              <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-white/10">
-                <div className="flex items-center gap-4 mb-6">
-                  <div className="w-16 h-16 rounded-full bg-blue-500/20 flex items-center justify-center text-3xl font-bold">
-                    25
-                  </div>
-                  <div>
-                    <h3 className="text-2xl font-bold text-blue-400">QuantumRF 25</h3>
-                    <p className="text-white/60">Body Contouring Probe</p>
-                  </div>
-                </div>
-                <p className="text-white/80 mb-4">
-                  The QuantumRF 25 is engineered for <strong>larger body treatment areas</strong>, providing efficient coverage for significant skin tightening and fat reduction.
-                </p>
-                <div className="space-y-2 mb-4">
-                  <p className="text-sm text-white/60">Ideal Treatment Areas:</p>
-                  <div className="flex flex-wrap gap-2">
-                    {["Abdomen", "Arms", "Thighs", "Back", "Flanks", "Knees"].map((area) => (
-                      <span key={area} className="px-3 py-1 bg-blue-500/20 text-blue-300 text-sm rounded-full">
-                        {area}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-                <p className="text-white/60 text-sm">
-                  Ideal for body contouring, post-weight loss skin tightening, and mommy makeovers.
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Benefits Grid */}
-        <section className="py-16 md:py-20">
-          <div className="max-w-6xl mx-auto px-4">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-black mb-4">
-                Why QuantumRF?
-              </h2>
-              <p className="text-black/70 max-w-2xl mx-auto">
-                Subdermal RF delivers results that surface treatments simply cannot match—without the risks and downtime of surgery.
-              </p>
-            </div>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {BENEFITS.map((benefit) => (
-                <div
-                  key={benefit.title}
-                  className="bg-zinc-50 rounded-xl p-6 hover:shadow-lg transition-shadow"
+              <div className="mt-8">
+                <Link
+                  href="/book"
+                  className="inline-flex min-h-[48px] items-center justify-center rounded-md px-8 text-sm font-semibold uppercase tracking-widest text-white transition hover:opacity-95"
+                  style={{ backgroundColor: PINK }}
+                  data-book-now
                 >
-                  <div className="text-3xl mb-4">{benefit.icon}</div>
-                  <h3 className="text-lg font-semibold text-black mb-2">{benefit.title}</h3>
-                  <p className="text-black/70 text-sm">{benefit.desc}</p>
+                  Book Consultation
+                </Link>
+              </div>
+            </div>
+            <div className="relative aspect-[4/5] w-full overflow-hidden border-2 border-black shadow-xl">
+              <Image
+                src="/images/morpheus8/quantumrf-25-abdomen-skin.png"
+                alt="Clinical abdomen tightening result with Quantum RF"
+                fill
+                className="object-cover object-[50%_35%] md:object-center"
+                sizes="(max-width: 768px) 100vw, 50vw"
+                loading="lazy"
+              />
+            </div>
+          </div>
+        </section>
+
+        {/* 4. How it works */}
+        <section className="border-b-2 border-black bg-white py-16 md:py-24">
+          <div className="mx-auto max-w-6xl px-4">
+            <h2 className="text-center text-3xl font-bold text-black md:text-5xl">How It Works</h2>
+            <p className="mx-auto mt-3 max-w-xl text-center text-sm font-medium text-black">Four milestones. One procedure.</p>
+            <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4 lg:gap-5">
+              {HOW_STEPS.map((step, i) => (
+                <div key={step.lead} className="border-2 border-black bg-white">
+                  <div className="relative aspect-[4/3] w-full border-b-2 border-black">
+                    <Image
+                      src={step.src}
+                      alt={step.alt}
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 640px) 100vw, 25vw"
+                      loading="lazy"
+                    />
+                    <div
+                      className="absolute left-2 top-2 flex h-9 w-9 items-center justify-center rounded-full border-2 border-black text-sm font-bold text-white"
+                      style={{ backgroundColor: PINK }}
+                    >
+                      {i + 1}
+                    </div>
+                  </div>
+                  <div className="p-3 sm:p-4">
+                    <h3 className="text-[0.7rem] font-bold uppercase leading-snug tracking-wide text-black sm:text-xs">
+                      Step {i + 1}
+                    </h3>
+                    <p className="mt-1 text-sm font-bold leading-tight text-black sm:text-base">{step.lead}</p>
+                    <p className="mt-1.5 text-xs leading-snug text-black sm:text-sm">{step.caption}</p>
+                  </div>
                 </div>
               ))}
             </div>
           </div>
         </section>
 
-        {/* Before & After Results Gallery */}
-        <section className="py-16 md:py-20 bg-black text-white">
-          <div className="max-w-6xl mx-auto px-4">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">
-                Real Results
-              </h2>
-              <p className="text-white/70 max-w-2xl mx-auto">
-                See the transformative power of QuantumRF subdermal radiofrequency. Results from actual InMode patients.
-              </p>
-            </div>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              <div className="group relative rounded-xl overflow-hidden bg-zinc-900">
-                <Image
-                  src="/images/morpheus8/quantumrf-10-jawline.png"
-                  alt="QuantumRF 10 before and after - jawline tightening and contouring"
-                  width={600}
-                  height={400}
-                  className="w-full h-auto"
-                />
-                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 to-transparent p-4">
-                  <p className="text-white font-medium">Jawline Definition</p>
-                  <p className="text-white/60 text-sm">QuantumRF 10</p>
-                </div>
-              </div>
-
-              <div className="group relative rounded-xl overflow-hidden bg-zinc-900">
-                <Image
-                  src="/images/morpheus8/quantumrf-10-face.png"
-                  alt="QuantumRF 10 before and after - facial contouring"
-                  width={600}
-                  height={400}
-                  className="w-full h-auto"
-                />
-                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 to-transparent p-4">
-                  <p className="text-white font-medium">Facial Contouring</p>
-                  <p className="text-white/60 text-sm">QuantumRF 10</p>
-                </div>
-              </div>
-
-              <div className="group relative rounded-xl overflow-hidden bg-zinc-900">
-                <Image
-                  src="/images/morpheus8/facetite-chin.png"
-                  alt="Submental before and after - double chin reduction"
-                  width={600}
-                  height={400}
-                  className="w-full h-auto"
-                />
-                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 to-transparent p-4">
-                  <p className="text-white font-medium">Double Chin Reduction</p>
-                  <p className="text-white/60 text-sm">Subdermal RF</p>
-                </div>
-              </div>
-
-              <div className="group relative rounded-xl overflow-hidden bg-zinc-900">
-                <Image
-                  src="/images/morpheus8/quantumrf-25-abdomen-skin.png"
-                  alt="QuantumRF 25 before and after - abdomen skin tightening"
-                  width={600}
-                  height={400}
-                  className="w-full h-auto"
-                />
-                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 to-transparent p-4">
-                  <p className="text-white font-medium">Abdomen Tightening</p>
-                  <p className="text-white/60 text-sm">QuantumRF 25</p>
-                </div>
-              </div>
-
-              <div className="group relative rounded-xl overflow-hidden bg-zinc-900">
-                <Image
-                  src="/images/morpheus8/quantumrf-25-abdomen.png"
-                  alt="QuantumRF 25 before and after - body contouring"
-                  width={600}
-                  height={400}
-                  className="w-full h-auto"
-                />
-                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 to-transparent p-4">
-                  <p className="text-white font-medium">Body Contouring</p>
-                  <p className="text-white/60 text-sm">QuantumRF 25</p>
-                </div>
-              </div>
-
-              <div className="group relative rounded-xl overflow-hidden bg-zinc-900">
-                <Image
-                  src="/images/morpheus8/bodytite-arm.png"
-                  alt="Arm skin tightening before and after"
-                  width={600}
-                  height={400}
-                  className="w-full h-auto"
-                />
-                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 to-transparent p-4">
-                  <p className="text-white font-medium">Arm Tightening</p>
-                  <p className="text-white/60 text-sm">Subdermal RF</p>
-                </div>
-              </div>
-            </div>
-            <p className="text-center text-white/50 text-sm mt-8">
-              Results may vary. Images courtesy of InMode. Individual results depend on treatment area and patient factors.
+        {/* 5. Comparison table */}
+        <section className="border-b-2 border-black bg-black py-16 text-white md:py-24">
+          <div className="mx-auto max-w-3xl px-3 sm:px-4">
+            <h2 className="text-center text-3xl font-bold md:text-5xl">How Quantum RF Compares</h2>
+            <p className="mx-auto mt-3 max-w-xl text-center text-sm text-white sm:text-base">
+              Apples-to-apples clarity — in one view.
             </p>
-          </div>
-        </section>
-
-        {/* Treatment Areas */}
-        <section id="treatment-areas" className="py-16 md:py-20 bg-zinc-50">
-          <div className="max-w-6xl mx-auto px-4">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-black mb-4">
-                Treatment Areas
-              </h2>
-              <p className="text-black/70 max-w-2xl mx-auto">
-                QuantumRF effectively treats areas where skin laxity and stubborn fat are concerns.
-              </p>
-            </div>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {TREATMENT_AREAS.map((area) => (
-                <div
-                  key={area.area}
-                  className="bg-white rounded-xl p-6 shadow-sm hover:shadow-lg transition-shadow border border-zinc-100"
-                >
-                  <div className="flex items-center gap-3 mb-4">
-                    <span className="text-3xl">{area.icon}</span>
-                    <h3 className="text-xl font-semibold text-black">{area.area}</h3>
-                  </div>
-                  <ul className="space-y-2">
-                    {area.treatments.map((treatment) => (
-                      <li key={treatment} className="flex items-center gap-2 text-black/70 text-sm">
-                        <span className="w-1.5 h-1.5 bg-blue-500 rounded-full flex-shrink-0"></span>
-                        {treatment}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Comparison Section */}
-        <section className="py-16 md:py-20">
-          <div className="max-w-6xl mx-auto px-4">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-black mb-4">
-                QuantumRF vs. Other Treatments
-              </h2>
-            </div>
-            <div className="overflow-x-auto">
-              <table className="w-full bg-white rounded-xl overflow-hidden shadow-sm">
-                <thead className="bg-black text-white">
-                  <tr>
-                    <th className="px-6 py-4 text-left font-semibold">Feature</th>
-                    <th className="px-6 py-4 text-left font-semibold">Surface RF</th>
-                    <th className="px-6 py-4 text-left font-semibold">Liposuction</th>
-                    <th className="px-6 py-4 text-left font-semibold text-blue-400">QuantumRF</th>
+            <div className="mt-8 overflow-x-auto rounded-sm sm:mt-10">
+              <table className="w-full min-w-[300px] border-collapse border-2 border-white text-left text-sm sm:min-w-0 sm:text-base">
+                <thead>
+                  <tr className="bg-white text-black">
+                    <th className="border-2 border-white px-3 py-4 text-xs font-bold uppercase tracking-wider sm:px-5 sm:py-5 sm:text-sm">
+                      Treatment
+                    </th>
+                    <th className="border-2 border-white px-3 py-4 text-xs font-bold uppercase tracking-wider sm:px-5 sm:py-5 sm:text-sm">
+                      Result
+                    </th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-zinc-100">
-                  <tr>
-                    <td className="px-6 py-4 font-medium text-black">Treatment Depth</td>
-                    <td className="px-6 py-4 text-black/70">Surface only</td>
-                    <td className="px-6 py-4 text-black/70">Deep (invasive)</td>
-                    <td className="px-6 py-4 text-blue-600 font-medium">Subdermal (minimally invasive)</td>
-                  </tr>
-                  <tr className="bg-zinc-50">
-                    <td className="px-6 py-4 font-medium text-black">Skin Tightening</td>
-                    <td className="px-6 py-4 text-black/70">Mild</td>
-                    <td className="px-6 py-4 text-black/70">None (may worsen)</td>
-                    <td className="px-6 py-4 text-blue-600 font-medium">Significant</td>
-                  </tr>
-                  <tr>
-                    <td className="px-6 py-4 font-medium text-black">Fat Reduction</td>
-                    <td className="px-6 py-4 text-black/70">Minimal</td>
-                    <td className="px-6 py-4 text-black/70">Significant</td>
-                    <td className="px-6 py-4 text-blue-600 font-medium">Moderate + tightening</td>
-                  </tr>
-                  <tr className="bg-zinc-50">
-                    <td className="px-6 py-4 font-medium text-black">Anesthesia</td>
-                    <td className="px-6 py-4 text-black/70">None/topical</td>
-                    <td className="px-6 py-4 text-black/70">General</td>
-                    <td className="px-6 py-4 text-blue-600 font-medium">Local only</td>
-                  </tr>
-                  <tr>
-                    <td className="px-6 py-4 font-medium text-black">Downtime</td>
-                    <td className="px-6 py-4 text-black/70">None</td>
-                    <td className="px-6 py-4 text-black/70">2-4 weeks</td>
-                    <td className="px-6 py-4 text-blue-600 font-medium">Few days to 1 week</td>
-                  </tr>
-                  <tr className="bg-zinc-50">
-                    <td className="px-6 py-4 font-medium text-black">Sessions Needed</td>
-                    <td className="px-6 py-4 text-black/70">Multiple (4-6+)</td>
-                    <td className="px-6 py-4 text-black/70">Usually 1</td>
-                    <td className="px-6 py-4 text-blue-600 font-medium">Often 1</td>
+                <tbody>
+                  {[
+                    ["RF Microneedling", "Surface tightening"],
+                    ["CoolSculpting", "Fat reduction only"],
+                    ["Surgery", "Invasive"],
+                  ].map(([a, b]) => (
+                    <tr key={a} className="bg-black">
+                      <td className="border-2 border-white px-3 py-4 font-semibold sm:px-5 sm:py-5">{a}</td>
+                      <td className="border-2 border-white px-3 py-4 text-sm text-white sm:px-5 sm:py-5 sm:text-base">
+                        {b}
+                      </td>
+                    </tr>
+                  ))}
+                  <tr style={{ backgroundColor: "rgba(230,0,126,0.25)" }}>
+                    <td
+                      className="border-2 border-white px-3 py-5 text-sm font-bold sm:px-5 sm:py-6 sm:text-lg"
+                      style={{ color: PINK, boxShadow: `inset 0 0 0 2px ${PINK}` }}
+                    >
+                      Quantum RF
+                    </td>
+                    <td
+                      className="border-2 border-white px-3 py-5 text-sm font-bold text-white sm:px-5 sm:py-6 sm:text-lg"
+                      style={{ boxShadow: `inset 0 0 0 2px ${PINK}` }}
+                    >
+                      Tightens + contours + rebuilds
+                    </td>
                   </tr>
                 </tbody>
               </table>
             </div>
+            <p className="mt-5 text-center text-sm font-light italic leading-relaxed text-white sm:mt-6 sm:text-base">
+              This is where non-invasive treatments stop and true transformation begins.
+            </p>
+            <p className="mt-3 text-center text-xs text-white/70 sm:text-sm">Individual plans vary. Consultation required.</p>
           </div>
         </section>
 
-        {/* FAQ Section */}
-        <section className="py-16 md:py-20 bg-zinc-50">
-          <div className="max-w-4xl mx-auto px-4">
-            <h2 className="text-3xl md:text-4xl font-bold text-black text-center mb-12">
-              Frequently Asked Questions
+        {/* 6. Treatment areas */}
+        <section className="border-b-2 border-black py-16 md:py-24" id="treatment-areas">
+          <div className="mx-auto max-w-6xl px-4">
+            <h2 className="text-center text-3xl font-bold text-black md:text-5xl">Treatment Areas</h2>
+            <p className="mx-auto mt-3 max-w-2xl text-center text-sm text-black sm:text-base">
+              Designed for the areas where loose skin and lost definition are hardest to treat.
+            </p>
+            <div className="mt-10 grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-3">
+              {TREATMENT_AREAS.map((item) => (
+                <div
+                  key={item.label}
+                  className="flex items-start gap-4 border-2 border-black bg-white px-4 py-4 sm:px-5 sm:py-5"
+                >
+                  <div className="shrink-0" style={{ color: PINK }} aria-hidden>
+                    <AreaIcon name={item.icon} />
+                  </div>
+                  <div className="min-w-0 text-left">
+                    <p className="text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-black">
+                      {item.hint}
+                    </p>
+                    <p className="text-lg font-bold leading-tight text-black sm:text-xl">{item.label}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* 7. Candidates */}
+        <section
+          id="candidates"
+          className="border-b-2 border-black bg-black py-16 text-white md:py-24"
+        >
+          <div className="mx-auto max-w-6xl px-4">
+            <h2 className="text-center text-3xl font-bold md:text-5xl">Candidacy</h2>
+            <p className="mx-auto mt-2 max-w-xl text-center text-sm text-white/90">
+              A candid, specialty-level conversation — not a sales pitch.
+            </p>
+            <div className="mt-10 grid gap-4 md:grid-cols-2 md:items-stretch md:gap-0">
+              <div
+                className="p-6 sm:p-8 md:p-9"
+                style={{
+                  backgroundColor: "rgba(230,0,126,0.12)",
+                  boxShadow: `inset 0 0 0 2px ${PINK}, 0 12px 40px rgba(0,0,0,0.35)`,
+                }}
+              >
+                <h3
+                  className="text-2xl font-bold uppercase tracking-[0.2em] sm:text-3xl"
+                  style={{ color: PINK }}
+                >
+                  Often ideal
+                </h3>
+                <p className="mt-1 text-sm font-medium text-white/90">The profile we most often help</p>
+                <ul className="mt-6 space-y-3.5 text-base font-medium leading-relaxed text-white sm:text-lg">
+                  <li>Loose skin or laxity you want to tighten and refine</li>
+                  <li>Post–weight loss or post–bariatric changes</li>
+                  <li>GLP-1 / medical weight–loss related laxity (e.g. face, abdomen, arms)</li>
+                  <li>Wants a meaningful contour plan without excisional surgery when anatomy allows</li>
+                </ul>
+              </div>
+              <div className="border border-white/30 bg-black/40 p-6 sm:p-8 md:p-8 md:pl-9">
+                <h3 className="text-sm font-bold uppercase tracking-[0.2em] text-white/80">
+                  Less commonly ideal
+                </h3>
+                <p className="mt-1 text-xs text-white/60">A different path may be safer or more complete</p>
+                <ul className="mt-5 space-y-2.5 text-sm leading-relaxed text-white/85">
+                  <li>
+                    <span className="text-white/95">Severe excess skin</span> that typically still
+                    needs surgery for a full correction
+                  </li>
+                </ul>
+                <p className="mt-4 text-sm text-white/75">
+                  If the better answer is the OR, you’ll hear it here — and we’ll help you understand
+                  why, clearly and respectfully.
+                </p>
+              </div>
+            </div>
+            <div className="mt-8 text-center">
+              <Link
+                href="/book"
+                className="inline-flex min-h-[48px] items-center justify-center rounded-md px-8 text-sm font-semibold uppercase tracking-widest text-white transition hover:opacity-95"
+                style={{ backgroundColor: PINK }}
+                data-book-now
+              >
+                Book Consultation
+              </Link>
+            </div>
+          </div>
+        </section>
+
+        {/* 8. Results timeline */}
+        <section className="border-b-2 border-black bg-white py-16 md:py-24">
+          <div className="mx-auto max-w-5xl px-4">
+            <h2 className="text-center text-3xl font-bold text-black md:text-5xl">The Results Arc</h2>
+            <p className="mx-auto mt-2 max-w-lg text-center text-sm text-black">Milestones after your procedure</p>
+            <div className="relative mt-12">
+              <div
+                className="absolute left-[10%] right-[10%] top-[2.25rem] hidden h-0.5 md:block"
+                style={{ background: `linear-gradient(90deg, black, ${PINK}, black)` }}
+                aria-hidden
+              />
+              <div className="flex flex-col gap-0 md:flex-row md:items-stretch md:justify-between md:gap-2">
+                {[
+                  { t: "Immediate", d: "Tightening you can feel" },
+                  { t: "4–6 weeks", d: "Visible improvement emerges" },
+                  { t: "3–6 months", d: "Refinement peaks" },
+                ].map((row, i) => (
+                  <div
+                    key={row.t}
+                    className="relative flex-1 border-2 border-black bg-white px-4 py-8 text-center shadow-[6px_6px_0_0_#000] md:min-h-[200px] md:px-3"
+                  >
+                    <div
+                      className="mx-auto flex h-14 w-14 items-center justify-center rounded-full border-2 border-black text-lg font-bold text-white"
+                      style={{ backgroundColor: PINK }}
+                    >
+                      {i + 1}
+                    </div>
+                    <p className="mt-4 text-2xl font-bold leading-none tracking-tight text-black sm:text-3xl">
+                      {row.t}
+                    </p>
+                    <p className="mt-2 text-sm font-semibold text-black sm:text-base">{row.d}</p>
+                    {i < 2 ? (
+                      <div
+                        className="my-2 flex justify-center text-2xl text-black md:hidden"
+                        aria-hidden
+                      >
+                        ↓
+                      </div>
+                    ) : null}
+                  </div>
+                ))}
+              </div>
+            </div>
+            <p className="mx-auto mt-8 max-w-lg text-center text-sm font-light leading-relaxed text-black sm:mt-10 sm:text-base">
+              Results continue to improve as collagen remodeling progresses.
+            </p>
+          </div>
+        </section>
+
+        {/* 9. Price positioning */}
+        <section className="border-b-2 border-black bg-black py-16 text-white md:py-24">
+          <div className="mx-auto max-w-3xl px-4 text-center">
+            <h2 className="text-3xl font-bold md:text-5xl">Investment in Structure</h2>
+            <p className="mt-4 text-sm font-light text-white/90">Positioned for outcomes — not a substitute for the OR when surgery is the answer.</p>
+            <p className="mt-8 text-2xl font-light text-white sm:text-3xl">Surgery: $12K–$20K+</p>
+            <p className="mt-1 text-2xl font-bold sm:text-3xl" style={{ color: PINK }}>
+              Quantum RF: a fraction of that investment
+            </p>
+            <p className="mt-8 text-base leading-relaxed text-white sm:text-lg">
+              This is not a discount treatment. It is an investment in visible, structural change.
+            </p>
+            <div className="mt-6 text-sm text-white/80">Financing available for qualified applicants.</div>
+            <div className="mt-3 flex flex-wrap items-center justify-center gap-3 text-sm">
+              <a
+                href={CHERRY_PAY_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-semibold underline decoration-white/50 underline-offset-4 transition hover:decoration-white"
+              >
+                View Cherry financing
+              </a>
+            </div>
+          </div>
+        </section>
+
+        {/* 10. Combination */}
+        <section className="border-b-2 border-black py-16 md:py-24">
+          <div className="mx-auto max-w-5xl px-4">
+            <h2 className="text-center text-3xl font-bold text-black md:text-5xl">
+              Why We Combine Quantum RF + Morpheus8
             </h2>
-            <div className="space-y-4">
+            <p className="mx-auto mt-3 max-w-2xl text-center text-sm text-black">Depth plus surface. Structure plus finish.</p>
+            <div className="mt-10 grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-0">
+              <div className="border-2 border-black bg-black p-6 text-white sm:p-8 md:min-h-[220px]">
+                <p className="text-xs font-bold uppercase tracking-[0.3em] text-white/70">Quantum RF</p>
+                <p className="mt-2 text-2xl font-bold" style={{ color: PINK }}>
+                  Deep structural tightening
+                </p>
+                <p className="mt-2 text-sm leading-relaxed text-white/90">
+                  Subdermal work where skin and tissue need meaningful contraction and shaping.
+                </p>
+              </div>
+              <div className="border-2 border-black bg-white p-6 sm:p-8 md:min-h-[220px] md:border-l-0">
+                <p className="text-xs font-bold uppercase tracking-[0.3em] text-black/60">Morpheus8</p>
+                <p className="mt-2 text-2xl font-bold text-black">Surface refinement</p>
+                <p className="mt-2 text-sm leading-relaxed text-black/90">
+                  Targeted surface remodeling for texture, fine lines, and the quality of the skin envelope.
+                </p>
+              </div>
+            </div>
+            <p className="mt-6 text-center text-sm font-light italic text-black sm:text-base">
+              Together, they create a more complete and more dramatic result.
+            </p>
+            <p className="mt-3 text-center text-xs text-black sm:text-sm">
+              Launch packages may include a complimentary Morpheus8 Burst add-on when clinically appropriate—confirmed at
+              consultation.
+            </p>
+          </div>
+        </section>
+
+        {/* 11. Authority */}
+        <section className="border-b-2 border-black bg-black py-16 text-white md:py-24">
+          <div className="mx-auto max-w-2xl px-4 text-center">
+            <h2 className="text-2xl font-bold leading-tight tracking-tight sm:text-4xl sm:leading-tight">
+              Why Experience Matters
+            </h2>
+            <p className="mx-auto mt-5 max-w-xl text-sm font-light leading-relaxed text-white/95 sm:text-base">
+              Advanced technology only matters when paired with judgment, technique, and precision.
+            </p>
+            <ul className="mt-8 space-y-3 border-t-2 border-white/20 pt-8 text-left text-sm font-medium leading-relaxed text-white sm:space-y-4 sm:text-base md:text-center">
+              <li>Elite subdermal delivery is technique-dependent and unforgiving at depth</li>
+              <li>We prioritize consistency, safety, and a natural-but-defined outcome profile</li>
+              <li>This is performed as a high-acuity medical aesthetic procedure—by design</li>
+            </ul>
+            <p className="mt-8 text-sm text-white/80">
+              Ryan Kent, FNP-BC · Danielle Alcala, RN-S · {SITE.address.addressLocality},{" "}
+              {SITE.address.addressRegion}
+            </p>
+          </div>
+        </section>
+
+        {/* 12. Final CTA */}
+        <section className="border-b-2 border-black bg-black py-16 text-white md:py-24">
+          <div className="mx-auto max-w-3xl px-4 text-center">
+            <h2 className="text-3xl font-bold leading-tight sm:text-5xl sm:leading-tight">Ready to See What’s Possible?</h2>
+            <p className="mx-auto mt-4 text-sm font-light leading-relaxed text-white/90 sm:text-base">
+              Find out if you’re a candidate for one of our most advanced contouring procedures.
+            </p>
+            <p className="mt-1 text-xs text-white/70 sm:text-sm">Limited availability by design — medical evaluation always comes first.</p>
+            <div className="mx-auto mt-8 flex w-full max-w-md flex-col gap-4 sm:max-w-none sm:flex-row sm:justify-center sm:gap-5">
+              <Link
+                href="/book"
+                className="inline-flex min-h-[58px] flex-1 items-center justify-center rounded-md px-6 text-sm font-semibold uppercase tracking-[0.2em] text-white sm:max-w-[220px]"
+                style={{ backgroundColor: PINK }}
+                data-book-now
+              >
+                Book Consultation
+              </Link>
+              <a
+                href={SMS_HREF}
+                className="inline-flex min-h-[58px] flex-1 items-center justify-center rounded-md border-2 border-white bg-transparent px-6 text-sm font-semibold uppercase tracking-[0.2em] text-white transition hover:bg-white hover:text-black sm:max-w-[220px]"
+                data-sms-click
+              >
+                Text Us
+              </a>
+            </div>
+            <p className="mt-8 text-sm font-medium text-white/85">
+              A referral-grade contouring option — for patients who want a candid plan and a real protocol.
+            </p>
+          </div>
+        </section>
+
+        <TechBlogPromo
+          title="Guides: Quantum RF, Morpheus8 &amp; InMode"
+          subtitle="Deeper context on the technologies we use — for patients who like to read before they book."
+          variant="secondary"
+        />
+
+        <section className="border-b border-black/10 bg-white py-10 md:py-12">
+          <div className="mx-auto max-w-3xl px-4">
+            <h2 className="text-center text-sm font-medium uppercase tracking-[0.2em] text-black/50">Additional questions</h2>
+            <div className="mt-5 space-y-2">
               {QUANTUM_FAQS.map((faq, idx) => (
                 <details
                   key={idx}
-                  className="group bg-white rounded-xl border border-zinc-200 overflow-hidden"
+                  className="group border border-black/10 bg-white"
                 >
-                  <summary className="flex items-center justify-between px-6 py-4 cursor-pointer hover:bg-zinc-50 transition-colors">
-                    <span className="font-medium text-black pr-4">{faq.question}</span>
-                    <span className="text-blue-500 group-open:rotate-180 transition-transform">
-                      <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2">
-                        <path d="M6 8l4 4 4-4" />
-                      </svg>
+                  <summary className="flex cursor-pointer list-none items-center justify-between gap-3 px-3 py-2.5 text-left text-xs font-medium text-black/80 sm:px-4 sm:text-sm">
+                    {faq.question}
+                    <span className="shrink-0 text-black/50 transition group-open:rotate-180" aria-hidden>
+                      ▼
                     </span>
                   </summary>
-                  <div className="px-6 pb-4 text-black/70 leading-relaxed">
+                  <div className="border-t border-black/10 px-3 py-2.5 text-xs leading-relaxed text-black/70 sm:px-4 sm:text-sm">
                     {faq.answer}
                   </div>
                 </details>
@@ -865,87 +1004,22 @@ export default function QuantumRFPage() {
           </div>
         </section>
 
-        {/* CTA Section */}
-        <section className="py-16 md:py-24 bg-black text-white">
-          <div className="max-w-4xl mx-auto px-4 text-center">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Ready for Dramatic Results?
-            </h2>
-            <p className="text-white/80 text-lg mb-8 max-w-2xl mx-auto">
-              Schedule your QuantumRF consultation and discover how subdermal RF can transform your face and body—without surgery.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link
-                href="/book"
-                className="inline-flex items-center justify-center rounded-lg bg-[#E6007E] px-8 py-4 text-lg font-semibold text-white hover:bg-[#c9006e] transition"
-              >
-                Book Consultation
+        <section className="py-12">
+          <div className="mx-auto max-w-6xl px-4 text-center">
+            <p className="text-sm text-black">Individual results vary. Medical evaluation required.</p>
+            <div className="mt-4 flex flex-wrap justify-center gap-4 text-sm font-semibold">
+              <Link href="/services/morpheus8" className="underline decoration-black/30 underline-offset-4 hover:decoration-black">
+                Morpheus8
               </Link>
-              <Link
-                href="tel:6306366193"
-                className="inline-flex items-center justify-center rounded-lg border-2 border-white px-8 py-4 text-lg font-semibold text-white hover:bg-white hover:text-black transition"
-              >
-                Call (630) 636-6193
-              </Link>
-            </div>
-            <p className="mt-6 text-white/60 text-sm">
-              Free consultation · No obligation · {SITE.reviewRating}★ ({SITE.reviewCount} reviews)
-            </p>
-          </div>
-        </section>
-
-        {/* Related Services */}
-        <section className="py-16 md:py-20">
-          <div className="max-w-6xl mx-auto px-4">
-            <h2 className="text-2xl font-bold text-black mb-8 text-center">
-              Related Treatments
-            </h2>
-            <div className="grid sm:grid-cols-3 gap-6">
-              <Link
-                href="/services/morpheus8"
-                className="block bg-zinc-50 rounded-xl p-6 hover:shadow-lg transition group"
-              >
-                <div className="text-3xl mb-3">⚡</div>
-                <h3 className="text-lg font-semibold text-black group-hover:text-pink-600 transition mb-2">
-                  Morpheus8 RF
-                </h3>
-                <p className="text-black/70 text-sm">
-                  RF microneedling for skin texture, scars, and collagen stimulation.
-                </p>
-              </Link>
-              <Link
-                href="/services/solaria-co2"
-                className="block bg-zinc-50 rounded-xl p-6 hover:shadow-lg transition group"
-              >
-                <div className="text-3xl mb-3">✨</div>
-                <h3 className="text-lg font-semibold text-black group-hover:text-pink-600 transition mb-2">
-                  Solaria CO₂ Laser
-                </h3>
-                <p className="text-black/70 text-sm">
-                  Gold standard skin resurfacing for wrinkles, scars, and sun damage.
-                </p>
-              </Link>
-              <Link
-                href="/services/botox-dysport-jeuveau"
-                className="block bg-zinc-50 rounded-xl p-6 hover:shadow-lg transition group"
-              >
-                <div className="text-3xl mb-3">💉</div>
-                <h3 className="text-lg font-semibold text-black group-hover:text-pink-600 transition mb-2">
-                  Botox & Fillers
-                </h3>
-                <p className="text-black/70 text-sm">
-                  Complete your rejuvenation with strategic injectables.
-                </p>
+              <Link href="/book" className="underline decoration-black/30 underline-offset-4 hover:decoration-black" data-book-now>
+                Book
               </Link>
             </div>
           </div>
         </section>
-
-        <TechBlogPromo
-          title="Quantum RF, Morpheus8 Burst & Solaria — Expert Guides"
-          subtitle="Read our blog articles on Quantum RF skin tightening, Morpheus8 Burst vs regular, and InMode Solaria CO₂. Serving Oswego, Naperville, Aurora, Plainfield & the Fox Valley."
-        />
       </main>
+
+      <QuantumRFStickyCta />
     </>
   );
 }
