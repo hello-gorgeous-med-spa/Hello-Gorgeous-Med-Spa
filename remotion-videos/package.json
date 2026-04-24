@@ -33,7 +33,11 @@
     "m8highlight:web": "remotion render src/index.tsx Morpheus8HighlightHorizontal out/morpheus8-highlight-web.mp4",
     "m8clinical:reel": "remotion render src/index.tsx Morpheus8ClinicalVertical out/morpheus8-clinical-reel.mp4",
     "m8clinical:feed": "remotion render src/index.tsx Morpheus8ClinicalSquare out/morpheus8-clinical-feed.mp4",
-    "m8clinical:all": "remotion render src/index.tsx Morpheus8ClinicalVertical out/morpheus8-clinical-reel.mp4 && remotion render src/index.tsx Morpheus8ClinicalSquare out/morpheus8-clinical-feed.mp4 && remotion render src/index.tsx Morpheus8ClinicalHorizontal out/morpheus8-clinical-landscape.mp4"
+    "m8clinical:all": "remotion render src/index.tsx Morpheus8ClinicalVertical out/morpheus8-clinical-reel.mp4 && remotion render src/index.tsx Morpheus8ClinicalSquare out/morpheus8-clinical-feed.mp4 && remotion render src/index.tsx Morpheus8ClinicalHorizontal out/morpheus8-clinical-landscape.mp4",
+    "quantum:reel": "remotion render src/index.tsx QuantumContourVertical out/quantum-contour-lift-reel.mp4",
+    "quantum:feed": "remotion render src/index.tsx QuantumContourSquare out/quantum-contour-lift-feed.mp4",
+    "quantum:landscape": "remotion render src/index.tsx QuantumContourHorizontal out/quantum-contour-lift-landscape.mp4",
+    "quantum:all": "remotion render src/index.tsx QuantumContourVertical out/quantum-contour-lift-reel.mp4 && remotion render src/index.tsx QuantumContourSquare out/quantum-contour-lift-feed.mp4 && remotion render src/index.tsx QuantumContourHorizontal out/quantum-contour-lift-landscape.mp4"
   },
   "dependencies": {
     "@remotion/bundler": "^4.0.0",

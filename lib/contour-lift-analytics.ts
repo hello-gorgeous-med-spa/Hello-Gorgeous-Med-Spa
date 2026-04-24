@@ -15,6 +15,8 @@ export const CONTOUR_LIFT_EVENTS = {
   videoSection: "contour_lift_video_section_view",
   videoEngage: "contour_lift_video_engagement",
   candidateCta: "contour_lift_candidate_cta_click",
+  /** Fires on successful clinical intake (no PII; procedure + boolean flags only). */
+  clinicalIntakeSubmit: "contour_lift_clinical_intake_submit",
 } as const;
 
 export function pushContourLiftEvent(

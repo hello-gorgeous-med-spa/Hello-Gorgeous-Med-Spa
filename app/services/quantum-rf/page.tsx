@@ -13,7 +13,8 @@ const PINK = "#E6007E";
 const YT_DEMO_1 = "loJOgWGCkK8";
 const YT_DEMO_2 = "VSif40VosRc";
 
-const QUANTUM_OG_IMAGE = "/images/quantum-rf/quantum-rf-technology-inmode-overview.png";
+/** Social + on-page “What is QuantumRF?” hero; replace file in public to refresh link previews (re-scrape after deploy). */
+const QUANTUM_OG_IMAGE = "/images/quantum-rf/og-quantum-rf-social-share.png";
 
 const _quantumBaseMeta = pageMetadata({
   title:
@@ -45,10 +46,10 @@ export const metadata: Metadata = {
     images: [
       {
         url: `${SITE.url}${QUANTUM_OG_IMAGE}`,
-        width: 1200,
-        height: 630,
+        width: 1024,
+        height: 739,
         alt:
-          "InMode QuantumRF: minimally invasive subdermal radiofrequency for soft tissue contraction and contouring",
+          "What is QuantumRF by InMode — minimally invasive soft tissue contraction, fractionated RF to depth, QuantumRF 10 and 25 for face and body",
       },
     ],
   },
@@ -305,7 +306,7 @@ function QuantumTechImageJsonLd() {
     "@context": "https://schema.org",
     "@type": "ImageObject",
     name: "What is QuantumRF — InMode technology summary",
-    contentUrl: `${SITE.url}/images/quantum-rf/quantum-rf-technology-inmode-overview.png`,
+    contentUrl: `${SITE.url}${QUANTUM_OG_IMAGE}`,
     description:
       "InMode QuantumRF: innovative minimally invasive technology indicated for soft tissue contraction; fractionated radiofrequency; subdermal bipolar RF; QuantumRF 10 for face and small body zones; QuantumRF 25 for abdomen, thighs, hips, and buttocks; multiple zones in one session when appropriate.",
     caption:

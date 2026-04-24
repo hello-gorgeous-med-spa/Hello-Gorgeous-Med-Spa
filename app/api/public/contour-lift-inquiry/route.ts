@@ -6,6 +6,7 @@ import {
   isResendBlockedAddressDomain,
 } from "@/lib/resend-config";
 import { getUTMFromRequest, recordLead } from "@/lib/leads";
+import { ensureClQuantumCaseForContourLead } from "@/lib/contour-clinical/ensure-quantum-case";
 
 
 function trim(s: unknown, n: number): string {
@@ -73,7 +74,7 @@ export async function POST(request: NextRequest) {
     /** Persist first so a Resend outage does not block thank-you or Supabase. */
     const supabase = createAdminSupabaseClient();
     if (supabase) {
-      await recordLead(supabase, {
+      const rec = await recordLead(supabase, {
         email,
         phone,
         full_name: fullName,
@@ -89,6 +90,17 @@ export async function POST(request: NextRequest) {
           procedure: "contour_lift",
         },
       });
+      if (rec.ok) {
+        const ensured = await ensureClQuantumCaseForContourLead(supabase, {
+          leadId: rec.leadId,
+          email,
+          fullName,
+          phone,
+        });
+        if ("error" in ensured) {
+          console.warn("[contour-lift-inquiry] cl_quantum_cases ensure:", ensured.error);
+        }
+      }
     }
 
     const apiKey = process.env.RESEND_API_KEY;

@@ -15,6 +15,7 @@ const MAIN_NAV: { href: string; label: string; icon: string }[] = [
   { href: '/admin/appointments', label: 'Appointments', icon: '📅' },
   { href: '/admin/clients', label: 'Clients', icon: '👥' },
   { href: '/admin/charting', label: 'Charting', icon: '📋' },
+  { href: '/admin/procedures/contour-lift', label: 'Contour / Quantum', icon: '⚡' },
   { href: '/admin/services', label: 'Services', icon: '✨' },
   { href: '/admin/memberships', label: 'Memberships', icon: '💎' },
   { href: '/admin/inventory', label: 'Inventory', icon: '📦' },

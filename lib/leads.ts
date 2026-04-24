@@ -65,38 +65,47 @@ function normalizeEmail(email: string): string | null {
   return e;
 }
 
+export type RecordLeadResult =
+  | { ok: true; leadId: string }
+  | { ok: false };
+
 /**
  * Record a lead into the unified `leads` table. Call from contact, subscribe, concerns, feature gates, etc.
- * Does not throw; logs and returns false on error.
+ * Does not throw; logs and returns { ok, leadId } for downstream linking (e.g. Contour clinical case).
  */
 export async function recordLead(
   supabase: SupabaseClient,
   input: RecordLeadInput
-): Promise<boolean> {
+): Promise<RecordLeadResult> {
   const email = normalizeEmail(input.email);
-  if (!email) return false;
+  if (!email) return { ok: false };
   try {
-    const { error } = await supabase.from('leads').insert({
-      email,
-      phone: (input.phone || '').trim() || null,
-      full_name: (input.full_name || '').trim() || null,
-      source: (input.source || 'website').trim().slice(0, 100),
-      lead_type: LEAD_TYPES.includes(input.lead_type as LeadType) ? input.lead_type : 'other',
-      session_id: input.session_id?.trim() || null,
-      utm_source: input.utm_source?.trim().slice(0, 255) || null,
-      utm_medium: input.utm_medium?.trim().slice(0, 255) || null,
-      utm_campaign: input.utm_campaign?.trim().slice(0, 255) || null,
-      referrer: input.referrer?.trim().slice(0, 1024) || null,
-      metadata: input.metadata && Object.keys(input.metadata).length > 0 ? input.metadata : null,
-    }).select('id');
+    const { data, error } = await supabase
+      .from("leads")
+      .insert({
+        email,
+        phone: (input.phone || "").trim() || null,
+        full_name: (input.full_name || "").trim() || null,
+        source: (input.source || "website").trim().slice(0, 100),
+        lead_type: LEAD_TYPES.includes(input.lead_type as LeadType) ? input.lead_type : "other",
+        session_id: input.session_id?.trim() || null,
+        utm_source: input.utm_source?.trim().slice(0, 255) || null,
+        utm_medium: input.utm_medium?.trim().slice(0, 255) || null,
+        utm_campaign: input.utm_campaign?.trim().slice(0, 255) || null,
+        referrer: input.referrer?.trim().slice(0, 1024) || null,
+        metadata: input.metadata && Object.keys(input.metadata).length > 0 ? input.metadata : null,
+      })
+      .select("id")
+      .single();
     if (error) {
-      console.error('[recordLead]', error);
-      return false;
+      console.error("[recordLead]", error);
+      return { ok: false };
     }
-    return true;
+    if (!data?.id) return { ok: false };
+    return { ok: true, leadId: data.id as string };
   } catch (e) {
-    console.error('[recordLead]', e);
-    return false;
+    console.error("[recordLead]", e);
+    return { ok: false };
   }
 }
 

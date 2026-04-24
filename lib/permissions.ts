@@ -279,6 +279,7 @@ export function canChangeToRole(
 export const PROTECTED_ROUTES: Record<string, Permission[]> = {
   '/admin': ['dashboard.view'],
   '/admin/clients': ['clients.view'],
+  '/admin/procedures': ['clients.view'],
   '/admin/clients/new': ['clients.create'],
   '/admin/appointments': ['appointments.view'],
   '/admin/calendar': ['appointments.view'],

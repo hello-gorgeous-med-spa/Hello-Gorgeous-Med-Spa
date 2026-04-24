@@ -22,6 +22,7 @@ import {
   Morpheus8ClinicalHighlight,
   Morpheus8HighlightFrames,
 } from "./compositions/Morpheus8ClinicalHighlight";
+import { QuantumContourLift, QUANTUM_CONTOUR_FRAMES } from "./compositions/QuantumContourLift";
 import { ServicePromo, ServicePromoProps } from "./templates/ServicePromo";
 
 const sharedProps = {
@@ -680,6 +681,35 @@ export const RemotionRoot: React.FC = () => {
       />
 
       {/* ========== MORPHEUS8 CLINICAL HIGHLIGHT (curated, web) ========== */}
+      {/* ========== CONTOUR LIFT / QUANTUM RF (social) ========== */}
+      <Composition
+        id="QuantumContourVertical"
+        component={QuantumContourLift}
+        durationInFrames={QUANTUM_CONTOUR_FRAMES}
+        fps={30}
+        width={1080}
+        height={1920}
+        defaultProps={{ format: "vertical" as const }}
+      />
+      <Composition
+        id="QuantumContourSquare"
+        component={QuantumContourLift}
+        durationInFrames={QUANTUM_CONTOUR_FRAMES}
+        fps={30}
+        width={1080}
+        height={1080}
+        defaultProps={{ format: "square" as const }}
+      />
+      <Composition
+        id="QuantumContourHorizontal"
+        component={QuantumContourLift}
+        durationInFrames={QUANTUM_CONTOUR_FRAMES}
+        fps={30}
+        width={1920}
+        height={1080}
+        defaultProps={{ format: "horizontal" as const }}
+      />
+
       <Composition
         id="Morpheus8HighlightVertical"
         component={Morpheus8ClinicalHighlight}
