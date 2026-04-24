@@ -13,9 +13,10 @@ const PINK = "#E6007E";
 const YT_DEMO_1 = "loJOgWGCkK8";
 const YT_DEMO_2 = "VSif40VosRc";
 
-/** Social + on-page “What is QuantumRF?” hero; replace file in public to refresh link previews (re-scrape after deploy). */
+/** On-page hero + JSON-LD; same art as `opengraph-image.png` in this folder. */
 const QUANTUM_OG_IMAGE = "/images/quantum-rf/og-quantum-rf-social-share.png";
 
+/** Link previews: `opengraph-image.png` + `twitter-image.png` in this folder (Next convention; overrides root layout hero). */
 const _quantumBaseMeta = pageMetadata({
   title:
     "Hello Gorgeous Contour Lift™ — Quantum RF | Minimally Invasive Contouring | Oswego, IL",
@@ -43,20 +44,10 @@ export const metadata: Metadata = {
     ..._quantumBaseMeta.openGraph,
     type: "website",
     siteName: SITE.name,
-    images: [
-      {
-        url: `${SITE.url}${QUANTUM_OG_IMAGE}`,
-        width: 1024,
-        height: 739,
-        alt:
-          "What is QuantumRF by InMode — minimally invasive soft tissue contraction, fractionated RF to depth, QuantumRF 10 and 25 for face and body",
-      },
-    ],
   },
   twitter: {
     ..._quantumBaseMeta.twitter,
     card: "summary_large_image",
-    images: [`${SITE.url}${QUANTUM_OG_IMAGE}`],
   },
 };
 

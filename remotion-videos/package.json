@@ -37,7 +37,13 @@
     "quantum:reel": "remotion render src/index.tsx QuantumContourVertical out/quantum-contour-lift-reel.mp4",
     "quantum:feed": "remotion render src/index.tsx QuantumContourSquare out/quantum-contour-lift-feed.mp4",
     "quantum:landscape": "remotion render src/index.tsx QuantumContourHorizontal out/quantum-contour-lift-landscape.mp4",
-    "quantum:all": "remotion render src/index.tsx QuantumContourVertical out/quantum-contour-lift-reel.mp4 && remotion render src/index.tsx QuantumContourSquare out/quantum-contour-lift-feed.mp4 && remotion render src/index.tsx QuantumContourHorizontal out/quantum-contour-lift-landscape.mp4"
+    "quantum:all": "remotion render src/index.tsx QuantumContourVertical out/quantum-contour-lift-reel.mp4 && remotion render src/index.tsx QuantumContourSquare out/quantum-contour-lift-feed.mp4 && remotion render src/index.tsx QuantumContourHorizontal out/quantum-contour-lift-landscape.mp4",
+    "contour-may4:reel": "remotion render src/index.tsx ContourModelMay4Vertical out/contour-lift-may4-model-reel.mp4",
+    "contour-may4:feed": "remotion render src/index.tsx ContourModelMay4Square out/contour-lift-may4-model-feed.mp4",
+    "contour-may4:thumb": "remotion still src/index.tsx ContourModelMay4Vertical out/contour-lift-may4-thumbnail.png --frame=750",
+    "contour-may4:all": "remotion render src/index.tsx ContourModelMay4Vertical out/contour-lift-may4-model-reel.mp4 && remotion render src/index.tsx ContourModelMay4Square out/contour-lift-may4-model-feed.mp4",
+    "reel-template:reel": "remotion render src/index.tsx HGReelTemplateVertical out/hg-reel-template-sample.mp4",
+    "reel-template:square": "remotion render src/index.tsx HGReelTemplateSquare out/hg-reel-template-sample-square.mp4"
   },
   "dependencies": {
     "@remotion/bundler": "^4.0.0",

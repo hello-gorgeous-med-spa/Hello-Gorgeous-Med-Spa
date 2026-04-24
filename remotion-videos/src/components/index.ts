@@ -1,9 +1,13 @@
 export { AnimatedCaptions } from "./AnimatedCaptions";
 export { BeforeAfter } from "./BeforeAfter";
+export { BrandFrame } from "./BrandFrame";
+export { CTA, DisclaimerBar } from "./CTA";
 export { CTABanner } from "./CTABanner";
 export { ExclusivityBanner } from "./ExclusivityBanner";
 export { ImageReveal } from "./ImageReveal";
 export { LowerThird } from "./LowerThird";
+export { Scene, KenBurnsBackground } from "./Scene";
+export { TextBlock, BrandSpan } from "./TextBlock";
 export { TransitionWipe } from "./TransitionWipe";
 export { TrifectaBadge } from "./TrifectaBadge";
 export { TrifectaCTA } from "./TrifectaCTA";

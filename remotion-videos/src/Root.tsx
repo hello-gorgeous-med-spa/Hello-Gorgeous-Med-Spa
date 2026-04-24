@@ -23,6 +23,8 @@ import {
   Morpheus8HighlightFrames,
 } from "./compositions/Morpheus8ClinicalHighlight";
 import { QuantumContourLift, QUANTUM_CONTOUR_FRAMES } from "./compositions/QuantumContourLift";
+import { ContourLiftModelLaunch, CONTOUR_MODEL_LAUNCH_FRAMES } from "./compositions/ContourLiftModelLaunch";
+import { HGReelTemplateSample, HG_REEL_TEMPLATE_FRAMES } from "./compositions/HGReelTemplateSample";
 import { ServicePromo, ServicePromoProps } from "./templates/ServicePromo";
 
 const sharedProps = {
@@ -708,6 +710,55 @@ export const RemotionRoot: React.FC = () => {
         width={1920}
         height={1080}
         defaultProps={{ format: "horizontal" as const }}
+      />
+
+      {/* May 4 clinical model — Contour Lift / Quantum RF (Reels) */}
+      <Composition
+        id="ContourModelMay4Vertical"
+        component={ContourLiftModelLaunch}
+        durationInFrames={CONTOUR_MODEL_LAUNCH_FRAMES}
+        fps={30}
+        width={1080}
+        height={1920}
+        defaultProps={{ format: "vertical" as const }}
+      />
+      <Composition
+        id="ContourModelMay4Square"
+        component={ContourLiftModelLaunch}
+        durationInFrames={CONTOUR_MODEL_LAUNCH_FRAMES}
+        fps={30}
+        width={1080}
+        height={1080}
+        defaultProps={{ format: "square" as const }}
+      />
+      <Composition
+        id="ContourModelMay4Horizontal"
+        component={ContourLiftModelLaunch}
+        durationInFrames={CONTOUR_MODEL_LAUNCH_FRAMES}
+        fps={30}
+        width={1920}
+        height={1080}
+        defaultProps={{ format: "horizontal" as const }}
+      />
+
+      {/* Starter template (Scene / TextBlock / CTA / BrandFrame) */}
+      <Composition
+        id="HGReelTemplateVertical"
+        component={HGReelTemplateSample}
+        durationInFrames={HG_REEL_TEMPLATE_FRAMES}
+        fps={30}
+        width={1080}
+        height={1920}
+        defaultProps={{ format: "vertical" as const }}
+      />
+      <Composition
+        id="HGReelTemplateSquare"
+        component={HGReelTemplateSample}
+        durationInFrames={HG_REEL_TEMPLATE_FRAMES}
+        fps={30}
+        width={1080}
+        height={1080}
+        defaultProps={{ format: "square" as const }}
       />
 
       <Composition
