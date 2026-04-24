@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Fraunces, Montserrat } from "next/font/google";
+import { altForVariant } from "@/lib/og/hg-contour-og-constants";
 import { pageMetadata, SITE } from "@/lib/seo";
 import { ModelExperienceApplyForm } from "./ModelExperienceApplyForm";
 import { ModelExperienceBeforeAfter } from "./ModelExperienceBeforeAfter";
@@ -30,8 +31,28 @@ const _meta = pageMetadata({
   path,
 });
 
+const MODEL_OG = new URL("/contour-lift/model-experience/opengraph-image", SITE.url).toString();
+
 export const metadata: Metadata = {
   ..._meta,
+  openGraph: {
+    ..._meta.openGraph,
+    type: "website",
+    siteName: SITE.name,
+    images: [
+      {
+        url: MODEL_OG,
+        width: 1200,
+        height: 630,
+        alt: altForVariant("contourModel"),
+      },
+    ],
+  },
+  twitter: {
+    ..._meta.twitter,
+    card: "summary_large_image",
+    images: [MODEL_OG],
+  },
   keywords: [
     "Contour Lift",
     "Quantum RF model",

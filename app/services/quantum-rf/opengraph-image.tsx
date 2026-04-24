@@ -5,6 +5,9 @@ import {
   HG_OG_SIZE,
 } from "@/lib/og/hg-contour-og-image";
 
+/** Node: OG generation reads `public/fonts` from disk; Edge would fail. */
+export const runtime = "nodejs";
+
 export const alt = altForVariant("quantumService");
 export const size = HG_OG_SIZE;
 export const contentType = HG_OG_CONTENT_TYPE;

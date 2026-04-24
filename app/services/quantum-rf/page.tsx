@@ -5,6 +5,7 @@ import { TechBlogPromo } from "@/components/TechBlogPromo";
 import { ContourBookLink } from "@/components/marketing/ContourBookLink";
 import { QuantumRFVideoEngagement } from "@/components/marketing/QuantumRFVideoEngagement";
 import { CHERRY_PAY_URL } from "@/lib/flows";
+import { altForVariant } from "@/lib/og/hg-contour-og-constants";
 import { pageMetadata, SITE, siteJsonLd } from "@/lib/seo";
 import { QuantumRFResultsSlideshow, type QuantumSlide } from "./QuantumRFResultsSlideshow";
 import { QuantumRFStickyCta } from "./QuantumRFStickyCta";
@@ -16,7 +17,9 @@ const YT_DEMO_2 = "VSif40VosRc";
 /** On-page hero + JSON-LD; same art as `opengraph-image.png` in this folder. */
 const QUANTUM_OG_IMAGE = "/images/quantum-rf/og-quantum-rf-social-share.png";
 
-/** Link previews: `opengraph-image.png` + `twitter-image.png` in this folder (Next convention; overrides root layout hero). */
+const QUANTUM_OG_ROUTE = new URL("/services/quantum-rf/opengraph-image", SITE.url).toString();
+
+/** Link previews: dynamic `opengraph-image` route + explicit metadata URL for social crawlers. */
 const _quantumBaseMeta = pageMetadata({
   title:
     "Hello Gorgeous Contour Lift™ — Quantum RF | Minimally Invasive Contouring | Oswego, IL",
@@ -44,10 +47,19 @@ export const metadata: Metadata = {
     ..._quantumBaseMeta.openGraph,
     type: "website",
     siteName: SITE.name,
+    images: [
+      {
+        url: QUANTUM_OG_ROUTE,
+        width: 1200,
+        height: 630,
+        alt: altForVariant("quantumService"),
+      },
+    ],
   },
   twitter: {
     ..._quantumBaseMeta.twitter,
     card: "summary_large_image",
+    images: [QUANTUM_OG_ROUTE],
   },
 };
 

@@ -1,62 +1,33 @@
+import { readFile } from "node:fs/promises";
+import { join } from "node:path";
 import { ImageResponse } from "next/og";
+import {
+  HG_OG_CONTENT_TYPE,
+  HG_OG_SIZE,
+  copyForVariant,
+  type HgContourOgVariant,
+} from "./hg-contour-og-constants";
 
-export const HG_OG_SIZE = { width: 1200, height: 630 } as const;
-export const HG_OG_CONTENT_TYPE = "image/png";
+export { HG_OG_SIZE, HG_OG_CONTENT_TYPE, altForVariant, type HgContourOgVariant } from "./hg-contour-og-constants";
+
+const inter700Path = join(process.cwd(), "public", "fonts", "Inter-700-latin.ttf");
+
+async function interFonts() {
+  const data = await readFile(inter700Path);
+  const name = "Inter";
+  const w = [400, 500, 600, 700, 800] as const;
+  return w.map((weight) => ({
+    name,
+    data,
+    style: "normal" as const,
+    weight,
+  }));
+}
 
 const BRAND = "#E6007E";
 
-const interTtf: Record<400 | 500 | 600 | 700 | 800, string> = {
-  400: "https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuLyfMZg.ttf",
-  500: "https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuI6fMZg.ttf",
-  600: "https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuGKYMZg.ttf",
-  700: "https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuFuYMZg.ttf",
-  800: "https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuDyYMZg.ttf",
-};
-
-async function interFonts() {
-  const [w4, w5, w6, w7, w8] = await Promise.all([
-    fetch(interTtf[400]).then((r) => r.arrayBuffer()),
-    fetch(interTtf[500]).then((r) => r.arrayBuffer()),
-    fetch(interTtf[600]).then((r) => r.arrayBuffer()),
-    fetch(interTtf[700]).then((r) => r.arrayBuffer()),
-    fetch(interTtf[800]).then((r) => r.arrayBuffer()),
-  ]);
-  const name = "Inter";
-  return [
-    { name, data: w4, style: "normal" as const, weight: 400 as const },
-    { name, data: w5, style: "normal" as const, weight: 500 as const },
-    { name, data: w6, style: "normal" as const, weight: 600 as const },
-    { name, data: w7, style: "normal" as const, weight: 700 as const },
-    { name, data: w8, style: "normal" as const, weight: 800 as const },
-  ];
-}
-
-export type HgContourOgVariant = "quantumService" | "contourModel";
-
-const copy: Record<
-  HgContourOgVariant,
-  { kicker: string; headline: string; highlight: string; sub: string; foot: string; alt: string }
-> = {
-  quantumService: {
-    kicker: "Hello Gorgeous",
-    headline: "Contour Lift™",
-    highlight: "Powered by InMode Quantum RF",
-    sub: "Minimally invasive · loose skin & contouring · Oswego, IL",
-    foot: "hellogorgeousmedspa.com/services/quantum-rf",
-    alt: "Hello Gorgeous Contour Lift powered by InMode Quantum RF, Oswego IL med spa",
-  },
-  contourModel: {
-    kicker: "Hello Gorgeous",
-    headline: "Contour Lift™ clinical model",
-    highlight: "May 4 · 3 spots · Quantum RF",
-    sub: "Reduced model investment · message MODEL to apply · Oswego, IL",
-    foot: "hellogorgeousmedspa.com/contour-lift/model-experience",
-    alt: "Hello Gorgeous Contour Lift clinical model experience May 4 Quantum RF Oswego",
-  },
-};
-
 function OgInner({ variant, font: fontName }: { variant: HgContourOgVariant; font: string }) {
-  const c = copy[variant];
+  const c = copyForVariant(variant);
   return (
     <div
       style={{
@@ -150,19 +121,12 @@ function OgInner({ variant, font: fontName }: { variant: HgContourOgVariant; fon
   );
 }
 
-/**
- * 1200×630 social share image: high-contrast (white on dark) so link previews are readable, not “black on black.”
- */
+/** 1200×630 — uses Inter from `public/fonts` only (no network in prod). */
 export async function hgContourSocialImageResponse(variant: HgContourOgVariant) {
   const font = "Inter";
-
   return new ImageResponse(<OgInner variant={variant} font={font} />, {
     width: HG_OG_SIZE.width,
     height: HG_OG_SIZE.height,
     fonts: await interFonts(),
   });
-}
-
-export function altForVariant(variant: HgContourOgVariant): string {
-  return copy[variant].alt;
 }
