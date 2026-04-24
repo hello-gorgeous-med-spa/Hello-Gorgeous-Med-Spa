@@ -119,16 +119,29 @@ export async function POST(request: NextRequest) {
           "| fromDomainHint:",
           fromAddress.replace(/.*<([^>]+)>.*/, "$1")
         );
-        return NextResponse.json(
-          { success: true, emailSent: false, warning: "email_delivery_failed" },
-          { status: 200 }
-        );
+        const payload: Record<string, string | number | boolean> = {
+          success: true,
+          emailSent: false,
+          warning: "email_delivery_failed",
+          resendHttpStatus: res.status,
+        };
+        if (process.env.EXPOSE_RESEND_ERROR_IN_RESPONSE === "1") {
+          payload.resendMessage = errMsg;
+        }
+        return NextResponse.json(payload, { status: 200 });
       }
       emailSent = true;
     } else {
       console.warn("[contour-lift-inquiry] RESEND_API_KEY not set; email not sent.");
     }
 
+    if (!apiKey && process.env.EXPOSE_RESEND_ERROR_IN_RESPONSE === "1") {
+      return NextResponse.json({
+        success: true,
+        emailSent: false,
+        resendKeyMissing: true,
+      });
+    }
     return NextResponse.json({ success: true, emailSent });
   } catch (e) {
     console.error("contour-lift-inquiry", e);

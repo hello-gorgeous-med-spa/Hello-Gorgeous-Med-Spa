@@ -35,7 +35,11 @@ curl -sS -X POST "https://www.hellogorgeousmedspa.com/api/public/contour-lift-in
   -d '{"name":"Resend Test","email":"you+test@yourowndomain.com","phone":"6305550100","area_of_concern":"verify","contact_method":"text"}'
 ```
 
-Expect: `{"success":true,"emailSent":true}` and staff copy in the inbox. If `emailSent` is false, read **Vercel → your deployment → Logs** for the line `[contour-lift-inquiry] Resend failed:` (includes Resend’s message, `to`, and from-address hint—no secrets).
+Expect: `{"success":true,"emailSent":true}` and staff copy in the inbox.
+
+If `emailSent` is false, the JSON now includes **`resendHttpStatus`** (e.g. 401 / 403 / 422) so you can see the class of error without the dashboard. For the **full Resend message**, set temporarily in Vercel **Production**: `EXPOSE_RESEND_ERROR_IN_RESPONSE=1`, redeploy, `curl` again, then read **`resendMessage`** in the response. **Remove the env** after you fix the issue (do not leave it on in production long-term).
+
+Also read **Vercel → your deployment → Logs** for: `[contour-lift-inquiry] Resend failed:`
 
 ## Supabase backup
 
