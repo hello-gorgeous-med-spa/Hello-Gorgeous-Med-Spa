@@ -37,7 +37,7 @@ curl -sS -X POST "https://www.hellogorgeousmedspa.com/api/public/contour-lift-in
 
 Expect: `{"success":true,"emailSent":true}` and staff copy in the inbox.
 
-If `emailSent` is false, the JSON now includes **`resendHttpStatus`** (e.g. 401 / 403 / 422) so you can see the class of error without the dashboard. For the **full Resend message**, set temporarily in Vercel **Production**: `EXPOSE_RESEND_ERROR_IN_RESPONSE=1`, redeploy, `curl` again, then read **`resendMessage`** in the response. **Remove the env** after you fix the issue (do not leave it on in production long-term).
+If `emailSent` is false, the JSON includes **`resendHttpStatus`**, **`resendMessage`** (Resend’s validation text), and sometimes **`resendKeyMissing: true`** if the API key is not set in that environment. Use a single `curl` to see the exact mismatch (no Vercel log hunt).
 
 Also read **Vercel → your deployment → Logs** for: `[contour-lift-inquiry] Resend failed:`
 

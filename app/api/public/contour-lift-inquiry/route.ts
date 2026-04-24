@@ -1,6 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createAdminSupabaseClient } from "@/lib/hgos/supabase";
-import { getResendFromAddress, getContactFormToEmail } from "@/lib/resend-config";
+import {
+  getResendFromAddress,
+  getContactFormToEmail,
+  isResendBlockedAddressDomain,
+} from "@/lib/resend-config";
 import { getUTMFromRequest, recordLead } from "@/lib/leads";
 
 
@@ -102,7 +106,7 @@ export async function POST(request: NextRequest) {
         body: JSON.stringify({
           from: fromAddress,
           to: [toEmail],
-          reply_to: email,
+          ...(isResendBlockedAddressDomain(email) ? {} : { reply_to: email }),
           subject: `Contour Lift inquiry — ${fullName}`,
           text: textBody,
         }),
@@ -119,27 +123,29 @@ export async function POST(request: NextRequest) {
           "| fromDomainHint:",
           fromAddress.replace(/.*<([^>]+)>.*/, "$1")
         );
-        const payload: Record<string, string | number | boolean> = {
-          success: true,
-          emailSent: false,
-          warning: "email_delivery_failed",
-          resendHttpStatus: res.status,
-        };
-        if (process.env.EXPOSE_RESEND_ERROR_IN_RESPONSE === "1") {
-          payload.resendMessage = errMsg;
-        }
-        return NextResponse.json(payload, { status: 200 });
+        /** Resend’s message is safe to return (e.g. invalid `from` / `to`) — needed to debug Vercel env without logs. */
+        return NextResponse.json(
+          {
+            success: true,
+            emailSent: false,
+            warning: "email_delivery_failed",
+            resendHttpStatus: res.status,
+            resendMessage: errMsg,
+          },
+          { status: 200 }
+        );
       }
       emailSent = true;
     } else {
       console.warn("[contour-lift-inquiry] RESEND_API_KEY not set; email not sent.");
     }
 
-    if (!apiKey && process.env.EXPOSE_RESEND_ERROR_IN_RESPONSE === "1") {
+    if (!apiKey) {
       return NextResponse.json({
         success: true,
         emailSent: false,
         resendKeyMissing: true,
+        resendMessage: "RESEND_API_KEY is not set in this environment.",
       });
     }
     return NextResponse.json({ success: true, emailSent });
