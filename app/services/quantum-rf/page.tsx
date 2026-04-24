@@ -7,6 +7,7 @@ import { QuantumRFVideoEngagement } from "@/components/marketing/QuantumRFVideoE
 import { CHERRY_PAY_URL } from "@/lib/flows";
 import { altForVariant } from "@/lib/og/hg-contour-og-constants";
 import { pageMetadata, SITE, siteJsonLd } from "@/lib/seo";
+import { QuantumRFAssistLoop } from "./QuantumRFAssistLoop";
 import { QuantumRFResultsSlideshow, type QuantumSlide } from "./QuantumRFResultsSlideshow";
 import { QuantumRFStickyCta } from "./QuantumRFStickyCta";
 
@@ -1032,6 +1033,7 @@ export default function QuantumRFPage() {
       </main>
 
       <QuantumRFStickyCta />
+      <QuantumRFAssistLoop />
     </>
   );
 }
