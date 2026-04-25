@@ -148,3 +148,7 @@ vite.config.ts.timestamp-*
 # Large video files (use Supabase storage instead)
 public/videos/providers/**/*.mov
 public/videos/providers/**/*.mp4
+
+# Internal operator SOP (keep locally; not for the public site or public repo)
+docs/manuals/hub-digital-consent-owners-manual.html
+docs/manuals/hub-digital-consent-owners-manual.pdf
