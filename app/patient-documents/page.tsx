@@ -1,8 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { pageMetadata } from "@/lib/seo";
+import { CONSENT_IFRAME_BY_SLUG } from "@/lib/consent-iframe-by-slug";
 import { LUXORA_DOC_URLS } from "@/lib/luxora-doc-urls";
 import ProcedurePrePostQrSection from "@/components/patient/ProcedurePrePostQrSection";
+
+const HUB_INTAKE = "https://hub.hellogorgeousmedspa.com/intake";
 
 export const metadata: Metadata = pageMetadata({
   title: "Patient Documents | Pre, Post & Consent | Hello Gorgeous Med Spa",
@@ -69,10 +72,11 @@ export default function PatientDocumentsPage() {
           <p className="mt-2 text-sm text-black/70">
             Verbatim source files in <code className="rounded bg-black/5 px-1">/docs/luxora/</code>. Chart-ready
             digital intake with the same consent document:{" "}
-            <a className="font-semibold text-[#E6007E] hover:underline" href="https://hub.hellogorgeousmedspa.com/intake">
+            <a className="font-semibold text-[#E6007E] hover:underline" href={HUB_INTAKE}>
               hub.hellogorgeousmedspa.com/intake
-            </a>
-            .
+            </a>{" "}
+            (default; optional <code className="rounded bg-black/5 px-1">?form=…</code> for other devices—see
+            Solaria &amp; Morpheus8 below).
           </p>
           <ul className="mt-4 space-y-2 text-sm">
             <li>
@@ -113,6 +117,43 @@ export default function PatientDocumentsPage() {
                 rel="noopener noreferrer"
               >
                 InService Instructions — InMode (PDF, Aug 2025)
+              </a>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section className="border-t border-black/10 bg-white">
+        <div className="mx-auto max-w-3xl px-4 py-12">
+          <h2 className="text-xl font-bold">Solaria CO₂ &amp; Morpheus8 — informed consent (HTML)</h2>
+          <p className="mt-2 text-sm text-black/70">
+            Verbatim files in <code className="rounded bg-black/5 px-1">/docs/solaria/</code> and{" "}
+            <code className="rounded bg-black/5 px-1">/docs/morpheus8/</code>. Same hub intake flow as Luxora:{" "}
+            <a className="font-semibold text-[#E6007E] hover:underline" href={HUB_INTAKE}>
+              {HUB_INTAKE.replace("https://", "")}
+            </a>{" "}
+            with <code className="rounded bg-black/5 px-1">?form=solaria-co2-consent</code> or{" "}
+            <code className="rounded bg-black/5 px-1">?form=morpheus8-consent</code>.
+          </p>
+          <ul className="mt-4 space-y-2 text-sm">
+            <li>
+              <a
+                className="font-medium text-[#E6007E] hover:underline"
+                href={CONSENT_IFRAME_BY_SLUG["solaria-co2-consent"]}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Solaria CO₂ — informed consent (HTML)
+              </a>
+            </li>
+            <li>
+              <a
+                className="font-medium text-[#E6007E] hover:underline"
+                href={CONSENT_IFRAME_BY_SLUG["morpheus8-consent"]}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Morpheus8 — informed consent (HTML)
               </a>
             </li>
           </ul>

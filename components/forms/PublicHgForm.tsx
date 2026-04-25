@@ -1,6 +1,10 @@
 "use client";
 
 import { useEffect, useState, type ReactNode } from "react";
+import {
+  getConsentIframeSrc,
+  hasVerbatimConsentIframe,
+} from "@/lib/consent-iframe-by-slug";
 import { isLuxoraConsentSlug, LUXORA_DOC_URLS } from "@/lib/luxora-doc-urls";
 
 type Field = {
@@ -28,7 +32,10 @@ export function PublicHgForm({ formSlug, variant = "default", aboveFold, belowTi
   const [err, setErr] = useState<string | null>(null);
   const [done, setDone] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
-  const [luxoraReadAttested, setLuxoraReadAttested] = useState(false);
+  const [consentReadAttested, setConsentReadAttested] = useState(false);
+
+  const consentIframeSrc = getConsentIframeSrc(formSlug);
+  const showVerbatimConsentIframe = Boolean(consentIframeSrc && hasVerbatimConsentIframe(formSlug) && !done);
 
   useEffect(() => {
     if (!formSlug) return;
@@ -57,7 +64,7 @@ export function PublicHgForm({ formSlug, variant = "default", aboveFold, belowTi
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
     setErr(null);
-    if (isLuxoraConsentSlug(formSlug) && !luxoraReadAttested) {
+    if (hasVerbatimConsentIframe(formSlug) && !consentReadAttested) {
       setErr("Please confirm you read the full consent document above.");
       return;
     }
@@ -68,9 +75,13 @@ export function PublicHgForm({ formSlug, variant = "default", aboveFold, belowTi
       if (f.type === "checkbox") responses[f.id] = Boolean(v);
       else responses[f.id] = v ?? "";
     }
-    if (isLuxoraConsentSlug(formSlug)) {
-      responses.luxora_consent_iframe_url = LUXORA_DOC_URLS.consentHtml;
-      responses.read_full_luxora_consent_attested = true;
+    if (hasVerbatimConsentIframe(formSlug) && consentIframeSrc) {
+      responses.consent_iframe_url = consentIframeSrc;
+      responses.read_full_consent_attested = true;
+      if (isLuxoraConsentSlug(formSlug)) {
+        responses.luxora_consent_iframe_url = LUXORA_DOC_URLS.consentHtml;
+        responses.read_full_luxora_consent_attested = true;
+      }
     }
     try {
       const res = await fetch("/api/public/forms/submit", {
@@ -89,7 +100,7 @@ export function PublicHgForm({ formSlug, variant = "default", aboveFold, belowTi
       setValues({});
       setSignerName("");
       setClientPhone("");
-      setLuxoraReadAttested(false);
+      setConsentReadAttested(false);
     } catch (e: unknown) {
       setErr(e instanceof Error ? e.message : "Submit failed");
     } finally {
@@ -131,12 +142,10 @@ export function PublicHgForm({ formSlug, variant = "default", aboveFold, belowTi
       ? "w-full border border-white/20 bg-[#0E0E0E] text-white rounded-lg px-3 py-2 text-sm"
       : "w-full border border-[#ddd] rounded-lg px-3 py-2 text-sm";
 
-  const showLuxoraIframe = isLuxoraConsentSlug(formSlug) && !done;
-
   return (
     <div className={wrapClass}>
       {aboveFold}
-      {showLuxoraIframe && (
+      {showVerbatimConsentIframe && consentIframeSrc && (
         <div className="max-w-4xl mx-auto mb-8 w-full px-0">
           <p
             className={
@@ -149,8 +158,8 @@ export function PublicHgForm({ formSlug, variant = "default", aboveFold, belowTi
             details below.
           </p>
           <iframe
-            title="Luxora Informed Consent — verbatim document"
-            src={LUXORA_DOC_URLS.consentHtml}
+            title={title ? `${title} — verbatim document` : "Informed consent — verbatim document"}
+            src={consentIframeSrc}
             className="w-full h-[min(80vh,920px)] rounded-lg border-2 border-[#D4537E]/50 bg-white shadow-lg"
           />
         </div>
@@ -175,7 +184,7 @@ export function PublicHgForm({ formSlug, variant = "default", aboveFold, belowTi
           </p>
         ) : (
           <form onSubmit={onSubmit} className="space-y-5">
-            {fields.length === 0 && !showLuxoraIframe && (
+            {fields.length === 0 && !showVerbatimConsentIframe && (
               <p
                 className={
                   variant === "intake" ? "text-sm text-white/60" : "text-sm text-amber-800 bg-amber-50 border border-amber-200 rounded-lg p-3"
@@ -186,18 +195,18 @@ export function PublicHgForm({ formSlug, variant = "default", aboveFold, belowTi
               </p>
             )}
 
-            {showLuxoraIframe && (
+            {showVerbatimConsentIframe && (
               <label className={`flex items-start gap-3 text-sm ${labelColor}`}>
                 <input
                   type="checkbox"
                   className="mt-1 h-4 w-4 shrink-0"
                   required
-                  checked={luxoraReadAttested}
-                  onChange={(e) => setLuxoraReadAttested(e.target.checked)}
+                  checked={consentReadAttested}
+                  onChange={(e) => setConsentReadAttested(e.target.checked)}
                 />
                 <span>
-                  I have read the entire Luxora informed consent document above, including risks,
-                  contraindications, and attestation, and I had the opportunity to ask questions. *
+                  I have read the entire informed consent document above, including risks, contraindications, and
+                  attestation, and I had the opportunity to ask questions. *
                 </span>
               </label>
             )}

@@ -48,7 +48,9 @@ export default function IntakeSubmissionsPage() {
       <h1 className="text-2xl font-bold">Intake &amp; consent submissions</h1>
       <p className="text-sm text-black/60 mt-1">
         Live feed (newest first). Patched from public forms API — same rows patients submit from{" "}
-        <code className="text-xs bg-black/5 px-1">hub.hellogorgeousmedspa.com/intake</code>
+        <code className="text-xs bg-black/5 px-1">hub.hellogorgeousmedspa.com/intake</code>{" "}
+        (optional <code className="text-xs bg-black/5 px-1">?form=solaria-co2-consent</code> or{" "}
+        <code className="text-xs bg-black/5 px-1">?form=morpheus8-consent</code> for those devices).
       </p>
 
       {loading && <p className="text-sm text-black/50 mt-6">Loading…</p>}
