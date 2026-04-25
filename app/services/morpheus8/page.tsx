@@ -397,8 +397,8 @@ export default function Morpheus8Page() {
           </div>
         </section>
 
-        {/* Our Technology - Burst & Quantum */}
-        <section className="py-16 md:py-20 bg-black text-white">
+        {/* Our Technology - Burst, Deep (consent alignment) & Quantum microneedle probes */}
+        <section id="morpheus8-technology" className="py-16 md:py-20 bg-black text-white">
           <div className="max-w-6xl mx-auto px-4">
             <div className="text-center mb-12">
               <h2 className="text-3xl md:text-4xl font-bold mb-4">
@@ -425,7 +425,7 @@ export default function Morpheus8Page() {
 
             <div className="grid md:grid-cols-2 gap-8">
               {/* Burst Technology */}
-              <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-white/10">
+              <div id="morpheus8-burst" className="scroll-mt-24 bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-white/10">
                 <div className="text-4xl mb-4">⚡</div>
                 <h3 className="text-2xl font-bold text-pink-400 mb-4">Morpheus8 Burst</h3>
                 <p className="text-white/80 mb-4">
@@ -493,6 +493,19 @@ export default function Morpheus8Page() {
                   The right probe ensures optimal results for your specific goals.
                 </p>
               </div>
+            </div>
+
+            <div
+              id="morpheus8-deep"
+              className="mt-10 scroll-mt-24 rounded-2xl border border-white/20 bg-white/5 p-6 md:p-8"
+            >
+              <h3 className="text-xl font-bold text-pink-400 md:text-2xl">Morpheus8 Deep</h3>
+              <p className="mt-3 text-sm leading-relaxed text-white/80 md:text-base">
+                When your treatment plan calls for it, <strong>Deep</strong> uses a different tip configuration
+                (commonly 12 pins) to target <strong>deeper subdermal planes</strong> for laxity, jawline, and
+                body contouring—complementing Burst’s multi-depth pulse where appropriate. Your provider will select
+                Burst and/or Deep based on area, goals, and skin assessment.
+              </p>
             </div>
           </div>
         </section>

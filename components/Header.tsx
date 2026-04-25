@@ -8,36 +8,54 @@ import { CTA } from "./CTA";
 import { BestOfOswegoBadge } from "./BestOfOswegoBadge";
 import { SITE } from "@/lib/seo";
 import { BOOKING_URL, CARECREDIT_URL, CHERRY_PAY_URL, VIP_MODEL_SQUARE_URL } from "@/lib/flows";
+import { isProcedureRoute, isServiceCatalogRoute } from "@/lib/proceduresNav";
 
 // Navigation structure with dropdowns
 const navigation = {
-  services: {
+  procedures: {
     label: "Procedures",
-    href: "/services",
-    /** Shown first in the mega menu — hierarchy without removing other links */
-    procedurePriority: [
-      {
-        label: "Hello Gorgeous Contour Lift™ (Quantum RF)",
-        shortLabel: "Contour Lift",
-        href: "/services/quantum-rf",
-        icon: "👑",
-        sub: "Our flagship subdermal contouring",
-      },
-      {
-        label: "Morpheus8 RF",
-        shortLabel: "Morpheus8",
-        href: "/services/morpheus8",
-        icon: "⚡",
-        sub: "RF microneedling — surface to deep",
-      },
+    href: "/procedures",
+    /** Primary device procedures (not general spa services) */
+    priority: [
       {
         label: "Solaria CO₂ Laser",
-        shortLabel: "Solaria CO₂",
+        shortLabel: "Solaria",
         href: "/services/solaria-co2",
         icon: "✨",
-        sub: "Fractional resurfacing",
+        sub: "Fractional CO₂ resurfacing",
+      },
+      {
+        label: "Morpheus8 Burst",
+        shortLabel: "M8 Burst",
+        href: "/morpheus8-burst-oswego-il",
+        icon: "⚡",
+        sub: "24-pin · multi-depth RF",
+      },
+      {
+        label: "Morpheus8 Deep",
+        shortLabel: "M8 Deep",
+        href: "/services/morpheus8#morpheus8-deep",
+        icon: "🎯",
+        sub: "12-pin · deeper subdermal focus",
+      },
+      {
+        label: "QuantumRF 10, 15 & 25",
+        shortLabel: "Quantum 10/15/25",
+        href: "/services/quantum-rf#quantum-handpieces",
+        icon: "👑",
+        sub: "Subdermal RF — handpiece guide",
       },
     ],
+    documents: {
+      label: "Pre / post & consent",
+      sub: "Guides, PDFs & forms",
+      href: "/patient-documents",
+      icon: "📋",
+    },
+  },
+  services: {
+    label: "Services",
+    href: "/services",
     columns: [
       {
         title: "Injectables",
@@ -54,9 +72,7 @@ const navigation = {
       {
         title: "Skin & Face",
         links: [
-          { label: "Morpheus8 RF", href: "/services/morpheus8", icon: "⚡", badge: "NEW" },
-          { label: "Quantum RF", href: "/services/quantum-rf", icon: "🎯", badge: "NEW" },
-          { label: "Solaria CO₂ Laser", href: "/stretch-mark-treatment-oswego-il", icon: "✨" },
+          { label: "Stretch marks (Solaria & options)", href: "/stretch-mark-treatment-oswego-il", icon: "✨" },
           { label: "Solaria Packages", href: "/solaria-packages", icon: "✨", badge: "PACKAGES" },
           { label: "HydraFacial", href: "/services/hydra-facial", icon: "💧" },
           { label: "IPL Photofacial", href: "/services/ipl-photofacial", icon: "💡" },
@@ -94,11 +110,11 @@ const navigation = {
       },
     ],
     featured: {
-      title: "The Hello Gorgeous Contour Lift™",
+      title: "HydraFacial & clinical skin",
       description:
-        "Our signature minimally invasive procedure — powered by InMode Quantum RF. Improve loose skin and contour where surface treatments stop.",
-      cta: { label: "Explore Contour Lift", href: "/services/quantum-rf" },
-      image: "👑",
+        "Deep cleanse, extract, and hydrate — plus photofacials, peels, and more. Full device procedures (Solaria, Morpheus8, Quantum) live under Procedures.",
+      cta: { label: "Skin & face services", href: "/services/hydra-facial" },
+      image: "💧",
     },
   },
   about: {
@@ -213,6 +229,65 @@ function cx(...classes: Array<string | undefined | null | false>) {
   return classes.filter(Boolean).join(" ");
 }
 
+// Device procedures: Solaria, M8, Quantum + patient documents
+function ProceduresDropdown({ isOpen, onClose, onMouseEnter }: { isOpen: boolean; onClose: () => void; onMouseEnter: () => void }) {
+  const data = navigation.procedures;
+  if (!isOpen) return null;
+
+  return (
+    <div
+      className="fixed top-16 left-0 right-0 bg-white shadow-2xl border-t border-black z-50 overflow-x-hidden"
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onClose}
+    >
+      <div className="max-w-7xl mx-auto px-4 md:px-6 py-6 md:py-8">
+        <div className="mb-6">
+          <p className="text-[0.65rem] font-bold uppercase tracking-[0.3em] text-[#E6007E] mb-3">Device procedures</p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+            {data.priority.map((p) => (
+              <Link
+                key={p.href}
+                href={p.href}
+                onClick={onClose}
+                className="group flex items-start gap-3 rounded-xl border-2 border-black p-4 transition hover:border-[#E6007E] hover:shadow-md"
+              >
+                <span className="text-2xl" aria-hidden>
+                  {p.icon}
+                </span>
+                <div className="min-w-0">
+                  <p className="text-sm font-bold text-black group-hover:text-[#E6007E]">
+                    {p.shortLabel ?? p.label}
+                  </p>
+                  <p className="text-xs text-black/60 mt-0.5 line-clamp-2">{p.sub}</p>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+
+        <div className="mb-6 md:mb-8 rounded-2xl border-2 border-[#E6007E]/30 bg-rose-50/80 p-4 md:p-5">
+          <Link
+            href={data.documents.href}
+            onClick={onClose}
+            className="group flex items-start gap-3 md:items-center"
+          >
+            <span className="text-2xl" aria-hidden>
+              {data.documents.icon}
+            </span>
+            <div>
+              <p className="text-sm font-bold text-black group-hover:text-[#E6007E]">{data.documents.label}</p>
+              <p className="text-xs text-black/60 mt-0.5">{data.documents.sub}</p>
+            </div>
+            <span className="ml-auto text-[#E6007E] opacity-0 transition group-hover:opacity-100" aria-hidden>
+              →
+            </span>
+          </Link>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 // Dropdown component for mega menus
 function ServicesDropdown({ isOpen, onClose, onMouseEnter }: { isOpen: boolean; onClose: () => void; onMouseEnter: () => void }) {
   const data = navigation.services;
@@ -226,34 +301,10 @@ function ServicesDropdown({ isOpen, onClose, onMouseEnter }: { isOpen: boolean; 
       onMouseLeave={onClose}
     >
       <div className="max-w-7xl mx-auto px-4 md:px-6 py-6 md:py-8">
-        {"procedurePriority" in data && (data as typeof navigation.services).procedurePriority && (
-          <div className="mb-6 md:mb-8">
-            <p className="text-[0.65rem] font-bold uppercase tracking-[0.3em] text-[#E6007E] mb-3">Priority procedures</p>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-              {(data as typeof navigation.services).procedurePriority!.map((p) => (
-                <Link
-                  key={p.href}
-                  href={p.href}
-                  onClick={onClose}
-                  className="group flex items-start gap-3 rounded-xl border-2 border-black p-4 transition hover:border-[#E6007E] hover:shadow-md"
-                >
-                  <span className="text-2xl" aria-hidden>
-                    {p.icon}
-                  </span>
-                  <div className="min-w-0">
-                    <p className="text-sm font-bold text-black group-hover:text-[#E6007E]">
-                      {"shortLabel" in p && p.shortLabel ? p.shortLabel : p.label}
-                    </p>
-                    <p className="text-xs text-black/60 mt-0.5 line-clamp-2">
-                      {"sub" in p && p.sub ? p.sub : p.label}
-                    </p>
-                  </div>
-                </Link>
-              ))}
-            </div>
-            <p className="mt-3 text-xs text-black/45">All procedures — browse by category below.</p>
-          </div>
-        )}
+        <p className="mb-4 text-xs text-black/50">
+          Med spa services — injectables, facials, body, and wellness. <strong>Device procedures</strong> (Solaria, M8, Quantum) are
+          under <strong>Procedures</strong>.
+        </p>
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-8">
           {/* Service columns */}
           {data.columns.map((column) => (
@@ -313,7 +364,7 @@ function ServicesDropdown({ isOpen, onClose, onMouseEnter }: { isOpen: boolean; 
             onClick={onClose}
             className="text-sm font-medium text-black hover:text-[#FF2D8E] flex items-center gap-2"
           >
-            View all procedures
+            View all services
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
             </svg>
@@ -460,7 +511,39 @@ export function Header() {
 
           {/* Desktop Navigation - single row, aligned; dropdowns and Book Now visible */}
           <nav className="hidden lg:flex items-center justify-center gap-x-1 overflow-visible">
-            {/* Services Dropdown */}
+            {/* Procedures — devices & signature clinical treatments */}
+            <div
+              className="relative flex items-center"
+              onMouseEnter={() => handleMouseEnter("procedures")}
+              onMouseLeave={handleMouseLeave}
+            >
+              <Link
+                href={navigation.procedures.href}
+                className={cx(
+                  "flex items-center justify-center gap-1 h-9 px-2.5 rounded-lg text-sm font-medium transition-all whitespace-nowrap",
+                  isProcedureRoute(pathname)
+                    ? "text-white bg-[#FF2D8E]"
+                    : "text-black hover:bg-[#FF2D8E]/10 hover:text-[#FF2D8E]"
+                )}
+              >
+                Procedures
+                <svg
+                  className={cx("w-3 h-3 transition-transform", activeDropdown === "procedures" && "rotate-180")}
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </Link>
+              <ProceduresDropdown
+                isOpen={activeDropdown === "procedures"}
+                onClose={() => setActiveDropdown(null)}
+                onMouseEnter={() => handleMouseEnter("procedures")}
+              />
+            </div>
+
+            {/* Services — broader med spa menu */}
             <div 
               className="relative flex items-center"
               onMouseEnter={() => handleMouseEnter('services')}
@@ -470,12 +553,12 @@ export function Header() {
             href="/services"
             className={cx(
               "flex items-center justify-center gap-1 h-9 px-2.5 rounded-lg text-sm font-medium transition-all whitespace-nowrap",
-              pathname?.startsWith('/services')
+              isServiceCatalogRoute(pathname) || pathname === "/services"
                 ? "text-white bg-[#FF2D8E]"
                 : "text-black hover:bg-[#FF2D8E]/10 hover:text-[#FF2D8E]"
             )}
           >
-            Procedures
+            Services
                 <svg className={cx("w-3 h-3 transition-transform", activeDropdown === 'services' && "rotate-180")} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                 </svg>
@@ -562,7 +645,7 @@ export function Header() {
                 href="/trifecta-vip"
                 className={cx(
                   "flex items-center justify-center gap-1 h-9 px-2.5 rounded-lg text-sm font-medium transition-all whitespace-nowrap",
-                  pathname?.startsWith('/morpheus8-burst') || pathname?.startsWith('/quantum-rf') || pathname?.startsWith('/solaria-co2-laser') || pathname?.startsWith('/solaria-vs') || pathname?.startsWith('/trifecta') || pathname === '/solaria-packages'
+                  pathname?.startsWith("/trifecta") || pathname === "/solaria-packages" || pathname?.startsWith("/solaria-vs")
                     ? "text-white bg-[#FF2D8E]"
                     : "text-black hover:bg-[#FF2D8E]/10 hover:text-[#FF2D8E]"
                 )}
@@ -723,6 +806,50 @@ export function Header() {
               Fix what bothers me
             </Link>
 
+            {/* Procedures — device treatments */}
+            <div className="border-b border-black pb-4">
+              <button
+                onClick={() => setMobileSubmenu(mobileSubmenu === "procedures" ? null : "procedures")}
+                className="w-full flex items-center justify-between px-4 py-3 text-lg font-semibold text-[#FF2D8E]"
+              >
+                <span className="flex items-center gap-3">
+                  <span className="text-xl">🏥</span>
+                  Procedures
+                </span>
+                <svg
+                  className={cx("w-5 h-5 transition-transform", mobileSubmenu === "procedures" && "rotate-180")}
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+              {mobileSubmenu === "procedures" && (
+                <div className="mt-2 ml-4 space-y-2">
+                  {navigation.procedures.priority.map((p) => (
+                    <Link
+                      key={p.href}
+                      href={p.href}
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="flex items-center gap-2 rounded-lg border-2 border-black bg-black/5 px-3 py-2.5 text-sm font-bold text-[#FF2D8E]"
+                    >
+                      <span>{p.icon}</span>
+                      <span>{p.shortLabel ?? p.label}</span>
+                    </Link>
+                  ))}
+                  <Link
+                    href={navigation.procedures.documents.href}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="flex items-center gap-2 rounded-lg border-2 border-[#E6007E]/40 bg-rose-50 px-3 py-2.5 text-sm font-bold text-[#E6007E]"
+                  >
+                    <span>{navigation.procedures.documents.icon}</span>
+                    <span>{navigation.procedures.documents.label}</span>
+                  </Link>
+                </div>
+              )}
+            </div>
+
             {/* Advanced Treatments / Trifecta Section */}
             <div className="border-b border-black pb-4">
               <button
@@ -765,7 +892,7 @@ export function Header() {
               >
                 <span className="flex items-center gap-3">
                   <span className="text-xl">💋</span>
-                  Procedures
+                  Services
                 </span>
                 <svg className={cx("w-5 h-5 transition-transform", mobileSubmenu === 'services' && "rotate-180")} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
@@ -773,19 +900,6 @@ export function Header() {
               </button>
               {mobileSubmenu === 'services' && (
                 <div className="mt-2 ml-4 space-y-4">
-                  <div className="space-y-2 px-0 pb-2">
-                    {navigation.services.procedurePriority.map((p) => (
-                      <Link
-                        key={p.href}
-                        href={p.href}
-                        onClick={() => setMobileMenuOpen(false)}
-                        className="flex items-center gap-2 rounded-lg border-2 border-black bg-black/5 px-3 py-2.5 text-sm font-bold text-[#FF2D8E]"
-                      >
-                        <span>{p.icon}</span>
-                        <span>{"shortLabel" in p && p.shortLabel ? p.shortLabel : p.label}</span>
-                      </Link>
-                    ))}
-                  </div>
                   {navigation.services.columns.map((column) => (
                     <div key={column.title}>
                       <p className="text-xs font-bold text-black uppercase tracking-wider px-4 mb-2">{column.title}</p>

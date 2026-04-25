@@ -488,6 +488,48 @@ export default function QuantumRFPage() {
           </div>
         </section>
 
+        {/* Handpiece anchors for nav (#quantum-rf-10, #quantum-rf-15, #quantum-rf-25) */}
+        <section
+          id="quantum-handpieces"
+          className="scroll-mt-20 border-b-2 border-black bg-zinc-50 py-8 md:py-10"
+        >
+          <div className="mx-auto max-w-6xl px-4">
+            <p className="text-center text-[0.65rem] font-bold uppercase tracking-[0.35em] text-[#E6007E]">
+              InMode QuantumRF
+            </p>
+            <h2 className="mt-2 text-center text-2xl font-bold text-black md:text-3xl">Handpieces: 10, 15 & 25</h2>
+            <p className="mx-auto mt-2 max-w-2xl text-center text-sm text-black/70">
+              Your plan may use one or more cannula sizes. These anchors match our consent and education materials.
+            </p>
+            <div className="mt-6 grid gap-4 sm:grid-cols-3">
+              <div id="quantum-rf-10" className="scroll-mt-24 rounded-2xl border-2 border-black bg-white p-4 shadow-sm">
+                <h3 className="text-base font-bold text-black">QuantumRF 10</h3>
+                <p className="mt-2 text-sm text-black/70">
+                  Precision profile—often used for smaller or delicate areas (e.g. jawline, jowls, under-chin) where
+                  focused delivery matters.
+                </p>
+              </div>
+              <div id="quantum-rf-15" className="scroll-mt-24 rounded-2xl border-2 border-black bg-white p-4 shadow-sm">
+                <h3 className="text-base font-bold text-black">QuantumRF 15</h3>
+                <p className="mt-2 text-sm text-black/70">
+                  Mid-size option when your provider needs balance between reach and control for face or body zones
+                  (selection is individualized at consultation).
+                </p>
+              </div>
+              <div id="quantum-rf-25" className="scroll-mt-24 rounded-2xl border-2 border-black bg-white p-4 shadow-sm">
+                <h3 className="text-base font-bold text-black">QuantumRF 25</h3>
+                <p className="mt-2 text-sm text-black/70">
+                  Broader coverage for larger areas (e.g. abdomen, arms, thighs, back) when efficient field treatment
+                  is appropriate.
+                </p>
+              </div>
+            </div>
+            <p className="mt-4 text-center text-xs text-black/50">
+              Not all patients are candidates for every handpiece. Medical evaluation required.
+            </p>
+          </div>
+        </section>
+
         {/* 2. Videos + clinical proof — anchor for homepage "Watch procedure" link */}
         <section id="contour-lift-videos" className="border-b-2 border-black bg-black py-10 md:py-14 scroll-mt-20">
           <div className="mx-auto max-w-6xl space-y-12 px-4">
