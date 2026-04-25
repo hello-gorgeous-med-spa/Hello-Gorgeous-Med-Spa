@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { pageMetadata } from "@/lib/seo";
+import { LUXORA_DOC_URLS } from "@/lib/luxora-doc-urls";
 import ProcedurePrePostQrSection from "@/components/patient/ProcedurePrePostQrSection";
 
 export const metadata: Metadata = pageMetadata({
   title: "Patient Documents | Pre, Post & Consent | Hello Gorgeous Med Spa",
   description:
-    "Pre- and post-treatment guides and consent resources for Solaria CO₂, Morpheus8, and Quantum RF at Hello Gorgeous Med Spa, Oswego, IL. Complete on your own device or at check-in.",
+    "Pre- and post-treatment guides and consent resources for Solaria CO₂, Morpheus8, Quantum RF, and Luxora (InMode) at Hello Gorgeous Med Spa, Oswego, IL. Complete on your own device or at check-in.",
   path: "/patient-documents",
 });
 
@@ -61,6 +62,62 @@ export default function PatientDocumentsPage() {
       </section>
 
       <ProcedurePrePostQrSection />
+
+      <section className="border-t border-black/10 bg-white">
+        <div className="mx-auto max-w-3xl px-4 py-12">
+          <h2 className="text-xl font-bold">Luxora (InMode) — pre, post, consent, reference</h2>
+          <p className="mt-2 text-sm text-black/70">
+            Verbatim source files in <code className="rounded bg-black/5 px-1">/docs/luxora/</code>. Chart-ready
+            digital intake with the same consent document:{" "}
+            <a className="font-semibold text-[#E6007E] hover:underline" href="https://hub.hellogorgeousmedspa.com/intake">
+              hub.hellogorgeousmedspa.com/intake
+            </a>
+            .
+          </p>
+          <ul className="mt-4 space-y-2 text-sm">
+            <li>
+              <a
+                className="font-medium text-[#E6007E] hover:underline"
+                href={LUXORA_DOC_URLS.consentHtml}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Informed consent (HTML)
+              </a>
+            </li>
+            <li>
+              <a
+                className="font-medium text-[#E6007E] hover:underline"
+                href={LUXORA_DOC_URLS.preHtml}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Pre-treatment guide (HTML)
+              </a>
+            </li>
+            <li>
+              <a
+                className="font-medium text-[#E6007E] hover:underline"
+                href={LUXORA_DOC_URLS.postHtml}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Post-treatment guide (HTML)
+              </a>
+            </li>
+            <li>
+              <a
+                className="font-medium text-[#E6007E] hover:underline"
+                href={LUXORA_DOC_URLS.inServiceInstructionsPdf}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                InService Instructions — InMode (PDF, Aug 2025)
+              </a>
+            </li>
+          </ul>
+        </div>
+      </section>
 
       <section className="mx-auto max-w-3xl px-4 py-12">
         <h2 className="text-xl font-bold">Care guides (on this site)</h2>

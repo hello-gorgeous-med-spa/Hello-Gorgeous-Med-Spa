@@ -91,7 +91,7 @@ export async function generateMetadata(): Promise<Metadata> {
         url: `${SITE.url}/images/hero-banner.png`,
         width: 1200,
         height: 630,
-        alt: "Hello Gorgeous Med Spa - Newest Morpheus8 Burst Face & Body - Oswego IL",
+        alt: "Hello Gorgeous Med Spa - Botox, Fillers, Weight Loss in Oswego IL",
       },
     ],
   },

@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Luxora — Pre-Treatment Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  @page { size: letter; margin: 0; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --navy: #0a1628; --pink: #D4537E; --teal: #2a9d8f; --red: #e63946;
+    --gold: #c77b2a; --purple: #7b2d8b; --green: #2d7a55; --blue: #1a3a6b;
+    --bg: #f5f2ed; --ink: #1a1a1a;
+  }
+  html, body {
+    width: 8.5in; font-family: 'DM Sans', sans-serif; background: var(--bg);
+    color: var(--ink); font-size: 9pt; line-height: 1.45;
+    -webkit-print-color-adjust: exact; print-color-adjust: exact;
+  }
+  .sheet { width: 8.5in; padding: 0.4in 0.45in; background: #fff; }
+  .card, .grid-2, .grid-3, .timeline, .intro, .promise, .questions, .wand-compare, .surgical-banner { page-break-inside: avoid; break-inside: avoid; }
+
+  .header {
+    background: var(--navy); color: #fff; padding: 18px 24px; margin-bottom: 14px;
+    display: grid; grid-template-columns: 1fr auto; gap: 16px; align-items: center;
+  }
+  .header h1 { font-family: 'Bebas Neue', sans-serif; font-size: 28pt; letter-spacing: 2px; line-height: 1; }
+  .header h1 span { color: var(--pink); }
+  .header .sub { font-size: 9pt; color: #c9d0d8; margin-top: 4px; letter-spacing: 1px; }
+  .badge { background: var(--pink); color: #fff; padding: 8px 16px; font-family: 'Bebas Neue', sans-serif; font-size: 11pt; letter-spacing: 2px; text-align: center; line-height: 1.1; }
+  .badge small { display: block; font-size: 7pt; letter-spacing: 1px; opacity: 0.85; font-family: 'DM Sans', sans-serif; }
+
+  .pills { display: flex; gap: 6px; margin-bottom: 12px; flex-wrap: wrap; }
+  .pill { background: var(--navy); color: #fff; padding: 4px 10px; font-size: 7.5pt; letter-spacing: 0.5px; font-weight: 600; border-radius: 2px; }
+  .pill.pink { background: var(--pink); }
+  .pill.teal { background: var(--teal); }
+  .pill.gold { background: var(--gold); }
+  .pill.purple { background: var(--purple); }
+
+  .intro {
+    background: linear-gradient(135deg, #FBEAF0 0%, #fff 100%);
+    border-left: 4px solid var(--pink); padding: 12px 18px; margin-bottom: 14px;
+    font-size: 9.5pt; line-height: 1.55;
+  }
+  .intro b { color: var(--pink); }
+  .intro em { color: var(--navy); font-style: italic; font-weight: 600; }
+
+  /* SURGICAL BANNER - this is unique to Luxora */
+  .surgical-banner {
+    background: #fff8e8; border: 2px solid var(--gold);
+    padding: 12px 16px; margin-bottom: 14px;
+  }
+  .surgical-banner h3 {
+    font-family: 'Bebas Neue', sans-serif; font-size: 13pt; letter-spacing: 2px;
+    color: var(--gold); margin-bottom: 6px;
+  }
+  .surgical-banner p { font-size: 9pt; line-height: 1.55; }
+  .surgical-banner b { color: var(--navy); }
+
+  /* WAND COMPARISON */
+  .wand-compare {
+    background: linear-gradient(180deg, #f0f4fa 0%, #fff 100%);
+    border: 2px solid var(--navy); padding: 14px 16px; margin-bottom: 14px;
+  }
+  .wand-compare h3 {
+    font-family: 'Bebas Neue', sans-serif; font-size: 14pt; letter-spacing: 2px;
+    color: var(--navy); margin-bottom: 4px;
+  }
+  .wand-compare .lead { font-size: 8.5pt; color: #555; margin-bottom: 10px; font-style: italic; }
+  .wand-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
+  .wand-card {
+    background: #fff; border: 2px solid var(--teal); padding: 12px 12px; position: relative;
+  }
+  .wand-card.mid { border-color: var(--gold); }
+  .wand-card.large { border-color: var(--purple); }
+  .wand-card .label {
+    position: absolute; top: -10px; left: 12px;
+    background: var(--teal); color: #fff; padding: 2px 10px;
+    font-family: 'Bebas Neue', sans-serif; font-size: 10pt; letter-spacing: 1.5px;
+  }
+  .wand-card.mid .label { background: var(--gold); }
+  .wand-card.large .label { background: var(--purple); }
+  .wand-card h4 {
+    font-family: 'Bebas Neue', sans-serif; font-size: 13pt; color: var(--navy);
+    margin: 4px 0 4px; letter-spacing: 1px;
+  }
+  .wand-card .for {
+    font-size: 8pt; color: var(--teal); font-weight: 700; margin-bottom: 6px;
+  }
+  .wand-card.mid .for { color: var(--gold); }
+  .wand-card.large .for { color: var(--purple); }
+  .wand-card p { font-size: 8pt; line-height: 1.45; margin-bottom: 4px; }
+  .wand-card p:last-child { margin-bottom: 0; }
+  .wand-card .stat {
+    background: #f0f4fa; padding: 5px 8px; margin: 6px 0 4px; font-size: 7.5pt;
+    border-left: 3px solid var(--teal); line-height: 1.4;
+  }
+  .wand-card.mid .stat { border-left-color: var(--gold); }
+  .wand-card.large .stat { border-left-color: var(--purple); }
+
+  .timeline {
+    display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; margin-bottom: 14px;
+    padding: 12px; background: #f0f4fa; border: 1px solid #c9d0d8;
+  }
+  .tl-step { text-align: center; padding: 8px; background: #fff; border-top: 3px solid var(--pink); }
+  .tl-step:nth-child(1) { border-top-color: var(--purple); }
+  .tl-step:nth-child(2) { border-top-color: var(--blue); }
+  .tl-step:nth-child(3) { border-top-color: var(--teal); }
+  .tl-step:nth-child(4) { border-top-color: var(--gold); }
+  .tl-step:nth-child(5) { border-top-color: var(--pink); }
+  .tl-step .when { font-family: 'Bebas Neue', sans-serif; font-size: 10pt; letter-spacing: 1.2px; color: var(--navy); line-height: 1.1; }
+  .tl-step .what { font-size: 7.5pt; color: #555; margin-top: 4px; line-height: 1.3; }
+
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px; }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px; }
+
+  .card { background: #fff; border: 1px solid #d8dae0; border-top: none; border-radius: 2px; overflow: hidden; }
+  .ch { padding: 8px 12px; color: #fff; font-family: 'Bebas Neue', sans-serif; font-size: 11pt; letter-spacing: 1.5px; line-height: 1.1; }
+  .ch.navy { background: var(--navy); } .ch.pink { background: var(--pink); }
+  .ch.teal { background: var(--teal); } .ch.red { background: var(--red); }
+  .ch.gold { background: var(--gold); } .ch.purple { background: var(--purple); }
+  .ch.green { background: var(--green); } .ch.blue { background: var(--blue); }
+
+  .cb { padding: 11px 14px; font-size: 8.5pt; line-height: 1.5; }
+  .cb p { margin-bottom: 5px; }
+  .cb p:last-child { margin-bottom: 0; }
+  .cb strong { color: var(--navy); }
+
+  .m { padding-left: 10px; border-left: 2px solid var(--pink); margin: 6px 0; font-size: 8.5pt; }
+  .m.teal { border-left-color: var(--teal); }
+  .m.gold { border-left-color: var(--gold); }
+  .m.red { border-left-color: var(--red); }
+  .m.green { border-left-color: var(--green); }
+
+  .al { background: #fff7f0; border-left: 3px solid var(--red); padding: 8px 11px; font-size: 8pt; margin: 6px 0; line-height: 1.45; }
+  .al.warn { background: #fff8e8; border-left-color: var(--gold); }
+  .al.ok { background: #f0f8f3; border-left-color: var(--green); }
+  .al.info { background: #f0f4fa; border-left-color: var(--blue); }
+  .al b { color: var(--red); letter-spacing: 0.5px; }
+  .al.warn b { color: var(--gold); }
+  .al.ok b { color: var(--green); }
+  .al.info b { color: var(--blue); }
+
+  .list-heading { font-family: 'Bebas Neue', sans-serif; font-size: 10pt; letter-spacing: 1.5px; color: var(--navy); padding: 4px 0; border-bottom: 1px solid #e0e2e6; margin-bottom: 6px; }
+  .stop-item, .ok-item { display: flex; gap: 6px; margin: 4px 0; font-size: 8.5pt; line-height: 1.4; }
+  .stop-item::before { content: "✗"; color: var(--red); font-weight: bold; flex-shrink: 0; }
+  .ok-item::before { content: "✓"; color: var(--green); font-weight: bold; flex-shrink: 0; }
+
+  .check-row { display: flex; align-items: center; gap: 6px; margin: 4px 0; font-size: 8.5pt; }
+  .check-row .box { width: 12px; height: 12px; border: 1.5px solid var(--navy); display: inline-block; flex-shrink: 0; }
+
+  .section-label {
+    font-family: 'Bebas Neue', sans-serif; font-size: 14pt; letter-spacing: 3px; color: var(--navy);
+    margin: 10px 0 8px; padding-bottom: 4px; border-bottom: 2px solid var(--pink);
+    display: flex; align-items: baseline; gap: 10px;
+  }
+  .section-label small { font-size: 8pt; letter-spacing: 1px; color: #888; font-family: 'DM Sans', sans-serif; font-weight: 400; text-transform: none; }
+
+  .promise {
+    background: linear-gradient(135deg, var(--navy) 0%, #0f1d35 100%);
+    color: #fff; padding: 16px 22px; margin: 14px 0;
+    font-style: italic; font-size: 10pt; line-height: 1.55; border-left: 4px solid var(--pink);
+  }
+  .promise b { color: var(--pink); font-style: normal; letter-spacing: 1px; font-family: 'Bebas Neue', sans-serif; }
+
+  .questions {
+    background: #FBEAF0; border: 2px solid var(--pink);
+    padding: 14px 18px; margin: 12px 0;
+  }
+  .questions h3 { font-family: 'Bebas Neue', sans-serif; font-size: 13pt; letter-spacing: 2px; color: var(--pink); margin-bottom: 6px; }
+  .questions p { font-size: 9pt; margin-bottom: 4px; }
+  .questions b { color: var(--navy); }
+
+  .footer {
+    background: var(--navy); color: #fff; padding: 14px 18px; margin-top: 14px;
+    font-size: 7.5pt; line-height: 1.5;
+    display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 16px; align-items: center;
+  }
+  .footer .brand { font-family: 'Bebas Neue', sans-serif; font-size: 16pt; letter-spacing: 2px; line-height: 1; }
+  .footer .brand span { color: var(--pink); }
+  .footer .credit { color: #c9d0d8; }
+  .footer .sig { text-align: right; color: #c9d0d8; }
+  .footer .sig b { color: var(--pink); letter-spacing: 1px; }
+</style>
+</head>
+<body>
+
+<div class="sheet">
+
+  <div class="header">
+    <div>
+      <h1>GET READY FOR <span>LUXORA</span></h1>
+      <div class="sub">PRE-TREATMENT GUIDE · BODY CONTOURING + SKIN TIGHTENING · 2 WEEKS BEFORE</div>
+    </div>
+    <div class="badge">PATIENT GUIDE<small>READ AT LEAST 14 DAYS PRE-TX</small></div>
+  </div>
+
+  <div class="pills">
+    <span class="pill">#Luxora</span>
+    <span class="pill pink">#InMode</span>
+    <span class="pill teal">#BodyContouring</span>
+    <span class="pill gold">#SkinTightening</span>
+    <span class="pill">#HelloGorgeous</span>
+  </div>
+
+  <div class="intro">
+    Hi, gorgeous 💕 <b>You said yes to Luxora by InMode</b> — the technology that contracts and tightens fibrous tissue and dermis using radiofrequency. Whether you're targeting your jawline, jowls, neck, or a small body area, Luxora delivers <em>real, dramatic results</em> that build over 6–12 months. The next two weeks are about preparing your body to respond beautifully and heal smoothly. Read this once now, then again 7 days before your appointment.
+  </div>
+
+  <!-- SURGICAL BANNER -->
+  <div class="surgical-banner">
+    <h3>⚠ THIS IS A MEDICAL PROCEDURE — PLEASE READ FIRST</h3>
+    <p>Luxora is performed in our procedure room, with <b>local anesthesia and tumescent solution</b> (a fluid that numbs and prepares the tissue). Tiny incision ports are made for the handpiece, and small absorbable sutures or steri-strips may be used. <b>You'll need a driver home, time to rest, and a compression garment.</b> This is not a "lunchtime" treatment. It IS a real, transformative one. Ryan will discuss everything with you in detail at your pre-op consultation.</p>
+  </div>
+
+  <!-- WAND COMPARISON -->
+  <div class="wand-compare">
+    <h3>YOUR LUXORA HANDPIECE — 3 SIZES, 3 PURPOSES</h3>
+    <div class="lead">Same RF technology, three handpiece sizes. The handpiece selected for your treatment depends on the area and your treatment goals. Ryan will confirm the size at your pre-op visit.</div>
+    <div class="wand-grid">
+
+      <div class="wand-card">
+        <div class="label">10 MM</div>
+        <h4>SMALL HANDPIECE</h4>
+        <div class="for">FOR: FACE + JAWLINE</div>
+        <p>Designed for delicate, precision work in the face. Common targets:</p>
+        <p class="m teal">Submental ("double chin")</p>
+        <p class="m teal">Jowls + jawline definition</p>
+        <p class="m teal">Lower face laxity</p>
+        <div class="stat"><b>Treatment time:</b> ~1.5 hrs · <b>Recovery:</b> compression for face = at physician discretion</div>
+      </div>
+
+      <div class="wand-card mid">
+        <div class="label">15 MM</div>
+        <h4>MEDIUM HANDPIECE</h4>
+        <div class="for">FOR: SMALL BODY AREAS</div>
+        <p>Bridges the gap — small body zones that need more reach than the face wand:</p>
+        <p class="m gold">Neck + upper neck banding</p>
+        <p class="m gold">Bra rolls / arm pockets</p>
+        <p class="m gold">Knees / inner thighs (small)</p>
+        <p class="m gold">Small flank pockets</p>
+        <div class="stat"><b>Treatment time:</b> ~1.5–2 hrs · <b>Recovery:</b> compression garment 2–3 weeks</div>
+      </div>
+
+      <div class="wand-card large">
+        <div class="label">25 MM</div>
+        <h4>LARGE HANDPIECE</h4>
+        <div class="for">FOR: LARGE BODY AREAS</div>
+        <p>Maximum coverage for larger body zones requiring substantial contouring:</p>
+        <p class="m purple">Abdomen (full)</p>
+        <p class="m purple">Flanks ("love handles")</p>
+        <p class="m purple">Back / bra-line</p>
+        <p class="m purple">Outer thighs / saddlebags</p>
+        <div class="stat"><b>Treatment time:</b> ~2 hrs · <b>Recovery:</b> compression garment minimum 3 weeks</div>
+      </div>
+
+    </div>
+    <div class="al info" style="margin-top:10px;"><b>WHICH HANDPIECE ARE YOU GETTING?</b> Your treatment plan was decided with Ryan at your consultation. If you're unsure, call us before your appointment.</div>
+  </div>
+
+  <!-- TIMELINE -->
+  <div class="timeline">
+    <div class="tl-step"><div class="when">14 DAYS OUT</div><div class="what">Stop blood<br>thinners + actives</div></div>
+    <div class="tl-step"><div class="when">7 DAYS OUT</div><div class="what">No NSAIDs<br>start prophylaxis</div></div>
+    <div class="tl-step"><div class="when">3 DAYS OUT</div><div class="what">Hydrate deeply<br>no alcohol</div></div>
+    <div class="tl-step"><div class="when">DAY BEFORE</div><div class="what">Clean skin<br>real meal</div></div>
+    <div class="tl-step"><div class="when">DAY OF</div><div class="what">Driver here<br>arrive ready</div></div>
+  </div>
+
+  <!-- 14 DAYS OUT -->
+  <div class="section-label">14 DAYS BEFORE <small>· prep starts here</small></div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="ch red">STOP USING THESE</div>
+      <div class="cb">
+        <div class="list-heading">In treatment area</div>
+        <div class="stop-item">Retinoids (Retin-A, tretinoin, retinol)</div>
+        <div class="stop-item">Glycolic, salicylic, lactic acids</div>
+        <div class="stop-item">Self-tanner / spray tan</div>
+        <div class="stop-item">Hair removal: waxing, threading, depilatory creams (last 6 weeks)</div>
+        <div class="stop-item">Tanning beds + intentional sun exposure</div>
+        <div class="list-heading" style="margin-top:8px;">Per Ryan's review</div>
+        <div class="stop-item">Anticoagulants / blood thinners (last 10 days — only with MD approval)</div>
+        <div class="stop-item">Other lasers, peels, RF in tx area (last 2–12 weeks)</div>
+        <div class="al"><b>WHY:</b> These compromise skin integrity, increase bleeding/bruising, and can extend healing.</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="ch green">KEEP DOING THESE</div>
+      <div class="cb">
+        <div class="list-heading">Skin prep</div>
+        <div class="ok-item">Gentle cleanser, fragrance-free</div>
+        <div class="ok-item">Mineral sunscreen SPF 30+ daily</div>
+        <div class="ok-item">Simple moisturizer</div>
+        <div class="list-heading" style="margin-top:8px;">Lifestyle</div>
+        <div class="ok-item">Hydrate aggressively — half body weight in oz</div>
+        <div class="ok-item">Protein at every meal — your body needs it for healing</div>
+        <div class="ok-item">7–8 hrs sleep nightly</div>
+        <div class="ok-item">Vitamin C + zinc support healing</div>
+        <div class="ok-item">Eat your normal meals (don't crash diet)</div>
+        <div class="al ok"><b>GOAL:</b> Calm, hydrated, well-nourished tissue ready for surgery.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- KEY CONTRAINDICATIONS -->
+  <div class="section-label">CRITICAL — TELL US IF ANY APPLY <small>· some make Luxora unsafe for you</small></div>
+
+  <div class="card">
+    <div class="ch red">CONTACT US BEFORE YOUR APPT IF YOU HAVE:</div>
+    <div class="cb">
+      <p style="font-weight:700;color:var(--red);margin-bottom:8px;">These are reasons we may NOT be able to treat you safely. Please let us know:</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+        <div>
+          <div class="check-row"><span class="box"></span> Pacemaker, AICD, or any electronic implant</div>
+          <div class="check-row"><span class="box"></span> Cochlear implant (if treating face/neck)</div>
+          <div class="check-row"><span class="box"></span> Metal plates, screws, or piercings in tx area</div>
+          <div class="check-row"><span class="box"></span> Past or current cancer (any type)</div>
+          <div class="check-row"><span class="box"></span> Pregnancy or breastfeeding</div>
+          <div class="check-row"><span class="box"></span> Heart disease, uncontrolled BP, liver/kidney disease</div>
+          <div class="check-row"><span class="box"></span> Epilepsy, seizure disorder</div>
+          <div class="check-row"><span class="box"></span> HIV, AIDS, or immunosuppression</div>
+          <div class="check-row"><span class="box"></span> Diabetes (uncontrolled) or thyroid disorder</div>
+        </div>
+        <div>
+          <div class="check-row"><span class="box"></span> Active skin condition in tx area (psoriasis, eczema, rash, sores)</div>
+          <div class="check-row"><span class="box"></span> History of keloid or abnormal wound healing</div>
+          <div class="check-row"><span class="box"></span> Bleeding disorders or on blood thinners</div>
+          <div class="check-row"><span class="box"></span> Surgery in tx area within last 3 months</div>
+          <div class="check-row"><span class="box"></span> Accutane (isotretinoin) within last 6 months</div>
+          <div class="check-row"><span class="box"></span> Cold sores / Herpes Simplex history (need prophylaxis)</div>
+          <div class="check-row"><span class="box"></span> Filler in tx area within 6 months</div>
+          <div class="check-row"><span class="box"></span> Fat-dissolving injection (Kybella, etc.) in tx area within 3 months</div>
+          <div class="check-row"><span class="box"></span> Tattoo or permanent makeup over tx area</div>
+        </div>
+      </div>
+      <div class="al warn" style="margin-top:8px;"><b>RECENT TANNING = RESCHEDULE.</b> Per InMode protocol, tanned skin from sun, beds, or self-tanner within 2 weeks is a contraindication. We will not bend that rule.</div>
+    </div>
+  </div>
+
+  <!-- 7 DAYS OUT -->
+  <div class="section-label">7 DAYS BEFORE <small>· lock things in</small></div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="ch pink">💊 PRESCRIPTIONS YOU MAY GET</div>
+      <div class="cb">
+        <p>Depending on your history + treatment area, Ryan may prescribe:</p>
+        <p class="m pink"><strong>Antiviral</strong> (e.g., Valtrex) — if you have any cold sore history or are getting face/neck treated</p>
+        <p class="m pink"><strong>Prophylactic antibiotic</strong> — to start day of and continue 5–7 days for incision site healing</p>
+        <p class="m pink"><strong>Pain medication</strong> — for first 1–3 days post</p>
+        <p class="m pink"><strong>Anti-anxiety</strong> — at Ryan's discretion if helpful</p>
+        <div class="al"><b>FILL ALL Rx EARLY:</b> Pick up at the pharmacy days before your appointment. Take exactly as directed.</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="ch teal">🛒 SUPPLIES TO STOCK</div>
+      <div class="cb">
+        <p>You'll want these at home before your appointment:</p>
+        <p class="m teal">Compression garment (provided by us, OR per Ryan's instructions)</p>
+        <p class="m teal">Gentle cleanser (Cetaphil, CeraVe)</p>
+        <p class="m teal">Antibiotic ointment (Bacitracin or Neosporin)</p>
+        <p class="m teal">Clean gauze + paper tape</p>
+        <p class="m teal">Mineral SPF 30+ (zinc oxide)</p>
+        <p class="m teal">Loose, soft clothes you can pull ON without going over your head</p>
+        <p class="m teal">Pillows (for sleeping elevated if face/neck)</p>
+        <p class="m teal">Easy soft foods (soup, smoothies, yogurt)</p>
+        <p class="m teal">Tylenol (NOT ibuprofen/aspirin/NSAIDs — those increase bleeding)</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="ch navy">📅 PLAN YOUR CALENDAR</div>
+      <div class="cb">
+        <p class="m"><strong>Day 1–2:</strong> Drainage from incision sites is normal. Stay home, rest, dressings on.</p>
+        <p class="m"><strong>Day 3:</strong> First dressing change at home OR in office (per Ryan). Compression garment on full-time.</p>
+        <p class="m"><strong>Days 4–7:</strong> Bruising visible, swelling significant. Most patients aren't ready to be social.</p>
+        <p class="m"><strong>Days 7–14:</strong> Bruising fades, swelling goes down. Compression garment continues.</p>
+        <p class="m"><strong>Weeks 2–3:</strong> Resume most activities. Some swelling lingers.</p>
+        <p class="m"><strong>Weeks 4–12:</strong> Tightening becomes visible.</p>
+        <p class="m"><strong>Months 6–12:</strong> Full results 💕</p>
+        <div class="al warn"><b>DO NOT BOOK:</b> events, travel, photos, anything important within 3 weeks post-tx.</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="ch purple">🚫 HARD STOPS BEFORE TX</div>
+      <div class="cb">
+        <p class="m purple"><strong>NSAIDs (ibuprofen, aspirin, Advil, Aleve, Motrin)</strong> — STOP 1 week before. Continue avoiding 1 week after. Increases bleeding.</p>
+        <p class="m purple"><strong>Fish oil, vitamin E, gingko, ginseng</strong> — stop 1 week before</p>
+        <p class="m purple"><strong>Alcohol</strong> — stop 48 hrs before, avoid for several days after</p>
+        <p class="m purple"><strong>Smoking / vaping</strong> — stop 2 weeks before (HUGE healing impact)</p>
+        <p class="m purple"><strong>Intense workouts day before</strong> — body needs to be rested</p>
+        <div class="al warn"><b>PRESCRIPTION MEDS:</b> Do NOT stop any prescribed medication without your prescriber. If you're on blood thinners, Ryan may coordinate with your prescriber for a safe pause.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DAY BEFORE -->
+  <div class="section-label">THE DAY BEFORE <small>· rest mode</small></div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="ch blue">🌙 EVENING BEFORE</div>
+      <div class="cb">
+        <p class="m"><strong>Eat a real dinner</strong> — protein + carbs + vegetables. Real food = better healing.</p>
+        <p class="m"><strong>Hydrate aggressively</strong> — 80+ oz water across the day.</p>
+        <p class="m"><strong>Skip alcohol entirely</strong></p>
+        <p class="m"><strong>Shower + wash treatment area</strong> — last good wash for a few days</p>
+        <p class="m"><strong>Lay out loose, button-down or pull-on clothes</strong></p>
+        <p class="m"><strong>Confirm your driver</strong></p>
+        <p class="m"><strong>Pack your bag:</strong> compression garment, antibiotic ointment, gauze, water, phone charger</p>
+        <p class="m"><strong>Sleep early</strong> — 8 hrs.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="ch purple">🧠 MENTAL PREP</div>
+      <div class="cb">
+        <p>A few honest things to know:</p>
+        <p class="m"><strong>This is a real procedure.</strong> Numbing fluid is injected into the area, tiny incisions are made, the handpiece moves under the skin. You'll be awake but comfortable.</p>
+        <p class="m"><strong>You'll be sore.</strong> Like a workout you've never done.</p>
+        <p class="m"><strong>You'll be swollen.</strong> Bruised. Drainage from tiny ports.</p>
+        <p class="m"><strong>You'll wear compression for weeks.</strong> Yes, even sleeping.</p>
+        <p class="m"><strong>It's worth it.</strong> The transformation is on a different level than non-invasive treatments — but it requires your patience.</p>
+        <div class="al ok"><b>TRUST THE PROCESS.</b> 6–12 months for full results. Photo at week 0, week 12, month 6, month 12.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DAY OF -->
+  <div class="section-label">THE DAY OF YOUR APPOINTMENT <small>· you got this 💕</small></div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="ch pink">✓ MORNING CHECKLIST</div>
+      <div class="cb">
+        <div class="check-row"><span class="box"></span> Took my antiviral / antibiotic if prescribed</div>
+        <div class="check-row"><span class="box"></span> Showered + washed treatment area with mild soap</div>
+        <div class="check-row"><span class="box"></span> NO lotion, makeup, oil, perfume, powder anywhere on tx area</div>
+        <div class="check-row"><span class="box"></span> Light breakfast — don't fast</div>
+        <div class="check-row"><span class="box"></span> Drank 16+ oz water</div>
+        <div class="check-row"><span class="box"></span> Took prescribed pre-op meds if any</div>
+        <div class="check-row"><span class="box"></span> Loose, button-down clothes — NOTHING tight on tx area</div>
+        <div class="check-row"><span class="box"></span> Compression garment in my bag</div>
+        <div class="check-row"><span class="box"></span> Phone charged, snacks for after</div>
+        <div class="check-row"><span class="box"></span> Driver confirmed + on the way</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="ch teal">🚗 RIDE + AFTER</div>
+      <div class="cb">
+        <p class="m teal"><strong>Driver is REQUIRED — non-negotiable.</strong> You'll have local + tumescent anesthesia, possibly oral comfort meds. You will NOT be able to drive home.</p>
+        <p class="m teal"><strong>Plan to be in clinic 2–3 hours total</strong> — pre-op, prep, treatment, recovery.</p>
+        <p class="m teal"><strong>Plan a full rest day after</strong> — no errands, no kids' activities, no work.</p>
+        <p class="m teal"><strong>Easy meals ready</strong> — soft foods if face/neck, anything if body.</p>
+        <p class="m teal"><strong>Have a helper at home</strong> — even just for the first night. You'll be sore + groggy.</p>
+        <div class="al ok"><b>WE'RE ON CALL.</b> Call 630-636-6193 anytime — we route after-hours to Ryan directly.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROMISE -->
+  <div class="promise">
+    <b>OUR PROMISE TO YOU.</b> Luxora is a serious treatment with serious results. We don't hand out the flashy "after" photos without showing you everything that comes between. <em>You're going to look swollen, bruised, and not yourself for a few weeks.</em> Then somewhere around week 12, you'll catch yourself in the mirror and realize what you signed up for. We're with you every single day until then. 💕
+  </div>
+
+  <!-- WHEN TO CALL -->
+  <div class="grid-2">
+    <div class="card">
+      <div class="ch red">CALL US BEFORE YOUR APPT IF…</div>
+      <div class="cb">
+        <p class="m red">Cold sore or HSV outbreak anywhere on your face</p>
+        <p class="m red">Active skin infection or rash near tx area</p>
+        <p class="m red">Started a new medication in last 2 weeks</p>
+        <p class="m red">Got sun, burned, or tanned</p>
+        <p class="m red">Feel sick — fever, flu, cold, COVID</p>
+        <p class="m red">You think you might be pregnant</p>
+        <p class="m red">Got a recent injection in tx area (filler / Kybella)</p>
+        <p class="m red">Surgery anywhere recently</p>
+        <p class="m red">Anything feels "off"</p>
+        <div class="al"><b>We'd rather reschedule than rush.</b> Your safety + results matter more than a calendar date.</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="ch navy">❓ COMMON QUESTIONS</div>
+      <div class="cb">
+        <p><strong>Will I be awake?</strong><br>Yes — local + tumescent anesthesia. You'll feel pressure, not pain.</p>
+        <p style="margin-top:5px;"><strong>How long is the appointment?</strong><br>Face: ~1.5 hrs · Body: ~2 hrs total clinic time.</p>
+        <p style="margin-top:5px;"><strong>How long do I wear compression?</strong><br>Body: minimum 3 weeks · Face: per Ryan</p>
+        <p style="margin-top:5px;"><strong>When can I work out?</strong><br>Light walks: week 1 · Full workouts: week 3+</p>
+        <p style="margin-top:5px;"><strong>How long until I see results?</strong><br>First changes: 2–3 months · Full result: 6–12 months. Be patient.</p>
+        <p style="margin-top:5px;"><strong>Will I need more than one treatment?</strong><br>Many patients see dramatic results from ONE — Ryan will discuss.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- QUESTIONS -->
+  <div class="questions">
+    <h3>STILL HAVE QUESTIONS?</h3>
+    <p>Call or text <b>630-636-6193</b> — every question is welcome, no matter how small. You can also message us through Fresha or DM @hellogorgeousmedspa.</p>
+    <p>You'll receive a <b>separate Post-Treatment Care Guide</b> at your appointment that walks you through your day-by-day recovery + the 6–12 month results timeline.</p>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div>
+      <div class="brand">HELLO <span>GORGEOUS</span></div>
+      <div class="credit" style="font-size:7pt;margin-top:3px;letter-spacing:1px;">74 W WASHINGTON ST · OSWEGO, IL · 630-636-6193</div>
+    </div>
+    <div class="credit">
+      <b>Luxora by InMode</b><br>
+      Pre-Treatment Guide<br>
+      Patient education
+    </div>
+    <div class="sig">
+      From the team of <b>HELLO GORGEOUS</b><br>
+      Medical Director: Ryan Kent, FNP-BC<br>
+      Owner: Danielle Alcala-Glazier
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

@@ -45,6 +45,13 @@ const navigation = {
         icon: "👑",
         sub: "Subdermal RF — handpiece guide",
       },
+      {
+        label: "Luxora (InMode)",
+        shortLabel: "Luxora",
+        href: "/patient-documents",
+        icon: "💎",
+        sub: "Pre/post + consent (patient documents)",
+      },
     ],
     documents: {
       label: "Pre / post & consent",
@@ -243,7 +250,7 @@ function ProceduresDropdown({ isOpen, onClose, onMouseEnter }: { isOpen: boolean
       <div className="max-w-7xl mx-auto px-4 md:px-6 py-6 md:py-8">
         <div className="mb-6">
           <p className="text-[0.65rem] font-bold uppercase tracking-[0.3em] text-[#E6007E] mb-3">Device procedures</p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-3">
             {data.priority.map((p) => (
               <Link
                 key={p.href}

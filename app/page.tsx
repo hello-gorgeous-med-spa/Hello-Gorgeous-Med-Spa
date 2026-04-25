@@ -40,12 +40,30 @@ import {
   homepageServicesImageGalleryJsonLd,
 } from "@/lib/seo";
 
-export const metadata: Metadata = pageMetadata({
+/** Default social preview image (same file since 2026-01); explicit here so `openGraph` from `pageMetadata` does not drop `images` vs root layout. */
+const HOME_OG_IMAGE = `${SITE.url}/images/hero-banner.png`;
+const HOME_OG_ALT = "Hello Gorgeous Med Spa - Botox, Fillers, Weight Loss in Oswego IL";
+
+const _homeBase = pageMetadata({
   title: "Hello Gorgeous Contour Lift™ (Quantum RF) | Advanced Contouring, Oswego, IL | Hello Gorgeous",
   description:
     "The Hello Gorgeous Contour Lift™ is powered by InMode Quantum RF — a minimally invasive alternative to skin tightening surgery. Loose skin, definition, and contour without the OR. Medical supervision. Oswego, Naperville, Aurora, Fox Valley. Book a consultation. Full services: Morpheus8, Solaria CO₂, injectables, medical wellness.",
   path: "/",
 });
+
+export const metadata: Metadata = {
+  ..._homeBase,
+  openGraph: {
+    ..._homeBase.openGraph,
+    images: [
+      { url: HOME_OG_IMAGE, width: 1200, height: 630, alt: HOME_OG_ALT },
+    ],
+  },
+  twitter: {
+    ..._homeBase.twitter,
+    images: [HOME_OG_IMAGE],
+  },
+};
 
 export default function HomePage() {
   const homeBreadcrumbs = [{ name: "Home", url: SITE.url }];

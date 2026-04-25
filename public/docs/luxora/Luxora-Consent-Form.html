@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Luxora — Informed Consent</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  @page { size: letter; margin: 0; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --navy: #0a1628; --pink: #D4537E; --teal: #2a9d8f; --red: #e63946;
+    --gold: #c77b2a; --purple: #7b2d8b; --green: #2d7a55; --blue: #1a3a6b;
+    --bg: #f5f2ed; --ink: #1a1a1a;
+  }
+  html, body {
+    width: 8.5in; font-family: 'DM Sans', sans-serif; background: var(--bg);
+    color: var(--ink); font-size: 9pt; line-height: 1.5;
+    -webkit-print-color-adjust: exact; print-color-adjust: exact;
+  }
+  .sheet { width: 8.5in; padding: 0.4in 0.45in; background: #fff; }
+  .card, .grid-2, .grid-3, .patient-block, .consent-statement, .sig-block, .initial-line, .handpiece-select { page-break-inside: avoid; break-inside: avoid; }
+
+  .header {
+    background: var(--navy); color: #fff; padding: 18px 24px; margin-bottom: 14px;
+    display: grid; grid-template-columns: 1fr auto; gap: 16px; align-items: center;
+  }
+  .header h1 { font-family: 'Bebas Neue', sans-serif; font-size: 24pt; letter-spacing: 2px; line-height: 1; }
+  .header h1 span { color: var(--pink); }
+  .header .sub { font-size: 9pt; color: #c9d0d8; margin-top: 4px; letter-spacing: 1px; }
+  .badge { background: var(--red); color: #fff; padding: 8px 16px; font-family: 'Bebas Neue', sans-serif; font-size: 11pt; letter-spacing: 2px; text-align: center; line-height: 1.1; }
+  .badge small { display: block; font-size: 7pt; letter-spacing: 1px; opacity: 0.9; font-family: 'DM Sans', sans-serif; }
+
+  .pills { display: flex; gap: 6px; margin-bottom: 12px; flex-wrap: wrap; }
+  .pill { background: var(--navy); color: #fff; padding: 4px 10px; font-size: 7.5pt; letter-spacing: 0.5px; font-weight: 600; border-radius: 2px; }
+  .pill.pink { background: var(--pink); }
+  .pill.teal { background: var(--teal); }
+  .pill.gold { background: var(--gold); }
+  .pill.red { background: var(--red); }
+  .pill.purple { background: var(--purple); }
+
+  .intro {
+    background: linear-gradient(135deg, #FBEAF0 0%, #fff 100%);
+    border-left: 4px solid var(--pink); padding: 12px 18px; margin-bottom: 12px;
+    font-size: 9.5pt; line-height: 1.55;
+  }
+  .intro b { color: var(--pink); }
+  .intro em { color: var(--navy); font-style: italic; font-weight: 600; }
+
+  .patient-block {
+    background: #fff; border: 2px solid var(--navy);
+    padding: 12px 16px; margin-bottom: 12px;
+    display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 14px;
+  }
+  .patient-field { font-size: 9pt; }
+  .patient-field .label { font-size: 7pt; color: #888; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 3px; }
+  .patient-field .line { border-bottom: 1.5px solid var(--navy); min-height: 20px; }
+
+  /* HANDPIECE SELECTOR */
+  .handpiece-select {
+    background: #fff8e8; border: 2px solid var(--gold);
+    padding: 12px 16px; margin-bottom: 12px;
+  }
+  .handpiece-select h3 {
+    font-family: 'Bebas Neue', sans-serif; font-size: 13pt; letter-spacing: 2px;
+    color: var(--gold); margin-bottom: 6px;
+  }
+  .handpiece-select .lead { font-size: 8.5pt; margin-bottom: 8px; }
+  .handpiece-select .options { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
+  .hp-opt { background: #fff; border: 1.5px solid #d8dae0; padding: 10px 12px; }
+  .hp-opt .check-row { font-weight: 700; font-size: 10pt; }
+  .hp-opt .desc { font-size: 8pt; color: #555; margin-top: 4px; line-height: 1.4; }
+  .hp-opt b { color: var(--navy); }
+  .area-line { background: #fff; border: 1.5px solid #d8dae0; padding: 8px 12px; margin-top: 8px; }
+  .area-line .label { font-size: 7.5pt; color: #888; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 4px; }
+  .area-line .line { border-bottom: 1.5px solid var(--navy); min-height: 22px; }
+
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px; }
+
+  .card { background: #fff; border: 1px solid #d8dae0; border-top: none; border-radius: 2px; overflow: hidden; }
+  .ch { padding: 8px 12px; color: #fff; font-family: 'Bebas Neue', sans-serif; font-size: 11pt; letter-spacing: 1.5px; line-height: 1.1; }
+  .ch.navy { background: var(--navy); } .ch.pink { background: var(--pink); }
+  .ch.teal { background: var(--teal); } .ch.red { background: var(--red); }
+  .ch.gold { background: var(--gold); } .ch.purple { background: var(--purple); }
+  .ch.green { background: var(--green); } .ch.blue { background: var(--blue); }
+
+  .cb { padding: 11px 14px; font-size: 8.5pt; line-height: 1.5; }
+  .cb p { margin-bottom: 5px; }
+  .cb p:last-child { margin-bottom: 0; }
+  .cb strong { color: var(--navy); }
+
+  .m { padding-left: 10px; border-left: 2px solid var(--pink); margin: 5px 0; font-size: 8.5pt; }
+  .m.teal { border-left-color: var(--teal); }
+  .m.gold { border-left-color: var(--gold); }
+  .m.red { border-left-color: var(--red); }
+  .m.green { border-left-color: var(--green); }
+  .m.purple { border-left-color: var(--purple); }
+
+  .al { background: #fff7f0; border-left: 3px solid var(--red); padding: 8px 11px; font-size: 8pt; margin: 6px 0; line-height: 1.45; }
+  .al.warn { background: #fff8e8; border-left-color: var(--gold); }
+  .al.ok { background: #f0f8f3; border-left-color: var(--green); }
+  .al.info { background: #f0f4fa; border-left-color: var(--blue); }
+  .al b { color: var(--red); letter-spacing: 0.5px; }
+  .al.warn b { color: var(--gold); }
+  .al.ok b { color: var(--green); }
+  .al.info b { color: var(--blue); }
+
+  .risk-row { display: flex; gap: 6px; margin: 4px 0; font-size: 8.5pt; line-height: 1.4; align-items: baseline; }
+  .risk-row::before { content: "•"; color: var(--navy); font-weight: bold; flex-shrink: 0; }
+  .risk-row.severe::before { color: var(--red); content: "⚠"; }
+
+  .section-label {
+    font-family: 'Bebas Neue', sans-serif; font-size: 14pt; letter-spacing: 3px; color: var(--navy);
+    margin: 10px 0 8px; padding-bottom: 4px; border-bottom: 2px solid var(--pink);
+    display: flex; align-items: baseline; gap: 10px;
+  }
+  .section-label small { font-size: 8pt; letter-spacing: 1px; color: #888; font-family: 'DM Sans', sans-serif; font-weight: 400; text-transform: none; }
+
+  .initial-line {
+    display: flex; align-items: flex-start; gap: 10px; margin: 8px 0;
+    font-size: 8.5pt; line-height: 1.5;
+  }
+  .initial-box {
+    width: 42px; height: 26px; border: 1.5px solid var(--navy); flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Bebas Neue', sans-serif; font-size: 7pt; letter-spacing: 1px;
+    color: #999; background: #fafbfc;
+  }
+  .initial-box::before { content: "INITIAL"; }
+  .initial-text { flex: 1; padding-top: 4px; }
+  .initial-text strong { color: var(--navy); }
+
+  .sig-block { background: #f0f4fa; border: 2px solid var(--navy); padding: 16px 20px; margin: 12px 0; }
+  .sig-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 20px; margin-bottom: 14px; }
+  .sig-grid:last-child { margin-bottom: 0; }
+  .sig-field .label { font-size: 7.5pt; color: #666; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 4px; }
+  .sig-field .line { border-bottom: 1.5px solid var(--navy); min-height: 26px; }
+  .sig-field .sublabel { font-size: 7pt; color: #888; margin-top: 2px; font-style: italic; }
+
+  .consent-statement {
+    background: linear-gradient(135deg, var(--navy) 0%, #0f1d35 100%);
+    color: #fff; padding: 14px 20px; margin: 12px 0;
+    font-size: 9pt; line-height: 1.6;
+  }
+  .consent-statement b { color: var(--pink); letter-spacing: 1px; font-family: 'Bebas Neue', sans-serif; }
+  .consent-statement em { color: var(--pink); font-style: italic; }
+
+  .check-row { display: flex; align-items: flex-start; gap: 7px; margin: 5px 0; font-size: 8.5pt; line-height: 1.4; }
+  .check-row .box { width: 12px; height: 12px; border: 1.5px solid var(--navy); flex-shrink: 0; margin-top: 2px; }
+
+  .footer {
+    background: var(--navy); color: #fff; padding: 14px 18px; margin-top: 14px;
+    font-size: 7.5pt; line-height: 1.5;
+    display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 16px; align-items: center;
+  }
+  .footer .brand { font-family: 'Bebas Neue', sans-serif; font-size: 16pt; letter-spacing: 2px; line-height: 1; }
+  .footer .brand span { color: var(--pink); }
+  .footer .credit { color: #c9d0d8; }
+  .footer .sig { text-align: right; color: #c9d0d8; }
+  .footer .sig b { color: var(--pink); letter-spacing: 1px; }
+</style>
+</head>
+<body>
+
+<div class="sheet">
+
+  <div class="header">
+    <div>
+      <h1>LUXORA <span>INFORMED CONSENT</span></h1>
+      <div class="sub">RADIOFREQUENCY · LAXITY + ADIPOSITY · PATIENT INFORMED CONSENT</div>
+    </div>
+    <div class="badge">LEGAL DOC<small>READ · INITIAL · SIGN</small></div>
+  </div>
+
+  <div class="pills">
+    <span class="pill">#InformedConsent</span>
+    <span class="pill teal">#10mm</span>
+    <span class="pill gold">#15mm</span>
+    <span class="pill purple">#25mm</span>
+    <span class="pill red">#ReadCarefully</span>
+  </div>
+
+  <div class="intro">
+    This form covers <b>Luxora by InMode</b> — a radiofrequency device that contracts soft tissue and treats <b>laxity and/or adiposity</b>. This is a <em>medical procedure performed under local + tumescent anesthesia</em> with small incision ports. Please read every section carefully and initial each. <strong>Do not sign anything you don't fully understand.</strong> The form below is built on InMode's official sample consent template, adapted for our practice.
+  </div>
+
+  <div class="patient-block">
+    <div class="patient-field"><div class="label">Patient Name</div><div class="line"></div></div>
+    <div class="patient-field"><div class="label">Date of Birth</div><div class="line"></div></div>
+    <div class="patient-field"><div class="label">Date of Treatment</div><div class="line"></div></div>
+  </div>
+
+  <!-- HANDPIECE SELECTOR -->
+  <div class="handpiece-select">
+    <h3>⚠ HANDPIECE + AREA SELECTION (must be completed before signing)</h3>
+    <div class="lead">My treatment today will be performed using the following Luxora handpiece(s):</div>
+    <div class="options">
+      <div class="hp-opt">
+        <div class="check-row"><span class="box"></span> <strong style="color:var(--teal);">10 MM</strong></div>
+        <div class="desc">Face / jawline / submental</div>
+      </div>
+      <div class="hp-opt">
+        <div class="check-row"><span class="box"></span> <strong style="color:var(--gold);">15 MM</strong></div>
+        <div class="desc">Small body areas (neck, bra rolls, knees, small flanks)</div>
+      </div>
+      <div class="hp-opt">
+        <div class="check-row"><span class="box"></span> <strong style="color:var(--purple);">25 MM</strong></div>
+        <div class="desc">Large body (abdomen, flanks, back, thighs)</div>
+      </div>
+    </div>
+    <div class="area-line">
+      <div class="label">Specific area(s) being treated</div>
+      <div class="line"></div>
+    </div>
+  </div>
+
+  <!-- §1 PROCEDURE -->
+  <div class="section-label">§1 · THE PROCEDURE <small>· what Luxora is and how it works</small></div>
+
+  <div class="card">
+    <div class="ch navy">WHAT THIS TREATMENT IS</div>
+    <div class="cb">
+      <p>I request and authorize <strong>Ryan Kent, FNP-BC (Medical Director)</strong>, or designated trained staff under his supervision, to perform a procedure with the Luxora Quantum handpiece. The handpiece is indicated for use in dermatological and general surgical procedures for <strong>electrocoagulation/contraction of soft tissue and hemostasis</strong>. The result is heating of the fibrous septa and papillary dermis, resulting in collagen contraction.</p>
+      <p style="margin-top:6px;">This procedure is being used to treat my condition/medical diagnosis of <strong>laxity and/or adiposity</strong>.</p>
+      <p style="margin-top:6px;">The treatment may involve applying heat to the adipose (fat) tissue and dermis using radiofrequency for therapeutic purposes and may be combined with lipoaspiration (lipoaspiration may be used in conjunction if the provider determines it is necessary).</p>
+      <p style="margin-top:6px;"><strong>This device is FDA-cleared for soft tissue coagulation.</strong></p>
+    </div>
+  </div>
+
+  <div class="initial-line">
+    <div class="initial-box"></div>
+    <div class="initial-text"><strong>§1 — The areas for treatment have been reviewed with me today, and I am in agreement. I have been thoroughly and completely advised regarding the objectives of the procedure.</strong></div>
+  </div>
+
+  <!-- §2 EXPECTATIONS -->
+  <div class="section-label">§2 · REALISTIC EXPECTATIONS <small>· results vary, no guarantees</small></div>
+
+  <div class="card">
+    <div class="ch gold">WHAT I UNDERSTAND ABOUT RESULTS</div>
+    <div class="cb">
+      <p class="m gold"><strong>The practice of medicine and surgery is not an exact science.</strong> Although Luxora is effective in most cases, no results have been guaranteed.</p>
+      <p class="m gold"><strong>I acknowledge that imperfections might ensue</strong> and that the operative result may not meet my expectations.</p>
+      <p class="m gold"><strong>Skin tightening may not be fully apparent for 6–12 months</strong> after this procedure.</p>
+      <p class="m gold"><strong>Results vary from individual to individual</strong>, and results are age-dependent.</p>
+      <p class="m gold"><strong>Multiple sessions may be required</strong> to achieve desired outcomes.</p>
+      <p class="m gold"><strong>Skin irregularities</strong> may occur with any lipoaspiration treatment if performed in conjunction.</p>
+    </div>
+  </div>
+
+  <div class="initial-line">
+    <div class="initial-box"></div>
+    <div class="initial-text"><strong>§2 — I understand that no specific outcome can be guaranteed, that results take 6–12 months to fully appear, and that individual response varies. I have realistic expectations.</strong></div>
+  </div>
+
+  <!-- §3 RISKS - directly from InMode language -->
+  <div class="section-label">§3 · RISKS, SIDE EFFECTS + COMPLICATIONS <small>· these are real and you must understand them</small></div>
+
+  <div class="al"><b>⚠ READ CAREFULLY.</b> Per the InMode sample consent, the following are the documented possible experiences and risks associated with this procedure.</div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="ch gold">EXPECTED + POSSIBLE EFFECTS</div>
+      <div class="cb">
+        <p class="risk-row"><strong>Anesthesia risk</strong> — I consent to local + tumescent anesthesia. All forms of anesthesia involve risks and the possibility of complications, injury, or death.</p>
+        <p class="risk-row"><strong>Discomfort</strong> during and/or after treatment</p>
+        <p class="risk-row"><strong>Bruising and/or swelling</strong> following the procedure — should resolve in days, weeks, or months</p>
+        <p class="risk-row"><strong>Temporary redness (erythema)</strong> + swelling of treated area</p>
+        <p class="risk-row"><strong>Drainage</strong> from incision ports for 1–3 days</p>
+        <p class="risk-row"><strong>Bruising/ecchymosis</strong> may last 7–10 days or more</p>
+        <p class="risk-row"><strong>Substantial edema</strong> may last 1–3 weeks</p>
+        <p class="risk-row"><strong>Numbness, tingling, itching, tenderness</strong> in treated areas — gradually regained after 4–16 weeks or occasionally longer</p>
+        <p class="risk-row"><strong>Burning or heat sensation</strong> in facial or thin skin areas</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="ch red">SERIOUS COMPLICATIONS</div>
+      <div class="cb">
+        <p class="risk-row severe"><strong>Nerve injury — facial and body branches</strong> — weakness of affected areas</p>
+        <p class="risk-row severe"><strong>Hyperactivity</strong> — temporary change in smile or facial expression</p>
+        <p class="risk-row severe"><strong>Temporary numbness/tingling</strong> in treated area</p>
+        <p class="risk-row severe"><strong>Scarring</strong> — rare but possible if skin surface is disrupted</p>
+        <p class="risk-row severe"><strong>Burns</strong> — although uncommon, can occur</p>
+        <p class="risk-row severe"><strong>Infection</strong> — rare, but should it occur, treatment with antibiotics and/or surgical intervention may be required. Infection can further increase the risk of scarring.</p>
+        <p class="risk-row severe"><strong>Skin irregularities</strong> — if lipoaspiration is performed in conjunction</p>
+        <p class="risk-row severe"><strong>Pigmentation changes</strong> — hyper- or hypo-pigmentation</p>
+        <p class="risk-row severe"><strong>Damage to natural skin texture</strong> — crust, blister, burn</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="al warn"><b>WARNING SIGNS:</b> Proper wound care is important in the prevention of infection. If signs of infection — pain, heat, blisters, or surrounding redness — develop, call the office immediately. <strong>I understand the importance of pre + post-treatment instructions and that failure to comply may increase the possibility of complications.</strong></div>
+
+  <div class="initial-line">
+    <div class="initial-box"></div>
+    <div class="initial-text"><strong>§3 — I am aware of the possible experiences and risks associated with this procedure as listed above, including risks of anesthesia, infection, scarring, burns, nerve injury, and pigmentation changes. I understand some complications may be permanent.</strong></div>
+  </div>
+
+  <!-- §4 LIPOASPIRATION (InMode-specific clause) -->
+  <div class="section-label">§4 · POTENTIAL CONCURRENT LIPOASPIRATION <small>· additional consent if applicable</small></div>
+
+  <div class="card">
+    <div class="ch teal">LIPOASPIRATION CONSENT</div>
+    <div class="cb">
+      <p>Per the InMode sample consent: I understand that <strong>lipoaspiration may occasionally be used in conjunction with the treatment</strong> if the Medical Director determines it is necessary to do so.</p>
+      <p style="margin-top:6px;">I understand that <strong>skin irregularities may occur with any lipoaspiration treatment</strong>.</p>
+      <div class="check-row" style="margin-top:8px;"><span class="box"></span> <strong>YES</strong> — I authorize concurrent lipoaspiration if the Medical Director determines it is necessary</div>
+      <div class="check-row"><span class="box"></span> NO — I do not authorize concurrent lipoaspiration; please discuss with me first if this becomes necessary</div>
+    </div>
+  </div>
+
+  <div class="initial-line">
+    <div class="initial-box"></div>
+    <div class="initial-text"><strong>§4 — I have made my choice regarding concurrent lipoaspiration as indicated above.</strong></div>
+  </div>
+
+  <!-- §5 CONTRAINDICATIONS -->
+  <div class="section-label">§5 · MEDICAL HISTORY + CONTRAINDICATIONS <small>· honest answers protect you</small></div>
+
+  <div class="card">
+    <div class="ch purple">I CONFIRM I HAVE DISCLOSED + DO NOT HAVE</div>
+    <div class="cb">
+      <p>To my knowledge, I have disclosed my complete medical history including all of the following per the InMode contraindications list:</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:6px;">
+        <div>
+          <div class="check-row"><span class="box"></span> No pacemaker, AICD, or electronic implant</div>
+          <div class="check-row"><span class="box"></span> No metal plates, screws, or piercings in tx area</div>
+          <div class="check-row"><span class="box"></span> No current/history of skin cancer or any cancer</div>
+          <div class="check-row"><span class="box"></span> Not pregnant or breastfeeding</div>
+          <div class="check-row"><span class="box"></span> No severe cardiac, liver, kidney disease</div>
+          <div class="check-row"><span class="box"></span> No epilepsy or uncontrolled hypertension</div>
+          <div class="check-row"><span class="box"></span> No HIV, AIDS, or immunosuppression</div>
+          <div class="check-row"><span class="box"></span> No active skin infection in tx area</div>
+          <div class="check-row"><span class="box"></span> No history of keloids or abnormal wound healing</div>
+          <div class="check-row"><span class="box"></span> No bleeding disorders / not on anticoagulants (last 10 days)</div>
+        </div>
+        <div>
+          <div class="check-row"><span class="box"></span> No surgery in tx area within last 3 months</div>
+          <div class="check-row"><span class="box"></span> No Accutane (isotretinoin) within last 6 months</div>
+          <div class="check-row"><span class="box"></span> No Herpes Simplex history (or prophylaxis taken)</div>
+          <div class="check-row"><span class="box"></span> No filler in tx area within 6 months</div>
+          <div class="check-row"><span class="box"></span> No fat-dissolving injection in tx area within 3 months</div>
+          <div class="check-row"><span class="box"></span> No tattoo / permanent makeup in tx area</div>
+          <div class="check-row"><span class="box"></span> No recent tanning (sun, beds, self-tanner — last 2 weeks)</div>
+          <div class="check-row"><span class="box"></span> No NSAIDs in last 7 days</div>
+          <div class="check-row"><span class="box"></span> No diabetes / thyroid disorder uncontrolled</div>
+          <div class="check-row"><span class="box"></span> Disclosed all current medications + allergies</div>
+        </div>
+      </div>
+      <div class="al" style="margin-top:8px;"><b>WITHHOLDING MEDICAL HISTORY</b> can lead to serious complications. I am responsible for providing accurate and complete information.</div>
+    </div>
+  </div>
+
+  <div class="initial-line">
+    <div class="initial-box"></div>
+    <div class="initial-text"><strong>§5 — I confirm that I have informed the staff regarding any current or past medical condition, disease, or medication taken. I have no contraindications I have not disclosed.</strong></div>
+  </div>
+
+  <!-- §6 PHOTOGRAPHY -->
+  <div class="section-label">§6 · PHOTOGRAPHY AUTHORIZATION <small>· clinical photos are part of medical record</small></div>
+
+  <div class="card">
+    <div class="ch pink">PHOTOGRAPHY CONSENT</div>
+    <div class="cb">
+      <p>Per the InMode sample consent: I consent to have <strong>clinical photographs taken before, during, and after my procedure</strong>. I understand that these photographs are an important part of my medical record.</p>
+      <div class="check-row" style="margin-top:10px;"><span class="box"></span> <strong>YES</strong> — I consent to clinical photography for my medical record (REQUIRED)</div>
+
+      <p style="margin-top:12px;"><strong>Optional educational/marketing use</strong> (separate consent):</p>
+      <div class="check-row"><span class="box"></span> YES — I consent to use of these photographs, with my identity not revealed (anonymous), for the education of future patients, professional clinical presentations, and medical journals</div>
+      <div class="check-row"><span class="box"></span> YES — face-visible marketing use (Hello Gorgeous social media + website)</div>
+      <div class="check-row"><span class="box"></span> NO — clinical record only, no marketing use</div>
+      <div class="al info"><b>REVOCATION:</b> Marketing/educational consent can be revoked at any time by written request. Clinical chart photos remain part of permanent medical record.</div>
+    </div>
+  </div>
+
+  <div class="initial-line">
+    <div class="initial-box"></div>
+    <div class="initial-text"><strong>§6 — I have made my photography choices and understand my rights to revoke marketing/educational consent at any time.</strong></div>
+  </div>
+
+  <!-- §7 COMPLIANCE + FINANCIAL -->
+  <div class="section-label">§7 · COMPLIANCE + FINANCIAL RESPONSIBILITY <small>· your role + payment</small></div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="ch teal">PRE + POST-CARE COMPLIANCE</div>
+      <div class="cb">
+        <p class="m teal">Follow ALL pre-treatment instructions per the Pre-Treatment Guide</p>
+        <p class="m teal">Complete all prescribed medications (antiviral, antibiotic, etc.) as directed</p>
+        <p class="m teal">Arrange a driver home — REQUIRED</p>
+        <p class="m teal">Wear my compression garment as instructed (3 weeks minimum body areas)</p>
+        <p class="m teal">Follow ALL post-treatment care instructions</p>
+        <p class="m teal">Avoid sun, heat, NSAIDs, alcohol as instructed</p>
+        <p class="m teal">Attend all follow-up appointments</p>
+        <p class="m teal">Contact Hello Gorgeous immediately with any concerns</p>
+      </div>
+    </div>
+    <div class="card">
+      <div class="ch navy">FINANCIAL TERMS</div>
+      <div class="cb">
+        <p class="m"><strong>Luxora is an elective cosmetic procedure</strong> not covered by medical insurance.</p>
+        <p class="m"><strong>Payment is due at time of service</strong> unless arranged.</p>
+        <p class="m"><strong>Financing options</strong> (CareCredit, Cherry) are available if applied + approved.</p>
+        <p class="m"><strong>Fees are non-refundable</strong> once treatment is performed.</p>
+        <p class="m"><strong>Compression garments</strong> may be included or sold separately depending on package.</p>
+        <p class="m"><strong>Complications</strong>, if they occur, may require additional appointments or out-of-pocket cost for related care or specialist referrals.</p>
+        <p class="m"><strong>Touch-up or maintenance treatments</strong> are at additional cost unless stated in package.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="initial-line">
+    <div class="initial-box"></div>
+    <div class="initial-text"><strong>§7 — I have received the Pre + Post-Treatment Care Guides. I agree to follow all instructions, understand the financial terms, and accept responsibility for payment.</strong></div>
+  </div>
+
+  <!-- §8 INMODE WAIVER -->
+  <div class="section-label">§8 · MANUFACTURER WAIVER <small>· standard InMode language</small></div>
+
+  <div class="card">
+    <div class="ch blue">INMODE WAIVER</div>
+    <div class="cb">
+      <p>Per the InMode sample consent: I agree to waive, release, discharge, and covenant not to sue Invasix, Inc. d/b/a InMode ("InMode") and its employees, agents, and representatives from any liability, loss, cost, damage, expense, claim, or lawsuit whatsoever for any and all injury, loss, illness, harm, cost, expense, or damage related to the treatment, including any negligent acts or conduct by InMode and its agents, employees, and/or representatives (collectively, "Claims").</p>
+    </div>
+  </div>
+
+  <div class="initial-line">
+    <div class="initial-box"></div>
+    <div class="initial-text"><strong>§8 — I have read and understand the InMode manufacturer waiver above.</strong></div>
+  </div>
+
+  <!-- §9 DISCLAIMER + FINAL CONSENT -->
+  <div class="section-label">§9 · CONSENT DISCLAIMER + FINAL AUTHORIZATION</div>
+
+  <div class="card">
+    <div class="ch gold">DISCLAIMER</div>
+    <div class="cb">
+      <p style="font-size:8pt;line-height:1.5;">Informed Surgical Consent Forms communicate information about the proposed treatment of a condition, including disclosure of risk and alternative treatment(s). The informed consent process attempts to define principles of risk disclosure that should generally meet the needs of most patients in most circumstances.</p>
+      <p style="font-size:8pt;line-height:1.5;margin-top:5px;">What the surgical and office staff have discussed with me and have been included in this consent are the material risks, both common and uncommon, that the doctor feels a reasonable person would want to know, understand, and consider in deciding if the proposed treatment of a condition is something they would like to proceed with.</p>
+      <p style="font-size:8pt;line-height:1.5;margin-top:5px;">However, informed surgical consent should not be considered all-inclusive when defining other methods of care and risks encountered. The staff may provide additional or different information based on all the facts in my particular case and the state of medical knowledge.</p>
+    </div>
+  </div>
+
+  <div class="consent-statement">
+    <b>I, THE UNDERSIGNED,</b> certify that I have been fully informed of the nature and purpose of the procedure, expected outcomes, and possible complications, and I understand that <em>no guarantee can be given as to the final result obtained</em>. I am fully aware that my condition is of cosmetic concern and that the decision to proceed is based solely on my expressed desire to do so. The nature and effects of the procedure, the risks, the ramifications, complications, as well as alternative methods of treatment have been fully explained to me by the physician or designated person, and I understand them. I have been given the opportunity to ask questions and have received satisfactory answers. <em>I CONSENT TO THE PROCEDURE AND/OR TREATMENT AND THE ABOVE-LISTED ITEMS. I AM SATISFIED WITH THE EXPLANATION.</em>
+  </div>
+
+  <!-- SIGNATURES -->
+  <div class="sig-block">
+    <div class="sig-grid">
+      <div class="sig-field">
+        <div class="label">Patient or Person Authorized to Sign for Patient</div>
+        <div class="line"></div>
+        <div class="sublabel">I have read and fully understand the contents of this consent form.</div>
+      </div>
+      <div class="sig-field"><div class="label">Date</div><div class="line"></div></div>
+    </div>
+
+    <div class="sig-grid">
+      <div class="sig-field"><div class="label">Please Print Name Here</div><div class="line"></div></div>
+      <div class="sig-field"><div class="label">Phone Number</div><div class="line"></div></div>
+    </div>
+
+    <div class="sig-grid">
+      <div class="sig-field">
+        <div class="label">Provider Signature (Medical Director or Authorized Designee)</div>
+        <div class="line"></div>
+        <div class="sublabel">I have reviewed this consent with the patient and answered their questions.</div>
+      </div>
+      <div class="sig-field"><div class="label">Date</div><div class="line"></div></div>
+    </div>
+
+    <div class="sig-grid">
+      <div class="sig-field">
+        <div class="label">Witness Signature</div>
+        <div class="line"></div>
+        <div class="sublabel">Witness attests patient signed freely and knowingly.</div>
+      </div>
+      <div class="sig-field"><div class="label">Date</div><div class="line"></div></div>
+    </div>
+  </div>
+
+  <div class="al ok"><b>COPY PROVIDED:</b> I acknowledge receipt of a copy of this signed consent form, plus the Pre-Treatment Guide and Post-Treatment Care Guide.</div>
+
+  <div class="footer">
+    <div>
+      <div class="brand">HELLO <span>GORGEOUS</span></div>
+      <div class="credit" style="font-size:7pt;margin-top:3px;letter-spacing:1px;">74 W WASHINGTON ST · OSWEGO, IL · 630-636-6193</div>
+    </div>
+    <div class="credit">
+      <b>Luxora Informed Consent</b><br>
+      Adapted from official InMode template<br>
+      Legal document — chart copy retained
+    </div>
+    <div class="sig">
+      Medical Director: <b>RYAN KENT, FNP-BC</b><br>
+      Owner: Danielle Alcala-Glazier<br>
+      Form v1.0 · 2026
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

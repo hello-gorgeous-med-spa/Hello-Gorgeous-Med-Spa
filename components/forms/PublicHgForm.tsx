@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, type ReactNode } from "react";
+import { isLuxoraConsentSlug, LUXORA_DOC_URLS } from "@/lib/luxora-doc-urls";
 
 type Field = {
   id: string;
@@ -27,6 +28,7 @@ export function PublicHgForm({ formSlug, variant = "default", aboveFold, belowTi
   const [err, setErr] = useState<string | null>(null);
   const [done, setDone] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
+  const [luxoraReadAttested, setLuxoraReadAttested] = useState(false);
 
   useEffect(() => {
     if (!formSlug) return;
@@ -55,12 +57,20 @@ export function PublicHgForm({ formSlug, variant = "default", aboveFold, belowTi
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
     setErr(null);
+    if (isLuxoraConsentSlug(formSlug) && !luxoraReadAttested) {
+      setErr("Please confirm you read the full consent document above.");
+      return;
+    }
     setBusy(true);
     const responses: Record<string, unknown> = {};
     for (const f of fields) {
       const v = values[f.id];
       if (f.type === "checkbox") responses[f.id] = Boolean(v);
       else responses[f.id] = v ?? "";
+    }
+    if (isLuxoraConsentSlug(formSlug)) {
+      responses.luxora_consent_iframe_url = LUXORA_DOC_URLS.consentHtml;
+      responses.read_full_luxora_consent_attested = true;
     }
     try {
       const res = await fetch("/api/public/forms/submit", {
@@ -79,6 +89,7 @@ export function PublicHgForm({ formSlug, variant = "default", aboveFold, belowTi
       setValues({});
       setSignerName("");
       setClientPhone("");
+      setLuxoraReadAttested(false);
     } catch (e: unknown) {
       setErr(e instanceof Error ? e.message : "Submit failed");
     } finally {
@@ -120,9 +131,30 @@ export function PublicHgForm({ formSlug, variant = "default", aboveFold, belowTi
       ? "w-full border border-white/20 bg-[#0E0E0E] text-white rounded-lg px-3 py-2 text-sm"
       : "w-full border border-[#ddd] rounded-lg px-3 py-2 text-sm";
 
+  const showLuxoraIframe = isLuxoraConsentSlug(formSlug) && !done;
+
   return (
     <div className={wrapClass}>
       {aboveFold}
+      {showLuxoraIframe && (
+        <div className="max-w-4xl mx-auto mb-8 w-full px-0">
+          <p
+            className={
+              variant === "intake"
+                ? "text-sm text-center text-white/80 mb-3"
+                : "text-sm text-center text-black/70 mb-3"
+            }
+          >
+            Review the full informed consent (source HTML, unchanged). Scroll the document, then complete your
+            details below.
+          </p>
+          <iframe
+            title="Luxora Informed Consent — verbatim document"
+            src={LUXORA_DOC_URLS.consentHtml}
+            className="w-full h-[min(80vh,920px)] rounded-lg border-2 border-[#D4537E]/50 bg-white shadow-lg"
+          />
+        </div>
+      )}
       <div className={cardClass}>
         <p className="text-[#FF1493] text-xs tracking-widest uppercase mb-2">Hello Gorgeous Med Spa</p>
         <h1
@@ -143,7 +175,7 @@ export function PublicHgForm({ formSlug, variant = "default", aboveFold, belowTi
           </p>
         ) : (
           <form onSubmit={onSubmit} className="space-y-5">
-            {fields.length === 0 && (
+            {fields.length === 0 && !showLuxoraIframe && (
               <p
                 className={
                   variant === "intake" ? "text-sm text-white/60" : "text-sm text-amber-800 bg-amber-50 border border-amber-200 rounded-lg p-3"
@@ -152,6 +184,22 @@ export function PublicHgForm({ formSlug, variant = "default", aboveFold, belowTi
                 The clinical body of this form is not loaded yet. Add the verbatim InMode + legal sections to
                 the Hub template; until then, sign below to test the pipeline.
               </p>
+            )}
+
+            {showLuxoraIframe && (
+              <label className={`flex items-start gap-3 text-sm ${labelColor}`}>
+                <input
+                  type="checkbox"
+                  className="mt-1 h-4 w-4 shrink-0"
+                  required
+                  checked={luxoraReadAttested}
+                  onChange={(e) => setLuxoraReadAttested(e.target.checked)}
+                />
+                <span>
+                  I have read the entire Luxora informed consent document above, including risks,
+                  contraindications, and attestation, and I had the opportunity to ask questions. *
+                </span>
+              </label>
             )}
             {fields.map((f) => (
               <div key={f.id}>
@@ -207,7 +255,10 @@ export function PublicHgForm({ formSlug, variant = "default", aboveFold, belowTi
             </div>
             <div>
               <label className={`block text-xs font-medium ${labelColor} mb-1`}>
-                Mobile number <span className="text-white/50">(links to your chart — we match Fresha first)</span>
+                Mobile number{" "}
+                <span className={variant === "intake" ? "text-white/50" : "text-black/45"}>
+                  (links to your chart — we match Fresha first)
+                </span>
               </label>
               <input
                 type="tel"

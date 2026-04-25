@@ -6,7 +6,7 @@ import { BOOKING_URL } from "@/lib/flows";
 export const metadata: Metadata = pageMetadata({
   title: "Procedures | Solaria, Morpheus8, Quantum RF | Hello Gorgeous Med Spa",
   description:
-    "Signature device procedures at Hello Gorgeous Med Spa, Oswego: Solaria CO₂, Morpheus8 Burst & Deep, and InMode QuantumRF 10, 15 & 25. Pre/post guides and patient documents.",
+    "Signature device procedures at Hello Gorgeous Med Spa, Oswego: Solaria CO₂, Morpheus8 Burst & Deep, InMode QuantumRF, and Luxora. Pre/post guides and patient documents.",
   path: "/procedures",
 });
 
@@ -34,6 +34,12 @@ const PROCEDURES = [
     tag: "Handpieces: 10, 15 & 25 — subdermal RF",
     href: "/services/quantum-rf#quantum-handpieces",
     icon: "👑",
+  },
+  {
+    name: "Luxora (InMode)",
+    tag: "Pre/post HTML + consent · InService PDF",
+    href: "/patient-documents",
+    icon: "💎",
   },
 ];
 

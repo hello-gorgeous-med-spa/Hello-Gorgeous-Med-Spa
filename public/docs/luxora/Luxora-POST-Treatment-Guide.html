@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Luxora — Post-Treatment Care Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  @page { size: letter; margin: 0; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --navy: #0a1628; --pink: #D4537E; --teal: #2a9d8f; --red: #e63946;
+    --gold: #c77b2a; --purple: #7b2d8b; --green: #2d7a55; --blue: #1a3a6b;
+    --bg: #f5f2ed; --ink: #1a1a1a;
+  }
+  html, body {
+    width: 8.5in; font-family: 'DM Sans', sans-serif; background: var(--bg);
+    color: var(--ink); font-size: 9pt; line-height: 1.45;
+    -webkit-print-color-adjust: exact; print-color-adjust: exact;
+  }
+  .sheet { width: 8.5in; padding: 0.4in 0.45in; background: #fff; }
+  .card, .grid-2, .grid-3, .timeline, .intro, .promise, .emergency, .expect-header { page-break-inside: avoid; break-inside: avoid; }
+
+  .header {
+    background: var(--navy); color: #fff; padding: 18px 24px; margin-bottom: 14px;
+    display: grid; grid-template-columns: 1fr auto; gap: 16px; align-items: center;
+  }
+  .header h1 { font-family: 'Bebas Neue', sans-serif; font-size: 26pt; letter-spacing: 2px; line-height: 1; }
+  .header h1 span { color: var(--pink); }
+  .header .sub { font-size: 9pt; color: #c9d0d8; margin-top: 4px; letter-spacing: 1px; }
+  .badge { background: var(--green); color: #fff; padding: 8px 16px; font-family: 'Bebas Neue', sans-serif; font-size: 11pt; letter-spacing: 2px; text-align: center; line-height: 1.1; }
+  .badge small { display: block; font-size: 7pt; letter-spacing: 1px; opacity: 0.9; font-family: 'DM Sans', sans-serif; }
+
+  .pills { display: flex; gap: 6px; margin-bottom: 12px; flex-wrap: wrap; }
+  .pill { background: var(--navy); color: #fff; padding: 4px 10px; font-size: 7.5pt; letter-spacing: 0.5px; font-weight: 600; border-radius: 2px; }
+  .pill.pink { background: var(--pink); }
+  .pill.teal { background: var(--teal); }
+  .pill.gold { background: var(--gold); }
+  .pill.green { background: var(--green); }
+  .pill.purple { background: var(--purple); }
+
+  .intro {
+    background: linear-gradient(135deg, #f0f8f3 0%, #fff 100%);
+    border-left: 4px solid var(--green); padding: 12px 18px; margin-bottom: 14px;
+    font-size: 9.5pt; line-height: 1.55;
+  }
+  .intro b { color: var(--green); }
+  .intro em { color: var(--navy); font-style: italic; font-weight: 600; }
+
+  .timeline {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-bottom: 14px;
+    padding: 12px; background: #f0f4fa; border: 1px solid #c9d0d8;
+  }
+  .tl-step { text-align: center; padding: 8px 6px; background: #fff; border-top: 3px solid var(--pink); }
+  .tl-step:nth-child(1) { border-top-color: var(--red); }
+  .tl-step:nth-child(2) { border-top-color: var(--gold); }
+  .tl-step:nth-child(3) { border-top-color: var(--purple); }
+  .tl-step:nth-child(4) { border-top-color: var(--blue); }
+  .tl-step:nth-child(5) { border-top-color: var(--teal); }
+  .tl-step:nth-child(6) { border-top-color: var(--green); }
+  .tl-step .when { font-family: 'Bebas Neue', sans-serif; font-size: 10pt; letter-spacing: 1px; color: var(--navy); line-height: 1.1; }
+  .tl-step .what { font-size: 7pt; color: #555; margin-top: 4px; line-height: 1.25; }
+
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px; }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px; }
+
+  .card { background: #fff; border: 1px solid #d8dae0; border-top: none; border-radius: 2px; overflow: hidden; }
+  .ch { padding: 8px 12px; color: #fff; font-family: 'Bebas Neue', sans-serif; font-size: 11pt; letter-spacing: 1.5px; line-height: 1.1; }
+  .ch.navy { background: var(--navy); } .ch.pink { background: var(--pink); }
+  .ch.teal { background: var(--teal); } .ch.red { background: var(--red); }
+  .ch.gold { background: var(--gold); } .ch.purple { background: var(--purple); }
+  .ch.green { background: var(--green); } .ch.blue { background: var(--blue); }
+
+  .cb { padding: 11px 14px; font-size: 8.5pt; line-height: 1.5; }
+  .cb p { margin-bottom: 5px; }
+  .cb p:last-child { margin-bottom: 0; }
+  .cb strong { color: var(--navy); }
+
+  .m { padding-left: 10px; border-left: 2px solid var(--pink); margin: 5px 0; font-size: 8.5pt; }
+  .m.teal { border-left-color: var(--teal); }
+  .m.gold { border-left-color: var(--gold); }
+  .m.red { border-left-color: var(--red); }
+  .m.green { border-left-color: var(--green); }
+  .m.blue { border-left-color: var(--blue); }
+  .m.purple { border-left-color: var(--purple); }
+
+  .al { background: #fff7f0; border-left: 3px solid var(--red); padding: 8px 11px; font-size: 8pt; margin: 6px 0; line-height: 1.45; }
+  .al.warn { background: #fff8e8; border-left-color: var(--gold); }
+  .al.ok { background: #f0f8f3; border-left-color: var(--green); }
+  .al.info { background: #f0f4fa; border-left-color: var(--blue); }
+  .al b { color: var(--red); letter-spacing: 0.5px; }
+  .al.warn b { color: var(--gold); }
+  .al.ok b { color: var(--green); }
+  .al.info b { color: var(--blue); }
+
+  .section-label {
+    font-family: 'Bebas Neue', sans-serif; font-size: 14pt; letter-spacing: 3px; color: var(--navy);
+    margin: 10px 0 8px; padding-bottom: 4px; border-bottom: 2px solid var(--pink);
+    display: flex; align-items: baseline; gap: 10px;
+  }
+  .section-label small { font-size: 8pt; letter-spacing: 1px; color: #888; font-family: 'DM Sans', sans-serif; font-weight: 400; text-transform: none; }
+
+  .stop-item, .ok-item { display: flex; gap: 6px; margin: 4px 0; font-size: 8.5pt; line-height: 1.4; }
+  .stop-item::before { content: "✗"; color: var(--red); font-weight: bold; flex-shrink: 0; }
+  .ok-item::before { content: "✓"; color: var(--green); font-weight: bold; flex-shrink: 0; }
+
+  .expect-header {
+    background: linear-gradient(90deg, var(--navy), #0f1d35); color: #fff;
+    padding: 10px 14px; font-family: 'Bebas Neue', sans-serif; letter-spacing: 2px; font-size: 12pt;
+    display: grid; grid-template-columns: auto 1fr; align-items: center; gap: 10px;
+  }
+  .expect-header .chip { background: var(--pink); color: #fff; padding: 2px 10px; font-size: 10pt; letter-spacing: 1px; }
+  .expect-header.recovery .chip { background: var(--gold); }
+  .expect-header.fade .chip { background: var(--purple); }
+  .expect-header.healing .chip { background: var(--teal); }
+  .expect-header.glow .chip { background: var(--green); }
+
+  .promise {
+    background: linear-gradient(135deg, var(--navy) 0%, #0f1d35 100%);
+    color: #fff; padding: 16px 22px; margin: 14px 0;
+    font-style: italic; font-size: 10pt; line-height: 1.55; border-left: 4px solid var(--pink);
+  }
+  .promise b { color: var(--pink); font-style: normal; letter-spacing: 1px; font-family: 'Bebas Neue', sans-serif; }
+
+  .emergency { background: var(--red); color: #fff; padding: 14px 18px; margin: 12px 0; }
+  .emergency h3 { font-family: 'Bebas Neue', sans-serif; font-size: 14pt; letter-spacing: 2px; margin-bottom: 4px; }
+  .emergency p { font-size: 9pt; margin-bottom: 4px; }
+  .emergency .phone { font-family: 'Bebas Neue', sans-serif; font-size: 18pt; letter-spacing: 2px; color: #fff; margin: 6px 0; }
+
+  /* Compression schedule box */
+  .compression-box {
+    background: #fff8e8; border: 2px solid var(--gold);
+    padding: 14px 16px; margin: 10px 0;
+  }
+  .compression-box h3 {
+    font-family: 'Bebas Neue', sans-serif; font-size: 13pt; letter-spacing: 2px;
+    color: var(--gold); margin-bottom: 4px;
+  }
+  .compression-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 6px; }
+  .comp-item { background: #fff; padding: 8px 10px; border-left: 3px solid var(--gold); font-size: 8.5pt; line-height: 1.4; }
+  .comp-item b { color: var(--navy); }
+
+  .footer {
+    background: var(--navy); color: #fff; padding: 14px 18px; margin-top: 14px;
+    font-size: 7.5pt; line-height: 1.5;
+    display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 16px; align-items: center;
+  }
+  .footer .brand { font-family: 'Bebas Neue', sans-serif; font-size: 16pt; letter-spacing: 2px; line-height: 1; }
+  .footer .brand span { color: var(--pink); }
+  .footer .credit { color: #c9d0d8; }
+  .footer .sig { text-align: right; color: #c9d0d8; }
+  .footer .sig b { color: var(--pink); letter-spacing: 1px; }
+</style>
+</head>
+<body>
+
+<div class="sheet">
+
+  <div class="header">
+    <div>
+      <h1>YOUR <span>LUXORA</span> RECOVERY</h1>
+      <div class="sub">POST-TREATMENT CARE GUIDE · DAY-BY-DAY · BUILT ON THE OFFICIAL INMODE PROTOCOL</div>
+    </div>
+    <div class="badge">RECOVERY<small>RESULTS BUILD 6–12 MONTHS</small></div>
+  </div>
+
+  <div class="pills">
+    <span class="pill">#Luxora</span>
+    <span class="pill pink">#InMode</span>
+    <span class="pill green">#HealingMode</span>
+    <span class="pill gold">#Compression</span>
+    <span class="pill purple">#PatientGlow</span>
+    <span class="pill">#HelloGorgeous</span>
+  </div>
+
+  <div class="intro">
+    You did it, gorgeous ✨ <b>Your tissue is now in active rebuild mode</b> — RF energy contracted your fibrous septa and dermis, and your body will continue the remodeling for the next 6–12 months. Recovery from Luxora is real. <em>Every feeling here is normal.</em> Read this once now, then again on day 2 (when you'll forget what's "normal" and want a roadmap). Call us with anything — small or scary. We're with you the whole way.
+  </div>
+
+  <!-- COMPRESSION GARMENT BOX - this is critical for Luxora -->
+  <div class="compression-box">
+    <h3>⚠ YOUR COMPRESSION GARMENT — NON-NEGOTIABLE</h3>
+    <p style="font-size:9pt;margin-bottom:4px;">Compression is the most important post-care step for Luxora. It minimizes swelling, supports healing tissue, and shapes your final result. Skipping it WILL compromise your outcome.</p>
+    <div class="compression-grid">
+      <div class="comp-item"><b>BODY AREAS:</b> Wear MINIMUM 3 full weeks (24 hrs/day), then 3 additional weeks at night/half-day. Aim for 12 hrs/day for the first 2 weeks minimum.</div>
+      <div class="comp-item"><b>NECK:</b> 3–4 full days, then 1–2 weeks at night only.</div>
+      <div class="comp-item"><b>FACE:</b> Per Ryan's specific instructions at your appointment.</div>
+      <div class="comp-item"><b>WHEN TO REMOVE:</b> Only for showering or cleaning incision sites. Put it back on immediately after.</div>
+    </div>
+  </div>
+
+  <!-- TIMELINE -->
+  <div class="timeline">
+    <div class="tl-step"><div class="when">DAYS 1–2</div><div class="what">Dressings on<br>Drainage normal</div></div>
+    <div class="tl-step"><div class="when">DAYS 3–7</div><div class="what">Bruising peaks<br>Swelling significant</div></div>
+    <div class="tl-step"><div class="when">WEEK 2</div><div class="what">Bruising fades<br>Compression ON</div></div>
+    <div class="tl-step"><div class="when">WEEK 3</div><div class="what">Most swelling<br>resolved</div></div>
+    <div class="tl-step"><div class="when">MONTHS 2–6</div><div class="what">Tightening visible<br>Real changes</div></div>
+    <div class="tl-step"><div class="when">MONTH 12</div><div class="what">FULL RESULTS<br>Worth it 💕</div></div>
+  </div>
+
+  <!-- DAYS 1-2 -->
+  <div class="expect-header">
+    <span class="chip">DAYS 1–2</span>
+    <span>FIRST 48 HOURS · DRESSINGS, DRAINAGE, REST</span>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="ch red">HOW YOU'LL LOOK + FEEL</div>
+      <div class="cb">
+        <p class="m red"><strong>Dressings + compression on</strong> — leave them in place for 48 hrs (or per Ryan)</p>
+        <p class="m red"><strong>Drainage from incision ports</strong> — clear, pink, or yellow-tinged fluid is NORMAL for 1–3 days. Change dressing daily.</p>
+        <p class="m red"><strong>Significant swelling</strong> — esp. body areas. Will worsen before improving.</p>
+        <p class="m red"><strong>Bruising starts</strong> — may be mild day 1, deeper by day 3.</p>
+        <p class="m red"><strong>Soreness like a workout</strong> — tender to touch, achy</p>
+        <p class="m red"><strong>Numbness / tingling</strong> — normal — your nerves are calming down</p>
+        <p class="m red"><strong>Burning / heat sensation</strong> in tx area — especially face/thin skin</p>
+        <div class="al ok"><b>ALL NORMAL.</b> InMode-documented expected response.</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="ch teal">WHAT TO DO TODAY</div>
+      <div class="cb">
+        <p class="m teal"><strong>Compression garment + dressings ON.</strong> Don't peek. Don't adjust. Don't take it off.</p>
+        <p class="m teal"><strong>For face/neck:</strong> Sleep on 2–3 pillows or in a recliner. Head elevated for 2–3 nights.</p>
+        <p class="m teal"><strong>For face/neck:</strong> Minimize talking + chewing for first 48 hrs. Soft food diet.</p>
+        <p class="m teal"><strong>Pain management:</strong> Tylenol or prescribed pain medication only — NEVER both. NO Ibuprofen, Aspirin, NSAIDs.</p>
+        <p class="m teal"><strong>Take prescribed antibiotics</strong> on time, every dose, for full course (5–7 days).</p>
+        <p class="m teal"><strong>Take antiviral</strong> if prescribed.</p>
+        <p class="m teal"><strong>Hydrate aggressively</strong> — 80+ oz water</p>
+        <p class="m teal"><strong>REST.</strong> No errands, no chores, no exercise.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="ch gold">PAIN MANAGEMENT</div>
+      <div class="cb">
+        <p class="m gold"><strong>Prescribed pain medication</strong> — take as directed by Ryan</p>
+        <p class="m gold"><strong>OR Tylenol</strong> — 500–1000 mg every 6 hrs as needed</p>
+        <p class="m gold"><strong>NEVER both pain medication + Tylenol</strong> together unless Ryan specifically says</p>
+        <p class="m gold"><strong>Compression helps the pain</strong> — believe it or not</p>
+        <p class="m gold"><strong>Cold compresses</strong> over (NOT directly on) garment can help — clean cloth between</p>
+        <div class="al"><b>NEVER:</b> Ibuprofen, Aspirin, Advil, Motrin, Aleve, Naproxen — these thin blood and increase bruising/bleeding. Avoid for 1 week post.</div>
+        <div class="al warn"><b>EXCEPTION:</b> If your primary care doc has you on daily aspirin, ask Ryan for guidance.</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="ch blue">DRAINAGE + DRESSING CARE</div>
+      <div class="cb">
+        <p>Per InMode protocol: drainage from incision ports for 1–3 days is expected.</p>
+        <p class="m blue"><strong>Change dressings daily</strong> if soaked through</p>
+        <p class="m blue"><strong>Use clean gauze + paper tape</strong> over each incision port</p>
+        <p class="m blue"><strong>Don't soak</strong> — no baths, pools, hot tubs for 2 weeks</p>
+        <p class="m blue"><strong>Showers OK after 48 hrs</strong> — let soapy water run over incisions, do NOT scrub</p>
+        <p class="m blue"><strong>Pat dry — never rub</strong></p>
+        <p class="m blue"><strong>Apply antibiotic ointment</strong> twice daily to incision points for 1 week (after garment removal)</p>
+        <div class="al ok"><b>TINY SCABS</b> may form at incision points. They're part of healing. <strong>Do NOT pick them.</strong></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DAYS 3-7 -->
+  <div class="expect-header recovery">
+    <span class="chip">DAYS 3–7</span>
+    <span>BRUISING PEAKS · SWELLING SETTLES IN · STAY THE COURSE</span>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="ch purple">WHAT'S HAPPENING</div>
+      <div class="cb">
+        <p>Your body is in deep healing. This is a long stretch — but it's working.</p>
+        <p class="m purple"><strong>Bruising peaks</strong> around day 3–5. Black/blue/yellow spectrum. Will fade.</p>
+        <p class="m purple"><strong>Swelling persists</strong> — your most "puffy" days are behind you, but you're not back to normal yet.</p>
+        <p class="m purple"><strong>Skin may feel tight</strong> — collagen rebuilding</p>
+        <p class="m purple"><strong>Numbness / tingling continues</strong> — totally normal — sensation gradually returns over 4–16 weeks (sometimes longer)</p>
+        <p class="m purple"><strong>Itching</strong> as nerves wake up</p>
+        <p class="m purple"><strong>Drainage stops</strong> by day 3–4 typically</p>
+        <p class="m purple"><strong>Energy returns</strong> — but don't push it</p>
+        <div class="al info"><b>MENTAL NOTE:</b> This is the "what did I sign up for" stretch. Day 7 is a big turning point. Trust the process.</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="ch teal">CARE THIS WEEK</div>
+      <div class="cb">
+        <p class="m teal"><strong>Compression garment STAYS ON</strong> — minimum 12 hrs/day, ideally 24/7</p>
+        <p class="m teal"><strong>Wound care:</strong> Apply antibiotic ointment to incision points 2x daily for 1 week (after dressing comes off)</p>
+        <p class="m teal"><strong>Gentle cleansing</strong> after 48 hrs — Cetaphil, CeraVe, or similar mild soap. NO scrubbing.</p>
+        <p class="m teal"><strong>NO retinol, acids, exfoliants</strong> in tx area for 3 weeks</p>
+        <p class="m teal"><strong>Avoid heat</strong> — hot showers, saunas, steam, fires, hot yoga — for 2 weeks</p>
+        <p class="m teal"><strong>Avoid intense activity</strong> — light walks OK by day 3–4, no real exercise for 2–3 weeks</p>
+        <p class="m teal"><strong>NO alcohol for several days</strong> — slows healing, thins blood</p>
+        <p class="m teal"><strong>If face was treated:</strong> electric razor only for first week (no manual razor)</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- WEEK 2 -->
+  <div class="expect-header fade">
+    <span class="chip">WEEK 2</span>
+    <span>BRUISING FADES · SWELLING IMPROVING · COMPRESSION CONTINUES</span>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="ch gold">WHAT YOU'LL SEE</div>
+      <div class="cb">
+        <p class="m gold"><strong>Bruising mostly faded</strong> — yellow stage by week 2 end</p>
+        <p class="m gold"><strong>Swelling significantly down</strong> — you'll start to recognize yourself</p>
+        <p class="m gold"><strong>Incision ports closing</strong> — small pink dots may persist for several weeks</p>
+        <p class="m gold"><strong>Skin still feels firm + tight</strong> — that's your collagen building</p>
+        <p class="m gold"><strong>Numbness lingering</strong> — patchy areas may stay numb 4–16 weeks</p>
+        <p class="m gold"><strong>Some tenderness with touch</strong> still — also normal</p>
+        <p class="m gold"><strong>Some patients report "burning, tingling, tightening"</strong> for up to 3 months — InMode-documented and normal</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="ch teal">CARE THIS WEEK</div>
+      <div class="cb">
+        <p class="m teal"><strong>Compression garment</strong> still 12+ hrs/day — at MINIMUM through end of week 3</p>
+        <p class="m teal"><strong>Makeup OK</strong> after 72 hours to cover redness/bruising — avoid still-healing incision points</p>
+        <p class="m teal"><strong>Light exercise OK</strong> — walks, gentle stretching. NO HIIT, lifting, or pounding.</p>
+        <p class="m teal"><strong>Mineral SPF 30+ zinc oxide</strong> daily — required after 24–48 hrs forever</p>
+        <p class="m teal"><strong>Limit UV exposure + heat</strong> for 2 weeks</p>
+        <p class="m teal"><strong>Continue gentle skincare</strong> — no actives until 3+ weeks post</p>
+        <p class="m teal"><strong>Stay hydrated, rest, eat protein</strong></p>
+        <div class="al ok"><b>YOU'RE OVER THE HUMP.</b> The hardest week is behind you.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WEEKS 3-6 -->
+  <div class="expect-header healing">
+    <span class="chip">WEEKS 3–6</span>
+    <span>BACK TO LIFE · COLLAGEN BUILDING UNDERNEATH</span>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="ch teal">WELCOME BACK TO YOURSELF</div>
+      <div class="cb">
+        <p class="m teal"><strong>End of week 3:</strong> Most patients done with daytime compression — transition to night-only per Ryan</p>
+        <p class="m teal"><strong>Most swelling resolved</strong> — some residual is normal up to 6 weeks</p>
+        <p class="m teal"><strong>Bruising fully gone</strong> by end of week 3</p>
+        <p class="m teal"><strong>Sensation returning</strong> in patchy waves — totally normal</p>
+        <p class="m teal"><strong>Tight, firm skin feel</strong> continues — collagen is actively remodeling</p>
+        <p class="m teal"><strong>Resume normal exercise</strong> by week 3–4 (per Ryan's clearance)</p>
+        <p class="m teal"><strong>Resume normal skincare</strong> — gentle actives can return week 3+ (low %, slow start)</p>
+        <p class="m teal"><strong>Initial visible changes</strong> by week 4–6 — subtle but real</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="ch gold">REINTRODUCING SKINCARE</div>
+      <div class="cb">
+        <p><strong>Weeks 1–3:</strong> simple routine only</p>
+        <p class="m gold">Gentle cleanser AM + PM</p>
+        <p class="m gold">Bland moisturizer</p>
+        <p class="m gold">Mineral SPF 30+ AM (forever — InMode emphasized)</p>
+        <p style="margin-top:6px;"><strong>Week 3+:</strong> reintroduce gently</p>
+        <p class="m gold">Vitamin C serum (start at 10–15%)</p>
+        <p class="m gold">Niacinamide</p>
+        <p class="m gold">Peptide serums</p>
+        <p class="m gold">Hyaluronic acid</p>
+        <p style="margin-top:6px;"><strong>Week 4+:</strong> per Ryan's okay</p>
+        <p class="m gold">Retinoids — slow start, every 3rd night</p>
+        <p class="m gold">AHA/BHA — wait 4–6 weeks</p>
+        <p class="m gold">Other procedures (Botox, fillers, laser) — wait per Ryan</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- MONTHS 2-12 -->
+  <div class="expect-header glow">
+    <span class="chip">MONTHS 2–12</span>
+    <span>THE COLLAGEN ERA · YOUR RESULTS REVEAL HERE</span>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="ch green">WHAT KEEPS HAPPENING</div>
+      <div class="cb">
+        <p class="m green"><strong>Skin tightening builds</strong> — InMode protocol: changes typically apparent 6–12 months post-treatment</p>
+        <p class="m green"><strong>Final results visible at month 12</strong> — patience is everything</p>
+        <p class="m green"><strong>Continued contour refinement</strong> — body shape and definition evolves</p>
+        <p class="m green"><strong>Sensation fully returns</strong> — usually by month 4–6</p>
+        <p class="m green"><strong>Possible follow-up sessions</strong> — at Ryan's recommendation, depending on goals</p>
+        <p class="m green"><strong>Take photos at months 3, 6, 12</strong> — month-12 photo next to day-1 will show you what you signed up for</p>
+        <div class="al ok"><b>PROGRESS NOTE:</b> Don't judge results before month 6. Your body is still working.</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="ch purple">PROTECT YOUR INVESTMENT</div>
+      <div class="cb">
+        <p class="m purple"><strong>SPF IS LIFE</strong> — every single day, forever, in tx area</p>
+        <p class="m purple"><strong>No tanning</strong> — sun, beds, self-tanner — for 4+ weeks; mindful forever</p>
+        <p class="m purple"><strong>No aggressive treatments</strong> in tx area for 4–6 weeks</p>
+        <p class="m purple"><strong>Stay hydrated, eat protein, sleep 8 hrs</strong> — collagen needs amino acids</p>
+        <p class="m purple"><strong>Exercise consistently</strong> — supports overall body composition</p>
+        <p class="m purple"><strong>Stable weight</strong> — large weight fluctuations can affect Luxora results</p>
+        <p class="m purple"><strong>Smoking destroys collagen</strong> — if you've been considering quitting, this is your moment</p>
+        <div class="al ok"><b>PHOTOS:</b> Compare your day-1 to month-12. The transformation is real.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DOs AND DON'Ts -->
+  <div class="section-label">THE COMPLETE DO + DON'T LIST <small>· tape this near your bed</small></div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="ch green">DO</div>
+      <div class="cb">
+        <div class="ok-item">Wear your compression garment as instructed — minimum 3 weeks</div>
+        <div class="ok-item">Take prescribed antibiotic for full course</div>
+        <div class="ok-item">Take antiviral as prescribed if applicable</div>
+        <div class="ok-item">Take Tylenol OR prescribed pain meds — never both, never NSAIDs</div>
+        <div class="ok-item">Sleep elevated 2–3 nights for face/neck</div>
+        <div class="ok-item">Apply antibiotic ointment to incision sites 2x daily for 1 week</div>
+        <div class="ok-item">Drink 80+ oz water daily</div>
+        <div class="ok-item">Eat protein at every meal</div>
+        <div class="ok-item">Mineral SPF 30+ in tx area starting day 2+</div>
+        <div class="ok-item">Wear loose clothes that don't compress incisions</div>
+        <div class="ok-item">Sleep on clean sheets</div>
+        <div class="ok-item">Take photos at day 1, week 2, month 3, month 6, month 12</div>
+        <div class="ok-item">Call us with any question, any time</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="ch red">DON'T</div>
+      <div class="cb">
+        <div class="stop-item">Skip the compression garment — destroys results</div>
+        <div class="stop-item">Take Ibuprofen, Aspirin, NSAIDs for 1 week</div>
+        <div class="stop-item">Drink alcohol for several days post (slows healing)</div>
+        <div class="stop-item">Pick at scabs at incision sites</div>
+        <div class="stop-item">Scrub or rub the treatment area</div>
+        <div class="stop-item">Use retinol, acids, or actives in tx area for 3+ weeks</div>
+        <div class="stop-item">Take hot showers, saunas, hot tubs for 2 weeks</div>
+        <div class="stop-item">Soak in baths, pools, lakes, ocean for 2 weeks</div>
+        <div class="stop-item">Tan, sunbathe, or use self-tanner for 2+ weeks</div>
+        <div class="stop-item">Exercise vigorously for 2–3 weeks</div>
+        <div class="stop-item">Get other procedures in tx area for 4–6 weeks</div>
+        <div class="stop-item">Smoke or vape — destroys collagen + healing</div>
+        <div class="stop-item">Skip your follow-up appointments</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EMERGENCY -->
+  <div class="emergency">
+    <h3>⚠ CALL US IMMEDIATELY IF YOU NOTICE:</h3>
+    <p>• <b>Fever, chills</b>, or feeling generally unwell · <b>increasing pain</b> after day 3 · <b>extreme discomfort</b> not relieved by your meds</p>
+    <p>• <b>Yellow or green pus</b> from incision sites · <b>red streaks</b> radiating from incision sites · <b>foul-smelling drainage</b></p>
+    <p>• <b>Heat or warmth</b> in tx area days after surgery · <b>blisters</b> or new wounds · <b>discharge</b> beyond day 3</p>
+    <p>• <b>Sudden severe swelling</b> · <b>shortness of breath</b> · <b>chest pain</b> · <b>anything that feels seriously wrong</b></p>
+    <div class="phone">📞 630-636-6193</div>
+    <p style="font-size:8pt;">Call our main line 24/7 — after-hours routes to Ryan directly. Per InMode protocol, do NOT wait — early intervention prevents complications. <b>If life-threatening: call 911.</b></p>
+  </div>
+
+  <div class="promise">
+    <b>HERE'S WHAT WE PROMISE.</b> You're not healing alone. We track every Luxora patient — we'll check in within 48 hrs, again at week 1, again at week 4, and we'll see you for 6-month + 12-month follow-up photos. <em>The wait is real. So is what's coming.</em> 💕
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div>
+      <div class="brand">HELLO <span>GORGEOUS</span></div>
+      <div class="credit" style="font-size:7pt;margin-top:3px;letter-spacing:1px;">74 W WASHINGTON ST · OSWEGO, IL · 630-636-6193</div>
+    </div>
+    <div class="credit">
+      <b>Luxora Post-Treatment Guide</b><br>
+      Built on the official InMode<br>
+      post-care protocol
+    </div>
+    <div class="sig">
+      From the team of <b>HELLO GORGEOUS</b><br>
+      Medical Director: Ryan Kent, FNP-BC<br>
+      Owner: Danielle Alcala-Glazier
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
