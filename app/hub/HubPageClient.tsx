@@ -171,6 +171,10 @@ export default function HubPageClient() {
           <p className="text-black/60 text-sm">Shared in Supabase · Live between Dani and Ryan</p>
           <p className="text-sm mt-1">
             <a href="/hub/classic" className="text-pink-600 underline">Classic UI</a>
+            {" · "}
+            <a href="/hub/intake-submissions" className="text-pink-600 underline">
+              Intake submissions
+            </a>
             {hubGate ? (
               <>
                 {" · "}

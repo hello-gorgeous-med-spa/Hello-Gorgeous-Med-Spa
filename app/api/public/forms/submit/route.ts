@@ -1,8 +1,8 @@
 // HG_DEV_008 — Public form submission (intake / consent). Links to client when phone matches.
 
 import { NextRequest, NextResponse } from "next/server";
-import { findClientsByPhoneLoose } from "@/lib/checkin-lookup";
 import { getSupabaseAdminClient } from "@/lib/hgos/supabase-admin";
+import { resolveOrCreateClientForIntake } from "@/lib/resolveClientForIntake";
 import { randomBytes } from "crypto";
 
 export const dynamic = "force-dynamic";
@@ -43,8 +43,12 @@ export async function POST(req: NextRequest) {
 
   let clientId: string | null = null;
   if (clientPhone) {
-    const matches = await findClientsByPhoneLoose(admin, clientPhone);
-    if (matches.length === 1) clientId = matches[0].id;
+    const { clientId: resolved } = await resolveOrCreateClientForIntake(admin, {
+      clientPhone,
+      signerName: signerName,
+      source: `intake_form:${slug}`,
+    });
+    clientId = resolved;
   }
 
   const token = randomBytes(24).toString("hex");

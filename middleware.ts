@@ -80,6 +80,19 @@ export async function middleware(request: NextRequest) {
     }
   }
 
+  // Intake: primary URL is hub.hellogorgeousmedspa.com/intake (HG_DEV_010) — public, no password
+  if (
+    (pathname === '/intake' || pathname.startsWith('/intake/')) &&
+    !isHubHost &&
+    !hostname.startsWith('localhost') &&
+    !hostname.startsWith('127.')
+  ) {
+    const apex = hostname.replace(/^www\./, '');
+    return NextResponse.redirect(
+      new URL(`https://hub.${apex}${pathname}${url.search}`, request.url)
+    );
+  }
+
   // hub.hellogorgeousmedspa.com → classic Command Center (after auth)
   if (isHubHost) {
     if (url.pathname === '/') {
@@ -87,6 +100,9 @@ export async function middleware(request: NextRequest) {
       return NextResponse.rewrite(url);
     }
     const allowed =
+      url.pathname === '/intake' ||
+      url.pathname.startsWith('/intake/') ||
+      url.pathname.startsWith('/api/public/') ||
       url.pathname.startsWith('/hub') ||
       url.pathname.startsWith('/api/hub') ||
       url.pathname.startsWith('/_next') ||
