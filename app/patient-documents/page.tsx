@@ -40,14 +40,6 @@ const WEB_GUIDES: DocGroup[] = [
   },
 ];
 
-const PDF_PLACEHOLDERS = [
-  { label: "Morpheus8 — pre-treatment guide (PDF)", file: "morpheus8-pre-treatment.pdf" },
-  { label: "Morpheus8 — post-treatment guide (PDF)", file: "morpheus8-post-treatment.pdf" },
-  { label: "Solaria CO₂ — pre-treatment letter (PDF)", file: "solaria-co2-pre-treatment.pdf" },
-  { label: "Solaria CO₂ — post-treatment letter (PDF)", file: "solaria-co2-post-treatment.pdf" },
-  { label: "Solaria CO₂ — consent (PDF)", file: "solaria-co2-consent.pdf" },
-];
-
 export default function PatientDocumentsPage() {
   return (
     <main className="min-h-screen bg-white text-black">
@@ -56,10 +48,9 @@ export default function PatientDocumentsPage() {
           <p className="text-xs font-bold uppercase tracking-[0.35em] text-[#E6007E]">Patient resources</p>
           <h1 className="mt-3 text-4xl font-bold tracking-tight md:text-5xl">Pre, post & consent</h1>
           <p className="mt-4 text-base leading-relaxed text-black/75">
-            <strong>Scan a QR code</strong> below to open the pre- and post-care web guide on your phone—no app
-            required. Use the text links for the same content on a kiosk. Printable PDFs can be added under{" "}
-            <code className="rounded bg-black/5 px-1.5 py-0.5 text-sm">/docs/procedures/</code> on this site. Square
-            checkout or your admin can reference these links in confirmations; Fresha stays your booking system.
+            <strong>Scan a QR code</strong> below to open pre- and post-care guides on your phone—no app required. You
+            can also use the same links on a tablet or computer. Consent and education documents are available further
+            down the page. Need a paper copy? Ask us at the front desk or when you check in.
           </p>
         </div>
       </section>
@@ -70,13 +61,12 @@ export default function PatientDocumentsPage() {
         <div className="mx-auto max-w-3xl px-4 py-12">
           <h2 className="text-xl font-bold">Luxora (InMode) — pre, post, consent, reference</h2>
           <p className="mt-2 text-sm text-black/70">
-            Verbatim source files in <code className="rounded bg-black/5 px-1">/docs/luxora/</code>. Chart-ready
-            digital intake with the same consent document:{" "}
+            Read the same informed consent, pre- and post-treatment, and InMode reference we use in clinic. For
+            education only—your care team will guide signing at your visit if needed.{" "}
             <a className="font-semibold text-[#E6007E] hover:underline" href={HUB_INTAKE}>
-              hub.hellogorgeousmedspa.com/intake
+              Digital check-in
             </a>{" "}
-            (default; optional <code className="rounded bg-black/5 px-1">?form=…</code> for other devices—see
-            Solaria &amp; Morpheus8 below).
+            is available on your phone when we ask you to complete consent on our check-in page.
           </p>
           <ul className="mt-4 space-y-2 text-sm">
             <li>
@@ -125,15 +115,10 @@ export default function PatientDocumentsPage() {
 
       <section className="border-t border-black/10 bg-white">
         <div className="mx-auto max-w-3xl px-4 py-12">
-          <h2 className="text-xl font-bold">Solaria CO₂ &amp; Morpheus8 — informed consent (HTML)</h2>
+          <h2 className="text-xl font-bold">Solaria CO₂ &amp; Morpheus8 — informed consent</h2>
           <p className="mt-2 text-sm text-black/70">
-            Verbatim files in <code className="rounded bg-black/5 px-1">/docs/solaria/</code> and{" "}
-            <code className="rounded bg-black/5 px-1">/docs/morpheus8/</code>. Same hub intake flow as Luxora:{" "}
-            <a className="font-semibold text-[#E6007E] hover:underline" href={HUB_INTAKE}>
-              {HUB_INTAKE.replace("https://", "")}
-            </a>{" "}
-            with <code className="rounded bg-black/5 px-1">?form=solaria-co2-consent</code> or{" "}
-            <code className="rounded bg-black/5 px-1">?form=morpheus8-consent</code>.
+            You can read these informed consent documents online for education. At your appointment, we will walk you
+            through signing and any questions, same as our other device treatments.
           </p>
           <ul className="mt-4 space-y-2 text-sm">
             <li>
@@ -186,24 +171,11 @@ export default function PatientDocumentsPage() {
 
       <section className="border-t border-black/10 bg-zinc-50/80">
         <div className="mx-auto max-w-3xl px-4 py-12">
-          <h2 className="text-xl font-bold">Printable PDFs (upload to site)</h2>
+          <h2 className="text-xl font-bold">Print from your browser</h2>
           <p className="mt-2 text-sm text-black/70">
-            After you copy branded PDFs into <code className="rounded bg-black/5 px-1 py-0.5">public/docs/procedures/</code>
-            , they will load at <code className="rounded bg-black/5 px-1 py-0.5">/docs/procedures/&lt;filename&gt;</code>
-            . Filenames we recommend:
+            Open any guide above, then use your browser&apos;s <strong>Print</strong> or <strong>Save as PDF</strong> if
+            you want a copy at home. We can also provide printed handouts or walk you through consent in person.
           </p>
-          <ul className="mt-4 space-y-2 text-sm">
-            {PDF_PLACEHOLDERS.map((p) => (
-              <li key={p.file} className="flex flex-wrap items-baseline gap-2">
-                <span className="text-black/80">{p.label}</span>
-                <code className="rounded bg-white px-1.5 py-0.5 text-xs text-black/60">/docs/procedures/{p.file}</code>
-              </li>
-            ))}
-            <li className="pt-2 text-black/55">
-              Morpheus8 consent: use your existing HTML workflow or add{" "}
-              <code className="rounded bg-white px-1 py-0.5 text-xs">morpheus8-consent.pdf</code> the same way.
-            </li>
-          </ul>
         </div>
       </section>
 
