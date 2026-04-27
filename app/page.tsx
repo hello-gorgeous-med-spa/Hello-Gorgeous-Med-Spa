@@ -23,6 +23,8 @@ import { Morpheus8SkinRebuildSection } from "@/components/Morpheus8SkinRebuildSe
 import { Morpheus8VerifiedProviderSection } from "@/components/Morpheus8VerifiedProviderSection";
 import {
   SITE,
+  SITE_OG_IMAGE,
+  SITE_OG_IMAGE_ALT,
   pageMetadata,
   siteJsonLd,
   mainLocalBusinessJsonLd,
@@ -40,14 +42,10 @@ import {
   homepageServicesImageGalleryJsonLd,
 } from "@/lib/seo";
 
-/** Default social preview image (same file since 2026-01); explicit here so `openGraph` from `pageMetadata` does not drop `images` vs root layout. */
-const HOME_OG_IMAGE = `${SITE.url}/images/hero-banner.png`;
-const HOME_OG_ALT = "Hello Gorgeous Med Spa - Botox, Fillers, Weight Loss in Oswego IL";
-
 const _homeBase = pageMetadata({
-  title: "Hello Gorgeous Contour Lift™ (Quantum RF) | Advanced Contouring, Oswego, IL | Hello Gorgeous",
+  title: "Botox, Fillers & Weight Loss Med Spa",
   description:
-    "The Hello Gorgeous Contour Lift™ is powered by InMode Quantum RF — a minimally invasive alternative to skin tightening surgery. Loose skin, definition, and contour without the OR. Medical supervision. Oswego, Naperville, Aurora, Fox Valley. Book a consultation. Full services: Morpheus8, Solaria CO₂, injectables, medical wellness.",
+    "Hello Gorgeous Med Spa in Oswego, IL offers Botox ($10/unit), dermal fillers, Semaglutide weight loss, Biote hormone therapy, IV therapy & more. 5-Star Rated. Serving Naperville, Aurora, Plainfield. Book free consultation!",
   path: "/",
 });
 
@@ -55,13 +53,11 @@ export const metadata: Metadata = {
   ..._homeBase,
   openGraph: {
     ..._homeBase.openGraph,
-    images: [
-      { url: HOME_OG_IMAGE, width: 1200, height: 630, alt: HOME_OG_ALT },
-    ],
+    images: [{ url: SITE_OG_IMAGE, width: 1200, height: 630, alt: SITE_OG_IMAGE_ALT }],
   },
   twitter: {
     ..._homeBase.twitter,
-    images: [HOME_OG_IMAGE],
+    images: [SITE_OG_IMAGE],
   },
 };
 

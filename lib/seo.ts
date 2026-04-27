@@ -50,6 +50,10 @@ export const SITE = {
   },
 } as const;
 
+/** Default OG/Twitter art (`public/images/hero-banner.png`). Bump `v` to bust Facebook/LinkedIn cache after changing the file. */
+export const SITE_OG_IMAGE = `${SITE.url}/images/hero-banner.png?v=2026-04-og` as const;
+export const SITE_OG_IMAGE_ALT = "Hello Gorgeous Med Spa - Botox, Fillers, Weight Loss in Oswego IL";
+
 /** Must match visible copy in `components/homepage-v3/HomepageFAQ.tsx` (single source for FAQ rich results). */
 export const HOME_FAQS: readonly FAQ[] = [
   {

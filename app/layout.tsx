@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
 
-import { organizationJsonLd, siteJsonLd, SITE, websiteJsonLd } from "@/lib/seo";
+import { organizationJsonLd, siteJsonLd, SITE, SITE_OG_IMAGE, SITE_OG_IMAGE_ALT, websiteJsonLd } from "@/lib/seo";
 import { getDefaultSEO, getSiteSettings } from "@/lib/cms-readers";
 import { AuthWrapper } from "@/components/AuthWrapper";
 import { ConditionalLayout } from "@/components/ConditionalLayout";
@@ -88,10 +88,10 @@ export async function generateMetadata(): Promise<Metadata> {
     siteName: SITE.name,
     images: [
       {
-        url: `${SITE.url}/images/hero-banner.png`,
+        url: SITE_OG_IMAGE,
         width: 1200,
         height: 630,
-        alt: "Hello Gorgeous Med Spa - Botox, Fillers, Weight Loss in Oswego IL",
+        alt: SITE_OG_IMAGE_ALT,
       },
     ],
   },
@@ -99,7 +99,7 @@ export async function generateMetadata(): Promise<Metadata> {
     card: "summary_large_image",
     title,
     description,
-    images: [`${SITE.url}/images/hero-banner.png`],
+    images: [SITE_OG_IMAGE],
   },
   alternates: {
     canonical: SITE.url,
