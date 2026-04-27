@@ -63,6 +63,11 @@ export async function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
+  // Intake form lives at /intake only — not /hub/intake (no such page; staff shared wrong link)
+  if (pathname === "/hub/intake" || pathname === "/hub/intake/") {
+    return NextResponse.redirect(new URL("/intake" + url.search, request.url));
+  }
+
   // Command Center password gate (HUB_PASSWORD_*) — uses pathForHubGate so hub. + / is protected
   if (hubPasswordGateEnabled()) {
     const isHubLogin =
