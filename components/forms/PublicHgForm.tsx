@@ -1,6 +1,11 @@
 "use client";
 
 import { useEffect, useState, type ReactNode } from "react";
+
+/** DB title may include internal path text — keep patient-facing line clean. */
+function displayFormTitle(raw: string) {
+  return raw.replace(/\s*\(verbatim source in \/docs\/[^)]+\)\s*$/i, "").trim() || raw;
+}
 import {
   getConsentIframeSrc,
   hasVerbatimConsentIframe,
@@ -33,9 +38,22 @@ export function PublicHgForm({ formSlug, variant = "default", aboveFold, belowTi
   const [done, setDone] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
   const [consentReadAttested, setConsentReadAttested] = useState(false);
-
   const consentIframeSrc = getConsentIframeSrc(formSlug);
   const showVerbatimConsentIframe = Boolean(consentIframeSrc && hasVerbatimConsentIframe(formSlug) && !done);
+  const [resolvedConsentSrc, setResolvedConsentSrc] = useState(consentIframeSrc || "");
+
+  // Absolute URL on current host (hub. vs www.) so the framed /docs/… URL matches the page origin
+  useEffect(() => {
+    if (!consentIframeSrc) {
+      setResolvedConsentSrc("");
+      return;
+    }
+    if (consentIframeSrc.startsWith("/")) {
+      setResolvedConsentSrc(`${window.location.origin}${consentIframeSrc}`);
+    } else {
+      setResolvedConsentSrc(consentIframeSrc);
+    }
+  }, [consentIframeSrc]);
 
   useEffect(() => {
     if (!formSlug) return;
@@ -145,7 +163,7 @@ export function PublicHgForm({ formSlug, variant = "default", aboveFold, belowTi
   return (
     <div className={wrapClass}>
       {aboveFold}
-      {showVerbatimConsentIframe && consentIframeSrc && (
+      {showVerbatimConsentIframe && resolvedConsentSrc && (
         <div className="max-w-4xl mx-auto mb-8 w-full px-0">
           <p
             className={
@@ -158,9 +176,10 @@ export function PublicHgForm({ formSlug, variant = "default", aboveFold, belowTi
             details below.
           </p>
           <iframe
-            title={title ? `${title} — verbatim document` : "Informed consent — verbatim document"}
-            src={consentIframeSrc}
+            title={title ? `${displayFormTitle(title)} — consent` : "Informed consent"}
+            src={resolvedConsentSrc}
             className="w-full h-[min(80vh,920px)] rounded-lg border-2 border-[#D4537E]/50 bg-white shadow-lg"
+            referrerPolicy="strict-origin-when-cross-origin"
           />
         </div>
       )}
@@ -171,7 +190,7 @@ export function PublicHgForm({ formSlug, variant = "default", aboveFold, belowTi
             variant === "intake" ? "font-serif text-2xl text-white mb-2" : "font-serif text-2xl text-[#1a1a1a] mb-2"
           }
         >
-          {title}
+          {displayFormTitle(title)}
         </h1>
         {belowTitle}
         {done ? (

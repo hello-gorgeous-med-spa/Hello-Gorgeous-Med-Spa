@@ -73,7 +73,7 @@ const nextConfig = {
         },
       ],
     },
-    // Verbatim consent / pre-post HTML (public/docs/…) — iframed on /intake; global DENY + frame-ancestors none blocks embeds
+    // Verbatim consent / pre-post HTML — iframed on hub. and www; XFO SAMEORIGIN blocks hub↔www; use CSP + explicit hosts
     {
       source: "/docs/:path*",
       headers: [
@@ -88,7 +88,7 @@ const nextConfig = {
             "font-src 'self' https://fonts.gstatic.com",
             "connect-src 'self' https://*.supabase.co https://api.openai.com https://api.stripe.com wss://*.supabase.co https://*.withcherry.com https://assistloop.ai https://*.assistloop.ai wss://*.assistloop.ai",
             "frame-src 'self' https://js.stripe.com https://challenges.cloudflare.com https://www.alle.com https://*.alle.com https://*.withcherry.com https://pay.withcherry.com https://www.facebook.com https://www.youtube.com https://www.youtube-nocookie.com https://assistloop.ai https://*.assistloop.ai",
-            "frame-ancestors 'self'",
+            "frame-ancestors 'self' https://www.hellogorgeousmedspa.com https://hub.hellogorgeousmedspa.com",
             "base-uri 'self'",
             "form-action 'self'",
           ].join("; "),
