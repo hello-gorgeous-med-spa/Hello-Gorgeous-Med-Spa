@@ -25,9 +25,11 @@ const nextConfig = {
   },
   // CDN caching headers for static media + global security headers
   headers: async () => [
-    // Global security headers (all routes)
+    // Global security headers — do NOT use source "/(.*)": that matches /docs/* and stacks a second CSP.
+    // Multiple CSPs are intersected; frame-ancestors 'none' (global) + explicit hosts (/docs) still forbids iframes.
+    // Exempt: verbatim consent HTML in public/docs (must be embeddable on hub + www; see /docs/:path* block).
     {
-      source: "/(.*)",
+      source: "/((?!docs$|docs/).*)",
       headers: [
         { key: "X-Frame-Options", value: "DENY" },
         { key: "X-Content-Type-Options", value: "nosniff" },
@@ -73,11 +75,10 @@ const nextConfig = {
         },
       ],
     },
-    // Verbatim consent / pre-post HTML — iframed on hub. and www; XFO SAMEORIGIN blocks hub↔www; use CSP + explicit hosts
+    // Verbatim consent (public/docs) — only CSP (no X-Frame-Options) so it can be iframed on hub. + www
     {
       source: "/docs/:path*",
       headers: [
-        { key: "X-Frame-Options", value: "SAMEORIGIN" },
         {
           key: "Content-Security-Policy",
           value: [
