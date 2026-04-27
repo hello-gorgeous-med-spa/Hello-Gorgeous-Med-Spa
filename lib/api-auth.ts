@@ -79,6 +79,23 @@ export function requireAuth(request: NextRequest): AuthResult {
   return { user };
 }
 
+/**
+ * Same rule as middleware for `/provider/*`: owner, admin, staff, or provider — not client or readonly.
+ * Use on clinical/provider APIs so unauthenticated callers cannot read or mutate data.
+ */
+export function requireProviderAreaAccess(
+  request: NextRequest
+): { user: ApiUser } | { error: NextResponse } {
+  const user = getUserFromRequest(request);
+  if (!user) {
+    return { error: unauthorizedResponse() };
+  }
+  if (user.role === "client" || user.role === "readonly") {
+    return { error: forbiddenResponse("Staff or provider access required") };
+  }
+  return { user };
+}
+
 // ============================================================
 // PERMISSION CHECKS
 // ============================================================

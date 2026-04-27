@@ -4,6 +4,7 @@
 // ============================================================
 
 import { NextRequest, NextResponse } from 'next/server';
+import { requireProviderAreaAccess } from '@/lib/api-auth';
 import { createServerSupabaseClient } from '@/lib/hgos/supabase';
 
 // Audit logging helper
@@ -40,6 +41,9 @@ async function auditPhotoAction(
 
 // GET /api/photos - List photos for a client
 export async function GET(request: NextRequest) {
+  const gate = requireProviderAreaAccess(request);
+  if ("error" in gate) return gate.error;
+
   const supabase = createServerSupabaseClient();
   
   if (!supabase) {
@@ -86,6 +90,9 @@ export async function GET(request: NextRequest) {
 
 // POST /api/photos - Upload a new photo
 export async function POST(request: NextRequest) {
+  const gate = requireProviderAreaAccess(request);
+  if ("error" in gate) return gate.error;
+
   const supabase = createServerSupabaseClient();
   
   if (!supabase) {
@@ -170,6 +177,9 @@ export async function POST(request: NextRequest) {
 
 // DELETE /api/photos - Delete a photo (Admin only)
 export async function DELETE(request: NextRequest) {
+  const gate = requireProviderAreaAccess(request);
+  if ("error" in gate) return gate.error;
+
   const supabase = createServerSupabaseClient();
   
   if (!supabase) {

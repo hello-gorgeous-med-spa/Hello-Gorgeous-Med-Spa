@@ -4,6 +4,7 @@
 // ============================================================
 
 import { NextRequest, NextResponse } from 'next/server';
+import { requireProviderAreaAccess } from '@/lib/api-auth';
 
 // Force dynamic rendering - this route uses request.url
 export const dynamic = 'force-dynamic';
@@ -11,6 +12,9 @@ import { createServerSupabaseClient } from '@/lib/hgos/supabase';
 
 // GET /api/inventory - List inventory with optional filters
 export async function GET(request: NextRequest) {
+  const gate = requireProviderAreaAccess(request);
+  if ("error" in gate) return gate.error;
+
   try {
     const supabase = createServerSupabaseClient();
     const { searchParams } = new URL(request.url);
@@ -78,6 +82,9 @@ export async function GET(request: NextRequest) {
 
 // POST /api/inventory - Create new product
 export async function POST(request: NextRequest) {
+  const gate = requireProviderAreaAccess(request);
+  if ("error" in gate) return gate.error;
+
   try {
     const supabase = createServerSupabaseClient();
     const body = await request.json();
@@ -118,6 +125,9 @@ export async function POST(request: NextRequest) {
 
 // PUT /api/inventory - Update product or receive stock
 export async function PUT(request: NextRequest) {
+  const gate = requireProviderAreaAccess(request);
+  if ("error" in gate) return gate.error;
+
   try {
     const supabase = createServerSupabaseClient();
     const body = await request.json();
@@ -316,6 +326,9 @@ export async function PUT(request: NextRequest) {
 
 // DELETE /api/inventory - Soft delete product
 export async function DELETE(request: NextRequest) {
+  const gate = requireProviderAreaAccess(request);
+  if ("error" in gate) return gate.error;
+
   try {
     const supabase = createServerSupabaseClient();
     const { searchParams } = new URL(request.url);

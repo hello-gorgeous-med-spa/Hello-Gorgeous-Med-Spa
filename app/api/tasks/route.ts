@@ -4,6 +4,7 @@
 // ============================================================
 
 import { NextRequest, NextResponse } from 'next/server';
+import { requireProviderAreaAccess } from '@/lib/api-auth';
 import { createServerSupabaseClient } from '@/lib/hgos/supabase';
 
 export interface Task {
@@ -26,6 +27,9 @@ export interface Task {
 
 // GET /api/tasks - List tasks
 export async function GET(request: NextRequest) {
+  const gate = requireProviderAreaAccess(request);
+  if ("error" in gate) return gate.error;
+
   const supabase = createServerSupabaseClient();
   
   if (!supabase) {
@@ -97,6 +101,9 @@ export async function GET(request: NextRequest) {
 
 // POST /api/tasks - Create new task
 export async function POST(request: NextRequest) {
+  const gate = requireProviderAreaAccess(request);
+  if ("error" in gate) return gate.error;
+
   const supabase = createServerSupabaseClient();
   
   if (!supabase) {
@@ -151,6 +158,9 @@ export async function POST(request: NextRequest) {
 
 // PUT /api/tasks - Update task status
 export async function PUT(request: NextRequest) {
+  const gate = requireProviderAreaAccess(request);
+  if ("error" in gate) return gate.error;
+
   const supabase = createServerSupabaseClient();
   
   if (!supabase) {
@@ -193,6 +203,9 @@ export async function PUT(request: NextRequest) {
 
 // DELETE /api/tasks - Delete task
 export async function DELETE(request: NextRequest) {
+  const gate = requireProviderAreaAccess(request);
+  if ("error" in gate) return gate.error;
+
   const supabase = createServerSupabaseClient();
   
   if (!supabase) {
