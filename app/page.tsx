@@ -12,10 +12,6 @@ import {
   HomepageProfessionalGrid,
   HomepageCherryFaqRow,
   HomepageClosingCTARow,
-  ContourSignatureSection,
-  ContourWhoForSection,
-  ContourVideoPreviewSection,
-  ContourMobileStickyCta,
 } from "@/components/homepage-v3";
 import { TheBookHomeSection } from "@/components/the-book";
 import { HomepagePromoRail } from "@/components/HomepagePromoRail";
@@ -43,9 +39,9 @@ import {
 } from "@/lib/seo";
 
 const _homeBase = pageMetadata({
-  title: "Botox, Fillers & Weight Loss Med Spa",
+  title: "Hello Gorgeous Med Spa | Newest Morpheus8 Burst Face & Body | Oswego, IL",
   description:
-    "Hello Gorgeous Med Spa in Oswego, IL offers Botox ($10/unit), dermal fillers, Semaglutide weight loss, Biote hormone therapy, IV therapy & more. 5-Star Rated. Serving Naperville, Aurora, Plainfield. Book free consultation!",
+    "#1 Best Med Spa in Oswego, IL. Same-day appointments often available. Morpheus8 Burst, Quantum RF, Solaria CO2. Hello Gorgeous RX™, trigger point injections, Botox, fillers, Semaglutide. Naperville, Aurora, Plainfield. Book now.",
   path: "/",
 });
 
@@ -98,11 +94,11 @@ export default function HomePage() {
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(
             webPageJsonLd({
-              title: "Hello Gorgeous Med Spa — The Hello Gorgeous Contour Lift (Quantum RF) & full aesthetic medicine",
+              title: "Hello Gorgeous Med Spa - Newest Morpheus8 Burst Face & Body",
               description:
-                "Flagship: Hello Gorgeous Contour Lift, powered by InMode Quantum RF, for advanced minimally invasive body and face contouring. Oswego, IL. Also Morpheus8, Solaria CO₂, injectables, medical wellness, and same-day care when available.",
+                "#1 Best Med Spa in Oswego, IL. Same-day and next-day visits often available. Morpheus8 Burst, injectables, GLP-1, hormones, Solaria CO₂, IV therapy, Hello Gorgeous RX™, trigger point injections, cellulite, stretch marks, laser, IPL, lash bar. Naperville, Aurora, Plainfield.",
               path: "/",
-              image: "/images/quantum-rf/clinical-ba-abdomen-skin-tightening.png",
+              image: "/images/hero-banner.png",
               datePublished: "2023-01-01",
               dateModified: new Date().toISOString().split("T")[0],
             })
@@ -187,13 +183,13 @@ export default function HomePage() {
         }}
       />
 
-      <main className="bg-white pb-20 md:pb-0">
+      <main className="bg-white">
+        <HomepagePromoRail />
         <HeroV3 />
-        <ContourSignatureSection />
-        <ContourWhoForSection />
-        <ContourVideoPreviewSection />
         <TheBookHomeSection />
         <TrustStrip />
+        <Morpheus8SkinRebuildSection />
+        <Morpheus8VerifiedProviderSection />
         <TrifectaSection />
         <PartnerBadges />
         <ServicesSection />
@@ -203,11 +199,7 @@ export default function HomePage() {
         <HomepageProfessionalGrid />
         <HomepageTestimonials />
         <HomepageCherryFaqRow />
-        <Morpheus8SkinRebuildSection />
-        <Morpheus8VerifiedProviderSection />
-        <HomepagePromoRail />
         <HomepageClosingCTARow />
-        <ContourMobileStickyCta />
       </main>
     </>
   );
