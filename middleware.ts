@@ -17,6 +17,18 @@ import {
 // Routes that require authentication (admin guard applies only to these)
 const PROTECTED_ROUTES = ['/admin', '/provider', '/portal', '/pos'];
 
+/**
+ * Intake is canonically on hub.hellogorgeousmedspa.com in production (DNS).
+ * Vercel preview hostnames (e.g. *.vercel.app) have no hub.* DNS — do not redirect or patients get "not found".
+ */
+function shouldRedirectApexIntakeToHubHost(hostname: string): boolean {
+  const h = hostname.toLowerCase();
+  if (h.startsWith("hub.")) return false;
+  if (h.startsWith("localhost") || h.startsWith("127.")) return false;
+  if (h.endsWith(".vercel.app")) return false;
+  return h === "hellogorgeousmedspa.com" || h === "www.hellogorgeousmedspa.com";
+}
+
 /** Real browser origin (Vercel sets x-forwarded-*). Avoids redirecting hub login to the deployment apex. */
 function requestOrigin(request: NextRequest): string {
   const host =
@@ -80,14 +92,12 @@ export async function middleware(request: NextRequest) {
     }
   }
 
-  // Intake: primary URL is hub.hellogorgeousmedspa.com/intake (HG_DEV_010) — public, no password
+  // Intake: primary URL is hub.hellogorgeousmedspa.com/intake in production — public, no password
   if (
-    (pathname === '/intake' || pathname.startsWith('/intake/')) &&
-    !isHubHost &&
-    !hostname.startsWith('localhost') &&
-    !hostname.startsWith('127.')
+    (pathname === "/intake" || pathname.startsWith("/intake/")) &&
+    shouldRedirectApexIntakeToHubHost(hostname)
   ) {
-    const apex = hostname.replace(/^www\./, '');
+    const apex = hostname.replace(/^www\./, "");
     return NextResponse.redirect(
       new URL(`https://hub.${apex}${pathname}${url.search}`, request.url)
     );
