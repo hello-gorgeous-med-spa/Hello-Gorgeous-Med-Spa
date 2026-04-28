@@ -16,7 +16,8 @@
     "import-square-fresha": "node scripts/import-services-to-square.mjs",
     "import-square-fresha:local": "node --env-file=.env.local scripts/import-services-to-square.mjs",
     "import-fresha-clients": "node --env-file=.env.local scripts/import-fresha-clients.mjs",
-    "import-fresha-appointments": "node --env-file=.env.local scripts/import-fresha-appointments.mjs"
+    "import-fresha-appointments": "node --env-file=.env.local scripts/import-fresha-appointments.mjs",
+    "test:ai-concierge": "node scripts/test-ai-concierge.mjs"
   },
   "keywords": [
     "medspa",
@@ -26,6 +27,7 @@
   "author": "Your Name",
   "license": "MIT",
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.52.0",
     "@elevenlabs/elevenlabs-js": "^2.39.0",
     "@mediapipe/camera_utils": "^0.3.1675466862",
     "@mediapipe/face_mesh": "^0.4.1633559619",

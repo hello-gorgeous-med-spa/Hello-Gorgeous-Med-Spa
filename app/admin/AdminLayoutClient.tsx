@@ -26,6 +26,7 @@ const MAIN_NAV: { href: string; label: string; icon: string }[] = [
   { href: '/admin/marketing/blog-social', label: 'Blog → Social', icon: '📣' },
   { href: '/admin/marketing/post-social', label: 'Post to Social', icon: '📲' },
   { href: '/admin/video-generator', label: 'Video Generator', icon: '🎬' },
+  { href: '/admin/ai-concierge', label: 'AI Concierge', icon: '📞' },
   { href: '/admin/staff', label: 'Staff', icon: '👤' },
   { href: '/admin/reports', label: 'Reports', icon: '📊' },
   { href: '/admin/content/site', label: 'Website / Content', icon: '📝' },
@@ -55,7 +56,14 @@ function visibleHrefs(role: AdminRole): Set<string> {
       all.delete('/admin/content/site');
       return all;
     case 'readonly':
-      return new Set(['/admin', '/admin/calendar', '/admin/clients', '/admin/reports', '/admin/settings']);
+      return new Set([
+        '/admin',
+        '/admin/calendar',
+        '/admin/clients',
+        '/admin/reports',
+        '/admin/settings',
+        '/admin/ai-concierge',
+      ]);
     default:
       return all;
   }

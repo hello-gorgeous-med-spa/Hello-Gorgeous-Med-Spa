@@ -29,14 +29,32 @@ Variables used by Phase 1 (Twilio Voice webhooks → Next.js → Supabase) and f
 |----------|-----------------|--------|
 | `NEXT_PUBLIC_SITE_URL` or `VERCEL_URL` | Vercel project settings / automatic | Optional; Twilio `Gather` `action` URL is built from the **incoming request** `Host` + path so it matches the deployment URL. |
 
-## Future phases (not required for Phase 1)
+## Phase 2+ (Claude + staff notifications)
 
 | Variable | Where to get it | Notes |
 |----------|-----------------|--------|
-| `ANTHROPIC_API_KEY` | [Anthropic Console](https://console.anthropic.com/) | Claude for conversation + tool calls |
-| `RESEND_API_KEY` | [Resend](https://resend.com/) | Email summaries to staff |
-| `AI_CONCIERGE_STAFF_SMS_TO` or reuse staff phone | N/A (business) | E.164 for Dani’s cell, e.g. `+16308813398` — wire in Phase 2 when sending booking SMS from API |
+| `ANTHROPIC_API_KEY` | [Anthropic Console](https://console.anthropic.com/) | **Required** for intelligent gather (`/api/ai-concierge/voice/gather`). Without it, gather falls back to a stub / transfer. |
+| `ANTHROPIC_MODEL` | (optional) | Default: `claude-sonnet-4-20250514`. Override if your org uses a different model slug. |
+| `RESEND_API_KEY` | [Resend](https://resend.com/) | Booking summary emails to staff (`lib/ai-concierge/email.ts`). |
+| `RESEND_FROM` or `RESEND_FROM_EMAIL` | Resend → Domains | Must be a verified sender; falls back to onboarding domain in dev. |
+| `TWILIO_PHONE_NUMBER` | Twilio | **From** number for SMS to Dani; must be SMS-capable. |
+| `AI_CONCIERGE_STAFF_PHONE_E164` | (optional) | E.164 destination for booking SMS (default `+16308813398`). Alias: `AI_CONCIERGE_NOTIFY_SMS`. |
+| `AI_CONCIERGE_STAFF_EMAIL` | (optional) | Overrides `SITE.email` for Resend **to** address. |
+| `AI_CONCIERGE_TRANSFER_E164` | (optional) | PSTN transfer target for `<Dial>` when Sarah escalates (default `+16308813398`). |
 
+## Future phases (other)
+
+| Variable | Where to get it | Notes |
+|----------|-----------------|--------|
+| (reserved) | | Monitoring / Sentry can tag `ai-concierge` in Phase 4. |
+
+## Deprecated naming
+
+Older drafts referenced `AI_CONCIERGE_STAFF_SMS_TO`; the code uses **`AI_CONCIERGE_STAFF_PHONE_E164`** (and alias above).
+
+## Phase 1 only recap
+
+`TWILIO_*`, `NEXT_PUBLIC_SUPABASE_URL`, and `SUPABASE_SERVICE_ROLE_KEY` remain required for call logging.
 ## Twilio Console fields (not env vars, but must match your deployment)
 
 - **Voice webhook (HTTP POST):** `https://<your-domain>/api/ai-concierge/voice/incoming`  
