@@ -260,6 +260,11 @@ export function Footer({ siteSettings }: { siteSettings?: SiteSettings | null })
                 </Link>
               </li>
               <li>
+                <Link className="hover:text-[#FF2D8E] transition-colors" href="/faq">
+                  FAQ
+                </Link>
+              </li>
+              <li>
                 <Link className="hover:text-[#FF2D8E] transition-colors" href="/contact">
                   Contact
                 </Link>

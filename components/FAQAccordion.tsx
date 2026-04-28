@@ -27,7 +27,7 @@ export function FAQAccordion({ items, className = "" }: { items: FAQItem[]; clas
           </button>
           <div
             className={`overflow-hidden transition-all duration-200 ${
-              openId === i ? "max-h-96" : "max-h-0"
+              openId === i ? "max-h-[4000px]" : "max-h-0"
             }`}
           >
             <p className="pb-4 text-gray-600 text-sm leading-relaxed">{item.answer}</p>
