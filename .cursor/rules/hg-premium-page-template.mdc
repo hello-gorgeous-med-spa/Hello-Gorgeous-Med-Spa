@@ -1,0 +1,65 @@
+---
+description: Hello Gorgeous premium marketing-page layout — match FAQ (/faq) brand, structure, and polish
+alwaysApply: true
+---
+
+# Hello Gorgeous — Premium page template (canonical)
+
+When **building or redesigning** public-facing marketing routes (`app/**/page.tsx`, new landing sections, hero refresh), treat **`components/faq/FaqPageContent.tsx`** + **`app/faq/page.tsx`** as the **reference layout**. Replicate its **structure, energy, and brand tokens**, not necessarily every optional behavior (see copy deterrence).
+
+## Reference routes & files
+
+- **Live pattern:** `/faq`
+- **Client UI:** `components/faq/FaqPageContent.tsx`
+- **Shell (SEO):** `app/faq/page.tsx` — keep **Metadata**, **canonical**, **FAQPage JSON-LD**, `siteJsonLd`, `breadcrumbJsonLd` **in the Server Component** when applicable; delegate rich UI to a client wrapper only when hooks/interaction require it.
+
+## Brand tokens (use consistently)
+
+Define a local `BRAND` const or Tailwind equivalents next to hero:
+
+| Role | Palette |
+|------|---------|
+| Primary pink | `#E6007E` |
+| Hot accent | `#FF2D8E` |
+| Soft tint / ambient | `#FFB8DC` (text), `#FFF0F7` (rose wash) |
+| Dark hero base | `#0a0a0a` ↔ `#2d1020` (warm black–plum) |
+
+Use **thick black separators** (`border-b-4` / `border-t-4 border-black`) to match bold HG framing.
+
+## Page anatomy (top → bottom)
+
+1. **Ambient brand wash** — `fixed inset-0 -z-10 pointer-events-none` layered **radials** (pink / hot pink soft opacity) over a light **rose → white → gray** vertical gradient. Decorative only.
+
+2. **Hero** — Full-bleed **dark diagonal gradient** + **dual radial overlays** (#E6007E / #FF2D8E) + bottom **fade to black**. Include:
+   - Optional **pill** (`border-white/20`, `bg-white/10`, `backdrop-blur`, pulse dot `#E6007E`)
+   - **Uppercase locality line** (`tracking-widest`, `#FFB8DC`)
+   - **H1** `font-black` with **accent word(s)** via `bg-gradient-to-r from-[#FFB8DC] via-[#FF2D8E] to-[#E6007E]` + `bg-clip-text text-transparent` (+ Safari `style={{ WebkitBackgroundClip: 'text' }}` when needed)
+   - Body links: `#FFB8DC` / white, **pink underline decoration** `#E6007E`
+
+3. **Nav / jump row** — `bg-white/70 backdrop-blur`, **chip links** (`rounded-full`, `border-2`, `from-white to-rose-50`, hover border/text `#E6007E`)
+
+4. **Content sections** — Alternate **pure white vs soft rose gradient** stripes. Wrap each logical block in a **rounded-3xl** card: `border-4 border-black`, `bg-white`, **`shadow-[8px_8px_0_0_rgba(230,0,126,0.35)]`** (thick pink “stamp” shadow). Section index badge: **gradient badge** (`from-[#FF2D8E] to-[#E6007E]`), `rounded-xl`, white text, **`border-2 border-black`**.
+   - **Questions:** `font-bold text-[#E6007E]`, ▸ prefix decorative
+   - **Answers:** `text-black/85 font-medium`
+
+5. **Closing CTA band** — `linear-gradient(125deg, #FF2D8E 0%, #E6007E 45%, #9b0a4d 100%)`, optional SVG **noise/grid** overlay (`opacity ~30`), **white headline + contrasting buttons**.
+
+## Composition & UX
+
+- Reuse **`Section`** + **`FadeUp`** from `@/components/Section` for motion parity.
+- Prefer **`scroll-mt-*`** so sticky headers don’t cover anchors.
+- **CTAs:** `@/components/CTA`; primary **gradient** `variant="gradient"`; secondary **outline** white on dark hero.
+
+## Optional: copy deterrence (`/faq` only unless product asks again)
+
+`/faq` implements **casual copy deterrence**: `select-none`, blocked `copy`/`cut`/`contextmenu`/`drag`, capture-phase **Ctrl/Cmd+C/X**. This is **not security** — do **not** copy blindly to informational pages unless the owner asks. If reused, preserve **`aria-describedby` + sr-only helper** directing users to tel/booking.
+
+## What not to do
+
+- Do not replace HG pink framing with gray corporate minimal unless explicitly requested.
+- Do not omit strong **black strokes** — they define the HG look next to Barbie pink.
+- Do not move schema/metadata out of the server **page.tsx** shell for gimmicks; bots and previews need stable structured data.
+
+## Refactoring hint
+
+Once **three or more pages** share this shell, extract a **`BrandAmbientShell`** + **`BrandHero`** + **`StampCard`** shared module — only when duplication hurts maintenance; otherwise follow `FaqPageContent` verbatim for new flagship pages.
