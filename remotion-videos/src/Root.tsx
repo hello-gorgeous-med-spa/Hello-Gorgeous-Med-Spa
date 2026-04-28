@@ -7,7 +7,6 @@ import { GLP1SkinSolution } from "./compositions/GLP1SkinSolution";
 import { StandardVsBurst } from "./compositions/StandardVsBurst";
 import { BeforeAfterShowcase } from "./compositions/BeforeAfterShowcase";
 import { LipFillerShowcase } from "./compositions/LipFillerShowcase";
-import { TreatmentPOV } from "./compositions/TreatmentPOV";
 import { TestimonialCard } from "./compositions/TestimonialCard";
 import { ServiceHighlight } from "./compositions/ServiceHighlight";
 import { GeoTargetedAd } from "./compositions/GeoTargetedAd";
@@ -150,16 +149,15 @@ export const RemotionRoot: React.FC = () => {
         }}
       />
 
-      {/* ========== LIP FILLER SHOWCASE ========== */}
+      {/* ========== LIP FILLER SHOWCASE — image-only (drop source .mp4 in public/ to enable video scene) ========== */}
       <Composition
         id="LipFillerShowcaseVertical"
         component={LipFillerShowcase}
-        durationInFrames={990}
+        durationInFrames={540}
         fps={30}
         width={1080}
         height={1920}
         defaultProps={{
-          videoSrc: "jenlips.mp4",
           beforeImage: "jenbefore.png",
           afterImage: "jenlipsafter.png",
           recoveryImage: "jen-recovery.png",
@@ -170,24 +168,6 @@ export const RemotionRoot: React.FC = () => {
       />
       <Composition
         id="LipFillerShowcaseSquare"
-        component={LipFillerShowcase}
-        durationInFrames={990}
-        fps={30}
-        width={1080}
-        height={1080}
-        defaultProps={{
-          videoSrc: "jenlips.mp4",
-          beforeImage: "jenbefore.png",
-          afterImage: "jenlipsafter.png",
-          recoveryImage: "jen-recovery.png",
-          treatmentName: "Dermal Lip Fillers",
-          brandColor: "#E91E8C",
-          format: "square" as const,
-        }}
-      />
-      {/* Image-only, no video — use for silent render when source video has load issues */}
-      <Composition
-        id="LipFillerShowcaseSquareNoVideo"
         component={LipFillerShowcase}
         durationInFrames={540}
         fps={30}
@@ -203,28 +183,7 @@ export const RemotionRoot: React.FC = () => {
         }}
       />
 
-      {/* ========== TREATMENT POV ========== */}
-      <Composition
-        id="TreatmentPOVVertical"
-        component={TreatmentPOV}
-        durationInFrames={900}
-        fps={30}
-        width={1080}
-        height={1920}
-        defaultProps={{
-          videoSrc: "treatment-footage.mp4",
-          treatmentName: "Morpheus8 Burst",
-          providerName: "Danielle",
-          providerTitle: "FNP-BC",
-          hookText: "Getting the deepest RF microneedling available",
-          overlays: [
-            { text: "Numbing applied — 20 min wait", startFrame: 30, endFrame: 120 },
-            { text: "8mm depth — 3 simultaneous levels", startFrame: 150, endFrame: 270 },
-            { text: "Collagen stimulation begins immediately", startFrame: 300, endFrame: 420 },
-          ],
-          format: "vertical" as const,
-        }}
-      />
+      {/* ========== TREATMENT POV — omitted until treatment-footage.mp4 is added under remotion-videos/public ========== */}
 
       {/* ========== TESTIMONIAL QUOTE CARDS ========== */}
       <Composition

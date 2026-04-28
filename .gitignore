@@ -149,6 +149,15 @@ vite.config.ts.timestamp-*
 public/videos/providers/**/*.mov
 public/videos/providers/**/*.mp4
 
+# macOS folder metadata
+.DS_Store
+**/._*
+
+# Large video — add under remotion-videos/public with git add -f when needed
+remotion-videos/public/**/*.MOV
+remotion-videos/public/**/*.mov
+remotion-videos/public/**/*.mp4
+
 # Internal operator SOP (keep locally; not for the public site or public repo)
 docs/manuals/hub-digital-consent-owners-manual.html
 docs/manuals/hub-digital-consent-owners-manual.pdf
