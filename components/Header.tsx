@@ -6,9 +6,11 @@ import React, { useState, useRef, useEffect } from "react";
 
 import { CTA } from "./CTA";
 import { BestOfOswegoBadge } from "./BestOfOswegoBadge";
+import { ServicesDropdown } from "./ServicesDropdown";
 import { SITE } from "@/lib/seo";
 import { BOOKING_URL, CARECREDIT_URL, CHERRY_PAY_URL, VIP_MODEL_SQUARE_URL } from "@/lib/flows";
-import { isProcedureRoute, isServiceCatalogRoute } from "@/lib/proceduresNav";
+import { SERVICES_MENU_GOALS, SERVICES_MENU_HERO, isServicesDropdownContext } from "@/lib/services-menu-data";
+import { isProcedureRoute } from "@/lib/proceduresNav";
 
 // Navigation structure with dropdowns
 const navigation = {
@@ -63,66 +65,6 @@ const navigation = {
   services: {
     label: "Services",
     href: "/services",
-    columns: [
-      {
-        title: "Injectables",
-        links: [
-          { label: "Injectables overview", href: "/injectables", icon: "✨" },
-          { label: "Botox, Dysport & Jeuveau", href: "/services/botox-dysport-jeuveau", icon: "💉" },
-          { label: "Dermal Fillers", href: "/services/dermal-fillers", icon: "💋" },
-          { label: "Lip Filler", href: "/services/lip-filler", icon: "👄" },
-          { label: "Lip Enhancement Studio", href: "/lip-studio", icon: "✨" },
-          { label: "Kybella", href: "/services/kybella", icon: "✨" },
-          { label: "Allē Rewards", href: "/alle-botox-rewards", icon: "💎" },
-        ],
-      },
-      {
-        title: "Skin & Face",
-        links: [
-          { label: "Stretch marks (Solaria & options)", href: "/stretch-mark-treatment-oswego-il", icon: "✨" },
-          { label: "Solaria Packages", href: "/solaria-packages", icon: "✨", badge: "PACKAGES" },
-          { label: "HydraFacial", href: "/services/hydra-facial", icon: "💧" },
-          { label: "IPL Photofacial", href: "/services/ipl-photofacial", icon: "💡" },
-        ],
-      },
-      {
-        title: "Body & Wellness",
-        links: [
-          { label: "Weight Loss (GLP-1)", href: "/glp1-weight-loss", icon: "⚡", description: "Semaglutide & tirzepatide · Oswego" },
-          { label: "Hormone Therapy", href: "/services/biote-hormone-therapy", icon: "⚖️" },
-          { label: "Peptide Therapy", href: "/peptides", icon: "🧬" },
-          { label: "IV Therapy", href: "/services/iv-therapy", icon: "💧" },
-          { label: "Laser Hair Removal", href: "/services/laser-hair-removal", icon: "✨", badge: "SPRING" },
-          { label: "Laser Hair Memberships", href: "/laser-hair-memberships", icon: "🔥", badge: "30% OFF" },
-        ],
-      },
-      {
-        title: "Regenerative",
-        links: [
-          { label: "PRP / PRF Treatments", href: "/services/prf-prp", icon: "🧬" },
-          { label: "PRP Facial", href: "/services/prp-facial", icon: "✨" },
-          { label: "EZ PRF Gel", href: "/services/ez-prf-gel", icon: "💎" },
-          { label: "Vitamin Injections", href: "/services/vitamin-injections", icon: "💉" },
-        ],
-      },
-      {
-        title: "Lash Spa",
-        links: [
-          { label: "Lash Spa", href: "/services/lash-spa", icon: "✨" },
-          { label: "Full Set", href: "/services/lash-spa#full-set", icon: "👁️" },
-          { label: "Fill", href: "/services/lash-spa#fill", icon: "👁️" },
-          { label: "Lash Perm and Tint", href: "/services/lash-spa#lash-perm-tint", icon: "👁️" },
-          { label: "Mini Fill", href: "/services/lash-spa#mini-fill", icon: "👁️" },
-        ],
-      },
-    ],
-    featured: {
-      title: "HydraFacial & clinical skin",
-      description:
-        "Deep cleanse, extract, and hydrate — plus photofacials, peels, and more. Full device procedures (Solaria, Morpheus8, Quantum) live under Procedures.",
-      cta: { label: "Skin & face services", href: "/services/hydra-facial" },
-      image: "💧",
-    },
   },
   about: {
     label: "About",
@@ -290,100 +232,6 @@ function ProceduresDropdown({ isOpen, onClose, onMouseEnter }: { isOpen: boolean
             <span className="ml-auto text-[#E6007E] opacity-0 transition group-hover:opacity-100" aria-hidden>
               →
             </span>
-          </Link>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-// Dropdown component for mega menus
-function ServicesDropdown({ isOpen, onClose, onMouseEnter }: { isOpen: boolean; onClose: () => void; onMouseEnter: () => void }) {
-  const data = navigation.services;
-  
-  if (!isOpen) return null;
-  
-  return (
-    <div 
-      className="fixed top-16 left-0 right-0 bg-white shadow-2xl border-t border-black z-50 overflow-x-hidden"
-      onMouseEnter={onMouseEnter}
-      onMouseLeave={onClose}
-    >
-      <div className="max-w-7xl mx-auto px-4 md:px-6 py-6 md:py-8">
-        <p className="mb-4 text-xs text-black/50">
-          Med spa services — injectables, facials, body, and wellness. <strong>Device procedures</strong> (Solaria, M8, Quantum) are
-          under <strong>Procedures</strong>.
-        </p>
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-8">
-          {/* Service columns */}
-          {data.columns.map((column) => (
-            <div key={column.title}>
-              <h3 className="text-xs font-bold text-black uppercase tracking-wider mb-4">
-                {column.title}
-              </h3>
-              <ul className="space-y-3">
-                {column.links.map((link) => (
-                  <li key={link.href}>
-                    <Link
-                      href={link.href}
-                      onClick={onClose}
-                      className="flex items-start gap-2 text-black hover:text-[#FF2D8E] transition-colors group"
-                    >
-                      <span className="text-lg group-hover:scale-110 transition-transform shrink-0">{link.icon}</span>
-                      <span className="min-w-0 flex flex-wrap items-center gap-x-2 gap-y-0.5">
-                        <span className="text-sm font-medium">{link.label}</span>
-                        {'badge' in link && link.badge && (
-                          <span className="px-1.5 py-0.5 text-[9px] font-bold bg-[#FF2D8E] text-white rounded-full">
-                            {link.badge}
-                          </span>
-                        )}
-                        {'description' in link && link.description ? (
-                          <span className="w-full text-xs text-black/55 leading-snug">{link.description}</span>
-                        ) : null}
-                      </span>
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-          
-          {/* Featured section - brand colors only */}
-          <div className="bg-white border-2 border-black rounded-2xl p-6">
-            <div className="text-4xl mb-3">{data.featured.image}</div>
-            <h3 className="font-bold text-black mb-2">{data.featured.title}</h3>
-            <p className="text-sm text-black mb-4">{data.featured.description}</p>
-            <Link
-              href={data.featured.cta.href}
-              onClick={onClose}
-              className="inline-flex items-center gap-2 text-sm font-semibold text-[#FF2D8E] hover:text-[#E6007E]"
-            >
-              {data.featured.cta.label}
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </svg>
-            </Link>
-          </div>
-        </div>
-        
-        {/* Bottom bar */}
-        <div className="mt-8 pt-6 border-t border-black flex items-center justify-between">
-          <Link
-            href="/services"
-            onClick={onClose}
-            className="text-sm font-medium text-black hover:text-[#FF2D8E] flex items-center gap-2"
-          >
-            View all services
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-            </svg>
-          </Link>
-          <Link
-            href={BOOKING_URL}
-            onClick={onClose}
-            className="inline-flex items-center gap-2 px-10 py-4 bg-hg-pink hover:bg-hg-pinkDeep text-white uppercase tracking-widest text-sm font-semibold rounded-md transition-all duration-300 ease-out hover:-translate-y-[2px] hover:shadow-lg"
-          >
-            Book Now
           </Link>
         </div>
       </div>
@@ -562,7 +410,7 @@ export function Header() {
             href="/services"
             className={cx(
               "flex items-center justify-center gap-1 h-9 px-2.5 rounded-lg text-sm font-medium transition-all whitespace-nowrap",
-              isServiceCatalogRoute(pathname) || pathname === "/services"
+              isServicesDropdownContext(pathname)
                 ? "text-white bg-[#FF2D8E]"
                 : "text-black hover:bg-[#FF2D8E]/10 hover:text-[#FF2D8E]"
             )}
@@ -930,28 +778,61 @@ export function Header() {
                 </svg>
               </button>
               {mobileSubmenu === 'services' && (
-                <div className="mt-2 ml-4 space-y-4">
-                  {navigation.services.columns.map((column) => (
-                    <div key={column.title}>
-                      <p className="text-xs font-bold text-black uppercase tracking-wider px-4 mb-2">{column.title}</p>
-                      {column.links.map((link) => (
+                <div className="mt-2 ml-2 space-y-6">
+                  {/* InMode Trifecta — hero */}
+                  <div className="rounded-xl border-2 border-black bg-gradient-to-br from-brand-50 to-white p-4 shadow-[6px_6px_0_0_rgba(255,45,142,0.45)]">
+                    <p className="text-[10px] font-bold uppercase tracking-wider text-[#E6007E]">★ InMode Trifecta</p>
+                    <p className="mt-1 text-xs font-medium text-black/70">{SERVICES_MENU_HERO.subtitle}</p>
+                    <div className="mt-3 space-y-2">
+                      {SERVICES_MENU_HERO.items.map((item) => (
                         <Link
-                          key={link.href}
-                          href={link.href}
+                          key={item.id}
+                          href={item.href}
                           onClick={() => setMobileMenuOpen(false)}
-                          className="flex items-start gap-3 px-4 py-2.5 text-[#FF2D8E] hover:text-[#FF2D8E] hover:bg-[#000000]/5 rounded-lg"
+                          className="flex items-center gap-2 rounded-lg border border-black/10 bg-white px-3 py-2 text-sm font-bold text-[#FF2D8E]"
                         >
-                          <span className="shrink-0">{link.icon}</span>
-                          <span className="min-w-0">
-                            <span className="block font-medium">{link.label}</span>
-                            {'description' in link && link.description ? (
-                              <span className="block text-xs text-black/50 mt-0.5">{link.description}</span>
-                            ) : null}
-                          </span>
+                          {item.icon && <span>{item.icon}</span>}
+                          <span className="min-w-0 flex-1">{item.name}</span>
+                          {item.badge && (
+                            <span className="shrink-0 rounded-full bg-[#FF2D8E] px-1.5 py-0.5 text-[9px] font-bold uppercase text-white">
+                              {item.badge}
+                            </span>
+                          )}
                         </Link>
                       ))}
                     </div>
+                  </div>
+                  {SERVICES_MENU_GOALS.map((section) => (
+                    <div key={section.id}>
+                      <p className="px-4 text-xs font-bold uppercase tracking-wider text-black">{section.name}</p>
+                      <p className="mb-2 px-4 text-xs text-black/55">{section.subtitle}</p>
+                      <div className="space-y-0.5">
+                        {section.items.map((item) => (
+                          <Link
+                            key={item.id}
+                            href={item.href}
+                            onClick={() => setMobileMenuOpen(false)}
+                            className="flex items-center gap-3 px-4 py-2.5 text-[#FF2D8E] hover:bg-black/5 rounded-lg"
+                          >
+                            {item.icon && <span className="shrink-0">{item.icon}</span>}
+                            <span className="min-w-0 flex-1 font-medium">{item.name}</span>
+                            {item.badge && (
+                              <span className="shrink-0 rounded-full bg-[#FF2D8E] px-1.5 py-0.5 text-[9px] font-bold uppercase text-white">
+                                {item.badge}
+                              </span>
+                            )}
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
                   ))}
+                  <Link
+                    href={BOOKING_URL}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="mx-4 flex items-center justify-center rounded-full bg-[#E6007E] py-3 text-sm font-bold uppercase tracking-wider text-white"
+                  >
+                    Book free consultation
+                  </Link>
                 </div>
               )}
             </div>
