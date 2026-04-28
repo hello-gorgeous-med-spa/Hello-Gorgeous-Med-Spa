@@ -7,8 +7,8 @@
 // ============================================================
 
 import { NextRequest, NextResponse } from 'next/server';
+import { sendSMS } from '@/lib/hgos/sms-marketing';
 import { createServerSupabaseClient, createAdminSupabaseClient } from '@/lib/hgos/supabase';
-import { sendSms } from '@/lib/notifications/sms-outbound';
 import { SITE } from '@/lib/seo';
 
 export const dynamic = 'force-dynamic';
@@ -163,8 +163,28 @@ export async function POST(request: NextRequest) {
     if (text === 'HELP' && from) {
       const helpMessage =
         `Hello Gorgeous Med Spa: For assistance call 630-636-6193 or visit ${SITE.url}/contact`;
-      await sendSms(from, helpMessage);
-      console.log(`[sms/webhook] Help response sent to: ${from}`);
+      // Outbound "From" must always be the active Twilio number — never a legacy hardcoded SID.
+      const twilioFrom = process.env.TWILIO_PHONE_NUMBER?.trim();
+      const accountSid = process.env.TWILIO_ACCOUNT_SID;
+      const authToken = process.env.TWILIO_AUTH_TOKEN;
+      if (!twilioFrom || !accountSid || !authToken) {
+        console.error('[sms/webhook] HELP: missing TWILIO_PHONE_NUMBER / SID / token — cannot reply');
+      } else {
+        const result = await sendSMS(
+          { to: from, body: helpMessage },
+          {
+            provider: 'twilio',
+            twilioAccountSid: accountSid,
+            twilioAuthToken: authToken,
+            twilioPhoneNumber: twilioFrom,
+          },
+        );
+        if (!result.success) {
+          console.error('[sms/webhook] HELP Twilio send failed:', result.error);
+        } else {
+          console.log(`[sms/webhook] Help response sent to: ${from} (From ${twilioFrom})`);
+        }
+      }
     }
 
     // Hub Command Center unified thread (inbound SMS only; WhatsApp uses /api/hub/whatsapp/incoming)
