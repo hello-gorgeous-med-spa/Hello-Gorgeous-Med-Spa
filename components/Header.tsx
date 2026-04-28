@@ -129,6 +129,7 @@ const navigation = {
     href: "/about",
     links: [
       { label: "About Hello Gorgeous", href: "/about", description: "Our story, mission & team", icon: "💗" },
+      { label: "Med Spa FAQ", href: "/faq", description: "Treatments, booking, financing & safety", icon: "❓" },
       { label: "The Story Behind Hello Gorgeous", href: "/blog/the-story-behind-hello-gorgeous-oswego-il", description: "Danielle's journey from acne at 12 to med spa owner", icon: "💗", badge: "STORY" },
       { label: "Meet Our Team", href: "/providers", description: "Danielle, Ryan & our experts", icon: "👩‍⚕️" },
       { label: "Our Location", href: "/locations", description: "Visit us in Oswego, IL", icon: "📍" },
@@ -196,6 +197,7 @@ const navigation = {
     label: "More",
     href: "/contact",
     links: [
+      { label: "FAQ", href: "/faq", description: "Common questions · Oswego med spa", icon: "❓" },
       { label: "Products we offer", href: "/products-we-offer", description: "Compounded Rx catalog overview (no pricing)", icon: "💊" },
       { label: "Blog & Resources", href: "/blog", description: "Expert articles & treatment guides", icon: "📚" },
       { label: "Shop", href: "/shop", description: "Skincare, supplements & more", icon: "🧴" },
@@ -619,6 +621,19 @@ export function Header() {
               <SimpleDropdown data={navigation.journey} isOpen={activeDropdown === 'journey'} onClose={() => setActiveDropdown(null)} onMouseEnter={() => handleMouseEnter('journey')} />
             </div>
 
+            {/* FAQ */}
+            <Link
+              href="/faq"
+              className={cx(
+                "flex items-center justify-center h-9 px-2.5 rounded-lg text-sm font-medium transition-all whitespace-nowrap",
+                pathname === "/faq"
+                  ? "text-white bg-[#FF2D8E]"
+                  : "text-black hover:bg-[#FF2D8E]/10 hover:text-[#FF2D8E]"
+              )}
+            >
+              FAQ
+            </Link>
+
             {/* RX Dropdown */}
             <div 
               className="relative flex items-center"
@@ -811,6 +826,15 @@ export function Header() {
             >
               <span className="text-xl">💗</span>
               Fix what bothers me
+            </Link>
+
+            <Link
+              href="/faq"
+              onClick={() => setMobileMenuOpen(false)}
+              className="flex items-center gap-3 px-4 py-3 min-h-[44px] rounded-xl border border-black/15 bg-gray-50 text-[#FF2D8E] font-semibold"
+            >
+              <span className="text-xl">❓</span>
+              Med Spa FAQ
             </Link>
 
             {/* Procedures — device treatments */}
