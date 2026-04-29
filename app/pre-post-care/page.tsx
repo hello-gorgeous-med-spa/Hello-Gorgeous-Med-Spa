@@ -3,7 +3,7 @@ import Link from "next/link";
 import { FadeUp, Section } from "@/components/Section";
 import { CTA } from "@/components/CTA";
 import { BOOKING_URL } from "@/lib/flows";
-import { pageMetadata, siteJsonLd } from "@/lib/seo";
+import { pageMetadata, SITE, siteJsonLd } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
   title: "Pre & Post Care Instructions | Patient Care",
@@ -125,22 +125,6 @@ const careGuides = [
     serviceLink: "/services/vitamin-injections",
     icon: "💪",
   },
-  {
-    id: "prp-prf",
-    title: "PRP / PRF",
-    description: "Platelet-rich plasma and fibrin regenerative treatment care guide.",
-    viewOnline: "/pre-post-care/prp-prf",
-    serviceLink: "/services/prf-prp",
-    icon: "🩸",
-  },
-  {
-    id: "trigger-point",
-    title: "Trigger Point Injections",
-    description: "Muscle tension relief and pain management care guide.",
-    viewOnline: "/pre-post-care/trigger-point",
-    serviceLink: "/services/vitamin-injections",
-    icon: "💪",
-  },
 ];
 
 export default function PrePostCarePage() {
@@ -165,6 +149,30 @@ export default function PrePostCarePage() {
             <p className="mt-6 text-xl text-black/80 leading-relaxed">
               These instructions are designed to optimize your results and ensure your safety. Please review carefully before your appointment.
             </p>
+            <div className="mt-10 max-w-2xl mx-auto rounded-2xl border-2 border-black bg-white p-6 text-left shadow-[4px_4px_0_0_rgba(255,45,142,0.25)]">
+              <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#FF2D8E]">Consent &amp; document hub</p>
+              <p className="mt-2 text-lg font-bold text-black">Patient documents (HTML, PDF, QR codes)</p>
+              <p className="mt-2 text-sm text-black/75 leading-relaxed">
+                One page with informed consent (HTML you can print or save as PDF), Luxora pre/post, Solaria &amp; Morpheus8
+                consents, and quick links to the same care guides below—easy to open on a phone or send to a client.
+              </p>
+              <div className="mt-5 flex flex-col sm:flex-row gap-3 justify-center">
+                <Link
+                  href="/patient-documents"
+                  className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#FF2D8E] px-6 py-3 text-sm font-bold text-white hover:bg-[#E6007E] transition-colors"
+                >
+                  Open patient documents
+                </Link>
+                <a
+                  href={`mailto:?subject=${encodeURIComponent("Hello Gorgeous — patient documents")}&body=${encodeURIComponent(
+                    `Patient documents & pre/post hub:\n${SITE.url}/patient-documents\n`
+                  )}`}
+                  className="inline-flex items-center justify-center gap-2 rounded-xl border-2 border-black px-6 py-3 text-sm font-bold text-black hover:border-[#FF2D8E] hover:text-[#FF2D8E] transition-colors"
+                >
+                  Email link to client
+                </a>
+              </div>
+            </div>
           </div>
         </FadeUp>
       </Section>

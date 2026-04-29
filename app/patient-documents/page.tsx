@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { pageMetadata } from "@/lib/seo";
+import { pageMetadata, SITE } from "@/lib/seo";
 import { CONSENT_IFRAME_BY_SLUG } from "@/lib/consent-iframe-by-slug";
 import { LUXORA_DOC_URLS } from "@/lib/luxora-doc-urls";
 import ProcedurePrePostQrSection from "@/components/patient/ProcedurePrePostQrSection";
+import { CopyPageUrlButton } from "@/components/patient/CopyPageUrlButton";
 
 const HUB_INTAKE = "https://hub.hellogorgeousmedspa.com/intake";
 
@@ -19,6 +20,8 @@ type DocGroup = {
   procedure: string;
   items: { label: string; href: string; note?: string }[];
 };
+
+const PATIENT_DOCUMENTS_CANONICAL_URL = `${SITE.url}/patient-documents`;
 
 const WEB_GUIDES: DocGroup[] = [
   {
@@ -49,9 +52,30 @@ export default function PatientDocumentsPage() {
           <h1 className="mt-3 text-4xl font-bold tracking-tight md:text-5xl">Pre, post & consent</h1>
           <p className="mt-4 text-base leading-relaxed text-black/75">
             <strong>Scan a QR code</strong> below to open pre- and post-care guides on your phone—no app required. You
-            can also use the same links on a tablet or computer. Consent and education documents are available further
-            down the page. Need a paper copy? Ask us at the front desk or when you check in.
+            can also use the same links on a tablet or computer. Open any <strong>HTML</strong> consent or guide in your
+            browser, then use <strong>Print</strong> or <strong>Save as PDF</strong> to bring a copy to your appointment
+            or save for your records. Consent and education documents are available further down this page. Need a
+            paper copy? Ask us at the front desk or when you check in.
           </p>
+          <div className="mt-8 rounded-2xl border-2 border-black/15 bg-white p-5 shadow-sm">
+            <p className="text-sm font-semibold text-black">Share this page with a client</p>
+            <p className="mt-1 text-sm text-black/70">
+              Staff: copy the link below to paste into text or email so they have the same hub (QR codes, Luxora HTML,
+              device consents, and care-guide links).
+            </p>
+            <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center">
+              <CopyPageUrlButton url={PATIENT_DOCUMENTS_CANONICAL_URL} label="Copy link" />
+              <a
+                href={`mailto:?subject=${encodeURIComponent("Hello Gorgeous — patient documents & pre/post care")}&body=${encodeURIComponent(
+                  `Here's the link to our patient documents, consent (HTML), and pre/post care guides:\n\n${PATIENT_DOCUMENTS_CANONICAL_URL}\n`
+                )}`}
+                className="inline-flex items-center justify-center gap-2 rounded-xl border-2 border-black/20 bg-zinc-50 px-4 py-2.5 text-sm font-semibold text-black hover:border-[#E6007E]/50"
+              >
+                Open in email app
+              </a>
+            </div>
+            <p className="mt-3 break-all font-mono text-xs text-black/60">{PATIENT_DOCUMENTS_CANONICAL_URL}</p>
+          </div>
         </div>
       </section>
 

@@ -145,6 +145,12 @@ const navigation = {
       { label: "Shop", href: "/shop", description: "Skincare, supplements & more", icon: "🧴" },
       { label: "Supplement Dispensary", href: "/fullscript", description: "Fullscript supplements", icon: "💊" },
       { label: "Patient Care", href: "/pre-post-care", description: "Pre & post treatment care", icon: "📋" },
+      {
+        label: "Patient documents & consent",
+        href: "/patient-documents",
+        description: "HTML/PDF consent, QR codes, printable guides",
+        icon: "📄",
+      },
       { label: "Contact", href: "/contact", description: "Location, hours & get in touch", icon: "📍" },
     ],
   },

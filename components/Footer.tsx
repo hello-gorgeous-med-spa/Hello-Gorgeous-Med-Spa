@@ -260,6 +260,16 @@ export function Footer({ siteSettings }: { siteSettings?: SiteSettings | null })
                 </Link>
               </li>
               <li>
+                <Link className="hover:text-[#FF2D8E] transition-colors" href="/pre-post-care">
+                  Pre &amp; post care guides
+                </Link>
+              </li>
+              <li>
+                <Link className="hover:text-[#FF2D8E] transition-colors" href="/patient-documents">
+                  Patient documents &amp; consent
+                </Link>
+              </li>
+              <li>
                 <Link className="hover:text-[#FF2D8E] transition-colors" href="/faq">
                   FAQ
                 </Link>

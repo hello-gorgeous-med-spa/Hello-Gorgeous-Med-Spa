@@ -153,6 +153,14 @@ export default function QuantumRFClinicalModelPage() {
             >
               Or book a consultation to apply
             </a>
+            <p className="mt-6">
+              <Link
+                href="/events/quantum-rf-model-days"
+                className="text-sm font-semibold text-[#FFB6D9] underline decoration-white/40 underline-offset-4 hover:text-white hover:decoration-white"
+              >
+                📎 Official flyer · SMS-friendly share link &amp; PDF download →
+              </Link>
+            </p>
           </div>
         </section>
 
