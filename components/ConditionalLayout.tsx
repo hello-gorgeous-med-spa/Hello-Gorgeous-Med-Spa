@@ -60,8 +60,9 @@ export function ConditionalLayout({
         <BookingTransitionBanner />
         <ImmediateCareStrip />
         <Header />
-        <main className="pt-16 w-full min-w-0 overflow-x-hidden">
-          <div className="min-h-screen w-full max-w-full min-w-0 bg-white overflow-x-hidden pb-20 md:pb-0">
+        {/* Do not use overflow-x-hidden here: it forces overflow-y to auto per CSS and traps scroll on tall pages. */}
+        <main className="pt-16 w-full min-w-0">
+          <div className="min-h-screen min-h-[100dvh] w-full max-w-full min-w-0 bg-white pb-20 md:pb-0">
             {children}
             <Footer siteSettings={siteSettings} />
           </div>

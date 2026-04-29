@@ -38,7 +38,7 @@ export function ServicesDropdown({
 
   return (
     <div
-      className="fixed left-0 right-0 top-16 z-50 overflow-x-hidden border-b-4 border-black bg-white shadow-2xl"
+      className="fixed left-0 right-0 top-16 z-50 max-h-[calc(100dvh-4rem)] overflow-y-auto overscroll-contain overflow-x-clip touch-pan-y border-b-4 border-black bg-white shadow-2xl [scrollbar-gutter:stable]"
       onMouseEnter={onMouseEnter}
       onMouseLeave={onClose}
       role="navigation"

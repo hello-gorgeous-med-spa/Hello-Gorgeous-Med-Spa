@@ -187,7 +187,7 @@ function ProceduresDropdown({ isOpen, onClose, onMouseEnter }: { isOpen: boolean
 
   return (
     <div
-      className="fixed top-16 left-0 right-0 bg-white shadow-2xl border-t border-black z-50 overflow-x-hidden"
+      className="fixed top-16 left-0 right-0 z-50 max-h-[calc(100dvh-4rem)] overflow-y-auto overscroll-contain overflow-x-clip touch-pan-y border-t border-black bg-white shadow-2xl [scrollbar-gutter:stable]"
       onMouseEnter={onMouseEnter}
       onMouseLeave={onClose}
     >
