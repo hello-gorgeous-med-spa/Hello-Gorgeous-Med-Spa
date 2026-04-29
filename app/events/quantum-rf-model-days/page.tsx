@@ -13,11 +13,10 @@ const pageUrl = `${SITE.url}${pagePath}`;
 /** Serves PDF from /public/events/ — same graphic clients can save or print. */
 const FLYER_PDF_HREF = "/events/quantum-rf-model-days-flyer.pdf";
 
-/**
- * Matches campaign artwork for SMS / iMessage link previews (large image card).
- * To swap artwork later, replace this file under public/images/marketing/.
- */
-const PREVIEW_IMAGE_PATH = "/images/marketing/inmode-quantum-rf-launch-flyer.png";
+/** On-page + Open Graph / SMS link preview — screenshot of the approved Model Days flyer (kept in repo). */
+const PREVIEW_IMAGE_PATH = "/images/events/quantum-rf-model-days-preview.png";
+const PREVIEW_IMAGE_WIDTH = 1024;
+const PREVIEW_IMAGE_HEIGHT = 602;
 const previewImageAbsoluteUrl = `${SITE.url}${PREVIEW_IMAGE_PATH}`;
 
 const BOOK_WITH_UTM = `${BOOKING_URL}${BOOKING_URL.includes("?") ? "&" : "?"}utm_source=sms&utm_medium=friendly_link&utm_campaign=quantum_rf_model_days_flyer`;
@@ -54,9 +53,9 @@ export const metadata: Metadata = {
     images: [
       {
         url: previewImageAbsoluteUrl,
-        width: 791,
-        height: 1024,
-        alt: "Quantum RF Model Days — Hello Gorgeous Med Spa flyer preview",
+        width: PREVIEW_IMAGE_WIDTH,
+        height: PREVIEW_IMAGE_HEIGHT,
+        alt: "Quantum RF Model Days flyer — Hello Gorgeous Med Spa",
       },
     ],
   },
@@ -90,13 +89,13 @@ export default function QuantumRFModelDaysFlyerPage() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-2xl px-6 py-12">
+      <section className="mx-auto max-w-4xl px-6 py-12">
         <div className="overflow-hidden rounded-2xl border-2 border-black bg-zinc-50 shadow-[6px_6px_0_0_rgba(230,0,126,0.25)]">
           <Image
             src={PREVIEW_IMAGE_PATH}
-            alt="Flyer preview — Quantum RF Model Days, Hello Gorgeous Med Spa"
-            width={791}
-            height={1024}
+            alt="Quantum RF Model Days flyer — Hello Gorgeous Med Spa"
+            width={PREVIEW_IMAGE_WIDTH}
+            height={PREVIEW_IMAGE_HEIGHT}
             priority
             className="h-auto w-full"
           />
