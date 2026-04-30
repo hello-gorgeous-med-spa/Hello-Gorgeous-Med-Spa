@@ -1,9 +1,7 @@
 /**
- * Model B: /book → Fresha. Merge only allowlisted query params onto BOOKING_URL.
+ * `/book` → `BOOKING_URL` (Square Appointments). Merge only allowlisted query params onto the base scheduler URL.
  *
- * Fresha does not publish a spec for arbitrary query params on book-now URLs. Standard
- * marketing params (utm_*, gclid, etc.) are commonly preserved by web apps; we forward
- * only these and ignore everything else (including `provider` — not a Fresha API param).
+ * Marketing attribution params (utm_*, gclid, …) are commonly preserved; we forward only these.
  */
 
 /** Params safe to forward for attribution / ads (industry-typical). Not Fresha-guaranteed. */

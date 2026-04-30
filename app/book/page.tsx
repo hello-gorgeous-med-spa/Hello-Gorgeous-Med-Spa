@@ -1,5 +1,5 @@
 // ============================================================
-// Public booking (Model B) → Fresha. Forwards allowlisted query
+// Public booking → Square Appointments scheduler. Forwards allowlisted query
 // params (utm_*, gclid, …) — see lib/booking/merge-fresha-redirect-url.ts
 // ============================================================
 

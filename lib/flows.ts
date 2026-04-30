@@ -1,23 +1,41 @@
 /**
- * Booking and conversion URLs — Model B (Fresha hybrid): public booking = Fresha (`BOOKING_URL`).
- * `/book` and `/book/[slug]` redirect here. No dual public booking with HG `/api/booking/*` until cutover.
- * Override: `NEXT_PUBLIC_FRESHA_BOOKING_URL` (Vercel).
+ * Public online booking — **Square Appointments** (May 2026+).
+ *
+ * Priority: `NEXT_PUBLIC_BOOKING_URL` (absolute override) → `NEXT_PUBLIC_SQUARE_BOOKING_URL` → default Square
+ * scheduler below. Historic Fresha URLs are retained as `LEGACY_FRESHA_ORG_BOOKING_URL` for reference only; they are
+ * not used for `BOOKING_URL` unless you set env explicitly (e.g. during a cutover test).
+ *
+ * `/book` merges allowlisted attribution params (`utm_*`, etc.) onto this URL — see
+ * `lib/booking/merge-fresha-redirect-url.ts`.
  */
-export const FRESHA_BOOKING_URL =
-  process.env.NEXT_PUBLIC_FRESHA_BOOKING_URL ||
-  process.env.NEXT_PUBLIC_BOOKING_URL ||
+export const DEFAULT_SQUARE_APPOINTMENTS_URL =
+  "https://book.squareup.com/appointments/c6d3183a-3e54-4f32-8923-61c56c170c64/location/PYYB8NKD45N8P/services";
+
+/** Legacy Fresha org booking URL — not used unless you point `NEXT_PUBLIC_BOOKING_URL` here or archive links. */
+export const LEGACY_FRESHA_ORG_BOOKING_URL =
   "https://www.fresha.com/book-now/hello-gorgeous-tallrfb5/services?lid=102610&share=true&pId=95245";
-/** Primary booking CTA: Fresha (internal /book removed from site until OS is ready). */
-export const BOOKING_URL = FRESHA_BOOKING_URL;
+
+/** @deprecated Prefer `BOOKING_URL` / `LEGACY_FRESHA_ORG_BOOKING_URL`. Kept name for stale imports/docs. */
+export const FRESHA_BOOKING_URL = LEGACY_FRESHA_ORG_BOOKING_URL;
+
+/** Primary booking CTA site-wide — Square scheduler. */
+export const BOOKING_URL =
+  process.env.NEXT_PUBLIC_BOOKING_URL?.trim() ||
+  process.env.NEXT_PUBLIC_SQUARE_BOOKING_URL?.trim() ||
+  DEFAULT_SQUARE_APPOINTMENTS_URL;
 
 /**
- * Fresha Link Builder — optional per–team member entry URLs. Unset = org `FRESHA_BOOKING_URL`.
- * Vercel: `NEXT_PUBLIC_FRESHA_BOOKING_URL_DANIELLE`, `NEXT_PUBLIC_FRESHA_BOOKING_URL_RYAN` (build real links in Fresha; do not use `?provider=` on the org URL).
+ * Per–staff public booking URLs. Prefer Square/Fresha Link Builder URLs from each platform when configured.
+ * Unset falls back to org `BOOKING_URL`.
  */
 export const FRESHA_BOOKING_URL_DANIELLE =
-  process.env.NEXT_PUBLIC_FRESHA_BOOKING_URL_DANIELLE?.trim() || FRESHA_BOOKING_URL;
+  process.env.NEXT_PUBLIC_FRESHA_BOOKING_URL_DANIELLE?.trim() ||
+  process.env.NEXT_PUBLIC_SQUARE_BOOKING_URL_DANIELLE?.trim() ||
+  BOOKING_URL;
 export const FRESHA_BOOKING_URL_RYAN =
-  process.env.NEXT_PUBLIC_FRESHA_BOOKING_URL_RYAN?.trim() || FRESHA_BOOKING_URL;
+  process.env.NEXT_PUBLIC_FRESHA_BOOKING_URL_RYAN?.trim() ||
+  process.env.NEXT_PUBLIC_SQUARE_BOOKING_URL_RYAN?.trim() ||
+  BOOKING_URL;
 
 export function providerPublicBookingUrl(slug: string | null | undefined): string {
   if (!slug) return BOOKING_URL;
@@ -28,7 +46,8 @@ export function providerPublicBookingUrl(slug: string | null | undefined): strin
 }
 
 /**
- * Public booking CTA: prefer a full `https?` `bookingUrl` from CMS/Link Builder when it is not a fake `?provider=` hack; otherwise per-slug Fresha env URL.
+ * Public booking CTA: prefer a full `https?` `bookingUrl` from CMS when it is not a fake `?provider=` hack; otherwise
+ * per-provider env URLs (`FRESHA_*` | `SQUARE_*` in `flows.ts`).
  */
 export function getProviderPublicBookingHref(
   slug: string,
@@ -41,9 +60,9 @@ export function getProviderPublicBookingHref(
   return providerPublicBookingUrl(slug);
 }
 
-/** Public messaging: last day clients should expect Fresha online booking (transition to Square / site). */
+/** Public messaging: legacy banner copy / archive (Fresha winding down). Square live per operations. */
 export const FRESHA_BOOKING_END_LABEL =
-  process.env.NEXT_PUBLIC_FRESHA_BOOKING_END_LABEL?.trim() || "May 31, 2026";
+  process.env.NEXT_PUBLIC_FRESHA_BOOKING_END_LABEL?.trim() || "May 9, 2026";
 
 /** GLP-1 HIPAA screening form (IntakeQ embed on `/glp1-intake`). Booking follows after qualification. */
 export const GLP1_INTAKE_PATH = "/glp1-intake";
