@@ -10,6 +10,7 @@ const LINKS = [
   { href: "/admin/ai-concierge/knowledge", label: "Knowledge" },
   { href: "/admin/ai-concierge/analytics", label: "Analytics" },
   { href: "/admin/ai-concierge/settings", label: "Settings" },
+  { href: "/admin/ai-concierge/health", label: "Health" },
 ];
 
 export default function AiConciergeLayout({ children }: { children: ReactNode }) {

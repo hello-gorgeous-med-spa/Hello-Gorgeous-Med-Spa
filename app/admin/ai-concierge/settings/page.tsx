@@ -45,7 +45,9 @@ export default function AiConciergeSettingsPage() {
     <>
       <h2 className="text-lg font-semibold mb-2">Settings</h2>
       <p className="text-sm text-black/70 mb-4">
-        Runtime still reads <code className="bg-black/5 px-1 rounded text-xs">AI_CONCIERGE_TRANSFER_E164</code> / incoming TwiML in code — treat this UI as documentation defaults until wired server-side.
+        The transfer number is now live — Sarah&apos;s gather route reads <code className="bg-black/5 px-1 rounded text-xs">ai_concierge_settings.transfer_e164</code> first,
+        then falls back to <code className="bg-black/5 px-1 rounded text-xs">AI_CONCIERGE_TRANSFER_E164</code>. The greeting is still informational
+        (incoming TwiML uses Sarah&apos;s default until we wire greeting server-side).
       </p>
       {loading ? (
         <p className="text-sm">Loading…</p>

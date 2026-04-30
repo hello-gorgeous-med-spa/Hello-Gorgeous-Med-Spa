@@ -4,7 +4,7 @@
 import Anthropic from "@anthropic-ai/sdk";
 import type { MessageParam } from "@anthropic-ai/sdk/resources/messages/messages";
 import { NextRequest, NextResponse } from "next/server";
-import { getConciergeTransferE164 } from "@/lib/ai-concierge/constants";
+import { getConciergeTransferE164Async } from "@/lib/ai-concierge/constants";
 import { loadKnowledgeSnippets, parseTranscript, saveBookingRequest, stringifyTranscript, updateCallTranscript, type BookingToolInput, type TranscriptTurn } from "@/lib/ai-concierge/db";
 import { sendBookingEmailToStaff } from "@/lib/ai-concierge/email";
 import { sendBookingSmsToStaff } from "@/lib/ai-concierge/sms";
@@ -32,13 +32,17 @@ function stubHangupXml(): string {
 </Response>`;
 }
 
-function transferXml(): string {
-  const n = getConciergeTransferE164();
+function transferXml(toE164: string): string {
   return `<?xml version="1.0" encoding="UTF-8"?>
 <Response>
   <Say voice="Polly.Joanna" language="en-US">Absolutely! Let me connect you with our team right now. Please hold.</Say>
-  <Dial>${escapeTwiMLSayText(n)}</Dial>
+  <Dial>${escapeTwiMLSayText(toE164)}</Dial>
 </Response>`;
+}
+
+async function transferXmlAsync(): Promise<string> {
+  const n = await getConciergeTransferE164Async();
+  return transferXml(n);
 }
 
 function sayGatherXml(request: NextRequest, innerSay: string): string {
@@ -94,7 +98,7 @@ export async function POST(request: NextRequest) {
 
   const admin = getSupabaseAdminClient();
   if (!admin) {
-    return twimlResponse(transferXml());
+    return twimlResponse(await transferXmlAsync());
   }
 
   const { data: callRow } = await admin
@@ -142,15 +146,16 @@ export async function POST(request: NextRequest) {
     for (const block of toolFirst) {
       if (block.type === "tool_use") {
         if (block.name === "transfer_call") {
+          const transferTo = await getConciergeTransferE164Async();
           await admin
             .from("ai_concierge_calls")
             .update({
               action_taken: "transferred",
-              transferred_to: getConciergeTransferE164(),
+              transferred_to: transferTo,
               transcript: stringifyTranscript(turns),
             })
             .eq("call_sid", callSid);
-          return twimlResponse(transferXml());
+          return twimlResponse(transferXml(transferTo));
         }
 
         if (block.name === "collect_booking_info") {
@@ -174,7 +179,7 @@ export async function POST(request: NextRequest) {
 
           const saved = await saveBookingRequest(callSid, booking);
           if (!saved.ok) {
-            return twimlResponse(transferXml());
+            return twimlResponse(await transferXmlAsync());
           }
 
           await sendBookingSmsToStaff(booking, { recordingUrl: null });
@@ -205,7 +210,7 @@ export async function POST(request: NextRequest) {
     return twimlResponse(sayGatherXml(request, reply));
   } catch (e) {
     console.error("[ai-concierge] gather Claude error:", e);
-    return twimlResponse(transferXml());
+    return twimlResponse(await transferXmlAsync());
   }
 }
 
