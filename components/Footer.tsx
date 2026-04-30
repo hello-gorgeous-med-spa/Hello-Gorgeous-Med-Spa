@@ -3,7 +3,7 @@ import Link from "next/link";
 import { GoogleMapEmbed } from "@/components/GoogleMapEmbed";
 import { BestOfOswegoBadge } from "@/components/BestOfOswegoBadge";
 import { BookingBadges } from "@/components/BookingBadges";
-import { BOOKING_URL } from "@/lib/flows";
+import { BOOKING_URL, SQUARE_MAILING_LIST_ENROLL_URL } from "@/lib/flows";
 import { SITE, SERVICES, servicePublicPath } from "@/lib/seo";
 import type { SiteSettings } from "@/lib/cms-readers";
 
@@ -201,6 +201,16 @@ export function Footer({ siteSettings }: { siteSettings?: SiteSettings | null })
                 <Link className="hover:text-[#FF2D8E] transition-colors" href="/telehealth">
                   Telehealth
                 </Link>
+              </li>
+              <li>
+                <a
+                  href={SQUARE_MAILING_LIST_ENROLL_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-[#FF2D8E] transition-colors font-medium text-[#FF2D8E]/95"
+                >
+                  Join mailing list · offers &amp; updates →
+                </a>
               </li>
               <li>
                 <Link className="hover:text-[#FF2D8E] transition-colors" href="/products-we-offer">

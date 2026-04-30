@@ -5,7 +5,7 @@ import { ContactForm } from "@/components/ContactForm";
 import { ContactSMSOptIn } from "@/components/ContactSMSOptIn";
 import { GoogleMapEmbed } from "@/components/GoogleMapEmbed";
 import { FadeUp, Section } from "@/components/Section";
-import { BOOKING_URL } from "@/lib/flows";
+import { BOOKING_URL, SQUARE_MAILING_LIST_ENROLL_URL } from "@/lib/flows";
 import { SITE, pageMetadata, siteJsonLd } from "@/lib/seo";
 import { getSiteSettings } from "@/lib/cms-readers";
 
@@ -83,6 +83,18 @@ export default async function ContactPage() {
                   See Services
                 </CTA>
               </div>
+              <p className="mt-5 text-sm text-gray-600">
+                Want reminders and specials?{" "}
+                <a
+                  href={SQUARE_MAILING_LIST_ENROLL_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-semibold text-[#FF2D8E] hover:underline"
+                >
+                  Join our mailing list
+                </a>{" "}
+                (email · optional SMS per Square signup).
+              </p>
             </div>
           </FadeUp>
 

@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-import { BOOKING_URL } from "@/lib/flows";
+import { BOOKING_URL, SQUARE_MAILING_LIST_ENROLL_URL } from "@/lib/flows";
 
 /** Printable Square Appointments QR (from Square Dashboard). Raster preview: `square-appointments-qr.png`. */
 const SQUARE_QR_PDF_PATH = "/booking/square-appointments-qr.pdf";
@@ -42,6 +42,14 @@ export function BookingBadges({ className = "" }: { className?: string }) {
             className="text-xs font-medium text-[#FF2D8E] underline decoration-[#FF2D8E]/40 underline-offset-2 hover:text-white hover:decoration-white"
           >
             Download QR (PDF) — print for front desk · tent cards
+          </a>
+          <a
+            href={SQUARE_MAILING_LIST_ENROLL_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-[11px] font-medium text-white/70 underline underline-offset-2 hover:text-[#FF2D8E]"
+          >
+            Join mailing list · offers &amp; updates (Square)
           </a>
         </div>
         <div className="flex max-w-md flex-wrap items-center gap-3">

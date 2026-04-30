@@ -25,6 +25,14 @@ export const BOOKING_URL =
   DEFAULT_SQUARE_APPOINTMENTS_URL;
 
 /**
+ * Square Customer Directory — offers & updates (email + SMS opt-in, Square-hosted).
+ * @see https://squareup.com/customer-programs/enroll/hg4NM8qZXwGm
+ */
+export const SQUARE_MAILING_LIST_ENROLL_URL =
+  process.env.NEXT_PUBLIC_SQUARE_MAILING_LIST_URL?.trim() ||
+  "https://squareup.com/customer-programs/enroll/hg4NM8qZXwGm?utm_source=hellogorgeousmedspa.com&utm_medium=website&utm_campaign=mailing_list";
+
+/**
  * Per–staff public booking URLs. Prefer Square/Fresha Link Builder URLs from each platform when configured.
  * Unset falls back to org `BOOKING_URL`.
  */
