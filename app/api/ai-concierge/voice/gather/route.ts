@@ -209,8 +209,23 @@ export async function POST(request: NextRequest) {
     await updateCallTranscript(callSid, turns, { action_taken: "answered_question" });
     return twimlResponse(sayGatherXml(request, reply));
   } catch (e) {
+    const errorMessage = e instanceof Error ? e.message : "Unknown gather error";
     console.error("[ai-concierge] gather Claude error:", e);
-    return twimlResponse(await transferXmlAsync());
+    const transferTo = await getConciergeTransferE164Async();
+    try {
+      await admin
+        .from("ai_concierge_calls")
+        .update({
+          action_taken: "gather_error_transferred",
+          transferred_to: transferTo,
+          transcript: stringifyTranscript(turns),
+          summary: `Gather failed → transferred. ${errorMessage}`.slice(0, 500),
+        })
+        .eq("call_sid", callSid);
+    } catch (dbErr) {
+      console.error("[ai-concierge] failed to record gather-error transfer:", dbErr);
+    }
+    return twimlResponse(transferXml(transferTo));
   }
 }
 
