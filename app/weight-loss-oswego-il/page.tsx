@@ -8,15 +8,15 @@ const area = SERVICE_AREAS.find(a => a.slug === 'oswego')!;
 const nearbyAreas = SERVICE_AREAS.filter(a => a.slug !== 'oswego');
 
 export const metadata: Metadata = {
-  title: `Medical Weight Loss Oswego IL | Semaglutide & Tirzepatide | Hello Gorgeous`,
-  description: `Medical weight loss in Oswego, IL. Semaglutide (Ozempic/Wegovy) & Tirzepatide (Mounjaro) available. GLP-1 weight loss program supervised by nurse practitioners. Book consultation!`,
-  keywords: [...generateLocationKeywords(service, 'Oswego'), 'ozempic oswego', 'wegovy oswego', 'mounjaro oswego'],
+  title: `Weight Loss in Oswego, IL 60543 — Semaglutide & Tirzepatide | Hello Gorgeous Med Spa`,
+  description: `Medical weight loss in Oswego, IL — Semaglutide (Ozempic/Wegovy) and Tirzepatide (Mounjaro/Zepbound) GLP-1 programs supervised by licensed nurse practitioners. Free consultations. Serving Naperville, Aurora, Plainfield, Yorkville. Call 630-636-6193.`,
+  keywords: [...generateLocationKeywords(service, 'Oswego'), 'weight loss oswego', 'weight loss oswego il', 'semaglutide oswego', 'tirzepatide oswego', 'glp1 oswego', 'ozempic oswego', 'wegovy oswego', 'mounjaro oswego', 'zepbound oswego', 'medical weight loss oswego', 'weight loss near me'],
   alternates: { canonical: `${SITE.url}/weight-loss-oswego-il` },
   openGraph: {
     type: 'website',
     url: `${SITE.url}/weight-loss-oswego-il`,
-    title: `Medical Weight Loss Oswego IL | Semaglutide | Hello Gorgeous`,
-    description: 'Semaglutide & Tirzepatide weight loss in Oswego, IL. GLP-1 program.',
+    title: `Weight Loss in Oswego, IL — Semaglutide & Tirzepatide | Hello Gorgeous Med Spa`,
+    description: 'Semaglutide & Tirzepatide GLP-1 weight loss in Oswego, IL — supervised by licensed NPs. Free consultations.',
     images: [{ url: `${SITE.url}${service.heroImage}`, width: 1200, height: 630 }],
   },
 };

@@ -56,8 +56,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const treatmentParsed = parseTreatmentCitySlug(slug);
   if (treatmentParsed) {
     const { city, device } = treatmentParsed;
-    const title = `${device.shortName} in ${city.name}, IL | Hello Gorgeous Med Spa`;
-    const description = `${device.shortName} ${device.tagline.toLowerCase()} now available near ${city.name}, IL. ${city.nearbyNote} from Hello Gorgeous Med Spa in Oswego. NP on site 7 days. Book free consultation.`;
+    const title = `${device.shortName} in ${city.name}, IL — Hello Gorgeous Med Spa`;
+    const description = `${device.shortName} ${device.tagline.toLowerCase()} now available near ${city.name}, IL. ${city.nearbyNote} from Hello Gorgeous Med Spa in Oswego. Licensed NP on site 7 days a week. Free consultations. Call 630-636-6193.`;
     return {
       title,
       description,
@@ -79,8 +79,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     const s = SERVICES.find((x) => x.slug === serviceSlug);
     if (!s) return pageMetadata({ title: "Service", description: "Service.", path: `/${slug}` });
     return pageMetadata({
-      title: `${s.name} in ${cityLabel} | Hello Gorgeous Med Spa`,
-      description: `${s.heroTitle} — ${s.short} Book a consultation at Hello Gorgeous Med Spa. Serving Oswego, Naperville, Aurora, Plainfield.`,
+      title: `${s.name} in ${cityLabel} — ${SITE.name}`,
+      description: `${s.name} in ${cityLabel} with licensed nurse practitioners at Hello Gorgeous Med Spa. ${s.short} Free consultations. Call ${SITE.phone}.`,
       path: `/${slug}`,
     });
   }
@@ -88,8 +88,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   if (MED_SPA_SLUG_TO_CITY[slug]) {
     const { cityLabel } = MED_SPA_SLUG_TO_CITY[slug];
     return pageMetadata({
-      title: `Med Spa in ${cityLabel} | Hello Gorgeous`,
-      description: `Luxury med spa serving ${cityLabel}. Botox, fillers, weight loss, hormone therapy, microneedling, IV therapy. Book your consultation.`,
+      title: `Med Spa in ${cityLabel} — Botox, Weight Loss, Morpheus8 | Hello Gorgeous`,
+      description: `Luxury med spa serving ${cityLabel}. Botox, dermal fillers, medical weight loss (Semaglutide & Tirzepatide), hormone therapy, RF microneedling, IV therapy. Call ${SITE.phone}.`,
       path: `/${slug}`,
     });
   }

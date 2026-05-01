@@ -24,7 +24,9 @@ const playfair = Playfair_Display({
   display: "swap",
 });
 
-const DEFAULT_TITLE = `Hello Gorgeous Med Spa | Newest Morpheus8 Burst Face & Body | Oswego, IL`;
+// Homepage default title — used only when a child page does NOT set its own title.
+// Sub-pages set their own titles which already include the brand, so no template suffix.
+const DEFAULT_TITLE = `Hello Gorgeous Med Spa — #1 Med Spa in Oswego, IL | Botox, Weight Loss, Morpheus8`;
 const DEFAULT_DESCRIPTION = `${SITE.description} Serving Naperville, Aurora, Plainfield. Book your free consultation today!`;
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -36,7 +38,9 @@ export async function generateMetadata(): Promise<Metadata> {
     metadataBase: new URL(SITE.url),
     title: {
       default: title,
-      template: `%s | ${SITE.name} - Oswego, IL Med Spa`,
+      // No suffix template — pages already include the brand name in their own titles.
+      // Setting the template to '%s' is a passthrough so child page titles render as-is.
+      template: `%s`,
     },
     description,
     keywords: [

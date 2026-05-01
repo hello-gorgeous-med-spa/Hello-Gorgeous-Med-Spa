@@ -8,15 +8,15 @@ const area = SERVICE_AREAS.find(a => a.slug === 'oswego')!;
 const nearbyAreas = SERVICE_AREAS.filter(a => a.slug !== 'oswego');
 
 export const metadata: Metadata = {
-  title: `Morpheus8 RF Microneedling Oswego IL | ${service.priceDisplay} | Hello Gorgeous Med Spa`,
-  description: `Morpheus8 RF Microneedling in Oswego, IL. Deepest RF technology with Burst + Quantum probes. Face & body contouring, skin tightening, fat reduction. Book consultation!`,
-  keywords: generateLocationKeywords(service, 'Oswego'),
+  title: `Morpheus8 in Oswego, IL 60543 — RF Microneedling | Hello Gorgeous Med Spa`,
+  description: `Morpheus8 RF microneedling in Oswego, IL — the deepest RF technology with Burst and Quantum probes for face and body contouring, skin tightening, and acne scars. Licensed nurse practitioners. Free consultations. Call 630-636-6193.`,
+  keywords: [...generateLocationKeywords(service, 'Oswego'), 'morpheus8 oswego', 'morpheus 8 oswego', 'morpheus8 oswego il', 'morpheus8 burst oswego', 'rf microneedling oswego', 'skin tightening oswego', 'quantum rf oswego'],
   alternates: { canonical: `${SITE.url}/morpheus8-oswego-il` },
   openGraph: {
     type: 'website',
     url: `${SITE.url}/morpheus8-oswego-il`,
-    title: `Morpheus8 Oswego IL | Hello Gorgeous Med Spa`,
-    description: 'Morpheus8 RF Microneedling in Oswego, IL. Face & body contouring with Burst + Quantum technology.',
+    title: `Morpheus8 in Oswego, IL — RF Microneedling | Hello Gorgeous Med Spa`,
+    description: 'Morpheus8 RF microneedling in Oswego, IL with the deepest RF technology — face, body, acne scars.',
     images: [{ url: `${SITE.url}${service.heroImage}`, width: 1200, height: 630 }],
   },
 };

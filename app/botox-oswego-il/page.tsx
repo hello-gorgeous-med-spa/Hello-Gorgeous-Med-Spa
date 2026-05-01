@@ -3,6 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { SITE, siteJsonLd, localBusinessJsonLd, faqJsonLd, breadcrumbJsonLd } from '@/lib/seo';
 import { InjectablesBlogPromo } from '@/components/InjectablesBlogPromo';
+import { RealPatientReviews } from '@/components/RealPatientReviews';
 
 // ============================================================
 // BOTOX OSWEGO IL - Primary Local SEO Landing Page
@@ -10,8 +11,8 @@ import { InjectablesBlogPromo } from '@/components/InjectablesBlogPromo';
 // ============================================================
 
 export const metadata: Metadata = {
-  title: 'Botox Near Me | $10/Unit Botox in Oswego, IL | Hello Gorgeous Med Spa',
-  description: 'Looking for Botox near me? Hello Gorgeous Med Spa offers Botox at $10/unit in Oswego, IL. Serving Naperville, Aurora, Plainfield. Licensed nurse practitioners. Book your free consultation today!',
+  title: 'Botox Near Me in Oswego, IL 60543 — $10/Unit | Hello Gorgeous Med Spa',
+  description: '$10/unit Botox in Oswego, IL — board-certified nurse practitioners, natural results, free consultations. Serving Naperville, Aurora, Plainfield, Yorkville. Book online or call 630-636-6193.',
   keywords: [
     'botox near me',
     'botox oswego',
@@ -41,8 +42,8 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     url: `${SITE.url}/botox-oswego-il`,
-    title: 'Botox Near Me | $10/Unit in Oswego, IL | Hello Gorgeous Med Spa',
-    description: 'Looking for Botox near you? $10/unit Botox in Oswego, IL. Serving Naperville, Aurora, Plainfield. Free consultations available.',
+    title: 'Botox in Oswego, IL — $10/Unit | Hello Gorgeous Med Spa',
+    description: '$10/unit Botox in Oswego, IL with licensed nurse practitioners. Free consultations. Serving Naperville, Aurora, Plainfield.',
     siteName: SITE.name,
     locale: 'en_US',
     images: [
@@ -56,8 +57,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Botox Near Me | $10/Unit in Oswego, IL',
-    description: 'Looking for Botox near you? $10/unit in Oswego, IL. Serving Naperville, Aurora, Plainfield.',
+    title: 'Botox in Oswego, IL — $10/Unit | Hello Gorgeous',
+    description: '$10/unit Botox by licensed nurse practitioners in Oswego, IL.',
     images: [`${SITE.url}/images/services/hg-botox-syringes.png`],
   },
   robots: {
@@ -365,6 +366,14 @@ export default function BotoxOswegoPage() {
             </div>
           </div>
         </section>
+
+        {/* Real Patient Reviews — named-patient social proof + Schema.org Review markup for SERP stars */}
+        <RealPatientReviews
+          service="botox"
+          serviceLabel="Botox in Oswego"
+          heading="Real Oswego patients on Botox at Hello Gorgeous"
+          intro={`${SITE.reviewCount}+ verified Google reviews · ${SITE.reviewRating} stars · From clients in Oswego, Naperville, Aurora and Plainfield.`}
+        />
 
         <InjectablesBlogPromo
           title="Botox vs Dysport vs Jeuveau — Which One Is Right for You?"

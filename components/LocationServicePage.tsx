@@ -4,6 +4,16 @@ import { SITE, siteJsonLd, localBusinessJsonLd, faqJsonLd, breadcrumbJsonLd } fr
 import { ServiceConfig, ServiceArea, generateServiceSchema } from '@/lib/location-seo';
 import { WeightLossBlogPromo } from '@/components/WeightLossBlogPromo';
 import { LaserHairMembershipsPromo } from '@/components/LaserHairMembershipsPromo';
+import { RealPatientReviews, type ReviewServiceCategory } from '@/components/RealPatientReviews';
+
+const REVIEW_CATEGORY_BY_SERVICE: Record<string, ReviewServiceCategory> = {
+  'weight-loss': 'weight-loss',
+  'morpheus8': 'morpheus8',
+  'botox': 'botox',
+  'lip-filler': 'lip-filler',
+  'fillers': 'fillers',
+  'dermal-fillers': 'fillers',
+};
 
 // ============================================================
 // REUSABLE LOCATION SERVICE PAGE COMPONENT
@@ -17,6 +27,7 @@ interface LocationServicePageProps {
 }
 
 export function LocationServicePage({ service, area, nearbyAreas }: LocationServicePageProps) {
+  const reviewCategory = REVIEW_CATEGORY_BY_SERVICE[service.slug] ?? 'general';
   const breadcrumbs = [
     { name: 'Home', url: SITE.url },
     { name: 'Services', url: `${SITE.url}/services` },
@@ -233,6 +244,13 @@ export function LocationServicePage({ service, area, nearbyAreas }: LocationServ
             </div>
           </div>
         </section>
+
+        {/* Real Patient Reviews — named-patient social proof + Schema.org Review markup for SERP stars */}
+        <RealPatientReviews
+          service={reviewCategory}
+          serviceLabel={`${service.name} ${area.city}`}
+          heading={`Real ${area.city} clients on ${service.name} at Hello Gorgeous`}
+        />
 
         {/* Directions */}
         <section className="py-16">
