@@ -128,7 +128,10 @@ export async function POST(request: NextRequest) {
 
   const system = buildSarahSystemPrompt(kb);
   const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
-  const model = process.env.ANTHROPIC_MODEL?.trim() || "claude-sonnet-4-20250514";
+  // Default to Sonnet 4.6 (current). The retired "claude-sonnet-4-20250514"
+  // returns 404 and was silently sending every call to gather_error_transferred.
+  // For lower latency on voice, set ANTHROPIC_MODEL=claude-haiku-4-5-20251001.
+  const model = process.env.ANTHROPIC_MODEL?.trim() || "claude-sonnet-4-6";
 
   try {
     const msg = await anthropic.messages.create({
