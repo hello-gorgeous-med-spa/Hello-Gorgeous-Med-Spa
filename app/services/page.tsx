@@ -56,6 +56,73 @@ export default function ServicesPage() {
       </Section>
 
       <Section>
+        <FadeUp>
+          <div className="mb-10">
+            <p className="text-[#FF2D8E] text-xs md:text-sm font-bold uppercase tracking-[0.2em] mb-2">
+              ★ Spotlight pages
+            </p>
+            <h2 className="text-2xl md:text-3xl font-black text-black">
+              Most-requested treatments — full guides
+            </h2>
+            <p className="mt-2 text-black/70 max-w-2xl">
+              Deep-dive pages with FAQs, pricing transparency, what to expect, and links to book a free consult.
+            </p>
+          </div>
+          <div className="grid gap-6 md:grid-cols-3 mb-12">
+            {[
+              {
+                href: "/services/botox",
+                eyebrow: "Injectables · Most popular",
+                title: "Botox in Oswego, IL",
+                blurb:
+                  "Same-week Botox + Dysport + Jeuveau, real provider, transparent unit pricing. Allē rewards eligible.",
+                cta: "Read the Botox guide",
+              },
+              {
+                href: "/services/microneedling-rf",
+                eyebrow: "Skin tightening · Morpheus8 Burst",
+                title: "RF Microneedling",
+                blurb:
+                  "The only spa in the area running Morpheus8 Burst at the full 8mm depth. Acne scars, jowls, body contouring.",
+                cta: "See RF microneedling",
+              },
+              {
+                href: "/services/weight-loss-therapy",
+                eyebrow: "Medical weight loss · GLP-1",
+                title: "Semaglutide + Tirzepatide",
+                blurb:
+                  "From $300/mo with real labs, body composition scans, and a provider who actually picks up the phone.",
+                cta: "See GLP-1 program",
+              },
+            ].map((card, idx) => (
+              <FadeUp key={card.href} delayMs={60 * idx}>
+                <Link
+                  href={card.href}
+                  className="group block rounded-3xl border-4 border-black bg-white p-6 shadow-[8px_8px_0_0_rgba(230,0,126,0.35)] hover:shadow-[10px_10px_0_0_rgba(230,0,126,0.55)] hover:-translate-y-0.5 transition"
+                >
+                  <p className="text-[#E6007E] text-[10px] md:text-xs font-bold uppercase tracking-[0.2em]">
+                    {card.eyebrow}
+                  </p>
+                  <h3 className="mt-2 text-xl md:text-2xl font-black text-black">
+                    {card.title}
+                  </h3>
+                  <p className="mt-3 text-sm text-black/80 leading-relaxed">{card.blurb}</p>
+                  <p className="mt-5 text-sm font-bold text-[#E6007E] inline-flex items-center gap-1">
+                    {card.cta}
+                    <span className="inline-block transition-transform group-hover:translate-x-1">→</span>
+                  </p>
+                </Link>
+              </FadeUp>
+            ))}
+          </div>
+          <div className="mb-8 border-t-4 border-black" />
+          <p className="text-[#FF2D8E] text-xs md:text-sm font-bold uppercase tracking-[0.2em] mb-2">
+            Full services catalog
+          </p>
+          <h2 className="text-2xl md:text-3xl font-black text-black mb-6">
+            Everything we offer
+          </h2>
+        </FadeUp>
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {SERVICES.map((s, idx) => (
             <FadeUp key={s.slug} delayMs={40 * idx}>

@@ -598,7 +598,7 @@ At Hello Gorgeous, VIP Model pricing applies: Morpheus8 Burst single from $799, 
     keywords: ["Botox vs Dysport vs Jeuveau", "Botox Oswego IL", "Dysport near me", "Jeuveau Oswego", "neuromodulator comparison", "Botox $10 unit Oswego", "which Botox is best"],
     content: `# Botox vs Dysport vs Jeuveau in Oswego, IL: Which One Is Right for You?
 
-At Hello Gorgeous Med Spa in Oswego, IL — serving Naperville, Aurora, Plainfield, and the Fox Valley — we offer **Botox, Dysport, and Jeuveau**. All three are FDA-approved neuromodulators that smooth lines and wrinkles. So how do you choose? Your provider will recommend the best option during your consultation, but here’s an FAQ to help you understand the differences and decide with confidence.
+At Hello Gorgeous Med Spa in Oswego, IL — serving Naperville, Aurora, Plainfield, and the Fox Valley — we offer **Botox, Dysport, and Jeuveau**. All three are FDA-approved neuromodulators that smooth lines and wrinkles. So how do you choose? Your provider will recommend the best option during your consultation, but here’s an FAQ to help you understand the differences and decide with confidence. (For a full overview of our [Botox program in Oswego](/services/botox) — pricing, what to expect, and Allē rewards — see the dedicated guide.)
 
 ## Quick Comparison: Botox vs Dysport vs Jeuveau
 
@@ -1059,7 +1059,7 @@ We offer the full spectrum — from HydraFacial to CO2 laser. NP on site 7 days 
     keywords: ["medical weight loss Oswego IL", "Semaglutide Oswego", "Tirzepatide Oswego", "GLP-1 weight loss near me"],
     content: `# Medical Weight Loss in Oswego: GLP-1 and Beyond
 
-GLP-1 medications (Semaglutide, Tirzepatide) have changed medical weight loss. If you're considering them in Oswego, here's what you need to know.
+GLP-1 medications (Semaglutide, Tirzepatide) have changed medical weight loss. If you're considering them in Oswego, here's what you need to know — or jump straight to our [GLP-1 weight loss therapy program](/services/weight-loss-therapy) for pricing and what's included.
 
 ## What Are GLP-1 Medications?
 
@@ -1757,7 +1757,7 @@ It's integrated care — not isolated prescriptions.
     keywords: ["Morpheus8 Burst Oswego", "RF microneedling Oswego IL", "deepest RF microneedling", "Morpheus8 Burst vs standard", "skin tightening Naperville"],
     content: `# Morpheus8 Burst: The Deepest RF Microneedling Available — Now in Oswego
 
-If you've researched RF microneedling, you've probably seen the name Morpheus8. It's one of the most popular skin tightening and collagen stimulation devices in the aesthetic industry. But here's what most marketing won't tell you: **not all Morpheus8 is the same.**
+If you've researched [RF microneedling in Oswego](/services/microneedling-rf), you've probably seen the name Morpheus8. It's one of the most popular skin tightening and collagen stimulation devices in the aesthetic industry. But here's what most marketing won't tell you: **not all Morpheus8 is the same.**
 
 ## Standard vs. Burst: The Difference That Matters
 
@@ -2018,11 +2018,11 @@ Every body contouring plan starts with a free consultation. Our NP will assess y
     keywords: ["loose skin after weight loss", "skin tightening after Semaglutide", "GLP-1 loose skin treatment", "skin tightening after Tirzepatide", "weight loss skin Oswego"],
     content: `# What Happens to Your Skin After Weight Loss? (And How to Fix It)
 
-You did it. You lost 40, 60, maybe 100 pounds. GLP-1 medications like Semaglutide and Tirzepatide have been life-changing. Your health markers improved. Your energy is up. Your clothes fit differently.
+You did it. You lost 40, 60, maybe 100 pounds. GLP-1 medications like Semaglutide and Tirzepatide have been life-changing. Your health markers improved. Your energy is up. Your clothes fit differently. (If you haven't started yet and you're researching, see our [medical weight loss therapy program](/services/weight-loss-therapy).)
 
 But then you look in the mirror and see something nobody warned you about: **loose, sagging skin.**
 
-You're not alone. This is the #1 concern among GLP-1 weight loss patients — and most weight loss providers have no solution for it.
+You're not alone. This is the #1 concern among GLP-1 weight loss patients — and most weight loss providers have no solution for it. The fix at Hello Gorgeous is [RF microneedling with Morpheus8 Burst](/services/microneedling-rf) — it's the only non-surgical treatment that reaches deep enough (8mm) to remodel the actual structural collagen the weight stretched out.
 
 ## Why Does Skin Get Loose After Weight Loss?
 
@@ -2323,7 +2323,7 @@ Hello Gorgeous is at 74 W Washington Street in downtown Oswego — convenient fo
 
 Ozempic vs Tirzepatide vs Zepbound — if you're researching weight loss medications, you've seen these names. But what do they actually mean? And how do you choose the right one?
 
-Here's a clear breakdown of the available GLP-1 medications and how Hello Gorgeous can help you find the right fit in Oswego, Naperville, Aurora, Plainfield, and the Fox Valley.
+Here's a clear breakdown of the available GLP-1 medications and how our [medical weight loss therapy program in Oswego](/services/weight-loss-therapy) can help you find the right fit. We serve Naperville, Aurora, Plainfield, and the Fox Valley.
 
 ## The Names: What's What?
 

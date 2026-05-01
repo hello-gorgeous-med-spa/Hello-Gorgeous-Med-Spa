@@ -78,7 +78,8 @@ export const SERVICES_MENU_GOALS: ServiceMenuSection[] = [
     subtitle: "Turn back the clock with advanced treatments",
     items: [
       { id: "m8-aa", name: "Morpheus8 Burst", href: "/services/morpheus8", icon: "⚡" },
-      { id: "botox", name: "Botox, Dysport & Jeuveau", href: "/services/botox-dysport-jeuveau", icon: "💉" },
+      { id: "rf-microneedling", name: "RF Microneedling", href: "/services/microneedling-rf", icon: "🎯", badge: "new" },
+      { id: "botox", name: "Botox, Dysport & Jeuveau", href: "/services/botox", icon: "💉" },
       { id: "fillers", name: "Dermal Fillers", href: "/services/dermal-fillers", icon: "💋" },
       { id: "lip", name: "Lip Filler", href: "/services/lip-filler", icon: "👄" },
       { id: "prp-facial-aa", name: "PRP / PRF Facial", href: "/services/prp-facial", icon: "✨" },
@@ -98,6 +99,13 @@ export const SERVICES_MENU_GOALS: ServiceMenuSection[] = [
         href: "/glp1-weight-loss",
         icon: "⚡",
         badge: "popular",
+      },
+      {
+        id: "weight-loss-therapy",
+        name: "Medical Weight Loss Therapy",
+        href: "/services/weight-loss-therapy",
+        icon: "⚖️",
+        badge: "new",
       },
       { id: "hormone", name: "Hormone Therapy (BHRT / TRT)", href: "/services/biote-hormone-therapy", icon: "⚖️" },
       { id: "peptides", name: "Peptide Therapy", href: "/peptides", icon: "🧬" },
@@ -125,7 +133,7 @@ export const SERVICES_MENU_GOALS: ServiceMenuSection[] = [
     subtitle: "Natural-looking results by expert injectors",
     items: [
       { id: "inj-overview", name: "Injectables Overview", href: "/injectables", icon: "✨" },
-      { id: "neuro", name: "Botox, Dysport & Jeuveau", href: "/services/botox-dysport-jeuveau", icon: "💉" },
+      { id: "neuro", name: "Botox, Dysport & Jeuveau", href: "/services/botox", icon: "💉" },
       { id: "dermal", name: "Dermal Fillers", href: "/services/dermal-fillers", icon: "💋" },
       { id: "lip-studio", name: "Lip Filler & Lip Studio", href: "/lip-studio", icon: "👄" },
       { id: "kybella", name: "Kybella", href: "/services/kybella", icon: "✨" },
@@ -167,7 +175,16 @@ export const SERVICES_MENU_GOALS: ServiceMenuSection[] = [
 export function isServicesDropdownContext(pathname: string | null | undefined): boolean {
   if (!pathname) return false;
   if (pathname === "/services") return true;
-  if (["/services/morpheus8", "/services/quantum-rf", "/services/solaria-co2"].some((p) => pathname.startsWith(p))) {
+  if (
+    [
+      "/services/morpheus8",
+      "/services/quantum-rf",
+      "/services/solaria-co2",
+      "/services/microneedling-rf",
+      "/services/weight-loss-therapy",
+      "/services/botox",
+    ].some((p) => pathname.startsWith(p))
+  ) {
     return true;
   }
   if (isServiceCatalogRoute(pathname)) return true;
