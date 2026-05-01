@@ -6,6 +6,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 import { getAiConciergeStaffSession } from "@/lib/ai-concierge/admin-auth";
 import { getConciergeTransferE164Async } from "@/lib/ai-concierge/constants";
+import { getRingFirstConfig } from "@/lib/ai-concierge/ring-first";
 import { canonicalWebhookUrl } from "@/lib/ai-concierge/webhook-url";
 import { getSupabaseAdminClient } from "@/lib/hgos/supabase-admin";
 
@@ -102,6 +103,7 @@ export async function GET(request: NextRequest) {
     process.env.NODE_ENV === "production" && process.env.TWILIO_WEBHOOK_SKIP_SIGNATURE === "1";
 
   const transfer = await getConciergeTransferE164Async();
+  const ringFirst = await getRingFirstConfig();
   const db = await dbHealth();
 
   return NextResponse.json({
@@ -111,6 +113,13 @@ export async function GET(request: NextRequest) {
     webhookUrl: canonicalWebhookUrl(request),
     twilioPhoneNumberMasked: maskNumber(process.env.TWILIO_PHONE_NUMBER),
     transferTarget: { e164: transfer, masked: maskNumber(transfer) },
+    ringFirst: {
+      enabled: ringFirst.enabled,
+      timeoutSeconds: ringFirst.timeoutSeconds,
+      ringE164: ringFirst.ringE164,
+      ringMasked: maskNumber(ringFirst.ringE164),
+      source: ringFirst.source,
+    },
     env,
     requiredMissing,
     warnings: skipSignatureLeaked

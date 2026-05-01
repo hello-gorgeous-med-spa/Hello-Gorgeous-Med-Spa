@@ -1,21 +1,23 @@
 // Twilio Voice — "A call comes in" webhook (POST form-urlencoded)
 // https://www.twilio.com/docs/voice/twiml
+//
+// Pattern B (ring-first) by default: Dial the staff cell with a timeout. If the
+// staff line is busy / no-answer / failed, Twilio invokes the Dial `action`
+// callback (`/api/ai-concierge/voice/dial-status`), which then hands off to
+// Sarah's TwiML greeting + Gather. Owners can disable this in the admin
+// settings to fall back to "AI answers immediately."
 
 import { NextRequest, NextResponse } from "next/server";
+
+import { getRingFirstConfig } from "@/lib/ai-concierge/ring-first";
+import {
+  buildSarahGreetingTwiml,
+  twimlResponse,
+} from "@/lib/ai-concierge/voice-twiml";
 import { getSupabaseAdminClient } from "@/lib/hgos/supabase-admin";
 import { twilioSignatureValid } from "@/lib/twilio-webhook";
 
 export const dynamic = "force-dynamic";
-
-const SARAH_GREETING =
-  "Hello! Thank you for calling Hello Gorgeous Med Spa. This is Sarah. How can I help you today?";
-
-function twimlResponse(body: string) {
-  return new NextResponse(body, {
-    status: 200,
-    headers: { "Content-Type": "text/xml; charset=utf-8" },
-  });
-}
 
 function mapCallStatus(v: string | null): string {
   if (!v) return "in_progress";
@@ -64,20 +66,29 @@ export async function POST(request: NextRequest) {
     console.warn("[ai-concierge] Supabase admin not configured; skip call log");
   }
 
-  const gatherUrl = new URL("/api/ai-concierge/voice/gather", request.nextUrl.origin).toString();
+  const ringFirst = await getRingFirstConfig();
 
-  const twiml = `<?xml version="1.0" encoding="UTF-8"?>
+  if (ringFirst.enabled) {
+    if (admin) {
+      await admin
+        .from("ai_concierge_calls")
+        .update({ action_taken: "ring_first_started" })
+        .eq("call_sid", callSid);
+    }
+
+    const dialStatusUrl = new URL(
+      "/api/ai-concierge/voice/dial-status",
+      request.nextUrl.origin,
+    ).toString();
+
+    const twiml = `<?xml version="1.0" encoding="UTF-8"?>
 <Response>
-  <Say voice="Polly.Joanna" language="en-US">${escapeXml(SARAH_GREETING)}</Say>
-  <Gather input="speech" action="${escapeXml(
-    gatherUrl,
-  )}" method="POST" language="en-US" speechTimeout="auto" inputTimeout="5">
-  </Gather>
-  <Say voice="Polly.Joanna" language="en-US">I did not catch that. Please call back or text us, and we will help you right away. Goodbye.</Say>
-  <Hangup/>
+  <Dial timeout="${ringFirst.timeoutSeconds}" answerOnBridge="true" action="${escapeXml(dialStatusUrl)}" method="POST">${escapeXml(ringFirst.ringE164)}</Dial>
 </Response>`;
+    return twimlResponse(twiml);
+  }
 
-  return twimlResponse(twiml);
+  return twimlResponse(buildSarahGreetingTwiml(request));
 }
 
 function escapeXml(s: string) {

@@ -6,6 +6,31 @@ Sarah is the Twilio Voice + Claude pipeline that answers calls, answers question
 
 ---
 
+## How Sarah picks up calls — "Ring-first" (Pattern B, default)
+
+When a call comes in:
+
+1. Twilio dials your **staff cell** for `timeout` seconds (default 20s ≈ 4 rings).
+2. If staff **answer** → caller is on your phone; Twilio hangs up the AI side cleanly.
+3. If staff **don't answer** (busy / no-answer / failed / canceled) → Twilio falls through to Sarah's greeting + Gather, and the call continues as the AI flow.
+
+Configure live in **`/admin/ai-concierge/settings`**:
+
+- **Toggle** — turn ring-first off to have Sarah pick up immediately on every call.
+- **Timeout** — 5–60 seconds.
+- **Override ring number** — optional; defaults to the transfer number.
+
+Implementation:
+
+| File | Role |
+|------|------|
+| `app/api/ai-concierge/voice/incoming/route.ts` | Returns `<Dial action="/voice/dial-status">` when ring-first enabled. |
+| `app/api/ai-concierge/voice/dial-status/route.ts` | Twilio `action` callback — hangs up if staff answered, falls through to Sarah otherwise. |
+| `lib/ai-concierge/ring-first.ts` | Resolves enabled / timeout / number from DB → env → defaults. |
+| `lib/ai-concierge/voice-twiml.ts` | Shared greeting + Gather TwiML so both routes stay in sync. |
+
+Calls table will show `action_taken` of either `ring_first_picked_up` (caller talked to staff) or `ring_first_no_answer` (Sarah took over) so you can audit volume.
+
 ## 1. Twilio Console — voice webhook
 
 Console → **Phone Numbers → Manage → Active numbers** → click your voice number → **Voice configuration**:
@@ -30,6 +55,9 @@ Save. That is the entire Twilio side.
 | `ANTHROPIC_API_KEY` | Yes | Required for Sarah's brain. Without this, gather falls back to a stub. |
 | `ANTHROPIC_MODEL` | No | Defaults to `claude-sonnet-4-20250514` |
 | `AI_CONCIERGE_TRANSFER_E164` | No | E.164 transfer target. Admin > Settings overrides this at runtime. |
+| `AI_CONCIERGE_RING_FIRST_ENABLED` | No | `true`/`false`. Default `true`. Admin > Settings overrides. |
+| `AI_CONCIERGE_RING_FIRST_TIMEOUT` | No | Seconds 5–60 (default 20). Admin > Settings overrides. |
+| `AI_CONCIERGE_RING_FIRST_E164` | No | Override the ring target. Defaults to the transfer number. |
 | `NEXT_PUBLIC_AI_CONCIERGE_BASE_URL` | No | Canonical webhook origin (`https://www.hellogorgeousmedspa.com`). Falls back to `NEXT_PUBLIC_SITE_URL`, then request host (with `hub.` stripped). Used by Health + self-test so signatures match. |
 | `AI_CONCIERGE_STAFF_PHONE_E164` | No | Booking-summary SMS recipient (alias: `AI_CONCIERGE_NOTIFY_SMS`) |
 | `AI_CONCIERGE_STAFF_EMAIL` | No | Overrides Resend `to`; defaults to `SITE.email` |

@@ -10,6 +10,7 @@ import { NextRequest, NextResponse } from "next/server";
 import twilio from "twilio";
 
 import { getAiConciergeStaffSession } from "@/lib/ai-concierge/admin-auth";
+import { getRingFirstConfig } from "@/lib/ai-concierge/ring-first";
 import { canonicalWebhookUrl } from "@/lib/ai-concierge/webhook-url";
 import { getSupabaseAdminClient } from "@/lib/hgos/supabase-admin";
 
@@ -75,11 +76,11 @@ export async function POST(request: NextRequest) {
     webhookError = e instanceof Error ? e.message : "Unknown fetch error";
   }
 
-  const twimlOk =
-    webhookStatus === 200 &&
-    webhookText.includes("<?xml") &&
-    webhookText.includes("<Say") &&
-    webhookText.includes("<Gather");
+  const ringFirst = await getRingFirstConfig();
+  const xmlOk = webhookStatus === 200 && webhookText.includes("<?xml");
+  const looksLikeDial = webhookText.includes("<Dial");
+  const looksLikeSarah = webhookText.includes("<Say") && webhookText.includes("<Gather");
+  const twimlOk = xmlOk && (ringFirst.enabled ? looksLikeDial : looksLikeSarah);
 
   const admin = getSupabaseAdminClient();
   let dbRowFound = false;
@@ -117,6 +118,8 @@ export async function POST(request: NextRequest) {
   return NextResponse.json({
     ok,
     callSid,
+    mode: ringFirst.enabled ? "ring_first" : "ai_immediate",
+    expectedTwimlContains: ringFirst.enabled ? "<Dial>" : "<Say> + <Gather>",
     webhook: {
       url,
       status: webhookStatus,
@@ -128,6 +131,8 @@ export async function POST(request: NextRequest) {
     notes: {
       cleanupModes: ["delete (default — removes the synthetic row)", "keep (keeps row tagged summary='selftest')"],
       tip: "If status is 403, your TWILIO_AUTH_TOKEN doesn't match the deployed environment.",
+      ringFirstNote:
+        "Ring-first mode validates the <Dial> TwiML; the actual ring + fallback flow can only be exercised by a real call.",
     },
   });
 }

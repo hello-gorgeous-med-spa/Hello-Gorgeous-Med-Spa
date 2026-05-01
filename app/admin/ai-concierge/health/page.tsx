@@ -11,6 +11,13 @@ type Diagnostics = {
   webhookUrl: string;
   twilioPhoneNumberMasked: string | null;
   transferTarget: { e164: string; masked: string | null };
+  ringFirst: {
+    enabled: boolean;
+    timeoutSeconds: number;
+    ringE164: string;
+    ringMasked: string | null;
+    source: "settings" | "env" | "default";
+  };
   env: EnvFlag[];
   requiredMissing: string[];
   warnings: string[];
@@ -27,6 +34,8 @@ type Diagnostics = {
 type SelfTestResult = {
   ok: boolean;
   callSid: string;
+  mode?: "ring_first" | "ai_immediate";
+  expectedTwimlContains?: string;
   webhook: {
     url: string;
     status: number;
@@ -162,6 +171,36 @@ export default function AiConciergeHealthPage() {
             </dl>
           </section>
 
+          <section className="border border-black/10 rounded-lg p-4 bg-white">
+            <div className="flex items-center justify-between mb-1">
+              <h3 className="text-sm font-semibold">Ring-first (Pattern B)</h3>
+              <span
+                className={`px-1.5 py-0.5 rounded text-[10px] font-medium ${
+                  diag.ringFirst.enabled
+                    ? "bg-green-100 text-green-800"
+                    : "bg-black/10 text-black/70"
+                }`}
+              >
+                {diag.ringFirst.enabled ? "Enabled" : "Disabled"}
+              </span>
+            </div>
+            <p className="text-xs text-black/70 mb-2">
+              {diag.ringFirst.enabled
+                ? `Twilio rings ${diag.ringFirst.ringE164} for ${diag.ringFirst.timeoutSeconds}s before handing off to Sarah.`
+                : "Sarah answers immediately on every call. Toggle in Settings if you want staff-first behavior."}
+              <br />
+              <span className="text-black/50">
+                Source: <span className="font-mono">{diag.ringFirst.source}</span>{" "}
+                {diag.ringFirst.source === "default"
+                  ? "(no settings row yet — Settings tab will materialize one on save)"
+                  : null}
+              </span>
+            </p>
+            <a href="/admin/ai-concierge/settings" className="text-xs underline text-[#E6007E]">
+              Edit in Settings →
+            </a>
+          </section>
+
           {diag.warnings.length > 0 && (
             <section className="border-2 border-red-300 bg-red-50 rounded-lg p-4">
               <h3 className="text-sm font-semibold text-red-800 mb-1">Warnings</h3>
@@ -273,6 +312,17 @@ export default function AiConciergeHealthPage() {
                   </span>
                 </div>
                 <div className="font-mono text-[11px] text-black/70">CallSid: {test.callSid}</div>
+                {test.mode && (
+                  <div className="text-black/70">
+                    Mode: <span className="font-mono">{test.mode}</span>
+                    {test.expectedTwimlContains ? (
+                      <>
+                        {" "}
+                        · expected TwiML contains <span className="font-mono">{test.expectedTwimlContains}</span>
+                      </>
+                    ) : null}
+                  </div>
+                )}
                 <div>
                   Webhook → status {test.webhook.status}; TwiML looks valid: {test.webhook.twimlLooksValid ? "yes" : "no"}
                   {test.webhook.error ? <span className="text-red-700"> · error: {test.webhook.error}</span> : null}
