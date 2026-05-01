@@ -187,11 +187,13 @@ ALTER TABLE public.cl_postcare_deliveries ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.cl_clinical_audit_log ENABLE ROW LEVEL SECURITY;
 
 DO $pol$
+DECLARE
+  t text;
 BEGIN
   FOR t IN SELECT unnest(ARRAY[
     'cl_quantum_cases','cl_intake_forms','cl_model_day_acks','cl_consent_records',
     'cl_treatment_records','cl_procedure_photos','cl_postcare_deliveries','cl_clinical_audit_log'
-  ])::text
+  ])
   LOOP
     EXECUTE format('DROP POLICY IF EXISTS "service role full %s" ON public.%I', t, t);
     EXECUTE format('CREATE POLICY "service role full %s" ON public.%I FOR ALL TO service_role USING (true) WITH CHECK (true)', t, t);
