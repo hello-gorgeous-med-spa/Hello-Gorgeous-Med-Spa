@@ -32,7 +32,7 @@ export async function GET(request: NextRequest) {
 
   const { data: pending, error } = await supabase
     .from("review_requests_pending")
-    .select("id, appointment_id")
+    .select("id, appointment_id, client_id, source")
     .lte("scheduled_for", new Date().toISOString())
     .limit(MAX_BATCH)
     .order("scheduled_for", { ascending: true });
@@ -42,23 +42,30 @@ export async function GET(request: NextRequest) {
   }
 
   const baseUrl = process.env.NEXT_PUBLIC_APP_URL || request.nextUrl?.origin || "https://www.hellogorgeousmedspa.com";
-  const results: { appointment_id: string; ok: boolean }[] = [];
+  const results: { id: string; ok: boolean; reason?: string }[] = [];
 
   for (const row of pending) {
     try {
+      const payload: Record<string, unknown> = row.appointment_id
+        ? { appointment_id: row.appointment_id }
+        : { client_id: row.client_id, source: row.source ?? "square_payment" };
+
       const res = await fetch(`${baseUrl}/api/reviews/request`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ appointment_id: row.appointment_id }),
+        body: JSON.stringify(payload),
       });
-      const ok = res.ok && (await res.json()).success !== false;
-      results.push({ appointment_id: row.appointment_id, ok });
-      if (ok) {
+      const json = await res.json().catch(() => ({}));
+      // Treat both {success:true} and {skipped:true} as terminal — they'll
+      // never succeed on a future poll, so dequeue either way.
+      const terminal = res.ok && (json.success === true || json.skipped === true);
+      results.push({ id: row.id, ok: terminal, reason: json.reason });
+      if (terminal) {
         await supabase.from("review_requests_pending").delete().eq("id", row.id);
       }
     } catch (e) {
-      console.error("[cron/review-requests]", row.appointment_id, e);
-      results.push({ appointment_id: row.appointment_id, ok: false });
+      console.error("[cron/review-requests]", row.id, e);
+      results.push({ id: row.id, ok: false });
     }
   }
 

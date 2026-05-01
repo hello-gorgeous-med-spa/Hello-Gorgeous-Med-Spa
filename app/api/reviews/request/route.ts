@@ -1,8 +1,14 @@
 // ============================================================
 // REVIEW REQUEST API
-// Sends Google review request via SMS + Email after completed appointment.
-// Trigger: when appointment status changes to "completed".
+// Sends Google review request via SMS + Email after a paying visit.
+// Two callable shapes:
+//   { appointment_id: "..." }                      ← legacy (HG OS appointments)
+//   { client_id: "...", source: "square_payment" } ← Square-only flow
+// Trigger: cron `/api/cron/review-requests` polls `review_requests_pending`.
 // Admin toggle: REVIEW_REQUESTS_ENABLED env (default: true).
+// 60-day per-client cooldown enforced both at enqueue and send time so a
+// customer never receives more than one ask in any 60-day window even if
+// they have multiple eligible visits queued.
 // ============================================================
 
 import { NextRequest, NextResponse } from "next/server";
@@ -11,6 +17,14 @@ import { sendSms } from "@/lib/notifications/sms-outbound";
 import { GOOGLE_REVIEW_URL, REVIEW_UTM } from "@/lib/local-seo";
 
 export const dynamic = "force-dynamic";
+
+const COOLDOWN_DAYS = 60;
+
+interface RequestBody {
+  appointment_id?: string;
+  client_id?: string;
+  source?: string;
+}
 
 export async function POST(request: NextRequest) {
   const enabled = process.env.REVIEW_REQUESTS_ENABLED !== "false";
@@ -24,40 +38,69 @@ export async function POST(request: NextRequest) {
   }
 
   try {
-    const body = await request.json();
-    const { appointment_id } = body;
+    const body = (await request.json()) as RequestBody;
+    const { appointment_id, client_id: bodyClientId, source: bodySource } = body;
 
-    if (!appointment_id) {
-      return NextResponse.json({ error: "appointment_id required" }, { status: 400 });
+    if (!appointment_id && !bodyClientId) {
+      return NextResponse.json(
+        { error: "appointment_id or client_id required" },
+        { status: 400 },
+      );
     }
 
-    // Check if already sent
-    const { data: existing } = await supabase
+    let clientId: string | null = bodyClientId ?? null;
+    let resolvedAppointmentId: string | null = appointment_id ?? null;
+    const source: string = bodySource ?? (appointment_id ? "appointment_completed" : "manual");
+
+    if (appointment_id) {
+      // Don't double-send for the same appointment.
+      const { data: existing } = await supabase
+        .from("review_requests_sent")
+        .select("id")
+        .eq("appointment_id", appointment_id)
+        .maybeSingle();
+
+      if (existing) {
+        return NextResponse.json({ skipped: true, reason: "Already sent" });
+      }
+
+      const { data: apt, error: aptErr } = await supabase
+        .from("appointments")
+        .select("id, client_id")
+        .eq("id", appointment_id)
+        .single();
+
+      if (aptErr || !apt?.client_id) {
+        return NextResponse.json({ error: "Appointment not found" }, { status: 404 });
+      }
+      clientId = apt.client_id;
+      resolvedAppointmentId = apt.id;
+    }
+
+    if (!clientId) {
+      return NextResponse.json({ error: "client_id could not be resolved" }, { status: 400 });
+    }
+
+    // 60-day per-client cooldown — protects against review fatigue when a
+    // customer has multiple visits in quick succession.
+    const cooldownCutoff = new Date(
+      Date.now() - COOLDOWN_DAYS * 24 * 60 * 60 * 1000,
+    ).toISOString();
+    const { data: recent } = await supabase
       .from("review_requests_sent")
-      .select("id")
-      .eq("appointment_id", appointment_id)
-      .maybeSingle();
-
-    if (existing) {
-      return NextResponse.json({ skipped: true, reason: "Already sent" });
+      .select("id, created_at")
+      .eq("client_id", clientId)
+      .gte("created_at", cooldownCutoff)
+      .limit(1);
+    if (recent && recent.length > 0) {
+      return NextResponse.json({ skipped: true, reason: "cooldown_60d" });
     }
 
-    // Get appointment to resolve client_id
-    const { data: apt, error: aptErr } = await supabase
-      .from("appointments")
-      .select("id, client_id")
-      .eq("id", appointment_id)
-      .single();
-
-    if (aptErr || !apt?.client_id) {
-      return NextResponse.json({ error: "Appointment not found" }, { status: 404 });
-    }
-
-    // Get client then user (two queries to avoid PostgREST "different slug names" on join)
+    // Resolve contact info from clients → users (two queries to avoid PostgREST joins).
     const { data: client } = await supabase
       .from("clients")
       .select("id, user_id, first_name, last_name, email, phone")
-      .eq("id", apt.client_id)
+      .eq("id", clientId)
       .single();
 
     if (!client) {
@@ -98,7 +141,6 @@ export async function POST(request: NextRequest) {
 
     const results: { sms?: boolean; email?: boolean; error?: string } = {};
 
-    // Send SMS
     if (profile.phone) {
       const smsText = `Hello Gorgeous: Hi ${firstName}! We hope you loved your visit. Would you mind leaving us a Google review? It means the world to us: ${reviewUrl}`;
       const smsResult = await sendSms(profile.phone, smsText);
@@ -106,7 +148,6 @@ export async function POST(request: NextRequest) {
       if (!smsResult.success) results.error = smsResult.error;
     }
 
-    // Send Email (Resend)
     const apiKey = process.env.RESEND_API_KEY;
     if (apiKey && profile.email) {
       const fromEmail = process.env.RESEND_FROM_EMAIL || "Hello Gorgeous <onboarding@resend.dev>";
@@ -134,18 +175,23 @@ export async function POST(request: NextRequest) {
       results.email = res.ok;
     }
 
-    // Record sent
-    await supabase.from("review_requests_sent").insert({
-      appointment_id,
-      client_id: apt.client_id,
-      sms_sent: results.sms ?? false,
-      email_sent: results.email ?? false,
-    }).select("id").single().catch(() => ({}));
+    try {
+      await supabase.from("review_requests_sent").insert({
+        appointment_id: resolvedAppointmentId,
+        client_id: clientId,
+        sms_sent: results.sms ?? false,
+        email_sent: results.email ?? false,
+        source,
+      });
+    } catch (err) {
+      console.warn("[reviews/request] failed to record sent row:", err);
+    }
 
     return NextResponse.json({
       success: true,
       sms: results.sms,
       email: results.email,
+      source,
     });
   } catch (e) {
     console.error("[reviews/request]", e);

@@ -97,7 +97,7 @@ function MarketingContent() {
             { onClick: () => setTab('promos'), icon: '🏷️', title: 'Promos & offers', desc: 'Banners, landing promos, seasonal offers' },
             { icon: '📥', title: 'Lead capture', desc: 'Forms, waitlist, feature leads' },
             { icon: '🤝', title: 'Referral', desc: 'Refer-a-friend programs' },
-            { icon: '⭐', title: 'Review requests', desc: 'Post-visit review prompts' },
+            { href: '/admin/marketing/reviews', icon: '⭐', title: 'Review requests', desc: 'Post-visit review prompts (Square + HG OS)' },
             { icon: '🔄', title: 'Reactivation', desc: 'Re-engage lapsed clients' },
             { icon: '📞', title: 'Missed-call text-back', desc: 'Auto reply to missed calls' },
           ].map((card) => {

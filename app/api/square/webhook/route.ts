@@ -22,6 +22,7 @@ import {
   type SquareWebhookEvent,
 } from '@/lib/square/webhook';
 import { getAccessToken } from '@/lib/square/oauth';
+import { enqueueReviewRequest } from '@/lib/reviews/enqueue';
 
 // Helper to get access token for webhook processing
 async function getAccessTokenForWebhook(): Promise<string | null> {
@@ -327,7 +328,7 @@ export async function POST(request: NextRequest) {
 
               // Client Intelligence Engine: update LTV and visits
               if (terminalCheckout.sale_id) {
-                const { data: sale } = await supabase.from('sales').select('client_id').eq('id', terminalCheckout.sale_id).single();
+                const { data: sale } = await supabase.from('sales').select('client_id, appointment_id').eq('id', terminalCheckout.sale_id).single();
                 if (sale?.client_id) {
                   const { data: client } = await supabase.from('clients').select('total_lifetime_value_cents, total_visits').eq('id', sale.client_id).single();
                   if (client) {
@@ -337,6 +338,17 @@ export async function POST(request: NextRequest) {
                       last_visit_date: new Date().toISOString(),
                       updated_at: new Date().toISOString(),
                     }).eq('id', sale.client_id);
+                  }
+
+                  // Queue a Google review request 24h after a Square Terminal
+                  // checkout completes. Helper handles 60-day cooldown + dedupe.
+                  const reviewQueue = await enqueueReviewRequest(supabase, {
+                    clientId: sale.client_id,
+                    appointmentId: sale.appointment_id ?? null,
+                    source: 'square_payment',
+                  });
+                  if (!reviewQueue.ok && reviewQueue.reason !== 'cooldown_60d' && reviewQueue.reason !== 'already_pending' && reviewQueue.reason !== 'duplicate_appointment') {
+                    console.warn('[Webhook] Review enqueue skipped:', reviewQueue.reason, reviewQueue.detail);
                   }
                 }
               }
@@ -444,7 +456,7 @@ export async function POST(request: NextRequest) {
           if (existingPayment.sale_id) {
             const { data: sale } = await supabase
               .from('sales')
-              .select('client_id')
+              .select('client_id, appointment_id')
               .eq('id', existingPayment.sale_id)
               .single();
             if (sale?.client_id) {
@@ -463,6 +475,16 @@ export async function POST(request: NextRequest) {
                     updated_at: new Date().toISOString(),
                   })
                   .eq('id', sale.client_id);
+              }
+
+              // Queue review request 24h after a Square payment completes.
+              const reviewQueue = await enqueueReviewRequest(supabase, {
+                clientId: sale.client_id,
+                appointmentId: sale.appointment_id ?? null,
+                source: 'square_payment',
+              });
+              if (!reviewQueue.ok && reviewQueue.reason !== 'cooldown_60d' && reviewQueue.reason !== 'already_pending' && reviewQueue.reason !== 'duplicate_appointment') {
+                console.warn('[Webhook] Review enqueue skipped:', reviewQueue.reason, reviewQueue.detail);
               }
             }
           }
