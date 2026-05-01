@@ -11,6 +11,7 @@ import { sendBookingSmsToStaff } from "@/lib/ai-concierge/sms";
 import { buildSarahSystemPrompt } from "@/lib/ai-concierge/prompt";
 import { sarahTools } from "@/lib/ai-concierge/tools";
 import { escapeTwiMLSayText, sanitizeSpeechText } from "@/lib/ai-concierge/twiml";
+import { SARAH_VOICE } from "@/lib/ai-concierge/voice-twiml";
 import { getSupabaseAdminClient } from "@/lib/hgos/supabase-admin";
 import { twilioSignatureValid } from "@/lib/twilio-webhook";
 
@@ -27,7 +28,7 @@ function twimlResponse(xml: string) {
 function stubHangupXml(): string {
   return `<?xml version="1.0" encoding="UTF-8"?>
 <Response>
-  <Say voice="Polly.Joanna" language="en-US">Thanks! Our team will call you back shortly. Goodbye.</Say>
+  <Say voice="${SARAH_VOICE}" language="en-US">Got it — Dani will call you right back.</Say>
   <Hangup/>
 </Response>`;
 }
@@ -35,7 +36,7 @@ function stubHangupXml(): string {
 function transferXml(toE164: string): string {
   return `<?xml version="1.0" encoding="UTF-8"?>
 <Response>
-  <Say voice="Polly.Joanna" language="en-US">Absolutely! Let me connect you with our team right now. Please hold.</Say>
+  <Say voice="${SARAH_VOICE}" language="en-US">One sec — connecting you now.</Say>
   <Dial>${escapeTwiMLSayText(toE164)}</Dial>
 </Response>`;
 }
@@ -50,10 +51,10 @@ function sayGatherXml(request: NextRequest, innerSay: string): string {
   const safe = escapeTwiMLSayText(sanitizeSpeechText(innerSay));
   return `<?xml version="1.0" encoding="UTF-8"?>
 <Response>
-  <Say voice="Polly.Joanna" language="en-US">${safe}</Say>
+  <Say voice="${SARAH_VOICE}" language="en-US">${safe}</Say>
   <Gather input="speech" action="${escapeTwiMLSayText(gatherUrl)}" method="POST" language="en-US" speechTimeout="auto" inputTimeout="5">
   </Gather>
-  <Say voice="Polly.Joanna" language="en-US">Sorry, I did not catch that. Goodbye.</Say>
+  <Say voice="${SARAH_VOICE}" language="en-US">Didn't catch that — try us back or send a text and we'll help right away.</Say>
   <Hangup/>
 </Response>`;
 }
@@ -61,7 +62,7 @@ function sayGatherXml(request: NextRequest, innerSay: string): string {
 function bookingCompleteXml(): string {
   return `<?xml version="1.0" encoding="UTF-8"?>
 <Response>
-  <Say voice="Polly.Joanna" language="en-US">Perfect! I have sent your request to our team. You should get a text within about ten minutes to confirm your appointment time. Thank you for calling Hello Gorgeous Med Spa!</Say>
+  <Say voice="${SARAH_VOICE}" language="en-US">Got it. Dani will text you within about ten minutes to lock in your time. Thanks for calling.</Say>
   <Hangup/>
 </Response>`;
 }
@@ -132,7 +133,7 @@ export async function POST(request: NextRequest) {
   try {
     const msg = await anthropic.messages.create({
       model,
-      max_tokens: 900,
+      max_tokens: 200,
       system,
       messages: turnsToApiMessages(turns),
       tools: sarahTools(),

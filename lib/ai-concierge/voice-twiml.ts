@@ -1,14 +1,20 @@
 // Shared TwiML helpers for AI Concierge voice routes.
 // Centralizing greeting + Gather XML so /voice/incoming and /voice/dial-status
-// stay in sync (same greeting, same gather URL, same Polly voice).
+// stay in sync. Also the single source of truth for Sarah's voice — change
+// SARAH_VOICE here and every TwiML <Say> across the concierge picks it up.
 
 import { NextResponse, type NextRequest } from "next/server";
 
+// Twilio Neural Polly — order-of-magnitude more natural than the base voices.
+// Swap to "Polly.Ruth-Generative" for Twilio's newest generative TTS, or wire
+// ElevenLabs via Media Streams when we want premium voice.
+export const SARAH_VOICE = "Polly.Joanna-Neural";
+
 export const SARAH_GREETING =
-  "Hello! Thank you for calling Hello Gorgeous Med Spa. This is Sarah. How can I help you today?";
+  "Hi, this is Sarah at Hello Gorgeous. Dani's with a client right now — happy to help, or I can take a message. What's going on?";
 
 export const SARAH_GREETING_AFTER_RING =
-  "Sorry we missed you. This is Sarah, the Hello Gorgeous Med Spa assistant. How can I help you today?";
+  "Hey — sorry we missed you. This is Sarah, Dani's assistant. What can I help with?";
 
 export function twimlResponse(body: string) {
   return new NextResponse(body, {
@@ -37,10 +43,10 @@ export function buildSarahGreetingTwiml(
   ).toString();
   return `<?xml version="1.0" encoding="UTF-8"?>
 <Response>
-  <Say voice="Polly.Joanna" language="en-US">${escapeXml(greeting)}</Say>
+  <Say voice="${SARAH_VOICE}" language="en-US">${escapeXml(greeting)}</Say>
   <Gather input="speech" action="${escapeXml(gatherUrl)}" method="POST" language="en-US" speechTimeout="auto" inputTimeout="5">
   </Gather>
-  <Say voice="Polly.Joanna" language="en-US">I did not catch that. Please call back or text us, and we will help you right away. Goodbye.</Say>
+  <Say voice="${SARAH_VOICE}" language="en-US">Didn't catch that. Try us back or send a text — we'll get right back to you.</Say>
   <Hangup/>
 </Response>`;
 }
