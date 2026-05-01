@@ -3,6 +3,7 @@ import Link from "next/link";
 import { GoogleMapEmbed } from "@/components/GoogleMapEmbed";
 import { BestOfOswegoBadge } from "@/components/BestOfOswegoBadge";
 import { BookingBadges } from "@/components/BookingBadges";
+import { LocationsServed } from "@/components/LocationsServed";
 import { BOOKING_URL, SQUARE_MAILING_LIST_ENROLL_URL } from "@/lib/flows";
 import { SITE, SERVICES, servicePublicPath } from "@/lib/seo";
 import type { SiteSettings } from "@/lib/cms-readers";
@@ -308,13 +309,8 @@ export function Footer({ siteSettings }: { siteSettings?: SiteSettings | null })
           </div>
         )}
 
-        {/* Local Entity Block - serving area for local SEO */}
-        <div className="mt-8 pt-6 border-t border-black">
-          <h4 className="font-bold text-[#FF2D8E] mb-3 text-sm uppercase tracking-wider">Serving</h4>
-          <p className="text-sm text-white">
-            Oswego, IL · Naperville, IL · Plainfield, IL · Aurora, IL · Kendall County
-          </p>
-        </div>
+        {/* Locations Served — global internal-link block (SEO) */}
+        <LocationsServed variant="footer" />
 
         {/* Footer Map */}
         <div className="mt-10 pt-8 border-t border-black">

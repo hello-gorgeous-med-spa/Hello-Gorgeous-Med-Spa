@@ -50,12 +50,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'monthly',
       priority: 0.95,
     },
-    {
-      url: `${baseUrl}/providers`,
-      lastModified: currentDate,
-      changeFrequency: 'monthly',
-      priority: 0.9,
-    },
+    // /providers intentionally excluded — it 307-redirects to /about. Sitemaps must list canonical destinations.
     {
       url: `${baseUrl}/providers/danielle`,
       lastModified: currentDate,
