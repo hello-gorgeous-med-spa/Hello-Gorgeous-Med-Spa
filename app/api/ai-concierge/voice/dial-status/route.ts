@@ -8,6 +8,7 @@
 
 import { NextRequest, NextResponse } from "next/server";
 
+import { sendMissedCallSms } from "@/lib/ai-concierge/missed-call-sms";
 import {
   SARAH_GREETING_AFTER_RING,
   buildSarahGreetingTwiml,
@@ -57,6 +58,14 @@ export async function POST(request: NextRequest) {
   if (!FELL_THROUGH.has(dialStatus) && dialStatus !== "") {
     console.warn(`[ai-concierge] dial-status: unexpected DialCallStatus="${dialStatus}"; falling through to Sarah`);
   }
+
+  // Fire-and-stamp missed-call text-back. We don't await blockingly so a slow
+  // Twilio API call can't delay the TwiML response — the caller should hear
+  // Sarah within a couple of seconds either way.
+  const callerFrom = form.get("From");
+  void sendMissedCallSms({ callSid, fromNumber: callerFrom }).catch((err) => {
+    console.error("[ai-concierge] missed-call SMS error:", err);
+  });
 
   return twimlResponse(buildSarahGreetingTwiml(request, SARAH_GREETING_AFTER_RING));
 }
