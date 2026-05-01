@@ -7,6 +7,10 @@ const service = TOP_SERVICES.find(s => s.slug === 'morpheus8')!;
 const area = SERVICE_AREAS.find(a => a.slug === 'oswego')!;
 const nearbyAreas = SERVICE_AREAS.filter(a => a.slug !== 'oswego');
 
+// Revalidate hourly so new Google reviews synced into Supabase appear
+// on the page within the hour without redeploying. ISR-friendly.
+export const revalidate = 3600;
+
 export const metadata: Metadata = {
   title: `Morpheus8 in Oswego, IL 60543 — RF Microneedling | Hello Gorgeous Med Spa`,
   description: `Morpheus8 RF microneedling in Oswego, IL — the deepest RF technology with Burst and Quantum probes for face and body contouring, skin tightening, and acne scars. Licensed nurse practitioners. Free consultations. Call 630-636-6193.`,

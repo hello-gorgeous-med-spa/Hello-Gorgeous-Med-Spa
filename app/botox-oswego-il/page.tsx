@@ -10,6 +10,10 @@ import { RealPatientReviews } from '@/components/RealPatientReviews';
 // Target keywords: "botox near me", "botox oswego", "botox naperville"
 // ============================================================
 
+// Revalidate hourly so new Google reviews synced into Supabase appear
+// on the page within the hour without redeploying. ISR-friendly.
+export const revalidate = 3600;
+
 export const metadata: Metadata = {
   title: 'Botox Near Me in Oswego, IL 60543 — $10/Unit | Hello Gorgeous Med Spa',
   description: '$10/unit Botox in Oswego, IL — board-certified nurse practitioners, natural results, free consultations. Serving Naperville, Aurora, Plainfield, Yorkville. Book online or call 630-636-6193.',
