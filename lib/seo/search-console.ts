@@ -128,19 +128,31 @@ export async function listSites(
 
 /**
  * Pick the best Search Console property URL for our site.
- * Prefers the URL-prefix property matching SITE.url, then a Domain
- * property, then anything containing the bare hostname.
+ * Verified properties (siteOwner / siteFullUser / siteRestrictedUser)
+ * always win over `siteUnverifiedUser` entries — the API rejects
+ * sitemap submissions and inspections against unverified properties.
+ * Among verified properties: prefers the exact URL-prefix match,
+ * then a Domain property, then anything else containing the bare
+ * hostname.
  */
+const VERIFIED_LEVELS: ReadonlySet<string> = new Set([
+  "siteOwner",
+  "siteFullUser",
+  "siteRestrictedUser",
+]);
+
 export function pickPropertyForSite(
   sites: SearchConsoleSite[],
   siteUrl = SITE.url,
 ): SearchConsoleSite | undefined {
   const wantHttps = siteUrl.replace(/\/?$/, "/");
   const wantHost = new URL(siteUrl).hostname.replace(/^www\./, "");
+  const verified = sites.filter((s) => VERIFIED_LEVELS.has(s.permissionLevel));
+  const pool = verified.length > 0 ? verified : sites;
   return (
-    sites.find((s) => s.siteUrl === wantHttps) ||
-    sites.find((s) => s.siteUrl === `sc-domain:${wantHost}`) ||
-    sites.find((s) => s.siteUrl.includes(wantHost))
+    pool.find((s) => s.siteUrl === wantHttps) ||
+    pool.find((s) => s.siteUrl === `sc-domain:${wantHost}`) ||
+    pool.find((s) => s.siteUrl.includes(wantHost))
   );
 }
 

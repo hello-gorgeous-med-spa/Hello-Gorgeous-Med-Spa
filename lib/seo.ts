@@ -44,10 +44,12 @@ export const SITE = {
   reviewCount: "47",
   /**
    * Google Search Console site verification meta tag value.
-   * Populated by /api/seo/auto-verify-www (Site Verification API).
-   * Can be overridden at runtime via GOOGLE_SITE_VERIFICATION env var.
+   * Issued by Site Verification API on 2026-05-01 for the canonical
+   * www property. Render it via verification.google in app/layout.tsx.
+   * Override with GOOGLE_SITE_VERIFICATION env var if you ever need a
+   * different value (e.g. while migrating accounts).
    */
-  googleSiteVerification: "",
+  googleSiteVerification: "OF1QXjtJeGMGoOUHhWoY1urEwplRtzYdhl7pqqxFJbw",
   /** Social — update here when you change handles; footer and other components use these. */
   social: {
     instagram: "https://www.instagram.com/hello.gorgeous2026/",
