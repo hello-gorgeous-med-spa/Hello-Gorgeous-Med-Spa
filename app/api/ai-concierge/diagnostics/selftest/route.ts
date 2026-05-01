@@ -10,21 +10,11 @@ import { NextRequest, NextResponse } from "next/server";
 import twilio from "twilio";
 
 import { getAiConciergeStaffSession } from "@/lib/ai-concierge/admin-auth";
+import { canonicalWebhookUrl } from "@/lib/ai-concierge/webhook-url";
 import { getSupabaseAdminClient } from "@/lib/hgos/supabase-admin";
 
 export const dynamic = "force-dynamic";
 export const maxDuration = 30;
-
-function publicWebhookUrl(request: NextRequest): string {
-  const proto =
-    request.headers.get("x-forwarded-proto")?.split(",")[0]?.trim() ||
-    (request.nextUrl.protocol === "https:" ? "https" : "http");
-  const host =
-    request.headers.get("x-forwarded-host")?.split(",")[0]?.trim() ||
-    request.headers.get("host") ||
-    new URL(request.url).host;
-  return `${proto}://${host}/api/ai-concierge/voice/incoming`;
-}
 
 type CleanupMode = "delete" | "keep";
 
@@ -34,7 +24,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const url = publicWebhookUrl(request);
+  const url = canonicalWebhookUrl(request);
   const token = process.env.TWILIO_AUTH_TOKEN?.trim();
   if (!token) {
     return NextResponse.json(

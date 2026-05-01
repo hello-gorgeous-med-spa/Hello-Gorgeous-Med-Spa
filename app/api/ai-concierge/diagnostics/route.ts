@@ -6,6 +6,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 import { getAiConciergeStaffSession } from "@/lib/ai-concierge/admin-auth";
 import { getConciergeTransferE164Async } from "@/lib/ai-concierge/constants";
+import { canonicalWebhookUrl } from "@/lib/ai-concierge/webhook-url";
 import { getSupabaseAdminClient } from "@/lib/hgos/supabase-admin";
 
 export const dynamic = "force-dynamic";
@@ -23,17 +24,6 @@ function maskNumber(n: string | undefined | null): string | null {
   if (digits.length < 4) return n;
   const last4 = digits.slice(-4);
   return `… ${last4}`;
-}
-
-function publicWebhookUrl(request: NextRequest): string {
-  const proto =
-    request.headers.get("x-forwarded-proto")?.split(",")[0]?.trim() ||
-    (request.nextUrl.protocol === "https:" ? "https" : "http");
-  const host =
-    request.headers.get("x-forwarded-host")?.split(",")[0]?.trim() ||
-    request.headers.get("host") ||
-    new URL(request.url).host;
-  return `${proto}://${host}/api/ai-concierge/voice/incoming`;
 }
 
 async function dbHealth(): Promise<{
@@ -118,7 +108,7 @@ export async function GET(request: NextRequest) {
     ok: requiredMissing.length === 0 && db.reachable && !skipSignatureLeaked,
     generatedAt: new Date().toISOString(),
     requestedBy: { role: session.role, email: session.email ?? null },
-    webhookUrl: publicWebhookUrl(request),
+    webhookUrl: canonicalWebhookUrl(request),
     twilioPhoneNumberMasked: maskNumber(process.env.TWILIO_PHONE_NUMBER),
     transferTarget: { e164: transfer, masked: maskNumber(transfer) },
     env,

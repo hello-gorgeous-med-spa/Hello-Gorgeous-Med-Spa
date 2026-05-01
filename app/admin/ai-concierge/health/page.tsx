@@ -137,6 +137,8 @@ export default function AiConciergeHealthPage() {
             <h3 className="text-sm font-semibold mb-2">Twilio webhook URL</h3>
             <p className="text-xs text-black/70 mb-2">
               Paste this into <strong>Twilio Console → Phone Numbers → your number → Voice → A call comes in (Webhook, HTTP POST)</strong>.
+              This URL is canonical regardless of whether you opened admin on the apex or on <code className="bg-black/5 px-1 rounded">hub.</code> —
+              override with <code className="bg-black/5 px-1 rounded">NEXT_PUBLIC_AI_CONCIERGE_BASE_URL</code> or <code className="bg-black/5 px-1 rounded">NEXT_PUBLIC_SITE_URL</code> if needed.
             </p>
             <div className="flex flex-col sm:flex-row gap-2 sm:items-center">
               <code className="block flex-1 text-xs bg-black/5 px-2 py-1.5 rounded font-mono break-all">{diag.webhookUrl}</code>

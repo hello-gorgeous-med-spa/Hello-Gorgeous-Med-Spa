@@ -30,6 +30,7 @@ Save. That is the entire Twilio side.
 | `ANTHROPIC_API_KEY` | Yes | Required for Sarah's brain. Without this, gather falls back to a stub. |
 | `ANTHROPIC_MODEL` | No | Defaults to `claude-sonnet-4-20250514` |
 | `AI_CONCIERGE_TRANSFER_E164` | No | E.164 transfer target. Admin > Settings overrides this at runtime. |
+| `NEXT_PUBLIC_AI_CONCIERGE_BASE_URL` | No | Canonical webhook origin (`https://www.hellogorgeousmedspa.com`). Falls back to `NEXT_PUBLIC_SITE_URL`, then request host (with `hub.` stripped). Used by Health + self-test so signatures match. |
 | `AI_CONCIERGE_STAFF_PHONE_E164` | No | Booking-summary SMS recipient (alias: `AI_CONCIERGE_NOTIFY_SMS`) |
 | `AI_CONCIERGE_STAFF_EMAIL` | No | Overrides Resend `to`; defaults to `SITE.email` |
 | `RESEND_API_KEY` | No | Required for booking emails to staff |
