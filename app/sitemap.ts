@@ -268,6 +268,28 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
   ];
 
+  // Premium SEO landing pages (FaqPageContent template — botox, microneedling-rf, weight-loss-therapy)
+  const premiumLandingPages: MetadataRoute.Sitemap = [
+    {
+      url: `${baseUrl}/services/botox`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.95,
+    },
+    {
+      url: `${baseUrl}/services/microneedling-rf`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.92,
+    },
+    {
+      url: `${baseUrl}/services/weight-loss-therapy`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.92,
+    },
+  ];
+
   // Morpheus8 & Quantum RF pages - high priority new services
   const morpheus8Pages: MetadataRoute.Sitemap = [
     {
@@ -392,6 +414,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [
     ...corePages,
     ...servicePages,
+    ...premiumLandingPages,
     ...solariaPages,
     ...morpheus8Pages,
     ...blogPages,
