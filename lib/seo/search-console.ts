@@ -218,3 +218,101 @@ export async function inspectUrl(
 export function defaultSitemapUrl(): string {
   return `${SITE.url.replace(/\/$/, "")}/sitemap.xml`;
 }
+
+// ============================================================
+// Google Site Verification API
+// ============================================================
+// Allows programmatic creation + verification of Search Console
+// properties without using the GSC web UI. Requires the OAuth scope
+// `https://www.googleapis.com/auth/siteverification`.
+// ============================================================
+
+const SITEVERIFICATION_BASE = "https://www.googleapis.com/siteVerification/v1";
+
+export type SiteVerificationMethod =
+  | "META"
+  | "FILE"
+  | "DNS_TXT"
+  | "DNS_CNAME"
+  | "ANALYTICS"
+  | "TAG_MANAGER";
+
+/**
+ * Request a verification token for the given site.
+ * Returns the value Google expects to find on the site (e.g. for
+ * METHOD=META, the meta-tag content string).
+ */
+export async function getSiteVerificationToken(
+  accessToken: string,
+  identifier: string,
+  method: SiteVerificationMethod = "META",
+): Promise<{ token: string }> {
+  const res = await fetch(`${SITEVERIFICATION_BASE}/token`, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      site: { type: "SITE", identifier },
+      verificationMethod: method,
+    }),
+  });
+  if (!res.ok) {
+    const text = await res.text();
+    throw new Error(`getSiteVerificationToken failed (${res.status}): ${text}`);
+  }
+  const json = (await res.json()) as { token?: string };
+  if (!json.token) {
+    throw new Error(`No token returned from siteVerification API`);
+  }
+  return { token: json.token };
+}
+
+/**
+ * Tell Google to verify the site. The verification token must already
+ * be live on the site (e.g. meta tag in <head>) before this is called.
+ */
+export async function verifySite(
+  accessToken: string,
+  identifier: string,
+  method: SiteVerificationMethod = "META",
+): Promise<{ ok: true; id: string } | { ok: false; status: number; body: string }> {
+  const url = `${SITEVERIFICATION_BASE}/webResource?verificationMethod=${encodeURIComponent(
+    method,
+  )}`;
+  const res = await fetch(url, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ site: { type: "SITE", identifier } }),
+  });
+  if (res.ok) {
+    const json = (await res.json()) as { id?: string };
+    return { ok: true, id: json.id ?? identifier };
+  }
+  return { ok: false, status: res.status, body: await res.text() };
+}
+
+/** Read which sites this OAuth token has verified. */
+export async function listVerifiedSites(
+  accessToken: string,
+): Promise<Array<{ id: string; identifier: string; type: string }>> {
+  const res = await fetch(`${SITEVERIFICATION_BASE}/webResource`, {
+    headers: { Authorization: `Bearer ${accessToken}` },
+  });
+  if (!res.ok) {
+    const text = await res.text();
+    throw new Error(`listVerifiedSites failed (${res.status}): ${text}`);
+  }
+  const json = (await res.json()) as {
+    items?: Array<{ id: string; site: { identifier: string; type: string } }>;
+  };
+  return (json.items ?? []).map((item) => ({
+    id: item.id,
+    identifier: item.site.identifier,
+    type: item.site.type,
+  }));
+}

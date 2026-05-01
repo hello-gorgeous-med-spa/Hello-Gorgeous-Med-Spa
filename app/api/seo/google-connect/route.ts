@@ -11,7 +11,14 @@
 
 import { NextRequest, NextResponse } from "next/server";
 
-const SCOPE = "https://www.googleapis.com/auth/webmasters";
+// `webmasters` lets us submit sitemaps + inspect URLs.
+// `siteverification` lets us programmatically add and verify the
+// www property (so we never have to ask the operator to click around
+// in the Search Console UI).
+const SCOPE = [
+  "https://www.googleapis.com/auth/webmasters",
+  "https://www.googleapis.com/auth/siteverification",
+].join(" ");
 
 export async function GET(request: NextRequest) {
   const clientId = process.env.GOOGLE_CLIENT_ID;

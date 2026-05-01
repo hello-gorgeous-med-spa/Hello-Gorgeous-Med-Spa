@@ -42,6 +42,12 @@ export const SITE = {
   /** AggregateRating - only injected when both set. Update from GBP or manually. */
   reviewRating: "4.9",
   reviewCount: "47",
+  /**
+   * Google Search Console site verification meta tag value.
+   * Populated by /api/seo/auto-verify-www (Site Verification API).
+   * Can be overridden at runtime via GOOGLE_SITE_VERIFICATION env var.
+   */
+  googleSiteVerification: "",
   /** Social — update here when you change handles; footer and other components use these. */
   social: {
     instagram: "https://www.instagram.com/hello.gorgeous2026/",

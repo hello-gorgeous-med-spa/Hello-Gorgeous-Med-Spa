@@ -116,7 +116,10 @@ export async function generateMetadata(): Promise<Metadata> {
     },
   },
   verification: {
-    google: process.env.GOOGLE_SITE_VERIFICATION || undefined,
+    google:
+      process.env.GOOGLE_SITE_VERIFICATION ||
+      SITE.googleSiteVerification ||
+      undefined,
   },
   category: "Medical Spa",
   };
