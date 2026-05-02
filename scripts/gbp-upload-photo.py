@@ -251,6 +251,38 @@ PRESETS: dict[str, list[dict]] = {
             ),
         },
     ],
+    "morpheus8-burst-deep": [
+        {
+            "url": f"{SITE_URL}/images/morpheus8/morpheus8-burst-deep-neck-tightening-before-after.png",
+            "category": "PRODUCT",
+            "description": (
+                "REAL PATIENT — Morpheus8 Burst + Deep neck tightening before & after at Hello Gorgeous "
+                "Med Spa, Oswego IL. The newest InMode Morpheus8 Burst + Deep technology delivers "
+                "multi-depth RF up to 8mm, smoothing crepey neck skin where surface microneedling "
+                "can't reach. Free consultation: hellogorgeousmedspa.com/services/morpheus8"
+            ),
+        },
+        {
+            "url": f"{SITE_URL}/images/morpheus8/morpheus8-burst-deep-knee-crepey-skin-before-after.png",
+            "category": "PRODUCT",
+            "description": (
+                "REAL PATIENT — Morpheus8 Burst + Deep before & after on crepey knee and elbow skin. "
+                "Hello Gorgeous Med Spa Oswego IL is a verified InMode provider with the newest "
+                "Burst + Deep RF microneedling. Dramatic skin tightening for body areas other devices "
+                "can't effectively treat. Book free consult."
+            ),
+        },
+        {
+            "url": f"{SITE_URL}/images/morpheus8/morpheus8-burst-deep-thighs-skin-tightening-before-after.png",
+            "category": "PRODUCT",
+            "description": (
+                "REAL PATIENT — Morpheus8 Burst + Deep above-knee thigh skin tightening before & "
+                "after. Hello Gorgeous Med Spa, Oswego IL — newest InMode Burst + Deep technology "
+                "for body contouring + collagen rebuild after weight loss or aging. Serving Oswego, "
+                "Naperville, Aurora, Plainfield."
+            ),
+        },
+    ],
     "branding": [
         {
             "url": f"{SITE_URL}/images/logo-full.png",

@@ -6,11 +6,13 @@ import { Morpheus8SkinRebuildSection } from "@/components/Morpheus8SkinRebuildSe
 import { pageMetadata, SITE, siteJsonLd } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Morpheus8 Burst | Newest RF Microneedling Face & Body | Oswego IL",
+  title: "Morpheus8 Burst + Deep | Newest RF Microneedling Face & Body | Oswego IL",
   description:
-    "Newest Morpheus8 Burst at Hello Gorgeous Oswego IL — deepest RF at 8mm for face AND body. Only med spa with Morpheus8 Burst. Skin tightening, fat reduction, acne scars. Book consultation.",
+    "Morpheus8 Burst + Deep at Hello Gorgeous Med Spa, Oswego IL — newest InMode RF microneedling reaches 8mm for dramatic skin tightening on neck, knees, thighs, face & body. See real before/afters. Free consultation.",
   path: "/services/morpheus8",
 });
+
+export const revalidate = 3600;
 
 const MORPHEUS8_FAQS = [
   {
@@ -155,6 +157,54 @@ export default function Morpheus8Page() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(FAQJsonLd()) }}
+      />
+      {/* Real patient before/after gallery — Morpheus8 Burst + Deep */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "ImageGallery",
+            name: "Morpheus8 Burst + Deep Real Patient Results — Hello Gorgeous Med Spa Oswego IL",
+            description:
+              "Real before/after photos from Hello Gorgeous Med Spa patients showing Morpheus8 Burst + Deep RF microneedling results on neck, knees, elbows, and thighs.",
+            image: [
+              {
+                "@type": "ImageObject",
+                contentUrl: `${SITE.url}/images/morpheus8/morpheus8-burst-deep-neck-tightening-before-after.png`,
+                name: "Morpheus8 Burst + Deep neck tightening before and after",
+                description:
+                  "Crepey neck skin transformed with InMode Morpheus8 Burst + Deep RF microneedling at Hello Gorgeous Med Spa, Oswego IL.",
+                creditText: "Hello Gorgeous Med Spa",
+                copyrightNotice: `© ${new Date().getFullYear()} Hello Gorgeous Med Spa`,
+                width: 627,
+                height: 490,
+              },
+              {
+                "@type": "ImageObject",
+                contentUrl: `${SITE.url}/images/morpheus8/morpheus8-burst-deep-knee-crepey-skin-before-after.png`,
+                name: "Morpheus8 Burst + Deep knee and elbow before and after",
+                description:
+                  "Crepey knee and elbow skin smoothed with InMode Morpheus8 Burst + Deep at Hello Gorgeous Med Spa.",
+                creditText: "Hello Gorgeous Med Spa",
+                copyrightNotice: `© ${new Date().getFullYear()} Hello Gorgeous Med Spa`,
+                width: 831,
+                height: 831,
+              },
+              {
+                "@type": "ImageObject",
+                contentUrl: `${SITE.url}/images/morpheus8/morpheus8-burst-deep-thighs-skin-tightening-before-after.png`,
+                name: "Morpheus8 Burst + Deep thigh skin tightening before and after",
+                description:
+                  "Above-knee crepey thigh skin firmed and tightened with InMode Morpheus8 Burst + Deep at Hello Gorgeous Med Spa, Oswego IL.",
+                creditText: "Hello Gorgeous Med Spa",
+                copyrightNotice: `© ${new Date().getFullYear()} Hello Gorgeous Med Spa`,
+                width: 673,
+                height: 361,
+              },
+            ],
+          }),
+        }}
       />
       <main className="bg-white">
         {/* Hero */}
@@ -318,6 +368,97 @@ export default function Morpheus8Page() {
                   Your browser does not support the video tag.
                 </video>
               </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Real Patient Before/After — Morpheus8 Burst + Deep new technology */}
+        <section className="py-16 md:py-24 bg-gradient-to-b from-white via-rose-50 to-white">
+          <div className="max-w-6xl mx-auto px-4">
+            <div className="text-center mb-12">
+              <span className="inline-flex items-center gap-2 rounded-full border-2 border-[#E6007E] bg-[#E6007E]/5 px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-[#E6007E] mb-4">
+                <span className="h-2 w-2 rounded-full bg-[#E6007E] animate-pulse" />
+                NEW Technology · Burst + Deep
+              </span>
+              <h2 className="text-3xl md:text-5xl font-black text-black mb-4">
+                Real Results · Morpheus8{" "}
+                <span className="bg-gradient-to-r from-[#FF2D8E] to-[#E6007E] bg-clip-text text-transparent">
+                  Burst + Deep
+                </span>
+              </h2>
+              <p className="text-black/70 max-w-2xl mx-auto text-lg">
+                The newest InMode Morpheus8 Burst + Deep technology reaches further (up to 8mm) and delivers
+                multi-depth RF in a single pass — for dramatic skin tightening on{" "}
+                <span className="font-semibold text-black">crepey neck, knees, elbows, and thighs</span>{" "}
+                that older devices simply can't touch.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+              {[
+                {
+                  src: "/images/morpheus8/morpheus8-burst-deep-neck-tightening-before-after.png",
+                  alt: "Morpheus8 Burst + Deep neck tightening before and after — crepey neck skin smoothed and lifted in real Hello Gorgeous Med Spa patient, Oswego IL",
+                  title: "Crepey Neck → Smooth & Lifted",
+                  caption: "Multi-depth RF tightens loose neck skin where surface microneedling can't reach.",
+                  width: 627,
+                  height: 490,
+                },
+                {
+                  src: "/images/morpheus8/morpheus8-burst-deep-knee-crepey-skin-before-after.png",
+                  alt: "Morpheus8 Burst + Deep knee and elbow skin tightening before and after — crepey wrinkled skin transformed at Hello Gorgeous Med Spa",
+                  title: "Crepey Knees & Elbows → Smooth",
+                  caption: "Deep RF remodeling on body areas that nothing else effectively treats.",
+                  width: 831,
+                  height: 831,
+                },
+                {
+                  src: "/images/morpheus8/morpheus8-burst-deep-thighs-skin-tightening-before-after.png",
+                  alt: "Morpheus8 Burst + Deep thigh skin tightening before and after — sagging crepey thigh skin firmed and tightened, Hello Gorgeous Med Spa Oswego IL",
+                  title: "Above-Knee Crepe → Firm",
+                  caption: "Body contouring + collagen rebuild for thighs after weight loss or aging.",
+                  width: 673,
+                  height: 361,
+                },
+              ].map((photo) => (
+                <figure
+                  key={photo.src}
+                  className="group rounded-2xl overflow-hidden border-4 border-black bg-white shadow-[8px_8px_0_0_rgba(230,0,126,0.35)] hover:shadow-[10px_10px_0_0_rgba(230,0,126,0.5)] hover:-translate-y-1 transition-all duration-300"
+                >
+                  <div className="relative bg-gray-50">
+                    <Image
+                      src={photo.src}
+                      alt={photo.alt}
+                      width={photo.width}
+                      height={photo.height}
+                      className="w-full h-auto"
+                      sizes="(max-width: 768px) 100vw, 33vw"
+                    />
+                    <div className="absolute top-3 left-3 px-3 py-1 bg-black text-white rounded-lg text-xs font-bold tracking-wider">
+                      BEFORE / AFTER
+                    </div>
+                  </div>
+                  <figcaption className="p-5">
+                    <h3 className="font-black text-black text-lg mb-1">{photo.title}</h3>
+                    <p className="text-sm text-black/70">{photo.caption}</p>
+                  </figcaption>
+                </figure>
+              ))}
+            </div>
+
+            <p className="text-center text-black/60 text-xs mt-8 max-w-2xl mx-auto">
+              Real Hello Gorgeous Med Spa patients (Oswego, IL). Results may vary based on individual skin
+              type, treatment plan, and after-care compliance. Free consultation determines if Burst + Deep
+              is right for you.
+            </p>
+
+            <div className="text-center mt-10">
+              <Link
+                href="/book"
+                className="inline-flex items-center justify-center rounded-lg bg-[#E6007E] px-8 py-4 font-bold text-white hover:bg-[#c9006e] transition shadow-[0_8px_24px_rgba(230,0,126,0.45)]"
+              >
+                Book My Free Morpheus8 Consultation →
+              </Link>
             </div>
           </div>
         </section>
