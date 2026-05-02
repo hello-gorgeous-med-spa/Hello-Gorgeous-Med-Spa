@@ -420,6 +420,46 @@ export default function Morpheus8Page() {
                   width: 673,
                   height: 361,
                 },
+                {
+                  src: "/images/morpheus8/morpheus8-burst-deep-jowls-jawline-before-after.png",
+                  alt: "Morpheus8 Burst + Deep jowls and jawline before and after — sagging jowls and softened jawline definition restored at Hello Gorgeous Med Spa, Oswego IL",
+                  title: "Jowls → Defined Jawline",
+                  caption: "Burst + Deep RF lifts jowls and re-sculpts the lower face without surgery.",
+                  width: 1024,
+                  height: 409,
+                },
+                {
+                  src: "/images/morpheus8/morpheus8-burst-deep-double-chin-side-before-after.png",
+                  alt: "Morpheus8 Burst + Deep double chin and submental fullness before and after — neck profile transformed at Hello Gorgeous Med Spa Oswego IL",
+                  title: "Double Chin → Tight Neck Profile",
+                  caption: "Sub-mental fat reduced and skin tightened for a sharper neck/chin profile.",
+                  width: 1024,
+                  height: 409,
+                },
+                {
+                  src: "/images/morpheus8/morpheus8-burst-deep-jowls-profile-before-after.png",
+                  alt: "Morpheus8 Burst + Deep face profile lift before and after — jowls and lower-face laxity remodeled at Hello Gorgeous Med Spa, Oswego IL",
+                  title: "Lower Face Lift",
+                  caption: "Visible profile lift — collagen continues building for 3–6 months after treatment.",
+                  width: 1024,
+                  height: 409,
+                },
+                {
+                  src: "/images/morpheus8/morpheus8-burst-deep-bat-wing-arms-before-after.png",
+                  alt: "Morpheus8 Burst + Deep bat-wing arms before and after — loose upper arm skin tightened at Hello Gorgeous Med Spa, Oswego IL",
+                  title: "Bat-Wing Arms → Tightened",
+                  caption: "Deeper RF reaches the connective layer arms need — without an arm lift.",
+                  width: 1024,
+                  height: 409,
+                },
+                {
+                  src: "/images/morpheus8/morpheus8-burst-deep-abdomen-skin-tightening-before-after.png",
+                  alt: "Morpheus8 Burst + Deep abdomen skin tightening before and after — loose post-pregnancy and post-weight-loss belly skin firmed at Hello Gorgeous Med Spa Oswego IL",
+                  title: "Post-Weight-Loss Belly → Firm",
+                  caption: "8mm RF for the abdomen — ideal after Mounjaro/GLP-1 fat loss.",
+                  width: 673,
+                  height: 361,
+                },
               ].map((photo) => (
                 <figure
                   key={photo.src}

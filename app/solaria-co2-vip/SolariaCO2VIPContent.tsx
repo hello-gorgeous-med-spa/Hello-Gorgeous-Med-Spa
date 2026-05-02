@@ -126,10 +126,11 @@ export function SolariaCO2VIPContent() {
               ✓
             </span>
             <h1 className="text-3xl md:text-4xl font-bold text-black mb-4">
-              You&apos;re on the VIP List
+              You&apos;re VIP — $100 Credit Saved
             </h1>
             <p className="text-gray-600 text-lg">
-              Thank you for joining the Solaria CO₂ VIP Early Access list.
+              Solaria CO₂ is live and booking now. Your $100 VIP credit is saved to
+              your account and will apply at your free consultation.
             </p>
           </div>
 
@@ -142,11 +143,11 @@ export function SolariaCO2VIPContent() {
               </li>
               <li className="flex items-start gap-3">
                 <span className="text-pink-500 font-bold">2.</span>
-                <span>We&apos;ll contact qualified VIP members to schedule consultations</span>
+                <span>We&apos;ll reach out within 1 business day to book your free Solaria consultation</span>
               </li>
               <li className="flex items-start gap-3">
                 <span className="text-pink-500 font-bold">3.</span>
-                <span>Your $100 VIP credit will be applied to your first treatment</span>
+                <span>Your $100 VIP credit applies to your first treatment — full face launch special is $899</span>
               </li>
             </ul>
           </div>
@@ -176,8 +177,9 @@ export function SolariaCO2VIPContent() {
       <section className="relative py-16 md:py-20 px-4 bg-gradient-to-b from-gray-50 to-white">
         <div className="max-w-4xl mx-auto text-center">
           <div className="mb-6">
-            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-black text-white text-sm font-medium">
-              <span>VIP EARLY ACCESS</span>
+            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#E6007E] text-white text-sm font-bold">
+              <span className="h-2 w-2 rounded-full bg-white animate-pulse" />
+              <span>NOW BOOKING · $100 VIP CREDIT</span>
             </span>
           </div>
 
@@ -185,10 +187,10 @@ export function SolariaCO2VIPContent() {
             Solaria CO₂ Laser
           </h1>
           <p className="text-xl md:text-2xl text-gray-600 mb-2">
-            VIP Early Access
+            VIP Launch Booking
           </p>
           <p className="text-lg text-pink-500 font-medium">
-            Limited Launch Access | Priority Booking | $100 Off
+            Live & Booking · $899 Full Face Launch Special · $100 VIP Credit
           </p>
         </div>
       </section>
@@ -231,10 +233,12 @@ export function SolariaCO2VIPContent() {
         <div className="max-w-2xl mx-auto">
           <div className="text-center mb-10">
             <h2 className="text-3xl font-bold text-black mb-3">
-              Request VIP Access
+              Claim Your $100 VIP Credit
             </h2>
             <p className="text-gray-600">
-              Complete the form below to join our exclusive VIP waitlist
+              Solaria CO₂ is live and booking. Tell us about your skin and we&apos;ll
+              schedule your free consultation — your $100 credit applies to your
+              first treatment.
             </p>
           </div>
 
@@ -481,17 +485,17 @@ export function SolariaCO2VIPContent() {
               {
                 icon: "🎯",
                 title: "Priority Booking",
-                description: "Schedule before public launch",
+                description: "Skip the queue — VIP slots open first",
               },
               {
                 icon: "💰",
-                title: "$100 Off",
-                description: "Applied to your first treatment",
+                title: "$100 VIP Credit",
+                description: "Applied to your first Solaria treatment",
               },
               {
-                icon: "⏰",
-                title: "Early Access",
-                description: "First to know about launch dates",
+                icon: "⚡",
+                title: "Launch Pricing",
+                description: "$899 full face — typically $1,500+ at plastic surgery offices",
               },
             ].map((benefit) => (
               <div

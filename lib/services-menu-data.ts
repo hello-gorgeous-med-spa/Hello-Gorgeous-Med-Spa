@@ -121,7 +121,7 @@ export const SERVICES_MENU_GOALS: ServiceMenuSection[] = [
     items: [
       { id: "solaria-sr", name: "Solaria CO₂ Laser", href: "/services/solaria-co2", icon: "✨" },
       { id: "stretch", name: "Stretch Mark Treatment", href: "/stretch-mark-treatment-oswego-il", icon: "✨" },
-      { id: "ipl", name: "IPL Photofacial", href: "/services/ipl-photofacial", icon: "💡" },
+      { id: "ipl", name: "IPL Photofacial", href: "/services/ipl-photofacial", icon: "💡", badge: "new" },
       { id: "hydra-sr", name: "HydraFacial", href: "/services/hydra-facial", icon: "💧" },
       { id: "clinical", name: "Clinical Skin & Devices", href: "/procedures", icon: "🏥" },
     ],

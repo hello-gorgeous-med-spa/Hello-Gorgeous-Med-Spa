@@ -251,6 +251,102 @@ PRESETS: dict[str, list[dict]] = {
             ),
         },
     ],
+    "ipl-photofacial-launch": [
+        {
+            "url": f"{SITE_URL}/images/ipl-photofacial/ipl-photofacial-zemits-treatment-hero.png",
+            "category": "INTERIOR",
+            "description": (
+                "★ NEW at Hello Gorgeous: IPL Photofacial — Intense Pulsed Light skin "
+                "rejuvenation now booking in Oswego, IL. Fade sun spots, age spots, "
+                "broken capillaries, and rosacea redness in a single session. From $250. "
+                "Book free consult: hellogorgeousmedspa.com/services/ipl-photofacial"
+            ),
+        },
+    ],
+    "solaria-co2-results": [
+        {
+            "url": f"{SITE_URL}/images/solaria/solaria-co2-full-face-before-after.png",
+            "category": "ADDITIONAL",
+            "description": (
+                "Solaria CO₂ Fractional Laser — full face before & after. The same "
+                "InMode Solaria device we run at Hello Gorgeous Med Spa, Oswego IL. "
+                "$899 full face launch special. Free consultation required. Now booking."
+            ),
+        },
+        {
+            "url": f"{SITE_URL}/images/solaria/solaria-co2-acne-scars-before-after.png",
+            "category": "ADDITIONAL",
+            "description": (
+                "Solaria CO₂ acne scar before & after — ice pick and boxcar scars "
+                "smoothed with InMode Solaria fractional CO₂ resurfacing at Hello "
+                "Gorgeous Med Spa, Oswego IL. $899 launch special. Free consultation."
+            ),
+        },
+        {
+            "url": f"{SITE_URL}/images/solaria/solaria-co2-pigmentation-before-after-right.png",
+            "category": "ADDITIONAL",
+            "description": (
+                "Solaria CO₂ pigmentation & sun damage before & after — InMode Solaria "
+                "fractional laser at Hello Gorgeous Med Spa, Oswego IL. Live and booking. "
+                "$899 full face launch special."
+            ),
+        },
+        {
+            "url": f"{SITE_URL}/images/solaria/solaria-co2-pigmentation-before-after-left.png",
+            "category": "ADDITIONAL",
+            "description": (
+                "Solaria CO₂ uneven tone & brown spots before & after — single-session "
+                "results with InMode Solaria fractional CO₂ at Hello Gorgeous Med Spa, "
+                "Oswego IL. Now booking. $899 launch special."
+            ),
+        },
+    ],
+    "morpheus8-burst-deep-additional": [
+        {
+            "url": f"{SITE_URL}/images/morpheus8/morpheus8-burst-deep-jowls-jawline-before-after.png",
+            "category": "ADDITIONAL",
+            "description": (
+                "Morpheus8 Burst + Deep jowls and jawline before & after at Hello "
+                "Gorgeous Med Spa, Oswego IL. Newest InMode RF microneedling lifts "
+                "the lower face without surgery. Free consultation."
+            ),
+        },
+        {
+            "url": f"{SITE_URL}/images/morpheus8/morpheus8-burst-deep-double-chin-side-before-after.png",
+            "category": "ADDITIONAL",
+            "description": (
+                "Morpheus8 Burst + Deep double chin / submental before & after — neck "
+                "profile transformed with newest InMode RF microneedling at Hello "
+                "Gorgeous Med Spa, Oswego IL."
+            ),
+        },
+        {
+            "url": f"{SITE_URL}/images/morpheus8/morpheus8-burst-deep-jowls-profile-before-after.png",
+            "category": "ADDITIONAL",
+            "description": (
+                "Morpheus8 Burst + Deep face profile lift before & after — visible "
+                "lower-face contour change at Hello Gorgeous Med Spa, Oswego IL."
+            ),
+        },
+        {
+            "url": f"{SITE_URL}/images/morpheus8/morpheus8-burst-deep-bat-wing-arms-before-after.png",
+            "category": "ADDITIONAL",
+            "description": (
+                "Morpheus8 Burst + Deep bat-wing arms before & after — upper arm "
+                "skin tightening with deepest InMode RF microneedling. Hello Gorgeous "
+                "Med Spa, Oswego IL."
+            ),
+        },
+        {
+            "url": f"{SITE_URL}/images/morpheus8/morpheus8-burst-deep-abdomen-skin-tightening-before-after.png",
+            "category": "ADDITIONAL",
+            "description": (
+                "Morpheus8 Burst + Deep abdomen skin tightening before & after — "
+                "ideal after GLP-1 weight loss. 8mm RF microneedling at Hello "
+                "Gorgeous Med Spa, Oswego IL."
+            ),
+        },
+    ],
     "morpheus8-burst-deep": [
         {
             "url": f"{SITE_URL}/images/morpheus8/morpheus8-burst-deep-neck-tightening-before-after.png",

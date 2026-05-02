@@ -374,26 +374,85 @@ export default function SolariaCO2Page() {
           </div>
         </section>
 
-        {/* Before & After placeholder + disclaimer */}
-        <section className="py-16 bg-zinc-50">
+        {/* Before & After Gallery — InMode Solaria CO2 reference results */}
+        <section className="py-16 md:py-20 bg-gradient-to-b from-white via-rose-50 to-white">
           <div className="max-w-6xl mx-auto px-4">
-            <h2 className="text-3xl font-bold text-black mb-4">Before & After Gallery</h2>
-            <p className="text-gray-600 mb-8">
-              See the dramatic transformations achieved with Solaria CO₂ laser.
-            </p>
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-              {["Acne Scarring", "Deep Wrinkles", "Sun Damage", "Skin Texture", "Hyperpigmentation", "Full Rejuvenation"].map((label) => (
-                <div
-                  key={label}
-                  className="aspect-[3/4] rounded-lg bg-zinc-200 flex items-end p-4"
+            <div className="text-center mb-10">
+              <span className="inline-flex items-center gap-2 rounded-full border-2 border-[#E6007E] bg-[#E6007E]/5 px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-[#E6007E] mb-4">
+                <span className="h-2 w-2 rounded-full bg-[#E6007E] animate-pulse" />
+                Live & Booking · $899 Launch Special
+              </span>
+              <h2 className="text-3xl md:text-5xl font-black text-black">
+                Before &amp; After ·{" "}
+                <span className="bg-gradient-to-r from-[#FF2D8E] to-[#E6007E] bg-clip-text text-transparent">
+                  Real Solaria Results
+                </span>
+              </h2>
+              <p className="text-black/70 max-w-2xl mx-auto mt-4 text-lg">
+                Reference results from InMode Solaria CO₂ — the same fractional laser
+                technology we run at Hello Gorgeous Med Spa, Oswego.
+              </p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {[
+                {
+                  src: "/images/solaria/solaria-co2-full-face-before-after.png",
+                  alt: "Solaria CO2 full face before and after — fine lines, deep wrinkles, and skin laxity dramatically improved after one treatment with InMode Solaria fractional laser",
+                  label: "Full face — fine lines + laxity",
+                },
+                {
+                  src: "/images/solaria/solaria-co2-acne-scars-before-after.png",
+                  alt: "Solaria CO2 acne scar before and after — ice pick and boxcar acne scars smoothed with InMode Solaria fractional CO2 resurfacing",
+                  label: "Cheek — acne scarring",
+                },
+                {
+                  src: "/images/solaria/solaria-co2-pigmentation-before-after-right.png",
+                  alt: "Solaria CO2 pigmentation before and after right cheek — sun damage, age spots and hyperpigmentation cleared after one InMode Solaria treatment",
+                  label: "Pigmentation + sun damage",
+                },
+                {
+                  src: "/images/solaria/solaria-co2-pigmentation-before-after-left.png",
+                  alt: "Solaria CO2 pigmentation before and after left cheek — uneven skin tone and brown spots resolved after a single InMode Solaria fractional laser session",
+                  label: "Pigmentation + tone",
+                },
+              ].map((photo) => (
+                <figure
+                  key={photo.src}
+                  className="group rounded-2xl overflow-hidden border-4 border-black bg-white shadow-[8px_8px_0_0_rgba(230,0,126,0.35)] hover:-translate-y-1 transition-all duration-300"
                 >
-                  <span className="text-sm font-medium text-zinc-600">{label}</span>
-                </div>
+                  <div className="relative bg-gray-50">
+                    <Image
+                      src={photo.src}
+                      alt={photo.alt}
+                      width={1024}
+                      height={409}
+                      className="w-full h-auto"
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                    />
+                    <div className="absolute top-3 left-3 px-3 py-1 bg-black text-white rounded-lg text-xs font-bold tracking-wider">
+                      BEFORE / AFTER
+                    </div>
+                  </div>
+                  <figcaption className="p-4">
+                    <p className="font-bold text-black">{photo.label}</p>
+                  </figcaption>
+                </figure>
               ))}
             </div>
-            <p className="mt-6 text-sm text-zinc-500">
-              Results vary by individual. All treatments performed by licensed medical professionals. Client consent on file.
+            <p className="mt-6 text-center text-sm text-black/60 max-w-2xl mx-auto">
+              Reference results courtesy of InMode (manufacturer of the Solaria CO₂
+              system). Hello Gorgeous Med Spa runs the same FDA-cleared device. Individual
+              results vary by skin type, treatment plan, and aftercare compliance. Free
+              consultation required.
             </p>
+            <div className="text-center mt-8">
+              <Link
+                href="/book"
+                className="inline-flex items-center justify-center rounded-lg bg-[#E6007E] px-8 py-4 font-bold text-white hover:bg-[#c9006e] transition shadow-[0_8px_24px_rgba(230,0,126,0.45)]"
+              >
+                Book My Free Solaria Consultation →
+              </Link>
+            </div>
           </div>
         </section>
 

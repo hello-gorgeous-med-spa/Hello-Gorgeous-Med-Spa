@@ -2,12 +2,14 @@ import type { Metadata } from "next";
 import { SolariaCO2VIPContent } from "./SolariaCO2VIPContent";
 
 export const metadata: Metadata = {
-  title: "Solaria CO₂ VIP Early Access | Hello Gorgeous Med Spa",
-  description: "Join the exclusive VIP waitlist for Solaria CO₂ Fractional Laser at Hello Gorgeous Med Spa. Priority booking, $100 off, and early access. Oswego, IL.",
+  title: "Solaria CO₂ VIP Booking — $100 Credit + $899 Launch Special | Hello Gorgeous",
+  description:
+    "Solaria CO₂ Fractional Laser is now booking at Hello Gorgeous Med Spa, Oswego IL. Claim your $100 VIP credit toward the $899 full-face launch special. Free consultation required.",
   openGraph: {
-    title: "Solaria CO₂ VIP Early Access | Hello Gorgeous Med Spa",
-    description: "Limited Launch Access | Priority Booking | $100 Off. Join the exclusive waitlist for advanced skin resurfacing.",
-    images: ["/images/promo/solaria-coming-soon-banner.jpg"],
+    title: "Solaria CO₂ — Now Booking · $100 VIP Credit | Hello Gorgeous Med Spa",
+    description:
+      "Solaria CO₂ is live and booking. Free consultation + $100 VIP credit + $899 full-face launch special.",
+    images: ["/images/solaria/solaria-co2-full-face-before-after.png"],
   },
   robots: {
     index: true,
