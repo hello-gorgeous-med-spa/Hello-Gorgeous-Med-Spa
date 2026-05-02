@@ -242,7 +242,7 @@ export default function Morpheus8Page() {
 
             <div className="flex flex-wrap gap-4">
               <Link
-                href="/book"
+                href="/book?service=morpheus8"
                 className="inline-flex items-center justify-center rounded-lg bg-[#E6007E] px-6 py-3 font-semibold text-white hover:bg-[#c9006e] transition"
               >
                 Book Consultation
@@ -298,7 +298,7 @@ export default function Morpheus8Page() {
                 <p className="text-3xl font-bold text-[#E6007E] mb-4">From $800</p>
                 <p className="text-sm text-black/70 mb-6">One Morpheus8 treatment. Price varies by area (face, neck, body).</p>
                 <Link
-                  href="/book"
+                  href="/book?service=morpheus8"
                   className="inline-flex items-center justify-center rounded-lg bg-[#E6007E] px-6 py-3 font-semibold text-white hover:bg-[#c9006e] transition"
                 >
                   Book consultation
@@ -309,7 +309,7 @@ export default function Morpheus8Page() {
                 <p className="text-3xl font-bold text-[#E6007E] mb-4">$2,100</p>
                 <p className="text-sm text-black/70 mb-6">Three sessions (recommended for optimal results). Applied to face or body.</p>
                 <Link
-                  href="/book"
+                  href="/book?service=morpheus8"
                   className="inline-flex items-center justify-center rounded-lg bg-[#E6007E] px-6 py-3 font-semibold text-white hover:bg-[#c9006e] transition"
                 >
                   Book consultation
@@ -494,7 +494,7 @@ export default function Morpheus8Page() {
 
             <div className="text-center mt-10">
               <Link
-                href="/book"
+                href="/book?service=morpheus8"
                 className="inline-flex items-center justify-center rounded-lg bg-[#E6007E] px-8 py-4 font-bold text-white hover:bg-[#c9006e] transition shadow-[0_8px_24px_rgba(230,0,126,0.45)]"
               >
                 Book My Free Morpheus8 Consultation →
@@ -563,7 +563,7 @@ export default function Morpheus8Page() {
             </div>
             <div className="text-center mt-8">
               <Link
-                href="/book"
+                href="/book?service=morpheus8"
                 className="inline-flex items-center justify-center rounded-lg bg-[#E6007E] px-6 py-3 font-semibold text-white hover:bg-[#c9006e] transition"
               >
                 Book Your Consultation
@@ -846,7 +846,7 @@ export default function Morpheus8Page() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
-                href="/book"
+                href="/book?service=morpheus8"
                 className="inline-flex items-center justify-center rounded-lg bg-[#E6007E] px-8 py-4 text-lg font-semibold text-white hover:bg-[#c9006e] transition"
               >
                 Book Consultation

@@ -4,8 +4,11 @@ import Link from "next/link";
 
 import { CTA } from "@/components/CTA";
 import { FadeUp, Section } from "@/components/Section";
-import { BOOKING_URL } from "@/lib/flows";
 import { SITE } from "@/lib/seo";
+
+// Booking goes through /book → resolves the slug to the Square service ID
+// and deep-links into the scheduler with that service preselected.
+const BOOK_HREF = "/book?service=microneedling-rf";
 
 const BRAND = {
   pink: "#E6007E",
@@ -373,7 +376,7 @@ export function MicroneedlingRfPageContent() {
                 .
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <CTA href={BOOKING_URL} variant="gradient" className="shadow-[0_8px_32px_-4px_rgba(230,0,126,0.55)]">
+                <CTA href={BOOK_HREF} variant="gradient" className="shadow-[0_8px_32px_-4px_rgba(230,0,126,0.55)]">
                   Book a free consult
                 </CTA>
                 <CTA href="#faq" variant="outline" className="border-2 border-white text-white hover:bg-white hover:text-black">
@@ -451,7 +454,7 @@ export function MicroneedlingRfPageContent() {
               Free 20-minute consult, written quote, real photos at every visit. We&apos;ll tell you whether RF microneedling is the right call — or if something else fits better.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <CTA href={BOOKING_URL} variant="white" className="shadow-xl">
+              <CTA href={BOOK_HREF} variant="white" className="shadow-xl">
                 Book online
               </CTA>
               <Link

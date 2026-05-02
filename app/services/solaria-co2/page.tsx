@@ -199,7 +199,7 @@ export default function SolariaCO2Page() {
             </p>
             <div className="flex flex-wrap gap-4">
               <Link
-                href="/book"
+                href="/book?service=solaria-co2"
                 className="inline-flex items-center justify-center rounded-lg bg-[#E6007E] px-6 py-3 font-semibold text-white hover:bg-[#c9006e] transition shadow-[0_8px_24px_rgba(230,0,126,0.45)]"
               >
                 Book Free Consultation →
@@ -315,7 +315,7 @@ export default function SolariaCO2Page() {
                   One full-face Solaria CO₂ treatment. Wrinkles, acne scars, sun damage, texture — in one session.
                 </p>
                 <Link
-                  href="/book"
+                  href="/book?service=solaria-co2"
                   className="inline-flex items-center justify-center rounded-lg bg-[#E6007E] px-4 py-2.5 font-semibold text-white hover:bg-[#c9006e] transition text-sm w-full"
                 >
                   Book free consult
@@ -328,7 +328,7 @@ export default function SolariaCO2Page() {
                   Three full-face sessions for maximum collagen remodeling. Best value for deep scarring or significant aging.
                 </p>
                 <Link
-                  href="/book"
+                  href="/book?service=solaria-co2"
                   className="inline-flex items-center justify-center rounded-lg border-2 border-[#E6007E] text-[#E6007E] px-4 py-2.5 font-semibold hover:bg-[#E6007E] hover:text-white transition text-sm w-full"
                 >
                   Book free consult
@@ -342,7 +342,7 @@ export default function SolariaCO2Page() {
                   Resurfacing + RF microneedling + skin tightening. The most complete face transformation we offer.
                 </p>
                 <Link
-                  href="/book"
+                  href="/book?service=solaria-co2"
                   className="inline-flex items-center justify-center rounded-lg border-2 border-black text-black px-4 py-2.5 font-semibold hover:bg-black hover:text-white transition text-sm w-full"
                 >
                   Book free consult
@@ -461,7 +461,7 @@ export default function SolariaCO2Page() {
             </p>
             <div className="text-center mt-8">
               <Link
-                href="/book"
+                href="/book?service=solaria-co2"
                 className="inline-flex items-center justify-center rounded-lg bg-[#E6007E] px-8 py-4 font-bold text-white hover:bg-[#c9006e] transition shadow-[0_8px_24px_rgba(230,0,126,0.45)]"
               >
                 Book My Free Solaria Consultation →
@@ -603,7 +603,7 @@ export default function SolariaCO2Page() {
             </p>
             <div className="flex flex-wrap justify-center gap-4">
               <Link
-                href="/book"
+                href="/book?service=solaria-co2"
                 className="inline-flex items-center justify-center rounded-lg bg-[#E6007E] px-6 py-3 font-semibold text-white hover:bg-[#c9006e] transition"
               >
                 Book Consultation

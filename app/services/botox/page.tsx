@@ -9,8 +9,6 @@ import {
   pageMetadata,
   siteJsonLd,
 } from "@/lib/seo";
-import { bookingUrlForFirstMatch } from "@/lib/square/booking-url";
-import { getSquareCatalog } from "@/lib/square/catalog";
 
 const BOTOX_PATH = "/services/botox";
 const PAGE_URL = `${SITE.url}${BOTOX_PATH}`;
@@ -118,26 +116,12 @@ export const metadata: Metadata = {
   },
 };
 
-export default async function BotoxServicePage() {
+export default function BotoxServicePage() {
   const breadcrumbs = [
     { name: "Home", url: SITE.url },
     { name: "Services", url: `${SITE.url}/services` },
     { name: "Botox", url: PAGE_URL },
   ];
-
-  // Pull live Square catalog and deep-link to the headline Botox service so
-  // the Book buttons land the user on the right service in Square's flow.
-  // Falls back to the generic BOOKING_URL if Square is unreachable.
-  let bookingUrl: string | undefined;
-  try {
-    const catalog = await getSquareCatalog();
-    bookingUrl = bookingUrlForFirstMatch(catalog.services, (s) => {
-      const n = s.name.toLowerCase();
-      return n.startsWith("botox") || n === "botox / jeuveau / dysport";
-    });
-  } catch (err) {
-    console.warn("[botox/page] Square catalog fetch failed; using generic BOOKING_URL", err);
-  }
 
   return (
     <>
@@ -174,7 +158,7 @@ export default async function BotoxServicePage() {
         }}
       />
 
-      <BotoxPageContent bookingUrl={bookingUrl} />
+      <BotoxPageContent />
     </>
   );
 }

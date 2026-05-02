@@ -4,8 +4,11 @@ import Link from "next/link";
 
 import { CTA } from "@/components/CTA";
 import { FadeUp, Section } from "@/components/Section";
-import { BOOKING_URL } from "@/lib/flows";
 import { SITE } from "@/lib/seo";
+
+// Booking goes through /book → resolves the slug to the Square service ID
+// and deep-links into the scheduler with that service preselected.
+const BOOK_HREF = "/book?service=weight-loss-therapy";
 
 const BRAND = {
   pink: "#E6007E",
@@ -358,7 +361,7 @@ export function WeightLossTherapyPageContent() {
                 .
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <CTA href={BOOKING_URL} variant="gradient" className="shadow-[0_8px_32px_-4px_rgba(230,0,126,0.55)]">
+                <CTA href={BOOK_HREF} variant="gradient" className="shadow-[0_8px_32px_-4px_rgba(230,0,126,0.55)]">
                   Book a free 15-min consult
                 </CTA>
                 <CTA href="#faq" variant="outline" className="border-2 border-white text-white hover:bg-white hover:text-black">
@@ -436,7 +439,7 @@ export function WeightLossTherapyPageContent() {
               Free 15-minute consult, real provider, written plan, no contract. We&apos;ll tell you whether GLP-1 is the right call for your body — or what is.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <CTA href={BOOKING_URL} variant="white" className="shadow-xl">
+              <CTA href={BOOK_HREF} variant="white" className="shadow-xl">
                 Book online
               </CTA>
               <Link

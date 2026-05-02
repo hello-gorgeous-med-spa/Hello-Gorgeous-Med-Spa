@@ -179,7 +179,7 @@ export default function IPLPhotofacialPage() {
               </p>
               <div className="flex flex-wrap gap-4">
                 <Link
-                  href="/book"
+                  href="/book?service=ipl-photofacial"
                   className="inline-flex items-center justify-center rounded-lg bg-[#E6007E] px-6 py-3 font-semibold text-white hover:bg-[#c9006e] transition shadow-[0_8px_24px_rgba(230,0,126,0.45)]"
                 >
                   Book Free Consultation →
@@ -420,7 +420,7 @@ export default function IPLPhotofacialPage() {
           </p>
           <div className="flex flex-wrap gap-4 justify-center">
             <Link
-              href="/book"
+              href="/book?service=ipl-photofacial"
               className="inline-flex items-center justify-center rounded-lg bg-white text-[#E6007E] px-8 py-4 font-bold hover:bg-black hover:text-white transition shadow-2xl"
             >
               Book Free Consultation →

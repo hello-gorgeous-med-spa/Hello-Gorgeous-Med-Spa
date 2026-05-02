@@ -13,6 +13,11 @@ type Props = {
   /** Default true: do not double-fire generic book_now_click */
   "data-cl-only"?: boolean;
   "data-book-now"?: boolean;
+  /**
+   * Optional Square service slug — passes `?service=<slug>` so /book deep-links
+   * into the matching Square service. See lib/square/service-slugs.ts.
+   */
+  service?: string;
 };
 
 /**
@@ -26,13 +31,18 @@ export function ContourBookLink({
   "data-cl-placement": dataClPlacement,
   "data-cl-only": dataClOnly = true,
   "data-book-now": dataBookNow,
+  service,
 }: Props) {
-  const [href, setHref] = useState("/book");
+  const initial = service ? `/book?service=${encodeURIComponent(service)}` : "/book";
+  const [href, setHref] = useState(initial);
 
   useEffect(() => {
     const q = buildBookQueryFromStored();
-    setHref(q ? `/book?${q}` : "/book?utm_campaign=contour_lift&utm_medium=website");
-  }, []);
+    const serviceParam = service ? `service=${encodeURIComponent(service)}` : "";
+    const defaultUtm = "utm_campaign=contour_lift&utm_medium=website";
+    const parts = [serviceParam, q || defaultUtm].filter(Boolean);
+    setHref(parts.length ? `/book?${parts.join("&")}` : "/book");
+  }, [service]);
 
   return (
     <Link

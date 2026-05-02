@@ -500,6 +500,7 @@ export default function QuantumRFPage() {
             </p>
             <div className="mt-10 flex w-full max-w-md flex-col gap-4 sm:max-w-lg sm:flex-row sm:items-stretch sm:gap-5">
               <ContourBookLink
+                service="quantum-rf"
                 className="inline-flex min-h-[56px] flex-1 items-center justify-center rounded-md px-7 py-3.5 text-center text-sm font-semibold uppercase tracking-[0.2em] text-white transition hover:opacity-95"
                 style={{ backgroundColor: PINK }}
                 data-cl-placement="quantum_hero"
@@ -805,6 +806,7 @@ export default function QuantumRFPage() {
               </div>
               <div className="mt-8">
                 <ContourBookLink
+                service="quantum-rf"
                   className="inline-flex min-h-[48px] items-center justify-center rounded-md px-8 text-sm font-semibold uppercase tracking-widest text-white transition hover:opacity-95"
                   style={{ backgroundColor: PINK }}
                   data-cl-placement="quantum_procedure_block"
@@ -998,6 +1000,7 @@ export default function QuantumRFPage() {
             </div>
             <div className="mt-8 text-center">
               <ContourBookLink
+                service="quantum-rf"
                 className="inline-flex min-h-[48px] items-center justify-center rounded-md px-8 text-sm font-semibold uppercase tracking-widest text-white transition hover:opacity-95"
                 style={{ backgroundColor: PINK }}
                 data-cl-placement="quantum_candidacy"
@@ -1149,6 +1152,7 @@ export default function QuantumRFPage() {
             <p className="mt-1 text-xs text-white/70 sm:text-sm">Limited availability by design — medical evaluation always comes first.</p>
             <div className="mx-auto mt-8 flex w-full max-w-md flex-col gap-4 sm:max-w-none sm:flex-row sm:justify-center sm:gap-5">
               <ContourBookLink
+                service="quantum-rf"
                 className="inline-flex min-h-[58px] flex-1 items-center justify-center rounded-md px-6 text-sm font-semibold uppercase tracking-[0.2em] text-white sm:max-w-[220px]"
                 style={{ backgroundColor: PINK }}
                 data-cl-placement="quantum_final_cta"
@@ -1210,6 +1214,7 @@ export default function QuantumRFPage() {
                 Morpheus8
               </Link>
               <ContourBookLink
+                service="quantum-rf"
                 className="underline decoration-black/30 underline-offset-4 hover:decoration-black"
                 data-cl-placement="quantum_page_footer"
               >

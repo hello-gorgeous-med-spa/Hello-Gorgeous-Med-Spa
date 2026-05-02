@@ -3,7 +3,9 @@ import Link from "next/link";
 import { pageMetadata, SITE, siteJsonLd, faqJsonLd, SERVICES } from "@/lib/seo";
 import { HarmonyAI } from "@/components/HarmonyAI";
 import { FAQAccordion } from "@/components/FAQAccordion";
-import { BOOKING_URL } from "@/lib/flows";
+// Booking goes through /book?service=biote-hormone-therapy → /book resolves
+// the slug to the matching Square service and deep-links into the scheduler.
+const BOOK_HREF = "/book?service=biote-hormone-therapy";
 
 const slug = "biote-hormone-therapy";
 
@@ -61,7 +63,7 @@ export default function BioteHormoneTherapyPage() {
             </p>
             <div className="mt-8">
               <Link
-                href={BOOKING_URL}
+                href={BOOK_HREF}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center rounded-xl bg-[#FF2D8E] px-6 py-3 font-semibold text-white hover:bg-[#FF2D8E]/90 transition"
@@ -125,7 +127,7 @@ export default function BioteHormoneTherapyPage() {
               Book a consultation and we&apos;ll review your symptoms, goals, and any labs together.
             </p>
             <Link
-              href={BOOKING_URL}
+              href={BOOK_HREF}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center rounded-xl bg-[#FF2D8E] px-8 py-4 font-bold text-white hover:bg-[#FF2D8E]/90 transition"
