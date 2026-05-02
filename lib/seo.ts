@@ -35,9 +35,19 @@ export const SITE = {
   },
   geo: { latitude: 41.6828, longitude: -88.3515 },
   serviceAreas: ["Oswego, IL", "Naperville, IL", "Aurora, IL", "Plainfield, IL", "Yorkville, IL", "Sugar Grove, IL", "Montgomery, IL", "Kendall County, IL", "Kane County, IL"],
-  googleBusinessUrl: "https://www.google.com/maps/place/Hello+Gorgeous+Med+Spa/@41.6828,-88.3515,17z",
-  /** Direct link to leave a Google review. */
-  googleReviewUrl: "https://g.page/r/CYQOWmT_HcwQEBM/review",
+  /** Canonical Google Business Profile identifiers — fetched from the
+   *  GBP API on 2026-05-01. Place ID drives one-click review links and
+   *  `LocalBusiness` schema accuracy; CID is the legacy maps shortlink id. */
+  placeId: "ChIJt2xHqd_vDogRhA5aZP8dzBA",
+  cid: "1210375382593310340",
+  googleBusinessUrl: "https://maps.google.com/maps?cid=1210375382593310340",
+  /** Direct one-click link to leave a Google review (placeId-based). */
+  googleReviewUrl: "https://search.google.com/local/writereview?placeid=ChIJt2xHqd_vDogRhA5aZP8dzBA",
+  /** Operating hours — synced from GBP on 2026-05-01 (Mon–Fri 10–8, Sat 10–5, Sun closed). */
+  openingHours: [
+    { dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], opens: "10:00", closes: "20:00" },
+    { dayOfWeek: ["Saturday"], opens: "10:00", closes: "17:00" },
+  ] as const,
   priceRange: "$$$" as const,
   /** AggregateRating - only injected when both set. Update from GBP or manually. */
   reviewRating: "4.9",
@@ -906,7 +916,12 @@ export function siteJsonLd() {
       { "@type": "City", name: "Plainfield", containedInPlace: { "@type": "State", name: "Illinois" } },
       { "@type": "City", name: "Yorkville", containedInPlace: { "@type": "State", name: "Illinois" } },
     ],
-    hasMap: "https://www.google.com/maps/place/74+W+Washington+St,+Oswego,+IL+60543",
+    hasMap: SITE.googleBusinessUrl,
+    /** Google Place identifier — locks this schema entity to your verified GBP listing. */
+    identifier: [
+      { "@type": "PropertyValue", propertyID: "GooglePlaceID", value: SITE.placeId },
+      { "@type": "PropertyValue", propertyID: "GoogleCID", value: SITE.cid },
+    ],
     award: [
       "Best of Oswego — #1 Best Med Spa",
       "Best of Oswego — Best Skincare Clinic",
@@ -916,20 +931,12 @@ export function siteJsonLd() {
       "Only Oswego-area med spa with Quantum RF, Morpheus8 Burst, and Solaria CO2",
       "Class 4 medical lasers",
     ],
-    openingHoursSpecification: [
-      {
-        "@type": "OpeningHoursSpecification",
-        dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-        opens: "09:00",
-        closes: "17:00",
-      },
-      {
-        "@type": "OpeningHoursSpecification",
-        dayOfWeek: "Saturday",
-        opens: "09:00",
-        closes: "14:00",
-      },
-    ],
+    openingHoursSpecification: SITE.openingHours.map((h) => ({
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: h.dayOfWeek,
+      opens: h.opens,
+      closes: h.closes,
+    })),
     sameAs: [
       SITE.googleBusinessUrl,
       SITE.social.facebook,
@@ -986,19 +993,22 @@ export function mainLocalBusinessJsonLd() {
       latitude: SITE.geo.latitude,
       longitude: SITE.geo.longitude,
     },
-    openingHoursSpecification: [
-      {
-        "@type": "OpeningHoursSpecification",
-        dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-        opens: "09:00",
-        closes: "17:00",
-      },
-      {
-        "@type": "OpeningHoursSpecification",
-        dayOfWeek: "Saturday",
-        opens: "09:00",
-        closes: "14:00",
-      },
+    hasMap: SITE.googleBusinessUrl,
+    identifier: [
+      { "@type": "PropertyValue", propertyID: "GooglePlaceID", value: SITE.placeId },
+      { "@type": "PropertyValue", propertyID: "GoogleCID", value: SITE.cid },
+    ],
+    openingHoursSpecification: SITE.openingHours.map((h) => ({
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: h.dayOfWeek,
+      opens: h.opens,
+      closes: h.closes,
+    })),
+    sameAs: [
+      SITE.googleBusinessUrl,
+      SITE.social.facebook,
+      SITE.social.instagram,
+      SITE.social.tiktok,
     ],
     aggregateRating: {
       "@type": "AggregateRating",

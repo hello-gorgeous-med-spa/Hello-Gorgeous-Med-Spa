@@ -5,6 +5,7 @@ import { ServiceConfig, ServiceArea, generateServiceSchema } from '@/lib/locatio
 import { WeightLossBlogPromo } from '@/components/WeightLossBlogPromo';
 import { LaserHairMembershipsPromo } from '@/components/LaserHairMembershipsPromo';
 import { RealPatientReviews, type ReviewServiceCategory } from '@/components/RealPatientReviews';
+import { GoogleMapEmbed } from '@/components/GoogleMapEmbed';
 
 const REVIEW_CATEGORY_BY_SERVICE: Record<string, ReviewServiceCategory> = {
   'weight-loss': 'weight-loss',
@@ -254,28 +255,48 @@ export function LocationServicePage({ service, area, nearbyAreas }: LocationServ
           heading={`Real ${area.city} clients on ${service.name} at Hello Gorgeous`}
         />
 
-        {/* Directions */}
-        <section className="py-16">
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 className="text-2xl font-bold mb-6">
+        {/* Directions + interactive Google Map */}
+        <section className="py-16 bg-white">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 className="text-2xl md:text-3xl font-bold mb-8 text-center">
               {area.city === 'Oswego' ? 'Visit Us in Downtown Oswego' : `Driving from ${area.city}`}
             </h2>
-            <div className="bg-gray-50 p-6 rounded-xl">
-              <p className="text-gray-700 mb-4">
-                <strong>{area.directions}</strong>
-              </p>
-              <p className="text-gray-600">
-                74 W. Washington Street, Oswego, IL 60543<br />
-                {area.city !== 'Oswego' && <>Approximately {area.distance} | </>}Free parking available
-              </p>
-              <a 
-                href={`https://www.google.com/maps/dir/${area.city},+IL/74+W+Washington+St,+Oswego,+IL+60543`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-block mt-4 text-[#FF2D8E] font-medium hover:underline"
-              >
-                Get Directions →
-              </a>
+            <div className="grid md:grid-cols-2 gap-6 items-stretch">
+              <div className="rounded-xl overflow-hidden border border-black min-h-[320px]">
+                <GoogleMapEmbed height={360} loading="lazy" showDirectionsButton={false} />
+              </div>
+              <div className="bg-gray-50 p-6 md:p-8 rounded-xl flex flex-col justify-center">
+                <p className="text-gray-700 mb-4">
+                  <strong>{area.directions}</strong>
+                </p>
+                <p className="text-gray-700 mb-4">
+                  <span className="font-semibold">74 W. Washington Street</span><br />
+                  Oswego, IL 60543<br />
+                  {area.city !== 'Oswego' && (
+                    <span className="text-gray-600">Approximately {area.distance} from {area.city} · </span>
+                  )}
+                  <span className="text-gray-600">Free parking available</span>
+                </p>
+                <p className="text-gray-700 mb-6 text-sm">
+                  <span className="font-semibold">Hours:</span> Mon–Fri 10am–8pm · Sat 10am–5pm · Sun closed
+                </p>
+                <div className="flex flex-wrap gap-3">
+                  <a
+                    href={`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent('74 W Washington St, Oswego, IL 60543')}&destination_place_id=ChIJt2xHqd_vDogRhA5aZP8dzBA`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-[#E6007E] text-white font-semibold hover:bg-[#c9006e] transition text-sm"
+                  >
+                    📍 Get Directions
+                  </a>
+                  <a
+                    href="tel:630-636-6193"
+                    className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg border-2 border-black text-black font-semibold hover:bg-black hover:text-white transition text-sm"
+                  >
+                    📞 Call (630) 636-6193
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
         </section>
