@@ -219,7 +219,17 @@ const SECTIONS: Block[] = [
   },
 ];
 
-export function BotoxPageContent() {
+interface BotoxPageContentProps {
+  /**
+   * Optional Square deep-link booking URL for the Botox service. When provided,
+   * Book CTAs land users on the Botox service in Square's flow instead of the
+   * generic services list. Falls back to BOOKING_URL when undefined.
+   */
+  bookingUrl?: string;
+}
+
+export function BotoxPageContent({ bookingUrl }: BotoxPageContentProps = {}) {
+  const bookHref = bookingUrl ?? BOOKING_URL;
   return (
     <div className="relative min-h-[100dvh] touch-pan-y">
       {/* Ambient brand wash */}
@@ -281,7 +291,7 @@ export function BotoxPageContent() {
                 .
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <CTA href={BOOKING_URL} variant="gradient" className="shadow-[0_8px_32px_-4px_rgba(230,0,126,0.55)]">
+                <CTA href={bookHref} variant="gradient" className="shadow-[0_8px_32px_-4px_rgba(230,0,126,0.55)]">
                   Book a free Botox consult
                 </CTA>
                 <CTA href="#faq" variant="outline" className="border-2 border-white text-white hover:bg-white hover:text-black">
@@ -362,7 +372,7 @@ export function BotoxPageContent() {
               Same-week openings most weeks. Book your free 15-minute Botox consult and we&apos;ll show you exactly what your face needs — and what it doesn&apos;t.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <CTA href={BOOKING_URL} variant="white" className="shadow-xl">
+              <CTA href={bookHref} variant="white" className="shadow-xl">
                 Book online
               </CTA>
               <Link
