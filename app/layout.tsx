@@ -3,6 +3,7 @@ import { Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
 
 import { organizationJsonLd, siteJsonLd, SITE, SITE_OG_IMAGE, SITE_OG_IMAGE_ALT, websiteJsonLd } from "@/lib/seo";
+import { getLiveAggregateRating } from "@/lib/seo/google-places";
 import { getDefaultSEO, getSiteSettings } from "@/lib/cms-readers";
 import { AuthWrapper } from "@/components/AuthWrapper";
 import { ConditionalLayout } from "@/components/ConditionalLayout";
@@ -141,6 +142,10 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     // CMS/Supabase unavailable — render site with defaults so live site never goes fully down
   }
 
+  // Live Google rating for AggregateRating schema. Falls back to SITE static
+  // values silently if the Places API is unreachable so we never break a render.
+  const liveRating = await getLiveAggregateRating();
+
   return (
     <html lang="en" className={`${inter.variable} ${playfair.variable}`} suppressHydrationWarning>
       <head>
@@ -166,7 +171,16 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         />
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(siteJsonLd()) }}
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(
+              siteJsonLd({
+                aggregateRating: {
+                  ratingValue: liveRating.ratingValue,
+                  reviewCount: liveRating.reviewCount,
+                },
+              }),
+            ),
+          }}
         />
       </head>
       <body className="min-h-screen antialiased font-sans" suppressHydrationWarning>

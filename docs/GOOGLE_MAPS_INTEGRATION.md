@@ -47,20 +47,34 @@ Vercel dashboard → Project → Settings → Environment Variables:
 
 Then redeploy (or just push any commit — Vercel auto-deploys).
 
-### Step 4 — Optional: also enable Places API
+### Step 4 — Live data (already wired, requires Places API enabled)
 
-If you want to programmatically pull live business hours, photos, or review counts:
+We pull these from the **Places API (New)** and cache for 24 hours:
 
-1. Enable: https://console.cloud.google.com/apis/library/places-backend.googleapis.com?project=644903218595
-2. The same key (or a separate restricted key) works
-3. Set `GOOGLE_PLACES_API_KEY` (server-side, not `NEXT_PUBLIC_`) in `.env.local` and Vercel
+- **Live AggregateRating** — schema rating + review count auto-update every day so Google never sees a stale number (was hardcoded 4.9/47, now matches your real GBP listing). Wired in `app/layout.tsx` via `getLiveAggregateRating()`.
+- **Live "Open now" badge + today's hours** on `/contact` (`<LiveGooglePlaceCard />`)
+- **Live business hours** also surfaced on the contact card
 
-The Places API isn't required for the map embed itself.
+If your existing `NEXT_PUBLIC_GOOGLE_MAPS_EMBED_API_KEY` is unrestricted (or restricted to both Maps Embed + Places APIs), the live integration works automatically — no extra env var needed.
+
+#### Best-practice: separate server-side key (recommended)
+
+For tightest security, create a **second** API key:
+
+1. https://console.cloud.google.com/apis/credentials?project=644903218595 → +Create → API key
+2. Application restrictions: **None** (called server-side; Vercel doesn't expose static IPs)
+3. API restrictions: select only **Places API (New)**
+4. Add to Vercel as `GOOGLE_PLACES_API_KEY` (server-side, no `NEXT_PUBLIC_` prefix)
+5. Then go back to your `NEXT_PUBLIC_GOOGLE_MAPS_EMBED_API_KEY` and restrict it to **Maps Embed API only** (it's exposed to browsers)
+
+This isolates blast radius if either key ever leaks.
 
 ## Cost expectations
 
-- **Maps Embed API**: $0. Truly free, unlimited requests, no card required for that endpoint.
-- **Places API**: First 200K requests/month free per the Google Maps platform $200/month credit. A small business won't sniff that limit.
+- **Maps Embed API**: $0. Truly free, unlimited requests, exempt from credits.
+- **Places API (New) — Place Details (Atmosphere)**: $5 / 1,000 calls. Cached daily = ~30 calls/month total. Even without the $200/mo credit, you'd pay $0.15.
+- **Place Photos**: $7 / 1,000 calls. Currently not pulled (we serve your own photos). Available via `getGooglePhotoUrl()` if needed.
+- **Realistic monthly bill**: $0. The $200/month Maps Platform credit covers ~40,000 atmosphere calls. You'll use ~30.
 
 ## How to verify it's working after setup
 

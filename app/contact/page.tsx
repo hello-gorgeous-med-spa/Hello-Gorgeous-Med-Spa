@@ -4,6 +4,7 @@ import { CTA } from "@/components/CTA";
 import { ContactForm } from "@/components/ContactForm";
 import { ContactSMSOptIn } from "@/components/ContactSMSOptIn";
 import { GoogleMapEmbed } from "@/components/GoogleMapEmbed";
+import { LiveGooglePlaceCard } from "@/components/LiveGooglePlaceCard";
 import { FadeUp, Section } from "@/components/Section";
 import { BOOKING_URL, SQUARE_MAILING_LIST_ENROLL_URL } from "@/lib/flows";
 import { SITE, pageMetadata, siteJsonLd } from "@/lib/seo";
@@ -110,6 +111,12 @@ export default async function ContactPage() {
             </div>
           </FadeUp>
         </div>
+
+        <FadeUp delayMs={120}>
+          <div className="mt-6 max-w-5xl mx-auto">
+            <LiveGooglePlaceCard />
+          </div>
+        </FadeUp>
       </Section>
 
       <Section className="bg-white">

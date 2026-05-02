@@ -49,9 +49,13 @@ export const SITE = {
     { dayOfWeek: ["Saturday"], opens: "10:00", closes: "17:00" },
   ] as const,
   priceRange: "$$$" as const,
-  /** AggregateRating - only injected when both set. Update from GBP or manually. */
-  reviewRating: "4.9",
-  reviewCount: "47",
+  /** Static fallback for AggregateRating — synced from live Google Places API
+   *  on 2026-05-02 (4.4 / 116). The site head schema in `app/layout.tsx` pulls
+   *  live data via `getLiveAggregateRating()` and stays accurate daily; this
+   *  static value is only used if the Places API is unreachable. Visible UI
+   *  surfaces (Footer, Hero, RealPatientReviews) read these values directly. */
+  reviewRating: "4.4",
+  reviewCount: "116",
   /**
    * Google Search Console site verification meta tag value.
    * Issued by Site Verification API on 2026-05-01 for the canonical
@@ -870,7 +874,23 @@ export function pageMetadata({
   };
 }
 
-export function siteJsonLd() {
+/** Optional override for `aggregateRating` so callers can inject live
+ *  Google Places data. Passing `null` removes the rating block entirely
+ *  (e.g. while waiting on first sync). Defaults to SITE static values. */
+export interface AggregateRatingOverride {
+  ratingValue: string;
+  reviewCount: string;
+}
+
+export function siteJsonLd(opts?: { aggregateRating?: AggregateRatingOverride | null }) {
+  const ratingOverride = opts?.aggregateRating;
+  const aggregate =
+    ratingOverride === null
+      ? null
+      : ratingOverride ?? {
+          ratingValue: SITE.reviewRating,
+          reviewCount: SITE.reviewCount,
+        };
   return {
     "@context": "https://schema.org",
     "@type": "MedicalBusiness",
@@ -943,13 +963,17 @@ export function siteJsonLd() {
       SITE.social.instagram,
       SITE.social.tiktok,
     ],
-    aggregateRating: {
-      "@type": "AggregateRating",
-      ratingValue: SITE.reviewRating,
-      reviewCount: SITE.reviewCount,
-      bestRating: "5",
-      worstRating: "1",
-    },
+    ...(aggregate
+      ? {
+          aggregateRating: {
+            "@type": "AggregateRating",
+            ratingValue: aggregate.ratingValue,
+            reviewCount: aggregate.reviewCount,
+            bestRating: "5",
+            worstRating: "1",
+          },
+        }
+      : {}),
     knowsAbout: [
       "Morpheus8 Burst",
       "Morpheus8 Body",
@@ -968,7 +992,15 @@ export function siteJsonLd() {
   };
 }
 
-export function mainLocalBusinessJsonLd() {
+export function mainLocalBusinessJsonLd(opts?: { aggregateRating?: AggregateRatingOverride | null }) {
+  const ratingOverride = opts?.aggregateRating;
+  const aggregate =
+    ratingOverride === null
+      ? null
+      : ratingOverride ?? {
+          ratingValue: SITE.reviewRating,
+          reviewCount: SITE.reviewCount,
+        };
   return {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
@@ -1010,13 +1042,17 @@ export function mainLocalBusinessJsonLd() {
       SITE.social.instagram,
       SITE.social.tiktok,
     ],
-    aggregateRating: {
-      "@type": "AggregateRating",
-      ratingValue: SITE.reviewRating,
-      reviewCount: SITE.reviewCount,
-      bestRating: "5",
-      worstRating: "1",
-    },
+    ...(aggregate
+      ? {
+          aggregateRating: {
+            "@type": "AggregateRating",
+            ratingValue: aggregate.ratingValue,
+            reviewCount: aggregate.reviewCount,
+            bestRating: "5",
+            worstRating: "1",
+          },
+        }
+      : {}),
   };
 }
 
