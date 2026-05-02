@@ -59,7 +59,7 @@ const SERVICE_FILTERS: Record<ReviewServiceCategory, string[]> = {
     "zepbound",
     "glp",
   ],
-  morpheus8: ["morpheus", "rf microneedling", "skin tightening", "burst"],
+  morpheus8: ["morpheus", "microneedling", "rf microneedling", "skin tightening", "burst", "rf needling"],
   "lip-filler": ["lip filler", "lip"],
   fillers: ["filler", "dermal filler", "cheek", "chin"],
   general: [],
@@ -120,7 +120,7 @@ async function fetchReviews(
     const rows: DisplayReview[] = [];
     for (const r of data as ReviewRow[]) {
       const text = (r.review_text || "").trim();
-      if (text.length < 60 || text.length > 600) continue;
+      if (text.length < 50 || text.length > 1500) continue;
       const name = (r.client_name || "").trim();
       if (!name) continue;
       const key = text.slice(0, 120).toLowerCase();
@@ -143,9 +143,18 @@ async function fetchReviews(
 }
 
 function shortName(full: string): string {
-  const parts = full.trim().split(/\s+/);
-  if (parts.length === 1) return parts[0];
-  return `${parts[0]} ${parts[parts.length - 1].charAt(0).toUpperCase()}.`;
+  const parts = full.trim().split(/\s+/).filter(Boolean);
+  if (parts.length === 0) return full;
+  const cap = (s: string) =>
+    s.length > 1 ? s.charAt(0).toUpperCase() + s.slice(1) : s.toUpperCase();
+  if (parts.length === 1) return cap(parts[0]);
+  // Already in "Mona H." form? Pass through with first-letter capitalization.
+  if (/^[A-Z]\.?$/i.test(parts[parts.length - 1])) {
+    return parts.length === 2
+      ? `${cap(parts[0])} ${parts[1].charAt(0).toUpperCase()}.`
+      : `${cap(parts[0])} ${parts[parts.length - 1].charAt(0).toUpperCase()}.`;
+  }
+  return `${cap(parts[0])} ${parts[parts.length - 1].charAt(0).toUpperCase()}.`;
 }
 
 function StarRow({ rating }: { rating: number }) {
