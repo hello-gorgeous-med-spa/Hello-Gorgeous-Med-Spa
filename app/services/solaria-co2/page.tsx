@@ -389,31 +389,39 @@ export default function SolariaCO2Page() {
                 </span>
               </h2>
               <p className="text-black/70 max-w-2xl mx-auto mt-4 text-lg">
-                Reference results from InMode Solaria CO₂ — the same fractional laser
-                technology we run at Hello Gorgeous Med Spa, Oswego.
+                Real Hello Gorgeous patients first — then reference imagery from InMode (same
+                Solaria CO₂ device we use in Oswego).
               </p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {[
                 {
+                  src: "/images/solaria/michelle-solaria-co2-one-treatment-facial-before-after.jpg",
+                  alt: "Michelle before and after one InMode Solaria CO₂ fractional laser treatment at Hello Gorgeous Med Spa, Oswego IL — skin texture, tone, and rejuvenation",
+                  label: "Michelle — one Solaria treatment · our patient",
+                  patient: true,
+                  width: 472,
+                  height: 1024,
+                },
+                {
                   src: "/images/solaria/solaria-co2-full-face-before-after.png",
                   alt: "Solaria CO2 full face before and after — fine lines, deep wrinkles, and skin laxity dramatically improved after one treatment with InMode Solaria fractional laser",
-                  label: "Full face — fine lines + laxity",
+                  label: "Full face — fine lines + laxity (InMode reference)",
                 },
                 {
                   src: "/images/solaria/solaria-co2-acne-scars-before-after.png",
                   alt: "Solaria CO2 acne scar before and after — ice pick and boxcar acne scars smoothed with InMode Solaria fractional CO2 resurfacing",
-                  label: "Cheek — acne scarring",
+                  label: "Cheek — acne scarring (InMode reference)",
                 },
                 {
                   src: "/images/solaria/solaria-co2-pigmentation-before-after-right.png",
                   alt: "Solaria CO2 pigmentation before and after right cheek — sun damage, age spots and hyperpigmentation cleared after one InMode Solaria treatment",
-                  label: "Pigmentation + sun damage",
+                  label: "Pigmentation + sun damage (InMode reference)",
                 },
                 {
                   src: "/images/solaria/solaria-co2-pigmentation-before-after-left.png",
                   alt: "Solaria CO2 pigmentation before and after left cheek — uneven skin tone and brown spots resolved after a single InMode Solaria fractional laser session",
-                  label: "Pigmentation + tone",
+                  label: "Pigmentation + tone (InMode reference)",
                 },
               ].map((photo) => (
                 <figure
@@ -424,13 +432,20 @@ export default function SolariaCO2Page() {
                     <Image
                       src={photo.src}
                       alt={photo.alt}
-                      width={1024}
-                      height={409}
+                      width={"width" in photo && photo.width ? photo.width : 1024}
+                      height={"height" in photo && photo.height ? photo.height : 409}
                       className="w-full h-auto"
                       sizes="(max-width: 768px) 100vw, 50vw"
                     />
-                    <div className="absolute top-3 left-3 px-3 py-1 bg-black text-white rounded-lg text-xs font-bold tracking-wider">
-                      BEFORE / AFTER
+                    <div className="absolute top-3 left-3 flex flex-wrap gap-2">
+                      <span className="px-3 py-1 bg-black text-white rounded-lg text-xs font-bold tracking-wider">
+                        BEFORE / AFTER
+                      </span>
+                      {"patient" in photo && photo.patient && (
+                        <span className="px-3 py-1 bg-[#E6007E] text-white rounded-lg text-xs font-bold tracking-wider">
+                          OUR PATIENT
+                        </span>
+                      )}
                     </div>
                   </div>
                   <figcaption className="p-4">
@@ -440,10 +455,9 @@ export default function SolariaCO2Page() {
               ))}
             </div>
             <p className="mt-6 text-center text-sm text-black/60 max-w-2xl mx-auto">
-              Reference results courtesy of InMode (manufacturer of the Solaria CO₂
-              system). Hello Gorgeous Med Spa runs the same FDA-cleared device. Individual
-              results vary by skin type, treatment plan, and aftercare compliance. Free
-              consultation required.
+              Michelle’s photos: Hello Gorgeous patient, consent on file. Additional panels:
+              reference imagery courtesy of InMode (Solaria CO₂ manufacturer). We operate the
+              same FDA-cleared device. Individual results vary. Free consultation required.
             </p>
             <div className="text-center mt-8">
               <Link

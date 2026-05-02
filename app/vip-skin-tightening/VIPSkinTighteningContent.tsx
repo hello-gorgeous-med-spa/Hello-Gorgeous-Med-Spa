@@ -219,20 +219,20 @@ export function VIPSkinTighteningContent() {
         </div>
       </section>
 
-      {/* Before/After — Michelle (Contour Lift) */}
+      {/* Before/After — Michelle (Solaria CO₂ — not Quantum) */}
       <section className="px-4 py-12 border-t border-white/10">
         <div className="max-w-lg mx-auto text-center">
-          <h2 className="text-2xl font-bold mb-2">Real patient result</h2>
+          <h2 className="text-2xl font-bold mb-2">Real Solaria result</h2>
           <p className="text-white/70 text-sm mb-6">
-            Michelle — before &amp; after (Hello Gorgeous Contour Lift). See more clinical outcomes on our Quantum RF page.
+            Michelle — before &amp; after <span className="font-semibold text-white">one Solaria CO₂</span> treatment at Hello Gorgeous (not Quantum RF). See our full Solaria gallery for more.
           </p>
           <Link
-            href="/services/quantum-rf#quantum-results"
+            href="/services/solaria-co2"
             className="relative block overflow-hidden rounded-2xl border border-pink-500/40 bg-zinc-900"
           >
             <Image
-              src="/images/quantum-rf/michelle-colby-quantum-contour-lift-chin-neck-before-after.jpg"
-              alt="Michelle before and after Hello Gorgeous Contour Lift with Quantum RF, Hello Gorgeous Med Spa Oswego"
+              src="/images/solaria/michelle-solaria-co2-one-treatment-facial-before-after.jpg"
+              alt="Michelle before and after one InMode Solaria CO₂ fractional laser treatment, Hello Gorgeous Med Spa Oswego IL"
               width={472}
               height={1024}
               className="h-auto w-full"
@@ -240,10 +240,10 @@ export function VIPSkinTighteningContent() {
             />
           </Link>
           <Link
-            href="/services/quantum-rf"
+            href="/services/solaria-co2"
             className="mt-6 inline-flex items-center justify-center rounded-xl bg-pink-500 px-6 py-3 font-semibold text-white hover:bg-pink-600 transition-colors"
           >
-            Full Quantum RF details &amp; Model Days →
+            Solaria CO₂ details &amp; pricing →
           </Link>
         </div>
       </section>

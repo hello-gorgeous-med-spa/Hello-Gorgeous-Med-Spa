@@ -111,13 +111,6 @@ export const revalidate = 3600;
 
 const CLINICAL_RESULT_SLIDES: QuantumSlide[] = [
   {
-    src: "/images/quantum-rf/michelle-colby-quantum-contour-lift-chin-neck-before-after.jpg",
-    label: "Patient result · lower face (Michelle)",
-    alt: "Before and after Hello Gorgeous Contour Lift with InMode Quantum RF and Morpheus8 — Michelle, lower face and skin quality improvement, Oswego IL med spa",
-    caption:
-      "Real patient; photo on file. Individual results vary. Not a guarantee of your outcome. Medical evaluation required.",
-  },
-  {
     src: "/images/quantum-rf/clinical-ba-upper-arm-tightening.png",
     label: "Upper arms",
     alt: "Clinical before and after: Quantum RF non-surgical upper arm skin tightening and contouring, reduced laxity in triceps area, Oswego med spa",
