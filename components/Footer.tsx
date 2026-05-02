@@ -7,13 +7,30 @@ import { LocationsServed } from "@/components/LocationsServed";
 import { BOOKING_URL, SQUARE_MAILING_LIST_ENROLL_URL } from "@/lib/flows";
 import { SITE, SERVICES, servicePublicPath } from "@/lib/seo";
 import type { SiteSettings } from "@/lib/cms-readers";
+import type { GooglePlace } from "@/lib/seo/google-places";
 
 const DEFAULT_TAGLINE = "Luxury, clinical-meets-beauty aesthetics with results you can trust. Experience personalized care that makes you feel confident and gorgeous.";
 
-export function Footer({ siteSettings }: { siteSettings?: SiteSettings | null }) {
+export function Footer({
+  siteSettings,
+  livePlace,
+}: {
+  siteSettings?: SiteSettings | null;
+  livePlace?: GooglePlace | null;
+}) {
   const tagline = siteSettings?.tagline?.trim() || DEFAULT_TAGLINE;
   const hours = siteSettings?.business_hours;
   const hasHours = hours && (hours.mon_fri || hours.sat || hours.sun);
+
+  // Prefer live Google data; fall back to SITE static values when unavailable.
+  const ratingValue = livePlace?.rating
+    ? livePlace.rating.toFixed(1)
+    : SITE.reviewRating;
+  const reviewCount = livePlace?.userRatingCount
+    ? String(livePlace.userRatingCount)
+    : SITE.reviewCount;
+  const isOpenNow = livePlace?.openNow === true;
+  const isClosedNow = livePlace?.openNow === false;
 
   return (
     <footer className="bg-black text-white border-t-2 border-black">
@@ -55,10 +72,34 @@ export function Footer({ siteSettings }: { siteSettings?: SiteSettings | null })
                   </svg>
                 ))}
               </span>
-              <span className="font-semibold">{SITE.reviewRating} Stars</span>
+              <span className="font-semibold">{ratingValue} Stars</span>
               <span className="text-white/80">·</span>
-              <span>{SITE.reviewCount} Google Reviews</span>
+              <span>{reviewCount} Google Reviews</span>
             </a>
+            {(isOpenNow || isClosedNow) && (
+              <div className="mt-3">
+                <span
+                  className={`inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-xs font-bold uppercase tracking-wider border ${
+                    isOpenNow
+                      ? "border-green-400 bg-green-400/15 text-green-300"
+                      : "border-white/30 bg-white/5 text-white/70"
+                  }`}
+                >
+                  <span
+                    className={`inline-block h-2 w-2 rounded-full ${
+                      isOpenNow ? "bg-green-400 animate-pulse" : "bg-white/40"
+                    }`}
+                    aria-hidden
+                  />
+                  {isOpenNow ? "Open now" : "Closed"}
+                  {livePlace?.weekdayDescriptions?.[0] && (
+                    <span className="font-normal normal-case tracking-normal text-white/80">
+                      · {todayHoursFromDescriptions(livePlace.weekdayDescriptions)}
+                    </span>
+                  )}
+                </span>
+              </div>
+            )}
             <div className="mt-6 flex items-center gap-4">
               <a
                 href={SITE.social.instagram}
@@ -425,4 +466,13 @@ export function Footer({ siteSettings }: { siteSettings?: SiteSettings | null })
       </div>
     </footer>
   );
+}
+
+/** Pull today's day-of-week line from Google's weekdayDescriptions array
+ *  (e.g. "Saturday: 10:00 AM – 5:00 PM") and strip the day prefix. */
+function todayHoursFromDescriptions(descriptions: string[]): string {
+  const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+  const today = days[new Date().getDay()];
+  const line = descriptions.find((d) => d.toLowerCase().startsWith(today.toLowerCase())) ?? descriptions[0];
+  return line.replace(/^[A-Za-z]+:\s*/, "");
 }

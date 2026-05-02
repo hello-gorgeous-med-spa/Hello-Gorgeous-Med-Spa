@@ -18,6 +18,7 @@ import { HelloGorgeousAssistant } from "@/components/HelloGorgeousAssistant";
 import { ImmediateCareStrip } from "@/components/ImmediateCareBanner";
 import BookingTransitionBanner from "@/components/BookingTransitionBanner";
 import type { SiteSettings } from "@/lib/cms-readers";
+import type { GooglePlace } from "@/lib/seo/google-places";
 
 // Routes that should NOT show website navigation (minimal layout: no header/footer/chat/CTA)
 const ADMIN_ROUTES = [
@@ -35,9 +36,11 @@ const ADMIN_ROUTES = [
 export function ConditionalLayout({
   children,
   siteSettings,
+  livePlace,
 }: {
   children: React.ReactNode;
   siteSettings?: SiteSettings | null;
+  livePlace?: GooglePlace | null;
 }) {
   const pathname = usePathname();
   
@@ -64,7 +67,7 @@ export function ConditionalLayout({
         <main className="pt-16 w-full min-w-0">
           <div className="min-h-screen min-h-[100dvh] w-full max-w-full min-w-0 bg-white pb-20 md:pb-0">
             {children}
-            <Footer siteSettings={siteSettings} />
+            <Footer siteSettings={siteSettings} livePlace={livePlace} />
           </div>
         </main>
         <StickyMobileCTA />
