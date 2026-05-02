@@ -528,12 +528,14 @@ export const SERVICES: readonly Service[] = [
   },
   {
     slug: "ipl-photofacial",
+    publicPath: "/services/ipl-photofacial",
     name: "IPL Photofacial",
     category: "Aesthetics",
-    short: "Target sun damage and redness with light-based skin support.",
+    short:
+      "Fade sun spots, age spots, redness, and rosacea in a single session with Intense Pulsed Light. From $250.",
     heroTitle: "IPL Photofacial in Oswego, IL",
     heroSubtitle:
-      "A light-based approach designed to support clearer, more even-looking skin.",
+      "Intense Pulsed Light photofacial — single-session results for sun damage, redness, and uneven tone.",
     faqs: [
       {
         question: "How many sessions are typical?",
