@@ -96,6 +96,51 @@ PRESETS: dict[str, dict] = {
         "link": "https://hellogorgeousmedspa.com/services/solaria-co2",
         "image": "https://hellogorgeousmedspa.com/images/solaria/solaria-device-hero.png",
     },
+    "ipl-photofacial-launch": {
+        "summary": (
+            "★ NEW at Hello Gorgeous: IPL Photofacial — Intense Pulsed Light skin "
+            "rejuvenation is now booking in Oswego, IL.\n\n"
+            "What ONE IPL session can do:\n"
+            "• Fade sun spots + age spots (visible in 7–10 days)\n"
+            "• Reduce facial redness + rosacea flushing\n"
+            "• Clear broken capillaries on cheeks & nose\n"
+            "• Lighten freckles & uneven tone\n"
+            "• Treat sun-damaged hands and chest\n\n"
+            "Why people love IPL: it hits multiple skin concerns in a single 20–45 "
+            "minute session, with zero real downtime — just brown spots that darken "
+            "and flake off over the next week, leaving clearer skin behind.\n\n"
+            "Pricing: from $250 per area. Series of 3 bundled at preferred pricing. "
+            "Free consultation required.\n\n"
+            "Best window: fall through spring (we screen for tan and sun exposure).\n\n"
+            "Serving Oswego, Naperville, Aurora, Plainfield, Yorkville.\n\n"
+            "Book free consult: 630-636-6193 or "
+            "https://hellogorgeousmedspa.com/services/ipl-photofacial"
+        ),
+        "link": "https://hellogorgeousmedspa.com/services/ipl-photofacial",
+        "image": "https://www.hellogorgeousmedspa.com/images/ipl-photofacial/ipl-photofacial-zemits-treatment-hero.png",
+    },
+    "solaria-co2-live": {
+        "summary": (
+            "🚨 SOLARIA CO₂ IS LIVE & BOOKING — Hello Gorgeous Med Spa, Oswego.\n\n"
+            "We are officially live with the InMode Solaria CO₂ fractional laser — "
+            "the gold standard for skin resurfacing — and the results are stunning.\n\n"
+            "Real Solaria results (see photos):\n"
+            "• Acne scarring → smoothed in a single session\n"
+            "• Sun damage + brown spots → cleared\n"
+            "• Deep wrinkles → softened\n"
+            "• Uneven tone + texture → resurfaced\n\n"
+            "$899 Full Face Launch Special — typically $1,500+ at plastic surgery "
+            "offices in Naperville/Aurora. VIP early-list members receive an "
+            "additional $100 credit.\n\n"
+            "5–7 days of social downtime. Free consultation required to confirm "
+            "candidacy and customize your plan.\n\n"
+            "Serving Oswego, Naperville, Aurora, Plainfield, Yorkville.\n\n"
+            "Book your Solaria consult: 630-636-6193 or "
+            "https://hellogorgeousmedspa.com/services/solaria-co2"
+        ),
+        "link": "https://hellogorgeousmedspa.com/services/solaria-co2",
+        "image": "https://www.hellogorgeousmedspa.com/images/solaria/solaria-co2-full-face-before-after.png",
+    },
     "morpheus8-burst-deep": {
         "summary": (
             "★ NEW at Hello Gorgeous: Morpheus8 Burst + Deep — the newest InMode RF microneedling "
