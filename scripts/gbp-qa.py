@@ -1,8 +1,14 @@
 #!/usr/bin/env python3
 """
-Publish a question + owner answer to Google Business Profile Q&A.
+Generate paste-ready Q&A entries for Google Business Profile.
 
-Why it matters:
+Status: Google deprecated the My Business Q&A API in 2024. Q&A entries
+still exist as a feature in Google Maps/Search and are still indexed for
+ranking, but the API no longer accepts posts. This script now writes the
+preset entries to a markdown file you can paste directly into the Google
+Maps app on your phone (Profile -> Updates -> Q&A) in ~2 minutes.
+
+Why Q&A still matters:
   - Q&A entries appear directly on your knowledge panel and local pack
     listing. Google indexes them as content for ranking.
   - The owner can post BOTH the question and the answer (allowed by
@@ -12,13 +18,16 @@ Why it matters:
     Q&A captures long-tail search traffic on the listing itself.
 
 Usage:
-  python3 scripts/gbp-qa.py --preset solaria-co2-only-fox-valley
-  python3 scripts/gbp-qa.py --question "..." --answer "..."
-  python3 scripts/gbp-qa.py --list
+  python3 scripts/gbp-qa.py                      # writes all presets to docs/
+  python3 scripts/gbp-qa.py --preset NAME        # just print one entry
 
-Env (read from .env.local):
-  GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, GOOGLE_REFRESH_TOKEN
-  GOOGLE_BUSINESS_ACCOUNT_ID, GOOGLE_BUSINESS_LOCATION_ID
+How to actually post (manual, ~2 min):
+  1. Open the Google Maps app on your phone (signed in as the owner)
+  2. Profile (your photo, top right) -> Your Business profile
+  3. Tap the spa -> "Q&A" tab
+  4. Tap "Ask a question", paste the question, post
+  5. Tap your new question -> "Answer", paste the answer, post
+  6. Repeat for each entry
 """
 
 from __future__ import annotations
@@ -175,37 +184,76 @@ def list_questions(token: str, location_id: str) -> None:
             print(f"    ↳ answer: {ans_text}")
 
 
+def write_paste_file() -> Path:
+    """Write all presets to a markdown file the owner can paste from."""
+    import datetime as dt
+
+    out = REPO_ROOT / "docs" / f"GBP_QA_PASTE_{dt.date.today().isoformat()}.md"
+    out.parent.mkdir(parents=True, exist_ok=True)
+
+    lines: list[str] = []
+    lines.append("# Google Business Profile — Q&A entries to paste")
+    lines.append("")
+    lines.append(
+        "Google deprecated the Q&A API, so these need to be added manually. "
+        "Total time: ~2 minutes from your phone."
+    )
+    lines.append("")
+    lines.append("## How to post each one (mobile, fastest)")
+    lines.append("")
+    lines.append("1. Open **Google Maps** on your phone (signed in as the owner)")
+    lines.append("2. Tap your profile photo (top right) -> **Your Business profile**")
+    lines.append("3. Tap **Hello Gorgeous Med Spa** -> the **Q&A** tab")
+    lines.append("4. Tap **Ask a question**, paste the **question**, post")
+    lines.append("5. Tap the question you just posted -> **Answer**, paste the **answer**, post")
+    lines.append("6. Repeat for each entry below")
+    lines.append("")
+    lines.append("(Owner-posted Q&A is allowed by Google policy as long as the")
+    lines.append("question is something a customer might genuinely ask.)")
+    lines.append("")
+    lines.append("---")
+    lines.append("")
+
+    for i, (key, p) in enumerate(PRESETS.items(), start=1):
+        lines.append(f"## {i}. `{key}`")
+        lines.append("")
+        lines.append("**Question (paste this):**")
+        lines.append("")
+        lines.append("```")
+        lines.append(p["question"])
+        lines.append("```")
+        lines.append("")
+        lines.append("**Answer (paste this):**")
+        lines.append("")
+        lines.append("```")
+        lines.append(p["answer"])
+        lines.append("```")
+        lines.append("")
+        lines.append("---")
+        lines.append("")
+
+    out.write_text("\n".join(lines))
+    return out
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--preset", choices=list(PRESETS.keys()))
-    parser.add_argument("--question")
-    parser.add_argument("--answer")
-    parser.add_argument("--list", action="store_true")
+    parser.add_argument("--preset", choices=list(PRESETS.keys()),
+                        help="Print a single Q&A entry to stdout (no file write).")
     args = parser.parse_args()
-
-    env = load_env()
-    needed = ["GOOGLE_CLIENT_ID", "GOOGLE_CLIENT_SECRET", "GOOGLE_REFRESH_TOKEN",
-              "GOOGLE_BUSINESS_LOCATION_ID"]
-    miss = [k for k in needed if not env.get(k)]
-    if miss:
-        sys.exit(f"Missing env vars: {', '.join(miss)}")
-
-    token = refresh_token(env)
-    location_id = env["GOOGLE_BUSINESS_LOCATION_ID"]
-
-    if args.list:
-        list_questions(token, location_id)
-        return 0
 
     if args.preset:
         p = PRESETS[args.preset]
-        q, a = p["question"], p["answer"]
-    elif args.question and args.answer:
-        q, a = args.question.strip(), args.answer.strip()
-    else:
-        sys.exit("Provide --preset NAME, or --question TEXT --answer TEXT, or --list.")
+        print(f"QUESTION:\n{p['question']}\n")
+        print(f"ANSWER:\n{p['answer']}")
+        return 0
 
-    post_question_and_answer(token, location_id, q, a)
+    out = write_paste_file()
+    print(f"Wrote {len(PRESETS)} paste-ready Q&A entries to:")
+    print(f"  {out.relative_to(REPO_ROOT)}")
+    print()
+    print("Open Google Maps on your phone -> Your Business profile -> Q&A tab")
+    print("and paste each one. ~2 minutes total.")
     return 0
 
 
