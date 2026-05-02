@@ -198,10 +198,10 @@ export const TOP_SERVICES: ServiceConfig[] = [
   },
   {
     slug: 'co2-laser',
-    name: 'CO₂ Fractional Laser',
+    name: 'Solaria CO₂ Fractional Laser',
     shortName: 'CO₂ Laser',
-    priceDisplay: 'From $800',
-    description: 'The gold standard in skin resurfacing — dramatically improve wrinkles, scars, and texture with our InMode Solaria CO₂ fractional laser.',
+    priceDisplay: '$899 Full Face — Launch Special',
+    description: 'The only InMode Solaria CO₂ fractional laser in the Fox Valley — full face for $899 (launch special, regularly $1,500+). Dramatically improve wrinkles, acne scars, sun damage, and skin texture in one treatment.',
     heroImage: '/images/services/hg-laser-device.png',
     keywords: ['co2 laser', 'fractional co2', 'co2 laser resurfacing', 'skin resurfacing', 'laser skin treatment', 'wrinkle treatment', 'scar treatment', 'solaria laser', 'inmode solaria'],
     treatmentAreas: [
@@ -219,6 +219,7 @@ export const TOP_SERVICES: ServiceConfig[] = [
       { icon: '✨', title: 'Collagen Remodel', desc: 'Continues improving for months' },
     ],
     faqs: [
+      { question: 'How much does Solaria CO₂ cost?', answer: 'We are running a launch special: $899 for a full face Solaria CO₂ treatment (regularly $1,500+ elsewhere). Other areas (neck, eyes, hands) are priced separately. We are the only practice in the Fox Valley currently offering Solaria CO₂.' },
       { question: 'What is CO₂ fractional laser?', answer: 'CO₂ laser creates tiny columns of treatment in the skin, triggering dramatic collagen remodeling. It\'s the most effective treatment for deep wrinkles, scars, and significant sun damage.' },
       { question: 'What\'s the downtime?', answer: 'Plan for 5-7 days of downtime. Your skin will be red and may peel as it heals. Most clients take a week off work. The results are worth it!' },
       { question: 'How many treatments do I need?', answer: 'Many clients see dramatic results from just 1-2 treatments. For severe scarring or damage, 2-3 sessions may be recommended.' },

@@ -68,8 +68,17 @@ export default function ServicesPage() {
               Deep-dive pages with FAQs, pricing transparency, what to expect, and links to book a free consult.
             </p>
           </div>
-          <div className="grid gap-6 md:grid-cols-3 mb-12">
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4 mb-12">
             {[
+              {
+                href: "/services/solaria-co2",
+                eyebrow: "★ NEW · Only one in Fox Valley",
+                title: "Solaria CO₂ Laser — $899",
+                blurb:
+                  "InMode Solaria fractional CO₂. Full face for $899 (reg. $1,500+). Wrinkles, acne scars, sun damage in one session. Launch pricing.",
+                cta: "See the launch special",
+                accent: true,
+              },
               {
                 href: "/services/botox",
                 eyebrow: "Injectables · Most popular",
@@ -98,16 +107,38 @@ export default function ServicesPage() {
               <FadeUp key={card.href} delayMs={60 * idx}>
                 <Link
                   href={card.href}
-                  className="group block rounded-3xl border-4 border-black bg-white p-6 shadow-[8px_8px_0_0_rgba(230,0,126,0.35)] hover:shadow-[10px_10px_0_0_rgba(230,0,126,0.55)] hover:-translate-y-0.5 transition"
+                  className={`group block rounded-3xl border-4 border-black p-6 hover:-translate-y-0.5 transition ${
+                    card.accent
+                      ? "bg-gradient-to-br from-[#FF2D8E] via-[#E6007E] to-[#9b0a4d] text-white shadow-[8px_8px_0_0_rgba(0,0,0,0.85)] hover:shadow-[10px_10px_0_0_rgba(0,0,0,1)]"
+                      : "bg-white shadow-[8px_8px_0_0_rgba(230,0,126,0.35)] hover:shadow-[10px_10px_0_0_rgba(230,0,126,0.55)]"
+                  }`}
                 >
-                  <p className="text-[#E6007E] text-[10px] md:text-xs font-bold uppercase tracking-[0.2em]">
+                  <p
+                    className={`text-[10px] md:text-xs font-bold uppercase tracking-[0.2em] ${
+                      card.accent ? "text-white/90" : "text-[#E6007E]"
+                    }`}
+                  >
                     {card.eyebrow}
                   </p>
-                  <h3 className="mt-2 text-xl md:text-2xl font-black text-black">
+                  <h3
+                    className={`mt-2 text-xl md:text-2xl font-black ${
+                      card.accent ? "text-white" : "text-black"
+                    }`}
+                  >
                     {card.title}
                   </h3>
-                  <p className="mt-3 text-sm text-black/80 leading-relaxed">{card.blurb}</p>
-                  <p className="mt-5 text-sm font-bold text-[#E6007E] inline-flex items-center gap-1">
+                  <p
+                    className={`mt-3 text-sm leading-relaxed ${
+                      card.accent ? "text-white/95" : "text-black/80"
+                    }`}
+                  >
+                    {card.blurb}
+                  </p>
+                  <p
+                    className={`mt-5 text-sm font-bold inline-flex items-center gap-1 ${
+                      card.accent ? "text-white" : "text-[#E6007E]"
+                    }`}
+                  >
                     {card.cta}
                     <span className="inline-block transition-transform group-hover:translate-x-1">→</span>
                   </p>

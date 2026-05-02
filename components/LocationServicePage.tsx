@@ -13,6 +13,8 @@ const REVIEW_CATEGORY_BY_SERVICE: Record<string, ReviewServiceCategory> = {
   'lip-filler': 'lip-filler',
   'fillers': 'fillers',
   'dermal-fillers': 'fillers',
+  'co2-laser': 'co2-laser',
+  'solaria-co2': 'co2-laser',
 };
 
 // ============================================================

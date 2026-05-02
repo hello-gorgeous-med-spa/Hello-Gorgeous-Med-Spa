@@ -2,14 +2,18 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { TechBlogPromo } from "@/components/TechBlogPromo";
+import { RealPatientReviews } from "@/components/RealPatientReviews";
 import { pageMetadata, SITE, siteJsonLd } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Solaria CO₂ Fractional Laser | Advanced Skin Resurfacing | Oswego IL",
+  title:
+    "Solaria CO₂ Laser in Oswego, IL — $899 Full Face Launch Special | Hello Gorgeous Med Spa",
   description:
-    "InMode Solaria CO₂ fractional laser at Hello Gorgeous Med Spa Oswego IL. Treat deep wrinkles, acne scars, sun damage, skin tightening. Gold standard skin resurfacing. Consultation required.",
+    "The only InMode Solaria CO₂ fractional laser in the Fox Valley. Full face skin resurfacing for $899 (limited launch pricing). Treat deep wrinkles, acne scars, sun damage in Oswego, Naperville, Aurora, Plainfield. Book your free consultation.",
   path: "/services/solaria-co2",
 });
+
+export const revalidate = 3600;
 
 const SOLARIA_FAQS = [
   {
@@ -45,7 +49,7 @@ const SOLARIA_FAQS = [
   {
     question: "How much does Solaria CO₂ cost?",
     answer:
-      "Pricing depends on the treatment area and depth. Full face treatments typically start at $1,500+. Schedule a consultation for personalized pricing.",
+      "Right now we are running an exclusive launch special: $899 for a full face Solaria CO₂ treatment (regularly $1,500+). Other treatment areas (neck, eyes, hands, body) are priced separately — schedule a free consultation for a personalized plan. We are the only practice in the Fox Valley currently offering Solaria CO₂.",
   },
   {
     question: "Can I combine CO₂ with other treatments?",
@@ -70,6 +74,63 @@ const BADGES = [
   { label: "InMode Certified", emoji: "🎓" },
 ];
 
+const SOLARIA_PROCEDURE_JSONLD = {
+  "@context": "https://schema.org",
+  "@type": "MedicalProcedure",
+  name: "Solaria CO₂ Fractional Laser Skin Resurfacing",
+  alternateName: [
+    "CO2 Laser Resurfacing",
+    "Fractional CO2 Laser",
+    "InMode Solaria CO2",
+    "CO2 Laser Oswego",
+    "CO2 Laser Naperville",
+  ],
+  description:
+    "Fractional ablative CO₂ laser treatment using the InMode Solaria platform. Treats deep wrinkles, acne scars, sun damage, hyperpigmentation, and skin laxity in a single session.",
+  procedureType: "Cosmetic",
+  bodyLocation: ["Face", "Neck", "Décolleté", "Hands"],
+  preparation: "Stop retinoids/AHAs/BHAs 7 days prior, avoid sun exposure 2 weeks prior, arrive with clean makeup-free skin.",
+  followup: "5–7 days social downtime, SPF 50+ once healed, avoid picking peeling skin, stay hydrated.",
+  provider: {
+    "@type": "MedicalBusiness",
+    name: SITE.name,
+    url: SITE.url,
+    telephone: SITE.phone,
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: SITE.address.streetAddress,
+      addressLocality: SITE.address.addressLocality,
+      addressRegion: SITE.address.addressRegion,
+      postalCode: SITE.address.postalCode,
+    },
+    areaServed: ["Oswego, IL", "Naperville, IL", "Aurora, IL", "Plainfield, IL", "Yorkville, IL"],
+  },
+  offers: {
+    "@type": "Offer",
+    name: "Solaria CO₂ Full Face Launch Special",
+    description: "Full-face Solaria CO₂ fractional laser treatment — limited launch pricing.",
+    price: "899",
+    priceCurrency: "USD",
+    availability: "https://schema.org/LimitedAvailability",
+    url: `${SITE.url}/services/solaria-co2`,
+    seller: {
+      "@type": "MedicalBusiness",
+      name: SITE.name,
+      telephone: SITE.phone,
+    },
+  },
+};
+
+const SOLARIA_FAQ_JSONLD = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: SOLARIA_FAQS.map((f) => ({
+    "@type": "Question",
+    name: f.question,
+    acceptedAnswer: { "@type": "Answer", text: f.answer },
+  })),
+};
+
 export default function SolariaCO2Page() {
   return (
     <>
@@ -77,57 +138,90 @@ export default function SolariaCO2Page() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(siteJsonLd()) }}
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(SOLARIA_PROCEDURE_JSONLD) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(SOLARIA_FAQ_JSONLD) }}
+      />
       <main className="bg-white">
-        {/* Hero */}
+        {/* Hero — launch hero with $899 anchor + "only in the Fox Valley" moat */}
         <section className="relative bg-black text-white overflow-hidden">
-          <div className="max-w-6xl mx-auto px-4 py-16 md:py-24">
-            <p className="text-pink-300 text-sm font-semibold uppercase tracking-wider mb-4">
-              Now Available
+          <div
+            aria-hidden
+            className="absolute inset-0 -z-0 pointer-events-none"
+            style={{
+              backgroundImage:
+                "radial-gradient(80% 50% at 90% 0%, rgba(230,0,126,0.35) 0%, rgba(0,0,0,0) 60%), radial-gradient(60% 50% at 10% 100%, rgba(255,45,142,0.25) 0%, rgba(0,0,0,0) 60%)",
+            }}
+          />
+          <div className="relative max-w-6xl mx-auto px-4 py-16 md:py-24">
+            <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 backdrop-blur px-4 py-1.5 text-xs font-semibold uppercase tracking-widest mb-5">
+              <span className="h-2 w-2 rounded-full bg-[#E6007E] animate-pulse" />
+              Launch Special · Limited Spots
+            </span>
+            <p className="text-[#FFB8DC] text-xs md:text-sm font-bold uppercase tracking-[0.2em] mb-3">
+              Oswego · Naperville · Aurora · Plainfield
             </p>
-            <h1 className="text-4xl md:text-6xl font-bold leading-tight mb-6">
-              Solaria CO₂
+            <h1 className="text-4xl md:text-6xl font-black leading-[1.05] mb-5">
+              Solaria CO₂ Laser
               <br />
-              Fractional Laser
+              <span
+                className="bg-gradient-to-r from-[#FFB8DC] via-[#FF2D8E] to-[#E6007E] bg-clip-text text-transparent"
+                style={{ WebkitBackgroundClip: "text" }}
+              >
+                Full Face for $899
+              </span>
             </h1>
-            <p className="text-xl text-white/90 max-w-xl mb-8">
-              The gold standard in skin resurfacing. One treatment. Dramatic transformation.
+            <p className="text-xl md:text-2xl text-white/95 max-w-2xl mb-3 font-semibold">
+              The only practice in the Fox Valley offering Solaria CO₂.
             </p>
-            <p className="text-white/80 mb-10">
-              Advanced ablative laser technology by{" "}
+            <p className="text-base md:text-lg text-white/80 max-w-2xl mb-8">
+              The gold standard in skin resurfacing — typically{" "}
+              <span className="line-through opacity-60">$1,500+</span> elsewhere.
+              We're running a launch special at <span className="font-bold text-white">$899 full face</span>{" "}
+              while we introduce this technology to the area. One treatment. Dramatic transformation.
+            </p>
+            <p className="text-white/70 mb-10 max-w-2xl text-sm">
+              Powered by{" "}
               <a
                 href="https://www.inmodemd.com/workstation/solaria/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="font-semibold text-pink-300 hover:text-pink-200 underline underline-offset-2"
+                className="font-semibold text-[#FFB8DC] hover:text-white underline underline-offset-2"
               >
                 InMode Solaria
               </a>{" "}
-              for deep wrinkles, acne scars, sun damage, and skin tightening.
+              — fractional ablative laser for deep wrinkles, acne scars, sun damage, hyperpigmentation,
+              and skin tightening.
             </p>
             <div className="flex flex-wrap gap-4">
               <Link
-                href="/stretch-mark-treatment-oswego-il"
+                href="/book"
+                className="inline-flex items-center justify-center rounded-lg bg-[#E6007E] px-6 py-3 font-semibold text-white hover:bg-[#c9006e] transition shadow-[0_8px_24px_rgba(230,0,126,0.45)]"
+              >
+                Book Free Consultation →
+              </Link>
+              <a
+                href={`tel:${SITE.phone}`}
                 className="inline-flex items-center justify-center rounded-lg border-2 border-white px-6 py-3 font-semibold text-white hover:bg-white hover:text-black transition"
               >
-                Body Resurfacing & Stretch Marks →
-              </Link>
+                Call {SITE.phone}
+              </a>
               <Link
                 href="/solaria-co2-vip"
-                className="inline-flex items-center justify-center rounded-lg bg-[#E6007E] px-6 py-3 font-semibold text-white hover:bg-[#c9006e] transition"
+                className="inline-flex items-center justify-center rounded-lg border-2 border-[#FFB8DC] px-6 py-3 font-semibold text-[#FFB8DC] hover:bg-[#FFB8DC] hover:text-black transition"
               >
-                Join VIP Waitlist — $100 Off
-              </Link>
-              <Link
-                href="/book"
-                className="inline-flex items-center justify-center rounded-lg border-2 border-white px-6 py-3 font-semibold text-white hover:bg-white hover:text-black transition"
-              >
-                Book Consultation
+                VIP Waitlist — $100 Credit
               </Link>
             </div>
             <div className="mt-10 flex flex-wrap gap-6 text-sm text-white/70">
-              <span>5-7 Days Downtime</span>
-              <span>Results in 3-6 Months</span>
-              <span>Consultation Required</span>
+              <span>✓ FDA-cleared InMode device</span>
+              <span>✓ 5–7 days downtime</span>
+              <span>✓ Results visible 7–10 days, peak at 3–6 months</span>
+              <span>✓ Free consultation required</span>
             </div>
           </div>
         </section>
@@ -192,34 +286,72 @@ export default function SolariaCO2Page() {
           </div>
         </section>
 
-        {/* Solaria CO₂ Pricing — single, package of 3, trifecta */}
-        <section className="py-16 md:py-20 bg-zinc-50">
+        {/* Pricing — launch special $899 full face is the lead */}
+        <section className="py-16 md:py-20 bg-gradient-to-b from-rose-50/40 via-white to-white">
           <div className="max-w-6xl mx-auto px-4">
-            <h2 className="text-3xl font-bold text-black mb-2 text-center">Solaria CO₂ Pricing</h2>
-            <p className="text-gray-600 text-center mb-10 max-w-xl mx-auto">
-              Gold standard skin resurfacing. Single session, package of 3, or the full Trifecta (Solaria + Morpheus8 + Quantum).
+            <p className="text-[#FF2D8E] text-xs md:text-sm font-bold uppercase tracking-[0.25em] mb-2 text-center">
+              Launch pricing
             </p>
-            <div className="grid sm:grid-cols-3 gap-6 max-w-4xl mx-auto">
+            <h2 className="text-3xl md:text-4xl font-black text-black mb-3 text-center">
+              Solaria CO₂ — full face for{" "}
+              <span className="bg-gradient-to-r from-[#FF2D8E] to-[#E6007E] bg-clip-text text-transparent">
+                $899
+              </span>
+            </h2>
+            <p className="text-gray-700 text-center mb-10 max-w-2xl mx-auto">
+              Limited launch pricing — typically <span className="line-through">$1,500+</span> elsewhere.
+              We&apos;re the only practice in the Fox Valley with Solaria CO₂, and we&apos;re introducing it
+              with this special so the area can experience real CO₂ resurfacing without traveling to Chicago or Naperville plastic surgeons.
+            </p>
+            <div className="grid sm:grid-cols-3 gap-6 max-w-5xl mx-auto">
+              <div className="relative rounded-2xl border-4 border-black bg-white p-6 text-center shadow-[8px_8px_0_0_rgba(230,0,126,0.35)]">
+                <span className="absolute -top-3 left-1/2 -translate-x-1/2 inline-flex items-center gap-1 rounded-full bg-[#E6007E] px-3 py-1 text-xs font-bold uppercase tracking-wider text-white border-2 border-black">
+                  ★ Launch Special
+                </span>
+                <h3 className="text-lg font-bold text-black mb-1 mt-2">Full Face</h3>
+                <p className="text-4xl font-black text-[#E6007E] mb-1">$899</p>
+                <p className="text-sm text-gray-500 line-through mb-3">Reg. $1,500+</p>
+                <p className="text-sm text-gray-700 mb-6">
+                  One full-face Solaria CO₂ treatment. Wrinkles, acne scars, sun damage, texture — in one session.
+                </p>
+                <Link
+                  href="/book"
+                  className="inline-flex items-center justify-center rounded-lg bg-[#E6007E] px-4 py-2.5 font-semibold text-white hover:bg-[#c9006e] transition text-sm w-full"
+                >
+                  Book free consult
+                </Link>
+              </div>
               <div className="rounded-2xl border-2 border-zinc-200 bg-white p-6 text-center">
-                <h3 className="text-lg font-bold text-black mb-1">Single Session</h3>
-                <p className="text-2xl font-bold text-[#E6007E] mb-3">From $1,500</p>
-                <p className="text-sm text-gray-600 mb-6">One Solaria CO₂ treatment. Price by area (full face, neck, eyes, etc.).</p>
-                <Link href="/book" className="inline-flex items-center justify-center rounded-lg bg-[#E6007E] px-4 py-2.5 font-semibold text-white hover:bg-[#c9006e] transition text-sm">Book consultation</Link>
-              </div>
-              <div className="rounded-2xl border-2 border-[#E6007E]/40 bg-pink-50/50 p-6 text-center">
                 <h3 className="text-lg font-bold text-black mb-1">Package of 3</h3>
-                <p className="text-2xl font-bold text-[#E6007E] mb-3">From $4,000</p>
-                <p className="text-sm text-gray-600 mb-6">Three sessions for maximum results. Best value.</p>
-                <Link href="/book" className="inline-flex items-center justify-center rounded-lg bg-[#E6007E] px-4 py-2.5 font-semibold text-white hover:bg-[#c9006e] transition text-sm">Book consultation</Link>
+                <p className="text-3xl font-black text-[#E6007E] mb-3">$2,397</p>
+                <p className="text-sm text-gray-700 mb-6">
+                  Three full-face sessions for maximum collagen remodeling. Best value for deep scarring or significant aging.
+                </p>
+                <Link
+                  href="/book"
+                  className="inline-flex items-center justify-center rounded-lg border-2 border-[#E6007E] text-[#E6007E] px-4 py-2.5 font-semibold hover:bg-[#E6007E] hover:text-white transition text-sm w-full"
+                >
+                  Book free consult
+                </Link>
               </div>
-              <div className="rounded-2xl border-2 border-[#E6007E] bg-white p-6 text-center">
-                <h3 className="text-lg font-bold text-black mb-1">Trifecta</h3>
-                <p className="text-2xl font-bold text-[#E6007E] mb-3">Solaria + Morpheus8 + Quantum</p>
-                <p className="text-sm text-gray-600 mb-6">Complete resurfacing & tightening bundle. Custom pricing.</p>
-                <Link href="/book" className="inline-flex items-center justify-center rounded-lg bg-[#E6007E] px-4 py-2.5 font-semibold text-white hover:bg-[#c9006e] transition text-sm">Book consultation</Link>
+              <div className="rounded-2xl border-2 border-zinc-200 bg-white p-6 text-center">
+                <h3 className="text-lg font-bold text-black mb-1">Trifecta Bundle</h3>
+                <p className="text-base font-semibold text-black mb-1">Solaria + Morpheus8 + Quantum</p>
+                <p className="text-sm text-gray-500 mb-3">Custom pricing</p>
+                <p className="text-sm text-gray-700 mb-6">
+                  Resurfacing + RF microneedling + skin tightening. The most complete face transformation we offer.
+                </p>
+                <Link
+                  href="/book"
+                  className="inline-flex items-center justify-center rounded-lg border-2 border-black text-black px-4 py-2.5 font-semibold hover:bg-black hover:text-white transition text-sm w-full"
+                >
+                  Book free consult
+                </Link>
               </div>
             </div>
-            <p className="text-center text-sm text-gray-500 mt-6">Consultation required. Financing available.</p>
+            <p className="text-center text-sm text-gray-500 mt-8">
+              Free consultation required. Financing available via Cherry. Add-on areas (neck, hands, eyes) priced separately.
+            </p>
           </div>
         </section>
 
@@ -340,6 +472,13 @@ export default function SolariaCO2Page() {
             </p>
           </div>
         </section>
+
+        {/* Real Patient Reviews — pulls 5-star Google reviews mentioning Solaria/CO2 */}
+        <RealPatientReviews
+          service="solaria-co2"
+          serviceLabel="Solaria CO₂ Laser Oswego"
+          heading="Real clients on our Solaria CO₂ laser at Hello Gorgeous"
+        />
 
         {/* FAQ */}
         <section className="py-16 bg-white">

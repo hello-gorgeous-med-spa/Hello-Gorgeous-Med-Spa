@@ -25,6 +25,8 @@ export type ReviewServiceCategory =
   | "morpheus8"
   | "lip-filler"
   | "fillers"
+  | "solaria-co2"
+  | "co2-laser"
   | "general";
 
 type ReviewRow = {
@@ -62,6 +64,8 @@ const SERVICE_FILTERS: Record<ReviewServiceCategory, string[]> = {
   morpheus8: ["morpheus", "microneedling", "rf microneedling", "skin tightening", "burst", "rf needling"],
   "lip-filler": ["lip filler", "lip"],
   fillers: ["filler", "dermal filler", "cheek", "chin"],
+  "solaria-co2": ["solaria", "co2", "co₂", "fractional", "laser resurfacing", "skin resurfacing"],
+  "co2-laser": ["solaria", "co2", "co₂", "fractional", "laser resurfacing", "skin resurfacing"],
   general: [],
 };
 
@@ -85,6 +89,8 @@ const FALLBACK_BY_CATEGORY: Record<ReviewServiceCategory, DisplayReview[]> =
       morpheus8: fromHome([], "fallback-m8").slice(0, 2),
       "lip-filler": fromHome(["lip", "filler"], "fallback-lip"),
       fillers: fromHome(["filler"], "fallback-fillers"),
+      "solaria-co2": fromHome([], "fallback-co2").slice(0, 2),
+      "co2-laser": fromHome([], "fallback-co2").slice(0, 2),
       general: fromHome([], "fallback-gen"),
     };
   })();
