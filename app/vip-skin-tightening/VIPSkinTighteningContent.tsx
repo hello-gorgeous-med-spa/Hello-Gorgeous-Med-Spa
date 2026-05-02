@@ -355,8 +355,10 @@ export function VIPSkinTighteningContent() {
                     className="w-full px-4 py-3 rounded-xl bg-zinc-900 border border-white/20 text-white focus:border-pink-500 outline-none"
                   >
                     <option value="">Select area...</option>
-                    {QUANTUM_TREATMENTS.map((t) => (
-                      <option key={t.id} value={t.id}>{t.name} – ${t.price.toLocaleString()}</option>
+                    {QUANTUM_MODEL_PACKAGES.map((t) => (
+                      <option key={t.id} value={t.id}>
+                        {t.name} – ${t.price.toLocaleString()} (model · {t.spots} spots)
+                      </option>
                     ))}
                   </select>
                 </div>
