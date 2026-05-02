@@ -52,9 +52,10 @@ GBP_V4 = "https://mybusiness.googleapis.com/v4"
 PRESETS: dict[str, dict] = {
     "solaria-co2-launch": {
         "summary": (
-            "★ NEW: Solaria CO₂ Laser is here — full face for $899 (launch special, regularly $1,500+).\n\n"
-            "We're now the only practice in the Fox Valley offering Solaria CO₂ fractional laser by InMode — "
-            "the gold standard for skin resurfacing.\n\n"
+            "★ NEW at Hello Gorgeous: Solaria CO₂ Laser is here — full face for $899 "
+            "(launch special, typically $1,500+ at plastic surgery offices).\n\n"
+            "We've added the InMode Solaria CO₂ fractional laser — the gold standard for "
+            "skin resurfacing — right here in downtown Oswego.\n\n"
             "What it treats in ONE session:\n"
             "• Deep wrinkles + fine lines\n"
             "• Acne scars (ice pick, boxcar, rolling)\n"
@@ -70,11 +71,11 @@ PRESETS: dict[str, dict] = {
     },
     "solaria-co2-aurora": {
         "summary": (
-            "Aurora & Naperville clients: yes, we're the only practice in the Fox Valley with Solaria CO₂ — "
-            "and we're 10–15 minutes away in Oswego.\n\n"
-            "Full face Solaria CO₂ launch special: $899 (regularly $1,500+).\n\n"
-            "Why drive into Chicago plastic surgery offices when you can get the same gold-standard "
-            "InMode Solaria fractional CO₂ resurfacing in Oswego — with a real provider who picks up the phone?\n\n"
+            "Aurora & Naperville clients — InMode Solaria CO₂ fractional laser is now available "
+            "in downtown Oswego, just 10–15 minutes away.\n\n"
+            "Full face Solaria CO₂ launch special: $899 (typically $1,500+ at plastic surgery offices).\n\n"
+            "Skip the drive into the city — get gold-standard CO₂ resurfacing close to home with "
+            "a real provider who actually picks up the phone.\n\n"
             "Acne scars, deep wrinkles, sun damage, hyperpigmentation — handled in one treatment.\n\n"
             "Call 630-636-6193 to book your free consultation.\n\n"
             "https://hellogorgeousmedspa.com/co2-laser-aurora-il"
@@ -84,12 +85,11 @@ PRESETS: dict[str, dict] = {
     },
     "solaria-co2-acne-scars": {
         "summary": (
-            "Acne scars? Solaria CO₂ fractional laser is the most effective treatment for ice pick, "
-            "boxcar, and rolling scars — and we now have it in Oswego.\n\n"
-            "Launch special: $899 full face (reg. $1,500+).\n\n"
-            "We're the only practice in the Fox Valley offering Solaria CO₂ by InMode. One treatment "
-            "creates dramatic, visible improvement; results continue improving for 3–6 months as collagen "
-            "rebuilds.\n\n"
+            "Acne scars? Solaria CO₂ fractional laser is the most effective treatment available for "
+            "ice pick, boxcar, and rolling scars — and we just added it to our toolkit at Hello Gorgeous.\n\n"
+            "Launch special: $899 full face (typically $1,500+ at plastic surgery offices).\n\n"
+            "InMode Solaria CO₂ creates dramatic, visible improvement in a single session; results "
+            "continue improving for 3–6 months as your skin rebuilds collagen.\n\n"
             "Free consultations available. Call 630-636-6193 or book online.\n\n"
             "https://hellogorgeousmedspa.com/services/solaria-co2"
         ),

@@ -72,10 +72,10 @@ export default function ServicesPage() {
             {[
               {
                 href: "/services/solaria-co2",
-                eyebrow: "★ NEW · Only one in Fox Valley",
+                eyebrow: "★ NEW · $899 Launch Special",
                 title: "Solaria CO₂ Laser — $899",
                 blurb:
-                  "InMode Solaria fractional CO₂. Full face for $899 (reg. $1,500+). Wrinkles, acne scars, sun damage in one session. Launch pricing.",
+                  "InMode Solaria fractional CO₂ — gold-standard skin resurfacing. Full face $899 (typically $1,500+). Wrinkles, acne scars, sun damage in one session.",
                 cta: "See the launch special",
                 accent: true,
               },

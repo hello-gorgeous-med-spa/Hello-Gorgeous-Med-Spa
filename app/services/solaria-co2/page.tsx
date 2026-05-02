@@ -9,7 +9,7 @@ export const metadata: Metadata = pageMetadata({
   title:
     "Solaria CO₂ Laser in Oswego, IL — $899 Full Face Launch Special | Hello Gorgeous Med Spa",
   description:
-    "The only InMode Solaria CO₂ fractional laser in the Fox Valley. Full face skin resurfacing for $899 (limited launch pricing). Treat deep wrinkles, acne scars, sun damage in Oswego, Naperville, Aurora, Plainfield. Book your free consultation.",
+    "InMode Solaria CO₂ fractional laser at Hello Gorgeous Med Spa in Oswego, IL. Full face skin resurfacing for $899 (limited launch pricing). Treat deep wrinkles, acne scars, and sun damage in Oswego, Naperville, Aurora, Plainfield. Book your free consultation.",
   path: "/services/solaria-co2",
 });
 
@@ -49,7 +49,7 @@ const SOLARIA_FAQS = [
   {
     question: "How much does Solaria CO₂ cost?",
     answer:
-      "Right now we are running an exclusive launch special: $899 for a full face Solaria CO₂ treatment (regularly $1,500+). Other treatment areas (neck, eyes, hands, body) are priced separately — schedule a free consultation for a personalized plan. We are the only practice in the Fox Valley currently offering Solaria CO₂.",
+      "Right now we're running an exclusive launch special: $899 for a full face Solaria CO₂ treatment (regularly $1,500+). Other treatment areas (neck, eyes, hands, body) are priced separately — schedule a free consultation for a personalized plan.",
   },
   {
     question: "Can I combine CO₂ with other treatments?",
@@ -147,7 +147,7 @@ export default function SolariaCO2Page() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(SOLARIA_FAQ_JSONLD) }}
       />
       <main className="bg-white">
-        {/* Hero — launch hero with $899 anchor + "only in the Fox Valley" moat */}
+        {/* Hero — launch hero with $899 anchor + InMode Solaria positioning */}
         <section className="relative bg-black text-white overflow-hidden">
           <div
             aria-hidden
@@ -176,13 +176,13 @@ export default function SolariaCO2Page() {
               </span>
             </h1>
             <p className="text-xl md:text-2xl text-white/95 max-w-2xl mb-3 font-semibold">
-              The only practice in the Fox Valley offering Solaria CO₂.
+              InMode Solaria CO₂ — gold-standard skin resurfacing, right here in Oswego.
             </p>
             <p className="text-base md:text-lg text-white/80 max-w-2xl mb-8">
-              The gold standard in skin resurfacing — typically{" "}
-              <span className="line-through opacity-60">$1,500+</span> elsewhere.
+              CO₂ fractional resurfacing typically runs{" "}
+              <span className="line-through opacity-60">$1,500+</span> at plastic surgery offices.
               We're running a launch special at <span className="font-bold text-white">$899 full face</span>{" "}
-              while we introduce this technology to the area. One treatment. Dramatic transformation.
+              to introduce Solaria to our community. One treatment. Dramatic transformation.
             </p>
             <p className="text-white/70 mb-10 max-w-2xl text-sm">
               Powered by{" "}
@@ -299,9 +299,9 @@ export default function SolariaCO2Page() {
               </span>
             </h2>
             <p className="text-gray-700 text-center mb-10 max-w-2xl mx-auto">
-              Limited launch pricing — typically <span className="line-through">$1,500+</span> elsewhere.
-              We&apos;re the only practice in the Fox Valley with Solaria CO₂, and we&apos;re introducing it
-              with this special so the area can experience real CO₂ resurfacing without traveling to Chicago or Naperville plastic surgeons.
+              Limited launch pricing — typically <span className="line-through">$1,500+</span> at plastic surgery
+              offices. We&apos;re introducing Solaria CO₂ with this special so our community can access
+              gold-standard CO₂ resurfacing without driving into the city.
             </p>
             <div className="grid sm:grid-cols-3 gap-6 max-w-5xl mx-auto">
               <div className="relative rounded-2xl border-4 border-black bg-white p-6 text-center shadow-[8px_8px_0_0_rgba(230,0,126,0.35)]">
