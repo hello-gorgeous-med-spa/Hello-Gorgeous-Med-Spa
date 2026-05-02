@@ -96,6 +96,24 @@ PRESETS: dict[str, dict] = {
         "link": "https://hellogorgeousmedspa.com/services/solaria-co2",
         "image": "https://hellogorgeousmedspa.com/images/solaria/solaria-device-hero.png",
     },
+    "morpheus8-burst-deep": {
+        "summary": (
+            "★ NEW at Hello Gorgeous: Morpheus8 Burst + Deep — the newest InMode RF microneedling "
+            "technology — is now in Oswego.\n\n"
+            "Burst delivers multi-depth radiofrequency energy in a single pulse (3mm + 5mm + 7mm at "
+            "the same time). Deep reaches up to 8mm — far further than surface microneedling — to "
+            "remodel collagen on body areas other devices simply can't touch.\n\n"
+            "REAL results from our patients (see photos):\n"
+            "• Crepey neck → smooth + lifted\n"
+            "• Wrinkled knees & elbows → firm\n"
+            "• Loose above-knee thighs → tightened\n\n"
+            "Free Morpheus8 consultations available — call 630-636-6193 or book online.\n\n"
+            "Serving Oswego, Naperville, Aurora, Plainfield, Yorkville.\n\n"
+            "Learn more: https://hellogorgeousmedspa.com/services/morpheus8"
+        ),
+        "link": "https://hellogorgeousmedspa.com/services/morpheus8",
+        "image": "https://hellogorgeousmedspa.com/images/morpheus8/morpheus8-burst-deep-thighs-skin-tightening-before-after.png",
+    },
 }
 
 

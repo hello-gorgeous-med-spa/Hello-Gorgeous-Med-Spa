@@ -254,7 +254,7 @@ PRESETS: dict[str, list[dict]] = {
     "morpheus8-burst-deep": [
         {
             "url": f"{SITE_URL}/images/morpheus8/morpheus8-burst-deep-neck-tightening-before-after.png",
-            "category": "PRODUCT",
+            "category": "ADDITIONAL",
             "description": (
                 "REAL PATIENT — Morpheus8 Burst + Deep neck tightening before & after at Hello Gorgeous "
                 "Med Spa, Oswego IL. The newest InMode Morpheus8 Burst + Deep technology delivers "
@@ -264,7 +264,7 @@ PRESETS: dict[str, list[dict]] = {
         },
         {
             "url": f"{SITE_URL}/images/morpheus8/morpheus8-burst-deep-knee-crepey-skin-before-after.png",
-            "category": "PRODUCT",
+            "category": "ADDITIONAL",
             "description": (
                 "REAL PATIENT — Morpheus8 Burst + Deep before & after on crepey knee and elbow skin. "
                 "Hello Gorgeous Med Spa Oswego IL is a verified InMode provider with the newest "
@@ -274,7 +274,7 @@ PRESETS: dict[str, list[dict]] = {
         },
         {
             "url": f"{SITE_URL}/images/morpheus8/morpheus8-burst-deep-thighs-skin-tightening-before-after.png",
-            "category": "PRODUCT",
+            "category": "ADDITIONAL",
             "description": (
                 "REAL PATIENT — Morpheus8 Burst + Deep above-knee thigh skin tightening before & "
                 "after. Hello Gorgeous Med Spa, Oswego IL — newest InMode Burst + Deep technology "
