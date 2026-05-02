@@ -66,7 +66,7 @@ PRESETS: dict[str, dict] = {
             "Learn more: https://hellogorgeousmedspa.com/services/solaria-co2"
         ),
         "link": "https://hellogorgeousmedspa.com/services/solaria-co2",
-        "image": "https://hellogorgeousmedspa.com/images/solaria/solaria-device.png",
+        "image": "https://hellogorgeousmedspa.com/images/solaria/solaria-device-hero.png",
     },
     "solaria-co2-aurora": {
         "summary": (
@@ -80,7 +80,7 @@ PRESETS: dict[str, dict] = {
             "https://hellogorgeousmedspa.com/co2-laser-aurora-il"
         ),
         "link": "https://hellogorgeousmedspa.com/co2-laser-aurora-il",
-        "image": "https://hellogorgeousmedspa.com/images/solaria/solaria-device.png",
+        "image": "https://hellogorgeousmedspa.com/images/solaria/solaria-device-hero.png",
     },
     "solaria-co2-acne-scars": {
         "summary": (
@@ -94,7 +94,7 @@ PRESETS: dict[str, dict] = {
             "https://hellogorgeousmedspa.com/services/solaria-co2"
         ),
         "link": "https://hellogorgeousmedspa.com/services/solaria-co2",
-        "image": "https://hellogorgeousmedspa.com/images/solaria/solaria-device.png",
+        "image": "https://hellogorgeousmedspa.com/images/solaria/solaria-device-hero.png",
     },
 }
 
