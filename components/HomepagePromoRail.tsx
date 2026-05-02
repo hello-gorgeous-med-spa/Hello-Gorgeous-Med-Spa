@@ -46,11 +46,11 @@ const SLIDES: Slide[] = [
   },
   {
     id: "devices",
-    badge: "Devices",
+    badge: "Contour Lift",
     line:
-      "Quantum RF coming soon · Now booking Morpheus8 Burst & Solaria CO₂.",
-    primary: { label: "Book now", href: "/book" },
-    secondary: { label: "Quantum RF", href: "/services/quantum-rf" },
+      "Quantum RF is live — Model Days May 4 & May 12 · save up to $1K · Morpheus8 Burst & Solaria booking.",
+    primary: { label: "Quantum RF & pricing", href: "/services/quantum-rf#contour-lift-model-days" },
+    secondary: { label: "Book now", href: "/book" },
   },
 ];
 

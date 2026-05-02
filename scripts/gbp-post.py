@@ -96,6 +96,27 @@ PRESETS: dict[str, dict] = {
         "link": "https://hellogorgeousmedspa.com/services/solaria-co2",
         "image": "https://hellogorgeousmedspa.com/images/solaria/solaria-device-hero.png",
     },
+    "quantum-contour-lift-live": {
+        "summary": (
+            "🚨 Quantum RF IS LIVE at Hello Gorgeous Med Spa — Oswego, IL.\n\n"
+            "Hello Gorgeous Contour Lift™ Model Days:\n"
+            "• Mon May 4 & Mon May 12, 2026\n"
+            "• Only 9 model spots total — first-come\n\n"
+            "Two procedures. One model price. Quantum RF (subdermal tightening) + "
+            "Morpheus8 Body Deep (surface finishing) — surgery alone runs $12K–$20K+. "
+            "This is a fraction of that investment.\n\n"
+            "MODEL PRICING (each includes Morpheus8 Body Deep):\n"
+            "• Chin & Neck — $1,499 (reg. $2,499) — 3 spots — SAVE $1,000\n"
+            "• Abdomen — $2,999 (reg. $3,999) — 2 spots — SAVE $1,000\n"
+            "• Under Arms — $1,499 (reg. $2,499) — 2 spots — SAVE $1,000\n"
+            "• Knees — $1,499 (reg. $2,499) — 2 spots — SAVE $1,000\n\n"
+            "CLAIM YOUR SPOT — text or call Ryan Kent direct: 217-741-8359\n"
+            "Main office: 630-636-6193 · hellogorgeousmedspa.com/services/quantum-rf\n\n"
+            "Photo/video consent required · medical evaluation determines candidacy."
+        ),
+        "link": "https://hellogorgeousmedspa.com/services/quantum-rf#contour-lift-model-days",
+        "image": "https://www.hellogorgeousmedspa.com/images/quantum-rf/hello-gorgeous-contour-lift-model-days-flyer-2026.jpg",
+    },
     "ipl-photofacial-launch": {
         "summary": (
             "★ NEW at Hello Gorgeous: IPL Photofacial — Intense Pulsed Light skin "

@@ -6,9 +6,10 @@ const BASE_URL = SITE.url;
 const PAGE_URL = `${BASE_URL}/vip-skin-tightening`;
 
 export const metadata: Metadata = {
-  title: "VIP Skin Tightening | Quantum RF Waitlist | Morpheus8 & Solaria Now Booking | Hello Gorgeous",
+  title:
+    "VIP Skin Tightening | Quantum RF Live — Contour Lift Model Days May 4 & 12 | Hello Gorgeous",
   description:
-    "Morpheus8 Burst & Solaria CO₂ now booking. Quantum RF coming soon — join the waitlist for priority access. $500 refundable deposit. First Quantum clients receive FREE Full Face CO₂.",
+    "Quantum RF is live at Hello Gorgeous. Hello Gorgeous Contour Lift™ Model Days May 4 & May 12, 2026 — limited model spots from $1,499 (Quantum RF + Morpheus8 Body Deep). Morpheus8 & Solaria booking. $500 refundable VIP deposit where applicable.",
   keywords: [
     "Quantum RF",
     "Morpheus8",
@@ -19,8 +20,9 @@ export const metadata: Metadata = {
     "Oswego IL",
   ],
   openGraph: {
-    title: "VIP Skin Tightening — Morpheus8 & Solaria Now Booking | Quantum RF Coming Soon",
-    description: "Morpheus8 Burst & Solaria CO₂ now taking clients. Quantum RF waitlist open. $500 deposit. First Quantum clients get FREE Full Face CO₂.",
+    title: "VIP Skin Tightening — Quantum RF Live · Contour Lift Model Days | Hello Gorgeous",
+    description:
+      "Quantum RF is booking now. Model Days May 4 & 12, 2026: save up to $1,000 on Contour Lift packages. Morpheus8 & Solaria also booking.",
     type: "website",
     url: PAGE_URL,
   },
@@ -31,7 +33,8 @@ const MEDICAL_PROCEDURE_SCHEMA = {
   "@context": "https://schema.org",
   "@type": "MedicalProcedure",
   name: "Quantum RF and Morpheus8 VIP Skin Tightening",
-  description: "Morpheus8 Burst & Solaria CO₂ now booking. Quantum RF subdermal contouring coming soon — VIP waitlist with introductory pricing.",
+  description:
+    "Quantum RF subdermal contouring is live — Hello Gorgeous Contour Lift Model Days with introductory model pricing. Morpheus8 Burst & Solaria CO₂ booking.",
   procedureType: "Cosmetic",
   howPerformed: "Minimally invasive radiofrequency treatment with local anesthesia",
   preparation: "Consultation and pre-procedure care protocol",

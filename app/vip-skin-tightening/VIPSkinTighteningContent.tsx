@@ -1,16 +1,47 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { CHERRY_PAY_URL } from "@/lib/flows";
 import Image from "next/image";
 
-const QUANTUM_TREATMENTS = [
-  { id: "chin-neck", name: "Chin & Neck", price: 2800 },
-  { id: "lower-abdomen", name: "Lower Abdomen", price: 3900 },
-  { id: "full-abdomen", name: "Full Abdomen", price: 4250 },
-  { id: "sagging-arms", name: "Sagging Arms", price: 2950 },
-  { id: "butt-tightening", name: "Butt Tightening", price: 3900 },
-];
+/** Hello Gorgeous Contour Lift™ — Quantum RF Model Days (aligned with /services/quantum-rf). */
+const QUANTUM_MODEL_PACKAGES = [
+  {
+    id: "chin-neck",
+    name: "Chin & Neck",
+    price: 1499,
+    regular: 2499,
+    spots: 3,
+    saveLabel: "SAVE $1,000",
+  },
+  {
+    id: "abdomen",
+    name: "Abdomen",
+    price: 2999,
+    regular: 3999,
+    spots: 2,
+    saveLabel: "SAVE $1,000",
+  },
+  {
+    id: "under-arms",
+    name: "Under Arms",
+    price: 1499,
+    regular: 2499,
+    spots: 2,
+    saveLabel: "SAVE $1,000",
+  },
+  {
+    id: "knees",
+    name: "Knees",
+    price: 1499,
+    regular: 2499,
+    spots: 2,
+    saveLabel: "SAVE $1,000",
+  },
+] as const;
+
+const RYAN_DIRECT = "2177418359";
 
 const CARD_BULLETS = [
   "Minimally invasive subdermal RF tightening",
@@ -76,33 +107,40 @@ export function VIPSkinTighteningContent() {
           </div>
           <div className="text-center mb-10">
             <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
-              Quantum RF Minimally Invasive Skin Tightening
-              <span className="block mt-2 text-pink-400">VIP Launch Access</span>
+              Quantum RF — Live &amp; Booking
+              <span className="block mt-2 text-pink-400">Hello Gorgeous Contour Lift™ Model Days</span>
             </h1>
             <p className="text-white/80 text-lg max-w-2xl mx-auto">
-              Secure introductory pricing before public launch. Limited priority placements available.
+              Mon May 4 &amp; Mon May 12, 2026 · Quantum RF + Morpheus8 Body Deep · limited model spots · claim yours by texting Ryan{" "}
+              <a href={`tel:+1${RYAN_DIRECT}`} className="font-semibold text-pink-400 underline">
+                {RYAN_DIRECT.replace(/(\d{3})(\d{3})(\d{4})/, "$1-$2-$3")}
+              </a>
             </p>
           </div>
 
           {/* Urgency banner */}
           <div className="relative rounded-2xl bg-gradient-to-r from-pink-600/30 to-pink-500/20 border-2 border-pink-500 p-6 mb-10 flex flex-col sm:flex-row items-center justify-between gap-4">
             <p className="text-xl font-bold text-white text-center sm:text-left">
-              First 10 Quantum RF Clients Receive FREE Full Face CO₂ ($1,800 Value)
+              9 Model Spots Total · First-Come · Save Up to $1,000 vs Package Pricing
             </p>
             <span className="flex-shrink-0 px-4 py-2 bg-pink-500 text-white text-sm font-bold rounded-full uppercase tracking-wider">
-              Limited Spots Available
+              Now Booking
             </span>
           </div>
 
           {/* Treatment pricing cards */}
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 mb-10">
-            {QUANTUM_TREATMENTS.map((t) => (
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
+            {QUANTUM_MODEL_PACKAGES.map((t) => (
               <div
                 key={t.id}
                 className="rounded-2xl border border-pink-500/40 bg-zinc-900/80 p-6 flex flex-col"
               >
+                <p className="text-xs font-bold uppercase tracking-wider text-pink-400 mb-1">{t.saveLabel}</p>
                 <h3 className="text-lg font-bold text-white mb-1">{t.name}</h3>
-                <p className="text-2xl font-bold text-pink-400 mb-4">${t.price.toLocaleString()}</p>
+                <p className="text-sm text-white/60 mb-2">{t.spots} model spots</p>
+                <p className="text-2xl font-bold text-pink-400 mb-1">${t.price.toLocaleString()}</p>
+                <p className="text-sm text-white/50 line-through mb-4">${t.regular.toLocaleString()} regular</p>
+                <p className="text-sm font-semibold text-white/90 mb-4">+ Morpheus8 Body Deep included</p>
                 <ul className="space-y-2 text-sm text-white/70 mb-6 flex-1">
                   {CARD_BULLETS.map((b) => (
                     <li key={b} className="flex items-start gap-2">
@@ -181,13 +219,32 @@ export function VIPSkinTighteningContent() {
         </div>
       </section>
 
-      {/* Before/After placeholder */}
+      {/* Before/After — Michelle (Contour Lift) */}
       <section className="px-4 py-12 border-t border-white/10">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-2xl font-bold mb-6">Results</h2>
-          <div className="aspect-video rounded-2xl bg-zinc-800 border border-white/10 flex items-center justify-center text-white/50">
-            Before / After slider placeholder
-          </div>
+        <div className="max-w-lg mx-auto text-center">
+          <h2 className="text-2xl font-bold mb-2">Real patient result</h2>
+          <p className="text-white/70 text-sm mb-6">
+            Michelle — before &amp; after (Hello Gorgeous Contour Lift). See more clinical outcomes on our Quantum RF page.
+          </p>
+          <Link
+            href="/services/quantum-rf#quantum-results"
+            className="relative block overflow-hidden rounded-2xl border border-pink-500/40 bg-zinc-900"
+          >
+            <Image
+              src="/images/quantum-rf/michelle-colby-quantum-contour-lift-chin-neck-before-after.jpg"
+              alt="Michelle before and after Hello Gorgeous Contour Lift with Quantum RF, Hello Gorgeous Med Spa Oswego"
+              width={472}
+              height={1024}
+              className="h-auto w-full"
+              sizes="(max-width: 768px) 100vw, 400px"
+            />
+          </Link>
+          <Link
+            href="/services/quantum-rf"
+            className="mt-6 inline-flex items-center justify-center rounded-xl bg-pink-500 px-6 py-3 font-semibold text-white hover:bg-pink-600 transition-colors"
+          >
+            Full Quantum RF details &amp; Model Days →
+          </Link>
         </div>
       </section>
 

@@ -745,7 +745,7 @@ To lock in your promotional price and secure your spot, a **non-refundable depos
 ## What Happens After You Deposit?
 
 1. **Consultation** — Our NP evaluates your goals and skin. We'll recommend the right tier.
-2. **Schedule** — Morpheus8 and Solaria are now booking. Quantum RF coming soon.
+2. **Schedule** — Morpheus8, Solaria, and Quantum RF (Hello Gorgeous Contour Lift™) are now booking — see Model Days on our Quantum RF page.
 3. **Treatment** — Your deposit is applied. You pay the remaining balance at or before your appointment.
 4. **Results** — Collagen remodeling continues for 3–6 months. Most clients see improvement within weeks.
 

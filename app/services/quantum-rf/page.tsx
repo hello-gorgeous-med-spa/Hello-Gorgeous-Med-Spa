@@ -15,6 +15,49 @@ const PINK = "#E6007E";
 const YT_DEMO_1 = "loJOgWGCkK8";
 const YT_DEMO_2 = "VSif40VosRc";
 
+/** Direct line for Contour Lift / Quantum RF model scheduling (per practice workflow). */
+const RYAN_DIRECT_TEL = "2177418359";
+const RYAN_SMS_HREF = `sms:${RYAN_DIRECT_TEL}`;
+
+/** Hello Gorgeous Contour Lift™ — Model Days (May 2026). Spots & pricing from practice flyer. */
+const CONTOUR_MODEL_DAYS = {
+  totalSpots: 9,
+  sessions: [
+    { label: "Day One", when: "Mon · May 4, 2026" },
+    { label: "Day Two", when: "Mon · May 12, 2026" },
+  ],
+  packages: [
+    {
+      area: "Chin & Neck",
+      spots: 3,
+      price: 1499,
+      regular: 2499,
+      highlight: "SAVE $1,000",
+    },
+    {
+      area: "Abdomen",
+      spots: 2,
+      price: 2999,
+      regular: 3999,
+      highlight: "SAVE $1,000",
+    },
+    {
+      area: "Under Arms",
+      spots: 2,
+      price: 1499,
+      regular: 2499,
+      highlight: "SAVE $1,000",
+    },
+    {
+      area: "Knees",
+      spots: 2,
+      price: 1499,
+      regular: 2499,
+      highlight: "SAVE $1,000",
+    },
+  ],
+} as const;
+
 /** On-page hero + JSON-LD; same art as `opengraph-image.png` in this folder. */
 const QUANTUM_OG_IMAGE = "/images/quantum-rf/og-quantum-rf-social-share.png";
 
@@ -23,9 +66,9 @@ const QUANTUM_OG_ROUTE = new URL("/services/quantum-rf/opengraph-image", SITE.ur
 /** Link previews: dynamic `opengraph-image` route + explicit metadata URL for social crawlers. */
 const _quantumBaseMeta = pageMetadata({
   title:
-    "Hello Gorgeous Contour Lift™ — Quantum RF | Minimally Invasive Contouring | Oswego, IL",
+    "Quantum RF Is Live — Hello Gorgeous Contour Lift™ Model Days | Oswego, IL",
   description:
-    "The Hello Gorgeous Contour Lift™ is powered by InMode Quantum RF — a minimally invasive alternative to excisional surgery. Tighten, contour, and refine loose skin. Clinical videos & before/afters. Book a consult or see if you’re a candidate. Hello Gorgeous Med Spa, Oswego, IL. Morpheus8 Burst add-ons, Cherry financing.",
+    "Quantum RF is live at Hello Gorgeous Med Spa. Hello Gorgeous Contour Lift™ Model Days (May 4 & May 12, 2026): limited model spots from $1,499 — Quantum RF + Morpheus8 Body Deep included. Real patient before/afters, clinical videos. Book a consult. Cherry financing. Oswego — serving Naperville, Aurora & Plainfield.",
   path: "/services/quantum-rf",
   keywords: [
     "Quantum RF",
@@ -64,7 +107,16 @@ export const metadata: Metadata = {
   },
 };
 
+export const revalidate = 3600;
+
 const CLINICAL_RESULT_SLIDES: QuantumSlide[] = [
+  {
+    src: "/images/quantum-rf/michelle-colby-quantum-contour-lift-chin-neck-before-after.jpg",
+    label: "Patient result · lower face (Michelle)",
+    alt: "Before and after Hello Gorgeous Contour Lift with InMode Quantum RF and Morpheus8 — Michelle, lower face and skin quality improvement, Oswego IL med spa",
+    caption:
+      "Real patient; photo on file. Individual results vary. Not a guarantee of your outcome. Medical evaluation required.",
+  },
   {
     src: "/images/quantum-rf/clinical-ba-upper-arm-tightening.png",
     label: "Upper arms",
@@ -152,7 +204,7 @@ const QUANTUM_FAQS = [
   {
     question: "How much does QuantumRF cost?",
     answer:
-      "Featured packages include the Neck Quantum RF package at $2,499 (one treatment) with a complimentary Morpheus8 Burst add-on, and the Abdomen Quantum RF package at $3,999 (one treatment) with a complimentary Morpheus8 Burst add-on. Pricing is confirmed at consultation. Cherry financing is available — apply at pay.withcherry.com/hellogorgeous.",
+      "Hello Gorgeous Contour Lift™ Model Days (May 4 & May 12, 2026) include four model packages: Chin & Neck $1,499 (reg. $2,499) — 3 model spots; Abdomen $2,999 (reg. $3,999) — 2 model spots; Under Arms $1,499 (reg. $2,499) — 2 model spots; Knees $1,499 (reg. $2,499) — 2 model spots. Every model package includes Morpheus8 Body Deep. Limited to 9 model spots total — first-come. Standard consult packages (Neck $2,499, Abdomen $3,999) remain available outside model days. Cherry financing: pay.withcherry.com/hellogorgeous. To claim a model spot, text or call Ryan Kent at 217-741-8359, or book a consult online.",
   },
 ];
 
@@ -200,42 +252,26 @@ function FAQJsonLd() {
 }
 
 function QuantumLaunchOffersJsonLd() {
+  const until = "2026-05-13";
   return {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    name: "InMode Quantum RF — featured body contouring packages",
-    itemListElement: [
-      {
-        "@type": "ListItem",
-        position: 1,
-        item: {
-          "@type": "Offer",
-          name: "Neck Quantum RF Package — includes FREE Morpheus8 Burst",
-          description:
-            "Neck tightening, fat reduction and skin contraction, local anesthesia, one session. Complimentary Morpheus8 Burst included.",
-          price: "2499",
-          priceCurrency: "USD",
-          url: `${SITE.url}/services/quantum-rf`,
-          availability: "https://schema.org/InStock",
-          seller: { "@type": "MedicalBusiness", name: SITE.name, url: SITE.url },
-        },
+    name: "Hello Gorgeous Contour Lift™ — Quantum RF Model Days (May 2026)",
+    itemListElement: CONTOUR_MODEL_DAYS.packages.map((p, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      item: {
+        "@type": "Offer",
+        name: `${p.area} — Model Day package (Quantum RF + Morpheus8 Body Deep)`,
+        description: `${p.spots} model spots. Includes Morpheus8 Body Deep. Regularly $${p.regular}.`,
+        price: String(p.price),
+        priceCurrency: "USD",
+        priceValidUntil: until,
+        url: `${SITE.url}/services/quantum-rf#contour-lift-model-days`,
+        availability: "https://schema.org/LimitedAvailability",
+        seller: { "@type": "MedicalBusiness", name: SITE.name, url: SITE.url },
       },
-      {
-        "@type": "ListItem",
-        position: 2,
-        item: {
-          "@type": "Offer",
-          name: "Abdomen Quantum RF Package — includes FREE Morpheus8 Burst",
-          description:
-            "Abdomen contouring, stubborn fat and skin tightening. One session. Complimentary Morpheus8 Burst included.",
-          price: "3999",
-          priceCurrency: "USD",
-          url: `${SITE.url}/services/quantum-rf`,
-          availability: "https://schema.org/InStock",
-          seller: { "@type": "MedicalBusiness", name: SITE.name, url: SITE.url },
-        },
-      },
-    ],
+    })),
   };
 }
 
@@ -462,10 +498,12 @@ export default function QuantumRFPage() {
               Tighten loose skin. Sculpt stubborn areas. Restore definition — without surgery.
             </p>
             <p className="mx-auto mt-4 max-w-2xl text-center text-sm font-semibold text-white md:mx-0 md:text-left md:text-base">
-              Introducing Quantum RF — advanced minimally invasive contouring.
+              Quantum RF is live — we are taking appointments for the Hello Gorgeous Contour Lift™.
             </p>
             <p className="mx-auto mt-3 max-w-2xl text-center text-sm font-light leading-relaxed text-white/95 md:mx-0 md:max-w-xl md:text-left md:text-base">
-              Minimally invasive contouring for patients who want real change without surgery.
+              Model Days <span className="font-semibold text-white">Mon May 4 &amp; Mon May 12, 2026</span> —{" "}
+              {CONTOUR_MODEL_DAYS.totalSpots} limited model spots. Quantum RF + Morpheus8 Body Deep in one model
+              price. Minimally invasive — a fraction of $12K–$20K+ excisional surgery.
             </p>
             <div className="mt-10 flex w-full max-w-md flex-col gap-4 sm:max-w-lg sm:flex-row sm:items-stretch sm:gap-5">
               <ContourBookLink
@@ -484,6 +522,117 @@ export default function QuantumRFPage() {
               >
                 See if I’m a candidate
               </Link>
+            </div>
+            <p className="mx-auto mt-6 max-w-2xl text-center text-xs text-white/80 md:mx-0 md:text-left">
+              <span className="font-bold uppercase tracking-wider text-white">Claim a model spot:</span> text or call
+              Ryan Kent direct{" "}
+              <a href={`tel:+1${RYAN_DIRECT_TEL}`} className="underline decoration-[#E6007E] underline-offset-2 hover:text-white">
+                {RYAN_DIRECT_TEL.replace(/(\d{3})(\d{3})(\d{4})/, "$1-$2-$3")}
+              </a>{" "}
+              ·{" "}
+              <a href={RYAN_SMS_HREF} className="underline decoration-[#E6007E] underline-offset-2 hover:text-white">
+                Text Ryan
+              </a>
+              {" "}· Main office{" "}
+              <a href={`tel:${SITE.phone.replace(/\D/g, "")}`} className="underline decoration-[#E6007E] underline-offset-2 hover:text-white">
+                {SITE.phone}
+              </a>
+            </p>
+          </div>
+        </section>
+
+        {/* Hello Gorgeous Contour Lift™ — Model Days */}
+        <section
+          id="contour-lift-model-days"
+          className="scroll-mt-24 border-b-4 border-black bg-gradient-to-b from-rose-50 via-white to-rose-50 py-14 md:py-20"
+        >
+          <div className="mx-auto max-w-6xl px-4">
+            <div className="mb-10 text-center">
+              <span className="inline-flex items-center gap-2 rounded-full border-2 border-black bg-white px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-black">
+                <span className="h-2 w-2 animate-pulse rounded-full bg-[#E6007E]" />
+                Limited — {CONTOUR_MODEL_DAYS.totalSpots} model spots
+              </span>
+              <h2 className="mt-4 text-3xl font-black tracking-tight text-black md:text-5xl">
+                Hello Gorgeous Contour Lift™
+              </h2>
+              <p className="mx-auto mt-2 max-w-2xl text-lg font-semibold text-[#E6007E] md:text-xl">
+                Model Days · Powered by Quantum RF + Morpheus8 Body Deep
+              </p>
+              <p className="mx-auto mt-3 max-w-2xl text-black/75">
+                Two procedures. One model price. Quantum RF tightens beneath the skin — Morpheus8 Body Deep finishes
+                the surface.{" "}
+                <Link href="#quantum-results" className="font-semibold text-[#E6007E] underline underline-offset-2">
+                  See results below
+                </Link>
+                .
+              </p>
+            </div>
+
+            <div className="mb-10 flex flex-wrap justify-center gap-4 md:gap-8">
+              {CONTOUR_MODEL_DAYS.sessions.map((d) => (
+                <div
+                  key={d.when}
+                  className="min-w-[200px] rounded-2xl border-4 border-black bg-white px-6 py-4 text-center shadow-[6px_6px_0_0_rgba(230,0,126,0.35)]"
+                >
+                  <p className="text-xs font-bold uppercase tracking-widest text-black/60">{d.label}</p>
+                  <p className="mt-1 text-xl font-black text-black">{d.when}</p>
+                </div>
+              ))}
+            </div>
+
+            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+              {CONTOUR_MODEL_DAYS.packages.map((pkg) => (
+                <div
+                  key={pkg.area}
+                  className="flex flex-col rounded-2xl border-4 border-black bg-white p-5 shadow-[8px_8px_0_0_rgba(230,0,126,0.35)]"
+                >
+                  <p className="text-xs font-bold uppercase tracking-wider text-[#E6007E]">{pkg.highlight}</p>
+                  <h3 className="mt-2 text-xl font-black text-black">{pkg.area}</h3>
+                  <p className="mt-1 text-sm font-semibold text-black/70">{pkg.spots} model spots</p>
+                  <div className="mt-4 flex flex-wrap items-baseline gap-2">
+                    <span className="text-3xl font-black text-black">${pkg.price.toLocaleString()}</span>
+                    <span className="text-sm text-black/50 line-through">${pkg.regular.toLocaleString()}</span>
+                  </div>
+                  <p className="mt-3 text-sm font-medium text-black/80">+ Morpheus8 Body Deep included</p>
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-10 rounded-2xl border-4 border-black bg-black p-6 text-white md:flex md:items-center md:justify-between md:gap-8">
+              <div>
+                <p className="text-sm font-bold uppercase tracking-wider text-[#FFB8DC]">Spots fill in order received</p>
+                <p className="mt-1 text-lg font-semibold">
+                  Text or call Ryan Kent to claim your model package — photo/video consent required · medical evaluation
+                  determines candidacy.
+                </p>
+              </div>
+              <div className="mt-4 flex flex-col gap-3 sm:flex-row md:mt-0">
+                <a
+                  href={`tel:+1${RYAN_DIRECT_TEL}`}
+                  className="inline-flex min-h-[52px] items-center justify-center rounded-lg bg-[#E6007E] px-6 text-sm font-bold uppercase tracking-wider text-white transition hover:bg-[#c9006e]"
+                >
+                  Direct {RYAN_DIRECT_TEL.replace(/(\d{3})(\d{3})(\d{4})/, "$1-$2-$3")}
+                </a>
+                <a
+                  href={RYAN_SMS_HREF}
+                  className="inline-flex min-h-[52px] items-center justify-center rounded-lg border-2 border-white px-6 text-sm font-bold uppercase tracking-wider text-white transition hover:bg-white hover:text-black"
+                >
+                  Text Ryan
+                </a>
+              </div>
+            </div>
+
+            <div className="mt-10 flex justify-center">
+              <div className="relative w-full max-w-md overflow-hidden rounded-2xl border-4 border-black shadow-[8px_8px_0_0_rgba(230,0,126,0.35)]">
+                <Image
+                  src="/images/quantum-rf/hello-gorgeous-contour-lift-model-days-flyer-2026.jpg"
+                  alt="Hello Gorgeous Contour Lift Model Days flyer — Quantum RF and Morpheus8 Body Deep model pricing for chin, neck, abdomen, arms, and knees, May 2026"
+                  width={586}
+                  height={1024}
+                  className="h-auto w-full"
+                  sizes="(max-width: 768px) 100vw, 400px"
+                />
+              </div>
             </div>
           </div>
         </section>
@@ -585,7 +734,11 @@ export default function QuantumRFPage() {
           </div>
         </section>
 
-        <section className="border-b-2 border-black bg-white py-12 md:py-16" aria-label="Representative results">
+        <section
+          id="quantum-results"
+          className="scroll-mt-24 border-b-2 border-black bg-white py-12 md:py-16"
+          aria-label="Representative results"
+        >
           <div className="mx-auto max-w-4xl px-4">
             <p
               className="mb-2 text-center text-[0.65rem] font-bold uppercase tracking-[0.45em] text-black"

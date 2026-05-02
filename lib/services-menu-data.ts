@@ -54,7 +54,7 @@ export const SERVICES_MENU_HERO: ServiceMenuSection = {
     {
       id: "quantum-rf",
       name: "Quantum RF",
-      description: "Body contouring & tightening",
+      description: "Contour Lift — live & booking",
       href: "/services/quantum-rf",
       icon: "🎯",
       featured: true,

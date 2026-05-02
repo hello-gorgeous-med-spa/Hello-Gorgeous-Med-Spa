@@ -126,7 +126,7 @@ export function EmailCapture() {
                   Be first. Get priority access.
                 </h3>
                 <p className="text-black/80 text-sm">
-                  Morpheus8 Burst, Solaria CO₂ now booking. Quantum RF coming soon — join for priority access.
+                  Quantum RF is live — Hello Gorgeous Contour Lift™ Model Days May 4 &amp; 12. Morpheus8 Burst &amp; Solaria booking too.
                 </p>
               </div>
 
