@@ -12,6 +12,7 @@ import {
   HomepageProfessionalGrid,
   HomepageCherryFaqRow,
   HomepageClosingCTARow,
+  OurPromiseSection,
 } from "@/components/homepage-v3";
 import { TheBookHomeSection } from "@/components/the-book";
 import { HomepagePromoRail } from "@/components/HomepagePromoRail";
@@ -188,6 +189,7 @@ export default function HomePage() {
         <HeroV3 />
         <TheBookHomeSection />
         <TrustStrip />
+        <OurPromiseSection />
         <Morpheus8SkinRebuildSection />
         <Morpheus8VerifiedProviderSection />
         <TrifectaSection />

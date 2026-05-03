@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState, useCallback } from "react";
-import { trackEvent } from "@/lib/analytics-events";
+import { trackEvent } from "@/components/GoogleAnalytics";
 
 const STORAGE_KEY = "hg_exit_intent_dismissed";
 const COOLDOWN_DAYS = 14;

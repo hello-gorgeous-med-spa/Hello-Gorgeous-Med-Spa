@@ -307,6 +307,11 @@ export function Footer({
                 </Link>
               </li>
               <li>
+                <Link className="hover:text-[#FF2D8E] transition-colors" href="/our-promise">
+                  Our Promise (Vendors)
+                </Link>
+              </li>
+              <li>
                 <Link className="hover:text-[#FF2D8E] transition-colors" href="/clinical-partners">
                   Clinical Standards
                 </Link>
