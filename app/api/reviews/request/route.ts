@@ -142,7 +142,10 @@ export async function POST(request: NextRequest) {
     const results: { sms?: boolean; email?: boolean; error?: string } = {};
 
     if (profile.phone) {
-      const smsText = `Hello Gorgeous: Hi ${firstName}! We hope you loved your visit. Would you mind leaving us a Google review? It means the world to us: ${reviewUrl}`;
+      // Conversion-tuned: lead with relationship, frame the ask as small,
+      // make the star count explicit, end with the link (no trailing words
+      // so iMessage previews the URL cleanly). Reply STOP per TCPA.
+      const smsText = `Hi ${firstName}! 💕 So good seeing you at Hello Gorgeous. If we earned a 5⭐ today, would you take 30 sec to share? It really helps us — thank you! ${reviewUrl}\n\nReply STOP to opt out.`;
       const smsResult = await sendSms(profile.phone, smsText);
       results.sms = smsResult.success;
       if (!smsResult.success) results.error = smsResult.error;
@@ -160,15 +163,25 @@ export async function POST(request: NextRequest) {
         body: JSON.stringify({
           from: fromEmail,
           to: profile.email,
-          subject: "We'd love your feedback! ⭐",
+          subject: `${firstName}, did we earn a 5⭐ today?`,
           html: `
-            <p>Hi ${firstName},</p>
-            <p>Thank you for visiting Hello Gorgeous Med Spa. We hope you had a wonderful experience!</p>
-            <p>If you have a moment, we'd be so grateful if you could share your experience on Google. Your review helps other clients find us and means a lot to our team.</p>
-            <p style="margin: 24px 0;">
-              <a href="${reviewUrl}" style="display: inline-block; padding: 12px 24px; background: linear-gradient(to right, #ec4899, #f43f5e); color: white; text-decoration: none; font-weight: 600; border-radius: 9999px;">Leave a Google Review</a>
-            </p>
-            <p style="color: #6b7280; font-size: 14px;">Thank you for being part of the Hello Gorgeous family!</p>
+            <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; max-width: 520px; margin: 0 auto; padding: 24px; color: #1f2937;">
+              <p style="font-size: 17px; margin: 0 0 16px;">Hi ${firstName},</p>
+              <p style="font-size: 16px; line-height: 1.55; margin: 0 0 16px;">
+                So good seeing you at Hello Gorgeous yesterday 💕
+              </p>
+              <p style="font-size: 16px; line-height: 1.55; margin: 0 0 24px;">
+                If we earned a <strong>5⭐</strong> today, would you take 30 seconds to share it on Google?
+                Reviews are the single biggest thing that helps us reach more women in Oswego who are looking for what we do.
+              </p>
+              <p style="margin: 0 0 28px; text-align: center;">
+                <a href="${reviewUrl}" style="display: inline-block; padding: 14px 32px; background: linear-gradient(to right, #ec4899, #f43f5e); color: white; text-decoration: none; font-weight: 600; border-radius: 9999px; font-size: 15px;">Leave a 5⭐ Google review</a>
+              </p>
+              <p style="font-size: 14px; line-height: 1.5; color: #6b7280; margin: 0 0 8px;">
+                <em>If anything was less than perfect — please reply to this email instead. We want to know.</em>
+              </p>
+              <p style="font-size: 14px; color: #6b7280; margin: 0;">— Danielle &amp; the Hello Gorgeous team</p>
+            </div>
           `,
         }),
       });
