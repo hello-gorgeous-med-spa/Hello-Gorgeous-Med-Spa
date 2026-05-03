@@ -114,7 +114,23 @@ Trifecta demos, bites & bubbly, raffle, guest vitamin shot. RSVP on our site —
   defaultChannels: ["facebook"],
 };
 
+export const FACEBOOK_PAGE_PRESET_OUR_PROMISE: FacebookPagePreset = {
+  id: "our-promise",
+  label: "Our Promise — Authenticity",
+  blurb: "100% real products, Class IV lasers, $1M+ invested.",
+  message: `💕 OUR PROMISE: 100% authentic products. No fakes. No shortcuts. No gray market.
+
+Over $1 million invested in FDA-cleared InMode Class IV medical lasers, genuine Allergan & Galderma products, and pharmacy-grade medications.
+
+Every vial verified. Every device certified. That's the Hello Gorgeous difference.
+
+Read why this matters for YOUR safety — and how to spot a provider who cuts corners. 👇`,
+  linkPath: withUtm("/blog/our-promise-authentic-products-class-iv-lasers-oswego-il"),
+  defaultChannels: ["facebook", "google"],
+};
+
 export const FACEBOOK_PAGE_PRESETS: FacebookPagePreset[] = [
+  FACEBOOK_PAGE_PRESET_OUR_PROMISE,
   FACEBOOK_PAGE_PRESET_SOLARIA,
   FACEBOOK_PAGE_PRESET_QUANTUM,
   FACEBOOK_PAGE_PRESET_MORPHEUS8,
