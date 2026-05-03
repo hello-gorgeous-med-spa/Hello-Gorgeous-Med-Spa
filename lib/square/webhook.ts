@@ -10,7 +10,11 @@
 
 import crypto from 'crypto';
 import type { NextRequest } from 'next/server';
-import { createServerSupabaseClient } from '@/lib/hgos/supabase';
+// Webhooks are server-to-server (no user session) and need to bypass RLS
+// to insert into square_webhook_events / read prior dedup state. Use admin
+// client (service_role); falling back to anon client would silently drop
+// every insert via RLS denial.
+import { createAdminSupabaseClient } from '@/lib/hgos/supabase';
 
 // ============================================================
 // TYPES
@@ -114,7 +118,7 @@ export function verifyWebhookSignature(
 export async function claimWebhookEvent(
   event: SquareWebhookEvent
 ): Promise<EventDeduplicationResult> {
-  const supabase = createServerSupabaseClient();
+  const supabase = createAdminSupabaseClient();
   
   // Compute payload hash for debugging
   const payloadHash = crypto
@@ -162,7 +166,7 @@ export async function claimWebhookEvent(
 export async function checkEventDuplicate(
   eventId: string
 ): Promise<EventDeduplicationResult> {
-  const supabase = createServerSupabaseClient();
+  const supabase = createAdminSupabaseClient();
   
   const { data: existing, error } = await supabase
     .from('square_webhook_events')
@@ -190,7 +194,7 @@ export async function updateWebhookEventStatus(
   status: 'processed' | 'failed' | 'skipped',
   errorMessage?: string
 ): Promise<void> {
-  const supabase = createServerSupabaseClient();
+  const supabase = createAdminSupabaseClient();
   
   const { error } = await supabase
     .from('square_webhook_events')
@@ -217,7 +221,7 @@ export async function recordWebhookEvent(
 ): Promise<void> {
   // If event was claimed, just update status
   // If not claimed yet (legacy path), upsert
-  const supabase = createServerSupabaseClient();
+  const supabase = createAdminSupabaseClient();
   
   const payloadHash = crypto
     .createHash('sha256')
@@ -256,7 +260,7 @@ export async function checkTerminalCheckoutProcessed(
   checkoutId: string,
   newStatus: string
 ): Promise<boolean> {
-  const supabase = createServerSupabaseClient();
+  const supabase = createAdminSupabaseClient();
   
   const { data: checkout } = await supabase
     .from('terminal_checkouts')
@@ -286,7 +290,7 @@ export async function checkTerminalCheckoutProcessed(
 export async function checkPaymentProcessed(
   paymentId: string
 ): Promise<boolean> {
-  const supabase = createServerSupabaseClient();
+  const supabase = createAdminSupabaseClient();
   
   const { data: payment } = await supabase
     .from('sale_payments')
@@ -306,7 +310,7 @@ export async function checkPaymentProcessed(
 export async function checkRefundProcessed(
   refundId: string
 ): Promise<boolean> {
-  const supabase = createServerSupabaseClient();
+  const supabase = createAdminSupabaseClient();
   
   const { data: refund } = await supabase
     .from('refunds')

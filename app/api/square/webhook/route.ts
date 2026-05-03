@@ -9,7 +9,10 @@
 // ============================================================
 
 import { NextRequest, NextResponse } from 'next/server';
-import { createServerSupabaseClient } from '@/lib/hgos/supabase';
+// Webhooks are server-to-server (no user session). The handler upserts
+// into RLS-protected tables — must use admin client (service_role) or
+// every insert silently fails policy checks.
+import { createAdminSupabaseClient } from '@/lib/hgos/supabase';
 import { createPaymentReceiptFromSale } from '@/lib/portal/sync-receipt';
 import { fetchPaymentDetails } from '@/lib/square/terminal';
 import {
@@ -89,7 +92,7 @@ export async function POST(request: NextRequest) {
 
     console.log('Square webhook claimed:', event.type, 'Event ID:', eventId);
 
-    const supabase = createServerSupabaseClient();
+    const supabase = createAdminSupabaseClient();
 
     // ============================================================
     // GIFT CARD EVENTS
