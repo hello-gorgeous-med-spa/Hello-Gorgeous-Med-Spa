@@ -14,7 +14,7 @@ import {
   HomepageClosingCTARow,
   OurPromiseSection,
 } from "@/components/homepage-v3";
-import { TheBookHomeSection } from "@/components/the-book";
+import { TheBookBadge } from "@/components/the-book";
 import { HomepagePromoRail } from "@/components/HomepagePromoRail";
 import { Morpheus8SkinRebuildSection } from "@/components/Morpheus8SkinRebuildSection";
 import { Morpheus8VerifiedProviderSection } from "@/components/Morpheus8VerifiedProviderSection";
@@ -187,7 +187,6 @@ export default function HomePage() {
       <main className="bg-white">
         <HomepagePromoRail />
         <HeroV3 />
-        <TheBookHomeSection />
         <TrustStrip />
         <OurPromiseSection />
         <Morpheus8SkinRebuildSection />
@@ -202,6 +201,7 @@ export default function HomePage() {
         <HomepageTestimonials />
         <HomepageCherryFaqRow />
         <HomepageClosingCTARow />
+        <TheBookBadge />
       </main>
     </>
   );
