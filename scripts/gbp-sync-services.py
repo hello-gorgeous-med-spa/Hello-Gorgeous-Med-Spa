@@ -276,16 +276,25 @@ def location_primary_gcid(location: dict) -> str:
 # ---------------------------------------------------------------------------
 
 def truncate(s: str, n: int) -> str:
-    # GBP rejects strings with leading/trailing or contiguous whitespace.
-    s = " ".join((s or "").split())
+    # GBP's content validator is picky and surfaces violations as a generic
+    # 500 (no field-level details). Defensive normalization:
+    #   - replace smart quotes/apostrophes with ASCII equivalents
+    #   - strip ellipsis (some 500s correlated with truncation indicator)
+    #   - collapse contiguous whitespace (GBP rejects double spaces)
+    #   - hard-cut on word boundary, no trailing indicator
+    s = (s or "")
+    s = (s.replace("‘", "'").replace("’", "'")
+           .replace("“", '"').replace("”", '"')
+           .replace("…", "")
+           .replace(" ", " "))
+    s = " ".join(s.split())
     if len(s) <= n:
         return s
-    cut = s[: n - 1].rstrip()
-    # avoid cutting mid-word if a clean break exists in the last 25 chars
-    sp = cut.rfind(" ", max(0, len(cut) - 25))
-    if sp >= n - 25:
-        cut = cut[:sp].rstrip()
-    return cut + "…"
+    cut = s[:n].rstrip()
+    sp = cut.rfind(" ", max(0, len(cut) - 30))
+    if sp >= n - 30:
+        cut = cut[:sp].rstrip(" ,.;:-—")
+    return cut
 
 
 def is_excluded(name: str) -> str | None:
@@ -435,19 +444,33 @@ def diff_summary(current: list[dict], planned: list[dict]) -> str:
 
 
 def push_service_items(token: str, location_id: str, items: list[dict]) -> dict:
+    """PATCH with backoff for Google's transient 500s on serviceItems writes."""
     url = f"{GBP_INFO_V1}/locations/{location_id}?updateMask=serviceItems"
-    status, data = http_request_json(
-        url, "PATCH", {"Authorization": f"Bearer {token}"},
-        body={"serviceItems": items},
-    )
-    if status != 200:
-        msg = (data.get("error") or {}).get("message") or f"HTTP {status}"
-        details = (data.get("error") or {}).get("details")
-        sys.exit(
-            f"PATCH failed ({status}): {msg}\n"
-            + (json.dumps(details, indent=2) if details else "")
+    delays = [0, 60, 180, 360]  # seconds before each attempt
+    last_err: tuple[int, dict] = (0, {})
+    import time as _t
+    for attempt, delay in enumerate(delays, start=1):
+        if delay:
+            print(f"  retry {attempt - 1} of {len(delays) - 1} — sleeping {delay}s before retry...")
+            _t.sleep(delay)
+        status, data = http_request_json(
+            url, "PATCH", {"Authorization": f"Bearer {token}"},
+            body={"serviceItems": items},
         )
-    return data
+        if status == 200:
+            return data
+        last_err = (status, data)
+        msg = (data.get("error") or {}).get("message") or f"HTTP {status}"
+        print(f"  attempt {attempt}/{len(delays)} → {status}: {msg}")
+        if status == 400:
+            break  # 400 is permanent — don't burn retries on it
+    status, data = last_err
+    msg = (data.get("error") or {}).get("message") or f"HTTP {status}"
+    details = (data.get("error") or {}).get("details")
+    sys.exit(
+        f"PATCH failed after {len(delays)} attempts ({status}): {msg}\n"
+        + (json.dumps(details, indent=2) if details else "")
+    )
 
 
 # ---------------------------------------------------------------------------
