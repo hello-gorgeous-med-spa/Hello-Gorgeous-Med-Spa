@@ -10,12 +10,14 @@
  * Hello Gorgeous RX catalog articles are appended from `blog-rx-product-posts.ts` (one post per product card).
  */
 import { peptideTherapyBlogPost } from "./blog-post-peptide-therapy-article";
+import { pillarMay2026Posts } from "./blog-posts-pillar-may-2026";
 import { rxProductBlogPosts } from "./blog-rx-product-posts";
 import type { BlogPost } from "./blog-types";
 
 export type { BlogPost } from "./blog-types";
 
 const coreBlogPosts: BlogPost[] = [
+  ...pillarMay2026Posts,
   // ====================================================================
   // ARTICLE: Michelle Solaria before/after + new InMode equipment — Oswego, IL
   // ====================================================================

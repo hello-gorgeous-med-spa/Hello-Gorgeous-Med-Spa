@@ -64,6 +64,83 @@ DISPLAY_NAME_MAX = 80
 # Default GBP category for free-form service items. Overridden at runtime
 # from the location's primary category once we read it.
 DEFAULT_GCID = "gcid:medical_spa"
+# GBP soft cap. Empirically ~100 total service items. Leaving headroom.
+TOTAL_SOFT_CAP = 95
+
+# Square names to exclude from GBP entirely. Reasons: GBP forbids pricing
+# in service names + promotional language ("Special", "Buy One"), and
+# disallows SKU fragments that are not standalone customer-facing services.
+EXCLUDE_PATTERNS = (
+    "$",                    # any pricing in the name
+    "buy one",              # promo
+    "get one",              # promo
+    "vip model",            # promo
+    "vip-model",
+    "tier 1",               # internal pricing tier, not a service
+    "tier 2",
+    "tier 3",
+    "per syringe",          # SKU, not a service
+    "multi-site",           # SKU fragment
+    "intro offer",          # promo
+    "(alt)",                # duplicate listings flagged in source
+    "(duplicate)",
+    "(note:",               # source-flagged duplicates
+    "— alt",                # alternate-listing tag
+    "model special",        # promo
+)
+
+# Exact-name excludes — items that ARE services but are already covered by
+# Google's structured serviceTypeIds (we'll preserve those unchanged) or
+# are too narrow to list on GBP individually.
+EXCLUDE_NAMES = {
+    "Lip Flip Special",
+    "Botox — New Client Special ($10/unit)",
+    "BOTOX SPECIAL $10/unit( New Clients Only)",
+    "Morpheus8 Burst — Buy One Area, Get One 50% Off",
+    "Morpheus8 Burst Full Face + Free Neck — VIP Model Special",
+    # Tirzepatide tier SKUs — keep only the headline "Tirzepatide" entry
+    "Tirzepatide — Tier 1 (Starter)",
+    "Tirzepatide — Tier 2 (Standard)",
+    "Tirzepatide — Tier 3 (Maintenance)",
+    "Tirzepatide — Initial Consult + First Injection",
+    "Tirzepatide — Monthly Maintenance",
+    "Tirzepatide (Zepbound/Mounjaro) - 90 Day Program",
+    # Retatrutide variants — keep one canonical "Retatrutide"
+    "Retatrutide GLP-1 Weight loss is here!!!  Power Triple action agonist - Month 3 - 4 ml for 4 weeks",
+    "Retatrutide GLP-1 Weight loss is here!!!  Power Triple action agonist - (2 Month) 2 and 4 ml",
+    "Retatrutide GLP-1 Weight loss is here!!!  Power Triple action agonist",
+    # Generic items already covered by Google's structured serviceTypeIds:
+    "Lip Filler — 0.5ml",   # covered by structured lip_fillers
+    "Lip Filler — 1ml",     # covered by structured lip_fillers
+    "Microneedling",        # covered by structured microneedling
+    "HydraFacial",          # covered by structured hydrafacial
+    # Internal SKU fragments
+    "Brow Shaping/Wax",     # source flags as alt of Brow Wax & Shape
+    "(Hylanex) lip dissolver",  # alt of Lip Dissolver (Hylanex)
+}
+
+# Substring tokens marking a service as a "headliner" — the marquee
+# offerings that should be prioritized into GBP if the soft cap forces
+# trade-offs. Matched case-insensitive against the Square service name.
+HEADLINER_TOKENS = (
+    "solaria", "quantum rf", "morpheus8", "morpheous",
+    "tirzepatide", "semaglutide", "retatrutide", "glp-1",
+    "biote", "bhrt", "pellet therapy", "hormone",
+    "mommy makeover", "glowtox", "trifecta",
+    "anteage md", "anteage exosome", "exosome",
+    "pdrn", "salmon dna",
+    "botox", "filler", "lip flip",
+    "ipl photofacial", "photofacial",
+    "weight loss", "peptide",
+    "ryan kent", "medical director",
+)
+
+# Substring tokens that LOWER priority — micro-variants and sub-area SKUs
+# that should drop first if we hit the cap.
+DEPRIORITIZE_TOKENS = (
+    "mini fill", "express", "half ", "(within",
+    "tint only", "tint-only", "wax only", "henna",
+)
 
 
 # ---------------------------------------------------------------------------
@@ -199,7 +276,8 @@ def location_primary_gcid(location: dict) -> str:
 # ---------------------------------------------------------------------------
 
 def truncate(s: str, n: int) -> str:
-    s = (s or "").strip()
+    # GBP rejects strings with leading/trailing or contiguous whitespace.
+    s = " ".join((s or "").split())
     if len(s) <= n:
         return s
     cut = s[: n - 1].rstrip()
@@ -210,12 +288,72 @@ def truncate(s: str, n: int) -> str:
     return cut + "…"
 
 
+def is_excluded(name: str) -> str | None:
+    """Return reason string if name should be excluded, else None."""
+    if name in EXCLUDE_NAMES:
+        return "excluded by name list"
+    low = name.lower()
+    for pat in EXCLUDE_PATTERNS:
+        if pat in low:
+            return f"excluded pattern: '{pat}'"
+    return None
+
+
+def priority_score(name: str, desc: str) -> int:
+    """Higher score = more likely to survive the soft cap.
+
+    Headliner keyword presence dominates; description length is a tiebreaker;
+    deprioritize tokens drag the score down so micro-variants drop first.
+    """
+    low = name.lower()
+    score = 0
+    for tok in HEADLINER_TOKENS:
+        if tok in low:
+            score += 10_000
+            break  # one bonus per item; don't double-count overlapping headliners
+    for tok in DEPRIORITIZE_TOKENS:
+        if tok in low:
+            score -= 5_000
+    score += min(len(desc), 250)  # tiebreak by description richness
+    return score
+
+
+def extract_structured_items(current_items: list[dict]) -> list[dict]:
+    """Carry over Google's structured (curated) serviceTypeIds unchanged.
+
+    These have ranking weight and aren't expressible as freeForm. Preserving
+    them in the PATCH payload keeps Google's curated badges intact.
+    """
+    out: list[dict] = []
+    for it in current_items:
+        st = it.get("structuredServiceItem")
+        if st and st.get("serviceTypeId"):
+            # Keep description if present (rare for structured).
+            keep = {"structuredServiceItem": {"serviceTypeId": st["serviceTypeId"]}}
+            if st.get("description"):
+                keep["structuredServiceItem"]["description"] = truncate(
+                    st["description"], DESCRIPTION_MAX,
+                )
+            out.append(keep)
+    return out
+
+
 def build_planned_service_items(
     square_items: list[dict],
+    current_items: list[dict],
     gcid: str,
 ) -> tuple[list[dict], list[dict]]:
-    """Return (serviceItems[], skipped[]). Skipped items lack a description."""
-    planned: list[dict] = []
+    """Return (serviceItems[], skipped[]).
+
+    Strategy:
+      1. Carry over all structured (Google-curated) serviceTypeIds unchanged.
+      2. Add freeForm items from Square (after exclusion + dedup) sorted by
+         description length descending — richest entries survive the cap.
+      3. Truncate to TOTAL_SOFT_CAP if needed (warn).
+    """
+    structured = extract_structured_items(current_items)
+
+    free_form_candidates: list[tuple[int, dict, dict]] = []  # (priority, raw, item)
     skipped: list[dict] = []
     seen_names: set[str] = set()
     for item in square_items:
@@ -227,11 +365,15 @@ def build_planned_service_items(
         if not desc:
             skipped.append({"name": name, "reason": "no description"})
             continue
+        excl = is_excluded(name)
+        if excl:
+            skipped.append({"name": name, "reason": excl})
+            continue
         if name in seen_names:
             skipped.append({"name": name, "reason": "duplicate name"})
             continue
         seen_names.add(name)
-        planned.append({
+        free_form_candidates.append((priority_score(name, desc), item, {
             "freeFormServiceItem": {
                 "category": gcid,
                 "label": {
@@ -240,7 +382,18 @@ def build_planned_service_items(
                     "languageCode": "en-US",
                 },
             },
-        })
+        }))
+
+    free_form_candidates.sort(key=lambda t: -t[0])
+
+    total_room = max(0, TOTAL_SOFT_CAP - len(structured))
+    free_form_kept = [t[2] for t in free_form_candidates[:total_room]]
+    capped_off = [t[1] for t in free_form_candidates[total_room:]]
+    for raw in capped_off:
+        nm = (raw.get("item_data", {}) or {}).get("name", "(unknown)")
+        skipped.append({"name": nm, "reason": f"over soft cap of {TOTAL_SOFT_CAP}"})
+
+    planned = structured + free_form_kept
     return planned, skipped
 
 
@@ -305,6 +458,10 @@ def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--push", action="store_true",
                         help="Actually PATCH GBP. Default is dry-run.")
+    parser.add_argument("--only-structured", action="store_true",
+                        help="Push only the preserved structured items (diagnostic).")
+    parser.add_argument("--limit", type=int, default=0,
+                        help="Cap free-form items at N (diagnostic).")
     parser.add_argument("--show-current", action="store_true",
                         help="Print current GBP services + primary category, then exit.")
     parser.add_argument("--dump-planned", action="store_true",
@@ -355,12 +512,32 @@ def main() -> int:
     )
     print(f"Square items: {len(square_items)} total, {with_desc} with descriptions\n")
 
-    planned, skipped = build_planned_service_items(square_items, gcid)
+    planned, skipped = build_planned_service_items(square_items, current_items, gcid)
+    if args.only_structured:
+        planned = [it for it in planned if it.get("structuredServiceItem")]
+    elif args.limit > 0:
+        structured = [it for it in planned if it.get("structuredServiceItem")]
+        freeform = [it for it in planned if it.get("freeFormServiceItem")][: args.limit]
+        planned = structured + freeform
+    structured_count = sum(1 for it in planned if it.get("structuredServiceItem"))
+    free_form_count = len(planned) - structured_count
+    print(
+        f"Planned breakdown: {structured_count} preserved structured + "
+        f"{free_form_count} new freeForm = {len(planned)} total "
+        f"(soft cap {TOTAL_SOFT_CAP})\n"
+    )
     print(diff_summary(current_items, planned))
     if skipped:
-        print(f"\nSkipped {len(skipped)} Square items (no description / duplicate):")
-        for s in skipped[:20]:
-            print(f"  · {s['name']}  ({s['reason']})")
+        capped = [s for s in skipped if "soft cap" in s["reason"]]
+        excluded = [s for s in skipped if "soft cap" not in s["reason"]]
+        if excluded:
+            print(f"\nExcluded {len(excluded)} Square items (policy / duplicate / no desc):")
+            for s in excluded[:25]:
+                print(f"  · {s['name']}  ({s['reason']})")
+        if capped:
+            print(f"\nDropped {len(capped)} Square items (over soft cap):")
+            for s in capped[:25]:
+                print(f"  · {s['name']}")
 
     if args.dump_planned:
         print("\n--- planned serviceItems[] ---")

@@ -144,6 +144,19 @@ Redeploy. In **Post to social**, check **Google Business** and post. The app wil
 | **Google** | `GOOGLE_REFRESH_TOKEN` | OAuth 2.0 Playground (scope `business.manage`) |
 | **Google** | `GOOGLE_BUSINESS_ACCOUNT_ID` | Account Management API → list accounts |
 | **Google** | `GOOGLE_BUSINESS_LOCATION_ID` | Business Information API → list locations |
+| **Automation (optional)** | `SOCIAL_AUTO_QUEUE_ENABLED` | Set to `true` to allow **weekly** auto-insert of 7 Facebook preset posts into `scheduled_social_posts` (opt-in; see below) |
+| **Automation** | `CRON_SECRET` | Vercel sends `Authorization: Bearer` to cron routes when this is set; use the same secret for all crons |
+
+### Weekly auto-queue (Facebook presets — “set and forget”)
+
+1. **Supabase** + **`CRON_SECRET`** + existing cron **`/api/cron/scheduled-social-posts`** (every 15m) must already work for scheduled publishing.
+2. On Vercel, set **`SOCIAL_AUTO_QUEUE_ENABLED=true`**.
+3. **`vercel.json`** includes a **Sunday 13:00 UTC** (~8:00 AM Central in summer) cron: **`GET /api/cron/queue-suggested-week`**. It inserts the same 7-day sequence as **Admin → Social Content Agent → Schedule 7-day sequence** (America/Chicago **10:00** each day, Monday→Sunday).
+4. If **7+ pending** posts already exist in that week window, the run **skips** (unless you call manually with **`?force=1`**). Manual test (with secret):
+
+   `curl -s -H "Authorization: Bearer YOUR_CRON_SECRET" "https://www.hellogorgeousmedspa.com/api/cron/queue-suggested-week"`
+
+5. **`NEXT_PUBLIC_SITE_URL`** (production URL) ensures preset links/images resolve for Meta.
 
 ---
 

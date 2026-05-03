@@ -188,7 +188,12 @@ export default function SocialContentAgentPage() {
         </div>
 
         <p className="text-xs text-black/55 mt-8 max-w-2xl">
-          This is not autonomous AI — it&apos;s your approved copy, queued safely through your own API. For Instagram, add{" "}
+          This is not autonomous AI — it&apos;s your approved copy, queued safely through your own API.{" "}
+          <strong>Hands-off option:</strong> on Vercel set{" "}
+          <code className="bg-gray-100 px-1">SOCIAL_AUTO_QUEUE_ENABLED=true</code> so Sunday cron runs{" "}
+          <code className="bg-gray-100 px-1">/api/cron/queue-suggested-week</code> (same 7-day preset sequence). Requires{" "}
+          <code className="bg-gray-100 px-1">CRON_SECRET</code>, Supabase, and publish cron — see{" "}
+          <code className="bg-gray-100 px-1">docs/SOCIAL_POSTING_SETUP.md</code> in the repo. For Instagram, add{" "}
           <code className="bg-gray-100 px-1">META_INSTAGRAM_BUSINESS_ACCOUNT_ID</code> and remember IG requires an image URL for
           feed posts.
         </p>

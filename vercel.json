@@ -32,6 +32,18 @@
       "schedule": "*/15 * * * *"
     },
     {
+      "path": "/api/cron/queue-suggested-week",
+      "schedule": "0 13 * * 0"
+    },
+    {
+      "path": "/api/cron/sync-square-segments",
+      "schedule": "0 6 * * 1"
+    },
+    {
+      "path": "/api/agents/winback",
+      "schedule": "0 15 * * 1"
+    },
+    {
       "path": "/api/hub/plaid/sync",
       "schedule": "0 11 * * *"
     },

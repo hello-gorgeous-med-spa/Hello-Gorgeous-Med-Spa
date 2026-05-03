@@ -125,6 +125,20 @@ export const SMS_TEMPLATES: SMSTemplate[] = [
     variables: ['firstName', 'discount', 'bookingLink'],
   },
   {
+    id: 'lapsed_winback',
+    name: 'Lapsed Client Win-Back',
+    category: 'promotional',
+    message: '{{firstName}}, it\'s been a while! 💕 We\'d love to see you — enjoy $25 off your next visit at Hello Gorgeous. Book before it expires: hellogorgeousmedspa.com/book Reply STOP to opt out.',
+    variables: ['firstName'],
+  },
+  {
+    id: 'lapsed_botox_reminder',
+    name: 'Botox Refresh Reminder',
+    category: 'promotional',
+    message: '{{firstName}}, ready for a Botox refresh? ✨ It\'s been a few months — book your touch-up at Hello Gorgeous: hellogorgeousmedspa.com/book Reply STOP to opt out.',
+    variables: ['firstName'],
+  },
+  {
     id: 'referral_thank_you',
     name: 'Referral Thank You',
     category: 'promotional',
