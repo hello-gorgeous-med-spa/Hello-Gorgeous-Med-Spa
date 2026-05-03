@@ -432,6 +432,47 @@ export function OurPromiseContent() {
           </div>
         </Section>
 
+        {/* Partner Badges */}
+        <Section className="bg-gradient-to-b from-white to-rose-50 py-12 border-t-4 border-black">
+          <div className="max-w-4xl mx-auto">
+            <FadeUp>
+              <div className="text-center mb-8">
+                <span className="inline-block px-4 py-1.5 rounded-full bg-[#E6007E]/10 text-[#E6007E] text-xs font-bold uppercase tracking-wider mb-4">
+                  Official Partner Status
+                </span>
+                <h2 className="text-2xl md:text-3xl font-bold text-black">
+                  Verified Authorized Provider
+                </h2>
+              </div>
+            </FadeUp>
+            
+            <div className="flex flex-wrap justify-center items-center gap-8">
+              <FadeUp delayMs={100}>
+                <div className="flex flex-col items-center">
+                  <img
+                    src="/images/badges/allergan-partner-privileges-2026.png"
+                    alt="Allergan Partner Privileges Proud Member 2026 — Hello Gorgeous Med Spa Oswego IL"
+                    className="h-48 w-auto"
+                  />
+                  <p className="text-sm text-black/60 mt-2 font-medium">Allergan Aesthetics</p>
+                </div>
+              </FadeUp>
+              <FadeUp delayMs={200}>
+                <div className="flex flex-col items-center">
+                  <div className="h-48 w-48 rounded-2xl bg-gradient-to-br from-[#E6007E] to-[#FF2D8E] flex items-center justify-center">
+                    <div className="text-center text-white">
+                      <div className="text-3xl font-black">InMode</div>
+                      <div className="text-xs uppercase tracking-wider mt-1 opacity-80">Verified Provider</div>
+                      <div className="text-sm font-bold mt-2">2026</div>
+                    </div>
+                  </div>
+                  <p className="text-sm text-black/60 mt-2 font-medium">InMode Certified</p>
+                </div>
+              </FadeUp>
+            </div>
+          </div>
+        </Section>
+
         {/* Training Certificates */}
         <Section className="bg-white py-16 border-t-4 border-black">
           <div className="max-w-5xl mx-auto">
