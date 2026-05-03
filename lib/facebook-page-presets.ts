@@ -33,7 +33,8 @@ export const FACEBOOK_PAGE_PRESET_BOOK: FacebookPagePreset = {
 
 Call (630) 636-6193 or book online — link below.`,
   linkPath: withUtm("/book"),
-  defaultChannels: ["facebook"],
+  imagePath: "/images/homepage-services/morpheus8-burst-verified-provider.png",
+  defaultChannels: ["facebook", "instagram"],
 };
 
 export const FACEBOOK_PAGE_PRESET_SOLARIA: FacebookPagePreset = {
@@ -47,7 +48,7 @@ Launch special: $899 full face (consult required). Real results — not hype.
 Oswego · serving Naperville, Aurora, Plainfield & the Fox Valley.`,
   linkPath: withUtm("/services/solaria-co2"),
   imagePath: "/images/solaria/solaria-co2-full-face-before-after.png",
-  defaultChannels: ["facebook"],
+  defaultChannels: ["facebook", "instagram"],
 };
 
 export const FACEBOOK_PAGE_PRESET_QUANTUM: FacebookPagePreset = {
@@ -62,7 +63,7 @@ Text or call Ryan Kent to claim your spot: 217-741-8359
 Main office: (630) 636-6193`,
   linkPath: withUtm("/services/quantum-rf#contour-lift-model-days"),
   imagePath: "/images/quantum-rf/hello-gorgeous-contour-lift-model-days-flyer-2026.jpg",
-  defaultChannels: ["facebook"],
+  defaultChannels: ["facebook", "instagram"],
 };
 
 export const FACEBOOK_PAGE_PRESET_MORPHEUS8: FacebookPagePreset = {
@@ -74,7 +75,7 @@ export const FACEBOOK_PAGE_PRESET_MORPHEUS8: FacebookPagePreset = {
 Free consult determines your plan. Hello Gorgeous Med Spa — Oswego.`,
   linkPath: withUtm("/services/morpheus8"),
   imagePath: "/images/morpheus8/morpheus8-burst-deep-thighs-skin-tightening-before-after.png",
-  defaultChannels: ["facebook"],
+  defaultChannels: ["facebook", "instagram"],
 };
 
 export const FACEBOOK_PAGE_PRESET_IPL: FacebookPagePreset = {
@@ -88,7 +89,7 @@ Fade sun spots, redness, and broken capillaries — often visible improvement wi
 Oswego · Naperville · Aurora · Plainfield.`,
   linkPath: withUtm("/services/ipl-photofacial"),
   imagePath: "/images/ipl-photofacial/ipl-photofacial-zemits-treatment-hero.png",
-  defaultChannels: ["facebook"],
+  defaultChannels: ["facebook", "instagram"],
 };
 
 export const FACEBOOK_PAGE_PRESET_WEIGHT: FacebookPagePreset = {
@@ -99,7 +100,8 @@ export const FACEBOOK_PAGE_PRESET_WEIGHT: FacebookPagePreset = {
 
 Book a consult: we’ll tell you honestly if you’re a candidate.`,
   linkPath: withUtm("/services/weight-loss-therapy"),
-  defaultChannels: ["facebook"],
+  imagePath: "/images/homepage-services/compounded-tirzepatide-weight-loss.png",
+  defaultChannels: ["facebook", "instagram"],
 };
 
 export const FACEBOOK_PAGE_PRESET_GLOW_EVENT: FacebookPagePreset = {
@@ -111,7 +113,7 @@ export const FACEBOOK_PAGE_PRESET_GLOW_EVENT: FacebookPagePreset = {
 Trifecta demos, bites & bubbly, raffle, guest vitamin shot. RSVP on our site — spots limited.`,
   linkPath: withUtm("/events/the-glow-social"),
   imagePath: "/images/events/glow-social-win-big-may-14.png",
-  defaultChannels: ["facebook"],
+  defaultChannels: ["facebook", "instagram"],
 };
 
 export const FACEBOOK_PAGE_PRESET_OUR_PROMISE: FacebookPagePreset = {
@@ -126,7 +128,8 @@ Every vial verified. Every device certified. That's the Hello Gorgeous differenc
 
 Read why this matters for YOUR safety — and how to spot a provider who cuts corners. 👇`,
   linkPath: withUtm("/blog/our-promise-authentic-products-class-iv-lasers-oswego-il"),
-  defaultChannels: ["facebook", "google"],
+  imagePath: "/images/badges/allergan-partner-privileges-2026.png",
+  defaultChannels: ["facebook", "instagram", "google"],
 };
 
 export const FACEBOOK_PAGE_PRESETS: FacebookPagePreset[] = [
