@@ -29,6 +29,8 @@ interface ScheduledPost {
   created_at: string;
 }
 
+const DRAFT_STORAGE_KEY = "hgSocialPresetDraft";
+
 export default function PostSocialPage() {
   const [message, setMessage] = useState('');
   const [link, setLink] = useState('');
@@ -53,6 +55,32 @@ export default function PostSocialPage() {
       .then((data) => data && setStatus(data));
     fetchScheduled();
   }, [fetchScheduled]);
+
+  /** Hydrate from Social Content Agent (sessionStorage one-shot). */
+  useEffect(() => {
+    try {
+      const raw = sessionStorage.getItem(DRAFT_STORAGE_KEY);
+      if (!raw) return;
+      const d = JSON.parse(raw) as {
+        message?: string;
+        link?: string;
+        imageUrl?: string;
+        channels?: Channel[];
+      };
+      if (typeof d.message === "string" && d.message.trim()) setMessage(d.message);
+      if (typeof d.link === "string") setLink(d.link);
+      if (typeof d.imageUrl === "string") setImageUrl(d.imageUrl);
+      if (Array.isArray(d.channels) && d.channels.length > 0) {
+        const next = d.channels.filter((c): c is Channel =>
+          ["facebook", "instagram", "google"].includes(c as Channel),
+        );
+        if (next.length > 0) setChannels(next);
+      }
+      sessionStorage.removeItem(DRAFT_STORAGE_KEY);
+    } catch {
+      sessionStorage.removeItem(DRAFT_STORAGE_KEY);
+    }
+  }, []);
 
   const toggleChannel = (ch: Channel) => {
     setChannels((prev) =>
@@ -121,6 +149,15 @@ export default function PostSocialPage() {
           </Link>
         </div>
         <h1 className="text-2xl font-bold text-black mb-2">Post to social</h1>
+        <p className="text-sm mb-4">
+          <Link
+            href="/admin/marketing/social-content-agent"
+            className="text-[#2D63A4] font-semibold hover:underline"
+          >
+            Social Content Agent
+          </Link>{" "}
+          — one-click Facebook presets and a 7-day queue.
+        </p>
         <p className="text-black mb-6">
           Write once, publish to <strong>Facebook</strong>, <strong>Google Business</strong>, and/or Instagram. Use <strong>Square</strong> for email campaigns (links on the main Marketing page). Instagram is optional — connect when ready. Set env vars below per channel.
         </p>

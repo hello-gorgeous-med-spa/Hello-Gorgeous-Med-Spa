@@ -65,12 +65,20 @@ function MarketingContent() {
       </div>
 
       <div className="flex flex-wrap items-center gap-2 border-b border-black pb-2">
-        <Link
-          href="/admin/marketing/post-social"
-          className="ml-auto px-3 py-1.5 text-sm font-medium rounded-lg bg-[#2D63A4] text-white hover:bg-[#234a7a] order-last sm:order-none"
-        >
-          Post to Social →
-        </Link>
+        <div className="ml-auto flex flex-wrap items-center gap-2 order-last sm:order-none">
+          <Link
+            href="/admin/marketing/social-content-agent"
+            className="px-3 py-1.5 text-sm font-medium rounded-lg bg-[#E6007E] text-white hover:bg-[#c9006e]"
+          >
+            Social Agent
+          </Link>
+          <Link
+            href="/admin/marketing/post-social"
+            className="px-3 py-1.5 text-sm font-medium rounded-lg bg-[#2D63A4] text-white hover:bg-[#234a7a]"
+          >
+            Post to Social →
+          </Link>
+        </div>
         {[
           { id: 'overview', label: 'Overview' },
           { id: 'campaigns', label: 'Campaigns' },
@@ -91,6 +99,7 @@ function MarketingContent() {
       {tab === 'overview' && (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {[
+            { href: '/admin/marketing/social-content-agent', icon: '🤖', title: 'Social Content Agent', desc: 'Facebook presets + queue a week — then edit or post' },
             { href: '/admin/marketing/post-social', icon: '📲', title: 'Post to Social', desc: 'Google Business, Facebook, Instagram from one screen' },
             { onClick: () => setTab('campaigns'), icon: '📧', title: 'SMS / Email campaigns', desc: 'Create and send campaigns to segments' },
             { onClick: () => setTab('segments'), icon: '👥', title: 'Audience segments', desc: 'Never booked, no visit 90d, VIP, birthday, and more' },
