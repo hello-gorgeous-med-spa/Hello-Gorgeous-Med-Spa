@@ -98,6 +98,30 @@ const navigation = {
       { label: "Supplement Dispensary", href: "/fullscript", description: "Professional-grade supplements & Fullscript", icon: "💊" },
     ],
   },
+  intake: {
+    label: "Intake",
+    href: "/forms/client-intake",
+    links: [
+      {
+        label: "Client Intake",
+        href: "/forms/client-intake",
+        description: "Secure intake before consultation",
+        icon: "📝",
+      },
+      {
+        label: "Patient Care",
+        href: "/pre-post-care",
+        description: "Pre and post-treatment care guides",
+        icon: "📋",
+      },
+      {
+        label: "Patient Documents",
+        href: "/patient-documents",
+        description: "Consent forms and printable resources",
+        icon: "📄",
+      },
+    ],
+  },
   providers: {
     label: "Providers",
     href: "/providers",
@@ -488,18 +512,35 @@ export function Header() {
               FAQ
             </Link>
 
-            {/* Client Intake */}
-            <Link
-              href="/forms/client-intake"
-              className={cx(
-                "flex items-center justify-center h-9 px-2.5 rounded-lg text-sm font-medium transition-all whitespace-nowrap",
-                pathname === "/forms/client-intake"
-                  ? "text-white bg-[#FF2D8E]"
-                  : "text-black hover:bg-[#FF2D8E]/10 hover:text-[#FF2D8E]"
-              )}
+            {/* Intake Dropdown */}
+            <div
+              className="relative flex items-center"
+              onMouseEnter={() => handleMouseEnter("intake")}
+              onMouseLeave={handleMouseLeave}
             >
-              Intake
-            </Link>
+              <Link
+                href={navigation.intake.href}
+                className={cx(
+                  "flex items-center justify-center gap-1 h-9 px-2.5 rounded-lg text-sm font-medium transition-all whitespace-nowrap",
+                  pathname === "/forms/client-intake" ||
+                    pathname === "/pre-post-care" ||
+                    pathname === "/patient-documents"
+                    ? "text-white bg-[#FF2D8E]"
+                    : "text-black hover:bg-[#FF2D8E]/10 hover:text-[#FF2D8E]"
+                )}
+              >
+                Intake
+                <svg className={cx("w-3 h-3 transition-transform", activeDropdown === "intake" && "rotate-180")} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </Link>
+              <SimpleDropdown
+                data={navigation.intake}
+                isOpen={activeDropdown === "intake"}
+                onClose={() => setActiveDropdown(null)}
+                onMouseEnter={() => handleMouseEnter("intake")}
+              />
+            </div>
 
             {/* RX Dropdown */}
             <div 
@@ -704,14 +745,30 @@ export function Header() {
               Med Spa FAQ
             </Link>
 
-            <Link
-              href="/forms/client-intake"
-              onClick={() => setMobileMenuOpen(false)}
-              className="flex items-center gap-3 px-4 py-3 min-h-[44px] rounded-xl border border-black/15 bg-gray-50 text-[#FF2D8E] font-semibold"
-            >
-              <span className="text-xl">📝</span>
-              Client Intake
-            </Link>
+            <div className="rounded-xl border border-black/15 bg-gray-50 px-2 py-2">
+              <p className="px-2 py-1 text-sm font-bold text-[#FF2D8E]">📝 Intake</p>
+              <Link
+                href="/forms/client-intake"
+                onClick={() => setMobileMenuOpen(false)}
+                className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-[#FF2D8E] hover:bg-black/5"
+              >
+                <span>Client Intake</span>
+              </Link>
+              <Link
+                href="/pre-post-care"
+                onClick={() => setMobileMenuOpen(false)}
+                className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-[#FF2D8E] hover:bg-black/5"
+              >
+                <span>Patient Care</span>
+              </Link>
+              <Link
+                href="/patient-documents"
+                onClick={() => setMobileMenuOpen(false)}
+                className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-[#FF2D8E] hover:bg-black/5"
+              >
+                <span>Patient Documents</span>
+              </Link>
+            </div>
 
             {/* Procedures — device treatments */}
             <div className="border-b border-black pb-4">
