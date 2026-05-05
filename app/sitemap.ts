@@ -44,12 +44,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'weekly',
       priority: 0.9,
     },
-    {
-      url: `${baseUrl}/book`,
-      lastModified: currentDate,
-      changeFrequency: 'monthly',
-      priority: 0.95,
-    },
     // /providers intentionally excluded — it 307-redirects to /about. Sitemaps must list canonical destinations.
     {
       url: `${baseUrl}/providers/danielle`,
@@ -86,12 +80,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: currentDate,
       changeFrequency: 'monthly',
       priority: 0.85,
-    },
-    {
-      url: `${baseUrl}/hub`,
-      lastModified: currentDate,
-      changeFrequency: 'weekly',
-      priority: 0.82,
     },
     {
       url: `${baseUrl}/events/vip-device-night`,
@@ -136,7 +124,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.85,
     },
     {
-      url: `${baseUrl}/specials`,
+      url: `${baseUrl}/free-vitamin`,
       lastModified: currentDate,
       changeFrequency: 'weekly',
       priority: 0.8,
@@ -148,7 +136,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.85,
     },
     {
-      url: `${baseUrl}/newsletter/april`,
+      url: `${baseUrl}/newsletter/hello-gorgeous-april.html`,
       lastModified: currentDate,
       changeFrequency: 'monthly',
       priority: 0.75,
@@ -192,12 +180,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ];
 
   // Service pages from SERVICES array
-  const servicePages: MetadataRoute.Sitemap = SERVICES.map((service) => ({
-    url: `${baseUrl}${service.publicPath ?? `/services/${service.slug}`}`,
-    lastModified: currentDate,
-    changeFrequency: 'monthly' as const,
-    priority: service.publicPath ? 0.9 : 0.8,
-  }));
+  const servicePages: MetadataRoute.Sitemap = SERVICES
+    // These legacy service paths 308 to other destinations; keep sitemap canonical-only.
+    .filter((service) => service.slug !== 'sermorelin-growth-peptide')
+    .map((service) => ({
+      url: `${baseUrl}${service.publicPath ?? `/services/${service.slug}`}`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly' as const,
+      priority: service.publicPath ? 0.9 : 0.8,
+    }));
 
   // Solaria CO2 special pages (aftercare content lives on /solaria)
   const solariaPages: MetadataRoute.Sitemap = [
@@ -273,12 +264,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     {
       url: `${baseUrl}/services/microneedling-rf`,
-      lastModified: currentDate,
-      changeFrequency: 'weekly',
-      priority: 0.92,
-    },
-    {
-      url: `${baseUrl}/services/weight-loss-therapy`,
       lastModified: currentDate,
       changeFrequency: 'weekly',
       priority: 0.92,
