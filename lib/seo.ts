@@ -178,6 +178,7 @@ export const SERVICES: readonly Service[] = [
   },
   {
     slug: "dermal-fillers",
+    publicPath: "/dermal-fillers-oswego-il",
     name: "Dermal Fillers",
     category: "Injectables",
     short: "Restore volume, refine contours, and enhance facial harmony.",
@@ -208,6 +209,7 @@ export const SERVICES: readonly Service[] = [
   },
   {
     slug: "lip-filler",
+    publicPath: "/lip-filler-oswego-il",
     name: "Lip Filler",
     category: "Injectables",
     short: "Soft, balanced lip enhancement designed for your facial harmony.",
@@ -372,6 +374,7 @@ export const SERVICES: readonly Service[] = [
   },
   {
     slug: "iv-therapy",
+    publicPath: "/iv-therapy-oswego-il",
     name: "IV Therapy",
     category: "Wellness",
     short: "Hydration and wellness support with clinician-guided IV options.",
@@ -556,6 +559,7 @@ export const SERVICES: readonly Service[] = [
   },
   {
     slug: "laser-hair-removal",
+    publicPath: "/laser-hair-removal-oswego-il",
     name: "Laser Hair Removal",
     category: "Aesthetics",
     short: "Reduce unwanted hair with a series-based laser approach.",

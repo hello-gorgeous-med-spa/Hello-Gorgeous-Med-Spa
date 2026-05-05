@@ -269,7 +269,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${baseUrl}/services/botox`,
       lastModified: currentDate,
       changeFrequency: 'weekly',
-      priority: 0.95,
+      priority: 0.7,
     },
     {
       url: `${baseUrl}/services/microneedling-rf`,
@@ -297,7 +297,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${baseUrl}/services/morpheus8`,
       lastModified: currentDate,
       changeFrequency: 'weekly',
-      priority: 0.95,
+      priority: 0.7,
     },
     {
       url: `${baseUrl}/quantum-rf-oswego-il`,

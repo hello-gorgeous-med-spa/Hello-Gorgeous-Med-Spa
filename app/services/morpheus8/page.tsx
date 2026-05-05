@@ -5,12 +5,19 @@ import { TechBlogPromo } from "@/components/TechBlogPromo";
 import { Morpheus8SkinRebuildSection } from "@/components/Morpheus8SkinRebuildSection";
 import { pageMetadata, SITE, siteJsonLd } from "@/lib/seo";
 
-export const metadata: Metadata = pageMetadata({
+const _morpheusMeta = pageMetadata({
   title: "Morpheus8 Burst + Deep | Newest RF Microneedling Face & Body | Oswego IL",
   description:
     "Morpheus8 Burst + Deep at Hello Gorgeous Med Spa, Oswego IL — newest InMode RF microneedling reaches 8mm for dramatic skin tightening on neck, knees, thighs, face & body. See real before/afters. Free consultation.",
   path: "/services/morpheus8",
 });
+
+export const metadata: Metadata = {
+  ..._morpheusMeta,
+  alternates: {
+    canonical: `${SITE.url}/morpheus8-oswego-il`,
+  },
+};
 
 export const revalidate = 3600;
 
