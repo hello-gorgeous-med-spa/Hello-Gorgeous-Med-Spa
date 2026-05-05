@@ -161,3 +161,6 @@ remotion-videos/public/**/*.mp4
 # Internal operator SOP (keep locally; not for the public site or public repo)
 docs/manuals/hub-digital-consent-owners-manual.html
 docs/manuals/hub-digital-consent-owners-manual.pdf
+
+# Image conversion intermediates (HEIC->JPG, MOV->PNG)
+public/images/*/incoming/
