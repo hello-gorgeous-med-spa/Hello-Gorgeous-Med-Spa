@@ -23,6 +23,58 @@ export interface ChannelResult {
   error?: string;
 }
 
+type MetaAccount = {
+  id?: string;
+  name?: string;
+  access_token?: string;
+  instagram_business_account?: { id?: string };
+};
+
+async function resolveMetaPostingContext(
+  pageId: string | undefined,
+  token: string | undefined,
+  igBusinessAccountId: string | undefined
+): Promise<{
+  pageId?: string;
+  pageToken?: string;
+  igBusinessAccountId?: string;
+}> {
+  if (!token) {
+    return { pageId, pageToken: token, igBusinessAccountId };
+  }
+
+  try {
+    // If token is a user token, this returns page-scoped tokens and linked IG ids.
+    const res = await fetch(
+      `${META_GRAPH}/me/accounts?fields=id,name,access_token,instagram_business_account&access_token=${encodeURIComponent(
+        token
+      )}`
+    );
+    const payload = (await res.json()) as { data?: MetaAccount[]; error?: { message?: string } };
+
+    if (payload.error || !Array.isArray(payload.data) || payload.data.length === 0) {
+      return { pageId, pageToken: token, igBusinessAccountId };
+    }
+
+    const matched =
+      payload.data.find((account) => account.id === pageId) ||
+      payload.data.find((account) => typeof account.id === "string");
+
+    if (!matched?.id) {
+      return { pageId, pageToken: token, igBusinessAccountId };
+    }
+
+    return {
+      pageId: matched.id,
+      pageToken: matched.access_token || token,
+      igBusinessAccountId: igBusinessAccountId || matched.instagram_business_account?.id,
+    };
+  } catch {
+    // Fall back to existing env vars if Meta lookup fails.
+    return { pageId, pageToken: token, igBusinessAccountId };
+  }
+}
+
 /** Post to Facebook Page (feed or photo). */
 export async function postToFacebook(
   pageId: string,
@@ -187,12 +239,20 @@ export async function postToChannels(
   channels: SocialChannel[]
 ): Promise<Record<SocialChannel, ChannelResult | undefined>> {
   const results: Record<string, ChannelResult | undefined> = {};
-  const pageId = process.env.META_PAGE_ID || process.env.FACEBOOK_PAGE_ID;
-  const pageToken =
+  const configuredPageId = process.env.META_PAGE_ID || process.env.FACEBOOK_PAGE_ID;
+  const configuredPageToken =
     process.env.META_PAGE_ACCESS_TOKEN || process.env.FACEBOOK_PAGE_ACCESS_TOKEN;
-  const igAccountId = process.env.META_INSTAGRAM_BUSINESS_ACCOUNT_ID;
+  const configuredIgAccountId = process.env.META_INSTAGRAM_BUSINESS_ACCOUNT_ID;
   const googleAccountId = process.env.GOOGLE_BUSINESS_ACCOUNT_ID;
   const googleLocationId = process.env.GOOGLE_BUSINESS_LOCATION_ID;
+  const meta = await resolveMetaPostingContext(
+    configuredPageId,
+    configuredPageToken,
+    configuredIgAccountId
+  );
+  const pageId = meta.pageId || configuredPageId;
+  const pageToken = meta.pageToken || configuredPageToken;
+  const igAccountId = meta.igBusinessAccountId || configuredIgAccountId;
 
   if (channels.includes("facebook")) {
     if (pageId && pageToken) {

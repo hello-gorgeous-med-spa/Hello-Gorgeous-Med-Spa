@@ -1,13 +1,34 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { pageMetadata } from "@/lib/seo";
+import { pageMetadata, SITE } from "@/lib/seo";
 
-export const metadata: Metadata = pageMetadata({
+const _base = pageMetadata({
   title: "Weight Loss + Skin Tightening Transformation | Hello Gorgeous Med Spa",
   description:
     "A founder-led transformation plan in Oswego, IL: GLP-1 support plus Morpheus8 skin tightening so confidence matches your progress.",
   path: "/transform",
 });
+
+const TRANSFORM_OG_IMAGE = `${SITE.url}/images/morpheus8/morpheus8-burst-deep-thighs-skin-tightening-before-after.png?v=transform-og` as const;
+
+export const metadata: Metadata = {
+  ..._base,
+  openGraph: {
+    ..._base.openGraph,
+    images: [
+      {
+        url: TRANSFORM_OG_IMAGE,
+        width: 1200,
+        height: 630,
+        alt: "Morpheus8 skin tightening for post-weight-loss confidence",
+      },
+    ],
+  },
+  twitter: {
+    ..._base.twitter,
+    images: [TRANSFORM_OG_IMAGE],
+  },
+};
 
 const PACKAGES = [
   {
