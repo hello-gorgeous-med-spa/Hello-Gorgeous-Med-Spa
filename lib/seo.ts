@@ -178,7 +178,6 @@ export const SERVICES: readonly Service[] = [
   },
   {
     slug: "dermal-fillers",
-    publicPath: "/dermal-fillers-oswego-il",
     name: "Dermal Fillers",
     category: "Injectables",
     short: "Restore volume, refine contours, and enhance facial harmony.",
@@ -209,7 +208,6 @@ export const SERVICES: readonly Service[] = [
   },
   {
     slug: "lip-filler",
-    publicPath: "/lip-filler-oswego-il",
     name: "Lip Filler",
     category: "Injectables",
     short: "Soft, balanced lip enhancement designed for your facial harmony.",
@@ -374,7 +372,6 @@ export const SERVICES: readonly Service[] = [
   },
   {
     slug: "iv-therapy",
-    publicPath: "/iv-therapy-oswego-il",
     name: "IV Therapy",
     category: "Wellness",
     short: "Hydration and wellness support with clinician-guided IV options.",
@@ -559,7 +556,6 @@ export const SERVICES: readonly Service[] = [
   },
   {
     slug: "laser-hair-removal",
-    publicPath: "/laser-hair-removal-oswego-il",
     name: "Laser Hair Removal",
     category: "Aesthetics",
     short: "Reduce unwanted hair with a series-based laser approach.",
@@ -1372,6 +1368,7 @@ export function faqJsonLd(faqs: ReadonlyArray<FAQ>, pageUrl?: string) {
 export function dermalFillersPageMetadata(slug: "dermal-fillers" | "lip-filler"): Metadata {
   const isLip = slug === "lip-filler";
   const serviceName = isLip ? "Lip Filler" : "Dermal Fillers";
+  const canonicalPath = isLip ? "/lip-filler-oswego-il" : "/dermal-fillers-oswego-il";
   const title = `${serviceName} in Oswego, IL`;
   const description = isLip
     ? `Natural lip filler in Oswego, IL. Juvederm & Restylane for fuller, balanced lips. Best of Oswego med spa. Free consultation. Serving Naperville, Aurora, Plainfield, Yorkville. 630-636-6193.`
@@ -1388,10 +1385,10 @@ export function dermalFillersPageMetadata(slug: "dermal-fillers" | "lip-filler")
     "dermal filler near me",
     "Hello Gorgeous Med Spa",
   ];
-  const url = `${SITE.url}/services/${slug}`;
+  const url = `${SITE.url}${canonicalPath}`;
   const fullTitle = `${serviceName} in Oswego, IL | Naperville, Aurora, Plainfield | ${SITE.name}`;
   return {
-    ...pageMetadata({ title, description, path: `/services/${slug}` }),
+    ...pageMetadata({ title, description, path: canonicalPath }),
     keywords: keywords.join(", "),
     openGraph: {
       type: "website" as const,

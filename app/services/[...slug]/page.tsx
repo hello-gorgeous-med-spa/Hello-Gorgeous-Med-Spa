@@ -66,8 +66,20 @@ export function generateMetadata({ params }: { params: Params }): Metadata {
 }
 
 function getServiceMetadata(s: Service, one: string): Metadata {
+  const localCanonicalBySlug: Record<string, string> = {
+    "iv-therapy": "/iv-therapy-oswego-il",
+    "laser-hair-removal": "/laser-hair-removal-oswego-il",
+  };
+
   if (one === "dermal-fillers" || one === "lip-filler") {
     return dermalFillersPageMetadata(one as "dermal-fillers" | "lip-filler");
+  }
+  if (localCanonicalBySlug[one]) {
+    return pageMetadata({
+      title: s.name,
+      description: `${s.heroTitle} — ${s.short} Serving Oswego, Naperville, Aurora, and Plainfield.`,
+      path: localCanonicalBySlug[one],
+    });
   }
   if (s.publicPath) {
     return pageMetadata({

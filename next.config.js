@@ -190,7 +190,6 @@ const nextConfig = {
     // Additional legacy 404s (batch 2)
     { source: "/privacy-policy-1", destination: "/privacy", permanent: true },
     { source: "/privacy-policy-2", destination: "/privacy", permanent: true },
-    { source: "/dermal-fillers-oswego-il", destination: "/services/dermal-fillers", permanent: true },
     { source: "/cryo-frotox-facial", destination: "/services/geneo-facial", permanent: true },
     { source: "/perimenopause-therapy", destination: "/rx/hormones", permanent: true },
     { source: "/pituitary-imbalance-help", destination: "/rx/hormones", permanent: true },
