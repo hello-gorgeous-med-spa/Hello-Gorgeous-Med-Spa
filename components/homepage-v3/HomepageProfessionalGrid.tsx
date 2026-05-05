@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { BOOKING_URL } from "@/lib/flows";
+import { DANIELLE_CREDENTIALS } from "@/lib/provider-credentials";
 
 /**
  * Four equal tiles replacing long stacked Experience / Innovation / AI / Philosophy / Our Story sections.
@@ -91,32 +92,37 @@ export function HomepageProfessionalGrid() {
             </div>
           </article>
 
-          <article className="rounded-2xl border border-black/15 bg-black text-white p-6 md:p-7 flex flex-col shadow-sm hover:shadow-md transition-shadow sm:min-h-[280px]">
-            <h3 className="text-lg font-semibold text-white mb-2">Innovation &amp; AI</h3>
-            <p className="text-sm text-white/75 leading-relaxed flex-1">
-              Technology supports every treatment — from precision planning to secure virtual consults.
-              Our AI guides answer questions by specialty (education only; not medical advice).
-            </p>
-            <ul className="mt-4 space-y-2 text-sm text-white/85">
-              <li className="flex gap-2">
-                <span className="text-[#E6007E]" aria-hidden>
-                  ·
-                </span>
-                Dose planning, lip visualization, digital charting
-              </li>
-              <li className="flex gap-2">
-                <span className="text-[#E6007E]" aria-hidden>
-                  ·
-                </span>
-                On-demand mascot guides — tap the chat icon
-              </li>
-            </ul>
-            <Link
-              href="/care-engine"
-              className="mt-5 inline-flex text-sm font-semibold text-[#E6007E] hover:text-white transition-colors"
-            >
-              Explore our technology →
-            </Link>
+          <article className="rounded-2xl border border-black/10 bg-white overflow-hidden flex flex-col shadow-sm hover:shadow-md transition-shadow sm:min-h-[280px]">
+            <div className="p-6 md:p-7 flex items-start gap-4">
+              <div className="relative h-20 w-20 rounded-xl overflow-hidden border-2 border-[#E6007E] shrink-0">
+                <Image
+                  src="/images/team/danielle.png"
+                  alt="Danielle Alcala, founder of Hello Gorgeous Med Spa"
+                  fill
+                  className="object-cover"
+                  sizes="80px"
+                />
+              </div>
+              <div className="min-w-0">
+                <p className="text-[10px] uppercase tracking-widest text-[#E6007E] font-bold">Founder Spotlight</p>
+                <h3 className="text-lg font-semibold text-black leading-tight mt-1">Danielle Alcala</h3>
+                <p className="text-xs text-black/65 mt-1 leading-relaxed">{DANIELLE_CREDENTIALS}</p>
+              </div>
+            </div>
+            <div className="px-6 md:px-7 pb-6 md:pb-7 flex flex-col flex-1">
+              <p className="text-sm text-black/75 leading-relaxed flex-1">
+                Danielle built Hello Gorgeous to deliver premium, natural-looking results with a
+                patient-first approach rooted in trust, artistry, and personalized care.
+              </p>
+              <div className="mt-4 flex flex-col gap-2 text-sm font-semibold">
+                <Link href="/blog/the-story-behind-hello-gorgeous-oswego-il" className="text-[#E6007E] hover:underline">
+                  Read Danielle&apos;s story →
+                </Link>
+                <Link href="/about" className="text-black/80 hover:text-[#E6007E] hover:underline">
+                  Meet our team →
+                </Link>
+              </div>
+            </div>
           </article>
         </div>
       </div>

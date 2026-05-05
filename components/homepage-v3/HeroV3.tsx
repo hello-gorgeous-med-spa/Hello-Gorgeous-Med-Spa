@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { BOOKING_URL } from "@/lib/flows";
 import { SITE } from "@/lib/seo";
+import { DANIELLE_CREDENTIALS } from "@/lib/provider-credentials";
 
 export function HeroV3() {
   const [mounted, setMounted] = useState(false);
@@ -53,12 +54,37 @@ export function HeroV3() {
           </div>
         </div>
 
-        {/* Right - Image */}
+        {/* Right - Founder + Banner */}
         <div
           className={`relative transition-all duration-700 delay-200 ${
             mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
           }`}
         >
+          {/* Founder Card */}
+          <div className="flex items-start gap-4 mb-6 p-4 bg-gradient-to-br from-white to-rose-50 rounded-2xl border-2 border-black shadow-[4px_4px_0_0_rgba(230,0,126,0.25)]">
+            <div className="relative w-20 h-20 md:w-24 md:h-24 flex-shrink-0">
+              <Image
+                src="/images/team/danielle.png"
+                alt="Danielle Alcala - Founder of Hello Gorgeous Med Spa"
+                fill
+                className="object-cover rounded-xl border-2 border-[#E6007E]"
+                sizes="96px"
+              />
+            </div>
+            <div className="flex-1 min-w-0">
+              <p className="text-[10px] uppercase tracking-widest text-[#E6007E] font-bold">Founder & Owner</p>
+              <h2 className="text-lg md:text-xl font-bold text-black leading-tight">Danielle Alcala</h2>
+              <p className="text-xs text-black/70 mt-1 leading-snug">{DANIELLE_CREDENTIALS}</p>
+              <Link
+                href="/blog/the-story-behind-hello-gorgeous-oswego-il"
+                className="inline-flex items-center gap-1 text-xs font-semibold text-[#E6007E] mt-2 hover:underline"
+              >
+                Read my story <span aria-hidden>→</span>
+              </Link>
+            </div>
+          </div>
+
+          {/* Hero Banner */}
           <div className="relative w-full aspect-[1742/614] rounded-2xl overflow-hidden mx-auto">
             <Image
               src="/images/hero-banner.png"

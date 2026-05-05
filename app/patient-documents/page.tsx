@@ -41,6 +41,14 @@ const WEB_GUIDES: DocGroup[] = [
     procedure: "Subdermal contouring",
     items: [{ label: "Pre & post care", href: "/pre-post-care/quantum-rf" }],
   },
+  {
+    title: "Chemical peels",
+    procedure: "VI Peel and recovery",
+    items: [
+      { label: "Pre & post care", href: "/pre-post-care/chemical-peel" },
+      { label: "VI Peel informed consent (printable)", href: "/forms/vi-peel-consent" },
+    ],
+  },
 ];
 
 export default function PatientDocumentsPage() {
@@ -164,6 +172,23 @@ export default function PatientDocumentsPage() {
               >
                 Morpheus8 — informed consent (HTML)
               </a>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section className="border-t border-black/10 bg-white">
+        <div className="mx-auto max-w-3xl px-4 py-12">
+          <h2 className="text-xl font-bold">Chemical peels — informed consent</h2>
+          <p className="mt-2 text-sm text-black/70">
+            Read and print the VI Peel informed consent form before your appointment if requested by your
+            provider.
+          </p>
+          <ul className="mt-4 space-y-2 text-sm">
+            <li>
+              <Link href="/forms/vi-peel-consent" className="font-medium text-[#E6007E] hover:underline">
+                VI Peel — informed consent (printable)
+              </Link>
             </li>
           </ul>
         </div>
