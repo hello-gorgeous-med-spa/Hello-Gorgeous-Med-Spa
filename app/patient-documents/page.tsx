@@ -84,6 +84,22 @@ export default function PatientDocumentsPage() {
             </div>
             <p className="mt-3 break-all font-mono text-xs text-black/60">{PATIENT_DOCUMENTS_CANONICAL_URL}</p>
           </div>
+
+          <div className="mt-4 rounded-2xl border-2 border-[#E6007E]/25 bg-rose-50 p-5 shadow-sm">
+            <p className="text-sm font-semibold text-black">New client intake form</p>
+            <p className="mt-1 text-sm text-black/70">
+              Send this secure form before consultations so we can review goals, medical history, and build a
+              personalized proposal in advance.
+            </p>
+            <div className="mt-3">
+              <Link
+                href="/forms/client-intake"
+                className="inline-flex items-center gap-2 rounded-xl border-2 border-black bg-white px-4 py-2.5 text-sm font-bold text-[#E6007E] hover:border-[#E6007E]"
+              >
+                Open client intake form →
+              </Link>
+            </div>
+          </div>
         </div>
       </section>
 

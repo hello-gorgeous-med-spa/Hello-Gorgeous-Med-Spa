@@ -488,6 +488,19 @@ export function Header() {
               FAQ
             </Link>
 
+            {/* Client Intake */}
+            <Link
+              href="/forms/client-intake"
+              className={cx(
+                "flex items-center justify-center h-9 px-2.5 rounded-lg text-sm font-medium transition-all whitespace-nowrap",
+                pathname === "/forms/client-intake"
+                  ? "text-white bg-[#FF2D8E]"
+                  : "text-black hover:bg-[#FF2D8E]/10 hover:text-[#FF2D8E]"
+              )}
+            >
+              Intake
+            </Link>
+
             {/* RX Dropdown */}
             <div 
               className="relative flex items-center"
@@ -689,6 +702,15 @@ export function Header() {
             >
               <span className="text-xl">❓</span>
               Med Spa FAQ
+            </Link>
+
+            <Link
+              href="/forms/client-intake"
+              onClick={() => setMobileMenuOpen(false)}
+              className="flex items-center gap-3 px-4 py-3 min-h-[44px] rounded-xl border border-black/15 bg-gray-50 text-[#FF2D8E] font-semibold"
+            >
+              <span className="text-xl">📝</span>
+              Client Intake
             </Link>
 
             {/* Procedures — device treatments */}
