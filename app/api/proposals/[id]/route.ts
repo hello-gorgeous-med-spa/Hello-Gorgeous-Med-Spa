@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getOwnerSession } from "@/lib/get-owner-session";
+import { getAiConciergeStaffSession } from "@/lib/ai-concierge/admin-auth";
 import { createAdminSupabaseClient } from "@/lib/hgos/supabase";
 
 export const dynamic = "force-dynamic";
@@ -9,7 +9,7 @@ type RouteContext = {
 };
 
 export async function GET(_: NextRequest, context: RouteContext) {
-  const session = await getOwnerSession();
+  const session = await getAiConciergeStaffSession();
   if (!session) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
   const { id } = await context.params;

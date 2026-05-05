@@ -1,12 +1,12 @@
 import { NextResponse } from "next/server";
-import { getOwnerSession } from "@/lib/get-owner-session";
+import { getAiConciergeStaffSession } from "@/lib/ai-concierge/admin-auth";
 import { createAdminSupabaseClient } from "@/lib/hgos/supabase";
 import { HELLO_GORGEOUS_SERVICES } from "@/lib/proposals/seed-services";
 
 export const dynamic = "force-dynamic";
 
 export async function POST() {
-  const session = await getOwnerSession();
+  const session = await getAiConciergeStaffSession();
   if (!session) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
   const supabase = createAdminSupabaseClient();

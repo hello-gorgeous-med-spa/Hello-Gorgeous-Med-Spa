@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
-import { getOwnerSession } from "@/lib/get-owner-session";
+import { getAiConciergeStaffSession } from "@/lib/ai-concierge/admin-auth";
 import { createAdminSupabaseClient } from "@/lib/hgos/supabase";
 import { buildProposalPdf } from "@/lib/proposals/pdf";
 import { SITE } from "@/lib/seo";
@@ -17,7 +17,7 @@ function escapeHtml(value: string): string {
 }
 
 export async function POST(request: NextRequest) {
-  const session = await getOwnerSession();
+  const session = await getAiConciergeStaffSession();
   if (!session) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
   const body = await request.json();

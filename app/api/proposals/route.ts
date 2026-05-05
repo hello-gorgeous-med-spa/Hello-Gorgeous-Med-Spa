@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getOwnerSession } from "@/lib/get-owner-session";
+import { getAiConciergeStaffSession } from "@/lib/ai-concierge/admin-auth";
 import { createAdminSupabaseClient } from "@/lib/hgos/supabase";
 
 export const dynamic = "force-dynamic";
@@ -9,7 +9,7 @@ function createPublicId(): string {
 }
 
 export async function GET() {
-  const session = await getOwnerSession();
+  const session = await getAiConciergeStaffSession();
   if (!session) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
   const supabase = createAdminSupabaseClient();
@@ -27,7 +27,7 @@ export async function GET() {
 }
 
 export async function POST(request: NextRequest) {
-  const session = await getOwnerSession();
+  const session = await getAiConciergeStaffSession();
   if (!session) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
   const supabase = createAdminSupabaseClient();
