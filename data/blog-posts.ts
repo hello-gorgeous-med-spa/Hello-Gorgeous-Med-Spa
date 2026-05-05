@@ -12,12 +12,14 @@
 import { peptideTherapyBlogPost } from "./blog-post-peptide-therapy-article";
 import { ourPromiseAuthenticityPost } from "./blog-post-our-promise-authenticity";
 import { pillarMay2026Posts } from "./blog-posts-pillar-may-2026";
+import { weightLossSkinTighteningPost } from "./blog-post-weight-loss-skin-tightening";
 import { rxProductBlogPosts } from "./blog-rx-product-posts";
 import type { BlogPost } from "./blog-types";
 
 export type { BlogPost } from "./blog-types";
 
 const coreBlogPosts: BlogPost[] = [
+  weightLossSkinTighteningPost,
   ourPromiseAuthenticityPost,
   ...pillarMay2026Posts,
   // ====================================================================
