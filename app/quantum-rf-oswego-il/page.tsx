@@ -5,10 +5,10 @@ import { TreatmentPageTemplate } from "@/components/marketing/TreatmentPageTempl
 
 const t = treatments.quantumRF;
 
-export const metadata: Metadata = pageMetadata({
+const _quantumNearMeMeta = pageMetadata({
   title: "InMode Quantum RF Body Contouring Near Me | Oswego, Naperville, Aurora IL",
   description:
-    "InMode Quantum RF — lipo-level body contouring without surgery. Neck package $2,499 · abdomen $3,999 · FREE Morpheus8 Burst included. Oswego med spa serving Naperville, Aurora, Plainfield. Post–GLP-1 skin laxity. Cherry financing. Book consultation.",
+    "InMode Quantum RF near me in Oswego, IL: minimally invasive subdermal skin tightening and body contouring with tiny entry points (not large excisional incisions). Serving Naperville, Aurora, Plainfield. Book your consultation.",
   path: "/quantum-rf-oswego-il",
   keywords: [
     "InMode Quantum RF near me",
@@ -25,6 +25,8 @@ export const metadata: Metadata = pageMetadata({
     "Cherry financing med spa",
   ],
 });
+
+export const metadata: Metadata = _quantumNearMeMeta;
 
 const CROSS_LINKS = [
   { label: "Solaria CO₂ Laser", href: "/solaria-co2-laser-oswego-il" },
@@ -47,6 +49,8 @@ export default function QuantumRFPage() {
             description: t.description,
             howPerformed:
               "A small probe delivers controlled radiofrequency energy beneath the skin surface with real-time temperature monitoring, causing internal tissue contraction and long-term collagen stimulation.",
+            disambiguatingDescription:
+              "This is a minimally invasive procedure performed through tiny access points under local anesthesia, not a large-incision excisional surgery.",
             preparation: "Local anesthesia applied to treatment area.",
             followup: "3-7 days mild swelling. Compression garment for body areas. Progressive tightening over 3-6 months.",
             provider: {
@@ -54,6 +58,7 @@ export default function QuantumRFPage() {
               name: SITE.name,
               telephone: SITE.phone,
               url: SITE.url,
+              areaServed: SITE.serviceAreas,
               address: {
                 "@type": "PostalAddress",
                 streetAddress: SITE.address.streetAddress,

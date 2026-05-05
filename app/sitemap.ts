@@ -309,7 +309,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${baseUrl}/services/quantum-rf`,
       lastModified: currentDate,
       changeFrequency: 'weekly',
-      priority: 0.95,
+      priority: 0.7,
     },
     {
       url: `${baseUrl}/morpheus8-oswego-il`,

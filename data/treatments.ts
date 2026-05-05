@@ -137,16 +137,16 @@ export const treatments: Record<string, TreatmentConfig> = {
     name: "QuantumRF",
     tagline: "Surgical-Level Skin Tightening Without Surgery",
     description:
-      "QuantumRF delivers powerful subdermal radiofrequency energy to tighten loose skin, contour the body, and stimulate collagen production — all without incisions, anesthesia, or extended downtime.",
+      "QuantumRF delivers powerful subdermal radiofrequency energy to tighten loose skin, contour the body, and stimulate collagen production through tiny entry points under local anesthesia with minimal downtime.",
     heroImage: "/treatments/quantumrf.jpg",
     accentColor: "#00BFFF",
     technologyLabel: "Subdermal RF Technology",
     technologyDescription:
-      "QuantumRF works beneath the skin surface, delivering controlled radiofrequency energy to the subdermal layer. This internal approach creates tissue contraction and collagen stimulation that rivals surgical results — without a single incision.",
+      "QuantumRF works beneath the skin surface, delivering controlled radiofrequency energy to the subdermal layer. This internal approach creates tissue contraction and collagen stimulation that rivals surgical results while avoiding large excisional incisions.",
     technologyPoints: [
       "Subdermal energy delivery targets the deepest tissue layers",
       "Internal tissue contraction mimics surgical lifting",
-      "No incisions, no general anesthesia required",
+      "Tiny entry points only (not large surgical excisions)",
       "Real-time temperature monitoring ensures safety",
       "Stimulates new collagen for months after treatment",
     ],
@@ -162,7 +162,7 @@ export const treatments: Record<string, TreatmentConfig> = {
     ],
     areas: [
       { area: "Face & Jawline", description: "Non-surgical facelift effect with subdermal tightening.", icon: "👩" },
-      { area: "Neck & Submental", description: "Tighten neck skin and reduce double chin without surgery.", icon: "🦢" },
+      { area: "Neck & Submental", description: "Tighten neck skin and reduce double chin with a minimally invasive approach.", icon: "🦢" },
       { area: "Abdomen", description: "Contour and tighten abdominal skin after weight loss.", icon: "✨" },
       { area: "Arms", description: "Reduce sagging upper arm skin (bat wings).", icon: "💪" },
       { area: "Thighs", description: "Inner and outer thigh skin tightening.", icon: "🦵" },
@@ -194,6 +194,11 @@ export const treatments: Record<string, TreatmentConfig> = {
           "QuantumRF is a subdermal radiofrequency device that delivers energy beneath the skin to tighten tissue, contour the body, and stimulate collagen — all without traditional surgery.",
       },
       {
+        question: "Does QuantumRF involve incisions?",
+        answer:
+          "QuantumRF is minimally invasive, not fully non-invasive. It is performed through tiny access points for a thin treatment cannula, not large excisional surgical incisions.",
+      },
+      {
         question: "How is QuantumRF different from external RF treatments?",
         answer:
           "External RF (like Thermage or Exilis) heats from the outside in, limiting how deep the energy can reach. QuantumRF works from the inside out, delivering energy directly to the subdermal layer for significantly more dramatic tightening.",
@@ -217,6 +222,11 @@ export const treatments: Record<string, TreatmentConfig> = {
         question: "Can QuantumRF help after GLP-1 weight loss?",
         answer:
           "Absolutely. QuantumRF is one of the best non-surgical options for tightening loose skin after significant weight loss from Semaglutide, Tirzepatide, or other GLP-1 medications. Combined with Morpheus8 Burst and Solaria (our InMode Trifecta), it provides comprehensive body contouring.",
+      },
+      {
+        question: "Where can I get QuantumRF near me?",
+        answer:
+          "Hello Gorgeous Med Spa provides QuantumRF in Oswego, Illinois, and regularly treats clients from Naperville, Aurora, Plainfield, Yorkville, and surrounding Fox Valley communities.",
       },
     ],
     vipPrice: "$2,495",

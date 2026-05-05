@@ -66,9 +66,9 @@ const QUANTUM_OG_ROUTE = new URL("/services/quantum-rf/opengraph-image", SITE.ur
 /** Link previews: dynamic `opengraph-image` route + explicit metadata URL for social crawlers. */
 const _quantumBaseMeta = pageMetadata({
   title:
-    "Quantum RF Is Live — Hello Gorgeous Contour Lift™ Model Days | Oswego, IL",
+    "Quantum RF Near Me in Oswego, IL | Hello Gorgeous Med Spa",
   description:
-    "Quantum RF is live at Hello Gorgeous Med Spa. Hello Gorgeous Contour Lift™ Model Days (May 4 & May 12, 2026): limited model spots from $1,499 — Quantum RF + Morpheus8 Body Deep included. Real patient before/afters, clinical videos. Book a consult. Cherry financing. Oswego — serving Naperville, Aurora & Plainfield.",
+    "Looking for Quantum RF near me? Hello Gorgeous Med Spa in Oswego offers minimally invasive subdermal RF skin tightening and contouring with tiny entry points under local anesthesia. Serving Naperville, Aurora, Plainfield, and nearby areas.",
   path: "/services/quantum-rf",
   keywords: [
     "Quantum RF",
@@ -87,6 +87,9 @@ const _quantumBaseMeta = pageMetadata({
 
 export const metadata: Metadata = {
   ..._quantumBaseMeta,
+  alternates: {
+    canonical: new URL("/quantum-rf-oswego-il", SITE.url).toString(),
+  },
   openGraph: {
     ..._quantumBaseMeta.openGraph,
     type: "website",
@@ -210,7 +213,9 @@ function QuantumJsonLd() {
     alternateName: ["QuantumRF 10", "QuantumRF 25", "InMode Quantum RF", "Subdermal RF body contouring"],
     description:
       "Minimally invasive subdermal radiofrequency to tighten skin, reduce small fat pockets, and rebuild collagen as an alternative to excisional surgery in appropriate candidates.",
-    procedureType: "NoninvasiveProcedure",
+    procedureType: "Minimally invasive procedure",
+    disambiguatingDescription:
+      "Performed through tiny entry points under local anesthesia; this is not a large-incision excisional surgery.",
     bodyLocation: ["Jawline", "Neck", "Abdomen", "Arms", "Thighs", "Back"],
     howPerformed:
       "A thin cannula is placed beneath the skin to deliver controlled radiofrequency energy to deeper tissue for contraction, fat reduction, and collagen remodeling.",
@@ -219,6 +224,7 @@ function QuantumJsonLd() {
       "@id": `${SITE.url}/#organization`,
       name: SITE.name,
       url: SITE.url,
+      areaServed: SITE.serviceAreas,
     },
     potentialAction: {
       "@type": "ReserveAction",
