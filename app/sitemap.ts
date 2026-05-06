@@ -5,6 +5,7 @@ import { GBP_SERVICE_SLUGS, MED_SPA_LOCATION_SLUGS } from '@/lib/gbp-urls';
 import { TREATMENT_HUB_SLUGS } from '@/lib/treatment-hubs';
 import { CONCERN_PAGES } from '@/lib/concern-pages';
 import { FUNNEL_DEFINITIONS } from '@/lib/funnels';
+import { AREA_PAGES, FAQ_CLUSTER_PAGES, RECOVERY_PAGES } from '@/lib/topical-expansion';
 
 // ============================================================
 // SITEMAP - Auto-generates for Google indexing
@@ -345,6 +346,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const intelligencePages: MetadataRoute.Sitemap = [
     {
+      url: `${baseUrl}/search`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.82,
+    },
+    {
       url: `${baseUrl}/videos`,
       lastModified: currentDate,
       changeFrequency: 'weekly',
@@ -367,6 +374,39 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: currentDate,
       changeFrequency: 'weekly' as const,
       priority: 0.82,
+    })),
+  ];
+
+  const topicalExpansionPages: MetadataRoute.Sitemap = [
+    {
+      url: `${baseUrl}/areas`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.8,
+    },
+    ...AREA_PAGES.map((entry) => ({
+      url: `${baseUrl}/areas/${entry.slug}`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly' as const,
+      priority: 0.79,
+    })),
+    {
+      url: `${baseUrl}/recovery`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.8,
+    },
+    ...RECOVERY_PAGES.map((entry) => ({
+      url: `${baseUrl}/recovery/${entry.slug}`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly' as const,
+      priority: 0.79,
+    })),
+    ...FAQ_CLUSTER_PAGES.map((entry) => ({
+      url: `${baseUrl}/faq/${entry.slug}`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly' as const,
+      priority: 0.78,
     })),
   ];
 
@@ -500,6 +540,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...treatmentHubPages,
     ...concernPages,
     ...intelligencePages,
+    ...topicalExpansionPages,
     ...solariaPages,
     ...morpheus8Pages,
     ...blogPages,

@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { TreatmentHubData } from "@/lib/treatment-hubs";
 import { breadcrumbJsonLd, faqJsonLd, siteJsonLd, SITE } from "@/lib/seo";
 import { VideoEmbed } from "@/components/video/VideoEmbed";
+import { RelatedContentModule } from "@/components/recommendations/RelatedContentModule";
 
 export function TreatmentHubPage({ hub }: { hub: TreatmentHubData }) {
   const url = `${SITE.url}/${hub.slug}`;
@@ -124,6 +125,12 @@ export function TreatmentHubPage({ hub }: { hub: TreatmentHubData }) {
               <Link href="/book" className="rounded-lg bg-[#E6007E] px-6 py-3 font-semibold text-white">
                 Book consultation
               </Link>
+            </div>
+            <div className="mt-6">
+              <RelatedContentModule
+                seedTags={[hub.slug, ...hub.relatedTreatments.map((item) => item.label.toLowerCase())]}
+                title={`People viewing ${hub.title} also read`}
+              />
             </div>
           </div>
         </section>

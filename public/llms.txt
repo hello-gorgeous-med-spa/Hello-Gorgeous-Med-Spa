@@ -58,6 +58,30 @@
   - https://www.hellogorgeousmedspa.com/funnels
   - submit endpoint: https://www.hellogorgeousmedspa.com/api/public/funnels/submit
 
+## Content OS + Distribution + Analytics Intelligence
+- Content operating system:
+  - https://www.hellogorgeousmedspa.com/admin/content-os
+  - collections API: https://www.hellogorgeousmedspa.com/api/public/content
+- Analytics intelligence dashboard:
+  - https://www.hellogorgeousmedspa.com/admin/analytics-intelligence
+- Internal semantic search + recommendations:
+  - https://www.hellogorgeousmedspa.com/search
+  - API: https://www.hellogorgeousmedspa.com/api/public/search
+- Nurture workflows:
+  - https://www.hellogorgeousmedspa.com/admin/nurture-workflows
+  - API: https://www.hellogorgeousmedspa.com/api/public/nurture
+- Topical authority expansion:
+  - https://www.hellogorgeousmedspa.com/areas
+  - https://www.hellogorgeousmedspa.com/areas/under-eyes
+  - https://www.hellogorgeousmedspa.com/areas/jawline
+  - https://www.hellogorgeousmedspa.com/recovery
+  - https://www.hellogorgeousmedspa.com/recovery/morpheus8
+  - https://www.hellogorgeousmedspa.com/faq/quantum-rf
+- Media repurposing architecture:
+  - https://www.hellogorgeousmedspa.com/admin/media-repurpose
+- Personalization hooks (future-ready):
+  - https://www.hellogorgeousmedspa.com/api/public/personalization/context
+
 ## About Us
 Hello Gorgeous Med Spa is a full-service medical spa located at 74 W. Washington Street in Oswego, Illinois (60543). Founded by Danielle Alcala, we specialize in aesthetic medicine and wellness treatments. Our Medical Director is Ryan Kent, FNP-BC, a full-authority nurse practitioner on site as owner. We have the NEWEST Morpheus8 Burst technology — deepest RF microneedling at 8mm for face AND body — and are the only med spa in Oswego, Naperville, Aurora, or Plainfield with Morpheus8 Burst, Quantum RF, and Solaria CO2.
 

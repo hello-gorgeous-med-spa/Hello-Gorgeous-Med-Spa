@@ -14,6 +14,33 @@ export type ConcernPageData = {
 
 export const CONCERN_PAGES: ConcernPageData[] = [
   {
+    slug: "turkey-neck",
+    title: "Turkey Neck",
+    concernOverview:
+      "Turkey-neck concerns usually involve neck skin laxity, banding visibility, and reduced jaw-neck definition.",
+    treatmentApproaches: [
+      "RF microneedling for texture + mild tightening support",
+      "Subdermal RF contouring for deeper neck/jawline contraction in selected candidates",
+      "Staged plans with lower-face balancing when indicated",
+    ],
+    optionsComparison:
+      "Mild-to-moderate neck laxity may respond to non-surgical options; advanced tissue excess may still require surgical consultation.",
+    combinationRecommendations:
+      "Combination planning often targets both neck tissue quality and jawline contour for balanced outcome.",
+    localIntent:
+      "Turkey-neck treatment consults in Oswego for patients near Naperville, Aurora, Plainfield, and Yorkville.",
+    serviceLinks: [
+      { label: "Quantum RF", href: "/services/quantum-rf" },
+      { label: "Morpheus8", href: "/services/morpheus8" },
+      { label: "Facelift vs Quantum RF", href: "/compare/quantum-rf-vs-facelift" },
+    ],
+    faqs: [
+      { question: "Can turkey neck improve without surgery?", answer: "Some patients see meaningful improvement with non-surgical plans, but candidacy depends on severity." },
+      { question: "How long to see neck changes?", answer: "Initial changes may appear in weeks, with continued remodeling over months." },
+      { question: "Is downtime expected?", answer: "Yes, downtime varies by treatment depth and modality." },
+    ],
+  },
+  {
     slug: "jowls",
     title: "Jowls",
     concernOverview:

@@ -50,6 +50,9 @@ export async function GET() {
       `${SITE.url}/solaria-co2`,
       `${SITE.url}/weight-loss`,
       `${SITE.url}/concerns`,
+      `${SITE.url}/search`,
+      `${SITE.url}/areas`,
+      `${SITE.url}/recovery`,
       `${SITE.url}/videos`,
       `${SITE.url}/funnels`,
       `${SITE.url}/testimonials`,
@@ -75,6 +78,7 @@ export async function GET() {
       `${SITE.url}/weight-loss`,
     ],
     concernPages: [
+      `${SITE.url}/concerns/turkey-neck`,
       `${SITE.url}/concerns/jowls`,
       `${SITE.url}/concerns/acne-scars`,
       `${SITE.url}/concerns/skin-tightening`,
@@ -85,6 +89,39 @@ export async function GET() {
     videoLibrary: {
       index: `${SITE.url}/videos`,
       architecture: "searchable transcripts + category tags + related service links + VideoObject schema",
+    },
+    contentOperatingSystem: {
+      workflow: `${SITE.url}/admin/content-os`,
+      collectionsEndpoint: `${SITE.url}/api/public/content`,
+      supports: [
+        "provider insights",
+        "treatment updates",
+        "faq additions",
+        "case studies",
+        "educational articles",
+        "video transcripts",
+        "comparison updates",
+      ],
+    },
+    analyticsIntelligence: {
+      dashboard: `${SITE.url}/admin/analytics-intelligence`,
+      endpoint: `${SITE.url}/api/admin/analytics-intelligence`,
+      tracks: [
+        "top viewed treatments",
+        "highest converting funnels",
+        "consultation submission trends",
+        "concern-page traffic",
+        "internal search terms",
+        "cta clicks",
+        "booking attribution",
+        "video engagement",
+        "faq engagement",
+      ],
+    },
+    searchAndRecommendations: {
+      searchPage: `${SITE.url}/search`,
+      endpoint: `${SITE.url}/api/public/search`,
+      recommendationModules: ["treatment hubs", "concern pages"],
     },
     funnelSystem: {
       index: `${SITE.url}/funnels`,
@@ -102,6 +139,26 @@ export async function GET() {
       filterDimensions: ["treatment", "concern", "provider", "device"],
     },
     freshnessWorkflow: `${SITE.url}/admin/content-freshness`,
+    nurtureSystem: {
+      adminWorkflowPage: `${SITE.url}/admin/nurture-workflows`,
+      publicWorkflowEndpoint: `${SITE.url}/api/public/nurture`,
+      routedFromFunnels: true,
+    },
+    topicalExpansionSystem: {
+      areasIndex: `${SITE.url}/areas`,
+      recoveryIndex: `${SITE.url}/recovery`,
+      areaExamples: [`${SITE.url}/areas/under-eyes`, `${SITE.url}/areas/jawline`],
+      recoveryExamples: [`${SITE.url}/recovery/morpheus8`, `${SITE.url}/recovery/quantum-rf`],
+      faqClusterExamples: [`${SITE.url}/faq/quantum-rf`],
+    },
+    mediaRepurposingSystem: {
+      workflow: `${SITE.url}/admin/media-repurpose`,
+      outputs: ["quote extraction", "faq extraction", "clip references", "caption references", "internal link suggestions"],
+    },
+    personalizationHooks: {
+      contextEndpoint: `${SITE.url}/api/public/personalization/context`,
+      status: "scaffolded for future returning-visitor and recommendation memory",
+    },
     topicalRelationships: {
       "morpheus8": ["skin-tightening", "acne-scars", "sagging-skin"],
       "quantum-rf": ["jowls", "neck-tightening", "sagging-skin", "weight-loss-body-support"],

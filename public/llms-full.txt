@@ -91,6 +91,39 @@
 - Content freshness workflow:
   - https://www.hellogorgeousmedspa.com/admin/content-freshness
 
+## Content operating system + distribution + analytics intelligence
+- Provider content publishing workflow:
+  - https://www.hellogorgeousmedspa.com/admin/content-os
+  - API collection endpoint: https://www.hellogorgeousmedspa.com/api/public/content
+  - supports: provider insights, treatment updates, FAQ additions, case studies, educational articles, transcript updates, comparison updates
+- Analytics intelligence dashboard:
+  - https://www.hellogorgeousmedspa.com/admin/analytics-intelligence
+  - conversion panels: top viewed treatments, funnel conversion, submission trends, concern interest, CTA/booking/video/FAQ engagement hooks
+- Internal semantic search + recommendation engine:
+  - https://www.hellogorgeousmedspa.com/search
+  - API: https://www.hellogorgeousmedspa.com/api/public/search
+  - recommendation modules embedded on treatment hubs and concern pages
+- Structured nurture integrations:
+  - workflow admin: https://www.hellogorgeousmedspa.com/admin/nurture-workflows
+  - public definitions API: https://www.hellogorgeousmedspa.com/api/public/nurture
+  - funnel metadata now maps leads into concern/treatment nurture workflow IDs
+- Topical authority expansion system:
+  - areas index: https://www.hellogorgeousmedspa.com/areas
+  - area pages: https://www.hellogorgeousmedspa.com/areas/under-eyes, https://www.hellogorgeousmedspa.com/areas/jawline
+  - recovery index: https://www.hellogorgeousmedspa.com/recovery
+  - recovery pages: https://www.hellogorgeousmedspa.com/recovery/morpheus8, https://www.hellogorgeousmedspa.com/recovery/quantum-rf
+  - FAQ clusters: https://www.hellogorgeousmedspa.com/faq/quantum-rf
+  - expanded concern examples include: https://www.hellogorgeousmedspa.com/concerns/turkey-neck
+- Schema expansion:
+  - HowTo scaffold added for recovery timeline pages
+  - Provider/Review schema helper utilities added for future approved content rollout
+- Media repurposing infrastructure:
+  - workflow page: https://www.hellogorgeousmedspa.com/admin/media-repurpose
+  - output architecture: quote extraction, FAQ extraction, clip references, social caption references, internal link suggestions
+- Future personalization hooks:
+  - context endpoint: https://www.hellogorgeousmedspa.com/api/public/personalization/context
+  - architecture prepared for returning-visitor memory and recommendation seeding
+
 ## Practice trust pages
 - FAQ: https://www.hellogorgeousmedspa.com/faq
 - Patient documents: https://www.hellogorgeousmedspa.com/patient-documents

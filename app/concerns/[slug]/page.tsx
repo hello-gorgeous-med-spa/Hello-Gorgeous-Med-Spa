@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { CONCERN_PAGES, getConcernBySlug } from "@/lib/concern-pages";
 import { breadcrumbJsonLd, faqJsonLd, pageMetadata, SITE, siteJsonLd } from "@/lib/seo";
+import { RelatedContentModule } from "@/components/recommendations/RelatedContentModule";
 
 type Params = { slug: string };
 
@@ -96,6 +97,12 @@ export default function ConcernDetailPage({ params }: { params: Params }) {
             <Link href="/contact" className="rounded-lg border-2 border-black px-6 py-3 font-semibold text-black">
               Contact clinical team
             </Link>
+          </div>
+          <div className="mt-6">
+            <RelatedContentModule
+              seedTags={[concern.slug, ...concern.serviceLinks.map((item) => item.label.toLowerCase())]}
+              title={`Related content for ${concern.title}`}
+            />
           </div>
         </div>
       </main>

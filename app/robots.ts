@@ -17,6 +17,11 @@ export default function robots(): MetadataRoute.Robots {
           '/_next/image/',
           '/api/public/ai-profile',
           '/api/public/testimonials',
+          '/api/public/search',
+          '/api/public/content',
+          '/api/public/nurture',
+          '/api/public/personalization/context',
+          '/api/public/funnels/submit',
         ],
         disallow: [
           '/admin/',
@@ -34,6 +39,11 @@ export default function robots(): MetadataRoute.Robots {
           '/_next/image/',
           '/api/public/ai-profile',
           '/api/public/testimonials',
+          '/api/public/search',
+          '/api/public/content',
+          '/api/public/nurture',
+          '/api/public/personalization/context',
+          '/api/public/funnels/submit',
         ],
         disallow: [
           '/admin/',

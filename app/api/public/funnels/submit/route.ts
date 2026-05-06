@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createAdminSupabaseClient } from "@/lib/hgos/supabase";
 import { getUTMFromRequest, recordLead } from "@/lib/leads";
+import { inferNurtureWorkflowIds } from "@/lib/nurture-workflows";
 
 type FunnelPayload = {
   funnel?: unknown;
@@ -32,6 +33,7 @@ export async function POST(request: NextRequest) {
   const urgency = text(body.urgency, 40);
   const budgetRange = text(body.budgetRange, 40);
   const contactPreference = text(body.contactPreference, 40);
+  const nurtureWorkflowIds = inferNurtureWorkflowIds(concernType, treatmentInterest);
 
   if (!funnel || !name || !email || !phone || !concernType || !treatmentInterest || !urgency || !budgetRange || !contactPreference) {
     return NextResponse.json({ error: "Missing required fields." }, { status: 400 });
@@ -59,6 +61,7 @@ export async function POST(request: NextRequest) {
       urgency,
       budget_range: budgetRange,
       contact_preference: contactPreference,
+        nurture_workflow_ids: nurtureWorkflowIds,
       routing: {
         booking: "/book",
         sms_followup: true,
