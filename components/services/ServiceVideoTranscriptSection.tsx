@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { VideoEmbed } from "@/components/video/VideoEmbed";
 
 type RelatedServiceLink = {
   label: string;
@@ -51,15 +52,7 @@ export function ServiceVideoTranscriptSection({
         <div className="mt-6 grid gap-5 lg:grid-cols-[1.2fr_1fr]">
           <div className="overflow-hidden rounded-2xl border-2 border-black bg-black">
             <div className="relative aspect-video w-full">
-              <iframe
-                className="absolute left-0 top-0 h-full w-full"
-                src={videoEmbedUrl}
-                title={videoTitle}
-                allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen"
-                referrerPolicy="strict-origin-when-cross-origin"
-                allowFullScreen
-                loading="lazy"
-              />
+              <VideoEmbed embedUrl={videoEmbedUrl} title={videoTitle} className="absolute left-0 top-0 h-full w-full" />
             </div>
           </div>
           <div className="rounded-2xl border-2 border-black bg-white p-5">

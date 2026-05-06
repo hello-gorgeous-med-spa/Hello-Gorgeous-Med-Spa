@@ -2,6 +2,9 @@ import { MetadataRoute } from 'next';
 import { SERVICES, SITE } from '@/lib/seo';
 import { getAllSlugs } from '@/data/blog-posts';
 import { GBP_SERVICE_SLUGS, MED_SPA_LOCATION_SLUGS } from '@/lib/gbp-urls';
+import { TREATMENT_HUB_SLUGS } from '@/lib/treatment-hubs';
+import { CONCERN_PAGES } from '@/lib/concern-pages';
+import { FUNNEL_DEFINITIONS } from '@/lib/funnels';
 
 // ============================================================
 // SITEMAP - Auto-generates for Google indexing
@@ -318,6 +321,55 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
   ];
 
+  const treatmentHubPages: MetadataRoute.Sitemap = TREATMENT_HUB_SLUGS.map((slug) => ({
+    url: `${baseUrl}/${slug}`,
+    lastModified: currentDate,
+    changeFrequency: 'weekly' as const,
+    priority: 0.88,
+  }));
+
+  const concernPages: MetadataRoute.Sitemap = [
+    {
+      url: `${baseUrl}/concerns`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.85,
+    },
+    ...CONCERN_PAGES.map((concern) => ({
+      url: `${baseUrl}/concerns/${concern.slug}`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly' as const,
+      priority: 0.84,
+    })),
+  ];
+
+  const intelligencePages: MetadataRoute.Sitemap = [
+    {
+      url: `${baseUrl}/videos`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.82,
+    },
+    {
+      url: `${baseUrl}/testimonials`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/funnels`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.83,
+    },
+    ...FUNNEL_DEFINITIONS.map((funnel) => ({
+      url: `${baseUrl}/funnels/${funnel.slug}`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly' as const,
+      priority: 0.82,
+    })),
+  ];
+
   // Morpheus8 & Quantum RF pages - high priority new services
   const morpheus8Pages: MetadataRoute.Sitemap = [
     {
@@ -445,6 +497,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...premiumLandingPages,
     ...comparisonPages,
     ...caseStudyPages,
+    ...treatmentHubPages,
+    ...concernPages,
+    ...intelligencePages,
     ...solariaPages,
     ...morpheus8Pages,
     ...blogPages,

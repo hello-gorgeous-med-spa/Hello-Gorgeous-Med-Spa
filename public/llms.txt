@@ -39,6 +39,25 @@
   - https://www.hellogorgeousmedspa.com/services/weight-loss
 - Service-specific testimonial placeholders exist on major service pages and only accept approved/consented reviews.
 
+## Intelligence + Distribution + Automation
+- Treatment hubs:
+  - https://www.hellogorgeousmedspa.com/morpheus8
+  - https://www.hellogorgeousmedspa.com/quantum-rf
+  - https://www.hellogorgeousmedspa.com/solaria-co2
+  - https://www.hellogorgeousmedspa.com/weight-loss
+- Concern pages:
+  - https://www.hellogorgeousmedspa.com/concerns/jowls
+  - https://www.hellogorgeousmedspa.com/concerns/acne-scars
+  - https://www.hellogorgeousmedspa.com/concerns/skin-tightening
+  - https://www.hellogorgeousmedspa.com/concerns/weight-loss
+  - https://www.hellogorgeousmedspa.com/concerns/neck-tightening
+  - https://www.hellogorgeousmedspa.com/concerns/sagging-skin
+- Video library (searchable transcripts): https://www.hellogorgeousmedspa.com/videos
+- Testimonial system: https://www.hellogorgeousmedspa.com/testimonials
+- Funnel system:
+  - https://www.hellogorgeousmedspa.com/funnels
+  - submit endpoint: https://www.hellogorgeousmedspa.com/api/public/funnels/submit
+
 ## About Us
 Hello Gorgeous Med Spa is a full-service medical spa located at 74 W. Washington Street in Oswego, Illinois (60543). Founded by Danielle Alcala, we specialize in aesthetic medicine and wellness treatments. Our Medical Director is Ryan Kent, FNP-BC, a full-authority nurse practitioner on site as owner. We have the NEWEST Morpheus8 Burst technology — deepest RF microneedling at 8mm for face AND body — and are the only med spa in Oswego, Naperville, Aurora, or Plainfield with Morpheus8 Burst, Quantum RF, and Solaria CO2.
 

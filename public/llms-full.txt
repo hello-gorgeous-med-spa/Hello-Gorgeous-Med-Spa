@@ -60,6 +60,37 @@
 - Provider video + transcript sections enabled on Morpheus8, Quantum RF, Solaria CO2, and Weight Loss service pages.
 - Service testimonial blocks are placeholder-only until approved reviews are attached.
 
+## Intelligence + distribution + automation assets
+- Treatment hubs:
+  - https://www.hellogorgeousmedspa.com/morpheus8
+  - https://www.hellogorgeousmedspa.com/quantum-rf
+  - https://www.hellogorgeousmedspa.com/solaria-co2
+  - https://www.hellogorgeousmedspa.com/weight-loss
+- Concern-page system:
+  - https://www.hellogorgeousmedspa.com/concerns
+  - https://www.hellogorgeousmedspa.com/concerns/jowls
+  - https://www.hellogorgeousmedspa.com/concerns/acne-scars
+  - https://www.hellogorgeousmedspa.com/concerns/skin-tightening
+  - https://www.hellogorgeousmedspa.com/concerns/weight-loss
+  - https://www.hellogorgeousmedspa.com/concerns/neck-tightening
+  - https://www.hellogorgeousmedspa.com/concerns/sagging-skin
+- Searchable video/transcript architecture:
+  - https://www.hellogorgeousmedspa.com/videos
+  - category tags: provider-reel, educational, faq-clip, consultation-explainer, treatment-walkthrough
+- Dynamic testimonial architecture:
+  - https://www.hellogorgeousmedspa.com/testimonials
+  - API: https://www.hellogorgeousmedspa.com/api/public/testimonials
+  - filter dimensions: treatment, concern, provider, device
+- Lead-intelligence funnels:
+  - https://www.hellogorgeousmedspa.com/funnels
+  - https://www.hellogorgeousmedspa.com/funnels/morpheus8-candidacy
+  - https://www.hellogorgeousmedspa.com/funnels/skin-tightening-match
+  - https://www.hellogorgeousmedspa.com/funnels/facelift-vs-quantum-rf
+  - https://www.hellogorgeousmedspa.com/funnels/weight-loss-fit
+  - submit API: https://www.hellogorgeousmedspa.com/api/public/funnels/submit
+- Content freshness workflow:
+  - https://www.hellogorgeousmedspa.com/admin/content-freshness
+
 ## Practice trust pages
 - FAQ: https://www.hellogorgeousmedspa.com/faq
 - Patient documents: https://www.hellogorgeousmedspa.com/patient-documents

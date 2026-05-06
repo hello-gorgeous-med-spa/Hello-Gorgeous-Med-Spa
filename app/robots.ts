@@ -15,6 +15,8 @@ export default function robots(): MetadataRoute.Robots {
           '/',
           '/_next/static/',
           '/_next/image/',
+          '/api/public/ai-profile',
+          '/api/public/testimonials',
         ],
         disallow: [
           '/admin/',
@@ -30,6 +32,8 @@ export default function robots(): MetadataRoute.Robots {
           '/',
           '/_next/static/',
           '/_next/image/',
+          '/api/public/ai-profile',
+          '/api/public/testimonials',
         ],
         disallow: [
           '/admin/',
