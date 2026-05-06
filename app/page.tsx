@@ -5,7 +5,6 @@ import {
   PartnerBadges,
   ServicesSection,
   FaceBlueprintSection,
-  RxShowcaseSection,
   ProductsCatalogHomeSection,
   TrifectaSection,
   HomepageTestimonials,
@@ -63,7 +62,6 @@ export default function HomePage() {
 
   // Image gallery schemas for Google Images SEO
   const injectablesImages = getImagesByCategory("injectables");
-  const rxImages = getImagesByCategory("rx");
   const aestheticsImages = getImagesByCategory("aesthetics");
   const morpheus8BurstHomeImages = getMorpheus8HomepageImages();
 
@@ -121,14 +119,6 @@ export default function HomePage() {
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(
             imageGalleryJsonLd(injectablesImages, "Botox & Dermal Filler Treatments")
-          ),
-        }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(
-            imageGalleryJsonLd(rxImages, "Medical Weight Loss & Hormone Therapy")
           ),
         }}
       />
@@ -195,7 +185,6 @@ export default function HomePage() {
         <PartnerBadges />
         <ServicesSection />
         <FaceBlueprintSection />
-        <RxShowcaseSection />
         <ProductsCatalogHomeSection />
         <HomepageProfessionalGrid />
         <HomepageTestimonials />
