@@ -10,6 +10,8 @@ import { HarmonyAI } from "@/components/HarmonyAI";
 import { BotoxCalculator } from "@/components/BotoxCalculator";
 import { InjectablesBlogPromo } from "@/components/InjectablesBlogPromo";
 import { AlleEmbedSection } from "@/components/AlleEmbedSection";
+import { ProofConversionSection } from "@/components/services/ProofConversionSection";
+import { ServiceTestimonialsPlaceholder } from "@/components/services/ServiceTestimonialsPlaceholder";
 import { BOOKING_URL, FRESHA_BOOKING_URL_DANIELLE, FRESHA_BOOKING_URL_RYAN } from "@/lib/flows";
 import {
   SERVICES,
@@ -542,6 +544,40 @@ function ServiceDetailPage({ serviceSlug }: { serviceSlug: string }) {
             </article>
           </FadeUp>
         </Section>
+      )}
+
+      {serviceSlug === "dermal-fillers" && (
+        <>
+          <ProofConversionSection
+            serviceName="Dermal Fillers"
+            concerns={[
+              "Midface flattening and contour loss",
+              "Lip volume or border definition goals",
+              "Facial balance refinement without surgery",
+              "Static lines related to volume depletion",
+            ]}
+            resultStages={[
+              {
+                title: "Early phase (first week)",
+                body: "Immediate volume shift appears first, with temporary edema potentially exaggerating fullness.",
+              },
+              {
+                title: "Final phase (week 1-2)",
+                body: "Best result assessment after swelling settles and product integrates.",
+              },
+            ]}
+            variabilityFactors={[
+              "Baseline anatomy and tissue support",
+              "Product choice and injection plane",
+              "Metabolism and movement patterns",
+              "Session staging strategy",
+            ]}
+            combinationGuidance="Botox may be recommended when expression muscle pull contributes to perceived lines. Device-based skin work may be staged for texture or laxity goals."
+            ctaHref="/book?service=dermal-fillers"
+            ctaLabel="Book filler consultation"
+          />
+          <ServiceTestimonialsPlaceholder serviceName="Dermal Fillers" />
+        </>
       )}
 
       {/* Harmony AI™ – BioTE only: hormone assessment + blueprint */}

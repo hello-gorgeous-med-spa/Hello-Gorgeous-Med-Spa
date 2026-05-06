@@ -3,6 +3,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { TechBlogPromo } from "@/components/TechBlogPromo";
 import { RealPatientReviews } from "@/components/RealPatientReviews";
+import { ProofConversionSection } from "@/components/services/ProofConversionSection";
+import { ServiceTestimonialsPlaceholder } from "@/components/services/ServiceTestimonialsPlaceholder";
+import { ServiceVideoTranscriptSection } from "@/components/services/ServiceVideoTranscriptSection";
 import { pageMetadata, SITE, siteJsonLd } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
@@ -607,6 +610,56 @@ export default function SolariaCO2Page() {
             </div>
           </div>
         </section>
+
+        <ProofConversionSection
+          serviceName="Solaria CO2"
+          concerns={[
+            "Deeper texture irregularity and visible acne scarring",
+            "Sun damage and uneven tone",
+            "Fine lines to moderate wrinkle burden",
+            "Skin quality concerns requiring higher-impact resurfacing",
+          ]}
+          resultStages={[
+            {
+              title: "Early phase (week 1-2)",
+              body: "Redness and peeling dominate early recovery; texture assessment is limited until skin settles.",
+            },
+            {
+              title: "Final phase (months 2-6)",
+              body: "Collagen remodeling may continue improving tone and texture beyond initial healing.",
+            },
+          ]}
+          variabilityFactors={[
+            "Treatment depth and treatment density",
+            "Baseline scar/sun-damage severity",
+            "Post-care and photoprotection adherence",
+            "Individual healing biology",
+          ]}
+          combinationGuidance="When clinically indicated, Solaria may be staged with Morpheus8 or injectables after healing checkpoints rather than performed all at once."
+          ctaHref="/book?service=solaria-co2"
+        />
+
+        <ServiceVideoTranscriptSection
+          serviceName="Solaria CO2"
+          videoTitle="Solaria CO2 Recovery + Candidacy Briefing"
+          videoEmbedUrl="https://www.youtube.com/embed/VSif40VosRc?rel=0"
+          summary="Provider briefing on who is typically a candidate, realistic downtime expectations, and how resurfacing is sequenced with other services."
+          transcript={[
+            "Solaria is selected for patients who want high-impact resurfacing and accept downtime.",
+            "The first week is recovery-heavy; final texture outcomes are judged after healing progression.",
+            "Settings are customized to concern severity and skin response profile.",
+            "Combination care can be staged once the resurfacing window is complete.",
+          ]}
+          relatedLinks={[
+            { label: "Morpheus8", href: "/services/morpheus8" },
+            { label: "Solaria vs Traditional CO2", href: "/compare/solaria-co2-vs-traditional-co2" },
+            { label: "Book Solaria consult", href: "/book?service=solaria-co2" },
+          ]}
+          pageUrl={`${SITE.url}/services/solaria-co2`}
+          thumbnailUrl={`${SITE.url}/images/solaria/solaria-device.png`}
+        />
+
+        <ServiceTestimonialsPlaceholder serviceName="Solaria CO2" />
 
         {/* Real Patient Reviews — pulls 5-star Google reviews mentioning Solaria/CO2 */}
         <RealPatientReviews

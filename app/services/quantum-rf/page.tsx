@@ -4,6 +4,9 @@ import Link from "next/link";
 import { TechBlogPromo } from "@/components/TechBlogPromo";
 import { ContourBookLink } from "@/components/marketing/ContourBookLink";
 import { QuantumRFVideoEngagement } from "@/components/marketing/QuantumRFVideoEngagement";
+import { ProofConversionSection } from "@/components/services/ProofConversionSection";
+import { ServiceTestimonialsPlaceholder } from "@/components/services/ServiceTestimonialsPlaceholder";
+import { ServiceVideoTranscriptSection } from "@/components/services/ServiceVideoTranscriptSection";
 import { CHERRY_PAY_URL } from "@/lib/flows";
 import { altForVariant } from "@/lib/og/hg-contour-og-constants";
 import { pageMetadata, SITE, siteJsonLd } from "@/lib/seo";
@@ -1210,6 +1213,56 @@ export default function QuantumRFPage() {
             </div>
           </div>
         </section>
+
+        <ProofConversionSection
+          serviceName="Quantum RF"
+          concerns={[
+            "Loose skin and contour blunting under chin/jawline",
+            "Laxity in arms, abdomen, or above-knee zones",
+            "Desire for structural tightening without full excisional surgery",
+            "Post-weight-loss contour mismatch",
+          ]}
+          resultStages={[
+            {
+              title: "Early phase (first weeks)",
+              body: "Shape changes are initially masked by swelling, then become easier to read as tissue settles.",
+            },
+            {
+              title: "Final phase (3-6 months)",
+              body: "Collagen remodeling typically sharpens contour and skin contraction over time.",
+            },
+          ]}
+          variabilityFactors={[
+            "Degree of baseline laxity and tissue quality",
+            "Anatomic treatment zone and protocol depth",
+            "Weight stability and healing response",
+            "Adherence to compression and aftercare guidance",
+          ]}
+          combinationGuidance="Morpheus8 is often considered for additional texture refinement. In advanced excess-skin cases, surgical referral may still be the better path."
+          ctaHref="/book?service=quantum-rf"
+        />
+
+        <ServiceVideoTranscriptSection
+          serviceName="Quantum RF"
+          videoTitle="Quantum RF Procedure Education"
+          videoEmbedUrl={`https://www.youtube.com/embed/${YT_DEMO_1}?rel=0`}
+          summary="Clinical overview of candidacy, expected recovery, and how subdermal RF differs from surface-only options."
+          transcript={[
+            "Quantum RF is chosen when deeper tissue contraction is required and surface-only options are unlikely to deliver enough change.",
+            "Initial swelling can hide contour gains; evaluation improves as healing progresses.",
+            "We treat this as a medical contour procedure with candidacy screening and protocol selection.",
+            "Some patients benefit from staged Morpheus8 refinement after deeper contour work.",
+          ]}
+          relatedLinks={[
+            { label: "Morpheus8", href: "/services/morpheus8" },
+            { label: "Quantum vs Facelift", href: "/compare/quantum-rf-vs-facelift" },
+            { label: "Book Quantum consult", href: "/book?service=quantum-rf" },
+          ]}
+          pageUrl={`${SITE.url}/services/quantum-rf`}
+          thumbnailUrl={`${SITE.url}/images/quantum-rf/og-quantum-rf-social-share.png`}
+        />
+
+        <ServiceTestimonialsPlaceholder serviceName="Quantum RF" />
 
         {/* 12. Final CTA */}
         <section className="border-b-2 border-black bg-black py-16 text-white md:py-24">

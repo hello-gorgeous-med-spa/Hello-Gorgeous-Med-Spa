@@ -48,6 +48,18 @@
 - https://www.hellogorgeousmedspa.com/compare/solaria-co2-vs-traditional-co2
 - https://www.hellogorgeousmedspa.com/compare/glp1-vs-traditional-weight-loss
 
+## Proof + conversion assets
+- Case-study template: https://www.hellogorgeousmedspa.com/case-studies/template
+- Proof/conversion educational blocks live on major services:
+  - https://www.hellogorgeousmedspa.com/services/morpheus8
+  - https://www.hellogorgeousmedspa.com/services/quantum-rf
+  - https://www.hellogorgeousmedspa.com/services/solaria-co2
+  - https://www.hellogorgeousmedspa.com/services/weight-loss
+  - https://www.hellogorgeousmedspa.com/services/botox
+  - https://www.hellogorgeousmedspa.com/services/dermal-fillers
+- Provider video + transcript sections enabled on Morpheus8, Quantum RF, Solaria CO2, and Weight Loss service pages.
+- Service testimonial blocks are placeholder-only until approved reviews are attached.
+
 ## Practice trust pages
 - FAQ: https://www.hellogorgeousmedspa.com/faq
 - Patient documents: https://www.hellogorgeousmedspa.com/patient-documents

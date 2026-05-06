@@ -309,6 +309,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
   ];
 
+  const caseStudyPages: MetadataRoute.Sitemap = [
+    {
+      url: `${baseUrl}/case-studies/template`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+  ];
+
   // Morpheus8 & Quantum RF pages - high priority new services
   const morpheus8Pages: MetadataRoute.Sitemap = [
     {
@@ -435,6 +444,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...servicePages,
     ...premiumLandingPages,
     ...comparisonPages,
+    ...caseStudyPages,
     ...solariaPages,
     ...morpheus8Pages,
     ...blogPages,

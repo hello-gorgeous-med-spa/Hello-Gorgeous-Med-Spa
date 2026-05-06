@@ -3,6 +3,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { TechBlogPromo } from "@/components/TechBlogPromo";
 import { Morpheus8SkinRebuildSection } from "@/components/Morpheus8SkinRebuildSection";
+import { ProofConversionSection } from "@/components/services/ProofConversionSection";
+import { ServiceTestimonialsPlaceholder } from "@/components/services/ServiceTestimonialsPlaceholder";
+import { ServiceVideoTranscriptSection } from "@/components/services/ServiceVideoTranscriptSection";
 import { pageMetadata, SITE, siteJsonLd } from "@/lib/seo";
 
 const _morpheusMeta = pageMetadata({
@@ -879,6 +882,56 @@ export default function Morpheus8Page() {
             </div>
           </div>
         </section>
+
+        <ProofConversionSection
+          serviceName="Morpheus8"
+          concerns={[
+            "Loose or crepey skin on face, neck, or body",
+            "Acne-scar texture and enlarged pores",
+            "Mild-to-moderate skin laxity after weight changes",
+            "Desire for non-surgical collagen remodeling",
+          ]}
+          resultStages={[
+            {
+              title: "Early phase (first weeks)",
+              body: "Most patients notice gradual tightening and texture shifts as swelling settles.",
+            },
+            {
+              title: "Final phase (3-6 months)",
+              body: "Collagen remodeling continues and definition typically looks clearer over time.",
+            },
+          ]}
+          variabilityFactors={[
+            "Treatment depth and protocol selection",
+            "Baseline skin quality and laxity severity",
+            "Aftercare, sun behavior, and treatment spacing",
+            "Individual collagen response",
+          ]}
+          combinationGuidance="When deeper resurfacing is needed, Solaria CO2 may be staged. For heavier laxity/body contour goals, Quantum RF may be considered after assessment."
+          ctaHref="/book?service=morpheus8"
+        />
+
+        <ServiceVideoTranscriptSection
+          serviceName="Morpheus8"
+          videoTitle="Morpheus8 Provider Walkthrough"
+          videoEmbedUrl="https://www.youtube.com/embed/Tfr5nlG2dDA?rel=0"
+          summary="Overview of candidacy, expected downtime, and treatment sequencing for Morpheus8 face/body planning."
+          transcript={[
+            "Morpheus8 is selected when patients need more than superficial texture support.",
+            "We tailor depth by area and concern because over- or under-treatment both reduce value.",
+            "Most patients should plan social downtime and expect progressive remodeling over months.",
+            "Combination plans may include Solaria CO2 or Quantum RF depending on tissue goals.",
+          ]}
+          relatedLinks={[
+            { label: "Quantum RF", href: "/services/quantum-rf" },
+            { label: "Solaria CO2", href: "/services/solaria-co2" },
+            { label: "Book Morpheus8 consult", href: "/book?service=morpheus8" },
+          ]}
+          pageUrl={`${SITE.url}/services/morpheus8`}
+          thumbnailUrl={`${SITE.url}/images/morpheus8/morpheus8-hero.jpg`}
+        />
+
+        <ServiceTestimonialsPlaceholder serviceName="Morpheus8" />
 
         {/* FAQ Section */}
         <section className="py-16 md:py-20 bg-zinc-50">

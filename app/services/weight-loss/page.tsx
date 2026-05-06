@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { ProofConversionSection } from "@/components/services/ProofConversionSection";
+import { ServiceTestimonialsPlaceholder } from "@/components/services/ServiceTestimonialsPlaceholder";
+import { ServiceVideoTranscriptSection } from "@/components/services/ServiceVideoTranscriptSection";
 import { GLP1_WEIGHT_LOSS_FAQS } from "@/lib/glp1-weight-loss-faqs";
 import { breadcrumbJsonLd, faqJsonLd, pageMetadata, SITE, siteJsonLd } from "@/lib/seo";
 
@@ -155,6 +158,57 @@ export default function WeightLossServicePage() {
             </p>
           </div>
         </section>
+
+        <ProofConversionSection
+          serviceName="GLP-1 Weight Loss"
+          concerns={[
+            "Difficulty sustaining calorie deficit despite effort",
+            "Persistent appetite dysregulation or food noise",
+            "Metabolic risk factors requiring medical oversight",
+            "Need for structured follow-up and dose management",
+          ]}
+          resultStages={[
+            {
+              title: "Early phase (weeks 1-6)",
+              body: "Appetite control may improve first, with body-weight and measurement changes typically becoming clearer over subsequent weeks.",
+            },
+            {
+              title: "Final phase (months 3+)",
+              body: "Sustainable progress is usually judged over months with dose titration, nutrition compliance, and monitoring.",
+            },
+          ]}
+          variabilityFactors={[
+            "Medication tolerance and adherence",
+            "Sleep, protein intake, and activity quality",
+            "Baseline metabolic health profile",
+            "Consistency with follow-up and behavior changes",
+          ]}
+          combinationGuidance="When body-shape or skin-laxity concerns emerge during fat loss, staged contour or tightening plans with Morpheus8 or Quantum RF may be discussed."
+          ctaHref="/book?service=weight-loss-therapy"
+          ctaLabel="Book weight loss consultation"
+        />
+
+        <ServiceVideoTranscriptSection
+          serviceName="GLP-1 Weight Loss"
+          videoTitle="Provider Q&A: GLP-1 Weight Loss Planning"
+          videoEmbedUrl="https://www.youtube.com/embed/loJOgWGCkK8?rel=0"
+          summary="Educational provider overview of candidacy, timeline expectations, side-effect management, and when combination body-support plans are considered."
+          transcript={[
+            "GLP-1 plans are medically supervised and adjusted over time rather than set once and forgotten.",
+            "Early appetite and behavior changes often appear before full body-composition shifts.",
+            "Results vary by adherence, baseline metabolism, and dose tolerance.",
+            "For loose-skin concerns during fat loss, staged contour options can be discussed at follow-up.",
+          ]}
+          relatedLinks={[
+            { label: "Quantum RF", href: "/services/quantum-rf" },
+            { label: "Morpheus8", href: "/services/morpheus8" },
+            { label: "GLP-1 vs Traditional Programs", href: "/compare/glp1-vs-traditional-weight-loss" },
+          ]}
+          pageUrl={`${SITE.url}/services/weight-loss`}
+          thumbnailUrl={`${SITE.url}/images/services/hg-weight-loss.png`}
+        />
+
+        <ServiceTestimonialsPlaceholder serviceName="GLP-1 Weight Loss" />
 
         <section className="py-14 md:py-16">
           <div className="mx-auto max-w-4xl px-4">

@@ -60,6 +60,31 @@ export async function GET() {
       `${SITE.url}/compare/solaria-co2-vs-traditional-co2`,
       `${SITE.url}/compare/glp1-vs-traditional-weight-loss`,
     ],
+    contentInfrastructure: {
+      proofConversionSections: [
+        `${SITE.url}/services/morpheus8`,
+        `${SITE.url}/services/quantum-rf`,
+        `${SITE.url}/services/solaria-co2`,
+        `${SITE.url}/services/weight-loss`,
+        `${SITE.url}/services/botox`,
+        `${SITE.url}/services/dermal-fillers`,
+      ],
+      caseStudyTemplate: `${SITE.url}/case-studies/template`,
+      videoTranscriptSupport: [
+        `${SITE.url}/services/morpheus8`,
+        `${SITE.url}/services/quantum-rf`,
+        `${SITE.url}/services/solaria-co2`,
+        `${SITE.url}/services/weight-loss`,
+      ],
+      testimonialPlaceholders: [
+        `${SITE.url}/services/morpheus8`,
+        `${SITE.url}/services/quantum-rf`,
+        `${SITE.url}/services/solaria-co2`,
+        `${SITE.url}/services/weight-loss`,
+        `${SITE.url}/services/botox`,
+        `${SITE.url}/services/dermal-fillers`,
+      ],
+    },
     lastUpdated: new Date().toISOString(),
   };
 

@@ -4,6 +4,8 @@ import Link from "next/link";
 
 import { CTA } from "@/components/CTA";
 import { FadeUp, Section } from "@/components/Section";
+import { ProofConversionSection } from "@/components/services/ProofConversionSection";
+import { ServiceTestimonialsPlaceholder } from "@/components/services/ServiceTestimonialsPlaceholder";
 import { SITE } from "@/lib/seo";
 
 // Booking goes through /book → resolves the slug to the Square service ID
@@ -379,6 +381,37 @@ export function BotoxPageContent() {
             </div>
           </Section>
         ))}
+
+        <ProofConversionSection
+          serviceName="Botox"
+          concerns={[
+            "Dynamic forehead, frown, and crow's-feet lines",
+            "Overactive expression patterns that age appearance",
+            "Desire for softer expression without frozen movement",
+            "Preventive wrinkle management planning",
+          ]}
+          resultStages={[
+            {
+              title: "Early phase (days 3-7)",
+              body: "Most patients begin noticing softened movement in treated zones.",
+            },
+            {
+              title: "Final phase (days 10-14)",
+              body: "Best early result assessment window for symmetry and dose response.",
+            },
+          ]}
+          variabilityFactors={[
+            "Muscle strength and expression habits",
+            "Dose selection and injection mapping",
+            "Metabolism and activity profile",
+            "Prior neuromodulator history",
+          ]}
+          combinationGuidance="If volume loss is a major driver, we may recommend staged filler treatment rather than increasing Botox units alone."
+          ctaHref="/book?service=botox"
+          ctaLabel="Book Botox consultation"
+        />
+
+        <ServiceTestimonialsPlaceholder serviceName="Botox" />
 
         {/* Closing CTA */}
         <Section className="relative !py-20 overflow-hidden border-t-4 border-black">
