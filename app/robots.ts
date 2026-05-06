@@ -38,8 +38,17 @@ export default function robots(): MetadataRoute.Robots {
           '/pos/',
         ],
       },
+      { userAgent: 'GPTBot', allow: '/' },
+      { userAgent: 'ChatGPT-User', allow: '/' },
+      { userAgent: 'ClaudeBot', allow: '/' },
+      { userAgent: 'anthropic-ai', allow: '/' },
+      { userAgent: 'Google-Extended', allow: '/' },
+      { userAgent: 'PerplexityBot', allow: '/' },
+      { userAgent: 'CCBot', allow: '/' },
+      { userAgent: 'Applebot', allow: '/' },
+      { userAgent: 'Bingbot', allow: '/' },
     ],
-    sitemap: `${SITE.url}/sitemap.xml`,
+    sitemap: [`${SITE.url}/sitemap.xml`, `${SITE.url}/image-sitemap.xml`],
     host: SITE.url,
   };
 }

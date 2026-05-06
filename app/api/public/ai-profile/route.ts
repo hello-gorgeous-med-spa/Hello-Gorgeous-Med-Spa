@@ -1,0 +1,59 @@
+import { NextResponse } from "next/server";
+import { HOME_FAQS, SERVICES, SITE, servicePublicPath } from "@/lib/seo";
+
+export const revalidate = 3600;
+
+export async function GET() {
+  const payload = {
+    business: {
+      name: SITE.name,
+      website: SITE.url,
+      description: SITE.description,
+      phone: SITE.phone,
+      email: SITE.email,
+      address: SITE.address,
+      geo: SITE.geo,
+      serviceAreas: SITE.serviceAreas,
+      googleBusinessUrl: SITE.googleBusinessUrl,
+      googleReviewUrl: SITE.googleReviewUrl,
+      social: SITE.social,
+    },
+    booking: {
+      bookUrl: `${SITE.url}/book`,
+      contactUrl: `${SITE.url}/contact`,
+      forms: {
+        clientIntake: `${SITE.url}/forms/client-intake`,
+      },
+    },
+    services: SERVICES.map((service) => ({
+      slug: service.slug,
+      name: service.name,
+      category: service.category,
+      summary: service.short,
+      url: new URL(servicePublicPath(service), SITE.url).toString(),
+      heroTitle: service.heroTitle,
+      heroSubtitle: service.heroSubtitle,
+      faqs: service.faqs.slice(0, 3),
+    })),
+    homepageFaqs: HOME_FAQS,
+    trustedPages: [
+      `${SITE.url}/`,
+      `${SITE.url}/services`,
+      `${SITE.url}/morpheus8-oswego-il`,
+      `${SITE.url}/quantum-rf-oswego-il`,
+      `${SITE.url}/glp1-weight-loss`,
+      `${SITE.url}/botox-oswego-il`,
+      `${SITE.url}/faq`,
+      `${SITE.url}/patient-documents`,
+      `${SITE.url}/providers/danielle`,
+      `${SITE.url}/providers/ryan`,
+    ],
+    lastUpdated: new Date().toISOString(),
+  };
+
+  return NextResponse.json(payload, {
+    headers: {
+      "Cache-Control": "public, s-maxage=3600, stale-while-revalidate=86400",
+    },
+  });
+}

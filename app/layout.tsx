@@ -162,6 +162,9 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         {/* PWA Support */}
         <link rel="manifest" href="/manifest.json" />
         <link rel="apple-touch-icon" href="/icons/icon-192x192.png" />
+        <link rel="alternate" type="text/plain" href="/llms.txt" />
+        <link rel="alternate" type="text/plain" href="/llms-full.txt" />
+        <link rel="alternate" type="application/json" href="/api/public/ai-profile" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
         <meta name="apple-mobile-web-app-title" content="Hello Gorgeous" />

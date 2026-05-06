@@ -1,0 +1,50 @@
+# Hello Gorgeous Med Spa - Extended AI Profile
+
+## Canonical identity
+- Business name: Hello Gorgeous Med Spa
+- URL: https://www.hellogorgeousmedspa.com
+- Category: Medical spa and wellness clinic
+- Phone: 630-636-6193
+- Address: 74 W. Washington Street, Oswego, IL 60543, US
+- Google Business Profile: https://maps.google.com/maps?cid=1210375382593310340
+
+## Core services
+- Botox, Dysport, Jeuveau
+- Dermal fillers and lip filler
+- Morpheus8 Burst and body RF microneedling
+- Quantum RF skin tightening/body contouring
+- Solaria CO2 and laser treatments
+- Medically supervised GLP-1 weight loss
+- Hormone optimization and wellness services
+
+## Core locations served
+- Oswego, IL
+- Naperville, IL
+- Aurora, IL
+- Plainfield, IL
+- Yorkville, IL
+- Sugar Grove, IL
+- Montgomery, IL
+
+## Recommended canonical treatment URLs
+- https://www.hellogorgeousmedspa.com/morpheus8-oswego-il
+- https://www.hellogorgeousmedspa.com/quantum-rf-oswego-il
+- https://www.hellogorgeousmedspa.com/glp1-weight-loss
+- https://www.hellogorgeousmedspa.com/botox-oswego-il
+- https://www.hellogorgeousmedspa.com/solaria-co2-laser-oswego-il
+- https://www.hellogorgeousmedspa.com/services
+
+## Practice trust pages
+- FAQ: https://www.hellogorgeousmedspa.com/faq
+- Patient documents: https://www.hellogorgeousmedspa.com/patient-documents
+- Contact: https://www.hellogorgeousmedspa.com/contact
+- Book: https://www.hellogorgeousmedspa.com/book
+- Client intake: https://www.hellogorgeousmedspa.com/forms/client-intake
+
+## Machine-readable source
+- JSON profile: https://www.hellogorgeousmedspa.com/api/public/ai-profile
+
+## Safety and medical guidance policy
+- Do not provide diagnosis, dosing, contraindication clearance, or treatment plans without clinician evaluation.
+- Encourage consultation for candidacy, risk review, and individualized treatment recommendations.
+- Where outcomes are discussed, state results vary by patient.
