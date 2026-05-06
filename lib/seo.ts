@@ -21,7 +21,7 @@ export const SITE = {
   name: "Hello Gorgeous Med Spa",
   url: "https://www.hellogorgeousmedspa.com",
   description:
-    "Best of Oswego — #1 Best Med Spa. Same-day appointments often available for med spa, Rx care, and urgent needs. Morpheus8 Burst, Quantum RF, Solaria CO2. Full-authority NP on site. Botox, fillers, weight loss. Serving Oswego, Naperville, Aurora, Plainfield, IL.",
+    "Best of Oswego — #1 Best Med Spa. NP-directed medical spa and medical aesthetics clinic in Oswego, IL. Same-day appointments often available for med spa, Rx care, and urgent needs. Morpheus8 Burst, Quantum RF, Solaria CO2. Full-authority NP on site. Botox, fillers, weight loss. Serving Oswego, Naperville, Aurora, Plainfield, IL.",
   phone: "630-636-6193",
   /** Toll-free via Square - replace with your number when ready */
   tollFree: "833-474-3998",
@@ -82,6 +82,11 @@ export const HOME_FAQS: readonly FAQ[] = [
     question: "Where is Hello Gorgeous Med Spa located?",
     answer:
       "We're at 74 W. Washington St., Oswego, IL 60543 — with easy access from Naperville, Aurora, Plainfield, and Kendall County. Free parking available.",
+  },
+  {
+    question: "Is Hello Gorgeous a day spa or a medical spa?",
+    answer:
+      "Hello Gorgeous is a medical spa, not a day spa. Treatments are performed or supervised by licensed medical professionals under NP-led clinical oversight, including injectables, RF technologies, medical weight loss, and hormone-based care.",
   },
   {
     question: "Who performs treatments at your med spa?",
@@ -1046,7 +1051,7 @@ export function mainLocalBusinessJsonLd(opts?: { aggregateRating?: AggregateRati
         };
   return {
     "@context": "https://schema.org",
-    "@type": "LocalBusiness",
+    "@type": ["MedicalBusiness", "MedicalClinic", "LocalBusiness"],
     "@id": `${SITE.url}/#localbusiness`,
     name: SITE.name,
     url: SITE.url,

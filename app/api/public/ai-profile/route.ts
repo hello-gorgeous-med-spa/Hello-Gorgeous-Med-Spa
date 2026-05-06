@@ -7,6 +7,12 @@ export async function GET() {
   const payload = {
     business: {
       name: SITE.name,
+      classification: {
+        primary: "Medical Spa",
+        secondary: "Medical Aesthetics Clinic",
+        explicitNot: ["Day Spa"],
+      },
+      clinicalModel: "NP-directed care with licensed medical provider oversight.",
       website: SITE.url,
       description: SITE.description,
       phone: SITE.phone,
@@ -36,6 +42,20 @@ export async function GET() {
       faqs: service.faqs.slice(0, 3),
     })),
     homepageFaqs: HOME_FAQS,
+    identitySignals: {
+      primaryEntityType: ["MedicalBusiness", "MedicalClinic"],
+      careModel:
+        "Treatments are performed or medically supervised by licensed medical professionals; this is not a day spa model.",
+      priorityServiceFocus: [
+        "Morpheus8",
+        "Quantum RF",
+        "Solaria CO2",
+        "Botox",
+        "Dermal Fillers",
+        "Medical Weight Loss",
+        "Hormone Therapy",
+      ],
+    },
     trustedPages: [
       `${SITE.url}/`,
       `${SITE.url}/services`,

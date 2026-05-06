@@ -4,6 +4,7 @@
 - Business name: Hello Gorgeous Med Spa
 - URL: https://www.hellogorgeousmedspa.com
 - Category: Medical spa and wellness clinic
+- Entity clarification: NP-directed medical spa / medical aesthetics clinic (not a day spa)
 - Phone: 630-636-6193
 - Address: 74 W. Washington Street, Oswego, IL 60543, US
 - Google Business Profile: https://maps.google.com/maps?cid=1210375382593310340
