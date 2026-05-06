@@ -546,6 +546,68 @@ export default function SolariaCO2Page() {
           </div>
         </section>
 
+        <section className="py-16 bg-white border-y border-black/10">
+          <div className="max-w-6xl mx-auto px-4 grid gap-6 md:grid-cols-2">
+            <article className="rounded-2xl border-4 border-black bg-white p-6 shadow-[8px_8px_0_0_rgba(230,0,126,0.35)]">
+              <h2 className="text-2xl font-black text-black">Clinical Notes from Hello Gorgeous</h2>
+              <p className="mt-3 text-black/80">
+                We offer Solaria CO2 for patients who need high-impact resurfacing and are prepared for recovery. Treatment depth is selected from skin exam, healing history, and scar/wrinkle severity rather than one-size settings.
+              </p>
+              <p className="mt-3 text-black/80">
+                In staged plans, we may sequence Solaria with{" "}
+                <Link href="/services/morpheus8" className="font-semibold text-[#E6007E] underline underline-offset-2">
+                  Morpheus8
+                </Link>{" "}
+                or injectables after healing milestones are met.
+              </p>
+            </article>
+            <article className="rounded-2xl border-4 border-black bg-[#FFF0F7] p-6 shadow-[8px_8px_0_0_rgba(0,0,0,0.15)]">
+              <h2 className="text-2xl font-black text-black">Solaria CO2 Near Plainfield, Yorkville & Montgomery</h2>
+              <p className="mt-3 text-black/80">
+                Patients from Plainfield, Yorkville, Montgomery, Naperville, and Aurora book Solaria CO2 in our Oswego clinic for local access to advanced resurfacing without city travel.
+              </p>
+              <p className="mt-3 text-black/80">
+                Compare platform strategy:{" "}
+                <Link href="/compare/solaria-co2-vs-traditional-co2" className="font-semibold text-[#E6007E] underline underline-offset-2">
+                  Solaria CO2 vs traditional CO2
+                </Link>
+                .
+              </p>
+            </article>
+          </div>
+        </section>
+
+        <section className="py-16 bg-zinc-50">
+          <div className="max-w-6xl mx-auto px-4">
+            <h2 className="text-3xl font-black text-black">What Patients Typically Notice</h2>
+            <div className="mt-6 grid gap-4 md:grid-cols-2">
+              {[
+                {
+                  title: "Early changes",
+                  body: "During the first week, redness, heat, and flaking are expected as damaged surface tissue clears.",
+                },
+                {
+                  title: "Mid-phase improvement",
+                  body: "Texture and tone become visibly smoother over the following weeks once peeling resolves.",
+                },
+                {
+                  title: "Final-result phase",
+                  body: "Collagen remodeling continues over months, often improving firmness and fine-line quality beyond the initial recovery window.",
+                },
+                {
+                  title: "Why outcomes vary",
+                  body: "Depth settings, baseline sun damage, scar severity, skin type, and post-care compliance influence final result.",
+                },
+              ].map((item) => (
+                <article key={item.title} className="rounded-xl border-2 border-black bg-white p-5">
+                  <h3 className="text-lg font-bold text-[#E6007E]">{item.title}</h3>
+                  <p className="mt-2 text-black/80">{item.body}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
         {/* Real Patient Reviews — pulls 5-star Google reviews mentioning Solaria/CO2 */}
         <RealPatientReviews
           service="solaria-co2"

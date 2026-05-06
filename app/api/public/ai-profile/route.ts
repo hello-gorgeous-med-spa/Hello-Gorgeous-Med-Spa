@@ -39,6 +39,12 @@ export async function GET() {
     trustedPages: [
       `${SITE.url}/`,
       `${SITE.url}/services`,
+      `${SITE.url}/services/morpheus8`,
+      `${SITE.url}/services/quantum-rf`,
+      `${SITE.url}/services/solaria-co2`,
+      `${SITE.url}/services/weight-loss`,
+      `${SITE.url}/services/botox`,
+      `${SITE.url}/services/dermal-fillers`,
       `${SITE.url}/morpheus8-oswego-il`,
       `${SITE.url}/quantum-rf-oswego-il`,
       `${SITE.url}/glp1-weight-loss`,
@@ -47,6 +53,12 @@ export async function GET() {
       `${SITE.url}/patient-documents`,
       `${SITE.url}/providers/danielle`,
       `${SITE.url}/providers/ryan`,
+    ],
+    comparisonPages: [
+      `${SITE.url}/compare/morpheus8-vs-rf-microneedling`,
+      `${SITE.url}/compare/quantum-rf-vs-facelift`,
+      `${SITE.url}/compare/solaria-co2-vs-traditional-co2`,
+      `${SITE.url}/compare/glp1-vs-traditional-weight-loss`,
     ],
     lastUpdated: new Date().toISOString(),
   };

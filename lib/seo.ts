@@ -191,18 +191,59 @@ export const SERVICES: readonly Service[] = [
           "Hello Gorgeous Med Spa offers dermal fillers at 74 W. Washington St in Oswego. We serve clients from Naperville, Aurora, Plainfield, Yorkville, and throughout Kendall County. Book a free consultation.",
       },
       {
-        question: "How long do fillers last?",
-        answer: "Longevity varies by product and area, commonly 6–18 months.",
+        question: "Who is a good candidate for dermal fillers?",
+        answer:
+          "Adults with volume loss, contour asymmetry, or feature-balance goals are commonly good candidates after clinical assessment. We screen for active infection, major inflammatory conditions, and contraindications before treatment.",
       },
       {
-        question: "Is there downtime?",
+        question: "How long do dermal fillers last?",
+        answer:
+          "Longevity varies by product, treatment zone, and metabolism. Many facial filler plans last around 6-18 months before partial refresh is needed.",
+      },
+      {
+        question: "Do filler injections hurt?",
+        answer:
+          "Most patients describe pressure and brief pinching rather than sharp pain. We use numbing strategies and careful technique to improve comfort.",
+      },
+      {
+        question: "What is downtime after filler?",
         answer:
           "Many people return to normal activities quickly. Swelling or bruising can occur and usually resolves within days.",
       },
       {
-        question: "Can fillers be reversed?",
+        question: "When will I see final filler results?",
+        answer:
+          "You see immediate volume change, but the true result is typically judged after swelling settles over 1-2 weeks.",
+      },
+      {
+        question: "How many syringes will I need?",
+        answer:
+          "Syringe count depends on baseline volume loss and goals. Conservative first sessions are common, with staged refinement if needed.",
+      },
+      {
+        question: "How much do dermal fillers cost?",
+        answer:
+          "Pricing depends on product choice and number of syringes used. We provide a transparent treatment quote at consultation before injecting.",
+      },
+      {
+        question: "Can fillers be reversed if I do not like the result?",
         answer:
           "Some hyaluronic acid fillers can be dissolved if needed. We’ll discuss options during your consult.",
+      },
+      {
+        question: "What is the difference between Botox and fillers?",
+        answer:
+          "Botox relaxes muscles that create expression lines. Fillers restore structure and volume. Many patients use both for a balanced, natural result.",
+      },
+      {
+        question: "Who performs filler treatments at Hello Gorgeous?",
+        answer:
+          "Injectable treatments are performed by licensed medical professionals with clinical oversight. We prioritize facial balance, safety, and conservative planning.",
+      },
+      {
+        question: "Can fillers be combined with skin-tightening or resurfacing treatments?",
+        answer:
+          "Yes. Depending on goals, fillers can be staged with Morpheus8, Quantum RF, or Solaria CO2 as part of a broader treatment plan.",
       },
     ],
   },

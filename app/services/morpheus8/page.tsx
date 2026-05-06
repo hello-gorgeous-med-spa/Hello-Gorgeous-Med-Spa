@@ -813,6 +813,73 @@ export default function Morpheus8Page() {
           </div>
         </section>
 
+        <section className="py-16 md:py-20 bg-gradient-to-b from-white to-rose-50">
+          <div className="max-w-6xl mx-auto px-4 grid gap-6 md:grid-cols-2">
+            <article className="rounded-2xl border-4 border-black bg-white p-6 shadow-[8px_8px_0_0_rgba(230,0,126,0.35)]">
+              <h2 className="text-2xl font-black text-black">Provider Perspective</h2>
+              <p className="mt-3 text-black/80">
+                We use Morpheus8 when a patient needs more than a surface refresh. Our team maps depth, skin quality, and laxity before selecting Burst and/or Deep settings so treatment intensity matches the anatomy.
+              </p>
+              <p className="mt-3 text-black/80">
+                For patients with deeper texture plus laxity, we frequently plan staged combination care with{" "}
+                <Link href="/services/solaria-co2" className="font-semibold text-[#E6007E] underline underline-offset-2">
+                  Solaria CO2
+                </Link>{" "}
+                or{" "}
+                <Link href="/services/quantum-rf" className="font-semibold text-[#E6007E] underline underline-offset-2">
+                  Quantum RF
+                </Link>{" "}
+                when clinically appropriate.
+              </p>
+            </article>
+            <article className="rounded-2xl border-4 border-black bg-[#FFF0F7] p-6 shadow-[8px_8px_0_0_rgba(0,0,0,0.15)]">
+              <h2 className="text-2xl font-black text-black">Morpheus8 in Oswego, IL</h2>
+              <p className="mt-3 text-black/80">
+                Hello Gorgeous Med Spa treats Morpheus8 patients from Oswego, Naperville, Aurora, Plainfield, Yorkville, and Montgomery.
+                We design plans around social downtime windows and realistic timeline expectations.
+              </p>
+              <p className="mt-3 text-black/80">
+                Compare options:{" "}
+                <Link href="/compare/morpheus8-vs-rf-microneedling" className="font-semibold text-[#E6007E] underline underline-offset-2">
+                  Morpheus8 vs traditional RF microneedling
+                </Link>
+                .
+              </p>
+            </article>
+          </div>
+        </section>
+
+        <section className="py-16 md:py-20 bg-white border-y border-black/10">
+          <div className="max-w-6xl mx-auto px-4">
+            <h2 className="text-3xl font-black text-black mb-6">What Patients Typically Notice</h2>
+            <div className="grid gap-4 md:grid-cols-2">
+              {[
+                {
+                  title: "Early changes",
+                  body: "Most patients notice tighter texture and mild swelling-related fullness first. Skin can look pink or reactive while healing settles.",
+                },
+                {
+                  title: "Final-result phase",
+                  body: "Meaningful remodeling continues over 3-6 months as collagen and elastin rebuild.",
+                },
+                {
+                  title: "Why results vary",
+                  body: "Depth settings, treatment interval, skin biology, and aftercare consistency all influence final outcome.",
+                },
+                {
+                  title: "When combination care is recommended",
+                  body: "For deeper resurfacing needs, we may stage Morpheus8 with Solaria CO2; for contour/laxity, Quantum RF may be added after assessment.",
+                },
+              ].map((item) => (
+                <article key={item.title} className="rounded-xl border-2 border-black p-5">
+                  <h3 className="text-lg font-bold text-[#E6007E]">{item.title}</h3>
+                  <p className="mt-2 text-black/80">{item.body}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
         {/* FAQ Section */}
         <section className="py-16 md:py-20 bg-zinc-50">
           <div className="max-w-4xl mx-auto px-4">

@@ -492,6 +492,58 @@ function ServiceDetailPage({ serviceSlug }: { serviceSlug: string }) {
 
       </Section>
 
+      {serviceSlug === "dermal-fillers" && (
+        <Section className="bg-white">
+          <div className="grid gap-6 md:grid-cols-2">
+            <FadeUp>
+              <article className="rounded-2xl border-4 border-black bg-white p-6 shadow-[8px_8px_0_0_rgba(230,0,126,0.35)]">
+                <h2 className="text-2xl font-black text-black">Provider Perspective</h2>
+                <p className="mt-3 text-black/80">
+                  We treat fillers as structural planning, not instant volume chasing. Product selection, placement depth, and conservative dosing are chosen to preserve facial identity while restoring proportion.
+                </p>
+                <p className="mt-3 text-black/80">
+                  Many plans are staged. If movement lines are dominant, we may pair with{" "}
+                  <Link href="/services/botox" className="font-semibold text-[#FF2D8E] underline underline-offset-2">
+                    Botox
+                  </Link>
+                  {" "}instead of adding unnecessary filler volume.
+                </p>
+              </article>
+            </FadeUp>
+            <FadeUp delayMs={80}>
+              <article className="rounded-2xl border-4 border-black bg-pink-50 p-6 shadow-[8px_8px_0_0_rgba(0,0,0,0.12)]">
+                <h2 className="text-2xl font-black text-black">Dermal Fillers in Oswego, IL</h2>
+                <p className="mt-3 text-black/80">
+                  Patients visit us from Oswego, Naperville, Aurora, Plainfield, Yorkville, and Montgomery for natural-looking filler outcomes with medical oversight and realistic planning.
+                </p>
+                <p className="mt-3 text-black/80">
+                  For global rejuvenation, we may sequence fillers with{" "}
+                  <Link href="/services/morpheus8" className="font-semibold text-[#FF2D8E] underline underline-offset-2">
+                    Morpheus8
+                  </Link>
+                  {" "}or{" "}
+                  <Link href="/services/solaria-co2" className="font-semibold text-[#FF2D8E] underline underline-offset-2">
+                    Solaria CO2
+                  </Link>
+                  {" "}based on texture and laxity goals.
+                </p>
+              </article>
+            </FadeUp>
+          </div>
+          <FadeUp delayMs={120}>
+            <article className="mt-6 rounded-2xl border-2 border-black bg-white p-6">
+              <h3 className="text-xl font-bold text-[#FF2D8E]">What Patients Typically Notice</h3>
+              <ul className="mt-3 space-y-2 text-black/80">
+                <li>Early changes: immediate contour shift with temporary swelling.</li>
+                <li>Final phase: best evaluation at 1-2 weeks once edema settles.</li>
+                <li>Why results vary: baseline anatomy, metabolism, product selection, and injector strategy.</li>
+                <li>Combination planning: in some cases, Botox or device-based skin work is recommended before adding additional volume.</li>
+              </ul>
+            </article>
+          </FadeUp>
+        </Section>
+      )}
+
       {/* Harmony AI™ – BioTE only: hormone assessment + blueprint */}
       {s.slug === "biote-hormone-therapy" && (
         <Section className="py-10 bg-pink-50/30">

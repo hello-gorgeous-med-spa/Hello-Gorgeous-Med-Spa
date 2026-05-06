@@ -268,6 +268,45 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'weekly',
       priority: 0.92,
     },
+    {
+      url: `${baseUrl}/services/weight-loss`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.92,
+    },
+  ];
+
+  const comparisonPages: MetadataRoute.Sitemap = [
+    {
+      url: `${baseUrl}/compare`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/compare/morpheus8-vs-rf-microneedling`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly',
+      priority: 0.82,
+    },
+    {
+      url: `${baseUrl}/compare/quantum-rf-vs-facelift`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly',
+      priority: 0.82,
+    },
+    {
+      url: `${baseUrl}/compare/solaria-co2-vs-traditional-co2`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly',
+      priority: 0.82,
+    },
+    {
+      url: `${baseUrl}/compare/glp1-vs-traditional-weight-loss`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly',
+      priority: 0.82,
+    },
   ];
 
   // Morpheus8 & Quantum RF pages - high priority new services
@@ -395,6 +434,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...corePages,
     ...servicePages,
     ...premiumLandingPages,
+    ...comparisonPages,
     ...solariaPages,
     ...morpheus8Pages,
     ...blogPages,

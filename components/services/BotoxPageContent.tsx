@@ -199,6 +199,38 @@ const SECTIONS: Block[] = [
     ),
   },
   {
+    slug: "provider-perspective",
+    title: "Provider Perspective",
+    summary: "Clinical notes from Hello Gorgeous on when Botox is enough and when fillers should be considered.",
+    body: (
+      <div className="space-y-3 text-black/85 font-medium leading-relaxed">
+        <p>
+          Our injectors focus on movement balance first, not max units. We map your facial animation, treat the fewest muscles required, and keep expression natural.
+        </p>
+        <p>
+          If volume loss is driving the concern (not muscle pull), Botox alone may under-deliver. In those cases we discuss{" "}
+          <Link href="/services/dermal-fillers" className="font-semibold text-[#E6007E] underline decoration-[#E6007E] underline-offset-2">
+            dermal filler options
+          </Link>{" "}
+          and staged treatment planning.
+        </p>
+      </div>
+    ),
+  },
+  {
+    slug: "results-arc",
+    title: "What Patients Typically Notice",
+    summary: "Early changes vs final settle, plus why outcomes differ.",
+    body: (
+      <ul className="space-y-3 text-black/85 font-medium leading-relaxed">
+        <li><strong className="text-black">Days 1-4:</strong> minimal visible change while product starts binding at the neuromuscular junction.</li>
+        <li><strong className="text-black">Days 5-10:</strong> lines begin softening and expressions look less tense.</li>
+        <li><strong className="text-black">Days 10-14:</strong> final early result check; this is when we evaluate symmetry and touch-up need.</li>
+        <li><strong className="text-black">Why results vary:</strong> muscle strength, metabolism, dose precision, prior treatment history, and activity level all matter.</li>
+      </ul>
+    ),
+  },
+  {
     slug: "faq",
     title: "Frequently asked questions",
     summary: "Twelve straight answers we wish every chain spa would publish.",
@@ -368,6 +400,12 @@ export function BotoxPageContent() {
               <CTA href={BOOK_HREF} variant="white" className="shadow-xl">
                 Book online
               </CTA>
+              <Link
+                href="/services/dermal-fillers"
+                className="inline-flex items-center justify-center border-2 border-white text-white px-8 py-4 rounded-xl font-bold hover:bg-white hover:text-[#E6007E] transition shadow-lg"
+              >
+                Explore fillers
+              </Link>
               <Link
                 href="/contact"
                 className="inline-flex items-center justify-center border-2 border-white text-white px-8 py-4 rounded-xl font-bold hover:bg-white hover:text-[#E6007E] transition shadow-lg"

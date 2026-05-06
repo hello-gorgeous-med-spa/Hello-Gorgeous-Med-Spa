@@ -1148,6 +1148,69 @@ export default function QuantumRFPage() {
           </div>
         </section>
 
+        <section className="border-b-2 border-black bg-white py-14 md:py-16">
+          <div className="mx-auto max-w-6xl px-4 grid gap-6 md:grid-cols-2">
+            <article className="rounded-2xl border-4 border-black bg-white p-6 shadow-[8px_8px_0_0_rgba(230,0,126,0.35)]">
+              <h2 className="text-2xl font-black text-black">Provider Perspective</h2>
+              <p className="mt-3 text-black/80">
+                Quantum RF is one of our most technical contour procedures, so candidacy comes first. We use it when depth-based tissue contraction is needed and when non-invasive options are unlikely to reach the patient’s goal.
+              </p>
+              <p className="mt-3 text-black/80">
+                For facial or body plans, we frequently coordinate treatment strategy with{" "}
+                <Link href="/services/morpheus8" className="font-semibold text-[#E6007E] underline underline-offset-2">
+                  Morpheus8
+                </Link>{" "}
+                to refine surface quality once deeper contour work is complete.
+              </p>
+            </article>
+            <article className="rounded-2xl border-4 border-black bg-[#FFF0F7] p-6 shadow-[8px_8px_0_0_rgba(0,0,0,0.15)]">
+              <h2 className="text-2xl font-black text-black">Local Availability Near Naperville & Aurora</h2>
+              <p className="mt-3 text-black/80">
+                Patients searching for Quantum RF near Naperville, Aurora, Plainfield, and Yorkville commonly book through our Oswego location.
+                We discuss realistic downtime and outcome timeline before scheduling.
+              </p>
+              <p className="mt-3 text-black/80">
+                Compare with surgery path:{" "}
+                <Link href="/compare/quantum-rf-vs-facelift" className="font-semibold text-[#E6007E] underline underline-offset-2">
+                  Quantum RF vs facelift
+                </Link>
+                .
+              </p>
+            </article>
+          </div>
+        </section>
+
+        <section className="border-b-2 border-black bg-zinc-50 py-14 md:py-16">
+          <div className="mx-auto max-w-6xl px-4">
+            <h2 className="text-3xl font-black text-black">Before/After Education: What Patients Notice</h2>
+            <div className="mt-6 grid gap-4 md:grid-cols-2">
+              {[
+                {
+                  title: "Early changes",
+                  body: "Swelling settles first, then contour and tightening become easier to evaluate over the first several weeks.",
+                },
+                {
+                  title: "Final-result phase",
+                  body: "The strongest refinement usually appears as collagen remodeling progresses over 3-6 months.",
+                },
+                {
+                  title: "Why results vary",
+                  body: "Skin quality, tissue laxity severity, weight stability, and aftercare compliance all affect final outcome.",
+                },
+                {
+                  title: "When combination treatment is recommended",
+                  body: "Morpheus8 may be layered for additional texture refinement, while full surgical referral may still be advised for severe excess skin.",
+                },
+              ].map((item) => (
+                <article key={item.title} className="rounded-xl border-2 border-black bg-white p-5">
+                  <h3 className="text-lg font-bold text-[#E6007E]">{item.title}</h3>
+                  <p className="mt-2 text-black/80">{item.body}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
         {/* 12. Final CTA */}
         <section className="border-b-2 border-black bg-black py-16 text-white md:py-24">
           <div className="mx-auto max-w-3xl px-4 text-center">
