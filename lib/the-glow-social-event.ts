@@ -29,6 +29,22 @@ export const THE_GLOW_SOCIAL = {
   costNote: "FREE to attend · RSVP required · appetizers provided · cash bar (21+ to drink)",
   foodBar: "Appetizers provided by Freddie's · Off The Chain & cash bar available.",
   flyerPdfPath: "/docs/events/the-glow-social-may-14-2026-flyer.pdf",
+  rsvpPerks: [
+    "First margarita on us when you RSVP",
+    "Walk-up Botox with Ryan Kent, FNP-BC at $8/unit during event hours",
+    "Every guest receives a free vitamin injection (B12, B-Complex, or MIC)",
+  ],
+  pricingHighlights: [
+    "Lip / Dermal filler: $450 (1 syringe) · $399 each (2+ syringes)",
+    "Solaria CO2: $899 single · $1,999 package of 3",
+    "Morpheus8 Body/Deep: $799 single · $1,999 package of 3",
+    "Quantum RF: Neck/Chin $2,499 (includes free Morpheus8) · Stomach/Flanks $3,999",
+    "GLP-1 3-month programs: Semaglutide $799 · Tirzepatide $999 (medical eligibility required)",
+  ],
+  signatureBundles: [
+    "Premium Transformation: 3-month Tirzepatide + Morpheus8 Deep package of 3 — $2,797",
+    "Glow Social Signature Stack: Morpheus8 + Solaria CO2 + Quantum RF + IPL (+ bonus Solaria) — $4,500",
+  ],
   experiences: [
     {
       title: "Solaria CO₂ laser",

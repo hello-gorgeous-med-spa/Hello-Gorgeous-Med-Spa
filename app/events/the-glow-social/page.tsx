@@ -39,7 +39,7 @@ const EVENT_FAQS = [
 export const metadata: Metadata = {
   ...pageMetadata({
     title: "The Glow Social May 14, 2026 | VIP Night | Freddie's Oswego | Hello Gorgeous",
-    description: `FREE VIP night May 14, 2026, 5–8 PM at Freddie's Oswego — beauty, bites & bubbly. Solaria, Morpheus8 Burst, Quantum RF, wellness consults, raffle & guest vitamin shots. RSVP: ${SITE.phone}`,
+    description: `FREE VIP night May 14, 2026, 5–8 PM at Freddie's Oswego — beauty, bites & bubbly. RSVP perks include first margarita + walk-up Botox at $8/unit, event-night pricing, raffle, and guest vitamin shots. RSVP: ${SITE.phone}`,
     path: pagePath,
   }),
   keywords: [
@@ -222,6 +222,50 @@ export default function TheGlowSocialPage() {
             <p className="mt-6 text-xs text-black/50 text-center">
               Bonus entry rules are summarized from the official flyer; final rules, verification, and eligibility are confirmed at check-in.
             </p>
+          </div>
+        </section>
+
+        <section className="py-14 px-6 bg-white border-t border-black/5">
+          <div className="max-w-3xl mx-auto">
+            <h2 className="text-2xl md:text-3xl font-serif font-bold text-center mb-8">RSVP perks + event-night pricing</h2>
+            <div className="grid md:grid-cols-2 gap-8">
+              <div className="rounded-2xl border border-black/10 bg-[#FFF8FC] p-6">
+                <h3 className="text-lg font-bold text-[#E6007E]">VIP RSVP perks</h3>
+                <ul className="mt-4 space-y-2 text-sm text-black/80">
+                  {THE_GLOW_SOCIAL.rsvpPerks.map((perk) => (
+                    <li key={perk} className="flex gap-2">
+                      <span className="text-[#E6007E] font-bold flex-shrink-0">✦</span>
+                      <span>{perk}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div className="rounded-2xl border border-black/10 p-6">
+                <h3 className="text-lg font-bold text-[#E6007E]">Top pricing highlights</h3>
+                <ul className="mt-4 space-y-2 text-sm text-black/80">
+                  {THE_GLOW_SOCIAL.pricingHighlights.map((line) => (
+                    <li key={line} className="flex gap-2">
+                      <span className="text-[#E6007E] font-bold flex-shrink-0">★</span>
+                      <span>{line}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+            <div className="mt-8 rounded-2xl border border-black/10 p-6">
+              <h3 className="text-lg font-bold text-[#E6007E]">Signature bundles (one night only)</h3>
+              <ul className="mt-3 space-y-2 text-sm text-black/80">
+                {THE_GLOW_SOCIAL.signatureBundles.map((line) => (
+                  <li key={line} className="flex gap-2">
+                    <span className="text-[#E6007E] font-bold flex-shrink-0">✦</span>
+                    <span>{line}</span>
+                  </li>
+                ))}
+              </ul>
+              <p className="mt-4 text-xs text-black/55">
+                Event pricing reserves treatment plans at this event and is subject to medical evaluation and candidacy.
+              </p>
+            </div>
           </div>
         </section>
 
