@@ -25,6 +25,15 @@ export const metadata: Metadata = pageMetadata({
   path: "/book",
 });
 
+metadata.robots = {
+  index: true,
+  follow: true,
+  googleBot: {
+    index: true,
+    follow: true,
+  },
+};
+
 export default async function BookPage({ searchParams }: Props) {
   const sp = await searchParams;
   const slugParam = sp["service"];
