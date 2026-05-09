@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { pageMetadata, SITE } from "@/lib/seo";
 import { treatments } from "@/data/treatments";
 import { TreatmentPageTemplate } from "@/components/marketing/TreatmentPageTemplate";
+import { QuantumRFRyanActionSlideshow } from "@/components/marketing/QuantumRFRyanActionSlideshow";
 
 const t = treatments.quantumRF;
 
@@ -86,6 +87,7 @@ export default function QuantumRFPage() {
         }}
       />
       <TreatmentPageTemplate treatment={t} crossLinks={CROSS_LINKS} />
+      <QuantumRFRyanActionSlideshow />
     </>
   );
 }
