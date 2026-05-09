@@ -5,263 +5,150 @@ import { usePathname } from "next/navigation";
 import React, { useState, useRef, useEffect } from "react";
 
 import { CTA } from "./CTA";
-import { BestOfOswegoBadge } from "./BestOfOswegoBadge";
-import { ServicesDropdown } from "./ServicesDropdown";
 import { SITE } from "@/lib/seo";
-import { BOOKING_URL, CARECREDIT_URL, CHERRY_PAY_URL, VIP_MODEL_SQUARE_URL } from "@/lib/flows";
-import { SERVICES_MENU_GOALS, SERVICES_MENU_HERO, isServicesDropdownContext } from "@/lib/services-menu-data";
-import { isProcedureRoute } from "@/lib/proceduresNav";
+import { BOOKING_URL } from "@/lib/flows";
 
-// Navigation structure with dropdowns
-const navigation = {
-  procedures: {
-    label: "Procedures",
-    href: "/procedures",
-    /** Primary device procedures (not general spa services) */
-    priority: [
-      {
-        label: "Solaria CO₂ Laser",
-        shortLabel: "Solaria",
-        href: "/services/solaria-co2",
-        icon: "✨",
-        sub: "Fractional CO₂ resurfacing",
-      },
-      {
-        label: "Morpheus8 Burst",
-        shortLabel: "M8 Burst",
-        href: "/morpheus8-burst-oswego-il",
-        icon: "⚡",
-        sub: "24-pin · multi-depth RF",
-      },
-      {
-        label: "Morpheus8 Deep",
-        shortLabel: "M8 Deep",
-        href: "/services/morpheus8#morpheus8-deep",
-        icon: "🎯",
-        sub: "12-pin · deeper subdermal focus",
-      },
-      {
-        label: "QuantumRF 10, 15 & 25",
-        shortLabel: "Quantum 10/15/25",
-        href: "/services/quantum-rf#quantum-handpieces",
-        icon: "👑",
-        sub: "Subdermal RF — handpiece guide",
-      },
-      {
-        label: "Luxora (InMode)",
-        shortLabel: "Luxora",
-        href: "/patient-documents",
-        icon: "💎",
-        sub: "Pre/post + consent (patient documents)",
-      },
-    ],
-    documents: {
-      label: "Pre / post & consent",
-      sub: "Guides, PDFs & forms",
-      href: "/patient-documents",
-      icon: "📋",
-    },
-  },
+/* ─────────────────────────────────────────────────────────────
+   NAV STRUCTURE — clean, client-first, no emojis
+───────────────────────────────────────────────────────────── */
+
+const NAV = {
   services: {
     label: "Services",
     href: "/services",
+    sections: [
+      {
+        heading: "Advanced Technology",
+        links: [
+          { label: "Solaria CO₂ Laser", href: "/services/solaria-co2", sub: "Fractional resurfacing for texture, tone & scars" },
+          { label: "Morpheus8 Burst", href: "/morpheus8-burst-oswego-il", sub: "Deep RF microneedling — skin tightening" },
+          { label: "Quantum RF", href: "/services/quantum-rf", sub: "Subdermal body contouring without surgery" },
+          { label: "InMode Trifecta", href: "/trifecta-vip", sub: "3 technologies combined — exclusive package" },
+        ],
+      },
+      {
+        heading: "Injectables",
+        links: [
+          { label: "Botox & Neurotoxins", href: "/services/botox", sub: "Lines, wrinkles & preventative care" },
+          { label: "Dermal Fillers", href: "/services/dermal-fillers", sub: "Lip, cheek & facial volume" },
+          { label: "Lip Enhancement", href: "/lip-studio", sub: "Visualize and plan your look" },
+        ],
+      },
+      {
+        heading: "Medical & Wellness",
+        links: [
+          { label: "Medical Weight Loss", href: "/rx/metabolic", sub: "GLP-1 & supervised programs" },
+          { label: "Hormone Therapy", href: "/rx/hormones", sub: "Bio-identical hormone optimization" },
+          { label: "IV & Vitamin Therapy", href: "/services/iv-therapy", sub: "Hydration, energy & wellness" },
+          { label: "All Services", href: "/services", sub: "Browse the full treatment menu" },
+        ],
+      },
+    ],
   },
   about: {
     label: "About",
     href: "/about",
     links: [
-      { label: "About Hello Gorgeous", href: "/about", description: "Our story, mission & team", icon: "💗" },
-      { label: "Med Spa FAQ", href: "/faq", description: "Treatments, booking, financing & safety", icon: "❓" },
-      { label: "The Story Behind Hello Gorgeous", href: "/blog/the-story-behind-hello-gorgeous-oswego-il", description: "Danielle's journey from acne at 12 to med spa owner", icon: "💗", badge: "STORY" },
-      { label: "Meet Our Team", href: "/providers", description: "Danielle, Ryan & our experts", icon: "👩‍⚕️" },
-      { label: "Our Location", href: "/locations", description: "Visit us in Oswego, IL", icon: "📍" },
-      { label: "Clinical Standards", href: "/clinical-partners", description: "Safety & quality commitment", icon: "🏥" },
-      { label: "The Care Engine™", href: "/care-engine", description: "Our personalized approach", icon: "⚙️" },
-    ],
-  },
-  journey: {
-    label: "Your Journey",
-    href: "/your-journey",
-    links: [
-      { label: "Why Choose Us", href: "/why-choose-us", description: "#1 Best Med Spa · NP on site · Quantum RF · Burst · Solaria CO2", icon: "🏆" },
-      { label: "Fix What Bothers Me", href: "/fix-what-bothers-me", description: "Share what's on your mind—we match you with options", icon: "💗" },
-      { label: "Explore Care", href: "/explore-care", description: "Discover treatments for you", icon: "🔍" },
-      { label: "HG Face Blueprint™", href: "/face-blueprint", description: "AI-assisted aesthetic simulation", icon: "✨" },
-      { label: "Virtual Consultation", href: "/virtual-consultation", description: "Get personalized treatment recommendations", icon: "🖥️", badge: "FREE" },
-      { label: "Conditions We Treat", href: "/conditions", description: "Acne, wrinkles, hyperpigmentation & more", icon: "✨" },
-      { label: "Your Treatment Journey", href: "/your-journey", description: "What to expect", icon: "🗺️" },
-      { label: "Understand Your Body", href: "/understand-your-body", description: "Learn about aging & skin", icon: "📚" },
-      { label: "Allē Rewards", href: "/alle-botox-rewards", description: "Earn points on Botox, Juvederm & more", icon: "💎" },
-      { label: "Telehealth", href: "/telehealth", description: "Virtual consultations", icon: "🖥️" },
-      { label: "Lip Enhancement Studio", href: "/lip-studio", description: "Visualize your perfect look", icon: "✨" },
-      { label: "Botox Calculator", href: "/botox-calculator", description: "Estimate units for your areas", icon: "💉" },
-      { label: "Supplement Dispensary", href: "/fullscript", description: "Professional-grade supplements & Fullscript", icon: "💊" },
-    ],
-  },
-  intake: {
-    label: "Intake",
-    href: "/forms/client-intake",
-    links: [
-      {
-        label: "Client Intake",
-        href: "/forms/client-intake",
-        description: "Secure intake before consultation",
-        icon: "📝",
-      },
-      {
-        label: "Patient Care",
-        href: "/pre-post-care",
-        description: "Pre and post-treatment care guides",
-        icon: "📋",
-      },
-      {
-        label: "Patient Documents",
-        href: "/patient-documents",
-        description: "Consent forms and printable resources",
-        icon: "📄",
-      },
-    ],
-  },
-  providers: {
-    label: "Providers",
-    href: "/providers",
-    links: [
-      { label: "Meet Our Team", href: "/providers", description: "Licensed medical professionals", icon: "👩‍⚕️" },
-      { label: "Ryan Kent, FNP-BC", href: "/providers/ryan", description: "Medical Director", icon: "🧑‍⚕️" },
+      { label: "About Hello Gorgeous", href: "/about", sub: "Our story, mission & values" },
+      { label: "Meet the Team", href: "/providers", sub: "Licensed medical providers" },
+      { label: "Our Location", href: "/locations", sub: "74 W. Washington St, Oswego, IL" },
+      { label: "Why Choose Us", href: "/why-choose-us", sub: "#1 Best Med Spa in Oswego" },
+      { label: "FAQ", href: "/faq", sub: "Common questions answered" },
     ],
   },
   specials: {
     label: "Specials",
     href: "/vip-model",
-    highlight: true,
     links: [
-      { label: "Spring Special: Laser Hair", href: "/spring-special-laser-hair", description: "Underarms $79 • Lip & Chin $59 • Bikini $129 — No packages, 2–3 sessions", icon: "🌸", badge: "SPRING", external: false },
-      { label: "VIP Model Program", href: "/vip-model", description: "Up to 50% off Morpheus8, Solaria, Trifecta — 20 spots only", icon: "🔥", badge: "50% OFF", external: false },
-      { label: "Buy Now (Square)", href: VIP_MODEL_SQUARE_URL, description: "Secure your VIP Model spot — direct checkout", icon: "💳", badge: "BUY NOW", external: true },
-      { label: "FREE Vitamin Shot", href: "/free-vitamin", description: "New clients only - $0", icon: "💉", badge: "FREE" },
-      { label: "Allē Rewards", href: "/alle-botox-rewards", description: "Earn points on Botox, Juvederm & more", icon: "💎" },
-      { label: "Memberships", href: "/memberships", description: "Save with a membership plan", icon: "🎁" },
-      { label: "Laser Hair Memberships", href: "/laser-hair-memberships", description: "30% less — from $69/month", icon: "🔥", badge: "30% OFF" },
-      { label: "Give $25, Get $25", href: "/referral", description: "Refer a friend", icon: "💝" },
-      { label: "Book online (Fresha)", href: BOOKING_URL, description: "Schedule appointments — trusted booking link", icon: "🔥", external: true },
-      { label: "Financing Options", href: "/financing", description: "CareCredit, Cherry & Affirm — apply through our clinic", icon: "💳" },
-      { label: "Apply for CareCredit", href: CARECREDIT_URL, description: "0% APR financing — apply now", icon: "💳", external: true },
+      { label: "Spring Laser Hair Special", href: "/spring-special-laser-hair", sub: "Underarms $79 · Bikini $129 · No packages", badge: "SPRING" },
+      { label: "VIP Model Program", href: "/vip-model", sub: "Up to 50% off advanced treatments — limited spots", badge: "50% OFF" },
+      { label: "Memberships", href: "/memberships", sub: "Monthly plans for ongoing care" },
+      { label: "Free Vitamin Shot", href: "/free-vitamin", sub: "New clients only", badge: "FREE" },
+      { label: "Financing", href: "/financing", sub: "CareCredit, Cherry & Affirm available" },
+      { label: "Alle Rewards", href: "/alle-botox-rewards", sub: "Earn points on Botox & Juvederm" },
     ],
   },
-  shop: {
-    label: "Shop",
-    href: "/shop",
+  patient: {
+    label: "Patient Info",
+    href: "/pre-post-care",
     links: [
-      { label: "Products we offer (Rx)", href: "/products-we-offer", description: "Compounded families — take-home vs in-clinic", icon: "📋" },
-      { label: "Supplement Dispensary", href: "/fullscript", description: "Professional-grade supplements (Fullscript)", icon: "💊" },
-      { label: "Shop Skincare & More", href: "/shop", description: "Skinscript RX, in-office products", icon: "🧴" },
-      { label: "Pay with Cherry", href: CHERRY_PAY_URL, description: "Financing for your care", icon: "💳", external: true },
-    ],
-  },
-  more: {
-    label: "More",
-    href: "/contact",
-    links: [
-      { label: "FAQ", href: "/faq", description: "Common questions · Oswego med spa", icon: "❓" },
-      { label: "Products we offer", href: "/products-we-offer", description: "Compounded Rx catalog overview (no pricing)", icon: "💊" },
-      { label: "Before & After Gallery", href: "/gallery", description: "Real patient photos & procedure videos", icon: "✨", badge: "NEW" },
-      { label: "Blog & Resources", href: "/blog", description: "Expert articles & treatment guides", icon: "📚" },
-      { label: "Shop", href: "/shop", description: "Skincare, supplements & more", icon: "🧴" },
-      { label: "Supplement Dispensary", href: "/fullscript", description: "Fullscript supplements", icon: "💊" },
-      { label: "Patient Care", href: "/pre-post-care", description: "Pre & post treatment care", icon: "📋" },
-      {
-        label: "Patient documents & consent",
-        href: "/patient-documents",
-        description: "HTML/PDF consent, QR codes, printable guides",
-        icon: "📄",
-      },
-      { label: "Contact", href: "/contact", description: "Location, hours & get in touch", icon: "📍" },
-    ],
-  },
-  rx: {
-    label: "RX",
-    href: "/rx",
-    links: [
-      { label: "Products we offer", href: "/products-we-offer", description: "Take-home vs in-clinic compounded meds", icon: "📋" },
-      { label: "Hello Gorgeous RX™", href: "/rx", description: "Same-day Rx care · hormones · weight loss", icon: "💊" },
-      { label: "Hormone Optimization", href: "/rx/hormones", description: "Bio-identical hormone therapy", icon: "🧬" },
-      { label: "Metabolic Optimization", href: "/rx/metabolic", description: "Medical weight loss programs", icon: "⚖️" },
-      { label: "Peptides + Longevity", href: "/rx/peptides", description: "Cellular regeneration", icon: "🧪" },
-      { label: "Sexual Wellness", href: "/rx/sexual-health", description: "Hormone-supported programs", icon: "🔥" },
-      { label: "Clinical Dermatology", href: "/rx/dermatology", description: "Prescription skincare", icon: "🧴" },
-      { label: "RX Membership", href: "/rx/membership", description: "Medical optimization programs", icon: "💎" },
-    ],
-  },
-  trifecta: {
-    label: "Advanced Treatments",
-    href: "/trifecta-vip",
-    links: [
-      { label: "The InMode Trifecta", href: "/trifecta-vip", description: "3 technologies. 1 spa. 0 surgery.", icon: "👑", badge: "EXCLUSIVE" },
-      { label: "Morpheus8 Burst", href: "/morpheus8-burst-oswego-il", description: "Deepest RF microneedling at 8mm", icon: "⚡", badge: "NEW" },
-      { label: "Solaria CO₂ Laser", href: "/solaria-co2-laser-oswego-il", description: "Gold standard fractional resurfacing", icon: "✨", badge: "NEW" },
-      { label: "QuantumRF", href: "/quantum-rf-oswego-il", description: "Subdermal contouring without surgery", icon: "🎯", badge: "NEW" },
-      { label: "Solaria vs Morpheus8", href: "/solaria-vs-morpheus8-burst", description: "Compare technologies side by side", icon: "⚖️" },
-      { label: "Solaria Packages", href: "/solaria-packages", description: "Treatment bundles & VIP pricing", icon: "💎" },
+      { label: "Pre & Post Care", href: "/pre-post-care", sub: "Treatment care guides" },
+      { label: "Client Intake Form", href: "/forms/client-intake", sub: "Complete before your visit" },
+      { label: "Consent & Documents", href: "/patient-documents", sub: "Forms, PDFs & consent" },
+      { label: "Book Online", href: BOOKING_URL, sub: "Schedule via Fresha", external: true },
+      { label: "Contact Us", href: "/contact", sub: "Hours, location & phone" },
     ],
   },
 };
+
+/* ─────────────────────────────────────────────────────────────
+   HELPERS
+───────────────────────────────────────────────────────────── */
 
 function cx(...classes: Array<string | undefined | null | false>) {
   return classes.filter(Boolean).join(" ");
 }
 
-// Device procedures: Solaria, M8, Quantum + patient documents
-function ProceduresDropdown({ isOpen, onClose, onMouseEnter }: { isOpen: boolean; onClose: () => void; onMouseEnter: () => void }) {
-  const data = navigation.procedures;
-  if (!isOpen) return null;
+const NAV_LINK_BASE =
+  "flex items-center justify-center gap-1 h-9 px-3 rounded-lg text-sm font-medium transition-all whitespace-nowrap";
+const NAV_LINK_ACTIVE = "text-white bg-[#FF2D8E]";
+const NAV_LINK_IDLE = "text-black hover:bg-[#FF2D8E]/10 hover:text-[#FF2D8E]";
 
+/* ─────────────────────────────────────────────────────────────
+   SERVICES MEGA-DROPDOWN
+───────────────────────────────────────────────────────────── */
+
+function ServicesMenu({
+  isOpen,
+  onClose,
+  onMouseEnter,
+}: {
+  isOpen: boolean;
+  onClose: () => void;
+  onMouseEnter: () => void;
+}) {
+  if (!isOpen) return null;
   return (
     <div
-      className="fixed top-16 left-0 right-0 z-50 max-h-[calc(100dvh-4rem)] overflow-y-auto overscroll-contain overflow-x-clip touch-pan-y border-t border-black bg-white shadow-2xl [scrollbar-gutter:stable]"
+      className="fixed top-16 left-0 right-0 z-50 border-t-2 border-black bg-white shadow-2xl"
       onMouseEnter={onMouseEnter}
       onMouseLeave={onClose}
     >
-      <div className="max-w-7xl mx-auto px-4 md:px-6 py-6 md:py-8">
-        <div className="mb-6">
-          <p className="text-[0.65rem] font-bold uppercase tracking-[0.3em] text-[#E6007E] mb-3">Device procedures</p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-3">
-            {data.priority.map((p) => (
-              <Link
-                key={p.href}
-                href={p.href}
-                onClick={onClose}
-                className="group flex items-start gap-3 rounded-xl border-2 border-black p-4 transition hover:border-[#E6007E] hover:shadow-md"
-              >
-                <span className="text-2xl" aria-hidden>
-                  {p.icon}
-                </span>
-                <div className="min-w-0">
-                  <p className="text-sm font-bold text-black group-hover:text-[#E6007E]">
-                    {p.shortLabel ?? p.label}
-                  </p>
-                  <p className="text-xs text-black/60 mt-0.5 line-clamp-2">{p.sub}</p>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </div>
-
-        <div className="mb-6 md:mb-8 rounded-2xl border-2 border-[#E6007E]/30 bg-rose-50/80 p-4 md:p-5">
-          <Link
-            href={data.documents.href}
-            onClick={onClose}
-            className="group flex items-start gap-3 md:items-center"
-          >
-            <span className="text-2xl" aria-hidden>
-              {data.documents.icon}
-            </span>
-            <div>
-              <p className="text-sm font-bold text-black group-hover:text-[#E6007E]">{data.documents.label}</p>
-              <p className="text-xs text-black/60 mt-0.5">{data.documents.sub}</p>
+      <div className="mx-auto max-w-5xl px-6 py-8">
+        <div className="grid grid-cols-3 gap-8">
+          {NAV.services.sections.map((section) => (
+            <div key={section.heading}>
+              <p className="mb-3 text-[10px] font-bold uppercase tracking-[0.25em] text-[#E6007E]">
+                {section.heading}
+              </p>
+              <div className="space-y-0.5">
+                {section.links.map((link) => (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    onClick={onClose}
+                    className="group block rounded-lg px-3 py-2.5 transition hover:bg-[#FFF0F7]"
+                  >
+                    <p className="text-sm font-semibold text-black group-hover:text-[#E6007E]">
+                      {link.label}
+                    </p>
+                    <p className="mt-0.5 text-xs text-black/50">{link.sub}</p>
+                  </Link>
+                ))}
+              </div>
             </div>
-            <span className="ml-auto text-[#E6007E] opacity-0 transition group-hover:opacity-100" aria-hidden>
-              →
-            </span>
+          ))}
+        </div>
+        <div className="mt-6 border-t border-black/10 pt-5 flex items-center justify-between">
+          <p className="text-xs text-black/40">
+            NP-directed medical aesthetics · Oswego, IL
+          </p>
+          <Link
+            href={BOOKING_URL}
+            onClick={onClose}
+            className="rounded-full bg-[#E6007E] px-5 py-2 text-xs font-bold text-white transition hover:bg-[#c9006e]"
+          >
+            Book a Free Consultation
           </Link>
         </div>
       </div>
@@ -269,444 +156,278 @@ function ProceduresDropdown({ isOpen, onClose, onMouseEnter }: { isOpen: boolean
   );
 }
 
-// Simple dropdown for About, Journey, Specials
-function SimpleDropdown({ 
-  data, 
-  isOpen, 
+/* ─────────────────────────────────────────────────────────────
+   SIMPLE DROPDOWN (About, Specials, Patient Info)
+───────────────────────────────────────────────────────────── */
+
+type SimpleNavSection = {
+  label: string;
+  href: string;
+  links: Array<{
+    label: string;
+    href: string;
+    sub: string;
+    badge?: string;
+    external?: boolean;
+  }>;
+};
+
+function SimpleMenu({
+  data,
+  isOpen,
   onClose,
-  onMouseEnter: onEnter,
-  align = 'left'
-}: { 
-  data: typeof navigation.about;
-  isOpen: boolean; 
+  onMouseEnter,
+  align = "left",
+}: {
+  data: SimpleNavSection;
+  isOpen: boolean;
   onClose: () => void;
-  onMouseEnter?: () => void;
-  align?: 'left' | 'right';
+  onMouseEnter: () => void;
+  align?: "left" | "right";
 }) {
   if (!isOpen) return null;
-  
   return (
-    <div 
-      className={cx(
-        "absolute top-full pt-2 z-50",
-        align === 'right' ? 'right-0' : 'left-0'
-      )}
-      onMouseEnter={onEnter}
+    <div
+      className={cx("absolute top-full pt-2 z-50", align === "right" ? "right-0" : "left-0")}
+      onMouseEnter={onMouseEnter}
       onMouseLeave={onClose}
     >
-      <div className="bg-white rounded-2xl shadow-2xl border border-black overflow-hidden min-w-[320px]">
-        <div className="p-2">
-          {data.links.map((link) => {
-            const isExternal = 'external' in link && link.external;
-            const linkProps = {
-              key: link.href,
-              onClick: onClose,
-              className: "flex items-start gap-4 p-3 rounded-xl hover:bg-white transition-colors group",
-            };
-            const content = (
-              <>
-                <span className="text-2xl mt-0.5 group-hover:scale-110 transition-transform">
-                  {link.icon}
-                </span>
-                <div>
-                  <div className="flex items-center gap-2">
-                    <span className="font-semibold text-black group-hover:text-[#FF2D8E] transition-colors">
-                      {link.label}
+      <div className="min-w-[260px] overflow-hidden rounded-xl border-2 border-black bg-white shadow-2xl">
+        <div className="p-1.5">
+          {data.links.map((link) =>
+            link.external ? (
+              <a
+                key={link.href}
+                href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={onClose}
+                className="group block rounded-lg px-4 py-3 transition hover:bg-[#FFF0F7]"
+              >
+                <div className="flex items-center gap-2">
+                  <span className="text-sm font-semibold text-black group-hover:text-[#E6007E]">
+                    {link.label}
+                  </span>
+                  {link.badge && (
+                    <span className="rounded-full bg-[#E6007E] px-2 py-0.5 text-[9px] font-bold uppercase text-white">
+                      {link.badge}
                     </span>
-                    {'badge' in link && link.badge && (
-                      <span className="px-2 py-0.5 text-[10px] font-bold bg-[#FF2D8E] text-white rounded-full">
-                        {link.badge}
-                      </span>
-                    )}
-                    {isExternal && (
-                      <span className="text-black/60" aria-hidden>
-                        <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                        </svg>
-                      </span>
-                    )}
-                  </div>
-                  <p className="text-sm text-black mt-0.5">{link.description}</p>
+                  )}
                 </div>
-              </>
-            );
-            return isExternal ? (
-              <a href={link.href} target="_blank" rel="noopener noreferrer" {...linkProps}>
-                {content}
+                <p className="mt-0.5 text-xs text-black/50">{link.sub}</p>
               </a>
             ) : (
-              <Link href={link.href} {...linkProps}>
-                {content}
+              <Link
+                key={link.href}
+                href={link.href}
+                onClick={onClose}
+                className="group block rounded-lg px-4 py-3 transition hover:bg-[#FFF0F7]"
+              >
+                <div className="flex items-center gap-2">
+                  <span className="text-sm font-semibold text-black group-hover:text-[#E6007E]">
+                    {link.label}
+                  </span>
+                  {link.badge && (
+                    <span className="rounded-full bg-[#E6007E] px-2 py-0.5 text-[9px] font-bold uppercase text-white">
+                      {link.badge}
+                    </span>
+                  )}
+                </div>
+                <p className="mt-0.5 text-xs text-black/50">{link.sub}</p>
               </Link>
-            );
-          })}
+            )
+          )}
         </div>
       </div>
     </div>
   );
 }
+
+/* ─────────────────────────────────────────────────────────────
+   HEADER
+───────────────────────────────────────────────────────────── */
 
 export function Header() {
   const pathname = usePathname();
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [mobileSection, setMobileSection] = useState<string | null>(null);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
-  const [mobileSubmenu, setMobileSubmenu] = useState<string | null>(null);
-  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const timeout = useRef<NodeJS.Timeout | null>(null);
 
-  const handleMouseEnter = (key: string) => {
-    if (timeoutRef.current) {
-      clearTimeout(timeoutRef.current);
-    }
+  const openDropdown = (key: string) => {
+    if (timeout.current) clearTimeout(timeout.current);
     setActiveDropdown(key);
   };
 
-  const handleMouseLeave = () => {
-    timeoutRef.current = setTimeout(() => {
-      setActiveDropdown(null);
-    }, 150);
+  const closeDropdown = () => {
+    timeout.current = setTimeout(() => setActiveDropdown(null), 150);
   };
 
-  useEffect(() => {
-    return () => {
-      if (timeoutRef.current) {
-        clearTimeout(timeoutRef.current);
-      }
-    };
-  }, []);
+  useEffect(() => () => { if (timeout.current) clearTimeout(timeout.current); }, []);
+
+  const isActive = (href: string) => pathname === href || pathname?.startsWith(href + "/");
 
   return (
     <header className="sticky top-0 z-50 bg-white border-b-2 border-black">
-      {/* Best of Oswego bar */}
-      <div className="bg-black py-1.5 px-3">
-        <div className="max-w-7xl mx-auto flex items-center justify-center gap-2">
-          <BestOfOswegoBadge variant="compact" className="!bg-transparent !border-[#FFD700]/50 !text-[#FFD700]" />
-          <span className="text-white/70 text-xs hidden sm:inline">#1 Best Med Spa · Best Skincare · Best Weight Loss</span>
-        </div>
+      {/* Top bar */}
+      <div className="bg-black py-1.5 px-4 text-center">
+        <p className="text-xs text-white/70 tracking-wide">
+          <span className="font-semibold text-[#FFD700]">#1 Best Med Spa in Oswego</span>
+          <span className="mx-2 text-white/30">·</span>
+          NP-directed medical aesthetics
+          <span className="mx-2 text-white/30">·</span>
+          <a href={`tel:${SITE.phone}`} className="text-white hover:text-[#FF2D8E] transition-colors">
+            (630) 636-6193
+          </a>
+        </p>
       </div>
-      <div className="mx-auto max-w-7xl px-3 sm:px-4 overflow-visible">
-        <div className="flex items-center justify-between gap-2 h-16 min-h-16">
-          {/* Logo - never shrink */}
-          <Link href="/" className="flex items-center gap-2 flex-shrink-0">
+
+      <div className="mx-auto max-w-7xl px-4">
+        <div className="flex items-center justify-between gap-4 h-16">
+
+          {/* Logo */}
+          <Link href="/" className="flex items-center gap-2.5 flex-shrink-0">
             <span className="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-[#FF2D8E] text-white text-xs font-bold shadow-md">
               HG
             </span>
-            <div className="hidden xl:block">
-              <span className="text-base font-bold text-[#FF2D8E]">{SITE.name}</span>
-              <span className="block text-[10px] text-black font-medium tracking-wider">MEDICAL AESTHETICS</span>
+            <div className="hidden sm:block">
+              <span className="block text-sm font-bold text-[#FF2D8E] leading-tight">
+                {SITE.name}
+              </span>
+              <span className="block text-[10px] font-semibold text-black/50 tracking-widest uppercase">
+                Medical Aesthetics
+              </span>
             </div>
           </Link>
 
-          {/* Desktop Navigation - single row, aligned; dropdowns and Book Now visible */}
-          <nav className="hidden lg:flex items-center justify-center gap-x-1 overflow-visible">
-            {/* Procedures — devices & signature clinical treatments */}
+          {/* Desktop nav */}
+          <nav className="hidden lg:flex items-center gap-1 overflow-visible">
+
+            {/* Services */}
             <div
               className="relative flex items-center"
-              onMouseEnter={() => handleMouseEnter("procedures")}
-              onMouseLeave={handleMouseLeave}
+              onMouseEnter={() => openDropdown("services")}
+              onMouseLeave={closeDropdown}
             >
               <Link
-                href={navigation.procedures.href}
-                className={cx(
-                  "flex items-center justify-center gap-1 h-9 px-2.5 rounded-lg text-sm font-medium transition-all whitespace-nowrap",
-                  isProcedureRoute(pathname)
-                    ? "text-white bg-[#FF2D8E]"
-                    : "text-black hover:bg-[#FF2D8E]/10 hover:text-[#FF2D8E]"
-                )}
+                href="/services"
+                className={cx(NAV_LINK_BASE, isActive("/services") ? NAV_LINK_ACTIVE : NAV_LINK_IDLE)}
               >
-                Procedures
-                <svg
-                  className={cx("w-3 h-3 transition-transform", activeDropdown === "procedures" && "rotate-180")}
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
+                Services
+                <svg className={cx("w-3 h-3 transition-transform", activeDropdown === "services" && "rotate-180")} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                 </svg>
               </Link>
-              <ProceduresDropdown
-                isOpen={activeDropdown === "procedures"}
+              <ServicesMenu
+                isOpen={activeDropdown === "services"}
                 onClose={() => setActiveDropdown(null)}
-                onMouseEnter={() => handleMouseEnter("procedures")}
+                onMouseEnter={() => openDropdown("services")}
               />
             </div>
 
-            {/* Services — broader med spa menu */}
-            <div 
-              className="relative flex items-center"
-              onMouseEnter={() => handleMouseEnter('services')}
-              onMouseLeave={handleMouseLeave}
-            >
-                <Link
-            href="/services"
-            className={cx(
-              "flex items-center justify-center gap-1 h-9 px-2.5 rounded-lg text-sm font-medium transition-all whitespace-nowrap",
-              isServicesDropdownContext(pathname)
-                ? "text-white bg-[#FF2D8E]"
-                : "text-black hover:bg-[#FF2D8E]/10 hover:text-[#FF2D8E]"
-            )}
-          >
-            Services
-                <svg className={cx("w-3 h-3 transition-transform", activeDropdown === 'services' && "rotate-180")} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                </svg>
-              </Link>
-              <ServicesDropdown isOpen={activeDropdown === 'services'} onClose={() => setActiveDropdown(null)} onMouseEnter={() => handleMouseEnter('services')} />
-            </div>
-
-            {/* About Dropdown (includes providers) */}
-            <div 
-              className="relative flex items-center"
-              onMouseEnter={() => handleMouseEnter('about')}
-              onMouseLeave={handleMouseLeave}
-            >
-              <Link
-                href="/about"
-                className={cx(
-                  "flex items-center justify-center gap-1 h-9 px-2.5 rounded-lg text-sm font-medium transition-all whitespace-nowrap",
-                  pathname?.startsWith('/about') || pathname?.startsWith('/providers') || pathname?.startsWith('/locations')
-                    ? "text-white bg-[#FF2D8E]"
-                    : "text-black hover:bg-[#FF2D8E]/10 hover:text-[#FF2D8E]"
-                )}
-              >
-                About
-                <svg className={cx("w-3 h-3 transition-transform", activeDropdown === 'about' && "rotate-180")} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                </svg>
-              </Link>
-              <SimpleDropdown data={navigation.about} isOpen={activeDropdown === 'about'} onClose={() => setActiveDropdown(null)} onMouseEnter={() => handleMouseEnter('about')} />
-            </div>
-
-            {/* Your Journey Dropdown */}
-            <div 
-              className="relative flex items-center"
-              onMouseEnter={() => handleMouseEnter('journey')}
-              onMouseLeave={handleMouseLeave}
-            >
-              <Link
-                href="/your-journey"
-                className={cx(
-                  "flex items-center justify-center gap-1 h-9 px-2.5 rounded-lg text-sm font-medium transition-all whitespace-nowrap",
-                  pathname?.startsWith('/your-journey')
-                    ? "text-white bg-[#FF2D8E]"
-                    : "text-black hover:bg-[#FF2D8E]/10 hover:text-[#FF2D8E]"
-                )}
-              >
-                Journey
-                <svg className={cx("w-3 h-3 transition-transform", activeDropdown === 'journey' && "rotate-180")} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                </svg>
-              </Link>
-              <SimpleDropdown data={navigation.journey} isOpen={activeDropdown === 'journey'} onClose={() => setActiveDropdown(null)} onMouseEnter={() => handleMouseEnter('journey')} />
-            </div>
-
-            {/* Before & After Gallery */}
+            {/* Before & After */}
             <Link
               href="/gallery"
-              className={cx(
-                "flex items-center justify-center gap-1 h-9 px-2.5 rounded-lg text-sm font-medium transition-all whitespace-nowrap",
-                pathname === "/gallery"
-                  ? "text-white bg-[#FF2D8E]"
-                  : "text-black hover:bg-[#FF2D8E]/10 hover:text-[#FF2D8E]"
-              )}
+              className={cx(NAV_LINK_BASE, pathname === "/gallery" ? NAV_LINK_ACTIVE : NAV_LINK_IDLE)}
             >
               Before &amp; After
             </Link>
 
+            {/* About */}
+            <div
+              className="relative flex items-center"
+              onMouseEnter={() => openDropdown("about")}
+              onMouseLeave={closeDropdown}
+            >
+              <Link
+                href="/about"
+                className={cx(NAV_LINK_BASE, isActive("/about") ? NAV_LINK_ACTIVE : NAV_LINK_IDLE)}
+              >
+                About
+                <svg className={cx("w-3 h-3 transition-transform", activeDropdown === "about" && "rotate-180")} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </Link>
+              <SimpleMenu
+                data={NAV.about}
+                isOpen={activeDropdown === "about"}
+                onClose={() => setActiveDropdown(null)}
+                onMouseEnter={() => openDropdown("about")}
+              />
+            </div>
+
+            {/* Patient Info */}
+            <div
+              className="relative flex items-center"
+              onMouseEnter={() => openDropdown("patient")}
+              onMouseLeave={closeDropdown}
+            >
+              <Link
+                href="/pre-post-care"
+                className={cx(NAV_LINK_BASE, isActive("/pre-post-care") || isActive("/forms") || isActive("/patient-documents") ? NAV_LINK_ACTIVE : NAV_LINK_IDLE)}
+              >
+                Patient Info
+                <svg className={cx("w-3 h-3 transition-transform", activeDropdown === "patient" && "rotate-180")} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </Link>
+              <SimpleMenu
+                data={NAV.patient}
+                isOpen={activeDropdown === "patient"}
+                onClose={() => setActiveDropdown(null)}
+                onMouseEnter={() => openDropdown("patient")}
+              />
+            </div>
+
             {/* FAQ */}
             <Link
               href="/faq"
-              className={cx(
-                "flex items-center justify-center h-9 px-2.5 rounded-lg text-sm font-medium transition-all whitespace-nowrap",
-                pathname === "/faq"
-                  ? "text-white bg-[#FF2D8E]"
-                  : "text-black hover:bg-[#FF2D8E]/10 hover:text-[#FF2D8E]"
-              )}
+              className={cx(NAV_LINK_BASE, pathname === "/faq" ? NAV_LINK_ACTIVE : NAV_LINK_IDLE)}
             >
               FAQ
             </Link>
 
-            {/* Intake Dropdown */}
+            {/* Specials */}
             <div
               className="relative flex items-center"
-              onMouseEnter={() => handleMouseEnter("intake")}
-              onMouseLeave={handleMouseLeave}
+              onMouseEnter={() => openDropdown("specials")}
+              onMouseLeave={closeDropdown}
             >
               <Link
-                href={navigation.intake.href}
+                href="/vip-model"
                 className={cx(
-                  "flex items-center justify-center gap-1 h-9 px-2.5 rounded-lg text-sm font-medium transition-all whitespace-nowrap",
-                  pathname === "/forms/client-intake" ||
-                    pathname === "/pre-post-care" ||
-                    pathname === "/patient-documents"
-                    ? "text-white bg-[#FF2D8E]"
-                    : "text-black hover:bg-[#FF2D8E]/10 hover:text-[#FF2D8E]"
+                  NAV_LINK_BASE,
+                  "border border-[#FF2D8E]",
+                  isActive("/vip-model") ? NAV_LINK_ACTIVE : NAV_LINK_IDLE
                 )}
               >
-                Intake
-                <svg className={cx("w-3 h-3 transition-transform", activeDropdown === "intake" && "rotate-180")} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                </svg>
-              </Link>
-              <SimpleDropdown
-                data={navigation.intake}
-                isOpen={activeDropdown === "intake"}
-                onClose={() => setActiveDropdown(null)}
-                onMouseEnter={() => handleMouseEnter("intake")}
-              />
-            </div>
-
-            {/* RX Dropdown */}
-            <div 
-              className="relative flex items-center"
-              onMouseEnter={() => handleMouseEnter('rx')}
-              onMouseLeave={handleMouseLeave}
-            >
-              <Link
-                href="/rx"
-                className={cx(
-                  "flex items-center justify-center gap-1 h-9 px-2.5 rounded-lg text-sm font-medium transition-all whitespace-nowrap",
-                  pathname?.startsWith('/rx')
-                    ? "text-white bg-[#FF2D8E]"
-                    : "text-black hover:bg-[#FF2D8E]/10 hover:text-[#FF2D8E]"
-                )}
-              >
-                RX
-                <svg className={cx("w-3 h-3 transition-transform", activeDropdown === 'rx' && "rotate-180")} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                </svg>
-              </Link>
-              <SimpleDropdown data={navigation.rx} isOpen={activeDropdown === 'rx'} onClose={() => setActiveDropdown(null)} onMouseEnter={() => handleMouseEnter('rx')} />
-            </div>
-
-            {/* Advanced Treatments (Trifecta) Dropdown */}
-            <div 
-              className="relative flex items-center"
-              onMouseEnter={() => handleMouseEnter('trifecta')}
-              onMouseLeave={handleMouseLeave}
-            >
-              <Link
-                href="/trifecta-vip"
-                className={cx(
-                  "flex items-center justify-center gap-1 h-9 px-2.5 rounded-lg text-sm font-medium transition-all whitespace-nowrap",
-                  pathname?.startsWith("/trifecta") || pathname === "/solaria-packages" || pathname?.startsWith("/solaria-vs")
-                    ? "text-white bg-[#FF2D8E]"
-                    : "text-black hover:bg-[#FF2D8E]/10 hover:text-[#FF2D8E]"
-                )}
-              >
-                Trifecta
-                <svg className={cx("w-3 h-3 transition-transform", activeDropdown === 'trifecta' && "rotate-180")} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                </svg>
-              </Link>
-              <SimpleDropdown data={navigation.trifecta} isOpen={activeDropdown === 'trifecta'} onClose={() => setActiveDropdown(null)} onMouseEnter={() => handleMouseEnter('trifecta')} />
-            </div>
-
-            {/* More (Shop, Patient Care, Contact) */}
-            <div 
-              className="relative flex items-center"
-              onMouseEnter={() => handleMouseEnter('more')}
-              onMouseLeave={handleMouseLeave}
-            >
-              <button
-                type="button"
-                onClick={() => setActiveDropdown(activeDropdown === 'more' ? null : 'more')}
-                className={cx(
-                  "flex items-center justify-center gap-1 h-9 px-2.5 rounded-lg text-sm font-medium transition-all whitespace-nowrap",
-                  activeDropdown === 'more'
-                    ? "text-white bg-[#FF2D8E]"
-                    : "text-black hover:bg-[#FF2D8E]/10 hover:text-[#FF2D8E]"
-                )}
-              >
-                More
-                <svg className={cx("w-3 h-3 transition-transform", activeDropdown === 'more' && "rotate-180")} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                </svg>
-              </button>
-              <SimpleDropdown data={navigation.more} isOpen={activeDropdown === 'more'} onClose={() => setActiveDropdown(null)} onMouseEnter={() => handleMouseEnter('more')} align="right" />
-            </div>
-
-            {/* Specials Dropdown - Highlighted */}
-            <div 
-              className="relative flex items-center"
-              onMouseEnter={() => handleMouseEnter('specials')}
-              onMouseLeave={handleMouseLeave}
-            >
-              <Link
-                href={navigation.specials.href}
-                className="flex items-center justify-center gap-1 h-9 px-2.5 rounded-lg text-sm font-medium transition-all whitespace-nowrap text-black hover:text-[#FF2D8E] hover:bg-[#FF2D8E]/10 border border-[#FF2D8E]"
-              >
-                <span className="relative flex h-1.5 w-1.5">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#FF2D8E] opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-[#FF2D8E]"></span>
-                </span>
                 Specials
-                <svg className={cx("w-3 h-3 transition-transform", activeDropdown === 'specials' && "rotate-180")} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className={cx("w-3 h-3 transition-transform", activeDropdown === "specials" && "rotate-180")} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                 </svg>
               </Link>
-              <SimpleDropdown data={navigation.specials} isOpen={activeDropdown === 'specials'} onClose={() => setActiveDropdown(null)} onMouseEnter={() => handleMouseEnter('specials')} align="right" />
+              <SimpleMenu
+                data={NAV.specials}
+                isOpen={activeDropdown === "specials"}
+                onClose={() => setActiveDropdown(null)}
+                onMouseEnter={() => openDropdown("specials")}
+                align="right"
+              />
             </div>
           </nav>
 
-          {/* Right side actions - never shrink so Book Now is always visible */}
-          <div className="flex items-center gap-1.5 flex-shrink-0">
-            {/* Social - Desktop: Instagram, Facebook, TikTok - hidden on smaller screens */}
-            <a
-              href={SITE.social.instagram}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hidden xl:flex w-8 h-8 rounded-full border border-gray-300 bg-white hover:bg-[#FF2D8E]/10 items-center justify-center text-gray-600 hover:text-[#FF2D8E] transition-all"
-              aria-label="Follow us on Instagram"
-            >
-              <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.265.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.058 1.645-.07 4.849-.07zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
-              </svg>
-            </a>
-            <a
-              href={SITE.social.facebook}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hidden xl:flex w-8 h-8 rounded-full border border-gray-300 bg-white hover:bg-[#FF2D8E]/10 items-center justify-center text-gray-600 hover:text-[#FF2D8E] transition-all"
-              aria-label="Follow us on Facebook"
-            >
-              <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-              </svg>
-            </a>
-            <a
-              href={SITE.social.tiktok}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hidden xl:flex w-8 h-8 rounded-full border border-gray-300 bg-white hover:bg-[#FF2D8E]/10 items-center justify-center text-gray-600 hover:text-[#FF2D8E] transition-all"
-              aria-label="Follow us on TikTok"
-            >
-              <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/>
-              </svg>
-            </a>
-            {/* Phone - Desktop only */}
-            <a
-              href={`tel:${SITE.phone}`}
-              className="hidden 2xl:flex items-center gap-1.5 px-2 py-1.5 text-xs text-[#FF2D8E] hover:text-[#E6007E] transition-colors"
-            >
-              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-              </svg>
-              <span className="font-medium">(630) 636-6193</span>
-            </a>
-
-            {/* Book Now Button */}
+          {/* Right actions */}
+          <div className="flex items-center gap-2 flex-shrink-0">
             <CTA href={BOOKING_URL} variant="gradient" className="hidden lg:flex px-5 py-2 text-sm">
               Book Now
             </CTA>
-
-            {/* Mobile Menu Button */}
+            {/* Mobile burger */}
             <button
-              className="lg:hidden tap-target p-2 text-[#FF2D8E] hover:text-[#E6007E] hover:bg-[#FF2D8E]/10 rounded-lg transition-all duration-200"
               type="button"
               aria-label="Open menu"
-              aria-expanded={mobileMenuOpen}
-              onClick={() => setMobileMenuOpen(true)}
+              aria-expanded={mobileOpen}
+              onClick={() => setMobileOpen(true)}
+              className="lg:hidden p-2 rounded-lg text-[#FF2D8E] hover:bg-[#FF2D8E]/10 transition-all"
             >
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
@@ -716,20 +437,22 @@ export function Header() {
         </div>
       </div>
 
-      {/* Mobile Menu */}
-      {mobileMenuOpen && (
-        <div className="fixed inset-0 z-50 bg-white lg:hidden overflow-y-auto border-t-2 border-black">
+      {/* ── MOBILE MENU ── */}
+      {mobileOpen && (
+        <div className="fixed inset-0 z-50 bg-white lg:hidden overflow-y-auto">
           {/* Header */}
           <div className="sticky top-0 bg-white border-b-2 border-black px-4 py-4 flex items-center justify-between">
-            <Link href="/" onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-3">
-              <span className="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-[#FF2D8E] text-white text-sm font-bold border-2 border-black">
+            <Link href="/" onClick={() => setMobileOpen(false)} className="flex items-center gap-2.5">
+              <span className="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-[#FF2D8E] text-white text-xs font-bold">
                 HG
               </span>
-              <span className="text-lg font-bold text-[#FF2D8E]">{SITE.name}</span>
+              <span className="font-bold text-[#FF2D8E]">{SITE.name}</span>
             </Link>
             <button
-              className="p-2 text-[#FF2D8E] hover:text-[#E6007E] hover:bg-[#FF2D8E]/10 rounded-lg"
-              onClick={() => setMobileMenuOpen(false)}
+              type="button"
+              aria-label="Close menu"
+              onClick={() => setMobileOpen(false)}
+              className="p-2 rounded-lg text-black/60 hover:bg-black/5"
             >
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -737,450 +460,103 @@ export function Header() {
             </button>
           </div>
 
-          {/* Mobile Navigation */}
-          <div className="px-4 py-6 space-y-2">
-            {/* Fix What Bothers Me */}
+          <div className="px-4 py-6 space-y-1">
+
+            {/* Quick actions */}
             <Link
-              href="/fix-what-bothers-me"
-              onClick={() => setMobileMenuOpen(false)}
-              className="flex items-center gap-3 px-4 py-3 min-h-[44px] rounded-xl bg-[#FF2D8E]/10 border border-[#FF2D8E]/20 text-[#FF2D8E] font-semibold"
+              href={BOOKING_URL}
+              onClick={() => setMobileOpen(false)}
+              className="flex items-center justify-center gap-2 w-full rounded-xl bg-[#E6007E] px-4 py-3.5 text-sm font-bold text-white mb-4"
             >
-              <span className="text-xl">💗</span>
-              Fix what bothers me
+              Book an Appointment
             </Link>
 
-            <Link
-              href="/faq"
-              onClick={() => setMobileMenuOpen(false)}
-              className="flex items-center gap-3 px-4 py-3 min-h-[44px] rounded-xl border border-black/15 bg-gray-50 text-[#FF2D8E] font-semibold"
-            >
-              <span className="text-xl">❓</span>
-              Med Spa FAQ
-            </Link>
-
+            {/* Before & After */}
             <Link
               href="/gallery"
-              onClick={() => setMobileMenuOpen(false)}
-              className="flex items-center gap-3 px-4 py-3 min-h-[44px] rounded-xl bg-[#FFF0F7] border border-[#E6007E]/30 text-[#E6007E] font-semibold"
+              onClick={() => setMobileOpen(false)}
+              className="flex items-center justify-between px-4 py-3.5 rounded-xl border-2 border-[#E6007E]/30 bg-[#FFF0F7] text-[#E6007E] font-semibold text-sm"
             >
-              <span className="text-xl">✨</span>
               Before &amp; After Gallery
-              <span className="ml-auto px-2 py-0.5 text-[10px] font-bold bg-[#E6007E] text-white rounded-full">NEW</span>
+              <span className="rounded-full bg-[#E6007E] px-2.5 py-0.5 text-[10px] font-bold text-white">NEW</span>
             </Link>
 
-            <div className="rounded-xl border border-black/15 bg-gray-50 px-2 py-2">
-              <p className="px-2 py-1 text-sm font-bold text-[#FF2D8E]">📝 Intake</p>
-              <Link
-                href="/forms/client-intake"
-                onClick={() => setMobileMenuOpen(false)}
-                className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-[#FF2D8E] hover:bg-black/5"
-              >
-                <span>Client Intake</span>
-              </Link>
-              <Link
-                href="/pre-post-care"
-                onClick={() => setMobileMenuOpen(false)}
-                className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-[#FF2D8E] hover:bg-black/5"
-              >
-                <span>Patient Care</span>
-              </Link>
-              <Link
-                href="/patient-documents"
-                onClick={() => setMobileMenuOpen(false)}
-                className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-[#FF2D8E] hover:bg-black/5"
-              >
-                <span>Patient Documents</span>
-              </Link>
+            {/* Specials */}
+            <Link
+              href="/vip-model"
+              onClick={() => setMobileOpen(false)}
+              className="flex items-center justify-between px-4 py-3.5 rounded-xl border border-black/10 bg-gray-50 text-black font-semibold text-sm"
+            >
+              Current Specials
+              <span className="rounded-full bg-black px-2.5 py-0.5 text-[10px] font-bold text-white">VIEW</span>
+            </Link>
+
+            <div className="pt-2 pb-1">
+              <p className="px-2 text-[10px] font-bold uppercase tracking-[0.2em] text-black/40">Navigation</p>
             </div>
 
-            {/* Procedures — device treatments */}
-            <div className="border-b border-black pb-4">
-              <button
-                onClick={() => setMobileSubmenu(mobileSubmenu === "procedures" ? null : "procedures")}
-                className="w-full flex items-center justify-between px-4 py-3 text-lg font-semibold text-[#FF2D8E]"
-              >
-                <span className="flex items-center gap-3">
-                  <span className="text-xl">🏥</span>
-                  Procedures
-                </span>
-                <svg
-                  className={cx("w-5 h-5 transition-transform", mobileSubmenu === "procedures" && "rotate-180")}
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
+            {/* Services accordion */}
+            {[
+              { key: "services", label: "Services", links: NAV.services.sections.flatMap(s => s.links) },
+              { key: "about", label: "About", links: NAV.about.links },
+              { key: "patient", label: "Patient Info", links: NAV.patient.links },
+            ].map(({ key, label, links }) => (
+              <div key={key} className="border-b border-black/10 pb-1">
+                <button
+                  type="button"
+                  onClick={() => setMobileSection(mobileSection === key ? null : key)}
+                  className="w-full flex items-center justify-between px-4 py-3.5 text-sm font-semibold text-black"
                 >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                </svg>
-              </button>
-              {mobileSubmenu === "procedures" && (
-                <div className="mt-2 ml-4 space-y-2">
-                  {navigation.procedures.priority.map((p) => (
-                    <Link
-                      key={p.href}
-                      href={p.href}
-                      onClick={() => setMobileMenuOpen(false)}
-                      className="flex items-center gap-2 rounded-lg border-2 border-black bg-black/5 px-3 py-2.5 text-sm font-bold text-[#FF2D8E]"
-                    >
-                      <span>{p.icon}</span>
-                      <span>{p.shortLabel ?? p.label}</span>
-                    </Link>
-                  ))}
-                  <Link
-                    href={navigation.procedures.documents.href}
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="flex items-center gap-2 rounded-lg border-2 border-[#E6007E]/40 bg-rose-50 px-3 py-2.5 text-sm font-bold text-[#E6007E]"
+                  {label}
+                  <svg
+                    className={cx("w-4 h-4 text-black/40 transition-transform", mobileSection === key && "rotate-180")}
+                    fill="none" stroke="currentColor" viewBox="0 0 24 24"
                   >
-                    <span>{navigation.procedures.documents.icon}</span>
-                    <span>{navigation.procedures.documents.label}</span>
-                  </Link>
-                </div>
-              )}
-            </div>
-
-            {/* Advanced Treatments / Trifecta Section */}
-            <div className="border-b border-black pb-4">
-              <button
-                onClick={() => setMobileSubmenu(mobileSubmenu === 'trifecta' ? null : 'trifecta')}
-                className="w-full flex items-center justify-between px-4 py-3 text-lg font-semibold text-[#FF2D8E]"
-              >
-                <span className="flex items-center gap-3">
-                  <span className="text-xl">👑</span>
-                  Advanced Treatments
-                </span>
-                <svg className={cx("w-5 h-5 transition-transform", mobileSubmenu === 'trifecta' && "rotate-180")} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                </svg>
-              </button>
-              {mobileSubmenu === 'trifecta' && (
-                <div className="mt-2 ml-4">
-                  {navigation.trifecta.links.map((link) => (
-                    <Link
-                      key={link.href}
-                      href={link.href}
-                      onClick={() => setMobileMenuOpen(false)}
-                      className="flex items-center gap-3 px-4 py-2.5 text-[#FF2D8E] hover:text-[#FF2D8E] hover:bg-[#000000]/5 rounded-lg"
-                    >
-                      <span>{link.icon}</span>
-                      <div>
-                        <span>{link.label}</span>
-                        {link.description && <span className="block text-xs text-black/50">{link.description}</span>}
-                      </div>
-                    </Link>
-                  ))}
-                </div>
-              )}
-            </div>
-
-            {/* Services Section */}
-            <div className="border-b border-black pb-4">
-              <button
-                onClick={() => setMobileSubmenu(mobileSubmenu === 'services' ? null : 'services')}
-                className="w-full flex items-center justify-between px-4 py-3 text-lg font-semibold text-[#FF2D8E]"
-              >
-                <span className="flex items-center gap-3">
-                  <span className="text-xl">💋</span>
-                  Services
-                </span>
-                <svg className={cx("w-5 h-5 transition-transform", mobileSubmenu === 'services' && "rotate-180")} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                </svg>
-              </button>
-              {mobileSubmenu === 'services' && (
-                <div className="mt-2 ml-2 space-y-6">
-                  {/* InMode Trifecta — hero */}
-                  <div className="rounded-xl border-2 border-black bg-gradient-to-br from-brand-50 to-white p-4 shadow-[6px_6px_0_0_rgba(255,45,142,0.45)]">
-                    <p className="text-[10px] font-bold uppercase tracking-wider text-[#E6007E]">★ InMode Trifecta</p>
-                    <p className="mt-1 text-xs font-medium text-black/70">{SERVICES_MENU_HERO.subtitle}</p>
-                    <div className="mt-3 space-y-2">
-                      {SERVICES_MENU_HERO.items.map((item) => (
-                        <Link
-                          key={item.id}
-                          href={item.href}
-                          onClick={() => setMobileMenuOpen(false)}
-                          className="flex items-center gap-2 rounded-lg border border-black/10 bg-white px-3 py-2 text-sm font-bold text-[#FF2D8E]"
-                        >
-                          {item.icon && <span>{item.icon}</span>}
-                          <span className="min-w-0 flex-1">{item.name}</span>
-                          {item.badge && (
-                            <span className="shrink-0 rounded-full bg-[#FF2D8E] px-1.5 py-0.5 text-[9px] font-bold uppercase text-white">
-                              {item.badge}
-                            </span>
-                          )}
-                        </Link>
-                      ))}
-                    </div>
-                  </div>
-                  {SERVICES_MENU_GOALS.map((section) => (
-                    <div key={section.id}>
-                      <p className="px-4 text-xs font-bold uppercase tracking-wider text-black">{section.name}</p>
-                      <p className="mb-2 px-4 text-xs text-black/55">{section.subtitle}</p>
-                      <div className="space-y-0.5">
-                        {section.items.map((item) => (
-                          <Link
-                            key={item.id}
-                            href={item.href}
-                            onClick={() => setMobileMenuOpen(false)}
-                            className="flex items-center gap-3 px-4 py-2.5 text-[#FF2D8E] hover:bg-black/5 rounded-lg"
-                          >
-                            {item.icon && <span className="shrink-0">{item.icon}</span>}
-                            <span className="min-w-0 flex-1 font-medium">{item.name}</span>
-                            {item.badge && (
-                              <span className="shrink-0 rounded-full bg-[#FF2D8E] px-1.5 py-0.5 text-[9px] font-bold uppercase text-white">
-                                {item.badge}
-                              </span>
-                            )}
-                          </Link>
-                        ))}
-                      </div>
-                    </div>
-                  ))}
-                  <Link
-                    href={BOOKING_URL}
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="mx-4 flex items-center justify-center rounded-full bg-[#E6007E] py-3 text-sm font-bold uppercase tracking-wider text-white"
-                  >
-                    Book free consultation
-                  </Link>
-                </div>
-              )}
-            </div>
-
-            {/* About Section (includes providers) */}
-            <div className="border-b border-black pb-4">
-              <button
-                onClick={() => setMobileSubmenu(mobileSubmenu === 'about' ? null : 'about')}
-                className="w-full flex items-center justify-between px-4 py-3 text-lg font-semibold text-[#FF2D8E]"
-              >
-                <span className="flex items-center gap-3">
-                  <span className="text-xl">💗</span>
-                  About & Team
-                </span>
-                <svg className={cx("w-5 h-5 transition-transform", mobileSubmenu === 'about' && "rotate-180")} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                </svg>
-              </button>
-              {mobileSubmenu === 'about' && (
-                <div className="mt-2 ml-4">
-                  {navigation.about.links.map((link) => (
-                    <Link
-                      key={link.href}
-                      href={link.href}
-                      onClick={() => setMobileMenuOpen(false)}
-                      className="flex items-center gap-3 px-4 py-2.5 text-[#FF2D8E] hover:text-[#FF2D8E] hover:bg-[#000000]/5 rounded-lg"
-                    >
-                      <span>{link.icon}</span>
-                      <span>{link.label}</span>
-                    </Link>
-                  ))}
-                </div>
-              )}
-            </div>
-
-            {/* Your Journey Section */}
-            <div className="border-b border-black pb-4">
-              <button
-                onClick={() => setMobileSubmenu(mobileSubmenu === 'journey' ? null : 'journey')}
-                className="w-full flex items-center justify-between px-4 py-3 text-lg font-semibold text-[#FF2D8E]"
-              >
-                <span className="flex items-center gap-3">
-                  <span className="text-xl">🗺️</span>
-                  Your Journey
-                </span>
-                <svg className={cx("w-5 h-5 transition-transform", mobileSubmenu === 'journey' && "rotate-180")} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                </svg>
-              </button>
-              {mobileSubmenu === 'journey' && (
-                <div className="mt-2 ml-4">
-                  {navigation.journey.links.map((link) => (
-                    <Link
-                      key={link.href}
-                      href={link.href}
-                      onClick={() => setMobileMenuOpen(false)}
-                      className="flex items-center gap-3 px-4 py-2.5 text-[#FF2D8E] hover:text-[#FF2D8E] hover:bg-[#000000]/5 rounded-lg"
-                    >
-                      <span>{link.icon}</span>
-                      <span>{link.label}</span>
-                    </Link>
-                  ))}
-                </div>
-              )}
-            </div>
-
-            {/* More (Shop, Supplement Dispensary, Patient Care, Contact) */}
-            <div className="border-b border-black pb-4">
-              <button
-                onClick={() => setMobileSubmenu(mobileSubmenu === 'more' ? null : 'more')}
-                className="w-full flex items-center justify-between px-4 py-3 text-lg font-semibold text-[#FF2D8E]"
-              >
-                <span className="flex items-center gap-3">
-                  <span className="text-xl">📌</span>
-                  More
-                </span>
-                <svg className={cx("w-5 h-5 transition-transform", mobileSubmenu === 'more' && "rotate-180")} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                </svg>
-              </button>
-              {mobileSubmenu === 'more' && (
-                <div className="mt-2 ml-4">
-                  {navigation.more.links.map((link) => {
-                    const isExternal = 'external' in link && link.external;
-                    const item = (
-                      <>
-                        <span>{link.icon}</span>
-                        <span>{link.label}</span>
-                      </>
-                    );
-                    return isExternal ? (
-                      <a
-                        key={link.href}
-                        href={link.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        onClick={() => setMobileMenuOpen(false)}
-                        className="flex items-center gap-3 px-4 py-2.5 text-[#FF2D8E] hover:text-[#FF2D8E] hover:bg-[#FF2D8E]/10 rounded-lg"
-                      >
-                        {item}
-                      </a>
-                    ) : (
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+                {mobileSection === key && (
+                  <div className="pb-2 space-y-0.5">
+                    {links.map((link) => (
                       <Link
                         key={link.href}
                         href={link.href}
-                        onClick={() => setMobileMenuOpen(false)}
-                        className="flex items-center gap-3 px-4 py-2.5 text-[#FF2D8E] hover:text-[#FF2D8E] hover:bg-[#FF2D8E]/10 rounded-lg"
+                        onClick={() => setMobileOpen(false)}
+                        className="block px-6 py-2.5 rounded-lg text-sm text-black/80 hover:bg-[#FFF0F7] hover:text-[#E6007E] transition-colors"
                       >
-                        {item}
+                        {link.label}
+                        {"sub" in link && <span className="block text-xs text-black/40 mt-0.5">{link.sub}</span>}
                       </Link>
-                    );
-                  })}
-                </div>
-              )}
-            </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ))}
 
-            {/* Specials Section */}
-            <div className="border-b border-black pb-4">
-              <button
-                onClick={() => setMobileSubmenu(mobileSubmenu === 'specials' ? null : 'specials')}
-                className="w-full flex items-center justify-between px-4 py-3 text-lg font-semibold text-[#FF2D8E]"
+            {/* Standalone links */}
+            {[
+              { label: "FAQ", href: "/faq" },
+              { label: "Blog & Resources", href: "/blog" },
+              { label: "Contact Us", href: "/contact" },
+            ].map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                onClick={() => setMobileOpen(false)}
+                className="flex items-center justify-between px-4 py-3.5 rounded-xl text-sm font-semibold text-black hover:bg-[#FFF0F7] hover:text-[#E6007E] transition-colors border-b border-black/10"
               >
-                <span className="flex items-center gap-3">
-                  <span className="text-xl">🎁</span>
-                  Specials & Offers
-                  <span className="px-2 py-0.5 text-[10px] font-bold bg-[#FF2D8E] text-white rounded-full animate-pulse">NEW</span>
-                </span>
-                <svg className={cx("w-5 h-5 transition-transform", mobileSubmenu === 'specials' && "rotate-180")} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                </svg>
-              </button>
-              {mobileSubmenu === 'specials' && (
-                <div className="mt-2 ml-4">
-                  {navigation.specials.links.map((link) => (
-                    <Link
-                      key={link.href}
-                      href={link.href}
-                      onClick={() => setMobileMenuOpen(false)}
-                      className="flex items-center gap-3 px-4 py-2.5 text-[#FF2D8E] hover:text-[#FF2D8E] hover:bg-[#000000]/5 rounded-lg"
-                    >
-                      <span>{link.icon}</span>
-                      <span>{link.label}</span>
-                      {'badge' in link && link.badge && (
-                        <span className="px-2 py-0.5 text-[10px] font-bold bg-[#FF2D8E] text-white rounded-full">
-                          {link.badge}
-                        </span>
-                      )}
-                    </Link>
-                  ))}
-                </div>
-              )}
-            </div>
+                {link.label}
+              </Link>
+            ))}
 
-            {/* RX Section */}
-            <div className="border-b border-black pb-4">
-              <button
-                onClick={() => setMobileSubmenu(mobileSubmenu === 'rx' ? null : 'rx')}
-                className="w-full flex items-center justify-between px-4 py-3 text-lg font-semibold text-[#FF2D8E]"
-              >
-                <span className="flex items-center gap-3">
-                  <span className="text-xl">💊</span>
-                  RX
-                  <span className="px-2 py-0.5 text-[10px] font-bold bg-[#FF2D8E] text-white rounded-full">MEDICAL</span>
-                </span>
-                <svg className={cx("w-5 h-5 transition-transform", mobileSubmenu === 'rx' && "rotate-180")} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                </svg>
-              </button>
-              {mobileSubmenu === 'rx' && (
-                <div className="mt-2 ml-4">
-                  {navigation.rx.links.map((link) => (
-                    <Link
-                      key={link.href}
-                      href={link.href}
-                      onClick={() => setMobileMenuOpen(false)}
-                      className="flex items-center gap-3 px-4 py-2.5 text-[#FF2D8E] hover:text-[#FF2D8E] hover:bg-[#FF2D8E]/10 rounded-lg"
-                    >
-                      <span>{link.icon}</span>
-                      <span>{link.label}</span>
-                    </Link>
-                  ))}
-                </div>
-              )}
-            </div>
-
-            {/* Phone */}
-            <a
-              href={`tel:${SITE.phone}`}
-              className="flex items-center gap-3 px-4 py-3 text-lg font-semibold text-[#FF2D8E]"
-            >
-              <span className="text-xl">📞</span>
-              (630) 636-6193
-            </a>
-
-            {/* Social - Mobile */}
-            <div className="flex flex-wrap items-center gap-4 px-4 py-2">
+            <div className="pt-4">
               <a
-                href={SITE.social.instagram}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 text-[#FF2D8E] font-semibold"
+                href={`tel:${SITE.phone}`}
+                className="flex items-center justify-center gap-2 w-full rounded-xl border-2 border-black px-4 py-3.5 text-sm font-bold text-black"
               >
-                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.265.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.058 1.645-.07 4.849-.07zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
-                </svg>
-                Instagram
-              </a>
-              <a
-                href={SITE.social.facebook}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 text-[#FF2D8E] font-semibold"
-              >
-                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-                </svg>
-                Facebook
-              </a>
-              <a
-                href={SITE.social.tiktok}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 text-[#FF2D8E] font-semibold"
-              >
-                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/>
-                </svg>
-                TikTok
+                Call (630) 636-6193
               </a>
             </div>
-          </div>
-
-          {/* Mobile CTAs */}
-          <div className="sticky bottom-0 bg-white/95 border-t border-black px-4 py-4 space-y-3 safe-area-pb">
-            <CTA href={BOOKING_URL} variant="gradient" className="w-full min-h-[48px] py-4 rounded-xl text-base font-semibold">
-              Book Your Appointment
-            </CTA>
-            <CTA href="/quiz" variant="outline" className="w-full min-h-[48px] py-3 rounded-xl">
-              Find My Treatment
-            </CTA>
           </div>
         </div>
       )}
