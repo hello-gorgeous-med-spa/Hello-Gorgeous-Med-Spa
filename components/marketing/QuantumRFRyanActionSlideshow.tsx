@@ -40,25 +40,25 @@ export function QuantumRFRyanActionSlideshow() {
   };
 
   return (
-    <section className="border-y-2 border-black bg-zinc-950 py-12 text-white md:py-16">
-      <div className="mx-auto max-w-6xl px-4">
-        <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
+    <section className="border-y border-black/10 bg-white py-8 md:py-10">
+      <div className="mx-auto max-w-5xl px-4">
+        <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
           <div>
-            <p className="text-xs font-bold uppercase tracking-[0.25em] text-[#FFB8DC]">Quantum RF in clinic</p>
-            <h2 className="mt-2 text-2xl font-black md:text-4xl">Ryan in Action - Live Procedure Clips</h2>
-            <p className="mt-2 max-w-2xl text-sm text-white/75 md:text-base">
-              Real procedural footage from Hello Gorgeous showing Quantum RF treatment flow.
+            <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[#E6007E]">Quantum RF in clinic</p>
+            <h2 className="mt-1 text-xl font-bold text-black md:text-2xl">Ryan in Action</h2>
+            <p className="mt-1 text-sm text-black/65">
+              Real treatment footage showing live Quantum RF technique.
             </p>
           </div>
           <Link
             href="/services/quantum-rf"
-            className="inline-flex items-center justify-center rounded-full bg-[#E6007E] px-5 py-2.5 text-sm font-bold text-white transition hover:bg-[#c9006e]"
+            className="inline-flex items-center justify-center rounded-full border border-black/20 px-4 py-2 text-xs font-semibold text-black transition hover:border-[#E6007E] hover:text-[#E6007E]"
           >
-            View full Quantum RF page
+            Quantum RF details
           </Link>
         </div>
 
-        <div className="overflow-hidden rounded-2xl border-2 border-white/20 bg-black">
+        <div className="overflow-hidden rounded-xl border border-black/10 bg-black shadow-sm">
           <video
             key={activeVideo.src}
             controls
@@ -72,39 +72,39 @@ export function QuantumRFRyanActionSlideshow() {
           </video>
         </div>
 
-        <div className="mt-4 flex items-center justify-between gap-3">
+        <div className="mt-3 flex items-start justify-between gap-3">
           <div>
-            <p className="text-sm font-semibold text-white">{activeVideo.label}</p>
-            <p className="text-xs text-white/70">{activeVideo.note}</p>
+            <p className="text-sm font-semibold text-black">{activeVideo.label}</p>
+            <p className="text-xs text-black/60">{activeVideo.note}</p>
           </div>
           <div className="flex gap-2">
             <button
               type="button"
               onClick={goPrev}
-              className="rounded-full border border-white/30 px-4 py-2 text-sm font-semibold text-white transition hover:border-[#E6007E]"
+              className="rounded-md border border-black/20 px-3 py-1.5 text-xs font-semibold text-black transition hover:border-[#E6007E] hover:text-[#E6007E]"
             >
               Prev
             </button>
             <button
               type="button"
               onClick={goNext}
-              className="rounded-full border border-white/30 px-4 py-2 text-sm font-semibold text-white transition hover:border-[#E6007E]"
+              className="rounded-md border border-black/20 px-3 py-1.5 text-xs font-semibold text-black transition hover:border-[#E6007E] hover:text-[#E6007E]"
             >
               Next
             </button>
           </div>
         </div>
 
-        <div className="mt-4 grid gap-2 sm:grid-cols-3">
+        <div className="mt-3 grid gap-2 sm:grid-cols-3">
           {ACTION_VIDEOS.map((video, idx) => (
             <button
               key={video.src}
               type="button"
               onClick={() => setActiveIndex(idx)}
-              className={`rounded-lg border px-3 py-2 text-left text-xs transition ${
+              className={`rounded-md border px-3 py-2 text-left text-xs transition ${
                 idx === activeIndex
-                  ? "border-[#E6007E] bg-[#E6007E]/20 text-white"
-                  : "border-white/20 bg-white/5 text-white/80 hover:border-white/50"
+                  ? "border-[#E6007E] bg-[#FFF0F7] text-black"
+                  : "border-black/15 bg-white text-black/75 hover:border-black/35"
               }`}
             >
               {video.label}
