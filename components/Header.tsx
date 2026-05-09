@@ -164,6 +164,7 @@ const navigation = {
     links: [
       { label: "FAQ", href: "/faq", description: "Common questions · Oswego med spa", icon: "❓" },
       { label: "Products we offer", href: "/products-we-offer", description: "Compounded Rx catalog overview (no pricing)", icon: "💊" },
+      { label: "Before & After Gallery", href: "/gallery", description: "Real patient photos & procedure videos", icon: "✨", badge: "NEW" },
       { label: "Blog & Resources", href: "/blog", description: "Expert articles & treatment guides", icon: "📚" },
       { label: "Shop", href: "/shop", description: "Skincare, supplements & more", icon: "🧴" },
       { label: "Supplement Dispensary", href: "/fullscript", description: "Fullscript supplements", icon: "💊" },
@@ -498,6 +499,19 @@ export function Header() {
               <SimpleDropdown data={navigation.journey} isOpen={activeDropdown === 'journey'} onClose={() => setActiveDropdown(null)} onMouseEnter={() => handleMouseEnter('journey')} />
             </div>
 
+            {/* Gallery / Results */}
+            <Link
+              href="/gallery"
+              className={cx(
+                "flex items-center justify-center gap-1 h-9 px-2.5 rounded-lg text-sm font-medium transition-all whitespace-nowrap",
+                pathname === "/gallery"
+                  ? "text-white bg-[#FF2D8E]"
+                  : "text-black hover:bg-[#FF2D8E]/10 hover:text-[#FF2D8E]"
+              )}
+            >
+              Results
+            </Link>
+
             {/* FAQ */}
             <Link
               href="/faq"
@@ -742,6 +756,16 @@ export function Header() {
             >
               <span className="text-xl">❓</span>
               Med Spa FAQ
+            </Link>
+
+            <Link
+              href="/gallery"
+              onClick={() => setMobileMenuOpen(false)}
+              className="flex items-center gap-3 px-4 py-3 min-h-[44px] rounded-xl bg-[#FFF0F7] border border-[#E6007E]/30 text-[#E6007E] font-semibold"
+            >
+              <span className="text-xl">✨</span>
+              Before &amp; After Gallery
+              <span className="ml-auto px-2 py-0.5 text-[10px] font-bold bg-[#E6007E] text-white rounded-full">NEW</span>
             </Link>
 
             <div className="rounded-xl border border-black/15 bg-gray-50 px-2 py-2">
