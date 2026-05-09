@@ -128,7 +128,6 @@ const nextConfig = {
     { source: "/care-and-support", destination: "/pre-post-care", permanent: true },
     // Sitemap/legacy URLs that have no page - redirect to avoid 404
     { source: "/pricing", destination: "/book", permanent: true },
-    { source: "/gallery", destination: "/results", permanent: true },
     { source: "/pharmacy-partner", destination: "/products-we-offer", permanent: true },
     // Semaglutide/hormone-therapy/prp location URLs (no page) -> main service page
     { source: "/semaglutide-oswego-il", destination: "/glp1-weight-loss", permanent: true },
