@@ -499,7 +499,7 @@ export function Header() {
               <SimpleDropdown data={navigation.journey} isOpen={activeDropdown === 'journey'} onClose={() => setActiveDropdown(null)} onMouseEnter={() => handleMouseEnter('journey')} />
             </div>
 
-            {/* Gallery / Results */}
+            {/* Before & After Gallery */}
             <Link
               href="/gallery"
               className={cx(
@@ -509,7 +509,7 @@ export function Header() {
                   : "text-black hover:bg-[#FF2D8E]/10 hover:text-[#FF2D8E]"
               )}
             >
-              Results
+              Before &amp; After
             </Link>
 
             {/* FAQ */}
