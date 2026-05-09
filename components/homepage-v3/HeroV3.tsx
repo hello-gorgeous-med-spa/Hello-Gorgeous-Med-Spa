@@ -5,7 +5,6 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { BOOKING_URL } from "@/lib/flows";
 import { SITE } from "@/lib/seo";
-import { DANIELLE_CREDENTIALS } from "@/lib/provider-credentials";
 
 export function HeroV3() {
   const [mounted, setMounted] = useState(false);
@@ -16,86 +15,79 @@ export function HeroV3() {
   }, []);
 
   return (
-    <section className="bg-white flex items-center py-12 md:py-16 lg:py-20">
-      <div className="max-w-7xl mx-auto px-6 md:px-12 grid md:grid-cols-2 gap-8 lg:gap-12 items-center">
-        {/* Left - Copy */}
+    <section className="relative w-full overflow-hidden bg-black">
+      {/* Brand photo — full bleed */}
+      <div className="relative w-full aspect-[3/2] md:aspect-[16/7] lg:aspect-[16/6]">
+        <Image
+          src="/images/hero-brand.png"
+          alt="Hello Gorgeous Med Spa — Medical Aesthetics Oswego IL"
+          fill
+          priority
+          className="object-cover object-center"
+          sizes="100vw"
+        />
+        {/* Left gradient overlay for text legibility */}
         <div
-          className={`transition-all duration-700 ${
+          className="absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(90deg, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.45) 45%, rgba(0,0,0,0.05) 75%, transparent 100%)",
+          }}
+        />
+        {/* Bottom fade */}
+        <div
+          className="absolute inset-x-0 bottom-0 h-24"
+          style={{ background: "linear-gradient(to bottom, transparent, rgba(0,0,0,0.55))" }}
+        />
+
+        {/* Text overlay */}
+        <div
+          className={`absolute inset-0 flex items-center transition-all duration-700 ${
             mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
           }`}
         >
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold leading-[1.1] tracking-tight text-black">
-            Modern Aesthetic Medicine.
-            <br />
-            <span className="text-[#E6007E]">Built for Confidence.</span>
-          </h1>
-          <p className="mt-5 text-base md:text-lg text-black leading-relaxed max-w-xl">
-            Advanced injectables, skin treatments, and wellness — designed with
-            precision and delivered with intention.
-          </p>
-          <p className="mt-4 text-sm text-black/70">
-            🏆 #1 Best Med Spa · Newest Morpheus8 Burst (face & body) · Quantum RF · Solaria CO2 · Full-authority NP · Free
-            consultation · {SITE.reviewRating}★ ({SITE.reviewCount} reviews) · Oswego, IL
-          </p>
-          <div className="mt-6 flex flex-col sm:flex-row gap-4">
-            <Link
-              href={BOOKING_URL}
-              data-book-now
-              className="inline-flex items-center justify-center bg-[#E6007E] text-white px-6 py-3 md:px-8 md:py-4 rounded-lg font-semibold uppercase tracking-wide hover:opacity-90 transition-all duration-300 hover:scale-[1.03]"
-            >
-              Book Free Consultation
-            </Link>
-            <Link
-              href="/services"
-              className="inline-flex items-center justify-center border-2 border-black text-black px-6 py-3 md:px-8 md:py-4 rounded-lg font-semibold uppercase tracking-wide hover:border-[#E6007E] hover:text-[#E6007E] transition-all duration-300"
-            >
-              Explore Services
-            </Link>
-          </div>
-        </div>
+          <div className="w-full max-w-7xl mx-auto px-6 md:px-12">
+            <div className="max-w-lg">
+              <p className="text-[11px] font-bold uppercase tracking-[0.28em] text-[#FFB8DC] mb-3">
+                Oswego, IL · Medical Aesthetics
+              </p>
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black leading-[1.08] tracking-tight text-white">
+                Modern Aesthetic
+                <br />
+                <span
+                  className="bg-gradient-to-r from-[#FFB8DC] via-[#FF2D8E] to-[#E6007E] bg-clip-text text-transparent"
+                  style={{ WebkitBackgroundClip: "text" }}
+                >
+                  Medicine.
+                </span>
+              </h1>
+              <p className="mt-4 text-sm md:text-base text-white/80 leading-relaxed max-w-sm">
+                Advanced injectables, skin treatments &amp; wellness —
+                delivered with precision by licensed medical providers.
+              </p>
 
-        {/* Right - Founder + Banner */}
-        <div
-          className={`relative transition-all duration-700 delay-200 ${
-            mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-          }`}
-        >
-          {/* Founder Card */}
-          <div className="flex items-start gap-4 mb-6 p-4 bg-gradient-to-br from-white to-rose-50 rounded-2xl border-2 border-black shadow-[4px_4px_0_0_rgba(230,0,126,0.25)]">
-            <div className="relative w-20 h-20 md:w-24 md:h-24 flex-shrink-0">
-              <Image
-                src="/images/team/danielle.png"
-                alt="Danielle Alcala - Founder of Hello Gorgeous Med Spa"
-                fill
-                className="object-cover rounded-xl border-2 border-[#E6007E]"
-                sizes="96px"
-              />
-            </div>
-            <div className="flex-1 min-w-0">
-              <p className="text-[10px] uppercase tracking-widest text-[#E6007E] font-bold">Founder & Owner</p>
-              <h2 className="text-lg md:text-xl font-bold text-black leading-tight">Danielle Alcala</h2>
-              <p className="text-xs text-black/70 mt-1 leading-snug">{DANIELLE_CREDENTIALS}</p>
-              <Link
-                href="/blog/the-story-behind-hello-gorgeous-oswego-il"
-                className="inline-flex items-center gap-1 text-xs font-semibold text-[#E6007E] mt-2 hover:underline"
-              >
-                Read my story <span aria-hidden>→</span>
-              </Link>
+              <div className="mt-6 flex flex-wrap gap-3">
+                <Link
+                  href={BOOKING_URL}
+                  data-book-now
+                  className="inline-flex items-center justify-center rounded-full bg-[#E6007E] px-6 py-3 text-sm font-bold text-white transition hover:bg-[#c9006e] hover:scale-[1.02]"
+                >
+                  Book Free Consultation
+                </Link>
+                <Link
+                  href="/gallery"
+                  className="inline-flex items-center justify-center rounded-full border border-white/50 px-6 py-3 text-sm font-semibold text-white transition hover:border-white hover:bg-white/10"
+                >
+                  Before &amp; After
+                </Link>
+              </div>
+
+              <p className="mt-5 text-[11px] text-white/50 leading-relaxed">
+                {SITE.reviewRating}★ ({SITE.reviewCount} reviews) · #1 Best Med Spa Oswego ·
+                Morpheus8 Burst · Quantum RF · Solaria CO₂
+              </p>
             </div>
           </div>
-
-          {/* Hero Banner */}
-          <div className="relative w-full aspect-[1742/614] rounded-2xl overflow-hidden mx-auto">
-            <Image
-              src="/images/hero-banner.png"
-              alt="Hello Gorgeous Med Spa - Luxury Medical Aesthetics"
-              fill
-              priority
-              className="object-contain object-center"
-              sizes="(max-width: 768px) 100vw, 50vw"
-            />
-          </div>
-          <div className="absolute -bottom-4 -left-4 w-24 h-24 bg-[#E6007E] rounded-full opacity-20 blur-2xl" />
         </div>
       </div>
     </section>
