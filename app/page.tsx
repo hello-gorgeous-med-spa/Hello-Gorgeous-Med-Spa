@@ -177,40 +177,6 @@ export default function HomePage() {
 
       <main className="bg-white">
         <HomepagePromoRail />
-        <section className="bg-black text-white border-y border-white/10">
-          <div className="max-w-6xl mx-auto px-4 py-10 md:py-12">
-            <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-6">
-              <div>
-                <p className="text-[#FFB8DC] text-xs uppercase tracking-[0.24em] font-semibold">
-                  Featured Event Video
-                </p>
-                <h2 className="mt-2 text-2xl md:text-3xl font-black">
-                  Luxora InMode Event Launch
-                </h2>
-                <p className="mt-2 text-white/75 text-sm md:text-base max-w-2xl">
-                  Watch the event preview and share it with friends before VIP Device Night and The Glow Social.
-                </p>
-              </div>
-              <a
-                href="/events/vip-device-night"
-                className="inline-flex items-center justify-center rounded-full bg-[#E6007E] hover:bg-[#c90a68] px-6 py-3 text-sm font-bold transition-colors"
-              >
-                View event details
-              </a>
-            </div>
-            <div className="rounded-2xl overflow-hidden border border-white/15 bg-black shadow-[0_12px_40px_rgba(230,0,126,0.3)]">
-              <video
-                controls
-                preload="metadata"
-                poster="/images/events/glow-social-win-big-may-14.png"
-                className="w-full h-auto"
-              >
-                <source src="/videos/luxora-inmode-event-launch.mp4" type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
-            </div>
-          </div>
-        </section>
         <HeroV3 />
         <QuantumRFRyanActionSlideshow />
         <TrustStrip />
