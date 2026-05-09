@@ -127,7 +127,6 @@ const navigation = {
     href: "/providers",
     links: [
       { label: "Meet Our Team", href: "/providers", description: "Licensed medical professionals", icon: "👩‍⚕️" },
-      { label: "Danielle Alcala", href: "/providers/danielle", description: "Founder & Lead Injector", icon: "💗" },
       { label: "Ryan Kent, FNP-BC", href: "/providers/ryan", description: "Medical Director", icon: "🧑‍⚕️" },
     ],
   },

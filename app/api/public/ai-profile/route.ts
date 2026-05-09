@@ -82,7 +82,6 @@ export async function GET() {
       `${SITE.url}/botox-oswego-il`,
       `${SITE.url}/faq`,
       `${SITE.url}/patient-documents`,
-      `${SITE.url}/providers/danielle`,
       `${SITE.url}/providers/ryan`,
     ],
     comparisonPages: [

@@ -50,12 +50,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     // /providers intentionally excluded — it 307-redirects to /about. Sitemaps must list canonical destinations.
     {
-      url: `${baseUrl}/providers/danielle`,
-      lastModified: currentDate,
-      changeFrequency: 'monthly',
-      priority: 0.85,
-    },
-    {
       url: `${baseUrl}/providers/ryan`,
       lastModified: currentDate,
       changeFrequency: 'monthly',

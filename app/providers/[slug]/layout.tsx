@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import { createServerSupabaseClient } from '@/lib/hgos/supabase';
+import { redirect } from 'next/navigation';
 
 // Fallback provider metadata
 const FALLBACK_PROVIDERS: Record<string, { name: string; title: string; credentials: string }> = {
@@ -97,6 +98,10 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   };
 }
 
-export default async function ProviderLayout({ children }: LayoutProps) {
+export default async function ProviderLayout({ children, params }: LayoutProps) {
+  const { slug } = await params;
+  if (slug === 'danielle') {
+    redirect('/about');
+  }
   return <>{children}</>;
 }
