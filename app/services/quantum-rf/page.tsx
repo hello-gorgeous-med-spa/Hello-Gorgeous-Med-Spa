@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { TechBlogPromo } from "@/components/TechBlogPromo";
 import { ContourBookLink } from "@/components/marketing/ContourBookLink";
+import { QuantumRFRyanActionSlideshow } from "@/components/marketing/QuantumRFRyanActionSlideshow";
 import { QuantumRFVideoEngagement } from "@/components/marketing/QuantumRFVideoEngagement";
 import { ProofConversionSection } from "@/components/services/ProofConversionSection";
 import { ServiceTestimonialsPlaceholder } from "@/components/services/ServiceTestimonialsPlaceholder";
@@ -472,6 +473,7 @@ export default function QuantumRFPage() {
 
       <main className="bg-white pb-24 text-black md:pb-0">
         <QuantumRFVideoEngagement />
+        <QuantumRFRyanActionSlideshow />
         {/* 1. Hero */}
         <section className="relative w-full overflow-hidden text-white">
           <div className="absolute inset-0 z-0">

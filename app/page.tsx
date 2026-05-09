@@ -17,6 +17,7 @@ import { TheBookBadge } from "@/components/the-book";
 import { HomepagePromoRail } from "@/components/HomepagePromoRail";
 import { Morpheus8SkinRebuildSection } from "@/components/Morpheus8SkinRebuildSection";
 import { Morpheus8VerifiedProviderSection } from "@/components/Morpheus8VerifiedProviderSection";
+import { QuantumRFRyanActionSlideshow } from "@/components/marketing/QuantumRFRyanActionSlideshow";
 import {
   SITE,
   SITE_OG_IMAGE,
@@ -211,6 +212,7 @@ export default function HomePage() {
           </div>
         </section>
         <HeroV3 />
+        <QuantumRFRyanActionSlideshow />
         <TrustStrip />
         <OurPromiseSection />
         <Morpheus8SkinRebuildSection />
