@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, Playfair_Display } from "next/font/google";
+import { Suspense } from "react";
 import "./globals.css";
 
 import { organizationJsonLd, siteJsonLd, SITE, SITE_OG_IMAGE, SITE_OG_IMAGE_ALT, websiteJsonLd } from "@/lib/seo";
@@ -194,7 +195,9 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       <body className="min-h-screen antialiased font-sans" suppressHydrationWarning>
         <ClientErrorBoundary>
           <GoogleAnalytics />
-          <UtmSessionCapture />
+          <Suspense fallback={null}>
+            <UtmSessionCapture />
+          </Suspense>
           <ContourLiftPageView />
           <ConsultationRequestPopup />
           <ExitIntentPopup />
