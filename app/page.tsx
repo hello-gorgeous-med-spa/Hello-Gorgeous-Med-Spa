@@ -178,7 +178,6 @@ export default function HomePage() {
       <main className="bg-white">
         <HomepagePromoRail />
         <HeroV3 />
-        <QuantumRFRyanActionSlideshow />
         <TrustStrip />
         <OurPromiseSection />
         <Morpheus8SkinRebuildSection />

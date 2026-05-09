@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { SITE } from "@/lib/seo";
 import { GalleryPageContent } from "@/components/gallery/GalleryPageContent";
+import { QuantumRFRyanActionSlideshow } from "@/components/marketing/QuantumRFRyanActionSlideshow";
 
 const TITLE =
   "Before & After Gallery — Real Results at Hello Gorgeous Med Spa | Oswego, IL";
@@ -83,6 +84,7 @@ export default function GalleryPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
       <GalleryPageContent />
+      <QuantumRFRyanActionSlideshow />
     </>
   );
 }
