@@ -33,7 +33,18 @@ type VideoCase = {
   serviceHref: string;
 };
 
-type GalleryCase = BeforeAfterCase | VideoCase;
+type YoutubeCase = {
+  type: "youtube";
+  id: string;
+  treatment: string;
+  category: string;
+  tagline: string;
+  youtubeId: string;
+  note: string;
+  serviceHref: string;
+};
+
+type GalleryCase = BeforeAfterCase | VideoCase | YoutubeCase;
 
 /* ─────────────────────────────────────────────────────────────
    CASES — add more here
@@ -121,6 +132,16 @@ const CASES: GalleryCase[] = [
     video: "/videos/quantum-rf/ryan-quantum-rf-action-3.mp4",
     note: "Procedure continuation clip with Ryan Kent, FNP-BC. Individual candidacy and results vary.",
     serviceHref: "/quantum-rf-oswego-il",
+  },
+  {
+    type: "youtube",
+    id: "morpheus8-burst-youtube",
+    treatment: "Morpheus8 Burst — Full Procedure",
+    category: "RF Microneedling",
+    tagline: "Watch a full Morpheus8 Burst RF microneedling session from start to finish.",
+    youtubeId: "SPJPb-sBWKk",
+    note: "Morpheus8 Burst RF microneedling — deepest treatment at 8mm. Hello Gorgeous Med Spa, Oswego, IL.",
+    serviceHref: "/morpheus8-burst-oswego-il",
   },
 ];
 
@@ -274,8 +295,52 @@ function VideoCard({ item }: { item: VideoCase }) {
   );
 }
 
+function YoutubeCard({ item }: { item: YoutubeCase }) {
+  return (
+    <article className="rounded-2xl border-4 border-black bg-white shadow-[6px_6px_0_0_rgba(230,0,126,0.30)] overflow-hidden">
+      <div className="flex items-center justify-between border-b-2 border-black px-4 py-3">
+        <div>
+          <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-[#E6007E]">
+            {item.category} · Procedure Video
+          </p>
+          <h3 className="text-base font-black text-black">{item.treatment}</h3>
+        </div>
+        <span className="flex items-center gap-1 rounded-full bg-red-600 px-3 py-1 text-[10px] font-bold text-white">
+          <svg className="h-2.5 w-2.5" viewBox="0 0 12 12" fill="currentColor">
+            <path d="M3 2l7 4-7 4V2z" />
+          </svg>
+          YouTube
+        </span>
+      </div>
+
+      <div className="bg-black aspect-video">
+        <iframe
+          src={`https://www.youtube-nocookie.com/embed/${item.youtubeId}?rel=0&modestbranding=1`}
+          title={item.treatment}
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+          className="w-full h-full"
+          loading="lazy"
+        />
+      </div>
+
+      <div className="border-t-2 border-black px-4 py-3">
+        <p className="text-sm font-medium text-black/70">{item.tagline}</p>
+        <p className="mt-1 text-[11px] text-black/40 leading-relaxed">{item.note}</p>
+        <Link
+          href={item.serviceHref}
+          className="mt-3 inline-flex items-center gap-1 text-[11px] font-semibold text-[#E6007E] underline underline-offset-2 hover:text-[#c9006e] transition-colors"
+        >
+          Learn about this treatment →
+        </Link>
+      </div>
+    </article>
+  );
+}
+
 function CaseCard({ item }: { item: GalleryCase }) {
   if (item.type === "before-after") return <BeforeAfterCard item={item} />;
+  if (item.type === "youtube") return <YoutubeCard item={item} />;
   return <VideoCard item={item} />;
 }
 

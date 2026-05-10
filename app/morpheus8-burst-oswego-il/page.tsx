@@ -32,9 +32,31 @@ const CROSS_LINKS = [
   { label: "InMode Trifecta VIP", href: "/trifecta-vip" },
 ];
 
+const VIDEO_ID = "SPJPb-sBWKk";
+
 export default function Morpheus8BurstPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "VideoObject",
+            name: "Morpheus8 Burst RF Microneedling — Hello Gorgeous Med Spa Oswego IL",
+            description:
+              "Watch Morpheus8 Burst RF microneedling in action at Hello Gorgeous Med Spa in Oswego, IL. See real procedure footage and results.",
+            thumbnailUrl: `https://img.youtube.com/vi/${VIDEO_ID}/maxresdefault.jpg`,
+            embedUrl: `https://www.youtube.com/embed/${VIDEO_ID}`,
+            uploadDate: "2026-01-01",
+            publisher: {
+              "@type": "Organization",
+              name: SITE.name,
+              url: SITE.url,
+            },
+          }),
+        }}
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -81,6 +103,37 @@ export default function Morpheus8BurstPage() {
         }}
       />
       <TreatmentPageTemplate treatment={t} crossLinks={CROSS_LINKS} />
+
+      {/* YouTube procedure video */}
+      <section className="bg-white py-12 md:py-16 border-t border-black/10">
+        <div className="mx-auto max-w-4xl px-4">
+          <div className="border-b border-black/10 pb-4 mb-6">
+            <p className="text-[10px] font-bold uppercase tracking-[0.28em] text-[#E6007E]">
+              See it in action · Morpheus8 Burst
+            </p>
+            <h2 className="mt-1 text-xl font-semibold tracking-tight text-black">
+              Morpheus8 Burst — Real Procedure Video
+            </h2>
+            <p className="mt-1 text-sm text-black/55">
+              Watch what to expect from a Morpheus8 Burst session at Hello Gorgeous Med Spa, Oswego, IL.
+            </p>
+          </div>
+          <div className="overflow-hidden rounded-xl border border-black/10 shadow-sm bg-black aspect-video">
+            <iframe
+              src={`https://www.youtube-nocookie.com/embed/${VIDEO_ID}?rel=0&modestbranding=1`}
+              title="Morpheus8 Burst RF Microneedling — Hello Gorgeous Med Spa Oswego IL"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+              className="w-full h-full"
+              loading="lazy"
+            />
+          </div>
+          <p className="mt-4 text-[11px] text-black/40 leading-relaxed">
+            Morpheus8 Burst RF microneedling procedure. Performed at Hello Gorgeous Med Spa, 74 W. Washington St, Oswego, IL.
+            Individual results vary. Consult with your provider to determine candidacy.
+          </p>
+        </div>
+      </section>
     </>
   );
 }
