@@ -211,34 +211,34 @@ function BeforeAfterCard({ item }: { item: BeforeAfterCase }) {
   const [side, setSide] = useState<"before" | "after">("after");
 
   return (
-    <article className="rounded-2xl border-4 border-black bg-white shadow-[6px_6px_0_0_rgba(230,0,126,0.30)] overflow-hidden">
-      <div className="flex items-center justify-between border-b-2 border-black px-4 py-3">
+    <article className="rounded-xl border-2 border-black bg-white shadow-[4px_4px_0_0_rgba(230,0,126,0.25)] overflow-hidden">
+      <div className="flex items-center justify-between border-b border-black/20 px-3 py-2.5">
         <div>
-          <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-[#E6007E]">
+          <p className="text-[9px] font-bold uppercase tracking-[0.2em] text-[#E6007E]">
             {item.category}
           </p>
-          <h3 className="text-base font-black text-black">{item.treatment}</h3>
+          <h3 className="text-sm font-black text-black leading-tight">{item.treatment}</h3>
         </div>
         {item.duringVideo && (
           <button
             type="button"
             onClick={() => setShowVideo((v) => !v)}
-            className={`flex items-center gap-1.5 rounded-full border-2 border-black px-3 py-1 text-[11px] font-bold transition ${
+            className={`flex items-center gap-1 rounded-full border border-black px-2.5 py-1 text-[10px] font-bold transition ${
               showVideo
-                ? "bg-[#E6007E] text-white"
+                ? "bg-[#E6007E] text-white border-[#E6007E]"
                 : "bg-white text-black hover:bg-[#FFF0F7]"
             }`}
           >
             {showVideo ? (
               <>
-                <svg className="h-3 w-3" viewBox="0 0 12 12" fill="currentColor">
+                <svg className="h-2.5 w-2.5" viewBox="0 0 12 12" fill="currentColor">
                   <rect x="2" y="2" width="8" height="8" rx="1" />
                 </svg>
                 Photos
               </>
             ) : (
               <>
-                <svg className="h-3 w-3" viewBox="0 0 12 12" fill="currentColor">
+                <svg className="h-2.5 w-2.5" viewBox="0 0 12 12" fill="currentColor">
                   <path d="M3 2l7 4-7 4V2z" />
                 </svg>
                 Watch
@@ -254,51 +254,51 @@ function BeforeAfterCard({ item }: { item: BeforeAfterCase }) {
             controls
             playsInline
             preload="metadata"
-            className="w-full h-auto block max-h-[480px] object-contain"
+            className="w-full h-auto block max-h-[320px] object-contain"
           >
             <source src={item.duringVideo} type="video/mp4" />
           </video>
         </div>
       ) : (
         <div className="relative">
-          <div className="flex border-b-2 border-black">
+          <div className="flex border-b border-black/20">
             {(["before", "after"] as const).map((s) => (
               <button
                 key={s}
                 type="button"
                 onClick={() => setSide(s)}
-                className={`flex-1 py-2 text-xs font-bold uppercase tracking-widest transition ${
+                className={`flex-1 py-1.5 text-[10px] font-bold uppercase tracking-widest transition ${
                   side === s
                     ? "bg-[#E6007E] text-white"
-                    : "bg-white text-black/50 hover:bg-[#FFF0F7]"
+                    : "bg-white text-black/40 hover:bg-[#FFF0F7]"
                 }`}
               >
                 {s}
               </button>
             ))}
           </div>
-          <div className="relative aspect-[4/5] w-full overflow-hidden bg-gray-100">
+          <div className="relative aspect-[1/1] w-full overflow-hidden bg-gray-100">
             <Image
               src={side === "before" ? item.before : item.after}
               alt={`${item.treatment} ${side} — Hello Gorgeous Med Spa Oswego IL`}
               fill
               className="object-cover transition-opacity duration-300"
-              sizes="(max-width: 768px) 100vw, 50vw"
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
               priority={side === "after"}
             />
-            <span className="absolute left-3 top-3 rounded-full bg-black/70 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-white backdrop-blur-sm">
+            <span className="absolute left-2 top-2 rounded-full bg-black/60 px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider text-white backdrop-blur-sm">
               {side}
             </span>
           </div>
         </div>
       )}
 
-      <div className="border-t-2 border-black px-4 py-3">
-        <p className="text-sm font-medium text-black/70">{item.tagline}</p>
-        <p className="mt-1 text-[11px] text-black/40 leading-relaxed">{item.note}</p>
+      <div className="border-t border-black/20 px-3 py-2.5">
+        <p className="text-xs font-medium text-black/65 leading-snug">{item.tagline}</p>
+        <p className="mt-1 text-[10px] text-black/35 leading-relaxed">{item.note}</p>
         <Link
           href={item.serviceHref}
-          className="mt-3 inline-flex items-center gap-1 text-[11px] font-semibold text-[#E6007E] underline underline-offset-2 hover:text-[#c9006e] transition-colors"
+          className="mt-2 inline-flex items-center gap-1 text-[10px] font-semibold text-[#E6007E] underline underline-offset-2 hover:text-[#c9006e] transition-colors"
         >
           Learn about this treatment →
         </Link>
@@ -309,16 +309,16 @@ function BeforeAfterCard({ item }: { item: BeforeAfterCase }) {
 
 function VideoCard({ item }: { item: VideoCase }) {
   return (
-    <article className="rounded-2xl border-4 border-black bg-white shadow-[6px_6px_0_0_rgba(230,0,126,0.30)] overflow-hidden">
-      <div className="flex items-center justify-between border-b-2 border-black px-4 py-3">
+    <article className="rounded-xl border-2 border-black bg-white shadow-[4px_4px_0_0_rgba(230,0,126,0.25)] overflow-hidden">
+      <div className="flex items-center justify-between border-b border-black/20 px-3 py-2.5">
         <div>
-          <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-[#E6007E]">
+          <p className="text-[9px] font-bold uppercase tracking-[0.2em] text-[#E6007E]">
             {item.category} · Procedure Clip
           </p>
-          <h3 className="text-base font-black text-black">{item.treatment}</h3>
+          <h3 className="text-sm font-black text-black leading-tight">{item.treatment}</h3>
         </div>
-        <span className="flex items-center gap-1 rounded-full bg-[#E6007E] px-3 py-1 text-[10px] font-bold text-white">
-          <svg className="h-2.5 w-2.5" viewBox="0 0 12 12" fill="currentColor">
+        <span className="flex items-center gap-1 rounded-full bg-[#E6007E] px-2.5 py-1 text-[9px] font-bold text-white">
+          <svg className="h-2 w-2" viewBox="0 0 12 12" fill="currentColor">
             <path d="M3 2l7 4-7 4V2z" />
           </svg>
           VIDEO
@@ -330,18 +330,18 @@ function VideoCard({ item }: { item: VideoCase }) {
           controls
           playsInline
           preload="metadata"
-          className="w-full h-auto block max-h-[480px] object-contain"
+          className="w-full h-auto block max-h-[320px] object-contain"
         >
           <source src={item.video} type="video/mp4" />
         </video>
       </div>
 
-      <div className="border-t-2 border-black px-4 py-3">
-        <p className="text-sm font-medium text-black/70">{item.tagline}</p>
-        <p className="mt-1 text-[11px] text-black/40 leading-relaxed">{item.note}</p>
+      <div className="border-t border-black/20 px-3 py-2.5">
+        <p className="text-xs font-medium text-black/65 leading-snug">{item.tagline}</p>
+        <p className="mt-1 text-[10px] text-black/35 leading-relaxed">{item.note}</p>
         <Link
           href={item.serviceHref}
-          className="mt-3 inline-flex items-center gap-1 text-[11px] font-semibold text-[#E6007E] underline underline-offset-2 hover:text-[#c9006e] transition-colors"
+          className="mt-2 inline-flex items-center gap-1 text-[10px] font-semibold text-[#E6007E] underline underline-offset-2 hover:text-[#c9006e] transition-colors"
         >
           Learn about this treatment →
         </Link>
@@ -352,15 +352,15 @@ function VideoCard({ item }: { item: VideoCase }) {
 
 function SingleImageCard({ item }: { item: SingleImageCase }) {
   return (
-    <article className="rounded-2xl border-4 border-black bg-white shadow-[6px_6px_0_0_rgba(230,0,126,0.30)] overflow-hidden">
-      <div className="flex items-center justify-between border-b-2 border-black px-4 py-3">
+    <article className="rounded-xl border-2 border-black bg-white shadow-[4px_4px_0_0_rgba(230,0,126,0.25)] overflow-hidden">
+      <div className="flex items-center justify-between border-b border-black/20 px-3 py-2.5">
         <div>
-          <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-[#E6007E]">
+          <p className="text-[9px] font-bold uppercase tracking-[0.2em] text-[#E6007E]">
             {item.category} · Real Client
           </p>
-          <h3 className="text-base font-black text-black">{item.treatment}</h3>
+          <h3 className="text-sm font-black text-black leading-tight">{item.treatment}</h3>
         </div>
-        <span className="flex items-center gap-1 rounded-full border-2 border-black bg-[#FFF0F7] px-3 py-1 text-[10px] font-bold text-[#E6007E]">
+        <span className="flex items-center gap-1 rounded-full border border-black/20 bg-[#FFF0F7] px-2.5 py-1 text-[9px] font-bold text-[#E6007E]">
           Before · After
         </span>
       </div>
@@ -371,17 +371,17 @@ function SingleImageCard({ item }: { item: SingleImageCase }) {
           alt={item.imageAlt}
           width={1080}
           height={440}
-          className="w-full h-auto block"
-          sizes="(max-width: 768px) 100vw, 50vw"
+          className="w-full h-auto block max-h-[240px] object-cover"
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
         />
       </div>
 
-      <div className="border-t-2 border-black px-4 py-3">
-        <p className="text-sm font-medium text-black/70">{item.tagline}</p>
-        <p className="mt-1 text-[11px] text-black/40 leading-relaxed">{item.note}</p>
+      <div className="border-t border-black/20 px-3 py-2.5">
+        <p className="text-xs font-medium text-black/65 leading-snug">{item.tagline}</p>
+        <p className="mt-1 text-[10px] text-black/35 leading-relaxed">{item.note}</p>
         <Link
           href={item.serviceHref}
-          className="mt-3 inline-flex items-center gap-1 text-[11px] font-semibold text-[#E6007E] underline underline-offset-2 hover:text-[#c9006e] transition-colors"
+          className="mt-2 inline-flex items-center gap-1 text-[10px] font-semibold text-[#E6007E] underline underline-offset-2 hover:text-[#c9006e] transition-colors"
         >
           Learn about this treatment →
         </Link>
@@ -392,16 +392,16 @@ function SingleImageCard({ item }: { item: SingleImageCase }) {
 
 function YoutubeCard({ item }: { item: YoutubeCase }) {
   return (
-    <article className="rounded-2xl border-4 border-black bg-white shadow-[6px_6px_0_0_rgba(230,0,126,0.30)] overflow-hidden">
-      <div className="flex items-center justify-between border-b-2 border-black px-4 py-3">
+    <article className="rounded-xl border-2 border-black bg-white shadow-[4px_4px_0_0_rgba(230,0,126,0.25)] overflow-hidden">
+      <div className="flex items-center justify-between border-b border-black/20 px-3 py-2.5">
         <div>
-          <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-[#E6007E]">
+          <p className="text-[9px] font-bold uppercase tracking-[0.2em] text-[#E6007E]">
             {item.category} · Procedure Video
           </p>
-          <h3 className="text-base font-black text-black">{item.treatment}</h3>
+          <h3 className="text-sm font-black text-black leading-tight">{item.treatment}</h3>
         </div>
-        <span className="flex items-center gap-1 rounded-full bg-red-600 px-3 py-1 text-[10px] font-bold text-white">
-          <svg className="h-2.5 w-2.5" viewBox="0 0 12 12" fill="currentColor">
+        <span className="flex items-center gap-1 rounded-full bg-red-600 px-2.5 py-1 text-[9px] font-bold text-white">
+          <svg className="h-2 w-2" viewBox="0 0 12 12" fill="currentColor">
             <path d="M3 2l7 4-7 4V2z" />
           </svg>
           YouTube
@@ -419,12 +419,12 @@ function YoutubeCard({ item }: { item: YoutubeCase }) {
         />
       </div>
 
-      <div className="border-t-2 border-black px-4 py-3">
-        <p className="text-sm font-medium text-black/70">{item.tagline}</p>
-        <p className="mt-1 text-[11px] text-black/40 leading-relaxed">{item.note}</p>
+      <div className="border-t border-black/20 px-3 py-2.5">
+        <p className="text-xs font-medium text-black/65 leading-snug">{item.tagline}</p>
+        <p className="mt-1 text-[10px] text-black/35 leading-relaxed">{item.note}</p>
         <Link
           href={item.serviceHref}
-          className="mt-3 inline-flex items-center gap-1 text-[11px] font-semibold text-[#E6007E] underline underline-offset-2 hover:text-[#c9006e] transition-colors"
+          className="mt-2 inline-flex items-center gap-1 text-[10px] font-semibold text-[#E6007E] underline underline-offset-2 hover:text-[#c9006e] transition-colors"
         >
           Learn about this treatment →
         </Link>
@@ -466,7 +466,7 @@ export function GalleryPageContent() {
 
       {/* Hero */}
       <section
-        className="relative overflow-hidden border-b-4 border-black py-20 md:py-28"
+        className="relative overflow-hidden border-b-4 border-black py-12 md:py-16"
         style={{
           background: "linear-gradient(135deg,#0a0a0a 0%,#2d1020 50%,#1a0a14 100%)",
         }}
@@ -497,7 +497,7 @@ export function GalleryPageContent() {
             Hello Gorgeous Med Spa · Oswego, IL
           </p>
 
-          <h1 className="text-4xl font-black leading-tight text-white md:text-6xl">
+          <h1 className="text-3xl font-black leading-tight text-white md:text-5xl">
             Before &amp;{" "}
             <span
               className="bg-gradient-to-r from-[#FFB8DC] via-[#FF2D8E] to-[#E6007E] bg-clip-text text-transparent"
@@ -568,13 +568,13 @@ export function GalleryPageContent() {
       </section>
 
       {/* Grid */}
-      <section className="mx-auto max-w-5xl px-4 py-10 md:py-14">
+      <section className="mx-auto max-w-6xl px-4 py-8 md:py-10">
         {filtered.length === 0 ? (
           <p className="py-16 text-center text-sm text-black/50">
             No results in this category yet — check back soon.
           </p>
         ) : (
-          <div className="grid gap-6 sm:grid-cols-2">
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {filtered.map((item) => (
               <CaseCard key={item.id} item={item} />
             ))}
