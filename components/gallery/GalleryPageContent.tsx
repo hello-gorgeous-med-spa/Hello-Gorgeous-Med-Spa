@@ -76,6 +76,17 @@ const CASES: GalleryCase[] = [
   },
   {
     type: "before-after",
+    id: "solaria-client-4",
+    treatment: "Solaria CO₂ Laser",
+    category: "Laser Resurfacing",
+    tagline: "Hyperpigmentation, texture, and redness — corrected. Real client, real result.",
+    before: "/gallery/solaria-client-4/before.jpg",
+    after: "/gallery/solaria-client-4/after.jpg",
+    note: "Solaria fractional CO₂ laser resurfacing. Performed at Hello Gorgeous Med Spa, Oswego, IL. Individual results vary.",
+    serviceHref: "/solaria-co2-laser-oswego-il",
+  },
+  {
+    type: "before-after",
     id: "solaria-client-2",
     treatment: "Solaria CO₂ Laser",
     category: "Laser Resurfacing",
