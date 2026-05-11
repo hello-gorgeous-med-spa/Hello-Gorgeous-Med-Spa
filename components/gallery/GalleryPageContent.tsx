@@ -64,15 +64,14 @@ type GalleryCase = BeforeAfterCase | VideoCase | YoutubeCase | SingleImageCase;
 
 const CASES: GalleryCase[] = [
   {
-    type: "before-after",
+    type: "single-image",
     id: "lip-filler-jen",
-    treatment: "Lip Filler",
+    treatment: "Lip Filler — Before, During & After",
     category: "Injectables",
-    tagline: "Natural volume — defined cupid's bow, soft overall shape.",
-    before: "/gallery/lip-filler-jen/before.jpg",
-    after: "/gallery/lip-filler-jen/after.jpg",
-    duringVideo: "/videos/gallery/lip-filler-jen-during.mp4",
-    note: "Dermal filler placed for natural lip enhancement. Performed at Hello Gorgeous Med Spa, Oswego, IL.",
+    tagline: "Natural volume — defined cupid's bow, soft overall shape. Real client result.",
+    image: "/gallery/lip-filler-jen/before-during-after.jpg",
+    imageAlt: "Lip filler before, during procedure, and after — Hello Gorgeous Med Spa Oswego IL",
+    note: "Dermal filler placed for natural lip enhancement. Left: before. Center: live injection. Right: after. Performed at Hello Gorgeous Med Spa, Oswego, IL.",
     serviceHref: "/services/lip-filler",
   },
   {
