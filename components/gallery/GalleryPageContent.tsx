@@ -65,6 +65,28 @@ type GalleryCase = BeforeAfterCase | VideoCase | YoutubeCase | SingleImageCase;
 const CASES: GalleryCase[] = [
   {
     type: "single-image",
+    id: "solaria-client-5",
+    treatment: "Solaria CO₂ Laser — Before, During & After",
+    category: "Laser Resurfacing",
+    tagline: "Real skin transformation — redness, texture & tone corrected in one session.",
+    image: "/gallery/solaria-client-5/before-during-after.jpg",
+    imageAlt: "Solaria CO₂ laser before, during, and healed after — Hello Gorgeous Med Spa Oswego IL",
+    note: "Solaria fractional CO₂ laser. Left: before. Center: immediately post. Right: healed result. Hello Gorgeous Med Spa, Oswego, IL.",
+    serviceHref: "/solaria-co2-laser-oswego-il",
+  },
+  {
+    type: "single-image",
+    id: "solaria-client-6",
+    treatment: "Solaria CO₂ Laser — Before, During & After",
+    category: "Laser Resurfacing",
+    tagline: "Dramatic renewal — fine lines, laxity & sun damage treated in a single CO₂ session.",
+    image: "/gallery/solaria-client-6/before-during-after.jpg",
+    imageAlt: "Solaria CO₂ laser before, 4 days post, and healed after — Hello Gorgeous Med Spa Oswego IL",
+    note: "Solaria fractional CO₂ laser. Left: before. Center: 4 days post. Right: healed result. Hello Gorgeous Med Spa, Oswego, IL.",
+    serviceHref: "/solaria-co2-laser-oswego-il",
+  },
+  {
+    type: "single-image",
     id: "lip-filler-jen",
     treatment: "Lip Filler — Before, During & After",
     category: "Injectables",
