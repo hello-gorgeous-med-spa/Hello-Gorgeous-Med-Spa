@@ -141,6 +141,17 @@ const CASES: GalleryCase[] = [
     serviceHref: "/solaria-co2-laser-oswego-il",
   },
   {
+    type: "before-after",
+    id: "quantum-rf-body-1",
+    treatment: "Quantum RF — Body Contouring",
+    category: "RF Treatments",
+    tagline: "Loose skin tightened without surgery — real client before & after.",
+    before: "/gallery/quantum-rf-body-1/before.jpg",
+    after: "/gallery/quantum-rf-body-1/after.jpg",
+    note: "Quantum RF subdermal body contouring. Performed at Hello Gorgeous Med Spa, Oswego, IL. Individual results vary.",
+    serviceHref: "/quantum-rf-oswego-il",
+  },
+  {
     type: "video",
     id: "quantum-rf-stomach",
     treatment: "Quantum RF — Body Contouring",
