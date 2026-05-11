@@ -403,8 +403,8 @@ function SingleImageCard({ item }: { item: SingleImageCase }) {
           src={item.image}
           alt={item.imageAlt}
           width={1080}
-          height={440}
-          className="w-full h-auto block max-h-[240px] object-cover"
+          height={720}
+          className="w-full h-auto block max-h-[320px] object-contain"
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
         />
       </div>
