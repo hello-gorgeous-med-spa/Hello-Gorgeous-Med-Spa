@@ -44,7 +44,19 @@ type YoutubeCase = {
   serviceHref: string;
 };
 
-type GalleryCase = BeforeAfterCase | VideoCase | YoutubeCase;
+type SingleImageCase = {
+  type: "single-image";
+  id: string;
+  treatment: string;
+  category: string;
+  tagline: string;
+  image: string;
+  imageAlt: string;
+  note: string;
+  serviceHref: string;
+};
+
+type GalleryCase = BeforeAfterCase | VideoCase | YoutubeCase | SingleImageCase;
 
 /* ─────────────────────────────────────────────────────────────
    CASES — add more here
@@ -62,6 +74,17 @@ const CASES: GalleryCase[] = [
     duringVideo: "/videos/gallery/lip-filler-jen-during.mp4",
     note: "Dermal filler placed for natural lip enhancement. Performed at Hello Gorgeous Med Spa, Oswego, IL.",
     serviceHref: "/services/lip-filler",
+  },
+  {
+    type: "single-image",
+    id: "solaria-client-1",
+    treatment: "Solaria CO₂ Laser — Before, During & After",
+    category: "Laser Resurfacing",
+    tagline: "Real client transformation — skin texture, tone, and fine lines treated in one session.",
+    image: "/gallery/solaria-client-1/before-during-after.jpg",
+    imageAlt: "Solaria CO₂ laser before, during, and after — Hello Gorgeous Med Spa Oswego IL",
+    note: "Solaria fractional CO₂ laser resurfacing. Left: before. Center: immediately after. Right: healed result. Hello Gorgeous Med Spa, Oswego, IL.",
+    serviceHref: "/solaria-co2-laser-oswego-il",
   },
   {
     type: "video",
@@ -295,6 +318,46 @@ function VideoCard({ item }: { item: VideoCase }) {
   );
 }
 
+function SingleImageCard({ item }: { item: SingleImageCase }) {
+  return (
+    <article className="rounded-2xl border-4 border-black bg-white shadow-[6px_6px_0_0_rgba(230,0,126,0.30)] overflow-hidden">
+      <div className="flex items-center justify-between border-b-2 border-black px-4 py-3">
+        <div>
+          <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-[#E6007E]">
+            {item.category} · Real Client
+          </p>
+          <h3 className="text-base font-black text-black">{item.treatment}</h3>
+        </div>
+        <span className="flex items-center gap-1 rounded-full border-2 border-black bg-[#FFF0F7] px-3 py-1 text-[10px] font-bold text-[#E6007E]">
+          Before · After
+        </span>
+      </div>
+
+      <div className="relative w-full overflow-hidden bg-black">
+        <Image
+          src={item.image}
+          alt={item.imageAlt}
+          width={1080}
+          height={440}
+          className="w-full h-auto block"
+          sizes="(max-width: 768px) 100vw, 50vw"
+        />
+      </div>
+
+      <div className="border-t-2 border-black px-4 py-3">
+        <p className="text-sm font-medium text-black/70">{item.tagline}</p>
+        <p className="mt-1 text-[11px] text-black/40 leading-relaxed">{item.note}</p>
+        <Link
+          href={item.serviceHref}
+          className="mt-3 inline-flex items-center gap-1 text-[11px] font-semibold text-[#E6007E] underline underline-offset-2 hover:text-[#c9006e] transition-colors"
+        >
+          Learn about this treatment →
+        </Link>
+      </div>
+    </article>
+  );
+}
+
 function YoutubeCard({ item }: { item: YoutubeCase }) {
   return (
     <article className="rounded-2xl border-4 border-black bg-white shadow-[6px_6px_0_0_rgba(230,0,126,0.30)] overflow-hidden">
@@ -341,6 +404,7 @@ function YoutubeCard({ item }: { item: YoutubeCase }) {
 function CaseCard({ item }: { item: GalleryCase }) {
   if (item.type === "before-after") return <BeforeAfterCard item={item} />;
   if (item.type === "youtube") return <YoutubeCard item={item} />;
+  if (item.type === "single-image") return <SingleImageCard item={item} />;
   return <VideoCard item={item} />;
 }
 
