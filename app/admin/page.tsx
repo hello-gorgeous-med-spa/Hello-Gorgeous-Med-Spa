@@ -943,6 +943,13 @@ export default function ExecutiveDashboard() {
           <p className="font-medium text-black text-sm">Marketing</p>
         </Link>
         <Link
+          href="/admin/local-dominance-sprint"
+          className="bg-white rounded-xl border border-black shadow-sm p-4 hover:border-black hover:shadow transition-all text-center"
+        >
+          <span className="text-2xl block mb-1">🚀</span>
+          <p className="font-medium text-black text-sm">Lead Sprint</p>
+        </Link>
+        <Link
           href="/admin/content/providers"
           className="bg-white rounded-xl border border-black shadow-sm p-4 hover:border-black hover:shadow transition-all text-center"
         >

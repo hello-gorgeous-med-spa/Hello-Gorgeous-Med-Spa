@@ -20,6 +20,7 @@ const MAIN_NAV: { href: string; label: string; icon: string }[] = [
   { href: '/admin/memberships', label: 'Memberships', icon: '💎' },
   { href: '/admin/inventory', label: 'Inventory', icon: '📦' },
   { href: '/admin/marketing', label: 'Marketing', icon: '📈' },
+  { href: '/admin/local-dominance-sprint', label: 'Local Dominance Sprint', icon: '🚀' },
   { href: '/admin/campaign-studio', label: 'AI Campaign Studio', icon: '🤖' },
   { href: '/admin/campaign-analytics', label: 'Campaign Analytics', icon: '📊' },
   { href: '/admin/email-campaigns', label: 'Email Campaigns', icon: '📧' },
