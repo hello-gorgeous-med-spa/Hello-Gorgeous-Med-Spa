@@ -142,6 +142,17 @@ const CASES: GalleryCase[] = [
   },
   {
     type: "before-after",
+    id: "quantum-rf-chin-1",
+    treatment: "Quantum RF — Chin & Neck Contouring",
+    category: "RF Treatments",
+    tagline: "Defined jawline in just 1 week — no surgery, no downtime. Real client result.",
+    before: "/gallery/quantum-rf-chin-1/before.jpg",
+    after: "/gallery/quantum-rf-chin-1/after.jpg",
+    note: "Quantum RF subdermal contouring — chin & neck. Result shown at 1 week post-treatment. Hello Gorgeous Med Spa, Oswego, IL. Individual results vary.",
+    serviceHref: "/quantum-rf-oswego-il",
+  },
+  {
+    type: "before-after",
     id: "quantum-rf-body-1",
     treatment: "Quantum RF — Body Contouring",
     category: "RF Treatments",
