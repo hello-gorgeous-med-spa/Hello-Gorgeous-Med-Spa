@@ -387,6 +387,14 @@ export function Header() {
               FAQ
             </Link>
 
+            {/* Blog */}
+            <Link
+              href="/blog"
+              className={cx(NAV_LINK_BASE, isActive("/blog") ? NAV_LINK_ACTIVE : NAV_LINK_IDLE)}
+            >
+              Blog
+            </Link>
+
             {/* Specials */}
             <div
               className="relative flex items-center"
