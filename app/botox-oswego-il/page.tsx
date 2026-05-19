@@ -15,8 +15,9 @@ import { RealPatientReviews } from '@/components/RealPatientReviews';
 export const revalidate = 3600;
 
 export const metadata: Metadata = {
-  title: 'Botox Near Me in Oswego, IL 60543 — $10/Unit | Hello Gorgeous Med Spa',
-  description: '$10/unit Botox in Oswego, IL — board-certified nurse practitioners, natural results, free consultations. Serving Naperville, Aurora, Plainfield, Yorkville. Book online or call 630-636-6193.',
+  title: 'Botox in Oswego, IL | $10/unit | Hello Gorgeous Med Spa',
+  description:
+    'Botox, Dysport, & Jeuveau in Oswego from $10/unit. Full-authority NP on site 7 days/week. #1 Best Med Spa. Free consultations. Same-day appointments available.',
   keywords: [
     'botox near me',
     'botox oswego',
@@ -46,8 +47,9 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     url: `${SITE.url}/botox-oswego-il`,
-    title: 'Botox in Oswego, IL — $10/Unit | Hello Gorgeous Med Spa',
-    description: '$10/unit Botox in Oswego, IL with licensed nurse practitioners. Free consultations. Serving Naperville, Aurora, Plainfield.',
+    title: 'Botox in Oswego, IL | $10/unit | Hello Gorgeous Med Spa',
+    description:
+      'Botox, Dysport, & Jeuveau in Oswego from $10/unit. Full-authority NP on site. Free consultations. Same-day appointments.',
     siteName: SITE.name,
     locale: 'en_US',
     images: [
@@ -211,10 +213,10 @@ export default function BotoxOswegoPage() {
                   Serving Naperville • Aurora • Plainfield • Oswego
                 </p>
                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
-                  Looking for <span className="text-[#FF2D8E]">Botox Near Me</span>?
+                  <span className="text-[#FF2D8E]">Botox in Oswego</span> — Med Spa With an NP On Site
                 </h1>
                 <p className="text-xl md:text-2xl text-gray-300 mb-8">
-                  <strong className="text-white">$10/Unit Botox</strong> in Oswego, IL — Licensed Nurse Practitioners, Natural Results
+                  <strong className="text-white">$10/unit Botox, Dysport &amp; Jeuveau</strong> — full-authority nurse practitioner on site, natural results, free consultations
                 </p>
                 
                 <div className="flex flex-col sm:flex-row gap-4 mb-8">
@@ -235,7 +237,7 @@ export default function BotoxOswegoPage() {
                 {/* Trust Indicators */}
                 <div className="flex flex-wrap gap-4 text-sm">
                   <span className="flex items-center gap-2 bg-white/10 px-4 py-2 rounded-full">
-                    ⭐ 4.9 Stars (47+ Reviews)
+                    ⭐ {SITE.reviewRating} Stars ({SITE.reviewCount}+ Reviews)
                   </span>
                   <span className="flex items-center gap-2 bg-white/10 px-4 py-2 rounded-full">
                     ✓ Licensed NPs

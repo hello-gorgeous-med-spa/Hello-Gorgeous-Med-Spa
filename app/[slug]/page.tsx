@@ -27,8 +27,14 @@ import {
   siteJsonLd,
 } from "@/lib/seo";
 import { CITIES, DEVICES, getCityDeviceSlug } from "@/data/city-seo";
+import {
+  SERVICE_PAGE_OSWEGO_SLUGS,
+  getServicePageOswego,
+  isServicePageOswegoSlug,
+} from "@/lib/service-pages-oswego";
+import { ServiceOswegoLanding } from "@/components/marketing/ServiceOswegoLanding";
 
-const ALL_LOCAL_SLUGS = [...GBP_SERVICE_SLUGS, ...MED_SPA_LOCATION_SLUGS];
+const ALL_LOCAL_SLUGS = [...GBP_SERVICE_SLUGS, ...MED_SPA_LOCATION_SLUGS, ...SERVICE_PAGE_OSWEGO_SLUGS];
 
 function parseTreatmentCitySlug(slug: string) {
   for (const city of CITIES) {
@@ -52,6 +58,15 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
+
+  const serviceOswego = getServicePageOswego(slug);
+  if (serviceOswego) {
+    return pageMetadata({
+      title: serviceOswego.metaTitle,
+      description: serviceOswego.metaDescription,
+      path: `/${slug}`,
+    });
+  }
 
   const treatmentParsed = parseTreatmentCitySlug(slug);
   if (treatmentParsed) {
@@ -133,6 +148,11 @@ function localFaqs(serviceName: string, cityLabel: string, serviceSlug: string):
 
 export default async function SlugPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
+
+  if (isServicePageOswegoSlug(slug)) {
+    const page = getServicePageOswego(slug)!;
+    return <ServiceOswegoLanding page={page} />;
+  }
 
   const treatmentParsed = parseTreatmentCitySlug(slug);
   if (treatmentParsed) {

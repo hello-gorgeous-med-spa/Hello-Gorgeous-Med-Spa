@@ -6,6 +6,7 @@ import { TREATMENT_HUB_SLUGS } from '@/lib/treatment-hubs';
 import { CONCERN_PAGES } from '@/lib/concern-pages';
 import { FUNNEL_DEFINITIONS } from '@/lib/funnels';
 import { AREA_PAGES, FAQ_CLUSTER_PAGES, RECOVERY_PAGES } from '@/lib/topical-expansion';
+import { SERVICE_PAGE_OSWEGO_SLUGS } from '@/lib/service-pages-oswego';
 
 // ============================================================
 // SITEMAP - Auto-generates for Google indexing
@@ -531,9 +532,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })),
   ];
 
+  // HG_DEV_011 — individual Oswego service SEO URLs
+  const serviceOswegoPages: MetadataRoute.Sitemap = SERVICE_PAGE_OSWEGO_SLUGS.map((slug) => ({
+    url: `${baseUrl}/${slug}`,
+    lastModified: currentDate,
+    changeFrequency: 'weekly' as const,
+    priority: 0.8,
+  }));
+
   return [
     ...corePages,
     ...servicePages,
+    ...serviceOswegoPages,
     ...premiumLandingPages,
     ...comparisonPages,
     ...caseStudyPages,
