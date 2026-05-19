@@ -39,4 +39,7 @@ export type ServicePageData = {
   inModeBadge?: InModeBadge;
   /** uncontested = 600+ words; contested = 1000+ */
   tier: "uncontested" | "contested";
+  /** Full-width promo flyer (social/print creative) shown on the page */
+  promoFlyerImage?: string;
+  promoFlyerAlt?: string;
 };

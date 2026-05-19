@@ -68,6 +68,9 @@ export const PHASE1_UNCONTESTED_PAGES: ServicePageData[] = [
     relatedServices: ["morpheus8-burst-oswego", "microneedling-oswego", "chemical-peel-oswego"],
     closingCta:
       "Book a free Solaria CO2 consultation. We'll assess your skin, talk through your goals, and give you a clear plan with exact pricing — no pressure, no surprises.",
+    promoFlyerImage: "/images/promo/solaria-co2-promo-flyer.png",
+    promoFlyerAlt:
+      "Solaria CO2 laser before, during, and after skin resurfacing at Hello Gorgeous Med Spa Oswego — gold standard fractional CO2",
   },
   {
     slug: "quantum-rf-oswego",

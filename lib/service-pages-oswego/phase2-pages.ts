@@ -297,7 +297,8 @@ export const PHASE2_PAGES: ServicePageData[] = [
     fullServiceName: "Lip Filler & Lip Augmentation",
     targetKeyword: "lip filler oswego",
     metaTitle: "Lip Filler in Oswego, IL",
-    metaDescription: "Natural lip filler in Oswego. Conservative dosing, no duck lips. NP-supervised. Starting from $650/syringe. Free consultations.",
+    metaDescription:
+      "Lip filler in Oswego — $450 per syringe or $399 each when you book 2. Enhance, hydrate, elevate. NP-supervised. Free consultations.",
     h1: "Lip Filler in Oswego, IL",
     valueProp: "Lips that look like yours — only better. Conservative dosing, no overfill, results you'd actually want photographed.",
     bookingUrl: bookingUrlFor(),
@@ -323,11 +324,15 @@ export const PHASE2_PAGES: ServicePageData[] = [
       "Immediately after: expect swelling for 24–72 hours — your lips will look bigger than the final result for the first day or two. Avoid heat, alcohol, and strenuous exercise for 24 hours to minimize swelling.",
       "Follow-up: 2-week check-in. By this point swelling has resolved and we can assess true final result. Touch-ups for asymmetry from technique are complimentary."
     ],
-    pricing: "Lip filler pricing starts from $650 per full syringe. Half-syringe options are available for clients who want a subtle introduction or maintenance touch-up. Most first-time lip filler clients start with 1 syringe. We give you exact pricing at consultation and never push for more product than you need.",
+    pricing:
+      "Lip filler: $450 for 1 syringe, or $399 each when you book 2 syringes. Enhance natural shape and volume, hydrate for softer lips, with conservative dosing and minimal downtime. Half-syringe options available for subtle starts. Exact plan confirmed at your free consultation.",
+    promoFlyerImage: "/images/promo/lip-filler-promo-flyer.png",
+    promoFlyerAlt:
+      "Lip filler before, during, and after at Hello Gorgeous Med Spa Oswego — $450 one syringe or $399 each for two syringes",
     faqs: [
       {
         "q": "How much does lip filler cost?",
-        "a": "Lip filler starts from $650 for a full syringe. Half-syringe pricing is available for subtle starts or maintenance. Most first-time clients use 1 syringe; results vary by anatomy and goals."
+        "a": "Lip filler is $450 for 1 syringe, or $399 each when you book 2 syringes. Half-syringe options are available for subtle starts or maintenance. Most first-time clients use 1 syringe; we confirm exact pricing at your free consultation."
       },
       {
         "q": "How long does lip filler last?",

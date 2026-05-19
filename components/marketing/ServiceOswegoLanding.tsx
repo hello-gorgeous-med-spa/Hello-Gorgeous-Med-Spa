@@ -3,6 +3,7 @@ import Link from "next/link";
 import { CTA } from "@/components/CTA";
 import { FadeUp, Section } from "@/components/Section";
 import { CredentialStrip } from "@/components/marketing/CredentialStrip";
+import { ServicePromoFlyer } from "@/components/marketing/ServicePromoFlyer";
 import { INMODE_BADGE_ASSETS } from "@/lib/inmode-badges";
 import { SITE, breadcrumbJsonLd, faqJsonLd } from "@/lib/seo";
 import type { ServicePageData } from "@/lib/service-pages-oswego";
@@ -115,6 +116,16 @@ export function ServiceOswegoLanding({
         </section>
 
         <CredentialStrip slug={page.slug} />
+
+        {page.promoFlyerImage ? (
+          <ServicePromoFlyer
+            src={page.promoFlyerImage}
+            alt={
+              page.promoFlyerAlt ??
+              `${page.serviceName} at Hello Gorgeous Med Spa in Oswego, IL`
+            }
+          />
+        ) : null}
 
         <Section className="bg-white">
           <FadeUp>
