@@ -1,11 +1,12 @@
-import { SERVICE_PAGES_BASE } from "./entries";
-import { PHASE1_SLUGS, PHASE1_UNCONTESTED_PAGES } from "./phase1-uncontested";
+import { PHASE1_UNCONTESTED_PAGES } from "./phase1-uncontested";
+import { PHASE2_PAGES } from "./phase2-pages";
 import type { ServicePageData } from "./types";
 
 export type { ServicePageData, ServicePageFaq } from "./types";
 
+/** Full 23-page Oswego service catalog: Phase 2 (19) + Phase 1 uncontested (4). */
 export const SERVICE_PAGES_OSwego: ServicePageData[] = [
-  ...SERVICE_PAGES_BASE.filter((p) => !PHASE1_SLUGS.has(p.slug)),
+  ...PHASE2_PAGES,
   ...PHASE1_UNCONTESTED_PAGES,
 ];
 
