@@ -10,9 +10,34 @@ export const LEGACY_FRESHA_ORG_BOOKING_URL =
 /** @deprecated Use `BOOKING_URL` / `LEGACY_FRESHA_ORG_BOOKING_URL`. */
 export const FRESHA_BOOKING_URL = LEGACY_FRESHA_ORG_BOOKING_URL;
 
+/** Square Appointments URLs must never be used for public booking (payments only). */
+export function isSquareAppointmentsBookingUrl(url: string): boolean {
+  const u = url.trim();
+  if (!u) return false;
+  if (/book\.squareup\.com/i.test(u)) return true;
+  try {
+    const { hostname, pathname } = new URL(u);
+    const host = hostname.toLowerCase();
+    return (
+      host.endsWith("squareup.com") &&
+      (pathname.includes("/appointments") || pathname.includes("/appointment"))
+    );
+  } catch {
+    return false;
+  }
+}
+
+function resolvePublicBookingUrl(
+  raw: string | undefined,
+  fallback: string = LEGACY_FRESHA_ORG_BOOKING_URL,
+): string {
+  const trimmed = raw?.trim();
+  if (!trimmed || isSquareAppointmentsBookingUrl(trimmed)) return fallback;
+  return trimmed;
+}
+
 /** Primary booking CTA site-wide (header, footer, `/book`, service pages). */
-export const BOOKING_URL =
-  process.env.NEXT_PUBLIC_BOOKING_URL?.trim() || LEGACY_FRESHA_ORG_BOOKING_URL;
+export const BOOKING_URL = resolvePublicBookingUrl(process.env.NEXT_PUBLIC_BOOKING_URL);
 
 /**
  * Square Customer Directory — offers & updates (email + SMS opt-in, Square-hosted).
@@ -23,10 +48,14 @@ export const SQUARE_MAILING_LIST_ENROLL_URL =
   "https://squareup.com/customer-programs/enroll/hg4NM8qZXwGm?utm_source=hellogorgeousmedspa.com&utm_medium=website&utm_campaign=mailing_list";
 
 /** Per–staff Fresha booking URLs; unset falls back to org `BOOKING_URL`. */
-export const FRESHA_BOOKING_URL_DANIELLE =
-  process.env.NEXT_PUBLIC_FRESHA_BOOKING_URL_DANIELLE?.trim() || BOOKING_URL;
-export const FRESHA_BOOKING_URL_RYAN =
-  process.env.NEXT_PUBLIC_FRESHA_BOOKING_URL_RYAN?.trim() || BOOKING_URL;
+export const FRESHA_BOOKING_URL_DANIELLE = resolvePublicBookingUrl(
+  process.env.NEXT_PUBLIC_FRESHA_BOOKING_URL_DANIELLE,
+  BOOKING_URL,
+);
+export const FRESHA_BOOKING_URL_RYAN = resolvePublicBookingUrl(
+  process.env.NEXT_PUBLIC_FRESHA_BOOKING_URL_RYAN,
+  BOOKING_URL,
+);
 
 export function providerPublicBookingUrl(slug: string | null | undefined): string {
   if (!slug) return BOOKING_URL;
@@ -45,7 +74,12 @@ export function getProviderPublicBookingHref(
   bookingUrl?: string | null,
 ): string {
   const u = bookingUrl?.trim();
-  if (u && /^https?:\/\//i.test(u) && !/[?&]provider=/i.test(u)) {
+  if (
+    u &&
+    /^https?:\/\//i.test(u) &&
+    !/[?&]provider=/i.test(u) &&
+    !isSquareAppointmentsBookingUrl(u)
+  ) {
     return u;
   }
   return providerPublicBookingUrl(slug);
