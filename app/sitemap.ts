@@ -87,18 +87,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.85,
     },
     {
-      url: `${baseUrl}/events/vip-device-night`,
-      lastModified: currentDate,
-      changeFrequency: 'weekly',
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/events/the-glow-social`,
-      lastModified: currentDate,
-      changeFrequency: 'weekly',
-      priority: 0.92,
-    },
-    {
       url: `${baseUrl}/events/quantum-rf-clinical-model`,
       lastModified: currentDate,
       changeFrequency: 'weekly',

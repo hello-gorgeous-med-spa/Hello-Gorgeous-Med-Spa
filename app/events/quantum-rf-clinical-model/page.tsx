@@ -264,8 +264,8 @@ export default function QuantumRFClinicalModelPage() {
             .
           </p>
           <div className="mt-6 flex flex-wrap justify-center gap-4 text-sm">
-            <Link href="/events/vip-device-night" className="font-semibold hover:underline" style={{ color: PINK }}>
-              VIP Device Night →
+            <Link href="/book" className="font-semibold hover:underline" style={{ color: PINK }}>
+              Book a consultation →
             </Link>
             <Link href="/" className="font-semibold hover:underline" style={{ color: PINK }}>
               ← Home

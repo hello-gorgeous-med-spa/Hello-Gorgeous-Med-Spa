@@ -79,15 +79,6 @@ Book a consult: we'll tell you honestly if you're a candidate.`,
     linkPath: "/services/weight-loss-therapy",
     imagePath: null,
   },
-  {
-    id: "glow-social",
-    label: "The Glow Social — event",
-    message: `🥂 THE GLOW SOCIAL — FREE VIP night at Hello Gorgeous / Freddie's Off The Chain, Oswego.
-
-Trifecta demos, bites & bubbly, raffle, guest vitamin shot. RSVP on our site — spots limited.`,
-    linkPath: "/events/the-glow-social",
-    imagePath: "/images/events/glow-social-win-big-may-14.png",
-  },
 ];
 
 const UTM = "utm_source=facebook&utm_medium=page_post&utm_campaign=hg_social_agent";

@@ -120,6 +120,8 @@ const nextConfig = {
   rewrites: async () => [],
   redirects: async () => [
     { source: "/sitemap.website.xml", destination: "/sitemap.xml", permanent: true },
+    { source: "/events/the-glow-social", destination: "/book", permanent: true },
+    { source: "/events/vip-device-night", destination: "/book", permanent: true },
     { source: "/book-now", destination: "/book", permanent: true },
     { source: "/schedule", destination: "/book", permanent: true },
     { source: "/specials", destination: "/free-vitamin", permanent: true },

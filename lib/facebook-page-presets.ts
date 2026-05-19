@@ -104,18 +104,6 @@ Book a consult: we’ll tell you honestly if you’re a candidate.`,
   defaultChannels: ["facebook", "instagram"],
 };
 
-export const FACEBOOK_PAGE_PRESET_GLOW_EVENT: FacebookPagePreset = {
-  id: "glow-social",
-  label: "The Glow Social — event",
-  blurb: "VIP night — link to RSVP page.",
-  message: `🥂 THE GLOW SOCIAL — FREE VIP night at Hello Gorgeous / Freddie’s Off The Chain, Oswego.
-
-Trifecta demos, bites & bubbly, raffle, guest vitamin shot. RSVP on our site — spots limited.`,
-  linkPath: withUtm("/events/the-glow-social"),
-  imagePath: "/images/events/glow-social-win-big-may-14.png",
-  defaultChannels: ["facebook", "instagram"],
-};
-
 export const FACEBOOK_PAGE_PRESET_OUR_PROMISE: FacebookPagePreset = {
   id: "our-promise",
   label: "Our Promise — Authenticity",
@@ -140,7 +128,6 @@ export const FACEBOOK_PAGE_PRESETS: FacebookPagePreset[] = [
   FACEBOOK_PAGE_PRESET_IPL,
   FACEBOOK_PAGE_PRESET_BOOK,
   FACEBOOK_PAGE_PRESET_WEIGHT,
-  FACEBOOK_PAGE_PRESET_GLOW_EVENT,
 ];
 
 /** Recommended Mon→Sun order when you “queue a week” (rotate start day as you like). */
@@ -151,7 +138,7 @@ export const SUGGESTED_WEEK_PRESET_IDS: string[] = [
   "ipl-photofacial",
   "book-consult",
   "weight-loss",
-  "glow-social",
+  "our-promise",
 ];
 
 export function getFacebookPagePresetById(id: string): FacebookPagePreset | undefined {
