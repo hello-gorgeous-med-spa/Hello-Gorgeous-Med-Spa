@@ -20,6 +20,12 @@ export type ServicePageData = {
   metaDescription: string;
   h1: string;
   valueProp: string;
+  /** Extended hero copy below the value prop (Phase 1+ pages) */
+  heroContent?: string;
+  /** Transparent pricing blurb before FAQs */
+  pricing?: string;
+  /** Custom closing CTA line above book button */
+  closingCta?: string;
   /** Square booking or /book; optional Fresha deep link when Dani provides IDs */
   bookingUrl: string;
   freshaServiceId?: string;

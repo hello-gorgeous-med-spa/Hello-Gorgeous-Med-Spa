@@ -60,7 +60,20 @@ export function ServiceOswegoLanding({ page }: { page: ServicePageData }) {
               Oswego, IL · Kendall County
             </p>
             <h1 className="text-4xl md:text-5xl font-bold leading-tight mb-4">{page.h1}</h1>
-            <p className="text-xl text-white/85 max-w-2xl mb-8">{page.valueProp}</p>
+            <p className="text-xl text-white/85 max-w-2xl mb-4">{page.valueProp}</p>
+            {page.heroContent ? (
+              <p className="text-base md:text-lg text-white/75 max-w-2xl mb-6 leading-relaxed">{page.heroContent}</p>
+            ) : null}
+            {page.inModeBadge ? (
+              <p className="inline-block mb-6 text-xs font-bold uppercase tracking-wider text-[#FFB8DC] border border-[#FF2D8E]/40 rounded-full px-3 py-1">
+                Verified InMode Provider ·{" "}
+                {page.inModeBadge === "solaria"
+                  ? "Solaria CO₂"
+                  : page.inModeBadge === "quantum"
+                    ? "Quantum RF"
+                    : "Morpheus8"}
+              </p>
+            ) : null}
             <div className="flex flex-col sm:flex-row gap-4">
               <CTA href={page.bookingUrl} variant="gradient">
                 Book Now
@@ -101,6 +114,15 @@ export function ServiceOswegoLanding({ page }: { page: ServicePageData }) {
             </div>
           </FadeUp>
         </Section>
+
+        {page.pricing ? (
+          <Section className="bg-white border-y border-black/5">
+            <FadeUp>
+              <h2 className="text-2xl md:text-3xl font-bold text-black">Pricing &amp; packages</h2>
+              <p className="mt-4 max-w-3xl text-black/85 leading-relaxed">{page.pricing}</p>
+            </FadeUp>
+          </Section>
+        ) : null}
 
         <Section className="bg-white">
           <FadeUp>
@@ -153,7 +175,8 @@ export function ServiceOswegoLanding({ page }: { page: ServicePageData }) {
         <section className="py-16 bg-gradient-to-r from-pink-500 to-rose-500 text-white text-center px-6">
           <h2 className="text-2xl md:text-3xl font-bold mb-4">Book your free consultation in Oswego</h2>
           <p className="text-pink-100 mb-8 max-w-xl mx-auto">
-            Questions about {page.serviceName.toLowerCase()}? Call {SITE.phone} or book online — we&apos;re here to help.
+            {page.closingCta ??
+              `Questions about ${page.serviceName.toLowerCase()}? Call ${SITE.phone} or book online — we\u2019re here to help.`}
           </p>
           <CTA href={page.bookingUrl} variant="white">
             Book Now

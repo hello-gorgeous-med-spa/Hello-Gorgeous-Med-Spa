@@ -10,7 +10,7 @@ const TRIFECTA_EXTRA = [
   "Only med spa in the Oswego area with the full InMode Trifecta platform (Morpheus8 Burst, Solaria CO₂, Quantum RF)",
 ];
 
-export const SERVICE_PAGES_OSwego: ServicePageData[] = [
+export const SERVICE_PAGES_BASE: ServicePageData[] = [
   definePage({
     slug: "botox-oswego",
     serviceName: "Botox",
@@ -177,54 +177,6 @@ export const SERVICE_PAGES_OSwego: ServicePageData[] = [
   }),
 
   definePage({
-    slug: "solaria-co2-oswego",
-    serviceName: "Solaria CO₂",
-    fullServiceName: "Solaria CO₂ Laser Resurfacing",
-    targetKeyword: "solaria co2 oswego",
-    h1: "Solaria CO₂ in Oswego, IL",
-    valueProp: "Fractional CO₂ resurfacing for wrinkles, sun damage, scars, and texture — exclusive InMode Solaria technology in Oswego.",
-    tier: "uncontested",
-    procedureType: "Laser",
-    bodyLocation: "Face",
-    inModeBadge: "solaria",
-    metaDescriptionExtra: "Advanced CO₂ laser in Oswego. NP-supervised. Free consultation — schedule today.",
-    whyBullets: TRIFECTA_EXTRA,
-    howItWorksParagraphs: educationBlock("Solaria CO₂", "solaria co2 oswego", [
-      "Solaria is our fractional CO₂ platform designed for significant skin renewal — fine lines, photodamage, acne scars, and uneven texture. CO₂ treatments remove damaged surface layers while stimulating collagen remodeling below.",
-      "Because CO₂ is powerful, candidacy and downtime are discussed honestly. Medical clearance, antivirals when indicated, and strict sun protection are part of safe outcomes.",
-      "Clients choose Hello Gorgeous when they want hospital-grade technology without hospital-system pricing — with an NP on site for questions every step of the way.",
-    ]),
-    whatToExpectSteps: expectSteps("Solaria CO₂"),
-    faqs: standardFaqs("Solaria CO₂", "solaria co2 oswego", [
-      { q: "What is downtime after CO₂?", a: "Depends on depth and treatment zone. We provide a detailed timeline at consultation — plan for redness, peeling, and strict sun avoidance." },
-    ]),
-    relatedServices: ["morpheus8-burst-oswego", "quantum-rf-oswego", "chemical-peel-oswego"],
-  }),
-
-  definePage({
-    slug: "quantum-rf-oswego",
-    serviceName: "Quantum RF",
-    fullServiceName: "Quantum RF Body Contouring",
-    targetKeyword: "quantum rf oswego",
-    h1: "Quantum RF in Oswego, IL",
-    valueProp: "Non-invasive RF contouring for stubborn fat and skin tightening — InMode Quantum RF with clinical oversight.",
-    tier: "uncontested",
-    procedureType: "RF",
-    bodyLocation: "Body",
-    inModeBadge: "quantum",
-    metaDescriptionExtra: "Body contouring RF in Oswego. No surgery. Free consult. Book online.",
-    whyBullets: TRIFECTA_EXTRA,
-    howItWorksParagraphs: educationBlock("Quantum RF", "quantum rf oswego", [
-      "Quantum RF uses radiofrequency energy to heat adipose tissue and dermis, aiming to reduce circumferential fat and improve laxity in treated zones such as abdomen, flanks, arms, and thighs.",
-      "It is not a weight-loss replacement — best results combine realistic expectations, hydration, and healthy habits. Many clients pair Quantum with Morpheus8 Burst for comprehensive body goals.",
-      "Treatments are comfortable for most patients with warming sensations; series are typically recommended.",
-    ]),
-    whatToExpectSteps: expectSteps("Quantum RF"),
-    faqs: standardFaqs("Quantum RF", "quantum rf oswego"),
-    relatedServices: ["morpheus8-burst-oswego", "glp-1-weight-loss-oswego", "semaglutide-oswego"],
-  }),
-
-  definePage({
     slug: "semaglutide-oswego",
     serviceName: "Semaglutide",
     fullServiceName: "Semaglutide Medical Weight Loss",
@@ -324,25 +276,6 @@ export const SERVICE_PAGES_OSwego: ServicePageData[] = [
   }),
 
   definePage({
-    slug: "peptide-therapy-oswego",
-    serviceName: "Peptide Therapy",
-    fullServiceName: "Peptide Therapy",
-    targetKeyword: "peptide therapy oswego",
-    h1: "Peptide Therapy in Oswego, IL",
-    valueProp: "Regenerative peptide protocols for recovery, metabolism, and wellness — medically supervised in Oswego.",
-    tier: "uncontested",
-    procedureType: "Wellness",
-    metaDescriptionExtra: "Peptide therapy near Oswego. NP oversight. Schedule a consultation.",
-    howItWorksParagraphs: educationBlock("Peptide therapy", "peptide therapy oswego", [
-      "Peptides are short chains of amino acids used in targeted wellness protocols — from recovery support to metabolic optimization — when medically appropriate.",
-      "Hello Gorgeous designs plans after reviewing goals, history, and contraindications. We do not sell peptides as anonymous retail products; care stays inside a supervised medical relationship.",
-    ]),
-    whatToExpectSteps: expectSteps("peptide therapy"),
-    faqs: standardFaqs("peptide therapy", "peptide therapy oswego"),
-    relatedServices: ["nad-iv-oswego", "iv-therapy-oswego", "glp-1-weight-loss-oswego"],
-  }),
-
-  definePage({
     slug: "iv-therapy-oswego",
     serviceName: "IV Therapy",
     fullServiceName: "IV Therapy & Vitamin Drips",
@@ -359,25 +292,6 @@ export const SERVICE_PAGES_OSwego: ServicePageData[] = [
     whatToExpectSteps: expectSteps("IV therapy"),
     faqs: standardFaqs("IV therapy", "iv therapy oswego"),
     relatedServices: ["nad-iv-oswego", "vitamin-injections-oswego", "peptide-therapy-oswego"],
-  }),
-
-  definePage({
-    slug: "nad-iv-oswego",
-    serviceName: "NAD+ IV",
-    fullServiceName: "NAD+ IV Therapy",
-    targetKeyword: "nad iv oswego",
-    h1: "NAD+ IV in Oswego, IL",
-    valueProp: "NAD+ infusions for cellular energy and recovery support — medically supervised IV therapy in Oswego.",
-    tier: "uncontested",
-    procedureType: "IV",
-    metaDescriptionExtra: "NAD+ IV drips in Oswego. NP on site. Book your session online.",
-    howItWorksParagraphs: educationBlock("NAD+ IV", "nad iv oswego", [
-      "NAD+ (nicotinamide adenine dinucleotide) IV protocols aim to support cellular energy pathways. Clients often report improved focus or stamina, though individual response varies.",
-      "Infusions are titrated for comfort — some clients experience mild flushing or nausea slowed by rate adjustment. Medical screening is required before your first drip.",
-    ]),
-    whatToExpectSteps: expectSteps("NAD+ IV"),
-    faqs: standardFaqs("NAD+ IV", "nad iv oswego"),
-    relatedServices: ["iv-therapy-oswego", "peptide-therapy-oswego", "vitamin-injections-oswego"],
   }),
 
   definePage({
