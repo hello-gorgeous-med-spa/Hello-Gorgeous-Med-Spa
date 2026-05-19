@@ -4,6 +4,7 @@ import { GoogleMapEmbed } from "@/components/GoogleMapEmbed";
 import { BestOfOswegoBadge } from "@/components/BestOfOswegoBadge";
 import { BookingBadges } from "@/components/BookingBadges";
 import { LocationsServed } from "@/components/LocationsServed";
+import { FOOTER_CREDENTIALS_HEADLINE, FOOTER_CREDENTIALS_LINE } from "@/lib/founder-credentials";
 import { BOOKING_URL, SQUARE_MAILING_LIST_ENROLL_URL } from "@/lib/flows";
 import { SITE, SERVICES, servicePublicPath } from "@/lib/seo";
 import type { SiteSettings } from "@/lib/cms-readers";
@@ -34,6 +35,14 @@ export function Footer({
 
   return (
     <footer className="bg-black text-white border-t-2 border-black">
+      <div className="border-b border-white/15 bg-zinc-950">
+        <div className="max-w-7xl mx-auto px-4 md:px-6 py-4 text-center">
+          <p className="text-xs md:text-sm font-bold text-[#FFB8DC] tracking-wide">{FOOTER_CREDENTIALS_HEADLINE}</p>
+          <p className="mt-2 text-xs md:text-sm text-white/75 leading-relaxed max-w-4xl mx-auto">
+            {FOOTER_CREDENTIALS_LINE}
+          </p>
+        </div>
+      </div>
       {/* Main Footer */}
       <div className="max-w-7xl mx-auto px-4 md:px-6 py-12 md:py-16 min-w-0">
         <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-10 lg:gap-8">

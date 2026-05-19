@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { CTA } from "@/components/CTA";
 import { FadeUp, Section } from "@/components/Section";
+import { CredentialStrip } from "@/components/marketing/CredentialStrip";
 import { INMODE_BADGE_ASSETS } from "@/lib/inmode-badges";
 import { SITE, breadcrumbJsonLd, faqJsonLd } from "@/lib/seo";
 import type { ServicePageData } from "@/lib/service-pages-oswego";
@@ -112,6 +113,8 @@ export function ServiceOswegoLanding({
             <p className="mt-6 text-sm text-white/60">Free consultation · {SITE.address.streetAddress}, Oswego</p>
           </div>
         </section>
+
+        <CredentialStrip slug={page.slug} />
 
         <Section className="bg-white">
           <FadeUp>

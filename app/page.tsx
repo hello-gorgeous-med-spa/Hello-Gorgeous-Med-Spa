@@ -15,6 +15,7 @@ import {
 } from "@/components/homepage-v3";
 import { TheBookBadge } from "@/components/the-book";
 import { HomepagePromoRail } from "@/components/HomepagePromoRail";
+import { MeetDaniRyanSection } from "@/components/marketing/MeetDaniRyanSection";
 import { Morpheus8SkinRebuildSection } from "@/components/Morpheus8SkinRebuildSection";
 import { Morpheus8VerifiedProviderSection } from "@/components/Morpheus8VerifiedProviderSection";
 import { QuantumRFRyanActionSlideshow } from "@/components/marketing/QuantumRFRyanActionSlideshow";
@@ -178,6 +179,7 @@ export default function HomePage() {
       <main className="bg-white">
         <HomepagePromoRail />
         <HeroV3 />
+        <MeetDaniRyanSection />
         <TrustStrip />
         <OurPromiseSection />
         <Morpheus8SkinRebuildSection />

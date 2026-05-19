@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { daniPersonJsonLd, ryanPersonJsonLd } from "@/lib/founder-credentials";
 import { BOOKING_URL } from "@/lib/flows";
 import { ALL_HOMEPAGE_SERVICES } from "@/lib/homepage-services";
 import { oswegoPathForServiceSlug } from "@/lib/service-pages-oswego/canonical-paths";
@@ -1051,7 +1052,9 @@ export function siteJsonLd(opts?: { aggregateRating?: AggregateRatingOverride | 
       "Same-day prescription care",
       "Peptide therapy",
     ],
-    medicalSpecialty: "Dermatology",
+    medicalSpecialty: ["Aesthetic Medicine", "Weight Management", "Hormone Therapy", "Dermatology"],
+    founder: daniPersonJsonLd(),
+    employee: [ryanPersonJsonLd()],
   };
 }
 

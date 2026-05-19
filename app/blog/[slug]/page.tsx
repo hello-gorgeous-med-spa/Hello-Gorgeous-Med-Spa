@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { SITE, breadcrumbJsonLd, faqJsonLd } from "@/lib/seo";
+import { ArticleByline } from "@/components/ArticleByline";
 import { blogPosts, getPostBySlug, getAllSlugs } from "@/data/blog-posts";
+import { blogPostNeedsMedicalReviewer, medicalWebPageJsonLd } from "@/lib/founder-credentials";
+import { SITE, breadcrumbJsonLd, faqJsonLd } from "@/lib/seo";
 
 export async function generateStaticParams() {
   return getAllSlugs().map((slug) => ({ slug }));
@@ -184,25 +186,34 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
     { name: post.title, url: postUrl },
   ];
 
-  const articleJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "Article",
-    headline: post.title,
-    description: post.metaDescription,
-    datePublished: post.date,
-    dateModified: post.date,
-    author: { "@type": "Organization", name: SITE.name, url: SITE.url },
-    publisher: {
-      "@type": "Organization",
-      name: SITE.name,
-      url: SITE.url,
-      logo: { "@type": "ImageObject", url: `${SITE.url}/images/logo-full.png` },
-    },
-    mainEntityOfPage: { "@type": "WebPage", "@id": postUrl },
-    ...(post.featuredImage && {
-      image: [`${SITE.url}${post.featuredImage}`],
-    }),
-  };
+  const medicallyReviewed = blogPostNeedsMedicalReviewer(post.category);
+  const lastReviewed = post.lastReviewed ?? post.date;
+
+  const articleJsonLd = medicallyReviewed
+    ? medicalWebPageJsonLd({ url: postUrl, name: post.title, lastReviewed })
+    : {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        headline: post.title,
+        description: post.metaDescription,
+        datePublished: post.date,
+        dateModified: lastReviewed,
+        author: {
+          "@type": "Person",
+          name: "Danielle Alcala-Glazier",
+          url: `${SITE.url}/about#dani`,
+        },
+        publisher: {
+          "@type": "Organization",
+          name: SITE.name,
+          url: SITE.url,
+          logo: { "@type": "ImageObject", url: `${SITE.url}/images/logo-full.png` },
+        },
+        mainEntityOfPage: { "@type": "WebPage", "@id": postUrl },
+        ...(post.featuredImage && {
+          image: [`${SITE.url}${post.featuredImage}`],
+        }),
+      };
 
   return (
     <>
@@ -257,15 +268,13 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
               {post.title}
             </h1>
             <p className="text-lg text-white/70">{post.excerpt}</p>
-            <div className="mt-6 text-sm text-white/40">
-              Published {new Date(post.date).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })} by Hello Gorgeous Med Spa
-            </div>
           </div>
         </section>
 
         {/* Content */}
         <article className="py-12 md:py-16">
           <div className="max-w-3xl mx-auto px-6">
+            <ArticleByline lastReviewed={lastReviewed} showMedicalReviewer={medicallyReviewed} />
             {renderMarkdown(post.content)}
           </div>
         </article>

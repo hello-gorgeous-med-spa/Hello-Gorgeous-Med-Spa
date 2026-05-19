@@ -13,4 +13,6 @@ export interface BlogPost {
   featuredImage?: string;
   /** Must match visible FAQ copy on the page (Rich Results). */
   structuredDataFaqs?: readonly { question: string; answer: string }[];
+  /** ISO date — defaults to `date` when omitted. */
+  lastReviewed?: string;
 }
