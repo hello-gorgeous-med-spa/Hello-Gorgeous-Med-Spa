@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Hello Gorgeous — Service & Refund Policy</title>
+<style>
+  @page { size: letter; margin: 0; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: #0E0E0E; }
+  body {
+    font-family: 'Lato', 'Helvetica Neue', Arial, sans-serif;
+    color: #1A1A1A;
+    width: 8.5in;
+    min-height: 11in;
+    margin: 0 auto;
+    background: #fafafa;
+  }
+
+  /* Header */
+  .hdr {
+    background: radial-gradient(circle at 50% 30%, #2a2a2a 0%, #0E0E0E 70%);
+    color: #fff;
+    padding: 0.3in 0.6in 0.22in;
+    text-align: center;
+    border-bottom: 3px solid #C9A96E;
+    position: relative;
+  }
+  .hdr::before {
+    content: ""; position: absolute; left: 0; right: 0; top: 0; height: 7px;
+    background: #8B4A4A;
+  }
+  .hdr::after {
+    content: ""; position: absolute; left: 0; right: 0; top: 7px; height: 3px;
+    background: #C9A96E;
+  }
+  .brand {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-style: italic;
+    font-size: 22pt;
+    background: linear-gradient(180deg, #FF1493 0%, #ffffff 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+    text-shadow: 0 0 24px rgba(255, 20, 147, 0.25);
+  }
+  .tagline {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-style: italic;
+    font-size: 11pt;
+    color: #C9A96E;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+  .title {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 17pt;
+    color: #ffffff;
+    margin-top: 8px;
+    font-weight: 700;
+  }
+  .subtitle {
+    font-size: 8.5pt;
+    color: rgba(255,255,255,0.7);
+    margin-top: 4px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+  }
+
+  /* Body */
+  .body { padding: 0.25in 0.45in 0.22in; background: #fafafa; }
+
+  .intro {
+    font-size: 9.5pt;
+    line-height: 1.4;
+    color: #2a2a2a;
+    padding: 10px 14px;
+    background: #fff;
+    border-left: 4px solid #D4527E;
+    margin-bottom: 12px;
+    border-radius: 0 4px 4px 0;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  }
+  .intro strong { color: #8B4A4A; }
+
+  /* two column grid */
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+  .card {
+    background: #fff;
+    border-radius: 6px;
+    padding: 10px 14px 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    border-top: 3px solid #D4527E;
+  }
+  .card.gold { border-top-color: #C9A96E; }
+  .card h3 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 11pt;
+    color: #8B4A4A;
+    margin-bottom: 5px;
+    letter-spacing: 0.3px;
+  }
+  .card ul { list-style: none; padding: 0; }
+  .card li {
+    font-size: 8.5pt;
+    line-height: 1.35;
+    padding: 2px 0 2px 12px;
+    position: relative;
+    color: #333;
+  }
+  .card li::before {
+    content: "•"; color: #D4527E; position: absolute; left: 2px; top: 4px;
+    font-weight: bold;
+  }
+
+  /* Safety callout */
+  .safety {
+    background: linear-gradient(135deg, #F7E8E8 0%, #FFF4E6 100%);
+    border: 2px solid #D4527E;
+    border-radius: 6px;
+    padding: 10px 14px;
+    margin-bottom: 10px;
+  }
+  .safety .label {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-style: italic;
+    font-size: 10pt;
+    color: #8B4A4A;
+    margin-bottom: 4px;
+    font-weight: 700;
+  }
+  .safety p {
+    font-size: 8.5pt;
+    line-height: 1.4;
+    color: #2a2a2a;
+  }
+
+  /* The bottom line */
+  .bottomline {
+    background: #0E0E0E;
+    color: #fff;
+    padding: 10px 16px;
+    border-radius: 6px;
+    margin-bottom: 10px;
+    position: relative;
+    overflow: hidden;
+  }
+  .bottomline::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, transparent, #FF1493, transparent);
+  }
+  .bottomline h3 {
+    font-family: 'Playfair Display', Georgia, serif;
+    color: #FF1493;
+    font-size: 11pt;
+    margin-bottom: 4px;
+    font-style: italic;
+  }
+  .bottomline p {
+    font-size: 8.5pt;
+    line-height: 1.4;
+    color: #e8e8e8;
+  }
+
+  /* Signature row */
+  .sig {
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px solid #ddd;
+    font-size: 8.5pt;
+    color: #555;
+    line-height: 1.4;
+  }
+  .sigline {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 18px;
+    gap: 24px;
+  }
+  .sigblock {
+    flex: 1;
+    border-top: 1px solid #333;
+    padding-top: 3px;
+    font-size: 8pt;
+    color: #666;
+    text-align: center;
+  }
+
+  /* Footer */
+  .ftr {
+    background: #0E0E0E;
+    color: #C9A96E;
+    text-align: center;
+    padding: 12px;
+    font-size: 8.5pt;
+    letter-spacing: 1px;
+  }
+  .ftr .name { font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic; color: #fff; font-size: 11pt; }
+  .ftr .contact { color: #aaa; margin-top: 3px; }
+
+  @media print {
+    body { background: #fff; }
+    .body { background: #fff; }
+  }
+</style>
+</head>
+<body>
+  <div class="hdr">
+    <div class="brand">Hello Gorgeous</div>
+    <div class="tagline">Oswego, IL</div>
+    <div class="title">Service &amp; Refund Policy</div>
+    <div class="subtitle">Please review &amp; sign at intake</div>
+  </div>
+
+  <div class="body">
+
+    <div class="intro">
+      We believe in clear expectations, honest conversations, and excellent clinical care. Please take a moment to read this before your appointment so we're on the same page. <strong>If anything here doesn't make sense, ask us. We'd rather answer now than have a misunderstanding later.</strong>
+    </div>
+
+    <div class="grid">
+      <div class="card">
+        <h3>Botox &amp; Neuromodulators</h3>
+        <ul>
+          <li>Results take 7&ndash;14 days to fully appear &mdash; please wait the full two weeks before judging your result.</li>
+          <li>At day 14, if there's true asymmetry, we'll do a complimentary touch-up through day 21.</li>
+          <li>No refunds on Botox or other neuromodulators once injected. Product cannot be returned.</li>
+          <li>Pre-purchased units expire 6 months from purchase.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>Dermal Filler</h3>
+        <ul>
+          <li>Filler results are immediate but continue to settle for 2&ndash;4 weeks.</li>
+          <li>Filler is priced by syringe, not by area. Additional product needed = additional cost.</li>
+          <li>True clinical asymmetry is corrected complimentary at the 2-week follow-up.</li>
+          <li>No refunds on filler once injected. Dissolving by request (not complication) is a separate paid service.</li>
+        </ul>
+      </div>
+
+      <div class="card gold">
+        <h3>All Other Services</h3>
+        <ul>
+          <li>Facials, lasers, RF, microneedling, body contouring, IV therapy, weight loss visits &mdash; once a service is rendered, it's non-refundable.</li>
+          <li>Concerns about your result are addressed clinically at a complimentary follow-up.</li>
+          <li>Service credit toward future visits may be offered at our medical director's discretion.</li>
+        </ul>
+      </div>
+
+      <div class="card gold">
+        <h3>Packages &amp; Deposits</h3>
+        <ul>
+          <li>Treatment packages are valid 18 months from purchase.</li>
+          <li>Deposits are fully refundable if you cancel 24+ hours before your appointment.</li>
+          <li>Retail products: unopened only, 14 days, exchange or store credit (no cash refunds).</li>
+          <li>Pre-paid services not yet rendered follow our Package Policy.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="safety">
+      <div class="label">If something feels wrong, call us immediately.</div>
+      <p>Severe pain, skin color changes (white, dusky, blue), vision changes, eyelid drooping, signs of infection, or any new concern after your treatment &mdash; call <strong>630-636-6193</strong> right away. Clinical complications are managed at no charge. Your safety is our priority. Always.</p>
+    </div>
+
+    <div class="bottomline">
+      <h3>The bottom line</h3>
+      <p>Aesthetic medicine is not retail. Once a treatment is performed, we can't return it &mdash; but we can absolutely take care of you. Every concern gets a follow-up. Every complication gets clinical care. Every client is treated like family. We've been in Oswego for 10+ years because we mean that.</p>
+    </div>
+
+    <div class="sig">
+      By signing below, I confirm I have read and understand the Hello Gorgeous Service &amp; Refund Policy and agree to its terms.
+      <div class="sigline">
+        <div class="sigblock">Client Signature &amp; Date</div>
+        <div class="sigblock">Printed Name</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ftr">
+    <div class="name">Hello Gorgeous Med Spa</div>
+    <div class="contact">74 W Washington St, Oswego, IL &nbsp;•&nbsp; 630-636-6193 &nbsp;•&nbsp; hellogorgeousmedspa.com</div>
+  </div>
+</body>
+</html>

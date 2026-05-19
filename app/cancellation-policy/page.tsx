@@ -120,6 +120,11 @@ export default function CancellationPolicyPage() {
         <p>
           <strong>Services rendered are non-refundable.</strong> If you have a concern about your results,
           please contact us within <strong>72 hours</strong> of your appointment so we can make it right.
+          See our full{" "}
+          <Link href="/service-policy" className="text-[#FF2D8E] font-semibold underline">
+            Service &amp; Refund Policy
+          </Link>{" "}
+          for Botox, filler, packages, and safety guidelines.
         </p>
         <p>Retail products may be exchanged within 14 days if unopened.</p>
         <p>

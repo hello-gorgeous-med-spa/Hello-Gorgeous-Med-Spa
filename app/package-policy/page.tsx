@@ -288,6 +288,10 @@ export default function PackagePolicyPage() {
             Book an appointment
           </a>
           {" · "}
+          <Link href="/service-policy" className="text-[#FF2D8E] font-medium underline">
+            Service &amp; Refund Policy
+          </Link>
+          {" · "}
           <Link href="/cancellation-policy" className="text-[#FF2D8E] font-medium underline">
             Cancellation Policy
           </Link>

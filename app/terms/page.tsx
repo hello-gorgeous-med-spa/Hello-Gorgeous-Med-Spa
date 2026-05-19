@@ -122,15 +122,13 @@ export default function TermsOfServicePage() {
         <section className="mb-8">
           <h2>7. Refund Policy</h2>
           <p>
-            Due to the nature of medical services:
+            Due to the nature of medical services, refunds and touch-ups follow our{" "}
+            <Link href="/service-policy" className="text-pink-600 underline">
+              Service &amp; Refund Policy
+            </Link>
+            , including treatment-specific guidelines for injectables, lasers, packages, and retail
+            products.
           </p>
-          <ul>
-            <li>Services rendered are generally non-refundable</li>
-            <li>Unused product (injectables) cannot be refunded once opened</li>
-            <li>Dissatisfaction with results does not guarantee a refund</li>
-            <li>Touch-up policies vary by treatment - ask your provider</li>
-            <li>Product returns follow manufacturer guidelines</li>
-          </ul>
         </section>
 
         <section className="mb-8">
@@ -233,6 +231,7 @@ export default function TermsOfServicePage() {
             <Link href="/terms" className="text-black hover:text-white">Terms of Service</Link>
             <Link href="/privacy" className="text-black hover:text-white">Privacy Policy</Link>
             <Link href="/package-policy" className="text-black hover:text-white">Package Policy</Link>
+            <Link href="/service-policy" className="text-black hover:text-white">Service Policy</Link>
             <Link href="/cancellation-policy" className="text-black hover:text-white">Cancellation Policy</Link>
             <Link href="/contact" className="text-black hover:text-white">Contact</Link>
           </div>
