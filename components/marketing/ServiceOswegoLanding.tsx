@@ -1,11 +1,15 @@
+import Image from "next/image";
 import Link from "next/link";
 import { CTA } from "@/components/CTA";
 import { FadeUp, Section } from "@/components/Section";
+import { INMODE_BADGE_ASSETS } from "@/lib/inmode-badges";
 import { SITE, breadcrumbJsonLd, faqJsonLd } from "@/lib/seo";
 import type { ServicePageData } from "@/lib/service-pages-oswego";
 import { getServicePageOswego } from "@/lib/service-pages-oswego";
 
-function medicalProcedureJsonLd(page: ServicePageData) {
+type ServicePageRating = { ratingValue: string; reviewCount: string };
+
+function medicalProcedureJsonLd(page: ServicePageData, aggregateRating: ServicePageRating) {
   return {
     "@context": "https://schema.org",
     "@type": "MedicalProcedure",
@@ -25,11 +29,24 @@ function medicalProcedureJsonLd(page: ServicePageData) {
         postalCode: "60543",
         addressCountry: "US",
       },
+      aggregateRating: {
+        "@type": "AggregateRating",
+        ratingValue: aggregateRating.ratingValue,
+        reviewCount: aggregateRating.reviewCount,
+        bestRating: "5",
+        worstRating: "1",
+      },
     },
   };
 }
 
-export function ServiceOswegoLanding({ page }: { page: ServicePageData }) {
+export function ServiceOswegoLanding({
+  page,
+  aggregateRating,
+}: {
+  page: ServicePageData;
+  aggregateRating: ServicePageRating;
+}) {
   const breadcrumbs = [
     { name: "Home", url: SITE.url },
     { name: "Services", url: `${SITE.url}/services` },
@@ -42,7 +59,9 @@ export function ServiceOswegoLanding({ page }: { page: ServicePageData }) {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(medicalProcedureJsonLd(page)) }}
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(medicalProcedureJsonLd(page, aggregateRating)),
+        }}
       />
       <script
         type="application/ld+json"
@@ -65,14 +84,22 @@ export function ServiceOswegoLanding({ page }: { page: ServicePageData }) {
               <p className="text-base md:text-lg text-white/75 max-w-2xl mb-6 leading-relaxed">{page.heroContent}</p>
             ) : null}
             {page.inModeBadge ? (
-              <p className="inline-block mb-6 text-xs font-bold uppercase tracking-wider text-[#FFB8DC] border border-[#FF2D8E]/40 rounded-full px-3 py-1">
-                Verified InMode Provider ·{" "}
-                {page.inModeBadge === "solaria"
-                  ? "Solaria CO₂"
-                  : page.inModeBadge === "quantum"
-                    ? "Quantum RF"
-                    : "Morpheus8"}
-              </p>
+              <div className="mb-6 flex items-center gap-3 max-w-md">
+                <Image
+                  src={INMODE_BADGE_ASSETS[page.inModeBadge].src}
+                  alt={INMODE_BADGE_ASSETS[page.inModeBadge].alt}
+                  width={88}
+                  height={88}
+                  className="h-[72px] w-[72px] rounded-lg object-cover ring-2 ring-[#FF2D8E]/50 shrink-0"
+                  sizes="88px"
+                />
+                <p className="text-xs font-bold uppercase tracking-wider text-[#FFB8DC] leading-snug">
+                  Verified InMode Provider
+                  <span className="block text-white/80 normal-case font-semibold tracking-normal mt-0.5">
+                    {INMODE_BADGE_ASSETS[page.inModeBadge].productLine}
+                  </span>
+                </p>
+              </div>
             ) : null}
             <div className="flex flex-col sm:flex-row gap-4">
               <CTA href={page.bookingUrl} variant="gradient">

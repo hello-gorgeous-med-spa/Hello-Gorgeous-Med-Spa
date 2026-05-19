@@ -26,7 +26,7 @@ export type ServicePageData = {
   pricing?: string;
   /** Custom closing CTA line above book button */
   closingCta?: string;
-  /** Square booking or /book; optional Fresha deep link when Dani provides IDs */
+  /** Fresha booking URL (generic org or per-service deep link when IDs are set) */
   bookingUrl: string;
   freshaServiceId?: string;
   procedureType: ProcedureType;

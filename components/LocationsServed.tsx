@@ -5,6 +5,7 @@ import {
   MED_SPA_LOCATION_SLUGS,
   MED_SPA_SLUG_TO_CITY,
 } from "@/lib/gbp-urls";
+import { OSWEGO_CHIP_CANONICAL_PATH } from "@/lib/service-pages-oswego/canonical-paths";
 
 /**
  * Locations Served — global internal-link block
@@ -74,6 +75,14 @@ const MED_SPA_CITY_SET = new Set(
 function chipsForCity(citySlug: string): Array<{ href: string; label: string }> {
   const out: Array<{ href: string; label: string }> = [];
   for (const chip of SERVICE_CHIPS) {
+    if (citySlug === "oswego-il") {
+      const oswegoPath = OSWEGO_CHIP_CANONICAL_PATH[chip.prefix];
+      if (oswegoPath) {
+        out.push({ href: oswegoPath, label: chip.short });
+        continue;
+      }
+    }
+
     let slug: string | null = null;
     if (chip.prefix === "med-spa") {
       const candidate = `med-spa-${citySlug}`;

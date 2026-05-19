@@ -8,7 +8,7 @@ export const PHASE1_UNCONTESTED_PAGES: ServicePageData[] = [
     serviceName: "Solaria CO2",
     fullServiceName: "Solaria CO2 Laser Resurfacing",
     targetKeyword: "solaria co2 oswego",
-    metaTitle: "Solaria CO2 Laser in Oswego, IL | Hello Gorgeous Med Spa",
+    metaTitle: "Solaria CO2 Laser in Oswego, IL",
     metaDescription:
       "Solaria CO2 laser resurfacing in Oswego, IL. The only practice in the western Chicago suburbs with this advanced InMode fractional CO2 technology. Free consultations.",
     h1: "Solaria CO2 Laser Resurfacing in Oswego, IL",
@@ -74,7 +74,7 @@ export const PHASE1_UNCONTESTED_PAGES: ServicePageData[] = [
     serviceName: "Quantum RF",
     fullServiceName: "Quantum RF Lipo & Skin Tightening",
     targetKeyword: "quantum rf oswego",
-    metaTitle: "Quantum RF Body Contouring in Oswego, IL | Hello Gorgeous Med Spa",
+    metaTitle: "Quantum RF Body Contouring in Oswego, IL",
     metaDescription:
       "Quantum RF body contouring and skin tightening in Oswego, IL. Non-surgical fat reduction and skin tightening in one platform. Only provider in the western suburbs.",
     h1: "Quantum RF Body Contouring in Oswego, IL",
@@ -141,7 +141,7 @@ export const PHASE1_UNCONTESTED_PAGES: ServicePageData[] = [
     serviceName: "Peptide Therapy",
     fullServiceName: "Medical Peptide Therapy",
     targetKeyword: "peptide therapy oswego",
-    metaTitle: "Peptide Therapy in Oswego, IL | Hello Gorgeous Med Spa",
+    metaTitle: "Peptide Therapy in Oswego, IL",
     metaDescription:
       "Medical peptide therapy in Oswego, IL — NP-supervised protocols for recovery, performance, skin, sleep, and longevity. Free consultations available.",
     h1: "Peptide Therapy in Oswego, IL",
@@ -207,7 +207,7 @@ export const PHASE1_UNCONTESTED_PAGES: ServicePageData[] = [
     serviceName: "NAD+ IV Therapy",
     fullServiceName: "NAD+ Intravenous Therapy",
     targetKeyword: "nad iv oswego",
-    metaTitle: "NAD+ IV Therapy in Oswego, IL | Hello Gorgeous Med Spa",
+    metaTitle: "NAD+ IV Therapy in Oswego, IL",
     metaDescription:
       "NAD+ IV therapy in Oswego, IL — supervised by a full-authority nurse practitioner. Cellular energy, mental clarity, longevity support. Free consultations.",
     h1: "NAD+ IV Therapy in Oswego, IL",

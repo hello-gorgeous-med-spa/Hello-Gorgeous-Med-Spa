@@ -1,4 +1,4 @@
-import { BOOKING_URL, LEGACY_FRESHA_ORG_BOOKING_URL } from "@/lib/flows";
+import { LEGACY_FRESHA_ORG_BOOKING_URL } from "@/lib/flows";
 import type { ServicePageData, ServicePageFaq } from "./types";
 
 const NP_BULLETS = [
@@ -8,17 +8,17 @@ const NP_BULLETS = [
   "Best of Oswego recognition and 10+ years serving Kendall County",
 ];
 
+/** HG_DEV_011_FIX_001 — service SEO pages book via Fresha (generic org URL until per-service IDs). */
 export function bookingUrlFor(freshaServiceId?: string): string {
+  const u = new URL(LEGACY_FRESHA_ORG_BOOKING_URL);
   if (freshaServiceId) {
-    const u = new URL(LEGACY_FRESHA_ORG_BOOKING_URL);
     u.searchParams.set("serviceId", freshaServiceId);
-    return u.toString();
   }
-  return BOOKING_URL;
+  return u.toString();
 }
 
 export function metaTitle(serviceName: string): string {
-  return `${serviceName} in Oswego, IL | Hello Gorgeous Med Spa`;
+  return `${serviceName} in Oswego, IL`;
 }
 
 export function metaDescription(keyword: string, extra: string): string {

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { BOOKING_URL } from "@/lib/flows";
 import { ALL_HOMEPAGE_SERVICES } from "@/lib/homepage-services";
+import { oswegoPathForServiceSlug } from "@/lib/service-pages-oswego/canonical-paths";
 
 export type FAQ = { question: string; answer: string };
 
@@ -138,8 +139,21 @@ export const HOME_TESTIMONIALS = [
   { name: "Amanda T.", location: "Plainfield, IL", rating: 5, text: "The weight loss program has been life-changing. Down 30 lbs and feeling better than I have in years. Ryan and Danielle genuinely care about your health journey.", service: "Weight Loss" },
 ] as const;
 
+/** Document + OG title with exactly one brand suffix (avoids doubled "| Hello Gorgeous Med Spa"). */
+export function formatPageTitle(title: string): string {
+  const brand = SITE.name;
+  const suffix = ` | ${brand}`;
+  let base = title.trim();
+  while (base.endsWith(suffix)) {
+    base = base.slice(0, -suffix.length).trim();
+  }
+  return `${base}${suffix}`;
+}
+
 /** Public URL path for a service (supports hubs outside /services). */
 export function servicePublicPath(s: Pick<Service, "slug" | "publicPath">): string {
+  const oswego = oswegoPathForServiceSlug(s.slug);
+  if (oswego) return oswego;
   return s.publicPath ?? `/services/${s.slug}`;
 }
 
@@ -901,22 +915,23 @@ export function pageMetadata({
   keywords?: string | string[];
 }): Metadata {
   const url = new URL(path, SITE.url).toString();
+  const fullTitle = formatPageTitle(title);
 
   return {
-    title,
+    title: { absolute: fullTitle },
     description,
     ...(keywords != null ? { keywords } : {}),
     alternates: { canonical: url },
     openGraph: {
       type: "website",
       url,
-      title: `${title} | ${SITE.name}`,
+      title: fullTitle,
       description,
       siteName: SITE.name,
     },
     twitter: {
       card: "summary_large_image",
-      title: `${title} | ${SITE.name}`,
+      title: fullTitle,
       description,
     },
   };

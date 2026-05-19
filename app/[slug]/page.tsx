@@ -33,6 +33,7 @@ import {
   isServicePageOswegoSlug,
 } from "@/lib/service-pages-oswego";
 import { ServiceOswegoLanding } from "@/components/marketing/ServiceOswegoLanding";
+import { getLiveAggregateRating } from "@/lib/seo/google-places";
 
 const ALL_LOCAL_SLUGS = [...GBP_SERVICE_SLUGS, ...MED_SPA_LOCATION_SLUGS, ...SERVICE_PAGE_OSWEGO_SLUGS];
 
@@ -151,7 +152,16 @@ export default async function SlugPage({ params }: { params: Promise<{ slug: str
 
   if (isServicePageOswegoSlug(slug)) {
     const page = getServicePageOswego(slug)!;
-    return <ServiceOswegoLanding page={page} />;
+    const aggregateRating = await getLiveAggregateRating();
+    return (
+      <ServiceOswegoLanding
+        page={page}
+        aggregateRating={{
+          ratingValue: aggregateRating.ratingValue,
+          reviewCount: aggregateRating.reviewCount,
+        }}
+      />
+    );
   }
 
   const treatmentParsed = parseTreatmentCitySlug(slug);

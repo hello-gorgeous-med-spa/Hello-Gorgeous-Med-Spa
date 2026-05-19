@@ -153,6 +153,8 @@ const nextConfig = {
     { source: "/services/morpheus8-burst", destination: "/morpheus8-burst-oswego", permanent: true },
     { source: "/services/morpheus8", destination: "/morpheus8-burst-oswego", permanent: true },
     { source: "/services/solaria-co2", destination: "/solaria-co2-oswego", permanent: true },
+    { source: "/co2-laser-oswego-il", destination: "/solaria-co2-oswego", permanent: true },
+    { source: "/solaria-co2-laser-oswego-il", destination: "/solaria-co2-oswego", permanent: true },
     { source: "/services/quantum-rf", destination: "/quantum-rf-oswego", permanent: true },
     { source: "/services/weight-loss", destination: "/glp-1-weight-loss-oswego", permanent: true },
     { source: "/services/weight-loss-therapy", destination: "/glp-1-weight-loss-oswego", permanent: true },
