@@ -88,6 +88,6 @@ export function definePage(
     metaTitle: metaTitle(partial.serviceName),
     metaDescription: metaDescription(partial.targetKeyword, partial.metaDescriptionExtra),
     bookingUrl: bookingUrlFor(partial.freshaServiceId),
-    whyBullets: partial.whyBullets.length ? partial.whyBullets : NP_BULLETS,
+    whyBullets: partial.whyBullets?.length ? partial.whyBullets : NP_BULLETS,
   };
 }
