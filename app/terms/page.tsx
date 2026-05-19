@@ -109,8 +109,12 @@ export default function TermsOfServicePage() {
           <ul>
             <li>Payment is due at the time of service unless other arrangements are made</li>
             <li>We accept cash, credit cards, FSA/HSA, and approved financing options</li>
-            <li>Package prices are valid only when paid in full at time of purchase</li>
-            <li>Package services are non-transferable and non-refundable</li>
+            <li>
+              Prepaid packages, memberships, and series pricing are governed by our{" "}
+              <Link href="/package-policy" className="text-pink-600 underline">
+                Package &amp; Pre-Paid Services Policy
+              </Link>
+            </li>
             <li>Gift cards do not expire and are non-refundable</li>
           </ul>
         </section>
@@ -228,6 +232,8 @@ export default function TermsOfServicePage() {
           <div className="flex justify-center gap-6 mt-4 text-sm">
             <Link href="/terms" className="text-black hover:text-white">Terms of Service</Link>
             <Link href="/privacy" className="text-black hover:text-white">Privacy Policy</Link>
+            <Link href="/package-policy" className="text-black hover:text-white">Package Policy</Link>
+            <Link href="/cancellation-policy" className="text-black hover:text-white">Cancellation Policy</Link>
             <Link href="/contact" className="text-black hover:text-white">Contact</Link>
           </div>
         </div>

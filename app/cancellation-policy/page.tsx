@@ -122,7 +122,13 @@ export default function CancellationPolicyPage() {
           please contact us within <strong>72 hours</strong> of your appointment so we can make it right.
         </p>
         <p>Retail products may be exchanged within 14 days if unopened.</p>
-        <p>Gift cards and packages are non-refundable but are transferable to another person.</p>
+        <p>
+          Gift cards are non-refundable. Prepaid packages follow our{" "}
+          <Link href="/package-policy" className="text-[#FF2D8E] font-semibold underline">
+            Package &amp; Pre-Paid Services Policy
+          </Link>
+          .
+        </p>
 
         <h2>Quick reference</h2>
         <div className="overflow-x-auto rounded-lg border border-black/10 my-4">
@@ -189,6 +195,10 @@ export default function CancellationPolicyPage() {
           >
             Book an appointment
           </a>
+          {" · "}
+          <Link href="/package-policy" className="text-[#FF2D8E] font-medium underline">
+            Package Policy
+          </Link>
           {" · "}
           <Link href="/terms" className="text-[#FF2D8E] font-medium underline">
             Terms of Service

@@ -459,6 +459,9 @@ export function Footer({
               <Link className="hover:text-[#FF2D8E] transition-colors" href="/cancellation-policy">
                 Cancellation Policy
               </Link>
+              <Link className="hover:text-[#FF2D8E] transition-colors" href="/package-policy">
+                Package Policy
+              </Link>
               <Link className="hover:text-[#FF2D8E] transition-colors" href="/privacy#hipaa">
                 HIPAA Notice
               </Link>
