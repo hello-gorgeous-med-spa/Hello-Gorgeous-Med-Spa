@@ -1,9 +1,17 @@
 import { NextResponse } from "next/server";
 import { HOME_FAQS, SERVICES, SITE, servicePublicPath } from "@/lib/seo";
+import { getLiveAggregateRating } from "@/lib/seo/google-places";
+import { SERVICE_PAGE_OSWEGO_SLUGS } from "@/lib/service-pages-oswego";
+import { BOOKING_URL } from "@/lib/flows";
 
 export const revalidate = 3600;
 
 export async function GET() {
+  const liveRating = await getLiveAggregateRating();
+  const oswegoServiceUrls = SERVICE_PAGE_OSWEGO_SLUGS.map(
+    (slug) => `${SITE.url}/${slug}`,
+  );
+
   const payload = {
     business: {
       name: SITE.name,
@@ -24,8 +32,16 @@ export async function GET() {
       googleReviewUrl: SITE.googleReviewUrl,
       social: SITE.social,
     },
+    googleReviews: {
+      ratingValue: liveRating.ratingValue,
+      reviewCount: liveRating.reviewCount,
+      source: liveRating.source,
+      profileUrl: SITE.googleReviewUrl,
+    },
     booking: {
-      bookUrl: `${SITE.url}/book`,
+      bookUrl: BOOKING_URL,
+      bookPath: `${SITE.url}/book`,
+      freshaOrgUrl: BOOKING_URL,
       contactUrl: `${SITE.url}/contact`,
       forms: {
         clientIntake: `${SITE.url}/forms/client-intake`,
@@ -56,33 +72,18 @@ export async function GET() {
         "Hormone Therapy",
       ],
     },
+    oswegoServicePages: oswegoServiceUrls,
     trustedPages: [
       `${SITE.url}/`,
-      `${SITE.url}/services`,
-      `${SITE.url}/services/morpheus8`,
-      `${SITE.url}/services/quantum-rf`,
-      `${SITE.url}/services/solaria-co2`,
-      `${SITE.url}/services/weight-loss`,
-      `${SITE.url}/services/botox`,
-      `${SITE.url}/services/dermal-fillers`,
+      `${SITE.url}/faq`,
+      `${SITE.url}/glp1-weight-loss`,
       `${SITE.url}/morpheus8`,
       `${SITE.url}/quantum-rf`,
       `${SITE.url}/solaria-co2`,
-      `${SITE.url}/weight-loss`,
-      `${SITE.url}/concerns`,
-      `${SITE.url}/search`,
-      `${SITE.url}/areas`,
-      `${SITE.url}/recovery`,
-      `${SITE.url}/videos`,
-      `${SITE.url}/funnels`,
-      `${SITE.url}/testimonials`,
-      `${SITE.url}/morpheus8-oswego-il`,
-      `${SITE.url}/quantum-rf-oswego-il`,
-      `${SITE.url}/glp1-weight-loss`,
-      `${SITE.url}/botox-oswego-il`,
-      `${SITE.url}/faq`,
-      `${SITE.url}/patient-documents`,
-      `${SITE.url}/providers/ryan`,
+      `${SITE.url}/services/morpheus8`,
+      `${SITE.url}/services/quantum-rf`,
+      `${SITE.url}/services/solaria-co2`,
+      ...oswegoServiceUrls,
     ],
     comparisonPages: [
       `${SITE.url}/compare/morpheus8-vs-rf-microneedling`,

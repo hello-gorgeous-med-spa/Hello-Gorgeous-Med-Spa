@@ -98,7 +98,7 @@ const baseMeta = pageMetadata({
 export const metadata: Metadata = {
   ...baseMeta,
   alternates: {
-    canonical: `${SITE.url}/botox-oswego-il`,
+    canonical: `${SITE.url}/botox-oswego`,
   },
   openGraph: {
     ...baseMeta.openGraph,

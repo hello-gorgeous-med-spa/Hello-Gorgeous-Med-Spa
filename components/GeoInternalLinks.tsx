@@ -3,7 +3,7 @@ import Link from "next/link";
 /** Geo-targeted internal links for local SEO. Renders as subtle inline links. */
 export function GeoInternalLinks() {
   const links = [
-    { href: "/botox-oswego-il", label: "Botox in Oswego" },
+    { href: "/botox-oswego", label: "Botox in Oswego" },
     { href: "/med-spa-naperville-il", label: "Medical Spa near Naperville" },
     { href: "/weight-loss-oswego-il", label: "Weight Loss Injections in Kendall County" },
     { href: "/hormone-therapy-oswego-il", label: "Hormone Therapy in Oswego" },

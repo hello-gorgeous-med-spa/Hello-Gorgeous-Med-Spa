@@ -2,21 +2,21 @@ import Image from "next/image";
 
 import { BOOKING_URL, SQUARE_MAILING_LIST_ENROLL_URL } from "@/lib/flows";
 
-/** Printable Square Appointments QR (from Square Dashboard). Raster preview: `square-appointments-qr.png`. */
-const SQUARE_QR_PDF_PATH = "/booking/square-appointments-qr.pdf";
-const SQUARE_QR_PREVIEW_PNG_PATH = "/booking/square-appointments-qr.png";
+/** Legacy Square Appointments QR assets (front-desk print). Link targets Fresha via `BOOKING_URL`. */
+const LEGACY_QR_PDF_PATH = "/booking/square-appointments-qr.pdf";
+const LEGACY_QR_PREVIEW_PNG_PATH = "/booking/square-appointments-qr.png";
 
 /** QR preview raster dimensions (generated from PDF at checkout). */
 const QR_PREVIEW_W = 1224;
 const QR_PREVIEW_H = 1584;
 
 /**
- * Square booking QR + optional Fresha “Best in Class” trust badges (legacy partnership recognition).
+ * Book-online QR (legacy print file) + Fresha Best in Class badges. Payments stay on Square POS in-spa.
  */
 export function BookingBadges({ className = "" }: { className?: string }) {
   return (
     <div className={`mt-6 ${className}`.trim()}>
-      <p className="mb-3 text-xs uppercase tracking-wider text-white/60">Book online · Square</p>
+      <p className="mb-3 text-xs uppercase tracking-wider text-white/60">Book online · Fresha</p>
       <div className="flex flex-col flex-wrap items-start gap-6 sm:flex-row sm:items-end">
         <div className="flex flex-col items-start gap-2">
           <a
@@ -24,11 +24,11 @@ export function BookingBadges({ className = "" }: { className?: string }) {
             target="_blank"
             rel="noopener noreferrer"
             className="block overflow-hidden rounded-lg border border-white/20 bg-white/5 p-1 transition-colors hover:border-[#FF2D8E]/50 focus:outline-none focus:ring-2 focus:ring-[#FF2D8E] focus:ring-offset-2 focus:ring-offset-black"
-            aria-label="Open Square Appointments booking — tap or scan QR on your phone"
+            aria-label="Book on Fresha — tap or scan QR on your phone"
           >
             <Image
-              src={SQUARE_QR_PREVIEW_PNG_PATH}
-              alt="Square Appointments QR — scan to book Hello Gorgeous Med Spa online"
+              src={LEGACY_QR_PREVIEW_PNG_PATH}
+              alt="Book Hello Gorgeous Med Spa online — scan QR"
               width={QR_PREVIEW_W}
               height={QR_PREVIEW_H}
               className="h-auto w-[min(200px,72vw)]"
@@ -36,7 +36,7 @@ export function BookingBadges({ className = "" }: { className?: string }) {
             />
           </a>
           <a
-            href={SQUARE_QR_PDF_PATH}
+            href={LEGACY_QR_PDF_PATH}
             target="_blank"
             rel="noopener noreferrer"
             className="text-xs font-medium text-[#FF2D8E] underline decoration-[#FF2D8E]/40 underline-offset-2 hover:text-white hover:decoration-white"

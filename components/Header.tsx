@@ -20,18 +20,18 @@ const NAV = {
       {
         heading: "Advanced Technology",
         links: [
-          { label: "Solaria CO₂ Laser", href: "/services/solaria-co2", sub: "Fractional resurfacing for texture, tone & scars" },
-          { label: "Morpheus8 Burst", href: "/morpheus8-burst-oswego-il", sub: "Deep RF microneedling — skin tightening" },
-          { label: "Quantum RF", href: "/services/quantum-rf", sub: "Subdermal body contouring without surgery" },
+          { label: "Morpheus8 Burst", href: "/morpheus8-burst-oswego", sub: "Deep RF microneedling — skin tightening" },
+          { label: "Quantum RF", href: "/quantum-rf-oswego", sub: "Subdermal body contouring without surgery" },
+          { label: "Solaria CO₂", href: "/solaria-co2-oswego", sub: "Fractional laser resurfacing" },
           { label: "InMode Trifecta", href: "/trifecta-vip", sub: "3 technologies combined — exclusive package" },
         ],
       },
       {
         heading: "Injectables",
         links: [
-          { label: "Botox & Neurotoxins", href: "/services/botox", sub: "Lines, wrinkles & preventative care" },
-          { label: "Dermal Fillers", href: "/services/dermal-fillers", sub: "Lip, cheek & facial volume" },
-          { label: "Lip Enhancement", href: "/lip-studio", sub: "Visualize and plan your look" },
+          { label: "Botox & Neurotoxins", href: "/botox-oswego", sub: "From $10/unit · Oswego" },
+          { label: "Dermal Fillers", href: "/dermal-fillers-oswego", sub: "Lip, cheek & facial volume" },
+          { label: "Lip Filler", href: "/lip-filler-oswego", sub: "Natural lip enhancement · Oswego" },
         ],
       },
       {

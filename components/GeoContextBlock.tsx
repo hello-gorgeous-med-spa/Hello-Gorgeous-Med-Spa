@@ -11,7 +11,7 @@ export function GeoContextBlock({
   const links: Record<string, { href: string; label: string }[]> = {
     oswego: [
       { href: "/semaglutide-spring-break-special", label: "☀️ Semaglutide $299 Spring Break" },
-      { href: "/botox-oswego-il", label: "Botox in Oswego" },
+      { href: "/botox-oswego", label: "Botox in Oswego" },
       { href: "/med-spa-oswego-il", label: "Medical Spa in Oswego" },
       { href: "/weight-loss-oswego-il", label: "Weight Loss Injections near Oswego" },
       { href: "/prf-hair-restoration-oswego-il", label: "PRF Hair Restoration in Oswego" },

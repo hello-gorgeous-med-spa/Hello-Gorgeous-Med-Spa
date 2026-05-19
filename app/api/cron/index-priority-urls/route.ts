@@ -16,20 +16,17 @@ import {
 } from "@/lib/seo/search-console";
 import { getAllSlugs } from "@/data/blog-posts";
 import { SITE } from "@/lib/seo";
+import { SERVICE_PAGE_OSWEGO_SLUGS } from "@/lib/service-pages-oswego";
 
 export const dynamic = "force-dynamic";
 export const maxDuration = 60;
 
 const PRIORITY_SERVICE_URLS = [
-  "/services/botox",
+  ...SERVICE_PAGE_OSWEGO_SLUGS.map((slug) => `/${slug}`),
   "/services/morpheus8",
   "/services/quantum-rf",
   "/services/solaria-co2",
-  "/services/weight-loss-therapy",
-  "/services/microneedling-rf",
-  "/morpheus8-burst-oswego-il",
-  "/quantum-rf-oswego-il",
-  "/solaria-co2-laser-oswego-il",
+  "/glp1-weight-loss",
   "/our-promise",
 ];
 

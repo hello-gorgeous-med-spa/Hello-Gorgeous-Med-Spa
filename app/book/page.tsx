@@ -11,8 +11,8 @@ import type { Metadata } from "next";
 import { BOOKING_URL } from "@/lib/flows";
 import { SITE, pageMetadata } from "@/lib/seo";
 import { mergeBookRedirectUrl } from "@/lib/booking/merge-fresha-redirect-url";
-import { bookingUrlForService } from "@/lib/square/booking-url";
-import { resolveServiceIdForSlug } from "@/lib/square/service-slugs";
+import { freshaBookingUrlForService } from "@/lib/booking/fresha-booking-url";
+import { resolveFreshaServiceIdForSlug } from "@/lib/booking/fresha-service-slugs";
 
 type Props = {
   searchParams: Promise<Record<string, string | string[] | undefined>>;
@@ -41,11 +41,11 @@ export default async function BookPage({ searchParams }: Props) {
 
   let baseUrl = BOOKING_URL;
   if (slug) {
-    const serviceId = await resolveServiceIdForSlug(slug);
-    if (serviceId) baseUrl = bookingUrlForService(serviceId);
+    const freshaServiceId = await resolveFreshaServiceIdForSlug(slug);
+    baseUrl = freshaBookingUrlForService(freshaServiceId);
   }
 
-  // Strip `service` from forwarded params so it doesn't leak into Square's URL.
+  // Strip `service` from forwarded params so it doesn't leak into the booking URL.
   const forwarded: Record<string, string | string[] | undefined> = { ...sp };
   delete forwarded["service"];
 

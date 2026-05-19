@@ -6,6 +6,7 @@
 import { sendSms } from "@/lib/notifications/sms-outbound";
 import { getSupabaseAdminClient } from "@/lib/hgos/supabase-admin";
 import { normalizeToE164 } from "@/lib/phone-e164";
+import { BOOKING_URL } from "@/lib/flows";
 
 const FALLBACK_BOOK_URL = "https://www.hellogorgeousmedspa.com/book";
 
@@ -59,10 +60,7 @@ export async function sendMissedCallSms(input: {
     }
   }
 
-  const bookingUrl =
-    process.env.NEXT_PUBLIC_BOOKING_URL?.trim() ||
-    process.env.NEXT_PUBLIC_SQUARE_BOOKING_URL?.trim() ||
-    FALLBACK_BOOK_URL;
+  const bookingUrl = BOOKING_URL || FALLBACK_BOOK_URL;
 
   const text = buildMissedCallText(bookingUrl);
   const result = await sendSms(callerE164, text);

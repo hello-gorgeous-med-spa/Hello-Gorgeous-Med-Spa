@@ -8,7 +8,7 @@ export function HomepageGeoLinks() {
         <p className="text-[#FF2D8E] text-base md:text-lg leading-relaxed">
           Hello Gorgeous Med Spa in Oswego serves clients from Naperville, Aurora, and Plainfield.
           Popular services include{" "}
-          <Link href="/botox-oswego-il" className="text-[#FF2D8E] hover:text-[#FF2D8E] font-medium underline underline-offset-2">
+          <Link href="/botox-oswego" className="text-[#FF2D8E] hover:text-[#FF2D8E] font-medium underline underline-offset-2">
             Botox in Oswego
           </Link>
           ,{" "}

@@ -27,13 +27,31 @@
 - Sugar Grove, IL
 - Montgomery, IL
 
-## Recommended canonical treatment URLs
-- https://www.hellogorgeousmedspa.com/morpheus8-oswego-il
-- https://www.hellogorgeousmedspa.com/quantum-rf-oswego-il
-- https://www.hellogorgeousmedspa.com/glp1-weight-loss
-- https://www.hellogorgeousmedspa.com/botox-oswego-il
-- https://www.hellogorgeousmedspa.com/solaria-co2-laser-oswego-il
-- https://www.hellogorgeousmedspa.com/services
+## Recommended canonical treatment URLs (Oswego *-oswego slugs)
+- https://www.hellogorgeousmedspa.com/botox-oswego
+- https://www.hellogorgeousmedspa.com/dysport-oswego
+- https://www.hellogorgeousmedspa.com/jeuveau-oswego
+- https://www.hellogorgeousmedspa.com/dermal-fillers-oswego
+- https://www.hellogorgeousmedspa.com/lip-filler-oswego
+- https://www.hellogorgeousmedspa.com/morpheus8-burst-oswego
+- https://www.hellogorgeousmedspa.com/glp-1-weight-loss-oswego
+- https://www.hellogorgeousmedspa.com/semaglutide-oswego
+- https://www.hellogorgeousmedspa.com/tirzepatide-oswego
+- https://www.hellogorgeousmedspa.com/biote-hormone-therapy-oswego
+- https://www.hellogorgeousmedspa.com/testosterone-replacement-oswego
+- https://www.hellogorgeousmedspa.com/solaria-co2-oswego
+- https://www.hellogorgeousmedspa.com/quantum-rf-oswego
+- https://www.hellogorgeousmedspa.com/peptide-therapy-oswego
+- https://www.hellogorgeousmedspa.com/nad-iv-oswego
+- https://www.hellogorgeousmedspa.com/laser-hair-removal-oswego
+- https://www.hellogorgeousmedspa.com/microneedling-oswego
+- https://www.hellogorgeousmedspa.com/facials-oswego
+- https://www.hellogorgeousmedspa.com/dermaplaning-oswego
+- https://www.hellogorgeousmedspa.com/chemical-peel-oswego
+- https://www.hellogorgeousmedspa.com/prp-oswego
+- https://www.hellogorgeousmedspa.com/vitamin-injections-oswego
+- https://www.hellogorgeousmedspa.com/iv-therapy-oswego
+- Hub: https://www.hellogorgeousmedspa.com/services
 
 ## Priority service pages
 - https://www.hellogorgeousmedspa.com/services/morpheus8

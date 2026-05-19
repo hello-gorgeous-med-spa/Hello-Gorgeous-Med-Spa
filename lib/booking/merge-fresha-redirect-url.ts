@@ -1,5 +1,5 @@
 /**
- * `/book` → `BOOKING_URL` (Square Appointments). Merge only allowlisted query params onto the base scheduler URL.
+ * `/book` → `BOOKING_URL` (Fresha). Merge only allowlisted query params onto the booking URL.
  *
  * Marketing attribution params (utm_*, gclid, …) are commonly preserved; we forward only these.
  */
