@@ -44,10 +44,9 @@ export default function BookingTransitionBanner() {
     <div className="w-full bg-black text-[#FF2D8E] text-xs sm:text-sm md:text-base font-semibold text-center px-4 py-3 relative animate-fade sticky top-0 z-50 shrink-0">
       <div className="pr-8 max-w-4xl mx-auto space-y-1">
         <p className="text-white/95 font-normal text-[11px] sm:text-xs md:text-sm leading-snug">
-          <span className="text-[#FF2D8E] font-semibold">Book online:</span> Hello Gorgeous uses{" "}
-          <strong className="text-white">Square Appointments</strong> — smoother booking, confirmations, and secure
-          payments. Existing appointments stay on the calendar;{" "}
-          <strong className="text-white">new visits</strong> use this link. Questions?{" "}
+          <span className="text-[#FF2D8E] font-semibold">Book online:</span> Hello Gorgeous books through{" "}
+          <strong className="text-white">Fresha</strong> — easy scheduling, confirmations, and reminders. In-spa
+          payments stay on Square. Questions?{" "}
           <span className="text-white/90">{SITE.phone}</span>.
         </p>
         <a
@@ -56,7 +55,7 @@ export default function BookingTransitionBanner() {
           rel="noopener noreferrer"
           className="inline-block hover:opacity-90 transition"
         >
-          Book now (Square) <span className="underline">→</span>
+          Book now on Fresha <span className="underline">→</span>
         </a>
       </div>
 
