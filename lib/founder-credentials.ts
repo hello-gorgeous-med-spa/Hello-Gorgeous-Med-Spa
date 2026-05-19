@@ -79,6 +79,10 @@ export function daniPersonJsonLd() {
         credentialCategory: "Certified Medical Administrative Assistant (CMAA)",
       },
       { "@type": "EducationalOccupationalCredential", credentialCategory: "Certified Nursing Assistant (CNA)" },
+      {
+        "@type": "EducationalOccupationalCredential",
+        credentialCategory: "InMode Luxora — Morpheus8 Deep, Quantum RF (Certificate of Attendance, May 2026)",
+      },
     ],
   };
 }

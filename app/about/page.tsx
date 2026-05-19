@@ -6,6 +6,7 @@ import { CTA } from "@/components/CTA";
 import { BestOfOswegoBadge } from "@/components/BestOfOswegoBadge";
 import { FadeUp, Section } from "@/components/Section";
 import { BOOKING_URL } from "@/lib/flows";
+import { InModeTrainingCertificates } from "@/components/marketing/InModeTrainingCertificates";
 import {
   DANI_IMAGE,
   DANI_LONG_BIO,
@@ -13,6 +14,7 @@ import {
   RYAN_IMAGE,
   RYAN_MEDIUM_BIO,
 } from "@/lib/founder-credentials";
+import { DANIELLE_INMODE_CERTIFICATES } from "@/lib/inmode-training-certificates";
 import { pageMetadata, SITE, siteJsonLd } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
@@ -86,6 +88,14 @@ export default function AboutPage() {
             <h2 className="text-3xl font-black text-black">Danielle Alcala-Glazier</h2>
             <p className="mt-2 text-[#E6007E] font-bold uppercase tracking-wider text-sm">Owner & Founder</p>
             <p className="mt-6 text-black/85 font-medium leading-relaxed">{DANI_MEDIUM_BIO}</p>
+            <div className="mt-8">
+              <InModeTrainingCertificates
+                items={DANIELLE_INMODE_CERTIFICATES}
+                compact
+                title="InMode verified training"
+                subtitle="Certificate of attendance for Luxora, Morpheus8 Deep, Quantum RF, Solaria CO₂, and related platforms — issued by InMode clinical education."
+              />
+            </div>
           </FadeUp>
         </div>
       </Section>

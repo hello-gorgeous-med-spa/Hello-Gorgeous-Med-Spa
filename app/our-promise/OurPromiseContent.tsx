@@ -3,7 +3,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import { CTA } from "@/components/CTA";
+import { InModeTrainingCertificates } from "@/components/marketing/InModeTrainingCertificates";
 import { FadeUp, Section } from "@/components/Section";
+import { INMODE_TRAINING_CERTIFICATES } from "@/lib/inmode-training-certificates";
 import { BOOKING_URL } from "@/lib/flows";
 
 const BRAND = {
@@ -473,66 +475,11 @@ export function OurPromiseContent() {
           </div>
         </Section>
 
-        {/* Training Certificates */}
-        <Section className="bg-white py-16 border-t-4 border-black">
-          <div className="max-w-5xl mx-auto">
-            <FadeUp>
-              <div className="text-center mb-12">
-                <span className="inline-block px-4 py-1.5 rounded-full bg-[#E6007E]/10 text-[#E6007E] text-xs font-bold uppercase tracking-wider mb-4">
-                  Verified Training
-                </span>
-                <h2 className="text-3xl md:text-4xl font-bold text-black">
-                  InMode Certified Providers
-                </h2>
-                <p className="text-lg text-black/60 mt-4 max-w-2xl mx-auto">
-                  Official training certificates from InMode — click to view
-                </p>
-              </div>
-            </FadeUp>
-
-            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-              {[
-                { name: "Danielle Alcala, RN", cert: "Morpheus8 (Luxora)", date: "March 20, 2026", file: "/images/certificates/danielle-morpheus8-inmode-cert.pdf" },
-                { name: "Danielle Alcala, RN", cert: "Solaria CO₂", date: "March 17, 2026", file: "/images/certificates/danielle-solaria-inmode-cert.pdf" },
-                { name: "Ryan Kent, FNP-BC", cert: "Morpheus8 (Luxora)", date: "March 20, 2026", file: "/images/certificates/ryan-morpheus8-inmode-cert.pdf" },
-                { name: "Ryan Kent, FNP-BC", cert: "Solaria CO₂", date: "March 17, 2026", file: "/images/certificates/ryan-solaria-inmode-cert.pdf" },
-              ].map((item, idx) => (
-                <FadeUp key={`${item.name}-${item.cert}`} delayMs={idx * 60}>
-                  <a
-                    href={item.file}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group block rounded-2xl border-4 border-black bg-gradient-to-br from-rose-50 to-white p-5 shadow-[4px_4px_0_0_rgba(230,0,126,0.25)] hover:shadow-[6px_6px_0_0_rgba(230,0,126,0.35)] hover:-translate-y-1 transition-all"
-                  >
-                    <div className="flex items-center gap-3 mb-3">
-                      <div className="w-10 h-10 rounded-lg bg-[#E6007E] flex items-center justify-center text-white font-bold text-lg">
-                        📜
-                      </div>
-                      <div className="text-xs text-[#E6007E] font-bold uppercase tracking-wider">
-                        InMode Certificate
-                      </div>
-                    </div>
-                    <h3 className="text-base font-bold text-black group-hover:text-[#E6007E] transition-colors">
-                      {item.name}
-                    </h3>
-                    <p className="text-sm text-black/70 mt-1">{item.cert}</p>
-                    <p className="text-xs text-black/50 mt-2">{item.date}</p>
-                    <div className="mt-3 text-xs text-[#E6007E] font-semibold flex items-center gap-1">
-                      View Certificate →
-                    </div>
-                  </a>
-                </FadeUp>
-              ))}
-            </div>
-
-            <FadeUp delayMs={300}>
-              <p className="text-center text-sm text-black/50 mt-8">
-                Training conducted by Wanda Cummings, RN BSN — VP Clinical Operations, InMode
-              </p>
-            </FadeUp>
-          </div>
-        </Section>
-
+        <InModeTrainingCertificates
+          items={INMODE_TRAINING_CERTIFICATES}
+          title="InMode certified providers"
+          subtitle="Official training certificates from InMode — click to view the PDF"
+        />
         {/* Credentials */}
         <Section className="bg-black py-16 border-t-4 border-black">
           <div className="max-w-5xl mx-auto">
