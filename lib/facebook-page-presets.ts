@@ -104,6 +104,20 @@ Book a consult: we’ll tell you honestly if you’re a candidate.`,
   defaultChannels: ["facebook", "instagram"],
 };
 
+export const FACEBOOK_PAGE_PRESET_SIGNATURE_MENU: FacebookPagePreset = {
+  id: "signature-treatment-menu",
+  label: "Signature Treatment Menu",
+  blurb: "Full menu poster — Botox, filler, InMode Trifecta.",
+  message: `✨ Our Signature Treatment Menu is live at Hello Gorgeous Oswego.
+
+Botox $10/unit (first-time) · Lip filler $450 · Morpheus8 Burst 3×$1,999 · Solaria CO₂ $899 · Quantum RF · Trifecta package with FREE CO₂.
+
+NP on site 7 days a week. Book on Fresha 👇`,
+  linkPath: withUtm("/signature-treatment-menu"),
+  imagePath: "/images/promo/signature-treatment-menu-poster.png",
+  defaultChannels: ["facebook", "instagram", "google"],
+};
+
 export const FACEBOOK_PAGE_PRESET_OUR_PROMISE: FacebookPagePreset = {
   id: "our-promise",
   label: "Our Promise — Authenticity",
@@ -121,6 +135,7 @@ Read why this matters for YOUR safety — and how to spot a provider who cuts co
 };
 
 export const FACEBOOK_PAGE_PRESETS: FacebookPagePreset[] = [
+  FACEBOOK_PAGE_PRESET_SIGNATURE_MENU,
   FACEBOOK_PAGE_PRESET_OUR_PROMISE,
   FACEBOOK_PAGE_PRESET_SOLARIA,
   FACEBOOK_PAGE_PRESET_QUANTUM,

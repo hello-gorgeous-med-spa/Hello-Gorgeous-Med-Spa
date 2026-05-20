@@ -1,44 +1,55 @@
 #!/usr/bin/env node
 /**
- * Publish lip filler + Solaria CO2 promo flyers to Facebook & Google Business.
+ * Publish promo flyers to Facebook & Google Business.
  * Images must be live on SITE_URL first (deploy before running).
  *
- *   node --env-file=.env.local scripts/publish-promo-flyers-now.mjs
- *   SITE_URL=https://www.hellogorgeousmedspa.com node --env-file=.env.local scripts/publish-promo-flyers-now.mjs
+ *   node scripts/publish-promo-flyers-now.mjs --only=signature-treatment-menu
+ *   node scripts/publish-promo-flyers-now.mjs
  */
 
 const SITE_URL = (process.env.SITE_URL || "https://www.hellogorgeousmedspa.com").replace(/\/$/, "");
 
-const POSTS = [
+const ALL_POSTS = [
   {
+    id: "lip-filler-promo",
     label: "Lip Filler",
     message: `💋 Lip Filler at Hello Gorgeous — Enhance. Hydrate. Elevate.
 
-✨ Natural shape & volume
-💧 Softer, smoother lips
-✨ Subtle, confidence-boosting results
-⏱ Quick treatment · minimal downtime
+✨ Natural shape & volume · $450 / 1 syringe · $399 each for 2
 
-$450 for 1 syringe · $399 each when you book 2 syringes
-
-Family-owned med spa in Oswego · NP on site 7 days a week.
-Beautifully you. Confidently gorgeous. Book your lip filler today!`,
+Book on Fresha — Oswego · NP on site 7 days a week.`,
     link: `${SITE_URL}/lip-filler-oswego`,
     imagePath: "/images/promo/lip-filler-promo-flyer.png",
   },
   {
+    id: "solaria-co2-promo",
     label: "Solaria CO2",
-    message: `✨ Solaria CO₂ at Hello Gorgeous — gold-standard fractional skin resurfacing.
+    message: `✨ Solaria CO₂ — gold-standard skin resurfacing at Hello Gorgeous Oswego.
 
-Renew · Rejuvenate · Reveal radiance
+Renew · Rejuvenate · Reveal radiance · $899 full resurfacing
 
-Treats fine lines, texture, sun damage, acne scars & pores — with personalized depth and medical oversight.
-
-The only Solaria CO₂ in the western Chicago suburbs (Oswego · Naperville · Aurora · Plainfield).
-
-Book your free consultation — link below.`,
+Book your free consultation on Fresha.`,
     link: `${SITE_URL}/solaria-co2-oswego`,
     imagePath: "/images/promo/solaria-co2-promo-flyer.png",
+  },
+  {
+    id: "signature-treatment-menu",
+    label: "Signature Treatment Menu",
+    message: `✨ Signature Treatment Menu at Hello Gorgeous Med Spa — Oswego, IL
+
+💉 First-time Botox $10/unit
+💋 Lip filler $450 (2 syringes $399 each)
+⚡ Quantum RF — chin/neck $2,400 · abdomen $3,999
+🔥 Morpheus8 Burst — 3 for $1,999
+✨ Solaria CO₂ full resurfacing — $899
+👑 Trifecta: Morpheus8 + Quantum RF + FREE Solaria CO₂
+
+Family-owned · NP on site 7 days a week.
+Beautifully you. Confidently gorgeous.
+
+Book on Fresha — link below.`,
+    link: `${SITE_URL}/signature-treatment-menu`,
+    imagePath: "/images/promo/signature-treatment-menu-poster.png",
   },
 ];
 
@@ -59,10 +70,19 @@ async function postViaApi({ label, message, link, imagePath }) {
 }
 
 async function main() {
-  console.log(`Publishing ${POSTS.length} promo flyers → Facebook + Google`);
+  const onlyArg = process.argv.find((a) => a.startsWith("--only="));
+  const onlyId = onlyArg?.split("=")[1];
+  const posts = onlyId ? ALL_POSTS.filter((p) => p.id === onlyId) : ALL_POSTS;
+
+  if (posts.length === 0) {
+    console.error(`No posts matched --only=${onlyId}`);
+    process.exit(1);
+  }
+
+  console.log(`Publishing ${posts.length} promo(s) → Facebook + Google`);
   console.log(`Site: ${SITE_URL}\n`);
 
-  for (const post of POSTS) {
+  for (const post of posts) {
     console.log(`— ${post.label}`);
     const { ok, status, data } = await postViaApi(post);
     if (!ok) {

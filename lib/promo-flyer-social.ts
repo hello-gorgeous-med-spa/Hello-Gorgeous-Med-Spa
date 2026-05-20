@@ -44,4 +44,23 @@ Book your free consultation — link below.`,
     link: `${base}/solaria-co2-oswego`,
     imagePath: "/images/promo/solaria-co2-promo-flyer.png",
   },
+  {
+    id: "signature-treatment-menu",
+    label: "Signature Treatment Menu poster",
+    message: `✨ Signature Treatment Menu at Hello Gorgeous Med Spa — Oswego, IL
+
+💉 First-time Botox $10/unit
+💋 Lip filler $450 (2 syringes $399 each)
+⚡ Quantum RF — chin/neck $2,400 · abdomen $3,999
+🔥 Morpheus8 Burst — 3 for $1,999
+✨ Solaria CO₂ full resurfacing — $899
+👑 Trifecta: Morpheus8 + Quantum RF + FREE Solaria CO₂
+
+Family-owned · NP on site 7 days a week.
+Beautifully you. Confidently gorgeous.
+
+Book on Fresha — link below.`,
+    link: `${base}/signature-treatment-menu`,
+    imagePath: "/images/promo/signature-treatment-menu-poster.png",
+  },
 ];

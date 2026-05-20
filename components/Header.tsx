@@ -60,6 +60,12 @@ const NAV = {
     label: "Specials",
     href: "/vip-model",
     links: [
+      {
+        label: "Signature Treatment Menu",
+        href: "/signature-treatment-menu",
+        sub: "Botox $10 · Lip filler · Morpheus8 · Solaria · Trifecta",
+        badge: "NEW",
+      },
       { label: "Spring Laser Hair Special", href: "/spring-special-laser-hair", sub: "Underarms $79 · Bikini $129 · No packages", badge: "SPRING" },
       { label: "VIP Model Program", href: "/vip-model", sub: "Up to 50% off advanced treatments — limited spots", badge: "50% OFF" },
       { label: "Memberships", href: "/memberships", sub: "Monthly plans for ongoing care" },
