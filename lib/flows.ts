@@ -1,14 +1,22 @@
 /**
  * Public online booking — **Fresha only**. Square is for in-spa payments / POS, not appointments.
  *
- * Override with `NEXT_PUBLIC_BOOKING_URL` if needed. Do not set `NEXT_PUBLIC_SQUARE_BOOKING_URL`
- * for booking (ignored). `/book` merges UTM params — see `lib/booking/merge-fresha-redirect-url.ts`.
+ * Vercel: set `NEXT_PUBLIC_FRESHA_BOOKING_URL` (org) and optional per-staff URLs.
+ * Alias: `NEXT_PUBLIC_BOOKING_URL`. `/book` merges UTM params then redirects to Fresha.
  */
+/** Fresha Link Builder org URL (May 2026 — canonical /a/… path). */
+export const FRESHA_ORG_BOOKING_URL =
+  "https://www.fresha.com/a/hello-gorgeous-med-spa-oswego-74-west-washington-street-y6oakkwf/booking?menu=true&share=true&pId=95245&dppub=true";
+
+/** @deprecated Old book-now slug; Fresha 307-redirects but prefer {@link FRESHA_ORG_BOOKING_URL}. */
 export const LEGACY_FRESHA_ORG_BOOKING_URL =
   "https://www.fresha.com/book-now/hello-gorgeous-tallrfb5/services?lid=102610&share=true&pId=95245";
 
-/** @deprecated Use `BOOKING_URL` / `LEGACY_FRESHA_ORG_BOOKING_URL`. */
-export const FRESHA_BOOKING_URL = LEGACY_FRESHA_ORG_BOOKING_URL;
+/** @deprecated Use `BOOKING_URL` / `FRESHA_ORG_BOOKING_URL`. */
+export const FRESHA_BOOKING_URL = FRESHA_ORG_BOOKING_URL;
+
+/** Branded entry on our domain — redirects to {@link BOOKING_URL} with optional UTM merge. */
+export const BOOK_PAGE_PATH = "/book";
 
 /** Square Appointments URLs must never be used for public booking (payments only). */
 export function isSquareAppointmentsBookingUrl(url: string): boolean {
@@ -27,17 +35,46 @@ export function isSquareAppointmentsBookingUrl(url: string): boolean {
   }
 }
 
+/** First-party `/book` must not be used as the external scheduler target. */
+function isFirstPartyBookUrl(url: string): boolean {
+  const t = url.trim();
+  if (!t) return false;
+  if (t === BOOK_PAGE_PATH || t.startsWith(`${BOOK_PAGE_PATH}?`)) return true;
+  try {
+    const { hostname, pathname } = new URL(t.startsWith("http") ? t : `https://${t}`);
+    const host = hostname.toLowerCase();
+    if (!host.includes("hellogorgeousmedspa.com")) return false;
+    return pathname === BOOK_PAGE_PATH || pathname.startsWith(`${BOOK_PAGE_PATH}/`);
+  } catch {
+    return t.includes("hellogorgeousmedspa.com/book");
+  }
+}
+
 function resolvePublicBookingUrl(
   raw: string | undefined,
-  fallback: string = LEGACY_FRESHA_ORG_BOOKING_URL,
+  fallback: string = FRESHA_ORG_BOOKING_URL,
 ): string {
   const trimmed = raw?.trim();
-  if (!trimmed || isSquareAppointmentsBookingUrl(trimmed)) return fallback;
+  if (
+    !trimmed ||
+    isSquareAppointmentsBookingUrl(trimmed) ||
+    isFirstPartyBookUrl(trimmed) ||
+    !/^https?:\/\//i.test(trimmed)
+  ) {
+    return fallback;
+  }
   return trimmed;
 }
 
-/** Primary booking CTA site-wide (header, footer, `/book`, service pages). */
-export const BOOKING_URL = resolvePublicBookingUrl(process.env.NEXT_PUBLIC_BOOKING_URL);
+function readOrgBookingEnv(): string | undefined {
+  return (
+    process.env.NEXT_PUBLIC_FRESHA_BOOKING_URL?.trim() ||
+    process.env.NEXT_PUBLIC_BOOKING_URL?.trim()
+  );
+}
+
+/** Primary Fresha URL for header/footer CTAs and `/book` redirect target. */
+export const BOOKING_URL = resolvePublicBookingUrl(readOrgBookingEnv());
 
 /**
  * Square Customer Directory — offers & updates (email + SMS opt-in, Square-hosted).
@@ -78,7 +115,8 @@ export function getProviderPublicBookingHref(
     u &&
     /^https?:\/\//i.test(u) &&
     !/[?&]provider=/i.test(u) &&
-    !isSquareAppointmentsBookingUrl(u)
+    !isSquareAppointmentsBookingUrl(u) &&
+    !isFirstPartyBookUrl(u)
   ) {
     return u;
   }
@@ -92,7 +130,7 @@ export const FRESHA_BOOKING_END_LABEL =
 /** GLP-1 HIPAA screening form (IntakeQ embed on `/glp1-intake`). Booking follows after qualification. */
 export const GLP1_INTAKE_PATH = "/glp1-intake";
 
-/** VIP Model Program — $250 deposit / Reserve (Fresha paid plans). Override with NEXT_PUBLIC_VIP_MODEL_SQUARE_URL if using Square. */
+/** VIP Model Program — $250 deposit / Reserve (Fresha paid plans). */
 export const VIP_MODEL_SQUARE_URL =
   process.env.NEXT_PUBLIC_VIP_MODEL_SQUARE_URL ||
   "https://www.fresha.com/book-now/hello-gorgeous-tallrfb5/paid-plans?id=3246933&share=true&pId=95245";

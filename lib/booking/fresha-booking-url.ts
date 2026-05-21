@@ -5,7 +5,12 @@ import { BOOKING_URL } from "@/lib/flows";
  * Square Appointments is not used for public booking — payments stay on Square POS.
  */
 export function freshaBookingUrlForService(freshaServiceId?: string | null): string {
-  const u = new URL(BOOKING_URL);
+  let u: URL;
+  try {
+    u = new URL(BOOKING_URL);
+  } catch {
+    return BOOKING_URL;
+  }
   if (freshaServiceId?.trim()) {
     u.searchParams.set("serviceId", freshaServiceId.trim());
   }
