@@ -77,8 +77,8 @@ export const NAD_PLUS_DISCLAIMER =
 export const NAD_PLUS_SCIENCE_ATTRIBUTION = [
   {
     label: "NAD+ structure",
-    source: "Wikimedia Commons — public domain structural formula",
-    path: "/images/nad-plus/nad-molecule-structure.png",
+    source: "Hello Gorgeous — educational coenzyme diagram",
+    path: "/images/nad-plus/nad-molecule-structure.svg",
   },
   {
     label: "Cellular energy diagram",

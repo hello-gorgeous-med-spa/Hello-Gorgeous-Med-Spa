@@ -1,8 +1,37 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+
+/** Local SVG/PNG must use native img — next/image optimizer returns 400 for SVG and rejects invalid PNGs. */
+function StaticImg({
+  src,
+  alt,
+  className,
+  width,
+  height,
+  priority,
+}: {
+  src: string;
+  alt: string;
+  className?: string;
+  width?: number;
+  height?: number;
+  priority?: boolean;
+}) {
+  return (
+    // eslint-disable-next-line @next/next/no-img-element
+    <img
+      src={src}
+      alt={alt}
+      width={width}
+      height={height}
+      className={className}
+      loading={priority ? "eager" : "lazy"}
+      decoding="async"
+    />
+  );
+}
 
 import { CTA } from "@/components/CTA";
 import { FadeUp, Section } from "@/components/Section";
@@ -117,31 +146,31 @@ export function NadPlusInjectionsLanding() {
           </FadeUp>
           <FadeUp delayMs={80} className="relative">
             <div className="grid grid-cols-2 gap-4">
-              <div className="rounded-2xl border-2 border-[#FF2D8E]/40 bg-white/5 backdrop-blur p-4 col-span-2">
-                <Image
-                  src="/images/marketing/nad-plus-vial-hello-gorgeous.svg"
-                  alt="NAD+ wellness injection vial at Hello Gorgeous Med Spa"
-                  width={280}
-                  height={200}
-                  className="w-full max-w-xs mx-auto h-auto"
+              <div className="rounded-2xl border-2 border-[#FF2D8E]/40 bg-black/40 overflow-hidden col-span-2">
+                <StaticImg
+                  src="/images/nad-plus/peptide-science-hero.png"
+                  alt="Peptide and molecular science illustration for cellular wellness at Hello Gorgeous Med Spa"
+                  width={1024}
+                  height={682}
+                  className="w-full h-auto object-cover max-h-[280px]"
                   priority
                 />
               </div>
               <div className="rounded-2xl border border-white/15 bg-white/5 p-3 overflow-hidden">
-                <Image
-                  src="/images/nad-plus/nad-molecule-structure.png"
-                  alt="NAD+ molecular structure diagram"
+                <StaticImg
+                  src="/images/marketing/nad-plus-vial-hello-gorgeous.svg"
+                  alt="NAD+ wellness injection vial at Hello Gorgeous Med Spa"
                   width={200}
-                  height={160}
-                  className="w-full h-auto opacity-90"
+                  height={200}
+                  className="w-full h-auto mx-auto max-h-[140px] object-contain"
                 />
               </div>
               <div className="rounded-2xl border border-white/15 bg-white/5 p-3 overflow-hidden">
-                <Image
-                  src="/images/nad-plus/mitochondria-energy.svg"
-                  alt="Mitochondria illustration for cellular energy"
+                <StaticImg
+                  src="/images/nad-plus/nad-molecule-structure.svg"
+                  alt="NAD+ molecular structure diagram"
                   width={200}
-                  height={160}
+                  height={140}
                   className="w-full h-auto"
                 />
               </div>
@@ -202,7 +231,7 @@ export function NadPlusInjectionsLanding() {
             {[
               {
                 title: "NAD+ Molecule",
-                src: "/images/nad-plus/nad-molecule-structure.png",
+                src: "/images/nad-plus/nad-molecule-structure.svg",
                 alt: "NAD+ molecular structure diagram",
                 caption: NAD_PLUS_SCIENCE_ATTRIBUTION[0].source,
               },
@@ -222,7 +251,7 @@ export function NadPlusInjectionsLanding() {
               <FadeUp key={card.title} delayMs={i * 40}>
                 <div className="rounded-3xl border-2 border-white/15 bg-white/5 backdrop-blur overflow-hidden h-full flex flex-col">
                   <div className="p-4 bg-black/40">
-                    <Image src={card.src} alt={card.alt} width={400} height={220} className="w-full h-auto rounded-xl" />
+                    <StaticImg src={card.src} alt={card.alt} width={400} height={220} className="w-full h-auto rounded-xl" />
                   </div>
                   <div className="p-5 flex-1 flex flex-col">
                     <h3 className="font-bold text-[#FF2D8E] text-lg">{card.title}</h3>

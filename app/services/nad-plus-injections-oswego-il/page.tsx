@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     ...meta.openGraph,
     images: [
       {
-        url: `${SITE.url}/images/marketing/nad-plus-vial-hello-gorgeous.svg`,
+        url: `${SITE.url}/images/nad-plus/peptide-science-hero.png`,
         width: 1200,
         height: 630,
         alt: "NAD+ injection therapy Hello Gorgeous Med Spa Oswego IL",
