@@ -184,8 +184,8 @@ export function Footer({
             <h4 className="font-bold text-[#FF2D8E] mb-5 text-sm uppercase tracking-wider">Explore</h4>
             <ul className="space-y-3 text-sm text-white">
               <li>
-                <Link className="text-[#FF2D8E] hover:text-[#FF2D8E] font-medium transition-colors" href="/signature-treatment-menu">
-                  ✨ Signature Treatment Menu
+                <Link className="text-[#FF2D8E] hover:text-[#FF2D8E] font-medium transition-colors" href="/specials">
+                  ✨ Specials &amp; Signature Menu
                 </Link>
               </li>
               <li>

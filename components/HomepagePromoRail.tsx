@@ -19,7 +19,7 @@ const SLIDES: Slide[] = [
     badge: "Signature menu",
     line:
       "Botox $10/unit · Lip filler $450 · Morpheus8 3×$1,999 · Solaria CO₂ $899 · Trifecta package with FREE CO₂.",
-    primary: { label: "View full menu", href: "/signature-treatment-menu" },
+    primary: { label: "View all specials", href: "/specials" },
     secondary: { label: "Book on Fresha", href: "/book" },
   },
   {

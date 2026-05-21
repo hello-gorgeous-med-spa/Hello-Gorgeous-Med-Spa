@@ -7,7 +7,11 @@ export const SIGNATURE_MENU_POSTER = {
   alt: "Hello Gorgeous Med Spa Signature Treatment Menu — Botox $10/unit, lip filler, Morpheus8 Burst, Quantum RF, Solaria CO2, Trifecta package — Oswego IL",
 } as const;
 
+import { SPECIALS_PATH } from "@/lib/specials";
+
+/** Legacy path; canonical specials hub is {@link SPECIALS_PATH}. */
 export const SIGNATURE_MENU_PATH = "/signature-treatment-menu";
+export const SIGNATURE_MENU_CANONICAL = SPECIALS_PATH;
 
 export type SignatureMenuItem = {
   title: string;
@@ -117,6 +121,6 @@ Family-owned · NP on site 7 days a week.
 Beautifully you. Confidently gorgeous.
 
 Book on Fresha — link below.`,
-  link: `${SITE.url}${SIGNATURE_MENU_PATH}`,
+  link: `${SITE.url}${SIGNATURE_MENU_CANONICAL}`,
   imagePath: SIGNATURE_MENU_POSTER.src,
 };

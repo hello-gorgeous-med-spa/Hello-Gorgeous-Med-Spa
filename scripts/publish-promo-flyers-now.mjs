@@ -48,7 +48,7 @@ Family-owned · NP on site 7 days a week.
 Beautifully you. Confidently gorgeous.
 
 Book on Fresha — link below.`,
-    link: `${SITE_URL}/signature-treatment-menu`,
+    link: `${SITE_URL}/specials`,
     imagePath: "/images/promo/signature-treatment-menu-poster.png",
   },
 ];

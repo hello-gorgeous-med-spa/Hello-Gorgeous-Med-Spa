@@ -36,7 +36,7 @@ export function SignatureTreatmentMenuContent() {
         </div>
       </section>
 
-      <Section className="bg-white border-b-4 border-black py-10 md:py-14">
+      <Section id="menu" className="scroll-mt-24 bg-white border-b-4 border-black py-10 md:py-14">
         <div className="max-w-3xl mx-auto px-4 md:px-6">
           <FadeUp>
             <div className="rounded-3xl border-4 border-black overflow-hidden shadow-[8px_8px_0_0_rgba(230,0,126,0.35)]">

@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React, { useState, useRef, useEffect } from "react";
@@ -7,6 +8,8 @@ import React, { useState, useRef, useEffect } from "react";
 import { CTA } from "./CTA";
 import { SITE } from "@/lib/seo";
 import { BOOKING_URL } from "@/lib/flows";
+import { SIGNATURE_MENU_POSTER } from "@/lib/signature-treatment-menu";
+import { SPECIALS_PATH } from "@/lib/specials";
 
 /* ─────────────────────────────────────────────────────────────
    NAV STRUCTURE — clean, client-first, no emojis
@@ -58,13 +61,18 @@ const NAV = {
   },
   specials: {
     label: "Specials",
-    href: "/vip-model",
+    href: SPECIALS_PATH,
     links: [
       {
-        label: "Signature Treatment Menu",
-        href: "/signature-treatment-menu",
-        sub: "Botox $10 · Lip filler · Morpheus8 · Solaria · Trifecta",
+        label: "View all specials",
+        href: SPECIALS_PATH,
+        sub: "Signature menu poster + every current offer",
         badge: "NEW",
+      },
+      {
+        label: "Signature Treatment Menu",
+        href: `${SPECIALS_PATH}#menu`,
+        sub: "Botox $10 · Lip filler · Morpheus8 · Solaria · Trifecta",
       },
       { label: "Spring Laser Hair Special", href: "/spring-special-laser-hair", sub: "Underarms $79 · Bikini $129 · No packages", badge: "SPRING" },
       { label: "VIP Model Program", href: "/vip-model", sub: "Up to 50% off advanced treatments — limited spots", badge: "50% OFF" },
@@ -178,6 +186,97 @@ type SimpleNavSection = {
   }>;
 };
 
+function SpecialsMenu({
+  data,
+  isOpen,
+  onClose,
+  onMouseEnter,
+}: {
+  data: SimpleNavSection;
+  isOpen: boolean;
+  onClose: () => void;
+  onMouseEnter: () => void;
+}) {
+  if (!isOpen) return null;
+  return (
+    <div
+      className="absolute top-full right-0 pt-2 z-50"
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onClose}
+    >
+      <div className="w-[320px] overflow-hidden rounded-xl border-2 border-black bg-white shadow-2xl">
+        <Link
+          href={SPECIALS_PATH}
+          onClick={onClose}
+          className="block border-b-2 border-black bg-gradient-to-br from-[#FFF0F7] to-white p-3 transition hover:from-[#FFE0F0]"
+        >
+          <div className="overflow-hidden rounded-lg border-2 border-black">
+            <Image
+              src={SIGNATURE_MENU_POSTER.src}
+              alt=""
+              width={280}
+              height={360}
+              className="h-auto w-full"
+              sizes="280px"
+            />
+          </div>
+          <p className="mt-2 text-xs font-bold uppercase tracking-wider text-[#E6007E]">
+            Signature Treatment Menu
+          </p>
+          <p className="text-[11px] text-black/55 font-medium">
+            Tap to view full poster &amp; pricing
+          </p>
+        </Link>
+        <div className="p-1.5">
+          {data.links.map((link) =>
+            link.external ? (
+              <a
+                key={link.href}
+                href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={onClose}
+                className="group block rounded-lg px-4 py-3 transition hover:bg-[#FFF0F7]"
+              >
+                <div className="flex items-center gap-2">
+                  <span className="text-sm font-semibold text-black group-hover:text-[#E6007E]">
+                    {link.label}
+                  </span>
+                  {link.badge && (
+                    <span className="rounded-full bg-[#E6007E] px-2 py-0.5 text-[9px] font-bold uppercase text-white">
+                      {link.badge}
+                    </span>
+                  )}
+                </div>
+                <p className="mt-0.5 text-xs text-black/50">{link.sub}</p>
+              </a>
+            ) : (
+              <Link
+                key={link.href}
+                href={link.href}
+                onClick={onClose}
+                className="group block rounded-lg px-4 py-3 transition hover:bg-[#FFF0F7]"
+              >
+                <div className="flex items-center gap-2">
+                  <span className="text-sm font-semibold text-black group-hover:text-[#E6007E]">
+                    {link.label}
+                  </span>
+                  {link.badge && (
+                    <span className="rounded-full bg-[#E6007E] px-2 py-0.5 text-[9px] font-bold uppercase text-white">
+                      {link.badge}
+                    </span>
+                  )}
+                </div>
+                <p className="mt-0.5 text-xs text-black/50">{link.sub}</p>
+              </Link>
+            )
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function SimpleMenu({
   data,
   isOpen,
@@ -273,6 +372,16 @@ export function Header() {
 
   const isActive = (href: string) => pathname === href || pathname?.startsWith(href + "/");
 
+  const isSpecialsActive =
+    pathname === SPECIALS_PATH ||
+    pathname === "/signature-treatment-menu" ||
+    NAV.specials.links.some(
+      (link) =>
+        !link.external &&
+        link.href !== `${SPECIALS_PATH}#menu` &&
+        (pathname === link.href || pathname?.startsWith(link.href + "/"))
+    );
+
   return (
     <header className="sticky top-0 z-50 bg-white border-b-2 border-black">
       {/* Top bar */}
@@ -328,6 +437,33 @@ export function Header() {
                 isOpen={activeDropdown === "services"}
                 onClose={() => setActiveDropdown(null)}
                 onMouseEnter={() => openDropdown("services")}
+              />
+            </div>
+
+            {/* Specials */}
+            <div
+              className="relative flex items-center"
+              onMouseEnter={() => openDropdown("specials")}
+              onMouseLeave={closeDropdown}
+            >
+              <Link
+                href={SPECIALS_PATH}
+                className={cx(
+                  NAV_LINK_BASE,
+                  "border border-[#FF2D8E]",
+                  isSpecialsActive ? NAV_LINK_ACTIVE : NAV_LINK_IDLE
+                )}
+              >
+                Specials
+                <svg className={cx("w-3 h-3 transition-transform", activeDropdown === "specials" && "rotate-180")} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </Link>
+              <SpecialsMenu
+                data={NAV.specials}
+                isOpen={activeDropdown === "specials"}
+                onClose={() => setActiveDropdown(null)}
+                onMouseEnter={() => openDropdown("specials")}
               />
             </div>
 
@@ -400,34 +536,6 @@ export function Header() {
             >
               Blog
             </Link>
-
-            {/* Specials */}
-            <div
-              className="relative flex items-center"
-              onMouseEnter={() => openDropdown("specials")}
-              onMouseLeave={closeDropdown}
-            >
-              <Link
-                href="/vip-model"
-                className={cx(
-                  NAV_LINK_BASE,
-                  "border border-[#FF2D8E]",
-                  isActive("/vip-model") ? NAV_LINK_ACTIVE : NAV_LINK_IDLE
-                )}
-              >
-                Specials
-                <svg className={cx("w-3 h-3 transition-transform", activeDropdown === "specials" && "rotate-180")} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                </svg>
-              </Link>
-              <SimpleMenu
-                data={NAV.specials}
-                isOpen={activeDropdown === "specials"}
-                onClose={() => setActiveDropdown(null)}
-                onMouseEnter={() => openDropdown("specials")}
-                align="right"
-              />
-            </div>
           </nav>
 
           {/* Right actions */}
@@ -495,16 +603,6 @@ export function Header() {
               <span className="rounded-full bg-[#E6007E] px-2.5 py-0.5 text-[10px] font-bold text-white">NEW</span>
             </Link>
 
-            {/* Specials */}
-            <Link
-              href="/vip-model"
-              onClick={() => setMobileOpen(false)}
-              className="flex items-center justify-between px-4 py-3.5 rounded-xl border border-black/10 bg-gray-50 text-black font-semibold text-sm"
-            >
-              Current Specials
-              <span className="rounded-full bg-black px-2.5 py-0.5 text-[10px] font-bold text-white">VIEW</span>
-            </Link>
-
             <div className="pt-2 pb-1">
               <p className="px-2 text-[10px] font-bold uppercase tracking-[0.2em] text-black/40">Navigation</p>
             </div>
@@ -512,16 +610,25 @@ export function Header() {
             {/* Services accordion */}
             {[
               { key: "services", label: "Services", links: NAV.services.sections.flatMap(s => s.links) },
+              { key: "specials", label: "Specials", links: NAV.specials.links, highlight: true },
               { key: "about", label: "About", links: NAV.about.links },
               { key: "patient", label: "Patient Info", links: NAV.patient.links },
-            ].map(({ key, label, links }) => (
+            ].map(({ key, label, links, highlight }) => (
               <div key={key} className="border-b border-black/10 pb-1">
                 <button
                   type="button"
                   onClick={() => setMobileSection(mobileSection === key ? null : key)}
-                  className="w-full flex items-center justify-between px-4 py-3.5 text-sm font-semibold text-black"
+                  className={cx(
+                    "w-full flex items-center justify-between px-4 py-3.5 text-sm font-semibold",
+                    highlight ? "text-[#E6007E]" : "text-black"
+                  )}
                 >
                   {label}
+                  {highlight ? (
+                    <span className="rounded-full bg-[#E6007E] px-2 py-0.5 text-[9px] font-bold uppercase text-white">
+                      NEW
+                    </span>
+                  ) : null}
                   <svg
                     className={cx("w-4 h-4 text-black/40 transition-transform", mobileSection === key && "rotate-180")}
                     fill="none" stroke="currentColor" viewBox="0 0 24 24"

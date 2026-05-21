@@ -87,7 +87,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.85,
     },
     {
-      url: `${baseUrl}/signature-treatment-menu`,
+      url: `${baseUrl}/specials`,
       lastModified: currentDate,
       changeFrequency: 'weekly',
       priority: 0.92,

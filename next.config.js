@@ -124,7 +124,7 @@ const nextConfig = {
     { source: "/events/vip-device-night", destination: "/book", permanent: true },
     { source: "/book-now", destination: "/book", permanent: true },
     { source: "/schedule", destination: "/book", permanent: true },
-    { source: "/specials", destination: "/free-vitamin", permanent: true },
+    { source: "/signature-treatment-menu", destination: "/specials", permanent: true },
     { source: "/your-care-team", destination: "/providers", permanent: true },
     { source: "/meet-the-team", destination: "/providers", permanent: true },
     { source: "/care-and-support", destination: "/pre-post-care", permanent: true },
