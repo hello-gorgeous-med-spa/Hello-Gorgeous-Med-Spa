@@ -22,6 +22,7 @@ const PRIORITY_URLS = [
   `${SITE_URL.replace(/\/$/, "")}/sculptra-oswego-il`,
   `${SITE_URL.replace(/\/$/, "")}/salmon-dna-oswego-il`,
   `${SITE_URL.replace(/\/$/, "")}/ipl-photofacial-oswego-il`,
+  `${SITE_URL.replace(/\/$/, "")}/blog/founder-letter-morpheus8-solaria-oswego-il`,
   `${SITE_URL.replace(/\/$/, "")}/blog/we-arent-just-a-botox-clinic-hello-gorgeous-oswego-il`,
   `${SITE_URL.replace(/\/$/, "")}/blog/what-makes-hello-gorgeous-different-oswego-il`,
   `${SITE_URL.replace(/\/$/, "")}/blog/male-female-practitioners-med-spa-advantage-oswego-il`,

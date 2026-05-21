@@ -214,6 +214,11 @@ export function Footer({
                 </Link>
               </li>
               <li>
+                <Link className="text-[#FF2D8E] hover:text-[#FF2D8E] font-medium transition-colors" href="/blog/founder-letter-morpheus8-solaria-oswego-il">
+                  Founder&apos;s Letter — Morpheus8 &amp; Solaria
+                </Link>
+              </li>
+              <li>
                 <Link className="text-[#FF2D8E] hover:text-[#FF2D8E] font-medium transition-colors" href="/blog/we-arent-just-a-botox-clinic-hello-gorgeous-oswego-il">
                   We Aren&apos;t Just a Botox Clinic
                 </Link>

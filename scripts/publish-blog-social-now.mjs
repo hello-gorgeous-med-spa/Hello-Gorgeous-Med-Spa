@@ -22,6 +22,28 @@ Individual results vary. Free consultation — link below 👇`,
     link: `${SITE_URL}/quantum-rf-oswego-il`,
     imagePath: "/gallery/quantum-rf-client-results/jen-knees-before-after.png",
   },
+  "founder-letter-morpheus8-solaria-oswego-il": {
+    label: "Founder's letter — Morpheus8 & Solaria",
+    channels: ["facebook", "google"],
+    message: `💌 NEW: A letter from Danielle — founder of Hello Gorgeous Med Spa, Oswego IL
+
+Why she invested $500K+ in Morpheus8 Burst & Solaria CO₂ (not the TikTok trend of the month):
+
+🧬 Morpheus8 — rebuild collagen from underneath (up to 8mm depth)
+✨ Solaria CO₂ — gold-standard surface resurfacing
+👩‍⚕️ Ryan Kent FNP-BC on site 7 days · honest consults · no pressure
+
+Read the full founder's letter 👇`,
+    link: `${SITE_URL}/blog/founder-letter-morpheus8-solaria-oswego-il`,
+    imagePath: "/images/blog/founder-letter-morpheus-solaria-1.png",
+  },
+  "founder-letter-morpheus8-solaria-fb-short": {
+    label: "Founder's letter — Facebook short",
+    channels: ["facebook"],
+    skipImage: true,
+    message: `Letter from Dani: why Hello Gorgeous invested in Morpheus8 + Solaria CO₂ — not hype. Oswego med spa. Read 👇`,
+    link: `${SITE_URL}/blog/founder-letter-morpheus8-solaria-oswego-il`,
+  },
   "what-makes-hello-gorgeous-different-oswego-il": {
     label: "What makes HG different",
     channels: ["facebook", "google"],

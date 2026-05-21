@@ -135,6 +135,16 @@ const nextConfig = {
       destination: "/blog/what-makes-hello-gorgeous-different-oswego-il",
       permanent: true,
     },
+    {
+      source: "/blog/founder-letter-morpheus-solaria",
+      destination: "/blog/founder-letter-morpheus8-solaria-oswego-il",
+      permanent: true,
+    },
+    {
+      source: "/blog/founder-letter-morpheus8-solaria",
+      destination: "/blog/founder-letter-morpheus8-solaria-oswego-il",
+      permanent: true,
+    },
     { source: "/services/regenerative", destination: "/regenerative-medicine-oswego-il", permanent: true },
     { source: "/your-care-team", destination: "/providers", permanent: true },
     { source: "/meet-the-team", destination: "/providers", permanent: true },
