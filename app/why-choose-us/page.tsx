@@ -83,6 +83,9 @@ export default function WhyChooseUsPage() {
                 <CTA href="/services" variant="outline">
                   Explore Services
                 </CTA>
+                <CTA href="/blog/what-makes-hello-gorgeous-different-oswego-il" variant="outline">
+                  What Makes Us Different
+                </CTA>
                 <CTA href="/blog/we-arent-just-a-botox-clinic-hello-gorgeous-oswego-il" variant="outline">
                   Read Our Promise
                 </CTA>

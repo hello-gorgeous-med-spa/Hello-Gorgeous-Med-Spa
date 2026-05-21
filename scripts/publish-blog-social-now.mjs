@@ -8,6 +8,21 @@
 const SITE_URL = (process.env.SITE_URL || "https://www.hellogorgeousmedspa.com").replace(/\/$/, "");
 
 const POSTS = {
+  "what-makes-hello-gorgeous-different-oswego-il": {
+    label: "What makes HG different",
+    channels: ["facebook", "google"],
+    skipImage: true,
+    message: `What makes Hello Gorgeous different in Oswego?
+
+✓ ONLY western suburbs med spa with ALL 3 InMode devices — Morpheus8 · Solaria CO₂ · Quantum RF
+✓ Ryan Kent FNP-BC on site 7 DAYS a week
+✓ Open 7 days · same-day appointments
+✓ Family-owned 10+ years — Dani still in the chair
+
+Read the full story 👇`,
+    link: `${SITE_URL}/blog/what-makes-hello-gorgeous-different-oswego-il`,
+    imagePath: "/images/home/morpheus8-burst-verified-provider-inmode.png",
+  },
   "salmon-dna-sculptra-ipl-oswego-il-med-spa-guide": {
     label: "Salmon DNA · Sculptra · IPL Oswego guide",
     channels: ["facebook", "google"],

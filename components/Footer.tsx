@@ -209,6 +209,11 @@ export function Footer({
                 </Link>
               </li>
               <li>
+                <Link className="text-[#FF2D8E] hover:text-[#FF2D8E] font-medium transition-colors" href="/blog/what-makes-hello-gorgeous-different-oswego-il">
+                  What Makes Us Different
+                </Link>
+              </li>
+              <li>
                 <Link className="text-[#FF2D8E] hover:text-[#FF2D8E] font-medium transition-colors" href="/blog/we-arent-just-a-botox-clinic-hello-gorgeous-oswego-il">
                   We Aren&apos;t Just a Botox Clinic
                 </Link>

@@ -130,6 +130,11 @@ const nextConfig = {
       destination: "/blog/male-female-practitioners-med-spa-advantage-oswego-il",
       permanent: true,
     },
+    {
+      source: "/blog/what-makes-hello-gorgeous-different",
+      destination: "/blog/what-makes-hello-gorgeous-different-oswego-il",
+      permanent: true,
+    },
     { source: "/services/regenerative", destination: "/regenerative-medicine-oswego-il", permanent: true },
     { source: "/your-care-team", destination: "/providers", permanent: true },
     { source: "/meet-the-team", destination: "/providers", permanent: true },

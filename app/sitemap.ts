@@ -490,6 +490,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   // Blog articles — featured posts get higher crawl priority
   const featuredBlogSlugs = new Set([
+    'what-makes-hello-gorgeous-different-oswego-il',
     'salmon-dna-sculptra-ipl-oswego-il-med-spa-guide',
     'we-arent-just-a-botox-clinic-hello-gorgeous-oswego-il',
     'male-female-practitioners-med-spa-advantage-oswego-il',
