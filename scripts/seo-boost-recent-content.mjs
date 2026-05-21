@@ -23,6 +23,7 @@ const PRIORITY_URLS = [
   `${SITE_URL.replace(/\/$/, "")}/salmon-dna-oswego-il`,
   `${SITE_URL.replace(/\/$/, "")}/ipl-photofacial-oswego-il`,
   `${SITE_URL.replace(/\/$/, "")}/blog/we-arent-just-a-botox-clinic-hello-gorgeous-oswego-il`,
+  `${SITE_URL.replace(/\/$/, "")}/blog/what-makes-hello-gorgeous-different-oswego-il`,
   `${SITE_URL.replace(/\/$/, "")}/blog/male-female-practitioners-med-spa-advantage-oswego-il`,
   `${SITE_URL.replace(/\/$/, "")}/blog/botox-vs-dysport-vs-jeuveau-faq-oswego`,
   `${SITE_URL.replace(/\/$/, "")}/blog/aesthetic-injectables-anteage-pearl-oswego-il`,
