@@ -46,7 +46,7 @@ const NAV = {
       {
         heading: "Medical & Wellness",
         links: [
-          { label: "NAD+ Injections", href: NAD_PLUS_INJECTIONS_PATH, sub: "Cellular energy · focus · recovery · Oswego", badge: "NEW" },
+          { label: "NAD+ Injections", href: NAD_PLUS_INJECTIONS_PATH, sub: "$40 per visit · cellular energy · Oswego", badge: "NEW" },
           { label: "Medical Weight Loss", href: "/rx/metabolic", sub: "GLP-1 & supervised programs" },
           { label: "Hormone Therapy", href: "/rx/hormones", sub: "Bio-identical hormone optimization" },
           { label: "IV & Vitamin Therapy", href: "/services/iv-therapy", sub: "Hydration, energy & wellness" },

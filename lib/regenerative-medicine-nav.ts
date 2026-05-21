@@ -80,7 +80,7 @@ export const REGENERATIVE_NAV: {
         {
           label: "NAD+ Injections",
           href: "/services/nad-plus-injections-oswego-il",
-          sub: "Quick wellness injection · energy & focus support",
+          sub: "$40 per visit · quick wellness injection · Oswego",
           badge: "NEW",
         },
         {
