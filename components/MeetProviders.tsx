@@ -92,6 +92,22 @@ export function MeetProviders() {
             </div>
           ))}
         </div>
+
+        <div className="mt-12 max-w-2xl mx-auto text-center rounded-3xl border-4 border-black bg-gradient-to-b from-[#FFF0F7] to-white p-8 shadow-[8px_8px_0_0_rgba(230,0,126,0.35)]">
+          <p className="text-lg font-bold text-black">
+            Why having both a male and female practitioner matters
+          </p>
+          <p className="mt-3 text-black/80 font-medium leading-relaxed">
+            More comfort. Smarter plans. A team that looks at your goals from more than one angle — without
+            leaving Hello Gorgeous.
+          </p>
+          <Link
+            href="/blog/male-female-practitioners-med-spa-advantage-oswego-il"
+            className="mt-6 inline-flex items-center gap-1 font-bold text-[#E6007E] hover:text-[#FF2D8E] underline decoration-2 underline-offset-4 decoration-[#E6007E]"
+          >
+            Read the full article →
+          </Link>
+        </div>
       </div>
     </section>
   );

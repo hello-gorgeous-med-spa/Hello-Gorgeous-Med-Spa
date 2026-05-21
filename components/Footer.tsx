@@ -291,8 +291,16 @@ export function Footer({
                 </Link>
               </li>
               <li>
-                <Link className="hover:text-[#FF2D8E] transition-colors" href="/providers">
+                <Link className="hover:text-[#FF2D8E] transition-colors" href="/about">
                   Meet Your Care Team
+                </Link>
+              </li>
+              <li>
+                <Link
+                  className="text-[#FF2D8E] hover:text-[#FF2D8E] font-medium transition-colors"
+                  href="/blog/male-female-practitioners-med-spa-advantage-oswego-il"
+                >
+                  Why Our Male + Female Team Matters
                 </Link>
               </li>
               <li>

@@ -121,6 +121,12 @@ export function HomepageProfessionalGrid() {
                 <Link href="/about" className="text-black/80 hover:text-[#E6007E] hover:underline">
                   Meet our team →
                 </Link>
+                <Link
+                  href="/blog/male-female-practitioners-med-spa-advantage-oswego-il"
+                  className="text-black/80 hover:text-[#E6007E] hover:underline"
+                >
+                  Why our male + female team matters →
+                </Link>
               </div>
             </div>
           </article>

@@ -60,7 +60,12 @@ const NAV = {
     href: "/about",
     links: [
       { label: "About Hello Gorgeous", href: "/about", sub: "Our story, mission & values" },
-      { label: "Meet the Team", href: "/providers", sub: "Licensed medical providers" },
+      { label: "Meet the Team", href: "/about", sub: "Dani & Ryan — founders on site every week" },
+      {
+        label: "Male + Female Team Advantage",
+        href: "/blog/male-female-practitioners-med-spa-advantage-oswego-il",
+        sub: "Why having both providers helps every client",
+      },
       { label: "Our Location", href: "/locations", sub: "74 W. Washington St, Oswego, IL" },
       { label: "Why Choose Us", href: "/why-choose-us", sub: "#1 Best Med Spa in Oswego" },
       { label: "FAQ", href: "/faq", sub: "Common questions answered" },

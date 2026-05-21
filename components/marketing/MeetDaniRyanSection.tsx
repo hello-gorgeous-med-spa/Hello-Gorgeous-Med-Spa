@@ -91,6 +91,21 @@ export function MeetDaniRyanSection() {
             delayMs={80}
           />
         </div>
+
+        <FadeUp delayMs={120}>
+          <div className="mt-10 md:mt-12 text-center">
+            <p className="text-black/75 font-medium max-w-2xl mx-auto mb-4">
+              Having both a male and female practitioner is not just convenient — it is a real advantage for
+              comfort, balance, and treatment planning.
+            </p>
+            <Link
+              href="/blog/male-female-practitioners-med-spa-advantage-oswego-il"
+              className="inline-flex items-center justify-center rounded-full border-4 border-black bg-white px-6 py-3 text-sm font-bold text-[#E6007E] shadow-[6px_6px_0_0_rgba(230,0,126,0.35)] hover:bg-[#FFF0F7] transition-colors"
+            >
+              Read why our team works this way →
+            </Link>
+          </div>
+        </FadeUp>
       </div>
     </Section>
   );

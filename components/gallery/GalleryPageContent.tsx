@@ -172,6 +172,17 @@ const CASES: GalleryCase[] = [
     note: "Community gift night at Hello Gorgeous Med Spa, Oswego, IL.",
     serviceHref: "/about",
   },
+  {
+    type: "single-image",
+    id: "gift-night-outdoor-team",
+    treatment: "Gift Night — Team & Clients",
+    category: "Gift Night Winners",
+    tagline: "Dani, Ryan & our community — celebrating InMode technology together outdoors.",
+    image: "/gallery/event-winners/outdoor-event-team.png",
+    imageAlt: "Hello Gorgeous Med Spa team and clients at outdoor gift night event Oswego IL",
+    note: "Outdoor community event with Danielle Alcala-Glazier and Ryan Kent, FNP-BC. Hello Gorgeous Med Spa, Oswego, IL.",
+    serviceHref: "/about",
+  },
   // ── Quantum RF clinical results ──────────────────────
   {
     type: "single-image",
