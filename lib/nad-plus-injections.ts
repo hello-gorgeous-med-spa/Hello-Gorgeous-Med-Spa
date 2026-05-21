@@ -5,26 +5,17 @@ import { SITE } from "@/lib/seo";
 
 export const NAD_PLUS_INJECTIONS_PATH = "/services/nad-plus-injections-oswego-il";
 
-/** Update pricing here; mirrored on the landing page. */
+/** NAD+ injection — single price (edit here). */
+export const NAD_PLUS_INJECTION_PRICE = "$40";
+
 export const NAD_PLUS_PRICING = [
   {
-    id: "single",
-    name: "Single NAD+ Injection",
-    price: "$95",
-    description: "Best for first-time clients or occasional wellness support.",
-  },
-  {
-    id: "series-4",
-    name: "4-Week NAD+ Series",
-    price: "$340",
-    description: "Weekly injections for clients who want consistency.",
+    id: "injection",
+    name: "NAD+ Injection",
+    price: NAD_PLUS_INJECTION_PRICE,
+    description:
+      "Quick in-office wellness injection. Screening required. Optional stacks (B12, glutathione, etc.) priced separately at consult.",
     highlight: true,
-  },
-  {
-    id: "series-8",
-    name: "8-Week NAD+ Reset",
-    price: "$640",
-    description: "Structured cellular wellness routine over two months.",
   },
 ] as const;
 
@@ -43,6 +34,11 @@ export const NAD_PLUS_FAQS = [
     question: "Is NAD+ a vitamin?",
     answer:
       "No. NAD+ is a coenzyme involved in cellular metabolism. It is related to B3 vitamin pathways, but NAD+ itself is not the same as a standard vitamin shot.",
+  },
+  {
+    question: "How much does a NAD+ injection cost?",
+    answer:
+      "NAD+ injections at Hello Gorgeous Med Spa in Oswego are $40 per visit. Add-ons and IV NAD+ are separate services with different pricing — your provider will confirm at consult.",
   },
   {
     question: "How fast will I feel it?",

@@ -183,7 +183,7 @@ export function NadPlusInjectionsLanding() {
       {/* Quick facts */}
       <div className="border-b border-white/10 bg-[#111] py-4 px-4">
         <div className="max-w-5xl mx-auto flex flex-wrap justify-center gap-x-10 gap-y-2 text-sm text-white/70">
-          {["~15 min visit", "Injection — not IV", "Screening required", "Stacks with B12 & glutathione"].map((t) => (
+          {["$40 per injection", "~15 min visit", "Injection — not IV", "Screening required"].map((t) => (
             <span key={t} className="flex items-center gap-2">
               <span className="text-[#FFD700]">✦</span> {t}
             </span>
@@ -334,21 +334,16 @@ export function NadPlusInjectionsLanding() {
               Pricing shown for transparency — your provider confirms the right plan at consult.
             </p>
           </FadeUp>
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="max-w-md mx-auto">
             {NAD_PLUS_PRICING.map((tier, i) => (
               <FadeUp key={tier.id} delayMs={i * 35}>
-                <div
-                  className={`h-full rounded-3xl border-4 p-6 flex flex-col ${
-                    "highlight" in tier && tier.highlight
-                      ? "border-[#FF2D8E] bg-gradient-to-br from-[#2d1020] to-black shadow-[6px_6px_0_0_rgba(255,45,142,0.4)]"
-                      : "border-black bg-[#141414]"
-                  }`}
-                >
-                  <h3 className="font-bold text-lg text-white">{tier.name}</h3>
-                  <p className="mt-4 text-4xl font-black text-[#FF2D8E]">{tier.price}</p>
-                  <p className="mt-4 text-sm text-white/70 flex-1">{tier.description}</p>
-                  <CTA href={NAD_PLUS_BOOKING_URL} variant="gradient" className="mt-6 w-full justify-center text-sm py-3">
-                    Book
+                <div className="h-full rounded-3xl border-4 border-[#FF2D8E] bg-gradient-to-br from-[#2d1020] to-black p-8 flex flex-col text-center shadow-[8px_8px_0_0_rgba(255,45,142,0.4)]">
+                  <h3 className="font-bold text-xl text-white">{tier.name}</h3>
+                  <p className="mt-4 text-5xl md:text-6xl font-black text-[#FF2D8E]">{tier.price}</p>
+                  <p className="mt-2 text-sm font-bold uppercase tracking-wider text-[#FFB8DC]">per visit</p>
+                  <p className="mt-6 text-sm text-white/70 flex-1 leading-relaxed">{tier.description}</p>
+                  <CTA href={NAD_PLUS_BOOKING_URL} variant="gradient" className="mt-8 w-full justify-center py-4">
+                    Book NAD+ — {tier.price}
                   </CTA>
                 </div>
               </FadeUp>
