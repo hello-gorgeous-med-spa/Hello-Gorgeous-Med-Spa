@@ -10,6 +10,7 @@ const SITE_URL = (process.env.SITE_URL || "https://www.hellogorgeousmedspa.com")
 const POSTS = {
   "salmon-dna-sculptra-ipl-oswego-il-med-spa-guide": {
     label: "Salmon DNA · Sculptra · IPL Oswego guide",
+    channels: ["facebook", "google"],
     message: `🔍 Searching for salmon DNA, Sculptra, or IPL in Oswego?
 
 Hello Gorgeous Med Spa has offered advanced skin & injectables in the Fox Valley for 10+ YEARS — here's what we actually provide:
@@ -22,6 +23,60 @@ Plus Morpheus8 · Solaria CO₂ · Quantum RF under one roof.
 
 Read the full Oswego guide 👇`,
     link: `${SITE_URL}/blog/salmon-dna-sculptra-ipl-oswego-il-med-spa-guide`,
+    imagePath: "/images/ipl-photofacial/ipl-photofacial-zemits-treatment-hero.png",
+  },
+  "salmon-dna-sculptra-ipl-oswego-fb-short": {
+    label: "Comparison guide — Facebook (short)",
+    channels: ["facebook"],
+    skipImage: true,
+    message: `Salmon DNA, Sculptra & Lumecca IPL in Oswego — all at Hello Gorgeous Med Spa.
+
+10+ years in the Fox Valley. Full guide on our site 👇`,
+    link: `${SITE_URL}/blog/salmon-dna-sculptra-ipl-oswego-il-med-spa-guide`,
+  },
+  "gbp-sculptra-oswego": {
+    label: "Google Business — Sculptra Oswego",
+    channels: ["google"],
+    message: `💎 Sculptra & biostimulator treatments in Oswego, IL
+
+Build collagen gradually — temples, cheeks, jawline & skin quality over time (not instant filler).
+
+✓ Hello Gorgeous Med Spa — 10+ years downtown Oswego
+✓ Ryan Kent, FNP-BC on site 7 days a week
+✓ Free consultation
+
+📍 74 W Washington St, Oswego
+📞 630-636-6193`,
+    link: `${SITE_URL}/sculptra-oswego-il`,
+    imagePath: "/images/services/hg-dermal-fillers.png",
+  },
+  "gbp-salmon-dna-oswego": {
+    label: "Google Business — Salmon DNA facial",
+    channels: ["google"],
+    message: `🧬 Salmon DNA Glass Facial / PDRN in Oswego, IL
+
+Red Carpet glow protocol — repair, hydration & event-ready radiance.
+
+Optional add-ons: microneedling · Lumecca IPL · chemical peel
+Also: AnteAGE P.E.A.R.L. regenerative treatments
+
+Hello Gorgeous Med Spa · Oswego · Naperville · Aurora area
+Free consult — link below`,
+    link: `${SITE_URL}/salmon-dna-oswego-il`,
+    imagePath: "/images/homepage-services/anteage-md-brightening.png",
+  },
+  "gbp-lumecca-ipl-oswego": {
+    label: "Google Business — Lumecca IPL",
+    channels: ["google"],
+    message: `💡 Lumecca IPL Photofacial — Oswego, IL
+
+Fade sun spots, age spots, redness & rosacea. Results often visible in 7–10 days.
+
+From $250 · Hello Gorgeous Med Spa
+Serving Oswego, Naperville, Aurora & the Fox Valley — 10+ years
+
+Book free consultation 👇`,
+    link: `${SITE_URL}/ipl-photofacial-oswego-il`,
     imagePath: "/images/ipl-photofacial/ipl-photofacial-zemits-treatment-hero.png",
   },
   "we-arent-just-a-botox-clinic-hello-gorgeous-oswego-il": {
@@ -86,17 +141,19 @@ Read the full article 👇`,
   },
 };
 
-async function postViaApi({ label, message, link, imagePath }) {
-  const imageUrl = `${SITE_URL}${imagePath}`;
+async function postViaApi({ message, link, imagePath, channels, skipImage }) {
+  const body = {
+    message,
+    channels: channels ?? ["facebook", "google"],
+    link,
+  };
+  if (imagePath && !skipImage) {
+    body.imageUrl = `${SITE_URL}${imagePath}`;
+  }
   const res = await fetch(`${SITE_URL}/api/social/post`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      message,
-      channels: ["facebook", "google"],
-      link,
-      imageUrl,
-    }),
+    body: JSON.stringify(body),
   });
   const data = await res.json().catch(() => ({}));
   return { ok: res.ok, status: res.status, data };
@@ -115,7 +172,13 @@ async function main() {
   console.log(`Publishing: ${post.label}`);
   console.log(`Site: ${SITE_URL}\n`);
 
-  const { ok, status, data } = await postViaApi(post);
+  const { ok, status, data } = await postViaApi({
+    message: post.message,
+    link: post.link,
+    imagePath: post.imagePath,
+    channels: post.channels,
+    skipImage: post.skipImage,
+  });
   if (!ok) {
     console.error(`✗ HTTP ${status}`, JSON.stringify(data, null, 2));
     process.exit(1);
