@@ -74,21 +74,40 @@ export const NAD_PLUS_FAQS = [
 export const NAD_PLUS_DISCLAIMER =
   "NAD+ injection therapy is a wellness service and is not intended to diagnose, treat, cure, or prevent any disease. Individual results vary. Clients should consult a qualified healthcare provider before starting any new injection, supplement, or wellness protocol, especially if pregnant, breastfeeding, undergoing cancer treatment, managing a chronic medical condition, or taking prescription medications.";
 
-export const NAD_PLUS_SCIENCE_ATTRIBUTION = [
+/** Hero collage (main + two tiles) and “Science, Made Beautiful” cards. */
+export const NAD_PLUS_HERO_IMAGES = {
+  main: {
+    src: "/images/nad-plus/peptide-science-hero.png",
+    alt: "Peptide and molecular science illustration for cellular wellness at Hello Gorgeous Med Spa",
+  },
+  vialSyringe: {
+    src: "/images/nad-plus/nad-science-vial-syringe.png",
+    alt: "NAD+ injection vial and syringe with DNA and molecular science visuals",
+  },
+  dnaSyringe: {
+    src: "/images/nad-plus/nad-science-dna-syringe.png",
+    alt: "DNA helix with syringe and flask for regenerative wellness science",
+  },
+} as const;
+
+export const NAD_PLUS_SCIENCE_CARDS = [
   {
-    label: "NAD+ structure",
-    source: "Hello Gorgeous — educational coenzyme diagram",
-    path: "/images/nad-plus/nad-molecule-structure.svg",
+    title: "NAD+ & Molecular Science",
+    src: "/images/nad-plus/nad-science-molecular-chain.png",
+    alt: "Molecular structures with medical vial and syringe for NAD+ wellness therapy",
+    caption: "Hello Gorgeous Med Spa — cellular wellness imagery",
   },
   {
-    label: "Cellular energy diagram",
-    source: "Hello Gorgeous — original educational graphic",
-    path: "/images/nad-plus/cellular-energy-pathway.svg",
+    title: "DNA & Regenerative Pathways",
+    src: "/images/nad-plus/nad-science-dna-syringe.png",
+    alt: "DNA helix, syringe, and laboratory flask representing regenerative science",
+    caption: "Hello Gorgeous Med Spa — science-forward wellness visuals",
   },
   {
-    label: "Mitochondria illustration",
-    source: "Hello Gorgeous — branded educational graphic",
-    path: "/images/nad-plus/mitochondria-energy.svg",
+    title: "Clinical NAD+ Injection",
+    src: "/images/nad-plus/nad-science-vial-syringe.png",
+    alt: "Premium NAD+ vial and syringe with DNA and energy-themed medical glam aesthetic",
+    caption: "Hello Gorgeous Med Spa — in-office wellness injection",
   },
 ] as const;
 
