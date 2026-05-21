@@ -10,6 +10,12 @@ import { SITE } from "@/lib/seo";
 import { BOOKING_URL } from "@/lib/flows";
 import { SIGNATURE_MENU_POSTER } from "@/lib/signature-treatment-menu";
 import { SPECIALS_PATH } from "@/lib/specials";
+import {
+  REGENERATIVE_MEDICINE_PATH,
+  REGENERATIVE_NAV,
+  REGENERATIVE_NAV_FLAT_LINKS,
+} from "@/lib/regenerative-medicine-nav";
+import { NAD_PLUS_INJECTIONS_PATH } from "@/lib/nad-plus-injections";
 
 /* ─────────────────────────────────────────────────────────────
    NAV STRUCTURE — clean, client-first, no emojis
@@ -40,6 +46,7 @@ const NAV = {
       {
         heading: "Medical & Wellness",
         links: [
+          { label: "NAD+ Injections", href: NAD_PLUS_INJECTIONS_PATH, sub: "Cellular energy · focus · recovery · Oswego", badge: "NEW" },
           { label: "Medical Weight Loss", href: "/rx/metabolic", sub: "GLP-1 & supervised programs" },
           { label: "Hormone Therapy", href: "/rx/hormones", sub: "Bio-identical hormone optimization" },
           { label: "IV & Vitamin Therapy", href: "/services/iv-therapy", sub: "Hydration, energy & wellness" },
@@ -112,6 +119,75 @@ const NAV_LINK_IDLE = "text-black hover:bg-[#FF2D8E]/10 hover:text-[#FF2D8E]";
    SERVICES MEGA-DROPDOWN
 ───────────────────────────────────────────────────────────── */
 
+function RegenerativeMedicineMenu({
+  isOpen,
+  onClose,
+  onMouseEnter,
+}: {
+  isOpen: boolean;
+  onClose: () => void;
+  onMouseEnter: () => void;
+}) {
+  if (!isOpen) return null;
+  return (
+    <div
+      className="fixed top-16 left-0 right-0 z-50 border-t-2 border-black bg-white shadow-2xl"
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onClose}
+    >
+      <div className="mx-auto max-w-6xl px-6 py-8">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+          {REGENERATIVE_NAV.sections.map((section) => (
+            <div key={section.heading}>
+              <p className="mb-3 text-[10px] font-bold uppercase tracking-[0.25em] text-[#E6007E]">
+                {section.heading}
+              </p>
+              <div className="space-y-0.5">
+                {section.links.map((link) => (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    onClick={onClose}
+                    className="group block rounded-lg px-3 py-2.5 transition hover:bg-[#FFF0F7]"
+                  >
+                    <div className="flex items-center gap-2">
+                      <p className="text-sm font-semibold text-black group-hover:text-[#E6007E]">
+                        {link.label}
+                      </p>
+                      {link.badge ? (
+                        <span className="rounded-full bg-[#E6007E] px-1.5 py-0.5 text-[8px] font-bold uppercase text-white">
+                          {link.badge}
+                        </span>
+                      ) : null}
+                    </div>
+                    <p className="mt-0.5 text-xs text-black/50">{link.sub}</p>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+        <div className="mt-6 border-t border-black/10 pt-5 flex flex-wrap items-center justify-between gap-4">
+          <Link
+            href={REGENERATIVE_MEDICINE_PATH}
+            onClick={onClose}
+            className="text-sm font-bold text-[#E6007E] hover:underline"
+          >
+            View regenerative medicine hub →
+          </Link>
+          <Link
+            href={BOOKING_URL}
+            onClick={onClose}
+            className="rounded-full bg-[#E6007E] px-5 py-2 text-xs font-bold text-white transition hover:bg-[#c9006e]"
+          >
+            Book Regenerative Consult
+          </Link>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function ServicesMenu({
   isOpen,
   onClose,
@@ -143,9 +219,16 @@ function ServicesMenu({
                     onClick={onClose}
                     className="group block rounded-lg px-3 py-2.5 transition hover:bg-[#FFF0F7]"
                   >
-                    <p className="text-sm font-semibold text-black group-hover:text-[#E6007E]">
-                      {link.label}
-                    </p>
+                    <div className="flex items-center gap-2">
+                      <p className="text-sm font-semibold text-black group-hover:text-[#E6007E]">
+                        {link.label}
+                      </p>
+                      {"badge" in link && link.badge ? (
+                        <span className="rounded-full bg-[#E6007E] px-1.5 py-0.5 text-[8px] font-bold uppercase text-white">
+                          {link.badge}
+                        </span>
+                      ) : null}
+                    </div>
                     <p className="mt-0.5 text-xs text-black/50">{link.sub}</p>
                   </Link>
                 ))}
@@ -382,6 +465,19 @@ export function Header() {
         (pathname === link.href || pathname?.startsWith(link.href + "/"))
     );
 
+  const isRegenerativeActive =
+    pathname === REGENERATIVE_MEDICINE_PATH ||
+    pathname === NAD_PLUS_INJECTIONS_PATH ||
+    pathname === "/services/regenerative" ||
+    pathname === "/nad-iv-oswego" ||
+    REGENERATIVE_NAV_FLAT_LINKS.some(
+      (link) =>
+        pathname === link.href.split("#")[0] ||
+        pathname?.startsWith(link.href.split("#")[0] + "/")
+    ) ||
+    (pathname?.startsWith("/services/anteage") ?? false) ||
+    (pathname?.startsWith("/services/pr") ?? false);
+
   return (
     <header className="sticky top-0 z-50 bg-white border-b-2 border-black">
       {/* Top bar */}
@@ -437,6 +533,32 @@ export function Header() {
                 isOpen={activeDropdown === "services"}
                 onClose={() => setActiveDropdown(null)}
                 onMouseEnter={() => openDropdown("services")}
+              />
+            </div>
+
+            {/* Regenerative Medicine */}
+            <div
+              className="relative flex items-center"
+              onMouseEnter={() => openDropdown("regenerative")}
+              onMouseLeave={closeDropdown}
+            >
+              <Link
+                href={REGENERATIVE_MEDICINE_PATH}
+                className={cx(
+                  NAV_LINK_BASE,
+                  "border border-[#E6007E]/40",
+                  isRegenerativeActive ? NAV_LINK_ACTIVE : NAV_LINK_IDLE
+                )}
+              >
+                Regenerative
+                <svg className={cx("w-3 h-3 transition-transform", activeDropdown === "regenerative" && "rotate-180")} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </Link>
+              <RegenerativeMedicineMenu
+                isOpen={activeDropdown === "regenerative"}
+                onClose={() => setActiveDropdown(null)}
+                onMouseEnter={() => openDropdown("regenerative")}
               />
             </div>
 
@@ -610,6 +732,7 @@ export function Header() {
             {/* Services accordion */}
             {[
               { key: "services", label: "Services", links: NAV.services.sections.flatMap(s => s.links) },
+              { key: "regenerative", label: "Regenerative Medicine", links: REGENERATIVE_NAV_FLAT_LINKS },
               { key: "specials", label: "Specials", links: NAV.specials.links, highlight: true },
               { key: "about", label: "About", links: NAV.about.links },
               { key: "patient", label: "Patient Info", links: NAV.patient.links },

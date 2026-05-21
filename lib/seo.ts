@@ -902,6 +902,87 @@ export const SERVICES: readonly Service[] = [
       },
     ],
   },
+  {
+    slug: "anteage-microneedling-exosomes",
+    name: "AnteAGE Microneedling + Exosomes",
+    category: "Regenerative",
+    short:
+      "RF or microneedling enhanced with AnteAGE® exosomes — advanced collagen signaling and recovery support.",
+    heroTitle: "AnteAGE Microneedling + Exosomes in Oswego, IL",
+    heroSubtitle:
+      "Our most advanced AnteAGE tier for texture, pores, and regenerative skin quality.",
+    faqs: [
+      {
+        question: "What are AnteAGE exosomes?",
+        answer:
+          "AnteAGE exosomes are professional-grade stem cell signaling vesicles used to support healing, collagen pathways, and post-treatment recovery when paired with microneedling.",
+      },
+      {
+        question: "How is this different from PRF?",
+        answer:
+          "PRF uses your own blood; AnteAGE adds laboratory-grade exosome signaling. Many clients combine or sequence both — your provider will recommend a plan.",
+      },
+      {
+        question: "Is there downtime?",
+        answer:
+          "Redness and sensitivity are common after microneedling. Downtime varies by depth and protocol.",
+      },
+    ],
+  },
+  {
+    slug: "anteage-microneedling-growth-factors",
+    name: "AnteAGE Microneedling + Growth Factors",
+    category: "Regenerative",
+    short:
+      "Stem cell growth factor protocol with AnteAGE® — collagen coaching for stronger skin renewal.",
+    heroTitle: "AnteAGE Growth Factor Microneedling in Oswego, IL",
+    heroSubtitle:
+      "Regenerative microneedling with AnteAGE stem cell growth factors.",
+    faqs: [
+      {
+        question: "Who is this tier for?",
+        answer:
+          "Clients who want more than hydration-focused microneedling but may not need the full exosome tier. Candidacy is confirmed at consult.",
+      },
+      {
+        question: "Can it pair with Morpheus8?",
+        answer:
+          "Often yes, when medically appropriate. Ask about P.E.A.R.L. fusion and RF microneedling combinations.",
+      },
+      {
+        question: "How many sessions?",
+        answer:
+          "Series of 3–4 treatments spaced weeks apart are common; maintenance varies.",
+      },
+    ],
+  },
+  {
+    slug: "anteage-microneedling-ha",
+    name: "AnteAGE Microneedling + Hyaluronic Acid",
+    category: "Regenerative",
+    short:
+      "Entry AnteAGE microneedling protocol with hyaluronic acid hydration support.",
+    heroTitle: "AnteAGE HA Microneedling in Oswego, IL",
+    heroSubtitle:
+      "Hydration-forward regenerative microneedling with AnteAGE professional products.",
+    faqs: [
+      {
+        question: "Is this the same as a basic facial?",
+        answer:
+          "No — this is a medical-grade microneedling protocol with AnteAGE professional serums, not a surface-only facial.",
+      },
+      {
+        question: "Can I upgrade tiers later?",
+        answer:
+          "Yes. Many clients progress from HA to growth factors or exosomes as goals evolve.",
+      },
+      {
+        question: "What should I expect after?",
+        answer:
+          "Mild redness and tightness are common. Your provider gives personalized aftercare.",
+      },
+    ],
+  },
 ] as const;
 
 export function pageMetadata({

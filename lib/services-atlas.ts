@@ -105,10 +105,19 @@ export const ATLAS_CLUSTERS: ServiceAtlasCluster[] = [
   },
   {
     id: "regenerative",
-    title: "Regenerative Aesthetics",
-    description: "Harness your body's natural healing power with cutting-edge PRP and PRF treatments for lasting rejuvenation.",
+    title: "Regenerative Medicine",
+    description:
+      "PRP, PRF, AnteAGE® exosomes & biosomes, P.E.A.R.L., and NAD+ — cellular wellness and collagen signaling in Oswego, IL.",
     icon: "🧬",
-    services: ["ez-prf-gel", "prp", "prp-facial", "prp-joint-injections", "prf-prp"],
+    services: [
+      "ez-prf-gel",
+      "prp",
+      "prp-facial",
+      "prf-prp",
+      "anteage-microneedling-exosomes",
+      "anteage-microneedling-growth-factors",
+      "anteage-microneedling-ha",
+    ],
     personaDefault: "peppi",
   },
 ];

@@ -93,6 +93,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.92,
     },
     {
+      url: `${baseUrl}/regenerative-medicine-oswego-il`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.93,
+    },
+    {
+      url: `${baseUrl}/services/nad-plus-injections-oswego-il`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.91,
+    },
+    {
       url: `${baseUrl}/events/quantum-rf-clinical-model`,
       lastModified: currentDate,
       changeFrequency: 'weekly',

@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" role="img" aria-label="Illustration of mitochondria as cellular energy structures">
+  <rect width="640" height="360" rx="24" fill="#0a0a0a"/>
+  <ellipse cx="320" cy="190" rx="200" ry="110" fill="#1a0a12" stroke="#E6007E" stroke-width="2" opacity=".9"/>
+  <ellipse cx="280" cy="175" rx="95" ry="52" fill="none" stroke="#FF2D8E" stroke-width="3"/>
+  <ellipse cx="360" cy="175" rx="95" ry="52" fill="none" stroke="#FF2D8E" stroke-width="3"/>
+  <path d="M220 190 Q320 240 420 190" fill="none" stroke="#FFB8DC" stroke-width="2" opacity=".6"/>
+  <text x="320" y="48" text-anchor="middle" fill="#FFB8DC" font-family="system-ui,sans-serif" font-size="14" font-weight="700" letter-spacing=".1em">MITOCHONDRIAL FUNCTION</text>
+  <text x="320" y="300" text-anchor="middle" fill="#fff" font-size="13" font-weight="600">Energy factories inside your cells</text>
+  <text x="320" y="322" text-anchor="middle" fill="#ffffff88" font-size="11">Branded educational graphic · Hello Gorgeous</text>
+</svg>
