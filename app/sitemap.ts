@@ -66,7 +66,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${baseUrl}/gallery`,
       lastModified: currentDate,
       changeFrequency: 'weekly',
-      priority: 0.90,
+      priority: 0.92,
     },
     {
       url: `${baseUrl}/contact`,
@@ -488,12 +488,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.75,
   }));
 
-  // Blog articles — SEO for Morpheus8, Quantum RF, Solaria, etc.
+  // Blog articles — featured posts get higher crawl priority
+  const featuredBlogSlugs = new Set([
+    'we-arent-just-a-botox-clinic-hello-gorgeous-oswego-il',
+    'male-female-practitioners-med-spa-advantage-oswego-il',
+    'botox-vs-dysport-vs-jeuveau-faq-oswego',
+    'aesthetic-injectables-anteage-pearl-oswego-il',
+    'the-story-behind-hello-gorgeous-oswego-il',
+  ]);
   const blogPages: MetadataRoute.Sitemap = getAllSlugs().map((slug) => ({
     url: `${baseUrl}/blog/${slug}`,
     lastModified: currentDate,
-    changeFrequency: 'monthly' as const,
-    priority: 0.8,
+    changeFrequency: featuredBlogSlugs.has(slug) ? ('weekly' as const) : ('monthly' as const),
+    priority: featuredBlogSlugs.has(slug) ? 0.9 : 0.8,
   }));
 
   // Laser hair removal — location pages (Oswego, Naperville, Aurora, Plainfield, Yorkville, Montgomery)

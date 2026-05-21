@@ -2,7 +2,8 @@ import type { BlogPost } from "./blog-types";
 
 export const hgIdentityBlogPost: BlogPost = {
   slug: "we-arent-just-a-botox-clinic-hello-gorgeous-oswego-il",
-  title: "We Aren't Just a Botox Clinic — A Founder's Letter from Hello Gorgeous Med Spa",
+  title:
+    "We Aren't Just a Botox Clinic in Oswego, IL — A Founder's Letter from Hello Gorgeous Med Spa",
   metaTitle:
     "We Aren't Just a Botox Clinic | Hello Gorgeous Med Spa Oswego IL | Founder's Letter",
   metaDescription:

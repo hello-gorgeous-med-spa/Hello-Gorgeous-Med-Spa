@@ -76,12 +76,15 @@ export default function WhyChooseUsPage() {
               <p className="text-xl text-gray-300 max-w-2xl mx-auto leading-relaxed">
                 {BEST_OF_OSWEGO.primary}. Newest Morpheus8 Burst — deepest RF at 8mm for face AND body. Only med spa in Oswego, Naperville, Aurora, Plainfield with this technology. Full-authority NP on site.
               </p>
-              <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
+              <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center flex-wrap">
                 <CTA href={BOOKING_URL} variant="gradient">
                   Book Free Consultation
                 </CTA>
                 <CTA href="/services" variant="outline">
                   Explore Services
+                </CTA>
+                <CTA href="/blog/we-arent-just-a-botox-clinic-hello-gorgeous-oswego-il" variant="outline">
+                  Read Our Promise
                 </CTA>
               </div>
             </FadeUp>
