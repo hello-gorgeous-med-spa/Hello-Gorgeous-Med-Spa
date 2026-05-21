@@ -9,9 +9,9 @@ const BASE_URL = SITE.url;
 const PAGE_URL = `${BASE_URL}/vip-model`;
 
 export const metadata: Metadata = {
-  title: "VIP Model Program — Up to 50% Off Morpheus8, Solaria CO₂, Trifecta | Hello Gorgeous",
+  title: "VIP Model Program — Up to 50% Off Morpheus8 & Solaria CO₂ | Hello Gorgeous",
   description:
-    "Only 20 spots. Morpheus8 $799 single, 3-pack $1,999, 2 areas $1,200. Solaria $899, Combo $1,499, Trifecta $1,999. Medical-grade skin transformation at VIP model pricing. Oswego, IL.",
+    "Only 20 spots. Morpheus8 $799 single, 3-pack $1,999, 2 areas $1,200. Solaria $899, Combo $1,499. Medical-grade skin transformation at VIP model pricing. Oswego, IL.",
   keywords: [
     "VIP Model Program",
     "Morpheus8 Burst",
@@ -22,8 +22,8 @@ export const metadata: Metadata = {
     "skin transformation",
   ],
   openGraph: {
-    title: "VIP Model — Up to 50% Off | Morpheus8, Solaria, Trifecta",
-    description: "20 spots. Morpheus8 $799 / 3-pack $1,999 / 2 areas $1,200. Solaria $899, Combo $1,499, Trifecta $1,999.",
+    title: "VIP Model — Up to 50% Off | Morpheus8 & Solaria",
+    description: "20 spots. Morpheus8 $799 / 3-pack $1,999 / 2 areas $1,200. Solaria $899, Combo $1,499.",
     type: "website",
     url: PAGE_URL,
   },
@@ -116,23 +116,6 @@ const tiers = [
     careGuide: "/pre-post-care/solaria-co2", // Combo: follow both Morpheus8 + Solaria (Solaria is stricter)
     description:
       "The Total Skin Rebuild combines Morpheus8 Burst and Solaria CO₂ in one comprehensive plan. Morpheus8 works at depth to tighten and remodel collagen; Solaria works at the surface to resurface and refine texture. Together they address both the deep and superficial layers of your skin for a complete transformation. Morpheus8 Burst delivers RF energy at multiple depths to stimulate collagen and tighten tissue from within. Solaria CO₂ resurfaces the outer layers to improve texture, pores, and tone. The combination produces a dual-layer effect: tightening and remodeling from below, resurfacing from above. Ideal for loose skin, fine lines, wrinkles, acne scars, sun damage, pigmentation, uneven texture, enlarged pores, jowls, and skin laxity. Most clients see dramatic improvement after one combo cycle, with results continuing to refine for 3–6 months. Hello Gorgeous offers both technologies and designs customized protocols. An NP is on site seven days a week for consultations and oversight.",
-  },
-  {
-    id: "tier4",
-    tag: "The Trifecta",
-    name: "Morpheus8 + CO₂ + Quantum RF",
-    retail: 4500,
-    vip: 1999,
-    includes: [
-      "Morpheus8 (tightening + collagen)",
-      "CO₂ Laser (resurfacing + tone)",
-      "Quantum RF (fat reduction + contouring)",
-      "Full face + neck + sculpting protocol",
-    ],
-    icon: "⚡",
-    careGuide: "/pre-post-care/quantum-rf", // Trifecta: see all three guides
-    description:
-      "The Trifecta combines three InMode technologies in one luxury transformation package: Morpheus8 Burst, Solaria CO₂, and Quantum RF. Morpheus8 tightens and remodels collagen at depth. Solaria resurfaces and improves tone at the surface. Quantum RF delivers RF energy beneath the skin to heat fat and tighten tissue for contouring—surgical-level results without surgery. Together they address face, neck, and body for a complete transformation. The Trifecta treats loose facial skin, jowls, neck laxity, double chin, post-weight-loss laxity, abdominal looseness, arm and thigh laxity, and body contouring—plus texture, pores, pigmentation, and fine lines. Quantum RF is exclusive to Hello Gorgeous in the entire western Chicago suburbs; no other provider from Naperville to Yorkville offers subdermal RF contouring. An NP is on site seven days a week for same-day consultations and prescriptions. This is the most comprehensive package we offer.",
   },
 ];
 

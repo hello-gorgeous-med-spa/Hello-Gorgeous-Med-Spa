@@ -116,25 +116,6 @@ const bestSkinCards = [
     bestValue: true,
     mostPopular: true,
   },
-  {
-    tag: "The Trifecta",
-    icon: "⚡",
-    name: "Morpheus8 + CO₂ + Quantum RF",
-    retail: 4500,
-    vip: 1999,
-    features: [
-      "Morpheus8 (tightening + collagen)",
-      "CO₂ Laser (resurfacing + tone)",
-      "Quantum RF (fat reduction + contouring)",
-      "Full face + neck sculpting protocol",
-    ],
-    description:
-      "Triple-action treatment for tightening, resurfacing, shaping, and contouring.",
-    primaryCta: "Book Now",
-    secondaryCta: "Secure Your Spot",
-    bestValue: false,
-    mostPopular: false,
-  },
 ];
 
 const bestSkinWhyChoose = [
@@ -199,7 +180,11 @@ export function Morpheus8SkinRebuildSection({ variant = "bestSkin" }: { variant?
         </div>
 
         {/* Three cards */}
-        <div className="grid md:grid-cols-3 gap-6 lg:gap-8 mb-16">
+        <div
+          className={`grid gap-6 lg:gap-8 mb-16 ${
+            cards.length === 2 ? "md:grid-cols-2 max-w-4xl mx-auto" : "md:grid-cols-3"
+          }`}
+        >
           {cards.map((card) => (
             <div
               key={card.name}
