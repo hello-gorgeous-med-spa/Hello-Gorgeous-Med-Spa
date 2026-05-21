@@ -125,6 +125,11 @@ const nextConfig = {
     { source: "/book-now", destination: "/book", permanent: true },
     { source: "/schedule", destination: "/book", permanent: true },
     { source: "/signature-treatment-menu", destination: "/specials", permanent: true },
+    {
+      source: "/blog/male-female-practitioners-med-spa-advantage",
+      destination: "/blog/male-female-practitioners-med-spa-advantage-oswego-il",
+      permanent: true,
+    },
     { source: "/services/regenerative", destination: "/regenerative-medicine-oswego-il", permanent: true },
     { source: "/your-care-team", destination: "/providers", permanent: true },
     { source: "/meet-the-team", destination: "/providers", permanent: true },

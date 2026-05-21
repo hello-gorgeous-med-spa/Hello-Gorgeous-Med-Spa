@@ -199,6 +199,11 @@ export function Footer({
                 </Link>
               </li>
               <li>
+                <Link className="text-[#FF2D8E] hover:text-[#FF2D8E] font-medium transition-colors" href="/blog/male-female-practitioners-med-spa-advantage-oswego-il">
+                  Why Our Male + Female Team Matters
+                </Link>
+              </li>
+              <li>
                 <Link className="text-[#FF2D8E] hover:text-[#FF2D8E] font-medium transition-colors" href="/blog/botox-vs-dysport-vs-jeuveau-faq-oswego">
                   Botox vs Dysport vs Jeuveau Guide
                 </Link>

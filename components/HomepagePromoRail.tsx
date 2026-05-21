@@ -15,6 +15,14 @@ type Slide = {
 
 const SLIDES: Slide[] = [
   {
+    id: "team-advantage",
+    badge: "Our team",
+    line:
+      "Male + female practitioners at Hello Gorgeous — more comfort, balance & a complete plan for your goals.",
+    primary: { label: "Read the article", href: "/blog/male-female-practitioners-med-spa-advantage-oswego-il" },
+    secondary: { label: "Meet the team", href: "/providers" },
+  },
+  {
     id: "neurotoxin-guide",
     badge: "New guide",
     line:

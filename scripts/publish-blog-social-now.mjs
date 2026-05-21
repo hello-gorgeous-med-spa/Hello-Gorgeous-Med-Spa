@@ -8,6 +8,19 @@
 const SITE_URL = (process.env.SITE_URL || "https://www.hellogorgeousmedspa.com").replace(/\/$/, "");
 
 const POSTS = {
+  "male-female-practitioners-med-spa-advantage-oswego-il": {
+    label: "Male & female practitioners advantage",
+    message: `At Hello Gorgeous Med Spa in Oswego, IL — you do not just get one perspective. You get a team.
+
+👩 Danielle Alcala-Glazier — aesthetics, skin, the client experience you can relate to
+👨 Ryan Kent, FNP-BC — medical director on site 7 days a week, structure, symmetry & clinical care
+
+More comfort. Smarter plans. Better balance for men & women.
+
+Read why our male + female provider team is a real advantage 👇`,
+    link: `${SITE_URL}/blog/male-female-practitioners-med-spa-advantage-oswego-il`,
+    imagePath: "/images/providers/ryan-kent-clinic.jpg",
+  },
   "botox-vs-dysport-vs-jeuveau-faq-oswego": {
     label: "Botox vs Dysport vs Jeuveau guide",
     message: `💉 NEW: Choose Your Glow — Botox vs Dysport vs Jeuveau at Hello Gorgeous Med Spa, Oswego IL
