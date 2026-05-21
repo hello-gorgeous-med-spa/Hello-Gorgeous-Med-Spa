@@ -173,6 +173,18 @@ const CASES: GalleryCase[] = [
     note: "Outdoor community event with Danielle Alcala-Glazier and Ryan Kent, FNP-BC. Hello Gorgeous Med Spa, Oswego, IL.",
     serviceHref: "/about",
   },
+  // ── Quantum RF client results (Hello Gorgeous, Oswego) ──
+  {
+    type: "single-image",
+    id: "quantum-rf-jen-knees-ba",
+    treatment: "Quantum RF — Thighs & Knees",
+    category: "RF Treatments",
+    tagline: "Before & after — smoother thighs, tighter skin above the knees.",
+    image: "/gallery/quantum-rf-client-results/jen-knees-before-after.png",
+    imageAlt: "Quantum RF before and after thighs and knees skin tightening Hello Gorgeous Med Spa Oswego IL",
+    note: "Quantum RF subdermal contouring at Hello Gorgeous Med Spa, Oswego, IL. Published with client consent. Individual results vary.",
+    serviceHref: "/quantum-rf-oswego-il",
+  },
   // ── Quantum RF clinical results ──────────────────────
   {
     type: "single-image",

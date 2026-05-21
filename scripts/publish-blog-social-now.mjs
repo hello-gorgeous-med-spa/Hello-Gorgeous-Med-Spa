@@ -8,6 +8,20 @@
 const SITE_URL = (process.env.SITE_URL || "https://www.hellogorgeousmedspa.com").replace(/\/$/, "");
 
 const POSTS = {
+  "quantum-rf-knees-jen-before-after": {
+    label: "Quantum RF knees — Jen before/after",
+    channels: ["facebook", "google"],
+    message: `✨ REAL Quantum RF results — thighs & knees at Hello Gorgeous Med Spa, Oswego IL
+
+Subdermal RF contouring — tighter skin, smoother texture, less laxity above the knees. No surgery. No extended downtime.
+
+👩‍⚕️ Ryan Kent, FNP-BC on site 7 days a week
+📍 Only western suburbs practice with Quantum RF + full InMode Trifecta
+
+Individual results vary. Free consultation — link below 👇`,
+    link: `${SITE_URL}/quantum-rf-oswego-il`,
+    imagePath: "/gallery/quantum-rf-client-results/jen-knees-before-after.png",
+  },
   "what-makes-hello-gorgeous-different-oswego-il": {
     label: "What makes HG different",
     channels: ["facebook", "google"],
