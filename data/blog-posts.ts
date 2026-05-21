@@ -9,6 +9,7 @@
  *
  * Hello Gorgeous RX catalog articles are appended from `blog-rx-product-posts.ts` (one post per product card).
  */
+import { aestheticInjectablesAnteagePearlPost } from "./blog-post-aesthetic-injectables-anteage-pearl";
 import { peptideTherapyBlogPost } from "./blog-post-peptide-therapy-article";
 import { ourPromiseAuthenticityPost } from "./blog-post-our-promise-authenticity";
 import { pillarMay2026Posts } from "./blog-posts-pillar-may-2026";
@@ -19,6 +20,7 @@ import type { BlogPost } from "./blog-types";
 export type { BlogPost } from "./blog-types";
 
 const coreBlogPosts: BlogPost[] = [
+  aestheticInjectablesAnteagePearlPost,
   weightLossSkinTighteningPost,
   ourPromiseAuthenticityPost,
   ...pillarMay2026Posts,
