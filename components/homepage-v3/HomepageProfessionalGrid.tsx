@@ -115,8 +115,11 @@ export function HomepageProfessionalGrid() {
                 patient-first approach rooted in trust, artistry, and personalized care.
               </p>
               <div className="mt-4 flex flex-col gap-2 text-sm font-semibold">
-                <Link href="/blog/the-story-behind-hello-gorgeous-oswego-il" className="text-[#E6007E] hover:underline">
-                  Read Danielle&apos;s story →
+                <Link href="/blog/we-arent-just-a-botox-clinic-hello-gorgeous-oswego-il" className="text-[#E6007E] hover:underline">
+                  Read Danielle&apos;s founder&apos;s letter →
+                </Link>
+                <Link href="/blog/the-story-behind-hello-gorgeous-oswego-il" className="text-black/80 hover:text-[#E6007E] hover:underline">
+                  Our full story →
                 </Link>
                 <Link href="/about" className="text-black/80 hover:text-[#E6007E] hover:underline">
                   Meet our team →

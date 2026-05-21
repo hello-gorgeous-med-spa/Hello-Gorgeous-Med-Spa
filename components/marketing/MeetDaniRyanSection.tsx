@@ -75,8 +75,8 @@ export function MeetDaniRyanSection() {
             role="Owner & Founder"
             credentials="Licensed Esthetician, Phlebotomist, CMAA, CNA (RN in progress)"
             body="10+ years owning this practice. Still in the office every day. Started with severe acne at 12, opened my first chair with help from the aunt who raised me, and I'm still here."
-            ctaLabel="Read Dani's full story →"
-            ctaHref="/about#dani"
+            ctaLabel="Read Dani's founder's letter →"
+            ctaHref="/blog/we-arent-just-a-botox-clinic-hello-gorgeous-oswego-il"
             delayMs={0}
           />
           <FounderCard

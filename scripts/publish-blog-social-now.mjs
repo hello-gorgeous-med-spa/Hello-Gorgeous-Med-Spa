@@ -8,6 +8,24 @@
 const SITE_URL = (process.env.SITE_URL || "https://www.hellogorgeousmedspa.com").replace(/\/$/, "");
 
 const POSTS = {
+  "we-arent-just-a-botox-clinic-hello-gorgeous-oswego-il": {
+    label: "HG identity — founder's letter",
+    message: `✨ A note from Danielle, founder of Hello Gorgeous Med Spa — Oswego, IL
+
+We aren't just a Botox clinic.
+
+We specialize in YOUR health — not selling syringes.
+
+💗 We don't want your money. We want your smile.
+👩‍⚕️ Ryan Kent, FNP-BC on site 7 days a week
+🔬 $500K+ in Morpheus8 · Solaria CO₂ · Quantum RF technology
+
+Give us 10 minutes. No pressure. Just a real conversation.
+
+Read the full founder's letter 👇`,
+    link: `${SITE_URL}/blog/we-arent-just-a-botox-clinic-hello-gorgeous-oswego-il`,
+    imagePath: "/images/team/danielle.png",
+  },
   "male-female-practitioners-med-spa-advantage-oswego-il": {
     label: "Male & female practitioners advantage",
     message: `At Hello Gorgeous Med Spa in Oswego, IL — you do not just get one perspective. You get a team.

@@ -15,6 +15,14 @@ type Slide = {
 
 const SLIDES: Slide[] = [
   {
+    id: "founders-letter",
+    badge: "Founder's letter",
+    line:
+      "We aren't just a Botox clinic — Danielle on why Hello Gorgeous puts your health, honesty, and smile first.",
+    primary: { label: "Read the letter", href: "/blog/we-arent-just-a-botox-clinic-hello-gorgeous-oswego-il" },
+    secondary: { label: "Book a consult", href: "/book" },
+  },
+  {
     id: "team-advantage",
     badge: "Our team",
     line:
