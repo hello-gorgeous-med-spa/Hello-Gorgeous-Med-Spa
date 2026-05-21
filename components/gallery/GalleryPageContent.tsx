@@ -66,16 +66,6 @@ const CASES: GalleryCase[] = [
   // ── InMode Gift Night — Quantum RF, Solaria CO₂ & Morpheus8 winners (May 2026) ──
   {
     type: "video",
-    id: "gift-night-quantum-rf-live",
-    treatment: "Quantum RF — Gift Night Live Demo",
-    category: "Gift Night Winners",
-    tagline: "Ryan Kent, FNP-BC — live Quantum RF technique at our InMode gift night.",
-    video: "/videos/gallery/event-winners/quantum-rf-live-demo.mp4",
-    note: "Hello Gorgeous Med Spa community event, Oswego IL. Quantum RF gift certificate winner announcement and live demo. Individual results vary.",
-    serviceHref: "/quantum-rf-oswego-il",
-  },
-  {
-    type: "video",
     id: "gift-night-highlights",
     treatment: "InMode Gift Night — Event Highlights",
     category: "Gift Night Winners",
