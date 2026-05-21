@@ -19,8 +19,8 @@ export function InjectablesBlogPromo({
     },
     {
       slug: "botox-vs-dysport-vs-jeuveau-faq-oswego",
-      title: "Botox vs Dysport vs Jeuveau",
-      excerpt: "Which one is right for you? Compare onset, longevity & cost",
+      title: "Choose Your Glow: Botox vs Dysport vs Jeuveau",
+      excerpt: "New guide — onset, spread, best areas & how to pick your neurotoxin",
       icon: "💉",
     },
     {

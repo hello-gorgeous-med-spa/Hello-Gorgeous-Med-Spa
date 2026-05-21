@@ -8,6 +8,21 @@
 const SITE_URL = (process.env.SITE_URL || "https://www.hellogorgeousmedspa.com").replace(/\/$/, "");
 
 const POSTS = {
+  "botox-vs-dysport-vs-jeuveau-faq-oswego": {
+    label: "Botox vs Dysport vs Jeuveau guide",
+    message: `💉 NEW: Choose Your Glow — Botox vs Dysport vs Jeuveau at Hello Gorgeous Med Spa, Oswego IL
+
+✨ Which neurotoxin fits YOUR face?
+• Botox — precise, lip flip, masseter, the gold standard
+• Dysport — faster onset, softer spread for forehead & 11s
+• Jeuveau — modern aesthetic-first option
+
+First-time Botox $10/unit · NP on site 7 days a week · authentic Allergan & Galderma products.
+
+Read the full comparison 👇`,
+    link: `${SITE_URL}/blog/botox-vs-dysport-vs-jeuveau-faq-oswego`,
+    imagePath: "/images/homepage-services/botox-cosmetic-authentic-vial.png",
+  },
   "aesthetic-injectables-anteage-pearl-oswego-il": {
     label: "Injectables + AnteAGE P.E.A.R.L. blog",
     message: `✨ NEW on our blog: Your complete guide to injectables & regenerative skin at Hello Gorgeous — Oswego, IL

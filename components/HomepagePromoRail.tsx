@@ -15,6 +15,14 @@ type Slide = {
 
 const SLIDES: Slide[] = [
   {
+    id: "neurotoxin-guide",
+    badge: "New guide",
+    line:
+      "Botox vs Dysport vs Jeuveau — which fits your face? Our Oswego team breaks down onset, spread & best areas.",
+    primary: { label: "Read the guide", href: "/blog/botox-vs-dysport-vs-jeuveau-faq-oswego" },
+    secondary: { label: "Book consult", href: "/book" },
+  },
+  {
     id: "signature-menu",
     badge: "Signature menu",
     line:

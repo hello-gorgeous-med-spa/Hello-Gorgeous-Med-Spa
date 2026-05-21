@@ -199,6 +199,11 @@ export function Footer({
                 </Link>
               </li>
               <li>
+                <Link className="text-[#FF2D8E] hover:text-[#FF2D8E] font-medium transition-colors" href="/blog/botox-vs-dysport-vs-jeuveau-faq-oswego">
+                  Botox vs Dysport vs Jeuveau Guide
+                </Link>
+              </li>
+              <li>
                 <Link className="hover:text-[#FF2D8E] transition-colors" href="/blog/the-story-behind-hello-gorgeous-oswego-il">
                   Our Story
                 </Link>
