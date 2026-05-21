@@ -25,6 +25,12 @@ import {
 export const dynamic = "force-dynamic";
 
 const PREMIUM_URLS = [
+  "https://www.hellogorgeousmedspa.com/blog/salmon-dna-sculptra-ipl-oswego-il-med-spa-guide",
+  "https://www.hellogorgeousmedspa.com/services/sculptra-biostimulator",
+  "https://www.hellogorgeousmedspa.com/services/salmon-dna-glass-facial",
+  "https://www.hellogorgeousmedspa.com/services/ipl-photofacial",
+  "https://www.hellogorgeousmedspa.com/sculptra-oswego-il",
+  "https://www.hellogorgeousmedspa.com/salmon-dna-oswego-il",
   "https://www.hellogorgeousmedspa.com/blog/we-arent-just-a-botox-clinic-hello-gorgeous-oswego-il",
   "https://www.hellogorgeousmedspa.com/blog/male-female-practitioners-med-spa-advantage-oswego-il",
   "https://www.hellogorgeousmedspa.com/gallery",

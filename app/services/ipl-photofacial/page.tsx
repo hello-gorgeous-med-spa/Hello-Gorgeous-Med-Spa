@@ -69,9 +69,9 @@ const IPL_FAQS = [
 
 export const metadata: Metadata = pageMetadata({
   title:
-    "IPL Photofacial in Oswego, IL — Sun Damage, Brown Spots & Rosacea | Hello Gorgeous Med Spa",
+    "Lumecca IPL Photofacial in Oswego, IL — Sun Damage, Brown Spots & Rosacea | Hello Gorgeous Med Spa",
   description:
-    "IPL Photofacial in Oswego, IL — fade sun spots, age spots, redness, and rosacea in a single session with Intense Pulsed Light at Hello Gorgeous Med Spa. From $250. Serving Naperville, Aurora, Plainfield. Free consultation.",
+    "Lumecca IPL photofacial in Oswego, IL — InMode intense pulsed light fades sun spots, age spots, redness & rosacea. Hello Gorgeous Med Spa, 10+ years in the Fox Valley. From $250. Free consultation.",
   path: PAGE_PATH,
 });
 
@@ -105,7 +105,7 @@ export default function IPLPhotofacialPage() {
             "@context": "https://schema.org",
             "@type": "MedicalProcedure",
             name: "IPL Photofacial — Intense Pulsed Light Skin Rejuvenation",
-            alternateName: ["Photofacial", "IPL", "Intense Pulsed Light", "BBL"],
+            alternateName: ["Lumecca IPL", "Photofacial", "IPL", "Intense Pulsed Light", "BBL", "Lumecca Oswego"],
             procedureType: "https://schema.org/NoninvasiveProcedure",
             description:
               "IPL Photofacial uses broadband intense pulsed light to fade sun spots, age spots, freckles, broken capillaries, and rosacea redness, while stimulating collagen for clearer, more even skin tone.",
@@ -159,20 +159,20 @@ export default function IPLPhotofacialPage() {
                 Oswego · Naperville · Aurora · Plainfield
               </p>
               <h1 className="text-4xl md:text-6xl font-black leading-[1.05] mb-5">
-                IPL Photofacial
+                Lumecca IPL Photofacial
                 <br />
                 <span
                   className="bg-gradient-to-r from-[#FFB8DC] via-[#FF2D8E] to-[#E6007E] bg-clip-text text-transparent"
                   style={{ WebkitBackgroundClip: "text" }}
                 >
-                  Erase Sun Damage in One Session
+                  Oswego, IL — Sun Damage Gone
                 </span>
               </h1>
               <p className="text-xl md:text-2xl text-white/95 max-w-xl mb-3 font-semibold">
                 Fade brown spots, redness, and rosacea — fast.
               </p>
               <p className="text-base md:text-lg text-white/80 max-w-xl mb-8">
-                Intense Pulsed Light treats sun spots, age spots, broken capillaries,
+                InMode Lumecca-class intense pulsed light treats sun spots, age spots, broken capillaries,
                 and uneven tone in 20–45 minutes. Most clients see visible clearing
                 within 7–10 days of a single session. From{" "}
                 <span className="font-bold text-white">$250</span>.

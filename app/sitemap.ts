@@ -490,12 +490,27 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   // Blog articles — featured posts get higher crawl priority
   const featuredBlogSlugs = new Set([
+    'salmon-dna-sculptra-ipl-oswego-il-med-spa-guide',
     'we-arent-just-a-botox-clinic-hello-gorgeous-oswego-il',
     'male-female-practitioners-med-spa-advantage-oswego-il',
     'botox-vs-dysport-vs-jeuveau-faq-oswego',
     'aesthetic-injectables-anteage-pearl-oswego-il',
     'the-story-behind-hello-gorgeous-oswego-il',
   ]);
+
+  const priorityTreatmentPages: MetadataRoute.Sitemap = [
+    '/services/sculptra-biostimulator',
+    '/services/salmon-dna-glass-facial',
+    '/services/ipl-photofacial',
+    '/sculptra-oswego-il',
+    '/salmon-dna-oswego-il',
+    '/ipl-photofacial-oswego-il',
+  ].map((path) => ({
+    url: `${baseUrl}${path}`,
+    lastModified: currentDate,
+    changeFrequency: 'weekly' as const,
+    priority: 0.92,
+  }));
   const blogPages: MetadataRoute.Sitemap = getAllSlugs().map((slug) => ({
     url: `${baseUrl}/blog/${slug}`,
     lastModified: currentDate,
@@ -566,6 +581,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...topicalExpansionPages,
     ...solariaPages,
     ...morpheus8Pages,
+    ...priorityTreatmentPages,
     ...blogPages,
     ...aftercarePages,
     ...locationServicePages,

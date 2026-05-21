@@ -8,8 +8,8 @@ const area = SERVICE_AREAS.find(a => a.slug === 'oswego')!;
 const nearbyAreas = SERVICE_AREAS.filter(a => a.slug !== 'oswego');
 
 export const metadata: Metadata = {
-  title: `IPL Photofacial Oswego IL | ${service.priceDisplay} | Hello Gorgeous Med Spa`,
-  description: `IPL Photofacial in Oswego, IL. Treat sun damage, age spots, redness & rosacea. Intense pulsed light skin rejuvenation. Book consultation!`,
+  title: `Lumecca IPL Photofacial Oswego IL | ${service.priceDisplay} | Hello Gorgeous Med Spa`,
+  description: `Lumecca IPL photofacial in Oswego, IL. Treat sun damage, age spots, redness & rosacea. Hello Gorgeous Med Spa — 10+ years in the Fox Valley. Book consultation!`,
   keywords: generateLocationKeywords(service, 'Oswego'),
   alternates: { canonical: `${SITE.url}/ipl-photofacial-oswego-il` },
   openGraph: {

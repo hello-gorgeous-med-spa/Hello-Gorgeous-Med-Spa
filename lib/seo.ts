@@ -197,6 +197,32 @@ export const SERVICES: readonly Service[] = [
     ],
   },
   {
+    slug: "sculptra-biostimulator",
+    name: "Sculptra & Biostimulator",
+    category: "Injectables",
+    short: "Collagen biostimulator injectables including Sculptra® — gradual, natural structure.",
+    heroTitle: "Sculptra & Biostimulator Injectables in Oswego, IL",
+    heroSubtitle:
+      "Build collagen over time — temples, cheeks, jawline, and skin quality.",
+    faqs: [
+      {
+        question: "Does Hello Gorgeous offer Sculptra in Oswego?",
+        answer:
+          "Yes. We offer Sculptra and biostimulator planning at 74 W Washington St, Oswego, IL, with medical oversight by Ryan Kent, FNP-BC.",
+      },
+      {
+        question: "How is Sculptra different from HA filler?",
+        answer:
+          "HA fillers add immediate volume. Sculptra stimulates collagen gradually — ideal for long-term structure and skin quality.",
+      },
+      {
+        question: "Who performs biostimulator treatments?",
+        answer:
+          "Licensed injectors under Ryan Kent, FNP-BC, Medical Director, on site seven days a week.",
+      },
+    ],
+  },
+  {
     slug: "dermal-fillers",
     name: "Dermal Fillers",
     category: "Injectables",
@@ -696,25 +722,25 @@ export const SERVICES: readonly Service[] = [
     slug: "salmon-dna-glass-facial",
     name: "Salmon DNA Glass Facial",
     category: "Aesthetics",
-    short: "A glow-forward facial concept designed for a ‘glass skin’ look.",
+    short: "PDRN salmon DNA red carpet facial — glass-skin glow with optional microneedling, IPL, or peel.",
     heroTitle: "Salmon DNA Glass Facial in Oswego, IL",
     heroSubtitle:
-      "Premium skincare-focused glow support with a luxury experience.",
+      "PDRN-powered regeneration for event-ready radiance — the Fox Valley’s glass skin protocol.",
     faqs: [
       {
-        question: "Is this right for sensitive skin?",
+        question: "What is a salmon DNA facial in Oswego?",
         answer:
-          "Candidacy varies. We’ll review your skin history and goals to recommend the safest option.",
+          "A regenerative facial using PDRN (polydeoxyribonucleotide) to support repair, hydration, and glow. Hello Gorgeous offers it at 74 W Washington St, Oswego, IL.",
+      },
+      {
+        question: "Can I combine salmon DNA with IPL or microneedling?",
+        answer:
+          "Yes. Our Red Carpet protocol pairs PDRN with the right add-on based on your goals.",
       },
       {
         question: "Is there downtime?",
         answer:
           "Typically minimal, though sensitivity can vary by individual and protocol.",
-      },
-      {
-        question: "How often should I do it?",
-        answer:
-          "Frequency depends on goals and response. We’ll recommend a schedule during consult.",
       },
     ],
   },

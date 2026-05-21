@@ -8,6 +8,22 @@
 const SITE_URL = (process.env.SITE_URL || "https://www.hellogorgeousmedspa.com").replace(/\/$/, "");
 
 const POSTS = {
+  "salmon-dna-sculptra-ipl-oswego-il-med-spa-guide": {
+    label: "Salmon DNA · Sculptra · IPL Oswego guide",
+    message: `🔍 Searching for salmon DNA, Sculptra, or IPL in Oswego?
+
+Hello Gorgeous Med Spa has offered advanced skin & injectables in the Fox Valley for 10+ YEARS — here's what we actually provide:
+
+🧬 Salmon DNA / PDRN Glass Facial (Red Carpet glow)
+💎 Sculptra & biostimulator collagen treatments
+💡 Lumecca IPL photofacial — sun spots & redness
+
+Plus Morpheus8 · Solaria CO₂ · Quantum RF under one roof.
+
+Read the full Oswego guide 👇`,
+    link: `${SITE_URL}/blog/salmon-dna-sculptra-ipl-oswego-il-med-spa-guide`,
+    imagePath: "/images/ipl-photofacial/ipl-photofacial-zemits-treatment-hero.png",
+  },
   "we-arent-just-a-botox-clinic-hello-gorgeous-oswego-il": {
     label: "HG identity — founder's letter",
     message: `✨ A note from Danielle, founder of Hello Gorgeous Med Spa — Oswego, IL

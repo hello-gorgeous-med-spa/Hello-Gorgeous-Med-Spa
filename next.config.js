@@ -187,6 +187,11 @@ const nextConfig = {
     { source: "/laser-hair-removal", destination: "/services/laser-hair-removal", permanent: true },
     { source: "/kybella", destination: "/services/kybella", permanent: true },
     { source: "/salmon-dna-glass-facial", destination: "/services/salmon-dna-glass-facial", permanent: true },
+    { source: "/salmon-dna-oswego", destination: "/salmon-dna-oswego-il", permanent: true },
+    { source: "/sculptra-oswego", destination: "/sculptra-oswego-il", permanent: true },
+    { source: "/lumecca-ipl-oswego-il", destination: "/ipl-photofacial-oswego-il", permanent: true },
+    { source: "/lumecca-ipl-oswego", destination: "/services/ipl-photofacial", permanent: true },
+    { source: "/biostimulator-oswego-il", destination: "/sculptra-oswego-il", permanent: true },
     { source: "/alle-botox-rewards", destination: "/services/alle-botox-rewards", permanent: true },
     // Solaria: aftercare content now lives on main /solaria page
     { source: "/aftercare/solaria-co2", destination: "/solaria", permanent: true },

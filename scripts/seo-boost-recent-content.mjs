@@ -15,6 +15,13 @@ const SITE_URL = "https://www.hellogorgeousmedspa.com/";
 const SITEMAP_URL = "https://www.hellogorgeousmedspa.com/sitemap.xml";
 
 const PRIORITY_URLS = [
+  `${SITE_URL.replace(/\/$/, "")}/blog/salmon-dna-sculptra-ipl-oswego-il-med-spa-guide`,
+  `${SITE_URL.replace(/\/$/, "")}/services/sculptra-biostimulator`,
+  `${SITE_URL.replace(/\/$/, "")}/services/salmon-dna-glass-facial`,
+  `${SITE_URL.replace(/\/$/, "")}/services/ipl-photofacial`,
+  `${SITE_URL.replace(/\/$/, "")}/sculptra-oswego-il`,
+  `${SITE_URL.replace(/\/$/, "")}/salmon-dna-oswego-il`,
+  `${SITE_URL.replace(/\/$/, "")}/ipl-photofacial-oswego-il`,
   `${SITE_URL.replace(/\/$/, "")}/blog/we-arent-just-a-botox-clinic-hello-gorgeous-oswego-il`,
   `${SITE_URL.replace(/\/$/, "")}/blog/male-female-practitioners-med-spa-advantage-oswego-il`,
   `${SITE_URL.replace(/\/$/, "")}/blog/botox-vs-dysport-vs-jeuveau-faq-oswego`,

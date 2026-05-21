@@ -27,6 +27,7 @@ export const ATLAS_CLUSTERS: readonly ServiceAtlasCluster[] = [
     serviceSlugs: [
       "botox-dysport-jeuveau",
       "dermal-fillers",
+      "sculptra-biostimulator",
       "lip-filler",
       "kybella",
       "alle-botox-rewards",
