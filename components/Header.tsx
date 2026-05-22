@@ -251,11 +251,11 @@ function PeptideTherapyMenu({
         </div>
         <div className="mt-6 border-t border-black/10 pt-5 flex flex-wrap items-center justify-between gap-4">
           <Link
-            href={`${PEPTIDE_THERAPY_PATH}#patient-handouts`}
+            href={PEPTIDE_THERAPY_PATH}
             onClick={onClose}
             className="text-sm font-bold text-[#E6007E] hover:underline"
           >
-            View all printable handouts →
+            View all →
           </Link>
           <Link
             href={BOOKING_URL}
@@ -646,7 +646,7 @@ export function Header() {
               />
             </div>
 
-            {/* Peptide Therapy */}
+            {/* Peptides & Wellness */}
             <div
               className="relative flex items-center"
               onMouseEnter={() => openDropdown("peptides")}
@@ -660,7 +660,7 @@ export function Header() {
                   isPeptideTherapyActive ? NAV_LINK_ACTIVE : NAV_LINK_IDLE
                 )}
               >
-                Peptide Therapy
+                Peptides & Wellness
                 <svg className={cx("w-3 h-3 transition-transform", activeDropdown === "peptides" && "rotate-180")} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                 </svg>
@@ -843,7 +843,7 @@ export function Header() {
             {[
               { key: "services", label: "Services", links: NAV.services.sections.flatMap(s => s.links) },
               { key: "regenerative", label: "Regenerative Medicine", links: REGENERATIVE_NAV_FLAT_LINKS },
-              { key: "peptides", label: "Peptide Therapy", links: PEPTIDE_THERAPY_NAV_FLAT_LINKS, highlight: true },
+              { key: "peptides", label: "Peptides & Wellness", links: PEPTIDE_THERAPY_NAV_FLAT_LINKS, highlight: true },
               { key: "specials", label: "Specials", links: NAV.specials.links, highlight: true },
               { key: "about", label: "About", links: NAV.about.links },
               { key: "patient", label: "Patient Info", links: NAV.patient.links },

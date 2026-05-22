@@ -1,21 +1,21 @@
-/** Peptide Therapy — main nav clusters & handout links. */
+/** Peptides & Wellness — main nav clusters & topic links (HG_DEV_011). */
 
+import type { PeptideTopic } from "@/data/peptides";
+import { PEPTIDE_HANDOUTS_PATH } from "@/lib/peptide-handouts";
 import {
-  PEPTIDE_HANDOUT_CATEGORIES,
-  PEPTIDE_HANDOUTS,
-  PEPTIDE_HANDOUTS_PATH,
-  peptideHandoutHref,
-} from "./peptide-handouts";
-import { PEPTIDE_THERAPY_PATH } from "./peptide-education";
+  getPeptideTopicsByCategory,
+  PEPTIDES_HUB_PATH,
+  peptideTopicHref,
+  tierBadge,
+} from "@/lib/peptides-hub";
 
-export { PEPTIDE_THERAPY_PATH, PEPTIDE_HANDOUTS_PATH, peptideHandoutHref };
+export { PEPTIDES_HUB_PATH as PEPTIDE_THERAPY_PATH, peptideTopicHref as peptideEducationHref };
 
 export type PeptideTherapyNavLink = {
   label: string;
   href: string;
   sub: string;
   badge?: string;
-  external?: boolean;
 };
 
 export type PeptideTherapyNavSection = {
@@ -23,43 +23,38 @@ export type PeptideTherapyNavSection = {
   links: PeptideTherapyNavLink[];
 };
 
-const handoutById = Object.fromEntries(PEPTIDE_HANDOUTS.map((h) => [h.id, h]));
-
-function handoutNavLink(id: string): PeptideTherapyNavLink {
-  const h = handoutById[id];
-  if (!h) {
-    return { label: id, href: PEPTIDE_THERAPY_PATH, sub: "" };
-  }
+function topicNavLink(topic: PeptideTopic): PeptideTherapyNavLink {
   return {
-    label: h.title,
-    href: peptideHandoutHref(h.filename),
-    sub: `${h.series} · ${h.pages} pages · printable HTML`,
-    badge: h.badge,
-    external: true,
+    label: topic.name,
+    href: peptideTopicHref(topic.slug),
+    sub: topic.tagline,
+    badge: tierBadge(topic.tier),
   };
 }
+
+const topicGroups = getPeptideTopicsByCategory();
 
 export const PEPTIDE_THERAPY_NAV: {
   label: string;
   href: string;
   sections: PeptideTherapyNavSection[];
 } = {
-  label: "Peptide Therapy",
-  href: PEPTIDE_THERAPY_PATH,
+  label: "Peptides & Wellness",
+  href: PEPTIDES_HUB_PATH,
   sections: [
     {
       heading: "Hello Gorgeous RX™",
       links: [
         {
-          label: "Peptide Therapy Hub",
-          href: PEPTIDE_THERAPY_PATH,
-          sub: "Treatment overview · same-day consults often available · Oswego",
+          label: "Peptides & Wellness Hub",
+          href: PEPTIDES_HUB_PATH,
+          sub: "Browse all education topics · Oswego, IL",
           badge: "HUB",
         },
         {
-          label: "All Printable Handouts",
-          href: `${PEPTIDE_THERAPY_PATH}#patient-handouts`,
-          sub: "Full library of Danielle's HTML patient guides",
+          label: "Printable HTML Handouts",
+          href: `${PEPTIDES_HUB_PATH}#patient-handouts`,
+          sub: "Danielle's original designed patient guides",
         },
         {
           label: "Hello Gorgeous RX Products",
@@ -68,9 +63,9 @@ export const PEPTIDE_THERAPY_NAV: {
         },
       ],
     },
-    ...PEPTIDE_HANDOUT_CATEGORIES.map((cat) => ({
-      heading: cat.heading,
-      links: cat.handoutIds.map(handoutNavLink),
+    ...topicGroups.map((group) => ({
+      heading: group.category,
+      links: group.topics.map(topicNavLink),
     })),
     {
       heading: "Related",
@@ -82,8 +77,8 @@ export const PEPTIDE_THERAPY_NAV: {
         },
         {
           label: "Interactive Education Center",
-          href: `${PEPTIDE_THERAPY_PATH}#peptide-education`,
-          sub: "Web version of select guides on the peptide page",
+          href: `${PEPTIDES_HUB_PATH}#peptide-education`,
+          sub: "Dropdown guides on the peptide hub page",
         },
         {
           label: "NAD+ Injections",
@@ -105,9 +100,9 @@ export const PEPTIDE_THERAPY_NAV: {
 export const PEPTIDE_THERAPY_NAV_FLAT_LINKS: PeptideTherapyNavLink[] =
   PEPTIDE_THERAPY_NAV.sections.flatMap((s) => s.links);
 
-/** Paths that should highlight the Peptide Therapy nav tab. */
+/** Paths that should highlight the Peptides & Wellness nav tab. */
 export const PEPTIDE_THERAPY_ACTIVE_PREFIXES = [
-  PEPTIDE_THERAPY_PATH,
+  PEPTIDES_HUB_PATH,
   PEPTIDE_HANDOUTS_PATH,
   "/rx/peptides",
   "/blog/which-peptide-is-right-for-you-oswego-il",
