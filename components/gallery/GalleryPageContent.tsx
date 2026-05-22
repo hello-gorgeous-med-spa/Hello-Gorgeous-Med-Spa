@@ -185,6 +185,30 @@ const CASES: GalleryCase[] = [
     note: "Quantum RF subdermal contouring at Hello Gorgeous Med Spa, Oswego, IL. Published with client consent. Individual results vary.",
     serviceHref: "/quantum-rf-oswego-il",
   },
+  {
+    type: "single-image",
+    id: "quantum10-upper-arms-ba",
+    treatment: "Quantum 10 — Upper Arm Skin Tightening",
+    category: "RF Treatments",
+    tagline: "Left and right upper arms — visible reduction in laxity and smoother contour.",
+    image: "/gallery/quantum10-morpheus8-burst-upper-arms/before-after.png",
+    imageAlt:
+      "Quantum 10 before and after upper arm skin tightening left arm and right arm — Hello Gorgeous Med Spa Oswego IL",
+    note: "Real client before and after upper arm skin laxity. Quantum 10 subdermal RF contouring at Hello Gorgeous Med Spa, Oswego, IL. Published with client consent. Individual results vary.",
+    serviceHref: "/quantum-rf-oswego-il",
+  },
+  {
+    type: "single-image",
+    id: "morpheus8-burst-upper-arms-ba",
+    treatment: "Morpheus8 Burst — Upper Arm Skin Tightening",
+    category: "RF Microneedling",
+    tagline: "Bilateral upper arm laxity tightened — before and after on left and right arms.",
+    image: "/gallery/quantum10-morpheus8-burst-upper-arms/before-after.png",
+    imageAlt:
+      "Morpheus8 Burst before and after upper arm skin tightening left arm and right arm — Hello Gorgeous Med Spa Oswego IL",
+    note: "Real client before and after upper arm skin laxity. Morpheus8 Burst RF microneedling — body. Hello Gorgeous Med Spa, Oswego, IL. Published with client consent. Individual results vary.",
+    serviceHref: "/morpheus8-burst-oswego-il",
+  },
   // ── Quantum RF clinical results ──────────────────────
   {
     type: "single-image",
