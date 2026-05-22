@@ -20,6 +20,7 @@ import {
 const CARD_HEADER: Record<PeptideResearchCard["variant"], string> = {
   copper: "bg-[#b87333]",
   energy: "bg-[#1fa890]",
+  b12: "bg-[#d99021]",
   pink: "bg-[#E6007E]",
   teal: "bg-[#2a9d8f]",
   gold: "bg-[#c77b2a]",
@@ -33,6 +34,7 @@ const CARD_HEADER: Record<PeptideResearchCard["variant"], string> = {
 const BULLET_DOT: Record<PeptideResearchCard["variant"], string> = {
   copper: "bg-[#b87333]",
   energy: "bg-[#1fa890]",
+  b12: "bg-[#d99021]",
   pink: "bg-[#E6007E]",
   teal: "bg-[#2a9d8f]",
   gold: "bg-[#c77b2a]",
@@ -46,6 +48,7 @@ const BULLET_DOT: Record<PeptideResearchCard["variant"], string> = {
 const CALLOUT_BORDER: Record<string, string> = {
   copper: "border-l-[#b87333] bg-[#fdf8f2]",
   energy: "border-l-[#1fa890] bg-[#f1fbf8]",
+  b12: "border-l-[#d99021] bg-[#fdf8ef]",
   pink: "border-l-[#E6007E] bg-[#fdf2f6]",
   gold: "border-l-[#c77b2a] bg-[#fff8ef]",
   red: "border-l-[#e63946] bg-[#fdf1f2]",
@@ -54,6 +57,7 @@ const CALLOUT_BORDER: Record<string, string> = {
 const CALLOUT_TITLE: Record<string, string> = {
   copper: "text-[#b87333]",
   energy: "text-[#1fa890]",
+  b12: "text-[#d99021]",
   pink: "text-[#E6007E]",
   gold: "text-[#c77b2a]",
   red: "text-[#e63946]",
@@ -74,7 +78,27 @@ const ACCENT_THEME = {
     gradient: "linear-gradient(90deg, #1fa890, #E6007E 55%, #c77b2a)",
     radial: "radial-gradient(circle, rgba(31,168,144,.4), transparent 70%)",
   },
+  b12: {
+    border: "#d99021",
+    bg: "#fdf8ef",
+    shadow: "rgba(217,144,33,0.25)",
+    gradient: "linear-gradient(90deg, #d99021, #E6007E 55%, #c77b2a)",
+    radial: "radial-gradient(circle, rgba(217,144,33,.4), transparent 70%)",
+  },
 } as const;
+
+const DEEP_DIVE_SERVICE_LINKS: Record<string, { href: string; label: string; linkClass: string }> = {
+  "nad-plus": {
+    href: "/services/nad-plus-injections-oswego-il",
+    label: "NAD+ injections at Hello Gorgeous →",
+    linkClass: "text-[#1fa890] decoration-[#1fa890]",
+  },
+  "methyl-b12": {
+    href: "/vitamin-injections-oswego",
+    label: "Vitamin injections in Oswego →",
+    linkClass: "text-[#d99021] decoration-[#d99021]",
+  },
+};
 
 const STATUS_TAG: Record<RegulatoryStatusTag, { label: string; className: string }> = {
   rx: { label: "FDA-Approved exists", className: "bg-[#e6f4ef] text-[#2d7a55]" },
@@ -608,16 +632,16 @@ function DeepDiveContent({ guide }: { guide: PeptideEducationGuide }) {
         <CalloutBox key={c.title} title={c.title} body={c.body} variant={c.variant} />
       ))}
 
-      {guide.id === "nad-plus" && (
+      {DEEP_DIVE_SERVICE_LINKS[guide.id] && (
         <div className="flex flex-col items-center justify-center gap-3 sm:flex-row">
           <CTA href={BOOKING_URL} variant="gradient">
-            Book NAD+ consult
+            Book {guide.label} consult
           </CTA>
           <Link
-            href="/services/nad-plus-injections-oswego-il"
-            className="text-sm font-semibold text-[#1fa890] underline decoration-[#1fa890] underline-offset-4"
+            href={DEEP_DIVE_SERVICE_LINKS[guide.id].href}
+            className={`text-sm font-semibold underline underline-offset-4 ${DEEP_DIVE_SERVICE_LINKS[guide.id].linkClass}`}
           >
-            NAD+ injections at Hello Gorgeous →
+            {DEEP_DIVE_SERVICE_LINKS[guide.id].label}
           </Link>
         </div>
       )}
@@ -701,7 +725,7 @@ export function PeptideEducationSection() {
           </h2>
           <p className="mt-4 text-black/75 max-w-2xl mx-auto">
             Start with Peptides 101, match your goal with our best-use case guide, browse the full reference list, or
-            dive into GHK-Cu and NAD+ deep dives.
+            dive into GHK-Cu, NAD+, and Methyl B12 deep dives.
           </p>
         </div>
       </FadeUp>

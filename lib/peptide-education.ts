@@ -3,6 +3,7 @@
 export type PeptideCardVariant =
   | "copper"
   | "energy"
+  | "b12"
   | "pink"
   | "teal"
   | "gold"
@@ -69,7 +70,7 @@ export type PeptidePairingRow = {
 export type PeptideCallout = {
   title: string;
   body: string;
-  variant: "copper" | "energy" | "pink" | "gold" | "red";
+  variant: "copper" | "energy" | "b12" | "pink" | "gold" | "red";
 };
 
 export type ExpectationsRow = {
@@ -130,7 +131,7 @@ export type PeptideEducationGuide = {
   goalMatchRows?: BestUseCaseGoalRow[];
   blendEntries?: BestUseCaseEntry[];
   singleEntries?: BestUseCaseEntry[];
-  accentTheme?: "copper" | "energy";
+  accentTheme?: "copper" | "energy" | "b12";
   sectionHeadings?: DeepDiveSectionHeadings;
   expectationsTable?: ExpectationsRow[];
   hero?: {
@@ -1182,6 +1183,187 @@ export const PEPTIDE_EDUCATION_GUIDES: PeptideEducationGuide[] = [
         variant: "pink",
         body:
           "We're genuinely excited about cellular-wellness science — and we're just as committed to being straight with you about what's known and what isn't. If NAD+ is something you're curious about, the right first step is a real conversation about your goals, your health history, and whether it even makes sense for you. No pressure, no miracle talk.",
+      },
+    ],
+  },
+  {
+    id: "methyl-b12",
+    contentType: "deep-dive",
+    accentTheme: "b12",
+    label: "Methyl B12",
+    selectLabel: "Methyl B12 — Energy & wellness shots",
+    series: "Hello Gorgeous · Wellness Science Series",
+    headline: "Methyl B12",
+    headlineAccent: "& Your Energy",
+    subhead:
+      "One of the most popular wellness shots there is — and one of the most well-understood. Here's what methylated B12 actually does, who tends to benefit, and how to think about it clearly.",
+    pills: ["#MethylB12", "#Methylcobalamin", "#EnergySupport", "#NerveHealth", "#WellnessShot"],
+    image: {
+      src: "/images/homepage-services/vitamin-injections-fruit-syringe.png",
+      alt: "Methyl B12 wellness injection — energy and vitamin support at Hello Gorgeous",
+    },
+    available: true,
+    sectionHeadings: {
+      research: "What B12 supports in the body",
+      topical: "Forms you'll see",
+      fit: "Who tends to benefit most",
+      expectations: "Setting real expectations",
+    },
+    hero: {
+      title: "So What Is It, Really?",
+      body:
+        "Vitamin B12 is an essential nutrient your body needs for energy metabolism, healthy nerves, red blood cell formation, and DNA synthesis. Methylcobalamin (\"methyl B12\") is the active, ready-to-use form — your body can put it to work immediately without having to convert it first. That's why it's a favorite for injections: delivered into the muscle, it skips the digestive system entirely for reliable absorption.",
+      stats: [
+        {
+          value: "Active Form",
+          label: "Methylcobalamin is ready to use — no conversion step required",
+        },
+        {
+          value: "~1 in 10",
+          label:
+            "Adults over 60 are estimated to be low in B12 — and many younger adults too, often from diet or absorption",
+        },
+      ],
+    },
+    researchCards: [
+      {
+        category: "Supports",
+        title: "Energy",
+        variant: "b12",
+        bullets: [
+          "Key role in energy metabolism",
+          "Helps turn food into usable fuel",
+          "The classic \"why am I so tired\" check",
+        ],
+      },
+      {
+        category: "Supports",
+        title: "Nerves",
+        variant: "pink",
+        bullets: [
+          "Essential for healthy nerve function",
+          "Supports the protective nerve coating",
+          "Tied to the \"tingling/numbness\" story",
+        ],
+      },
+      {
+        category: "Supports",
+        title: "Mood & Focus",
+        variant: "teal",
+        bullets: [
+          "Involved in neurotransmitter production",
+          "Linked to mental clarity",
+          "Why people mention \"less foggy\"",
+        ],
+      },
+      {
+        category: "Supports",
+        title: "Blood & Cells",
+        variant: "gold",
+        bullets: [
+          "Needed for red blood cell formation",
+          "Part of healthy DNA synthesis",
+          "Deficiency is linked to anemia",
+        ],
+      },
+    ],
+    callouts: [
+      {
+        title: "Why \"methylated\" matters to some people",
+        variant: "b12",
+        body:
+          "Most B12 supplements use cyanocobalamin, which your body has to convert into the active form first. Methylcobalamin is already in that active form — which is appealing for people whose bodies don't convert as efficiently. Both forms work; methyl B12 just skips a step.",
+      },
+    ],
+    topicalSection: {
+      established: {
+        title: "Injection (IM)",
+        variant: "pink",
+        body:
+          "A quick intramuscular shot, the form most associated with med spas and wellness clinics. Bypasses digestion for dependable absorption — popular with people who want a simple, reliable B12 boost. Always given by a trained provider.",
+      },
+      caution: {
+        title: "Oral & sublingual",
+        variant: "gold",
+        body:
+          "Tablets, capsules, and under-the-tongue forms are convenient and widely available. They work for many people — though absorption can vary, especially for those with gut or absorption issues, which is part of why some prefer the shot.",
+      },
+    },
+    fitCards: [
+      {
+        category: "Great Fit",
+        title: "Plant-Based",
+        variant: "b12",
+        bullets: [
+          "Vegetarian or vegan diets",
+          "B12 is mostly in animal foods",
+          "A common, sensible gap to fill",
+        ],
+      },
+      {
+        category: "Great Fit",
+        title: "Low Energy",
+        variant: "pink",
+        bullets: [
+          "Persistent fatigue or brain fog",
+          "Wants to rule out a real deficiency",
+          "Best paired with bloodwork",
+        ],
+      },
+      {
+        category: "Great Fit",
+        title: "Absorption Issues",
+        variant: "gold",
+        bullets: [
+          "Gut conditions, certain meds, age",
+          "May not absorb oral B12 well",
+          "Injection bypasses that hurdle",
+        ],
+      },
+      {
+        category: "Just So You Know",
+        title: "If You're Full",
+        variant: "navy",
+        bullets: [
+          "If your levels are already healthy",
+          "Extra B12 is generally well tolerated",
+          "But more isn't automatically \"better\"",
+        ],
+      },
+    ],
+    expectationsTable: [
+      {
+        claim: "\"B12 melts fat\"",
+        honest:
+          "B12 itself isn't a weight-loss drug. It can support energy and metabolism if you're low, but it's not a fat burner on its own — major medical groups are clear on this.",
+      },
+      {
+        claim: "\"Instant energy for everyone\"",
+        honest:
+          "The lift is most noticeable in people who were actually deficient. If your levels are already good, you may not feel a dramatic change.",
+      },
+      {
+        claim: "\"Replaces a healthy diet\"",
+        honest: "Nope. It's a supplement to good nutrition, sleep, and movement — not a substitute for them.",
+      },
+      {
+        claim: "\"You can't get too much\"",
+        honest:
+          "B12 is water-soluble and generally very safe, but dosing and frequency still deserve a provider's input — especially with other conditions.",
+      },
+    ],
+    closingCallouts: [
+      {
+        title: "The honest fine print",
+        variant: "b12",
+        body:
+          "B12 injections are one of the safest, most established offerings in wellness — but the most useful thing you can do is know your actual level. A simple blood test tells you whether you're topping off a tank that's already full or filling a real gap. That's the difference between feeling a genuine lift and just chasing a trend.",
+      },
+      {
+        title: "How we think about it at Hello Gorgeous",
+        variant: "pink",
+        body:
+          "We love B12 because it's simple, safe, and genuinely helpful for the right person — and we'd always rather help you figure out if you're that person than just sell you a shot. Curious whether it makes sense for you? Let's talk about your energy, your goals, and whether a quick level check is worth doing first.",
       },
     ],
   },
