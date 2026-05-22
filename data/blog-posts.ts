@@ -11,6 +11,7 @@
  */
 import { whatMakesHgDifferentPost } from "./blog-post-what-makes-hg-different";
 import { salmonDnaSculptraIplPost } from "./blog-post-salmon-dna-sculptra-ipl-oswego";
+import { peptideBestFitGuidePost } from "./blog-post-peptide-best-fit-guide";
 import { founderLetterMorpheusSolariaPost } from "./blog-post-founder-letter-morpheus-solaria";
 import { hgIdentityBlogPost } from "./blog-post-hg-identity";
 import { maleFemalePractitionersPost } from "./blog-post-male-female-practitioners";
@@ -26,6 +27,7 @@ import type { BlogPost } from "./blog-types";
 export type { BlogPost } from "./blog-types";
 
 const coreBlogPosts: BlogPost[] = [
+  peptideBestFitGuidePost,
   founderLetterMorpheusSolariaPost,
   whatMakesHgDifferentPost,
   salmonDnaSculptraIplPost,

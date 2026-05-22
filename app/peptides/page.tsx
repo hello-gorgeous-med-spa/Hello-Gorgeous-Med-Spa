@@ -301,6 +301,14 @@ export default function PeptidesPage() {
               Explore what each peptide supports—healing, metabolism, skin, sleep, and beyond. 
               All treatment decisions require a medical consultation.
             </p>
+            <p className="mt-4 max-w-2xl mx-auto">
+              <Link
+                href="/blog/which-peptide-is-right-for-you-oswego-il"
+                className="inline-flex items-center gap-2 text-[#FF2D8E] font-semibold underline decoration-[#E6007E] underline-offset-4 hover:text-[#E6007E]"
+              >
+                Not sure where to start? Read our goal-based peptide fit guide →
+              </Link>
+            </p>
           </div>
         </FadeUp>
 

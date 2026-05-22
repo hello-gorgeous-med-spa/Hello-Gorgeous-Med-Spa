@@ -22,6 +22,19 @@ Individual results vary. Free consultation — link below 👇`,
     link: `${SITE_URL}/quantum-rf-oswego-il`,
     imagePath: "/gallery/quantum-rf-client-results/jen-knees-before-after.png",
   },
+  "which-peptide-is-right-for-you-oswego-il": {
+    label: "Which peptide is right for you — guide",
+    channels: ["facebook", "google"],
+    message: `🧬 Curious which peptide is for YOU?
+
+Recovery · skin & collagen · body composition · longevity · energy · focus — match your goal to what we actually discuss at Hello Gorgeous Med Spa, Oswego IL.
+
+NP-led Hello Gorgeous RX™ · Ryan Kent FNP-BC on site 7 days a week.
+
+Read the goal-based guide 👇`,
+    link: `${SITE_URL}/blog/which-peptide-is-right-for-you-oswego-il`,
+    imagePath: "/images/peptides/peptide-cheat-sheet-full.png",
+  },
   "founder-letter-morpheus8-solaria-oswego-il": {
     label: "Founder's letter — Morpheus8 & Solaria",
     channels: ["facebook", "google"],

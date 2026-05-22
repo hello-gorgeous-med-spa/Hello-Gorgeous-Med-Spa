@@ -31,6 +31,14 @@ const SLIDES: Slide[] = [
     secondary: { label: "Book a consult", href: "/book" },
   },
   {
+    id: "peptide-fit-guide",
+    badge: "Peptide guide",
+    line:
+      "Curious which peptide is for you? Match recovery, skin, hormones, longevity & more to what we discuss at Hello Gorgeous RX™.",
+    primary: { label: "Read the guide", href: "/blog/which-peptide-is-right-for-you-oswego-il" },
+    secondary: { label: "Peptide therapy", href: "/peptides" },
+  },
+  {
     id: "team-advantage",
     badge: "Our team",
     line:
