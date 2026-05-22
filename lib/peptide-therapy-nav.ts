@@ -1,20 +1,43 @@
-/** Peptide Therapy — main nav clusters & education deep links. */
+/** Peptide Therapy — main nav clusters & handout links. */
 
-import { peptideEducationHref, PEPTIDE_THERAPY_PATH } from "./peptide-education";
+import {
+  PEPTIDE_HANDOUT_CATEGORIES,
+  PEPTIDE_HANDOUTS,
+  PEPTIDE_HANDOUTS_PATH,
+  peptideHandoutHref,
+} from "./peptide-handouts";
+import { PEPTIDE_THERAPY_PATH } from "./peptide-education";
 
-export { PEPTIDE_THERAPY_PATH, peptideEducationHref };
+export { PEPTIDE_THERAPY_PATH, PEPTIDE_HANDOUTS_PATH, peptideHandoutHref };
 
 export type PeptideTherapyNavLink = {
   label: string;
   href: string;
   sub: string;
   badge?: string;
+  external?: boolean;
 };
 
 export type PeptideTherapyNavSection = {
   heading: string;
   links: PeptideTherapyNavLink[];
 };
+
+const handoutById = Object.fromEntries(PEPTIDE_HANDOUTS.map((h) => [h.id, h]));
+
+function handoutNavLink(id: string): PeptideTherapyNavLink {
+  const h = handoutById[id];
+  if (!h) {
+    return { label: id, href: PEPTIDE_THERAPY_PATH, sub: "" };
+  }
+  return {
+    label: h.title,
+    href: peptideHandoutHref(h.filename),
+    sub: `${h.series} · ${h.pages} pages · printable HTML`,
+    badge: h.badge,
+    external: true,
+  };
+}
 
 export const PEPTIDE_THERAPY_NAV: {
   label: string;
@@ -34,53 +57,21 @@ export const PEPTIDE_THERAPY_NAV: {
           badge: "HUB",
         },
         {
+          label: "All Printable Handouts",
+          href: `${PEPTIDE_THERAPY_PATH}#patient-handouts`,
+          sub: "Full library of Danielle's HTML patient guides",
+        },
+        {
           label: "Hello Gorgeous RX Products",
           href: "/products-we-offer",
           sub: "Compounded peptides & wellness Rx catalog",
         },
-        {
-          label: "Regenerative Medicine Hub",
-          href: "/regenerative-medicine-oswego-il",
-          sub: "PRF, AnteAGE, NAD+ & cellular wellness",
-        },
       ],
     },
-    {
-      heading: "Education Center",
-      links: [
-        {
-          label: "Peptides 101",
-          href: peptideEducationHref("peptides-101"),
-          sub: "Start here — what peptides are & how they work",
-          badge: "START",
-        },
-        {
-          label: "Best Use Case Guide",
-          href: peptideEducationHref("best-use-case"),
-          sub: "Match your goal to clinic blends & singles",
-        },
-        {
-          label: "Peptide Reference List",
-          href: peptideEducationHref("reference-list"),
-          sub: "Categories & regulatory status — education only",
-        },
-        {
-          label: "GHK-Cu · Copper Peptides",
-          href: peptideEducationHref("ghk-cu"),
-          sub: "Skin, collagen & post-treatment care",
-        },
-        {
-          label: "NAD+ · Cellular Energy",
-          href: peptideEducationHref("nad-plus"),
-          sub: "Mitochondria, longevity & IV wellness",
-        },
-        {
-          label: "Methyl B12 · Energy",
-          href: peptideEducationHref("methyl-b12"),
-          sub: "Wellness shots & methylcobalamin",
-        },
-      ],
-    },
+    ...PEPTIDE_HANDOUT_CATEGORIES.map((cat) => ({
+      heading: cat.heading,
+      links: cat.handoutIds.map(handoutNavLink),
+    })),
     {
       heading: "Related",
       links: [
@@ -90,9 +81,9 @@ export const PEPTIDE_THERAPY_NAV: {
           sub: "Blog — goal-based fit guide for Oswego",
         },
         {
-          label: "Peptide Therapy Overview",
-          href: "/blog/peptide-therapy-regenerative-medicine-hello-gorgeous-rx-oswego-il",
-          sub: "Hello Gorgeous RX™ & popular peptide names",
+          label: "Interactive Education Center",
+          href: `${PEPTIDE_THERAPY_PATH}#peptide-education`,
+          sub: "Web version of select guides on the peptide page",
         },
         {
           label: "NAD+ Injections",
@@ -117,6 +108,7 @@ export const PEPTIDE_THERAPY_NAV_FLAT_LINKS: PeptideTherapyNavLink[] =
 /** Paths that should highlight the Peptide Therapy nav tab. */
 export const PEPTIDE_THERAPY_ACTIVE_PREFIXES = [
   PEPTIDE_THERAPY_PATH,
+  PEPTIDE_HANDOUTS_PATH,
   "/rx/peptides",
   "/blog/which-peptide-is-right-for-you-oswego-il",
   "/blog/peptide-therapy-regenerative-medicine-hello-gorgeous-rx-oswego-il",

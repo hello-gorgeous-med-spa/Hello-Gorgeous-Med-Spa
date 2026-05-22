@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Glutathione &amp; The Glow</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0a1628; --pink:#D4537E; --teal:#2a9d8f; --red:#e63946;
+    --gold:#c77b2a; --purple:#7b2d8b; --green:#2d7a55; --blue:#1a3a6b;
+    --acc:#1f9d55; --paper:#fff; --ink:#1c2430; --mute:#5b6675; --line:#e4e8ee;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:#dfe4ea;}
+  body{font-family:'DM Sans',sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:24px 0;}
+  .page{width:10.5in;margin:0 auto 28px;background:var(--paper);box-shadow:0 8px 40px rgba(10,22,40,.18);overflow:hidden;position:relative;}
+  .page::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:5;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='420' height='260' viewBox='0 0 420 260'><text x='210' y='140' font-family='Arial, sans-serif' font-size='22' font-weight='700' letter-spacing='3' fill='%230a1628' fill-opacity='0.07' text-anchor='middle' transform='rotate(-30 210 130)'>HELLO GORGEOUS MED SPA</text></svg>");background-repeat:repeat;}
+  .head,.body,.foot{position:relative;z-index:10;}
+  .head{background:var(--navy);color:#fff;padding:28px 34px 24px;overflow:hidden;}
+  .head .glow{position:absolute;right:-60px;top:-60px;width:260px;height:260px;border-radius:50%;background:radial-gradient(circle,rgba(31,157,85,.4),transparent 70%);z-index:1;}
+  .head .rule{position:absolute;left:0;bottom:0;width:100%;height:5px;background:linear-gradient(90deg,var(--acc),var(--pink) 55%,var(--gold));z-index:2;}
+  .kicker{font-weight:700;letter-spacing:.22em;font-size:11px;text-transform:uppercase;color:var(--gold);margin-bottom:8px;position:relative;z-index:2;}
+  .head h1{font-family:'Bebas Neue';font-size:56px;line-height:.9;letter-spacing:.5px;margin-bottom:10px;position:relative;z-index:2;}
+  .head h1 span{color:var(--pink);}
+  .subhead{font-size:13.5px;color:#c3cdda;max-width:80%;line-height:1.55;position:relative;z-index:2;}
+  .pills{margin-top:14px;display:flex;flex-wrap:wrap;gap:7px;position:relative;z-index:2;}
+  .pill{background:rgba(31,157,85,.2);border:1px solid rgba(31,157,85,.55);color:#b7e6cb;font-size:10.5px;font-weight:500;padding:4px 11px;border-radius:40px;}
+  .body{padding:26px 34px 14px;}
+  .section-label{font-family:'Bebas Neue';font-size:14px;letter-spacing:.18em;color:var(--mute);text-transform:uppercase;margin:6px 0 14px;display:flex;align-items:center;gap:10px;}
+  .section-label::after{content:"";flex:1;height:1px;background:var(--line);}
+  .banner{background:#fdf1f2;border:1px solid #f3c4c8;border-left:5px solid var(--red);border-radius:10px;padding:14px 18px;margin-bottom:22px;}
+  .banner b{color:var(--red);text-transform:uppercase;letter-spacing:.06em;font-size:11px;display:block;margin-bottom:5px;}
+  .banner p{font-size:12px;line-height:1.55;color:var(--ink);}
+  .hero{display:grid;grid-template-columns:1.15fr 1fr;gap:18px;margin-bottom:24px;align-items:stretch;}
+  .hero .big{border:1px solid var(--line);border-left:5px solid var(--acc);border-radius:10px;padding:18px 20px;background:#f1faf4;}
+  .hero .big h3{font-family:'Bebas Neue';font-size:24px;letter-spacing:.4px;color:var(--navy);margin-bottom:8px;}
+  .hero .big p{font-size:13px;line-height:1.6;color:var(--ink);}
+  .hero .big p b{color:var(--acc);}
+  .stat{border:1px solid var(--line);border-radius:10px;padding:16px 18px;background:#fff;display:flex;flex-direction:column;justify-content:center;gap:10px;}
+  .stat .num{font-family:'Bebas Neue';font-size:30px;line-height:.88;color:var(--pink);}
+  .stat .lbl{font-size:11px;color:var(--mute);line-height:1.4;}
+  .stat .row{border-top:1px solid var(--line);padding-top:10px;}
+  .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:13px;margin-bottom:22px;}
+  .card{border:1px solid var(--line);border-radius:9px;overflow:hidden;background:#fff;display:flex;flex-direction:column;}
+  .ch{padding:9px 12px 8px;color:#fff;}
+  .ch .cat{font-size:9px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;opacity:.85;}
+  .ch .nm{font-family:'Bebas Neue';font-size:18px;letter-spacing:.4px;line-height:1;margin-top:2px;}
+  .cb{padding:11px 13px 13px;font-size:11.5px;line-height:1.5;color:var(--ink);flex:1;}
+  .m{list-style:none;} .m li{position:relative;padding-left:11px;margin-bottom:5px;}
+  .m li::before{content:"";position:absolute;left:0;top:6px;width:4px;height:4px;border-radius:50%;background:var(--pink);}
+  .v-acc .ch{background:var(--acc);} .v-acc .m li::before{background:var(--acc);}
+  .v-pink .ch{background:var(--pink);} .v-pink .m li::before{background:var(--pink);}
+  .v-teal .ch{background:var(--teal);} .v-teal .m li::before{background:var(--teal);}
+  .v-gold .ch{background:var(--gold);} .v-gold .m li::before{background:var(--gold);}
+  .v-navy .ch{background:var(--navy);} .v-navy .m li::before{background:var(--navy);}
+  .v-red .ch{background:var(--red);} .v-red .m li::before{background:var(--red);}
+  .al{border-left:4px solid var(--gold);background:#fff8ef;border-radius:6px;padding:13px 16px;font-size:11.5px;line-height:1.55;color:var(--ink);margin-bottom:20px;}
+  .al b{color:var(--gold);text-transform:uppercase;letter-spacing:.06em;font-size:10.5px;display:block;margin-bottom:4px;}
+  .al.pink{border-left-color:var(--pink);background:#fdf2f6;} .al.pink b{color:var(--pink);}
+  .al.acc{border-left-color:var(--acc);background:#f1faf4;} .al.acc b{color:var(--acc);}
+  .al.red{border-left-color:var(--red);background:#fdf1f2;} .al.red b{color:var(--red);}
+  .duo{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:20px;}
+  table{width:100%;border-collapse:collapse;font-size:11.5px;border:1px solid var(--line);border-radius:8px;overflow:hidden;margin-bottom:20px;}
+  thead th{background:var(--navy);color:#fff;text-align:left;padding:9px 12px;font-weight:700;font-size:10px;letter-spacing:.07em;text-transform:uppercase;}
+  tbody td{padding:9px 12px;border-top:1px solid var(--line);vertical-align:top;line-height:1.45;}
+  tbody tr:nth-child(even){background:#fafbfd;}
+  tbody td b{color:var(--navy);}
+  .foot{background:var(--navy);color:#9aa7b8;padding:14px 34px;font-size:10.5px;}
+  .foot .frow{display:flex;justify-content:space-between;align-items:center;}
+  .foot b{color:#fff;} .foot .brand{font-family:'Bebas Neue';font-size:16px;letter-spacing:.6px;color:var(--pink);}
+  .foot .copyright{margin-top:8px;padding-top:8px;border-top:1px solid rgba(255,255,255,.12);font-size:9px;color:#7c8a9c;letter-spacing:.03em;}
+  @media print{body{background:#fff;padding:0;}.page{box-shadow:none;page-break-after:always;}}
+</style>
+</head>
+<body>
+
+<div class="page">
+  <div class="head">
+    <div class="glow"></div><div class="rule"></div>
+    <div class="kicker">Hello Gorgeous Med Spa · Wellness Science Series</div>
+    <h1>Glutathione <span>&amp; The Glow</span></h1>
+    <div class="subhead">The body's 'master antioxidant' — and a wellness favorite for detox support and skin brightening. Here's what it actually does and how to think about it clearly.</div>
+    <div class="pills"><span class="pill">#Glutathione</span><span class="pill">#MasterAntioxidant</span><span class="pill">#SkinGlow</span><span class="pill">#DetoxSupport</span><span class="pill">#WellnessIV</span></div>
+  </div>
+  <div class="body">
+
+    <div class="hero">
+      <div class="big"><h3>So What Is It, Really?</h3>
+      <p><b>Glutathione</b> is often called the body's <b>"master antioxidant."</b> It's a small molecule (made of three amino acids) that your cells produce naturally, where it helps neutralize free radicals, support detox pathways in the liver, and protect cells from oxidative stress. In wellness settings it's offered as an <b>IV or injection</b> — and in skincare circles it's known for the "brightening / glow" conversation.</p></div>
+      <div class="stat">
+        <div><div class="num">Master Antioxidant</div><div class="lbl">A naturally produced molecule central to the body's antioxidant defense</div></div>
+        <div class="row"><div class="num">↓ With Age &amp; Stress</div><div class="lbl">Levels can dip with age, stress, and lifestyle — the wellness interest</div></div>
+      </div>
+    </div>
+    <div class="section-label">What It's Known For</div>
+    <div class="grid">
+      <div class="card v-acc"><div class="ch"><div class="cat">Known For</div><div class="nm">Antioxidant</div></div><div class="cb"><ul class="m"><li>Neutralizes <b>free radicals</b></li><li>Supports cellular defense</li><li>The core of its reputation</li></ul></div></div>
+      <div class="card v-pink"><div class="ch"><div class="cat">Known For</div><div class="nm">Skin Glow</div></div><div class="cb"><ul class="m"><li>Popular for <b>brightness &amp; glow</b></li><li>Tied to even-tone conversations</li><li>The aesthetic angle</li></ul></div></div>
+      <div class="card v-teal"><div class="ch"><div class="cat">Known For</div><div class="nm">Detox Support</div></div><div class="cb"><ul class="m"><li>Supports <b>liver detox</b> pathways</li><li>A natural part of the system</li><li>Why it pairs with wellness IVs</li></ul></div></div>
+      <div class="card v-gold"><div class="ch"><div class="cat">Known For</div><div class="nm">Recovery</div></div><div class="cb"><ul class="m"><li>Studied for oxidative-stress recovery</li><li>Often in 'reset' IV menus</li><li>A wellness mainstay</li></ul></div></div>
+    </div>
+    <div class="al acc"><b>The skin-glow conversation, honestly</b>
+    Glutathione is hugely popular for skin brightening, especially in IV form. The honest version: evidence is strongest as an antioxidant, the brightening effect is more modest and gradual than social media suggests, and results vary. It's a "support" ingredient, not a magic switch.</div>
+    <div class="section-label">Forms You'll See</div>
+    <div class="duo">
+      <div class="al pink" style="margin-bottom:0;"><b>IV &amp; injection</b>
+      The forms most associated with wellness clinics, delivered for high absorption. Because they're administered, they're a <b>provider-led service</b> — proper screening and a qualified hand always apply.</div>
+      <div class="al" style="margin-bottom:0;"><b>Oral &amp; topical</b>
+      Capsules and serums are widely available and convenient. Oral absorption is debated (the molecule is fragile), and topical works on the surface — both are gentler, lower-key options.</div>
+    </div>
+    
+  </div>
+  <div class="foot">
+    <div class="frow">
+      <div><span class="brand">Hello Gorgeous</span> &nbsp;·&nbsp; Glutathione &amp; The Glow · Page 1 of 2</div>
+      <div>Prepared by <b>Danielle Alcala-Glazier</b> · Page 1 of 2</div>
+    </div>
+    <div class="copyright">© 2026 Hello Gorgeous Med Spa · All Rights Reserved · This material is proprietary and may not be reproduced, distributed, or republished without written permission.</div>
+  </div>
+</div>
+
+<div class="page">
+  <div class="head">
+    <div class="glow"></div><div class="rule"></div>
+    <div class="kicker">Hello Gorgeous Med Spa · Wellness Science Series</div>
+    <h1>The Honest <span>Picture</span></h1>
+    <div class="subhead">Realistic expectations on the glow and detox claims, who tends to be curious, and the smart fine print.</div>
+    <div class="pills"><span class="pill">#RealExpectations</span><span class="pill">#TheGlowTruth</span><span class="pill">#WhoBenefits</span><span class="pill">#KnowBeforeYouGo</span></div>
+  </div>
+  <div class="body">
+
+    <div class="section-label">Setting Real Expectations</div>
+    <table><thead><tr><th style="width:32%">The Claim You'll Hear</th><th>The Honest Version</th></tr></thead><tbody>
+      <tr><td><b>"Skin whitening guaranteed"</b></td><td>The honest framing is gentle <b>brightening &amp; even tone</b>, gradual and variable — not dramatic 'whitening.' Be wary of extreme claims.</td></tr>
+      <tr><td><b>"Instant detox"</b></td><td>It supports your body's <b>own</b> detox systems — it doesn't 'flush toxins' on its own. Your liver and kidneys do the real work.</td></tr>
+      <tr><td><b>"Works the same for everyone"</b></td><td>Responses vary a lot. Genetics, lifestyle, and baseline levels all play a role.</td></tr>
+      <tr><td><b>"More is always better"</b></td><td>No. Dosing and frequency should be guided by a provider, especially with other conditions.</td></tr>
+    </tbody></table>
+    <div class="section-label">Who Tends To Be Curious</div>
+    <div class="grid">
+      <div class="card v-acc"><div class="ch"><div class="cat">Common Goal</div><div class="nm">Glow Seekers</div></div><div class="cb"><ul class="m"><li>Wants brighter, more even tone</li><li>Likes an <b>antioxidant-forward</b> routine</li><li>Pairs it with good skincare</li></ul></div></div>
+      <div class="card v-pink"><div class="ch"><div class="cat">Common Goal</div><div class="nm">Wellness Resets</div></div><div class="cb"><ul class="m"><li>Into 'recovery / reset' IVs</li><li>Curious about <b>oxidative stress</b></li><li>Building a wellness routine</li></ul></div></div>
+      <div class="card v-teal"><div class="ch"><div class="cat">Common Goal</div><div class="nm">Active Lifestyles</div></div><div class="cb"><ul class="m"><li>High demands, wants support</li><li>Interested in cellular health</li><li>Recovery-minded</li></ul></div></div>
+      <div class="card v-navy"><div class="ch"><div class="cat">Talk First If</div><div class="nm">This Is You</div></div><div class="cb"><ul class="m"><li>Pregnant or nursing</li><li>Any medical condition / meds</li><li>Always get cleared first</li></ul></div></div>
+    </div>
+    <div class="al acc"><b>The honest fine print</b>
+    Glutathione is a well-tolerated, popular wellness offering — but it shines as a <b>support</b> tool, not a miracle. The brightening effect is real but modest and gradual, and (as always) sun protection and a solid skincare routine do more for your glow than any single IV.</div>
+    <div class="al pink"><b>How we think about it at Hello Gorgeous</b>
+    We love a good glow — and we love being straight with you about what gets you there. If glutathione interests you, let's talk about your goals and whether it fits into a routine that actually works. Realistic, not hyped. Still family-owned, still here, still in your corner.</div>
+    
+  </div>
+  <div class="foot">
+    <div class="frow">
+      <div><span class="brand">Hello Gorgeous</span> &nbsp;·&nbsp; 74 W Washington St, Oswego, IL · 630-636-6193 · hellogorgeousmedspa.com</div>
+      <div>Prepared by <b>Danielle Alcala-Glazier</b> · Page 2 of 2</div>
+    </div>
+    <div class="copyright">© 2026 Hello Gorgeous Med Spa · All Rights Reserved · This material is proprietary and may not be reproduced, distributed, or republished without written permission.</div>
+  </div>
+</div>
+</body>
+</html>

@@ -7,6 +7,7 @@ import { FadeUp, Section } from "@/components/Section";
 import { CTA } from "@/components/CTA";
 import { PeppiHeroSection } from "@/components/PeppiHeroSection";
 import { PeptideEducationSection } from "@/components/peptides/PeptideEducationSection";
+import { PeptideHandoutsSection } from "@/components/peptides/PeptideHandoutsSection";
 import { BOOKING_URL } from "@/lib/flows";
 import {
   SITE,
@@ -155,7 +156,10 @@ export default function PeptidesPage() {
               <CTA href={BOOKING_URL} variant="gradient" className="text-lg px-8 py-4 shadow-xl shadow-[#FF2D8E]/20">
                 Book Peptide Consultation
               </CTA>
-              <CTA href="#peptide-education" variant="outline" className="text-lg px-8 py-4">
+              <CTA href="#patient-handouts" variant="outline" className="text-lg px-8 py-4">
+                View handouts
+              </CTA>
+              <CTA href="#peptide-education" variant="outline" className="text-lg px-8 py-4 border-black/20">
                 Explore by peptide
               </CTA>
               <CTA href="#peppi" variant="outline" className="text-lg px-8 py-4 border-black/20">
@@ -291,6 +295,8 @@ export default function PeptidesPage() {
           </FadeUp>
         </div>
       </Section>
+
+      <PeptideHandoutsSection />
 
       <Suspense fallback={null}>
         <PeptideEducationSection />

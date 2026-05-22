@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Peptides 101 — Educational Cheat Sheet</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0a1628;
+    --pink:#D4537E;
+    --teal:#2a9d8f;
+    --red:#e63946;
+    --gold:#c77b2a;
+    --purple:#7b2d8b;
+    --green:#2d7a55;
+    --blue:#1a3a6b;
+    --paper:#ffffff;
+    --ink:#1c2430;
+    --mute:#5b6675;
+    --line:#e4e8ee;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:#dfe4ea;}
+  body{
+    font-family:'DM Sans',sans-serif;
+    color:var(--ink);
+    -webkit-font-smoothing:antialiased;
+    padding:24px 0;
+  }
+  .page{
+    width:10.5in;
+    margin:0 auto 28px;
+    background:var(--paper);
+    box-shadow:0 8px 40px rgba(10,22,40,.18);
+    overflow:hidden;
+  }
+
+  /* ---------- HEADER ---------- */
+  .head{
+    background:var(--navy);
+    color:#fff;
+    padding:26px 34px 22px;
+    position:relative;
+  }
+  .head::after{
+    content:"";position:absolute;left:0;bottom:0;width:100%;height:5px;
+    background:linear-gradient(90deg,var(--pink) 0%,var(--gold) 60%,var(--teal) 100%);
+  }
+  .kicker{
+    font-family:'DM Sans';font-weight:700;letter-spacing:.22em;
+    font-size:11px;text-transform:uppercase;color:var(--gold);margin-bottom:8px;
+  }
+  .head h1{
+    font-family:'Bebas Neue';font-weight:400;font-size:58px;line-height:.92;
+    letter-spacing:.5px;margin-bottom:10px;
+  }
+  .head h1 span{color:var(--pink);}
+  .subhead{font-size:13.5px;color:#b9c4d4;max-width:78%;line-height:1.5;}
+  .pills{margin-top:14px;display:flex;flex-wrap:wrap;gap:7px;}
+  .pill{
+    background:rgba(212,83,126,.16);border:1px solid rgba(212,83,126,.5);
+    color:#f3c4d6;font-size:10.5px;font-weight:500;letter-spacing:.04em;
+    padding:4px 11px;border-radius:40px;
+  }
+
+  /* ---------- BODY ---------- */
+  .body{padding:26px 34px 14px;}
+
+  .intro{
+    display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:24px;
+  }
+  .intro .box{
+    border:1px solid var(--line);border-radius:10px;padding:16px 18px;background:#fbfcfe;
+  }
+  .intro .box h3{
+    font-family:'Bebas Neue';font-size:21px;letter-spacing:.4px;color:var(--navy);
+    margin-bottom:7px;display:flex;align-items:center;gap:8px;
+  }
+  .intro .box h3::before{
+    content:"";width:14px;height:14px;border-radius:3px;background:var(--pink);
+  }
+  .intro .box.teal h3::before{background:var(--teal);}
+  .intro .box p{font-size:12.5px;line-height:1.55;color:var(--ink);}
+  .intro .box p b{color:var(--navy);}
+
+  .section-label{
+    font-family:'Bebas Neue';font-size:13px;letter-spacing:.18em;color:var(--mute);
+    text-transform:uppercase;margin:6px 0 14px;display:flex;align-items:center;gap:10px;
+  }
+  .section-label::after{content:"";flex:1;height:1px;background:var(--line);}
+
+  /* ---------- CARD GRID ---------- */
+  .grid{
+    display:grid;grid-template-columns:repeat(4,1fr);gap:13px;margin-bottom:22px;
+  }
+  .card{
+    border:1px solid var(--line);border-radius:9px;overflow:hidden;background:#fff;
+    display:flex;flex-direction:column;
+  }
+  .ch{
+    padding:9px 12px 8px;color:#fff;
+  }
+  .ch .cat{font-size:9px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;opacity:.85;}
+  .ch .nm{font-family:'Bebas Neue';font-size:19px;letter-spacing:.5px;line-height:1;margin-top:2px;}
+  .cb{padding:11px 13px 13px;font-size:11.5px;line-height:1.5;color:var(--ink);flex:1;}
+  .cb .lead{color:var(--mute);font-size:10.5px;margin-bottom:7px;}
+  .m{list-style:none;}
+  .m li{position:relative;padding-left:11px;margin-bottom:5px;}
+  .m li::before{content:"";position:absolute;left:0;top:6px;width:4px;height:4px;border-radius:50%;background:var(--pink);}
+
+  /* color variants for card headers */
+  .v-pink   .ch{background:var(--pink);}   .v-pink   .m li::before{background:var(--pink);}
+  .v-teal   .ch{background:var(--teal);}   .v-teal   .m li::before{background:var(--teal);}
+  .v-gold   .ch{background:var(--gold);}   .v-gold   .m li::before{background:var(--gold);}
+  .v-purple .ch{background:var(--purple);} .v-purple .m li::before{background:var(--purple);}
+  .v-green  .ch{background:var(--green);}  .v-green  .m li::before{background:var(--green);}
+  .v-blue   .ch{background:var(--blue);}   .v-blue   .m li::before{background:var(--blue);}
+  .v-red    .ch{background:var(--red);}    .v-red    .m li::before{background:var(--red);}
+  .v-navy   .ch{background:var(--navy);}   .v-navy   .m li::before{background:var(--navy);}
+
+  /* ---------- TABLE ---------- */
+  table{width:100%;border-collapse:collapse;font-size:11.5px;border:1px solid var(--line);border-radius:8px;overflow:hidden;}
+  thead th{
+    background:var(--navy);color:#fff;text-align:left;padding:9px 12px;
+    font-weight:700;font-size:10px;letter-spacing:.08em;text-transform:uppercase;
+  }
+  tbody td{padding:9px 12px;border-top:1px solid var(--line);vertical-align:top;line-height:1.45;}
+  tbody tr:nth-child(even){background:#fafbfd;}
+  tbody td b{color:var(--navy);}
+
+  /* ---------- ALERT ---------- */
+  .al{
+    border-left:4px solid var(--gold);background:#fff8ef;border-radius:6px;
+    padding:13px 16px;font-size:11.5px;line-height:1.55;color:var(--ink);margin-bottom:20px;
+  }
+  .al b{color:var(--gold);text-transform:uppercase;letter-spacing:.06em;font-size:10.5px;display:block;margin-bottom:4px;}
+  .al.pink{border-left-color:var(--pink);background:#fdf2f6;}
+  .al.pink b{color:var(--pink);}
+
+  /* two-up info row */
+  .duo{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:20px;}
+
+  /* ---------- FOOTER ---------- */
+  .foot{
+    background:var(--navy);color:#9aa7b8;padding:16px 34px;
+    display:flex;justify-content:space-between;align-items:center;font-size:10.5px;
+  }
+  .foot b{color:#fff;font-weight:700;}
+  .foot .brand{font-family:'Bebas Neue';font-size:16px;letter-spacing:.6px;color:var(--pink);}
+
+  @media print{
+    body{background:#fff;padding:0;}
+    .page{box-shadow:none;margin:0 auto;page-break-after:always;}
+  }
+</style>
+</head>
+<body>
+
+<!-- =================== PAGE 1 =================== -->
+<div class="page">
+  <div class="head">
+    <div class="kicker">Hello Gorgeous Med Spa · Patient Education Series</div>
+    <h1>Peptides <span>101</span></h1>
+    <div class="subhead">A plain-language guide to what peptides actually are, how they work in the body, and why this category of science is getting so much attention. Education only — no treatment claims.</div>
+    <div class="pills">
+      <span class="pill">#WhatArePeptides</span>
+      <span class="pill">#HowTheyWork</span>
+      <span class="pill">#TheCategories</span>
+      <span class="pill">#SmartQuestions</span>
+      <span class="pill">#KnowBeforeYouGo</span>
+    </div>
+  </div>
+
+  <div class="body">
+
+    <!-- INTRO -->
+    <div class="intro">
+      <div class="box">
+        <h3>What Is a Peptide?</h3>
+        <p>A peptide is a <b>short chain of amino acids</b> — the same building blocks that make up proteins, just smaller. Where a protein might be hundreds of amino acids long, a peptide is usually only a handful (roughly 2–50). Your body makes thousands of them naturally; they act as <b>messengers</b>, telling cells what to do.</p>
+      </div>
+      <div class="box teal">
+        <h3>Why People Are Talking</h3>
+        <p>Because peptides are so specific, researchers study them as <b>signals</b> rather than blunt instruments. The interest in wellness and aesthetics comes from this precision — the idea that a small, targeted molecule could support a single pathway. The science is <b>active and evolving</b>, which is exactly why education matters before anything else.</p>
+      </div>
+    </div>
+
+    <div class="al pink">
+      <b>The most important thing to understand</b>
+      "Peptide" is a category, not a single product — and the regulatory status varies enormously from one to the next. A few are FDA-approved medications. Some are common in cosmetics. Many are <b>research compounds only</b>, meaning they have not been approved for use in people. This sheet explains the science; it does not recommend, prescribe, or endorse any specific use.
+    </div>
+
+    <!-- HOW THEY WORK -->
+    <div class="section-label">How Peptides Work In The Body</div>
+    <div class="grid">
+      <div class="card v-pink">
+        <div class="ch"><div class="cat">Mechanism</div><div class="nm">Signaling</div></div>
+        <div class="cb">
+          <div class="lead">The core idea</div>
+          <ul class="m">
+            <li>Peptides bind to <b>receptors</b> on cells</li>
+            <li>That binding sends an instruction</li>
+            <li>Think "key fitting a lock," not a sledgehammer</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card v-teal">
+        <div class="ch"><div class="cat">Mechanism</div><div class="nm">Specificity</div></div>
+        <div class="cb">
+          <div class="lead">Why they're interesting</div>
+          <ul class="m">
+            <li>Each peptide tends to target <b>one pathway</b></li>
+            <li>Narrow focus = the research appeal</li>
+            <li>Less "everything everywhere" than some drugs</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card v-gold">
+        <div class="ch"><div class="cat">Mechanism</div><div class="nm">Fragility</div></div>
+        <div class="cb">
+          <div class="lead">A real limitation</div>
+          <ul class="m">
+            <li>Stomach enzymes <b>break them down</b></li>
+            <li>That's why oral peptides are tricky</li>
+            <li>Stability and delivery are major hurdles</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card v-blue">
+        <div class="ch"><div class="cat">Mechanism</div><div class="nm">Natural Origin</div></div>
+        <div class="cb">
+          <div class="lead">Already inside you</div>
+          <ul class="m">
+            <li>Insulin is a peptide. So is collagen-related signaling</li>
+            <li>The body produces them constantly</li>
+            <li>Synthetic versions <b>mimic</b> these signals</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- CATEGORIES OVERVIEW -->
+    <div class="section-label">The Categories You'll Hear About</div>
+    <div class="grid">
+      <div class="card v-purple">
+        <div class="ch"><div class="cat">Category</div><div class="nm">Recovery</div></div>
+        <div class="cb">
+          <div class="lead">Often discussed for</div>
+          <ul class="m">
+            <li>Tissue repair & healing research</li>
+            <li>Anti-inflammatory pathways</li>
+            <li>Gut-lining and wound-healing studies</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card v-pink">
+        <div class="ch"><div class="cat">Category</div><div class="nm">Aesthetics</div></div>
+        <div class="cb">
+          <div class="lead">Often discussed for</div>
+          <ul class="m">
+            <li>Collagen & elastin signaling</li>
+            <li>Skin barrier and antioxidant research</li>
+            <li>Some forms used <b>topically</b> in skincare</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card v-green">
+        <div class="ch"><div class="cat">Category</div><div class="nm">Metabolic</div></div>
+        <div class="cb">
+          <div class="lead">Often discussed for</div>
+          <ul class="m">
+            <li>Energy & mitochondrial research</li>
+            <li>Fat-metabolism pathway studies</li>
+            <li>Includes the well-known GLP-1 class*</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card v-gold">
+        <div class="ch"><div class="cat">Category</div><div class="nm">Longevity</div></div>
+        <div class="cb">
+          <div class="lead">Often discussed for</div>
+          <ul class="m">
+            <li>Cellular-aging research</li>
+            <li>Telomere & circadian-rhythm studies</li>
+            <li>Mostly <b>research-stage</b> compounds</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="al">
+      <b>*A note on GLP-1s</b>
+      The GLP-1 class (the family behind well-known FDA-approved weight and diabetes medications) is technically peptide-based — which is why you'll sometimes see it grouped here. But FDA-approved GLP-1 medications are an entirely different regulatory world from research peptides, and the two should never be treated as the same thing.
+    </div>
+
+  </div>
+
+  <div class="foot">
+    <div><span class="brand">Hello Gorgeous</span> &nbsp;·&nbsp; Peptides 101 · Patient Education</div>
+    <div>Prepared by <b>Danielle Alcala-Glazier</b> · Page 1 of 2</div>
+  </div>
+</div>
+
+<!-- =================== PAGE 2 =================== -->
+<div class="page">
+  <div class="head">
+    <div class="kicker">Hello Gorgeous Med Spa · Patient Education Series</div>
+    <h1>The Smart <span>Questions</span></h1>
+    <div class="subhead">If you ever consider anything in this category, these are the questions that protect you. A trustworthy provider will answer all of them clearly and in writing.</div>
+    <div class="pills">
+      <span class="pill">#AskFirst</span>
+      <span class="pill">#KnowYourSource</span>
+      <span class="pill">#RegulatoryStatus</span>
+      <span class="pill">#StaySafe</span>
+    </div>
+  </div>
+
+  <div class="body">
+
+    <!-- REGULATORY TABLE -->
+    <div class="section-label">Three Very Different Regulatory Worlds</div>
+    <table>
+      <thead>
+        <tr><th style="width:22%">Tier</th><th style="width:38%">What It Means</th><th>How To Recognize It</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><b>FDA-Approved</b></td>
+          <td>Reviewed for safety and effectiveness for a specific use. The highest bar.</td>
+          <td>Has a brand name, a label, and an approved indication. Dispensed by a licensed pharmacy with a prescription.</td>
+        </tr>
+        <tr>
+          <td><b>Cosmetic / Topical</b></td>
+          <td>Used on the surface of the skin in regulated skincare. Common and well understood.</td>
+          <td>Found in serums and creams. Makes appearance-related claims, not internal medical ones.</td>
+        </tr>
+        <tr>
+          <td><b>Research-Use-Only</b></td>
+          <td>Made for laboratory study. <b>Not approved for use in people</b> — labels often say exactly that.</td>
+          <td>Sold to "labs and researchers." Carries a "not for human consumption" disclaimer. No prescription workflow.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div style="height:20px"></div>
+
+    <!-- QUESTIONS GRID -->
+    <div class="section-label">Questions Worth Asking</div>
+    <div class="grid">
+      <div class="card v-navy">
+        <div class="ch"><div class="cat">Ask</div><div class="nm">The Source</div></div>
+        <div class="cb">
+          <ul class="m">
+            <li>"Where is this <b>sourced</b> from?"</li>
+            <li>"Is it from a licensed pharmacy?"</li>
+            <li>"Can I see the documentation?"</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card v-red">
+        <div class="ch"><div class="cat">Ask</div><div class="nm">The Status</div></div>
+        <div class="cb">
+          <ul class="m">
+            <li>"Is this <b>FDA-approved</b> for this use?"</li>
+            <li>"Or is it research-only?"</li>
+            <li>"What does the label actually say?"</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card v-teal">
+        <div class="ch"><div class="cat">Ask</div><div class="nm">The Oversight</div></div>
+        <div class="cb">
+          <ul class="m">
+            <li>"Who is <b>supervising</b> this medically?"</li>
+            <li>"What's the follow-up plan?"</li>
+            <li>"What are the known risks?"</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card v-gold">
+        <div class="ch"><div class="cat">Ask</div><div class="nm">The Evidence</div></div>
+        <div class="cb">
+          <ul class="m">
+            <li>"What does the <b>research</b> actually show?"</li>
+            <li>"In people, or only in labs?"</li>
+            <li>"What's still unknown?"</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- GREEN/RED FLAGS -->
+    <div class="duo">
+      <div class="al pink" style="margin-bottom:0;">
+        <b>Green flags ✓</b>
+        Licensed pharmacy sourcing · prescription required · clear medical supervision · honest about what's known and unknown · willing to put answers in writing · realistic expectations.
+      </div>
+      <div class="al" style="margin-bottom:0;border-left-color:var(--red);background:#fdf1f2;">
+        <b style="color:var(--red);">Red flags ✕</b>
+        "Trust us" instead of documentation · pressure to decide fast · miracle promises · no prescription or supervision · "research-use-only" products offered for personal use · vague sourcing.
+      </div>
+    </div>
+
+    <div style="height:20px"></div>
+
+    <!-- BOTTOM LINE -->
+    <div class="al pink">
+      <b>The Hello Gorgeous philosophy</b>
+      We'd rather give you honest information than a quick sale. Peptide science is genuinely exciting — and it's also young, and full of products that haven't earned the safety record approved medications have. Knowing the difference is how you stay both <b>hopeful and protected</b>. If you ever have questions, bring them to us. We're still here, still learning, still in your corner.
+    </div>
+
+  </div>
+
+  <div class="foot">
+    <div><span class="brand">Hello Gorgeous</span> &nbsp;·&nbsp; 74 W Washington St, Oswego, IL · hellogorgeousmedspa.com</div>
+    <div>Prepared by <b>Danielle Alcala-Glazier</b> · Page 2 of 2</div>
+  </div>
+</div>
+
+</body>
+</html>

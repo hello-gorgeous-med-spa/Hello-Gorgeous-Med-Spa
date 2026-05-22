@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tirzepatide &amp; Weight Health</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0a1628; --pink:#D4537E; --teal:#2a9d8f; --red:#e63946;
+    --gold:#c77b2a; --purple:#7b2d8b; --green:#2d7a55; --blue:#1a3a6b;
+    --acc:#1f8fa8; --paper:#fff; --ink:#1c2430; --mute:#5b6675; --line:#e4e8ee;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:#dfe4ea;}
+  body{font-family:'DM Sans',sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:24px 0;}
+  .page{width:10.5in;margin:0 auto 28px;background:var(--paper);box-shadow:0 8px 40px rgba(10,22,40,.18);overflow:hidden;position:relative;}
+  .page::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:5;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='420' height='260' viewBox='0 0 420 260'><text x='210' y='140' font-family='Arial, sans-serif' font-size='22' font-weight='700' letter-spacing='3' fill='%230a1628' fill-opacity='0.07' text-anchor='middle' transform='rotate(-30 210 130)'>HELLO GORGEOUS MED SPA</text></svg>");background-repeat:repeat;}
+  .head,.body,.foot{position:relative;z-index:10;}
+  .head{background:var(--navy);color:#fff;padding:28px 34px 24px;overflow:hidden;}
+  .head .glow{position:absolute;right:-60px;top:-60px;width:260px;height:260px;border-radius:50%;background:radial-gradient(circle,rgba(31,143,168,.42),transparent 70%);z-index:1;}
+  .head .rule{position:absolute;left:0;bottom:0;width:100%;height:5px;background:linear-gradient(90deg,var(--acc),var(--pink) 55%,var(--gold));z-index:2;}
+  .kicker{font-weight:700;letter-spacing:.22em;font-size:11px;text-transform:uppercase;color:var(--gold);margin-bottom:8px;position:relative;z-index:2;}
+  .head h1{font-family:'Bebas Neue';font-size:56px;line-height:.9;letter-spacing:.5px;margin-bottom:10px;position:relative;z-index:2;}
+  .head h1 span{color:var(--pink);}
+  .subhead{font-size:13.5px;color:#c3cdda;max-width:80%;line-height:1.55;position:relative;z-index:2;}
+  .pills{margin-top:14px;display:flex;flex-wrap:wrap;gap:7px;position:relative;z-index:2;}
+  .pill{background:rgba(31,143,168,.2);border:1px solid rgba(31,143,168,.55);color:#bce6f0;font-size:10.5px;font-weight:500;padding:4px 11px;border-radius:40px;}
+  .body{padding:26px 34px 14px;}
+  .section-label{font-family:'Bebas Neue';font-size:14px;letter-spacing:.18em;color:var(--mute);text-transform:uppercase;margin:6px 0 14px;display:flex;align-items:center;gap:10px;}
+  .section-label::after{content:"";flex:1;height:1px;background:var(--line);}
+  .banner{background:#fdf1f2;border:1px solid #f3c4c8;border-left:5px solid var(--red);border-radius:10px;padding:14px 18px;margin-bottom:22px;}
+  .banner b{color:var(--red);text-transform:uppercase;letter-spacing:.06em;font-size:11px;display:block;margin-bottom:5px;}
+  .banner p{font-size:12px;line-height:1.55;color:var(--ink);}
+  .hero{display:grid;grid-template-columns:1.15fr 1fr;gap:18px;margin-bottom:24px;align-items:stretch;}
+  .hero .big{border:1px solid var(--line);border-left:5px solid var(--acc);border-radius:10px;padding:18px 20px;background:#f1f9fb;}
+  .hero .big h3{font-family:'Bebas Neue';font-size:24px;letter-spacing:.4px;color:var(--navy);margin-bottom:8px;}
+  .hero .big p{font-size:13px;line-height:1.6;color:var(--ink);}
+  .hero .big p b{color:var(--acc);}
+  .stat{border:1px solid var(--line);border-radius:10px;padding:16px 18px;background:#fff;display:flex;flex-direction:column;justify-content:center;gap:10px;}
+  .stat .num{font-family:'Bebas Neue';font-size:30px;line-height:.88;color:var(--pink);}
+  .stat .lbl{font-size:11px;color:var(--mute);line-height:1.4;}
+  .stat .row{border-top:1px solid var(--line);padding-top:10px;}
+  .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:13px;margin-bottom:22px;}
+  .card{border:1px solid var(--line);border-radius:9px;overflow:hidden;background:#fff;display:flex;flex-direction:column;}
+  .ch{padding:9px 12px 8px;color:#fff;}
+  .ch .cat{font-size:9px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;opacity:.85;}
+  .ch .nm{font-family:'Bebas Neue';font-size:18px;letter-spacing:.4px;line-height:1;margin-top:2px;}
+  .cb{padding:11px 13px 13px;font-size:11.5px;line-height:1.5;color:var(--ink);flex:1;}
+  .m{list-style:none;} .m li{position:relative;padding-left:11px;margin-bottom:5px;}
+  .m li::before{content:"";position:absolute;left:0;top:6px;width:4px;height:4px;border-radius:50%;background:var(--pink);}
+  .v-acc .ch{background:var(--acc);} .v-acc .m li::before{background:var(--acc);}
+  .v-pink .ch{background:var(--pink);} .v-pink .m li::before{background:var(--pink);}
+  .v-teal .ch{background:var(--teal);} .v-teal .m li::before{background:var(--teal);}
+  .v-gold .ch{background:var(--gold);} .v-gold .m li::before{background:var(--gold);}
+  .v-navy .ch{background:var(--navy);} .v-navy .m li::before{background:var(--navy);}
+  .v-red .ch{background:var(--red);} .v-red .m li::before{background:var(--red);}
+  .al{border-left:4px solid var(--gold);background:#fff8ef;border-radius:6px;padding:13px 16px;font-size:11.5px;line-height:1.55;color:var(--ink);margin-bottom:20px;}
+  .al b{color:var(--gold);text-transform:uppercase;letter-spacing:.06em;font-size:10.5px;display:block;margin-bottom:4px;}
+  .al.pink{border-left-color:var(--pink);background:#fdf2f6;} .al.pink b{color:var(--pink);}
+  .al.acc{border-left-color:var(--acc);background:#f1f9fb;} .al.acc b{color:var(--acc);}
+  .al.red{border-left-color:var(--red);background:#fdf1f2;} .al.red b{color:var(--red);}
+  .duo{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:20px;}
+  table{width:100%;border-collapse:collapse;font-size:11.5px;border:1px solid var(--line);border-radius:8px;overflow:hidden;margin-bottom:20px;}
+  thead th{background:var(--navy);color:#fff;text-align:left;padding:9px 12px;font-weight:700;font-size:10px;letter-spacing:.07em;text-transform:uppercase;}
+  tbody td{padding:9px 12px;border-top:1px solid var(--line);vertical-align:top;line-height:1.45;}
+  tbody tr:nth-child(even){background:#fafbfd;}
+  tbody td b{color:var(--navy);}
+  .foot{background:var(--navy);color:#9aa7b8;padding:14px 34px;font-size:10.5px;}
+  .foot .frow{display:flex;justify-content:space-between;align-items:center;}
+  .foot b{color:#fff;} .foot .brand{font-family:'Bebas Neue';font-size:16px;letter-spacing:.6px;color:var(--pink);}
+  .foot .copyright{margin-top:8px;padding-top:8px;border-top:1px solid rgba(255,255,255,.12);font-size:9px;color:#7c8a9c;letter-spacing:.03em;}
+  @media print{body{background:#fff;padding:0;}.page{box-shadow:none;page-break-after:always;}}
+</style>
+</head>
+<body>
+
+<div class="page">
+  <div class="head">
+    <div class="glow"></div><div class="rule"></div>
+    <div class="kicker">Hello Gorgeous Med Spa · Wellness Science Series</div>
+    <h1>Tirzepatide <span>&amp; Weight Health</span></h1>
+    <div class="subhead">An FDA-approved dual-action GLP-1/GIP medication. Here's what makes it different, how it compares, and what realistic expectations look like.</div>
+    <div class="pills"><span class="pill">#Tirzepatide</span><span class="pill">#DualAgonist</span><span class="pill">#GLP1</span><span class="pill">#GIP</span><span class="pill">#WeightHealth</span></div>
+  </div>
+  <div class="body">
+
+    <div class="hero">
+      <div class="big"><h3>So What Is It, Really?</h3>
+      <p><b>Tirzepatide</b> is an FDA-approved peptide medication for weight management and type 2 diabetes. What makes it distinct is that it's a <b>dual agonist</b> — it activates <b>two</b> gut-hormone pathways at once (GLP-1 <i>and</i> GIP), where semaglutide works on one. Like semaglutide, it's a <b>once-weekly</b> injection, always prescription and provider-guided, and started low then stepped up.</p></div>
+      <div class="stat">
+        <div><div class="num">Dual Action</div><div class="lbl">Activates two pathways — GLP-1 and GIP — at the same time</div></div>
+        <div class="row"><div class="num">FDA-Approved</div><div class="lbl">An established medication, prescribed and monitored</div></div>
+      </div>
+    </div>
+    <div class="section-label">Tirzepatide vs. Semaglutide</div>
+    <table><thead><tr><th style="width:24%">&nbsp;</th><th style="width:38%">Tirzepatide</th><th>Semaglutide</th></tr></thead><tbody>
+      <tr><td><b>Pathways</b></td><td><b>Two</b> — GLP-1 + GIP</td><td>One — GLP-1</td></tr>
+      <tr><td><b>Dosing</b></td><td>Once weekly, titrated up</td><td>Once weekly, titrated up</td></tr>
+      <tr><td><b>The idea</b></td><td>Dual action may mean a different response for some</td><td>Single, well-studied pathway</td></tr>
+      <tr><td><b>Which is "better"?</b></td><td colspan="2">There's no universal winner — the right choice is individual and a provider decision.</td></tr>
+    </tbody></table>
+    <div class="section-label">How It Helps</div>
+    <div class="grid">
+      <div class="card v-acc"><div class="ch"><div class="cat">Mechanism</div><div class="nm">Two Hormones</div></div><div class="cb"><ul class="m"><li>Targets <b>GLP-1 + GIP</b></li><li>A dual-pathway approach</li><li>The defining feature</li></ul></div></div>
+      <div class="card v-pink"><div class="ch"><div class="cat">Mechanism</div><div class="nm">Appetite</div></div><div class="cb"><ul class="m"><li>Helps you feel full sooner</li><li>Quiets 'food noise' for many</li><li>Smaller portions satisfy</li></ul></div></div>
+      <div class="card v-teal"><div class="ch"><div class="cat">Mechanism</div><div class="nm">Blood Sugar</div></div><div class="cb"><ul class="m"><li>Supports steadier <b>blood sugar</b></li><li>Roots in diabetes care</li><li>Dual-purpose like its cousin</li></ul></div></div>
+      <div class="card v-gold"><div class="ch"><div class="cat">Mechanism</div><div class="nm">Gradual</div></div><div class="cb"><ul class="m"><li>Started low, stepped up</li><li><b>Titration</b> eases side effects</li><li>Weeks-to-months journey</li></ul></div></div>
+    </div>
+    <div class="al acc"><b>A note for our weight-health patients</b>
+    Both tirzepatide and semaglutide are legitimate, FDA-approved options. The honest truth is that the "best" one depends on your body, history, goals, and how you respond — which is exactly why this is a provider conversation, not a coin flip.</div>
+    
+  </div>
+  <div class="foot">
+    <div class="frow">
+      <div><span class="brand">Hello Gorgeous</span> &nbsp;·&nbsp; Tirzepatide &amp; Weight Health · Page 1 of 2</div>
+      <div>Prepared by <b>Danielle Alcala-Glazier</b> · Page 1 of 2</div>
+    </div>
+    <div class="copyright">© 2026 Hello Gorgeous Med Spa · All Rights Reserved · This material is proprietary and may not be reproduced, distributed, or republished without written permission.</div>
+  </div>
+</div>
+
+<div class="page">
+  <div class="head">
+    <div class="glow"></div><div class="rule"></div>
+    <div class="kicker">Hello Gorgeous Med Spa · Wellness Science Series</div>
+    <h1>The Honest <span>Picture</span></h1>
+    <div class="subhead">Realistic expectations, safe sourcing, and why the plan around the medication is what makes it work.</div>
+    <div class="pills"><span class="pill">#RealExpectations</span><span class="pill">#SafetyFirst</span><span class="pill">#TheWholePlan</span><span class="pill">#KnowBeforeYouGo</span></div>
+  </div>
+  <div class="body">
+
+    <div class="section-label">Setting Real Expectations</div>
+    <table><thead><tr><th style="width:32%">The Claim You'll Hear</th><th>The Honest Version</th></tr></thead><tbody>
+      <tr><td><b>"Strongest one, so best for me"</b></td><td>'More pathways' isn't automatically right for every person. Fit matters more than headlines.</td></tr>
+      <tr><td><b>"No effort needed"</b></td><td>Works best with nutrition, protein, and strength training — the medication amplifies the plan, it isn't the whole plan.</td></tr>
+      <tr><td><b>"Side-effect free"</b></td><td>GI effects are common early; proper titration and guidance keep them manageable for most.</td></tr>
+      <tr><td><b>"Quick fix"</b></td><td>It's a long-view tool. Maintenance and habits decide whether results last.</td></tr>
+    </tbody></table>
+    <div class="section-label">Doing It The Right Way</div>
+    <div class="grid">
+      <div class="card v-navy"><div class="ch"><div class="cat">Important</div><div class="nm">Real Rx</div></div><div class="cb"><ul class="m"><li>Prescription &amp; provider-led</li><li>From a <b>licensed pharmacy</b></li><li>Never gray-market vials</li></ul></div></div>
+      <div class="card v-acc"><div class="ch"><div class="cat">Important</div><div class="nm">Screening</div></div><div class="cb"><ul class="m"><li>History reviewed first</li><li>Certain conditions excluded</li><li>Goals set honestly</li></ul></div></div>
+      <div class="card v-pink"><div class="ch"><div class="cat">Important</div><div class="nm">Support</div></div><div class="cb"><ul class="m"><li>Protein &amp; nutrition coaching</li><li>Preserve muscle, not just lose weight</li><li>Regular check-ins</li></ul></div></div>
+      <div class="card v-gold"><div class="ch"><div class="cat">Important</div><div class="nm">Maintenance</div></div><div class="cb"><ul class="m"><li>A real long-term plan</li><li>Beyond the 'on' phase</li><li>Habits that hold</li></ul></div></div>
+    </div>
+    <div class="al acc"><b>The honest fine print</b>
+    Tirzepatide is a strong, FDA-approved tool — and like any medication that changes appetite and metabolism, it deserves real oversight. The plan around it (food, movement, follow-up) is what turns a prescription into a lasting result.</div>
+    <div class="al pink"><b>How we think about it at Hello Gorgeous</b>
+    We don't believe in one-size-fits-all weight health. Whether tirzepatide, semaglutide, or neither is right for you is a conversation worth having properly — about your body, your goals, and a plan that lasts. No hype, no pressure. Still family-owned, still here, still in your corner.</div>
+    
+  </div>
+  <div class="foot">
+    <div class="frow">
+      <div><span class="brand">Hello Gorgeous</span> &nbsp;·&nbsp; 74 W Washington St, Oswego, IL · 630-636-6193 · hellogorgeousmedspa.com</div>
+      <div>Prepared by <b>Danielle Alcala-Glazier</b> · Page 2 of 2</div>
+    </div>
+    <div class="copyright">© 2026 Hello Gorgeous Med Spa · All Rights Reserved · This material is proprietary and may not be reproduced, distributed, or republished without written permission.</div>
+  </div>
+</div>
+</body>
+</html>

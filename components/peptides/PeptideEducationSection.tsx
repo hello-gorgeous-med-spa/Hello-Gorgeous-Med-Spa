@@ -742,8 +742,8 @@ export function PeptideEducationSection() {
             Explore <span className="text-[#E6007E]">peptide therapy</span>
           </h2>
           <p className="mt-4 text-black/75 max-w-2xl mx-auto">
-            Start with Peptides 101, match your goal with our best-use case guide, browse the full reference list, or
-            dive into GHK-Cu, NAD+, and Methyl B12 deep dives.
+            Danielle&apos;s printable HTML handouts are listed below — open, print, or save as PDF. Use the
+            interactive dropdown for a web-friendly version of select guides.
           </p>
         </div>
       </FadeUp>

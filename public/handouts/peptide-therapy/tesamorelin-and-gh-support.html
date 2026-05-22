@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tesamorelin &amp; GH Support</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0a1628; --pink:#D4537E; --teal:#2a9d8f; --red:#e63946;
+    --gold:#c77b2a; --purple:#7b2d8b; --green:#2d7a55; --blue:#1a3a6b;
+    --acc:#8a3fb0; --paper:#fff; --ink:#1c2430; --mute:#5b6675; --line:#e4e8ee;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:#dfe4ea;}
+  body{font-family:'DM Sans',sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:24px 0;}
+  .page{width:10.5in;margin:0 auto 28px;background:var(--paper);box-shadow:0 8px 40px rgba(10,22,40,.18);overflow:hidden;position:relative;}
+  .page::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:5;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='420' height='260' viewBox='0 0 420 260'><text x='210' y='140' font-family='Arial, sans-serif' font-size='22' font-weight='700' letter-spacing='3' fill='%230a1628' fill-opacity='0.07' text-anchor='middle' transform='rotate(-30 210 130)'>HELLO GORGEOUS MED SPA</text></svg>");background-repeat:repeat;}
+  .head,.body,.foot{position:relative;z-index:10;}
+  .head{background:var(--navy);color:#fff;padding:28px 34px 24px;overflow:hidden;}
+  .head .glow{position:absolute;right:-60px;top:-60px;width:260px;height:260px;border-radius:50%;background:radial-gradient(circle,rgba(138,63,176,.42),transparent 70%);z-index:1;}
+  .head .rule{position:absolute;left:0;bottom:0;width:100%;height:5px;background:linear-gradient(90deg,var(--acc),var(--pink) 55%,var(--gold));z-index:2;}
+  .kicker{font-weight:700;letter-spacing:.22em;font-size:11px;text-transform:uppercase;color:var(--gold);margin-bottom:8px;position:relative;z-index:2;}
+  .head h1{font-family:'Bebas Neue';font-size:56px;line-height:.9;letter-spacing:.5px;margin-bottom:10px;position:relative;z-index:2;}
+  .head h1 span{color:var(--pink);}
+  .subhead{font-size:13.5px;color:#c3cdda;max-width:80%;line-height:1.55;position:relative;z-index:2;}
+  .pills{margin-top:14px;display:flex;flex-wrap:wrap;gap:7px;position:relative;z-index:2;}
+  .pill{background:rgba(138,63,176,.22);border:1px solid rgba(138,63,176,.55);color:#e3c4f0;font-size:10.5px;font-weight:500;padding:4px 11px;border-radius:40px;}
+  .body{padding:26px 34px 14px;}
+  .section-label{font-family:'Bebas Neue';font-size:14px;letter-spacing:.18em;color:var(--mute);text-transform:uppercase;margin:6px 0 14px;display:flex;align-items:center;gap:10px;}
+  .section-label::after{content:"";flex:1;height:1px;background:var(--line);}
+  .banner{background:#fdf1f2;border:1px solid #f3c4c8;border-left:5px solid var(--red);border-radius:10px;padding:14px 18px;margin-bottom:22px;}
+  .banner b{color:var(--red);text-transform:uppercase;letter-spacing:.06em;font-size:11px;display:block;margin-bottom:5px;}
+  .banner p{font-size:12px;line-height:1.55;color:var(--ink);}
+  .hero{display:grid;grid-template-columns:1.15fr 1fr;gap:18px;margin-bottom:24px;align-items:stretch;}
+  .hero .big{border:1px solid var(--line);border-left:5px solid var(--acc);border-radius:10px;padding:18px 20px;background:#faf4fc;}
+  .hero .big h3{font-family:'Bebas Neue';font-size:24px;letter-spacing:.4px;color:var(--navy);margin-bottom:8px;}
+  .hero .big p{font-size:13px;line-height:1.6;color:var(--ink);}
+  .hero .big p b{color:var(--acc);}
+  .stat{border:1px solid var(--line);border-radius:10px;padding:16px 18px;background:#fff;display:flex;flex-direction:column;justify-content:center;gap:10px;}
+  .stat .num{font-family:'Bebas Neue';font-size:30px;line-height:.88;color:var(--pink);}
+  .stat .lbl{font-size:11px;color:var(--mute);line-height:1.4;}
+  .stat .row{border-top:1px solid var(--line);padding-top:10px;}
+  .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:13px;margin-bottom:22px;}
+  .card{border:1px solid var(--line);border-radius:9px;overflow:hidden;background:#fff;display:flex;flex-direction:column;}
+  .ch{padding:9px 12px 8px;color:#fff;}
+  .ch .cat{font-size:9px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;opacity:.85;}
+  .ch .nm{font-family:'Bebas Neue';font-size:18px;letter-spacing:.4px;line-height:1;margin-top:2px;}
+  .cb{padding:11px 13px 13px;font-size:11.5px;line-height:1.5;color:var(--ink);flex:1;}
+  .m{list-style:none;} .m li{position:relative;padding-left:11px;margin-bottom:5px;}
+  .m li::before{content:"";position:absolute;left:0;top:6px;width:4px;height:4px;border-radius:50%;background:var(--pink);}
+  .v-acc .ch{background:var(--acc);} .v-acc .m li::before{background:var(--acc);}
+  .v-pink .ch{background:var(--pink);} .v-pink .m li::before{background:var(--pink);}
+  .v-teal .ch{background:var(--teal);} .v-teal .m li::before{background:var(--teal);}
+  .v-gold .ch{background:var(--gold);} .v-gold .m li::before{background:var(--gold);}
+  .v-navy .ch{background:var(--navy);} .v-navy .m li::before{background:var(--navy);}
+  .v-red .ch{background:var(--red);} .v-red .m li::before{background:var(--red);}
+  .al{border-left:4px solid var(--gold);background:#fff8ef;border-radius:6px;padding:13px 16px;font-size:11.5px;line-height:1.55;color:var(--ink);margin-bottom:20px;}
+  .al b{color:var(--gold);text-transform:uppercase;letter-spacing:.06em;font-size:10.5px;display:block;margin-bottom:4px;}
+  .al.pink{border-left-color:var(--pink);background:#fdf2f6;} .al.pink b{color:var(--pink);}
+  .al.acc{border-left-color:var(--acc);background:#faf4fc;} .al.acc b{color:var(--acc);}
+  .al.red{border-left-color:var(--red);background:#fdf1f2;} .al.red b{color:var(--red);}
+  .duo{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:20px;}
+  table{width:100%;border-collapse:collapse;font-size:11.5px;border:1px solid var(--line);border-radius:8px;overflow:hidden;margin-bottom:20px;}
+  thead th{background:var(--navy);color:#fff;text-align:left;padding:9px 12px;font-weight:700;font-size:10px;letter-spacing:.07em;text-transform:uppercase;}
+  tbody td{padding:9px 12px;border-top:1px solid var(--line);vertical-align:top;line-height:1.45;}
+  tbody tr:nth-child(even){background:#fafbfd;}
+  tbody td b{color:var(--navy);}
+  .foot{background:var(--navy);color:#9aa7b8;padding:14px 34px;font-size:10.5px;}
+  .foot .frow{display:flex;justify-content:space-between;align-items:center;}
+  .foot b{color:#fff;} .foot .brand{font-family:'Bebas Neue';font-size:16px;letter-spacing:.6px;color:var(--pink);}
+  .foot .copyright{margin-top:8px;padding-top:8px;border-top:1px solid rgba(255,255,255,.12);font-size:9px;color:#7c8a9c;letter-spacing:.03em;}
+  @media print{body{background:#fff;padding:0;}.page{box-shadow:none;page-break-after:always;}}
+</style>
+</head>
+<body>
+
+<div class="page">
+  <div class="head">
+    <div class="glow"></div><div class="rule"></div>
+    <div class="kicker">Hello Gorgeous Med Spa · Wellness Science Series</div>
+    <h1>Tesamorelin <span>&amp; GH Support</span></h1>
+    <div class="subhead">A prescription GHRH peptide best known for visceral-fat research. Here's what it is, how it compares to sermorelin, and why it's a provider conversation.</div>
+    <div class="pills"><span class="pill">#Tesamorelin</span><span class="pill">#GHRH</span><span class="pill">#GrowthHormone</span><span class="pill">#VisceralFat</span><span class="pill">#PrescriptionOnly</span></div>
+  </div>
+  <div class="body">
+
+    <div class="hero">
+      <div class="big"><h3>So What Is It, Really?</h3>
+      <p><b>Tesamorelin</b> is a peptide in the same family as sermorelin — a <b>growth-hormone-releasing hormone (GHRH) analog</b>. It signals the pituitary to release the body's own growth hormone. It has an <b>FDA-approved form</b> for a specific medical indication, and is also prepared by compounding pharmacies. Like sermorelin, it's a <b>prescription</b> peptide and a provider-led decision.</p></div>
+      <div class="stat">
+        <div><div class="num">GHRH Analog</div><div class="lbl">Signals the body to release its own growth hormone</div></div>
+        <div class="row"><div class="num">℞ Only</div><div class="lbl">A prescription peptide — provider evaluation required</div></div>
+      </div>
+    </div>
+    <div class="section-label">What It's Studied &amp; Used For</div>
+    <div class="grid">
+      <div class="card v-acc"><div class="ch"><div class="cat">Discussed For</div><div class="nm">Visceral Fat</div></div><div class="cb"><ul class="m"><li>Best known for <b>visceral fat</b> research</li><li>The deep abdominal kind</li><li>Its most-studied area</li></ul></div></div>
+      <div class="card v-pink"><div class="ch"><div class="cat">Discussed For</div><div class="nm">Body Comp</div></div><div class="cb"><ul class="m"><li>Lean-mass &amp; composition goals</li><li>Part of optimization talk</li><li>Often a targeted choice</li></ul></div></div>
+      <div class="card v-teal"><div class="ch"><div class="cat">Discussed For</div><div class="nm">Metabolic</div></div><div class="cb"><ul class="m"><li>Lipid-profile research</li><li>Metabolic-health interest</li><li>A more specific peptide</li></ul></div></div>
+      <div class="card v-gold"><div class="ch"><div class="cat">Discussed For</div><div class="nm">Vitality</div></div><div class="cb"><ul class="m"><li>Sleep &amp; recovery interest</li><li>Active-aging conversations</li><li>Always provider-guided</li></ul></div></div>
+    </div>
+    <div class="al acc"><b>How it differs from sermorelin</b>
+    Both are GHRH analogs that prompt your own GH. Tesamorelin is most associated with research on <b>visceral (deep abdominal) fat</b> and tends to be a more targeted, specific choice, while sermorelin is often the broader 'entry' GH-support peptide. Which (if either) fits you is a clinical call.</div>
+    
+  </div>
+  <div class="foot">
+    <div class="frow">
+      <div><span class="brand">Hello Gorgeous</span> &nbsp;·&nbsp; Tesamorelin &amp; GH Support · Page 1 of 2</div>
+      <div>Prepared by <b>Danielle Alcala-Glazier</b> · Page 1 of 2</div>
+    </div>
+    <div class="copyright">© 2026 Hello Gorgeous Med Spa · All Rights Reserved · This material is proprietary and may not be reproduced, distributed, or republished without written permission.</div>
+  </div>
+</div>
+
+<div class="page">
+  <div class="head">
+    <div class="glow"></div><div class="rule"></div>
+    <div class="kicker">Hello Gorgeous Med Spa · Wellness Science Series</div>
+    <h1>The Honest <span>Picture</span></h1>
+    <div class="subhead">Realistic expectations, who needs to screen first, and the safety thinking that comes before anything else.</div>
+    <div class="pills"><span class="pill">#RealExpectations</span><span class="pill">#SafetyFirst</span><span class="pill">#TalkToAProvider</span><span class="pill">#KnowBeforeYouGo</span></div>
+  </div>
+  <div class="body">
+
+    <div class="section-label">Setting Real Expectations</div>
+    <table><thead><tr><th style="width:32%">The Claim You'll Hear</th><th>The Honest Version</th></tr></thead><tbody>
+      <tr><td><b>"Targeted belly-fat melter"</b></td><td>Visceral-fat research is its claim to fame, but it's gradual, individual, and works alongside lifestyle — not a spot-reduction trick.</td></tr>
+      <tr><td><b>"Same as HGH"</b></td><td>No — it prompts your <b>own</b> GH, preserving natural rhythm, rather than adding GH directly.</td></tr>
+      <tr><td><b>"Risk-free"</b></td><td>Any hormone-affecting therapy needs screening and monitoring. Favorable design ≠ no oversight.</td></tr>
+      <tr><td><b>"Anyone can use it"</b></td><td>It's not appropriate for everyone; a provider reviews history and labs first.</td></tr>
+    </tbody></table>
+    <div class="section-label">Talk To A Provider First If…</div>
+    <div class="grid">
+      <div class="card v-navy"><div class="ch"><div class="cat">Important</div><div class="nm">Always Screen</div></div><div class="cb"><ul class="m"><li>Any history of cancer</li><li>Provider review required</li><li>A <b>medical</b> decision</li></ul></div></div>
+      <div class="card v-acc"><div class="ch"><div class="cat">Important</div><div class="nm">Health History</div></div><div class="cb"><ul class="m"><li>Thyroid &amp; metabolic conditions</li><li>Current medications matter</li><li>Labs guide the plan</li></ul></div></div>
+      <div class="card v-pink"><div class="ch"><div class="cat">Important</div><div class="nm">Life Stage</div></div><div class="cb"><ul class="m"><li>Pregnant or nursing — no</li><li>Goals should be realistic</li><li>Honest fit assessment</li></ul></div></div>
+      <div class="card v-gold"><div class="ch"><div class="cat">Important</div><div class="nm">Sourcing</div></div><div class="cb"><ul class="m"><li><b>Licensed pharmacy</b> only</li><li>Never 'research' vials</li><li>Quality protects you</li></ul></div></div>
+    </div>
+    <div class="al acc"><b>The honest fine print</b>
+    Tesamorelin is a more specialized peptide, and the most important factor is the clinician guiding it — evaluation, labs, a clear plan, and pharmacy-sourced medication. Done thoughtfully it's a considered option; done carelessly it's a risk.</div>
+    <div class="al pink"><b>How we think about it at Hello Gorgeous</b>
+    Specialized peptides deserve specialized care — never a menu-item approach. If tesamorelin is on your radar, the right step is a real conversation with a provider about whether it fits your goals and health. No hype. Still family-owned, still here, still in your corner.</div>
+    
+  </div>
+  <div class="foot">
+    <div class="frow">
+      <div><span class="brand">Hello Gorgeous</span> &nbsp;·&nbsp; 74 W Washington St, Oswego, IL · 630-636-6193 · hellogorgeousmedspa.com</div>
+      <div>Prepared by <b>Danielle Alcala-Glazier</b> · Page 2 of 2</div>
+    </div>
+    <div class="copyright">© 2026 Hello Gorgeous Med Spa · All Rights Reserved · This material is proprietary and may not be reproduced, distributed, or republished without written permission.</div>
+  </div>
+</div>
+</body>
+</html>

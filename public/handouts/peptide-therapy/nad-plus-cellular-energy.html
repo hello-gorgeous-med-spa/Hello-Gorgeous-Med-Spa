@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NAD+ &amp; Cellular Energy</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0a1628; --pink:#D4537E; --teal:#2a9d8f; --red:#e63946;
+    --gold:#c77b2a; --purple:#7b2d8b; --green:#2d7a55; --blue:#1a3a6b;
+    --energy:#1fa890; --paper:#fff; --ink:#1c2430; --mute:#5b6675; --line:#e4e8ee;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:#dfe4ea;}
+  body{font-family:'DM Sans',sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:24px 0;}
+  .page{width:10.5in;margin:0 auto 28px;background:var(--paper);box-shadow:0 8px 40px rgba(10,22,40,.18);overflow:hidden;position:relative;}
+
+  /* ---------- WATERMARK (medium visibility, tiled diagonal) ---------- */
+  .page::before{
+    content:"";
+    position:absolute;inset:0;
+    pointer-events:none;
+    z-index:5;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='420' height='260' viewBox='0 0 420 260'><text x='210' y='140' font-family='Arial, sans-serif' font-size='22' font-weight='700' letter-spacing='3' fill='%230a1628' fill-opacity='0.07' text-anchor='middle' transform='rotate(-30 210 130)'>HELLO GORGEOUS MED SPA</text></svg>");
+    background-repeat:repeat;
+  }
+  .head,.body,.foot{position:relative;z-index:10;}
+
+  .head{background:var(--navy);color:#fff;padding:28px 34px 24px;overflow:hidden;}
+  .head::after{content:"";position:absolute;right:-60px;top:-60px;width:260px;height:260px;border-radius:50%;background:radial-gradient(circle,rgba(31,168,144,.4),transparent 70%);z-index:1;}
+  .head .rule{position:absolute;left:0;bottom:0;width:100%;height:5px;background:linear-gradient(90deg,var(--energy),var(--pink) 55%,var(--gold));z-index:2;}
+  .kicker{font-weight:700;letter-spacing:.22em;font-size:11px;text-transform:uppercase;color:var(--gold);margin-bottom:8px;position:relative;z-index:2;}
+  .head h1{font-family:'Bebas Neue';font-size:58px;line-height:.9;letter-spacing:.5px;margin-bottom:10px;position:relative;z-index:2;}
+  .head h1 span{color:var(--pink);}
+  .subhead{font-size:13.5px;color:#c3cdda;max-width:78%;line-height:1.55;position:relative;z-index:2;}
+  .pills{margin-top:14px;display:flex;flex-wrap:wrap;gap:7px;position:relative;z-index:2;}
+  .pill{background:rgba(31,168,144,.2);border:1px solid rgba(31,168,144,.55);color:#bfeee4;font-size:10.5px;font-weight:500;padding:4px 11px;border-radius:40px;}
+
+  .body{padding:26px 34px 14px;}
+  .section-label{font-family:'Bebas Neue';font-size:14px;letter-spacing:.18em;color:var(--mute);text-transform:uppercase;margin:6px 0 14px;display:flex;align-items:center;gap:10px;}
+  .section-label::after{content:"";flex:1;height:1px;background:var(--line);}
+
+  .hero{display:grid;grid-template-columns:1.15fr 1fr;gap:18px;margin-bottom:24px;align-items:stretch;}
+  .hero .big{border:1px solid var(--line);border-left:5px solid var(--energy);border-radius:10px;padding:18px 20px;background:#f4fbf9;}
+  .hero .big h3{font-family:'Bebas Neue';font-size:24px;letter-spacing:.4px;color:var(--navy);margin-bottom:8px;}
+  .hero .big p{font-size:13px;line-height:1.6;color:var(--ink);}
+  .hero .big p b{color:var(--energy);}
+  .stat{border:1px solid var(--line);border-radius:10px;padding:16px 18px;background:#fff;display:flex;flex-direction:column;justify-content:center;gap:10px;}
+  .stat .num{font-family:'Bebas Neue';font-size:34px;line-height:.85;color:var(--pink);}
+  .stat .lbl{font-size:11px;color:var(--mute);line-height:1.4;}
+  .stat .row{border-top:1px solid var(--line);padding-top:10px;}
+
+  .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:13px;margin-bottom:22px;}
+  .card{border:1px solid var(--line);border-radius:9px;overflow:hidden;background:#fff;display:flex;flex-direction:column;}
+  .ch{padding:9px 12px 8px;color:#fff;}
+  .ch .cat{font-size:9px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;opacity:.85;}
+  .ch .nm{font-family:'Bebas Neue';font-size:18px;letter-spacing:.4px;line-height:1;margin-top:2px;}
+  .cb{padding:11px 13px 13px;font-size:11.5px;line-height:1.5;color:var(--ink);flex:1;}
+  .m{list-style:none;} .m li{position:relative;padding-left:11px;margin-bottom:5px;}
+  .m li::before{content:"";position:absolute;left:0;top:6px;width:4px;height:4px;border-radius:50%;background:var(--pink);}
+  .v-energy .ch{background:var(--energy);} .v-energy .m li::before{background:var(--energy);}
+  .v-pink .ch{background:var(--pink);} .v-pink .m li::before{background:var(--pink);}
+  .v-teal .ch{background:var(--teal);} .v-teal .m li::before{background:var(--teal);}
+  .v-gold .ch{background:var(--gold);} .v-gold .m li::before{background:var(--gold);}
+  .v-purple .ch{background:var(--purple);} .v-purple .m li::before{background:var(--purple);}
+  .v-navy .ch{background:var(--navy);} .v-navy .m li::before{background:var(--navy);}
+
+  .al{border-left:4px solid var(--gold);background:#fff8ef;border-radius:6px;padding:13px 16px;font-size:11.5px;line-height:1.55;color:var(--ink);margin-bottom:20px;}
+  .al b{color:var(--gold);text-transform:uppercase;letter-spacing:.06em;font-size:10.5px;display:block;margin-bottom:4px;}
+  .al.pink{border-left-color:var(--pink);background:#fdf2f6;} .al.pink b{color:var(--pink);}
+  .al.energy{border-left-color:var(--energy);background:#f1fbf8;} .al.energy b{color:var(--energy);}
+
+  .duo{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:20px;}
+
+  table{width:100%;border-collapse:collapse;font-size:11.5px;border:1px solid var(--line);border-radius:8px;overflow:hidden;margin-bottom:20px;}
+  thead th{background:var(--navy);color:#fff;text-align:left;padding:9px 12px;font-weight:700;font-size:10px;letter-spacing:.07em;text-transform:uppercase;}
+  tbody td{padding:9px 12px;border-top:1px solid var(--line);vertical-align:top;line-height:1.45;}
+  tbody tr:nth-child(even){background:#fafbfd;}
+  tbody td b{color:var(--navy);}
+
+  .foot{background:var(--navy);color:#9aa7b8;padding:14px 34px;font-size:10.5px;}
+  .foot .frow{display:flex;justify-content:space-between;align-items:center;}
+  .foot b{color:#fff;} .foot .brand{font-family:'Bebas Neue';font-size:16px;letter-spacing:.6px;color:var(--pink);}
+  .foot .copyright{margin-top:8px;padding-top:8px;border-top:1px solid rgba(255,255,255,.12);font-size:9px;color:#7c8a9c;letter-spacing:.03em;}
+
+  @media print{body{background:#fff;padding:0;}.page{box-shadow:none;page-break-after:always;}}
+</style>
+</head>
+<body>
+
+<!-- PAGE 1 -->
+<div class="page">
+  <div class="head">
+    <div class="rule"></div>
+    <div class="kicker">Hello Gorgeous Med Spa · Wellness Science Series</div>
+    <h1>NAD+ <span>&amp; Cellular Energy</span></h1>
+    <div class="subhead">The molecule behind the "cellular energy" conversation — what NAD+ actually is, why it's everywhere in wellness right now, and how to think about it like a smart, informed human.</div>
+    <div class="pills">
+      <span class="pill">#NADplus</span><span class="pill">#CellularEnergy</span>
+      <span class="pill">#Mitochondria</span><span class="pill">#HealthyAging</span>
+      <span class="pill">#WellnessScience</span>
+    </div>
+  </div>
+
+  <div class="body">
+
+    <div class="hero">
+      <div class="big">
+        <h3>So What Is It, Really?</h3>
+        <p><b>NAD+</b> (nicotinamide adenine dinucleotide) is a coenzyme found in <b>every living cell</b> in your body. Think of it as a helper molecule your cells can't run without — it's central to turning the food you eat into usable energy (ATP), and it plays a role in DNA repair and cellular signaling. The reason it's having a moment: research shows natural NAD+ levels <b>decline as we age</b>, which is part of the "why am I more tired and slower to bounce back" story.</p>
+      </div>
+      <div class="stat">
+        <div>
+          <div class="num">Every Cell</div>
+          <div class="lbl">NAD+ is found in all living cells — it's foundational, not exotic</div>
+        </div>
+        <div class="row">
+          <div class="num">↓ With Age</div>
+          <div class="lbl">Levels are understood to decline over time, which fuels the longevity research interest</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-label">What The Research Looks At</div>
+    <div class="grid">
+      <div class="card v-energy">
+        <div class="ch"><div class="cat">Studied For</div><div class="nm">Energy</div></div>
+        <div class="cb"><ul class="m">
+          <li>Helps convert nutrients into <b>ATP</b></li>
+          <li>Central to <b>mitochondrial</b> function</li>
+          <li>The "cellular fuel" conversation</li>
+        </ul></div>
+      </div>
+      <div class="card v-pink">
+        <div class="ch"><div class="cat">Studied For</div><div class="nm">Repair</div></div>
+        <div class="cb"><ul class="m">
+          <li>Involved in <b>DNA repair</b> pathways</li>
+          <li>Researched for cellular maintenance</li>
+          <li>Part of the "healthy aging" interest</li>
+        </ul></div>
+      </div>
+      <div class="card v-teal">
+        <div class="ch"><div class="cat">Studied For</div><div class="nm">Brain</div></div>
+        <div class="cb"><ul class="m">
+          <li>Studied for <b>focus &amp; mental clarity</b></li>
+          <li>Researched for neuroprotection</li>
+          <li>Why people mention "fog lifting"</li>
+        </ul></div>
+      </div>
+      <div class="card v-gold">
+        <div class="ch"><div class="cat">Studied For</div><div class="nm">Longevity</div></div>
+        <div class="cb"><ul class="m">
+          <li>Activates <b>sirtuins</b> (longevity proteins)</li>
+          <li>A focus in longevity medicine</li>
+          <li>The "aging well" research lane</li>
+        </ul></div>
+      </div>
+    </div>
+
+    <div class="al energy">
+      <b>The simplest way to picture it</b>
+      Imagine your cells are tiny engines and NAD+ is the spark that helps them run. You can't see it or feel it directly — but when levels are healthy, the whole system tends to hum along better. The wellness interest is all about supporting that spark as we get older.
+    </div>
+
+    <div class="section-label">Ways You'll See It Offered</div>
+    <div class="duo">
+      <div class="al pink" style="margin-bottom:0;">
+        <b>IV &amp; injectable forms</b>
+        Delivered directly so levels rise quickly. This is the form most associated with wellness clinics. Because it's administered, it's a <b>medical service</b> — meaning it should always involve a qualified provider, proper screening, and the right setting. Not a DIY situation.
+      </div>
+      <div class="al" style="margin-bottom:0;">
+        <b>Oral precursors (NMN / NR)</b>
+        Supplements like nicotinamide riboside are "precursors" — building blocks the body converts toward NAD+. Convenient, but they travel through digestion first. Quality and regulation vary widely between brands, so this is a read-the-label category.
+      </div>
+    </div>
+
+  </div>
+
+  <div class="foot">
+    <div class="frow">
+      <div><span class="brand">Hello Gorgeous</span> &nbsp;·&nbsp; NAD+ &amp; Cellular Energy · Page 1 of 2</div>
+      <div>Prepared by <b>Danielle Alcala-Glazier</b></div>
+    </div>
+    <div class="copyright">© 2026 Hello Gorgeous Med Spa · All Rights Reserved · This material is proprietary and may not be reproduced, distributed, or republished without written permission.</div>
+  </div>
+</div>
+
+<!-- PAGE 2 -->
+<div class="page">
+  <div class="head">
+    <div class="rule"></div>
+    <div class="kicker">Hello Gorgeous Med Spa · Wellness Science Series</div>
+    <h1>The Honest <span>Picture</span></h1>
+    <div class="subhead">Who's drawn to NAD+, what's realistic to expect, and the fine print that keeps you smart instead of just sold to.</div>
+    <div class="pills">
+      <span class="pill">#RealExpectations</span><span class="pill">#WhoItsFor</span>
+      <span class="pill">#SafetyFirst</span><span class="pill">#KnowBeforeYouGo</span>
+    </div>
+  </div>
+
+  <div class="body">
+
+    <div class="section-label">Who Tends To Be Curious About It</div>
+    <div class="grid">
+      <div class="card v-energy">
+        <div class="ch"><div class="cat">Common Goal</div><div class="nm">Low Energy</div></div>
+        <div class="cb"><ul class="m"><li>Feeling run-down or "flat"</li><li>Wants a <b>cellular-level</b> approach</li><li>Already dialed in sleep &amp; basics</li></ul></div>
+      </div>
+      <div class="card v-pink">
+        <div class="ch"><div class="cat">Common Goal</div><div class="nm">Brain Fog</div></div>
+        <div class="cb"><ul class="m"><li>Mental clarity &amp; focus goals</li><li>Curious about <b>longevity</b> science</li><li>Likes an evidence-informed plan</li></ul></div>
+      </div>
+      <div class="card v-gold">
+        <div class="ch"><div class="cat">Common Goal</div><div class="nm">Recovery</div></div>
+        <div class="cb"><ul class="m"><li>Active lifestyle, wants to bounce back</li><li>Interested in <b>healthy aging</b></li><li>Building a wellness routine</li></ul></div>
+      </div>
+      <div class="card v-navy">
+        <div class="ch"><div class="cat">Talk First If</div><div class="nm">This Is You</div></div>
+        <div class="cb"><ul class="m"><li>Pregnant / nursing</li><li>Any medical condition or medications</li><li>Always get cleared by a provider</li></ul></div>
+      </div>
+    </div>
+
+    <div class="section-label">Setting Real Expectations</div>
+    <table>
+      <thead><tr><th style="width:30%">The Claim You'll Hear</th><th>The Honest Version</th></tr></thead>
+      <tbody>
+        <tr><td><b>"Instant energy boost"</b></td><td>Some people report feeling refreshed; responses are individual and not guaranteed. It's a support tool, not a switch.</td></tr>
+        <tr><td><b>"Reverses aging"</b></td><td>The research is about <b>supporting</b> cellular processes — not turning back a clock. Be skeptical of anything that promises that.</td></tr>
+        <tr><td><b>"Works for everyone"</b></td><td>It doesn't. Results vary, and the fundamentals (sleep, nutrition, movement) still matter most.</td></tr>
+        <tr><td><b>"More is better"</b></td><td>No. Administered too fast, NAD+ infusions can feel uncomfortable — which is exactly why setting and supervision matter.</td></tr>
+      </tbody>
+    </table>
+
+    <div class="al energy">
+      <b>The honest fine print</b>
+      Much of the most exciting NAD+ research is still emerging, and a lot of it comes from early or preclinical studies. That doesn't mean it's not promising — it means honesty matters. Anyone who tells you it's a miracle is selling, not informing. The basics — sleep, nutrition, movement, sun protection — are still the foundation everything else sits on.
+    </div>
+
+    <div class="al pink">
+      <b>How we think about it at Hello Gorgeous</b>
+      We're genuinely excited about cellular-wellness science — and we're just as committed to being straight with you about what's known and what isn't. If NAD+ is something you're curious about, the right first step is a real conversation about your goals, your health history, and whether it even makes sense for you. No pressure, no miracle talk. Still family-owned, still here, still in your corner.
+    </div>
+
+  </div>
+
+  <div class="foot">
+    <div class="frow">
+      <div><span class="brand">Hello Gorgeous</span> &nbsp;·&nbsp; 74 W Washington St, Oswego, IL · 630-636-6193 · hellogorgeousmedspa.com</div>
+      <div>Prepared by <b>Danielle Alcala-Glazier</b> · Page 2 of 2</div>
+    </div>
+    <div class="copyright">© 2026 Hello Gorgeous Med Spa · All Rights Reserved · This material is proprietary and may not be reproduced, distributed, or republished without written permission.</div>
+  </div>
+</div>
+
+</body>
+</html>

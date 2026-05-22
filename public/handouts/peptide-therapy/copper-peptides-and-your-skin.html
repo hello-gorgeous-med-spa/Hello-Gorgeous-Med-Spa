@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Copper Peptides &amp; Your Skin</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0a1628; --pink:#D4537E; --teal:#2a9d8f; --red:#e63946;
+    --gold:#c77b2a; --purple:#7b2d8b; --green:#2d7a55; --blue:#1a3a6b;
+    --copper:#b87333; --paper:#fff; --ink:#1c2430; --mute:#5b6675; --line:#e4e8ee;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:#dfe4ea;}
+  body{font-family:'DM Sans',sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:24px 0;}
+  .page{width:10.5in;margin:0 auto 28px;background:var(--paper);box-shadow:0 8px 40px rgba(10,22,40,.18);overflow:hidden;position:relative;}
+
+  /* ---------- WATERMARK (medium visibility, tiled diagonal) ---------- */
+  .page::after{
+    content:"";
+    position:absolute;inset:0;
+    pointer-events:none;
+    z-index:5;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='420' height='260' viewBox='0 0 420 260'><text x='210' y='140' font-family='Arial, sans-serif' font-size='22' font-weight='700' letter-spacing='3' fill='%230a1628' fill-opacity='0.07' text-anchor='middle' transform='rotate(-30 210 130)'>HELLO GORGEOUS MED SPA</text></svg>");
+    background-repeat:repeat;
+  }
+  .head,.body,.foot{position:relative;z-index:10;}
+
+  .head{background:var(--navy);color:#fff;padding:28px 34px 24px;overflow:hidden;}
+  .head .glow{position:absolute;right:-60px;top:-60px;width:260px;height:260px;border-radius:50%;background:radial-gradient(circle,rgba(184,115,51,.35),transparent 70%);z-index:1;}
+  .head .rule{position:absolute;left:0;bottom:0;width:100%;height:5px;background:linear-gradient(90deg,var(--copper),var(--pink) 55%,var(--gold));z-index:2;}
+  .kicker{font-weight:700;letter-spacing:.22em;font-size:11px;text-transform:uppercase;color:var(--gold);margin-bottom:8px;position:relative;z-index:2;}
+  .head h1{font-family:'Bebas Neue';font-size:58px;line-height:.9;letter-spacing:.5px;margin-bottom:10px;position:relative;z-index:2;}
+  .head h1 span{color:var(--pink);}
+  .subhead{font-size:13.5px;color:#c3cdda;max-width:78%;line-height:1.55;position:relative;z-index:2;}
+  .pills{margin-top:14px;display:flex;flex-wrap:wrap;gap:7px;position:relative;z-index:2;}
+  .pill{background:rgba(184,115,51,.2);border:1px solid rgba(184,115,51,.55);color:#f0d4b8;font-size:10.5px;font-weight:500;padding:4px 11px;border-radius:40px;}
+
+  .body{padding:26px 34px 14px;}
+  .section-label{font-family:'Bebas Neue';font-size:14px;letter-spacing:.18em;color:var(--mute);text-transform:uppercase;margin:6px 0 14px;display:flex;align-items:center;gap:10px;}
+  .section-label::after{content:"";flex:1;height:1px;background:var(--line);}
+
+  .hero{display:grid;grid-template-columns:1.15fr 1fr;gap:18px;margin-bottom:24px;align-items:stretch;}
+  .hero .big{border:1px solid var(--line);border-left:5px solid var(--copper);border-radius:10px;padding:18px 20px;background:#fdfaf6;}
+  .hero .big h3{font-family:'Bebas Neue';font-size:24px;letter-spacing:.4px;color:var(--navy);margin-bottom:8px;}
+  .hero .big p{font-size:13px;line-height:1.6;color:var(--ink);}
+  .hero .big p b{color:var(--copper);}
+  .stat{border:1px solid var(--line);border-radius:10px;padding:16px 18px;background:#fff;display:flex;flex-direction:column;justify-content:center;gap:10px;}
+  .stat .num{font-family:'Bebas Neue';font-size:40px;line-height:.85;color:var(--pink);}
+  .stat .lbl{font-size:11px;color:var(--mute);line-height:1.4;}
+  .stat .row{border-top:1px solid var(--line);padding-top:10px;}
+
+  .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:13px;margin-bottom:22px;}
+  .card{border:1px solid var(--line);border-radius:9px;overflow:hidden;background:#fff;display:flex;flex-direction:column;}
+  .ch{padding:9px 12px 8px;color:#fff;}
+  .ch .cat{font-size:9px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;opacity:.85;}
+  .ch .nm{font-family:'Bebas Neue';font-size:18px;letter-spacing:.4px;line-height:1;margin-top:2px;}
+  .cb{padding:11px 13px 13px;font-size:11.5px;line-height:1.5;color:var(--ink);flex:1;}
+  .m{list-style:none;} .m li{position:relative;padding-left:11px;margin-bottom:5px;}
+  .m li::before{content:"";position:absolute;left:0;top:6px;width:4px;height:4px;border-radius:50%;background:var(--pink);}
+  .v-copper .ch{background:var(--copper);} .v-copper .m li::before{background:var(--copper);}
+  .v-pink .ch{background:var(--pink);} .v-pink .m li::before{background:var(--pink);}
+  .v-teal .ch{background:var(--teal);} .v-teal .m li::before{background:var(--teal);}
+  .v-gold .ch{background:var(--gold);} .v-gold .m li::before{background:var(--gold);}
+  .v-purple .ch{background:var(--purple);} .v-purple .m li::before{background:var(--purple);}
+  .v-navy .ch{background:var(--navy);} .v-navy .m li::before{background:var(--navy);}
+
+  .al{border-left:4px solid var(--gold);background:#fff8ef;border-radius:6px;padding:13px 16px;font-size:11.5px;line-height:1.55;color:var(--ink);margin-bottom:20px;}
+  .al b{color:var(--gold);text-transform:uppercase;letter-spacing:.06em;font-size:10.5px;display:block;margin-bottom:4px;}
+  .al.pink{border-left-color:var(--pink);background:#fdf2f6;} .al.pink b{color:var(--pink);}
+  .al.copper{border-left-color:var(--copper);background:#fdf8f2;} .al.copper b{color:var(--copper);}
+
+  .duo{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:20px;}
+
+  table{width:100%;border-collapse:collapse;font-size:11.5px;border:1px solid var(--line);border-radius:8px;overflow:hidden;margin-bottom:20px;}
+  thead th{background:var(--navy);color:#fff;text-align:left;padding:9px 12px;font-weight:700;font-size:10px;letter-spacing:.07em;text-transform:uppercase;}
+  tbody td{padding:9px 12px;border-top:1px solid var(--line);vertical-align:top;line-height:1.45;}
+  tbody tr:nth-child(even){background:#fafbfd;}
+  tbody td b{color:var(--navy);}
+
+  .foot{background:var(--navy);color:#9aa7b8;padding:14px 34px;font-size:10.5px;}
+  .foot .frow{display:flex;justify-content:space-between;align-items:center;}
+  .foot b{color:#fff;} .foot .brand{font-family:'Bebas Neue';font-size:16px;letter-spacing:.6px;color:var(--pink);}
+  .foot .copyright{margin-top:8px;padding-top:8px;border-top:1px solid rgba(255,255,255,.12);font-size:9px;color:#7c8a9c;letter-spacing:.03em;}
+
+  @media print{body{background:#fff;padding:0;}.page{box-shadow:none;page-break-after:always;}}
+</style>
+</head>
+<body>
+
+<!-- PAGE 1 -->
+<div class="page">
+  <div class="head">
+    <div class="glow"></div>
+    <div class="rule"></div>
+    <div class="kicker">Hello Gorgeous Med Spa · Skincare Science Series</div>
+    <h1>Copper Peptides <span>&amp; Your Skin</span></h1>
+    <div class="subhead">The story behind GHK-Cu — one of the most studied ingredients in skincare science — and why it keeps showing up in serums, post-treatment care, and the conversation about aging skin.</div>
+    <div class="pills">
+      <span class="pill">#GHKCu</span><span class="pill">#CopperPeptide</span>
+      <span class="pill">#CollagenScience</span><span class="pill">#SkinBarrier</span>
+      <span class="pill">#PostTreatmentGlow</span>
+    </div>
+  </div>
+
+  <div class="body">
+
+    <div class="hero">
+      <div class="big">
+        <h3>So What Is It, Really?</h3>
+        <p><b>GHK-Cu</b> (you'll see it on ingredient labels as <b>Copper Tripeptide-1</b>) is a tiny peptide made of just three amino acids bound to a copper ion. Here's the beautiful part: your body already makes it. It was first discovered in human blood plasma back in 1973, where it helps signal skin to repair and renew itself. The catch? Your natural levels <b>drop steeply with age</b> — which is right when skin starts to show it.</p>
+      </div>
+      <div class="stat">
+        <div>
+          <div class="num">1973</div>
+          <div class="lbl">First isolated from human plasma — over five decades of research behind it</div>
+        </div>
+        <div class="row">
+          <div class="num">~60%</div>
+          <div class="lbl">Estimated drop in the body's natural copper-peptide signaling from young adulthood toward age 60</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-label">What The Research Looks At</div>
+    <div class="grid">
+      <div class="card v-copper">
+        <div class="ch"><div class="cat">Studied For</div><div class="nm">Collagen</div></div>
+        <div class="cb"><ul class="m">
+          <li>Signals fibroblasts (your collagen-makers)</li>
+          <li>Linked to <b>collagen &amp; elastin</b> synthesis</li>
+          <li>The firmness conversation starts here</li>
+        </ul></div>
+      </div>
+      <div class="card v-pink">
+        <div class="ch"><div class="cat">Studied For</div><div class="nm">Barrier</div></div>
+        <div class="cb"><ul class="m">
+          <li>Supports the skin's protective barrier</li>
+          <li>Researched for <b>texture &amp; hydration</b></li>
+          <li>Why it feels "smoothing"</li>
+        </ul></div>
+      </div>
+      <div class="card v-teal">
+        <div class="ch"><div class="cat">Studied For</div><div class="nm">Healing</div></div>
+        <div class="cb"><ul class="m">
+          <li>Decades of <b>wound-healing</b> research</li>
+          <li>Studied for calming irritated skin</li>
+          <li>Part of why it pairs with treatments</li>
+        </ul></div>
+      </div>
+      <div class="card v-gold">
+        <div class="ch"><div class="cat">Studied For</div><div class="nm">Antioxidant</div></div>
+        <div class="cb"><ul class="m">
+          <li>Researched for antioxidant activity</li>
+          <li>Helps the "tired, dull" conversation</li>
+          <li>Supports overall skin resilience</li>
+        </ul></div>
+      </div>
+    </div>
+
+    <div class="al copper">
+      <b>Why the science nerds love it</b>
+      GHK-Cu isn't a one-trick ingredient. Gene-expression studies have shown it influences a remarkably wide range of skin-remodeling pathways — which is unusual for such a small molecule, and a big reason it's one of the most-cited peptides in dermatology research.
+    </div>
+
+    <div class="section-label">Topical vs. The Hype</div>
+    <div class="duo">
+      <div class="al pink" style="margin-bottom:0;">
+        <b>What's well-established ✓</b>
+        Topical GHK-Cu in quality skincare has a long, well-studied track record for the appearance of firmness, texture, and post-treatment comfort. This is the lane with the strongest, safest evidence — and the one we love for at-home care.
+      </div>
+      <div class="al" style="margin-bottom:0;">
+        <b>What deserves caution</b>
+        You'll see GHK-Cu marketed in injectable and "research" forms online. Those are an entirely different regulatory and safety category from cosmetic topicals — and not something to DIY. If you're ever curious about those, that's a conversation for a licensed clinician, not a website cart.
+      </div>
+    </div>
+
+  </div>
+
+  <div class="foot">
+    <div class="frow">
+      <div><span class="brand">Hello Gorgeous</span> &nbsp;·&nbsp; Copper Peptides &amp; Your Skin · Page 1 of 2</div>
+      <div>Prepared by <b>Danielle Alcala-Glazier</b></div>
+    </div>
+    <div class="copyright">© 2026 Hello Gorgeous Med Spa · All Rights Reserved · This material is proprietary and may not be reproduced, distributed, or republished without written permission.</div>
+  </div>
+</div>
+
+<!-- PAGE 2 -->
+<div class="page">
+  <div class="head">
+    <div class="glow"></div>
+    <div class="rule"></div>
+    <div class="kicker">Hello Gorgeous Med Spa · Skincare Science Series</div>
+    <h1>Make It <span>Work For You</span></h1>
+    <div class="subhead">How copper peptides fit into a real routine, who tends to love them, and the honest fine print — so you can be smart, not just sold to.</div>
+    <div class="pills">
+      <span class="pill">#YourRoutine</span><span class="pill">#PairsWith</span>
+      <span class="pill">#PostTreatment</span><span class="pill">#KnowBeforeYouBuy</span>
+    </div>
+  </div>
+
+  <div class="body">
+
+    <div class="section-label">Who Tends To Love It</div>
+    <div class="grid">
+      <div class="card v-pink">
+        <div class="ch"><div class="cat">Great Fit</div><div class="nm">Maturing Skin</div></div>
+        <div class="cb"><ul class="m"><li>Noticing firmness &amp; texture changes</li><li>Wants a <b>research-backed</b> active</li><li>Building a serious routine</li></ul></div>
+      </div>
+      <div class="card v-teal">
+        <div class="ch"><div class="cat">Great Fit</div><div class="nm">Post-Treatment</div></div>
+        <div class="cb"><ul class="m"><li>After microneedling, laser, peels*</li><li>Wants <b>calm, supported</b> recovery</li><li>*Always per your provider's plan</li></ul></div>
+      </div>
+      <div class="card v-gold">
+        <div class="ch"><div class="cat">Great Fit</div><div class="nm">Sensitive Types</div></div>
+        <div class="cb"><ul class="m"><li>Finds retinol too harsh some nights</li><li>Wants a <b>gentler</b> repair-focused step</li><li>Looking to round out a routine</li></ul></div>
+      </div>
+      <div class="card v-navy">
+        <div class="ch"><div class="cat">Maybe Wait</div><div class="nm">If This Is You</div></div>
+        <div class="cb"><ul class="m"><li>Brand-new to actives (start simple)</li><li>Mid-flare or very reactive right now</li><li>Pregnant/nursing — ask first</li></ul></div>
+      </div>
+    </div>
+
+    <div class="section-label">Playing Well With Others</div>
+    <table>
+      <thead><tr><th style="width:26%">Pair With</th><th style="width:44%">Why It Works</th><th>Smart Move</th></tr></thead>
+      <tbody>
+        <tr><td><b>Hyaluronic Acid</b></td><td>Hydration + repair signaling is a classic, comfortable combo.</td><td>Great daily layering partner.</td></tr>
+        <tr><td><b>Peptide / barrier moisturizers</b></td><td>Reinforces the same "support and repair" theme.</td><td>Seal it in at the end.</td></tr>
+        <tr><td><b>Vitamin C</b></td><td>Some formulas don't love sharing a layer with copper.</td><td>Many split them — C in AM, copper in PM.</td></tr>
+        <tr><td><b>Strong exfoliating acids</b></td><td>Stacking too many actives at once can overwhelm skin.</td><td>Alternate nights instead of piling on.</td></tr>
+      </tbody>
+    </table>
+
+    <div class="al copper">
+      <b>The honest fine print</b>
+      Skincare results are gradual and personal — topical actives are usually a "weeks, consistently" story, not overnight. More is not better with copper peptides; a well-formulated product used as directed beats overdoing it. And nothing in skincare replaces sunscreen — it's still the single most proven anti-aging step there is.
+    </div>
+
+    <div class="al pink">
+      <b>How we think about it at Hello Gorgeous</b>
+      We love copper peptides because the science is genuinely there — not because they're trendy. We'd rather walk you through what an ingredient actually does than sell you a miracle. If you want help fitting GHK-Cu into your routine, or pairing it with your treatment plan, that's exactly the kind of thing we're here for. Still family-owned, still obsessed with skin, still in your corner.
+    </div>
+
+  </div>
+
+  <div class="foot">
+    <div class="frow">
+      <div><span class="brand">Hello Gorgeous</span> &nbsp;·&nbsp; 74 W Washington St, Oswego, IL · 630-636-6193 · hellogorgeousmedspa.com</div>
+      <div>Prepared by <b>Danielle Alcala-Glazier</b> · Page 2 of 2</div>
+    </div>
+    <div class="copyright">© 2026 Hello Gorgeous Med Spa · All Rights Reserved · This material is proprietary and may not be reproduced, distributed, or republished without written permission.</div>
+  </div>
+</div>
+
+</body>
+</html>

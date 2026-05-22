@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Peptide Reference List</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0a1628; --pink:#D4537E; --teal:#2a9d8f; --red:#e63946;
+    --gold:#c77b2a; --purple:#7b2d8b; --green:#2d7a55; --blue:#1a3a6b;
+    --paper:#fff; --ink:#1c2430; --mute:#5b6675; --line:#e4e8ee;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:#dfe4ea;}
+  body{font-family:'DM Sans',sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:24px 0;}
+  .page{width:10.5in;margin:0 auto 28px;background:var(--paper);box-shadow:0 8px 40px rgba(10,22,40,.18);overflow:hidden;position:relative;}
+  .page::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:5;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='420' height='260' viewBox='0 0 420 260'><text x='210' y='140' font-family='Arial, sans-serif' font-size='22' font-weight='700' letter-spacing='3' fill='%230a1628' fill-opacity='0.07' text-anchor='middle' transform='rotate(-30 210 130)'>HELLO GORGEOUS MED SPA</text></svg>");background-repeat:repeat;}
+  .head,.body,.foot{position:relative;z-index:10;}
+
+  .head{background:var(--navy);color:#fff;padding:26px 34px 22px;position:relative;}
+  .head .rule{position:absolute;left:0;bottom:0;width:100%;height:5px;background:linear-gradient(90deg,var(--pink),var(--gold) 60%,var(--teal));}
+  .kicker{font-weight:700;letter-spacing:.22em;font-size:11px;text-transform:uppercase;color:var(--gold);margin-bottom:8px;}
+  .head h1{font-family:'Bebas Neue';font-size:56px;line-height:.92;letter-spacing:.5px;margin-bottom:10px;}
+  .head h1 span{color:var(--pink);}
+  .subhead{font-size:13px;color:#b9c4d4;max-width:80%;line-height:1.5;}
+  .pills{margin-top:14px;display:flex;flex-wrap:wrap;gap:7px;}
+  .pill{background:rgba(212,83,126,.16);border:1px solid rgba(212,83,126,.5);color:#f3c4d6;font-size:10.5px;font-weight:500;padding:4px 11px;border-radius:40px;}
+
+  .body{padding:24px 34px 14px;}
+  .section-label{font-family:'Bebas Neue';font-size:13px;letter-spacing:.18em;color:var(--mute);text-transform:uppercase;margin:4px 0 12px;display:flex;align-items:center;gap:10px;}
+  .section-label::after{content:"";flex:1;height:1px;background:var(--line);}
+
+  table{width:100%;border-collapse:collapse;font-size:11px;border:1px solid var(--line);border-radius:8px;overflow:hidden;margin-bottom:22px;}
+  thead th{background:var(--navy);color:#fff;text-align:left;padding:8px 11px;font-weight:700;font-size:9.5px;letter-spacing:.07em;text-transform:uppercase;}
+  tbody td{padding:8px 11px;border-top:1px solid var(--line);vertical-align:top;line-height:1.42;}
+  tbody tr:nth-child(even){background:#fafbfd;}
+  tbody td b{color:var(--navy);}
+  .tag{display:inline-block;font-size:8.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:2px 7px;border-radius:30px;white-space:nowrap;}
+  .t-rx{background:#e6f4ef;color:var(--green);}
+  .t-cos{background:#fdf2f6;color:var(--pink);}
+  .t-res{background:#fdeceb;color:var(--red);}
+  .name{font-weight:700;color:var(--navy);}
+  .alt{display:block;font-size:9.5px;color:var(--mute);font-weight:400;margin-top:1px;}
+
+  .al{border-left:4px solid var(--gold);background:#fff8ef;border-radius:6px;padding:12px 16px;font-size:11px;line-height:1.55;color:var(--ink);margin-bottom:18px;}
+  .al b{color:var(--gold);text-transform:uppercase;letter-spacing:.06em;font-size:10px;display:block;margin-bottom:4px;}
+  .al.pink{border-left-color:var(--pink);background:#fdf2f6;} .al.pink b{color:var(--pink);}
+  .al.red{border-left-color:var(--red);background:#fdf1f2;} .al.red b{color:var(--red);}
+
+  .legend{display:flex;gap:18px;flex-wrap:wrap;margin-bottom:16px;font-size:10.5px;color:var(--mute);}
+  .legend span{display:flex;align-items:center;gap:6px;}
+
+  .foot{background:var(--navy);color:#9aa7b8;padding:14px 34px;font-size:10.5px;}
+  .foot .frow{display:flex;justify-content:space-between;align-items:center;}
+  .foot b{color:#fff;} .foot .brand{font-family:'Bebas Neue';font-size:16px;letter-spacing:.6px;color:var(--pink);}
+  .foot .copyright{margin-top:8px;padding-top:8px;border-top:1px solid rgba(255,255,255,.12);font-size:9px;color:#7c8a9c;letter-spacing:.03em;}
+
+  @media print{body{background:#fff;padding:0;}.page{box-shadow:none;page-break-after:always;}}
+</style>
+</head>
+<body>
+
+<!-- PAGE 1 -->
+<div class="page">
+  <div class="head">
+    <div class="rule"></div>
+    <div class="kicker">Hello Gorgeous Med Spa · Internal Reference</div>
+    <h1>Peptide <span>Reference List</span></h1>
+    <div class="subhead">A categorized reference of commonly discussed peptides — what each one is, the research focus, and its regulatory status. Reference only. Not dosing or treatment guidance.</div>
+    <div class="pills">
+      <span class="pill">#Recovery</span><span class="pill">#Aesthetics</span>
+      <span class="pill">#Metabolic</span><span class="pill">#Hormone</span>
+      <span class="pill">#Longevity</span><span class="pill">#Cognitive</span><span class="pill">#Sexual</span>
+    </div>
+  </div>
+
+  <div class="body">
+    <div class="legend">
+      <span><span class="tag t-rx">FDA-Approved exists</span> approved drug in this family</span>
+      <span><span class="tag t-cos">Cosmetic / Topical</span> used in skincare</span>
+      <span><span class="tag t-res">Research-Use-Only</span> not approved for human use</span>
+    </div>
+
+    <div class="section-label">Recovery &amp; Tissue Repair</div>
+    <table>
+      <thead><tr><th style="width:20%">Peptide</th><th style="width:50%">What It Is / Research Focus</th><th style="width:30%">Regulatory Status</th></tr></thead>
+      <tbody>
+        <tr><td class="name">BPC-157<span class="alt">"Body Protection Compound"</span></td><td>A synthetic peptide fragment studied for tissue repair, gut-lining support, and angiogenesis in lab/animal research.</td><td><span class="tag t-res">Research-Use-Only</span><br><span class="alt">FDA flagged as Category 2 (safety risk) for compounding</span></td></tr>
+        <tr><td class="name">TB-500 / TB-4<span class="alt">Thymosin Beta-4</span></td><td>A synthetic version of a naturally occurring protein, studied for tissue regeneration and flexibility/recovery research.</td><td><span class="tag t-res">Research-Use-Only</span></td></tr>
+        <tr><td class="name">KPV<span class="alt">α-MSH fragment</span></td><td>A tripeptide studied for anti-inflammatory and immune-modulation pathways.</td><td><span class="tag t-res">Research-Use-Only</span></td></tr>
+      </tbody>
+    </table>
+
+    <div class="section-label">Aesthetics &amp; Skin</div>
+    <table>
+      <thead><tr><th style="width:20%">Peptide</th><th style="width:50%">What It Is / Research Focus</th><th style="width:30%">Regulatory Status</th></tr></thead>
+      <tbody>
+        <tr><td class="name">GHK-Cu<span class="alt">Copper Tripeptide-1</span></td><td>A copper-binding peptide widely used in topical skincare; studied for collagen/elastin signaling, antioxidant activity, and skin-barrier support.</td><td><span class="tag t-cos">Cosmetic / Topical</span><br><span class="alt">Common in serums; injectable use is research-only</span></td></tr>
+        <tr><td class="name">Palmitoyl peptides<span class="alt">e.g. Matrixyl / pentapeptides</span></td><td>A family of cosmetic peptides found in anti-aging skincare; marketed for the appearance of fine lines.</td><td><span class="tag t-cos">Cosmetic / Topical</span></td></tr>
+        <tr><td class="name">Argireline<span class="alt">Acetyl Hexapeptide-8</span></td><td>A topical cosmetic peptide marketed for the look of expression lines.</td><td><span class="tag t-cos">Cosmetic / Topical</span></td></tr>
+      </tbody>
+    </table>
+
+    <div class="section-label">Metabolic &amp; Weight</div>
+    <table>
+      <thead><tr><th style="width:20%">Peptide</th><th style="width:50%">What It Is / Research Focus</th><th style="width:30%">Regulatory Status</th></tr></thead>
+      <tbody>
+        <tr><td class="name">Semaglutide<span class="alt">GLP-1 receptor agonist</span></td><td>The peptide behind well-known FDA-approved diabetes and weight-management medications.</td><td><span class="tag t-rx">FDA-Approved exists</span><br><span class="alt">Brand medications are approved; compounding now restricted</span></td></tr>
+        <tr><td class="name">Tirzepatide<span class="alt">GIP / GLP-1 agonist</span></td><td>A dual-pathway peptide behind FDA-approved diabetes and weight medications.</td><td><span class="tag t-rx">FDA-Approved exists</span><br><span class="alt">Off shortage list since Oct 2024; compounding restricted</span></td></tr>
+        <tr><td class="name">AOD-9604<span class="alt">GH fragment 176-191</span></td><td>A fragment of growth hormone studied for fat-metabolism pathways without broader hormonal effects.</td><td><span class="tag t-res">Research-Use-Only</span></td></tr>
+        <tr><td class="name">MOTS-c</td><td>A mitochondrially-derived peptide studied for metabolic regulation, AMPK activation, and energy research.</td><td><span class="tag t-res">Research-Use-Only</span></td></tr>
+      </tbody>
+    </table>
+
+    <div class="al pink">
+      <b>Reading the status column</b>
+      Notice the pattern: the metabolic peptides people actually recognize (semaglutide, tirzepatide) come from the <b>FDA-approved</b> world and require a licensed pharmacy and a prescription. Most others on these lists are <b>research-use-only</b> — meaning the science is real but human use has not been approved.
+    </div>
+  </div>
+
+  <div class="foot">
+    <div class="frow">
+      <div><span class="brand">Hello Gorgeous</span> &nbsp;·&nbsp; Peptide Reference · Internal Use</div>
+      <div>Prepared by <b>Danielle Alcala-Glazier</b> · Page 1 of 2</div>
+    </div>
+    <div class="copyright">© 2026 Hello Gorgeous Med Spa · All Rights Reserved · This material is proprietary and may not be reproduced, distributed, or republished without written permission.</div>
+  </div>
+</div>
+
+<!-- PAGE 2 -->
+<div class="page">
+  <div class="head">
+    <div class="rule"></div>
+    <div class="kicker">Hello Gorgeous Med Spa · Internal Reference</div>
+    <h1>Peptide Reference <span>Continued</span></h1>
+    <div class="subhead">Hormone optimization, longevity, cognitive, and sexual-wellness categories — with regulatory status for each.</div>
+    <div class="pills">
+      <span class="pill">#Hormone</span><span class="pill">#Longevity</span>
+      <span class="pill">#Cognitive</span><span class="pill">#Sexual</span><span class="pill">#Energy</span>
+    </div>
+  </div>
+
+  <div class="body">
+
+    <div class="section-label">Hormone Optimization (GH Secretagogues)</div>
+    <table>
+      <thead><tr><th style="width:20%">Peptide</th><th style="width:50%">What It Is / Research Focus</th><th style="width:30%">Regulatory Status</th></tr></thead>
+      <tbody>
+        <tr><td class="name">Sermorelin</td><td>A growth-hormone-releasing hormone analog historically studied for endogenous GH stimulation.</td><td><span class="tag t-rx">FDA-Approved exists</span><br><span class="alt">Previously approved; now primarily compounded</span></td></tr>
+        <tr><td class="name">Tesamorelin</td><td>A GHRH analog; an FDA-approved brand exists for a specific indication. Studied for body composition and lipid research.</td><td><span class="tag t-rx">FDA-Approved exists</span></td></tr>
+        <tr><td class="name">CJC-1295<span class="alt">often "No DAC"</span></td><td>A GHRH analog studied as a GH secretagogue in research settings.</td><td><span class="tag t-res">Research-Use-Only</span></td></tr>
+        <tr><td class="name">Ipamorelin</td><td>A selective GH secretagogue frequently referenced alongside CJC-1295 in optimization research.</td><td><span class="tag t-res">Research-Use-Only</span></td></tr>
+      </tbody>
+    </table>
+
+    <div class="section-label">Longevity &amp; Cellular Aging</div>
+    <table>
+      <thead><tr><th style="width:20%">Peptide</th><th style="width:50%">What It Is / Research Focus</th><th style="width:30%">Regulatory Status</th></tr></thead>
+      <tbody>
+        <tr><td class="name">Epithalon<span class="alt">Epitalon</span></td><td>A synthetic tetrapeptide studied for telomerase activity and circadian-rhythm research.</td><td><span class="tag t-res">Research-Use-Only</span></td></tr>
+        <tr><td class="name">Thymalin</td><td>A thymus-derived peptide preparation studied for immune-function research.</td><td><span class="tag t-res">Research-Use-Only</span></td></tr>
+        <tr><td class="name">FOXO4-DRI</td><td>A research peptide studied in the context of senescent-cell biology. Early-stage lab research only.</td><td><span class="tag t-res">Research-Use-Only</span></td></tr>
+        <tr><td class="name">NAD+<span class="alt">technically a coenzyme</span></td><td>Not a peptide, but frequently grouped with this category; studied for cellular energy and used in some IV wellness settings.</td><td><span class="tag t-res">Research-Use-Only</span><br><span class="alt">Status varies by form/route</span></td></tr>
+      </tbody>
+    </table>
+
+    <div class="section-label">Cognitive, Mood &amp; Sexual Wellness</div>
+    <table>
+      <thead><tr><th style="width:20%">Peptide</th><th style="width:50%">What It Is / Research Focus</th><th style="width:30%">Regulatory Status</th></tr></thead>
+      <tbody>
+        <tr><td class="name">Selank</td><td>A synthetic peptide studied for anxiolytic and stress-related pathways in research.</td><td><span class="tag t-res">Research-Use-Only</span></td></tr>
+        <tr><td class="name">Semax</td><td>A synthetic peptide studied for BDNF and cognitive/neuroprotective research.</td><td><span class="tag t-res">Research-Use-Only</span></td></tr>
+        <tr><td class="name">PT-141<span class="alt">Bremelanotide</span></td><td>A melanocortin peptide; an FDA-approved brand exists for a specific sexual-health indication.</td><td><span class="tag t-rx">FDA-Approved exists</span></td></tr>
+        <tr><td class="name">MT-II<span class="alt">Melanotan II</span></td><td>A melanocortin peptide studied for melanin and appetite pathways.</td><td><span class="tag t-res">Research-Use-Only</span><br><span class="alt">FDA has warned about unapproved versions</span></td></tr>
+      </tbody>
+    </table>
+
+    <div class="al red">
+      <b>Before anything from this list goes near a patient</b>
+      Most of these are <b>research-use-only</b> and several are FDA Category-2 flagged, meaning even a licensed 503A pharmacy may not be permitted to compound them for human use. Any decision about what is appropriate to offer must be made by <b>Ryan Kent, FNP-BC</b> as the prescribing clinician, with product sourced from a <b>licensed pharmacy</b> and your malpractice carrier informed. This sheet is a reference, not a green light.
+    </div>
+
+    <div class="al pink">
+      <b>The Hello Gorgeous way</b>
+      Knowing the whole landscape is exactly how you stay the trusted expert. The categories with FDA-approved members are where a legitimate, insurable program lives. That's the lane that protects your license, your patients, and 10+ years of reputation.
+    </div>
+
+  </div>
+
+  <div class="foot">
+    <div class="frow">
+      <div><span class="brand">Hello Gorgeous</span> &nbsp;·&nbsp; 74 W Washington St, Oswego, IL · hellogorgeousmedspa.com</div>
+      <div>Prepared by <b>Danielle Alcala-Glazier</b> · Page 2 of 2</div>
+    </div>
+    <div class="copyright">© 2026 Hello Gorgeous Med Spa · All Rights Reserved · This material is proprietary and may not be reproduced, distributed, or republished without written permission.</div>
+  </div>
+</div>
+
+</body>
+</html>

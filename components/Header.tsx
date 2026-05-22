@@ -228,6 +228,8 @@ function PeptideTherapyMenu({
                     key={`${section.heading}-${link.href}`}
                     href={link.href}
                     onClick={onClose}
+                    target={"external" in link && link.external ? "_blank" : undefined}
+                    rel={"external" in link && link.external ? "noopener noreferrer" : undefined}
                     className="group block rounded-lg px-3 py-2.5 transition hover:bg-[#FFF0F7]"
                   >
                     <div className="flex items-center gap-2">
@@ -249,11 +251,11 @@ function PeptideTherapyMenu({
         </div>
         <div className="mt-6 border-t border-black/10 pt-5 flex flex-wrap items-center justify-between gap-4">
           <Link
-            href={`${PEPTIDE_THERAPY_PATH}#peptide-education`}
+            href={`${PEPTIDE_THERAPY_PATH}#patient-handouts`}
             onClick={onClose}
             className="text-sm font-bold text-[#E6007E] hover:underline"
           >
-            Open peptide education center →
+            View all printable handouts →
           </Link>
           <Link
             href={BOOKING_URL}
@@ -875,6 +877,8 @@ export function Header() {
                         key={link.href}
                         href={link.href}
                         onClick={() => setMobileOpen(false)}
+                        target={"external" in link && link.external ? "_blank" : undefined}
+                        rel={"external" in link && link.external ? "noopener noreferrer" : undefined}
                         className="block px-6 py-2.5 rounded-lg text-sm text-black/80 hover:bg-[#FFF0F7] hover:text-[#E6007E] transition-colors"
                       >
                         {link.label}

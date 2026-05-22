@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Retatrutide — What To Know</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0a1628; --pink:#D4537E; --teal:#2a9d8f; --red:#e63946;
+    --gold:#c77b2a; --purple:#7b2d8b; --green:#2d7a55; --blue:#1a3a6b;
+    --acc:#c0436b; --paper:#fff; --ink:#1c2430; --mute:#5b6675; --line:#e4e8ee;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:#dfe4ea;}
+  body{font-family:'DM Sans',sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:24px 0;}
+  .page{width:10.5in;margin:0 auto 28px;background:var(--paper);box-shadow:0 8px 40px rgba(10,22,40,.18);overflow:hidden;position:relative;}
+  .page::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:5;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='420' height='260' viewBox='0 0 420 260'><text x='210' y='140' font-family='Arial, sans-serif' font-size='22' font-weight='700' letter-spacing='3' fill='%230a1628' fill-opacity='0.07' text-anchor='middle' transform='rotate(-30 210 130)'>HELLO GORGEOUS MED SPA</text></svg>");background-repeat:repeat;}
+  .head,.body,.foot{position:relative;z-index:10;}
+  .head{background:var(--navy);color:#fff;padding:28px 34px 24px;overflow:hidden;}
+  .head .glow{position:absolute;right:-60px;top:-60px;width:260px;height:260px;border-radius:50%;background:radial-gradient(circle,rgba(192,67,107,.4),transparent 70%);z-index:1;}
+  .head .rule{position:absolute;left:0;bottom:0;width:100%;height:5px;background:linear-gradient(90deg,var(--acc),var(--pink) 55%,var(--gold));z-index:2;}
+  .kicker{font-weight:700;letter-spacing:.22em;font-size:11px;text-transform:uppercase;color:var(--gold);margin-bottom:8px;position:relative;z-index:2;}
+  .head h1{font-family:'Bebas Neue';font-size:56px;line-height:.9;letter-spacing:.5px;margin-bottom:10px;position:relative;z-index:2;}
+  .head h1 span{color:var(--pink);}
+  .subhead{font-size:13.5px;color:#c3cdda;max-width:80%;line-height:1.55;position:relative;z-index:2;}
+  .pills{margin-top:14px;display:flex;flex-wrap:wrap;gap:7px;position:relative;z-index:2;}
+  .pill{background:rgba(192,67,107,.2);border:1px solid rgba(192,67,107,.55);color:#f3c4d3;font-size:10.5px;font-weight:500;padding:4px 11px;border-radius:40px;}
+  .body{padding:26px 34px 14px;}
+  .section-label{font-family:'Bebas Neue';font-size:14px;letter-spacing:.18em;color:var(--mute);text-transform:uppercase;margin:6px 0 14px;display:flex;align-items:center;gap:10px;}
+  .section-label::after{content:"";flex:1;height:1px;background:var(--line);}
+  .banner{background:#fdf1f2;border:1px solid #f3c4c8;border-left:5px solid var(--red);border-radius:10px;padding:14px 18px;margin-bottom:22px;}
+  .banner b{color:var(--red);text-transform:uppercase;letter-spacing:.06em;font-size:11px;display:block;margin-bottom:5px;}
+  .banner p{font-size:12px;line-height:1.55;color:var(--ink);}
+  .hero{display:grid;grid-template-columns:1.15fr 1fr;gap:18px;margin-bottom:24px;align-items:stretch;}
+  .hero .big{border:1px solid var(--line);border-left:5px solid var(--acc);border-radius:10px;padding:18px 20px;background:#fdf2f5;}
+  .hero .big h3{font-family:'Bebas Neue';font-size:24px;letter-spacing:.4px;color:var(--navy);margin-bottom:8px;}
+  .hero .big p{font-size:13px;line-height:1.6;color:var(--ink);}
+  .hero .big p b{color:var(--acc);}
+  .stat{border:1px solid var(--line);border-radius:10px;padding:16px 18px;background:#fff;display:flex;flex-direction:column;justify-content:center;gap:10px;}
+  .stat .num{font-family:'Bebas Neue';font-size:30px;line-height:.88;color:var(--pink);}
+  .stat .lbl{font-size:11px;color:var(--mute);line-height:1.4;}
+  .stat .row{border-top:1px solid var(--line);padding-top:10px;}
+  .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:13px;margin-bottom:22px;}
+  .card{border:1px solid var(--line);border-radius:9px;overflow:hidden;background:#fff;display:flex;flex-direction:column;}
+  .ch{padding:9px 12px 8px;color:#fff;}
+  .ch .cat{font-size:9px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;opacity:.85;}
+  .ch .nm{font-family:'Bebas Neue';font-size:18px;letter-spacing:.4px;line-height:1;margin-top:2px;}
+  .cb{padding:11px 13px 13px;font-size:11.5px;line-height:1.5;color:var(--ink);flex:1;}
+  .m{list-style:none;} .m li{position:relative;padding-left:11px;margin-bottom:5px;}
+  .m li::before{content:"";position:absolute;left:0;top:6px;width:4px;height:4px;border-radius:50%;background:var(--pink);}
+  .v-acc .ch{background:var(--acc);} .v-acc .m li::before{background:var(--acc);}
+  .v-pink .ch{background:var(--pink);} .v-pink .m li::before{background:var(--pink);}
+  .v-teal .ch{background:var(--teal);} .v-teal .m li::before{background:var(--teal);}
+  .v-gold .ch{background:var(--gold);} .v-gold .m li::before{background:var(--gold);}
+  .v-navy .ch{background:var(--navy);} .v-navy .m li::before{background:var(--navy);}
+  .v-red .ch{background:var(--red);} .v-red .m li::before{background:var(--red);}
+  .al{border-left:4px solid var(--gold);background:#fff8ef;border-radius:6px;padding:13px 16px;font-size:11.5px;line-height:1.55;color:var(--ink);margin-bottom:20px;}
+  .al b{color:var(--gold);text-transform:uppercase;letter-spacing:.06em;font-size:10.5px;display:block;margin-bottom:4px;}
+  .al.pink{border-left-color:var(--pink);background:#fdf2f6;} .al.pink b{color:var(--pink);}
+  .al.acc{border-left-color:var(--acc);background:#fdf2f5;} .al.acc b{color:var(--acc);}
+  .al.red{border-left-color:var(--red);background:#fdf1f2;} .al.red b{color:var(--red);}
+  .duo{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:20px;}
+  table{width:100%;border-collapse:collapse;font-size:11.5px;border:1px solid var(--line);border-radius:8px;overflow:hidden;margin-bottom:20px;}
+  thead th{background:var(--navy);color:#fff;text-align:left;padding:9px 12px;font-weight:700;font-size:10px;letter-spacing:.07em;text-transform:uppercase;}
+  tbody td{padding:9px 12px;border-top:1px solid var(--line);vertical-align:top;line-height:1.45;}
+  tbody tr:nth-child(even){background:#fafbfd;}
+  tbody td b{color:var(--navy);}
+  .foot{background:var(--navy);color:#9aa7b8;padding:14px 34px;font-size:10.5px;}
+  .foot .frow{display:flex;justify-content:space-between;align-items:center;}
+  .foot b{color:#fff;} .foot .brand{font-family:'Bebas Neue';font-size:16px;letter-spacing:.6px;color:var(--pink);}
+  .foot .copyright{margin-top:8px;padding-top:8px;border-top:1px solid rgba(255,255,255,.12);font-size:9px;color:#7c8a9c;letter-spacing:.03em;}
+  @media print{body{background:#fff;padding:0;}.page{box-shadow:none;page-break-after:always;}}
+</style>
+</head>
+<body>
+
+<div class="page">
+  <div class="head">
+    <div class="glow"></div><div class="rule"></div>
+    <div class="kicker">Hello Gorgeous Med Spa · Science Explainer Series</div>
+    <h1>Retatrutide <span>— What To Know</span></h1>
+    <div class="subhead">The most talked-about drug in the weight-health pipeline — and one that isn't actually available yet. Here's an honest look at what it is, where it stands, and why caution matters.</div>
+    <div class="pills"><span class="pill">#Retatrutide</span><span class="pill">#TripleAgonist</span><span class="pill">#Investigational</span><span class="pill">#KnowTheFacts</span><span class="pill">#NotMedicalAdvice</span></div>
+  </div>
+  <div class="body">
+
+    <div class="banner"><b>⚠ Read this first</b>
+    <p><b>Retatrutide is an investigational drug still in clinical trials.</b> As of 2026 it is <b>not FDA-approved</b>, not available by prescription, and cannot be legally offered by clinics or med spas. Any "retatrutide" sold by peptide vendors or 'research' sites is <b>not the studied medication</b> and is not safe to use. This page is purely educational — explaining what it is and why it's in the news.</p></div>
+    <div class="hero">
+      <div class="big"><h3>So What Is It?</h3>
+      <p><b>Retatrutide</b> (you may see it called the "triple agonist" or informally "GLP-3") is an experimental weight-management drug being developed by a major pharmaceutical company. It's designed to activate <b>three</b> hormone pathways at once — GLP-1, GIP, and glucagon — where current approved drugs work on one or two. Early trial results have drawn a lot of attention, but it is <b>still being studied</b>.</p></div>
+      <div class="stat">
+        <div><div class="num">In Trials</div><div class="lbl">Currently in Phase 3 clinical trials — not yet approved or available</div></div>
+        <div class="row"><div class="num">Triple Action</div><div class="lbl">Targets three pathways: GLP-1, GIP, and glucagon</div></div>
+      </div>
+    </div>
+    <div class="section-label">Why It's Generating Buzz</div>
+    <div class="grid">
+      <div class="card v-acc"><div class="ch"><div class="cat">In Research</div><div class="nm">Triple Pathway</div></div><div class="cb"><ul class="m"><li>Targets <b>three</b> hormones at once</li><li>A step beyond dual agonists</li><li>The 'first-in-class' headline</li></ul></div></div>
+      <div class="card v-teal"><div class="ch"><div class="cat">In Research</div><div class="nm">Trial Results</div></div><div class="cb"><ul class="m"><li>Strong early <b>trial</b> numbers reported</li><li>Still being confirmed &amp; reviewed</li><li>Promising ≠ approved</li></ul></div></div>
+      <div class="card v-pink"><div class="ch"><div class="cat">In Research</div><div class="nm">Broad Study</div></div><div class="cb"><ul class="m"><li>Studied for obesity, diabetes &amp; more</li><li>Multiple ongoing trials</li><li>Long road still ahead</li></ul></div></div>
+      <div class="card v-gold"><div class="ch"><div class="cat">In Research</div><div class="nm">The Future</div></div><div class="cb"><ul class="m"><li>May reach approval down the line</li><li>Timeline depends on trials &amp; FDA</li><li>Worth watching, not chasing</li></ul></div></div>
+    </div>
+    <div class="al red"><b>Why you can't (and shouldn't) get it yet</b>
+    Investigational drugs are only available through official clinical trials — never through peptide shops or 'research chemical' sites. Anything marketed as retatrutide outside a trial is unverified, unregulated, and potentially dangerous. The studied drug and a gray-market vial are not the same thing, no matter what the label says.</div>
+    
+  </div>
+  <div class="foot">
+    <div class="frow">
+      <div><span class="brand">Hello Gorgeous</span> &nbsp;·&nbsp; Retatrutide — What To Know · Page 1 of 2</div>
+      <div>Prepared by <b>Danielle Alcala-Glazier</b> · Page 1 of 2</div>
+    </div>
+    <div class="copyright">© 2026 Hello Gorgeous Med Spa · All Rights Reserved · This material is proprietary and may not be reproduced, distributed, or republished without written permission.</div>
+  </div>
+</div>
+
+<div class="page">
+  <div class="head">
+    <div class="glow"></div><div class="rule"></div>
+    <div class="kicker">Hello Gorgeous Med Spa · Science Explainer Series</div>
+    <h1>Be A Smart <span>Consumer</span></h1>
+    <div class="subhead">Separating real science from online hype, why investigational drugs aren't for sale, and the safe options available right now.</div>
+    <div class="pills"><span class="pill">#HypeVsScience</span><span class="pill">#StaySafe</span><span class="pill">#ApprovedOptions</span><span class="pill">#KnowBeforeYouGo</span></div>
+  </div>
+  <div class="body">
+
+    <div class="section-label">Hype vs. The Honest Version</div>
+    <table><thead><tr><th style="width:34%">What You'll See Online</th><th>The Honest Version</th></tr></thead><tbody>
+      <tr><td><b>"The most powerful one ever"</b></td><td>Early trial data is striking — but trials are still ongoing and full safety and long-term data aren't in yet.</td></tr>
+      <tr><td><b>"Buy reta now from [vendor]"</b></td><td>Red flag. It's not approved or available by prescription. Anything for sale is unverified and unsafe.</td></tr>
+      <tr><td><b>"Doctors are prescribing it"</b></td><td>They can't — it's investigational. Only clinical-trial participants receive the studied drug.</td></tr>
+      <tr><td><b>"Same as Mounjaro/Wegovy"</b></td><td>No. Those are FDA-approved. Retatrutide is a different, still-experimental molecule.</td></tr>
+    </tbody></table>
+    <div class="section-label">If You're Interested In Weight Health Now</div>
+    <div class="grid">
+      <div class="card v-navy"><div class="ch"><div class="cat">Available Today</div><div class="nm">Approved Options</div></div><div class="cb"><ul class="m"><li>FDA-approved GLP-1s exist <b>now</b></li><li>Talk to a provider about fit</li><li>No need to gamble on gray-market</li></ul></div></div>
+      <div class="card v-acc"><div class="ch"><div class="cat">Available Today</div><div class="nm">A Real Plan</div></div><div class="cb"><ul class="m"><li>Nutrition, protein, strength</li><li>Provider oversight</li><li>Sustainable &amp; safe</li></ul></div></div>
+      <div class="card v-pink"><div class="ch"><div class="cat">Stay Informed</div><div class="nm">Follow The Science</div></div><div class="cb"><ul class="m"><li>Reputable medical sources</li><li>Watch for FDA decisions</li><li>We'll keep you posted</li></ul></div></div>
+      <div class="card v-gold"><div class="ch"><div class="cat">Stay Safe</div><div class="nm">Avoid The Traps</div></div><div class="cb"><ul class="m"><li>No 'research' peptide vials</li><li>No too-good-to-be-true sellers</li><li>Verified &amp; legal only</li></ul></div></div>
+    </div>
+    <div class="al red"><b>The bottom line</b>
+    Retatrutide is genuinely exciting science — and genuinely <b>not ready</b> for the public yet. The smart move isn't to chase an unapproved drug from a sketchy source; it's to explore the proven options available now and let the science finish its work.</div>
+    <div class="al pink"><b>How we think about it at Hello Gorgeous</b>
+    We'd rather give you the real story than ride a trend. When retatrutide is approved and available the right way, we'll talk about it honestly. Until then, if weight health is on your mind, let's look at the safe, proven options that exist today. Still family-owned, still honest, still in your corner.</div>
+    
+  </div>
+  <div class="foot">
+    <div class="frow">
+      <div><span class="brand">Hello Gorgeous</span> &nbsp;·&nbsp; 74 W Washington St, Oswego, IL · 630-636-6193 · hellogorgeousmedspa.com</div>
+      <div>Prepared by <b>Danielle Alcala-Glazier</b> · Page 2 of 2</div>
+    </div>
+    <div class="copyright">© 2026 Hello Gorgeous Med Spa · All Rights Reserved · This material is proprietary and may not be reproduced. Educational content only; not medical advice.</div>
+  </div>
+</div>
+</body>
+</html>
