@@ -15,6 +15,12 @@ import {
   REGENERATIVE_NAV,
   REGENERATIVE_NAV_FLAT_LINKS,
 } from "@/lib/regenerative-medicine-nav";
+import {
+  isPeptideTherapyNavActive,
+  PEPTIDE_THERAPY_NAV,
+  PEPTIDE_THERAPY_NAV_FLAT_LINKS,
+  PEPTIDE_THERAPY_PATH,
+} from "@/lib/peptide-therapy-nav";
 import { NAD_PLUS_INJECTIONS_PATH } from "@/lib/nad-plus-injections";
 
 /* ─────────────────────────────────────────────────────────────
@@ -186,6 +192,75 @@ function RegenerativeMedicineMenu({
             className="rounded-full bg-[#E6007E] px-5 py-2 text-xs font-bold text-white transition hover:bg-[#c9006e]"
           >
             Book Regenerative Consult
+          </Link>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function PeptideTherapyMenu({
+  isOpen,
+  onClose,
+  onMouseEnter,
+}: {
+  isOpen: boolean;
+  onClose: () => void;
+  onMouseEnter: () => void;
+}) {
+  if (!isOpen) return null;
+  return (
+    <div
+      className="fixed top-16 left-0 right-0 z-50 border-t-2 border-black bg-white shadow-2xl"
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onClose}
+    >
+      <div className="mx-auto max-w-6xl px-6 py-8">
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-8">
+          {PEPTIDE_THERAPY_NAV.sections.map((section) => (
+            <div key={section.heading}>
+              <p className="mb-3 text-[10px] font-bold uppercase tracking-[0.25em] text-[#E6007E]">
+                {section.heading}
+              </p>
+              <div className="space-y-0.5">
+                {section.links.map((link) => (
+                  <Link
+                    key={`${section.heading}-${link.href}`}
+                    href={link.href}
+                    onClick={onClose}
+                    className="group block rounded-lg px-3 py-2.5 transition hover:bg-[#FFF0F7]"
+                  >
+                    <div className="flex items-center gap-2">
+                      <p className="text-sm font-semibold text-black group-hover:text-[#E6007E]">
+                        {link.label}
+                      </p>
+                      {link.badge ? (
+                        <span className="rounded-full bg-[#E6007E] px-1.5 py-0.5 text-[8px] font-bold uppercase text-white">
+                          {link.badge}
+                        </span>
+                      ) : null}
+                    </div>
+                    <p className="mt-0.5 text-xs text-black/50">{link.sub}</p>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+        <div className="mt-6 border-t border-black/10 pt-5 flex flex-wrap items-center justify-between gap-4">
+          <Link
+            href={`${PEPTIDE_THERAPY_PATH}#peptide-education`}
+            onClick={onClose}
+            className="text-sm font-bold text-[#E6007E] hover:underline"
+          >
+            Open peptide education center →
+          </Link>
+          <Link
+            href={BOOKING_URL}
+            onClick={onClose}
+            className="rounded-full bg-[#E6007E] px-5 py-2 text-xs font-bold text-white transition hover:bg-[#c9006e]"
+          >
+            Book Peptide Consult
           </Link>
         </div>
       </div>
@@ -483,6 +558,8 @@ export function Header() {
     (pathname?.startsWith("/services/anteage") ?? false) ||
     (pathname?.startsWith("/services/pr") ?? false);
 
+  const isPeptideTherapyActive = isPeptideTherapyNavActive(pathname);
+
   return (
     <header className="sticky top-0 z-50 bg-white border-b-2 border-black">
       {/* Top bar */}
@@ -564,6 +641,32 @@ export function Header() {
                 isOpen={activeDropdown === "regenerative"}
                 onClose={() => setActiveDropdown(null)}
                 onMouseEnter={() => openDropdown("regenerative")}
+              />
+            </div>
+
+            {/* Peptide Therapy */}
+            <div
+              className="relative flex items-center"
+              onMouseEnter={() => openDropdown("peptides")}
+              onMouseLeave={closeDropdown}
+            >
+              <Link
+                href={PEPTIDE_THERAPY_PATH}
+                className={cx(
+                  NAV_LINK_BASE,
+                  "border border-[#d99021]/50",
+                  isPeptideTherapyActive ? NAV_LINK_ACTIVE : NAV_LINK_IDLE
+                )}
+              >
+                Peptide Therapy
+                <svg className={cx("w-3 h-3 transition-transform", activeDropdown === "peptides" && "rotate-180")} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </Link>
+              <PeptideTherapyMenu
+                isOpen={activeDropdown === "peptides"}
+                onClose={() => setActiveDropdown(null)}
+                onMouseEnter={() => openDropdown("peptides")}
               />
             </div>
 
@@ -738,6 +841,7 @@ export function Header() {
             {[
               { key: "services", label: "Services", links: NAV.services.sections.flatMap(s => s.links) },
               { key: "regenerative", label: "Regenerative Medicine", links: REGENERATIVE_NAV_FLAT_LINKS },
+              { key: "peptides", label: "Peptide Therapy", links: PEPTIDE_THERAPY_NAV_FLAT_LINKS, highlight: true },
               { key: "specials", label: "Specials", links: NAV.specials.links, highlight: true },
               { key: "about", label: "About", links: NAV.about.links },
               { key: "patient", label: "Patient Info", links: NAV.patient.links },

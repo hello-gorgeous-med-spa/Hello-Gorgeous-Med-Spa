@@ -2,13 +2,15 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useSearchParams } from "next/navigation";
+import { useEffect, useMemo, useState } from "react";
 
 import { CTA } from "@/components/CTA";
 import { FadeUp, Section } from "@/components/Section";
 import { BOOKING_URL } from "@/lib/flows";
 import {
   DEFAULT_PEPTIDE_EDUCATION_ID,
+  getPeptideEducationGuide,
   PEPTIDE_EDUCATION_GUIDES,
   type PeptideEducationGuide,
   type PeptideResearchCard,
@@ -703,7 +705,23 @@ function GuidePanelContent({ guide }: { guide: PeptideEducationGuide }) {
 }
 
 export function PeptideEducationSection() {
+  const searchParams = useSearchParams();
+  const guideParam = searchParams.get("guide");
   const [selectedId, setSelectedId] = useState(DEFAULT_PEPTIDE_EDUCATION_ID);
+
+  useEffect(() => {
+    if (guideParam && getPeptideEducationGuide(guideParam)) {
+      setSelectedId(guideParam);
+    }
+  }, [guideParam]);
+
+  useEffect(() => {
+    if (!guideParam) return;
+    const el = document.getElementById("peptide-education");
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }, [guideParam, selectedId]);
 
   const guide = useMemo(
     () => PEPTIDE_EDUCATION_GUIDES.find((g) => g.id === selectedId) ?? PEPTIDE_EDUCATION_GUIDES[0],

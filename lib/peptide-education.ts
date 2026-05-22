@@ -1,5 +1,12 @@
 /** Peptide-by-peptide education guides for /peptides */
 
+export const PEPTIDE_THERAPY_PATH = "/peptides";
+
+export function peptideEducationHref(guideId?: string): string {
+  if (!guideId) return `${PEPTIDE_THERAPY_PATH}#peptide-education`;
+  return `${PEPTIDE_THERAPY_PATH}?guide=${encodeURIComponent(guideId)}#peptide-education`;
+}
+
 export type PeptideCardVariant =
   | "copper"
   | "energy"

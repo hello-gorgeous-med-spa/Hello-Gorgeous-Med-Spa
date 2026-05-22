@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { Suspense } from "react";
 
 import { FadeUp, Section } from "@/components/Section";
 import { CTA } from "@/components/CTA";
@@ -291,7 +292,9 @@ export default function PeptidesPage() {
         </div>
       </Section>
 
-      <PeptideEducationSection />
+      <Suspense fallback={null}>
+        <PeptideEducationSection />
+      </Suspense>
 
       {/* Peptide Infographic Gallery */}
       <Section className="bg-white">
