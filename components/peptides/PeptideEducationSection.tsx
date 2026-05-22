@@ -19,6 +19,7 @@ import {
 
 const CARD_HEADER: Record<PeptideResearchCard["variant"], string> = {
   copper: "bg-[#b87333]",
+  energy: "bg-[#1fa890]",
   pink: "bg-[#E6007E]",
   teal: "bg-[#2a9d8f]",
   gold: "bg-[#c77b2a]",
@@ -31,6 +32,7 @@ const CARD_HEADER: Record<PeptideResearchCard["variant"], string> = {
 
 const BULLET_DOT: Record<PeptideResearchCard["variant"], string> = {
   copper: "bg-[#b87333]",
+  energy: "bg-[#1fa890]",
   pink: "bg-[#E6007E]",
   teal: "bg-[#2a9d8f]",
   gold: "bg-[#c77b2a]",
@@ -43,6 +45,7 @@ const BULLET_DOT: Record<PeptideResearchCard["variant"], string> = {
 
 const CALLOUT_BORDER: Record<string, string> = {
   copper: "border-l-[#b87333] bg-[#fdf8f2]",
+  energy: "border-l-[#1fa890] bg-[#f1fbf8]",
   pink: "border-l-[#E6007E] bg-[#fdf2f6]",
   gold: "border-l-[#c77b2a] bg-[#fff8ef]",
   red: "border-l-[#e63946] bg-[#fdf1f2]",
@@ -50,10 +53,28 @@ const CALLOUT_BORDER: Record<string, string> = {
 
 const CALLOUT_TITLE: Record<string, string> = {
   copper: "text-[#b87333]",
+  energy: "text-[#1fa890]",
   pink: "text-[#E6007E]",
   gold: "text-[#c77b2a]",
   red: "text-[#e63946]",
 };
+
+const ACCENT_THEME = {
+  copper: {
+    border: "#b87333",
+    bg: "#fdfaf6",
+    shadow: "rgba(184,115,51,0.25)",
+    gradient: "linear-gradient(90deg, #b87333, #E6007E 55%, #c77b2a)",
+    radial: "radial-gradient(circle, rgba(184,115,51,.45), transparent 70%)",
+  },
+  energy: {
+    border: "#1fa890",
+    bg: "#f4fbf9",
+    shadow: "rgba(31,168,144,0.25)",
+    gradient: "linear-gradient(90deg, #1fa890, #E6007E 55%, #c77b2a)",
+    radial: "radial-gradient(circle, rgba(31,168,144,.4), transparent 70%)",
+  },
+} as const;
 
 const STATUS_TAG: Record<RegulatoryStatusTag, { label: string; className: string }> = {
   rx: { label: "FDA-Approved exists", className: "bg-[#e6f4ef] text-[#2d7a55]" },
@@ -135,6 +156,9 @@ function Attribution() {
     <p className="text-center text-xs text-black/50">
       Prepared by Danielle Alcala-Glazier · Educational content — not medical advice. Treatment decisions require
       Hello Gorgeous RX™ evaluation with Ryan Kent, FNP-BC.
+      <span className="mt-1 block">
+        © 2026 Hello Gorgeous Med Spa · All Rights Reserved · Proprietary — may not be reproduced without permission.
+      </span>
     </p>
   );
 }
@@ -461,17 +485,27 @@ function ReferenceListContent({ guide }: { guide: PeptideEducationGuide }) {
 function DeepDiveContent({ guide }: { guide: PeptideEducationGuide }) {
   if (!guide.hero || !guide.researchCards) return null;
 
+  const theme = ACCENT_THEME[guide.accentTheme ?? "copper"];
+  const headings = guide.sectionHeadings ?? {};
+
   return (
     <div className="space-y-8">
       <div className="grid gap-4 lg:grid-cols-[1.15fr_1fr]">
-        <div className="rounded-2xl border-4 border-black border-l-[6px] border-l-[#b87333] bg-[#fdfaf6] p-5 md:p-6 shadow-[6px_6px_0_0_rgba(184,115,51,0.25)]">
+        <div
+          className="rounded-2xl border-4 border-black border-l-[6px] p-5 md:p-6"
+          style={{
+            borderLeftColor: theme.border,
+            backgroundColor: theme.bg,
+            boxShadow: `6px 6px 0 0 ${theme.shadow}`,
+          }}
+        >
           <h3 className="text-2xl font-black text-[#0a1628] md:text-3xl">{guide.hero.title}</h3>
           <p className="mt-3 text-sm leading-relaxed text-black/85 md:text-base">{guide.hero.body}</p>
         </div>
         <div className="flex flex-col justify-center gap-4 rounded-2xl border-4 border-black bg-white p-5 md:p-6">
           {guide.hero.stats.map((stat, i) => (
             <div key={stat.value} className={i > 0 ? "border-t-2 border-black/10 pt-4" : ""}>
-              <p className="text-4xl font-black leading-none text-[#E6007E] md:text-5xl">{stat.value}</p>
+              <p className="text-3xl font-black leading-none text-[#E6007E] md:text-4xl">{stat.value}</p>
               <p className="mt-1 text-xs leading-snug text-black/60">{stat.label}</p>
             </div>
           ))}
@@ -481,7 +515,7 @@ function DeepDiveContent({ guide }: { guide: PeptideEducationGuide }) {
       <GuideImage guide={guide} />
 
       <div>
-        <SectionHeading>What the research looks at</SectionHeading>
+        <SectionHeading>{headings.research ?? "What the research looks at"}</SectionHeading>
         <ResearchCardGrid cards={guide.researchCards} />
       </div>
 
@@ -491,7 +525,7 @@ function DeepDiveContent({ guide }: { guide: PeptideEducationGuide }) {
 
       {guide.topicalSection && (
         <div>
-          <SectionHeading>Topical vs. the hype</SectionHeading>
+          <SectionHeading>{headings.topical ?? "Topical vs. the hype"}</SectionHeading>
           <div className="grid gap-4 md:grid-cols-2">
             <CalloutBox
               title={guide.topicalSection.established.title}
@@ -509,14 +543,40 @@ function DeepDiveContent({ guide }: { guide: PeptideEducationGuide }) {
 
       {guide.fitCards && (
         <div>
-          <SectionHeading>Who tends to love it</SectionHeading>
+          <SectionHeading>{headings.fit ?? "Who tends to love it"}</SectionHeading>
           <ResearchCardGrid cards={guide.fitCards} />
+        </div>
+      )}
+
+      {guide.expectationsTable && guide.expectationsTable.length > 0 && (
+        <div>
+          <SectionHeading>{headings.expectations ?? "Setting real expectations"}</SectionHeading>
+          <div className="overflow-hidden rounded-2xl border-4 border-black">
+            <table className="w-full text-left text-sm">
+              <thead>
+                <tr className="bg-[#0a1628] text-white">
+                  <th className="w-[30%] px-4 py-3 text-[10px] font-bold uppercase tracking-wider">
+                    The claim you&apos;ll hear
+                  </th>
+                  <th className="px-4 py-3 text-[10px] font-bold uppercase tracking-wider">The honest version</th>
+                </tr>
+              </thead>
+              <tbody>
+                {guide.expectationsTable.map((row, i) => (
+                  <tr key={row.claim} className={i % 2 === 1 ? "bg-[#fafbfd]" : "bg-white"}>
+                    <td className="border-t border-black/10 px-4 py-3 font-bold text-[#0a1628]">{row.claim}</td>
+                    <td className="border-t border-black/10 px-4 py-3 text-black/80">{row.honest}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       )}
 
       {guide.pairingTable && guide.pairingTable.length > 0 && (
         <div>
-          <SectionHeading>Playing well with others</SectionHeading>
+          <SectionHeading>{headings.pairing ?? "Playing well with others"}</SectionHeading>
           <div className="overflow-hidden rounded-2xl border-4 border-black">
             <table className="w-full text-left text-sm">
               <thead>
@@ -547,6 +607,20 @@ function DeepDiveContent({ guide }: { guide: PeptideEducationGuide }) {
       {guide.closingCallouts?.map((c) => (
         <CalloutBox key={c.title} title={c.title} body={c.body} variant={c.variant} />
       ))}
+
+      {guide.id === "nad-plus" && (
+        <div className="flex flex-col items-center justify-center gap-3 sm:flex-row">
+          <CTA href={BOOKING_URL} variant="gradient">
+            Book NAD+ consult
+          </CTA>
+          <Link
+            href="/services/nad-plus-injections-oswego-il"
+            className="text-sm font-semibold text-[#1fa890] underline decoration-[#1fa890] underline-offset-4"
+          >
+            NAD+ injections at Hello Gorgeous →
+          </Link>
+        </div>
+      )}
 
       <Attribution />
     </div>
@@ -627,7 +701,7 @@ export function PeptideEducationSection() {
           </h2>
           <p className="mt-4 text-black/75 max-w-2xl mx-auto">
             Start with Peptides 101, match your goal with our best-use case guide, browse the full reference list, or
-            dive into individual peptides like GHK-Cu.
+            dive into GHK-Cu and NAD+ deep dives.
           </p>
         </div>
       </FadeUp>
@@ -676,7 +750,7 @@ export function PeptideEducationSection() {
                 style={{
                   background:
                     guide.contentType === "deep-dive"
-                      ? "radial-gradient(circle, rgba(184,115,51,.45), transparent 70%)"
+                      ? ACCENT_THEME[guide.accentTheme ?? "copper"].radial
                       : "radial-gradient(circle, rgba(230,0,126,.35), transparent 70%)",
                 }}
                 aria-hidden
@@ -686,7 +760,7 @@ export function PeptideEducationSection() {
                 style={{
                   background:
                     guide.contentType === "deep-dive"
-                      ? "linear-gradient(90deg, #b87333, #E6007E 55%, #c77b2a)"
+                      ? ACCENT_THEME[guide.accentTheme ?? "copper"].gradient
                       : "linear-gradient(90deg, #E6007E, #c77b2a 60%, #2a9d8f)",
                 }}
                 aria-hidden

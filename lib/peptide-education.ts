@@ -2,6 +2,7 @@
 
 export type PeptideCardVariant =
   | "copper"
+  | "energy"
   | "pink"
   | "teal"
   | "gold"
@@ -68,7 +69,20 @@ export type PeptidePairingRow = {
 export type PeptideCallout = {
   title: string;
   body: string;
-  variant: "copper" | "pink" | "gold" | "red";
+  variant: "copper" | "energy" | "pink" | "gold" | "red";
+};
+
+export type ExpectationsRow = {
+  claim: string;
+  honest: string;
+};
+
+export type DeepDiveSectionHeadings = {
+  research?: string;
+  topical?: string;
+  fit?: string;
+  pairing?: string;
+  expectations?: string;
 };
 
 export type PeptideEducationContentType = "foundations" | "reference" | "best-fit" | "deep-dive";
@@ -116,6 +130,9 @@ export type PeptideEducationGuide = {
   goalMatchRows?: BestUseCaseGoalRow[];
   blendEntries?: BestUseCaseEntry[];
   singleEntries?: BestUseCaseEntry[];
+  accentTheme?: "copper" | "energy";
+  sectionHeadings?: DeepDiveSectionHeadings;
+  expectationsTable?: ExpectationsRow[];
   hero?: {
     title: string;
     body: string;
@@ -802,7 +819,7 @@ export const PEPTIDE_EDUCATION_GUIDES: PeptideEducationGuide[] = [
         title: "Before anything from this list goes near a patient",
         variant: "red",
         body:
-          "Most of these are research-use-only and several are FDA Category-2 flagged, meaning even a licensed 503A pharmacy may not be permitted to compound them for human use. Any decision about what is appropriate to offer must be made by Ryan Kent, FNP-BC as the prescribing clinician, with product sourced from a licensed pharmacy. This sheet is a reference, not a green light.",
+          "Most of these are research-use-only and several are FDA Category-2 flagged, meaning even a licensed 503A pharmacy may not be permitted to compound them for human use. Any decision about what is appropriate to offer must be made by Ryan Kent, FNP-BC as the prescribing clinician, with product sourced from a licensed pharmacy and your malpractice carrier informed. This sheet is a reference, not a green light.",
       },
       {
         title: "The Hello Gorgeous way",
@@ -815,6 +832,7 @@ export const PEPTIDE_EDUCATION_GUIDES: PeptideEducationGuide[] = [
   {
     id: "ghk-cu",
     contentType: "deep-dive",
+    accentTheme: "copper",
     label: "GHK-Cu",
     selectLabel: "GHK-Cu — Copper peptides & your skin",
     series: "Hello Gorgeous · Skincare Science Series",
@@ -988,6 +1006,186 @@ export const PEPTIDE_EDUCATION_GUIDES: PeptideEducationGuide[] = [
     ],
   },
   {
+    id: "nad-plus",
+    contentType: "deep-dive",
+    accentTheme: "energy",
+    label: "NAD+",
+    selectLabel: "NAD+ — Cellular energy & longevity",
+    series: "Hello Gorgeous · Wellness Science Series",
+    headline: "NAD+",
+    headlineAccent: "& Cellular Energy",
+    subhead:
+      "The molecule behind the \"cellular energy\" conversation — what NAD+ actually is, why it's everywhere in wellness right now, and how to think about it like a smart, informed human.",
+    pills: ["#NADplus", "#CellularEnergy", "#Mitochondria", "#HealthyAging", "#WellnessScience"],
+    image: {
+      src: "/images/nad-plus/peptide-science-hero.png",
+      alt: "NAD+ cellular energy — mitochondria and wellness science",
+    },
+    available: true,
+    sectionHeadings: {
+      topical: "Ways you'll see it offered",
+      fit: "Who tends to be curious about it",
+      expectations: "Setting real expectations",
+    },
+    hero: {
+      title: "So What Is It, Really?",
+      body:
+        "NAD+ (nicotinamide adenine dinucleotide) is a coenzyme found in every living cell in your body. Think of it as a helper molecule your cells can't run without — it's central to turning the food you eat into usable energy (ATP), and it plays a role in DNA repair and cellular signaling. Research shows natural NAD+ levels decline as we age, which is part of the \"why am I more tired and slower to bounce back\" story.",
+      stats: [
+        {
+          value: "Every Cell",
+          label: "NAD+ is found in all living cells — it's foundational, not exotic",
+        },
+        {
+          value: "↓ With Age",
+          label: "Levels are understood to decline over time, which fuels the longevity research interest",
+        },
+      ],
+    },
+    researchCards: [
+      {
+        category: "Studied For",
+        title: "Energy",
+        variant: "energy",
+        bullets: [
+          "Helps convert nutrients into ATP",
+          "Central to mitochondrial function",
+          "The \"cellular fuel\" conversation",
+        ],
+      },
+      {
+        category: "Studied For",
+        title: "Repair",
+        variant: "pink",
+        bullets: [
+          "Involved in DNA repair pathways",
+          "Researched for cellular maintenance",
+          "Part of the \"healthy aging\" interest",
+        ],
+      },
+      {
+        category: "Studied For",
+        title: "Brain",
+        variant: "teal",
+        bullets: [
+          "Studied for focus & mental clarity",
+          "Researched for neuroprotection",
+          "Why people mention \"fog lifting\"",
+        ],
+      },
+      {
+        category: "Studied For",
+        title: "Longevity",
+        variant: "gold",
+        bullets: [
+          "Activates sirtuins (longevity proteins)",
+          "A focus in longevity medicine",
+          "The \"aging well\" research lane",
+        ],
+      },
+    ],
+    callouts: [
+      {
+        title: "The simplest way to picture it",
+        variant: "energy",
+        body:
+          "Imagine your cells are tiny engines and NAD+ is the spark that helps them run. You can't see it or feel it directly — but when levels are healthy, the whole system tends to hum along better. The wellness interest is all about supporting that spark as we get older.",
+      },
+    ],
+    topicalSection: {
+      established: {
+        title: "IV & injectable forms",
+        variant: "pink",
+        body:
+          "Delivered directly so levels rise quickly. This is the form most associated with wellness clinics. Because it's administered, it's a medical service — meaning it should always involve a qualified provider, proper screening, and the right setting. Not a DIY situation.",
+      },
+      caution: {
+        title: "Oral precursors (NMN / NR)",
+        variant: "gold",
+        body:
+          "Supplements like nicotinamide riboside are \"precursors\" — building blocks the body converts toward NAD+. Convenient, but they travel through digestion first. Quality and regulation vary widely between brands, so this is a read-the-label category.",
+      },
+    },
+    fitCards: [
+      {
+        category: "Common Goal",
+        title: "Low Energy",
+        variant: "energy",
+        bullets: [
+          "Feeling run-down or \"flat\"",
+          "Wants a cellular-level approach",
+          "Already dialed in sleep & basics",
+        ],
+      },
+      {
+        category: "Common Goal",
+        title: "Brain Fog",
+        variant: "pink",
+        bullets: [
+          "Mental clarity & focus goals",
+          "Curious about longevity science",
+          "Likes an evidence-informed plan",
+        ],
+      },
+      {
+        category: "Common Goal",
+        title: "Recovery",
+        variant: "gold",
+        bullets: [
+          "Active lifestyle, wants to bounce back",
+          "Interested in healthy aging",
+          "Building a wellness routine",
+        ],
+      },
+      {
+        category: "Talk First If",
+        title: "This Is You",
+        variant: "navy",
+        bullets: [
+          "Pregnant / nursing",
+          "Any medical condition or medications",
+          "Always get cleared by a provider",
+        ],
+      },
+    ],
+    expectationsTable: [
+      {
+        claim: "\"Instant energy boost\"",
+        honest:
+          "Some people report feeling refreshed; responses are individual and not guaranteed. It's a support tool, not a switch.",
+      },
+      {
+        claim: "\"Reverses aging\"",
+        honest:
+          "The research is about supporting cellular processes — not turning back a clock. Be skeptical of anything that promises that.",
+      },
+      {
+        claim: "\"Works for everyone\"",
+        honest:
+          "It doesn't. Results vary, and the fundamentals (sleep, nutrition, movement) still matter most.",
+      },
+      {
+        claim: "\"More is better\"",
+        honest:
+          "No. Administered too fast, NAD+ infusions can feel uncomfortable — which is exactly why setting and supervision matter.",
+      },
+    ],
+    closingCallouts: [
+      {
+        title: "The honest fine print",
+        variant: "energy",
+        body:
+          "Much of the most exciting NAD+ research is still emerging, and a lot of it comes from early or preclinical studies. That doesn't mean it's not promising — it means honesty matters. Anyone who tells you it's a miracle is selling, not informing. The basics — sleep, nutrition, movement, sun protection — are still the foundation everything else sits on.",
+      },
+      {
+        title: "How we think about it at Hello Gorgeous",
+        variant: "pink",
+        body:
+          "We're genuinely excited about cellular-wellness science — and we're just as committed to being straight with you about what's known and what isn't. If NAD+ is something you're curious about, the right first step is a real conversation about your goals, your health history, and whether it even makes sense for you. No pressure, no miracle talk.",
+      },
+    ],
+  },
+  {
     id: "bpc-157",
     label: "BPC-157",
     selectLabel: "BPC-157 — Healing & recovery (see best-use guide)",
@@ -997,17 +1195,6 @@ export const PEPTIDE_EDUCATION_GUIDES: PeptideEducationGuide[] = [
     available: false,
     teaser:
       "BPC-157 is covered in our Best use case guide (HEAL and WOLVERINE blends) and goal-matching table. Book a Hello Gorgeous RX™ consult to discuss whether it fits your goals.",
-  },
-  {
-    id: "nad-plus",
-    label: "NAD+",
-    selectLabel: "NAD+ — Cellular energy & longevity (guide coming soon)",
-    series: "Hello Gorgeous · Peptide Therapy Series",
-    headline: "NAD+",
-    subhead: "Nicotinamide adenine dinucleotide — mitochondrial support, energy, and the longevity conversation.",
-    available: false,
-    teaser:
-      "NAD+ IV and injection protocols are part of our regenerative wellness menu. Visit our NAD+ injections page or book a consult — detailed peptide education guide coming soon.",
   },
   {
     id: "sermorelin",
