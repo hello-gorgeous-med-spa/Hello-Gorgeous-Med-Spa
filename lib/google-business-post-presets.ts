@@ -12,5 +12,22 @@ export type GbpPostPreset = {
   imagePath: `/${string}`;
 };
 
-/** Past event presets removed (Glow Social / VIP Device Night @ Freddie's — May 2026). Add new presets here. */
-export const GBP_POST_PRESETS: GbpPostPreset[] = [];
+export const GBP_POST_PRESETS: GbpPostPreset[] = [
+  {
+    id: "quantum-rf-launch",
+    label: "Quantum RF launch — neck & abdomen packages",
+    message: `⚡ NEW — InMode Quantum RF body contouring at Hello Gorgeous Med Spa, Oswego IL
+
+Lipo-level results without surgery or an operating room.
+
+Neck package $2,499 · Abdomen $3,999
+Each includes FREE Morpheus8 Burst
+
+1 session · local anesthesia · 5–7 day recovery
+Ryan Kent, FNP-BC · Cherry financing available
+
+Free consultation — book below.`,
+    linkPath: "/quantum-rf-oswego-il",
+    imagePath: "/images/promo/quantum-rf-launch-flyer.png",
+  },
+];

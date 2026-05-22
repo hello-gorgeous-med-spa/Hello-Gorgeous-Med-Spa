@@ -1,3 +1,4 @@
+import { QUANTUM_RF_LAUNCH_SOCIAL } from "@/lib/quantum-rf-launch-promo";
 import { SITE } from "@/lib/seo";
 
 export type PromoFlyerSocialPost = {
@@ -12,6 +13,13 @@ const base = SITE.url;
 
 /** Immediate Facebook + Google posts for May 2026 promo flyers. */
 export const PROMO_FLYER_SOCIAL_POSTS: PromoFlyerSocialPost[] = [
+  {
+    id: "quantum-rf-launch",
+    label: "Quantum RF launch — neck & abdomen packages",
+    message: QUANTUM_RF_LAUNCH_SOCIAL.facebook.message,
+    link: QUANTUM_RF_LAUNCH_SOCIAL.facebook.link,
+    imagePath: QUANTUM_RF_LAUNCH_SOCIAL.facebook.imagePath,
+  },
   {
     id: "lip-filler-promo",
     label: "Lip Filler — $450 / 2 for $399 each",
@@ -51,7 +59,7 @@ Book your free consultation — link below.`,
 
 💉 First-time Botox $10/unit
 💋 Lip filler $450 (2 syringes $399 each)
-⚡ Quantum RF — chin/neck $2,400 · abdomen $3,999
+⚡ Quantum RF — neck $2,499 · abdomen $3,999 · FREE Morpheus8 Burst
 🔥 Morpheus8 Burst — 3 for $1,999
 ✨ Solaria CO₂ full resurfacing — $899
 👑 Trifecta: Morpheus8 + Quantum RF + FREE Solaria CO₂

@@ -49,15 +49,16 @@ export const SIGNATURE_MENU_SECTIONS: {
     tagline: "Tighten · Sculpt · Transform",
     items: [
       {
-        title: "Chin + neck tightening",
-        price: "$2,400",
-        href: "/quantum-rf-oswego",
+        title: "Neck Quantum RF package",
+        price: "$2,499",
+        details: ["FREE Morpheus8 Burst ($1,200 value)", "As low as $89/mo with Cherry"],
+        href: "/quantum-rf-oswego-il#packages",
       },
       {
-        title: "Abdomen + large areas",
+        title: "Abdomen Quantum RF package",
         price: "$3,999",
-        details: ["Includes Morpheus8"],
-        href: "/quantum-rf-oswego",
+        details: ["FREE Morpheus8 Burst ($1,500 value)", "As low as $111/mo with Cherry"],
+        href: "/quantum-rf-oswego-il#packages",
       },
     ],
   },
@@ -112,7 +113,7 @@ export const SIGNATURE_MENU_SOCIAL = {
 
 💉 First-time Botox $10/unit
 💋 Lip filler $450 (2 syringes $399 each)
-⚡ Quantum RF — chin/neck $2,400 · abdomen $3,999
+⚡ Quantum RF — neck $2,499 · abdomen $3,999 · FREE Morpheus8 Burst
 🔥 Morpheus8 Burst — 3 for $1,999
 ✨ Solaria CO₂ full resurfacing — $899
 👑 Trifecta: Morpheus8 + Quantum RF + FREE Solaria CO₂

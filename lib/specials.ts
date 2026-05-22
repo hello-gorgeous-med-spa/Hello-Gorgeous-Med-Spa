@@ -4,6 +4,12 @@ export const SPECIALS_PATH = "/specials";
 
 export const MORE_SPECIALS_LINKS = [
   {
+    label: "Quantum RF Launch Packages",
+    href: "/quantum-rf-oswego-il#packages",
+    sub: "Neck $2,499 · Abdomen $3,999 · FREE Morpheus8 Burst",
+    badge: "NEW",
+  },
+  {
     label: "Spring Laser Hair Special",
     href: "/spring-special-laser-hair",
     sub: "Underarms $79 · Bikini $129 · No packages required",

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 
 import { MoreSpecialsSection } from "@/components/marketing/MoreSpecialsSection";
+import { QuantumRFLaunchPromoSection } from "@/components/marketing/QuantumRFLaunchPromoSection";
 import { SignatureTreatmentMenuContent } from "@/components/marketing/SignatureTreatmentMenuContent";
 import { SPECIALS_PATH } from "@/lib/specials";
 import { pageMetadata, SITE } from "@/lib/seo";
@@ -30,6 +31,7 @@ export const metadata: Metadata = {
 export default function SpecialsPage() {
   return (
     <>
+      <QuantumRFLaunchPromoSection />
       <SignatureTreatmentMenuContent />
       <MoreSpecialsSection />
     </>

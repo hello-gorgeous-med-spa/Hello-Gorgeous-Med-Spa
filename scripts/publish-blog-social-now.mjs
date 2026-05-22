@@ -8,6 +8,50 @@
 const SITE_URL = (process.env.SITE_URL || "https://www.hellogorgeousmedspa.com").replace(/\/$/, "");
 
 const POSTS = {
+  "quantum-rf-launch-google": {
+    label: "Quantum RF launch — Google Business",
+    channels: ["google"],
+    message: `⚡ NEW at Hello Gorgeous — InMode Quantum RF body contouring · Oswego, IL
+
+Lipo-level results. No surgery. No operating room.
+
+Neck package — $2,499 · includes FREE Morpheus8 Burst ($1,200 value)
+Abdomen package — $3,999 · includes FREE Morpheus8 Burst ($1,500 value)
+
+✓ Local anesthesia only · 1 session · 5–7 day recovery
+✓ Ryan Kent, FNP-BC · Danielle Alcala, RN-S
+✓ Cherry financing — as low as 0% APR
+
+Free consultation — link below.`,
+    link: `${SITE_URL}/quantum-rf-oswego-il`,
+    imagePath: "/images/promo/quantum-rf-launch-flyer.png",
+  },
+  "quantum-rf-launch-facebook": {
+    label: "Quantum RF launch — Facebook",
+    channels: ["facebook"],
+    message: `✨ The New Standard in Body Contouring — NOW at Hello Gorgeous Med Spa, Oswego IL
+
+Lipo results. No surgery. No operating room.
+
+NOW INTRODUCING · INMODE QUANTUM RF
+
+Neck Quantum RF Package — $2,499
+→ Neck tightening + fat reduction + skin contraction
+→ FREE Morpheus8 Burst ($1,200 value)
+
+Abdomen Quantum RF Package — $3,999 ⭐ BEST VALUE
+→ Abdomen contouring + post-GLP-1 skin laxity
+→ FREE Morpheus8 Burst ($1,500 value)
+
+1 session · local anesthesia · 5–7 day recovery · results build up to 6 months
+
+Ryan Kent, FNP-BC & Danielle Alcala, RN-S
+Cherry: pay.withcherry.com/hellogorgeous
+
+Book your free consult 👇`,
+    link: `${SITE_URL}/quantum-rf-oswego-il`,
+    imagePath: "/images/promo/quantum-rf-launch-flyer.png",
+  },
   "quantum-rf-knees-jen-before-after": {
     label: "Quantum RF knees — Jen before/after",
     channels: ["facebook", "google"],
