@@ -5,6 +5,7 @@ import Link from "next/link";
 import { FadeUp, Section } from "@/components/Section";
 import { CTA } from "@/components/CTA";
 import { PeppiHeroSection } from "@/components/PeppiHeroSection";
+import { PeptideEducationSection } from "@/components/peptides/PeptideEducationSection";
 import { BOOKING_URL } from "@/lib/flows";
 import {
   SITE,
@@ -149,12 +150,15 @@ export default function PeptidesPage() {
               therapy. BPC-157, GHK-Cu, NAD+, CJC-1295/Ipamorelin, Sermorelin, Tesamorelin, Semaglutide, Tirzepatide,
               and more — personalized for Naperville, Aurora, Plainfield, and the western suburbs.
             </p>
-            <div className="mt-10 flex flex-col sm:flex-row gap-4">
+            <div className="mt-10 flex flex-col sm:flex-row sm:flex-wrap gap-4">
               <CTA href={BOOKING_URL} variant="gradient" className="text-lg px-8 py-4 shadow-xl shadow-[#FF2D8E]/20">
                 Book Peptide Consultation
               </CTA>
-              <CTA href="#peppi" variant="outline" className="text-lg px-8 py-4">
-                Ask Peppi About Peptides
+              <CTA href="#peptide-education" variant="outline" className="text-lg px-8 py-4">
+                Explore by peptide
+              </CTA>
+              <CTA href="#peppi" variant="outline" className="text-lg px-8 py-4 border-black/20">
+                Ask Peppi
               </CTA>
             </div>
           </FadeUp>
@@ -286,6 +290,8 @@ export default function PeptidesPage() {
           </FadeUp>
         </div>
       </Section>
+
+      <PeptideEducationSection />
 
       {/* Peptide Infographic Gallery */}
       <Section className="bg-white">
