@@ -16,6 +16,17 @@ export default function ClinicalGuidancePage() {
 
       <div className="space-y-4">
         <Link
+          href="/admin/pmu-brows"
+          className="block p-4 rounded-xl border-2 border-[#E6007E]/30 bg-[#FFF0F7] hover:bg-[#FFF0F7]/80 transition-colors"
+        >
+          <span className="text-lg">💗</span>
+          <h2 className="font-semibold text-black mt-2">PMU &amp; Brows hub</h2>
+          <p className="text-sm text-gray-600 mt-1">
+            Mapping tool, client intake, microblading pre/post care, consultation packet PDF, and training links.
+          </p>
+        </Link>
+
+        <Link
           href="/admin/tools/brow-mapping"
           className="block p-4 rounded-xl border border-gray-200 bg-white hover:bg-gray-50 transition-colors"
         >

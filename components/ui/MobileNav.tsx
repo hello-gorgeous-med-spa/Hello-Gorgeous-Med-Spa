@@ -27,7 +27,7 @@ const NAV_SECTIONS: NavSection[] = [
     items: [
       { href: '/admin', label: 'Dashboard', icon: '📊', description: 'Overview' },
       { href: '/admin/calendar', label: "Today's schedule", icon: '📅', description: 'See appointments' },
-      { href: '/admin/tools/brow-mapping', label: 'Brow Mapping', icon: '✏️', description: 'PMU consult & mapping' },
+      { href: '/admin/pmu-brows', label: 'PMU & Brows', icon: '💗', description: 'Mapping, intake & pre/post' },
       { href: '/admin/appointments/new', label: 'Book appointment', icon: '➕', description: 'Schedule a client' },
       { href: '/pos', label: 'Check out / POS', icon: '💳', description: 'Take payment' },
     ],
@@ -41,9 +41,17 @@ const NAV_SECTIONS: NavSection[] = [
     ],
   },
   {
+    title: 'PMU & brows',
+    items: [
+      { href: '/admin/pmu-brows', label: 'PMU & Brows hub', icon: '💗', description: 'All brow tools in one place' },
+      { href: '/admin/tools/brow-mapping', label: 'Brow Mapping Intelligence', icon: '✏️', description: 'Shape, pigment & mapping' },
+      { href: '/forms/brow-intake', label: 'Brow intake (client)', icon: '📋', description: 'Digital consultation form' },
+      { href: '/pre-post-care/microblading', label: 'Microblading pre/post', icon: '📄', description: 'Client care guide' },
+    ],
+  },
+  {
     title: 'Care & charting',
     items: [
-      { href: '/admin/tools/brow-mapping', label: 'Brow Mapping Intelligence', icon: '✏️', description: 'Shape, pigment & mapping' },
       { href: '/admin/clinical/guidance', label: 'Clinical guidance', icon: '🩺' },
       { href: '/admin/charts', label: 'Charts & notes', icon: '📋' },
       { href: '/admin/charting/injection-map', label: 'Injection mapping', icon: '💉' },

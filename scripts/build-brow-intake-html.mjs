@@ -7,7 +7,7 @@ import { fileURLToPath } from "node:url";
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const source =
   process.argv[2] ||
-  join(process.env.HOME || "", "Downloads", "4-digital-intake (1).html");
+  join(process.env.HOME || "", "Downloads", "4-digital-intake (2).html");
 const outDir = join(root, "public/forms");
 const vendorDir = join(root, "public/vendor");
 const out = join(outDir, "brow-consultation-intake.html");

@@ -70,6 +70,14 @@ const careGuides = [
     icon: "🎯",
   },
   {
+    id: "microblading",
+    title: "Microblading & Brow PMU",
+    description: "Pre-care, healing timeline, and aftercare for hair-stroke brows, ombré, combo, and nano techniques.",
+    viewOnline: "/pre-post-care/microblading",
+    serviceLink: "/services",
+    icon: "✏️",
+  },
+  {
     id: "microneedling",
     title: "RF Microneedling (Standard)",
     description: "Care instructions for standard microneedling and AnteAge treatments.",

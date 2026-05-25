@@ -89,7 +89,7 @@ export function renderBrowCanvas(
   if (options.showMappingLines) {
     drawBrowMappingOverlay(ctx, displayGeo, { showLabels: options.showLabels });
   }
-  if (options.showPigmentPreview && options.stylePreview !== "mapping-only") {
+  if (options.showPigmentPreview) {
     drawBrowStylePreview(ctx, displayGeo, options.stylePreview, options.pigmentHex, options.browShape);
   }
 

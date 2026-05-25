@@ -15,7 +15,6 @@ const MAIN_NAV: { href: string; label: string; icon: string }[] = [
   { href: '/admin/appointments', label: 'Appointments', icon: '📅' },
   { href: '/admin/clients', label: 'Clients', icon: '👥' },
   { href: '/admin/charting', label: 'Charting', icon: '📋' },
-  { href: '/admin/tools/brow-mapping', label: 'Brow Mapping', icon: '✏️' },
   { href: '/admin/procedures/contour-lift', label: 'Contour / Quantum', icon: '⚡' },
   { href: '/admin/services', label: 'Services', icon: '✨' },
   { href: '/admin/memberships', label: 'Memberships', icon: '💎' },
@@ -37,9 +36,26 @@ const MAIN_NAV: { href: string; label: string; icon: string }[] = [
   { href: '/admin/settings', label: 'Settings', icon: '⚙️' },
 ];
 
+const PMU_BROWS_NAV: { href: string; label: string; icon: string; external?: boolean }[] = [
+  { href: '/admin/pmu-brows', label: 'PMU & Brows hub', icon: '💗' },
+  { href: '/admin/tools/brow-mapping', label: 'Brow mapping tool', icon: '✏️' },
+  { href: '/forms/brow-intake', label: 'Brow intake (client)', icon: '📋', external: true },
+  { href: '/pre-post-care/microblading', label: 'Microblading pre/post', icon: '📄', external: true },
+  { href: '/handouts/education/brow-consultation-packet.pdf', label: 'Consultation packet PDF', icon: '📑', external: true },
+];
+
+function pmuBrowsVisible(role: AdminRole): boolean {
+  if (!role) return true;
+  return role !== 'readonly';
+}
+
 function visibleHrefs(role: AdminRole): Set<string> {
   if (!role) return new Set(MAIN_NAV.map((n) => n.href));
   const all = new Set(MAIN_NAV.map((n) => n.href));
+  if (pmuBrowsVisible(role)) {
+    all.add('/admin/pmu-brows');
+    all.add('/admin/tools/brow-mapping');
+  }
   switch (role) {
     case 'owner':
     case 'admin':
@@ -166,6 +182,34 @@ export default function AdminLayoutClient({ children }: { children: React.ReactN
                     <span>{item.label}</span>
                   </Link>
                 ))}
+                {pmuBrowsVisible(role) ? (
+                  <>
+                    <p className="px-3 pt-4 pb-1 text-[10px] font-bold uppercase tracking-widest text-black/45">PMU &amp; brows</p>
+                    {PMU_BROWS_NAV.map((item) =>
+                      item.external ? (
+                        <a
+                          key={item.href}
+                          href={item.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-all text-black hover:bg-black/5"
+                        >
+                          <span className="text-lg">{item.icon}</span>
+                          <span>{item.label}</span>
+                        </a>
+                      ) : (
+                        <Link
+                          key={item.href}
+                          href={item.href}
+                          className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-all ${isActive(item.href) ? 'bg-[#2D63A4] text-white font-medium' : 'text-black hover:bg-black/5'}`}
+                        >
+                          <span className="text-lg">{item.icon}</span>
+                          <span>{item.label}</span>
+                        </Link>
+                      ),
+                    )}
+                  </>
+                ) : null}
               </nav>
               <div className="p-3 border-t border-black/10">
                 <Link href="/admin/owner/manual" className="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-black hover:bg-black/5">
@@ -180,7 +224,7 @@ export default function AdminLayoutClient({ children }: { children: React.ReactN
             </aside>
             <nav className="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-black/10 z-40 safe-area-pb shadow-[0_-1px_0_rgba(0,0,0,.06)]">
               <div className="flex justify-around items-center h-14 min-h-[56px] px-2">
-                {[{ href: '/admin', icon: '📊', label: 'Home' }, { href: '/admin/calendar', icon: '🗓', label: 'Calendar' }, { href: '/admin/tools/brow-mapping', icon: '✏️', label: 'Brows' }, { href: '/admin/clients', icon: '👥', label: 'Clients' }, { href: '/pos', icon: '💳', label: 'POS' }].map((item) => (
+                {[{ href: '/admin', icon: '📊', label: 'Home' }, { href: '/admin/calendar', icon: '🗓', label: 'Calendar' }, { href: '/admin/pmu-brows', icon: '💗', label: 'Brows' }, { href: '/admin/clients', icon: '👥', label: 'Clients' }, { href: '/pos', icon: '💳', label: 'POS' }].map((item) => (
                   <Link key={item.href} href={item.href} className={`flex flex-col items-center justify-center gap-1 min-w-[56px] py-2 rounded-xl transition-all ${isActive(item.href) ? 'text-[#2D63A4] bg-black/5' : 'text-black hover:text-[#2D63A4]'}`}>
                     <span className="text-xl">{item.icon}</span>
                     <span className="text-[11px] font-medium">{item.label}</span>

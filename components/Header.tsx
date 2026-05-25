@@ -105,6 +105,8 @@ const NAV = {
     href: "/pre-post-care",
     links: [
       { label: "Pre & Post Care", href: "/pre-post-care", sub: "Treatment care guides" },
+      { label: "Microblading Pre/Post", href: "/pre-post-care/microblading", sub: "Brow PMU healing guide" },
+      { label: "Brow Consultation Intake", href: "/forms/brow-intake", sub: "PMU health history & consent" },
       { label: "Client Intake Form", href: "/forms/client-intake", sub: "Complete before your visit" },
       { label: "Consent & Documents", href: "/patient-documents", sub: "Forms, PDFs & consent" },
       { label: "Book Online", href: BOOKING_URL, sub: "Schedule via Fresha", external: true },

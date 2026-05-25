@@ -3,6 +3,11 @@ import { SITE } from "@/lib/seo";
 
 const PRE_POST_LINKS: { title: string; subtitle: string; path: string }[] = [
   {
+    title: "Microblading & Brow PMU",
+    subtitle: "Pre & post permanent brows",
+    path: "/pre-post-care/microblading",
+  },
+  {
     title: "Morpheus8 (Burst)",
     subtitle: "Pre & post RF microneedling",
     path: "/pre-post-care/morpheus8-burst",
@@ -52,7 +57,7 @@ export default async function ProcedurePrePostQrSection() {
           in the waiting room, after booking, or from a printed tent card.
         </p>
 
-        <ul className="mt-8 grid gap-6 sm:grid-cols-3 print:grid-cols-3">
+        <ul className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4 print:grid-cols-4">
           {items.map((item) => (
             <li
               key={item.path}

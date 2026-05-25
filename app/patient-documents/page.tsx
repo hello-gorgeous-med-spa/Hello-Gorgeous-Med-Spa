@@ -25,6 +25,15 @@ const PATIENT_DOCUMENTS_CANONICAL_URL = `${SITE.url}/patient-documents`;
 
 const WEB_GUIDES: DocGroup[] = [
   {
+    title: "Brow PMU / Microblading",
+    procedure: "Permanent makeup brows",
+    items: [
+      { label: "Pre & post care (web guide)", href: "/pre-post-care/microblading" },
+      { label: "Brow consultation intake (digital)", href: "/forms/brow-intake" },
+      { label: "Full consultation packet (PDF)", href: "/handouts/education/brow-consultation-packet.pdf", note: "Print or save" },
+    ],
+  },
+  {
     title: "Morpheus8",
     procedure: "RF microneedling",
     items: [

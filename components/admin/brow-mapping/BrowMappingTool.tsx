@@ -170,9 +170,11 @@ export function BrowMappingTool() {
 
         <main className="space-y-4">
           <BrowCanvas canvas={canvas} imageSrc={imageSrc} />
-          {activeStyle && stylePreview !== "mapping-only" ? (
+          {canvas.geometry && activeShape ? (
             <p className="rounded-lg bg-[#FFF0F7] px-3 py-2 text-xs text-[#E6007E]">
-              Live preview: {activeShape?.label} · {selectedPigment.name} · {activeStyle.label}
+              Live preview on photo: {activeShape.label}
+              {canvas.view.showPigmentPreview ? ` · ${selectedPigment.name}` : ""}
+              {activeStyle ? ` · ${activeStyle.label}` : ""}
             </p>
           ) : null}
         </main>

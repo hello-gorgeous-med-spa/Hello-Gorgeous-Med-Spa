@@ -107,14 +107,14 @@ export function useBrowCanvas(imageSrc: string | null, options?: BrowCanvasOptio
 
     const displayGeo = scaleGeometry(draggablePointsToGeometry(pointsRef.current, g), scale);
 
+    if (view.showPigmentPreview) {
+      drawBrowStylePreview(ctx, displayGeo, stylePreview, pigmentHex, browShape);
+    }
     if (view.showMappingLines) {
       drawBrowMappingOverlay(ctx, displayGeo, {
         showLabels: view.showLabels,
         activePoint: dragging ?? activePoint,
       });
-    }
-    if (view.showPigmentPreview) {
-      drawBrowStylePreview(ctx, displayGeo, stylePreview, pigmentHex, browShape);
     }
   }, [activePoint, browShape, dragging, pigmentHex, stylePreview, view]);
 

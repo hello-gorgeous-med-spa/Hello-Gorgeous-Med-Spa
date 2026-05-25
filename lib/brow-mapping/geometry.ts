@@ -177,14 +177,6 @@ export function drawBrowMappingOverlay(
     ctx.lineTo(side.tail.x, side.tail.y);
     ctx.stroke();
 
-    // Brow body outline
-    ctx.strokeStyle = hot;
-    ctx.lineWidth = 2.5;
-    ctx.beginPath();
-    ctx.moveTo(side.head.x, side.head.y);
-    ctx.quadraticCurveTo(side.arch.x, side.arch.y - 8, side.tail.x, side.tail.y);
-    ctx.stroke();
-
     if (opts?.showLabels !== false) {
       ctx.font = "bold 11px system-ui,sans-serif";
       ctx.fillStyle = pink;
