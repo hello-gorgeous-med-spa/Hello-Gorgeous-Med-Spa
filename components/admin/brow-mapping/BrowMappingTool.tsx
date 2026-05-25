@@ -34,6 +34,8 @@ export function BrowMappingTool() {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const cameraInputRef = useRef<HTMLInputElement>(null);
   const [imageSrc, setImageSrc] = useState<string | null>(null);
+  const [imageFile, setImageFile] = useState<File | null>(null);
+  const [uploadId, setUploadId] = useState(0);
   const [uploadError, setUploadError] = useState<string | null>(null);
   const [plan, setPlan] = useState<BrowMappingPlan | null>(null);
   const [planGenerated, setPlanGenerated] = useState(false);
@@ -52,14 +54,19 @@ export function BrowMappingTool() {
   const activeShape = BROW_SHAPES.find((s) => s.id === browShape);
   const activeStyle = BROW_STYLE_PREVIEWS.find((s) => s.id === stylePreview);
 
-  const canvas = useBrowCanvas(imageSrc, {
-    stylePreview,
-    pigmentHex: selectedPigment.hex,
-    browShape,
-    shapeLabel: activeShape?.label,
-    pigmentName: selectedPigment.name,
-    techniqueLabel: activeStyle?.label,
-  });
+  const canvas = useBrowCanvas(
+    imageSrc,
+    {
+      stylePreview,
+      pigmentHex: selectedPigment.hex,
+      browShape,
+      shapeLabel: activeShape?.label,
+      pigmentName: selectedPigment.name,
+      techniqueLabel: activeStyle?.label,
+    },
+    imageFile,
+    uploadId,
+  );
 
   useEffect(() => {
     if (canvas.ready && canvas.geometry) canvas.redraw();
@@ -95,6 +102,8 @@ export function BrowMappingTool() {
     setUploadError(null);
     setPlan(null);
     setPlanGenerated(false);
+    setImageSrc(null);
+    setImageFile(null);
     if (!file) return;
     if (!file.type.match(/^image\/(jpeg|png|webp)$/)) {
       setUploadError("Use JPG, PNG, or WebP.");
@@ -104,8 +113,14 @@ export function BrowMappingTool() {
       setUploadError("Image must be under 8MB.");
       return;
     }
+    setImageFile(file);
+    setUploadId((n) => n + 1);
     const reader = new FileReader();
     reader.onload = () => setImageSrc(reader.result as string);
+    reader.onerror = () => {
+      setUploadError("Could not read image file.");
+      setImageFile(null);
+    };
     reader.readAsDataURL(file);
   }, []);
 

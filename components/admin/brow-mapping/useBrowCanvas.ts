@@ -12,7 +12,7 @@ import {
   hitTestDraggablePoint,
   type DraggablePointId,
 } from "@/lib/brow-mapping/geometry";
-import { loadOrientedImageFromSrc } from "@/lib/brow-mapping/load-image";
+import { loadOrientedImageFromFile, loadOrientedImageFromSrc } from "@/lib/brow-mapping/load-image";
 import { detectFaceLandmarks } from "@/lib/brow-mapping/landmarks";
 import { renderBrowPreviewFrame } from "@/lib/brow-mapping/browRenderer";
 import type { BrowPreviewState } from "@/lib/brow-mapping/browState";
@@ -39,7 +39,12 @@ function cloneGeometry(g: BrowMappingGeometry): BrowMappingGeometry {
   return JSON.parse(JSON.stringify(g)) as BrowMappingGeometry;
 }
 
-export function useBrowCanvas(imageSrc: string | null, options: BrowCanvasOptions) {
+export function useBrowCanvas(
+  imageSrc: string | null,
+  options: BrowCanvasOptions,
+  imageFile?: File | null,
+  uploadId = 0,
+) {
   const wrapRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const imageRef = useRef<HTMLImageElement | null>(null);
@@ -165,7 +170,7 @@ export function useBrowCanvas(imageSrc: string | null, options: BrowCanvasOption
   );
 
   useEffect(() => {
-    if (!imageSrc) return;
+    if (!imageSrc && !imageFile) return;
     let cancelled = false;
     setReady(false);
     setDetecting(true);
@@ -177,15 +182,30 @@ export function useBrowCanvas(imageSrc: string | null, options: BrowCanvasOption
     undoStackRef.current = [];
     setCanUndo(false);
 
+    const loadImage = async () => {
+      if (imageFile) return loadOrientedImageFromFile(imageFile);
+      if (imageSrc) return loadOrientedImageFromSrc(imageSrc);
+      throw new Error("No image provided");
+    };
+
     (async () => {
       try {
-        const img = await loadOrientedImageFromSrc(imageSrc);
+        const img = await loadImage();
         if (cancelled) return;
         imageRef.current = img;
-        const landmarks = await detectFaceLandmarks(img);
+
+        let landmarks: import("@mediapipe/face_mesh").NormalizedLandmark[] | null = null;
+        try {
+          landmarks = await detectFaceLandmarks(img);
+        } catch {
+          landmarks = null;
+        }
+
         if (cancelled) return;
+
         if (landmarks && initFromLandmarks(landmarks, img)) {
           setReady(true);
+          setError(null);
         } else {
           const fallback = createDefaultManualGeometry(img.naturalWidth, img.naturalHeight);
           autoGeometryRef.current = cloneGeometry(fallback);
@@ -194,20 +214,10 @@ export function useBrowCanvas(imageSrc: string | null, options: BrowCanvasOption
           setError("No face detected. Use manual mapping mode — drag the dots to match bone structure.");
           setReady(true);
         }
-      } catch {
-        if (cancelled) return;
-        try {
-          const img = await loadOrientedImageFromSrc(imageSrc);
-          if (cancelled) return;
-          imageRef.current = img;
-          const fallback = createDefaultManualGeometry(img.naturalWidth, img.naturalHeight);
-          autoGeometryRef.current = cloneGeometry(fallback);
-          applyGeometry(fallback);
-          setManualMode(true);
-          setError("Face detection unavailable. Manual mapping mode is active — adjust dots on the photo.");
-          setReady(true);
-        } catch {
-          if (!cancelled) setError("Could not load image.");
+      } catch (err) {
+        if (!cancelled) {
+          console.error("[brow-mapping] image load failed", err);
+          setError("Could not load image. Try a smaller JPG or PNG (under 8MB).");
         }
       } finally {
         if (!cancelled) setDetecting(false);
@@ -217,7 +227,7 @@ export function useBrowCanvas(imageSrc: string | null, options: BrowCanvasOption
     return () => {
       cancelled = true;
     };
-  }, [applyGeometry, imageSrc, initFromLandmarks]);
+  }, [applyGeometry, imageFile, imageSrc, initFromLandmarks, uploadId]);
 
   useEffect(() => {
     redraw();
