@@ -5,6 +5,8 @@ import {
   BROW_CONSULTATION_PACKET_PDF,
   BROW_INTAKE_PATH,
   MICROBLADING_PREPOST_PATH,
+  YOUR_BROW_JOURNEY_PATH,
+  YOUR_BROW_JOURNEY_PDF,
 } from "@/data/brow-microblading-care";
 import { BROW_MAPPING_PATH } from "@/data/brow-mapping-intelligence";
 import { MICROBLADING_STUDY_GUIDE_PATH } from "@/data/microblading-study-guide";
@@ -23,6 +25,20 @@ const CARDS = [
     icon: "📋",
     title: "Brow consultation intake",
     description: "Client-facing 6-step digital intake — health history, shapes, technique, consent & PDF download.",
+    internal: false,
+  },
+  {
+    href: YOUR_BROW_JOURNEY_PATH,
+    icon: "🦋",
+    title: "Your Brow Journey (client guide)",
+    description: "Send before consult — Dani's step-by-step walkthrough, healing timeline, pigment chart & booking.",
+    internal: false,
+  },
+  {
+    href: YOUR_BROW_JOURNEY_PDF,
+    icon: "📕",
+    title: "Your Brow Journey (PDF)",
+    description: "Print or AirDrop the full journey handout for iPad or front desk.",
     internal: false,
   },
   {

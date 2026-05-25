@@ -34,7 +34,7 @@ const ADMIN_ROUTES = [
 ];
 
 /** Full-screen client forms (iPad intake) — no site chrome over the form */
-const STANDALONE_FORM_ROUTES = ['/forms/brow-intake'];
+const STANDALONE_FORM_ROUTES = ['/forms/brow-intake', '/education/your-brow-journey'];
 
 export function ConditionalLayout({
   children,

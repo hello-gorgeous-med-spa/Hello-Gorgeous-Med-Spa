@@ -4,6 +4,8 @@ import { CareGuideLayout, CareGuideHeader, CareGuideFooter } from "@/components/
 import {
   BROW_CONSULTATION_PACKET_PDF,
   BROW_INTAKE_PATH,
+  YOUR_BROW_JOURNEY_PATH,
+  YOUR_BROW_JOURNEY_PDF,
   MICROBLADING_DO_LIST,
   MICROBLADING_DONT_LIST,
   MICROBLADING_HEALING_NOTE,
@@ -44,6 +46,17 @@ export default function MicrobladingCareGuidePage() {
             </Link>
             {" "}
             — complete before your visit (health history, shape &amp; technique, consent).
+          </li>
+          <li>
+            <Link href={YOUR_BROW_JOURNEY_PATH} className="font-semibold text-[#E6007E] hover:underline">
+              Your Brow Journey
+            </Link>
+            {" "}
+            — step-by-step consult guide (what to expect, healing, aftercare).
+            {" "}
+            <a href={YOUR_BROW_JOURNEY_PDF} className="text-[#E6007E] hover:underline" target="_blank" rel="noopener noreferrer">
+              PDF
+            </a>
           </li>
           <li>
             <a href={BROW_CONSULTATION_PACKET_PDF} className="font-semibold text-[#E6007E] hover:underline" target="_blank" rel="noopener noreferrer">

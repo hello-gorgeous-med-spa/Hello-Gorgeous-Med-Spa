@@ -2,6 +2,9 @@
 
 export const MICROBLADING_PREPOST_PATH = "/pre-post-care/microblading";
 export const BROW_CONSULTATION_PACKET_PDF = "/handouts/education/brow-consultation-packet.pdf";
+export const YOUR_BROW_JOURNEY_PATH = "/education/your-brow-journey";
+export const YOUR_BROW_JOURNEY_HTML = "/handouts/education/your-brow-journey.html";
+export const YOUR_BROW_JOURNEY_PDF = "/handouts/education/your-brow-journey.pdf";
 export const BROW_INTAKE_PATH = "/forms/brow-intake";
 
 export type CareListSection = {
