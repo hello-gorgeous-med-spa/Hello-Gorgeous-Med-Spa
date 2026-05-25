@@ -126,7 +126,7 @@ select{width:100%;margin-top:4px;border-radius:8px;border:1px solid rgba(255,255
   </div>
 </div>
 <script>
-const LM={midline:168,rightNostril:98,leftNostril:327,leftIris:468,rightIris:473,leftEyeOuter:33,rightEyeOuter:263,leftBrowUpper:[336,296,334,293],rightBrowUpper:[107,66,105,63],leftBrowInner:285,rightBrowInner:55};
+const LM={midline:168,leftBrowInner:285,leftBrowUpper:[336,296,334,293],leftEyeOuter:263,leftIris:473,rightBrowInner:55,rightBrowUpper:[107,66,105,63],rightEyeOuter:33,rightIris:468};
 const DIR={warm:'Warm it',neutral:'Neutral it','cool-lean':'Cool-lean','olive-ash':'Olive / ash'};
 const SHAPES=[
   {id:'arch',label:'Arch'},{id:'soft-arch',label:'Soft Arch'},{id:'high-arch',label:'High Arch'},
@@ -174,13 +174,16 @@ function pt(L,i,w,h){return{x:L[i].x*w,y:L[i].y*h};}
 function lineY(a,b,y){const t=(y-a.y)/(b.y-a.y||1);return{x:a.x+t*(b.x-a.x),y};}
 function mapSide(n,iris,eye,top,base){return{head:{x:n.x,y:base},arch:lineY(n,iris,top),tail:lineY(n,eye,base)};}
 
+function avgPt(L,idx,w,h){const pts=idx.map(i=>pt(L,i,w,h));return{x:pts.reduce((a,p)=>a+p.x,0)/pts.length,y:pts.reduce((a,p)=>a+p.y,0)/pts.length};}
 function compute(L,w,h){
   if(!L||L.length<478)return null;
-  const ln=pt(L,LM.leftNostril,w,h),rn=pt(L,LM.rightNostril,w,h),li=pt(L,LM.leftIris,w,h),ri=pt(L,LM.rightIris,w,h),lo=pt(L,LM.leftEyeOuter,w,h),ro=pt(L,LM.rightEyeOuter,w,h),mid=pt(L,LM.midline,w,h);
-  const archY=(avgY(L,LM.leftBrowUpper,h)+avgY(L,LM.rightBrowUpper,h))/2;
-  const innerY=(L[LM.leftBrowInner].y*h+L[LM.rightBrowInner].y*h)/2;
-  const base=innerY+(archY-innerY)*.55;
-  return{midlineTop:{x:mid.x,y:archY-h*.08},midlineBottom:{x:mid.x,y:base+h*.12},baselineY:base,left:mapSide(ln,li,lo,archY,base),right:mapSide(rn,ri,ro,archY,base)};
+  const mid=pt(L,LM.midline,w,h);
+  const li=pt(L,LM.leftBrowInner,w,h),ri=pt(L,LM.rightBrowInner,w,h);
+  const la=avgPt(L,LM.leftBrowUpper,w,h),ra=avgPt(L,LM.rightBrowUpper,w,h);
+  const lt=pt(L,LM.leftEyeOuter,w,h),rt=pt(L,LM.rightEyeOuter,w,h);
+  const base=(li.y+ri.y)/2+h*.02;
+  const archY=(la.y+ra.y)/2;
+  return{midlineTop:{x:mid.x,y:archY-h*.06},midlineBottom:{x:mid.x,y:base+h*.1},baselineY:base,left:{head:li,arch:la,tail:lt},right:{head:ri,arch:ra,tail:rt}};
 }
 
 function toPts(g){return{leftHead:g.left.head,leftArch:g.left.arch,leftTail:g.left.tail,rightHead:g.right.head,rightArch:g.right.arch,rightTail:g.right.tail};}

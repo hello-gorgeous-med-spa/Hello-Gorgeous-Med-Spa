@@ -12,6 +12,7 @@ import {
   hitTestDraggablePoint,
   type DraggablePointId,
 } from "@/lib/brow-mapping/geometry";
+import { loadOrientedImageFromSrc } from "@/lib/brow-mapping/load-image";
 import { detectFaceLandmarks } from "@/lib/brow-mapping/landmarks";
 import { renderBrowPreviewFrame } from "@/lib/brow-mapping/browRenderer";
 import type { BrowPreviewState } from "@/lib/brow-mapping/browState";
@@ -83,7 +84,7 @@ export function useBrowCanvas(imageSrc: string | null, options: BrowCanvasOption
     const g = geometryRef.current;
     const pts = pointsRef.current;
     const preview = previewRef.current;
-    if (!canvas || !wrap || !img || !preview) return;
+    if (!canvas || !wrap || !img || !preview || wrap.clientWidth < 8) return;
 
     const { scale, width: w, height: h } = getDisplaySize(
       { width: img.naturalWidth, height: img.naturalHeight },
@@ -176,11 +177,11 @@ export function useBrowCanvas(imageSrc: string | null, options: BrowCanvasOption
     undoStackRef.current = [];
     setCanUndo(false);
 
-    const img = new Image();
-    img.onload = async () => {
-      if (cancelled) return;
-      imageRef.current = img;
+    (async () => {
       try {
+        const img = await loadOrientedImageFromSrc(imageSrc);
+        if (cancelled) return;
+        imageRef.current = img;
         const landmarks = await detectFaceLandmarks(img);
         if (cancelled) return;
         if (landmarks && initFromLandmarks(landmarks, img)) {
@@ -195,23 +196,23 @@ export function useBrowCanvas(imageSrc: string | null, options: BrowCanvasOption
         }
       } catch {
         if (cancelled) return;
-        const fallback = createDefaultManualGeometry(img.naturalWidth, img.naturalHeight);
-        autoGeometryRef.current = cloneGeometry(fallback);
-        applyGeometry(fallback);
-        setManualMode(true);
-        setError("Face detection unavailable. Manual mapping mode is active — adjust dots on the photo.");
-        setReady(true);
+        try {
+          const img = await loadOrientedImageFromSrc(imageSrc);
+          if (cancelled) return;
+          imageRef.current = img;
+          const fallback = createDefaultManualGeometry(img.naturalWidth, img.naturalHeight);
+          autoGeometryRef.current = cloneGeometry(fallback);
+          applyGeometry(fallback);
+          setManualMode(true);
+          setError("Face detection unavailable. Manual mapping mode is active — adjust dots on the photo.");
+          setReady(true);
+        } catch {
+          if (!cancelled) setError("Could not load image.");
+        }
       } finally {
         if (!cancelled) setDetecting(false);
       }
-    };
-    img.onerror = () => {
-      if (!cancelled) {
-        setError("Could not load image.");
-        setDetecting(false);
-      }
-    };
-    img.src = imageSrc;
+    })();
 
     return () => {
       cancelled = true;

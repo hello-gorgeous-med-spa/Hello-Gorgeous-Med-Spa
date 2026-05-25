@@ -14,24 +14,17 @@ function avgY(landmarks: NormalizedLandmark[], indices: number[], h: number): nu
   return ys.reduce((a, b) => a + b, 0) / Math.max(ys.length, 1);
 }
 
-function pointOnLineAtY(a: BrowMappingPoint, b: BrowMappingPoint, y: number): BrowMappingPoint {
-  const dy = b.y - a.y;
-  if (Math.abs(dy) < 0.001) return { x: a.x, y };
-  const t = (y - a.y) / dy;
-  return { x: a.x + t * (b.x - a.x), y };
+function avgPoint(landmarks: NormalizedLandmark[], indices: number[], w: number, h: number): BrowMappingPoint {
+  const pts = indices.map((i) => toPx(landmarks[i], w, h));
+  return {
+    x: pts.reduce((a, p) => a + p.x, 0) / pts.length,
+    y: pts.reduce((a, p) => a + p.y, 0) / pts.length,
+  };
 }
 
-function mapSide(
-  nostril: BrowMappingPoint,
-  iris: BrowMappingPoint,
-  outerEye: BrowMappingPoint,
-  browTopY: number,
-  headBaselineY: number,
-): BrowSideMap {
-  const head: BrowMappingPoint = { x: nostril.x, y: headBaselineY };
-  const arch = pointOnLineAtY(nostril, iris, browTopY);
-  const tail = pointOnLineAtY(nostril, outerEye, headBaselineY);
-  return { head, arch, tail };
+/** Head = inner brow, arch = brow peak, tail = outer eye — all on the same side of the face. */
+function mapBrowSide(inner: BrowMappingPoint, arch: BrowMappingPoint, outer: BrowMappingPoint): BrowSideMap {
+  return { head: inner, arch, tail: outer };
 }
 
 export function computeBrowMappingFromLandmarks(
@@ -41,32 +34,28 @@ export function computeBrowMappingFromLandmarks(
 ): BrowMappingGeometry | null {
   if (!landmarks || landmarks.length < 478) return null;
 
-  const leftNostril = toPx(landmarks[LM.leftNostril], width, height);
-  const rightNostril = toPx(landmarks[LM.rightNostril], width, height);
-  const leftIris = toPx(landmarks[LM.leftIris], width, height);
-  const rightIris = toPx(landmarks[LM.rightIris], width, height);
-  const leftOuter = toPx(landmarks[LM.leftEyeOuter], width, height);
-  const rightOuter = toPx(landmarks[LM.rightEyeOuter], width, height);
   const mid = toPx(landmarks[LM.midline], width, height);
 
-  const leftBrowTop = avgY(landmarks, LM.leftBrowUpper, height);
-  const rightBrowTop = avgY(landmarks, LM.rightBrowUpper, height);
-  const archY = (leftBrowTop + rightBrowTop) / 2;
+  const leftInner = toPx(landmarks[LM.leftBrowInner], width, height);
+  const rightInner = toPx(landmarks[LM.rightBrowInner], width, height);
+  const leftArch = avgPoint(landmarks, [...LM.leftBrowUpper], width, height);
+  const rightArch = avgPoint(landmarks, [...LM.rightBrowUpper], width, height);
+  const leftTail = toPx(landmarks[LM.leftEyeOuter], width, height);
+  const rightTail = toPx(landmarks[LM.rightEyeOuter], width, height);
 
-  const innerY =
-    (landmarks[LM.leftBrowInner].y * height + landmarks[LM.rightBrowInner].y * height) / 2;
-  const headBaselineY = innerY + (archY - innerY) * 0.55;
+  const left = mapBrowSide(leftInner, leftArch, leftTail);
+  const right = mapBrowSide(rightInner, rightArch, rightTail);
 
-  const left = mapSide(leftNostril, leftIris, leftOuter, archY, headBaselineY);
-  const right = mapSide(rightNostril, rightIris, rightOuter, archY, headBaselineY);
+  const baselineY = (leftInner.y + rightInner.y) / 2 + height * 0.02;
+  const archY = (leftArch.y + rightArch.y) / 2;
 
-  const midlineTop = { x: mid.x, y: archY - height * 0.08 };
-  const midlineBottom = { x: mid.x, y: headBaselineY + height * 0.12 };
+  const midlineTop = { x: mid.x, y: archY - height * 0.06 };
+  const midlineBottom = { x: mid.x, y: baselineY + height * 0.1 };
 
   return {
     midlineTop,
     midlineBottom,
-    baselineY: headBaselineY,
+    baselineY,
     left,
     right,
   };
@@ -75,19 +64,21 @@ export function computeBrowMappingFromLandmarks(
 /** Fallback geometry when face detection fails — proportional manual placement. */
 export function createDefaultManualGeometry(width: number, height: number): BrowMappingGeometry {
   const cx = width / 2;
-  const baselineY = height * 0.42;
-  const archY = height * 0.36;
-  const browSpan = width * 0.14;
+  const baselineY = height * 0.38;
+  const archY = height * 0.32;
+  const browSpan = width * 0.11;
 
+  /** Patient left brow — right side of photo (higher x). */
   const left: BrowSideMap = {
-    head: { x: cx - browSpan * 1.35, y: baselineY },
-    arch: { x: cx - browSpan * 0.55, y: archY },
-    tail: { x: cx - browSpan * 0.05, y: baselineY - height * 0.008 },
+    head: { x: cx + browSpan * 0.45, y: baselineY },
+    arch: { x: cx + browSpan * 1.05, y: archY },
+    tail: { x: cx + browSpan * 1.55, y: baselineY - height * 0.01 },
   };
+  /** Patient right brow — left side of photo (lower x). */
   const right: BrowSideMap = {
-    head: { x: cx + browSpan * 1.35, y: baselineY },
-    arch: { x: cx + browSpan * 0.55, y: archY },
-    tail: { x: cx + browSpan * 0.05, y: baselineY - height * 0.008 },
+    head: { x: cx - browSpan * 0.45, y: baselineY },
+    arch: { x: cx - browSpan * 1.05, y: archY },
+    tail: { x: cx - browSpan * 1.55, y: baselineY - height * 0.01 },
   };
 
   return {

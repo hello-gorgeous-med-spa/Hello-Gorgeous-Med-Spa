@@ -1,19 +1,22 @@
 import type { NormalizedLandmark } from "@mediapipe/face_mesh";
 
-/** MediaPipe indices — subject's left/right (selfie view). */
+/**
+ * MediaPipe Face Mesh — anatomical left/right (patient facing camera).
+ * Patient LEFT brow = right side of photo (higher x). Patient RIGHT brow = left side of photo (lower x).
+ */
 export const FACE_LM = {
   midline: 168,
   forehead: 10,
-  rightNostril: 98,
-  leftNostril: 327,
-  leftIris: 468,
-  rightIris: 473,
-  leftEyeOuter: 33,
-  rightEyeOuter: 263,
-  leftBrowUpper: [336, 296, 334, 293],
-  rightBrowUpper: [107, 66, 105, 63],
+  /** Patient's left brow zone */
   leftBrowInner: 285,
+  leftBrowUpper: [336, 296, 334, 293],
+  leftEyeOuter: 263,
+  leftIris: 473,
+  /** Patient's right brow zone */
   rightBrowInner: 55,
+  rightBrowUpper: [107, 66, 105, 63],
+  rightEyeOuter: 33,
+  rightIris: 468,
 } as const;
 
 const MEDIAPIPE_BASE = "/mediapipe/face_mesh/";
