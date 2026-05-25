@@ -164,3 +164,6 @@ docs/manuals/hub-digital-consent-owners-manual.pdf
 
 # Image conversion intermediates (HEIC->JPG, MOV->PNG)
 public/images/*/incoming/
+
+# Generated at prebuild from node_modules (scripts/sync-mediapipe-face-mesh.mjs)
+public/mediapipe/

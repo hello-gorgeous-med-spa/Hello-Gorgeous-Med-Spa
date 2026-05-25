@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Hello Gorgeous Microblading Training Manual — Provider Education</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;700&family=Parisienne&display=swap" rel="stylesheet">
+<style>
+  :root{--navy:#0a1628;--pink:#D4537E;--plum:#3E2B5E;--copper:#8B4513;--gold:#c77b2a;--teal:#2a9d8f;--red:#e63946;--paper:#fff;--ink:#1c2430;--mute:#5b6675;--line:#e4e8ee;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:#dfe4ea;}
+  body{font-family:'DM Sans',sans-serif;color:var(--ink);padding:24px 0;}
+  .page{width:10.5in;min-height:11in;margin:0 auto 28px;background:var(--paper);box-shadow:0 8px 40px rgba(10,22,40,.18);overflow:hidden;position:relative;page-break-after:always;}
+  .page::before{content:"";position:absolute;inset:0;pointer-events:none;z-index:5;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='420' height='260'><text x='210' y='140' font-family='Arial' font-size='22' font-weight='700' fill='%230a1628' fill-opacity='0.06' text-anchor='middle' transform='rotate(-30 210 130)'>HELLO GORGEOUS MED SPA</text></svg>");background-repeat:repeat;}
+  .head,.body,.foot{position:relative;z-index:10;}
+  .head{background:linear-gradient(135deg,var(--navy),var(--plum));color:#fff;padding:24px 34px 20px;}
+  .head::after{content:"";position:absolute;left:0;bottom:0;width:100%;height:5px;background:linear-gradient(90deg,var(--copper),var(--pink),var(--gold));}
+  .script{font-family:'Parisienne',cursive;font-size:42px;line-height:1;color:#fff;margin-bottom:4px;}
+  .kicker{font-weight:700;letter-spacing:.22em;font-size:10px;text-transform:uppercase;color:var(--gold);margin-bottom:6px;}
+  .head h1{font-family:'Bebas Neue';font-size:48px;line-height:.92;margin-bottom:6px;}
+  .head h1 span{color:#FFB8DC;}
+  .subhead{font-size:12.5px;color:#c8d0dc;line-height:1.5;max-width:88%;}
+  .body{padding:20px 34px 10px;}
+  .foot{background:var(--navy);color:#9aa7b8;padding:11px 34px;font-size:9.5px;}
+  .foot .brand{font-family:'Bebas Neue';font-size:14px;color:var(--pink);}
+  .foot .frow{display:flex;justify-content:space-between;}
+  .foot .copy{margin-top:5px;border-top:1px solid rgba(255,255,255,.12);padding-top:5px;font-size:8.5px;color:#7c8a9c;}
+  .badge{display:inline-block;background:var(--red);color:#fff;font-size:8px;font-weight:700;letter-spacing:.12em;padding:3px 8px;border-radius:3px;margin-top:8px;}
+  .section-label{font-family:'Bebas Neue';font-size:13px;letter-spacing:.16em;color:var(--mute);text-transform:uppercase;margin:0 0 10px;display:flex;align-items:center;gap:8px;}
+  .section-label::after{content:"";flex:1;height:1px;background:var(--line);}
+  /* workflow */
+  .workflow{display:flex;align-items:flex-start;justify-content:space-between;gap:6px;margin:16px 0;}
+  .wf-step{flex:1;text-align:center;}
+  .wf-num{width:36px;height:36px;border-radius:50%;background:var(--plum);color:#fff;font-family:'Bebas Neue';font-size:22px;line-height:36px;margin:0 auto 6px;border:2px solid var(--pink);}
+  .wf-icon{font-size:28px;margin-bottom:4px;}
+  .wf-title{font-size:10px;font-weight:700;color:var(--navy);line-height:1.3;}
+  .wf-arrow{color:var(--pink);font-size:18px;padding-top:14px;flex-shrink:0;}
+  .banner{background:var(--plum);color:#fff;text-align:center;padding:10px;font-family:'Bebas Neue';letter-spacing:.12em;font-size:14px;margin-top:12px;border-radius:6px;}
+  /* grids */
+  .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:12px;}
+  .g3{grid-template-columns:repeat(3,1fr);} .g4{grid-template-columns:repeat(4,1fr);}
+  .card{border:1px solid var(--line);border-radius:8px;overflow:hidden;background:#fff;}
+  .ch{padding:7px 10px;color:#fff;font-size:9px;}
+  .ch.copper{background:var(--copper);} .ch.pink{background:var(--pink);} .ch.plum{background:var(--plum);} .ch.navy{background:var(--navy);} .ch.teal{background:var(--teal);}
+  .ch .nm{font-family:'Bebas Neue';font-size:16px;display:block;margin-top:2px;}
+  .cb{padding:9px 10px;font-size:10.5px;line-height:1.45;}
+  .m{list-style:none;} .m li{padding-left:10px;position:relative;margin-bottom:3px;}
+  .m li::before{content:"";position:absolute;left:0;top:5px;width:4px;height:4px;border-radius:50%;background:var(--pink);}
+  table{width:100%;border-collapse:collapse;font-size:10px;border:1px solid var(--line);margin-bottom:12px;}
+  th{background:var(--navy);color:#fff;text-align:left;padding:7px 10px;font-size:9px;text-transform:uppercase;letter-spacing:.06em;}
+  td{padding:7px 10px;border-top:1px solid var(--line);vertical-align:top;line-height:1.4;}
+  tr:nth-child(even) td{background:#fafbfd;}
+  .al{border-left:4px solid var(--gold);background:#fff8ef;padding:10px 12px;font-size:10.5px;line-height:1.5;margin-bottom:10px;border-radius:0 6px 6px 0;}
+  .al b{display:block;font-size:9px;text-transform:uppercase;color:var(--gold);margin-bottom:2px;}
+  .al.plum{border-color:var(--plum);background:#f5f0fa;} .al.plum b{color:var(--plum);}
+  .swatch-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:12px;}
+  .swatch{border-radius:8px;overflow:hidden;border:1px solid var(--line);}
+  .swatch-color{height:36px;}
+  .swatch-name{font-size:9px;font-weight:700;padding:5px 6px;background:#fff;line-height:1.25;}
+  .swatch-use{font-size:8px;color:var(--mute);padding:0 6px 6px;}
+  .map-wrap{display:flex;gap:16px;align-items:center;}
+  .map-svg{flex:1;max-width:280px;}
+  .map-notes{flex:1;font-size:10.5px;line-height:1.55;}
+  .map-notes li{margin-bottom:6px;list-style:none;padding-left:14px;position:relative;}
+  .map-notes li::before{content:"▸";position:absolute;left:0;color:var(--pink);}
+  .stroke-demo{display:flex;align-items:center;gap:10px;padding:8px;border:1px solid var(--line);border-radius:8px;margin-bottom:8px;background:#fff;}
+  .stroke-demo svg{flex-shrink:0;border-radius:4px;background:#f8f8f8;}
+  .stroke-demo .info{font-size:10px;line-height:1.4;}
+  .stroke-demo .info b{display:block;font-size:11px;color:var(--navy);margin-bottom:2px;}
+  .checklist li{list-style:none;padding:6px 0 6px 20px;border-bottom:1px solid var(--line);font-size:10.5px;position:relative;}
+  .checklist li::before{content:"☐";position:absolute;left:0;color:var(--copper);font-weight:700;}
+  .steps .step{display:flex;gap:10px;margin-bottom:8px;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:#fafbfd;}
+  .steps .n{font-family:'Bebas Neue';font-size:26px;color:var(--copper);line-height:1;min-width:28px;}
+  @media print{body{background:#fff;padding:0;}.page{box-shadow:none;margin:0;}}
+</style>
+</head>
+<body>
+
+<!-- P1 COVER + WORKFLOW -->
+<div class="page">
+  <div class="head">
+    <div class="kicker">Hello Gorgeous Med Spa · Provider Training · Internal Only</div>
+    <div class="script">Step-by-Step</div>
+    <h1>Microblading <span>Training Manual</span></h1>
+    <div class="subhead">Your complete Hello Gorgeous study system — from first read-through to supervised model practice. Mapping · spine strokes · technique library · pigment selection · sterile procedure · aftercare.</div>
+    <span class="badge">NOT FOR CLIENT DISTRIBUTION</span>
+  </div>
+  <div class="body">
+    <div class="section-label">Follow this workflow</div>
+    <div class="workflow">
+      <div class="wf-step"><div class="wf-num">1</div><div class="wf-icon">📁</div><div class="wf-title">Guide Setup<br/>Read manual + checklists</div></div>
+      <div class="wf-arrow">→</div>
+      <div class="wf-step"><div class="wf-num">2</div><div class="wf-icon">📐</div><div class="wf-title">Mapping Drills<br/>Paper templates daily</div></div>
+      <div class="wf-arrow">→</div>
+      <div class="wf-step"><div class="wf-num">3</div><div class="wf-icon">✏️</div><div class="wf-title">Stroke Practice<br/>5-step build on skins</div></div>
+      <div class="wf-arrow">→</div>
+      <div class="wf-step"><div class="wf-num">4</div><div class="wf-icon">🎨</div><div class="wf-title">Pigment &amp; Color<br/>Undertone matching</div></div>
+      <div class="wf-arrow">→</div>
+      <div class="wf-step"><div class="wf-num">5</div><div class="wf-icon">👤</div><div class="wf-title">Model Practice<br/>Supervised live work</div></div>
+    </div>
+    <div class="banner">DESIGNED TO GUIDE YOU FROM STUDY → PRACTICE → LIVE MODEL</div>
+    <div class="section-label" style="margin-top:16px;">What's in this manual</div>
+    <div class="grid g4">
+      <div class="card"><div class="ch plum"><span class="nm">Mapping</span></div><div class="cb">Golden-ratio geometry, spine placement, symmetry checks</div></div>
+      <div class="card"><div class="ch pink"><span class="nm">Strokes</span></div><div class="cb">Microblading, nano, powder &amp; combo technique library</div></div>
+      <div class="card"><div class="ch copper"><span class="nm">Color</span></div><div class="cb">Permablend brow palette + undertone selection workflow</div></div>
+      <div class="card"><div class="ch navy"><span class="nm">Procedure</span></div><div class="cb">Day-of flow, sterile setup, aftercare, touch-up timing</div></div>
+    </div>
+    <div class="al"><b>Hello Gorgeous standard</b>Beginner-friendly does not mean shortcut-friendly. Master medium spine + 5-step build on paper before any live skin. Dani/Ryan sign-off required before solo booking.</div>
+  </div>
+  <div class="foot"><div class="frow"><div><span class="brand">Hello Gorgeous</span> · Oswego, IL</div><div>Danielle Alcala-Glazier · Page 1 of 10</div></div><div class="copy">© 2026 Hello Gorgeous Med Spa · Proprietary provider education</div></div>
+</div>
+
+<!-- P2 TECHNIQUE TYPES -->
+<div class="page">
+  <div class="head"><div class="kicker">Section 1 · Techniques</div><h1>Microblading, Nano, <span>Powder &amp; Combo</span></h1><div class="subhead">Know which modality you are performing — stroke pattern, tool, and healed result differ.</div></div>
+  <div class="body">
+    <div class="grid">
+      <div class="card"><div class="ch copper"><span class="nm">Microblading</span></div><div class="cb"><ul class="m"><li><b>Tool:</b> Manual blade (18U / 14U / flex)</li><li><b>Result:</b> Crisp hair strokes in upper dermis</li><li><b>Best for:</b> Normal-dry skin, sparse natural brows</li><li><b>Heal note:</b> Oily skin blurs faster — set expectations</li></ul></div></div>
+      <div class="card"><div class="ch pink"><span class="nm">Nano (machine hair)</span></div><div class="cb"><ul class="m"><li><b>Tool:</b> PMU machine + nano cartridge (single needle)</li><li><b>Result:</b> Finer, more uniform hair strokes</li><li><b>Best for:</b> Oily skin, clients wanting soft hair effect</li><li><b>Heal note:</b> Less trauma than manual on some skin types</li></ul></div></div>
+      <div class="card"><div class="ch plum"><span class="nm">Powder / Ombre</span></div><div class="cb"><ul class="m"><li><b>Tool:</b> Machine shading (1RL whip or pendulum)</li><li><b>Result:</b> Soft pixelated fill — makeup powder look</li><li><b>Best for:</b> Fuller brow desire, oily skin, alopecia</li><li><b>Heal note:</b> More forgiving than crisp strokes long-term</li></ul></div></div>
+      <div class="card"><div class="ch navy"><span class="nm">Combo brows</span></div><div class="cb"><ul class="m"><li><b>Tool:</b> Strokes in sparse zones + powder fill in body</li><li><b>Result:</b> Dimension — hair + soft background</li><li><b>Best for:</b> Most popular hybrid; versatile healing</li><li><b>Heal note:</b> Map stroke zone vs. powder zone first</li></ul></div></div>
+    </div>
+    <div class="section-label">Stroke &amp; shading library (what to practice)</div>
+    <div class="stroke-demo"><svg width="80" height="50" viewBox="0 0 80 50"><rect width="80" height="50" fill="#f5f5f5"/><path d="M10,40 Q25,10 70,15" stroke="#D4537E" stroke-width="2" fill="none"/><line x1="10" y1="40" x2="70" y2="15" stroke="#3E2B5E" stroke-width="1.5" stroke-dasharray="4 2"/></svg><div class="info"><b>Mapping — solid / sketch / dotted</b>Solid outline for approval. Sketch for exploration. Dotted for symmetry check only — wipe before blading.</div></div>
+    <div class="stroke-demo"><svg width="80" height="50" viewBox="0 0 80 50"><rect width="80" height="50" fill="#f5f5f5"/><path d="M15,35 l5,-8 l5,6 l5,-10 l5,8 l5,-6 l5,10 l5,-8" stroke="#8B4513" stroke-width="1.2" fill="none"/></svg><div class="info"><b>Microblading strokes</b>Curved hair strokes — 90° blade, tap-and-lift. Follow growth direction. Alternate sides.</div></div>
+    <div class="stroke-demo"><svg width="80" height="50" viewBox="0 0 80 50"><rect width="80" height="50" fill="#f5f5f5"/><path d="M15,35 l3,-5 l3,4 l3,-6 l3,5 l3,-4 l3,6 l3,-5 l3,4 l3,-6" stroke="#8B4513" stroke-width="0.8" fill="none"/></svg><div class="info"><b>Nano strokes (fine)</b>Tighter spacing, shorter strokes. Machine speed + hand speed control depth.</div></div>
+    <div class="stroke-demo"><svg width="80" height="50" viewBox="0 0 80 50"><rect width="80" height="50" fill="#f5f5f5"/><ellipse cx="40" cy="28" rx="28" ry="12" fill="#8B4513" opacity="0.35"/></svg><div class="info"><b>Shading — whip / pendulum</b>Whip: flicking pixel dots. Pendulum: elliptical pendulum motion for ombre gradient. Tail darkest on powder brows.</div></div>
+  </div>
+  <div class="foot"><div class="frow"><div><span class="brand">Hello Gorgeous</span></div><div>Page 2 of 10</div></div></div>
+</div>
+
+<!-- P3 BROW MAPPING -->
+<div class="page">
+  <div class="head"><div class="kicker">Section 2 · Mapping</div><h1>Brow Mapping <span>Geometry</span></h1><div class="subhead">Measure twice, blade once. Client must approve shape before numbing.</div></div>
+  <div class="body">
+    <div class="map-wrap">
+      <svg class="map-svg" viewBox="0 0 280 320" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="140" cy="175" rx="95" ry="115" fill="#f5e6dc" stroke="#ddd" stroke-width="1"/>
+        <ellipse cx="140" cy="130" rx="70" ry="18" fill="#e8d5c8"/>
+        <circle cx="100" cy="125" r="4" fill="#333"/><circle cx="180" cy="125" r="4" fill="#333"/>
+        <path d="M115,155 Q140,148 165,155" stroke="#c4a882" stroke-width="2" fill="none"/>
+        <!-- mapping lines -->
+        <line x1="95" y1="60" x2="95" y2="200" stroke="#D4537E" stroke-width="1.5" opacity="0.9"/>
+        <line x1="185" y1="60" x2="185" y2="200" stroke="#D4537E" stroke-width="1.5" opacity="0.9"/>
+        <line x1="95" y1="200" x2="140" y2="115" stroke="#D4537E" stroke-width="1.5" opacity="0.9"/>
+        <line x1="185" y1="200" x2="230" y2="125" stroke="#D4537E" stroke-width="1.5" opacity="0.9"/>
+        <line x1="95" y1="200" x2="250" y2="130" stroke="#D4537E" stroke-width="1.5" opacity="0.9"/>
+        <line x1="185" y1="200" x2="250" y2="130" stroke="#D4537E" stroke-width="1.5" opacity="0.9"/>
+        <line x1="60" y1="145" x2="220" y2="145" stroke="#3E2B5E" stroke-width="1" stroke-dasharray="5 3" opacity="0.7"/>
+        <text x="88" y="55" font-size="8" fill="#D4537E" font-weight="bold">HEAD</text>
+        <text x="132" y="108" font-size="8" fill="#D4537E" font-weight="bold">ARCH</text>
+        <text x="228" y="125" font-size="8" fill="#D4537E" font-weight="bold">TAIL</text>
+        <!-- brow outline -->
+        <path d="M98,148 Q115,138 135,142 Q155,128 175,135 Q195,140 210,148 Q200,152 180,150 Q155,155 130,152 Q110,155 98,148Z" fill="none" stroke="#8B4513" stroke-width="1.5" opacity="0.6"/>
+      </svg>
+      <ul class="map-notes">
+        <li><b>Head line:</b> Vertical from alar wing through inner canthus</li>
+        <li><b>Arch line:</b> Diagonal nostril → pupil center (adjust for hooded lids)</li>
+        <li><b>Tail line:</b> Diagonal nostril → outer canthus — tail never below head</li>
+        <li><b>Horizontal baseline:</b> Level brows across forehead — check from 6 ft back</li>
+        <li><b>Spine mark:</b> Draw the "part" where upper/lower stroke fields meet</li>
+        <li><b>Mirror approval:</b> Client signs off before numbing — photo this step</li>
+      </ul>
+    </div>
+    <div class="section-label">Spine placement quick pick</div>
+    <div class="grid g3">
+      <div class="card"><div class="ch copper"><span class="nm">Low spine</span></div><div class="cb">Soft, approachable. More upward strokes above. Round faces.</div></div>
+      <div class="card"><div class="ch pink"><span class="nm">Medium spine</span></div><div class="cb">Default. Center of brow height. Master this first.</div></div>
+      <div class="card"><div class="ch plum"><span class="nm">High spine</span></div><div class="cb">Structured lift. Density below spine. Use with caution on hooded eyes.</div></div>
+    </div>
+  </div>
+  <div class="foot"><div class="frow"><div><span class="brand">Hello Gorgeous</span></div><div>Page 3 of 10</div></div></div>
+</div>
+
+<!-- P4 FIVE STEP BUILD -->
+<div class="page">
+  <div class="head"><div class="kicker">Section 3 · Stroke Build</div><h1>Five-Step <span>Stroke System</span></h1><div class="subhead">Never skip Step 1 — the skeleton IS the brow.</div></div>
+  <div class="body">
+    <div class="steps">
+      <div class="step"><div class="n">1</div><div><b>Skeleton strokes</b> — Minimum strokes defining head, arch flow, tail. Light pressure. Step back every 3–4 strokes.</div></div>
+      <div class="step"><div class="n">2</div><div><b>Guide grid (optional)</b> — Faint angle guides between spine and border for asymmetric faces.</div></div>
+      <div class="step"><div class="n">3</div><div><b>Primary strokes</b> — Main body following growth direction. 90° blade, three-point stretch, alternate sides.</div></div>
+      <div class="step"><div class="n">4</div><div><b>Filler strokes</b> — Shorter, lighter between primaries. Less is more — add at touch-up, not day one.</div></div>
+      <div class="step"><div class="n">5</div><div><b>Tail &amp; detail</b> — Refine taper, symmetry from 6 ft, wipe, photo, aftercare, book touch-up 6–8 wks.</div></div>
+    </div>
+    <div class="section-label">Blade technique non-negotiables</div>
+    <table><thead><tr><th>Rule</th><th>Why</th></tr></thead><tbody>
+      <tr><td><b>90° to skin</b></td><td>Tilt = inconsistent depth and stroke width</td></tr>
+      <tr><td><b>Tap &amp; lift</b></td><td>Drag = double pass = blowout / gray heal</td></tr>
+      <tr><td><b>Three-point stretch</b></td><td>Flat skin = clean stroke; no stretch = skip</td></tr>
+      <tr><td><b>Wipe between passes</b></td><td>Excess pigment hides gap pattern</td></tr>
+      <tr><td><b>Upper papillary dermis</b></td><td>Too shallow fades; reticular dermis = gray migration</td></tr>
+    </tbody></table>
+    <div class="section-label">Stroke spacing by zone</div>
+    <table><thead><tr><th>Zone</th><th>Pattern</th></tr></thead><tbody>
+      <tr><td>Head</td><td>Short, rising strokes</td></tr>
+      <tr><td>Body</td><td>Medium diagonal toward tail</td></tr>
+      <tr><td>Tail</td><td>Longest, horizontal taper</td></tr>
+      <tr><td>Gap rule</td><td>≈ one stroke width — avoid railroad tracks</td></tr>
+    </tbody></table>
+  </div>
+  <div class="foot"><div class="frow"><div><span class="brand">Hello Gorgeous</span></div><div>Page 4 of 10</div></div></div>
+</div>
+
+<!-- P5 COLOR SWATCHES -->
+<div class="page">
+  <div class="head"><div class="kicker">Section 4 · Color</div><h1>Pigment <span>Reference</span></h1><div class="subhead">Permablend Brows palette — match undertone, heal cooler than you draw. Swipe test every time.</div></div>
+  <div class="body">
+    <div class="swatch-grid">
+      <div class="swatch"><div class="swatch-color" style="background:#1a1410"></div><div class="swatch-name">Blackish Brown</div><div class="swatch-use">Deep cool brunette</div></div>
+      <div class="swatch"><div class="swatch-color" style="background:#2c1810"></div><div class="swatch-name">Espresso</div><div class="swatch-use">Rich dark brown</div></div>
+      <div class="swatch"><div class="swatch-color" style="background:#3d2018"></div><div class="swatch-name">Darkest Brown</div><div class="swatch-use">Bold brunette base</div></div>
+      <div class="swatch"><div class="swatch-color" style="background:#4a2820"></div><div class="swatch-name">Fudge</div><div class="swatch-use">Warm deep brown</div></div>
+      <div class="swatch"><div class="swatch-color" style="background:#3a3020"></div><div class="swatch-name">Forest Brown</div><div class="swatch-use">Olive undertone</div></div>
+      <div class="swatch"><div class="swatch-color" style="background:#4a3530"></div><div class="swatch-name">Brunette</div><div class="swatch-use">Universal medium</div></div>
+      <div class="swatch"><div class="swatch-color" style="background:#6a5a50"></div><div class="swatch-name">Taupe</div><div class="swatch-use">Cool ash blonde-brown</div></div>
+      <div class="swatch"><div class="swatch-color" style="background:#5a5038"></div><div class="swatch-name">Ginger Brown</div><div class="swatch-use">Warm red-brown</div></div>
+      <div class="swatch"><div class="swatch-color" style="background:#6a4030"></div><div class="swatch-name">Burnt Sienna</div><div class="swatch-use">Auburn warmth</div></div>
+      <div class="swatch"><div class="swatch-color" style="background:#7a6050"></div><div class="swatch-name">Golden Sunrise</div><div class="swatch-use">Light warm blonde</div></div>
+      <div class="swatch"><div class="swatch-color" style="background:#3a2820"></div><div class="swatch-name">Dark Brown</div><div class="swatch-use">Standard medium-dark</div></div>
+      <div class="swatch"><div class="swatch-color" style="background:#4a4035"></div><div class="swatch-name">Martini Olive</div><div class="swatch-use">Green-ash corrective</div></div>
+    </div>
+    <div class="section-label">Selection workflow</div>
+    <div class="steps">
+      <div class="step"><div class="n">1</div><div>Identify undertone — warm (golden/peach) vs cool (pink/ash) vs neutral</div></div>
+      <div class="step"><div class="n">2</div><div>Match hair root color, not dyed ends — go 1–2 shades softer than desired heal</div></div>
+      <div class="step"><div class="n">3</div><div>Swipe test on stroke card — wipe halfway, read remaining line as healed approx.</div></div>
+      <div class="step"><div class="n">4</div><div>Fitzpatrick check — lighter skin = lighter value; deeper skin = richer base, avoid ashy titanium</div></div>
+    </div>
+    <div class="al plum"><b>Common mistakes</b>Warm client + ash-only pigment = gray heal. Cool client + warm-only = orange heal. Oily skin = strokes blur — consider nano or powder.</div>
+  </div>
+  <div class="foot"><div class="frow"><div><span class="brand">Hello Gorgeous</span></div><div>Page 5 of 10</div></div></div>
+</div>
+
+<!-- P6 ANATOMY + TOOLS -->
+<div class="page">
+  <div class="head"><div class="kicker">Section 5</div><h1>Anatomy &amp; <span>Setup</span></h1></div>
+  <div class="body">
+    <div class="grid g4">
+      <div class="card"><div class="ch copper"><span class="nm">Landmarks</span></div><div class="cb"><ul class="m"><li>Head · arch · tail first</li><li>Map at rest — not squinting</li><li>Brow bone affects profile view</li></ul></div></div>
+      <div class="card"><div class="ch pink"><span class="nm">Hair direction</span></div><div class="cb"><ul class="m"><li>Head: up/vertical</li><li>Body: diagonal to tail</li><li>Tail: horizontal</li></ul></div></div>
+      <div class="card"><div class="ch teal"><span class="nm">Skin depth</span></div><div class="cb"><ul class="m"><li>Epidermis = too shallow</li><li><b>Upper dermis = target</b></li><li>Reticular = gray blowout</li></ul></div></div>
+      <div class="card"><div class="ch navy"><span class="nm">Healing</span></div><div class="cb"><ul class="m"><li>Days 1–3: dark &amp; bold</li><li>Days 4–10: flake</li><li>Wk 4–6: true color</li></ul></div></div>
+    </div>
+    <div class="section-label">Sterile setup checklist</div>
+    <ul class="checklist">
+      <li>Disposable pen + single-use blade (18U / 14U per plan)</li>
+      <li>Fresh pigment pour — never double-dip master bottle</li>
+      <li>Mapping pencil, calipers, thread for symmetry</li>
+      <li>Topical anesthetic per protocol — timed on intact skin</li>
+      <li>Barrier film on bed, tray, lamp; glove change between phases</li>
+      <li>Consent + medical history + patch test status verified</li>
+      <li>Sharps container + biohazard waste accessible</li>
+    </ul>
+    <div class="section-label">Contraindications — do not proceed</div>
+    <div class="grid">
+      <div class="cb" style="border:1px solid var(--line);border-radius:8px;padding:10px;font-size:10px;">Pregnancy · Accutane (12 mo) · Keloid history · Active skin condition in area · Uncontrolled diabetes · Blood thinners without MD clearance</div>
+      <div class="cb" style="border:1px solid var(--line);border-radius:8px;padding:10px;font-size:10px;">Recent sunburn, peel, or laser on brows · Recent MRI zone (check protocol) · Under 18 without guardian consent</div>
+    </div>
+  </div>
+  <div class="foot"><div class="frow"><div><span class="brand">Hello Gorgeous</span></div><div>Page 6 of 10</div></div></div>
+</div>
+
+<!-- P7 PROCEDURE -->
+<div class="page">
+  <div class="head"><div class="kicker">Section 6 · Day-of</div><h1>Procedure <span>Flow</span></h1></div>
+  <div class="body">
+    <div class="grid">
+      <div class="card"><div class="ch plum"><span class="nm">1 Consult</span></div><div class="cb">History, contraindications, goals, healing timeline, consent signed</div></div>
+      <div class="card"><div class="ch pink"><span class="nm">2 Photos</span></div><div class="cb">Front, 45° both sides, profile — same lighting every time</div></div>
+      <div class="card"><div class="ch copper"><span class="nm">3 Prep</span></div><div class="cb">Cleanse, disinfect, barrier where needed</div></div>
+      <div class="card"><div class="ch navy"><span class="nm">4 Map</span></div><div class="cb">Golden ratio, spine choice, mirror approval, photo mapping</div></div>
+      <div class="card"><div class="ch teal"><span class="nm">5 Numb</span></div><div class="cb">Per label timing. Re-wipe — residue blocks uptake</div></div>
+      <div class="card"><div class="ch pink"><span class="nm">6 Blade</span></div><div class="cb">5-step build. Alternate sides. Wipe often.</div></div>
+      <div class="card"><div class="ch copper"><span class="nm">7 Mask</span></div><div class="cb">Optional pigment sit 3–5 min per your training standard</div></div>
+      <div class="card"><div class="ch plum"><span class="nm">8 Finish</span></div><div class="cb">Clean, thin aftercare, written instructions, touch-up booked</div></div>
+    </div>
+    <div class="al"><b>Documentation</b>Photograph: pre → mapped → immediately post → healed (2 wk, 6 wk). Note pigment lot, blade config, spine type, stroke count estimate.</div>
+  </div>
+  <div class="foot"><div class="frow"><div><span class="brand">Hello Gorgeous</span></div><div>Page 7 of 10</div></div></div>
+</div>
+
+<!-- P8 AFTERCARE -->
+<div class="page">
+  <div class="head"><div class="kicker">Section 7</div><h1>Aftercare <span>Teaching Script</span></h1></div>
+  <div class="body">
+    <div class="grid g3">
+      <div class="card"><div class="ch copper"><span class="nm">Days 1–7</span></div><div class="cb"><ul class="m"><li>Thin ointment 2× daily</li><li>No soaking, steam, makeup on brows</li><li>No picking — ever</li><li>Quick shower OK, pat dry</li></ul></div></div>
+      <div class="card"><div class="ch pink"><span class="nm">Days 7–14</span></div><div class="cb"><ul class="m"><li>"Ghost" phase normal</li><li>No sauna, swimming, heavy sweat</li><li>SPF when fully closed only</li></ul></div></div>
+      <div class="card"><div class="ch navy"><span class="nm">Weeks 4–8</span></div><div class="cb"><ul class="m"><li>Touch-up when color stable</li><li>Bring reference photos</li><li>Less is more on pass 2</li></ul></div></div>
+    </div>
+    <div class="al" style="border-color:var(--red);background:#fdf2f2;"><b style="color:var(--red)">Escalate to clinic</b>Swelling &gt;48h · spreading redness · pus · fever · allergic signs — client calls Hello Gorgeous immediately.</div>
+    <div class="section-label">What to tell every client on day 1</div>
+    <p style="font-size:11px;line-height:1.6;">"Your brows will look <b>dark and bold</b> for the first few days — that's normal. They will lighten 30–50% as they heal. Do not pick flaking skin. Follow the aftercare sheet exactly. Book your touch-up in 6–8 weeks when true color shows. Call us if anything looks unusual."</p>
+  </div>
+  <div class="foot"><div class="frow"><div><span class="brand">Hello Gorgeous</span></div><div>Page 8 of 10</div></div></div>
+</div>
+
+<!-- P9 PRACTICE SHEETS GUIDE -->
+<div class="page">
+  <div class="head"><div class="kicker">Section 8 · Practice</div><h1>Practice <span>Sheets &amp; Drills</span></h1><div class="subhead">Trace → freehand → fake skin → supervised model. Speed comes after 50+ repetitions.</div></div>
+  <div class="body">
+    <div class="section-label">Weekly drill schedule</div>
+    <table><thead><tr><th>Week</th><th>Focus</th><th>Daily minimum</th></tr></thead><tbody>
+      <tr><td><b>1–2</b></td><td>Mapping + spine templates</td><td>10 brows: low, medium, high spine traces</td></tr>
+      <tr><td><b>3</b></td><td>5-step on paper</td><td>5 skeleton → finish progressions</td></tr>
+      <tr><td><b>4</b></td><td>Fake skin depth</td><td>3 full brows — focus on 90° + depth feel only</td></tr>
+      <tr><td><b>5+</b></td><td>Supervised models</td><td>Full documentation; Dani/Ryan sign-off before solo</td></tr>
+    </tbody></table>
+    <div class="section-label">Practice sheet types (create or print your own)</div>
+    <div class="grid">
+      <div class="card"><div class="ch plum"><span class="nm">Steps guide</span></div><div class="cb">5 panels: skeleton → grid → primary → filler → finished. Trace each stage.</div></div>
+      <div class="card"><div class="ch pink"><span class="nm">Low spine sheet</span></div><div class="cb">Pre-drawn spine low — fill upper field with upward strokes.</div></div>
+      <div class="card"><div class="ch copper"><span class="nm">Medium spine sheet</span></div><div class="cb">Default template — master before advancing.</div></div>
+      <div class="card"><div class="ch navy"><span class="nm">High spine sheet</span></div><div class="cb">Structured lift pattern — density below spine only.</div></div>
+    </div>
+    <div class="al plum"><b>Optional: iPad / Procreate practice</b>Digital mapping and stroke drills on face templates can accelerate muscle memory before live skin — but digital strokes do not replace fake-skin depth training. Hand pressure on real skin is different.</div>
+  </div>
+  <div class="foot"><div class="frow"><div><span class="brand">Hello Gorgeous</span></div><div>Page 9 of 10</div></div></div>
+</div>
+
+<!-- P10 QUICK REFERENCE -->
+<div class="page">
+  <div class="head"><div class="kicker">Quick Reference</div><h1>Desk <span>Cheat Sheet</span></h1></div>
+  <div class="body" style="padding-top:16px;">
+    <div class="grid">
+      <div class="card"><div class="ch copper"><span class="nm">Depth</span></div><div class="cb" style="font-size:14px;font-weight:700;">Upper papillary dermis</div></div>
+      <div class="card"><div class="ch pink"><span class="nm">Angle</span></div><div class="cb" style="font-size:14px;font-weight:700;">90° to skin</div></div>
+      <div class="card"><div class="ch plum"><span class="nm">Touch-up</span></div><div class="cb" style="font-size:14px;font-weight:700;">6–8 weeks post-heal</div></div>
+      <div class="card"><div class="ch navy"><span class="nm">Mapping</span></div><div class="cb" style="font-size:14px;font-weight:700;">Nostril → pupil → canthus</div></div>
+    </div>
+    <div class="banner" style="margin:20px 0;">STROKE ORDER: SKELETON → PRIMARY → FILLER → TAIL</div>
+    <div class="grid">
+      <div class="cb" style="border:2px solid var(--plum);border-radius:12px;padding:14px;font-size:11px;line-height:1.6;">
+        <b style="font-family:'Bebas Neue';font-size:18px;color:var(--plum);">Before every client</b><br/><br/>
+        ☐ Consent + history<br/>
+        ☐ Contraindications cleared<br/>
+        ☐ Photos taken<br/>
+        ☐ Map approved in mirror<br/>
+        ☐ Pigment swipe test done<br/>
+        ☐ Fresh blade + pigment pour<br/>
+        ☐ Aftercare printed
+      </div>
+      <div class="cb" style="border:2px solid var(--pink);border-radius:12px;padding:14px;font-size:11px;line-height:1.6;">
+        <b style="font-family:'Bebas Neue';font-size:18px;color:var(--pink);">Never do this</b><br/><br/>
+        ✕ Blade without approved map<br/>
+        ✕ Double-pass same stroke<br/>
+        ✕ Work on inflamed skin<br/>
+        ✕ Chase Instagram darkness day 1<br/>
+        ✕ Skip touch-up scheduling<br/>
+        ✕ Share photos without consent
+      </div>
+    </div>
+    <p style="text-align:center;margin-top:24px;font-size:12px;color:var(--mute);">Hello Gorgeous Med Spa · 74 W Washington St, Oswego, IL · 630-636-6193<br/>hellogorgeousmedspa.com · Ryan Kent, FNP-BC · Danielle Alcala, RN-S</p>
+  </div>
+  <div class="foot"><div class="frow"><div><span class="brand">Hello Gorgeous</span></div><div>Page 10 of 10</div></div><div class="copy">© 2026 Hello Gorgeous Med Spa · Internal training manual · All rights reserved · Not for reproduction or client distribution.</div></div>
+</div>
+
+</body>
+</html>

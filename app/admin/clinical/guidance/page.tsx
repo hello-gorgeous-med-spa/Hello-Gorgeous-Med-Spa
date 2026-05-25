@@ -16,6 +16,17 @@ export default function ClinicalGuidancePage() {
 
       <div className="space-y-4">
         <Link
+          href="/admin/tools/brow-mapping"
+          className="block p-4 rounded-xl border border-gray-200 bg-white hover:bg-gray-50 transition-colors"
+        >
+          <span className="text-lg">✏️</span>
+          <h2 className="font-semibold text-black mt-2">Brow Mapping Intelligence</h2>
+          <p className="text-sm text-gray-600 mt-1">
+            Live client consultation — photo mapping, shape/pigment preview, and branded export. Photos stay on device.
+          </p>
+        </Link>
+
+        <Link
           href="/admin/compliance/binder"
           className="block p-4 rounded-xl border border-gray-200 bg-white hover:bg-gray-50 transition-colors"
         >

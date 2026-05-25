@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>Hello Gorgeous PMU Practice Studio — Internal</title>
+<style>
+  :root{--plum:#3E2B5E;--pink:#E6007E;--hot:#FF2D8E;--soft:#FFB8DC;--bg:#120818;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:#fff;min-height:100vh;}
+  header{padding:14px 16px;border-bottom:1px solid rgba(255,255,255,.1);background:rgba(0,0,0,.45);}
+  header h1{font-family:Georgia,serif;font-size:1.35rem;}
+  header p{font-size:.75rem;color:rgba(255,255,255,.6);margin-top:4px;}
+  .badge{display:inline-block;background:var(--pink);font-size:9px;font-weight:700;letter-spacing:.12em;padding:3px 8px;border-radius:4px;margin-bottom:6px;}
+  .layout{display:grid;grid-template-columns:1fr;gap:12px;padding:12px;max-width:1200px;margin:0 auto;}
+  @media(min-width:900px){.layout{grid-template-columns:200px 1fr 200px;}}
+  .panel{background:rgba(62,43,94,.45);border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:12px;}
+  .panel h2{font-size:10px;text-transform:uppercase;letter-spacing:.15em;color:var(--soft);margin-bottom:8px;}
+  .btn{display:block;width:100%;text-align:left;border:1px solid rgba(255,255,255,.12);background:rgba(0,0,0,.25);color:#fff;border-radius:10px;padding:8px 10px;font-size:13px;margin-bottom:6px;cursor:pointer;}
+  .btn.active{border-color:var(--hot);background:rgba(230,0,126,.25);font-weight:600;}
+  .canvas-wrap{position:relative;border:4px solid #000;border-radius:14px;overflow:hidden;box-shadow:8px 8px 0 rgba(230,0,126,.35);background:#f5f0eb;}
+  canvas{display:block;width:100%;touch-action:none;}
+  #drawCanvas{position:absolute;inset:0;cursor:crosshair;}
+  .toolbar{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;}
+  .toolbar button{border:1px solid rgba(255,255,255,.2);background:transparent;color:#fff;border-radius:999px;padding:8px 14px;font-size:13px;font-weight:600;}
+  .swatch{display:grid;grid-template-columns:1fr 1fr;gap:6px;}
+  .swatch button{border:1px solid rgba(255,255,255,.1);border-radius:8px;overflow:hidden;padding:0;background:transparent;color:#fff;text-align:left;}
+  .swatch button.active{border-color:var(--hot);box-shadow:0 0 0 2px rgba(230,0,126,.4);}
+  .swatch-color{height:28px;}
+  .swatch-name{font-size:10px;font-weight:700;padding:4px 6px;background:rgba(255,255,255,.06);}
+  .hint{font-size:12px;color:var(--soft);margin:8px 0;min-height:2.5em;}
+  .footer{font-size:9px;color:rgba(255,255,255,.4);margin-top:10px;border-top:1px solid rgba(255,255,255,.1);padding-top:8px;}
+</style>
+</head>
+<body>
+<header>
+  <div class="badge">INTERNAL TRAINING ONLY</div>
+  <h1>PMU Practice Studio</h1>
+  <p>Mapping · Microblading · Nano · Shading — works with Apple Pencil in Safari</p>
+</header>
+<div class="layout">
+  <aside class="panel" id="brushPanel"></aside>
+  <main>
+    <div class="hint" id="hint"></div>
+    <div class="canvas-wrap" id="wrap">
+      <canvas id="bgCanvas"></canvas>
+      <canvas id="drawCanvas"></canvas>
+    </div>
+    <div class="toolbar">
+      <button type="button" id="undoBtn">Undo</button>
+      <button type="button" id="clearBtn">Clear strokes</button>
+      <button type="button" id="guideBtn">Hide guides</button>
+      <button type="button" id="exportBtn">Export PNG</button>
+    </div>
+  </main>
+  <aside class="panel">
+    <h2>Templates</h2>
+    <div id="templatePanel"></div>
+    <h2 style="margin-top:14px">Color swatches</h2>
+    <div class="swatch" id="pigmentPanel"></div>
+    <p class="footer">Hello Gorgeous Med Spa · Not for client distribution</p>
+  </aside>
+</div>
+<script>
+const BRUSHES=[
+  {id:'mapping-solid',cat:'Mapping',label:'Mapping [solid]',size:2.5,opacity:.95,mapping:true},
+  {id:'mapping-sketch',cat:'Mapping',label:'Mapping [sketch]',size:2,opacity:.45,mapping:true},
+  {id:'mapping-dotted',cat:'Mapping',label:'Mapping [dotted]',size:2,opacity:.9,mapping:true},
+  {id:'outline',cat:'Outline',label:'Outline',size:1.2,opacity:1,mapping:true},
+  {id:'microblading',cat:'Strokes',label:'Microblading',size:1.4,opacity:.92},
+  {id:'nano',cat:'Strokes',label:'Nano',size:.9,opacity:.88},
+  {id:'nano-fine',cat:'Strokes',label:'Nano [fine]',size:.55,opacity:.82},
+  {id:'shading-whip',cat:'Shading',label:'1RL [whip]',size:1.1,opacity:.35},
+  {id:'shading-pendulum',cat:'Shading',label:'Shading [pendulum]',size:2.4,opacity:.18},
+  {id:'eraser',cat:'Tools',label:'Eraser',size:14,opacity:1},
+];
+const PIGMENTS=[
+  {id:'espresso',name:'Espresso',hex:'#3d2914'},
+  {id:'brunette',name:'Brunette',hex:'#5c4033'},
+  {id:'taupe',name:'Taupe',hex:'#8b7355'},
+  {id:'darkest',name:'Darkest Brown',hex:'#2a1a0e'},
+  {id:'fudge',name:'Fudge',hex:'#6b4423'},
+  {id:'sienna',name:'Burnt Sienna',hex:'#8b4513'},
+];
+const TEMPLATES={
+  'front-face':{w:600,h:720,label:'Front face model'},
+  'brow-closeup':{w:600,h:420,label:'Brow close-up'},
+  'blank-canvas':{w:600,h:720,label:'Blank worksheet'},
+};
+const HINTS={
+  'mapping-solid':'Mark head, arch, and tail with clean geometric lines.',
+  microblading:'Follow spine direction — low, medium, high. Stagger overlaps.',
+  nano:'Finer machine-style strokes for dense fill zones.',
+  'shading-pendulum':'Soft powder passes — build slowly, never one heavy pass.',
+};
+const MAPPING='#E6007E';
+let brushId='mapping-solid', templateId='front-face', showGuides=true, pigment=PIGMENTS[0];
+let drawing=false, last=null, undoStack=[];
+const bg=document.getElementById('bgCanvas'), draw=document.getElementById('drawCanvas'), wrap=document.getElementById('wrap');
+
+function svgFront(g){return `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 720'><rect width='600' height='720' fill='#f5f0eb'/><ellipse cx='300' cy='380' rx='195' ry='240' fill='#e8c4a8'/><ellipse cx='230' cy='340' rx='38' ry='22' fill='#fff' opacity='.9'/><ellipse cx='370' cy='340' rx='38' ry='22' fill='#fff' opacity='.9'/><circle cx='230' cy='342' r='14' fill='#4a3728'/><circle cx='370' cy='342' r='14' fill='#4a3728'/><path d='M300 360 L292 430 L308 430 Z' fill='#c9a07a' opacity='.35'/>${g?`<g stroke='${MAPPING}' fill='none' stroke-width='1.5'><line x1='250' y1='520' x2='250' y2='180' stroke-dasharray='6 4'/><line x1='350' y1='520' x2='350' y2='180' stroke-dasharray='6 4'/><line x1='250' y1='520' x2='195' y2='248'/><line x1='350' y1='520' x2='405' y2='248'/><line x1='250' y1='520' x2='168' y2='268'/><line x1='350' y1='520' x2='432' y2='268'/><line x1='120' y1='248' x2='480' y2='248'/></g>`:''}</svg>`;}
+function svgBrow(g){return `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 420'><rect width='600' height='420' fill='#faf6f2'/><ellipse cx='300' cy='290' rx='240' ry='110' fill='#e8c4a8'/>${g?`<g stroke='${MAPPING}' fill='none'><line x1='120' y1='280' x2='480' y2='280' stroke-dasharray='5 3'/><rect x='155' y='248' width='290' height='52' rx='26' stroke-dasharray='4 4'/></g>`:''}</svg>`;}
+function svgBlank(){return `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 720'><rect width='600' height='720' fill='#fff'/><defs><pattern id='g' width='24' height='24' patternUnits='userSpaceOnUse'><path d='M24 0 L0 0 0 24' fill='none' stroke='#ece6df'/></pattern></defs><rect width='600' height='720' fill='url(#g)'/><rect x='80' y='140' width='440' height='120' rx='60' fill='none' stroke='#ddd5cc' stroke-dasharray='8 6'/><rect x='80' y='460' width='440' height='120' rx='60' fill='none' stroke='#ddd5cc' stroke-dasharray='8 6'/></svg>`;}
+function tplSvg(){if(templateId==='brow-closeup')return svgBrow(showGuides);if(templateId==='blank-canvas')return svgBlank();return svgFront(showGuides);}
+
+function dist(a,b){return Math.hypot(b.x-a.x,b.y-a.y);}
+function color(){const b=BRUSHES.find(x=>x.id===brushId);return b.mapping?MAPPING:pigment.hex;}
+function drawSeg(ctx,from,to){
+  const b=BRUSHES.find(x=>x.id===brushId), col=color();
+  ctx.globalCompositeOperation=b.id==='eraser'?'destination-out':'source-over';
+  if(b.id==='eraser'){ctx.lineCap='round';ctx.lineWidth=b.size;ctx.strokeStyle='rgba(0,0,0,1)';ctx.beginPath();ctx.moveTo(from.x,from.y);ctx.lineTo(to.x,to.y);ctx.stroke();}
+  else if(b.id.startsWith('mapping')||b.id==='outline'){ctx.strokeStyle=col;ctx.lineWidth=b.size;ctx.lineCap='round';ctx.globalAlpha=b.opacity;ctx.beginPath();ctx.moveTo(from.x,from.y);ctx.lineTo(to.x,to.y);ctx.stroke();}
+  else if(b.id.includes('shading')){const n=Math.max(1,Math.floor(dist(from,to)/ (b.id==='shading-whip'?2.2:4.5)));ctx.fillStyle=col;ctx.globalAlpha=b.opacity;for(let i=0;i<=n;i++){const t=i/Math.max(n,1);ctx.beginPath();ctx.arc(from.x+(to.x-from.x)*t+(Math.random()-.5)*4,from.y+(to.y-from.y)*t+(Math.random()-.5)*4,b.size*(.35+Math.random()*.65),0,Math.PI*2);ctx.fill();}}
+  else{const ang=Math.atan2(to.y-from.y,to.x-from.x), n=Math.max(1,Math.floor(dist(from,to)/5));ctx.strokeStyle=col;ctx.lineCap='round';ctx.globalAlpha=b.opacity;const sl=b.id==='microblading'?16:b.id==='nano'?11:7;for(let i=0;i<n;i++){const t=(i+1)/n,cx=from.x+(to.x-from.x)*t,cy=from.y+(to.y-from.y)*t,perp=ang+Math.PI/2+(Math.random()-.5)*.35,len=sl*(.85+Math.random()*.3);ctx.lineWidth=b.size*(.6+Math.random()*.5);ctx.beginPath();ctx.moveTo(cx,cy);ctx.quadraticCurveTo(cx+Math.cos(perp)*len*.45,cy+Math.sin(perp)*len*.45,cx+Math.cos(perp+.5)*len,cy+Math.sin(perp+.5)*len);ctx.stroke();}}
+  ctx.globalCompositeOperation='source-over';ctx.globalAlpha=1;
+}
+
+async function paintBg(clear){
+  const t=TEMPLATES[templateId], dpr=window.devicePixelRatio||1, w=wrap.clientWidth, h=w*t.h/t.w;
+  [bg,draw].forEach(c=>{c.width=Math.floor(w*dpr);c.height=Math.floor(h*dpr);c.style.width=w+'px';c.style.height=h+'px';c.getContext('2d').setTransform(dpr,0,0,dpr,0,0);});
+  const img=new Image(); img.src='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(tplSvg());
+  await img.decode();
+  bg.getContext('2d').drawImage(img,0,0,w,h);
+  if(clear!==false){draw.getContext('2d').clearRect(0,0,w,h);undoStack=[];}
+}
+
+function pos(e){const r=draw.getBoundingClientRect();const p=e.touches?e.touches[0]:e;return{x:p.clientX-r.left,y:p.clientY-r.top};}
+function snap(){const ctx=draw.getContext('2d');undoStack.push(ctx.getImageData(0,0,draw.width,draw.height));if(undoStack.length>25)undoStack.shift();}
+function start(e){e.preventDefault();drawing=true;snap();last=pos(e);}
+function move(e){if(!drawing||!last)return;e.preventDefault();const n=pos(e);drawSeg(draw.getContext('2d'),last,n);last=n;}
+function end(){drawing=false;last=null;}
+
+draw.addEventListener('pointerdown',start);draw.addEventListener('pointermove',move);draw.addEventListener('pointerup',end);draw.addEventListener('pointerleave',end);
+draw.addEventListener('touchstart',start,{passive:false});draw.addEventListener('touchmove',move,{passive:false});draw.addEventListener('touchend',end);
+
+function renderBrushes(){
+  const el=document.getElementById('brushPanel'); el.innerHTML='<h2>PMU brushset</h2>';
+  BRUSHES.forEach(b=>{const btn=document.createElement('button');btn.type='button';btn.className='btn'+(b.id===brushId?' active':'');btn.textContent=b.label;btn.onclick=()=>{brushId=b.id;document.getElementById('hint').textContent=HINTS[b.id]||b.label+' selected.';renderBrushes();};el.appendChild(btn);});
+}
+function renderTemplates(){
+  const el=document.getElementById('templatePanel'); el.innerHTML='';
+  Object.entries(TEMPLATES).forEach(([id,t])=>{const btn=document.createElement('button');btn.type='button';btn.className='btn'+(id===templateId?' active':'');btn.textContent=t.label;btn.onclick=()=>{templateId=id;paintBg();renderTemplates();};el.appendChild(btn);});
+}
+function renderPigments(){
+  const el=document.getElementById('pigmentPanel'); el.innerHTML='';
+  PIGMENTS.forEach(p=>{const btn=document.createElement('button');btn.type='button';btn.className=p.id===pigment.id?'active':'';btn.innerHTML=`<div class='swatch-color' style='background:${p.hex}'></div><div class='swatch-name'>${p.name}</div>`;btn.onclick=()=>{pigment=p;renderPigments();};el.appendChild(btn);});
+}
+
+document.getElementById('undoBtn').onclick=()=>{const p=undoStack.pop();if(p)draw.getContext('2d').putImageData(p,0,0);};
+document.getElementById('clearBtn').onclick=()=>{snap();draw.getContext('2d').clearRect(0,0,draw.width,draw.height);};
+document.getElementById('guideBtn').onclick=()=>{showGuides=!showGuides;document.getElementById('guideBtn').textContent=(showGuides?'Hide':'Show')+' guides';paintBg(false);};
+document.getElementById('exportBtn').onclick=()=>{const m=document.createElement('canvas');m.width=draw.width;m.height=draw.height;const c=m.getContext('2d');c.drawImage(bg,0,0);c.drawImage(draw,0,0);const a=document.createElement('a');a.download='hg-pmu-practice-'+Date.now()+'.png';a.href=m.toDataURL('image/png');a.click();};
+window.addEventListener('resize',()=>paintBg());
+
+renderBrushes();renderTemplates();renderPigments();
+document.getElementById('hint').textContent=HINTS['mapping-solid'];
+paintBg();
+</script>
+</body>
+</html>

@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="HG Brow Map">
+<title>Hello Gorgeous · Brow Mapping Intelligence</title>
+<script src="https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/face_mesh.js" crossorigin="anonymous"></script>
+<style>
+:root{--pink:#E6007E;--hot:#FF2D8E;--soft:#FFB8DC;--plum:#3E2B5E;--navy:#0a1628;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#120818;color:#fff;min-height:100vh;}
+header{padding:14px 16px;border-bottom:1px solid rgba(255,255,255,.1);background:rgba(0,0,0,.5);}
+.badge{display:inline-block;background:var(--pink);font-size:9px;font-weight:700;letter-spacing:.12em;padding:3px 8px;border-radius:4px;margin-bottom:6px;}
+header h1{font-size:1.35rem;} header p{font-size:.78rem;color:rgba(255,255,255,.65);margin-top:4px;}
+.wrap{max-width:900px;margin:0 auto;padding:12px;}
+.upload{display:block;text-align:center;border:2px dashed rgba(230,0,126,.5);background:rgba(230,0,126,.12);border-radius:14px;padding:20px;cursor:pointer;margin-bottom:12px;}
+.upload input{display:none;}
+.canvas-box{border:4px solid #000;border-radius:14px;overflow:hidden;box-shadow:8px 8px 0 rgba(230,0,126,.35);background:#000;margin-bottom:10px;}
+canvas{display:block;width:100%;touch-action:none;}
+.toolbar{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px;}
+.toolbar button{border:1px solid rgba(255,255,255,.25);background:transparent;color:#fff;border-radius:999px;padding:8px 14px;font-size:13px;font-weight:600;}
+.toolbar button.primary{background:var(--pink);border-color:var(--pink);}
+.panel{background:rgba(62,43,94,.4);border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:14px;margin-bottom:12px;}
+.panel h2{font-size:11px;text-transform:uppercase;letter-spacing:.15em;color:var(--soft);margin-bottom:10px;}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+label{font-size:11px;display:block;margin-bottom:8px;}
+select{width:100%;margin-top:4px;border-radius:8px;border:1px solid rgba(255,255,255,.15);background:rgba(0,0,0,.35);color:#fff;padding:8px;}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px;}
+.chip{border:1px solid rgba(255,255,255,.2);background:transparent;color:#fff;border-radius:999px;padding:6px 12px;font-size:12px;font-weight:600;}
+.chip.on{border-color:var(--hot);background:rgba(230,0,126,.25);}
+.style-btn{display:block;width:100%;text-align:left;border:1px solid rgba(255,255,255,.15);background:rgba(0,0,0,.25);color:#fff;border-radius:10px;padding:10px;margin-bottom:8px;font-size:13px;cursor:pointer;}
+.style-btn.on{border-color:var(--hot);background:rgba(230,0,126,.25);box-shadow:0 0 0 2px rgba(230,0,126,.35);}
+.style-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.gen{width:100%;margin-top:12px;padding:14px;border:2px solid #000;border-radius:12px;background:linear-gradient(90deg,var(--hot),var(--pink));color:#fff;font-weight:800;font-size:15px;}
+.result{display:none;}.result.show{display:block;}
+.card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:12px;margin-bottom:10px;font-size:13px;line-height:1.45;}
+.card h3{color:var(--soft);font-size:12px;text-transform:uppercase;margin-bottom:6px;}
+.err{color:#f87171;font-size:13px;margin:8px 0;}
+.hint{font-size:11px;color:rgba(255,255,255,.45);margin-top:8px;}
+.status{text-align:center;padding:40px;color:rgba(255,255,255,.4);font-size:14px;}
+.shape-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:10px;}
+@media(min-width:520px){.shape-grid{grid-template-columns:repeat(4,1fr);}}
+.shape-btn{display:flex;flex-direction:column;align-items:center;gap:6px;border:1px solid rgba(255,255,255,.15);background:rgba(0,0,0,.2);color:#fff;border-radius:12px;padding:8px 6px;font-size:11px;font-weight:700;cursor:pointer;}
+.shape-btn.on{border-color:var(--hot);background:rgba(230,0,126,.25);box-shadow:0 0 0 2px rgba(230,0,126,.35);}
+.shape-btn svg{width:56px;height:34px;}
+.pig-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px;}
+.pig-btn{border:1px solid rgba(255,255,255,.1);border-radius:10px;overflow:hidden;text-align:left;background:transparent;color:#fff;cursor:pointer;padding:0;}
+.pig-btn.on{border-color:var(--hot);box-shadow:0 0 0 2px rgba(230,0,126,.45);}
+.pig-btn .sw{height:28px;width:100%;}
+.pig-btn .meta{background:rgba(255,255,255,.05);padding:6px 8px;}
+.pig-btn .meta b{display:block;font-size:10px;}
+.pig-btn .meta span{font-size:9px;color:rgba(255,255,255,.45);}
+.ref-img{width:100%;max-width:280px;border:2px solid #000;border-radius:12px;margin-top:10px;opacity:.9;}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <div class="badge">INTERNAL · OFFLINE iPad</div>
+    <h1>Brow Mapping Intelligence</h1>
+    <p>Upload photo → auto head/arch/tail → drag dots → pigment + asymmetry plan</p>
+  </div>
+</header>
+<div class="wrap">
+  <label class="upload"><input type="file" id="file" accept="image/jpeg,image/png,image/webp">Tap to upload client photo</label>
+
+  <div class="panel">
+    <h2>7 brow shapes · on face</h2>
+    <p class="hint">Tap a shape — preview updates on mapped brow zone.</p>
+    <img class="ref-img" src="brow-shapes-7-reference.png" alt="7 brow shape reference chart">
+    <div class="shape-grid" id="shapes"></div>
+  </div>
+
+  <div class="panel">
+    <h2>Tina Davies · I ❤️ INK</h2>
+    <p class="hint">Preview pigment on strokes — verify shade before ordering.</p>
+    <div class="pig-grid" id="pigments"></div>
+    <p class="hint" id="pigActive" style="color:var(--soft);margin-top:10px;"></p>
+  </div>
+
+  <div class="panel">
+    <h2>Preview style on photo</h2>
+    <div class="style-grid" id="styles">
+      <button type="button" class="style-btn" data-style="mapping-only">Mapping only</button>
+      <button type="button" class="style-btn on" data-style="individual-strokes">Individual strokes</button>
+      <button type="button" class="style-btn" data-style="ombre">Ombre / powder</button>
+      <button type="button" class="style-btn" data-style="hybrid">Hybrid / combo</button>
+    </div>
+  </div>
+
+  <div class="canvas-box"><canvas id="cv"></canvas></div>
+  <div id="err" class="err"></div>
+  <div class="toolbar">
+    <button type="button" id="toggle">Hide lines</button>
+    <button type="button" id="reset">Reset map</button>
+    <button type="button" id="export" class="primary">Export PNG</button>
+  </div>
+  <p class="hint">Drag pink dots: HEAD · ARCH · TAIL each side. Works with Apple Pencil.</p>
+
+  <div class="panel">
+    <h2>Client profile</h2>
+    <div class="grid2">
+      <label>Fitzpatrick<select id="fitz"><option>I</option><option>II</option><option selected>III</option><option>IV</option><option>V</option><option>VI</option></select></label>
+      <label>Undertone<select id="undertone"><option value="cool">Cool</option><option value="neutral" selected>Neutral</option><option value="warm">Warm</option><option value="olive">Olive</option></select></label>
+      <label style="grid-column:1/-1">Hair<select id="hair"><option value="blonde">Blonde</option><option value="light_brown">Light brown</option><option value="medium_brown" selected>Medium brown</option><option value="dark_brown">Dark brown</option><option value="black">Black</option></select></label>
+    </div>
+    <p style="font-size:11px;margin-top:10px;color:rgba(255,255,255,.5)">Brow goal</p>
+    <div class="chips" id="goals">
+      <button type="button" class="chip on" data-v="soft">Soft</button>
+      <button type="button" class="chip" data-v="structured">Structured</button>
+      <button type="button" class="chip" data-v="fluffy">Fluffy</button>
+      <button type="button" class="chip" data-v="lifted">Lifted</button>
+    </div>
+    <label style="margin-top:10px"><input type="checkbox" id="oily"> Oily skin</label>
+    <label><input type="checkbox" id="pmu"> Existing PMU</label>
+    <button type="button" class="gen" id="planBtn">Generate mapping plan</button>
+  </div>
+
+  <div id="results" class="result">
+    <div class="panel"><h2>Asymmetry</h2><div id="asym"></div></div>
+    <div class="panel"><h2>Pigment</h2><div id="pigment" class="card"></div></div>
+    <div class="panel"><h2>Technique</h2><div id="tech" class="card"></div></div>
+    <div class="panel"><h2>Offer & script</h2><div id="offer" class="card"></div></div>
+  </div>
+</div>
+<script>
+const LM={midline:168,rightNostril:98,leftNostril:327,leftIris:468,rightIris:473,leftEyeOuter:33,rightEyeOuter:263,leftBrowUpper:[336,296,334,293],rightBrowUpper:[107,66,105,63],leftBrowInner:285,rightBrowInner:55};
+const DIR={warm:'Warm it',neutral:'Neutral it','cool-lean':'Cool-lean','olive-ash':'Olive / ash'};
+const SHAPES=[
+  {id:'arch',label:'Arch'},{id:'soft-arch',label:'Soft Arch'},{id:'high-arch',label:'High Arch'},
+  {id:'round',label:'Round'},{id:'round-arch',label:'Round Arch'},{id:'upward',label:'Upward'},{id:'straight',label:'Straight'}
+];
+const ICONS={arch:'M8 28 Q28 8 52 24','soft-arch':'M8 26 Q30 14 52 22','high-arch':'M8 30 Q26 4 52 26',round:'M8 22 Q30 18 52 20','round-arch':'M8 24 Q30 12 52 22',upward:'M8 28 Q28 16 52 12',straight:'M8 24 L52 20'};
+const PIGMENTS=[
+  {id:'blonde',name:'Blonde',hex:'#b8956a',use:'Fair · light hair'},{id:'soft-brown',name:'Soft Brown',hex:'#9a7b5a',use:'Fair–medium'},
+  {id:'medium-brown',name:'Medium Brown',hex:'#6b4f3a',use:'HG workhorse'},{id:'bombshell',name:'Bombshell',hex:'#5c4033',use:'Light–medium brunette'},
+  {id:'dark-brown',name:'Dark Brown',hex:'#3d2914',use:'Deep brunette'},{id:'espresso',name:'Espresso',hex:'#2e1f14',use:'Rich cool-brown'},
+  {id:'ash-brown',name:'Ash Brown',hex:'#5a5348',use:'Olive counter'},{id:'warm-brown',name:'Warm Brown',hex:'#7a5230',use:'Fair cool skin'},
+  {id:'golden-sunrise',name:'Golden Sunrise',hex:'#c4956a',use:'Warm modifier'}
+];
+let img=null,lm=null,geom=null,pts=null,showLines=true,drag=null,faceMesh=null,goal='soft',stylePreview='individual-strokes',browShape='arch',tinaPigmentId='medium-brown';
+const cv=document.getElementById('cv'),ctx=cv.getContext('2d');
+const STYLES={ 'individual-strokes':{tech:'microblading',tr:'Hair strokes — stagger spines low to high.'}, ombre:{tech:'powder',tr:'Ombre powder — light head, deeper tail.'}, hybrid:{tech:'combo',tr:'Strokes in body + powder in tail.'}, 'mapping-only':{tech:'mapping',tr:'Guides only.'} };
+function seed(n){const x=Math.sin(n*12.9898+78.233)*43758.5453;return x-Math.floor(x);}
+function quad(h,a,t,p){const u=1-p;return{x:u*u*h.x+2*u*p*a.x+p*p*t.x,y:u*u*h.y+2*u*p*a.y+p*p*t.y};}
+function tang(h,a,t,p){const u=1-p,dx=2*u*(a.x-h.x)+2*p*(t.x-a.x),dy=2*u*(a.y-h.y)+2*p*(t.y-a.y);return Math.atan2(dy,dx);}
+function pigmentHex(){return PIGMENTS.find(p=>p.id===tinaPigmentId)?.hex||'#6b4f3a';}
+function applyShape(g){
+  function morph(side,shapeId,baselineY){
+    const {head,tail,arch}=side,span=Math.abs(tail.x-head.x)||1,sign=tail.x>=head.x?1:-1,depth=Math.max(8,Math.abs(baselineY-head.y)*.9),archX=head.x+sign*span*.55;
+    if(shapeId==='arch')return side;
+    if(shapeId==='soft-arch')return{head,arch:{x:archX,y:arch.y+depth*.12},tail};
+    if(shapeId==='high-arch')return{head,arch:{x:archX,y:arch.y-depth*.22},tail};
+    if(shapeId==='round')return{head,arch:{x:head.x+sign*span*.5,y:head.y-depth*.35},tail:{x:tail.x,y:head.y-depth*.08}};
+    if(shapeId==='round-arch')return{head,arch:{x:archX,y:head.y-depth*.42},tail:{x:tail.x,y:head.y-depth*.12}};
+    if(shapeId==='upward')return{head,arch:{x:head.x+sign*span*.45,y:head.y-depth*.28},tail:{x:tail.x,y:head.y-depth*.32}};
+    if(shapeId==='straight')return{head,arch:{x:head.x+sign*span*.5,y:head.y-depth*.1},tail:{x:tail.x,y:head.y-depth*.08}};
+    return side;
+  }
+  return{...g,left:morph(g.left,browShape,g.baselineY),right:morph(g.right,browShape,g.baselineY)};
+}
+function drawStrokes(s,col,sb){const n=18;for(let i=0;i<n;i++){const p=0.05+(0.9*i/Math.max(n-1,1)),pt=quad(s.head,s.arch,s.tail,p),an=tang(s.head,s.arch,s.tail,p)+Math.PI/2,off=(seed(sb+i)-.5)*14,cx=pt.x+Math.cos(an)*off,cy=pt.y+Math.sin(an)*off-4,perp=an+(seed(sb+i+1)-.5)*.25,len=8+seed(sb+i+2)*10;ctx.strokeStyle=col;ctx.globalAlpha=.55+seed(sb+i+3)*.35;ctx.lineWidth=.7+seed(sb+i+4)*.6;ctx.lineCap='round';ctx.beginPath();ctx.moveTo(cx,cy);ctx.quadraticCurveTo(cx+Math.cos(perp)*len*.45,cy+Math.sin(perp)*len*.45,cx+Math.cos(perp+.45)*len,cy+Math.sin(perp+.45)*len);ctx.stroke();}}
+function drawOmbre(s,col,sb){for(let i=0;i<=24;i++){const p=i/24,pt=quad(s.head,s.arch,s.tail,p),an=tang(s.head,s.arch,s.tail,p)+Math.PI/2;for(let j=-3;j<=3;j++){ctx.fillStyle=col;ctx.globalAlpha=(.12+p*.45)*(.6+seed(sb+i+j));ctx.beginPath();ctx.arc(pt.x+Math.cos(an)*j*3,pt.y+Math.sin(an)*j*3-5,1.2+p*1.5,0,Math.PI*2);ctx.fill();}}ctx.globalAlpha=1;}
+function drawStyle(g,col){
+  if(stylePreview==='mapping-only')return;
+  const shaped=applyShape(g);
+  [{s:shaped.left,sb:1},{s:shaped.right,sb:500}].forEach(({s,sb})=>{
+    if(stylePreview==='individual-strokes')drawStrokes(s,col,sb);
+    else if(stylePreview==='ombre')drawOmbre(s,col,sb);
+    else{drawStrokes(s,col,sb);drawOmbre(s,col,sb+100);}
+  });
+}
+
+function avgY(L,idx,h){return idx.map(i=>L[i].y*h).reduce((a,b)=>a+b,0)/idx.length;}
+function pt(L,i,w,h){return{x:L[i].x*w,y:L[i].y*h};}
+function lineY(a,b,y){const t=(y-a.y)/(b.y-a.y||1);return{x:a.x+t*(b.x-a.x),y};}
+function mapSide(n,iris,eye,top,base){return{head:{x:n.x,y:base},arch:lineY(n,iris,top),tail:lineY(n,eye,base)};}
+
+function compute(L,w,h){
+  if(!L||L.length<478)return null;
+  const ln=pt(L,LM.leftNostril,w,h),rn=pt(L,LM.rightNostril,w,h),li=pt(L,LM.leftIris,w,h),ri=pt(L,LM.rightIris,w,h),lo=pt(L,LM.leftEyeOuter,w,h),ro=pt(L,LM.rightEyeOuter,w,h),mid=pt(L,LM.midline,w,h);
+  const archY=(avgY(L,LM.leftBrowUpper,h)+avgY(L,LM.rightBrowUpper,h))/2;
+  const innerY=(L[LM.leftBrowInner].y*h+L[LM.rightBrowInner].y*h)/2;
+  const base=innerY+(archY-innerY)*.55;
+  return{midlineTop:{x:mid.x,y:archY-h*.08},midlineBottom:{x:mid.x,y:base+h*.12},baselineY:base,left:mapSide(ln,li,lo,archY,base),right:mapSide(rn,ri,ro,archY,base)};
+}
+
+function toPts(g){return{leftHead:g.left.head,leftArch:g.left.arch,leftTail:g.left.tail,rightHead:g.right.head,rightArch:g.right.arch,rightTail:g.right.tail};}
+function fromPts(p,g){return{...g,left:{head:p.leftHead,arch:p.leftArch,tail:p.leftTail},right:{head:p.rightHead,arch:p.rightArch,tail:p.rightTail}};}
+
+function draw(g,active){
+  const pink='#E6007E',hot='#FF2D8E';
+  ctx.save();ctx.lineWidth=2;ctx.strokeStyle=pink;ctx.setLineDash([6,4]);
+  ctx.beginPath();ctx.moveTo(g.midlineTop.x,g.midlineTop.y);ctx.lineTo(g.midlineBottom.x,g.midlineBottom.y);ctx.stroke();
+  ctx.beginPath();ctx.moveTo(g.left.head.x,g.baselineY);ctx.lineTo(g.right.head.x,g.baselineY);ctx.stroke();ctx.setLineDash([]);
+  function side(s,pfx){
+    ctx.strokeStyle=pink;ctx.beginPath();ctx.moveTo(s.head.x,s.head.y-40);ctx.lineTo(s.head.x,s.head.y+30);ctx.stroke();
+    ctx.beginPath();ctx.moveTo(s.head.x,s.head.y+25);ctx.lineTo(s.arch.x,s.arch.y);ctx.stroke();
+    ctx.beginPath();ctx.moveTo(s.head.x,s.head.y+25);ctx.lineTo(s.tail.x,s.tail.y);ctx.stroke();
+    ctx.strokeStyle=hot;ctx.lineWidth=2.5;ctx.beginPath();ctx.moveTo(s.head.x,s.head.y);ctx.quadraticCurveTo(s.arch.x,s.arch.y-8,s.tail.x,s.tail.y);ctx.stroke();
+    ctx.font='bold 11px sans-serif';ctx.fillStyle=pink;ctx.fillText(pfx+' HEAD',s.head.x+4,s.head.y-6);ctx.fillText(pfx+' ARCH',s.arch.x+4,s.arch.y-6);ctx.fillText(pfx+' TAIL',s.tail.x+4,s.tail.y+14);
+  }
+  side(g.left,'L');side(g.right,'R');
+  const h=toPts(g);for(const[id,p]of Object.entries(h)){ctx.beginPath();ctx.arc(p.x,p.y,id===active?9:7,0,Math.PI*2);ctx.fillStyle=id===active?'#fff':hot;ctx.fill();ctx.strokeStyle=pink;ctx.lineWidth=id===active?3:2;ctx.stroke();}
+  ctx.restore();
+}
+
+function paint(){
+  if(!img)return;
+  const w=cv.parentElement.clientWidth,h=Math.round(w*img.naturalHeight/img.naturalWidth);
+  cv.width=w*devicePixelRatio;cv.height=h*devicePixelRatio;cv.style.width=w+'px';cv.style.height=h+'px';
+  ctx.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0);
+  ctx.drawImage(img,0,0,w,h);
+  if(showLines&&lm){if(!geom){geom=compute(lm,w,h);if(geom)pts=toPts(geom);}if(geom&&pts){const g=fromPts(pts,geom);draw(g,drag);drawStyle(g,pigmentHex());}}
+}
+
+function hit(x,y,g){const h=toPts(g);for(const[id,p]of Object.entries(h))if(Math.hypot(x-p.x,y-p.y)<16)return id;return null;}
+
+function pigmentDir(f,u){if(u==='olive')return'olive-ash';if(['I','II'].includes(f)&&u==='cool')return'warm';if(['V','VI'].includes(f))return'cool-lean';if(u==='warm'&&['III','IV','V','VI'].includes(f))return'cool-lean';return'neutral';}
+
+function buildPlan(g){
+  const f=document.getElementById('fitz').value,u=document.getElementById('undertone').value,hair=document.getElementById('hair').value;
+  const oily=document.getElementById('oily').checked,pmu=document.getElementById('pmu').checked;
+  const dir=pigmentDir(f,u);
+  const asym=[];
+  const hd=Math.abs(g.left.head.y-g.right.head.y),ad=Math.abs(g.left.arch.y-g.right.arch.y);
+  const lw=Math.hypot(g.left.tail.x-g.left.head.x,g.left.tail.y-g.left.head.y);
+  const rw=Math.hypot(g.right.tail.x-g.right.head.x,g.right.tail.y-g.right.head.y);
+  if(hd>4)asym.push({t:'Head uneven',d:`~${hd.toFixed(0)}px difference`,a:'Map each nostril vertical separately.'});
+  if(ad>5)asym.push({t:'Arch mismatch',d:`~${ad.toFixed(0)}px`,a:'Soften higher arch — do not mirror.'});
+  if(lw/rw<.85||lw/rw>1.15)asym.push({t:'Tail length',d:`Ratio L:R ${(lw/rw).toFixed(2)}`,a:'Extend only to outer-eye guide.'});
+  if(!asym.length)asym.push({t:'Relatively balanced',d:'Confirm upright in person',a:'Fine-tune handles if needed.'});
+  let tech='nano',tr='Balanced nano strokes.';
+  if(STYLES[stylePreview]&&stylePreview!=='mapping-only'){tech=STYLES[stylePreview].tech;tr=STYLES[stylePreview].tr;}
+  else if(pmu||oily){tech='combo';tr='Combo/correction path.';}
+  else if(goal==='soft'||goal==='fluffy'){tech='microblading';tr='Hair strokes — stagger spines.';}
+  else if(goal==='structured'||goal==='lifted'){tech='combo';tr='Outline + strokes + light powder.';}
+  document.getElementById('asym').innerHTML=asym.map(x=>`<div class="card"><b>${x.t}</b><p>${x.d}</p><p style="color:#FFB8DC;margin-top:4px">→ ${x.a}</p></div>`).join('');
+  document.getElementById('pigment').innerHTML=`<p style="font-size:20px;font-weight:800">${DIR[dir]}</p><p style="margin-top:8px">Match hair: ${hair.replace('_',' ')} · undertone: ${u}</p><p style="margin-top:8px;color:rgba(255,255,255,.7)">Go one shade lighter if unsure. Document brand, mix, lot.</p>`;
+  document.getElementById('tech').innerHTML=`<p style="font-weight:700;text-transform:capitalize">${tech}</p><p>${tr}</p>`;
+  document.getElementById('offer').innerHTML=`<p><b>Offer:</b> 6–8 week touch-up · aftercare + SPF · correction consult if PMU</p><p style="margin-top:8px"><b>Say:</b> "We're previewing ${SHAPES.find(s=>s.id===browShape)?.label||'Arch'} with ${PIGMENTS.find(p=>p.id===tinaPigmentId)?.name||'your shade'} — mapped to your bone structure for a natural heal."</p>`;
+  document.getElementById('results').classList.add('show');
+}
+
+document.getElementById('file').onchange=e=>{
+  const f=e.target.files[0];if(!f)return;
+  document.getElementById('err').textContent='';
+  geom=null;pts=null;lm=null;
+  const r=new FileReader();r.onload=async()=>{
+    img=new Image();img.onload=async()=>{
+      try{
+        if(!faceMesh){faceMesh=new FaceMesh({locateFile:x=>`https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/${x}`});
+          faceMesh.setOptions({maxNumFaces:1,refineLandmarks:true,minDetectionConfidence:.65,minTrackingConfidence:.65});
+          faceMesh.onResults(res=>{lm=res.multiFaceLandmarks?.[0];if(!lm){document.getElementById('err').textContent='No face detected.';return;}geom=null;pts=null;paint();});
+          await faceMesh.initialize();}
+        await faceMesh.send({image:img});
+      }catch(err){document.getElementById('err').textContent='Face detection failed — check connection for first load.';}
+    };img.src=r.result;
+  };r.readAsDataURL(f);
+};
+
+cv.onpointerdown=e=>{if(!geom||!pts)return;const r=cv.getBoundingClientRect();const x=e.clientX-r.left,y=e.clientY-r.top;const h=hit(x,y,fromPts(pts,geom));if(h){cv.setPointerCapture(e.pointerId);drag=h;}};
+cv.onpointermove=e=>{if(!drag||!pts)return;const r=cv.getBoundingClientRect();pts[drag]={x:e.clientX-r.left,y:e.clientY-r.top};geom=fromPts(pts,geom);paint();};
+cv.onpointerup=e=>{drag=null;if(cv.hasPointerCapture(e.pointerId))cv.releasePointerCapture(e.pointerId);};
+cv.onpointerleave=()=>{drag=null;};
+
+document.getElementById('toggle').onclick=()=>{showLines=!showLines;document.getElementById('toggle').textContent=showLines?'Hide lines':'Show lines';paint();};
+document.getElementById('reset').onclick=()=>{geom=null;pts=null;paint();};
+document.getElementById('export').onclick=()=>{const a=document.createElement('a');a.download='hg-brow-map-'+Date.now()+'.png';a.href=cv.toDataURL('image/png');a.click();};
+document.getElementById('planBtn').onclick=()=>{if(!geom||!pts){alert('Upload a photo and wait for mapping first.');return;}buildPlan(fromPts(pts,geom));};
+document.getElementById('styles').onclick=e=>{const b=e.target.closest('.style-btn');if(!b)return;stylePreview=b.dataset.style;document.querySelectorAll('.style-btn').forEach(x=>x.classList.remove('on'));b.classList.add('on');paint();if(geom&&pts)buildPlan(fromPts(pts,geom));};
+document.getElementById('undertone').onchange=()=>{if(geom&&pts)buildPlan(fromPts(pts,geom));};
+document.getElementById('goals').onclick=e=>{if(!e.target.dataset.v)return;goal=e.target.dataset.v;document.querySelectorAll('#goals .chip').forEach(c=>c.classList.remove('on'));e.target.classList.add('on');if(geom&&pts)buildPlan(fromPts(pts,geom));};
+['fitz','hair','oily','pmu'].forEach(id=>{const el=document.getElementById(id);el.onchange=el.onclick=()=>{if(geom&&pts)buildPlan(fromPts(pts,geom));};});
+
+function renderPickers(){
+  document.getElementById('shapes').innerHTML=SHAPES.map(s=>`<button type="button" class="shape-btn${s.id===browShape?' on':''}" data-shape="${s.id}"><svg viewBox="0 0 60 36"><rect width="60" height="36" rx="6" fill="rgba(255,255,255,.06)"/><path d="${ICONS[s.id]}" fill="none" stroke="#E6007E" stroke-width="2" stroke-linecap="round"/></svg>${s.label}</button>`).join('');
+  document.getElementById('pigments').innerHTML=PIGMENTS.map(p=>`<button type="button" class="pig-btn${p.id===tinaPigmentId?' on':''}" data-pig="${p.id}"><div class="sw" style="background:${p.hex}"></div><div class="meta"><b>${p.name}</b><span>${p.use}</span></div></button>`).join('');
+  const active=PIGMENTS.find(p=>p.id===tinaPigmentId);
+  document.getElementById('pigActive').textContent=active?`Active: ${active.name} — ${active.use}`:'';
+}
+document.getElementById('shapes').onclick=e=>{const b=e.target.closest('.shape-btn');if(!b)return;browShape=b.dataset.shape;renderPickers();paint();if(geom&&pts)buildPlan(fromPts(pts,geom));};
+document.getElementById('pigments').onclick=e=>{const b=e.target.closest('.pig-btn');if(!b)return;tinaPigmentId=b.dataset.pig;renderPickers();paint();if(geom&&pts)buildPlan(fromPts(pts,geom));};
+renderPickers();
+window.onresize=paint;
+</script>
+</body>
+</html>

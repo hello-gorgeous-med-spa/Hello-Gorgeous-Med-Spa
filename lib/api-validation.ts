@@ -161,3 +161,29 @@ export const faceBlueprintSchema = z
   .strict();
 
 export type FaceBlueprintInput = z.infer<typeof faceBlueprintSchema>;
+
+const microneedlingConcernEnum = z.enum([
+  "acne_scars",
+  "texture",
+  "pores",
+  "fine_lines",
+  "pigmentation",
+  "laxity",
+  "stretch_marks",
+  "dullness",
+  "oiliness",
+]);
+
+export const microneedlingAnalyzeSchema = z
+  .object({
+    fitzpatrick: z.enum(["I", "II", "III", "IV", "V", "VI"]),
+    undertone: z.enum(["cool", "neutral", "warm", "olive"]),
+    concerns: z.array(microneedlingConcernEnum).min(0).max(10),
+    areas: z.array(z.enum(["face", "neck", "decolletage", "hands", "body"])).min(1).max(5),
+    experience: z.enum(["first_time", "returning", "maintenance"]),
+    image_base64: z.string().max(4_000_000).optional().nullable(),
+    use_vision: z.boolean().optional(),
+  })
+  .strict();
+
+export type MicroneedlingAnalyzeInput = z.infer<typeof microneedlingAnalyzeSchema>;

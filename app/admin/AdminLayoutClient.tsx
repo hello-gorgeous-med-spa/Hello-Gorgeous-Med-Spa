@@ -15,6 +15,7 @@ const MAIN_NAV: { href: string; label: string; icon: string }[] = [
   { href: '/admin/appointments', label: 'Appointments', icon: '📅' },
   { href: '/admin/clients', label: 'Clients', icon: '👥' },
   { href: '/admin/charting', label: 'Charting', icon: '📋' },
+  { href: '/admin/tools/brow-mapping', label: 'Brow Mapping', icon: '✏️' },
   { href: '/admin/procedures/contour-lift', label: 'Contour / Quantum', icon: '⚡' },
   { href: '/admin/services', label: 'Services', icon: '✨' },
   { href: '/admin/memberships', label: 'Memberships', icon: '💎' },
@@ -179,7 +180,7 @@ export default function AdminLayoutClient({ children }: { children: React.ReactN
             </aside>
             <nav className="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-black/10 z-40 safe-area-pb shadow-[0_-1px_0_rgba(0,0,0,.06)]">
               <div className="flex justify-around items-center h-14 min-h-[56px] px-2">
-                {[{ href: '/admin', icon: '📊', label: 'Home' }, { href: '/admin/calendar', icon: '🗓', label: 'Calendar' }, { href: '/admin/proposals', icon: '📄', label: 'Proposals' }, { href: '/admin/clients', icon: '👥', label: 'Clients' }, { href: '/pos', icon: '💳', label: 'POS' }].map((item) => (
+                {[{ href: '/admin', icon: '📊', label: 'Home' }, { href: '/admin/calendar', icon: '🗓', label: 'Calendar' }, { href: '/admin/tools/brow-mapping', icon: '✏️', label: 'Brows' }, { href: '/admin/clients', icon: '👥', label: 'Clients' }, { href: '/pos', icon: '💳', label: 'POS' }].map((item) => (
                   <Link key={item.href} href={item.href} className={`flex flex-col items-center justify-center gap-1 min-w-[56px] py-2 rounded-xl transition-all ${isActive(item.href) ? 'text-[#2D63A4] bg-black/5' : 'text-black hover:text-[#2D63A4]'}`}>
                     <span className="text-xl">{item.icon}</span>
                     <span className="text-[11px] font-medium">{item.label}</span>

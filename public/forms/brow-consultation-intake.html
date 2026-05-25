@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Hello Gorgeous — Brow Intake</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Playfair+Display:wght@600;700&family=Lato:wght@300;400;700&display=swap');
+:root{--pink:#FF1493;--gold:#C9A96E;--rose:#8B4A4A;--blush:#F7E8E8;--ink:#2a2a2a;--line:#ddc9c9;--bg:#fbf6f6;}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+html,body{background:var(--bg);font-family:'Lato',sans-serif;color:var(--ink);font-size:16px;line-height:1.45;}
+.wrap{max-width:740px;margin:0 auto;padding:0 0 120px;}
+
+/* header */
+.topbar{height:8px;background:var(--rose);position:relative;}
+.topbar::after{content:"";position:absolute;left:0;right:0;top:5px;height:3px;background:var(--gold);}
+.hero{text-align:center;padding:22px 20px 16px;background:#fff;border-bottom:1px solid var(--line);}
+.brand{font-family:'Cormorant Garamond',serif;font-size:38px;font-weight:600;background:linear-gradient(90deg,var(--pink),var(--rose));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;line-height:1;}
+.brand .g{font-style:italic;}
+.tag{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-top:6px;}
+.htitle{font-family:'Playfair Display',serif;font-size:20px;color:var(--rose);margin-top:12px;font-weight:700;}
+
+/* progress */
+.progress{position:sticky;top:0;z-index:30;background:#fff;border-bottom:1px solid var(--line);padding:10px 16px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 10px rgba(139,74,74,.06);}
+.pbar{flex:1;height:7px;background:var(--blush);border-radius:99px;overflow:hidden;}
+.pfill{height:100%;width:0;background:linear-gradient(90deg,var(--pink),var(--gold));border-radius:99px;transition:width .4s ease;}
+.pstep{font-size:12px;color:var(--rose);font-weight:700;white-space:nowrap;letter-spacing:.5px;}
+
+/* steps */
+.step{display:none;padding:22px 18px 0;animation:fade .35s ease;}
+.step.active{display:block;}
+@keyframes fade{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:none;}}
+.step-h{font-family:'Playfair Display',serif;font-size:19px;color:var(--rose);margin-bottom:4px;}
+.step-h .gold{color:var(--gold);}
+.step-sub{font-size:14px;color:#7a6a6a;margin-bottom:18px;font-style:italic;}
+
+.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px 16px;margin-bottom:16px;box-shadow:0 1px 3px rgba(139,74,74,.04);}
+
+.field{margin-bottom:15px;}
+.field label{display:block;font-size:12px;text-transform:uppercase;letter-spacing:.8px;color:var(--rose);font-weight:700;margin-bottom:6px;}
+.field input[type=text],.field input[type=tel],.field input[type=email],.field input[type=date],.field textarea{
+  width:100%;border:1.5px solid var(--line);border-radius:10px;padding:12px 13px;font-size:16px;font-family:'Lato';color:var(--ink);background:#fff;transition:border .2s;}
+.field input:focus,.field textarea:focus{outline:none;border-color:var(--pink);}
+.field textarea{min-height:64px;resize:vertical;}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+@media(max-width:520px){.two{grid-template-columns:1fr;}}
+
+/* checkbox chips */
+.chips{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+@media(max-width:520px){.chips{grid-template-columns:1fr;}}
+.chip{display:flex;align-items:center;gap:10px;border:1.5px solid var(--line);border-radius:11px;padding:12px 13px;font-size:14px;cursor:pointer;background:#fff;transition:all .18s;user-select:none;line-height:1.25;}
+.chip .tick{flex:none;width:22px;height:22px;border:2px solid var(--line);border-radius:6px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:13px;font-weight:700;transition:all .18s;}
+.chip.on{border-color:var(--pink);background:#fff5fa;}
+.chip.on .tick{background:var(--pink);border-color:var(--pink);}
+
+/* contra severity */
+.lab{font-size:12px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;margin:4px 0 10px;}
+.lab.abs{color:#b8324f;}
+.lab.rel{color:var(--gold);}
+.chip.abs.on{border-color:#b8324f;background:#fff2f4;}
+.chip.abs.on .tick{background:#b8324f;border-color:#b8324f;}
+
+.callout{background:var(--blush);border-left:4px solid var(--pink);border-radius:0 10px 10px 0;padding:13px 15px;font-size:14px;margin-top:6px;}
+.callout b{color:var(--rose);}
+.flag{background:#fff2f4;border-left:4px solid #b8324f;border-radius:0 10px 10px 0;padding:13px 15px;font-size:14px;margin-top:14px;display:none;}
+.flag.show{display:block;}
+.flag b{color:#b8324f;}
+
+/* shapes + technique selectors */
+.shapesimg{width:100%;max-width:430px;display:block;margin:8px auto 16px;border-radius:12px;border:1px solid var(--line);}
+.opt{border:1.5px solid var(--line);border-radius:12px;padding:14px;margin-bottom:11px;cursor:pointer;transition:all .18s;background:#fff;}
+.opt.on{border-color:var(--pink);background:#fff5fa;box-shadow:0 2px 10px rgba(255,20,147,.10);}
+.opt h4{font-family:'Playfair Display';font-size:16px;color:var(--rose);margin-bottom:3px;display:flex;align-items:center;gap:8px;}
+.opt h4 .dot{width:16px;height:16px;border-radius:50%;border:2px solid var(--line);flex:none;}
+.opt.on h4 .dot{background:var(--pink);border-color:var(--pink);}
+.opt p{font-size:13px;color:#6a5a5a;line-height:1.4;}
+.opt .meta{font-size:11px;text-transform:uppercase;letter-spacing:.6px;color:var(--gold);font-weight:700;margin-top:5px;}
+
+/* consent */
+.consent{font-size:14px;line-height:1.5;}
+.consent li{list-style:none;padding-left:22px;position:relative;margin-bottom:9px;}
+.consent li::before{content:"\2666";color:var(--gold);position:absolute;left:0;top:1px;}
+.consent b{color:var(--rose);}
+
+/* signature */
+.sigwrap{border:2px dashed var(--line);border-radius:14px;background:#fff;position:relative;margin-top:8px;}
+canvas{width:100%;height:180px;display:block;border-radius:12px;touch-action:none;}
+.sigplace{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);color:#cbb8b8;font-size:14px;font-style:italic;pointer-events:none;}
+.sigplace.hide{display:none;}
+.sigclear{position:absolute;right:10px;top:10px;background:var(--blush);border:none;color:var(--rose);font-size:12px;font-weight:700;padding:6px 12px;border-radius:8px;cursor:pointer;letter-spacing:.5px;}
+.sig-intro{font-size:13px;color:#7a6a6a;margin:16px 0 12px;}.sig-intro b{color:var(--rose);}
+.sigopt-label{font-size:13px;font-weight:700;color:var(--rose);margin-bottom:8px;display:flex;align-items:center;gap:8px;}
+.sig-num{width:22px;height:22px;border-radius:50%;background:linear-gradient(135deg,var(--pink),var(--gold));color:#fff;font-size:12px;display:flex;align-items:center;justify-content:center;flex:none;}
+.sig-or{text-align:center;position:relative;margin:16px 0;}
+.sig-or::before{content:"";position:absolute;left:0;right:0;top:50%;height:1px;background:var(--line);}
+.sig-or span{position:relative;background:#fff;padding:0 14px;color:var(--gold);font-size:12px;text-transform:uppercase;letter-spacing:2px;font-weight:700;}
+
+/* nav */
+.nav{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid var(--line);padding:14px 16px;display:flex;gap:12px;max-width:740px;margin:0 auto;box-shadow:0 -4px 20px rgba(139,74,74,.08);z-index:40;}
+.btn{flex:1;border:none;border-radius:12px;padding:15px;font-size:16px;font-weight:700;font-family:'Lato';cursor:pointer;letter-spacing:.5px;transition:all .2s;}
+.btn-back{background:#fff;border:1.5px solid var(--line);color:var(--rose);flex:0 0 110px;}
+.btn-next{background:linear-gradient(90deg,var(--pink),var(--rose));color:#fff;box-shadow:0 4px 14px rgba(255,20,147,.28);}
+.btn-next:active{transform:translateY(1px);}
+.btn:disabled{opacity:.4;}
+
+/* review + done */
+.rev-row{display:flex;justify-content:space-between;gap:14px;padding:10px 0;border-bottom:1px solid var(--blush);font-size:14px;}
+.rev-row .k{color:var(--rose);font-weight:700;}
+.rev-row .v{text-align:right;color:var(--ink);}
+.done{text-align:center;padding:50px 24px;}
+.done .ck{width:74px;height:74px;border-radius:50%;background:linear-gradient(135deg,var(--pink),var(--gold));margin:0 auto 18px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:38px;}
+.done h2{font-family:'Playfair Display';color:var(--rose);font-size:24px;margin-bottom:8px;}
+.done p{color:#7a6a6a;font-size:15px;max-width:380px;margin:0 auto 22px;}
+.dl-btn{display:inline-block;background:linear-gradient(90deg,var(--pink),var(--rose));color:#fff;border:none;border-radius:12px;padding:15px 30px;font-size:16px;font-weight:700;cursor:pointer;box-shadow:0 4px 14px rgba(255,20,147,.28);font-family:'Lato';letter-spacing:.5px;}
+.foot-note{font-size:11px;color:#b0a0a0;margin-top:18px;}
+</style>
+</head>
+<body>
+<div class="topbar"></div>
+<div class="wrap">
+  <div class="hero">
+    <div class="brand">Hello <span class="g">Gorgeous</span></div>
+    <div class="tag">Med Spa &bull; Oswego, IL</div>
+    <div class="htitle">Brow Consultation &amp; Intake</div>
+  </div>
+
+  <div class="progress">
+    <div class="pstep" id="pstep">Step 1 of 6</div>
+    <div class="pbar"><div class="pfill" id="pfill"></div></div>
+  </div>
+
+  <!-- STEP 1: CLIENT INFO -->
+  <div class="step active" data-step="1">
+    <div class="step-h">Welcome, <span class="gold">gorgeous</span></div>
+    <div class="step-sub">Let's start with a few details. This only takes a few minutes.</div>
+    <div class="card">
+      <div class="field"><label>Full Name</label><input type="text" id="f_name" placeholder="First & last name"></div>
+      <div class="two">
+        <div class="field"><label>Date of Birth</label><input type="date" id="f_dob"></div>
+        <div class="field"><label>Phone</label><input type="tel" id="f_phone" placeholder="(630) 000-0000"></div>
+      </div>
+      <div class="field"><label>Email</label><input type="email" id="f_email" placeholder="you@email.com"></div>
+      <div class="two">
+        <div class="field"><label>Emergency Contact</label><input type="text" id="f_emerg" placeholder="Name & phone"></div>
+        <div class="field"><label>How did you hear about us?</label><input type="text" id="f_referral" placeholder="Instagram, friend, Google..."></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 2: HEALTH HISTORY -->
+  <div class="step" data-step="2">
+    <div class="step-h">Health <span class="gold">History</span></div>
+    <div class="step-sub">Tap anything that applies. Your honesty keeps you safe — nothing here disqualifies you automatically.</div>
+    <div class="card">
+      <div class="chips" id="health_chips"></div>
+      <div class="field" style="margin-top:16px;"><label>Current medications &amp; supplements</label><textarea id="f_meds" placeholder="List anything you take regularly"></textarea></div>
+      <div class="field"><label>Known allergies (lidocaine, latex, metals, etc.)</label><textarea id="f_allergy" placeholder="Or write 'none'"></textarea></div>
+    </div>
+  </div>
+
+  <!-- STEP 3: CONTRAINDICATIONS -->
+  <div class="step" data-step="3">
+    <div class="step-h">Safety <span class="gold">Review</span></div>
+    <div class="step-sub">A quick check so we take the very best care of you.</div>
+    <div class="card">
+      <div class="lab abs">Please tell us if any of these apply today</div>
+      <div class="chips" id="abs_chips"></div>
+      <div class="lab rel" style="margin-top:18px;">And these — we may simply adjust your plan</div>
+      <div class="chips" id="rel_chips"></div>
+      <div class="flag" id="contra_flag"><b>Thank you for sharing.</b> One or more of these means we'll want to chat with you before proceeding — it may simply mean adjusting your plan or choosing a better date. Your technician will go over everything with you.</div>
+    </div>
+  </div>
+
+  <!-- STEP 4: TECHNIQUE -->
+  <div class="step" data-step="4">
+    <div class="step-h">Your <span class="gold">Technique</span></div>
+    <div class="step-sub">No pressure — your technician will confirm the best fit for your skin. This just tells us what you're drawn to.</div>
+    <div class="card" id="tech_opts"></div>
+  </div>
+
+  <!-- STEP 5: SHAPE -->
+  <div class="step" data-step="5">
+    <div class="step-h">Your <span class="gold">Shape</span></div>
+    <div class="step-sub">Which look speaks to you? We'll map it to your unique features and you'll approve it in the mirror first.</div>
+    <div class="card">
+      <img class="shapesimg" src="/handouts/education/brow-shapes-7-reference.png" alt="7 brow shape reference">
+      <div class="chips" id="shape_chips"></div>
+      <div class="field" style="margin-top:16px;"><label>What's your brow goal today?</label><textarea id="f_goal" placeholder="Fuller, defined, symmetry, color..."></textarea></div>
+    </div>
+  </div>
+
+  <!-- STEP 6: CONSENT + SIGNATURE -->
+  <div class="step" data-step="6">
+    <div class="step-h">Consent <span class="gold">&amp; Signature</span></div>
+    <div class="step-sub">Please read, then sign — draw it or type your name, whichever you like.</div>
+    <div class="card">
+      <ul class="consent">
+        <li>I understand permanent makeup is a <b>cosmetic tattoo</b> and results are semi-permanent, fading gradually over time.</li>
+        <li>I understand <b>final results require a touch-up</b> (typically 6–8 weeks later) and color, shape, and density vary by skin and aftercare.</li>
+        <li>I confirm the information I provided is <b>accurate and complete</b>, and I've disclosed all conditions, medications, and allergies.</li>
+        <li>I am not pregnant or nursing, and I am not under the influence of alcohol or drugs.</li>
+        <li>I have had the chance to ask questions and consent to <b>before &amp; after photos</b> for my file.</li>
+        <li>I release Hello Gorgeous Med Spa from liability for results within the normal range of this procedure.</li>
+      </ul>
+      <label class="chip" id="agree_chip" style="margin-top:14px;">
+        <span class="tick">&#10003;</span>
+        <span>I have read and agree to the above consent.</span>
+      </label>
+
+      <div class="sig-intro">Choose <b>either</b> option below to sign — whichever you prefer.</div>
+
+      <!-- OPTION A: draw -->
+      <div class="sigopt">
+        <div class="sigopt-label"><span class="sig-num">1</span> Draw your signature</div>
+        <div class="sigwrap">
+          <button class="sigclear" id="sigclear">Clear</button>
+          <span class="sigplace" id="sigplace">Sign here with your finger or stylus</span>
+          <canvas id="sigpad"></canvas>
+        </div>
+      </div>
+
+      <div class="sig-or"><span>or</span></div>
+
+      <!-- OPTION B: type -->
+      <div class="sigopt">
+        <div class="sigopt-label"><span class="sig-num">2</span> Type your full name</div>
+        <div class="field" style="margin-bottom:0;"><input type="text" id="f_signname" placeholder="Type your full legal name to sign"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DONE -->
+  <div class="step" data-step="7">
+    <div class="done">
+      <div class="ck">&#10003;</div>
+      <h2>All set, gorgeous!</h2>
+      <p>Your intake is complete. Tap below to save a signed PDF copy for your file. Your technician will take it from here.</p>
+      <button class="dl-btn" id="downloadBtn">Download Signed PDF</button>
+      <div class="foot-note">Hello Gorgeous Med Spa &bull; 74 W Washington St, Oswego, IL &bull; 630-636-6193</div>
+    </div>
+  </div>
+
+</div>
+
+<div class="nav" id="nav">
+  <button class="btn btn-back" id="backBtn">Back</button>
+  <button class="btn btn-next" id="nextBtn">Continue</button>
+</div>
+
+<script src="/vendor/jspdf.umd.min.js"></script>
+<script>
+/* ===== Intent: a calm, step-by-step iPad intake that ends in a signed PDF the spa controls.
+   No data leaves the device. Built self-contained on purpose (PHI stays in the room). ===== */
+
+var HEALTH = ["Diabetes","High / low blood pressure","Heart condition","Hepatitis / HIV",
+  "Thyroid disorder","Autoimmune condition","Bleeding disorder","Epilepsy / seizures",
+  "Eczema / psoriasis","Keloid scarring","Cold sores / herpes","Cancer (current or past)",
+  "Anemia","Prone to fainting","Recent Botox / filler","Glaucoma"];
+
+var ABS = ["Pregnant or breastfeeding","Active skin infection in brow area","Chemotherapy / radiation now",
+  "Uncontrolled diabetes","Accutane in last 6–12 months","Blood thinners (not cleared)",
+  "Active cold sore / shingles","Under 18 years old"];
+
+var REL = ["Diabetes (controlled)","Autoimmune / slow healing","History of keloids",
+  "Prone to cold sores","Very oily skin","Recent Botox / filler","Recent peel / laser","Allergy to numbing agents"];
+
+var TECH = [
+  {n:"Microblading", m:"Hair-stroke • Manual • 1–2 yrs", d:"Fine, crisp hand-drawn strokes that mimic real hairs. The most natural look. Best for dry/normal skin."},
+  {n:"Ombré / Powder", m:"Machine • Shaded • 2–3 yrs", d:"Soft misted shading, light to defined. Like softly filled-in brows. Great for oily skin & a polished look."},
+  {n:"Combo / Hybrid", m:"Strokes + Shading • 2–3 yrs", d:"Crisp strokes up front blended with soft shading behind. Natural and defined. Best for combination skin."},
+  {n:"Machine Nano", m:"Machine strokes • 1.5–2.5 yrs", d:"Hair-like strokes made with a fine digital needle. The microblading look, gentler on the skin."},
+  {n:"Not sure — help me choose", m:"We'll guide you", d:"Totally fine! Your technician will recommend the best fit for your skin and goals."}
+];
+
+var SHAPES = ["Arch","Soft Arch","High Arch","Round","Round Arch","Upward","Straight","Not sure — guide me"];
+
+var state = {health:{}, abs:{}, rel:{}, tech:null, shape:null, agree:false};
+
+function chip(text, on){
+  return '<div class="chip'+(on?' on':'')+'"><span class="tick">&#10003;</span><span>'+text+'</span></div>';
+}
+
+/* build health chips */
+var hc = document.getElementById('health_chips');
+HEALTH.forEach(function(t,i){
+  var el=document.createElement('div'); el.className='chip';
+  el.innerHTML='<span class="tick">&#10003;</span><span>'+t+'</span>';
+  el.onclick=function(){ state.health[t]=!state.health[t]; el.classList.toggle('on'); };
+  hc.appendChild(el);
+});
+
+/* contraindication chips */
+function buildContra(listId, arr, store, isAbs){
+  var box=document.getElementById(listId);
+  arr.forEach(function(t){
+    var el=document.createElement('div'); el.className='chip'+(isAbs?' abs':'');
+    el.innerHTML='<span class="tick">&#10003;</span><span>'+t+'</span>';
+    el.onclick=function(){ store[t]=!store[t]; el.classList.toggle('on'); checkFlag(); };
+    box.appendChild(el);
+  });
+}
+buildContra('abs_chips', ABS, state.abs, true);
+buildContra('rel_chips', REL, state.rel, false);
+function checkFlag(){
+  var any=false;
+  Object.keys(state.abs).forEach(function(k){if(state.abs[k])any=true;});
+  Object.keys(state.rel).forEach(function(k){if(state.rel[k])any=true;});
+  document.getElementById('contra_flag').classList.toggle('show', any);
+}
+
+/* technique options */
+var to=document.getElementById('tech_opts');
+TECH.forEach(function(o){
+  var el=document.createElement('div'); el.className='opt';
+  el.innerHTML='<h4><span class="dot"></span>'+o.n+'</h4><p>'+o.d+'</p><div class="meta">'+o.m+'</div>';
+  el.onclick=function(){
+    state.tech=o.n;
+    document.querySelectorAll('#tech_opts .opt').forEach(function(x){x.classList.remove('on');});
+    el.classList.add('on');
+  };
+  to.appendChild(el);
+});
+
+/* shape chips */
+var sc=document.getElementById('shape_chips');
+SHAPES.forEach(function(t){
+  var el=document.createElement('div'); el.className='chip';
+  el.innerHTML='<span class="tick">&#10003;</span><span>'+t+'</span>';
+  el.onclick=function(){
+    state.shape=t;
+    document.querySelectorAll('#shape_chips .chip').forEach(function(x){x.classList.remove('on');});
+    el.classList.add('on');
+  };
+  sc.appendChild(el);
+});
+
+/* agree chip */
+var ac=document.getElementById('agree_chip');
+ac.onclick=function(){ state.agree=!state.agree; ac.classList.toggle('on'); };
+
+/* ===== signature pad ===== */
+var canvas=document.getElementById('sigpad');
+var ctx=canvas.getContext('2d');
+var drawing=false, hasSig=false;
+function sizeCanvas(){
+  var r=canvas.getBoundingClientRect();
+  var dpr=window.devicePixelRatio||1;
+  canvas.width=r.width*dpr; canvas.height=r.height*dpr;
+  ctx.scale(dpr,dpr); ctx.lineWidth=2.2; ctx.lineCap='round'; ctx.strokeStyle='#2a2a2a';
+}
+function pos(e){
+  var r=canvas.getBoundingClientRect();
+  var t=e.touches?e.touches[0]:e;
+  return {x:t.clientX-r.left, y:t.clientY-r.top};
+}
+function start(e){ drawing=true; var p=pos(e); ctx.beginPath(); ctx.moveTo(p.x,p.y); e.preventDefault();
+  if(!hasSig){hasSig=true; document.getElementById('sigplace').classList.add('hide');} }
+function move(e){ if(!drawing)return; var p=pos(e); ctx.lineTo(p.x,p.y); ctx.stroke(); e.preventDefault(); }
+function end(){ drawing=false; }
+canvas.addEventListener('mousedown',start); canvas.addEventListener('mousemove',move);
+window.addEventListener('mouseup',end);
+canvas.addEventListener('touchstart',start,{passive:false});
+canvas.addEventListener('touchmove',move,{passive:false});
+canvas.addEventListener('touchend',end);
+document.getElementById('sigclear').onclick=function(){
+  ctx.clearRect(0,0,canvas.width,canvas.height); hasSig=false;
+  document.getElementById('sigplace').classList.remove('hide');
+};
+
+/* ===== step navigation ===== */
+var current=1; var TOTAL=6;
+function show(n){
+  document.querySelectorAll('.step').forEach(function(s){s.classList.remove('active');});
+  document.querySelector('[data-step="'+n+'"]').classList.add('active');
+  window.scrollTo(0,0);
+  if(n<=TOTAL){
+    document.getElementById('pstep').textContent='Step '+n+' of '+TOTAL;
+    document.getElementById('pfill').style.width=((n-1)/(TOTAL-1)*100)+'%';
+    document.getElementById('nav').style.display='flex';
+    document.getElementById('backBtn').style.visibility = n===1?'hidden':'visible';
+    document.getElementById('nextBtn').textContent = n===TOTAL?'Finish & Sign':'Continue';
+  } else {
+    document.getElementById('nav').style.display='none';
+  }
+  if(n===6) setTimeout(sizeCanvas,80);
+}
+document.getElementById('nextBtn').onclick=function(){
+  if(current===6){
+    if(!state.agree){ alert('Please check the consent box to continue.'); return; }
+    var typed = document.getElementById('f_signname').value.trim();
+    if(!hasSig && !typed){ alert('Please sign — either draw your signature or type your full name.'); return; }
+  }
+  if(current<7){ current++; show(current); }
+};
+document.getElementById('backBtn').onclick=function(){ if(current>1){ current--; show(current); } };
+
+/* ===== PDF export ===== */
+document.getElementById('downloadBtn').onclick=function(){
+  var jsPDF=window.jspdf.jsPDF;
+  var doc=new jsPDF({unit:'pt', format:'letter'});
+  var W=612, M=48, y=64;
+  var rose=[139,74,74], gold=[201,169,110], pink=[255,20,147], ink=[42,42,42], grey=[120,110,110];
+
+  function rule(){ doc.setFillColor.apply(null,rose); doc.rect(0,0,W,7,'F');
+    doc.setFillColor.apply(null,gold); doc.rect(0,7,W,3,'F'); }
+  function header(){
+    rule();
+    doc.setFont('times','italic'); doc.setFontSize(26); doc.setTextColor.apply(null,rose);
+    doc.text('Hello Gorgeous', W/2, 46, {align:'center'});
+    doc.setFont('helvetica','normal'); doc.setFontSize(8); doc.setTextColor.apply(null,gold);
+    doc.text('MED SPA  •  OSWEGO, IL', W/2, 60, {align:'center'});
+  }
+  function sectionTitle(t){
+    if(y>720){doc.addPage(); y=64;}
+    doc.setFillColor.apply(null,rose); doc.roundedRect(M,y-12,W-2*M,20,3,3,'F');
+    doc.setFont('helvetica','bold'); doc.setFontSize(11); doc.setTextColor(255,255,255);
+    doc.text(t, M+10, y+2); y+=26;
+  }
+  function kv(k,v){
+    if(y>740){doc.addPage(); y=64;}
+    doc.setFont('helvetica','bold'); doc.setFontSize(9); doc.setTextColor.apply(null,rose);
+    doc.text(k, M, y);
+    doc.setFont('helvetica','normal'); doc.setTextColor.apply(null,ink);
+    var lines=doc.splitTextToSize(v||'—', W-2*M-130);
+    doc.text(lines, M+130, y);
+    y += Math.max(15, lines.length*13);
+  }
+  function listLine(t){
+    if(y>748){doc.addPage(); y=64;}
+    doc.setFont('helvetica','normal'); doc.setFontSize(9); doc.setTextColor.apply(null,ink);
+    var lines=doc.splitTextToSize('•  '+t, W-2*M-8);
+    doc.text(lines, M+4, y); y+=lines.length*12+2;
+  }
+  function checked(store){ return Object.keys(store).filter(function(k){return store[k];}); }
+
+  header();
+  doc.setFont('times','bold'); doc.setFontSize(15); doc.setTextColor.apply(null,rose);
+  doc.text('Brow Consultation & Intake', W/2, 84, {align:'center'});
+  doc.setFont('helvetica','normal'); doc.setFontSize(8); doc.setTextColor.apply(null,grey);
+  doc.text('Completed '+new Date().toLocaleString(), W/2, 96, {align:'center'});
+  y=120;
+
+  sectionTitle('Client Information');
+  kv('Name', val('f_name'));
+  kv('Date of Birth', val('f_dob'));
+  kv('Phone', val('f_phone'));
+  kv('Email', val('f_email'));
+  kv('Emergency Contact', val('f_emerg'));
+  kv('Referral', val('f_referral'));
+  y+=6;
+
+  sectionTitle('Health History');
+  var h=checked(state.health); kv('Flagged', h.length? h.join(', '):'None reported');
+  kv('Medications', val('f_meds'));
+  kv('Allergies', val('f_allergy'));
+  y+=6;
+
+  sectionTitle('Safety Review');
+  var a=checked(state.abs), r=checked(state.rel);
+  kv('Primary concerns', a.length? a.join(', '):'None');
+  kv('To discuss', r.length? r.join(', '):'None');
+  y+=6;
+
+  sectionTitle('Selections');
+  kv('Technique', state.tech||'—');
+  kv('Shape', state.shape||'—');
+  kv('Brow goal', val('f_goal'));
+  y+=6;
+
+  sectionTitle('Consent & Signature');
+  listLine('Client agreed to informed consent: '+(state.agree?'YES':'NO'));
+  var typedName = val('f_signname');
+  if(typedName){ kv('Signed (typed)', typedName); }
+  if(y>600){doc.addPage(); y=64;}
+  doc.setFont('helvetica','bold'); doc.setFontSize(9); doc.setTextColor.apply(null,rose);
+  doc.text('Signature', M, y); y+=8;
+  if(hasSig){
+    try{
+      var img=canvas.toDataURL('image/png');
+      doc.addImage(img, 'PNG', M, y, 220, 70);
+    }catch(e){}
+    doc.setDrawColor.apply(null,ink); doc.line(M, y+74, M+220, y+74);
+  } else if(typedName){
+    doc.setFont('times','italic'); doc.setFontSize(20); doc.setTextColor.apply(null,ink);
+    doc.text(typedName, M+6, y+34);
+    doc.setDrawColor.apply(null,ink); doc.line(M, y+44, M+220, y+44);
+    doc.setFont('helvetica','normal'); doc.setFontSize(7); doc.setTextColor.apply(null,grey);
+    doc.text('Signed electronically by typed name', M, y+56);
+  }
+
+  var fname=(val('f_name')||'client').replace(/[^a-z0-9]/gi,'-');
+  doc.save('HG-Brow-Intake-'+fname+'.pdf');
+};
+function val(id){ return (document.getElementById(id)||{}).value || ''; }
+
+show(1);
+</script>
+</body>
+</html>
