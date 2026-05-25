@@ -3,20 +3,18 @@ import type { BrowMappingGeometry, BrowShapeId, BrowStylePreviewId } from "@/dat
 export type { BrowStylePreviewId };
 export { BROW_STYLE_PREVIEWS } from "@/data/brow-mapping-intelligence";
 
-import { drawBrowShapeOnPhoto } from "@/lib/brow-mapping/render-brow-shape";
+import { renderBrowStampLayer } from "@/lib/brow-mapping/browRenderer";
 
-/**
- * Render selected brow shape template + technique + pigment on the client photo.
- * Shape buttons drive this renderer — not label-only state.
- */
+/** @deprecated Use renderBrowStampLayer / renderBrowPreviewFrame */
 export function drawBrowStylePreview(
   ctx: CanvasRenderingContext2D,
   geometry: BrowMappingGeometry,
   styleId: BrowStylePreviewId,
   pigmentHex = "#4a3220",
   browShape: BrowShapeId = "arch",
+  showPigmentPreview = true,
 ) {
-  drawBrowShapeOnPhoto(ctx, geometry, browShape, styleId, pigmentHex);
+  renderBrowStampLayer(ctx, geometry, browShape, styleId, pigmentHex, showPigmentPreview);
 }
 
 export function pigmentHexForUndertone(undertone: string): string {

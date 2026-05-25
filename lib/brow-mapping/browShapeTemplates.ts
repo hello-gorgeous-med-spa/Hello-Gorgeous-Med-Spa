@@ -12,6 +12,10 @@ export type BrowShapeTemplate = {
   label: string;
   /** Overall body thickness multiplier vs detected brow zone. */
   bodyThickness: number;
+  /** Lifts spine arch peak (1 = neutral, >1 = higher arch on photo). */
+  archPeakBoost: number;
+  /** Tail elevation vs head along forehead axis (−1 down, +1 up). */
+  tailLift: number;
   topProfile: BrowProfileSample[];
   bottomProfile: BrowProfileSample[];
   /** Stroke flow bias (radians added to spine tangent). */
@@ -31,6 +35,8 @@ const archTemplate: BrowShapeTemplate = {
   id: "arch",
   label: "Arch",
   bodyThickness: 1,
+  archPeakBoost: 1,
+  tailLift: 0,
   headFanStrength: 0.85,
   topProfile: profile([
     [0, 0.12],
@@ -60,6 +66,8 @@ const softArchTemplate: BrowShapeTemplate = {
   id: "soft-arch",
   label: "Soft Arch",
   bodyThickness: 0.95,
+  archPeakBoost: 0.82,
+  tailLift: -0.05,
   headFanStrength: 0.75,
   topProfile: profile([
     [0, 0.1],
@@ -87,7 +95,9 @@ const softArchTemplate: BrowShapeTemplate = {
 const highArchTemplate: BrowShapeTemplate = {
   id: "high-arch",
   label: "High Arch",
-  bodyThickness: 1.05,
+  bodyThickness: 1.12,
+  archPeakBoost: 1.48,
+  tailLift: -0.15,
   headFanStrength: 0.95,
   topProfile: profile([
     [0, 0.08],
@@ -118,7 +128,9 @@ const highArchTemplate: BrowShapeTemplate = {
 const roundTemplate: BrowShapeTemplate = {
   id: "round",
   label: "Round",
-  bodyThickness: 1.08,
+  bodyThickness: 1.1,
+  archPeakBoost: 1.12,
+  tailLift: 0,
   headFanStrength: 0.65,
   topProfile: profile([
     [0, 0.15],
@@ -148,7 +160,9 @@ const roundTemplate: BrowShapeTemplate = {
 const roundArchTemplate: BrowShapeTemplate = {
   id: "round-arch",
   label: "Round Arch",
-  bodyThickness: 1.02,
+  bodyThickness: 1.05,
+  archPeakBoost: 1.18,
+  tailLift: -0.08,
   headFanStrength: 0.7,
   topProfile: profile([
     [0, 0.12],
@@ -177,7 +191,9 @@ const roundArchTemplate: BrowShapeTemplate = {
 const upwardTemplate: BrowShapeTemplate = {
   id: "upward",
   label: "Upward",
-  bodyThickness: 0.92,
+  bodyThickness: 0.9,
+  archPeakBoost: 0.72,
+  tailLift: 0.22,
   headFanStrength: 0.8,
   topProfile: profile([
     [0, 0.1],
@@ -204,7 +220,9 @@ const upwardTemplate: BrowShapeTemplate = {
 const straightTemplate: BrowShapeTemplate = {
   id: "straight",
   label: "Straight",
-  bodyThickness: 0.88,
+  bodyThickness: 0.82,
+  archPeakBoost: 0.5,
+  tailLift: -0.02,
   headFanStrength: 0.9,
   topProfile: profile([
     [0, 0.1],
@@ -287,23 +305,46 @@ function foreheadNormal(tangent: number): { nx: number; ny: number } {
  * Fit a shape template to client head / arch / tail anchors.
  * Anchors stay fixed; top/bottom profiles define the visible brow body.
  */
+function spineAnchorsForTemplate(
+  template: BrowShapeTemplate,
+  head: BrowMappingPoint,
+  arch: BrowMappingPoint,
+  tail: BrowMappingPoint,
+): { head: BrowMappingPoint; arch: BrowMappingPoint; tail: BrowMappingPoint } {
+  const span = Math.hypot(tail.x - head.x, tail.y - head.y) || 1;
+  const mid = spinePoint(head, arch, tail, 0.5);
+  const { nx, ny } = foreheadNormal(mid.tangent);
+  const peakLift = span * 0.1 * (template.archPeakBoost - 1);
+  const spineArch = {
+    x: arch.x + nx * peakLift,
+    y: arch.y + ny * peakLift,
+  };
+  const tailShift = span * 0.06 * template.tailLift;
+  const spineTail = {
+    x: tail.x + nx * tailShift,
+    y: tail.y + ny * tailShift,
+  };
+  return { head, arch: spineArch, tail: spineTail };
+}
+
 export function fitBrowTemplateToAnchors(
   template: BrowShapeTemplate,
   head: BrowMappingPoint,
   arch: BrowMappingPoint,
   tail: BrowMappingPoint,
-  sampleCount = 36,
+  sampleCount = 40,
 ): FittedBrowSide {
-  const span = Math.hypot(tail.x - head.x, tail.y - head.y) || 1;
-  const archLift = head.y - arch.y;
-  const thickness = Math.max(span * 0.13, Math.abs(archLift) * 0.85 + span * 0.05) * template.bodyThickness;
+  const spine = spineAnchorsForTemplate(template, head, arch, tail);
+  const span = Math.hypot(spine.tail.x - spine.head.x, spine.tail.y - spine.head.y) || 1;
+  const archLift = spine.head.y - spine.arch.y;
+  const thickness = Math.max(span * 0.14, Math.abs(archLift) * 0.9 + span * 0.06) * template.bodyThickness;
 
   const top: BrowMappingPoint[] = [];
   const bottom: BrowMappingPoint[] = [];
 
   for (let i = 0; i <= sampleCount; i++) {
     const u = i / sampleCount;
-    const { p, tangent } = spinePoint(head, arch, tail, u);
+    const { p, tangent } = spinePoint(spine.head, spine.arch, spine.tail, u);
     const { nx, ny } = foreheadNormal(tangent);
     const topO = lerpProfile(template.topProfile, u) * thickness;
     const botO = lerpProfile(template.bottomProfile, u) * thickness;

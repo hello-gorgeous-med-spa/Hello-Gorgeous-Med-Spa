@@ -61,6 +61,10 @@ export function BrowMappingTool() {
     techniqueLabel: activeStyle?.label,
   });
 
+  useEffect(() => {
+    if (canvas.ready && canvas.geometry) canvas.redraw();
+  }, [browShape, stylePreview, tinaPigmentId, canvas.ready, canvas.geometry, canvas.view, canvas.redraw]);
+
   const intake: BrowMappingIntake = useMemo(
     () => ({
       fitzpatrick,

@@ -11,7 +11,7 @@ import { BROW_SHAPES, BROW_STYLE_PREVIEWS } from "@/data/brow-mapping-intelligen
 import { scaleGeometry } from "@/lib/brow-mapping/coordinates";
 import { drawBrowMappingOverlay } from "@/lib/brow-mapping/geometry";
 import { CLINICAL_DISCLAIMER, PIGMENT_PREVIEW_DISCLAIMER, TINA_PIGMENT_BY_ID } from "@/lib/brow-mapping/pigments";
-import { drawBrowStylePreview } from "@/lib/brow-mapping/style-preview";
+import { renderBrowPreviewFrame } from "@/lib/brow-mapping/browRenderer";
 
 export const HG_BRAND = {
   name: "Hello Gorgeous Med Spa",
@@ -89,9 +89,16 @@ export function renderBrowCanvas(
   if (options.showMappingLines) {
     drawBrowMappingOverlay(ctx, displayGeo, { showLabels: options.showLabels });
   }
-  if (options.showPigmentPreview) {
-    drawBrowStylePreview(ctx, displayGeo, options.stylePreview, options.pigmentHex, options.browShape);
-  }
+  renderBrowPreviewFrame(ctx, displayGeo, {
+    selectedShape: options.browShape,
+    selectedTechnique: options.stylePreview,
+    pigmentHex: options.pigmentHex,
+    showMappingGuides: options.showMappingLines,
+    showPigmentPreview: options.showPigmentPreview,
+    showLabels: options.showLabels,
+    activePoint: null,
+    dragging: null,
+  });
 
   if (options.shapeLabel) {
     const caption = [options.shapeLabel, options.pigmentName, options.techniqueLabel].filter(Boolean).join(" · ");

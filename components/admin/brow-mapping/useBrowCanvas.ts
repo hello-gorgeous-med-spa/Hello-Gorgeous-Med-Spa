@@ -7,20 +7,20 @@ import { displayScale, displayToImageSpace, getDisplaySize, scaleGeometry } from
 import {
   computeBrowMappingFromLandmarks,
   createDefaultManualGeometry,
-  drawBrowMappingOverlay,
   draggablePointsToGeometry,
   geometryToDraggablePoints,
   hitTestDraggablePoint,
   type DraggablePointId,
 } from "@/lib/brow-mapping/geometry";
 import { detectFaceLandmarks } from "@/lib/brow-mapping/landmarks";
+import { renderBrowPreviewFrame } from "@/lib/brow-mapping/browRenderer";
+import type { BrowPreviewState } from "@/lib/brow-mapping/browState";
 import { exportMappedPhotoPng, renderBrowCanvas } from "@/lib/brow-mapping/export";
-import { drawBrowStylePreview } from "@/lib/brow-mapping/style-preview";
 
 export type BrowCanvasOptions = {
-  stylePreview?: BrowStylePreviewId;
-  pigmentHex?: string;
-  browShape?: BrowShapeId;
+  stylePreview: BrowStylePreviewId;
+  pigmentHex: string;
+  browShape: BrowShapeId;
   shapeLabel?: string;
   pigmentName?: string;
   techniqueLabel?: string;
@@ -38,11 +38,7 @@ function cloneGeometry(g: BrowMappingGeometry): BrowMappingGeometry {
   return JSON.parse(JSON.stringify(g)) as BrowMappingGeometry;
 }
 
-export function useBrowCanvas(imageSrc: string | null, options?: BrowCanvasOptions) {
-  const stylePreview = options?.stylePreview ?? "mapping-only";
-  const pigmentHex = options?.pigmentHex ?? "#4a3220";
-  const browShape = options?.browShape ?? "arch";
-
+export function useBrowCanvas(imageSrc: string | null, options: BrowCanvasOptions) {
   const wrapRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const imageRef = useRef<HTMLImageElement | null>(null);
@@ -51,6 +47,7 @@ export function useBrowCanvas(imageSrc: string | null, options?: BrowCanvasOptio
   const pointsRef = useRef<ReturnType<typeof geometryToDraggablePoints> | null>(null);
   const undoStackRef = useRef<BrowMappingGeometry[]>([]);
   const dragStartRef = useRef<BrowMappingGeometry | null>(null);
+  const previewRef = useRef<BrowPreviewState | null>(null);
 
   const [dragging, setDragging] = useState<DraggablePointId | null>(null);
   const [activePoint, setActivePoint] = useState<DraggablePointId | null>(null);
@@ -60,31 +57,33 @@ export function useBrowCanvas(imageSrc: string | null, options?: BrowCanvasOptio
   const [error, setError] = useState<string | null>(null);
   const [manualMode, setManualMode] = useState(false);
   const [geometry, setGeometry] = useState<BrowMappingGeometry | null>(null);
-  const [view, setView] = useState<BrowCanvasViewOptions>({
+  const [view, setViewState] = useState<BrowCanvasViewOptions>({
     showMappingLines: true,
     showLabels: true,
     showPigmentPreview: true,
   });
 
-  const pushUndo = useCallback(() => {
-    if (!geometryRef.current) return;
-    undoStackRef.current = [...undoStackRef.current.slice(-(MAX_UNDO - 1)), cloneGeometry(geometryRef.current)];
-    setCanUndo(true);
-  }, []);
-
-  const applyGeometry = useCallback((g: BrowMappingGeometry, recordUndo = false) => {
-    if (recordUndo) pushUndo();
-    geometryRef.current = g;
-    pointsRef.current = geometryToDraggablePoints(g);
-    setGeometry({ ...g });
-  }, [pushUndo]);
+  previewRef.current = {
+    geometry: geometryRef.current,
+    selectedShape: options.browShape,
+    selectedTechnique: options.stylePreview,
+    pigmentHex: options.pigmentHex,
+    showMappingGuides: view.showMappingLines,
+    showPigmentPreview: view.showPigmentPreview,
+    showLabels: view.showLabels,
+    manualMode,
+    activePoint,
+    dragging,
+  };
 
   const paint = useCallback(() => {
     const canvas = canvasRef.current;
     const wrap = wrapRef.current;
     const img = imageRef.current;
     const g = geometryRef.current;
-    if (!canvas || !wrap || !img) return;
+    const pts = pointsRef.current;
+    const preview = previewRef.current;
+    if (!canvas || !wrap || !img || !preview) return;
 
     const { scale, width: w, height: h } = getDisplaySize(
       { width: img.naturalWidth, height: img.naturalHeight },
@@ -103,20 +102,53 @@ export function useBrowCanvas(imageSrc: string | null, options?: BrowCanvasOptio
     ctx.clearRect(0, 0, w, h);
     ctx.drawImage(img, 0, 0, w, h);
 
-    if (!g || !pointsRef.current) return;
+    if (!g || !pts) return;
 
-    const displayGeo = scaleGeometry(draggablePointsToGeometry(pointsRef.current, g), scale);
+    const displayGeo = scaleGeometry(draggablePointsToGeometry(pts, g), scale);
 
-    if (view.showPigmentPreview) {
-      drawBrowStylePreview(ctx, displayGeo, stylePreview, pigmentHex, browShape);
-    }
-    if (view.showMappingLines) {
-      drawBrowMappingOverlay(ctx, displayGeo, {
-        showLabels: view.showLabels,
-        activePoint: dragging ?? activePoint,
+    renderBrowPreviewFrame(ctx, displayGeo, {
+      selectedShape: preview.selectedShape,
+      selectedTechnique: preview.selectedTechnique,
+      pigmentHex: preview.pigmentHex,
+      showMappingGuides: preview.showMappingGuides,
+      showPigmentPreview: preview.showPigmentPreview,
+      showLabels: preview.showLabels,
+      activePoint: preview.activePoint,
+      dragging: preview.dragging,
+    });
+  }, []);
+
+  const redraw = useCallback(() => {
+    if (ready) paint();
+  }, [ready, paint]);
+
+  const setView = useCallback(
+    (updater: BrowCanvasViewOptions | ((prev: BrowCanvasViewOptions) => BrowCanvasViewOptions)) => {
+      setViewState((prev) => {
+        const next = typeof updater === "function" ? updater(prev) : updater;
+        queueMicrotask(() => redraw());
+        return next;
       });
-    }
-  }, [activePoint, browShape, dragging, pigmentHex, stylePreview, view]);
+    },
+    [redraw],
+  );
+
+  const pushUndo = useCallback(() => {
+    if (!geometryRef.current) return;
+    undoStackRef.current = [...undoStackRef.current.slice(-(MAX_UNDO - 1)), cloneGeometry(geometryRef.current)];
+    setCanUndo(true);
+  }, []);
+
+  const applyGeometry = useCallback(
+    (g: BrowMappingGeometry, recordUndo = false) => {
+      if (recordUndo) pushUndo();
+      geometryRef.current = g;
+      pointsRef.current = geometryToDraggablePoints(g);
+      setGeometry({ ...g });
+      queueMicrotask(() => redraw());
+    },
+    [pushUndo, redraw],
+  );
 
   const initFromLandmarks = useCallback(
     (landmarks: import("@mediapipe/face_mesh").NormalizedLandmark[], img: HTMLImageElement) => {
@@ -187,14 +219,27 @@ export function useBrowCanvas(imageSrc: string | null, options?: BrowCanvasOptio
   }, [applyGeometry, imageSrc, initFromLandmarks]);
 
   useEffect(() => {
-    if (ready) paint();
-  }, [ready, paint]);
+    redraw();
+  }, [
+    redraw,
+    ready,
+    options.browShape,
+    options.stylePreview,
+    options.pigmentHex,
+    view.showMappingLines,
+    view.showPigmentPreview,
+    view.showLabels,
+    geometry,
+    dragging,
+    activePoint,
+    manualMode,
+  ]);
 
   useEffect(() => {
-    const onResize = () => paint();
+    const onResize = () => redraw();
     window.addEventListener("resize", onResize);
     return () => window.removeEventListener("resize", onResize);
-  }, [paint]);
+  }, [redraw]);
 
   const pointerPosImageSpace = (e: React.PointerEvent<HTMLCanvasElement>) => {
     const canvas = canvasRef.current!;
@@ -219,6 +264,7 @@ export function useBrowCanvas(imageSrc: string | null, options?: BrowCanvasOptio
       dragStartRef.current = geometryRef.current ? cloneGeometry(geometryRef.current) : null;
       setDragging(hit);
       setActivePoint(hit);
+      setManualMode(true);
     }
   };
 
@@ -239,6 +285,7 @@ export function useBrowCanvas(imageSrc: string | null, options?: BrowCanvasOptio
     }
     dragStartRef.current = null;
     setDragging(null);
+    redraw();
     if (e.currentTarget.hasPointerCapture(e.pointerId)) {
       e.currentTarget.releasePointerCapture(e.pointerId);
     }
@@ -272,9 +319,9 @@ export function useBrowCanvas(imageSrc: string | null, options?: BrowCanvasOptio
       pointsRef.current = geometryToDraggablePoints(prev);
       setGeometry({ ...prev });
       setCanUndo(undoStackRef.current.length > 0);
-      paint();
+      redraw();
     }
-  }, [paint]);
+  }, [redraw]);
 
   const enableManualMode = useCallback(() => {
     setManualMode(true);
@@ -285,7 +332,8 @@ export function useBrowCanvas(imageSrc: string | null, options?: BrowCanvasOptio
       setReady(true);
     }
     setError(null);
-  }, [applyGeometry]);
+    redraw();
+  }, [applyGeometry, redraw]);
 
   const getGeometry = useCallback((): BrowMappingGeometry | null => {
     return geometryRef.current ? cloneGeometry(geometryRef.current) : null;
@@ -298,18 +346,18 @@ export function useBrowCanvas(imageSrc: string | null, options?: BrowCanvasOptio
     const g = geometryRef.current;
     if (!img || !g) return null;
     return renderBrowCanvas(img, g, {
-      stylePreview,
-      pigmentHex,
-      browShape,
+      stylePreview: options.stylePreview,
+      pigmentHex: options.pigmentHex,
+      browShape: options.browShape,
       showMappingLines: view.showMappingLines,
       showLabels: view.showLabels,
       showPigmentPreview: view.showPigmentPreview,
-      shapeLabel: options?.shapeLabel,
-      pigmentName: options?.pigmentName,
-      techniqueLabel: options?.techniqueLabel,
+      shapeLabel: options.shapeLabel,
+      pigmentName: options.pigmentName,
+      techniqueLabel: options.techniqueLabel,
       maxWidth: img.naturalWidth,
     });
-  }, [browShape, options?.pigmentName, options?.shapeLabel, options?.techniqueLabel, pigmentHex, stylePreview, view]);
+  }, [options, view]);
 
   const exportPng = useCallback(() => {
     const canvas = renderExportCanvas();
@@ -327,6 +375,7 @@ export function useBrowCanvas(imageSrc: string | null, options?: BrowCanvasOptio
     geometry,
     view,
     setView,
+    redraw,
     onPointerDown,
     onPointerMove,
     onPointerUp,
