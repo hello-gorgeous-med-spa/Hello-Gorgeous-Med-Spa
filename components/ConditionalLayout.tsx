@@ -33,6 +33,9 @@ const ADMIN_ROUTES = [
   '/consents/kiosk',
 ];
 
+/** Full-screen client forms (iPad intake) — no site chrome over the form */
+const STANDALONE_FORM_ROUTES = ['/forms/brow-intake'];
+
 export function ConditionalLayout({
   children,
   siteSettings,
@@ -46,9 +49,12 @@ export function ConditionalLayout({
   
   // Check if current path is an admin/internal route
   const isAdminRoute = ADMIN_ROUTES.some(route => pathname?.startsWith(route));
-  
+  const isStandaloneForm = STANDALONE_FORM_ROUTES.some(
+    (route) => pathname === route || pathname?.startsWith(`${route}/`),
+  );
+
   // Admin/auth routes - no website chrome, just the content (clean for mobile/PWA)
-  if (isAdminRoute) {
+  if (isAdminRoute || isStandaloneForm) {
     return (
       <div className="min-h-screen min-h-[100dvh]">
         {children}

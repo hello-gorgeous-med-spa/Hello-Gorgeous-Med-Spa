@@ -234,7 +234,8 @@ canvas{width:100%;height:180px;display:block;border-radius:12px;touch-action:non
     <div class="done">
       <div class="ck">&#10003;</div>
       <h2>All set, gorgeous!</h2>
-      <p>Your intake is complete. Tap below to save a signed PDF copy for your file. Your technician will take it from here.</p>
+      <p id="doneMessage">Your intake is complete. Tap below to save a signed PDF copy for your records.</p>
+      <p class="foot-note" id="submitRef" style="display:none;margin-top:10px;"></p>
       <button class="dl-btn" id="downloadBtn">Download Signed PDF</button>
       <div class="foot-note">Hello Gorgeous Med Spa &bull; 74 W Washington St, Oswego, IL &bull; 630-636-6193</div>
     </div>
@@ -249,8 +250,7 @@ canvas{width:100%;height:180px;display:block;border-radius:12px;touch-action:non
 
 <script src="/vendor/jspdf.umd.min.js"></script>
 <script>
-/* ===== Intent: a calm, step-by-step iPad intake that ends in a signed PDF the spa controls.
-   No data leaves the device. Built self-contained on purpose (PHI stays in the room). ===== */
+/* ===== Brow intake: step-by-step wizard → submit to Hello Gorgeous + optional PDF download ===== */
 
 var HEALTH = ["Diabetes","High / low blood pressure","Heart condition","Hepatitis / HIV",
   "Thyroid disorder","Autoimmune condition","Bleeding disorder","Epilepsy / seizures",
@@ -384,19 +384,103 @@ function show(n){
   }
   if(n===6) setTimeout(sizeCanvas,80);
 }
-document.getElementById('nextBtn').onclick=function(){
+function val(id){ return (document.getElementById(id)||{}).value || ''; }
+function checked(store){ return Object.keys(store).filter(function(k){return store[k];}); }
+
+function collectIntakePayload(){
+  return {
+    full_name: val('f_name'),
+    dob: val('f_dob'),
+    phone: val('f_phone'),
+    email: val('f_email'),
+    emergency_contact: val('f_emerg'),
+    referral: val('f_referral'),
+    health_flags: checked(state.health),
+    medications: val('f_meds'),
+    allergies: val('f_allergy'),
+    contraindications_absolute: checked(state.abs),
+    contraindications_relative: checked(state.rel),
+    technique: state.tech,
+    shape: state.shape,
+    brow_goal: val('f_goal'),
+    consent_agreed: state.agree,
+    signature_drawn: hasSig,
+    signature_typed: val('f_signname').trim(),
+    completed_at: new Date().toISOString(),
+  };
+}
+
+function getJsPDF(){
+  var j=window.jspdf;
+  if(!j) return null;
+  return j.jsPDF||j.default||j;
+}
+
+async function submitIntakeToSpa(){
+  var payload={
+    slug:'brow-consultation-intake',
+    signer_name: val('f_signname').trim()||val('f_name').trim()||undefined,
+    client_phone: val('f_phone').trim()||undefined,
+    responses: collectIntakePayload(),
+    signature_data: hasSig ? canvas.toDataURL('image/png') : undefined,
+  };
+  var res=await fetch('/api/public/forms/submit',{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify(payload),
+  });
+  var data={};
+  try{ data=await res.json(); }catch(e){}
+  if(!res.ok) throw new Error(data.error||('Submit failed ('+res.status+')'));
+  return data.reference||'OK';
+}
+
+document.getElementById('nextBtn').onclick=async function(){
+  var btn=this;
   if(current===6){
     if(!state.agree){ alert('Please check the consent box to continue.'); return; }
     var typed = document.getElementById('f_signname').value.trim();
     if(!hasSig && !typed){ alert('Please sign — either draw your signature or type your full name.'); return; }
+    if(!val('f_name').trim()){ alert('Please enter your full name on step 1.'); return; }
+    if(!val('f_phone').trim()){ alert('Please enter your phone number on step 1.'); return; }
+    btn.disabled=true;
+    var prevLabel=btn.textContent;
+    btn.textContent='Sending to Hello Gorgeous…';
+    try{
+      var ref=await submitIntakeToSpa();
+      window.__browIntakeRef=ref;
+    }catch(err){
+      console.error('[brow-intake] submit failed', err);
+      alert('Could not send your intake to Hello Gorgeous. Check Wi‑Fi and try again, or ask your technician for help.');
+      btn.disabled=false;
+      btn.textContent=prevLabel;
+      return;
+    }
+    btn.disabled=false;
+    btn.textContent=prevLabel;
   }
-  if(current<7){ current++; show(current); }
+  if(current<7){ current++; show(current); updateDoneScreen(); }
 };
 document.getElementById('backBtn').onclick=function(){ if(current>1){ current--; show(current); } };
 
+function updateDoneScreen(){
+  var ref=window.__browIntakeRef;
+  var msg=document.getElementById('doneMessage');
+  var refEl=document.getElementById('submitRef');
+  if(ref && msg){
+    msg.textContent='Your intake was sent to Hello Gorgeous Med Spa. Download a signed PDF copy for your records below.';
+  }
+  if(ref && refEl){
+    refEl.style.display='block';
+    refEl.textContent='Confirmation: '+ref;
+  }
+}
+
 /* ===== PDF export ===== */
 document.getElementById('downloadBtn').onclick=function(){
-  var jsPDF=window.jspdf.jsPDF;
+  var JsPDF=getJsPDF();
+  if(!JsPDF){ alert('PDF tool did not load. Refresh the page or ask staff for a paper copy.'); return; }
+  var jsPDF=JsPDF;
   var doc=new jsPDF({unit:'pt', format:'letter'});
   var W=612, M=48, y=64;
   var rose=[139,74,74], gold=[201,169,110], pink=[255,20,147], ink=[42,42,42], grey=[120,110,110];
@@ -431,8 +515,6 @@ document.getElementById('downloadBtn').onclick=function(){
     var lines=doc.splitTextToSize('•  '+t, W-2*M-8);
     doc.text(lines, M+4, y); y+=lines.length*12+2;
   }
-  function checked(store){ return Object.keys(store).filter(function(k){return store[k];}); }
-
   header();
   doc.setFont('times','bold'); doc.setFontSize(15); doc.setTextColor.apply(null,rose);
   doc.text('Brow Consultation & Intake', W/2, 84, {align:'center'});
@@ -491,7 +573,6 @@ document.getElementById('downloadBtn').onclick=function(){
   var fname=(val('f_name')||'client').replace(/[^a-z0-9]/gi,'-');
   doc.save('HG-Brow-Intake-'+fname+'.pdf');
 };
-function val(id){ return (document.getElementById(id)||{}).value || ''; }
 
 show(1);
 </script>

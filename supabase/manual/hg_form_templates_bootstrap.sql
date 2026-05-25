@@ -107,5 +107,18 @@ ON CONFLICT (slug) DO UPDATE SET
   title = EXCLUDED.title,
   is_active = true;
 
+-- Brow PMU digital intake (/forms/brow-intake)
+INSERT INTO public.hg_form_templates (slug, title, schema_json, trigger_service_slug, is_active)
+VALUES (
+  'brow-consultation-intake',
+  'Brow Consultation & Intake',
+  '[]'::jsonb,
+  'brow-pmu',
+  true
+)
+ON CONFLICT (slug) DO UPDATE SET
+  title = EXCLUDED.title,
+  is_active = true;
+
 -- Verify
 SELECT id, slug, title, is_active FROM public.hg_form_templates ORDER BY slug;

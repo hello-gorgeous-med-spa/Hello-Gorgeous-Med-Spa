@@ -9,11 +9,11 @@ export const metadata: Metadata = {
 
 export default function BrowIntakePage() {
   return (
-    <main className="fixed inset-0 bg-[#fbf6f6]">
+    <main className="fixed inset-0 z-0 min-h-[100dvh] bg-[#fbf6f6]">
       <iframe
         src="/forms/brow-consultation-intake.html"
         title="Hello Gorgeous Brow Consultation Intake"
-        className="h-full w-full border-0"
+        className="h-full min-h-[100dvh] w-full border-0"
         allow="clipboard-write"
       />
     </main>
