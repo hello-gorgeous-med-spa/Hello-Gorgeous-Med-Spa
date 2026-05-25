@@ -1,4 +1,3 @@
-import { FaceMesh } from "@mediapipe/face_mesh";
 import type { NormalizedLandmark } from "@mediapipe/face_mesh";
 
 /** MediaPipe indices — subject's left/right (selfie view). */
@@ -19,23 +18,31 @@ export const FACE_LM = {
 
 const MEDIAPIPE_BASE = "/mediapipe/face_mesh/";
 
-let faceMeshPromise: Promise<FaceMesh> | null = null;
+type FaceMeshInstance = import("@mediapipe/face_mesh").FaceMesh;
 
-export function getFaceMeshClient(): Promise<FaceMesh> {
+let faceMeshPromise: Promise<FaceMeshInstance> | null = null;
+
+async function loadFaceMesh(): Promise<FaceMeshInstance> {
+  if (typeof window === "undefined") {
+    throw new Error("FaceMesh is browser-only");
+  }
+  const { FaceMesh } = await import("@mediapipe/face_mesh");
+  const faceMesh = new FaceMesh({
+    locateFile: (file) => `${MEDIAPIPE_BASE}${file}`,
+  });
+  faceMesh.setOptions({
+    maxNumFaces: 1,
+    refineLandmarks: true,
+    minDetectionConfidence: 0.65,
+    minTrackingConfidence: 0.65,
+  });
+  await faceMesh.initialize();
+  return faceMesh;
+}
+
+export function getFaceMeshClient(): Promise<FaceMeshInstance> {
   if (!faceMeshPromise) {
-    faceMeshPromise = (async () => {
-      const faceMesh = new FaceMesh({
-        locateFile: (file) => `${MEDIAPIPE_BASE}${file}`,
-      });
-      faceMesh.setOptions({
-        maxNumFaces: 1,
-        refineLandmarks: true,
-        minDetectionConfidence: 0.65,
-        minTrackingConfidence: 0.65,
-      });
-      await faceMesh.initialize();
-      return faceMesh;
-    })();
+    faceMeshPromise = loadFaceMesh();
   }
   return faceMeshPromise;
 }

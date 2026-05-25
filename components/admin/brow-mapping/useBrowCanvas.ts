@@ -326,7 +326,6 @@ export function useBrowCanvas(imageSrc: string | null, options?: BrowCanvasOptio
     geometry,
     view,
     setView,
-    setView,
     onPointerDown,
     onPointerMove,
     onPointerUp,
