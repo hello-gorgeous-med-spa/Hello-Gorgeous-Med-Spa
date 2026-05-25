@@ -55,6 +55,16 @@ export function useBrowCanvas(imageSrc: string | null, options?: BrowCanvasOptio
   const [dragging, setDragging] = useState<DraggablePointId | null>(null);
   const [activePoint, setActivePoint] = useState<DraggablePointId | null>(null);
   const [canUndo, setCanUndo] = useState(false);
+  const [ready, setReady] = useState(false);
+  const [detecting, setDetecting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [manualMode, setManualMode] = useState(false);
+  const [geometry, setGeometry] = useState<BrowMappingGeometry | null>(null);
+  const [view, setView] = useState<BrowCanvasViewOptions>({
+    showMappingLines: true,
+    showLabels: true,
+    showPigmentPreview: true,
+  });
 
   const pushUndo = useCallback(() => {
     if (!geometryRef.current) return;
