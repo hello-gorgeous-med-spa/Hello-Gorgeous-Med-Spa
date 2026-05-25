@@ -48,7 +48,7 @@ export function BrowMappingTool() {
   const [oilySkin, setOilySkin] = useState(false);
   const [existingPmu, setExistingPmu] = useState(false);
 
-  const selectedPigment = TINA_PIGMENT_BY_ID[tinaPigmentId];
+  const selectedPigment = TINA_PIGMENT_BY_ID[tinaPigmentId] ?? TINA_PIGMENT_BY_ID["medium-brown"];
   const activeShape = BROW_SHAPES.find((s) => s.id === browShape);
   const activeStyle = BROW_STYLE_PREVIEWS.find((s) => s.id === stylePreview);
 

@@ -52,24 +52,15 @@ export function useBrowCanvas(imageSrc: string | null, options?: BrowCanvasOptio
   const undoStackRef = useRef<BrowMappingGeometry[]>([]);
   const dragStartRef = useRef<BrowMappingGeometry | null>(null);
 
+  const [dragging, setDragging] = useState<DraggablePointId | null>(null);
+  const [activePoint, setActivePoint] = useState<DraggablePointId | null>(null);
+  const [canUndo, setCanUndo] = useState(false);
+
   const pushUndo = useCallback(() => {
     if (!geometryRef.current) return;
     undoStackRef.current = [...undoStackRef.current.slice(-(MAX_UNDO - 1)), cloneGeometry(geometryRef.current)];
     setCanUndo(true);
   }, []);
-
-  const [ready, setReady] = useState(false);
-  const [detecting, setDetecting] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [manualMode, setManualMode] = useState(false);
-  const [geometry, setGeometry] = useState<BrowMappingGeometry | null>(null);
-  const [view, setView] = useState<BrowCanvasViewOptions>({
-    showMappingLines: true,
-    showLabels: true,
-    showPigmentPreview: true,
-  });
-  const [dragging, setDragging] = useState<DraggablePointId | null>(null);
-  const [activePoint, setActivePoint] = useState<DraggablePointId | null>(null);
 
   const applyGeometry = useCallback((g: BrowMappingGeometry, recordUndo = false) => {
     if (recordUndo) pushUndo();
