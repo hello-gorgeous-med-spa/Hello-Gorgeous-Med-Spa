@@ -1,13 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { CareGuideLayout, CareGuideHeader, CareGuideFooter } from "@/components/CareGuideLayout";
-import { BrowComboBlondeBeforeAfter } from "@/components/brow/BrowComboBlondeBeforeAfter";
-import { BrowComboOmbreBeforeAfter } from "@/components/brow/BrowComboOmbreBeforeAfter";
-import { BrowNaturalLightStrokeBeforeAfter } from "@/components/brow/BrowNaturalLightStrokeBeforeAfter";
-import { BrowNaturalLightStrokeVerticalBeforeAfter } from "@/components/brow/BrowNaturalLightStrokeVerticalBeforeAfter";
 import { BrowPmuPortfolioShowcase } from "@/components/brow/BrowPmuPortfolioShowcase";
-import { BrowPowderBeforeAfter } from "@/components/brow/BrowPowderBeforeAfter";
-import { BrowPowderNanoBeforeAfter } from "@/components/brow/BrowPowderNanoBeforeAfter";
 import { BROW_PMU_OSWEGO_PATH } from "@/data/brow-pmu-seo";
 import {
   BROW_CONSULTATION_PACKET_PDF,
@@ -52,19 +46,6 @@ export default function MicrobladingCareGuidePage() {
           Hair-stroke brows, ombré powder, combo/hybrid, and nano strokes — follow these steps for your best heal.
         </p>
       </div>
-
-      <BrowPmuPortfolioShowcase className="mb-6" />
-      <p className="text-center text-sm mb-6 print:hidden">
-        <Link href={BROW_PMU_OSWEGO_PATH} className="font-bold text-[#E6007E] hover:underline">
-          Full brow PMU results &amp; technique guide (Oswego) →
-        </Link>
-      </p>
-      <BrowComboBlondeBeforeAfter className="mb-6" />
-      <BrowComboOmbreBeforeAfter className="mb-6" />
-      <BrowNaturalLightStrokeBeforeAfter className="mb-6" />
-      <BrowNaturalLightStrokeVerticalBeforeAfter className="mb-6" />
-      <BrowPowderNanoBeforeAfter className="mb-6" />
-      <BrowPowderBeforeAfter className="mb-8" />
 
       <section className="mb-8 rounded-xl border-2 border-[#E6007E]/30 bg-rose-50 p-5 print:border-black">
         <h3 className="text-lg font-bold text-[#E6007E] mb-2">Related documents</h3>
@@ -163,6 +144,18 @@ export default function MicrobladingCareGuidePage() {
       <section className="mb-6 p-4 rounded-lg bg-pink-50 border border-[#E6007E]/20">
         <p className="text-sm text-black/85 font-medium">{MICROBLADING_HEALING_NOTE}</p>
         <p className="text-sm text-black/80 mt-3">{MICROBLADING_INFECTION_WARNING}</p>
+      </section>
+
+      <section className="mb-8 print:hidden">
+        <p className="text-center text-sm font-semibold text-[#E6007E] uppercase tracking-wider mb-4">
+          Brow PMU techniques — before &amp; after
+        </p>
+        <BrowPmuPortfolioShowcase className="mb-4" showCta />
+        <p className="text-center text-sm">
+          <Link href={BROW_PMU_OSWEGO_PATH} className="font-bold text-[#E6007E] hover:underline">
+            Full brow PMU results &amp; technique guide (Oswego) →
+          </Link>
+        </p>
       </section>
 
       <CareGuideFooter />
