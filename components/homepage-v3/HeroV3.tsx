@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { BOOKING_URL } from "@/lib/flows";
+import { HG_TAGLINE } from "@/lib/brand-tagline";
 import { SITE } from "@/lib/seo";
 
 export function HeroV3() {
@@ -61,9 +62,12 @@ export function HeroV3() {
                   Medicine.
                 </span>
               </h1>
-              <p className="mt-4 text-sm md:text-base text-white/80 leading-relaxed max-w-sm">
-                Advanced injectables, skin treatments &amp; wellness —
-                delivered with precision by licensed medical providers.
+              <p className="mt-4 text-sm md:text-base text-[#FFB8DC] font-semibold leading-relaxed max-w-md">
+                {HG_TAGLINE}
+              </p>
+              <p className="mt-2 text-sm text-white/75 leading-relaxed max-w-sm">
+                Advanced injectables, skin treatments &amp; wellness — delivered with precision by
+                licensed medical providers.
               </p>
 
               <div className="mt-6 flex flex-wrap gap-3">

@@ -29,7 +29,7 @@ export function SignatureTreatmentMenuContent() {
               </span>
             </h1>
             <p className="mt-4 text-lg text-white/80 max-w-2xl mx-auto font-medium">
-              Expert care · real results · you first. NP-directed medical aesthetics with the InMode
+              We screen you like a medical practice, because we are one. NP-directed medical aesthetics with the InMode
               Trifecta — only here in the western suburbs.
             </p>
           </FadeUp>

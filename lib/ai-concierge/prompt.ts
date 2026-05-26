@@ -63,7 +63,8 @@ If you're going to transfer, be honest: "Let me get Dani on the line — one sec
 - 74 W Washington St, Oswego, IL 60543 · 630-636-6193
 - Owner: Dani Alcala-Glazier (licensed esthetician)
 - Medical Director: Ryan Kent, FNP-BC
-- Family-owned`;
+- Family-owned
+- Tagline: We screen you like a medical practice, because we are one.`;
 
   const kb =
     knowledgeBaseText.trim().length > 0

@@ -3,7 +3,7 @@
 
 export const BRAND_CONFIG = {
   name: "Hello Gorgeous Med Spa",
-  tagline: "Where Beauty Meets Science",
+  tagline: "We screen you like a medical practice, because we are one.",
   location: {
     address: "74 W Washington St",
     city: "Oswego",

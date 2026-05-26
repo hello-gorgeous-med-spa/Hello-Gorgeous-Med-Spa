@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { HG_TAGLINE } from "@/lib/brand-tagline";
 import { daniPersonJsonLd, ryanPersonJsonLd } from "@/lib/founder-credentials";
 import { BOOKING_URL } from "@/lib/flows";
 import { ALL_HOMEPAGE_SERVICES } from "@/lib/homepage-services";
@@ -22,8 +23,9 @@ export type Service = {
 export const SITE = {
   name: "Hello Gorgeous Med Spa",
   url: "https://www.hellogorgeousmedspa.com",
+  tagline: HG_TAGLINE,
   description:
-    "Best of Oswego — #1 Best Med Spa. NP-directed medical spa and medical aesthetics clinic in Oswego, IL. Same-day appointments often available for med spa, Rx care, and urgent needs. Morpheus8 Burst, Quantum RF, Solaria CO2. Full-authority NP on site. Botox, fillers, weight loss. Serving Oswego, Naperville, Aurora, Plainfield, IL.",
+    `${HG_TAGLINE} Best of Oswego — #1 Best Med Spa. NP-directed medical spa and medical aesthetics clinic in Oswego, IL. Same-day appointments often available for med spa, Rx care, and urgent needs. Morpheus8 Burst, Quantum RF, Solaria CO2. Full-authority NP on site. Botox, fillers, weight loss. Serving Oswego, Naperville, Aurora, Plainfield, IL.`,
   phone: "630-636-6193",
   /** Toll-free via Square - replace with your number when ready */
   tollFree: "833-474-3998",

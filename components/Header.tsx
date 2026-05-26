@@ -22,6 +22,7 @@ import {
   PEPTIDE_THERAPY_PATH,
 } from "@/lib/peptide-therapy-nav";
 import { NAD_PLUS_INJECTIONS_PATH } from "@/lib/nad-plus-injections";
+import { HG_TAGLINE } from "@/lib/brand-tagline";
 
 /* ─────────────────────────────────────────────────────────────
    NAV STRUCTURE — clean, client-first, no emojis
@@ -333,8 +334,8 @@ function ServicesMenu({
           ))}
         </div>
         <div className="mt-6 border-t border-black/10 pt-5 flex items-center justify-between">
-          <p className="text-xs text-black/40">
-            NP-directed medical aesthetics · Oswego, IL
+          <p className="text-xs text-black/40 max-w-md">
+            {HG_TAGLINE} · Oswego, IL
           </p>
           <Link
             href={BOOKING_URL}
@@ -587,11 +588,11 @@ export function Header() {
     <header className="sticky top-0 z-50 bg-white border-b-2 border-black">
       {/* Top bar */}
       <div className="bg-black py-1.5 px-4 text-center">
-        <p className="text-xs text-white/70 tracking-wide">
+          <p className="text-xs text-white/70 tracking-wide">
           <span className="font-semibold text-[#FFD700]">#1 Best Med Spa in Oswego</span>
           <span className="mx-2 text-white/30">·</span>
-          NP-directed medical aesthetics
-          <span className="mx-2 text-white/30">·</span>
+          <span className="text-white/90">{HG_TAGLINE}</span>
+          <span className="mx-2 text-white/30 hidden sm:inline">·</span>
           <a href={`tel:${SITE.phone}`} className="text-white hover:text-[#FF2D8E] transition-colors">
             (630) 636-6193
           </a>
@@ -610,7 +611,7 @@ export function Header() {
               <span className="block text-sm font-bold text-[#FF2D8E] leading-tight">
                 {SITE.name}
               </span>
-              <span className="block text-[10px] font-semibold text-black/50 tracking-widest uppercase">
+              <span className="block text-[10px] font-semibold text-black/50 tracking-wide uppercase max-w-[11rem] leading-tight">
                 Medical Aesthetics
               </span>
             </div>

@@ -9,6 +9,7 @@ import { FadeUp, Section } from "@/components/Section";
 import { BOOKING_URL } from "@/lib/flows";
 import type { FAQPageSection } from "@/lib/med-spa-faq-data";
 import { MED_SPA_FAQ_SECTIONS } from "@/lib/med-spa-faq-data";
+import { HG_TAGLINE } from "@/lib/brand-tagline";
 import { SITE } from "@/lib/seo";
 
 const BRAND = {
@@ -92,7 +93,10 @@ export function FaqPageContent() {
                 <span className="inline-block w-2 h-2 rounded-full bg-[#E6007E] animate-pulse" aria-hidden />
                 Hello Gorgeous
               </div>
-              <p className="text-sm md:text-base uppercase tracking-widest text-[#FFB8DC] font-semibold mb-4">
+              <p className="text-sm md:text-base text-[#FFB8DC] font-semibold mb-4 max-w-2xl mx-auto leading-relaxed">
+                {HG_TAGLINE}
+              </p>
+              <p className="text-xs md:text-sm uppercase tracking-widest text-white/70 font-medium mb-4">
                 Oswego · Naperville · Aurora · Plainfield
               </p>
               <h1 className="text-4xl md:text-6xl font-black leading-tight mb-6 text-white drop-shadow-lg">

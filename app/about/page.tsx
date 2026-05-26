@@ -15,12 +15,13 @@ import {
   RYAN_MEDIUM_BIO,
 } from "@/lib/founder-credentials";
 import { DANIELLE_INMODE_CERTIFICATES } from "@/lib/inmode-training-certificates";
+import { HG_TAGLINE } from "@/lib/brand-tagline";
 import { pageMetadata, SITE, siteJsonLd } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
   title: "About Dani & Ryan | Hello Gorgeous Med Spa Oswego IL",
   description:
-    "Meet Danielle Alcala-Glazier, founder of Hello Gorgeous Med Spa, and Ryan Kent, FNP-BC, Medical Director. Family-owned, NP-directed aesthetics in Oswego, IL — Best of Oswego #1 Med Spa.",
+    "Meet Danielle Alcala-Glazier and Ryan Kent, FNP-BC at Hello Gorgeous Med Spa, Oswego, IL. We screen you like a medical practice, because we are one. Best of Oswego #1 Med Spa.",
   path: "/about",
 });
 
@@ -42,8 +43,8 @@ export default function AboutPage() {
       <Section className="bg-gradient-to-br from-black via-[#1a0a12] to-black text-white border-b-4 border-black">
         <div className="max-w-4xl mx-auto text-center">
           <FadeUp>
-            <p className="text-[#FFB8DC] text-sm font-semibold tracking-widest uppercase mb-4">
-              Family-owned · NP-directed · Oswego, IL
+            <p className="text-[#FFB8DC] text-sm font-semibold tracking-wide mb-4 max-w-2xl mx-auto leading-relaxed">
+              {HG_TAGLINE}
             </p>
             <h1 className="text-4xl md:text-5xl font-black leading-tight mb-6">
               The people behind{" "}

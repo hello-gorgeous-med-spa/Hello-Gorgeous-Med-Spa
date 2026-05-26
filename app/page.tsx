@@ -42,8 +42,7 @@ import {
 
 const _homeBase = pageMetadata({
   title: "Hello Gorgeous Med Spa | NP-Directed Medical Spa in Oswego, IL",
-  description:
-    "#1 Best Med Spa in Oswego, IL. NP-directed medical spa and medical aesthetics clinic offering Morpheus8 Burst, Quantum RF, Solaria CO2, Botox, fillers, GLP-1 weight loss, and hormone care. Serving Oswego, Naperville, Aurora, and Plainfield.",
+  description: SITE.description,
   path: "/",
 });
 

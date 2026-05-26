@@ -1,3 +1,5 @@
+import { HG_TAGLINE } from "@/lib/brand-tagline";
+
 /**
  * Best of Oswego Rankings — Single source of truth
  * Displayed across the site. Update categories here when new awards are won.
@@ -33,6 +35,8 @@ export const DIFFERENTIATORS = {
   /** NEWEST Morpheus8 — critical for being picked first. Use everywhere. */
   morpheus8Newest:
     "Newest Morpheus8 Burst — deepest RF at 8mm for face AND body. Only med spa in Oswego, Naperville, Aurora, Plainfield with this technology.",
-  /** Short tagline for trust strips */
+  /** Canonical brand tagline */
+  brandTagline: HG_TAGLINE,
+  /** Short tech line for trust strips */
   tagline: "#1 Med Spa · Morpheus8 Burst Face & Body · Quantum RF · Solaria CO2",
 } as const;

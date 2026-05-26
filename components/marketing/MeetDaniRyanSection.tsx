@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { FadeUp, Section } from "@/components/Section";
+import { HG_TAGLINE } from "@/lib/brand-tagline";
 import { DANI_IMAGE, RYAN_IMAGE } from "@/lib/founder-credentials";
 
 function FounderCard({
@@ -50,8 +51,8 @@ export function MeetDaniRyanSection() {
     <Section className="border-b-4 border-black bg-gradient-to-b from-[#FFF0F7] via-white to-white">
       <div className="max-w-5xl mx-auto">
         <FadeUp>
-          <p className="text-center text-xs font-bold uppercase tracking-[0.2em] text-[#E6007E] mb-3">
-            Family-owned · NP-directed
+          <p className="text-center text-xs font-bold uppercase tracking-[0.15em] text-[#E6007E] mb-3 max-w-2xl mx-auto leading-snug">
+            {HG_TAGLINE}
           </p>
           <h2 className="text-center text-3xl md:text-4xl font-black text-black mb-4">
             Meet{" "}

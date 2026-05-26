@@ -8,7 +8,7 @@ import { createServerSupabaseClient } from '@/lib/hgos/supabase';
 
 const DEFAULT_SETTINGS = {
   site_name: 'Hello Gorgeous Med Spa',
-  tagline: 'Your Premier Medical Spa',
+  tagline: 'We screen you like a medical practice, because we are one.',
   color_primary: '#ec4899',
   color_secondary: '#000000',
   color_accent: '#ffffff',

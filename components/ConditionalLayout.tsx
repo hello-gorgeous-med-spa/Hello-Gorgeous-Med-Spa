@@ -16,6 +16,7 @@ import { VoiceConcierge } from "@/components/VoiceConcierge";
 import { EmailCapture } from "@/components/EmailCapture";
 import { HelloGorgeousAssistant } from "@/components/HelloGorgeousAssistant";
 import { ImmediateCareStrip } from "@/components/ImmediateCareBanner";
+import { BrandTaglineStrip } from "@/components/BrandTaglineStrip";
 import BookingTransitionBanner from "@/components/BookingTransitionBanner";
 import type { SiteSettings } from "@/lib/cms-readers";
 import type { GooglePlace } from "@/lib/seo/google-places";
@@ -69,6 +70,7 @@ export function ConditionalLayout({
         <BookingTransitionBanner />
         <ImmediateCareStrip />
         <Header />
+        <BrandTaglineStrip />
         {/* Do not use overflow-x-hidden here: it forces overflow-y to auto per CSS and traps scroll on tall pages. */}
         <main className="pt-16 w-full min-w-0">
           <div className="min-h-screen min-h-[100dvh] w-full max-w-full min-w-0 bg-white pb-20 md:pb-0">

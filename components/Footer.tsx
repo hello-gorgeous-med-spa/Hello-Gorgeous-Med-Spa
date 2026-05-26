@@ -6,11 +6,10 @@ import { BookingBadges } from "@/components/BookingBadges";
 import { LocationsServed } from "@/components/LocationsServed";
 import { FOOTER_CREDENTIALS_HEADLINE, FOOTER_CREDENTIALS_LINE } from "@/lib/founder-credentials";
 import { BOOKING_URL, SQUARE_MAILING_LIST_ENROLL_URL } from "@/lib/flows";
+import { HG_TAGLINE } from "@/lib/brand-tagline";
 import { SITE, SERVICES, servicePublicPath } from "@/lib/seo";
 import type { SiteSettings } from "@/lib/cms-readers";
 import type { GooglePlace } from "@/lib/seo/google-places";
-
-const DEFAULT_TAGLINE = "Luxury, clinical-meets-beauty aesthetics with results you can trust. Experience personalized care that makes you feel confident and gorgeous.";
 
 export function Footer({
   siteSettings,
@@ -19,7 +18,7 @@ export function Footer({
   siteSettings?: SiteSettings | null;
   livePlace?: GooglePlace | null;
 }) {
-  const tagline = siteSettings?.tagline?.trim() || DEFAULT_TAGLINE;
+  const tagline = HG_TAGLINE;
   const hours = siteSettings?.business_hours;
   const hasHours = hours && (hours.mon_fri || hours.sat || hours.sun);
 
@@ -38,6 +37,9 @@ export function Footer({
       <div className="border-b border-white/15 bg-zinc-950">
         <div className="max-w-7xl mx-auto px-4 md:px-6 py-4 text-center">
           <p className="text-xs md:text-sm font-bold text-[#FFB8DC] tracking-wide">{FOOTER_CREDENTIALS_HEADLINE}</p>
+          <p className="mt-2 text-xs md:text-sm font-semibold text-[#FF2D8E] max-w-3xl mx-auto leading-snug">
+            {HG_TAGLINE}
+          </p>
           <p className="mt-2 text-xs md:text-sm text-white/75 leading-relaxed max-w-4xl mx-auto">
             {FOOTER_CREDENTIALS_LINE}
           </p>

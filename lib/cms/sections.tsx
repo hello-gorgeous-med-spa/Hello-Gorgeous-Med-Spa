@@ -22,7 +22,7 @@ export interface CMSSection {
 // ============================================================
 function HeroSection({ content }: { content: Record<string, unknown> }) {
   const headline = (content.headline as string) || 'Welcome to Hello Gorgeous';
-  const subheadline = (content.subheadline as string) || 'Your Premier Medical Spa';
+  const subheadline = (content.subheadline as string) || 'We screen you like a medical practice, because we are one.';
   const description = (content.description as string) || '';
   const background_image = (content.background_image as string) || '';
   const background_color = (content.background_color as string) || 'bg-gradient-to-br from-pink-100 via-white to-pink-50';
