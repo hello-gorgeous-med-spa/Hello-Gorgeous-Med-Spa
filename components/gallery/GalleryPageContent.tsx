@@ -78,6 +78,30 @@ const CASES: GalleryCase[] = [
   },
   {
     type: "single-image",
+    id: "combo-brows-blonde-before-after",
+    treatment: "Combo Brows — Hybrid Hair Stroke + Powder",
+    category: "Brow PMU",
+    tagline: "Hair strokes at the front, soft powder density through arch and tail — ideal for very light natural brows.",
+    image: "/images/brow/combo-brows-blonde-before-after-danielle-alcala.png",
+    imageAlt:
+      "Combo hybrid brows before and after by Danielle Alcala at Hello Gorgeous Med Spa Oswego IL",
+    note: "Combo / hybrid brow PMU. Hello Gorgeous Med Spa, Oswego, IL. Danielle Alcala. Client consent on file.",
+    serviceHref: "/blog/brow-mapping-shapes-techniques-nano-powder-combo-ombre-oswego-il",
+  },
+  {
+    type: "single-image",
+    id: "combo-ombre-brows-before-after",
+    treatment: "Combo & Ombré Brows",
+    category: "Brow PMU",
+    tagline: "Mapped arch and tail with ombré shading plus stroke detail at the brow head.",
+    image: "/images/brow/combo-ombre-brows-before-after-danielle-alcala.png",
+    imageAlt:
+      "Combo ombré brows before and after permanent makeup by Danielle Alcala Hello Gorgeous Med Spa Oswego IL",
+    note: "Combo ombré brow permanent makeup. Oswego, IL. Client consent on file.",
+    serviceHref: "/blog/brow-mapping-shapes-techniques-nano-powder-combo-ombre-oswego-il",
+  },
+  {
+    type: "single-image",
     id: "natural-light-stroke-brows-before-after",
     treatment: "Natural Light Stroke Brows — Microblading",
     category: "Brow PMU",

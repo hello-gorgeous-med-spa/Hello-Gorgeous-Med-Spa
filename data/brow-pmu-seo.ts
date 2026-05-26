@@ -46,9 +46,34 @@ export const POWDER_NANO_BROWS_BEFORE_AFTER = {
     "Soft ombré powder shading with defined tail — ideal when natural brow hair is very light or sparse.",
 } as const;
 
+/** Combo brows — blonde client, hair strokes + soft shading (client consent on file). */
+export const COMBO_BROWS_BLONDE_BEFORE_AFTER = {
+  src: "/images/brow/combo-brows-blonde-before-after-danielle-alcala.png",
+  alt:
+    "Combo brows before and after hybrid microblading and powder shading by Danielle Alcala at Hello Gorgeous Med Spa Oswego IL",
+  title: "Combo Brows — Hybrid PMU",
+  caption:
+    "Hair strokes at the front with soft powder density through the arch and tail — natural fullness for very light brows.",
+} as const;
+
+/** Combo / ombré brows — defined arch and tail with shaded body (client consent on file). */
+export const COMBO_OMBRE_BROWS_BEFORE_AFTER = {
+  src: "/images/brow/combo-ombre-brows-before-after-danielle-alcala.png",
+  alt:
+    "Combo ombré brows before and after permanent makeup by Danielle Alcala at Hello Gorgeous Med Spa Oswego IL Naperville",
+  title: "Combo & Ombré Brows",
+  caption:
+    "Nano or hair strokes blended with ombré powder for polished definition — mapped to facial symmetry first.",
+} as const;
+
+export const BROW_MAPPING_SHAPES_BLOG_PATH =
+  "/blog/brow-mapping-shapes-techniques-nano-powder-combo-ombre-oswego-il" as const;
+
 /** All brow before/after assets for gallery grids and SEO loops. */
 export const BROW_PMU_BEFORE_AFTER_SET = [
   BROW_PMU_PORTFOLIO_BEFORE_AFTER,
+  COMBO_BROWS_BLONDE_BEFORE_AFTER,
+  COMBO_OMBRE_BROWS_BEFORE_AFTER,
   NATURAL_LIGHT_STROKE_BROWS_BEFORE_AFTER,
   NATURAL_LIGHT_STROKE_VERTICAL_BEFORE_AFTER,
   POWDER_NANO_BROWS_BEFORE_AFTER,

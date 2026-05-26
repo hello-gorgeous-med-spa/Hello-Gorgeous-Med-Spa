@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
+import { BrowComboBlondeBeforeAfter } from "@/components/brow/BrowComboBlondeBeforeAfter";
+import { BrowComboOmbreBeforeAfter } from "@/components/brow/BrowComboOmbreBeforeAfter";
 import { BrowNaturalLightStrokeBeforeAfter } from "@/components/brow/BrowNaturalLightStrokeBeforeAfter";
 import { BrowNaturalLightStrokeVerticalBeforeAfter } from "@/components/brow/BrowNaturalLightStrokeVerticalBeforeAfter";
 import { BrowPmuPortfolioShowcase } from "@/components/brow/BrowPmuPortfolioShowcase";
@@ -14,6 +16,7 @@ import {
   YOUR_BROW_JOURNEY_PATH,
 } from "@/data/brow-microblading-care";
 import {
+  BROW_MAPPING_SHAPES_BLOG_PATH,
   BROW_PMU_FAQS,
   BROW_PMU_OSWEGO_PATH,
   BROW_PMU_PORTFOLIO_BEFORE_AFTER,
@@ -191,6 +194,12 @@ export default function MicrobladingBrowPmuOswegoPage() {
             <BrowPmuPortfolioShowcase priority showCta />
           </FadeUp>
           <FadeUp className="mt-8">
+            <BrowComboBlondeBeforeAfter showCta />
+          </FadeUp>
+          <FadeUp className="mt-8">
+            <BrowComboOmbreBeforeAfter showCta />
+          </FadeUp>
+          <FadeUp className="mt-8">
             <BrowNaturalLightStrokeBeforeAfter showCta />
           </FadeUp>
           <FadeUp className="mt-8">
@@ -245,6 +254,13 @@ export default function MicrobladingBrowPmuOswegoPage() {
                 </Link>
                 {" — "}
                 official healing timeline &amp; do&apos;s / don&apos;ts
+              </li>
+              <li>
+                <Link href={BROW_MAPPING_SHAPES_BLOG_PATH} className="text-[#E6007E] font-bold hover:underline">
+                  Brow mapping &amp; techniques guide (blog)
+                </Link>
+                {" — "}
+                shapes, nano, powder, combo &amp; ombré explained
               </li>
               <li>
                 <Link href="/gallery" className="text-[#E6007E] font-bold hover:underline">

@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { CareGuideLayout, CareGuideHeader, CareGuideFooter } from "@/components/CareGuideLayout";
+import { BrowComboBlondeBeforeAfter } from "@/components/brow/BrowComboBlondeBeforeAfter";
+import { BrowComboOmbreBeforeAfter } from "@/components/brow/BrowComboOmbreBeforeAfter";
 import { BrowNaturalLightStrokeBeforeAfter } from "@/components/brow/BrowNaturalLightStrokeBeforeAfter";
 import { BrowNaturalLightStrokeVerticalBeforeAfter } from "@/components/brow/BrowNaturalLightStrokeVerticalBeforeAfter";
 import { BrowPmuPortfolioShowcase } from "@/components/brow/BrowPmuPortfolioShowcase";
@@ -57,6 +59,8 @@ export default function MicrobladingCareGuidePage() {
           Full brow PMU results &amp; technique guide (Oswego) →
         </Link>
       </p>
+      <BrowComboBlondeBeforeAfter className="mb-6" />
+      <BrowComboOmbreBeforeAfter className="mb-6" />
       <BrowNaturalLightStrokeBeforeAfter className="mb-6" />
       <BrowNaturalLightStrokeVerticalBeforeAfter className="mb-6" />
       <BrowPowderNanoBeforeAfter className="mb-6" />

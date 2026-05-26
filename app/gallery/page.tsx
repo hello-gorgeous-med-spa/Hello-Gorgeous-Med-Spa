@@ -21,6 +21,9 @@ export const metadata: Metadata = {
     "nano brows Oswego IL",
     "natural light stroke brows before after",
     "hair stroke microblading Oswego",
+    "combo brows before after Oswego",
+    "ombré brows hybrid brows Illinois",
+    "brow mapping permanent makeup",
     "brow PMU Danielle Alcala",
     "permanent makeup eyebrows near me",
     "before and after med spa Oswego IL",
@@ -108,6 +111,36 @@ const imageObjectsJsonLd = {
       position: 2,
       item: {
         "@type": "ImageObject",
+        name: "Combo Brows — Hybrid Before & After PMU",
+        description:
+          "Combo hybrid brows with hair strokes and powder shading before and after by Danielle Alcala at Hello Gorgeous Med Spa, Oswego IL.",
+        contentUrl: `${SITE.url}/images/brow/combo-brows-blonde-before-after-danielle-alcala.png`,
+        url: `${SITE.url}/blog/brow-mapping-shapes-techniques-nano-powder-combo-ombre-oswego-il`,
+        creator: { "@type": "Person", name: "Danielle Alcala" },
+        copyrightHolder: { "@type": "Organization", name: SITE.name },
+        keywords: "combo brows, hybrid brows, brow mapping, PMU before after, Oswego IL",
+      },
+    },
+    {
+      "@type": "ListItem",
+      position: 3,
+      item: {
+        "@type": "ImageObject",
+        name: "Combo Ombré Brows — Before & After PMU",
+        description:
+          "Combo ombré brow permanent makeup before and after by Danielle Alcala at Hello Gorgeous Med Spa, Oswego IL.",
+        contentUrl: `${SITE.url}/images/brow/combo-ombre-brows-before-after-danielle-alcala.png`,
+        url: `${SITE.url}/blog/brow-mapping-shapes-techniques-nano-powder-combo-ombre-oswego-il`,
+        creator: { "@type": "Person", name: "Danielle Alcala" },
+        copyrightHolder: { "@type": "Organization", name: SITE.name },
+        keywords: "combo brows, ombré brows, brow PMU, before after, Oswego IL",
+      },
+    },
+    {
+      "@type": "ListItem",
+      position: 4,
+      item: {
+        "@type": "ImageObject",
         name: "Powder Brows — Before & After PMU",
         description:
           "Powder brows ombré permanent makeup before and after at Hello Gorgeous Med Spa, Oswego IL.",
@@ -120,7 +153,7 @@ const imageObjectsJsonLd = {
     },
     {
       "@type": "ListItem",
-      position: 3,
+      position: 5,
       item: {
         "@type": "ImageObject",
         name: "Natural Light Stroke Brows — Before & After Microblading",
@@ -136,7 +169,7 @@ const imageObjectsJsonLd = {
     },
     {
       "@type": "ListItem",
-      position: 4,
+      position: 6,
       item: {
         "@type": "ImageObject",
         name: "Natural Light Stroke Brows — Hand Stroke Vertical Before & After",
@@ -151,7 +184,7 @@ const imageObjectsJsonLd = {
     },
     {
       "@type": "ListItem",
-      position: 5,
+      position: 7,
       item: {
         "@type": "ImageObject",
         name: "Powder & Nano Brows — Before & After PMU",
@@ -166,7 +199,7 @@ const imageObjectsJsonLd = {
     },
     {
       "@type": "ListItem",
-      position: 6,
+      position: 8,
       item: {
         "@type": "ImageObject",
         name: "Quantum RF Chin & Neck — Before & After (1 Week Post)",
@@ -182,7 +215,7 @@ const imageObjectsJsonLd = {
     },
     {
       "@type": "ListItem",
-      position: 7,
+      position: 9,
       item: {
         "@type": "ImageObject",
         name: "Quantum RF Body Contouring — Before & After",
@@ -198,7 +231,7 @@ const imageObjectsJsonLd = {
     },
     {
       "@type": "ListItem",
-      position: 8,
+      position: 10,
       item: {
         "@type": "ImageObject",
         name: "Solaria CO2 Laser Before, During & After — Hello Gorgeous Med Spa",

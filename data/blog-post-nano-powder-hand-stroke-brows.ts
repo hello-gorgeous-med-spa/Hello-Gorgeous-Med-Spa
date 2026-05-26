@@ -72,6 +72,8 @@ We also serve **Naperville, Aurora, Plainfield, Yorkville, Montgomery**, and **K
 
 *Individual results vary. Brow PMU requires screening, informed consent, and technique selection based on your skin and health history. This article is education, not personal medical advice.*
 
+> **Go deeper:** [Brow mapping, shapes & every technique (nano, powder, combo, ombré)](/blog/brow-mapping-shapes-techniques-nano-powder-combo-ombre-oswego-il) — why mapping matters most.
+
 ## The 30-second comparison
 
 | Technique | Tool | Look | Often best for |

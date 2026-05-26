@@ -23,12 +23,14 @@ import { ourPromiseAuthenticityPost } from "./blog-post-our-promise-authenticity
 import { pillarMay2026Posts } from "./blog-posts-pillar-may-2026";
 import { weightLossSkinTighteningPost } from "./blog-post-weight-loss-skin-tightening";
 import { rxProductBlogPosts } from "./blog-rx-product-posts";
+import { browMappingTechniquesShapesPost } from "./blog-post-brow-mapping-techniques-shapes";
 import { nanoPowderHandStrokeBrowsPost } from "./blog-post-nano-powder-hand-stroke-brows";
 import type { BlogPost } from "./blog-types";
 
 export type { BlogPost } from "./blog-types";
 
 const coreBlogPosts: BlogPost[] = [
+  browMappingTechniquesShapesPost,
   nanoPowderHandStrokeBrowsPost,
   quantumRfLaunchBlogPost,
   peptideBestFitGuidePost,
