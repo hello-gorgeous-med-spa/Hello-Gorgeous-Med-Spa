@@ -54,11 +54,12 @@ export async function detectFaceLandmarks(image: HTMLImageElement): Promise<Norm
   const faceMesh = await getFaceMeshClient();
   return new Promise((resolve, reject) => {
     let settled = false;
-    faceMesh.onResults((results) => {
+    const onResults = (results: { multiFaceLandmarks?: NormalizedLandmark[][] }) => {
       if (settled) return;
       settled = true;
       resolve(results.multiFaceLandmarks?.[0] ?? null);
-    });
+    };
+    faceMesh.onResults(onResults);
     faceMesh.send({ image }).catch((err) => {
       if (!settled) {
         settled = true;

@@ -33,7 +33,6 @@ const MAX_FILE_BYTES = 8 * 1024 * 1024;
 export function BrowMappingTool() {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const cameraInputRef = useRef<HTMLInputElement>(null);
-  const [imageSrc, setImageSrc] = useState<string | null>(null);
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [uploadId, setUploadId] = useState(0);
   const [uploadError, setUploadError] = useState<string | null>(null);
@@ -55,7 +54,6 @@ export function BrowMappingTool() {
   const activeStyle = BROW_STYLE_PREVIEWS.find((s) => s.id === stylePreview);
 
   const canvas = useBrowCanvas(
-    imageSrc,
     {
       stylePreview,
       pigmentHex: selectedPigment.hex,
@@ -67,10 +65,6 @@ export function BrowMappingTool() {
     imageFile,
     uploadId,
   );
-
-  useEffect(() => {
-    if (canvas.ready && canvas.geometry) canvas.redraw();
-  }, [browShape, stylePreview, tinaPigmentId, canvas.ready, canvas.geometry, canvas.view, canvas.redraw]);
 
   const intake: BrowMappingIntake = useMemo(
     () => ({
@@ -102,9 +96,11 @@ export function BrowMappingTool() {
     setUploadError(null);
     setPlan(null);
     setPlanGenerated(false);
-    setImageSrc(null);
-    setImageFile(null);
-    if (!file) return;
+    if (!file) {
+      setImageFile(null);
+      setUploadId((n) => n + 1);
+      return;
+    }
     if (!file.type.match(/^image\/(jpeg|png|webp)$/)) {
       setUploadError("Use JPG, PNG, or WebP.");
       return;
@@ -115,13 +111,6 @@ export function BrowMappingTool() {
     }
     setImageFile(file);
     setUploadId((n) => n + 1);
-    const reader = new FileReader();
-    reader.onload = () => setImageSrc(reader.result as string);
-    reader.onerror = () => {
-      setUploadError("Could not read image file.");
-      setImageFile(null);
-    };
-    reader.readAsDataURL(file);
   }, []);
 
   const exportMeta = plan ? metaFromPlan(plan, intake) : null;
@@ -158,7 +147,7 @@ export function BrowMappingTool() {
                 onClick={() => fileInputRef.current?.click()}
                 className="w-full rounded-lg border-2 border-dashed border-[#E6007E]/40 bg-[#FFF0F7] px-3 py-3 text-sm font-bold text-[#E6007E]"
               >
-                {imageSrc ? "Replace photo" : "Upload client photo"}
+                {imageFile ? "Replace photo" : "Upload client photo"}
               </button>
               <input ref={fileInputRef} type="file" accept="image/jpeg,image/png,image/webp" className="hidden" onChange={(e) => loadFile(e.target.files?.[0])} />
               <button
@@ -188,7 +177,7 @@ export function BrowMappingTool() {
         </aside>
 
         <main className="space-y-4">
-          <BrowCanvas canvas={canvas} imageSrc={imageSrc} />
+          <BrowCanvas canvas={canvas} hasImage={Boolean(imageFile)} />
           {canvas.geometry && activeShape ? (
             <p className="rounded-lg bg-[#FFF0F7] px-3 py-2 text-xs text-[#E6007E]">
               Live preview on photo: {activeShape.label}

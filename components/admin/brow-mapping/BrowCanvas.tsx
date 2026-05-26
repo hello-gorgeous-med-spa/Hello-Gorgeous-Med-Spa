@@ -6,16 +6,16 @@ type CanvasApi = ReturnType<typeof useBrowCanvas>;
 
 export function BrowCanvas({
   canvas,
-  imageSrc,
+  hasImage,
 }: {
   canvas: CanvasApi;
-  imageSrc: string | null;
+  hasImage: boolean;
 }) {
   return (
     <div className="space-y-3">
       <div className="overflow-hidden rounded-xl border-4 border-black shadow-[8px_8px_0_0_rgba(230,0,126,0.35)]">
         <div ref={canvas.wrapRef} className="relative w-full bg-black">
-          {!imageSrc ? (
+          {!hasImage ? (
             <div className="flex aspect-[3/4] items-center justify-center text-sm text-gray-400">
               Upload a client photo to begin mapping
             </div>

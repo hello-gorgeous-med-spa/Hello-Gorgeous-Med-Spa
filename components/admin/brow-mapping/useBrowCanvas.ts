@@ -12,7 +12,7 @@ import {
   hitTestDraggablePoint,
   type DraggablePointId,
 } from "@/lib/brow-mapping/geometry";
-import { loadOrientedImageFromFile, loadOrientedImageFromSrc } from "@/lib/brow-mapping/load-image";
+import { loadOrientedImageFromFile } from "@/lib/brow-mapping/load-image";
 import { detectFaceLandmarks } from "@/lib/brow-mapping/landmarks";
 import { renderBrowPreviewFrame } from "@/lib/brow-mapping/browRenderer";
 import type { BrowPreviewState } from "@/lib/brow-mapping/browState";
@@ -40,9 +40,8 @@ function cloneGeometry(g: BrowMappingGeometry): BrowMappingGeometry {
 }
 
 export function useBrowCanvas(
-  imageSrc: string | null,
   options: BrowCanvasOptions,
-  imageFile?: File | null,
+  imageFile: File | null,
   uploadId = 0,
 ) {
   const wrapRef = useRef<HTMLDivElement>(null);
@@ -170,7 +169,18 @@ export function useBrowCanvas(
   );
 
   useEffect(() => {
-    if (!imageSrc && !imageFile) return;
+    if (!imageFile) {
+      imageRef.current = null;
+      setReady(false);
+      setDetecting(false);
+      setError(null);
+      setGeometry(null);
+      geometryRef.current = null;
+      pointsRef.current = null;
+      autoGeometryRef.current = null;
+      return;
+    }
+
     let cancelled = false;
     setReady(false);
     setDetecting(true);
@@ -182,15 +192,9 @@ export function useBrowCanvas(
     undoStackRef.current = [];
     setCanUndo(false);
 
-    const loadImage = async () => {
-      if (imageFile) return loadOrientedImageFromFile(imageFile);
-      if (imageSrc) return loadOrientedImageFromSrc(imageSrc);
-      throw new Error("No image provided");
-    };
-
     (async () => {
       try {
-        const img = await loadImage();
+        const img = await loadOrientedImageFromFile(imageFile);
         if (cancelled) return;
         imageRef.current = img;
 
@@ -227,9 +231,10 @@ export function useBrowCanvas(
     return () => {
       cancelled = true;
     };
-  }, [applyGeometry, imageFile, imageSrc, initFromLandmarks, uploadId]);
+  }, [applyGeometry, imageFile, initFromLandmarks, uploadId]);
 
   useEffect(() => {
+    if (dragging) return;
     redraw();
   }, [
     redraw,
@@ -241,9 +246,9 @@ export function useBrowCanvas(
     view.showPigmentPreview,
     view.showLabels,
     geometry,
-    dragging,
     activePoint,
     manualMode,
+    dragging,
   ]);
 
   useEffect(() => {
@@ -284,7 +289,6 @@ export function useBrowCanvas(
     const pos = pointerPosImageSpace(e);
     pointsRef.current[dragging] = pos;
     geometryRef.current = draggablePointsToGeometry(pointsRef.current, geometryRef.current);
-    setGeometry({ ...geometryRef.current });
     paint();
   };
 
