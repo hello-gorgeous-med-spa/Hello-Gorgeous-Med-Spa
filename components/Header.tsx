@@ -138,7 +138,7 @@ function cx(...classes: Array<string | undefined | null | false>) {
 }
 
 const NAV_LINK_BASE =
-  "flex items-center justify-center gap-1 h-9 px-3 rounded-lg text-sm font-medium transition-all whitespace-nowrap";
+  "flex items-center justify-center gap-1 h-9 px-2 xl:px-3 rounded-lg text-sm font-medium transition-all whitespace-nowrap flex-shrink-0";
 const NAV_LINK_ACTIVE = "text-white bg-[#FF2D8E]";
 const NAV_LINK_IDLE = "text-black hover:bg-[#FF2D8E]/10 hover:text-[#FF2D8E]";
 
@@ -162,7 +162,7 @@ function RegenerativeMedicineMenu({
       onMouseEnter={onMouseEnter}
       onMouseLeave={onClose}
     >
-      <div className="mx-auto max-w-6xl px-6 py-8">
+      <div className="mx-auto max-w-6xl px-6 py-8 max-h-[calc(100vh-5.5rem)] overflow-y-auto overscroll-contain">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
           {REGENERATIVE_NAV.sections.map((section) => (
             <div key={section.heading}>
@@ -231,7 +231,7 @@ function PeptideTherapyMenu({
       onMouseEnter={onMouseEnter}
       onMouseLeave={onClose}
     >
-      <div className="mx-auto max-w-6xl px-6 py-8">
+      <div className="mx-auto max-w-6xl px-6 py-8 max-h-[calc(100vh-5.5rem)] overflow-y-auto overscroll-contain">
         <div className="grid grid-cols-2 md:grid-cols-3 gap-8">
           {PEPTIDE_THERAPY_NAV.sections.map((section) => (
             <div key={section.heading}>
@@ -302,7 +302,7 @@ function ServicesMenu({
       onMouseEnter={onMouseEnter}
       onMouseLeave={onClose}
     >
-      <div className="mx-auto max-w-5xl px-6 py-8">
+      <div className="mx-auto max-w-5xl px-6 py-8 max-h-[calc(100vh-5.5rem)] overflow-y-auto overscroll-contain">
         <div className="grid grid-cols-3 gap-8">
           {NAV.services.sections.map((section) => (
             <div key={section.heading}>
@@ -381,11 +381,11 @@ function SpecialsMenu({
   if (!isOpen) return null;
   return (
     <div
-      className="absolute top-full right-0 pt-2 z-50"
+      className="absolute top-full right-0 pt-2 z-[100]"
       onMouseEnter={onMouseEnter}
       onMouseLeave={onClose}
     >
-      <div className="w-[320px] overflow-hidden rounded-xl border-2 border-black bg-white shadow-2xl">
+      <div className="w-[min(320px,calc(100vw-2rem))] overflow-hidden rounded-xl border-2 border-black bg-white shadow-2xl">
         <Link
           href={SPECIALS_PATH}
           onClick={onClose}
@@ -408,7 +408,7 @@ function SpecialsMenu({
             Tap to view full poster &amp; pricing
           </p>
         </Link>
-        <div className="p-1.5">
+        <div className="max-h-[min(70vh,28rem)] overflow-y-auto overscroll-contain p-1.5">
           {data.links.map((link) =>
             link.external ? (
               <a
@@ -474,12 +474,12 @@ function SimpleMenu({
   if (!isOpen) return null;
   return (
     <div
-      className={cx("absolute top-full pt-2 z-50", align === "right" ? "right-0" : "left-0")}
+      className={cx("absolute top-full pt-2 z-[100]", align === "right" ? "right-0" : "left-0")}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onClose}
     >
-      <div className="min-w-[260px] overflow-hidden rounded-xl border-2 border-black bg-white shadow-2xl">
-        <div className="p-1.5">
+      <div className="min-w-[min(300px,calc(100vw-2rem))] max-w-[360px] overflow-hidden rounded-xl border-2 border-black bg-white shadow-2xl">
+        <div className="max-h-[min(70vh,28rem)] overflow-y-auto overscroll-contain p-1.5">
           {data.links.map((link) =>
             link.external ? (
               <a
@@ -500,7 +500,7 @@ function SimpleMenu({
                     </span>
                   )}
                 </div>
-                <p className="mt-0.5 text-xs text-black/50">{link.sub}</p>
+                <p className="mt-0.5 text-xs text-black/50 leading-snug">{link.sub}</p>
               </a>
             ) : (
               <Link
@@ -519,7 +519,7 @@ function SimpleMenu({
                     </span>
                   )}
                 </div>
-                <p className="mt-0.5 text-xs text-black/50">{link.sub}</p>
+                <p className="mt-0.5 text-xs text-black/50 leading-snug">{link.sub}</p>
               </Link>
             )
           )}
@@ -587,7 +587,7 @@ export function Header() {
     pathname === "/admin/pmu-brows";
 
   return (
-    <header className="sticky top-0 z-50 bg-white border-b-2 border-black">
+    <header className="sticky top-0 z-50 bg-white border-b-2 border-black overflow-visible">
       {/* Top bar */}
       <div className="bg-black py-1.5 px-4 text-center">
           <p className="text-xs text-white/70 tracking-wide">
@@ -602,10 +602,10 @@ export function Header() {
       </div>
 
       <div className="mx-auto max-w-7xl px-4">
-        <div className="flex items-center justify-between gap-4 h-16">
+        <div className="flex items-center justify-between gap-2 xl:gap-4 h-16 min-w-0">
 
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2.5 flex-shrink-0">
+          <Link href="/" className="flex items-center gap-2.5 flex-shrink-0 min-w-0">
             <span className="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-[#FF2D8E] text-white text-xs font-bold shadow-md">
               HG
             </span>
@@ -620,7 +620,7 @@ export function Header() {
           </Link>
 
           {/* Desktop nav */}
-          <nav className="hidden lg:flex items-center gap-1 overflow-visible">
+          <nav className="hidden lg:flex items-center gap-0.5 xl:gap-1 min-w-0 flex-1 justify-center overflow-x-auto overflow-y-visible [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
 
             {/* Services */}
             <div
@@ -866,7 +866,7 @@ export function Header() {
             </button>
           </div>
 
-          <div className="px-4 py-6 space-y-1">
+          <div className="px-4 py-6 pb-[max(7rem,env(safe-area-inset-bottom))] space-y-1">
 
             {/* Quick actions */}
             <Link
@@ -906,25 +906,25 @@ export function Header() {
                   type="button"
                   onClick={() => setMobileSection(mobileSection === key ? null : key)}
                   className={cx(
-                    "w-full flex items-center justify-between px-4 py-3.5 text-sm font-semibold",
+                    "w-full flex items-center gap-2 px-4 py-3.5 text-sm font-semibold",
                     highlight ? "text-[#E6007E]" : "text-black"
                   )}
                 >
-                  {label}
+                  <span className="flex-1 text-left">{label}</span>
                   {highlight ? (
-                    <span className="rounded-full bg-[#E6007E] px-2 py-0.5 text-[9px] font-bold uppercase text-white">
+                    <span className="flex-shrink-0 rounded-full bg-[#E6007E] px-2 py-0.5 text-[9px] font-bold uppercase text-white">
                       NEW
                     </span>
                   ) : null}
                   <svg
-                    className={cx("w-4 h-4 text-black/40 transition-transform", mobileSection === key && "rotate-180")}
+                    className={cx("w-4 h-4 flex-shrink-0 text-black/40 transition-transform", mobileSection === key && "rotate-180")}
                     fill="none" stroke="currentColor" viewBox="0 0 24 24"
                   >
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                   </svg>
                 </button>
                 {mobileSection === key && (
-                  <div className="pb-2 space-y-0.5">
+                  <div className="pb-2 space-y-0.5 max-h-[min(50vh,20rem)] overflow-y-auto overscroll-contain">
                     {links.map((link) => (
                       <Link
                         key={link.href}
