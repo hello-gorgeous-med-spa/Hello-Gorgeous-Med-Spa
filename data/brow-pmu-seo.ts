@@ -26,6 +26,34 @@ export const NATURAL_LIGHT_STROKE_BROWS_BEFORE_AFTER = {
   business: "Hello Gorgeous Med Spa",
 } as const;
 
+/** Natural light stroke — vertical before/after with technique title (client consent on file). */
+export const NATURAL_LIGHT_STROKE_VERTICAL_BEFORE_AFTER = {
+  src: "/images/brow/natural-light-stroke-brows-vertical-before-after-danielle-alcala.png",
+  alt:
+    "Natural light stroke brows before and after hand-stroke microblading by Danielle Alcala at Hello Gorgeous Med Spa Oswego IL",
+  title: "Natural Light Stroke Brows",
+  caption:
+    "Hand-stroke microblading for soft, realistic hair strokes — fuller shape with a natural arch.",
+} as const;
+
+/** Powder / nano ombré brows — fair skin, light hair (client consent on file). */
+export const POWDER_NANO_BROWS_BEFORE_AFTER = {
+  src: "/images/brow/powder-nano-brows-before-after-danielle-alcala.png",
+  alt:
+    "Powder and nano brow PMU before and after ombré shading by Danielle Alcala at Hello Gorgeous Med Spa Oswego IL",
+  title: "Powder & Nano Brows",
+  caption:
+    "Soft ombré powder shading with defined tail — ideal when natural brow hair is very light or sparse.",
+} as const;
+
+/** All brow before/after assets for gallery grids and SEO loops. */
+export const BROW_PMU_BEFORE_AFTER_SET = [
+  BROW_PMU_PORTFOLIO_BEFORE_AFTER,
+  NATURAL_LIGHT_STROKE_BROWS_BEFORE_AFTER,
+  NATURAL_LIGHT_STROKE_VERTICAL_BEFORE_AFTER,
+  POWDER_NANO_BROWS_BEFORE_AFTER,
+] as const;
+
 export const BROW_PMU_TECHNIQUES = [
   {
     id: "microblading",

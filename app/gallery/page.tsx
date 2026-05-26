@@ -139,6 +139,36 @@ const imageObjectsJsonLd = {
       position: 4,
       item: {
         "@type": "ImageObject",
+        name: "Natural Light Stroke Brows — Hand Stroke Vertical Before & After",
+        description:
+          "Hand-stroke natural light stroke microblading before and after by Danielle Alcala at Hello Gorgeous Med Spa, Oswego IL.",
+        contentUrl: `${SITE.url}/images/brow/natural-light-stroke-brows-vertical-before-after-danielle-alcala.png`,
+        url: `${SITE.url}/microblading-brow-pmu-oswego-il`,
+        creator: { "@type": "Person", name: "Danielle Alcala" },
+        copyrightHolder: { "@type": "Organization", name: SITE.name },
+        keywords: "hand stroke brows, natural light stroke, microblading before after, Oswego IL",
+      },
+    },
+    {
+      "@type": "ListItem",
+      position: 5,
+      item: {
+        "@type": "ImageObject",
+        name: "Powder & Nano Brows — Before & After PMU",
+        description:
+          "Powder and nano brow ombré permanent makeup before and after by Danielle Alcala at Hello Gorgeous Med Spa, Oswego IL.",
+        contentUrl: `${SITE.url}/images/brow/powder-nano-brows-before-after-danielle-alcala.png`,
+        url: `${SITE.url}/microblading-brow-pmu-oswego-il`,
+        creator: { "@type": "Person", name: "Danielle Alcala" },
+        copyrightHolder: { "@type": "Organization", name: SITE.name },
+        keywords: "powder brows, nano brows, ombré brows, PMU before after, Oswego IL",
+      },
+    },
+    {
+      "@type": "ListItem",
+      position: 6,
+      item: {
+        "@type": "ImageObject",
         name: "Quantum RF Chin & Neck — Before & After (1 Week Post)",
         description:
           "Quantum RF subdermal contouring chin and neck before and after at Hello Gorgeous Med Spa, Oswego IL. Jawline definition visible at only 1 week post-treatment.",
@@ -152,7 +182,7 @@ const imageObjectsJsonLd = {
     },
     {
       "@type": "ListItem",
-      position: 5,
+      position: 7,
       item: {
         "@type": "ImageObject",
         name: "Quantum RF Body Contouring — Before & After",
@@ -168,7 +198,7 @@ const imageObjectsJsonLd = {
     },
     {
       "@type": "ListItem",
-      position: 6,
+      position: 8,
       item: {
         "@type": "ImageObject",
         name: "Solaria CO2 Laser Before, During & After — Hello Gorgeous Med Spa",

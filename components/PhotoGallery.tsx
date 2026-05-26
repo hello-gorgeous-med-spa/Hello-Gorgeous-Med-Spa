@@ -18,6 +18,16 @@ const galleryImages = [
     caption: "Natural Light Stroke Brows",
   },
   {
+    src: "/images/brow/natural-light-stroke-brows-vertical-before-after-danielle-alcala.png",
+    alt: "Natural light stroke hand-stroke brows before and after by Danielle Alcala Hello Gorgeous Med Spa Oswego IL",
+    caption: "Hand Stroke — Natural Light",
+  },
+  {
+    src: "/images/brow/powder-nano-brows-before-after-danielle-alcala.png",
+    alt: "Powder and nano brow PMU before and after by Danielle Alcala at Hello Gorgeous Med Spa Oswego IL",
+    caption: "Powder & Nano Brows",
+  },
+  {
     src: "/images/brow/powder-brows-before-after.png",
     alt: "Powder brows before and after permanent makeup at Hello Gorgeous Med Spa",
     caption: "Powder Brows PMU",

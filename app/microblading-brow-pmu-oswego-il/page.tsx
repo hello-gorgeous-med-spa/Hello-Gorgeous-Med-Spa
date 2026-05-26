@@ -2,8 +2,10 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import { BrowNaturalLightStrokeBeforeAfter } from "@/components/brow/BrowNaturalLightStrokeBeforeAfter";
+import { BrowNaturalLightStrokeVerticalBeforeAfter } from "@/components/brow/BrowNaturalLightStrokeVerticalBeforeAfter";
 import { BrowPmuPortfolioShowcase } from "@/components/brow/BrowPmuPortfolioShowcase";
 import { BrowPowderBeforeAfter } from "@/components/brow/BrowPowderBeforeAfter";
+import { BrowPowderNanoBeforeAfter } from "@/components/brow/BrowPowderNanoBeforeAfter";
 import { CTA } from "@/components/CTA";
 import { FadeUp, Section } from "@/components/Section";
 import {
@@ -190,6 +192,12 @@ export default function MicrobladingBrowPmuOswegoPage() {
           </FadeUp>
           <FadeUp className="mt-8">
             <BrowNaturalLightStrokeBeforeAfter showCta />
+          </FadeUp>
+          <FadeUp className="mt-8">
+            <BrowNaturalLightStrokeVerticalBeforeAfter showCta />
+          </FadeUp>
+          <FadeUp className="mt-8">
+            <BrowPowderNanoBeforeAfter showCta />
           </FadeUp>
           <FadeUp className="mt-8">
             <BrowPowderBeforeAfter showCta />

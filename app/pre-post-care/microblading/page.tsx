@@ -2,8 +2,10 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { CareGuideLayout, CareGuideHeader, CareGuideFooter } from "@/components/CareGuideLayout";
 import { BrowNaturalLightStrokeBeforeAfter } from "@/components/brow/BrowNaturalLightStrokeBeforeAfter";
+import { BrowNaturalLightStrokeVerticalBeforeAfter } from "@/components/brow/BrowNaturalLightStrokeVerticalBeforeAfter";
 import { BrowPmuPortfolioShowcase } from "@/components/brow/BrowPmuPortfolioShowcase";
 import { BrowPowderBeforeAfter } from "@/components/brow/BrowPowderBeforeAfter";
+import { BrowPowderNanoBeforeAfter } from "@/components/brow/BrowPowderNanoBeforeAfter";
 import { BROW_PMU_OSWEGO_PATH } from "@/data/brow-pmu-seo";
 import {
   BROW_CONSULTATION_PACKET_PDF,
@@ -56,6 +58,8 @@ export default function MicrobladingCareGuidePage() {
         </Link>
       </p>
       <BrowNaturalLightStrokeBeforeAfter className="mb-6" />
+      <BrowNaturalLightStrokeVerticalBeforeAfter className="mb-6" />
+      <BrowPowderNanoBeforeAfter className="mb-6" />
       <BrowPowderBeforeAfter className="mb-8" />
 
       <section className="mb-8 rounded-xl border-2 border-[#E6007E]/30 bg-rose-50 p-5 print:border-black">

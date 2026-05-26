@@ -515,6 +515,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   // Blog articles — featured posts get higher crawl priority
   const featuredBlogSlugs = new Set([
+    'nano-brows-vs-powder-brows-vs-hand-stroke-microblading-oswego-il',
     'which-peptide-is-right-for-you-oswego-il',
     'founder-letter-morpheus8-solaria-oswego-il',
     'what-makes-hello-gorgeous-different-oswego-il',

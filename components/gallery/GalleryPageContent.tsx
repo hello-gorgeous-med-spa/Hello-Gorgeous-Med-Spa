@@ -90,6 +90,30 @@ const CASES: GalleryCase[] = [
   },
   {
     type: "single-image",
+    id: "natural-light-stroke-brows-vertical",
+    treatment: "Natural Light Stroke Brows — Hand Stroke PMU",
+    category: "Brow PMU",
+    tagline: "Hand-stroke microblading before and after — soft hair strokes, natural arch.",
+    image: "/images/brow/natural-light-stroke-brows-vertical-before-after-danielle-alcala.png",
+    imageAlt:
+      "Natural light stroke brows vertical before and after microblading by Danielle Alcala Hello Gorgeous Med Spa Oswego IL",
+    note: "Natural light stroke hand-stroke brows. Danielle Alcala, Hello Gorgeous Med Spa Oswego. Client consent on file.",
+    serviceHref: "/microblading-brow-pmu-oswego-il",
+  },
+  {
+    type: "single-image",
+    id: "powder-nano-brows-before-after",
+    treatment: "Powder & Nano Brows — Ombré PMU",
+    category: "Brow PMU",
+    tagline: "Soft ombré powder/nano shading for light or sparse natural brows.",
+    image: "/images/brow/powder-nano-brows-before-after-danielle-alcala.png",
+    imageAlt:
+      "Powder and nano brow PMU before and after by Danielle Alcala at Hello Gorgeous Med Spa Oswego IL",
+    note: "Powder and nano brow permanent makeup. Hello Gorgeous Med Spa, Oswego, IL. Client consent on file.",
+    serviceHref: "/microblading-brow-pmu-oswego-il",
+  },
+  {
+    type: "single-image",
     id: "powder-brows-before-after",
     treatment: "Powder Brows — Ombré PMU",
     category: "Brow PMU",

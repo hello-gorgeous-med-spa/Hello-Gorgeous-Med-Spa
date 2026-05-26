@@ -1983,6 +1983,20 @@ export const SERVICE_IMAGES: ServiceImage[] = [
     category: "aesthetics",
   },
   {
+    src: "/images/brow/natural-light-stroke-brows-vertical-before-after-danielle-alcala.png",
+    alt: "Natural light stroke hand-stroke brows before and after microblading by Danielle Alcala Hello Gorgeous Med Spa Oswego IL",
+    title: "Natural Light Stroke Brows — Hand Stroke PMU",
+    service: "Microblading",
+    category: "aesthetics",
+  },
+  {
+    src: "/images/brow/powder-nano-brows-before-after-danielle-alcala.png",
+    alt: "Powder and nano brow PMU before and after ombré shading by Danielle Alcala at Hello Gorgeous Med Spa Oswego IL",
+    title: "Powder & Nano Brows Before & After",
+    service: "Brow PMU",
+    category: "aesthetics",
+  },
+  {
     src: "/images/brow/powder-brows-before-after.png",
     alt: "Powder brows before and after permanent makeup at Hello Gorgeous Med Spa Oswego IL",
     title: "Powder Brows Before & After",
