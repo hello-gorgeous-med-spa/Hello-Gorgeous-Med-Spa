@@ -113,6 +113,18 @@ const NAV = {
       { label: "Contact Us", href: "/contact", sub: "Hours, location & phone" },
     ],
   },
+  microblading: {
+    label: "Microblading",
+    href: "/pre-post-care/microblading",
+    links: [
+      { label: "Microblading hub", href: "/admin/pmu-brows", sub: "All brow tools in one place (staff)", external: false },
+      { label: "Your Brow Journey", href: "/education/your-brow-journey", sub: "Client-friendly step-by-step consult guide" },
+      { label: "Brow consultation intake", href: "/forms/brow-intake", sub: "Digital PMU health history and consent" },
+      { label: "Pre & post care guide", href: "/pre-post-care/microblading", sub: "Healing timeline, do's & don'ts" },
+      { label: "Your Brow Journey (PDF)", href: "/handouts/education/your-brow-journey.pdf", sub: "Print or AirDrop for clients" },
+      { label: "Consultation packet (PDF)", href: "/handouts/education/brow-consultation-packet.pdf", sub: "Full printable packet", external: true },
+    ],
+  },
 };
 
 /* ─────────────────────────────────────────────────────────────
@@ -563,6 +575,13 @@ export function Header() {
     (pathname?.startsWith("/services/pr") ?? false);
 
   const isPeptideTherapyActive = isPeptideTherapyNavActive(pathname);
+  const isMicrobladingActive =
+    pathname === "/education/your-brow-journey" ||
+    pathname === "/forms/brow-intake" ||
+    pathname === "/pre-post-care/microblading" ||
+    pathname === "/handouts/education/your-brow-journey.pdf" ||
+    pathname === "/handouts/education/brow-consultation-packet.pdf" ||
+    pathname === "/admin/pmu-brows";
 
   return (
     <header className="sticky top-0 z-50 bg-white border-b-2 border-black">
@@ -755,6 +774,34 @@ export function Header() {
               />
             </div>
 
+            {/* Microblading */}
+            <div
+              className="relative flex items-center"
+              onMouseEnter={() => openDropdown("microblading")}
+              onMouseLeave={closeDropdown}
+            >
+              <Link
+                href={NAV.microblading.href}
+                className={cx(
+                  NAV_LINK_BASE,
+                  "border border-[#E6007E]/35",
+                  isMicrobladingActive ? NAV_LINK_ACTIVE : NAV_LINK_IDLE
+                )}
+              >
+                Microblading
+                <svg className={cx("w-3 h-3 transition-transform", activeDropdown === "microblading" && "rotate-180")} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </Link>
+              <SimpleMenu
+                data={NAV.microblading}
+                isOpen={activeDropdown === "microblading"}
+                onClose={() => setActiveDropdown(null)}
+                onMouseEnter={() => openDropdown("microblading")}
+                align="right"
+              />
+            </div>
+
             {/* FAQ */}
             <Link
               href="/faq"
@@ -849,6 +896,7 @@ export function Header() {
               { key: "specials", label: "Specials", links: NAV.specials.links, highlight: true },
               { key: "about", label: "About", links: NAV.about.links },
               { key: "patient", label: "Patient Info", links: NAV.patient.links },
+              { key: "microblading", label: "Microblading", links: NAV.microblading.links, highlight: true },
             ].map(({ key, label, links, highlight }) => (
               <div key={key} className="border-b border-black/10 pb-1">
                 <button
