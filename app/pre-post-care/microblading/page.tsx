@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { CareGuideLayout, CareGuideHeader, CareGuideFooter } from "@/components/CareGuideLayout";
+import { BrowPowderBeforeAfter } from "@/components/brow/BrowPowderBeforeAfter";
 import {
   BROW_CONSULTATION_PACKET_PDF,
   BROW_INTAKE_PATH,
@@ -36,6 +37,8 @@ export default function MicrobladingCareGuidePage() {
           Hair-stroke brows, ombré powder, combo/hybrid, and nano strokes — follow these steps for your best heal.
         </p>
       </div>
+
+      <BrowPowderBeforeAfter className="mb-8" />
 
       <section className="mb-8 rounded-xl border-2 border-[#E6007E]/30 bg-rose-50 p-5 print:border-black">
         <h3 className="text-lg font-bold text-[#E6007E] mb-2">Related documents</h3>

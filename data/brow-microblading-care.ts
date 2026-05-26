@@ -7,6 +7,14 @@ export const YOUR_BROW_JOURNEY_HTML = "/handouts/education/your-brow-journey.htm
 export const YOUR_BROW_JOURNEY_PDF = "/handouts/education/your-brow-journey.pdf";
 export const BROW_INTAKE_PATH = "/forms/brow-intake";
 
+/** Powder / ombré brow PMU — combined before & after (client consent on file). */
+export const POWDER_BROWS_BEFORE_AFTER = {
+  src: "/images/brow/powder-brows-before-after.png",
+  alt: "Powder brows before and after permanent makeup at Hello Gorgeous Med Spa Oswego IL",
+  title: "Powder Brows",
+  caption: "Soft ombré shading — fuller shape, defined arch, natural finish.",
+} as const;
+
 export type CareListSection = {
   title: string;
   items: string[];

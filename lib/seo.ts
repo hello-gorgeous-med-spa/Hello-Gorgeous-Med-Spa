@@ -1968,7 +1968,14 @@ export const SERVICE_IMAGES: ServiceImage[] = [
   { src: "/images/services/hg-hydrafacial-serums.png", alt: "HydraFacial serums and boosters at Hello Gorgeous Med Spa Oswego", title: "HydraFacial Serums", service: "HydraFacial", category: "aesthetics" },
   { src: "/images/services/hg-laser-device.png", alt: "Laser treatment device for hair removal and skin at Hello Gorgeous Med Spa", title: "Laser Device", service: "Laser Hair Removal", category: "aesthetics" },
   { src: "/images/services/hg-skincare-collection.png", alt: "Medical-grade skincare collection at Hello Gorgeous Med Spa Oswego", title: "Skincare Collection", service: "Skincare", category: "aesthetics" },
-  
+  {
+    src: "/images/brow/powder-brows-before-after.png",
+    alt: "Powder brows before and after permanent makeup at Hello Gorgeous Med Spa Oswego IL",
+    title: "Powder Brows Before & After",
+    service: "Powder Brows PMU",
+    category: "aesthetics",
+  },
+
   // Regenerative
   { src: "/images/services/hg-prp-prf.png", alt: "PRP PRF regenerative treatment at Hello Gorgeous Med Spa Oswego IL", title: "PRP PRF Treatment", service: "PRP/PRF", category: "regenerative" },
   { src: "/images/services/hg-prp-gold-tubes.png", alt: "PRP gold tubes for platelet-rich plasma therapy at Hello Gorgeous Med Spa", title: "PRP Gold Tubes", service: "PRP", category: "regenerative" },

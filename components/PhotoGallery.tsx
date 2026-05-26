@@ -8,6 +8,11 @@ import { BOOKING_URL } from "@/lib/flows";
 // Use descriptive alt text for accessibility and a short caption for the hover overlay.
 const galleryImages = [
   {
+    src: "/images/brow/powder-brows-before-after.png",
+    alt: "Powder brows before and after permanent makeup at Hello Gorgeous Med Spa",
+    caption: "Powder Brows PMU",
+  },
+  {
     src: "/images/gallery/before-after.png",
     alt: "Before and after Botox treatment results",
     caption: "Real Results",

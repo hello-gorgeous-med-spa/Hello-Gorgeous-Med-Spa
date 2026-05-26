@@ -84,6 +84,21 @@ const imageObjectsJsonLd = {
       position: 1,
       item: {
         "@type": "ImageObject",
+        name: "Powder Brows — Before & After PMU",
+        description:
+          "Powder brows ombré permanent makeup before and after at Hello Gorgeous Med Spa, Oswego IL.",
+        contentUrl: `${SITE.url}/images/brow/powder-brows-before-after.png`,
+        url: CANONICAL,
+        creator: { "@type": "Organization", name: SITE.name },
+        copyrightHolder: { "@type": "Organization", name: SITE.name },
+        keywords: "powder brows, ombré brows, PMU, before after, Oswego IL",
+      },
+    },
+    {
+      "@type": "ListItem",
+      position: 2,
+      item: {
+        "@type": "ImageObject",
         name: "Quantum RF Chin & Neck — Before & After (1 Week Post)",
         description:
           "Quantum RF subdermal contouring chin and neck before and after at Hello Gorgeous Med Spa, Oswego IL. Jawline definition visible at only 1 week post-treatment.",

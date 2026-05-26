@@ -63,6 +63,18 @@ type GalleryCase = BeforeAfterCase | VideoCase | YoutubeCase | SingleImageCase;
 ───────────────────────────────────────────────────────────── */
 
 const CASES: GalleryCase[] = [
+  {
+    type: "single-image",
+    id: "powder-brows-before-after",
+    treatment: "Powder Brows — Ombré PMU",
+    category: "Brow PMU",
+    tagline: "Soft ombré powder shading — fuller brows, defined arch, natural finish.",
+    image: "/images/brow/powder-brows-before-after.png",
+    imageAlt:
+      "Powder brows before and after permanent makeup comparison — Hello Gorgeous Med Spa Oswego IL",
+    note: "Ombré powder brow PMU at Hello Gorgeous Med Spa, Oswego, IL. Client consent on file. Individual results vary.",
+    serviceHref: "/pre-post-care/microblading",
+  },
   // ── InMode Gift Night — Quantum RF, Solaria CO₂ & Morpheus8 winners (May 2026) ──
   {
     type: "video",
