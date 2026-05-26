@@ -6,7 +6,7 @@ import { QuantumRFRyanActionSlideshow } from "@/components/marketing/QuantumRFRy
 const TITLE =
   "Before & After Gallery — Real Results | Hello Gorgeous Med Spa Oswego IL";
 const DESCRIPTION =
-  "Real patient before & after photos and procedure videos from Hello Gorgeous Med Spa in Oswego, IL — serving Naperville, Aurora, Plainfield & the western Chicago suburbs. Solaria CO₂ laser, Quantum RF body contouring, Morpheus8 Burst RF microneedling, lip filler, Botox & more. NP-directed medical aesthetics. Individual results vary.";
+  "Real patient before & after photos and procedure videos from Hello Gorgeous Med Spa in Oswego, IL — microblading, powder brows, combo & nano brow PMU by Danielle Alcala, plus Solaria CO₂ laser, Quantum RF, Morpheus8 Burst, lip filler, Botox & more. Serving Naperville, Aurora, Plainfield & Kendall County. Individual results vary.";
 const CANONICAL = `${SITE.url}/gallery`;
 
 export const metadata: Metadata = {
@@ -15,6 +15,14 @@ export const metadata: Metadata = {
   alternates: { canonical: CANONICAL },
   robots: { index: true, follow: true },
   keywords: [
+    "microblading before after Oswego",
+    "powder brows before after",
+    "combo brows hybrid brows Illinois",
+    "nano brows Oswego IL",
+    "natural light stroke brows before after",
+    "hair stroke microblading Oswego",
+    "brow PMU Danielle Alcala",
+    "permanent makeup eyebrows near me",
     "before and after med spa Oswego IL",
     "Solaria CO2 laser before after Oswego",
     "Quantum RF before after results",
@@ -84,6 +92,22 @@ const imageObjectsJsonLd = {
       position: 1,
       item: {
         "@type": "ImageObject",
+        name: "Brow PMU Portfolio — Microblading, Powder, Combo & Nano Brows",
+        description:
+          "Before and after brow permanent makeup portfolio: microblading hair stroke, powder brows, combo hybrid brows, and nano brows by Danielle Alcala at Hello Gorgeous Med Spa, Oswego IL.",
+        contentUrl: `${SITE.url}/images/brow/danielle-alcala-brow-pmu-portfolio-before-after.png`,
+        url: `${SITE.url}/microblading-brow-pmu-oswego-il`,
+        creator: { "@type": "Person", name: "Danielle Alcala" },
+        copyrightHolder: { "@type": "Organization", name: SITE.name },
+        keywords:
+          "microblading, powder brows, combo brows, nano brows, brow PMU, permanent makeup eyebrows, before after, Oswego IL, Danielle Alcala",
+      },
+    },
+    {
+      "@type": "ListItem",
+      position: 2,
+      item: {
+        "@type": "ImageObject",
         name: "Powder Brows — Before & After PMU",
         description:
           "Powder brows ombré permanent makeup before and after at Hello Gorgeous Med Spa, Oswego IL.",
@@ -96,7 +120,23 @@ const imageObjectsJsonLd = {
     },
     {
       "@type": "ListItem",
-      position: 2,
+      position: 3,
+      item: {
+        "@type": "ImageObject",
+        name: "Natural Light Stroke Brows — Before & After Microblading",
+        description:
+          "Natural light stroke hair-stroke microblading before and after by Danielle Alcala at Hello Gorgeous Med Spa, Oswego IL.",
+        contentUrl: `${SITE.url}/images/brow/natural-light-stroke-brows-before-after-danielle-alcala.png`,
+        url: `${SITE.url}/microblading-brow-pmu-oswego-il`,
+        creator: { "@type": "Person", name: "Danielle Alcala" },
+        copyrightHolder: { "@type": "Organization", name: SITE.name },
+        keywords:
+          "natural light stroke brows, hair stroke microblading, feather brows, before after, Oswego IL, Danielle Alcala",
+      },
+    },
+    {
+      "@type": "ListItem",
+      position: 4,
       item: {
         "@type": "ImageObject",
         name: "Quantum RF Chin & Neck — Before & After (1 Week Post)",
@@ -112,7 +152,7 @@ const imageObjectsJsonLd = {
     },
     {
       "@type": "ListItem",
-      position: 2,
+      position: 5,
       item: {
         "@type": "ImageObject",
         name: "Quantum RF Body Contouring — Before & After",
@@ -128,7 +168,7 @@ const imageObjectsJsonLd = {
     },
     {
       "@type": "ListItem",
-      position: 3,
+      position: 6,
       item: {
         "@type": "ImageObject",
         name: "Solaria CO2 Laser Before, During & After — Hello Gorgeous Med Spa",

@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { CareGuideLayout, CareGuideHeader, CareGuideFooter } from "@/components/CareGuideLayout";
+import { BrowNaturalLightStrokeBeforeAfter } from "@/components/brow/BrowNaturalLightStrokeBeforeAfter";
+import { BrowPmuPortfolioShowcase } from "@/components/brow/BrowPmuPortfolioShowcase";
 import { BrowPowderBeforeAfter } from "@/components/brow/BrowPowderBeforeAfter";
+import { BROW_PMU_OSWEGO_PATH } from "@/data/brow-pmu-seo";
 import {
   BROW_CONSULTATION_PACKET_PDF,
   BROW_INTAKE_PATH,
@@ -21,8 +24,16 @@ import { pageMetadata } from "@/lib/seo";
 export const metadata: Metadata = pageMetadata({
   title: "Microblading & Brow PMU Pre & Post Care | Hello Gorgeous Med Spa",
   description:
-    "Official microblading and permanent brow makeup pre-care and healing instructions from Hello Gorgeous Med Spa in Oswego, IL.",
+    "Official microblading, powder brows, combo & nano brow PMU pre-care and healing instructions from Hello Gorgeous Med Spa in Oswego, IL. Before & after portfolio by Danielle Alcala.",
   path: MICROBLADING_PREPOST_PATH,
+  keywords: [
+    "microblading pre care",
+    "brow PMU aftercare Oswego",
+    "powder brows healing",
+    "combo brows aftercare",
+    "nano brows healing timeline",
+    "permanent makeup brows Illinois",
+  ],
 });
 
 export default function MicrobladingCareGuidePage() {
@@ -38,6 +49,13 @@ export default function MicrobladingCareGuidePage() {
         </p>
       </div>
 
+      <BrowPmuPortfolioShowcase className="mb-6" />
+      <p className="text-center text-sm mb-6 print:hidden">
+        <Link href={BROW_PMU_OSWEGO_PATH} className="font-bold text-[#E6007E] hover:underline">
+          Full brow PMU results &amp; technique guide (Oswego) →
+        </Link>
+      </p>
+      <BrowNaturalLightStrokeBeforeAfter className="mb-6" />
       <BrowPowderBeforeAfter className="mb-8" />
 
       <section className="mb-8 rounded-xl border-2 border-[#E6007E]/30 bg-rose-50 p-5 print:border-black">

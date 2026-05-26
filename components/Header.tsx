@@ -118,6 +118,7 @@ const NAV = {
     label: "Microblading",
     href: "/pre-post-care/microblading",
     links: [
+      { label: "Brow PMU results (Oswego)", href: "/microblading-brow-pmu-oswego-il", sub: "Microblading, powder, combo & nano — before & after" },
       { label: "Microblading hub", href: "/admin/pmu-brows", sub: "All brow tools in one place (staff)", external: false },
       { label: "Your Brow Journey", href: "/education/your-brow-journey", sub: "Client-friendly step-by-step consult guide" },
       { label: "Brow consultation intake", href: "/forms/brow-intake", sub: "Digital PMU health history and consent" },
@@ -579,6 +580,7 @@ export function Header() {
   const isMicrobladingActive =
     pathname === "/education/your-brow-journey" ||
     pathname === "/forms/brow-intake" ||
+    pathname === "/microblading-brow-pmu-oswego-il" ||
     pathname === "/pre-post-care/microblading" ||
     pathname === "/handouts/education/your-brow-journey.pdf" ||
     pathname === "/handouts/education/brow-consultation-packet.pdf" ||

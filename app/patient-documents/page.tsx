@@ -28,6 +28,7 @@ const WEB_GUIDES: DocGroup[] = [
     title: "Brow PMU / Microblading",
     procedure: "Permanent makeup brows",
     items: [
+      { label: "Brow PMU before & after (Oswego)", href: "/microblading-brow-pmu-oswego-il", note: "Microblading, powder, combo & nano portfolio" },
       { label: "Pre & post care (web guide)", href: "/pre-post-care/microblading" },
       { label: "Your Brow Journey (step-by-step guide)", href: "/education/your-brow-journey" },
       { label: "Your Brow Journey (PDF)", href: "/handouts/education/your-brow-journey.pdf", note: "Print or AirDrop" },

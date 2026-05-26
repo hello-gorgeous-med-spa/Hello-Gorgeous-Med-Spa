@@ -65,6 +65,31 @@ type GalleryCase = BeforeAfterCase | VideoCase | YoutubeCase | SingleImageCase;
 const CASES: GalleryCase[] = [
   {
     type: "single-image",
+    id: "brow-pmu-portfolio-danielle-alcala",
+    treatment: "Brow PMU — Microblading, Powder, Combo & Nano",
+    category: "Brow PMU",
+    tagline:
+      "Four-technique permanent makeup brow portfolio — hair stroke, powder, hybrid combo & nano strokes.",
+    image: "/images/brow/danielle-alcala-brow-pmu-portfolio-before-after.png",
+    imageAlt:
+      "Microblading, powder brows, combo brows and nano brows before and after by Danielle Alcala at Hello Gorgeous Med Spa Oswego IL",
+    note: "Brow PMU portfolio at Hello Gorgeous Med Spa, Oswego, IL — Danielle Alcala. Microblading, powder, combo & nano brows. Client consent on file.",
+    serviceHref: "/microblading-brow-pmu-oswego-il",
+  },
+  {
+    type: "single-image",
+    id: "natural-light-stroke-brows-before-after",
+    treatment: "Natural Light Stroke Brows — Microblading",
+    category: "Brow PMU",
+    tagline: "Fine hair-stroke microblading for soft, feathery fullness and a natural arch.",
+    image: "/images/brow/natural-light-stroke-brows-before-after-danielle-alcala.png",
+    imageAlt:
+      "Natural light stroke brows before and after microblading by Danielle Alcala at Hello Gorgeous Med Spa Oswego IL",
+    note: "Natural light stroke / hair-stroke microblading at Hello Gorgeous Med Spa, Oswego, IL — Danielle Alcala. Client consent on file.",
+    serviceHref: "/microblading-brow-pmu-oswego-il",
+  },
+  {
+    type: "single-image",
     id: "powder-brows-before-after",
     treatment: "Powder Brows — Ombré PMU",
     category: "Brow PMU",
@@ -73,7 +98,7 @@ const CASES: GalleryCase[] = [
     imageAlt:
       "Powder brows before and after permanent makeup comparison — Hello Gorgeous Med Spa Oswego IL",
     note: "Ombré powder brow PMU at Hello Gorgeous Med Spa, Oswego, IL. Client consent on file. Individual results vary.",
-    serviceHref: "/pre-post-care/microblading",
+    serviceHref: "/microblading-brow-pmu-oswego-il",
   },
   // ── InMode Gift Night — Quantum RF, Solaria CO₂ & Morpheus8 winners (May 2026) ──
   {

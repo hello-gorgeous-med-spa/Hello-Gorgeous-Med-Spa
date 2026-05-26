@@ -470,7 +470,32 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ];
 
   // Aftercare / Patient Resources (solaria content on /solaria; no separate aftercare URL)
-  const aftercarePages: MetadataRoute.Sitemap = [];
+  const aftercarePages: MetadataRoute.Sitemap = [
+    {
+      url: `${baseUrl}/microblading-brow-pmu-oswego-il`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/pre-post-care/microblading`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly',
+      priority: 0.82,
+    },
+    {
+      url: `${baseUrl}/education/your-brow-journey`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/forms/brow-intake`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly',
+      priority: 0.78,
+    },
+  ];
 
   // Location-based service pages (only slugs that exist via [localSlug] / gbp-urls)
   const locationServicePages: MetadataRoute.Sitemap = GBP_SERVICE_SLUGS.map((slug) => ({

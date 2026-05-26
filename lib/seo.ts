@@ -1969,6 +1969,20 @@ export const SERVICE_IMAGES: ServiceImage[] = [
   { src: "/images/services/hg-laser-device.png", alt: "Laser treatment device for hair removal and skin at Hello Gorgeous Med Spa", title: "Laser Device", service: "Laser Hair Removal", category: "aesthetics" },
   { src: "/images/services/hg-skincare-collection.png", alt: "Medical-grade skincare collection at Hello Gorgeous Med Spa Oswego", title: "Skincare Collection", service: "Skincare", category: "aesthetics" },
   {
+    src: "/images/brow/danielle-alcala-brow-pmu-portfolio-before-after.png",
+    alt: "Microblading, powder brows, combo brows and nano brows before and after portfolio by Danielle Alcala at Hello Gorgeous Med Spa Oswego IL",
+    title: "Brow PMU Portfolio — My Work",
+    service: "Brow PMU",
+    category: "aesthetics",
+  },
+  {
+    src: "/images/brow/natural-light-stroke-brows-before-after-danielle-alcala.png",
+    alt: "Natural light stroke brows before and after microblading hair strokes by Danielle Alcala at Hello Gorgeous Med Spa Oswego IL",
+    title: "Natural Light Stroke Brows Before & After",
+    service: "Microblading",
+    category: "aesthetics",
+  },
+  {
     src: "/images/brow/powder-brows-before-after.png",
     alt: "Powder brows before and after permanent makeup at Hello Gorgeous Med Spa Oswego IL",
     title: "Powder Brows Before & After",

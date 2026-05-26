@@ -8,6 +8,16 @@ import { BOOKING_URL } from "@/lib/flows";
 // Use descriptive alt text for accessibility and a short caption for the hover overlay.
 const galleryImages = [
   {
+    src: "/images/brow/danielle-alcala-brow-pmu-portfolio-before-after.png",
+    alt: "Microblading, powder, combo and nano brows before and after by Danielle Alcala at Hello Gorgeous Med Spa Oswego IL",
+    caption: "Brow PMU — My Work",
+  },
+  {
+    src: "/images/brow/natural-light-stroke-brows-before-after-danielle-alcala.png",
+    alt: "Natural light stroke brows before and after microblading by Danielle Alcala at Hello Gorgeous Med Spa Oswego IL",
+    caption: "Natural Light Stroke Brows",
+  },
+  {
     src: "/images/brow/powder-brows-before-after.png",
     alt: "Powder brows before and after permanent makeup at Hello Gorgeous Med Spa",
     caption: "Powder Brows PMU",
