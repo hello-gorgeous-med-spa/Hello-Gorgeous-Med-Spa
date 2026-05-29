@@ -41,8 +41,8 @@ import {
 } from "@/lib/seo";
 
 const _homeBase = pageMetadata({
-  title: "Hello Gorgeous Med Spa | NP-Directed Medical Spa in Oswego, IL",
-  description: SITE.description,
+  title: "Med Spa in Oswego, IL — Botox, Weight Loss & Morpheus8",
+  description: SITE.metaDescription,
   path: "/",
 });
 

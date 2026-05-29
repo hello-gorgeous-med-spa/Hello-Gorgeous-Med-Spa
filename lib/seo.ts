@@ -26,6 +26,11 @@ export const SITE = {
   tagline: HG_TAGLINE,
   description:
     `${HG_TAGLINE} Best of Oswego — #1 Best Med Spa. NP-directed medical spa and medical aesthetics clinic in Oswego, IL. Same-day appointments often available for med spa, Rx care, and urgent needs. Morpheus8 Burst, Quantum RF, Solaria CO2. Full-authority NP on site. Botox, fillers, weight loss. Serving Oswego, Naperville, Aurora, Plainfield, IL.`,
+  /** Short (<=160 char) version for SERP meta descriptions. The long `description`
+   *  above stays as the schema/Org description; this one is for `<meta name="description">`
+   *  so Google shows the full snippet (incl. locality + CTA) without truncation. */
+  metaDescription:
+    "NP-directed med spa in Oswego, IL — Botox, fillers, medical weight loss, Morpheus8 & laser. Same-day visits. Serving Naperville, Aurora & Plainfield.",
   phone: "630-636-6193",
   /** Toll-free via Square - replace with your number when ready */
   tollFree: "833-474-3998",

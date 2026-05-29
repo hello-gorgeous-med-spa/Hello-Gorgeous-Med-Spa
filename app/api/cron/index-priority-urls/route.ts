@@ -28,6 +28,8 @@ const PRIORITY_SERVICE_URLS = [
   "/services/solaria-co2",
   "/glp1-weight-loss",
   "/our-promise",
+  "/microblading-brow-pmu-oswego-il",
+  "/education/your-brow-journey",
 ];
 
 export async function GET(request: NextRequest) {
