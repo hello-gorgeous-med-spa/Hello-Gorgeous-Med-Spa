@@ -220,6 +220,20 @@ We screen you like a medical practice, because we are one. Free consult — book
   defaultChannels: ["facebook", "instagram", "google"],
 };
 
+export const FACEBOOK_PAGE_PRESET_YORKVILLE: FacebookPagePreset = {
+  id: "yorkville-med-spa",
+  label: "Yorkville — med spa near you",
+  blurb: "Local geo post for Yorkville clients.",
+  message: `📍 Yorkville — your med spa is just up Route 34.
+
+About 10 minutes east in downtown Oswego, Hello Gorgeous brings medical-grade care to Kendall County: Botox $10/unit, fillers, medical weight loss, Morpheus8 Burst & laser — with a full-authority NP on site.
+
+We screen you like a medical practice, because we are one. Free consult — book below 👇`,
+  linkPath: withUtm("/yorkville-il"),
+  imagePath: "/images/homepage-services/morpheus8-burst-verified-provider.png",
+  defaultChannels: ["facebook", "instagram", "google"],
+};
+
 export const FACEBOOK_PAGE_PRESET_OUR_PROMISE: FacebookPagePreset = {
   id: "our-promise",
   label: "Our Promise — Authenticity",
@@ -250,6 +264,7 @@ export const FACEBOOK_PAGE_PRESETS: FacebookPagePreset[] = [
   FACEBOOK_PAGE_PRESET_OSWEGO,
   FACEBOOK_PAGE_PRESET_MONTGOMERY,
   FACEBOOK_PAGE_PRESET_PLAINFIELD,
+  FACEBOOK_PAGE_PRESET_YORKVILLE,
   FACEBOOK_PAGE_PRESET_BOOK,
   FACEBOOK_PAGE_PRESET_WEIGHT,
 ];

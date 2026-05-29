@@ -30,6 +30,7 @@ import { bestMedSpaNearNapervillePost } from "./blog-post-best-med-spa-near-nape
 import { howToChooseMedSpaOswegoPost } from "./blog-post-how-to-choose-med-spa-oswego";
 import { bestMedSpaNearMontgomeryPost } from "./blog-post-best-med-spa-near-montgomery";
 import { bestMedSpaNearPlainfieldPost } from "./blog-post-best-med-spa-near-plainfield";
+import { bestMedSpaNearYorkvillePost } from "./blog-post-best-med-spa-near-yorkville";
 import type { BlogPost } from "./blog-types";
 
 export type { BlogPost } from "./blog-types";
@@ -39,6 +40,7 @@ const coreBlogPosts: BlogPost[] = [
   bestMedSpaNearNapervillePost,
   bestMedSpaNearMontgomeryPost,
   bestMedSpaNearPlainfieldPost,
+  bestMedSpaNearYorkvillePost,
   howToChooseMedSpaOswegoPost,
   browMappingTechniquesShapesPost,
   nanoPowderHandStrokeBrowsPost,

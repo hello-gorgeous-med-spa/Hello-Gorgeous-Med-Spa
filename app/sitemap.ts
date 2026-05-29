@@ -519,6 +519,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     'best-med-spa-near-naperville-il-botox-weight-loss-morpheus8',
     'best-med-spa-near-montgomery-il-botox-weight-loss-morpheus8',
     'best-med-spa-near-plainfield-il-botox-weight-loss-morpheus8',
+    'best-med-spa-near-yorkville-il-botox-weight-loss-morpheus8',
     'how-to-choose-a-med-spa-oswego-il-2026-guide',
     'brow-mapping-shapes-techniques-nano-powder-combo-ombre-oswego-il',
     'nano-brows-vs-powder-brows-vs-hand-stroke-microblading-oswego-il',

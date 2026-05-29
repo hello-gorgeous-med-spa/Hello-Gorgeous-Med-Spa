@@ -15,6 +15,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { createAdminSupabaseClient } from "@/lib/hgos/supabase";
 import { sendSms } from "@/lib/notifications/sms-outbound";
 import { GOOGLE_REVIEW_URL, REVIEW_UTM } from "@/lib/local-seo";
+import { getCityNudge } from "@/lib/hgos/review-boost";
 
 export const dynamic = "force-dynamic";
 
@@ -99,7 +100,7 @@ export async function POST(request: NextRequest) {
     // Resolve contact info from clients → users (two queries to avoid PostgREST joins).
     const { data: client } = await supabase
       .from("clients")
-      .select("id, user_id, first_name, last_name, email, phone")
+      .select("id, user_id, first_name, last_name, email, phone, city")
       .eq("id", clientId)
       .single();
 
@@ -107,11 +108,12 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Client not found" }, { status: 404 });
     }
 
-    let profile: { first_name: string; last_name: string | null; email: string | null; phone: string | null } = {
+    let profile: { first_name: string; last_name: string | null; email: string | null; phone: string | null; city: string | null } = {
       first_name: client.first_name || "there",
       last_name: client.last_name ?? null,
       email: client.email ?? null,
       phone: client.phone ?? null,
+      city: client.city ?? null,
     };
 
     if (client.user_id) {
@@ -139,13 +141,19 @@ export async function POST(request: NextRequest) {
       ? GOOGLE_REVIEW_URL
       : `${GOOGLE_REVIEW_URL}&${REVIEW_UTM}`;
 
+    // Local SEO: if we know the client's town, ask them to mention it in their
+    // review. Reviews that name a city strengthen Map Pack ranking for that
+    // city. Policy-safe — no incentive, no gating.
+    const cityNudge = getCityNudge(profile.city ?? undefined);
+    const cityClause = cityNudge ? ` ${cityNudge}` : "";
+
     const results: { sms?: boolean; email?: boolean; error?: string } = {};
 
     if (profile.phone) {
       // Conversion-tuned: lead with relationship, frame the ask as small,
       // make the star count explicit, end with the link (no trailing words
       // so iMessage previews the URL cleanly). Reply STOP per TCPA.
-      const smsText = `Hi ${firstName}! 💕 So good seeing you at Hello Gorgeous. If we earned a 5⭐ today, would you take 30 sec to share? It really helps us — thank you! ${reviewUrl}\n\nReply STOP to opt out.`;
+      const smsText = `Hi ${firstName}! 💕 So good seeing you at Hello Gorgeous. If we earned a 5⭐ today, would you take 30 sec to share?${cityClause} It really helps us — thank you! ${reviewUrl}\n\nReply STOP to opt out.`;
       const smsResult = await sendSms(profile.phone, smsText);
       results.sms = smsResult.success;
       if (!smsResult.success) results.error = smsResult.error;
@@ -174,6 +182,7 @@ export async function POST(request: NextRequest) {
                 If we earned a <strong>5⭐</strong> today, would you take 30 seconds to share it on Google?
                 Reviews are the single biggest thing that helps us reach more women in Oswego who are looking for what we do.
               </p>
+              ${cityNudge ? `<p style="font-size: 15px; line-height: 1.55; margin: 0 0 24px; color: #be185d;">${cityNudge}</p>` : ""}
               <p style="margin: 0 0 28px; text-align: center;">
                 <a href="${reviewUrl}" style="display: inline-block; padding: 14px 32px; background: linear-gradient(to right, #ec4899, #f43f5e); color: white; text-decoration: none; font-weight: 600; border-radius: 9999px; font-size: 15px;">Leave a 5⭐ Google review</a>
               </p>

@@ -36,6 +36,7 @@ const PRIORITY_SERVICE_URLS = [
   "/best-med-spa-oswego-il",
   "/montgomery-il",
   "/plainfield-il",
+  "/yorkville-il",
 ];
 
 export async function GET(request: NextRequest) {
