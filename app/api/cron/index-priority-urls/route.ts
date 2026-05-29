@@ -30,6 +30,7 @@ const PRIORITY_SERVICE_URLS = [
   "/our-promise",
   "/microblading-brow-pmu-oswego-il",
   "/education/your-brow-journey",
+  "/aurora-il",
 ];
 
 export async function GET(request: NextRequest) {
