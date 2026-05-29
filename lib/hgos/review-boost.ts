@@ -111,11 +111,37 @@ export const REVIEW_CITY_NUDGES: Record<string, string> = {
   "north aurora": "If you came from North Aurora, mentioning that in your review helps other locals find us! 💕",
 };
 
-/** Returns a natural, policy-safe sentence asking the client to mention their town, or "" if unknown. */
+/**
+ * Returns a natural, policy-safe sentence asking the client to mention their
+ * town, or "" if the city isn't one we target.
+ *
+ * Robust to real-world CRM/Square data: handles casing, trailing state
+ * ("Aurora, IL" / "Aurora IL"), zip codes, and multi-word towns. Prefers the
+ * most specific match (e.g. "North Aurora" over "Aurora").
+ */
 export function getCityNudge(city?: string): string {
   if (!city) return "";
-  const key = city.trim().toLowerCase();
-  return REVIEW_CITY_NUDGES[key] ?? "";
+  // Normalize: lowercase, strip state suffixes / punctuation / digits, collapse spaces.
+  const normalized = city
+    .toLowerCase()
+    .replace(/,?\s*(il|illinois)\b/g, "")
+    .replace(/[^a-z\s]/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+  if (!normalized) return "";
+
+  // Exact match wins.
+  if (REVIEW_CITY_NUDGES[normalized]) return REVIEW_CITY_NUDGES[normalized];
+
+  // Otherwise, match the most specific known town contained in the value
+  // (longest key first so "north aurora" beats "aurora").
+  const keys = Object.keys(REVIEW_CITY_NUDGES).sort((a, b) => b.length - a.length);
+  for (const key of keys) {
+    if (normalized === key || normalized.includes(key)) {
+      return REVIEW_CITY_NUDGES[key];
+    }
+  }
+  return "";
 }
 
 // ============================================================
