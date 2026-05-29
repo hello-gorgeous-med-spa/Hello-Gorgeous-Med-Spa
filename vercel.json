@@ -20,6 +20,10 @@
       "schedule": "0 16 * * *"
     },
     {
+      "path": "/api/cron/review-responder",
+      "schedule": "0 */6 * * *"
+    },
+    {
       "path": "/api/cron/reminders",
       "schedule": "0 * * * *"
     },
