@@ -1111,8 +1111,10 @@ export function siteJsonLd(opts?: { aggregateRating?: AggregateRatingOverride | 
       { "@type": "City", name: "Oswego", containedInPlace: { "@type": "State", name: "Illinois" } },
       { "@type": "City", name: "Naperville", containedInPlace: { "@type": "State", name: "Illinois" } },
       { "@type": "City", name: "Aurora", containedInPlace: { "@type": "State", name: "Illinois" } },
+      { "@type": "City", name: "Montgomery", containedInPlace: { "@type": "State", name: "Illinois" } },
       { "@type": "City", name: "Plainfield", containedInPlace: { "@type": "State", name: "Illinois" } },
       { "@type": "City", name: "Yorkville", containedInPlace: { "@type": "State", name: "Illinois" } },
+      { "@type": "City", name: "Sugar Grove", containedInPlace: { "@type": "State", name: "Illinois" } },
     ],
     hasMap: SITE.googleBusinessUrl,
     /** Google Place identifier — locks this schema entity to your verified GBP listing. */

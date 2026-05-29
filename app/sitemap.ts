@@ -598,6 +598,33 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.8,
   }));
 
+  // City hub pages (/{city}-il) + their service sub-pages (/{city}-il/{service}) and the
+  // /locations index — these are dedicated app routes, previously only reachable via footer.
+  const CITY_HUB_SLUGS = [
+    'oswego-il', 'naperville-il', 'aurora-il', 'montgomery-il', 'plainfield-il', 'yorkville-il',
+  ];
+  const CITY_HUB_SERVICE_SLUGS = [
+    'botox-dysport-jeuveau', 'dermal-fillers', 'weight-loss-therapy',
+    'rf-microneedling', 'biote-hormone-therapy', 'iv-therapy',
+  ];
+  const cityHubPages: MetadataRoute.Sitemap = [
+    { url: `${baseUrl}/locations`, lastModified: currentDate, changeFrequency: 'monthly' as const, priority: 0.7 },
+    ...CITY_HUB_SLUGS.map((city) => ({
+      url: `${baseUrl}/${city}`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly' as const,
+      priority: 0.85,
+    })),
+    ...CITY_HUB_SLUGS.flatMap((city) =>
+      CITY_HUB_SERVICE_SLUGS.map((service) => ({
+        url: `${baseUrl}/${city}/${service}`,
+        lastModified: currentDate,
+        changeFrequency: 'monthly' as const,
+        priority: 0.8,
+      }))
+    ),
+  ];
+
   return [
     ...corePages,
     ...servicePages,
@@ -616,6 +643,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...aftercarePages,
     ...locationServicePages,
     ...cityPages,
+    ...cityHubPages,
     ...laserHairRemovalPages,
     ...laserHairMembershipPages,
     ...springBreakPages,

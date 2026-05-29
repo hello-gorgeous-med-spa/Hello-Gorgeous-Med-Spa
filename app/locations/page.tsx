@@ -23,16 +23,26 @@ const locations = [
     blurb: "Serving Aurora with premium aesthetics and safety-first clinical care.",
   },
   {
+    slug: "montgomery-il",
+    label: "Montgomery, IL",
+    blurb: "Minutes from Montgomery — medical-grade aesthetics with a full-authority NP on site.",
+  },
+  {
     slug: "plainfield-il",
     label: "Plainfield, IL",
     blurb: "Serving Plainfield clients with a calm, premium, professional experience.",
+  },
+  {
+    slug: "yorkville-il",
+    label: "Yorkville, IL",
+    blurb: "Serving Yorkville with consult-first, clinically supervised treatments.",
   },
 ] as const;
 
 export const metadata: Metadata = pageMetadata({
   title: "Locations",
   description:
-    "Hello Gorgeous Med Spa locations and service areas — Oswego, Naperville, Aurora, and Plainfield, IL.",
+    "Hello Gorgeous Med Spa locations and service areas — Oswego, Naperville, Aurora, Montgomery, Plainfield & Yorkville, IL.",
   path: "/locations",
 });
 
@@ -41,7 +51,7 @@ function pageFaqs() {
     {
       question: "Where is Hello Gorgeous Med Spa located?",
       answer:
-        "Hello Gorgeous Med Spa is located at 74 W. Washington St., Oswego, IL 60543 and serves nearby communities including Naperville, Aurora, and Plainfield.",
+        "Hello Gorgeous Med Spa is located at 74 W. Washington St., Oswego, IL 60543 and serves nearby communities including Naperville, Aurora, Montgomery, Plainfield, and Yorkville.",
     },
     {
       question: "Do you accept clients from nearby cities?",
