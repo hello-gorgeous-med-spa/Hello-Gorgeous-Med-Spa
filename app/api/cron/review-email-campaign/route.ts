@@ -85,7 +85,8 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ error: "Database not configured" }, { status: 503 });
   }
 
-  // Who has already been asked (any source)? Dedupe by client.
+  // Who has already been asked (any source)? Dedupe by client AND by email,
+  // so duplicate client records for the same person can never be double-asked.
   const alreadyAsked = new Set<string>();
   {
     const pageSize = 1000;
@@ -98,6 +99,20 @@ export async function GET(request: NextRequest) {
       if (error || !data?.length) break;
       for (const r of data) if (r.client_id) alreadyAsked.add(r.client_id as string);
       if (data.length < pageSize) break;
+    }
+  }
+
+  // Resolve the emails of everyone already asked → persistent email blocklist.
+  const askedEmails = new Set<string>();
+  {
+    const ids = [...alreadyAsked];
+    for (let i = 0; i < ids.length; i += 200) {
+      const chunk = ids.slice(i, i + 200);
+      const { data } = await supabase.from("clients").select("email").in("id", chunk);
+      for (const r of data ?? []) {
+        const e = (r.email ?? "").trim().toLowerCase();
+        if (e) askedEmails.add(e);
+      }
     }
   }
 
@@ -121,7 +136,8 @@ export async function GET(request: NextRequest) {
   const queue = (candidates ?? []).filter((c) => {
     if (alreadyAsked.has(c.id)) return false;
     const e = (c.email ?? "").trim().toLowerCase();
-    if (!e || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(e) || seenEmail.has(e)) return false;
+    if (!e || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(e)) return false;
+    if (askedEmails.has(e) || seenEmail.has(e)) return false;
     seenEmail.add(e);
     return true;
   });
