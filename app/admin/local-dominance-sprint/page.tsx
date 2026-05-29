@@ -1,3 +1,4 @@
+import { CityRankScoreboard } from "@/components/admin/CityRankScoreboard";
 import { LocalDominanceSprintClient } from "@/components/admin/LocalDominanceSprintClient";
 
 export default function LocalDominanceSprintPage() {
@@ -8,6 +9,9 @@ export default function LocalDominanceSprintPage() {
         Weekly lead-generation operating system to grow awareness and bookings using owned channels: SEO, Google Business,
         reviews, reactivation, and funnel optimization.
       </p>
+      <div className="mt-6">
+        <CityRankScoreboard />
+      </div>
       <div className="mt-6">
         <LocalDominanceSprintClient />
       </div>

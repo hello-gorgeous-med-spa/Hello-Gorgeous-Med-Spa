@@ -232,6 +232,69 @@ export function defaultSitemapUrl(): string {
 }
 
 // ============================================================
+// Search Analytics (rank tracking)
+// ============================================================
+
+export interface SearchAnalyticsRow {
+  /** Values for the requested dimensions, in order (e.g. [query] or [query, page]). */
+  keys: string[];
+  clicks: number;
+  impressions: number;
+  ctr: number;
+  /** Average position in search results (1 = top). */
+  position: number;
+}
+
+export interface SearchAnalyticsQueryOptions {
+  startDate: string; // YYYY-MM-DD
+  endDate: string; // YYYY-MM-DD
+  dimensions?: Array<"query" | "page" | "country" | "device" | "date">;
+  rowLimit?: number;
+  /** Restrict to a country (ISO-3166-1-alpha-3, e.g. "usa"). */
+  country?: string;
+}
+
+/**
+ * Query Search Console Search Analytics — the source of real ranking data
+ * (impressions, clicks, average position) for the queries people actually
+ * use to find the site. Data lags ~2-3 days, which Google handles internally.
+ */
+export async function querySearchAnalytics(
+  accessToken: string,
+  siteUrl: string,
+  options: SearchAnalyticsQueryOptions,
+): Promise<SearchAnalyticsRow[]> {
+  const body: Record<string, unknown> = {
+    startDate: options.startDate,
+    endDate: options.endDate,
+    dimensions: options.dimensions ?? ["query"],
+    rowLimit: options.rowLimit ?? 1000,
+  };
+  if (options.country) {
+    body.dimensionFilterGroups = [
+      { filters: [{ dimension: "country", operator: "equals", expression: options.country }] },
+    ];
+  }
+
+  const url = `${WEBMASTERS_BASE}/sites/${encodeURIComponent(siteUrl)}/searchAnalytics/query`;
+  const res = await fetch(url, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(body),
+  });
+
+  if (!res.ok) {
+    const text = await res.text();
+    throw new Error(`querySearchAnalytics failed (${res.status}): ${text}`);
+  }
+  const json = (await res.json()) as { rows?: SearchAnalyticsRow[] };
+  return json.rows ?? [];
+}
+
+// ============================================================
 // Google Site Verification API
 // ============================================================
 // Allows programmatic creation + verification of Search Console
