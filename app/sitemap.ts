@@ -515,6 +515,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   // Blog articles — featured posts get higher crawl priority
   const featuredBlogSlugs = new Set([
+    'best-med-spa-near-aurora-il-botox-weight-loss-morpheus8',
     'brow-mapping-shapes-techniques-nano-powder-combo-ombre-oswego-il',
     'nano-brows-vs-powder-brows-vs-hand-stroke-microblading-oswego-il',
     'which-peptide-is-right-for-you-oswego-il',

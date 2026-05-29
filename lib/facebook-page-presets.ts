@@ -150,6 +150,20 @@ Book your brow consult 👇`,
   defaultChannels: ["facebook", "instagram", "google"],
 };
 
+export const FACEBOOK_PAGE_PRESET_AURORA: FacebookPagePreset = {
+  id: "aurora-med-spa",
+  label: "Aurora — med spa near you",
+  blurb: "Local geo post for Aurora clients.",
+  message: `📍 Aurora — your med spa is closer than you think.
+
+Just ~20 minutes west on Route 30 (minutes from North Aurora & Montgomery), Hello Gorgeous brings medical-grade care to the Fox Valley: Botox $10/unit, fillers, medical weight loss, Morpheus8 Burst & laser — with a full-authority NP on site.
+
+We screen you like a medical practice, because we are one. Free consult — book below 👇`,
+  linkPath: withUtm("/aurora-il"),
+  imagePath: "/images/homepage-services/morpheus8-burst-verified-provider.png",
+  defaultChannels: ["facebook", "instagram", "google"],
+};
+
 export const FACEBOOK_PAGE_PRESET_OUR_PROMISE: FacebookPagePreset = {
   id: "our-promise",
   label: "Our Promise — Authenticity",
@@ -175,6 +189,7 @@ export const FACEBOOK_PAGE_PRESETS: FacebookPagePreset[] = [
   FACEBOOK_PAGE_PRESET_IPL,
   FACEBOOK_PAGE_PRESET_BROW_PMU,
   FACEBOOK_PAGE_PRESET_BROW_TECHNIQUES,
+  FACEBOOK_PAGE_PRESET_AURORA,
   FACEBOOK_PAGE_PRESET_BOOK,
   FACEBOOK_PAGE_PRESET_WEIGHT,
 ];

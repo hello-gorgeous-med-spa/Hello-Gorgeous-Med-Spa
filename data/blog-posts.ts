@@ -25,11 +25,13 @@ import { weightLossSkinTighteningPost } from "./blog-post-weight-loss-skin-tight
 import { rxProductBlogPosts } from "./blog-rx-product-posts";
 import { browMappingTechniquesShapesPost } from "./blog-post-brow-mapping-techniques-shapes";
 import { nanoPowderHandStrokeBrowsPost } from "./blog-post-nano-powder-hand-stroke-brows";
+import { bestMedSpaNearAuroraPost } from "./blog-post-best-med-spa-near-aurora";
 import type { BlogPost } from "./blog-types";
 
 export type { BlogPost } from "./blog-types";
 
 const coreBlogPosts: BlogPost[] = [
+  bestMedSpaNearAuroraPost,
   browMappingTechniquesShapesPost,
   nanoPowderHandStrokeBrowsPost,
   quantumRfLaunchBlogPost,
