@@ -1,5 +1,20 @@
 const path = require("path");
 
+/** CSP for static HTML embedded in iframes on www (intake forms, education handouts). */
+const EMBEDDABLE_HTML_CSP = [
+  "default-src 'self'",
+  "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.supabase.co https://js.stripe.com https://challenges.cloudflare.com https://*.withcherry.com https://files.withcherry.com https://assistloop.ai",
+  "worker-src 'self' blob:",
+  "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+  "img-src 'self' data: blob: https:",
+  "font-src 'self' https://fonts.gstatic.com",
+  "connect-src 'self' https://*.supabase.co https://api.openai.com https://api.stripe.com wss://*.supabase.co https://*.withcherry.com https://assistloop.ai https://*.assistloop.ai wss://*.assistloop.ai",
+  "frame-src 'self' https://js.stripe.com https://challenges.cloudflare.com https://www.alle.com https://*.alle.com https://*.withcherry.com https://pay.withcherry.com https://www.facebook.com https://www.youtube.com https://www.youtube-nocookie.com https://assistloop.ai https://*.assistloop.ai",
+  "frame-ancestors 'self' https://www.hellogorgeousmedspa.com https://hellogorgeousmedspa.com https://hub.hellogorgeousmedspa.com",
+  "base-uri 'self'",
+  "form-action 'self'",
+].join("; ");
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   // Pin tracing to this app when a parent folder also has a package-lock.json
@@ -27,9 +42,9 @@ const nextConfig = {
   headers: async () => [
     // Global security headers — do NOT use source "/(.*)": that matches /docs/* and stacks a second CSP.
     // Multiple CSPs are intersected; frame-ancestors 'none' (global) + explicit hosts (/docs) still forbids iframes.
-    // Exempt: verbatim consent HTML in public/docs (must be embeddable on hub + www; see /docs/:path* block).
+    // Exempt: embeddable HTML (public/docs, public/forms, education handouts) — see dedicated blocks below.
     {
-      source: "/((?!docs$|docs/).*)",
+      source: "/((?!docs$|docs/|forms/|handouts/education/).*)",
       headers: [
         { key: "X-Frame-Options", value: "DENY" },
         { key: "X-Content-Type-Options", value: "nosniff" },
@@ -77,26 +92,25 @@ const nextConfig = {
         },
       ],
     },
-    // Verbatim consent (public/docs) — only CSP (no X-Frame-Options) so it can be iframed on hub. + www
+    // Verbatim consent (public/docs) — only CSP (no X-Frame-Options) so it can be iframed on hub + www
     {
       source: "/docs/:path*",
+      headers: [{ key: "Content-Security-Policy", value: EMBEDDABLE_HTML_CSP }],
+    },
+    // Brow intake + other public forms (iframes on /forms/brow-intake etc.)
+    {
+      source: "/forms/:path*",
       headers: [
-        {
-          key: "Content-Security-Policy",
-          value: [
-            "default-src 'self'",
-            "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.supabase.co https://js.stripe.com https://challenges.cloudflare.com https://*.withcherry.com https://files.withcherry.com https://assistloop.ai",
-            "worker-src 'self' blob:",
-            "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
-            "img-src 'self' data: blob: https:",
-            "font-src 'self' https://fonts.gstatic.com",
-            "connect-src 'self' https://*.supabase.co https://api.openai.com https://api.stripe.com wss://*.supabase.co https://*.withcherry.com https://assistloop.ai https://*.assistloop.ai wss://*.assistloop.ai",
-            "frame-src 'self' https://js.stripe.com https://challenges.cloudflare.com https://www.alle.com https://*.alle.com https://*.withcherry.com https://pay.withcherry.com https://www.facebook.com https://www.youtube.com https://www.youtube-nocookie.com https://assistloop.ai https://*.assistloop.ai",
-            "frame-ancestors 'self' https://www.hellogorgeousmedspa.com https://hub.hellogorgeousmedspa.com",
-            "base-uri 'self'",
-            "form-action 'self'",
-          ].join("; "),
-        },
+        { key: "X-Frame-Options", value: "SAMEORIGIN" },
+        { key: "Content-Security-Policy", value: EMBEDDABLE_HTML_CSP },
+      ],
+    },
+    // Education handouts embedded on /education/your-brow-journey
+    {
+      source: "/handouts/education/:path*",
+      headers: [
+        { key: "X-Frame-Options", value: "SAMEORIGIN" },
+        { key: "Content-Security-Policy", value: EMBEDDABLE_HTML_CSP },
       ],
     },
     {
