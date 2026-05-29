@@ -282,6 +282,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'weekly',
       priority: 0.88,
     },
+    {
+      url: `${baseUrl}/body-sculpting-oswego-il`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.88,
+    },
   ];
 
   // Premium SEO landing pages (FaqPageContent template — botox, microneedling-rf, weight-loss-therapy)
