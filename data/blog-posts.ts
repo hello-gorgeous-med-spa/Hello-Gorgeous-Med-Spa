@@ -28,6 +28,8 @@ import { nanoPowderHandStrokeBrowsPost } from "./blog-post-nano-powder-hand-stro
 import { bestMedSpaNearAuroraPost } from "./blog-post-best-med-spa-near-aurora";
 import { bestMedSpaNearNapervillePost } from "./blog-post-best-med-spa-near-naperville";
 import { howToChooseMedSpaOswegoPost } from "./blog-post-how-to-choose-med-spa-oswego";
+import { bestMedSpaNearMontgomeryPost } from "./blog-post-best-med-spa-near-montgomery";
+import { bestMedSpaNearPlainfieldPost } from "./blog-post-best-med-spa-near-plainfield";
 import type { BlogPost } from "./blog-types";
 
 export type { BlogPost } from "./blog-types";
@@ -35,6 +37,8 @@ export type { BlogPost } from "./blog-types";
 const coreBlogPosts: BlogPost[] = [
   bestMedSpaNearAuroraPost,
   bestMedSpaNearNapervillePost,
+  bestMedSpaNearMontgomeryPost,
+  bestMedSpaNearPlainfieldPost,
   howToChooseMedSpaOswegoPost,
   browMappingTechniquesShapesPost,
   nanoPowderHandStrokeBrowsPost,

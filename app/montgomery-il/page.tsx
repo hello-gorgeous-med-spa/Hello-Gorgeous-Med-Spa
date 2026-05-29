@@ -215,6 +215,33 @@ export default function MontgomeryHubPage() {
           ))}
         </div>
       </Section>
+
+      <Section className="relative">
+        <div className="absolute inset-0 bg-gradient-to-b from-white via-pink-50 to-white" />
+        <div className="relative z-10">
+          <FadeUp>
+            <h2 className="text-3xl md:text-4xl font-bold text-black">
+              Your next-door med spa
+            </h2>
+            <p className="mt-4 text-black/80 max-w-2xl leading-relaxed">
+              Montgomery clients have the shortest drive of all — we&apos;re right next door in
+              downtown Oswego, <strong>less than 10 minutes away</strong>. New to us? Read{" "}
+              <Link
+                href="/blog/best-med-spa-near-montgomery-il-botox-weight-loss-morpheus8"
+                className="font-semibold text-[#E6007E] underline decoration-[#E6007E]"
+              >
+                the best med spa near Montgomery, IL
+              </Link>{" "}
+              for Botox pricing, medical weight loss, Morpheus8 and how to choose well.
+            </p>
+            <div className="mt-8">
+              <CTA href={BOOKING_URL} variant="gradient">
+                Book your free Montgomery consult
+              </CTA>
+            </div>
+          </FadeUp>
+        </div>
+      </Section>
     </>
   );
 }

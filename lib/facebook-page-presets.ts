@@ -192,6 +192,34 @@ Free consult — book below 👇`,
   defaultChannels: ["facebook", "instagram", "google"],
 };
 
+export const FACEBOOK_PAGE_PRESET_MONTGOMERY: FacebookPagePreset = {
+  id: "montgomery-med-spa",
+  label: "Montgomery — med spa next door",
+  blurb: "Local geo post for Montgomery clients.",
+  message: `📍 Montgomery — your med spa is right next door.
+
+Less than 10 minutes away in downtown Oswego, Hello Gorgeous brings medical-grade care to the Fox Valley: Botox $10/unit, fillers, medical weight loss, Morpheus8 Burst & laser — with a full-authority NP on site.
+
+We screen you like a medical practice, because we are one. Free consult — book below 👇`,
+  linkPath: withUtm("/montgomery-il"),
+  imagePath: "/images/homepage-services/morpheus8-burst-verified-provider.png",
+  defaultChannels: ["facebook", "instagram", "google"],
+};
+
+export const FACEBOOK_PAGE_PRESET_PLAINFIELD: FacebookPagePreset = {
+  id: "plainfield-med-spa",
+  label: "Plainfield — med spa near you",
+  blurb: "Local geo post for Plainfield clients.",
+  message: `📍 Plainfield — your med spa is just a short drive away.
+
+About 15 minutes north on Route 126, Hello Gorgeous brings medical-grade care to Will County: Botox $10/unit, fillers, medical weight loss, Morpheus8 Burst & laser — with a full-authority NP on site.
+
+We screen you like a medical practice, because we are one. Free consult — book below 👇`,
+  linkPath: withUtm("/plainfield-il"),
+  imagePath: "/images/homepage-services/morpheus8-burst-verified-provider.png",
+  defaultChannels: ["facebook", "instagram", "google"],
+};
+
 export const FACEBOOK_PAGE_PRESET_OUR_PROMISE: FacebookPagePreset = {
   id: "our-promise",
   label: "Our Promise — Authenticity",
@@ -220,6 +248,8 @@ export const FACEBOOK_PAGE_PRESETS: FacebookPagePreset[] = [
   FACEBOOK_PAGE_PRESET_AURORA,
   FACEBOOK_PAGE_PRESET_NAPERVILLE,
   FACEBOOK_PAGE_PRESET_OSWEGO,
+  FACEBOOK_PAGE_PRESET_MONTGOMERY,
+  FACEBOOK_PAGE_PRESET_PLAINFIELD,
   FACEBOOK_PAGE_PRESET_BOOK,
   FACEBOOK_PAGE_PRESET_WEIGHT,
 ];

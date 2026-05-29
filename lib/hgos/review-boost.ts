@@ -15,6 +15,8 @@ export interface ReviewRequest {
   providerName: string;
   serviceName: string;
   appointmentDate: string;
+  /** Client's home town — used to add a natural city mention to the Google review ask. */
+  clientCity?: string;
 }
 
 export interface ReviewFeedback {
@@ -92,15 +94,41 @@ If you'd like to speak with us directly, please call (630) 636-6193.`,
 };
 
 // ============================================================
+// CITY-TAGGED REVIEW NUDGES (Local SEO / Map Pack)
+// ============================================================
+// Google's Map Pack ranking for a town is strongly influenced by reviews
+// whose TEXT mentions that town. We never incentivize or gate reviews — we
+// simply suggest that clients mention where they drove in from, which is
+// honest and policy-compliant. Matched case-insensitively on the client's city.
+
+export const REVIEW_CITY_NUDGES: Record<string, string> = {
+  aurora: "If you drove in from Aurora, it'd mean the world if you mentioned that in your review! 💕",
+  naperville: "If you came from Naperville, a quick mention of that in your review really helps other locals find us! 💕",
+  oswego: "A quick mention that you're local to Oswego in your review helps your neighbors find us! 💕",
+  montgomery: "If you're from Montgomery, mentioning that in your review helps other locals discover us! 💕",
+  plainfield: "If you drove in from Plainfield, a mention of that in your review helps other locals find us! 💕",
+  yorkville: "If you're from Yorkville, mentioning that in your review helps your neighbors find us! 💕",
+  "north aurora": "If you came from North Aurora, mentioning that in your review helps other locals find us! 💕",
+};
+
+/** Returns a natural, policy-safe sentence asking the client to mention their town, or "" if unknown. */
+export function getCityNudge(city?: string): string {
+  if (!city) return "";
+  const key = city.trim().toLowerCase();
+  return REVIEW_CITY_NUDGES[key] ?? "";
+}
+
+// ============================================================
 // REVIEW FLOW LOGIC
 // ============================================================
 
 /**
  * Generate feedback collection URL
  */
-export function generateFeedbackUrl(appointmentId: string, token: string): string {
+export function generateFeedbackUrl(appointmentId: string, token: string, city?: string): string {
   const baseUrl = process.env.NEXTAUTH_URL || SITE.url;
-  return `${baseUrl}/feedback/${appointmentId}?token=${token}`;
+  const cityParam = city ? `&city=${encodeURIComponent(city.trim().toLowerCase())}` : '';
+  return `${baseUrl}/feedback/${appointmentId}?token=${token}${cityParam}`;
 }
 
 /**
@@ -116,17 +144,24 @@ export function getGoogleReviewUrl(config: ReviewBoostConfig = DEFAULT_REVIEW_BO
 }
 
 /**
- * Determine next action based on rating
+ * Determine next action based on rating.
+ * Pass the client's city to append a natural, policy-safe town mention to the Google ask.
  */
-export function getReviewAction(rating: number, config: ReviewBoostConfig = DEFAULT_REVIEW_BOOST_CONFIG): {
+export function getReviewAction(
+  rating: number,
+  config: ReviewBoostConfig = DEFAULT_REVIEW_BOOST_CONFIG,
+  city?: string
+): {
   action: 'redirect_google' | 'internal_followup' | 'thank_you';
   message: string;
   redirectUrl?: string;
 } {
   if (rating >= config.minRatingForGoogleRedirect) {
+    const nudge = getCityNudge(city);
+    const baseMessage = config.thankYouMessage.replace('{googleReviewLink}', getGoogleReviewUrl(config));
     return {
       action: 'redirect_google',
-      message: config.thankYouMessage.replace('{googleReviewLink}', getGoogleReviewUrl(config)),
+      message: nudge ? `${baseMessage}\n\n${nudge}` : baseMessage,
       redirectUrl: getGoogleReviewUrl(config),
     };
   } else if (rating <= 2) {
@@ -159,6 +194,61 @@ export function formatReviewRequestMessage(
   return {
     subject: config.requestSubject,
     body,
+  };
+}
+
+// ============================================================
+// READY-TO-USE REVIEW REQUEST TEMPLATES (SMS + EMAIL)
+// ============================================================
+// Short, friendly, mobile-first. Placeholders: {firstName}, {serviceName},
+// {feedbackLink}, {cityLine}. The {cityLine} is auto-filled from the client's
+// town (or removed if unknown) so the ask feels personal and supports local SEO.
+
+export const REVIEW_REQUEST_SMS_TEMPLATE =
+  `Hi {firstName}! 💕 Thank you for visiting Hello Gorgeous Med Spa for your {serviceName}. ` +
+  `We'd love a quick review — it takes 30 seconds: {feedbackLink}{cityLine}`;
+
+export const REVIEW_REQUEST_EMAIL_SUBJECT = 'How was your visit to Hello Gorgeous? ✨';
+
+export const REVIEW_REQUEST_EMAIL_TEMPLATE = `Hi {firstName}!
+
+Thank you for trusting Hello Gorgeous Med Spa with your {serviceName}. We hope you're loving your results! 💎
+
+Would you take 30 seconds to share your experience? It helps other local clients find us:
+
+{feedbackLink}{cityLine}
+
+With gratitude,
+The Hello Gorgeous Team
+74 W. Washington St., Oswego, IL 60543 · (630) 636-6193`;
+
+/** Short city line appended to the review ask (SMS/email), or "" if city unknown. */
+function reviewCityLine(city?: string, forSms = false): string {
+  const nudge = getCityNudge(city);
+  if (!nudge) return '';
+  return forSms ? ` ${nudge}` : `\n\n${nudge}`;
+}
+
+/**
+ * Build the initial city-aware review request (sent ~2h after the visit).
+ * Returns SMS body + email subject/body with the client's town woven in.
+ */
+export function buildCityReviewRequest(
+  request: ReviewRequest,
+  feedbackUrl: string
+): { sms: string; emailSubject: string; emailBody: string } {
+  const firstName = request.clientName.split(' ')[0];
+  const fill = (tpl: string, forSms: boolean) =>
+    tpl
+      .replace('{firstName}', firstName)
+      .replace('{serviceName}', request.serviceName)
+      .replace('{feedbackLink}', feedbackUrl)
+      .replace('{cityLine}', reviewCityLine(request.clientCity, forSms));
+
+  return {
+    sms: fill(REVIEW_REQUEST_SMS_TEMPLATE, true),
+    emailSubject: REVIEW_REQUEST_EMAIL_SUBJECT,
+    emailBody: fill(REVIEW_REQUEST_EMAIL_TEMPLATE, false),
   };
 }
 

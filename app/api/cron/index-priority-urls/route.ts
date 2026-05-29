@@ -34,6 +34,8 @@ const PRIORITY_SERVICE_URLS = [
   "/naperville-il",
   "/oswego-il",
   "/best-med-spa-oswego-il",
+  "/montgomery-il",
+  "/plainfield-il",
 ];
 
 export async function GET(request: NextRequest) {

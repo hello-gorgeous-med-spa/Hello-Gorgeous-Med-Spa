@@ -154,6 +154,34 @@ export default function PlainfieldHubPage() {
         </div>
       </Section>
 
+      <Section className="relative">
+        <div className="absolute inset-0 bg-gradient-to-b from-white via-pink-50 to-white" />
+        <div className="relative z-10">
+          <FadeUp>
+            <h2 className="text-3xl md:text-4xl font-bold text-black">
+              Serving Plainfield &amp; Will County
+            </h2>
+            <p className="mt-4 text-black/80 max-w-2xl leading-relaxed">
+              We&apos;re about a <strong>15-minute drive north on Route 126</strong> in downtown
+              Oswego. Plainfield clients choose Hello Gorgeous for medical-grade care you can&apos;t
+              get at a walk-in counter. New to us? Read{" "}
+              <Link
+                href="/blog/best-med-spa-near-plainfield-il-botox-weight-loss-morpheus8"
+                className="font-semibold text-[#E6007E] underline decoration-[#E6007E]"
+              >
+                the best med spa near Plainfield, IL
+              </Link>{" "}
+              for Botox pricing, medical weight loss, Morpheus8 and how to choose well.
+            </p>
+            <div className="mt-8">
+              <CTA href={BOOKING_URL} variant="gradient">
+                Book your free Plainfield consult
+              </CTA>
+            </div>
+          </FadeUp>
+        </div>
+      </Section>
+
       <TechBlogPromo
         title="Morpheus8 Burst, Quantum RF & Solaria — Expert Guides"
         subtitle="Read our blog articles on our exclusive InMode technology. Serving Plainfield, Oswego, Naperville, Aurora & the Fox Valley."

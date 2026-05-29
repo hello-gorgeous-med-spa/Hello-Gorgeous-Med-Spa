@@ -1,13 +1,16 @@
 'use client';
 
-import { useState } from 'react';
-import { useParams, useRouter } from 'next/navigation';
-import { getReviewAction, getGoogleReviewUrl, DEFAULT_REVIEW_BOOST_CONFIG } from '@/lib/hgos/review-boost';
+import { Suspense, useState } from 'react';
+import { useParams, useRouter, useSearchParams } from 'next/navigation';
+import { getReviewAction, getGoogleReviewUrl, getCityNudge } from '@/lib/hgos/review-boost';
 
-export default function FeedbackPage() {
+function FeedbackInner() {
   const params = useParams();
   const router = useRouter();
+  const searchParams = useSearchParams();
   const appointmentId = params.appointmentId as string;
+  const city = searchParams.get('city') ?? undefined;
+  const cityNudge = getCityNudge(city);
 
   const [rating, setRating] = useState<number | null>(null);
   const [hoveredRating, setHoveredRating] = useState<number | null>(null);
@@ -34,7 +37,7 @@ export default function FeedbackPage() {
         }),
       });
 
-      const action = getReviewAction(rating);
+      const action = getReviewAction(rating, undefined, city);
       
       if (action.action === 'redirect_google') {
         setShowGooglePrompt(true);
@@ -67,6 +70,11 @@ export default function FeedbackPage() {
                 We're so happy you had a great experience! Would you mind sharing 
                 your feedback on Google? It helps others find us.
               </p>
+              {cityNudge && (
+                <p className="text-[#E6007E] font-medium mb-6">
+                  {cityNudge}
+                </p>
+              )}
               <button
                 onClick={handleGoogleReview}
                 className="w-full py-3 px-4 bg-gradient-to-r from-blue-500 to-blue-600 text-white font-semibold rounded-xl hover:from-blue-600 hover:to-blue-700 transition-all flex items-center justify-center gap-2 mb-3"
@@ -203,5 +211,13 @@ export default function FeedbackPage() {
         </p>
       </div>
     </div>
+  );
+}
+
+export default function FeedbackPage() {
+  return (
+    <Suspense fallback={null}>
+      <FeedbackInner />
+    </Suspense>
   );
 }
