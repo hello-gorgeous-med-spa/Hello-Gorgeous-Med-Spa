@@ -164,6 +164,34 @@ We screen you like a medical practice, because we are one. Free consult — book
   defaultChannels: ["facebook", "instagram", "google"],
 };
 
+export const FACEBOOK_PAGE_PRESET_NAPERVILLE: FacebookPagePreset = {
+  id: "naperville-med-spa",
+  label: "Naperville — med spa near you",
+  blurb: "Local geo post for Naperville clients.",
+  message: `📍 Naperville — your med spa is just a short drive away.
+
+About 15 minutes south on Route 59, Hello Gorgeous brings medical-grade care to the western suburbs: Botox $10/unit, fillers, medical weight loss, Morpheus8 Burst & laser — with a full-authority NP on site.
+
+We screen you like a medical practice, because we are one. Free consult — book below 👇`,
+  linkPath: withUtm("/naperville-il"),
+  imagePath: "/images/homepage-services/morpheus8-burst-verified-provider.png",
+  defaultChannels: ["facebook", "instagram", "google"],
+};
+
+export const FACEBOOK_PAGE_PRESET_OSWEGO: FacebookPagePreset = {
+  id: "oswego-med-spa",
+  label: "Oswego — #1 best med spa",
+  blurb: "Hometown post for Oswego clients.",
+  message: `📍 Oswego — your hometown med spa.
+
+Voted #1 Best Med Spa in Oswego. Right in downtown at 74 W. Washington St., we offer Botox $10/unit, fillers, medical weight loss, Morpheus8 Burst, Quantum RF & Solaria CO₂ — all under one roof, with a full-authority NP on site.
+
+Free consult — book below 👇`,
+  linkPath: withUtm("/best-med-spa-oswego-il"),
+  imagePath: "/images/homepage-services/morpheus8-burst-verified-provider.png",
+  defaultChannels: ["facebook", "instagram", "google"],
+};
+
 export const FACEBOOK_PAGE_PRESET_OUR_PROMISE: FacebookPagePreset = {
   id: "our-promise",
   label: "Our Promise — Authenticity",
@@ -190,6 +218,8 @@ export const FACEBOOK_PAGE_PRESETS: FacebookPagePreset[] = [
   FACEBOOK_PAGE_PRESET_BROW_PMU,
   FACEBOOK_PAGE_PRESET_BROW_TECHNIQUES,
   FACEBOOK_PAGE_PRESET_AURORA,
+  FACEBOOK_PAGE_PRESET_NAPERVILLE,
+  FACEBOOK_PAGE_PRESET_OSWEGO,
   FACEBOOK_PAGE_PRESET_BOOK,
   FACEBOOK_PAGE_PRESET_WEIGHT,
 ];

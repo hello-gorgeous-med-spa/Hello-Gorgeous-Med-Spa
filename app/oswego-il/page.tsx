@@ -181,6 +181,63 @@ export default function OswegoHubPage() {
         </div>
       </Section>
 
+      <Section className="relative">
+        <div className="absolute inset-0 bg-gradient-to-b from-white via-pink-50 to-white" />
+        <div className="relative z-10 grid gap-8 lg:grid-cols-12">
+          <div className="lg:col-span-7">
+            <FadeUp>
+              <h2 className="text-3xl md:text-4xl font-bold text-black">
+                Your hometown med spa in Oswego
+              </h2>
+              <p className="mt-4 text-black/80 max-w-2xl leading-relaxed">
+                We&apos;re right in downtown Oswego at <strong>74 W. Washington St.</strong> — and
+                proud to be recognized as the{" "}
+                <Link
+                  href="/best-med-spa-oswego-il"
+                  className="font-semibold text-[#E6007E] underline decoration-[#E6007E]"
+                >
+                  #1 Best Med Spa in Oswego
+                </Link>
+                . Locals choose Hello Gorgeous for medical-grade care: a full-authority nurse
+                practitioner on site, genuine products, and FDA-cleared InMode Class IV lasers you
+                won&apos;t find elsewhere in the Fox Valley.
+              </p>
+              <p className="mt-4 text-black/80 max-w-2xl leading-relaxed">
+                First time considering a med spa? Read{" "}
+                <Link
+                  href="/blog/how-to-choose-a-med-spa-oswego-il-2026-guide"
+                  className="font-semibold text-[#E6007E] underline decoration-[#E6007E]"
+                >
+                  how to choose a med spa in Oswego
+                </Link>{" "}
+                — the 7 questions that separate a safe medical practice from a risky walk-in counter.
+              </p>
+            </FadeUp>
+          </div>
+          <div className="lg:col-span-5">
+            <FadeUp delayMs={120}>
+              <div className="rounded-2xl border-2 border-black bg-white p-6 shadow-[6px_6px_0_0_rgba(230,0,126,0.30)]">
+                <p className="text-sm font-bold uppercase tracking-widest text-[#E6007E]">
+                  Why Oswego chooses us
+                </p>
+                <ul className="mt-4 space-y-3 text-black/85">
+                  <li>▸ Full-authority NP on site (owner)</li>
+                  <li>▸ Board-certified medical director, Ryan Kent, FNP-BC</li>
+                  <li>▸ 100% authentic Allergan &amp; Galderma products</li>
+                  <li>▸ Morpheus8 Burst, Quantum RF &amp; Solaria CO₂</li>
+                  <li>▸ Free consult · same-day often available</li>
+                </ul>
+                <div className="mt-6">
+                  <CTA href={BOOKING_URL} variant="gradient">
+                    Book your free consult
+                  </CTA>
+                </div>
+              </div>
+            </FadeUp>
+          </div>
+        </div>
+      </Section>
+
       <TechBlogPromo
         title="Morpheus8 Burst, Quantum RF & Solaria — Expert Guides"
         subtitle="Read our blog articles on our exclusive InMode technology. Serving Oswego, Naperville, Aurora, Plainfield & the Fox Valley."

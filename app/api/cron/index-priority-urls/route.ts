@@ -31,6 +31,9 @@ const PRIORITY_SERVICE_URLS = [
   "/microblading-brow-pmu-oswego-il",
   "/education/your-brow-journey",
   "/aurora-il",
+  "/naperville-il",
+  "/oswego-il",
+  "/best-med-spa-oswego-il",
 ];
 
 export async function GET(request: NextRequest) {

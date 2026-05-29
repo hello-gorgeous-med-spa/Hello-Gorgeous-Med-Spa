@@ -26,12 +26,16 @@ import { rxProductBlogPosts } from "./blog-rx-product-posts";
 import { browMappingTechniquesShapesPost } from "./blog-post-brow-mapping-techniques-shapes";
 import { nanoPowderHandStrokeBrowsPost } from "./blog-post-nano-powder-hand-stroke-brows";
 import { bestMedSpaNearAuroraPost } from "./blog-post-best-med-spa-near-aurora";
+import { bestMedSpaNearNapervillePost } from "./blog-post-best-med-spa-near-naperville";
+import { howToChooseMedSpaOswegoPost } from "./blog-post-how-to-choose-med-spa-oswego";
 import type { BlogPost } from "./blog-types";
 
 export type { BlogPost } from "./blog-types";
 
 const coreBlogPosts: BlogPost[] = [
   bestMedSpaNearAuroraPost,
+  bestMedSpaNearNapervillePost,
+  howToChooseMedSpaOswegoPost,
   browMappingTechniquesShapesPost,
   nanoPowderHandStrokeBrowsPost,
   quantumRfLaunchBlogPost,
