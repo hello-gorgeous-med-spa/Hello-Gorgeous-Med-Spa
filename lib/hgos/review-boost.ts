@@ -51,10 +51,9 @@ export interface ReviewBoostConfig {
 export const DEFAULT_REVIEW_BOOST_CONFIG: ReviewBoostConfig = {
   enabled: true,
   
-  // Hello Gorgeous Google Business Profile
-  // Find your Place ID: https://developers.google.com/maps/documentation/places/web-service/place-id
-  googlePlaceId: 'ChIJ_____YOUR_PLACE_ID_____', // TODO: Replace with actual Place ID
-  googleReviewUrl: 'https://g.page/r/YOUR_REVIEW_LINK', // TODO: Replace with actual review link
+  // Hello Gorgeous Google Business Profile — sourced from canonical SITE config.
+  googlePlaceId: SITE.placeId,
+  googleReviewUrl: SITE.googleReviewUrl,
   
   // Only redirect 4+ star ratings to Google
   minRatingForGoogleRedirect: 4,

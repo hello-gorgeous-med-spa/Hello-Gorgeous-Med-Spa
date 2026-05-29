@@ -30,4 +30,17 @@ Free consultation — book below.`,
     linkPath: "/quantum-rf-oswego-il",
     imagePath: "/images/promo/quantum-rf-launch-flyer.png",
   },
+  {
+    id: "brow-pmu",
+    label: "Brow PMU — permanent makeup (nano, powder, ombré, combo)",
+    message: `✨ Permanent Makeup brows at Hello Gorgeous Med Spa — Oswego, IL
+
+Nano hair strokes · Powder · Ombré · Combo brows, each mapped to your face by Danielle Alcala under medical supervision.
+
+Natural-looking, long-lasting, and color-matched with Tina Davies pigments. Wake up with brows you love — no more daily pencil.
+
+Free consult + brow mapping. Serving Naperville, Aurora & Plainfield. Book below.`,
+    linkPath: "/microblading-brow-pmu-oswego-il",
+    imagePath: "/images/brow/danielle-alcala-brow-pmu-portfolio-before-after.png",
+  },
 ];

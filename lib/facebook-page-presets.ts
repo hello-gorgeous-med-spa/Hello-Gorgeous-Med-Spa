@@ -118,6 +118,38 @@ NP on site 7 days a week. Book on Fresha 👇`,
   defaultChannels: ["facebook", "instagram", "google"],
 };
 
+export const FACEBOOK_PAGE_PRESET_BROW_PMU: FacebookPagePreset = {
+  id: "brow-pmu",
+  label: "Brow PMU — wake up with perfect brows",
+  blurb: "Permanent makeup — nano, powder, ombré, combo.",
+  message: `✨ Wake up with perfect brows — Permanent Makeup at Hello Gorgeous, Oswego IL.
+
+Nano hair strokes · Powder · Ombré · Combo brows — each one mapped to YOUR face by Danielle Alcala, under medical supervision.
+
+Natural-looking, long-lasting, and color-matched with Tina Davies pigments. No more daily brow pencil.
+
+Free consult + brow mapping. Book below 👇`,
+  linkPath: withUtm("/microblading-brow-pmu-oswego-il"),
+  imagePath: "/images/brow/danielle-alcala-brow-pmu-portfolio-before-after.png",
+  defaultChannels: ["facebook", "instagram", "google"],
+};
+
+export const FACEBOOK_PAGE_PRESET_BROW_TECHNIQUES: FacebookPagePreset = {
+  id: "brow-techniques",
+  label: "Which brow is you? — technique guide",
+  blurb: "Nano vs powder vs combo vs ombré.",
+  message: `Which brow is YOU? 🤔
+
+Nano strokes for crisp, hair-like detail · Powder for a soft makeup finish · Combo for the best of both · Ombré for a gradient.
+
+We map every brow to your bone structure and color-match for a result that actually suits you. Permanent makeup at Hello Gorgeous — Oswego, IL.
+
+Book your brow consult 👇`,
+  linkPath: withUtm("/microblading-brow-pmu-oswego-il"),
+  imagePath: "/images/brow/powder-nano-brows-before-after-danielle-alcala.png",
+  defaultChannels: ["facebook", "instagram", "google"],
+};
+
 export const FACEBOOK_PAGE_PRESET_OUR_PROMISE: FacebookPagePreset = {
   id: "our-promise",
   label: "Our Promise — Authenticity",
@@ -141,14 +173,18 @@ export const FACEBOOK_PAGE_PRESETS: FacebookPagePreset[] = [
   FACEBOOK_PAGE_PRESET_QUANTUM,
   FACEBOOK_PAGE_PRESET_MORPHEUS8,
   FACEBOOK_PAGE_PRESET_IPL,
+  FACEBOOK_PAGE_PRESET_BROW_PMU,
+  FACEBOOK_PAGE_PRESET_BROW_TECHNIQUES,
   FACEBOOK_PAGE_PRESET_BOOK,
   FACEBOOK_PAGE_PRESET_WEIGHT,
 ];
 
-/** Recommended Mon→Sun order when you “queue a week” (rotate start day as you like). */
+/** Recommended Mon→Sun order when you “queue a week” (rotate start day as you like).
+ *  Brow PMU is included so the new permanent-makeup service self-promotes weekly
+ *  (also pushed to Google Business Profile via the preset's defaultChannels). */
 export const SUGGESTED_WEEK_PRESET_IDS: string[] = [
   "solaria-899",
-  "quantum-contour-live",
+  "brow-pmu",
   "morpheus8-burst",
   "ipl-photofacial",
   "book-consult",
