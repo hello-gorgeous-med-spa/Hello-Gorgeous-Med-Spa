@@ -201,6 +201,25 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: service.publicPath ? 0.9 : 0.8,
     }));
 
+  // Newly added standalone city-service landing pages (weight loss, fillers,
+  // Morpheus8, Botox) for Montgomery / Plainfield / Yorkville.
+  const newCityServicePages: MetadataRoute.Sitemap = [
+    'weight-loss-montgomery-il',
+    'weight-loss-plainfield-il',
+    'weight-loss-yorkville-il',
+    'dermal-fillers-montgomery-il',
+    'dermal-fillers-plainfield-il',
+    'dermal-fillers-yorkville-il',
+    'morpheus8-montgomery-il',
+    'morpheus8-yorkville-il',
+    'botox-montgomery-il',
+  ].map((slug) => ({
+    url: `${baseUrl}/${slug}`,
+    lastModified: currentDate,
+    changeFrequency: 'weekly' as const,
+    priority: slug.startsWith('botox-') ? 0.9 : 0.85,
+  }));
+
   // Solaria CO2 special pages (aftercare content lives on /solaria)
   const solariaPages: MetadataRoute.Sitemap = [
     {
@@ -643,6 +662,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...intelligencePages,
     ...topicalExpansionPages,
     ...solariaPages,
+    ...newCityServicePages,
     ...morpheus8Pages,
     ...priorityTreatmentPages,
     ...blogPages,
