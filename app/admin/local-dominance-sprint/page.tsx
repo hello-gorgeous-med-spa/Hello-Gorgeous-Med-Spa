@@ -1,4 +1,5 @@
 import { CityRankScoreboard } from "@/components/admin/CityRankScoreboard";
+import { CompetitorWatch } from "@/components/admin/CompetitorWatch";
 import { LocalDominanceSprintClient } from "@/components/admin/LocalDominanceSprintClient";
 
 export default function LocalDominanceSprintPage() {
@@ -11,6 +12,9 @@ export default function LocalDominanceSprintPage() {
       </p>
       <div className="mt-6">
         <CityRankScoreboard />
+      </div>
+      <div className="mt-6">
+        <CompetitorWatch />
       </div>
       <div className="mt-6">
         <LocalDominanceSprintClient />
