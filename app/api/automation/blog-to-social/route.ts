@@ -70,21 +70,27 @@ export async function POST(request: NextRequest) {
     for (const post of posts) {
       if (!post) continue;
 
+      // Absolute image URL for the post (required for Instagram; enriches FB/Google).
+      const imageUrl = post.featuredImage ? `${SITE_URL}${post.featuredImage}` : null;
+
       const platforms = [
         {
           channel: "instagram",
           message: generateInstagramCaption(post),
           link: `${SITE_URL}/blog/${post.slug}`,
+          image_url: imageUrl,
         },
         {
           channel: "facebook",
           message: generateFacebookCaption(post),
           link: `${SITE_URL}/blog/${post.slug}`,
+          image_url: imageUrl,
         },
         {
           channel: "google",
           message: generateGoogleCaption(post),
           link: `${SITE_URL}/blog/${post.slug}`,
+          image_url: imageUrl,
         },
       ];
 
@@ -109,6 +115,7 @@ export async function POST(request: NextRequest) {
             channel: platform.channel,
             message: platform.message,
             link: platform.link,
+            image_url: platform.image_url,
             status: "draft",
             scheduled_at: scheduledAt.toISOString(),
           });
