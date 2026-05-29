@@ -46,6 +46,11 @@ const BODY_SCULPTING_FAQS = [
       "Many clients do a short series spaced several weeks apart, with results that continue to improve as collagen rebuilds over the following weeks and months. Your plan is set during consultation.",
   },
   {
+    question: "How is this different from the cheaper body sculpting at other spas?",
+    answer:
+      "Many spas use entry-level surface devices that feel relaxing but produce little lasting change. We invested in medical-grade technology — Morpheus8 Body (deep RF microneedling) and Quantum RF — delivered under NP-led medical oversight. It's the closest you can get to surgical-level results without surgery.",
+  },
+  {
     question: "Do you offer body sculpting near Naperville and Aurora?",
     answer:
       "Yes. Our clinic is in Oswego, IL, convenient to Naperville, Aurora, Montgomery, Plainfield, Yorkville, and the wider Fox Valley.",
@@ -121,12 +126,14 @@ export default function BodySculptingOswegoPage() {
               Body · RF contouring · Oswego, IL
             </p>
             <h1 className="text-3xl md:text-5xl font-bold leading-tight mb-4">
-              Non-Surgical Body Sculpting in Oswego
+              Body Sculpting in Oswego — One Step Away From Surgery
             </h1>
             <p className="text-lg md:text-xl text-white/90 max-w-2xl mb-8">
-              Tighten, tone, and refine your shape without surgery. Our NP-led team uses medical-grade
-              RF technology — Morpheus8 Body and Quantum RF — to contour the abdomen, thighs, arms, and
-              more, personalized for the western suburbs of Chicago.
+              The most powerful non-surgical body contouring available — without the OR. Our NP-led team
+              uses <strong>Morpheus8 Body (deep RF microneedling)</strong> and{" "}
+              <strong>Quantum RF</strong> to tighten skin and reshape the abdomen, thighs, arms, and
+              more. These are <strong>medical-grade</strong> technologies — not the cheap surface
+              machines that promise the world and do nothing.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
               <a
@@ -146,14 +153,36 @@ export default function BodySculptingOswegoPage() {
         </section>
 
         <section className="py-12 md:py-16 max-w-3xl mx-auto px-4 prose prose-lg text-gray-700">
-          <h2 className="text-2xl font-bold text-black">Medically guided body contouring</h2>
+          <h2 className="text-2xl font-bold text-black">The closest thing to surgery — without surgery</h2>
           <p>
-            True body sculpting addresses both <strong>skin laxity</strong> and{" "}
-            <strong>tissue tightening</strong> — which is why a medical, RF-based approach outperforms
-            creams and gimmicks. At Hello Gorgeous we use <strong>InMode Morpheus8 Body</strong> (RF
-            microneedling) and <strong>Quantum RF</strong> within customized plans for the abdomen,
-            flanks, thighs, buttocks, and upper arms.
+            When clients want real change but aren&apos;t ready for liposuction or a tummy tuck,{" "}
+            <strong>Morpheus8 Body</strong> is the answer. Its deep radiofrequency microneedling reaches
+            beneath the surface to remodel tissue and tighten skin — results a topical treatment or a
+            light-based &quot;spa&quot; device simply cannot match. Paired with{" "}
+            <strong>Quantum RF</strong> for skin tightening, it&apos;s the most advanced non-surgical
+            body contouring we can offer.
           </p>
+
+          <div className="not-prose my-8 rounded-2xl border-4 border-black bg-[#FFF0F7] p-6 shadow-[6px_6px_0_0_rgba(230,0,126,0.3)]">
+            <h3 className="text-xl font-black text-[#E6007E] mb-3">Why the machine matters</h3>
+            <p className="text-black/85 font-medium mb-3">
+              Most places marketing &quot;body sculpting&quot; use entry-level surface devices that feel
+              nice but deliver little lasting change. We invested in the real thing:
+            </p>
+            <ul className="space-y-2 text-black/85 font-medium">
+              <li>
+                ✅ <strong>Morpheus8 Body</strong> — deep RF microneedling (the gold standard for
+                non-surgical tightening &amp; contouring)
+              </li>
+              <li>
+                ✅ <strong>Quantum RF</strong> — medical-grade radiofrequency skin tightening
+              </li>
+              <li>
+                ❌ Not the cheap, gimmicky machines that promise everything and do nothing
+              </li>
+            </ul>
+          </div>
+
           <p>
             As an <strong>NP-led medical spa</strong> with hundreds of five-star client experiences,
             your treatment is mapped to your body and goals — not a one-size template. Every plan starts
