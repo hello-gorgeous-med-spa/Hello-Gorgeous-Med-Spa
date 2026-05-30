@@ -70,6 +70,18 @@ export function HeroV3() {
                 licensed medical providers.
               </p>
 
+              <div className="mt-5 inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 px-4 py-2 backdrop-blur">
+                <span className="text-[#FFD86B] text-sm tracking-tight" aria-hidden="true">
+                  ★★★★★
+                </span>
+                <span className="text-sm font-black text-white">
+                  {SITE.freshaReviewRating}
+                </span>
+                <span className="text-xs font-semibold text-white/80">
+                  from {Number(SITE.freshaReviewCount).toLocaleString()} client reviews
+                </span>
+              </div>
+
               <div className="mt-6 flex flex-wrap gap-3">
                 <Link
                   href={BOOKING_URL}
@@ -87,8 +99,7 @@ export function HeroV3() {
               </div>
 
               <p className="mt-5 text-[11px] text-white/50 leading-relaxed">
-                {SITE.reviewRating}★ ({SITE.reviewCount} reviews) · #1 Best Med Spa Oswego ·
-                Morpheus8 Burst · Quantum RF · Solaria CO₂
+                #1 Best Med Spa Oswego · Morpheus8 Burst · Quantum RF · Solaria CO₂
               </p>
             </div>
           </div>

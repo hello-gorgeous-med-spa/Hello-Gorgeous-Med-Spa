@@ -65,6 +65,13 @@ export const SITE = {
    *  surfaces (Footer, Hero, RealPatientReviews) read these values directly. */
   reviewRating: "4.4",
   reviewCount: "116",
+  /** Fresha (booking platform) lifetime social proof — a perfect 5.0★ across
+   *  1,931 verified post-appointment reviews. Used for on-site trust badges
+   *  and marketing copy. NOT emitted as Google review-snippet schema, because
+   *  Google blocks self-hosted third-party review markup for local businesses;
+   *  this is conversion/trust proof, not a Map Pack ranking signal. */
+  freshaReviewRating: "5.0",
+  freshaReviewCount: "1931",
   /**
    * Google Search Console site verification meta tag value.
    * Issued by Site Verification API on 2026-05-01 for the canonical
