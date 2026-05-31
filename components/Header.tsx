@@ -76,6 +76,7 @@ const NAV = {
       { label: "Our Location", href: "/locations", sub: "74 W. Washington St, Oswego, IL" },
       { label: "Why Choose Us", href: "/why-choose-us", sub: "#1 Best Med Spa in Oswego" },
       { label: "FAQ", href: "/faq", sub: "Common questions answered" },
+      { label: "Blog & Resources", href: "/blog", sub: "Tips, guides & med spa news" },
     ],
   },
   specials: {
@@ -138,7 +139,7 @@ function cx(...classes: Array<string | undefined | null | false>) {
 }
 
 const NAV_LINK_BASE =
-  "flex items-center justify-center gap-1 h-9 px-2 xl:px-3 rounded-lg text-sm font-medium transition-all whitespace-nowrap flex-shrink-0";
+  "flex items-center justify-center gap-1 h-9 px-2 xl:px-2.5 rounded-lg text-sm font-medium transition-all whitespace-nowrap flex-shrink-0";
 const NAV_LINK_ACTIVE = "text-white bg-[#FF2D8E]";
 const NAV_LINK_IDLE = "text-black hover:bg-[#FF2D8E]/10 hover:text-[#FF2D8E]";
 
@@ -620,7 +621,7 @@ export function Header() {
           </Link>
 
           {/* Desktop nav */}
-          <nav className="hidden lg:flex items-center gap-0.5 xl:gap-1 min-w-0 flex-1 justify-center overflow-x-auto overflow-y-visible [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
+          <nav className="hidden xl:flex items-center gap-0.5 xl:gap-1 min-w-0 flex-1 justify-center overflow-visible">
 
             {/* Services */}
             <div
@@ -684,7 +685,7 @@ export function Header() {
                   isPeptideTherapyActive ? NAV_LINK_ACTIVE : NAV_LINK_IDLE
                 )}
               >
-                Peptides & Wellness
+                Peptides
                 <svg className={cx("w-3 h-3 transition-transform", activeDropdown === "peptides" && "rotate-180")} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                 </svg>
@@ -805,26 +806,11 @@ export function Header() {
               />
             </div>
 
-            {/* FAQ */}
-            <Link
-              href="/faq"
-              className={cx(NAV_LINK_BASE, pathname === "/faq" ? NAV_LINK_ACTIVE : NAV_LINK_IDLE)}
-            >
-              FAQ
-            </Link>
-
-            {/* Blog */}
-            <Link
-              href="/blog"
-              className={cx(NAV_LINK_BASE, isActive("/blog") ? NAV_LINK_ACTIVE : NAV_LINK_IDLE)}
-            >
-              Blog
-            </Link>
           </nav>
 
           {/* Right actions */}
           <div className="flex items-center gap-2 flex-shrink-0">
-            <CTA href={BOOKING_URL} variant="gradient" className="hidden lg:flex px-5 py-2 text-sm">
+            <CTA href={BOOKING_URL} variant="gradient" className="hidden xl:flex px-5 py-2 text-sm">
               Book Now
             </CTA>
             {/* Mobile burger */}
@@ -833,7 +819,7 @@ export function Header() {
               aria-label="Open menu"
               aria-expanded={mobileOpen}
               onClick={() => setMobileOpen(true)}
-              className="lg:hidden p-2 rounded-lg text-[#FF2D8E] hover:bg-[#FF2D8E]/10 transition-all"
+              className="xl:hidden p-2 rounded-lg text-[#FF2D8E] hover:bg-[#FF2D8E]/10 transition-all"
             >
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
@@ -845,7 +831,7 @@ export function Header() {
 
       {/* ── MOBILE MENU ── */}
       {mobileOpen && (
-        <div className="fixed inset-0 z-50 bg-white lg:hidden overflow-y-auto">
+        <div className="fixed inset-0 z-50 bg-white xl:hidden overflow-y-auto">
           {/* Header */}
           <div className="sticky top-0 bg-white border-b-2 border-black px-4 py-4 flex items-center justify-between">
             <Link href="/" onClick={() => setMobileOpen(false)} className="flex items-center gap-2.5">
