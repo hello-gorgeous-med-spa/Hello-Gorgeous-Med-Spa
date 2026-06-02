@@ -13,7 +13,6 @@ import { StickyMobileCTA } from "@/components/StickyMobileCTA";
 import { ChatOpenProvider } from "@/components/ChatOpenContext";
 import { MascotChat } from "@/components/MascotChat";
 import { VoiceConcierge } from "@/components/VoiceConcierge";
-import { EmailCapture } from "@/components/EmailCapture";
 import { HelloGorgeousAssistant } from "@/components/HelloGorgeousAssistant";
 import { ImmediateCareStrip } from "@/components/ImmediateCareBanner";
 import { BrandTaglineStrip } from "@/components/BrandTaglineStrip";
@@ -81,7 +80,8 @@ export function ConditionalLayout({
         <StickyMobileCTA />
         <MascotChat />
         <VoiceConcierge />
-        <EmailCapture />
+        {/* VIP email-capture auto-popup disabled per owner request (pending decision).
+            Re-add <EmailCapture /> here to restore. */}
         <HelloGorgeousAssistant />
       </div>
     </ChatOpenProvider>

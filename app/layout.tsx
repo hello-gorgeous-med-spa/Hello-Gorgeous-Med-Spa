@@ -11,8 +11,6 @@ import { ConditionalLayout } from "@/components/ConditionalLayout";
 import { GoogleAnalytics } from "@/components/GoogleAnalytics";
 import { UtmSessionCapture } from "@/components/marketing/UtmSessionCapture";
 import { ContourLiftPageView } from "@/components/marketing/ContourLiftPageView";
-import { ConsultationRequestPopup } from "@/components/ConsultationRequestPopup";
-import { ExitIntentPopup } from "@/components/ExitIntentPopup";
 import { ClientErrorBoundary } from "@/components/ClientErrorBoundary";
 
 const inter = Inter({
@@ -199,8 +197,9 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             <UtmSessionCapture />
           </Suspense>
           <ContourLiftPageView />
-          <ConsultationRequestPopup />
-          <ExitIntentPopup />
+          {/* Auto-popups temporarily disabled per owner request (pending decision on
+              which capture flow to use). Re-add <ConsultationRequestPopup /> and
+              <ExitIntentPopup /> here to restore. */}
           <AuthWrapper>
             <ConditionalLayout siteSettings={siteSettings ?? undefined} livePlace={livePlace}>
               {children}
