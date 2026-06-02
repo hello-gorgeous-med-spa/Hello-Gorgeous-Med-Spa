@@ -37,6 +37,22 @@ import { getLiveAggregateRating } from "@/lib/seo/google-places";
 
 const ALL_LOCAL_SLUGS = [...GBP_SERVICE_SLUGS, ...MED_SPA_LOCATION_SLUGS, ...SERVICE_PAGE_OSWEGO_SLUGS];
 
+// Far-flung cities with no unique local content — Google was crawling these
+// thin templated pages and refusing to index them ("Crawled - currently not
+// indexed"), which dilutes site-wide quality signals. We noindex (follow) them
+// so crawl budget + ranking focus stays on the core Fox Valley service area.
+// They are also excluded from the sitemap (see app/sitemap.ts).
+const DEINDEXED_CITY_SUFFIXES = [
+  "sugar-grove-il",
+  "ottawa-il",
+  "sandwich-il",
+  "bolingbrook-il",
+] as const;
+
+function isDeindexedLocalSlug(slug: string): boolean {
+  return DEINDEXED_CITY_SUFFIXES.some((city) => slug.endsWith(`-${city}`));
+}
+
 function parseTreatmentCitySlug(slug: string) {
   for (const city of CITIES) {
     for (const device of DEVICES) {
@@ -59,6 +75,11 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
+
+  // Far-flung thin city pages are kept out of the index (follow preserved so
+  // any link equity still flows to core pages they link to).
+  const withRobots = (m: Metadata): Metadata =>
+    isDeindexedLocalSlug(slug) ? { ...m, robots: { index: false, follow: true } } : m;
 
   const serviceOswego = getServicePageOswego(slug);
   if (serviceOswego) {
@@ -94,20 +115,20 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     const { serviceSlug, cityLabel } = GBP_SLUG_TO_SERVICE[slug];
     const s = SERVICES.find((x) => x.slug === serviceSlug);
     if (!s) return pageMetadata({ title: "Service", description: "Service.", path: `/${slug}` });
-    return pageMetadata({
+    return withRobots(pageMetadata({
       title: `${s.name} in ${cityLabel} — ${SITE.name}`,
       description: `${s.name} in ${cityLabel} with licensed nurse practitioners at Hello Gorgeous Med Spa. ${s.short} Free consultations. Call ${SITE.phone}.`,
       path: `/${slug}`,
-    });
+    }));
   }
 
   if (MED_SPA_SLUG_TO_CITY[slug]) {
     const { cityLabel } = MED_SPA_SLUG_TO_CITY[slug];
-    return pageMetadata({
+    return withRobots(pageMetadata({
       title: `Med Spa in ${cityLabel} — Botox, Weight Loss, Morpheus8 | Hello Gorgeous`,
       description: `Luxury med spa serving ${cityLabel}. Botox, dermal fillers, medical weight loss (Semaglutide & Tirzepatide), hormone therapy, RF microneedling, IV therapy. Call ${SITE.phone}.`,
       path: `/${slug}`,
-    });
+    }));
   }
 
   return { title: "Not Found" };

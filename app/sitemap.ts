@@ -656,7 +656,40 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ),
   ];
 
-  return [
+  // ============================================================
+  // Canonical hygiene — a sitemap must list ONLY final 200 URLs.
+  // Several legacy paths 308-redirect (see next.config.js); listing the
+  // redirect *source* causes Google "Alternate page with proper canonical"
+  // / "Page with redirect" exclusions. We drop the sources and guarantee the
+  // real destination is present instead.
+  // ============================================================
+  const REDIRECTING_PATHS = new Set<string>([
+    '/services/botox-dysport-jeuveau', // → /botox-oswego
+    '/botox-oswego-il',                // → /botox-oswego
+    '/services/morpheus8',             // → /morpheus8-burst-oswego
+    '/services/quantum-rf',            // → /quantum-rf-oswego
+    '/services/solaria-co2',           // → /solaria-co2-oswego
+    '/co2-laser-oswego-il',            // → /solaria-co2-oswego
+    '/solaria-co2-laser-oswego-il',    // → /solaria-co2-oswego
+    '/services/weight-loss',           // → /glp-1-weight-loss-oswego
+    '/services/biote-hormone-therapy', // → /biote-hormone-therapy-oswego
+  ]);
+
+  const canonicalDestinations: MetadataRoute.Sitemap = [
+    '/botox-oswego',
+    '/morpheus8-burst-oswego',
+    '/quantum-rf-oswego',
+    '/solaria-co2-oswego',
+    '/glp-1-weight-loss-oswego',
+    '/biote-hormone-therapy-oswego',
+  ].map((path) => ({
+    url: `${baseUrl}${path}`,
+    lastModified: currentDate,
+    changeFrequency: 'weekly' as const,
+    priority: 0.92,
+  }));
+
+  const allEntries: MetadataRoute.Sitemap = [
     ...corePages,
     ...servicePages,
     ...serviceOswegoPages,
@@ -679,5 +712,24 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...laserHairRemovalPages,
     ...laserHairMembershipPages,
     ...springBreakPages,
+    ...canonicalDestinations,
   ];
+
+  // Far-flung cities with thin, templated content are noindexed (see
+  // app/[slug]/page.tsx) and must not appear in the sitemap — listing
+  // noindexed URLs creates "Excluded by noindex" conflicts in Search Console.
+  const DEINDEXED_CITY_SUFFIXES = ['sugar-grove-il', 'ottawa-il', 'sandwich-il', 'bolingbrook-il'];
+  const isDeindexedPath = (path: string) =>
+    DEINDEXED_CITY_SUFFIXES.some((city) => path.endsWith(`-${city}`));
+
+  // Strip redirect sources + noindexed far-flung pages, then dedupe by URL.
+  const seen = new Set<string>();
+  return allEntries.filter((entry) => {
+    const path = entry.url.replace(baseUrl, '') || '/';
+    if (REDIRECTING_PATHS.has(path)) return false;
+    if (isDeindexedPath(path)) return false;
+    if (seen.has(entry.url)) return false;
+    seen.add(entry.url);
+    return true;
+  });
 }
