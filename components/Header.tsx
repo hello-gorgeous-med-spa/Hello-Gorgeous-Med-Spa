@@ -279,7 +279,7 @@ function PeptideTherapyMenu({
             onClick={onClose}
             className="rounded-full bg-[#E6007E] px-5 py-2 text-xs font-bold text-white transition hover:bg-[#c9006e]"
           >
-            Book Peptide Consult
+            Book $49 Peptide Consult
           </Link>
         </div>
       </div>

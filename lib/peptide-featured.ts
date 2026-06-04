@@ -1,0 +1,75 @@
+/** Featured peptides — nav dropdown + hub hero (clinic-offered, benefit-forward). */
+
+import { peptideTopicHref } from "@/lib/peptides-hub";
+
+export type FeaturedClinicPeptide = {
+  slug: string;
+  name: string;
+  /** One-line benefit for nav / cards */
+  benefit: string;
+  /** Emoji icon for hub cards */
+  icon: string;
+  accent: string;
+};
+
+/** The peptides clients ask for most — prescribed via Hello Gorgeous RX™ when appropriate. */
+export const FEATURED_CLINIC_PEPTIDES: FeaturedClinicPeptide[] = [
+  {
+    slug: "bpc-157",
+    name: "BPC-157",
+    benefit: "Recovery, gut support & tissue repair",
+    icon: "🩹",
+    accent: "#2b5fa5",
+  },
+  {
+    slug: "sermorelin",
+    name: "Sermorelin",
+    benefit: "Natural GH support — sleep, energy, lean mass",
+    icon: "⚡",
+    accent: "#8a3fb0",
+  },
+  {
+    slug: "ghk-cu-injectable",
+    name: "GHK-Cu",
+    benefit: "Skin firmness, texture, hair & collagen",
+    icon: "✨",
+    accent: "#a85d2e",
+  },
+  {
+    slug: "tesamorelin",
+    name: "Tesamorelin",
+    benefit: "GH axis & visceral fat / body composition",
+    icon: "🎯",
+    accent: "#6b4c9a",
+  },
+  {
+    slug: "pt-141",
+    name: "PT-141",
+    benefit: "Libido & arousal support (men & women)",
+    icon: "💫",
+    accent: "#c2185b",
+  },
+  {
+    slug: "nad-plus",
+    name: "NAD+",
+    benefit: "Cellular energy, clarity & healthy aging",
+    icon: "🔋",
+    accent: "#1fa890",
+  },
+];
+
+export const PEPTIDE_CONSULT_SPECIAL = {
+  price: "$49",
+  label: "Peptide consultation",
+  detail: "Medication priced separately after your personalized plan",
+  blogHref: "/blog/top-peptides-bpc157-sermorelin-ghk-cu-pt141-nad-49-consult-oswego-il",
+};
+
+export function featuredPeptideNavLinks() {
+  return FEATURED_CLINIC_PEPTIDES.map((p) => ({
+    label: p.name,
+    href: peptideTopicHref(p.slug),
+    sub: p.benefit,
+    badge: "Rx",
+  }));
+}

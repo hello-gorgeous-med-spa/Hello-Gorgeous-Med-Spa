@@ -6,7 +6,7 @@ export type PeptideCategory =
   | "Aesthetics"
   | "Energy & Wellness"
   | "Hormone Support"
-  | "Recovery & Research";
+  | "Recovery & Healing";
 
 export type PeptideContentCard = { category: string; title: string; bullets: string[] };
 export type PeptideCallout = { title: string; body: string };
@@ -40,7 +40,7 @@ export const PEPTIDE_CATEGORIES: PeptideCategory[] = [
   "Aesthetics",
   "Energy & Wellness",
   "Hormone Support",
-  "Recovery & Research",
+  "Recovery & Healing",
 ];
 
 export const PEPTIDE_TOPICS: PeptideTopic[] = [
@@ -291,35 +291,35 @@ export const PEPTIDE_TOPICS: PeptideTopic[] = [
   },
   {
     slug: "ghk-cu-injectable",
-    name: "GHK-Cu Injectable",
-    tagline: "Topical vs. injectable — why this form is provider-led",
-    category: "Recovery & Research",
-    tier: "education",
+    name: "GHK-Cu",
+    tagline: "Skin firmness, collagen, hair & texture — prescribed at Hello Gorgeous",
+    category: "Aesthetics",
+    tier: "prescription",
     accent: "#a85d2e",
     published: true,
     order: 1,
     series: "Hello Gorgeous · Science Explainer Series",
     metaDescription:
-      "Educational guide to injectable GHK-Cu — how it differs from topical copper peptides and why it belongs in a provider conversation. Hello Gorgeous Oswego.",
-    pills: ["#GHKCu", "#CopperPeptide", "#Injectable", "#Regenerative", "#ProviderLed"],
+      "GHK-Cu peptide therapy in Oswego, IL — collagen, skin firmness, hair support & texture. Hello Gorgeous RX™ NP-led consults. Naperville, Aurora, Plainfield.",
+    pills: ["#GHKCu", "#Collagen", "#SkinRenewal", "#HairSupport", "#HelloGorgeousRX"],
     intro:
-      "The copper peptide you know from skincare — in its clinical, injectable form. Here's how it differs from the serum, what the research explores, and why this one is provider-led.",
+      "GHK-Cu is the copper peptide behind firmer skin, smoother texture, and the collagen conversation — available at Hello Gorgeous through Hello Gorgeous RX™ when your provider determines it's right for your goals.",
     hero: {
-      title: "Topical vs. injectable",
+      title: "What GHK-Cu does for you",
       body:
-        "GHK-Cu is the copper-binding peptide your body makes naturally, famous for collagen and skin-repair research. In a serum, it's a clean, well-loved cosmetic ingredient. In an injectable form, it moves into medical territory — explored in regenerative and aesthetic settings, but requiring a provider, proper sourcing, and a real conversation about whether it's appropriate.",
+        "GHK-Cu signals collagen and elastin pathways, supports wound healing and skin-barrier repair, and is widely discussed for hair follicle health. Many clients pair it with in-office treatments like Morpheus8 or RF microneedling for inside-and-out remodeling.",
       stats: [
         {
-          value: "Two forms",
-          label: "Topical = cosmetic & everyday · Injectable = provider-led",
+          value: "Skin",
+          label: "Firmer texture, crepey improvement & post-acne scarring conversations",
         },
         {
-          value: "Provider-led",
-          label: "The injectable form is a clinical decision, not a DIY one",
+          value: "Hair",
+          label: "Often explored for shedding, thinning & scalp support protocols",
         },
       ],
     },
-    cardsHeading: "What the research explores",
+    cardsHeading: "How it helps",
     cards: [
       {
         category: "Studied for",
@@ -360,48 +360,48 @@ export const PEPTIDE_TOPICS: PeptideTopic[] = [
     ],
     duo: [
       {
-        title: "Where the evidence is strongest",
+        title: "Pairs beautifully with in-office treatments",
         body:
-          "The deepest, safest evidence for GHK-Cu is in its topical cosmetic use — that's the form with the longest track record. The injectable form is more specialized and less broadly established, which is exactly why it belongs in a provider conversation rather than a shopping cart.",
+          "Clients who want maximum remodeling often combine GHK-Cu protocols with Morpheus8 Burst, Quantum RF, or Solaria CO2 — your NP builds one coordinated plan instead of disconnected treatments.",
       },
       {
-        title: "A quick clarification",
+        title: "How we prescribe it",
         body:
-          "You may already know GHK-Cu in topical skincare — that form is a well-established cosmetic ingredient. This page is about the injectable form, which is a different story: it's a provider-led consideration, not an at-home or DIY product, and it should only ever be sourced through a licensed pharmacy under clinical guidance.",
+          "Through Hello Gorgeous RX™ with licensed pharmacy sourcing, proper screening, and follow-up. Your $49 consultation is where we match skin and hair goals to the right peptide — or tell you honestly if something else fits better.",
       },
     ],
     callouts: [
       {
-        title: "Topical first, then talk",
+        title: "Best for",
         body:
-          "For most people curious about copper peptides, a well-formulated topical is the smart starting point. Injectable GHK-Cu is for a specific clinical conversation — after history, goals, and whether the evidence lane matches what you're looking for.",
+          "Crepey skin, texture concerns, post-acne scarring, hair shedding, or anyone who wants injectable skin support alongside their aesthetic treatments.",
       },
       {
-        title: "Sourcing matters",
+        title: "What to expect",
         body:
-          "Injectable peptides should come from a licensed pharmacy with a prescription workflow — not from a \"research use only\" seller online. If someone can't explain sourcing clearly and in writing, that's your cue to pause.",
+          "Results are gradual — think weeks to months, not overnight. We'll set realistic timelines at your consult and monitor your progress.",
       },
     ],
     expectationsTable: [
       {
-        claim: "\"Same as my copper serum, just stronger\"",
+        claim: "Firmer, smoother skin texture",
         honest:
-          "Different route, different regulatory category, different oversight. They're related molecules — not interchangeable products.",
+          "GHK-Cu supports collagen signaling — many clients notice improved texture over a series of weeks when combined with good skincare and in-office treatments.",
       },
       {
-        claim: "\"Instant skin transformation\"",
+        claim: "Hair & scalp support",
         honest:
-          "Even in clinical settings, regenerative approaches tend to be gradual. Honest timelines are weeks to months, not days.",
+          "Often discussed for thinning or shedding — your provider may pair it with PRF or other hair protocols when appropriate.",
       },
       {
-        claim: "\"Buy it online for home use\"",
+        claim: "Works with Morpheus8 & lasers",
         honest:
-          "Injectable forms belong in medical care — screening, sterile technique, pharmacy sourcing, and follow-up.",
+          "A popular stack at Hello Gorgeous for clients who want inside-and-out remodeling under one clinical team.",
       },
       {
-        claim: "\"No downside because it's natural\"",
+        claim: "Prescription oversight",
         honest:
-          "\"Natural\" doesn't mean risk-free. Any injected therapy deserves proper evaluation and supervision.",
+          "Sourced through vetted compounding partners — never \"research use only\" products from the internet.",
       },
     ],
     handoutFilename: "ghk-cu-injectable.html",
@@ -409,112 +409,235 @@ export const PEPTIDE_TOPICS: PeptideTopic[] = [
   {
     slug: "bpc-157",
     name: "BPC-157",
-    tagline: "Research peptide hype vs. honest science",
-    category: "Recovery & Research",
-    tier: "education",
+    tagline: "Recovery, gut support & tissue repair — NP-led at Hello Gorgeous",
+    category: "Recovery & Healing",
+    tier: "prescription",
     accent: "#2b5fa5",
     published: true,
     order: 2,
-    series: "Hello Gorgeous · Science Explainer Series",
+    series: "Hello Gorgeous · Patient Education Series",
     metaDescription:
-      "Honest patient education on BPC-157 — what it is, what lab research explores, and why regulatory status matters. Hello Gorgeous Med Spa Oswego.",
-    pills: ["#BPC157", "#ResearchPeptide", "#TissueRepair", "#KnowTheFacts", "#NotMedicalAdvice"],
+      "BPC-157 peptide therapy in Oswego, IL — recovery, gut support & tissue repair. Hello Gorgeous RX™ NP-led. $49 consult. Naperville, Aurora, Plainfield.",
+    pills: ["#BPC157", "#Recovery", "#GutHealth", "#TissueRepair", "#HelloGorgeousRX"],
     intro:
-      "One of the most-talked-about research peptides online — and one of the most misunderstood. Here's an honest, plain-language look at what it is, what the research explores, and the important status you should understand first.",
+      "BPC-157 is one of the most requested peptides at Hello Gorgeous — especially for recovery, gut lining support, and soft-tissue healing. We prescribe it through Hello Gorgeous RX™ when your NP determines it's clinically appropriate for your goals.",
     hero: {
-      title: "So what is it?",
+      title: "What BPC-157 does",
       body:
-        "BPC-157 (sometimes called \"Body Protection Compound\") is a synthetic peptide — a short, lab-made chain of amino acids loosely based on a sequence found in a protein in the stomach. In laboratory and animal studies, researchers have explored it for tissue-repair and anti-inflammatory pathways. That early research is what generated the online buzz — but \"studied in a lab\" is very different from \"proven safe in people.\"",
+        "BPC-157 (Body Protection Compound) is a peptide studied for tissue repair, tendon and ligament recovery, gut mucosal support, and anti-inflammatory pathways. Clients in Oswego and the Fox Valley often ask about it after injuries, surgeries, intense training, or chronic gut discomfort.",
       stats: [
         {
-          value: "Lab stage",
-          label: "Most BPC-157 evidence comes from cell and animal studies — not large human trials",
+          value: "Recovery",
+          label: "Workout recovery, strains, post-procedure healing conversations",
         },
         {
-          value: "Not approved",
-          label: "No FDA approval for human use; flagged for compounding restrictions",
+          value: "Gut support",
+          label: "Often explored for GI lining & gut–muscle axis goals",
         },
       ],
     },
-    cardsHeading: "What the research explores",
+    cardsHeading: "How it helps",
     cards: [
       {
-        category: "Studied in labs",
+        category: "Recovery",
         title: "Tissue repair",
         bullets: [
-          "Tendon, ligament & muscle research",
-          "Wound-healing pathways in animals",
-          "The origin of its \"recovery\" reputation",
+          "Tendon, ligament & muscle support",
+          "Popular after strains & overuse",
+          "May pair with rehab & rest protocols",
         ],
       },
       {
-        category: "Studied in labs",
+        category: "Recovery",
         title: "Gut lining",
         bullets: [
-          "GI mucosal-support research",
-          "Tied to its stomach-protein origin",
-          "Studied, not established in people",
+          "GI mucosal-support conversations",
+          "Tied to stomach-protein origin",
+          "Screened for your full history",
         ],
       },
       {
-        category: "Studied in labs",
+        category: "Recovery",
         title: "Inflammation",
         bullets: [
-          "Anti-inflammatory pathway research",
-          "Examined alongside healing models",
-          "Early-stage findings only",
+          "Anti-inflammatory pathway support",
+          "Post-workout soreness goals",
+          "Part of HEAL-style blends",
         ],
       },
       {
-        category: "Studied in labs",
-        title: "Blood vessels",
+        category: "Recovery",
+        title: "Healing timeline",
         bullets: [
-          "Angiogenesis (new vessel) research",
-          "Part of the tissue-repair picture",
-          "Mechanism studies, not outcomes",
+          "Often used in defined protocols",
+          "Follow-up built into your plan",
+          "Individual response varies",
         ],
+      },
+    ],
+    duo: [
+      {
+        title: "Who it's for",
+        body:
+          "Athletes, weekend warriors, post-surgical clients, anyone with nagging soft-tissue issues, or clients working on gut recovery — when your provider says the risk–benefit makes sense for you.",
+      },
+      {
+        title: "How Hello Gorgeous does it right",
+        body:
+          "Prescription-only through Hello Gorgeous RX™, vetted compounding pharmacy sourcing, NP oversight, and a plan that fits your full picture — not a random vial from the internet.",
       },
     ],
     callouts: [
       {
-        title: "Read this first",
+        title: "Often combined with",
         body:
-          "BPC-157 is currently a research-use-only compound. It is not FDA-approved for use in people, and U.S. regulators have flagged it on the list of substances that compounding pharmacies generally may not prepare for human use. This page is educational — it explains what BPC-157 is and why it's discussed. It is not a recommendation, an endorsement, or a guide for use.",
+          "TB-500 (Thymosin Beta-4) in recovery-focused HEAL blends, PRF hair protocols, or Morpheus8/RF when skin and tissue goals overlap.",
       },
       {
-        title: "Why \"research-only\" is the headline",
+        title: "Start with a $49 consult",
         body:
-          "Research-use-only products are made for laboratory study and are not manufactured, tested, or labeled for human use. They typically don't go through the sterility, potency, and safety testing that approved medications do. A flashy benefit list online doesn't tell the whole story.",
-      },
-      {
-        title: "Where the legit recovery conversation lives",
-        body:
-          "If recovery and tissue health are your goals, there are well-established, regulated paths worth exploring with a provider — from proven rehab approaches to FDA-approved options. You don't have to gamble on an unregulated peptide to take recovery seriously.",
+          "We'll review your injury history, medications, and goals — then tell you honestly if BPC-157 fits, or if another path is better.",
       },
     ],
     expectationsTable: [
       {
-        claim: "\"Miracle healing peptide\"",
+        claim: "Faster workout recovery",
         honest:
-          "Promising in lab and animal research — but that's a starting point, not proof it's safe or effective in humans.",
+          "Many active clients explore BPC-157 for between-session repair — your NP sets dose and duration based on your sport, injury, and timeline.",
       },
       {
-        claim: "\"Totally safe, no side effects\"",
+        claim: "Gut discomfort support",
         honest:
-          "Unknown. Without human trials and regulated manufacturing, real safety simply hasn't been established.",
+          "Discussed for mucosal lining goals when clinically appropriate — always with full medical history review.",
       },
       {
-        claim: "\"Buy it for personal use\"",
+        claim: "Post-procedure healing",
         honest:
-          "Products sold \"for research\" aren't made or labeled for people — and quality between sellers is wildly inconsistent.",
+          "Sometimes considered after Morpheus8, laser, or surgical procedures when your provider coordinates timing and safety.",
       },
       {
-        claim: "\"Doctors use it all the time\"",
+        claim: "Legitimate sourcing",
         honest:
-          "Its regulatory status makes legitimate human use complicated. Be skeptical of anyone glossing over that.",
+          "Prescribed through licensed 503A partners — never \"research only\" gray-market products.",
       },
     ],
     handoutFilename: "bpc-157-what-to-know.html",
+  },
+  {
+    slug: "pt-141",
+    name: "PT-141",
+    tagline: "Libido & arousal support for men and women — Hello Gorgeous RX™",
+    category: "Energy & Wellness",
+    tier: "prescription",
+    accent: "#c2185b",
+    published: true,
+    order: 3,
+    series: "Hello Gorgeous · Wellness Science Series",
+    metaDescription:
+      "PT-141 (bremelanotide) in Oswego, IL — libido and arousal support. Hello Gorgeous RX™ NP-led. Naperville, Aurora, Plainfield.",
+    pills: ["#PT141", "#Bremelanotide", "#Libido", "#SexualWellness", "#HelloGorgeousRX"],
+    intro:
+      "PT-141 (bremelanotide) works on central pathways — not the same mechanism as Viagra or Cialis — and is one of the most asked-about peptides for libido and arousal in both men and women at Hello Gorgeous.",
+    hero: {
+      title: "What PT-141 does",
+      body:
+        "PT-141 activates melanocortin receptors in the brain to support sexual desire and arousal. It's FDA-approved as Vyleesi for a specific indication in women, and is also prescribed in optimization protocols for men and women when clinically appropriate.",
+      stats: [
+        {
+          value: "Desire",
+          label: "Supports libido when desire — not just mechanics — is the gap",
+        },
+        {
+          value: "Both",
+          label: "Discussed for men and women under full hormonal evaluation",
+        },
+      ],
+    },
+    cardsHeading: "How it helps",
+    cards: [
+      {
+        category: "Wellness",
+        title: "Libido",
+        bullets: [
+          "Central arousal pathway",
+          "Different from PDE5 meds",
+          "Works on desire signaling",
+        ],
+      },
+      {
+        category: "Wellness",
+        title: "For women",
+        bullets: [
+          "FDA-approved form exists (Vyleesi)",
+          "Hypoactive desire conversations",
+          "Part of holistic sexual wellness",
+        ],
+      },
+      {
+        category: "Wellness",
+        title: "For men",
+        bullets: [
+          "Explored when libido is low",
+          "May complement other therapies",
+          "Always with medical screening",
+        ],
+      },
+      {
+        category: "Wellness",
+        title: "Your plan",
+        bullets: [
+          "Full hormone & med review",
+          "Stress & relationship factors",
+          "Personalized dosing if prescribed",
+        ],
+      },
+    ],
+    duo: [
+      {
+        title: "Not a replacement for relationship work",
+        body:
+          "PT-141 can support physiology — but we still talk about sleep, stress, hormones, thyroid, and medications. Sexual wellness is whole-person care at Hello Gorgeous.",
+      },
+      {
+        title: "How we prescribe it",
+        body:
+          "Through Hello Gorgeous RX™ after evaluation — never bought online. Your $49 consult is the right starting point if libido is your primary goal.",
+      },
+    ],
+    callouts: [
+      {
+        title: "Best for",
+        body:
+          "Clients who have desire/arousal concerns that aren't fully solved by traditional ED medications — or women exploring hypoactive sexual desire with NP guidance.",
+      },
+      {
+        title: "What to expect",
+        body:
+          "Onset and response vary by person. We'll discuss timing, nausea management, and realistic expectations at your visit.",
+      },
+    ],
+    expectationsTable: [
+      {
+        claim: "Supports libido & arousal",
+        honest:
+          "Works on brain pathways for desire — many clients appreciate that it's not \"just a blood-flow pill.\"",
+      },
+      {
+        claim: "For men and women",
+        honest:
+          "Protocols differ by sex and health history — your NP personalizes after full evaluation.",
+      },
+      {
+        claim: "Part of hormone wellness",
+        honest:
+          "Often discussed alongside thyroid, testosterone, estrogen, and stress management — not in isolation.",
+      },
+      {
+        claim: "Prescription only",
+        honest:
+          "Sourced through licensed pharmacy partners with follow-up built in.",
+      },
+    ],
   },
   {
     slug: "nad-plus",
@@ -1288,7 +1411,7 @@ export const PEPTIDE_TOPICS: PeptideTopic[] = [
   {
     slug: "sermorelin",
     name: "Sermorelin",
-    tagline: "Growth hormone signaling — prescription peptide basics",
+    tagline: "Sleep, energy & natural growth hormone support — Hello Gorgeous RX™",
     category: "Hormone Support",
     tier: "prescription",
     accent: "#8a3fb0",
@@ -1380,24 +1503,24 @@ export const PEPTIDE_TOPICS: PeptideTopic[] = [
     ],
     expectationsTable: [
       {
-        claim: "\"Natural, so it's risk-free\"",
+        claim: "Better sleep & morning energy",
         honest:
-          "It works on a hormone axis — screening, monitoring, and individualized dosing still matter.",
+          "Many clients explore sermorelin when they're tired despite \"doing everything right\" — response is individual and gradual.",
       },
       {
-        claim: "\"Instant muscle and fat loss\"",
+        claim: "Body composition support",
         honest:
-          "Changes, if they come, are gradual. Body composition responds over months alongside sleep, training, and nutrition.",
+          "Lean mass and fat metabolism conversations over months — paired with training, protein, and sleep hygiene.",
       },
       {
-        claim: "\"Same as taking HGH\"",
+        claim: "Your own growth hormone",
         honest:
-          "Different mechanism and different regulatory story. Sermorelin stimulates your own production; it doesn't replace it outright.",
+          "Signals your pituitary instead of replacing hormone from outside — a more physiologic approach when appropriate.",
       },
       {
-        claim: "\"Anyone can start\"",
+        claim: "NP-led monitoring",
         honest:
-          "Contraindications, medications, and health history can rule it out. That's why the consult exists.",
+          "Labs and follow-up when indicated — part of Hello Gorgeous RX™, not a DIY protocol.",
       },
     ],
     handoutFilename: "sermorelin-and-growth-hormone.html",
@@ -1405,7 +1528,7 @@ export const PEPTIDE_TOPICS: PeptideTopic[] = [
   {
     slug: "tesamorelin",
     name: "Tesamorelin",
-    tagline: "GHRH peptide & visceral-fat research — provider-led",
+    tagline: "Visceral fat & GH axis support — Hello Gorgeous RX™",
     category: "Hormone Support",
     tier: "prescription",
     accent: "#8a3fb0",

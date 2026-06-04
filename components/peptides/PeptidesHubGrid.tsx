@@ -63,9 +63,8 @@ export function PeptidesHubGrid() {
             Browse by <span className="text-[#E6007E]">topic</span>
           </h2>
           <p className="mt-4 text-black/75 max-w-2xl mx-auto">
-            Each guide is its own page — mobile-friendly, SEO-ready, and updated from one data file.
-            Add a new topic in <code className="text-xs bg-black/5 px-1 rounded">data/peptides.ts</code> and it
-            appears here automatically.
+            Tap any topic to learn what it does, how it helps, and whether it fits your goals — then book a{" "}
+            <strong>$49 NP-led consult</strong> to build your plan.
           </p>
         </div>
       </FadeUp>

@@ -4,6 +4,8 @@ import { CTA } from "@/components/CTA";
 import { FadeUp, Section } from "@/components/Section";
 import type { PeptideTopic } from "@/data/peptides";
 import { peptideHandoutHref } from "@/lib/peptide-handouts";
+import { BOOKING_URL } from "@/lib/flows";
+import { PEPTIDE_CONSULT_SPECIAL } from "@/lib/peptide-featured";
 import { PEPTIDES_HUB_PATH, tierCta } from "@/lib/peptides-hub";
 
 const BRAND = {
@@ -181,13 +183,13 @@ export function PeptideTopicTemplate({ topic }: { topic: PeptideTopic }) {
       {topic.expectationsTable?.length ? (
         <Section className="border-b-4 border-black bg-white">
           <FadeUp>
-            <h2 className="mb-4 text-2xl font-black text-black">Setting real expectations</h2>
+            <h2 className="mb-4 text-2xl font-black text-black">How it helps & what to expect</h2>
             <div className="overflow-x-auto rounded-2xl border-2 border-black/15">
               <table className="min-w-[640px] w-full text-sm">
                 <thead>
                   <tr className="bg-[#0a1628] text-left text-white">
-                    <th className="px-4 py-3 font-bold">What you&apos;ll hear</th>
-                    <th className="px-4 py-3 font-bold">The honest version</th>
+                    <th className="px-4 py-3 font-bold">Benefit</th>
+                    <th className="px-4 py-3 font-bold">At Hello Gorgeous</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -214,16 +216,24 @@ export function PeptideTopicTemplate({ topic }: { topic: PeptideTopic }) {
         <FadeUp>
           <div className="text-center">
             <h2 className="text-3xl font-black">
-              {topic.tier === "education" ? "Questions about this topic?" : "Ready to talk about your goals?"}
+              {topic.tier === "prescription" || topic.tier === "patient"
+                ? `Book your ${PEPTIDE_CONSULT_SPECIAL.price} consult`
+                : "Questions about this topic?"}
             </h2>
             <p className="mt-3 max-w-2xl mx-auto text-white/90">
-              {topic.tier === "education"
-                ? "This page is educational only — not a service offering. We're happy to answer questions."
-                : "Same-day peptide & wellness consults are often available in Oswego."}
+              {topic.tier === "prescription" || topic.tier === "patient"
+                ? `${PEPTIDE_CONSULT_SPECIAL.detail}. Same-day visits often available in Oswego.`
+                : "We're happy to answer questions — book a consult to see if peptide therapy fits your goals."}
             </p>
             <div className="mt-8 flex flex-col sm:flex-row flex-wrap justify-center gap-4">
-              <CTA href={cta.href} variant="outline" className="min-h-[44px] border-white text-white hover:bg-white hover:text-black">
-                {cta.label}
+              <CTA
+                href={topic.tier === "prescription" || topic.tier === "patient" ? BOOKING_URL : cta.href}
+                variant="outline"
+                className="min-h-[44px] border-white text-white hover:bg-white hover:text-black"
+              >
+                {topic.tier === "prescription" || topic.tier === "patient"
+                  ? `Book ${PEPTIDE_CONSULT_SPECIAL.price} consult`
+                  : cta.label}
               </CTA>
               {handoutHref ? (
                 <a

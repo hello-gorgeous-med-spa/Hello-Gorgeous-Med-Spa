@@ -41,11 +41,8 @@ export function tierBadge(tier: PeptideTier): string | undefined {
 }
 
 export function tierCta(tier: PeptideTier): { label: string; href: string } {
-  if (tier === "patient") {
+  if (tier === "patient" || tier === "prescription") {
     return { label: "Book a consult", href: "/book" };
   }
-  if (tier === "prescription") {
-    return { label: "Talk to our provider", href: "/contact" };
-  }
-  return { label: "Have questions? Ask us", href: "/contact" };
+  return { label: "Have questions? Ask us", href: "/book" };
 }

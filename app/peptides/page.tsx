@@ -8,7 +8,9 @@ import { CTA } from "@/components/CTA";
 import { PeppiHeroSection } from "@/components/PeppiHeroSection";
 import { PeptideEducationSection } from "@/components/peptides/PeptideEducationSection";
 import { PeptideHandoutsSection } from "@/components/peptides/PeptideHandoutsSection";
+import { FeaturedPeptidesSection } from "@/components/peptides/FeaturedPeptidesSection";
 import { PeptidesHubGrid } from "@/components/peptides/PeptidesHubGrid";
+import { PEPTIDE_CONSULT_SPECIAL } from "@/lib/peptide-featured";
 import { BOOKING_URL } from "@/lib/flows";
 import {
   SITE,
@@ -171,6 +173,8 @@ export default function PeptidesPage() {
         </div>
       </Section>
 
+      <FeaturedPeptidesSection />
+
       {/* Peppi AI Expert Section */}
       <Section id="peppi" className="bg-gradient-to-b from-white via-fuchsia-50/30 to-white">
         <FadeUp>
@@ -279,19 +283,16 @@ export default function PeptidesPage() {
             </div>
           </FadeUp>
           <FadeUp delayMs={160}>
-            <div className="p-6 rounded-2xl border-2 border-black bg-gradient-to-br from-fuchsia-50 to-white h-full">
+            <div className="p-6 rounded-2xl border-2 border-black bg-gradient-to-br from-[#FFF0F7] to-white h-full">
               <h3 className="text-lg font-bold text-[#FF2D8E] mb-3 flex items-center gap-2">
-                <span>⚠️</span> Safety & Requirements
+                <span>✨</span> Hello Gorgeous RX™
               </h3>
-              <ul className="text-black/80 text-sm space-y-1 list-disc list-inside">
-                <li>Medical consultation required</li>
-                <li>Not for pregnancy/breastfeeding</li>
-                <li>Some require lab monitoring</li>
-                <li>Injections taught at consultation</li>
+              <ul className="text-black/80 text-sm space-y-2">
+                <li><strong className="text-black">$49 consult</strong> — NP evaluation; medication priced after your plan</li>
+                <li><strong className="text-black">Licensed pharmacy</strong> — vetted 503A compounding partners</li>
+                <li><strong className="text-black">Personalized protocols</strong> — not a one-size menu</li>
+                <li><strong className="text-black">Same-day visits</strong> — often available when schedule allows</li>
               </ul>
-              <p className="text-black/60 text-xs mt-3">
-                We screen thoroughly and create personalized protocols.
-              </p>
             </div>
           </FadeUp>
         </div>

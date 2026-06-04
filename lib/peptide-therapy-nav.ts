@@ -3,6 +3,10 @@
 import type { PeptideTopic } from "@/data/peptides";
 import { PEPTIDE_HANDOUTS_PATH } from "@/lib/peptide-handouts";
 import {
+  featuredPeptideNavLinks,
+  PEPTIDE_CONSULT_SPECIAL,
+} from "@/lib/peptide-featured";
+import {
   getPeptideTopicsByCategory,
   PEPTIDES_HUB_PATH,
   peptideTopicHref,
@@ -43,48 +47,54 @@ export const PEPTIDE_THERAPY_NAV: {
   href: PEPTIDES_HUB_PATH,
   sections: [
     {
-      heading: "Hello Gorgeous RX™",
+      heading: "Book & special",
       links: [
+        {
+          label: `${PEPTIDE_CONSULT_SPECIAL.price} Peptide Consultation`,
+          href: "/book",
+          sub: PEPTIDE_CONSULT_SPECIAL.detail,
+          badge: "OFFER",
+        },
         {
           label: "Peptides & Wellness Hub",
           href: PEPTIDES_HUB_PATH,
-          sub: "Browse all education topics · Oswego, IL",
+          sub: "What each peptide does & how we help · Oswego, IL",
           badge: "HUB",
         },
         {
-          label: "Printable HTML Handouts",
-          href: `${PEPTIDES_HUB_PATH}#patient-handouts`,
-          sub: "Danielle's original designed patient guides",
-        },
-        {
-          label: "Hello Gorgeous RX Products",
-          href: "/products-we-offer",
-          sub: "Compounded peptides & wellness Rx catalog",
+          label: "Top peptides guide (blog)",
+          href: PEPTIDE_CONSULT_SPECIAL.blogHref,
+          sub: "BPC-157, Sermorelin, GHK-Cu, PT-141, Tesamorelin, NAD+",
         },
       ],
     },
-    ...topicGroups.map((group) => ({
-      heading: group.category,
-      links: group.topics.map(topicNavLink),
-    })),
     {
-      heading: "Related",
+      heading: "Most requested at Hello Gorgeous",
+      links: featuredPeptideNavLinks(),
+    },
+    ...topicGroups
+      .filter((g) => g.category !== "Recovery & Healing" && g.category !== "Hormone Support" && g.category !== "Energy & Wellness")
+      .map((group) => ({
+        heading: group.category,
+        links: group.topics.map(topicNavLink),
+      })),
+    {
+      heading: "More topics",
       links: [
         {
           label: "Which Peptide Fits Your Goals?",
           href: "/blog/which-peptide-is-right-for-you-oswego-il",
-          sub: "Blog — goal-based fit guide for Oswego",
+          sub: "Goal-based fit guide",
         },
         {
-          label: "Interactive Education Center",
-          href: `${PEPTIDES_HUB_PATH}#peptide-education`,
-          sub: "Dropdown guides on the peptide hub page",
+          label: "Hello Gorgeous RX Products",
+          href: "/products-we-offer",
+          sub: "Full compounded Rx catalog",
         },
         {
           label: "NAD+ Injections",
           href: "/services/nad-plus-injections-oswego-il",
-          sub: "Cellular energy · $40 per visit · Oswego",
-          badge: "NEW",
+          sub: "In-office cellular energy visits",
         },
         {
           label: "Vitamin Injections",
@@ -107,6 +117,7 @@ export const PEPTIDE_THERAPY_ACTIVE_PREFIXES = [
   "/rx/peptides",
   "/blog/which-peptide-is-right-for-you-oswego-il",
   "/blog/peptide-therapy-regenerative-medicine-hello-gorgeous-rx-oswego-il",
+  "/blog/top-peptides-bpc157-sermorelin-ghk-cu-pt141-nad-49-consult-oswego-il",
 ] as const;
 
 export function isPeptideTherapyNavActive(pathname: string | null): boolean {
