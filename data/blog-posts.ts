@@ -19,6 +19,7 @@ import { maleFemalePractitionersPost } from "./blog-post-male-female-practitione
 import { neurotoxinComparisonPost } from "./blog-post-neurotoxin-comparison";
 import { aestheticInjectablesAnteagePearlPost } from "./blog-post-aesthetic-injectables-anteage-pearl";
 import { peptideTherapyBlogPost } from "./blog-post-peptide-therapy-article";
+import { topPeptides49ConsultBlogPost } from "./blog-post-top-peptides-49-consult";
 import { ourPromiseAuthenticityPost } from "./blog-post-our-promise-authenticity";
 import { pillarMay2026Posts } from "./blog-posts-pillar-may-2026";
 import { weightLossSkinTighteningPost } from "./blog-post-weight-loss-skin-tightening";
@@ -46,6 +47,7 @@ const coreBlogPosts: BlogPost[] = [
   nanoPowderHandStrokeBrowsPost,
   quantumRfLaunchBlogPost,
   peptideBestFitGuidePost,
+  topPeptides49ConsultBlogPost,
   founderLetterMorpheusSolariaPost,
   whatMakesHgDifferentPost,
   salmonDnaSculptraIplPost,
