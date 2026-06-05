@@ -38,7 +38,7 @@ export const SERVICES_MENU_HERO: ServiceMenuSection = {
       id: "vip-trifecta",
       name: "VIP Trifecta Package",
       description: "All 3 treatments — exclusive bundle pricing",
-      href: "/trifecta-vip",
+      href: "/specials",
       icon: "👑",
       badge: "vip",
       featured: true,
@@ -194,7 +194,7 @@ export function isServicesDropdownContext(pathname: string | null | undefined): 
   const prefixes = [
     "/glp1-weight-loss",
     "/injectables",
-    "/trifecta-vip",
+    "/specials",
     "/stretch-mark-treatment-oswego-il",
     "/peptides",
     "/lip-studio",

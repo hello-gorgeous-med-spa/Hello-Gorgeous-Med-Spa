@@ -62,6 +62,12 @@ export const PEPTIDE_THERAPY_NAV: {
           badge: "HUB",
         },
         {
+          label: "Injection Menu",
+          href: "/injection-menu",
+          sub: "In-spa peptide & vitamin shot menu — PDF download",
+          badge: "MENU",
+        },
+        {
           label: "Top peptides guide (blog)",
           href: PEPTIDE_CONSULT_SPECIAL.blogHref,
           sub: "BPC-157, Sermorelin, GHK-Cu, PT-141, Tesamorelin, NAD+",

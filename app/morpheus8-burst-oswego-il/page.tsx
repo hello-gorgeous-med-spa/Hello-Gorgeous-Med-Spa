@@ -29,7 +29,7 @@ export const metadata: Metadata = pageMetadata({
 const CROSS_LINKS = [
   { label: "Solaria CO₂ Laser", href: "/solaria-co2-laser-oswego-il" },
   { label: "QuantumRF Skin Tightening", href: "/quantum-rf-oswego-il" },
-  { label: "InMode Trifecta VIP", href: "/trifecta-vip" },
+  { label: "InMode Trifecta", href: "/specials" },
 ];
 
 const VIDEO_ID = "SPJPb-sBWKk";

@@ -33,7 +33,7 @@ export const metadata: Metadata = _quantumNearMeMeta;
 const CROSS_LINKS = [
   { label: "Solaria CO₂ Laser", href: "/solaria-co2-laser-oswego-il" },
   { label: "Morpheus8 Burst", href: "/morpheus8-burst-oswego-il" },
-  { label: "InMode Trifecta VIP", href: "/trifecta-vip" },
+  { label: "InMode Trifecta", href: "/specials" },
 ];
 
 export default function QuantumRFPage() {

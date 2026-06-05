@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import { trackEvent } from "@/components/GoogleAnalytics";
 import Link from "next/link";
 import { BOOKING_URL } from "@/lib/flows";
+import { FormSuccessNotice } from "@/components/forms/FormSuccessNotice";
 
 type Suggested = { slug: string; name: string; reason: string };
 
@@ -80,6 +81,7 @@ export function FixWhatBothersMeForm({ initialMessage = "" }: Props) {
         <p className="mt-3 text-white/80">
           We&apos;ve received what you shared. We&apos;ll review it and get back to you—or you can book below if one of these fits.
         </p>
+        <FormSuccessNotice variant="dark" className="mt-4" />
         {/* Stacked cards on mobile, reserve min-height to avoid CLS when suggestions load */}
         <div className="mt-8 text-left min-h-[120px]">
           {suggested.length > 0 && (

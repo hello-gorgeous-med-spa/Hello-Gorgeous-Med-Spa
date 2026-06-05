@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import type { FunnelDefinition } from "@/lib/funnels";
+import { FormSuccessNotice } from "@/components/forms/FormSuccessNotice";
 
 export function ConsultationFunnelForm({ funnel }: { funnel: FunnelDefinition }) {
   const [status, setStatus] = useState<"idle" | "saving" | "done" | "error">("idle");
@@ -75,7 +76,11 @@ export function ConsultationFunnelForm({ funnel }: { funnel: FunnelDefinition })
         </button>
       </form>
 
-      {message ? <p className={`mt-3 text-sm ${status === "error" ? "text-red-600" : "text-black/75"}`}>{message}</p> : null}
+      {status === "done" ? (
+        <FormSuccessNotice variant="light" className="mt-4" lead={message} />
+      ) : message ? (
+        <p className={`mt-3 text-sm ${status === "error" ? "text-red-600" : "text-black/75"}`}>{message}</p>
+      ) : null}
 
       <div className="mt-4 flex flex-wrap gap-2">
         {funnel.recommendedServiceLinks.map((item) => (

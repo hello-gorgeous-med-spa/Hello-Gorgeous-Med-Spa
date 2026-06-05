@@ -3,6 +3,7 @@ import Link from "next/link";
 import { pageMetadata } from "@/lib/seo";
 import { ContourBookLink } from "@/components/marketing/ContourBookLink";
 import { ContourLiftThankYouTrack } from "./ContourLiftThankYouTrack";
+import { FormSuccessNotice } from "@/components/forms/FormSuccessNotice";
 
 const PINK = "#E6007E";
 
@@ -26,7 +27,7 @@ export default function ContourLiftThankYouPage() {
             We received your request for the Hello Gorgeous Contour Lift™. Our team will reach out using your preferred
             contact method.
           </p>
-          <p className="mt-2 text-sm text-white/70">If you need us sooner, text or call the front desk from our site.</p>
+          <FormSuccessNotice variant="dark" className="mt-6 text-left" />
           <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4">
             <Link
               href="/services/quantum-rf"

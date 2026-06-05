@@ -7,6 +7,7 @@ import {
 } from "@/lib/resend-config";
 import { getUTMFromRequest, recordLead } from "@/lib/leads";
 import { ensureClQuantumCaseForContourLead } from "@/lib/contour-clinical/ensure-quantum-case";
+import { notifyOwnerFormSubmission } from "@/lib/notifications/form-alert";
 
 
 function trim(s: unknown, n: number): string {
@@ -151,6 +152,11 @@ export async function POST(request: NextRequest) {
     } else {
       console.warn("[contour-lift-inquiry] RESEND_API_KEY not set; email not sent.");
     }
+
+    notifyOwnerFormSubmission({
+      formName: "Contour Lift inquiry",
+      lines: [fullName, phone, email, areaOfConcern.slice(0, 120)],
+    });
 
     if (!apiKey) {
       return NextResponse.json({

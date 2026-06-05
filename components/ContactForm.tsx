@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { FormSuccessNotice } from "@/components/forms/FormSuccessNotice";
 
 export function ContactForm() {
   const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
@@ -72,9 +73,7 @@ export function ContactForm() {
         required
         disabled={status === "sending"}
       />
-      {status === "success" && (
-        <p className="text-green-600 text-sm font-medium" role="status">Thank you. We’ll get back to you soon.</p>
-      )}
+      {status === "success" && <FormSuccessNotice variant="green" />}
       {status === "error" && (
         <p className="text-[#FF2D8E] text-sm font-medium" role="alert">{errorMessage}</p>
       )}

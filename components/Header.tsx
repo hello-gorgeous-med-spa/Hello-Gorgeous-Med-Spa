@@ -39,7 +39,7 @@ const NAV = {
           { label: "Morpheus8 Burst", href: "/morpheus8-burst-oswego", sub: "Deep RF microneedling — skin tightening" },
           { label: "Quantum RF", href: "/quantum-rf-oswego", sub: "Subdermal body contouring without surgery" },
           { label: "Solaria CO₂", href: "/solaria-co2-oswego", sub: "Fractional laser resurfacing" },
-          { label: "InMode Trifecta", href: "/trifecta-vip", sub: "3 technologies combined — exclusive package" },
+          { label: "InMode Trifecta", href: "/specials", sub: "Morpheus8 + Quantum RF + Solaria CO₂ packages" },
         ],
       },
       {
@@ -53,6 +53,7 @@ const NAV = {
       {
         heading: "Medical & Wellness",
         links: [
+          { label: "Injection Menu", href: "/injection-menu", sub: "Peptides & vitamin wellness shots", badge: "MENU" },
           { label: "NAD+ Injections", href: NAD_PLUS_INJECTIONS_PATH, sub: "$40 per visit · cellular energy · Oswego", badge: "NEW" },
           { label: "Medical Weight Loss", href: "/rx/metabolic", sub: "GLP-1 & supervised programs" },
           { label: "Hormone Therapy", href: "/rx/hormones", sub: "Bio-identical hormone optimization" },
@@ -93,6 +94,12 @@ const NAV = {
         label: "Signature Treatment Menu",
         href: `${SPECIALS_PATH}#menu`,
         sub: "Botox $10 · Lip filler · Morpheus8 · Solaria · Trifecta",
+      },
+      {
+        label: "Injection Menu",
+        href: "/injection-menu",
+        sub: "PT-141 · BPC-157 · NAD+ · B12 · biotin & more",
+        badge: "NEW",
       },
       { label: "Spring Laser Hair Special", href: "/spring-special-laser-hair", sub: "Underarms $79 · Bikini $129 · No packages", badge: "SPRING" },
       { label: "VIP Model Program", href: "/vip-model", sub: "Up to 50% off advanced treatments — limited spots", badge: "50% OFF" },

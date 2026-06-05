@@ -657,7 +657,7 @@ export default function QuantumRFAftercarePage() {
             ← Back to Quantum RF Service Page
           </Link>
           <span className="mx-4 text-gray-300">|</span>
-          <Link href="/vip-skin-tightening" className="inline-flex items-center gap-2 text-pink-600 font-medium hover:underline">
+          <Link href="/contour-lift/inquiry" className="inline-flex items-center gap-2 text-pink-600 font-medium hover:underline">
             VIP Launch Waitlist →
           </Link>
         </div>

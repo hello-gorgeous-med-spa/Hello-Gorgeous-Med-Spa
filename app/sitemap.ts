@@ -259,10 +259,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
     },
     {
-      url: `${baseUrl}/solaria-co2-vip`,
+      url: `${baseUrl}/injection-menu`,
       lastModified: currentDate,
       changeFrequency: 'weekly',
-      priority: 0.85,
+      priority: 0.88,
     },
     {
       url: `${baseUrl}/stretch-mark-treatment-oswego-il`,

@@ -142,6 +142,10 @@ const nextConfig = {
     { source: "/book-now", destination: "/book", permanent: true },
     { source: "/schedule", destination: "/book", permanent: true },
     { source: "/signature-treatment-menu", destination: "/specials", permanent: true },
+    { source: "/vip-skin-tightening", destination: "/contour-lift/inquiry", permanent: true },
+    { source: "/solaria-co2-vip", destination: "/solaria-co2-oswego", permanent: true },
+    { source: "/trifecta-vip", destination: "/specials", permanent: true },
+    { source: "/vip", destination: "/book", permanent: true },
     {
       source: "/blog/male-female-practitioners-med-spa-advantage",
       destination: "/blog/male-female-practitioners-med-spa-advantage-oswego-il",

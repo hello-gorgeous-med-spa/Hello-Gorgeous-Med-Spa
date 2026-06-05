@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
+import { alertStaffOnFormSubmission } from '@/lib/notifications/form-alert';
 
 export const maxDuration = 15;
 
@@ -154,8 +155,14 @@ export async function POST(request: NextRequest) {
     
     if (!supabase) {
       console.log('[VIP-WAITLIST] No Supabase configured, storing locally');
-      // Still send email even if DB not configured
       await sendConfirmationEmail(data);
+      void alertStaffOnFormSubmission({
+        formName: `VIP waitlist (${data.campaign || 'co2_solaria'})`,
+        emailSubject: `VIP waitlist — ${data.name}`,
+        emailBody: `Campaign: ${data.campaign}\nName: ${data.name}\nEmail: ${data.email}\nPhone: ${data.phone}`,
+        smsLines: [data.name, data.phone, data.email],
+        replyTo: data.email,
+      });
       return NextResponse.json({
         success: true,
         message: 'Submission received (local mode)',
@@ -221,6 +228,22 @@ export async function POST(request: NextRequest) {
         .update({ email_sent_at: new Date().toISOString() })
         .eq('id', inserted.id);
     }
+
+    void alertStaffOnFormSubmission({
+      formName: `VIP waitlist (${data.campaign || 'co2_solaria'})`,
+      emailSubject: `VIP waitlist — ${data.name}`,
+      emailBody: [
+        `Campaign: ${data.campaign}`,
+        `Name: ${data.name}`,
+        `Email: ${data.email}`,
+        `Phone: ${data.phone}`,
+        data.concerns?.length ? `Concerns: ${data.concerns.join(', ')}` : null,
+      ]
+        .filter(Boolean)
+        .join('\n'),
+      smsLines: [data.name, data.phone, data.email, data.campaign || ''],
+      replyTo: data.email,
+    });
 
     return NextResponse.json({
       success: true,

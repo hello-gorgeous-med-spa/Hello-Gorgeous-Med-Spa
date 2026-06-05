@@ -159,6 +159,9 @@ export default function PeptidesPage() {
               <CTA href={BOOKING_URL} variant="gradient" className="text-lg px-8 py-4 shadow-xl shadow-[#FF2D8E]/20">
                 Book Peptide Consultation
               </CTA>
+              <CTA href="/injection-menu" variant="outline" className="text-lg px-8 py-4 border-[#E6007E] text-[#E6007E]">
+                Injection Menu
+              </CTA>
               <CTA href="#peptide-topics" variant="outline" className="text-lg px-8 py-4">
                 Browse topics
               </CTA>

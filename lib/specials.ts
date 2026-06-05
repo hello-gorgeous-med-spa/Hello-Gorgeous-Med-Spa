@@ -4,6 +4,12 @@ export const SPECIALS_PATH = "/specials";
 
 export const MORE_SPECIALS_LINKS = [
   {
+    label: "Injection Menu",
+    href: "/injection-menu",
+    sub: "Peptides & vitamin wellness shots — provider-guided",
+    badge: "NEW",
+  },
+  {
     label: "Quantum RF Launch Packages",
     href: "/quantum-rf-oswego-il#packages",
     sub: "Neck $2,499 · Abdomen $3,999 · FREE Morpheus8 Burst",

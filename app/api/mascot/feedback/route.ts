@@ -5,7 +5,7 @@
 
 import { NextRequest, NextResponse } from "next/server";
 import { createAdminSupabaseClient, isAdminConfigured } from "@/lib/hgos/supabase";
-import { SITE } from "@/lib/seo";
+import { alertStaffOnFormSubmission } from "@/lib/notifications/form-alert";
 
 export async function POST(request: NextRequest) {
   try {
@@ -36,25 +36,16 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    // Email owner when Resend is configured
-    const apiKey = process.env.RESEND_API_KEY;
-    const toEmail = process.env.CONTACT_FORM_TO_EMAIL || process.env.MASCOT_FEEDBACK_TO_EMAIL || SITE.email;
-    if (apiKey && toEmail) {
-      const contactLine = [contactName, contactEmail, contactPhone].filter(Boolean).join(" • ") || "No contact info";
-      await fetch("https://api.resend.com/emails", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${apiKey}`,
-        },
-        body: JSON.stringify({
-          from: process.env.RESEND_FROM_EMAIL || "Hello Gorgeous Contact <onboarding@resend.dev>",
-          to: [toEmail],
-          subject: `[Mascot] Message for owner: ${message.slice(0, 50)}${message.length > 50 ? "…" : ""}`,
-          text: `From the Hello Gorgeous chat widget:\n\nContact: ${contactLine}\n\nMessage:\n${message}`,
-        }),
-      }).catch((e) => console.error("Resend mascot feedback email error:", e));
-    }
+    const contactLine = [contactName, contactEmail, contactPhone].filter(Boolean).join(" • ") || "No contact info";
+    const emailBody = `From the Hello Gorgeous chat widget:\n\nContact: ${contactLine}\n\nMessage:\n${message}`;
+
+    void alertStaffOnFormSubmission({
+      formName: "Mascot chat",
+      emailSubject: `[Mascot] ${message.slice(0, 50)}${message.length > 50 ? "…" : ""}`,
+      emailBody,
+      smsLines: [contactLine, message.slice(0, 200)],
+      replyTo: contactEmail && contactEmail.includes("@") ? contactEmail : undefined,
+    });
 
     return NextResponse.json({
       success: true,

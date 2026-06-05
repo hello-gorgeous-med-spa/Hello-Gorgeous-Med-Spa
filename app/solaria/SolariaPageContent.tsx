@@ -265,7 +265,7 @@ export function SolariaPageContent() {
         <div className="max-w-2xl mx-auto px-4 text-center">
           <h2 className="text-2xl font-bold mb-4">Ready to Transform Your Skin?</h2>
           <p className="text-white/90 mb-8">
-            Schedule your Solaria CO₂ consultation or join the VIP waitlist for exclusive early access and special pricing.
+            Schedule your Solaria CO₂ consultation — book online or call our Oswego team.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <Link
@@ -275,10 +275,10 @@ export function SolariaPageContent() {
               Book a Consultation
             </Link>
             <Link
-              href="/solaria-co2-vip"
+              href="/book?service=solaria-co2"
               className="inline-flex items-center justify-center rounded-lg border-2 border-white px-6 py-3 font-semibold text-white hover:bg-white hover:text-black transition"
             >
-              Join VIP Waitlist
+              Book consultation
             </Link>
           </div>
           <p className="mt-6 text-sm text-white/70">

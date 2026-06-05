@@ -102,7 +102,7 @@ export const SIGNATURE_MENU_SECTIONS: {
         title: "Morpheus8 + Quantum RF package",
         price: "FREE Solaria CO₂ included",
         details: ["Purchase Morpheus8 + Quantum RF — receive Solaria CO₂ at no charge"],
-        href: "/trifecta-vip",
+        href: "/specials",
       },
     ],
   },

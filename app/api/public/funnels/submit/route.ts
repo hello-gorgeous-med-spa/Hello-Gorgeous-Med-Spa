@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { createAdminSupabaseClient } from "@/lib/hgos/supabase";
 import { getUTMFromRequest, recordLead } from "@/lib/leads";
 import { inferNurtureWorkflowIds } from "@/lib/nurture-workflows";
+import { alertStaffOnFormSubmission } from "@/lib/notifications/form-alert";
 
 type FunnelPayload = {
   funnel?: unknown;
@@ -69,6 +70,27 @@ export async function POST(request: NextRequest) {
         consultation_workflow: true,
       },
     },
+  });
+
+  const emailBody = [
+    `Consultation funnel: ${funnel}`,
+    "",
+    `Name: ${name}`,
+    `Email: ${email}`,
+    `Phone: ${phone}`,
+    `Concern: ${concernType}`,
+    `Treatment: ${treatmentInterest}`,
+    `Urgency: ${urgency}`,
+    `Budget: ${budgetRange}`,
+    `Contact preference: ${contactPreference}`,
+  ].join("\n");
+
+  void alertStaffOnFormSubmission({
+    formName: `Funnel: ${funnel}`,
+    emailSubject: `Consultation funnel — ${name}`,
+    emailBody,
+    smsLines: [name, phone, email, `${concernType} / ${treatmentInterest}`],
+    replyTo: email,
   });
 
   return NextResponse.json({ success: true });

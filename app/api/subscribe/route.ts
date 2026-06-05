@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { createAdminSupabaseClient } from "@/lib/hgos/supabase";
 import { recordLead, getUTMFromRequest } from "@/lib/leads";
+import { alertStaffOnFormSubmission } from "@/lib/notifications/form-alert";
 
 // Simple email validation
 function isValidEmail(email: string): boolean {
@@ -193,8 +194,28 @@ export async function POST(req: Request) {
       });
     }
 
-    // Send notification email to you (optional - requires email service)
-    // You can set up a simple email notification via your email provider
+    void alertStaffOnFormSubmission({
+      formName: `Subscribe (${source})`,
+      emailSubject: `Website signup — ${normalizedEmail}`,
+      emailBody: [
+        `Source: ${source}`,
+        `Email: ${normalizedEmail}`,
+        name ? `Name: ${name}` : null,
+        phone ? `Phone: ${phone}` : null,
+        concern ? `Concern: ${concern}` : null,
+        selectedVitamin ? `Vitamin: ${selectedVitamin}` : null,
+        promoCode ? `Promo: ${promoCode}` : null,
+      ]
+        .filter(Boolean)
+        .join("\n"),
+      smsLines: [
+        source,
+        normalizedEmail,
+        name || "",
+        phone || "",
+      ].filter(Boolean),
+      replyTo: normalizedEmail,
+    });
 
     return NextResponse.json({
       success: true,

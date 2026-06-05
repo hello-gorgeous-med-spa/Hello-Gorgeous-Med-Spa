@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { CTA } from "@/components/CTA";
+import { FormSuccessNotice } from "@/components/forms/FormSuccessNotice";
 import { BOOKING_URL } from "@/lib/flows";
 
 const interestOptions = [
@@ -74,9 +75,10 @@ export function RxContactForm() {
           </svg>
         </div>
         <h3 className="text-xl font-bold text-black mb-2">Thank You!</h3>
-        <p className="text-black/70 mb-6">
+        <p className="text-black/70 mb-4">
           We&apos;ve received your inquiry. Our medical team will review and contact you within 24-48 hours.
         </p>
+        <FormSuccessNotice variant="light" className="mb-4 text-left" />
         <p className="text-sm text-black/60">
           Illinois residents only. A medical evaluation is required for all prescription services.
         </p>

@@ -205,6 +205,11 @@ export function Footer({
                 </Link>
               </li>
               <li>
+                <Link className="text-[#FF2D8E] hover:text-[#FF2D8E] font-medium transition-colors" href="/injection-menu">
+                  💉 Injection Menu
+                </Link>
+              </li>
+              <li>
                 <Link className="text-[#FF2D8E] hover:text-[#FF2D8E] font-medium transition-colors" href="/spring-special-laser-hair">
                   🌸 Spring Special: Laser Hair $79
                 </Link>

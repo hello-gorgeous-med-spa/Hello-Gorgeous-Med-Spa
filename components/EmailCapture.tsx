@@ -1,5 +1,7 @@
 "use client";
 
+import { FormSuccessNotice } from "@/components/forms/FormSuccessNotice";
+
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { trackEvent } from "@/components/GoogleAnalytics";
@@ -114,7 +116,7 @@ export function EmailCapture() {
               </div>
               <h3 className="text-2xl font-bold text-black mb-2">You&apos;re on the list!</h3>
               <p className="text-black">We&apos;ll reach out with VIP access, launch pricing, and priority booking.</p>
-              <p className="text-[#FF2D8E] font-bold mt-4">Thank you! 💕</p>
+              <FormSuccessNotice variant="light" className="mt-4 text-left" />
             </div>
           ) : (
             <>
@@ -239,9 +241,8 @@ export function EmailBanner() {
     return (
       <section className="section-pink py-12">
         <div className="container text-center">
-          <p className="font-bold text-xl">
-            ✓ You&apos;re on the list! Check your email for your 10% off code.
-          </p>
+          <p className="font-bold text-xl mb-3">✓ You&apos;re on the list!</p>
+          <FormSuccessNotice variant="light" className="max-w-md mx-auto text-left" />
         </div>
       </section>
     );

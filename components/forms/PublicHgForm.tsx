@@ -11,6 +11,7 @@ import {
   hasVerbatimConsentIframe,
 } from "@/lib/consent-iframe-by-slug";
 import { isLuxoraConsentSlug, LUXORA_DOC_URLS } from "@/lib/luxora-doc-urls";
+import { FormSuccessNotice } from "@/components/forms/FormSuccessNotice";
 
 type Field = {
   id: string;
@@ -194,13 +195,11 @@ export function PublicHgForm({ formSlug, variant = "default", aboveFold, belowTi
         </h1>
         {belowTitle}
         {done ? (
-          <p
-            className={
-              variant === "intake" ? "text-emerald-400 text-sm leading-relaxed mt-4" : "text-emerald-700 text-sm leading-relaxed mt-4"
-            }
-          >
-            {done}
-          </p>
+          <FormSuccessNotice
+            variant={variant === "intake" ? "dark" : "green"}
+            className="mt-4"
+            lead={done}
+          />
         ) : (
           <form onSubmit={onSubmit} className="space-y-5">
             {fields.length === 0 && !showVerbatimConsentIframe && (

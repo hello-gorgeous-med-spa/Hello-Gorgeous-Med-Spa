@@ -7,6 +7,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { createAdminSupabaseClient } from "@/lib/hgos/supabase";
 import { suggestServicesFromConcern, suggestedSlugsFromConcern } from "@/lib/concerns";
 import { recordLead, getUTMFromRequest } from "@/lib/leads";
+import { alertStaffOnFormSubmission } from "@/lib/notifications/form-alert";
 
 export async function POST(request: NextRequest) {
   try {
@@ -51,6 +52,34 @@ export async function POST(request: NextRequest) {
         });
       }
     }
+
+    const trimmedName = name?.trim() || "";
+    const trimmedEmail = email?.trim() || "";
+    const trimmedPhone = phone?.trim() || "";
+    const trimmedMessage = message.trim();
+    const emailBody = [
+      "Fix What Bothers Me — website concern",
+      "",
+      `Name: ${trimmedName || "—"}`,
+      `Email: ${trimmedEmail || "—"}`,
+      `Phone: ${trimmedPhone || "—"}`,
+      "",
+      `Message:\n${trimmedMessage}`,
+      "",
+      `Suggested services: ${slugs.join(", ") || "—"}`,
+    ].join("\n");
+
+    void alertStaffOnFormSubmission({
+      formName: "Fix What Bothers Me",
+      emailSubject: `Concern form — ${trimmedName || trimmedEmail || "website"}`,
+      emailBody,
+      smsLines: [
+        trimmedName || "Anonymous",
+        trimmedEmail || trimmedPhone || "no contact",
+        trimmedMessage.slice(0, 200),
+      ],
+      replyTo: trimmedEmail && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmedEmail) ? trimmedEmail : undefined,
+    });
 
     return NextResponse.json({
       success: true,

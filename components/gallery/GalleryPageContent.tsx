@@ -404,7 +404,7 @@ const CASES: GalleryCase[] = [
     image: "/gallery/luxora-pdf-1/before-after.jpg",
     imageAlt: "Luxora InMode skin tightening before and after — Hello Gorgeous Med Spa Oswego IL",
     note: "Luxora by InMode. Clinical result. Available at Hello Gorgeous Med Spa, Oswego, IL. Individual results vary.",
-    serviceHref: "/trifecta-vip",
+    serviceHref: "/specials",
   },
   {
     type: "single-image",
@@ -415,7 +415,7 @@ const CASES: GalleryCase[] = [
     image: "/gallery/luxora-pdf-2/before-after.jpg",
     imageAlt: "Luxora InMode body contouring before and after — Hello Gorgeous Med Spa Oswego IL",
     note: "Luxora by InMode. Clinical result. Available at Hello Gorgeous Med Spa, Oswego, IL. Individual results vary.",
-    serviceHref: "/trifecta-vip",
+    serviceHref: "/specials",
   },
   {
     type: "single-image",
@@ -426,7 +426,7 @@ const CASES: GalleryCase[] = [
     image: "/gallery/luxora-pdf-3/before-after.jpg",
     imageAlt: "Luxora InMode skin laxity before and after — Hello Gorgeous Med Spa Oswego IL",
     note: "Luxora by InMode. Clinical result. Available at Hello Gorgeous Med Spa, Oswego, IL. Individual results vary.",
-    serviceHref: "/trifecta-vip",
+    serviceHref: "/specials",
   },
   {
     type: "single-image",
@@ -437,7 +437,7 @@ const CASES: GalleryCase[] = [
     image: "/gallery/luxora-pdf-4/before-after.jpg",
     imageAlt: "Luxora InMode circumference reduction before and after — Hello Gorgeous Med Spa Oswego IL",
     note: "Luxora by InMode. Clinical result. Available at Hello Gorgeous Med Spa, Oswego, IL. Individual results vary.",
-    serviceHref: "/trifecta-vip",
+    serviceHref: "/specials",
   },
   {
     type: "single-image",
@@ -448,7 +448,7 @@ const CASES: GalleryCase[] = [
     image: "/gallery/luxora-pdf-5/before-after.jpg",
     imageAlt: "Luxora InMode fat reduction before and after — Hello Gorgeous Med Spa Oswego IL",
     note: "Luxora by InMode. Clinical result. Available at Hello Gorgeous Med Spa, Oswego, IL. Individual results vary.",
-    serviceHref: "/trifecta-vip",
+    serviceHref: "/specials",
   },
   {
     type: "single-image",
@@ -459,7 +459,7 @@ const CASES: GalleryCase[] = [
     image: "/gallery/luxora-pdf-6/before-after.jpg",
     imageAlt: "Luxora InMode cellulite and texture before and after — Hello Gorgeous Med Spa Oswego IL",
     note: "Luxora by InMode. Clinical result. Available at Hello Gorgeous Med Spa, Oswego, IL. Individual results vary.",
-    serviceHref: "/trifecta-vip",
+    serviceHref: "/specials",
   },
   {
     type: "single-image",
@@ -470,7 +470,7 @@ const CASES: GalleryCase[] = [
     image: "/gallery/luxora-pdf-7/before-after.jpg",
     imageAlt: "Luxora InMode tone and tightening before and after — Hello Gorgeous Med Spa Oswego IL",
     note: "Luxora by InMode. Clinical result. Available at Hello Gorgeous Med Spa, Oswego, IL. Individual results vary.",
-    serviceHref: "/trifecta-vip",
+    serviceHref: "/specials",
   },
   {
     type: "single-image",
@@ -481,7 +481,7 @@ const CASES: GalleryCase[] = [
     image: "/gallery/luxora-pdf-8/before-after.jpg",
     imageAlt: "Luxora InMode full body result before and after — Hello Gorgeous Med Spa Oswego IL",
     note: "Luxora by InMode. Clinical result. Available at Hello Gorgeous Med Spa, Oswego, IL. Individual results vary.",
-    serviceHref: "/trifecta-vip",
+    serviceHref: "/specials",
   },
   {
     type: "single-image",
@@ -775,7 +775,7 @@ const CASES: GalleryCase[] = [
     tagline: "Introducing Luxora — InMode's latest body contouring platform at Hello Gorgeous.",
     video: "/videos/gallery/luxora-inmode-event.mp4",
     note: "Luxora InMode event launch footage. Hello Gorgeous Med Spa, Oswego, IL.",
-    serviceHref: "/trifecta-vip",
+    serviceHref: "/specials",
   },
   {
     type: "video",

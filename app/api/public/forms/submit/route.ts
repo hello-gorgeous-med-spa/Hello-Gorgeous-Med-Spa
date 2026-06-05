@@ -4,6 +4,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { getSupabaseAdminClient } from "@/lib/hgos/supabase-admin";
 import { resolveOrCreateClientForIntake } from "@/lib/resolveClientForIntake";
 import { randomBytes } from "crypto";
+import { notifyOwnerFormSubmission } from "@/lib/notifications/form-alert";
 
 export const dynamic = "force-dynamic";
 
@@ -74,10 +75,20 @@ export async function POST(req: NextRequest) {
 
   if (insErr) return NextResponse.json({ error: insErr.message }, { status: 500 });
 
+  const ref = token.slice(0, 8).toUpperCase();
+  notifyOwnerFormSubmission({
+    formName: `Public form: ${slug}`,
+    lines: [
+      signerName || "—",
+      clientPhone || "—",
+      `Ref ${ref}`,
+    ],
+  });
+
   return NextResponse.json({
     success: true,
     id: row.id,
     submitted_at: row.submitted_at,
-    reference: token.slice(0, 8).toUpperCase(),
+    reference: ref,
   });
 }

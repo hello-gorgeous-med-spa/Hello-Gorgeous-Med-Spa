@@ -4,9 +4,9 @@
 // ============================================================
 
 import { NextRequest, NextResponse } from 'next/server';
-import { SITE } from '@/lib/seo';
 import { createAdminSupabaseClient } from '@/lib/hgos/supabase';
 import { recordLead, getUTMFromRequest } from '@/lib/leads';
+import { emailStaffFormSubmission, notifyOwnerFormSubmission } from '@/lib/notifications/form-alert';
 
 export async function POST(request: NextRequest) {
   try {
@@ -20,33 +20,30 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const apiKey = process.env.RESEND_API_KEY;
-    const toEmail = process.env.CONTACT_FORM_TO_EMAIL || SITE.email;
+    const trimmedName = name.trim();
+    const trimmedContact = contact.trim();
+    const trimmedMessage = message.trim();
+    const emailBody = `Name: ${trimmedName}\nContact: ${trimmedContact}\n\nMessage:\n${trimmedMessage}`;
+    const replyTo = trimmedContact.includes('@') ? trimmedContact.toLowerCase() : undefined;
 
-    if (apiKey) {
-      const res = await fetch('https://api.resend.com/emails', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${apiKey}`,
-        },
-        body: JSON.stringify({
-          from: process.env.RESEND_FROM_EMAIL || 'Hello Gorgeous Contact <onboarding@resend.dev>',
-          to: [toEmail],
-          subject: `Website contact from ${name.trim()}`,
-          text: `Name: ${name.trim()}\nContact: ${contact.trim()}\n\nMessage:\n${message.trim()}`,
-        }),
+    if (process.env.RESEND_API_KEY) {
+      const emailed = await emailStaffFormSubmission({
+        subject: `Website contact from ${trimmedName}`,
+        text: emailBody,
+        replyTo,
       });
-
-      if (!res.ok) {
-        const err = await res.json().catch(() => ({}));
-        console.error('Resend error:', res.status, err);
+      if (!emailed) {
         return NextResponse.json(
           { error: 'Failed to send message. Please try again or call us.' },
           { status: 502 }
         );
       }
     }
+
+    notifyOwnerFormSubmission({
+      formName: 'Contact',
+      lines: [trimmedName, trimmedContact, trimmedMessage.slice(0, 200)],
+    });
 
     // Unified lead capture: if contact looks like email, record in leads
     const emailMatch = contact.trim().match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/);

@@ -214,10 +214,10 @@ export default function SolariaCO2Page() {
                 Call {SITE.phone}
               </a>
               <Link
-                href="/solaria-co2-vip"
+                href="/injection-menu"
                 className="inline-flex items-center justify-center rounded-lg border-2 border-[#FFB8DC] px-6 py-3 font-semibold text-[#FFB8DC] hover:bg-[#FFB8DC] hover:text-black transition"
               >
-                VIP Waitlist — $100 Credit
+                Injection Menu
               </Link>
             </div>
             <div className="mt-10 flex flex-wrap gap-6 text-sm text-white/70">
@@ -683,18 +683,17 @@ export default function SolariaCO2Page() {
           </div>
         </section>
 
-        {/* VIP Waitlist CTA */}
         <section className="py-16 bg-black text-white">
           <div className="max-w-2xl mx-auto px-4 text-center">
-            <h2 className="text-2xl font-bold mb-4">Join the Exclusive Waitlist</h2>
+            <h2 className="text-2xl font-bold mb-4">Book Solaria CO₂</h2>
             <p className="text-white/90 mb-8">
-              Be among the first to experience Solaria CO₂ at Hello Gorgeous. VIP members receive priority booking and a $100 credit toward treatment.
+              Schedule your consultation and treatment on Fresha. Our team will walk you through candidacy, downtime, and package options.
             </p>
             <Link
-              href="/solaria-co2-vip"
+              href="/book?service=solaria-co2"
               className="inline-flex items-center justify-center rounded-lg bg-[#E6007E] px-6 py-3 font-semibold text-white hover:bg-[#c9006e] transition"
             >
-              Join VIP Waitlist Now
+              Book consultation
             </Link>
             <p className="mt-6 text-sm text-white/70">
               Questions? Call {SITE.phone} or text 630-881-3398
