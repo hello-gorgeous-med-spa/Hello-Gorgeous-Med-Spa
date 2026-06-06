@@ -59,6 +59,12 @@
   ],
   "shortcuts": [
     {
+      "name": "The Vitamin Bar",
+      "short_name": "Vitamin Bar",
+      "url": "/vitamin-bar",
+      "icons": [{ "src": "/icons/icon-96x96.png", "sizes": "96x96" }]
+    },
+    {
       "name": "Book Appointment",
       "short_name": "Book",
       "url": "/book",
