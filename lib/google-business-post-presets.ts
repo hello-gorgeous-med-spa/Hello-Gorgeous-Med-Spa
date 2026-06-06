@@ -55,6 +55,19 @@ Free consult to figure out your plan — book below.`,
     imagePath: "/images/homepage-services/botox-cosmetic-authentic-vial.png",
   },
   {
+    id: "botox-natural",
+    label: "Botox — natural, not frozen",
+    message: `💕 Botox in Oswego that looks like YOU — just refreshed.
+
+We focus on facial balance, conservative dosing & customized plans. Great Botox softens fine lines while keeping your expressions beautiful and natural — never frozen, never overdone.
+
+$10/unit · Ryan Kent, FNP-BC · authentic FDA-approved product · free consult.
+
+Book below 👇`,
+    linkPath: "/botox-oswego?utm_source=google&utm_medium=gbp_post&utm_campaign=botox_natural",
+    imagePath: "/images/homepage-services/botox-cosmetic-authentic-vial.png",
+  },
+  {
     id: "peptide-49-consult",
     label: "Peptide therapy — $49 consult (Oswego)",
     message: `🧬 Peptide therapy at Hello Gorgeous Med Spa — Oswego, IL

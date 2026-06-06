@@ -408,8 +408,25 @@ No mystery pricing. No upsell. Book below 👇`,
   defaultChannels: ["facebook", "instagram", "google"],
 };
 
+export const FACEBOOK_PAGE_PRESET_BOTOX_NATURAL: FacebookPagePreset = {
+  id: "botox-natural",
+  label: "Botox — natural, not frozen",
+  blurb: "Facial balance · conservative dosing · looks like you.",
+  message: `💕 Botox that looks like YOU — just refreshed.
+
+Looking for Botox in Oswego, IL? At Hello Gorgeous we focus on facial balance, conservative dosing & customized plans — softening fine lines while keeping your expressions beautiful and natural. Never frozen, never overdone.
+
+$10/unit · Ryan Kent, FNP-BC · authentic FDA-approved product · free consult.
+
+Book below 👇`,
+  linkPath: withUtm("/botox-oswego"),
+  imagePath: "/images/homepage-services/botox-cosmetic-authentic-vial.png",
+  defaultChannels: ["facebook", "instagram", "google"],
+};
+
 export const FACEBOOK_PAGE_PRESETS: FacebookPagePreset[] = [
   FACEBOOK_PAGE_PRESET_BOTOX_49,
+  FACEBOOK_PAGE_PRESET_BOTOX_NATURAL,
   FACEBOOK_PAGE_PRESET_BOTOX_AUTHENTIC,
   FACEBOOK_PAGE_PRESET_BOTOX_COMPARE,
   FACEBOOK_PAGE_PRESET_BOTOX_NAPERVILLE,

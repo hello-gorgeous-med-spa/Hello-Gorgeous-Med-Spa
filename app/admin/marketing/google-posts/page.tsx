@@ -44,6 +44,15 @@ Free consultation, every time. Oswego, IL — serving Naperville, Aurora & Plain
     ctaUrl: BOOKING_URL,
   },
   {
+    id: 'botox-natural',
+    title: 'Botox — Natural, Not Frozen',
+    type: 'Update',
+    headline: 'Botox in Oswego That Looks Like You — Just Refreshed',
+    description: 'We focus on facial balance, conservative dosing & customized plans — softening fine lines while keeping your expressions natural. Never frozen, never overdone. $10/unit, Ryan Kent FNP-BC, authentic FDA-approved product, free consult. Oswego, IL.',
+    ctaText: 'Book consult',
+    ctaUrl: BOTOX_URL,
+  },
+  {
     id: 'botox-authentic',
     title: 'Botox — Authentic Product, Real NP',
     type: 'Update',

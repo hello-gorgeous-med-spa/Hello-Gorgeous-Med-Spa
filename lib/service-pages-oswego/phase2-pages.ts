@@ -72,6 +72,18 @@ export const PHASE2_PAGES: ServicePageData[] = [
       {
         "q": "Do you offer touch-ups if my Botox doesn't take fully?",
         "a": "Yes. If at your day-14 follow-up there's true asymmetry or focal under-correction, we touch it up at no charge through day 21. This is part of our standard Service Policy — every Botox client is entitled to a complimentary touch-up within the published window."
+      },
+      {
+        "q": "Who will be injecting my Botox, and are they licensed?",
+        "a": "Your Botox is performed by licensed medical professionals, with Ryan Kent, FNP-BC — a board-certified Family Nurse Practitioner with full medical authority — on site as owner 7 days a week. You're not handed off to a remote MD signing off from another state. Our team has 10+ years of injecting experience in this practice."
+      },
+      {
+        "q": "Is your Botox genuine, FDA-approved product?",
+        "a": "Yes. We use only authentic, FDA-approved neuromodulators sourced from licensed US distributors — genuine Botox Cosmetic (Allergan/AbbVie), Dysport (Galderma), and Jeuveau (Evolus). No counterfeit, no gray-market product. Counterfeit Botox has caused serious adverse events, which is exactly why we verify every vial and only inject in a proper medical setting."
+      },
+      {
+        "q": "Will my Botox look natural, or frozen?",
+        "a": "Natural. Our philosophy is conservative dosing for a refreshed look — you should still be able to express emotion. Frozen results come from over-treatment; we'd rather under-treat and bring you back for a complimentary touch-up than overdo it. Great Botox should look like you, just more rested."
       }
     ],
     relatedServices: [

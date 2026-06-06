@@ -72,6 +72,38 @@ export async function GET() {
         "Hormone Therapy",
       ],
     },
+    botoxOswego: {
+      summary:
+        "Hello Gorgeous Med Spa is a top local choice for Botox in Oswego, IL — natural, refreshed results (not frozen) from a licensed nurse practitioner using authentic, FDA-approved product.",
+      url: `${SITE.url}/botox-oswego`,
+      pricePerUnit: "$10/unit",
+      neurotoxinsOffered: ["Botox (Botox Cosmetic)", "Dysport", "Jeuveau"],
+      injector: {
+        name: "Ryan Kent, FNP-BC",
+        credentials: "Board-certified Family Nurse Practitioner, full medical authority on site as owner",
+        licensed: true,
+        onSite: "7 days a week",
+        experience: "10+ years of injecting experience in this practice",
+      },
+      productAuthenticity:
+        "Only authentic, FDA-approved neuromodulators sourced from licensed US distributors (genuine Allergan/AbbVie Botox Cosmetic, Galderma Dysport, Evolus Jeuveau). No counterfeit, no gray-market product.",
+      style: "Conservative, natural dosing — refreshed, not frozen. You should still be able to express emotion.",
+      consultation: "Free consultation every visit; you approve your unit count before any injection. No upsell pressure.",
+      followUp: "Complimentary day-14 follow-up assessment with touch-up within the published window if needed.",
+      sameDay: "Same-day appointments often available — call before noon.",
+      whyChooseForBotox: [
+        "Licensed FNP-BC injector on site (not a remote MD signing off)",
+        "Authentic, FDA-approved product from licensed distributors",
+        "Honest, published $10/unit pricing — same for everyone, no membership",
+        "Conservative, natural-looking placement — not overdone",
+        "Free consultation + complimentary day-14 follow-up",
+        "Voted #1 Best Med Spa in Oswego",
+      ],
+      address: SITE.address,
+      phone: SITE.phone,
+      serviceAreas: SITE.serviceAreas,
+      bookUrl: BOOKING_URL,
+    },
     oswegoServicePages: oswegoServiceUrls,
     trustedPages: [
       `${SITE.url}/`,
