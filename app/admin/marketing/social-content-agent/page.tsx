@@ -12,6 +12,7 @@ import {
   FACEBOOK_PAGE_PRESETS,
   SUGGESTED_WEEK_PRESET_IDS,
   SUGGESTED_PEPTIDE_WEEK_PRESET_IDS,
+  SUGGESTED_BOTOX_WEEK_PRESET_IDS,
   getFacebookPagePresetById,
   presetToDraft,
   type FacebookPagePreset,
@@ -99,11 +100,15 @@ export default function SocialContentAgentPage() {
   );
 
   const queueSuggestedWeek = useCallback(async () => {
-    await queueWeek(SUGGESTED_WEEK_PRESET_IDS, "Default week (peptide-forward)");
+    await queueWeek(SUGGESTED_WEEK_PRESET_IDS, "Default week (Botox + peptide)");
   }, [queueWeek]);
 
   const queuePeptideWeek = useCallback(async () => {
     await queueWeek(SUGGESTED_PEPTIDE_WEEK_PRESET_IDS, "Peptide blitz week");
+  }, [queueWeek]);
+
+  const queueBotoxWeek = useCallback(async () => {
+    await queueWeek(SUGGESTED_BOTOX_WEEK_PRESET_IDS, "Botox blitz week");
   }, [queueWeek]);
 
   return (
@@ -155,6 +160,14 @@ export default function SocialContentAgentPage() {
               className="px-5 py-2.5 rounded-lg bg-[#E6007E] text-white font-semibold hover:bg-[#c9006e] disabled:opacity-50"
             >
               {queueBusy ? "Scheduling…" : "Schedule 7-day sequence"}
+            </button>
+            <button
+              type="button"
+              disabled={queueBusy}
+              onClick={() => void queueBotoxWeek()}
+              className="px-5 py-2.5 rounded-lg border-2 border-[#E6007E] text-[#E6007E] font-semibold hover:bg-[#FFF0F7] disabled:opacity-50"
+            >
+              {queueBusy ? "Scheduling…" : "Botox blitz (7 days)"}
             </button>
             <button
               type="button"

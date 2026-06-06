@@ -138,7 +138,7 @@ const CONTEXTUAL_LINKS: Record<string, string> = {
   "Weight Loss in Oswego": "/weight-loss-oswego-il",
   "PRF Hair Restoration in Oswego": "/prf-hair-restoration-oswego-il",
   "Hormone Therapy in Oswego": "/hormone-therapy-oswego-il",
-  "Botox in Oswego": "/botox-oswego-il",
+  "Botox in Oswego": "/botox-oswego",
 };
 
 const TREATMENT_FAQ_TEMPLATES: Record<string, { howLong?: string; cost?: string; isSafe?: string }> = {

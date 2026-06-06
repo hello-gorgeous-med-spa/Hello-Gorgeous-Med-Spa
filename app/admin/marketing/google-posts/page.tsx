@@ -27,7 +27,49 @@ type Campaign = {
 const INJECTION_MENU_URL = 'https://www.hellogorgeousmedspa.com/injection-menu';
 const PEPTIDE_BLOG_URL = 'https://www.hellogorgeousmedspa.com/blog/top-peptides-bpc157-sermorelin-ghk-cu-pt141-nad-49-consult-oswego-il';
 
+const BOTOX_URL = 'https://www.hellogorgeousmedspa.com/botox-oswego';
+
 const CAMPAIGNS: Campaign[] = [
+  {
+    id: 'botox-10-unit',
+    title: 'Botox — $10/unit (Oswego)',
+    type: 'Offer',
+    headline: 'Botox in Oswego — $10/unit · #1 Best Med Spa',
+    description: `💉 Honest, published pricing — $10/unit, same for everyone, no membership required.
+
+Ryan Kent, FNP-BC on site 7 days a week · 10+ years injecting · same-day appointments often available. Botox · Dysport · Jeuveau.
+
+Free consultation, every time. Oswego, IL — serving Naperville, Aurora & Plainfield.`,
+    ctaText: 'Book consult',
+    ctaUrl: BOOKING_URL,
+  },
+  {
+    id: 'botox-authentic',
+    title: 'Botox — Authentic Product, Real NP',
+    type: 'Update',
+    headline: 'Real Botox. Real Nurse Practitioner. Real Pricing.',
+    description: 'We use only authentic, FDA-approved product from licensed distributors — and Ryan Kent, FNP-BC oversees every protocol on site. No revolving door of providers, no mystery pricing, no upsell pressure. $10/unit Botox in downtown Oswego.',
+    ctaText: 'Learn more',
+    ctaUrl: BOTOX_URL,
+  },
+  {
+    id: 'botox-vs-dysport',
+    title: 'Botox vs Dysport vs Jeuveau',
+    type: 'Update',
+    headline: 'Botox, Dysport, or Jeuveau — Which Is Right for You?',
+    description: 'All three relax the muscles that cause expression lines — the difference is onset, spread & feel. We carry all three to match you to the best one. Botox $10/unit · Dysport $14/unit · Jeuveau $11/unit. Ryan Kent, FNP-BC, Oswego IL. Free consult.',
+    ctaText: 'Book consult',
+    ctaUrl: BOTOX_URL,
+  },
+  {
+    id: 'botox-naperville',
+    title: 'Botox Near Naperville',
+    type: 'Update',
+    headline: 'Botox Near Naperville — $10/unit, ~15 Min to Oswego',
+    description: 'Looking for Botox near Naperville? Hello Gorgeous is just 15 minutes away in downtown Oswego — $10/unit, licensed NP, free consultation. Botox, Dysport & Jeuveau. Same-day often available.',
+    ctaText: 'Book consult',
+    ctaUrl: 'https://www.hellogorgeousmedspa.com/botox-naperville-il',
+  },
   {
     id: 'peptide-49-consult',
     title: 'Peptide Therapy — $49 Consult (Oswego)',
@@ -265,7 +307,7 @@ function CopyButton({ text, label }: { text: string; label: string }) {
 }
 
 export default function GooglePostsPage() {
-  const [expandedId, setExpandedId] = useState<string | null>('peptide-49-consult');
+  const [expandedId, setExpandedId] = useState<string | null>('botox-10-unit');
 
   return (
     <div className="min-h-[calc(100vh-56px)] bg-white">

@@ -344,7 +344,75 @@ Read why this matters for YOUR safety — and how to spot a provider who cuts co
   defaultChannels: ["facebook", "instagram", "google"],
 };
 
+export const FACEBOOK_PAGE_PRESET_BOTOX_49: FacebookPagePreset = {
+  id: "botox-10-unit",
+  label: "Botox — $10/unit (Oswego)",
+  blurb: "Honest pricing · NP on site · #1 Best Med Spa.",
+  message: `💉 Botox in Oswego — $10/unit at Hello Gorgeous.
+
+Honest, published pricing — the same for everyone, no membership required. Botox · Dysport · Jeuveau.
+
+Ryan Kent, FNP-BC on site 7 days a week · 10+ years injecting · same-day often available.
+
+Free consultation, every time — we won't talk you into units you don't need. Serving Naperville, Aurora & Plainfield.
+
+Book below 👇`,
+  linkPath: withUtm("/botox-oswego"),
+  imagePath: "/images/homepage-services/botox-cosmetic-authentic-vial.png",
+  defaultChannels: ["facebook", "instagram", "google"],
+};
+
+export const FACEBOOK_PAGE_PRESET_BOTOX_AUTHENTIC: FacebookPagePreset = {
+  id: "botox-authentic",
+  label: "Botox — authentic product, real NP",
+  blurb: "Trust angle — real product, no shortcuts.",
+  message: `🛡️ Real Botox. Real nurse practitioner. Real pricing.
+
+We use only authentic, FDA-approved product from licensed distributors — and Ryan Kent, FNP-BC oversees every protocol on site.
+
+No revolving door of providers. No mystery pricing. No upsell pressure. Just $10/unit Botox done right in downtown Oswego.
+
+Free consult — book below 👇`,
+  linkPath: withUtm("/botox-oswego"),
+  imagePath: "/images/homepage-services/botox-cosmetic-authentic-vial.png",
+  defaultChannels: ["facebook", "instagram", "google"],
+};
+
+export const FACEBOOK_PAGE_PRESET_BOTOX_COMPARE: FacebookPagePreset = {
+  id: "botox-vs-dysport",
+  label: "Botox vs Dysport vs Jeuveau",
+  blurb: "Education post — which neurotoxin is right for you.",
+  message: `Botox, Dysport, or Jeuveau — which is right for YOU? 🤔
+
+All three relax the muscles that cause expression lines. The difference is onset, spread & feel — and we carry all three so we can match you to the best one.
+
+Botox $10/unit · Dysport $14/unit · Jeuveau $11/unit. Ryan Kent, FNP-BC, Oswego IL.
+
+Free consult to figure out your plan 👇`,
+  linkPath: withUtm("/botox-oswego"),
+  imagePath: "/images/homepage-services/botox-cosmetic-authentic-vial.png",
+  defaultChannels: ["facebook", "instagram", "google"],
+};
+
+export const FACEBOOK_PAGE_PRESET_BOTOX_NAPERVILLE: FacebookPagePreset = {
+  id: "botox-naperville",
+  label: "Botox near Naperville",
+  blurb: "Geo post — $10/unit, ~15 min from Naperville.",
+  message: `📍 Naperville — Botox is closer (and more honest) than you think.
+
+Hello Gorgeous in downtown Oswego (~15 min) does Botox at $10/unit with a licensed NP on site — Botox, Dysport & Jeuveau, free consultation, same-day often available.
+
+No mystery pricing. No upsell. Book below 👇`,
+  linkPath: withUtm("/botox-naperville-il"),
+  imagePath: "/images/homepage-services/botox-cosmetic-authentic-vial.png",
+  defaultChannels: ["facebook", "instagram", "google"],
+};
+
 export const FACEBOOK_PAGE_PRESETS: FacebookPagePreset[] = [
+  FACEBOOK_PAGE_PRESET_BOTOX_49,
+  FACEBOOK_PAGE_PRESET_BOTOX_AUTHENTIC,
+  FACEBOOK_PAGE_PRESET_BOTOX_COMPARE,
+  FACEBOOK_PAGE_PRESET_BOTOX_NAPERVILLE,
   FACEBOOK_PAGE_PRESET_PEPTIDE_49,
   FACEBOOK_PAGE_PRESET_INJECTION_MENU,
   FACEBOOK_PAGE_PRESET_PEPTIDE_BPC157,
@@ -369,15 +437,15 @@ export const FACEBOOK_PAGE_PRESETS: FacebookPagePreset[] = [
   FACEBOOK_PAGE_PRESET_WEIGHT,
 ];
 
-/** Default Mon→Sun queue — peptide-forward for local dominance. */
+/** Default Mon→Sun queue — balanced Botox + peptide for local dominance. */
 export const SUGGESTED_WEEK_PRESET_IDS: string[] = [
+  "botox-10-unit",
   "peptide-49-consult",
-  "peptide-injection-menu",
+  "botox-vs-dysport",
   "peptide-bpc157",
-  "peptide-sermorelin",
+  "botox-authentic",
   "peptide-naperville",
-  "book-consult",
-  "peptide-top6-blog",
+  "signature-treatment-menu",
 ];
 
 /** All-peptide 7-day blitz (optional). */
@@ -388,6 +456,17 @@ export const SUGGESTED_PEPTIDE_WEEK_PRESET_IDS: string[] = [
   "peptide-sermorelin",
   "peptide-naperville",
   "peptide-top6-blog",
+  "book-consult",
+];
+
+/** All-Botox 7-day blitz (optional) — to fight HER / Smooth on neurotoxins. */
+export const SUGGESTED_BOTOX_WEEK_PRESET_IDS: string[] = [
+  "botox-10-unit",
+  "botox-authentic",
+  "botox-vs-dysport",
+  "botox-naperville",
+  "signature-treatment-menu",
+  "our-promise",
   "book-consult",
 ];
 

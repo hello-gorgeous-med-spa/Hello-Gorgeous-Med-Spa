@@ -22,6 +22,13 @@ export const dynamic = "force-dynamic";
 export const maxDuration = 60;
 
 const PRIORITY_SERVICE_URLS = [
+  "/botox-oswego",
+  "/botox-oswego-il",
+  "/botox-naperville-il",
+  "/botox-aurora-il",
+  "/botox-plainfield-il",
+  "/botox-yorkville-il",
+  "/services/botox",
   "/peptides",
   "/peptide-therapy-oswego",
   "/peptides/bpc-157",

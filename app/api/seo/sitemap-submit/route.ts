@@ -34,6 +34,8 @@ const PREMIUM_URLS = [
   "https://www.hellogorgeousmedspa.com/blog/we-arent-just-a-botox-clinic-hello-gorgeous-oswego-il",
   "https://www.hellogorgeousmedspa.com/blog/male-female-practitioners-med-spa-advantage-oswego-il",
   "https://www.hellogorgeousmedspa.com/gallery",
+  "https://www.hellogorgeousmedspa.com/botox-oswego",
+  "https://www.hellogorgeousmedspa.com/botox-naperville-il",
   "https://www.hellogorgeousmedspa.com/services/botox",
   "https://www.hellogorgeousmedspa.com/services/microneedling-rf",
   "https://www.hellogorgeousmedspa.com/services/weight-loss-therapy",

@@ -75,7 +75,7 @@ Ask whether neurotoxins and fillers come straight from **Allergan and Galderma**
 A reputable med spa **consults first** — confirming candidacy and setting expectations before anything permanent or prescription. Free consults protect your money and your face.
 
 ### 5. How is dosing and pricing handled?
-Transparent, per-unit pricing (first-time **[Botox is $10/unit](/botox-oswego-il)**) and a plan built around your goals — not a hard upsell.
+Transparent, per-unit pricing (first-time **[Botox is $10/unit](/botox-oswego)**) and a plan built around your goals — not a hard upsell.
 
 ### 6. What's your plan if something isn't right?
 Medical practices have protocols for follow-up and correction. Ask what happens at your two-week check.
@@ -85,7 +85,7 @@ Look for **Oswego and Fox Valley clients** describing real, repeat experiences �
 
 ## What Oswego clients come to us for
 
-- **[Botox, Dysport & Jeuveau](/botox-oswego-il)** — natural, never-frozen
+- **[Botox, Dysport & Jeuveau](/botox-oswego)** — natural, never-frozen
 - **[Dermal fillers](/dermal-fillers-oswego-il)** and **[lip filler](/lip-filler-oswego-il)**
 - **[Medical weight loss](/weight-loss-oswego-il)** with GLP-1 oversight
 - **[Morpheus8](/morpheus8-oswego-il)** & skin tightening

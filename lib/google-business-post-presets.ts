@@ -14,6 +14,47 @@ export type GbpPostPreset = {
 
 export const GBP_POST_PRESETS: GbpPostPreset[] = [
   {
+    id: "botox-10-unit",
+    label: "Botox $10/unit (Oswego)",
+    message: `💉 Botox in Oswego — $10/unit at Hello Gorgeous Med Spa
+
+Honest, published pricing — same price for everyone, no membership required.
+
+Ryan Kent, FNP-BC on site 7 days a week · 10+ years of injecting experience · same-day appointments often available.
+
+Botox · Dysport · Jeuveau. Free consultation, every time — we won't talk you into units you don't need.
+
+#1 Best Med Spa in Oswego. Serving Naperville, Aurora & Plainfield. Book below.`,
+    linkPath: "/botox-oswego?utm_source=google&utm_medium=gbp_post&utm_campaign=botox_10unit",
+    imagePath: "/images/homepage-services/botox-cosmetic-authentic-vial.png",
+  },
+  {
+    id: "botox-authentic",
+    label: "Botox — authentic product, real NP",
+    message: `🛡️ Real Botox. Real nurse practitioner. Real pricing.
+
+At Hello Gorgeous we use only authentic, FDA-approved product from licensed distributors — and Ryan Kent, FNP-BC oversees every protocol on site.
+
+No revolving door of providers. No mystery pricing. No upsell pressure. Just $10/unit Botox done right in downtown Oswego.
+
+Free consult — book below.`,
+    linkPath: "/botox-oswego?utm_source=google&utm_medium=gbp_post&utm_campaign=botox_authentic",
+    imagePath: "/images/homepage-services/botox-cosmetic-authentic-vial.png",
+  },
+  {
+    id: "botox-vs-dysport",
+    label: "Botox vs Dysport vs Jeuveau",
+    message: `🤔 Botox, Dysport, or Jeuveau — which is right for you?
+
+All three relax the muscles that cause expression lines. The difference is in onset, spread & feel — and we carry all three so we can match you to the best one.
+
+Botox $10/unit · Dysport $14/unit · Jeuveau $11/unit. Ryan Kent, FNP-BC, Oswego IL.
+
+Free consult to figure out your plan — book below.`,
+    linkPath: "/botox-oswego?utm_source=google&utm_medium=gbp_post&utm_campaign=botox_compare",
+    imagePath: "/images/homepage-services/botox-cosmetic-authentic-vial.png",
+  },
+  {
     id: "peptide-49-consult",
     label: "Peptide therapy — $49 consult (Oswego)",
     message: `🧬 Peptide therapy at Hello Gorgeous Med Spa — Oswego, IL
