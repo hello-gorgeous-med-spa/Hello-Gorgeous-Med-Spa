@@ -93,6 +93,28 @@ export function MeetDaniRyanSection() {
           />
         </div>
 
+        <FadeUp delayMs={110}>
+          <div className="mt-10 md:mt-12 rounded-3xl border-4 border-black bg-gradient-to-br from-[#FFF0F7] to-white p-6 md:p-8 text-center shadow-[8px_8px_0_0_rgba(230,0,126,0.35)]">
+            <p className="text-[#E6007E] font-bold uppercase tracking-wider text-xs mb-2">
+              A Founder&apos;s Letter
+            </p>
+            <h3 className="text-2xl md:text-3xl font-black text-black mb-3">My Jerry Maguire Moment</h3>
+            <p className="text-black/80 font-medium max-w-2xl mx-auto mb-5">
+              Almost 10 years in, Dani shares the truth about business ownership — the risk, the resilience,
+              the boundaries, and the next chapter of Hello Gorgeous.{" "}
+              <span className="italic text-[#E6007E]">
+                &ldquo;Still standing. Still learning. Still growing. Still gorgeous.&rdquo;
+              </span>
+            </p>
+            <Link
+              href="/blog/my-jerry-maguire-moment"
+              className="inline-flex items-center justify-center rounded-full border-4 border-black bg-[#E6007E] px-6 py-3 text-sm font-bold text-white shadow-[6px_6px_0_0_rgba(0,0,0,0.2)] hover:bg-[#FF2D8E] transition-colors"
+            >
+              Read the full letter →
+            </Link>
+          </div>
+        </FadeUp>
+
         <FadeUp delayMs={120}>
           <div className="mt-10 md:mt-12 text-center">
             <p className="text-black/75 font-medium max-w-2xl mx-auto mb-4">

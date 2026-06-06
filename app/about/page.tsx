@@ -110,6 +110,35 @@ export default function AboutPage() {
         </div>
       </Section>
 
+      <Section className="bg-white border-b-4 border-black">
+        <div className="max-w-3xl mx-auto">
+          <FadeUp>
+            <div className="rounded-3xl border-4 border-black bg-gradient-to-br from-[#FFF0F7] to-white p-8 md:p-10 shadow-[8px_8px_0_0_rgba(230,0,126,0.35)]">
+              <p className="text-[#E6007E] font-bold uppercase tracking-wider text-xs mb-3">
+                A Founder&apos;s Letter
+              </p>
+              <h2 className="text-2xl md:text-3xl font-black text-black mb-4">
+                My Jerry Maguire Moment
+              </h2>
+              <p className="text-black/85 font-medium leading-relaxed mb-6">
+                There comes a moment in business when you stop pretending everything is easy. After almost 10
+                years building Hello Gorgeous in Oswego, Danielle shares the truth about ownership — the risk,
+                the resilience, the boundaries, and the next chapter.{" "}
+                <span className="italic text-[#E6007E]">
+                  &ldquo;Still standing. Still learning. Still growing. Still gorgeous.&rdquo;
+                </span>
+              </p>
+              <Link
+                href="/blog/my-jerry-maguire-moment"
+                className="inline-flex items-center justify-center rounded-full border-4 border-black bg-white px-6 py-3 text-sm font-bold text-[#E6007E] shadow-[6px_6px_0_0_rgba(230,0,126,0.35)] hover:bg-[#FFF0F7] transition-colors"
+              >
+                Read the full letter →
+              </Link>
+            </div>
+          </FadeUp>
+        </div>
+      </Section>
+
       <Section id="ryan" className="scroll-mt-24 bg-white border-b-4 border-black">
         <div className="max-w-5xl mx-auto grid md:grid-cols-[280px_1fr] gap-10 items-start">
           <FadeUp>

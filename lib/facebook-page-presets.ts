@@ -212,6 +212,26 @@ Read the guide (Oswego, IL) 👇`,
   defaultChannels: ["facebook", "instagram", "google"],
 };
 
+export const FACEBOOK_PAGE_PRESET_FOUNDER_LETTER: FacebookPagePreset = {
+  id: "founder-letter",
+  label: "Founder's letter — My Jerry Maguire Moment",
+  blurb: "Personal, vulnerable founder story — high engagement.",
+  message: `💌 A letter from our founder.
+
+There comes a moment in business when you stop pretending everything is easy. After almost 10 years building Hello Gorgeous in Oswego, this is mine.
+
+A truth-telling moment about risk, resilience, boundaries — and the next chapter of Hello Gorgeous.
+
+"Still standing. Still learning. Still growing. Still gorgeous." 💕
+
+To every client who has trusted my hands and walked through my doors — thank you. Read the full letter 👇
+
+— Danielle`,
+  linkPath: withUtm("/blog/my-jerry-maguire-moment"),
+  imagePath: "/images/team/danielle.png",
+  defaultChannels: ["facebook", "instagram"],
+};
+
 export const FACEBOOK_PAGE_PRESET_BROW_PMU: FacebookPagePreset = {
   id: "brow-pmu",
   label: "Brow PMU — wake up with perfect brows",
@@ -461,6 +481,7 @@ export const FACEBOOK_PAGE_PRESETS: FacebookPagePreset[] = [
   FACEBOOK_PAGE_PRESET_QUANTUM,
   FACEBOOK_PAGE_PRESET_MORPHEUS8,
   FACEBOOK_PAGE_PRESET_IPL,
+  FACEBOOK_PAGE_PRESET_FOUNDER_LETTER,
   FACEBOOK_PAGE_PRESET_BROW_PMU,
   FACEBOOK_PAGE_PRESET_BROW_TECHNIQUES,
   FACEBOOK_PAGE_PRESET_AURORA,

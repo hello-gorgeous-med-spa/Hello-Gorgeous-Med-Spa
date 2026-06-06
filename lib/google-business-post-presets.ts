@@ -141,6 +141,19 @@ Free consultation — book below.`,
     imagePath: "/images/promo/quantum-rf-launch-flyer.png",
   },
   {
+    id: "founder-letter",
+    label: "Founder's letter — My Jerry Maguire Moment",
+    message: `💌 A letter from our founder.
+
+After almost 10 years building Hello Gorgeous in Oswego, Danielle is sharing the truth about business ownership — the risk, the resilience, the boundaries, and the next chapter.
+
+"Still standing. Still learning. Still growing. Still gorgeous."
+
+Read the full letter 👇 Thank you for being part of this story.`,
+    linkPath: "/blog/my-jerry-maguire-moment?utm_source=google&utm_medium=gbp_post&utm_campaign=founder_letter",
+    imagePath: "/images/team/danielle.png",
+  },
+  {
     id: "brow-pmu",
     label: "Brow PMU — permanent makeup (nano, powder, ombré, combo)",
     message: `✨ Permanent Makeup brows at Hello Gorgeous Med Spa — Oswego, IL

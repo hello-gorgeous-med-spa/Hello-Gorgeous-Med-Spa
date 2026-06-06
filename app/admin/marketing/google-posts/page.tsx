@@ -147,6 +147,15 @@ $49 peptide consultation · medication priced separately. Oswego, IL — serving
     ctaUrl: 'https://www.hellogorgeousmedspa.com/peptides',
   },
   {
+    id: 'founder-letter',
+    title: "Founder's Letter — My Jerry Maguire Moment",
+    type: 'Update',
+    headline: 'A Letter From Our Founder — My Jerry Maguire Moment',
+    description: 'After almost 10 years building Hello Gorgeous in Oswego, Danielle shares the truth about business ownership — the risk, the resilience, the boundaries, and the next chapter. "Still standing. Still learning. Still growing. Still gorgeous." Read the full letter.',
+    ctaText: 'Read the letter',
+    ctaUrl: 'https://www.hellogorgeousmedspa.com/blog/my-jerry-maguire-moment',
+  },
+  {
     id: 'our-story-blog',
     title: 'The Story Behind Hello Gorgeous',
     type: 'Update',
