@@ -4,6 +4,7 @@ import Link from "next/link";
 export function GeoInternalLinks() {
   const links = [
     { href: "/botox-oswego", label: "Botox in Oswego" },
+    { href: "/best-botox-oswego-il", label: "Best Botox in Oswego" },
     { href: "/med-spa-naperville-il", label: "Medical Spa near Naperville" },
     { href: "/weight-loss-oswego-il", label: "Weight Loss Injections in Kendall County" },
     { href: "/hormone-therapy-oswego-il", label: "Hormone Therapy in Oswego" },

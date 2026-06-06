@@ -22,6 +22,7 @@ export const dynamic = "force-dynamic";
 export const maxDuration = 60;
 
 const PRIORITY_SERVICE_URLS = [
+  "/best-botox-oswego-il",
   "/botox-oswego",
   "/botox-oswego-il",
   "/botox-naperville-il",
