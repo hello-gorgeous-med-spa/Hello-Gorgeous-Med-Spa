@@ -982,7 +982,7 @@ export const PHASE2_PAGES: ServicePageData[] = [
       "Finishing — moisturizer, sunscreen, and product recommendations tailored to your skin for at-home maintenance.",
       "Plan — for clients with specific concerns (acne, aging, melasma, sensitivity), we design a treatment series and at-home routine together."
     ],
-    pricing: "Classic European facials start from $89. HydraFacial starts from $189. Corrective and treatment-series facials are quoted individually based on your skin needs. Most clients benefit from monthly facials as part of an ongoing skincare routine. Series packages available.",
+    pricing: "Classic European facials start from $89. Our HydraFacial Glow-Up Special is just $99 — with dermaplaning included free. Corrective and treatment-series facials are quoted individually based on your skin needs. Most clients benefit from monthly facials as part of an ongoing skincare routine. Series packages available.",
     faqs: [
       {
         "q": "What kind of facial should I get?",
