@@ -14,6 +14,7 @@ import { salmonDnaSculptraIplPost } from "./blog-post-salmon-dna-sculptra-ipl-os
 import { quantumRfLaunchBlogPost } from "./blog-post-quantum-rf-launch";
 import { peptideBestFitGuidePost } from "./blog-post-peptide-best-fit-guide";
 import { founderLetterMorpheusSolariaPost } from "./blog-post-founder-letter-morpheus-solaria";
+import { jerryMaguireMomentPost } from "./blog-post-jerry-maguire-moment";
 import { hgIdentityBlogPost } from "./blog-post-hg-identity";
 import { maleFemalePractitionersPost } from "./blog-post-male-female-practitioners";
 import { neurotoxinComparisonPost } from "./blog-post-neurotoxin-comparison";
@@ -37,6 +38,7 @@ import type { BlogPost } from "./blog-types";
 export type { BlogPost } from "./blog-types";
 
 const coreBlogPosts: BlogPost[] = [
+  jerryMaguireMomentPost,
   bestMedSpaNearAuroraPost,
   bestMedSpaNearNapervillePost,
   bestMedSpaNearMontgomeryPost,
