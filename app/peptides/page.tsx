@@ -157,7 +157,10 @@ export default function PeptidesPage() {
             </p>
             <div className="mt-10 flex flex-col sm:flex-row sm:flex-wrap gap-4">
               <CTA href={BOOKING_URL} variant="gradient" className="text-lg px-8 py-4 shadow-xl shadow-[#FF2D8E]/20">
-                Book Peptide Consultation
+                {PEPTIDE_CONSULT_SPECIAL.price} {PEPTIDE_CONSULT_SPECIAL.label}
+              </CTA>
+              <CTA href="/peptide-therapy-oswego" variant="outline" className="text-lg px-8 py-4 border-[#E6007E] text-[#E6007E]">
+                Peptide therapy Oswego
               </CTA>
               <CTA href="/injection-menu" variant="outline" className="text-lg px-8 py-4 border-[#E6007E] text-[#E6007E]">
                 Injection Menu

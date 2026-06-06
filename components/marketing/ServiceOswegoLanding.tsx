@@ -111,7 +111,11 @@ export function ServiceOswegoLanding({
                 Call {SITE.phone}
               </CTA>
             </div>
-            <p className="mt-6 text-sm text-white/60">Free consultation · {SITE.address.streetAddress}, Oswego</p>
+            <p className="mt-6 text-sm text-white/60">
+              {page.slug.includes("peptide-therapy")
+                ? `$49 consult · ${SITE.address.streetAddress}, Oswego`
+                : `Free consultation · ${SITE.address.streetAddress}, Oswego`}
+            </p>
           </div>
         </section>
 
@@ -213,8 +217,44 @@ export function ServiceOswegoLanding({
           </Section>
         )}
 
+        {page.slug.includes("peptide-therapy") && (
+          <Section className="bg-gradient-to-b from-[#FFF0F7] to-white border-y-4 border-black">
+            <FadeUp>
+              <h2 className="text-2xl font-black text-[#E6007E]">Explore our full peptide program</h2>
+              <p className="mt-3 max-w-2xl text-black/80 font-medium">
+                We are Oswego&apos;s most complete peptide clinic — education hub, injection menu, patient handouts, and
+                Ryan Kent, FNP-BC on every protocol.
+              </p>
+              <div className="mt-6 flex flex-wrap gap-3">
+                <Link
+                  href="/peptides"
+                  className="px-5 py-2.5 rounded-full border-2 border-black bg-white font-bold text-sm hover:border-[#E6007E] hover:text-[#E6007E] transition-colors"
+                >
+                  Peptide education hub
+                </Link>
+                <Link
+                  href="/injection-menu"
+                  className="px-5 py-2.5 rounded-full border-2 border-black bg-white font-bold text-sm hover:border-[#E6007E] hover:text-[#E6007E] transition-colors"
+                >
+                  Injection menu
+                </Link>
+                <Link
+                  href="/blog/top-peptides-bpc157-sermorelin-ghk-cu-pt141-nad-49-consult-oswego-il"
+                  className="px-5 py-2.5 rounded-full border-2 border-black bg-white font-bold text-sm hover:border-[#E6007E] hover:text-[#E6007E] transition-colors"
+                >
+                  Top peptides guide
+                </Link>
+              </div>
+            </FadeUp>
+          </Section>
+        )}
+
         <section className="py-16 bg-gradient-to-r from-pink-500 to-rose-500 text-white text-center px-6">
-          <h2 className="text-2xl md:text-3xl font-bold mb-4">Book your free consultation in Oswego</h2>
+          <h2 className="text-2xl md:text-3xl font-bold mb-4">
+            {page.slug.includes("peptide-therapy")
+              ? "Book your $49 peptide consultation"
+              : "Book your free consultation in Oswego"}
+          </h2>
           <p className="text-pink-100 mb-8 max-w-xl mx-auto">
             {page.closingCta ??
               `Questions about ${page.serviceName.toLowerCase()}? Call ${SITE.phone} or book online — we\u2019re here to help.`}

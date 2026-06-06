@@ -14,6 +14,7 @@ import {
   OurPromiseSection,
 } from "@/components/homepage-v3";
 import { TheBookBadge } from "@/components/the-book";
+import { PeptideTherapyHomeSection } from "@/components/peptides/PeptideTherapyHomeSection";
 import { HomepagePromoRail } from "@/components/HomepagePromoRail";
 import { MeetDaniRyanSection } from "@/components/marketing/MeetDaniRyanSection";
 import { Morpheus8SkinRebuildSection } from "@/components/Morpheus8SkinRebuildSection";
@@ -186,6 +187,7 @@ export default function HomePage() {
         <TrifectaSection />
         <PartnerBadges />
         <ServicesSection />
+        <PeptideTherapyHomeSection />
         <FaceBlueprintSection />
         <ProductsCatalogHomeSection />
         <HomepageProfessionalGrid />

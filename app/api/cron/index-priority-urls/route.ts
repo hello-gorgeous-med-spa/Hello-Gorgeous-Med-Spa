@@ -22,6 +22,12 @@ export const dynamic = "force-dynamic";
 export const maxDuration = 60;
 
 const PRIORITY_SERVICE_URLS = [
+  "/peptides",
+  "/peptide-therapy-oswego",
+  "/peptides/bpc-157",
+  "/peptides/sermorelin",
+  "/peptides/ghk-cu-injectable",
+  "/injection-menu",
   ...SERVICE_PAGE_OSWEGO_SLUGS.map((slug) => `/${slug}`),
   "/services/morpheus8",
   "/services/quantum-rf",

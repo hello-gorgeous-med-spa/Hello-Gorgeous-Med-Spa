@@ -7,6 +7,7 @@ import { CONCERN_PAGES } from '@/lib/concern-pages';
 import { FUNNEL_DEFINITIONS } from '@/lib/funnels';
 import { AREA_PAGES, FAQ_CLUSTER_PAGES, RECOVERY_PAGES } from '@/lib/topical-expansion';
 import { SERVICE_PAGE_OSWEGO_SLUGS } from '@/lib/service-pages-oswego';
+import { getPublishedPeptideTopics, PEPTIDES_HUB_PATH } from '@/lib/peptides-hub';
 
 // ============================================================
 // SITEMAP - Auto-generates for Google indexing
@@ -549,6 +550,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     'brow-mapping-shapes-techniques-nano-powder-combo-ombre-oswego-il',
     'nano-brows-vs-powder-brows-vs-hand-stroke-microblading-oswego-il',
     'which-peptide-is-right-for-you-oswego-il',
+    'top-peptides-bpc157-sermorelin-ghk-cu-pt141-nad-49-consult-oswego-il',
+    'peptide-therapy-regenerative-medicine-hello-gorgeous-rx-oswego-il',
     'founder-letter-morpheus8-solaria-oswego-il',
     'what-makes-hello-gorgeous-different-oswego-il',
     'salmon-dna-sculptra-ipl-oswego-il-med-spa-guide',
@@ -626,8 +629,24 @@ export default function sitemap(): MetadataRoute.Sitemap {
     url: `${baseUrl}/${slug}`,
     lastModified: currentDate,
     changeFrequency: 'weekly' as const,
-    priority: 0.8,
+    priority: slug.startsWith('peptide-therapy') ? 0.95 : 0.8,
   }));
+
+  const TOPIC_PEPTIDE_SLUGS = new Set(['bpc-157', 'sermorelin', 'ghk-cu-injectable', 'pt-141', 'nad-plus']);
+  const peptideHubPages: MetadataRoute.Sitemap = [
+    {
+      url: `${baseUrl}${PEPTIDES_HUB_PATH}`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly' as const,
+      priority: 0.94,
+    },
+    ...getPublishedPeptideTopics().map((topic) => ({
+      url: `${baseUrl}${PEPTIDES_HUB_PATH}/${topic.slug}`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly' as const,
+      priority: TOPIC_PEPTIDE_SLUGS.has(topic.slug) ? 0.9 : 0.85,
+    })),
+  ];
 
   // City hub pages (/{city}-il) + their service sub-pages (/{city}-il/{service}) and the
   // /locations index — these are dedicated app routes, previously only reachable via footer.
@@ -712,6 +731,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...laserHairRemovalPages,
     ...laserHairMembershipPages,
     ...springBreakPages,
+    ...peptideHubPages,
     ...canonicalDestinations,
   ];
 

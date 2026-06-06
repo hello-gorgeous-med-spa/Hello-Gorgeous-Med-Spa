@@ -146,7 +146,7 @@ export const PHASE1_UNCONTESTED_PAGES: ServicePageData[] = [
     targetKeyword: "peptide therapy oswego",
     metaTitle: "Peptide Therapy in Oswego, IL",
     metaDescription:
-      "Medical peptide therapy in Oswego, IL — NP-supervised protocols for recovery, performance, skin, sleep, and longevity. Free consultations available.",
+      "Medical peptide therapy in Oswego, IL — BPC-157, Sermorelin, GHK-Cu, NAD+, PT-141 & more. $49 NP consult. Ryan Kent, FNP-BC on site. Naperville, Aurora, Plainfield.",
     h1: "Peptide Therapy in Oswego, IL",
     valueProp:
       "Targeted peptide protocols supervised by a full-authority nurse practitioner — for recovery, performance, skin, sleep, and longevity.",
@@ -167,14 +167,14 @@ export const PHASE1_UNCONTESTED_PAGES: ServicePageData[] = [
       "Peptides are short chains of amino acids that act as signaling molecules in the body — telling specific cells to do specific things. Different peptides have different effects: some support immune function, some accelerate tissue repair, some improve sleep architecture, some encourage growth hormone release, some support skin and collagen. Most are self-administered as small subcutaneous injections (similar to insulin pens), typically several times per week, on a cycle determined by your protocol. Because peptide therapy is medically nuanced — dosing, cycling, and combinations matter — it should always be done under the supervision of a qualified provider who can adjust based on how your body responds.",
     ],
     whatToExpectSteps: [
-      "Free consultation with our medical team. We discuss your goals, your medical history, current medications, and whether peptide therapy is appropriate for you.",
+      "$49 peptide consultation with our medical team. We discuss your goals, medical history, current medications, and whether peptide therapy is appropriate for you.",
       "Labs and screening if indicated — we may recommend baseline blood work to inform protocol design and monitor safety.",
       "Protocol design: Ryan reviews your case and prescribes a specific peptide or combination, with dose, frequency, and cycle clearly outlined.",
       "Education: we teach you exactly how to self-administer, store your peptides correctly, and recognize anything that needs to be flagged.",
       "Ongoing support: follow-up appointments to assess response, adjust dosing, and refresh your protocol as needed. Peptide therapy is iterative — we stay involved.",
     ],
     pricing:
-      "Peptide therapy pricing varies significantly by the specific peptide(s) prescribed, dose, and duration. Most monthly protocols start from $250–$600 per month depending on what's prescribed and the supply length. Initial consultation and protocol design is included. We give you complete transparent pricing at your consultation before any commitment.",
+      "Consultation is $49; peptide medications are priced separately based on your personalized protocol. Most monthly plans start around $250–$600 depending on peptide and supply length. We give you complete transparent pricing before any commitment.",
     faqs: [
       {
         q: "What conditions or goals can peptide therapy support?",
@@ -201,9 +201,9 @@ export const PHASE1_UNCONTESTED_PAGES: ServicePageData[] = [
         a: "Both are technically peptides, but GLP-1 agonists (semaglutide, tirzepatide) are a specific category prescribed for weight management. When we talk about 'peptide therapy' more broadly, we usually mean other peptides used for recovery, performance, skin, sleep, and longevity. We offer both — they're prescribed and tracked separately.",
       },
     ],
-    relatedServices: ["glp-1-weight-loss-oswego", "biote-hormone-therapy-oswego", "nad-iv-oswego"],
+    relatedServices: ["glp-1-weight-loss-oswego", "biote-hormone-therapy-oswego", "nad-iv-oswego", "peptide-therapy-naperville-il"],
     closingCta:
-      "Curious if peptide therapy is right for you? Book a free, no-obligation consultation with our medical team. We'll listen, ask the right questions, and tell you honestly whether peptides fit your goals — or if something else would serve you better.",
+      "Curious if peptide therapy is right for you? Book your $49 peptide consultation. We'll listen, ask the right questions, and tell you honestly whether peptides fit your goals — or if something else would serve you better.",
   },
   {
     slug: "nad-iv-oswego",

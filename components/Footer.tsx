@@ -205,6 +205,16 @@ export function Footer({
                 </Link>
               </li>
               <li>
+                <Link className="text-[#FF2D8E] hover:text-[#FF2D8E] font-medium transition-colors" href="/peptide-therapy-oswego">
+                  🧬 Peptide Therapy (Oswego)
+                </Link>
+              </li>
+              <li>
+                <Link className="text-[#FF2D8E] hover:text-[#FF2D8E] font-medium transition-colors" href="/peptides">
+                  Peptide education hub
+                </Link>
+              </li>
+              <li>
                 <Link className="text-[#FF2D8E] hover:text-[#FF2D8E] font-medium transition-colors" href="/injection-menu">
                   💉 Injection Menu
                 </Link>

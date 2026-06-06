@@ -1,13 +1,15 @@
 import { PHASE1_UNCONTESTED_PAGES } from "./phase1-uncontested";
 import { PHASE2_PAGES } from "./phase2-pages";
+import { PEPTIDE_CITY_PAGES } from "./peptide-city-pages";
 import type { ServicePageData } from "./types";
 
 export type { ServicePageData, ServicePageFaq } from "./types";
 
-/** Full 23-page Oswego service catalog: Phase 2 (19) + Phase 1 uncontested (4). */
+/** Oswego service catalog + peptide satellite city pages. */
 export const SERVICE_PAGES_OSwego: ServicePageData[] = [
   ...PHASE2_PAGES,
   ...PHASE1_UNCONTESTED_PAGES,
+  ...PEPTIDE_CITY_PAGES,
 ];
 
 export const SERVICE_PAGE_OSWEGO_SLUGS = SERVICE_PAGES_OSwego.map((p) => p.slug);

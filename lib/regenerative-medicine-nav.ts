@@ -78,6 +78,22 @@ export const REGENERATIVE_NAV: {
       heading: "Cellular Wellness & NAD+",
       links: [
         {
+          label: "Peptide Therapy — Oswego",
+          href: "/peptide-therapy-oswego",
+          sub: "BPC-157, Sermorelin, GHK-Cu, PT-141 & more · $49 consult",
+          badge: "Rx",
+        },
+        {
+          label: "Peptide Education Hub",
+          href: "/peptides",
+          sub: "14 topics, handouts & Peppi AI expert",
+        },
+        {
+          label: "Injection Menu",
+          href: "/injection-menu",
+          sub: "In-spa peptide & vitamin shot menu",
+        },
+        {
           label: "NAD+ Injections",
           href: "/services/nad-plus-injections-oswego-il",
           sub: "$40 per visit · quick wellness injection · Oswego",
