@@ -167,3 +167,4 @@ public/images/*/incoming/
 
 # Local review-send launchd log
 .review-send.log
+.tmp-brow-journey-build/
