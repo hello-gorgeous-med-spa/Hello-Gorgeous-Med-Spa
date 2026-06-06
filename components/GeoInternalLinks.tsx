@@ -8,6 +8,7 @@ export function GeoInternalLinks() {
     { href: "/med-spa-naperville-il", label: "Medical Spa near Naperville" },
     { href: "/weight-loss-oswego-il", label: "Weight Loss Injections in Kendall County" },
     { href: "/tirzepatide-program", label: "10-Week Tirzepatide Program" },
+    { href: "/body-contouring-oswego-il", label: "Body Contouring in Oswego" },
     { href: "/hormone-therapy-oswego-il", label: "Hormone Therapy in Oswego" },
     { href: "/prf-hair-restoration-oswego-il", label: "PRF Hair Restoration" },
   ];

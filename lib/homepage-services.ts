@@ -67,20 +67,20 @@ export const homepageServicesRow1: HomepageServiceCard[] = [
       "InMode Solaria CO₂ fractional laser workstation for skin resurfacing at Hello Gorgeous Med Spa Oswego IL",
     badge: "NEW",
   },
-];
-
-export const homepageServicesRow2: HomepageServiceCard[] = [
   {
-    title: "IV Therapy",
+    title: "IV Therapy & Injections",
     description:
-      "Hydration, NAD+, Myers Cocktail, immunity-support blends, and custom IV drips for energy, recovery, and glow — administered by licensed providers in Oswego.",
+      "Hydration, NAD+, Myers Cocktail, immunity blends, B12 and lipotropic shots — energy, recovery, and glow administered by licensed providers in Oswego.",
     link: "/services/iv-therapy",
-    items: ["Myers Cocktail", "NAD+ Drips", "Immunity IV", "Hydration"],
+    items: ["Myers Cocktail", "NAD+ Drips", "Immunity IV", "B12 & Lipo-C"],
     image: "/images/homepage-services/iv-therapy-immunity-infusion.png",
     imageAlt:
       "IV immunity infusion therapy — vitamin C, B-complex, zinc — Hello Gorgeous Med Spa Oswego IL",
     imageContain: true,
   },
+];
+
+export const homepageServicesRow2: HomepageServiceCard[] = [
   {
     title: "Rx Prescription Care",
     description:

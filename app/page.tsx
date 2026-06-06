@@ -179,8 +179,9 @@ export default function HomePage() {
       <main className="bg-white">
         <HomepagePromoRail />
         <HeroV3 />
-        <MeetDaniRyanSection />
         <TrustStrip />
+        <HomepageTestimonials />
+        <MeetDaniRyanSection />
         <OurPromiseSection />
         <Morpheus8SkinRebuildSection />
         <Morpheus8VerifiedProviderSection />
@@ -191,7 +192,6 @@ export default function HomePage() {
         <FaceBlueprintSection />
         <ProductsCatalogHomeSection />
         <HomepageProfessionalGrid />
-        <HomepageTestimonials />
         <HomepageCherryFaqRow />
         <HomepageClosingCTARow />
         <TheBookBadge />

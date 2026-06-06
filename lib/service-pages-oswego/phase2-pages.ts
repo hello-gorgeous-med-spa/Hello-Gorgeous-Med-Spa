@@ -84,6 +84,22 @@ export const PHASE2_PAGES: ServicePageData[] = [
       {
         "q": "Will my Botox look natural, or frozen?",
         "a": "Natural. Our philosophy is conservative dosing for a refreshed look — you should still be able to express emotion. Frozen results come from over-treatment; we'd rather under-treat and bring you back for a complimentary touch-up than overdo it. Great Botox should look like you, just more rested."
+      },
+      {
+        "q": "How many units of Botox do I need?",
+        "a": "It depends on your muscle strength and the areas you want treated. As a general guide: forehead lines run about 10–20 units, the 11s (between the brows) about 20–25 units, and crow's feet about 8–12 units per side; a lip flip is around 4 units. Most clients treating the upper face use 20–40 units total. Men often need more because of stronger muscles. We assess your face in motion at your free consultation, recommend an exact number, and you approve before we inject — you only pay for the units we use."
+      },
+      {
+        "q": "Who is Botox best for?",
+        "a": "Botox is best for softening dynamic lines — the wrinkles that appear when you move, like forehead lines, the 11s between your brows, and crow's feet. It's also used preventatively by younger clients to keep those lines from etching in, and for a lip flip, brow lift, jaw slimming, and underarm sweating. It is not a filler — it won't replace lost volume or fix deep static lines at rest on its own. At your free consultation we'll tell you honestly whether Botox, filler, skincare, or a combination is the right tool for your goal."
+      },
+      {
+        "q": "Why can cheap Botox be risky?",
+        "a": "Suspiciously cheap Botox is usually a sign of one of three things: counterfeit or gray-market product, over-dilution (so you get fewer real units than you think), or an inexperienced injector working without proper medical oversight. Counterfeit neurotoxin has caused serious adverse events, including hospitalizations. At Hello Gorgeous our $10/unit price is honest and published — we use only authentic, FDA-approved product from licensed US distributors, injected by licensed medical professionals under Ryan Kent, FNP-BC. Affordable should never mean cutting corners on safety."
+      },
+      {
+        "q": "What makes Hello Gorgeous different from a chain med spa?",
+        "a": "We're a family-owned, NP-directed practice that's been in downtown Oswego for 10+ years — not a franchise or a pop-up Botox room. You see the same experienced hands each visit instead of a revolving door of injectors, with Ryan Kent, FNP-BC, on site 7 days a week (not a remote medical director in another state). You get authentic product, honest published pricing with no membership required, conservative natural dosing, a free consultation every time, and a complimentary day-14 follow-up. Add advanced InMode technology and almost 2,000 verified reviews, and you get a level of care chains simply can't replicate."
       }
     ],
     relatedServices: [

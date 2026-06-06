@@ -142,6 +142,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
     },
     {
+      url: `${baseUrl}/body-contouring-oswego-il`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.9,
+    },
+    {
       url: `${baseUrl}/nurse-practitioner-med-spa-oswego`,
       lastModified: currentDate,
       changeFrequency: 'monthly',

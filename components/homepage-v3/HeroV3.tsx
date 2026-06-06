@@ -63,11 +63,11 @@ export function HeroV3() {
                 </span>
               </h1>
               <p className="mt-4 text-sm md:text-base text-[#FFB8DC] font-semibold leading-relaxed max-w-md">
-                {HG_TAGLINE}
+                Oswego&apos;s NP-directed medical aesthetics destination.
               </p>
-              <p className="mt-2 text-sm text-white/75 leading-relaxed max-w-sm">
-                Advanced injectables, skin treatments &amp; wellness — delivered with precision by
-                licensed medical providers.
+              <p className="mt-2 text-sm text-white/75 leading-relaxed max-w-md">
+                Botox, Morpheus8 Burst, QuantumRF, Solaria CO₂, weight loss, hormones &amp; IV therapy —
+                delivered by licensed medical providers. {HG_TAGLINE}
               </p>
 
               <div className="mt-5 inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 px-4 py-2 backdrop-blur">

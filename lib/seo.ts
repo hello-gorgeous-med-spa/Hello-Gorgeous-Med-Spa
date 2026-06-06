@@ -52,10 +52,15 @@ export const SITE = {
   googleBusinessUrl: "https://maps.google.com/maps?cid=1210375382593310340",
   /** Direct one-click link to leave a Google review (placeId-based). */
   googleReviewUrl: "https://search.google.com/local/writereview?placeid=ChIJt2xHqd_vDogRhA5aZP8dzBA",
-  /** Operating hours — synced from GBP on 2026-05-01 (Mon–Fri 10–8, Sat 10–5, Sun closed). */
+  /**
+   * Operating hours — open 7 days a week (updated 2026-06-06).
+   * Mon–Fri 10–8, Sat 10–5, Sun by appointment (listed 10–5 as the appointment window).
+   * Keep these in sync with Google Business Profile, Fresha, and all directory listings.
+   */
   openingHours: [
     { dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], opens: "10:00", closes: "20:00" },
     { dayOfWeek: ["Saturday"], opens: "10:00", closes: "17:00" },
+    { dayOfWeek: ["Sunday"], opens: "10:00", closes: "17:00" },
   ] as const,
   priceRange: "$$$" as const,
   /** Static fallback for AggregateRating — synced from live Google Places API
