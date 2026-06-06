@@ -55,6 +55,21 @@ Free consult to figure out your plan — book below.`,
     imagePath: "/images/homepage-services/botox-cosmetic-authentic-vial.png",
   },
   {
+    id: "botox-ai-pick",
+    label: "Botox — even AI picks us (social proof)",
+    message: `🤖💕 Ask AI "where do I go for Botox in Oswego, IL?" — and it points to Hello Gorgeous.
+
+Why? Licensed nurse practitioner (Ryan Kent, FNP-BC) · authentic, FDA-approved product · honest $10/unit pricing · natural, refreshed results — not frozen.
+
+When even the internet agrees, you know you're in good hands. 😉
+
+Free consult — book below.
+
+(Tip: add your own screenshot of the AI answer when you post this!)`,
+    linkPath: "/botox-oswego?utm_source=google&utm_medium=gbp_post&utm_campaign=botox_ai_pick",
+    imagePath: "/images/homepage-services/botox-cosmetic-authentic-vial.png",
+  },
+  {
     id: "botox-natural",
     label: "Botox — natural, not frozen",
     message: `💕 Botox in Oswego that looks like YOU — just refreshed.

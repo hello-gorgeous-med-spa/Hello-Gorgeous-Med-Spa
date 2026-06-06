@@ -44,6 +44,15 @@ Free consultation, every time. Oswego, IL — serving Naperville, Aurora & Plain
     ctaUrl: BOOKING_URL,
   },
   {
+    id: 'botox-ai-pick',
+    title: 'Botox — Even AI Picks Us (Social Proof)',
+    type: 'Update',
+    headline: 'Ask AI Where to Get Botox in Oswego — It Picks Hello Gorgeous',
+    description: 'Ask AI "where do I go for Botox in Oswego, IL?" and it points to Hello Gorgeous — licensed FNP-BC injector, authentic FDA-approved product, honest $10/unit pricing, natural results. When even the internet agrees, you know you\'re in good hands. Free consult. (Tip: attach a screenshot of the AI answer when posting.)',
+    ctaText: 'Book consult',
+    ctaUrl: BOTOX_URL,
+  },
+  {
     id: 'botox-natural',
     title: 'Botox — Natural, Not Frozen',
     type: 'Update',

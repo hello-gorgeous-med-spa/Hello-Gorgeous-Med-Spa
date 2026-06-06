@@ -408,6 +408,24 @@ No mystery pricing. No upsell. Book below 👇`,
   defaultChannels: ["facebook", "instagram", "google"],
 };
 
+export const FACEBOOK_PAGE_PRESET_BOTOX_AI: FacebookPagePreset = {
+  id: "botox-ai-pick",
+  label: "Botox — even AI picks us (social proof)",
+  blurb: "Screenshot-style social proof — swap in your AI answer.",
+  message: `🤖💕 We asked AI "where do I go for Botox in Oswego, IL?" — and it picked Hello Gorgeous.
+
+Why? Licensed nurse practitioner (Ryan Kent, FNP-BC) · authentic, FDA-approved product · honest $10/unit pricing · natural, refreshed results — not frozen.
+
+When even the internet agrees, you know you're in good hands. 😉
+
+Free consult — book below 👇
+
+📸 Posting tip: attach a screenshot of the AI's answer for extra credibility.`,
+  linkPath: withUtm("/botox-oswego"),
+  imagePath: "/images/homepage-services/botox-cosmetic-authentic-vial.png",
+  defaultChannels: ["facebook", "instagram", "google"],
+};
+
 export const FACEBOOK_PAGE_PRESET_BOTOX_NATURAL: FacebookPagePreset = {
   id: "botox-natural",
   label: "Botox — natural, not frozen",
@@ -426,6 +444,7 @@ Book below 👇`,
 
 export const FACEBOOK_PAGE_PRESETS: FacebookPagePreset[] = [
   FACEBOOK_PAGE_PRESET_BOTOX_49,
+  FACEBOOK_PAGE_PRESET_BOTOX_AI,
   FACEBOOK_PAGE_PRESET_BOTOX_NATURAL,
   FACEBOOK_PAGE_PRESET_BOTOX_AUTHENTIC,
   FACEBOOK_PAGE_PRESET_BOTOX_COMPARE,
