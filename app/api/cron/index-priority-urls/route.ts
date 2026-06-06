@@ -43,7 +43,6 @@ const PRIORITY_SERVICE_URLS = [
   "/glp1-weight-loss",
   "/tirzepatide-program",
   "/body-contouring-oswego-il",
-  "/hydrafacial-oswego-il",
   "/our-promise",
   "/microblading-brow-pmu-oswego-il",
   "/education/your-brow-journey",

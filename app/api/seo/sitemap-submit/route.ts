@@ -37,7 +37,6 @@ const PREMIUM_URLS = [
   "https://www.hellogorgeousmedspa.com/best-botox-oswego-il",
   "https://www.hellogorgeousmedspa.com/tirzepatide-program",
   "https://www.hellogorgeousmedspa.com/body-contouring-oswego-il",
-  "https://www.hellogorgeousmedspa.com/hydrafacial-oswego-il",
   "https://www.hellogorgeousmedspa.com/botox-oswego",
   "https://www.hellogorgeousmedspa.com/botox-naperville-il",
   "https://www.hellogorgeousmedspa.com/services/botox",

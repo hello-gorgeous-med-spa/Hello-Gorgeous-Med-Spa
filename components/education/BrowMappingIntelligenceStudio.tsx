@@ -71,7 +71,6 @@ export function BrowMappingIntelligenceStudio() {
     setPlan(buildBrowMappingPlan(g, intake));
   }, [canvas, intake]);
 
-  // Live-update plan when options or mapping change
   useEffect(() => {
     if (canvas.geometry) refreshPlan();
   }, [canvas.geometry, intake, refreshPlan]);

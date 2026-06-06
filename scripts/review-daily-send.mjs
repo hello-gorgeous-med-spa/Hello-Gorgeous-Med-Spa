@@ -73,8 +73,10 @@ async function main() {
     for (const c of d || []) if (c.email) askedEmails.add(c.email.trim().toLowerCase());
   }
 
+  // Real customers from EITHER system (Square or Fresha) or with visit history.
+  // Excludes pure web leads (no purchase/booking) to avoid asking non-clients.
   const cands = await getAll(
-    "clients?select=id,first_name,email&email=not.is.null&first_name=not.is.null&consent_email=is.true&or=(square_customer_id.not.is.null,source.eq.square)&order=created_at.asc"
+    "clients?select=id,first_name,email&email=not.is.null&first_name=not.is.null&consent_email=is.true&or=(square_customer_id.not.is.null,source.eq.square,fresha_client_id.not.is.null,source.eq.fresha,last_visit_date.not.is.null)&order=created_at.asc"
   );
   const seen = new Set();
   const queue = cands.filter((c) => {
