@@ -72,6 +72,16 @@ export function GLP1WeightLossLanding() {
             <p className="mt-4 text-xs text-black/45 max-w-md mx-auto lg:mx-0">
               HIPAA-compliant screening first; eligible patients schedule on Fresha after submission.
             </p>
+            <p className="mt-3 text-sm text-black/70 max-w-md mx-auto lg:mx-0">
+              Prefer a set plan?{" "}
+              <Link
+                href="/tirzepatide-program"
+                className="text-[#E6007E] font-semibold underline decoration-[#E6007E]/40 underline-offset-4 hover:no-underline"
+              >
+                See our 10-week tirzepatide program — $600
+              </Link>
+              .
+            </p>
           </div>
           <div className="flex justify-center lg:justify-end gap-6 order-1 lg:order-2" aria-hidden>
             <Image

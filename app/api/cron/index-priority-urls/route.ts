@@ -41,6 +41,7 @@ const PRIORITY_SERVICE_URLS = [
   "/services/quantum-rf",
   "/services/solaria-co2",
   "/glp1-weight-loss",
+  "/tirzepatide-program",
   "/our-promise",
   "/microblading-brow-pmu-oswego-il",
   "/education/your-brow-journey",
