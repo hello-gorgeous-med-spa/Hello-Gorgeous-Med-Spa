@@ -11,6 +11,7 @@ import { useRouter } from "next/navigation";
 import {
   FACEBOOK_PAGE_PRESETS,
   SUGGESTED_WEEK_PRESET_IDS,
+  SUGGESTED_PEPTIDE_WEEK_PRESET_IDS,
   getFacebookPagePresetById,
   presetToDraft,
   type FacebookPagePreset,
@@ -43,58 +44,67 @@ export default function SocialContentAgentPage() {
     [origin, router],
   );
 
-  const queueSuggestedWeek = useCallback(async () => {
-    setQueueBusy(true);
-    setQueueLog([]);
-    const log: string[] = [];
-    const start = new Date(`${startDate}T${postTime}:00`);
-    if (Number.isNaN(start.getTime())) {
-      setQueueLog(["Invalid start date/time."]);
-      setQueueBusy(false);
-      return;
-    }
-    const minAhead = new Date(Date.now() + 60_000);
-    if (start.getTime() < minAhead.getTime()) {
-      setQueueLog(["Choose a start date and time at least 1–2 minutes from now (server checks scheduled posts)."]);
-      setQueueBusy(false);
-      return;
-    }
-    let dayOffset = 0;
-    for (const id of SUGGESTED_WEEK_PRESET_IDS) {
-      const preset = getFacebookPagePresetById(id);
-      if (!preset) continue;
-      const when = new Date(start);
-      when.setDate(when.getDate() + dayOffset);
-      const draft = presetToDraft(preset, origin);
-      const body = {
-        message: draft.message,
-        link: draft.link || undefined,
-        imageUrl: draft.imageUrl || undefined,
-        channels: draft.channels,
-        scheduledAt: when.toISOString(),
-      };
-      try {
-        const res = await fetch("/api/social/post", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(body),
-        });
-        const data = (await res.json()) as { scheduled?: boolean; error?: string; id?: string };
-        if (data.scheduled && data.id) {
-          log.push(
-            `✓ ${preset.label} → ${when.toLocaleString()} (scheduled)`,
-          );
-        } else {
-          log.push(`✗ ${preset.label}: ${data.error || res.statusText}`);
-        }
-      } catch (e) {
-        log.push(`✗ ${preset.label}: ${e instanceof Error ? e.message : String(e)}`);
+  const queueWeek = useCallback(
+    async (presetIds: string[], label: string) => {
+      setQueueBusy(true);
+      setQueueLog([]);
+      const log: string[] = [`— ${label} —`];
+      const start = new Date(`${startDate}T${postTime}:00`);
+      if (Number.isNaN(start.getTime())) {
+        setQueueLog(["Invalid start date/time."]);
+        setQueueBusy(false);
+        return;
       }
-      dayOffset += 1;
-    }
-    setQueueLog(log);
-    setQueueBusy(false);
-  }, [origin, startDate, postTime]);
+      const minAhead = new Date(Date.now() + 60_000);
+      if (start.getTime() < minAhead.getTime()) {
+        setQueueLog(["Choose a start date and time at least 1–2 minutes from now (server checks scheduled posts)."]);
+        setQueueBusy(false);
+        return;
+      }
+      let dayOffset = 0;
+      for (const id of presetIds) {
+        const preset = getFacebookPagePresetById(id);
+        if (!preset) continue;
+        const when = new Date(start);
+        when.setDate(when.getDate() + dayOffset);
+        const draft = presetToDraft(preset, origin);
+        const body = {
+          message: draft.message,
+          link: draft.link || undefined,
+          imageUrl: draft.imageUrl || undefined,
+          channels: draft.channels,
+          scheduledAt: when.toISOString(),
+        };
+        try {
+          const res = await fetch("/api/social/post", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(body),
+          });
+          const data = (await res.json()) as { scheduled?: boolean; error?: string; id?: string };
+          if (data.scheduled && data.id) {
+            log.push(`✓ ${preset.label} → ${when.toLocaleString()} (scheduled)`);
+          } else {
+            log.push(`✗ ${preset.label}: ${data.error || res.statusText}`);
+          }
+        } catch (e) {
+          log.push(`✗ ${preset.label}: ${e instanceof Error ? e.message : String(e)}`);
+        }
+        dayOffset += 1;
+      }
+      setQueueLog(log);
+      setQueueBusy(false);
+    },
+    [origin, startDate, postTime],
+  );
+
+  const queueSuggestedWeek = useCallback(async () => {
+    await queueWeek(SUGGESTED_WEEK_PRESET_IDS, "Default week (peptide-forward)");
+  }, [queueWeek]);
+
+  const queuePeptideWeek = useCallback(async () => {
+    await queueWeek(SUGGESTED_PEPTIDE_WEEK_PRESET_IDS, "Peptide blitz week");
+  }, [queueWeek]);
 
   return (
     <div className="min-h-[calc(100vh-56px)] bg-gray-50">
@@ -145,6 +155,14 @@ export default function SocialContentAgentPage() {
               className="px-5 py-2.5 rounded-lg bg-[#E6007E] text-white font-semibold hover:bg-[#c9006e] disabled:opacity-50"
             >
               {queueBusy ? "Scheduling…" : "Schedule 7-day sequence"}
+            </button>
+            <button
+              type="button"
+              disabled={queueBusy}
+              onClick={() => void queuePeptideWeek()}
+              className="px-5 py-2.5 rounded-lg border-2 border-[#E6007E] text-[#E6007E] font-semibold hover:bg-[#FFF0F7] disabled:opacity-50"
+            >
+              {queueBusy ? "Scheduling…" : "Peptide blitz (7 days)"}
             </button>
           </div>
           {queueLog.length > 0 && (

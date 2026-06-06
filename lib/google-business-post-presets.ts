@@ -14,6 +14,47 @@ export type GbpPostPreset = {
 
 export const GBP_POST_PRESETS: GbpPostPreset[] = [
   {
+    id: "peptide-49-consult",
+    label: "Peptide therapy — $49 consult (Oswego)",
+    message: `🧬 Peptide therapy at Hello Gorgeous Med Spa — Oswego, IL
+
+BPC-157 · Sermorelin · GHK-Cu · Tesamorelin · PT-141 · NAD+ · glutathione & more.
+
+Prescribed & supervised by Ryan Kent, FNP-BC — licensed US pharmacies only. Not internet research peptides.
+
+$49 peptide consultation · medication priced separately after your plan.
+
+Serving Naperville, Aurora, Plainfield & Kendall County. Book below.`,
+    linkPath: "/peptide-therapy-oswego?utm_source=google&utm_medium=gbp_post&utm_campaign=peptide_49",
+    imagePath: "/images/homepage-services/peptide-therapy-active-lifestyle.png",
+  },
+  {
+    id: "injection-menu",
+    label: "Injection Menu — peptides & vitamin shots",
+    message: `💉 The Hello Gorgeous Injection Menu
+
+Peptide therapies & vitamin wellness shots — tailored to you.
+
+PT-141 · BPC-157 · Sermorelin · NAD+ · B12 · biotin · MIC & more.
+
+Ryan Kent, FNP-BC guides every protocol. See the menu & book your consult.`,
+    linkPath: "/injection-menu?utm_source=google&utm_medium=gbp_post&utm_campaign=injection_menu",
+    imagePath: "/images/promo/injection-menu-poster.png",
+  },
+  {
+    id: "peptide-bpc157",
+    label: "BPC-157 — recovery peptide",
+    message: `🩹 BPC-157 at Hello Gorgeous — Oswego, IL
+
+Supports recovery, gut health & tissue repair. One of our most-requested peptides.
+
+Medical evaluation + pharmacy-sourced Rx · Ryan Kent, FNP-BC.
+
+$49 peptide consult — book below.`,
+    linkPath: "/peptides/bpc-157?utm_source=google&utm_medium=gbp_post&utm_campaign=bpc157",
+    imagePath: "/images/homepage-services/peptide-therapy-active-lifestyle.png",
+  },
+  {
     id: "quantum-rf-launch",
     label: "Quantum RF launch — neck & abdomen packages",
     message: `⚡ NEW — InMode Quantum RF body contouring at Hello Gorgeous Med Spa, Oswego IL

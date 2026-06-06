@@ -98,7 +98,7 @@ export const FACEBOOK_PAGE_PRESET_WEIGHT: FacebookPagePreset = {
   blurb: "GLP-1 & provider-guided programs.",
   message: `Medical weight loss with real clinical oversight — not a fad app. Hello Gorgeous partners with you on GLP-1 and sustainable habits.
 
-Book a consult: we’ll tell you honestly if you’re a candidate.`,
+Book a consult: we'll tell you honestly if you're a candidate.`,
   linkPath: withUtm("/services/weight-loss-therapy"),
   imagePath: "/images/homepage-services/compounded-tirzepatide-weight-loss.png",
   defaultChannels: ["facebook", "instagram"],
@@ -115,6 +115,100 @@ Botox $10/unit (first-time) · Lip filler $450 · Morpheus8 Burst 3×$1,999 · S
 NP on site 7 days a week. Book on Fresha 👇`,
   linkPath: withUtm("/specials"),
   imagePath: "/images/promo/signature-treatment-menu-poster.png",
+  defaultChannels: ["facebook", "instagram", "google"],
+};
+
+export const FACEBOOK_PAGE_PRESET_PEPTIDE_49: FacebookPagePreset = {
+  id: "peptide-49-consult",
+  label: "Peptide therapy — $49 consult",
+  blurb: "Oswego's full peptide menu · Ryan Kent FNP-BC.",
+  message: `🧬 Peptide therapy is BOOMING — and Hello Gorgeous has it ALL.
+
+BPC-157 · Sermorelin · GHK-Cu · Tesamorelin · PT-141 · NAD+ · glutathione · GLP-1 when appropriate.
+
+Not internet vials. Prescribed & supervised by Ryan Kent, FNP-BC — pharmacy-sourced, medical-grade.
+
+$49 peptide consultation (medication priced separately). Oswego · Naperville · Aurora · Plainfield.
+
+Book below 👇`,
+  linkPath: withUtm("/peptide-therapy-oswego"),
+  imagePath: "/images/homepage-services/peptide-therapy-active-lifestyle.png",
+  defaultChannels: ["facebook", "instagram", "google"],
+};
+
+export const FACEBOOK_PAGE_PRESET_INJECTION_MENU: FacebookPagePreset = {
+  id: "peptide-injection-menu",
+  label: "Injection Menu — peptides & vitamin shots",
+  blurb: "In-spa menu poster + PDF download.",
+  message: `💉 The Hello Gorgeous Injection Menu is live.
+
+Signature peptide therapies + vitamin wellness shots — PT-141, BPC-157, Sermorelin, NAD+, B12, biotin, MIC & more.
+
+Choose what feels right — your provider guides you. Ryan Kent, FNP-BC on every Rx protocol.
+
+See the full menu & book your $49 consult 👇`,
+  linkPath: withUtm("/injection-menu"),
+  imagePath: "/images/promo/injection-menu-poster.png",
+  defaultChannels: ["facebook", "instagram", "google"],
+};
+
+export const FACEBOOK_PAGE_PRESET_PEPTIDE_BPC157: FacebookPagePreset = {
+  id: "peptide-bpc157",
+  label: "BPC-157 — recovery & gut support",
+  blurb: "Most-requested healing peptide.",
+  message: `🩹 BPC-157 at Hello Gorgeous — for recovery, gut health & tissue repair.
+
+Clients ask for it after workouts, injuries, or when they want support healing from the inside out. Prescribed by Ryan Kent, FNP-BC — not sold over the counter.
+
+Learn how it works + book your $49 peptide consult (Oswego, IL).`,
+  linkPath: withUtm("/peptides/bpc-157"),
+  imagePath: "/images/homepage-services/peptide-therapy-active-lifestyle.png",
+  defaultChannels: ["facebook", "instagram", "google"],
+};
+
+export const FACEBOOK_PAGE_PRESET_PEPTIDE_SERMORELIN: FacebookPagePreset = {
+  id: "peptide-sermorelin",
+  label: "Sermorelin — sleep, recovery, lean tone",
+  blurb: "Natural GH support peptide.",
+  message: `⚡ Sermorelin — supports your body's own growth hormone for better sleep, recovery & lean tone.
+
+One of our most popular wellness peptides. Medical evaluation + pharmacy-sourced Rx only at Hello Gorgeous.
+
+Ryan Kent, FNP-BC · downtown Oswego · serving the western suburbs.
+
+$49 peptide consult — link below 👇`,
+  linkPath: withUtm("/peptides/sermorelin"),
+  imagePath: "/images/nad-plus/peptide-science-hero.png",
+  defaultChannels: ["facebook", "instagram", "google"],
+};
+
+export const FACEBOOK_PAGE_PRESET_PEPTIDE_NAPERVILLE: FacebookPagePreset = {
+  id: "peptide-naperville",
+  label: "Peptide therapy near Naperville",
+  blurb: "Geo post — full peptide clinic ~15 min away.",
+  message: `📍 Naperville — peptide therapy is closer than you think.
+
+Hello Gorgeous in downtown Oswego (~15 min) offers one of the most complete peptide menus in the western suburbs: BPC-157, Sermorelin, GHK-Cu, PT-141, NAD+ & more.
+
+Ryan Kent, FNP-BC prescribes every protocol. $49 consult. Book below 👇`,
+  linkPath: withUtm("/peptide-therapy-naperville-il"),
+  imagePath: "/images/promo/injection-menu-poster.png",
+  defaultChannels: ["facebook", "instagram", "google"],
+};
+
+export const FACEBOOK_PAGE_PRESET_PEPTIDE_BLOG: FacebookPagePreset = {
+  id: "peptide-top6-blog",
+  label: "Top 6 peptides guide (blog)",
+  blurb: "Education post — BPC-157, Sermorelin, NAD+…",
+  message: `Which peptide is right for YOU? 🤔
+
+We broke down the 6 most-requested peptides at Hello Gorgeous — what each one does, who it's for, and how our $49 consult works.
+
+BPC-157 · Sermorelin · GHK-Cu · Tesamorelin · PT-141 · NAD+
+
+Read the guide (Oswego, IL) 👇`,
+  linkPath: withUtm("/blog/top-peptides-bpc157-sermorelin-ghk-cu-pt141-nad-49-consult-oswego-il"),
+  imagePath: "/images/homepage-services/peptide-therapy-active-lifestyle.png",
   defaultChannels: ["facebook", "instagram", "google"],
 };
 
@@ -251,6 +345,12 @@ Read why this matters for YOUR safety — and how to spot a provider who cuts co
 };
 
 export const FACEBOOK_PAGE_PRESETS: FacebookPagePreset[] = [
+  FACEBOOK_PAGE_PRESET_PEPTIDE_49,
+  FACEBOOK_PAGE_PRESET_INJECTION_MENU,
+  FACEBOOK_PAGE_PRESET_PEPTIDE_BPC157,
+  FACEBOOK_PAGE_PRESET_PEPTIDE_SERMORELIN,
+  FACEBOOK_PAGE_PRESET_PEPTIDE_NAPERVILLE,
+  FACEBOOK_PAGE_PRESET_PEPTIDE_BLOG,
   FACEBOOK_PAGE_PRESET_SIGNATURE_MENU,
   FACEBOOK_PAGE_PRESET_OUR_PROMISE,
   FACEBOOK_PAGE_PRESET_SOLARIA,
@@ -269,17 +369,26 @@ export const FACEBOOK_PAGE_PRESETS: FacebookPagePreset[] = [
   FACEBOOK_PAGE_PRESET_WEIGHT,
 ];
 
-/** Recommended Mon→Sun order when you “queue a week” (rotate start day as you like).
- *  Brow PMU is included so the new permanent-makeup service self-promotes weekly
- *  (also pushed to Google Business Profile via the preset's defaultChannels). */
+/** Default Mon→Sun queue — peptide-forward for local dominance. */
 export const SUGGESTED_WEEK_PRESET_IDS: string[] = [
-  "solaria-899",
-  "brow-pmu",
-  "morpheus8-burst",
-  "ipl-photofacial",
+  "peptide-49-consult",
+  "peptide-injection-menu",
+  "peptide-bpc157",
+  "peptide-sermorelin",
+  "peptide-naperville",
   "book-consult",
-  "weight-loss",
-  "our-promise",
+  "peptide-top6-blog",
+];
+
+/** All-peptide 7-day blitz (optional). */
+export const SUGGESTED_PEPTIDE_WEEK_PRESET_IDS: string[] = [
+  "peptide-49-consult",
+  "peptide-injection-menu",
+  "peptide-bpc157",
+  "peptide-sermorelin",
+  "peptide-naperville",
+  "peptide-top6-blog",
+  "book-consult",
 ];
 
 export function getFacebookPagePresetById(id: string): FacebookPagePreset | undefined {

@@ -24,7 +24,68 @@ type Campaign = {
   ctaUrl: string;
 };
 
+const INJECTION_MENU_URL = 'https://www.hellogorgeousmedspa.com/injection-menu';
+const PEPTIDE_BLOG_URL = 'https://www.hellogorgeousmedspa.com/blog/top-peptides-bpc157-sermorelin-ghk-cu-pt141-nad-49-consult-oswego-il';
+
 const CAMPAIGNS: Campaign[] = [
+  {
+    id: 'peptide-49-consult',
+    title: 'Peptide Therapy — $49 Consult (Oswego)',
+    type: 'Offer',
+    headline: 'Peptide Therapy in Oswego — $49 Consult · We Have It All',
+    description: `🧬 BPC-157 · Sermorelin · GHK-Cu · Tesamorelin · PT-141 · NAD+ · glutathione & more.
+
+Prescribed & supervised by Ryan Kent, FNP-BC — licensed US pharmacies only. Not internet research peptides.
+
+$49 peptide consultation · medication priced separately. Oswego, IL — serving Naperville, Aurora & Plainfield.`,
+    ctaText: 'Book consult',
+    ctaUrl: BOOKING_URL,
+  },
+  {
+    id: 'injection-menu',
+    title: 'Injection Menu — Peptides & Vitamin Shots',
+    type: 'Update',
+    headline: 'New Injection Menu — Peptides & Wellness Shots',
+    description: 'See our full in-spa injection menu: signature peptide therapies + vitamin wellness shots. PT-141, BPC-157, Sermorelin, NAD+, B12, biotin, MIC & more. Ryan Kent, FNP-BC on every Rx protocol. Download the menu & book your $49 consult.',
+    ctaText: 'View menu',
+    ctaUrl: INJECTION_MENU_URL,
+  },
+  {
+    id: 'peptide-bpc157',
+    title: 'BPC-157 — Recovery Peptide',
+    type: 'Update',
+    headline: 'BPC-157 — Recovery, Gut Health & Tissue Repair',
+    description: 'One of our most-requested peptides for recovery & healing. Medical evaluation required. Prescribed by Ryan Kent, FNP-BC at Hello Gorgeous Oswego. $49 peptide consult — serving Naperville, Aurora & Plainfield.',
+    ctaText: 'Learn more',
+    ctaUrl: 'https://www.hellogorgeousmedspa.com/peptides/bpc-157',
+  },
+  {
+    id: 'peptide-naperville',
+    title: 'Peptide Therapy Near Naperville',
+    type: 'Update',
+    headline: 'Peptide Therapy Near Naperville — ~15 Min to Oswego',
+    description: 'Full peptide menu at Hello Gorgeous: BPC-157, Sermorelin, GHK-Cu, PT-141, NAD+ & more. Ryan Kent, FNP-BC prescribes every protocol. $49 consult. Downtown Oswego at 74 W Washington St.',
+    ctaText: 'Book consult',
+    ctaUrl: 'https://www.hellogorgeousmedspa.com/peptide-therapy-naperville-il',
+  },
+  {
+    id: 'peptide-top6-blog',
+    title: 'Top 6 Peptides Guide (Blog)',
+    type: 'Update',
+    headline: 'Which Peptide Is Right for You? — Top 6 at Hello Gorgeous',
+    description: 'BPC-157, Sermorelin, GHK-Cu, Tesamorelin, PT-141 & NAD+ — what each does and how our $49 consult works. Read the guide from Hello Gorgeous Med Spa Oswego.',
+    ctaText: 'Read guide',
+    ctaUrl: PEPTIDE_BLOG_URL,
+  },
+  {
+    id: 'peptide-hub',
+    title: 'Peptide Education Hub',
+    type: 'Update',
+    headline: 'Peptide Education Hub — 14 Topics + Handouts',
+    description: 'Learn before you commit: our Peptides & Wellness hub covers BPC-157, semaglutide, sermorelin, NAD+ & more. Patient handouts, provider-guided care, Ryan Kent FNP-BC. Oswego · Naperville · Aurora.',
+    ctaText: 'Explore hub',
+    ctaUrl: 'https://www.hellogorgeousmedspa.com/peptides',
+  },
   {
     id: 'our-story-blog',
     title: 'The Story Behind Hello Gorgeous',
@@ -204,7 +265,7 @@ function CopyButton({ text, label }: { text: string; label: string }) {
 }
 
 export default function GooglePostsPage() {
-  const [expandedId, setExpandedId] = useState<string | null>(CAMPAIGNS[0].id);
+  const [expandedId, setExpandedId] = useState<string | null>('peptide-49-consult');
 
   return (
     <div className="min-h-[calc(100vh-56px)] bg-white">
