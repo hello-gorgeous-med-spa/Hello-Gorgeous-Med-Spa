@@ -23,15 +23,22 @@ import {
   ClientAppIntakeCard,
   ClientAppIntakeForm,
 } from "@/components/client-app/ClientAppIntakeForm";
+import {
+  TRIFECTA_GLASS,
+  TRIFECTA_GRADIENT_TITLE,
+  trifectaAccent,
+  trifectaButtonGradient,
+} from "@/lib/trifecta-tokens";
 
-// ─── Design tokens ────────────────────────────────────────────────────────────
-const PINK    = "#E6007E";
-const PURPLE  = "#7B4FFF";
-const BLUE    = "#4F9FFF";
-const ORANGE  = "#F5A623";
-const BG      = "#000000";
-const CARD    = "#111111";
-const CARD2   = "#1a1a1a";
+const BG = "#000000";
+
+function glassStyle(accentIndex: number) {
+  const accent = trifectaAccent(accentIndex);
+  return {
+    backgroundColor: TRIFECTA_GLASS.bg,
+    border: `1px solid ${accent.border}`,
+  } as const;
+}
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -167,20 +174,39 @@ export function ClientApp({ initialTab = "home" }: { initialTab?: ClientAppTab }
   const showPushBanner = homeData?.authenticated && permission === "default" && !subscribed;
 
   return (
-    <div className="min-h-screen pb-24 text-white" style={{ background: BG }}>
+    <div className="relative min-h-screen pb-24 text-white" style={{ background: BG }}>
+      <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
+        <div className="absolute left-1/4 top-0 h-72 w-72 rounded-full blur-[100px]" style={{ backgroundColor: "rgba(236, 72, 153, 0.1)" }} />
+        <div className="absolute bottom-1/4 right-1/4 h-72 w-72 rounded-full blur-[100px]" style={{ backgroundColor: "rgba(59, 130, 246, 0.08)" }} />
+        <div className="absolute left-1/2 top-1/2 h-96 w-96 -translate-x-1/2 rounded-full blur-[120px]" style={{ backgroundColor: "rgba(245, 158, 11, 0.05)" }} />
+      </div>
 
       {/* Header */}
-      <header className="sticky top-0 z-30" style={{ background: BG, borderBottom: "1px solid rgba(255,255,255,0.08)" }}>
+      <header className="sticky top-0 z-30 backdrop-blur-md" style={{ background: "rgba(0,0,0,0.85)", borderBottom: "1px solid rgba(255,255,255,0.08)" }}>
         <div className="mx-auto max-w-xl px-5 pt-5 pb-4">
-          <p className="text-[10px] uppercase tracking-[0.28em]" style={{ color: PINK }}>Oswego, IL</p>
-          <h1 className="mt-1 font-serif text-2xl font-light text-white">{CLIENT_APP.name}</h1>
+          <div
+            className="mb-3 inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-[10px] font-semibold uppercase tracking-wider backdrop-blur-sm"
+            style={{ backgroundColor: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)", color: "#f472b6" }}
+          >
+            <span className="relative flex h-1.5 w-1.5">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full opacity-75" style={{ backgroundColor: "#ec4899" }} />
+              <span className="relative inline-flex h-1.5 w-1.5 rounded-full" style={{ backgroundColor: "#ec4899" }} />
+            </span>
+            Oswego, IL
+          </div>
+          <h1 className="font-serif text-2xl font-light text-white">
+            Hello Gorgeous{" "}
+            <span className="bg-clip-text font-semibold text-transparent" style={{ backgroundImage: TRIFECTA_GRADIENT_TITLE }}>
+              App
+            </span>
+          </h1>
           <p className="text-sm" style={{ color: "rgba(255,255,255,0.45)" }}>{CLIENT_APP.tagline}</p>
           {canInstall && (
             <button
               type="button"
               onClick={() => void promptInstall()}
-              className="mt-3 inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-white"
-              style={{ background: PINK }}
+              className="mt-3 inline-flex items-center gap-2 rounded-xl px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-white transition hover:brightness-110"
+              style={{ background: trifectaButtonGradient(trifectaAccent(0)) }}
             >
               ⤓ Add to home screen
             </button>
@@ -189,14 +215,16 @@ export function ClientApp({ initialTab = "home" }: { initialTab?: ClientAppTab }
 
         {/* Push opt-in banner */}
         {showPushBanner && (
-          <div className="px-5 py-3 flex items-center justify-between gap-3"
-            style={{ background: "linear-gradient(90deg, #E6007E22, #7B4FFF22)", borderTop: "1px solid rgba(230,0,126,0.2)" }}>
-            <p className="text-xs text-white/70 leading-snug">Get notified about deals & appointment reminders</p>
+          <div
+            className="flex items-center justify-between gap-3 px-5 py-3"
+            style={{ background: "linear-gradient(90deg, rgba(236,72,153,0.12), rgba(59,130,246,0.12))", borderTop: "1px solid rgba(236, 72, 153, 0.2)" }}
+          >
+            <p className="text-xs leading-snug text-white/70">Get notified about deals & appointment reminders</p>
             <button
               type="button"
               onClick={() => void subscribe()}
-              className="shrink-0 rounded-full px-3 py-1.5 text-xs font-bold text-white"
-              style={{ background: PINK }}
+              className="shrink-0 rounded-xl px-3 py-1.5 text-xs font-bold text-white"
+              style={{ background: trifectaButtonGradient(trifectaAccent(1)) }}
             >
               Turn on
             </button>
@@ -219,20 +247,27 @@ export function ClientApp({ initialTab = "home" }: { initialTab?: ClientAppTab }
       </main>
 
       {/* Bottom nav */}
-      <nav className="fixed bottom-0 left-0 right-0 z-30" style={{ background: "#0a0a0a", borderTop: "1px solid rgba(255,255,255,0.08)" }}>
+      <nav className="fixed bottom-0 left-0 right-0 z-30 backdrop-blur-md" style={{ background: "rgba(10,10,10,0.92)", borderTop: "1px solid rgba(255,255,255,0.08)" }}>
         <div className="mx-auto grid max-w-xl grid-cols-5">
-          {CLIENT_APP_TABS.map(({ id, label, icon }) => (
-            <button
-              key={id}
-              type="button"
-              onClick={() => setTab(id)}
-              className="flex flex-col items-center gap-0.5 py-2.5 text-[10px] font-semibold transition-colors"
-              style={{ color: tab === id ? PINK : "rgba(255,255,255,0.35)" }}
-            >
-              <span className="text-base leading-none">{icon}</span>
-              <span className="truncate max-w-[4.5rem]">{label}</span>
-            </button>
-          ))}
+          {CLIENT_APP_TABS.map(({ id, label, icon }, index) => {
+            const accent = trifectaAccent(index % 3);
+            const active = tab === id;
+            return (
+              <button
+                key={id}
+                type="button"
+                onClick={() => setTab(id)}
+                className="flex flex-col items-center gap-0.5 py-2.5 text-[10px] font-semibold transition-colors"
+                style={{
+                  color: active ? accent.subtitle : "rgba(255,255,255,0.35)",
+                  borderTop: active ? `2px solid ${accent.bullet}` : "2px solid transparent",
+                }}
+              >
+                <span className="text-base leading-none">{icon}</span>
+                <span className="max-w-[4.5rem] truncate">{label}</span>
+              </button>
+            );
+          })}
         </div>
       </nav>
 
@@ -261,13 +296,11 @@ function HomeTab({ onNavigate, onOpenIntake, intakeRefresh, homeData }: {
       <ClientAppIntakeCard onOpen={onOpenIntake} refreshKey={intakeRefresh} />
 
       {/* Hero card */}
-      <div className="rounded-2xl p-5 overflow-hidden relative"
-        style={{ background: "linear-gradient(135deg, #1a0a12 0%, #0d0020 60%, #000 100%)", border: "1px solid rgba(230,0,126,0.25)" }}>
-        {/* Glow orbs */}
-        <div className="absolute -top-8 -right-8 w-40 h-40 rounded-full opacity-20 blur-3xl pointer-events-none" style={{ background: PINK }} />
-        <div className="absolute -bottom-8 -left-8 w-32 h-32 rounded-full opacity-15 blur-3xl pointer-events-none" style={{ background: PURPLE }} />
+      <div className="relative overflow-hidden rounded-2xl p-5 backdrop-blur-sm" style={glassStyle(0)}>
+        <div className="pointer-events-none absolute -right-8 -top-8 h-40 w-40 rounded-full opacity-20 blur-3xl" style={{ background: trifectaAccent(0).bullet }} />
+        <div className="pointer-events-none absolute -bottom-8 -left-8 h-32 w-32 rounded-full opacity-15 blur-3xl" style={{ background: trifectaAccent(1).bullet }} />
 
-        <p className="relative text-[10px] uppercase tracking-widest font-bold" style={{ color: PINK }}>
+        <p className="relative text-[10px] font-bold uppercase tracking-widest" style={{ color: trifectaAccent(0).subtitle }}>
           {auth && firstName ? `Welcome back, ${firstName}` : "Welcome back"}
         </p>
 
@@ -295,8 +328,8 @@ function HomeTab({ onNavigate, onOpenIntake, intakeRefresh, homeData }: {
         )}
 
         <a href={BOOKING_URL} target="_blank" rel="noopener noreferrer"
-          className="relative mt-4 block rounded-xl py-3.5 text-center text-sm font-bold text-white"
-          style={{ background: `linear-gradient(90deg, ${PINK}, #c90070)` }}>
+          className="relative mt-4 block rounded-xl py-3.5 text-center text-sm font-bold text-white transition hover:brightness-110"
+          style={{ background: trifectaButtonGradient(trifectaAccent(0)) }}>
           {next ? "Book another appointment" : "Book an appointment"}
         </a>
       </div>
@@ -304,45 +337,41 @@ function HomeTab({ onNavigate, onOpenIntake, intakeRefresh, homeData }: {
       {/* Rewards pill */}
       {auth && points > 0 && (
         <Link href="/portal/rewards"
-          className="flex items-center justify-between rounded-xl px-4 py-3"
-          style={{ background: "rgba(230,0,126,0.1)", border: "1px solid rgba(230,0,126,0.25)" }}>
+          className="flex items-center justify-between rounded-xl px-4 py-3 backdrop-blur-sm"
+          style={glassStyle(0)}>
           <div className="flex items-center gap-2">
             <span className="text-lg">🎁</span>
-            <span className="text-sm font-semibold" style={{ color: PINK }}>{points} reward points</span>
+            <span className="text-sm font-semibold" style={{ color: trifectaAccent(0).subtitle }}>{points} reward points</span>
           </div>
-          <span className="text-xs" style={{ color: PINK }}>View →</span>
+          <span className="text-xs" style={{ color: trifectaAccent(0).subtitle }}>View →</span>
         </Link>
       )}
 
       {/* Sign-in prompt */}
       {!auth && homeData !== null && (
         <Link href="/portal/login?redirect=/app"
-          className="flex items-center justify-between rounded-xl px-4 py-3"
-          style={{ background: CARD, border: "1px solid rgba(255,255,255,0.08)" }}>
+          className="flex items-center justify-between rounded-xl px-4 py-3 backdrop-blur-sm"
+          style={glassStyle(1)}>
           <div className="flex items-center gap-2">
             <span className="text-lg">👤</span>
             <span className="text-sm font-medium text-white/70">Sign in to see your appointments & rewards</span>
           </div>
-          <span className="text-xs" style={{ color: PINK }}>→</span>
+          <span className="text-xs" style={{ color: trifectaAccent(1).subtitle }}>→</span>
         </Link>
       )}
 
       {/* Quick actions grid */}
       <div className="grid grid-cols-2 gap-3">
         {CLIENT_APP_QUICK_ACTIONS.map((a, i) => {
-          const accentColors = [PINK, PURPLE, BLUE, ORANGE, PINK];
-          const accent = accentColors[i % accentColors.length];
+          const accent = trifectaAccent(i % 3);
           const inner = (
             <>
               <span className="text-2xl">{a.icon}</span>
-              <span className="mt-2 block font-bold text-sm text-white">{a.label}</span>
+              <span className="mt-2 block text-sm font-bold text-white">{a.label}</span>
               <span className="mt-0.5 block text-[11px]" style={{ color: "rgba(255,255,255,0.45)" }}>{a.blurb}</span>
             </>
           );
-          const cardStyle = {
-            background: CARD,
-            border: `1px solid ${accent}33`,
-          };
+          const cardStyle = glassStyle(i % 3);
 
           if ("tab" in a && a.tab) {
             return (
@@ -377,12 +406,12 @@ function HomeTab({ onNavigate, onOpenIntake, intakeRefresh, homeData }: {
           Our services
         </h2>
         <div className="space-y-2">
-          {CLIENT_APP_SERVICES.map((s) => (
+          {CLIENT_APP_SERVICES.map((s, i) => (
             <Link key={s.href} href={s.href}
-              className="flex items-center justify-between rounded-xl px-4 py-3 text-sm font-medium text-white transition"
-              style={{ background: CARD, border: "1px solid rgba(255,255,255,0.07)" }}>
+              className="flex items-center justify-between rounded-xl px-4 py-3 text-sm font-medium text-white transition backdrop-blur-sm"
+              style={glassStyle(i % 3)}>
               {s.label}
-              <span style={{ color: PINK }}>→</span>
+              <span style={{ color: trifectaAccent(i % 3).subtitle }}>→</span>
             </Link>
           ))}
         </div>
@@ -402,33 +431,33 @@ function VitaminTab({ onSelect, onOpenIntake, intakeRefresh }: {
   return (
     <div className="py-5">
       <ClientAppIntakeCard onOpen={onOpenIntake} refreshKey={intakeRefresh} />
-      <p className="mb-4 mt-5 text-xs font-bold uppercase tracking-widest" style={{ color: PINK }}>
+      <p className="mb-4 mt-5 text-xs font-bold uppercase tracking-widest" style={{ color: trifectaAccent(0).subtitle }}>
         The Vitamin Bar · drive-thru wellness
       </p>
-      <div className="rounded-2xl p-4" style={{ background: CARD, border: `1px solid ${PINK}33` }}>
-        <p className="text-sm font-bold" style={{ color: PINK }}>{VITAMIN_BAR.driveThru.headline}</p>
+      <div className="rounded-2xl p-4 backdrop-blur-sm" style={glassStyle(0)}>
+        <p className="text-sm font-bold" style={{ color: trifectaAccent(0).subtitle }}>{VITAMIN_BAR.driveThru.headline}</p>
         <p className="mt-1 text-sm" style={{ color: "rgba(255,255,255,0.6)" }}>{VITAMIN_BAR.driveThru.blurb}</p>
       </div>
       {groups.map((g) => (
         <section key={g.category} className="mt-7">
           <h2 className="mb-3 text-[10px] font-bold uppercase tracking-widest" style={{ color: "rgba(255,255,255,0.3)" }}>{g.label}</h2>
           <div className="space-y-3">
-            {g.shots.map((shot) => (
+            {g.shots.map((shot, shotIndex) => (
               <button key={shot.id} type="button" onClick={() => onSelect(shot)}
-                className="flex w-full items-center gap-3 rounded-2xl p-4 text-left transition active:scale-[0.99]"
-                style={{ background: CARD, border: "1px solid rgba(255,255,255,0.07)" }}>
+                className="flex w-full items-center gap-3 rounded-2xl p-4 text-left backdrop-blur-sm transition active:scale-[0.99]"
+                style={glassStyle(shotIndex % 3)}>
                 <div className="min-w-0 flex-1">
                   <div className="flex items-center gap-2">
                     <span className="truncate font-semibold text-white">{shot.name}</span>
                     {shot.favorite && (
                       <span className="shrink-0 rounded-full px-2 py-0.5 text-[9px] font-bold uppercase"
-                        style={{ background: `${PINK}22`, color: PINK }}>Popular</span>
+                        style={{ background: `${trifectaAccent(0).bullet}22`, color: trifectaAccent(0).subtitle }}>Popular</span>
                     )}
                   </div>
                   <p className="mt-0.5 text-sm" style={{ color: "rgba(255,255,255,0.5)" }}>{shot.benefit}</p>
                 </div>
                 <div className="shrink-0 text-right">
-                  <div className="font-bold" style={{ color: PINK }}>{priceLabel(shot.price)}</div>
+                  <div className="font-bold" style={{ color: trifectaAccent(shotIndex % 3).subtitle }}>{priceLabel(shot.price)}</div>
                   {shot.memberPrice != null && (
                     <div className="text-[10px]" style={{ color: "rgba(255,255,255,0.3)" }}>
                       {priceLabel(shot.memberPrice)} member
@@ -467,21 +496,21 @@ function ShotSheet({ shot, onClose }: { shot: VitaminShot; onClose: () => void }
 
   return (
     <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/70" onClick={onClose}>
-      <div className="w-full max-w-xl rounded-t-3xl p-6 pb-8" style={{ background: "#181818" }} onClick={(e) => e.stopPropagation()}>
+      <div className="w-full max-w-xl rounded-t-3xl p-6 pb-8 backdrop-blur-md" style={{ background: TRIFECTA_GLASS.panel, borderTop: `1px solid ${trifectaAccent(0).border}` }} onClick={(e) => e.stopPropagation()}>
         <div className="mx-auto mb-4 h-1.5 w-12 rounded-full" style={{ background: "rgba(255,255,255,0.15)" }} />
         <h3 className="text-lg font-bold text-white">{shot.name}</h3>
         <p className="mt-1 text-sm" style={{ color: "rgba(255,255,255,0.55)" }}>{shot.benefit}</p>
-        <div className="mt-3 text-2xl font-black" style={{ color: PINK }}>{priceLabel(shot.price)}</div>
+        <div className="mt-3 text-2xl font-black" style={{ color: trifectaAccent(0).subtitle }}>{priceLabel(shot.price)}</div>
         <div className="mt-5 space-y-2.5">
           <button type="button" onClick={() => void prepay()} disabled={payBusy}
             className="block w-full rounded-xl py-3.5 font-bold text-white disabled:opacity-60"
-            style={{ background: `linear-gradient(90deg, ${PINK}, #c90070)` }}>
+            style={{ background: trifectaButtonGradient(trifectaAccent(0)) }}>
             {payBusy ? "Starting checkout…" : `Pre-pay ${priceLabel(shot.price)} & reserve`}
           </button>
           {payErr && <p className="text-center text-xs text-red-400">{payErr}</p>}
           <a href={freshaUrl} target="_blank" rel="noopener noreferrer"
             className="block rounded-xl py-3.5 text-center font-bold"
-            style={{ border: `2px solid ${PINK}`, color: PINK }}>
+            style={{ border: `1px solid ${trifectaAccent(1).border}`, color: trifectaAccent(1).subtitle }}>
             Schedule a drive-thru time
           </a>
         </div>
@@ -513,7 +542,7 @@ function MembershipTab({ memberships }: { memberships: VitaminMembership[] }) {
     finally { setBusyId(null); }
   }
 
-  const accentColors = [PINK, PURPLE, BLUE, ORANGE];
+  const accentColors = [trifectaAccent(0), trifectaAccent(1), trifectaAccent(2), trifectaAccent(0)];
 
   return (
     <div className="py-5">
@@ -526,17 +555,19 @@ function MembershipTab({ memberships }: { memberships: VitaminMembership[] }) {
         {memberships.map((m, i) => {
           const accent = accentColors[i % accentColors.length];
           return (
-            <div key={m.id} className="rounded-2xl p-5"
-              style={{ background: CARD, border: `2px solid ${m.highlight ? accent : "rgba(255,255,255,0.07)"}`,
-                boxShadow: m.highlight ? `0 4px 24px ${accent}33` : "none" }}>
+            <div key={m.id} className="rounded-2xl p-5 backdrop-blur-sm"
+              style={{
+                ...glassStyle(i % 3),
+                boxShadow: m.highlight ? `0 4px 24px ${accent.bullet}33` : "none",
+              }}>
               {m.highlight && (
                 <span className="mb-2 inline-block rounded-full px-3 py-0.5 text-[10px] font-bold uppercase text-white"
-                  style={{ background: accent }}>Most popular</span>
+                  style={{ background: trifectaButtonGradient(accent) }}>Most popular</span>
               )}
               <div className="flex items-baseline justify-between gap-2">
                 <h3 className="text-lg font-bold text-white">{m.name}</h3>
-                <div className="text-right shrink-0">
-                  <span className="text-2xl font-black" style={{ color: accent }}>${m.pricePerMonth}</span>
+                <div className="shrink-0 text-right">
+                  <span className="text-2xl font-black" style={{ color: accent.subtitle }}>${m.pricePerMonth}</span>
                   <span className="text-sm" style={{ color: "rgba(255,255,255,0.35)" }}>/mo</span>
                 </div>
               </div>
@@ -544,13 +575,13 @@ function MembershipTab({ memberships }: { memberships: VitaminMembership[] }) {
               <ul className="mt-3 space-y-1.5">
                 {m.perks.map((p) => (
                   <li key={p} className="flex gap-2 text-sm" style={{ color: "rgba(255,255,255,0.7)" }}>
-                    <span style={{ color: accent }}>✓</span>{p}
+                    <span style={{ color: accent.bullet }}>✓</span>{p}
                   </li>
                 ))}
               </ul>
               <button type="button" onClick={() => void join(m)} disabled={busyId === m.id}
-                className="mt-4 block w-full rounded-xl py-3.5 font-bold text-white disabled:opacity-60"
-                style={{ background: `linear-gradient(90deg, ${accent}, ${accent}cc)` }}>
+                className="mt-4 block w-full rounded-xl py-3.5 font-bold text-white disabled:opacity-60 transition hover:brightness-110"
+                style={{ background: trifectaButtonGradient(accent) }}>
                 {busyId === m.id ? "Starting checkout…" : `Join ${m.name}`}
               </button>
             </div>
@@ -592,11 +623,11 @@ function VisitTab({ onOpenIntake, intakeRefresh }: { onOpenIntake: () => void; i
       <section>
         <h2 className="text-xl font-bold text-white">Plan your visit</h2>
         <a href={BOOKING_URL} target="_blank" rel="noopener noreferrer"
-          className="mt-4 block rounded-xl py-4 text-center font-bold text-white"
-          style={{ background: `linear-gradient(90deg, ${PINK}, #c90070)` }}>
+          className="mt-4 block rounded-xl py-4 text-center font-bold text-white transition hover:brightness-110"
+          style={{ background: trifectaButtonGradient(trifectaAccent(0)) }}>
           Schedule online
         </a>
-        <div className="mt-4 rounded-2xl p-4 text-sm" style={{ background: CARD, border: "1px solid rgba(255,255,255,0.07)" }}>
+        <div className="mt-4 rounded-2xl p-4 text-sm backdrop-blur-sm" style={glassStyle(1)}>
           <p className="font-semibold text-white">{CLIENT_APP.address}</p>
           <p className="mt-1" style={{ color: "rgba(255,255,255,0.5)" }}>{CLIENT_APP.hoursNote}</p>
         </div>
@@ -607,13 +638,13 @@ function VisitTab({ onOpenIntake, intakeRefresh }: { onOpenIntake: () => void; i
         <form onSubmit={submit} className="mt-4 space-y-3">
           <input type="tel" required value={phone} onChange={(e) => setPhone(e.target.value)}
             placeholder="Mobile phone on file"
-            className="w-full rounded-xl px-4 py-3.5 text-lg outline-none text-white placeholder-white/30"
-            style={{ background: CARD, border: "2px solid rgba(255,255,255,0.1)" }}
-            onFocus={(e) => e.target.style.borderColor = PINK}
-            onBlur={(e) => e.target.style.borderColor = "rgba(255,255,255,0.1)"} />
+            className="w-full rounded-xl px-4 py-3.5 text-lg text-white outline-none placeholder-white/30 backdrop-blur-sm"
+            style={glassStyle(2)}
+            onFocus={(e) => { e.target.style.borderColor = trifectaAccent(2).bullet; }}
+            onBlur={(e) => { e.target.style.borderColor = trifectaAccent(2).border.replace("0.35", "1"); }} />
           <button type="submit" disabled={busy}
-            className="w-full rounded-xl py-4 font-bold text-white disabled:opacity-50"
-            style={{ background: `linear-gradient(90deg, ${PINK}, #c90070)` }}>
+            className="w-full rounded-xl py-4 font-bold text-white disabled:opacity-50 transition hover:brightness-110"
+            style={{ background: trifectaButtonGradient(trifectaAccent(0)) }}>
             {busy ? "Checking in…" : "Tap to check in"}
           </button>
         </form>
@@ -644,13 +675,13 @@ function MeTab({ onOpenIntake, intakeRefresh, homeData }: {
       <p className="mt-1 text-sm" style={{ color: "rgba(255,255,255,0.45)" }}>Portal, rewards, documents, and more.</p>
 
       {homeData?.rewardPoints != null && homeData.rewardPoints > 0 && (
-        <div className="mt-4 rounded-xl px-4 py-4 flex items-center justify-between"
-          style={{ background: `linear-gradient(135deg, ${PINK}22, ${PURPLE}22)`, border: `1px solid ${PINK}33` }}>
+        <div className="mt-4 flex items-center justify-between rounded-xl px-4 py-4 backdrop-blur-sm"
+          style={glassStyle(0)}>
           <div>
-            <p className="text-[10px] font-bold uppercase tracking-widest" style={{ color: PINK }}>Reward Points</p>
-            <p className="text-3xl font-black" style={{ color: PINK }}>{homeData.rewardPoints}</p>
+            <p className="text-[10px] font-bold uppercase tracking-widest" style={{ color: trifectaAccent(0).subtitle }}>Reward Points</p>
+            <p className="text-3xl font-black" style={{ color: trifectaAccent(0).subtitle }}>{homeData.rewardPoints}</p>
           </div>
-          <Link href="/portal/rewards" className="text-xs font-bold underline underline-offset-2" style={{ color: PINK }}>
+          <Link href="/portal/rewards" className="text-xs font-bold underline underline-offset-2" style={{ color: trifectaAccent(0).subtitle }}>
             View →
           </Link>
         </div>
@@ -661,20 +692,20 @@ function MeTab({ onOpenIntake, intakeRefresh, homeData }: {
       </div>
 
       <div className="mt-5 space-y-2">
-        {CLIENT_APP_PORTAL_LINKS.map((l) => (
+        {CLIENT_APP_PORTAL_LINKS.map((l, i) => (
           <Link key={l.href} href={l.href}
-            className="flex items-center gap-3 rounded-xl px-4 py-3.5 font-medium text-white transition"
-            style={{ background: CARD, border: "1px solid rgba(255,255,255,0.07)" }}>
+            className="flex items-center gap-3 rounded-xl px-4 py-3.5 font-medium text-white backdrop-blur-sm transition"
+            style={glassStyle(i % 3)}>
             <span className="text-xl">{l.icon}</span>
             {l.label}
-            <span className="ml-auto" style={{ color: PINK }}>→</span>
+            <span className="ml-auto" style={{ color: trifectaAccent(i % 3).subtitle }}>→</span>
           </Link>
         ))}
       </div>
 
       <a href={CLIENT_APP.phoneHref}
-        className="mt-6 block rounded-xl py-3.5 text-center font-bold"
-        style={{ border: `2px solid ${PINK}`, color: PINK }}>
+        className="mt-6 block rounded-xl py-3.5 text-center font-bold backdrop-blur-sm transition hover:brightness-110"
+        style={{ ...glassStyle(1), color: trifectaAccent(1).subtitle }}>
         Call {CLIENT_APP.phone}
       </a>
     </div>

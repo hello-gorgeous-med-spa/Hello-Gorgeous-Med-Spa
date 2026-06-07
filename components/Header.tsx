@@ -23,6 +23,12 @@ import {
 } from "@/lib/peptide-therapy-nav";
 import { NAD_PLUS_INJECTIONS_PATH } from "@/lib/nad-plus-injections";
 import { HG_TAGLINE } from "@/lib/brand-tagline";
+import {
+  trifectaAccent,
+  trifectaButtonGradient,
+  TRIFECTA_GRADIENT_TITLE,
+} from "@/lib/trifecta-tokens";
+import type { CSSProperties } from "react";
 
 /* ─────────────────────────────────────────────────────────────
    NAV STRUCTURE — clean, client-first, no emojis
@@ -145,9 +151,25 @@ function cx(...classes: Array<string | undefined | null | false>) {
 }
 
 const NAV_LINK_BASE =
-  "flex items-center justify-center gap-1 h-9 px-2 xl:px-2.5 rounded-lg text-sm font-medium transition-all whitespace-nowrap flex-shrink-0";
-const NAV_LINK_ACTIVE = "text-white bg-[#FF2D8E]";
-const NAV_LINK_IDLE = "text-black hover:bg-[#FF2D8E]/10 hover:text-[#FF2D8E]";
+  "flex items-center justify-center gap-1 h-8 px-2.5 xl:px-3 rounded-lg text-xs xl:text-sm font-semibold transition-all whitespace-nowrap flex-shrink-0 backdrop-blur-sm hover:brightness-110";
+
+const MEGA_MENU_TOP = "top-[7.75rem]";
+
+function navPillStyle(accentIndex: number, active: boolean): CSSProperties {
+  const accent = trifectaAccent(accentIndex);
+  if (active) {
+    return {
+      background: trifectaButtonGradient(accent),
+      border: `1px solid ${accent.border}`,
+      color: "#ffffff",
+    };
+  }
+  return {
+    background: "rgba(255,255,255,0.04)",
+    border: `1px solid ${accent.border}`,
+    color: accent.subtitle,
+  };
+}
 
 /* ─────────────────────────────────────────────────────────────
    SERVICES MEGA-DROPDOWN
@@ -165,7 +187,8 @@ function RegenerativeMedicineMenu({
   if (!isOpen) return null;
   return (
     <div
-      className="fixed top-16 left-0 right-0 z-50 border-t-2 border-black bg-white shadow-2xl"
+      className={`fixed left-0 right-0 z-50 border-t border-white/10 shadow-2xl backdrop-blur-md ${MEGA_MENU_TOP}`}
+      style={{ backgroundColor: "rgba(24, 24, 27, 0.97)" }}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onClose}
     >
@@ -173,7 +196,7 @@ function RegenerativeMedicineMenu({
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
           {REGENERATIVE_NAV.sections.map((section) => (
             <div key={section.heading}>
-              <p className="mb-3 text-[10px] font-bold uppercase tracking-[0.25em] text-[#E6007E]">
+              <p className="mb-3 text-[10px] font-bold uppercase tracking-[0.25em]" style={{ color: "#f472b6" }}>
                 {section.heading}
               </p>
               <div className="space-y-0.5">
@@ -182,10 +205,10 @@ function RegenerativeMedicineMenu({
                     key={link.href}
                     href={link.href}
                     onClick={onClose}
-                    className="group block rounded-lg px-3 py-2.5 transition hover:bg-[#FFF0F7]"
+                    className="group block rounded-lg px-3 py-2.5 transition hover:bg-white/5"
                   >
                     <div className="flex items-center gap-2">
-                      <p className="text-sm font-semibold text-black group-hover:text-[#E6007E]">
+                      <p className="text-sm font-semibold text-white group-hover:text-[#f472b6]">
                         {link.label}
                       </p>
                       {link.badge ? (
@@ -194,25 +217,27 @@ function RegenerativeMedicineMenu({
                         </span>
                       ) : null}
                     </div>
-                    <p className="mt-0.5 text-xs text-black/50">{link.sub}</p>
+                    <p className="mt-0.5 text-xs text-white/50">{link.sub}</p>
                   </Link>
                 ))}
               </div>
             </div>
           ))}
         </div>
-        <div className="mt-6 border-t border-black/10 pt-5 flex flex-wrap items-center justify-between gap-4">
+        <div className="mt-6 border-t border-white/10 pt-5 flex flex-wrap items-center justify-between gap-4">
           <Link
             href={REGENERATIVE_MEDICINE_PATH}
             onClick={onClose}
-            className="text-sm font-bold text-[#E6007E] hover:underline"
+            className="text-sm font-bold hover:underline"
+            style={{ color: "#60a5fa" }}
           >
             View regenerative medicine hub →
           </Link>
           <Link
             href={BOOKING_URL}
             onClick={onClose}
-            className="rounded-full bg-[#E6007E] px-5 py-2 text-xs font-bold text-white transition hover:bg-[#c9006e]"
+            className="rounded-xl px-5 py-2 text-xs font-bold text-white transition hover:brightness-110"
+            style={{ background: trifectaButtonGradient(trifectaAccent(1)) }}
           >
             Book Regenerative Consult
           </Link>
@@ -234,7 +259,8 @@ function PeptideTherapyMenu({
   if (!isOpen) return null;
   return (
     <div
-      className="fixed top-16 left-0 right-0 z-50 border-t-2 border-black bg-white shadow-2xl"
+      className={`fixed left-0 right-0 z-50 border-t border-white/10 shadow-2xl backdrop-blur-md ${MEGA_MENU_TOP}`}
+      style={{ backgroundColor: "rgba(24, 24, 27, 0.97)" }}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onClose}
     >
@@ -242,7 +268,7 @@ function PeptideTherapyMenu({
         <div className="grid grid-cols-2 md:grid-cols-3 gap-8">
           {PEPTIDE_THERAPY_NAV.sections.map((section) => (
             <div key={section.heading}>
-              <p className="mb-3 text-[10px] font-bold uppercase tracking-[0.25em] text-[#E6007E]">
+              <p className="mb-3 text-[10px] font-bold uppercase tracking-[0.25em]" style={{ color: "#f472b6" }}>
                 {section.heading}
               </p>
               <div className="space-y-0.5">
@@ -253,10 +279,10 @@ function PeptideTherapyMenu({
                     onClick={onClose}
                     target={"external" in link && link.external ? "_blank" : undefined}
                     rel={"external" in link && link.external ? "noopener noreferrer" : undefined}
-                    className="group block rounded-lg px-3 py-2.5 transition hover:bg-[#FFF0F7]"
+                    className="group block rounded-lg px-3 py-2.5 transition hover:bg-white/5"
                   >
                     <div className="flex items-center gap-2">
-                      <p className="text-sm font-semibold text-black group-hover:text-[#E6007E]">
+                      <p className="text-sm font-semibold text-white group-hover:text-[#f472b6]">
                         {link.label}
                       </p>
                       {link.badge ? (
@@ -265,25 +291,27 @@ function PeptideTherapyMenu({
                         </span>
                       ) : null}
                     </div>
-                    <p className="mt-0.5 text-xs text-black/50">{link.sub}</p>
+                    <p className="mt-0.5 text-xs text-white/50">{link.sub}</p>
                   </Link>
                 ))}
               </div>
             </div>
           ))}
         </div>
-        <div className="mt-6 border-t border-black/10 pt-5 flex flex-wrap items-center justify-between gap-4">
+        <div className="mt-6 border-t border-white/10 pt-5 flex flex-wrap items-center justify-between gap-4">
           <Link
             href={PEPTIDE_THERAPY_PATH}
             onClick={onClose}
-            className="text-sm font-bold text-[#E6007E] hover:underline"
+            className="text-sm font-bold hover:underline"
+            style={{ color: "#fbbf24" }}
           >
             View all →
           </Link>
           <Link
             href={BOOKING_URL}
             onClick={onClose}
-            className="rounded-full bg-[#E6007E] px-5 py-2 text-xs font-bold text-white transition hover:bg-[#c9006e]"
+            className="rounded-xl px-5 py-2 text-xs font-bold text-white transition hover:brightness-110"
+            style={{ background: trifectaButtonGradient(trifectaAccent(2)) }}
           >
             Book $49 Peptide Consult
           </Link>
@@ -305,7 +333,8 @@ function ServicesMenu({
   if (!isOpen) return null;
   return (
     <div
-      className="fixed top-16 left-0 right-0 z-50 border-t-2 border-black bg-white shadow-2xl"
+      className={`fixed left-0 right-0 z-50 border-t border-white/10 shadow-2xl backdrop-blur-md ${MEGA_MENU_TOP}`}
+      style={{ backgroundColor: "rgba(24, 24, 27, 0.97)" }}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onClose}
     >
@@ -313,7 +342,7 @@ function ServicesMenu({
         <div className="grid grid-cols-3 gap-8">
           {NAV.services.sections.map((section) => (
             <div key={section.heading}>
-              <p className="mb-3 text-[10px] font-bold uppercase tracking-[0.25em] text-[#E6007E]">
+              <p className="mb-3 text-[10px] font-bold uppercase tracking-[0.25em]" style={{ color: "#f472b6" }}>
                 {section.heading}
               </p>
               <div className="space-y-0.5">
@@ -322,10 +351,10 @@ function ServicesMenu({
                     key={link.href}
                     href={link.href}
                     onClick={onClose}
-                    className="group block rounded-lg px-3 py-2.5 transition hover:bg-[#FFF0F7]"
+                    className="group block rounded-lg px-3 py-2.5 transition hover:bg-white/5"
                   >
                     <div className="flex items-center gap-2">
-                      <p className="text-sm font-semibold text-black group-hover:text-[#E6007E]">
+                      <p className="text-sm font-semibold text-white group-hover:text-[#f472b6]">
                         {link.label}
                       </p>
                       {"badge" in link && link.badge ? (
@@ -334,21 +363,22 @@ function ServicesMenu({
                         </span>
                       ) : null}
                     </div>
-                    <p className="mt-0.5 text-xs text-black/50">{link.sub}</p>
+                    <p className="mt-0.5 text-xs text-white/50">{link.sub}</p>
                   </Link>
                 ))}
               </div>
             </div>
           ))}
         </div>
-        <div className="mt-6 border-t border-black/10 pt-5 flex items-center justify-between">
-          <p className="text-xs text-black/40 max-w-md">
+        <div className="mt-6 border-t border-white/10 pt-5 flex items-center justify-between">
+          <p className="text-xs text-white/40 max-w-md">
             {HG_TAGLINE} · Oswego, IL
           </p>
           <Link
             href={BOOKING_URL}
             onClick={onClose}
-            className="rounded-full bg-[#E6007E] px-5 py-2 text-xs font-bold text-white transition hover:bg-[#c9006e]"
+            className="rounded-xl px-5 py-2 text-xs font-bold text-white transition hover:brightness-110"
+            style={{ background: trifectaButtonGradient(trifectaAccent(0)) }}
           >
             Book a Free Consultation
           </Link>
@@ -392,13 +422,17 @@ function SpecialsMenu({
       onMouseEnter={onMouseEnter}
       onMouseLeave={onClose}
     >
-      <div className="w-[min(320px,calc(100vw-2rem))] overflow-hidden rounded-xl border-2 border-black bg-white shadow-2xl">
+      <div
+        className="w-[min(320px,calc(100vw-2rem))] overflow-hidden rounded-xl border shadow-2xl backdrop-blur-md"
+        style={{ backgroundColor: "rgba(24, 24, 27, 0.97)", borderColor: "rgba(255,255,255,0.12)" }}
+      >
         <Link
           href={SPECIALS_PATH}
           onClick={onClose}
-          className="block border-b-2 border-black bg-gradient-to-br from-[#FFF0F7] to-white p-3 transition hover:from-[#FFE0F0]"
+          className="block border-b p-3 transition hover:bg-white/5"
+          style={{ borderColor: "rgba(255,255,255,0.1)", background: "rgba(236, 72, 153, 0.08)" }}
         >
-          <div className="overflow-hidden rounded-lg border-2 border-black">
+          <div className="overflow-hidden rounded-lg border" style={{ borderColor: "rgba(236, 72, 153, 0.35)" }}>
             <Image
               src={SIGNATURE_MENU_POSTER.src}
               alt=""
@@ -408,10 +442,10 @@ function SpecialsMenu({
               sizes="280px"
             />
           </div>
-          <p className="mt-2 text-xs font-bold uppercase tracking-wider text-[#E6007E]">
+          <p className="mt-2 text-xs font-bold uppercase tracking-wider" style={{ color: "#f472b6" }}>
             Signature Treatment Menu
           </p>
-          <p className="text-[11px] text-black/55 font-medium">
+          <p className="text-[11px] font-medium text-white/55">
             Tap to view full poster &amp; pricing
           </p>
         </Link>
@@ -424,10 +458,10 @@ function SpecialsMenu({
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={onClose}
-                className="group block rounded-lg px-4 py-3 transition hover:bg-[#FFF0F7]"
+                className="group block rounded-lg px-4 py-3 transition hover:bg-white/5"
               >
                 <div className="flex items-center gap-2">
-                  <span className="text-sm font-semibold text-black group-hover:text-[#E6007E]">
+                  <span className="text-sm font-semibold text-white group-hover:text-[#f472b6]">
                     {link.label}
                   </span>
                   {link.badge && (
@@ -436,17 +470,17 @@ function SpecialsMenu({
                     </span>
                   )}
                 </div>
-                <p className="mt-0.5 text-xs text-black/50">{link.sub}</p>
+                <p className="mt-0.5 text-xs text-white/50">{link.sub}</p>
               </a>
             ) : (
               <Link
                 key={link.href}
                 href={link.href}
                 onClick={onClose}
-                className="group block rounded-lg px-4 py-3 transition hover:bg-[#FFF0F7]"
+                className="group block rounded-lg px-4 py-3 transition hover:bg-white/5"
               >
                 <div className="flex items-center gap-2">
-                  <span className="text-sm font-semibold text-black group-hover:text-[#E6007E]">
+                  <span className="text-sm font-semibold text-white group-hover:text-[#f472b6]">
                     {link.label}
                   </span>
                   {link.badge && (
@@ -455,7 +489,7 @@ function SpecialsMenu({
                     </span>
                   )}
                 </div>
-                <p className="mt-0.5 text-xs text-black/50">{link.sub}</p>
+                <p className="mt-0.5 text-xs text-white/50">{link.sub}</p>
               </Link>
             )
           )}
@@ -485,7 +519,10 @@ function SimpleMenu({
       onMouseEnter={onMouseEnter}
       onMouseLeave={onClose}
     >
-      <div className="min-w-[min(300px,calc(100vw-2rem))] max-w-[360px] overflow-hidden rounded-xl border-2 border-black bg-white shadow-2xl">
+      <div
+        className="min-w-[min(300px,calc(100vw-2rem))] max-w-[360px] overflow-hidden rounded-xl border shadow-2xl backdrop-blur-md"
+        style={{ backgroundColor: "rgba(24, 24, 27, 0.97)", borderColor: "rgba(255,255,255,0.12)" }}
+      >
         <div className="max-h-[min(70vh,28rem)] overflow-y-auto overscroll-contain p-1.5">
           {data.links.map((link) =>
             link.external ? (
@@ -495,10 +532,10 @@ function SimpleMenu({
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={onClose}
-                className="group block rounded-lg px-4 py-3 transition hover:bg-[#FFF0F7]"
+                className="group block rounded-lg px-4 py-3 transition hover:bg-white/5"
               >
                 <div className="flex items-center gap-2">
-                  <span className="text-sm font-semibold text-black group-hover:text-[#E6007E]">
+                  <span className="text-sm font-semibold text-white group-hover:text-[#f472b6]">
                     {link.label}
                   </span>
                   {link.badge && (
@@ -507,17 +544,17 @@ function SimpleMenu({
                     </span>
                   )}
                 </div>
-                <p className="mt-0.5 text-xs text-black/50 leading-snug">{link.sub}</p>
+                <p className="mt-0.5 text-xs text-white/50 leading-snug">{link.sub}</p>
               </a>
             ) : (
               <Link
                 key={link.href}
                 href={link.href}
                 onClick={onClose}
-                className="group block rounded-lg px-4 py-3 transition hover:bg-[#FFF0F7]"
+                className="group block rounded-lg px-4 py-3 transition hover:bg-white/5"
               >
                 <div className="flex items-center gap-2">
-                  <span className="text-sm font-semibold text-black group-hover:text-[#E6007E]">
+                  <span className="text-sm font-semibold text-white group-hover:text-[#f472b6]">
                     {link.label}
                   </span>
                   {link.badge && (
@@ -526,7 +563,7 @@ function SimpleMenu({
                     </span>
                   )}
                 </div>
-                <p className="mt-0.5 text-xs text-black/50 leading-snug">{link.sub}</p>
+                <p className="mt-0.5 text-xs text-white/50 leading-snug">{link.sub}</p>
               </Link>
             )
           )}
@@ -596,41 +633,68 @@ export function Header() {
     pathname === "/admin/pmu-brows";
 
   return (
-    <header className="sticky top-0 z-50 bg-white border-b-2 border-black overflow-visible">
+    <header className="sticky top-0 z-50 overflow-visible border-b border-white/10 bg-black">
       {/* Top bar */}
-      <div className="bg-black py-1.5 px-4 text-center">
-          <p className="text-xs text-white/70 tracking-wide">
-          <span className="font-semibold text-[#FFD700]">#1 Best Med Spa in Oswego</span>
+      <div className="relative border-b border-white/10 bg-black px-4 py-1.5 text-center">
+        <p className="text-xs tracking-wide text-white/70">
+          <span
+            className="bg-clip-text font-semibold text-transparent"
+            style={{ backgroundImage: TRIFECTA_GRADIENT_TITLE }}
+          >
+            #1 Best Med Spa in Oswego
+          </span>
           <span className="mx-2 text-white/30">·</span>
           <span className="text-white/90">{HG_TAGLINE}</span>
-          <span className="mx-2 text-white/30 hidden sm:inline">·</span>
-          <a href={`tel:${SITE.phone}`} className="text-white hover:text-[#FF2D8E] transition-colors">
+          <span className="mx-2 hidden text-white/30 sm:inline">·</span>
+          <a href={`tel:${SITE.phone}`} className="text-white transition-colors hover:text-[#f472b6]">
             (630) 636-6193
           </a>
         </p>
       </div>
 
-      <div className="mx-auto max-w-7xl px-4">
-        <div className="flex items-center justify-between gap-2 xl:gap-4 h-16 min-w-0">
-
-          {/* Logo */}
-          <Link href="/" className="flex items-center gap-2.5 flex-shrink-0 min-w-0">
-            <span className="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-[#FF2D8E] text-white text-xs font-bold shadow-md">
-              HG
+      {/* Brand row: logo + book */}
+      <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-3">
+        <Link href="/" className="flex min-w-0 flex-shrink-0 items-center gap-2.5">
+          <span
+            className="inline-flex h-9 w-9 items-center justify-center rounded-lg text-xs font-bold text-white shadow-lg"
+            style={{ background: trifectaButtonGradient(trifectaAccent(0)) }}
+          >
+            HG
+          </span>
+          <div className="hidden sm:block">
+            <span
+              className="block bg-clip-text text-sm font-bold leading-tight text-transparent"
+              style={{ backgroundImage: TRIFECTA_GRADIENT_TITLE }}
+            >
+              {SITE.name}
             </span>
-            <div className="hidden sm:block">
-              <span className="block text-sm font-bold text-[#FF2D8E] leading-tight">
-                {SITE.name}
-              </span>
-              <span className="block text-[10px] font-semibold text-black/50 tracking-wide uppercase max-w-[11rem] leading-tight">
-                Medical Aesthetics
-              </span>
-            </div>
-          </Link>
+            <span className="block max-w-[11rem] text-[10px] font-semibold uppercase leading-tight tracking-wide text-white/45">
+              Medical Aesthetics
+            </span>
+          </div>
+        </Link>
 
-          {/* Desktop nav */}
-          <nav className="hidden xl:flex items-center gap-0.5 xl:gap-1 min-w-0 flex-1 justify-center overflow-visible">
+        <div className="flex flex-shrink-0 items-center gap-2">
+          <CTA href={BOOKING_URL} variant="gradient" className="hidden px-5 py-2 text-sm lg:flex">
+            Book Now
+          </CTA>
+          <button
+            type="button"
+            aria-label="Open menu"
+            aria-expanded={mobileOpen}
+            onClick={() => setMobileOpen(true)}
+            className="rounded-lg p-2 text-[#f472b6] transition-all hover:bg-white/5 lg:hidden"
+          >
+            <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+        </div>
+      </div>
 
+      {/* Desktop nav row — centered, Trifecta accent pills */}
+      <div className="hidden border-t border-white/5 bg-zinc-950/90 backdrop-blur-md lg:block">
+        <nav className="mx-auto flex max-w-7xl flex-nowrap items-center justify-center gap-1 overflow-x-auto px-3 py-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
             {/* Services */}
             <div
               className="relative flex items-center"
@@ -639,10 +703,11 @@ export function Header() {
             >
               <Link
                 href="/services"
-                className={cx(NAV_LINK_BASE, isActive("/services") ? NAV_LINK_ACTIVE : NAV_LINK_IDLE)}
+                className={NAV_LINK_BASE}
+                style={navPillStyle(0, isActive("/services"))}
               >
                 Services
-                <svg className={cx("w-3 h-3 transition-transform", activeDropdown === "services" && "rotate-180")} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className={cx("h-3 w-3 transition-transform", activeDropdown === "services" && "rotate-180")} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                 </svg>
               </Link>
@@ -661,14 +726,11 @@ export function Header() {
             >
               <Link
                 href={REGENERATIVE_MEDICINE_PATH}
-                className={cx(
-                  NAV_LINK_BASE,
-                  "border border-[#E6007E]/40",
-                  isRegenerativeActive ? NAV_LINK_ACTIVE : NAV_LINK_IDLE
-                )}
+                className={NAV_LINK_BASE}
+                style={navPillStyle(1, isRegenerativeActive)}
               >
                 Regenerative
-                <svg className={cx("w-3 h-3 transition-transform", activeDropdown === "regenerative" && "rotate-180")} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className={cx("h-3 w-3 transition-transform", activeDropdown === "regenerative" && "rotate-180")} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                 </svg>
               </Link>
@@ -687,14 +749,11 @@ export function Header() {
             >
               <Link
                 href={PEPTIDE_THERAPY_PATH}
-                className={cx(
-                  NAV_LINK_BASE,
-                  "border border-[#d99021]/50",
-                  isPeptideTherapyActive ? NAV_LINK_ACTIVE : NAV_LINK_IDLE
-                )}
+                className={NAV_LINK_BASE}
+                style={navPillStyle(2, isPeptideTherapyActive)}
               >
                 Peptides
-                <svg className={cx("w-3 h-3 transition-transform", activeDropdown === "peptides" && "rotate-180")} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className={cx("h-3 w-3 transition-transform", activeDropdown === "peptides" && "rotate-180")} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                 </svg>
               </Link>
@@ -713,14 +772,11 @@ export function Header() {
             >
               <Link
                 href={SPECIALS_PATH}
-                className={cx(
-                  NAV_LINK_BASE,
-                  "border border-[#FF2D8E]",
-                  isSpecialsActive ? NAV_LINK_ACTIVE : NAV_LINK_IDLE
-                )}
+                className={NAV_LINK_BASE}
+                style={navPillStyle(0, isSpecialsActive)}
               >
                 Specials
-                <svg className={cx("w-3 h-3 transition-transform", activeDropdown === "specials" && "rotate-180")} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className={cx("h-3 w-3 transition-transform", activeDropdown === "specials" && "rotate-180")} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                 </svg>
               </Link>
@@ -732,14 +788,11 @@ export function Header() {
               />
             </div>
 
-            {/* 0% Financing — Cherry, CareCredit & Affirm (full page, not homepage widget) */}
+            {/* 0% Financing */}
             <Link
               href="/financing"
-              className={cx(
-                NAV_LINK_BASE,
-                "border border-[#7a6f9b]/50",
-                isFinancingActive ? NAV_LINK_ACTIVE : NAV_LINK_IDLE
-              )}
+              className={NAV_LINK_BASE}
+              style={navPillStyle(1, isFinancingActive)}
             >
               0% Financing
             </Link>
@@ -747,7 +800,8 @@ export function Header() {
             {/* Before & After */}
             <Link
               href="/gallery"
-              className={cx(NAV_LINK_BASE, pathname === "/gallery" ? NAV_LINK_ACTIVE : NAV_LINK_IDLE)}
+              className={NAV_LINK_BASE}
+              style={navPillStyle(2, pathname === "/gallery")}
             >
               Before &amp; After
             </Link>
@@ -760,10 +814,11 @@ export function Header() {
             >
               <Link
                 href="/about"
-                className={cx(NAV_LINK_BASE, isActive("/about") ? NAV_LINK_ACTIVE : NAV_LINK_IDLE)}
+                className={NAV_LINK_BASE}
+                style={navPillStyle(0, isActive("/about"))}
               >
                 About
-                <svg className={cx("w-3 h-3 transition-transform", activeDropdown === "about" && "rotate-180")} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className={cx("h-3 w-3 transition-transform", activeDropdown === "about" && "rotate-180")} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                 </svg>
               </Link>
@@ -783,10 +838,11 @@ export function Header() {
             >
               <Link
                 href="/pre-post-care"
-                className={cx(NAV_LINK_BASE, isActive("/pre-post-care") || isActive("/forms") || isActive("/patient-documents") ? NAV_LINK_ACTIVE : NAV_LINK_IDLE)}
+                className={NAV_LINK_BASE}
+                style={navPillStyle(1, isActive("/pre-post-care") || isActive("/forms") || isActive("/patient-documents"))}
               >
                 Patient Info
-                <svg className={cx("w-3 h-3 transition-transform", activeDropdown === "patient" && "rotate-180")} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className={cx("h-3 w-3 transition-transform", activeDropdown === "patient" && "rotate-180")} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                 </svg>
               </Link>
@@ -806,14 +862,11 @@ export function Header() {
             >
               <Link
                 href={NAV.microblading.href}
-                className={cx(
-                  NAV_LINK_BASE,
-                  "border border-[#E6007E]/35",
-                  isMicrobladingActive ? NAV_LINK_ACTIVE : NAV_LINK_IDLE
-                )}
+                className={NAV_LINK_BASE}
+                style={navPillStyle(2, isMicrobladingActive)}
               >
                 Microblading
-                <svg className={cx("w-3 h-3 transition-transform", activeDropdown === "microblading" && "rotate-180")} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className={cx("h-3 w-3 transition-transform", activeDropdown === "microblading" && "rotate-180")} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                 </svg>
               </Link>
@@ -825,60 +878,43 @@ export function Header() {
                 align="right"
               />
             </div>
-
-          </nav>
-
-          {/* Right actions */}
-          <div className="flex items-center gap-2 flex-shrink-0">
-            <CTA href={BOOKING_URL} variant="gradient" className="hidden xl:flex px-5 py-2 text-sm">
-              Book Now
-            </CTA>
-            {/* Mobile burger */}
-            <button
-              type="button"
-              aria-label="Open menu"
-              aria-expanded={mobileOpen}
-              onClick={() => setMobileOpen(true)}
-              className="xl:hidden p-2 rounded-lg text-[#FF2D8E] hover:bg-[#FF2D8E]/10 transition-all"
-            >
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-              </svg>
-            </button>
-          </div>
-        </div>
+        </nav>
       </div>
 
       {/* ── MOBILE MENU ── */}
       {mobileOpen && (
-        <div className="fixed inset-0 z-50 bg-white xl:hidden overflow-y-auto">
+        <div className="fixed inset-0 z-50 overflow-y-auto bg-black lg:hidden">
           {/* Header */}
-          <div className="sticky top-0 bg-white border-b-2 border-black px-4 py-4 flex items-center justify-between">
+          <div className="sticky top-0 flex items-center justify-between border-b border-white/10 bg-black px-4 py-4">
             <Link href="/" onClick={() => setMobileOpen(false)} className="flex items-center gap-2.5">
-              <span className="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-[#FF2D8E] text-white text-xs font-bold">
+              <span
+                className="inline-flex h-9 w-9 items-center justify-center rounded-lg text-xs font-bold text-white"
+                style={{ background: trifectaButtonGradient(trifectaAccent(0)) }}
+              >
                 HG
               </span>
-              <span className="font-bold text-[#FF2D8E]">{SITE.name}</span>
+              <span className="font-bold text-white">{SITE.name}</span>
             </Link>
             <button
               type="button"
               aria-label="Close menu"
               onClick={() => setMobileOpen(false)}
-              className="p-2 rounded-lg text-black/60 hover:bg-black/5"
+              className="rounded-lg p-2 text-white/60 hover:bg-white/5"
             >
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               </svg>
             </button>
           </div>
 
-          <div className="px-4 py-6 pb-[max(7rem,env(safe-area-inset-bottom))] space-y-1">
+          <div className="space-y-1 px-4 py-6 pb-[max(7rem,env(safe-area-inset-bottom))]">
 
             {/* Quick actions */}
             <Link
               href={BOOKING_URL}
               onClick={() => setMobileOpen(false)}
-              className="flex items-center justify-center gap-2 w-full rounded-xl bg-[#E6007E] px-4 py-3.5 text-sm font-bold text-white mb-4"
+              className="mb-4 flex w-full items-center justify-center gap-2 rounded-xl px-4 py-3.5 text-sm font-bold text-white"
+              style={{ background: trifectaButtonGradient(trifectaAccent(0)) }}
             >
               Book an Appointment
             </Link>
@@ -887,14 +923,15 @@ export function Header() {
             <Link
               href="/gallery"
               onClick={() => setMobileOpen(false)}
-              className="flex items-center justify-between px-4 py-3.5 rounded-xl border-2 border-[#E6007E]/30 bg-[#FFF0F7] text-[#E6007E] font-semibold text-sm"
+              className="flex items-center justify-between rounded-xl px-4 py-3.5 text-sm font-semibold text-white backdrop-blur-sm"
+              style={{ background: "rgba(24,24,27,0.8)", border: "1px solid rgba(59, 130, 246, 0.35)" }}
             >
               Before &amp; After Gallery
-              <span className="rounded-full bg-[#E6007E] px-2.5 py-0.5 text-[10px] font-bold text-white">NEW</span>
+              <span className="rounded-full px-2.5 py-0.5 text-[10px] font-bold text-white" style={{ background: "#3b82f6" }}>NEW</span>
             </Link>
 
-            <div className="pt-2 pb-1">
-              <p className="px-2 text-[10px] font-bold uppercase tracking-[0.2em] text-black/40">Navigation</p>
+            <div className="pb-1 pt-2">
+              <p className="px-2 text-[10px] font-bold uppercase tracking-[0.2em] text-white/35">Navigation</p>
             </div>
 
             {/* Services accordion */}
@@ -907,30 +944,28 @@ export function Header() {
               { key: "patient", label: "Patient Info", links: NAV.patient.links },
               { key: "microblading", label: "Microblading", links: NAV.microblading.links, highlight: true },
             ].map(({ key, label, links, highlight }) => (
-              <div key={key} className="border-b border-black/10 pb-1">
+              <div key={key} className="border-b border-white/10 pb-1">
                 <button
                   type="button"
                   onClick={() => setMobileSection(mobileSection === key ? null : key)}
-                  className={cx(
-                    "w-full flex items-center gap-2 px-4 py-3.5 text-sm font-semibold",
-                    highlight ? "text-[#E6007E]" : "text-black"
-                  )}
+                  className="flex w-full items-center gap-2 px-4 py-3.5 text-sm font-semibold text-white"
+                  style={highlight ? { color: trifectaAccent(0).subtitle } : undefined}
                 >
                   <span className="flex-1 text-left">{label}</span>
                   {highlight ? (
-                    <span className="flex-shrink-0 rounded-full bg-[#E6007E] px-2 py-0.5 text-[9px] font-bold uppercase text-white">
+                    <span className="flex-shrink-0 rounded-full px-2 py-0.5 text-[9px] font-bold uppercase text-white" style={{ background: trifectaAccent(0).badgeBg }}>
                       NEW
                     </span>
                   ) : null}
                   <svg
-                    className={cx("w-4 h-4 flex-shrink-0 text-black/40 transition-transform", mobileSection === key && "rotate-180")}
+                    className={cx("h-4 w-4 flex-shrink-0 text-white/40 transition-transform", mobileSection === key && "rotate-180")}
                     fill="none" stroke="currentColor" viewBox="0 0 24 24"
                   >
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                   </svg>
                 </button>
                 {mobileSection === key && (
-                  <div className="pb-2 space-y-0.5 max-h-[min(50vh,20rem)] overflow-y-auto overscroll-contain">
+                  <div className="max-h-[min(50vh,20rem)] space-y-0.5 overflow-y-auto overscroll-contain pb-2">
                     {links.map((link) => (
                       <Link
                         key={link.href}
@@ -938,10 +973,10 @@ export function Header() {
                         onClick={() => setMobileOpen(false)}
                         target={"external" in link && link.external ? "_blank" : undefined}
                         rel={"external" in link && link.external ? "noopener noreferrer" : undefined}
-                        className="block px-6 py-2.5 rounded-lg text-sm text-black/80 hover:bg-[#FFF0F7] hover:text-[#E6007E] transition-colors"
+                        className="block rounded-lg px-6 py-2.5 text-sm text-white/75 transition-colors hover:bg-white/5 hover:text-[#f472b6]"
                       >
                         {link.label}
-                        {"sub" in link && <span className="block text-xs text-black/40 mt-0.5">{link.sub}</span>}
+                        {"sub" in link && <span className="mt-0.5 block text-xs text-white/40">{link.sub}</span>}
                       </Link>
                     ))}
                   </div>
@@ -961,11 +996,16 @@ export function Header() {
                 href={link.href}
                 onClick={() => setMobileOpen(false)}
                 className={cx(
-                  "flex items-center justify-between px-4 py-3.5 rounded-xl text-sm font-semibold transition-colors border-b border-black/10",
+                  "flex items-center justify-between rounded-xl border-b border-white/10 px-4 py-3.5 text-sm font-semibold transition-colors",
                   "highlight" in link && link.highlight
-                    ? "text-[#E6007E] bg-[#FFF0F7] border border-[#E6007E]/30"
-                    : "text-black hover:bg-[#FFF0F7] hover:text-[#E6007E]"
+                    ? "text-white backdrop-blur-sm"
+                    : "text-white/80 hover:bg-white/5 hover:text-[#f472b6]"
                 )}
+                style={
+                  "highlight" in link && link.highlight
+                    ? { background: "rgba(24,24,27,0.8)", border: "1px solid rgba(59, 130, 246, 0.35)" }
+                    : undefined
+                }
               >
                 {link.label}
               </Link>
@@ -974,7 +1014,8 @@ export function Header() {
             <div className="pt-4">
               <a
                 href={`tel:${SITE.phone}`}
-                className="flex items-center justify-center gap-2 w-full rounded-xl border-2 border-black px-4 py-3.5 text-sm font-bold text-black"
+                className="flex w-full items-center justify-center gap-2 rounded-xl px-4 py-3.5 text-sm font-bold text-white backdrop-blur-sm"
+                style={{ border: "1px solid rgba(236, 72, 153, 0.35)", background: "rgba(255,255,255,0.04)" }}
               >
                 Call (630) 636-6193
               </a>

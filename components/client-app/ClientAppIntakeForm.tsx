@@ -10,8 +10,11 @@ import {
   markClientIntakeCompleted,
 } from "@/lib/client-app-intake";
 import type { IntakeFormField } from "@/lib/hgos/intake-forms";
-
-const PINK = "#E6007E";
+import {
+  TRIFECTA_GLASS,
+  trifectaAccent,
+  trifectaButtonGradient,
+} from "@/lib/trifecta-tokens";
 
 function SignaturePad({ onChange }: { onChange: (dataUrl: string) => void }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -87,7 +90,7 @@ function SignaturePad({ onChange }: { onChange: (dataUrl: string) => void }) {
           onTouchEnd={stopDrawing}
         />
       </div>
-      <button type="button" onClick={clear} className="text-xs font-medium text-black/55 underline">
+      <button type="button" onClick={clear} className="text-xs font-medium text-white/55 underline">
         Clear signature
       </button>
     </div>
@@ -185,8 +188,8 @@ export function ClientAppIntakeForm({ onBack }: Props) {
           <button
             type="button"
             onClick={onBack}
-            className="mt-5 w-full rounded-xl py-3.5 font-bold text-white"
-            style={{ backgroundColor: PINK }}
+            className="mt-5 w-full rounded-xl py-3.5 font-bold text-white transition hover:brightness-110"
+            style={{ background: trifectaButtonGradient(trifectaAccent(0)) }}
           >
             Back to app
           </button>
@@ -197,11 +200,11 @@ export function ClientAppIntakeForm({ onBack }: Props) {
 
   return (
     <div className="py-5">
-      <button type="button" onClick={onBack} className="mb-4 text-sm font-medium text-black/55">
+      <button type="button" onClick={onBack} className="mb-4 text-sm font-medium text-white/55">
         ← Back
       </button>
-      <h2 className="text-xl font-bold">{form.name}</h2>
-      <p className="mt-1 text-sm text-black/60">{form.description}</p>
+      <h2 className="text-xl font-bold text-white">{form.name}</h2>
+      <p className="mt-1 text-sm text-white/60">{form.description}</p>
 
       <form onSubmit={onSubmit} className="mt-5 space-y-5">
         {form.fields.map((field) => (
@@ -214,19 +217,19 @@ export function ClientAppIntakeForm({ onBack }: Props) {
           />
         ))}
 
-        {err && <p className="rounded-xl bg-red-50 px-3 py-2 text-sm text-red-700">{err}</p>}
+        {err && <p className="rounded-xl bg-red-500/10 px-3 py-2 text-sm text-red-300">{err}</p>}
 
         <button
           type="submit"
           disabled={busy}
-          className="w-full rounded-xl py-4 font-bold text-white disabled:opacity-60"
-          style={{ backgroundColor: PINK }}
+          className="w-full rounded-xl py-4 font-bold text-white disabled:opacity-60 transition hover:brightness-110"
+          style={{ background: trifectaButtonGradient(trifectaAccent(0)) }}
         >
           {busy ? "Submitting…" : "Submit intake"}
         </button>
       </form>
 
-      <p className="mt-4 text-center text-[11px] text-black/45">
+      <p className="mt-4 text-center text-[11px] text-white/40">
         Protected health information · stored securely for your chart
       </p>
     </div>
@@ -246,20 +249,20 @@ function FieldRenderer({
 }) {
   if (field.type === "section") {
     return (
-      <div className="border-b border-black/10 pb-1 pt-2">
-        <h3 className="text-sm font-bold uppercase tracking-wider text-[#E6007E]">{field.label}</h3>
+      <div className="border-b border-white/10 pb-1 pt-2">
+        <h3 className="text-sm font-bold uppercase tracking-wider" style={{ color: trifectaAccent(0).subtitle }}>{field.label}</h3>
       </div>
     );
   }
 
   const label = (
-    <label className="block text-sm font-semibold text-black">
-      {field.label} {field.required && <span className="text-red-500">*</span>}
+    <label className="block text-sm font-semibold text-white">
+      {field.label} {field.required && <span className="text-red-400">*</span>}
     </label>
   );
 
-  const inputClass = `mt-1.5 w-full rounded-xl border-2 px-4 py-3 outline-none focus:border-[#E6007E] ${
-    error ? "border-red-400" : "border-black/15"
+  const inputClass = `mt-1.5 w-full rounded-xl border px-4 py-3 outline-none bg-zinc-900/80 text-white placeholder-white/30 focus:border-[#ec4899] ${
+    error ? "border-red-400" : "border-white/15"
   }`;
 
   switch (field.type) {
@@ -293,7 +296,7 @@ function FieldRenderer({
           <div className="mt-2">
             <SMSDisclosure variant="light" />
           </div>
-          {field.helpText && <p className="mt-1 text-xs text-black/50">{field.helpText}</p>}
+          {field.helpText && <p className="mt-1 text-xs text-white/50">{field.helpText}</p>}
           {error && <p className="mt-1 text-xs text-red-500">{error}</p>}
         </div>
       );
@@ -326,7 +329,7 @@ function FieldRenderer({
                   value={opt}
                   checked={value === opt}
                   onChange={() => onChange(opt)}
-                  className="accent-[#E6007E]"
+                  className="accent-[#ec4899]"
                 />
                 {opt}
               </label>
@@ -354,7 +357,7 @@ function FieldRenderer({
                         : selected.filter((v) => v !== opt);
                       onChange(next);
                     }}
-                    className="mt-0.5 accent-[#E6007E]"
+                    className="mt-0.5 accent-[#ec4899]"
                   />
                   <span>{opt}</span>
                 </label>
@@ -369,7 +372,7 @@ function FieldRenderer({
       return (
         <div>
           {label}
-          <p className="mt-1 text-xs text-black/50">Sign with your finger or mouse</p>
+          <p className="mt-1 text-xs text-white/50">Sign with your finger or mouse</p>
           <div className="mt-2">
             <SignaturePad onChange={(dataUrl) => onChange(dataUrl)} />
           </div>
@@ -403,21 +406,25 @@ export function ClientAppIntakeCard({
       year: "numeric",
     });
     return (
-      <div className="rounded-2xl border-2 border-green-600/30 bg-green-50 p-4">
+      <div
+        className="rounded-2xl p-4 backdrop-blur-sm"
+        style={{ background: "rgba(0,200,100,0.08)", border: "1px solid rgba(52, 211, 153, 0.35)" }}
+      >
         <div className="flex items-start gap-3">
           <span className="text-xl">✓</span>
           <div>
-            <p className="font-bold text-green-900">Intake on file</p>
-            <p className="mt-0.5 text-sm text-green-800">Completed {date}</p>
+            <p className="font-bold text-emerald-300">Intake on file</p>
+            <p className="mt-0.5 text-sm text-emerald-200/80">Completed {date}</p>
             {completed.reference && (
-              <p className="mt-1 text-xs text-green-700">Ref {completed.reference}</p>
+              <p className="mt-1 text-xs text-emerald-200/60">Ref {completed.reference}</p>
             )}
           </div>
         </div>
         <button
           type="button"
           onClick={onOpen}
-          className="mt-3 text-sm font-semibold text-[#E6007E] underline"
+          className="mt-3 text-sm font-semibold underline"
+          style={{ color: trifectaAccent(0).subtitle }}
         >
           Update intake
         </button>
@@ -426,17 +433,17 @@ export function ClientAppIntakeCard({
   }
 
   return (
-    <div className="rounded-2xl border-2 border-black bg-white p-4 shadow-[4px_4px_0_0_rgba(230,0,126,0.25)]">
-      <p className="text-xs font-bold uppercase tracking-wider text-[#E6007E]">Before your visit</p>
-      <p className="mt-1 font-bold">Complete wellness intake</p>
-      <p className="mt-1 text-sm text-black/60">
+    <div className="rounded-2xl p-4 backdrop-blur-sm" style={{ backgroundColor: TRIFECTA_GLASS.bg, border: `1px solid ${trifectaAccent(0).border}` }}>
+      <p className="text-xs font-bold uppercase tracking-wider" style={{ color: trifectaAccent(0).subtitle }}>Before your visit</p>
+      <p className="mt-1 font-bold text-white">Complete wellness intake</p>
+      <p className="mt-1 text-sm text-white/60">
         Required once a year for Vitamin Bar shots and drive-thru wellness.
       </p>
       <button
         type="button"
         onClick={onOpen}
-        className="mt-4 w-full rounded-xl py-3.5 font-bold text-white"
-        style={{ backgroundColor: PINK }}
+        className="mt-4 w-full rounded-xl py-3.5 font-bold text-white transition hover:brightness-110"
+        style={{ background: trifectaButtonGradient(trifectaAccent(0)) }}
       >
         Start intake form
       </button>

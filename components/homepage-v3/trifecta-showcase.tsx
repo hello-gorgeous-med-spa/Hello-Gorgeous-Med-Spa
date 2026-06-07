@@ -11,41 +11,14 @@ import {
   type ReactNode,
 } from "react";
 
-export type ShowcaseAccent = {
-  border: string;
-  subtitle: string;
-  bullet: string;
-  badgeBg: string;
-  buttonFrom: string;
-  buttonTo: string;
-};
+import {
+  TRIFECTA_ACCENTS,
+  type TrifectaAccent,
+} from "@/lib/trifecta-tokens";
 
-export const SHOWCASE_ACCENTS: ShowcaseAccent[] = [
-  {
-    border: "rgba(236, 72, 153, 0.3)",
-    subtitle: "#f472b6",
-    bullet: "#ec4899",
-    badgeBg: "#ec4899",
-    buttonFrom: "#ec4899",
-    buttonTo: "#db2777",
-  },
-  {
-    border: "rgba(59, 130, 246, 0.3)",
-    subtitle: "#60a5fa",
-    bullet: "#3b82f6",
-    badgeBg: "#3b82f6",
-    buttonFrom: "#3b82f6",
-    buttonTo: "#6366f1",
-  },
-  {
-    border: "rgba(245, 158, 11, 0.3)",
-    subtitle: "#fbbf24",
-    bullet: "#f59e0b",
-    badgeBg: "linear-gradient(to right, #f59e0b, #f97316)",
-    buttonFrom: "#f59e0b",
-    buttonTo: "#f97316",
-  },
-];
+export type ShowcaseAccent = TrifectaAccent;
+
+export const SHOWCASE_ACCENTS: ShowcaseAccent[] = TRIFECTA_ACCENTS;
 
 const ShowcaseVisibilityContext = createContext(true);
 

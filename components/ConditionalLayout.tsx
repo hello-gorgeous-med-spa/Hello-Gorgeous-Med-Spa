@@ -34,7 +34,10 @@ const ADMIN_ROUTES = [
 ];
 
 /** Full-screen client forms (iPad intake) — no site chrome over the form */
-const STANDALONE_FORM_ROUTES = ['/forms/brow-intake', '/education/your-brow-journey'];
+const STANDALONE_FORM_ROUTES = ["/forms/brow-intake", "/education/your-brow-journey"];
+
+/** Full-screen client app + GLP-1 intake — no site header/footer over the experience */
+const STANDALONE_APP_ROUTES = ["/app", "/glp1-intake"];
 
 export function ConditionalLayout({
   children,
@@ -52,9 +55,12 @@ export function ConditionalLayout({
   const isStandaloneForm = STANDALONE_FORM_ROUTES.some(
     (route) => pathname === route || pathname?.startsWith(`${route}/`),
   );
+  const isStandaloneApp = STANDALONE_APP_ROUTES.some(
+    (route) => pathname === route || pathname?.startsWith(`${route}/`),
+  );
 
   // Admin/auth routes - no website chrome, just the content (clean for mobile/PWA)
-  if (isAdminRoute || isStandaloneForm) {
+  if (isAdminRoute || isStandaloneForm || isStandaloneApp) {
     return (
       <div className="min-h-screen min-h-[100dvh]">
         {children}
