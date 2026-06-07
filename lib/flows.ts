@@ -127,7 +127,7 @@ export function getProviderPublicBookingHref(
 export const FRESHA_BOOKING_END_LABEL =
   process.env.NEXT_PUBLIC_FRESHA_BOOKING_END_LABEL?.trim() || "May 9, 2026";
 
-/** GLP-1 HIPAA screening form (IntakeQ embed on `/glp1-intake`). Booking follows after qualification. */
+/** GLP-1 weight loss screening form at `/glp1-intake`. Booking follows after qualification. */
 export const GLP1_INTAKE_PATH = "/glp1-intake";
 
 /** VIP Model Program — $250 deposit / Reserve (Fresha paid plans). */

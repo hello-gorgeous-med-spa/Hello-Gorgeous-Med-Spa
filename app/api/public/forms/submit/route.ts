@@ -76,13 +76,22 @@ export async function POST(req: NextRequest) {
   if (insErr) return NextResponse.json({ error: insErr.message }, { status: 500 });
 
   const ref = token.slice(0, 8).toUpperCase();
+  const qualified = responses.qualified;
+  const statusLine =
+    slug === "glp1-weight-loss-intake" && typeof qualified === "boolean"
+      ? qualified
+        ? "QUALIFIED"
+        : "DISQUALIFIED"
+      : null;
+
   notifyOwnerFormSubmission({
     formName: `Public form: ${slug}`,
     lines: [
       signerName || "—",
       clientPhone || "—",
+      statusLine || "",
       `Ref ${ref}`,
-    ],
+    ].filter(Boolean),
   });
 
   return NextResponse.json({

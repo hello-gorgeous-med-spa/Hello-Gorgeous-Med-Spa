@@ -3,7 +3,7 @@
  * The Vitamin Bar is one section inside this app, not a separate product.
  */
 
-import { BOOKING_URL } from "@/lib/flows";
+import { BOOKING_URL, GLP1_INTAKE_PATH } from "@/lib/flows";
 
 export const CLIENT_APP = {
   name: "Hello Gorgeous Med Spa",
@@ -58,6 +58,13 @@ export const CLIENT_APP_QUICK_ACTIONS = [
     tab: "visit" as ClientAppTab,
     icon: "📍",
   },
+  {
+    id: "glp1-intake",
+    label: "GLP-1 Screening",
+    blurb: "Start weight loss intake",
+    href: GLP1_INTAKE_PATH,
+    icon: "⚖️",
+  },
 ] as const;
 
 export const CLIENT_APP_SERVICES = [
@@ -72,6 +79,7 @@ export const CLIENT_APP_SERVICES = [
 
 export const CLIENT_APP_PORTAL_LINKS = [
   { label: "My Portal", href: "/portal", icon: "🏠" },
+  { label: "GLP-1 Screening", href: GLP1_INTAKE_PATH, icon: "⚖️" },
   { label: "Appointments", href: "/portal/appointments", icon: "📅" },
   { label: "Book a Service", href: "/portal/book", icon: "✨" },
   { label: "Rewards", href: "/portal/rewards", icon: "🎁" },

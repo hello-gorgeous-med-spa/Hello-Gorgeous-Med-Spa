@@ -203,15 +203,6 @@ export const VITAMIN_SHOTS: VitaminShot[] = [
   },
   // Rx add-ons (provider)
   {
-    id: "toradol",
-    name: "Toradol (Pain Relief)",
-    benefit: "Non-narcotic pain & inflammation relief.",
-    price: 35,
-    category: "rx",
-    tags: ["PAIN RELIEF", "RX"],
-    consultFirst: true,
-  },
-  {
     id: "zofran",
     name: "Zofran (Anti-Nausea)",
     benefit: "Fast relief from nausea.",

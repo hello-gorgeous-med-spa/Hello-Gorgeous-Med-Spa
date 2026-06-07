@@ -19,6 +19,10 @@ import {
   type VitaminMembership,
   type VitaminShot,
 } from "@/lib/vitamin-bar";
+import {
+  ClientAppIntakeCard,
+  ClientAppIntakeForm,
+} from "@/components/client-app/ClientAppIntakeForm";
 
 const PINK = "#E6007E";
 
@@ -82,8 +86,16 @@ function priceLabel(n: number) {
 export function ClientApp({ initialTab = "home" }: { initialTab?: ClientAppTab }) {
   const [tab, setTab] = useState<ClientAppTab>(initialTab);
   const [selected, setSelected] = useState<VitaminShot | null>(null);
+  const [showIntake, setShowIntake] = useState(false);
+  const [intakeRefresh, setIntakeRefresh] = useState(0);
   const { canInstall, promptInstall } = useInstallPrompt();
   useClientManifest();
+
+  const openIntake = () => setShowIntake(true);
+  const closeIntake = () => {
+    setShowIntake(false);
+    setIntakeRefresh((n) => n + 1);
+  };
 
   return (
     <div className="min-h-screen bg-[#faf7f9] text-black pb-24">
@@ -105,11 +117,21 @@ export function ClientApp({ initialTab = "home" }: { initialTab?: ClientAppTab }
       </header>
 
       <main className="mx-auto max-w-xl px-5">
-        {tab === "home" && <HomeTab onNavigate={setTab} />}
-        {tab === "vitamin" && <VitaminTab onSelect={setSelected} />}
-        {tab === "membership" && <MembershipTab memberships={VITAMIN_MEMBERSHIPS} />}
-        {tab === "visit" && <VisitTab />}
-        {tab === "me" && <MeTab />}
+        {showIntake ? (
+          <ClientAppIntakeForm onBack={closeIntake} />
+        ) : (
+          <>
+            {tab === "home" && (
+              <HomeTab onNavigate={setTab} onOpenIntake={openIntake} intakeRefresh={intakeRefresh} />
+            )}
+            {tab === "vitamin" && (
+              <VitaminTab onSelect={setSelected} onOpenIntake={openIntake} intakeRefresh={intakeRefresh} />
+            )}
+            {tab === "membership" && <MembershipTab memberships={VITAMIN_MEMBERSHIPS} />}
+            {tab === "visit" && <VisitTab onOpenIntake={openIntake} intakeRefresh={intakeRefresh} />}
+            {tab === "me" && <MeTab onOpenIntake={openIntake} intakeRefresh={intakeRefresh} />}
+          </>
+        )}
       </main>
 
       <nav className="fixed bottom-0 left-0 right-0 z-30 border-t border-black/10 bg-white">
@@ -135,10 +157,19 @@ export function ClientApp({ initialTab = "home" }: { initialTab?: ClientAppTab }
   );
 }
 
-function HomeTab({ onNavigate }: { onNavigate: (t: ClientAppTab) => void }) {
+function HomeTab({
+  onNavigate,
+  onOpenIntake,
+  intakeRefresh,
+}: {
+  onNavigate: (t: ClientAppTab) => void;
+  onOpenIntake: () => void;
+  intakeRefresh: number;
+}) {
   return (
     <div className="py-5">
-      <div className="rounded-2xl border-2 border-black bg-gradient-to-br from-[#1a0a12] to-black p-5 text-white shadow-[4px_4px_0_0_rgba(230,0,126,0.35)]">
+      <ClientAppIntakeCard onOpen={onOpenIntake} refreshKey={intakeRefresh} />
+      <div className="mt-6 rounded-2xl border-2 border-black bg-gradient-to-br from-[#1a0a12] to-black p-5 text-white shadow-[4px_4px_0_0_rgba(230,0,126,0.35)]">
         <p className="text-xs uppercase tracking-wider text-[#FFB8DC]">Welcome back</p>
         <p className="mt-2 text-lg font-semibold leading-snug">
           Book, pre-pay, check in, and manage your care — all in one place.
@@ -178,16 +209,29 @@ function HomeTab({ onNavigate }: { onNavigate: (t: ClientAppTab) => void }) {
               </button>
             );
           }
+          const href = "href" in a ? a.href : BOOKING_URL;
+          const external = href.startsWith("http");
+          if (external) {
+            return (
+              <a
+                key={a.id}
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="rounded-2xl border border-[#E6007E] bg-[#FFF0F7] p-4 text-left"
+              >
+                {inner}
+              </a>
+            );
+          }
           return (
-            <a
+            <Link
               key={a.id}
-              href={a.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="rounded-2xl border border-[#E6007E] bg-[#FFF0F7] p-4 text-left"
+              href={href}
+              className="rounded-2xl border border-black/10 bg-white p-4 text-left hover:border-[#E6007E]/40"
             >
               {inner}
-            </a>
+            </Link>
           );
         })}
       </div>
@@ -213,11 +257,20 @@ function HomeTab({ onNavigate }: { onNavigate: (t: ClientAppTab) => void }) {
   );
 }
 
-function VitaminTab({ onSelect }: { onSelect: (s: VitaminShot) => void }) {
+function VitaminTab({
+  onSelect,
+  onOpenIntake,
+  intakeRefresh,
+}: {
+  onSelect: (s: VitaminShot) => void;
+  onOpenIntake: () => void;
+  intakeRefresh: number;
+}) {
   const groups = shotsByCategory();
   return (
     <div className="py-5">
-      <p className="mb-4 text-xs font-bold uppercase tracking-wider text-[#E6007E]">
+      <ClientAppIntakeCard onOpen={onOpenIntake} refreshKey={intakeRefresh} />
+      <p className="mb-4 mt-5 text-xs font-bold uppercase tracking-wider text-[#E6007E]">
         The Vitamin Bar · drive-thru wellness
       </p>
       <div className="rounded-2xl border-2 border-black bg-white p-4 shadow-[4px_4px_0_0_rgba(230,0,126,0.25)]">
@@ -407,7 +460,13 @@ function MembershipTab({ memberships }: { memberships: VitaminMembership[] }) {
   );
 }
 
-function VisitTab() {
+function VisitTab({
+  onOpenIntake,
+  intakeRefresh,
+}: {
+  onOpenIntake: () => void;
+  intakeRefresh: number;
+}) {
   const [phone, setPhone] = useState("");
   const [busy, setBusy] = useState(false);
   const [result, setResult] = useState<{ ok: boolean; text: string } | null>(null);
@@ -441,6 +500,7 @@ function VisitTab() {
 
   return (
     <div className="py-5 space-y-8">
+      <ClientAppIntakeCard onOpen={onOpenIntake} refreshKey={intakeRefresh} />
       <section>
         <h2 className="text-xl font-bold">Plan your visit</h2>
         <a
@@ -492,11 +552,20 @@ function VisitTab() {
   );
 }
 
-function MeTab() {
+function MeTab({
+  onOpenIntake,
+  intakeRefresh,
+}: {
+  onOpenIntake: () => void;
+  intakeRefresh: number;
+}) {
   return (
     <div className="py-5">
       <h2 className="text-xl font-bold">Your account</h2>
       <p className="mt-1 text-sm text-black/60">Portal, rewards, documents, and more.</p>
+      <div className="mt-5">
+        <ClientAppIntakeCard onOpen={onOpenIntake} refreshKey={intakeRefresh} />
+      </div>
       <div className="mt-5 space-y-2">
         {CLIENT_APP_PORTAL_LINKS.map((l) => (
           <Link
