@@ -2,7 +2,7 @@
   "name": "Hello Gorgeous Med Spa",
   "short_name": "Hello Gorgeous",
   "description": "Your personal med spa portal - Book appointments, track treatments, earn rewards. Premier Med Spa by Ryan Kent & Danielle Alcala.",
-  "start_url": "/portal",
+  "start_url": "/app",
   "scope": "/",
   "display": "standalone",
   "background_color": "#ffffff",
@@ -60,10 +60,16 @@
   ],
   "shortcuts": [
     {
-      "name": "Book Appointment",
-      "short_name": "Book",
-      "url": "/portal/book",
-      "icons": [{ "src": "/icons/icon-96x96.png", "sizes": "96x96" }]
+      "name": "Hello Gorgeous App",
+      "short_name": "App",
+      "url": "/app",
+      "icons": [{ "src": "/icons/vitamin-bar-icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Vitamin Bar",
+      "short_name": "Vitamin Bar",
+      "url": "/app?tab=vitamin",
+      "icons": [{ "src": "/icons/vitamin-bar-icon-192.png", "sizes": "192x192" }]
     },
     {
       "name": "My Appointments",

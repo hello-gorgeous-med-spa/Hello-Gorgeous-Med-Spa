@@ -14,6 +14,7 @@ import {
   dollarsToCents,
 } from "@/lib/square/client";
 import { SITE } from "@/lib/seo";
+import { CLIENT_APP } from "@/lib/client-app";
 import { VITAMIN_SHOTS, VITAMIN_MEMBERSHIPS, VITAMIN_BAR } from "@/lib/vitamin-bar";
 
 export const dynamic = "force-dynamic";
@@ -105,7 +106,7 @@ export async function POST(req: NextRequest) {
         locationId,
       },
       checkoutOptions: {
-        redirectUrl: `${SITE.url}${VITAMIN_BAR.path}?paid=1`,
+        redirectUrl: `${SITE.url}${CLIENT_APP.path}?paid=1`,
         askForShippingAddress: false,
       },
       description: `${VITAMIN_BAR.name} pre-pay`,

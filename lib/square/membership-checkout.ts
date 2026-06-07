@@ -1,0 +1,161 @@
+// ============================================================
+// SQUARE MEMBERSHIP CHECKOUT — subscription plans + payment links
+// Creates/upserts catalog subscription plans, then returns a hosted
+// Square checkout URL for recurring billing.
+// ============================================================
+
+import "server-only";
+
+import { getAccessToken } from "@/lib/square/oauth";
+import { getSquareLocationIdAsync, getLocationsApiAsync } from "@/lib/square/client";
+
+const SQUARE_API_HOST =
+  process.env.SQUARE_ENVIRONMENT === "production" || process.env.SQUARE_ENV === "production"
+    ? "https://connect.squareup.com"
+    : "https://connect.squareupsandbox.com";
+
+const SQUARE_API_VERSION = "2024-12-18";
+
+function idempotencyKey(prefix: string): string {
+  return `${prefix}-${Date.now()}-${Math.random().toString(36).slice(2, 11)}`;
+}
+
+async function squareFetch<T>(
+  path: string,
+  init: RequestInit & { body?: unknown } = {},
+): Promise<T> {
+  const token = (await getAccessToken()) || process.env.SQUARE_ACCESS_TOKEN;
+  if (!token) throw new Error("Square is not connected");
+
+  const { body, ...rest } = init;
+  const res = await fetch(`${SQUARE_API_HOST}${path}`, {
+    ...rest,
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Square-Version": SQUARE_API_VERSION,
+      "Content-Type": "application/json",
+      Accept: "application/json",
+      ...(init.headers as Record<string, string> | undefined),
+    },
+    body: body !== undefined ? JSON.stringify(body) : undefined,
+  });
+
+  const data = (await res.json().catch(() => ({}))) as T & {
+    errors?: Array<{ detail?: string; code?: string }>;
+  };
+  if (!res.ok) {
+    const msg =
+      data.errors?.map((e) => e.detail || e.code).join("; ") ||
+      `Square API ${res.status}`;
+    throw new Error(msg);
+  }
+  return data;
+}
+
+export async function resolveSquareLocationId(): Promise<string> {
+  let locationId = await getSquareLocationIdAsync();
+  if (locationId) return locationId;
+
+  const locationsApi = await getLocationsApiAsync();
+  const res = await locationsApi?.listLocations?.();
+  const locations =
+    (res as { result?: { locations?: Array<{ id?: string; status?: string }> } })?.result
+      ?.locations ??
+    (res as { locations?: Array<{ id?: string; status?: string }> })?.locations ??
+    [];
+  const active = locations.find((l) => l?.status === "ACTIVE") ?? locations[0];
+  if (!active?.id) throw new Error("No Square location configured");
+  return active.id;
+}
+
+type PlanIds = { planId: string; variationId: string };
+
+/** Upsert a monthly subscription plan in Square Catalog. */
+async function ensureSubscriptionPlan(
+  membershipId: string,
+  name: string,
+  priceCents: number,
+): Promise<PlanIds> {
+  const tempPlanId = `#hg-membership-${membershipId}`;
+  const tempVarId = `#hg-membership-${membershipId}-monthly`;
+
+  const body = {
+    idempotency_key: idempotencyKey(`plan-${membershipId}`),
+    object: {
+      type: "SUBSCRIPTION_PLAN",
+      id: tempPlanId,
+      subscription_plan_data: {
+        name: `Hello Gorgeous — ${name}`,
+        subscription_plan_variations: [
+          {
+            id: tempVarId,
+            name: "Monthly",
+            phases: [
+              {
+                cadence: "MONTHLY",
+                ordinal: 0,
+                pricing: {
+                  type: "STATIC",
+                  price_money: { amount: priceCents, currency: "USD" },
+                },
+              },
+            ],
+          },
+        ],
+      },
+    },
+  };
+
+  const data = await squareFetch<{
+    catalog_object?: {
+      id: string;
+      subscription_plan_data?: {
+        subscription_plan_variations?: Array<{ id: string }>;
+      };
+    };
+  }>("/v2/catalog/object", { method: "POST", body });
+
+  const obj = data.catalog_object;
+  if (!obj?.id) throw new Error("Failed to create subscription plan");
+
+  const variationId =
+    obj.subscription_plan_data?.subscription_plan_variations?.[0]?.id ?? tempVarId;
+
+  return { planId: obj.id, variationId };
+}
+
+/** Create a Square hosted checkout URL for a monthly membership. */
+export async function createMembershipCheckoutUrl(opts: {
+  membershipId: string;
+  name: string;
+  priceDollars: number;
+  redirectUrl: string;
+}): Promise<string> {
+  const { planId, variationId } = await ensureSubscriptionPlan(
+    opts.membershipId,
+    opts.name,
+    Math.round(opts.priceDollars * 100),
+  );
+
+  await resolveSquareLocationId();
+
+  const linkData = await squareFetch<{
+    payment_link?: { url?: string; long_url?: string };
+  }>("/v2/online-checkout/payment-links", {
+    method: "POST",
+    body: {
+      idempotency_key: idempotencyKey(`mlink-${opts.membershipId}`),
+      checkout_options: {
+        subscription_plan_id: planId,
+        subscription_plan_variation_id: variationId,
+        redirect_url: opts.redirectUrl,
+        ask_for_shipping_address: false,
+      },
+      description: `Hello Gorgeous membership — ${opts.name}`,
+    },
+  });
+
+  const url = linkData.payment_link?.url || linkData.payment_link?.long_url;
+  if (!url) throw new Error("Could not create membership checkout link");
+  return url;
+}
