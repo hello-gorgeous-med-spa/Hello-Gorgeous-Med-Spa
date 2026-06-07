@@ -4,11 +4,24 @@ import { NextRequest, NextResponse } from "next/server";
 import webpush from "web-push";
 import { createAdminSupabaseClient } from "@/lib/hgos/supabase";
 
-webpush.setVapidDetails(
-  process.env.VAPID_SUBJECT!,
-  process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY!,
-  process.env.VAPID_PRIVATE_KEY!
-);
+let vapidConfigured = false;
+
+function ensureVapidConfigured(): boolean {
+  if (vapidConfigured) return true;
+
+  const subject = process.env.VAPID_SUBJECT;
+  const publicKey = process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY;
+  const privateKey = process.env.VAPID_PRIVATE_KEY;
+  if (!subject || !publicKey || !privateKey) return false;
+
+  try {
+    webpush.setVapidDetails(subject, publicKey, privateKey);
+    vapidConfigured = true;
+    return true;
+  } catch {
+    return false;
+  }
+}
 
 // Simple admin auth via Bearer token (reuse your AUTH_CREDENTIALS secret)
 function isAdmin(request: NextRequest): boolean {
@@ -20,6 +33,10 @@ function isAdmin(request: NextRequest): boolean {
 export async function POST(request: NextRequest) {
   if (!isAdmin(request)) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  if (!ensureVapidConfigured()) {
+    return NextResponse.json({ error: "Push notifications not configured" }, { status: 503 });
   }
 
   const supabase = createAdminSupabaseClient();
