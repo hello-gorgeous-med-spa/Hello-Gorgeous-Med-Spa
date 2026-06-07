@@ -11,8 +11,13 @@ export const metadata: Metadata = {
       "Oswego's wellness drive-thru. Browse vitamin & wellness shots, join a membership, pre-pay, and schedule a quick in-and-out at Hello Gorgeous Med Spa.",
     path: VITAMIN_BAR.path,
   }),
-  // App-like experience — keep it out of search-result clutter but reachable.
+  // App-like experience — keep it reachable in search.
   robots: { index: true, follow: true },
+  // Custom home-screen icon when installed from the Vitamin Bar.
+  icons: {
+    icon: "/icons/vitamin-bar-icon-192.png",
+    apple: "/icons/vitamin-bar-icon-180.png",
+  },
 };
 
 export default function VitaminBarPage() {
