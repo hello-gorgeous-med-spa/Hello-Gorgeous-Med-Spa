@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import Link from "next/link";
 
 import { BOOKING_URL } from "@/lib/flows";
@@ -26,10 +26,28 @@ import {
 
 const PINK = "#E6007E";
 
+// ─── Types ────────────────────────────────────────────────────────────────────
+
 type BeforeInstallPromptEvent = Event & {
   prompt: () => Promise<void>;
   userChoice: Promise<{ outcome: "accepted" | "dismissed" }>;
 };
+
+type HomeData = {
+  authenticated: boolean;
+  firstName?: string | null;
+  nextAppointment?: { id: string; startsAt: string; serviceName: string | null } | null;
+  lastAppointment?: {
+    id: string;
+    startsAt: string;
+    serviceName: string | null;
+    daysSince: number | null;
+  } | null;
+  rewardPoints?: number;
+  creditBalance?: number;
+};
+
+// ─── Hooks ────────────────────────────────────────────────────────────────────
 
 function useInstallPrompt() {
   const [deferred, setDeferred] = useState<BeforeInstallPromptEvent | null>(null);
@@ -79,9 +97,77 @@ function useClientManifest() {
   }, []);
 }
 
+function useHomeData() {
+  const [data, setData] = useState<HomeData | null>(null);
+  useEffect(() => {
+    fetch("/api/app/home-data")
+      .then((r) => r.json())
+      .then(setData)
+      .catch(() => setData({ authenticated: false }));
+  }, []);
+  return data;
+}
+
+function usePushNotifications(authenticated: boolean) {
+  const [permission, setPermission] = useState<NotificationPermission | "unsupported">("default");
+  const [subscribed, setSubscribed] = useState(false);
+
+  useEffect(() => {
+    if (typeof Notification === "undefined") {
+      setPermission("unsupported");
+      return;
+    }
+    setPermission(Notification.permission);
+  }, []);
+
+  // Register service worker once
+  useEffect(() => {
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker
+        .register("/app-sw.js", { scope: "/" })
+        .catch(() => {});
+    }
+  }, []);
+
+  const subscribe = useCallback(async () => {
+    if (!authenticated) return;
+    if (typeof Notification === "undefined") return;
+
+    const perm = await Notification.requestPermission();
+    setPermission(perm);
+    if (perm !== "granted") return;
+
+    try {
+      const reg = await navigator.serviceWorker.ready;
+      const sub = await reg.pushManager.subscribe({
+        userVisibleOnly: true,
+        applicationServerKey: process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY,
+      });
+      const json = sub.toJSON();
+      await fetch("/api/app/push/subscribe", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ endpoint: json.endpoint, keys: json.keys }),
+      });
+      setSubscribed(true);
+    } catch {
+      // Permission denied or SW not ready — silent fail
+    }
+  }, [authenticated]);
+
+  return { permission, subscribed, subscribe };
+}
+
 function priceLabel(n: number) {
   return `$${n}`;
 }
+
+function formatApptDate(iso: string): string {
+  const d = new Date(iso);
+  return d.toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric", hour: "numeric", minute: "2-digit" });
+}
+
+// ─── Root Component ───────────────────────────────────────────────────────────
 
 export function ClientApp({ initialTab = "home" }: { initialTab?: ClientAppTab }) {
   const [tab, setTab] = useState<ClientAppTab>(initialTab);
@@ -89,6 +175,8 @@ export function ClientApp({ initialTab = "home" }: { initialTab?: ClientAppTab }
   const [showIntake, setShowIntake] = useState(false);
   const [intakeRefresh, setIntakeRefresh] = useState(0);
   const { canInstall, promptInstall } = useInstallPrompt();
+  const homeData = useHomeData();
+  const { permission, subscribed, subscribe } = usePushNotifications(homeData?.authenticated ?? false);
   useClientManifest();
 
   const openIntake = () => setShowIntake(true);
@@ -96,6 +184,12 @@ export function ClientApp({ initialTab = "home" }: { initialTab?: ClientAppTab }
     setShowIntake(false);
     setIntakeRefresh((n) => n + 1);
   };
+
+  // Show push opt-in banner once: authenticated, permission not yet asked, not subscribed
+  const showPushBanner =
+    homeData?.authenticated &&
+    permission === "default" &&
+    !subscribed;
 
   return (
     <div className="min-h-screen bg-[#faf7f9] text-black pb-24">
@@ -114,6 +208,20 @@ export function ClientApp({ initialTab = "home" }: { initialTab?: ClientAppTab }
             </button>
           )}
         </div>
+        {showPushBanner && (
+          <div className="bg-[#E6007E] px-5 py-3 flex items-center justify-between gap-3">
+            <p className="text-xs text-white leading-snug">
+              Get notified about deals & appointment reminders
+            </p>
+            <button
+              type="button"
+              onClick={() => void subscribe()}
+              className="shrink-0 rounded-full bg-white px-3 py-1.5 text-xs font-bold text-[#E6007E]"
+            >
+              Turn on
+            </button>
+          </div>
+        )}
       </header>
 
       <main className="mx-auto max-w-xl px-5">
@@ -122,14 +230,19 @@ export function ClientApp({ initialTab = "home" }: { initialTab?: ClientAppTab }
         ) : (
           <>
             {tab === "home" && (
-              <HomeTab onNavigate={setTab} onOpenIntake={openIntake} intakeRefresh={intakeRefresh} />
+              <HomeTab
+                onNavigate={setTab}
+                onOpenIntake={openIntake}
+                intakeRefresh={intakeRefresh}
+                homeData={homeData}
+              />
             )}
             {tab === "vitamin" && (
               <VitaminTab onSelect={setSelected} onOpenIntake={openIntake} intakeRefresh={intakeRefresh} />
             )}
             {tab === "membership" && <MembershipTab memberships={VITAMIN_MEMBERSHIPS} />}
             {tab === "visit" && <VisitTab onOpenIntake={openIntake} intakeRefresh={intakeRefresh} />}
-            {tab === "me" && <MeTab onOpenIntake={openIntake} intakeRefresh={intakeRefresh} />}
+            {tab === "me" && <MeTab onOpenIntake={openIntake} intakeRefresh={intakeRefresh} homeData={homeData} />}
           </>
         )}
       </main>
@@ -157,32 +270,100 @@ export function ClientApp({ initialTab = "home" }: { initialTab?: ClientAppTab }
   );
 }
 
+// ─── Home Tab ─────────────────────────────────────────────────────────────────
+
 function HomeTab({
   onNavigate,
   onOpenIntake,
   intakeRefresh,
+  homeData,
 }: {
   onNavigate: (t: ClientAppTab) => void;
   onOpenIntake: () => void;
   intakeRefresh: number;
+  homeData: HomeData | null;
 }) {
+  const auth = homeData?.authenticated;
+  const firstName = homeData?.firstName;
+  const next = homeData?.nextAppointment;
+  const last = homeData?.lastAppointment;
+  const points = homeData?.rewardPoints ?? 0;
+
+  // Nudge logic: show rebooking nudge if 10+ weeks since last appt (service-dependent ideally)
+  const nudge = last && last.daysSince != null && last.daysSince >= 70;
+
   return (
     <div className="py-5">
       <ClientAppIntakeCard onOpen={onOpenIntake} refreshKey={intakeRefresh} />
+
+      {/* Personalized greeting */}
       <div className="mt-6 rounded-2xl border-2 border-black bg-gradient-to-br from-[#1a0a12] to-black p-5 text-white shadow-[4px_4px_0_0_rgba(230,0,126,0.35)]">
-        <p className="text-xs uppercase tracking-wider text-[#FFB8DC]">Welcome back</p>
-        <p className="mt-2 text-lg font-semibold leading-snug">
-          Book, pre-pay, check in, and manage your care — all in one place.
+        <p className="text-xs uppercase tracking-wider text-[#FFB8DC]">
+          {auth && firstName ? `Welcome back, ${firstName}` : "Welcome back"}
         </p>
+
+        {/* Next appointment */}
+        {next ? (
+          <div className="mt-3 rounded-xl bg-white/10 px-4 py-3">
+            <p className="text-[10px] uppercase tracking-wider text-white/50">Your next appointment</p>
+            <p className="mt-1 font-semibold">{next.serviceName ?? "Appointment"}</p>
+            <p className="text-sm text-white/70">{formatApptDate(next.startsAt)}</p>
+          </div>
+        ) : (
+          <p className="mt-2 text-lg font-semibold leading-snug">
+            Book, pre-pay, check in, and manage your care — all in one place.
+          </p>
+        )}
+
+        {/* Touch-up nudge */}
+        {nudge && (
+          <div className="mt-3 rounded-xl bg-[#E6007E]/20 border border-[#E6007E]/40 px-4 py-3">
+            <p className="text-sm font-semibold text-[#FFB8DC]">
+              👀 It&apos;s been {last.daysSince} days since your last visit
+            </p>
+            <p className="mt-0.5 text-xs text-white/60">
+              {last.serviceName ? `${last.serviceName} typically needs a touch-up around now.` : "Time for a touch-up?"}
+            </p>
+          </div>
+        )}
+
         <a
           href={BOOKING_URL}
           target="_blank"
           rel="noopener noreferrer"
           className="mt-4 block rounded-xl bg-[#E6007E] py-3.5 text-center text-sm font-bold text-white"
         >
-          Book an appointment
+          {next ? "Book another appointment" : "Book an appointment"}
         </a>
       </div>
+
+      {/* Rewards points pill — only for logged-in clients with points */}
+      {auth && points > 0 && (
+        <Link
+          href="/portal/rewards"
+          className="mt-4 flex items-center justify-between rounded-xl border border-[#E6007E]/30 bg-[#FFF0F7] px-4 py-3"
+        >
+          <div className="flex items-center gap-2">
+            <span className="text-lg">🎁</span>
+            <span className="text-sm font-semibold text-[#E6007E]">{points} reward points</span>
+          </div>
+          <span className="text-xs text-[#E6007E]">View →</span>
+        </Link>
+      )}
+
+      {/* Not logged in — soft portal prompt */}
+      {!auth && homeData !== null && (
+        <Link
+          href="/portal/login?redirect=/app"
+          className="mt-4 flex items-center justify-between rounded-xl border border-black/10 bg-white px-4 py-3"
+        >
+          <div className="flex items-center gap-2">
+            <span className="text-lg">👤</span>
+            <span className="text-sm font-medium">Sign in to see your appointments & rewards</span>
+          </div>
+          <span className="text-xs text-[#E6007E]">→</span>
+        </Link>
+      )}
 
       <div className="mt-6 grid grid-cols-2 gap-3">
         {CLIENT_APP_QUICK_ACTIONS.map((a) => {
@@ -257,6 +438,8 @@ function HomeTab({
   );
 }
 
+// ─── Vitamin Tab ──────────────────────────────────────────────────────────────
+
 function VitaminTab({
   onSelect,
   onOpenIntake,
@@ -315,6 +498,8 @@ function VitaminTab({
     </div>
   );
 }
+
+// ─── Shot Sheet ───────────────────────────────────────────────────────────────
 
 function ShotSheet({ shot, onClose }: { shot: VitaminShot; onClose: () => void }) {
   const freshaUrl = shot.freshaUrl || BOOKING_URL;
@@ -379,6 +564,8 @@ function ShotSheet({ shot, onClose }: { shot: VitaminShot; onClose: () => void }
     </div>
   );
 }
+
+// ─── Membership Tab ───────────────────────────────────────────────────────────
 
 function MembershipTab({ memberships }: { memberships: VitaminMembership[] }) {
   const [busyId, setBusyId] = useState<string | null>(null);
@@ -459,6 +646,8 @@ function MembershipTab({ memberships }: { memberships: VitaminMembership[] }) {
     </div>
   );
 }
+
+// ─── Visit Tab ────────────────────────────────────────────────────────────────
 
 function VisitTab({
   onOpenIntake,
@@ -552,17 +741,36 @@ function VisitTab({
   );
 }
 
+// ─── Me Tab ───────────────────────────────────────────────────────────────────
+
 function MeTab({
   onOpenIntake,
   intakeRefresh,
+  homeData,
 }: {
   onOpenIntake: () => void;
   intakeRefresh: number;
+  homeData: HomeData | null;
 }) {
   return (
     <div className="py-5">
-      <h2 className="text-xl font-bold">Your account</h2>
+      <h2 className="text-xl font-bold">
+        {homeData?.firstName ? `Hey, ${homeData.firstName}` : "Your account"}
+      </h2>
       <p className="mt-1 text-sm text-black/60">Portal, rewards, documents, and more.</p>
+
+      {homeData?.rewardPoints != null && homeData.rewardPoints > 0 && (
+        <div className="mt-4 rounded-xl bg-[#FFF0F7] border border-[#E6007E]/20 px-4 py-3 flex items-center justify-between">
+          <div>
+            <p className="text-xs text-[#E6007E] font-bold uppercase tracking-wider">Reward Points</p>
+            <p className="text-2xl font-black text-[#E6007E]">{homeData.rewardPoints}</p>
+          </div>
+          <Link href="/portal/rewards" className="text-xs font-bold text-[#E6007E] underline underline-offset-2">
+            View →
+          </Link>
+        </div>
+      )}
+
       <div className="mt-5">
         <ClientAppIntakeCard onOpen={onOpenIntake} refreshKey={intakeRefresh} />
       </div>
