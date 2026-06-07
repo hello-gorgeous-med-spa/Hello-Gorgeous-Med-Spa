@@ -266,7 +266,7 @@ function ShotSheet({ shot, onClose }: { shot: VitaminShot; onClose: () => void }
             </button>
           )}
           {payErr && <p className="text-center text-xs text-red-600">{payErr}</p>}
-          <
+          <a
             href={freshaUrl}
             target="_blank"
             rel="noopener noreferrer"
