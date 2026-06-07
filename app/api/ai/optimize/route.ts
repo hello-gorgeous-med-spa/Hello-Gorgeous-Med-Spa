@@ -1,9 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import OpenAI from "openai";
-
-const openai = new OpenAI({
-  apiKey: process.env.OPEN_API_KEY,
-});
+import { getOpenAIClient } from "@/lib/openai-server";
 
 export interface SocialOptimization {
   instagram: {
@@ -40,6 +36,11 @@ interface OptimizeRequest {
 
 export async function POST(request: NextRequest) {
   try {
+    const openai = getOpenAIClient();
+    if (!openai) {
+      return NextResponse.json({ error: "OpenAI not configured" }, { status: 503 });
+    }
+
     const body: OptimizeRequest = await request.json();
     const { service, headline, benefits = [], location = "Oswego, IL" } = body;
 

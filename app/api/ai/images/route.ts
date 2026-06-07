@@ -1,11 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
-import OpenAI from "openai";
+import { getOpenAIClient } from "@/lib/openai-server";
 import { writeFile, mkdir } from "fs/promises";
 import path from "path";
-
-const openai = new OpenAI({
-  apiKey: process.env.OPEN_API_KEY,
-});
 
 interface ImageRequest {
   service: string;
@@ -19,6 +15,11 @@ interface ImageRequest {
 
 export async function POST(request: NextRequest) {
   try {
+    const openai = getOpenAIClient();
+    if (!openai) {
+      return NextResponse.json({ error: "OpenAI not configured" }, { status: 503 });
+    }
+
     const body: ImageRequest = await request.json();
     const { 
       service, 

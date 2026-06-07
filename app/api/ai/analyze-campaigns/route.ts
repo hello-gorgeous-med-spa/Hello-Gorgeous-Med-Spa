@@ -1,10 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createServerSupabaseClient } from "@/lib/supabase/server";
-import OpenAI from "openai";
-
-const openai = new OpenAI({
-  apiKey: process.env.OPEN_API_KEY,
-});
+import { getOpenAIClient } from "@/lib/openai-server";
 
 interface CampaignAnalysis {
   service: string;
@@ -163,6 +159,11 @@ async function runAIAnalysis(
   }>,
   service?: string
 ): Promise<CampaignAnalysis> {
+  const openai = getOpenAIClient();
+  if (!openai) {
+    return generateDefaultRecommendations(service);
+  }
+
   const systemPrompt = `You are a social media analytics expert for "Hello Gorgeous Med Spa".
 Analyze campaign performance data and identify patterns that drive engagement and bookings.
 
