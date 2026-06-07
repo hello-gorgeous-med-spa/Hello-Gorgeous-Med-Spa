@@ -499,16 +499,32 @@ function WellnessSection() {
                     ))}
                   </div>
                   <div className="flex gap-2">
-                    <Link href={p.learnHref}
-                      className="flex-1 rounded-xl py-2.5 text-center text-sm font-semibold text-white"
-                      style={{ background: `linear-gradient(90deg, ${accent.buttonFrom}, ${accent.buttonTo})` }}>
-                      Learn More →
-                    </Link>
-                    <Link href={p.bookHref}
-                      className="flex-1 rounded-xl py-2.5 text-center text-sm font-semibold"
-                      style={{ border: `1px solid ${accent.border}`, color: accent.subtitle }}>
-                      Get Started
-                    </Link>
+                    {p.learnHref.startsWith("http") ? (
+                      <a href={p.learnHref} target="_blank" rel="noopener noreferrer"
+                        className="flex-1 rounded-xl py-2.5 text-center text-sm font-semibold text-white"
+                        style={{ background: `linear-gradient(90deg, ${accent.buttonFrom}, ${accent.buttonTo})` }}>
+                        {p.id === "fullscript" ? "Open Store →" : "Learn More →"}
+                      </a>
+                    ) : (
+                      <Link href={p.learnHref}
+                        className="flex-1 rounded-xl py-2.5 text-center text-sm font-semibold text-white"
+                        style={{ background: `linear-gradient(90deg, ${accent.buttonFrom}, ${accent.buttonTo})` }}>
+                        Learn More →
+                      </Link>
+                    )}
+                    {p.bookHref.startsWith("http") ? (
+                      <a href={p.bookHref} target="_blank" rel="noopener noreferrer"
+                        className="flex-1 rounded-xl py-2.5 text-center text-sm font-semibold"
+                        style={{ border: `1px solid ${accent.border}`, color: accent.subtitle }}>
+                        {p.id === "fullscript" ? "Shop Now" : "Get Started"}
+                      </a>
+                    ) : (
+                      <Link href={p.bookHref}
+                        className="flex-1 rounded-xl py-2.5 text-center text-sm font-semibold"
+                        style={{ border: `1px solid ${accent.border}`, color: accent.subtitle }}>
+                        Get Started
+                      </Link>
+                    )}
                   </div>
                 </div>
               )}
@@ -792,15 +808,27 @@ function MeTab({ onOpenIntake, intakeRefresh, homeData }: {
       </div>
 
       <div className="mt-5 space-y-2">
-        {CLIENT_APP_PORTAL_LINKS.map((l, i) => (
-          <Link key={l.href} href={l.href}
-            className="flex items-center gap-3 rounded-xl px-4 py-3.5 font-medium text-white backdrop-blur-sm transition"
-            style={glassStyle(i % 3)}>
-            <span className="text-xl">{l.icon}</span>
-            {l.label}
-            <span className="ml-auto" style={{ color: trifectaAccent(i % 3).subtitle }}>→</span>
-          </Link>
-        ))}
+        {CLIENT_APP_PORTAL_LINKS.map((l, i) => {
+          const isExternal = l.href.startsWith("http");
+          const cls = "flex items-center gap-3 rounded-xl px-4 py-3.5 font-medium text-white backdrop-blur-sm transition";
+          const style = glassStyle(i % 3);
+          const inner = (
+            <>
+              <span className="text-xl">{l.icon}</span>
+              {l.label}
+              <span className="ml-auto" style={{ color: trifectaAccent(i % 3).subtitle }}>→</span>
+            </>
+          );
+          return isExternal ? (
+            <a key={l.href} href={l.href} target="_blank" rel="noopener noreferrer" className={cls} style={style}>
+              {inner}
+            </a>
+          ) : (
+            <Link key={l.href} href={l.href} className={cls} style={style}>
+              {inner}
+            </Link>
+          );
+        })}
       </div>
 
       <a href={CLIENT_APP.phoneHref}

@@ -115,6 +115,18 @@ export const CLIENT_APP_WELLNESS_PROGRAMS = [
     bookHref: "/glp1-intake",
     highlights: ["Semaglutide (Ozempic-class)", "Tirzepatide (Mounjaro-class)", "Medical supervision & check-ins", "Nutrition & lifestyle support"],
   },
+  {
+    id: "fullscript",
+    label: "Shop Supplements",
+    subtitle: "Fullscript Dispensary",
+    blurb: "Practitioner-grade supplements hand-picked by our clinical team. Shipped directly to you — 10% off retail.",
+    badge: "SHOP",
+    accentIndex: 1, // blue
+    href: "https://us.fullscript.com/welcome/dglazier",
+    learnHref: "https://us.fullscript.com/welcome/dglazier",
+    bookHref: "https://us.fullscript.com/welcome/dglazier",
+    highlights: ["Practitioner-grade quality", "10% off retail pricing", "Curated by our clinical team", "Ships directly to your door"],
+  },
 ] as const;
 
 export const CLIENT_APP_PORTAL_LINKS = [
@@ -123,6 +135,7 @@ export const CLIENT_APP_PORTAL_LINKS = [
   { label: "Appointments", href: "/portal/appointments", icon: "📅" },
   { label: "Book a Service", href: "/portal/book", icon: "✨" },
   { label: "Rewards", href: "/portal/rewards", icon: "🎁" },
+  { label: "Shop Supplements", href: "https://us.fullscript.com/welcome/dglazier", icon: "💊" },
   { label: "Documents & Consents", href: "/portal/documents", icon: "📁" },
   { label: "Account", href: "/portal/account", icon: "⚙️" },
 ] as const;
