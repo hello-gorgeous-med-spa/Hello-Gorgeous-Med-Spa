@@ -17,6 +17,7 @@ const EMBEDDABLE_HTML_CSP = [
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  serverExternalPackages: ["web-push"],
   // Pin tracing to this app when a parent folder also has a package-lock.json
   outputFileTracingRoot: path.join(__dirname),
   reactStrictMode: true,
