@@ -2,6 +2,7 @@
 
 export type HomepageServiceCard = {
   title: string;
+  subtitle?: string;
   description: string;
   link: string;
   items: string[];

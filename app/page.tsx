@@ -144,7 +144,7 @@ export default function HomePage() {
         }}
       />
 
-      <main className="bg-white">
+      <main className="bg-black">
         <HeroV3 />
         <HomepageHydrafacialBanner />
         <TrustStrip />

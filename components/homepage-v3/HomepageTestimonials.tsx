@@ -1,14 +1,20 @@
 "use client";
 
 import { HOME_TESTIMONIALS } from "@/lib/seo";
+import {
+  SHOWCASE_ACCENTS,
+  TrifectaShowcaseSection,
+  useShowcaseVisible,
+  type ShowcaseAccent,
+} from "./trifecta-showcase";
 
-function StarRating({ rating }: { rating: number }) {
+function StarRating({ rating, accent }: { rating: number; accent: ShowcaseAccent }) {
   return (
-    <span className="inline-flex items-center gap-0.5 text-[#E6007E]" aria-hidden>
+    <span style={{ color: accent.subtitle }} aria-hidden>
       {Array.from({ length: 5 }).map((_, i) => (
         <svg
           key={i}
-          className="w-4 h-4"
+          className="mr-0.5 inline h-4 w-4"
           fill={i < rating ? "currentColor" : "none"}
           stroke="currentColor"
           strokeWidth={1.5}
@@ -21,36 +27,92 @@ function StarRating({ rating }: { rating: number }) {
   );
 }
 
+function TestimonialCard({
+  name,
+  location,
+  service,
+  text,
+  rating,
+  accent,
+  delayMs,
+}: {
+  name: string;
+  location: string;
+  service: string;
+  text: string;
+  rating: number;
+  accent: ShowcaseAccent;
+  delayMs: number;
+}) {
+  const visible = useShowcaseVisible();
+
+  return (
+    <div
+      className={`transition-all duration-700 ${
+        visible ? "translate-y-0 opacity-100" : "translate-y-12 opacity-0"
+      }`}
+      style={{ transitionDelay: `${delayMs}ms` }}
+    >
+      <figure
+        className="flex h-full flex-col rounded-2xl p-6 backdrop-blur-sm md:p-8"
+        style={{
+          backgroundColor: "rgba(24, 24, 27, 0.8)",
+          border: `1px solid ${accent.border}`,
+        }}
+      >
+        <StarRating rating={rating} accent={accent} />
+        <blockquote className="mt-4 flex-1 text-lg leading-relaxed text-white">&ldquo;{text}&rdquo;</blockquote>
+        <figcaption className="mt-6 border-t pt-4" style={{ borderColor: "rgba(255,255,255,0.1)" }}>
+          <cite className="not-italic font-semibold text-white">{name}</cite>
+          <span className="mt-0.5 block text-sm" style={{ color: "rgba(255,255,255,0.6)" }}>
+            {location}
+          </span>
+          <span className="text-sm font-medium" style={{ color: accent.subtitle }}>
+            {service}
+          </span>
+        </figcaption>
+      </figure>
+    </div>
+  );
+}
+
 export function HomepageTestimonials() {
   return (
-    <section className="bg-black py-20 md:py-28" aria-labelledby="testimonials-heading">
-      <div className="max-w-6xl mx-auto px-6 md:px-12">
-        <h2 id="testimonials-heading" className="text-3xl md:text-4xl font-bold text-white text-center mb-4">
+    <TrifectaShowcaseSection
+      className="border-b-4 border-black"
+      pill="Client love"
+      title={
+        <>
+          What Our Clients Are{" "}
+          <span
+            className="bg-clip-text text-transparent"
+            style={{
+              backgroundImage: "linear-gradient(to right, #ec4899, #60a5fa, #f59e0b)",
+            }}
+          >
+            Saying
+          </span>
+        </>
+      }
+      description="Real results and real experiences from the Hello Gorgeous community."
+    >
+      <div className="grid gap-6 md:grid-cols-2 lg:gap-8" aria-labelledby="testimonials-heading">
+        <h2 id="testimonials-heading" className="sr-only">
           What Our Clients Are Saying
         </h2>
-        <p className="text-white/80 text-center max-w-2xl mx-auto mb-14">
-          Real results and real experiences from the Hello Gorgeous community.
-        </p>
-
-        <div className="grid md:grid-cols-2 gap-8">
-          {HOME_TESTIMONIALS.map((t) => (
-            <div
-              key={t.name + t.service}
-              className="rounded-2xl border-2 border-white/10 bg-white/5 p-6 md:p-8 flex flex-col"
-            >
-              <StarRating rating={t.rating} />
-              <blockquote className="mt-4 text-white text-lg leading-relaxed flex-1">
-                &ldquo;{t.text}&rdquo;
-              </blockquote>
-              <footer className="mt-6 pt-4 border-t border-white/10">
-                <cite className="not-italic font-semibold text-white">{t.name}</cite>
-                <span className="text-white/70 text-sm block mt-0.5">{t.location}</span>
-                <span className="text-[#E6007E] text-sm font-medium">{t.service}</span>
-              </footer>
-            </div>
-          ))}
-        </div>
+        {HOME_TESTIMONIALS.map((t, index) => (
+          <TestimonialCard
+            key={t.name + t.service}
+            name={t.name}
+            location={t.location}
+            service={t.service}
+            text={t.text}
+            rating={t.rating}
+            accent={SHOWCASE_ACCENTS[index % SHOWCASE_ACCENTS.length]}
+            delayMs={200 + (index % 2) * 150}
+          />
+        ))}
       </div>
-    </section>
+    </TrifectaShowcaseSection>
   );
 }
