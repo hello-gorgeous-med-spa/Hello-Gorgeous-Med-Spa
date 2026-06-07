@@ -24,6 +24,7 @@ import {
   ClientAppIntakeCard,
   ClientAppIntakeForm,
 } from "@/components/client-app/ClientAppIntakeForm";
+import { BrandHero } from "@/components/BrandHero";
 import {
   TRIFECTA_GLASS,
   TRIFECTA_GRADIENT_TITLE,
@@ -182,27 +183,31 @@ export function ClientApp({ initialTab = "home" }: { initialTab?: ClientAppTab }
         <div className="absolute left-1/2 top-1/2 h-96 w-96 -translate-x-1/2 rounded-full blur-[120px]" style={{ backgroundColor: "rgba(245, 158, 11, 0.05)" }} />
       </div>
 
-      {/* Header */}
+      {(tab !== "home" || showPushBanner) && (
       <header className="sticky top-0 z-30 backdrop-blur-md" style={{ background: "rgba(0,0,0,0.85)", borderBottom: "1px solid rgba(255,255,255,0.08)" }}>
-        <div className="mx-auto max-w-xl px-5 pt-5 pb-4">
-          <div
-            className="mb-3 inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-[10px] font-semibold uppercase tracking-wider backdrop-blur-sm"
-            style={{ backgroundColor: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)", color: "#f472b6" }}
-          >
-            <span className="relative flex h-1.5 w-1.5">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full opacity-75" style={{ backgroundColor: "#ec4899" }} />
-              <span className="relative inline-flex h-1.5 w-1.5 rounded-full" style={{ backgroundColor: "#ec4899" }} />
-            </span>
-            Oswego, IL
-          </div>
-          <h1 className="font-serif text-2xl font-light text-white">
-            Hello Gorgeous{" "}
-            <span className="bg-clip-text font-semibold text-transparent" style={{ backgroundImage: TRIFECTA_GRADIENT_TITLE }}>
-              App
-            </span>
-          </h1>
-          <p className="text-sm" style={{ color: "rgba(255,255,255,0.45)" }}>{CLIENT_APP.tagline}</p>
-          {canInstall && (
+        <div className="mx-auto max-w-xl px-5 pt-4 pb-3">
+          {tab !== "home" && (
+            <>
+              <div
+                className="mb-2 inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-[10px] font-semibold uppercase tracking-wider backdrop-blur-sm"
+                style={{ backgroundColor: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)", color: "#f472b6" }}
+              >
+                <span className="relative flex h-1.5 w-1.5">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full opacity-75" style={{ backgroundColor: "#ec4899" }} />
+                  <span className="relative inline-flex h-1.5 w-1.5 rounded-full" style={{ backgroundColor: "#ec4899" }} />
+                </span>
+                Oswego, IL
+              </div>
+              <h1 className="font-serif text-2xl font-light text-white">
+                Hello Gorgeous{" "}
+                <span className="bg-clip-text font-semibold text-transparent" style={{ backgroundImage: TRIFECTA_GRADIENT_TITLE }}>
+                  App
+                </span>
+              </h1>
+              <p className="text-sm" style={{ color: "rgba(255,255,255,0.45)" }}>{CLIENT_APP.tagline}</p>
+            </>
+          )}
+          {canInstall && tab !== "home" && (
             <button
               type="button"
               onClick={() => void promptInstall()}
@@ -232,13 +237,14 @@ export function ClientApp({ initialTab = "home" }: { initialTab?: ClientAppTab }
           </div>
         )}
       </header>
+      )}
 
       <main className="mx-auto max-w-xl px-5">
         {showIntake ? (
           <ClientAppIntakeForm onBack={() => { setShowIntake(false); setIntakeRefresh(n => n + 1); }} />
         ) : (
           <>
-            {tab === "home"       && <HomeTab onNavigate={setTab} onOpenIntake={() => setShowIntake(true)} intakeRefresh={intakeRefresh} homeData={homeData} />}
+            {tab === "home"       && <HomeTab onNavigate={setTab} onOpenIntake={() => setShowIntake(true)} intakeRefresh={intakeRefresh} homeData={homeData} canInstall={canInstall} promptInstall={promptInstall} />}
             {tab === "vitamin"    && <VitaminTab onSelect={setSelected} onOpenIntake={() => setShowIntake(true)} intakeRefresh={intakeRefresh} />}
             {tab === "membership" && <MembershipTab memberships={VITAMIN_MEMBERSHIPS} />}
             {tab === "visit"      && <VisitTab onOpenIntake={() => setShowIntake(true)} intakeRefresh={intakeRefresh} />}
@@ -279,11 +285,13 @@ export function ClientApp({ initialTab = "home" }: { initialTab?: ClientAppTab }
 
 // ─── Home Tab ─────────────────────────────────────────────────────────────────
 
-function HomeTab({ onNavigate, onOpenIntake, intakeRefresh, homeData }: {
+function HomeTab({ onNavigate, onOpenIntake, intakeRefresh, homeData, canInstall, promptInstall }: {
   onNavigate: (t: ClientAppTab) => void;
   onOpenIntake: () => void;
   intakeRefresh: number;
   homeData: HomeData | null;
+  canInstall: boolean;
+  promptInstall: () => Promise<void>;
 }) {
   const auth      = homeData?.authenticated;
   const firstName = homeData?.firstName;
@@ -293,47 +301,54 @@ function HomeTab({ onNavigate, onOpenIntake, intakeRefresh, homeData }: {
   const nudge     = last && last.daysSince != null && last.daysSince >= 70;
 
   return (
-    <div className="py-5 space-y-4">
+    <div className="space-y-4">
+      <div className="-mx-5 border-b border-white/10">
+        <BrandHero
+          variant="app"
+          authenticated={auth}
+          firstName={firstName}
+          onNavigate={onNavigate}
+        />
+        {canInstall && (
+          <div className="mx-auto max-w-xl px-3 pb-3">
+            <button
+              type="button"
+              onClick={() => void promptInstall()}
+              className="inline-flex w-full items-center justify-center gap-2 rounded-xl px-4 py-2 text-xs font-bold uppercase tracking-wider text-white transition hover:brightness-110"
+              style={{ background: trifectaButtonGradient(trifectaAccent(0)) }}
+            >
+              ⤓ Add to home screen
+            </button>
+          </div>
+        )}
+      </div>
+
+      <div className="space-y-4 py-1">
       <ClientAppIntakeCard onOpen={onOpenIntake} refreshKey={intakeRefresh} />
 
-      {/* Hero card */}
-      <div className="relative overflow-hidden rounded-2xl p-5 backdrop-blur-sm" style={glassStyle(0)}>
-        <div className="pointer-events-none absolute -right-8 -top-8 h-40 w-40 rounded-full opacity-20 blur-3xl" style={{ background: trifectaAccent(0).bullet }} />
-        <div className="pointer-events-none absolute -bottom-8 -left-8 h-32 w-32 rounded-full opacity-15 blur-3xl" style={{ background: trifectaAccent(1).bullet }} />
+      {/* Next appointment / touch-up nudge */}
+      {(next || nudge) && (
+        <div className="rounded-2xl p-4 backdrop-blur-sm" style={glassStyle(0)}>
+          {next ? (
+            <div className="rounded-xl px-4 py-3" style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.1)" }}>
+              <p className="text-[10px] uppercase tracking-wider" style={{ color: "rgba(255,255,255,0.4)" }}>Your next appointment</p>
+              <p className="mt-1 font-semibold text-white">{next.serviceName ?? "Appointment"}</p>
+              <p className="text-sm" style={{ color: "rgba(255,255,255,0.55)" }}>{formatApptDate(next.startsAt)}</p>
+            </div>
+          ) : null}
 
-        <p className="relative text-[10px] font-bold uppercase tracking-widest" style={{ color: trifectaAccent(0).subtitle }}>
-          {auth && firstName ? `Welcome back, ${firstName}` : "Welcome back"}
-        </p>
-
-        {next ? (
-          <div className="relative mt-3 rounded-xl px-4 py-3" style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.1)" }}>
-            <p className="text-[10px] uppercase tracking-wider" style={{ color: "rgba(255,255,255,0.4)" }}>Your next appointment</p>
-            <p className="mt-1 font-semibold text-white">{next.serviceName ?? "Appointment"}</p>
-            <p className="text-sm" style={{ color: "rgba(255,255,255,0.55)" }}>{formatApptDate(next.startsAt)}</p>
-          </div>
-        ) : (
-          <p className="relative mt-2 text-lg font-semibold leading-snug text-white">
-            Book, pre-pay, check in, and manage your care — all in one place.
-          </p>
-        )}
-
-        {nudge && (
-          <div className="relative mt-3 rounded-xl px-4 py-3" style={{ background: "rgba(230,0,126,0.12)", border: "1px solid rgba(230,0,126,0.3)" }}>
-            <p className="text-sm font-semibold" style={{ color: "#FFB8DC" }}>
-              👀 It&apos;s been {last!.daysSince} days since your last visit
-            </p>
-            <p className="mt-0.5 text-xs" style={{ color: "rgba(255,255,255,0.5)" }}>
-              {last!.serviceName ? `${last!.serviceName} typically needs a touch-up around now.` : "Time for a touch-up?"}
-            </p>
-          </div>
-        )}
-
-        <a href={BOOKING_URL} target="_blank" rel="noopener noreferrer"
-          className="relative mt-4 block rounded-xl py-3.5 text-center text-sm font-bold text-white transition hover:brightness-110"
-          style={{ background: trifectaButtonGradient(trifectaAccent(0)) }}>
-          {next ? "Book another appointment" : "Book an appointment"}
-        </a>
-      </div>
+          {nudge && (
+            <div className={`rounded-xl px-4 py-3 ${next ? "mt-3" : ""}`} style={{ background: "rgba(230,0,126,0.12)", border: "1px solid rgba(230,0,126,0.3)" }}>
+              <p className="text-sm font-semibold" style={{ color: "#FFB8DC" }}>
+                👀 It&apos;s been {last!.daysSince} days since your last visit
+              </p>
+              <p className="mt-0.5 text-xs" style={{ color: "rgba(255,255,255,0.5)" }}>
+                {last!.serviceName ? `${last!.serviceName} typically needs a touch-up around now.` : "Time for a touch-up?"}
+              </p>
+            </div>
+          )}
+        </div>
+      )}
 
       {/* Rewards pill */}
       {auth && points > 0 && (
@@ -420,6 +435,7 @@ function HomeTab({ onNavigate, onOpenIntake, intakeRefresh, homeData }: {
           ))}
         </div>
       </section>
+      </div>
     </div>
   );
 }
