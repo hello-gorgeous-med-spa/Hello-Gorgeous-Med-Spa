@@ -115,6 +115,15 @@ export async function getMerchantsApiAsync() {
 }
 
 /**
+ * Get Checkout API (Payment Links) with OAuth token.
+ * Used to create hosted pre-pay links on the fly (e.g. Vitamin Bar).
+ */
+export async function getCheckoutApiAsync() {
+  const client = await getSquareClientAsync();
+  return client?.checkout ?? client?.checkoutApi ?? null;
+}
+
+/**
  * Get Refunds API with OAuth token
  */
 export async function getRefundsApiAsync() {

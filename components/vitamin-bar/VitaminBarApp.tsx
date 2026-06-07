@@ -180,6 +180,33 @@ function MenuTab({ onSelect }: { onSelect: (s: VitaminShot) => void }) {
 
 function ShotSheet({ shot, onClose }: { shot: VitaminShot; onClose: () => void }) {
   const freshaUrl = shot.freshaUrl || BOOKING_URL;
+  const [payBusy, setPayBusy] = useState(false);
+  const [payErr, setPayErr] = useState<string | null>(null);
+
+  async function prepay() {
+    setPayErr(null);
+    setPayBusy(true);
+    try {
+      const res = await fetch("/api/vitamin-bar/checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ itemId: shot.id, kind: "shot" }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (res.ok && data.url) {
+        window.location.href = data.url;
+        return;
+      }
+      setPayErr(data.error === "Square checkout is not connected yet. Connect Square to enable pre-pay."
+        ? "Pre-pay isn't switched on yet — you can pay at the window."
+        : "Couldn't start pre-pay. You can pay at the window or call us.");
+    } catch {
+      setPayErr("Network error. You can pay at the window or call us.");
+    } finally {
+      setPayBusy(false);
+    }
+  }
+
   return (
     <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/50" onClick={onClose}>
       <div
@@ -229,11 +256,17 @@ function ShotSheet({ shot, onClose }: { shot: VitaminShot; onClose: () => void }
               Pre-pay {priceLabel(shot.price)} & reserve
             </a>
           ) : (
-            <div className="rounded-xl border border-black/10 bg-[#faf7f9] py-3 text-center text-sm font-medium text-black/60">
-              Pay at the window — {priceLabel(shot.price)}
-            </div>
+            <button
+              type="button"
+              onClick={() => void prepay()}
+              disabled={payBusy}
+              className="block w-full rounded-xl bg-[#E6007E] py-3.5 text-center font-bold text-white disabled:opacity-60"
+            >
+              {payBusy ? "Starting checkout…" : `Pre-pay ${priceLabel(shot.price)} & reserve`}
+            </button>
           )}
-          <a
+          {payErr && <p className="text-center text-xs text-red-600">{payErr}</p>}
+          <
             href={freshaUrl}
             target="_blank"
             rel="noopener noreferrer"
