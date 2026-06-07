@@ -10,6 +10,7 @@ import {
   CLIENT_APP_QUICK_ACTIONS,
   CLIENT_APP_SERVICES,
   CLIENT_APP_TABS,
+  CLIENT_APP_WELLNESS_PROGRAMS,
   type ClientAppTab,
 } from "@/lib/client-app";
 import {
@@ -400,10 +401,13 @@ function HomeTab({ onNavigate, onOpenIntake, intakeRefresh, homeData }: {
         })}
       </div>
 
+      {/* Wellness Programs */}
+      <WellnessSection />
+
       {/* Services list */}
       <section className="mt-4">
         <h2 className="mb-3 text-[10px] font-bold uppercase tracking-widest" style={{ color: "rgba(255,255,255,0.3)" }}>
-          Our services
+          All services
         </h2>
         <div className="space-y-2">
           {CLIENT_APP_SERVICES.map((s, i) => (
@@ -417,6 +421,86 @@ function HomeTab({ onNavigate, onOpenIntake, intakeRefresh, homeData }: {
         </div>
       </section>
     </div>
+  );
+}
+
+// ─── Wellness Programs Section ────────────────────────────────────────────────
+
+function WellnessSection() {
+  const [expanded, setExpanded] = useState<string | null>(null);
+
+  return (
+    <section className="mt-4">
+      <h2 className="mb-3 text-[10px] font-bold uppercase tracking-widest" style={{ color: "rgba(255,255,255,0.3)" }}>
+        Wellness Programs
+      </h2>
+      <div className="space-y-3">
+        {CLIENT_APP_WELLNESS_PROGRAMS.map((p) => {
+          const accent = trifectaAccent(p.accentIndex);
+          const isOpen = expanded === p.id;
+          return (
+            <div key={p.id} className="rounded-2xl overflow-hidden"
+              style={{ background: "rgba(255,255,255,0.04)", border: `1px solid ${accent.border}` }}>
+
+              {/* Card header — always visible */}
+              <button
+                type="button"
+                className="w-full text-left p-4"
+                onClick={() => setExpanded(isOpen ? null : p.id)}
+              >
+                <div className="flex items-start justify-between gap-3">
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2 mb-1">
+                      <span className="text-[9px] font-bold uppercase tracking-widest px-2 py-0.5 rounded-full text-white"
+                        style={{ background: accent.badgeBg }}>
+                        {p.badge}
+                      </span>
+                      <span className="text-[10px] font-semibold uppercase tracking-wider" style={{ color: accent.subtitle }}>
+                        {p.subtitle}
+                      </span>
+                    </div>
+                    <h3 className="text-base font-bold text-white">{p.label}</h3>
+                    <p className="mt-1 text-xs leading-relaxed" style={{ color: "rgba(255,255,255,0.55)" }}>
+                      {p.blurb}
+                    </p>
+                  </div>
+                  <span className="text-lg mt-1 transition-transform duration-200 shrink-0"
+                    style={{ color: accent.subtitle, transform: isOpen ? "rotate(180deg)" : "rotate(0deg)" }}>
+                    ⌄
+                  </span>
+                </div>
+              </button>
+
+              {/* Expanded content */}
+              {isOpen && (
+                <div className="px-4 pb-4">
+                  <div className="mb-3 space-y-1.5">
+                    {p.highlights.map((h) => (
+                      <div key={h} className="flex items-center gap-2 text-sm" style={{ color: "rgba(255,255,255,0.7)" }}>
+                        <span className="text-xs" style={{ color: accent.bullet }}>●</span>
+                        {h}
+                      </div>
+                    ))}
+                  </div>
+                  <div className="flex gap-2">
+                    <Link href={p.learnHref}
+                      className="flex-1 rounded-xl py-2.5 text-center text-sm font-semibold text-white"
+                      style={{ background: `linear-gradient(90deg, ${accent.buttonFrom}, ${accent.buttonTo})` }}>
+                      Learn More →
+                    </Link>
+                    <Link href={p.bookHref}
+                      className="flex-1 rounded-xl py-2.5 text-center text-sm font-semibold"
+                      style={{ border: `1px solid ${accent.border}`, color: accent.subtitle }}>
+                      Get Started
+                    </Link>
+                  </div>
+                </div>
+              )}
+            </div>
+          );
+        })}
+      </div>
+    </section>
   );
 }
 

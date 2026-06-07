@@ -77,6 +77,46 @@ export const CLIENT_APP_SERVICES = [
   { label: "IV Therapy", href: "/iv-therapy" },
 ] as const;
 
+/** Wellness program cards shown on the Home tab. */
+export const CLIENT_APP_WELLNESS_PROGRAMS = [
+  {
+    id: "peptides",
+    label: "Peptide Therapy",
+    subtitle: "Regenerative Medicine",
+    blurb: "Science-backed peptides for recovery, longevity, skin, and performance. BPC-157, Sermorelin, NAD+, GHK-Cu & more.",
+    badge: "NEW",
+    accentIndex: 1, // blue
+    href: "/peptides",
+    learnHref: "/peptides",
+    bookHref: "/peptides",
+    highlights: ["BPC-157 — tissue & gut repair", "Sermorelin — natural GH release", "NAD+ — cellular energy & longevity", "GHK-Cu — skin & hair renewal"],
+  },
+  {
+    id: "hormones",
+    label: "Hormone Optimization",
+    subtitle: "Bio-Identical HRT",
+    blurb: "Feel like yourself again. Physician-supervised testosterone, estrogen, progesterone & BioTE® pellet therapy.",
+    badge: "RX",
+    accentIndex: 2, // orange
+    href: "/rx/hormones",
+    learnHref: "/rx/hormones",
+    bookHref: "/rx/hormones",
+    highlights: ["Testosterone Replacement (men & women)", "Estrogen & Progesterone Therapy", "BioTE® Pellets — 3–6 month delivery", "Thyroid & DHEA Optimization"],
+  },
+  {
+    id: "glp1",
+    label: "Weight Loss & GLP-1",
+    subtitle: "Metabolic Wellness",
+    blurb: "Semaglutide & Tirzepatide programs supervised by our clinical team. Real results, real support.",
+    badge: "POPULAR",
+    accentIndex: 0, // pink
+    href: "/glp1-weight-loss",
+    learnHref: "/glp1-weight-loss",
+    bookHref: "/glp1-intake",
+    highlights: ["Semaglutide (Ozempic-class)", "Tirzepatide (Mounjaro-class)", "Medical supervision & check-ins", "Nutrition & lifestyle support"],
+  },
+] as const;
+
 export const CLIENT_APP_PORTAL_LINKS = [
   { label: "My Portal", href: "/portal", icon: "🏠" },
   { label: "GLP-1 Screening", href: GLP1_INTAKE_PATH, icon: "⚖️" },
