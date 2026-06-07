@@ -1,12 +1,25 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import { useCallback, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { LeadGate } from "@/components/LeadGate";
-import { FaceBlueprintCanvas } from "@/components/face/FaceBlueprintCanvas";
 import { trackFaceEvent } from "@/lib/face-analytics";
 import { BOOKING_URL } from "@/lib/flows";
 import type { FaceServiceId, FaceIntensityLevel, FaceBlueprintAIOutput } from "@/lib/face-types";
+
+const FaceBlueprintCanvas = dynamic(
+  () =>
+    import("@/components/face/FaceBlueprintCanvas").then((mod) => mod.FaceBlueprintCanvas),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="flex min-h-[280px] items-center justify-center rounded-2xl border-2 border-black/10 bg-neutral-50">
+        <div className="h-8 w-8 animate-spin rounded-full border-2 border-[#FF2D8D]/40 border-t-[#FF2D8D]" />
+      </div>
+    ),
+  },
+);
 
 const MAX_FILE_BYTES = 5 * 1024 * 1024;
 const ACCEPT = "image/jpeg,image/png";
