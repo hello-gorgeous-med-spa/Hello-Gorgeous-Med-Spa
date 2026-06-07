@@ -77,8 +77,9 @@ export const SHOT_CATEGORY_LABELS: Record<ShotCategory, string> = {
 };
 
 /**
- * STARTER MENU — edit prices and names to match your actual offerings.
- * Prices below are typical med-spa shot pricing as a starting point.
+ * VITAMIN BAR MENU — owner-approved prices (confirmed Jun 2026).
+ * Edit here to change names, prices, or member pricing; the app + Square
+ * checkout read from this file directly.
  */
 export const VITAMIN_SHOTS: VitaminShot[] = [
   // Energy & Metabolism
