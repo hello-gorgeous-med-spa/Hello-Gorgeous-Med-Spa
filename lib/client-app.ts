@@ -63,6 +63,7 @@ export const CLIENT_APP_QUICK_ACTIONS = [
 export const CLIENT_APP_SERVICES = [
   { label: "Botox & Injectables", href: "/botox-oswego" },
   { label: "Morpheus8 & Body Contouring", href: "/body-contouring-oswego-il" },
+  { label: "Non-Surgical Facelift", href: "/non-surgical-facelift-oswego-il" },
   { label: "Weight Loss & GLP-1", href: "/glp1-weight-loss" },
   { label: "Peptide Therapy", href: "/peptides" },
   { label: "Facials & HydraFacial", href: "/facials-oswego" },

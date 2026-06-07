@@ -147,6 +147,15 @@ $49 peptide consultation · medication priced separately. Oswego, IL — serving
     ctaUrl: 'https://www.hellogorgeousmedspa.com/peptides',
   },
   {
+    id: 'non-surgical-facelift',
+    title: 'Non-Surgical Facelift — Oswego, IL',
+    type: 'Update',
+    headline: 'Non-Surgical Facelift in Oswego — Lift Without Surgery',
+    description: 'Our advanced technique combines Botox, dermal fillers, PDO threads & skin-tightening to lift sagging skin, restore volume, smooth wrinkles & stimulate collagen — minimal downtime. Free consult with Ryan Kent, FNP-BC. Oswego, IL.',
+    ctaText: 'Book consult',
+    ctaUrl: 'https://www.hellogorgeousmedspa.com/non-surgical-facelift-oswego-il',
+  },
+  {
     id: 'founder-letter',
     title: "Founder's Letter — My Jerry Maguire Moment",
     type: 'Update',

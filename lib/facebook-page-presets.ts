@@ -462,8 +462,29 @@ Book below 👇`,
   defaultChannels: ["facebook", "instagram", "google"],
 };
 
+export const FACEBOOK_PAGE_PRESET_NON_SURGICAL_FACELIFT: FacebookPagePreset = {
+  id: "non-surgical-facelift",
+  label: "Non-Surgical Facelift — Oswego, IL",
+  blurb: "Botox + fillers + PDO threads + RF — lift without surgery.",
+  message: `✨ Non-Surgical Facelift in Oswego, IL
+
+Our advanced technique combines Botox, dermal fillers, PDO threads & skin-tightening to lift, sculpt & rejuvenate your face — naturally, without surgery.
+
+✓ Lift sagging skin
+✓ Restore facial volume
+✓ Smooth wrinkles
+✓ Stimulate collagen
+✓ Minimal downtime
+
+Free consult · Ryan Kent, FNP-BC · downtown Oswego. Book below 👇`,
+  linkPath: withUtm("/non-surgical-facelift-oswego-il"),
+  imagePath: "/images/morpheus8/morpheus8-burst-deep-jowls-jawline-before-after.png",
+  defaultChannels: ["facebook", "instagram", "google"],
+};
+
 export const FACEBOOK_PAGE_PRESETS: FacebookPagePreset[] = [
   FACEBOOK_PAGE_PRESET_BOTOX_49,
+  FACEBOOK_PAGE_PRESET_NON_SURGICAL_FACELIFT,
   FACEBOOK_PAGE_PRESET_BOTOX_AI,
   FACEBOOK_PAGE_PRESET_BOTOX_NATURAL,
   FACEBOOK_PAGE_PRESET_BOTOX_AUTHENTIC,

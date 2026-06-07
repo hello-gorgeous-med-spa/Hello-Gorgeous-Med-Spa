@@ -166,4 +166,21 @@ Free consult + brow mapping. Serving Naperville, Aurora & Plainfield. Book below
     linkPath: "/microblading-brow-pmu-oswego-il",
     imagePath: "/images/brow/danielle-alcala-brow-pmu-portfolio-before-after.png",
   },
+  {
+    id: "non-surgical-facelift",
+    label: "Non-Surgical Facelift — Oswego, IL",
+    message: `✨ Non-Surgical Facelift in Oswego, IL
+
+Our advanced technique combines Botox, dermal fillers, PDO threads & skin-tightening to lift, sculpt & rejuvenate — naturally, without surgery.
+
+✓ Lift sagging skin
+✓ Restore facial volume
+✓ Smooth wrinkles
+✓ Stimulate collagen
+✓ Minimal downtime
+
+Free consult with Ryan Kent, FNP-BC · downtown Oswego. Book below 👇`,
+    linkPath: "/non-surgical-facelift-oswego-il?utm_source=google&utm_medium=gbp_post&utm_campaign=non_surgical_facelift",
+    imagePath: "/images/morpheus8/morpheus8-burst-deep-jowls-jawline-before-after.png",
+  },
 ];
