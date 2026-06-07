@@ -11,7 +11,7 @@ import {
 
 function ServiceCard({ service }: { service: HomepageServiceCard }) {
   return (
-    <div className="group bg-white border border-black rounded-lg overflow-hidden hover:shadow-xl transition-all duration-300">
+    <div className="group overflow-hidden rounded-2xl border-4 border-black bg-white shadow-[6px_6px_0_0_rgba(230,0,126,0.35)] transition-transform duration-300 hover:-translate-y-1">
       <div
         className={`relative h-44 overflow-hidden ${service.imageContain ? "bg-neutral-100" : ""}`}
       >
@@ -29,37 +29,13 @@ function ServiceCard({ service }: { service: HomepageServiceCard }) {
         )}
       </div>
       <div className="p-6">
-        <h3 className="text-xl font-semibold text-black mb-3">{service.title}</h3>
-        <p className="text-black/70 text-sm mb-4 leading-relaxed">{service.description}</p>
-        <ul className="space-y-1.5 mb-6">
-          {service.items.map((item) => (
-            <li key={item} className="text-black text-sm flex items-center gap-2">
-              <span className="w-1.5 h-1.5 bg-[#E6007E] rounded-full" />
-              {item}
-            </li>
-          ))}
-        </ul>
+        <h3 className="text-xl font-bold text-black mb-2">{service.title}</h3>
+        <p className="text-black/70 text-sm mb-5 leading-relaxed line-clamp-3">{service.description}</p>
         <Link
           href={service.link}
-          className="inline-flex items-center text-black font-semibold text-sm group-hover:text-[#E6007E] transition-colors"
+          className="inline-flex items-center rounded-full bg-[#E6007E] px-5 py-2.5 text-sm font-bold text-white transition group-hover:bg-black"
         >
-          <span className="relative">
-            Learn More
-            <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#E6007E] group-hover:w-full transition-all duration-300" />
-          </span>
-          <svg
-            className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M17 8l4 4m0 0l-4 4m4-4H3"
-            />
-          </svg>
+          Learn more →
         </Link>
       </div>
     </div>
@@ -70,15 +46,21 @@ export function ServicesSection() {
   const [showMore, setShowMore] = useState(false);
 
   return (
-    <section className="bg-white py-24">
+    <section id="services" className="scroll-mt-20 border-b-4 border-black bg-gradient-to-b from-[#FFF0F7] to-white py-16 md:py-20">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-semibold text-black">
-            Our Signature Services
+        <div className="mx-auto mb-12 max-w-3xl text-center">
+          <p className="text-xs font-bold uppercase tracking-[0.28em] text-[#E6007E]">What we do best</p>
+          <h2 className="mt-3 text-4xl font-black text-black md:text-5xl">
+            Signature{" "}
+            <span
+              className="bg-gradient-to-r from-[#FFB8DC] via-[#FF2D8E] to-[#E6007E] bg-clip-text text-transparent"
+              style={{ WebkitBackgroundClip: "text" }}
+            >
+              Services
+            </span>
           </h2>
-          <p className="mt-4 text-lg text-black/70 max-w-2xl mx-auto">
-            The treatments we&apos;re known for — Botox, Morpheus8, body contouring, Solaria CO₂,
-            weight loss, hormones &amp; IV therapy.
+          <p className="mt-4 text-base text-black/70 md:text-lg">
+            Six treatments clients book most — tap a card to learn more or book below.
           </p>
         </div>
 

@@ -2,24 +2,13 @@ import { Metadata } from "next";
 import {
   HeroV3,
   TrustStrip,
-  PartnerBadges,
   ServicesSection,
-  FaceBlueprintSection,
-  ProductsCatalogHomeSection,
   TrifectaSection,
   HomepageTestimonials,
-  HomepageProfessionalGrid,
-  HomepageCherryFaqRow,
   HomepageClosingCTARow,
-  OurPromiseSection,
 } from "@/components/homepage-v3";
-import { TheBookBadge } from "@/components/the-book";
-import { PeptideTherapyHomeSection } from "@/components/peptides/PeptideTherapyHomeSection";
-import { HomepagePromoRail } from "@/components/HomepagePromoRail";
 import { MeetDaniRyanSection } from "@/components/marketing/MeetDaniRyanSection";
-import { Morpheus8SkinRebuildSection } from "@/components/Morpheus8SkinRebuildSection";
-import { Morpheus8VerifiedProviderSection } from "@/components/Morpheus8VerifiedProviderSection";
-import { QuantumRFRyanActionSlideshow } from "@/components/marketing/QuantumRFRyanActionSlideshow";
+import { HomepageHydrafacialBanner } from "@/components/HomepageHydrafacialBanner";
 import {
   SITE,
   SITE_OG_IMAGE,
@@ -61,35 +50,26 @@ export const metadata: Metadata = {
 
 export default function HomePage() {
   const homeBreadcrumbs = [{ name: "Home", url: SITE.url }];
-
-  // Image gallery schemas for Google Images SEO
   const injectablesImages = getImagesByCategory("injectables");
   const aestheticsImages = getImagesByCategory("aesthetics");
   const morpheus8BurstHomeImages = getMorpheus8HomepageImages();
 
   return (
     <>
-      {/* Core MedicalBusiness Schema */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(siteJsonLd()) }}
       />
-      
-      {/* LocalBusiness Schema */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(mainLocalBusinessJsonLd()) }}
       />
-      
-      {/* Breadcrumb Schema */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(breadcrumbJsonLd(homeBreadcrumbs)),
         }}
       />
-
-      {/* WebPage Schema with Primary Image */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -102,25 +82,21 @@ export default function HomePage() {
               image: "/images/hero-banner.png",
               datePublished: "2023-01-01",
               dateModified: new Date().toISOString().split("T")[0],
-            })
+            }),
           ),
         }}
       />
-
-      {/* ItemList — homepage service cards (matches ServicesSection) */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(homepageServicesItemListJsonLd()),
         }}
       />
-
-      {/* Image Gallery Schemas for Google Images */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(
-            imageGalleryJsonLd(injectablesImages, "Botox & Dermal Filler Treatments")
+            imageGalleryJsonLd(injectablesImages, "Botox & Dermal Filler Treatments"),
           ),
         }}
       />
@@ -128,7 +104,7 @@ export default function HomePage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(
-            imageGalleryJsonLd(aestheticsImages, "Skin Rejuvenation Treatments")
+            imageGalleryJsonLd(aestheticsImages, "Skin Rejuvenation Treatments"),
           ),
         }}
       />
@@ -138,37 +114,29 @@ export default function HomePage() {
           __html: JSON.stringify(
             imageGalleryJsonLd(
               morpheus8BurstHomeImages,
-              "Morpheus8 Burst RF Microneedling — Verified Provider Oswego IL"
-            )
+              "Morpheus8 Burst RF Microneedling — Verified Provider Oswego IL",
+            ),
           ),
         }}
       />
-
-      {/* Homepage service card images — full gallery aligned with ItemList */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(homepageServicesImageGalleryJsonLd()),
         }}
       />
-
-      {/* FAQPage Schema — can trigger FAQ rich results in search */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(faqJsonLd(HOME_FAQS, `${SITE.url}/`)),
         }}
       />
-
-      {/* Service + ReserveAction — supports "Book" in local/search */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(bookingServiceJsonLd()),
         }}
       />
-
-      {/* Review Schema for Testimonials */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -177,24 +145,14 @@ export default function HomePage() {
       />
 
       <main className="bg-white">
-        <HomepagePromoRail />
         <HeroV3 />
+        <HomepageHydrafacialBanner />
         <TrustStrip />
+        <ServicesSection />
+        <TrifectaSection />
         <HomepageTestimonials />
         <MeetDaniRyanSection />
-        <OurPromiseSection />
-        <Morpheus8SkinRebuildSection />
-        <Morpheus8VerifiedProviderSection />
-        <TrifectaSection />
-        <PartnerBadges />
-        <ServicesSection />
-        <PeptideTherapyHomeSection />
-        <FaceBlueprintSection />
-        <ProductsCatalogHomeSection />
-        <HomepageProfessionalGrid />
-        <HomepageCherryFaqRow />
         <HomepageClosingCTARow />
-        <TheBookBadge />
       </main>
     </>
   );

@@ -4,7 +4,6 @@ import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { BOOKING_URL } from "@/lib/flows";
-import { HG_TAGLINE } from "@/lib/brand-tagline";
 import { SITE } from "@/lib/seo";
 
 export function HeroV3() {
@@ -62,12 +61,8 @@ export function HeroV3() {
                   Medicine.
                 </span>
               </h1>
-              <p className="mt-4 text-sm md:text-base text-[#FFB8DC] font-semibold leading-relaxed max-w-md">
-                Oswego&apos;s NP-directed medical aesthetics destination.
-              </p>
-              <p className="mt-2 text-sm text-white/75 leading-relaxed max-w-md">
-                Botox, Morpheus8 Burst, QuantumRF, Solaria CO₂, weight loss, hormones &amp; IV therapy —
-                delivered by licensed medical providers. {HG_TAGLINE}
+              <p className="mt-4 text-sm md:text-base text-white/85 font-medium leading-relaxed max-w-md">
+                Botox, Morpheus8, weight loss, hormones &amp; more — NP-directed care in Oswego.
               </p>
 
               <div className="mt-5 inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 px-4 py-2 backdrop-blur">
@@ -91,16 +86,12 @@ export function HeroV3() {
                   Book Free Consultation
                 </Link>
                 <Link
-                  href="/gallery"
-                  className="inline-flex items-center justify-center rounded-full border border-white/50 px-6 py-3 text-sm font-semibold text-white transition hover:border-white hover:bg-white/10"
+                  href="#services"
+                  className="inline-flex items-center justify-center rounded-full border-2 border-white px-6 py-3 text-sm font-bold text-white transition hover:bg-white hover:text-black"
                 >
-                  Before &amp; After
+                  Explore Services
                 </Link>
               </div>
-
-              <p className="mt-5 text-[11px] text-white/50 leading-relaxed">
-                #1 Best Med Spa Oswego · Morpheus8 Burst · Quantum RF · Solaria CO₂
-              </p>
             </div>
           </div>
         </div>
