@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * SEO content depth check — uses merged LOCATION_PAGE_CONTENT (same as runtime).
- * Run: node --experimental-strip-types scripts/check-seo-content-depth.ts
+ * Run: npx tsx scripts/check-seo-content-depth.ts
  */
 import {
   getLocationPageWordCount,
