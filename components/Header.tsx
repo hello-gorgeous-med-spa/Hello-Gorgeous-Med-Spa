@@ -105,7 +105,6 @@ const NAV = {
       { label: "VIP Model Program", href: "/vip-model", sub: "Up to 50% off advanced treatments — limited spots", badge: "50% OFF" },
       { label: "Memberships", href: "/memberships", sub: "Monthly plans for ongoing care" },
       { label: "Free Vitamin Shot", href: "/free-vitamin", sub: "New clients only", badge: "FREE" },
-      { label: "Financing", href: "/financing", sub: "CareCredit, Cherry & Affirm available" },
       { label: "Alle Rewards", href: "/alle-botox-rewards", sub: "Earn points on Botox & Juvederm" },
     ],
   },
@@ -571,6 +570,8 @@ export function Header() {
         (pathname === link.href || pathname?.startsWith(link.href + "/"))
     );
 
+  const isFinancingActive = pathname === "/financing" || pathname?.startsWith("/financing/");
+
   const isRegenerativeActive =
     pathname === REGENERATIVE_MEDICINE_PATH ||
     pathname === NAD_PLUS_INJECTIONS_PATH ||
@@ -730,6 +731,18 @@ export function Header() {
                 onMouseEnter={() => openDropdown("specials")}
               />
             </div>
+
+            {/* 0% Financing — Cherry, CareCredit & Affirm (full page, not homepage widget) */}
+            <Link
+              href="/financing"
+              className={cx(
+                NAV_LINK_BASE,
+                "border border-[#7a6f9b]/50",
+                isFinancingActive ? NAV_LINK_ACTIVE : NAV_LINK_IDLE
+              )}
+            >
+              0% Financing
+            </Link>
 
             {/* Before & After */}
             <Link
@@ -938,6 +951,7 @@ export function Header() {
 
             {/* Standalone links */}
             {[
+              { label: "0% Financing", href: "/financing", highlight: true },
               { label: "FAQ", href: "/faq" },
               { label: "Blog & Resources", href: "/blog" },
               { label: "Contact Us", href: "/contact" },
@@ -946,7 +960,12 @@ export function Header() {
                 key={link.href}
                 href={link.href}
                 onClick={() => setMobileOpen(false)}
-                className="flex items-center justify-between px-4 py-3.5 rounded-xl text-sm font-semibold text-black hover:bg-[#FFF0F7] hover:text-[#E6007E] transition-colors border-b border-black/10"
+                className={cx(
+                  "flex items-center justify-between px-4 py-3.5 rounded-xl text-sm font-semibold transition-colors border-b border-black/10",
+                  "highlight" in link && link.highlight
+                    ? "text-[#E6007E] bg-[#FFF0F7] border border-[#E6007E]/30"
+                    : "text-black hover:bg-[#FFF0F7] hover:text-[#E6007E]"
+                )}
               >
                 {link.label}
               </Link>

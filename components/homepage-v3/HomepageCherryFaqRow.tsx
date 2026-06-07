@@ -4,7 +4,7 @@ import { CherryWidget } from "@/components/CherryWidget";
 import { CHERRY_PAY_URL } from "@/lib/flows";
 import { HomepageFAQ } from "./HomepageFAQ";
 
-/** Financing (Cherry) + FAQs in one band — mirrors HomepageClosingCTARow layout */
+/** @deprecated Do not mount on homepage — Cherry widget overflows; use /financing and nav "0% Financing" instead. */
 export function HomepageCherryFaqRow() {
   return (
     <section
