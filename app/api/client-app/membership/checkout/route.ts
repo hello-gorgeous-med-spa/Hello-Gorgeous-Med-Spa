@@ -31,13 +31,13 @@ export async function POST(req: NextRequest) {
   }
 
   try {
-    const url = await createMembershipCheckoutUrl({
+    const result = await createMembershipCheckoutUrl({
       membershipId: plan.id,
       name: plan.name,
       priceDollars: plan.pricePerMonth,
       redirectUrl: `${SITE.url}${CLIENT_APP.path}?membership=success`,
     });
-    return NextResponse.json({ url });
+    return NextResponse.json(result);
   } catch (e: unknown) {
     const msg = e instanceof Error ? e.message : String(e);
     console.error("[client-app/membership/checkout]", msg);

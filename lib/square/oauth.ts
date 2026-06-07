@@ -42,6 +42,10 @@ const REQUIRED_SCOPES = [
   'GIFTCARDS_READ',
   'GIFTCARDS_WRITE',
   'INVOICES_READ',
+  'ITEMS_READ',
+  'ITEMS_WRITE',
+  'SUBSCRIPTIONS_READ',
+  'SUBSCRIPTIONS_WRITE',
 ].join(' ');
 
 export interface SquareOAuthConfig {

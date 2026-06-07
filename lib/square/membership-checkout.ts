@@ -124,38 +124,88 @@ async function ensureSubscriptionPlan(
   return { planId: obj.id, variationId };
 }
 
+/** First-month one-time payment when subscription API isn't authorized yet. */
+async function createFirstMonthCheckoutUrl(opts: {
+  membershipId: string;
+  name: string;
+  priceDollars: number;
+  redirectUrl: string;
+}): Promise<string> {
+  const locationId = await resolveSquareLocationId();
+  const linkData = await squareFetch<{
+    payment_link?: { url?: string; long_url?: string };
+  }>("/v2/online-checkout/payment-links", {
+    method: "POST",
+    body: {
+      idempotency_key: idempotencyKey(`m1-${opts.membershipId}`),
+      quick_pay: {
+        name: `${opts.name} — first month`,
+        price_money: {
+          amount: Math.round(opts.priceDollars * 100),
+          currency: "USD",
+        },
+        location_id: locationId,
+      },
+      checkout_options: {
+        redirect_url: opts.redirectUrl,
+        ask_for_shipping_address: false,
+      },
+      description: `Hello Gorgeous membership — ${opts.name} (month 1). Recurring billing set up at your visit.`,
+    },
+  });
+
+  const url = linkData.payment_link?.url || linkData.payment_link?.long_url;
+  if (!url) throw new Error("Could not create first-month checkout link");
+  return url;
+}
+
+export type MembershipCheckoutResult = {
+  url: string;
+  /** subscription = recurring Square billing; first_month = one-time until Square scopes updated */
+  mode: "subscription" | "first_month";
+};
+
 /** Create a Square hosted checkout URL for a monthly membership. */
 export async function createMembershipCheckoutUrl(opts: {
   membershipId: string;
   name: string;
   priceDollars: number;
   redirectUrl: string;
-}): Promise<string> {
-  const { planId, variationId } = await ensureSubscriptionPlan(
-    opts.membershipId,
-    opts.name,
-    Math.round(opts.priceDollars * 100),
-  );
+}): Promise<MembershipCheckoutResult> {
+  try {
+    const { planId, variationId } = await ensureSubscriptionPlan(
+      opts.membershipId,
+      opts.name,
+      Math.round(opts.priceDollars * 100),
+    );
 
-  await resolveSquareLocationId();
+    await resolveSquareLocationId();
 
-  const linkData = await squareFetch<{
-    payment_link?: { url?: string; long_url?: string };
-  }>("/v2/online-checkout/payment-links", {
-    method: "POST",
-    body: {
-      idempotency_key: idempotencyKey(`mlink-${opts.membershipId}`),
-      checkout_options: {
-        subscription_plan_id: planId,
-        subscription_plan_variation_id: variationId,
-        redirect_url: opts.redirectUrl,
-        ask_for_shipping_address: false,
+    const linkData = await squareFetch<{
+      payment_link?: { url?: string; long_url?: string };
+    }>("/v2/online-checkout/payment-links", {
+      method: "POST",
+      body: {
+        idempotency_key: idempotencyKey(`mlink-${opts.membershipId}`),
+        checkout_options: {
+          subscription_plan_id: planId,
+          subscription_plan_variation_id: variationId,
+          redirect_url: opts.redirectUrl,
+          ask_for_shipping_address: false,
+        },
+        description: `Hello Gorgeous membership — ${opts.name}`,
       },
-      description: `Hello Gorgeous membership — ${opts.name}`,
-    },
-  });
+    });
 
-  const url = linkData.payment_link?.url || linkData.payment_link?.long_url;
-  if (!url) throw new Error("Could not create membership checkout link");
-  return url;
+    const url = linkData.payment_link?.url || linkData.payment_link?.long_url;
+    if (!url) throw new Error("Could not create membership checkout link");
+    return { url, mode: "subscription" };
+  } catch (subErr) {
+    console.warn(
+      "[membership-checkout] Subscription flow unavailable, using first-month payment:",
+      subErr instanceof Error ? subErr.message : subErr,
+    );
+    const url = await createFirstMonthCheckoutUrl(opts);
+    return { url, mode: "first_month" };
+  }
 }
