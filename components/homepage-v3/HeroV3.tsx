@@ -29,17 +29,31 @@ export function HeroV3() {
         />
       </div>
 
-      {/* Hero image — full frame visible (native 3:2), prominent height, pop-in */}
+      {/* Hero image — full frame visible (native 3:2), prominent height, pop-in + Trifecta glow */}
       <div className="relative mx-auto w-full max-w-[1400px] px-2 pt-3 sm:px-4 sm:pt-4 md:px-6">
-        <div
-          className={`relative h-[clamp(300px,48vw,580px)] w-full overflow-hidden rounded-2xl transition-all duration-[1300ms] ease-[cubic-bezier(0.16,1,0.3,1)] md:rounded-3xl ${
-            revealed ? "scale-100 opacity-100" : "scale-[0.97] opacity-0"
-          }`}
-          style={{
-            border: `1px solid ${trifectaAccent(0).border}`,
-            boxShadow: revealed ? `0 24px 80px rgba(236, 72, 153, 0.15), 0 0 0 1px rgba(255,255,255,0.05)` : "none",
-          }}
-        >
+        <div className="relative">
+          {revealed ? (
+            <div
+              className="pointer-events-none absolute -inset-2 rounded-[18px] md:-inset-3 md:rounded-[28px]"
+              aria-hidden="true"
+            >
+              <div className="hero-glow-ring hero-glow-ring--pink absolute inset-0 rounded-[inherit]" />
+              <div className="hero-glow-ring hero-glow-ring--blue absolute inset-0 rounded-[inherit]" />
+              <div className="hero-glow-ring hero-glow-ring--orange absolute inset-0 rounded-[inherit]" />
+            </div>
+          ) : null}
+
+          <div
+            className={`relative h-[clamp(360px,54vw,680px)] w-full overflow-hidden rounded-2xl transition-all duration-[1400ms] ease-[cubic-bezier(0.16,1,0.3,1)] md:rounded-3xl ${
+              revealed ? "scale-100 opacity-100" : "scale-[0.94] opacity-0"
+            }`}
+            style={{
+              border: `1px solid ${trifectaAccent(0).border}`,
+              boxShadow: revealed
+                ? "0 28px 90px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(255,255,255,0.06)"
+                : "none",
+            }}
+          >
           <Image
             src="/images/hero-brand.png"
             alt="Hello Gorgeous Med Spa — advanced aesthetic technology in Oswego, IL"
@@ -75,15 +89,16 @@ export function HeroV3() {
               Advanced technology · Oswego, IL
             </div>
           </div>
+          </div>
         </div>
       </div>
 
       {/* Action bar — doesn’t cover the brand photo */}
       <div
         className={`relative mx-auto max-w-7xl px-4 pb-5 pt-4 transition-all duration-700 ease-out sm:px-6 md:px-10 md:pb-6 md:pt-5 ${
-          revealed ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"
+          revealed ? "translate-y-0 opacity-100" : "translate-y-5 opacity-0"
         }`}
-        style={{ transitionDelay: "350ms" }}
+        style={{ transitionDelay: "480ms" }}
       >
         <div
           className="rounded-2xl p-4 backdrop-blur-md sm:p-5 md:p-6"

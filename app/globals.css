@@ -515,3 +515,42 @@
 .admin-dark h1, .admin-dark h2, .admin-dark h3 {
   color: #ffffff !important;
 }
+
+/* Homepage hero — staggered Trifecta glow pulse (pink → blue → orange) */
+@keyframes hero-glow-pulse {
+  0%,
+  100% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.hero-glow-ring {
+  pointer-events: none;
+  animation: hero-glow-pulse 2.4s ease-in-out infinite;
+}
+
+.hero-glow-ring--pink {
+  box-shadow:
+    0 0 32px 3px rgba(236, 72, 153, 0.55),
+    0 0 72px 10px rgba(236, 72, 153, 0.18),
+    inset 0 0 0 1px rgba(236, 72, 153, 0.35);
+}
+
+.hero-glow-ring--blue {
+  animation-delay: 0.8s;
+  box-shadow:
+    0 0 32px 3px rgba(59, 130, 246, 0.5),
+    0 0 72px 10px rgba(59, 130, 246, 0.16),
+    inset 0 0 0 1px rgba(59, 130, 246, 0.3);
+}
+
+.hero-glow-ring--orange {
+  animation-delay: 1.6s;
+  box-shadow:
+    0 0 32px 3px rgba(249, 115, 22, 0.5),
+    0 0 72px 10px rgba(249, 115, 22, 0.16),
+    inset 0 0 0 1px rgba(249, 115, 22, 0.3);
+}
