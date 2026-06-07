@@ -7,7 +7,12 @@
 
 import { NextRequest, NextResponse } from "next/server";
 
-import { getCheckoutApiAsync, getSquareLocationIdAsync, dollarsToCents } from "@/lib/square/client";
+import {
+  getCheckoutApiAsync,
+  getSquareLocationIdAsync,
+  getLocationsApiAsync,
+  dollarsToCents,
+} from "@/lib/square/client";
 import { SITE } from "@/lib/seo";
 import { VITAMIN_SHOTS, VITAMIN_MEMBERSHIPS, VITAMIN_BAR } from "@/lib/vitamin-bar";
 
@@ -70,7 +75,23 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  const locationId = await getSquareLocationIdAsync();
+  let locationId = await getSquareLocationIdAsync();
+  if (!locationId) {
+    // Fall back to the first active location on the connected Square account.
+    try {
+      const locationsApi = await getLocationsApiAsync();
+      const res = await locationsApi?.listLocations?.();
+      const locations =
+        (res as { result?: { locations?: Array<{ id?: string; status?: string }> } })?.result
+          ?.locations ??
+        (res as { locations?: Array<{ id?: string; status?: string }> })?.locations ??
+        [];
+      const active = locations.find((l) => l?.status === "ACTIVE") ?? locations[0];
+      locationId = active?.id ?? null;
+    } catch (e) {
+      console.error("[vitamin-bar/checkout] listLocations", e);
+    }
+  }
   if (!locationId) {
     return NextResponse.json({ error: "No Square location configured." }, { status: 503 });
   }
