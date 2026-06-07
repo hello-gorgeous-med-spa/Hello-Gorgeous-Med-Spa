@@ -26,6 +26,11 @@ jobs:
 
   build:
     runs-on: ubuntu-latest
+    env:
+      # Placeholders so Next.js can collect page data without real Supabase secrets in CI
+      NEXT_PUBLIC_SUPABASE_URL: https://ci-placeholder.supabase.co
+      NEXT_PUBLIC_SUPABASE_ANON_KEY: ci-placeholder-anon-key
+      SUPABASE_SERVICE_ROLE_KEY: ci-placeholder-service-role-key
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
