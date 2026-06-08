@@ -12,11 +12,18 @@ import { NextRequest, NextResponse } from "next/server";
 import webpush from "web-push";
 import { createAdminSupabaseClient } from "@/lib/hgos/supabase";
 
-webpush.setVapidDetails(
-  process.env.VAPID_SUBJECT!,
-  process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY!,
-  process.env.VAPID_PRIVATE_KEY!
-);
+// Lazy init — setVapidDetails called inside handler so missing env vars
+// don't crash the build during Next.js page data collection.
+function initWebPush() {
+  const subject = process.env.VAPID_SUBJECT;
+  const publicKey = process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY;
+  const privateKey = process.env.VAPID_PRIVATE_KEY;
+  if (subject && publicKey && privateKey) {
+    webpush.setVapidDetails(subject, publicKey, privateKey);
+    return true;
+  }
+  return false;
+}
 
 function isAdmin(req: NextRequest) {
   const token = req.headers.get("authorization")?.replace("Bearer ", "") ?? "";
@@ -25,6 +32,8 @@ function isAdmin(req: NextRequest) {
 
 export async function POST(req: NextRequest) {
   if (!isAdmin(req)) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+
+  const pushReady = initWebPush();
 
   const supabase = createAdminSupabaseClient();
   if (!supabase) return NextResponse.json({ error: "Unavailable" }, { status: 503 });
@@ -74,6 +83,10 @@ export async function POST(req: NextRequest) {
     const expired: string[] = [];
 
     for (const sub of subs) {
+      if (!pushReady) {
+        console.warn("[aftercare/process] VAPID keys not configured — skipping push");
+        break;
+      }
       try {
         await webpush.sendNotification(
           { endpoint: sub.endpoint, keys: { p256dh: sub.p256dh, auth: sub.auth } },
