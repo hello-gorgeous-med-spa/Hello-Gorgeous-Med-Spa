@@ -398,6 +398,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.7,
     },
     {
+      url: `${baseUrl}/services/microneedling`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.92,
+    },
+    {
       url: `${baseUrl}/services/microneedling-rf`,
       lastModified: currentDate,
       changeFrequency: 'weekly',
