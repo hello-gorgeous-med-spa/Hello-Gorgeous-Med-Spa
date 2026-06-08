@@ -11,6 +11,7 @@ import { BotoxCalculator } from "@/components/BotoxCalculator";
 import { InjectablesBlogPromo } from "@/components/InjectablesBlogPromo";
 import { AlleEmbedSection } from "@/components/AlleEmbedSection";
 import { ProofConversionSection } from "@/components/services/ProofConversionSection";
+import { IvTherapyServicePage } from "@/components/services/IvTherapyServicePage";
 import { ServiceTestimonialsPlaceholder } from "@/components/services/ServiceTestimonialsPlaceholder";
 import { BOOKING_URL, FRESHA_BOOKING_URL_DANIELLE, FRESHA_BOOKING_URL_RYAN } from "@/lib/flows";
 import {
@@ -2074,5 +2075,6 @@ export default function ServicesCatchAllPage({ params }: { params: Params }) {
   if (!one) notFound();
 
   if (maybeCategorySlug(one)) return <CategoryPage categoryId={one} />;
+  if (one === "iv-therapy") return <IvTherapyServicePage />;
   return <ServiceDetailPage serviceSlug={one} />;
 }
