@@ -51,7 +51,18 @@ const NAV = {
       {
         heading: "Injectables",
         links: [
-          { label: "Botox & Neurotoxins", href: "/botox-oswego", sub: "From $10/unit · Oswego" },
+          { label: "Botox & Neurotoxins", href: "/botox-oswego", sub: "All 5 FDA-approved brands · from $10/unit" },
+          {
+            label: "Daxxify — 6-Month Neurotoxin",
+            href: "/daxxify-oswego-il",
+            sub: "Longest-lasting · peptide-powered · Oswego",
+            badge: "NEW",
+          },
+          {
+            label: "Compare All 5 Neurotoxins",
+            href: "/botox-vs-dysport-vs-jeuveau",
+            sub: "Botox · Dysport · Jeuveau · Xeomin · Daxxify",
+          },
           { label: "Dermal Fillers", href: "/dermal-fillers-oswego", sub: "Lip, cheek & facial volume" },
           { label: "Lip Filler", href: "/lip-filler-oswego", sub: "Natural lip enhancement · Oswego" },
         ],
@@ -100,6 +111,12 @@ const NAV = {
         label: "Signature Treatment Menu",
         href: `${SPECIALS_PATH}#menu`,
         sub: "Botox $10 · Lip filler · Morpheus8 · Solaria · Trifecta",
+      },
+      {
+        label: "Daxxify — Now Available",
+        href: "/daxxify-oswego-il",
+        sub: "6-month neurotoxin · only Fox Valley provider with all 5 brands",
+        badge: "NEW",
       },
       {
         label: "Injection Menu",

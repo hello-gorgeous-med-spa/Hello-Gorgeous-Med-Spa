@@ -94,6 +94,27 @@ export default function OswegoHubPage() {
         </div>
       </Section>
 
+      <Section className="py-8">
+        <FadeUp>
+          <Link
+            href="/daxxify-oswego-il"
+            className="group block rounded-2xl border-4 border-black bg-gradient-to-r from-black via-zinc-900 to-black p-6 shadow-[8px_8px_0_0_rgba(255,45,142,0.35)] transition hover:brightness-110 md:p-8"
+          >
+            <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#FF2D8E]">New · All 5 neurotoxins</p>
+            <h2 className="mt-2 text-2xl font-black text-white md:text-3xl">
+              Daxxify — up to 6 months on one treatment
+            </h2>
+            <p className="mt-2 max-w-2xl text-sm text-white/75 md:text-base">
+              Oswego&apos;s only med spa with Botox, Dysport, Jeuveau, Xeomin, and Daxxify. Peptide-powered. Fast onset. Book a free consult.
+            </p>
+            <p className="mt-4 text-sm font-bold text-[#FFB8DC]">
+              Learn about Daxxify{" "}
+              <span className="inline-block transition-transform group-hover:translate-x-1">→</span>
+            </p>
+          </Link>
+        </FadeUp>
+      </Section>
+
       <Section>
         <FadeUp>
           <h2 className="text-3xl md:text-4xl font-bold text-white">

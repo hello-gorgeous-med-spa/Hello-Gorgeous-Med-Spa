@@ -245,6 +245,31 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: slug.startsWith('botox-') ? 0.9 : 0.85,
   }));
 
+  // All 5 neurotoxins — Daxxify launch + comparison hub (high-intent local SEO)
+  const neurotoxinSeoPages: MetadataRoute.Sitemap = [
+    'botox-vs-dysport-vs-jeuveau',
+    'daxxify-oswego-il',
+    'daxxify-naperville-il',
+    'daxxify-aurora-il',
+    'daxxify-joliet-il',
+    'daxxify-plainfield-il',
+    'daxxify-yorkville-il',
+    'dysport-oswego-il',
+    'dysport-naperville-il',
+    'dysport-aurora-il',
+    'dysport-joliet-il',
+    'jeuveau-oswego-il',
+    'jeuveau-naperville-il',
+    'jeuveau-aurora-il',
+    'xeomin-oswego-il',
+    'xeomin-naperville-il',
+  ].map((slug) => ({
+    url: `${baseUrl}/${slug}`,
+    lastModified: currentDate,
+    changeFrequency: 'weekly' as const,
+    priority: slug.startsWith('daxxify-') ? 0.95 : 0.88,
+  }));
+
   // Solaria CO2 special pages (aftercare content lives on /solaria)
   const solariaPages: MetadataRoute.Sitemap = [
     {
@@ -745,6 +770,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...topicalExpansionPages,
     ...solariaPages,
     ...newCityServicePages,
+    ...neurotoxinSeoPages,
     ...morpheus8Pages,
     ...priorityTreatmentPages,
     ...blogPages,

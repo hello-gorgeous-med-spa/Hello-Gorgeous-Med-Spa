@@ -235,6 +235,16 @@ export function Footer({
                 </Link>
               </li>
               <li>
+                <Link className="text-[#FF2D8E] hover:text-[#FF2D8E] font-medium transition-colors" href="/daxxify-oswego-il">
+                  Daxxify — 6-Month Neurotoxin (NEW)
+                </Link>
+              </li>
+              <li>
+                <Link className="text-[#FF2D8E] hover:text-[#FF2D8E] font-medium transition-colors" href="/botox-vs-dysport-vs-jeuveau">
+                  All 5 Neurotoxins Compared
+                </Link>
+              </li>
+              <li>
                 <Link className="text-[#FF2D8E] hover:text-[#FF2D8E] font-medium transition-colors" href="/blog/botox-vs-dysport-vs-jeuveau-faq-oswego">
                   Botox vs Dysport vs Jeuveau Guide
                 </Link>
