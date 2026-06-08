@@ -12,13 +12,14 @@
 
 import { NextRequest, NextResponse } from "next/server";
 import { createAdminSupabaseClient } from "@/lib/hgos/supabase";
+import { isDeliverableMarketingEmail } from "@/lib/email-eligibility";
+import { getResendFromAddress } from "@/lib/resend-config";
 
 export const dynamic = "force-dynamic";
 export const maxDuration = 60;
 
-// Stay safely under the Resend daily quota (200) — leave headroom
-// for transactional + other automated mail.
-const DAILY_CAP = 150;
+// Stay safely under the Resend daily quota — leave headroom for transactional mail.
+const DAILY_CAP = 50;
 const THROTTLE_MS = 450;
 const SOURCE = "review_campaign_auto";
 
@@ -52,7 +53,7 @@ function emailHtml(name: string | null): string {
 async function sendEmail(to: string, name: string | null): Promise<{ ok: boolean; quota?: boolean; err?: string }> {
   const key = process.env.RESEND_API_KEY;
   if (!key) return { ok: false, err: "RESEND_API_KEY missing" };
-  const from = process.env.RESEND_FROM_EMAIL || "Hello Gorgeous <leads@hellogorgeousmedspa.com>";
+  const from = getResendFromAddress();
   const res = await fetch("https://api.resend.com/emails", {
     method: "POST",
     headers: { Authorization: `Bearer ${key}`, "Content-Type": "application/json" },
@@ -78,6 +79,11 @@ export async function GET(request: NextRequest) {
 
   if (process.env.REVIEW_REQUESTS_ENABLED === "false") {
     return NextResponse.json({ sent: 0, reason: "disabled" });
+  }
+
+  // Bulk backlog drain is OFF unless explicitly enabled — use post-visit triggers instead.
+  if (process.env.REVIEW_EMAIL_CAMPAIGN_ENABLED !== "true") {
+    return NextResponse.json({ sent: 0, reason: "bulk_review_campaign_disabled" });
   }
 
   const supabase = createAdminSupabaseClient();
@@ -116,15 +122,15 @@ export async function GET(request: NextRequest) {
     }
   }
 
-  // Eligible = real Square clients with email + consent, oldest first so the
-  // backlog drains in order, then new clients trickle in daily.
+  // Eligible = Square customers only (paid), valid email, marketing consent.
   const { data: candidates, error: candErr } = await supabase
     .from("clients")
-    .select("id, first_name, email, square_customer_id, source, created_at")
+    .select("id, first_name, email, square_customer_id, source, created_at, accepts_email_marketing")
     .not("email", "is", null)
     .not("first_name", "is", null)
+    .not("square_customer_id", "is", null)
     .eq("consent_email", true)
-    .or("square_customer_id.not.is.null,source.eq.square")
+    .neq("accepts_email_marketing", false)
     .order("created_at", { ascending: true })
     .limit(2000);
 
@@ -136,8 +142,7 @@ export async function GET(request: NextRequest) {
   const queue = (candidates ?? []).filter((c) => {
     if (alreadyAsked.has(c.id)) return false;
     const e = (c.email ?? "").trim().toLowerCase();
-    if (!e || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(e)) return false;
-    if (askedEmails.has(e) || seenEmail.has(e)) return false;
+    if (!isDeliverableMarketingEmail(e) || askedEmails.has(e) || seenEmail.has(e)) return false;
     seenEmail.add(e);
     return true;
   });
