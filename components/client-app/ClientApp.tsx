@@ -13,6 +13,7 @@ import {
   CLIENT_APP_WELLNESS_PROGRAMS,
   type ClientAppTab,
 } from "@/lib/client-app";
+import { getActiveDeals, type AppDeal } from "@/lib/app-deals";
 import {
   VITAMIN_BAR,
   VITAMIN_MEMBERSHIPS,
@@ -61,6 +62,8 @@ type HomeData = {
   } | null;
   rewardPoints?: number;
   creditBalance?: number;
+  birthdayInDays?: number | null;
+  isBirthday?: boolean;
 };
 
 // ─── Hooks ────────────────────────────────────────────────────────────────────
@@ -246,8 +249,8 @@ export function ClientApp({ initialTab = "home" }: { initialTab?: ClientAppTab }
           <>
             {tab === "home"       && <HomeTab onNavigate={setTab} onOpenIntake={() => setShowIntake(true)} intakeRefresh={intakeRefresh} homeData={homeData} canInstall={canInstall} promptInstall={promptInstall} />}
             {tab === "vitamin"    && <VitaminTab onSelect={setSelected} onOpenIntake={() => setShowIntake(true)} intakeRefresh={intakeRefresh} />}
+            {tab === "deals"      && <DealsTab />}
             {tab === "membership" && <MembershipTab memberships={VITAMIN_MEMBERSHIPS} />}
-            {tab === "visit"      && <VisitTab onOpenIntake={() => setShowIntake(true)} intakeRefresh={intakeRefresh} />}
             {tab === "me"         && <MeTab onOpenIntake={() => setShowIntake(true)} intakeRefresh={intakeRefresh} homeData={homeData} />}
           </>
         )}
@@ -293,12 +296,15 @@ function HomeTab({ onNavigate, onOpenIntake, intakeRefresh, homeData, canInstall
   canInstall: boolean;
   promptInstall: () => Promise<void>;
 }) {
-  const auth      = homeData?.authenticated;
-  const firstName = homeData?.firstName;
-  const next      = homeData?.nextAppointment;
-  const last      = homeData?.lastAppointment;
-  const points    = homeData?.rewardPoints ?? 0;
-  const nudge     = last && last.daysSince != null && last.daysSince >= 70;
+  const auth           = homeData?.authenticated;
+  const firstName      = homeData?.firstName;
+  const next           = homeData?.nextAppointment;
+  const last           = homeData?.lastAppointment;
+  const points         = homeData?.rewardPoints ?? 0;
+  const nudge          = last && last.daysSince != null && last.daysSince >= 70;
+  const birthdayInDays = homeData?.birthdayInDays ?? null;
+  const isBirthday     = homeData?.isBirthday ?? false;
+  const nearBirthday   = auth && birthdayInDays != null && birthdayInDays <= 30;
 
   return (
     <div className="space-y-4">
@@ -361,6 +367,35 @@ function HomeTab({ onNavigate, onOpenIntake, intakeRefresh, homeData, canInstall
           </div>
           <span className="text-xs" style={{ color: trifectaAccent(0).subtitle }}>View →</span>
         </Link>
+      )}
+
+      {/* Birthday card */}
+      {nearBirthday && (
+        <div className="rounded-2xl overflow-hidden relative"
+          style={{ background: "linear-gradient(135deg, #1a0020, #0a0010)", border: "1px solid rgba(245,158,11,0.4)" }}>
+          <div className="absolute -top-6 -right-6 w-32 h-32 rounded-full opacity-20 blur-3xl pointer-events-none" style={{ background: "#f59e0b" }} />
+          <div className="p-4 relative">
+            <div className="flex items-center gap-2 mb-1">
+              <span className="text-xl">{isBirthday ? "🎂" : "🎁"}</span>
+              <span className="text-[10px] font-bold uppercase tracking-widest" style={{ color: "#fbbf24" }}>
+                {isBirthday ? "Happy Birthday!" : `Birthday in ${birthdayInDays} day${birthdayInDays === 1 ? "" : "s"}`}
+              </span>
+            </div>
+            <p className="text-sm font-semibold text-white">
+              {isBirthday ? `Happy Birthday, ${firstName ?? "gorgeous"}! 🎉` : `${firstName ? `${firstName}, your` : "Your"} birthday treat is waiting`}
+            </p>
+            <p className="mt-0.5 text-xs" style={{ color: "rgba(255,255,255,0.55)" }}>
+              {isBirthday
+                ? "Enjoy 15% off any treatment this month — just mention it at checkout."
+                : "Book before your birthday and get 15% off any treatment as our gift to you."}
+            </p>
+            <a href={BOOKING_URL} target="_blank" rel="noopener noreferrer"
+              className="mt-3 inline-block rounded-xl px-4 py-2 text-xs font-bold text-white"
+              style={{ background: "linear-gradient(90deg, #f59e0b, #f97316)" }}>
+              {isBirthday ? "Claim birthday treat →" : "Book my birthday treat →"}
+            </a>
+          </div>
+        </div>
       )}
 
       {/* Sign-in prompt */}
@@ -533,6 +568,163 @@ function WellnessSection() {
         })}
       </div>
     </section>
+  );
+}
+
+// ─── Deals Tab ───────────────────────────────────────────────────────────────
+
+function DealsTab() {
+  const deals = getActiveDeals();
+  const [gcOpen, setGcOpen] = useState(false);
+
+  return (
+    <div className="py-5">
+      {/* Header */}
+      <div className="mb-5">
+        <div className="inline-flex items-center gap-2 rounded-full px-3 py-1 text-[10px] font-bold uppercase tracking-widest mb-2"
+          style={{ background: "rgba(230,0,126,0.15)", color: "#f472b6", border: "1px solid rgba(230,0,126,0.25)" }}>
+          🔒 App Members Only
+        </div>
+        <h2 className="text-xl font-bold text-white">Exclusive Deals</h2>
+        <p className="mt-1 text-sm" style={{ color: "rgba(255,255,255,0.45)" }}>
+          Special offers only available in the Hello Gorgeous app.
+        </p>
+      </div>
+
+      {/* Gift Card CTA */}
+      <button type="button" onClick={() => setGcOpen(true)}
+        className="w-full mb-5 rounded-2xl p-4 text-left"
+        style={{ background: "linear-gradient(135deg, rgba(245,158,11,0.15), rgba(249,115,22,0.1))", border: "1px solid rgba(245,158,11,0.3)" }}>
+        <div className="flex items-center justify-between">
+          <div>
+            <p className="text-[10px] font-bold uppercase tracking-widest mb-1" style={{ color: "#fbbf24" }}>Gift Someone Special</p>
+            <p className="font-bold text-white">Buy a Gift Card</p>
+            <p className="text-xs mt-0.5" style={{ color: "rgba(255,255,255,0.5)" }}>$25 · $50 · $100 · $150 · $200 — via Square</p>
+          </div>
+          <span className="text-3xl">🎁</span>
+        </div>
+      </button>
+
+      {/* Deal cards */}
+      <div className="space-y-4">
+        {deals.map((deal) => {
+          const accent = trifectaAccent(deal.accentIndex);
+          return (
+            <div key={deal.id} className="rounded-2xl overflow-hidden"
+              style={{ background: "rgba(255,255,255,0.04)", border: `1px solid ${accent.border}` }}>
+              <div className="p-4">
+                <div className="flex items-start justify-between gap-2 mb-2">
+                  <div>
+                    <span className="text-[9px] font-bold uppercase tracking-widest px-2 py-0.5 rounded-full text-white mr-2"
+                      style={{ background: accent.badgeBg }}>
+                      {deal.badge}
+                    </span>
+                    {deal.savings && (
+                      <span className="text-[9px] font-bold uppercase tracking-widest px-2 py-0.5 rounded-full"
+                        style={{ background: "rgba(255,255,255,0.08)", color: "rgba(255,255,255,0.6)" }}>
+                        {deal.savings}
+                      </span>
+                    )}
+                  </div>
+                  {deal.expires && (
+                    <span className="text-[9px]" style={{ color: "rgba(255,255,255,0.35)" }}>
+                      Exp {new Date(deal.expires).toLocaleDateString("en-US", { month: "short", day: "numeric" })}
+                    </span>
+                  )}
+                </div>
+                <h3 className="text-base font-bold text-white">{deal.title}</h3>
+                <p className="text-xs font-semibold mt-0.5" style={{ color: accent.subtitle }}>{deal.subtitle}</p>
+                <p className="mt-2 text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.6)" }}>{deal.description}</p>
+                <Link href={deal.href}
+                  className="mt-3 inline-block rounded-xl px-5 py-2.5 text-sm font-bold text-white"
+                  style={{ background: `linear-gradient(90deg, ${accent.buttonFrom}, ${accent.buttonTo})` }}>
+                  {deal.cta} →
+                </Link>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+
+      {deals.length === 0 && (
+        <div className="mt-10 text-center">
+          <p className="text-4xl mb-3">🌟</p>
+          <p className="font-semibold text-white">New deals coming soon</p>
+          <p className="text-sm mt-1" style={{ color: "rgba(255,255,255,0.4)" }}>Turn on notifications so you never miss one.</p>
+        </div>
+      )}
+
+      {gcOpen && <GiftCardModal onClose={() => setGcOpen(false)} />}
+    </div>
+  );
+}
+
+// ─── Gift Card Modal ──────────────────────────────────────────────────────────
+
+const GC_AMOUNTS = [25, 50, 75, 100, 150, 200];
+
+function GiftCardModal({ onClose }: { onClose: () => void }) {
+  const [amount, setAmount] = useState<number>(50);
+  const [busy, setBusy] = useState(false);
+  const [err, setErr] = useState<string | null>(null);
+
+  async function checkout() {
+    setErr(null); setBusy(true);
+    try {
+      const res = await fetch("/api/app/gift-card/checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ amount }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (res.ok && data.url) { window.location.href = data.url; return; }
+      setErr(data.error || "Could not start checkout. Call us to purchase.");
+    } catch { setErr("Network error. Try again or call us."); }
+    finally { setBusy(false); }
+  }
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/70" onClick={onClose}>
+      <div className="w-full max-w-xl rounded-t-3xl p-6 pb-10"
+        style={{ background: "#181818" }} onClick={(e) => e.stopPropagation()}>
+        <div className="mx-auto mb-4 h-1.5 w-12 rounded-full" style={{ background: "rgba(255,255,255,0.15)" }} />
+        <h3 className="text-xl font-bold text-white">Buy a Gift Card</h3>
+        <p className="mt-1 text-sm" style={{ color: "rgba(255,255,255,0.5)" }}>
+          Redeemable for any service or product. Delivered via Square — recipient gets an email.
+        </p>
+
+        {/* Amount picker */}
+        <div className="mt-5 grid grid-cols-3 gap-2">
+          {GC_AMOUNTS.map((a) => (
+            <button key={a} type="button" onClick={() => setAmount(a)}
+              className="rounded-xl py-3 text-sm font-bold transition"
+              style={{
+                background: amount === a ? "linear-gradient(90deg, #f59e0b, #f97316)" : "rgba(255,255,255,0.06)",
+                color: amount === a ? "#fff" : "rgba(255,255,255,0.6)",
+                border: amount === a ? "none" : "1px solid rgba(255,255,255,0.1)",
+              }}>
+              ${a}
+            </button>
+          ))}
+        </div>
+
+        <div className="mt-5 rounded-xl px-4 py-3 flex items-center justify-between"
+          style={{ background: "rgba(245,158,11,0.1)", border: "1px solid rgba(245,158,11,0.25)" }}>
+          <span className="text-sm text-white/70">Gift card value</span>
+          <span className="text-xl font-black" style={{ color: "#fbbf24" }}>${amount}</span>
+        </div>
+
+        <button type="button" onClick={() => void checkout()} disabled={busy}
+          className="mt-4 w-full rounded-xl py-4 font-bold text-white disabled:opacity-60"
+          style={{ background: "linear-gradient(90deg, #f59e0b, #f97316)" }}>
+          {busy ? "Opening checkout…" : `Purchase $${amount} Gift Card via Square`}
+        </button>
+        {err && <p className="mt-2 text-center text-xs text-red-400">{err}</p>}
+        <button type="button" onClick={onClose} className="mt-3 w-full py-2 text-sm" style={{ color: "rgba(255,255,255,0.35)" }}>
+          Cancel
+        </button>
+      </div>
+    </div>
   );
 }
 

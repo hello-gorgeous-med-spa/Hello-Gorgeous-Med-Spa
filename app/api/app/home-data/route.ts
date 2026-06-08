@@ -30,7 +30,7 @@ export async function GET(request: NextRequest) {
   const [clientRes, nextRes, lastRes, walletRes] = await Promise.all([
     supabase
       .from("clients")
-      .select("first_name, last_name")
+      .select("first_name, last_name, date_of_birth")
       .eq("id", clientId)
       .single(),
 
@@ -84,9 +84,23 @@ export async function GET(request: NextRequest) {
     return (s as { name: string }).name ?? null;
   }
 
+  // Birthday detection — how many days until their next birthday?
+  let birthdayInDays: number | null = null;
+  let isBirthday = false;
+  if (client?.date_of_birth) {
+    const today = new Date();
+    const dob = new Date(client.date_of_birth);
+    const next = new Date(today.getFullYear(), dob.getMonth(), dob.getDate());
+    if (next < today) next.setFullYear(today.getFullYear() + 1);
+    birthdayInDays = Math.ceil((next.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
+    isBirthday = birthdayInDays === 0 || birthdayInDays === 365;
+  }
+
   return NextResponse.json({
     authenticated: true,
     firstName: client?.first_name ?? null,
+    birthdayInDays,
+    isBirthday,
     nextAppointment: next
       ? {
           id: next.id,

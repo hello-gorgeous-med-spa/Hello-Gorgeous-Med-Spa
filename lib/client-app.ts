@@ -16,13 +16,13 @@ export const CLIENT_APP = {
   hoursNote: "Mon–Fri 10–8 · Sat 10–5 · Sun by appointment",
 } as const;
 
-export type ClientAppTab = "home" | "vitamin" | "membership" | "visit" | "me";
+export type ClientAppTab = "home" | "vitamin" | "deals" | "membership" | "me";
 
 export const CLIENT_APP_TABS: { id: ClientAppTab; label: string; icon: string }[] = [
   { id: "home", label: "Home", icon: "🏠" },
   { id: "vitamin", label: "Vitamin Bar", icon: "💉" },
+  { id: "deals", label: "Deals", icon: "🎁" },
   { id: "membership", label: "Membership", icon: "⭐" },
-  { id: "visit", label: "Visit", icon: "🚗" },
   { id: "me", label: "Me", icon: "👤" },
 ];
 
@@ -136,6 +136,7 @@ export const CLIENT_APP_PORTAL_LINKS = [
   { label: "Book a Service", href: "/portal/book", icon: "✨" },
   { label: "Rewards", href: "/portal/rewards", icon: "🎁" },
   { label: "Shop Supplements", href: "https://us.fullscript.com/welcome/hellogorgeousmedspa", icon: "💊" },
+  { label: "Buy a Gift Card", href: "/app?tab=me&gc=buy", icon: "🎁" },
   { label: "Documents & Consents", href: "/portal/documents", icon: "📁" },
   { label: "Account", href: "/portal/account", icon: "⚙️" },
 ] as const;
