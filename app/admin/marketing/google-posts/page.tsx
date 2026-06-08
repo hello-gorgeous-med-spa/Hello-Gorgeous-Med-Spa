@@ -28,8 +28,39 @@ const INJECTION_MENU_URL = 'https://www.hellogorgeousmedspa.com/injection-menu';
 const PEPTIDE_BLOG_URL = 'https://www.hellogorgeousmedspa.com/blog/top-peptides-bpc157-sermorelin-ghk-cu-pt141-nad-49-consult-oswego-il';
 
 const BOTOX_URL = 'https://www.hellogorgeousmedspa.com/botox-oswego';
+const APP_IV_BUILD_URL = 'https://www.hellogorgeousmedspa.com/app?iv=build';
+const IV_APP_BLOG_URL =
+  'https://www.hellogorgeousmedspa.com/blog/build-your-iv-bag-hello-gorgeous-app-oswego-il';
 
 const CAMPAIGNS: Campaign[] = [
+  {
+    id: 'hello-gorgeous-app-iv',
+    title: 'NEW — Hello Gorgeous App + Build Your IV Bag',
+    type: 'Update',
+    headline: 'Build Your IV Bag in Our New App — Oswego, IL',
+    description: `📱 Our client app is live — no App Store download.
+
+💧 Build Your IV Bag:
+• 500 mL from $89 · 1 Liter from $109
+• B12, glutathione, vitamin C, Tri-Immune & more
+• Most custom bags $150–$199 — live price before you book
+
+Add hellogorgeousmedspa.com/app to your home screen. Book IV therapy, Vitamin Bar shots & med spa services in one tap.
+
+Ryan Kent, FNP-BC · Oswego — Naperville, Aurora & Plainfield.`,
+    ctaText: 'Open app',
+    ctaUrl: APP_IV_BUILD_URL,
+  },
+  {
+    id: 'hello-gorgeous-app-blog',
+    title: 'App Launch — Blog (Build Your IV Bag)',
+    type: 'Update',
+    headline: 'New App + Custom IV Bags — Read the Full Guide',
+    description:
+      'Design your IV bag online, see add-on pricing in real time, and add our app to your home screen. Full walkthrough on the Hello Gorgeous blog — Oswego, IL.',
+    ctaText: 'Read article',
+    ctaUrl: IV_APP_BLOG_URL,
+  },
   {
     id: 'botox-10-unit',
     title: 'Botox — $10/unit (Oswego)',

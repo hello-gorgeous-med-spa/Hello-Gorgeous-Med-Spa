@@ -26,6 +26,7 @@ import {
   ClientAppIntakeCard,
   ClientAppIntakeForm,
 } from "@/components/client-app/ClientAppIntakeForm";
+import { ClientAppIvBagBuilder } from "@/components/client-app/ClientAppIvBagBuilder";
 import { BrandHero } from "@/components/BrandHero";
 import {
   usePwaInstall,
@@ -130,8 +131,15 @@ function formatApptDate(iso: string): string {
 
 // ─── Root ─────────────────────────────────────────────────────────────────────
 
-export function ClientApp({ initialTab = "home" }: { initialTab?: ClientAppTab }) {
+export function ClientApp({
+  initialTab = "home",
+  initialIvBuilder = false,
+}: {
+  initialTab?: ClientAppTab;
+  initialIvBuilder?: boolean;
+}) {
   const [tab, setTab] = useState<ClientAppTab>(initialTab);
+  const [showIvBuilder, setShowIvBuilder] = useState(initialIvBuilder);
   const [selected, setSelected] = useState<VitaminShot | null>(null);
   const [showIntake, setShowIntake] = useState(false);
   const [intakeRefresh, setIntakeRefresh] = useState(0);
@@ -211,10 +219,12 @@ export function ClientApp({ initialTab = "home" }: { initialTab?: ClientAppTab }
       <main className="mx-auto max-w-xl px-5">
         {showIntake ? (
           <ClientAppIntakeForm onBack={() => { setShowIntake(false); setIntakeRefresh(n => n + 1); }} />
+        ) : showIvBuilder ? (
+          <ClientAppIvBagBuilder onClose={() => setShowIvBuilder(false)} />
         ) : (
           <>
-            {tab === "home"       && <HomeTab onNavigate={setTab} onOpenIntake={() => setShowIntake(true)} intakeRefresh={intakeRefresh} homeData={homeData} canInstall={canInstall} promptInstall={promptInstall} />}
-            {tab === "vitamin"    && <VitaminTab onSelect={setSelected} onOpenIntake={() => setShowIntake(true)} intakeRefresh={intakeRefresh} />}
+            {tab === "home"       && <HomeTab onNavigate={setTab} onOpenIntake={() => setShowIntake(true)} onOpenIvBuilder={() => { setTab("vitamin"); setShowIvBuilder(true); }} intakeRefresh={intakeRefresh} homeData={homeData} canInstall={canInstall} promptInstall={promptInstall} />}
+            {tab === "vitamin"    && <VitaminTab onSelect={setSelected} onOpenIntake={() => setShowIntake(true)} onOpenIvBuilder={() => setShowIvBuilder(true)} intakeRefresh={intakeRefresh} />}
             {tab === "deals"      && <DealsTab />}
             {tab === "membership" && <MembershipTab memberships={VITAMIN_MEMBERSHIPS} />}
             {tab === "me"         && <MeTab onOpenIntake={() => setShowIntake(true)} intakeRefresh={intakeRefresh} homeData={homeData} />}
@@ -232,7 +242,7 @@ export function ClientApp({ initialTab = "home" }: { initialTab?: ClientAppTab }
               <button
                 key={id}
                 type="button"
-                onClick={() => setTab(id)}
+                onClick={() => { setShowIvBuilder(false); setTab(id); }}
                 className="flex flex-col items-center gap-0.5 py-2.5 text-[10px] font-semibold transition-colors"
                 style={{
                   color: active ? accent.subtitle : "rgba(255,255,255,0.35)",
@@ -254,9 +264,10 @@ export function ClientApp({ initialTab = "home" }: { initialTab?: ClientAppTab }
 
 // ─── Home Tab ─────────────────────────────────────────────────────────────────
 
-function HomeTab({ onNavigate, onOpenIntake, intakeRefresh, homeData, canInstall, promptInstall }: {
+function HomeTab({ onNavigate, onOpenIntake, onOpenIvBuilder, intakeRefresh, homeData, canInstall, promptInstall }: {
   onNavigate: (t: ClientAppTab) => void;
   onOpenIntake: () => void;
+  onOpenIvBuilder: () => void;
   intakeRefresh: number;
   homeData: HomeData | null;
   canInstall: boolean;
@@ -438,6 +449,19 @@ function HomeTab({ onNavigate, onOpenIntake, intakeRefresh, homeData, canInstall
         </Link>
       )}
 
+      <button
+        type="button"
+        onClick={onOpenIvBuilder}
+        className="flex w-full items-center justify-between rounded-xl px-4 py-3 backdrop-blur-sm text-left"
+        style={{ ...glassStyle(2), background: "linear-gradient(90deg, rgba(59,130,246,0.12), rgba(255,45,142,0.08))" }}
+      >
+        <div className="flex items-center gap-2">
+          <span className="text-lg">💧</span>
+          <span className="text-sm font-medium text-white/80">Build Your IV Bag — from $89</span>
+        </div>
+        <span className="text-xs" style={{ color: trifectaAccent(2).subtitle }}>→</span>
+      </button>
+
       {/* Quick actions grid */}
       <div className="grid grid-cols-2 gap-3">
         {CLIENT_APP_QUICK_ACTIONS.map((a, i) => {
@@ -603,6 +627,17 @@ function WellnessSection() {
 function DealsTab() {
   const deals = getActiveDeals();
   const [gcOpen, setGcOpen] = useState(false);
+  const [voucherMsg, setVoucherMsg] = useState<string | null>(null);
+  const homeData = useHomeData();
+  const [activeVouchers, setActiveVouchers] = useState<VoucherSummary[]>([]);
+
+  useEffect(() => {
+    if (!homeData?.clientId) return;
+    fetch(`/api/app/vouchers/balance?client_id=${homeData.clientId}`)
+      .then(r => r.json())
+      .then(d => setActiveVouchers(d.vouchers ?? []))
+      .catch(() => {});
+  }, [homeData?.clientId]);
 
   return (
     <div className="py-5">
@@ -631,6 +666,74 @@ function DealsTab() {
           <span className="text-3xl">🎁</span>
         </div>
       </button>
+
+      {/* Buy a Voucher section */}
+      <div className="mb-5">
+        <div className="flex items-center gap-2 mb-3">
+          <span className="text-lg">💳</span>
+          <h3 className="text-base font-bold text-white">Buy a Service Voucher</h3>
+        </div>
+        <p className="text-xs mb-3" style={{ color: "rgba(255,255,255,0.45)" }}>
+          Pre-pay and get bonus credit — valid on all services · Excludes weight loss medications &amp; retail products.
+        </p>
+        <div className="space-y-3">
+          {[
+            { tier: '1000', pay: 1000, credit: 1100, bonus: '$100 free', pct: '10% bonus' },
+            { tier: '2000', pay: 2000, credit: 2225, bonus: '$225 free', pct: '11.25% bonus' },
+          ].map((v, i) => {
+            const accent = trifectaAccent(i);
+            return (
+              <div key={v.tier} className="rounded-2xl p-4"
+                style={{ background: `rgba(255,255,255,0.04)`, border: `1px solid ${accent.border}` }}>
+                <div className="flex items-start justify-between gap-3">
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2 mb-1">
+                      <span className="text-[10px] font-bold uppercase tracking-widest px-2 py-0.5 rounded-full text-white"
+                        style={{ background: accent.badgeBg }}>
+                        {v.pct}
+                      </span>
+                    </div>
+                    <p className="font-bold text-white text-base">${v.pay.toLocaleString()} Voucher → ${v.credit.toLocaleString()} Credit</p>
+                    <p className="text-xs mt-0.5" style={{ color: accent.subtitle }}>Get {v.bonus} — {v.pct}</p>
+                    <p className="text-xs mt-1" style={{ color: "rgba(255,255,255,0.4)" }}>
+                      Valid on all services · Excludes weight loss meds &amp; retail
+                    </p>
+                  </div>
+                </div>
+                <button type="button"
+                  onClick={() => setVoucherMsg(`To purchase a $${v.pay.toLocaleString()} voucher, ask staff at checkout or call (630) 636-6193.`)}
+                  className="mt-3 w-full rounded-xl py-3 text-sm font-bold text-white"
+                  style={{ background: `linear-gradient(90deg, ${accent.buttonFrom}, ${accent.buttonTo})` }}>
+                  Purchase ${v.pay.toLocaleString()} Voucher →
+                </button>
+              </div>
+            );
+          })}
+        </div>
+        {voucherMsg && (
+          <div className="mt-3 rounded-xl p-4 text-sm"
+            style={{ background: "rgba(255,45,142,0.1)", border: "1px solid rgba(255,45,142,0.25)", color: "rgba(255,255,255,0.8)" }}>
+            {voucherMsg}
+            <button type="button" onClick={() => setVoucherMsg(null)} className="ml-2 text-white/40 text-xs">✕</button>
+          </div>
+        )}
+
+        {/* Existing vouchers */}
+        {activeVouchers.length > 0 && (
+          <div className="mt-4">
+            <p className="text-xs font-bold uppercase tracking-widest mb-2" style={{ color: "rgba(255,255,255,0.3)" }}>Your Active Vouchers</p>
+            <div className="space-y-2">
+              {activeVouchers.map(v => (
+                <div key={v.id} className="flex items-center justify-between rounded-xl px-4 py-3"
+                  style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.1)" }}>
+                  <span className="font-mono text-sm font-bold text-white">{v.code}</span>
+                  <span className="font-bold" style={{ color: "#4ade80" }}>${v.remaining_balance} remaining</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
 
       {/* Deal cards */}
       <div className="space-y-4">
@@ -757,16 +860,42 @@ function GiftCardModal({ onClose }: { onClose: () => void }) {
 
 // ─── Vitamin Tab ──────────────────────────────────────────────────────────────
 
-function VitaminTab({ onSelect, onOpenIntake, intakeRefresh }: {
+function VitaminTab({ onSelect, onOpenIntake, onOpenIvBuilder, intakeRefresh }: {
   onSelect: (s: VitaminShot) => void;
   onOpenIntake: () => void;
+  onOpenIvBuilder: () => void;
   intakeRefresh: number;
 }) {
   const groups = shotsByCategory();
   return (
     <div className="py-5">
       <ClientAppIntakeCard onOpen={onOpenIntake} refreshKey={intakeRefresh} />
-      <p className="mb-4 mt-5 text-xs font-bold uppercase tracking-widest" style={{ color: trifectaAccent(0).subtitle }}>
+
+      <button
+        type="button"
+        onClick={onOpenIvBuilder}
+        className="mt-5 w-full rounded-2xl p-5 text-left overflow-hidden relative"
+        style={{
+          background: "linear-gradient(135deg, rgba(59,130,246,0.18), rgba(255,45,142,0.12))",
+          border: "1px solid rgba(59,130,246,0.35)",
+        }}
+      >
+        <div className="absolute -top-8 -right-8 w-32 h-32 rounded-full opacity-20 blur-3xl pointer-events-none" style={{ background: "#3b82f6" }} />
+        <div className="relative flex items-center justify-between gap-3">
+          <div>
+            <p className="text-[10px] font-bold uppercase tracking-widest mb-1" style={{ color: "#93c5fd" }}>
+              New · Build Your Bag
+            </p>
+            <p className="text-lg font-bold text-white">Custom IV Therapy</p>
+            <p className="mt-1 text-sm" style={{ color: "rgba(255,255,255,0.55)" }}>
+              From $89 · 500 mL or 1 Liter · Olympia boosters · most bags $150–$199
+            </p>
+          </div>
+          <span className="text-3xl shrink-0">💧</span>
+        </div>
+      </button>
+
+      <p className="mb-4 mt-7 text-xs font-bold uppercase tracking-widest" style={{ color: trifectaAccent(0).subtitle }}>
         The Vitamin Bar · drive-thru wellness
       </p>
       <div className="rounded-2xl p-4 backdrop-blur-sm" style={glassStyle(0)}>
@@ -1010,6 +1139,98 @@ function VisitTab({ onOpenIntake, intakeRefresh }: { onOpenIntake: () => void; i
   );
 }
 
+// ─── QR Code Card ─────────────────────────────────────────────────────────────
+
+type VoucherSummary = { id: string; code: string; remaining_balance: number; status: string };
+
+function QRCodeCard({ clientId, firstName, vouchers: initialVouchers }: {
+  clientId: string;
+  firstName?: string | null;
+  vouchers: VoucherSummary[];
+}) {
+  const [open, setOpen] = useState(false);
+  const [vouchers, setVouchers] = useState<VoucherSummary[]>(initialVouchers);
+  const [vouchersLoaded, setVouchersLoaded] = useState(false);
+
+  function show() {
+    setOpen(true);
+    if (!vouchersLoaded) {
+      fetch(`/api/app/vouchers/balance?client_id=${clientId}`)
+        .then(r => r.json())
+        .then(d => { setVouchers(d.vouchers ?? []); setVouchersLoaded(true); })
+        .catch(() => setVouchersLoaded(true));
+    }
+  }
+
+  return (
+    <>
+      <button
+        type="button"
+        onClick={show}
+        className="w-full rounded-2xl p-4 text-left transition active:scale-[0.98]"
+        style={{ background: "linear-gradient(135deg, rgba(255,45,142,0.15), rgba(255,45,142,0.06))", border: "1px solid rgba(255,45,142,0.3)" }}
+      >
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <span className="text-2xl">📲</span>
+            <div>
+              <p className="text-sm font-bold text-white">My Scan Code</p>
+              <p className="text-xs mt-0.5" style={{ color: "rgba(255,255,255,0.45)" }}>Show to staff at checkout</p>
+            </div>
+          </div>
+          <span className="text-sm font-bold px-3 py-1.5 rounded-xl" style={{ background: "#FF2D8E", color: "#fff" }}>
+            Show QR
+          </span>
+        </div>
+      </button>
+
+      {open && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4" onClick={() => setOpen(false)}>
+          <div className="w-full max-w-sm rounded-3xl p-6 text-center" style={{ background: "#111" }} onClick={e => e.stopPropagation()}>
+            <div className="mx-auto mb-4 h-1.5 w-12 rounded-full" style={{ background: "rgba(255,255,255,0.15)" }} />
+            <h3 className="text-xl font-bold text-white mb-1">{firstName ?? "My"} QR Code</h3>
+            <p className="text-sm mb-5" style={{ color: "rgba(255,255,255,0.45)" }}>Show this to staff at checkout</p>
+
+            {/* QR Image */}
+            <div className="mx-auto mb-5 rounded-2xl overflow-hidden" style={{ width: 220, height: 220, background: "#fff", padding: 8 }}>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={`/api/app/qr-code?client_id=${clientId}`}
+                alt="Client QR code"
+                width={204}
+                height={204}
+                className="w-full h-full"
+              />
+            </div>
+
+            {/* Vouchers */}
+            {vouchers.length > 0 && (
+              <div className="mb-4 space-y-2 text-left">
+                {vouchers.map(v => (
+                  <div key={v.id} className="flex items-center justify-between rounded-xl px-3 py-2"
+                    style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.1)" }}>
+                    <span className="text-sm font-mono font-bold text-white">{v.code}</span>
+                    <span className="text-sm font-bold" style={{ color: "#4ade80" }}>${v.remaining_balance} remaining</span>
+                  </div>
+                ))}
+              </div>
+            )}
+
+            <p className="text-xs mb-5" style={{ color: "rgba(255,255,255,0.35)" }}>
+              Staff will scan this to pull up your account, points, and vouchers instantly.
+            </p>
+            <button type="button" onClick={() => setOpen(false)}
+              className="w-full rounded-xl py-3 font-bold text-white"
+              style={{ background: "#FF2D8E" }}>
+              Close
+            </button>
+          </div>
+        </div>
+      )}
+    </>
+  );
+}
+
 // ─── Me Tab ───────────────────────────────────────────────────────────────────
 
 function MeTab({ onOpenIntake, intakeRefresh, homeData }: {
@@ -1220,6 +1441,11 @@ function MeTab({ onOpenIntake, intakeRefresh, homeData }: {
             </a>
           </div>
         </div>
+      )}
+
+      {/* ── My QR Code ── */}
+      {homeData?.authenticated && homeData?.clientId && (
+        <QRCodeCard clientId={homeData.clientId} firstName={homeData.firstName} vouchers={[]} />
       )}
 
       {/* ── Ways to Earn ── */}
