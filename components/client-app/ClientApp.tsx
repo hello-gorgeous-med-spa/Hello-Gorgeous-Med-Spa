@@ -22,6 +22,7 @@ import {
   type VitaminMembership,
   type VitaminShot,
 } from "@/lib/vitamin-bar";
+import { squareGiftCardUrl } from "@/lib/gift-cards";
 import {
   ClientAppIntakeCard,
   ClientAppIntakeForm,
@@ -628,8 +629,8 @@ function WellnessSection() {
 // ─── Deals Tab ───────────────────────────────────────────────────────────────
 
 function DealsTab() {
+  const giftUrl = squareGiftCardUrl({ utmSource: "app", utmMedium: "deals_tab" });
   const deals = getActiveDeals();
-  const [gcOpen, setGcOpen] = useState(false);
   const [voucherMsg, setVoucherMsg] = useState<string | null>(null);
   const homeData = useHomeData();
   const [activeVouchers, setActiveVouchers] = useState<VoucherSummary[]>([]);
@@ -656,19 +657,34 @@ function DealsTab() {
         </p>
       </div>
 
-      {/* Gift Card CTA */}
-      <button type="button" onClick={() => setGcOpen(true)}
-        className="w-full mb-5 rounded-2xl p-4 text-left"
-        style={{ background: "linear-gradient(135deg, rgba(245,158,11,0.15), rgba(249,115,22,0.1))", border: "1px solid rgba(245,158,11,0.3)" }}>
-        <div className="flex items-center justify-between">
+      {/* Gift Card Showcase */}
+      <div className="mb-6">
+        <div className="flex items-center justify-between mb-3">
           <div>
-            <p className="text-[10px] font-bold uppercase tracking-widest mb-1" style={{ color: "#fbbf24" }}>Gift Someone Special</p>
-            <p className="font-bold text-white">Buy a Gift Card</p>
-            <p className="text-xs mt-0.5" style={{ color: "rgba(255,255,255,0.5)" }}>$25 · $50 · $100 · $150 · $200 — via Square</p>
+            <p className="text-[10px] font-bold uppercase tracking-widest mb-0.5" style={{ color: "#fbbf24" }}>Gift Someone Special</p>
+            <h3 className="text-base font-bold text-white">Hello Gorgeous Gift Cards</h3>
           </div>
-          <span className="text-3xl">🎁</span>
+          <span className="text-2xl">🎁</span>
         </div>
-      </button>
+        <p className="text-xs mb-4" style={{ color: "rgba(255,255,255,0.45)" }}>
+          Redeemable for any service or product. Delivered instantly via Square — recipient gets an email.
+        </p>
+        <div className="grid grid-cols-3 gap-2 mb-3">
+          {[25, 50, 75, 100, 150, 200].map((amt) => (
+            <a key={amt} href={giftUrl} target="_blank" rel="noopener noreferrer"
+              className="rounded-2xl p-3 flex flex-col items-center justify-center text-center transition active:scale-95"
+              style={{ background: "linear-gradient(135deg, rgba(245,158,11,0.18), rgba(249,115,22,0.12))", border: "1px solid rgba(245,158,11,0.3)", minHeight: 72 }}>
+              <span className="text-xl font-black text-white">${amt}</span>
+              <span className="text-[10px] mt-0.5 font-semibold" style={{ color: "#fbbf24" }}>Gift Card</span>
+            </a>
+          ))}
+        </div>
+        <a href={giftUrl} target="_blank" rel="noopener noreferrer"
+          className="w-full flex items-center justify-center rounded-xl py-3 text-sm font-bold text-white"
+          style={{ background: "linear-gradient(90deg, #f59e0b, #f97316)" }}>
+          Buy a Gift Card via Square →
+        </a>
+      </div>
 
       {/* Buy a Voucher section */}
       <div className="mb-5">
@@ -787,76 +803,6 @@ function DealsTab() {
         </div>
       )}
 
-      {gcOpen && <GiftCardModal onClose={() => setGcOpen(false)} />}
-    </div>
-  );
-}
-
-// ─── Gift Card Modal ──────────────────────────────────────────────────────────
-
-const GC_AMOUNTS = [25, 50, 75, 100, 150, 200];
-
-function GiftCardModal({ onClose }: { onClose: () => void }) {
-  const [amount, setAmount] = useState<number>(50);
-  const [busy, setBusy] = useState(false);
-  const [err, setErr] = useState<string | null>(null);
-
-  async function checkout() {
-    setErr(null); setBusy(true);
-    try {
-      const res = await fetch("/api/app/gift-card/checkout", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ amount }),
-      });
-      const data = await res.json().catch(() => ({}));
-      if (res.ok && data.url) { window.location.href = data.url; return; }
-      setErr(data.error || "Could not start checkout. Call us to purchase.");
-    } catch { setErr("Network error. Try again or call us."); }
-    finally { setBusy(false); }
-  }
-
-  return (
-    <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/70" onClick={onClose}>
-      <div className="w-full max-w-xl rounded-t-3xl p-6 pb-10"
-        style={{ background: "#181818" }} onClick={(e) => e.stopPropagation()}>
-        <div className="mx-auto mb-4 h-1.5 w-12 rounded-full" style={{ background: "rgba(255,255,255,0.15)" }} />
-        <h3 className="text-xl font-bold text-white">Buy a Gift Card</h3>
-        <p className="mt-1 text-sm" style={{ color: "rgba(255,255,255,0.5)" }}>
-          Redeemable for any service or product. Delivered via Square — recipient gets an email.
-        </p>
-
-        {/* Amount picker */}
-        <div className="mt-5 grid grid-cols-3 gap-2">
-          {GC_AMOUNTS.map((a) => (
-            <button key={a} type="button" onClick={() => setAmount(a)}
-              className="rounded-xl py-3 text-sm font-bold transition"
-              style={{
-                background: amount === a ? "linear-gradient(90deg, #f59e0b, #f97316)" : "rgba(255,255,255,0.06)",
-                color: amount === a ? "#fff" : "rgba(255,255,255,0.6)",
-                border: amount === a ? "none" : "1px solid rgba(255,255,255,0.1)",
-              }}>
-              ${a}
-            </button>
-          ))}
-        </div>
-
-        <div className="mt-5 rounded-xl px-4 py-3 flex items-center justify-between"
-          style={{ background: "rgba(245,158,11,0.1)", border: "1px solid rgba(245,158,11,0.25)" }}>
-          <span className="text-sm text-white/70">Gift card value</span>
-          <span className="text-xl font-black" style={{ color: "#fbbf24" }}>${amount}</span>
-        </div>
-
-        <button type="button" onClick={() => void checkout()} disabled={busy}
-          className="mt-4 w-full rounded-xl py-4 font-bold text-white disabled:opacity-60"
-          style={{ background: "linear-gradient(90deg, #f59e0b, #f97316)" }}>
-          {busy ? "Opening checkout…" : `Purchase $${amount} Gift Card via Square`}
-        </button>
-        {err && <p className="mt-2 text-center text-xs text-red-400">{err}</p>}
-        <button type="button" onClick={onClose} className="mt-3 w-full py-2 text-sm" style={{ color: "rgba(255,255,255,0.35)" }}>
-          Cancel
-        </button>
-      </div>
     </div>
   );
 }

@@ -9,6 +9,7 @@ import {
 } from "@/components/homepage-v3";
 import { MeetDaniRyanSection } from "@/components/marketing/MeetDaniRyanSection";
 import { HomepageHydrafacialBanner } from "@/components/HomepageHydrafacialBanner";
+import { GiftCardShopSection } from "@/components/gift-cards/GiftCardShopSection";
 import {
   SITE,
   SITE_OG_IMAGE,
@@ -151,6 +152,7 @@ export default function HomePage() {
         <ServicesSection />
         <TrifectaSection />
         <HomepageTestimonials />
+        <GiftCardShopSection variant="compact" className="border-y-4 border-black" />
         <MeetDaniRyanSection />
         <HomepageClosingCTARow />
       </main>
