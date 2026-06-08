@@ -29,8 +29,8 @@ export const MORE_SPECIALS_LINKS = [
   },
   {
     label: "Memberships",
-    href: "/memberships",
-    sub: "Monthly plans for ongoing care",
+    href: "/monthly-memberships",
+    sub: "Vitamin Bar, facial, lash & Gentlemen's Club plans",
   },
   {
     label: "Free Vitamin Shot",

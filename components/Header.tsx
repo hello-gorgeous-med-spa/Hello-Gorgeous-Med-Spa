@@ -126,7 +126,7 @@ const NAV = {
       },
       { label: "Spring Laser Hair Special", href: "/spring-special-laser-hair", sub: "Underarms $79 · Bikini $129 · No packages", badge: "SPRING" },
       { label: "VIP Model Program", href: "/vip-model", sub: "Up to 50% off advanced treatments — limited spots", badge: "50% OFF" },
-      { label: "Memberships", href: "/memberships", sub: "Monthly plans for ongoing care" },
+      { label: "Memberships", href: "/monthly-memberships", sub: "Vitamin Bar, facial, lash & Gentlemen's Club plans" },
       { label: "Free Vitamin Shot", href: "/free-vitamin", sub: "New clients only", badge: "FREE" },
       { label: "Alle Rewards", href: "/alle-botox-rewards", sub: "Earn points on Botox & Juvederm" },
     ],
@@ -713,8 +713,8 @@ export function Header() {
       </div>
 
       {/* Desktop nav row — centered, Trifecta accent pills */}
-      <div className="hidden border-t border-white/5 bg-zinc-950/90 backdrop-blur-md lg:block">
-        <nav className="mx-auto flex max-w-7xl flex-nowrap items-center justify-center gap-1 overflow-x-auto px-3 py-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+      <div className="hidden overflow-visible border-t border-white/5 bg-zinc-950/90 backdrop-blur-md lg:block">
+        <nav className="mx-auto flex max-w-7xl flex-nowrap items-center justify-center gap-1 overflow-visible px-3 py-2">
             {/* Services */}
             <div
               className="relative flex items-center"
@@ -786,7 +786,7 @@ export function Header() {
 
             {/* Specials */}
             <div
-              className="relative flex items-center"
+              className={cx("relative flex items-center", activeDropdown === "specials" && "z-[110]")}
               onMouseEnter={() => openDropdown("specials")}
               onMouseLeave={closeDropdown}
             >
@@ -794,6 +794,7 @@ export function Header() {
                 href={SPECIALS_PATH}
                 className={NAV_LINK_BASE}
                 style={navPillStyle(0, isSpecialsActive)}
+                onFocus={() => openDropdown("specials")}
               >
                 Specials
                 <svg className={cx("h-3 w-3 transition-transform", activeDropdown === "specials" && "rotate-180")} fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -803,14 +804,14 @@ export function Header() {
               <SpecialsMenu
                 data={NAV.specials}
                 isOpen={activeDropdown === "specials"}
-                onClose={() => setActiveDropdown(null)}
+                onClose={closeDropdown}
                 onMouseEnter={() => openDropdown("specials")}
               />
             </div>
 
             {/* Memberships */}
             <Link
-              href="/memberships"
+              href="/monthly-memberships"
               className={NAV_LINK_BASE}
               style={navPillStyle(2, pathname === "/memberships" || pathname === "/monthly-memberships")}
             >
