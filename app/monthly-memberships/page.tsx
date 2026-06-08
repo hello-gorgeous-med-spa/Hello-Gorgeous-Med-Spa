@@ -13,7 +13,7 @@ import { breadcrumbJsonLd, faqJsonLd, pageMetadata, SITE, siteJsonLd } from "@/l
 const baseMeta = pageMetadata({
   title: "Monthly Memberships Oswego IL — Vitamin Bar, HydraFacial & Lash Plans",
   description:
-    "Hello Gorgeous Med Spa monthly memberships in Oswego, IL: Glow Pass $49, Energy Unlimited $89, VIP Wellness $149, Glow Facial $99, Lash Fill $150. Member pricing, drive-thru Vitamin Bar, HydraFacial + Biotin, lash fills. Serving Naperville, Aurora & Plainfield.",
+    "Hello Gorgeous Med Spa monthly memberships in Oswego, IL: Glow Pass $49, Energy Unlimited $89, VIP Wellness $149, Glow Facial $99, Lash Fill $150, plus The Gentlemen's Club from $99/mo for men. Member pricing, drive-thru Vitamin Bar, HydraFacial, Brotox & hormones. Naperville, Aurora & Plainfield.",
   path: MONTHLY_MEMBERSHIPS_PATH,
   keywords: [
     "med spa membership Oswego IL",
@@ -21,6 +21,8 @@ const baseMeta = pageMetadata({
     "HydraFacial membership Oswego",
     "lash fill membership Illinois",
     "Hello Gorgeous membership",
+    "gentlemens club med spa oswego",
+    "mens wellness membership naperville",
     "monthly wellness plan med spa",
     "B12 membership Oswego",
   ],

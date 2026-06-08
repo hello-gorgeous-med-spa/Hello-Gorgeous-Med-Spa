@@ -1,3 +1,4 @@
+import { GENTLEMENS_CLUB_TIERS, GENTLEMENS_CLUB_URL } from "@/lib/gentlemens-club";
 import { VITAMIN_MEMBERSHIPS } from "@/lib/vitamin-bar";
 import { SITE } from "@/lib/seo";
 
@@ -12,12 +13,12 @@ export const MONTHLY_MEMBERSHIPS_FAQS: MembershipFaq[] = [
   {
     question: "What monthly memberships does Hello Gorgeous Med Spa offer in Oswego, IL?",
     answer:
-      "We offer five monthly plans: The Glow Pass ($49/mo) for Vitamin Bar shots, Energy Unlimited ($89/mo) for four mix-and-match shots, VIP Wellness ($149/mo) for weekly shots plus premium add-ons, Glow Facial Membership ($99/mo) for a monthly HydraFacial with Dermaplaning and Biotin shot, and Lash Fill Membership ($150/mo) for two lash fills and two Biotin shots each month. All plans include member perks like priority booking and discounted add-ons.",
+      "We offer Vitamin Bar plans (Glow Pass $49/mo, Energy Unlimited $89/mo, VIP Wellness $149/mo), aesthetic memberships (Glow Facial $99/mo, Lash Fill $150/mo), and The Gentlemen's Club for men (The Gentleman $99/mo, The Distinguished Gentleman $149/mo) with Brotox, hormone optimization, peptide therapy, and monthly wellness shots. All plans include member perks like priority booking and discounted add-ons.",
   },
   {
     question: "How do I join a Hello Gorgeous membership?",
     answer:
-      "Open the Hello Gorgeous client app at hellogorgeousmedspa.com/app, tap the Membership tab, and choose your plan — checkout is secure through Square. You can also visit our monthly memberships page for full details or call 630-636-6193 and our team will help you enroll in person.",
+      "Vitamin Bar, facial, and lash plans: open the Hello Gorgeous client app at hellogorgeousmedspa.com/app, tap the Membership tab, and checkout through Square. The Gentlemen's Club: book a complimentary consult at hellogorgeousmedspa.com/gentlemens-club or call 630-636-6193 — we'll walk you through The Gentleman ($99/mo) or The Distinguished Gentleman ($149/mo).",
   },
   {
     question: "Can I cancel my med spa membership?",
@@ -49,47 +50,72 @@ export function appMembershipUrl(options?: {
   return url.toString();
 }
 
+function membershipProductJsonLd(
+  name: string,
+  description: string,
+  pricePerMonth: number,
+  url: string,
+  image?: string,
+) {
+  return {
+    "@type": "Product",
+    name,
+    description,
+    ...(image ? { image } : {}),
+    brand: { "@type": "Brand", name: SITE.name },
+    offers: {
+      "@type": "Offer",
+      price: String(pricePerMonth),
+      priceCurrency: "USD",
+      availability: "https://schema.org/InStock",
+      url,
+      seller: { "@type": "MedicalBusiness", name: SITE.name, telephone: SITE.phone },
+    },
+  };
+}
+
 export function membershipsItemListJsonLd(pageUrl: string) {
+  const vitaminItems = VITAMIN_MEMBERSHIPS.map((m) =>
+    membershipProductJsonLd(
+      m.name,
+      m.summary,
+      m.pricePerMonth,
+      pageUrl,
+      m.image ? `${SITE.url}${m.image}` : undefined,
+    ),
+  );
+  const gentlemenItems = GENTLEMENS_CLUB_TIERS.map((t) =>
+    membershipProductJsonLd(t.name, t.summary, t.pricePerMonth, GENTLEMENS_CLUB_URL),
+  );
+  const allItems = [...vitaminItems, ...gentlemenItems];
+
   return {
     "@context": "https://schema.org",
     "@type": "ItemList",
     name: "Hello Gorgeous Med Spa Monthly Memberships",
     description:
-      "Monthly wellness, facial, and lash membership plans at Hello Gorgeous Med Spa in Oswego, IL.",
+      "Monthly wellness, facial, lash, and men's membership plans at Hello Gorgeous Med Spa in Oswego, IL.",
     url: pageUrl,
-    numberOfItems: VITAMIN_MEMBERSHIPS.length,
-    itemListElement: VITAMIN_MEMBERSHIPS.map((m, i) => ({
+    numberOfItems: allItems.length,
+    itemListElement: allItems.map((item, i) => ({
       "@type": "ListItem",
       position: i + 1,
-      item: {
-        "@type": "Product",
-        name: m.name,
-        description: m.summary,
-        image: m.image ? `${SITE.url}${m.image}` : undefined,
-        brand: { "@type": "Brand", name: SITE.name },
-        offers: {
-          "@type": "Offer",
-          price: String(m.pricePerMonth),
-          priceCurrency: "USD",
-          availability: "https://schema.org/InStock",
-          url: pageUrl,
-          seller: { "@type": "MedicalBusiness", name: SITE.name, telephone: SITE.phone },
-        },
-      },
+      item,
     })),
   };
 }
 
-/** Google Business Profile post — all five plans, link to SEO page. */
+/** Google Business Profile post — all plans incl. Gentlemen's Club. */
 export const MEMBERSHIPS_SHOWCASE_GBP_MESSAGE = `⭐ Monthly memberships at Hello Gorgeous Med Spa — Oswego, IL
 
-Vitamin Bar · facials · lashes — one simple monthly price.
+Vitamin Bar · facials · lashes · men's wellness — one simple monthly price.
 
 💉 The Glow Pass — $49/mo · 2 shots + member pricing
 ⚡ Energy Unlimited — $89/mo · 4 shots, mix & match (most popular)
 👑 VIP Wellness — $149/mo · weekly shot + Glutathione or NAD+
 ✨ Glow Facial — $99/mo · HydraFacial + Dermaplaning + Biotin
 💕 Lash Fill — $150/mo · 2 fills + 2 Biotin shots
+👔 The Gentlemen's Club — from $99/mo · Brotox, hormones, peptides & recovery
 
 Join in the Hello Gorgeous app or see every perk on our site.
 Ryan Kent, FNP-BC · serving Naperville, Aurora & Plainfield.`;
@@ -113,6 +139,10 @@ HydraFacial + Dermaplaning + Biotin every month · credits roll over
 
 💕 Lash Fill Membership — $150/mo
 2 lash fills + 2 Biotin shots · priority booking
+
+👔 THE GENTLEMEN'S CLUB — from $99/mo
+Brotox · hormones · peptide therapy · monthly wellness shot · no contracts
+The Gentleman $99 · The Distinguished Gentleman $149
 
 Join in the Hello Gorgeous app (Membership tab) or tap the link for full details + flyers 👇
 

@@ -6,6 +6,7 @@ import Link from "next/link";
 import { CTA } from "@/components/CTA";
 import { FadeUp, Section } from "@/components/Section";
 import { appMembershipUrl } from "@/lib/monthly-memberships-marketing";
+import { GENTLEMENS_CLUB_PILLS, GENTLEMENS_CLUB_TIERS, GENTLEMENS_CLUB_PATH } from "@/lib/gentlemens-club";
 import { VITAMIN_MEMBERSHIPS } from "@/lib/vitamin-bar";
 import { HG_TAGLINE } from "@/lib/brand-tagline";
 import { BOOKING_URL } from "@/lib/flows";
@@ -21,6 +22,7 @@ const BRAND = {
 const JUMP_LINKS = [
   { href: "#vitamin-bar-plans", label: "Vitamin Bar" },
   { href: "#facial-lash-plans", label: "Facial & Lashes" },
+  { href: "#gentlemens-club", label: "Men's Club" },
   { href: "#membership-faq", label: "FAQ" },
 ] as const;
 
@@ -84,8 +86,14 @@ export function MonthlyMembershipsShowcase() {
                 </span>
               </h1>
               <p className="text-lg md:text-xl text-white/85 max-w-2xl mx-auto leading-relaxed mb-8">
-                Five monthly plans — Vitamin Bar shots, HydraFacials, and lash fills — with member pricing,
-                drive-thru priority, and Square billing. Join in the{" "}
+                Vitamin Bar shots, HydraFacials, lash fills, and{" "}
+                <Link
+                  href={GENTLEMENS_CLUB_PATH}
+                  className="text-[#FFB8DC] font-semibold underline decoration-[#E6007E] underline-offset-4 hover:text-white"
+                >
+                  The Gentlemen&apos;s Club
+                </Link>{" "}
+                for men — member pricing, drive-thru priority, and Square billing. Join in the{" "}
                 <Link
                   href={joinUrl}
                   className="text-[#FFB8DC] font-semibold underline decoration-[#E6007E] underline-offset-4 hover:text-white"
@@ -150,6 +158,8 @@ export function MonthlyMembershipsShowcase() {
           joinUrl={joinUrl}
         />
 
+        <GentlemensClubSection index={3} />
+
         <Section id="membership-faq" className="scroll-mt-24 border-t-4 border-black bg-white py-14 md:py-20">
           <div className="max-w-3xl mx-auto px-4">
             <FadeUp>
@@ -171,7 +181,7 @@ export function MonthlyMembershipsShowcase() {
                   },
                   {
                     q: "How does billing work?",
-                    a: "Memberships bill monthly through Square. Enroll in the Hello Gorgeous app (Membership tab) for a secure checkout link, or ask our front desk to help you join in person.",
+                    a: "Vitamin Bar, facial, and lash memberships bill monthly through Square — enroll in the Hello Gorgeous app (Membership tab). The Gentlemen's Club is month-to-month with no contract; book a complimentary consult to join The Gentleman ($99/mo) or The Distinguished Gentleman ($149/mo).",
                   },
                 ].map((item) => (
                   <div key={item.q}>
@@ -204,11 +214,14 @@ export function MonthlyMembershipsShowcase() {
           <div className="relative max-w-3xl mx-auto px-4 text-center">
             <h2 className="text-3xl md:text-4xl font-black text-white mb-4">Ready to join?</h2>
             <p className="text-white/90 text-lg mb-8 max-w-xl mx-auto">
-              Pick your plan in the app — or book a visit and we&apos;ll walk you through every perk.
+              Pick your plan in the app, explore The Gentlemen&apos;s Club, or book a visit and we&apos;ll walk you through every perk.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <CTA href={joinUrl} variant="white">
                 Open Membership tab
+              </CTA>
+              <CTA href={GENTLEMENS_CLUB_PATH} variant="outline" className="!border-white !text-white hover:!bg-white hover:!text-black">
+                The Gentlemen&apos;s Club
               </CTA>
               <CTA href={`tel:${SITE.phone}`} variant="outline" className="!border-white !text-white hover:!bg-white hover:!text-black">
                 Call {SITE.phone}
@@ -218,6 +231,112 @@ export function MonthlyMembershipsShowcase() {
         </section>
       </main>
     </div>
+  );
+}
+
+function GentlemensClubSection({ index }: { index: number }) {
+  return (
+    <Section
+      id="gentlemens-club"
+      className="scroll-mt-24 border-t-4 border-black bg-[#030712] py-14 md:py-20 text-white"
+    >
+      <div className="max-w-6xl mx-auto px-4">
+        <FadeUp>
+          <div className="flex items-start gap-3 mb-3">
+            <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border-2 border-blue-400/50 bg-blue-500/20 text-sm font-black text-white">
+              {index}
+            </span>
+            <div>
+              <p className="text-2xl mb-1" aria-hidden>
+                👑
+              </p>
+              <h2
+                className="text-2xl md:text-4xl font-black tracking-tight"
+                style={{
+                  background: "linear-gradient(135deg, #e8e8e8 0%, #ffffff 30%, #b0b8c8 60%, #d4d4d4 100%)",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                }}
+              >
+                The Gentlemen&apos;s Club
+              </h2>
+              <p className="mt-2 text-gray-400 font-medium max-w-2xl">
+                Exclusive wellness, aesthetics &amp; performance support for men — Brotox, hormones, peptides &amp;
+                recovery. Private, judgment-free, NP-led.
+              </p>
+              <div className="mt-4 flex flex-wrap gap-2">
+                {GENTLEMENS_CLUB_PILLS.map((pill) => (
+                  <span
+                    key={pill}
+                    className="rounded-full border border-blue-500/40 bg-blue-500/10 px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-blue-300"
+                  >
+                    {pill}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+        </FadeUp>
+
+        <div className="mt-10 grid gap-8 lg:grid-cols-2">
+          {GENTLEMENS_CLUB_TIERS.map((tier, i) => (
+            <FadeUp key={tier.id} delayMs={i * 80}>
+              <article
+                className={`h-full rounded-3xl border-4 p-6 md:p-8 flex flex-col ${
+                  tier.highlight
+                    ? "border-blue-500/60 bg-gray-900 shadow-[8px_8px_0_0_rgba(59,130,246,0.35)]"
+                    : "border-gray-700 bg-gray-900/80 shadow-[8px_8px_0_0_rgba(255,45,142,0.2)]"
+                }`}
+              >
+                {tier.highlight ? (
+                  <span className="mb-3 inline-flex w-fit rounded-full bg-[#FF2D8E] px-3 py-0.5 text-[10px] font-bold uppercase text-white">
+                    Most popular
+                  </span>
+                ) : null}
+                <div className="flex items-baseline justify-between gap-3">
+                  <h3 className="text-xl md:text-2xl font-black text-white">{tier.name}</h3>
+                  <p className="shrink-0 text-right">
+                    <span
+                      className="text-3xl font-black"
+                      style={{
+                        background: tier.highlight
+                          ? "linear-gradient(135deg, #e8e8e8 0%, #ffffff 50%, #b0b8c8 100%)"
+                          : "linear-gradient(135deg, #93c5fd 0%, #60a5fa 50%, #3b82f6 100%)",
+                        WebkitBackgroundClip: "text",
+                        WebkitTextFillColor: "transparent",
+                      }}
+                    >
+                      ${tier.pricePerMonth}
+                    </span>
+                    <span className="text-sm font-bold text-gray-500">/mo</span>
+                  </p>
+                </div>
+                <p className="mt-2 text-gray-300 font-medium">{tier.summary}</p>
+                <ul className="mt-4 space-y-2 flex-1">
+                  {tier.perks.map((perk) => (
+                    <li key={perk} className="flex gap-2 text-sm text-gray-300 font-medium">
+                      <span className={tier.highlight ? "text-[#FF2D8E]" : "text-blue-400"} aria-hidden>
+                        {tier.highlight ? "♥" : "★"}
+                      </span>
+                      {perk}
+                    </li>
+                  ))}
+                </ul>
+                {tier.footnote ? <p className="mt-4 text-xs text-gray-500">{tier.footnote}</p> : null}
+                <div className="mt-6 flex flex-col sm:flex-row gap-2">
+                  <CTA href={BOOKING_URL} variant="gradient" className="!px-6 !py-3 !text-xs">
+                    Book consult
+                  </CTA>
+                  <CTA href={GENTLEMENS_CLUB_PATH} variant="outline" className="!px-6 !py-3 !text-xs !border-gray-600 !text-white hover:!bg-white hover:!text-black">
+                    Full details
+                  </CTA>
+                </div>
+              </article>
+            </FadeUp>
+          ))}
+        </div>
+      </div>
+    </Section>
   );
 }
 

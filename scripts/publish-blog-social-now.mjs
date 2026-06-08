@@ -298,13 +298,14 @@ Ryan Kent, FNP-BC on site 7 days a week · Oswego, IL
     channels: ["google"],
     message: `⭐ Monthly memberships at Hello Gorgeous Med Spa — Oswego, IL
 
-Vitamin Bar · facials · lashes — one simple monthly price.
+Vitamin Bar · facials · lashes · men's wellness — one simple monthly price.
 
 💉 The Glow Pass — $49/mo · 2 shots + member pricing
 ⚡ Energy Unlimited — $89/mo · 4 shots, mix & match (most popular)
 👑 VIP Wellness — $149/mo · weekly shot + Glutathione or NAD+
 ✨ Glow Facial — $99/mo · HydraFacial + Dermaplaning + Biotin
 💕 Lash Fill — $150/mo · 2 fills + 2 Biotin shots
+👔 The Gentlemen's Club — from $99/mo · Brotox, hormones, peptides & recovery
 
 Join in the Hello Gorgeous app or see every perk on our site.
 Ryan Kent, FNP-BC · serving Naperville, Aurora & Plainfield.`,
@@ -332,6 +333,10 @@ HydraFacial + Dermaplaning + Biotin every month · credits roll over
 
 💕 Lash Fill Membership — $150/mo
 2 lash fills + 2 Biotin shots · priority booking
+
+👔 THE GENTLEMEN'S CLUB — from $99/mo
+Brotox · hormones · peptide therapy · monthly wellness shot · no contracts
+The Gentleman $99 · The Distinguished Gentleman $149
 
 Join in the Hello Gorgeous app (Membership tab) or tap the link for full details + flyers 👇
 

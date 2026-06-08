@@ -3,6 +3,8 @@
  * Client builds absolute image/link URLs with window.location.origin so preview deploys work.
  */
 
+import { MEMBERSHIPS_SHOWCASE_GBP_MESSAGE } from "@/lib/monthly-memberships-marketing";
+
 export type GbpPostPreset = {
   id: string;
   label: string;
@@ -188,19 +190,8 @@ Ryan Kent, FNP-BC · serving Naperville, Aurora & Plainfield.`,
   },
   {
     id: "monthly-memberships-showcase",
-    label: "Monthly memberships — Vitamin Bar, facial & lash",
-    message: `⭐ Monthly memberships at Hello Gorgeous Med Spa — Oswego, IL
-
-Vitamin Bar · facials · lashes — one simple monthly price.
-
-💉 The Glow Pass — $49/mo · 2 shots + member pricing
-⚡ Energy Unlimited — $89/mo · 4 shots, mix & match (most popular)
-👑 VIP Wellness — $149/mo · weekly shot + Glutathione or NAD+
-✨ Glow Facial — $99/mo · HydraFacial + Dermaplaning + Biotin
-💕 Lash Fill — $150/mo · 2 fills + 2 Biotin shots
-
-Join in the Hello Gorgeous app or see every perk on our site.
-Ryan Kent, FNP-BC · serving Naperville, Aurora & Plainfield.`,
+    label: "Monthly memberships — Vitamin Bar, facial, lash & Gentlemen's Club",
+    message: MEMBERSHIPS_SHOWCASE_GBP_MESSAGE,
     linkPath: "/monthly-memberships?utm_source=google&utm_medium=gbp_post&utm_campaign=memberships_showcase",
     imagePath: "/images/memberships/energy-unlimited.png",
   },
