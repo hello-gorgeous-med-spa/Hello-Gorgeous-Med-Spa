@@ -1,4 +1,8 @@
-import { GENTLEMENS_CLUB_TIERS, GENTLEMENS_CLUB_URL } from "@/lib/gentlemens-club";
+import {
+  GENTLEMENS_CLUB_HERO_IMAGE,
+  GENTLEMENS_CLUB_TIERS,
+  GENTLEMENS_CLUB_URL,
+} from "@/lib/gentlemens-club";
 import { VITAMIN_MEMBERSHIPS } from "@/lib/vitamin-bar";
 import { SITE } from "@/lib/seo";
 
@@ -85,7 +89,13 @@ export function membershipsItemListJsonLd(pageUrl: string) {
     ),
   );
   const gentlemenItems = GENTLEMENS_CLUB_TIERS.map((t) =>
-    membershipProductJsonLd(t.name, t.summary, t.pricePerMonth, GENTLEMENS_CLUB_URL),
+    membershipProductJsonLd(
+      t.name,
+      t.summary,
+      t.pricePerMonth,
+      GENTLEMENS_CLUB_URL,
+      `${SITE.url}${GENTLEMENS_CLUB_HERO_IMAGE}`,
+    ),
   );
   const allItems = [...vitaminItems, ...gentlemenItems];
 

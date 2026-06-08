@@ -3,10 +3,18 @@
 import Image from "next/image";
 import Link from "next/link";
 
+import Image from "next/image";
+
 import { CTA } from "@/components/CTA";
 import { FadeUp, Section } from "@/components/Section";
 import { appMembershipUrl } from "@/lib/monthly-memberships-marketing";
-import { GENTLEMENS_CLUB_PILLS, GENTLEMENS_CLUB_TIERS, GENTLEMENS_CLUB_PATH } from "@/lib/gentlemens-club";
+import {
+  appForHimUrl,
+  GENTLEMENS_CLUB_HERO_IMAGE,
+  GENTLEMENS_CLUB_PILLS,
+  GENTLEMENS_CLUB_TIERS,
+  GENTLEMENS_CLUB_PATH,
+} from "@/lib/gentlemens-club";
 import { VITAMIN_MEMBERSHIPS } from "@/lib/vitamin-bar";
 import { HG_TAGLINE } from "@/lib/brand-tagline";
 import { BOOKING_URL } from "@/lib/flows";
@@ -235,12 +243,31 @@ export function MonthlyMembershipsShowcase() {
 }
 
 function GentlemensClubSection({ index }: { index: number }) {
+  const appUrl = appForHimUrl({ utmMedium: "monthly_memberships" });
+
   return (
     <Section
       id="gentlemens-club"
       className="scroll-mt-24 border-t-4 border-black bg-[#030712] py-14 md:py-20 text-white"
     >
       <div className="max-w-6xl mx-auto px-4">
+        <FadeUp>
+          <Link
+            href={GENTLEMENS_CLUB_PATH}
+            className="group block relative overflow-hidden rounded-3xl border-4 border-black shadow-[8px_8px_0_0_rgba(255,45,142,0.35)] mb-10"
+          >
+            <div className="relative aspect-[16/10] w-full md:aspect-[21/9]">
+              <Image
+                src={GENTLEMENS_CLUB_HERO_IMAGE}
+                alt="The Gentlemen's Club — men's wellness membership Hello Gorgeous Med Spa Oswego IL"
+                fill
+                className="object-cover object-center transition group-hover:scale-[1.01]"
+                sizes="(max-width: 768px) 100vw, 1152px"
+              />
+            </div>
+          </Link>
+        </FadeUp>
+
         <FadeUp>
           <div className="flex items-start gap-3 mb-3">
             <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border-2 border-blue-400/50 bg-blue-500/20 text-sm font-black text-white">
@@ -326,6 +353,9 @@ function GentlemensClubSection({ index }: { index: number }) {
                 <div className="mt-6 flex flex-col sm:flex-row gap-2">
                   <CTA href={BOOKING_URL} variant="gradient" className="!px-6 !py-3 !text-xs">
                     Book consult
+                  </CTA>
+                  <CTA href={appUrl} variant="outline" className="!px-6 !py-3 !text-xs !border-blue-500/50 !text-blue-200 hover:!bg-blue-500/20">
+                    App — For Him
                   </CTA>
                   <CTA href={GENTLEMENS_CLUB_PATH} variant="outline" className="!px-6 !py-3 !text-xs !border-gray-600 !text-white hover:!bg-white hover:!text-black">
                     Full details

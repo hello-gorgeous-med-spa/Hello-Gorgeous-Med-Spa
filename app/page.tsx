@@ -8,6 +8,7 @@ import {
   HomepageClosingCTARow,
 } from "@/components/homepage-v3";
 import { GetAppHomeBand } from "@/components/homepage-v3/GetAppHomeBand";
+import { GentlemensClubHomeBand } from "@/components/homepage-v3/GentlemensClubHomeBand";
 import { MeetDaniRyanSection } from "@/components/marketing/MeetDaniRyanSection";
 import { HomepageHydrafacialBanner } from "@/components/HomepageHydrafacialBanner";
 import { GiftCardShopSection } from "@/components/gift-cards/GiftCardShopSection";
@@ -155,6 +156,7 @@ export default function HomePage() {
         <TrifectaSection />
         <HomepageTestimonials />
         <GiftCardShopSection variant="compact" className="border-y-4 border-black" />
+        <GentlemensClubHomeBand />
         <MeetDaniRyanSection />
         <HomepageClosingCTARow />
       </main>
