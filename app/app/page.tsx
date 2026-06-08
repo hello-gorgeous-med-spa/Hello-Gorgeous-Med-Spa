@@ -4,7 +4,7 @@ import { ClientApp } from "@/components/client-app/ClientApp";
 import { CLIENT_APP, type ClientAppTab } from "@/lib/client-app";
 import { pageMetadata } from "@/lib/seo";
 
-const VALID_TABS: ClientAppTab[] = ["home", "vitamin", "membership", "deals", "me"];
+const VALID_TABS: ClientAppTab[] = ["home", "vitamin", "membership", "deals", "forhim", "me"];
 
 function parseTab(raw?: string): ClientAppTab {
   if (raw && VALID_TABS.includes(raw as ClientAppTab)) return raw as ClientAppTab;

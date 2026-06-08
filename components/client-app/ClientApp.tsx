@@ -230,6 +230,7 @@ export function ClientApp({
             {tab === "vitamin"    && <VitaminTab onSelect={setSelected} onOpenIntake={() => setShowIntake(true)} onOpenIvBuilder={() => setShowIvBuilder(true)} intakeRefresh={intakeRefresh} />}
             {tab === "deals"      && <DealsTab />}
             {tab === "membership" && <MembershipTab memberships={VITAMIN_MEMBERSHIPS} />}
+            {tab === "forhim"     && <ForHimTab />}
             {tab === "me"         && <MeTab onOpenIntake={() => setShowIntake(true)} intakeRefresh={intakeRefresh} homeData={homeData} />}
           </>
         )}
@@ -1269,6 +1270,172 @@ function QRCodeCard({ clientId, firstName, vouchers: initialVouchers }: {
         </div>
       )}
     </>
+  );
+}
+
+// ─── For Him Tab ─────────────────────────────────────────────────────────────
+
+const GIFT_CARD_URL = "https://app.squareup.com/gift/T47CHJDW8177K/order";
+
+const FOR_HIM_SERVICES = [
+  {
+    id: "brotox",
+    icon: "💉",
+    label: "Brotox",
+    blurb: "Botox for men. Soften lines, look rested, own the room. 15-minute treatment.",
+    badge: "POPULAR",
+    href: "/brotox",
+    cta: "Book Brotox",
+    accentIndex: 0,
+  },
+  {
+    id: "hormones",
+    icon: "🧬",
+    label: "Hormone Optimization",
+    blurb: "Energy. Strength. Libido. Mood. Recovery. Lab-guided TRT & hormone care.",
+    badge: "RX",
+    href: "/mens-hormones",
+    cta: "Book Consult",
+    accentIndex: 1,
+  },
+  {
+    id: "peptides",
+    icon: "⚡",
+    label: "Peptide Therapy",
+    blurb: "BPC-157, Sermorelin, NAD+, AOD-9604 & more. Recovery, performance, longevity.",
+    badge: "NEW",
+    href: "/peptide-therapy-men",
+    cta: "Learn More",
+    accentIndex: 2,
+  },
+  {
+    id: "giftcard",
+    icon: "🎁",
+    label: "Gift Brotox",
+    blurb: "Perfect for dads, husbands & boyfriends. Delivered instantly via Square.",
+    badge: "GIFT",
+    href: GIFT_CARD_URL,
+    cta: "Buy Gift Card",
+    accentIndex: 0,
+    external: true,
+  },
+] as const;
+
+function ForHimTab() {
+  return (
+    <div className="py-5">
+      {/* Hero */}
+      <div className="relative rounded-3xl overflow-hidden mb-6 px-5 py-7"
+        style={{ background: "linear-gradient(135deg, #030712 0%, rgba(15,23,42,0.95) 60%, rgba(30,58,138,0.15) 100%)", border: "1px solid rgba(59,130,246,0.2)" }}>
+        {/* Blue glow */}
+        <div className="absolute top-0 right-0 w-48 h-48 rounded-full blur-[80px] pointer-events-none"
+          style={{ background: "rgba(59,130,246,0.2)" }} />
+        <div className="absolute bottom-0 left-0 w-32 h-32 rounded-full blur-[60px] pointer-events-none"
+          style={{ background: "rgba(255,45,142,0.1)" }} />
+        {/* Crown + title */}
+        <div className="relative z-10">
+          <div className="flex items-center gap-2 mb-2">
+            <span className="text-lg" style={{ filter: "drop-shadow(0 0 8px rgba(255,45,142,0.6))" }}>👑</span>
+            <span className="text-[10px] font-bold uppercase tracking-[0.2em]" style={{ color: "#FF2D8E" }}>Hello Gorgeous Med Spa</span>
+          </div>
+          <h2 className="text-3xl font-black tracking-tight mb-1" style={{
+            background: "linear-gradient(135deg, #ffffff 0%, #cbd5e1 50%, #94a3b8 100%)",
+            WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent",
+            textShadow: "none",
+          }}>
+            THE GENTLEMEN'S<br />CLUB
+          </h2>
+          <div className="w-16 h-px mb-3" style={{ background: "linear-gradient(90deg, #FF2D8E, transparent)" }} />
+          <p className="text-sm mb-4" style={{ color: "rgba(255,255,255,0.6)" }}>
+            Exclusive wellness, aesthetics &amp; performance support for men.
+          </p>
+          {/* Service pills */}
+          <div className="flex flex-wrap gap-2 mb-5">
+            {["BROTOX", "HORMONES", "PEPTIDE THERAPY", "RECOVERY"].map((s) => (
+              <span key={s} className="text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full"
+                style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.12)", color: "rgba(255,255,255,0.7)" }}>
+                {s}
+              </span>
+            ))}
+          </div>
+          <a href="/gentlemens-club"
+            className="inline-flex items-center gap-2 rounded-2xl px-6 py-3 text-sm font-bold text-white"
+            style={{ background: "linear-gradient(90deg, #FF2D8E, #db2777)", boxShadow: "0 0 20px rgba(255,45,142,0.3)" }}>
+            📋 Book Your Consult →
+          </a>
+        </div>
+      </div>
+
+      {/* Membership banner */}
+      <div className="rounded-2xl px-4 py-3 mb-5 flex items-center justify-between"
+        style={{ background: "linear-gradient(90deg, rgba(59,130,246,0.12), rgba(255,45,142,0.08))", border: "1px solid rgba(59,130,246,0.25)" }}>
+        <div>
+          <p className="text-[10px] font-bold uppercase tracking-widest mb-0.5" style={{ color: "#60a5fa" }}>Membership</p>
+          <p className="text-sm font-bold text-white">From $99/mo — No contracts</p>
+          <p className="text-xs mt-0.5" style={{ color: "rgba(255,255,255,0.45)" }}>Monthly shot · Member pricing · Priority booking · Discounted Brotox</p>
+        </div>
+        <a href="/gentlemens-club"
+          className="flex-shrink-0 rounded-xl px-3 py-2 text-xs font-bold text-white ml-3"
+          style={{ background: "rgba(59,130,246,0.25)", border: "1px solid rgba(59,130,246,0.4)" }}>
+          Join →
+        </a>
+      </div>
+
+      {/* Services */}
+      <div className="mb-2">
+        <p className="text-[10px] font-bold uppercase tracking-widest mb-3" style={{ color: "rgba(255,255,255,0.3)" }}>
+          Men's Services
+        </p>
+        <div className="space-y-3">
+          {FOR_HIM_SERVICES.map((svc) => {
+            const accent = trifectaAccent(svc.accentIndex);
+            return (
+              <div key={svc.id} className="rounded-2xl p-4"
+                style={{ background: "rgba(255,255,255,0.03)", border: `1px solid ${accent.border}` }}>
+                <div className="flex items-start gap-3">
+                  <span className="text-2xl mt-0.5">{svc.icon}</span>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2 mb-1">
+                      <span className="text-sm font-bold text-white">{svc.label}</span>
+                      <span className="text-[9px] font-bold uppercase tracking-widest px-2 py-0.5 rounded-full text-white"
+                        style={{ background: accent.badgeBg }}>{svc.badge}</span>
+                    </div>
+                    <p className="text-xs leading-relaxed" style={{ color: "rgba(255,255,255,0.5)" }}>{svc.blurb}</p>
+                  </div>
+                </div>
+                {'external' in svc && svc.external ? (
+                  <a href={svc.href} target="_blank" rel="noopener noreferrer"
+                    className="mt-3 w-full flex items-center justify-center rounded-xl py-2.5 text-sm font-bold text-white"
+                    style={{ background: `linear-gradient(90deg, ${accent.buttonFrom}, ${accent.buttonTo})` }}>
+                    {svc.cta} →
+                  </a>
+                ) : (
+                  <a href={svc.href}
+                    className="mt-3 w-full flex items-center justify-center rounded-xl py-2.5 text-sm font-bold text-white"
+                    style={{ background: `linear-gradient(90deg, ${accent.buttonFrom}, ${accent.buttonTo})` }}>
+                    {svc.cta} →
+                  </a>
+                )}
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Couples promo */}
+      <div className="mt-5 rounded-2xl p-4 text-center"
+        style={{ background: "rgba(255,45,142,0.06)", border: "1px solid rgba(255,45,142,0.2)" }}>
+        <p className="text-sm font-bold text-white mb-1">Couples that glow together… 💗</p>
+        <p className="text-xs mb-3" style={{ color: "rgba(255,255,255,0.5)" }}>
+          Botox for her. Brotox for him. Book together and make it a date.
+        </p>
+        <a href="/book"
+          className="inline-flex items-center gap-2 rounded-xl px-5 py-2.5 text-sm font-bold text-white"
+          style={{ background: "linear-gradient(90deg, #FF2D8E, #db2777)" }}>
+          Book Together →
+        </a>
+      </div>
+    </div>
   );
 }
 

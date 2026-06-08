@@ -16,13 +16,14 @@ export const CLIENT_APP = {
   hoursNote: "Mon–Fri 10–8 · Sat 10–5 · Sun by appointment",
 } as const;
 
-export type ClientAppTab = "home" | "vitamin" | "deals" | "membership" | "me";
+export type ClientAppTab = "home" | "vitamin" | "deals" | "membership" | "forhim" | "me";
 
 export const CLIENT_APP_TABS: { id: ClientAppTab; label: string; icon: string }[] = [
   { id: "home", label: "Home", icon: "🏠" },
   { id: "vitamin", label: "Vitamin Bar", icon: "💉" },
   { id: "deals", label: "Deals", icon: "🎁" },
   { id: "membership", label: "Membership", icon: "⭐" },
+  { id: "forhim", label: "For Him", icon: "👑" },
   { id: "me", label: "Me", icon: "👤" },
 ];
 
@@ -64,6 +65,13 @@ export const CLIENT_APP_QUICK_ACTIONS = [
     blurb: "Start weight loss intake",
     href: GLP1_INTAKE_PATH,
     icon: "⚖️",
+  },
+  {
+    id: "forhim",
+    label: "For Him 👑",
+    blurb: "Brotox · Hormones · Peptides",
+    tab: "forhim" as ClientAppTab,
+    icon: "👑",
   },
 ] as const;
 
