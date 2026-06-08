@@ -6,6 +6,7 @@ export const GENTLEMENS_CLUB_URL = `${SITE.url}${GENTLEMENS_CLUB_PATH}`;
 
 export const GENTLEMENS_CLUB_HERO_IMAGE = "/images/gentlemens-club/gentlemens-club-hero.png";
 export const GENTLEMENS_CLUB_FATHERS_DAY_IMAGE = "/images/gentlemens-club/fathers-day-brotox.png";
+export const GENTLEMENS_CLUB_DISTINGUISHED_IMAGE = "/images/gentlemens-club/the-distinguished-hero.png";
 
 export const GENTLEMENS_CLUB_HERO_IMAGES = [
   {

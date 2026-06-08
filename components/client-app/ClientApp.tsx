@@ -1447,24 +1447,17 @@ function ForHimTab() {
           <a
             key={flyer.src}
             href="/gentlemens-club"
-            className="group relative overflow-hidden rounded-2xl border-2 border-black shadow-[4px_4px_0_0_rgba(255,45,142,0.35)] transition-transform duration-300 active:scale-[0.98]"
+            className="group overflow-hidden rounded-2xl border-2 border-black bg-black shadow-[4px_4px_0_0_rgba(255,45,142,0.35)] transition-transform duration-300 active:scale-[0.98]"
           >
-            <div className="relative aspect-[3/4] w-full">
+            <div className="relative aspect-[16/9] w-full">
               <Image
                 src={flyer.src}
                 alt={flyer.alt}
                 fill
-                className="object-cover object-center transition-transform duration-500 group-hover:scale-105"
+                className="object-contain object-center transition-transform duration-500 group-hover:scale-[1.02]"
                 sizes="(max-width: 480px) 45vw, 220px"
                 priority={i === 0}
               />
-              <div
-                className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent"
-                aria-hidden
-              />
-              <p className="absolute bottom-0 left-0 right-0 px-2 py-2 text-center text-[8px] font-bold uppercase tracking-wider text-white/90">
-                {flyer.label}
-              </p>
             </div>
           </a>
         ))}
