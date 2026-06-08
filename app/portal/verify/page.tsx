@@ -4,6 +4,8 @@ import { useEffect, useState, Suspense } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
 
+import { safePortalRedirect } from '@/lib/portal-auth';
+
 function VerifyContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -12,6 +14,7 @@ function VerifyContent() {
 
   useEffect(() => {
     const token = searchParams.get('token');
+    const redirect = safePortalRedirect(searchParams.get('redirect'));
     if (!token) {
       setStatus('error');
       setError('Invalid or missing token');
@@ -28,7 +31,7 @@ function VerifyContent() {
         const data = await res.json();
         if (data.success) {
           setStatus('success');
-          setTimeout(() => router.push('/portal'), 1500);
+          setTimeout(() => router.push(redirect), 1500);
         } else {
           setStatus('error');
           setError(data.error || 'Verification failed');
@@ -56,7 +59,7 @@ function VerifyContent() {
           <>
             <div className="text-5xl mb-4">✓</div>
             <h1 className="text-2xl font-bold text-green-400">Success!</h1>
-            <p className="text-black mt-2">Redirecting to your portal...</p>
+            <p className="text-black mt-2">Redirecting you now...</p>
           </>
         )}
         {status === 'error' && (

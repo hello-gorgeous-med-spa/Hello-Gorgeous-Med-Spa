@@ -1,12 +1,19 @@
 'use client';
 
-import { useState } from 'react';
+import { Suspense, useState } from 'react';
 import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 
-export default function PortalLoginPage() {
+import { SITE } from '@/lib/seo';
+
+function PortalLoginForm() {
+  const searchParams = useSearchParams();
+  const redirect = searchParams.get('redirect') || '/portal';
+
   const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
   const [sent, setSent] = useState(false);
+  const [sentHint, setSentHint] = useState('');
   const [error, setError] = useState('');
   const [devLink, setDevLink] = useState('');
 
@@ -19,17 +26,25 @@ export default function PortalLoginPage() {
       const res = await fetch('/api/portal/auth/magic-link', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({ email, redirect }),
       });
       const data = await res.json();
+      if (!res.ok) {
+        setError(data.error || 'Something went wrong');
+        return;
+      }
       if (data.success) {
         setSent(true);
+        setSentHint(
+          data.message ||
+            'If we have an account on file for this email, you’ll receive a secure login link shortly.',
+        );
         if (data._dev_link) setDevLink(data._dev_link);
       } else {
         setError(data.error || 'Something went wrong');
       }
     } catch {
-      setError('Failed to send login link');
+      setError('Failed to send login link. Please try again or call us.');
     } finally {
       setLoading(false);
     }
@@ -41,14 +56,40 @@ export default function PortalLoginPage() {
         <div className="max-w-md w-full text-center">
           <span className="text-5xl">💗</span>
           <h1 className="text-2xl font-bold text-white mt-4">Check Your Email</h1>
-          <p className="text-gray-300 mt-2">We sent a secure login link to <strong className="text-[#FF2D8E]">{email}</strong></p>
-          <div className="bg-white rounded-2xl p-6 mt-6 shadow-xl">
-            <p className="text-gray-700 text-sm mb-4">Click the link in your email to sign in. The link expires in 15 minutes.</p>
-            <button onClick={() => { setSent(false); setDevLink(''); }} className="text-[#FF2D8E] hover:underline text-sm font-medium">Try again</button>
+          <p className="text-gray-300 mt-2">
+            We sent a secure sign-in link to <strong className="text-[#FF2D8E]">{email}</strong>
+          </p>
+          <div className="bg-white rounded-2xl p-6 mt-6 shadow-xl text-left">
+            <p className="text-gray-700 text-sm mb-4">{sentHint}</p>
+            <ul className="text-gray-600 text-sm space-y-2 mb-4 list-disc pl-5">
+              <li>Look in spam / promotions — it comes from Hello Gorgeous</li>
+              <li>Use the email on file from your last visit (not a password — it&apos;s a one-tap link)</li>
+              <li>Link expires in 15 minutes</li>
+            </ul>
+            <p className="text-gray-600 text-sm">
+              Still nothing?{' '}
+              <a href={`tel:${SITE.phone.replace(/\D/g, '')}`} className="text-[#FF2D8E] font-medium hover:underline">
+                Call {SITE.phone}
+              </a>{' '}
+              and we&apos;ll help you sign in.
+            </p>
+            <button
+              type="button"
+              onClick={() => {
+                setSent(false);
+                setDevLink('');
+                setSentHint('');
+              }}
+              className="mt-4 text-[#FF2D8E] hover:underline text-sm font-medium"
+            >
+              Try a different email
+            </button>
             {devLink && (
               <div className="mt-6 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
                 <p className="text-yellow-700 text-xs mb-2 font-medium">DEV MODE - Click to login:</p>
-                <Link href={devLink.replace('https://www.hellogorgeousmedspa.com', '')} className="text-[#FF2D8E] text-sm break-all hover:underline">{devLink}</Link>
+                <Link href={devLink.replace('https://www.hellogorgeousmedspa.com', '')} className="text-[#FF2D8E] text-sm break-all hover:underline">
+                  {devLink}
+                </Link>
               </div>
             )}
           </div>
@@ -63,36 +104,45 @@ export default function PortalLoginPage() {
         <div className="text-center mb-8">
           <span className="text-5xl">💗</span>
           <h1 className="text-2xl font-bold text-white mt-4">Welcome Back</h1>
-          <p className="text-gray-300 mt-2">Sign in to your Hello Gorgeous patient portal</p>
+          <p className="text-gray-300 mt-2">Sign in to Hello Gorgeous — portal &amp; client app</p>
         </div>
         <div className="bg-white rounded-2xl p-8 shadow-xl">
           <form onSubmit={handleSubmit} className="space-y-5">
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">Email Address</label>
-              <input 
-                type="email" 
-                id="email" 
-                value={email} 
-                onChange={(e) => setEmail(e.target.value)} 
-                required 
-                placeholder="your@email.com" 
-                className="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-xl text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#FF2D8E]/50 focus:border-[#FF2D8E]" 
+              <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+                Email Address
+              </label>
+              <input
+                type="email"
+                id="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                placeholder="your@email.com"
+                className="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-xl text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#FF2D8E]/50 focus:border-[#FF2D8E]"
               />
             </div>
             {error && <p className="text-red-500 text-sm">{error}</p>}
-            <button 
-              type="submit" 
-              disabled={loading} 
+            <button
+              type="submit"
+              disabled={loading}
               className="w-full bg-[#FF2D8E] text-white py-3.5 px-4 rounded-xl font-semibold hover:bg-[#e0267d] disabled:opacity-50 transition-all shadow-lg shadow-pink-500/20"
             >
-              {loading ? 'Sending...' : 'Send Login Link'}
+              {loading ? 'Sending...' : 'Email Me a Sign-In Link'}
             </button>
           </form>
           <div className="mt-6 text-center">
-            <p className="text-gray-500 text-sm">No password needed. We'll send you a secure magic link.</p>
+            <p className="text-gray-500 text-sm">
+              No password needed — we email you a secure one-time link (magic link).
+            </p>
           </div>
           <div className="mt-6 pt-6 border-t border-gray-200 text-center">
-            <p className="text-gray-600 text-sm">New patient? <Link href="/book" className="text-[#FF2D8E] hover:underline font-medium">Book your first appointment</Link></p>
+            <p className="text-gray-600 text-sm">
+              New patient?{' '}
+              <Link href="/book" className="text-[#FF2D8E] hover:underline font-medium">
+                Book your first appointment
+              </Link>
+            </p>
           </div>
         </div>
         <div className="mt-8 flex items-center justify-center gap-6 text-xs text-gray-400">
@@ -101,5 +151,19 @@ export default function PortalLoginPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function PortalLoginPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black flex items-center justify-center">
+          <div className="w-10 h-10 border-4 border-[#FF2D8E] border-t-transparent rounded-full animate-spin" />
+        </div>
+      }
+    >
+      <PortalLoginForm />
+    </Suspense>
   );
 }

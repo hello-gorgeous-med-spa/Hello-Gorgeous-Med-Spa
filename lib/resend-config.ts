@@ -44,7 +44,7 @@ export function getResendFromAddress(): string {
   return (
     process.env.RESEND_FROM_EMAIL ||
     process.env.RESEND_FROM ||
-    "Hello Gorgeous <onboarding@resend.dev>"
+    "Hello Gorgeous <leads@hellogorgeousmedspa.com>"
   );
 }
 
