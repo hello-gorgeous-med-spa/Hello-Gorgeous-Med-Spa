@@ -1,351 +1,333 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 
-import { RealPatientReviews } from "@/components/RealPatientReviews";
+import { CTA } from "@/components/CTA";
+import { FadeUp, Section } from "@/components/Section";
 import { BOOKING_URL } from "@/lib/flows";
 import {
   appForHimUrl,
   FOR_HIM_SERVICES,
-  GENTLEMENS_CLUB_BENEFITS,
-  GENTLEMENS_CLUB_FATHERS_DAY_IMAGE,
   GENTLEMENS_CLUB_FAQS,
+  GENTLEMENS_CLUB_FATHERS_DAY_IMAGE,
   GENTLEMENS_CLUB_HERO_IMAGE,
-  GENTLEMENS_CLUB_PILLARS,
+  GENTLEMENS_CLUB_PILLS,
   GENTLEMENS_CLUB_TIERS,
 } from "@/lib/gentlemens-club";
 import { SITE } from "@/lib/seo";
+
+/** Dark menu card — matches IV Therapy drip grid. */
+function MenuCard({
+  title,
+  accentLine,
+  description,
+  badge,
+}: {
+  title: string;
+  accentLine: string;
+  description: string;
+  badge?: string;
+}) {
+  return (
+    <article className="group flex h-full flex-col rounded-2xl border border-white/10 bg-[#151922] p-6 transition-all duration-300 hover:border-[#FF2D8E]/50 hover:shadow-[0_0_24px_rgba(255,45,142,0.12)]">
+      <div className="mb-2 flex flex-wrap items-center gap-2">
+        <h3 className="font-serif text-2xl text-white tracking-tight">{title}</h3>
+        {badge ? (
+          <span className="rounded-full border border-[#FF2D8E]/40 bg-[#FF2D8E]/15 px-2 py-0.5 text-[9px] font-bold uppercase tracking-widest text-[#FFB8DC]">
+            {badge}
+          </span>
+        ) : null}
+      </div>
+      <p className="text-sm font-medium leading-relaxed text-[#7dd3fc]">{accentLine}</p>
+      <p className="mt-4 flex-1 text-sm leading-relaxed text-gray-400">{description}</p>
+    </article>
+  );
+}
+
+function TierCard({
+  tier,
+}: {
+  tier: (typeof GENTLEMENS_CLUB_TIERS)[number];
+}) {
+  return (
+    <article
+      className={`relative flex h-full flex-col rounded-2xl border p-6 md:p-8 transition-all duration-300 ${
+        tier.highlight
+          ? "border-[#FF2D8E]/40 bg-[#151922] shadow-[0_0_32px_rgba(255,45,142,0.08)]"
+          : "border-white/10 bg-[#151922] hover:border-[#7dd3fc]/40"
+      }`}
+    >
+      {tier.highlight ? (
+        <span className="absolute -top-3 left-6 rounded-full bg-[#FF2D8E] px-3 py-1 text-[10px] font-bold uppercase tracking-wide text-white">
+          Most popular
+        </span>
+      ) : null}
+
+      <h3 className="mt-1 font-serif text-2xl text-white tracking-tight">{tier.name}</h3>
+      <p className={`mt-3 text-4xl font-black tabular-nums ${tier.highlight ? "text-white" : "text-[#7dd3fc]"}`}>
+        ${tier.pricePerMonth}
+        <span className="text-lg font-semibold text-gray-500">/mo</span>
+      </p>
+      <p className="mt-3 text-sm font-medium leading-relaxed text-[#7dd3fc]">
+        {tier.perks.slice(0, 3).join(" • ")}
+      </p>
+      <p className="mt-4 text-sm leading-relaxed text-gray-400">{tier.summary}</p>
+
+      <ul className="mt-5 flex-1 space-y-2">
+        {tier.perks.map((perk) => (
+          <li key={perk} className="flex gap-2 text-sm text-gray-300">
+            <span className={tier.highlight ? "text-[#FF2D8E]" : "text-[#7dd3fc]"} aria-hidden>
+              {tier.highlight ? "♥" : "★"}
+            </span>
+            {perk}
+          </li>
+        ))}
+      </ul>
+
+      {tier.footnote ? <p className="mt-4 text-xs text-gray-500">{tier.footnote}</p> : null}
+
+      <a
+        href={BOOKING_URL}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={`mt-6 block rounded-xl px-6 py-3 text-center text-sm font-bold transition-all ${
+          tier.highlight
+            ? "bg-[#FF2D8E] text-white hover:bg-[#e0267d]"
+            : "border-2 border-[#7dd3fc]/50 text-[#7dd3fc] hover:bg-[#7dd3fc]/10"
+        }`}
+      >
+        Join {tier.name}
+      </a>
+    </article>
+  );
+}
 
 export function GentlemensClubPageContent() {
   const appUrl = appForHimUrl();
 
   return (
-    <main className="bg-[#030712] text-white">
-      {/* Hero flyer — matches app creative */}
-      <section className="border-b-4 border-black bg-black py-6 md:py-10">
-        <div className="max-w-6xl mx-auto px-4">
-          <h1 className="sr-only">
-            The Gentlemen&apos;s Club — Men&apos;s Wellness Membership at Hello Gorgeous Med Spa, Oswego IL
-          </h1>
-          <div className="relative overflow-hidden rounded-3xl border-4 border-black shadow-[8px_8px_0_0_rgba(255,45,142,0.35)]">
-            <div className="relative aspect-[16/10] w-full md:aspect-[21/9]">
-              <Image
-                src={GENTLEMENS_CLUB_HERO_IMAGE}
-                alt="The Gentlemen's Club — Brotox, hormones, peptide therapy and recovery for men at Hello Gorgeous Med Spa Oswego IL"
-                fill
-                className="object-cover object-center"
-                sizes="(max-width: 768px) 100vw, 1152px"
-                priority
-              />
-            </div>
-          </div>
+    <div className="min-h-screen bg-[#0a0a0a] text-white">
+      <div
+        className="pointer-events-none fixed inset-0 -z-10 opacity-60"
+        style={{
+          background: `
+            radial-gradient(ellipse 70% 45% at 50% -5%, rgba(59,130,246,0.12) 0%, transparent 55%),
+            radial-gradient(ellipse 40% 30% at 100% 40%, rgba(255,45,142,0.12) 0%, transparent 50%),
+            #0a0a0a
+          `,
+        }}
+      />
 
-          <div className="mt-6 flex flex-col sm:flex-row flex-wrap gap-3 justify-center">
-            <a
-              href={BOOKING_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center px-8 py-4 bg-[#FF2D8E] text-white font-bold rounded-xl hover:bg-[#e0267d] transition-all text-lg"
-            >
-              Book Your Consult
-            </a>
-            <a
-              href="#pricing"
-              className="inline-flex items-center justify-center px-8 py-4 border-2 border-gray-600 text-white font-semibold rounded-xl hover:border-blue-400 hover:text-blue-300 transition-all text-lg"
-            >
-              View Membership Tiers
-            </a>
-            <Link
-              href={appUrl}
-              className="inline-flex items-center justify-center px-8 py-4 border-2 border-blue-500/50 bg-blue-500/10 text-blue-200 font-semibold rounded-xl hover:bg-blue-500/20 transition-all text-lg"
-            >
-              Open in App — For Him 👑
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* Father's Day / gift Brotox promo */}
-      <section className="border-b-4 border-black bg-gray-950 py-12 md:py-16">
-        <div className="max-w-6xl mx-auto px-4">
-          <div className="grid items-center gap-8 lg:grid-cols-2">
-            <div className="relative overflow-hidden rounded-3xl border-4 border-black shadow-[8px_8px_0_0_rgba(59,130,246,0.35)]">
-              <div className="relative aspect-[16/10] w-full">
+      {/* Hero flyer */}
+      <Section className="relative border-b-4 border-black py-10 md:py-14 !px-0">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <FadeUp>
+            <h1 className="sr-only">
+              The Gentlemen&apos;s Club — Men&apos;s Wellness Membership at Hello Gorgeous Med Spa, Oswego IL
+            </h1>
+            <div className="relative overflow-hidden rounded-3xl border-4 border-black shadow-[8px_8px_0_0_rgba(255,45,142,0.35)]">
+              <div className="relative aspect-[16/10] w-full md:aspect-[21/9]">
                 <Image
-                  src={GENTLEMENS_CLUB_FATHERS_DAY_IMAGE}
-                  alt="Happy Father's Day — Gift Brotox at Hello Gorgeous Med Spa Oswego IL"
+                  src={GENTLEMENS_CLUB_HERO_IMAGE}
+                  alt="The Gentlemen's Club — Brotox, hormones, peptide therapy and recovery for men at Hello Gorgeous Med Spa Oswego IL"
                   fill
                   className="object-cover object-center"
-                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  sizes="(max-width: 768px) 100vw, 1152px"
+                  priority
                 />
               </div>
             </div>
-            <div>
-              <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-[#FF2D8E]">Father&apos;s Day · Any day</p>
-              <h2 className="mt-2 text-3xl md:text-4xl font-black leading-tight">
-                Because you love him…{" "}
-                <span className="text-gray-400">but his frown lines had to go.</span>
-              </h2>
-              <p className="mt-4 text-gray-400 leading-relaxed">
-                Gift Brotox, a Gentlemen&apos;s Club membership, or a consult — instant eGift delivery through Square.
-                Oswego · Naperville · Aurora · Plainfield.
+
+            <div className="mt-8 text-center md:text-left">
+              <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-[#FFB8DC]">👑 For Him · Oswego, IL</p>
+              <p className="mt-3 flex flex-wrap justify-center gap-2 md:justify-start">
+                {GENTLEMENS_CLUB_PILLS.map((pill) => (
+                  <span
+                    key={pill}
+                    className="rounded-full border border-white/15 bg-white/5 px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-white/70"
+                  >
+                    {pill}
+                  </span>
+                ))}
               </p>
-              <div className="mt-6 flex flex-col sm:flex-row gap-3">
-                <a
-                  href={FOR_HIM_SERVICES[3].href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center px-6 py-3 bg-[#FF2D8E] text-white font-bold rounded-xl hover:bg-[#e0267d] transition-all"
-                >
-                  🎁 Buy eGift Card
-                </a>
-                <a
-                  href={BOOKING_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center px-6 py-3 border-2 border-gray-600 text-white font-semibold rounded-xl hover:border-[#FF2D8E] hover:text-[#FF2D8E] transition-all"
-                >
-                  Book Brotox for Dad
-                </a>
+              <div className="mt-6 flex flex-col sm:flex-row flex-wrap gap-3 justify-center md:justify-start">
+                <CTA href={BOOKING_URL} variant="gradient" className="!px-8 !py-4">
+                  Book Your Consult
+                </CTA>
+                <CTA href="#pricing" variant="outline" className="!border-[#FF2D8E] !text-[#FFB8DC] hover:!bg-[#FF2D8E] hover:!text-white !px-8 !py-4">
+                  View Membership Tiers
+                </CTA>
+                <CTA href={appUrl} variant="outline" className="!border-[#7dd3fc]/50 !text-[#7dd3fc] hover:!bg-[#7dd3fc]/10 !px-8 !py-4">
+                  Open App — For Him
+                </CTA>
               </div>
             </div>
+          </FadeUp>
+        </div>
+      </Section>
+
+      {/* Men's services — 4-col drip-style grid */}
+      <Section className="py-12 md:py-16 bg-[#0a0a0a] !py-12 md:!py-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+          <FadeUp>
+            <div className="mb-10 max-w-2xl">
+              <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-[#FF2D8E]">Men&apos;s services</p>
+              <h2 className="mt-2 font-serif text-2xl md:text-3xl text-white">Built for how men show up</h2>
+              <p className="mt-2 text-white/55">
+                Brotox, hormones, peptides &amp; recovery — private, judgment-free, NP-led in downtown Oswego.
+              </p>
+            </div>
+          </FadeUp>
+
+          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {FOR_HIM_SERVICES.map((svc, i) => (
+              <FadeUp key={svc.id} delayMs={40 * (i % 4)}>
+                <Link href={svc.href} target={"external" in svc && svc.external ? "_blank" : undefined} className="block h-full">
+                  <MenuCard
+                    title={svc.label}
+                    badge={svc.badge}
+                    accentLine={svc.cta}
+                    description={svc.blurb}
+                  />
+                </Link>
+              </FadeUp>
+            ))}
           </div>
         </div>
-      </section>
+      </Section>
 
-      {/* Men's services — app For Him tab parity */}
-      <section className="py-16 lg:py-20 bg-[#030712] border-b border-gray-900">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-10">
-            <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-blue-400">Men&apos;s services</p>
-            <h2 className="mt-2 text-3xl md:text-4xl font-bold">Built for how men actually show up</h2>
+      {/* Membership tiers — dark cards, readable text */}
+      <Section id="pricing" className="scroll-mt-24 border-y-4 border-black bg-[#0a0a0a] !py-14 md:!py-20">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+          <FadeUp>
+            <div className="mb-10 text-center">
+              <h2 className="font-serif text-3xl md:text-4xl text-white">Choose Your Tier</h2>
+              <p className="mt-2 text-gray-400">No contracts. Cancel anytime.</p>
+            </div>
+          </FadeUp>
+
+          <div className="grid gap-6 md:grid-cols-2">
+            {GENTLEMENS_CLUB_TIERS.map((tier, i) => (
+              <FadeUp key={tier.id} delayMs={60 * i}>
+                <TierCard tier={tier} />
+              </FadeUp>
+            ))}
           </div>
-          <div className="grid gap-4 sm:grid-cols-2">
-            {FOR_HIM_SERVICES.map((svc) => (
-              <div
-                key={svc.id}
-                className="rounded-2xl border border-gray-800 bg-gray-900/80 p-5 hover:border-blue-500/40 transition-all"
-              >
-                <div className="flex items-start gap-3">
-                  <span className="text-2xl">{svc.icon}</span>
-                  <div className="flex-1 min-w-0">
-                    <div className="flex flex-wrap items-center gap-2 mb-1">
-                      <h3 className="text-lg font-bold text-white">{svc.label}</h3>
-                      <span className="rounded-full bg-blue-500/20 px-2 py-0.5 text-[9px] font-bold uppercase tracking-widest text-blue-300">
-                        {svc.badge}
-                      </span>
-                    </div>
-                    <p className="text-sm text-gray-400 leading-relaxed">{svc.blurb}</p>
-                  </div>
+        </div>
+      </Section>
+
+      {/* What's included — 4-col grid */}
+      <Section className="bg-[#0a0a0a] !py-12 md:!py-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+          <FadeUp>
+            <div className="mb-10 max-w-2xl">
+              <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-[#FF2D8E]">Membership perks</p>
+              <h2 className="mt-2 font-serif text-2xl md:text-3xl text-white">What&apos;s included</h2>
+            </div>
+          </FadeUp>
+          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {[
+              { title: "Brotox", line: "Member pricing · Neurotoxin", desc: "Member pricing on every neurotoxin treatment. Look sharp, no big deal." },
+              { title: "Hormone Optimization", line: "Lab-guided · TRT", desc: "Lab-guided TRT and hormone care. Energy, strength, libido, mood." },
+              { title: "Peptide Therapy", line: "BPC-157 · Sermorelin · NAD+", desc: "Recovery, performance, body composition. The cutting edge." },
+              { title: "Monthly Wellness Shot", line: "B12 · Lipo-C · NAD+", desc: "B12, Lipo-C, or NAD+ every month. Your call." },
+            ].map((item, i) => (
+              <FadeUp key={item.title} delayMs={40 * (i % 4)}>
+                <MenuCard title={item.title} accentLine={item.line} description={item.desc} />
+              </FadeUp>
+            ))}
+          </div>
+        </div>
+      </Section>
+
+      {/* Father's Day promo */}
+      <Section className="border-t border-white/10 bg-[#030712] !py-12 md:!py-16">
+        <div className="max-w-6xl mx-auto px-4 w-full">
+          <div className="grid items-center gap-8 lg:grid-cols-2">
+            <FadeUp>
+              <div className="relative overflow-hidden rounded-2xl border border-white/10">
+                <div className="relative aspect-[16/10] w-full">
+                  <Image
+                    src={GENTLEMENS_CLUB_FATHERS_DAY_IMAGE}
+                    alt="Happy Father's Day — Gift Brotox at Hello Gorgeous Med Spa"
+                    fill
+                    className="object-cover object-center"
+                    sizes="(max-width: 1024px) 100vw, 50vw"
+                  />
                 </div>
-                {"external" in svc && svc.external ? (
-                  <a
-                    href={svc.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="mt-4 block text-center rounded-xl bg-[#FF2D8E] py-2.5 text-sm font-bold text-white hover:bg-[#e0267d] transition-all"
-                  >
-                    {svc.cta} →
-                  </a>
-                ) : (
-                  <Link
-                    href={svc.href}
-                    className="mt-4 block text-center rounded-xl bg-[#FF2D8E] py-2.5 text-sm font-bold text-white hover:bg-[#e0267d] transition-all"
-                  >
-                    {svc.cta} →
-                  </Link>
-                )}
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* What's included */}
-      <section className="py-20 lg:py-28 bg-gray-950">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-14">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">What&apos;s Included</h2>
-            <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-              Membership benefits built around how men actually want to feel — not how they&apos;re told they should look.
-            </p>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {GENTLEMENS_CLUB_BENEFITS.map((benefit) => (
-              <div
-                key={benefit.title}
-                className="bg-gray-900 border border-gray-800 hover:border-blue-500/40 rounded-2xl p-6 transition-all"
-              >
-                <div className="text-3xl mb-4">{benefit.icon}</div>
-                <h3 className="text-xl font-bold mb-2 text-white">{benefit.title}</h3>
-                <p className="text-gray-400 leading-relaxed">{benefit.description}</p>
+            </FadeUp>
+            <FadeUp delayMs={80}>
+              <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-[#FF2D8E]">Gift Brotox</p>
+              <h2 className="mt-2 font-serif text-2xl md:text-3xl text-white">
+                Because you love him… <span className="text-gray-500">but his frown lines had to go.</span>
+              </h2>
+              <p className="mt-4 text-sm text-gray-400 leading-relaxed">
+                eGift cards deliver instantly through Square — perfect for dads, husbands &amp; boyfriends.
+              </p>
+              <div className="mt-6 flex flex-wrap gap-3">
+                <CTA href={FOR_HIM_SERVICES[3].href} variant="gradient">
+                  Buy eGift Card
+                </CTA>
+                <CTA href={BOOKING_URL} variant="outline" className="!border-white/30 !text-white hover:!bg-white hover:!text-black">
+                  Book Brotox
+                </CTA>
               </div>
-            ))}
+            </FadeUp>
           </div>
         </div>
-      </section>
-
-      {/* Membership tiers */}
-      <section id="pricing" className="py-20 lg:py-28 bg-[#030712]">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-14">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Choose Your Tier</h2>
-            <p className="text-gray-400 text-lg">No contracts. Cancel anytime.</p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {GENTLEMENS_CLUB_TIERS.map((tier) => (
-              <div
-                key={tier.id}
-                className={`relative rounded-2xl p-8 ${
-                  tier.highlight
-                    ? "bg-gray-900 border border-blue-500/40"
-                    : "bg-gray-900 border border-gray-700"
-                }`}
-              >
-                {tier.highlight ? (
-                  <div className="absolute -top-3 left-6">
-                    <span className="bg-[#FF2D8E] text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide">
-                      Most Popular
-                    </span>
-                  </div>
-                ) : null}
-                <h3 className="text-2xl font-bold mb-1 mt-2">{tier.name}</h3>
-                <p
-                  className="text-5xl font-black mb-4"
-                  style={{
-                    background: tier.highlight
-                      ? "linear-gradient(135deg, #e8e8e8 0%, #ffffff 50%, #b0b8c8 100%)"
-                      : "linear-gradient(135deg, #93c5fd 0%, #60a5fa 50%, #3b82f6 100%)",
-                    WebkitBackgroundClip: "text",
-                    WebkitTextFillColor: "transparent",
-                    backgroundClip: "text",
-                  }}
-                >
-                  ${tier.pricePerMonth}
-                  <span className="text-2xl text-gray-400">/mo</span>
-                </p>
-                <p className="text-gray-400 mb-4">{tier.summary}</p>
-                <ul className="space-y-3 mb-8">
-                  {tier.perks.map((item) => (
-                    <li key={item} className="flex items-start gap-3 text-gray-300">
-                      <span className={tier.highlight ? "text-[#FF2D8E] mt-0.5" : "text-blue-400 mt-0.5"}>
-                        {tier.highlight ? "♥" : "★"}
-                      </span>
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-                {tier.footnote ? <p className="text-sm text-gray-500 mb-6">{tier.footnote}</p> : null}
-                <a
-                  href={BOOKING_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`block text-center px-6 py-3 font-bold rounded-xl transition-all ${
-                    tier.highlight
-                      ? "bg-[#FF2D8E] text-white hover:bg-[#e0267d]"
-                      : "border-2 border-blue-500 text-blue-300 hover:bg-blue-500/10"
-                  }`}
-                >
-                  Join {tier.name}
-                </a>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Couples promo — from app */}
-      <section className="py-12 bg-gray-950 border-y border-gray-900">
-        <div className="max-w-3xl mx-auto px-4 text-center">
-          <p className="text-xl font-bold text-white mb-2">Couples that glow together… 💗</p>
-          <p className="text-gray-400 mb-6">
-            Botox for her. Brotox for him. Book together and make it a date.
-          </p>
-          <Link
-            href="/book"
-            className="inline-flex items-center gap-2 rounded-xl bg-[#FF2D8E] px-6 py-3 text-sm font-bold text-white hover:bg-[#e0267d] transition-all"
-          >
-            Book Together →
-          </Link>
-        </div>
-      </section>
-
-      {/* Why men choose */}
-      <section className="py-20 lg:py-28 bg-[#030712]">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-14">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Why Men Choose This</h2>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {GENTLEMENS_CLUB_PILLARS.map((pillar, i) => (
-              <div key={pillar.title} className="text-center">
-                <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/10 border border-blue-500/30 mb-4">
-                  <span className="text-blue-400 font-bold text-lg">{i + 1}</span>
-                </div>
-                <h3 className="text-lg font-bold mb-3 text-white">{pillar.title}</h3>
-                <p className="text-gray-400 leading-relaxed">{pillar.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      </Section>
 
       {/* FAQ */}
-      <section className="py-20 lg:py-28 bg-gray-950">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">Questions</h2>
-          <div className="space-y-6">
-            {GENTLEMENS_CLUB_FAQS.map((faq) => (
-              <div key={faq.question} className="border border-gray-800 rounded-xl p-6">
-                <h3 className="text-lg font-bold mb-3 text-white">{faq.question}</h3>
-                <p className="text-gray-400 leading-relaxed">{faq.answer}</p>
-              </div>
-            ))}
-          </div>
+      <Section className="bg-[#0a0a0a] !py-14 md:!py-20">
+        <div className="max-w-3xl mx-auto px-4 w-full">
+          <FadeUp>
+            <h2 className="font-serif text-2xl md:text-3xl text-white mb-8 text-center">Questions</h2>
+            <div className="space-y-4">
+              {GENTLEMENS_CLUB_FAQS.map((faq) => (
+                <details
+                  key={faq.question}
+                  className="group rounded-2xl border border-white/10 bg-[#151922] open:border-[#FF2D8E]/40"
+                >
+                  <summary className="cursor-pointer list-none px-5 py-4 font-semibold text-white hover:text-[#FFB8DC] flex items-center justify-between gap-3">
+                    {faq.question}
+                    <span className="text-[#FF2D8E] group-open:rotate-45 transition-transform">+</span>
+                  </summary>
+                  <p className="px-5 pb-4 text-sm text-gray-400 leading-relaxed">{faq.answer}</p>
+                </details>
+              ))}
+            </div>
+          </FadeUp>
         </div>
-      </section>
+      </Section>
 
-      {/* Final CTA */}
+      {/* Closing CTA */}
       <section
-        className="py-24 lg:py-32 border-t border-gray-900"
-        style={{
-          background:
-            "radial-gradient(ellipse at 50% 50%, rgba(59,130,246,0.12) 0%, transparent 60%), #030712",
-        }}
+        className="border-t-4 border-black py-16 md:py-20"
+        style={{ background: "linear-gradient(125deg, #FF2D8E 0%, #E6007E 45%, #9b0a4d 100%)" }}
       >
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="mb-4 text-3xl" aria-hidden="true">
+        <div className="max-w-3xl mx-auto px-4 text-center">
+          <p className="text-3xl mb-2" aria-hidden>
             👑
-          </div>
-          <h2 className="text-4xl md:text-5xl font-black mb-6">Ready to Join?</h2>
-          <p className="text-gray-400 text-lg mb-10 max-w-xl mx-auto">
-            Book your complimentary consult — or open the Hello Gorgeous app For Him tab for the same experience on your phone.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a
-              href={BOOKING_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center px-8 py-4 bg-[#FF2D8E] text-white font-bold rounded-xl hover:bg-[#e0267d] transition-all text-lg"
-            >
+          <h2 className="text-3xl md:text-4xl font-black text-white mb-4">Ready to join?</h2>
+          <p className="text-white/90 text-lg mb-8">
+            Book your complimentary consult — Ryan Kent, FNP-BC on site 7 days a week.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-3 justify-center">
+            <CTA href={BOOKING_URL} variant="white">
               Book Your Consult
-            </a>
-            <Link
-              href={appUrl}
-              className="inline-flex items-center justify-center px-8 py-4 border-2 border-blue-500 text-blue-300 font-semibold rounded-xl hover:bg-blue-500/10 transition-all text-lg"
-            >
+            </CTA>
+            <CTA href={appUrl} variant="outline" className="!border-white !text-white hover:!bg-white hover:!text-[#E6007E]">
               Open App — For Him
-            </Link>
-            <a
-              href={`tel:${SITE.phone}`}
-              className="inline-flex items-center justify-center px-8 py-4 border-2 border-gray-600 text-white font-semibold rounded-xl hover:border-[#FF2D8E] hover:text-[#FF2D8E] transition-all text-lg"
-            >
-              Call {SITE.phone}
-            </a>
+            </CTA>
           </div>
+          <p className="mt-6 text-sm text-white/75">
+            📍 {SITE.address.streetAddress}, {SITE.address.addressLocality} · 📞 {SITE.phone}
+          </p>
         </div>
       </section>
-
-      <RealPatientReviews />
-    </main>
+    </div>
   );
 }
