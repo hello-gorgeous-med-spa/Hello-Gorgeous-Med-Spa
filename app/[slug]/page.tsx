@@ -33,7 +33,11 @@ import {
   isServicePageOswegoSlug,
 } from "@/lib/service-pages-oswego";
 import { ServiceOswegoLanding } from "@/components/marketing/ServiceOswegoLanding";
+import { IvTherapyServicePage } from "@/components/services/IvTherapyServicePage";
 import { getLiveAggregateRating } from "@/lib/seo/google-places";
+
+/** Canonical local URLs that should render the IV drip menu page. */
+const IV_THERAPY_PUBLIC_SLUGS = new Set(["iv-therapy-oswego-il", "iv-therapy-oswego"]);
 
 const ALL_LOCAL_SLUGS = [...GBP_SERVICE_SLUGS, ...MED_SPA_LOCATION_SLUGS, ...SERVICE_PAGE_OSWEGO_SLUGS];
 
@@ -170,6 +174,10 @@ function localFaqs(serviceName: string, cityLabel: string, serviceSlug: string):
 
 export default async function SlugPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
+
+  if (IV_THERAPY_PUBLIC_SLUGS.has(slug)) {
+    return <IvTherapyServicePage />;
+  }
 
   if (isServicePageOswegoSlug(slug)) {
     const page = getServicePageOswego(slug)!;
