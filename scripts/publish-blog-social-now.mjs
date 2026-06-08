@@ -310,7 +310,7 @@ Vitamin Bar · facials · lashes · men's wellness — one simple monthly price.
 Join in the Hello Gorgeous app or see every perk on our site.
 Ryan Kent, FNP-BC · serving Naperville, Aurora & Plainfield.`,
     link: `${SITE_URL}/monthly-memberships`,
-    imagePath: "/images/memberships/energy-unlimited.png",
+    imagePath: "/images/gentlemens-club/gentlemens-club-hero.png",
   },
   "memberships-showcase-facebook": {
     label: "Monthly memberships showcase — Facebook",
@@ -342,7 +342,7 @@ Join in the Hello Gorgeous app (Membership tab) or tap the link for full details
 
 Ryan Kent, FNP-BC on site 7 days a week · Naperville · Aurora · Plainfield`,
     link: `${SITE_URL}/monthly-memberships`,
-    imagePath: "/images/memberships/energy-unlimited.png",
+    imagePath: "/images/gentlemens-club/gentlemens-club-hero.png",
   },
 };
 

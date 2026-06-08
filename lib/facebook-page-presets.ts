@@ -470,7 +470,7 @@ export const FACEBOOK_PAGE_PRESET_MONTHLY_MEMBERSHIPS: FacebookPagePreset = {
   blurb: "Vitamin Bar, facial, lash + men's Gentlemen's Club memberships.",
   message: MEMBERSHIPS_SHOWCASE_FACEBOOK_MESSAGE,
   linkPath: withUtm("/monthly-memberships"),
-  imagePath: "/images/memberships/energy-unlimited.png",
+  imagePath: "/images/gentlemens-club/gentlemens-club-hero.png",
   defaultChannels: ["facebook", "instagram", "google"],
 };
 

@@ -193,7 +193,7 @@ Ryan Kent, FNP-BC · serving Naperville, Aurora & Plainfield.`,
     label: "Monthly memberships — Vitamin Bar, facial, lash & Gentlemen's Club",
     message: MEMBERSHIPS_SHOWCASE_GBP_MESSAGE,
     linkPath: "/monthly-memberships?utm_source=google&utm_medium=gbp_post&utm_campaign=memberships_showcase",
-    imagePath: "/images/memberships/energy-unlimited.png",
+    imagePath: "/images/gentlemens-club/gentlemens-club-hero.png",
   },
   {
     id: "non-surgical-facelift",
