@@ -82,6 +82,10 @@
     {
       "path": "/api/cron/sync-square-birthdays",
       "schedule": "0 10 * * 1"
+    },
+    {
+      "path": "/api/app/aftercare/process",
+      "schedule": "0 15 * * *"
     }
   ],
   "headers": [

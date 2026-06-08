@@ -14,6 +14,7 @@ import {
   type ClientAppTab,
 } from "@/lib/client-app";
 import { getActiveDeals, type AppDeal } from "@/lib/app-deals";
+import { getTierForVisits, getVisitsToNextTier } from "@/lib/loyalty-tiers";
 import {
   VITAMIN_BAR,
   VITAMIN_MEMBERSHIPS,
@@ -53,6 +54,7 @@ type BeforeInstallPromptEvent = Event & {
 type HomeData = {
   authenticated: boolean;
   firstName?: string | null;
+  totalVisits?: number;
   nextAppointment?: { id: string; startsAt: string; serviceName: string | null } | null;
   lastAppointment?: {
     id: string;
@@ -64,6 +66,9 @@ type HomeData = {
   creditBalance?: number;
   birthdayInDays?: number | null;
   isBirthday?: boolean;
+  referralCode?: string | null;
+  referralUses?: number;
+  referralCreditsEarned?: number;
 };
 
 // ─── Hooks ────────────────────────────────────────────────────────────────────
@@ -305,6 +310,9 @@ function HomeTab({ onNavigate, onOpenIntake, intakeRefresh, homeData, canInstall
   const birthdayInDays = homeData?.birthdayInDays ?? null;
   const isBirthday     = homeData?.isBirthday ?? false;
   const nearBirthday   = auth && birthdayInDays != null && birthdayInDays <= 30;
+  const totalVisits    = homeData?.totalVisits ?? 0;
+  const tier           = auth ? getTierForVisits(totalVisits) : null;
+  const visitsToNext   = auth ? getVisitsToNextTier(totalVisits) : null;
 
   return (
     <div className="space-y-4">
@@ -351,6 +359,45 @@ function HomeTab({ onNavigate, onOpenIntake, intakeRefresh, homeData, canInstall
               <p className="mt-0.5 text-xs" style={{ color: "rgba(255,255,255,0.5)" }}>
                 {last!.serviceName ? `${last!.serviceName} typically needs a touch-up around now.` : "Time for a touch-up?"}
               </p>
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* Loyalty tier badge */}
+      {tier && (
+        <div className="rounded-2xl p-4 overflow-hidden relative"
+          style={{ background: "rgba(255,255,255,0.04)", border: `1px solid ${tier.borderColor}` }}>
+          <div className="absolute -top-8 -right-8 w-32 h-32 rounded-full opacity-10 blur-3xl pointer-events-none"
+            style={{ background: tier.color }} />
+          <div className="relative flex items-center justify-between">
+            <div>
+              <div className="flex items-center gap-2 mb-1">
+                <span className="text-xl">{tier.emoji}</span>
+                <span className="text-sm font-bold" style={{ color: tier.color }}>{tier.name}</span>
+              </div>
+              <p className="text-xs" style={{ color: "rgba(255,255,255,0.45)" }}>
+                {totalVisits} visit{totalVisits !== 1 ? "s" : ""} with Hello Gorgeous
+                {visitsToNext ? ` · ${visitsToNext} more to unlock next tier` : " · You've reached the top! 💎"}
+              </p>
+            </div>
+            <div className="shrink-0 w-16 h-2 rounded-full overflow-hidden" style={{ background: "rgba(255,255,255,0.08)" }}>
+              <div className="h-full rounded-full" style={{
+                background: tier.gradient,
+                width: visitsToNext
+                  ? `${Math.min(100, ((totalVisits % 10) / 10) * 100)}%`
+                  : "100%"
+              }} />
+            </div>
+          </div>
+          {tier.id !== "platinum" && (
+            <div className="relative mt-2 flex gap-1 flex-wrap">
+              {tier.perks.slice(0, 2).map((p) => (
+                <span key={p} className="text-[10px] px-2 py-0.5 rounded-full"
+                  style={{ background: "rgba(255,255,255,0.06)", color: "rgba(255,255,255,0.45)" }}>
+                  {p}
+                </span>
+              ))}
             </div>
           )}
         </div>
@@ -990,15 +1037,118 @@ function MeTab({ onOpenIntake, intakeRefresh, homeData }: {
   intakeRefresh: number;
   homeData: HomeData | null;
 }) {
+  const [copied, setCopied] = useState(false);
+  const totalVisits = homeData?.totalVisits ?? 0;
+  const tier = homeData?.authenticated ? getTierForVisits(totalVisits) : null;
+  const visitsToNext = homeData?.authenticated ? getVisitsToNextTier(totalVisits) : null;
+  const referralCode = homeData?.referralCode;
+  const referralUses = homeData?.referralUses ?? 0;
+  const referralLink = referralCode
+    ? `https://hellogorgeousmedspa.com/app?ref=${referralCode}`
+    : null;
+
+  function copyReferral() {
+    if (!referralLink) return;
+    navigator.clipboard.writeText(referralLink).then(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2500);
+    });
+  }
+
   return (
-    <div className="py-5">
-      <h2 className="text-xl font-bold text-white">
-        {homeData?.firstName ? `Hey, ${homeData.firstName} ✨` : "Your account"}
-      </h2>
-      <p className="mt-1 text-sm" style={{ color: "rgba(255,255,255,0.45)" }}>Portal, rewards, documents, and more.</p>
+    <div className="py-5 space-y-4">
+      <div>
+        <h2 className="text-xl font-bold text-white">
+          {homeData?.firstName ? `Hey, ${homeData.firstName} ✨` : "Your account"}
+        </h2>
+        <p className="mt-1 text-sm" style={{ color: "rgba(255,255,255,0.45)" }}>Portal, rewards, documents, and more.</p>
+      </div>
+
+      {/* Loyalty tier card */}
+      {tier && (
+        <div className="rounded-2xl p-5 overflow-hidden relative"
+          style={{ background: "rgba(255,255,255,0.04)", border: `2px solid ${tier.borderColor}` }}>
+          <div className="absolute -top-10 -right-10 w-40 h-40 rounded-full opacity-10 blur-3xl pointer-events-none"
+            style={{ background: tier.color }} />
+          <div className="relative flex items-start justify-between mb-3">
+            <div>
+              <div className="flex items-center gap-2">
+                <span className="text-2xl">{tier.emoji}</span>
+                <span className="text-lg font-bold" style={{ color: tier.color }}>{tier.name}</span>
+              </div>
+              <p className="text-xs mt-1" style={{ color: "rgba(255,255,255,0.4)" }}>
+                {totalVisits} lifetime visit{totalVisits !== 1 ? "s" : ""}
+              </p>
+            </div>
+            {visitsToNext && (
+              <div className="text-right">
+                <p className="text-[10px]" style={{ color: "rgba(255,255,255,0.4)" }}>Next tier</p>
+                <p className="text-sm font-bold" style={{ color: tier.color }}>{visitsToNext} visits</p>
+              </div>
+            )}
+          </div>
+          {/* Progress bar */}
+          <div className="relative mb-4 h-1.5 w-full rounded-full overflow-hidden" style={{ background: "rgba(255,255,255,0.08)" }}>
+            <div className="h-full rounded-full transition-all duration-500"
+              style={{ background: tier.gradient, width: visitsToNext ? `${Math.min(100, (totalVisits / (totalVisits + visitsToNext)) * 100)}%` : "100%" }} />
+          </div>
+          <div className="space-y-1.5">
+            {tier.perks.map((p) => (
+              <div key={p} className="flex items-center gap-2 text-xs" style={{ color: "rgba(255,255,255,0.65)" }}>
+                <span style={{ color: tier.color }}>✓</span>{p}
+              </div>
+            ))}
+          </div>
+          {visitsToNext && tier.nextTierMessage && (
+            <p className="mt-3 text-[10px] text-center" style={{ color: "rgba(255,255,255,0.3)" }}>
+              {tier.nextTierMessage}
+            </p>
+          )}
+        </div>
+      )}
+
+      {/* Referral card */}
+      {referralLink && (
+        <div className="rounded-2xl p-4" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(123,79,255,0.35)" }}>
+          <div className="flex items-center gap-2 mb-1">
+            <span className="text-lg">💜</span>
+            <span className="text-sm font-bold text-white">Refer a Friend</span>
+            {referralUses > 0 && (
+              <span className="ml-auto text-xs px-2 py-0.5 rounded-full font-bold"
+                style={{ background: "rgba(123,79,255,0.2)", color: "#a78bfa" }}>
+                {referralUses} referred
+              </span>
+            )}
+          </div>
+          <p className="text-xs mb-3" style={{ color: "rgba(255,255,255,0.5)" }}>
+            Share your link — you both get <strong className="text-white">$25 credit</strong> when they book their first visit.
+          </p>
+          <div className="flex gap-2">
+            <div className="flex-1 rounded-xl px-3 py-2 text-xs truncate font-mono"
+              style={{ background: "rgba(255,255,255,0.06)", color: "rgba(255,255,255,0.5)" }}>
+              hellogorgeousmedspa.com/app?ref={referralCode}
+            </div>
+            <button type="button" onClick={copyReferral}
+              className="shrink-0 rounded-xl px-3 py-2 text-xs font-bold text-white transition"
+              style={{ background: copied ? "rgba(0,200,100,0.3)" : "linear-gradient(90deg, #7B4FFF, #4F9FFF)" }}>
+              {copied ? "Copied! ✓" : "Copy"}
+            </button>
+          </div>
+          <button type="button"
+            onClick={() => {
+              if (navigator.share) {
+                navigator.share({ title: "Hello Gorgeous Med Spa", text: "Get $25 off your first visit!", url: referralLink });
+              }
+            }}
+            className="mt-2 w-full rounded-xl py-2 text-xs font-semibold"
+            style={{ background: "rgba(123,79,255,0.15)", color: "#a78bfa", border: "1px solid rgba(123,79,255,0.2)" }}>
+            📤 Share with a friend
+          </button>
+        </div>
+      )}
 
       {homeData?.rewardPoints != null && homeData.rewardPoints > 0 && (
-        <div className="mt-4 flex items-center justify-between rounded-xl px-4 py-4 backdrop-blur-sm"
+        <div className="flex items-center justify-between rounded-xl px-4 py-4 backdrop-blur-sm"
           style={glassStyle(0)}>
           <div>
             <p className="text-[10px] font-bold uppercase tracking-widest" style={{ color: trifectaAccent(0).subtitle }}>Reward Points</p>

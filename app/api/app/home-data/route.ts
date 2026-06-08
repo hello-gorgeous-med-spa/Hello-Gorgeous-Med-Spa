@@ -27,10 +27,10 @@ export async function GET(request: NextRequest) {
 
   const now = new Date().toISOString();
 
-  const [clientRes, nextRes, lastRes, walletRes] = await Promise.all([
+  const [clientRes, nextRes, lastRes, walletRes, referralRes] = await Promise.all([
     supabase
       .from("clients")
-      .select("first_name, last_name, date_of_birth")
+      .select("first_name, last_name, date_of_birth, total_visits")
       .eq("id", clientId)
       .single(),
 
@@ -61,12 +61,34 @@ export async function GET(request: NextRequest) {
       .select("reward_points, credit_balance")
       .eq("client_id", clientId)
       .single(),
+
+    // Referral code — create if doesn't exist
+    supabase
+      .from("referral_codes")
+      .select("code, uses, credits_earned")
+      .eq("client_id", clientId)
+      .maybeSingle(),
   ]);
 
   const client = clientRes.data;
   const next = nextRes.data;
   const last = lastRes.data;
   const wallet = walletRes.data;
+
+  // Auto-create referral code if missing
+  let referral = referralRes.data;
+  if (!referral) {
+    const code = `HG${clientId.replace(/-/g, "").slice(0, 7).toUpperCase()}`;
+    const { data: newRef } = await supabase
+      .from("referral_codes")
+      .upsert({ client_id: clientId, code }, { onConflict: "client_id" })
+      .select("code, uses, credits_earned")
+      .maybeSingle();
+    referral = newRef;
+  }
+
+  // Loyalty tier
+  const totalVisits = client?.total_visits ?? 0;
 
   let daysSinceLast: number | null = null;
   if (last?.starts_at) {
@@ -99,8 +121,12 @@ export async function GET(request: NextRequest) {
   return NextResponse.json({
     authenticated: true,
     firstName: client?.first_name ?? null,
+    totalVisits,
     birthdayInDays,
     isBirthday,
+    referralCode: referral?.code ?? null,
+    referralUses: referral?.uses ?? 0,
+    referralCreditsEarned: referral?.credits_earned ?? 0,
     nextAppointment: next
       ? {
           id: next.id,
