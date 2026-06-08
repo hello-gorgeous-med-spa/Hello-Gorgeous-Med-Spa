@@ -120,6 +120,7 @@ export async function GET(request: NextRequest) {
 
   return NextResponse.json({
     authenticated: true,
+    clientId,
     firstName: client?.first_name ?? null,
     totalVisits,
     birthdayInDays,

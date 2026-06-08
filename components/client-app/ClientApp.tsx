@@ -51,6 +51,7 @@ function glassStyle(accentIndex: number) {
 
 type HomeData = {
   authenticated: boolean;
+  clientId?: string | null;
   firstName?: string | null;
   totalVisits?: number;
   nextAppointment?: { id: string; startsAt: string; serviceName: string | null } | null;
@@ -1017,10 +1018,25 @@ function MeTab({ onOpenIntake, intakeRefresh, homeData }: {
   homeData: HomeData | null;
 }) {
   const [copied, setCopied] = useState(false);
+  const [unitBalance, setUnitBalance] = useState<number | null>(null);
+  const [unitHistory, setUnitHistory] = useState<{ type: string; units: number; note: string | null; toxin: string | null; created_at: string }[]>([]);
+  const [showUnitHistory, setShowUnitHistory] = useState(false);
   const totalVisits = homeData?.totalVisits ?? 0;
   const tier = homeData?.authenticated ? getTierForVisits(totalVisits) : null;
   const visitsToNext = homeData?.authenticated ? getVisitsToNextTier(totalVisits) : null;
   const referralCode = homeData?.referralCode;
+
+  // Load Unit Bank balance when authenticated
+  useEffect(() => {
+    if (!homeData?.authenticated || !homeData?.clientId) return;
+    fetch(`/api/app/unit-bank/balance?client_id=${homeData.clientId}`)
+      .then(r => r.json())
+      .then(d => {
+        setUnitBalance(d.balance ?? 0);
+        setUnitHistory(d.history ?? []);
+      })
+      .catch(() => setUnitBalance(0));
+  }, [homeData?.authenticated, homeData?.clientId]);
   const referralUses = homeData?.referralUses ?? 0;
   const referralLink = referralCode
     ? `https://hellogorgeousmedspa.com/app?ref=${referralCode}`
@@ -1087,6 +1103,118 @@ function MeTab({ onOpenIntake, intakeRefresh, homeData }: {
       )}
 
       {/* Referral card */}
+      {/* ── Unit Bank Card ── */}
+      {homeData?.authenticated && unitBalance !== null && (
+        <div className="rounded-2xl overflow-hidden"
+          style={{ background: "linear-gradient(135deg, rgba(255,45,142,0.12), rgba(80,20,80,0.25))", border: "1px solid rgba(255,45,142,0.35)" }}>
+          <div className="p-5">
+            {/* Header */}
+            <div className="flex items-center justify-between mb-1">
+              <div className="flex items-center gap-2">
+                <span className="text-xl">💉</span>
+                <span className="text-[11px] font-bold uppercase tracking-widest" style={{ color: "#FF2D8E" }}>Unit Bank</span>
+              </div>
+              <span className="text-[10px] px-2 py-0.5 rounded-full font-semibold"
+                style={{ background: "rgba(255,45,142,0.15)", color: "#FF2D8E", border: "1px solid rgba(255,45,142,0.25)" }}>
+                Neurotoxin Rewards
+              </span>
+            </div>
+
+            {/* Balance */}
+            <div className="flex items-end gap-3 mt-3 mb-4">
+              <div>
+                <p className="text-5xl font-black text-white leading-none">{unitBalance}</p>
+                <p className="text-xs mt-1" style={{ color: "rgba(255,255,255,0.45)" }}>
+                  free unit{unitBalance !== 1 ? 's' : ''} banked
+                  {unitBalance > 0 && <span style={{ color: "#FF2D8E" }}> · ${unitBalance * 10} value</span>}
+                </p>
+              </div>
+              {unitBalance > 0 && (
+                <div className="ml-auto text-right">
+                  <p className="text-[10px] font-bold uppercase tracking-widest mb-1" style={{ color: "rgba(255,255,255,0.35)" }}>Ready to use</p>
+                  <p className="text-sm font-semibold" style={{ color: "#FF2D8E" }}>Tell us at checkout!</p>
+                </div>
+              )}
+            </div>
+
+            {/* Earn rate for their tier */}
+            {tier && (
+              <div className="rounded-xl px-3 py-2 mb-3"
+                style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.08)" }}>
+                <p className="text-[11px]" style={{ color: "rgba(255,255,255,0.5)" }}>
+                  {tier.emoji} <strong className="text-white">{tier.name}</strong> earn rate:{' '}
+                  <span style={{ color: "#FF2D8E" }}>
+                    {tier.id === 'bronze' && '1 free unit per 10 purchased'}
+                    {tier.id === 'gold' && '1 free unit per 8 purchased'}
+                    {tier.id === 'platinum' && '1 free unit per 6 purchased'}
+                  </span>
+                  {' '}· Works on all 5 neurotoxins
+                </p>
+              </div>
+            )}
+
+            {/* How it works */}
+            {unitBalance === 0 && (
+              <div className="space-y-2 mb-3">
+                {[
+                  { emoji: '💉', text: 'Buy neurotoxin units at your next visit' },
+                  { emoji: '🏦', text: 'Units automatically bank based on your tier' },
+                  { emoji: '🎁', text: 'Redeem free units toward any neurotoxin treatment' },
+                ].map(s => (
+                  <div key={s.text} className="flex items-center gap-2">
+                    <span className="text-base">{s.emoji}</span>
+                    <p className="text-xs" style={{ color: "rgba(255,255,255,0.5)" }}>{s.text}</p>
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {/* Transaction history toggle */}
+            {unitHistory.length > 0 && (
+              <button type="button" onClick={() => setShowUnitHistory(v => !v)}
+                className="text-xs font-semibold mt-1 w-full text-left"
+                style={{ color: "rgba(255,255,255,0.35)" }}>
+                {showUnitHistory ? '▲ Hide history' : `▼ View history (${unitHistory.length} transactions)`}
+              </button>
+            )}
+
+            {/* History list */}
+            {showUnitHistory && unitHistory.length > 0 && (
+              <div className="mt-3 space-y-2">
+                {unitHistory.map((tx, i) => (
+                  <div key={i} className="flex items-center justify-between py-1 border-t"
+                    style={{ borderColor: "rgba(255,255,255,0.06)" }}>
+                    <div>
+                      <p className="text-xs text-white">
+                        {tx.type === 'earned' ? '💰 Earned' : tx.type === 'redeemed' ? '✅ Redeemed' : tx.type === 'bonus' ? '🎁 Bonus' : '📋 Adjusted'}
+                        {tx.toxin ? ` · ${tx.toxin.charAt(0).toUpperCase() + tx.toxin.slice(1)}` : ''}
+                      </p>
+                      {tx.note && <p className="text-[10px] mt-0.5" style={{ color: "rgba(255,255,255,0.35)" }}>{tx.note}</p>}
+                    </div>
+                    <span className={`text-sm font-bold ${tx.units > 0 ? 'text-green-400' : 'text-red-400'}`}>
+                      {tx.units > 0 ? '+' : ''}{tx.units}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {/* CTA strip */}
+          <div className="px-5 py-3 flex items-center justify-between"
+            style={{ background: "rgba(255,45,142,0.1)", borderTop: "1px solid rgba(255,45,142,0.2)" }}>
+            <p className="text-[11px]" style={{ color: "rgba(255,255,255,0.4)" }}>
+              Works on Botox · Dysport · Jeuveau · Xeomin · Daxxify
+            </p>
+            <a href="https://hellogorgeousmedspa.com/book" target="_blank" rel="noopener noreferrer"
+              className="text-xs font-bold shrink-0 ml-3"
+              style={{ color: "#FF2D8E" }}>
+              Book & earn →
+            </a>
+          </div>
+        </div>
+      )}
+
       {referralLink && (
         <div className="rounded-2xl p-4" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(123,79,255,0.35)" }}>
           <div className="flex items-center gap-2 mb-1">
