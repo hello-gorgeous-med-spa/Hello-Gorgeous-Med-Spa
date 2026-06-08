@@ -47,7 +47,7 @@ export async function POST(request: NextRequest) {
           location_id: locationId,
         },
         checkout_options: {
-          redirect_url: `${process.env.BASE_URL ?? "https://hellogorgeousmedspa.com"}/app?tab=me&gc=success`,
+          redirect_url: `${process.env.BASE_URL ?? "https://hellogorgeousmedspa.com"}/app?tab=deals&gc=success`,
           ask_for_shipping_address: false,
         },
         description: `Hello Gorgeous Med Spa gift card — $${amount} value. Redeemable for any service or product.`,

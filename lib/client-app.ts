@@ -52,11 +52,11 @@ export const CLIENT_APP_QUICK_ACTIONS = [
     icon: "⭐",
   },
   {
-    id: "checkin",
-    label: "I'm Here",
-    blurb: "Curbside check-in",
-    tab: "visit" as ClientAppTab,
-    icon: "📍",
+    id: "deals",
+    label: "Deals",
+    blurb: "Specials & gift cards",
+    tab: "deals" as ClientAppTab,
+    icon: "🎁",
   },
   {
     id: "glp1-intake",

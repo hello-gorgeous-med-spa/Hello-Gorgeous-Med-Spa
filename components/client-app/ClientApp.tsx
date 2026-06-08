@@ -609,11 +609,11 @@ function DealsTab() {
       <div className="mb-5">
         <div className="inline-flex items-center gap-2 rounded-full px-3 py-1 text-[10px] font-bold uppercase tracking-widest mb-2"
           style={{ background: "rgba(230,0,126,0.15)", color: "#f472b6", border: "1px solid rgba(230,0,126,0.25)" }}>
-          🔒 App Members Only
+          🎉 App Exclusives
         </div>
-        <h2 className="text-xl font-bold text-white">Exclusive Deals</h2>
+        <h2 className="text-xl font-bold text-white">Deals & Gift Cards</h2>
         <p className="mt-1 text-sm" style={{ color: "rgba(255,255,255,0.45)" }}>
-          Special offers only available in the Hello Gorgeous app.
+          Special offers and gift cards — only in the Hello Gorgeous app.
         </p>
       </div>
 
