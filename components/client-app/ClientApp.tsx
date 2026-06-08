@@ -506,6 +506,9 @@ function HomeTab({ onNavigate, onOpenIntake, onOpenIvBuilder, intakeRefresh, hom
         })}
       </div>
 
+      {/* Gift Card Carousel — below quick actions */}
+      <GiftCardStrip giftUrl={squareGiftCardUrl({ utmSource: "app", utmMedium: "home_tab" })} />
+
       {/* Wellness Programs */}
       <WellnessSection />
 
@@ -527,6 +530,59 @@ function HomeTab({ onNavigate, onOpenIntake, onOpenIvBuilder, intakeRefresh, hom
       </section>
       </div>
     </div>
+  );
+}
+
+// ─── Gift Card Strip ──────────────────────────────────────────────────────────
+
+function GiftCardStrip({ giftUrl }: { giftUrl: string }) {
+  return (
+    <section className="mt-4">
+      <div className="flex items-center justify-between mb-2">
+        <h2 className="text-[10px] font-bold uppercase tracking-widest" style={{ color: "rgba(255,255,255,0.3)" }}>
+          Gift Cards
+        </h2>
+        <a href={giftUrl} target="_blank" rel="noopener noreferrer"
+          className="text-[10px] font-bold uppercase tracking-widest"
+          style={{ color: "#fbbf24" }}>
+          Buy Now →
+        </a>
+      </div>
+      {/* Scrollable design cards */}
+      <div className="-mx-5 px-5 overflow-x-auto pb-1" style={{ scrollbarWidth: "none" }}>
+        <div className="flex gap-3" style={{ width: "max-content" }}>
+          {GIFT_CARD_DESIGNS.map((design) => (
+            <a key={design.id} href={giftUrl} target="_blank" rel="noopener noreferrer"
+              className="flex-shrink-0 rounded-2xl overflow-hidden transition active:scale-95"
+              style={{ width: 148, border: "1px solid rgba(245,158,11,0.3)" }}>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={design.image} alt={design.name} style={{ width: 148, height: 88, objectFit: "cover", display: "block" }} />
+              <div className="px-2 py-1.5" style={{ background: "rgba(245,158,11,0.12)" }}>
+                <p className="text-[11px] font-bold text-white leading-tight truncate">{design.name}</p>
+              </div>
+            </a>
+          ))}
+          {/* Final CTA tile */}
+          <a href={giftUrl} target="_blank" rel="noopener noreferrer"
+            className="flex-shrink-0 rounded-2xl flex flex-col items-center justify-center gap-1 transition active:scale-95"
+            style={{ width: 148, height: 115, background: "linear-gradient(135deg, rgba(245,158,11,0.25), rgba(249,115,22,0.18))", border: "1px solid rgba(245,158,11,0.4)" }}>
+            <span className="text-2xl">🎁</span>
+            <span className="text-xs font-bold text-white text-center px-2 leading-tight">Buy a Gift Card</span>
+            <span className="text-[10px] font-semibold" style={{ color: "#fbbf24" }}>via Square →</span>
+          </a>
+        </div>
+      </div>
+      {/* Denomination row */}
+      <div className="flex gap-2 mt-2 overflow-x-auto pb-1" style={{ scrollbarWidth: "none" }}>
+        {GIFT_CARD_PRESET_AMOUNTS.map((amt) => (
+          <a key={amt} href={giftUrl} target="_blank" rel="noopener noreferrer"
+            className="flex-shrink-0 rounded-xl px-4 py-2 text-sm font-bold text-white transition active:scale-95"
+            style={{ background: "rgba(245,158,11,0.15)", border: "1px solid rgba(245,158,11,0.3)" }}>
+            ${amt}
+          </a>
+        ))}
+      </div>
+    </section>
   );
 }
 
