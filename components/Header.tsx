@@ -40,6 +40,17 @@ const NAV = {
     href: "/services",
     sections: [
       {
+        heading: "Skin & Aesthetics",
+        links: [
+          {
+            label: "Microneedling Menu",
+            href: "/services/microneedling",
+            sub: "Classic · Baby Tox · Exosomes · Morpheus8",
+            badge: "NEW",
+          },
+        ],
+      },
+      {
         heading: "Advanced Technology",
         links: [
           { label: "Morpheus8 Burst", href: "/morpheus8-burst-oswego", sub: "Deep RF microneedling — skin tightening" },
