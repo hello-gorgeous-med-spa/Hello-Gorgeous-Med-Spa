@@ -26,6 +26,7 @@ import {
 } from '@/lib/square/webhook';
 import { getAccessToken } from '@/lib/square/oauth';
 import { enqueueReviewRequest } from '@/lib/reviews/enqueue';
+import { creditHgRewardsFromSquarePayment } from '@/lib/hg-rewards/credit-from-square-payment';
 
 // Helper to get access token for webhook processing
 async function getAccessTokenForWebhook(): Promise<string | null> {
@@ -499,6 +500,16 @@ export async function POST(request: NextRequest) {
       // Handle gift card payments
       if (payment.source_type === 'GIFT_CARD') {
         console.log('Payment with gift card:', payment.id);
+      }
+
+      // HG Rewards — credit points for any completed register/terminal payment with a customer.
+      if (payment.status === 'COMPLETED') {
+        const rewards = await creditHgRewardsFromSquarePayment(supabase, payment);
+        if (rewards.credited) {
+          console.log('[Webhook] HG Rewards credited:', rewards);
+        } else if (rewards.reason !== 'Already processed') {
+          console.log('[Webhook] HG Rewards skipped:', rewards.reason, payment.id);
+        }
       }
       
       await updateWebhookEventStatus(eventId, 'processed');
