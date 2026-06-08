@@ -111,6 +111,7 @@ export const HG_MEMBERSHIPS: HgMembership[] = [
       'Credits roll over — never expire',
     ],
     rolloverNote: 'Unused credits roll over every month. Your investment never expires.',
+    squarePayUrl: 'https://square.link/u/Z3WUSaMH',
   },
 ];
 
