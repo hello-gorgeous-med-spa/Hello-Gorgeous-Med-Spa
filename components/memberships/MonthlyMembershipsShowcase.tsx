@@ -3,8 +3,6 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import Image from "next/image";
-
 import { CTA } from "@/components/CTA";
 import { FadeUp, Section } from "@/components/Section";
 import { appMembershipUrl } from "@/lib/monthly-memberships-marketing";
