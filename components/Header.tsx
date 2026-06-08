@@ -625,6 +625,8 @@ export function Header() {
         (pathname === link.href || pathname?.startsWith(link.href + "/"))
     );
 
+  const isGentlemensClubActive =
+    pathname === "/gentlemens-club" || (pathname?.startsWith("/gentlemens-club/") ?? false);
   const isFinancingActive = pathname === "/financing" || pathname?.startsWith("/financing/");
 
   const isRegenerativeActive =
@@ -805,6 +807,24 @@ export function Header() {
                 onMouseEnter={() => openDropdown("specials")}
               />
             </div>
+
+            {/* Memberships */}
+            <Link
+              href="/memberships"
+              className={NAV_LINK_BASE}
+              style={navPillStyle(2, pathname === "/memberships" || pathname === "/monthly-memberships")}
+            >
+              Memberships ⭐
+            </Link>
+
+            {/* Gentlemen's Club */}
+            <Link
+              href="/gentlemens-club"
+              className={NAV_LINK_BASE}
+              style={navPillStyle(1, isGentlemensClubActive)}
+            >
+              Gentlemen&apos;s Club 👑
+            </Link>
 
             {/* 0% Financing */}
             <Link
@@ -1004,6 +1024,8 @@ export function Header() {
 
             {/* Standalone links */}
             {[
+              { label: "Memberships ⭐", href: "/monthly-memberships", highlight: true },
+              { label: "Gentlemen's Club 👑", href: "/gentlemens-club", highlight: true },
               { label: "0% Financing", href: "/financing", highlight: true },
               { label: "FAQ", href: "/faq" },
               { label: "Blog & Resources", href: "/blog" },
