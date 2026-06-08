@@ -10,8 +10,7 @@ import {
   appForHimUrl,
   FOR_HIM_SERVICES,
   GENTLEMENS_CLUB_FAQS,
-  GENTLEMENS_CLUB_FATHERS_DAY_IMAGE,
-  GENTLEMENS_CLUB_HERO_IMAGE,
+  GENTLEMENS_CLUB_HERO_IMAGES,
   GENTLEMENS_CLUB_PILLS,
   GENTLEMENS_CLUB_TIERS,
 } from "@/lib/gentlemens-club";
@@ -103,6 +102,46 @@ function TierCard({
   );
 }
 
+function HeroFlyer({
+  src,
+  alt,
+  label,
+  index,
+}: {
+  src: string;
+  alt: string;
+  label: string;
+  index: number;
+}) {
+  return (
+    <div
+      className="group relative overflow-hidden rounded-2xl border-4 border-black shadow-[8px_8px_0_0_rgba(255,45,142,0.35)] transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_40px_rgba(255,45,142,0.45),8px_8px_0_0_rgba(255,45,142,0.5)] animate-gentlemens-hero-pop"
+      style={{
+        animationDelay: `${index * 0.15}s`,
+        ["--hero-breathe-delay" as string]: `${index * 1.8}s`,
+      }}
+    >
+      <div className="relative aspect-[3/4] w-full sm:aspect-[4/5] md:aspect-[3/4]">
+        <Image
+          src={src}
+          alt={alt}
+          fill
+          className="object-cover object-center transition-transform duration-700 group-hover:scale-105 animate-gentlemens-hero-breathe"
+          sizes="(max-width: 640px) 100vw, 50vw"
+          priority={index === 0}
+        />
+        <div
+          className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-80 transition-opacity duration-500 group-hover:opacity-90"
+          aria-hidden
+        />
+        <p className="absolute bottom-0 left-0 right-0 px-4 py-3 text-center text-[10px] font-bold uppercase tracking-[0.2em] text-white/90">
+          {label}
+        </p>
+      </div>
+    </div>
+  );
+}
+
 export function GentlemensClubPageContent() {
   const appUrl = appForHimUrl();
 
@@ -119,24 +158,47 @@ export function GentlemensClubPageContent() {
         }}
       />
 
-      {/* Hero flyer */}
+      {/* Hero — dual flyers side by side */}
       <Section className="relative border-b-4 border-black py-10 md:py-14 !px-0">
+        <style jsx global>{`
+          @keyframes gentlemens-hero-pop {
+            0% {
+              opacity: 0;
+              transform: translateY(16px) scale(0.96);
+            }
+            100% {
+              opacity: 1;
+              transform: translateY(0) scale(1);
+            }
+          }
+          @keyframes gentlemens-hero-breathe {
+            0%,
+            100% {
+              opacity: 1;
+              filter: brightness(1);
+            }
+            50% {
+              opacity: 0.88;
+              filter: brightness(1.08);
+            }
+          }
+          .animate-gentlemens-hero-pop {
+            animation: gentlemens-hero-pop 0.85s cubic-bezier(0.22, 1, 0.36, 1) both;
+          }
+          .animate-gentlemens-hero-breathe {
+            animation: gentlemens-hero-breathe 4.5s ease-in-out infinite;
+            animation-delay: var(--hero-breathe-delay, 0s);
+          }
+        `}</style>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <FadeUp>
             <h1 className="sr-only">
               The Gentlemen&apos;s Club — Men&apos;s Wellness Membership at Hello Gorgeous Med Spa, Oswego IL
             </h1>
-            <div className="relative overflow-hidden rounded-3xl border-4 border-black shadow-[8px_8px_0_0_rgba(255,45,142,0.35)]">
-              <div className="relative aspect-[16/10] w-full md:aspect-[21/9]">
-                <Image
-                  src={GENTLEMENS_CLUB_HERO_IMAGE}
-                  alt="The Gentlemen's Club — Brotox, hormones, peptide therapy and recovery for men at Hello Gorgeous Med Spa Oswego IL"
-                  fill
-                  className="object-cover object-center"
-                  sizes="(max-width: 768px) 100vw, 1152px"
-                  priority
-                />
-              </div>
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 md:gap-6">
+              {GENTLEMENS_CLUB_HERO_IMAGES.map((flyer, i) => (
+                <HeroFlyer key={flyer.src} src={flyer.src} alt={flyer.alt} label={flyer.label} index={i} />
+              ))}
             </div>
 
             <div className="mt-8 text-center md:text-left">
@@ -241,41 +303,26 @@ export function GentlemensClubPageContent() {
         </div>
       </Section>
 
-      {/* Father's Day promo */}
+      {/* Father's Day promo — copy only (flyer shown in hero) */}
       <Section className="border-t border-white/10 bg-[#030712] !py-12 md:!py-16">
-        <div className="max-w-6xl mx-auto px-4 w-full">
-          <div className="grid items-center gap-8 lg:grid-cols-2">
-            <FadeUp>
-              <div className="relative overflow-hidden rounded-2xl border border-white/10">
-                <div className="relative aspect-[16/10] w-full">
-                  <Image
-                    src={GENTLEMENS_CLUB_FATHERS_DAY_IMAGE}
-                    alt="Happy Father's Day — Gift Brotox at Hello Gorgeous Med Spa"
-                    fill
-                    className="object-cover object-center"
-                    sizes="(max-width: 1024px) 100vw, 50vw"
-                  />
-                </div>
-              </div>
-            </FadeUp>
-            <FadeUp delayMs={80}>
-              <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-[#FF2D8E]">Gift Brotox</p>
-              <h2 className="mt-2 font-serif text-2xl md:text-3xl text-white">
-                Because you love him… <span className="text-gray-500">but his frown lines had to go.</span>
-              </h2>
-              <p className="mt-4 text-sm text-gray-400 leading-relaxed">
-                eGift cards deliver instantly through Square — perfect for dads, husbands &amp; boyfriends.
-              </p>
-              <div className="mt-6 flex flex-wrap gap-3">
-                <CTA href={FOR_HIM_SERVICES[3].href} variant="gradient">
-                  Buy eGift Card
-                </CTA>
-                <CTA href={BOOKING_URL} variant="outline" className="!border-white/30 !text-white hover:!bg-white hover:!text-black">
-                  Book Brotox
-                </CTA>
-              </div>
-            </FadeUp>
-          </div>
+        <div className="max-w-3xl mx-auto px-4 w-full text-center md:text-left">
+          <FadeUp>
+            <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-[#FF2D8E]">Gift Brotox</p>
+            <h2 className="mt-2 font-serif text-2xl md:text-3xl text-white">
+              Because you love him… <span className="text-gray-500">but his frown lines had to go.</span>
+            </h2>
+            <p className="mt-4 text-sm text-gray-400 leading-relaxed max-w-xl mx-auto md:mx-0">
+              eGift cards deliver instantly through Square — perfect for dads, husbands &amp; boyfriends.
+            </p>
+            <div className="mt-6 flex flex-wrap gap-3 justify-center md:justify-start">
+              <CTA href={FOR_HIM_SERVICES[3].href} variant="gradient">
+                Buy eGift Card
+              </CTA>
+              <CTA href={BOOKING_URL} variant="outline" className="!border-white/30 !text-white hover:!bg-white hover:!text-black">
+                Book Brotox
+              </CTA>
+            </div>
+          </FadeUp>
         </div>
       </Section>
 
