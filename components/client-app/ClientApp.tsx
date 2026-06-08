@@ -22,7 +22,7 @@ import {
   type VitaminMembership,
   type VitaminShot,
 } from "@/lib/vitamin-bar";
-import { squareGiftCardUrl } from "@/lib/gift-cards";
+import { squareGiftCardUrl, GIFT_CARD_DESIGNS, GIFT_CARD_PRESET_AMOUNTS } from "@/lib/gift-cards";
 import {
   ClientAppIntakeCard,
   ClientAppIntakeForm,
@@ -659,31 +659,53 @@ function DealsTab() {
 
       {/* Gift Card Showcase */}
       <div className="mb-6">
-        <div className="flex items-center justify-between mb-3">
+        <div className="flex items-center justify-between mb-1">
           <div>
-            <p className="text-[10px] font-bold uppercase tracking-widest mb-0.5" style={{ color: "#fbbf24" }}>Gift Someone Special</p>
+            <p className="text-[10px] font-bold uppercase tracking-widest mb-0.5" style={{ color: "#fbbf24" }}>Gift Someone Special 🎁</p>
             <h3 className="text-base font-bold text-white">Hello Gorgeous Gift Cards</h3>
           </div>
-          <span className="text-2xl">🎁</span>
         </div>
-        <p className="text-xs mb-4" style={{ color: "rgba(255,255,255,0.45)" }}>
-          Redeemable for any service or product. Delivered instantly via Square — recipient gets an email.
+        <p className="text-xs mb-3" style={{ color: "rgba(255,255,255,0.45)" }}>
+          Choose a design · Pick an amount · Delivered instantly via email.
         </p>
+
+        {/* Design carousel */}
+        <div className="-mx-5 px-5 overflow-x-auto pb-3 mb-3" style={{ scrollbarWidth: "none" }}>
+          <div className="flex gap-3" style={{ width: "max-content" }}>
+            {GIFT_CARD_DESIGNS.map((design) => (
+              <a key={design.id} href={giftUrl} target="_blank" rel="noopener noreferrer"
+                className="flex-shrink-0 rounded-2xl overflow-hidden transition active:scale-95"
+                style={{ width: 160, border: "1px solid rgba(245,158,11,0.3)" }}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={design.image} alt={design.name} className="w-full object-cover" style={{ height: 100, objectFit: "cover" }} />
+                <div className="px-2 py-2" style={{ background: "rgba(245,158,11,0.12)" }}>
+                  <p className="text-[11px] font-bold text-white leading-tight truncate">{design.name}</p>
+                  <p className="text-[10px] mt-0.5 leading-tight" style={{ color: "#fbbf24" }}>{design.tagline}</p>
+                </div>
+              </a>
+            ))}
+          </div>
+        </div>
+
+        {/* Amount grid */}
         <div className="grid grid-cols-3 gap-2 mb-3">
-          {[25, 50, 75, 100, 150, 200].map((amt) => (
+          {GIFT_CARD_PRESET_AMOUNTS.map((amt) => (
             <a key={amt} href={giftUrl} target="_blank" rel="noopener noreferrer"
               className="rounded-2xl p-3 flex flex-col items-center justify-center text-center transition active:scale-95"
-              style={{ background: "linear-gradient(135deg, rgba(245,158,11,0.18), rgba(249,115,22,0.12))", border: "1px solid rgba(245,158,11,0.3)", minHeight: 72 }}>
+              style={{ background: "linear-gradient(135deg, rgba(245,158,11,0.18), rgba(249,115,22,0.12))", border: "1px solid rgba(245,158,11,0.3)", minHeight: 68 }}>
               <span className="text-xl font-black text-white">${amt}</span>
               <span className="text-[10px] mt-0.5 font-semibold" style={{ color: "#fbbf24" }}>Gift Card</span>
             </a>
           ))}
         </div>
         <a href={giftUrl} target="_blank" rel="noopener noreferrer"
-          className="w-full flex items-center justify-center rounded-xl py-3 text-sm font-bold text-white"
+          className="w-full flex items-center justify-center gap-2 rounded-xl py-3 text-sm font-bold text-white"
           style={{ background: "linear-gradient(90deg, #f59e0b, #f97316)" }}>
-          Buy a Gift Card via Square →
+          🎁 Buy a Gift Card via Square →
         </a>
+        <p className="text-center text-[10px] mt-2" style={{ color: "rgba(255,255,255,0.3)" }}>
+          Custom amounts available · Valid for any service or product
+        </p>
       </div>
 
       {/* Buy a Voucher section */}
