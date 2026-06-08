@@ -6,10 +6,18 @@ import { useSearchParams } from 'next/navigation';
 
 import { SITE } from '@/lib/seo';
 
+type LoginMode = 'signin' | 'register';
+
 function PortalLoginForm() {
   const searchParams = useSearchParams();
   const redirect = searchParams.get('redirect') || '/portal';
+  const initialMode: LoginMode =
+    searchParams.get('mode') === 'register' ? 'register' : 'signin';
 
+  const [mode, setMode] = useState<LoginMode>(initialMode);
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [phone, setPhone] = useState('');
   const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
   const [sent, setSent] = useState(false);
@@ -26,7 +34,14 @@ function PortalLoginForm() {
       const res = await fetch('/api/portal/auth/magic-link', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, redirect }),
+        body: JSON.stringify({
+          email,
+          redirect,
+          mode,
+          ...(mode === 'register'
+            ? { firstName, lastName: lastName || undefined, phone: phone || undefined }
+            : {}),
+        }),
       });
       const data = await res.json();
       if (!res.ok) {
@@ -34,10 +49,14 @@ function PortalLoginForm() {
         return;
       }
       if (data.success) {
+        if (data.sent === false) {
+          setError(data.message || 'We couldn’t send a login link for that email.');
+          return;
+        }
         setSent(true);
         setSentHint(
           data.message ||
-            'If we have an account on file for this email, you’ll receive a secure login link shortly.',
+            'Check your email for a secure login link (expires in 15 minutes).',
         );
         if (data._dev_link) setDevLink(data._dev_link);
       } else {
@@ -63,7 +82,7 @@ function PortalLoginForm() {
             <p className="text-gray-700 text-sm mb-4">{sentHint}</p>
             <ul className="text-gray-600 text-sm space-y-2 mb-4 list-disc pl-5">
               <li>Look in spam / promotions — it comes from Hello Gorgeous</li>
-              <li>Use the email on file from your last visit (not a password — it&apos;s a one-tap link)</li>
+              <li>No password — tap the link in the email to open the app</li>
               <li>Link expires in 15 minutes</li>
             </ul>
             <p className="text-gray-600 text-sm">
@@ -103,14 +122,74 @@ function PortalLoginForm() {
       <div className="max-w-md w-full">
         <div className="text-center mb-8">
           <span className="text-5xl">💗</span>
-          <h1 className="text-2xl font-bold text-white mt-4">Welcome Back</h1>
-          <p className="text-gray-300 mt-2">Sign in to Hello Gorgeous — portal &amp; client app</p>
+          <h1 className="text-2xl font-bold text-white mt-4">
+            {mode === 'register' ? 'Get the Hello Gorgeous App' : 'Welcome Back'}
+          </h1>
+          <p className="text-gray-300 mt-2">
+            {mode === 'register'
+              ? 'New here? Create your account — no visit on file needed.'
+              : 'Sign in to Hello Gorgeous — portal & client app'}
+          </p>
         </div>
         <div className="bg-white rounded-2xl p-8 shadow-xl">
+          <div className="flex rounded-xl bg-gray-100 p-1 mb-6">
+            <button
+              type="button"
+              onClick={() => setMode('signin')}
+              className={`flex-1 rounded-lg py-2 text-sm font-semibold transition ${
+                mode === 'signin' ? 'bg-white text-gray-900 shadow-sm' : 'text-gray-500 hover:text-gray-700'
+              }`}
+            >
+              I have an account
+            </button>
+            <button
+              type="button"
+              onClick={() => setMode('register')}
+              className={`flex-1 rounded-lg py-2 text-sm font-semibold transition ${
+                mode === 'register' ? 'bg-white text-gray-900 shadow-sm' : 'text-gray-500 hover:text-gray-700'
+              }`}
+            >
+              New — get the app
+            </button>
+          </div>
+
           <form onSubmit={handleSubmit} className="space-y-5">
+            {mode === 'register' && (
+              <>
+                <div>
+                  <label htmlFor="firstName" className="block text-sm font-medium text-gray-700 mb-2">
+                    First name
+                  </label>
+                  <input
+                    type="text"
+                    id="firstName"
+                    value={firstName}
+                    onChange={(e) => setFirstName(e.target.value)}
+                    required
+                    autoComplete="given-name"
+                    placeholder="Alex"
+                    className="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-xl text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#FF2D8E]/50 focus:border-[#FF2D8E]"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="lastName" className="block text-sm font-medium text-gray-700 mb-2">
+                    Last name <span className="text-gray-400 font-normal">(optional)</span>
+                  </label>
+                  <input
+                    type="text"
+                    id="lastName"
+                    value={lastName}
+                    onChange={(e) => setLastName(e.target.value)}
+                    autoComplete="family-name"
+                    placeholder="Smith"
+                    className="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-xl text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#FF2D8E]/50 focus:border-[#FF2D8E]"
+                  />
+                </div>
+              </>
+            )}
             <div>
               <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
-                Email Address
+                Email address
               </label>
               <input
                 type="email"
@@ -118,17 +197,38 @@ function PortalLoginForm() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
+                autoComplete="email"
                 placeholder="your@email.com"
                 className="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-xl text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#FF2D8E]/50 focus:border-[#FF2D8E]"
               />
             </div>
+            {mode === 'register' && (
+              <div>
+                <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
+                  Mobile <span className="text-gray-400 font-normal">(optional)</span>
+                </label>
+                <input
+                  type="tel"
+                  id="phone"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                  autoComplete="tel"
+                  placeholder="(630) 555-0123"
+                  className="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-xl text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#FF2D8E]/50 focus:border-[#FF2D8E]"
+                />
+              </div>
+            )}
             {error && <p className="text-red-500 text-sm">{error}</p>}
             <button
               type="submit"
               disabled={loading}
               className="w-full bg-[#FF2D8E] text-white py-3.5 px-4 rounded-xl font-semibold hover:bg-[#e0267d] disabled:opacity-50 transition-all shadow-lg shadow-pink-500/20"
             >
-              {loading ? 'Sending...' : 'Email Me a Sign-In Link'}
+              {loading
+                ? 'Sending...'
+                : mode === 'register'
+                  ? 'Create Account & Email Me a Link'
+                  : 'Email Me a Sign-In Link'}
             </button>
           </form>
           <div className="mt-6 text-center">
@@ -136,14 +236,25 @@ function PortalLoginForm() {
               No password needed — we email you a secure one-time link (magic link).
             </p>
           </div>
-          <div className="mt-6 pt-6 border-t border-gray-200 text-center">
-            <p className="text-gray-600 text-sm">
-              New patient?{' '}
-              <Link href="/book" className="text-[#FF2D8E] hover:underline font-medium">
-                Book your first appointment
-              </Link>
-            </p>
-          </div>
+          {mode === 'signin' && (
+            <div className="mt-6 pt-6 border-t border-gray-200 text-center space-y-2">
+              <p className="text-gray-600 text-sm">
+                First time at Hello Gorgeous?{' '}
+                <button
+                  type="button"
+                  onClick={() => setMode('register')}
+                  className="text-[#FF2D8E] hover:underline font-medium"
+                >
+                  Get the app — no account needed yet
+                </button>
+              </p>
+              <p className="text-gray-600 text-sm">
+                <Link href="/book" className="text-[#FF2D8E] hover:underline font-medium">
+                  Book your first appointment
+                </Link>
+              </p>
+            </div>
+          )}
         </div>
         <div className="mt-8 flex items-center justify-center gap-6 text-xs text-gray-400">
           <span className="flex items-center gap-1">🔒 HIPAA Compliant</span>

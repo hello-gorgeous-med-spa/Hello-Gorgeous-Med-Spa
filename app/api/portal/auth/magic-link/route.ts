@@ -1,7 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 import crypto from "crypto";
 
-import { findPortalClientByEmail, safePortalRedirect } from "@/lib/portal-auth";
+import {
+  findPortalClientByEmail,
+  provisionPortalClientForEmail,
+  safePortalRedirect,
+} from "@/lib/portal-auth";
 import { createAdminSupabaseClient } from "@/lib/hgos/supabase";
 import { getResendFromAddress } from "@/lib/resend-config";
 import { SITE } from "@/lib/seo";
@@ -81,21 +85,46 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     const emailNorm = typeof body.email === "string" ? body.email.toLowerCase().trim() : "";
     const redirect = safePortalRedirect(body.redirect);
+    const mode = body.mode === "register" ? "register" : "signin";
+    const firstName = typeof body.firstName === "string" ? body.firstName.trim() : "";
+    const lastName = typeof body.lastName === "string" ? body.lastName.trim() : "";
+    const phone = typeof body.phone === "string" ? body.phone.trim() : "";
 
     if (!emailNorm) {
       return NextResponse.json({ error: "Email is required" }, { status: 400 });
     }
 
-    const client = await findPortalClientByEmail(supabase, emailNorm);
+    if (mode === "register" && !firstName) {
+      return NextResponse.json({ error: "First name is required" }, { status: 400 });
+    }
 
-    // Do not reveal whether the account exists — but log for support.
+    let client = await findPortalClientByEmail(supabase, emailNorm);
+
+    if (!client && mode === "register") {
+      client = await provisionPortalClientForEmail(supabase, {
+        emailNorm,
+        firstName,
+        lastName,
+        phone,
+      });
+      if (!client) {
+        return NextResponse.json(
+          { error: "We couldn’t set up your account right now. Please call us and we’ll help you get started." },
+          { status: 500 },
+        );
+      }
+    }
+
+    // Returning-client flow: do not reveal whether the account exists.
     if (!client || client.is_blocked) {
-      console.info("[portal/magic-link] No active client for email lookup", { emailNorm });
+      console.info("[portal/magic-link] No active client for email lookup", { emailNorm, mode });
       return NextResponse.json({
         success: true,
         sent: false,
         message:
-          "If we have an account on file for this email, you’ll receive a secure login link shortly. Check spam, or call us if you’ve visited before and still don’t see it.",
+          mode === "register"
+            ? "We couldn’t finish setting up your account. Please try again or call us for help."
+            : "If we have an account on file for this email, you’ll receive a secure login link shortly. Check spam, or tap “New — get the app” if you haven’t signed in before.",
       });
     }
 

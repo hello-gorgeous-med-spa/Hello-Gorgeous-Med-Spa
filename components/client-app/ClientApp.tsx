@@ -407,12 +407,12 @@ function HomeTab({ onNavigate, onOpenIntake, intakeRefresh, homeData, canInstall
 
       {/* Sign-in prompt */}
       {!auth && homeData !== null && (
-        <Link href="/portal/login?redirect=/app"
+        <Link href="/portal/login?redirect=/app&mode=register"
           className="flex items-center justify-between rounded-xl px-4 py-3 backdrop-blur-sm"
           style={glassStyle(1)}>
           <div className="flex items-center gap-2">
             <span className="text-lg">👤</span>
-            <span className="text-sm font-medium text-white/70">Sign in to see your appointments & rewards</span>
+            <span className="text-sm font-medium text-white/70">Sign in or create your account for appointments & rewards</span>
           </div>
           <span className="text-xs" style={{ color: trifectaAccent(1).subtitle }}>→</span>
         </Link>
