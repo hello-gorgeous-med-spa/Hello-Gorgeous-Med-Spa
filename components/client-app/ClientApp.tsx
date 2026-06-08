@@ -376,6 +376,25 @@ function HomeTab({ onNavigate, onOpenIntake, intakeRefresh, homeData, canInstall
         </Link>
       )}
 
+      {/* Google Review Card */}
+      <a
+        href="https://g.page/r/CYQOWmT_HcwQEBM/review"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="flex items-center gap-4 rounded-2xl px-4 py-4 transition active:scale-[0.98]"
+        style={{ background: "linear-gradient(135deg, rgba(255,45,142,0.18), rgba(255,45,142,0.08))", border: "1px solid rgba(255,45,142,0.35)" }}
+      >
+        <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl text-2xl"
+          style={{ background: "rgba(255,45,142,0.15)" }}>
+          ⭐
+        </div>
+        <div className="flex-1 min-w-0">
+          <p className="text-sm font-bold text-white leading-tight">Love Hello Gorgeous?</p>
+          <p className="mt-0.5 text-xs" style={{ color: "rgba(255,255,255,0.5)" }}>Leave us a Google review — it takes 30 seconds & means the world to us 💕</p>
+        </div>
+        <span className="shrink-0 text-xs font-semibold" style={{ color: "#FF2D8E" }}>Rate us →</span>
+      </a>
+
       {/* Birthday card */}
       {nearBirthday && (
         <div className="rounded-2xl overflow-hidden relative"
@@ -1119,6 +1138,25 @@ function MeTab({ onOpenIntake, intakeRefresh, homeData }: {
           </Link>
         </div>
       )}
+
+      {/* Google Review CTA — Me Tab */}
+      <a
+        href="https://g.page/r/CYQOWmT_HcwQEBM/review"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="flex items-center gap-4 rounded-2xl px-4 py-4 transition active:scale-[0.98]"
+        style={{ background: "linear-gradient(135deg, rgba(255,45,142,0.18), rgba(255,45,142,0.08))", border: "1px solid rgba(255,45,142,0.35)" }}
+      >
+        <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl text-2xl"
+          style={{ background: "rgba(255,45,142,0.15)" }}>
+          ⭐
+        </div>
+        <div className="flex-1 min-w-0">
+          <p className="text-sm font-bold text-white leading-tight">Love Hello Gorgeous?</p>
+          <p className="mt-0.5 text-xs" style={{ color: "rgba(255,255,255,0.5)" }}>Tap to leave a Google review — 30 seconds & it means everything to us 💕</p>
+        </div>
+        <span className="shrink-0 text-xs font-semibold" style={{ color: "#FF2D8E" }}>Rate us →</span>
+      </a>
 
       <div className="mt-5">
         <ClientAppIntakeCard onOpen={onOpenIntake} refreshKey={intakeRefresh} />
