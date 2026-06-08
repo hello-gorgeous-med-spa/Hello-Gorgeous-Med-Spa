@@ -868,10 +868,19 @@ function MembershipTab({ memberships }: { memberships: VitaminMembership[] }) {
                 ...glassStyle(i % 3),
                 boxShadow: m.highlight ? `0 4px 24px ${accent.bullet}33` : "none",
               }}>
-              {m.highlight && (
-                <span className="mb-2 inline-block rounded-full px-3 py-0.5 text-[10px] font-bold uppercase text-white"
-                  style={{ background: trifectaButtonGradient(accent) }}>Most popular</span>
-              )}
+              {/* Badges row */}
+              <div className="flex flex-wrap gap-2 mb-3">
+                {m.highlight && (
+                  <span className="inline-block rounded-full px-3 py-0.5 text-[10px] font-bold uppercase text-white"
+                    style={{ background: trifectaButtonGradient(accent) }}>Most popular</span>
+                )}
+                {m.category && (
+                  <span className="inline-block rounded-full px-3 py-0.5 text-[10px] font-bold uppercase"
+                    style={{ background: "rgba(255,255,255,0.08)", color: accent.subtitle }}>
+                    {m.category}
+                  </span>
+                )}
+              </div>
               <div className="flex items-baseline justify-between gap-2">
                 <h3 className="text-lg font-bold text-white">{m.name}</h3>
                 <div className="shrink-0 text-right">
@@ -887,6 +896,12 @@ function MembershipTab({ memberships }: { memberships: VitaminMembership[] }) {
                   </li>
                 ))}
               </ul>
+              {m.rolloverNote && (
+                <p className="mt-3 rounded-xl px-3 py-2.5 text-xs leading-relaxed"
+                  style={{ background: "rgba(255,255,255,0.05)", color: "rgba(255,255,255,0.55)", border: "1px solid rgba(255,255,255,0.08)" }}>
+                  {m.rolloverNote}
+                </p>
+              )}
               <button type="button" onClick={() => void join(m)} disabled={busyId === m.id}
                 className="mt-4 block w-full rounded-xl py-3.5 font-bold text-white disabled:opacity-60 transition hover:brightness-110"
                 style={{ background: trifectaButtonGradient(accent) }}>

@@ -65,6 +65,10 @@ export type VitaminMembership = {
   highlight?: boolean;
   /** Square subscription / payment link for the membership. */
   squarePayUrl?: string;
+  /** Optional rollover / credit note shown below perks. */
+  rolloverNote?: string;
+  /** Category badge shown on the card (e.g. "Facial", "Lashes"). */
+  category?: string;
 };
 
 export const SHOT_CATEGORY_LABELS: Record<ShotCategory, string> = {
@@ -250,6 +254,37 @@ export const VITAMIN_MEMBERSHIPS: VitaminMembership[] = [
       "Member pricing on all services",
       "Priority booking + drive-thru VIP lane",
     ],
+  },
+  {
+    id: "glow-facial-membership",
+    name: "Glow Facial Membership",
+    pricePerMonth: 99,
+    category: "Facial",
+    summary: "Monthly HydraFacial + Dermaplaning + Biotin shot — all for $99.",
+    perks: [
+      "1 HydraFacial with Dermaplaning every month",
+      "1 Biotin injection every month",
+      "Facial credit rolls over — apply toward any service upgrade",
+      "Member pricing on all add-ons & enhancements",
+      "Priority booking",
+    ],
+    highlight: true,
+    rolloverNote: "💡 Unused facial credit never expires — bank it and use it toward a more advanced treatment whenever you're ready.",
+  },
+  {
+    id: "lash-fill-membership",
+    name: "Lash Fill Membership",
+    pricePerMonth: 150,
+    category: "Lashes",
+    summary: "2 lash extension fills + 2 Biotin shots every month.",
+    perks: [
+      "2 lash extension fills every month",
+      "2 Biotin injections every month",
+      "Priority booking for fill appointments",
+      "Member pricing on lash add-ons & retail",
+      "10% off any other service",
+    ],
+    rolloverNote: "💡 Fills must be used within the same month. Biotin injections roll over up to 2.",
   },
 ];
 
