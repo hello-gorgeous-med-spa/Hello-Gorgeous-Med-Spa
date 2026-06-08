@@ -231,6 +231,7 @@ export const VITAMIN_MEMBERSHIPS: VitaminMembership[] = [
       "Skip-the-line drive-thru priority",
       "Rolls over 1 unused shot",
     ],
+    image: "/images/memberships/glow-pass.png",
   },
   {
     id: "energy-unlimited",
@@ -244,6 +245,7 @@ export const VITAMIN_MEMBERSHIPS: VitaminMembership[] = [
       "10% off IV therapy",
     ],
     highlight: true,
+    image: "/images/memberships/energy-unlimited.png",
   },
   {
     id: "vip-wellness",
@@ -256,6 +258,7 @@ export const VITAMIN_MEMBERSHIPS: VitaminMembership[] = [
       "Member pricing on all services",
       "Priority booking + drive-thru VIP lane",
     ],
+    image: "/images/memberships/vip-wellness.png",
   },
   {
     id: "glow-facial-membership",
