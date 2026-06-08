@@ -187,6 +187,24 @@ Ryan Kent, FNP-BC · serving Naperville, Aurora & Plainfield.`,
     imagePath: "/images/marketing/nad-iv-bag-hello-gorgeous.svg",
   },
   {
+    id: "monthly-memberships-showcase",
+    label: "Monthly memberships — Vitamin Bar, facial & lash",
+    message: `⭐ Monthly memberships at Hello Gorgeous Med Spa — Oswego, IL
+
+Vitamin Bar · facials · lashes — one simple monthly price.
+
+💉 The Glow Pass — $49/mo · 2 shots + member pricing
+⚡ Energy Unlimited — $89/mo · 4 shots, mix & match (most popular)
+👑 VIP Wellness — $149/mo · weekly shot + Glutathione or NAD+
+✨ Glow Facial — $99/mo · HydraFacial + Dermaplaning + Biotin
+💕 Lash Fill — $150/mo · 2 fills + 2 Biotin shots
+
+Join in the Hello Gorgeous app or see every perk on our site.
+Ryan Kent, FNP-BC · serving Naperville, Aurora & Plainfield.`,
+    linkPath: "/monthly-memberships?utm_source=google&utm_medium=gbp_post&utm_campaign=memberships_showcase",
+    imagePath: "/images/memberships/energy-unlimited.png",
+  },
+  {
     id: "non-surgical-facelift",
     label: "Non-Surgical Facelift — Oswego, IL",
     message: `✨ Non-Surgical Facelift in Oswego, IL

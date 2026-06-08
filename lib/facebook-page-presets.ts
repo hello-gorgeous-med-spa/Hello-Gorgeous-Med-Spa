@@ -462,6 +462,37 @@ Book below 👇`,
   defaultChannels: ["facebook", "instagram", "google"],
 };
 
+export const FACEBOOK_PAGE_PRESET_MONTHLY_MEMBERSHIPS: FacebookPagePreset = {
+  id: "monthly-memberships-showcase",
+  label: "Monthly memberships — all 5 plans",
+  blurb: "Vitamin Bar + facial + lash memberships with flyers and app join link.",
+  message: `⭐ YOUR monthly glow — now on membership at Hello Gorgeous Med Spa, Oswego IL
+
+Stop paying full price every visit. Pick the plan that matches your routine:
+
+💉 The Glow Pass — $49/mo
+2 Vitamin Bar shots + member pricing on everything
+
+⚡ Energy Unlimited — $89/mo ⭐ MOST POPULAR
+4 shots/mo, mix & match · 10% off IV therapy
+
+👑 VIP Wellness — $149/mo
+Weekly shot + monthly Glutathione OR NAD+ · VIP drive-thru lane
+
+✨ Glow Facial Membership — $99/mo
+HydraFacial + Dermaplaning + Biotin every month · credits roll over
+
+💕 Lash Fill Membership — $150/mo
+2 lash fills + 2 Biotin shots · priority booking
+
+Join in the Hello Gorgeous app (Membership tab) or tap the link for full details + flyers 👇
+
+Ryan Kent, FNP-BC on site 7 days a week · Naperville · Aurora · Plainfield`,
+  linkPath: withUtm("/monthly-memberships"),
+  imagePath: "/images/memberships/energy-unlimited.png",
+  defaultChannels: ["facebook", "instagram", "google"],
+};
+
 export const FACEBOOK_PAGE_PRESET_NON_SURGICAL_FACELIFT: FacebookPagePreset = {
   id: "non-surgical-facelift",
   label: "Non-Surgical Facelift — Oswego, IL",
@@ -484,6 +515,7 @@ Free consult · Ryan Kent, FNP-BC · downtown Oswego. Book below 👇`,
 
 export const FACEBOOK_PAGE_PRESETS: FacebookPagePreset[] = [
   FACEBOOK_PAGE_PRESET_BOTOX_49,
+  FACEBOOK_PAGE_PRESET_MONTHLY_MEMBERSHIPS,
   FACEBOOK_PAGE_PRESET_NON_SURGICAL_FACELIFT,
   FACEBOOK_PAGE_PRESET_BOTOX_AI,
   FACEBOOK_PAGE_PRESET_BOTOX_NATURAL,

@@ -166,6 +166,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     },
     {
+      url: `${baseUrl}/monthly-memberships`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.9,
+    },
+    {
       url: `${baseUrl}/spring-special-laser-hair`,
       lastModified: currentDate,
       changeFrequency: 'weekly',

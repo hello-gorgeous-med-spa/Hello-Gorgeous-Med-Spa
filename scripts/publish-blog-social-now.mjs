@@ -293,6 +293,52 @@ Ryan Kent, FNP-BC on site 7 days a week · Oswego, IL
     link: `${SITE_URL}/get-app`,
     imagePath: "/images/homepage-services/vitamin-injections-fruit-syringe.png",
   },
+  "memberships-showcase-google": {
+    label: "Monthly memberships showcase — Google Business",
+    channels: ["google"],
+    message: `⭐ Monthly memberships at Hello Gorgeous Med Spa — Oswego, IL
+
+Vitamin Bar · facials · lashes — one simple monthly price.
+
+💉 The Glow Pass — $49/mo · 2 shots + member pricing
+⚡ Energy Unlimited — $89/mo · 4 shots, mix & match (most popular)
+👑 VIP Wellness — $149/mo · weekly shot + Glutathione or NAD+
+✨ Glow Facial — $99/mo · HydraFacial + Dermaplaning + Biotin
+💕 Lash Fill — $150/mo · 2 fills + 2 Biotin shots
+
+Join in the Hello Gorgeous app or see every perk on our site.
+Ryan Kent, FNP-BC · serving Naperville, Aurora & Plainfield.`,
+    link: `${SITE_URL}/monthly-memberships`,
+    imagePath: "/images/memberships/energy-unlimited.png",
+  },
+  "memberships-showcase-facebook": {
+    label: "Monthly memberships showcase — Facebook",
+    channels: ["facebook"],
+    message: `⭐ YOUR monthly glow — now on membership at Hello Gorgeous Med Spa, Oswego IL
+
+Stop paying full price every visit. Pick the plan that matches your routine:
+
+💉 The Glow Pass — $49/mo
+2 Vitamin Bar shots + member pricing on everything
+
+⚡ Energy Unlimited — $89/mo ⭐ MOST POPULAR
+4 shots/mo, mix & match · 10% off IV therapy
+
+👑 VIP Wellness — $149/mo
+Weekly shot + monthly Glutathione OR NAD+ · VIP drive-thru lane
+
+✨ Glow Facial Membership — $99/mo
+HydraFacial + Dermaplaning + Biotin every month · credits roll over
+
+💕 Lash Fill Membership — $150/mo
+2 lash fills + 2 Biotin shots · priority booking
+
+Join in the Hello Gorgeous app (Membership tab) or tap the link for full details + flyers 👇
+
+Ryan Kent, FNP-BC on site 7 days a week · Naperville · Aurora · Plainfield`,
+    link: `${SITE_URL}/monthly-memberships`,
+    imagePath: "/images/memberships/energy-unlimited.png",
+  },
 };
 
 async function postViaApi({ message, link, imagePath, channels, skipImage }) {
