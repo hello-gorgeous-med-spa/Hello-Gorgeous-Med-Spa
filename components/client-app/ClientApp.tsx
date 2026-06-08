@@ -27,6 +27,7 @@ import {
   ClientAppIntakeForm,
 } from "@/components/client-app/ClientAppIntakeForm";
 import { ClientAppIvBagBuilder } from "@/components/client-app/ClientAppIvBagBuilder";
+import { AppGetQrCard } from "@/components/client-app/AppGetQrCard";
 import { BrandHero } from "@/components/BrandHero";
 import {
   usePwaInstall,
@@ -310,6 +311,8 @@ function HomeTab({ onNavigate, onOpenIntake, onOpenIvBuilder, intakeRefresh, hom
       </div>
 
       <div className="space-y-4 py-1">
+      <AppGetQrCard />
+
       <ClientAppIntakeCard onOpen={onOpenIntake} refreshKey={intakeRefresh} />
 
       {/* Next appointment / touch-up nudge */}

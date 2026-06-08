@@ -8,50 +8,69 @@ export const APP_LAUNCH_BLOG_SLUG = "build-your-iv-bag-hello-gorgeous-app-oswego
 export const APP_LAUNCH_URLS = {
   app: "https://www.hellogorgeousmedspa.com/app",
   ivBuilder: "https://www.hellogorgeousmedspa.com/app?iv=build",
+  getApp: "https://www.hellogorgeousmedspa.com/get-app",
   blog: "https://www.hellogorgeousmedspa.com/blog/build-your-iv-bag-hello-gorgeous-app-oswego-il",
   book: "https://www.hellogorgeousmedspa.com/book",
 } as const;
 
-/** Facebook Page — primary launch post */
-export const FACEBOOK_APP_LAUNCH_POST = `📱 BIG news from Hello Gorgeous Med Spa — our client app is LIVE!
+/** Full feature list — use in social + email */
+export const APP_FEATURE_BULLETS = [
+  "Book Botox, facials, Morpheus8, weight loss & more",
+  "Build Your IV Bag — custom hydration from $89 (most bags $150–$199)",
+  "Vitamin Bar — pre-pay shots & drive-thru wellness",
+  "Deals, gift cards & monthly memberships (Square checkout in-app)",
+  "HG Rewards points · loyalty tiers · birthday treats",
+  "GLP-1 screening · peptides · hormones · Fullscript supplements",
+  "Client portal — appointments, documents, referrals & account",
+  "Scan-to-get QR at hellogorgeousmedspa.com/get-app — add to home screen, no App Store",
+] as const;
 
-No App Store. No hassle. Just open the link, tap Add to Home Screen, and you've got us in your pocket.
+/** Facebook Page — full app launch */
+export const FACEBOOK_APP_LAUNCH_POST = `📱 YOUR med spa. In YOUR pocket. The Hello Gorgeous app is LIVE!
 
-💧 NEW: Build Your IV Bag
-Design your custom IV before you walk in:
-• 500 mL from $89 · 1 Liter from $109
-• Stack add-ons — B12, glutathione, vitamin C, Tri-Immune, magnesium & more
-• See your total in real time (most custom bags land $150–$199)
-• Book with your bag summary attached — our team is ready when you arrive
+No App Store download — scan our QR or open the link, then Add to Home Screen. One tap forever.
 
-Also inside the app: Vitamin Bar, services, deals & Fresha booking.
+✨ EVERYTHING INSIDE THE APP:
+• Book Now — Botox, fillers, facials, Morpheus8, weight loss & more
+• 💧 Build Your IV Bag — pick 500 mL ($89) or 1 L ($109), stack B12, glutathione, vitamin C, Tri-Immune & more · live price before you book
+• 💉 Vitamin Bar — drive-thru shots, pre-pay in the app
+• 🎁 Deals — specials & gift cards
+• ⭐ Memberships — monthly wellness plans, billed via Square
+• 🏆 HG Rewards — earn points on every visit · loyalty tiers · birthday treats
+• ⚖️ GLP-1 weight-loss screening intake
+• 🧬 Wellness hub — peptides, hormone optimization, Fullscript supplements
+• 👤 Me tab — portal, appointments, documents, referrals & your personal QR at checkout
 
-👉 Build your bag: ${APP_LAUNCH_URLS.ivBuilder}
-👉 Get the app: ${APP_LAUNCH_URLS.app}
+Ryan Kent, FNP-BC on site 7 days a week · Oswego, IL
+
+👉 Scan QR / get the app: ${APP_LAUNCH_URLS.getApp}
+👉 Build your IV bag: ${APP_LAUNCH_URLS.ivBuilder}
 📖 Full guide: ${APP_LAUNCH_URLS.blog}
 
-Ryan Kent, FNP-BC on site 7 days a week · 74 W Washington St, Oswego, IL
-Serving Naperville, Aurora, Plainfield & the Fox Valley 💕
+#HelloGorgeousMedSpa #OswegoIL #MedSpa #IVTherapy #VitaminBar #Naperville #AuroraIL #FoxValley`;
 
-#HelloGorgeousMedSpa #OswegoIL #IVTherapy #VitaminDrip #MedSpa #Naperville #AuroraIL #FoxValley`;
+/** Google Business Profile — full app launch */
+export const GOOGLE_APP_LAUNCH_POST = `📱 NEW — The Hello Gorgeous client app is live (Oswego, IL)
 
-/** Google Business Profile — matches lib/google-business-post-presets hello-gorgeous-app-iv-builder */
-export const GOOGLE_APP_LAUNCH_POST = `📱 NEW — The Hello Gorgeous client app is live!
+Your med spa in your pocket — no App Store. Scan our QR or open hellogorgeousmedspa.com/app · Add to Home Screen.
 
-💧 Build Your IV Bag in minutes:
-• 500 mL from $89 · 1 Liter from $109
-• Add B12, glutathione, vitamin C, Tri-Immune & more
-• Most custom bags land $150–$199 — see your total before you book
+What's inside:
+✓ Book — Botox, facials, Morpheus8, weight loss & more
+✓ Build Your IV Bag — from $89 · most custom bags $150–$199
+✓ Vitamin Bar shots · deals · gift cards · memberships
+✓ HG Rewards points · loyalty tiers · birthday perks
+✓ GLP-1 screening · peptides · hormones · supplements
+✓ Client portal · appointments · documents · referrals
 
-Browse services, Vitamin Bar shots, deals & booking — add hellogorgeousmedspa.com/app to your home screen (no App Store needed).
-
-Ryan Kent, FNP-BC · Oswego, IL — serving Naperville, Aurora & Plainfield.`;
+Scan QR: hellogorgeousmedspa.com/get-app
+Ryan Kent, FNP-BC · serving Naperville, Aurora & Plainfield.`;
 
 /** Shorter Facebook follow-up / story caption */
 export const FACEBOOK_IV_BUILDER_SHORT = `Build YOUR IV bag in 60 seconds 💧✨
 
-Pick your size → tap your boosters → see your price → book.
+Pick size → tap boosters → see your price → book.
 
 ${APP_LAUNCH_URLS.ivBuilder}
 
+Get the full app (scan QR): ${APP_LAUNCH_URLS.getApp}
 Hello Gorgeous Med Spa · Oswego, IL`;

@@ -1,11 +1,30 @@
 import { NextRequest, NextResponse } from 'next/server';
 import QRCode from 'qrcode';
 
+import { getAppInstallUrl } from '@/lib/app-install-url';
+
 export async function GET(req: NextRequest) {
   const client_id = req.nextUrl.searchParams.get('client_id');
-  if (!client_id) return NextResponse.json({ error: 'client_id required' }, { status: 400 });
+  const target = req.nextUrl.searchParams.get('target');
+  const utmMedium = req.nextUrl.searchParams.get('utm_medium') ?? undefined;
+  const utmCampaign = req.nextUrl.searchParams.get('utm_campaign') ?? undefined;
 
-  const content = `HGCLIENT:${client_id}`;
+  let content: string;
+
+  if (client_id) {
+    content = `HGCLIENT:${client_id}`;
+  } else if (target === 'app' || target === 'install') {
+    content = getAppInstallUrl({
+      utmSource: 'qr',
+      utmMedium: utmMedium ?? 'scan',
+      utmCampaign: utmCampaign ?? 'app_install',
+    });
+  } else {
+    return NextResponse.json(
+      { error: 'Provide client_id (check-in) or target=app (install QR)' },
+      { status: 400 },
+    );
+  }
 
   try {
     const buffer = await QRCode.toBuffer(content, {
@@ -18,14 +37,16 @@ export async function GET(req: NextRequest) {
       },
     });
 
+    const cacheControl = client_id ? 'private, max-age=3600' : 'public, max-age=86400';
+
     return new NextResponse(buffer as unknown as BodyInit, {
       status: 200,
       headers: {
         'Content-Type': 'image/png',
-        'Cache-Control': 'private, max-age=3600',
+        'Cache-Control': cacheControl,
       },
     });
-  } catch (err) {
+  } catch {
     return NextResponse.json({ error: 'Failed to generate QR code' }, { status: 500 });
   }
 }

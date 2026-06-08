@@ -247,6 +247,52 @@ Read the full article 👇`,
     link: `${SITE_URL}/blog/aesthetic-injectables-anteage-pearl-oswego-il`,
     imagePath: "/images/homepage-services/anteage-md-brightening.png",
   },
+  "hello-gorgeous-app-launch-google": {
+    label: "Hello Gorgeous app — full launch (Google)",
+    channels: ["google"],
+    message: `📱 NEW — The Hello Gorgeous client app is live (Oswego, IL)
+
+Your med spa in your pocket — no App Store. Scan our QR or open hellogorgeousmedspa.com/app · Add to Home Screen.
+
+What's inside:
+✓ Book — Botox, facials, Morpheus8, weight loss & more
+✓ Build Your IV Bag — from $89 · most custom bags $150–$199
+✓ Vitamin Bar shots · deals · gift cards · memberships
+✓ HG Rewards points · loyalty tiers · birthday perks
+✓ GLP-1 screening · peptides · hormones · supplements
+✓ Client portal · appointments · documents · referrals
+
+Scan QR: hellogorgeousmedspa.com/get-app
+Ryan Kent, FNP-BC · serving Naperville, Aurora & Plainfield.`,
+    link: `${SITE_URL}/get-app`,
+    imagePath: "/images/homepage-services/vitamin-injections-fruit-syringe.png",
+  },
+  "hello-gorgeous-app-launch-facebook": {
+    label: "Hello Gorgeous app — full launch (Facebook)",
+    channels: ["facebook"],
+    message: `📱 YOUR med spa. In YOUR pocket. The Hello Gorgeous app is LIVE!
+
+No App Store download — scan our QR or open the link, then Add to Home Screen. One tap forever.
+
+✨ EVERYTHING INSIDE THE APP:
+• Book Now — Botox, fillers, facials, Morpheus8, weight loss & more
+• 💧 Build Your IV Bag — pick 500 mL ($89) or 1 L ($109), stack B12, glutathione, vitamin C, Tri-Immune & more · live price before you book
+• 💉 Vitamin Bar — drive-thru shots, pre-pay in the app
+• 🎁 Deals — specials & gift cards
+• ⭐ Memberships — monthly wellness plans, billed via Square
+• 🏆 HG Rewards — earn points on every visit · loyalty tiers · birthday treats
+• ⚖️ GLP-1 weight-loss screening intake
+• 🧬 Wellness hub — peptides, hormone optimization, Fullscript supplements
+• 👤 Me tab — portal, appointments, documents, referrals & your personal QR at checkout
+
+Ryan Kent, FNP-BC on site 7 days a week · Oswego, IL
+
+👉 Scan QR / get the app: ${SITE_URL}/get-app
+👉 Build your IV bag: ${SITE_URL}/app?iv=build
+📖 Full guide: ${SITE_URL}/blog/build-your-iv-bag-hello-gorgeous-app-oswego-il`,
+    link: `${SITE_URL}/get-app`,
+    imagePath: "/images/homepage-services/vitamin-injections-fruit-syringe.png",
+  },
 };
 
 async function postViaApi({ message, link, imagePath, channels, skipImage }) {

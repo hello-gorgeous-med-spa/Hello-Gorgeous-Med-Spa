@@ -1,230 +1,109 @@
-// ============================================================
-// GET THE APP PAGE
-// Beautiful landing page for clients to download the portal app
-// ============================================================
+import type { Metadata } from "next";
+import Link from "next/link";
 
-import Link from 'next/link';
-import type { Metadata } from 'next';
+import { AppGetQrCard } from "@/components/client-app/AppGetQrCard";
+import { CTA } from "@/components/CTA";
+import { CLIENT_APP } from "@/lib/client-app";
+import { getAppInstallUrl } from "@/lib/app-install-url";
+import { pageMetadata, SITE } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: 'Get the App | Hello Gorgeous Med Spa',
-  description: 'Download the Hello Gorgeous app to book appointments, get reminders, earn rewards, and manage your treatments.',
-};
+export const metadata: Metadata = pageMetadata({
+  title: "Get the Hello Gorgeous App — Scan QR | Oswego, IL",
+  description:
+    "Scan the QR code to open the Hello Gorgeous Med Spa client app — book, Vitamin Bar, Build Your IV Bag, deals, memberships & rewards. Oswego, IL.",
+  path: "/get-app",
+});
+
+const FEATURES = [
+  "Book Botox, facials, Morpheus8, weight loss & more (Fresha)",
+  "Build Your IV Bag — custom hydration from $89",
+  "Vitamin Bar — pre-pay shots & drive-thru wellness",
+  "Deals, gift cards & monthly memberships",
+  "HG Rewards points · loyalty tiers · birthday treats",
+  "GLP-1 screening, peptides, hormones & Fullscript shop",
+  "Portal — appointments, documents, account & referrals",
+  "Add to home screen — works like a native app (no download)",
+] as const;
 
 export default function GetAppPage() {
+  const appUrl = getAppInstallUrl({ utmMedium: "get_app_page", utmCampaign: "website_qr" });
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-pink-50 via-white to-purple-50">
-      {/* Header */}
-      <header className="bg-white/80 backdrop-blur-md border-b border-pink-100 sticky top-0 z-50">
-        <div className="max-w-4xl mx-auto px-4 py-4 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-2">
-            <span className="text-2xl">💗</span>
-            <span className="font-semibold text-black">Hello Gorgeous</span>
-          </Link>
-          <Link
-            href="/portal"
-            className="px-4 py-2 bg-[#FF2D8E] text-white rounded-full text-sm font-medium hover:bg-black"
-          >
-            Open Portal
-          </Link>
-        </div>
-      </header>
-
-      <main className="max-w-4xl mx-auto px-4 py-12">
-        {/* Hero Section */}
-        <div className="text-center mb-12">
-          <div className="inline-flex items-center gap-2 bg-green-100 text-green-700 px-4 py-2 rounded-full text-sm font-medium mb-6">
-            <span>🔒</span>
-            <span>HIPAA Compliant & Secure</span>
-          </div>
-          
-          <h1 className="text-4xl md:text-5xl font-bold text-black mb-4">
-            Get the <span className="text-[#FF2D8E]">Hello Gorgeous</span> App
+    <div className="min-h-screen bg-gradient-to-b from-[#FFF0F7] via-white to-gray-50">
+      <section className="border-b-4 border-black bg-gradient-to-br from-[#0a0a0a] via-[#2d1020] to-black text-white py-16 md:py-20">
+        <div className="max-w-3xl mx-auto px-4 text-center">
+          <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#FFB8DC] mb-4">Oswego, IL · Fox Valley</p>
+          <h1 className="text-3xl md:text-5xl font-black leading-tight">
+            Scan for the{" "}
+            <span
+              className="bg-gradient-to-r from-[#FFB8DC] via-[#FF2D8E] to-[#E6007E] bg-clip-text text-transparent"
+              style={{ WebkitBackgroundClip: "text" }}
+            >
+              Hello Gorgeous App
+            </span>
           </h1>
-          
-          <p className="text-xl text-black max-w-2xl mx-auto">
-            Book appointments, get reminders, track your treatments, and earn rewards - all from your phone.
+          <p className="mt-4 text-lg text-white/80 max-w-xl mx-auto">
+            {CLIENT_APP.tagline}. Point your camera at the QR code — book, build your IV bag, and save us to your home screen.
           </p>
         </div>
+      </section>
 
-        {/* App Preview */}
-        <div className="bg-gradient-to-r from-pink-500 via-rose-500 to-purple-500 rounded-3xl p-8 md:p-12 text-white mb-12">
-          <div className="grid md:grid-cols-2 gap-8 items-center">
-            <div>
-              <h2 className="text-2xl md:text-3xl font-bold mb-4">
-                Your Med Spa in Your Pocket
-              </h2>
-              <ul className="space-y-3">
-                <li className="flex items-center gap-3">
-                  <span className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center">📅</span>
-                  <span>Book appointments 24/7</span>
-                </li>
-                <li className="flex items-center gap-3">
-                  <span className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center">🔔</span>
-                  <span>Get appointment reminders</span>
-                </li>
-                <li className="flex items-center gap-3">
-                  <span className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center">🎁</span>
-                  <span>Track rewards & referrals</span>
-                </li>
-                <li className="flex items-center gap-3">
-                  <span className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center">📋</span>
-                  <span>View treatment history</span>
-                </li>
-                <li className="flex items-center gap-3">
-                  <span className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center">📝</span>
-                  <span>Complete forms digitally</span>
-                </li>
-              </ul>
+      <section className="max-w-3xl mx-auto px-4 py-12 md:py-16">
+        <div className="rounded-3xl border-4 border-black bg-white p-6 md:p-10 shadow-[8px_8px_0_0_rgba(230,0,126,0.35)]">
+          <div className="flex flex-col items-center text-center">
+            <div className="rounded-2xl border-4 border-black bg-white p-4 inline-block">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/api/app/qr-code?target=app&utm_medium=get_app_page&utm_campaign=website_qr"
+                alt="QR code — scan to open Hello Gorgeous app"
+                width={280}
+                height={280}
+                className="block mx-auto"
+              />
             </div>
-            <div className="text-center">
-              <div className="text-8xl mb-4">📱</div>
-              <p className="text-pink-100">No app store needed - installs directly!</p>
-            </div>
-          </div>
-        </div>
-
-        {/* Installation Instructions */}
-        <div className="grid md:grid-cols-2 gap-6 mb-12">
-          {/* iPhone Instructions */}
-          <div className="bg-white rounded-2xl border border-black p-6 shadow-sm">
-            <div className="flex items-center gap-3 mb-4">
-              <span className="text-3xl">🍎</span>
-              <h3 className="text-xl font-bold text-black">iPhone / iPad</h3>
-            </div>
-            <ol className="space-y-4 text-black">
-              <li className="flex gap-3">
-                <span className="w-6 h-6 bg-pink-100 text-pink-600 rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0">1</span>
-                <span>Open this page in <strong>Safari</strong></span>
-              </li>
-              <li className="flex gap-3">
-                <span className="w-6 h-6 bg-pink-100 text-pink-600 rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0">2</span>
-                <span>Tap the <strong>Share button</strong> (square with arrow)</span>
-              </li>
-              <li className="flex gap-3">
-                <span className="w-6 h-6 bg-pink-100 text-pink-600 rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0">3</span>
-                <span>Scroll down, tap <strong>"Add to Home Screen"</strong></span>
-              </li>
-              <li className="flex gap-3">
-                <span className="w-6 h-6 bg-pink-100 text-pink-600 rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0">4</span>
-                <span>Tap <strong>"Add"</strong> - Done! 🎉</span>
-              </li>
-            </ol>
-          </div>
-
-          {/* Android Instructions */}
-          <div className="bg-white rounded-2xl border border-black p-6 shadow-sm">
-            <div className="flex items-center gap-3 mb-4">
-              <span className="text-3xl">🤖</span>
-              <h3 className="text-xl font-bold text-black">Android</h3>
-            </div>
-            <ol className="space-y-4 text-black">
-              <li className="flex gap-3">
-                <span className="w-6 h-6 bg-pink-100 text-pink-600 rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0">1</span>
-                <span>Open this page in <strong>Chrome</strong></span>
-              </li>
-              <li className="flex gap-3">
-                <span className="w-6 h-6 bg-pink-100 text-pink-600 rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0">2</span>
-                <span>Tap the <strong>menu</strong> (three dots)</span>
-              </li>
-              <li className="flex gap-3">
-                <span className="w-6 h-6 bg-pink-100 text-pink-600 rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0">3</span>
-                <span>Tap <strong>"Install App"</strong> or <strong>"Add to Home Screen"</strong></span>
-              </li>
-              <li className="flex gap-3">
-                <span className="w-6 h-6 bg-pink-100 text-pink-600 rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0">4</span>
-                <span>Tap <strong>"Install"</strong> - Done! 🎉</span>
-              </li>
-            </ol>
-          </div>
-        </div>
-
-        {/* Security Section */}
-        <div className="bg-black rounded-2xl p-8 text-white mb-12">
-          <div className="text-center mb-8">
-            <h2 className="text-2xl font-bold mb-2">Your Privacy & Security Matter</h2>
-            <p className="text-black">We take protecting your information seriously</p>
-          </div>
-          
-          <div className="grid md:grid-cols-3 gap-6">
-            <div className="text-center">
-              <div className="w-16 h-16 bg-green-500/20 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                <span className="text-3xl">🔒</span>
-              </div>
-              <h3 className="font-semibold mb-2">HIPAA Compliant</h3>
-              <p className="text-sm text-black">
-                Your health information is protected according to federal healthcare privacy laws
-              </p>
-            </div>
-            
-            <div className="text-center">
-              <div className="w-16 h-16 bg-blue-500/20 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                <span className="text-3xl">🛡️</span>
-              </div>
-              <h3 className="font-semibold mb-2">256-bit Encryption</h3>
-              <p className="text-sm text-black">
-                Bank-level security protects all data transmitted to and from our servers
-              </p>
-            </div>
-            
-            <div className="text-center">
-              <div className="w-16 h-16 bg-purple-500/20 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                <span className="text-3xl">✓</span>
-              </div>
-              <h3 className="font-semibold mb-2">SOC 2 Certified</h3>
-              <p className="text-sm text-black">
-                Our systems meet rigorous security and availability standards
-              </p>
-            </div>
-          </div>
-          
-          <div className="mt-8 pt-8 border-t border-black text-center">
-            <p className="text-sm text-black">
-              Read our full{' '}
-              <Link href="/privacy" className="text-[#FF2D8E] hover:underline">Privacy Policy</Link>
-              {' '}and{' '}
-              <Link href="/terms" className="text-[#FF2D8E] hover:underline">Terms of Service</Link>
+            <p className="mt-6 text-sm font-bold text-[#E6007E] uppercase tracking-wider">Scan with your phone camera</p>
+            <p className="mt-2 text-black/70 max-w-md">
+              Opens <strong>{appUrl.replace("https://", "")}</strong> — then tap <strong>Add to Home Screen</strong> for one-tap access.
             </p>
+            <div className="mt-8 flex flex-wrap justify-center gap-3">
+              <CTA href={appUrl} variant="gradient">
+                Open the app
+              </CTA>
+              <CTA href="/book" variant="outline">
+                Book a visit
+              </CTA>
+            </div>
           </div>
         </div>
 
-        {/* CTA */}
-        <div className="text-center">
-          <Link
-            href="/portal"
-            className="inline-flex items-center gap-2 bg-gradient-to-r from-pink-500 to-purple-500 text-white px-8 py-4 rounded-full text-lg font-semibold hover:shadow-xl hover:scale-105 transition-all"
-          >
-            <span>✨</span>
-            Open My Portal
+        <div className="mt-10 rounded-3xl border-4 border-black bg-white p-6 md:p-8 shadow-[8px_8px_0_0_rgba(230,0,126,0.25)]">
+          <h2 className="text-xl font-black text-black mb-4">
+            Everything in one app
+          </h2>
+          <ul className="space-y-3">
+            {FEATURES.map((f) => (
+              <li key={f} className="flex gap-3 text-black/85 font-medium text-sm md:text-base">
+                <span className="text-[#E6007E] font-bold shrink-0">▸</span>
+                {f}
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <p className="mt-8 text-center text-sm text-black/60">
+          Prefer a link?{" "}
+          <Link href={CLIENT_APP.path} className="font-semibold text-[#E6007E] underline decoration-[#FF2D8E]">
+            hellogorgeousmedspa.com/app
           </Link>
-          <p className="mt-4 text-black text-sm">
-            Questions? Call us at <a href="tel:6306366193" className="text-[#FF2D8E]">(630) 636-6193</a>
-          </p>
-        </div>
-      </main>
-
-      {/* Footer */}
-      <footer className="bg-white border-t border-black py-8 mt-12">
-        <div className="max-w-4xl mx-auto px-4 text-center">
-          <div className="flex items-center justify-center gap-6 mb-4">
-            <div className="flex items-center gap-2 text-sm text-black">
-              <span>🔒</span>
-              <span>HIPAA Compliant</span>
-            </div>
-            <div className="flex items-center gap-2 text-sm text-black">
-              <span>🛡️</span>
-              <span>256-bit SSL</span>
-            </div>
-            <div className="flex items-center gap-2 text-sm text-black">
-              <span>✓</span>
-              <span>Secure</span>
-            </div>
-          </div>
-          <p className="text-black text-sm">
-            © 2026 Hello Gorgeous Med Spa | 74 W. Washington St, Oswego, IL 60543
-          </p>
-        </div>
-      </footer>
+          {" · "}
+          <Link href={`/blog/build-your-iv-bag-hello-gorgeous-app-oswego-il`} className="font-semibold text-[#E6007E] underline decoration-[#FF2D8E]">
+            Read the launch guide
+          </Link>
+        </p>
+        <p className="mt-4 text-center text-xs text-black/50">
+          {SITE.name} · {CLIENT_APP.address} · {CLIENT_APP.phone}
+        </p>
+      </section>
     </div>
   );
 }

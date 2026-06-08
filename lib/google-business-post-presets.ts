@@ -169,17 +169,21 @@ Free consult + brow mapping. Serving Naperville, Aurora & Plainfield. Book below
   {
     id: "hello-gorgeous-app-iv-builder",
     label: "NEW — Hello Gorgeous app + Build Your IV Bag",
-    message: `📱 NEW — The Hello Gorgeous client app is live!
+    message: `📱 NEW — The Hello Gorgeous client app is live (Oswego, IL)
 
-💧 Build Your IV Bag in minutes:
-• 500 mL from $89 · 1 Liter from $109
-• Add B12, glutathione, vitamin C, Tri-Immune & more
-• Most custom bags land $150–$199 — see your total before you book
+Your med spa in your pocket — no App Store. Scan our QR or open hellogorgeousmedspa.com/app · Add to Home Screen.
 
-Browse services, Vitamin Bar shots, deals & booking — add hellogorgeousmedspa.com/app to your home screen (no App Store needed).
+What's inside:
+✓ Book — Botox, facials, Morpheus8, weight loss & more
+✓ Build Your IV Bag — from $89 · most custom bags $150–$199
+✓ Vitamin Bar shots · deals · gift cards · memberships
+✓ HG Rewards points · loyalty tiers · birthday perks
+✓ GLP-1 screening · peptides · hormones · supplements
+✓ Client portal · appointments · documents · referrals
 
-Ryan Kent, FNP-BC · Oswego, IL — serving Naperville, Aurora & Plainfield.`,
-    linkPath: "/app?iv=build&utm_source=google&utm_medium=gbp_post&utm_campaign=app_iv_builder",
+Scan QR: hellogorgeousmedspa.com/get-app
+Ryan Kent, FNP-BC · serving Naperville, Aurora & Plainfield.`,
+    linkPath: "/get-app?utm_source=google&utm_medium=gbp_post&utm_campaign=app_full_launch",
     imagePath: "/images/marketing/nad-iv-bag-hello-gorgeous.svg",
   },
   {
