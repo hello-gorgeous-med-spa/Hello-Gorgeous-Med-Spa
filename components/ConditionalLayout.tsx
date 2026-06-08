@@ -14,6 +14,7 @@ import { ChatOpenProvider } from "@/components/ChatOpenContext";
 import { MascotChat } from "@/components/MascotChat";
 import { VoiceConcierge } from "@/components/VoiceConcierge";
 import { HelloGorgeousAssistant } from "@/components/HelloGorgeousAssistant";
+import { InstallAppPrompt } from "@/components/InstallAppPrompt";
 import { ImmediateCareStrip } from "@/components/ImmediateCareBanner";
 import { BrandTaglineStrip } from "@/components/BrandTaglineStrip";
 import BookingTransitionBanner from "@/components/BookingTransitionBanner";
@@ -84,6 +85,7 @@ export function ConditionalLayout({
           </div>
         </main>
         <StickyMobileCTA />
+        <InstallAppPrompt />
         <MascotChat />
         <VoiceConcierge />
         {/* VIP email-capture auto-popup disabled per owner request (pending decision).

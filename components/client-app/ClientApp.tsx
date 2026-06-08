@@ -28,6 +28,9 @@ import {
 } from "@/components/client-app/ClientAppIntakeForm";
 import { BrandHero } from "@/components/BrandHero";
 import {
+  usePwaInstall,
+} from "@/lib/hooks/use-pwa-install";
+import {
   TRIFECTA_GLASS,
   TRIFECTA_GRADIENT_TITLE,
   trifectaAccent,
@@ -45,11 +48,6 @@ function glassStyle(accentIndex: number) {
 }
 
 // ─── Types ────────────────────────────────────────────────────────────────────
-
-type BeforeInstallPromptEvent = Event & {
-  prompt: () => Promise<void>;
-  userChoice: Promise<{ outcome: "accepted" | "dismissed" }>;
-};
 
 type HomeData = {
   authenticated: boolean;
@@ -72,46 +70,6 @@ type HomeData = {
 };
 
 // ─── Hooks ────────────────────────────────────────────────────────────────────
-
-function useInstallPrompt() {
-  const [deferred, setDeferred] = useState<BeforeInstallPromptEvent | null>(null);
-  const [installed, setInstalled] = useState(false);
-
-  useEffect(() => {
-    const onPrompt = (e: Event) => { e.preventDefault(); setDeferred(e as BeforeInstallPromptEvent); };
-    const onInstalled = () => { setInstalled(true); setDeferred(null); };
-    window.addEventListener("beforeinstallprompt", onPrompt);
-    window.addEventListener("appinstalled", onInstalled);
-    return () => {
-      window.removeEventListener("beforeinstallprompt", onPrompt);
-      window.removeEventListener("appinstalled", onInstalled);
-    };
-  }, []);
-
-  const promptInstall = async () => {
-    if (!deferred) return;
-    await deferred.prompt();
-    await deferred.userChoice;
-    setDeferred(null);
-  };
-
-  return { canInstall: !!deferred && !installed, promptInstall };
-}
-
-function useClientManifest() {
-  useEffect(() => {
-    let link = document.querySelector('link[rel="manifest"]') as HTMLLinkElement | null;
-    const original = link?.href;
-    if (link) link.href = "/client-manifest.json";
-    else {
-      link = document.createElement("link");
-      link.rel = "manifest";
-      link.href = "/client-manifest.json";
-      document.head.appendChild(link);
-    }
-    return () => { if (link && original) link.href = original; };
-  }, []);
-}
 
 function useHomeData() {
   const [data, setData] = useState<HomeData | null>(null);
@@ -176,10 +134,12 @@ export function ClientApp({ initialTab = "home" }: { initialTab?: ClientAppTab }
   const [selected, setSelected] = useState<VitaminShot | null>(null);
   const [showIntake, setShowIntake] = useState(false);
   const [intakeRefresh, setIntakeRefresh] = useState(0);
-  const { canInstall, promptInstall } = useInstallPrompt();
+  const { canInstall, promptInstall } = usePwaInstall({
+    registerServiceWorker: true,
+    useClientManifest: true,
+  });
   const homeData = useHomeData();
   const { permission, subscribed, subscribe } = usePushNotifications(homeData?.authenticated ?? false);
-  useClientManifest();
 
   const showPushBanner = homeData?.authenticated && permission === "default" && !subscribed;
 

@@ -122,6 +122,7 @@ const NAV = {
       { label: "Microblading Pre/Post", href: "/pre-post-care/microblading", sub: "Brow PMU healing guide" },
       { label: "Brow Consultation Intake", href: "/forms/brow-intake", sub: "PMU health history & consent" },
       { label: "Client Intake Form", href: "/forms/client-intake", sub: "Complete before your visit" },
+      { label: "Hello Gorgeous App", href: "/app", sub: "Add to home screen — book, Vitamin Bar & more", badge: "APP" },
       { label: "Consent & Documents", href: "/patient-documents", sub: "Forms, PDFs & consent" },
       { label: "Book Online", href: BOOKING_URL, sub: "Schedule via Fresha", external: true },
       { label: "Contact Us", href: "/contact", sub: "Hours, location & phone" },
