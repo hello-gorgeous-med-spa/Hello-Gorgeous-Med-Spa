@@ -69,6 +69,8 @@ export type VitaminMembership = {
   rolloverNote?: string;
   /** Category badge shown on the card (e.g. "Facial", "Lashes"). */
   category?: string;
+  /** Promo flyer — path under public, e.g. /images/memberships/foo.png */
+  image?: string;
 };
 
 export const SHOT_CATEGORY_LABELS: Record<ShotCategory, string> = {
@@ -271,6 +273,7 @@ export const VITAMIN_MEMBERSHIPS: VitaminMembership[] = [
     highlight: true,
     rolloverNote: "💡 Unused facial credit never expires — bank it and use it toward a more advanced treatment whenever you're ready.",
     squarePayUrl: "https://square.link/u/08iH8Zae",
+    image: "/images/memberships/glow-facial-membership.png",
   },
   {
     id: "lash-fill-membership",
@@ -287,6 +290,7 @@ export const VITAMIN_MEMBERSHIPS: VitaminMembership[] = [
     ],
     rolloverNote: "💡 Fills must be used within the same month. Biotin injections roll over up to 2.",
     squarePayUrl: "https://square.link/u/NZwGXnML",
+    image: "/images/memberships/lash-fill-membership.png",
   },
 ];
 

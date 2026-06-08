@@ -2,6 +2,7 @@
 
 import { useEffect, useState, useCallback } from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 import { BOOKING_URL } from "@/lib/flows";
 import {
@@ -1046,11 +1047,23 @@ function MembershipTab({ memberships }: { memberships: VitaminMembership[] }) {
         {memberships.map((m, i) => {
           const accent = accentColors[i % accentColors.length];
           return (
-            <div key={m.id} className="rounded-2xl p-5 backdrop-blur-sm"
+            <div key={m.id} className="rounded-2xl overflow-hidden backdrop-blur-sm"
               style={{
                 ...glassStyle(i % 3),
                 boxShadow: m.highlight ? `0 4px 24px ${accent.bullet}33` : "none",
               }}>
+              {m.image ? (
+                <div className="relative aspect-[3/4] w-full border-b border-white/10 bg-black">
+                  <Image
+                    src={m.image}
+                    alt={`${m.name} — Hello Gorgeous Med Spa`}
+                    fill
+                    className="object-cover object-top"
+                    sizes="(max-width: 576px) 100vw, 420px"
+                  />
+                </div>
+              ) : null}
+              <div className="p-5">
               {/* Badges row */}
               <div className="flex flex-wrap gap-2 mb-3">
                 {m.highlight && (
@@ -1090,6 +1103,7 @@ function MembershipTab({ memberships }: { memberships: VitaminMembership[] }) {
                 style={{ background: trifectaButtonGradient(accent) }}>
                 {busyId === m.id ? "Starting checkout…" : `Join ${m.name}`}
               </button>
+              </div>
             </div>
           );
         })}
