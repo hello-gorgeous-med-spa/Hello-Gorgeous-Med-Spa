@@ -14,6 +14,7 @@ const MAIN_NAV: { href: string; label: string; icon: string }[] = [
   { href: '/admin/calendar', label: 'Calendar', icon: '🗓' },
   { href: '/admin/appointments', label: 'Appointments', icon: '📅' },
   { href: '/admin/clients', label: 'Clients', icon: '👥' },
+  { href: '/admin/unit-bank', label: 'Unit Bank', icon: '💉' },
   { href: '/admin/charting', label: 'Charting', icon: '📋' },
   { href: '/admin/procedures/contour-lift', label: 'Contour / Quantum', icon: '⚡' },
   { href: '/admin/services', label: 'Services', icon: '✨' },

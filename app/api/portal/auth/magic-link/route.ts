@@ -176,8 +176,8 @@ export async function POST(request: NextRequest) {
     }
 
     const toEmail = client.email?.toLowerCase().trim() || emailNorm;
-    const firstName = client.first_name || "there";
-    const emailResult = await sendPortalLoginEmail({ toEmail, firstName, magicLink });
+    const clientFirstName = client.first_name || "there";
+    const emailResult = await sendPortalLoginEmail({ toEmail, firstName: clientFirstName, magicLink });
 
     if (!emailResult.ok) {
       return NextResponse.json({ error: emailResult.message }, { status: emailResult.status });

@@ -1102,8 +1102,7 @@ function MeTab({ onOpenIntake, intakeRefresh, homeData }: {
         </div>
       )}
 
-      {/* Referral card */}
-      {/* ── Unit Bank Card ── */}
+      {/* ── HG Rewards Points Card ── */}
       {homeData?.authenticated && unitBalance !== null && (
         <div className="rounded-2xl overflow-hidden"
           style={{ background: "linear-gradient(135deg, rgba(255,45,142,0.12), rgba(80,20,80,0.25))", border: "1px solid rgba(255,45,142,0.35)" }}>
@@ -1111,28 +1110,36 @@ function MeTab({ onOpenIntake, intakeRefresh, homeData }: {
             {/* Header */}
             <div className="flex items-center justify-between mb-1">
               <div className="flex items-center gap-2">
-                <span className="text-xl">💉</span>
-                <span className="text-[11px] font-bold uppercase tracking-widest" style={{ color: "#FF2D8E" }}>Unit Bank</span>
+                <span className="text-xl">🌟</span>
+                <span className="text-[11px] font-bold uppercase tracking-widest" style={{ color: "#FF2D8E" }}>HG Rewards</span>
               </div>
               <span className="text-[10px] px-2 py-0.5 rounded-full font-semibold"
                 style={{ background: "rgba(255,45,142,0.15)", color: "#FF2D8E", border: "1px solid rgba(255,45,142,0.25)" }}>
-                Neurotoxin Rewards
+                Points Program
               </span>
             </div>
 
             {/* Balance */}
             <div className="flex items-end gap-3 mt-3 mb-4">
               <div>
-                <p className="text-5xl font-black text-white leading-none">{unitBalance}</p>
+                <p className="text-5xl font-black text-white leading-none">{unitBalance.toLocaleString()}</p>
                 <p className="text-xs mt-1" style={{ color: "rgba(255,255,255,0.45)" }}>
-                  free unit{unitBalance !== 1 ? 's' : ''} banked
-                  {unitBalance > 0 && <span style={{ color: "#FF2D8E" }}> · ${unitBalance * 10} value</span>}
+                  points
+                  {unitBalance > 0
+                    ? <span style={{ color: "#FF2D8E" }}> · ${(unitBalance / 100).toFixed(2)} value</span>
+                    : ' — start earning today!'}
                 </p>
               </div>
-              {unitBalance > 0 && (
+              {unitBalance >= 100 && (
                 <div className="ml-auto text-right">
-                  <p className="text-[10px] font-bold uppercase tracking-widest mb-1" style={{ color: "rgba(255,255,255,0.35)" }}>Ready to use</p>
+                  <p className="text-[10px] font-bold uppercase tracking-widest mb-1" style={{ color: "rgba(255,255,255,0.35)" }}>Ready to redeem</p>
                   <p className="text-sm font-semibold" style={{ color: "#FF2D8E" }}>Tell us at checkout!</p>
+                </div>
+              )}
+              {unitBalance > 0 && unitBalance < 100 && (
+                <div className="ml-auto text-right">
+                  <p className="text-[10px]" style={{ color: "rgba(255,255,255,0.35)" }}>{100 - unitBalance} more pts</p>
+                  <p className="text-[10px]" style={{ color: "rgba(255,255,255,0.35)" }}>until $1 off</p>
                 </div>
               )}
             </div>
@@ -1144,22 +1151,22 @@ function MeTab({ onOpenIntake, intakeRefresh, homeData }: {
                 <p className="text-[11px]" style={{ color: "rgba(255,255,255,0.5)" }}>
                   {tier.emoji} <strong className="text-white">{tier.name}</strong> earn rate:{' '}
                   <span style={{ color: "#FF2D8E" }}>
-                    {tier.id === 'bronze' && '1 free unit per 10 purchased'}
-                    {tier.id === 'gold' && '1 free unit per 8 purchased'}
-                    {tier.id === 'platinum' && '1 free unit per 6 purchased'}
+                    {tier.id === 'bronze' && '5 pts per $1 spent'}
+                    {tier.id === 'gold' && '7 pts per $1 spent'}
+                    {tier.id === 'platinum' && '10 pts per $1 spent'}
                   </span>
-                  {' '}· Works on all 5 neurotoxins
+                  {' '}· 100 pts = $1 off any service
                 </p>
               </div>
             )}
 
-            {/* How it works */}
+            {/* How it works (shown when balance is 0) */}
             {unitBalance === 0 && (
               <div className="space-y-2 mb-3">
                 {[
-                  { emoji: '💉', text: 'Buy neurotoxin units at your next visit' },
-                  { emoji: '🏦', text: 'Units automatically bank based on your tier' },
-                  { emoji: '🎁', text: 'Redeem free units toward any neurotoxin treatment' },
+                  { emoji: '💳', text: 'Earn points on every dollar you spend' },
+                  { emoji: '⭐', text: 'Bonus points for reviews, referrals & more' },
+                  { emoji: '🎁', text: '100 points = $1 off — any service, any visit' },
                 ].map(s => (
                   <div key={s.text} className="flex items-center gap-2">
                     <span className="text-base">{s.emoji}</span>
@@ -1192,7 +1199,7 @@ function MeTab({ onOpenIntake, intakeRefresh, homeData }: {
                       {tx.note && <p className="text-[10px] mt-0.5" style={{ color: "rgba(255,255,255,0.35)" }}>{tx.note}</p>}
                     </div>
                     <span className={`text-sm font-bold ${tx.units > 0 ? 'text-green-400' : 'text-red-400'}`}>
-                      {tx.units > 0 ? '+' : ''}{tx.units}
+                      {tx.units > 0 ? '+' : ''}{tx.units.toLocaleString()} pts
                     </span>
                   </div>
                 ))}
@@ -1204,7 +1211,7 @@ function MeTab({ onOpenIntake, intakeRefresh, homeData }: {
           <div className="px-5 py-3 flex items-center justify-between"
             style={{ background: "rgba(255,45,142,0.1)", borderTop: "1px solid rgba(255,45,142,0.2)" }}>
             <p className="text-[11px]" style={{ color: "rgba(255,255,255,0.4)" }}>
-              Works on Botox · Dysport · Jeuveau · Xeomin · Daxxify
+              Works on all services · Never expires
             </p>
             <a href="https://hellogorgeousmedspa.com/book" target="_blank" rel="noopener noreferrer"
               className="text-xs font-bold shrink-0 ml-3"
@@ -1214,6 +1221,88 @@ function MeTab({ onOpenIntake, intakeRefresh, homeData }: {
           </div>
         </div>
       )}
+
+      {/* ── Ways to Earn ── */}
+      <div className="rounded-2xl overflow-hidden" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}>
+        <div className="px-5 pt-4 pb-3">
+          <div className="flex items-center gap-2 mb-1">
+            <span className="text-lg">💰</span>
+            <span className="text-sm font-bold text-white">Ways to Earn Points</span>
+          </div>
+          <p className="text-[11px] mb-3" style={{ color: "rgba(255,255,255,0.35)" }}>100 points = $1 off · redeemable on any service</p>
+          <div className="space-y-3">
+            {[
+              {
+                emoji: '💳',
+                title: 'Spend on any service',
+                desc: 'Earn 5 pts per $1 (Bronze) · 7 pts per $1 (Gold) · 10 pts per $1 (Platinum)',
+                badge: 'Auto-credited',
+                badgeColor: '#FF2D8E',
+              },
+              {
+                emoji: '⭐',
+                title: 'Leave a Google review',
+                desc: 'Takes 30 seconds and means the world to us 💕 Earn 500 points ($5 value)!',
+                badge: '500 pts = $5',
+                badgeColor: '#f59e0b',
+                href: 'https://g.page/r/CYQOWmT_HcwQEBM/review',
+                cta: 'Review us →',
+              },
+              {
+                emoji: '💜',
+                title: 'Refer a friend',
+                desc: 'When they book their first visit, you earn 500 points ($5 value)',
+                badge: '500 pts = $5',
+                badgeColor: '#7B4FFF',
+              },
+              {
+                emoji: '🎂',
+                title: 'Birthday month',
+                desc: 'We surprise you every year — just make sure your birthday is saved in your profile',
+                badge: '500 pts surprise',
+                badgeColor: '#ec4899',
+              },
+              {
+                emoji: '📲',
+                title: 'Follow us on Instagram',
+                desc: '@hellogorgeousmedspa — show us at your next visit to claim your points',
+                badge: '100 pts = $1',
+                badgeColor: '#e11d48',
+                href: 'https://instagram.com/hellogorgeousmedspa',
+                cta: 'Follow →',
+              },
+            ].map((item, i) => (
+              <div key={i} className="flex items-start gap-3">
+                <div className="w-9 h-9 rounded-xl flex items-center justify-center text-lg shrink-0"
+                  style={{ background: "rgba(255,255,255,0.06)" }}>
+                  {item.emoji}
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <p className="text-sm font-semibold text-white">{item.title}</p>
+                    <span className="text-[10px] font-bold px-2 py-0.5 rounded-full"
+                      style={{ background: `${item.badgeColor}22`, color: item.badgeColor }}>
+                      {item.badge}
+                    </span>
+                  </div>
+                  <p className="text-xs mt-0.5" style={{ color: "rgba(255,255,255,0.45)" }}>{item.desc}</p>
+                  {item.href && (
+                    <a href={item.href} target="_blank" rel="noopener noreferrer"
+                      className="inline-block mt-1 text-xs font-bold"
+                      style={{ color: item.badgeColor }}>
+                      {item.cta}
+                    </a>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="px-5 py-3 text-[11px]"
+          style={{ background: "rgba(255,45,142,0.06)", borderTop: "1px solid rgba(255,45,142,0.15)", color: "rgba(255,255,255,0.35)" }}>
+          Points never expire · 100 pts = $1 off · Ask staff to credit bonus points at checkout
+        </div>
+      </div>
 
       {referralLink && (
         <div className="rounded-2xl p-4" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(123,79,255,0.35)" }}>
