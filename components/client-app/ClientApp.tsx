@@ -23,6 +23,7 @@ import {
   type VitaminMembership,
   type VitaminShot,
 } from "@/lib/vitamin-bar";
+import { HG_MEMBERSHIPS, MEMBERSHIP_COMPARISON_ROWS } from "@/lib/hg-memberships";
 import { squareGiftCardUrl, GIFT_CARD_DESIGNS, GIFT_CARD_PRESET_AMOUNTS } from "@/lib/gift-cards";
 import {
   ClientAppIntakeCard,
@@ -1017,100 +1018,215 @@ function ShotSheet({ shot, onClose }: { shot: VitaminShot; onClose: () => void }
 
 // ─── Membership Tab ───────────────────────────────────────────────────────────
 
+const HG_TIER_COLORS: Record<string, string> = {
+  glow: "#FF2D8E",
+  luxe: "#3b82f6",
+  platinum: "#f59e0b",
+};
+
 function MembershipTab({ memberships }: { memberships: VitaminMembership[] }) {
-  const [busyId, setBusyId] = useState<string | null>(null);
-  const [err, setErr] = useState<string | null>(null);
-
-  async function join(m: VitaminMembership) {
-    setErr(null); setBusyId(m.id);
-    try {
-      const res = await fetch("/api/client-app/membership/checkout", {
-        method: "POST", headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ membershipId: m.id }),
-      });
-      const data = await res.json().catch(() => ({}));
-      if (res.ok && data.url) { window.location.href = data.url; return; }
-      setErr(data.error || "Could not start checkout. Call us to join.");
-    } catch { setErr("Network error. Call us to join."); }
-    finally { setBusyId(null); }
-  }
-
-  const accentColors = [trifectaAccent(0), trifectaAccent(1), trifectaAccent(2), trifectaAccent(0)];
+  const [showCompare, setShowCompare] = useState(false);
 
   return (
     <div className="py-5">
+      {/* Header */}
       <h2 className="text-xl font-bold text-white">Memberships</h2>
       <p className="mt-1 text-sm" style={{ color: "rgba(255,255,255,0.5)" }}>
-        Monthly wellness plans — member pricing, skip-the-line drive-thru, and more.
+        Monthly plans — discounted Botox, treatments & HG Rewards that never expire.
       </p>
-      {err && <p className="mt-3 rounded-xl px-3 py-2 text-xs text-red-400" style={{ background: "rgba(255,0,0,0.1)" }}>{err}</p>}
+
+      {/* HG Tiered Memberships — PRIMARY */}
       <div className="mt-5 space-y-4">
-        {memberships.map((m, i) => {
-          const accent = accentColors[i % accentColors.length];
+        {HG_MEMBERSHIPS.map((tier) => {
+          const accent = HG_TIER_COLORS[tier.id] ?? "#FF2D8E";
           return (
-            <div key={m.id} className="rounded-2xl overflow-hidden backdrop-blur-sm"
+            <div
+              key={tier.id}
+              className="rounded-2xl overflow-hidden"
               style={{
-                ...glassStyle(i % 3),
-                boxShadow: m.highlight ? `0 4px 24px ${accent.bullet}33` : "none",
-              }}>
-              {m.image ? (
-                <div className="relative aspect-[3/4] w-full border-b border-white/10 bg-black">
-                  <Image
-                    src={m.image}
-                    alt={`${m.name} — Hello Gorgeous Med Spa`}
-                    fill
-                    className="object-cover object-top"
-                    sizes="(max-width: 576px) 100vw, 420px"
-                  />
-                </div>
-              ) : null}
+                background: tier.highlight
+                  ? `linear-gradient(145deg, ${accent}14 0%, rgba(10,15,30,0.97) 40%)`
+                  : "rgba(255,255,255,0.03)",
+                border: tier.highlight
+                  ? `1px solid ${accent}50`
+                  : "1px solid rgba(255,255,255,0.08)",
+                boxShadow: tier.highlight ? `0 4px 24px ${accent}22` : "none",
+              }}
+            >
               <div className="p-5">
-              {/* Badges row */}
-              <div className="flex flex-wrap gap-2 mb-3">
-                {m.highlight && (
-                  <span className="inline-block rounded-full px-3 py-0.5 text-[10px] font-bold uppercase text-white"
-                    style={{ background: trifectaButtonGradient(accent) }}>Most popular</span>
+                {/* Badge */}
+                {tier.badge && (
+                  <div className="mb-3">
+                    <span
+                      className="rounded-full px-3 py-0.5 text-[10px] font-black uppercase text-white"
+                      style={{ background: accent }}
+                    >
+                      ⭐ {tier.badge}
+                    </span>
+                  </div>
                 )}
-                {m.category && (
-                  <span className="inline-block rounded-full px-3 py-0.5 text-[10px] font-bold uppercase"
-                    style={{ background: "rgba(255,255,255,0.08)", color: accent.subtitle }}>
-                    {m.category}
-                  </span>
-                )}
-              </div>
-              <div className="flex items-baseline justify-between gap-2">
-                <h3 className="text-lg font-bold text-white">{m.name}</h3>
-                <div className="shrink-0 text-right">
-                  <span className="text-2xl font-black" style={{ color: accent.subtitle }}>${m.pricePerMonth}</span>
-                  <span className="text-sm" style={{ color: "rgba(255,255,255,0.35)" }}>/mo</span>
+
+                {/* Name + price */}
+                <div className="flex items-baseline justify-between gap-2">
+                  <h3 className="text-lg font-bold text-white">
+                    {tier.icon} {tier.name}
+                  </h3>
+                  <div className="shrink-0 text-right">
+                    <span className="text-2xl font-black" style={{ color: accent }}>
+                      ${tier.pricePerMonth}
+                    </span>
+                    <span className="text-sm" style={{ color: "rgba(255,255,255,0.35)" }}>/mo</span>
+                  </div>
                 </div>
-              </div>
-              <p className="mt-1 text-sm" style={{ color: "rgba(255,255,255,0.55)" }}>{m.summary}</p>
-              <ul className="mt-3 space-y-1.5">
-                {m.perks.map((p) => (
-                  <li key={p} className="flex gap-2 text-sm" style={{ color: "rgba(255,255,255,0.7)" }}>
-                    <span style={{ color: accent.bullet }}>✓</span>{p}
-                  </li>
-                ))}
-              </ul>
-              {m.rolloverNote && (
-                <p className="mt-3 rounded-xl px-3 py-2.5 text-xs leading-relaxed"
-                  style={{ background: "rgba(255,255,255,0.05)", color: "rgba(255,255,255,0.55)", border: "1px solid rgba(255,255,255,0.08)" }}>
-                  {m.rolloverNote}
+                <p className="mt-1 text-xs leading-relaxed" style={{ color: "rgba(255,255,255,0.50)" }}>
+                  {tier.tagline}
                 </p>
-              )}
-              <button type="button" onClick={() => void join(m)} disabled={busyId === m.id}
-                className="mt-4 block w-full rounded-xl py-3.5 font-bold text-white disabled:opacity-60 transition hover:brightness-110"
-                style={{ background: trifectaButtonGradient(accent) }}>
-                {busyId === m.id ? "Starting checkout…" : `Join ${m.name}`}
-              </button>
+
+                {/* Botox discount badge */}
+                <div
+                  className="mt-3 rounded-xl px-3 py-2 text-center"
+                  style={{ background: `${accent}15`, border: `1px solid ${accent}25` }}
+                >
+                  <span className="text-xs font-semibold" style={{ color: accent }}>
+                    ${tier.botoxDiscount}/unit off ALL neurotoxins
+                  </span>
+                  <span className="text-xs text-white/35"> · Botox, Dysport, Jeuveau, Xeomin, Daxxify</span>
+                </div>
+
+                {/* Monthly credits */}
+                <div className="mt-3">
+                  <p className="text-[10px] font-bold uppercase tracking-wider mb-1.5" style={{ color: accent }}>
+                    Included Monthly
+                  </p>
+                  <ul className="space-y-1">
+                    {tier.monthlyCredits.map((c) => (
+                      <li key={c} className="flex gap-1.5 text-xs font-semibold" style={{ color: "rgba(255,255,255,0.85)" }}>
+                        <span style={{ color: accent }}>✦</span>{c}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                {/* Perks */}
+                <ul className="mt-3 space-y-1.5">
+                  {tier.perks.slice(0, 4).map((p) => (
+                    <li key={p} className="flex gap-2 text-xs" style={{ color: "rgba(255,255,255,0.60)" }}>
+                      <span style={{ color: accent }}>✓</span>{p}
+                    </li>
+                  ))}
+                </ul>
+
+                {/* CTA */}
+                <a
+                  href={tier.squarePayUrl ?? BOOKING_URL}
+                  target={tier.squarePayUrl ? undefined : "_blank"}
+                  rel={tier.squarePayUrl ? undefined : "noopener noreferrer"}
+                  className="mt-4 block w-full rounded-xl py-3.5 text-center font-bold text-white transition hover:brightness-110"
+                  style={{ background: `linear-gradient(135deg, ${accent} 0%, ${accent}bb 100%)` }}
+                >
+                  Join {tier.name}
+                </a>
+                <p className="mt-2 text-center text-[10px]" style={{ color: "rgba(255,255,255,0.25)" }}>
+                  No contracts · Cancel anytime
+                </p>
               </div>
             </div>
           );
         })}
       </div>
-      <p className="mt-6 text-center text-xs" style={{ color: "rgba(255,255,255,0.25)" }}>
-        Billed monthly via Square. Cancel anytime — call {CLIENT_APP.phone}.
+
+      {/* Compare button */}
+      <button
+        type="button"
+        onClick={() => setShowCompare(!showCompare)}
+        className="mt-5 w-full rounded-xl py-3 text-sm font-semibold text-white/60 transition hover:text-white/90"
+        style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.08)" }}
+      >
+        {showCompare ? "Hide" : "Show"} Comparison Table
+      </button>
+
+      {/* Comparison table */}
+      {showCompare && (
+        <div
+          className="mt-4 rounded-2xl overflow-hidden"
+          style={{ border: "1px solid rgba(255,255,255,0.08)" }}
+        >
+          <div className="grid grid-cols-4 text-center" style={{ background: "rgba(255,255,255,0.04)" }}>
+            <div className="p-3 text-left text-xs font-semibold text-white/40">Feature</div>
+            {[
+              { key: "glow", label: "🌸 Glow", color: "#FF2D8E" },
+              { key: "luxe", label: "💎 Luxe", color: "#3b82f6" },
+              { key: "platinum", label: "👑 Plat", color: "#f59e0b" },
+            ].map((t) => (
+              <div key={t.key} className="p-3 text-xs font-bold" style={{ color: t.color }}>
+                {t.label}
+              </div>
+            ))}
+          </div>
+          {MEMBERSHIP_COMPARISON_ROWS.map((row, i) => (
+            <div
+              key={row.label}
+              className="grid grid-cols-4 border-t"
+              style={{
+                borderColor: "rgba(255,255,255,0.06)",
+                background: i % 2 === 0 ? "rgba(255,255,255,0.015)" : "transparent",
+              }}
+            >
+              <div className="p-2.5 text-xs text-white/45">{row.label}</div>
+              {(["glow", "luxe", "platinum"] as const).map((key, ti) => (
+                <div
+                  key={key}
+                  className="p-2.5 text-center text-xs"
+                  style={{ color: ti === 0 ? "#FF2D8E" : ti === 1 ? "#3b82f6" : "#f59e0b" }}
+                >
+                  {row[key] === "—" ? <span className="text-white/20">—</span> : row[key]}
+                </div>
+              ))}
+            </div>
+          ))}
+        </div>
+      )}
+
+      {/* How it works */}
+      <div className="mt-8">
+        <h3 className="text-sm font-bold text-white mb-3">How It Works</h3>
+        <div className="space-y-3">
+          {[
+            { n: "1", t: "Choose your tier", d: "Sign up online in minutes" },
+            { n: "2", t: "Credits load the 1st", d: "Shots, facials & IV drips — auto-loaded monthly" },
+            { n: "3", t: "Save on every visit", d: "Botox discount + rewards on every dollar" },
+          ].map((s) => (
+            <div
+              key={s.n}
+              className="flex gap-3 rounded-xl p-3"
+              style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.06)" }}
+            >
+              <span
+                className="shrink-0 w-7 h-7 rounded-full flex items-center justify-center text-xs font-black text-white"
+                style={{ background: "rgba(255,45,142,0.25)" }}
+              >
+                {s.n}
+              </span>
+              <div>
+                <p className="text-xs font-semibold text-white">{s.t}</p>
+                <p className="text-xs text-white/45">{s.d}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Link to full page */}
+      <Link
+        href="/memberships"
+        className="mt-5 block w-full rounded-xl py-3 text-center text-sm font-semibold text-[#FF2D8E] transition hover:text-pink-300"
+        style={{ border: "1px solid rgba(255,45,142,0.25)", background: "rgba(255,45,142,0.06)" }}
+      >
+        View Full Membership Details →
+      </Link>
+
+      <p className="mt-4 text-center text-xs" style={{ color: "rgba(255,255,255,0.25)" }}>
+        Billed monthly. Cancel anytime — call {CLIENT_APP.phone}.
       </p>
     </div>
   );
