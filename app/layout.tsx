@@ -11,7 +11,7 @@ import { ConditionalLayout } from "@/components/ConditionalLayout";
 import { GoogleAnalytics } from "@/components/GoogleAnalytics";
 import { UtmSessionCapture } from "@/components/marketing/UtmSessionCapture";
 import { ContourLiftPageView } from "@/components/marketing/ContourLiftPageView";
-import { Consult49VitaminPopup } from "@/components/Consult49VitaminPopup";
+import { GetAppPopup } from "@/components/GetAppPopup";
 import { ClientErrorBoundary } from "@/components/ClientErrorBoundary";
 
 const inter = Inter({
@@ -198,7 +198,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             <UtmSessionCapture />
           </Suspense>
           <ContourLiftPageView />
-          <Consult49VitaminPopup />
+          <GetAppPopup />
           <AuthWrapper>
             <ConditionalLayout siteSettings={siteSettings ?? undefined} livePlace={livePlace}>
               {children}

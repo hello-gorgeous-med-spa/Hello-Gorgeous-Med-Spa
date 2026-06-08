@@ -7,6 +7,7 @@ import {
   HomepageTestimonials,
   HomepageClosingCTARow,
 } from "@/components/homepage-v3";
+import { GetAppHomeBand } from "@/components/homepage-v3/GetAppHomeBand";
 import { MeetDaniRyanSection } from "@/components/marketing/MeetDaniRyanSection";
 import { HomepageHydrafacialBanner } from "@/components/HomepageHydrafacialBanner";
 import { GiftCardShopSection } from "@/components/gift-cards/GiftCardShopSection";
@@ -147,6 +148,7 @@ export default function HomePage() {
 
       <main className="bg-black">
         <HeroV3 />
+        <GetAppHomeBand />
         <HomepageHydrafacialBanner />
         <TrustStrip />
         <ServicesSection />

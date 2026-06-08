@@ -205,7 +205,7 @@ export function Footer({
                 </Link>
               </li>
               <li>
-                <Link className="text-[#FF2D8E] hover:text-[#FF2D8E] font-bold transition-colors" href="/get-app">
+                <Link className="text-[#FF2D8E] hover:text-[#FF2D8E] font-bold transition-colors" href="/#get-the-app">
                   📱 Get the App (scan QR)
                 </Link>
               </li>
