@@ -88,7 +88,7 @@ function TierCard({
       {tier.footnote ? <p className="mt-4 text-xs text-gray-500">{tier.footnote}</p> : null}
 
       <a
-        href={BOOKING_URL}
+        href={tier.squarePayUrl ?? BOOKING_URL}
         target="_blank"
         rel="noopener noreferrer"
         className={`mt-6 block rounded-xl px-6 py-3 text-center text-sm font-bold transition-all ${

@@ -15,6 +15,7 @@ export type GentlemensClubTier = {
   perks: string[];
   highlight?: boolean;
   footnote?: string;
+  squarePayUrl?: string;
 };
 
 export const GENTLEMENS_CLUB_TIERS: GentlemensClubTier[] = [
@@ -31,6 +32,7 @@ export const GENTLEMENS_CLUB_TIERS: GentlemensClubTier[] = [
       "Discounted Brotox treatments",
     ],
     footnote: "No contracts. Cancel anytime.",
+    squarePayUrl: "https://square.link/u/8e9WK7ma",
   },
   {
     id: "the-distinguished-gentleman",
