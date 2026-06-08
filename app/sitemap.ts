@@ -149,6 +149,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     // Men's wellness hub + service pages
     {
+      url: `${baseUrl}/gentlemens-club`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.95,
+    },
+    {
       url: `${baseUrl}/mens-wellness`,
       lastModified: currentDate,
       changeFrequency: 'weekly',
