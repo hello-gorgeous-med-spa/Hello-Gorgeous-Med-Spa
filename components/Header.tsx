@@ -48,6 +48,34 @@ const NAV = {
             sub: "Classic · Baby Tox · Exosomes · Morpheus8",
             badge: "NEW",
           },
+          {
+            label: "Facials & Peels Menu",
+            href: "/services/facials-and-peels",
+            sub: "HydraFacial · dermaplaning · VI Peel · IPL",
+            badge: "NEW",
+          },
+          {
+            label: "Laser Hair Removal Menu",
+            href: "/services/laser-hair-removal",
+            sub: "Pay-per-session · memberships · spring specials",
+            badge: "NEW",
+          },
+        ],
+      },
+      {
+        heading: "Injectables",
+        links: [
+          {
+            label: "Injectables Menu",
+            href: "/services/injectables",
+            sub: "Botox $10 · fillers · lip · biostimulators",
+            badge: "NEW",
+          },
+          { label: "Botox & Neurotoxins", href: "/botox-oswego", sub: "All 5 FDA-approved brands · from $10/unit" },
+          { label: "Daxxify — 6-Month Neurotoxin", href: "/daxxify-oswego-il", sub: "Longest-lasting · peptide-powered · Oswego", badge: "NEW" },
+          { label: "Compare All 5 Neurotoxins", href: "/botox-vs-dysport-vs-jeuveau", sub: "Botox · Dysport · Jeuveau · Xeomin · Daxxify" },
+          { label: "Dermal Fillers", href: "/dermal-fillers-oswego", sub: "Lip, cheek & facial volume" },
+          { label: "Lip Filler", href: "/lip-filler-oswego", sub: "Natural lip enhancement · Oswego" },
         ],
       },
       {
@@ -60,27 +88,14 @@ const NAV = {
         ],
       },
       {
-        heading: "Injectables",
-        links: [
-          { label: "Botox & Neurotoxins", href: "/botox-oswego", sub: "All 5 FDA-approved brands · from $10/unit" },
-          {
-            label: "Daxxify — 6-Month Neurotoxin",
-            href: "/daxxify-oswego-il",
-            sub: "Longest-lasting · peptide-powered · Oswego",
-            badge: "NEW",
-          },
-          {
-            label: "Compare All 5 Neurotoxins",
-            href: "/botox-vs-dysport-vs-jeuveau",
-            sub: "Botox · Dysport · Jeuveau · Xeomin · Daxxify",
-          },
-          { label: "Dermal Fillers", href: "/dermal-fillers-oswego", sub: "Lip, cheek & facial volume" },
-          { label: "Lip Filler", href: "/lip-filler-oswego", sub: "Natural lip enhancement · Oswego" },
-        ],
-      },
-      {
         heading: "Medical & Wellness",
         links: [
+          {
+            label: "Wellness Menu",
+            href: "/services/wellness",
+            sub: "IV therapy · Vitamin Bar · NAD+ · peptides",
+            badge: "NEW",
+          },
           { label: "Injection Menu", href: "/injection-menu", sub: "Peptides & vitamin wellness shots", badge: "MENU" },
           { label: "NAD+ Injections", href: NAD_PLUS_INJECTIONS_PATH, sub: "$40 per visit · cellular energy · Oswego", badge: "NEW" },
           { label: "Medical Weight Loss", href: "/rx/metabolic", sub: "GLP-1 & supervised programs" },

@@ -1,18 +1,18 @@
 import type { Metadata } from "next";
 
 import { ServiceMenuPageLayout } from "@/components/services/ServiceMenuPageLayout";
-import { MICRONEEDLING_MENU } from "@/lib/microneedling-menu";
+import { INJECTABLES_MENU } from "@/lib/injectables-menu";
 import { breadcrumbJsonLd, faqJsonLd, pageMetadata, siteJsonLd, SITE } from "@/lib/seo";
 
-const PAGE_URL = `${SITE.url}${MICRONEEDLING_MENU.path}`;
+const PAGE_URL = `${SITE.url}${INJECTABLES_MENU.path}`;
 
 export const metadata: Metadata = pageMetadata({
-  title: MICRONEEDLING_MENU.metaTitle,
-  description: MICRONEEDLING_MENU.metaDescription,
-  path: MICRONEEDLING_MENU.path,
+  title: INJECTABLES_MENU.metaTitle,
+  description: INJECTABLES_MENU.metaDescription,
+  path: INJECTABLES_MENU.path,
 });
 
-export default function MicroneedlingMenuPage() {
+export default function InjectablesMenuPage() {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(siteJsonLd()) }} />
@@ -23,16 +23,16 @@ export default function MicroneedlingMenuPage() {
             breadcrumbJsonLd([
               { name: "Home", url: SITE.url },
               { name: "Services", url: `${SITE.url}/services` },
-              { name: "Microneedling Menu", url: PAGE_URL },
+              { name: "Injectables Menu", url: PAGE_URL },
             ])
           ),
         }}
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd(MICRONEEDLING_MENU.faqs, PAGE_URL)) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd(INJECTABLES_MENU.faqs, PAGE_URL)) }}
       />
-      <ServiceMenuPageLayout config={MICRONEEDLING_MENU} />
+      <ServiceMenuPageLayout config={INJECTABLES_MENU} />
     </>
   );
 }

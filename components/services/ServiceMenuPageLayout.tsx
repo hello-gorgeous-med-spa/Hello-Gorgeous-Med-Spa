@@ -5,17 +5,10 @@ import Link from "next/link";
 import { CTA } from "@/components/CTA";
 import { FadeUp, Section } from "@/components/Section";
 import { BOOKING_URL } from "@/lib/flows";
-import {
-  MICRONEEDLING_MENU_FAQS,
-  MICRONEEDLING_MENU_SECTIONS,
-} from "@/lib/microneedling-menu";
+import type { ServiceMenuConfig, ServiceMenuPriceRow, ServiceMenuSection } from "@/lib/service-menu-types";
 import { SITE } from "@/lib/seo";
 
-function PricingAccordion({
-  rows,
-}: {
-  rows: (typeof MICRONEEDLING_MENU_SECTIONS)[number]["pricing"];
-}) {
+function PricingAccordion({ rows }: { rows: ServiceMenuPriceRow[] }) {
   return (
     <details className="group mt-6 rounded-xl border border-white/10 bg-[#151922]/80 open:border-[#FF2D8E]/30">
       <summary className="flex cursor-pointer list-none items-center justify-between gap-3 px-4 py-3 text-sm font-bold uppercase tracking-wider text-[#7dd3fc] [&::-webkit-details-marker]:hidden">
@@ -45,13 +38,7 @@ function PricingAccordion({
   );
 }
 
-function MenuSection({
-  section,
-  index,
-}: {
-  section: (typeof MICRONEEDLING_MENU_SECTIONS)[number];
-  index: number;
-}) {
+function MenuSectionRow({ section, index }: { section: ServiceMenuSection; index: number }) {
   return (
     <FadeUp delayMs={index * 40}>
       <article className="border-b border-white/10 py-10 md:py-14 last:border-b-0">
@@ -96,7 +83,9 @@ function MenuSection({
   );
 }
 
-export function MicroneedlingServicePage() {
+export function ServiceMenuPageLayout({ config }: { config: ServiceMenuConfig }) {
+  const { hero, sections, faqs } = config;
+
   return (
     <div className="min-h-screen bg-[#0a0a0a] text-white">
       <div
@@ -113,31 +102,31 @@ export function MicroneedlingServicePage() {
       <Section className="relative border-b-4 border-black py-14 md:py-20 !px-0">
         <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center">
           <FadeUp>
-            <p className="text-xs font-bold uppercase tracking-[0.25em] text-[#FFB8DC]">Oswego, IL · NP on site 7 days</p>
+            <p className="text-xs font-bold uppercase tracking-[0.25em] text-[#FFB8DC]">{hero.eyebrow}</p>
             <h1 className="mt-4 text-4xl md:text-6xl font-black leading-tight">
-              Microneedling{" "}
+              {hero.titleBefore ? `${hero.titleBefore} ` : null}
               <span
                 className="bg-gradient-to-r from-[#FFB8DC] via-[#FF2D8E] to-[#E6007E] bg-clip-text text-transparent"
                 style={{ WebkitBackgroundClip: "text" }}
               >
-                Menu
+                {hero.titleAccent}
               </span>
+              {hero.titleAfter ? ` ${hero.titleAfter}` : null}
             </h1>
-            <p className="mx-auto mt-4 max-w-2xl text-lg text-white/75 leading-relaxed">
-              Classic collagen induction, Baby Tox Luxe, AnteAGE exosomes, and Morpheus8 Burst RF — one clean menu.
-              Serving Oswego, Naperville, Aurora &amp; Plainfield.
-            </p>
+            <p className="mx-auto mt-4 max-w-2xl text-lg text-white/75 leading-relaxed">{hero.subtitle}</p>
             <div className="mt-8 flex flex-col sm:flex-row flex-wrap justify-center gap-3">
-              <CTA href={BOOKING_URL} variant="gradient" className="!px-8 !py-4">
-                Book consultation
+              <CTA href={hero.primaryCta?.href ?? BOOKING_URL} variant="gradient" className="!px-8 !py-4">
+                {hero.primaryCta?.label ?? "Book consultation"}
               </CTA>
-              <CTA
-                href="/services/microneedling-rf"
-                variant="outline"
-                className="!border-[#FF2D8E] !text-[#FFB8DC] hover:!bg-[#FF2D8E] hover:!text-white !px-8 !py-4"
-              >
-                RF microneedling guide
-              </CTA>
+              {hero.secondaryCta ? (
+                <CTA
+                  href={hero.secondaryCta.href}
+                  variant="outline"
+                  className="!border-[#FF2D8E] !text-[#FFB8DC] hover:!bg-[#FF2D8E] hover:!text-white !px-8 !py-4"
+                >
+                  {hero.secondaryCta.label}
+                </CTA>
+              ) : null}
             </div>
           </FadeUp>
         </div>
@@ -145,31 +134,33 @@ export function MicroneedlingServicePage() {
 
       <Section className="!px-0 py-4 md:py-8">
         <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-          {MICRONEEDLING_MENU_SECTIONS.map((section, i) => (
-            <MenuSection key={section.id} section={section} index={i} />
+          {sections.map((section, i) => (
+            <MenuSectionRow key={section.id} section={section} index={i} />
           ))}
         </div>
       </Section>
 
-      <Section className="border-t-4 border-black bg-[#0a0a0a] py-12 md:py-16 !px-0">
-        <div className="mx-auto max-w-3xl px-4 sm:px-6">
-          <FadeUp>
-            <h2 className="text-center font-serif text-2xl md:text-3xl text-white">Common questions</h2>
-          </FadeUp>
-          <div className="mt-8 space-y-3">
-            {MICRONEEDLING_MENU_FAQS.map((faq, i) => (
-              <FadeUp key={faq.question} delayMs={i * 30}>
-                <details className="rounded-xl border border-white/10 bg-[#151922] open:border-[#FF2D8E]/30">
-                  <summary className="cursor-pointer list-none px-5 py-4 text-sm font-bold text-[#FFB8DC] [&::-webkit-details-marker]:hidden">
-                    {faq.question}
-                  </summary>
-                  <p className="border-t border-white/10 px-5 py-4 text-sm leading-relaxed text-gray-400">{faq.answer}</p>
-                </details>
-              </FadeUp>
-            ))}
+      {faqs.length > 0 ? (
+        <Section className="border-t-4 border-black bg-[#0a0a0a] py-12 md:py-16 !px-0">
+          <div className="mx-auto max-w-3xl px-4 sm:px-6">
+            <FadeUp>
+              <h2 className="text-center font-serif text-2xl md:text-3xl text-white">Common questions</h2>
+            </FadeUp>
+            <div className="mt-8 space-y-3">
+              {faqs.map((faq, i) => (
+                <FadeUp key={faq.question} delayMs={i * 30}>
+                  <details className="rounded-xl border border-white/10 bg-[#151922] open:border-[#FF2D8E]/30">
+                    <summary className="cursor-pointer list-none px-5 py-4 text-sm font-bold text-[#FFB8DC] [&::-webkit-details-marker]:hidden">
+                      {faq.question}
+                    </summary>
+                    <p className="border-t border-white/10 px-5 py-4 text-sm leading-relaxed text-gray-400">{faq.answer}</p>
+                  </details>
+                </FadeUp>
+              ))}
+            </div>
           </div>
-        </div>
-      </Section>
+        </Section>
+      ) : null}
 
       <Section className="bg-gradient-to-br from-[#FF2D8E] via-[#E6007E] to-[#9b0a4d] border-t-4 border-black py-14 md:py-16 !px-0">
         <div className="mx-auto max-w-3xl px-6 text-center">
