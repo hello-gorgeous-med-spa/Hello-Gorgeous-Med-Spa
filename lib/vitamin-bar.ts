@@ -270,6 +270,7 @@ export const VITAMIN_MEMBERSHIPS: VitaminMembership[] = [
     ],
     highlight: true,
     rolloverNote: "💡 Unused facial credit never expires — bank it and use it toward a more advanced treatment whenever you're ready.",
+    squarePayUrl: "https://square.link/u/08iH8Zae",
   },
   {
     id: "lash-fill-membership",
@@ -285,6 +286,7 @@ export const VITAMIN_MEMBERSHIPS: VitaminMembership[] = [
       "10% off any other service",
     ],
     rolloverNote: "💡 Fills must be used within the same month. Biotin injections roll over up to 2.",
+    squarePayUrl: "https://square.link/u/NZwGXnML",
   },
 ];
 
