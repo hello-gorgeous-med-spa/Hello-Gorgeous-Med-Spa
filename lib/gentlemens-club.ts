@@ -46,6 +46,7 @@ export const GENTLEMENS_CLUB_TIERS: GentlemensClubTier[] = [
       "Exclusive member events",
     ],
     footnote: "For the man serious about optimization.",
+    squarePayUrl: "https://square.link/u/uemvpZVN",
   },
 ];
 
