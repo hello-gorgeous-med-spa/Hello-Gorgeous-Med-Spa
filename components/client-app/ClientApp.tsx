@@ -25,6 +25,7 @@ import {
 } from "@/lib/vitamin-bar";
 import { HG_MEMBERSHIPS, MEMBERSHIP_COMPARISON_ROWS } from "@/lib/hg-memberships";
 import { squareGiftCardUrl, GIFT_CARD_DESIGNS, GIFT_CARD_PRESET_AMOUNTS } from "@/lib/gift-cards";
+import { GENTLEMENS_CLUB_HERO_IMAGES } from "@/lib/gentlemens-club";
 import {
   ClientAppIntakeCard,
   ClientAppIntakeForm,
@@ -1440,7 +1441,36 @@ const FOR_HIM_SERVICES = [
 function ForHimTab() {
   return (
     <div className="py-5">
-      {/* Hero */}
+      {/* Flyer hero — membership + Father's Day */}
+      <div className="mb-5 grid grid-cols-2 gap-2.5">
+        {GENTLEMENS_CLUB_HERO_IMAGES.map((flyer, i) => (
+          <a
+            key={flyer.src}
+            href="/gentlemens-club"
+            className="group relative overflow-hidden rounded-2xl border-2 border-black shadow-[4px_4px_0_0_rgba(255,45,142,0.35)] transition-transform duration-300 active:scale-[0.98]"
+          >
+            <div className="relative aspect-[3/4] w-full">
+              <Image
+                src={flyer.src}
+                alt={flyer.alt}
+                fill
+                className="object-cover object-center transition-transform duration-500 group-hover:scale-105"
+                sizes="(max-width: 480px) 45vw, 220px"
+                priority={i === 0}
+              />
+              <div
+                className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent"
+                aria-hidden
+              />
+              <p className="absolute bottom-0 left-0 right-0 px-2 py-2 text-center text-[8px] font-bold uppercase tracking-wider text-white/90">
+                {flyer.label}
+              </p>
+            </div>
+          </a>
+        ))}
+      </div>
+
+      {/* Hero copy + CTA */}
       <div className="relative rounded-3xl overflow-hidden mb-6 px-5 py-7"
         style={{ background: "linear-gradient(135deg, #030712 0%, rgba(15,23,42,0.95) 60%, rgba(30,58,138,0.15) 100%)", border: "1px solid rgba(59,130,246,0.2)" }}>
         {/* Blue glow */}
