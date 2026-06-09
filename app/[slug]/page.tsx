@@ -39,7 +39,12 @@ import { getLiveAggregateRating } from "@/lib/seo/google-places";
 /** Canonical local URLs that should render the IV drip menu page. */
 const IV_THERAPY_PUBLIC_SLUGS = new Set(["iv-therapy-oswego-il", "iv-therapy-oswego"]);
 
-const ALL_LOCAL_SLUGS = [...GBP_SERVICE_SLUGS, ...MED_SPA_LOCATION_SLUGS, ...SERVICE_PAGE_OSWEGO_SLUGS];
+/** Slugs with dedicated app/{slug}/page.tsx — excluded from [slug] catch-all. */
+const DEDICATED_LOCAL_PAGE_SLUGS = new Set(["botox-oswego"]);
+
+const ALL_LOCAL_SLUGS = [...GBP_SERVICE_SLUGS, ...MED_SPA_LOCATION_SLUGS, ...SERVICE_PAGE_OSWEGO_SLUGS].filter(
+  (s) => !DEDICATED_LOCAL_PAGE_SLUGS.has(s)
+);
 
 // Far-flung cities with no unique local content — Google was crawling these
 // thin templated pages and refusing to index them ("Crawled - currently not
