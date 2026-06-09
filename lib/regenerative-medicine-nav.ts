@@ -49,14 +49,16 @@ export const REGENERATIVE_NAV: {
       heading: "PRP & PRF (Your Own Biology)",
       links: [
         {
-          label: "PRP Therapy",
+          label: "PRP Therapy Menu",
           href: "/services/prp",
-          sub: "Platelet-rich plasma for skin, scalp & targeted renewal",
+          sub: "Skin · scalp · joint — platelet-rich plasma protocols",
+          badge: "MENU",
         },
         {
-          label: "PRF / PRP",
+          label: "PRF / PRP Menu",
           href: "/services/prf-prp",
-          sub: "Longer-release fibrin scaffold · under-eye & texture",
+          sub: "Under-eye $500 · hair $600 · EZ PRF Gel",
+          badge: "MENU",
         },
         {
           label: "EZ PRF Gel",

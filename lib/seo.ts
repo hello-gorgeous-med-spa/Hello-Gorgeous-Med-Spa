@@ -818,6 +818,7 @@ export const SERVICES: readonly Service[] = [
   },
   {
     slug: "prp",
+    publicPath: "/services/prp",
     name: "PRP",
     category: "Regenerative",
     short: "Platelet-rich plasma treatments for targeted regenerative support.",
@@ -923,6 +924,7 @@ export const SERVICES: readonly Service[] = [
   },
   {
     slug: "prf-prp",
+    publicPath: "/services/prf-prp",
     name: "PRF / PRP",
     category: "Regenerative",
     short:
