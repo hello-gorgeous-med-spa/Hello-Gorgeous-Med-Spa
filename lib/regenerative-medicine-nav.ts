@@ -64,9 +64,10 @@ export const REGENERATIVE_NAV: {
           sub: "Injectable gel format for natural rejuvenation",
         },
         {
-          label: "PRP Facial",
+          label: "PRP Facial Menu",
           href: "/services/prp-facial",
-          sub: "Tone, texture & glow using your growth factors",
+          sub: "Vampire Facial · Express · microneedling + PRP pricing",
+          badge: "MENU",
         },
       ],
     },

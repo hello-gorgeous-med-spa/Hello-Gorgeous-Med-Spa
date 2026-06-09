@@ -844,6 +844,7 @@ export const SERVICES: readonly Service[] = [
   },
   {
     slug: "prp-facial",
+    publicPath: "/services/prp-facial",
     name: "PRP Facial",
     category: "Regenerative",
     short: "Skin revitalization using PRP to support tone, texture, and glow.",
