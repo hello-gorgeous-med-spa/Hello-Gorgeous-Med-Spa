@@ -49,6 +49,10 @@ const DEDICATED_LOCAL_PAGE_SLUGS = new Set([
   "morpheus8-burst-oswego",
   "solaria-co2-oswego",
   "quantum-rf-oswego",
+  "glp-1-weight-loss-oswego",
+  "semaglutide-oswego",
+  "tirzepatide-oswego",
+  "biote-hormone-therapy-oswego",
 ]);
 
 const ALL_LOCAL_SLUGS = [...GBP_SERVICE_SLUGS, ...MED_SPA_LOCATION_SLUGS, ...SERVICE_PAGE_OSWEGO_SLUGS].filter(
