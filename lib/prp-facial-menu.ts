@@ -93,7 +93,7 @@ export const PRP_FACIAL_MENU: ServiceMenuConfig = {
         { label: "PRF under-eye", price: "$500", href: "/services/prf-prp", note: "45 min · area dependent" },
         { label: "PRF hair restoration", price: "$600", href: "/services/prf-prp", note: "75 min · series recommended" },
         { label: "PRP / PRF treatments overview", price: "Consult", href: "/services/prf-prp" },
-        { label: "EZ PRF Gel", price: "Consult", href: "/services/ez-prf-gel" },
+        { label: "EZ PRF Gel", price: "From $500", href: "/services/ez-prf-gel" },
         { label: "PRP therapy (skin · scalp · joint)", price: "Consult", href: "/services/prp" },
       ],
       learnMoreHref: "/services/prf-prp",

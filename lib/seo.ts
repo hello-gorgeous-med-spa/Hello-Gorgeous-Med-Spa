@@ -791,6 +791,7 @@ export const SERVICES: readonly Service[] = [
   },
   {
     slug: "ez-prf-gel",
+    publicPath: "/services/ez-prf-gel",
     name: "EZ PRF Gel",
     category: "Regenerative",
     short:

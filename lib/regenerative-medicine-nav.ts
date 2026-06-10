@@ -61,9 +61,10 @@ export const REGENERATIVE_NAV: {
           badge: "MENU",
         },
         {
-          label: "EZ PRF Gel",
+          label: "EZ PRF Gel Menu",
           href: "/services/ez-prf-gel",
-          sub: "Injectable gel format for natural rejuvenation",
+          sub: "Injectable fibrin gel · regenerative volume without filler",
+          badge: "MENU",
         },
         {
           label: "PRP Facial Menu",

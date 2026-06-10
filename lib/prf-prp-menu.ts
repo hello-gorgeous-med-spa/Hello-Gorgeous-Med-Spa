@@ -91,8 +91,8 @@ export const PRF_PRP_MENU: ServiceMenuConfig = {
         "NP maps candidacy at consult",
       ],
       pricing: [
-        { label: "EZ PRF Gel", price: "Consult", href: "/services/ez-prf-gel" },
-        { label: "EZ PRF Gel treatment page", price: "Learn →", href: "/services/ez-prf-gel" },
+        { label: "EZ PRF Gel", price: "From $500", href: "/services/ez-prf-gel" },
+        { label: "EZ PRF Gel menu", price: "Menu →", href: "/services/ez-prf-gel" },
       ],
       learnMoreHref: "/services/ez-prf-gel",
     },
