@@ -53,6 +53,8 @@ const DEDICATED_LOCAL_PAGE_SLUGS = new Set([
   "semaglutide-oswego",
   "tirzepatide-oswego",
   "biote-hormone-therapy-oswego",
+  "testosterone-replacement-oswego",
+  "peptide-therapy-oswego",
 ]);
 
 const ALL_LOCAL_SLUGS = [...GBP_SERVICE_SLUGS, ...MED_SPA_LOCATION_SLUGS, ...SERVICE_PAGE_OSWEGO_SLUGS].filter(

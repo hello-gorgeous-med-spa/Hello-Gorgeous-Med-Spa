@@ -153,6 +153,108 @@ export const TIRZEPATIDE_OSWEGO_MENU = buildOswegoMenu("tirzepatide-oswego", {
   ],
 });
 
+export const TRT_OSWEGO_MENU = buildOswegoMenu("testosterone-replacement-oswego", {
+  eyebrow: "Oswego, IL · NP-supervised men's hormone medicine",
+  titleBefore: "TRT in Oswego, IL —",
+  titleAccent: "Pellets, Injections or Cream",
+  secondaryCta: { label: "BioTE hormone menu", href: "/biote-hormone-therapy-oswego" },
+  pricingTitle: "TRT program pricing",
+  pricingHighlights: [
+    "Weekly injections from $200–$350/month all-inclusive",
+    "BioTE pellets $750–$1,200 per insertion (every 4–6 months)",
+    "Topical cream programs $150–$300/month",
+    "Baseline lab panel ~$250–$450 — we never dose blind",
+    "HSA/FSA-compatible receipts · reimbursement docs on request",
+  ],
+  pricingRows: [
+    { label: "Weekly injections", price: "$200–$350/mo", note: "Most cost-effective · steady levels" },
+    { label: "BioTE pellets", price: "$750–$1,200", href: "/biote-hormone-therapy-oswego", note: "Set-and-forget for 4–6 months" },
+    { label: "Topical cream", price: "$150–$300/mo", note: "Easy to start & stop · daily application" },
+    { label: "Baseline labs", price: "$250–$450", note: "Total & free T, estradiol, PSA, hematocrit" },
+  ],
+  pricingBadge: "MEN'S HEALTH",
+  howItWorksHighlights: [
+    "Restores testosterone to an age-appropriate clinical level",
+    "Three delivery methods — we help you pick what fits your life",
+    "Energy, mood, libido, body composition & sleep all in scope",
+    "Repeat labs at 6–8 weeks, then every 3–6 months",
+    "Fertility implications discussed BEFORE you start",
+  ],
+  howItWorksLinks: [
+    { label: "BioTE pellet therapy in depth", price: "Menu →", href: "/biote-hormone-therapy-oswego" },
+    { label: "Peptide therapy — recovery & longevity", price: "Menu →", href: "/peptide-therapy-oswego" },
+  ],
+  howItWorksLearnMore: "/biote-hormone-therapy-oswego",
+  careGuideHref: "/pre-post-care/hormone-therapy",
+  treatmentTime: "Labs first",
+  whyRows: [
+    { label: "Free consultation", price: "Always", note: "Symptoms alone aren't enough — labs decide" },
+    { label: "Ongoing monitoring", price: "Included", note: "PSA & hematocrit watched at every interval" },
+    { label: "Borderline numbers?", price: "Honest talk", note: "We don't push TRT when it isn't indicated" },
+  ],
+  whatToExpectDescription:
+    "Free consult, comprehensive baseline labs, NP lab review, delivery-method selection based on your lifestyle, then repeat labs at 6–8 weeks and every 3–6 months — medicine, not a marketing funnel.",
+  relatedDescription:
+    "Low T rarely travels alone — sleep, weight, and recovery often need attention in the same plan. We map the full picture at consult.",
+  relatedHighlights: [
+    "BioTE pellets when convenience leads",
+    "Peptides for recovery & sleep alongside TRT",
+    "GLP-1 weight loss when weight is part of the picture",
+    "IV therapy for energy & hydration support",
+  ],
+});
+
+export const PEPTIDE_THERAPY_OSWEGO_MENU = buildOswegoMenu("peptide-therapy-oswego", {
+  eyebrow: "Oswego, IL · Prescription peptides, NP-supervised",
+  titleBefore: "Peptide Therapy —",
+  titleAccent: "$49 Consult",
+  secondaryCta: WELLNESS_SECONDARY,
+  pricingTitle: "Peptide protocol pricing",
+  pricingHighlights: [
+    "$49 peptide consultation with the medical team",
+    "Monthly protocols typically $250–$600 by peptide & supply",
+    "BPC-157 · Sermorelin · GHK-Cu · NAD+ · PT-141 & more",
+    "Licensed US compounding pharmacies only — never research-grade",
+    "Complete transparent pricing before any commitment",
+  ],
+  pricingRows: [
+    { label: "Peptide consultation", price: "$49", note: "Goals, history & protocol design" },
+    { label: "Monthly protocols", price: "$250–$600", note: "By peptide & supply length" },
+    { label: "NAD+ IV infusions", price: "From $400", href: "/nad-iv-oswego", note: "Series pricing available" },
+    { label: "Full wellness menu", price: "Menu →", href: "/services/wellness" },
+  ],
+  pricingBadge: "$49 CONSULT",
+  howItWorksHighlights: [
+    "Short amino-acid chains that signal specific cells",
+    "Recovery · sleep · skin · libido · lean muscle · longevity",
+    "Small subcutaneous self-injections, several times weekly",
+    "Dosing, cycling & combinations set by your NP",
+    "Sleep effects in 1–2 weeks · skin & longevity 8–12 weeks",
+  ],
+  howItWorksLinks: [
+    { label: "NAD+ IV — the cellular energy infusion", price: "Learn →", href: "/nad-iv-oswego" },
+    { label: "GLP-1s are peptides too — weight loss menu", price: "Menu →", href: "/glp-1-weight-loss-oswego" },
+  ],
+  howItWorksLearnMore: "/services/wellness",
+  careGuideHref: "/pre-post-care",
+  treatmentTime: "Self-injected",
+  whyRows: [
+    { label: "Consultation", price: "$49", note: "Applied honestly — no obligation to start" },
+    { label: "Follow-up & dose adjustment", price: "Included", note: "Peptides are iterative — we stay involved" },
+    { label: "Sourcing", price: "US pharmacies", note: "No internet vials, no gray market" },
+  ],
+  whatToExpectDescription:
+    "A $49 consult, labs if indicated, a written protocol with dose, frequency and cycle, self-injection training, then follow-ups to adjust as your body responds.",
+  relatedDescription:
+    "Peptides slot into bigger plans — weight loss, hormones, and IV therapy each cover what peptides alone can't.",
+  relatedHighlights: [
+    "NAD+ IV for cellular energy & clarity",
+    "GLP-1 programs when weight is the primary goal",
+    "BioTE / TRT when hormones are the bottleneck",
+    "Vitamin Bar shots from $25 for quick boosts",
+  ],
+});
+
 export const BIOTE_HORMONE_OSWEGO_MENU = buildOswegoMenu("biote-hormone-therapy-oswego", {
   eyebrow: "Oswego, IL · BioTE Certified Provider",
   titleBefore: "BioTE Hormone Therapy —",
