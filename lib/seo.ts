@@ -873,6 +873,7 @@ export const SERVICES: readonly Service[] = [
   },
   {
     slug: "prp-joint-injections",
+    publicPath: "/services/prp-joint-injections",
     name: "PRP Joint Injections",
     category: "Regenerative",
     short: "PRP-based regenerative support for targeted joint-focused protocols.",

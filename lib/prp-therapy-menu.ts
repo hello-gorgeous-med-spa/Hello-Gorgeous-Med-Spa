@@ -93,7 +93,7 @@ export const PRP_THERAPY_MENU: ServiceMenuConfig = {
       ],
       pricing: [
         { label: "PRP — Joint / Body", price: "Consult", note: "Quoted after medical evaluation" },
-        { label: "PRP joint injections overview", price: "Learn →", href: "/services/prp-joint-injections" },
+        { label: "PRP joint injections menu", price: "Menu →", href: "/services/prp-joint-injections" },
       ],
       learnMoreHref: "/services/prp-joint-injections",
       badge: "MEDICAL",

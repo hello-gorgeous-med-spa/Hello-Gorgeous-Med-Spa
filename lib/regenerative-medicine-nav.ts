@@ -73,6 +73,12 @@ export const REGENERATIVE_NAV: {
           badge: "MENU",
         },
         {
+          label: "PRP Joint Injections Menu",
+          href: "/services/prp-joint-injections",
+          sub: "Joint pain · tendon recovery · sports injuries — consult required",
+          badge: "MENU",
+        },
+        {
           label: "Pre & post PRP/PRF care",
           href: "/pre-post-care/prp-prf",
           sub: "Download healing guides before your visit",

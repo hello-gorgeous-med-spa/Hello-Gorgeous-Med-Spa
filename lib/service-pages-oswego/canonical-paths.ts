@@ -17,10 +17,8 @@ export const SERVICE_SLUG_TO_OSWEGO_PATH: Record<string, string> = {
   "chemical-peels": "/chemical-peel-oswego",
   "hydra-facial": "/facials-oswego",
   "geneo-facial": "/facials-oswego",
-  "prp": "/prp-oswego",
-  "prp-facial": "/prp-oswego",
-  "prp-joint-injections": "/prp-oswego",
-  "prf-prp": "/prp-oswego",
+  // prp / prp-facial / prp-joint-injections / prf-prp intentionally NOT mapped —
+  // they now have dedicated dark menu hubs at /services/* (see publicPath in lib/seo.ts).
 };
 
 /** Oswego city chips in LocationsServed — direct canonical paths (no GBP redirect slugs). */

@@ -2,27 +2,35 @@ import type { ServiceMenuConfig, ServiceMenuPriceRow } from "@/lib/service-menu-
 import { BOOKING_URL } from "@/lib/flows";
 import { getServicePageOswego } from "@/lib/service-pages-oswego";
 
-/** Builds the standard 5-section dark menu config from phase-2 Oswego landing copy. */
-function buildOswegoMenu(
-  slug: string,
-  custom: {
-    eyebrow: string;
-    titleBefore: string;
-    titleAccent: string;
-    pricingTitle: string;
-    pricingHighlights: string[];
-    pricingRows: ServiceMenuPriceRow[];
-    pricingBadge?: string;
-    howItWorksHighlights: string[];
-    howItWorksLinks: ServiceMenuPriceRow[];
-    howItWorksLearnMore: string;
-    careGuideHref: string;
-    treatmentTime: string;
-    relatedDescription: string;
-    relatedHighlights: string[];
-  }
-): ServiceMenuConfig {
+export type OswegoMenuCustom = {
+  eyebrow: string;
+  titleBefore: string;
+  titleAccent: string;
+  pricingTitle: string;
+  pricingHighlights: string[];
+  pricingRows: ServiceMenuPriceRow[];
+  pricingBadge?: string;
+  howItWorksHighlights: string[];
+  howItWorksLinks: ServiceMenuPriceRow[];
+  howItWorksLearnMore: string;
+  careGuideHref: string;
+  treatmentTime: string;
+  relatedDescription: string;
+  relatedHighlights: string[];
+  /** Defaults to the injectables menu. */
+  secondaryCta?: { label: string; href: string };
+  /** Defaults to the injectables menu. */
+  pricingLearnMore?: string;
+  /** Overrides the standard consult/touch-up/same-day rows in section 02. */
+  whyRows?: ServiceMenuPriceRow[];
+  /** Overrides the injectable-flavored section 04 description. */
+  whatToExpectDescription?: string;
+};
+
+/** Builds the standard 5-section dark menu config from Oswego landing copy. */
+export function buildOswegoMenu(slug: string, custom: OswegoMenuCustom): ServiceMenuConfig {
   const page = getServicePageOswego(slug)!;
+  const secondaryCta = custom.secondaryCta ?? { label: "Full injectables menu", href: "/services/injectables" };
 
   return {
     path: `/${slug}`,
@@ -34,7 +42,7 @@ function buildOswegoMenu(
       titleAccent: custom.titleAccent,
       subtitle: page.valueProp,
       primaryCta: { label: "Book free consult", href: page.bookingUrl ?? BOOKING_URL },
-      secondaryCta: { label: "Full injectables menu", href: "/services/injectables" },
+      secondaryCta,
     },
     sections: [
       {
@@ -44,7 +52,7 @@ function buildOswegoMenu(
         description: page.pricing ?? page.heroContent ?? "",
         highlights: custom.pricingHighlights,
         pricing: custom.pricingRows,
-        learnMoreHref: "/services/injectables",
+        learnMoreHref: custom.pricingLearnMore ?? secondaryCta.href,
         badge: custom.pricingBadge,
       },
       {
@@ -54,7 +62,7 @@ function buildOswegoMenu(
         description:
           "Family-owned, NP-directed, and here longer than most competitors have been open — same experienced hands, authentic product, honest pricing.",
         highlights: page.whyBullets,
-        pricing: [
+        pricing: custom.whyRows ?? [
           { label: "Free consultation", price: "Always", note: "Every visit — no pressure to commit" },
           { label: "2-week follow-up", price: "Included", note: "Complimentary touch-up for true asymmetry" },
           { label: "Same-day appointments", price: "Often yes", note: "Call before noon — 630-636-6193" },
@@ -75,6 +83,7 @@ function buildOswegoMenu(
         number: "04",
         title: "What to expect at your appointment",
         description:
+          custom.whatToExpectDescription ??
           "From free consult to 2-week follow-up — clear steps, written aftercare, and a complimentary touch-up window when clinically appropriate.",
         highlights: page.whatToExpectSteps,
         pricing: [
@@ -93,7 +102,7 @@ function buildOswegoMenu(
           const relPage = getServicePageOswego(rel);
           return { label: relPage?.serviceName ?? rel, price: "Learn →", href: `/${rel}` };
         }),
-        learnMoreHref: "/services/injectables",
+        learnMoreHref: secondaryCta.href,
       },
     ],
     faqs: page.faqs.map((f) => ({ question: f.q, answer: f.a })),

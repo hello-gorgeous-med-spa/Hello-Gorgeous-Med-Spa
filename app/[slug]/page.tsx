@@ -46,6 +46,9 @@ const DEDICATED_LOCAL_PAGE_SLUGS = new Set([
   "jeuveau-oswego",
   "dermal-fillers-oswego",
   "lip-filler-oswego",
+  "morpheus8-burst-oswego",
+  "solaria-co2-oswego",
+  "quantum-rf-oswego",
 ]);
 
 const ALL_LOCAL_SLUGS = [...GBP_SERVICE_SLUGS, ...MED_SPA_LOCATION_SLUGS, ...SERVICE_PAGE_OSWEGO_SLUGS].filter(
