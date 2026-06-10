@@ -40,7 +40,13 @@ import { getLiveAggregateRating } from "@/lib/seo/google-places";
 const IV_THERAPY_PUBLIC_SLUGS = new Set(["iv-therapy-oswego-il", "iv-therapy-oswego"]);
 
 /** Slugs with dedicated app/{slug}/page.tsx — excluded from [slug] catch-all. */
-const DEDICATED_LOCAL_PAGE_SLUGS = new Set(["botox-oswego"]);
+const DEDICATED_LOCAL_PAGE_SLUGS = new Set([
+  "botox-oswego",
+  "dysport-oswego",
+  "jeuveau-oswego",
+  "dermal-fillers-oswego",
+  "lip-filler-oswego",
+]);
 
 const ALL_LOCAL_SLUGS = [...GBP_SERVICE_SLUGS, ...MED_SPA_LOCATION_SLUGS, ...SERVICE_PAGE_OSWEGO_SLUGS].filter(
   (s) => !DEDICATED_LOCAL_PAGE_SLUGS.has(s)
