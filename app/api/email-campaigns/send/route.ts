@@ -1,6 +1,8 @@
 import { randomUUID } from "node:crypto";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
+
+import { requireMarketingAccess } from "@/lib/api-auth";
 
 interface Recipient {
   email: string;
@@ -49,7 +51,10 @@ function personalizeContent(template: string, recipient: Recipient, unsubscribeU
     .replace(/\{\{unsubscribe_url\}\}/g, unsubscribeUrl);
 }
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
+  const auth = requireMarketingAccess(request);
+  if ("error" in auth) return auth.error;
+
   try {
     const body: SendCampaignRequest = await request.json();
     const { subject, fromName, fromEmail, replyTo, htmlContent, recipients } = body;

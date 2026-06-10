@@ -6,6 +6,7 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
+import { requireMarketingAccess } from '@/lib/api-auth';
 import { sendCampaign } from '@/lib/hgos/sms-marketing';
 import type { SMSCampaign } from '@/lib/hgos/sms-marketing';
 import { getTwilioSmsConfig, isTwilioConfigured } from '@/lib/hgos/twilio-config';
@@ -38,6 +39,9 @@ function normalizePhones(rawPhones: string[]): string[] {
 }
 
 export async function POST(request: NextRequest) {
+  const auth = requireMarketingAccess(request);
+  if ("error" in auth) return auth.error;
+
   if (!isTwilioConfigured()) {
     return NextResponse.json(
       { error: 'Twilio not configured. Set TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN, TWILIO_PHONE_NUMBER.' },

@@ -1,12 +1,17 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
+
+import { requireMarketingAccess } from "@/lib/api-auth";
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
   process.env.SUPABASE_SERVICE_ROLE_KEY!
 );
 
-export async function GET() {
+export async function GET(request: NextRequest) {
+  const auth = requireMarketingAccess(request);
+  if ("error" in auth) return auth.error;
+
   try {
     const { data: campaigns, error } = await supabase
       .from("email_campaigns")
@@ -26,7 +31,10 @@ export async function GET() {
   }
 }
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
+  const auth = requireMarketingAccess(request);
+  if ("error" in auth) return auth.error;
+
   try {
     const body = await request.json();
     const { name, subject, recipientCount, status } = body;

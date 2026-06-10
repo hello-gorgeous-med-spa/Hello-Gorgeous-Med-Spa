@@ -80,6 +80,23 @@ export function requireAuth(request: NextRequest): AuthResult {
 }
 
 /**
+ * Marketing blast routes (email/SMS campaigns): owner, admin, or staff only.
+ * Protects sender reputation and Twilio/Resend spend from anonymous callers.
+ */
+export function requireMarketingAccess(
+  request: NextRequest
+): { user: ApiUser } | { error: NextResponse } {
+  const user = getUserFromRequest(request);
+  if (!user) {
+    return { error: unauthorizedResponse() };
+  }
+  if (user.role !== "owner" && user.role !== "admin" && user.role !== "staff") {
+    return { error: forbiddenResponse("Staff access required") };
+  }
+  return { user };
+}
+
+/**
  * Same rule as middleware for `/provider/*`: owner, admin, staff, or provider — not client or readonly.
  * Use on clinical/provider APIs so unauthenticated callers cannot read or mutate data.
  */
