@@ -34,7 +34,7 @@ export const REGENERATIVE_NAV: {
         {
           label: "Microneedling Menu",
           href: "/services/microneedling",
-          sub: "AnteAGE HA · growth factors · exosomes · Morpheus8",
+          sub: "Classic $249 · Baby Tox · exosomes · Morpheus8 from $850",
           badge: "MENU",
         },
         {
@@ -69,13 +69,23 @@ export const REGENERATIVE_NAV: {
         {
           label: "PRP Facial Menu",
           href: "/services/prp-facial",
-          sub: "Vampire Facial · Express · microneedling + PRP pricing",
+          sub: "Vampire Facial $400 · Express · microneedling + PRP $500",
           badge: "MENU",
+        },
+        {
+          label: "Pre & post PRP/PRF care",
+          href: "/pre-post-care/prp-prf",
+          sub: "Download healing guides before your visit",
         },
       ],
     },
   ],
 };
+
+/** Menu hub pages — dark numbered layouts with pricing accordions. */
+export const REGENERATIVE_MENU_HUBS: RegenerativeNavLink[] = REGENERATIVE_NAV.sections
+  .flatMap((s) => s.links)
+  .filter((l) => l.badge === "MENU");
 
 /** Flat list for mobile nav / active-state checks. */
 export const REGENERATIVE_NAV_FLAT_LINKS: RegenerativeNavLink[] =
