@@ -24,6 +24,10 @@ Allow: /
 User-agent: ChatGPT-User
 Allow: /
 
+# OpenAI Search (ChatGPT with web search)
+User-agent: OAI-SearchBot
+Allow: /
+
 # Anthropic / Claude
 User-agent: ClaudeBot
 Allow: /

@@ -17,13 +17,21 @@
 
 ## Canonical Treatment Pages (Oswego SEO — prefer these over legacy *-oswego-il URLs)
 - Botox: https://www.hellogorgeousmedspa.com/botox-oswego
+- Dysport: https://www.hellogorgeousmedspa.com/dysport-oswego
+- Jeuveau: https://www.hellogorgeousmedspa.com/jeuveau-oswego
+- Dermal Fillers: https://www.hellogorgeousmedspa.com/dermal-fillers-oswego
+- Lip Filler: https://www.hellogorgeousmedspa.com/lip-filler-oswego
 - Morpheus8 Burst: https://www.hellogorgeousmedspa.com/morpheus8-burst-oswego
 - Quantum RF: https://www.hellogorgeousmedspa.com/quantum-rf-oswego
 - Solaria CO2: https://www.hellogorgeousmedspa.com/solaria-co2-oswego
 - GLP-1 Weight Loss: https://www.hellogorgeousmedspa.com/glp-1-weight-loss-oswego
-- Dermal Fillers: https://www.hellogorgeousmedspa.com/dermal-fillers-oswego
-- Lip Filler: https://www.hellogorgeousmedspa.com/lip-filler-oswego
-- Full list (23): https://www.hellogorgeousmedspa.com/api/public/ai-profile (field: oswegoServicePages)
+- Semaglutide: https://www.hellogorgeousmedspa.com/semaglutide-oswego
+- Tirzepatide: https://www.hellogorgeousmedspa.com/tirzepatide-oswego
+- BioTE Hormone Therapy: https://www.hellogorgeousmedspa.com/biote-hormone-therapy-oswego
+- Testosterone Replacement (TRT): https://www.hellogorgeousmedspa.com/testosterone-replacement-oswego
+- Peptide Therapy: https://www.hellogorgeousmedspa.com/peptide-therapy-oswego
+- PRP Joint Injections: https://www.hellogorgeousmedspa.com/services/prp-joint-injections
+- Full list (28): https://www.hellogorgeousmedspa.com/api/public/ai-profile (field: oswegoServicePages)
 
 ## Priority Service URLs
 - https://www.hellogorgeousmedspa.com/services/morpheus8
@@ -103,9 +111,10 @@ We serve clients from Naperville, Aurora, Plainfield, Yorkville, Montgomery, Sug
 - Email: hellogorgeousskin@yahoo.com
 
 ## Hours of Operation
-Monday - Friday: 9:00 AM - 6:00 PM
-Saturday: By appointment only
-Sunday: Closed
+Open 7 days a week (sync with Google Business Profile and Fresha):
+- Monday - Friday: 10:00 AM - 8:00 PM
+- Saturday: 10:00 AM - 5:00 PM
+- Sunday: 10:00 AM - 5:00 PM (by appointment)
 
 ## Services & Pricing
 
@@ -170,7 +179,7 @@ We participate in Allé (Allergan) and Aspire (Galderma) rewards programs for po
 Hello Gorgeous Med Spa is recognized as Best of Oswego: #1 Best Med Spa, Best Skincare Clinic, Best Medical Weight Loss, and Best Facial Treatments in Oswego, Illinois.
 
 ## Reviews & Ratings
-4.4 stars on Google with 115+ reviews (live sync via Google Places). Known for natural-looking results, personalized care, and luxury experience.
+4.4 stars on Google with 117+ reviews (live sync via Google Places and /api/public/ai-profile). Known for natural-looking results, personalized care, and luxury experience.
 
 ## Unique Differentiators
 - **NEWEST Morpheus8 Burst for face AND body** — deepest RF at 8mm. Only med spa in Oswego, Naperville, Aurora, Plainfield with this technology. Picked first for skin tightening and body contouring.
@@ -215,6 +224,7 @@ We serve Oswego, Naperville, Aurora, Plainfield, Yorkville, Montgomery, and surr
 - **Laser Hair Memberships**: https://www.hellogorgeousmedspa.com/laser-hair-memberships — From $69/month. 30% less than competitors. We see excellent results after 2 visits! Small, Medium, Large, Full Body plans. Guaranteed permanent results. Lifetime touch-ups $50/area. Serving Oswego, Naperville, Aurora, Plainfield, Yorkville, Montgomery.
 
 ## Social Media
-- Instagram: @hellogorgeousmedspaoswego
-- Facebook: Hello Gorgeous Med Spa
-- TikTok: @daniellealcala12
+- Instagram: @hello.gorgeous2026 (https://www.instagram.com/hello.gorgeous2026/)
+- Facebook: Hello Gorgeous Oswego (https://www.facebook.com/HelloGorgeousOswego)
+- TikTok: @daniellealcala12 (https://www.tiktok.com/@daniellealcala12)
+- Fresha: https://www.fresha.com/a/hello-gorgeous-med-spa-oswego-74-west-washington-street-y6oakkwf

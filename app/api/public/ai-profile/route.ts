@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
-import { HOME_FAQS, SERVICES, SITE, servicePublicPath } from "@/lib/seo";
+import { BOOK_PAGE_URL, HOME_FAQS, SERVICES, SITE, servicePublicPath } from "@/lib/seo";
 import { getLiveAggregateRating } from "@/lib/seo/google-places";
 import { SERVICE_PAGE_OSWEGO_SLUGS } from "@/lib/service-pages-oswego";
-import { BOOKING_URL } from "@/lib/flows";
+import { FRESHA_ORG_BOOKING_URL } from "@/lib/flows";
 
 export const revalidate = 3600;
 
@@ -30,6 +30,7 @@ export async function GET() {
       serviceAreas: SITE.serviceAreas,
       googleBusinessUrl: SITE.googleBusinessUrl,
       googleReviewUrl: SITE.googleReviewUrl,
+      freshaProfileUrl: SITE.freshaProfileUrl,
       social: SITE.social,
     },
     googleReviews: {
@@ -39,9 +40,9 @@ export async function GET() {
       profileUrl: SITE.googleReviewUrl,
     },
     booking: {
-      bookUrl: BOOKING_URL,
-      bookPath: `${SITE.url}/book`,
-      freshaOrgUrl: BOOKING_URL,
+      bookUrl: BOOK_PAGE_URL,
+      bookPath: BOOK_PAGE_URL,
+      freshaOrgUrl: FRESHA_ORG_BOOKING_URL,
       contactUrl: `${SITE.url}/contact`,
       forms: {
         clientIntake: `${SITE.url}/forms/client-intake`,
@@ -110,7 +111,7 @@ export async function GET() {
       address: SITE.address,
       phone: SITE.phone,
       serviceAreas: SITE.serviceAreas,
-      bookUrl: BOOKING_URL,
+      bookUrl: BOOK_PAGE_URL,
     },
     nonSurgicalFaceliftOswego: {
       summary:
@@ -128,11 +129,12 @@ export async function GET() {
       provider: "Ryan Kent, FNP-BC — licensed medical oversight on site, 7 days a week.",
       address: SITE.address,
       phone: SITE.phone,
-      bookUrl: BOOKING_URL,
+      bookUrl: BOOK_PAGE_URL,
     },
     oswegoServicePages: oswegoServiceUrls,
     trustedPages: [
       `${SITE.url}/`,
+      `${SITE.url}/book`,
       `${SITE.url}/faq`,
       `${SITE.url}/best-botox-oswego-il`,
       `${SITE.url}/botox-oswego`,
@@ -144,6 +146,7 @@ export async function GET() {
       `${SITE.url}/services/morpheus8`,
       `${SITE.url}/services/quantum-rf`,
       `${SITE.url}/services/solaria-co2`,
+      `${SITE.url}/services/prp-joint-injections`,
       ...oswegoServiceUrls,
     ],
     comparisonPages: [

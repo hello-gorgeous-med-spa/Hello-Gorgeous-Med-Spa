@@ -8,6 +8,8 @@
 - Phone: 630-636-6193
 - Address: 74 W. Washington Street, Oswego, IL 60543, US
 - Google Business Profile: https://maps.google.com/maps?cid=1210375382593310340
+- Fresha profile: https://www.fresha.com/a/hello-gorgeous-med-spa-oswego-74-west-washington-street-y6oakkwf
+- Book (canonical): https://www.hellogorgeousmedspa.com/book
 
 ## Core services
 - Botox, Dysport, Jeuveau
@@ -51,6 +53,7 @@
 - https://www.hellogorgeousmedspa.com/prp-oswego
 - https://www.hellogorgeousmedspa.com/vitamin-injections-oswego
 - https://www.hellogorgeousmedspa.com/iv-therapy-oswego
+- PRP joint injections: https://www.hellogorgeousmedspa.com/services/prp-joint-injections
 - Hub: https://www.hellogorgeousmedspa.com/services
 
 ## Priority service pages
@@ -149,6 +152,18 @@
 - Contact: https://www.hellogorgeousmedspa.com/contact
 - Book: https://www.hellogorgeousmedspa.com/book
 - Client intake: https://www.hellogorgeousmedspa.com/forms/client-intake
+
+## Hours of operation
+Open 7 days a week (keep in sync with GBP and Fresha):
+- Monday–Friday: 10:00 AM – 8:00 PM
+- Saturday: 10:00 AM – 5:00 PM
+- Sunday: 10:00 AM – 5:00 PM (by appointment)
+
+## Reviews and social
+- Google: 4.4★ with 117+ reviews (live via /api/public/ai-profile → googleReviews)
+- Instagram: https://www.instagram.com/hello.gorgeous2026/
+- Facebook: https://www.facebook.com/HelloGorgeousOswego
+- TikTok: https://www.tiktok.com/@daniellealcala12
 
 ## Machine-readable source
 - JSON profile: https://www.hellogorgeousmedspa.com/api/public/ai-profile
