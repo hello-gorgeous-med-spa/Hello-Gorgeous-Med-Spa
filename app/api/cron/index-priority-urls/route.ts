@@ -22,6 +22,7 @@ export const dynamic = "force-dynamic";
 export const maxDuration = 60;
 
 const PRIORITY_SERVICE_URLS = [
+  "/book",
   "/best-botox-oswego-il",
   "/botox-oswego",
   "/botox-oswego-il",
@@ -40,6 +41,8 @@ const PRIORITY_SERVICE_URLS = [
   "/services/morpheus8",
   "/services/quantum-rf",
   "/services/solaria-co2",
+  "/services/prp-joint-injections",
+  "/services/prp",
   "/glp1-weight-loss",
   "/tirzepatide-program",
   "/body-contouring-oswego-il",

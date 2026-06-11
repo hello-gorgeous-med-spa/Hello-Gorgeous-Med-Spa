@@ -33,6 +33,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.95,
     },
     {
+      url: `${baseUrl}/book`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.98,
+    },
+    {
       url: `${baseUrl}/procedures`,
       lastModified: currentDate,
       changeFrequency: 'weekly',
@@ -823,12 +829,22 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ]);
 
   const canonicalDestinations: MetadataRoute.Sitemap = [
+    '/book',
     '/botox-oswego',
+    '/dysport-oswego',
+    '/jeuveau-oswego',
+    '/dermal-fillers-oswego',
+    '/lip-filler-oswego',
     '/morpheus8-burst-oswego',
     '/quantum-rf-oswego',
     '/solaria-co2-oswego',
     '/glp-1-weight-loss-oswego',
+    '/semaglutide-oswego',
+    '/tirzepatide-oswego',
     '/biote-hormone-therapy-oswego',
+    '/testosterone-replacement-oswego',
+    '/peptide-therapy-oswego',
+    '/services/prp-joint-injections',
   ].map((path) => ({
     url: `${baseUrl}${path}`,
     lastModified: currentDate,

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { HG_TAGLINE } from "@/lib/brand-tagline";
 import { daniPersonJsonLd, ryanPersonJsonLd } from "@/lib/founder-credentials";
-import { BOOKING_URL } from "@/lib/flows";
+import { BOOK_PAGE_PATH } from "@/lib/flows";
 import { ALL_HOMEPAGE_SERVICES } from "@/lib/homepage-services";
 import { oswegoPathForServiceSlug } from "@/lib/service-pages-oswego/canonical-paths";
 
@@ -50,6 +50,9 @@ export const SITE = {
   placeId: "ChIJt2xHqd_vDogRhA5aZP8dzBA",
   cid: "1210375382593310340",
   googleBusinessUrl: "https://maps.google.com/maps?cid=1210375382593310340",
+  /** Fresha business profile — keep in sync with GBP booking link target. */
+  freshaProfileUrl:
+    "https://www.fresha.com/a/hello-gorgeous-med-spa-oswego-74-west-washington-street-y6oakkwf",
   /** Direct one-click link to leave a Google review (placeId-based). */
   googleReviewUrl: "https://search.google.com/local/writereview?placeid=ChIJt2xHqd_vDogRhA5aZP8dzBA",
   /**
@@ -64,12 +67,12 @@ export const SITE = {
   ] as const,
   priceRange: "$$$" as const,
   /** Static fallback for AggregateRating — synced from live Google Places API
-   *  on 2026-05-02 (4.4 / 116). The site head schema in `app/layout.tsx` pulls
+   *  on 2026-06-10 (4.4 / 117). The site head schema in `app/layout.tsx` pulls
    *  live data via `getLiveAggregateRating()` and stays accurate daily; this
    *  static value is only used if the Places API is unreachable. Visible UI
    *  surfaces (Footer, Hero, RealPatientReviews) read these values directly. */
   reviewRating: "4.4",
-  reviewCount: "116",
+  reviewCount: "117",
   /** Fresha (booking platform) lifetime social proof — a perfect 5.0★ across
    *  1,931 verified post-appointment reviews. Used for on-site trust badges
    *  and marketing copy. NOT emitted as Google review-snippet schema, because
@@ -92,6 +95,21 @@ export const SITE = {
     tiktok: "https://www.tiktok.com/@daniellealcala12",
   },
 } as const;
+
+/** First-party booking entry for ReserveAction schema — `/book` redirects to Fresha. */
+export const BOOK_PAGE_URL = `${SITE.url}${BOOK_PAGE_PATH}`;
+
+function reserveActionJsonLd(reservationName = "Appointment at Hello Gorgeous Med Spa") {
+  return {
+    "@type": "ReserveAction" as const,
+    target: {
+      "@type": "EntryPoint" as const,
+      urlTemplate: BOOK_PAGE_URL,
+      actionPlatform: ["http://schema.org/DesktopWebPlatform", "http://schema.org/MobileWebPlatform"],
+    },
+    result: { "@type": "Reservation" as const, name: reservationName },
+  };
+}
 
 /** Default OG/Twitter art (`public/images/hero-banner.png`). Bump `v` to bust Facebook/LinkedIn cache after changing the file. */
 export const SITE_OG_IMAGE = `${SITE.url}/images/hero-banner.png?v=2026-04-og` as const;
@@ -1156,6 +1174,7 @@ export function siteJsonLd(opts?: { aggregateRating?: AggregateRatingOverride | 
     })),
     sameAs: [
       SITE.googleBusinessUrl,
+      SITE.freshaProfileUrl,
       SITE.social.facebook,
       SITE.social.instagram,
       SITE.social.tiktok,
@@ -1171,6 +1190,7 @@ export function siteJsonLd(opts?: { aggregateRating?: AggregateRatingOverride | 
           },
         }
       : {}),
+    potentialAction: reserveActionJsonLd(),
     knowsAbout: [
       "Morpheus8 Burst",
       "Morpheus8 Body",
@@ -1237,6 +1257,7 @@ export function mainLocalBusinessJsonLd(opts?: { aggregateRating?: AggregateRati
     })),
     sameAs: [
       SITE.googleBusinessUrl,
+      SITE.freshaProfileUrl,
       SITE.social.facebook,
       SITE.social.instagram,
       SITE.social.tiktok,
@@ -1252,6 +1273,7 @@ export function mainLocalBusinessJsonLd(opts?: { aggregateRating?: AggregateRati
           },
         }
       : {}),
+    potentialAction: reserveActionJsonLd(),
   };
 }
 
@@ -1286,6 +1308,7 @@ export function organizationJsonLd() {
     },
     sameAs: [
       SITE.googleBusinessUrl,
+      SITE.freshaProfileUrl,
       SITE.social.facebook,
       SITE.social.instagram,
       SITE.social.tiktok,
@@ -1643,15 +1666,7 @@ export function dermalFillersJsonLd(slug: "dermal-fillers" | "lip-filler") {
     image: `${SITE.url}/images/results/revanesse-1.png`,
     provider: { "@id": `${SITE.url}/#organization` },
     areaServed: SITE.serviceAreas.map((area) => ({ "@type": "Place", name: area })),
-    potentialAction: {
-      "@type": "ReserveAction",
-      target: {
-        "@type": "EntryPoint",
-        urlTemplate: BOOKING_URL,
-        actionPlatform: ["http://schema.org/DesktopWebPlatform", "http://schema.org/MobileWebPlatform"],
-      },
-      result: { "@type": "Reservation", name: `${name} Consultation` },
-    },
+    potentialAction: reserveActionJsonLd(`${name} Consultation`),
   };
 }
 
@@ -1753,11 +1768,7 @@ export function bookingServiceJsonLd() {
       name: "Med Spa Services — Hello Gorgeous",
       itemListElement: catalogOffers,
     },
-    potentialAction: {
-      "@type": "ReserveAction",
-      target: { "@type": "EntryPoint", url: BOOKING_URL },
-      result: { "@type": "Reservation", name: "Appointment at Hello Gorgeous Med Spa" },
-    },
+    potentialAction: reserveActionJsonLd(),
   };
 }
 
