@@ -6,6 +6,8 @@ import Link from "next/link";
 interface ReviewsStatus {
   ok: boolean;
   enabled?: boolean;
+  bulkEmailEnabled?: boolean;
+  primaryReviewChannel?: string;
   counts?: {
     pendingTotal: number;
     pendingDue: number;
@@ -67,9 +69,8 @@ export default function ReviewsAdminPage() {
 
       <h1 className="text-xl font-bold mb-1">Google review automation</h1>
       <p className="text-sm text-black/70 mb-4">
-        Every paying visit (HG OS appointment marked completed <em>or</em> Square Terminal /
-        Square Online checkout) enqueues a review request. SMS + email goes out 24h later via the
-        hourly cron. A 60-day per-client cooldown prevents review fatigue.
+        <strong>Primary:</strong> Fresha &ldquo;Thank you for visiting&rdquo; after checkout (plus Google Rating Boost for Google reviews).
+        <strong className="ml-1">Legacy HG stack:</strong> optional per-visit SMS + email 24h after HG OS / Square-linked sales — and optional bulk backlog email (off by default so clients aren&apos;t double-asked).
       </p>
 
       <div className="flex items-center gap-3 mb-4">
@@ -86,7 +87,17 @@ export default function ReviewsAdminPage() {
         </span>
         {status?.enabled === false && (
           <span className="px-2 py-0.5 rounded text-xs font-bold bg-amber-100 text-amber-800">
-            DISABLED — set REVIEW_REQUESTS_ENABLED to re-enable
+            Per-visit HG queue OFF — set REVIEW_REQUESTS_ENABLED
+          </span>
+        )}
+        {status?.bulkEmailEnabled === false && (
+          <span className="px-2 py-0.5 rounded text-xs font-bold bg-green-100 text-green-800">
+            Bulk email OFF — Fresha owns review asks
+          </span>
+        )}
+        {status?.bulkEmailEnabled === true && (
+          <span className="px-2 py-0.5 rounded text-xs font-bold bg-amber-100 text-amber-800">
+            Bulk email ON — may overlap Fresha
           </span>
         )}
       </div>
@@ -176,11 +187,10 @@ export default function ReviewsAdminPage() {
       <details className="mt-6 text-xs text-black/60">
         <summary className="cursor-pointer font-semibold">How it works</summary>
         <ol className="list-decimal pl-5 mt-2 space-y-1">
-          <li>Square Terminal / Online payment completes → webhook enqueues a 24h-delayed row in <code>review_requests_pending</code>.</li>
-          <li>HG OS appointment marked <em>completed</em> → same enqueue, with the appointment id attached.</li>
-          <li>Hourly Vercel cron <code>/api/cron/review-requests</code> drains rows whose <code>scheduled_for</code> has passed, calling <code>/api/reviews/request</code>.</li>
-          <li>The send route enforces a 60-day per-client cooldown, then sends SMS (Twilio) + Email (Resend) with your Google review URL.</li>
-          <li>Sent rows persist in <code>review_requests_sent</code> for cooldown lookups and reporting.</li>
+          <li><strong>Fresha (active):</strong> checkout on calendar → &ldquo;Thank you for visiting&rdquo; → Fresha review (+ Google Rating Boost if enabled).</li>
+          <li><strong>Bulk email (default off):</strong> Mac <code>review-daily-send.mjs</code> / cron <code>review-email-campaign</code> only run when <code>REVIEW_BULK_EMAIL_ENABLED=true</code>.</li>
+          <li><strong>Per-visit HG (backup):</strong> Square payment or HG appointment completed → <code>review_requests_pending</code> → hourly cron → SMS + email.</li>
+          <li>60-day per-client cooldown on HG sends; rows logged in <code>review_requests_sent</code>.</li>
         </ol>
       </details>
     </div>

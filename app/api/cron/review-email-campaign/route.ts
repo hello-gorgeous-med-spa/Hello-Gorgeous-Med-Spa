@@ -14,6 +14,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { createAdminSupabaseClient } from "@/lib/hgos/supabase";
 import { isDeliverableMarketingEmail } from "@/lib/email-eligibility";
 import { getResendFromAddress } from "@/lib/resend-config";
+import { isReviewBulkEmailEnabled } from "@/lib/reviews/bulk-email-enabled";
 
 export const dynamic = "force-dynamic";
 export const maxDuration = 60;
@@ -81,9 +82,9 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ sent: 0, reason: "disabled" });
   }
 
-  // Bulk backlog drain is OFF unless explicitly enabled — use post-visit triggers instead.
-  if (process.env.REVIEW_EMAIL_CAMPAIGN_ENABLED !== "true") {
-    return NextResponse.json({ sent: 0, reason: "bulk_review_campaign_disabled" });
+  // Bulk backlog drain is OFF unless explicitly enabled — Fresha owns post-visit asks.
+  if (!isReviewBulkEmailEnabled()) {
+    return NextResponse.json({ sent: 0, reason: "bulk_review_email_disabled_use_fresha" });
   }
 
   const supabase = createAdminSupabaseClient();

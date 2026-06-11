@@ -9,6 +9,9 @@
  *
  * This is a backstop for the Vercel cron at /api/cron/review-email-campaign.
  * Safe to run repeatedly — it never double-asks the same person.
+ *
+ * Default OFF: set REVIEW_BULK_EMAIL_ENABLED=true in .env.local only if Fresha
+ * review automation is disabled (avoids double-asking clients).
  */
 import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
@@ -39,6 +42,15 @@ function log(...a) {
 if (!SUPA || !SKEY || !RESEND) {
   log("FATAL missing env (SUPABASE / RESEND). Aborting.");
   process.exit(1);
+}
+
+const bulkEnabled =
+  env.REVIEW_BULK_EMAIL_ENABLED === "true" || env.REVIEW_EMAIL_CAMPAIGN_ENABLED === "true";
+if (!bulkEnabled) {
+  log(
+    "Bulk review email disabled (REVIEW_BULK_EMAIL_ENABLED not true). Using Fresha post-visit asks — exiting cleanly.",
+  );
+  process.exit(0);
 }
 
 async function getAll(path) {

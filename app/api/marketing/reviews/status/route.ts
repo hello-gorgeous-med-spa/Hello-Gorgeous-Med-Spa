@@ -5,6 +5,7 @@ import { NextResponse } from "next/server";
 
 import { getAiConciergeStaffSession } from "@/lib/ai-concierge/admin-auth";
 import { createAdminSupabaseClient } from "@/lib/hgos/supabase";
+import { isReviewBulkEmailEnabled } from "@/lib/reviews/bulk-email-enabled";
 
 export const dynamic = "force-dynamic";
 
@@ -26,6 +27,7 @@ export async function GET() {
   const cooldownCutoff = new Date(now - 60 * day).toISOString();
 
   const enabled = process.env.REVIEW_REQUESTS_ENABLED !== "false";
+  const bulkEmailEnabled = isReviewBulkEmailEnabled();
 
   const [{ count: pendingTotal }, { count: pendingDue }, { count: sent30 }, { count: sent60 }, recentSent, recentPending] =
     await Promise.all([
@@ -63,6 +65,8 @@ export async function GET() {
   return NextResponse.json({
     ok: true,
     enabled,
+    bulkEmailEnabled,
+    primaryReviewChannel: bulkEmailEnabled ? "bulk_email_and_fresha" : "fresha",
     counts: {
       pendingTotal: pendingTotal ?? 0,
       pendingDue: pendingDue ?? 0,
