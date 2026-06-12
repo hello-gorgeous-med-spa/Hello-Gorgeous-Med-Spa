@@ -1,11 +1,13 @@
 #!/usr/bin/env node
 /**
- * Replace AI-generated (non-scannable) QR on the spa app flyer with ONE real QR.
- * Step 1: paint over the entire fake QR + pink glow with solid black.
- * Step 2: white plate + single scannable QR centered in that zone.
- *
- * Run: node scripts/fix-app-flyer-qr.mjs
+ * Replace AI fake QR with one real code sized to the original pink-frame slot
+ * (does not cover the left feature list).
  */
+
+/** Black wipe over AI QR + pink glow only (left column text stays visible). */
+const ERASE = { left: 248, top: 488, width: 282, height: 288 };
+/** White tile + real QR — same footprint as original inner square. */
+const PLATE = { left: 260, top: 500, size: 262, pad: 10, radius: 10 };
 
 import { mkdir } from "node:fs/promises";
 import path from "node:path";
@@ -28,9 +30,6 @@ const OUT_DIR = path.join(ROOT, "public/images/marketing");
 const OUT_FLYER = path.join(OUT_DIR, "hello-gorgeous-app-scan-flyer.jpg");
 const OUT_QR = path.join(OUT_DIR, "hello-gorgeous-app-qr-print.png");
 
-/** One white panel fully covers fake QR + pink glow — no double image, no black ring. */
-const PLATE = { left: 196, top: 452, size: 340, pad: 22, radius: 16 };
-
 async function main() {
   await mkdir(OUT_DIR, { recursive: true });
 
@@ -45,6 +44,12 @@ async function main() {
 
   await sharp(qrPng).png().toFile(OUT_QR);
 
+  const blackMask = Buffer.from(
+    `<svg width="${ERASE.width}" height="${ERASE.height}">
+      <rect width="100%" height="100%" fill="#000000"/>
+    </svg>`
+  );
+
   const whitePlate = Buffer.from(
     `<svg width="${PLATE.size}" height="${PLATE.size}">
       <rect width="100%" height="100%" rx="${PLATE.radius}" ry="${PLATE.radius}" fill="#ffffff"/>
@@ -53,6 +58,7 @@ async function main() {
 
   await sharp(SOURCE)
     .composite([
+      { input: blackMask, left: ERASE.left, top: ERASE.top },
       { input: whitePlate, left: PLATE.left, top: PLATE.top },
       {
         input: qrPng,
