@@ -85,7 +85,7 @@ export function GetAppQrPromo({
                 : "border-black bg-white text-black hover:border-[#E6007E] hover:text-[#E6007E]"
             }`}
           >
-            hellogorgeousmedspa.com/app
+            www.hellogorgeousmedspa.com/app
           </a>
         </div>
       </div>

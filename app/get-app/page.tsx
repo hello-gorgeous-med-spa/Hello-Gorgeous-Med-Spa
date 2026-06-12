@@ -90,7 +90,13 @@ export default function GetAppPage() {
           </ul>
         </div>
 
-        <p className="mt-8 text-center text-sm text-black/60">
+        <p className="mt-4 text-center text-sm text-black/60">
+          Print flyer for the front desk?{" "}
+          <Link href="/get-app/flyer" className="font-semibold text-[#E6007E] underline decoration-[#FF2D8E]">
+            Download / print scan poster
+          </Link>
+        </p>
+        <p className="mt-4 text-center text-sm text-black/60">
           Prefer a link?{" "}
           <Link href={CLIENT_APP.path} className="font-semibold text-[#E6007E] underline decoration-[#FF2D8E]">
             hellogorgeousmedspa.com/app

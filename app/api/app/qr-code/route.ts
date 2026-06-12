@@ -8,6 +8,8 @@ export async function GET(req: NextRequest) {
   const target = req.nextUrl.searchParams.get('target');
   const utmMedium = req.nextUrl.searchParams.get('utm_medium') ?? undefined;
   const utmCampaign = req.nextUrl.searchParams.get('utm_campaign') ?? undefined;
+  const widthParam = req.nextUrl.searchParams.get('width');
+  const width = widthParam ? Math.min(1200, Math.max(128, parseInt(widthParam, 10) || 400)) : 400;
 
   let content: string;
 
@@ -29,7 +31,7 @@ export async function GET(req: NextRequest) {
   try {
     const buffer = await QRCode.toBuffer(content, {
       type: 'png',
-      width: 400,
+      width,
       margin: 2,
       color: {
         dark: '#000000',
