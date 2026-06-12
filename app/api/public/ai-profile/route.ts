@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { BOOK_PAGE_URL, HOME_FAQS, SERVICES, SITE, servicePublicPath } from "@/lib/seo";
 import { getLiveAggregateRating } from "@/lib/seo/google-places";
 import { SERVICE_PAGE_OSWEGO_SLUGS } from "@/lib/service-pages-oswego";
-import { FRESHA_ORG_BOOKING_URL } from "@/lib/flows";
+import { BOOKING_URL, bookingProvider, FRESHA_ORG_BOOKING_URL } from "@/lib/flows";
 
 export const revalidate = 3600;
 
@@ -40,8 +40,10 @@ export async function GET() {
       profileUrl: SITE.googleReviewUrl,
     },
     booking: {
+      provider: bookingProvider(),
       bookUrl: BOOK_PAGE_URL,
       bookPath: BOOK_PAGE_URL,
+      schedulerUrl: BOOKING_URL,
       freshaOrgUrl: FRESHA_ORG_BOOKING_URL,
       contactUrl: `${SITE.url}/contact`,
       forms: {

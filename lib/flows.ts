@@ -1,8 +1,10 @@
 /**
- * Public online booking — **Fresha only**. Square is for in-spa payments / POS, not appointments.
+ * Public online booking — **Fresha** (org + optional per-staff Link Builder URLs).
+ * Square is for in-spa payments / POS, not appointments.
  *
- * Vercel: set `NEXT_PUBLIC_FRESHA_BOOKING_URL` (org) and optional per-staff URLs.
- * Alias: `NEXT_PUBLIC_BOOKING_URL`. `/book` merges UTM params then redirects to Fresha.
+ * Vercel: `NEXT_PUBLIC_FRESHA_BOOKING_URL` (org). Alias: `NEXT_PUBLIC_BOOKING_URL`.
+ * Optional: `NEXT_PUBLIC_FRESHA_BOOKING_URL_DANIELLE`, `NEXT_PUBLIC_FRESHA_BOOKING_URL_RYAN`.
+ * `/book` merges UTM params then redirects to Fresha.
  */
 /** Fresha Link Builder org URL (May 2026 — canonical /a/… path). */
 export const FRESHA_ORG_BOOKING_URL =
@@ -17,6 +19,12 @@ export const FRESHA_BOOKING_URL = FRESHA_ORG_BOOKING_URL;
 
 /** Branded entry on our domain — redirects to {@link BOOKING_URL} with optional UTM merge. */
 export const BOOK_PAGE_PATH = "/book";
+
+function isDikidiBookingUrl(url: string): boolean {
+  const u = url.trim();
+  if (!u) return false;
+  return /dikidi\.(app|ru|net)/i.test(u);
+}
 
 /** Square Appointments URLs must never be used for public booking (payments only). */
 export function isSquareAppointmentsBookingUrl(url: string): boolean {
@@ -58,6 +66,7 @@ function resolvePublicBookingUrl(
   if (
     !trimmed ||
     isSquareAppointmentsBookingUrl(trimmed) ||
+    isDikidiBookingUrl(trimmed) ||
     isFirstPartyBookUrl(trimmed) ||
     !/^https?:\/\//i.test(trimmed)
   ) {
@@ -73,8 +82,12 @@ function readOrgBookingEnv(): string | undefined {
   );
 }
 
-/** Primary Fresha URL for header/footer CTAs and `/book` redirect target. */
-export const BOOKING_URL = resolvePublicBookingUrl(readOrgBookingEnv());
+/** Primary scheduler URL for header/footer CTAs and `/book` redirect target. */
+export const BOOKING_URL = resolvePublicBookingUrl(readOrgBookingEnv(), FRESHA_ORG_BOOKING_URL);
+
+export function bookingProvider(): "fresha" {
+  return "fresha";
+}
 
 /**
  * Square Customer Directory — offers & updates (email + SMS opt-in, Square-hosted).
