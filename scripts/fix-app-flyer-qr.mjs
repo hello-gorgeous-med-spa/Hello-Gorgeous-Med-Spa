@@ -29,7 +29,7 @@ const OUT_QR = path.join(OUT_DIR, "hello-gorgeous-app-qr-print.png");
 async function main() {
   await mkdir(OUT_DIR, { recursive: true });
 
-  const HERO_H = 458;
+  const HERO_H = 448;
   const MID_H = 778 - HERO_H;
 
   const hero = await sharp(HERO).extract({ left: 0, top: 0, width: W, height: HERO_H }).toBuffer();
