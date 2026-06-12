@@ -171,22 +171,22 @@ Free consult + brow mapping. Serving Naperville, Aurora & Plainfield. Book below
   {
     id: "hello-gorgeous-app-iv-builder",
     label: "NEW — Hello Gorgeous app + Build Your IV Bag",
-    message: `📱 NEW — The Hello Gorgeous client app is live (Oswego, IL)
+    message: `📱 NEW — Hello Gorgeous Med Spa client app | Oswego, IL
 
-Your med spa in your pocket — no App Store. Scan our QR or open hellogorgeousmedspa.com/app · Add to Home Screen.
+Your med spa in your pocket — built for Oswego, Naperville, Aurora, Plainfield & the Fox Valley. No App Store download: scan our QR at the spa or open the link below, then Add to Home Screen for one-tap booking.
 
-What's inside:
-✓ Book — Botox, facials, Morpheus8, weight loss & more
-✓ Build Your IV Bag — from $89 · most custom bags $150–$199
-✓ Vitamin Bar shots · deals · gift cards · memberships
-✓ HG Rewards points · loyalty tiers · birthday perks
-✓ GLP-1 screening · peptides · hormones · supplements
-✓ Client portal · appointments · documents · referrals
+✓ Book online — Botox & Dysport, dermal fillers, HydraFacial, Morpheus8 Burst, IPL, medical weight loss (GLP-1 / tirzepatide), body contouring & more
+✓ Build Your IV Bag — custom IV hydration from $89 · most bags $150–$199 (B12, glutathione, vitamin C, Tri-Immune & more)
+✓ Vitamin Bar — drive-thru wellness shots · pre-pay in the app
+✓ App-only deals, gift cards & monthly memberships
+✓ HG Rewards points · GLP-1 screening · peptides · hormones · client portal
 
-Scan QR: hellogorgeousmedspa.com/get-app
-Ryan Kent, FNP-BC · serving Naperville, Aurora & Plainfield.`,
+Ryan Kent, FNP-BC on site 7 days a week · downtown Oswego at 74 W Washington St.
+
+Get the app (scan QR): hellogorgeousmedspa.com/get-app
+Open the app: hellogorgeousmedspa.com/app`,
     linkPath: "/get-app?utm_source=google&utm_medium=gbp_post&utm_campaign=app_full_launch",
-    imagePath: "/images/marketing/nad-iv-bag-hello-gorgeous.svg",
+    imagePath: "/images/marketing/hello-gorgeous-app-scan-flyer.jpg",
   },
   {
     id: "monthly-memberships-showcase",
