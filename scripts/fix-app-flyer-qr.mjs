@@ -1,13 +1,8 @@
 #!/usr/bin/env node
 /**
- * Replace AI fake QR with one real code sized to the original pink-frame slot
- * (does not cover the left feature list).
+ * Replace AI fake QR with ONE scannable code in the original slot.
+ * Run: node scripts/fix-app-flyer-qr.mjs
  */
-
-/** Black wipe over AI QR + pink glow only (left column text stays visible). */
-const ERASE = { left: 248, top: 488, width: 282, height: 288 };
-/** White tile + real QR — same footprint as original inner square. */
-const PLATE = { left: 260, top: 500, size: 262, pad: 10, radius: 10 };
 
 import { mkdir } from "node:fs/promises";
 import path from "node:path";
@@ -30,40 +25,46 @@ const OUT_DIR = path.join(ROOT, "public/images/marketing");
 const OUT_FLYER = path.join(OUT_DIR, "hello-gorgeous-app-scan-flyer.jpg");
 const OUT_QR = path.join(OUT_DIR, "hello-gorgeous-app-qr-print.png");
 
+/**
+ * Single slot on 731×1024 source — covers fake QR + pink glow, clears left copy.
+ * Black + white use identical bounds so there is no ghost/double frame.
+ */
+const SLOT = { left: 244, top: 480, size: 276, radius: 10, pad: 11 };
+
 async function main() {
   await mkdir(OUT_DIR, { recursive: true });
 
-  const qrPixelSize = PLATE.size - PLATE.pad * 2;
+  const qrSize = SLOT.size - SLOT.pad * 2;
   const qrPng = await QRCode.toBuffer(QR_URL, {
     type: "png",
-    width: qrPixelSize,
-    margin: 1,
+    width: qrSize,
+    margin: 0,
     errorCorrectionLevel: "M",
     color: { dark: "#000000", light: "#FFFFFF" },
   });
 
   await sharp(qrPng).png().toFile(OUT_QR);
 
-  const blackMask = Buffer.from(
-    `<svg width="${ERASE.width}" height="${ERASE.height}">
-      <rect width="100%" height="100%" fill="#000000"/>
+  const blackFill = Buffer.from(
+    `<svg width="${SLOT.size}" height="${SLOT.size}">
+      <rect width="100%" height="100%" rx="${SLOT.radius}" ry="${SLOT.radius}" fill="#000000"/>
     </svg>`
   );
 
-  const whitePlate = Buffer.from(
-    `<svg width="${PLATE.size}" height="${PLATE.size}">
-      <rect width="100%" height="100%" rx="${PLATE.radius}" ry="${PLATE.radius}" fill="#ffffff"/>
+  const whiteTile = Buffer.from(
+    `<svg width="${SLOT.size}" height="${SLOT.size}">
+      <rect width="100%" height="100%" rx="${SLOT.radius}" ry="${SLOT.radius}" fill="#ffffff"/>
     </svg>`
   );
 
   await sharp(SOURCE)
     .composite([
-      { input: blackMask, left: ERASE.left, top: ERASE.top },
-      { input: whitePlate, left: PLATE.left, top: PLATE.top },
+      { input: blackFill, left: SLOT.left, top: SLOT.top },
+      { input: whiteTile, left: SLOT.left, top: SLOT.top },
       {
         input: qrPng,
-        left: PLATE.left + PLATE.pad,
-        top: PLATE.top + PLATE.pad,
+        left: SLOT.left + SLOT.pad,
+        top: SLOT.top + SLOT.pad,
       },
     ])
     .jpeg({ quality: 95, mozjpeg: true })
