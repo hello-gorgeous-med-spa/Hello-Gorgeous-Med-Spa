@@ -7,6 +7,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { BOOKING_URL } from '@/lib/flows';
 
 
 interface TreatmentEntry {
@@ -104,12 +105,14 @@ export default function JourneyPage() {
             <p className="text-black mb-4">
               Your treatment history will appear here after your first appointment.
             </p>
-            <Link
-              href="/portal/book"
+            <a
+              href={BOOKING_URL}
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex items-center gap-2 bg-[#FF2D8E] text-white px-6 py-2.5 rounded-full font-medium hover:bg-black transition-colors"
             >
               Book Your First Treatment
-            </Link>
+            </a>
           </div>
         ) : (
           <div className="relative">

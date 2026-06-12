@@ -12,7 +12,7 @@ const from =
   process.env.RESEND_FROM ||
   "Hello Gorgeous <onboarding@resend.dev>";
 /* Default matches SITE.email in lib/seo when CONTACT_FORM_TO_EMAIL is unset. */
-const to = process.env.CONTACT_FORM_TO_EMAIL || "hellogorgeousskin@yahoo.com";
+const to = process.env.CONTACT_FORM_TO_EMAIL || "provider@hellogorgeousmedspa.com";
 
 if (!key) {
   console.error("Missing RESEND_API_KEY");

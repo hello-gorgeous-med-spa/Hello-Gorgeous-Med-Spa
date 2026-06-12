@@ -9,6 +9,7 @@ import { createAdminSupabaseClient } from '@/lib/hgos/supabase';
 import { businessDateTimeToUTC, formatInBusinessTZ } from '@/lib/business-timezone';
 import { sendAppointmentConfirmationSms, sendSmsOptInConfirmation } from '@/lib/notifications/sms-outbound';
 import { markLeadsConverted } from '@/lib/leads';
+import { getMedspaNotifyEmails } from '@/lib/business-contact';
 
 export async function POST(request: NextRequest) {
   try {
@@ -452,7 +453,7 @@ Hello Gorgeous Med Spa`;
     }
 
     // 5.6. Owner/provider notification (MANDATORY)
-    const ownerEmails = process.env.BOOKING_NOTIFY_EMAIL || process.env.OWNER_EMAIL || 'hello.gorgeous@hellogorgeousmedspa.com';
+    const ownerEmails = getMedspaNotifyEmails().join(',');
     if (ownerEmails) {
       const apiKey = process.env.RESEND_API_KEY;
       if (apiKey) {

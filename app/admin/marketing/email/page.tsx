@@ -353,7 +353,7 @@ export default function EmailMarketingPage() {
               <label className="block text-sm font-medium text-black mb-1">Reply-To Email</label>
               <input
                 type="email"
-                defaultValue="hello.gorgeous@hellogorgeousmedspa.com"
+                defaultValue="provider@hellogorgeousmedspa.com"
                 className="w-full px-4 py-2 border border-black rounded-lg"
               />
             </div>

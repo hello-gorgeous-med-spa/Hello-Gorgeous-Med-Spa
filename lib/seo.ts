@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import { MEDSPA_OPS_EMAIL } from "@/lib/business-contact";
 import { HG_TAGLINE } from "@/lib/brand-tagline";
 import { daniPersonJsonLd, ryanPersonJsonLd } from "@/lib/founder-credentials";
 import { BOOK_PAGE_PATH } from "@/lib/flows";
@@ -34,7 +34,7 @@ export const SITE = {
   phone: "630-636-6193",
   /** Toll-free via Square - replace with your number when ready */
   tollFree: "833-474-3998",
-  email: "hellogorgeousskin@yahoo.com",
+  email: MEDSPA_OPS_EMAIL,
   address: {
     streetAddress: "74 W. Washington Street",
     addressLocality: "Oswego",

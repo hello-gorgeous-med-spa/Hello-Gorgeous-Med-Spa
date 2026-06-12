@@ -11,11 +11,12 @@
 
 import { NextRequest, NextResponse } from "next/server";
 import { createAdminSupabaseClient } from "@/lib/hgos/supabase";
+import { MEDSPA_OPS_EMAIL } from "@/lib/business-contact";
 
 export const dynamic = "force-dynamic";
 export const maxDuration = 60;
 
-const OWNER_EMAIL = process.env.REVIEW_ALERT_EMAIL || "hellogorgeousskin@yahoo.com";
+const OWNER_EMAIL = process.env.REVIEW_ALERT_EMAIL || MEDSPA_OPS_EMAIL;
 const OWNER_CELL = process.env.REVIEW_ALERT_PHONE || "+16308813398";
 const HG_PLACE_ID = "ChIJt2xHqd_vDogRhA5aZP8dzBA";
 

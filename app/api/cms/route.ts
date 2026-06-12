@@ -35,7 +35,7 @@ const DEFAULT_CONTENT: Record<string, any> = {
   },
   'contact_info': {
     phone: '630-636-6193',
-    email: 'hellogorgeousskin@yahoo.com',
+    email: 'provider@hellogorgeousmedspa.com',
     address: '74 W. Washington Street, Oswego, IL 60543',
   },
   'business_hours': {

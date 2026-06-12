@@ -7,6 +7,12 @@ import { NextRequest, NextResponse } from 'next/server';
 import { createAdminSupabaseClient } from '@/lib/hgos/supabase';
 import { recordLead, getUTMFromRequest } from '@/lib/leads';
 import { emailStaffFormSubmission, notifyOwnerFormSubmission } from '@/lib/notifications/form-alert';
+import {
+  extractPhoneFromLeadMessage,
+  leadEmailHtml,
+  leadEmailSubject,
+  parseLeadNotification,
+} from '@/lib/notifications/lead-email';
 
 export async function POST(request: NextRequest) {
   try {
@@ -25,11 +31,20 @@ export async function POST(request: NextRequest) {
     const trimmedMessage = message.trim();
     const emailBody = `Name: ${trimmedName}\nContact: ${trimmedContact}\n\nMessage:\n${trimmedMessage}`;
     const replyTo = trimmedContact.includes('@') ? trimmedContact.toLowerCase() : undefined;
+    const { formLabel } = parseLeadNotification(trimmedMessage);
+    const emailSubject = leadEmailSubject(formLabel, trimmedName);
+    const phoneFromMessage = extractPhoneFromLeadMessage(trimmedMessage);
 
     if (process.env.RESEND_API_KEY) {
       const emailed = await emailStaffFormSubmission({
-        subject: `Website contact from ${trimmedName}`,
+        subject: emailSubject,
         text: emailBody,
+        html: leadEmailHtml({
+          subjectLine: emailSubject,
+          name: trimmedName,
+          contact: trimmedContact,
+          message: trimmedMessage,
+        }),
         replyTo,
       });
       if (!emailed) {
@@ -41,11 +56,14 @@ export async function POST(request: NextRequest) {
     }
 
     notifyOwnerFormSubmission({
-      formName: 'Contact',
-      lines: [trimmedName, trimmedContact, trimmedMessage.slice(0, 200)],
+      formName: formLabel,
+      lines: [
+        trimmedName,
+        phoneFromMessage ? `tel ${phoneFromMessage}` : trimmedContact,
+        trimmedMessage.slice(0, 200),
+      ],
     });
 
-    // Unified lead capture: if contact looks like email, record in leads
     const emailMatch = contact.trim().match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/);
     if (emailMatch) {
       const supabase = createAdminSupabaseClient();
@@ -54,7 +72,7 @@ export async function POST(request: NextRequest) {
         const utm = getUTMFromRequest(url, request.headers.get('referer'));
         await recordLead(supabase, {
           email: contact.trim().toLowerCase(),
-          phone: contact.includes('@') ? undefined : contact.trim(),
+          phone: phoneFromMessage,
           full_name: name.trim(),
           source: 'website',
           lead_type: 'contact_form',

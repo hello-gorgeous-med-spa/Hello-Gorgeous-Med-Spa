@@ -44,7 +44,7 @@ export function CareGuideHeader() {
         <p>74 W. Washington Street</p>
         <p>Oswego, IL 60543</p>
         <p>630-636-6193</p>
-        <p>hellogorgeousskin@yahoo.com</p>
+        <p>provider@hellogorgeousmedspa.com</p>
       </div>
       <div className="mt-4 h-1 bg-[#E6007E] w-full"></div>
     </header>

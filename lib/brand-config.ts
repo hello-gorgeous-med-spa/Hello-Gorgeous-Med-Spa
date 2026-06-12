@@ -14,7 +14,7 @@ export const BRAND_CONFIG = {
     phone: "630-636-6193",
     tollFree: "833-474-3998",
     website: "hellogorgeousmedspa.com",
-    email: "hello.gorgeous@hellogorgeousmedspa.com",
+    email: "provider@hellogorgeousmedspa.com",
   },
   colors: {
     primary: "#E91E8C", // Hot pink

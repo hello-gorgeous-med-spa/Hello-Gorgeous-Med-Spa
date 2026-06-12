@@ -111,6 +111,42 @@ export default function SocialContentAgentPage() {
     await queueWeek(SUGGESTED_BOTOX_WEEK_PRESET_IDS, "Botox blitz week");
   }, [queueWeek]);
 
+  const queueAppLaunchWeek = useCallback(async () => {
+    setQueueBusy(true);
+    setQueueLog([]);
+    try {
+      const res = await fetch("/api/admin/marketing/app-launch/queue", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ startYmd: startDate }),
+      });
+      const data = (await res.json()) as {
+        skipped?: boolean;
+        reason?: string;
+        inserted?: { label: string; scheduledAt: string }[];
+        errors?: string[];
+      };
+      const log: string[] = ["— Hello Gorgeous app launch (7 days, FB + Google) —"];
+      if (data.skipped) {
+        log.push(`Skipped: ${data.reason ?? "already queued"}`);
+      } else if (data.inserted?.length) {
+        for (const row of data.inserted) {
+          log.push(`✓ ${row.label} → ${new Date(row.scheduledAt).toLocaleString()}`);
+        }
+      }
+      if (data.errors?.length) {
+        for (const e of data.errors) log.push(`✗ ${e}`);
+      }
+      if (!res.ok && !data.inserted?.length) {
+        log.push(`Error: ${data.reason ?? res.statusText}`);
+      }
+      setQueueLog(log);
+    } catch (e) {
+      setQueueLog([e instanceof Error ? e.message : String(e)]);
+    }
+    setQueueBusy(false);
+  }, [startDate]);
+
   return (
     <div className="min-h-[calc(100vh-56px)] bg-gray-50">
       <div className="max-w-4xl mx-auto px-4 py-8">
@@ -176,6 +212,14 @@ export default function SocialContentAgentPage() {
               className="px-5 py-2.5 rounded-lg border-2 border-[#E6007E] text-[#E6007E] font-semibold hover:bg-[#FFF0F7] disabled:opacity-50"
             >
               {queueBusy ? "Scheduling…" : "Peptide blitz (7 days)"}
+            </button>
+            <button
+              type="button"
+              disabled={queueBusy}
+              onClick={() => void queueAppLaunchWeek()}
+              className="px-5 py-2.5 rounded-lg bg-black text-white font-semibold hover:bg-gray-900 disabled:opacity-50"
+            >
+              {queueBusy ? "Scheduling…" : "App launch week (FB + Google)"}
             </button>
           </div>
           {queueLog.length > 0 && (

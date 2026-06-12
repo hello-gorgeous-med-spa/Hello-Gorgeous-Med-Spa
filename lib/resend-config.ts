@@ -1,4 +1,4 @@
-import { SITE } from "@/lib/seo";
+import { MEDSPA_OPS_EMAIL, MEDSPA_SEND_FROM } from "@/lib/business-contact";
 
 const BASIC_EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -18,7 +18,7 @@ function extractEmailFromPossiblyDisplayForm(s: string): string {
  * value used to be truthy and overrode a good default, causing Resend 422 on `to`.
  */
 export function getContactFormToEmail(): string {
-  const fallback = SITE.email;
+  const fallback = MEDSPA_OPS_EMAIL;
   const raw = process.env.CONTACT_FORM_TO_EMAIL;
   if (raw == null || String(raw).trim() === "") {
     return fallback;
@@ -44,7 +44,7 @@ export function getResendFromAddress(): string {
   return (
     process.env.RESEND_FROM_EMAIL ||
     process.env.RESEND_FROM ||
-    "Hello Gorgeous <leads@hellogorgeousmedspa.com>"
+    MEDSPA_SEND_FROM
   );
 }
 

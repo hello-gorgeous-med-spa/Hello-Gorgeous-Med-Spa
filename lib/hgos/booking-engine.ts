@@ -26,6 +26,7 @@ import type {
   WeeklyHours,
   ClientMembership,
 } from './types';
+import { BOOKING_URL } from '@/lib/flows';
 
 // ============================================================
 // CONSTANTS
@@ -103,7 +104,7 @@ export function checkEligibility({
       type: 'consult',
       label: 'Initial consultation required',
       completed: consultCompleted,
-      actionUrl: '/book/consultation',
+      actionUrl: BOOKING_URL,
     });
   }
 

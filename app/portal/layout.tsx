@@ -10,6 +10,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { ChatOpenProvider } from '@/components/ChatOpenContext';
 import { MascotChat } from '@/components/MascotChat';
+import { BOOKING_URL } from '@/lib/flows';
 
 // Switch to client manifest for PWA install
 function useClientManifest() {
@@ -52,7 +53,7 @@ const NAV_ITEMS = [
 const FULL_NAV_ITEMS = [
   { href: '/portal', label: 'Dashboard', icon: '🏠' },
   { href: '/portal/appointments', label: 'Appointments', icon: '📅' },
-  { href: '/portal/book', label: 'Book Now', icon: '✨' },
+  { href: BOOKING_URL, label: 'Book Now', icon: '✨', external: true },
   { href: '/portal/labs', label: 'Lab Insights', icon: '🧪' },
   { href: '/portal/documents', label: 'Documents', icon: '📁' },
   { href: '/portal/receipts', label: 'Receipts', icon: '🧾' },
@@ -115,31 +116,46 @@ export default function PortalLayout({
 
             {/* Desktop Navigation */}
             <nav className="hidden md:flex items-center gap-1">
-              {FULL_NAV_ITEMS.map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
-                    isActive(item.href)
-                      ? 'text-[#000000] bg-[#FF2D8E]/10 font-medium'
-                      : 'text-[#000000]/70 hover:text-[#000000] hover:bg-[#FF2D8E]/5'
-                  }`}
-                >
-                  <span className="mr-1">{item.icon}</span>
-                  {item.label}
-                </Link>
-              ))}
+              {FULL_NAV_ITEMS.map((item) =>
+                'external' in item && item.external ? (
+                  <a
+                    key={item.href}
+                    href={item.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-3 py-2 rounded-lg text-sm font-medium transition-colors text-[#000000]/70 hover:text-[#000000] hover:bg-[#FF2D8E]/5"
+                  >
+                    <span className="mr-1">{item.icon}</span>
+                    {item.label}
+                  </a>
+                ) : (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
+                      isActive(item.href)
+                        ? 'text-[#000000] bg-[#FF2D8E]/10 font-medium'
+                        : 'text-[#000000]/70 hover:text-[#000000] hover:bg-[#FF2D8E]/5'
+                    }`}
+                  >
+                    <span className="mr-1">{item.icon}</span>
+                    {item.label}
+                  </Link>
+                ),
+              )}
             </nav>
 
             {/* User Menu */}
             <div className="flex items-center gap-3">
-              <Link
-                href="/portal/book"
+              <a
+                href={BOOKING_URL}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="hidden sm:inline-flex items-center gap-2 bg-[#FF2D8E] text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-[#FF2D8E] transition-colors"
               >
                 <span>✨</span>
                 Book Now
-              </Link>
+              </a>
               <Link 
                 href="/portal/profile"
                 className="w-10 h-10 rounded-full bg-[#000000]/5 flex items-center justify-center text-[#000000] hover:bg-[#FF2D8E]/10 transition-colors"

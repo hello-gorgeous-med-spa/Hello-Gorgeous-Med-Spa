@@ -206,8 +206,8 @@ export default function EmailCampaignsPage() {
     subject: "",
     previewText: "",
     fromName: "Hello Gorgeous Med Spa",
-    fromEmail: "hello.gorgeous@hellogorgeousmedspa.com",
-    replyTo: "hello.gorgeous@hellogorgeousmedspa.com",
+    fromEmail: "provider@hellogorgeousmedspa.com",
+    replyTo: "provider@hellogorgeousmedspa.com",
   });
 
   useEffect(() => {

@@ -96,7 +96,7 @@ export const CLIENT_APP_WELLNESS_PROGRAMS = [
     accentIndex: 1, // blue
     href: "/peptides",
     learnHref: "/peptides",
-    bookHref: "/peptides",
+    bookHref: BOOKING_URL,
     highlights: ["BPC-157 — tissue & gut repair", "Sermorelin — natural GH release", "NAD+ — cellular energy & longevity", "GHK-Cu — skin & hair renewal"],
   },
   {
@@ -108,7 +108,7 @@ export const CLIENT_APP_WELLNESS_PROGRAMS = [
     accentIndex: 2, // orange
     href: "/rx/hormones",
     learnHref: "/rx/hormones",
-    bookHref: "/rx/hormones",
+    bookHref: BOOKING_URL,
     highlights: ["Testosterone Replacement (men & women)", "Estrogen & Progesterone Therapy", "BioTE® Pellets — 3–6 month delivery", "Thyroid & DHEA Optimization"],
   },
   {
@@ -120,7 +120,7 @@ export const CLIENT_APP_WELLNESS_PROGRAMS = [
     accentIndex: 0, // pink
     href: "/glp1-weight-loss",
     learnHref: "/glp1-weight-loss",
-    bookHref: "/glp1-intake",
+    bookHref: BOOKING_URL,
     highlights: ["Semaglutide (Ozempic-class)", "Tirzepatide (Mounjaro-class)", "Medical supervision & check-ins", "Nutrition & lifestyle support"],
   },
   {
@@ -141,7 +141,7 @@ export const CLIENT_APP_PORTAL_LINKS = [
   { label: "My Portal", href: "/portal", icon: "🏠" },
   { label: "GLP-1 Screening", href: GLP1_INTAKE_PATH, icon: "⚖️" },
   { label: "Appointments", href: "/portal/appointments", icon: "📅" },
-  { label: "Book a Service", href: "/portal/book", icon: "✨" },
+  { label: "Book a Service", href: BOOKING_URL, icon: "✨" },
   { label: "Rewards", href: "/portal/rewards", icon: "🎁" },
   { label: "Shop Supplements", href: "https://us.fullscript.com/welcome/hellogorgeousmedspa", icon: "💊" },
   { label: "Buy a Gift Card", href: "/app?tab=me&gc=buy", icon: "🎁" },

@@ -289,7 +289,7 @@ export default function PrivacyPolicyPage() {
           <p>For assistance, reply <strong>HELP</strong> or contact us directly at:</p>
           <p className="mb-0">
             📞 (630) 636-6193<br />
-            📧 hello.gorgeous@hellogorgeousmedspa.com
+            📧 provider@hellogorgeousmedspa.com
           </p>
 
           <h3 className="text-lg font-semibold text-black mt-6">Data Usage &amp; Privacy Commitment</h3>
@@ -372,7 +372,7 @@ export default function PrivacyPolicyPage() {
             74 W. Washington St<br />
             Oswego, IL 60543<br />
             Phone: (630) 636-6193<br />
-            Email: hello.gorgeous@hellogorgeousmedspa.com
+            Email: provider@hellogorgeousmedspa.com
           </address>
           <p className="mb-0 mt-4 text-sm">
             <strong>HHS Office for Civil Rights:</strong><br />

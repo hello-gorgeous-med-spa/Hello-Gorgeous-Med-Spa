@@ -63,7 +63,7 @@ export const PROVIDER_FALLBACKS: Record<string, ProviderFallback> = {
     first_name: "Danielle",
     last_name: "Alcala",
     display_name: "Danielle Alcala",
-    email: "hello.gorgeous@hellogorgeousmedspa.com",
+    email: "provider@hellogorgeousmedspa.com",
     color_hex: "#ec4899",
     credentials: DANIELLE_CREDENTIALS,
     tagline: "Practice and protect with heart",

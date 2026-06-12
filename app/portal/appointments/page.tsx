@@ -7,6 +7,7 @@
 
 import { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
+import { BOOKING_URL } from '@/lib/flows';
 import { usePortalAuth } from '@/lib/portal/useAuth';
 import { 
   canCancelAppointment, 
@@ -355,7 +356,7 @@ export default function PortalAppointmentsPage() {
               <h3 className="font-semibold text-black mb-2">No upcoming appointments</h3>
               <p className="text-black mb-4">Ready for your next treatment?</p>
               <Link
-                href="/portal/book"
+                href={BOOKING_URL}
                 className="inline-flex items-center gap-2 bg-[#FF2D8E] text-white px-6 py-2.5 rounded-full font-medium hover:bg-black transition-colors"
               >
                 Book Now
@@ -584,7 +585,7 @@ export default function PortalAppointmentsPage() {
         <h3 className="text-xl font-bold mb-2">Need Another Appointment?</h3>
         <p className="text-pink-100 mb-4">Book online 24/7</p>
         <Link
-          href="/portal/book"
+          href={BOOKING_URL}
           className="inline-block bg-white text-pink-600 px-6 py-2.5 rounded-full font-semibold hover:bg-pink-50 transition-colors"
         >
           Book Now

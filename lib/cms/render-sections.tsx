@@ -341,7 +341,7 @@ function CTASection({ content }: { content: Record<string, unknown> }) {
 function ContactSection({ content }: { content: Record<string, unknown> }) {
   const title = (content.title as string) || 'Contact Us';
   const phone = (content.phone as string) || '(630) 636-6193';
-  const email = (content.email as string) || 'hellogorgeousskin@yahoo.com';
+  const email = (content.email as string) || 'provider@hellogorgeousmedspa.com';
   const address = (content.address as string) || '74 W. Washington Street, Oswego, IL 60543';
   const show_map = content.show_map !== false;
   const show_hours = content.show_hours as boolean;

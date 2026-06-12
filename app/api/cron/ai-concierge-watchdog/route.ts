@@ -16,8 +16,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
 
-import { getSupabaseAdminClient } from "@/lib/hgos/supabase-admin";
 import { SITE } from "@/lib/seo";
+import { getSupabaseAdminClient } from "@/lib/hgos/supabase-admin";
+import { MEDSPA_OPS_EMAIL, MEDSPA_SEND_FROM } from "@/lib/business-contact";
 
 export const dynamic = "force-dynamic";
 export const maxDuration = 60;
@@ -49,7 +50,7 @@ function staffEmail(): string {
   return (
     process.env.AI_CONCIERGE_STAFF_EMAIL?.trim() ||
     process.env.CONTACT_FORM_TO_EMAIL?.trim() ||
-    SITE.email
+    MEDSPA_OPS_EMAIL
   );
 }
 
@@ -57,7 +58,7 @@ function fromAddress(): string {
   return (
     process.env.RESEND_FROM?.trim() ||
     process.env.RESEND_FROM_EMAIL?.trim() ||
-    `${SITE.name} <onboarding@resend.dev>`
+    MEDSPA_SEND_FROM
   );
 }
 

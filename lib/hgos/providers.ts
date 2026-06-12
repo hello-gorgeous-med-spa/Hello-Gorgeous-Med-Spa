@@ -73,7 +73,7 @@ export const ACTIVE_PROVIDERS: Provider[] = [
     displayName: 'Danielle Alcala, RN-S',
     role: 'owner',
     title: 'Business Owner / Registered Nurse',
-    email: 'hello.gorgeous@hellogorgeousmedspa.com',
+    email: 'provider@hellogorgeousmedspa.com',
     phone: '(630) 636-6193',
     color: '#ec4899', // Pink
     services: ['all'],

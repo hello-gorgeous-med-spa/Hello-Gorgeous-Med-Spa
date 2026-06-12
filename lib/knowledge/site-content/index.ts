@@ -79,7 +79,7 @@ export const SITE_CONTENT: readonly KnowledgeEntry[] = [
     topic: "Location, address, hours, contact",
     category: "site",
     explanation:
-      "Hello Gorgeous Med Spa is located at 74 W. Washington Street, Oswego, IL 60543. We serve Oswego, Naperville, Aurora, Plainfield, Yorkville, and surrounding areas (Kendall County, Kane County). Phone (630) 636-6193. Email hellogorgeousskin@yahoo.com. Check the website for current hours.",
+      "Hello Gorgeous Med Spa is located at 74 W. Washington Street, Oswego, IL 60543. We serve Oswego, Naperville, Aurora, Plainfield, Yorkville, and surrounding areas (Kendall County, Kane County). Phone (630) 636-6193. Email provider@hellogorgeousmedspa.com. Check the website for current hours.",
     whatItHelpsWith: ["Finding us", "Planning a visit"],
     whoItsFor: ["New and returning clients"],
     whoItsNotFor: [],

@@ -8,6 +8,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { BOOKING_URL } from '@/lib/flows';
 
 
 interface Offer {
@@ -110,7 +111,7 @@ export default function OffersPage() {
             Hello Gorgeous
           </Link>
           <Link
-            href="/portal/book"
+            href={BOOKING_URL}
             className="px-6 py-2 bg-[#FF2D8E] text-white font-medium rounded-full hover:bg-black transition-colors"
           >
             Book Now
@@ -155,7 +156,7 @@ export default function OffersPage() {
                   <span className="px-2 py-1 bg-white/20 rounded text-sm">Save {featuredOffer.savings_percent}%</span>
                 </div>
                 <Link
-                  href="/portal/book"
+                  href={BOOKING_URL}
                   className="inline-block px-8 py-3 bg-white text-pink-600 font-bold rounded-full hover:bg-pink-50 transition-colors"
                 >
                   Book Now
@@ -232,7 +233,7 @@ export default function OffersPage() {
                   <div className="flex items-center justify-between">
                     <CountdownTimer endsAt={new Date(offer.ends_at)} />
                     <Link
-                      href="/portal/book"
+                      href={BOOKING_URL}
                       className="px-4 py-2 bg-[#FF2D8E] text-white font-medium rounded-full hover:bg-black"
                     >
                       Book
@@ -251,7 +252,7 @@ export default function OffersPage() {
             Don't miss these amazing deals. Book your appointment today!
           </p>
           <Link
-            href="/portal/book"
+            href={BOOKING_URL}
             className="inline-block px-8 py-3 bg-[#FF2D8E] text-white font-bold rounded-full hover:bg-black transition-colors"
           >
             Book Your Appointment

@@ -1568,7 +1568,7 @@ function ForHimTab() {
         <p className="text-xs mb-3" style={{ color: "rgba(255,255,255,0.5)" }}>
           Botox for her. Brotox for him. Book together and make it a date.
         </p>
-        <a href="/book"
+        <a href={BOOKING_URL} target="_blank" rel="noopener noreferrer"
           className="inline-flex items-center gap-2 rounded-xl px-5 py-2.5 text-sm font-bold text-white"
           style={{ background: "linear-gradient(90deg, #FF2D8E, #db2777)" }}>
           Book Together →
@@ -1781,7 +1781,7 @@ function MeTab({ onOpenIntake, intakeRefresh, homeData }: {
             <p className="text-[11px]" style={{ color: "rgba(255,255,255,0.4)" }}>
               Works on all services · Never expires
             </p>
-            <a href="https://hellogorgeousmedspa.com/book" target="_blank" rel="noopener noreferrer"
+            <a href={BOOKING_URL} target="_blank" rel="noopener noreferrer"
               className="text-xs font-bold shrink-0 ml-3"
               style={{ color: "#FF2D8E" }}>
               Book & earn →

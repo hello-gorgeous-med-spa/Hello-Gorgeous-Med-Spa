@@ -8,13 +8,14 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePortalAuth } from '@/lib/portal/useAuth';
+import { BOOKING_URL } from '@/lib/flows';
 
 function Skeleton({ className = '' }: { className?: string }) {
   return <div className={`animate-pulse bg-[#000000]/10 rounded ${className}`} />;
 }
 
 const QUICK_ACTIONS = [
-  { title: 'Book Appointment', description: 'Schedule your next visit', href: '/portal/book', icon: '📅', color: 'from-[#FF2D8E] to-[#c90a68]', primary: true },
+  { title: 'Book Appointment', description: 'Schedule your next visit', href: BOOKING_URL, icon: '📅', color: 'from-[#FF2D8E] to-[#c90a68]', primary: true, external: true },
   { title: 'Lab Insights', description: 'Upload hormone labs for AI insights', href: '/portal/labs', icon: '🧪', color: 'bg-white border border-black' },
   { title: 'My Documents', description: 'Access your records', href: '/portal/documents', icon: '📁', color: 'bg-white border border-black' },
   { title: 'Consent Forms', description: 'Sign required forms', href: '/portal/consents', icon: '📝', color: 'bg-white border border-black' },
@@ -152,15 +153,24 @@ export default function PortalDashboard() {
       <section>
         <h2 className="text-xl font-bold text-black mb-4">Quick Actions</h2>
         <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-          {QUICK_ACTIONS.map((action) => (
-            <Link key={action.title} href={action.href} className="group">
+          {QUICK_ACTIONS.map((action) => {
+            const card = (
               <div className={`${action.primary ? "bg-gradient-to-br " + action.color + " text-white" : "bg-white border border-black text-black"} rounded-2xl p-5 h-full hover:shadow-md transition-all`}>
                 <span className="text-3xl mb-3 block">{action.icon}</span>
                 <h3 className="font-semibold mb-1">{action.title}</h3>
                 <p className={`text-sm ${action.primary ? "text-white/90" : "text-black"}`}>{action.description}</p>
               </div>
-            </Link>
-          ))}
+            );
+            return 'external' in action && action.external ? (
+              <a key={action.title} href={action.href} target="_blank" rel="noopener noreferrer" className="group">
+                {card}
+              </a>
+            ) : (
+              <Link key={action.title} href={action.href} className="group">
+                {card}
+              </Link>
+            );
+          })}
         </div>
       </section>
 
@@ -176,12 +186,14 @@ export default function PortalDashboard() {
           <span className="text-4xl mb-4 block">📅</span>
           <h3 className="font-semibold text-black mb-2">No upcoming appointments</h3>
           <p className="text-black/70 mb-4">Book your next treatment today!</p>
-          <Link
-            href="/portal/book"
+          <a
+            href={BOOKING_URL}
+            target="_blank"
+            rel="noopener noreferrer"
             className="inline-flex items-center gap-2 bg-[#FF2D8E] text-white px-6 py-2.5 rounded-full font-medium hover:bg-[#FF2D8E]/90 transition-colors"
           >
             Book Now
-          </Link>
+          </a>
         </div>
       </section>
 
@@ -224,12 +236,14 @@ export default function PortalDashboard() {
       <section className="bg-white rounded-2xl p-8 border border-black text-center">
         <h2 className="text-xl font-bold text-black mb-3">Ready for Your Next Appointment?</h2>
         <p className="text-black mb-6">Book online 24/7 and choose your preferred time</p>
-        <Link
-          href="/portal/book"
+        <a
+          href={BOOKING_URL}
+          target="_blank"
+          rel="noopener noreferrer"
           className="inline-flex items-center gap-2 bg-[#FF2D8E] text-white px-8 py-3 rounded-full font-semibold hover:bg-[#FF2D8E]/90 transition-colors"
         >
           Book Your Appointment →
-        </Link>
+        </a>
       </section>
     </div>
   );

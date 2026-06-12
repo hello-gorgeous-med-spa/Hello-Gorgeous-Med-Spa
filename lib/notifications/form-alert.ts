@@ -1,3 +1,4 @@
+import { MEDSPA_OPS_EMAIL } from "@/lib/business-contact";
 import {
   getContactFormToEmail,
   getResendFromAddress,
@@ -38,6 +39,7 @@ export function notifyOwnerFormSubmission(opts: {
 export async function emailStaffFormSubmission(opts: {
   subject: string;
   text: string;
+  html?: string;
   replyTo?: string;
 }): Promise<boolean> {
   const apiKey = process.env.RESEND_API_KEY;
@@ -46,12 +48,17 @@ export async function emailStaffFormSubmission(opts: {
   const toEmail = getContactFormToEmail();
   const fromAddress = getResendFromAddress();
   const replyTo = opts.replyTo?.trim();
+  const bccRaw = process.env.LEAD_EMAIL_BCC?.trim();
   const payload: Record<string, unknown> = {
     from: fromAddress,
     to: [toEmail],
     subject: opts.subject,
     text: opts.text,
   };
+  if (opts.html) payload.html = opts.html;
+  if (bccRaw && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(bccRaw)) {
+    payload.bcc = [bccRaw];
+  }
   if (replyTo && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(replyTo) && !isResendBlockedAddressDomain(replyTo)) {
     payload.reply_to = replyTo;
   }

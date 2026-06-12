@@ -385,7 +385,7 @@ export const CONSENT_FORMS: ConsentForm[] = [
       <p>To cancel or reschedule your appointment, please contact us via:</p>
       <ul>
         <li>Phone: (630) 636-6193</li>
-        <li>Email: hello.gorgeous@hellogorgeousmedspa.com</li>
+        <li>Email: provider@hellogorgeousmedspa.com</li>
         <li>Online booking portal</li>
       </ul>
       
@@ -803,7 +803,7 @@ export const CONSENT_FORMS: ConsentForm[] = [
       <ul>
         <li><strong>Replying STOP</strong> to any text message you receive from us</li>
         <li>Calling us at (630) 636-6193</li>
-        <li>Emailing hello.gorgeous@hellogorgeousmedspa.com with "Unsubscribe SMS" in the subject</li>
+        <li>Emailing provider@hellogorgeousmedspa.com with "Unsubscribe SMS" in the subject</li>
         <li>Notifying us in person at your next appointment</li>
       </ul>
       <p>After opting out, you will receive one final confirmation message. You will no longer receive text messages unless you opt back in.</p>

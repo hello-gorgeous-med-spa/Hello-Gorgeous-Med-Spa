@@ -102,7 +102,7 @@ export const DEFAULT_ONLINE_BOOKING_CONFIG: OnlineBookingConfig = {
   
   // Notifications
   notifyBookedTeamMember: true,
-  notificationEmails: ['hello.gorgeous@hellogorgeousmedspa.com'],
+  notificationEmails: ['provider@hellogorgeousmedspa.com'],
   
   // Important info text
   importantInfoText: `Unfortunately, for spa services & rituals we cannot accept any refund request, all services (includes spa packages) purchased, booked or completed services are final and non-refundable. You may be able to exchange for another service of equal or less value if requested to exchange before 24 Hours of booked appointment. Services cannot be refunded on because of concern or expected results. We are committed to assist our guest with all their concerns and shall advise for correction in post treatment protocol and regimen to be followed. It may require a follow-up visit at the spa for free consultation.

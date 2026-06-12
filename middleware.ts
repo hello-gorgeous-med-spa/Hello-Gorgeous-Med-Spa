@@ -133,6 +133,11 @@ export async function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
+  // /portal/book → Fresha redirects (public; same as /book)
+  if (pathname === '/portal/book' || pathname.startsWith('/portal/book/')) {
+    return NextResponse.next();
+  }
+
   // /login is always publicly accessible — never redirect unauthenticated users away
   if (pathname === '/login' || pathname.startsWith('/login/')) {
   const sessionCookie = request.cookies.get('hgos_session');

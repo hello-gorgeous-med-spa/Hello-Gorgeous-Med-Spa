@@ -12,6 +12,7 @@
 // ============================================================
 
 import { NextRequest, NextResponse } from "next/server";
+import { MEDSPA_OPS_EMAIL } from "@/lib/business-contact";
 
 export const dynamic = "force-dynamic";
 export const maxDuration = 60;
@@ -25,7 +26,7 @@ const NEGATIVE_WINDOW_MS = 7 * 60 * 60 * 1000;
 const OWNER_NAME = "Danielle Alcala";
 const OWNER_CELL = process.env.REVIEW_ALERT_PHONE || "+16308813398";
 const OWNER_CELL_DISPLAY = "(630) 881-3398";
-const OWNER_EMAIL = process.env.REVIEW_ALERT_EMAIL || "hellogorgeousskin@yahoo.com";
+const OWNER_EMAIL = process.env.REVIEW_ALERT_EMAIL || MEDSPA_OPS_EMAIL;
 
 const STAR: Record<string, number> = { ONE: 1, TWO: 2, THREE: 3, FOUR: 4, FIVE: 5, STAR_RATING_UNSPECIFIED: 0 };
 

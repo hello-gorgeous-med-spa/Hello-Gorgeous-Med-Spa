@@ -8,6 +8,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { BOOKING_URL } from '@/lib/flows';
 
 
 interface ResultPhoto {
@@ -53,7 +54,7 @@ export default function ResultsPage() {
             Hello Gorgeous
           </Link>
           <Link
-            href="/portal/book"
+            href={BOOKING_URL}
             className="px-6 py-2 bg-[#FF2D8E] text-white font-medium rounded-full hover:bg-black transition-colors"
           >
             Book Now
@@ -118,7 +119,7 @@ export default function ResultsPage() {
               Schedule a consultation to see before/after photos in person!
             </p>
             <Link
-              href="/portal/book?service=consultation"
+              href="/book?service=consultation"
               className="inline-block px-6 py-3 bg-[#FF2D8E] text-white font-medium rounded-full hover:bg-black"
             >
               Book Free Consultation
@@ -178,7 +179,7 @@ export default function ResultsPage() {
             Schedule a free consultation to discuss your goals and see what's possible.
           </p>
           <Link
-            href="/portal/book"
+            href={BOOKING_URL}
             className="inline-block px-8 py-3 bg-white text-pink-600 font-bold rounded-full hover:bg-pink-50 transition-colors"
           >
             Book Free Consultation
@@ -216,7 +217,7 @@ export default function ResultsPage() {
                   <span>{selectedResult.days_after} days after</span>
                 </div>
                 <Link
-                  href="/portal/book"
+                  href={BOOKING_URL}
                   className="px-6 py-2 bg-[#FF2D8E] text-white font-medium rounded-full hover:bg-black"
                 >
                   Book This Treatment
