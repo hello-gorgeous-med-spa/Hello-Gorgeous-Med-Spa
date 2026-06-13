@@ -123,15 +123,14 @@ export async function GET(request: NextRequest) {
     }
   }
 
-  // Eligible = Square customers only (paid), valid email, marketing consent.
+  // Eligible = Square customers with email + consent (transactional review ask, not newsletter).
   const { data: candidates, error: candErr } = await supabase
     .from("clients")
-    .select("id, first_name, email, square_customer_id, source, created_at, accepts_email_marketing")
+    .select("id, first_name, email, square_customer_id, source, created_at, consent_email")
     .not("email", "is", null)
     .not("first_name", "is", null)
     .not("square_customer_id", "is", null)
     .eq("consent_email", true)
-    .neq("accepts_email_marketing", false)
     .order("created_at", { ascending: true })
     .limit(2000);
 

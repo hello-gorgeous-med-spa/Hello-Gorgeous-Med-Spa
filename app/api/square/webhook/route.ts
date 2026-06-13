@@ -735,6 +735,20 @@ export async function POST(request: NextRequest) {
               updated_at: new Date().toISOString(),
             })
             .eq('id', existingClient.id);
+
+          // Square POS / Fresha checkout often fires order.completed, not HG sale_payments.
+          // Queue review ask 24h later (SMS + email via hourly cron).
+          const reviewQueue = await enqueueReviewRequest(supabase, {
+            clientId: existingClient.id,
+            source: 'square_payment',
+          });
+          if (
+            !reviewQueue.ok &&
+            reviewQueue.reason !== 'cooldown_60d' &&
+            reviewQueue.reason !== 'already_pending'
+          ) {
+            console.warn('[Webhook] Review enqueue (order.completed):', reviewQueue.reason, reviewQueue.detail);
+          }
         }
       }
 
