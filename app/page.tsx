@@ -14,6 +14,7 @@ import { HomepageHydrafacialBanner } from "@/components/HomepageHydrafacialBanne
 import { GiftCardShopSection } from "@/components/gift-cards/GiftCardShopSection";
 import {
   SITE,
+  SITE_HERO_IMAGE,
   SITE_OG_IMAGE,
   SITE_OG_IMAGE_ALT,
   pageMetadata,
@@ -82,7 +83,7 @@ export default function HomePage() {
               description:
                 "#1 Best Med Spa in Oswego, IL. NP-directed medical spa and medical aesthetics clinic with Morpheus8 Burst, injectables, GLP-1, hormone support, Solaria CO₂, IV therapy, and advanced skin + body treatments.",
               path: "/",
-              image: "/images/hero-banner.png",
+              image: SITE_HERO_IMAGE,
               datePublished: "2023-01-01",
               dateModified: new Date().toISOString().split("T")[0],
             }),

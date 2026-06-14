@@ -32,18 +32,39 @@ export const CREDENTIAL_STRIP_PRESCRIPTION = `Every prescription at Hello Gorgeo
 export const DANI_SHORT_BIO =
   "Danielle Alcala-Glazier — Licensed Esthetician, Phlebotomist, CMAA, CNA. Owner & Founder, Hello Gorgeous Med Spa.";
 
-export const DANI_MEDIUM_BIO = `Danielle Alcala-Glazier is the founder and owner of Hello Gorgeous Med Spa in Oswego, IL. She is a Licensed Esthetician, Phlebotomist, Certified Medical Administrative Assistant (CMAA), and Certified Nursing Assistant (CNA), and is currently pursuing her RN degree. Dani opened Hello Gorgeous over 10 years ago after a lifelong passion for skincare and a personal journey with severe acne and Accutane. Her aunt — who raised her and used to call her "hello gorgeous" — funded her first chair. Today the practice holds Best of Oswego awards for #1 Med Spa, Best Skincare, and Best Weight Loss.`;
+export const DANI_MEDIUM_BIO = `Danielle Alcala-Glazier is a Licensed Esthetician, Phlebotomist, Certified Medical Administrative Assistant (CMAA), and Certified Nursing Assistant (CNA), and is currently pursuing her RN degree. She is the Owner and Founder of Hello Gorgeous Med Spa in Oswego, Illinois.
 
-export const DANI_LONG_BIO = `Danielle Alcala-Glazier is the founder and owner of Hello Gorgeous Med Spa in Oswego, Illinois. Her path into aesthetics started at age 12 with severe acne that no over-the-counter product could touch. At 18 she went on Accutane and became obsessed with the science of skin. After having two sons, she enrolled in esthetic school and opened her own practice with funding from her aunt — the woman who raised her and used to call her "hello gorgeous." That phrase, and her aunt's belief in her, became the name and the foundation of everything.
+Danielle's path into medical aesthetics began at age twelve, when severe acne led her down a years-long journey through every product, peel, and treatment she could find — including Accutane at eighteen. That struggle did not end with clearer skin; it became a lifelong obsession with how skin actually heals, what ingredients and devices truly change outcomes, and why so many people waste money on treatments that never deliver.`;
 
-Today, more than 10 years later, Dani is a Licensed Esthetician, Phlebotomist, CMAA, and CNA, currently pursuing her RN degree. She has built Hello Gorgeous from a single chair into the only practice in the western Chicago suburbs offering the complete InMode Trifecta — Morpheus8 Burst, Solaria CO₂, and Quantum RF — alongside injectables, medical weight loss, hormone therapy, peptides, IV therapy, and full medical aesthetics. The practice is recognized as #1 Best Med Spa in Oswego with multiple "Best of" awards.
+export const DANI_LONG_BIO = `After becoming a mother to two sons, Danielle completed esthetic school and opened Hello Gorgeous with support from the aunt who raised her — the woman who used to greet her with "Hello gorgeous" and told her, "Go for it, honey." That name became the foundation of a family-owned practice, not a corporate med spa chain.
+
+More than a decade later, Danielle still works in the office every day — performing brow permanent makeup (microblading, powder, combo, and nano brows), advanced skin treatments, and the hands-on care that built her reputation across Oswego, Naperville, Aurora, Plainfield, Yorkville, and the Fox Valley. She has invested heavily in technology most local practices do not offer, including the complete InMode Trifecta: Morpheus8 Burst, Quantum RF, and Solaria CO₂ laser — alongside injectables, IV therapy, peptides, and full medical aesthetics supervised on site by a board-certified nurse practitioner.
+
+Hello Gorgeous has been recognized in the community with Best of Oswego honors, including #1 Med Spa, Best Skincare, and Best Weight Loss. Danielle's philosophy is simple: your money should buy results you can see in the mirror — honest recommendations, personalized plans, and providers who remember your name, your skin history, and what actually worked for you last time.
+
+She believes confidence should feel natural, earned, and yours — not oversold, not rushed, and never treated like a number.
 
 Dani is still in the office every day. She still answers texts. She still orders the products. She still invests in the equipment. Hello Gorgeous is a family-owned practice, not a chain — and that's the whole point.`;
+
+/** Full bio for provider profiles and GBP paste blocks. */
+export const DANI_PROVIDER_BIO = `${DANI_MEDIUM_BIO}\n\n${DANI_LONG_BIO}`;
 
 export const RYAN_SHORT_BIO =
   "Ryan Kent, FNP-BC — Medical Director, Hello Gorgeous Med Spa. Board-certified Family Nurse Practitioner with full prescriptive authority. On site 7 days a week.";
 
-export const RYAN_MEDIUM_BIO = `Ryan Kent is a board-certified Family Nurse Practitioner (FNP-BC) and the Medical Director of Hello Gorgeous Med Spa. Ryan holds full prescriptive authority in Illinois, allowing him to independently prescribe medications, supervise medical aesthetic protocols, and direct all clinical care at the practice. Unlike many med spas that rely on a remote physician medical director signing off from another state, Ryan is on-site 7 days a week, personally overseeing every protocol — from Botox dosing to GLP-1 weight loss programs to hormone therapy to laser treatments. Every clinical decision at Hello Gorgeous goes through Ryan.`;
+export const RYAN_MEDIUM_BIO = `Ryan Kent, FNP-BC, is a board-certified Family Nurse Practitioner and the Medical Director of Hello Gorgeous Med Spa in Oswego, Illinois.
+
+Ryan holds full prescriptive authority in Illinois, allowing him to independently prescribe medications, direct medical aesthetic protocols, and oversee clinical care across injectables, GLP-1 medical weight loss (Semaglutide and Tirzepatide), hormone optimization, peptides, IV therapy, and advanced energy-based treatments including Morpheus8 Burst, Quantum RF, and Solaria CO₂.`;
+
+export const RYAN_LONG_BIO = `Unlike many med spas that rely on a remote physician signing charts from another state, Ryan is on site seven days a week at Hello Gorgeous's downtown Oswego location. Every clinical decision — from Botox dosing to weight-loss protocols to laser settings — goes through him personally. His approach is data-driven and safety-first: labs, medical history, informed consent, and follow-up built into every plan.
+
+Ryan partners with Danielle Alcala-Glazier to deliver continuity of care — the same providers, the same chart, the same honest conversation visit after visit. For patients across Oswego and the western Chicago suburbs, that means medical aesthetics with a real nurse practitioner in the building, not just on a letterhead.`;
+
+/** Full bio for Ryan's provider profile page. */
+export const RYAN_PROVIDER_BIO = `${RYAN_MEDIUM_BIO}\n\n${RYAN_LONG_BIO}`;
+
+export const ABOUT_PAGE_SEO_DESCRIPTION =
+  "Meet Danielle Alcala-Glazier — Licensed Esthetician and founder of Hello Gorgeous Med Spa in Oswego, IL. 10+ years serving Naperville, Aurora & Plainfield. Morpheus8, Solaria, Botox, brows & more. Ryan Kent, FNP-BC on site 7 days.";
 
 export const DANI_IMAGE = "/images/team/danielle.png";
 export const RYAN_IMAGE = "/images/providers/ryan-kent-clinic.jpg";
@@ -70,6 +91,16 @@ export function daniPersonJsonLd() {
     name: DANI_FULL_NAME,
     jobTitle: "Owner & Founder",
     url: `${SITE.url}/about#dani`,
+    image: `${SITE.url}${DANI_IMAGE}`,
+    description: DANI_MEDIUM_BIO.replace(/\n\n/g, " "),
+    knowsAbout: [
+      "Medical aesthetics",
+      "Permanent makeup",
+      "Skincare",
+      "Morpheus8 Burst",
+      "Quantum RF",
+      "Solaria CO₂ laser",
+    ],
     worksFor: { "@id": `${SITE.url}/#organization` },
     hasCredential: [
       { "@type": "EducationalOccupationalCredential", credentialCategory: "Licensed Esthetician" },
@@ -87,18 +118,52 @@ export function daniPersonJsonLd() {
   };
 }
 
-export function ryanPersonJsonLd() {
+export function ryanPersonJsonLd(opts?: { profileUrl?: string }) {
+  const profileUrl = opts?.profileUrl ?? `${SITE.url}/about#ryan`;
   return {
     "@type": "Person",
-    "@id": `${SITE.url}/about#ryan`,
+    "@id": profileUrl,
     name: "Ryan Kent",
     jobTitle: "Medical Director",
-    url: `${SITE.url}/about#ryan`,
+    url: profileUrl,
+    image: `${SITE.url}${RYAN_IMAGE}`,
+    description: RYAN_MEDIUM_BIO.replace(/\n\n/g, " "),
+    knowsAbout: [
+      "Family Nurse Practitioner",
+      "Medical weight loss",
+      "GLP-1 therapy",
+      "Hormone optimization",
+      "Medical aesthetics",
+    ],
     worksFor: { "@id": `${SITE.url}/#organization` },
     hasCredential: {
       "@type": "EducationalOccupationalCredential",
       credentialCategory: "Family Nurse Practitioner, Board-Certified (FNP-BC)",
     },
+  };
+}
+
+export function aboutPageJsonLd() {
+  return {
+    "@type": "AboutPage",
+    "@id": `${SITE.url}/about`,
+    url: `${SITE.url}/about`,
+    name: "About Dani & Ryan | Hello Gorgeous Med Spa Oswego IL",
+    description: ABOUT_PAGE_SEO_DESCRIPTION,
+    mainEntity: [{ "@id": `${SITE.url}/about#dani` }, { "@id": `${SITE.url}/about#ryan` }],
+    isPartOf: { "@id": `${SITE.url}/#website` },
+    about: [{ "@id": `${SITE.url}/#organization` }],
+  };
+}
+
+export function aboutPageGraphJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      aboutPageJsonLd(),
+      daniPersonJsonLd(),
+      ryanPersonJsonLd({ profileUrl: `${SITE.url}/about#ryan` }),
+    ],
   };
 }
 

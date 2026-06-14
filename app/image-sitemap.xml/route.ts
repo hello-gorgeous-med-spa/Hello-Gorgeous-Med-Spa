@@ -8,7 +8,8 @@ import { SERVICE_IMAGES, SITE } from "@/lib/seo";
 
 const additionalImages = [
   // Hero & Brand Images
-  { src: "/images/hero-banner.png", title: "Hello Gorgeous Med Spa Hero", caption: "Premium medical aesthetics in Oswego, IL - Botox, Fillers, Weight Loss" },
+  { src: "/images/hero-brand.png", title: "Danielle Alcala-Glazier and Ryan Kent, FNP-BC", caption: "Hello Gorgeous Med Spa team — NP-directed medical aesthetics in Oswego, IL" },
+  { src: "/images/hero-banner.png", title: "Hello Gorgeous Med Spa Hero", caption: "Danielle and Ryan — Botox, Morpheus8, GLP-1 weight loss in Oswego IL" },
   { src: "/images/logo-full.png", title: "Hello Gorgeous Med Spa Logo", caption: "Hello Gorgeous Med Spa official logo" },
   
   // Before/After Results

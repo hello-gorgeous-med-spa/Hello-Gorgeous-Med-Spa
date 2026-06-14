@@ -8,21 +8,33 @@ import { FadeUp, Section } from "@/components/Section";
 import { BOOKING_URL } from "@/lib/flows";
 import { InModeTrainingCertificates } from "@/components/marketing/InModeTrainingCertificates";
 import {
+  ABOUT_PAGE_SEO_DESCRIPTION,
   DANI_IMAGE,
   DANI_LONG_BIO,
   DANI_MEDIUM_BIO,
   RYAN_IMAGE,
+  RYAN_LONG_BIO,
   RYAN_MEDIUM_BIO,
+  aboutPageGraphJsonLd,
 } from "@/lib/founder-credentials";
 import { DANIELLE_INMODE_CERTIFICATES } from "@/lib/inmode-training-certificates";
 import { HG_TAGLINE } from "@/lib/brand-tagline";
-import { pageMetadata, SITE, siteJsonLd } from "@/lib/seo";
+import { breadcrumbJsonLd, pageMetadata, SITE, siteJsonLd } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
-  title: "About Dani & Ryan | Hello Gorgeous Med Spa Oswego IL",
-  description:
-    "Meet Danielle Alcala-Glazier and Ryan Kent, FNP-BC at Hello Gorgeous Med Spa, Oswego, IL. We screen you like a medical practice, because we are one. Best of Oswego #1 Med Spa.",
+  title: "Danielle Alcala-Glazier & Ryan Kent, FNP-BC | Hello Gorgeous Med Spa Oswego IL",
+  description: ABOUT_PAGE_SEO_DESCRIPTION,
   path: "/about",
+  keywords: [
+    "Danielle Alcala-Glazier",
+    "Hello Gorgeous Med Spa Oswego",
+    "med spa owner Oswego IL",
+    "Ryan Kent FNP-BC",
+    "nurse practitioner med spa Oswego",
+    "Best of Oswego med spa",
+    "Morpheus8 Oswego",
+    "med spa Naperville Aurora Plainfield",
+  ],
 });
 
 const PRACTICE_STATS = [
@@ -33,11 +45,24 @@ const PRACTICE_STATS = [
 ];
 
 export default function AboutPage() {
+  const breadcrumb = breadcrumbJsonLd([
+    { name: "Home", url: SITE.url },
+    { name: "About Dani & Ryan", url: `${SITE.url}/about` },
+  ]);
+
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(siteJsonLd()) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(aboutPageGraphJsonLd()) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumb) }}
       />
 
       <Section className="bg-gradient-to-br from-black via-[#1a0a12] to-black text-white border-b-4 border-black">
@@ -156,9 +181,16 @@ export default function AboutPage() {
             <h2 className="text-3xl font-black text-black">Ryan Kent, FNP-BC</h2>
             <p className="mt-2 text-[#E6007E] font-bold uppercase tracking-wider text-sm">Medical Director</p>
             <p className="mt-6 text-black/85 font-medium leading-relaxed">{RYAN_MEDIUM_BIO}</p>
+            <p className="mt-6 text-black/85 font-medium leading-relaxed whitespace-pre-line">{RYAN_LONG_BIO}</p>
+            <Link
+              href="/providers/ryan"
+              className="mt-6 inline-flex items-center gap-2 text-[#E6007E] font-bold hover:underline"
+            >
+              Ryan&apos;s full provider profile →
+            </Link>
             <Link
               href="/telehealth"
-              className="mt-6 inline-flex items-center gap-2 text-[#E6007E] font-bold hover:underline"
+              className="mt-4 block text-[#E6007E] font-bold hover:underline"
             >
               Book a telehealth visit with Ryan →
             </Link>

@@ -5,7 +5,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { BOOKING_URL } from "@/lib/flows";
 import { CLIENT_APP, type ClientAppTab } from "@/lib/client-app";
-import { SITE } from "@/lib/seo";
+import { SITE, SITE_HERO_IMAGE } from "@/lib/seo";
 import { TRIFECTA_GRADIENT_TITLE, trifectaButtonGradient, trifectaAccent } from "@/lib/trifecta-tokens";
 
 type BrandHeroProps = {
@@ -82,8 +82,8 @@ export function BrandHero({
             }}
           >
             <Image
-              src="/images/hero-brand.png"
-              alt="Hello Gorgeous Med Spa — advanced aesthetic technology in Oswego, IL"
+              src={SITE_HERO_IMAGE}
+              alt="Danielle Alcala-Glazier and Ryan Kent, FNP-BC at Hello Gorgeous Med Spa in Oswego, IL"
               fill
               priority
               className="object-contain object-center"
