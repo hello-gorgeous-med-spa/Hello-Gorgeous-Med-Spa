@@ -111,8 +111,8 @@ function reserveActionJsonLd(reservationName = "Appointment at Hello Gorgeous Me
   };
 }
 
-/** Default OG/Twitter art (`public/images/hero-banner.png`). Bump `v` to bust Facebook/LinkedIn cache after changing the file. */
-export const SITE_HERO_IMAGE = "/images/hero-brand.png" as const;
+/** Homepage hero art. Bump `v` after replacing the file to bust CDN + Next/Image cache. */
+export const SITE_HERO_IMAGE = "/images/hero-brand.png?v=2026-06-us-hero" as const;
 export const SITE_OG_IMAGE = `${SITE.url}/images/hero-banner.png?v=2026-06-us-hero` as const;
 export const SITE_OG_IMAGE_ALT =
   "Danielle Alcala-Glazier and Ryan Kent, FNP-BC — Hello Gorgeous Med Spa, Oswego IL";
