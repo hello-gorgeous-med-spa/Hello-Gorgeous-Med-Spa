@@ -266,7 +266,7 @@ const addOns = [
   { name: "Zinc", price: "$20" },
   { name: "Anti-nausea", price: "$25" },
   { name: "Anti-inflammatory", price: "$30" },
-  { name: "NAD+ Boost", price: "$100" },
+  { name: "NAD+ injection add-on", price: "$40" },
 ];
 
 const faqs = [

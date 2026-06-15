@@ -5,17 +5,30 @@ import { SITE } from "@/lib/seo";
 
 export const NAD_PLUS_INJECTIONS_PATH = "/services/nad-plus-injections-oswego-il";
 
-/** NAD+ injection — single price (edit here). */
-export const NAD_PLUS_INJECTION_PRICE = "$40";
+/** NAD+ injection — single source of truth (USD). Edit here only. */
+export const NAD_PLUS_INJECTION_PRICE_USD = 40;
+export const NAD_PLUS_INJECTION_MEMBER_PRICE_USD = 35;
+export const NAD_PLUS_IV_FROM_USD = 350;
+
+export const NAD_PLUS_INJECTION_PRICE = `$${NAD_PLUS_INJECTION_PRICE_USD}`;
+export const NAD_PLUS_INJECTION_MEMBER_PRICE = `$${NAD_PLUS_INJECTION_MEMBER_PRICE_USD}`;
+export const NAD_PLUS_IV_FROM_PRICE = `$${NAD_PLUS_IV_FROM_USD}`;
 
 export const NAD_PLUS_PRICING = [
   {
     id: "injection",
     name: "NAD+ Injection",
     price: NAD_PLUS_INJECTION_PRICE,
+    memberPrice: NAD_PLUS_INJECTION_MEMBER_PRICE,
     description:
       "Quick in-office wellness injection. Screening required. Optional stacks (B12, glutathione, etc.) priced separately at consult.",
     highlight: true,
+  },
+  {
+    id: "iv",
+    name: "NAD+ IV Infusion",
+    price: `From ${NAD_PLUS_IV_FROM_PRICE}`,
+    description: "Slow IV protocol over 2–4 hours for deeper cellular support. Dose and rate set at consult.",
   },
 ] as const;
 
@@ -38,7 +51,7 @@ export const NAD_PLUS_FAQS = [
   {
     question: "How much does a NAD+ injection cost?",
     answer:
-      "NAD+ injections at Hello Gorgeous Med Spa in Oswego are $40 per visit. Add-ons and IV NAD+ are separate services with different pricing — your provider will confirm at consult.",
+      `NAD+ injections at Hello Gorgeous Med Spa in Oswego are ${NAD_PLUS_INJECTION_PRICE} per visit (${NAD_PLUS_INJECTION_MEMBER_PRICE} for members). NAD+ IV infusions start from ${NAD_PLUS_IV_FROM_PRICE}. Add-on stacks are priced separately at consult.`,
   },
   {
     question: "How fast will I feel it?",

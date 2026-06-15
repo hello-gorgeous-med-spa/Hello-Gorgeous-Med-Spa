@@ -1,6 +1,12 @@
 import { VITAMIN_MEMBERSHIPS, VITAMIN_SHOTS } from "@/lib/vitamin-bar";
 import { IV_DRIP_MENU, IV_THERAPY_SERVICE_PATH } from "@/lib/iv-drip-menu";
-import { NAD_PLUS_INJECTIONS_PATH } from "@/lib/nad-plus-injections";
+import { IV_SHOTS_PATH } from "@/lib/iv-shots-page";
+import {
+  NAD_PLUS_INJECTION_MEMBER_PRICE,
+  NAD_PLUS_INJECTION_PRICE,
+  NAD_PLUS_INJECTIONS_PATH,
+  NAD_PLUS_IV_FROM_PRICE,
+} from "@/lib/nad-plus-injections";
 import type { ServiceMenuConfig } from "@/lib/service-menu-types";
 
 export const WELLNESS_MENU_PATH = "/services/wellness" as const;
@@ -18,7 +24,7 @@ export const WELLNESS_MENU: ServiceMenuConfig = {
     subtitle:
       "IV hydration, Vitamin Bar shots, NAD+, peptides, and monthly wellness memberships — NP-supervised, book online or pull up to the window.",
     primaryCta: { label: "Open Hello Gorgeous app", href: "/app" },
-    secondaryCta: { label: "Full IV drip menu", href: IV_THERAPY_SERVICE_PATH },
+    secondaryCta: { label: "Full IV & shots menu", href: IV_SHOTS_PATH },
   },
   sections: [
     {
@@ -34,6 +40,7 @@ export const WELLNESS_MENU: ServiceMenuConfig = {
         "Member discounts on select plans",
       ],
       pricing: [
+        { label: "Full IV & vitamin shots menu", price: "From $25", href: IV_SHOTS_PATH },
         { label: "Hydration therapy", price: "From $125", href: IV_THERAPY_SERVICE_PATH },
         { label: "Myers' Cocktail", price: "$175–$199", href: IV_THERAPY_SERVICE_PATH },
         { label: "Beauty / Glow drip", price: "$189–$199", href: IV_THERAPY_SERVICE_PATH },
@@ -65,7 +72,7 @@ export const WELLNESS_MENU: ServiceMenuConfig = {
         })),
         { label: "Full shot menu (12+ options)", price: "From $25", href: "/app" },
       ],
-      learnMoreHref: "/app",
+      learnMoreHref: IV_SHOTS_PATH,
       badge: "DRIVE-THRU",
     },
     {
@@ -82,9 +89,9 @@ export const WELLNESS_MENU: ServiceMenuConfig = {
         "Oswego · western suburbs",
       ],
       pricing: [
-        { label: "NAD+ injection (visit)", price: "$40", href: NAD_PLUS_INJECTIONS_PATH },
-        { label: "NAD+ shot (Vitamin Bar menu)", price: "$99", href: "/app", note: "Members $85" },
-        { label: "NAD+ IV infusion", price: "From $350", href: IV_THERAPY_SERVICE_PATH },
+        { label: "NAD+ injection", price: NAD_PLUS_INJECTION_PRICE, href: NAD_PLUS_INJECTIONS_PATH, note: `Members ${NAD_PLUS_INJECTION_MEMBER_PRICE}` },
+        { label: "NAD+ IV infusion", price: `From ${NAD_PLUS_IV_FROM_PRICE}`, href: IV_THERAPY_SERVICE_PATH },
+        { label: "All IV & shots pricing", price: "Menu →", href: IV_SHOTS_PATH },
       ],
       learnMoreHref: NAD_PLUS_INJECTIONS_PATH,
       badge: "NEW",
@@ -146,8 +153,7 @@ export const WELLNESS_MENU: ServiceMenuConfig = {
     },
     {
       question: "Which NAD+ option should I choose?",
-      answer:
-        "The $40 NAD+ injection is a quick boost for energy and focus. The Vitamin Bar NAD+ shot ($99, members $85) is a higher-dose protocol. NAD+ IV infusions from $350 are for full cellular recovery sessions — we recommend at consult.",
+      answer: `NAD+ injections are ${NAD_PLUS_INJECTION_PRICE} (${NAD_PLUS_INJECTION_MEMBER_PRICE} for members) at the Vitamin Bar or in-office. NAD+ IV infusions start ${NAD_PLUS_IV_FROM_PRICE}. See our full IV & vitamin shots menu online.`,
     },
   ],
 };

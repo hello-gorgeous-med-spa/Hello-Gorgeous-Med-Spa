@@ -82,10 +82,16 @@ export const SHOT_CATEGORY_LABELS: Record<ShotCategory, string> = {
   rx: "Rx Add-Ons (provider)",
 };
 
+import {
+  NAD_PLUS_INJECTION_MEMBER_PRICE_USD,
+  NAD_PLUS_INJECTION_PRICE_USD,
+} from "@/lib/nad-plus-injections";
+
 /**
  * VITAMIN BAR MENU — owner-approved prices (confirmed Jun 2026).
  * Edit here to change names, prices, or member pricing; the app + Square
  * checkout read from this file directly.
+ * NAD+ shot prices sync from lib/nad-plus-injections.ts.
  */
 export const VITAMIN_SHOTS: VitaminShot[] = [
   // Energy & Metabolism
@@ -200,8 +206,8 @@ export const VITAMIN_SHOTS: VitaminShot[] = [
     id: "nad",
     name: "NAD+ (Cellular Energy)",
     benefit: "Cellular energy & clarity \u2014 focus, recovery, healthy aging.",
-    price: 99,
-    memberPrice: 85,
+    price: NAD_PLUS_INJECTION_PRICE_USD,
+    memberPrice: NAD_PLUS_INJECTION_MEMBER_PRICE_USD,
     category: "longevity",
     tags: ["ENERGY", "MENTAL CLARITY", "LONGEVITY"],
     favorite: true,

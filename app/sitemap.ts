@@ -434,6 +434,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.92,
     },
     {
+      url: `${baseUrl}/iv-shots`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.93,
+    },
+    {
       url: `${baseUrl}/services/microneedling-rf`,
       lastModified: currentDate,
       changeFrequency: 'weekly',
