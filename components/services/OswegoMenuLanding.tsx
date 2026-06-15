@@ -1,8 +1,7 @@
 import { ServiceMenuPageLayout } from "@/components/services/ServiceMenuPageLayout";
 import { getServicePageOswego } from "@/lib/service-pages-oswego";
 import type { ServiceMenuConfig } from "@/lib/service-menu-types";
-import { breadcrumbJsonLd, faqJsonLd, siteJsonLd, SITE } from "@/lib/seo";
-import { getLiveAggregateRating } from "@/lib/seo/google-places";
+import { breadcrumbJsonLd, faqJsonLd, SITE } from "@/lib/seo";
 
 /** Server component shared by the dark-menu Oswego injectable landings (Botox pattern). */
 export async function OswegoMenuLanding({
@@ -15,7 +14,6 @@ export async function OswegoMenuLanding({
   breadcrumbName: string;
 }) {
   const pageData = getServicePageOswego(slug)!;
-  const aggregateRating = await getLiveAggregateRating();
   const pageUrl = `${SITE.url}${config.path}`;
 
   const medicalProcedure = {
@@ -24,32 +22,11 @@ export async function OswegoMenuLanding({
     name: `${pageData.serviceName} in Oswego, IL`,
     procedureType: pageData.procedureType,
     ...(pageData.bodyLocation ? { bodyLocation: pageData.bodyLocation } : {}),
-    performer: {
-      "@type": "MedicalBusiness",
-      name: SITE.name,
-      url: SITE.url,
-      telephone: `+1-${SITE.phone.replace(/\D/g, "")}`,
-      address: {
-        "@type": "PostalAddress",
-        streetAddress: SITE.address.streetAddress,
-        addressLocality: SITE.address.addressLocality,
-        addressRegion: SITE.address.addressRegion,
-        postalCode: SITE.address.postalCode,
-        addressCountry: "US",
-      },
-      aggregateRating: {
-        "@type": "AggregateRating",
-        ratingValue: aggregateRating.ratingValue,
-        reviewCount: aggregateRating.reviewCount,
-        bestRating: "5",
-        worstRating: "1",
-      },
-    },
+    performer: { "@id": `${SITE.url}/#organization` },
   };
 
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(siteJsonLd()) }} />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(medicalProcedure) }}

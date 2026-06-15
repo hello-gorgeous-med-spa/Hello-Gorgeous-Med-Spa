@@ -10,7 +10,7 @@ import { HOME_TESTIMONIALS, SITE } from "@/lib/seo";
  *
  * Design goals
  *  - Server-rendered HTML so Google crawlers see all review text + names
- *  - Schema.org Review + AggregateRating markup → unlocks star rich snippets
+ *  - Individual Review markup (aggregate rating lives in root layout only)
  *    in search results (the visible 4.9 ★ ★ ★ ★ ★ in the SERP listing)
  *  - Falls back to curated HOME_TESTIMONIALS if Supabase is unavailable
  *  - Filters by service so each landing page sees only on-topic reviews
@@ -193,26 +193,7 @@ export async function RealPatientReviews({
   if (!reviews || reviews.length === 0) return null;
 
   const label = serviceLabel ?? "Hello Gorgeous";
-  const aggregate = {
-    "@context": "https://schema.org",
-    "@type": "AggregateRating",
-    itemReviewed: {
-      "@type": "MedicalBusiness",
-      name: SITE.name,
-      url: SITE.url,
-      address: {
-        "@type": "PostalAddress",
-        streetAddress: SITE.address.streetAddress,
-        addressLocality: SITE.address.addressLocality,
-        addressRegion: SITE.address.addressRegion,
-        postalCode: SITE.address.postalCode,
-      },
-    },
-    ratingValue: SITE.reviewRating,
-    reviewCount: SITE.reviewCount,
-    bestRating: 5,
-    worstRating: 1,
-  };
+  const orgId = `${SITE.url}/#organization`;
   const reviewLd = reviews.map((r) => ({
     "@context": "https://schema.org",
     "@type": "Review",
@@ -224,19 +205,11 @@ export async function RealPatientReviews({
     },
     author: { "@type": "Person", name: r.name },
     reviewBody: r.text,
-    itemReviewed: {
-      "@type": "MedicalBusiness",
-      name: SITE.name,
-      url: SITE.url,
-    },
+    itemReviewed: { "@id": orgId },
   }));
 
   return (
     <section className="py-16 md:py-20 bg-gradient-to-b from-rose-50 via-white to-white border-y-4 border-black">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(aggregate) }}
-      />
       {reviewLd.map((ld, i) => (
         <script
           key={i}

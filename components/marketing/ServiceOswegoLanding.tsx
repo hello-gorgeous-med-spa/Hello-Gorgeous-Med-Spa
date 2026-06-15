@@ -9,45 +9,21 @@ import { SITE, breadcrumbJsonLd, faqJsonLd } from "@/lib/seo";
 import type { ServicePageData } from "@/lib/service-pages-oswego";
 import { getServicePageOswego } from "@/lib/service-pages-oswego";
 
-type ServicePageRating = { ratingValue: string; reviewCount: string };
-
-function medicalProcedureJsonLd(page: ServicePageData, aggregateRating: ServicePageRating) {
+function medicalProcedureJsonLd(page: ServicePageData) {
   return {
     "@context": "https://schema.org",
     "@type": "MedicalProcedure",
     name: `${page.serviceName} in Oswego, IL`,
     procedureType: page.procedureType,
     ...(page.bodyLocation ? { bodyLocation: page.bodyLocation } : {}),
-    performer: {
-      "@type": "MedicalBusiness",
-      name: SITE.name,
-      url: SITE.url,
-      telephone: `+1-${SITE.phone.replace(/\D/g, "")}`,
-      address: {
-        "@type": "PostalAddress",
-        streetAddress: "74 W Washington St",
-        addressLocality: "Oswego",
-        addressRegion: "IL",
-        postalCode: "60543",
-        addressCountry: "US",
-      },
-      aggregateRating: {
-        "@type": "AggregateRating",
-        ratingValue: aggregateRating.ratingValue,
-        reviewCount: aggregateRating.reviewCount,
-        bestRating: "5",
-        worstRating: "1",
-      },
-    },
+    performer: { "@id": `${SITE.url}/#organization` },
   };
 }
 
 export function ServiceOswegoLanding({
   page,
-  aggregateRating,
 }: {
   page: ServicePageData;
-  aggregateRating: ServicePageRating;
 }) {
   const breadcrumbs = [
     { name: "Home", url: SITE.url },
@@ -62,7 +38,7 @@ export function ServiceOswegoLanding({
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(medicalProcedureJsonLd(page, aggregateRating)),
+          __html: JSON.stringify(medicalProcedureJsonLd(page)),
         }}
       />
       <script

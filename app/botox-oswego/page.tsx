@@ -3,8 +3,7 @@ import type { Metadata } from "next";
 import { ServiceMenuPageLayout } from "@/components/services/ServiceMenuPageLayout";
 import { BOTOX_OSWEGO_MENU } from "@/lib/botox-oswego-menu";
 import { getServicePageOswego } from "@/lib/service-pages-oswego";
-import { breadcrumbJsonLd, faqJsonLd, pageMetadata, siteJsonLd, SITE } from "@/lib/seo";
-import { getLiveAggregateRating } from "@/lib/seo/google-places";
+import { breadcrumbJsonLd, faqJsonLd, pageMetadata, SITE } from "@/lib/seo";
 
 const PAGE_URL = `${SITE.url}${BOTOX_OSWEGO_MENU.path}`;
 const pageData = getServicePageOswego("botox-oswego")!;
@@ -15,46 +14,23 @@ export const metadata: Metadata = pageMetadata({
   path: BOTOX_OSWEGO_MENU.path,
 });
 
-function medicalProcedureJsonLd(aggregateRating: { ratingValue: string; reviewCount: string }) {
+function medicalProcedureJsonLd() {
   return {
     "@context": "https://schema.org",
     "@type": "MedicalProcedure",
     name: `${pageData.serviceName} in Oswego, IL`,
     procedureType: pageData.procedureType,
     ...(pageData.bodyLocation ? { bodyLocation: pageData.bodyLocation } : {}),
-    performer: {
-      "@type": "MedicalBusiness",
-      name: SITE.name,
-      url: SITE.url,
-      telephone: `+1-${SITE.phone.replace(/\D/g, "")}`,
-      address: {
-        "@type": "PostalAddress",
-        streetAddress: SITE.address.streetAddress,
-        addressLocality: SITE.address.addressLocality,
-        addressRegion: SITE.address.addressRegion,
-        postalCode: SITE.address.postalCode,
-        addressCountry: "US",
-      },
-      aggregateRating: {
-        "@type": "AggregateRating",
-        ratingValue: aggregateRating.ratingValue,
-        reviewCount: aggregateRating.reviewCount,
-        bestRating: "5",
-        worstRating: "1",
-      },
-    },
+    performer: { "@id": `${SITE.url}/#organization` },
   };
 }
 
 export default async function BotoxOswegoPage() {
-  const aggregateRating = await getLiveAggregateRating();
-
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(siteJsonLd()) }} />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(medicalProcedureJsonLd(aggregateRating)) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(medicalProcedureJsonLd()) }}
       />
       <script
         type="application/ld+json"

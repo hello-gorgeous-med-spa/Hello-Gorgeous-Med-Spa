@@ -18,7 +18,6 @@ import {
   SITE_OG_IMAGE,
   SITE_OG_IMAGE_ALT,
   pageMetadata,
-  siteJsonLd,
   mainLocalBusinessJsonLd,
   breadcrumbJsonLd,
   imageGalleryJsonLd,
@@ -60,10 +59,6 @@ export default function HomePage() {
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(siteJsonLd()) }}
-      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(mainLocalBusinessJsonLd()) }}

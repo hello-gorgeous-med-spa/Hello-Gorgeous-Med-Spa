@@ -34,7 +34,6 @@ import {
 } from "@/lib/service-pages-oswego";
 import { ServiceOswegoLanding } from "@/components/marketing/ServiceOswegoLanding";
 import { IvTherapyServicePage } from "@/components/services/IvTherapyServicePage";
-import { getLiveAggregateRating } from "@/lib/seo/google-places";
 
 /** Canonical local URLs that should render the IV drip menu page. */
 const IV_THERAPY_PUBLIC_SLUGS = new Set(["iv-therapy-oswego-il", "iv-therapy-oswego"]);
@@ -201,16 +200,7 @@ export default async function SlugPage({ params }: { params: Promise<{ slug: str
 
   if (isServicePageOswegoSlug(slug)) {
     const page = getServicePageOswego(slug)!;
-    const aggregateRating = await getLiveAggregateRating();
-    return (
-      <ServiceOswegoLanding
-        page={page}
-        aggregateRating={{
-          ratingValue: aggregateRating.ratingValue,
-          reviewCount: aggregateRating.reviewCount,
-        }}
-      />
-    );
+    return <ServiceOswegoLanding page={page} />;
   }
 
   const treatmentParsed = parseTreatmentCitySlug(slug);

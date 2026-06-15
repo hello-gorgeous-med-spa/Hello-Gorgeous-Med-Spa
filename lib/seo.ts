@@ -1089,23 +1089,16 @@ export function pageMetadata({
   };
 }
 
-/** Optional override for `aggregateRating` so callers can inject live
- *  Google Places data. Passing `null` removes the rating block entirely
- *  (e.g. while waiting on first sync). Defaults to SITE static values. */
+/** Optional override for `aggregateRating` on MedicalBusiness schema.
+ *  Omit on child pages — root layout injects the single live Google rating. */
 export interface AggregateRatingOverride {
   ratingValue: string;
   reviewCount: string;
 }
 
 export function siteJsonLd(opts?: { aggregateRating?: AggregateRatingOverride | null }) {
-  const ratingOverride = opts?.aggregateRating;
-  const aggregate =
-    ratingOverride === null
-      ? null
-      : ratingOverride ?? {
-          ratingValue: SITE.reviewRating,
-          reviewCount: SITE.reviewCount,
-        };
+  // One AggregateRating sitewide — only root layout passes live Google data.
+  const aggregate = opts?.aggregateRating ?? null;
   return {
     "@context": "https://schema.org",
     "@type": "MedicalBusiness",
@@ -1214,14 +1207,7 @@ export function siteJsonLd(opts?: { aggregateRating?: AggregateRatingOverride | 
 }
 
 export function mainLocalBusinessJsonLd(opts?: { aggregateRating?: AggregateRatingOverride | null }) {
-  const ratingOverride = opts?.aggregateRating;
-  const aggregate =
-    ratingOverride === null
-      ? null
-      : ratingOverride ?? {
-          ratingValue: SITE.reviewRating,
-          reviewCount: SITE.reviewCount,
-        };
+  const aggregate = opts?.aggregateRating ?? null;
   return {
     "@context": "https://schema.org",
     "@type": ["MedicalBusiness", "MedicalClinic", "LocalBusiness"],
