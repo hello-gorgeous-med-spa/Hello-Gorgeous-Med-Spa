@@ -22,5 +22,12 @@ export const metadata: Metadata = {
 };
 
 export default function DermalFillersYorkvillePage() {
-  return <LocationServicePage service={service} area={area} nearbyAreas={nearbyAreas} />;
+  return (
+    <LocationServicePage
+      service={service}
+      area={area}
+      nearbyAreas={nearbyAreas}
+      localIntro="Yorkville is one of our closest neighbors — roughly 8 minutes north on Route 47/71. Many Yorkville clients combine lip and cheek filler in one visit, with touch-ups scheduled at two weeks when included in their plan."
+    />
+  );
 }

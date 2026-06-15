@@ -79,6 +79,10 @@ export function HomepageFAQ({ compact = false }: HomepageFAQProps) {
         }
       >
         Still have questions?{" "}
+        <Link href="/faq" className="text-[#E6007E] font-semibold hover:underline">
+          See all med spa FAQs (40+ answers)
+        </Link>
+        {" · "}
         <Link href="/book" className="text-[#E6007E] font-semibold hover:underline">
           Book a free consultation
         </Link>{" "}

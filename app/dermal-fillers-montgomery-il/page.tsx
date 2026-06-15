@@ -22,5 +22,12 @@ export const metadata: Metadata = {
 };
 
 export default function DermalFillersMontgomeryPage() {
-  return <LocationServicePage service={service} area={area} nearbyAreas={nearbyAreas} />;
+  return (
+    <LocationServicePage
+      service={service}
+      area={area}
+      nearbyAreas={nearbyAreas}
+      localIntro="Montgomery clients book cheek, jawline, and lip filler with our NP-led team — we're about 10 minutes south via Route 30 to 74 W. Washington St. in downtown Oswego. Free consultations and hyaluronidase dissolver on site when medically appropriate."
+    />
+  );
 }

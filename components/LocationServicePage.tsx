@@ -1,7 +1,14 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { SITE, siteJsonLd, localBusinessJsonLd, faqJsonLd, breadcrumbJsonLd } from '@/lib/seo';
-import { ServiceConfig, ServiceArea, generateServiceSchema } from '@/lib/location-seo';
+import {
+  ServiceConfig,
+  ServiceArea,
+  SERVICE_AREAS,
+  LOCATION_GRID_CITIES,
+  locationServicePath,
+  generateServiceSchema,
+} from '@/lib/location-seo';
 import { WeightLossBlogPromo } from '@/components/WeightLossBlogPromo';
 import { LaserHairMembershipsPromo } from '@/components/LaserHairMembershipsPromo';
 import { RealPatientReviews, type ReviewServiceCategory } from '@/components/RealPatientReviews';
@@ -27,9 +34,11 @@ interface LocationServicePageProps {
   service: ServiceConfig;
   area: ServiceArea;
   nearbyAreas: ServiceArea[];
+  /** City-specific paragraph — helps Google distinguish geo pages from template duplicates. */
+  localIntro?: string;
 }
 
-export function LocationServicePage({ service, area, nearbyAreas }: LocationServicePageProps) {
+export function LocationServicePage({ service, area, nearbyAreas, localIntro }: LocationServicePageProps) {
   const reviewCategory = REVIEW_CATEGORY_BY_SERVICE[service.slug] ?? 'general';
   const breadcrumbs = [
     { name: 'Home', url: SITE.url },
@@ -93,9 +102,15 @@ export function LocationServicePage({ service, area, nearbyAreas }: LocationServ
                 <h1 className="text-4xl md:text-5xl font-bold mb-6 leading-tight">
                   <span className="text-[#FF2D8E]">{service.name}</span> in {area.city}, IL
                 </h1>
-                <p className="text-xl text-gray-300 mb-8">
+                <p className="text-xl text-gray-300 mb-4">
                   {service.description} Hello Gorgeous Med Spa serves {area.city} and surrounding areas with licensed nurse practitioners.
                 </p>
+                {localIntro && (
+                  <p className="text-lg text-gray-400 mb-8 leading-relaxed border-l-4 border-[#FF2D8E] pl-4">
+                    {localIntro}
+                  </p>
+                )}
+                {!localIntro && <div className="mb-8" />}
                 
                 <div className="flex flex-col sm:flex-row gap-4 mb-8">
                   <Link
@@ -146,15 +161,37 @@ export function LocationServicePage({ service, area, nearbyAreas }: LocationServ
               {service.name} Near You — Areas We Serve
             </h2>
             <div className="grid md:grid-cols-3 lg:grid-cols-6 gap-6">
-              {['Oswego', 'Naperville', 'Aurora', 'Plainfield', 'Yorkville', 'Montgomery'].map((city) => (
-                <div key={city} className={`p-6 rounded-xl text-center shadow-sm border ${city === area.city ? 'bg-[#FF2D8E] text-white border-[#FF2D8E]' : 'bg-white border-gray-100'}`}>
-                  <span className="text-2xl mb-2 block">📍</span>
-                  <p className="font-semibold">{city}, IL</p>
-                  <p className={`text-sm ${city === area.city ? 'text-pink-100' : 'text-gray-500'}`}>
-                    {city === area.city ? "You're Here!" : 'Service Available'}
-                  </p>
-                </div>
-              ))}
+              {LOCATION_GRID_CITIES.map((city) => {
+                const areaMeta = SERVICE_AREAS.find((a) => a.city === city);
+                const isCurrent = city === area.city;
+                const href = areaMeta ? locationServicePath(service.slug, areaMeta.slug) : undefined;
+                const cardClass = `p-6 rounded-xl text-center shadow-sm border block transition-colors ${
+                  isCurrent
+                    ? 'bg-[#FF2D8E] text-white border-[#FF2D8E]'
+                    : 'bg-white border-gray-100 hover:border-[#FF2D8E] hover:text-[#FF2D8E]'
+                }`;
+                const inner = (
+                  <>
+                    <span className="text-2xl mb-2 block">📍</span>
+                    <p className="font-semibold">{city}, IL</p>
+                    <p className={`text-sm ${isCurrent ? 'text-pink-100' : 'text-gray-500'}`}>
+                      {isCurrent ? "You're Here!" : `View ${service.shortName} page →`}
+                    </p>
+                  </>
+                );
+                if (isCurrent || !href) {
+                  return (
+                    <div key={city} className={cardClass}>
+                      {inner}
+                    </div>
+                  );
+                }
+                return (
+                  <Link key={city} href={href} className={cardClass}>
+                    {inner}
+                  </Link>
+                );
+              })}
             </div>
             <p className="text-center mt-8 text-gray-600">
               Located at <strong>74 W. Washington Street, Oswego, IL</strong> — Easy access from I-88 & Route 34
@@ -329,7 +366,7 @@ export function LocationServicePage({ service, area, nearbyAreas }: LocationServ
                 {nearbyAreas.map((nearby) => (
                   <Link
                     key={nearby.slug}
-                    href={`/${service.slug}-${nearby.slug}-il`}
+                    href={locationServicePath(service.slug, nearby.slug)}
                     className="px-4 py-2 bg-white border border-gray-200 rounded-lg text-sm hover:border-[#FF2D8E] hover:text-[#FF2D8E] transition-colors"
                   >
                     {service.name} {nearby.city}, IL

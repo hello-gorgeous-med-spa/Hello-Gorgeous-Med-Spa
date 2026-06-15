@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 
 import { FaqPageContent } from "@/components/faq/FaqPageContent";
 import { flattenFaqPageItems, MED_SPA_FAQ_SECTIONS } from "@/lib/med-spa-faq-data";
@@ -64,7 +65,28 @@ export default function MedSpaFaqPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd(FLAT_FAQ, PAGE_URL)) }}
       />
 
-      <FaqPageContent />
+      <FaqPageContent
+        seoIntro={
+          <section className="relative z-10 max-w-3xl mx-auto px-4 md:px-6 py-8 text-center border-b-4 border-black bg-white/80">
+            <p className="text-black/80 font-medium leading-relaxed">
+              40+ answers about Botox, dermal fillers, Morpheus8 Burst, Quantum RF, Solaria CO₂, GLP-1 weight loss,
+              hormone therapy, Cherry &amp; CareCredit financing, and booking at Hello Gorgeous Med Spa in Oswego —
+              serving Naperville, Aurora, Plainfield, Yorkville, and Montgomery.
+            </p>
+            <p className="mt-4 text-sm font-semibold text-black/70 flex flex-wrap justify-center gap-x-4 gap-y-2">
+              <Link href="/about" className="text-[#E6007E] hover:underline">
+                Meet Dani &amp; Ryan
+              </Link>
+              <Link href="/services/injectables" className="text-[#E6007E] hover:underline">
+                Injectables menu
+              </Link>
+              <Link href="/book" className="text-[#E6007E] hover:underline">
+                Book online
+              </Link>
+            </p>
+          </section>
+        }
+      />
     </>
   );
 }

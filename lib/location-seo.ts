@@ -16,6 +16,13 @@ export const SERVICE_AREAS = [
 
 export type ServiceArea = typeof SERVICE_AREAS[number];
 
+/** Canonical path for `{service}-{city}-il` location landing pages. */
+export function locationServicePath(serviceSlug: string, areaSlug: string): string {
+  return `/${serviceSlug}-${areaSlug}-il`;
+}
+
+export const LOCATION_GRID_CITIES = SERVICE_AREAS.map((a) => a.city);
+
 export interface ServiceConfig {
   slug: string;
   name: string;

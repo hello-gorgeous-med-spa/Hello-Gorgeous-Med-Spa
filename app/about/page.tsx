@@ -218,6 +218,26 @@ export default function AboutPage() {
         </div>
       </Section>
 
+      <Section className="bg-gradient-to-b from-[#FFF0F7] to-white border-b-4 border-black">
+        <div className="max-w-3xl mx-auto text-center">
+          <FadeUp>
+            <h2 className="text-2xl md:text-3xl font-black text-black mb-4">
+              Questions before you book?
+            </h2>
+            <p className="text-black/80 font-medium leading-relaxed mb-6">
+              Botox, Morpheus8, GLP-1 weight loss, hormone therapy, financing, and what makes Hello Gorgeous
+              different — answered in our full med spa FAQ.
+            </p>
+            <Link
+              href="/faq"
+              className="inline-flex items-center justify-center rounded-full border-4 border-black bg-white px-6 py-3 text-sm font-bold text-[#E6007E] shadow-[6px_6px_0_0_rgba(230,0,126,0.35)] hover:bg-[#FFF0F7] transition-colors"
+            >
+              Read the full FAQ →
+            </Link>
+          </FadeUp>
+        </div>
+      </Section>
+
       <Section className="bg-gray-50 border-b-4 border-black">
         <div className="max-w-5xl mx-auto text-center">
           <FadeUp>

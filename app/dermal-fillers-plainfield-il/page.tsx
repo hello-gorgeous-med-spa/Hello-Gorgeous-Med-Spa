@@ -22,5 +22,12 @@ export const metadata: Metadata = {
 };
 
 export default function DermalFillersPlainfieldPage() {
-  return <LocationServicePage service={service} area={area} nearbyAreas={nearbyAreas} />;
+  return (
+    <LocationServicePage
+      service={service}
+      area={area}
+      nearbyAreas={nearbyAreas}
+      localIntro="Plainfield clients visit us for full-face filler mapping — cheeks, jawline, chin, and lips — about 12 minutes east via Route 126 to Route 34. Juvederm, Restylane, Revanesse, and RHA are selected at consult for your anatomy and goals."
+    />
+  );
 }

@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import type { ClipboardEvent } from "react";
+import type { ClipboardEvent, ReactNode } from "react";
 import { useCallback, useEffect } from "react";
 
 import { CTA } from "@/components/CTA";
@@ -23,7 +23,7 @@ function blockClipboard(e: ClipboardEvent<HTMLElement>) {
   e.preventDefault();
 }
 
-export function FaqPageContent() {
+export function FaqPageContent({ seoIntro }: { seoIntro?: ReactNode }) {
   const blockContext = useCallback((e: React.MouseEvent) => {
     e.preventDefault();
   }, []);
@@ -87,7 +87,7 @@ export function FaqPageContent() {
           />
           <div className="absolute inset-0 bg-[linear-gradient(to_bottom,transparent_0%,rgba(0,0,0,0.5)_100%)]" />
 
-          <div className="relative z-10 max-w-4xl mx-auto text-center px-4 md:px-6 select-none">
+          <div className="relative z-10 max-w-4xl mx-auto text-center px-4 md:px-6">
             <FadeUp>
               <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border-2 border-white/20 bg-white/10 backdrop-blur-sm text-white text-xs font-bold uppercase tracking-[0.2em] mb-6">
                 <span className="inline-block w-2 h-2 rounded-full bg-[#E6007E] animate-pulse" aria-hidden />
@@ -134,8 +134,10 @@ export function FaqPageContent() {
           </div>
         </Section>
 
+        {seoIntro}
+
         {/* Topic chips */}
-        <Section className="!py-12 border-b-4 border-black bg-white/70 backdrop-blur-sm select-none">
+        <Section className="!py-12 border-b-4 border-black bg-white/70 backdrop-blur-sm">
           <nav aria-label="FAQ topics" className="max-w-5xl mx-auto px-4 md:px-6">
             <p className="text-sm font-bold text-black uppercase tracking-wider mb-4 flex items-center gap-2">
               <span className="text-[#E6007E]" aria-hidden>
@@ -164,7 +166,7 @@ export function FaqPageContent() {
         ))}
 
         {/* Closing CTA */}
-        <Section className="relative !py-20 overflow-hidden border-t-4 border-black select-none">
+        <Section className="relative !py-20 overflow-hidden border-t-4 border-black">
           <div
             className="absolute inset-0"
             style={{
@@ -172,7 +174,7 @@ export function FaqPageContent() {
             }}
           />
           <div className="absolute inset-0 opacity-30 bg-[url('data:image/svg+xml,%3Csvg%20width%3D%2260%22%20height%3D%2260%22%20viewBox%3D%220%200%2060%2060%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cg%20fill%3D%22none%22%20fill-rule%3D%22evenodd%22%3E%3Cg%20fill%3D%22%23ffffff%22%20fill-opacity%3D%220.08%22%3E%3Cpath%20d%3D%22M36%2034v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6%2034v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6%204V0H4v4H0v2h4v4h2V6h4V4H6z%22%2F%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E')]" />
-          <div className="relative z-10 max-w-4xl mx-auto text-center px-4 md:px-6 select-none">
+          <div className="relative z-10 max-w-4xl mx-auto text-center px-4 md:px-6">
             <h2 className="text-3xl md:text-4xl font-black text-white mb-4 drop-shadow-md">Still have questions?</h2>
             <p className="text-white/95 text-lg mb-10 max-w-xl mx-auto">
               We love talking through your goals — book online or reach out anytime.
@@ -203,21 +205,19 @@ function FaqSectionBlock({ section, index }: { section: FAQPageSection; index: n
       className={`scroll-mt-28 !py-16 md:!py-20 ${isAlt ? "bg-white/50" : "bg-gradient-to-b from-white to-[#FFF5FA]"}`}
     >
       <div className="max-w-3xl mx-auto px-4 md:px-6">
-        <div className="select-none rounded-3xl border-4 border-black p-8 md:p-10 bg-white shadow-[8px_8px_0_0_rgba(230,0,126,0.35)]">
-          <FadeUp>
-            <div className="flex items-start gap-3 mb-6">
-              <span
-                className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-[#FF2D8E] to-[#E6007E] text-white text-lg font-black border-2 border-black"
-                aria-hidden
-              >
-                {index + 1}
-              </span>
-              <div>
-                <h2 className="text-2xl md:text-3xl font-black text-black leading-tight">{section.title}</h2>
-                {section.summary && <p className="text-black/65 mt-2 leading-relaxed font-medium">{section.summary}</p>}
-              </div>
+        <div className="rounded-3xl border-4 border-black p-8 md:p-10 bg-white shadow-[8px_8px_0_0_rgba(230,0,126,0.35)]">
+          <div className="flex items-start gap-3 mb-6">
+            <span
+              className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-[#FF2D8E] to-[#E6007E] text-white text-lg font-black border-2 border-black"
+              aria-hidden
+            >
+              {index + 1}
+            </span>
+            <div>
+              <h2 className="text-2xl md:text-3xl font-black text-black leading-tight">{section.title}</h2>
+              {section.summary && <p className="text-black/65 mt-2 leading-relaxed font-medium">{section.summary}</p>}
             </div>
-          </FadeUp>
+          </div>
           <dl className="space-y-0 border-t-2 border-black/10 mt-6">
             {section.items.map((item) => (
               <div key={item.question} className="border-b border-black/10 last:border-b-0">
@@ -229,7 +229,7 @@ function FaqSectionBlock({ section, index }: { section: FAQPageSection; index: n
                     {item.question}
                   </span>
                 </dt>
-                <dd className="pb-6 pl-6 text-black/85 leading-relaxed font-medium">{item.answer}</dd>
+                <dd className="pb-6 pl-6 text-black/85 leading-relaxed font-medium select-none">{item.answer}</dd>
               </div>
             ))}
           </dl>
