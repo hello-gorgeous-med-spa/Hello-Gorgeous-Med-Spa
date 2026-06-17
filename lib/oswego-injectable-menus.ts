@@ -41,7 +41,7 @@ export function buildOswegoMenu(slug: string, custom: OswegoMenuCustom): Service
       titleBefore: custom.titleBefore,
       titleAccent: custom.titleAccent,
       subtitle: page.valueProp,
-      primaryCta: { label: "Book free consult", href: page.bookingUrl ?? BOOKING_URL },
+      primaryCta: { label: "Book Free Consultation", href: page.bookingUrl ?? BOOKING_URL },
       secondaryCta,
     },
     sections: [

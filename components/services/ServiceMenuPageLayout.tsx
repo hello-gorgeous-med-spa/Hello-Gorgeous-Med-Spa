@@ -3,9 +3,12 @@
 import Link from "next/link";
 
 import { CTA } from "@/components/CTA";
+import { ServiceConversionBand } from "@/components/services/ServiceConversionBand";
 import { ServiceMenuClinicMedia } from "@/components/services/ServiceMenuClinicMedia";
 import { FadeUp, Section } from "@/components/Section";
 import { BOOKING_URL } from "@/lib/flows";
+import { getServiceConversionProfile, slugFromMenuPath } from "@/lib/service-conversion-profiles";
+import { getServicePageOswego } from "@/lib/service-pages-oswego";
 import type { ServiceMenuConfig, ServiceMenuPriceRow, ServiceMenuSection } from "@/lib/service-menu-types";
 import { SITE } from "@/lib/seo";
 
@@ -86,6 +89,11 @@ function MenuSectionRow({ section, index }: { section: ServiceMenuSection; index
 
 export function ServiceMenuPageLayout({ config }: { config: ServiceMenuConfig }) {
   const { hero, sections, faqs, gallery, heroVideo, videos, results } = config;
+  const slug = slugFromMenuPath(config.path);
+  const pageData = getServicePageOswego(slug);
+  const conversionProfile = getServiceConversionProfile(slug);
+  const bookingHref = hero.primaryCta?.href ?? pageData?.bookingUrl ?? BOOKING_URL;
+  const serviceName = pageData?.serviceName ?? hero.titleAccent;
   const allVideos = [...(heroVideo ? [heroVideo] : []), ...(videos ?? [])];
   const hasClinicMedia =
     allVideos.length > 0 || (gallery && gallery.length > 0) || (results && results.length > 0);
@@ -120,8 +128,8 @@ export function ServiceMenuPageLayout({ config }: { config: ServiceMenuConfig })
             </h1>
             <p className="mx-auto mt-4 max-w-2xl text-lg text-white/75 leading-relaxed">{hero.subtitle}</p>
             <div className="mt-8 flex flex-col sm:flex-row flex-wrap justify-center gap-3">
-              <CTA href={hero.primaryCta?.href ?? BOOKING_URL} variant="gradient" className="!px-8 !py-4">
-                {hero.primaryCta?.label ?? "Book consultation"}
+              <CTA href={bookingHref} variant="gradient" className="!px-8 !py-4">
+                {hero.primaryCta?.label ?? "Book Free Consultation"}
               </CTA>
               {hero.secondaryCta ? (
                 <CTA
@@ -173,6 +181,14 @@ export function ServiceMenuPageLayout({ config }: { config: ServiceMenuConfig })
         </Section>
       ) : null}
 
+      {conversionProfile ? (
+        <ServiceConversionBand
+          serviceName={serviceName}
+          profile={conversionProfile}
+          bookingHref={bookingHref}
+        />
+      ) : null}
+
       <Section className="!px-0 py-4 md:py-8">
         <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
           {sections.map((section, i) => (
@@ -205,13 +221,17 @@ export function ServiceMenuPageLayout({ config }: { config: ServiceMenuConfig })
 
       <Section className="bg-gradient-to-br from-[#FF2D8E] via-[#E6007E] to-[#9b0a4d] border-t-4 border-black py-14 md:py-16 !px-0">
         <div className="mx-auto max-w-3xl px-6 text-center">
-          <h2 className="text-2xl md:text-3xl font-black text-white">Ready to get started?</h2>
+          <h2 className="text-2xl md:text-3xl font-black text-white">Book your free consultation</h2>
           <p className="mt-3 text-white/90 font-medium">
-            {SITE.address.streetAddress}, {SITE.address.addressLocality}, IL · {SITE.phone}
+            {pageData?.closingCta ??
+              `Questions about ${serviceName}? We're in downtown Oswego — ${SITE.phone}.`}
+          </p>
+          <p className="mt-2 text-sm text-white/75">
+            {SITE.address.streetAddress}, {SITE.address.addressLocality}, IL
           </p>
           <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
-            <CTA href={BOOKING_URL} variant="white">
-              Book on Fresha
+            <CTA href={bookingHref} variant="white">
+              Book Free Consultation
             </CTA>
             <CTA href={`tel:${SITE.phone.replace(/\D/g, "")}`} variant="outline">
               Call {SITE.phone}

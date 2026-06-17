@@ -3,8 +3,10 @@ import Link from "next/link";
 import { CTA } from "@/components/CTA";
 import { FadeUp, Section } from "@/components/Section";
 import { CredentialStrip } from "@/components/marketing/CredentialStrip";
+import { ServiceConversionBand } from "@/components/services/ServiceConversionBand";
 import { ServicePromoFlyer } from "@/components/marketing/ServicePromoFlyer";
 import { INMODE_BADGE_ASSETS } from "@/lib/inmode-badges";
+import { getServiceConversionProfile } from "@/lib/service-conversion-profiles";
 import { SITE, breadcrumbJsonLd, faqJsonLd } from "@/lib/seo";
 import type { ServicePageData } from "@/lib/service-pages-oswego";
 import { getServicePageOswego } from "@/lib/service-pages-oswego";
@@ -32,6 +34,7 @@ export function ServiceOswegoLanding({
   ];
 
   const faqsForSchema = page.faqs.map((f) => ({ question: f.q, answer: f.a }));
+  const conversionProfile = getServiceConversionProfile(page.slug);
 
   return (
     <>
@@ -81,7 +84,7 @@ export function ServiceOswegoLanding({
             ) : null}
             <div className="flex flex-col sm:flex-row gap-4">
               <CTA href={page.bookingUrl} variant="gradient">
-                Book Now
+                Book Free Consultation
               </CTA>
               <CTA href={`tel:${SITE.phone.replace(/\D/g, "")}`} variant="outline">
                 Call {SITE.phone}
@@ -96,6 +99,14 @@ export function ServiceOswegoLanding({
         </section>
 
         <CredentialStrip slug={page.slug} />
+
+        {conversionProfile ? (
+          <ServiceConversionBand
+            serviceName={page.serviceName}
+            profile={conversionProfile}
+            bookingHref={page.bookingUrl}
+          />
+        ) : null}
 
         {page.clinicalPhotos && page.clinicalPhotos.length > 0 ? (
           <Section className="bg-gradient-to-b from-[#FFF0F7] to-white border-b-4 border-black">
@@ -265,7 +276,7 @@ export function ServiceOswegoLanding({
               `Questions about ${page.serviceName.toLowerCase()}? Call ${SITE.phone} or book online — we\u2019re here to help.`}
           </p>
           <CTA href={page.bookingUrl} variant="white">
-            Book Now
+            Book Free Consultation
           </CTA>
         </section>
       </main>

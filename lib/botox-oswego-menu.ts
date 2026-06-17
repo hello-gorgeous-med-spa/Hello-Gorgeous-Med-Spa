@@ -15,7 +15,7 @@ export const BOTOX_OSWEGO_MENU: ServiceMenuConfig = {
     titleBefore: "Botox in Oswego, IL —",
     titleAccent: "From $10/unit",
     subtitle: page.valueProp,
-    primaryCta: { label: "Book free consult", href: page.bookingUrl ?? BOOKING_URL },
+    primaryCta: { label: "Book Free Consultation", href: page.bookingUrl ?? BOOKING_URL },
     secondaryCta: { label: "Full injectables menu", href: "/services/injectables" },
   },
   sections: [
