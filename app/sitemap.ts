@@ -835,6 +835,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ]);
 
   const canonicalDestinations: MetadataRoute.Sitemap = [
+    '/help-me-choose',
     '/book',
     '/botox-oswego',
     '/dysport-oswego',

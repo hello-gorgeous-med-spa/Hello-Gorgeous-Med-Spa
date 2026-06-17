@@ -32,7 +32,7 @@ export function StickyMobileCTA() {
             data-book-now
             className="flex-1 min-h-[48px] py-4 px-6 bg-hg-pink hover:bg-hg-pinkDeep text-white font-semibold uppercase tracking-widest text-sm text-center rounded-md transition-all duration-300 ease-out flex items-center justify-center"
           >
-            Book Now
+            Book Free Consultation
           </a>
           <a
             href="tel:630-636-6193"

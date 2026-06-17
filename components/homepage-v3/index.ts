@@ -1,4 +1,5 @@
 export { HeroV3 } from "./HeroV3";
+export { BuyerPathsSection } from "./BuyerPathsSection";
 export {
   ContourSignatureSection,
   ContourWhoForSection,

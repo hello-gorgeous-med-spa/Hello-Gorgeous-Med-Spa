@@ -115,7 +115,7 @@ export function ImmediateCareStrip() {
           <span className="relative inline-flex rounded-full h-2 w-2 bg-white"></span>
         </span>
         <span className="text-white font-semibold text-sm">
-          Can&apos;t get in with your doctor? We have same-day appointments!
+          Need fast aesthetic or wellness care? Same-day consults may be available — book with our NP-led team.
         </span>
         <span className="text-black text-sm hidden sm:inline">
           Book Now →

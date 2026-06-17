@@ -47,21 +47,21 @@ export function ServicesSection() {
     <TrifectaShowcaseSection
       id="services"
       className="scroll-mt-20 border-b-4 border-black"
-      pill="What we do best"
+      pill="Signature treatments"
       title={
         <>
-          Signature{" "}
+          Popular{" "}
           <span
             className="bg-clip-text text-transparent"
             style={{
               backgroundImage: "linear-gradient(to right, #ec4899, #60a5fa, #f59e0b)",
             }}
           >
-            Services
+            Treatments
           </span>
         </>
       }
-      description="Six treatments clients book most — tap a card to learn more or book below."
+      description="Our most-booked services — explore details or book a free consult when you're ready."
       footer={
         !showMore ? (
           <>
@@ -84,7 +84,8 @@ export function ServicesSection() {
         ) : (
           <>
             <p className="mb-8 text-sm" style={{ color: "rgba(255,255,255,0.5)" }}>
-              Same-day appointments often available — Oswego, Naperville, Aurora &amp; Plainfield.
+              Need fast access to aesthetic or wellness care? Same-day consults may be available with
+              our NP-led team in Oswego, Naperville, Aurora &amp; Plainfield.
             </p>
             <div className="grid grid-cols-1 gap-6 text-left sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
               {homepageServicesRow2.map((service, index) => (

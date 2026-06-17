@@ -1,6 +1,9 @@
 "use client";
 
+import Link from "next/link";
+
 import { HOME_TESTIMONIALS } from "@/lib/seo";
+import { REVIEW_TRUST_HEADLINE, reviewTrustBody } from "@/lib/review-trust-copy";
 import {
   SHOWCASE_ACCENTS,
   TrifectaShowcaseSection,
@@ -94,8 +97,23 @@ export function HomepageTestimonials() {
           </span>
         </>
       }
-      description="Real results and real experiences from the Hello Gorgeous community."
+      description={reviewTrustBody()}
+      footer={
+        <p className="text-center text-sm" style={{ color: "rgba(255,255,255,0.55)" }}>
+          <Link href="/reviews" className="font-semibold text-[#FFB8DC] underline decoration-[#E6007E]/40">
+            Read more reviews →
+          </Link>
+        </p>
+      }
     >
+      <div className="mb-8 rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-center md:px-8">
+        <p className="text-sm font-bold uppercase tracking-[0.15em] text-[#FFB8DC]">
+          {REVIEW_TRUST_HEADLINE}
+        </p>
+        <p className="mx-auto mt-2 max-w-3xl text-sm leading-relaxed text-white/75">
+          {reviewTrustBody()}
+        </p>
+      </div>
       <div className="grid gap-6 md:grid-cols-2 lg:gap-8" aria-labelledby="testimonials-heading">
         <h2 id="testimonials-heading" className="sr-only">
           What Our Clients Are Saying

@@ -188,52 +188,69 @@ export function BrandHero({
               </div>
             </div>
           ) : (
-            <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
-              <div className="min-w-0">
-                <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-[#60a5fa] sm:text-[11px]">
-                  Morpheus8 · Quantum RF · Solaria CO₂ · InMode Trifecta
-                </p>
-                <h1 className="mt-2 text-2xl font-black leading-[1.08] tracking-tight text-white sm:text-3xl md:text-4xl">
-                  Modern Aesthetic{" "}
-                  <span
-                    className="bg-clip-text text-transparent"
-                    style={{ backgroundImage: TRIFECTA_GRADIENT_TITLE, WebkitBackgroundClip: "text" }}
+            <div className="flex flex-col gap-4">
+              <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+                <div className="min-w-0">
+                  <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-[#60a5fa] sm:text-[11px]">
+                    NP-directed · Oswego, IL · Family-owned
+                  </p>
+                  <h1 className="mt-2 text-2xl font-black leading-[1.08] tracking-tight text-white sm:text-3xl md:text-4xl">
+                    Oswego&apos;s NP-Directed Med Spa for{" "}
+                    <span
+                      className="bg-clip-text text-transparent"
+                      style={{ backgroundImage: TRIFECTA_GRADIENT_TITLE, WebkitBackgroundClip: "text" }}
+                    >
+                      Skin, Body, Hormones &amp; Weight Loss
+                    </span>
+                  </h1>
+                  <p className="mt-2 max-w-2xl text-sm font-medium leading-relaxed text-white/70 sm:text-base">
+                    Advanced aesthetics with real medical oversight — Botox, fillers, Morpheus8,
+                    Quantum RF, Solaria CO₂, GLP-1 weight loss, hormones, and wellness care in one
+                    trusted local practice.
+                  </p>
+                </div>
+
+                <div className="flex shrink-0 flex-col gap-2 sm:flex-row sm:flex-wrap lg:min-w-[220px] lg:flex-col">
+                  <Link
+                    href={BOOKING_URL}
+                    data-book-now
+                    className="inline-flex items-center justify-center rounded-xl px-5 py-3 text-sm font-bold text-white transition hover:brightness-110 sm:min-w-[200px]"
+                    style={{ background: trifectaButtonGradient(trifectaAccent(0)) }}
                   >
-                    Medicine.
-                  </span>
-                </h1>
-                <p className="mt-2 max-w-2xl text-sm font-medium leading-relaxed text-white/70 sm:text-base">
-                  NP-directed care with the most advanced skin &amp; body technology in the Fox Valley — plus
-                  injectables, GLP-1, hormones &amp; more.
-                </p>
-                <div className="mt-3 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1.5">
-                  <span className="text-xs tracking-tight text-[#FFD86B]" aria-hidden="true">
-                    ★★★★★
-                  </span>
-                  <span className="text-xs font-black text-white">{SITE.freshaReviewRating}</span>
-                  <span className="text-[11px] font-semibold text-white/75">
-                    · {Number(SITE.freshaReviewCount).toLocaleString()} client reviews
-                  </span>
+                    Book Free Consultation
+                  </Link>
+                  <Link
+                    href="/specials"
+                    className="inline-flex items-center justify-center rounded-xl border px-5 py-3 text-sm font-bold text-white transition hover:bg-white/5 sm:min-w-[200px]"
+                    style={{ borderColor: trifectaAccent(2).border, color: trifectaAccent(2).subtitle }}
+                  >
+                    View Current Specials
+                  </Link>
+                  <Link
+                    href="/help-me-choose"
+                    className="inline-flex items-center justify-center rounded-xl border border-white/15 bg-white/5 px-5 py-3 text-sm font-bold text-[#FFB8DC] transition hover:border-[#E6007E]/40 hover:bg-white/10 sm:min-w-[200px]"
+                  >
+                    Help Me Choose
+                  </Link>
                 </div>
               </div>
 
-              <div className="flex shrink-0 flex-wrap gap-2 sm:gap-3 lg:flex-col lg:items-stretch xl:flex-row">
-                <Link
-                  href={BOOKING_URL}
-                  data-book-now
-                  className="inline-flex items-center justify-center rounded-xl px-5 py-3 text-sm font-bold text-white transition hover:brightness-110 sm:min-w-[200px]"
-                  style={{ background: trifectaButtonGradient(trifectaAccent(0)) }}
-                >
-                  Book Free Consultation
-                </Link>
-                <Link
-                  href="#services"
-                  className="inline-flex items-center justify-center rounded-xl border px-5 py-3 text-sm font-bold text-white transition hover:bg-white/5 sm:min-w-[200px]"
-                  style={{ borderColor: trifectaAccent(2).border, color: trifectaAccent(2).subtitle }}
-                >
-                  Explore Technology →
-                </Link>
-              </div>
+              <ul className="grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
+                {[
+                  "NP-Directed Medical Aesthetic Care",
+                  "Family-Owned in Oswego",
+                  "Advanced Skin, Body & Wellness Technology",
+                  "Serving Oswego, Aurora, Naperville, Plainfield & Fox Valley",
+                ].map((badge) => (
+                  <li
+                    key={badge}
+                    className="flex items-start gap-2 rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-[11px] font-semibold leading-snug text-white/85"
+                  >
+                    <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[#E6007E]" aria-hidden />
+                    {badge}
+                  </li>
+                ))}
+              </ul>
             </div>
           )}
         </div>

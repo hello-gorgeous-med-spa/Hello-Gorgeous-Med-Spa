@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import {
   HeroV3,
-  TrustStrip,
+  BuyerPathsSection,
   ServicesSection,
   TrifectaSection,
   HomepageTestimonials,
@@ -145,15 +145,15 @@ export default function HomePage() {
 
       <main className="bg-black">
         <HeroV3 />
-        <GetAppHomeBand />
-        <HomepageHydrafacialBanner />
-        <TrustStrip />
-        <ServicesSection />
+        <BuyerPathsSection />
         <TrifectaSection />
         <HomepageTestimonials />
+        <ServicesSection />
+        <MeetDaniRyanSection />
+        <GetAppHomeBand />
+        <HomepageHydrafacialBanner />
         <GiftCardShopSection variant="compact" className="border-y-4 border-black" />
         <GentlemensClubHomeBand />
-        <MeetDaniRyanSection />
         <HomepageClosingCTARow />
       </main>
     </>

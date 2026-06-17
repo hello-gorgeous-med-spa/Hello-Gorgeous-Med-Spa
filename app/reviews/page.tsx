@@ -2,9 +2,11 @@ import type { Metadata } from "next";
 import Image from "next/image";
 
 import { ReviewsList } from "@/components/ReviewsList";
+import { StaticFeaturedReviews } from "@/components/reviews/StaticFeaturedReviews";
 import { CTA } from "@/components/CTA";
 import { FadeUp, Section } from "@/components/Section";
 import { BOOKING_URL } from "@/lib/flows";
+import { REVIEW_TRUST_HEADLINE, reviewTrustBody } from "@/lib/review-trust-copy";
 import { pageMetadata } from "@/lib/seo";
 
 const GOOGLE_REVIEW_URL = "https://g.page/r/CYQOWmT_HcwQEBM/review";
@@ -27,12 +29,10 @@ export default function ReviewsPage() {
               CLIENT FEEDBACK
             </p>
             <h1 className="text-4xl md:text-6xl font-bold leading-tight">
-              Our reviews
+              {REVIEW_TRUST_HEADLINE}
             </h1>
             <p className="mt-6 text-xl text-black max-w-3xl leading-relaxed">
-              We’re proud of what our clients say. Read their feedback below or leave one
-              on Google after your visit—your voice helps others in Oswego, Naperville, Aurora, and
-              the surrounding area find us.
+              {reviewTrustBody()}
             </p>
           </FadeUp>
         </div>
@@ -40,10 +40,18 @@ export default function ReviewsPage() {
 
       <Section>
         <FadeUp>
-          <h2 className="text-2xl font-bold text-white mb-6">Client feedback</h2>
-          <p className="text-black text-sm mb-4">
-            Reviews from our database—including past feedback we've preserved. Updated live.
+          <h2 className="text-2xl font-bold text-white mb-2">Featured client feedback</h2>
+          <p className="text-black text-sm mb-6 max-w-2xl">
+            A sample of verified experiences at Hello Gorgeous — Google reviews and booking-platform
+            feedback below.
           </p>
+          <StaticFeaturedReviews />
+        </FadeUp>
+      </Section>
+
+      <Section>
+        <FadeUp>
+          <h2 className="text-2xl font-bold text-white mb-6">All client reviews</h2>
           <ReviewsList />
         </FadeUp>
       </Section>
