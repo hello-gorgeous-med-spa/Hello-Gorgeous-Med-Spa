@@ -3,6 +3,7 @@
 import Link from "next/link";
 
 import { CTA } from "@/components/CTA";
+import { ClinicalPhotoCarousel } from "@/components/services/ClinicalPhotoCarousel";
 import { FadeUp, Section } from "@/components/Section";
 import { BOOKING_URL } from "@/lib/flows";
 import type { ServiceMenuConfig, ServiceMenuPriceRow, ServiceMenuSection } from "@/lib/service-menu-types";
@@ -84,7 +85,7 @@ function MenuSectionRow({ section, index }: { section: ServiceMenuSection; index
 }
 
 export function ServiceMenuPageLayout({ config }: { config: ServiceMenuConfig }) {
-  const { hero, sections, faqs } = config;
+  const { hero, sections, faqs, gallery } = config;
 
   return (
     <div className="min-h-screen bg-[#0a0a0a] text-white">
@@ -131,6 +132,16 @@ export function ServiceMenuPageLayout({ config }: { config: ServiceMenuConfig })
           </FadeUp>
         </div>
       </Section>
+
+      {gallery && gallery.length > 0 ? (
+        <Section className="border-b-4 border-black !px-0 py-10 md:py-14">
+          <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+            <FadeUp>
+              <ClinicalPhotoCarousel slides={gallery} />
+            </FadeUp>
+          </div>
+        </Section>
+      ) : null}
 
       <Section className="!px-0 py-4 md:py-8">
         <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">

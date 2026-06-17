@@ -33,11 +33,19 @@ export type ServiceMenuHero = {
   secondaryCta?: { label: string; href: string };
 };
 
+export type ServiceMenuGallerySlide = {
+  src: string;
+  alt: string;
+  caption?: string;
+};
+
 export type ServiceMenuConfig = {
   path: string;
   metaTitle: string;
   metaDescription: string;
   hero: ServiceMenuHero;
+  /** Optional clinical photo carousel shown below the hero. */
+  gallery?: ServiceMenuGallerySlide[];
   sections: ServiceMenuSection[];
   faqs: ServiceMenuFaq[];
 };

@@ -2000,6 +2000,13 @@ export const SERVICE_IMAGES: ServiceImage[] = [
     service: "Solaria CO2",
     category: "aesthetics",
   },
+  {
+    src: "/images/solaria/solaria-co2-decollete-treatment-oswego.png",
+    alt: "Solaria CO2 laser resurfacing on décolletage at Hello Gorgeous Med Spa in Oswego, IL",
+    title: "Solaria CO2 Décolletage Treatment",
+    service: "Solaria CO2",
+    category: "aesthetics",
+  },
   { src: "/images/services/hg-chemical-peel.png", alt: "Chemical peel treatment for glowing skin at Hello Gorgeous Med Spa", title: "Chemical Peel", service: "Chemical Peel", category: "aesthetics" },
   { src: "/images/services/hg-hydrafacial.png", alt: "HydraFacial treatment for deep cleansing at Hello Gorgeous Med Spa", title: "HydraFacial", service: "HydraFacial", category: "aesthetics" },
   { src: "/images/services/hg-hydrafacial-serums.png", alt: "HydraFacial serums and boosters at Hello Gorgeous Med Spa Oswego", title: "HydraFacial Serums", service: "HydraFacial", category: "aesthetics" },

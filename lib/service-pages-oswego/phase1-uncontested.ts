@@ -1,6 +1,7 @@
 import { bookingUrlFor } from "./build";
 import {
   SOLARIA_DANI_DEVICE_IMAGE,
+  SOLARIA_DECOLLETE_TREATMENT_IMAGE,
   SOLARIA_TREATMENT_IMAGE,
 } from "@/lib/founder-credentials";
 import type { ServicePageData } from "./types";
@@ -82,7 +83,11 @@ export const PHASE1_UNCONTESTED_PAGES: ServicePageData[] = [
       },
       {
         src: SOLARIA_TREATMENT_IMAGE,
-        alt: "Solaria CO2 fractional laser resurfacing treatment in progress at Hello Gorgeous Med Spa Oswego, IL",
+        alt: "Solaria CO2 fractional laser resurfacing facial treatment in progress at Hello Gorgeous Med Spa Oswego, IL",
+      },
+      {
+        src: SOLARIA_DECOLLETE_TREATMENT_IMAGE,
+        alt: "Solaria CO2 laser resurfacing on décolletage at Hello Gorgeous Med Spa in Oswego, IL — protective eyewear and cooling during treatment",
       },
     ],
   },
