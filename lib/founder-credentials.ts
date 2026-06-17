@@ -81,6 +81,11 @@ export const SOLARIA_CLINIC_VIDEO = "/videos/solaria/solaria-co2-clinic-reedit-o
 export const MORPHEUS8_UNDERARM_TREATMENT_IMAGE =
   "/images/morpheus8/morpheus8-burst-deep-underarm-treatment-oswego.png";
 export const MORPHEUS8_FAQ_VIDEO = "/videos/morpheus8/morpheus8-burst-deep-faq-social.mp4";
+
+export const QUANTUM_RF_CLINIC_VIDEO = "/videos/quantum/quantum-rf-clinic-reedit-oswego.mp4";
+export const QUANTUM_RF_PROCEDURE_IMAGE = "/images/quantum-rf/quantum-rf-procedure-may-4.jpg";
+export const QUANTUM_RF_TREATMENT_ROOM_IMAGE = "/images/quantum-rf/quantum-rf-treatment-room-may-4.jpg";
+export const QUANTUM_RF_RYAN_ACTION_IMAGE = "/images/quantum-rf/ryan-quantum-rf-action-poster.png";
 export const MORPHEUS8_TREATMENT_VIDEO = "/videos/morpheus8/morpheus8-burst-deep-treatment-oswego.mp4";
 
 export function credentialStripForSlug(slug: string): string {

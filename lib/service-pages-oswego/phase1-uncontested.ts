@@ -1,5 +1,9 @@
 import { bookingUrlFor } from "./build";
 import {
+  QUANTUM_RF_CLINIC_VIDEO,
+  QUANTUM_RF_PROCEDURE_IMAGE,
+  QUANTUM_RF_RYAN_ACTION_IMAGE,
+  QUANTUM_RF_TREATMENT_ROOM_IMAGE,
   SOLARIA_CLINIC_VIDEO,
   SOLARIA_DANI_DEVICE_IMAGE,
   SOLARIA_DECOLLETE_TREATMENT_IMAGE,
@@ -187,6 +191,34 @@ export const PHASE1_UNCONTESTED_PAGES: ServicePageData[] = [
     relatedServices: ["morpheus8-burst-oswego", "glp-1-weight-loss-oswego", "solaria-co2-oswego"],
     closingCta:
       "Book your free Quantum RF body contouring consultation. We'll talk through your goals, measure the areas you want to address, and give you a clear plan with exact pricing — no pressure to commit, ever.",
+    clinicalVideos: [
+      {
+        src: QUANTUM_RF_CLINIC_VIDEO,
+        label: "Quantum RF",
+        title: "Body contouring at Hello Gorgeous",
+        description: "See Quantum RF by InMode in our downtown Oswego clinic.",
+        poster: QUANTUM_RF_RYAN_ACTION_IMAGE,
+        aspect: "video",
+      },
+    ],
+    clinicalPhotos: [
+      {
+        src: QUANTUM_RF_PROCEDURE_IMAGE,
+        alt: "Quantum RF body contouring treatment in progress at Hello Gorgeous Med Spa in Oswego, IL",
+        frame: "landscape",
+      },
+      {
+        src: QUANTUM_RF_TREATMENT_ROOM_IMAGE,
+        alt: "Quantum RF by InMode treatment room at Hello Gorgeous Med Spa in Oswego, IL",
+        frame: "landscape",
+      },
+      {
+        src: QUANTUM_RF_RYAN_ACTION_IMAGE,
+        alt: "Ryan Kent, FNP-BC performing Quantum RF body contouring at Hello Gorgeous Med Spa Oswego, IL",
+        frame: "portrait",
+        objectPosition: "top",
+      },
+    ],
   },
   {
     slug: "peptide-therapy-oswego",

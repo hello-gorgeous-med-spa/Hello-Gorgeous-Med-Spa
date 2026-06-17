@@ -144,12 +144,16 @@ export function ServiceMenuPageLayout({ config }: { config: ServiceMenuConfig })
                 title={
                   config.path.includes("solaria")
                     ? "See Solaria CO₂ in our Oswego clinic"
-                    : "See it in our Oswego clinic"
+                    : config.path.includes("quantum")
+                      ? "See Quantum RF in our Oswego clinic"
+                      : "See it in our Oswego clinic"
                 }
                 subtitle={
                   config.path.includes("solaria")
                     ? "Procedure video and clinic photography — the only Solaria CO₂ in the western suburbs."
-                    : "Real procedure footage — watch before your free consultation."
+                    : config.path.includes("quantum")
+                      ? "Procedure video and clinic photography — the only Quantum RF in the western suburbs."
+                      : "Real procedure footage — watch before your free consultation."
                 }
               />
             </FadeUp>
