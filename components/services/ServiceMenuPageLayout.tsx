@@ -4,7 +4,7 @@ import Link from "next/link";
 
 import { CTA } from "@/components/CTA";
 import { ClinicalPhotoCarousel } from "@/components/services/ClinicalPhotoCarousel";
-import { ServiceMenuVideos } from "@/components/services/ServiceMenuVideos";
+import { ServiceMenuHeroVideo, ServiceMenuVideos } from "@/components/services/ServiceMenuVideos";
 import { FadeUp, Section } from "@/components/Section";
 import { BOOKING_URL } from "@/lib/flows";
 import type { ServiceMenuConfig, ServiceMenuPriceRow, ServiceMenuSection } from "@/lib/service-menu-types";
@@ -86,7 +86,7 @@ function MenuSectionRow({ section, index }: { section: ServiceMenuSection; index
 }
 
 export function ServiceMenuPageLayout({ config }: { config: ServiceMenuConfig }) {
-  const { hero, sections, faqs, gallery, videos } = config;
+  const { hero, sections, faqs, gallery, heroVideo, videos } = config;
 
   return (
     <div className="min-h-screen bg-[#0a0a0a] text-white">
@@ -134,7 +134,15 @@ export function ServiceMenuPageLayout({ config }: { config: ServiceMenuConfig })
         </div>
       </Section>
 
-      {gallery && gallery.length > 0 ? (
+      {heroVideo ? (
+        <Section className="border-b-4 border-black !px-0 py-10 md:py-14">
+          <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+            <FadeUp>
+              <ServiceMenuHeroVideo video={heroVideo} />
+            </FadeUp>
+          </div>
+        </Section>
+      ) : gallery && gallery.length > 0 ? (
         <Section className="border-b-4 border-black !px-0 py-10 md:py-14">
           <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
             <FadeUp>

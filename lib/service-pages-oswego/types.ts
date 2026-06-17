@@ -50,5 +50,11 @@ export type ServicePageData = {
     objectPosition?: string;
   }[];
   /** Procedure or FAQ videos for the dark menu landing */
-  clinicalVideos?: { src: string; title: string; description?: string; poster?: string }[];
+  clinicalVideos?: {
+    src: string;
+    title: string;
+    description?: string;
+    poster?: string;
+    aspect?: "video" | "portrait";
+  }[];
 };

@@ -29,7 +29,12 @@ export async function OswegoMenuLanding({
         }
       : {}),
     ...(pageData.clinicalVideos && pageData.clinicalVideos.length > 0
-      ? { videos: pageData.clinicalVideos }
+      ? {
+          heroVideo: pageData.clinicalVideos[0],
+          ...(pageData.clinicalVideos.length > 1
+            ? { videos: pageData.clinicalVideos.slice(1) }
+            : {}),
+        }
       : {}),
   };
 

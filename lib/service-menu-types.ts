@@ -47,6 +47,8 @@ export type ServiceMenuVideo = {
   title: string;
   description?: string;
   poster?: string;
+  /** Portrait for vertical social clips; default widescreen 16:9. */
+  aspect?: "video" | "portrait";
 };
 
 export type ServiceMenuConfig = {
@@ -56,7 +58,9 @@ export type ServiceMenuConfig = {
   hero: ServiceMenuHero;
   /** Optional clinical photo carousel shown below the hero. */
   gallery?: ServiceMenuGallerySlide[];
-  /** Optional procedure / FAQ videos shown below the gallery. */
+  /** Primary procedure video shown below the hero (replaces gallery when set). */
+  heroVideo?: ServiceMenuVideo;
+  /** Additional videos shown below the hero video. */
   videos?: ServiceMenuVideo[];
   sections: ServiceMenuSection[];
   faqs: ServiceMenuFaq[];
