@@ -83,11 +83,11 @@ export function BrandHero({
           >
             <Image
               src={SITE_HERO_IMAGE}
-              alt="Danielle Alcala-Glazier and Ryan Kent, FNP-BC at Hello Gorgeous Med Spa in Oswego, IL"
+              alt="Danielle Alcala-Glazier and Ryan Kent, FNP-BC — Hello Gorgeous Med Spa founders, Oswego IL"
               fill
               priority
               unoptimized
-              className="object-cover object-center"
+              className="object-cover object-[center_35%] sm:object-center"
               sizes={isApp ? "(max-width: 576px) 100vw, 576px" : "(max-width: 1400px) 100vw, 1400px"}
               onLoad={() => setRevealed(true)}
             />

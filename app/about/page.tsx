@@ -97,18 +97,19 @@ export default function AboutPage() {
         </div>
       </Section>
 
-      <Section className="!px-0 !py-0 border-b-4 border-black bg-white">
-        <div className="relative w-full aspect-[4/5] sm:aspect-[16/9] md:aspect-[21/9] max-h-[520px] overflow-hidden">
-          <Image
-            src={TEAM_FOUNDERS_IMAGE}
-            alt="Danielle Alcala-Glazier and Ryan Kent, FNP-BC, founders of Hello Gorgeous Med Spa in Oswego, IL"
-            fill
-            className="object-cover object-center"
-            sizes="100vw"
-            priority
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
-          <p className="absolute bottom-4 left-4 right-4 text-center text-sm font-semibold text-white/90 drop-shadow-md">
+      <Section className="border-b-4 border-black bg-gradient-to-b from-[#FFF0F7] to-white py-8 md:py-12">
+        <div className="max-w-2xl mx-auto px-4 md:px-6">
+          <div className="relative aspect-[3/4] sm:aspect-[4/5] max-h-[min(420px,70vh)] w-full overflow-hidden rounded-3xl border-4 border-black shadow-[8px_8px_0_0_rgba(230,0,126,0.35)]">
+            <Image
+              src={TEAM_FOUNDERS_IMAGE}
+              alt="Danielle Alcala-Glazier and Ryan Kent, FNP-BC, founders of Hello Gorgeous Med Spa in Oswego, IL"
+              fill
+              className="object-cover object-top"
+              sizes="(max-width: 768px) 100vw, 672px"
+              priority
+            />
+          </div>
+          <p className="mt-4 text-center text-sm font-semibold text-black/75">
             Dani &amp; Ryan — on site every week at 74 W. Washington St., downtown Oswego
           </p>
         </div>
