@@ -159,7 +159,7 @@ export const GALLERY_CASES: GalleryCase[] = [
     image: "/gallery/event-winners/solaria-co2-winner.png",
     imageAlt: "Solaria CO₂ laser gift certificate winner at Hello Gorgeous Med Spa Oswego IL",
     note: "Solaria CO₂ fractional laser resurfacing giveaway winner. Hello Gorgeous Med Spa, Oswego, IL. Published with client consent.",
-    serviceHref: "/solaria-co2-laser-oswego-il",
+    serviceHref: "/solaria-co2-oswego",
   },
   {
     type: "single-image",
@@ -170,7 +170,7 @@ export const GALLERY_CASES: GalleryCase[] = [
     image: "/gallery/event-winners/morpheus8-winner.png",
     imageAlt: "Morpheus8 gift certificate winner at Hello Gorgeous Med Spa Oswego IL",
     note: "Morpheus8 Burst RF microneedling giveaway winner. Hello Gorgeous Med Spa, Oswego, IL. Published with client consent.",
-    serviceHref: "/morpheus8-burst-oswego-il",
+    serviceHref: "/morpheus8-burst-oswego",
   },
   {
     type: "single-image",
@@ -181,7 +181,7 @@ export const GALLERY_CASES: GalleryCase[] = [
     image: "/gallery/event-winners/quantum-rf-winner.png",
     imageAlt: "Quantum RF gift certificate winner at Hello Gorgeous Med Spa Oswego IL",
     note: "Quantum RF subdermal contouring giveaway winner. Hello Gorgeous Med Spa, Oswego, IL. Published with client consent.",
-    serviceHref: "/quantum-rf-oswego-il",
+    serviceHref: "/quantum-rf-oswego",
   },
   {
     type: "single-image",
@@ -225,7 +225,7 @@ export const GALLERY_CASES: GalleryCase[] = [
     image: "/gallery/event-winners/skin-tightening-before-after.png",
     imageAlt: "Skin tightening before and after Hello Gorgeous Med Spa Oswego IL",
     note: "Client result shared at community event. Individual results vary. Consult required for candidacy.",
-    serviceHref: "/morpheus8-burst-oswego-il",
+    serviceHref: "/morpheus8-burst-oswego",
   },
   {
     type: "single-image",
@@ -259,7 +259,7 @@ export const GALLERY_CASES: GalleryCase[] = [
     image: "/gallery/quantum-rf-client-results/jen-knees-before-after.png",
     imageAlt: "Quantum RF before and after thighs and knees skin tightening Hello Gorgeous Med Spa Oswego IL",
     note: "Quantum RF subdermal contouring at Hello Gorgeous Med Spa, Oswego, IL. Published with client consent. Individual results vary.",
-    serviceHref: "/quantum-rf-oswego-il",
+    serviceHref: "/quantum-rf-oswego",
   },
   {
     type: "single-image",
@@ -271,7 +271,7 @@ export const GALLERY_CASES: GalleryCase[] = [
     imageAlt:
       "Quantum 10 before and after upper arm skin tightening left arm and right arm — Hello Gorgeous Med Spa Oswego IL",
     note: "Real client before and after upper arm skin laxity. Quantum 10 subdermal RF contouring at Hello Gorgeous Med Spa, Oswego, IL. Published with client consent. Individual results vary.",
-    serviceHref: "/quantum-rf-oswego-il",
+    serviceHref: "/quantum-rf-oswego",
   },
   {
     type: "single-image",
@@ -283,7 +283,7 @@ export const GALLERY_CASES: GalleryCase[] = [
     imageAlt:
       "Morpheus8 Burst before and after upper arm skin tightening left arm and right arm — Hello Gorgeous Med Spa Oswego IL",
     note: "Real client before and after upper arm skin laxity. Morpheus8 Burst RF microneedling — body. Hello Gorgeous Med Spa, Oswego, IL. Published with client consent. Individual results vary.",
-    serviceHref: "/morpheus8-burst-oswego-il",
+    serviceHref: "/morpheus8-burst-oswego",
   },
   // ── Quantum RF clinical results ──────────────────────
   {
@@ -295,7 +295,7 @@ export const GALLERY_CASES: GalleryCase[] = [
     image: "/gallery/qrf-pdf-1/before-after.jpg",
     imageAlt: "Quantum RF face and neck before and after — Hello Gorgeous Med Spa Oswego IL",
     note: "Quantum RF subdermal contouring. Clinical result. Available at Hello Gorgeous Med Spa, Oswego, IL. Individual results vary.",
-    serviceHref: "/quantum-rf-oswego-il",
+    serviceHref: "/quantum-rf-oswego",
   },
   {
     type: "single-image",
@@ -306,7 +306,7 @@ export const GALLERY_CASES: GalleryCase[] = [
     image: "/gallery/qrf-pdf-2/before-after.jpg",
     imageAlt: "Quantum RF jawline definition before and after — Hello Gorgeous Med Spa Oswego IL",
     note: "Quantum RF subdermal contouring. Clinical result. Available at Hello Gorgeous Med Spa, Oswego, IL. Individual results vary.",
-    serviceHref: "/quantum-rf-oswego-il",
+    serviceHref: "/quantum-rf-oswego",
   },
   {
     type: "single-image",
@@ -317,7 +317,7 @@ export const GALLERY_CASES: GalleryCase[] = [
     image: "/gallery/qrf-pdf-3/before-after.jpg",
     imageAlt: "Quantum RF skin tightening before and after — Hello Gorgeous Med Spa Oswego IL",
     note: "Quantum RF subdermal contouring. Clinical result. Available at Hello Gorgeous Med Spa, Oswego, IL. Individual results vary.",
-    serviceHref: "/quantum-rf-oswego-il",
+    serviceHref: "/quantum-rf-oswego",
   },
   {
     type: "single-image",
@@ -328,7 +328,7 @@ export const GALLERY_CASES: GalleryCase[] = [
     image: "/gallery/qrf-pdf-4/before-after.jpg",
     imageAlt: "Quantum RF submental contouring before and after — Hello Gorgeous Med Spa Oswego IL",
     note: "Quantum RF subdermal contouring. Clinical result. Available at Hello Gorgeous Med Spa, Oswego, IL. Individual results vary.",
-    serviceHref: "/quantum-rf-oswego-il",
+    serviceHref: "/quantum-rf-oswego",
   },
   // ── Solaria PB clinical results ──────────────────────
   {
@@ -340,7 +340,7 @@ export const GALLERY_CASES: GalleryCase[] = [
     image: "/gallery/solaria-pb-1/before-after.jpg",
     imageAlt: "Solaria CO₂ laser skin renewal before and after — Hello Gorgeous Med Spa Oswego IL",
     note: "Solaria fractional CO₂ laser. Clinical result. Available at Hello Gorgeous Med Spa, Oswego, IL. Individual results vary.",
-    serviceHref: "/solaria-co2-laser-oswego-il",
+    serviceHref: "/solaria-co2-oswego",
   },
   {
     type: "single-image",
@@ -351,7 +351,7 @@ export const GALLERY_CASES: GalleryCase[] = [
     image: "/gallery/solaria-pb-2/before-after.jpg",
     imageAlt: "Solaria CO₂ pores and texture before and after — Hello Gorgeous Med Spa Oswego IL",
     note: "Solaria fractional CO₂ laser. Clinical result. Available at Hello Gorgeous Med Spa, Oswego, IL. Individual results vary.",
-    serviceHref: "/solaria-co2-laser-oswego-il",
+    serviceHref: "/solaria-co2-oswego",
   },
   {
     type: "single-image",
@@ -362,7 +362,7 @@ export const GALLERY_CASES: GalleryCase[] = [
     image: "/gallery/solaria-pb-3/before-after.jpg",
     imageAlt: "Solaria CO₂ melasma and dark spots before and after — Hello Gorgeous Med Spa Oswego IL",
     note: "Solaria fractional CO₂ laser. Clinical result. Available at Hello Gorgeous Med Spa, Oswego, IL. Individual results vary.",
-    serviceHref: "/solaria-co2-laser-oswego-il",
+    serviceHref: "/solaria-co2-oswego",
   },
   {
     type: "single-image",
@@ -373,7 +373,7 @@ export const GALLERY_CASES: GalleryCase[] = [
     image: "/gallery/solaria-pb-4/before-after.jpg",
     imageAlt: "Solaria CO₂ wrinkles and collagen before and after — Hello Gorgeous Med Spa Oswego IL",
     note: "Solaria fractional CO₂ laser. Clinical result. Available at Hello Gorgeous Med Spa, Oswego, IL. Individual results vary.",
-    serviceHref: "/solaria-co2-laser-oswego-il",
+    serviceHref: "/solaria-co2-oswego",
   },
   {
     type: "single-image",
@@ -384,7 +384,7 @@ export const GALLERY_CASES: GalleryCase[] = [
     image: "/gallery/solaria-pb-5/before-after.jpg",
     imageAlt: "Solaria CO₂ acne scars before and after — Hello Gorgeous Med Spa Oswego IL",
     note: "Solaria fractional CO₂ laser. Clinical result. Available at Hello Gorgeous Med Spa, Oswego, IL. Individual results vary.",
-    serviceHref: "/solaria-co2-laser-oswego-il",
+    serviceHref: "/solaria-co2-oswego",
   },
   {
     type: "single-image",
@@ -483,7 +483,7 @@ export const GALLERY_CASES: GalleryCase[] = [
     image: "/gallery/solaria-pdf-1/before-after.jpg",
     imageAlt: "Solaria CO₂ laser before and after — Hello Gorgeous Med Spa Oswego IL",
     note: "Solaria fractional CO₂ laser resurfacing. Clinical result. Available at Hello Gorgeous Med Spa, Oswego, IL. Individual results vary.",
-    serviceHref: "/solaria-co2-laser-oswego-il",
+    serviceHref: "/solaria-co2-oswego",
   },
   {
     type: "single-image",
@@ -494,7 +494,7 @@ export const GALLERY_CASES: GalleryCase[] = [
     image: "/gallery/solaria-pdf-2/before-after.jpg",
     imageAlt: "Solaria CO₂ laser fine lines and texture before and after — Hello Gorgeous Med Spa Oswego IL",
     note: "Solaria fractional CO₂ laser resurfacing. Clinical result. Available at Hello Gorgeous Med Spa, Oswego, IL. Individual results vary.",
-    serviceHref: "/solaria-co2-laser-oswego-il",
+    serviceHref: "/solaria-co2-oswego",
   },
   {
     type: "single-image",
@@ -505,7 +505,7 @@ export const GALLERY_CASES: GalleryCase[] = [
     image: "/gallery/solaria-pdf-3/before-after.jpg",
     imageAlt: "Solaria CO₂ laser skin tone and radiance before and after — Hello Gorgeous Med Spa Oswego IL",
     note: "Solaria fractional CO₂ laser resurfacing. Clinical result. Available at Hello Gorgeous Med Spa, Oswego, IL. Individual results vary.",
-    serviceHref: "/solaria-co2-laser-oswego-il",
+    serviceHref: "/solaria-co2-oswego",
   },
   {
     type: "single-image",
@@ -516,7 +516,7 @@ export const GALLERY_CASES: GalleryCase[] = [
     image: "/gallery/solaria-pdf-4/before-after.jpg",
     imageAlt: "Solaria CO₂ laser wrinkles and skin laxity before and after — Hello Gorgeous Med Spa Oswego IL",
     note: "Solaria fractional CO₂ laser resurfacing. Clinical result. Available at Hello Gorgeous Med Spa, Oswego, IL. Individual results vary.",
-    serviceHref: "/solaria-co2-laser-oswego-il",
+    serviceHref: "/solaria-co2-oswego",
   },
   {
     type: "single-image",
@@ -527,7 +527,7 @@ export const GALLERY_CASES: GalleryCase[] = [
     image: "/gallery/solaria-pdf-5/before-after.jpg",
     imageAlt: "Solaria CO₂ laser sun damage and aging before and after — Hello Gorgeous Med Spa Oswego IL",
     note: "Solaria fractional CO₂ laser resurfacing. Clinical result. Available at Hello Gorgeous Med Spa, Oswego, IL. Individual results vary.",
-    serviceHref: "/solaria-co2-laser-oswego-il",
+    serviceHref: "/solaria-co2-oswego",
   },
   {
     type: "single-image",
@@ -538,7 +538,7 @@ export const GALLERY_CASES: GalleryCase[] = [
     image: "/gallery/morpheus8-thigh-1/before-after.jpg",
     imageAlt: "Morpheus8 Burst thigh cellulite before and after — Hello Gorgeous Med Spa Oswego IL",
     note: "Morpheus8 Burst RF microneedling — body. Clinical result. Now available at Hello Gorgeous Med Spa, Oswego, IL. Individual results vary.",
-    serviceHref: "/morpheus8-burst-oswego-il",
+    serviceHref: "/morpheus8-burst-oswego",
   },
   {
     type: "single-image",
@@ -549,7 +549,7 @@ export const GALLERY_CASES: GalleryCase[] = [
     image: "/gallery/morpheus8-thigh-2/before-after.jpg",
     imageAlt: "Morpheus8 Burst body contouring thigh before and after — Hello Gorgeous Med Spa Oswego IL",
     note: "Morpheus8 Burst RF microneedling — body. Clinical result. Now available at Hello Gorgeous Med Spa, Oswego, IL. Individual results vary.",
-    serviceHref: "/morpheus8-burst-oswego-il",
+    serviceHref: "/morpheus8-burst-oswego",
   },
   {
     type: "single-image",
@@ -560,7 +560,7 @@ export const GALLERY_CASES: GalleryCase[] = [
     image: "/gallery/morpheus8-face-hyperpig/before-after.jpg",
     imageAlt: "Morpheus8 face hyperpigmentation before and after — Hello Gorgeous Med Spa Oswego IL",
     note: "Morpheus8 RF microneedling — face. Clinical result. Now available at Hello Gorgeous Med Spa, Oswego, IL. Individual results vary.",
-    serviceHref: "/morpheus8-burst-oswego-il",
+    serviceHref: "/morpheus8-burst-oswego",
   },
   {
     type: "single-image",
@@ -571,7 +571,7 @@ export const GALLERY_CASES: GalleryCase[] = [
     image: "/gallery/morpheus8-face-wrinkles/before-after.jpg",
     imageAlt: "Morpheus8 face wrinkles fine lines before and after — Hello Gorgeous Med Spa Oswego IL",
     note: "Morpheus8 RF microneedling — face. Clinical result. Now available at Hello Gorgeous Med Spa, Oswego, IL. Individual results vary.",
-    serviceHref: "/morpheus8-burst-oswego-il",
+    serviceHref: "/morpheus8-burst-oswego",
   },
   {
     type: "single-image",
@@ -582,7 +582,7 @@ export const GALLERY_CASES: GalleryCase[] = [
     image: "/gallery/morpheus8-acne-scars-1/before-after.jpg",
     imageAlt: "Morpheus8 acne scars before and after — Hello Gorgeous Med Spa Oswego IL",
     note: "Morpheus8 RF microneedling — acne scars. Clinical result. Now available at Hello Gorgeous Med Spa, Oswego, IL. Individual results vary.",
-    serviceHref: "/morpheus8-burst-oswego-il",
+    serviceHref: "/morpheus8-burst-oswego",
   },
   {
     type: "single-image",
@@ -593,7 +593,7 @@ export const GALLERY_CASES: GalleryCase[] = [
     image: "/gallery/morpheus8-acne-scars-2/before-after.jpg",
     imageAlt: "Morpheus8 acne scars and redness before and after — Hello Gorgeous Med Spa Oswego IL",
     note: "Morpheus8 RF microneedling — acne scars. Clinical result. Now available at Hello Gorgeous Med Spa, Oswego, IL. Individual results vary.",
-    serviceHref: "/morpheus8-burst-oswego-il",
+    serviceHref: "/morpheus8-burst-oswego",
   },
   {
     type: "single-image",
@@ -604,7 +604,7 @@ export const GALLERY_CASES: GalleryCase[] = [
     image: "/gallery/morpheus8-burst-face/before-after.jpg",
     imageAlt: "Morpheus8 Burst fine lines and skin laxity before and after — Hello Gorgeous Med Spa Oswego IL",
     note: "Morpheus8 Burst RF microneedling — face. Clinical result. Now available at Hello Gorgeous Med Spa, Oswego, IL. Individual results vary.",
-    serviceHref: "/morpheus8-burst-oswego-il",
+    serviceHref: "/morpheus8-burst-oswego",
   },
   {
     type: "single-image",
@@ -615,7 +615,7 @@ export const GALLERY_CASES: GalleryCase[] = [
     image: "/gallery/morpheus8-acne-scars-3/before-after.jpg",
     imageAlt: "Morpheus8 surgical scar and acne scars before and after — Hello Gorgeous Med Spa Oswego IL",
     note: "Morpheus8 RF microneedling — scars. Clinical result. Now available at Hello Gorgeous Med Spa, Oswego, IL. Individual results vary.",
-    serviceHref: "/morpheus8-burst-oswego-il",
+    serviceHref: "/morpheus8-burst-oswego",
   },
   {
     type: "single-image",
@@ -626,7 +626,7 @@ export const GALLERY_CASES: GalleryCase[] = [
     image: "/gallery/solaria-client-7/before-during-after.jpg",
     imageAlt: "Solaria CO₂ laser before, during healing, and after — Hello Gorgeous Med Spa Oswego IL",
     note: "Solaria fractional CO₂ laser. Left: before. Center: immediately post. Right: healed result. Hello Gorgeous Med Spa, Oswego, IL.",
-    serviceHref: "/solaria-co2-laser-oswego-il",
+    serviceHref: "/solaria-co2-oswego",
   },
   {
     type: "single-image",
@@ -648,7 +648,7 @@ export const GALLERY_CASES: GalleryCase[] = [
     image: "/gallery/solaria-client-5/before-during-after.jpg",
     imageAlt: "Solaria CO₂ laser before, during, and healed after — Hello Gorgeous Med Spa Oswego IL",
     note: "Solaria fractional CO₂ laser. Left: before. Center: immediately post. Right: healed result. Hello Gorgeous Med Spa, Oswego, IL.",
-    serviceHref: "/solaria-co2-laser-oswego-il",
+    serviceHref: "/solaria-co2-oswego",
   },
   {
     type: "single-image",
@@ -659,7 +659,7 @@ export const GALLERY_CASES: GalleryCase[] = [
     image: "/gallery/solaria-client-6/before-during-after.jpg",
     imageAlt: "Solaria CO₂ laser before, 4 days post, and healed after — Hello Gorgeous Med Spa Oswego IL",
     note: "Solaria fractional CO₂ laser. Left: before. Center: 4 days post. Right: healed result. Hello Gorgeous Med Spa, Oswego, IL.",
-    serviceHref: "/solaria-co2-laser-oswego-il",
+    serviceHref: "/solaria-co2-oswego",
   },
   {
     type: "single-image",
@@ -681,7 +681,7 @@ export const GALLERY_CASES: GalleryCase[] = [
     before: "/gallery/solaria-client-4/before.jpg",
     after: "/gallery/solaria-client-4/after.jpg",
     note: "Solaria fractional CO₂ laser resurfacing. Performed at Hello Gorgeous Med Spa, Oswego, IL. Individual results vary.",
-    serviceHref: "/solaria-co2-laser-oswego-il",
+    serviceHref: "/solaria-co2-oswego",
   },
   {
     type: "before-after",
@@ -692,7 +692,7 @@ export const GALLERY_CASES: GalleryCase[] = [
     before: "/gallery/client-2/before.jpg",
     after: "/gallery/client-2/after.jpg",
     note: "Solaria fractional CO₂ laser resurfacing. Performed at Hello Gorgeous Med Spa, Oswego, IL. Individual results vary.",
-    serviceHref: "/solaria-co2-laser-oswego-il",
+    serviceHref: "/solaria-co2-oswego",
   },
   {
     type: "single-image",
@@ -703,7 +703,7 @@ export const GALLERY_CASES: GalleryCase[] = [
     image: "/gallery/solaria-client-2/result.jpg",
     imageAlt: "Solaria CO₂ laser full face before and after — Hello Gorgeous Med Spa Oswego IL",
     note: "Solaria fractional CO₂ laser resurfacing. One treatment result. Hello Gorgeous Med Spa, Oswego, IL.",
-    serviceHref: "/solaria-co2-laser-oswego-il",
+    serviceHref: "/solaria-co2-oswego",
   },
   {
     type: "single-image",
@@ -714,7 +714,7 @@ export const GALLERY_CASES: GalleryCase[] = [
     image: "/gallery/solaria-client-1/before-during-after.jpg",
     imageAlt: "Solaria CO₂ laser before, during, and after — Hello Gorgeous Med Spa Oswego IL",
     note: "Solaria fractional CO₂ laser resurfacing. Left: before. Center: immediately after. Right: healed result. Hello Gorgeous Med Spa, Oswego, IL.",
-    serviceHref: "/solaria-co2-laser-oswego-il",
+    serviceHref: "/solaria-co2-oswego",
   },
   {
     type: "before-after",
@@ -725,7 +725,7 @@ export const GALLERY_CASES: GalleryCase[] = [
     before: "/gallery/quantum-rf-chin-1/before.jpg",
     after: "/gallery/quantum-rf-chin-1/after.jpg",
     note: "Quantum RF subdermal contouring — chin & neck. Result shown at 1 week post-treatment. Hello Gorgeous Med Spa, Oswego, IL. Individual results vary.",
-    serviceHref: "/quantum-rf-oswego-il",
+    serviceHref: "/quantum-rf-oswego",
   },
   {
     type: "before-after",
@@ -736,7 +736,7 @@ export const GALLERY_CASES: GalleryCase[] = [
     before: "/gallery/quantum-rf-body-1/before.jpg",
     after: "/gallery/quantum-rf-body-1/after.jpg",
     note: "Quantum RF subdermal body contouring. Performed at Hello Gorgeous Med Spa, Oswego, IL. Individual results vary.",
-    serviceHref: "/quantum-rf-oswego-il",
+    serviceHref: "/quantum-rf-oswego",
   },
   {
     type: "video",
@@ -746,7 +746,7 @@ export const GALLERY_CASES: GalleryCase[] = [
     tagline: "Quantum RF subdermal contouring on the abdomen.",
     video: "/videos/gallery/quantum-rf-stomach.mp4",
     note: "Live Quantum RF body treatment. Performed at Hello Gorgeous Med Spa, Oswego, IL.",
-    serviceHref: "/quantum-rf-oswego-il",
+    serviceHref: "/quantum-rf-oswego",
   },
   {
     type: "video",
@@ -756,7 +756,7 @@ export const GALLERY_CASES: GalleryCase[] = [
     tagline: "Deepest RF microneedling — live Morpheus8 Burst procedure.",
     video: "/videos/gallery/morpheus8-burst-procedure.mp4",
     note: "Morpheus8 Burst RF microneedling procedure footage. Hello Gorgeous Med Spa, Oswego, IL.",
-    serviceHref: "/morpheus8-burst-oswego-il",
+    serviceHref: "/morpheus8-burst-oswego",
   },
   {
     type: "video",
@@ -776,7 +776,7 @@ export const GALLERY_CASES: GalleryCase[] = [
     tagline: "Live Solaria CO₂ fractional laser treatment in clinic.",
     video: "/videos/gallery/solaria-procedure-2.mp4",
     note: "Solaria CO₂ laser procedure footage. Performed at Hello Gorgeous Med Spa, Oswego, IL.",
-    serviceHref: "/solaria-co2-laser-oswego-il",
+    serviceHref: "/solaria-co2-oswego",
   },
   {
     type: "video",
@@ -786,7 +786,7 @@ export const GALLERY_CASES: GalleryCase[] = [
     tagline: "Gold-standard fractional CO₂ resurfacing — live in clinic.",
     video: "/videos/gallery/solaria-procedure.mp4",
     note: "Solaria fractional CO₂ laser procedure at Hello Gorgeous Med Spa. Treats wrinkles, texture, tone & acne scars.",
-    serviceHref: "/solaria-co2-laser-oswego-il",
+    serviceHref: "/solaria-co2-oswego",
   },
   {
     type: "video",
@@ -796,7 +796,7 @@ export const GALLERY_CASES: GalleryCase[] = [
     tagline: "Subdermal RF contouring by Ryan Kent, FNP-BC.",
     video: "/videos/quantum-rf/ryan-quantum-rf-action-2.mp4",
     note: "Real Quantum RF treatment footage showing controlled subdermal pass. Hello Gorgeous Med Spa, Oswego, IL.",
-    serviceHref: "/quantum-rf-oswego-il",
+    serviceHref: "/quantum-rf-oswego",
   },
   {
     type: "video",
@@ -806,7 +806,7 @@ export const GALLERY_CASES: GalleryCase[] = [
     tagline: "Real-time provider handling during Quantum RF session.",
     video: "/videos/quantum-rf/ryan-quantum-rf-action-3.mp4",
     note: "Procedure continuation clip with Ryan Kent, FNP-BC. Individual candidacy and results vary.",
-    serviceHref: "/quantum-rf-oswego-il",
+    serviceHref: "/quantum-rf-oswego",
   },
   {
     type: "youtube",
@@ -816,6 +816,6 @@ export const GALLERY_CASES: GalleryCase[] = [
     tagline: "Watch a full Morpheus8 Burst RF microneedling session from start to finish.",
     youtubeId: "SPJPb-sBWKk",
     note: "Morpheus8 Burst RF microneedling — deepest treatment at 8mm. Hello Gorgeous Med Spa, Oswego, IL.",
-    serviceHref: "/morpheus8-burst-oswego-il",
+    serviceHref: "/morpheus8-burst-oswego",
   },
 ];

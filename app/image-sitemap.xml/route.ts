@@ -1,4 +1,5 @@
 import { SERVICE_IMAGES, SITE } from "@/lib/seo";
+import { buildInModePageImageMap } from "@/lib/inmode-image-sitemap";
 
 /**
  * Image Sitemap for Google Images SEO
@@ -145,6 +146,7 @@ export async function GET() {
     "/about": allImages.filter(img => 
       img.src.includes("team")
     ),
+    ...buildInModePageImageMap(allImages),
   };
 
   // Build XML

@@ -2,6 +2,7 @@ import { bookingUrlFor } from "./build";
 import {
   MORPHEUS8_FAQ_VIDEO,
   MORPHEUS8_TREATMENT_VIDEO,
+  MORPHEUS8_UNDERARM_TREATMENT_IMAGE,
 } from "@/lib/founder-credentials";
 import type { ServicePageData } from "./types";
 
@@ -476,15 +477,19 @@ export const PHASE2_PAGES: ServicePageData[] = [
       {
         src: MORPHEUS8_TREATMENT_VIDEO,
         label: "Treatment",
-        title: "Morpheus8 Burst Deep in action",
-        description: "Real session at Hello Gorgeous — Oswego, IL.",
+        title: "Morpheus8 Burst RF microneedling treatment — Hello Gorgeous Oswego, IL",
+        description:
+          "Watch a real Morpheus8 Burst Deep session at Hello Gorgeous Med Spa in Oswego, IL. Verified InMode provider serving Naperville, Aurora, Plainfield and Kendall County.",
+        poster: MORPHEUS8_UNDERARM_TREATMENT_IMAGE,
         aspect: "video",
       },
       {
         src: MORPHEUS8_FAQ_VIDEO,
         label: "FAQ",
-        title: "What to know before you book",
-        description: "Common questions answered by our medical team.",
+        title: "Morpheus8 Burst FAQ — what to know before you book | Oswego, IL",
+        description:
+          "Common Morpheus8 Burst RF microneedling questions answered by our medical team at Hello Gorgeous Med Spa in Oswego, IL.",
+        poster: MORPHEUS8_UNDERARM_TREATMENT_IMAGE,
         aspect: "portrait",
       },
     ],

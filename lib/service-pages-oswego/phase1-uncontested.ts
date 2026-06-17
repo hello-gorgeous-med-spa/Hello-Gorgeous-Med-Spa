@@ -87,8 +87,9 @@ export const PHASE1_UNCONTESTED_PAGES: ServicePageData[] = [
       {
         src: SOLARIA_CLINIC_VIDEO,
         label: "Solaria CO₂",
-        title: "Fractional laser resurfacing at Hello Gorgeous",
-        description: "See the Solaria by InMode CO₂ platform in our downtown Oswego clinic.",
+        title: "Solaria CO₂ fractional laser resurfacing — Hello Gorgeous Oswego, IL",
+        description:
+          "Watch Solaria by InMode CO₂ fractional laser resurfacing at Hello Gorgeous Med Spa in downtown Oswego, IL — the only Solaria CO₂ in the western Chicago suburbs.",
         poster: SOLARIA_DANI_DEVICE_IMAGE,
         aspect: "video",
       },
@@ -195,8 +196,9 @@ export const PHASE1_UNCONTESTED_PAGES: ServicePageData[] = [
       {
         src: QUANTUM_RF_CLINIC_VIDEO,
         label: "Quantum RF",
-        title: "Body contouring at Hello Gorgeous",
-        description: "See Quantum RF by InMode in our downtown Oswego clinic.",
+        title: "Quantum RF body contouring — Hello Gorgeous Oswego, IL",
+        description:
+          "Watch Quantum RF by InMode subdermal body contouring at Hello Gorgeous Med Spa in Oswego, IL — the only Quantum RF provider in the western suburbs.",
         poster: QUANTUM_RF_RYAN_ACTION_IMAGE,
         aspect: "video",
       },

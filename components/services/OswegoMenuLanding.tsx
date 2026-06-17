@@ -1,5 +1,10 @@
 import { ServiceMenuPageLayout } from "@/components/services/ServiceMenuPageLayout";
 import { getInModeResultSlides } from "@/lib/gallery-service-results";
+import {
+  inModeImageGalleryJsonLd,
+  inModeVideoObjectJsonLd,
+  isInModeLandingSlug,
+} from "@/lib/inmode-landing-schema";
 import { getServicePageOswego } from "@/lib/service-pages-oswego";
 import type { ServiceMenuConfig } from "@/lib/service-menu-types";
 import { breadcrumbJsonLd, faqJsonLd, SITE } from "@/lib/seo";
@@ -45,12 +50,36 @@ export async function OswegoMenuLanding({
     performer: { "@id": `${SITE.url}/#organization` },
   };
 
+  const clinicalVideos = pageData.clinicalVideos ?? [];
+  const clinicalPhotos = pageData.clinicalPhotos ?? [];
+  const videoSchema =
+    isInModeLandingSlug(slug) && clinicalVideos.length > 0
+      ? inModeVideoObjectJsonLd(pageUrl, pageData.serviceName, clinicalVideos)
+      : [];
+  const imageGallerySchema =
+    isInModeLandingSlug(slug)
+      ? inModeImageGalleryJsonLd(pageUrl, pageData.serviceName, clinicalPhotos, resultSlides)
+      : null;
+
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(medicalProcedure) }}
       />
+      {videoSchema.map((schema) => (
+        <script
+          key={schema["@id"]}
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+        />
+      ))}
+      {imageGallerySchema ? (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(imageGallerySchema) }}
+        />
+      ) : null}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
