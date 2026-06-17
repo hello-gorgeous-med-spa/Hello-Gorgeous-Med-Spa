@@ -475,14 +475,16 @@ export const PHASE2_PAGES: ServicePageData[] = [
     clinicalVideos: [
       {
         src: MORPHEUS8_TREATMENT_VIDEO,
-        title: "Morpheus8 Burst Deep — real treatment",
-        description: "Watch a Morpheus8 Burst Deep session at Hello Gorgeous Med Spa, Oswego, IL.",
+        label: "Treatment",
+        title: "Morpheus8 Burst Deep in action",
+        description: "Real session at Hello Gorgeous — Oswego, IL.",
         aspect: "video",
       },
       {
         src: MORPHEUS8_FAQ_VIDEO,
-        title: "Morpheus8 Burst Deep — FAQ",
-        description: "What to know before your Morpheus8 Burst consultation.",
+        label: "FAQ",
+        title: "What to know before you book",
+        description: "Common questions answered by our medical team.",
         aspect: "portrait",
       },
     ],

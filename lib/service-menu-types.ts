@@ -47,6 +47,8 @@ export type ServiceMenuVideo = {
   title: string;
   description?: string;
   poster?: string;
+  /** Short eyebrow above title, e.g. "Treatment" or "FAQ" */
+  label?: string;
   /** Portrait for vertical social clips; default widescreen 16:9. */
   aspect?: "video" | "portrait";
 };

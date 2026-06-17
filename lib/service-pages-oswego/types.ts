@@ -55,6 +55,7 @@ export type ServicePageData = {
     title: string;
     description?: string;
     poster?: string;
+    label?: string;
     aspect?: "video" | "portrait";
   }[];
 };
