@@ -5,9 +5,12 @@ import { BestOfOswegoBadge } from "@/components/BestOfOswegoBadge";
 import { BookingBadges } from "@/components/BookingBadges";
 import { LocationsServed } from "@/components/LocationsServed";
 import { FOOTER_CREDENTIALS_HEADLINE, FOOTER_CREDENTIALS_LINE } from "@/lib/founder-credentials";
+import { FooterNavColumnBlock } from "@/components/FooterNavColumn";
+import { FOOTER_PRIMARY_COLUMNS, FOOTER_SEO_LINKS } from "@/lib/footer-nav";
+import { reviewTrustBody } from "@/lib/review-trust-copy";
 import { BOOKING_URL, SQUARE_MAILING_LIST_ENROLL_URL } from "@/lib/flows";
 import { HG_TAGLINE } from "@/lib/brand-tagline";
-import { SITE, SERVICES, servicePublicPath } from "@/lib/seo";
+import { SITE } from "@/lib/seo";
 import type { SiteSettings } from "@/lib/cms-readers";
 import type { GooglePlace } from "@/lib/seo/google-places";
 
@@ -47,9 +50,9 @@ export function Footer({
       </div>
       {/* Main Footer */}
       <div className="max-w-7xl mx-auto px-4 md:px-6 py-12 md:py-16 min-w-0">
-        <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-10 lg:gap-8">
+        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-12 lg:gap-8">
           {/* Brand Column */}
-          <div className="lg:col-span-2">
+          <div className="sm:col-span-2 lg:col-span-4">
             <Link href="/" className="flex items-center gap-3 mb-4">
               <span className="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-pink-500 to-rose-500 text-white text-lg font-bold shadow-lg shadow-[#FF2D8E]/25">
                 HG
@@ -97,8 +100,8 @@ export function Footer({
               </span>
               <span className="font-semibold">{SITE.freshaReviewRating} Stars</span>
               <span className="text-white/60">·</span>
-              <span className="text-white/80">
-                {Number(SITE.freshaReviewCount).toLocaleString()} verified client reviews
+              <span className="text-white/80 text-xs leading-snug max-w-md">
+                {reviewTrustBody({ googleRating: ratingValue, googleCount: reviewCount })}
               </span>
             </div>
             {(isOpenNow || isClosedNow) && (
@@ -162,286 +165,51 @@ export function Footer({
             </div>
           </div>
 
-          {/* Services Column */}
-          <div>
-            <h4 className="font-bold text-[#FF2D8E] mb-5 text-sm uppercase tracking-wider">Services</h4>
-            <ul className="space-y-3 text-sm">
-              {SERVICES.slice(0, 6).map((s) => (
-                <li key={s.slug}>
-                  <Link
-                    className="text-white hover:text-[#FF2D8E] transition-colors"
-                    href={servicePublicPath(s)}
-                  >
-                    {s.name}
-                  </Link>
-                </li>
-              ))}
-              <li>
-                <Link
-                  className="text-white hover:text-[#FF2D8E] transition-colors"
-                  href="/solaria-packages"
-                >
-                  Solaria Packages
-                </Link>
-              </li>
-              <li>
-                <Link
-                  className="text-[#FF2D8E] hover:text-[#FF2D8E] transition-colors font-medium"
-                  href="/services"
-                >
-                  View All Services →
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Explore Column */}
-          <div>
-            <h4 className="font-bold text-[#FF2D8E] mb-5 text-sm uppercase tracking-wider">Explore</h4>
-            <ul className="space-y-3 text-sm text-white">
-              <li>
-                <Link className="text-[#FF2D8E] hover:text-[#FF2D8E] font-bold transition-colors" href="/gift-cards">
-                  🎁 eGift Cards
-                </Link>
-              </li>
-              <li>
-                <Link className="text-[#FF2D8E] hover:text-[#FF2D8E] font-bold transition-colors" href="/monthly-memberships">
-                  ⭐ Monthly Memberships
-                </Link>
-              </li>
-              <li>
-                <Link className="text-[#FF2D8E] hover:text-[#FF2D8E] font-medium transition-colors" href="/gentlemens-club">
-                  👔 The Gentlemen&apos;s Club
-                </Link>
-              </li>
-              <li>
-                <Link className="text-[#FF2D8E] hover:text-[#FF2D8E] font-bold transition-colors" href="/#get-the-app">
-                  📱 Get the App (scan QR)
-                </Link>
-              </li>
-              <li>
-                <Link className="text-[#FF2D8E] hover:text-[#FF2D8E] font-medium transition-colors" href="/app">
-                  Open client app
-                </Link>
-              </li>
-              <li>
-                <Link className="text-[#FF2D8E] hover:text-[#FF2D8E] font-medium transition-colors" href="/specials">
-                  ✨ Specials &amp; Signature Menu
-                </Link>
-              </li>
-              <li>
-                <Link className="text-[#FF2D8E] hover:text-[#FF2D8E] font-medium transition-colors" href="/peptide-therapy-oswego">
-                  🧬 Peptide Therapy (Oswego)
-                </Link>
-              </li>
-              <li>
-                <Link className="text-[#FF2D8E] hover:text-[#FF2D8E] font-medium transition-colors" href="/peptides">
-                  Peptide education hub
-                </Link>
-              </li>
-              <li>
-                <Link className="text-[#FF2D8E] hover:text-[#FF2D8E] font-medium transition-colors" href="/injection-menu">
-                  💉 Injection Menu
-                </Link>
-              </li>
-              <li>
-                <Link className="text-[#FF2D8E] hover:text-[#FF2D8E] font-medium transition-colors" href="/spring-special-laser-hair">
-                  🌸 Spring Special: Laser Hair $79
-                </Link>
-              </li>
-              <li>
-                <Link className="hover:text-[#FF2D8E] transition-colors font-medium" href="/newsletter/april">
-                  April newsletter
-                </Link>
-              </li>
-              <li>
-                <Link className="text-[#FF2D8E] hover:text-[#FF2D8E] font-medium transition-colors" href="/blog/male-female-practitioners-med-spa-advantage-oswego-il">
-                  Why Our Male + Female Team Matters
-                </Link>
-              </li>
-              <li>
-                <Link className="text-[#FF2D8E] hover:text-[#FF2D8E] font-medium transition-colors" href="/daxxify-oswego-il">
-                  Daxxify — 6-Month Neurotoxin (NEW)
-                </Link>
-              </li>
-              <li>
-                <Link className="text-[#FF2D8E] hover:text-[#FF2D8E] font-medium transition-colors" href="/botox-vs-dysport-vs-jeuveau">
-                  All 5 Neurotoxins Compared
-                </Link>
-              </li>
-              <li>
-                <Link className="text-[#FF2D8E] hover:text-[#FF2D8E] font-medium transition-colors" href="/blog/botox-vs-dysport-vs-jeuveau-faq-oswego">
-                  Botox vs Dysport vs Jeuveau Guide
-                </Link>
-              </li>
-              <li>
-                <Link className="text-[#FF2D8E] hover:text-[#FF2D8E] font-medium transition-colors" href="/blog/what-makes-hello-gorgeous-different-oswego-il">
-                  What Makes Us Different
-                </Link>
-              </li>
-              <li>
-                <Link className="text-[#FF2D8E] hover:text-[#FF2D8E] font-medium transition-colors" href="/blog/founder-letter-morpheus8-solaria-oswego-il">
-                  Founder&apos;s Letter — Morpheus8 &amp; Solaria
-                </Link>
-              </li>
-              <li>
-                <Link className="text-[#FF2D8E] hover:text-[#FF2D8E] font-medium transition-colors" href="/blog/we-arent-just-a-botox-clinic-hello-gorgeous-oswego-il">
-                  We Aren&apos;t Just a Botox Clinic
-                </Link>
-              </li>
-              <li>
-                <Link className="hover:text-[#FF2D8E] transition-colors" href="/blog/the-story-behind-hello-gorgeous-oswego-il">
-                  Our Story
-                </Link>
-              </li>
-              <li>
-                <Link className="text-[#FF2D8E] hover:text-[#FF2D8E] font-medium transition-colors" href="/the-book">
-                  The Book (clinical guide)
-                </Link>
-              </li>
-              <li>
-                <Link className="hover:text-[#FF2D8E] transition-colors" href="/why-choose-us">
-                  Why Choose Us
-                </Link>
-              </li>
-              <li>
-                <Link className="hover:text-[#FF2D8E] transition-colors" href="/fix-what-bothers-me">
-                  Fix What Bothers Me
-                </Link>
-              </li>
-              <li>
-                <Link className="hover:text-[#FF2D8E] transition-colors" href="/explore-care">
-                  Explore Care
-                </Link>
-              </li>
-              <li>
-                <Link className="hover:text-[#FF2D8E] transition-colors" href="/your-journey">
-                  Your Journey
-                </Link>
-              </li>
-              <li>
-                <Link className="hover:text-[#FF2D8E] transition-colors" href="/understand-your-body">
-                  Understand Your Body
-                </Link>
-              </li>
-              <li>
-                <Link className="hover:text-[#FF2D8E] transition-colors" href="/membership">
-                  VIP Membership
-                </Link>
-              </li>
-              <li>
-                <Link className="hover:text-[#FF2D8E] transition-colors" href="/quiz">
-                  Find My Treatment
-                </Link>
-              </li>
-              <li>
-                <Link className="hover:text-[#FF2D8E] transition-colors" href="/telehealth">
-                  Telehealth
-                </Link>
-              </li>
-              <li>
-                <a
-                  href={SQUARE_MAILING_LIST_ENROLL_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-[#FF2D8E] transition-colors font-medium text-[#FF2D8E]/95"
-                >
-                  Join mailing list · offers &amp; updates →
-                </a>
-              </li>
-              <li>
-                <Link className="hover:text-[#FF2D8E] transition-colors" href="/products-we-offer">
-                  Products we offer (Rx)
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Company Column */}
-          <div>
-            <h4 className="font-bold text-[#FF2D8E] mb-5 text-sm uppercase tracking-wider">Company</h4>
-            <ul className="space-y-3 text-sm text-white">
-              <li>
-                <Link className="hover:text-[#FF2D8E] transition-colors" href="/why-choose-us">
-                  Why Choose Us
-                </Link>
-              </li>
-              <li>
-                <Link className="hover:text-[#FF2D8E] transition-colors" href="/about">
-                  About Us
-                </Link>
-              </li>
-              <li>
-                <Link className="hover:text-[#FF2D8E] transition-colors" href="/about">
-                  Meet Your Care Team
-                </Link>
-              </li>
-              <li>
-                <Link
-                  className="text-[#FF2D8E] hover:text-[#FF2D8E] font-medium transition-colors"
-                  href="/blog/male-female-practitioners-med-spa-advantage-oswego-il"
-                >
-                  Why Our Male + Female Team Matters
-                </Link>
-              </li>
-              <li>
-                <a
-                  href={SITE.googleReviewUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-white hover:text-[#FF2D8E] transition-colors"
-                >
-                  Google Reviews
-                </a>
-              </li>
-              <li>
-                <Link className="hover:text-[#FF2D8E] transition-colors" href="/locations">
-                  Location
-                </Link>
-              </li>
-              <li>
-                <Link className="hover:text-[#FF2D8E] transition-colors" href="/community">
-                  Community
-                </Link>
-              </li>
-              <li>
-                <Link className="hover:text-[#FF2D8E] transition-colors" href="/care-engine">
-                  The Care Engine™
-                </Link>
-              </li>
-              <li>
-                <Link className="hover:text-[#FF2D8E] transition-colors" href="/our-promise">
-                  Our Promise (Vendors)
-                </Link>
-              </li>
-              <li>
-                <Link className="hover:text-[#FF2D8E] transition-colors" href="/clinical-partners">
-                  Clinical Standards
-                </Link>
-              </li>
-              <li>
-                <Link className="hover:text-[#FF2D8E] transition-colors" href="/pre-post-care">
-                  Pre &amp; post care guides
-                </Link>
-              </li>
-              <li>
-                <Link className="hover:text-[#FF2D8E] transition-colors" href="/patient-documents">
-                  Patient documents &amp; consent
-                </Link>
-              </li>
-              <li>
-                <Link className="hover:text-[#FF2D8E] transition-colors" href="/faq">
-                  FAQ
-                </Link>
-              </li>
-              <li>
-                <Link className="hover:text-[#FF2D8E] transition-colors" href="/contact">
-                  Contact
-                </Link>
-              </li>
-            </ul>
+          <div className="sm:col-span-2 lg:col-span-8 grid gap-8 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-5">
+          {FOOTER_PRIMARY_COLUMNS.map((column) => (
+            <div key={column.id} className="min-w-0">
+              <FooterNavColumnBlock
+                column={
+                  column.id === "book"
+                    ? {
+                        ...column,
+                        links: column.links.map((link) =>
+                          link.label === "Book Online" ? { ...link, href: BOOKING_URL, external: true } : link,
+                        ),
+                      }
+                    : column
+                }
+              />
+            </div>
+          ))}
           </div>
         </div>
+
+        <details className="mt-10 rounded-xl border border-white/10 bg-white/5 px-4 py-3 open:pb-4">
+          <summary className="cursor-pointer list-none text-sm font-bold uppercase tracking-wider text-[#FFB8DC] [&::-webkit-details-marker]:hidden">
+            More guides &amp; resources
+            <span className="ml-2 text-white/40">+</span>
+          </summary>
+          <ul className="mt-4 grid gap-x-6 gap-y-2 text-sm sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            {FOOTER_SEO_LINKS.map((link) => (
+              <li key={link.href + link.label}>
+                <Link href={link.href} className="text-white/75 hover:text-[#FF2D8E] transition-colors">
+                  {link.label}
+                </Link>
+              </li>
+            ))}
+            <li>
+              <a
+                href={SQUARE_MAILING_LIST_ENROLL_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-white/75 hover:text-[#FF2D8E] transition-colors"
+              >
+                Join mailing list
+              </a>
+            </li>
+          </ul>
+        </details>
 
         {/* Hours from CMS (optional) */}
         {hasHours && (
