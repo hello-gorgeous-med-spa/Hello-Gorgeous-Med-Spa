@@ -43,7 +43,12 @@ export type ServicePageData = {
   promoFlyerImage?: string;
   promoFlyerAlt?: string;
   /** In-clinic treatment / device photos for trust and Google Images */
-  clinicalPhotos?: { src: string; alt: string }[];
+  clinicalPhotos?: {
+    src: string;
+    alt: string;
+    frame?: "portrait" | "landscape";
+    objectPosition?: string;
+  }[];
   /** Procedure or FAQ videos for the dark menu landing */
   clinicalVideos?: { src: string; title: string; description?: string; poster?: string }[];
 };

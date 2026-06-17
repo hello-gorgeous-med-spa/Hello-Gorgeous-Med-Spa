@@ -23,6 +23,8 @@ export async function OswegoMenuLanding({
           gallery: pageData.clinicalPhotos.map((photo) => ({
             src: photo.src,
             alt: photo.alt,
+            frame: photo.frame,
+            objectPosition: photo.objectPosition,
           })),
         }
       : {}),

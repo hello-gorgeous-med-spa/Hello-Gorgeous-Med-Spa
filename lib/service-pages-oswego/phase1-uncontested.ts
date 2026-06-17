@@ -82,22 +82,31 @@ export const PHASE1_UNCONTESTED_PAGES: ServicePageData[] = [
       {
         src: SOLARIA_DANI_DEVICE_IMAGE,
         alt: "Danielle Alcala-Glazier with the Solaria by InMode CO2 laser at Hello Gorgeous Med Spa in Oswego, IL",
+        frame: "portrait",
+        objectPosition: "top",
       },
       {
         src: SOLARIA_TREATMENT_IMAGE,
         alt: "Solaria CO2 fractional laser resurfacing facial treatment in progress at Hello Gorgeous Med Spa Oswego, IL",
+        frame: "landscape",
       },
       {
         src: SOLARIA_DECOLLETE_TREATMENT_IMAGE,
         alt: "Solaria CO2 laser resurfacing on décolletage at Hello Gorgeous Med Spa in Oswego, IL — protective eyewear and cooling during treatment",
+        frame: "portrait",
+        objectPosition: "top",
       },
       {
         src: SOLARIA_NECK_LASER_IMAGE,
         alt: "Solaria CO2 fractional laser treatment on neck and jawline at Hello Gorgeous Med Spa in Oswego, IL",
+        frame: "portrait",
+        objectPosition: "top",
       },
       {
         src: SOLARIA_SCANNER_CLOSEUP_IMAGE,
         alt: "InMode Solaria CO2 scanner handpiece during fractional laser treatment on décolletage at Hello Gorgeous Med Spa in Oswego, IL",
+        frame: "landscape",
+        objectPosition: "center",
       },
     ],
   },

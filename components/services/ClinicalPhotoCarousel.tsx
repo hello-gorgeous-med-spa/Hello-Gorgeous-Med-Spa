@@ -43,6 +43,11 @@ export function ClinicalPhotoCarousel({
   if (n === 0) return null;
 
   const slide = slides[index];
+  const isPortrait = slide.frame !== "landscape";
+  const frameClass = isPortrait
+    ? "relative mx-auto aspect-[4/5] w-full max-w-xl sm:aspect-[3/4] max-h-[min(560px,72vh)]"
+    : "relative aspect-[4/3] w-full sm:aspect-[16/10]";
+  const objectPosition = slide.objectPosition ?? (isPortrait ? "top" : "center");
 
   return (
     <div className="w-full" role="region" aria-roledescription="carousel" aria-labelledby={titleId}>
@@ -54,14 +59,15 @@ export function ClinicalPhotoCarousel({
       </p>
 
       <figure className="overflow-hidden rounded-xl border border-white/10 bg-[#151922]">
-        <div className="relative aspect-[4/3] w-full sm:aspect-[16/10]">
+        <div className={frameClass}>
           <Image
             key={slide.src}
             src={slide.src}
             alt={slide.alt}
             fill
-            className="object-cover object-center"
-            sizes="(max-width: 768px) 100vw, 896px"
+            className="object-cover"
+            style={{ objectPosition }}
+            sizes="(max-width: 768px) 100vw, 672px"
             priority={index === 0}
             loading={index === 0 ? "eager" : "lazy"}
           />

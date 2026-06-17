@@ -477,6 +477,8 @@ export const PHASE2_PAGES: ServicePageData[] = [
       {
         src: MORPHEUS8_UNDERARM_TREATMENT_IMAGE,
         alt: "Morpheus8 Burst Deep RF microneedling underarm treatment at Hello Gorgeous Med Spa in Oswego, IL — InMode device in clinic",
+        frame: "portrait",
+        objectPosition: "top",
       },
     ],
     clinicalVideos: [

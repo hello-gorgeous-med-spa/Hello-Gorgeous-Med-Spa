@@ -37,6 +37,9 @@ export type ServiceMenuGallerySlide = {
   src: string;
   alt: string;
   caption?: string;
+  /** Portrait frame fits full-body clinic shots; landscape for wider procedure photos. */
+  frame?: "portrait" | "landscape";
+  objectPosition?: string;
 };
 
 export type ServiceMenuVideo = {
