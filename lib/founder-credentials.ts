@@ -74,6 +74,7 @@ export const TEAM_FOUNDERS_IMAGE = "/images/team/dani-ryan-about-neon.png";
 export const SOLARIA_DANI_DEVICE_IMAGE = "/images/solaria/danielle-solaria-inmode-clinic.png";
 export const SOLARIA_TREATMENT_IMAGE = "/images/solaria/solaria-co2-treatment-oswego.png";
 export const SOLARIA_DECOLLETE_TREATMENT_IMAGE = "/images/solaria/solaria-co2-decollete-treatment-oswego.png";
+export const SOLARIA_SCANNER_CLOSEUP_IMAGE = "/images/solaria/solaria-co2-inmode-scanner-closeup-oswego.png";
 
 export function credentialStripForSlug(slug: string): string {
   return PRESCRIPTION_SERVICE_SLUGS.has(slug) ? CREDENTIAL_STRIP_PRESCRIPTION : CREDENTIAL_STRIP_STANDARD;
