@@ -139,11 +139,17 @@ export function ServiceMenuPageLayout({ config }: { config: ServiceMenuConfig })
         <Section className="border-b-4 border-black !px-0 py-8 md:py-12">
           <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
             <FadeUp>
-              <ServiceMenuVideos videos={allVideos} />
+              <ServiceMenuVideos
+                videos={allVideos}
+                title="See Solaria CO₂ in our Oswego clinic"
+                subtitle="Real procedure footage — the only Solaria CO₂ in the western suburbs."
+              />
             </FadeUp>
           </div>
         </Section>
-      ) : gallery && gallery.length > 0 ? (
+      ) : null}
+
+      {gallery && gallery.length > 0 ? (
         <Section className="border-b-4 border-black !px-0 py-10 md:py-14">
           <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
             <FadeUp>

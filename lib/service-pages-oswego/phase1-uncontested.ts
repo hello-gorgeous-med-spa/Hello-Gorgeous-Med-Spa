@@ -1,5 +1,6 @@
 import { bookingUrlFor } from "./build";
 import {
+  SOLARIA_CLINIC_VIDEO,
   SOLARIA_DANI_DEVICE_IMAGE,
   SOLARIA_DECOLLETE_TREATMENT_IMAGE,
   SOLARIA_NECK_LASER_IMAGE,
@@ -78,6 +79,16 @@ export const PHASE1_UNCONTESTED_PAGES: ServicePageData[] = [
     promoFlyerImage: "/images/promo/solaria-co2-promo-flyer.png",
     promoFlyerAlt:
       "Solaria CO2 laser before, during, and after skin resurfacing at Hello Gorgeous Med Spa Oswego — gold standard fractional CO2",
+    clinicalVideos: [
+      {
+        src: SOLARIA_CLINIC_VIDEO,
+        label: "Solaria CO₂",
+        title: "Fractional laser resurfacing at Hello Gorgeous",
+        description: "See the Solaria by InMode CO₂ platform in our downtown Oswego clinic.",
+        poster: SOLARIA_DANI_DEVICE_IMAGE,
+        aspect: "video",
+      },
+    ],
     clinicalPhotos: [
       {
         src: SOLARIA_DANI_DEVICE_IMAGE,

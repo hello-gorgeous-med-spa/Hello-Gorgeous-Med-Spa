@@ -76,6 +76,7 @@ export const SOLARIA_TREATMENT_IMAGE = "/images/solaria/solaria-co2-treatment-os
 export const SOLARIA_DECOLLETE_TREATMENT_IMAGE = "/images/solaria/solaria-co2-decollete-laser-oswego.png";
 export const SOLARIA_NECK_LASER_IMAGE = "/images/solaria/solaria-co2-neck-laser-oswego.png";
 export const SOLARIA_SCANNER_CLOSEUP_IMAGE = "/images/solaria/solaria-co2-inmode-scanner-closeup-oswego.png";
+export const SOLARIA_CLINIC_VIDEO = "/videos/solaria/solaria-co2-clinic-reedit-oswego.mp4";
 
 export const MORPHEUS8_UNDERARM_TREATMENT_IMAGE =
   "/images/morpheus8/morpheus8-burst-deep-underarm-treatment-oswego.png";
