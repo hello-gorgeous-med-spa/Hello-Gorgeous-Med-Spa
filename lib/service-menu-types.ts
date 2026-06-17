@@ -51,6 +51,8 @@ export type ServiceMenuVideo = {
   label?: string;
   /** Portrait for vertical social clips; default widescreen 16:9. */
   aspect?: "video" | "portrait";
+  /** WebVTT captions path (defaults from InMode clinic video map when available). */
+  captions?: string;
 };
 
 export type ServiceMenuResultSlide = {

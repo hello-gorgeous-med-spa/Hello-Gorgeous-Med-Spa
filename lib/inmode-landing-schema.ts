@@ -1,4 +1,8 @@
 import type { ServiceMenuResultSlide } from "@/lib/service-menu-types";
+import {
+  captionsPathForClinicVideo,
+  transcriptForClinicVideo,
+} from "@/lib/inmode-video-captions";
 import type { ServicePageData } from "@/lib/service-pages-oswego/types";
 import { SITE } from "@/lib/seo";
 
@@ -21,27 +25,44 @@ export function inModeVideoObjectJsonLd(
   serviceName: string,
   videos: ClinicalVideo[]
 ) {
-  return videos.map((video, i) => ({
-    "@context": "https://schema.org",
-    "@type": "VideoObject",
-    "@id": `${pageUrl}#clinic-video-${i + 1}`,
-    name: `${video.title} | ${serviceName} | Hello Gorgeous Med Spa Oswego, IL`,
-    description:
-      video.description ??
-      `${serviceName} procedure video filmed at Hello Gorgeous Med Spa in Oswego, IL — verified InMode provider serving Naperville, Aurora, Plainfield and Kendall County.`,
-    thumbnailUrl: video.poster
-      ? `${SITE.url}${video.poster}`
-      : `${SITE.url}/images/logo-full.png`,
-    uploadDate: "2026-03-01",
-    contentUrl: `${SITE.url}${video.src}`,
-    embedUrl: pageUrl,
-    publisher: {
-      "@type": "MedicalBusiness",
-      "@id": `${SITE.url}/#organization`,
-      name: SITE.name,
-      logo: { "@type": "ImageObject", url: `${SITE.url}/images/logo-full.png` },
-    },
-  }));
+  return videos.map((video, i) => {
+    const captionsPath = video.captions ?? captionsPathForClinicVideo(video.src);
+    const transcript = transcriptForClinicVideo(video.src);
+
+    return {
+      "@context": "https://schema.org",
+      "@type": "VideoObject",
+      "@id": `${pageUrl}#clinic-video-${i + 1}`,
+      name: `${video.title} | ${serviceName} | Hello Gorgeous Med Spa Oswego, IL`,
+      description:
+        video.description ??
+        `${serviceName} procedure video filmed at Hello Gorgeous Med Spa in Oswego, IL — verified InMode provider serving Naperville, Aurora, Plainfield and Kendall County.`,
+      thumbnailUrl: video.poster
+        ? `${SITE.url}${video.poster}`
+        : `${SITE.url}/images/logo-full.png`,
+      uploadDate: "2026-03-01",
+      contentUrl: `${SITE.url}${video.src}`,
+      embedUrl: pageUrl,
+      inLanguage: "en-US",
+      ...(captionsPath
+        ? {
+            caption: {
+              "@type": "MediaObject",
+              contentUrl: `${SITE.url}${captionsPath}`,
+              encodingFormat: "text/vtt",
+              inLanguage: "en-US",
+            },
+          }
+        : {}),
+      ...(transcript ? { transcript } : {}),
+      publisher: {
+        "@type": "MedicalBusiness",
+        "@id": `${SITE.url}/#organization`,
+        name: SITE.name,
+        logo: { "@type": "ImageObject", url: `${SITE.url}/images/logo-full.png` },
+      },
+    };
+  });
 }
 
 /** ImageGallery + ItemList ImageObject entries for clinic photos and embedded client results. */

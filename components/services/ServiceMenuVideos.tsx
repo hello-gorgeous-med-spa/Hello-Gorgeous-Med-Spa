@@ -2,6 +2,7 @@
 
 import { useId } from "react";
 
+import { captionsPathForClinicVideo } from "@/lib/inmode-video-captions";
 import type { ServiceMenuVideo } from "@/lib/service-menu-types";
 
 export function VideoCard({
@@ -13,6 +14,8 @@ export function VideoCard({
 }) {
   const isPortrait = video.aspect === "portrait";
   const inSplit = layout === "split";
+  const captionsSrc = video.captions ?? captionsPathForClinicVideo(video.src);
+  const captionsId = useId();
 
   return (
     <article className="flex h-full flex-col overflow-hidden rounded-2xl border border-white/10 bg-[#151922] shadow-[0_8px_32px_rgba(0,0,0,0.35)]">
@@ -32,9 +35,24 @@ export function VideoCard({
           preload="metadata"
           poster={video.poster}
           title={video.title}
+          aria-describedby={captionsSrc ? captionsId : undefined}
         >
           <source src={video.src} type="video/mp4" />
+          {captionsSrc ? (
+            <track
+              kind="captions"
+              src={captionsSrc}
+              srcLang="en"
+              label="English"
+              default
+            />
+          ) : null}
         </video>
+        {captionsSrc ? (
+          <span id={captionsId} className="sr-only">
+            {video.title}. Closed captions available — enable CC in the video player.
+          </span>
+        ) : null}
       </div>
       <footer className="border-t border-white/10 px-4 py-3.5">
         {video.label ? (

@@ -57,5 +57,7 @@ export type ServicePageData = {
     poster?: string;
     label?: string;
     aspect?: "video" | "portrait";
+    /** WebVTT captions for accessibility and video SEO. */
+    captions?: string;
   }[];
 };
