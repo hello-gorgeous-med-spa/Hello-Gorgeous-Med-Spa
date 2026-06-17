@@ -77,6 +77,11 @@ export const SOLARIA_DECOLLETE_TREATMENT_IMAGE = "/images/solaria/solaria-co2-de
 export const SOLARIA_NECK_LASER_IMAGE = "/images/solaria/solaria-co2-neck-laser-oswego.png";
 export const SOLARIA_SCANNER_CLOSEUP_IMAGE = "/images/solaria/solaria-co2-inmode-scanner-closeup-oswego.png";
 
+export const MORPHEUS8_UNDERARM_TREATMENT_IMAGE =
+  "/images/morpheus8/morpheus8-burst-deep-underarm-treatment-oswego.png";
+export const MORPHEUS8_FAQ_VIDEO = "/videos/morpheus8/morpheus8-burst-deep-faq-social.mp4";
+export const MORPHEUS8_TREATMENT_VIDEO = "/videos/morpheus8/morpheus8-burst-deep-treatment-oswego.mp4";
+
 export function credentialStripForSlug(slug: string): string {
   return PRESCRIPTION_SERVICE_SLUGS.has(slug) ? CREDENTIAL_STRIP_PRESCRIPTION : CREDENTIAL_STRIP_STANDARD;
 }

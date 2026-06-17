@@ -44,4 +44,6 @@ export type ServicePageData = {
   promoFlyerAlt?: string;
   /** In-clinic treatment / device photos for trust and Google Images */
   clinicalPhotos?: { src: string; alt: string }[];
+  /** Procedure or FAQ videos for the dark menu landing */
+  clinicalVideos?: { src: string; title: string; description?: string; poster?: string }[];
 };

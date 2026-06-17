@@ -16,16 +16,20 @@ export async function OswegoMenuLanding({
   const pageData = getServicePageOswego(slug)!;
   const pageUrl = `${SITE.url}${config.path}`;
 
-  const configWithGallery =
-    pageData.clinicalPhotos && pageData.clinicalPhotos.length > 0
+  const configWithMedia = {
+    ...config,
+    ...(pageData.clinicalPhotos && pageData.clinicalPhotos.length > 0
       ? {
-          ...config,
           gallery: pageData.clinicalPhotos.map((photo) => ({
             src: photo.src,
             alt: photo.alt,
           })),
         }
-      : config;
+      : {}),
+    ...(pageData.clinicalVideos && pageData.clinicalVideos.length > 0
+      ? { videos: pageData.clinicalVideos }
+      : {}),
+  };
 
   const medicalProcedure = {
     "@context": "https://schema.org",
@@ -58,7 +62,7 @@ export async function OswegoMenuLanding({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd(config.faqs, pageUrl)) }}
       />
-      <ServiceMenuPageLayout config={configWithGallery} />
+      <ServiceMenuPageLayout config={configWithMedia} />
     </>
   );
 }

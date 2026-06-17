@@ -1,4 +1,9 @@
 import { bookingUrlFor } from "./build";
+import {
+  MORPHEUS8_FAQ_VIDEO,
+  MORPHEUS8_TREATMENT_VIDEO,
+  MORPHEUS8_UNDERARM_TREATMENT_IMAGE,
+} from "@/lib/founder-credentials";
 import type { ServicePageData } from "./types";
 
 /** HG_DEV_011 Phase 2 — Dani-reviewed copy (19 remaining service pages). Generated from Phase2_Content.md */
@@ -468,6 +473,26 @@ export const PHASE2_PAGES: ServicePageData[] = [
       "microneedling-oswego"
     ],
     closingCta: "Book a free Morpheus8 Burst consultation. We'll assess your skin, talk through your goals, and design a plan that delivers real results — with honest pricing and no upsell.",
+    clinicalPhotos: [
+      {
+        src: MORPHEUS8_UNDERARM_TREATMENT_IMAGE,
+        alt: "Morpheus8 Burst Deep RF microneedling underarm treatment at Hello Gorgeous Med Spa in Oswego, IL — InMode device in clinic",
+      },
+    ],
+    clinicalVideos: [
+      {
+        src: MORPHEUS8_TREATMENT_VIDEO,
+        title: "Morpheus8 Burst Deep — real treatment",
+        description: "Watch a Morpheus8 Burst Deep session at Hello Gorgeous Med Spa, Oswego, IL.",
+        poster: MORPHEUS8_UNDERARM_TREATMENT_IMAGE,
+      },
+      {
+        src: MORPHEUS8_FAQ_VIDEO,
+        title: "Morpheus8 Burst Deep — FAQ",
+        description: "What to know before your Morpheus8 Burst consultation.",
+        poster: MORPHEUS8_UNDERARM_TREATMENT_IMAGE,
+      },
+    ],
   },
   {
     slug: "glp-1-weight-loss-oswego",

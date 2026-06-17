@@ -1973,6 +1973,13 @@ export const SERVICE_IMAGES: ServiceImage[] = [
     category: "aesthetics",
   },
   {
+    src: "/images/morpheus8/morpheus8-burst-deep-underarm-treatment-oswego.png",
+    alt: "Morpheus8 Burst Deep underarm RF microneedling treatment at Hello Gorgeous Med Spa Oswego, IL",
+    title: "Morpheus8 Burst Deep Treatment",
+    service: "Morpheus8 Burst",
+    category: "aesthetics",
+  },
+  {
     src: "/images/home/morpheus8-body-burst-technology-inmode.png",
     alt: "Morpheus8 Body Burst technology deep RF microneedling bipolar skin tightening body cellulite Oswego IL Hello Gorgeous",
     title: "Morpheus8 Body — Cellulite & Body RF",

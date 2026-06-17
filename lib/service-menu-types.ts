@@ -39,6 +39,13 @@ export type ServiceMenuGallerySlide = {
   caption?: string;
 };
 
+export type ServiceMenuVideo = {
+  src: string;
+  title: string;
+  description?: string;
+  poster?: string;
+};
+
 export type ServiceMenuConfig = {
   path: string;
   metaTitle: string;
@@ -46,6 +53,8 @@ export type ServiceMenuConfig = {
   hero: ServiceMenuHero;
   /** Optional clinical photo carousel shown below the hero. */
   gallery?: ServiceMenuGallerySlide[];
+  /** Optional procedure / FAQ videos shown below the gallery. */
+  videos?: ServiceMenuVideo[];
   sections: ServiceMenuSection[];
   faqs: ServiceMenuFaq[];
 };
