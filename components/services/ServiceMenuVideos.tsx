@@ -4,18 +4,29 @@ import { useId } from "react";
 
 import type { ServiceMenuVideo } from "@/lib/service-menu-types";
 
-function VideoCard({ video }: { video: ServiceMenuVideo }) {
+export function VideoCard({
+  video,
+  layout = "default",
+}: {
+  video: ServiceMenuVideo;
+  layout?: "default" | "split";
+}) {
   const isPortrait = video.aspect === "portrait";
+  const inSplit = layout === "split";
 
   return (
     <article className="flex h-full flex-col overflow-hidden rounded-2xl border border-white/10 bg-[#151922] shadow-[0_8px_32px_rgba(0,0,0,0.35)]">
       <div
         className={`relative flex items-center justify-center bg-black ${
-          isPortrait ? "min-h-[320px] md:min-h-[360px]" : "aspect-video w-full"
+          inSplit || !isPortrait
+            ? "aspect-video w-full"
+            : "min-h-[320px] md:min-h-[360px]"
         }`}
       >
         <video
-          className={`${isPortrait ? "max-h-[360px] w-auto max-w-full" : "h-full w-full"} object-contain`}
+          className={`${
+            inSplit || !isPortrait ? "h-full w-full" : "max-h-[360px] w-auto max-w-full"
+          } object-contain`}
           controls
           playsInline
           preload="metadata"

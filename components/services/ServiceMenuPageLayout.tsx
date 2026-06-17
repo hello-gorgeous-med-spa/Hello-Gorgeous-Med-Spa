@@ -3,8 +3,7 @@
 import Link from "next/link";
 
 import { CTA } from "@/components/CTA";
-import { ClinicalPhotoCarousel } from "@/components/services/ClinicalPhotoCarousel";
-import { ServiceMenuVideos } from "@/components/services/ServiceMenuVideos";
+import { ServiceMenuClinicMedia } from "@/components/services/ServiceMenuClinicMedia";
 import { FadeUp, Section } from "@/components/Section";
 import { BOOKING_URL } from "@/lib/flows";
 import type { ServiceMenuConfig, ServiceMenuPriceRow, ServiceMenuSection } from "@/lib/service-menu-types";
@@ -135,25 +134,24 @@ export function ServiceMenuPageLayout({ config }: { config: ServiceMenuConfig })
         </div>
       </Section>
 
-      {allVideos.length > 0 ? (
+      {(allVideos.length > 0 || (gallery && gallery.length > 0)) ? (
         <Section className="border-b-4 border-black !px-0 py-8 md:py-12">
           <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
             <FadeUp>
-              <ServiceMenuVideos
+              <ServiceMenuClinicMedia
                 videos={allVideos}
-                title="See Solaria CO₂ in our Oswego clinic"
-                subtitle="Real procedure footage — the only Solaria CO₂ in the western suburbs."
+                gallery={gallery ?? []}
+                title={
+                  config.path.includes("solaria")
+                    ? "See Solaria CO₂ in our Oswego clinic"
+                    : "See it in our Oswego clinic"
+                }
+                subtitle={
+                  config.path.includes("solaria")
+                    ? "Procedure video and clinic photography — the only Solaria CO₂ in the western suburbs."
+                    : "Real procedure footage — watch before your free consultation."
+                }
               />
-            </FadeUp>
-          </div>
-        </Section>
-      ) : null}
-
-      {gallery && gallery.length > 0 ? (
-        <Section className="border-b-4 border-black !px-0 py-10 md:py-14">
-          <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-            <FadeUp>
-              <ClinicalPhotoCarousel slides={gallery} />
             </FadeUp>
           </div>
         </Section>

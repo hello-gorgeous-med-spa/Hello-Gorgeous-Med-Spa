@@ -8,9 +8,13 @@ import type { ServiceMenuGallerySlide } from "@/lib/service-menu-types";
 export function ClinicalPhotoCarousel({
   slides,
   title = "In our Oswego clinic",
+  embedded = false,
+  label = "Clinic photos",
 }: {
   slides: ServiceMenuGallerySlide[];
   title?: string;
+  embedded?: boolean;
+  label?: string;
 }) {
   const [index, setIndex] = useState(0);
   const n = slides.length;
@@ -24,12 +28,12 @@ export function ClinicalPhotoCarousel({
   );
 
   useEffect(() => {
-    if (n <= 1) return;
+    if (n <= 1 || embedded) return;
     const interval = setInterval(() => {
       setIndex((i) => (i + 1) % n);
     }, 6000);
     return () => clearInterval(interval);
-  }, [n]);
+  }, [n, embedded]);
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -44,10 +48,88 @@ export function ClinicalPhotoCarousel({
 
   const slide = slides[index];
   const isPortrait = slide.frame !== "landscape";
-  const frameClass = isPortrait
-    ? "relative mx-auto aspect-[4/5] w-full max-w-xl sm:aspect-[3/4] max-h-[min(560px,72vh)]"
-    : "relative aspect-[4/3] w-full sm:aspect-[16/10]";
   const objectPosition = slide.objectPosition ?? (isPortrait ? "top" : "center");
+
+  const mediaFrameClass = embedded
+    ? "relative aspect-video w-full bg-black"
+    : isPortrait
+      ? "relative mx-auto aspect-[4/5] w-full max-w-xl sm:aspect-[3/4] max-h-[min(560px,72vh)]"
+      : "relative aspect-[4/3] w-full sm:aspect-[16/10]";
+
+  const carouselBody = (
+    <>
+      <div className={mediaFrameClass}>
+        <Image
+          key={slide.src}
+          src={slide.src}
+          alt={slide.alt}
+          fill
+          className={embedded ? "object-contain" : "object-cover"}
+          style={embedded ? undefined : { objectPosition }}
+          sizes="(max-width: 768px) 100vw, 480px"
+          priority={index === 0}
+          loading={index === 0 ? "eager" : "lazy"}
+        />
+      </div>
+
+      {embedded ? (
+        <footer className="border-t border-white/10 px-4 py-3">
+          <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#FF2D8E]">{label}</p>
+          <p className="mt-1 text-sm font-bold text-white leading-snug line-clamp-2">{slide.alt.split(" — ")[0]}</p>
+          {n > 1 ? (
+            <div className="mt-3 flex items-center justify-between gap-2">
+              <button
+                type="button"
+                onClick={() => go(-1)}
+                className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-white/20 bg-black/40 text-sm font-bold text-white transition hover:border-[#FF2D8E]"
+                aria-label="Previous photo"
+              >
+                ‹
+              </button>
+              <div className="flex flex-wrap justify-center gap-1.5">
+                {slides.map((s, i) => (
+                  <button
+                    key={s.src}
+                    type="button"
+                    onClick={() => setIndex(i)}
+                    className="h-2 w-2 rounded-full border border-white/30 transition"
+                    style={{ backgroundColor: i === index ? "#E6007E" : "transparent" }}
+                    aria-label={`Photo ${i + 1} of ${n}`}
+                    aria-current={i === index}
+                  />
+                ))}
+              </div>
+              <button
+                type="button"
+                onClick={() => go(1)}
+                className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-white/20 bg-black/40 text-sm font-bold text-white transition hover:border-[#FF2D8E]"
+                aria-label="Next photo"
+              >
+                ›
+              </button>
+            </div>
+          ) : null}
+        </footer>
+      ) : slide.caption ? (
+        <figcaption className="border-t border-white/10 px-4 py-3 text-sm leading-relaxed text-gray-400">
+          {slide.caption}
+        </figcaption>
+      ) : null}
+    </>
+  );
+
+  if (embedded) {
+    return (
+      <article
+        className="flex h-full flex-col overflow-hidden rounded-2xl border border-white/10 bg-[#151922] shadow-[0_8px_32px_rgba(0,0,0,0.35)]"
+        role="region"
+        aria-roledescription="carousel"
+        aria-label={`${label}, slide ${index + 1} of ${n}`}
+      >
+        {carouselBody}
+      </article>
+    );
+  }
 
   return (
     <div className="w-full" role="region" aria-roledescription="carousel" aria-labelledby={titleId}>
@@ -58,28 +140,9 @@ export function ClinicalPhotoCarousel({
         Real treatments, real technology — at Hello Gorgeous Med Spa, downtown Oswego.
       </p>
 
-      <figure className="overflow-hidden rounded-xl border border-white/10 bg-[#151922]">
-        <div className={frameClass}>
-          <Image
-            key={slide.src}
-            src={slide.src}
-            alt={slide.alt}
-            fill
-            className="object-cover"
-            style={{ objectPosition }}
-            sizes="(max-width: 768px) 100vw, 672px"
-            priority={index === 0}
-            loading={index === 0 ? "eager" : "lazy"}
-          />
-        </div>
-        {slide.caption ? (
-          <figcaption className="border-t border-white/10 px-4 py-3 text-sm leading-relaxed text-gray-400">
-            {slide.caption}
-          </figcaption>
-        ) : null}
-      </figure>
+      <figure className="overflow-hidden rounded-xl border border-white/10 bg-[#151922]">{carouselBody}</figure>
 
-      {n > 1 ? (
+      {!embedded && n > 1 ? (
         <>
           <div className="mt-4 flex items-center justify-center gap-3 sm:gap-4">
             <button
