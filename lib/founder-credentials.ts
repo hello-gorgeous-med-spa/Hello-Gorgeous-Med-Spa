@@ -67,6 +67,8 @@ export const ABOUT_PAGE_SEO_DESCRIPTION =
   "Meet Danielle Alcala-Glazier — Licensed Esthetician and founder of Hello Gorgeous Med Spa in Oswego, IL. 10+ years serving Naperville, Aurora & Plainfield. Morpheus8, Solaria, Botox, brows & more. Ryan Kent, FNP-BC on site 7 days.";
 
 export const DANI_IMAGE = "/images/team/danielle-alcala-glazier-portrait.png";
+/** Primary Dani portrait on /about — clinic setting with InMode equipment visible */
+export const ABOUT_DANI_IMAGE = "/images/team/danielle-alcala-glazier-about.png";
 export const RYAN_IMAGE = "/images/providers/ryan-kent-clinic.jpg";
 export const TEAM_FOUNDERS_IMAGE = "/images/team/dani-ryan-founders-portrait.png";
 export const SOLARIA_DANI_DEVICE_IMAGE = "/images/solaria/danielle-solaria-inmode-clinic.png";

@@ -9,7 +9,7 @@ import { BOOKING_URL } from "@/lib/flows";
 import { InModeTrainingCertificates } from "@/components/marketing/InModeTrainingCertificates";
 import {
   ABOUT_PAGE_SEO_DESCRIPTION,
-  DANI_IMAGE,
+  ABOUT_DANI_IMAGE,
   DANI_LONG_BIO,
   DANI_MEDIUM_BIO,
   RYAN_IMAGE,
@@ -119,10 +119,10 @@ export default function AboutPage() {
           <FadeUp>
             <div className="relative aspect-[4/5] w-full max-w-[280px] mx-auto overflow-hidden rounded-3xl border-4 border-black shadow-[8px_8px_0_0_rgba(230,0,126,0.35)]">
               <Image
-                src={DANI_IMAGE}
-                alt="Danielle Alcala-Glazier, Owner and Founder of Hello Gorgeous Med Spa"
+                src={ABOUT_DANI_IMAGE}
+                alt="Danielle Alcala-Glazier, Licensed Esthetician and founder of Hello Gorgeous Med Spa in Oswego, IL"
                 fill
-                className="object-cover"
+                className="object-cover object-top"
                 sizes="280px"
                 priority
               />
