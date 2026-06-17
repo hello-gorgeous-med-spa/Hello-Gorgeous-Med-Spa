@@ -161,7 +161,7 @@ export const PHASE1_UNCONTESTED_PAGES: ServicePageData[] = [
       "Results: visible contour improvement typically begins around week 4 and continues for 3–6 months as fat clearance and collagen remodeling progress. Most clients benefit from a series of 3–4 sessions spaced 4–6 weeks apart for ideal results.",
     ],
     pricing:
-      "Quantum RF pricing starts from $800 per area per session. Most clients see ideal results with a series of 3–4 sessions. We offer package pricing that brings the per-session cost down meaningfully — we'll give you exact numbers at your free consultation based on your goals and the areas you want to address.",
+      "Quantum RF launch packages: Neck $2,499 and Abdomen $3,999 — each includes a complimentary Morpheus8 Burst treatment. One session per package, local anesthesia only, with results that build for up to 6 months. Cherry financing available. Exact candidacy and area coverage confirmed at your free consultation.",
     faqs: [
       {
         q: "Is Quantum RF the same as CoolSculpting?",
