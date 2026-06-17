@@ -982,16 +982,11 @@ function VideoCard({ item }: { item: VideoCase }) {
 function SingleImageCard({ item }: { item: SingleImageCase }) {
   return (
     <article className="rounded-xl border-2 border-black bg-white shadow-[4px_4px_0_0_rgba(230,0,126,0.25)] overflow-hidden">
-      <div className="flex items-center justify-between border-b border-black/20 px-3 py-2.5">
-        <div>
-          <p className="text-[9px] font-bold uppercase tracking-[0.2em] text-[#E6007E]">
-            {item.category} · Real Client
-          </p>
-          <h3 className="text-sm font-black text-black leading-tight">{item.treatment}</h3>
-        </div>
-        <span className="flex items-center gap-1 rounded-full border border-black/20 bg-[#FFF0F7] px-2.5 py-1 text-[9px] font-bold text-[#E6007E]">
-          Before · After
-        </span>
+      <div className="border-b border-black/20 px-3 py-2.5">
+        <p className="text-[9px] font-bold uppercase tracking-[0.2em] text-[#E6007E]">
+          {item.category} · Real Client
+        </p>
+        <h3 className="text-sm font-black text-black leading-tight">{item.treatment}</h3>
       </div>
 
       <div className="relative w-full overflow-hidden bg-black">
