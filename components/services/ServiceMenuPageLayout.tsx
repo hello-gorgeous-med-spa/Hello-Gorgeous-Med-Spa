@@ -85,8 +85,11 @@ function MenuSectionRow({ section, index }: { section: ServiceMenuSection; index
 }
 
 export function ServiceMenuPageLayout({ config }: { config: ServiceMenuConfig }) {
-  const { hero, sections, faqs, gallery, heroVideo, videos } = config;
+  const { hero, sections, faqs, gallery, heroVideo, videos, results } = config;
   const allVideos = [...(heroVideo ? [heroVideo] : []), ...(videos ?? [])];
+  const hasClinicMedia =
+    allVideos.length > 0 || (gallery && gallery.length > 0) || (results && results.length > 0);
+  const isTrifectaRow = (results?.length ?? 0) > 0;
 
   return (
     <div className="min-h-screen bg-[#0a0a0a] text-white">
@@ -134,26 +137,35 @@ export function ServiceMenuPageLayout({ config }: { config: ServiceMenuConfig })
         </div>
       </Section>
 
-      {(allVideos.length > 0 || (gallery && gallery.length > 0)) ? (
+      {hasClinicMedia ? (
         <Section className="border-b-4 border-black !px-0 py-8 md:py-12">
-          <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+          <div
+            className={`mx-auto px-4 sm:px-6 lg:px-8 ${
+              isTrifectaRow ? "max-w-7xl" : "max-w-5xl"
+            }`}
+          >
             <FadeUp>
               <ServiceMenuClinicMedia
                 videos={allVideos}
                 gallery={gallery ?? []}
+                results={results ?? []}
                 title={
                   config.path.includes("solaria")
                     ? "See Solaria CO₂ in our Oswego clinic"
                     : config.path.includes("quantum")
                       ? "See Quantum RF in our Oswego clinic"
-                      : "See it in our Oswego clinic"
+                      : config.path.includes("morpheus")
+                        ? "See Morpheus8 Burst in our Oswego clinic"
+                        : "See it in our Oswego clinic"
                 }
                 subtitle={
                   config.path.includes("solaria")
-                    ? "Procedure video and clinic photography — the only Solaria CO₂ in the western suburbs."
+                    ? "Procedure video, clinic photography, and real client results — the only Solaria CO₂ in the western suburbs."
                     : config.path.includes("quantum")
-                      ? "Procedure video and clinic photography — the only Quantum RF in the western suburbs."
-                      : "Real procedure footage — watch before your free consultation."
+                      ? "Procedure video, clinic photography, and real client results — the only Quantum RF in the western suburbs."
+                      : config.path.includes("morpheus")
+                        ? "Treatment footage and real before & after results — Morpheus8 Burst at Hello Gorgeous."
+                        : "Real procedure footage — watch before your free consultation."
                 }
               />
             </FadeUp>

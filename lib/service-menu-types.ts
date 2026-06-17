@@ -53,6 +53,14 @@ export type ServiceMenuVideo = {
   aspect?: "video" | "portrait";
 };
 
+export type ServiceMenuResultSlide = {
+  id: string;
+  title: string;
+  image: string;
+  imageAlt: string;
+  tagline?: string;
+};
+
 export type ServiceMenuConfig = {
   path: string;
   metaTitle: string;
@@ -64,6 +72,8 @@ export type ServiceMenuConfig = {
   heroVideo?: ServiceMenuVideo;
   /** Additional videos shown below the hero video. */
   videos?: ServiceMenuVideo[];
+  /** Before/after result carousel (InMode trifecta landings). */
+  results?: ServiceMenuResultSlide[];
   sections: ServiceMenuSection[];
   faqs: ServiceMenuFaq[];
 };

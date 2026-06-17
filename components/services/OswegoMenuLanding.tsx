@@ -1,4 +1,5 @@
 import { ServiceMenuPageLayout } from "@/components/services/ServiceMenuPageLayout";
+import { getInModeResultSlides } from "@/lib/gallery-service-results";
 import { getServicePageOswego } from "@/lib/service-pages-oswego";
 import type { ServiceMenuConfig } from "@/lib/service-menu-types";
 import { breadcrumbJsonLd, faqJsonLd, SITE } from "@/lib/seo";
@@ -15,6 +16,7 @@ export async function OswegoMenuLanding({
 }) {
   const pageData = getServicePageOswego(slug)!;
   const pageUrl = `${SITE.url}${config.path}`;
+  const resultSlides = getInModeResultSlides(slug);
 
   const configWithMedia = {
     ...config,
@@ -31,6 +33,7 @@ export async function OswegoMenuLanding({
     ...(pageData.clinicalVideos && pageData.clinicalVideos.length > 0
       ? { videos: pageData.clinicalVideos }
       : {}),
+    ...(resultSlides.length > 0 ? { results: resultSlides } : {}),
   };
 
   const medicalProcedure = {
