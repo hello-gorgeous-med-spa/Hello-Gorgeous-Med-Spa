@@ -1,4 +1,8 @@
 import { bookingUrlFor } from "./build";
+import {
+  SOLARIA_DANI_DEVICE_IMAGE,
+  SOLARIA_TREATMENT_IMAGE,
+} from "@/lib/founder-credentials";
 import type { ServicePageData } from "./types";
 
 /** HG_DEV_011 Phase 1 — Dani-reviewed copy for uncontested keywords */
@@ -71,6 +75,16 @@ export const PHASE1_UNCONTESTED_PAGES: ServicePageData[] = [
     promoFlyerImage: "/images/promo/solaria-co2-promo-flyer.png",
     promoFlyerAlt:
       "Solaria CO2 laser before, during, and after skin resurfacing at Hello Gorgeous Med Spa Oswego — gold standard fractional CO2",
+    clinicalPhotos: [
+      {
+        src: SOLARIA_DANI_DEVICE_IMAGE,
+        alt: "Danielle Alcala-Glazier with the Solaria by InMode CO2 laser at Hello Gorgeous Med Spa in Oswego, IL",
+      },
+      {
+        src: SOLARIA_TREATMENT_IMAGE,
+        alt: "Solaria CO2 fractional laser resurfacing treatment in progress at Hello Gorgeous Med Spa Oswego, IL",
+      },
+    ],
   },
   {
     slug: "quantum-rf-oswego",

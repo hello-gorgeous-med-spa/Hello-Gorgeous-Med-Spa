@@ -97,6 +97,35 @@ export function ServiceOswegoLanding({
 
         <CredentialStrip slug={page.slug} />
 
+        {page.clinicalPhotos && page.clinicalPhotos.length > 0 ? (
+          <Section className="bg-gradient-to-b from-[#FFF0F7] to-white border-b-4 border-black">
+            <FadeUp>
+              <h2 className="text-2xl md:text-3xl font-black text-black text-center mb-2">
+                In our Oswego clinic
+              </h2>
+              <p className="text-center text-black/70 font-medium max-w-2xl mx-auto mb-8">
+                Real treatments, real technology — {page.serviceName} at Hello Gorgeous Med Spa.
+              </p>
+              <div className="grid sm:grid-cols-2 gap-6 max-w-4xl mx-auto">
+                {page.clinicalPhotos.map((photo) => (
+                  <div
+                    key={photo.src}
+                    className="relative aspect-[4/5] overflow-hidden rounded-3xl border-4 border-black shadow-[8px_8px_0_0_rgba(230,0,126,0.35)]"
+                  >
+                    <Image
+                      src={photo.src}
+                      alt={photo.alt}
+                      fill
+                      className="object-cover object-center"
+                      sizes="(max-width: 640px) 100vw, 50vw"
+                    />
+                  </div>
+                ))}
+              </div>
+            </FadeUp>
+          </Section>
+        ) : null}
+
         {page.promoFlyerImage ? (
           <ServicePromoFlyer
             src={page.promoFlyerImage}

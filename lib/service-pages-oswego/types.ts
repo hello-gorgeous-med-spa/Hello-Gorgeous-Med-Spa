@@ -42,4 +42,6 @@ export type ServicePageData = {
   /** Full-width promo flyer (social/print creative) shown on the page */
   promoFlyerImage?: string;
   promoFlyerAlt?: string;
+  /** In-clinic treatment / device photos for trust and Google Images */
+  clinicalPhotos?: { src: string; alt: string }[];
 };

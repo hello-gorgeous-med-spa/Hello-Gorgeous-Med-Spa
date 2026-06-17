@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { BOOKING_URL } from "@/lib/flows";
 import { DANIELLE_CREDENTIALS } from "@/lib/provider-credentials";
+import { DANI_IMAGE } from "@/lib/founder-credentials";
 
 /**
  * Four equal tiles replacing long stacked Experience / Innovation / AI / Philosophy / Our Story sections.
@@ -96,8 +97,8 @@ export function HomepageProfessionalGrid() {
             <div className="p-6 md:p-7 flex items-start gap-4">
               <div className="relative h-20 w-20 rounded-xl overflow-hidden border-2 border-[#E6007E] shrink-0">
                 <Image
-                  src="/images/team/danielle.png"
-                  alt="Danielle Alcala, founder of Hello Gorgeous Med Spa"
+                  src={DANI_IMAGE}
+                  alt="Danielle Alcala-Glazier, founder of Hello Gorgeous Med Spa"
                   fill
                   className="object-cover"
                   sizes="80px"

@@ -66,8 +66,11 @@ export const RYAN_PROVIDER_BIO = `${RYAN_MEDIUM_BIO}\n\n${RYAN_LONG_BIO}`;
 export const ABOUT_PAGE_SEO_DESCRIPTION =
   "Meet Danielle Alcala-Glazier — Licensed Esthetician and founder of Hello Gorgeous Med Spa in Oswego, IL. 10+ years serving Naperville, Aurora & Plainfield. Morpheus8, Solaria, Botox, brows & more. Ryan Kent, FNP-BC on site 7 days.";
 
-export const DANI_IMAGE = "/images/team/danielle.png";
+export const DANI_IMAGE = "/images/team/danielle-alcala-glazier-portrait.png";
 export const RYAN_IMAGE = "/images/providers/ryan-kent-clinic.jpg";
+export const TEAM_FOUNDERS_IMAGE = "/images/team/dani-ryan-founders-portrait.png";
+export const SOLARIA_DANI_DEVICE_IMAGE = "/images/solaria/danielle-solaria-inmode-clinic.png";
+export const SOLARIA_TREATMENT_IMAGE = "/images/solaria/solaria-co2-treatment-oswego.png";
 
 export function credentialStripForSlug(slug: string): string {
   return PRESCRIPTION_SERVICE_SLUGS.has(slug) ? CREDENTIAL_STRIP_PRESCRIPTION : CREDENTIAL_STRIP_STANDARD;

@@ -15,6 +15,7 @@ import {
   RYAN_IMAGE,
   RYAN_LONG_BIO,
   RYAN_MEDIUM_BIO,
+  TEAM_FOUNDERS_IMAGE,
   aboutPageGraphJsonLd,
 } from "@/lib/founder-credentials";
 import { DANIELLE_INMODE_CERTIFICATES } from "@/lib/inmode-training-certificates";
@@ -93,6 +94,23 @@ export default function AboutPage() {
               </CTA>
             </div>
           </FadeUp>
+        </div>
+      </Section>
+
+      <Section className="!px-0 !py-0 border-b-4 border-black bg-white">
+        <div className="relative w-full aspect-[4/5] sm:aspect-[16/9] md:aspect-[21/9] max-h-[520px] overflow-hidden">
+          <Image
+            src={TEAM_FOUNDERS_IMAGE}
+            alt="Danielle Alcala-Glazier and Ryan Kent, FNP-BC, founders of Hello Gorgeous Med Spa in Oswego, IL"
+            fill
+            className="object-cover object-center"
+            sizes="100vw"
+            priority
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
+          <p className="absolute bottom-4 left-4 right-4 text-center text-sm font-semibold text-white/90 drop-shadow-md">
+            Dani &amp; Ryan — on site every week at 74 W. Washington St., downtown Oswego
+          </p>
         </div>
       </Section>
 
