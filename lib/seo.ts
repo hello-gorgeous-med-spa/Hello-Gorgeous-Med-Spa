@@ -2001,9 +2001,16 @@ export const SERVICE_IMAGES: ServiceImage[] = [
     category: "aesthetics",
   },
   {
-    src: "/images/solaria/solaria-co2-decollete-treatment-oswego.png",
+    src: "/images/solaria/solaria-co2-decollete-laser-oswego.png",
     alt: "Solaria CO2 laser resurfacing on décolletage at Hello Gorgeous Med Spa in Oswego, IL",
     title: "Solaria CO2 Décolletage Treatment",
+    service: "Solaria CO2",
+    category: "aesthetics",
+  },
+  {
+    src: "/images/solaria/solaria-co2-neck-laser-oswego.png",
+    alt: "Solaria CO2 fractional laser treatment on neck and jawline at Hello Gorgeous Med Spa Oswego, IL",
+    title: "Solaria CO2 Neck Treatment",
     service: "Solaria CO2",
     category: "aesthetics",
   },
