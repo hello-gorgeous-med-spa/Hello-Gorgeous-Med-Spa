@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { FormSuccessNotice } from "@/components/forms/FormSuccessNotice";
+import { ContactFormHoneypot } from "@/components/forms/ContactFormHoneypot";
 
 export function ContactForm() {
   const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
@@ -14,6 +15,7 @@ export function ContactForm() {
     const name = (formData.get("name") as string)?.trim();
     const contact = (formData.get("contact") as string)?.trim();
     const message = (formData.get("message") as string)?.trim();
+    const website = (formData.get("website") as string)?.trim();
 
     if (!name || !contact || !message) {
       setStatus("error");
@@ -28,7 +30,7 @@ export function ContactForm() {
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, contact, message }),
+        body: JSON.stringify({ name, contact, message, website: website || undefined }),
       });
       const data = await res.json().catch(() => ({}));
 
@@ -47,7 +49,8 @@ export function ContactForm() {
   }
 
   return (
-    <form className="mt-6 grid gap-4 keyboard-safe" onSubmit={handleSubmit}>
+    <form className="relative mt-6 grid gap-4 keyboard-safe" onSubmit={handleSubmit}>
+      <ContactFormHoneypot />
       <input
         className="w-full min-h-[48px] text-base rounded-lg bg-white border border-gray-300 px-4 py-3 text-black placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#FF2D8E]/50 focus:border-[#FF2D8E]"
         placeholder="Name"

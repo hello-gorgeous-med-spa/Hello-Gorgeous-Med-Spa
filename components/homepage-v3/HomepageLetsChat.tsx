@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 
+import { ContactFormHoneypot } from "@/components/forms/ContactFormHoneypot";
+
 const AREAS = [
   "Botox & Injectables",
   "Dermal Fillers",
@@ -27,6 +29,7 @@ export function HomepageLetsChat({ compact = false }: HomepageLetsChatProps) {
     const name = (formData.get("name") as string)?.trim();
     const contact = (formData.get("contact") as string)?.trim();
     const area = (formData.get("area") as string)?.trim();
+    const website = (formData.get("website") as string)?.trim();
     const message = (formData.get("message") as string)?.trim() || "Sent from homepage Let's Chat";
 
     if (!name || !contact) {
@@ -46,6 +49,7 @@ export function HomepageLetsChat({ compact = false }: HomepageLetsChatProps) {
           name,
           contact,
           message: area ? `Area of interest: ${area}\n\n${message}` : message,
+          website: website || undefined,
         }),
       });
       const data = await res.json().catch(() => ({}));
@@ -89,11 +93,12 @@ export function HomepageLetsChat({ compact = false }: HomepageLetsChatProps) {
         <form
           className={
             compact
-              ? "rounded-xl border border-white/20 bg-white/5 p-4 md:p-5 grid gap-3"
-              : "rounded-2xl border-2 border-white/20 bg-white/5 p-6 md:p-8 grid gap-4"
+              ? "relative rounded-xl border border-white/20 bg-white/5 p-4 md:p-5 grid gap-3"
+              : "relative rounded-2xl border-2 border-white/20 bg-white/5 p-6 md:p-8 grid gap-4"
           }
           onSubmit={handleSubmit}
         >
+          <ContactFormHoneypot />
           <input
             className={
               compact

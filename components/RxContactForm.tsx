@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { CTA } from "@/components/CTA";
 import { FormSuccessNotice } from "@/components/forms/FormSuccessNotice";
+import { ContactFormHoneypot } from "@/components/forms/ContactFormHoneypot";
 import { BOOKING_URL } from "@/lib/flows";
 
 const interestOptions = [
@@ -29,6 +30,7 @@ export function RxContactForm() {
     const phone = (formData.get("phone") as string)?.trim();
     const interest = (formData.get("interest") as string)?.trim();
     const message = (formData.get("message") as string)?.trim();
+    const website = (formData.get("website") as string)?.trim();
 
     if (!name || !email || !interest) {
       setStatus("error");
@@ -47,6 +49,7 @@ export function RxContactForm() {
           name, 
           contact: email,
           phone,
+          website: website || undefined,
           message: `[RX INQUIRY - ${interest.toUpperCase()}]\n\nPhone: ${phone || "Not provided"}\n\n${message || "No additional message"}`,
         }),
       });
@@ -87,7 +90,8 @@ export function RxContactForm() {
   }
 
   return (
-    <form className="space-y-4" onSubmit={handleSubmit}>
+    <form className="relative space-y-4" onSubmit={handleSubmit}>
+      <ContactFormHoneypot />
       <div className="grid md:grid-cols-2 gap-4">
         <div>
           <label className="block text-sm font-medium text-black mb-1">

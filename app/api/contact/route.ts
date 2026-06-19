@@ -4,6 +4,7 @@
 // ============================================================
 
 import { NextRequest, NextResponse } from 'next/server';
+import { assessContactSpam } from '@/lib/contact-spam-filter';
 import { createAdminSupabaseClient } from '@/lib/hgos/supabase';
 import { recordLead, getUTMFromRequest } from '@/lib/leads';
 import { emailStaffFormSubmission, notifyOwnerFormSubmission } from '@/lib/notifications/form-alert';
@@ -17,7 +18,7 @@ import {
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { name, contact, message } = body;
+    const { name, contact, message, website } = body;
 
     if (!name?.trim() || !contact?.trim() || !message?.trim()) {
       return NextResponse.json(
@@ -29,6 +30,24 @@ export async function POST(request: NextRequest) {
     const trimmedName = name.trim();
     const trimmedContact = contact.trim();
     const trimmedMessage = message.trim();
+
+    const spamVerdict = assessContactSpam({
+      name: trimmedName,
+      contact: trimmedContact,
+      message: trimmedMessage,
+      website: typeof website === 'string' ? website : undefined,
+    });
+    if (spamVerdict.spam) {
+      if (spamVerdict.reason === 'invalid_contact' || spamVerdict.reason === 'contact_equals_name') {
+        return NextResponse.json(
+          { error: 'Please enter a valid email address or phone number (not your name).' },
+          { status: 400 }
+        );
+      }
+      console.info('[contact] spam filtered:', spamVerdict.reason);
+      return NextResponse.json({ success: true, message: 'Thank you. We’ll get back to you soon.' });
+    }
+
     const emailBody = `Name: ${trimmedName}\nContact: ${trimmedContact}\n\nMessage:\n${trimmedMessage}`;
     const replyTo = trimmedContact.includes('@') ? trimmedContact.toLowerCase() : undefined;
     const { formLabel } = parseLeadNotification(trimmedMessage);
