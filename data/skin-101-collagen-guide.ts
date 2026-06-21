@@ -1,5 +1,7 @@
 import type { ScienceExplainerContent } from "./skin-101-types";
 
+const INFOGRAPHIC = "/images/education/collagen-types-reference.png";
+
 export const COLLAGEN_TYPES_GUIDE: ScienceExplainerContent = {
   slug: "collagen-types",
   seriesLabel: "Science Explainer Series",
@@ -18,6 +20,10 @@ export const COLLAGEN_TYPES_GUIDE: ScienceExplainerContent = {
     { value: "80–85%", label: "Of skin collagen is Type I — strength & firmness" },
     { value: "10–15%", label: "Is Type III — repair & healing in young skin" },
   ],
+  featuredImage: {
+    src: INFOGRAPHIC,
+    alt: "Collagen types guide — Type I, III, IV, VII jobs and what microneedling, RF, CO₂, PRP, and retinoids stimulate",
+  },
   pdfPath: "/handouts/education/collagen-types-guide.pdf",
   sections: [
     {

@@ -61,8 +61,8 @@ export const SKIN_101_GUIDES: Skin101Guide[] = [
     tagline: "Know what's behind the marketing",
     excerpt:
       "Type I, III, IV, and VII do different jobs in your skin. See what microneedling, RF, CO₂, PRP, exosomes, and retinoids actually target — and what's still emerging.",
-    thumbnailImage: "/images/homepage-services/vamp-skin-revitalization.png",
-    thumbnailAlt: "Skin revitalization treatment — collagen types guide thumbnail",
+    thumbnailImage: "/images/education/collagen-types-reference.png",
+    thumbnailAlt: "Collagen types infographic — Hello Gorgeous Skin 101",
     badge: "NEW",
     pdfPath: "/handouts/education/collagen-types-guide.pdf",
     relatedServiceLinks: [
