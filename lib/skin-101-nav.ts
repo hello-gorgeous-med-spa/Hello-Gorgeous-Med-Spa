@@ -75,13 +75,13 @@ export const SKIN_101_GUIDES: Skin101Guide[] = [
   {
     slug: "lymphatic-drainage",
     path: `${SKIN_101_PATH}/lymphatic-drainage`,
-    title: "Facial Lymphatic Drainage",
+    title: "Abdominal Lymphatic Drainage",
     shortTitle: "Lymphatic Drainage",
-    tagline: "De-puff — done in the right order",
+    tagline: "Four quadrants — four directions",
     excerpt:
-      "Why neck comes first, how light your pressure should be, and when lymphatic massage is safe after Botox, filler, microneedling, lasers, and Sculptra.",
-    thumbnailImage: "/images/memberships/glow-facial-membership.png",
-    thumbnailAlt: "Relaxing facial treatment — lymphatic drainage guide thumbnail",
+      "Thoracic duct, axillary nodes, inguinal groin — a quadrant-by-quadrant map of where abdominal lymphatic strokes should sweep, plus when massage is safe after treatments.",
+    thumbnailImage: "/images/education/abdominal-lymphatic-drainage-reference.png",
+    thumbnailAlt: "Abdominal lymphatic drainage direction map — Hello Gorgeous Skin 101",
     badge: "NEW",
     pdfPath: "/handouts/education/lymphatic-drainage-guide.pdf",
     relatedServiceLinks: [
