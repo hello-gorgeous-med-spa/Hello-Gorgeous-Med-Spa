@@ -43,8 +43,8 @@ export const SKIN_101_GUIDES: Skin101Guide[] = [
     tagline: "Seven acids, seven jobs",
     excerpt:
       "A plain-language breakdown of lactic, glycolic, mandelic, hyaluronic, azelaic, salicylic, and vitamin C — what each does, who it's for, and how to pair them without fighting your routine.",
-    thumbnailImage: "/images/homepage-services/anteage-md-brightening.png",
-    thumbnailAlt: "AnteAGE brightening skincare — Skin 101 acids guide thumbnail",
+    thumbnailImage: "/images/education/skincare-acids-reference.png",
+    thumbnailAlt: "Skincare acids guide infographic — Hello Gorgeous Skin 101",
     badge: "NEW",
     pdfPath: "/handouts/education/skincare-acids-guide.pdf",
     relatedServiceLinks: [

@@ -1,5 +1,7 @@
 import type { ScienceExplainerContent } from "./skin-101-types";
 
+const INFOGRAPHIC = "/images/education/skincare-acids-reference.png";
+
 export const SKINCARE_ACIDS_GUIDE: ScienceExplainerContent = {
   slug: "skincare-acids",
   seriesLabel: "Science Explainer Series",
@@ -18,6 +20,10 @@ export const SKINCARE_ACIDS_GUIDE: ScienceExplainerContent = {
     { value: "7", label: "Actives covered in this guide" },
     { value: "2–3×", label: "Typical starting frequency per week" },
   ],
+  featuredImage: {
+    src: INFOGRAPHIC,
+    alt: "Skincare acids guide — lactic, glycolic, mandelic, hyaluronic, azelaic, salicylic, and vitamin C with benefits and best-for labels",
+  },
   pdfPath: "/handouts/education/skincare-acids-guide.pdf",
   sections: [
     {
