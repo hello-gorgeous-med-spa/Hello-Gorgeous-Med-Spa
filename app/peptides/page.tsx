@@ -3,14 +3,14 @@ import Image from "next/image";
 import Link from "next/link";
 import { Suspense } from "react";
 
-import { FadeUp, Section } from "@/components/Section";
+import { PeptidesPageHero } from "@/components/peptides/PeptidesPageHero";
 import { CTA } from "@/components/CTA";
+import { FadeUp, Section } from "@/components/Section";
 import { PeppiHeroSection } from "@/components/PeppiHeroSection";
 import { PeptideEducationSection } from "@/components/peptides/PeptideEducationSection";
 import { PeptideHandoutsSection } from "@/components/peptides/PeptideHandoutsSection";
 import { FeaturedPeptidesSection } from "@/components/peptides/FeaturedPeptidesSection";
 import { PeptidesHubGrid } from "@/components/peptides/PeptidesHubGrid";
-import { PEPTIDE_CONSULT_SPECIAL } from "@/lib/peptide-featured";
 import { BOOKING_URL } from "@/lib/flows";
 import {
   SITE,
@@ -126,58 +126,7 @@ export default function PeptidesPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(peptideTherapyJsonLd) }}
       />
 
-      {/* Hero */}
-      <Section className="relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-fuchsia-100 via-pink-50 to-white" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-fuchsia-200/30 via-transparent to-transparent" />
-        <div className="relative z-10">
-          <FadeUp>
-            <Link
-              href="/services/hormones-wellness"
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#FF2D8E]/10 border border-[#FF2D8E]/20 mb-6 hover:bg-[#FF2D8E]/20 transition-colors"
-            >
-              <span className="text-xl">🧬</span>
-              <span className="text-[#FF2D8E] text-sm font-medium">Hormones & Wellness</span>
-              <svg className="w-4 h-4 text-[#FF2D8E]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </svg>
-            </Link>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
-              <span className="text-[#FF2D8E]">
-                Peptide Therapy
-              </span>
-            </h1>
-            <p className="mt-2 text-lg text-black/70">
-              Education &amp; treatment in Oswego, IL · Same-day peptide consults often available
-            </p>
-            <p className="mt-6 text-xl md:text-2xl text-black/80 max-w-3xl leading-relaxed">
-              Support weight loss, hair and skin, mental clarity, and body composition with clinician-guided peptide
-              therapy. BPC-157, GHK-Cu, NAD+, CJC-1295/Ipamorelin, Sermorelin, Tesamorelin, Semaglutide, Tirzepatide,
-              and more — personalized for Naperville, Aurora, Plainfield, and the western suburbs.
-            </p>
-            <div className="mt-10 flex flex-col sm:flex-row sm:flex-wrap gap-4">
-              <CTA href={BOOKING_URL} variant="gradient" className="text-lg px-8 py-4 shadow-xl shadow-[#FF2D8E]/20">
-                {PEPTIDE_CONSULT_SPECIAL.price} {PEPTIDE_CONSULT_SPECIAL.label}
-              </CTA>
-              <CTA href="/peptide-therapy-oswego" variant="outline" className="text-lg px-8 py-4 border-[#E6007E] text-[#E6007E]">
-                Peptide therapy Oswego
-              </CTA>
-              <CTA href="/injection-menu" variant="outline" className="text-lg px-8 py-4 border-[#E6007E] text-[#E6007E]">
-                Injection Menu
-              </CTA>
-              <CTA href="#peptide-topics" variant="outline" className="text-lg px-8 py-4">
-                Browse topics
-              </CTA>
-              <CTA href="#patient-handouts" variant="outline" className="text-lg px-8 py-4 border-black/20">
-                View handouts
-              </CTA>
-              <CTA href="#peppi" variant="outline" className="text-lg px-8 py-4 border-black/20">
-                Ask Peppi
-              </CTA>
-            </div>
-          </FadeUp>
-        </div>
-      </Section>
+      <PeptidesPageHero />
 
       <FeaturedPeptidesSection />
 
