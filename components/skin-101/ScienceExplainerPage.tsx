@@ -279,6 +279,83 @@ function SectionBody({ section, index }: { section: ExplainerSection; index: num
           </div>
         </StampCard>
       );
+    case "regulatory":
+      return (
+        <StampCard index={index} stripe={section.stripe}>
+          <h2 className="text-2xl md:text-3xl font-black text-black">{section.heading}</h2>
+          {section.subheading ? (
+            <p className="mt-3 max-w-3xl text-black/80 leading-relaxed">{section.subheading}</p>
+          ) : null}
+          <div className="mt-6 overflow-x-auto rounded-2xl border-2 border-black/15">
+            <table className="min-w-[640px] w-full text-sm">
+              <thead>
+                <tr className="bg-[#FFF0F7] border-b-2 border-black/10">
+                  <th className="px-4 py-3 text-left font-black text-black w-[22%]">Tier</th>
+                  <th className="px-4 py-3 text-left font-black text-[#E6007E] w-[38%]">What it means</th>
+                  <th className="px-4 py-3 text-left font-black text-black w-[40%]">How to recognize it</th>
+                </tr>
+              </thead>
+              <tbody>
+                {section.rows.map((row) => (
+                  <tr key={row.tier} className="border-b border-black/10 even:bg-white odd:bg-[#fafafa]">
+                    <td className="px-4 py-3 font-bold align-top">{row.tier}</td>
+                    <td className="px-4 py-3 align-top text-black/85">{row.meaning}</td>
+                    <td className="px-4 py-3 align-top text-black/85">{row.recognize}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </StampCard>
+      );
+    case "questions":
+      return (
+        <StampCard index={index} stripe={section.stripe}>
+          <h2 className="text-2xl md:text-3xl font-black text-black">{section.heading}</h2>
+          {section.subheading ? (
+            <p className="mt-3 max-w-3xl text-black/80 leading-relaxed">{section.subheading}</p>
+          ) : null}
+          <div className="mt-6 grid gap-4 sm:grid-cols-2">
+            {section.groups.map((g) => (
+              <div
+                key={g.label}
+                className="rounded-2xl border-4 border-black bg-white p-5 shadow-[4px_4px_0_0_rgba(230,0,126,0.15)]"
+              >
+                <p className="text-xs font-bold uppercase tracking-wider text-[#E6007E]">Ask</p>
+                <h3 className="mt-1 text-lg font-black text-black">{g.label}</h3>
+                <ul className="mt-3 space-y-2 text-sm text-black/85">
+                  {g.asks.map((a) => (
+                    <li key={a} className="flex gap-2">
+                      <span className="text-[#E6007E]">▸</span>
+                      {a}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+          {section.greenFlags?.length ? (
+            <div className="mt-6 rounded-2xl border-l-4 border-teal-600 bg-teal-50/80 p-5">
+              <p className="text-xs font-bold uppercase tracking-wider text-teal-800">Green flags</p>
+              <ul className="mt-2 space-y-1 text-sm text-black/85">
+                {section.greenFlags.map((f) => (
+                  <li key={f}>✓ {f}</li>
+                ))}
+              </ul>
+            </div>
+          ) : null}
+          {section.redFlags?.length ? (
+            <div className="mt-4 rounded-2xl border-l-4 border-red-600 bg-red-50/80 p-5">
+              <p className="text-xs font-bold uppercase tracking-wider text-red-800">Red flags</p>
+              <ul className="mt-2 space-y-1 text-sm text-black/85">
+                {section.redFlags.map((f) => (
+                  <li key={f}>✕ {f}</li>
+                ))}
+              </ul>
+            </div>
+          ) : null}
+        </StampCard>
+      );
     default:
       return null;
   }

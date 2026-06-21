@@ -59,10 +59,42 @@ export const SKIN_101_GUIDES: Skin101Guide[] = [
     badge: "NEW",
     pdfPath: "/handouts/education/lymphatic-drainage-guide.pdf",
     relatedServiceLinks: [
-      { label: "Facials & Peels", href: "/services/facials-and-peels" },
+      { label: "Pre & Post Care", href: "/pre-post-care" },
       { label: "Botox Oswego", href: "/botox-oswego" },
       { label: "Lip Filler", href: "/lip-filler-oswego" },
-      { label: "Pre & Post Care", href: "/pre-post-care" },
+      { label: "Facials & Peels", href: "/services/facials-and-peels" },
+    ],
+  },
+  {
+    slug: "peptides-101",
+    path: `${SKIN_101_PATH}/peptides-101`,
+    title: "Peptides 101",
+    shortTitle: "Peptides 101",
+    tagline: "Not all peptides are created equal",
+    excerpt:
+      "What peptides are, how they signal in the body, three regulatory tiers (FDA, cosmetic, research-only), and the smart questions that protect you.",
+    badge: "NEW",
+    pdfPath: "/handouts/education/peptides-101-guide.pdf",
+    relatedServiceLinks: [
+      { label: "Peptide Therapy Hub", href: "/peptides" },
+      { label: "Peptide Therapy — Oswego", href: "/peptide-therapy-oswego" },
+      { label: "$49 Peptide Consult", href: "/book" },
+    ],
+  },
+  {
+    slug: "peptide-therapy",
+    path: `${SKIN_101_PATH}/peptide-therapy`,
+    title: "Peptide Therapy",
+    shortTitle: "Peptide Therapy",
+    tagline: "NP-supervised · licensed pharmacy only",
+    excerpt:
+      "BPC-157, Sermorelin, GHK-Cu, PT-141, NAD+ & Tesamorelin — how Hello Gorgeous prescribes peptide protocols from licensed US pharmacies. Never gray-market.",
+    badge: "NEW",
+    pdfPath: "/handouts/education/peptide-therapy-guide.pdf",
+    relatedServiceLinks: [
+      { label: "Peptides Hub", href: "/peptides" },
+      { label: "Peptide Therapy — Oswego", href: "/peptide-therapy-oswego" },
+      { label: "Medical Weight Loss", href: "/glp-1-weight-loss-oswego" },
     ],
   },
 ];

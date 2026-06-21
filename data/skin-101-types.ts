@@ -27,6 +27,17 @@ export type ExplainerTreatmentRow = {
   evidence?: "established" | "emerging";
 };
 
+export type ExplainerRegulatoryRow = {
+  tier: string;
+  meaning: string;
+  recognize: string;
+};
+
+export type ExplainerQuestionGroup = {
+  label: string;
+  asks: string[];
+};
+
 export type ExplainerTimingRow = {
   treatment: string;
   guidance: string;
@@ -121,5 +132,25 @@ export type ExplainerSection =
       heading: string;
       subheading?: string;
       rows: ExplainerTimingRow[];
+      stripe?: "white" | "rose";
+    }
+  | {
+      id: string;
+      navLabel: string;
+      type: "regulatory";
+      heading: string;
+      subheading?: string;
+      rows: ExplainerRegulatoryRow[];
+      stripe?: "white" | "rose";
+    }
+  | {
+      id: string;
+      navLabel: string;
+      type: "questions";
+      heading: string;
+      subheading?: string;
+      groups: ExplainerQuestionGroup[];
+      greenFlags?: string[];
+      redFlags?: string[];
       stripe?: "white" | "rose";
     };
