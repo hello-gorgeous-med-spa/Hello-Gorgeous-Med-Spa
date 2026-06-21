@@ -75,7 +75,7 @@ export const SOLARIA_CO2_OSWEGO_MENU = buildOswegoMenu("solaria-co2-oswego", {
   howItWorksHighlights: [
     "Fractional CO₂ — controlled microcolumns of laser energy",
     "Surface skin sloughs over 5–7 days, new skin underneath",
-    "Sun damage · deep lines · acne scars · pores · tone",
+    "Sun damage · deep lines · acne scars · stretch marks · pores · tone",
     "Collagen remodeling continues up to 6 months",
     "Dramatically shorter downtime than old full-field CO₂",
   ],
@@ -97,6 +97,7 @@ export const SOLARIA_CO2_OSWEGO_MENU = buildOswegoMenu("solaria-co2-oswego", {
     "Solaria resurfaces the surface; Morpheus8 Burst remodels beneath it. Together they're the most complete skin overhaul in the western suburbs.",
   relatedHighlights: [
     "Morpheus8 Burst for laxity & deep texture",
+    "Body stretch marks & postpartum skin refinement",
     "Classic microneedling between laser sessions",
     "Chemical peels for maintenance after resurfacing",
     "Fitzpatrick I–IV skin tones typically best suited",

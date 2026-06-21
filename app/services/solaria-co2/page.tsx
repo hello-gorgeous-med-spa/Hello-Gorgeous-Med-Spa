@@ -504,7 +504,7 @@ export default function SolariaCO2Page() {
               </p>
             </div>
             <p className="mt-6 text-sm">
-              <Link href="/stretch-mark-treatment-oswego-il" className="text-[#E6007E] font-semibold hover:underline">
+              <Link href="/solaria-co2-oswego" className="text-[#E6007E] font-semibold hover:underline">
                 Stretch marks? Body resurfacing &amp; postpartum confidence →
               </Link>
             </p>

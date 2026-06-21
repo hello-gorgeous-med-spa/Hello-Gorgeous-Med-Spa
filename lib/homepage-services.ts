@@ -61,7 +61,7 @@ export const homepageServicesRow1: HomepageServiceCard[] = [
     title: "Solaria CO₂",
     description:
       "Fractional CO₂ laser resurfacing for wrinkles, scars, sun damage, and body stretch marks — gold-standard skin renewal.",
-    link: "/services/solaria-co2",
+    link: "/solaria-co2-oswego",
     items: ["Face & Neck", "Body Resurfacing", "Stretch Marks", "Texture & Tone"],
     image: "/images/solaria/solaria-workstation.png",
     imageAlt:
@@ -191,16 +191,6 @@ export const homepageServicesRow2: HomepageServiceCard[] = [
     imageAlt:
       "Morpheus8 Body RF microneedling for cellulite and body contouring — InMode at Hello Gorgeous Med Spa Oswego IL",
     imageContain: true,
-  },
-  {
-    title: "Stretch Mark Treatment",
-    description:
-      "Fractional CO₂ and collagen-stimulating protocols to refine striae on abdomen, hips, breasts, and thighs. Consultations available quickly — ask about same-day or next-day booking.",
-    link: "/stretch-mark-treatment-oswego-il",
-    items: ["Abdomen & hips", "Solaria CO₂ body", "Texture blending", "Series plans"],
-    image: "/images/solaria-before-after/stretch-mark-comparison.png",
-    imageAlt:
-      "Stretch mark refinement before and after Solaria CO₂ fractional laser — Hello Gorgeous Med Spa Oswego Naperville IL",
   },
 ];
 

@@ -84,7 +84,7 @@ export function TrifectaVIPContent() {
                 <h3 className="text-xl font-bold text-white">Solaria CO₂</h3>
                 <p className="text-amber-300 text-sm font-medium mb-2">Fractional Laser</p>
                 <p className="text-white/70 text-sm mb-4">Gold standard CO₂ resurfacing for wrinkles, scars, and skin renewal.</p>
-                <Link href="/stretch-mark-treatment-oswego-il" className="text-amber-400 text-sm font-semibold hover:text-amber-300">Learn more →</Link>
+                <Link href="/solaria-co2-oswego" className="text-amber-400 text-sm font-semibold hover:text-amber-300">Learn more →</Link>
               </div>
             </div>
           </div>

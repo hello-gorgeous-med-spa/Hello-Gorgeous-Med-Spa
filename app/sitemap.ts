@@ -370,12 +370,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.88,
     },
     {
-      url: `${baseUrl}/stretch-mark-treatment-oswego-il`,
-      lastModified: currentDate,
-      changeFrequency: 'weekly',
-      priority: 0.85,
-    },
-    {
       url: `${baseUrl}/trigger-point-injections-oswego-il`,
       lastModified: currentDate,
       changeFrequency: 'weekly',

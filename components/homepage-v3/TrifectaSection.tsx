@@ -36,7 +36,7 @@ const TRIFECTA_CARDS = [
     description:
       "Gold standard fractional CO₂ resurfacing. Maximum transformation for wrinkles, scars, sun damage, and overall skin renewal.",
     bullets: ["Deep resurfacing", "Scar revision", "Skin renewal"],
-    href: "/stretch-mark-treatment-oswego-il",
+    href: "/solaria-co2-oswego",
     image: "/images/trifecta/solaria-co2.png",
     imageAlt: "Solaria CO2 Fractional Laser Treatment",
     badge: "VIP ACCESS",
