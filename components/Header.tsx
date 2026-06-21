@@ -18,6 +18,7 @@ import {
 import { isPeptideTherapyNavActive } from "@/lib/peptide-therapy-nav";
 import { PEPTIDE_CONSULT_SPECIAL } from "@/lib/peptide-featured";
 import { HG_TAGLINE } from "@/lib/brand-tagline";
+import { isSkin101Active, SKIN_101_NAV } from "@/lib/skin-101-nav";
 import {
   trifectaAccent,
   trifectaButtonGradient,
@@ -193,6 +194,7 @@ const NAV = {
       { label: "Consultation packet (PDF)", href: "/handouts/education/brow-consultation-packet.pdf", sub: "Full printable packet", external: true },
     ],
   },
+  skin101: SKIN_101_NAV,
 };
 
 /* ─────────────────────────────────────────────────────────────
@@ -544,6 +546,8 @@ export function Header() {
     pathname === "/handouts/education/brow-consultation-packet.pdf" ||
     pathname === "/admin/pmu-brows";
 
+  const isSkin101NavActive = isSkin101Active(pathname ?? null);
+
   return (
     <header className="sticky top-0 z-50 overflow-visible border-b border-white/10 bg-black">
       {/* Top bar */}
@@ -691,6 +695,30 @@ export function Header() {
               Before &amp; After
             </Link>
 
+            {/* Skin 101 */}
+            <div
+              className="relative flex items-center"
+              onMouseEnter={() => openDropdown("skin101")}
+              onMouseLeave={closeDropdown}
+            >
+              <Link
+                href={NAV.skin101.href}
+                className={NAV_LINK_BASE}
+                style={navPillStyle(0, isSkin101NavActive)}
+              >
+                Skin 101
+                <svg className={cx("h-3 w-3 transition-transform", activeDropdown === "skin101" && "rotate-180")} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </Link>
+              <SimpleMenu
+                data={NAV.skin101}
+                isOpen={activeDropdown === "skin101"}
+                onClose={() => setActiveDropdown(null)}
+                onMouseEnter={() => openDropdown("skin101")}
+              />
+            </div>
+
             {/* About */}
             <div
               className="relative flex items-center"
@@ -823,6 +851,7 @@ export function Header() {
             {[
               { key: "services", label: "Services", links: NAV.services.sections.flatMap((s) => s.links) },
               { key: "specials", label: "Specials", links: NAV.specials.links, highlight: true },
+              { key: "skin101", label: "Skin 101", links: NAV.skin101.links, highlight: true },
               { key: "about", label: "About", links: NAV.about.links },
               { key: "patient", label: "Patient Info", links: NAV.patient.links },
               { key: "microblading", label: "Microblading", links: NAV.microblading.links, highlight: true },
@@ -872,6 +901,7 @@ export function Header() {
               { label: "Memberships ⭐", href: "/monthly-memberships", highlight: true },
               { label: "Gentlemen's Club 👑", href: "/gentlemens-club", highlight: true },
               { label: "0% Financing", href: "/financing", highlight: true },
+              { label: "Skin 101", href: "/skin-101", highlight: true },
               { label: "FAQ", href: "/faq" },
               { label: "Blog & Resources", href: "/blog" },
               { label: "Contact Us", href: "/contact" },

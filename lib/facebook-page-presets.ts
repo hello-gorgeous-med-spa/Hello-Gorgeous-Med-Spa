@@ -494,6 +494,25 @@ Free consult · Ryan Kent, FNP-BC · downtown Oswego. Book below 👇`,
   defaultChannels: ["facebook", "instagram", "google"],
 };
 
+export const FACEBOOK_PAGE_PRESET_SKIN_101: FacebookPagePreset = {
+  id: "skin-101-education",
+  label: "Skin 101 — client education hub",
+  blurb: "New Science Explainer Series — acids & collagen guides for curious clients.",
+  message: `📚 New on our site: Skin 101 — for clients who want to learn before they book.
+
+Two free guides in plain language:
+
+• Skincare Acids — lactic, glycolic, salicylic, vitamin C & what not to mix
+• Collagen Types — what microneedling, RF, CO₂ & PRP actually target
+
+No jargon. No pressure. Just honest science from your Oswego med spa.
+
+Hello Gorgeous Med Spa · NP on site 7 days a week · Free consults 👇`,
+  linkPath: withUtm("/skin-101"),
+  imagePath: "/images/homepage-services/anteage-md-brightening.png",
+  defaultChannels: ["facebook", "google"],
+};
+
 export const FACEBOOK_PAGE_PRESET_SKIN_BOOSTERS_BLOG: FacebookPagePreset = {
   id: "skin-boosters-prp-prf-pdrn",
   label: "Blog — PRP vs PRF vs PDRN skin boosters",
@@ -519,6 +538,7 @@ export const FACEBOOK_PAGE_PRESETS: FacebookPagePreset[] = [
   FACEBOOK_PAGE_PRESET_BOTOX_49,
   FACEBOOK_PAGE_PRESET_MONTHLY_MEMBERSHIPS,
   FACEBOOK_PAGE_PRESET_NON_SURGICAL_FACELIFT,
+  FACEBOOK_PAGE_PRESET_SKIN_101,
   FACEBOOK_PAGE_PRESET_SKIN_BOOSTERS_BLOG,
   FACEBOOK_PAGE_PRESET_BOTOX_AI,
   FACEBOOK_PAGE_PRESET_BOTOX_NATURAL,

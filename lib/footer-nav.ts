@@ -52,6 +52,7 @@ export const FOOTER_PRIMARY_COLUMNS: FooterNavColumn[] = [
       { label: "Gift Cards", href: "/gift-cards" },
       { label: "Reviews", href: "/reviews" },
       { label: "Blog", href: "/blog" },
+      { label: "Skin 101", href: "/skin-101" },
       { label: "FAQs", href: "/faq" },
       { label: "Help Me Choose", href: "/help-me-choose" },
     ],
