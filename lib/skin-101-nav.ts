@@ -9,6 +9,8 @@ export type Skin101Guide = {
   shortTitle: string;
   tagline: string;
   excerpt: string;
+  thumbnailImage: `/${string}`;
+  thumbnailAlt: string;
   badge?: string;
   pdfPath?: string;
   relatedServiceLinks?: { label: string; href: string }[];
@@ -23,6 +25,8 @@ export const SKIN_101_GUIDES: Skin101Guide[] = [
     tagline: "Seven acids, seven jobs",
     excerpt:
       "A plain-language breakdown of lactic, glycolic, mandelic, hyaluronic, azelaic, salicylic, and vitamin C — what each does, who it's for, and how to pair them without fighting your routine.",
+    thumbnailImage: "/images/homepage-services/anteage-md-brightening.png",
+    thumbnailAlt: "AnteAGE brightening skincare — Skin 101 acids guide thumbnail",
     badge: "NEW",
     pdfPath: "/handouts/education/skincare-acids-guide.pdf",
     relatedServiceLinks: [
@@ -39,6 +43,8 @@ export const SKIN_101_GUIDES: Skin101Guide[] = [
     tagline: "Know what's behind the marketing",
     excerpt:
       "Type I, III, IV, and VII do different jobs in your skin. See what microneedling, RF, CO₂, PRP, exosomes, and retinoids actually target — and what's still emerging.",
+    thumbnailImage: "/images/homepage-services/vamp-skin-revitalization.png",
+    thumbnailAlt: "Skin revitalization treatment — collagen types guide thumbnail",
     badge: "NEW",
     pdfPath: "/handouts/education/collagen-types-guide.pdf",
     relatedServiceLinks: [
@@ -56,6 +62,8 @@ export const SKIN_101_GUIDES: Skin101Guide[] = [
     tagline: "De-puff — done in the right order",
     excerpt:
       "Why neck comes first, how light your pressure should be, and when lymphatic massage is safe after Botox, filler, microneedling, lasers, and Sculptra.",
+    thumbnailImage: "/images/memberships/glow-facial-membership.png",
+    thumbnailAlt: "Relaxing facial treatment — lymphatic drainage guide thumbnail",
     badge: "NEW",
     pdfPath: "/handouts/education/lymphatic-drainage-guide.pdf",
     relatedServiceLinks: [
@@ -73,6 +81,8 @@ export const SKIN_101_GUIDES: Skin101Guide[] = [
     tagline: "Not all peptides are created equal",
     excerpt:
       "What peptides are, how they signal in the body, three regulatory tiers (FDA, cosmetic, research-only), and the smart questions that protect you.",
+    thumbnailImage: "/images/education/peptides-101-not-all-created-equal.png",
+    thumbnailAlt: "Not all peptides are created equal — Peptides 101 guide thumbnail",
     badge: "NEW",
     pdfPath: "/handouts/education/peptides-101-guide.pdf",
     relatedServiceLinks: [
@@ -89,6 +99,8 @@ export const SKIN_101_GUIDES: Skin101Guide[] = [
     tagline: "NP-supervised · licensed pharmacy only",
     excerpt:
       "BPC-157, Sermorelin, GHK-Cu, PT-141, NAD+ & Tesamorelin — how Hello Gorgeous prescribes peptide protocols from licensed US pharmacies. Never gray-market.",
+    thumbnailImage: "/images/homepage-services/peptide-therapy-active-lifestyle.png",
+    thumbnailAlt: "Peptide therapy active lifestyle — Hello Gorgeous Oswego",
     badge: "NEW",
     pdfPath: "/handouts/education/peptide-therapy-guide.pdf",
     relatedServiceLinks: [

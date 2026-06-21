@@ -4,6 +4,7 @@ import Link from "next/link";
 
 import { CTA } from "@/components/CTA";
 import { FadeUp, Section } from "@/components/Section";
+import { Skin101GuideCard } from "@/components/skin-101/Skin101GuideCard";
 import { BOOKING_URL } from "@/lib/flows";
 import { HG_TAGLINE } from "@/lib/brand-tagline";
 import { SITE } from "@/lib/seo";
@@ -71,8 +72,8 @@ export function Skin101HubContent() {
                 </span>
               </h1>
               <p className="text-lg md:text-xl text-white/85 max-w-2xl mx-auto leading-relaxed mb-10">
-                Plain-language guides for clients who want to learn before they book — acids, collagen, and the science
-                behind what we do at Hello Gorgeous in Oswego.
+                Plain-language guides for clients who want to learn before they book — acids, collagen, lymphatic
+                drainage, peptides, and the science behind what we do at Hello Gorgeous in Oswego.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <CTA href={BOOKING_URL} variant="gradient">
@@ -92,34 +93,7 @@ export function Skin101HubContent() {
             <h2 className="text-3xl font-black text-black mb-8">Guides in this series</h2>
             <div className="grid gap-6 md:grid-cols-2">
               {SKIN_101_GUIDES.map((guide) => (
-                <article
-                  key={guide.slug}
-                  className="rounded-3xl border-4 border-black bg-white shadow-[8px_8px_0_0_rgba(230,0,126,0.35)] overflow-hidden flex flex-col"
-                >
-                  <div className="bg-gradient-to-r from-[#FF2D8E] to-[#E6007E] px-6 py-4 border-b-4 border-black">
-                    <p className="text-xs font-bold uppercase tracking-widest text-white/80">{guide.tagline}</p>
-                    <h3 className="text-xl font-black text-white mt-1">{guide.title}</h3>
-                  </div>
-                  <div className="p-6 flex flex-col flex-1">
-                    <p className="text-black/80 leading-relaxed font-medium flex-1">{guide.excerpt}</p>
-                    <div className="mt-6 flex flex-wrap gap-2">
-                      <Link
-                        href={guide.path}
-                        className="inline-flex items-center rounded-full bg-[#E6007E] px-5 py-2.5 text-sm font-bold text-white hover:bg-[#c9006e] transition"
-                      >
-                        Read guide
-                      </Link>
-                      {guide.pdfPath ? (
-                        <a
-                          href={guide.pdfPath}
-                          className="inline-flex items-center rounded-full border-2 border-black px-5 py-2.5 text-sm font-bold text-black hover:border-[#E6007E] hover:text-[#E6007E] transition"
-                        >
-                          PDF
-                        </a>
-                      ) : null}
-                    </div>
-                  </div>
-                </article>
+                <Skin101GuideCard key={guide.slug} guide={guide} />
               ))}
             </div>
           </div>

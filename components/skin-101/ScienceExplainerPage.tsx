@@ -5,6 +5,7 @@ import type { ReactNode } from "react";
 
 import { CTA } from "@/components/CTA";
 import { FadeUp, Section } from "@/components/Section";
+import { Skin101GuideCard } from "@/components/skin-101/Skin101GuideCard";
 import type {
   ExplainerActiveCard,
   ExplainerSection,
@@ -518,17 +519,7 @@ export function ScienceExplainerPage({
               <h2 className="text-xl font-black text-black mb-4">More from Skin 101</h2>
               <div className="grid gap-4 sm:grid-cols-2">
                 {otherGuides.map((g) => (
-                  <Link
-                    key={g.slug}
-                    href={g.path}
-                    className="group rounded-2xl border-4 border-black bg-white p-5 shadow-[4px_4px_0_0_rgba(230,0,126,0.25)] transition hover:-translate-y-0.5"
-                  >
-                    <p className="text-xs font-bold uppercase tracking-wider text-[#E6007E]">{g.tagline}</p>
-                    <h3 className="mt-1 text-lg font-black text-black group-hover:text-[#E6007E]">
-                      {g.shortTitle}
-                    </h3>
-                    <p className="mt-2 text-sm text-black/70 line-clamp-2">{g.excerpt}</p>
-                  </Link>
+                  <Skin101GuideCard key={g.slug} guide={g} compact />
                 ))}
               </div>
               <p className="mt-6">
