@@ -48,6 +48,23 @@ export const SKIN_101_GUIDES: Skin101Guide[] = [
       { label: "Regenerative Medicine", href: "/regenerative-medicine-oswego-il" },
     ],
   },
+  {
+    slug: "lymphatic-drainage",
+    path: `${SKIN_101_PATH}/lymphatic-drainage`,
+    title: "Facial Lymphatic Drainage",
+    shortTitle: "Lymphatic Drainage",
+    tagline: "De-puff — done in the right order",
+    excerpt:
+      "Why neck comes first, how light your pressure should be, and when lymphatic massage is safe after Botox, filler, microneedling, lasers, and Sculptra.",
+    badge: "NEW",
+    pdfPath: "/handouts/education/lymphatic-drainage-guide.pdf",
+    relatedServiceLinks: [
+      { label: "Facials & Peels", href: "/services/facials-and-peels" },
+      { label: "Botox Oswego", href: "/botox-oswego" },
+      { label: "Lip Filler", href: "/lip-filler-oswego" },
+      { label: "Pre & Post Care", href: "/pre-post-care" },
+    ],
+  },
 ];
 
 export const SKIN_101_NAV = {

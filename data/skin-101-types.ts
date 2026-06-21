@@ -27,6 +27,12 @@ export type ExplainerTreatmentRow = {
   evidence?: "established" | "emerging";
 };
 
+export type ExplainerTimingRow = {
+  treatment: string;
+  guidance: string;
+  why: string;
+};
+
 export type ScienceExplainerContent = {
   slug: string;
   seriesLabel: string;
@@ -86,6 +92,7 @@ export type ExplainerSection =
       navLabel: string;
       type: "steps";
       heading: string;
+      subheading?: string;
       steps: ExplainerStep[];
       stripe?: "white" | "rose";
     }
@@ -105,5 +112,14 @@ export type ExplainerSection =
       heading: string;
       subheading?: string;
       rows: ExplainerTreatmentRow[];
+      stripe?: "white" | "rose";
+    }
+  | {
+      id: string;
+      navLabel: string;
+      type: "timing";
+      heading: string;
+      subheading?: string;
+      rows: ExplainerTimingRow[];
       stripe?: "white" | "rose";
     };

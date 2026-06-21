@@ -163,6 +163,11 @@ function SectionBody({ section, index }: { section: ExplainerSection; index: num
       return (
         <StampCard index={index} stripe={section.stripe}>
           <h2 className="text-2xl md:text-3xl font-black text-black">{section.heading}</h2>
+          {section.subheading ? (
+            <p className="mt-2 text-sm font-semibold uppercase tracking-wider text-[#E6007E]">
+              {section.subheading}
+            </p>
+          ) : null}
           <ol className="mt-6 space-y-4">
             {section.steps.map((s) => (
               <li
@@ -242,6 +247,35 @@ function SectionBody({ section, index }: { section: ExplainerSection; index: num
                 </p>
               </article>
             ))}
+          </div>
+        </StampCard>
+      );
+    case "timing":
+      return (
+        <StampCard index={index} stripe={section.stripe}>
+          <h2 className="text-2xl md:text-3xl font-black text-black">{section.heading}</h2>
+          {section.subheading ? (
+            <p className="mt-3 max-w-3xl text-black/80 leading-relaxed">{section.subheading}</p>
+          ) : null}
+          <div className="mt-6 overflow-x-auto rounded-2xl border-2 border-black/15">
+            <table className="min-w-[640px] w-full text-sm">
+              <thead>
+                <tr className="bg-[#FFF0F7] border-b-2 border-black/10">
+                  <th className="px-4 py-3 text-left font-black text-black w-[22%]">Treatment</th>
+                  <th className="px-4 py-3 text-left font-black text-[#E6007E] w-[42%]">General guidance</th>
+                  <th className="px-4 py-3 text-left font-black text-black w-[36%]">Why</th>
+                </tr>
+              </thead>
+              <tbody>
+                {section.rows.map((row) => (
+                  <tr key={row.treatment} className="border-b border-black/10 even:bg-white odd:bg-[#fafafa]">
+                    <td className="px-4 py-3 font-bold align-top">{row.treatment}</td>
+                    <td className="px-4 py-3 align-top text-black/85">{row.guidance}</td>
+                    <td className="px-4 py-3 align-top text-black/85">{row.why}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         </StampCard>
       );
