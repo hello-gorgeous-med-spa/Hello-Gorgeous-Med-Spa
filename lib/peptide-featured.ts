@@ -87,3 +87,11 @@ export function featuredPeptideNavLinks() {
     badge: "Rx",
   }));
 }
+
+const PEPTIDE_THUMBNAIL_BY_SLUG = Object.fromEntries(
+  FEATURED_CLINIC_PEPTIDES.map((p) => [p.slug, { src: p.thumbnailImage, alt: p.thumbnailAlt }]),
+) as Record<string, { src: `/${string}`; alt: string }>;
+
+export function getPeptideThumbnail(slug: string): { src: `/${string}`; alt: string } | undefined {
+  return PEPTIDE_THUMBNAIL_BY_SLUG[slug];
+}

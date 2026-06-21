@@ -1,9 +1,11 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 
 import { FadeUp, Section } from "@/components/Section";
 import type { PeptideTier } from "@/data/peptides";
+import { getPeptideThumbnail } from "@/lib/peptide-featured";
 import { getPeptideTopicsByCategory, peptideTopicHref, tierBadge } from "@/lib/peptides-hub";
 
 function TierPill({ tier }: { tier: PeptideTier }) {
@@ -22,29 +24,54 @@ function TopicCard({
   tagline,
   accent,
   tier,
+  thumbnailImage,
+  thumbnailAlt,
 }: {
   slug: string;
   name: string;
   tagline: string;
   accent: string;
   tier: PeptideTier;
+  thumbnailImage?: `/${string}`;
+  thumbnailAlt?: string;
 }) {
   return (
     <Link
       href={peptideTopicHref(slug)}
-      className="group flex h-full flex-col rounded-2xl border-4 border-black bg-white p-5 shadow-[6px_6px_0_0_rgba(230,0,126,0.2)] transition hover:border-[#E6007E]/70 hover:shadow-[8px_8px_0_0_rgba(230,0,126,0.35)]"
+      className="group flex h-full flex-col overflow-hidden rounded-2xl border-4 border-black bg-white shadow-[6px_6px_0_0_rgba(230,0,126,0.2)] transition hover:border-[#E6007E]/70 hover:shadow-[8px_8px_0_0_rgba(230,0,126,0.35)]"
     >
-      <div className="flex items-start justify-between gap-2">
-        <span
-          className="inline-block h-2 w-10 rounded-full"
-          style={{ background: accent }}
-          aria-hidden
-        />
-        <TierPill tier={tier} />
+      {thumbnailImage && thumbnailAlt ? (
+        <div className="relative aspect-[4/3] overflow-hidden border-b-4 border-black">
+          <Image
+            src={thumbnailImage}
+            alt={thumbnailAlt}
+            fill
+            className="object-cover transition duration-500 group-hover:scale-[1.03]"
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 33vw, 25vw"
+          />
+          <div className="absolute top-2 right-2">
+            <TierPill tier={tier} />
+          </div>
+        </div>
+      ) : (
+        <div className="flex items-start justify-between gap-2 p-5 pb-0">
+          <span
+            className="inline-block h-2 w-10 rounded-full"
+            style={{ background: accent }}
+            aria-hidden
+          />
+          <TierPill tier={tier} />
+        </div>
+      )}
+      <div className={thumbnailImage ? "flex flex-1 flex-col p-5" : "flex flex-1 flex-col px-5 pb-5"}>
+        <h3
+          className={`text-lg font-black text-black group-hover:text-[#E6007E] ${thumbnailImage ? "" : "mt-3"}`}
+        >
+          {name}
+        </h3>
+        <p className="mt-2 flex-1 text-sm leading-relaxed text-black/70">{tagline}</p>
+        <p className="mt-4 text-sm font-bold text-[#E6007E]">Read guide →</p>
       </div>
-      <h3 className="mt-3 text-lg font-black text-black group-hover:text-[#E6007E]">{name}</h3>
-      <p className="mt-2 flex-1 text-sm leading-relaxed text-black/70">{tagline}</p>
-      <p className="mt-4 text-sm font-bold text-[#E6007E]">Read guide →</p>
     </Link>
   );
 }
@@ -78,16 +105,21 @@ export function PeptidesHubGrid() {
                 <span className="h-px flex-1 bg-black/15" aria-hidden />
               </h3>
               <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-                {group.topics.map((topic) => (
-                  <TopicCard
-                    key={topic.slug}
-                    slug={topic.slug}
-                    name={topic.name}
-                    tagline={topic.tagline}
-                    accent={topic.accent}
-                    tier={topic.tier}
-                  />
-                ))}
+                {group.topics.map((topic) => {
+                  const thumbnail = getPeptideThumbnail(topic.slug);
+                  return (
+                    <TopicCard
+                      key={topic.slug}
+                      slug={topic.slug}
+                      name={topic.name}
+                      tagline={topic.tagline}
+                      accent={topic.accent}
+                      tier={topic.tier}
+                      thumbnailImage={thumbnail?.src}
+                      thumbnailAlt={thumbnail?.alt}
+                    />
+                  );
+                })}
               </div>
             </div>
           </FadeUp>
