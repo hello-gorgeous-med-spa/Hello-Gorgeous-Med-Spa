@@ -60,6 +60,7 @@ export type ScienceExplainerContent = {
   closingTitle: string;
   closingBody: string;
   pdfPath?: string;
+  featuredImage?: { src: string; alt: string };
 };
 
 export type ExplainerSection =

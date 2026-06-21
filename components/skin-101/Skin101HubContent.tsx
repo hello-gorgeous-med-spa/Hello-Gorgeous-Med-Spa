@@ -72,8 +72,8 @@ export function Skin101HubContent() {
                 </span>
               </h1>
               <p className="text-lg md:text-xl text-white/85 max-w-2xl mx-auto leading-relaxed mb-10">
-                Plain-language guides for clients who want to learn before they book — acids, collagen, lymphatic
-                drainage, peptides, and the science behind what we do at Hello Gorgeous in Oswego.
+                Plain-language guides for clients who want to learn before they book — skin layers, acids, collagen,
+                lymphatic drainage, peptides, and the science behind what we do at Hello Gorgeous in Oswego.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <CTA href={BOOKING_URL} variant="gradient">

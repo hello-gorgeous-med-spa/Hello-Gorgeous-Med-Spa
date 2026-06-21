@@ -18,6 +18,24 @@ export type Skin101Guide = {
 
 export const SKIN_101_GUIDES: Skin101Guide[] = [
   {
+    slug: "skin-layers",
+    path: `${SKIN_101_PATH}/skin-layers`,
+    title: "The 5 Layers of Your Skin",
+    shortTitle: "Skin Layers & Depth",
+    tagline: "Where Botox, filler & Morpheus8 actually work",
+    excerpt:
+      "Epidermis to periosteum — a depth map showing where neurotoxins, fillers, microneedling, Morpheus8 Burst, and RF lipo target, and why layer choice matters.",
+    thumbnailImage: "/images/education/skin-layers-injection-depth-reference.png",
+    thumbnailAlt: "Five skin layers and injection treatment depth reference infographic",
+    badge: "NEW",
+    relatedServiceLinks: [
+      { label: "Botox Oswego", href: "/botox-oswego" },
+      { label: "Morpheus8 Burst", href: "/morpheus8-burst-oswego" },
+      { label: "Injectables Menu", href: "/services/injectables" },
+      { label: "Quantum RF", href: "/quantum-rf-oswego" },
+    ],
+  },
+  {
     slug: "skincare-acids",
     path: `${SKIN_101_PATH}/skincare-acids`,
     title: "The Skincare Acids Guide",

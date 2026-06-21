@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import type { ReactNode } from "react";
 
 import { CTA } from "@/components/CTA";
@@ -474,6 +475,26 @@ export function ScienceExplainerPage({
             <p className="text-sm text-amber-950/90 leading-relaxed font-medium">{content.disclaimer}</p>
           </div>
         </div>
+
+        {content.featuredImage ? (
+          <Section className="!py-10 border-b-4 border-black bg-black">
+            <div className="max-w-4xl mx-auto px-4 md:px-6">
+              <figure className="rounded-2xl border-4 border-[#E6007E] overflow-hidden shadow-[8px_8px_0_0_rgba(230,0,126,0.45)]">
+                <Image
+                  src={content.featuredImage.src}
+                  alt={content.featuredImage.alt}
+                  width={1200}
+                  height={1500}
+                  className="w-full h-auto"
+                  priority
+                />
+              </figure>
+              <figcaption className="mt-3 text-center text-sm text-white/70 font-medium">
+                Full depth reference — tap to zoom on mobile, or save for your consult
+              </figcaption>
+            </div>
+          </Section>
+        ) : null}
 
         {content.sections.map((section, i) => (
           <div key={section.id} id={section.id} className="scroll-mt-28">
