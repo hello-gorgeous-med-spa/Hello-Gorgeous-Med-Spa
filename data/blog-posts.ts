@@ -34,12 +34,14 @@ import { howToChooseMedSpaOswegoPost } from "./blog-post-how-to-choose-med-spa-o
 import { bestMedSpaNearMontgomeryPost } from "./blog-post-best-med-spa-near-montgomery";
 import { bestMedSpaNearPlainfieldPost } from "./blog-post-best-med-spa-near-plainfield";
 import { bestMedSpaNearYorkvillePost } from "./blog-post-best-med-spa-near-yorkville";
+import { skinBoostersPrpPrfPdrnPost } from "./blog-post-skin-boosters-prp-prf-pdrn";
 import { buildYourIvBagAppLaunchPost } from "./blog-post-build-your-iv-bag-app-launch";
 import type { BlogPost } from "./blog-types";
 
 export type { BlogPost } from "./blog-types";
 
 const coreBlogPosts: BlogPost[] = [
+  skinBoostersPrpPrfPdrnPost,
   buildYourIvBagAppLaunchPost,
   tirzepatideProgramLetterPost,
   jerryMaguireMomentPost,

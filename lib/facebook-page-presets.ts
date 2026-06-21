@@ -494,10 +494,32 @@ Free consult · Ryan Kent, FNP-BC · downtown Oswego. Book below 👇`,
   defaultChannels: ["facebook", "instagram", "google"],
 };
 
+export const FACEBOOK_PAGE_PRESET_SKIN_BOOSTERS_BLOG: FacebookPagePreset = {
+  id: "skin-boosters-prp-prf-pdrn",
+  label: "Blog — PRP vs PRF vs PDRN skin boosters",
+  blurb: "Education post — compare regenerative boosters; link to full Oswego guide.",
+  message: `🧬 Skin boosters explained — PRP vs PRF vs PDRN vs PN
+
+Not sure what the difference is? You are not alone.
+
+• PRP — your platelets (Vampire Facial glow)
+• PRF — slow-release fibrin matrix (under-eye, hair)
+• PDRN — salmon DNA repair signaling (glass skin)
+• PN — longer-chain polynucleotides (structural remodeling)
+
+Hello Gorgeous Med Spa · Oswego, IL · NP on site 7 days a week.
+
+Read the full guide (free consult link inside) 👇`,
+  linkPath: withUtm("/blog/prp-vs-prf-vs-pdrn-vs-pn-skin-boosters-oswego-il"),
+  imagePath: "/images/homepage-services/anteage-md-brightening.png",
+  defaultChannels: ["facebook", "instagram", "google"],
+};
+
 export const FACEBOOK_PAGE_PRESETS: FacebookPagePreset[] = [
   FACEBOOK_PAGE_PRESET_BOTOX_49,
   FACEBOOK_PAGE_PRESET_MONTHLY_MEMBERSHIPS,
   FACEBOOK_PAGE_PRESET_NON_SURGICAL_FACELIFT,
+  FACEBOOK_PAGE_PRESET_SKIN_BOOSTERS_BLOG,
   FACEBOOK_PAGE_PRESET_BOTOX_AI,
   FACEBOOK_PAGE_PRESET_BOTOX_NATURAL,
   FACEBOOK_PAGE_PRESET_BOTOX_AUTHENTIC,
