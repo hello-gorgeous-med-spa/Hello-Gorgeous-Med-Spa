@@ -59,7 +59,7 @@ export default async function PeptideRequestPage({ searchParams }: PageProps) {
       <div className="mx-auto max-w-4xl px-4 py-12 md:py-16">
         {paid && (
           <div className="mb-8 rounded-2xl border-2 border-green-600 bg-green-50 px-5 py-4 text-center text-sm text-green-900">
-            Consult payment received — thank you! Book your telehealth visit with Ryan if you haven&apos;t already.
+            Consult payment received — thank you! Book your Video Consult in Charm if you haven&apos;t already.
           </div>
         )}
 

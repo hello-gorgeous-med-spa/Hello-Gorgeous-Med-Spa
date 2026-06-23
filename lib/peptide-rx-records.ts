@@ -53,7 +53,7 @@ export function removePeptideRxRecord(recordToken: string): void {
 
 export function statusLabelForRecord(r: StoredRxRecord): string {
   if (!r.qualified) return "Needs clinical review";
-  return r.requestType === "refill" ? "Refill submitted — book telehealth" : "Submitted — book telehealth";
+  return r.requestType === "refill" ? "Refill submitted — book Charm telehealth" : "Submitted — book Charm telehealth";
 }
 
 export function recordsToSummaries(records: StoredRxRecord[]): RxRecordSummary[] {

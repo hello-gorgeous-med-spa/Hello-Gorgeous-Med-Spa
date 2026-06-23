@@ -29,7 +29,7 @@ export const RX_RECURRING_JOURNEY: RxJourneyStep[] = [
   {
     id: "telehealth",
     title: "Required NP telehealth",
-    detail: "Ryan reviews safety, dosing, and your plan in a virtual visit — no in-office visit required for most refills.",
+    detail: "Ryan reviews safety, dosing, and your plan in a Charm EHR Video Consult—book via the patient portal after you submit your request.",
     icon: "💻",
   },
   {

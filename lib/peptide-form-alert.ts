@@ -65,7 +65,7 @@ export function formatPeptideStaffAlert(opts: {
     line("Provider flags", flags),
     line("Disqualification reasons", disqual),
     "",
-    "ACTION: Ryan to review and schedule REQUIRED telehealth before approval/refill.",
+    "ACTION: Ryan to review in Charm EHR and schedule REQUIRED Video Consult (Charm PHR) before approval/refill.",
     `Hub intake: https://www.hellogorgeousmedspa.com/hub/intake-submissions`,
   ].filter(Boolean);
 

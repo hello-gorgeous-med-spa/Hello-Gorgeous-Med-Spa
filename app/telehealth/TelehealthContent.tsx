@@ -4,7 +4,11 @@ import { useState } from "react";
 import Image from "next/image";
 import { FadeUp } from "@/components/Section";
 import { CTA } from "@/components/CTA";
-import { BOOKING_URL } from "@/lib/flows";
+import {
+  CHARM_PHR_PORTAL_URL,
+  CHARM_TELEHEALTH_BOOKING_LABEL,
+  CHARM_TELEHEALTH_BOOKING_URL,
+} from "@/lib/charm-ehr";
 
 const telehealthServices = [
   {
@@ -89,7 +93,7 @@ const benefits = [
 const faqs = [
   {
     q: "How do I join my telehealth appointment?",
-    a: "You'll receive a link via email or text before your appointment. Simply click the link at your scheduled time—no app download required. Make sure you have a stable internet connection and your camera/microphone enabled.",
+    a: "Book a Video Consult in the Charm patient portal. Before your visit, Charm sends a secure join link by email and in your PHR account. Open that link at your scheduled time—no separate app required.",
   },
   {
     q: "What do I need for a telehealth visit?",
@@ -113,8 +117,6 @@ const faqs = [
   },
 ];
 
-const DOXY_URL = "https://doxy.me/ryankent";
-
 export function TelehealthContent() {
   const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
 
@@ -136,16 +138,16 @@ export function TelehealthContent() {
                 Get expert medical care from the comfort of your home. Connect with Ryan Kent, FNP-BC for consultations, follow-ups, and prescription management.
               </p>
               <div className="mt-8 flex flex-col sm:flex-row gap-4">
-                <CTA href={BOOKING_URL} variant="gradient" className="inline-flex">
-                  Book Telehealth Visit
+                <CTA href={CHARM_TELEHEALTH_BOOKING_URL} variant="gradient" className="inline-flex">
+                  {CHARM_TELEHEALTH_BOOKING_LABEL}
                 </CTA>
                 <a
-                  href={DOXY_URL}
+                  href={CHARM_PHR_PORTAL_URL}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-lg border-2 border-white text-white font-semibold hover:bg-white hover:text-black transition-colors"
                 >
-                  Join Video Visit Now
+                  Charm Patient Portal
                 </a>
               </div>
               <p className="mt-4 text-white/60 text-sm">No download required</p>
@@ -172,12 +174,12 @@ export function TelehealthContent() {
           <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8">
             <span className="text-white font-semibold">Have an appointment?</span>
             <a
-              href={DOXY_URL}
+              href={CHARM_PHR_PORTAL_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-white text-[#E6007E] font-bold hover:bg-black hover:text-white transition-colors"
             >
-              Join Video Visit Now
+              Open Charm Portal
             </a>
           </div>
         </div>
@@ -228,8 +230,8 @@ export function TelehealthContent() {
                       &ldquo;Telehealth allows me to provide the same high-quality care you&apos;d receive in-office, with the convenience of connecting from wherever you are. I&apos;m committed to making healthcare accessible and personalized for every patient.&rdquo;
                     </p>
                   </div>
-                  <CTA href={BOOKING_URL} variant="gradient" className="inline-flex">
-                    Book with Ryan
+                  <CTA href={CHARM_TELEHEALTH_BOOKING_URL} variant="gradient" className="inline-flex">
+                    {CHARM_TELEHEALTH_BOOKING_LABEL}
                   </CTA>
                 </div>
               </div>
@@ -285,8 +287,8 @@ export function TelehealthContent() {
                   <p className="text-black/80 text-sm flex-1 mb-4">{service.description}</p>
                   <div className="flex items-center justify-between mt-auto">
                     <span className="text-[#E6007E] font-bold">{service.price}</span>
-                    <CTA href={BOOKING_URL} variant="outline" className="!px-4 !py-2 !text-sm">
-                      Book Now
+                    <CTA href={CHARM_TELEHEALTH_BOOKING_URL} variant="outline" className="!px-4 !py-2 !text-sm">
+                      Book in Charm
                     </CTA>
                   </div>
                 </div>
@@ -306,9 +308,9 @@ export function TelehealthContent() {
           </FadeUp>
           <div className="grid md:grid-cols-4 gap-8">
             {[
-              { step: "1", title: "Book Online", desc: "Schedule your telehealth visit through our booking system", icon: "📅" },
-              { step: "2", title: "Get Your Link", desc: "Receive a secure video link via email/text", icon: "📧" },
-              { step: "3", title: "Connect", desc: "Click the link at your appointment time to join", icon: "🖥️" },
+              { step: "1", title: "Book in Charm", desc: "Request a Video Consult in the Charm patient portal (Ryan Kent, FNP-BC)", icon: "📅" },
+              { step: "2", title: "Get Confirmation", desc: "Charm confirms your visit and sends your secure video link", icon: "📧" },
+              { step: "3", title: "Join Visit", desc: "Open the link from Charm PHR or your email at appointment time", icon: "🖥️" },
               { step: "4", title: "Get Care", desc: "Meet with Ryan, get your treatment plan & prescriptions", icon: "✅" },
             ].map((item, i) => (
               <FadeUp key={item.step} delayMs={i * 60}>
@@ -413,18 +415,18 @@ export function TelehealthContent() {
           <FadeUp>
             <div className="inline-flex items-center gap-3 px-5 py-2 rounded-full bg-white/10 border border-white/20 mb-6">
               <span className="text-2xl">🔒</span>
-              <span className="text-white font-semibold">Powered by Doxy.me</span>
+              <span className="text-white font-semibold">Powered by Charm EHR Telehealth</span>
             </div>
             <p className="text-white/70 text-sm mb-6">
-              We use Doxy.me, a HIPAA-compliant telemedicine platform trusted by over 1 million healthcare providers. Your visit is encrypted end-to-end, ensuring complete privacy and security. No downloads required—just click your link and connect.
+              NP video visits are booked and hosted through Charm Health—HIPAA-compliant charting, e-prescribe, and Video Consult in one system. Fresha remains for med spa aesthetics only.
             </p>
             <a
-              href={DOXY_URL}
+              href={CHARM_PHR_PORTAL_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-6 py-3 rounded-lg border-2 border-[#E6007E] text-[#E6007E] font-semibold hover:bg-[#E6007E] hover:text-white transition-colors"
             >
-              Join Ryan&apos;s Waiting Room
+              Charm Patient Portal
             </a>
           </FadeUp>
         </div>
@@ -441,8 +443,8 @@ export function TelehealthContent() {
               Book your telehealth appointment with Ryan Kent, FNP-BC today. Same-day appointments often available.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <CTA href={BOOKING_URL} variant="gradient" className="inline-flex">
-                Book Telehealth Visit
+              <CTA href={CHARM_TELEHEALTH_BOOKING_URL} variant="gradient" className="inline-flex">
+                {CHARM_TELEHEALTH_BOOKING_LABEL}
               </CTA>
               <a
                 href="tel:630-636-6193"

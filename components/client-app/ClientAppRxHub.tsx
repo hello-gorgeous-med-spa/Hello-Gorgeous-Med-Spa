@@ -4,8 +4,9 @@ import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 
 import {
+  CHARM_TELEHEALTH_BOOKING_LABEL,
   HELLO_GORGEOUS_RX_START_PATH,
-  FRESHA_BOOKING_URL_RYAN,
+  HG_RX_TELEHEALTH_BOOKING_URL,
   PEPTIDE_REQUEST_PATH,
 } from "@/lib/flows";
 import { HELLO_GORGEOUS_RX, RX_RECURRING_JOURNEY } from "@/lib/hello-gorgeous-rx";
@@ -100,7 +101,7 @@ export function ClientAppRxHub({ onClose }: Props) {
         <h1 className="text-2xl font-black text-white">Hello Gorgeous RX</h1>
         <p className="mt-2 text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.6)" }}>
           Start a protocol, request refills, and keep your submission history — all in one place.
-          Telehealth with {HELLO_GORGEOUS_RX.providerName} is required before approval.
+          Telehealth with {HELLO_GORGEOUS_RX.providerName} is scheduled in Charm EHR after you submit a request.
         </p>
       </div>
 
@@ -121,13 +122,13 @@ export function ClientAppRxHub({ onClose }: Props) {
           Request refill
         </Link>
         <a
-          href={FRESHA_BOOKING_URL_RYAN}
+          href={HG_RX_TELEHEALTH_BOOKING_URL}
           target="_blank"
           rel="noopener noreferrer"
           className="rounded-xl py-3 text-center text-sm font-semibold"
           style={{ border: `1px solid ${accent.border}`, color: accent.subtitle }}
         >
-          Book telehealth
+          {CHARM_TELEHEALTH_BOOKING_LABEL}
         </a>
       </div>
 

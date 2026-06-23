@@ -4,7 +4,10 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 
 import { SMSDisclosure } from "@/components/SMSDisclosure";
-import { FRESHA_BOOKING_URL_RYAN } from "@/lib/flows";
+import {
+  CHARM_TELEHEALTH_BOOKING_LABEL,
+  HG_RX_TELEHEALTH_BOOKING_URL,
+} from "@/lib/flows";
 import type { IntakeFormField } from "@/lib/hgos/intake-forms";
 import {
   PEPTIDE_DISQUALIFIED_MESSAGE,
@@ -351,12 +354,12 @@ export function PeptideRequestForm({
         <p className="mt-3 text-xs text-green-700 max-w-md mx-auto">{PEPTIDE_TELEHEALTH_NOTE}</p>
         <div className="mt-6 flex flex-col items-center gap-3">
           <a
-            href={FRESHA_BOOKING_URL_RYAN}
+            href={HG_RX_TELEHEALTH_BOOKING_URL}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex w-full max-w-sm items-center justify-center rounded-xl bg-[#E6007E] px-8 py-4 font-bold text-white hover:bg-black transition-colors"
           >
-            Book telehealth with Ryan →
+            {CHARM_TELEHEALTH_BOOKING_LABEL} →
           </a>
           {isNew && (
             <button
