@@ -6,6 +6,7 @@ import { FadeUp, Section } from "@/components/Section";
 import { BOOKING_URL } from "@/lib/flows";
 import {
   FEATURED_CLINIC_PEPTIDES,
+  getPeptideThumbnail,
   PEPTIDE_CONSULT_SPECIAL,
 } from "@/lib/peptide-featured";
 import { peptideTopicHref } from "@/lib/peptides-hub";
@@ -35,37 +36,42 @@ export function FeaturedPeptidesSection() {
       </FadeUp>
 
       <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 max-w-6xl mx-auto">
-        {FEATURED_CLINIC_PEPTIDES.map((peptide, idx) => (
-          <FadeUp key={peptide.slug} delayMs={idx * 40}>
-            <Link
-              href={peptideTopicHref(peptide.slug)}
-              className="group flex h-full flex-col overflow-hidden rounded-3xl border-4 border-black bg-white shadow-[8px_8px_0_0_rgba(230,0,126,0.3)] transition hover:border-[#E6007E] hover:shadow-[10px_10px_0_0_rgba(230,0,126,0.4)]"
-            >
-              <div className="relative aspect-[4/3] overflow-hidden border-b-4 border-black">
-                <Image
-                  src={peptide.thumbnailImage}
-                  alt={peptide.thumbnailAlt}
-                  fill
-                  className="object-cover transition duration-500 group-hover:scale-[1.03]"
-                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                />
-                <span
-                  className="absolute top-3 right-3 rounded-full border-2 border-black px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wide text-white"
-                  style={{ background: peptide.accent }}
-                >
-                  Learn more
-                </span>
-              </div>
-              <div className="flex flex-1 flex-col p-6">
-                <h3 className="text-xl font-black text-black group-hover:text-[#E6007E]">
-                  {peptide.name}
-                </h3>
-                <p className="mt-2 flex-1 text-sm leading-relaxed text-black/75">{peptide.benefit}</p>
-                <p className="mt-4 text-sm font-bold text-[#E6007E]">What it does & how we use it →</p>
-              </div>
-            </Link>
-          </FadeUp>
-        ))}
+        {FEATURED_CLINIC_PEPTIDES.map((peptide, idx) => {
+          const thumbnail = getPeptideThumbnail(peptide.slug);
+          return (
+            <FadeUp key={peptide.slug} delayMs={idx * 40}>
+              <Link
+                href={peptideTopicHref(peptide.slug)}
+                className="group flex h-full flex-col overflow-hidden rounded-3xl border-4 border-black bg-white shadow-[8px_8px_0_0_rgba(230,0,126,0.3)] transition hover:border-[#E6007E] hover:shadow-[10px_10px_0_0_rgba(230,0,126,0.4)]"
+              >
+                {thumbnail ? (
+                  <div className="relative aspect-[4/3] overflow-hidden border-b-4 border-black">
+                    <Image
+                      src={thumbnail.src}
+                      alt={thumbnail.alt}
+                      fill
+                      className="object-cover transition duration-500 group-hover:scale-[1.03]"
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    />
+                    <span
+                      className="absolute top-3 right-3 rounded-full border-2 border-black px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wide text-white"
+                      style={{ background: peptide.accent }}
+                    >
+                      Learn more
+                    </span>
+                  </div>
+                ) : null}
+                <div className="flex flex-1 flex-col p-6">
+                  <h3 className="text-xl font-black text-black group-hover:text-[#E6007E]">
+                    {peptide.name}
+                  </h3>
+                  <p className="mt-2 flex-1 text-sm leading-relaxed text-black/75">{peptide.benefit}</p>
+                  <p className="mt-4 text-sm font-bold text-[#E6007E]">What it does & how we use it →</p>
+                </div>
+              </Link>
+            </FadeUp>
+          );
+        })}
       </div>
 
       <FadeUp delayMs={280}>

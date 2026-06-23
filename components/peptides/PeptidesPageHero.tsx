@@ -4,7 +4,7 @@ import Link from "next/link";
 import { CTA } from "@/components/CTA";
 import { FadeUp, Section } from "@/components/Section";
 import { BOOKING_URL } from "@/lib/flows";
-import { FEATURED_CLINIC_PEPTIDES, PEPTIDE_CONSULT_SPECIAL } from "@/lib/peptide-featured";
+import { FEATURED_CLINIC_PEPTIDES, getPeptideThumbnail, PEPTIDE_CONSULT_SPECIAL } from "@/lib/peptide-featured";
 
 export function PeptidesPageHero() {
   return (
@@ -19,10 +19,13 @@ export function PeptidesPageHero() {
       >
         <div className="absolute inset-y-0 right-0 w-full md:w-[62%] lg:w-[58%]">
           <div className="grid h-full min-h-[280px] grid-cols-3 grid-rows-2">
-            {FEATURED_CLINIC_PEPTIDES.map((peptide) => (
+            {FEATURED_CLINIC_PEPTIDES.map((peptide) => {
+              const thumbnail = getPeptideThumbnail(peptide.slug);
+              if (!thumbnail) return null;
+              return (
               <div key={peptide.slug} className="relative min-h-[140px]">
                 <Image
-                  src={peptide.thumbnailImage}
+                  src={thumbnail.src}
                   alt=""
                   fill
                   className="object-cover scale-105"
@@ -30,7 +33,8 @@ export function PeptidesPageHero() {
                   priority
                 />
               </div>
-            ))}
+              );
+            })}
           </div>
         </div>
         <div
@@ -95,6 +99,13 @@ export function PeptidesPageHero() {
               Browse topics
             </CTA>
             <CTA
+              href="#peptide-education-gallery"
+              variant="outline"
+              className="text-lg px-8 py-4 border-[#E6007E] text-[#E6007E] bg-white/80 backdrop-blur"
+            >
+              All 20 education sheets
+            </CTA>
+            <CTA
               href="#patient-handouts"
               variant="outline"
               className="text-lg px-8 py-4 border-black/20 bg-white/80 backdrop-blur"
@@ -114,14 +125,17 @@ export function PeptidesPageHero() {
               Our most-requested peptides
             </p>
             <div className="grid grid-cols-2 gap-2">
-              {FEATURED_CLINIC_PEPTIDES.map((peptide) => (
+              {FEATURED_CLINIC_PEPTIDES.map((peptide) => {
+                const thumbnail = getPeptideThumbnail(peptide.slug);
+                if (!thumbnail) return null;
+                return (
                 <div
                   key={peptide.slug}
                   className="relative aspect-[4/3] overflow-hidden rounded-xl border-2 border-black"
                 >
                   <Image
-                    src={peptide.thumbnailImage}
-                    alt={peptide.thumbnailAlt}
+                    src={thumbnail.src}
+                    alt={thumbnail.alt}
                     fill
                     className="object-cover"
                     sizes="200px"
@@ -130,7 +144,8 @@ export function PeptidesPageHero() {
                     <p className="text-[11px] font-bold text-white">{peptide.name}</p>
                   </div>
                 </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         </FadeUp>

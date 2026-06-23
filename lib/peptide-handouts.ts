@@ -10,6 +10,8 @@ export type PeptideHandout = {
   pages: number;
   description: string;
   badge?: string;
+  /** Maps to lib/peptide-thumbnails slug for branded card art */
+  thumbnailSlug?: string;
 };
 
 export type PeptideHandoutCategory = {
@@ -59,6 +61,7 @@ export const PEPTIDE_HANDOUTS: PeptideHandout[] = [
     filename: "ghk-cu-injectable.html",
     pages: 2,
     description: "Injectable copper peptide — clinical conversation & expectations.",
+    thumbnailSlug: "ghk-cu",
   },
   {
     id: "bpc-157",
@@ -67,6 +70,7 @@ export const PEPTIDE_HANDOUTS: PeptideHandout[] = [
     filename: "bpc-157-what-to-know.html",
     pages: 2,
     description: "Body Protection Compound — recovery, gut & tissue repair education.",
+    thumbnailSlug: "bpc-157",
   },
   {
     id: "sermorelin",
@@ -75,6 +79,7 @@ export const PEPTIDE_HANDOUTS: PeptideHandout[] = [
     filename: "sermorelin-and-growth-hormone.html",
     pages: 2,
     description: "Natural GH signaling, sleep, body composition & anti-aging.",
+    thumbnailSlug: "sermorelin",
   },
   {
     id: "tesamorelin",
@@ -83,6 +88,7 @@ export const PEPTIDE_HANDOUTS: PeptideHandout[] = [
     filename: "tesamorelin-and-gh-support.html",
     pages: 2,
     description: "Visceral fat, GH axis & hormone optimization conversation.",
+    thumbnailSlug: "tesamorelin",
   },
   {
     id: "nad-plus",
@@ -91,6 +97,7 @@ export const PEPTIDE_HANDOUTS: PeptideHandout[] = [
     filename: "nad-plus-cellular-energy.html",
     pages: 2,
     description: "Cellular energy, mitochondria, IV vs oral & honest expectations.",
+    thumbnailSlug: "nad-plus",
   },
   {
     id: "methyl-b12",
@@ -107,6 +114,7 @@ export const PEPTIDE_HANDOUTS: PeptideHandout[] = [
     filename: "glutathione-and-the-glow.html",
     pages: 2,
     description: "Master antioxidant, skin brightness & wellness shot basics.",
+    thumbnailSlug: "glutathione",
   },
   {
     id: "lipo-mic",
@@ -131,6 +139,7 @@ export const PEPTIDE_HANDOUTS: PeptideHandout[] = [
     filename: "tirzepatide-and-weight-health.html",
     pages: 2,
     description: "Dual GIP/GLP-1 pathway — education for supervised programs.",
+    thumbnailSlug: "tirzepatide",
   },
   {
     id: "retatrutide",
@@ -139,6 +148,7 @@ export const PEPTIDE_HANDOUTS: PeptideHandout[] = [
     filename: "retatrutide-what-to-know.html",
     pages: 2,
     description: "Triple agonist research conversation — know before you go.",
+    thumbnailSlug: "retatrutide",
   },
 ];
 

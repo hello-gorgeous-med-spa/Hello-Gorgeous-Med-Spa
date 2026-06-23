@@ -1,5 +1,6 @@
 /** Featured peptides — nav dropdown + hub hero (clinic-offered, benefit-forward). */
 
+import { getPeptideThumbnail } from "@/lib/peptide-thumbnails";
 import { peptideTopicHref } from "@/lib/peptides-hub";
 
 export type FeaturedClinicPeptide = {
@@ -10,8 +11,6 @@ export type FeaturedClinicPeptide = {
   /** Emoji icon for nav / compact cards */
   icon: string;
   accent: string;
-  thumbnailImage: `/${string}`;
-  thumbnailAlt: string;
 };
 
 /** The peptides clients ask for most — prescribed via Hello Gorgeous RX™ when appropriate. */
@@ -22,8 +21,6 @@ export const FEATURED_CLINIC_PEPTIDES: FeaturedClinicPeptide[] = [
     benefit: "Recovery, gut support & tissue repair",
     icon: "🩹",
     accent: "#2b5fa5",
-    thumbnailImage: "/images/peptides/bpc-157-thumbnail.png",
-    thumbnailAlt: "BPC-157 peptide — recovery, gut support and tissue repair at Hello Gorgeous",
   },
   {
     slug: "sermorelin",
@@ -31,8 +28,6 @@ export const FEATURED_CLINIC_PEPTIDES: FeaturedClinicPeptide[] = [
     benefit: "Natural GH support — sleep, energy, lean mass",
     icon: "⚡",
     accent: "#8a3fb0",
-    thumbnailImage: "/images/peptides/sermorelin-thumbnail.png",
-    thumbnailAlt: "Sermorelin peptide — natural growth hormone support, sleep and lean mass",
   },
   {
     slug: "ghk-cu-injectable",
@@ -40,8 +35,6 @@ export const FEATURED_CLINIC_PEPTIDES: FeaturedClinicPeptide[] = [
     benefit: "Skin firmness, texture, hair & collagen",
     icon: "✨",
     accent: "#a85d2e",
-    thumbnailImage: "/images/peptides/ghk-cu-thumbnail.png",
-    thumbnailAlt: "GHK-Cu copper peptide — skin firmness, hair growth and collagen support",
   },
   {
     slug: "tesamorelin",
@@ -49,8 +42,6 @@ export const FEATURED_CLINIC_PEPTIDES: FeaturedClinicPeptide[] = [
     benefit: "GH axis & visceral fat / body composition",
     icon: "🎯",
     accent: "#6b4c9a",
-    thumbnailImage: "/images/peptides/tesamorelin-thumbnail.png",
-    thumbnailAlt: "Tesamorelin peptide — growth hormone axis and visceral fat support",
   },
   {
     slug: "pt-141",
@@ -58,8 +49,6 @@ export const FEATURED_CLINIC_PEPTIDES: FeaturedClinicPeptide[] = [
     benefit: "Libido & arousal support (men & women)",
     icon: "💫",
     accent: "#c2185b",
-    thumbnailImage: "/images/peptides/pt-141-thumbnail.png",
-    thumbnailAlt: "PT-141 peptide — libido and arousal support for men and women",
   },
   {
     slug: "nad-plus",
@@ -67,8 +56,6 @@ export const FEATURED_CLINIC_PEPTIDES: FeaturedClinicPeptide[] = [
     benefit: "Cellular energy, clarity & healthy aging",
     icon: "🔋",
     accent: "#1fa890",
-    thumbnailImage: "/images/peptides/nad-plus-thumbnail.png",
-    thumbnailAlt: "NAD+ peptide — cellular energy, mental clarity and healthy aging",
   },
 ];
 
@@ -76,7 +63,7 @@ export const PEPTIDE_CONSULT_SPECIAL = {
   price: "$49",
   label: "Peptide consultation",
   detail: "Medication priced separately after your personalized plan",
-  blogHref: "/blog/top-peptides-bpc157-sermorelin-ghk-cu-pt141-nad-49-consult-oswego-il",
+  blogHref: "/skin-101/find-your-peptide",
 };
 
 export function featuredPeptideNavLinks() {
@@ -88,10 +75,4 @@ export function featuredPeptideNavLinks() {
   }));
 }
 
-const PEPTIDE_THUMBNAIL_BY_SLUG = Object.fromEntries(
-  FEATURED_CLINIC_PEPTIDES.map((p) => [p.slug, { src: p.thumbnailImage, alt: p.thumbnailAlt }]),
-) as Record<string, { src: `/${string}`; alt: string }>;
-
-export function getPeptideThumbnail(slug: string): { src: `/${string}`; alt: string } | undefined {
-  return PEPTIDE_THUMBNAIL_BY_SLUG[slug];
-}
+export { getPeptideThumbnail };

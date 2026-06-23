@@ -1,8 +1,10 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 
 import { FadeUp, Section } from "@/components/Section";
+import { getPeptideThumbnail } from "@/lib/peptide-thumbnails";
 import {
   PEPTIDE_HANDOUT_CATEGORIES,
   PEPTIDE_HANDOUTS,
@@ -12,9 +14,16 @@ import {
 
 function HandoutCard({ handout }: { handout: PeptideHandout }) {
   const href = peptideHandoutHref(handout.filename);
+  const thumbnail = handout.thumbnailSlug ? getPeptideThumbnail(handout.thumbnailSlug) : undefined;
 
   return (
-    <article className="flex h-full flex-col rounded-2xl border-4 border-black bg-white p-5 shadow-[6px_6px_0_0_rgba(230,0,126,0.25)] transition hover:border-[#E6007E]/60">
+    <article className="flex h-full flex-col overflow-hidden rounded-2xl border-4 border-black bg-white shadow-[6px_6px_0_0_rgba(230,0,126,0.25)] transition hover:border-[#E6007E]/60">
+      {thumbnail ? (
+        <div className="relative aspect-video border-b-4 border-black">
+          <Image src={thumbnail.src} alt={thumbnail.alt} fill className="object-cover" sizes="400px" />
+        </div>
+      ) : null}
+      <div className="flex flex-1 flex-col p-5">
       <div className="flex flex-wrap items-start justify-between gap-2">
         <p className="text-[10px] font-bold uppercase tracking-widest text-[#E6007E]">{handout.series}</p>
         {handout.badge ? (
@@ -52,6 +61,7 @@ function HandoutCard({ handout }: { handout: PeptideHandout }) {
             Print / Save PDF
           </a>
         )}
+      </div>
       </div>
     </article>
   );

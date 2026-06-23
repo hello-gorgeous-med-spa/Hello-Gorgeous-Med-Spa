@@ -7,6 +7,7 @@ import { PeptidesPageHero } from "@/components/peptides/PeptidesPageHero";
 import { CTA } from "@/components/CTA";
 import { FadeUp, Section } from "@/components/Section";
 import { PeppiHeroSection } from "@/components/PeppiHeroSection";
+import { PeptideEducationGallery } from "@/components/peptides/PeptideEducationGallery";
 import { PeptideEducationSection } from "@/components/peptides/PeptideEducationSection";
 import { PeptideHandoutsSection } from "@/components/peptides/PeptideHandoutsSection";
 import { FeaturedPeptidesSection } from "@/components/peptides/FeaturedPeptidesSection";
@@ -296,6 +297,8 @@ export default function PeptidesPage() {
       </Section>
 
       <PeptidesHubGrid />
+
+      <PeptideEducationGallery />
 
       <PeptideHandoutsSection />
 
