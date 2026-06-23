@@ -92,6 +92,23 @@ export const SKIN_101_GUIDES: Skin101Guide[] = [
     ],
   },
   {
+    slug: "find-your-peptide",
+    path: `${SKIN_101_PATH}/find-your-peptide`,
+    title: "Find Your Peptide",
+    shortTitle: "Find Your Peptide",
+    tagline: "Match your goals to the right compound",
+    excerpt:
+      "Nine wellness goal categories — skin, recovery, energy, weight, sleep & more — mapped to BPC-157, Sermorelin, NAD+, GHK-Cu, PT-141 and others. Bring it to your $49 consult.",
+    thumbnailImage: "/images/peptides/peptide-cheat-sheet-full.png",
+    thumbnailAlt: "Find your peptide — goal-based guide from Hello Gorgeous Oswego",
+    badge: "NEW",
+    relatedServiceLinks: [
+      { label: "Peptide Therapy Hub", href: "/peptides" },
+      { label: "Peptides 101", href: `${SKIN_101_PATH}/peptides-101` },
+      { label: "$49 Peptide Consult", href: "/book" },
+    ],
+  },
+  {
     slug: "peptides-101",
     path: `${SKIN_101_PATH}/peptides-101`,
     title: "Peptides 101",
@@ -104,6 +121,7 @@ export const SKIN_101_GUIDES: Skin101Guide[] = [
     badge: "NEW",
     pdfPath: "/handouts/education/peptides-101-guide.pdf",
     relatedServiceLinks: [
+      { label: "Find Your Peptide", href: `${SKIN_101_PATH}/find-your-peptide` },
       { label: "Peptide Therapy Hub", href: "/peptides" },
       { label: "Peptide Therapy — Oswego", href: "/peptide-therapy-oswego" },
       { label: "$49 Peptide Consult", href: "/book" },

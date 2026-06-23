@@ -130,6 +130,48 @@ export default function PeptidesPage() {
 
       <FeaturedPeptidesSection />
 
+      <Section className="border-b-4 border-black bg-[#FFF0F7]">
+        <FadeUp>
+          <div className="max-w-5xl mx-auto rounded-3xl border-4 border-black bg-white p-6 md:p-8 shadow-[8px_8px_0_0_rgba(230,0,126,0.35)]">
+            <div className="flex flex-col md:flex-row md:items-center gap-6">
+              <div className="relative h-40 w-full md:h-32 md:w-48 shrink-0 rounded-2xl border-2 border-black overflow-hidden bg-black">
+                <Image
+                  src="/images/peptides/peptide-cheat-sheet-full.png"
+                  alt="Find your peptide — goal-based guide"
+                  fill
+                  className="object-contain p-2"
+                  sizes="(max-width: 768px) 100vw, 192px"
+                />
+              </div>
+              <div className="flex-1">
+                <p className="text-[10px] font-bold uppercase tracking-widest text-[#E6007E]">New · Hello Gorgeous RX™</p>
+                <h2 className="mt-1 text-2xl md:text-3xl font-black text-black">
+                  Find Your Peptide
+                </h2>
+                <p className="mt-2 text-black/75 leading-relaxed">
+                  Match your goals — skin, recovery, energy, weight, sleep & more — to the peptides our NP-led team
+                  most commonly discusses. Interactive guide + printable handout.
+                </p>
+                <div className="mt-4 flex flex-col sm:flex-row gap-3">
+                  <Link
+                    href="/skin-101/find-your-peptide"
+                    className="inline-flex min-h-[44px] items-center justify-center rounded-full bg-[#E6007E] px-5 py-2.5 text-sm font-bold text-white hover:bg-[#c9006e] transition"
+                  >
+                    Open the guide →
+                  </Link>
+                  <Link
+                    href="/skin-101/peptides-101"
+                    className="inline-flex min-h-[44px] items-center justify-center rounded-full border-2 border-black px-5 py-2.5 text-sm font-semibold text-black hover:bg-black hover:text-white transition"
+                  >
+                    Peptides 101 first
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
+        </FadeUp>
+      </Section>
+
       {/* Peppi AI Expert Section */}
       <Section id="peppi" className="bg-gradient-to-b from-white via-fuchsia-50/30 to-white">
         <FadeUp>
@@ -277,10 +319,10 @@ export default function PeptidesPage() {
             </p>
             <p className="mt-4 max-w-2xl mx-auto">
               <Link
-                href="/blog/which-peptide-is-right-for-you-oswego-il"
+                href="/skin-101/find-your-peptide"
                 className="inline-flex items-center gap-2 text-[#FF2D8E] font-semibold underline decoration-[#E6007E] underline-offset-4 hover:text-[#E6007E]"
               >
-                Not sure where to start? Read our goal-based peptide fit guide →
+                Not sure where to start? Find your peptide by goal →
               </Link>
             </p>
           </div>

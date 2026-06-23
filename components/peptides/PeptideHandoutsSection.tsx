@@ -26,7 +26,7 @@ function HandoutCard({ handout }: { handout: PeptideHandout }) {
       <h3 className="mt-2 text-lg font-black leading-snug text-black">{handout.title}</h3>
       <p className="mt-2 flex-1 text-sm leading-relaxed text-black/75">{handout.description}</p>
       <p className="mt-3 text-xs font-medium text-black/45">{handout.pages}-page printable handout · Prepared by Danielle Alcala-Glazier</p>
-      <div className="mt-4 flex flex-col gap-2 sm:flex-row">
+        <div className="mt-4 flex flex-col gap-2 sm:flex-row">
         <a
           href={href}
           target="_blank"
@@ -35,14 +35,23 @@ function HandoutCard({ handout }: { handout: PeptideHandout }) {
         >
           View handout →
         </a>
-        <a
-          href={href}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex min-h-[44px] flex-1 items-center justify-center rounded-full border-2 border-black px-4 py-2.5 text-sm font-semibold text-black transition hover:bg-black hover:text-white"
-        >
-          Print / Save PDF
-        </a>
+        {handout.id === "find-your-peptide" ? (
+          <Link
+            href="/skin-101/find-your-peptide"
+            className="inline-flex min-h-[44px] flex-1 items-center justify-center rounded-full border-2 border-[#E6007E] px-4 py-2.5 text-sm font-semibold text-[#E6007E] transition hover:bg-[#E6007E] hover:text-white"
+          >
+            Interactive guide →
+          </Link>
+        ) : (
+          <a
+            href={href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex min-h-[44px] flex-1 items-center justify-center rounded-full border-2 border-black px-4 py-2.5 text-sm font-semibold text-black transition hover:bg-black hover:text-white"
+          >
+            Print / Save PDF
+          </a>
+        )}
       </div>
     </article>
   );

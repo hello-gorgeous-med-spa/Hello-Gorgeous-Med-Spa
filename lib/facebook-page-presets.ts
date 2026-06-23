@@ -214,6 +214,28 @@ Read the guide (Oswego, IL) 👇`,
   defaultChannels: ["facebook", "instagram", "google"],
 };
 
+export const FACEBOOK_PAGE_PRESET_FIND_YOUR_PEPTIDE: FacebookPagePreset = {
+  id: "find-your-peptide-guide",
+  label: "Find Your Peptide — goal matcher",
+  blurb: "Interactive guide — match goals to BPC-157, Sermorelin, NAD+ & more.",
+  message: `Which peptide is right for YOU? 🤔
+
+We just published our goal-based peptide guide — free on our site:
+
+✨ Skin & anti-aging → GHK-Cu, NAD+, Glutathione
+🏃 Recovery → BPC-157, TB-500
+⚡ Energy & longevity → NAD+, Sermorelin
+⚖️ Body composition → Tesamorelin, Tirzepatide
+💫 Intimacy → PT-141
+
+Nine goal categories · 12+ peptide profiles · NP-led $49 consult in downtown Oswego.
+
+Not sure where to start? This is it 👇`,
+  linkPath: withUtm("/skin-101/find-your-peptide"),
+  imagePath: "/images/peptides/peptide-cheat-sheet-full.png",
+  defaultChannels: ["facebook", "google"],
+};
+
 export const FACEBOOK_PAGE_PRESET_FOUNDER_LETTER: FacebookPagePreset = {
   id: "founder-letter",
   label: "Founder's letter — My Jerry Maguire Moment",
@@ -546,6 +568,7 @@ export const FACEBOOK_PAGE_PRESETS: FacebookPagePreset[] = [
   FACEBOOK_PAGE_PRESET_BOTOX_COMPARE,
   FACEBOOK_PAGE_PRESET_BOTOX_NAPERVILLE,
   FACEBOOK_PAGE_PRESET_PEPTIDE_49,
+  FACEBOOK_PAGE_PRESET_FIND_YOUR_PEPTIDE,
   FACEBOOK_PAGE_PRESET_INJECTION_MENU,
   FACEBOOK_PAGE_PRESET_PEPTIDE_BPC157,
   FACEBOOK_PAGE_PRESET_PEPTIDE_SERMORELIN,
@@ -583,13 +606,13 @@ export const SUGGESTED_WEEK_PRESET_IDS: string[] = [
 
 /** All-peptide 7-day blitz (optional). */
 export const SUGGESTED_PEPTIDE_WEEK_PRESET_IDS: string[] = [
+  "find-your-peptide-guide",
   "peptide-49-consult",
   "peptide-injection-menu",
   "peptide-bpc157",
   "peptide-sermorelin",
   "peptide-naperville",
   "peptide-top6-blog",
-  "book-consult",
 ];
 
 /** All-Botox 7-day blitz (optional) — to fight HER / Smooth on neurotoxins. */

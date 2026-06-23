@@ -8,6 +8,7 @@ import { FUNNEL_DEFINITIONS } from '@/lib/funnels';
 import { AREA_PAGES, FAQ_CLUSTER_PAGES, RECOVERY_PAGES } from '@/lib/topical-expansion';
 import { SERVICE_PAGE_OSWEGO_SLUGS } from '@/lib/service-pages-oswego';
 import { getPublishedPeptideTopics, PEPTIDES_HUB_PATH } from '@/lib/peptides-hub';
+import { SKIN_101_GUIDES, SKIN_101_PATH } from '@/lib/skin-101-nav';
 
 // ============================================================
 // SITEMAP - Auto-generates for Google indexing
@@ -782,6 +783,21 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })),
   ];
 
+  const skin101Pages: MetadataRoute.Sitemap = [
+    {
+      url: `${baseUrl}${SKIN_101_PATH}`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly' as const,
+      priority: 0.9,
+    },
+    ...SKIN_101_GUIDES.map((guide) => ({
+      url: `${baseUrl}${guide.path}`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly' as const,
+      priority: guide.slug === 'find-your-peptide' ? 0.92 : 0.88,
+    })),
+  ];
+
   // City hub pages (/{city}-il) + their service sub-pages (/{city}-il/{service}) and the
   // /locations index — these are dedicated app routes, previously only reachable via footer.
   const CITY_HUB_SLUGS = [
@@ -878,6 +894,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...laserHairMembershipPages,
     ...springBreakPages,
     ...peptideHubPages,
+    ...skin101Pages,
     ...canonicalDestinations,
   ];
 

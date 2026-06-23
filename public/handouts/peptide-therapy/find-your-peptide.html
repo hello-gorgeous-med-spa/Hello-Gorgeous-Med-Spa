@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hello Gorgeous — Find Your Peptide</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy: #1A2B4A;
+    --rose: #C4607A;
+    --blush: #F9EEF0;
+    --mauve: #E8D5D9;
+    --cream: #FDFBFB;
+    --text: #2C3E50;
+    --muted: #7A8899;
+    --white: #ffffff;
+  }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--cream);
+    color: var(--text);
+    font-size: 13px;
+    line-height: 1.6;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* ── PAGE WRAPPER ── */
+  .page {
+    max-width: 850px;
+    margin: 0 auto;
+    background: var(--cream);
+  }
+
+  /* ── HERO ── */
+  .hero {
+    background: var(--navy);
+    padding: 48px 52px 40px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 280px; height: 280px;
+    border-radius: 50%;
+    background: rgba(196, 96, 122, 0.15);
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -80px; left: 200px;
+    width: 200px; height: 200px;
+    border-radius: 50%;
+    background: rgba(196, 96, 122, 0.08);
+  }
+  .hero-logo {
+    font-family: 'Playfair Display', serif;
+    color: var(--rose);
+    font-size: 13px;
+    font-style: italic;
+    letter-spacing: 0.08em;
+    margin-bottom: 20px;
+    opacity: 0.9;
+  }
+  .hero-eyebrow {
+    color: var(--rose);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    color: var(--white);
+    font-size: 42px;
+    font-weight: 700;
+    line-height: 1.15;
+    margin-bottom: 16px;
+    position: relative;
+    z-index: 1;
+  }
+  .hero h1 em {
+    color: var(--rose);
+    font-style: italic;
+  }
+  .hero-sub {
+    color: rgba(255,255,255,0.72);
+    font-size: 13.5px;
+    font-weight: 300;
+    max-width: 480px;
+    line-height: 1.7;
+    position: relative;
+    z-index: 1;
+  }
+  .hero-divider {
+    width: 48px;
+    height: 2px;
+    background: var(--rose);
+    margin: 20px 0;
+  }
+
+  /* ── INTRO STRIP ── */
+  .intro-strip {
+    background: var(--blush);
+    border-top: 3px solid var(--rose);
+    padding: 22px 52px;
+    display: flex;
+    gap: 32px;
+    align-items: flex-start;
+  }
+  .intro-step {
+    flex: 1;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .step-num {
+    background: var(--rose);
+    color: white;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .intro-step p {
+    font-size: 12px;
+    color: var(--navy);
+    line-height: 1.55;
+  }
+  .intro-step strong { font-weight: 600; display: block; margin-bottom: 2px; }
+
+  /* ── SECTION HEADERS ── */
+  .section-header {
+    padding: 30px 52px 0;
+  }
+  .section-label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--rose);
+    margin-bottom: 6px;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px;
+    color: var(--navy);
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .section-subtitle {
+    color: var(--muted);
+    font-size: 12px;
+    font-weight: 300;
+  }
+
+  /* ── GOAL GRID ── */
+  .goal-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+    padding: 20px 52px 32px;
+  }
+  .goal-card {
+    background: var(--white);
+    border: 1.5px solid var(--mauve);
+    border-radius: 12px;
+    padding: 20px 18px;
+    position: relative;
+    transition: border-color 0.2s;
+  }
+  .goal-card:hover { border-color: var(--rose); }
+  .goal-icon {
+    font-size: 22px;
+    margin-bottom: 10px;
+    display: block;
+  }
+  .goal-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 6px;
+    line-height: 1.25;
+  }
+  .goal-desc {
+    font-size: 11px;
+    color: var(--muted);
+    line-height: 1.6;
+    margin-bottom: 12px;
+  }
+  .peptide-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+  }
+  .ptag {
+    background: var(--blush);
+    color: var(--rose);
+    font-size: 10px;
+    font-weight: 600;
+    padding: 3px 9px;
+    border-radius: 20px;
+    letter-spacing: 0.03em;
+    border: 1px solid var(--mauve);
+  }
+  .goal-card .corner-accent {
+    position: absolute;
+    top: 14px; right: 14px;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--rose);
+    opacity: 0.4;
+  }
+
+  /* ── PEPTIDE PROFILES ── */
+  .profiles-section {
+    background: var(--navy);
+    padding: 36px 52px;
+    position: relative;
+  }
+  .profiles-section .section-label { color: var(--rose); }
+  .profiles-section .section-title { color: var(--white); margin-bottom: 20px; }
+
+  .profile-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+  .profile-card {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 10px;
+    padding: 16px 18px;
+    border-left: 3px solid var(--rose);
+  }
+  .profile-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 2px;
+  }
+  .profile-subtitle {
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--rose);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .profile-desc {
+    font-size: 11px;
+    color: rgba(255,255,255,0.65);
+    line-height: 1.6;
+    margin-bottom: 10px;
+  }
+  .profile-best {
+    font-size: 10.5px;
+    color: rgba(255,255,255,0.5);
+  }
+  .profile-best strong {
+    color: rgba(255,255,255,0.8);
+    font-weight: 500;
+  }
+  .profile-dosing {
+    margin-top: 8px;
+    font-size: 10px;
+    background: rgba(196,96,122,0.15);
+    color: rgba(255,255,255,0.7);
+    padding: 5px 10px;
+    border-radius: 6px;
+    display: inline-block;
+  }
+
+  /* ── COMPARISON TABLE ── */
+  .comparison-section {
+    padding: 32px 52px;
+  }
+  .compare-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 18px;
+    font-size: 11.5px;
+  }
+  .compare-table thead tr {
+    background: var(--navy);
+    color: white;
+  }
+  .compare-table thead th {
+    padding: 10px 14px;
+    text-align: left;
+    font-weight: 500;
+    font-size: 10.5px;
+    letter-spacing: 0.05em;
+  }
+  .compare-table thead th:first-child {
+    border-radius: 8px 0 0 0;
+  }
+  .compare-table thead th:last-child {
+    border-radius: 0 8px 0 0;
+  }
+  .compare-table tbody tr:nth-child(even) {
+    background: var(--blush);
+  }
+  .compare-table tbody tr:nth-child(odd) {
+    background: var(--white);
+  }
+  .compare-table tbody td {
+    padding: 9px 14px;
+    border-bottom: 1px solid var(--mauve);
+    vertical-align: top;
+    line-height: 1.5;
+  }
+  .compare-table tbody td:first-child {
+    font-weight: 600;
+    color: var(--navy);
+    white-space: nowrap;
+  }
+  .check { color: var(--rose); font-weight: 700; }
+  .dash { color: var(--muted); }
+
+  /* ── WHAT TO EXPECT ── */
+  .expect-section {
+    background: var(--blush);
+    padding: 32px 52px;
+    border-top: 2px solid var(--mauve);
+  }
+  .expect-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 16px;
+    margin-top: 20px;
+  }
+  .expect-item {
+    text-align: center;
+    padding: 20px 14px;
+    background: white;
+    border-radius: 10px;
+    border: 1px solid var(--mauve);
+  }
+  .expect-icon { font-size: 24px; margin-bottom: 8px; display: block; }
+  .expect-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--navy);
+    margin-bottom: 4px;
+  }
+  .expect-detail { font-size: 10.5px; color: var(--muted); line-height: 1.5; }
+
+  /* ── IMPORTANT NOTES ── */
+  .notes-section {
+    padding: 28px 52px;
+    background: var(--white);
+  }
+  .notes-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-top: 16px;
+  }
+  .note-box {
+    border-left: 3px solid var(--rose);
+    padding: 14px 16px;
+    background: var(--blush);
+    border-radius: 0 8px 8px 0;
+  }
+  .note-title {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--navy);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 6px;
+  }
+  .note-text { font-size: 11px; color: var(--text); line-height: 1.6; }
+
+  /* ── CTA / FOOTER ── */
+  .cta-bar {
+    background: var(--rose);
+    padding: 32px 52px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+  }
+  .cta-left h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    color: white;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .cta-left p {
+    color: rgba(255,255,255,0.82);
+    font-size: 12px;
+    font-weight: 300;
+  }
+  .cta-contact {
+    text-align: right;
+    flex-shrink: 0;
+  }
+  .cta-contact p {
+    color: white;
+    font-size: 12px;
+    line-height: 1.8;
+    font-weight: 300;
+  }
+  .cta-contact strong { font-weight: 600; display: block; font-size: 13px; }
+
+  .footer {
+    background: var(--navy);
+    padding: 16px 52px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .footer-brand {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    color: var(--rose);
+    font-size: 14px;
+  }
+  .footer-disclaimer {
+    font-size: 9.5px;
+    color: rgba(255,255,255,0.35);
+    max-width: 500px;
+    text-align: right;
+    line-height: 1.5;
+  }
+
+  /* ── DIVIDERS ── */
+  .wave-divider { height: 12px; background: var(--blush); }
+
+  @media print {
+    body { font-size: 11px; }
+    .hero h1 { font-size: 34px; }
+    .page { max-width: 100%; }
+    .goal-grid { grid-template-columns: 1fr 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ── HERO ── -->
+  <div class="hero">
+    <div class="hero-logo">hello gorgeous · peptide wellness</div>
+    <div class="hero-eyebrow">Your Personalized Guide</div>
+    <h1>Which peptide is<br><em>right for you?</em></h1>
+    <div class="hero-divider"></div>
+    <p class="hero-sub">Not every peptide is for everyone — and that's the point. This guide helps you match your health goals to the compounds our providers most commonly discuss. Bring it to your consultation and let's build your plan together.</p>
+  </div>
+
+  <!-- ── HOW TO USE ── -->
+  <div class="intro-strip">
+    <div class="intro-step">
+      <div class="step-num">1</div>
+      <p><strong>Identify Your Goals</strong>Find your primary focus in the "Start With Your Goal" section below.</p>
+    </div>
+    <div class="intro-step">
+      <div class="step-num">2</div>
+      <p><strong>Explore Your Options</strong>Read the peptide profiles that match — each one does something specific.</p>
+    </div>
+    <div class="intro-step">
+      <div class="step-num">3</div>
+      <p><strong>Book a Consultation</strong>Our NP-led team will review your history and create your personalized protocol.</p>
+    </div>
+  </div>
+
+  <!-- ── GOAL GRID ── -->
+  <div class="section-header">
+    <div class="section-label">Step One</div>
+    <div class="section-title">Start With Your Goal</div>
+    <div class="section-subtitle">Select the area that matters most to you right now</div>
+  </div>
+
+  <div class="goal-grid">
+
+    <div class="goal-card">
+      <div class="corner-accent"></div>
+      <span class="goal-icon">✨</span>
+      <div class="goal-name">Skin, Hair & Anti-Aging</div>
+      <div class="goal-desc">Improving skin firmness, radiance, fine lines, hair thickness, and overall glow from within.</div>
+      <div class="peptide-tags">
+        <span class="ptag">GHK-Cu</span>
+        <span class="ptag">Glutathione</span>
+        <span class="ptag">NAD+</span>
+        <span class="ptag">K-Glow</span>
+        <span class="ptag">Epithalon</span>
+      </div>
+    </div>
+
+    <div class="goal-card">
+      <div class="corner-accent"></div>
+      <span class="goal-icon">🏃</span>
+      <div class="goal-name">Recovery & Healing</div>
+      <div class="goal-desc">Faster recovery from workouts, injuries, surgery, or chronic tissue discomfort.</div>
+      <div class="peptide-tags">
+        <span class="ptag">BPC-157</span>
+        <span class="ptag">TB-500</span>
+        <span class="ptag">HEAL Blend</span>
+        <span class="ptag">Amino Blend</span>
+      </div>
+    </div>
+
+    <div class="goal-card">
+      <div class="corner-accent"></div>
+      <span class="goal-icon">⚡</span>
+      <div class="goal-name">Energy & Longevity</div>
+      <div class="goal-desc">More sustained energy, mental clarity, cellular health, and slowing the aging process.</div>
+      <div class="peptide-tags">
+        <span class="ptag">NAD+</span>
+        <span class="ptag">MOTS-c</span>
+        <span class="ptag">Epithalon</span>
+        <span class="ptag">Sermorelin</span>
+      </div>
+    </div>
+
+    <div class="goal-card">
+      <div class="corner-accent"></div>
+      <span class="goal-icon">⚖️</span>
+      <div class="goal-name">Weight & Body Composition</div>
+      <div class="goal-desc">Reducing excess fat, building lean muscle, and improving metabolic health markers.</div>
+      <div class="peptide-tags">
+        <span class="ptag">Tirzepatide</span>
+        <span class="ptag">Tesamorelin</span>
+        <span class="ptag">AOD-9604</span>
+        <span class="ptag">Sermorelin</span>
+        <span class="ptag">Ipamorelin</span>
+      </div>
+    </div>
+
+    <div class="goal-card">
+      <div class="corner-accent"></div>
+      <span class="goal-icon">🧠</span>
+      <div class="goal-name">Focus & Brain Health</div>
+      <div class="goal-desc">Mental clarity, reduced brain fog, cognitive sharpness, and mood stability.</div>
+      <div class="peptide-tags">
+        <span class="ptag">NAD+</span>
+        <span class="ptag">Semax</span>
+        <span class="ptag">Selank</span>
+        <span class="ptag">Sermorelin</span>
+      </div>
+    </div>
+
+    <div class="goal-card">
+      <div class="corner-accent"></div>
+      <span class="goal-icon">🛡️</span>
+      <div class="goal-name">Immune & Inflammation</div>
+      <div class="goal-desc">Managing chronic inflammation, autoimmune support, and strengthening immune response.</div>
+      <div class="peptide-tags">
+        <span class="ptag">Low-Dose Naltrexone</span>
+        <span class="ptag">Glutathione</span>
+        <span class="ptag">BPC-157</span>
+        <span class="ptag">TB-500</span>
+      </div>
+    </div>
+
+    <div class="goal-card">
+      <div class="corner-accent"></div>
+      <span class="goal-icon">🌙</span>
+      <div class="goal-name">Sleep & Restoration</div>
+      <div class="goal-desc">Deeper, more restorative sleep and improved overnight recovery and repair.</div>
+      <div class="peptide-tags">
+        <span class="ptag">Sermorelin</span>
+        <span class="ptag">Ipamorelin</span>
+        <span class="ptag">CJC-1295</span>
+        <span class="ptag">Epithalon</span>
+      </div>
+    </div>
+
+    <div class="goal-card">
+      <div class="corner-accent"></div>
+      <span class="goal-icon">💪</span>
+      <div class="goal-name">Gut Health & Digestion</div>
+      <div class="goal-desc">Supporting gut lining integrity, reducing digestive discomfort, and gut-immune connection.</div>
+      <div class="peptide-tags">
+        <span class="ptag">BPC-157</span>
+        <span class="ptag">Low-Dose Naltrexone</span>
+        <span class="ptag">Glutathione</span>
+      </div>
+    </div>
+
+    <div class="goal-card">
+      <div class="corner-accent"></div>
+      <span class="goal-icon">💫</span>
+      <div class="goal-name">Intimacy & Vitality</div>
+      <div class="goal-desc">Supporting sexual wellness, desire, confidence, and overall quality of life.</div>
+      <div class="peptide-tags">
+        <span class="ptag">PT-141</span>
+        <span class="ptag">NAD+</span>
+        <span class="ptag">Sermorelin</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ── PEPTIDE PROFILES ── -->
+  <div class="profiles-section">
+    <div class="section-label">Step Two</div>
+    <div class="section-title">Meet the Peptides</div>
+
+    <div class="profile-grid">
+
+      <div class="profile-card">
+        <div class="profile-name">GHK-Cu</div>
+        <div class="profile-subtitle">The Copper Peptide</div>
+        <div class="profile-desc">A naturally occurring copper-binding peptide that supports collagen signaling, skin renewal, scalp health, and antioxidant defense.</div>
+        <div class="profile-best"><strong>Best for:</strong> Skin firmness, fine lines, hair thinning, post-procedure healing</div>
+        <div class="profile-dosing">Topical or injectable · 1–2 mg/day</div>
+      </div>
+
+      <div class="profile-card">
+        <div class="profile-name">BPC-157</div>
+        <div class="profile-subtitle">Body Protection Compound</div>
+        <div class="profile-desc">A synthetic peptide derived from a gastric protein. Studied for tissue repair, gut lining support, tendon and ligament recovery, and inflammation modulation.</div>
+        <div class="profile-best"><strong>Best for:</strong> Injury recovery, gut health, joint discomfort, post-surgical healing</div>
+        <div class="profile-dosing">Injectable · 250–500 mcg/day</div>
+      </div>
+
+      <div class="profile-card">
+        <div class="profile-name">TB-500</div>
+        <div class="profile-subtitle">The Wolverine Peptide™</div>
+        <div class="profile-desc">A synthetic version of Thymosin Beta-4. Promotes cell migration to injured areas, reduces inflammation, and supports new blood vessel formation for whole-body healing.</div>
+        <div class="profile-best"><strong>Best for:</strong> Muscle tears, chronic injury, athletic performance, vascular health</div>
+        <div class="profile-dosing">Injectable · 2–5 mg/week</div>
+      </div>
+
+      <div class="profile-card">
+        <div class="profile-name">NAD+</div>
+        <div class="profile-subtitle">Cellular Energy & Longevity</div>
+        <div class="profile-desc">A coenzyme central to mitochondrial function, DNA repair, and cellular aging. Levels decline with age; replenishment supports energy, brain function, and resilience.</div>
+        <div class="profile-best"><strong>Best for:</strong> Energy, brain fog, healthy aging, metabolism, recovery</div>
+        <div class="profile-dosing">IV or injection · 250–500 mg/day</div>
+      </div>
+
+      <div class="profile-card">
+        <div class="profile-name">Glutathione</div>
+        <div class="profile-subtitle">The Master Antioxidant™</div>
+        <div class="profile-desc">The body's primary antioxidant, made from three amino acids. Essential for detoxification, immune defense, skin brightness, and reducing oxidative stress at the cellular level.</div>
+        <div class="profile-best"><strong>Best for:</strong> Skin radiance, detox, immune support, anti-aging</div>
+        <div class="profile-dosing">IV, injection, or oral · 100–300 mg/day</div>
+      </div>
+
+      <div class="profile-card">
+        <div class="profile-name">Sermorelin</div>
+        <div class="profile-subtitle">Growth Hormone Support</div>
+        <div class="profile-desc">A synthetic GHRH analogue that stimulates the pituitary to release growth hormone naturally — supporting sleep, body composition, recovery, and vitality.</div>
+        <div class="profile-best"><strong>Best for:</strong> Sleep quality, lean muscle, energy, healthy aging</div>
+        <div class="profile-dosing">Injectable · Provider-directed dosing</div>
+      </div>
+
+      <div class="profile-card">
+        <div class="profile-name">Tirzepatide</div>
+        <div class="profile-subtitle">Metabolic Wellness Support</div>
+        <div class="profile-desc">An incretin-based prescription medication that regulates appetite and glucose metabolism. Used in medically supervised weight management and metabolic wellness programs.</div>
+        <div class="profile-best"><strong>Best for:</strong> Weight loss, appetite control, metabolic health</div>
+        <div class="profile-dosing">Injectable · Prescription only</div>
+      </div>
+
+      <div class="profile-card">
+        <div class="profile-name">Tesamorelin</div>
+        <div class="profile-subtitle">Body Composition Support</div>
+        <div class="profile-desc">A GHRH analogue that stimulates growth hormone release. FDA-approved in specific populations and used in provider-guided settings for visceral fat and metabolic goals.</div>
+        <div class="profile-best"><strong>Best for:</strong> Visceral fat, body composition, metabolic wellness</div>
+        <div class="profile-dosing">Injectable · Provider-directed dosing</div>
+      </div>
+
+      <div class="profile-card">
+        <div class="profile-name">Low-Dose Naltrexone</div>
+        <div class="profile-subtitle">Immune Modulation</div>
+        <div class="profile-desc">At micro-doses, temporarily blocks opioid receptors triggering a rebound in endorphins and immune regulation. Used off-label for chronic inflammation and autoimmune support.</div>
+        <div class="profile-best"><strong>Best for:</strong> Inflammation, autoimmune conditions, pain, mood, gut health</div>
+        <div class="profile-dosing">Oral capsule · 1.5–4.5 mg/day</div>
+      </div>
+
+      <div class="profile-card">
+        <div class="profile-name">Ipamorelin / CJC-1295</div>
+        <div class="profile-subtitle">GH Signaling Stack</div>
+        <div class="profile-desc">Often combined: Ipamorelin mimics ghrelin to pulse GH release, while CJC-1295 extends the signal. Together they support sleep, lean muscle, and recovery.</div>
+        <div class="profile-best"><strong>Best for:</strong> Sleep, muscle recovery, body composition, performance</div>
+        <div class="profile-dosing">Injectable · Provider-directed dosing</div>
+      </div>
+
+      <div class="profile-card">
+        <div class="profile-name">Semax & Selank</div>
+        <div class="profile-subtitle">Cognitive Wellness</div>
+        <div class="profile-desc">Neuropeptide analogues studied for cognitive support and stress-response signaling. Semax targets focus and mental performance; Selank targets calm and resilience.</div>
+        <div class="profile-best"><strong>Best for:</strong> Brain fog, focus, stress, mental clarity</div>
+        <div class="profile-dosing">Nasal or injectable · Provider-directed</div>
+      </div>
+
+      <div class="profile-card">
+        <div class="profile-name">PT-141</div>
+        <div class="profile-subtitle">Sexual Wellness Support</div>
+        <div class="profile-desc">Bremelanotide — a peptide that acts on melanocortin receptors in the brain involved in sexual desire and arousal. Non-hormonal option for intimacy support.</div>
+        <div class="profile-best"><strong>Best for:</strong> Libido, intimacy, sexual wellness (men & women)</div>
+        <div class="profile-dosing">Subcutaneous injection · Provider-directed</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── QUICK COMPARE ── -->
+  <div class="comparison-section">
+    <div class="section-label">Quick Reference</div>
+    <div class="section-title">At-a-Glance Comparison</div>
+    <div class="section-subtitle">Use this to see which peptides overlap across multiple goals</div>
+
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th>Peptide</th>
+          <th>Skin/Hair</th>
+          <th>Recovery</th>
+          <th>Energy</th>
+          <th>Weight</th>
+          <th>Sleep</th>
+          <th>Brain</th>
+          <th>Immune</th>
+          <th>Rx Required</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>GHK-Cu</td><td class="check">✓</td><td class="check">✓</td><td class="dash">—</td><td class="dash">—</td><td class="dash">—</td><td class="dash">—</td><td class="dash">—</td><td class="dash">—</td></tr>
+        <tr><td>BPC-157</td><td class="dash">—</td><td class="check">✓</td><td class="dash">—</td><td class="dash">—</td><td class="dash">—</td><td class="dash">—</td><td class="check">✓</td><td class="dash">—</td></tr>
+        <tr><td>TB-500</td><td class="dash">—</td><td class="check">✓</td><td class="dash">—</td><td class="dash">—</td><td class="dash">—</td><td class="dash">—</td><td class="check">✓</td><td class="dash">—</td></tr>
+        <tr><td>NAD+</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="dash">—</td><td class="dash">—</td><td class="check">✓</td><td class="dash">—</td><td class="dash">—</td></tr>
+        <tr><td>Glutathione</td><td class="check">✓</td><td class="dash">—</td><td class="check">✓</td><td class="dash">—</td><td class="dash">—</td><td class="dash">—</td><td class="check">✓</td><td class="dash">—</td></tr>
+        <tr><td>Sermorelin</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="dash">—</td><td class="dash">—</td><td class="check">✓</td></tr>
+        <tr><td>Ipamorelin/CJC</td><td class="dash">—</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="dash">—</td><td class="dash">—</td><td class="check">✓</td></tr>
+        <tr><td>Tirzepatide</td><td class="dash">—</td><td class="dash">—</td><td class="dash">—</td><td class="check">✓</td><td class="dash">—</td><td class="dash">—</td><td class="dash">—</td><td class="check">✓</td></tr>
+        <tr><td>Tesamorelin</td><td class="dash">—</td><td class="dash">—</td><td class="dash">—</td><td class="check">✓</td><td class="dash">—</td><td class="dash">—</td><td class="dash">—</td><td class="check">✓</td></tr>
+        <tr><td>Low-Dose Naltrexone</td><td class="dash">—</td><td class="dash">—</td><td class="check">✓</td><td class="dash">—</td><td class="check">✓</td><td class="dash">—</td><td class="check">✓</td><td class="check">✓</td></tr>
+        <tr><td>Semax / Selank</td><td class="dash">—</td><td class="dash">—</td><td class="check">✓</td><td class="dash">—</td><td class="dash">—</td><td class="check">✓</td><td class="dash">—</td><td class="check">✓</td></tr>
+        <tr><td>PT-141</td><td class="dash">—</td><td class="dash">—</td><td class="dash">—</td><td class="dash">—</td><td class="dash">—</td><td class="dash">—</td><td class="dash">—</td><td class="check">✓</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ── WHAT TO EXPECT ── -->
+  <div class="expect-section">
+    <div class="section-label">Your Journey</div>
+    <div class="section-title">What to Expect</div>
+    <div class="expect-grid">
+      <div class="expect-item">
+        <span class="expect-icon">🩺</span>
+        <div class="expect-label">Consultation</div>
+        <div class="expect-detail">A thorough review of your health history, goals, and labs before any protocol begins</div>
+      </div>
+      <div class="expect-item">
+        <span class="expect-icon">📋</span>
+        <div class="expect-label">Your Protocol</div>
+        <div class="expect-detail">A personalized plan tailored to your unique needs — not a one-size-fits-all package</div>
+      </div>
+      <div class="expect-item">
+        <span class="expect-icon">⏱️</span>
+        <div class="expect-label">Timeline</div>
+        <div class="expect-detail">Most peptides work over weeks to months. Consistency and patience are key to results</div>
+      </div>
+      <div class="expect-item">
+        <span class="expect-icon">🔄</span>
+        <div class="expect-label">Follow-Up</div>
+        <div class="expect-label" style="margin-top:4px;">Ongoing Check-ins</div>
+        <div class="expect-detail">Regular monitoring ensures your plan evolves as your body responds and goals shift</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── IMPORTANT NOTES ── -->
+  <div class="notes-section">
+    <div class="section-label">Before You Begin</div>
+    <div class="section-title">Important to Know</div>
+    <div class="notes-grid">
+      <div class="note-box">
+        <div class="note-title">🔬 Research Grade</div>
+        <div class="note-text">Many peptides are for research use only and not FDA-approved. Our team will guide you through what this means for your care and ensure appropriate use.</div>
+      </div>
+      <div class="note-box">
+        <div class="note-title">💊 Not One Size Fits All</div>
+        <div class="note-text">Peptides are not appropriate for everyone. Medical history, current medications, allergies, and lifestyle all factor into what's right for you.</div>
+      </div>
+      <div class="note-box">
+        <div class="note-title">🤰 Pregnancy & Breastfeeding</div>
+        <div class="note-text">Most peptides discussed here are not appropriate during pregnancy or breastfeeding. Always disclose your status to your provider.</div>
+      </div>
+      <div class="note-box">
+        <div class="note-title">📊 Individual Results Vary</div>
+        <div class="note-text">Results depend on your unique biology, consistency, lifestyle factors, and adherence to your provider-guided plan. No outcomes are guaranteed.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── CTA BAR ── -->
+  <div class="cta-bar">
+    <div class="cta-left">
+      <h3>Ready to Find Your Protocol?</h3>
+      <p>Your wellness journey is unique. Let's create a plan that's built around you — not built for everyone.</p>
+    </div>
+    <div class="cta-contact">
+      <strong>Book Your Consultation</strong>
+      <p>hellogorgeousmedspa.com<br>@hello.gorgeous.medspa<br>Scan QR to book instantly</p>
+    </div>
+  </div>
+
+  <!-- ── FOOTER ── -->
+  <div class="footer">
+    <div class="footer-brand">hello gorgeous · med spa</div>
+    <div class="footer-disclaimer">For educational purposes only. Not intended to diagnose, treat, cure, or prevent disease. All protocols require medical evaluation and provider guidance. Results vary. Always consult a licensed healthcare provider before beginning any wellness program.</div>
+  </div>
+
+</div>
+</body>
+</html>

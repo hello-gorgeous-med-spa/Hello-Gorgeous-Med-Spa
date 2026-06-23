@@ -19,6 +19,15 @@ export type PeptideHandoutCategory = {
 
 export const PEPTIDE_HANDOUTS: PeptideHandout[] = [
   {
+    id: "find-your-peptide",
+    title: "Find Your Peptide — Goal Matcher",
+    series: "Hello Gorgeous RX™",
+    filename: "find-your-peptide.html",
+    pages: 1,
+    description: "Match your wellness goals to BPC-157, Sermorelin, NAD+, GHK-Cu, PT-141 & more.",
+    badge: "NEW",
+  },
+  {
     id: "peptides-101",
     title: "Peptides 101 — Educational Cheat Sheet",
     series: "Patient Education Series",
@@ -136,7 +145,7 @@ export const PEPTIDE_HANDOUTS: PeptideHandout[] = [
 export const PEPTIDE_HANDOUT_CATEGORIES: PeptideHandoutCategory[] = [
   {
     heading: "Foundations & Reference",
-    handoutIds: ["peptides-101", "peptide-reference-list"],
+    handoutIds: ["find-your-peptide", "peptides-101", "peptide-reference-list"],
   },
   {
     heading: "Peptides, Skin & Recovery",
