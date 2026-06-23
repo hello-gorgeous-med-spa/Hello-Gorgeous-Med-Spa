@@ -19,6 +19,10 @@
     "import-square-hg-rx": "npx tsx scripts/import-hg-rx-to-square.ts",
     "import-square-hg-rx:local": "npx tsx --env-file=.env.local scripts/import-hg-rx-to-square.ts",
     "import-square-hg-rx:dry-run": "npx tsx scripts/import-hg-rx-to-square.ts --dry-run",
+    "upload-square-hg-rx-images": "npx tsx scripts/upload-hg-rx-square-images.ts",
+    "upload-square-hg-rx-images:local": "npx tsx --env-file=.env.local scripts/upload-hg-rx-square-images.ts",
+    "upload-square-hg-rx-images:dry-run": "npx tsx scripts/upload-hg-rx-square-images.ts --dry-run",
+    "generate-peptide-picker-images": "node scripts/generate-peptide-picker-images.mjs",
     "import-fresha-clients": "node --env-file=.env.local scripts/import-fresha-clients.mjs",
     "import-fresha-appointments": "node --env-file=.env.local scripts/import-fresha-appointments.mjs",
     "test:ai-concierge": "node scripts/test-ai-concierge.mjs"

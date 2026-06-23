@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-/** Crop branded education sheets to the vial + title hero (top of portrait art). */
+/** Branded peptide card art — full 16:9 frame, no zoom crop. */
 export function PeptidePickerThumbnail({
   src,
   alt,
@@ -21,7 +21,7 @@ export function PeptidePickerThumbnail({
         alt={alt}
         fill
         priority={priority}
-        className="object-cover object-top scale-[1.28] origin-top"
+        className="object-contain object-center"
         sizes="(max-width: 640px) 50vw, 33vw"
       />
     </div>

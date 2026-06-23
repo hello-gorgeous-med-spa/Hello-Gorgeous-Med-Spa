@@ -57,6 +57,20 @@ for (const item of PEPTIDE_EDUCATION_THUMBNAILS) {
   if (item.topicSlug) THUMBNAIL_BY_SLUG.set(item.topicSlug, item);
 }
 
+const PICKER_IMAGE_SLUGS = new Set(["cjc-1295", "ipamorelin", "biotin", "glutathione", "pt-141"]);
+
+function fileSlugFor(item: PeptideEducationThumbnail): string {
+  return item.topicSlug ?? item.slug;
+}
+
+function pickerWebpForItem(item: PeptideEducationThumbnail): `/${string}` {
+  const fileSlug = fileSlugFor(item);
+  if (PICKER_IMAGE_SLUGS.has(item.slug)) {
+    return `${BASE}/${fileSlug}-picker.webp`;
+  }
+  return item.thumbnailWebp;
+}
+
 /** Resolve thumbnail for hub cards, hero mosaic, etc. */
 export function getPeptideThumbnail(slug: string): {
   src: `/${string}`;
@@ -66,6 +80,16 @@ export function getPeptideThumbnail(slug: string): {
   const item = THUMBNAIL_BY_SLUG.get(slug);
   if (!item) return undefined;
   return { src: item.thumbnailWebp, webp: item.thumbnailWebp, alt: item.alt };
+}
+
+/** Card-friendly crop for Start Here picker & gallery (16:9 hero, no illegible sheet text). */
+export function getPeptidePickerThumbnail(slug: string): {
+  src: `/${string}`;
+  alt: string;
+} | undefined {
+  const item = THUMBNAIL_BY_SLUG.get(slug);
+  if (!item) return undefined;
+  return { src: pickerWebpForItem(item), alt: item.alt };
 }
 
 export function peptideEducationHref(item: PeptideEducationThumbnail): string {

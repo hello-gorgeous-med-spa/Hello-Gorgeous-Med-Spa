@@ -22,7 +22,7 @@ import {
   peptideRequestItemsByCategory,
   type PeptideRequestCategory,
 } from "@/lib/peptide-request-menu";
-import { getPeptideThumbnail } from "@/lib/peptide-thumbnails";
+import { getPeptidePickerThumbnail } from "@/lib/peptide-thumbnails";
 import { SITE } from "@/lib/seo";
 
 const BRAND = {
@@ -188,7 +188,7 @@ export function StartHereFlow({ initialPeptideId }: { initialPeptideId?: string 
                 <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 items-stretch pb-2">
                   {visibleGroups.flatMap((g) =>
                     g.items.map((item) => {
-                      const thumb = getPeptideThumbnail(item.thumbnailSlug);
+                      const thumb = getPeptidePickerThumbnail(item.thumbnailSlug);
                       const active = selectedId === item.id;
                       return (
                         <button
