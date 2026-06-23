@@ -1,5 +1,5 @@
 {
-  "imported_at": "2026-06-23T21:02:56.184Z",
+  "imported_at": "2026-06-23T21:48:18.302Z",
   "square_environment": "production",
   "item_count": 23,
   "items": [
@@ -37,7 +37,9 @@
       "sku": "HG-RX-BPC157",
       "price_cents": 0,
       "square_item_id": "DRJKJV5EW7YURL6ED3Y5PT6E",
-      "square_variation_id": "M3VXGQAUGCMOFT3ADR2566EY"
+      "square_variation_id": "M3VXGQAUGCMOFT3ADR2566EY",
+      "square_image_id": "HUHK72TAEBGPCNAHME4IT6TW",
+      "square_image_url": "https://items-images-production.s3.us-west-2.amazonaws.com/files/ede4056e58f6e37ca854edc867d66ec16566fa5a/original.png"
     },
     {
       "slug": "ghk-cu",
@@ -46,7 +48,9 @@
       "sku": "HG-RX-GHKCU",
       "price_cents": 0,
       "square_item_id": "YXRSDUPRNYNW6AWHEWNB6UGZ",
-      "square_variation_id": "3IPSTFLULOHDOQJ7FI2VDLSL"
+      "square_variation_id": "3IPSTFLULOHDOQJ7FI2VDLSL",
+      "square_image_id": "NBEWEQ3ZSNNSHB7BRV46SZTP",
+      "square_image_url": "https://items-images-production.s3.us-west-2.amazonaws.com/files/c8a0f461bde6a48d19ffc54a263bdb3bae12298e/original.png"
     },
     {
       "slug": "sermorelin",
@@ -55,7 +59,9 @@
       "sku": "HG-RX-SERMORELIN",
       "price_cents": 0,
       "square_item_id": "DZ7LJMIWRBID4ZS26KNYJSST",
-      "square_variation_id": "UWXKDQ7MWUAYIT55IDFCE5I3"
+      "square_variation_id": "UWXKDQ7MWUAYIT55IDFCE5I3",
+      "square_image_id": "I3F5R2PBY5UMUBRZNH4JDUHV",
+      "square_image_url": "https://items-images-production.s3.us-west-2.amazonaws.com/files/e031770c67a03eccd9692d2e05910f337efad651/original.png"
     },
     {
       "slug": "tesamorelin",
@@ -64,7 +70,9 @@
       "sku": "HG-RX-TESAMORELIN",
       "price_cents": 0,
       "square_item_id": "5C26FJ5Z2XMM36OTC64FKZUQ",
-      "square_variation_id": "K5TTLTGBQSWBEST35CWGB6MU"
+      "square_variation_id": "K5TTLTGBQSWBEST35CWGB6MU",
+      "square_image_id": "S5MPHELXAYZX7IHU7CQE5ZDW",
+      "square_image_url": "https://items-images-production.s3.us-west-2.amazonaws.com/files/bc59c958b4ac7290e727a8da7c6c4bfbfa66d5e3/original.png"
     },
     {
       "slug": "nad-plus",
@@ -73,7 +81,9 @@
       "sku": "HG-RX-NADPLUS",
       "price_cents": 0,
       "square_item_id": "JFXNBGLMWTWU4OOHASLKISNN",
-      "square_variation_id": "CCAUBOJWOIMKMJWBZPWSZ6HA"
+      "square_variation_id": "CCAUBOJWOIMKMJWBZPWSZ6HA",
+      "square_image_id": "YTSC2CODRMIAU7I6JL27KHZ2",
+      "square_image_url": "https://items-images-production.s3.us-west-2.amazonaws.com/files/c363adba5bf32f21a4c259b3f1dfdfce4a77de64/original.png"
     },
     {
       "slug": "biotin",
@@ -82,7 +92,9 @@
       "sku": "HG-RX-BIOTIN",
       "price_cents": 0,
       "square_item_id": "VJXO7WFNKKC4BMOLK2HQK6CT",
-      "square_variation_id": "BUZ4XLUGN2K7GTN2UMF4OFVM"
+      "square_variation_id": "BUZ4XLUGN2K7GTN2UMF4OFVM",
+      "square_image_id": "K44PM747QI2HYG2ELT7VA3R3",
+      "square_image_url": "https://items-images-production.s3.us-west-2.amazonaws.com/files/5f7f31181f7bea9171955272606faae3724da326/original.png"
     },
     {
       "slug": "cjc-1295",
@@ -91,7 +103,9 @@
       "sku": "HG-RX-CJC1295",
       "price_cents": 0,
       "square_item_id": "I27G7OUBGIARBMXCICSCLNBE",
-      "square_variation_id": "KSUZPX5QL5JJGKUBTK6TV2CD"
+      "square_variation_id": "KSUZPX5QL5JJGKUBTK6TV2CD",
+      "square_image_id": "PSSOHGRUF6DK4OYR65PPUFYM",
+      "square_image_url": "https://items-images-production.s3.us-west-2.amazonaws.com/files/a748517d220bd71cf0df35f4514432e7f33231ea/original.png"
     },
     {
       "slug": "glutathione",
@@ -100,7 +114,9 @@
       "sku": "HG-RX-GLUTATHIONE",
       "price_cents": 0,
       "square_item_id": "MBTWHVENGCFCVYSEVDPBIFVZ",
-      "square_variation_id": "2UW7PUM4HOR3ZCL7DLMQBZ3U"
+      "square_variation_id": "2UW7PUM4HOR3ZCL7DLMQBZ3U",
+      "square_image_id": "GOT6P5UP4T5FEQQ2ZFTT3YPT",
+      "square_image_url": "https://items-images-production.s3.us-west-2.amazonaws.com/files/9e1139a1434c0fe70b121dcd5181f8e6ab22a2ce/original.png"
     },
     {
       "slug": "ipamorelin",
@@ -109,7 +125,9 @@
       "sku": "HG-RX-IPAMORELIN",
       "price_cents": 0,
       "square_item_id": "PT75ILAVWI54GJ27WHUHPM2E",
-      "square_variation_id": "MFXZ4CYRNSYWASHYU6WQHYC2"
+      "square_variation_id": "MFXZ4CYRNSYWASHYU6WQHYC2",
+      "square_image_id": "C5G2OXCDSQNK2IQ7RBDIFZEY",
+      "square_image_url": "https://items-images-production.s3.us-west-2.amazonaws.com/files/141ddc2e117ed88160570f5dcd1dceefe78e6c4a/original.png"
     },
     {
       "slug": "pt-141",
@@ -118,7 +136,9 @@
       "sku": "HG-RX-PT141",
       "price_cents": 0,
       "square_item_id": "ZQFEKPS6KJTH7OYBSWVUVSJF",
-      "square_variation_id": "AZ3D3NDBPHYEO4743JJF4L7Y"
+      "square_variation_id": "AZ3D3NDBPHYEO4743JJF4L7Y",
+      "square_image_id": "6X2PPKKD6YCDYOMEJC5RKYIQ",
+      "square_image_url": "https://items-images-production.s3.us-west-2.amazonaws.com/files/b45e6589f9745a57f4500ca1f028de4d7ce27b72/original.png"
     },
     {
       "slug": "aod-9604",
@@ -127,7 +147,9 @@
       "sku": "HG-RX-AOD9604",
       "price_cents": 0,
       "square_item_id": "36WDG3UT4AMWYCCK7FQCDJRI",
-      "square_variation_id": "2QG6WOXX7IPYT6KIGDNKVVBQ"
+      "square_variation_id": "2QG6WOXX7IPYT6KIGDNKVVBQ",
+      "square_image_id": "7NXTCGRZFWA6HYDRDVQOWUFV",
+      "square_image_url": "https://items-images-production.s3.us-west-2.amazonaws.com/files/19f2e4a96f7b4ef349beefc7d0559f9ca9679365/original.png"
     },
     {
       "slug": "mots-c",
@@ -136,7 +158,9 @@
       "sku": "HG-RX-MOTSC",
       "price_cents": 0,
       "square_item_id": "P6SCQFYZH53PXBYHPMGQO3W3",
-      "square_variation_id": "QMUX3CY4NYDEA3AW22K7RFBS"
+      "square_variation_id": "QMUX3CY4NYDEA3AW22K7RFBS",
+      "square_image_id": "VY4TFNGZSBYRBCSOQ5Y2MO62",
+      "square_image_url": "https://items-images-production.s3.us-west-2.amazonaws.com/files/55ff8dc579b1cc80e36840a378649e9bb6b6cd6a/original.png"
     },
     {
       "slug": "retatrutide",
@@ -145,7 +169,9 @@
       "sku": "HG-RX-RETATRUTIDE",
       "price_cents": 0,
       "square_item_id": "N7X3BGUK55TZTUVBH5QBM26W",
-      "square_variation_id": "JAJLJCX2VVBTMVFKOKQQEZBQ"
+      "square_variation_id": "JAJLJCX2VVBTMVFKOKQQEZBQ",
+      "square_image_id": "NDLGBRE6SOTEVNZ7HHVFIAXC",
+      "square_image_url": "https://items-images-production.s3.us-west-2.amazonaws.com/files/708244d318ebb83e76410cad82cbe459c83979bd/original.png"
     },
     {
       "slug": "tirzepatide",
@@ -154,7 +180,9 @@
       "sku": "HG-RX-TIRZEPATIDE",
       "price_cents": 0,
       "square_item_id": "7G4URCWCOBO4KPWG4KCP72AA",
-      "square_variation_id": "S63NERK6DJARA4PNNPKPXVE5"
+      "square_variation_id": "S63NERK6DJARA4PNNPKPXVE5",
+      "square_image_id": "5EVJX5I5TR36O2RVOQR7TQ3A",
+      "square_image_url": "https://items-images-production.s3.us-west-2.amazonaws.com/files/21573bbc35ef9ce8603456d1a010d4721d4b84ee/original.png"
     },
     {
       "slug": "selank",
@@ -163,7 +191,9 @@
       "sku": "HG-RX-SELANK",
       "price_cents": 0,
       "square_item_id": "XD6DCS2JIOHT7DGXJDJQ2OCE",
-      "square_variation_id": "VTRNVCTNMLVCBSUGDPCB7LA2"
+      "square_variation_id": "VTRNVCTNMLVCBSUGDPCB7LA2",
+      "square_image_id": "7VWFEDHU3CPMKX7KYDPSHZSF",
+      "square_image_url": "https://items-images-production.s3.us-west-2.amazonaws.com/files/50cc1edcdc9092da7827efd2509199e0036b513c/original.png"
     },
     {
       "slug": "semax",
@@ -172,7 +202,9 @@
       "sku": "HG-RX-SEMAX",
       "price_cents": 0,
       "square_item_id": "QOQ5FBCERZNGA6EVSZM5H7D4",
-      "square_variation_id": "ZPVLRRZJ3RTEFYHQSL3RK2E7"
+      "square_variation_id": "ZPVLRRZJ3RTEFYHQSL3RK2E7",
+      "square_image_id": "7FGK46MS3CNIFVHUN37MMJZK",
+      "square_image_url": "https://items-images-production.s3.us-west-2.amazonaws.com/files/4249fcc00232729ac4995a6acc15e7692cccc643/original.png"
     },
     {
       "slug": "epithalon",
@@ -181,7 +213,9 @@
       "sku": "HG-RX-EPITHALON",
       "price_cents": 0,
       "square_item_id": "EVC3VYSVUFK6CB767PPGGJFI",
-      "square_variation_id": "W7BONZVBFEBKWVNPPDWHARNY"
+      "square_variation_id": "W7BONZVBFEBKWVNPPDWHARNY",
+      "square_image_id": "HYJU5FCNCCQMCP3P3CUKH7GR",
+      "square_image_url": "https://items-images-production.s3.us-west-2.amazonaws.com/files/349170f6b3c551c2a1f5d54a2e2445bed0fabd7d/original.png"
     },
     {
       "slug": "amino-blend",
@@ -190,7 +224,9 @@
       "sku": "HG-RX-AMINOBLEND",
       "price_cents": 0,
       "square_item_id": "2CN3CSYDDA2I6AJJDHI43FKW",
-      "square_variation_id": "UVPSPU6FFOKBKJM7KDCJNZ7T"
+      "square_variation_id": "UVPSPU6FFOKBKJM7KDCJNZ7T",
+      "square_image_id": "N23T4NIM6XGS5O6ITUIFTMRE",
+      "square_image_url": "https://items-images-production.s3.us-west-2.amazonaws.com/files/3cba53a0d8b1377ce18aab95b5e52b2deeb1219e/original.png"
     },
     {
       "slug": "k-glow",
@@ -199,7 +235,9 @@
       "sku": "HG-RX-KGLOW",
       "price_cents": 0,
       "square_item_id": "FIFPIQKE7SLW5TIDBG52K547",
-      "square_variation_id": "E3FWQZLK2M3TO6DT747HF6D5"
+      "square_variation_id": "E3FWQZLK2M3TO6DT747HF6D5",
+      "square_image_id": "QQQ3H32Z4QKW53DXC5ZY4R6X",
+      "square_image_url": "https://items-images-production.s3.us-west-2.amazonaws.com/files/250ebfa3d2946625b11e6b02fb8f36c702ae5ceb/original.png"
     },
     {
       "slug": "heal-blend",
@@ -208,7 +246,9 @@
       "sku": "HG-RX-HEALBLEND",
       "price_cents": 0,
       "square_item_id": "PXYTQLKPSWH3F77XUZ3O5TFK",
-      "square_variation_id": "ZVUWMLAWXHTJMZFV6KZEHYBD"
+      "square_variation_id": "ZVUWMLAWXHTJMZFV6KZEHYBD",
+      "square_image_id": "EJ2BRVNFKTBHBAJNXKPNCIJN",
+      "square_image_url": "https://items-images-production.s3.us-west-2.amazonaws.com/files/476976af683205f950c1769f1e295a4e8304521d/original.png"
     }
   ]
 }
