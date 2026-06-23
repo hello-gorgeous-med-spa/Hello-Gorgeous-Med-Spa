@@ -57,6 +57,15 @@ export const PEPTIDE_REQUEST_ITEMS: PeptideRequestItem[] = [
     rxRequired: true,
   },
   {
+    id: "tb-500",
+    name: "TB-500",
+    thumbnailSlug: "tb-500",
+    category: "Recovery & Healing",
+    benefit: "Soft tissue repair, mobility & recovery",
+    screeningSet: "recovery",
+    rxRequired: true,
+  },
+  {
     id: "ghk-cu",
     name: "GHK-Cu",
     thumbnailSlug: "ghk-cu",

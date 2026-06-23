@@ -1,7 +1,7 @@
 {
-  "imported_at": "2026-06-23T22:38:17.747Z",
+  "imported_at": "2026-06-23T23:21:10.224Z",
   "square_environment": "production",
-  "item_count": 24,
+  "item_count": 25,
   "items": [
     {
       "slug": "peptide-consult",
@@ -40,6 +40,17 @@
       "square_variation_id": "M3VXGQAUGCMOFT3ADR2566EY",
       "square_image_id": "HUHK72TAEBGPCNAHME4IT6TW",
       "square_image_url": "https://items-images-production.s3.us-west-2.amazonaws.com/files/ede4056e58f6e37ca854edc867d66ec16566fa5a/original.png"
+    },
+    {
+      "slug": "tb-500",
+      "name": "Hello Gorgeous RX™ — TB-500",
+      "category": "Hello Gorgeous RX™ — Recovery & Healing",
+      "sku": "HG-RX-TB500",
+      "price_cents": 0,
+      "square_item_id": "ZJKRIPJBQQEVHSLMVLYEFDJH",
+      "square_variation_id": "STT5EI36ROLJYMXNI3KIVMRR",
+      "square_image_id": "FJKH3W7KCZLYK27I5NKM2PMJ",
+      "square_image_url": "https://items-images-production.s3.us-west-2.amazonaws.com/files/c6fdfa8082991b8560005e8b6c63110a98fe7147/original.png"
     },
     {
       "slug": "ghk-cu",

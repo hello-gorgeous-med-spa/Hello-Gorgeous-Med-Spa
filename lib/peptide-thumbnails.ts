@@ -1,4 +1,4 @@
-/** Branded patient-education thumbnails — Hello Gorgeous RX™ (21 peptides). */
+/** Branded patient-education thumbnails — Hello Gorgeous RX™ (22 peptides). */
 
 import { peptideTopicHref } from "@/lib/peptides-hub";
 
@@ -26,9 +26,10 @@ function thumb(slug: string, name: string, topicSlug?: string): PeptideEducation
   };
 }
 
-/** All 21 branded education thumbnails in display order. */
+/** All 22 branded education thumbnails in display order. */
 export const PEPTIDE_EDUCATION_THUMBNAILS: PeptideEducationThumbnail[] = [
   thumb("bpc-157", "BPC-157", "bpc-157"),
+  thumb("tb-500", "TB-500"),
   thumb("ghk-cu", "GHK-Cu", "ghk-cu-injectable"),
   thumb("sermorelin", "Sermorelin", "sermorelin"),
   thumb("tesamorelin", "Tesamorelin", "tesamorelin"),
