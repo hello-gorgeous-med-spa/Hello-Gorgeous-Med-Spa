@@ -143,6 +143,12 @@ export const FRESHA_BOOKING_END_LABEL =
 /** GLP-1 weight loss screening form at `/glp1-intake`. Booking follows after qualification. */
 export const GLP1_INTAKE_PATH = "/glp1-intake";
 
+/** Hello Gorgeous RX™ peptide request & refill at `/peptide-request`. Telehealth required before approval. */
+export const PEPTIDE_REQUEST_PATH = "/peptide-request";
+
+/** Start Here — pick peptide → quick verification → full request (recurring RX funnel). */
+export const HELLO_GORGEOUS_RX_START_PATH = "/hello-gorgeous-rx/start-here";
+
 /** VIP Model Program — $250 deposit / Reserve (Fresha paid plans). */
 export const VIP_MODEL_SQUARE_URL =
   process.env.NEXT_PUBLIC_VIP_MODEL_SQUARE_URL ||

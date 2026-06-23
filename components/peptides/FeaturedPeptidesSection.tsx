@@ -3,7 +3,7 @@ import Link from "next/link";
 
 import { CTA } from "@/components/CTA";
 import { FadeUp, Section } from "@/components/Section";
-import { BOOKING_URL } from "@/lib/flows";
+import { HELLO_GORGEOUS_RX_START_PATH } from "@/lib/flows";
 import {
   FEATURED_CLINIC_PEPTIDES,
   getPeptideThumbnail,
@@ -84,11 +84,11 @@ export function FeaturedPeptidesSection() {
           <p className="mt-3 text-sm text-white/85">{PEPTIDE_CONSULT_SPECIAL.detail}</p>
           <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
             <CTA
-              href={BOOKING_URL}
+              href={HELLO_GORGEOUS_RX_START_PATH}
               variant="outline"
               className="min-h-[48px] border-2 border-white text-white hover:bg-white hover:text-[#E6007E]"
             >
-              Book {PEPTIDE_CONSULT_SPECIAL.price} consult
+              Start Here — request or refill
             </CTA>
             <Link
               href={PEPTIDE_CONSULT_SPECIAL.blogHref}

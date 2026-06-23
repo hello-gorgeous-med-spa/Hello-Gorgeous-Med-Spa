@@ -30,6 +30,7 @@ import {
   ClientAppIntakeCard,
   ClientAppIntakeForm,
 } from "@/components/client-app/ClientAppIntakeForm";
+import { ClientAppRxHub } from "@/components/client-app/ClientAppRxHub";
 import { ClientAppIvBagBuilder } from "@/components/client-app/ClientAppIvBagBuilder";
 import { AppGetQrCard } from "@/components/client-app/AppGetQrCard";
 import { BrandHero } from "@/components/BrandHero";
@@ -139,12 +140,15 @@ function formatApptDate(iso: string): string {
 export function ClientApp({
   initialTab = "home",
   initialIvBuilder = false,
+  initialRxHub = false,
 }: {
   initialTab?: ClientAppTab;
   initialIvBuilder?: boolean;
+  initialRxHub?: boolean;
 }) {
   const [tab, setTab] = useState<ClientAppTab>(initialTab);
   const [showIvBuilder, setShowIvBuilder] = useState(initialIvBuilder);
+  const [showRxHub, setShowRxHub] = useState(initialRxHub);
   const [selected, setSelected] = useState<VitaminShot | null>(null);
   const [showIntake, setShowIntake] = useState(false);
   const [intakeRefresh, setIntakeRefresh] = useState(0);
@@ -224,11 +228,13 @@ export function ClientApp({
       <main className="mx-auto max-w-xl px-5">
         {showIntake ? (
           <ClientAppIntakeForm onBack={() => { setShowIntake(false); setIntakeRefresh(n => n + 1); }} />
+        ) : showRxHub ? (
+          <ClientAppRxHub onClose={() => setShowRxHub(false)} />
         ) : showIvBuilder ? (
           <ClientAppIvBagBuilder onClose={() => setShowIvBuilder(false)} />
         ) : (
           <>
-            {tab === "home"       && <HomeTab onNavigate={setTab} onOpenIntake={() => setShowIntake(true)} onOpenIvBuilder={() => { setTab("vitamin"); setShowIvBuilder(true); }} intakeRefresh={intakeRefresh} homeData={homeData} canInstall={canInstall} promptInstall={promptInstall} />}
+            {tab === "home"       && <HomeTab onNavigate={setTab} onOpenIntake={() => setShowIntake(true)} onOpenIvBuilder={() => { setTab("vitamin"); setShowIvBuilder(true); }} onOpenRxHub={() => setShowRxHub(true)} intakeRefresh={intakeRefresh} homeData={homeData} canInstall={canInstall} promptInstall={promptInstall} />}
             {tab === "vitamin"    && <VitaminTab onSelect={setSelected} onOpenIntake={() => setShowIntake(true)} onOpenIvBuilder={() => setShowIvBuilder(true)} intakeRefresh={intakeRefresh} />}
             {tab === "deals"      && <DealsTab />}
             {tab === "membership" && <MembershipTab memberships={VITAMIN_MEMBERSHIPS} />}
@@ -248,7 +254,7 @@ export function ClientApp({
               <button
                 key={id}
                 type="button"
-                onClick={() => { setShowIvBuilder(false); setTab(id); }}
+                onClick={() => { setShowIvBuilder(false); setShowRxHub(false); setTab(id); }}
                 className="flex flex-col items-center gap-0.5 py-2.5 text-[10px] font-semibold transition-colors"
                 style={{
                   color: active ? accent.subtitle : "rgba(255,255,255,0.35)",
@@ -270,10 +276,11 @@ export function ClientApp({
 
 // ─── Home Tab ─────────────────────────────────────────────────────────────────
 
-function HomeTab({ onNavigate, onOpenIntake, onOpenIvBuilder, intakeRefresh, homeData, canInstall, promptInstall }: {
+function HomeTab({ onNavigate, onOpenIntake, onOpenIvBuilder, onOpenRxHub, intakeRefresh, homeData, canInstall, promptInstall }: {
   onNavigate: (t: ClientAppTab) => void;
   onOpenIntake: () => void;
   onOpenIvBuilder: () => void;
+  onOpenRxHub: () => void;
   intakeRefresh: number;
   homeData: HomeData | null;
   canInstall: boolean;
@@ -514,7 +521,7 @@ function HomeTab({ onNavigate, onOpenIntake, onOpenIvBuilder, intakeRefresh, hom
       <GiftCardStrip giftUrl={squareGiftCardUrl({ utmSource: "app", utmMedium: "home_tab" })} />
 
       {/* Wellness Programs */}
-      <WellnessSection />
+      <WellnessSection onOpenRxHub={onOpenRxHub} />
 
       {/* Services list */}
       <section className="mt-4">
@@ -592,7 +599,7 @@ function GiftCardStrip({ giftUrl }: { giftUrl: string }) {
 
 // ─── Wellness Programs Section ────────────────────────────────────────────────
 
-function WellnessSection() {
+function WellnessSection({ onOpenRxHub }: { onOpenRxHub: () => void }) {
   const [expanded, setExpanded] = useState<string | null>(null);
 
   return (
@@ -662,7 +669,15 @@ function WellnessSection() {
                         Learn More →
                       </Link>
                     )}
-                    {p.bookHref.startsWith("http") ? (
+                    {p.id === "peptides" ? (
+                      <button
+                        type="button"
+                        onClick={onOpenRxHub}
+                        className="flex-1 rounded-xl py-2.5 text-center text-sm font-semibold"
+                        style={{ border: `1px solid ${accent.border}`, color: accent.subtitle }}>
+                        Hello Gorgeous RX →
+                      </button>
+                    ) : p.bookHref.startsWith("http") ? (
                       <a href={p.bookHref} target="_blank" rel="noopener noreferrer"
                         className="flex-1 rounded-xl py-2.5 text-center text-sm font-semibold"
                         style={{ border: `1px solid ${accent.border}`, color: accent.subtitle }}>

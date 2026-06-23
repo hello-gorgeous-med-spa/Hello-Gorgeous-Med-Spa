@@ -3,7 +3,7 @@
  * The Vitamin Bar is one section inside this app, not a separate product.
  */
 
-import { BOOKING_URL, GLP1_INTAKE_PATH } from "@/lib/flows";
+import { BOOKING_URL, GLP1_INTAKE_PATH, HELLO_GORGEOUS_RX_START_PATH, PEPTIDE_REQUEST_PATH } from "@/lib/flows";
 
 export const CLIENT_APP = {
   name: "Hello Gorgeous Med Spa",
@@ -67,6 +67,20 @@ export const CLIENT_APP_QUICK_ACTIONS = [
     icon: "⚖️",
   },
   {
+    id: "peptide-start",
+    label: "RX Start Here",
+    blurb: "Pick peptide & get started",
+    href: HELLO_GORGEOUS_RX_START_PATH,
+    icon: "🧬",
+  },
+  {
+    id: "peptide-request",
+    label: "Peptide Request",
+    blurb: "New protocol or refill",
+    href: PEPTIDE_REQUEST_PATH,
+    icon: "📋",
+  },
+  {
     id: "forhim",
     label: "For Him 👑",
     blurb: "Brotox · Hormones · Peptides",
@@ -96,7 +110,7 @@ export const CLIENT_APP_WELLNESS_PROGRAMS = [
     accentIndex: 1, // blue
     href: "/peptides",
     learnHref: "/peptides",
-    bookHref: BOOKING_URL,
+    bookHref: "/app?rx=1",
     highlights: ["BPC-157 — tissue & gut repair", "Sermorelin — natural GH release", "NAD+ — cellular energy & longevity", "GHK-Cu — skin & hair renewal"],
   },
   {
@@ -140,6 +154,8 @@ export const CLIENT_APP_WELLNESS_PROGRAMS = [
 export const CLIENT_APP_PORTAL_LINKS = [
   { label: "My Portal", href: "/portal", icon: "🏠" },
   { label: "GLP-1 Screening", href: GLP1_INTAKE_PATH, icon: "⚖️" },
+  { label: "Hello Gorgeous RX", href: "/app?rx=1", icon: "🧬" },
+  { label: "Peptide Request / Refill", href: PEPTIDE_REQUEST_PATH, icon: "📋" },
   { label: "Appointments", href: "/portal/appointments", icon: "📅" },
   { label: "Book a Service", href: BOOKING_URL, icon: "✨" },
   { label: "Rewards", href: "/portal/rewards", icon: "🎁" },

@@ -7,7 +7,7 @@ import { CTA } from "@/components/CTA";
 import { FadeUp, Section } from "@/components/Section";
 import { Skin101GuideCard } from "@/components/skin-101/Skin101GuideCard";
 import type { FindYourPeptideGuide } from "@/data/skin-101-find-your-peptide-guide";
-import { BOOKING_URL } from "@/lib/flows";
+import { HELLO_GORGEOUS_RX_START_PATH } from "@/lib/flows";
 import { HG_TAGLINE } from "@/lib/brand-tagline";
 import { SITE } from "@/lib/seo";
 import { SKIN_101_GUIDES, SKIN_101_PATH } from "@/lib/skin-101-nav";
@@ -111,8 +111,8 @@ export function FindYourPeptideGuidePage({
                 ))}
               </div>
               <div className="flex flex-col sm:flex-row gap-3 justify-center">
-                <CTA href={BOOKING_URL} variant="gradient">
-                  Book $49 peptide consult
+                <CTA href={HELLO_GORGEOUS_RX_START_PATH} variant="gradient">
+                  Start Here · $49 consult path
                 </CTA>
                 <CTA
                   href={guide.handoutPath}
@@ -412,8 +412,8 @@ export function FindYourPeptideGuidePage({
               <h2 className="text-2xl font-black text-black">{guide.closingTitle}</h2>
               <p className="mt-4 text-black/85 leading-relaxed font-medium">{guide.closingBody}</p>
               <div className="mt-6 flex flex-col sm:flex-row gap-3">
-                <CTA href={BOOKING_URL} variant="gradient">
-                  Book $49 peptide consult
+                <CTA href={HELLO_GORGEOUS_RX_START_PATH} variant="gradient">
+                  Start Here · $49 consult path
                 </CTA>
                 <CTA href="/peptides" variant="outline">
                   Explore peptide hub
@@ -479,11 +479,11 @@ export function FindYourPeptideGuidePage({
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <CTA
-                href={BOOKING_URL}
+                href={HELLO_GORGEOUS_RX_START_PATH}
                 variant="outline"
                 className="border-2 border-white text-white hover:bg-white hover:text-[#E6007E]"
               >
-                Book peptide consult
+                Start Here
               </CTA>
               <CTA
                 href={`tel:${SITE.phone.replace(/\D/g, "")}`}

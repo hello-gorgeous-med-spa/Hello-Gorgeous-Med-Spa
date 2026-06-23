@@ -4,7 +4,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { getSupabaseAdminClient } from "@/lib/hgos/supabase-admin";
 import { resolveOrCreateClientForIntake } from "@/lib/resolveClientForIntake";
 import { randomBytes } from "crypto";
-import { notifyOwnerFormSubmission } from "@/lib/notifications/form-alert";
+import { alertStaffOnFormSubmission, notifyOwnerFormSubmission } from "@/lib/notifications/form-alert";
+import { formatPeptideStaffAlert, isPeptideFormSlug } from "@/lib/peptide-form-alert";
 
 export const dynamic = "force-dynamic";
 
@@ -84,20 +85,40 @@ export async function POST(req: NextRequest) {
         : "DISQUALIFIED"
       : null;
 
-  notifyOwnerFormSubmission({
-    formName: `Public form: ${slug}`,
-    lines: [
-      signerName || "—",
-      clientPhone || "—",
-      statusLine || "",
-      `Ref ${ref}`,
-    ].filter(Boolean),
-  });
+  if (isPeptideFormSlug(slug)) {
+    const alert = formatPeptideStaffAlert({
+      slug,
+      ref,
+      signerName,
+      clientPhone,
+      responses,
+    });
+    const clientEmail =
+      typeof responses.email === "string" ? String(responses.email).trim() : undefined;
+    void alertStaffOnFormSubmission({
+      formName: alert.formName,
+      emailSubject: alert.emailSubject,
+      emailBody: alert.emailBody,
+      smsLines: alert.smsLines,
+      replyTo: clientEmail,
+    });
+  } else {
+    notifyOwnerFormSubmission({
+      formName: `Public form: ${slug}`,
+      lines: [
+        signerName || "—",
+        clientPhone || "—",
+        statusLine || "",
+        `Ref ${ref}`,
+      ].filter(Boolean),
+     });
+  }
 
   return NextResponse.json({
     success: true,
     id: row.id,
     submitted_at: row.submitted_at,
     reference: ref,
+    ...(isPeptideFormSlug(slug) ? { record_token: token } : {}),
   });
 }

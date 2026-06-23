@@ -27,9 +27,10 @@ export const metadata: Metadata = {
 export default function HelloGorgeousAppPage({
   searchParams,
 }: {
-  searchParams?: { tab?: string; iv?: string };
+  searchParams?: { tab?: string; iv?: string; rx?: string };
 }) {
   const openIvBuilder = searchParams?.iv === "build" || searchParams?.tab === "iv";
+  const openRxHub = searchParams?.rx === "1";
   const tab = openIvBuilder ? "vitamin" : parseTab(searchParams?.tab);
-  return <ClientApp initialTab={tab} initialIvBuilder={openIvBuilder} />;
+  return <ClientApp initialTab={tab} initialIvBuilder={openIvBuilder} initialRxHub={openRxHub} />;
 }

@@ -12,7 +12,7 @@ import { PeptideEducationSection } from "@/components/peptides/PeptideEducationS
 import { PeptideHandoutsSection } from "@/components/peptides/PeptideHandoutsSection";
 import { FeaturedPeptidesSection } from "@/components/peptides/FeaturedPeptidesSection";
 import { PeptidesHubGrid } from "@/components/peptides/PeptidesHubGrid";
-import { BOOKING_URL } from "@/lib/flows";
+import { HELLO_GORGEOUS_RX_START_PATH, PEPTIDE_REQUEST_PATH } from "@/lib/flows";
 import {
   SITE,
   pageMetadata,
@@ -401,18 +401,16 @@ export default function PeptidesPage() {
               Ready to Explore Peptide Therapy?
             </h2>
             <p className="text-xl text-black/80 mb-8">
-              Book a consultation with our clinical team to discuss your goals and whether peptides are right for you.
+              Submit a protocol request or refill online. Ryan will review at a required telehealth visit before
+              any approval — recurring patients stay on track without an in-office visit.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <CTA href={BOOKING_URL} variant="gradient" className="text-lg px-10 py-4 shadow-xl shadow-[#FF2D8E]/25">
-                Book Consultation
+              <CTA href={HELLO_GORGEOUS_RX_START_PATH} variant="gradient" className="text-lg px-10 py-4 shadow-xl shadow-[#FF2D8E]/25">
+                Start Here
               </CTA>
-              <a
-                href="tel:630-636-6193"
-                className="inline-flex items-center justify-center px-10 py-4 border-2 border-black text-black font-medium rounded-full hover:bg-black hover:text-white transition"
-              >
-                📞 Call 630-636-6193
-              </a>
+              <CTA href={PEPTIDE_REQUEST_PATH} variant="outline" className="text-lg px-10 py-4 border-2 border-black">
+                Request or refill
+              </CTA>
             </div>
             <p className="mt-6 text-sm text-black/50">
               📍 Serving Oswego, Naperville, Aurora & Plainfield

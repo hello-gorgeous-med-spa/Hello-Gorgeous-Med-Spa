@@ -3,8 +3,8 @@ import Link from "next/link";
 
 import { CTA } from "@/components/CTA";
 import { FadeUp, Section } from "@/components/Section";
-import { BOOKING_URL } from "@/lib/flows";
-import { FEATURED_CLINIC_PEPTIDES, getPeptideThumbnail, PEPTIDE_CONSULT_SPECIAL } from "@/lib/peptide-featured";
+import { HELLO_GORGEOUS_RX_START_PATH, PEPTIDE_REQUEST_PATH } from "@/lib/flows";
+import { FEATURED_CLINIC_PEPTIDES, getPeptideThumbnail } from "@/lib/peptide-featured";
 
 export function PeptidesPageHero() {
   return (
@@ -78,8 +78,11 @@ export function PeptidesPageHero() {
             and more — personalized for Naperville, Aurora, Plainfield, and the western suburbs.
           </p>
           <div className="mt-10 flex flex-col sm:flex-row sm:flex-wrap gap-4">
-            <CTA href={BOOKING_URL} variant="gradient" className="text-lg px-8 py-4 shadow-xl shadow-[#FF2D8E]/20">
-              {PEPTIDE_CONSULT_SPECIAL.price} {PEPTIDE_CONSULT_SPECIAL.label}
+            <CTA href={HELLO_GORGEOUS_RX_START_PATH} variant="gradient" className="text-lg px-8 py-4 shadow-xl shadow-[#FF2D8E]/20">
+              Start Here — pick your peptide
+            </CTA>
+            <CTA href={PEPTIDE_REQUEST_PATH} variant="outline" className="text-lg px-8 py-4 border-[#E6007E] text-[#E6007E] bg-white/80 backdrop-blur">
+              Request or refill
             </CTA>
             <CTA
               href="/peptide-therapy-oswego"
