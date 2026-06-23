@@ -1,6 +1,6 @@
-import Image from "next/image";
 import Link from "next/link";
 
+import { PeptidePickerThumbnail } from "@/components/peptides/PeptidePickerThumbnail";
 import { FadeUp, Section } from "@/components/Section";
 import {
   PEPTIDE_EDUCATION_THUMBNAILS,
@@ -34,15 +34,7 @@ export function PeptideEducationGallery() {
               href={peptideEducationHref(item)}
               className="group block overflow-hidden rounded-2xl border-4 border-black bg-white shadow-[4px_4px_0_0_rgba(230,0,126,0.2)] transition hover:border-[#E6007E] hover:shadow-[6px_6px_0_0_rgba(230,0,126,0.35)]"
             >
-              <div className="relative aspect-video overflow-hidden border-b-4 border-black">
-                <Image
-                  src={item.thumbnailWebp}
-                  alt={item.alt}
-                  fill
-                  className="object-cover transition duration-500 group-hover:scale-[1.02]"
-                  sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 20vw"
-                />
-              </div>
+              <PeptidePickerThumbnail src={item.thumbnailWebp} alt={item.alt} />
               <div className="px-3 py-3">
                 <p className="text-sm font-black text-black group-hover:text-[#E6007E]">{item.name}</p>
                 <p className="mt-1 text-[10px] font-semibold uppercase tracking-wide text-black/45">

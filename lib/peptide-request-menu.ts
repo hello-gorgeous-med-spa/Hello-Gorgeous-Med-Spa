@@ -10,6 +10,18 @@ export type PeptideRequestCategory =
   | "Intimacy & Vitality"
   | "Blends & Support";
 
+/** Short labels for filter chips on Start Here peptide picker. */
+export const PEPTIDE_CATEGORY_FILTER_LABEL: Record<PeptideRequestCategory, string> = {
+  "Recovery & Healing": "Recovery",
+  "Hormone & GH Support": "Hormone & GH",
+  "Energy & Longevity": "Energy",
+  "Metabolic & Weight": "Metabolic",
+  "Skin & Aesthetics": "Skin",
+  "Cognitive & Mood": "Cognitive",
+  "Intimacy & Vitality": "Intimacy",
+  "Blends & Support": "Blends",
+};
+
 export type PeptideRequestItem = {
   id: string;
   name: string;

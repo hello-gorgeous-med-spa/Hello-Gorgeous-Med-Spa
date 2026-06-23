@@ -1,9 +1,10 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
+
+import { PeptidePickerThumbnail } from "@/components/peptides/PeptidePickerThumbnail";
 
 import { CTA } from "@/components/CTA";
 import { FadeUp, Section } from "@/components/Section";
@@ -15,6 +16,7 @@ import {
 } from "@/lib/hello-gorgeous-rx";
 import { saveRxStartPrefill } from "@/lib/peptide-rx-prefill";
 import {
+  PEPTIDE_CATEGORY_FILTER_LABEL,
   PEPTIDE_REQUEST_DISCLAIMER,
   PEPTIDE_REQUEST_ITEMS,
   peptideRequestItemsByCategory,
@@ -178,12 +180,12 @@ export function StartHereFlow({ initialPeptideId }: { initialPeptideId?: string 
                       key={g.category}
                       active={categoryFilter === g.category}
                       onClick={() => setCategoryFilter(g.category)}
-                      label={g.category.split(" ")[0]}
+                      label={PEPTIDE_CATEGORY_FILTER_LABEL[g.category]}
                     />
                   ))}
                 </div>
 
-                <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 items-stretch pb-2">
                   {visibleGroups.flatMap((g) =>
                     g.items.map((item) => {
                       const thumb = getPeptideThumbnail(item.thumbnailSlug);
@@ -193,24 +195,22 @@ export function StartHereFlow({ initialPeptideId }: { initialPeptideId?: string 
                           key={item.id}
                           type="button"
                           onClick={() => setSelectedId(item.id)}
-                          className={`text-left rounded-2xl border-4 overflow-hidden transition ${
+                          className={`flex flex-col h-full text-left rounded-2xl border-4 overflow-hidden transition ${
                             active
                               ? "border-[#E6007E] shadow-[6px_6px_0_0_rgba(230,0,126,0.35)]"
                               : "border-black hover:border-[#E6007E]/60"
                           }`}
                         >
                           {thumb ? (
-                            <div className="relative aspect-[4/3] border-b-4 border-black">
-                              <Image src={thumb.src} alt={thumb.alt} fill className="object-cover" sizes="200px" />
-                            </div>
+                            <PeptidePickerThumbnail src={thumb.src} alt={thumb.alt} />
                           ) : (
-                            <div className="aspect-[4/3] border-b-4 border-black bg-[#FFF0F7] flex items-center justify-center text-3xl">
+                            <div className="aspect-video border-b-4 border-black bg-[#FFF0F7] flex items-center justify-center text-3xl shrink-0">
                               🧬
                             </div>
                           )}
-                          <div className="p-3 bg-white">
-                            <p className="font-black text-black">{item.name}</p>
-                            <p className="text-xs text-black/60 mt-0.5">{item.benefit}</p>
+                          <div className="p-3 bg-white flex-1 min-h-[4.25rem]">
+                            <p className="font-black text-black leading-tight">{item.name}</p>
+                            <p className="text-xs text-black/60 mt-1 leading-snug">{item.benefit}</p>
                           </div>
                         </button>
                       );
