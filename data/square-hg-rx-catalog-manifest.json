@@ -1,0 +1,214 @@
+{
+  "imported_at": "2026-06-23T21:02:56.184Z",
+  "square_environment": "production",
+  "item_count": 23,
+  "items": [
+    {
+      "slug": "peptide-consult",
+      "name": "Hello Gorgeous RX™ — Peptide Consult (NP)",
+      "category": "Hello Gorgeous RX™ — Fees",
+      "sku": "HG-RX-CONSULT-49",
+      "price_cents": 4900,
+      "square_item_id": "CEVSQDDM2K3DXZJGWRV3VXDY",
+      "square_variation_id": "NKPDXHTIXY335ISY5CQERVAT"
+    },
+    {
+      "slug": "telehealth-refill-review",
+      "name": "Hello Gorgeous RX™ — Telehealth Refill Review",
+      "category": "Hello Gorgeous RX™ — Fees",
+      "sku": "HG-RX-REFILL-TH",
+      "price_cents": 0,
+      "square_item_id": "7LMTLIKGYHFLLFPNDMKKJW3H",
+      "square_variation_id": "ODYD2IPO2GBKPGT3MSWUM7ZK"
+    },
+    {
+      "slug": "pharmacy-shipping",
+      "name": "Hello Gorgeous RX™ — Pharmacy / Shipping",
+      "category": "Hello Gorgeous RX™ — Fees",
+      "sku": "HG-RX-SHIP",
+      "price_cents": 0,
+      "square_item_id": "NLAEENJCSTFJFVQ2Y4LLNGQZ",
+      "square_variation_id": "IU25O2SP3TLGXRPB2STJS3HW"
+    },
+    {
+      "slug": "bpc-157",
+      "name": "Hello Gorgeous RX™ — BPC-157",
+      "category": "Hello Gorgeous RX™ — Recovery & Healing",
+      "sku": "HG-RX-BPC157",
+      "price_cents": 0,
+      "square_item_id": "DRJKJV5EW7YURL6ED3Y5PT6E",
+      "square_variation_id": "M3VXGQAUGCMOFT3ADR2566EY"
+    },
+    {
+      "slug": "ghk-cu",
+      "name": "Hello Gorgeous RX™ — GHK-Cu",
+      "category": "Hello Gorgeous RX™ — Skin & Aesthetics",
+      "sku": "HG-RX-GHKCU",
+      "price_cents": 0,
+      "square_item_id": "YXRSDUPRNYNW6AWHEWNB6UGZ",
+      "square_variation_id": "3IPSTFLULOHDOQJ7FI2VDLSL"
+    },
+    {
+      "slug": "sermorelin",
+      "name": "Hello Gorgeous RX™ — Sermorelin",
+      "category": "Hello Gorgeous RX™ — Hormone & GH Support",
+      "sku": "HG-RX-SERMORELIN",
+      "price_cents": 0,
+      "square_item_id": "DZ7LJMIWRBID4ZS26KNYJSST",
+      "square_variation_id": "UWXKDQ7MWUAYIT55IDFCE5I3"
+    },
+    {
+      "slug": "tesamorelin",
+      "name": "Hello Gorgeous RX™ — Tesamorelin",
+      "category": "Hello Gorgeous RX™ — Hormone & GH Support",
+      "sku": "HG-RX-TESAMORELIN",
+      "price_cents": 0,
+      "square_item_id": "5C26FJ5Z2XMM36OTC64FKZUQ",
+      "square_variation_id": "K5TTLTGBQSWBEST35CWGB6MU"
+    },
+    {
+      "slug": "nad-plus",
+      "name": "Hello Gorgeous RX™ — NAD+",
+      "category": "Hello Gorgeous RX™ — Energy & Longevity",
+      "sku": "HG-RX-NADPLUS",
+      "price_cents": 0,
+      "square_item_id": "JFXNBGLMWTWU4OOHASLKISNN",
+      "square_variation_id": "CCAUBOJWOIMKMJWBZPWSZ6HA"
+    },
+    {
+      "slug": "biotin",
+      "name": "Hello Gorgeous RX™ — Biotin",
+      "category": "Hello Gorgeous RX™ — Skin & Aesthetics",
+      "sku": "HG-RX-BIOTIN",
+      "price_cents": 0,
+      "square_item_id": "VJXO7WFNKKC4BMOLK2HQK6CT",
+      "square_variation_id": "BUZ4XLUGN2K7GTN2UMF4OFVM"
+    },
+    {
+      "slug": "cjc-1295",
+      "name": "Hello Gorgeous RX™ — CJC-1295",
+      "category": "Hello Gorgeous RX™ — Hormone & GH Support",
+      "sku": "HG-RX-CJC1295",
+      "price_cents": 0,
+      "square_item_id": "I27G7OUBGIARBMXCICSCLNBE",
+      "square_variation_id": "KSUZPX5QL5JJGKUBTK6TV2CD"
+    },
+    {
+      "slug": "glutathione",
+      "name": "Hello Gorgeous RX™ — Glutathione",
+      "category": "Hello Gorgeous RX™ — Energy & Longevity",
+      "sku": "HG-RX-GLUTATHIONE",
+      "price_cents": 0,
+      "square_item_id": "MBTWHVENGCFCVYSEVDPBIFVZ",
+      "square_variation_id": "2UW7PUM4HOR3ZCL7DLMQBZ3U"
+    },
+    {
+      "slug": "ipamorelin",
+      "name": "Hello Gorgeous RX™ — Ipamorelin",
+      "category": "Hello Gorgeous RX™ — Hormone & GH Support",
+      "sku": "HG-RX-IPAMORELIN",
+      "price_cents": 0,
+      "square_item_id": "PT75ILAVWI54GJ27WHUHPM2E",
+      "square_variation_id": "MFXZ4CYRNSYWASHYU6WQHYC2"
+    },
+    {
+      "slug": "pt-141",
+      "name": "Hello Gorgeous RX™ — PT-141",
+      "category": "Hello Gorgeous RX™ — Intimacy & Vitality",
+      "sku": "HG-RX-PT141",
+      "price_cents": 0,
+      "square_item_id": "ZQFEKPS6KJTH7OYBSWVUVSJF",
+      "square_variation_id": "AZ3D3NDBPHYEO4743JJF4L7Y"
+    },
+    {
+      "slug": "aod-9604",
+      "name": "Hello Gorgeous RX™ — AOD-9604",
+      "category": "Hello Gorgeous RX™ — Metabolic & Weight",
+      "sku": "HG-RX-AOD9604",
+      "price_cents": 0,
+      "square_item_id": "36WDG3UT4AMWYCCK7FQCDJRI",
+      "square_variation_id": "2QG6WOXX7IPYT6KIGDNKVVBQ"
+    },
+    {
+      "slug": "mots-c",
+      "name": "Hello Gorgeous RX™ — MOTS-c",
+      "category": "Hello Gorgeous RX™ — Energy & Longevity",
+      "sku": "HG-RX-MOTSC",
+      "price_cents": 0,
+      "square_item_id": "P6SCQFYZH53PXBYHPMGQO3W3",
+      "square_variation_id": "QMUX3CY4NYDEA3AW22K7RFBS"
+    },
+    {
+      "slug": "retatrutide",
+      "name": "Hello Gorgeous RX™ — Retatrutide",
+      "category": "Hello Gorgeous RX™ — Metabolic & Weight",
+      "sku": "HG-RX-RETATRUTIDE",
+      "price_cents": 0,
+      "square_item_id": "N7X3BGUK55TZTUVBH5QBM26W",
+      "square_variation_id": "JAJLJCX2VVBTMVFKOKQQEZBQ"
+    },
+    {
+      "slug": "tirzepatide",
+      "name": "Hello Gorgeous RX™ — Tirzepatide",
+      "category": "Hello Gorgeous RX™ — Metabolic & Weight",
+      "sku": "HG-RX-TIRZEPATIDE",
+      "price_cents": 0,
+      "square_item_id": "7G4URCWCOBO4KPWG4KCP72AA",
+      "square_variation_id": "S63NERK6DJARA4PNNPKPXVE5"
+    },
+    {
+      "slug": "selank",
+      "name": "Hello Gorgeous RX™ — Selank",
+      "category": "Hello Gorgeous RX™ — Cognitive & Mood",
+      "sku": "HG-RX-SELANK",
+      "price_cents": 0,
+      "square_item_id": "XD6DCS2JIOHT7DGXJDJQ2OCE",
+      "square_variation_id": "VTRNVCTNMLVCBSUGDPCB7LA2"
+    },
+    {
+      "slug": "semax",
+      "name": "Hello Gorgeous RX™ — Semax",
+      "category": "Hello Gorgeous RX™ — Cognitive & Mood",
+      "sku": "HG-RX-SEMAX",
+      "price_cents": 0,
+      "square_item_id": "QOQ5FBCERZNGA6EVSZM5H7D4",
+      "square_variation_id": "ZPVLRRZJ3RTEFYHQSL3RK2E7"
+    },
+    {
+      "slug": "epithalon",
+      "name": "Hello Gorgeous RX™ — Epithalon",
+      "category": "Hello Gorgeous RX™ — Energy & Longevity",
+      "sku": "HG-RX-EPITHALON",
+      "price_cents": 0,
+      "square_item_id": "EVC3VYSVUFK6CB767PPGGJFI",
+      "square_variation_id": "W7BONZVBFEBKWVNPPDWHARNY"
+    },
+    {
+      "slug": "amino-blend",
+      "name": "Hello Gorgeous RX™ — Amino Blend",
+      "category": "Hello Gorgeous RX™ — Blends & Support",
+      "sku": "HG-RX-AMINOBLEND",
+      "price_cents": 0,
+      "square_item_id": "2CN3CSYDDA2I6AJJDHI43FKW",
+      "square_variation_id": "UVPSPU6FFOKBKJM7KDCJNZ7T"
+    },
+    {
+      "slug": "k-glow",
+      "name": "Hello Gorgeous RX™ — K-Glow",
+      "category": "Hello Gorgeous RX™ — Skin & Aesthetics",
+      "sku": "HG-RX-KGLOW",
+      "price_cents": 0,
+      "square_item_id": "FIFPIQKE7SLW5TIDBG52K547",
+      "square_variation_id": "E3FWQZLK2M3TO6DT747HF6D5"
+    },
+    {
+      "slug": "heal-blend",
+      "name": "Hello Gorgeous RX™ — HEAL Blend",
+      "category": "Hello Gorgeous RX™ — Recovery & Healing",
+      "sku": "HG-RX-HEALBLEND",
+      "price_cents": 0,
+      "square_item_id": "PXYTQLKPSWH3F77XUZ3O5TFK",
+      "square_variation_id": "ZVUWMLAWXHTJMZFV6KZEHYBD"
+    }
+  ]
+}

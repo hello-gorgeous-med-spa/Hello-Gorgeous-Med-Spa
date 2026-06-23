@@ -16,6 +16,9 @@
     "import-square-catalog": "node scripts/import-services-to-square.js",
     "import-square-fresha": "node scripts/import-services-to-square.mjs",
     "import-square-fresha:local": "node --env-file=.env.local scripts/import-services-to-square.mjs",
+    "import-square-hg-rx": "npx tsx scripts/import-hg-rx-to-square.ts",
+    "import-square-hg-rx:local": "npx tsx --env-file=.env.local scripts/import-hg-rx-to-square.ts",
+    "import-square-hg-rx:dry-run": "npx tsx scripts/import-hg-rx-to-square.ts --dry-run",
     "import-fresha-clients": "node --env-file=.env.local scripts/import-fresha-clients.mjs",
     "import-fresha-appointments": "node --env-file=.env.local scripts/import-fresha-appointments.mjs",
     "test:ai-concierge": "node scripts/test-ai-concierge.mjs"
