@@ -106,7 +106,7 @@ export function PeptidesPageHero() {
               variant="outline"
               className="text-lg px-8 py-4 border-[#E6007E] text-[#E6007E] bg-white/80 backdrop-blur"
             >
-              All 20 education sheets
+              All 21 education sheets
             </CTA>
             <CTA
               href="#patient-handouts"

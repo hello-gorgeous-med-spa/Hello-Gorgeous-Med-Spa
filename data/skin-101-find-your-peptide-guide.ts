@@ -110,7 +110,7 @@ export const FIND_YOUR_PEPTIDE_GUIDE: FindYourPeptideGuide = {
       name: "Recovery & Healing",
       description:
         "Faster recovery from workouts, injuries, surgery, or chronic tissue discomfort.",
-      peptides: ["BPC-157", "TB-500", "HEAL Blend", "Amino Blend"],
+      peptides: ["BPC-157", "Recovery Blend", "TB-500", "HEAL Blend", "Amino Blend"],
     },
     {
       icon: "⚡",

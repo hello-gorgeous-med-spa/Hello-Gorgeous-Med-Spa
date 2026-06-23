@@ -4,7 +4,7 @@
  *
  * Creates invoice-ready catalog items (not appointment services):
  *   • NP consult & telehealth fees (fixed or variable)
- *   • All 20 peptide Rx line items (variable pricing — set per client at invoice time)
+ *   • All peptide Rx line items (variable pricing — set per client at invoice time)
  *
  * Usage:
  *   npm run import-square-hg-rx:dry-run

@@ -19,7 +19,7 @@ export function PeptideEducationGallery() {
             </span>
           </span>
           <h2 className="text-3xl md:text-4xl font-black text-black">
-            All <span className="text-[#E6007E]">20</span> peptide education sheets
+            All <span className="text-[#E6007E]">21</span> peptide education sheets
           </h2>
           <p className="mt-4 text-black/75 max-w-2xl mx-auto">
             Danielle&apos;s branded Hello Gorgeous RX™ thumbnails — tap any peptide to open its guide or goal-matcher

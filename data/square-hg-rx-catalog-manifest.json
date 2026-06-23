@@ -1,7 +1,7 @@
 {
-  "imported_at": "2026-06-23T21:48:18.302Z",
+  "imported_at": "2026-06-23T22:38:17.747Z",
   "square_environment": "production",
-  "item_count": 23,
+  "item_count": 24,
   "items": [
     {
       "slug": "peptide-consult",
@@ -249,6 +249,17 @@
       "square_variation_id": "ZVUWMLAWXHTJMZFV6KZEHYBD",
       "square_image_id": "EJ2BRVNFKTBHBAJNXKPNCIJN",
       "square_image_url": "https://items-images-production.s3.us-west-2.amazonaws.com/files/476976af683205f950c1769f1e295a4e8304521d/original.png"
+    },
+    {
+      "slug": "recovery-blend",
+      "name": "Hello Gorgeous RX™ — Recovery Blend",
+      "category": "Hello Gorgeous RX™ — Recovery & Healing",
+      "sku": "HG-RX-RECOVERYBLEND",
+      "price_cents": 0,
+      "square_item_id": "U4SFX6ZRZ4XR2F4EZGZ6I5W2",
+      "square_variation_id": "MO3JG37BAIDBZRKAVHNGEGV3",
+      "square_image_id": "WZWUZPFRWEKFPMQ7N75P2UGC",
+      "square_image_url": "https://items-images-production.s3.us-west-2.amazonaws.com/files/a4672f18b171d5be028425f5359d53533289cacb/original.png"
     }
   ]
 }

@@ -1,4 +1,4 @@
-/** Branded patient-education thumbnails — Hello Gorgeous RX™ (20 peptides). */
+/** Branded patient-education thumbnails — Hello Gorgeous RX™ (21 peptides). */
 
 import { peptideTopicHref } from "@/lib/peptides-hub";
 
@@ -26,7 +26,7 @@ function thumb(slug: string, name: string, topicSlug?: string): PeptideEducation
   };
 }
 
-/** All 20 branded education thumbnails in display order. */
+/** All 21 branded education thumbnails in display order. */
 export const PEPTIDE_EDUCATION_THUMBNAILS: PeptideEducationThumbnail[] = [
   thumb("bpc-157", "BPC-157", "bpc-157"),
   thumb("ghk-cu", "GHK-Cu", "ghk-cu-injectable"),
@@ -48,6 +48,7 @@ export const PEPTIDE_EDUCATION_THUMBNAILS: PeptideEducationThumbnail[] = [
   thumb("amino-blend", "Amino Blend"),
   thumb("k-glow", "K-Glow"),
   thumb("heal-blend", "HEAL Blend"),
+  thumb("recovery-blend", "Recovery Blend"),
 ];
 
 const THUMBNAIL_BY_SLUG = new Map<string, PeptideEducationThumbnail>();

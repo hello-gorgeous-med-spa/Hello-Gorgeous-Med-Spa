@@ -235,6 +235,15 @@ export const PEPTIDE_REQUEST_ITEMS: PeptideRequestItem[] = [
     screeningSet: "recovery",
     rxRequired: true,
   },
+  {
+    id: "recovery-blend",
+    name: "Recovery Blend",
+    thumbnailSlug: "recovery-blend",
+    category: "Recovery & Healing",
+    benefit: "BPC-157, GHK-Cu, KPV & TB-500 — advanced repair",
+    screeningSet: "recovery",
+    rxRequired: true,
+  },
 ];
 
 export function getPeptideRequestItem(id: string): PeptideRequestItem | undefined {
