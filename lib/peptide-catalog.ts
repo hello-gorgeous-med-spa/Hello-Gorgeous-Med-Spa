@@ -21,6 +21,8 @@ export type PeptideCatalogEntry = {
   prepayEligible: boolean;
   learnMoreHref?: string;
   available?: boolean;
+  /** Slug for getPeptidePickerThumbnail — defaults to id */
+  thumbnailSlug?: string;
 };
 
 function catalogEntry(
@@ -91,6 +93,7 @@ export const PEPTIDE_CATALOG: PeptideCatalogEntry[] = [
     commonUses: ["Skin rejuvenation", "Anti-aging", "Hair thinning"],
     prepayEligible: true,
     learnMoreHref: peptideTopicHref("ghk-cu-injectable"),
+    thumbnailSlug: "ghk-cu-injectable",
   }),
   catalogEntry({
     id: "tesamorelin",
@@ -111,6 +114,7 @@ export const PEPTIDE_CATALOG: PeptideCatalogEntry[] = [
     commonUses: ["Recovery", "Body composition", "Sleep"],
     prepayEligible: true,
     learnMoreHref: peptideTopicHref("cjc-1295"),
+    thumbnailSlug: "cjc-1295",
   }),
   catalogEntry({
     id: "nad-plus",
@@ -135,6 +139,7 @@ export const GLP1_CATALOG: PeptideCatalogEntry[] = [
     monthlyUsd: GLP1_RETAIL_PROGRAM.semaglutideFromUsd,
     prepayEligible: false,
     learnMoreHref: "/glp-1-weight-loss-oswego",
+    thumbnailSlug: "semaglutide",
   }),
   catalogEntry({
     id: "tirzepatide",

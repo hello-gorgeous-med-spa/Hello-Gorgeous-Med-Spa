@@ -19,6 +19,7 @@ import {
   PEPTIDE_RETAIL_FROM_MONTHLY_USD,
   peptideRetailMenuByCategory,
 } from "@/lib/peptide-retail-pricing";
+import { getCatalogCardThumbnail } from "@/lib/peptide-thumbnails";
 import { SITE } from "@/lib/seo";
 import { IV_SHOTS_VITAMIN_SHOTS } from "@/lib/iv-shots-page";
 
@@ -34,6 +35,8 @@ function PeptideCard({
   monthlyUsd,
   prepayEligible,
   learnMoreHref,
+  thumbnailSlug,
+  catalogId,
 }: {
   name: string;
   categoryLabel: string;
@@ -42,9 +45,25 @@ function PeptideCard({
   monthlyUsd: number;
   prepayEligible: boolean;
   learnMoreHref?: string;
+  thumbnailSlug?: string;
+  catalogId: string;
 }) {
+  const thumbnail = getCatalogCardThumbnail(catalogId, thumbnailSlug);
+
   return (
-    <article className="flex h-full flex-col rounded-2xl border border-neutral-200 bg-white p-6 shadow-sm transition hover:border-[#E6007E]/40 hover:shadow-md">
+    <article className="flex h-full flex-col overflow-hidden rounded-2xl border-4 border-black bg-white shadow-[6px_6px_0_0_rgba(230,0,126,0.25)] transition hover:border-[#E6007E]/50 hover:shadow-[8px_8px_0_0_rgba(230,0,126,0.35)]">
+      {thumbnail ? (
+        <div className="relative aspect-[16/9] w-full border-b-4 border-black">
+          <Image
+            src={thumbnail.src}
+            alt={thumbnail.alt}
+            fill
+            className="object-cover object-center"
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          />
+        </div>
+      ) : null}
+      <div className="flex flex-1 flex-col p-6">
       <div className="mb-4 flex items-start justify-between gap-3">
         <div>
           <h3 className="text-xl font-bold text-neutral-900">{name}</h3>
@@ -82,6 +101,7 @@ function PeptideCard({
             Learn more about {name} →
           </Link>
         ) : null}
+      </div>
       </div>
     </article>
   );
@@ -214,7 +234,7 @@ export function PeptideTherapyPageContent() {
           <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {PEPTIDE_CATALOG.map((peptide, idx) => (
               <FadeUp key={peptide.id} delayMs={idx * 30}>
-                <PeptideCard {...peptide} />
+                <PeptideCard {...peptide} catalogId={peptide.id} />
               </FadeUp>
             ))}
           </div>
@@ -236,7 +256,7 @@ export function PeptideTherapyPageContent() {
           <div className="mt-8 grid gap-6 md:grid-cols-2">
             {GLP1_CATALOG.map((program, idx) => (
               <FadeUp key={program.id} delayMs={idx * 40}>
-                <PeptideCard {...program} />
+                <PeptideCard {...program} catalogId={program.id} />
               </FadeUp>
             ))}
           </div>
@@ -260,14 +280,27 @@ export function PeptideTherapyPageContent() {
               <FadeUp key={shot.id} delayMs={idx * 30}>
                 <Link
                   href="/iv-shots"
-                  className="group block rounded-xl border border-neutral-200 bg-white p-5 transition hover:border-[#E6007E]/40 hover:shadow-md"
+                  className="group flex h-full flex-col overflow-hidden rounded-2xl border-4 border-black bg-white shadow-[6px_6px_0_0_rgba(230,0,126,0.25)] transition hover:border-[#E6007E]/50"
                 >
+                  {shot.image ? (
+                    <div className="relative aspect-[16/9] w-full border-b-4 border-black">
+                      <Image
+                        src={shot.image}
+                        alt={`${shot.name} — Hello Gorgeous Vitamin Bar Oswego IL`}
+                        fill
+                        className="object-cover object-center transition duration-500 group-hover:scale-[1.02]"
+                        sizes="(max-width: 640px) 100vw, 33vw"
+                      />
+                    </div>
+                  ) : null}
+                  <div className="flex flex-1 flex-col p-5">
                   <p className="font-bold text-neutral-900 group-hover:text-[#E6007E]">
                     {shot.name}
                   </p>
                   <p className="mt-1 text-sm text-neutral-600">{shot.benefit}</p>
-                  <p className="mt-3 text-lg font-bold text-neutral-900">${shot.price}/shot</p>
+                  <p className="mt-auto pt-3 text-lg font-bold text-neutral-900">${shot.price}/shot</p>
                   <p className="mt-1 text-sm font-semibold text-[#E6007E]">Learn more →</p>
+                  </div>
                 </Link>
               </FadeUp>
             ))}

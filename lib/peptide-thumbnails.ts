@@ -43,6 +43,7 @@ export const PEPTIDE_EDUCATION_THUMBNAILS: PeptideEducationThumbnail[] = [
   thumb("mots-c", "MOTS-c"),
   thumb("retatrutide", "Retatrutide", "retatrutide"),
   thumb("tirzepatide", "Tirzepatide", "tirzepatide"),
+  thumb("semaglutide", "Semaglutide"),
   thumb("selank", "Selank"),
   thumb("semax", "Semax"),
   thumb("epithalon", "Epithalon"),
@@ -72,6 +73,7 @@ const PICKER_IMAGE_SLUGS = new Set([
   "glutathione",
   "pt-141",
   "tirzepatide",
+  "semaglutide",
 ]);
 
 function fileSlugFor(item: PeptideEducationThumbnail): string {
@@ -105,6 +107,15 @@ export function getPeptidePickerThumbnail(slug: string): {
   const item = THUMBNAIL_BY_SLUG.get(slug);
   if (!item) return undefined;
   return { src: pickerWebpForItem(item), alt: item.alt };
+}
+
+/** Resolve card art for /peptides catalog entries (picker crop preferred). */
+export function getCatalogCardThumbnail(
+  catalogId: string,
+  thumbnailSlug?: string,
+): { src: `/${string}`; alt: string } | undefined {
+  const slug = thumbnailSlug ?? catalogId;
+  return getPeptidePickerThumbnail(slug) ?? getPeptideThumbnail(slug);
 }
 
 export function peptideEducationHref(item: PeptideEducationThumbnail): string {
