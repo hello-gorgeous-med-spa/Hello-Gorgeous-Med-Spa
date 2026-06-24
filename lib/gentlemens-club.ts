@@ -83,6 +83,9 @@ export type GentlemensClubService = {
   bullets: string[];
   href: string;
   cta: string;
+  image: string;
+  imageAlt: string;
+  imageContain?: boolean;
   external?: boolean;
   badge?: string;
   anchor?: boolean;
@@ -99,6 +102,8 @@ export const GENTLEMENS_CLUB_SERVICES: GentlemensClubService[] = [
     href: "/brotox",
     cta: "Brotox for men →",
     badge: "POPULAR",
+    image: "/images/homepage-buyer-paths/injectables.png",
+    imageAlt: "Brotox and injectables for men — Hello Gorgeous Med Spa Oswego IL",
   },
   {
     id: "hormones",
@@ -111,6 +116,8 @@ export const GENTLEMENS_CLUB_SERVICES: GentlemensClubService[] = [
     cta: "TRT program →",
     badge: "RX",
     anchor: true,
+    image: "/images/homepage-buyer-paths/weight-loss-hormones.png",
+    imageAlt: "TRT, BioTE and men's hormone optimization — Hello Gorgeous Med Spa Oswego IL",
   },
   {
     id: "peptides",
@@ -121,6 +128,8 @@ export const GENTLEMENS_CLUB_SERVICES: GentlemensClubService[] = [
     bullets: [`$${PEPTIDE_CONSULT_FEE_USD} consult`, `From $${PEPTIDE_RETAIL_FROM_MONTHLY_USD}/mo`, "US compounding pharmacies"],
     href: "/peptides",
     cta: "Peptide therapy hub →",
+    image: "/images/homepage-buyer-paths/hello-gorgeous-rx.png",
+    imageAlt: "Hello Gorgeous RX peptide therapy — BPC-157, Sermorelin, NAD+ and more in Oswego IL",
   },
   {
     id: "glp1",
@@ -135,6 +144,9 @@ export const GENTLEMENS_CLUB_SERVICES: GentlemensClubService[] = [
     ],
     href: "/glp-1-weight-loss-oswego",
     cta: "GLP-1 program →",
+    image: "/images/homepage-services/compounded-tirzepatide-weight-loss.png",
+    imageAlt: "Compounded tirzepatide GLP-1 medical weight loss — Hello Gorgeous Med Spa Oswego IL",
+    imageContain: true,
   },
   {
     id: "hair",
@@ -147,6 +159,9 @@ export const GENTLEMENS_CLUB_SERVICES: GentlemensClubService[] = [
     cta: "Hair protocols →",
     badge: "NEW",
     anchor: true,
+    image: "/images/anteage/hair/mdx-hair-exosome-vials.png",
+    imageAlt: "AnteAGE MDX hair exosome restoration for men — Hello Gorgeous Med Spa Oswego IL",
+    imageContain: true,
   },
   {
     id: "gift",
@@ -158,6 +173,8 @@ export const GENTLEMENS_CLUB_SERVICES: GentlemensClubService[] = [
     href: squareGiftCardUrl({ utmMedium: "gentlemens_club", utmCampaign: "gift_brotox" }),
     cta: "Buy gift card →",
     external: true,
+    image: "/images/gentlemens-club/fathers-day-brotox.png",
+    imageAlt: "Gift Brotox eGift card — Hello Gorgeous Med Spa Oswego IL",
   },
 ];
 
@@ -376,7 +393,7 @@ export const GENTLEMENS_CLUB_SCREENERS = [
   },
 ] as const;
 
-export const GENTLEMENS_CLUB_HERO_RX_IMAGE = "/images/rx/rx-hormone-vial.png";
+export const GENTLEMENS_CLUB_HERO_RX_IMAGE = "/images/homepage-buyer-paths/weight-loss-hormones.png";
 export const GENTLEMENS_CLUB_ANTEAGE_HAIR_IMAGE = "/images/anteage/hair/mdx-hair-exosome-vials.png";
 
 export type GentlemensClubAnteageHairResult = {
@@ -530,6 +547,8 @@ export const FOR_HIM_SERVICES = [
     badge: "POPULAR",
     href: "/brotox",
     cta: "Book Brotox",
+    image: "/images/homepage-buyer-paths/injectables.png",
+    imageAlt: "Brotox and injectables for men — Hello Gorgeous Med Spa Oswego IL",
   },
   {
     id: "hormones",
@@ -539,6 +558,8 @@ export const FOR_HIM_SERVICES = [
     badge: "RX",
     href: `${GENTLEMENS_CLUB_PATH}#hormones`,
     cta: "Book Consult",
+    image: "/images/homepage-buyer-paths/weight-loss-hormones.png",
+    imageAlt: "TRT and men's hormone optimization — Hello Gorgeous Med Spa Oswego IL",
   },
   {
     id: "peptides",
@@ -548,6 +569,8 @@ export const FOR_HIM_SERVICES = [
     badge: "NEW",
     href: "/peptides",
     cta: "View peptide menu",
+    image: "/images/homepage-buyer-paths/hello-gorgeous-rx.png",
+    imageAlt: "Hello Gorgeous RX peptide therapy for men — Oswego IL",
   },
   {
     id: "giftcard",
@@ -558,6 +581,8 @@ export const FOR_HIM_SERVICES = [
     href: squareGiftCardUrl({ utmMedium: "gentlemens_club", utmCampaign: "gift_brotox" }),
     cta: "Buy Gift Card",
     external: true,
+    image: "/images/gentlemens-club/fathers-day-brotox.png",
+    imageAlt: "Gift Brotox eGift card — Hello Gorgeous Med Spa Oswego IL",
   },
 ] as const;
 

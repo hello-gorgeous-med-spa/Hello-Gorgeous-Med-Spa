@@ -43,24 +43,41 @@ function MenuCard({
   accentLine,
   description,
   badge,
+  image,
+  imageAlt,
 }: {
   title: string;
   accentLine: string;
   description: string;
   badge?: string;
+  image?: string;
+  imageAlt?: string;
 }) {
   return (
-    <article className="group flex h-full flex-col rounded-2xl border border-white/10 bg-[#151922] p-6 transition-all duration-300 hover:border-[#FF2D8E]/50 hover:shadow-[0_0_24px_rgba(255,45,142,0.12)]">
-      <div className="mb-2 flex flex-wrap items-center gap-2">
-        <h3 className="font-serif text-2xl text-white tracking-tight">{title}</h3>
-        {badge ? (
-          <span className="rounded-full border border-[#FF2D8E]/40 bg-[#FF2D8E]/15 px-2 py-0.5 text-[9px] font-bold uppercase tracking-widest text-[#FFB8DC]">
-            {badge}
-          </span>
-        ) : null}
+    <article className="group flex h-full flex-col overflow-hidden rounded-2xl border border-white/10 bg-[#151922] transition-all duration-300 hover:border-[#FF2D8E]/50 hover:shadow-[0_0_24px_rgba(255,45,142,0.12)]">
+      {image ? (
+        <div className="relative aspect-[16/10] w-full border-b border-white/10 bg-black">
+          <Image
+            src={image}
+            alt={imageAlt ?? title}
+            fill
+            className="object-cover object-center transition-transform duration-500 group-hover:scale-[1.02]"
+            sizes="(max-width: 640px) 100vw, 25vw"
+          />
+        </div>
+      ) : null}
+      <div className="flex flex-1 flex-col p-6">
+        <div className="mb-2 flex flex-wrap items-center gap-2">
+          <h3 className="font-serif text-2xl text-white tracking-tight">{title}</h3>
+          {badge ? (
+            <span className="rounded-full border border-[#FF2D8E]/40 bg-[#FF2D8E]/15 px-2 py-0.5 text-[9px] font-bold uppercase tracking-widest text-[#FFB8DC]">
+              {badge}
+            </span>
+          ) : null}
+        </div>
+        <p className="text-sm font-medium leading-relaxed text-[#7dd3fc]">{accentLine}</p>
+        <p className="mt-4 flex-1 text-sm leading-relaxed text-gray-400">{description}</p>
       </div>
-      <p className="text-sm font-medium leading-relaxed text-[#7dd3fc]">{accentLine}</p>
-      <p className="mt-4 flex-1 text-sm leading-relaxed text-gray-400">{description}</p>
     </article>
   );
 }
@@ -146,36 +163,50 @@ function ServiceDetailCard({
   external,
   badge,
   anchor,
+  image,
+  imageAlt,
+  imageContain,
 }: (typeof GENTLEMENS_CLUB_SERVICES)[number]) {
   const linkClass = "mt-5 text-sm font-bold text-[#FF2D8E] hover:underline";
   return (
-    <article className="flex h-full flex-col rounded-2xl border border-white/10 bg-[#151922] p-6">
-      <div className="flex items-start justify-between gap-2">
-        <span className="text-3xl" aria-hidden>{icon}</span>
+    <article className="group flex h-full flex-col overflow-hidden rounded-2xl border border-white/10 bg-[#151922] transition-all duration-300 hover:border-[#FF2D8E]/40 hover:shadow-[0_0_24px_rgba(255,45,142,0.1)]">
+      <div className={`relative aspect-[16/10] w-full border-b border-white/10 ${imageContain ? "bg-black" : "bg-[#0a0a0a]"}`}>
+        <Image
+          src={image}
+          alt={imageAlt}
+          fill
+          className={`${imageContain ? "object-contain p-3" : "object-cover object-center"} transition-transform duration-500 group-hover:scale-[1.02]`}
+          sizes="(max-width: 640px) 100vw, 33vw"
+        />
         {badge ? (
-          <span className="rounded-full border border-[#FF2D8E]/40 bg-[#FF2D8E]/15 px-2 py-0.5 text-[9px] font-bold uppercase text-[#FFB8DC]">
+          <span className="absolute right-3 top-3 rounded-full border border-[#FF2D8E]/40 bg-[#FF2D8E]/90 px-2 py-0.5 text-[9px] font-bold uppercase text-white backdrop-blur-sm">
             {badge}
           </span>
         ) : null}
       </div>
-      <p className="mt-4 text-[10px] font-bold uppercase tracking-[0.2em] text-[#FF2D8E]">{eyebrow}</p>
-      <h3 className="mt-1 text-xl font-black text-white">{title}</h3>
-      <p className="mt-3 text-sm leading-relaxed text-gray-400">{description}</p>
-      <ul className="mt-4 flex-1 space-y-2">
-        {bullets.map((b) => (
-          <li key={b} className="flex gap-2 text-sm text-gray-300">
-            <span className="shrink-0 text-[#FF2D8E]">▸</span>
-            {b}
-          </li>
-        ))}
-      </ul>
-      {anchor ? (
-        <a href={href} className={linkClass}>{cta}</a>
-      ) : external ? (
-        <a href={href} target="_blank" rel="noopener noreferrer" className={linkClass}>{cta}</a>
-      ) : (
-        <Link href={href} className={linkClass}>{cta}</Link>
-      )}
+      <div className="flex flex-1 flex-col p-6">
+        <div className="flex items-start gap-2">
+          <span className="text-2xl" aria-hidden>{icon}</span>
+          <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#FF2D8E]">{eyebrow}</p>
+        </div>
+        <h3 className="mt-2 text-xl font-black text-white">{title}</h3>
+        <p className="mt-3 text-sm leading-relaxed text-gray-400">{description}</p>
+        <ul className="mt-4 flex-1 space-y-2">
+          {bullets.map((b) => (
+            <li key={b} className="flex gap-2 text-sm text-gray-300">
+              <span className="shrink-0 text-[#FF2D8E]">▸</span>
+              {b}
+            </li>
+          ))}
+        </ul>
+        {anchor ? (
+          <a href={href} className={linkClass}>{cta}</a>
+        ) : external ? (
+          <a href={href} target="_blank" rel="noopener noreferrer" className={linkClass}>{cta}</a>
+        ) : (
+          <Link href={href} className={linkClass}>{cta}</Link>
+        )}
+      </div>
     </article>
   );
 }
@@ -706,7 +737,14 @@ export function GentlemensClubPageContent() {
                   target={"external" in svc && svc.external ? "_blank" : undefined}
                   className="block h-full"
                 >
-                  <MenuCard title={svc.label} badge={svc.badge} accentLine={svc.cta} description={svc.blurb} />
+                  <MenuCard
+                    title={svc.label}
+                    badge={svc.badge}
+                    accentLine={svc.cta}
+                    description={svc.blurb}
+                    image={svc.image}
+                    imageAlt={svc.imageAlt}
+                  />
                 </Link>
               </FadeUp>
             ))}
