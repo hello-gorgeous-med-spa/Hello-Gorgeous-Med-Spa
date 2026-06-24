@@ -4,11 +4,14 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { CTA } from "@/components/CTA";
+import { ClubBeforeYouCallStrip } from "@/components/club/ClubBeforeYouCallStrip";
 import { ClubFlyerGallery } from "@/components/club/ClubFlyerGallery";
+import { ClubStartHereBand } from "@/components/club/ClubStartHereBand";
+import { ClubStickyCta } from "@/components/club/ClubStickyCta";
 import { FadeUp, Section } from "@/components/Section";
-import { BOOKING_URL } from "@/lib/flows";
+import { LADIES_CLUB_START_PATHS, LADIES_CLUB_STICKY_CTA } from "@/lib/club-start-here";
+import { PROGRAM_CONSULT_BOOKING_URL } from "@/lib/flows";
 import { RYAN_FULL_NAME } from "@/lib/founder-credentials";
-import { GENTLEMENS_CLUB_PATH } from "@/lib/gentlemens-club";
 import {
   CLUB_VITAMIN_FLYERS,
   LADIES_CLUB_GLP1_FLYERS,
@@ -84,7 +87,7 @@ export function LadiesClubPageContent() {
   const appUrl = appForHerUrl();
 
   return (
-    <div className="min-h-screen bg-[#0a0a0a] text-white">
+    <div className="min-h-screen bg-[#0a0a0a] pb-20 text-white md:pb-0">
       <div
         className="pointer-events-none fixed inset-0 -z-10 opacity-60"
         style={{
@@ -123,14 +126,17 @@ export function LadiesClubPageContent() {
                   {` `}{RYAN_FULL_NAME} on site 7 days.
                 </p>
                 <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-                  <CTA href={BOOKING_URL} variant="gradient">Book free consult</CTA>
+                  <CTA href="/quiz/perimenopause-readiness" variant="gradient">
+                    Take 2-min screener
+                  </CTA>
+                  <CTA href={PROGRAM_CONSULT_BOOKING_URL} variant="outline" className="!border-[#FF2D8E] !text-[#FFB8DC] hover:!bg-[#FF2D8E] hover:!text-white">
+                    Book $49 consult
+                  </CTA>
                   <CTA href={appUrl} variant="outline" className="!border-white/30 !text-white hover:!bg-white hover:!text-black">
                     Join in app
                   </CTA>
-                  <CTA href={GENTLEMENS_CLUB_PATH} variant="outline" className="!border-white/30 !text-white hover:!bg-white hover:!text-black">
-                    Men&apos;s Club →
-                  </CTA>
                 </div>
+                <ClubBeforeYouCallStrip />
               </div>
               <div className="overflow-hidden rounded-2xl border-4 border-black bg-black shadow-[8px_8px_0_0_rgba(255,45,142,0.35)]">
                 <div className="relative aspect-[1024/567] w-full">
@@ -148,6 +154,12 @@ export function LadiesClubPageContent() {
           </FadeUp>
         </div>
       </Section>
+
+      <ClubStartHereBand
+        eyebrow="Not sure where to start?"
+        title="Pick your path — we'll route you in 2 minutes"
+        paths={LADIES_CLUB_START_PATHS}
+      />
 
       {/* Jump nav */}
       <nav className="sticky top-[var(--header-offset,0px)] z-20 border-b border-white/10 bg-[#0a0a0a]/90 backdrop-blur-md">
@@ -351,7 +363,7 @@ export function LadiesClubPageContent() {
                 ${PEPTIDE_CONSULT_FEE_USD} NP consult · medication billed separately
               </p>
               <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-                <CTA href={BOOKING_URL} variant="gradient">Book consult</CTA>
+                <CTA href={PROGRAM_CONSULT_BOOKING_URL} variant="gradient">Book $49 consult</CTA>
                 <CTA href={LADIES_CLUB_PT141_FLYER.learnMoreHref} variant="outline" className="!border-white/30 !text-white">
                   PT-141 guide →
                 </CTA>
@@ -463,7 +475,7 @@ export function LadiesClubPageContent() {
                   </ul>
                   {tier.footnote ? <p className="mt-4 text-xs text-gray-500">{tier.footnote}</p> : null}
                   <CTA
-                    href={"href" in tier && tier.href ? tier.href : BOOKING_URL}
+                    href={"href" in tier && tier.href ? tier.href : PROGRAM_CONSULT_BOOKING_URL}
                     variant={tier.highlight ? "gradient" : "outline"}
                     className={`mt-6 ${!tier.highlight ? "!border-white/30 !text-white" : ""}`}
                   >
@@ -507,15 +519,24 @@ export function LadiesClubPageContent() {
       <Section className="border-t border-white/10 !py-16">
         <div className="max-w-3xl mx-auto px-4 text-center">
           <h2 className="text-3xl font-black text-white">Ready to feel like yourself again?</h2>
-          <p className="mt-4 text-gray-400">Book a consult or explore The Gentlemen&apos;s Club for the men in your life.</p>
+          <p className="mt-4 text-gray-400">
+            Start with a screener or book online — text us if you have a quick question.
+          </p>
           <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
-            <CTA href={BOOKING_URL} variant="gradient">Book free consult</CTA>
-            <CTA href={`tel:${SITE.phone}`} variant="outline" className="!border-white/30 !text-white">
-              Call {SITE.phone}
+            <CTA href="/quiz/perimenopause-readiness" variant="gradient">
+              Take screener
+            </CTA>
+            <CTA href={PROGRAM_CONSULT_BOOKING_URL} variant="outline" className="!border-[#FF2D8E] !text-[#FFB8DC]">
+              Book $49 consult
+            </CTA>
+            <CTA href={`sms:${SITE.phone.replace(/\D/g, "")}`} variant="outline" className="!border-white/30 !text-white">
+              Text us
             </CTA>
           </div>
         </div>
       </Section>
+
+      <ClubStickyCta config={LADIES_CLUB_STICKY_CTA} />
     </div>
   );
 }

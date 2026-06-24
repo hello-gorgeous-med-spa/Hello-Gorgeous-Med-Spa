@@ -49,6 +49,7 @@ export const LADIES_CLUB_PT141_FLYER: ClubPeptideFlyer = {
 export const LADIES_CLUB_PILLS = ["HORMONES", "GLP-1", "PEPTIDES", "IV", "SKIN", "MEMBERSHIP"] as const;
 
 export const LADIES_CLUB_JUMP_LINKS = [
+  { label: "Start here", href: "#start-here" },
   { label: "Services", href: "#services" },
   { label: "Hormones / BioTE", href: "#hormones" },
   { label: "BHRT cost guide", href: "/ladies-club/bhrt-cost" },

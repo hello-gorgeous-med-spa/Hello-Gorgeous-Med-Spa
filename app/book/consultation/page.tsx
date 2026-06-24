@@ -3,8 +3,8 @@
 // ============================================================
 
 import { redirect } from "next/navigation";
-import { BOOKING_URL } from "@/lib/flows";
+import { PROGRAM_CONSULT_BOOKING_URL } from "@/lib/flows";
 
 export default function ConsultationBookRedirect() {
-  redirect(BOOKING_URL);
+  redirect(PROGRAM_CONSULT_BOOKING_URL);
 }

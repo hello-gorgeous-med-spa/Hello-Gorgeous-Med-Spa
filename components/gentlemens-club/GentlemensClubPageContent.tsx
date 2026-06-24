@@ -4,9 +4,13 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { CTA } from "@/components/CTA";
+import { ClubBeforeYouCallStrip } from "@/components/club/ClubBeforeYouCallStrip";
 import { ClubFlyerGallery } from "@/components/club/ClubFlyerGallery";
+import { ClubStartHereBand } from "@/components/club/ClubStartHereBand";
+import { ClubStickyCta } from "@/components/club/ClubStickyCta";
 import { FadeUp, Section } from "@/components/Section";
-import { BOOKING_URL } from "@/lib/flows";
+import { GENTLEMENS_CLUB_START_PATHS, GENTLEMENS_CLUB_STICKY_CTA } from "@/lib/club-start-here";
+import { BOOKING_URL, PROGRAM_CONSULT_BOOKING_URL } from "@/lib/flows";
 import {
   CLUB_VITAMIN_FLYERS,
   GENTLEMENS_CLUB_GLP1_FLYERS,
@@ -43,7 +47,6 @@ import {
   GENTLEMENS_CLUB_TRT_INCLUDED,
   GENTLEMENS_CLUB_TRT_QUICK_FACTS,
 } from "@/lib/gentlemens-club";
-import { LADIES_CLUB_PATH } from "@/lib/ladies-club";
 import { PEPTIDE_CONSULT_FEE_USD } from "@/lib/peptide-request-menu";
 import { SITE } from "@/lib/seo";
 
@@ -126,7 +129,7 @@ function TierCard({ tier }: { tier: (typeof GENTLEMENS_CLUB_TIERS)[number] }) {
       </ul>
       {tier.footnote ? <p className="mt-4 text-xs text-gray-500">{tier.footnote}</p> : null}
       <a
-        href={tier.squarePayUrl ?? BOOKING_URL}
+        href={tier.squarePayUrl ?? PROGRAM_CONSULT_BOOKING_URL}
         target="_blank"
         rel="noopener noreferrer"
         className={`mt-6 block rounded-xl px-6 py-3 text-center text-sm font-bold transition-all ${
@@ -258,8 +261,8 @@ function AddOnCard({
           <span className="text-base font-semibold text-gray-500">/month</span>
         </p>
         <div className="mt-5 flex flex-col gap-2 sm:flex-row sm:flex-wrap">
-          <CTA href={BOOKING_URL} variant="gradient" className="!px-5 !py-2.5 !text-xs">
-            Book consult
+          <CTA href={PROGRAM_CONSULT_BOOKING_URL} variant="gradient" className="!px-5 !py-2.5 !text-xs">
+            Book $49 consult
           </CTA>
           {learnMoreHref ? (
             <Link
@@ -309,7 +312,7 @@ export function GentlemensClubPageContent() {
   const appUrl = appForHimUrl();
 
   return (
-    <div className="min-h-screen bg-[#0a0a0a] text-white">
+    <div className="min-h-screen bg-[#0a0a0a] pb-20 text-white md:pb-0">
       <div
         className="pointer-events-none fixed inset-0 -z-10 opacity-60"
         style={{
@@ -372,24 +375,28 @@ export function GentlemensClubPageContent() {
                 ))}
               </p>
               <div className="mt-6 flex flex-col sm:flex-row flex-wrap gap-3 justify-center md:justify-start">
-                <CTA href={BOOKING_URL} variant="gradient" className="!px-8 !py-4">
-                  Book Your Consult
+                <CTA href="/quiz/trt-readiness" variant="gradient" className="!px-8 !py-4">
+                  Take TRT screener
                 </CTA>
-                <CTA href="#pricing" variant="outline" className="!border-[#FF2D8E] !text-[#FFB8DC] hover:!bg-[#FF2D8E] hover:!text-white !px-8 !py-4">
-                  View Membership
+                <CTA href={PROGRAM_CONSULT_BOOKING_URL} variant="outline" className="!border-[#FF2D8E] !text-[#FFB8DC] hover:!bg-[#FF2D8E] hover:!text-white !px-8 !py-4">
+                  Book $49 consult
                 </CTA>
-                <CTA href="/quiz/trt-readiness" variant="outline" className="!border-[#7dd3fc]/50 !text-[#7dd3fc] hover:!bg-[#7dd3fc]/10 !px-8 !py-4">
-                  TRT Screener
-                </CTA>
-                <CTA href={LADIES_CLUB_PATH} variant="outline" className="!border-white/30 !text-white hover:!bg-white hover:!text-black !px-8 !py-4">
-                  Ladies&apos; Club →
+                <CTA href="#pricing" variant="outline" className="!border-white/30 !text-white hover:!bg-white hover:!text-black !px-8 !py-4">
+                  View membership
                 </CTA>
               </div>
+              <ClubBeforeYouCallStrip />
               <p className="mt-4 text-sm text-white/50">Medically reviewed by {RYAN_FULL_NAME}</p>
             </div>
           </FadeUp>
         </div>
       </Section>
+
+      <ClubStartHereBand
+        eyebrow="Not sure where to start?"
+        title="Pick your path — we'll route you in 2 minutes"
+        paths={GENTLEMENS_CLUB_START_PATHS}
+      />
 
       {/* Jump nav */}
       <nav aria-label="On this page" className="sticky top-[var(--header-offset,0px)] z-20 border-b border-white/10 bg-[#0a0a0a]/95 backdrop-blur-md">
@@ -610,7 +617,7 @@ export function GentlemensClubPageContent() {
                     <CTA href="/quiz/hair-readiness" variant="outline" className="!border-white/30 !text-white text-sm">
                       Hair screener (2 min)
                     </CTA>
-                    <CTA href={BOOKING_URL} variant="outline" className="!border-white/30 !text-white text-sm">
+                    <CTA href={PROGRAM_CONSULT_BOOKING_URL} variant="outline" className="!border-white/30 !text-white text-sm">
                       Book consult
                     </CTA>
                   </div>
@@ -665,7 +672,7 @@ export function GentlemensClubPageContent() {
             <div className="mx-auto mt-10 max-w-3xl rounded-2xl border border-[#7dd3fc]/20 bg-[#151922] p-6 text-center">
               <p className="text-sm leading-relaxed text-[#7dd3fc]">{GENTLEMENS_CLUB_HAIR_TRT_CALLOUT}</p>
               <div className="mt-5 flex flex-col justify-center gap-3 sm:flex-row sm:flex-wrap">
-                <CTA href={BOOKING_URL} variant="gradient" className="text-sm">
+                <CTA href={PROGRAM_CONSULT_BOOKING_URL} variant="gradient" className="text-sm">
                   Book hair + hormone consult
                 </CTA>
                 <CTA href="/regenerative-medicine-oswego-il" variant="outline" className="!border-white/30 !text-white text-sm">
@@ -726,7 +733,7 @@ export function GentlemensClubPageContent() {
                 ${PEPTIDE_CONSULT_FEE_USD} NP consult · medication billed separately
               </p>
               <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-                <CTA href={BOOKING_URL} variant="gradient">Book consult</CTA>
+                <CTA href={PROGRAM_CONSULT_BOOKING_URL} variant="gradient">Book $49 consult</CTA>
                 <CTA href={GENTLEMENS_CLUB_PT141_FLYER.learnMoreHref} variant="outline" className="!border-white/30 !text-white">
                   PT-141 guide →
                 </CTA>
@@ -779,7 +786,7 @@ export function GentlemensClubPageContent() {
               Injections · BioTE pellets $750–1,200 · creams from $150/mo · member pricing from ${GENTLEMENS_CLUB_TIERS[0]?.pricePerMonth}/mo
             </p>
             <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
-              <CTA href={BOOKING_URL} variant="gradient">Book free consult</CTA>
+              <CTA href={PROGRAM_CONSULT_BOOKING_URL} variant="gradient">Book $49 consult</CTA>
               <CTA href="#pricing" variant="outline" className="!border-white/30 !text-white">View membership</CTA>
             </div>
           </FadeUp>
@@ -797,7 +804,7 @@ export function GentlemensClubPageContent() {
               </p>
               <div className="mt-6 flex flex-col justify-center gap-3 sm:flex-row">
                 <CTA href="/glp-1-weight-loss-oswego" variant="gradient">See GLP-1 program</CTA>
-                <CTA href={BOOKING_URL} variant="outline" className="!border-white/30 !text-white">Book combined consult</CTA>
+                <CTA href={PROGRAM_CONSULT_BOOKING_URL} variant="outline" className="!border-white/30 !text-white">Book $49 consult</CTA>
               </div>
             </div>
           </FadeUp>
@@ -942,19 +949,26 @@ export function GentlemensClubPageContent() {
           <p className="text-3xl mb-2" aria-hidden>👑</p>
           <h2 className="text-3xl md:text-4xl font-black text-white mb-4">Ready to join?</h2>
           <p className="text-white/90 text-lg mb-8">
-            Book your complimentary consult — {RYAN_FULL_NAME} on site 7 days a week.
+            Start with the TRT screener or book your $49 consult — {RYAN_FULL_NAME} on site 7 days a week.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <CTA href={BOOKING_URL} variant="white">Book Your Consult</CTA>
+            <CTA href="/quiz/trt-readiness" variant="white">
+              Take TRT screener
+            </CTA>
+            <CTA href={PROGRAM_CONSULT_BOOKING_URL} variant="outline" className="!border-white !text-white hover:!bg-white hover:!text-[#E6007E]">
+              Book $49 consult
+            </CTA>
             <CTA href={appUrl} variant="outline" className="!border-white !text-white hover:!bg-white hover:!text-[#E6007E]">
-              Open App — For Him
+              Open app — For Him
             </CTA>
           </div>
           <p className="mt-6 text-sm text-white/75">
-            📍 {SITE.address.streetAddress}, {SITE.address.addressLocality} · 📞 {SITE.phone}
+            📍 {SITE.address.streetAddress}, {SITE.address.addressLocality} · Text {SITE.phone} for quick questions
           </p>
         </div>
       </section>
+
+      <ClubStickyCta config={GENTLEMENS_CLUB_STICKY_CTA} />
     </div>
   );
 }

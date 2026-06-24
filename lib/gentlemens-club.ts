@@ -99,6 +99,7 @@ export const GENTLEMENS_CLUB_TIERS: GentlemensClubTier[] = [
 export const GENTLEMENS_CLUB_PILLS = ["BROTOX", "HORMONES", "HAIR", "PEPTIDES", "GLP-1", "RECOVERY"] as const;
 
 export const GENTLEMENS_CLUB_JUMP_LINKS = [
+  { label: "Start here", href: "#start-here" },
   { label: "Services", href: "#services" },
   { label: "Hormones / TRT", href: "#hormones" },
   { label: "Add-ons", href: "#add-ons" },

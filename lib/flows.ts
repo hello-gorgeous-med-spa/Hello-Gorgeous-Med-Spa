@@ -14,6 +14,18 @@ export const FRESHA_ORG_BOOKING_URL =
 export const LEGACY_FRESHA_ORG_BOOKING_URL =
   "https://www.fresha.com/book-now/hello-gorgeous-tallrfb5/services?lid=102610&share=true&pId=95245";
 
+/**
+ * Fresha deep link — $49 NP consult for wellness & RX programs
+ * (Ladies' / Gentlemen's Club, hormones, GLP-1, peptides, TRT).
+ */
+export const FRESHA_49_CONSULT_BOOKING_URL =
+  "https://www.fresha.com/book-now/hello-gorgeous-tallrfb5/services?lid=102610&eid=4566698&oiid=sv%3A22845867&share=true&pId=95245";
+
+export const PROGRAM_CONSULT_FEE_USD = 49;
+
+/** Alias for club & program funnels — same as {@link FRESHA_49_CONSULT_BOOKING_URL}. */
+export const PROGRAM_CONSULT_BOOKING_URL = FRESHA_49_CONSULT_BOOKING_URL;
+
 /** @deprecated Use `BOOKING_URL` / `FRESHA_ORG_BOOKING_URL`. */
 export const FRESHA_BOOKING_URL = FRESHA_ORG_BOOKING_URL;
 
