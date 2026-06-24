@@ -8,7 +8,7 @@ export const GENTLEMENS_CLUB_PATH = "/gentlemens-club" as const;
 export const GENTLEMENS_CLUB_URL = `${SITE.url}${GENTLEMENS_CLUB_PATH}`;
 
 export const GENTLEMENS_CLUB_HERO_IMAGE = "/images/gentlemens-club/gentlemens-club-hero.png";
-export const GENTLEMENS_CLUB_FATHERS_DAY_IMAGE = "/images/gentlemens-club/fathers-day-brotox.png";
+export const GENTLEMENS_CLUB_GIFT_BROTOX_IMAGE = "/images/gentlemens-club/fathers-day-brotox.png";
 export const GENTLEMENS_CLUB_DISTINGUISHED_IMAGE = "/images/gentlemens-club/the-distinguished-hero.png";
 
 export const GENTLEMENS_CLUB_HERO_IMAGES = [
@@ -169,7 +169,7 @@ export const GENTLEMENS_CLUB_SERVICES: GentlemensClubService[] = [
     eyebrow: "Gifts",
     title: "Brotox Gift Card",
     description: "Skip the tie — digital gift cards via Square.",
-    bullets: ["Father's Day & birthdays", "Redeem for Brotox or services"],
+    bullets: ["Birthdays, holidays & just because", "Redeem for Brotox or services"],
     href: squareGiftCardUrl({ utmMedium: "gentlemens_club", utmCampaign: "gift_brotox" }),
     cta: "Buy gift card →",
     external: true,
@@ -576,7 +576,7 @@ export const FOR_HIM_SERVICES = [
     id: "giftcard",
     icon: "🎁",
     label: "Gift Brotox",
-    blurb: "Perfect for dads, husbands & boyfriends. Delivered instantly via Square.",
+    blurb: "Perfect for husbands, boyfriends & the guy who has everything. Delivered instantly via Square.",
     badge: "GIFT",
     href: squareGiftCardUrl({ utmMedium: "gentlemens_club", utmCampaign: "gift_brotox" }),
     cta: "Buy Gift Card",

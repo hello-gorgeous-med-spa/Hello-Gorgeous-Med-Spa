@@ -18,12 +18,14 @@ import { getActiveDeals, type AppDeal } from "@/lib/app-deals";
 import { getTierForVisits, getVisitsToNextTier } from "@/lib/loyalty-tiers";
 import {
   VITAMIN_BAR,
-  VITAMIN_MEMBERSHIPS,
   shotsByCategory,
-  type VitaminMembership,
   type VitaminShot,
 } from "@/lib/vitamin-bar";
-import { HG_MEMBERSHIPS, MEMBERSHIP_COMPARISON_ROWS } from "@/lib/hg-memberships";
+import {
+  WELLNESS_MEMBERSHIP_CATEGORIES,
+  wellnessPlansByCategory,
+  type WellnessMembershipPlan,
+} from "@/lib/wellness-memberships";
 import { squareGiftCardUrl, GIFT_CARD_DESIGNS, GIFT_CARD_PRESET_AMOUNTS } from "@/lib/gift-cards";
 import { GENTLEMENS_CLUB_HERO_IMAGES } from "@/lib/gentlemens-club";
 import {
@@ -237,7 +239,7 @@ export function ClientApp({
             {tab === "home"       && <HomeTab onNavigate={setTab} onOpenIntake={() => setShowIntake(true)} onOpenIvBuilder={() => { setTab("vitamin"); setShowIvBuilder(true); }} onOpenRxHub={() => setShowRxHub(true)} intakeRefresh={intakeRefresh} homeData={homeData} canInstall={canInstall} promptInstall={promptInstall} />}
             {tab === "vitamin"    && <VitaminTab onSelect={setSelected} onOpenIntake={() => setShowIntake(true)} onOpenIvBuilder={() => setShowIvBuilder(true)} intakeRefresh={intakeRefresh} />}
             {tab === "deals"      && <DealsTab />}
-            {tab === "membership" && <MembershipTab memberships={VITAMIN_MEMBERSHIPS} />}
+            {tab === "membership" && <MembershipTab />}
             {tab === "forhim"     && <ForHimTab />}
             {tab === "me"         && <MeTab onOpenIntake={() => setShowIntake(true)} intakeRefresh={intakeRefresh} homeData={homeData} />}
           </>
@@ -1034,215 +1036,123 @@ function ShotSheet({ shot, onClose }: { shot: VitaminShot; onClose: () => void }
 
 // ─── Membership Tab ───────────────────────────────────────────────────────────
 
-const HG_TIER_COLORS: Record<string, string> = {
-  glow: "#FF2D8E",
-  luxe: "#3b82f6",
-  platinum: "#f59e0b",
-};
+function MembershipTab() {
+  const [busyId, setBusyId] = useState<string | null>(null);
+  const [err, setErr] = useState<string | null>(null);
 
-function MembershipTab({ memberships }: { memberships: VitaminMembership[] }) {
-  const [showCompare, setShowCompare] = useState(false);
+  async function joinPlan(plan: WellnessMembershipPlan) {
+    setErr(null);
+    if (plan.consultFirst) {
+      window.open(plan.bookHref ?? BOOKING_URL, "_blank", "noopener,noreferrer");
+      return;
+    }
+    setBusyId(plan.id);
+    try {
+      const res = await fetch("/api/client-app/membership/checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ membershipId: plan.id }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (res.ok && data.url) {
+        window.location.href = data.url;
+        return;
+      }
+      setErr(data.error || "Could not start checkout. Call us to join.");
+    } catch {
+      setErr("Network error. Call us to join.");
+    } finally {
+      setBusyId(null);
+    }
+  }
 
   return (
     <div className="py-5">
-      {/* Header */}
-      <h2 className="text-xl font-bold text-white">Memberships</h2>
+      <h2 className="text-xl font-bold text-white">Wellness Memberships</h2>
       <p className="mt-1 text-sm" style={{ color: "rgba(255,255,255,0.5)" }}>
-        Monthly plans — discounted Botox, treatments & HG Rewards that never expire.
+        Peptides · hormones · NP programs · Vitamin Bar — billed monthly through Square.
       </p>
 
-      {/* HG Tiered Memberships — PRIMARY */}
-      <div className="mt-5 space-y-4">
-        {HG_MEMBERSHIPS.map((tier) => {
-          const accent = HG_TIER_COLORS[tier.id] ?? "#FF2D8E";
+      <div className="mt-5 space-y-8">
+        {WELLNESS_MEMBERSHIP_CATEGORIES.map((category, ci) => {
+          const plans = wellnessPlansByCategory(category.id);
           return (
-            <div
-              key={tier.id}
-              className="rounded-2xl overflow-hidden"
-              style={{
-                background: tier.highlight
-                  ? `linear-gradient(145deg, ${accent}14 0%, rgba(10,15,30,0.97) 40%)`
-                  : "rgba(255,255,255,0.03)",
-                border: tier.highlight
-                  ? `1px solid ${accent}50`
-                  : "1px solid rgba(255,255,255,0.08)",
-                boxShadow: tier.highlight ? `0 4px 24px ${accent}22` : "none",
-              }}
-            >
-              <div className="p-5">
-                {/* Badge */}
-                {tier.badge && (
-                  <div className="mb-3">
-                    <span
-                      className="rounded-full px-3 py-0.5 text-[10px] font-black uppercase text-white"
-                      style={{ background: accent }}
+            <section key={category.id}>
+              <p
+                className="text-[10px] font-bold uppercase tracking-wider mb-1"
+                style={{ color: trifectaAccent(ci % 3).subtitle }}
+              >
+                {category.eyebrow}
+              </p>
+              <h3 className="text-sm font-bold text-white mb-3">{category.label}</h3>
+              <div className="space-y-3">
+                {plans.map((plan) => {
+                  const accent = trifectaAccent(ci % 3);
+                  const price = plan.priceLabel ?? `$${plan.pricePerMonth}/mo`;
+                  return (
+                    <div
+                      key={plan.id}
+                      className="rounded-2xl p-4"
+                      style={{
+                        background: plan.highlight
+                          ? `linear-gradient(145deg, ${accent.subtitle}14 0%, rgba(10,15,30,0.97) 40%)`
+                          : "rgba(255,255,255,0.03)",
+                        border: plan.highlight
+                          ? `1px solid ${accent.subtitle}50`
+                          : "1px solid rgba(255,255,255,0.08)",
+                      }}
                     >
-                      ⭐ {tier.badge}
-                    </span>
-                  </div>
-                )}
-
-                {/* Name + price */}
-                <div className="flex items-baseline justify-between gap-2">
-                  <h3 className="text-lg font-bold text-white">
-                    {tier.icon} {tier.name}
-                  </h3>
-                  <div className="shrink-0 text-right">
-                    <span className="text-2xl font-black" style={{ color: accent }}>
-                      ${tier.pricePerMonth}
-                    </span>
-                    <span className="text-sm" style={{ color: "rgba(255,255,255,0.35)" }}>/mo</span>
-                  </div>
-                </div>
-                <p className="mt-1 text-xs leading-relaxed" style={{ color: "rgba(255,255,255,0.50)" }}>
-                  {tier.tagline}
-                </p>
-
-                {/* Botox discount badge */}
-                <div
-                  className="mt-3 rounded-xl px-3 py-2 text-center"
-                  style={{ background: `${accent}15`, border: `1px solid ${accent}25` }}
-                >
-                  <span className="text-xs font-semibold" style={{ color: accent }}>
-                    ${tier.botoxDiscount}/unit off ALL neurotoxins
-                  </span>
-                  <span className="text-xs text-white/35"> · Botox, Dysport, Jeuveau, Xeomin, Daxxify</span>
-                </div>
-
-                {/* Monthly credits */}
-                <div className="mt-3">
-                  <p className="text-[10px] font-bold uppercase tracking-wider mb-1.5" style={{ color: accent }}>
-                    Included Monthly
-                  </p>
-                  <ul className="space-y-1">
-                    {tier.monthlyCredits.map((c) => (
-                      <li key={c} className="flex gap-1.5 text-xs font-semibold" style={{ color: "rgba(255,255,255,0.85)" }}>
-                        <span style={{ color: accent }}>✦</span>{c}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                {/* Perks */}
-                <ul className="mt-3 space-y-1.5">
-                  {tier.perks.slice(0, 4).map((p) => (
-                    <li key={p} className="flex gap-2 text-xs" style={{ color: "rgba(255,255,255,0.60)" }}>
-                      <span style={{ color: accent }}>✓</span>{p}
-                    </li>
-                  ))}
-                </ul>
-
-                {/* CTA */}
-                <a
-                  href={tier.squarePayUrl ?? BOOKING_URL}
-                  target={tier.squarePayUrl ? undefined : "_blank"}
-                  rel={tier.squarePayUrl ? undefined : "noopener noreferrer"}
-                  className="mt-4 block w-full rounded-xl py-3.5 text-center font-bold text-white transition hover:brightness-110"
-                  style={{ background: `linear-gradient(135deg, ${accent} 0%, ${accent}bb 100%)` }}
-                >
-                  Join {tier.name}
-                </a>
-                <p className="mt-2 text-center text-[10px]" style={{ color: "rgba(255,255,255,0.25)" }}>
-                  No contracts · Cancel anytime
-                </p>
+                      <div className="flex items-baseline justify-between gap-2">
+                        <h4 className="font-bold text-white text-sm">{plan.name}</h4>
+                        <span className="text-sm font-black shrink-0" style={{ color: accent.subtitle }}>
+                          {price}
+                        </span>
+                      </div>
+                      <p className="mt-1 text-xs leading-relaxed" style={{ color: "rgba(255,255,255,0.50)" }}>
+                        {plan.summary}
+                      </p>
+                      <ul className="mt-2 space-y-1">
+                        {plan.perks.slice(0, 3).map((p) => (
+                          <li key={p} className="flex gap-1.5 text-[11px]" style={{ color: "rgba(255,255,255,0.55)" }}>
+                            <span style={{ color: accent.subtitle }}>✓</span>
+                            {p}
+                          </li>
+                        ))}
+                      </ul>
+                      <button
+                        type="button"
+                        disabled={busyId === plan.id}
+                        onClick={() => void joinPlan(plan)}
+                        className="mt-3 w-full rounded-xl py-3 text-center text-xs font-bold text-white disabled:opacity-60"
+                        style={{ background: trifectaButtonGradient(accent) }}
+                      >
+                        {busyId === plan.id
+                          ? "Starting…"
+                          : plan.consultFirst
+                            ? "Book consult"
+                            : "Join with Square"}
+                      </button>
+                    </div>
+                  );
+                })}
               </div>
-            </div>
+            </section>
           );
         })}
       </div>
 
-      {/* Compare button */}
-      <button
-        type="button"
-        onClick={() => setShowCompare(!showCompare)}
-        className="mt-5 w-full rounded-xl py-3 text-sm font-semibold text-white/60 transition hover:text-white/90"
-        style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.08)" }}
-      >
-        {showCompare ? "Hide" : "Show"} Comparison Table
-      </button>
+      {err ? <p className="mt-4 text-center text-xs text-red-400">{err}</p> : null}
 
-      {/* Comparison table */}
-      {showCompare && (
-        <div
-          className="mt-4 rounded-2xl overflow-hidden"
-          style={{ border: "1px solid rgba(255,255,255,0.08)" }}
-        >
-          <div className="grid grid-cols-4 text-center" style={{ background: "rgba(255,255,255,0.04)" }}>
-            <div className="p-3 text-left text-xs font-semibold text-white/40">Feature</div>
-            {[
-              { key: "glow", label: "🌸 Glow", color: "#FF2D8E" },
-              { key: "luxe", label: "💎 Luxe", color: "#3b82f6" },
-              { key: "platinum", label: "👑 Plat", color: "#f59e0b" },
-            ].map((t) => (
-              <div key={t.key} className="p-3 text-xs font-bold" style={{ color: t.color }}>
-                {t.label}
-              </div>
-            ))}
-          </div>
-          {MEMBERSHIP_COMPARISON_ROWS.map((row, i) => (
-            <div
-              key={row.label}
-              className="grid grid-cols-4 border-t"
-              style={{
-                borderColor: "rgba(255,255,255,0.06)",
-                background: i % 2 === 0 ? "rgba(255,255,255,0.015)" : "transparent",
-              }}
-            >
-              <div className="p-2.5 text-xs text-white/45">{row.label}</div>
-              {(["glow", "luxe", "platinum"] as const).map((key, ti) => (
-                <div
-                  key={key}
-                  className="p-2.5 text-center text-xs"
-                  style={{ color: ti === 0 ? "#FF2D8E" : ti === 1 ? "#3b82f6" : "#f59e0b" }}
-                >
-                  {row[key] === "—" ? <span className="text-white/20">—</span> : row[key]}
-                </div>
-              ))}
-            </div>
-          ))}
-        </div>
-      )}
-
-      {/* How it works */}
-      <div className="mt-8">
-        <h3 className="text-sm font-bold text-white mb-3">How It Works</h3>
-        <div className="space-y-3">
-          {[
-            { n: "1", t: "Choose your tier", d: "Sign up online in minutes" },
-            { n: "2", t: "Credits load the 1st", d: "Shots, facials & IV drips — auto-loaded monthly" },
-            { n: "3", t: "Save on every visit", d: "Botox discount + rewards on every dollar" },
-          ].map((s) => (
-            <div
-              key={s.n}
-              className="flex gap-3 rounded-xl p-3"
-              style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.06)" }}
-            >
-              <span
-                className="shrink-0 w-7 h-7 rounded-full flex items-center justify-center text-xs font-black text-white"
-                style={{ background: "rgba(255,45,142,0.25)" }}
-              >
-                {s.n}
-              </span>
-              <div>
-                <p className="text-xs font-semibold text-white">{s.t}</p>
-                <p className="text-xs text-white/45">{s.d}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Link to full page */}
       <Link
-        href="/memberships"
+        href="/monthly-memberships"
         className="mt-5 block w-full rounded-xl py-3 text-center text-sm font-semibold text-[#FF2D8E] transition hover:text-pink-300"
         style={{ border: "1px solid rgba(255,45,142,0.25)", background: "rgba(255,45,142,0.06)" }}
       >
-        View Full Membership Details →
+        View all membership details →
       </Link>
 
       <p className="mt-4 text-center text-xs" style={{ color: "rgba(255,255,255,0.25)" }}>
-        Billed monthly. Cancel anytime — call {CLIENT_APP.phone}.
+        Billed monthly · Cancel anytime · Call {CLIENT_APP.phone}
       </p>
     </div>
   );

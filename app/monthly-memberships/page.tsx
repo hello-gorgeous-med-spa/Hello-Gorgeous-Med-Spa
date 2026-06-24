@@ -11,20 +11,19 @@ import {
 import { breadcrumbJsonLd, faqJsonLd, pageMetadata, SITE, siteJsonLd } from "@/lib/seo";
 
 const baseMeta = pageMetadata({
-  title: "Monthly Memberships Oswego IL — Vitamin Bar, HydraFacial & Lash Plans",
+  title: "Wellness Memberships Oswego IL — Peptides, Hormones, Vitamin Bar",
   description:
-    "Hello Gorgeous Med Spa monthly memberships in Oswego, IL: Glow Pass $49, Energy Unlimited $89, VIP Wellness $149, Glow Facial $99, Lash Fill $150, plus The Gentlemen's Club from $99/mo for men. Member pricing, drive-thru Vitamin Bar, HydraFacial, Brotox & hormones. Naperville, Aurora & Plainfield.",
+    "Hello Gorgeous monthly wellness memberships in Oswego, IL: Vitamin Bar from $49/mo, peptide & hormone plans, Precision Hormone $199/mo, Metabolic Reset from $450/mo, Gentlemen's Club from $99/mo. Ryan Kent, FNP-BC. Naperville, Aurora & Plainfield.",
   path: MONTHLY_MEMBERSHIPS_PATH,
   keywords: [
     "med spa membership Oswego IL",
     "Vitamin Bar membership Naperville",
     "HydraFacial membership Oswego",
-    "lash fill membership Illinois",
-    "Hello Gorgeous membership",
-    "gentlemens club med spa oswego",
-    "mens wellness membership naperville",
+    "peptide membership oswego",
+    "hormone membership med spa illinois",
+    "vitamin bar membership naperville",
+    "TRT membership oswego",
     "monthly wellness plan med spa",
-    "B12 membership Oswego",
   ],
 });
 

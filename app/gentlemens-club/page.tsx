@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     "brotox membership",
     "mens hormone therapy membership",
     "peptide therapy membership oswego",
-    "gift brotox fathers day",
+    "gift brotox men oswego",
   ],
   alternates: { canonical: GENTLEMENS_CLUB_URL },
   openGraph: {

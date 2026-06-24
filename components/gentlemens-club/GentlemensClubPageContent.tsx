@@ -11,7 +11,7 @@ import {
   appForHimUrl,
   FOR_HIM_SERVICES,
   GENTLEMENS_CLUB_FAQS,
-  GENTLEMENS_CLUB_FATHERS_DAY_IMAGE,
+  GENTLEMENS_CLUB_GIFT_BROTOX_IMAGE,
   GENTLEMENS_CLUB_GLP1_STACK,
   GENTLEMENS_CLUB_HERO_IMAGE,
   GENTLEMENS_CLUB_HERO_IMAGES,
@@ -752,14 +752,14 @@ export function GentlemensClubPageContent() {
         </div>
       </Section>
 
-      {/* Father's Day */}
-      <Section className="border-t border-white/10 bg-[#030712] !py-12 md:!py-16">
+      {/* Gift Brotox — year-round */}
+      <Section id="gift-brotox" className="scroll-mt-24 border-t border-white/10 bg-[#030712] !py-12 md:!py-16">
         <div className="max-w-6xl mx-auto px-4 w-full">
           <div className="grid items-center gap-8 lg:grid-cols-2">
             <FadeUp>
               <div className="overflow-hidden rounded-2xl border-4 border-black bg-black shadow-[6px_6px_0_0_rgba(255,45,142,0.3)]">
                 <div className="relative aspect-[16/9] w-full">
-                  <Image src={GENTLEMENS_CLUB_FATHERS_DAY_IMAGE} alt="Gift Brotox" fill className="object-contain" sizes="50vw" />
+                  <Image src={GENTLEMENS_CLUB_GIFT_BROTOX_IMAGE} alt="Gift Brotox eGift card — Hello Gorgeous Med Spa Oswego IL" fill className="object-contain" sizes="50vw" />
                 </div>
               </div>
             </FadeUp>
@@ -768,6 +768,10 @@ export function GentlemensClubPageContent() {
               <h2 className="mt-2 font-serif text-2xl md:text-3xl text-white">
                 Skip the tie. <span className="text-gray-500">Gift the confidence.</span>
               </h2>
+              <p className="mt-4 text-sm leading-relaxed text-gray-400">
+                Birthdays, anniversaries, holidays, or just because — digital eGift cards deliver instantly
+                through Square. Redeem for Brotox, TRT consults, or any Gentlemen&apos;s Club service.
+              </p>
               <div className="mt-6 flex flex-wrap gap-3">
                 <CTA href={FOR_HIM_SERVICES[3].href} variant="gradient">Buy eGift Card</CTA>
                 <CTA href={BOOKING_URL} variant="outline" className="!border-white/30 !text-white hover:!bg-white hover:!text-black">

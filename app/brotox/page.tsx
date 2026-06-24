@@ -42,10 +42,10 @@ const TREATMENT_AREAS = [
 
 const GIFT_CARDS = [
   {
-    title: 'For Dad',
-    subtitle: 'Father\'s Day',
-    tagline: 'Dad deserves to look rested too.',
-    cta: 'Gift Dad Brotox',
+    title: 'For Him',
+    subtitle: 'Birthdays · Holidays',
+    tagline: 'He deserves to look rested too.',
+    cta: 'Gift Brotox',
   },
   {
     title: 'For Husband',

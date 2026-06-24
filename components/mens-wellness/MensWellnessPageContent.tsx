@@ -7,7 +7,7 @@ import { FadeUp, Section } from "@/components/Section";
 import { BOOKING_URL } from "@/lib/flows";
 import { RYAN_FULL_NAME } from "@/lib/founder-credentials";
 import {
-  GENTLEMENS_CLUB_FATHERS_DAY_IMAGE,
+  GENTLEMENS_CLUB_GIFT_BROTOX_IMAGE,
   GENTLEMENS_CLUB_HERO_IMAGE,
 } from "@/lib/gentlemens-club";
 import {
@@ -158,7 +158,7 @@ export async function MensWellnessPageContent() {
               <div className="overflow-hidden rounded-2xl border-4 border-black shadow-[8px_8px_0_0_rgba(230,0,126,0.35)]">
                 <div className="relative aspect-square w-full bg-black">
                   <Image
-                    src={GENTLEMENS_CLUB_FATHERS_DAY_IMAGE}
+                    src={GENTLEMENS_CLUB_GIFT_BROTOX_IMAGE}
                     alt="Gift Brotox — men's wellness gift card Hello Gorgeous Oswego"
                     fill
                     className="object-contain object-center"
@@ -325,7 +325,7 @@ export async function MensWellnessPageContent() {
           <FadeUp delayMs={80}>
             <div className="rounded-3xl border-4 border-black bg-[#151922] p-6 shadow-[8px_8px_0_0_rgba(230,0,126,0.35)]">
               <p className="text-xs font-bold uppercase tracking-widest text-[#FFB8DC]">
-                Father's Day · Birthdays · Just Because
+                Birthdays · Holidays · Just Because
               </p>
               <h3 className="mt-3 text-2xl font-black">Skip the tie. Gift the confidence.</h3>
               <p className="mt-3 text-sm leading-relaxed text-white/70">

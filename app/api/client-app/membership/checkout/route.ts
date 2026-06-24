@@ -4,7 +4,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { CLIENT_APP } from "@/lib/client-app";
 import { SITE } from "@/lib/seo";
 import { createMembershipCheckoutUrl } from "@/lib/square/membership-checkout";
-import { VITAMIN_MEMBERSHIPS } from "@/lib/vitamin-bar";
+import { findWellnessMembershipPlan } from "@/lib/wellness-memberships";
 
 export const dynamic = "force-dynamic";
 
@@ -21,13 +21,24 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "membershipId is required" }, { status: 400 });
   }
 
-  const plan = VITAMIN_MEMBERSHIPS.find((m) => m.id === membershipId);
+  const plan = findWellnessMembershipPlan(membershipId);
   if (!plan) {
     return NextResponse.json({ error: "Unknown membership" }, { status: 404 });
   }
 
+  if (plan.consultFirst) {
+    return NextResponse.json(
+      {
+        error: "This plan requires a consult before enrollment.",
+        bookUrl: plan.bookHref,
+        learnMoreUrl: plan.learnMoreHref,
+      },
+      { status: 400 },
+    );
+  }
+
   if (plan.squarePayUrl) {
-    return NextResponse.json({ url: plan.squarePayUrl });
+    return NextResponse.json({ url: plan.squarePayUrl, mode: "square_link" });
   }
 
   try {

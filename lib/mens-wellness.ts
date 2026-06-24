@@ -106,7 +106,7 @@ export const MENS_WELLNESS_SERVICES: MensWellnessService[] = [
     description:
       "Skip the tie — gift cards for Brotox, consults, and men's wellness. Delivered instantly via Square.",
     bullets: [
-      "Father's Day, birthdays & just because",
+      "Birthdays, holidays & just because",
       "Redeem for Brotox or services",
       "Digital delivery",
     ],

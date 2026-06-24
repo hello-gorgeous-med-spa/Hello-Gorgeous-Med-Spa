@@ -127,7 +127,7 @@ export const WELLNESS_MENU: ServiceMenuConfig = {
         "Glow Pass · Energy Unlimited · VIP Wellness",
         "Member pricing on all shots",
         "Priority booking & rollover credits",
-        "Stack with facial memberships",
+        "Peptide & hormone plans available",
         "No long-term contracts",
       ],
       pricing: VITAMIN_MEMBERSHIPS.filter((m) => !m.category).map((m) => ({
@@ -149,7 +149,7 @@ export const WELLNESS_MENU: ServiceMenuConfig = {
     {
       question: "How do I join a wellness membership?",
       answer:
-        "Open the Hello Gorgeous app at hellogorgeousmedspa.com/app, tap Membership, and checkout through Square. Glow Pass starts at $49/mo with 2 shots included.",
+        "Open the Hello Gorgeous app at hellogorgeousmedspa.com/app, tap Membership, and checkout through Square for Vitamin Bar plans. Peptide, hormone, and wellness programs start with a free consult — book online or call us.",
     },
     {
       question: "Which NAD+ option should I choose?",
