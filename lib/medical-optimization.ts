@@ -29,13 +29,13 @@ export const MEDICAL_SERVICES: MedicalServiceCard[] = [
     description:
       "Go beyond a basic CBC. We order targeted panels for hormones, thyroid, metabolic markers, and nutrients — so protocols are built on your data, not guesswork.",
     bullets: [
-      "BioTE baseline hormone panels",
-      "Thyroid & metabolic markers",
-      "TRT monitoring labs",
-      "Results typically within 36 hours (in-office draw)",
+      "60+ biomarker wellness panels",
+      "FullScript · Quest · LabCorp ordering",
+      "BioTE baseline & TRT monitoring",
+      "Results reviewed at follow-up consult",
     ],
-    href: "/biote-hormone-therapy-oswego",
-    cta: "Learn about labs & BioTE →",
+    href: "/blood-work",
+    cta: "Blood work guide & lab ordering →",
   },
   {
     id: "mens-hormones",

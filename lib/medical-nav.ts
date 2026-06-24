@@ -30,9 +30,9 @@ export const MEDICAL_NAV = {
       overview: true,
     },
     {
-      label: "Hormone & Lab Panels",
-      href: "/biote-hormone-therapy-oswego",
-      sub: "BioTE baseline labs & hormone optimization",
+      label: "Blood Work Explained",
+      href: "/blood-work",
+      sub: "60+ biomarkers · FullScript · Quest & LabCorp",
       dividerBefore: true,
     },
     {
@@ -105,6 +105,7 @@ export const MEDICAL_ACTIVE_PREFIXES = [
   "/semaglutide-oswego",
   "/tirzepatide-oswego",
   "/understand-your-body",
+  "/blood-work",
   "/hello-gorgeous-rx",
 ] as const;
 
