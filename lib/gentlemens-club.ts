@@ -147,7 +147,7 @@ export const GENTLEMENS_CLUB_SERVICES: GentlemensClubService[] = [
     eyebrow: "Hair",
     title: "Men's Hair Restoration",
     description: "Rx DHT blockers, minoxidil, GHK-Cu & in-office PRF — NP-guided, not mail-order.",
-    bullets: ["Finasteride / minoxidil / dutasteride", "PRF scalp series from $600/session", "Stacks with TRT consult"],
+    bullets: ["AnteAGE MDX biosomes & exosomes from $499", "Finasteride / minoxidil / dutasteride", "PRF scalp series from $600/session"],
     href: "#hair",
     cta: "Hair protocols →",
     badge: "NEW",
@@ -262,8 +262,38 @@ export type GentlemensClubHairOption = {
   badge?: string;
 };
 
-/** Men's hair restoration — Rx compounding + in-office PRF/PRP. */
+/** Men's hair restoration — AnteAGE biosomes/exosomes, Rx compounding + in-office PRF/PRP. */
 export const GENTLEMENS_CLUB_HAIR_OPTIONS: GentlemensClubHairOption[] = [
+  {
+    id: "anteage-mdx-biosomes",
+    name: "AnteAGE MDX Hair Biosomes",
+    description:
+      "AnteAGE MDX® scalp micro-injections with professional biosome signaling — bone marrow–derived cell communication that upregulates WNT pathways for follicle health. Caffeine for stimulation, azelaic acid for DHT support. At-home aftercare kit included.",
+    priceLabel: "From $499/session",
+    priceSub: "45 min · 3-session series typical",
+    learnMoreHref: "/services/hair-restoration-exosomes",
+    badge: "ANTEAGE",
+  },
+  {
+    id: "anteage-mdx-exosomes",
+    name: "AnteAGE MDX Hair Exosomes",
+    description:
+      "Same AnteAGE MDX® platform with exosome signaling — our most advanced regenerative tier for scalp renewal, shedding, and thinning when your provider recommends maximum cell signaling.",
+    priceLabel: "From $499/session",
+    priceSub: "45 min · pairs with Rx or PRF plans",
+    learnMoreHref: "/services/hair-restoration-exosomes",
+    badge: "ANTEAGE",
+  },
+  {
+    id: "anteage-scalp-gf",
+    name: "AnteAGE MD Scalp Treatment",
+    description:
+      "Targeted AnteAGE MD growth-factor scalp protocol — stimulates follicles and supports scalp health between MDX series or as an entry regenerative tier.",
+    priceLabel: "From $350/session",
+    priceSub: "60 min · series of 3–6 recommended",
+    learnMoreHref: "/services/microneedling",
+    badge: "ANTEAGE",
+  },
   {
     id: "topical-duo",
     name: "Minoxidil / finasteride topical",
@@ -311,10 +341,10 @@ export const GENTLEMENS_CLUB_HAIR_OPTIONS: GentlemensClubHairOption[] = [
 ];
 
 export const GENTLEMENS_CLUB_HAIR_DISCLAIMER =
-  "Hair protocols require NP evaluation. Results take months, not weeks. On TRT? We discuss DHT, fertility, and scalp health in the same plan — finasteride/dutasteride are not right for everyone.";
+  "Hair protocols require NP evaluation. Results take months, not weeks. AnteAGE MDX biosomes/exosomes, Rx DHT blockers, and PRF can be combined when clinically appropriate — your provider maps the stack at consult.";
 
 export const GENTLEMENS_CLUB_HAIR_TRT_CALLOUT =
-  "Crown thinning + low energy? Many men address hormones and hair in one Gentlemen's Club consult — labs, TRT candidacy, and DHT-aware hair options mapped together.";
+  "Crown thinning + low energy? Many men stack AnteAGE MDX hair biosomes with TRT-aware Rx (finasteride/dutasteride when appropriate) — hormones, DHT, and scalp mapped in one Gentlemen's Club consult.";
 
 export const GENTLEMENS_CLUB_TRT_APPROACH_1 =
   "We don't prescribe testosterone to everyone who walks in the door. We start with comprehensive testing — total and free testosterone, SHBG, thyroid markers, and more.";
@@ -380,7 +410,7 @@ export const GENTLEMENS_CLUB_FAQS: FAQ[] = [
   {
     question: "Do you treat men's hair loss?",
     answer:
-      "Yes — compounded minoxidil, finasteride, and dutasteride when appropriate, GHK-Cu peptide topicals, and in-office PRF hair restoration from $600/session. We evaluate pattern, meds, and TRT/DHT interactions at consult.",
+      "Yes — AnteAGE MDX hair biosomes and exosomes from $499/session, AnteAGE MD scalp treatments from $350, compounded minoxidil/finasteride/dutasteride when appropriate, GHK-Cu topicals, and PRF hair restoration from $600/session. We evaluate pattern, meds, and TRT/DHT interactions at consult.",
   },
   {
     question: "What does TRT cost?",

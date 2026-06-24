@@ -491,10 +491,49 @@ export function GentlemensClubPageContent() {
               Men&apos;s hair restoration
             </h2>
             <p className="mx-auto mt-4 max-w-2xl text-center text-gray-400">
-              Rx DHT blockers, minoxidil, peptide topicals, and in-office PRF — NP-guided protocols, not mail-order
-              guesswork.
+              AnteAGE MDX biosomes &amp; exosomes, Rx DHT blockers, peptide topicals, and in-office PRF — NP-guided
+              protocols, not mail-order guesswork.
             </p>
           </FadeUp>
+
+          <FadeUp delayMs={40}>
+            <div className="mt-10 overflow-hidden rounded-2xl border border-[#FF2D8E]/30 bg-[#151922]">
+              <div className="grid lg:grid-cols-2 lg:items-center">
+                <div className="relative aspect-[4/3] min-h-[220px] bg-black lg:aspect-auto lg:min-h-[280px]">
+                  <Image
+                    src="/images/homepage-services/anteage-md-brightening.png"
+                    alt="AnteAGE MDX hair restoration biosomes at Hello Gorgeous Med Spa Oswego"
+                    fill
+                    className="object-contain object-center p-6"
+                    sizes="(max-width: 1024px) 100vw, 480px"
+                  />
+                </div>
+                <div className="p-6 md:p-8">
+                  <span className="rounded-full border border-[#FF2D8E]/40 bg-[#FF2D8E]/15 px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-[#FFB8DC]">
+                    AnteAGE partner clinic
+                  </span>
+                  <h3 className="mt-4 text-2xl font-black text-white">MDX Hair Biosomes &amp; Exosomes</h3>
+                  <p className="mt-3 text-sm leading-relaxed text-gray-400">
+                    Professional scalp micro-injections with AnteAGE MDX® — biosomes for advanced follicle signaling,
+                    or exosomes when your provider recommends maximum regenerative support. WNT pathway activation,
+                    caffeine + azelaic acid for DHT-aware plans. Aftercare kit included.
+                  </p>
+                  <p className="mt-4 text-2xl font-black text-[#FF2D8E]">
+                    From $499<span className="text-base font-semibold text-gray-500">/session</span>
+                  </p>
+                  <div className="mt-5 flex flex-col gap-3 sm:flex-row">
+                    <CTA href="/services/hair-restoration-exosomes" variant="gradient" className="text-sm">
+                      AnteAGE hair menu →
+                    </CTA>
+                    <CTA href={BOOKING_URL} variant="outline" className="!border-white/30 !text-white text-sm">
+                      Book consult
+                    </CTA>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </FadeUp>
+
           <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {GENTLEMENS_CLUB_HAIR_OPTIONS.map((option, i) => (
               <FadeUp key={option.id} delayMs={i * 35}>
@@ -505,12 +544,15 @@ export function GentlemensClubPageContent() {
           <FadeUp delayMs={200}>
             <div className="mx-auto mt-10 max-w-3xl rounded-2xl border border-[#7dd3fc]/20 bg-[#151922] p-6 text-center">
               <p className="text-sm leading-relaxed text-[#7dd3fc]">{GENTLEMENS_CLUB_HAIR_TRT_CALLOUT}</p>
-              <div className="mt-5 flex flex-col justify-center gap-3 sm:flex-row">
+              <div className="mt-5 flex flex-col justify-center gap-3 sm:flex-row sm:flex-wrap">
                 <CTA href={BOOKING_URL} variant="gradient" className="text-sm">
                   Book hair + hormone consult
                 </CTA>
+                <CTA href="/regenerative-medicine-oswego-il" variant="outline" className="!border-white/30 !text-white text-sm">
+                  Regenerative hub →
+                </CTA>
                 <CTA href="/products-we-offer" variant="outline" className="!border-white/30 !text-white text-sm">
-                  Full Rx catalog →
+                  Rx catalog →
                 </CTA>
               </div>
             </div>
