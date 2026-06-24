@@ -10,6 +10,38 @@ export const GENTLEMENS_CLUB_URL = `${SITE.url}${GENTLEMENS_CLUB_PATH}`;
 export const GENTLEMENS_CLUB_HERO_IMAGE = "/images/gentlemens-club/gentlemens-club-hero.png";
 export const GENTLEMENS_CLUB_GIFT_BROTOX_IMAGE = "/images/gentlemens-club/fathers-day-brotox.png";
 export const GENTLEMENS_CLUB_DISTINGUISHED_IMAGE = "/images/gentlemens-club/the-distinguished-hero.png";
+export const GENTLEMENS_CLUB_GLP1_IMAGE = "/images/gentlemens-club/glp-weight-loss-men.png";
+export const GENTLEMENS_CLUB_HORMONES_IMAGE = "/images/gentlemens-club/the-distinguished-hero.png";
+export const GENTLEMENS_CLUB_PEPTIDE_IMAGE = "/images/gentlemens-club/peptide-therapy-men.png";
+export const GENTLEMENS_CLUB_PT141_IMAGE = "/images/gentlemens-club/pt-141.png";
+/** @deprecated Use GENTLEMENS_CLUB_HORMONES_IMAGE */
+export const GENTLEMENS_CLUB_HERO_RX_IMAGE = GENTLEMENS_CLUB_HORMONES_IMAGE;
+
+export type ClubPeptideFlyer = {
+  id: string;
+  name: string;
+  tagline: string;
+  description: string;
+  bullets: string[];
+  fromMonthlyUsd: number;
+  image: string;
+  imageAlt: string;
+  learnMoreHref: string;
+};
+
+export const GENTLEMENS_CLUB_PT141_FLYER: ClubPeptideFlyer = {
+  id: "pt-141",
+  name: "PT-141",
+  tagline: "Intimacy, arousal & libido support",
+  description:
+    "Bremelanotide (PT-141) works on central arousal pathways — not testosterone. Often discussed for men alongside TRT or on its own when clinically appropriate.",
+  bullets: ["Libido & arousal support", "Non-hormonal pathway", "Private, discreet NP consults"],
+  fromMonthlyUsd: 209,
+  image: GENTLEMENS_CLUB_PT141_IMAGE,
+  imageAlt:
+    "PT-141 peptide therapy for men's intimacy and libido — Hello Gorgeous Med Spa Oswego IL",
+  learnMoreHref: "/peptides/pt-141",
+};
 
 export const GENTLEMENS_CLUB_HERO_IMAGES = [
   {
@@ -410,39 +442,6 @@ export const GENTLEMENS_CLUB_SCREENERS = [
     badge: "NEW",
   },
 ] as const;
-
-export const GENTLEMENS_CLUB_GLP1_IMAGE = "/images/gentlemens-club/glp-weight-loss-men.png";
-export const GENTLEMENS_CLUB_HORMONES_IMAGE = "/images/gentlemens-club/the-distinguished-hero.png";
-export const GENTLEMENS_CLUB_PEPTIDE_IMAGE = "/images/gentlemens-club/peptide-therapy-men.png";
-export const GENTLEMENS_CLUB_PT141_IMAGE = "/images/gentlemens-club/pt-141.png";
-
-export type ClubPeptideFlyer = {
-  id: string;
-  name: string;
-  tagline: string;
-  description: string;
-  bullets: string[];
-  fromMonthlyUsd: number;
-  image: string;
-  imageAlt: string;
-  learnMoreHref: string;
-};
-
-export const GENTLEMENS_CLUB_PT141_FLYER: ClubPeptideFlyer = {
-  id: "pt-141",
-  name: "PT-141",
-  tagline: "Intimacy, arousal & libido support",
-  description:
-    "Bremelanotide (PT-141) works on central arousal pathways — not testosterone. Often discussed for men alongside TRT or on its own when clinically appropriate.",
-  bullets: ["Libido & arousal support", "Non-hormonal pathway", "Private, discreet NP consults"],
-  fromMonthlyUsd: 209,
-  image: GENTLEMENS_CLUB_PT141_IMAGE,
-  imageAlt:
-    "PT-141 peptide therapy for men's intimacy and libido — Hello Gorgeous Med Spa Oswego IL",
-  learnMoreHref: "/peptides/pt-141",
-};
-/** @deprecated Use GENTLEMENS_CLUB_HORMONES_IMAGE */
-export const GENTLEMENS_CLUB_HERO_RX_IMAGE = GENTLEMENS_CLUB_HORMONES_IMAGE;
 
 export const GENTLEMENS_CLUB_ANTEAGE_HAIR_IMAGE = "/images/anteage/hair/mdx-hair-exosome-vials.png";
 
