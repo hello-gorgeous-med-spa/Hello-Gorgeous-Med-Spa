@@ -38,6 +38,9 @@ export type PeptideRequestItem = {
 
 export const PEPTIDE_CONSULT_FEE_USD = 49;
 
+export const PEPTIDE_CONSULT_PAY_NOTE =
+  "New peptide protocols require a $49 NP consult pre-pay via Square before booking telehealth — same secure checkout as our Vitamin Bar.";
+
 export const PEPTIDE_REQUEST_DISCLAIMER =
   "Requesting a peptide does not create a prescription. All Hello Gorgeous RX™ protocols require NP telehealth review, medical evaluation, and pharmacy fulfillment after approval. Medication is priced separately.";
 

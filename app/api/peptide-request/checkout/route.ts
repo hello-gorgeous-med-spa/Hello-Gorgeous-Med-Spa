@@ -4,6 +4,7 @@
 import { NextRequest, NextResponse } from "next/server";
 
 import { PEPTIDE_REQUEST_PATH } from "@/lib/flows";
+import { CLIENT_APP } from "@/lib/client-app";
 import { PEPTIDE_CONSULT_FEE_USD } from "@/lib/peptide-request-menu";
 import {
   getCheckoutApiAsync,
@@ -20,7 +21,7 @@ function idempotencyKey(): string {
 }
 
 export async function POST(req: NextRequest) {
-  let body: { reference?: string };
+  let body: { reference?: string; returnTo?: string };
   try {
     body = await req.json();
   } catch {
@@ -28,7 +29,8 @@ export async function POST(req: NextRequest) {
   }
 
   const reference = String(body?.reference || "").trim();
-  const name = "Hello Gorgeous RX™ Peptide Consult";
+  const returnTo = body?.returnTo === "app" ? "app" : "form";
+  const name = "Hello Gorgeous RX™ — Peptide Consult (NP)";
   const priceDollars = PEPTIDE_CONSULT_FEE_USD;
 
   const checkoutApi = await getCheckoutApiAsync();
@@ -59,9 +61,14 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "No Square location configured." }, { status: 503 });
   }
 
+  const redirectBase =
+    returnTo === "app"
+      ? `${SITE.url}${CLIENT_APP.path}?rx=1`
+      : `${SITE.url}${PEPTIDE_REQUEST_PATH}`;
+  const joiner = redirectBase.includes("?") ? "&" : "?";
   const redirectUrl = reference
-    ? `${SITE.url}${PEPTIDE_REQUEST_PATH}?paid=1&ref=${encodeURIComponent(reference)}`
-    : `${SITE.url}${PEPTIDE_REQUEST_PATH}?paid=1`;
+    ? `${redirectBase}${joiner}paid=1&ref=${encodeURIComponent(reference)}`
+    : `${redirectBase}${joiner}paid=1`;
 
   try {
     const res = await checkoutApi.createPaymentLink({
@@ -76,8 +83,8 @@ export async function POST(req: NextRequest) {
         askForShippingAddress: false,
       },
       description: reference
-        ? `Hello Gorgeous RX peptide consult · Ref ${reference}`
-        : "Hello Gorgeous RX peptide consult",
+        ? `Hello Gorgeous RX consult pre-pay · Ref ${reference}`
+        : "Hello Gorgeous RX consult pre-pay",
     });
 
     const link =

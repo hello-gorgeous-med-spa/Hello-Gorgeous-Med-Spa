@@ -17,6 +17,7 @@ import {
 import { saveRxStartPrefill } from "@/lib/peptide-rx-prefill";
 import {
   PEPTIDE_CATEGORY_FILTER_LABEL,
+  PEPTIDE_CONSULT_FEE_USD,
   PEPTIDE_REQUEST_DISCLAIMER,
   PEPTIDE_REQUEST_ITEMS,
   peptideRequestItemsByCategory,
@@ -337,7 +338,7 @@ export function StartHereFlow({ initialPeptideId }: { initialPeptideId?: string 
                   <p className="mt-2 text-sm text-black/65">
                     {requestType === "refill"
                       ? "Refill requests still require a telehealth visit with our NP — most patients complete this virtually."
-                      : "New protocols start with screening, then a required telehealth consult with Ryan before any prescription."}
+                      : `New protocols: complete your screening form, pre-pay the $${PEPTIDE_CONSULT_FEE_USD} consult via Square (like our Vitamin Bar), then book telehealth in Charm.`}
                   </p>
 
                   <ol className="mt-8 space-y-4">

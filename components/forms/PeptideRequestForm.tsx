@@ -25,7 +25,15 @@ import {
 } from "@/lib/peptide-rx-prefill";
 import { savePeptideRxRecord } from "@/lib/peptide-rx-records";
 import {
+  isConsultPaid,
+  markConsultPaid,
+  readPendingRxSuccess,
+  savePendingRxSuccess,
+  startConsultCheckout,
+} from "@/lib/peptide-rx-consult-pay";
+import {
   PEPTIDE_CONSULT_FEE_USD,
+  PEPTIDE_CONSULT_PAY_NOTE,
   PEPTIDE_REQUEST_DISCLAIMER,
   PEPTIDE_REQUEST_ITEMS,
   PEPTIDE_TELEHEALTH_NOTE,
@@ -222,6 +230,23 @@ export function PeptideRequestForm({
     clearRxStartPrefill();
   }, []);
 
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("paid") !== "1") return;
+
+    const ref = params.get("ref")?.trim();
+    if (ref) markConsultPaid(ref);
+
+    const pending = readPendingRxSuccess();
+    if (pending) setResult(pending);
+
+    const url = new URL(window.location.href);
+    url.searchParams.delete("paid");
+    url.searchParams.delete("ref");
+    const clean = url.pathname + (url.search || "");
+    window.history.replaceState({}, "", clean);
+  }, []);
+
   function handleChange(fieldId: string, value: unknown) {
     setFormData((prev) => ({ ...prev, [fieldId]: value }));
     if (errors[fieldId]) {
@@ -249,23 +274,9 @@ export function PeptideRequestForm({
   async function payConsult(reference: string) {
     setPayBusy(true);
     setErr(null);
-    try {
-      const res = await fetch("/api/peptide-request/checkout", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ reference }),
-      });
-      const data = await res.json().catch(() => ({}));
-      if (!res.ok || !data.url) {
-        setErr(data.error || "Could not start payment. Call 630-636-6193 to pay by phone.");
-        return;
-      }
-      window.location.href = data.url;
-    } catch {
-      setErr("Network error starting payment.");
-    } finally {
-      setPayBusy(false);
-    }
+    const outcome = await startConsultCheckout(reference);
+    if (outcome.error) setErr(outcome.error);
+    setPayBusy(false);
   }
 
   async function submit(e: React.FormEvent) {
@@ -331,6 +342,9 @@ export function PeptideRequestForm({
           ? { kind: "qualified", reference, requestType: type }
           : { kind: "disqualified", reference },
       );
+      if (eligibility.qualified) {
+        savePendingRxSuccess({ kind: "qualified", reference, requestType: type });
+      }
     } catch {
       setErr("Network error. Try again or call 630-636-6193.");
     } finally {
@@ -340,36 +354,57 @@ export function PeptideRequestForm({
 
   if (result?.kind === "qualified") {
     const isNew = result.requestType === "new";
+    const consultPaid = isConsultPaid(result.reference);
+    const needsPrepay = isNew && !consultPaid;
+
     return (
       <div className="rounded-2xl border-2 border-black bg-green-50 p-8 text-center shadow-lg">
-        <span className="text-4xl">✓</span>
+        <span className="text-4xl">{needsPrepay ? "💳" : "✓"}</span>
         <h2 className="mt-4 font-serif text-2xl font-semibold text-green-900">
-          Request received — telehealth required
+          {needsPrepay ? "Request received — pre-pay to book telehealth" : "Request received — book telehealth"}
         </h2>
         <p className="mt-3 text-sm text-green-800 leading-relaxed max-w-md mx-auto">
           Reference <span className="font-mono font-bold">{result.reference}</span>. Ryan Kent, FNP-BC will
           review your {isNew ? "protocol request" : "refill request"} at a required telehealth visit before
           any approval.
         </p>
-        <p className="mt-3 text-xs text-green-700 max-w-md mx-auto">{PEPTIDE_TELEHEALTH_NOTE}</p>
+        {needsPrepay ? (
+          <p className="mt-3 text-xs text-green-800 max-w-md mx-auto leading-relaxed">{PEPTIDE_CONSULT_PAY_NOTE}</p>
+        ) : (
+          <p className="mt-3 text-xs text-green-700 max-w-md mx-auto">{PEPTIDE_TELEHEALTH_NOTE}</p>
+        )}
+        {isNew && consultPaid && (
+          <p className="mt-3 inline-flex items-center gap-2 rounded-full bg-white border border-green-600 px-4 py-1.5 text-xs font-bold text-green-800">
+            ✓ ${PEPTIDE_CONSULT_FEE_USD} consult paid
+          </p>
+        )}
         <div className="mt-6 flex flex-col items-center gap-3">
-          <a
-            href={HG_RX_TELEHEALTH_BOOKING_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex w-full max-w-sm items-center justify-center rounded-xl bg-[#E6007E] px-8 py-4 font-bold text-white hover:bg-black transition-colors"
-          >
-            {CHARM_TELEHEALTH_BOOKING_LABEL} →
-          </a>
-          {isNew && (
-            <button
-              type="button"
-              disabled={payBusy}
-              onClick={() => payConsult(result.reference)}
-              className="inline-flex w-full max-w-sm items-center justify-center rounded-xl border-2 border-black bg-white px-8 py-4 font-bold text-black hover:bg-black hover:text-white transition-colors disabled:opacity-60"
+          {needsPrepay ? (
+            <>
+              <button
+                type="button"
+                disabled={payBusy}
+                onClick={() => payConsult(result.reference)}
+                className="inline-flex w-full max-w-sm items-center justify-center rounded-xl bg-[#E6007E] px-8 py-4 font-bold text-white hover:bg-black transition-colors disabled:opacity-60"
+              >
+                {payBusy
+                  ? "Starting Square checkout…"
+                  : `Pay $${PEPTIDE_CONSULT_FEE_USD} & book telehealth`}
+              </button>
+              <p className="text-[11px] text-green-700/80 max-w-sm">
+                Secure Square checkout — same pre-pay flow as our Vitamin Bar. Telehealth booking unlocks after
+                payment.
+              </p>
+            </>
+          ) : (
+            <a
+              href={HG_RX_TELEHEALTH_BOOKING_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex w-full max-w-sm items-center justify-center rounded-xl bg-[#E6007E] px-8 py-4 font-bold text-white hover:bg-black transition-colors"
             >
-              {payBusy ? "Starting payment…" : `Pre-pay $${PEPTIDE_CONSULT_FEE_USD} consult (optional)`}
-            </button>
+              {CHARM_TELEHEALTH_BOOKING_LABEL} →
+            </a>
           )}
         </div>
         {err && <p className="mt-4 text-sm text-red-700">{err}</p>}

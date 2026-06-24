@@ -17,7 +17,12 @@ import {
   type RxRecordSummary,
   type StoredRxRecord,
 } from "@/lib/peptide-rx-records";
-import { PEPTIDE_CONSULT_FEE_USD } from "@/lib/peptide-request-menu";
+import {
+  isConsultPaid,
+  markConsultPaid,
+  startConsultCheckout,
+} from "@/lib/peptide-rx-consult-pay";
+import { PEPTIDE_CONSULT_FEE_USD, PEPTIDE_CONSULT_PAY_NOTE } from "@/lib/peptide-request-menu";
 import {
   TRIFECTA_GLASS,
   trifectaAccent,
@@ -33,6 +38,8 @@ export function ClientAppRxHub({ onClose }: Props) {
   const [records, setRecords] = useState<RxRecordSummary[]>([]);
   const [loading, setLoading] = useState(true);
   const [showHowItWorks, setShowHowItWorks] = useState(false);
+  const [payBusyRef, setPayBusyRef] = useState<string | null>(null);
+  const [payErr, setPayErr] = useState<string | null>(null);
 
   const refresh = useCallback(async () => {
     setLoading(true);
@@ -81,7 +88,22 @@ export function ClientAppRxHub({ onClose }: Props) {
 
   useEffect(() => {
     void refresh();
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("paid") === "1") {
+      const ref = params.get("ref")?.trim();
+      if (ref) markConsultPaid(ref);
+    }
   }, [refresh]);
+
+  async function payConsult(reference: string) {
+    setPayErr(null);
+    setPayBusyRef(reference);
+    const outcome = await startConsultCheckout(reference, "app");
+    if (outcome.error) {
+      setPayErr(outcome.error);
+      setPayBusyRef(null);
+    }
+  }
 
   return (
     <div className="space-y-4 pb-8">
@@ -101,7 +123,8 @@ export function ClientAppRxHub({ onClose }: Props) {
         <h1 className="text-2xl font-black text-white">Hello Gorgeous RX</h1>
         <p className="mt-2 text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.6)" }}>
           Start a protocol, request refills, and keep your submission history — all in one place.
-          Telehealth with {HELLO_GORGEOUS_RX.providerName} is scheduled in Charm EHR after you submit a request.
+          New protocols: pre-pay ${PEPTIDE_CONSULT_FEE_USD} via Square, then book Charm telehealth with{" "}
+          {HELLO_GORGEOUS_RX.providerName}.
         </p>
       </div>
 
@@ -128,7 +151,7 @@ export function ClientAppRxHub({ onClose }: Props) {
           className="rounded-xl py-3 text-center text-sm font-semibold"
           style={{ border: `1px solid ${accent.border}`, color: accent.subtitle }}
         >
-          {CHARM_TELEHEALTH_BOOKING_LABEL}
+          Charm telehealth (after $49 prepay)
         </a>
       </div>
 
@@ -148,10 +171,13 @@ export function ClientAppRxHub({ onClose }: Props) {
             </div>
           ) : (
             <ul className="divide-y divide-white/10">
-              {records.map((r) => (
+              {records.map((r) => {
+                const needsPay = r.requestType === "new" && r.qualified && !isConsultPaid(r.reference);
+                const canBook = r.qualified && (r.requestType === "refill" || isConsultPaid(r.reference));
+                return (
                 <li key={r.recordToken} className="p-4">
                   <div className="flex items-start justify-between gap-2">
-                    <div>
+                    <div className="min-w-0 flex-1">
                       <p className="font-bold text-white">
                         {r.peptideNames.join(", ") || "Peptide request"}
                       </p>
@@ -161,6 +187,30 @@ export function ClientAppRxHub({ onClose }: Props) {
                       <p className="text-[11px] mt-1" style={{ color: "rgba(255,255,255,0.45)" }}>
                         {formatDate(r.submittedAt)} · {r.statusLabel}
                       </p>
+                      {needsPay && (
+                        <button
+                          type="button"
+                          disabled={payBusyRef === r.reference}
+                          onClick={() => void payConsult(r.reference)}
+                          className="mt-3 w-full rounded-xl py-2.5 text-sm font-bold text-white disabled:opacity-60"
+                          style={{ background: trifectaButtonGradient(accent) }}
+                        >
+                          {payBusyRef === r.reference
+                            ? "Starting checkout…"
+                            : `Pay $${PEPTIDE_CONSULT_FEE_USD} & book telehealth`}
+                        </button>
+                      )}
+                      {canBook && (
+                        <a
+                          href={HG_RX_TELEHEALTH_BOOKING_URL}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="mt-3 block w-full rounded-xl py-2.5 text-center text-sm font-semibold"
+                          style={{ border: `1px solid ${accent.border}`, color: accent.subtitle }}
+                        >
+                          {CHARM_TELEHEALTH_BOOKING_LABEL} →
+                        </a>
+                      )}
                     </div>
                     <button
                       type="button"
@@ -174,7 +224,7 @@ export function ClientAppRxHub({ onClose }: Props) {
                     </button>
                   </div>
                 </li>
-              ))}
+              );})}
             </ul>
           )}
         </div>
@@ -207,7 +257,7 @@ export function ClientAppRxHub({ onClose }: Props) {
       )}
 
       <p className="text-[11px] text-center leading-relaxed" style={{ color: "rgba(255,255,255,0.35)" }}>
-        ${PEPTIDE_CONSULT_FEE_USD} consult for new protocols · medication priced separately · NP telehealth required
+        {PEPTIDE_CONSULT_PAY_NOTE}
       </p>
     </div>
   );

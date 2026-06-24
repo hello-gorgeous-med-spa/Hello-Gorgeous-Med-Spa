@@ -3,6 +3,8 @@
  * Full access tokens are stored locally after submit — like a receipt link.
  */
 
+import { isConsultPaid } from "@/lib/peptide-rx-consult-pay";
+
 export const PEPTIDE_RX_RECORDS_KEY = "hg-peptide-rx-records";
 
 export type StoredRxRecord = {
@@ -53,7 +55,9 @@ export function removePeptideRxRecord(recordToken: string): void {
 
 export function statusLabelForRecord(r: StoredRxRecord): string {
   if (!r.qualified) return "Needs clinical review";
-  return r.requestType === "refill" ? "Refill submitted — book Charm telehealth" : "Submitted — book Charm telehealth";
+  if (r.requestType === "refill") return "Refill submitted — book Charm telehealth";
+  if (isConsultPaid(r.reference)) return "Consult paid — book Charm telehealth";
+  return "Submitted — pre-pay $49 consult to book telehealth";
 }
 
 export function recordsToSummaries(records: StoredRxRecord[]): RxRecordSummary[] {
