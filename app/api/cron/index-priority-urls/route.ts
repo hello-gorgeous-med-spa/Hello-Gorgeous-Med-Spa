@@ -35,6 +35,8 @@ const PRIORITY_SERVICE_URLS = [
   "/medical",
   "/quiz",
   "/quiz/glp-1-readiness",
+  "/quiz/trt-readiness",
+  "/quiz/perimenopause-readiness",
   "/peptide-therapy-oswego",
   "/peptides/bpc-157",
   "/peptides/sermorelin",

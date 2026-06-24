@@ -47,15 +47,17 @@ export const QUIZ_NAV = {
       sub: "Goal-based med spa treatment finder",
     },
     {
-      label: "Perimenopause & Hormones",
-      href: "/services/biote-hormone-therapy",
-      sub: "Harmony AI™ hormone blueprint on BioTE page",
+      label: "Perimenopause Readiness Screener",
+      href: "/quiz/perimenopause-readiness",
+      sub: "2 min · cycles, symptoms & BioTE candidacy",
+      badge: "NEW",
       dividerBefore: true,
     },
     {
-      label: "TRT / Men's Hormones",
-      href: "/mens-hormones",
-      sub: "Symptoms, labs & testosterone optimization",
+      label: "TRT Readiness Screener",
+      href: "/quiz/trt-readiness",
+      sub: "2 min · men's testosterone & lab readiness",
+      badge: "NEW",
     },
   ] satisfies QuizNavLink[],
 };

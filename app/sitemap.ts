@@ -804,6 +804,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
     },
     {
+      url: `${baseUrl}/quiz/trt-readiness`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly' as const,
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/quiz/perimenopause-readiness`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly' as const,
+      priority: 0.9,
+    },
+    {
       url: `${baseUrl}/quiz/treatment`,
       lastModified: currentDate,
       changeFrequency: 'monthly' as const,
