@@ -15,8 +15,7 @@ import {
   REGENERATIVE_NAV,
   REGENERATIVE_NAV_FLAT_LINKS,
 } from "@/lib/regenerative-medicine-nav";
-import { isPeptideTherapyNavActive } from "@/lib/peptide-therapy-nav";
-import { PEPTIDE_CONSULT_SPECIAL } from "@/lib/peptide-featured";
+import { isMedicalNavActive, MEDICAL_NAV, type MedicalNavLink } from "@/lib/medical-nav";
 import { HG_TAGLINE } from "@/lib/brand-tagline";
 import { isSkin101Active, SKIN_101_NAV } from "@/lib/skin-101-nav";
 import {
@@ -87,26 +86,11 @@ const NAV = {
         heading: "Medical & Wellness",
         links: [
           {
-            label: "Medical Optimization",
+            label: "Medical Optimization Hub",
             href: "/medical",
-            sub: "Hormones · GLP-1 · Peptides · IV & NAD+ — NP-supervised",
+            sub: "All NP-supervised programs — hormones, GLP-1, peptides, IV",
             badge: "NEW",
           },
-          {
-            label: "Peptide Therapy",
-            href: "/peptides",
-            sub: "Pricing, protocols & FAQs — Hello Gorgeous RX™",
-            badge: "Rx",
-          },
-          {
-            label: `${PEPTIDE_CONSULT_SPECIAL.price} Peptide Consultation`,
-            href: BOOKING_URL,
-            sub: PEPTIDE_CONSULT_SPECIAL.detail,
-            badge: "OFFER",
-          },
-          { label: "Wellness Menu", href: "/services/wellness", sub: "IV therapy · Vitamin Bar · injection menu" },
-          { label: "Medical Weight Loss", href: "/glp-1-weight-loss-oswego", sub: "GLP-1 semaglutide & tirzepatide" },
-          { label: "Hormone Therapy", href: "/rx/hormones", sub: "Bio-identical hormone optimization" },
           { label: "All Services", href: "/services", sub: "Browse the full treatment menu" },
         ],
       },
@@ -191,6 +175,7 @@ const NAV = {
     ],
   },
   skin101: SKIN_101_NAV,
+  medical: MEDICAL_NAV,
 };
 
 /* ─────────────────────────────────────────────────────────────
@@ -404,6 +389,88 @@ function SpecialsMenu({
   );
 }
 
+function MedicalMenu({
+  isOpen,
+  onClose,
+  onMouseEnter,
+}: {
+  isOpen: boolean;
+  onClose: () => void;
+  onMouseEnter: () => void;
+}) {
+  if (!isOpen) return null;
+
+  const renderLink = (link: MedicalNavLink) => {
+    const className = cx(
+      "group block rounded-lg px-4 py-2.5 transition hover:bg-white/5",
+      link.overview && "py-3",
+    );
+    const inner = (
+      <>
+        <div className="flex items-center gap-2">
+          <span
+            className={cx(
+              "text-sm text-white group-hover:text-[#f472b6]",
+              link.overview ? "font-bold uppercase tracking-wider text-xs" : "font-semibold",
+            )}
+          >
+            {link.label}
+          </span>
+          {link.badge ? (
+            <span className="rounded-full bg-[#E6007E] px-2 py-0.5 text-[9px] font-bold uppercase text-white">
+              {link.badge}
+            </span>
+          ) : null}
+        </div>
+        {link.sub && !link.overview ? (
+          <p className="mt-0.5 text-xs text-white/45 leading-snug">{link.sub}</p>
+        ) : link.sub && link.overview ? (
+          <p className="mt-1 text-xs text-white/50 leading-snug normal-case font-normal">{link.sub}</p>
+        ) : null}
+      </>
+    );
+
+    if (link.external) {
+      return (
+        <a
+          key={link.href + link.label}
+          href={link.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={onClose}
+          className={className}
+        >
+          {inner}
+        </a>
+      );
+    }
+
+    return (
+      <Link key={link.href + link.label} href={link.href} onClick={onClose} className={className}>
+        {inner}
+      </Link>
+    );
+  };
+
+  return (
+    <div className="absolute top-full left-0 z-[100] pt-2" onMouseEnter={onMouseEnter} onMouseLeave={onClose}>
+      <div
+        className="min-w-[min(280px,calc(100vw-2rem))] max-w-[320px] overflow-hidden rounded-xl border shadow-2xl backdrop-blur-md"
+        style={{ backgroundColor: "rgba(24, 24, 27, 0.97)", borderColor: "rgba(255,255,255,0.12)" }}
+      >
+        <div className="max-h-[min(75vh,32rem)] overflow-y-auto overscroll-contain p-1.5">
+          {MEDICAL_NAV.links.map((link) => (
+            <React.Fragment key={link.href + link.label}>
+              {link.dividerBefore ? <div className="mx-3 my-1 border-t border-white/10" aria-hidden /> : null}
+              {renderLink(link)}
+            </React.Fragment>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function SimpleMenu({
   data,
   isOpen,
@@ -519,7 +586,6 @@ export function Header() {
   const isServicesNavActive =
     isActive("/services") ||
     pathname === REGENERATIVE_MEDICINE_PATH ||
-    isPeptideTherapyNavActive(pathname) ||
     REGENERATIVE_NAV_FLAT_LINKS.some(
       (link) =>
         pathname === link.href.split("#")[0] ||
@@ -532,6 +598,8 @@ export function Header() {
           pathname?.startsWith(link.href.split("#")[0] + "/")
       )
     );
+
+  const isMedicalNavActiveState = isMedicalNavActive(pathname ?? null);
 
   const isMicrobladingActive =
     pathname === "/education/your-brow-journey" ||
@@ -627,6 +695,29 @@ export function Header() {
                 isOpen={activeDropdown === "services"}
                 onClose={() => setActiveDropdown(null)}
                 onMouseEnter={() => openDropdown("services")}
+              />
+            </div>
+
+            {/* Medical */}
+            <div
+              className="relative flex items-center"
+              onMouseEnter={() => openDropdown("medical")}
+              onMouseLeave={closeDropdown}
+            >
+              <Link
+                href={NAV.medical.href}
+                className={NAV_LINK_BASE}
+                style={navPillStyle(1, isMedicalNavActiveState)}
+              >
+                Medical
+                <svg className={cx("h-3 w-3 transition-transform", activeDropdown === "medical" && "rotate-180")} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </Link>
+              <MedicalMenu
+                isOpen={activeDropdown === "medical"}
+                onClose={() => setActiveDropdown(null)}
+                onMouseEnter={() => openDropdown("medical")}
               />
             </div>
 
@@ -846,6 +937,7 @@ export function Header() {
             {/* Services accordion */}
             {[
               { key: "services", label: "Services", links: NAV.services.sections.flatMap((s) => s.links) },
+              { key: "medical", label: "Medical", links: NAV.medical.links, highlight: true },
               { key: "specials", label: "Specials", links: NAV.specials.links, highlight: true },
               { key: "skin101", label: "Skin 101", links: NAV.skin101.links, highlight: true },
               { key: "about", label: "About", links: NAV.about.links },
