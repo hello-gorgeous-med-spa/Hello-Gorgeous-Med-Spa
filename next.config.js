@@ -197,6 +197,7 @@ const nextConfig = {
     { source: "/botox%2C-dysport-%26-jeuveau", destination: "/botox-oswego", permanent: true },
     { source: "/botox-dysport", destination: "/botox-oswego", permanent: true },
     { source: "/botox-oswego-il", destination: "/botox-oswego", permanent: true },
+    { source: "/peptide-therapy-oswego-il", destination: "/peptide-therapy-oswego", permanent: true },
     { source: "/services/morpheus8-burst", destination: "/morpheus8-burst-oswego", permanent: true },
     { source: "/services/morpheus8", destination: "/morpheus8-burst-oswego", permanent: true },
     { source: "/services/solaria-co2", destination: "/solaria-co2-oswego", permanent: true },

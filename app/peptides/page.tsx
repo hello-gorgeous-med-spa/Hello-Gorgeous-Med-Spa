@@ -11,9 +11,13 @@ import { PeptideEducationGallery } from "@/components/peptides/PeptideEducationG
 import { PeptideEducationSection } from "@/components/peptides/PeptideEducationSection";
 import { PeptideHandoutsSection } from "@/components/peptides/PeptideHandoutsSection";
 import { FeaturedPeptidesSection } from "@/components/peptides/FeaturedPeptidesSection";
+import { PeptideHubFaqSection } from "@/components/peptides/PeptideHubFaqSection";
 import { PeptideRetailPricingSection } from "@/components/peptides/PeptideRetailPricingSection";
 import { PeptidesHubGrid } from "@/components/peptides/PeptidesHubGrid";
 import { HELLO_GORGEOUS_RX_START_PATH, PEPTIDE_REQUEST_PATH } from "@/lib/flows";
+import { PEPTIDE_CONSULT_FEE_USD } from "@/lib/peptide-request-menu";
+import { PEPTIDE_RETAIL_FROM_MONTHLY_USD } from "@/lib/peptide-retail-pricing";
+import { PEPTIDES_HUB_FAQS } from "@/lib/peptide-seo-faqs";
 import {
   SITE,
   pageMetadata,
@@ -21,15 +25,15 @@ import {
   mainLocalBusinessJsonLd,
   breadcrumbJsonLd,
   webPageJsonLd,
+  faqJsonLd,
 } from "@/lib/seo";
 
 const PEPTIDES_PATH = "/peptides";
 const PEPTIDES_URL = `${SITE.url}${PEPTIDES_PATH}`;
-const PEPTIDES_PAGE_DESCRIPTION =
-  "Peptide therapy in Oswego, IL — BPC-157, Sermorelin, NAD+, CJC-1295/Ipamorelin, GHK-Cu, Tesamorelin, GLP-1 options & more. Weight loss, skin, recovery, mental clarity. Same-day consults often available. Naperville, Aurora, Plainfield.";
+const PEPTIDES_PAGE_DESCRIPTION = `Peptide therapy in Oswego, IL — $${PEPTIDE_CONSULT_FEE_USD} NP consult, protocols from $${PEPTIDE_RETAIL_FROM_MONTHLY_USD}/mo. BPC-157, Sermorelin, NAD+, GLP-1 & more. NP-supervised Hello Gorgeous RX™. Naperville, Aurora, Plainfield.`;
 
 export const metadata: Metadata = pageMetadata({
-  title: "Peptide Therapy Oswego IL | Same-Day Consults | BPC-157, Sermorelin, NAD+ | Hello Gorgeous",
+  title: `Peptide Therapy Oswego IL | From $${PEPTIDE_RETAIL_FROM_MONTHLY_USD}/mo · $${PEPTIDE_CONSULT_FEE_USD} Consult | Hello Gorgeous`,
   description: PEPTIDES_PAGE_DESCRIPTION,
   path: PEPTIDES_PATH,
 });
@@ -127,12 +131,20 @@ export default function PeptidesPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(peptideTherapyJsonLd) }}
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(faqJsonLd(PEPTIDES_HUB_FAQS, PEPTIDES_URL)),
+        }}
+      />
 
       <PeptidesPageHero />
 
       <FeaturedPeptidesSection />
 
       <PeptideRetailPricingSection />
+
+      <PeptideHubFaqSection />
 
       <Section className="border-b-4 border-black bg-[#FFF0F7]">
         <FadeUp>
