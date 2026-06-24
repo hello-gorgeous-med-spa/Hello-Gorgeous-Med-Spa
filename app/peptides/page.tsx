@@ -11,6 +11,7 @@ import { PeptideEducationGallery } from "@/components/peptides/PeptideEducationG
 import { PeptideEducationSection } from "@/components/peptides/PeptideEducationSection";
 import { PeptideHandoutsSection } from "@/components/peptides/PeptideHandoutsSection";
 import { FeaturedPeptidesSection } from "@/components/peptides/FeaturedPeptidesSection";
+import { PeptideRetailPricingSection } from "@/components/peptides/PeptideRetailPricingSection";
 import { PeptidesHubGrid } from "@/components/peptides/PeptidesHubGrid";
 import { HELLO_GORGEOUS_RX_START_PATH, PEPTIDE_REQUEST_PATH } from "@/lib/flows";
 import {
@@ -130,6 +131,8 @@ export default function PeptidesPage() {
       <PeptidesPageHero />
 
       <FeaturedPeptidesSection />
+
+      <PeptideRetailPricingSection />
 
       <Section className="border-b-4 border-black bg-[#FFF0F7]">
         <FadeUp>

@@ -23,6 +23,10 @@ import {
   PEPTIDE_CONSULT_FEE_USD,
   PEPTIDE_REQUEST_ITEMS,
 } from "../lib/peptide-request-menu";
+import {
+  getPeptideRetailMonthlyUsd,
+  PEPTIDE_PHARMACY_SHIPPING_USD,
+} from "../lib/peptide-retail-pricing";
 
 const DRY_RUN = process.argv.includes("--dry-run");
 const SQUARE_VERSION = "2024-11-20";
@@ -72,20 +76,30 @@ function buildCatalogRows(): CatalogRow[] {
       id: "pharmacy-shipping",
       name: "Hello Gorgeous RX™ — Pharmacy / Shipping",
       category: `${ROOT_CATEGORY} — Fees`,
-      description: "Compounded peptide pharmacy fulfillment, shipping, or handling — price varies by protocol.",
-      price_cents: 0,
+      description: "Compounded peptide pharmacy fulfillment, cold-chain shipping, or handling.",
+      price_cents: PEPTIDE_PHARMACY_SHIPPING_USD * 100,
       sku: "HG-RX-SHIP",
     },
   ];
 
-  const peptides: CatalogRow[] = PEPTIDE_REQUEST_ITEMS.map((p) => ({
-    id: p.id,
-    name: `Hello Gorgeous RX™ — ${p.name}`,
-    category: `${ROOT_CATEGORY} — ${p.category}`,
-    description: `${p.benefit}. Compounded Rx peptide — variable pricing per protocol. ${feeDescription}`,
-    price_cents: 0,
-    sku: `HG-RX-${p.id.toUpperCase().replace(/-/g, "")}`,
-  }));
+  function defaultPeptidePriceCents(id: string): number {
+    const retail = getPeptideRetailMonthlyUsd(id);
+    return retail != null ? retail * 100 : 0;
+  }
+
+  const peptides: CatalogRow[] = PEPTIDE_REQUEST_ITEMS.map((p) => {
+    const priceCents = defaultPeptidePriceCents(p.id);
+    const fromLabel =
+      priceCents > 0 ? ` Published from $${priceCents / 100}/mo — adjust per protocol.` : " Variable pricing per protocol.";
+    return {
+      id: p.id,
+      name: `Hello Gorgeous RX™ — ${p.name}`,
+      category: `${ROOT_CATEGORY} — ${p.category}`,
+      description: `${p.benefit}. Compounded Rx peptide.${fromLabel} ${feeDescription}`,
+      price_cents: priceCents,
+      sku: `HG-RX-${p.id.toUpperCase().replace(/-/g, "")}`,
+    };
+  });
 
   return [...fees, ...peptides];
 }

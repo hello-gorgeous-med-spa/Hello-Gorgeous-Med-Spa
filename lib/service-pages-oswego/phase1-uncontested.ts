@@ -257,7 +257,7 @@ export const PHASE1_UNCONTESTED_PAGES: ServicePageData[] = [
       "Ongoing support: follow-up appointments to assess response, adjust dosing, and refresh your protocol as needed. Peptide therapy is iterative — we stay involved.",
     ],
     pricing:
-      "Consultation is $49; peptide medications are priced separately based on your personalized protocol. Most monthly plans start around $250–$600 depending on peptide and supply length. We give you complete transparent pricing before any commitment.",
+      "Consultation is $49; peptide medications are priced separately based on your personalized protocol. Published starting rates from $149/mo (e.g. Sermorelin injectable); Recovery Blend from $229/mo. Full menu at hellogorgeousmedspa.com/peptides#peptide-pricing. We give you complete transparent pricing before any commitment.",
     faqs: [
       {
         q: "What conditions or goals can peptide therapy support?",

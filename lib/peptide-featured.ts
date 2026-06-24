@@ -3,6 +3,8 @@
 import { getPeptideThumbnail } from "@/lib/peptide-thumbnails";
 import { peptideTopicHref } from "@/lib/peptides-hub";
 
+import { formatFromMonthly, getPeptideRetailByHubSlug } from "@/lib/peptide-retail-pricing";
+
 export type FeaturedClinicPeptide = {
   slug: string;
   name: string;
@@ -62,9 +64,15 @@ export const FEATURED_CLINIC_PEPTIDES: FeaturedClinicPeptide[] = [
 export const PEPTIDE_CONSULT_SPECIAL = {
   price: "$49",
   label: "Peptide consultation",
-  detail: "Medication priced separately after your personalized plan",
+  detail:
+    "Protocols from $149/mo after your personalized plan — see published starting rates on our peptide hub",
   blogHref: "/skin-101/find-your-peptide",
 };
+
+export function featuredPeptideFromPrice(slug: string): string | undefined {
+  const row = getPeptideRetailByHubSlug(slug);
+  return row ? formatFromMonthly(row.fromMonthlyUsd) : undefined;
+}
 
 export function featuredPeptideNavLinks() {
   return FEATURED_CLINIC_PEPTIDES.map((p) => ({

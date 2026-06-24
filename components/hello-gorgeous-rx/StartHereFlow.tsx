@@ -15,6 +15,7 @@ import {
   RX_START_HERE_STEPS,
 } from "@/lib/hello-gorgeous-rx";
 import { saveRxStartPrefill } from "@/lib/peptide-rx-prefill";
+import { formatFromMonthly, getPeptideRetailMonthlyUsd } from "@/lib/peptide-retail-pricing";
 import {
   PEPTIDE_CATEGORY_FILTER_LABEL,
   PEPTIDE_CONSULT_FEE_USD,
@@ -212,6 +213,14 @@ export function StartHereFlow({ initialPeptideId }: { initialPeptideId?: string 
                           <div className="p-3 bg-white flex-1 min-h-[4.25rem]">
                             <p className="font-black text-black leading-tight">{item.name}</p>
                             <p className="text-xs text-black/60 mt-1 leading-snug">{item.benefit}</p>
+                            {(() => {
+                              const usd = getPeptideRetailMonthlyUsd(item.id);
+                              return usd ? (
+                                <p className="text-[10px] font-bold text-[#E6007E] mt-1">
+                                  {formatFromMonthly(usd)}
+                                </p>
+                              ) : null;
+                            })()}
                           </div>
                         </button>
                       );

@@ -16,7 +16,7 @@ export const PEPTIDE_THERAPY_GUIDE: ScienceExplainerContent = {
     "Peptide therapy requires medical evaluation, prescription, and ongoing supervision. This page is educational overview only — your protocol is individualized at consult.",
   stats: [
     { value: "$49", label: "Peptide consultation with our medical team" },
-    { value: "$250–600", label: "Typical monthly protocol, by peptide & supply length" },
+    { value: "From $149/mo", label: "Published protocol starting rates — finalized at NP consult" },
   ],
   pdfPath: "/handouts/education/peptide-therapy-guide.pdf",
   sections: [

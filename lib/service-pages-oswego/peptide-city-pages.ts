@@ -46,7 +46,7 @@ function peptideCityPage(city: string, citySlug: string, drive: string): Service
       "Ongoing follow-up — dose tweaks and refreshes as your body responds.",
     ],
     pricing:
-      "Consultation is $49; peptide medications are priced separately based on your protocol (most monthly plans start around $250–$600 depending on peptide and supply). Transparent numbers before you start.",
+      "Consultation is $49; peptide medications are priced separately. Published starting rates from $149/mo — Recovery Blend from $229/mo. See hellogorgeousmedspa.com/peptides#peptide-pricing. Transparent numbers before you start.",
     faqs: [
       {
         q: `How far is Hello Gorgeous from ${city}?`,

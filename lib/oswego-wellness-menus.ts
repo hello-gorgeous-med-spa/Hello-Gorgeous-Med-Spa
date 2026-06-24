@@ -212,14 +212,15 @@ export const PEPTIDE_THERAPY_OSWEGO_MENU = buildOswegoMenu("peptide-therapy-oswe
   pricingTitle: "Peptide protocol pricing",
   pricingHighlights: [
     "$49 peptide consultation with the medical team",
-    "Monthly protocols typically $250–$600 by peptide & supply",
-    "BPC-157 · Sermorelin · GHK-Cu · NAD+ · PT-141 & more",
+    "Monthly protocols from $149/mo — published starting rates by peptide",
+    "Recovery Blend from $229/mo · BPC-157 from $169/mo · Sermorelin from $149/mo",
     "Licensed US compounding pharmacies only — never research-grade",
     "Complete transparent pricing before any commitment",
   ],
   pricingRows: [
     { label: "Peptide consultation", price: "$49", note: "Goals, history & protocol design" },
-    { label: "Monthly protocols", price: "$250–$600", note: "By peptide & supply length" },
+    { label: "Monthly protocols", price: "From $149/mo", note: "See full menu on /peptides#peptide-pricing" },
+    { label: "Recovery Blend", price: "From $229/mo", note: "BPC · GHK-Cu · KPV · TB-500" },
     { label: "NAD+ IV infusions", price: "From $400", href: "/nad-iv-oswego", note: "Series pricing available" },
     { label: "Full wellness menu", price: "Menu →", href: "/services/wellness" },
   ],

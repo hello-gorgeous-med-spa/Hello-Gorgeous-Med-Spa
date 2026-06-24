@@ -6,6 +6,7 @@ import { FadeUp, Section } from "@/components/Section";
 import { HELLO_GORGEOUS_RX_START_PATH } from "@/lib/flows";
 import {
   FEATURED_CLINIC_PEPTIDES,
+  featuredPeptideFromPrice,
   getPeptideThumbnail,
   PEPTIDE_CONSULT_SPECIAL,
 } from "@/lib/peptide-featured";
@@ -38,6 +39,7 @@ export function FeaturedPeptidesSection() {
       <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 max-w-6xl mx-auto">
         {FEATURED_CLINIC_PEPTIDES.map((peptide, idx) => {
           const thumbnail = getPeptideThumbnail(peptide.slug);
+          const fromPrice = featuredPeptideFromPrice(peptide.slug);
           return (
             <FadeUp key={peptide.slug} delayMs={idx * 40}>
               <Link
@@ -66,7 +68,10 @@ export function FeaturedPeptidesSection() {
                     {peptide.name}
                   </h3>
                   <p className="mt-2 flex-1 text-sm leading-relaxed text-black/75">{peptide.benefit}</p>
-                  <p className="mt-4 text-sm font-bold text-[#E6007E]">What it does & how we use it →</p>
+                  {fromPrice ? (
+                    <p className="mt-3 text-sm font-black text-black">{fromPrice}</p>
+                  ) : null}
+                  <p className="mt-2 text-sm font-bold text-[#E6007E]">What it does & how we use it →</p>
                 </div>
               </Link>
             </FadeUp>
