@@ -145,6 +145,8 @@ const nextConfig = {
     { source: "/book-now", destination: "/book", permanent: true },
     { source: "/mens-wellness", destination: "/gentlemens-club", permanent: true },
     { source: "/mens-hormones", destination: "/gentlemens-club", permanent: true },
+    { source: "/blood-panels", destination: "/blood-work", permanent: true },
+    { source: "/medical/blood-panels", destination: "/blood-work", permanent: true },
     { source: "/peptide-therapy-men", destination: "/peptides", permanent: true },
     { source: "/schedule", destination: "/book", permanent: true },
     { source: "/signature-treatment-menu", destination: "/specials", permanent: true },

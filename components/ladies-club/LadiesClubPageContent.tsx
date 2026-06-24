@@ -280,6 +280,9 @@ export function LadiesClubPageContent() {
           <FadeUp delayMs={100}>
             <div className="mt-8 flex flex-wrap gap-3">
               <CTA href="/biote-hormone-therapy-oswego" variant="gradient">BioTE program →</CTA>
+              <CTA href="/ladies-club/bhrt-cost" variant="outline" className="!border-white/30 !text-white">
+                BHRT cost guide →
+              </CTA>
               <CTA href="/blood-work" variant="outline" className="!border-white/30 !text-white">Lab guide →</CTA>
             </div>
           </FadeUp>

@@ -51,6 +51,7 @@ export const LADIES_CLUB_PILLS = ["HORMONES", "GLP-1", "PEPTIDES", "IV", "SKIN",
 export const LADIES_CLUB_JUMP_LINKS = [
   { label: "Services", href: "#services" },
   { label: "Hormones / BioTE", href: "#hormones" },
+  { label: "BHRT cost guide", href: "/ladies-club/bhrt-cost" },
   { label: "GLP-1", href: "#glp1" },
   { label: "Peptides", href: "#peptides" },
   { label: "Vitamin Bar", href: "#vitamin-bar" },

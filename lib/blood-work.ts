@@ -7,6 +7,30 @@ import { FULLSCRIPT_DISPENSARY_URL } from "@/lib/flows";
 import { RYAN_FULL_NAME } from "@/lib/founder-credentials";
 
 export const BLOOD_WORK_PATH = "/blood-work";
+/** Alias — Moonshot-style service URL redirects to BLOOD_WORK_PATH */
+export const BLOOD_PANELS_PATH = "/blood-panels";
+
+export type BloodWorkTestCategory = {
+  id: string;
+  title: string;
+  markers: string[];
+  learnHref: string;
+};
+
+export type BloodWorkQuickFact = {
+  label: string;
+  value: string;
+  note: string;
+};
+
+export type BloodWorkPricingTier = {
+  id: string;
+  name: string;
+  price: string;
+  description: string;
+  badge?: string;
+  highlight?: boolean;
+};
 
 export type BloodWorkJumpLink = {
   id: string;
@@ -32,15 +56,97 @@ export type BloodWorkPrepTip = {
 };
 
 export const BLOOD_WORK_JUMP_LINKS: BloodWorkJumpLink[] = [
-  { id: "bottom-line", label: "Bottom line" },
+  { id: "what-we-test", label: "What we test" },
   { id: "why-comprehensive", label: "Why it matters" },
+  { id: "fasting", label: "Fasting" },
+  { id: "quick-facts", label: "Quick facts" },
+  { id: "pricing", label: "Pricing" },
   { id: "how-we-order", label: "How we order" },
-  { id: "domains", label: "10 domains" },
-  { id: "patterns", label: "Patterns" },
-  { id: "prep", label: "Prep tips" },
-  { id: "retest", label: "Retesting" },
+  { id: "domains", label: "Full breakdown" },
   { id: "faq", label: "FAQ" },
 ];
+
+export const BLOOD_WORK_HERO = {
+  eyebrow: "Medical · Lab Testing",
+  title: "Comprehensive Blood Panels",
+  subtitle:
+    "Lab testing that goes beyond a standard annual physical — 60+ biomarkers across hormones, metabolism, heart health, thyroid, and nutrients. Ordered by Ryan Kent, FNP-BC and reviewed in context at your consult.",
+  ctaLabel: "Book Lab Consult",
+} as const;
+
+/** Moonshot-style category cards — link into full domain breakdown below. */
+export const BLOOD_WORK_TEST_CATEGORIES: BloodWorkTestCategory[] = [
+  {
+    id: "metabolic",
+    title: "Metabolic Health",
+    markers: ["Fasting glucose", "HbA1c", "Fasting insulin", "HOMA-IR"],
+    learnHref: "#metabolic",
+  },
+  {
+    id: "hormones",
+    title: "Hormones",
+    markers: ["Total & free testosterone", "Estradiol", "DHEA-S", "FSH / LH", "SHBG"],
+    learnHref: "#hormones",
+  },
+  {
+    id: "cardiovascular",
+    title: "Cardiovascular",
+    markers: ["Advanced lipid panel", "ApoB", "Lp(a)", "hs-CRP"],
+    learnHref: "#cardiovascular",
+  },
+  {
+    id: "nutrients",
+    title: "Nutrients & More",
+    markers: ["Vitamin D", "Vitamin B12", "Thyroid panel (TSH, Free T4/T3)", "CBC & inflammation"],
+    learnHref: "#thyroid",
+  },
+];
+
+export const BLOOD_WORK_WHY_IT_MATTERS = {
+  lead:
+    "Standard lab panels test a handful of markers and compare you to \"normal\" ranges based on general populations — enough to screen for disease, not enough to optimize hormones, weight loss, or longevity.",
+  body:
+    "We test more markers and interpret them through a performance and optimization lens at your consult. What's optimal for you — not just \"not sick.\" Your results become the foundation for BioTE hormone therapy, GLP-1 weight loss, peptide protocols, and retesting over time.",
+  callout:
+    "Your results become your baseline. Track changes over time. Make decisions based on data — not guesswork.",
+} as const;
+
+export const BLOOD_WORK_FASTING = {
+  minimum: { label: "Minimum", value: "8 hrs", note: "Sufficient for most markers" },
+  ideal: { label: "Ideal", value: "10–12 hrs", note: "Most accurate metabolic & lipid results" },
+  allowed: { label: "Allowed", value: "Water & black coffee", note: "No cream, sugar, or food" },
+  whyItMatters:
+    "Eating before your draw can spike glucose, insulin, and triglycerides — making it harder to get an accurate read on metabolic health. Morning appointments between 7–10 AM work best for hormone testing.",
+} as const;
+
+export const BLOOD_WORK_QUICK_FACTS: BloodWorkQuickFact[] = [
+  { label: "Cost", value: "$250–450", note: "Panel confirmed at consult" },
+  { label: "Biomarkers", value: "60+", note: "Across 10 body systems" },
+  { label: "Fasting", value: "8–12 hrs", note: "Recommended" },
+  { label: "Results", value: "36–72 hrs", note: "Reviewed with your NP" },
+];
+
+export const BLOOD_WORK_PRICING: BloodWorkPricingTier[] = [
+  {
+    id: "comprehensive",
+    name: "Comprehensive Wellness Panel",
+    price: "$250–450",
+    description:
+      "60+ biomarkers including hormone panel, metabolic markers, advanced lipids, thyroid, nutrients, CBC, and inflammation — selected for your goals at consult.",
+    highlight: true,
+    badge: "Most popular",
+  },
+  {
+    id: "hormone-baseline",
+    name: "BioTE / TRT Baseline Panel",
+    price: "$250–450",
+    description:
+      "Targeted hormone and metabolic baseline before pellet therapy or TRT — we never dose blind. Follow-up panels quoted at each monitoring visit.",
+  },
+];
+
+export const BLOOD_WORK_PRICING_NOTE =
+  "Women's Hormone Member ($99/mo) includes quarterly NP lab review; panel draw fees are quoted separately. Exact markers and price confirmed before any lab is ordered — no surprise bills.";
 
 export const BLOOD_WORK_BOTTOM_LINE = [
   {
@@ -253,19 +359,34 @@ export const BLOOD_WORK_RETEST_BULLETS = [
 
 export const BLOOD_WORK_FAQS: FAQ[] = [
   {
-    question: "Does Hello Gorgeous offer comprehensive blood panels?",
+    question: "How much does a comprehensive blood panel cost at Hello Gorgeous?",
     answer:
-      "Yes. We order targeted wellness panels — often 60+ biomarkers — for hormone optimization, medical weight loss, peptide protocols, and baseline health mapping. Panels are selected based on your goals and history at consult.",
+      "Comprehensive wellness and hormone baseline panels typically run $250–450 at Hello Gorgeous Med Spa in Oswego, IL, depending on which markers are ordered. Exact pricing is confirmed at your consult before any lab is drawn — we do not surprise-bill for panels you did not agree to.",
+  },
+  {
+    question: "What biomarkers are included in the comprehensive panel?",
+    answer:
+      "Panels often include 60+ biomarkers across metabolic health (glucose, HbA1c, insulin), hormones (testosterone, estradiol, DHEA-S, SHBG, FSH/LH), cardiovascular markers (advanced lipids, ApoB, Lp(a), hs-CRP), full thyroid (TSH, Free T4/T3, TPO antibodies), nutrients (Vitamin D, B12), CBC, and liver/kidney function — tailored to your goals at consult.",
+  },
+  {
+    question: "Do I need to fast before my blood panel?",
+    answer:
+      "Fasting is recommended but not always strictly required. For the most accurate metabolic and lipid results, we recommend 8–12 hours of fasting — 8 hours is sufficient, 10–12 is ideal. Water and black coffee are fine. Morning draws between 7–10 AM are best for hormone testing.",
+  },
+  {
+    question: "How is Hello Gorgeous's blood panel different from standard lab work?",
+    answer:
+      "Standard panels test 8–14 markers and compare you to population reference ranges. We order broader wellness panels and interpret results through an optimization lens with your NP — looking for patterns across systems, not just whether each number is \"in range.\"",
+  },
+  {
+    question: "How long until I get my blood panel results?",
+    answer:
+      "Most results return within 36–72 hours depending on the panel and lab partner (FullScript, Quest, or LabCorp). We review results with you at follow-up — not as a raw PDF with no context.",
   },
   {
     question: "How do you order labs — FullScript, Quest, or LabCorp?",
     answer:
-      "FullScript is our primary workflow for comprehensive wellness panels. We can also call in requisitions to Quest Diagnostics or LabCorp when that fits your test or location. Many draws can be done in office at our Oswego location.",
-  },
-  {
-    question: "How much do baseline labs cost?",
-    answer:
-      "Baseline hormone and wellness panels typically run $250–450 depending on which markers are ordered. Exact pricing is confirmed at your consult — we do not surprise-bill for panels you did not agree to.",
+      "FullScript is our primary workflow for comprehensive wellness panels. We can also call in requisitions to Quest Diagnostics or LabCorp when that fits your test or location. Many draws can be done in office at our Oswego med spa.",
   },
   {
     question: "Do I need a referral from my primary care doctor?",
@@ -273,14 +394,9 @@ export const BLOOD_WORK_FAQS: FAQ[] = [
       "No referral is required. Ryan Kent, FNP-BC can order medically appropriate labs as part of your Hello Gorgeous care plan.",
   },
   {
-    question: "How long until I get results?",
-    answer:
-      "Most results return within 36–72 hours depending on the panel and lab partner. We review results with you at follow-up — not as a raw PDF with no context.",
-  },
-  {
     question: "Is this page medical advice?",
     answer:
-      "No. This guide is educational. Diagnosis and treatment require an in-person consultation where your full history, exam, and labs are reviewed together.",
+      "No. This guide is educational. Diagnosis and treatment require a consultation where your full history, exam, and labs are reviewed together.",
   },
 ];
 

@@ -14,17 +14,17 @@ import {
 const PAGE_URL = `${SITE.url}${BLOOD_WORK_PATH}`;
 
 const baseMeta = pageMetadata({
-  title: "Blood Work Explained — Comprehensive Lab Panels | Hello Gorgeous Oswego",
+  title: "Comprehensive Blood Panels & Lab Testing | Hello Gorgeous Oswego",
   description:
-    "Understand 60+ biomarkers across 10 domains — heart, metabolism, hormones, thyroid, and more. Hello Gorgeous orders labs via FullScript, Quest, and LabCorp. Ryan Kent, FNP-BC. Oswego, Naperville, Aurora.",
+    "60+ biomarker blood panels for hormone optimization, GLP-1, and wellness — metabolic, cardiovascular, thyroid, and nutrient testing. $250–450 typical. FullScript, Quest, LabCorp. Ryan Kent, FNP-BC.",
   path: BLOOD_WORK_PATH,
   keywords: [
     "comprehensive blood panel Oswego IL",
-    "hormone lab testing Naperville",
+    "blood panels Naperville",
+    "hormone lab testing Fox Valley",
     "FullScript labs med spa",
     "Quest LabCorp requisition Illinois",
-    "TRT baseline labs Fox Valley",
-    "BioTE lab panel Oswego",
+    "BioTE baseline labs Oswego",
     "wellness blood work explained",
   ],
 });
@@ -54,7 +54,7 @@ export default function BloodWorkPage() {
   const breadcrumbs = [
     { name: "Home", url: SITE.url },
     { name: "Medical", url: `${SITE.url}/medical` },
-    { name: "Blood Work Explained", url: PAGE_URL },
+    { name: "Comprehensive Blood Panels", url: PAGE_URL },
   ];
 
   return (

@@ -4,20 +4,27 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { CTA } from "@/components/CTA";
+import { FAQAccordion } from "@/components/FAQAccordion";
 import { FadeUp, Section } from "@/components/Section";
 import { BOOKING_URL } from "@/lib/flows";
 import {
   BLOOD_WORK_BOTTOM_LINE,
   BLOOD_WORK_DOMAINS,
   BLOOD_WORK_FAQS,
+  BLOOD_WORK_FASTING,
+  BLOOD_WORK_HERO,
   BLOOD_WORK_JUMP_LINKS,
   BLOOD_WORK_LAB_PARTNERS,
   BLOOD_WORK_MEDICAL_REVIEW,
   BLOOD_WORK_PATTERNS,
   BLOOD_WORK_PREP_TIPS,
+  BLOOD_WORK_PRICING,
+  BLOOD_WORK_PRICING_NOTE,
+  BLOOD_WORK_QUICK_FACTS,
   BLOOD_WORK_RETEST_BULLETS,
+  BLOOD_WORK_TEST_CATEGORIES,
+  BLOOD_WORK_WHY_IT_MATTERS,
 } from "@/lib/blood-work";
-import { HG_TAGLINE } from "@/lib/brand-tagline";
 import { SITE } from "@/lib/seo";
 
 const BRAND = {
@@ -104,27 +111,16 @@ export function BloodWorkPageContent() {
                       className="h-2 w-2 animate-pulse rounded-full"
                       style={{ backgroundColor: BRAND.pink }}
                     />
-                    Lab Education · {HG_TAGLINE}
+                    {BLOOD_WORK_HERO.eyebrow}
                   </p>
                   <p className="mt-6 text-xs font-bold uppercase tracking-[0.25em] text-[#FFB8DC]">
                     Oswego · Fox Valley · NP-supervised
                   </p>
                   <h1 className="mt-4 text-4xl font-black leading-[1.05] text-white md:text-5xl lg:text-6xl">
-                    Your{" "}
-                    <span
-                      className="bg-gradient-to-r from-[#FFB8DC] via-[#FF2D8E] to-[#E6007E] bg-clip-text text-transparent"
-                      style={{ WebkitBackgroundClip: "text" }}
-                    >
-                      Blood Work
-                    </span>{" "}
-                    Explained
+                    {BLOOD_WORK_HERO.title}
                   </h1>
                   <p className="mt-6 text-lg font-medium leading-relaxed text-white/85 md:text-xl">
-                    A complete guide to comprehensive wellness panels — what each domain measures, how
-                    markers connect, and how Hello Gorgeous orders labs through{" "}
-                    <strong className="text-white">FullScript</strong>,{" "}
-                    <strong className="text-white">Quest</strong>, and{" "}
-                    <strong className="text-white">LabCorp</strong>.
+                    {BLOOD_WORK_HERO.subtitle}
                   </p>
                   <p className="mt-4 text-sm text-white/60">
                     Medically reviewed by {BLOOD_WORK_MEDICAL_REVIEW.reviewer} · Updated{" "}
@@ -132,7 +128,7 @@ export function BloodWorkPageContent() {
                   </p>
                   <div className="mt-10 flex flex-col gap-3 sm:flex-row">
                     <CTA href={BOOKING_URL} variant="gradient" className="px-8 py-4">
-                      Book Lab Consult
+                      {BLOOD_WORK_HERO.ctaLabel}
                     </CTA>
                     <CTA
                       href={`tel:${SITE.phone}`}
@@ -179,6 +175,176 @@ export function BloodWorkPageContent() {
           </div>
         </nav>
 
+        {/* What we test */}
+        <Section id="what-we-test" className="scroll-mt-28 border-b-4 border-black bg-gradient-to-b from-white to-[#FFF0F7]/50">
+          <div className="mx-auto max-w-6xl px-4 md:px-6">
+            <FadeUp>
+              <div className="mb-8 text-center">
+                <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#E6007E]">60+ biomarkers</p>
+                <h2 className="mt-2 text-3xl font-black text-neutral-900 md:text-4xl">What we test</h2>
+                <p className="mx-auto mt-4 max-w-2xl text-base font-medium text-black/70">
+                  Comprehensive panels across the systems that drive hormone optimization, weight loss, and
+                  longevity planning.
+                </p>
+              </div>
+              <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+                {BLOOD_WORK_TEST_CATEGORIES.map((cat) => (
+                  <article
+                    key={cat.id}
+                    className="flex h-full flex-col rounded-3xl border-4 border-black bg-white p-5 shadow-[6px_6px_0_0_rgba(230,0,126,0.25)]"
+                  >
+                    <h3 className="font-black text-[#E6007E]">{cat.title}</h3>
+                    <ul className="mt-4 flex-1 space-y-2">
+                      {cat.markers.map((m) => (
+                        <li key={m} className="flex gap-2 text-sm text-black/80">
+                          <span className="text-[#E6007E]">•</span>
+                          {m}
+                        </li>
+                      ))}
+                    </ul>
+                    <a
+                      href={cat.learnHref}
+                      className="mt-5 text-sm font-bold text-[#E6007E] hover:underline"
+                    >
+                      Learn more →
+                    </a>
+                  </article>
+                ))}
+              </div>
+            </FadeUp>
+          </div>
+        </Section>
+
+        {/* Why it matters */}
+        <Section id="why-comprehensive" className="scroll-mt-28 border-b-4 border-black bg-white">
+          <div className="mx-auto max-w-6xl px-4 md:px-6">
+            <FadeUp>
+              <StampCard title="Why it matters">
+                <p className="text-base font-medium leading-relaxed text-black/85">
+                  {BLOOD_WORK_WHY_IT_MATTERS.lead}
+                </p>
+                <p className="mt-4 text-base font-medium leading-relaxed text-black/85">
+                  {BLOOD_WORK_WHY_IT_MATTERS.body}
+                </p>
+                <p className="mt-6 rounded-2xl border-2 border-black/10 bg-[#FFF0F7] p-5 font-semibold text-black/85">
+                  {BLOOD_WORK_WHY_IT_MATTERS.callout}
+                </p>
+                <div className="mt-6 space-y-4 text-base font-medium leading-relaxed text-black/85">
+                  <p>
+                    This is the foundation for{" "}
+                    <Link href="/biote-hormone-therapy-oswego" className="text-[#E6007E] underline">
+                      BioTE hormones
+                    </Link>
+                    ,{" "}
+                    <Link href="/glp-1-weight-loss-oswego" className="text-[#E6007E] underline">
+                      GLP-1 weight loss
+                    </Link>
+                    ,{" "}
+                    <Link href="/peptides" className="text-[#E6007E] underline">
+                      peptide therapy
+                    </Link>
+                    , and{" "}
+                    <Link href="/ladies-club/bhrt-cost" className="text-[#E6007E] underline">
+                      hormone program pricing
+                    </Link>
+                    .
+                  </p>
+                </div>
+              </StampCard>
+            </FadeUp>
+          </div>
+        </Section>
+
+        {/* Fasting */}
+        <Section id="fasting" className="scroll-mt-28 border-b-4 border-black bg-gradient-to-b from-[#FFF0F7]/60 to-white">
+          <div className="mx-auto max-w-6xl px-4 md:px-6">
+            <FadeUp>
+              <StampCard title="Fasting for your blood draw">
+                <p className="mb-6 text-base font-medium text-black/80">
+                  For the most accurate results, we recommend fasting before your draw. While not always
+                  strictly required, fasting gives cleaner data — especially for metabolic and lipid markers.
+                </p>
+                <div className="grid gap-4 sm:grid-cols-3">
+                  {[BLOOD_WORK_FASTING.minimum, BLOOD_WORK_FASTING.ideal, BLOOD_WORK_FASTING.allowed].map(
+                    (item) => (
+                      <div
+                        key={item.label}
+                        className="rounded-2xl border-4 border-black bg-white p-5 text-center shadow-[4px_4px_0_0_rgba(230,0,126,0.2)]"
+                      >
+                        <p className="text-[10px] font-bold uppercase tracking-widest text-[#E6007E]">
+                          {item.label}
+                        </p>
+                        <p className="mt-2 text-2xl font-black text-neutral-900">{item.value}</p>
+                        <p className="mt-2 text-sm text-black/70">{item.note}</p>
+                      </div>
+                    ),
+                  )}
+                </div>
+                <p className="mt-6 text-sm font-medium leading-relaxed text-black/75">
+                  <strong className="text-[#E6007E]">Why it matters:</strong> {BLOOD_WORK_FASTING.whyItMatters}
+                </p>
+              </StampCard>
+            </FadeUp>
+          </div>
+        </Section>
+
+        {/* Quick facts */}
+        <Section id="quick-facts" className="scroll-mt-28 border-b-4 border-black bg-white">
+          <div className="mx-auto max-w-6xl px-4 md:px-6">
+            <FadeUp>
+              <h2 className="mb-8 text-center text-3xl font-black text-neutral-900">Blood panel quick facts</h2>
+              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+                {BLOOD_WORK_QUICK_FACTS.map((fact) => (
+                  <div
+                    key={fact.label}
+                    className="rounded-2xl border-2 border-black/10 bg-gradient-to-b from-white to-rose-50 p-6 text-center"
+                  >
+                    <p className="text-xs font-bold uppercase tracking-wider text-black/50">{fact.label}</p>
+                    <p className="mt-2 text-3xl font-black text-[#E6007E]">{fact.value}</p>
+                    <p className="mt-2 text-sm text-black/70">{fact.note}</p>
+                  </div>
+                ))}
+              </div>
+            </FadeUp>
+          </div>
+        </Section>
+
+        {/* Pricing */}
+        <Section id="pricing" className="scroll-mt-28 border-b-4 border-black bg-gradient-to-b from-[#FFF0F7]/50 to-white">
+          <div className="mx-auto max-w-6xl px-4 md:px-6">
+            <FadeUp>
+              <h2 className="mb-8 text-center text-3xl font-black text-neutral-900">Pricing</h2>
+              <div className="grid gap-6 md:grid-cols-2">
+                {BLOOD_WORK_PRICING.map((tier) => (
+                  <article
+                    key={tier.id}
+                    className={`relative flex h-full flex-col rounded-3xl border-4 border-black p-6 shadow-[8px_8px_0_0_rgba(230,0,126,0.35)] ${
+                      tier.highlight ? "bg-gradient-to-br from-white to-rose-50" : "bg-white"
+                    }`}
+                  >
+                    {tier.badge ? (
+                      <span className="absolute -top-3 right-4 rounded-full border-2 border-black bg-gradient-to-r from-[#FF2D8E] to-[#E6007E] px-3 py-1 text-[10px] font-bold uppercase text-white">
+                        {tier.badge}
+                      </span>
+                    ) : null}
+                    <h3 className="text-xl font-black text-neutral-900">{tier.name}</h3>
+                    <p className="mt-3 text-4xl font-black text-[#E6007E]">{tier.price}</p>
+                    <p className="mt-4 flex-1 text-sm font-medium leading-relaxed text-black/80">
+                      {tier.description}
+                    </p>
+                  </article>
+                ))}
+              </div>
+              <p className="mt-6 text-center text-sm font-medium text-black/70">{BLOOD_WORK_PRICING_NOTE}</p>
+              <div className="mt-8 flex justify-center">
+                <CTA href={BOOKING_URL} variant="gradient">
+                  {BLOOD_WORK_HERO.ctaLabel}
+                </CTA>
+              </div>
+            </FadeUp>
+          </div>
+        </Section>
+
         {/* Bottom line */}
         <Section className="border-b-4 border-black bg-gradient-to-b from-white to-[#FFF0F7]/50">
           <div className="mx-auto max-w-6xl px-4 md:px-6">
@@ -199,44 +365,11 @@ export function BloodWorkPageContent() {
           </div>
         </Section>
 
-        {/* Why comprehensive */}
-        <Section className="border-b-4 border-black bg-white">
+        {/* Why comprehensive — reference ranges (kept for depth) */}
+        <Section className="border-b-4 border-black bg-gradient-to-b from-[#FFF0F7]/40 to-white">
           <div className="mx-auto max-w-6xl space-y-8 px-4 md:px-6">
             <FadeUp>
-              <StampCard id="why-comprehensive" index={1} title="Why comprehensive blood work matters">
-                <div className="space-y-4 text-base font-medium leading-relaxed text-black/85">
-                  <p>
-                    A standard annual physical checks 8–14 markers — enough to confirm nothing is acutely
-                    wrong, but not much more. It screens for disease; it does not show how each system is
-                    actually performing.
-                  </p>
-                  <p>
-                    A 60+ biomarker panel asks a different question: instead of “is anything broken?”, it
-                    asks <em>“how is everything running?”</em> Heart disease, metabolic syndrome, and
-                    hormonal decline develop gradually — often before a basic panel flags them.
-                  </p>
-                  <p>
-                    This is not about finding problems where none exist. It is about having enough data to
-                    make informed decisions — especially when you are exploring{" "}
-                    <Link href="/gentlemens-club#hormones" className="text-[#E6007E] underline decoration-[#E6007E]">
-                      TRT
-                    </Link>
-                    ,{" "}
-                    <Link href="/biote-hormone-therapy-oswego" className="text-[#E6007E] underline decoration-[#E6007E]">
-                      BioTE hormones
-                    </Link>
-                    , or{" "}
-                    <Link href="/glp-1-weight-loss-oswego" className="text-[#E6007E] underline decoration-[#E6007E]">
-                      GLP-1 weight loss
-                    </Link>
-                    .
-                  </p>
-                </div>
-              </StampCard>
-            </FadeUp>
-
-            <FadeUp>
-              <StampCard index={2} title="Reference ranges vs. targets">
+              <StampCard index={1} title="Reference ranges vs. targets">
                 <div className="space-y-4 text-base font-medium leading-relaxed text-black/85">
                   <p>
                     <strong className="text-[#E6007E]">Reference ranges</strong> come from population
@@ -438,17 +571,8 @@ export function BloodWorkPageContent() {
         <Section id="faq" className="scroll-mt-28 border-b-4 border-black bg-white">
           <div className="mx-auto max-w-6xl px-4 md:px-6">
             <FadeUp>
-              <StampCard title="Frequently asked questions">
-                <dl className="space-y-6">
-                  {BLOOD_WORK_FAQS.map((faq) => (
-                    <div key={faq.question}>
-                      <dt className="font-bold text-[#E6007E]">▸ {faq.question}</dt>
-                      <dd className="mt-2 text-sm font-medium leading-relaxed text-black/85">
-                        {faq.answer}
-                      </dd>
-                    </div>
-                  ))}
-                </dl>
+              <StampCard title="Common questions">
+                <FAQAccordion items={BLOOD_WORK_FAQS} />
               </StampCard>
             </FadeUp>
 
@@ -473,10 +597,15 @@ export function BloodWorkPageContent() {
               }}
             />
             <div className="relative z-10 mx-auto max-w-3xl text-center">
-              <h2 className="text-3xl font-black text-white md:text-4xl">Ready for baseline labs?</h2>
+              <h2 className="text-3xl font-black text-white md:text-4xl">Know your numbers</h2>
               <p className="mt-4 text-lg font-medium text-white/90">
-                60+ biomarkers · FullScript, Quest, or LabCorp · In-person review with{" "}
-                {BLOOD_WORK_MEDICAL_REVIEW.reviewer}. No referral needed.
+                Get a complete picture of your health with comprehensive lab testing — reviewed by{" "}
+                {BLOOD_WORK_MEDICAL_REVIEW.reviewer}, not a raw PDF.
+              </p>
+              <p className="mt-3">
+                <Link href="/understand-your-body" className="text-sm font-bold text-white/90 underline hover:text-white">
+                  See what actionable lab results look like →
+                </Link>
               </p>
               <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
                 <CTA

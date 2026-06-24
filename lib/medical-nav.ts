@@ -30,7 +30,7 @@ export const MEDICAL_NAV = {
       overview: true,
     },
     {
-      label: "Blood Work Explained",
+      label: "Blood Panels & Labs",
       href: "/blood-work",
       sub: "60+ biomarkers · FullScript · Quest & LabCorp",
       dividerBefore: true,
@@ -50,6 +50,11 @@ export const MEDICAL_NAV = {
       label: "The Ladies' Club",
       href: "/ladies-club",
       sub: "Women's hormones, GLP-1, peptides & BioTE",
+    },
+    {
+      label: "BHRT Cost Guide",
+      href: "/ladies-club/bhrt-cost",
+      sub: "BioTE pricing, insurance & what women pay",
     },
     {
       label: "Women's Hormones",
