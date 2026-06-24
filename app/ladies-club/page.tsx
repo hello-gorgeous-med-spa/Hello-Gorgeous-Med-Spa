@@ -4,6 +4,7 @@ import { LadiesClubPageContent } from "@/components/ladies-club/LadiesClubPageCo
 import {
   LADIES_CLUB_FAQS,
   LADIES_CLUB_HERO_IMAGE,
+  LADIES_CLUB_HERO_IMAGE_ALT,
   LADIES_CLUB_URL,
 } from "@/lib/ladies-club";
 import { breadcrumbJsonLd, faqJsonLd, localBusinessJsonLd, SITE, siteJsonLd } from "@/lib/seo";
@@ -33,9 +34,9 @@ export const metadata: Metadata = {
     images: [
       {
         url: `${SITE.url}${LADIES_CLUB_HERO_IMAGE}`,
-        width: 1536,
-        height: 1024,
-        alt: "The Ladies' Club — Hello Gorgeous Med Spa Oswego IL",
+        width: 1024,
+        height: 567,
+        alt: LADIES_CLUB_HERO_IMAGE_ALT,
       },
     ],
   },

@@ -10,8 +10,10 @@ import { PEPTIDE_CONSULT_FEE_USD } from "@/lib/peptide-request-menu";
 export const LADIES_CLUB_PATH = "/ladies-club" as const;
 export const LADIES_CLUB_URL = `${SITE.url}${LADIES_CLUB_PATH}`;
 
-export const LADIES_CLUB_HERO_IMAGE = "/images/ladies-club/weight-loss-hormones-women.png";
-export const LADIES_CLUB_WEIGHT_HORMONES_IMAGE = LADIES_CLUB_HERO_IMAGE;
+export const LADIES_CLUB_HERO_IMAGE = "/images/ladies-club/ladies-club-hero.png";
+export const LADIES_CLUB_HERO_IMAGE_ALT =
+  "The Ladies' Club — BHRT, weight loss, peptide therapy and wellness for women at Hello Gorgeous Med Spa Oswego IL";
+export const LADIES_CLUB_WEIGHT_HORMONES_IMAGE = "/images/ladies-club/weight-loss-hormones-women.png";
 export const LADIES_CLUB_PT141_IMAGE = "/images/ladies-club/pt-141.png";
 
 export type ClubPeptideFlyer = {

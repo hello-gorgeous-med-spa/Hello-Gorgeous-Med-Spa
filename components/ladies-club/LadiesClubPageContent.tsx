@@ -15,6 +15,7 @@ import {
   LADIES_CLUB_FAQS,
   LADIES_CLUB_GLP1_STACK,
   LADIES_CLUB_HERO_IMAGE,
+  LADIES_CLUB_HERO_IMAGE_ALT,
   LADIES_CLUB_HORMONE_SYMPTOMS,
   LADIES_CLUB_JUMP_LINKS,
   LADIES_CLUB_MEMBERSHIP_TIERS,
@@ -126,12 +127,12 @@ export function LadiesClubPageContent() {
                 </div>
               </div>
               <div className="overflow-hidden rounded-2xl border-4 border-black bg-black shadow-[8px_8px_0_0_rgba(255,45,142,0.35)]">
-                <div className="relative aspect-[16/10] w-full">
+                <div className="relative aspect-[1024/567] w-full">
                   <Image
                     src={LADIES_CLUB_HERO_IMAGE}
-                    alt="Weight loss and hormone optimization for women — Hello Gorgeous Med Spa Oswego IL"
+                    alt={LADIES_CLUB_HERO_IMAGE_ALT}
                     fill
-                    className="object-cover object-center"
+                    className="object-contain object-center"
                     sizes="(max-width: 1024px) 100vw, 560px"
                     priority
                   />
