@@ -1456,26 +1456,23 @@ const FOR_HIM_SERVICES = [
 function ForHimTab() {
   return (
     <div className="py-5">
-      {/* Flyer hero — membership + Father's Day */}
-      <div className="mb-5 grid grid-cols-2 gap-2.5">
-        {GENTLEMENS_CLUB_HERO_IMAGES.map((flyer, i) => (
-          <a
-            key={flyer.src}
-            href="/gentlemens-club"
-            className="group overflow-hidden rounded-2xl border-2 border-black bg-black shadow-[4px_4px_0_0_rgba(255,45,142,0.35)] transition-transform duration-300 active:scale-[0.98]"
-          >
-            <div className="relative aspect-[16/9] w-full">
-              <Image
-                src={flyer.src}
-                alt={flyer.alt}
-                fill
-                className="object-contain object-center transition-transform duration-500 group-hover:scale-[1.02]"
-                sizes="(max-width: 480px) 45vw, 220px"
-                priority={i === 0}
-              />
-            </div>
-          </a>
-        ))}
+      {/* Flyer hero */}
+      <div className="mb-5">
+        <a
+          href="/gentlemens-club"
+          className="group block overflow-hidden rounded-2xl border-2 border-black bg-black shadow-[4px_4px_0_0_rgba(255,45,142,0.35)] transition-transform duration-300 active:scale-[0.98]"
+        >
+          <div className="relative aspect-[16/9] w-full">
+            <Image
+              src={GENTLEMENS_CLUB_HERO_IMAGES[0].src}
+              alt={GENTLEMENS_CLUB_HERO_IMAGES[0].alt}
+              fill
+              className="object-contain object-center transition-transform duration-500 group-hover:scale-[1.02]"
+              sizes="(max-width: 480px) 100vw, 440px"
+              priority
+            />
+          </div>
+        </a>
       </div>
 
       {/* Hero copy + CTA */}

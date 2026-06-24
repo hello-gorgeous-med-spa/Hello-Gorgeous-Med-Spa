@@ -17,11 +17,6 @@ export const GENTLEMENS_CLUB_HERO_IMAGES = [
     alt: "The Gentlemen's Club — Brotox, hormones, peptide therapy and recovery for men at Hello Gorgeous Med Spa Oswego IL",
     label: "The Gentlemen's Club",
   },
-  {
-    src: GENTLEMENS_CLUB_FATHERS_DAY_IMAGE,
-    alt: "Happy Father's Day — Gift Brotox membership at Hello Gorgeous Med Spa Oswego IL",
-    label: "Gift Brotox",
-  },
 ] as const;
 
 export type GentlemensClubTier = {

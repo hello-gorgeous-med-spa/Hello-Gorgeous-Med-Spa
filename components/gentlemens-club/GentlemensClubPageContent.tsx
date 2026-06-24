@@ -273,10 +273,12 @@ export function GentlemensClubPageContent() {
             <h1 className="sr-only">
               The Gentlemen&apos;s Club — Men&apos;s Wellness, TRT, Brotox &amp; Peptides | Hello Gorgeous Oswego IL
             </h1>
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 md:gap-6">
-              {GENTLEMENS_CLUB_HERO_IMAGES.map((flyer, i) => (
-                <HeroFlyer key={flyer.src} src={flyer.src} alt={flyer.alt} index={i} />
-              ))}
+            <div className="mx-auto max-w-4xl">
+              <HeroFlyer
+                src={GENTLEMENS_CLUB_HERO_IMAGE}
+                alt={GENTLEMENS_CLUB_HERO_IMAGES[0].alt}
+                index={0}
+              />
             </div>
             <div className="mt-8 text-center md:text-left">
               <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-[#FFB8DC]">
