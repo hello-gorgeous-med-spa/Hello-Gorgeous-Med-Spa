@@ -3,8 +3,22 @@
 import Image from "next/image";
 import Link from "next/link";
 
+import {
+  HELLO_GORGEOUS_RX_START_PATH,
+  HG_RX_TELEHEALTH_BOOKING_URL,
+  PEPTIDE_REQUEST_PATH,
+} from "@/lib/flows";
 import { HOMEPAGE_BUYER_PATHS } from "@/lib/homepage-buyer-paths";
+import { PEPTIDE_CONSULT_FEE_USD } from "@/lib/peptide-request-menu";
 import { TrifectaShowcaseSection } from "./trifecta-showcase";
+
+const RX_QUICK_LINKS = [
+  { href: HELLO_GORGEOUS_RX_START_PATH, label: "Start Here — pick a peptide" },
+  { href: PEPTIDE_REQUEST_PATH, label: "Peptide request form" },
+  { href: "/peptides", label: "All 22 peptide guides" },
+  { href: "/telehealth", label: "Charm telehealth (HIPAA video)" },
+  { href: "/app?rx=1", label: "Hello Gorgeous RX in the app" },
+] as const;
 
 export function BuyerPathsSection() {
   return (
@@ -27,15 +41,60 @@ export function BuyerPathsSection() {
       }
       description="Choose your goal — we'll guide you to the right treatments without overwhelming you with every service at once."
       footer={
-        <p className="text-center text-sm" style={{ color: "rgba(255,255,255,0.55)" }}>
-          Not sure where to start?{" "}
-          <Link href="/help-me-choose" className="font-semibold text-[#FFB8DC] underline decoration-[#E6007E]/50">
-            Help me choose →
-          </Link>
-        </p>
+        <div className="space-y-5">
+          <div className="rounded-2xl border-2 border-[#E6007E]/50 bg-[#0d1018] p-5 text-left shadow-[6px_6px_0_0_rgba(230,0,126,0.25)]">
+            <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#FFB8DC]">
+              Hello Gorgeous RX™ — peptides &amp; telehealth
+            </p>
+            <p className="mt-2 text-sm leading-relaxed text-white/75">
+              New peptide protocols: submit your request, pre-pay the{" "}
+              <strong className="text-white">${PEPTIDE_CONSULT_FEE_USD} NP consult</strong> via Square (same
+              checkout as our Vitamin Bar), then book a secured{" "}
+              <strong className="text-white">Charm EHR video visit</strong> with Ryan Kent, FNP-BC. Includes
+              BPC-157, TB-500, Recovery Blend, Sermorelin, NAD+, and more.
+            </p>
+            <div className="mt-4 flex flex-wrap gap-2">
+              <Link
+                href={HELLO_GORGEOUS_RX_START_PATH}
+                className="inline-flex items-center rounded-full bg-[#E6007E] px-4 py-2 text-xs font-bold text-white hover:bg-[#FF2D8E] transition"
+              >
+                Start Here →
+              </Link>
+              <Link
+                href={PEPTIDE_REQUEST_PATH}
+                className="inline-flex items-center rounded-full border border-white/20 bg-white/5 px-4 py-2 text-xs font-bold text-white hover:border-[#E6007E] transition"
+              >
+                Peptide request form
+              </Link>
+              <a
+                href={HG_RX_TELEHEALTH_BOOKING_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center rounded-full border border-white/20 bg-white/5 px-4 py-2 text-xs font-bold text-[#FFB8DC] hover:border-[#E6007E] transition"
+              >
+                Charm patient portal
+              </a>
+            </div>
+            <ul className="mt-4 flex flex-wrap gap-x-4 gap-y-1 text-[11px] text-white/45">
+              {RX_QUICK_LINKS.map((link) => (
+                <li key={link.href}>
+                  <Link href={link.href} className="hover:text-[#FFB8DC] underline decoration-white/20">
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <p className="text-center text-sm" style={{ color: "rgba(255,255,255,0.55)" }}>
+            Not sure where to start?{" "}
+            <Link href="/help-me-choose" className="font-semibold text-[#FFB8DC] underline decoration-[#E6007E]/50">
+              Help me choose →
+            </Link>
+          </p>
+        </div>
       }
     >
-      <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+      <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-6">
         {HOMEPAGE_BUYER_PATHS.map((category, index) => (
           <Link
             key={category.id}
@@ -59,8 +118,13 @@ export function BuyerPathsSection() {
                 }}
               />
               <span className="absolute left-3 top-3 rounded-full border border-[#FFB8DC]/40 bg-black/50 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-[0.2em] text-[#FFB8DC] backdrop-blur-sm">
-                0{index + 1}
+                {String(index + 1).padStart(2, "0")}
               </span>
+              {category.id === "hello-gorgeous-rx" && (
+                <span className="absolute right-3 top-3 rounded-full border border-[#E6007E] bg-[#E6007E]/90 px-2 py-0.5 text-[9px] font-bold uppercase tracking-wide text-white">
+                  RX
+                </span>
+              )}
             </div>
 
             <div className="flex flex-1 flex-col p-4">

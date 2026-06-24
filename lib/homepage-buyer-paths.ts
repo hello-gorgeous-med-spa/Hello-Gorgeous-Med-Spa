@@ -44,11 +44,23 @@ export const HOMEPAGE_BUYER_PATHS: BuyerPathCategory[] = [
     id: "wellness-programs",
     title: "Weight Loss + Hormones",
     summary: "Medical weight loss and hormone optimization with labs and follow-up built in.",
-    treatments: ["GLP-1 weight loss", "HRT", "TRT", "BioTE", "Peptide support", "Wellness consults"],
+    treatments: ["GLP-1 weight loss", "HRT", "TRT", "BioTE", "Semaglutide", "Tirzepatide"],
     href: "/glp-1-weight-loss-oswego",
     cta: "Explore Wellness Programs",
     thumbnailImage: "/images/homepage-buyer-paths/weight-loss-hormones.png",
     thumbnailAlt: "Weight loss and hormones — GLP-1, HRT, TRT and BioTE at Hello Gorgeous",
+  },
+  {
+    id: "hello-gorgeous-rx",
+    title: "Hello Gorgeous RX™",
+    summary:
+      "NP-led peptide protocols — pre-pay $49 consult (Square), then HIPAA video telehealth in Charm EHR with Ryan Kent, FNP-BC.",
+    treatments: ["BPC-157", "TB-500", "Recovery Blend", "Sermorelin", "NAD+", "22+ peptides"],
+    href: "/hello-gorgeous-rx/start-here",
+    cta: "Start peptide request",
+    thumbnailImage: "/images/homepage-buyer-paths/hello-gorgeous-rx.png",
+    thumbnailAlt:
+      "Hello Gorgeous RX peptide therapy — BPC-157, TB-500, Recovery Blend and NP telehealth in Oswego IL",
   },
   {
     id: "iv-wellness",
