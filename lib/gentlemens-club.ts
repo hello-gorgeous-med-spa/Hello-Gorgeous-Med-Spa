@@ -231,33 +231,50 @@ export const GENTLEMENS_CLUB_TRT_INCLUDED = {
 export type GentlemensClubHormoneAddOn = {
   id: string;
   name: string;
+  tagline: string;
   description: string;
+  benefits: string[];
   priceMonthlyUsd: number;
   learnMoreHref?: string;
+  image: string;
+  imageAlt: string;
 };
 
 export const GENTLEMENS_CLUB_HORMONE_ADD_ONS: GentlemensClubHormoneAddOn[] = [
   {
     id: "hcg",
     name: "HCG",
+    tagline: "Supports natural hormone production & reproductive health",
     description:
-      "Maintains testicular function and fertility during TRT. Often prescribed alongside testosterone therapy.",
+      "Maintains testicular function and fertility during TRT. Often prescribed alongside testosterone when preservation matters.",
+    benefits: ["Fertility support", "Testosterone support", "Preserves testicular function"],
     priceMonthlyUsd: 350,
+    image: "/images/gentlemens-club/add-ons/hcg.png",
+    imageAlt: "HCG for men's hormone therapy — fertility and testicular function support at Hello Gorgeous Med Spa Oswego IL",
   },
   {
     id: "enclomiphene",
     name: "Enclomiphene",
+    tagline: "Stimulates natural testosterone production",
     description:
-      "Stimulates natural testosterone production. Alternative to TRT that preserves fertility.",
+      "Alternative to TRT that stimulates your body's own testosterone while preserving fertility — when clinically appropriate.",
+    benefits: ["Testosterone support", "Fertility preservation", "Energy & libido support"],
     priceMonthlyUsd: 275,
     learnMoreHref: "/blog/hello-gorgeous-rx-hormone-enclomiphene-citrate",
+    image: "/images/gentlemens-club/add-ons/enclomiphene.png",
+    imageAlt: "Enclomiphene citrate for men's testosterone — Hello Gorgeous Med Spa Oswego IL",
   },
   {
     id: "tadalafil",
     name: "Tadalafil",
-    description: "Daily low-dose for erectile function and cardiovascular benefits. Generic Cialis.",
+    tagline: "Supports erectile function & cardiovascular health",
+    description:
+      "Daily low-dose generic Cialis for erectile function and cardiovascular benefits — prescribed when clinically appropriate.",
+    benefits: ["Blood flow support", "Erectile support", "Cardiovascular support"],
     priceMonthlyUsd: 70,
     learnMoreHref: "/blog/hello-gorgeous-rx-sexual-tadalafil-capsules",
+    image: "/images/gentlemens-club/add-ons/tadalafil.png",
+    imageAlt: "Tadalafil for men's sexual wellness and cardiovascular support — Hello Gorgeous Med Spa Oswego IL",
   },
 ];
 
