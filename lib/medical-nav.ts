@@ -41,14 +41,10 @@ export const MEDICAL_NAV = {
       sub: "Persona-guided education before you book",
     },
     {
-      label: "Men's Hormones / TRT",
-      href: "/mens-hormones",
-      sub: "Testosterone replacement & optimization",
-    },
-    {
-      label: "Men's Wellness",
-      href: "/mens-wellness",
-      sub: "TRT, peptides, weight loss & performance",
+      label: "The Gentlemen's Club",
+      href: "/gentlemens-club",
+      sub: "Men's wellness — Brotox, TRT, peptides & GLP-1",
+      dividerBefore: true,
     },
     {
       label: "Women's Hormones",
@@ -101,8 +97,7 @@ export const MEDICAL_ACTIVE_PREFIXES = [
   "/rx",
   "/peptides",
   "/iv-shots",
-  "/mens-hormones",
-  "/mens-wellness",
+  "/gentlemens-club",
   "/glp-1-weight-loss-oswego",
   "/glp1-weight-loss",
   "/biote-hormone-therapy-oswego",

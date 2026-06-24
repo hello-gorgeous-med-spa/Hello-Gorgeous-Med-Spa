@@ -156,7 +156,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'weekly',
       priority: 0.9,
     },
-    // Men's wellness hub + service pages
+    // Men's wellness hub (canonical — /mens-wellness & /mens-hormones redirect here)
     {
       url: `${baseUrl}/gentlemens-club`,
       lastModified: currentDate,
@@ -164,19 +164,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.95,
     },
     {
-      url: `${baseUrl}/mens-wellness`,
-      lastModified: currentDate,
-      changeFrequency: 'weekly',
-      priority: 0.9,
-    },
-    {
       url: `${baseUrl}/brotox`,
-      lastModified: currentDate,
-      changeFrequency: 'weekly',
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/mens-hormones`,
       lastModified: currentDate,
       changeFrequency: 'weekly',
       priority: 0.9,

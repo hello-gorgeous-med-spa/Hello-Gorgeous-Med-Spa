@@ -1,5 +1,8 @@
+import type { FAQ } from "@/lib/seo";
 import { SITE } from "@/lib/seo";
 import { squareGiftCardUrl } from "@/lib/gift-cards";
+import { GLP1_RETAIL_PROGRAM, PEPTIDE_RETAIL_FROM_MONTHLY_USD } from "@/lib/peptide-retail-pricing";
+import { PEPTIDE_CONSULT_FEE_USD } from "@/lib/peptide-request-menu";
 
 export const GENTLEMENS_CLUB_PATH = "/gentlemens-club" as const;
 export const GENTLEMENS_CLUB_URL = `${SITE.url}${GENTLEMENS_CLUB_PATH}`;
@@ -66,16 +69,216 @@ export const GENTLEMENS_CLUB_TIERS: GentlemensClubTier[] = [
 
 export const GENTLEMENS_CLUB_PILLS = ["BROTOX", "HORMONES", "PEPTIDE THERAPY", "RECOVERY"] as const;
 
-export const GENTLEMENS_CLUB_FAQS = [
+export const GENTLEMENS_CLUB_JUMP_LINKS = [
+  { label: "Services", href: "#services" },
+  { label: "Hormones / TRT", href: "#hormones" },
+  { label: "Add-ons", href: "#add-ons" },
+  { label: "Screeners", href: "#screeners" },
+  { label: "Membership", href: "#pricing" },
+  { label: "FAQ", href: "#faq" },
+] as const;
+
+export type GentlemensClubService = {
+  id: string;
+  icon: string;
+  eyebrow: string;
+  title: string;
+  description: string;
+  bullets: string[];
+  href: string;
+  cta: string;
+  external?: boolean;
+  badge?: string;
+  anchor?: boolean;
+};
+
+export const GENTLEMENS_CLUB_SERVICES: GentlemensClubService[] = [
+  {
+    id: "brotox",
+    icon: "💉",
+    eyebrow: "Aesthetics",
+    title: "Brotox",
+    description: "Botox dosed for male facial anatomy — look rested and sharp, not frozen.",
+    bullets: ["Conservative NP dosing", "~15-minute treatment", "Member pricing"],
+    href: "/brotox",
+    cta: "Brotox for men →",
+    badge: "POPULAR",
+  },
+  {
+    id: "hormones",
+    icon: "🧬",
+    eyebrow: "Men's Health",
+    title: "Hormone Optimization & TRT",
+    description: "Lab-guided testosterone — injections, BioTE pellets, or topical protocols.",
+    bullets: ["Baseline labs ~$250–450", "TRT from $200–350/mo", "Ryan Kent, FNP-BC on site 7 days"],
+    href: "#hormones",
+    cta: "TRT program →",
+    badge: "RX",
+    anchor: true,
+  },
+  {
+    id: "peptides",
+    icon: "⚡",
+    eyebrow: "Performance",
+    title: "Peptide Therapy",
+    description: "BPC-157, Sermorelin, NAD+, Recovery Blend & more — NP-prescribed only.",
+    bullets: [`$${PEPTIDE_CONSULT_FEE_USD} consult`, `From $${PEPTIDE_RETAIL_FROM_MONTHLY_USD}/mo`, "US compounding pharmacies"],
+    href: "/peptide-therapy-men",
+    cta: "Peptides for men →",
+  },
+  {
+    id: "glp1",
+    icon: "⚖️",
+    eyebrow: "Weight Loss",
+    title: "Medical Weight Loss (GLP-1)",
+    description: "NP-supervised semaglutide and tirzepatide with monthly check-ins.",
+    bullets: [
+      `Semaglutide from $${GLP1_RETAIL_PROGRAM.semaglutideFromUsd}/mo`,
+      `Tirzepatide from $${GLP1_RETAIL_PROGRAM.tirzepatideFromUsd}/mo`,
+      "Free candidacy consult",
+    ],
+    href: "/glp-1-weight-loss-oswego",
+    cta: "GLP-1 program →",
+  },
+  {
+    id: "gift",
+    icon: "🎁",
+    eyebrow: "Gifts",
+    title: "Brotox Gift Card",
+    description: "Skip the tie — digital gift cards via Square.",
+    bullets: ["Father's Day & birthdays", "Redeem for Brotox or services"],
+    href: squareGiftCardUrl({ utmMedium: "gentlemens_club", utmCampaign: "gift_brotox" }),
+    cta: "Buy gift card →",
+    external: true,
+  },
+];
+
+export type LowTSymptom = {
+  title: string;
+  description: string;
+  icon: string;
+};
+
+export const GENTLEMENS_CLUB_LOW_T_SYMPTOMS: LowTSymptom[] = [
+  { icon: "😴", title: "Fatigue", description: "Persistent tiredness despite adequate sleep" },
+  { icon: "💫", title: "Low Libido", description: "Decreased interest in sex or erectile issues" },
+  { icon: "🧠", title: "Brain Fog", description: "Difficulty concentrating, poor memory" },
+  { icon: "🎭", title: "Mood Changes", description: "Irritability, depression, lack of motivation" },
+  { icon: "💪", title: "Muscle Loss", description: "Difficulty building or maintaining muscle" },
+  {
+    icon: "⚖️",
+    title: "Weight Gain",
+    description: "Increased body fat, especially abdominal — often paired with GLP-1",
+  },
+  { icon: "🌙", title: "Poor Sleep", description: "Insomnia or unrefreshing sleep" },
+  { icon: "⚡", title: "Low Energy", description: "Decreased stamina and endurance" },
+];
+
+export const GENTLEMENS_CLUB_TRT_QUICK_FACTS = [
+  { label: "Starting cost", value: "$200/mo", note: "Weekly injections, all-inclusive" },
+  { label: "Baseline labs", value: "$250–450", note: "Before any TRT starts" },
+  { label: "Lab monitoring", value: "Every 3–6 mo", note: "PSA, hematocrit & more" },
+  { label: "Delivery options", value: "3 methods", note: "Injections · BioTE pellets · cream" },
+] as const;
+
+export const GENTLEMENS_CLUB_TRT_INCLUDED = {
+  oversight: {
+    title: "Medical oversight",
+    bullets: [
+      "Ongoing NP supervision by Ryan Kent, FNP-BC",
+      "Personalized protocol design",
+      "Dosing adjustments as needed",
+      "Direct access for questions between visits",
+    ],
+  },
+  program: {
+    title: "Program includes",
+    bullets: [
+      "Comprehensive baseline hormone panel",
+      "Follow-up labs at 6–8 weeks, then quarterly",
+      "Fertility implications discussed before you start",
+      "HSA/FSA-compatible receipts on request",
+      "Gentlemen's Club member pricing available",
+    ],
+  },
+} as const;
+
+export type GentlemensClubHormoneAddOn = {
+  id: string;
+  name: string;
+  description: string;
+  priceMonthlyUsd: number;
+  learnMoreHref?: string;
+};
+
+export const GENTLEMENS_CLUB_HORMONE_ADD_ONS: GentlemensClubHormoneAddOn[] = [
+  {
+    id: "hcg",
+    name: "HCG",
+    description:
+      "Maintains testicular function and fertility during TRT. Often prescribed alongside testosterone therapy.",
+    priceMonthlyUsd: 350,
+  },
+  {
+    id: "enclomiphene",
+    name: "Enclomiphene",
+    description:
+      "Stimulates natural testosterone production. Alternative to TRT that preserves fertility.",
+    priceMonthlyUsd: 275,
+    learnMoreHref: "/blog/hello-gorgeous-rx-hormone-enclomiphene-citrate",
+  },
+  {
+    id: "tadalafil",
+    name: "Tadalafil",
+    description: "Daily low-dose for erectile function and cardiovascular benefits. Generic Cialis.",
+    priceMonthlyUsd: 70,
+    learnMoreHref: "/blog/hello-gorgeous-rx-sexual-tadalafil-capsules",
+  },
+];
+
+export const GENTLEMENS_CLUB_HORMONE_ADD_ONS_DISCLAIMER =
+  "Add-on medications require NP evaluation and are billed separately from base TRT programs. Not every patient needs or qualifies for every add-on.";
+
+export const GENTLEMENS_CLUB_TRT_APPROACH_1 =
+  "We don't prescribe testosterone to everyone who walks in the door. We start with comprehensive testing — total and free testosterone, SHBG, thyroid markers, and more.";
+
+export const GENTLEMENS_CLUB_TRT_APPROACH_2 =
+  "If you're deciding whether symptoms justify labs, take our 2-minute TRT Readiness Screener. If optimization is appropriate, we build a personalized protocol and monitor closely. Evidence-based medicine — not anti-aging marketing.";
+
+export const GENTLEMENS_CLUB_GLP1_STACK = {
+  semaglutideFrom: GLP1_RETAIL_PROGRAM.semaglutideFromUsd,
+  tirzepatideFrom: GLP1_RETAIL_PROGRAM.tirzepatideFromUsd,
+};
+
+export const GENTLEMENS_CLUB_SCREENERS = [
+  {
+    id: "trt",
+    title: "TRT Readiness Screener",
+    sub: "2 min · symptoms, labs & safety flags",
+    href: "/quiz/trt-readiness",
+    badge: "NEW",
+  },
+  {
+    id: "glp1",
+    title: "GLP-1 Readiness Screener",
+    sub: "2 min · medical weight loss candidacy",
+    href: "/quiz/glp-1-readiness",
+    badge: "NEW",
+  },
+] as const;
+
+export const GENTLEMENS_CLUB_HERO_RX_IMAGE = "/images/rx/rx-hormone-vial.png";
+
+export const GENTLEMENS_CLUB_FAQS: FAQ[] = [
   {
     question: "What is The Gentlemen's Club?",
     answer:
-      "The Gentlemen's Club is Hello Gorgeous Med Spa's exclusive men's wellness membership. It gives members access to member-only pricing on Brotox, hormone optimization, peptide therapy, and monthly wellness shots — all in a private, judgment-free environment.",
+      "The Gentlemen's Club is Hello Gorgeous's men's wellness hub and membership — Brotox, TRT, peptides, GLP-1, and monthly wellness shots in a private, judgment-free environment. Membership from $99/mo adds member pricing and priority booking.",
   },
   {
     question: "What's included in the membership?",
     answer:
-      "Membership includes monthly wellness shots (B12, Lipo-C, or NAD+), member pricing on all neurotoxin (Brotox) treatments, priority booking, and discounted add-on services. The Distinguished Gentleman tier adds monthly hormone check-ins, peptide protocol support, and access to exclusive member events.",
+      "Membership includes monthly wellness shots (B12, Lipo-C, or NAD+), member pricing on all neurotoxin (Brotox) treatments, priority booking, and discounted add-on services. The Distinguished Gentleman tier adds monthly hormone check-ins, peptide protocol support, and exclusive member events.",
   },
   {
     question: "Is there a contract?",
@@ -83,21 +286,41 @@ export const GENTLEMENS_CLUB_FAQS = [
       "No contracts. Both tiers are month-to-month and can be cancelled anytime. We want you here because it's working for you — not because you're locked in.",
   },
   {
-    question: "Who are the providers?",
-    answer:
-      "All services are delivered or supervised by licensed Nurse Practitioners with specialized training in men's aesthetics, hormone optimization, and regenerative medicine. You'll see the same providers at every visit.",
-  },
-  {
     question: "What is Brotox?",
     answer:
-      "Brotox is the popular term for Botox (or any FDA-approved neurotoxin) administered specifically for men. Men typically require more units due to stronger facial muscles, and the goal is a sharp, natural result — not frozen or softened. It's one of the highest-satisfaction treatments men receive.",
+      "Brotox is Botox (or any FDA-approved neurotoxin) dosed specifically for men. Men typically require more units due to stronger facial muscles. The goal is sharp and natural — rested, not frozen.",
+  },
+  {
+    question: "Is TRT safe?",
+    answer:
+      "When properly monitored by a licensed NP, testosterone therapy has a strong safety profile for appropriate candidates. We track PSA, hematocrit, estradiol, and other markers at regular intervals.",
+  },
+  {
+    question: "What about fertility on TRT?",
+    answer:
+      "Standard TRT can affect fertility. We discuss HCG ($350/mo) or enclomiphene ($275/mo) before starting when preservation matters.",
+  },
+  {
+    question: "What does TRT cost?",
+    answer:
+      "Weekly injections $200–350/mo all-inclusive. BioTE pellets $750–1,200 per insertion. Topical creams $150–300/mo. Add-ons like tadalafil ($70/mo) billed separately when prescribed. Baseline labs ~$250–450.",
+  },
+  {
+    question: "What are peptides and what can they do for men?",
+    answer:
+      "Peptides signal specific functions — recovery, growth hormone support, sleep, fat metabolism. Popular options include BPC-157, Sermorelin, and NAD+. Prescribed after NP evaluation only.",
+  },
+  {
+    question: "Is it awkward for men at a med spa?",
+    answer:
+      "Not here. We treat men regularly — professional, judgment-free, results-focused care.",
   },
   {
     question: "How do I get started?",
     answer:
-      "Book a complimentary consult using the link on this page or call us at (630) 636-6193. We'll walk you through the membership options, answer your questions, and get you started the same day if you're ready.",
+      "Book a complimentary consult online or call (630) 636-6193. Try our TRT or GLP-1 readiness screeners first if you're unsure where to start.",
   },
-] as const;
+];
 
 export const GENTLEMENS_CLUB_BENEFITS = [
   {
@@ -155,7 +378,7 @@ export const FOR_HIM_SERVICES = [
     label: "Hormone Optimization",
     blurb: "Energy. Strength. Libido. Mood. Recovery. Lab-guided TRT & hormone care.",
     badge: "RX",
-    href: "/mens-hormones",
+    href: `${GENTLEMENS_CLUB_PATH}#hormones`,
     cta: "Book Consult",
   },
   {

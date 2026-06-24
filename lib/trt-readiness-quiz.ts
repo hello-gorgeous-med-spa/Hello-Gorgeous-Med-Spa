@@ -86,7 +86,7 @@ export function scoreTrtReadiness(answers: ScreenerAnswers): ScreenerQuizResult 
       body: "TRT requires careful evaluation when there's prostate cancer history or significant PSA concerns. Ryan Kent, FNP-BC can review your records and map safe options — including whether TRT is appropriate at all.",
       ctaLabel: "Book hormone consult",
       ctaHref: "/book",
-      secondaryHref: "/mens-hormones",
+      secondaryHref: "/gentlemens-club#hormones",
       secondaryLabel: "Men's hormone program →",
     };
   }
@@ -117,7 +117,7 @@ export function scoreTrtReadiness(answers: ScreenerAnswers): ScreenerQuizResult 
     body: "Based on your symptoms and history, a comprehensive hormone panel and NP consult is a smart next move. Our men's programs include injections from $200–350/mo, BioTE pellets, and ongoing lab monitoring with Ryan on site 7 days a week.",
     ctaLabel: "Book free hormone consult",
     ctaHref: "/book",
-    secondaryHref: "/mens-hormones",
+    secondaryHref: "/gentlemens-club#hormones",
     secondaryLabel: "Learn about men's hormones →",
   };
 }

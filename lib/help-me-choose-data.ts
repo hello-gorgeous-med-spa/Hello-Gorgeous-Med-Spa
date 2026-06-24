@@ -51,7 +51,7 @@ export const HELP_ME_CHOOSE_OPTIONS: HelpMeChooseOption[] = [
     description: "Labs, candidacy review, and ongoing hormone optimization.",
     href: "/biote-hormone-therapy-oswego",
     related: [
-      { label: "Men's hormones", href: "/mens-hormones" },
+      { label: "Men's hormones", href: "/gentlemens-club#hormones" },
       { label: "Testosterone", href: "/testosterone-replacement-oswego" },
     ],
   },

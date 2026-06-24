@@ -14,6 +14,8 @@ import {
   MENS_HORMONES_GLP1_STACK,
   MENS_HORMONES_HERO_IMAGE,
   MENS_HORMONES_INCLUDED,
+  MENS_HORMONE_ADD_ONS,
+  MENS_HORMONE_ADD_ONS_DISCLAIMER,
   MENS_HORMONES_MEMBERSHIP_FROM,
   MENS_HORMONES_QUICK_FACTS,
   MENS_HORMONES_RELATED_LINKS,
@@ -45,6 +47,29 @@ function IncludedColumn({ title, bullets }: { title: string; bullets: readonly s
         ))}
       </ul>
     </div>
+  );
+}
+
+function AddOnMedicationCard({
+  name,
+  description,
+  priceMonthlyUsd,
+  learnMoreHref,
+}: (typeof MENS_HORMONE_ADD_ONS)[number]) {
+  return (
+    <article className="flex h-full flex-col rounded-2xl border border-white/10 bg-[#151922] p-6 md:p-8">
+      <h3 className="text-xl font-black uppercase tracking-tight text-white">{name}</h3>
+      <p className="mt-4 flex-1 text-sm leading-relaxed text-gray-400">{description}</p>
+      <p className="mt-6 text-2xl font-black text-white">
+        ${priceMonthlyUsd}
+        <span className="text-base font-semibold text-gray-500">/month</span>
+      </p>
+      {learnMoreHref ? (
+        <Link href={learnMoreHref} className="mt-4 text-sm font-semibold text-[#FFB8DC] hover:underline">
+          Learn more →
+        </Link>
+      ) : null}
+    </article>
   );
 }
 
@@ -228,6 +253,34 @@ export async function MensHormonesPageContent() {
               </Link>
             </p>
           </FadeUp>
+        </div>
+      </Section>
+
+      {/* Add-on medications */}
+      <Section id="add-ons" className="scroll-mt-24 border-t border-neutral-800 !py-0 !px-0">
+        <div className="bg-[#1a1d24] px-4 py-16 md:px-6 md:py-24">
+          <div className="mx-auto max-w-6xl">
+            <FadeUp>
+              <h2 className="text-center text-3xl font-black uppercase tracking-tight text-white md:text-4xl">
+                Add-on medications
+              </h2>
+              <p className="mx-auto mt-4 max-w-2xl text-center text-gray-400">
+                Additional medications that can support hormone therapy protocols.
+              </p>
+            </FadeUp>
+            <div className="mt-12 grid gap-6 md:grid-cols-3">
+              {MENS_HORMONE_ADD_ONS.map((addOn, idx) => (
+                <FadeUp key={addOn.id} delayMs={idx * 50}>
+                  <AddOnMedicationCard {...addOn} />
+                </FadeUp>
+              ))}
+            </div>
+            <FadeUp delayMs={180}>
+              <p className="mx-auto mt-8 max-w-2xl text-center text-xs text-gray-500">
+                {MENS_HORMONE_ADD_ONS_DISCLAIMER}
+              </p>
+            </FadeUp>
+          </div>
         </div>
       </Section>
 

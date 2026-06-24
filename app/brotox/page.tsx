@@ -91,7 +91,7 @@ const FAQS = [
 export default function BrotoxPage() {
   const breadcrumbs = [
     { name: 'Home', url: SITE.url },
-    { name: "Men's Wellness", url: `${SITE.url}/mens-wellness` },
+    { name: "The Gentlemen's Club", url: `${SITE.url}/gentlemens-club` },
     { name: 'Brotox', url: `${SITE.url}/brotox` },
   ];
 
@@ -304,7 +304,7 @@ export default function BrotoxPage() {
             </p>
             <p className="text-gray-600 text-sm mt-2">
               Part of the{' '}
-              <Link href="/mens-wellness" className="text-gray-500 hover:text-[#FF2D8E] transition-colors">
+              <Link href="/gentlemens-club" className="text-gray-500 hover:text-[#FF2D8E] transition-colors">
                 Gorgeous for Him
               </Link>{' '}
               men&apos;s wellness program

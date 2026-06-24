@@ -122,7 +122,7 @@ const FAQS = [
 export default function PeptideTherapyMenPage() {
   const breadcrumbs = [
     { name: 'Home', url: SITE.url },
-    { name: "Men's Wellness", url: `${SITE.url}/mens-wellness` },
+    { name: "The Gentlemen's Club", url: `${SITE.url}/gentlemens-club` },
     { name: 'Peptide Therapy for Men', url: `${SITE.url}/peptide-therapy-men` },
   ];
 

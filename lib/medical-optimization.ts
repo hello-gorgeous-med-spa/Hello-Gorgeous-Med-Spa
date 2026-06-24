@@ -49,7 +49,7 @@ export const MEDICAL_SERVICES: MedicalServiceCard[] = [
       "Ryan Kent, FNP-BC on site 7 days",
       "Ongoing lab monitoring",
     ],
-    href: "/mens-hormones",
+    href: "/gentlemens-club#hormones",
     cta: "Men's hormone therapy →",
   },
   {

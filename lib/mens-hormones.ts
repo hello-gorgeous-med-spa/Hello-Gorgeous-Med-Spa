@@ -89,10 +89,48 @@ export const MENS_HORMONES_INCLUDED = {
   },
 } as const;
 
+export type MensHormoneAddOn = {
+  id: string;
+  name: string;
+  description: string;
+  priceMonthlyUsd: number;
+  learnMoreHref?: string;
+};
+
+/** Add-on Rx medications prescribed alongside TRT when clinically appropriate. */
+export const MENS_HORMONE_ADD_ONS: MensHormoneAddOn[] = [
+  {
+    id: "hcg",
+    name: "HCG",
+    description:
+      "Maintains testicular function and fertility during TRT. Often prescribed alongside testosterone therapy.",
+    priceMonthlyUsd: 350,
+  },
+  {
+    id: "enclomiphene",
+    name: "Enclomiphene",
+    description:
+      "Stimulates natural testosterone production. Alternative to TRT that preserves fertility.",
+    priceMonthlyUsd: 275,
+    learnMoreHref: "/blog/hello-gorgeous-rx-hormone-enclomiphene-citrate",
+  },
+  {
+    id: "tadalafil",
+    name: "Tadalafil",
+    description:
+      "Daily low-dose for erectile function and cardiovascular benefits. Generic Cialis.",
+    priceMonthlyUsd: 70,
+    learnMoreHref: "/blog/hello-gorgeous-rx-sexual-tadalafil-capsules",
+  },
+];
+
+export const MENS_HORMONE_ADD_ONS_DISCLAIMER =
+  "Add-on medications require NP evaluation and are billed separately from base TRT programs. Not every patient needs or qualifies for every add-on.";
+
 export const MENS_HORMONES_RELATED_LINKS = [
   { label: "Full TRT pricing & delivery comparison", href: "/testosterone-replacement-oswego" },
   { label: "TRT Readiness Screener (2 min)", href: "/quiz/trt-readiness" },
-  { label: "Men's wellness hub — Brotox, peptides & more", href: "/mens-wellness" },
+  { label: "Men's wellness hub — Brotox, peptides & more", href: "/gentlemens-club" },
   { label: "BioTE pellet therapy menu", href: "/biote-hormone-therapy-oswego" },
   { label: "Peptide therapy for recovery & performance", href: "/peptide-therapy-men" },
   { label: "GLP-1 medical weight loss", href: "/glp-1-weight-loss-oswego" },
@@ -133,7 +171,7 @@ export const MENS_HORMONES_FAQS: FAQ[] = [
   {
     question: "What does it cost?",
     answer:
-      "Weekly injection programs typically run $200–350/mo all-inclusive. BioTE pellets are $750–1,200 per insertion every 4–6 months. Topical creams $150–300/mo. Baseline labs ~$250–450. We quote transparently at consult — see our full TRT menu for details.",
+      "Weekly injection programs typically run $200–350/mo all-inclusive. BioTE pellets are $750–1,200 per insertion every 4–6 months. Topical creams $150–300/mo. Add-ons like HCG ($350/mo), enclomiphene ($275/mo), or tadalafil ($70/mo) are prescribed separately when clinically appropriate. Baseline labs ~$250–450.",
   },
 ];
 

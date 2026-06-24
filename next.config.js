@@ -143,6 +143,8 @@ const nextConfig = {
     { source: "/events/the-glow-social", destination: "/book", permanent: true },
     { source: "/events/vip-device-night", destination: "/book", permanent: true },
     { source: "/book-now", destination: "/book", permanent: true },
+    { source: "/mens-wellness", destination: "/gentlemens-club", permanent: true },
+    { source: "/mens-hormones", destination: "/gentlemens-club", permanent: true },
     { source: "/schedule", destination: "/book", permanent: true },
     { source: "/signature-treatment-menu", destination: "/specials", permanent: true },
     { source: "/vip-skin-tightening", destination: "/contour-lift/inquiry", permanent: true },

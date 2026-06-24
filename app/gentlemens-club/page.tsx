@@ -11,9 +11,9 @@ import { breadcrumbJsonLd, faqJsonLd, localBusinessJsonLd, SITE, siteJsonLd } fr
 export const revalidate = 3600;
 
 export const metadata: Metadata = {
-  title: "The Gentlemen's Club | Men's Wellness Membership | Hello Gorgeous Med Spa Oswego IL",
+  title: "The Gentlemen's Club | Men's Wellness, TRT & Brotox | Hello Gorgeous Med Spa Oswego IL",
   description:
-    "The Gentlemen's Club at Hello Gorgeous Med Spa — exclusive wellness, aesthetics & performance support for men. Brotox, hormones, peptide therapy & recovery. $99/mo. Oswego IL.",
+    "The Gentlemen's Club — Hello Gorgeous's men's wellness hub. Brotox, TRT, hormone add-ons, peptides, GLP-1 & membership from $99/mo. NP-supervised in Oswego, IL.",
   keywords: [
     "mens wellness membership oswego il",
     "gentlemens club med spa",
@@ -51,7 +51,6 @@ export const metadata: Metadata = {
 export default function GentlemensClubPage() {
   const breadcrumbs = [
     { name: "Home", url: SITE.url },
-    { name: "Men's Wellness", url: `${SITE.url}/mens-wellness` },
     { name: "The Gentlemen's Club", url: GENTLEMENS_CLUB_URL },
   ];
 

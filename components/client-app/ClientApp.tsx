@@ -1426,7 +1426,7 @@ const FOR_HIM_SERVICES = [
     label: "Hormone Optimization",
     blurb: "Energy. Strength. Libido. Mood. Recovery. Lab-guided TRT & hormone care.",
     badge: "RX",
-    href: "/mens-hormones",
+    href: "/gentlemens-club",
     cta: "Book Consult",
     accentIndex: 1,
   },
