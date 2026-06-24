@@ -88,21 +88,21 @@ export const homepageServicesRow2: HomepageServiceCard[] = [
       "Hello Gorgeous RX™ — hormones, metabolic care, dermatology, and longevity meds with NP oversight. Same-day appointments often available; we prioritize timely access so you get care when you need it — in-office or telehealth.",
     link: "/rx",
     items: ["Same-day visits (when open)", "Dermatology & metabolic RX", "Telehealth + in-office", "Naperville & Fox Valley"],
-    image: "/images/homepage-services/rx-prescription-care-pad-bottle.png",
+    image: "/images/homepage-services/recovery-blend-rx.jpg",
     imageAlt:
-      "Medical prescription pad with Rx symbol, pill bottle and tablets — Hello Gorgeous RX same-day prescription care Oswego Naperville Aurora IL",
+      "Hello Gorgeous RX Recovery Blend — BPC-157, GHK-Cu, KPV, TB-500 advanced recovery and repair peptide blend",
     badge: "RX",
     imageContain: true,
   },
   {
     title: "Peptide Therapy",
     description:
-      "Clinician-guided BPC-157, Sermorelin, NAD+, CJC-1295/Ipamorelin, and more — for recovery, metabolism, skin, and vitality. Same-day peptide consults often available; we prioritize timely care for Oswego, Naperville, Aurora & Plainfield.",
+      "Clinician-guided BPC-157, Sermorelin, NAD+, Recovery Blend, and more — for recovery, metabolism, skin, and vitality. Same-day peptide consults often available; we prioritize timely care for Oswego, Naperville, Aurora & Plainfield.",
     link: "/peptides",
-    items: ["Weight loss support", "Hair & skin", "Mental clarity", "Body composition"],
-    image: "/images/homepage-services/peptide-therapy-active-lifestyle.png",
+    items: ["Recovery Blend", "BPC-157", "Sermorelin", "NAD+"],
+    image: "/images/homepage-services/recovery-blend-rx.jpg",
     imageAlt:
-      "Peptide therapy for weight loss, hair and skin, mental function, and body composition — Hello Gorgeous Med Spa Oswego Naperville Aurora IL same-day appointments when available",
+      "Hello Gorgeous RX Recovery Blend — BPC-157, GHK-Cu, KPV, TB-500 advanced recovery and repair peptide blend",
     badge: "RX",
     imageContain: true,
   },

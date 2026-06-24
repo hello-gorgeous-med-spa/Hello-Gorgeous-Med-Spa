@@ -58,9 +58,9 @@ export const HOMEPAGE_BUYER_PATHS: BuyerPathCategory[] = [
     treatments: ["BPC-157", "TB-500", "Recovery Blend", "Sermorelin", "NAD+", "22+ peptides"],
     href: "/hello-gorgeous-rx/start-here",
     cta: "Start peptide request",
-    thumbnailImage: "/images/homepage-buyer-paths/hello-gorgeous-rx.png",
+    thumbnailImage: "/images/homepage-buyer-paths/recovery-blend-rx.jpg",
     thumbnailAlt:
-      "Hello Gorgeous RX peptide therapy — BPC-157, TB-500, Recovery Blend and NP telehealth in Oswego IL",
+      "Hello Gorgeous RX Recovery Blend — BPC-157, GHK-Cu, KPV, TB-500 advanced recovery and repair peptide blend",
   },
   {
     id: "iv-wellness",

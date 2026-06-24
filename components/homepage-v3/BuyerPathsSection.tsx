@@ -101,12 +101,20 @@ export function BuyerPathsSection() {
             href={category.href}
             className="group flex h-full flex-col overflow-hidden rounded-2xl border-2 border-white/10 bg-[#0d1018] shadow-[6px_6px_0_0_rgba(230,0,126,0.15)] transition duration-300 hover:-translate-y-1 hover:border-[#E6007E]/70 hover:shadow-[8px_8px_0_0_rgba(230,0,126,0.35)]"
           >
-            <div className="relative aspect-[4/3] overflow-hidden border-b border-white/10 bg-[#080a10]">
+            <div
+              className={`relative aspect-[4/3] overflow-hidden border-b border-white/10 ${
+                category.id === "hello-gorgeous-rx" ? "bg-black" : "bg-[#080a10]"
+              }`}
+            >
               <Image
                 src={category.thumbnailImage}
                 alt={category.thumbnailAlt}
                 fill
-                className="object-cover object-left transition duration-500 group-hover:scale-[1.03]"
+                className={
+                  category.id === "hello-gorgeous-rx"
+                    ? "object-contain object-center p-1 transition duration-500 group-hover:scale-[1.02]"
+                    : "object-cover object-left transition duration-500 group-hover:scale-[1.03]"
+                }
                 sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 20vw"
                 priority={index < 2}
               />
@@ -114,7 +122,9 @@ export function BuyerPathsSection() {
                 className="absolute inset-0 pointer-events-none"
                 style={{
                   background:
-                    "linear-gradient(to top, rgba(13,16,24,0.92) 0%, rgba(13,16,24,0.15) 45%, transparent 100%)",
+                    category.id === "hello-gorgeous-rx"
+                      ? "linear-gradient(to top, rgba(13,16,24,0.75) 0%, transparent 35%)"
+                      : "linear-gradient(to top, rgba(13,16,24,0.92) 0%, rgba(13,16,24,0.15) 45%, transparent 100%)",
                 }}
               />
               <span className="absolute left-3 top-3 rounded-full border border-[#FFB8DC]/40 bg-black/50 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-[0.2em] text-[#FFB8DC] backdrop-blur-sm">
