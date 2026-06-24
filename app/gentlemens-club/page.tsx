@@ -13,7 +13,7 @@ export const revalidate = 3600;
 export const metadata: Metadata = {
   title: "The Gentlemen's Club | Men's Wellness, TRT & Brotox | Hello Gorgeous Med Spa Oswego IL",
   description:
-    "The Gentlemen's Club — Hello Gorgeous's men's wellness hub. Brotox, TRT, hormone add-ons, peptides, GLP-1 & membership from $99/mo. NP-supervised in Oswego, IL.",
+    "The Gentlemen's Club — Hello Gorgeous's men's wellness hub. Brotox, TRT, hair restoration, hormone add-ons, peptides, GLP-1 & membership from $99/mo. NP-supervised in Oswego, IL.",
   keywords: [
     "mens wellness membership oswego il",
     "gentlemens club med spa",

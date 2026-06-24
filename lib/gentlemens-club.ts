@@ -67,12 +67,13 @@ export const GENTLEMENS_CLUB_TIERS: GentlemensClubTier[] = [
   },
 ];
 
-export const GENTLEMENS_CLUB_PILLS = ["BROTOX", "HORMONES", "PEPTIDE THERAPY", "RECOVERY"] as const;
+export const GENTLEMENS_CLUB_PILLS = ["BROTOX", "HORMONES", "HAIR", "PEPTIDES", "GLP-1", "RECOVERY"] as const;
 
 export const GENTLEMENS_CLUB_JUMP_LINKS = [
   { label: "Services", href: "#services" },
   { label: "Hormones / TRT", href: "#hormones" },
   { label: "Add-ons", href: "#add-ons" },
+  { label: "Hair", href: "#hair" },
   { label: "Screeners", href: "#screeners" },
   { label: "Membership", href: "#pricing" },
   { label: "FAQ", href: "#faq" },
@@ -139,6 +140,18 @@ export const GENTLEMENS_CLUB_SERVICES: GentlemensClubService[] = [
     ],
     href: "/glp-1-weight-loss-oswego",
     cta: "GLP-1 program →",
+  },
+  {
+    id: "hair",
+    icon: "💈",
+    eyebrow: "Hair",
+    title: "Men's Hair Restoration",
+    description: "Rx DHT blockers, minoxidil, GHK-Cu & in-office PRF — NP-guided, not mail-order.",
+    bullets: ["Finasteride / minoxidil / dutasteride", "PRF scalp series from $600/session", "Stacks with TRT consult"],
+    href: "#hair",
+    cta: "Hair protocols →",
+    badge: "NEW",
+    anchor: true,
   },
   {
     id: "gift",
@@ -239,6 +252,70 @@ export const GENTLEMENS_CLUB_HORMONE_ADD_ONS: GentlemensClubHormoneAddOn[] = [
 export const GENTLEMENS_CLUB_HORMONE_ADD_ONS_DISCLAIMER =
   "Add-on medications require NP evaluation and are billed separately from base TRT programs. Not every patient needs or qualifies for every add-on.";
 
+export type GentlemensClubHairOption = {
+  id: string;
+  name: string;
+  description: string;
+  priceLabel: string;
+  priceSub?: string;
+  learnMoreHref?: string;
+  badge?: string;
+};
+
+/** Men's hair restoration — Rx compounding + in-office PRF/PRP. */
+export const GENTLEMENS_CLUB_HAIR_OPTIONS: GentlemensClubHairOption[] = [
+  {
+    id: "topical-duo",
+    name: "Minoxidil / finasteride topical",
+    description: "Compounded dual-action topical — supports follicles and targets DHT at the scalp.",
+    priceLabel: "Quoted at consult",
+    priceSub: "Compounded Rx · daily use",
+    learnMoreHref: "/blog/hello-gorgeous-rx-hair-minoxidil-finasteride-topical",
+    badge: "RX",
+  },
+  {
+    id: "oral-minoxidil",
+    name: "Oral minoxidil",
+    description: "Systemic regrowth support with more consistent levels than topical alone — when NP-appropriate.",
+    priceLabel: "Quoted at consult",
+    priceSub: "Compounded capsules",
+    learnMoreHref: "/blog/hello-gorgeous-rx-hair-minoxidil-capsules",
+    badge: "RX",
+  },
+  {
+    id: "dutasteride",
+    name: "Dutasteride",
+    description: "Stronger DHT inhibitor than finasteride — for aggressive male-pattern thinning when clinically appropriate.",
+    priceLabel: "Quoted at consult",
+    priceSub: "Requires NP screening",
+    learnMoreHref: "/blog/hello-gorgeous-rx-hair-dutasteride-capsules",
+    badge: "RX",
+  },
+  {
+    id: "ghk-cu",
+    name: "GHK-Cu scalp topical",
+    description: "Copper peptide to support follicle activity and calm scalp inflammation — often paired with Rx plans.",
+    priceLabel: "Quoted at consult",
+    priceSub: "Peptide topical",
+    badge: "RX",
+  },
+  {
+    id: "prf",
+    name: "PRF hair restoration",
+    description: "In-office scalp injections with your own growth factors — series of 3–4 sessions typical, then maintenance.",
+    priceLabel: "From $600/session",
+    priceSub: "~75 min · NP-supervised draw",
+    learnMoreHref: "/services/prf-prp",
+    badge: "IN-OFFICE",
+  },
+];
+
+export const GENTLEMENS_CLUB_HAIR_DISCLAIMER =
+  "Hair protocols require NP evaluation. Results take months, not weeks. On TRT? We discuss DHT, fertility, and scalp health in the same plan — finasteride/dutasteride are not right for everyone.";
+
+export const GENTLEMENS_CLUB_HAIR_TRT_CALLOUT =
+  "Crown thinning + low energy? Many men address hormones and hair in one Gentlemen's Club consult — labs, TRT candidacy, and DHT-aware hair options mapped together.";
+
 export const GENTLEMENS_CLUB_TRT_APPROACH_1 =
   "We don't prescribe testosterone to everyone who walks in the door. We start with comprehensive testing — total and free testosterone, SHBG, thyroid markers, and more.";
 
@@ -299,6 +376,11 @@ export const GENTLEMENS_CLUB_FAQS: FAQ[] = [
     question: "What about fertility on TRT?",
     answer:
       "Standard TRT can affect fertility. We discuss HCG ($350/mo) or enclomiphene ($275/mo) before starting when preservation matters.",
+  },
+  {
+    question: "Do you treat men's hair loss?",
+    answer:
+      "Yes — compounded minoxidil, finasteride, and dutasteride when appropriate, GHK-Cu peptide topicals, and in-office PRF hair restoration from $600/session. We evaluate pattern, meds, and TRT/DHT interactions at consult.",
   },
   {
     question: "What does TRT cost?",

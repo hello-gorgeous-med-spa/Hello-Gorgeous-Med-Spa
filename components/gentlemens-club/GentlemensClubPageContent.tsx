@@ -17,6 +17,9 @@ import {
   GENTLEMENS_CLUB_HERO_RX_IMAGE,
   GENTLEMENS_CLUB_HORMONE_ADD_ONS,
   GENTLEMENS_CLUB_HORMONE_ADD_ONS_DISCLAIMER,
+  GENTLEMENS_CLUB_HAIR_DISCLAIMER,
+  GENTLEMENS_CLUB_HAIR_OPTIONS,
+  GENTLEMENS_CLUB_HAIR_TRT_CALLOUT,
   GENTLEMENS_CLUB_JUMP_LINKS,
   GENTLEMENS_CLUB_LOW_T_SYMPTOMS,
   GENTLEMENS_CLUB_PILLARS,
@@ -187,6 +190,36 @@ function AddOnCard({
         ${priceMonthlyUsd}
         <span className="text-base font-semibold text-gray-500">/month</span>
       </p>
+      {learnMoreHref ? (
+        <Link href={learnMoreHref} className="mt-4 text-sm font-semibold text-[#FFB8DC] hover:underline">
+          Learn more →
+        </Link>
+      ) : null}
+    </article>
+  );
+}
+
+function HairOptionCard({
+  name,
+  description,
+  priceLabel,
+  priceSub,
+  learnMoreHref,
+  badge,
+}: (typeof GENTLEMENS_CLUB_HAIR_OPTIONS)[number]) {
+  return (
+    <article className="flex h-full flex-col rounded-2xl border border-white/10 bg-[#151922] p-6 md:p-8">
+      <div className="flex items-start justify-between gap-2">
+        <h3 className="text-lg font-black uppercase tracking-tight text-white">{name}</h3>
+        {badge ? (
+          <span className="shrink-0 rounded-full border border-[#FF2D8E]/40 bg-[#FF2D8E]/15 px-2 py-0.5 text-[9px] font-bold uppercase text-[#FFB8DC]">
+            {badge}
+          </span>
+        ) : null}
+      </div>
+      <p className="mt-4 flex-1 text-sm leading-relaxed text-gray-400">{description}</p>
+      <p className="mt-6 text-2xl font-black text-white">{priceLabel}</p>
+      {priceSub ? <p className="mt-1 text-sm text-gray-500">{priceSub}</p> : null}
       {learnMoreHref ? (
         <Link href={learnMoreHref} className="mt-4 text-sm font-semibold text-[#FFB8DC] hover:underline">
           Learn more →
@@ -444,6 +477,45 @@ export function GentlemensClubPageContent() {
           <FadeUp delayMs={160}>
             <p className="mx-auto mt-8 max-w-2xl text-center text-xs text-gray-500">
               {GENTLEMENS_CLUB_HORMONE_ADD_ONS_DISCLAIMER}
+            </p>
+          </FadeUp>
+        </div>
+      </Section>
+
+      {/* Men's hair restoration */}
+      <Section id="hair" className="scroll-mt-24 border-t border-white/10 bg-[#0a0a0a] !py-14 md:!py-20">
+        <div className="max-w-7xl mx-auto px-4 w-full">
+          <FadeUp>
+            <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-[#FF2D8E]">Hair loss</p>
+            <h2 className="mt-2 text-center text-3xl font-black uppercase tracking-tight text-white md:text-4xl">
+              Men&apos;s hair restoration
+            </h2>
+            <p className="mx-auto mt-4 max-w-2xl text-center text-gray-400">
+              Rx DHT blockers, minoxidil, peptide topicals, and in-office PRF — NP-guided protocols, not mail-order
+              guesswork.
+            </p>
+          </FadeUp>
+          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {GENTLEMENS_CLUB_HAIR_OPTIONS.map((option, i) => (
+              <FadeUp key={option.id} delayMs={i * 35}>
+                <HairOptionCard {...option} />
+              </FadeUp>
+            ))}
+          </div>
+          <FadeUp delayMs={200}>
+            <div className="mx-auto mt-10 max-w-3xl rounded-2xl border border-[#7dd3fc]/20 bg-[#151922] p-6 text-center">
+              <p className="text-sm leading-relaxed text-[#7dd3fc]">{GENTLEMENS_CLUB_HAIR_TRT_CALLOUT}</p>
+              <div className="mt-5 flex flex-col justify-center gap-3 sm:flex-row">
+                <CTA href={BOOKING_URL} variant="gradient" className="text-sm">
+                  Book hair + hormone consult
+                </CTA>
+                <CTA href="/products-we-offer" variant="outline" className="!border-white/30 !text-white text-sm">
+                  Full Rx catalog →
+                </CTA>
+              </div>
+            </div>
+            <p className="mx-auto mt-6 max-w-2xl text-center text-xs text-gray-500">
+              {GENTLEMENS_CLUB_HAIR_DISCLAIMER}
             </p>
           </FadeUp>
         </div>
