@@ -18,6 +18,8 @@ import {
   GENTLEMENS_CLUB_HORMONE_ADD_ONS,
   GENTLEMENS_CLUB_HORMONE_ADD_ONS_DISCLAIMER,
   GENTLEMENS_CLUB_ANTEAGE_HAIR_IMAGE,
+  GENTLEMENS_CLUB_ANTEAGE_HAIR_RESULTS,
+  GENTLEMENS_CLUB_ANTEAGE_HAIR_RESULTS_DISCLAIMER,
   GENTLEMENS_CLUB_HAIR_DISCLAIMER,
   GENTLEMENS_CLUB_HAIR_OPTIONS,
   GENTLEMENS_CLUB_HAIR_TRT_CALLOUT,
@@ -516,8 +518,9 @@ export function GentlemensClubPageContent() {
                   <h3 className="mt-4 text-2xl font-black text-white">MDX Hair Biosomes &amp; Exosomes</h3>
                   <p className="mt-3 text-sm leading-relaxed text-gray-400">
                     Professional scalp micro-injections with AnteAGE MDX® — biosomes for advanced follicle signaling,
-                    or exosomes when your provider recommends maximum regenerative support. WNT pathway activation,
-                    caffeine + azelaic acid for DHT-aware plans. Aftercare kit included.
+                    or 10 billion exosomes reconstituted with HA diluent when your provider recommends maximum
+                    regenerative support. WNT pathway activation, caffeine + azelaic acid for DHT-aware plans.
+                    Aftercare kit included.
                   </p>
                   <p className="mt-4 text-2xl font-black text-[#FF2D8E]">
                     From $499<span className="text-base font-semibold text-gray-500">/session</span>
@@ -535,6 +538,41 @@ export function GentlemensClubPageContent() {
                   </div>
                 </div>
               </div>
+            </div>
+          </FadeUp>
+
+          <FadeUp delayMs={80}>
+            <div className="mt-12">
+              <h3 className="text-center text-xl font-black uppercase tracking-tight text-white md:text-2xl">
+                AnteAGE MDX® results
+              </h3>
+              <p className="mx-auto mt-3 max-w-2xl text-center text-sm text-gray-500">
+                Partner before/after photography — density builds over weeks to months, not days.
+              </p>
+              <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                {GENTLEMENS_CLUB_ANTEAGE_HAIR_RESULTS.map((result) => (
+                  <figure
+                    key={result.id}
+                    className="overflow-hidden rounded-2xl border border-white/10 bg-[#151922]"
+                  >
+                    <div className="relative aspect-square w-full bg-[#e8e8e8]">
+                      <Image
+                        src={result.src}
+                        alt={result.alt}
+                        fill
+                        className="object-contain object-center p-2"
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      />
+                    </div>
+                    <figcaption className="border-t border-white/10 px-4 py-3 text-center text-xs font-semibold uppercase tracking-wider text-[#FFB8DC]">
+                      {result.caption}
+                    </figcaption>
+                  </figure>
+                ))}
+              </div>
+              <p className="mx-auto mt-6 max-w-3xl text-center text-xs leading-relaxed text-gray-500">
+                {GENTLEMENS_CLUB_ANTEAGE_HAIR_RESULTS_DISCLAIMER}
+              </p>
             </div>
           </FadeUp>
 

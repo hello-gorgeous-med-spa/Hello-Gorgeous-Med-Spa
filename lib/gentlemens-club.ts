@@ -278,7 +278,7 @@ export const GENTLEMENS_CLUB_HAIR_OPTIONS: GentlemensClubHairOption[] = [
     id: "anteage-mdx-exosomes",
     name: "AnteAGE MDX Hair Exosomes",
     description:
-      "Same AnteAGE MDX® platform with exosome signaling — our most advanced regenerative tier for scalp renewal, shedding, and thinning when your provider recommends maximum cell signaling.",
+      "Same AnteAGE MDX® platform with exosome signaling — 10 billion exosomes reconstituted with hyaluronic acid diluent for maximum regenerative support when your provider recommends the advanced tier.",
     priceLabel: "From $499/session",
     priceSub: "45 min · pairs with Rx or PRF plans",
     learnMoreHref: "/services/hair-restoration-exosomes",
@@ -382,7 +382,51 @@ export const GENTLEMENS_CLUB_SCREENERS = [
 ] as const;
 
 export const GENTLEMENS_CLUB_HERO_RX_IMAGE = "/images/rx/rx-hormone-vial.png";
-export const GENTLEMENS_CLUB_ANTEAGE_HAIR_IMAGE = "/images/anteage/brightening-exosomes.png";
+export const GENTLEMENS_CLUB_ANTEAGE_HAIR_IMAGE = "/images/anteage/hair/mdx-hair-exosome-vials.png";
+
+export type GentlemensClubAnteageHairResult = {
+  id: string;
+  src: string;
+  alt: string;
+  caption: string;
+};
+
+/** AnteAGE MDX partner before/after assets — individual results vary. */
+export const GENTLEMENS_CLUB_ANTEAGE_HAIR_RESULTS: GentlemensClubAnteageHairResult[] = [
+  {
+    id: "2-weeks",
+    src: "/images/anteage/hair/before-after-2-weeks.png",
+    alt: "AnteAGE MDX Hair Exosome Solution before and after — 1 treatment, 2 weeks",
+    caption: "1 treatment · 2 weeks",
+  },
+  {
+    id: "3-weeks",
+    src: "/images/anteage/hair/before-after-3-treatments-3-weeks.png",
+    alt: "AnteAGE MDX Exosome Solution before and after crown — 3 treatments, 3 weeks",
+    caption: "3 treatments · 3 weeks",
+  },
+  {
+    id: "prp-1-month",
+    src: "/images/anteage/hair/before-after-prp-1-month.png",
+    alt: "PRP plus AnteAGE MDX Hair Exosome Solution before, 1 week, and after — 1 treatment, 1 month",
+    caption: "PRP + MDX · 1 treatment · 1 month",
+  },
+  {
+    id: "crown-2-months",
+    src: "/images/anteage/hair/before-after-crown-2-months.png",
+    alt: "AnteAGE MDX Hair Exosome Solution crown before and after — 1 treatment, 2 months",
+    caption: "1 treatment · 2 months",
+  },
+  {
+    id: "temple-2-months",
+    src: "/images/anteage/hair/before-after-temple-2-months.png",
+    alt: "AnteAGE MDX Hair Exosome Solution temple before and after — 1 treatment, 2 months",
+    caption: "1 treatment · 2 months",
+  },
+];
+
+export const GENTLEMENS_CLUB_ANTEAGE_HAIR_RESULTS_DISCLAIMER =
+  "AnteAGE MDX partner before/after photography. Results vary by pattern, age, meds, and protocol adherence — not a guarantee of outcome. Ryan Kent, FNP-BC maps realistic timelines at consult.";
 
 export const GENTLEMENS_CLUB_FAQS: FAQ[] = [
   {
