@@ -169,7 +169,129 @@ type ManifestEntry = {
   price_cents: number;
   square_item_id: string;
   square_variation_id: string;
+  square_image_id?: string;
+  square_image_url?: string;
 };
+
+type StoredManifest = {
+  imported_at?: string;
+  square_environment?: string;
+  item_count?: number;
+  items: ManifestEntry[];
+};
+
+type SquareCatalogObject = {
+  type: string;
+  id: string;
+  version?: bigint | number;
+  item_data?: {
+    name?: string;
+    description?: string;
+    category_id?: string;
+    variations?: SquareCatalogObject[];
+  };
+  item_variation_data?: {
+    item_id?: string;
+    name?: string;
+    sku?: string;
+    pricing_type?: string;
+    price_money?: { amount: number; currency: string };
+  };
+};
+
+const MANIFEST_PATH = path.join(process.cwd(), "data/square-hg-rx-catalog-manifest.json");
+
+function loadManifest(): Map<string, ManifestEntry> {
+  if (!fs.existsSync(MANIFEST_PATH)) return new Map();
+  try {
+    const parsed = JSON.parse(fs.readFileSync(MANIFEST_PATH, "utf8")) as StoredManifest;
+    return new Map((parsed.items ?? []).map((e) => [e.slug, e]));
+  } catch {
+    return new Map();
+  }
+}
+
+async function squareGet<T>(endpoint: string): Promise<T> {
+  const res = await fetch(`${ENV}${endpoint}`, {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${TOKEN}`,
+      "Square-Version": SQUARE_VERSION,
+    },
+  });
+  const data = (await res.json()) as T & { errors?: Array<{ detail?: string; code?: string }> };
+  if (!res.ok || data.errors?.length) {
+    throw new Error(data.errors?.map((e) => e.detail || e.code).join("; ") || res.statusText);
+  }
+  return data;
+}
+
+async function retrieveCatalogObject(objectId: string): Promise<SquareCatalogObject> {
+  const data = await squareGet<{ object?: SquareCatalogObject }>(
+    `/catalog/object/${encodeURIComponent(objectId)}`,
+  );
+  if (!data.object) throw new Error(`Catalog object not found: ${objectId}`);
+  return data.object;
+}
+
+async function updateExistingItem(
+  row: CatalogRow,
+  existing: ManifestEntry,
+  categoryId?: string,
+): Promise<ManifestEntry> {
+  const item = await retrieveCatalogObject(existing.square_item_id);
+  if (item.type !== "ITEM" || !item.item_data?.variations?.length) {
+    throw new Error(`Expected ITEM with variations for ${row.id}`);
+  }
+
+  const variation =
+    item.item_data.variations.find((v) => v.id === existing.square_variation_id) ??
+    item.item_data.variations[0];
+
+  if (!variation?.id) throw new Error(`Variation missing for ${row.id}`);
+
+  const idempotencyKey = `hg-rx-update-${row.id}-${row.price_cents}-${Date.now()}`;
+
+  await squarePost<{ catalog_object: { id: string } }>("/catalog/object", {
+    idempotency_key: idempotencyKey,
+    object: {
+      type: "ITEM",
+      id: item.id,
+      version: item.version,
+      item_data: {
+        name: row.name,
+        description: row.description,
+        ...(categoryId ? { category_id: categoryId } : {}),
+        variations: [
+          {
+            type: "ITEM_VARIATION",
+            id: variation.id,
+            version: variation.version,
+            item_variation_data: {
+              item_id: item.id,
+              name: row.price_cents > 0 ? "Standard" : "Custom price",
+              pricing_type: row.price_cents > 0 ? "FIXED_PRICING" : "VARIABLE_PRICING",
+              ...(row.price_cents > 0
+                ? { price_money: { amount: row.price_cents, currency: "USD" } }
+                : {}),
+              ...(row.sku ? { sku: row.sku } : {}),
+            },
+          },
+        ],
+      },
+    },
+  });
+
+  return {
+    ...existing,
+    name: row.name,
+    category: row.category,
+    sku: row.sku,
+    price_cents: row.price_cents,
+    square_item_id: existing.square_item_id,
+    square_variation_id: variation.id,
+  };
+}
 
 async function upsertItem(row: CatalogRow, categoryId?: string): Promise<ManifestEntry> {
   const idempotencyKey = `hg-rx-item-${row.id}`;
@@ -260,30 +382,41 @@ async function main() {
   }
 
   console.log(`\n💊 Items (${rows.length})…\n`);
+  const priorManifest = loadManifest();
   const manifest: ManifestEntry[] = [];
   let ok = 0;
   let failed = 0;
+  let updated = 0;
+  let created = 0;
 
   for (const row of rows) {
     try {
       const categoryId = categoryMap.get(row.category);
-      const entry = await upsertItem(row, categoryId);
+      const existing = priorManifest.get(row.id);
+      const entry =
+        existing?.square_item_id && existing?.square_variation_id
+          ? await updateExistingItem(row, existing, categoryId)
+          : await upsertItem(row, categoryId);
       manifest.push(entry);
       const price =
         row.price_cents > 0 ? `$${(row.price_cents / 100).toFixed(2)}` : "variable";
-      console.log(`  ✓ ${row.name} — ${price}`);
+      const mode = existing ? "↻ updated" : "+ created";
+      console.log(`  ✓ ${row.name} — ${price} (${mode})`);
       ok += 1;
+      if (existing) updated += 1;
+      else created += 1;
       await sleep(120);
     } catch (e) {
       console.log(`  ✕ ${row.name}: ${e instanceof Error ? e.message : e}`);
+      const fallback = priorManifest.get(row.id);
+      if (fallback) manifest.push({ ...fallback, price_cents: row.price_cents, name: row.name });
       failed += 1;
     }
   }
 
-  const manifestPath = path.join(process.cwd(), "data/square-hg-rx-catalog-manifest.json");
-  fs.mkdirSync(path.dirname(manifestPath), { recursive: true });
+  fs.mkdirSync(path.dirname(MANIFEST_PATH), { recursive: true });
   fs.writeFileSync(
-    manifestPath,
+    MANIFEST_PATH,
     JSON.stringify(
       {
         imported_at: new Date().toISOString(),
@@ -296,12 +429,12 @@ async function main() {
     ),
   );
 
-  console.log(`\n✅ Done: ${ok}/${rows.length} items (${failed} failed)`);
+  console.log(`\n✅ Done: ${ok}/${rows.length} items (${created} created, ${updated} updated, ${failed} failed)`);
   console.log(`📄 Manifest: data/square-hg-rx-catalog-manifest.json`);
   console.log("\n📱 Invoice a client in Square:");
   console.log("   Dashboard → Invoices → Create → Add item from library");
   console.log("   Filter category: Hello Gorgeous RX™");
-  console.log("   Peptide lines use VARIABLE pricing — enter protocol price per invoice.\n");
+  console.log("   Fixed-price lines show published defaults; adjust per protocol when needed.\n");
 
   process.exit(failed > 0 ? 1 : 0);
 }
