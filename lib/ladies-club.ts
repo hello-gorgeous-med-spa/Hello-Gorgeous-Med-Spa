@@ -6,6 +6,7 @@ import type { FAQ } from "@/lib/seo";
 import { SITE } from "@/lib/seo";
 import { GLP1_RETAIL_PROGRAM, PEPTIDE_RETAIL_FROM_MONTHLY_USD } from "@/lib/peptide-retail-pricing";
 import { PEPTIDE_CONSULT_FEE_USD } from "@/lib/peptide-request-menu";
+import { PEPTIDE_FLYER_IMAGES, VITAMIN_BAR_FLYER_IMAGES } from "@/lib/club-flyer-images";
 
 export const LADIES_CLUB_PATH = "/ladies-club" as const;
 export const LADIES_CLUB_URL = `${SITE.url}${LADIES_CLUB_PATH}`;
@@ -14,7 +15,10 @@ export const LADIES_CLUB_HERO_IMAGE = "/images/ladies-club/ladies-club-hero.png"
 export const LADIES_CLUB_HERO_IMAGE_ALT =
   "The Ladies' Club — BHRT, weight loss, peptide therapy and wellness for women at Hello Gorgeous Med Spa Oswego IL";
 export const LADIES_CLUB_WEIGHT_HORMONES_IMAGE = "/images/ladies-club/weight-loss-hormones-women.png";
-export const LADIES_CLUB_PT141_IMAGE = "/images/ladies-club/pt-141.png";
+export const LADIES_CLUB_PT141_IMAGE = "/images/ladies-club/pt-141-sexual-health.png";
+export const LADIES_CLUB_GLP1_IMAGE = "/images/ladies-club/tirzepatide-weight-loss.png";
+export const LADIES_CLUB_IV_IMAGE = VITAMIN_BAR_FLYER_IMAGES.nadIv;
+export const LADIES_CLUB_PEPTIDE_IMAGE = PEPTIDE_FLYER_IMAGES.bpc157;
 
 export type ClubPeptideFlyer = {
   id: string;
@@ -49,6 +53,7 @@ export const LADIES_CLUB_JUMP_LINKS = [
   { label: "Hormones / BioTE", href: "#hormones" },
   { label: "GLP-1", href: "#glp1" },
   { label: "Peptides", href: "#peptides" },
+  { label: "Vitamin Bar", href: "#vitamin-bar" },
   { label: "Screeners", href: "#screeners" },
   { label: "Membership", href: "#pricing" },
   { label: "FAQ", href: "#faq" },
@@ -108,8 +113,8 @@ export const LADIES_CLUB_SERVICES: LadiesClubService[] = [
     cta: "GLP-1 program →",
     badge: "RX",
     anchor: true,
-    image: LADIES_CLUB_WEIGHT_HORMONES_IMAGE,
-    imageAlt: "GLP-1 weight loss for women — Hello Gorgeous Med Spa Oswego IL",
+    image: LADIES_CLUB_GLP1_IMAGE,
+    imageAlt: "Tirzepatide medical weight loss for women — Hello Gorgeous Med Spa Oswego IL",
   },
   {
     id: "peptides",
@@ -127,8 +132,8 @@ export const LADIES_CLUB_SERVICES: LadiesClubService[] = [
     href: "/peptides",
     cta: "Peptide menu →",
     badge: "RX",
-    image: LADIES_CLUB_PT141_IMAGE,
-    imageAlt: "PT-141 peptide therapy for women — intimacy and libido support at Hello Gorgeous Med Spa Oswego IL",
+    image: LADIES_CLUB_PEPTIDE_IMAGE,
+    imageAlt: "BPC-157 peptide therapy for women — Hello Gorgeous Med Spa Oswego IL",
   },
   {
     id: "iv",
@@ -145,8 +150,8 @@ export const LADIES_CLUB_SERVICES: LadiesClubService[] = [
     ],
     href: "/iv-shots",
     cta: "IV & shots menu →",
-    image: "/images/memberships/vip-wellness.png",
-    imageAlt: "IV therapy and Vitamin Bar for women — Hello Gorgeous Med Spa Oswego IL",
+    image: LADIES_CLUB_IV_IMAGE,
+    imageAlt: "NAD+ IV and Vitamin Bar shots for women — Hello Gorgeous Med Spa Oswego IL",
   },
   {
     id: "skin",

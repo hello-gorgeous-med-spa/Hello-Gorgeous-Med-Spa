@@ -59,7 +59,20 @@ for (const item of PEPTIDE_EDUCATION_THUMBNAILS) {
   if (item.topicSlug) THUMBNAIL_BY_SLUG.set(item.topicSlug, item);
 }
 
-const PICKER_IMAGE_SLUGS = new Set(["cjc-1295", "ipamorelin", "biotin", "glutathione", "pt-141"]);
+const PICKER_IMAGE_SLUGS = new Set([
+  "bpc-157",
+  "tb-500",
+  "ghk-cu-injectable",
+  "sermorelin",
+  "tesamorelin",
+  "nad-plus",
+  "cjc-1295",
+  "ipamorelin",
+  "biotin",
+  "glutathione",
+  "pt-141",
+  "tirzepatide",
+]);
 
 function fileSlugFor(item: PeptideEducationThumbnail): string {
   return item.topicSlug ?? item.slug;

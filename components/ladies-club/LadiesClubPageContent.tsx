@@ -4,10 +4,16 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { CTA } from "@/components/CTA";
+import { ClubFlyerGallery } from "@/components/club/ClubFlyerGallery";
 import { FadeUp, Section } from "@/components/Section";
 import { BOOKING_URL } from "@/lib/flows";
 import { RYAN_FULL_NAME } from "@/lib/founder-credentials";
 import { GENTLEMENS_CLUB_PATH } from "@/lib/gentlemens-club";
+import {
+  CLUB_VITAMIN_FLYERS,
+  LADIES_CLUB_GLP1_FLYERS,
+  clubPeptideFlyers,
+} from "@/lib/club-flyer-images";
 import {
   appForHerUrl,
   LADIES_CLUB_BIOTE_INCLUDED,
@@ -282,19 +288,20 @@ export function LadiesClubPageContent() {
 
       {/* GLP-1 */}
       <Section id="glp1" className="scroll-mt-24 border-t border-white/10 bg-[#1a1d24] !py-14 md:!py-20">
-        <div className="max-w-4xl mx-auto px-4 text-center">
+        <div className="max-w-7xl mx-auto px-4">
           <FadeUp>
             <p className="text-xs font-bold uppercase tracking-wider text-[#FF2D8E]">Medical weight loss</p>
             <h2 className="mt-3 text-3xl font-black text-white">GLP-1 programs for women</h2>
-            <p className="mt-4 text-gray-400">
+            <p className="mt-4 max-w-2xl text-gray-400">
               NP-supervised tirzepatide from ${LADIES_CLUB_GLP1_STACK.tirzepatideFrom}/mo — medication, oversight, and
               monitoring included. Stack with BioTE when clinically appropriate.
             </p>
-            <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <CTA href="/glp-1-weight-loss-oswego" variant="gradient">See GLP-1 program</CTA>
               <CTA href="/quiz/glp-1-readiness" variant="outline" className="!border-white/30 !text-white">GLP-1 screener</CTA>
             </div>
           </FadeUp>
+          <ClubFlyerGallery flyers={LADIES_CLUB_GLP1_FLYERS} />
         </div>
       </Section>
 
@@ -351,6 +358,34 @@ export function LadiesClubPageContent() {
               </div>
             </FadeUp>
           </div>
+
+          <FadeUp delayMs={120}>
+            <h3 className="mt-16 text-center text-xl font-black uppercase tracking-tight text-white md:text-2xl">
+              Peptide protocols we prescribe
+            </h3>
+            <p className="mx-auto mt-3 max-w-2xl text-center text-sm text-gray-500">
+              BPC-157, TB-500, GHK-Cu, sermorelin, NAD+, CJC/Ipamorelin &amp; more — after NP evaluation.
+            </p>
+          </FadeUp>
+          <ClubFlyerGallery flyers={clubPeptideFlyers("ladies")} columns={3} />
+        </div>
+      </Section>
+
+      {/* Vitamin Bar */}
+      <Section id="vitamin-bar" className="scroll-mt-24 border-t border-white/10 bg-[#1a1d24] !py-14 md:!py-20">
+        <div className="max-w-7xl mx-auto px-4">
+          <FadeUp>
+            <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-[#FF2D8E]">The Vitamin Bar</p>
+            <h2 className="mt-2 text-3xl font-black text-white">IV drips &amp; drive-thru shots</h2>
+            <p className="mt-4 max-w-2xl text-gray-400">
+              NAD+, glutathione, biotin, tri-immune &amp; more — member pricing from $49/mo with Glow Pass.
+            </p>
+            <div className="mt-6 flex flex-col gap-3 sm:flex-row">
+              <CTA href="/iv-shots" variant="gradient">IV &amp; shots menu</CTA>
+              <CTA href="/vitamin-bar" variant="outline" className="!border-white/30 !text-white">Vitamin Bar app</CTA>
+            </div>
+          </FadeUp>
+          <ClubFlyerGallery flyers={CLUB_VITAMIN_FLYERS} columns={3} />
         </div>
       </Section>
 

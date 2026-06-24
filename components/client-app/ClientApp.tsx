@@ -958,6 +958,12 @@ function VitaminTab({ onSelect, onOpenIntake, onOpenIvBuilder, intakeRefresh }: 
               <button key={shot.id} type="button" onClick={() => onSelect(shot)}
                 className="flex w-full items-center gap-3 rounded-2xl p-4 text-left backdrop-blur-sm transition active:scale-[0.99]"
                 style={glassStyle(shotIndex % 3)}>
+                {shot.image ? (
+                  <div className="relative h-14 w-20 shrink-0 overflow-hidden rounded-xl border border-white/10">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={shot.image} alt="" className="h-full w-full object-cover object-center" />
+                  </div>
+                ) : null}
                 <div className="min-w-0 flex-1">
                   <div className="flex items-center gap-2">
                     <span className="truncate font-semibold text-white">{shot.name}</span>
@@ -1010,6 +1016,12 @@ function ShotSheet({ shot, onClose }: { shot: VitaminShot; onClose: () => void }
     <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/70" onClick={onClose}>
       <div className="w-full max-w-xl rounded-t-3xl p-6 pb-8 backdrop-blur-md" style={{ background: TRIFECTA_GLASS.panel, borderTop: `1px solid ${trifectaAccent(0).border}` }} onClick={(e) => e.stopPropagation()}>
         <div className="mx-auto mb-4 h-1.5 w-12 rounded-full" style={{ background: "rgba(255,255,255,0.15)" }} />
+        {shot.image ? (
+          <div className="relative mb-4 aspect-[16/9] w-full overflow-hidden rounded-2xl border border-white/10">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={shot.image} alt={shot.name} className="h-full w-full object-cover object-center" />
+          </div>
+        ) : null}
         <h3 className="text-lg font-bold text-white">{shot.name}</h3>
         <p className="mt-1 text-sm" style={{ color: "rgba(255,255,255,0.55)" }}>{shot.benefit}</p>
         <div className="mt-3 text-2xl font-black" style={{ color: trifectaAccent(0).subtitle }}>{priceLabel(shot.price)}</div>

@@ -3,6 +3,7 @@ import { SITE } from "@/lib/seo";
 import { squareGiftCardUrl } from "@/lib/gift-cards";
 import { GLP1_RETAIL_PROGRAM, PEPTIDE_RETAIL_FROM_MONTHLY_USD } from "@/lib/peptide-retail-pricing";
 import { PEPTIDE_CONSULT_FEE_USD } from "@/lib/peptide-request-menu";
+import { PEPTIDE_FLYER_IMAGES, VITAMIN_BAR_FLYER_IMAGES } from "@/lib/club-flyer-images";
 
 export const GENTLEMENS_CLUB_PATH = "/gentlemens-club" as const;
 export const GENTLEMENS_CLUB_URL = `${SITE.url}${GENTLEMENS_CLUB_PATH}`;
@@ -10,7 +11,8 @@ export const GENTLEMENS_CLUB_URL = `${SITE.url}${GENTLEMENS_CLUB_PATH}`;
 export const GENTLEMENS_CLUB_HERO_IMAGE = "/images/gentlemens-club/gentlemens-club-hero.png";
 export const GENTLEMENS_CLUB_GIFT_BROTOX_IMAGE = "/images/gentlemens-club/fathers-day-brotox.png";
 export const GENTLEMENS_CLUB_DISTINGUISHED_IMAGE = "/images/gentlemens-club/the-distinguished-hero.png";
-export const GENTLEMENS_CLUB_GLP1_IMAGE = "/images/gentlemens-club/glp-weight-loss-men.png";
+export const GENTLEMENS_CLUB_GLP1_IMAGE = "/images/gentlemens-club/tirzepatide-weight-loss.png";
+export const GENTLEMENS_CLUB_IV_IMAGE = VITAMIN_BAR_FLYER_IMAGES.nadIv;
 export const GENTLEMENS_CLUB_HORMONES_IMAGE = "/images/gentlemens-club/the-distinguished-hero.png";
 export const GENTLEMENS_CLUB_PEPTIDE_IMAGE = "/images/gentlemens-club/peptide-therapy-men.png";
 export const GENTLEMENS_CLUB_PT141_IMAGE = "/images/gentlemens-club/pt-141.png";
@@ -102,6 +104,7 @@ export const GENTLEMENS_CLUB_JUMP_LINKS = [
   { label: "Add-ons", href: "#add-ons" },
   { label: "Hair", href: "#hair" },
   { label: "Peptides", href: "#peptides" },
+  { label: "Vitamin Bar", href: "#vitamin-bar" },
   { label: "Screeners", href: "#screeners" },
   { label: "Membership", href: "#pricing" },
   { label: "FAQ", href: "#faq" },

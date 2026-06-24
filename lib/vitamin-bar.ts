@@ -52,6 +52,8 @@ export type VitaminShot = {
   squarePayUrl?: string;
   /** Optional Fresha deep link for this specific shot; falls back to BOOKING_URL. */
   freshaUrl?: string;
+  /** Branded flyer thumbnail under /public/images/vitamin-bar */
+  image?: string;
 };
 
 export type VitaminMembership = {
@@ -86,6 +88,7 @@ import {
   NAD_PLUS_INJECTION_MEMBER_PRICE_USD,
   NAD_PLUS_INJECTION_PRICE_USD,
 } from "@/lib/nad-plus-injections";
+import { VITAMIN_BAR_FLYER_IMAGES } from "@/lib/club-flyer-images";
 
 /**
  * VITAMIN BAR MENU — owner-approved prices (confirmed Jun 2026).
@@ -104,6 +107,7 @@ export const VITAMIN_SHOTS: VitaminShot[] = [
     category: "energy",
     tags: ["ENERGY", "METABOLISM", "MOOD"],
     favorite: true,
+    image: VITAMIN_BAR_FLYER_IMAGES.b12,
   },
   {
     id: "skinny-shot",
@@ -114,6 +118,7 @@ export const VITAMIN_SHOTS: VitaminShot[] = [
     category: "energy",
     tags: ["FAT METABOLISM", "ENERGY", "WEIGHT SUPPORT"],
     favorite: true,
+    image: VITAMIN_BAR_FLYER_IMAGES.skinnyShot,
   },
   {
     id: "mic-lipo",
@@ -123,6 +128,7 @@ export const VITAMIN_SHOTS: VitaminShot[] = [
     memberPrice: 25,
     category: "energy",
     tags: ["FAT METABOLISM", "SLIMMING SUPPORT"],
+    image: VITAMIN_BAR_FLYER_IMAGES.micLipo,
   },
   {
     id: "b-complex",
@@ -132,6 +138,7 @@ export const VITAMIN_SHOTS: VitaminShot[] = [
     memberPrice: 20,
     category: "energy",
     tags: ["VITALITY", "ENERGY", "DAILY BOOST"],
+    image: VITAMIN_BAR_FLYER_IMAGES.bComplex,
   },
   // Beauty & Glow
   {
@@ -143,6 +150,7 @@ export const VITAMIN_SHOTS: VitaminShot[] = [
     category: "beauty",
     tags: ["HAIR", "SKIN", "NAILS"],
     favorite: true,
+    image: VITAMIN_BAR_FLYER_IMAGES.biotin,
   },
   {
     id: "glutathione",
@@ -153,6 +161,7 @@ export const VITAMIN_SHOTS: VitaminShot[] = [
     category: "beauty",
     tags: ["SKIN BRIGHTENING", "DETOX", "ANTIOXIDANT"],
     favorite: true,
+    image: VITAMIN_BAR_FLYER_IMAGES.glutathione,
   },
   // Immune & Wellness
   {
@@ -163,6 +172,7 @@ export const VITAMIN_SHOTS: VitaminShot[] = [
     memberPrice: 25,
     category: "immune",
     tags: ["IMMUNE", "ANTIOXIDANT"],
+    image: VITAMIN_BAR_FLYER_IMAGES.vitaminC,
   },
   {
     id: "tri-immune",
@@ -172,6 +182,7 @@ export const VITAMIN_SHOTS: VitaminShot[] = [
     memberPrice: 40,
     category: "immune",
     tags: ["IMMUNE", "DEFENSE", "WELLNESS"],
+    image: VITAMIN_BAR_FLYER_IMAGES.triImmune,
   },
   {
     id: "vitamin-d",
@@ -181,6 +192,7 @@ export const VITAMIN_SHOTS: VitaminShot[] = [
     memberPrice: 25,
     category: "immune",
     tags: ["MOOD", "IMMUNE", "BONE"],
+    image: VITAMIN_BAR_FLYER_IMAGES.vitaminD3,
   },
   // Recovery
   {
@@ -212,6 +224,7 @@ export const VITAMIN_SHOTS: VitaminShot[] = [
     tags: ["ENERGY", "MENTAL CLARITY", "LONGEVITY"],
     favorite: true,
     consultFirst: true,
+    image: VITAMIN_BAR_FLYER_IMAGES.nadIv,
   },
   // Rx add-ons (provider)
   {

@@ -4,8 +4,14 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { CTA } from "@/components/CTA";
+import { ClubFlyerGallery } from "@/components/club/ClubFlyerGallery";
 import { FadeUp, Section } from "@/components/Section";
 import { BOOKING_URL } from "@/lib/flows";
+import {
+  CLUB_VITAMIN_FLYERS,
+  GENTLEMENS_CLUB_GLP1_FLYERS,
+  clubPeptideFlyers,
+} from "@/lib/club-flyer-images";
 import { RYAN_FULL_NAME } from "@/lib/founder-credentials";
 import {
   appForHimUrl,
@@ -13,7 +19,6 @@ import {
   GENTLEMENS_CLUB_FAQS,
   GENTLEMENS_CLUB_GIFT_BROTOX_IMAGE,
   GENTLEMENS_CLUB_GLP1_STACK,
-  GENTLEMENS_CLUB_GLP1_IMAGE,
   GENTLEMENS_CLUB_HERO_IMAGE,
   GENTLEMENS_CLUB_HERO_IMAGES,
   GENTLEMENS_CLUB_HERO_RX_IMAGE,
@@ -731,6 +736,34 @@ export function GentlemensClubPageContent() {
               </div>
             </FadeUp>
           </div>
+
+          <FadeUp delayMs={120}>
+            <h3 className="mt-16 text-center text-xl font-black uppercase tracking-tight text-white md:text-2xl">
+              Peptide protocols for men
+            </h3>
+            <p className="mx-auto mt-3 max-w-2xl text-center text-sm text-gray-500">
+              BPC-157, TB-500, sermorelin, tesamorelin, NAD+, CJC/Ipamorelin &amp; more — NP-prescribed only.
+            </p>
+          </FadeUp>
+          <ClubFlyerGallery flyers={clubPeptideFlyers("gentlemens")} columns={3} />
+        </div>
+      </Section>
+
+      {/* Vitamin Bar */}
+      <Section id="vitamin-bar" className="scroll-mt-24 border-t border-white/10 bg-[#0a0a0a] !py-14 md:!py-20">
+        <div className="max-w-7xl mx-auto px-4">
+          <FadeUp>
+            <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-[#FF2D8E]">The Vitamin Bar</p>
+            <h2 className="mt-2 text-3xl font-black text-white">Wellness shots &amp; NAD+</h2>
+            <p className="mt-4 max-w-2xl text-gray-400">
+              B12, lipo shots, glutathione, tri-immune &amp; NAD+ — included in Gentlemen&apos;s Club membership or à la carte.
+            </p>
+            <div className="mt-6 flex flex-col gap-3 sm:flex-row">
+              <CTA href="/iv-shots" variant="gradient">IV &amp; shots menu</CTA>
+              <CTA href="/vitamin-bar" variant="outline" className="!border-white/30 !text-white">Vitamin Bar app</CTA>
+            </div>
+          </FadeUp>
+          <ClubFlyerGallery flyers={CLUB_VITAMIN_FLYERS} columns={3} />
         </div>
       </Section>
 
@@ -751,19 +784,10 @@ export function GentlemensClubPageContent() {
             </div>
           </FadeUp>
         </div>
-        <div className="max-w-4xl mx-auto mt-12 px-4">
+        <div className="max-w-7xl mx-auto mt-12 px-4">
           <FadeUp delayMs={60}>
-            <div className="overflow-hidden rounded-2xl border-4 border-black bg-black shadow-[6px_6px_0_0_rgba(255,45,142,0.3)]">
-              <div className="relative aspect-[16/10] w-full">
-                <Image
-                  src={GENTLEMENS_CLUB_GLP1_IMAGE}
-                  alt="GLP-1 medical weight loss for men — Hello Gorgeous Med Spa Oswego IL"
-                  fill
-                  className="object-cover object-center"
-                  sizes="(max-width: 896px) 100vw, 896px"
-                />
-              </div>
-            </div>
+            <p className="text-xs font-bold uppercase tracking-wider text-[#FF2D8E] mb-6 text-center">GLP-1 weight loss</p>
+            <ClubFlyerGallery flyers={GENTLEMENS_CLUB_GLP1_FLYERS} />
             <div className="mt-8 rounded-2xl border border-white/10 bg-[#151922] p-8 text-center md:p-10">
               <p className="text-xs font-bold uppercase tracking-wider text-[#FF2D8E]">Combine &amp; optimize</p>
               <h3 className="mt-3 text-2xl font-black text-white">On a GLP-1 too? We map the full picture.</h3>

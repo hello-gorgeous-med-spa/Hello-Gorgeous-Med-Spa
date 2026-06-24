@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 import { CTA } from "@/components/CTA";
 import { FadeUp, Section } from "@/components/Section";
@@ -158,7 +159,19 @@ export function IvShotsPageContent() {
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {IV_SHOTS_VITAMIN_SHOTS.map((shot, idx) => (
               <FadeUp key={shot.id} delayMs={idx * 25}>
-                <StampCard className="h-full">
+                <StampCard className="h-full overflow-hidden p-0">
+                  {shot.image ? (
+                    <div className="relative aspect-[16/9] w-full border-b-4 border-black">
+                      <Image
+                        src={shot.image}
+                        alt={`${shot.name} — Hello Gorgeous Vitamin Bar Oswego IL`}
+                        fill
+                        className="object-cover object-center"
+                        sizes="(max-width: 640px) 100vw, 33vw"
+                      />
+                    </div>
+                  ) : null}
+                  <div className="p-6 md:p-8">
                   <div className="flex items-baseline justify-between gap-2">
                     <p className="text-2xl font-black text-[#E6007E] tabular-nums">${shot.price}</p>
                     {shot.memberPrice ? (
@@ -172,6 +185,7 @@ export function IvShotsPageContent() {
                       Consult / screening first
                     </p>
                   ) : null}
+                  </div>
                 </StampCard>
               </FadeUp>
             ))}
