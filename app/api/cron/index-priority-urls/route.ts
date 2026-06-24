@@ -33,6 +33,8 @@ const PRIORITY_SERVICE_URLS = [
   "/services/botox",
   "/peptides",
   "/medical",
+  "/quiz",
+  "/quiz/glp-1-readiness",
   "/peptide-therapy-oswego",
   "/peptides/bpc-157",
   "/peptides/sermorelin",

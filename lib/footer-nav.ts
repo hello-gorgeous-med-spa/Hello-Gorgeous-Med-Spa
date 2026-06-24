@@ -110,7 +110,7 @@ export const FOOTER_SEO_LINKS: FooterNavLink[] = [
   { label: "Spring laser hair special", href: "/spring-special-laser-hair" },
   { label: "April newsletter", href: "/newsletter/april" },
   { label: "Open client app", href: "/app" },
-  { label: "Find My Treatment quiz", href: "/quiz" },
+  { label: "Find My Treatment quiz", href: "/quiz/treatment" },
   { label: "VIP Membership", href: "/membership" },
   { label: "Understand Your Body", href: "/understand-your-body" },
   { label: "The Care Engine™", href: "/care-engine" },

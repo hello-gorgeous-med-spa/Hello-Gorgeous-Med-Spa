@@ -22,7 +22,7 @@ export function QuizCTA() {
             </div>
             
             <div className="flex-shrink-0">
-              <Link href="/quiz" className="btn-primary">
+              <Link href="/quiz/treatment" className="btn-primary">
                 <span className="text-xl mr-2">🎯</span>
                 Find My Treatment
               </Link>

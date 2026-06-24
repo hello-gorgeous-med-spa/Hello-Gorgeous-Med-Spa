@@ -177,7 +177,7 @@ export function InjectablesConversion() {
               Schedule Consultation
             </Link>
             <Link
-              href="/quiz"
+              href="/quiz/treatment"
               className="inline-flex items-center justify-center border-2 border-white text-white px-8 py-4 rounded-lg font-semibold uppercase tracking-wide hover:bg-white hover:text-black transition-all duration-300"
             >
               Take the Aesthetic Quiz

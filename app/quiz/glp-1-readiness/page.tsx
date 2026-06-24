@@ -1,17 +1,19 @@
 import type { Metadata } from "next";
 
-import { QuizHubContent } from "@/components/quiz/QuizHubContent";
+import { Glp1ReadinessQuiz } from "@/components/quiz/Glp1ReadinessQuiz";
 import { QUIZ_HUB_PATH } from "@/lib/quiz-nav";
 import { breadcrumbJsonLd, pageMetadata, SITE, siteJsonLd } from "@/lib/seo";
 
+const PATH = "/quiz/glp-1-readiness";
+
 export const metadata: Metadata = pageMetadata({
-  title: "Quizzes & Screeners | GLP-1, Peptides & Treatment Finder | Hello Gorgeous",
+  title: "GLP-1 Readiness Screener | Medical Weight Loss Quiz | Hello Gorgeous Oswego",
   description:
-    "Free educational quizzes — GLP-1 readiness screener, peptide finder, treatment quiz, and hormone tools. Hello Gorgeous Med Spa Oswego, IL.",
-  path: QUIZ_HUB_PATH,
+    "2-minute GLP-1 readiness screener — see if semaglutide or tirzepatide may fit your goals. NP-supervised programs in Oswego, IL. Educational only; free consult required.",
+  path: PATH,
 });
 
-export default function QuizHubPage() {
+export default function Glp1ReadinessQuizPage() {
   return (
     <>
       <script
@@ -25,11 +27,12 @@ export default function QuizHubPage() {
             breadcrumbJsonLd([
               { name: "Home", url: SITE.url },
               { name: "Quizzes", url: `${SITE.url}${QUIZ_HUB_PATH}` },
+              { name: "GLP-1 Readiness", url: `${SITE.url}${PATH}` },
             ]),
           ),
         }}
       />
-      <QuizHubContent />
+      <Glp1ReadinessQuiz />
     </>
   );
 }

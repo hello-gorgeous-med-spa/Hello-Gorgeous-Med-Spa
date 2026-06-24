@@ -84,22 +84,6 @@ export const MEDICAL_NAV = {
       dividerBefore: true,
     },
     {
-      label: "Find Your Peptide",
-      href: "/skin-101/find-your-peptide",
-      sub: "Match goals to the right compound",
-      dividerBefore: true,
-    },
-    {
-      label: "Treatment Quiz",
-      href: "/quiz",
-      sub: "Find services that fit your goals",
-    },
-    {
-      label: "Help Me Choose",
-      href: "/help-me-choose",
-      sub: "Goal-based treatment finder",
-    },
-    {
       label: `${PEPTIDE_CONSULT_SPECIAL.price} Peptide Consult`,
       href: BOOKING_URL,
       sub: PEPTIDE_CONSULT_SPECIAL.detail,

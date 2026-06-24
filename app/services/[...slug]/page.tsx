@@ -130,7 +130,7 @@ function CategoryPage({ categoryId }: { categoryId: ServiceAtlasClusterId }) {
               <CTA href={BOOKING_URL} variant="gradient" className="text-lg px-8 py-4">
                 Book a Consultation
               </CTA>
-              <CTA href="/quiz" variant="outline" className="text-lg px-8 py-4">
+              <CTA href="/quiz/treatment" variant="outline" className="text-lg px-8 py-4">
                 Find My Treatment
               </CTA>
             </div>

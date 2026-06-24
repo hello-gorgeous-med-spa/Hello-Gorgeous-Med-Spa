@@ -16,6 +16,7 @@ import {
   REGENERATIVE_NAV_FLAT_LINKS,
 } from "@/lib/regenerative-medicine-nav";
 import { isMedicalNavActive, MEDICAL_NAV, type MedicalNavLink } from "@/lib/medical-nav";
+import { isQuizNavActive, QUIZ_NAV, type QuizNavLink } from "@/lib/quiz-nav";
 import { HG_TAGLINE } from "@/lib/brand-tagline";
 import { isSkin101Active, SKIN_101_NAV } from "@/lib/skin-101-nav";
 import {
@@ -176,6 +177,7 @@ const NAV = {
   },
   skin101: SKIN_101_NAV,
   medical: MEDICAL_NAV,
+  quiz: QUIZ_NAV,
 };
 
 /* ─────────────────────────────────────────────────────────────
@@ -383,6 +385,78 @@ function SpecialsMenu({
               </Link>
             )
           )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function QuizMenu({
+  isOpen,
+  onClose,
+  onMouseEnter,
+}: {
+  isOpen: boolean;
+  onClose: () => void;
+  onMouseEnter: () => void;
+}) {
+  if (!isOpen) return null;
+
+  const renderLink = (link: QuizNavLink) => {
+    const className = cx(
+      "group block rounded-lg px-4 py-2.5 transition hover:bg-white/5",
+      link.overview && "py-3",
+    );
+    const inner = (
+      <>
+        <div className="flex items-center gap-2">
+          <span
+            className={cx(
+              "text-sm text-white group-hover:text-[#f472b6]",
+              link.overview ? "font-bold uppercase tracking-wider text-xs" : "font-semibold",
+            )}
+          >
+            {link.label}
+          </span>
+          {link.badge ? (
+            <span className="rounded-full bg-[#E6007E] px-2 py-0.5 text-[9px] font-bold uppercase text-white">
+              {link.badge}
+            </span>
+          ) : null}
+        </div>
+        {link.sub ? (
+          <p
+            className={cx(
+              "mt-0.5 text-xs leading-snug text-white/45",
+              link.overview && "mt-1 normal-case font-normal text-white/50",
+            )}
+          >
+            {link.sub}
+          </p>
+        ) : null}
+      </>
+    );
+
+    return (
+      <Link key={link.href + link.label} href={link.href} onClick={onClose} className={className}>
+        {inner}
+      </Link>
+    );
+  };
+
+  return (
+    <div className="absolute top-full left-0 z-[100] pt-2" onMouseEnter={onMouseEnter} onMouseLeave={onClose}>
+      <div
+        className="min-w-[min(280px,calc(100vw-2rem))] max-w-[320px] overflow-hidden rounded-xl border shadow-2xl backdrop-blur-md"
+        style={{ backgroundColor: "rgba(24, 24, 27, 0.97)", borderColor: "rgba(255,255,255,0.12)" }}
+      >
+        <div className="max-h-[min(75vh,32rem)] overflow-y-auto overscroll-contain p-1.5">
+          {QUIZ_NAV.links.map((link) => (
+            <React.Fragment key={link.href + link.label}>
+              {link.dividerBefore ? <div className="mx-3 my-1 border-t border-white/10" aria-hidden /> : null}
+              {renderLink(link)}
+            </React.Fragment>
+          ))}
         </div>
       </div>
     </div>
@@ -600,6 +674,7 @@ export function Header() {
     );
 
   const isMedicalNavActiveState = isMedicalNavActive(pathname ?? null);
+  const isQuizNavActiveState = isQuizNavActive(pathname ?? null);
 
   const isMicrobladingActive =
     pathname === "/education/your-brow-journey" ||
@@ -718,6 +793,29 @@ export function Header() {
                 isOpen={activeDropdown === "medical"}
                 onClose={() => setActiveDropdown(null)}
                 onMouseEnter={() => openDropdown("medical")}
+              />
+            </div>
+
+            {/* Quiz */}
+            <div
+              className="relative flex items-center"
+              onMouseEnter={() => openDropdown("quiz")}
+              onMouseLeave={closeDropdown}
+            >
+              <Link
+                href={NAV.quiz.href}
+                className={NAV_LINK_BASE}
+                style={navPillStyle(2, isQuizNavActiveState)}
+              >
+                Quiz
+                <svg className={cx("h-3 w-3 transition-transform", activeDropdown === "quiz" && "rotate-180")} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </Link>
+              <QuizMenu
+                isOpen={activeDropdown === "quiz"}
+                onClose={() => setActiveDropdown(null)}
+                onMouseEnter={() => openDropdown("quiz")}
               />
             </div>
 
@@ -938,6 +1036,7 @@ export function Header() {
             {[
               { key: "services", label: "Services", links: NAV.services.sections.flatMap((s) => s.links) },
               { key: "medical", label: "Medical", links: NAV.medical.links, highlight: true },
+              { key: "quiz", label: "Quiz", links: NAV.quiz.links, highlight: true },
               { key: "specials", label: "Specials", links: NAV.specials.links, highlight: true },
               { key: "skin101", label: "Skin 101", links: NAV.skin101.links, highlight: true },
               { key: "about", label: "About", links: NAV.about.links },
