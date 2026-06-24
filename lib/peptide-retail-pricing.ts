@@ -204,5 +204,20 @@ export function peptideRetailMenuByCategory(): Array<{
     .filter((g) => g.rows.length > 0);
 }
 
+export function peptidePrepayTotal(monthlyUsd: number): number {
+  const gross = monthlyUsd * PEPTIDE_PREPAY_MONTHS;
+  return Math.round(gross * (1 - PEPTIDE_PREPAY_DISCOUNT_PERCENT / 100));
+}
+
+export function peptidePrepaySavings(monthlyUsd: number): number {
+  return monthlyUsd * PEPTIDE_PREPAY_MONTHS - peptidePrepayTotal(monthlyUsd);
+}
+
+export function formatPrepayLine(monthlyUsd: number): string {
+  const total = peptidePrepayTotal(monthlyUsd);
+  const save = peptidePrepaySavings(monthlyUsd);
+  return `${PEPTIDE_PREPAY_MONTHS}-mo protocol: $${total} (save $${save})`;
+}
+
 export const PEPTIDE_RETAIL_PRICING_SUMMARY =
   `Protocols from $${PEPTIDE_RETAIL_FROM_MONTHLY_USD}/mo after your $49 NP consult — transparent quote before you commit.`;

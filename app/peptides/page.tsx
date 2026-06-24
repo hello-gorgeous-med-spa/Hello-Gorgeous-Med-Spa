@@ -1,20 +1,6 @@
 import type { Metadata } from "next";
-import Image from "next/image";
-import Link from "next/link";
-import { Suspense } from "react";
 
-import { PeptidesPageHero } from "@/components/peptides/PeptidesPageHero";
-import { CTA } from "@/components/CTA";
-import { FadeUp, Section } from "@/components/Section";
-import { PeppiHeroSection } from "@/components/PeppiHeroSection";
-import { PeptideEducationGallery } from "@/components/peptides/PeptideEducationGallery";
-import { PeptideEducationSection } from "@/components/peptides/PeptideEducationSection";
-import { PeptideHandoutsSection } from "@/components/peptides/PeptideHandoutsSection";
-import { FeaturedPeptidesSection } from "@/components/peptides/FeaturedPeptidesSection";
-import { PeptideHubFaqSection } from "@/components/peptides/PeptideHubFaqSection";
-import { PeptideRetailPricingSection } from "@/components/peptides/PeptideRetailPricingSection";
-import { PeptidesHubGrid } from "@/components/peptides/PeptidesHubGrid";
-import { HELLO_GORGEOUS_RX_START_PATH, PEPTIDE_REQUEST_PATH } from "@/lib/flows";
+import { PeptideTherapyPageContent } from "@/components/peptides/PeptideTherapyPageContent";
 import { PEPTIDE_CONSULT_FEE_USD } from "@/lib/peptide-request-menu";
 import { PEPTIDE_RETAIL_FROM_MONTHLY_USD } from "@/lib/peptide-retail-pricing";
 import { PEPTIDES_HUB_FAQS } from "@/lib/peptide-seo-faqs";
@@ -38,44 +24,6 @@ export const metadata: Metadata = pageMetadata({
   path: PEPTIDES_PATH,
 });
 
-const PEPTIDE_IMAGES = [
-  {
-    src: "/images/peptides/peptide-therapy-overview.png",
-    alt: "Peptide Therapy overview: NAD+, GHK-Cu, BPC-157, MOTS-C, IPAMORELIN/CJC-1295 benefits",
-    title: "Peptide Therapy Overview",
-  },
-  {
-    src: "/images/peptides/peptide-cheat-sheet-full.png",
-    alt: "Full Peptide Cheat Sheet - AOD 9604, BPC-157, CJC, DSIP, GHK-Cu, and more peptide benefits",
-    title: "Peptide Cheat Sheet",
-  },
-  {
-    src: "/images/peptides/peptide-cheat-sheet.png",
-    alt: "Peptide guide: AOD-9604, BPC-157, TB-500, KPV, VIP, SEMAX, SELANK, CJC-1295, MOTS-C, GHK-Cu, DSIP",
-    title: "Peptide Guide",
-  },
-  {
-    src: "/images/peptides/bpc157-benefits.png",
-    alt: "Benefits of BPC-157: tissue regeneration, muscle repair, gut healing, neuroprotective effects",
-    title: "BPC-157 Benefits",
-  },
-  {
-    src: "/images/peptides/ghkcu-benefits.png",
-    alt: "Benefits of GHK-Cu copper peptide: skin repair, hair growth, wound healing, collagen production",
-    title: "GHK-Cu Benefits",
-  },
-  {
-    src: "/images/peptides/ghkcu-vial.png",
-    alt: "GHK-Cu peptide - rewind your skin's biological clock, wound healing, collagen, hair growth",
-    title: "GHK-Cu Copper Peptide",
-  },
-  {
-    src: "/images/peptides/peptide-syringes.png",
-    alt: "Peptide and vitamin injections: Restore Peptide BPC157/TB500/KPV, Tesamorelin, Thymosin Alpha 1, Vitamin D, B12",
-    title: "Common Peptide & Vitamin Formulations",
-  },
-];
-
 export default function PeptidesPage() {
   const breadcrumbs = [
     { name: "Home", url: SITE.url },
@@ -87,8 +35,7 @@ export default function PeptidesPage() {
     "@type": "MedicalTherapy",
     "@id": `${PEPTIDES_URL}#therapy`,
     name: "Peptide Therapy — Hello Gorgeous Med Spa Oswego, IL",
-    description:
-      "Clinician-guided peptide protocols including BPC-157, Sermorelin, NAD+, and CJC-1295/Ipamorelin for recovery, weight management, skin and hair support, and vitality. Same-day consultations often available.",
+    description: PEPTIDES_PAGE_DESCRIPTION,
     alternateName: [
       "Peptide therapy Naperville IL",
       "Peptide therapy Aurora IL",
@@ -102,7 +49,6 @@ export default function PeptidesPage() {
     <>
       <script
         type="application/ld+json"
-        // eslint-disable-next-line react/no-danger
         dangerouslySetInnerHTML={{ __html: JSON.stringify(siteJsonLd()) }}
       />
       <script
@@ -123,7 +69,7 @@ export default function PeptidesPage() {
               path: PEPTIDES_PATH,
               image: "/images/homepage-services/peptide-therapy-active-lifestyle.png",
               dateModified: new Date().toISOString().split("T")[0],
-            })
+            }),
           ),
         }}
       />
@@ -138,301 +84,7 @@ export default function PeptidesPage() {
         }}
       />
 
-      <PeptidesPageHero />
-
-      <FeaturedPeptidesSection />
-
-      <PeptideRetailPricingSection />
-
-      <PeptideHubFaqSection />
-
-      <Section className="border-b-4 border-black bg-[#FFF0F7]">
-        <FadeUp>
-          <div className="max-w-5xl mx-auto rounded-3xl border-4 border-black bg-white p-6 md:p-8 shadow-[8px_8px_0_0_rgba(230,0,126,0.35)]">
-            <div className="flex flex-col md:flex-row md:items-center gap-6">
-              <div className="relative h-40 w-full md:h-32 md:w-48 shrink-0 rounded-2xl border-2 border-black overflow-hidden bg-black">
-                <Image
-                  src="/images/peptides/peptide-cheat-sheet-full.png"
-                  alt="Find your peptide — goal-based guide"
-                  fill
-                  className="object-contain p-2"
-                  sizes="(max-width: 768px) 100vw, 192px"
-                />
-              </div>
-              <div className="flex-1">
-                <p className="text-[10px] font-bold uppercase tracking-widest text-[#E6007E]">New · Hello Gorgeous RX™</p>
-                <h2 className="mt-1 text-2xl md:text-3xl font-black text-black">
-                  Find Your Peptide
-                </h2>
-                <p className="mt-2 text-black/75 leading-relaxed">
-                  Match your goals — skin, recovery, energy, weight, sleep & more — to the peptides our NP-led team
-                  most commonly discusses. Interactive guide + printable handout.
-                </p>
-                <div className="mt-4 flex flex-col sm:flex-row gap-3">
-                  <Link
-                    href="/skin-101/find-your-peptide"
-                    className="inline-flex min-h-[44px] items-center justify-center rounded-full bg-[#E6007E] px-5 py-2.5 text-sm font-bold text-white hover:bg-[#c9006e] transition"
-                  >
-                    Open the guide →
-                  </Link>
-                  <Link
-                    href="/skin-101/peptides-101"
-                    className="inline-flex min-h-[44px] items-center justify-center rounded-full border-2 border-black px-5 py-2.5 text-sm font-semibold text-black hover:bg-black hover:text-white transition"
-                  >
-                    Peptides 101 first
-                  </Link>
-                </div>
-              </div>
-            </div>
-          </div>
-        </FadeUp>
-      </Section>
-
-      {/* Peppi AI Expert Section */}
-      <Section id="peppi" className="bg-gradient-to-b from-white via-fuchsia-50/30 to-white">
-        <FadeUp>
-          <div className="text-center mb-8">
-            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#FF2D8E]/10 border border-[#FF2D8E]/30 mb-4">
-              <span className="text-lg">🤖</span>
-              <span className="text-[#FF2D8E] text-sm font-semibold uppercase tracking-wider">AI Peptide Expert</span>
-            </span>
-            <h2 className="text-3xl md:text-4xl font-bold text-[#FF2D8E]">
-              Your Complete Peptide Education Center
-            </h2>
-            <p className="mt-3 text-lg text-black/70 max-w-2xl mx-auto">
-              Learn about BPC-157, Semaglutide, Sermorelin, Tirzepatide, and more from our Olympia-trained AI
-            </p>
-          </div>
-        </FadeUp>
-        <FadeUp delayMs={100}>
-          <div className="max-w-5xl mx-auto">
-            <PeppiHeroSection />
-          </div>
-        </FadeUp>
-      </Section>
-
-      {/* Clinical Info Section */}
-      <Section className="bg-gradient-to-b from-fuchsia-50/50 via-white to-fuchsia-50/50">
-        <FadeUp>
-          <div className="text-center mb-12">
-            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#FF2D8E]/10 border border-[#FF2D8E]/20 mb-4">
-              <span className="text-[#FF2D8E] text-sm font-semibold uppercase tracking-wider">Clinical Info</span>
-            </span>
-            <h2 className="text-3xl md:text-4xl font-bold text-[#FF2D8E]">
-              Peptide Therapies at Hello Gorgeous
-            </h2>
-            <p className="mt-4 text-black/80 max-w-2xl mx-auto">
-              All peptides sourced from Olympia Pharmacy—an FDA-registered 503A/503B compounding facility
-            </p>
-          </div>
-        </FadeUp>
-
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-          <FadeUp delayMs={60}>
-            <div className="p-6 rounded-2xl border-2 border-black bg-gradient-to-br from-fuchsia-50 to-white h-full">
-              <h3 className="text-lg font-bold text-[#FF2D8E] mb-3 flex items-center gap-2">
-                <span>🩹</span> Healing & Recovery
-              </h3>
-              <ul className="text-black/80 text-sm space-y-2">
-                <li><strong className="text-black">BPC-157:</strong> Gut healing, tissue repair, injury recovery</li>
-                <li><strong className="text-black">TB-500:</strong> Muscle repair, inflammation reduction</li>
-              </ul>
-              <p className="text-black/60 text-xs mt-3">
-                Often combined for synergistic healing benefits.
-              </p>
-            </div>
-          </FadeUp>
-          <FadeUp delayMs={80}>
-            <div className="p-6 rounded-2xl border-2 border-black bg-gradient-to-br from-fuchsia-50 to-white h-full">
-              <h3 className="text-lg font-bold text-[#FF2D8E] mb-3 flex items-center gap-2">
-                <span>⚡</span> Growth & Anti-Aging
-              </h3>
-              <ul className="text-black/80 text-sm space-y-2">
-                <li><strong className="text-black">Sermorelin:</strong> Natural GH optimization, sleep, recovery</li>
-                <li><strong className="text-black">Ipamorelin:</strong> Selective GH release, minimal side effects</li>
-                <li><strong className="text-black">CJC-1295:</strong> Enhanced GH/IGF-1, body composition</li>
-                <li><strong className="text-black">Tesamorelin:</strong> Targets visceral (belly) fat</li>
-              </ul>
-            </div>
-          </FadeUp>
-          <FadeUp delayMs={100}>
-            <div className="p-6 rounded-2xl border-2 border-black bg-gradient-to-br from-fuchsia-50 to-white h-full">
-              <h3 className="text-lg font-bold text-[#FF2D8E] mb-3 flex items-center gap-2">
-                <span>🔥</span> Weight & Metabolism
-              </h3>
-              <ul className="text-black/80 text-sm space-y-2">
-                <li><strong className="text-black">Semaglutide:</strong> GLP-1, appetite control, 15-20% weight loss</li>
-                <li><strong className="text-black">Tirzepatide:</strong> Dual GIP/GLP-1, may exceed semaglutide</li>
-                <li><strong className="text-black">AOD-9604:</strong> Targeted fat metabolism</li>
-                <li><strong className="text-black">MOTS-c:</strong> Mitochondrial peptide, metabolic health</li>
-              </ul>
-            </div>
-          </FadeUp>
-          <FadeUp delayMs={120}>
-            <div className="p-6 rounded-2xl border-2 border-black bg-gradient-to-br from-fuchsia-50 to-white h-full">
-              <h3 className="text-lg font-bold text-[#FF2D8E] mb-3 flex items-center gap-2">
-                <span>🛡️</span> Immune & Longevity
-              </h3>
-              <ul className="text-black/80 text-sm space-y-2">
-                <li><strong className="text-black">Thymosin Alpha-1:</strong> Immune modulation, T-cell support</li>
-                <li><strong className="text-black">Epithalon:</strong> Telomere support, cellular aging</li>
-              </ul>
-              <p className="text-black/60 text-xs mt-3">
-                For immune challenges and longevity optimization.
-              </p>
-            </div>
-          </FadeUp>
-          <FadeUp delayMs={140}>
-            <div className="p-6 rounded-2xl border-2 border-black bg-gradient-to-br from-fuchsia-50 to-white h-full">
-              <h3 className="text-lg font-bold text-[#FF2D8E] mb-3 flex items-center gap-2">
-                <span>💫</span> Sexual Wellness
-              </h3>
-              <ul className="text-black/80 text-sm space-y-2">
-                <li><strong className="text-black">PT-141:</strong> Libido support for men and women</li>
-              </ul>
-              <p className="text-black/60 text-xs mt-3">
-                Works on brain receptors (not vascular like Viagra). FDA-approved as Vyleesi.
-              </p>
-            </div>
-          </FadeUp>
-          <FadeUp delayMs={160}>
-            <div className="p-6 rounded-2xl border-2 border-black bg-gradient-to-br from-[#FFF0F7] to-white h-full">
-              <h3 className="text-lg font-bold text-[#FF2D8E] mb-3 flex items-center gap-2">
-                <span>✨</span> Hello Gorgeous RX™
-              </h3>
-              <ul className="text-black/80 text-sm space-y-2">
-                <li><strong className="text-black">$49 consult</strong> — NP evaluation; medication priced after your plan</li>
-                <li><strong className="text-black">Licensed pharmacy</strong> — vetted 503A compounding partners</li>
-                <li><strong className="text-black">Personalized protocols</strong> — not a one-size menu</li>
-                <li><strong className="text-black">Same-day visits</strong> — often available when schedule allows</li>
-              </ul>
-            </div>
-          </FadeUp>
-        </div>
-      </Section>
-
-      <PeptidesHubGrid />
-
-      <PeptideEducationGallery />
-
-      <PeptideHandoutsSection />
-
-      <Suspense fallback={null}>
-        <PeptideEducationSection />
-      </Suspense>
-
-      {/* Peptide Infographic Gallery */}
-      <Section className="bg-white">
-        <FadeUp>
-          <div className="text-center mb-12">
-            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#FF2D8E]/10 border border-[#FF2D8E]/20 mb-4">
-              <span className="text-[#FF2D8E] text-sm font-semibold uppercase tracking-wider">Peptide Education</span>
-            </span>
-            <h2 className="text-3xl md:text-4xl font-bold text-[#FF2D8E]">
-              Your Peptide Guide
-            </h2>
-            <p className="mt-4 text-black/70 max-w-2xl mx-auto">
-              Explore what each peptide supports—healing, metabolism, skin, sleep, and beyond. 
-              All treatment decisions require a medical consultation.
-            </p>
-            <p className="mt-4 max-w-2xl mx-auto">
-              <Link
-                href="/skin-101/find-your-peptide"
-                className="inline-flex items-center gap-2 text-[#FF2D8E] font-semibold underline decoration-[#E6007E] underline-offset-4 hover:text-[#E6007E]"
-              >
-                Not sure where to start? Find your peptide by goal →
-              </Link>
-            </p>
-          </div>
-        </FadeUp>
-
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-2">
-          {PEPTIDE_IMAGES.map((img, idx) => (
-            <FadeUp key={img.src} delayMs={60 * idx}>
-              <div className="rounded-2xl overflow-hidden border-2 border-black bg-white hover:border-[#FF2D8E]/50 hover:shadow-lg transition-all duration-300">
-                <div className="relative aspect-[4/3] md:aspect-[3/2] w-full bg-gradient-to-br from-fuchsia-50 to-white">
-                  <Image
-                    src={img.src}
-                    alt={img.alt}
-                    fill
-                    className="object-contain p-4"
-                    sizes="(max-width: 768px) 100vw, 50vw"
-                    priority={idx < 2}
-                  />
-                </div>
-                <div className="p-4 border-t-2 border-black bg-fuchsia-50/50">
-                  <p className="text-sm font-bold text-black">{img.title}</p>
-                </div>
-              </div>
-            </FadeUp>
-          ))}
-        </div>
-
-        <FadeUp delayMs={200}>
-          <p className="mt-8 text-center text-sm text-black/50 max-w-2xl mx-auto">
-            * These statements have not been evaluated by the FDA. Peptide therapy requires medical evaluation and prescription. 
-            Individual results vary. Consult with a provider to determine if peptides are right for you.
-          </p>
-        </FadeUp>
-      </Section>
-
-      {/* Olympia Pharmacy Partner */}
-      <Section className="bg-gradient-to-b from-white via-violet-50/30 to-white">
-        <FadeUp>
-          <div className="max-w-3xl mx-auto rounded-2xl border-2 border-black bg-gradient-to-br from-violet-50 to-white p-6 md:p-8">
-            <div className="flex flex-col md:flex-row md:items-center gap-6">
-              <div className="flex-1">
-                <h3 className="text-lg font-bold text-violet-600 mb-2">💊 Our Compounding Partner</h3>
-                <p className="text-black/80 text-sm leading-relaxed">
-                  We source peptide formulations from <strong className="text-black">Olympia Pharmacy</strong>—a licensed 503A/503B facility. 
-                  Browse their full medication directory for peptides, hormones, weight loss, IV therapy, and more.
-                </p>
-              </div>
-              <a
-                href="https://www.olympiapharmacy.com/medication-directory/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex-shrink-0 inline-flex items-center justify-center gap-2 min-h-[48px] px-6 py-3 rounded-full bg-violet-500/20 border border-violet-500/30 text-violet-700 font-semibold hover:bg-violet-500/30 transition"
-              >
-                Browse Olympia Directory
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                </svg>
-              </a>
-            </div>
-            <Link href="/products-we-offer" className="mt-4 inline-block text-sm text-violet-600/80 hover:text-violet-600">
-              Products we offer (compounded Rx) →
-            </Link>
-          </div>
-        </FadeUp>
-      </Section>
-
-      {/* CTA */}
-      <Section className="relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-fuchsia-100 via-pink-100 to-fuchsia-100" />
-        <div className="relative z-10 text-center max-w-3xl mx-auto">
-          <FadeUp>
-            <h2 className="text-3xl md:text-4xl font-bold text-[#FF2D8E] mb-6">
-              Ready to Explore Peptide Therapy?
-            </h2>
-            <p className="text-xl text-black/80 mb-8">
-              Submit a protocol request or refill online. Ryan will review at a required telehealth visit before
-              any approval — recurring patients stay on track without an in-office visit.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <CTA href={HELLO_GORGEOUS_RX_START_PATH} variant="gradient" className="text-lg px-10 py-4 shadow-xl shadow-[#FF2D8E]/25">
-                Start Here
-              </CTA>
-              <CTA href={PEPTIDE_REQUEST_PATH} variant="outline" className="text-lg px-10 py-4 border-2 border-black">
-                Request or refill
-              </CTA>
-            </div>
-            <p className="mt-6 text-sm text-black/50">
-              📍 Serving Oswego, Naperville, Aurora & Plainfield
-            </p>
-          </FadeUp>
-        </div>
-      </Section>
+      <PeptideTherapyPageContent />
     </>
   );
 }

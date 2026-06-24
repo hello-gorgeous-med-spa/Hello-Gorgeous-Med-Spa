@@ -147,6 +147,17 @@ export const SKIN_101_GUIDES: Skin101Guide[] = [
   },
 ];
 
+/** Peptide education pages live under /skin-101 but appear as one nav item → /peptides */
+export const SKIN_101_PEPTIDE_GUIDE_SLUGS = new Set([
+  "find-your-peptide",
+  "peptides-101",
+  "peptide-therapy",
+]);
+
+export const SKIN_101_SKIN_ONLY_GUIDES = SKIN_101_GUIDES.filter(
+  (g) => !SKIN_101_PEPTIDE_GUIDE_SLUGS.has(g.slug),
+);
+
 export const SKIN_101_NAV = {
   label: "Skin 101",
   href: SKIN_101_PATH,
@@ -157,12 +168,18 @@ export const SKIN_101_NAV = {
       sub: "Science Explainer Series — learn before you book",
       badge: "NEW",
     },
-    ...SKIN_101_GUIDES.map((g) => ({
+    ...SKIN_101_SKIN_ONLY_GUIDES.map((g) => ({
       label: g.shortTitle,
       href: g.path,
       sub: g.tagline,
       badge: g.badge,
     })),
+    {
+      label: "Peptides",
+      href: "/peptides",
+      sub: "NP-supervised therapy, pricing & protocols",
+      badge: "NEW",
+    },
     {
       label: "FAQ",
       href: "/faq",

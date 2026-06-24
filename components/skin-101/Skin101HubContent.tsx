@@ -8,7 +8,7 @@ import { Skin101GuideCard } from "@/components/skin-101/Skin101GuideCard";
 import { BOOKING_URL } from "@/lib/flows";
 import { HG_TAGLINE } from "@/lib/brand-tagline";
 import { SITE } from "@/lib/seo";
-import { SKIN_101_GUIDES, SKIN_101_PATH } from "@/lib/skin-101-nav";
+import { SKIN_101_PATH, SKIN_101_SKIN_ONLY_GUIDES } from "@/lib/skin-101-nav";
 
 const BRAND = {
   pink: "#E6007E",
@@ -92,9 +92,32 @@ export function Skin101HubContent() {
             <p className="text-sm font-bold uppercase tracking-wider text-[#E6007E] mb-2">Start here</p>
             <h2 className="text-3xl font-black text-black mb-8">Guides in this series</h2>
             <div className="grid gap-6 md:grid-cols-2">
-              {SKIN_101_GUIDES.map((guide) => (
+              {SKIN_101_SKIN_ONLY_GUIDES.map((guide) => (
                 <Skin101GuideCard key={guide.slug} guide={guide} />
               ))}
+              <Link
+                href="/peptides"
+                className="group flex flex-col overflow-hidden rounded-3xl border-4 border-black bg-white shadow-[8px_8px_0_0_rgba(230,0,126,0.35)] transition hover:border-[#E6007E]"
+              >
+                <div className="relative aspect-[16/10] overflow-hidden border-b-4 border-black bg-[#0a0a0a]">
+                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_40%,rgba(230,0,126,0.35)_0%,transparent_60%)]" />
+                  <div className="relative z-10 flex h-full flex-col justify-end p-6">
+                    <span className="mb-2 inline-flex w-fit rounded-full border-2 border-white/30 bg-white/10 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-white">
+                      Hello Gorgeous RX™
+                    </span>
+                    <h3 className="text-2xl font-black text-white group-hover:text-[#FFB8DC]">
+                      Peptide Therapy
+                    </h3>
+                  </div>
+                </div>
+                <div className="p-6">
+                  <p className="text-sm font-medium text-[#E6007E]">NP-supervised · licensed pharmacy only</p>
+                  <p className="mt-2 text-sm text-black/75 leading-relaxed">
+                    BPC-157, Sermorelin, GHK-Cu, GLP-1 & more — pricing, protocols, and FAQs in one place.
+                  </p>
+                  <p className="mt-4 text-sm font-bold text-black">View peptide hub →</p>
+                </div>
+              </Link>
             </div>
           </div>
         </Section>

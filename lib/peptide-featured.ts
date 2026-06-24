@@ -66,7 +66,7 @@ export const PEPTIDE_CONSULT_SPECIAL = {
   label: "Peptide consultation",
   detail:
     "Protocols from $149/mo after your personalized plan — see published starting rates on our peptide hub",
-  blogHref: "/skin-101/find-your-peptide",
+  blogHref: "/peptides",
 };
 
 export function featuredPeptideFromPrice(slug: string): string | undefined {
