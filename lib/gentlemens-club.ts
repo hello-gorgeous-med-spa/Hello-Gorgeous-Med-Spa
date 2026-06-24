@@ -116,7 +116,7 @@ export const GENTLEMENS_CLUB_SERVICES: GentlemensClubService[] = [
     cta: "TRT program →",
     badge: "RX",
     anchor: true,
-    image: "/images/homepage-buyer-paths/weight-loss-hormones.png",
+    image: GENTLEMENS_CLUB_HORMONES_IMAGE,
     imageAlt: "TRT, BioTE and men's hormone optimization — Hello Gorgeous Med Spa Oswego IL",
   },
   {
@@ -144,8 +144,8 @@ export const GENTLEMENS_CLUB_SERVICES: GentlemensClubService[] = [
     ],
     href: "/glp-1-weight-loss-oswego",
     cta: "GLP-1 program →",
-    image: "/images/homepage-services/compounded-tirzepatide-weight-loss.png",
-    imageAlt: "Compounded tirzepatide GLP-1 medical weight loss — Hello Gorgeous Med Spa Oswego IL",
+    image: GENTLEMENS_CLUB_GLP1_IMAGE,
+    imageAlt: "GLP-1 medical weight loss for men — Hello Gorgeous Med Spa Oswego IL",
     imageContain: true,
   },
   {
@@ -410,7 +410,11 @@ export const GENTLEMENS_CLUB_SCREENERS = [
   },
 ] as const;
 
-export const GENTLEMENS_CLUB_HERO_RX_IMAGE = "/images/homepage-buyer-paths/weight-loss-hormones.png";
+export const GENTLEMENS_CLUB_GLP1_IMAGE = "/images/gentlemens-club/glp-weight-loss-men.png";
+export const GENTLEMENS_CLUB_HORMONES_IMAGE = "/images/gentlemens-club/the-distinguished-hero.png";
+/** @deprecated Use GENTLEMENS_CLUB_HORMONES_IMAGE */
+export const GENTLEMENS_CLUB_HERO_RX_IMAGE = GENTLEMENS_CLUB_HORMONES_IMAGE;
+
 export const GENTLEMENS_CLUB_ANTEAGE_HAIR_IMAGE = "/images/anteage/hair/mdx-hair-exosome-vials.png";
 
 export type GentlemensClubAnteageHairResult = {
@@ -575,7 +579,7 @@ export const FOR_HIM_SERVICES = [
     badge: "RX",
     href: `${GENTLEMENS_CLUB_PATH}#hormones`,
     cta: "Book Consult",
-    image: "/images/homepage-buyer-paths/weight-loss-hormones.png",
+    image: GENTLEMENS_CLUB_HORMONES_IMAGE,
     imageAlt: "TRT and men's hormone optimization — Hello Gorgeous Med Spa Oswego IL",
   },
   {

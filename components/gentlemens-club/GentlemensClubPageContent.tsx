@@ -13,6 +13,7 @@ import {
   GENTLEMENS_CLUB_FAQS,
   GENTLEMENS_CLUB_GIFT_BROTOX_IMAGE,
   GENTLEMENS_CLUB_GLP1_STACK,
+  GENTLEMENS_CLUB_GLP1_IMAGE,
   GENTLEMENS_CLUB_HERO_IMAGE,
   GENTLEMENS_CLUB_HERO_IMAGES,
   GENTLEMENS_CLUB_HERO_RX_IMAGE,
@@ -36,6 +37,7 @@ import {
   GENTLEMENS_CLUB_TRT_INCLUDED,
   GENTLEMENS_CLUB_TRT_QUICK_FACTS,
 } from "@/lib/gentlemens-club";
+import { LADIES_CLUB_PATH } from "@/lib/ladies-club";
 import { SITE } from "@/lib/seo";
 
 function MenuCard({
@@ -372,6 +374,9 @@ export function GentlemensClubPageContent() {
                 <CTA href="/quiz/trt-readiness" variant="outline" className="!border-[#7dd3fc]/50 !text-[#7dd3fc] hover:!bg-[#7dd3fc]/10 !px-8 !py-4">
                   TRT Screener
                 </CTA>
+                <CTA href={LADIES_CLUB_PATH} variant="outline" className="!border-white/30 !text-white hover:!bg-white hover:!text-black !px-8 !py-4">
+                  Ladies&apos; Club →
+                </CTA>
               </div>
               <p className="mt-4 text-sm text-white/50">Medically reviewed by {RYAN_FULL_NAME}</p>
             </div>
@@ -690,7 +695,18 @@ export function GentlemensClubPageContent() {
         </div>
         <div className="max-w-4xl mx-auto mt-12 px-4">
           <FadeUp delayMs={60}>
-            <div className="rounded-2xl border border-white/10 bg-[#151922] p-8 text-center md:p-10">
+            <div className="overflow-hidden rounded-2xl border-4 border-black bg-black shadow-[6px_6px_0_0_rgba(255,45,142,0.3)]">
+              <div className="relative aspect-[16/10] w-full">
+                <Image
+                  src={GENTLEMENS_CLUB_GLP1_IMAGE}
+                  alt="GLP-1 medical weight loss for men — Hello Gorgeous Med Spa Oswego IL"
+                  fill
+                  className="object-cover object-center"
+                  sizes="(max-width: 896px) 100vw, 896px"
+                />
+              </div>
+            </div>
+            <div className="mt-8 rounded-2xl border border-white/10 bg-[#151922] p-8 text-center md:p-10">
               <p className="text-xs font-bold uppercase tracking-wider text-[#FF2D8E]">Combine &amp; optimize</p>
               <h3 className="mt-3 text-2xl font-black text-white">On a GLP-1 too? We map the full picture.</h3>
               <p className="mt-4 text-gray-400">

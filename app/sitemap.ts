@@ -8,6 +8,7 @@ import { FUNNEL_DEFINITIONS } from '@/lib/funnels';
 import { AREA_PAGES, FAQ_CLUSTER_PAGES, RECOVERY_PAGES } from '@/lib/topical-expansion';
 import { SERVICE_PAGE_OSWEGO_SLUGS } from '@/lib/service-pages-oswego';
 import { BLOOD_WORK_PATH } from '@/lib/blood-work';
+import { LADIES_CLUB_PATH } from '@/lib/ladies-club';
 import { MEDICAL_OPTIMIZATION_PATH } from '@/lib/medical-optimization';
 import { QUIZ_HUB_PATH } from '@/lib/quiz-nav';
 import { getPublishedPeptideTopics, PEPTIDES_HUB_PATH } from '@/lib/peptides-hub';
@@ -776,6 +777,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: currentDate,
       changeFrequency: 'monthly' as const,
       priority: 0.9,
+    },
+    {
+      url: `${baseUrl}${LADIES_CLUB_PATH}`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly' as const,
+      priority: 0.92,
     },
   ];
 

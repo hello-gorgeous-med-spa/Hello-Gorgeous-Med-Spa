@@ -47,6 +47,11 @@ export const MEDICAL_NAV = {
       dividerBefore: true,
     },
     {
+      label: "The Ladies' Club",
+      href: "/ladies-club",
+      sub: "Women's hormones, GLP-1, peptides & BioTE",
+    },
+    {
       label: "Women's Hormones",
       href: "/biote-hormone-therapy-oswego",
       sub: "BioTE pellets · perimenopause & menopause",
@@ -98,6 +103,7 @@ export const MEDICAL_ACTIVE_PREFIXES = [
   "/peptides",
   "/iv-shots",
   "/gentlemens-club",
+  "/ladies-club",
   "/glp-1-weight-loss-oswego",
   "/glp1-weight-loss",
   "/biote-hormone-therapy-oswego",
