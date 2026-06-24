@@ -366,6 +366,13 @@ export const GENTLEMENS_CLUB_SCREENERS = [
     badge: "NEW",
   },
   {
+    id: "hair",
+    title: "Hair Restoration Screener",
+    sub: "2 min · pattern, AnteAGE MDX & Rx readiness",
+    href: "/quiz/hair-readiness",
+    badge: "NEW",
+  },
+  {
     id: "glp1",
     title: "GLP-1 Readiness Screener",
     sub: "2 min · medical weight loss candidacy",
@@ -375,6 +382,7 @@ export const GENTLEMENS_CLUB_SCREENERS = [
 ] as const;
 
 export const GENTLEMENS_CLUB_HERO_RX_IMAGE = "/images/rx/rx-hormone-vial.png";
+export const GENTLEMENS_CLUB_ANTEAGE_HAIR_IMAGE = "/images/anteage/brightening-exosomes.png";
 
 export const GENTLEMENS_CLUB_FAQS: FAQ[] = [
   {

@@ -798,6 +798,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
     },
     {
+      url: `${baseUrl}/quiz/hair-readiness`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly' as const,
+      priority: 0.9,
+    },
+    {
       url: `${baseUrl}/quiz/perimenopause-readiness`,
       lastModified: currentDate,
       changeFrequency: 'monthly' as const,

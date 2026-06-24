@@ -17,6 +17,7 @@ import {
   GENTLEMENS_CLUB_HERO_RX_IMAGE,
   GENTLEMENS_CLUB_HORMONE_ADD_ONS,
   GENTLEMENS_CLUB_HORMONE_ADD_ONS_DISCLAIMER,
+  GENTLEMENS_CLUB_ANTEAGE_HAIR_IMAGE,
   GENTLEMENS_CLUB_HAIR_DISCLAIMER,
   GENTLEMENS_CLUB_HAIR_OPTIONS,
   GENTLEMENS_CLUB_HAIR_TRT_CALLOUT,
@@ -501,8 +502,8 @@ export function GentlemensClubPageContent() {
               <div className="grid lg:grid-cols-2 lg:items-center">
                 <div className="relative aspect-[4/3] min-h-[220px] bg-black lg:aspect-auto lg:min-h-[280px]">
                   <Image
-                    src="/images/homepage-services/anteage-md-brightening.png"
-                    alt="AnteAGE MDX hair restoration biosomes at Hello Gorgeous Med Spa Oswego"
+                    src={GENTLEMENS_CLUB_ANTEAGE_HAIR_IMAGE}
+                    alt="AnteAGE MDX hair biosomes and exosomes — regenerative scalp protocol at Hello Gorgeous Med Spa Oswego"
                     fill
                     className="object-contain object-center p-6"
                     sizes="(max-width: 1024px) 100vw, 480px"
@@ -521,9 +522,12 @@ export function GentlemensClubPageContent() {
                   <p className="mt-4 text-2xl font-black text-[#FF2D8E]">
                     From $499<span className="text-base font-semibold text-gray-500">/session</span>
                   </p>
-                  <div className="mt-5 flex flex-col gap-3 sm:flex-row">
+                  <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
                     <CTA href="/services/hair-restoration-exosomes" variant="gradient" className="text-sm">
                       AnteAGE hair menu →
+                    </CTA>
+                    <CTA href="/quiz/hair-readiness" variant="outline" className="!border-white/30 !text-white text-sm">
+                      Hair screener (2 min)
                     </CTA>
                     <CTA href={BOOKING_URL} variant="outline" className="!border-white/30 !text-white text-sm">
                       Book consult
@@ -605,7 +609,7 @@ export function GentlemensClubPageContent() {
             <h2 className="font-serif text-2xl text-white">Not sure where to start?</h2>
             <p className="mt-2 text-gray-400">2-minute educational screeners — not a diagnosis.</p>
           </FadeUp>
-          <div className="mt-8 grid gap-4 md:grid-cols-2">
+          <div className="mt-8 grid gap-4 md:grid-cols-3">
             {GENTLEMENS_CLUB_SCREENERS.map((screener, i) => (
               <FadeUp key={screener.id} delayMs={i * 40}>
                 <Link

@@ -59,6 +59,12 @@ export const QUIZ_NAV = {
       sub: "2 min · men's testosterone & lab readiness",
       badge: "NEW",
     },
+    {
+      label: "Hair Restoration Screener",
+      href: "/quiz/hair-readiness",
+      sub: "2 min · thinning pattern, AnteAGE MDX & Rx readiness",
+      badge: "NEW",
+    },
   ] satisfies QuizNavLink[],
 };
 
