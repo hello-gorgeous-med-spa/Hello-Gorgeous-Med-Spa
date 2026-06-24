@@ -113,7 +113,9 @@ export function PeptideTherapyPageContent() {
         <div className="relative z-10 mx-auto grid max-w-6xl gap-10 px-4 py-16 md:px-6 md:py-20 lg:grid-cols-2 lg:items-center lg:gap-16">
           <FadeUp>
             <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#FFB8DC]">
-              Hello Gorgeous RX™ · Medical Services
+              <Link href="/medical" className="hover:text-white transition-colors">
+                Hello Gorgeous RX™ · Medical Services
+              </Link>
             </p>
             <h1 className="mt-4 text-4xl font-black leading-tight text-white md:text-5xl">
               Peptide Therapy &amp; Add-On Therapies

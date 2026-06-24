@@ -32,6 +32,7 @@ const PRIORITY_SERVICE_URLS = [
   "/botox-yorkville-il",
   "/services/botox",
   "/peptides",
+  "/medical",
   "/peptide-therapy-oswego",
   "/peptides/bpc-157",
   "/peptides/sermorelin",

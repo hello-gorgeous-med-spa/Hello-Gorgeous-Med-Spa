@@ -87,15 +87,15 @@ const NAV = {
         heading: "Medical & Wellness",
         links: [
           {
-            label: "Wellness Menu",
-            href: "/services/wellness",
-            sub: "IV therapy · Vitamin Bar · NAD+ · injection menu",
+            label: "Medical Optimization",
+            href: "/medical",
+            sub: "Hormones · GLP-1 · Peptides · IV & NAD+ — NP-supervised",
             badge: "NEW",
           },
           {
-            label: "Peptides Hub",
+            label: "Peptide Therapy",
             href: "/peptides",
-            sub: "BPC-157, Sermorelin, GHK-Cu, PT-141 & more",
+            sub: "Pricing, protocols & FAQs — Hello Gorgeous RX™",
             badge: "Rx",
           },
           {
@@ -104,12 +104,8 @@ const NAV = {
             sub: PEPTIDE_CONSULT_SPECIAL.detail,
             badge: "OFFER",
           },
-          {
-            label: "Peptide Therapy — Oswego",
-            href: "/peptide-therapy-oswego",
-            sub: "Provider-guided peptide programs · Oswego, IL",
-          },
-          { label: "Medical Weight Loss", href: "/rx/metabolic", sub: "GLP-1 & supervised programs" },
+          { label: "Wellness Menu", href: "/services/wellness", sub: "IV therapy · Vitamin Bar · injection menu" },
+          { label: "Medical Weight Loss", href: "/glp-1-weight-loss-oswego", sub: "GLP-1 semaglutide & tirzepatide" },
           { label: "Hormone Therapy", href: "/rx/hormones", sub: "Bio-identical hormone optimization" },
           { label: "All Services", href: "/services", sub: "Browse the full treatment menu" },
         ],

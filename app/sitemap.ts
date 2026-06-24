@@ -7,6 +7,7 @@ import { CONCERN_PAGES } from '@/lib/concern-pages';
 import { FUNNEL_DEFINITIONS } from '@/lib/funnels';
 import { AREA_PAGES, FAQ_CLUSTER_PAGES, RECOVERY_PAGES } from '@/lib/topical-expansion';
 import { SERVICE_PAGE_OSWEGO_SLUGS } from '@/lib/service-pages-oswego';
+import { MEDICAL_OPTIMIZATION_PATH } from '@/lib/medical-optimization';
 import { getPublishedPeptideTopics, PEPTIDES_HUB_PATH } from '@/lib/peptides-hub';
 import { SKIN_101_GUIDES, SKIN_101_PATH } from '@/lib/skin-101-nav';
 
@@ -779,6 +780,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: slug.startsWith('peptide-therapy') ? 0.95 : 0.8,
   }));
 
+  const medicalHubPages: MetadataRoute.Sitemap = [
+    {
+      url: `${baseUrl}${MEDICAL_OPTIMIZATION_PATH}`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly' as const,
+      priority: 0.95,
+    },
+  ];
+
   const TOPIC_PEPTIDE_SLUGS = new Set(['bpc-157', 'sermorelin', 'ghk-cu-injectable', 'pt-141', 'nad-plus']);
   const peptideHubPages: MetadataRoute.Sitemap = [
     {
@@ -906,6 +916,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...laserHairMembershipPages,
     ...springBreakPages,
     ...peptideHubPages,
+    ...medicalHubPages,
     ...skin101Pages,
     ...canonicalDestinations,
   ];
