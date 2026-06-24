@@ -12,6 +12,33 @@ export const LADIES_CLUB_URL = `${SITE.url}${LADIES_CLUB_PATH}`;
 
 export const LADIES_CLUB_HERO_IMAGE = "/images/ladies-club/weight-loss-hormones-women.png";
 export const LADIES_CLUB_WEIGHT_HORMONES_IMAGE = LADIES_CLUB_HERO_IMAGE;
+export const LADIES_CLUB_PT141_IMAGE = "/images/ladies-club/pt-141.png";
+
+export type ClubPeptideFlyer = {
+  id: string;
+  name: string;
+  tagline: string;
+  description: string;
+  bullets: string[];
+  fromMonthlyUsd: number;
+  image: string;
+  imageAlt: string;
+  learnMoreHref: string;
+};
+
+export const LADIES_CLUB_PT141_FLYER: ClubPeptideFlyer = {
+  id: "pt-141",
+  name: "PT-141",
+  tagline: "Intimacy, arousal & libido support",
+  description:
+    "Bremelanotide (PT-141) supports desire and arousal through central pathways — not estrogen or testosterone. A common add-on for women on BioTE or GLP-1 when clinically appropriate.",
+  bullets: ["Libido & arousal support", "Non-hormonal option", "Pairs with BioTE & GLP-1 plans"],
+  fromMonthlyUsd: 209,
+  image: LADIES_CLUB_PT141_IMAGE,
+  imageAlt:
+    "PT-141 peptide therapy for women's intimacy and libido — Hello Gorgeous Med Spa Oswego IL",
+  learnMoreHref: "/peptides/pt-141",
+};
 
 export const LADIES_CLUB_PILLS = ["HORMONES", "GLP-1", "PEPTIDES", "IV", "SKIN", "MEMBERSHIP"] as const;
 
@@ -98,8 +125,8 @@ export const LADIES_CLUB_SERVICES: LadiesClubService[] = [
     href: "/peptides",
     cta: "Peptide menu →",
     badge: "RX",
-    image: "/images/homepage-buyer-paths/hello-gorgeous-rx.png",
-    imageAlt: "Peptide therapy for women — Hello Gorgeous Med Spa Oswego IL",
+    image: LADIES_CLUB_PT141_IMAGE,
+    imageAlt: "PT-141 peptide therapy for women — intimacy and libido support at Hello Gorgeous Med Spa Oswego IL",
   },
   {
     id: "iv",

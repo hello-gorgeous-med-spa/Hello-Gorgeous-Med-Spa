@@ -29,6 +29,7 @@ import {
   GENTLEMENS_CLUB_LOW_T_SYMPTOMS,
   GENTLEMENS_CLUB_PILLARS,
   GENTLEMENS_CLUB_PILLS,
+  GENTLEMENS_CLUB_PT141_FLYER,
   GENTLEMENS_CLUB_SCREENERS,
   GENTLEMENS_CLUB_SERVICES,
   GENTLEMENS_CLUB_TIERS,
@@ -38,6 +39,7 @@ import {
   GENTLEMENS_CLUB_TRT_QUICK_FACTS,
 } from "@/lib/gentlemens-club";
 import { LADIES_CLUB_PATH } from "@/lib/ladies-club";
+import { PEPTIDE_CONSULT_FEE_USD } from "@/lib/peptide-request-menu";
 import { SITE } from "@/lib/seo";
 
 function MenuCard({
@@ -673,6 +675,62 @@ export function GentlemensClubPageContent() {
               {GENTLEMENS_CLUB_HAIR_DISCLAIMER}
             </p>
           </FadeUp>
+        </div>
+      </Section>
+
+      {/* PT-141 / peptides */}
+      <Section id="peptides" className="scroll-mt-24 border-t border-white/10 bg-[#1a1d24] !py-14 md:!py-20">
+        <div className="max-w-7xl mx-auto px-4 w-full">
+          <FadeUp>
+            <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-[#FF2D8E]">Hello Gorgeous RX™</p>
+            <h2 className="mt-2 text-center text-3xl font-black uppercase tracking-tight text-white md:text-4xl">
+              {GENTLEMENS_CLUB_PT141_FLYER.name} — {GENTLEMENS_CLUB_PT141_FLYER.tagline}
+            </h2>
+            <p className="mx-auto mt-4 max-w-2xl text-center text-gray-400">
+              {GENTLEMENS_CLUB_PT141_FLYER.description}
+            </p>
+          </FadeUp>
+          <div className="mt-10 grid gap-8 lg:grid-cols-2 lg:items-center">
+            <FadeUp delayMs={40}>
+              <div className="overflow-hidden rounded-2xl border-4 border-black bg-black shadow-[8px_8px_0_0_rgba(255,45,142,0.35)]">
+                <div className="relative aspect-[16/9] w-full">
+                  <Image
+                    src={GENTLEMENS_CLUB_PT141_FLYER.image}
+                    alt={GENTLEMENS_CLUB_PT141_FLYER.imageAlt}
+                    fill
+                    className="object-cover object-center"
+                    sizes="(max-width: 1024px) 100vw, 560px"
+                  />
+                </div>
+              </div>
+            </FadeUp>
+            <FadeUp delayMs={80}>
+              <ul className="space-y-3">
+                {GENTLEMENS_CLUB_PT141_FLYER.bullets.map((item) => (
+                  <li key={item} className="flex gap-3 text-sm font-semibold text-white/90">
+                    <span className="text-[#FF2D8E]">✓</span>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+              <p className="mt-6 text-2xl font-black text-white">
+                From ${GENTLEMENS_CLUB_PT141_FLYER.fromMonthlyUsd}
+                <span className="text-base font-semibold text-gray-500">/mo</span>
+              </p>
+              <p className="mt-2 text-sm text-gray-500">
+                ${PEPTIDE_CONSULT_FEE_USD} NP consult · medication billed separately
+              </p>
+              <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+                <CTA href={BOOKING_URL} variant="gradient">Book consult</CTA>
+                <CTA href={GENTLEMENS_CLUB_PT141_FLYER.learnMoreHref} variant="outline" className="!border-white/30 !text-white">
+                  PT-141 guide →
+                </CTA>
+                <CTA href="/peptides" variant="outline" className="!border-white/30 !text-white">
+                  Full peptide menu →
+                </CTA>
+              </div>
+            </FadeUp>
+          </div>
         </div>
       </Section>
 

@@ -20,11 +20,13 @@ import {
   LADIES_CLUB_MEMBERSHIP_TIERS,
   LADIES_CLUB_PILLARS,
   LADIES_CLUB_PILLS,
+  LADIES_CLUB_PT141_FLYER,
   LADIES_CLUB_SCREENERS,
   LADIES_CLUB_SERVICES,
   LADIES_CLUB_WEIGHT_HORMONES_IMAGE,
 } from "@/lib/ladies-club";
 import { PEPTIDE_RETAIL_FROM_MONTHLY_USD } from "@/lib/peptide-retail-pricing";
+import { PEPTIDE_CONSULT_FEE_USD } from "@/lib/peptide-request-menu";
 import { SITE } from "@/lib/seo";
 
 function ServiceCard({ svc }: { svc: (typeof LADIES_CLUB_SERVICES)[number] }) {
@@ -295,18 +297,59 @@ export function LadiesClubPageContent() {
         </div>
       </Section>
 
-      {/* Peptides */}
-      <Section id="peptides" className="scroll-mt-24 border-t border-white/10 bg-[#0a0a0a] !py-12 md:!py-16">
-        <div className="max-w-3xl mx-auto px-4 text-center">
+      {/* Peptides / PT-141 */}
+      <Section id="peptides" className="scroll-mt-24 border-t border-white/10 bg-[#0a0a0a] !py-14 md:!py-20">
+        <div className="max-w-7xl mx-auto px-4 w-full">
           <FadeUp>
-            <p className="text-xs font-bold uppercase tracking-wider text-gray-500">Hello Gorgeous RX™</p>
-            <h2 className="mt-3 text-2xl font-black text-white">Peptide therapy</h2>
-            <p className="mt-4 text-gray-400">
-              Recovery, skin, metabolism, sleep &amp; intimacy — protocols from ${PEPTIDE_RETAIL_FROM_MONTHLY_USD}/mo after NP
-              evaluation. Medication billed separately.
+            <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-[#FF2D8E]">Hello Gorgeous RX™</p>
+            <h2 className="mt-2 text-center text-3xl font-black uppercase tracking-tight text-white md:text-4xl">
+              {LADIES_CLUB_PT141_FLYER.name} — {LADIES_CLUB_PT141_FLYER.tagline}
+            </h2>
+            <p className="mx-auto mt-4 max-w-2xl text-center text-gray-400">
+              {LADIES_CLUB_PT141_FLYER.description} Protocols from ${PEPTIDE_RETAIL_FROM_MONTHLY_USD}/mo after evaluation.
             </p>
-            <CTA href="/peptides" variant="gradient" className="mt-8">View peptide menu</CTA>
           </FadeUp>
+          <div className="mt-10 grid gap-8 lg:grid-cols-2 lg:items-center">
+            <FadeUp delayMs={40}>
+              <div className="overflow-hidden rounded-2xl border-4 border-black bg-black shadow-[8px_8px_0_0_rgba(255,45,142,0.35)]">
+                <div className="relative aspect-[16/9] w-full">
+                  <Image
+                    src={LADIES_CLUB_PT141_FLYER.image}
+                    alt={LADIES_CLUB_PT141_FLYER.imageAlt}
+                    fill
+                    className="object-cover object-center"
+                    sizes="(max-width: 1024px) 100vw, 560px"
+                  />
+                </div>
+              </div>
+            </FadeUp>
+            <FadeUp delayMs={80}>
+              <ul className="space-y-3">
+                {LADIES_CLUB_PT141_FLYER.bullets.map((item) => (
+                  <li key={item} className="flex gap-3 text-sm font-semibold text-white/90">
+                    <span className="text-[#FF2D8E]">✓</span>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+              <p className="mt-6 text-2xl font-black text-white">
+                From ${LADIES_CLUB_PT141_FLYER.fromMonthlyUsd}
+                <span className="text-base font-semibold text-gray-500">/mo</span>
+              </p>
+              <p className="mt-2 text-sm text-gray-500">
+                ${PEPTIDE_CONSULT_FEE_USD} NP consult · medication billed separately
+              </p>
+              <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+                <CTA href={BOOKING_URL} variant="gradient">Book consult</CTA>
+                <CTA href={LADIES_CLUB_PT141_FLYER.learnMoreHref} variant="outline" className="!border-white/30 !text-white">
+                  PT-141 guide →
+                </CTA>
+                <CTA href="/peptides" variant="outline" className="!border-white/30 !text-white">
+                  Full peptide menu →
+                </CTA>
+              </div>
+            </FadeUp>
+          </div>
         </div>
       </Section>
 

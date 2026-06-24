@@ -69,6 +69,7 @@ export const GENTLEMENS_CLUB_JUMP_LINKS = [
   { label: "Hormones / TRT", href: "#hormones" },
   { label: "Add-ons", href: "#add-ons" },
   { label: "Hair", href: "#hair" },
+  { label: "Peptides", href: "#peptides" },
   { label: "Screeners", href: "#screeners" },
   { label: "Membership", href: "#pricing" },
   { label: "FAQ", href: "#faq" },
@@ -128,8 +129,8 @@ export const GENTLEMENS_CLUB_SERVICES: GentlemensClubService[] = [
     bullets: [`$${PEPTIDE_CONSULT_FEE_USD} consult`, `From $${PEPTIDE_RETAIL_FROM_MONTHLY_USD}/mo`, "US compounding pharmacies"],
     href: "/peptides",
     cta: "Peptide therapy hub →",
-    image: "/images/homepage-buyer-paths/hello-gorgeous-rx.png",
-    imageAlt: "Hello Gorgeous RX peptide therapy — BPC-157, Sermorelin, NAD+ and more in Oswego IL",
+    image: GENTLEMENS_CLUB_PEPTIDE_IMAGE,
+    imageAlt: "Peptide therapy for men — recovery, performance and wellness at Hello Gorgeous Med Spa Oswego IL",
   },
   {
     id: "glp1",
@@ -412,6 +413,34 @@ export const GENTLEMENS_CLUB_SCREENERS = [
 
 export const GENTLEMENS_CLUB_GLP1_IMAGE = "/images/gentlemens-club/glp-weight-loss-men.png";
 export const GENTLEMENS_CLUB_HORMONES_IMAGE = "/images/gentlemens-club/the-distinguished-hero.png";
+export const GENTLEMENS_CLUB_PEPTIDE_IMAGE = "/images/gentlemens-club/peptide-therapy-men.png";
+export const GENTLEMENS_CLUB_PT141_IMAGE = "/images/gentlemens-club/pt-141.png";
+
+export type ClubPeptideFlyer = {
+  id: string;
+  name: string;
+  tagline: string;
+  description: string;
+  bullets: string[];
+  fromMonthlyUsd: number;
+  image: string;
+  imageAlt: string;
+  learnMoreHref: string;
+};
+
+export const GENTLEMENS_CLUB_PT141_FLYER: ClubPeptideFlyer = {
+  id: "pt-141",
+  name: "PT-141",
+  tagline: "Intimacy, arousal & libido support",
+  description:
+    "Bremelanotide (PT-141) works on central arousal pathways — not testosterone. Often discussed for men alongside TRT or on its own when clinically appropriate.",
+  bullets: ["Libido & arousal support", "Non-hormonal pathway", "Private, discreet NP consults"],
+  fromMonthlyUsd: 209,
+  image: GENTLEMENS_CLUB_PT141_IMAGE,
+  imageAlt:
+    "PT-141 peptide therapy for men's intimacy and libido — Hello Gorgeous Med Spa Oswego IL",
+  learnMoreHref: "/peptides/pt-141",
+};
 /** @deprecated Use GENTLEMENS_CLUB_HORMONES_IMAGE */
 export const GENTLEMENS_CLUB_HERO_RX_IMAGE = GENTLEMENS_CLUB_HORMONES_IMAGE;
 
@@ -590,8 +619,8 @@ export const FOR_HIM_SERVICES = [
     badge: "NEW",
     href: "/peptides",
     cta: "View peptide menu",
-    image: "/images/homepage-buyer-paths/hello-gorgeous-rx.png",
-    imageAlt: "Hello Gorgeous RX peptide therapy for men — Oswego IL",
+    image: GENTLEMENS_CLUB_PEPTIDE_IMAGE,
+    imageAlt: "Peptide therapy for men — Hello Gorgeous Med Spa Oswego IL",
   },
   {
     id: "giftcard",
