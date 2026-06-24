@@ -15,6 +15,8 @@ import {
   REGENERATIVE_NAV,
   REGENERATIVE_NAV_FLAT_LINKS,
 } from "@/lib/regenerative-medicine-nav";
+import { GENTLEMENS_CLUB_PATH } from "@/lib/gentlemens-club";
+import { LADIES_CLUB_PATH } from "@/lib/ladies-club";
 import { isMedicalNavActive, MEDICAL_NAV, type MedicalNavLink } from "@/lib/medical-nav";
 import { isQuizNavActive, QUIZ_NAV, type QuizNavLink } from "@/lib/quiz-nav";
 import { HG_TAGLINE } from "@/lib/brand-tagline";
@@ -29,6 +31,41 @@ import type { CSSProperties } from "react";
 /* ─────────────────────────────────────────────────────────────
    NAV STRUCTURE — clean, client-first, no emojis
 ───────────────────────────────────────────────────────────── */
+
+const MICROBLADING_SERVICE_LINKS = [
+  {
+    label: "Brow PMU results (Oswego)",
+    href: "/microblading-brow-pmu-oswego-il",
+    sub: "Microblading, powder, combo & nano — before & after",
+    badge: "PMU",
+  },
+  {
+    label: "Your Brow Journey",
+    href: "/education/your-brow-journey",
+    sub: "Client-friendly step-by-step consult guide",
+  },
+  {
+    label: "Brow consultation intake",
+    href: "/forms/brow-intake",
+    sub: "Digital PMU health history and consent",
+  },
+  {
+    label: "Pre & post care guide",
+    href: "/pre-post-care/microblading",
+    sub: "Healing timeline, do's & don'ts",
+  },
+  {
+    label: "Your Brow Journey (PDF)",
+    href: "/handouts/education/your-brow-journey.pdf",
+    sub: "Print or AirDrop for clients",
+  },
+  {
+    label: "Consultation packet (PDF)",
+    href: "/handouts/education/brow-consultation-packet.pdf",
+    sub: "Full printable packet",
+    external: true,
+  },
+] as const;
 
 const NAV = {
   services: {
@@ -57,6 +94,10 @@ const NAV = {
             badge: "NEW",
           },
         ],
+      },
+      {
+        heading: "Brow PMU & Microblading",
+        links: [...MICROBLADING_SERVICE_LINKS],
       },
       {
         heading: "Injectables",
@@ -160,19 +201,6 @@ const NAV = {
       { label: "Consent & Documents", href: "/patient-documents", sub: "Forms, PDFs & consent" },
       { label: "Book Online", href: BOOKING_URL, sub: "Schedule via Fresha", external: true },
       { label: "Contact Us", href: "/contact", sub: "Hours, location & phone" },
-    ],
-  },
-  microblading: {
-    label: "Microblading",
-    href: "/pre-post-care/microblading",
-    links: [
-      { label: "Brow PMU results (Oswego)", href: "/microblading-brow-pmu-oswego-il", sub: "Microblading, powder, combo & nano — before & after" },
-      { label: "Microblading hub", href: "/admin/pmu-brows", sub: "All brow tools in one place (staff)", external: false },
-      { label: "Your Brow Journey", href: "/education/your-brow-journey", sub: "Client-friendly step-by-step consult guide" },
-      { label: "Brow consultation intake", href: "/forms/brow-intake", sub: "Digital PMU health history and consent" },
-      { label: "Pre & post care guide", href: "/pre-post-care/microblading", sub: "Healing timeline, do's & don'ts" },
-      { label: "Your Brow Journey (PDF)", href: "/handouts/education/your-brow-journey.pdf", sub: "Print or AirDrop for clients" },
-      { label: "Consultation packet (PDF)", href: "/handouts/education/brow-consultation-packet.pdf", sub: "Full printable packet", external: true },
     ],
   },
   skin101: SKIN_101_NAV,
@@ -654,7 +682,9 @@ export function Header() {
     );
 
   const isGentlemensClubActive =
-    pathname === "/gentlemens-club" || (pathname?.startsWith("/gentlemens-club/") ?? false);
+    pathname === GENTLEMENS_CLUB_PATH || (pathname?.startsWith(`${GENTLEMENS_CLUB_PATH}/`) ?? false);
+  const isLadiesClubActive =
+    pathname === LADIES_CLUB_PATH || (pathname?.startsWith(`${LADIES_CLUB_PATH}/`) ?? false);
   const isFinancingActive = pathname === "/financing" || pathname?.startsWith("/financing/");
 
   const isServicesNavActive =
@@ -675,15 +705,6 @@ export function Header() {
 
   const isMedicalNavActiveState = isMedicalNavActive(pathname ?? null);
   const isQuizNavActiveState = isQuizNavActive(pathname ?? null);
-
-  const isMicrobladingActive =
-    pathname === "/education/your-brow-journey" ||
-    pathname === "/forms/brow-intake" ||
-    pathname === "/microblading-brow-pmu-oswego-il" ||
-    pathname === "/pre-post-care/microblading" ||
-    pathname === "/handouts/education/your-brow-journey.pdf" ||
-    pathname === "/handouts/education/brow-consultation-packet.pdf" ||
-    pathname === "/admin/pmu-brows";
 
   const isSkin101NavActive = isSkin101Active(pathname ?? null);
 
@@ -855,11 +876,20 @@ export function Header() {
 
             {/* Gentlemen's Club */}
             <Link
-              href="/gentlemens-club"
+              href={GENTLEMENS_CLUB_PATH}
               className={NAV_LINK_BASE}
               style={navPillStyle(1, isGentlemensClubActive)}
             >
               Gentlemen&apos;s Club 👑
+            </Link>
+
+            {/* Ladies' Club */}
+            <Link
+              href={LADIES_CLUB_PATH}
+              className={NAV_LINK_BASE}
+              style={navPillStyle(1, isLadiesClubActive)}
+            >
+              Ladies&apos; Club 👑
             </Link>
 
             {/* 0% Financing */}
@@ -952,30 +982,6 @@ export function Header() {
               />
             </div>
 
-            {/* Microblading */}
-            <div
-              className="relative flex items-center"
-              onMouseEnter={() => openDropdown("microblading")}
-              onMouseLeave={closeDropdown}
-            >
-              <Link
-                href={NAV.microblading.href}
-                className={NAV_LINK_BASE}
-                style={navPillStyle(2, isMicrobladingActive)}
-              >
-                Microblading
-                <svg className={cx("h-3 w-3 transition-transform", activeDropdown === "microblading" && "rotate-180")} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                </svg>
-              </Link>
-              <SimpleMenu
-                data={NAV.microblading}
-                isOpen={activeDropdown === "microblading"}
-                onClose={() => setActiveDropdown(null)}
-                onMouseEnter={() => openDropdown("microblading")}
-                align="right"
-              />
-            </div>
         </nav>
       </div>
 
@@ -1041,7 +1047,6 @@ export function Header() {
               { key: "skin101", label: "Skin 101", links: NAV.skin101.links, highlight: true },
               { key: "about", label: "About", links: NAV.about.links },
               { key: "patient", label: "Patient Info", links: NAV.patient.links },
-              { key: "microblading", label: "Microblading", links: NAV.microblading.links, highlight: true },
             ].map(({ key, label, links, highlight }) => (
               <div key={key} className="border-b border-white/10 pb-1">
                 <button
@@ -1086,7 +1091,8 @@ export function Header() {
             {/* Standalone links */}
             {[
               { label: "Memberships ⭐", href: "/monthly-memberships", highlight: true },
-              { label: "Gentlemen's Club 👑", href: "/gentlemens-club", highlight: true },
+              { label: "Gentlemen's Club 👑", href: GENTLEMENS_CLUB_PATH, highlight: true },
+              { label: "Ladies' Club 👑", href: LADIES_CLUB_PATH, highlight: true },
               { label: "0% Financing", href: "/financing", highlight: true },
               { label: "Skin 101", href: "/skin-101", highlight: true },
               { label: "FAQ", href: "/faq" },
