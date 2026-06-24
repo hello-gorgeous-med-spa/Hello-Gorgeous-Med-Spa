@@ -452,7 +452,7 @@ export function GentlemensClubPageContent() {
           <FadeUp delayMs={120}>
             <p className="mt-8 max-w-3xl text-sm text-gray-500">
               Many patients add{" "}
-              <Link href="/peptide-therapy-men" className="text-[#FF2D8E] hover:underline">peptide therapy</Link>{" "}
+              <Link href="/peptides" className="text-[#FF2D8E] hover:underline">peptide therapy</Link>{" "}
               — Sermorelin, PT-141, or BPC-157 — as add-ons to any hormone protocol.
             </p>
           </FadeUp>

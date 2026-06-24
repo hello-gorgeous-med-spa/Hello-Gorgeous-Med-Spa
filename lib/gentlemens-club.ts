@@ -124,8 +124,8 @@ export const GENTLEMENS_CLUB_SERVICES: GentlemensClubService[] = [
     title: "Peptide Therapy",
     description: "BPC-157, Sermorelin, NAD+, Recovery Blend & more — NP-prescribed only.",
     bullets: [`$${PEPTIDE_CONSULT_FEE_USD} consult`, `From $${PEPTIDE_RETAIL_FROM_MONTHLY_USD}/mo`, "US compounding pharmacies"],
-    href: "/peptide-therapy-men",
-    cta: "Peptides for men →",
+    href: "/peptides",
+    cta: "Peptide therapy hub →",
   },
   {
     id: "glp1",
@@ -551,8 +551,8 @@ export const FOR_HIM_SERVICES = [
     label: "Peptide Therapy",
     blurb: "BPC-157, Sermorelin, NAD+, AOD-9604 & more. Recovery, performance, longevity.",
     badge: "NEW",
-    href: "/peptide-therapy-men",
-    cta: "Learn More",
+    href: "/peptides",
+    cta: "View peptide menu",
   },
   {
     id: "giftcard",

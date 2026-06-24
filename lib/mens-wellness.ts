@@ -79,7 +79,7 @@ export const MENS_WELLNESS_SERVICES: MensWellnessService[] = [
       "Recovery, sleep & longevity support",
       "Licensed US compounding pharmacies",
     ],
-    href: "/peptide-therapy-men",
+    href: "/peptides",
     cta: "Peptides for men →",
   },
   {

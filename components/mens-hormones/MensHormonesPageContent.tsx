@@ -236,7 +236,7 @@ export async function MensHormonesPageContent() {
           <FadeUp delayMs={120}>
             <p className="mt-8 max-w-3xl text-sm leading-relaxed text-neutral-600">
               Many patients add{" "}
-              <Link href="/peptide-therapy-men" className="font-semibold text-[#E6007E] hover:underline">
+              <Link href="/peptides" className="font-semibold text-[#E6007E] hover:underline">
                 peptide therapy
               </Link>{" "}
               to their hormone protocol — Sermorelin for growth hormone support, PT-141 for sexual health, or

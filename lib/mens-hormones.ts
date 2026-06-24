@@ -132,7 +132,7 @@ export const MENS_HORMONES_RELATED_LINKS = [
   { label: "TRT Readiness Screener (2 min)", href: "/quiz/trt-readiness" },
   { label: "Men's wellness hub — Brotox, peptides & more", href: "/gentlemens-club" },
   { label: "BioTE pellet therapy menu", href: "/biote-hormone-therapy-oswego" },
-  { label: "Peptide therapy for recovery & performance", href: "/peptide-therapy-men" },
+  { label: "Peptide therapy for recovery & performance", href: "/peptides" },
   { label: "GLP-1 medical weight loss", href: "/glp-1-weight-loss-oswego" },
   { label: "The Gentlemen's Club membership", href: "/gentlemens-club" },
 ] as const;

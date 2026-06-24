@@ -1436,7 +1436,7 @@ const FOR_HIM_SERVICES = [
     label: "Peptide Therapy",
     blurb: "BPC-157, Sermorelin, NAD+, AOD-9604 & more. Recovery, performance, longevity.",
     badge: "NEW",
-    href: "/peptide-therapy-men",
+    href: "/peptides",
     cta: "Learn More",
     accentIndex: 2,
   },
