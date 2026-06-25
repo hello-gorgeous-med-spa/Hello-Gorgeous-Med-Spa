@@ -283,6 +283,6 @@ export async function middleware(request: NextRequest) {
 // Only run middleware on specific paths — exclude .well-known, sitemaps, robots (Google crawlers need these)
 export const config = {
   matcher: [
-    '/((?!\\.well-known|sitemap\\.xml|image-sitemap\\.xml|robots\\.txt|googlee41c6e52f410edc4\\.html).*)',
+    '/((?!\\.well-known|sitemap\\.xml|image-sitemap\\.xml|robots\\.txt|googlee41c6e52f410edc4\\.html|1e428f21-53c7-468c-a7dc-a08cd89bfe42\\.html).*)',
   ],
 };
