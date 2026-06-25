@@ -1,11 +1,13 @@
 "use client";
 
+import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
-import { GetAppQrPromo } from "@/components/GetAppQrPromo";
 import { trackEvent } from "@/components/GoogleAnalytics";
 import { CLIENT_APP } from "@/lib/client-app";
 
+const PROMO_IMAGE = "/images/marketing/hello-gorgeous-app-popup-promo.png";
 const STORAGE_KEY = "hg_get_app_popup_dismissed";
 const SHOW_AFTER_MS = 3500;
 const SCROLL_THRESHOLD = 0.12;
@@ -87,48 +89,53 @@ export function GetAppPopup() {
 
   return (
     <div
-      className="fixed inset-0 z-[100] flex items-end justify-center p-3 sm:items-center sm:p-6"
+      className="fixed inset-0 z-[100] flex items-end justify-center p-2 sm:items-center sm:p-6"
       role="dialog"
       aria-modal="true"
       aria-labelledby="hg-get-app-popup-title"
     >
-      <div className="absolute inset-0 bg-black/60 backdrop-blur-[3px]" onClick={handleClose} aria-hidden="true" />
-      <div className="relative w-full max-w-md rounded-3xl border-4 border-black bg-white shadow-[10px_10px_0_0_rgba(230,0,126,0.45)] overflow-hidden">
-        <div
-          className="px-5 py-4 text-white border-b-4 border-black"
-          style={{ background: "linear-gradient(125deg, #FF2D8E 0%, #E6007E 45%, #9b0a4d 100%)" }}
+      <div className="absolute inset-0 bg-black/70 backdrop-blur-[4px]" onClick={handleClose} aria-hidden="true" />
+      <div className="relative w-full max-w-xl overflow-hidden rounded-2xl border border-white/10 shadow-[0_24px_80px_rgba(0,0,0,0.55)]">
+        <button
+          type="button"
+          onClick={handleClose}
+          className="absolute right-3 top-3 z-10 rounded-full border border-white/30 bg-black/50 p-2 text-white backdrop-blur-sm transition hover:bg-black/70"
+          aria-label="Close"
         >
-          <button
-            type="button"
-            onClick={handleClose}
-            className="absolute right-3 top-3 rounded-full border-2 border-white/40 bg-white/10 p-1.5 text-white hover:bg-white/25 transition"
-            aria-label="Close"
-          >
-            <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden>
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          </button>
-          <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#FFB8DC]">New · Oswego, IL</p>
-          <h2 id="hg-get-app-popup-title" className="mt-1 pr-8 text-xl sm:text-2xl font-black leading-tight">
-            Get the{" "}
-            <span className="text-[#FFB8DC]">{CLIENT_APP.shortName} App</span>
-          </h2>
-          <p className="mt-1 text-xs text-white/80">Scan the QR — add to your home screen in seconds.</p>
-        </div>
+          <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden>
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
 
-        <div className="px-5 py-6">
-          <GetAppQrPromo qrSize={168} utmMedium="popup" layout="stack" theme="light" />
-          <button
-            type="button"
-            onClick={() => {
-              trackEvent("popup_cta", { popup: "get_app", action: "dismiss" });
-              handleClose();
-            }}
-            className="mt-5 block w-full text-center text-xs text-black/45 hover:text-black/65"
-          >
-            Maybe later
-          </button>
-        </div>
+        <h2 id="hg-get-app-popup-title" className="sr-only">
+          Get the {CLIENT_APP.shortName} App — scan the QR code
+        </h2>
+
+        <Link
+          href={`${CLIENT_APP.path}?utm_source=website&utm_medium=popup&utm_campaign=get_app_promo`}
+          onClick={() => trackEvent("popup_cta", { popup: "get_app", action: "open_app" })}
+          className="block"
+        >
+          <Image
+            src={PROMO_IMAGE}
+            alt="Get the Hello Gorgeous App — scan QR to book Botox, facials, Morpheus8, Build Your IV Bag from $89, Vitamin Bar and more. Oswego, IL."
+            width={1024}
+            height={576}
+            className="block h-auto w-full"
+            priority
+          />
+        </Link>
+
+        <button
+          type="button"
+          onClick={() => {
+            trackEvent("popup_cta", { popup: "get_app", action: "dismiss" });
+            handleClose();
+          }}
+          className="absolute bottom-3 left-1/2 z-10 -translate-x-1/2 rounded-full bg-black/55 px-4 py-1.5 text-xs font-medium text-white/80 backdrop-blur-sm transition hover:bg-black/70 hover:text-white"
+        >
+          Maybe later
+        </button>
       </div>
     </div>
   );

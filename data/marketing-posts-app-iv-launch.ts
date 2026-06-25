@@ -93,3 +93,32 @@ ${APP_LAUNCH_URLS.ivBuilder}
 
 Get the full app (scan QR): ${APP_LAUNCH_URLS.getApp}
 Hello Gorgeous Med Spa · Oswego, IL`;
+
+/** App popup promo creative — Jun 2026 (FB + GBP) */
+export const APP_POPUP_PROMO_IMAGE = "/images/marketing/hello-gorgeous-app-popup-promo.png" as const;
+
+export const FACEBOOK_APP_POPUP_PROMO_POST = `📱 Get the Hello Gorgeous App — Oswego, IL
+
+Scan the QR · add to your home screen in seconds. No App Store download.
+
+✓ Book Botox, facials, Morpheus8 & more
+✓ Build Your IV Bag from $89
+✓ Vitamin Bar · deals · gift cards · rewards
+✓ Add to home screen — one tap forever
+
+Ryan Kent, FNP-BC on site 7 days a week · serving Naperville, Aurora & Plainfield.
+
+👉 Open the app: ${APP_LAUNCH_URLS.app}`;
+
+export const GOOGLE_APP_POPUP_PROMO_POST = `📱 Get the Hello Gorgeous App | Oswego, IL
+
+Your med spa in your pocket — scan our QR and add to your home screen in seconds. No App Store.
+
+✓ Book Botox, facials, Morpheus8 & medical weight loss
+✓ Build Your IV Bag from $89
+✓ Vitamin Bar · deals · gift cards · HG Rewards
+✓ Add to home screen — one tap forever
+
+Ryan Kent, FNP-BC · downtown Oswego at 74 W Washington St · Naperville, Aurora & Plainfield.
+
+Open the app: ${APP_LAUNCH_URLS.app}`;
