@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Suspense } from "react";
 
 import { CTA } from "@/components/CTA";
-import { PeptideEducationSection } from "@/components/peptides/PeptideEducationSection";
+import { PeptideGuideEmailCapture } from "@/components/peptides/PeptideGuideEmailCapture";
 import { PeptideHandoutsSection } from "@/components/peptides/PeptideHandoutsSection";
 import { PeptideHubFaqSection } from "@/components/peptides/PeptideHubFaqSection";
 import { FadeUp, Section } from "@/components/Section";
@@ -276,6 +276,9 @@ export function PeptideTherapyPageContent() {
                   Browse all {PEPTIDE_HANDOUTS.length} printable peptide guides ↓
                 </a>
               </p>
+              <div className="mt-8">
+                <PeptideGuideEmailCapture />
+              </div>
             </div>
           </FadeUp>
         </div>

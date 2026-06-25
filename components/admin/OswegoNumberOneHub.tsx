@@ -12,6 +12,7 @@ import {
   WEEKLY_SOCIAL_BLAST,
 } from "@/lib/oswego-dominance-playbook";
 import { OwnedListsPanel } from "@/components/admin/OwnedListsPanel";
+import { LapsedReactivationPanel } from "@/components/admin/LapsedReactivationPanel";
 
 type HubData = {
   ok: boolean;
@@ -31,6 +32,25 @@ type HubData = {
     rxIntakesLast7: number;
     rxIntakesLast30: number;
     rxStartsTargetPerWeek: number;
+    rxStartsSent7: number;
+    rxStartsSent30: number;
+    warmNurtureSent7: number;
+    peptideGuideLeads30: number;
+  };
+  rxGoal?: {
+    goalUsd: number;
+    goalStart: string;
+    goalEnd: string;
+    goalActive: boolean;
+    weeksRemaining: number;
+    estimatedRevenueUsd: number;
+    progressPercent: number;
+    rxStartsGoalPeriod: number;
+    startsNeededTotal: number;
+    startsRemaining: number;
+    weeklyStartsNeeded: number;
+    estimatedStartUsd: number;
+    onTrackWeeklyStarts: boolean;
   };
   warmLeads: Array<{
     submissionId: string;
@@ -96,6 +116,59 @@ export function OswegoNumberOneHub() {
           <QuickLink href="/review" label="Review QR" external />
         </div>
       </section>
+
+      {/* Empire scoreboard — $30k RX goal + weekly velocity */}
+      {data?.rxGoal ? (
+        <section className="rounded-2xl border-4 border-black bg-gradient-to-br from-[#FFF0F7] to-white p-5 shadow-[8px_8px_0_0_rgba(230,0,126,0.35)]">
+          <div className="flex flex-wrap items-start justify-between gap-3">
+            <div>
+              <h3 className="text-lg font-black text-black">Empire scoreboard · RX revenue</h3>
+              <p className="mt-1 text-sm text-black/65">
+                {OSWEGO_RX_GOAL_LABEL} · est. ${data.rxGoal.estimatedStartUsd}/start
+              </p>
+            </div>
+            <span
+              className={`rounded-full px-3 py-1 text-xs font-bold ${
+                data.rxGoal.onTrackWeeklyStarts
+                  ? "bg-green-100 text-green-800"
+                  : "bg-amber-100 text-amber-900"
+              }`}
+            >
+              {data.rxGoal.onTrackWeeklyStarts ? "On pace this week ✓" : "Push starts this week ↑"}
+            </span>
+          </div>
+          <div className="mt-4">
+            <div className="flex justify-between text-sm font-semibold">
+              <span className="text-[#E6007E]">
+                ${data.rxGoal.estimatedRevenueUsd.toLocaleString()} est.
+              </span>
+              <span className="text-black/60">${data.rxGoal.goalUsd.toLocaleString()} goal</span>
+            </div>
+            <div className="mt-2 h-4 overflow-hidden rounded-full border-2 border-black bg-white">
+              <div
+                className="h-full bg-gradient-to-r from-[#FF2D8E] to-[#E6007E] transition-all"
+                style={{ width: `${Math.max(data.rxGoal.progressPercent, 2)}%` }}
+              />
+            </div>
+            <p className="mt-2 text-xs text-black/60">
+              {data.rxGoal.rxStartsGoalPeriod} pharmacy sends · {data.rxGoal.startsRemaining} starts remaining ·{" "}
+              {data.rxGoal.goalActive
+                ? `${data.rxGoal.weeksRemaining} weeks left · need ~${data.rxGoal.weeklyStartsNeeded}/wk`
+                : `Goal runs ${data.rxGoal.goalStart} → ${data.rxGoal.goalEnd}`}
+            </p>
+          </div>
+          <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            <VelocityStat
+              label="RX starts sent (7d)"
+              value={data.velocity.rxStartsSent7}
+              target={data.velocity.rxStartsTargetPerWeek}
+            />
+            <VelocityStat label="RX starts sent (30d)" value={data.velocity.rxStartsSent30} />
+            <VelocityStat label="Auto nurture SMS (7d)" value={data.velocity.warmNurtureSent7} />
+            <VelocityStat label="Peptide guide leads (30d)" value={data.velocity.peptideGuideLeads30} />
+          </div>
+        </section>
+      ) : null}
 
       {/* Pillars */}
       <section className="grid gap-3 md:grid-cols-3">
@@ -176,7 +249,8 @@ export function OswegoNumberOneHub() {
           </Link>
         </div>
         <p className="mt-1 text-sm text-black/65">
-          Peptide + GLP-1 intakes not yet sent to pharmacy · goal {OSWEGO_RX_GOAL_LABEL}: $
+          Peptide + GLP-1 intakes not yet sent to pharmacy · auto 24h/72h SMS when{" "}
+          <code className="text-xs">WARM_LEAD_NURTURE_ENABLED=true</code> · goal {OSWEGO_RX_GOAL_LABEL}: $
           {OSWEGO_RX_GOAL_USD.toLocaleString()}
         </p>
         {!data?.warmLeads?.length ? (
@@ -220,6 +294,8 @@ export function OswegoNumberOneHub() {
       </section>
 
       <OwnedListsPanel />
+
+      <LapsedReactivationPanel />
 
       {/* Weekly social */}
       <section className="rounded-2xl border-2 border-black bg-[#FFF0F7] p-5">

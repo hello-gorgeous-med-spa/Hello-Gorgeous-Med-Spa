@@ -5,7 +5,15 @@
 import { NextResponse } from "next/server";
 
 import { getAiConciergeStaffSession } from "@/lib/ai-concierge/admin-auth";
-import { HG_GOOGLE_PLACE_ID, OSWEGO_RIVAL } from "@/lib/oswego-dominance-playbook";
+import {
+  OSWEGO_RX_ESTIMATED_START_USD,
+  OSWEGO_RX_GOAL_END,
+  OSWEGO_RX_GOAL_START,
+  OSWEGO_RX_GOAL_USD,
+  OSWEGO_RX_STARTS_TARGET_PER_WEEK,
+  HG_GOOGLE_PLACE_ID,
+  OSWEGO_RIVAL,
+} from "@/lib/oswego-dominance-playbook";
 import { getSupabaseAdminClient } from "@/lib/hgos/supabase-admin";
 import {
   RX_INTAKE_SLUGS,
@@ -97,9 +105,15 @@ export async function GET() {
   let rxIntakesLast7 = 0;
   let rxIntakesLast30 = 0;
   let warmLeads: WarmLead[] = [];
+  let rxStartsSent7 = 0;
+  let rxStartsSent30 = 0;
+  let rxStartsGoalPeriod = 0;
+  let peptideGuideLeads30 = 0;
+  let warmNurtureSent7 = 0;
 
   if (admin) {
-    const [asks7, asks30, templates] = await Promise.all([
+    const [asks7, asks30, templates, peptideGuides, nurture7, sent7, sent30, sentGoal] =
+      await Promise.all([
       admin
         .from("review_requests_sent")
         .select("id", { count: "exact", head: true })
@@ -109,10 +123,41 @@ export async function GET() {
         .select("id", { count: "exact", head: true })
         .gte("created_at", since30),
       admin.from("hg_form_templates").select("id, slug").in("slug", [...RX_INTAKE_SLUGS]),
+      admin
+        .from("feature_leads")
+        .select("id", { count: "exact", head: true })
+        .eq("source", "peptide_guide")
+        .gte("created_at", since30),
+      admin
+        .from("hg_warm_lead_nurture_log")
+        .select("id", { count: "exact", head: true })
+        .gte("sent_at", since7)
+        .eq("sms_success", true),
+      admin
+        .from("hg_rx_dispatch")
+        .select("submission_id", { count: "exact", head: true })
+        .eq("status", "sent")
+        .gte("updated_at", since7),
+      admin
+        .from("hg_rx_dispatch")
+        .select("submission_id", { count: "exact", head: true })
+        .eq("status", "sent")
+        .gte("updated_at", since30),
+      admin
+        .from("hg_rx_dispatch")
+        .select("submission_id", { count: "exact", head: true })
+        .eq("status", "sent")
+        .gte("updated_at", `${OSWEGO_RX_GOAL_START}T00:00:00.000Z`)
+        .lte("updated_at", `${OSWEGO_RX_GOAL_END}T23:59:59.999Z`),
     ]);
 
     reviewAsksLast7 = asks7.count ?? 0;
     reviewAsksLast30 = asks30.count ?? 0;
+    peptideGuideLeads30 = peptideGuides.count ?? 0;
+    warmNurtureSent7 = nurture7.error ? 0 : (nurture7.count ?? 0);
+    rxStartsSent7 = sent7.count ?? 0;
+    rxStartsSent30 = sent30.count ?? 0;
+    rxStartsGoalPeriod = sentGoal.count ?? 0;
 
     const templateIds = (templates.data ?? []).map((t: { id: string }) => t.id);
     if (templateIds.length > 0) {
@@ -193,6 +238,19 @@ export async function GET() {
     }
   }
 
+  const goalStartMs = new Date(`${OSWEGO_RX_GOAL_START}T00:00:00.000Z`).getTime();
+  const goalEndMs = new Date(`${OSWEGO_RX_GOAL_END}T23:59:59.999Z`).getTime();
+  const nowMs = Date.now();
+  const goalActive = nowMs >= goalStartMs && nowMs <= goalEndMs;
+  const msRemaining = Math.max(0, goalEndMs - nowMs);
+  const weeksRemaining = Math.ceil(msRemaining / (7 * 24 * 60 * 60 * 1000));
+  const estimatedRevenueUsd = rxStartsGoalPeriod * OSWEGO_RX_ESTIMATED_START_USD;
+  const progressPercent = Math.min(100, Math.round((estimatedRevenueUsd / OSWEGO_RX_GOAL_USD) * 100));
+  const startsNeededTotal = Math.ceil(OSWEGO_RX_GOAL_USD / OSWEGO_RX_ESTIMATED_START_USD);
+  const startsRemaining = Math.max(0, startsNeededTotal - rxStartsGoalPeriod);
+  const weeklyStartsNeeded =
+    weeksRemaining > 0 ? Math.ceil(startsRemaining / weeksRemaining) : startsRemaining;
+
   return NextResponse.json({
     ok: true,
     generatedAt: new Date().toISOString(),
@@ -222,7 +280,26 @@ export async function GET() {
       reviewTargetPerWeek: 5,
       rxIntakesLast7,
       rxIntakesLast30,
-      rxStartsTargetPerWeek: 3,
+      rxStartsTargetPerWeek: OSWEGO_RX_STARTS_TARGET_PER_WEEK,
+      rxStartsSent7,
+      rxStartsSent30,
+      warmNurtureSent7,
+      peptideGuideLeads30,
+    },
+    rxGoal: {
+      goalUsd: OSWEGO_RX_GOAL_USD,
+      goalStart: OSWEGO_RX_GOAL_START,
+      goalEnd: OSWEGO_RX_GOAL_END,
+      goalActive,
+      weeksRemaining,
+      estimatedRevenueUsd,
+      progressPercent,
+      rxStartsGoalPeriod,
+      startsNeededTotal,
+      startsRemaining,
+      weeklyStartsNeeded,
+      estimatedStartUsd: OSWEGO_RX_ESTIMATED_START_USD,
+      onTrackWeeklyStarts: rxStartsSent7 >= OSWEGO_RX_STARTS_TARGET_PER_WEEK,
     },
     warmLeads,
   });

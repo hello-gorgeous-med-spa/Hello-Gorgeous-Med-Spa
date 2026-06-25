@@ -34,3 +34,37 @@ export function firstNameFromPatient(patientName: string): string {
   const part = patientName.trim().split(/\s+/)[0];
   return part && part !== "Unknown" ? part : "there";
 }
+
+export type WarmLeadNurtureStage = "24h" | "72h";
+
+export function warmLeadNurtureMessage(
+  firstName: string,
+  track: WarmLeadSmsTrack,
+  stage: WarmLeadNurtureStage,
+): string {
+  const name = firstName.trim() || "there";
+  const book = `${BASE()}/book?utm_source=sms&utm_medium=auto&utm_campaign=warm_nurture_${stage}`;
+  const phone = SITE.phone;
+
+  if (stage === "24h") {
+    if (track === "glp1") {
+      return `Hi ${name}, following up on your GLP-1 inquiry at Hello Gorgeous Oswego. Ready to book your NP consult? ${book} Questions? ${phone} Reply STOP to opt out.`;
+    }
+    if (track === "peptide") {
+      const guides = `${BASE()}/peptides?utm_source=sms&utm_medium=auto&utm_campaign=warm_nurture_${stage}`;
+      return `Hi ${name}, following up on your peptide inquiry at Hello Gorgeous. Free goal guide: ${guides} · Book $49 consult: ${book} Call ${phone} Reply STOP to opt out.`;
+    }
+    return `Hi ${name}, Hello Gorgeous Oswego — still interested in our RX programs? Book: ${book} or call ${phone}. Reply STOP to opt out.`;
+  }
+
+  // 72h
+  if (track === "glp1") {
+    const hub = `${BASE()}/glp-1-weight-loss-oswego?utm_source=sms&utm_medium=auto&utm_campaign=warm_nurture_72h`;
+    return `${name}, last check-in from Hello Gorgeous re: GLP-1 — published pricing & NP oversight: ${hub} Book this week: ${book} ${phone} Reply STOP to opt out.`;
+  }
+  if (track === "peptide") {
+    const guides = `${BASE()}/peptides?utm_source=sms&utm_medium=auto&utm_campaign=warm_nurture_72h`;
+    return `${name}, still exploring peptides? Download our free guides (no signup): ${guides} · $49 NP consult: ${book} Hello Gorgeous ${phone} Reply STOP to opt out.`;
+  }
+  return `${name}, Hello Gorgeous Oswego — we haven't heard back on your RX inquiry. Book when ready: ${book} ${phone} Reply STOP to opt out.`;
+}

@@ -1,6 +1,6 @@
 /**
  * GET /api/leads — List feature leads (admin only).
- * Query: ?source=face_blueprint|journey|hormone|lip_studio & limit=100 & offset=0
+ * Query: ?source=face_blueprint|journey|hormone|lip_studio|peptide_guide & limit=100 & offset=0
  *
  * POST /api/leads — Capture email + phone + opt-in before unlocking a feature.
  * Also records into unified leads table (Client Intelligence Engine).
@@ -12,13 +12,15 @@ import { createAdminSupabaseClient } from "@/lib/hgos/supabase";
 import { recordLead, getUTMFromRequest } from "@/lib/leads";
 
 const FEATURE_SOURCES = ["face_blueprint", "journey", "hormone", "lip_studio"] as const;
+const GUIDE_SOURCES = ["peptide_guide"] as const;
 const GENERIC_SOURCES = ["exit_intent", "subscribe", "popup", "footer", "homepage"] as const;
-const ALL_SOURCES = [...FEATURE_SOURCES, ...GENERIC_SOURCES] as const;
+const ALL_SOURCES = [...FEATURE_SOURCES, ...GUIDE_SOURCES, ...GENERIC_SOURCES] as const;
 const SOURCE_TO_LEAD_TYPE: Record<string, string> = { 
   face_blueprint: "face", 
   journey: "roadmap", 
   hormone: "hormone", 
   lip_studio: "face",
+  peptide_guide: "peptide",
   exit_intent: "subscribe",
   subscribe: "subscribe",
   popup: "subscribe",
@@ -50,7 +52,7 @@ export async function GET(request: NextRequest) {
     .order("created_at", { ascending: false })
     .range(offset, offset + limit - 1);
 
-  if (source && FEATURE_SOURCES.includes(source as (typeof FEATURE_SOURCES)[number])) {
+  if (source && (FEATURE_SOURCES.includes(source as (typeof FEATURE_SOURCES)[number]) || GUIDE_SOURCES.includes(source as (typeof GUIDE_SOURCES)[number]))) {
     query = query.eq("source", source);
   }
 
@@ -72,19 +74,20 @@ export async function POST(request: NextRequest) {
     const src = typeof source === "string" && ALL_SOURCES.includes(source as (typeof ALL_SOURCES)[number]) ? source : null;
     const optIn = Boolean(marketing_opt_in);
     const isFeatureSource = src && FEATURE_SOURCES.includes(src as (typeof FEATURE_SOURCES)[number]);
+    const isGuideSource = src && GUIDE_SOURCES.includes(src as (typeof GUIDE_SOURCES)[number]);
 
     if (!emailTrim || !EMAIL_REGEX.test(emailTrim)) {
       return NextResponse.json({ error: "Valid email is required" }, { status: 400 });
     }
-    // Phone only required for feature gate sources
+    // Phone required for interactive feature gates (not guide downloads)
     if (isFeatureSource && (!phoneTrim || !PHONE_REGEX.test(phoneTrim))) {
       return NextResponse.json({ error: "Valid phone number is required" }, { status: 400 });
     }
     if (!src) {
       return NextResponse.json({ error: "Invalid source" }, { status: 400 });
     }
-    // Opt-in only required for feature gate sources
-    if (isFeatureSource && !optIn) {
+    // Opt-in required for feature + guide captures
+    if ((isFeatureSource || isGuideSource) && !optIn) {
       return NextResponse.json(
         { error: "Please agree to receive updates and marketing to continue" },
         { status: 400 }
@@ -93,11 +96,10 @@ export async function POST(request: NextRequest) {
 
     const supabase = createAdminSupabaseClient();
     if (supabase) {
-      // Feature leads table (only for feature gate sources)
-      if (isFeatureSource) {
+      if (isFeatureSource || isGuideSource) {
         await supabase.from("feature_leads").insert({
           email: emailTrim,
-          phone: phoneTrim,
+          phone: phoneTrim || null,
           source: src,
           marketing_opt_in: optIn,
         });

@@ -5,6 +5,11 @@
 
 export const OSWEGO_RX_GOAL_USD = 30_000;
 export const OSWEGO_RX_GOAL_LABEL = "Peptide + GLP-1 gross revenue (Jul–Dec 2026)";
+export const OSWEGO_RX_GOAL_START = "2026-07-01";
+export const OSWEGO_RX_GOAL_END = "2026-12-31";
+/** Conservative first-month gross per RX start (GLP-1 + peptide blend). */
+export const OSWEGO_RX_ESTIMATED_START_USD = 350;
+export const OSWEGO_RX_STARTS_TARGET_PER_WEEK = 3;
 
 export const OSWEGO_RIVAL = {
   name: "HER Aesthetics",

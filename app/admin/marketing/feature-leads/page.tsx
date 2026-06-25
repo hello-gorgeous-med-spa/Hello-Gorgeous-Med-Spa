@@ -2,7 +2,7 @@
 
 // ============================================================
 // FEATURE LEADS ADMIN PAGE
-// List leads from Face Blueprint, Journey, Harmony AI, Lip Studio.
+// List leads from Face Blueprint, Journey, Harmony AI, Lip Studio, Peptide Guide.
 // Export CSV, add to Admin Contact Collection, sync to Square.
 // ============================================================
 
@@ -17,6 +17,7 @@ const SOURCES = [
   { value: 'journey', label: 'Your Journey' },
   { value: 'hormone', label: 'Harmony AI' },
   { value: 'lip_studio', label: 'Lip Studio' },
+  { value: 'peptide_guide', label: 'Peptide Guide' },
 ] as const;
 
 const SOURCE_LABEL: Record<string, string> = {
@@ -24,6 +25,7 @@ const SOURCE_LABEL: Record<string, string> = {
   journey: 'Your Journey',
   hormone: 'Harmony AI',
   lip_studio: 'Lip Studio',
+  peptide_guide: 'Peptide Guide',
 };
 
 interface Lead {
@@ -41,6 +43,11 @@ export default function FeatureLeadsPage() {
   const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(true);
   const [sourceFilter, setSourceFilter] = useState('');
+
+  useEffect(() => {
+    const s = new URLSearchParams(window.location.search).get('source');
+    if (s) setSourceFilter(s);
+  }, []);
   const [syncingMarketing, setSyncingMarketing] = useState(false);
   const [syncingSquare, setSyncingSquare] = useState(false);
 
@@ -127,7 +134,7 @@ export default function FeatureLeadsPage() {
       <div>
         <h1 className="text-2xl font-bold text-black">Feature Leads</h1>
         <p className="text-black">
-          Leads captured from Face Blueprint, Your Journey, Harmony AI, and Lip Studio. Add them to Contact Collection or Square for email marketing.
+          Leads captured from Face Blueprint, Your Journey, Harmony AI, Lip Studio, and Peptide Guide (/peptides). Add them to Contact Collection or Square for email marketing.
         </p>
       </div>
 
@@ -211,7 +218,7 @@ export default function FeatureLeadsPage() {
                   <td colSpan={5} className="px-6 py-12 text-center">
                     <div className="text-black mb-2">📭</div>
                     <p className="text-black">No leads yet</p>
-                    <p className="text-sm text-black">Leads will appear here when visitors use Face Blueprint, Journey, Harmony AI, or Lip Studio</p>
+                    <p className="text-sm text-black">Leads will appear here when visitors use Face Blueprint, Journey, Harmony AI, Lip Studio, or join the peptide guide list</p>
                   </td>
                 </tr>
               ) : (

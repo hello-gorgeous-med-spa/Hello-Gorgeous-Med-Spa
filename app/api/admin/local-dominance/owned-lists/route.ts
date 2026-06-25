@@ -36,6 +36,7 @@ export async function GET() {
   let smsOptIn = 0;
   let featureLeadsTotal = 0;
   let featureLeadsOptIn = 0;
+  let peptideGuideLeadsOptIn = 0;
   let warmRxLeads = 0;
   let vipWaitlistPending = 0;
   let squareLinkedClients = 0;
@@ -46,6 +47,7 @@ export async function GET() {
       smsOpt,
       featureTotal,
       featureOpt,
+      peptideGuideOpt,
       squareClients,
       vipPending,
       templates,
@@ -64,6 +66,11 @@ export async function GET() {
         .select("id", { count: "exact", head: true })
         .eq("marketing_opt_in", true),
       admin
+        .from("feature_leads")
+        .select("id", { count: "exact", head: true })
+        .eq("source", "peptide_guide")
+        .eq("marketing_opt_in", true),
+      admin
         .from("clients")
         .select("id", { count: "exact", head: true })
         .not("square_customer_id", "is", null),
@@ -78,6 +85,7 @@ export async function GET() {
     smsOptIn = smsOpt.count ?? 0;
     featureLeadsTotal = featureTotal.count ?? 0;
     featureLeadsOptIn = featureOpt.count ?? 0;
+    peptideGuideLeadsOptIn = peptideGuideOpt.count ?? 0;
     squareLinkedClients = squareClients.count ?? 0;
     vipWaitlistPending = vipPending.count ?? 0;
 
@@ -162,6 +170,14 @@ export async function GET() {
       href: "/admin/marketing/contacts",
     },
     {
+      id: "peptide-guide-leads",
+      label: "Peptide guide downloads (opted in)",
+      count: peptideGuideLeadsOptIn,
+      hint: "From /peptides optional email capture",
+      href: "/admin/marketing/feature-leads?source=peptide_guide",
+      highlight: peptideGuideLeadsOptIn > 0,
+    },
+    {
       id: "feature-leads",
       label: "Feature leads (opted in)",
       count: featureLeadsOptIn,
@@ -207,6 +223,7 @@ export async function GET() {
       smsOptIn,
       featureLeadsTotal,
       featureLeadsOptIn,
+      peptideGuideLeadsOptIn,
       warmRxLeads,
       vipWaitlistPending,
       squareLinkedClients,

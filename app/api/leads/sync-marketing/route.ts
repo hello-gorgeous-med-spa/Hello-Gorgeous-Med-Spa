@@ -27,6 +27,7 @@ const SOURCE_LABEL: Record<string, string> = {
   journey: 'Journey',
   hormone: 'Harmony AI',
   lip_studio: 'Lip Studio',
+  peptide_guide: 'Peptide Guide',
 };
 
 export async function POST(request: NextRequest) {

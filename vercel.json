@@ -72,6 +72,10 @@
       "schedule": "0 12 * * 1"
     },
     {
+      "path": "/api/cron/warm-lead-nurture",
+      "schedule": "0 15 * * *"
+    },
+    {
       "path": "/api/hub/plaid/sync",
       "schedule": "0 11 * * *"
     },
