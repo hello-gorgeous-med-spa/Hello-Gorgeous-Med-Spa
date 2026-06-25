@@ -31,6 +31,7 @@ const QUICK_VENDORS = [
   { name: 'Skin Script', url: 'https://skinscriptrx.com/', icon: '🧴', color: 'text-green-300' },
   { name: 'Olympia', url: 'https://olympiapharmacy.drscriptportal.com/dashboard', icon: '💊', color: 'text-violet-300' },
   { name: 'Formulation', url: 'https://fccrxportal.com/dashboard', icon: '🧪', color: 'text-rose-300' },
+  { name: 'BoomRx', url: 'https://portal.boomrx.com/en-US/boomrx/prescriptions', icon: '💊', color: 'text-indigo-300' },
   { name: 'Amazon', url: 'https://www.amazon.com/gc/balance', icon: '📦', color: 'text-orange-300' },
   { name: 'Allē Portal', url: 'https://provider.alle.com/', icon: '⭐', color: 'text-yellow-300' },
 ];

@@ -16,6 +16,7 @@ const MAIN_NAV: { href: string; label: string; icon: string }[] = [
   { href: '/admin/clients', label: 'Clients', icon: '👥' },
   { href: '/admin/unit-bank', label: 'Unit Bank', icon: '💉' },
   { href: '/admin/rx-invoices', label: 'RX Invoices', icon: '💊' },
+  { href: '/admin/rx-dispatch', label: 'RX Dispatch', icon: '📤' },
   { href: '/admin/scan', label: 'Scan Client', icon: '📷' },
   { href: '/admin/charting', label: 'Charting', icon: '📋' },
   { href: '/admin/procedures/contour-lift', label: 'Contour / Quantum', icon: '⚡' },
