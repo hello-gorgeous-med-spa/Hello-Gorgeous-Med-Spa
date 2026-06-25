@@ -1,9 +1,14 @@
 import Image from "next/image";
 import Link from "next/link";
+import { Suspense } from "react";
 
 import { CTA } from "@/components/CTA";
+import { PeptideEducationSection } from "@/components/peptides/PeptideEducationSection";
+import { PeptideHandoutsSection } from "@/components/peptides/PeptideHandoutsSection";
 import { PeptideHubFaqSection } from "@/components/peptides/PeptideHubFaqSection";
 import { FadeUp, Section } from "@/components/Section";
+import { FIND_YOUR_PEPTIDE_GUIDE } from "@/data/skin-101-find-your-peptide-guide";
+import { getPeptideHandout, PEPTIDE_HANDOUTS, peptideHandoutHref } from "@/lib/peptide-handouts";
 import { HELLO_GORGEOUS_RX_START_PATH, PEPTIDE_REQUEST_PATH } from "@/lib/flows";
 import { RYAN_FULL_NAME } from "@/lib/founder-credentials";
 import {
@@ -110,6 +115,8 @@ function PeptideCard({
 export function PeptideTherapyPageContent() {
   const protocolRows = PEPTIDE_CATALOG.filter((p) => p.prepayEligible);
   const pricingGroups = peptideRetailMenuByCategory();
+  const findYourPeptideHandout = getPeptideHandout("find-your-peptide");
+  const peptides101Handout = getPeptideHandout("peptides-101");
 
   return (
     <>
@@ -148,9 +155,16 @@ export function PeptideTherapyPageContent() {
               Medically reviewed by {RYAN_FULL_NAME} · Updated{" "}
               {new Date().toLocaleDateString("en-US", { month: "long", year: "numeric" })}
             </p>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
               <CTA href={HELLO_GORGEOUS_RX_START_PATH} variant="gradient" className="px-8 py-4">
                 Book ${PEPTIDE_CONSULT_FEE_USD} Consult
+              </CTA>
+              <CTA
+                href="#patient-handouts"
+                variant="outline"
+                className="border-white/30 px-8 py-4 text-white hover:bg-white hover:text-black"
+              >
+                Download free guides
               </CTA>
               <CTA
                 href={PEPTIDE_REQUEST_PATH}
@@ -171,6 +185,97 @@ export function PeptideTherapyPageContent() {
                 sizes="(max-width: 1024px) 100vw, 480px"
                 priority
               />
+            </div>
+          </FadeUp>
+        </div>
+      </Section>
+
+      {/* Free peptide guides — no email gate */}
+      <Section id="free-peptide-guides" className="border-b-4 border-black bg-gradient-to-b from-[#FFF0F7] to-white scroll-mt-20">
+        <div className="mx-auto max-w-5xl">
+          <FadeUp>
+            <div className="rounded-3xl border-4 border-black bg-white p-6 shadow-[8px_8px_0_0_rgba(230,0,126,0.35)] md:p-10">
+              <div className="flex flex-wrap items-center gap-3">
+                <span className="rounded-xl border-2 border-black bg-gradient-to-r from-[#FF2D8E] to-[#E6007E] px-3 py-1 text-xs font-bold uppercase tracking-wider text-white">
+                  Free download
+                </span>
+                <span className="text-xs font-semibold uppercase tracking-widest text-black/50">
+                  Hello Gorgeous RX™ patient education
+                </span>
+              </div>
+              <h2 className="mt-4 text-2xl font-black text-black md:text-3xl">
+                Download Danielle&apos;s{" "}
+                <span className="text-[#E6007E]">peptide guides</span> — no signup required
+              </h2>
+              <p className="mt-4 max-w-3xl text-base leading-relaxed text-black/80">
+                Match your goals to BPC-157, Sermorelin, NAD+, GHK-Cu, PT-141 and more. Open any
+                guide in your browser, then print or save as PDF. Bring it to your ${PEPTIDE_CONSULT_FEE_USD}{" "}
+                NP consult in Oswego.
+              </p>
+              <div className="mt-8 grid gap-4 md:grid-cols-2">
+                <div className="rounded-2xl border-2 border-black/10 bg-rose-50/60 p-5">
+                  <p className="text-[10px] font-bold uppercase tracking-widest text-[#E6007E]">
+                    {findYourPeptideHandout?.badge ?? "Featured"} · Goal matcher
+                  </p>
+                  <h3 className="mt-2 text-lg font-black text-black">{FIND_YOUR_PEPTIDE_GUIDE.title}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-black/75">
+                    {FIND_YOUR_PEPTIDE_GUIDE.subtitle} — nine wellness goals mapped to the peptides
+                    our team discusses most.
+                  </p>
+                  <div className="mt-4 flex flex-col gap-2 sm:flex-row">
+                    <a
+                      href={FIND_YOUR_PEPTIDE_GUIDE.handoutPath}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex min-h-[44px] flex-1 items-center justify-center rounded-full bg-[#E6007E] px-4 py-2.5 text-sm font-bold text-white transition hover:bg-[#c9006e]"
+                    >
+                      Download handout →
+                    </a>
+                    <Link
+                      href="/skin-101/find-your-peptide"
+                      className="inline-flex min-h-[44px] flex-1 items-center justify-center rounded-full border-2 border-[#E6007E] px-4 py-2.5 text-sm font-semibold text-[#E6007E] transition hover:bg-[#E6007E] hover:text-white"
+                    >
+                      Interactive guide →
+                    </Link>
+                  </div>
+                </div>
+                {peptides101Handout ? (
+                  <div className="rounded-2xl border-2 border-black/10 bg-neutral-50 p-5">
+                    <p className="text-[10px] font-bold uppercase tracking-widest text-[#E6007E]">
+                      {peptides101Handout.badge ?? "Start here"} · Foundations
+                    </p>
+                    <h3 className="mt-2 text-lg font-black text-black">{peptides101Handout.title}</h3>
+                    <p className="mt-2 text-sm leading-relaxed text-black/75">
+                      {peptides101Handout.description}
+                    </p>
+                    <div className="mt-4 flex flex-col gap-2 sm:flex-row">
+                      <a
+                        href={peptideHandoutHref(peptides101Handout.filename)}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex min-h-[44px] flex-1 items-center justify-center rounded-full bg-black px-4 py-2.5 text-sm font-bold text-white transition hover:bg-neutral-800"
+                      >
+                        View handout →
+                      </a>
+                      <a
+                        href="/handouts/education/peptides-101-guide.pdf"
+                        download
+                        className="inline-flex min-h-[44px] flex-1 items-center justify-center rounded-full border-2 border-black px-4 py-2.5 text-sm font-semibold text-black transition hover:bg-black hover:text-white"
+                      >
+                        Download PDF →
+                      </a>
+                    </div>
+                  </div>
+                ) : null}
+              </div>
+              <p className="mt-6 text-center text-sm">
+                <a
+                  href="#patient-handouts"
+                  className="font-semibold text-[#E6007E] underline decoration-[#E6007E] underline-offset-4"
+                >
+                  Browse all {PEPTIDE_HANDOUTS.length} printable peptide guides ↓
+                </a>
+              </p>
             </div>
           </FadeUp>
         </div>
@@ -491,6 +596,12 @@ export function PeptideTherapyPageContent() {
           </FadeUp>
         </div>
       </Section>
+
+      <Suspense fallback={null}>
+        <PeptideEducationSection />
+      </Suspense>
+
+      <PeptideHandoutsSection />
 
       <PeptideHubFaqSection />
 
