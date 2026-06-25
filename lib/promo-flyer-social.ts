@@ -53,6 +53,21 @@ Book your free consultation — link below.`,
     imagePath: "/images/promo/solaria-co2-promo-flyer.png",
   },
   {
+    id: "peak-performance-profile",
+    label: "Peak Performance Profile — $199 lab panel",
+    message: `🔬 Peak Performance Profile — $199 Cash Pay | Hello Gorgeous Med Spa · Oswego, IL
+
+Wellness lab panel for energy, hormones, metabolism & heart health — results typically in 24 hours. No insurance required.
+
+✓ Hormone snapshot · metabolic check · energy + thyroid markers
+For women + men who want real data behind wellness, weight, hormones & performance.
+
+Ryan Kent, FNP-BC · serving Naperville, Aurora & Plainfield.
+Book your lab panel — link below.`,
+    link: `${base}/app?utm_source=social&utm_medium=peak_performance_profile&utm_campaign=lab_panel_199`,
+    imagePath: "/images/promo/peak-performance-profile-flyer.png",
+  },
+  {
     id: "signature-treatment-menu",
     label: "Signature Treatment Menu poster",
     message: `✨ Signature Treatment Menu at Hello Gorgeous Med Spa — Oswego, IL
