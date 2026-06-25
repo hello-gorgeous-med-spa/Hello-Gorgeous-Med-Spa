@@ -99,6 +99,7 @@ function MarketingContent() {
       {tab === 'overview' && (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {[
+            { href: '/admin/local-dominance-sprint', icon: '🏆', title: 'Oswego #1 Command Center', desc: 'Beat HER · warm RX leads · GBP checklist · weekly social blast' },
             { href: '/admin/marketing/social-content-agent', icon: '🤖', title: 'Social Content Agent', desc: 'Facebook presets + queue a week — then edit or post' },
             { href: '/admin/marketing/post-social', icon: '📲', title: 'Post to Social', desc: 'Google Business, Facebook, Instagram from one screen' },
             { onClick: () => setTab('campaigns'), icon: '📧', title: 'SMS / Email campaigns', desc: 'Create and send campaigns to segments' },

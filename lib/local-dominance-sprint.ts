@@ -21,6 +21,61 @@ export type SprintCampaign = {
 
 export const LOCAL_DOMINANCE_TASKS: SprintTask[] = [
   {
+    id: "beat-her-reviews",
+    title: "Beat HER Aesthetics on Google (Oswego)",
+    priority: "high",
+    owner: "front-desk",
+    route: "/review",
+    why: "HER is your #1 Oswego rival — review count and star rating drive map-pack rank for Botox and med spa searches.",
+    checklist: [
+      "Ask 5 happy clients this week (GLP-1 wins, natural Botox, peptide recovery)",
+      "QR at checkout → hellogorgeousmedspa.com/review",
+      "Reply to every Google review within 24h (HIPAA-safe — no medical details)",
+      "Check Oswego hub for reviews needed to pass HER",
+    ],
+  },
+  {
+    id: "oswego-social-blast",
+    title: "Run Mon / Wed / Fri social blast",
+    priority: "high",
+    owner: "marketing",
+    route: "/admin/marketing/post-social",
+    why: "Consistent local posts compound — presets are loaded for memberships, GLP-1, and peptides.",
+    checklist: [
+      "Monday: Blast — Memberships (Google + Facebook)",
+      "Wednesday: Blast — GLP-1 published pricing",
+      "Friday: Blast — Peptides + app (Facebook) + wellness hub (Google)",
+    ],
+  },
+  {
+    id: "warm-rx-leads",
+    title: "Close warm RX leads (GLP-1 + peptides)",
+    priority: "high",
+    owner: "front-desk",
+    route: "/admin/rx-dispatch",
+    why: "$30k RX goal needs ~3 paid starts/week — speed beats competitors.",
+    checklist: [
+      "Open Oswego hub warm leads list — text/call every open intake",
+      "Ryan approves → RX Invoice payment link same day",
+      "Approved + paid → RX Dispatch to pharmacy same day",
+      "Schedule included monthly check-in before patient leaves",
+    ],
+  },
+  {
+    id: "gbp-audit-oswego",
+    title: "Complete GBP setup checklist",
+    priority: "high",
+    owner: "marketing",
+    route: "https://business.google.com",
+    why: "Competitors win “near me” when GBP services, photos, and posts are fuller than yours.",
+    checklist: [
+      "Add semaglutide, tirzepatide, peptide therapy as individual GBP services",
+      "Fix appointment-required + medical spa description",
+      "Upload 5 new photos",
+      "Mark checklist items done in Oswego command center",
+    ],
+  },
+  {
     id: "money-pages",
     title: "Upgrade 2 money pages this week",
     priority: "high",
