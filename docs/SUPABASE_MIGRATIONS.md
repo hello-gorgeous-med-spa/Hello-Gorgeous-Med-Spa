@@ -11,6 +11,7 @@ Migrations run **automatically** when you push to `main`. No more copying SQL in
 |--------|-----------------|
 | `SUPABASE_ACCESS_TOKEN` | [Supabase Account](https://supabase.com/dashboard/account/tokens) → Generate new token |
 | `SUPABASE_PROJECT_REF` | Supabase project URL: `https://supabase.com/dashboard/project/**XXXXX**` ← that `XXXXX` |
+| `SUPABASE_DB_PASSWORD` | Supabase project → **Settings** → **Database** → database password |
 
 ## What Happens on Push to Main
 
