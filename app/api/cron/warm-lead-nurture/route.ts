@@ -17,7 +17,7 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  if (process.env.WARM_LEAD_NURTURE_ENABLED !== "true") {
+  if (process.env.WARM_LEAD_NURTURE_ENABLED?.trim().toLowerCase() !== "true") {
     return NextResponse.json({
       enabled: false,
       message:
