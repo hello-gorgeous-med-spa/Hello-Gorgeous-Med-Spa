@@ -176,6 +176,42 @@ function hasContact(c: SquareCustomer): boolean {
 }
 
 /**
+ * Preview audience sizes without writing to Square groups (read-only scan).
+ */
+export async function previewSquareAudienceCounts(): Promise<{
+  connected: boolean;
+  customersScanned: number;
+  segments: { segment: SegmentName; count: number }[];
+  error?: string;
+}> {
+  try {
+    const customers = await listAllCustomers();
+    const monthIndex = new Date().getMonth();
+    const buckets: { name: SegmentName; member: (c: SquareCustomer) => boolean }[] = [
+      { name: "HG First-Time Clients", member: isFirstTime },
+      { name: "HG Lapsed (90+ Days)", member: isLapsed90 },
+      { name: "HG Birthday Month", member: (c) => isBirthdayMonth(c, monthIndex) },
+      { name: "HG All Opt-In", member: hasContact },
+    ];
+    return {
+      connected: true,
+      customersScanned: customers.length,
+      segments: buckets.map((b) => ({
+        segment: b.name,
+        count: customers.filter(b.member).length,
+      })),
+    };
+  } catch (err) {
+    return {
+      connected: false,
+      customersScanned: 0,
+      segments: [],
+      error: err instanceof Error ? err.message : String(err),
+    };
+  }
+}
+
+/**
  * Run a full segment reconciliation. Returns per-segment counts and any
  * non-fatal errors so the caller (admin UI / cron) can render results.
  */

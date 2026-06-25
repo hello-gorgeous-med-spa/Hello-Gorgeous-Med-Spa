@@ -4,7 +4,6 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 
 import {
-  AD_LANDING_LINKS,
   GBP_SETUP_CHECKLIST,
   NUMBER_ONE_PILLARS,
   OSWEGO_RX_GOAL_LABEL,
@@ -12,6 +11,7 @@ import {
   OSWEGO_KEYWORD_WATCHLIST,
   WEEKLY_SOCIAL_BLAST,
 } from "@/lib/oswego-dominance-playbook";
+import { OwnedListsPanel } from "@/components/admin/OwnedListsPanel";
 
 type HubData = {
   ok: boolean;
@@ -219,6 +219,8 @@ export function OswegoNumberOneHub() {
         </div>
       </section>
 
+      <OwnedListsPanel />
+
       {/* Weekly social */}
       <section className="rounded-2xl border-2 border-black bg-[#FFF0F7] p-5">
         <h3 className="text-lg font-black text-black">Mon / Wed / Fri social blast</h3>
@@ -277,38 +279,15 @@ export function OswegoNumberOneHub() {
         </ul>
       </section>
 
-      {/* Ad links + keywords */}
-      <section className="grid gap-4 lg:grid-cols-2">
-        <article className="rounded-2xl border-2 border-black bg-white p-5">
-          <h3 className="font-black text-black">$500/mo ad landing links</h3>
-          <p className="mt-1 text-xs text-black/60">Copy into Meta / Google Ads — never send paid traffic to homepage.</p>
-          <ul className="mt-3 space-y-2">
-            {AD_LANDING_LINKS.map((link) => (
-              <li key={link.path}>
-                <button
-                  type="button"
-                  className="w-full rounded-lg border border-black/15 px-3 py-2 text-left text-xs hover:bg-pink-50"
-                  onClick={() => {
-                    const url = `${window.location.origin}${link.path}`;
-                    void navigator.clipboard.writeText(url);
-                  }}
-                >
-                  <span className="font-semibold text-black">{link.label}</span>
-                  <span className="mt-0.5 block truncate font-mono text-[10px] text-black/50">{link.path}</span>
-                </button>
-              </li>
-            ))}
-          </ul>
-        </article>
-        <article className="rounded-2xl border-2 border-black bg-white p-5">
-          <h3 className="font-black text-black">Weekly keyword watch (incognito)</h3>
-          <p className="mt-1 text-xs text-black/60">Search these every Monday — track if you&apos;re moving up.</p>
-          <ul className="mt-3 space-y-1 text-sm text-black/80">
-            {OSWEGO_KEYWORD_WATCHLIST.map((kw) => (
-              <li key={kw}>▸ {kw}</li>
-            ))}
-          </ul>
-        </article>
+      {/* Keyword watch */}
+      <section className="rounded-2xl border-2 border-black bg-white p-5">
+        <h3 className="font-black text-black">Weekly keyword watch (incognito)</h3>
+        <p className="mt-1 text-xs text-black/60">Search these every Monday — track if you&apos;re moving up.</p>
+        <ul className="mt-3 space-y-1 text-sm text-black/80">
+          {OSWEGO_KEYWORD_WATCHLIST.map((kw) => (
+            <li key={kw}>▸ {kw}</li>
+          ))}
+        </ul>
       </section>
     </div>
   );
