@@ -9,6 +9,7 @@
  */
 
 import { BOOKING_URL } from "@/lib/flows";
+import { GLP1_PROGRAM, GLP1_PROGRAM_CONSULT_USD } from "@/lib/glp1-program-pricing";
 import { GENTLEMENS_CLUB_PATH, GENTLEMENS_CLUB_TIERS } from "@/lib/gentlemens-club";
 import { PEPTIDE_CONSULT_FEE_USD } from "@/lib/peptide-request-menu";
 import { PEPTIDE_RETAIL_FROM_MONTHLY_USD } from "@/lib/peptide-retail-pricing";
@@ -170,22 +171,23 @@ export const WELLNESS_PROGRAM_PLANS: WellnessMembershipPlan[] = [
     id: "metabolic-reset",
     category: "wellness",
     name: "Metabolic Reset Program",
-    pricePerMonth: 450,
-    priceLabel: "From $450",
+    pricePerMonth: GLP1_PROGRAM.injectable.tirzepatideStandardUsd,
+    priceLabel: `From $${GLP1_PROGRAM.injectable.tirzepatideStarterUsd}`,
     summary:
-      "Medical weight loss with tirzepatide — prescription, NP oversight, and monitoring included. Higher doses available.",
+      "Medical weight loss with semaglutide or tirzepatide — prescription, NP oversight, supplies, and included monthly check-ins.",
     perks: [
-      "Tirzepatide prescription (up to 5mg at $450/mo · up to 7.5mg at $499/mo)",
-      "Same-day visit availability when slots open",
-      "Baseline & monitoring labs",
-      "Quarterly check-ins with Ryan Kent, FNP-BC",
-      "Secure messaging between visits",
+      `Semaglutide injectable from $${GLP1_PROGRAM.injectable.semaglutideFromUsd}/mo`,
+      `Tirzepatide starter $${GLP1_PROGRAM.injectable.tirzepatideStarterUsd}/mo · standard $${GLP1_PROGRAM.injectable.tirzepatideStandardUsd}/mo · advanced $${GLP1_PROGRAM.injectable.tirzepatideAdvancedUsd}/mo`,
+      `$${GLP1_PROGRAM_CONSULT_USD} consult credited to month 1 injectables if you enroll`,
+      "Included monthly check-ins (in-person or Charm telehealth)",
+      "3-month prepay from $" + GLP1_PROGRAM.injectable.threeMonthFromUsd,
+      "Oral GLP-1 from $" + GLP1_PROGRAM.oral.monthlyFromUsd + "/mo",
     ],
     badge: "GLP-1 weight loss",
     consultFirst: true,
     bookHref: BOOKING_URL,
     learnMoreHref: "/glp-1-weight-loss-oswego",
-    footnote: "Semaglutide not offered — tirzepatide only for weight loss.",
+    footnote: "Final price depends on medication, dose, and format (injectable vs oral). Labs quoted separately when indicated.",
   },
 ];
 

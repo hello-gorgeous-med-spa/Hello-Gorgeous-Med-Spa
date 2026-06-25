@@ -4,7 +4,9 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { GLP1EducationTabs } from "@/components/marketing/GLP1EducationTabs";
-import { BOOKING_URL, GLP1_INTAKE_PATH } from "@/lib/flows";
+import { Glp1ProgramOfferSection } from "@/components/marketing/Glp1ProgramOfferSection";
+import { BOOKING_URL, GLP1_INTAKE_PATH, PROGRAM_CONSULT_BOOKING_URL } from "@/lib/flows";
+import { GLP1_PROGRAM_CONSULT_USD } from "@/lib/glp1-program-pricing";
 import { GLP1_WEIGHT_LOSS_FAQS } from "@/lib/glp1-weight-loss-faqs";
 import { SITE } from "@/lib/seo";
 
@@ -55,12 +57,12 @@ export function GLP1WeightLossLanding() {
                 Start secure intake
               </Link>
               <a
-                href={BOOKING_URL}
+                href={PROGRAM_CONSULT_BOOKING_URL}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center border-2 border-black text-black px-8 py-4 font-semibold rounded-xl hover:bg-black hover:text-white transition-colors"
               >
-                Book directly
+                Book ${GLP1_PROGRAM_CONSULT_USD} consult
               </a>
               <a
                 href="#how-it-works"
@@ -113,6 +115,8 @@ export function GLP1WeightLossLanding() {
           ))}
         </div>
       </div>
+
+      <Glp1ProgramOfferSection variant="light" />
 
       {/* How it works */}
       <section id="how-it-works" className="py-16 md:py-20 px-4 bg-neutral-50">

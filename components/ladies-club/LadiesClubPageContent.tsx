@@ -308,8 +308,9 @@ export function LadiesClubPageContent() {
             <p className="text-xs font-bold uppercase tracking-wider text-[#FF2D8E]">Medical weight loss</p>
             <h2 className="mt-3 text-3xl font-black text-white">GLP-1 programs for women</h2>
             <p className="mt-4 max-w-2xl text-gray-400">
-              NP-supervised tirzepatide from ${LADIES_CLUB_GLP1_STACK.tirzepatideFrom}/mo — medication, oversight, and
-              monitoring included. Stack with BioTE when clinically appropriate.
+              NP-supervised semaglutide from ${LADIES_CLUB_GLP1_STACK.semaglutideFrom}/mo · tirzepatide from $
+              {LADIES_CLUB_GLP1_STACK.tirzepatideFrom}/mo — medication, supplies, and included check-ins. Stack with
+              BioTE when clinically appropriate.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <CTA href="/glp-1-weight-loss-oswego" variant="gradient">See GLP-1 program</CTA>

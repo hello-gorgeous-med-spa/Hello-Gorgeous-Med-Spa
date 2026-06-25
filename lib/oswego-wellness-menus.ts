@@ -1,27 +1,58 @@
 import { buildOswegoMenu } from "@/lib/oswego-injectable-menus";
+import { GLP1_PROGRAM, GLP1_PROGRAM_CONSULT_USD } from "@/lib/glp1-program-pricing";
 
 const WELLNESS_SECONDARY = { label: "Full wellness menu", href: "/services/wellness" };
+const { injectable: GLP1_INJ, oral: GLP1_ORAL, pharmacyRx: GLP1_RX } = GLP1_PROGRAM;
 
 export const GLP1_WEIGHT_LOSS_OSWEGO_MENU = buildOswegoMenu("glp-1-weight-loss-oswego", {
   eyebrow: "Oswego, IL · NP-supervised medical weight loss",
   titleBefore: "Medical Weight Loss —",
-  titleAccent: "From $299/month",
+  titleAccent: `From $${GLP1_INJ.monthlyFromUsd}/month`,
   secondaryCta: WELLNESS_SECONDARY,
   pricingTitle: "Weight loss program pricing",
   pricingHighlights: [
-    "Semaglutide from $299/month all-inclusive",
-    "Tirzepatide from $399/month all-inclusive",
-    "Medication + monthly NP check-in + support included",
+    `$${GLP1_PROGRAM_CONSULT_USD} NP consult — credited toward first month of injectables if you enroll`,
+    `Semaglutide injectable from $${GLP1_INJ.semaglutideFromUsd}/month all-inclusive`,
+    `Tirzepatide injectable from $${GLP1_INJ.tirzepatideStarterUsd}/month (${GLP1_INJ.pendingNote})`,
+    `3-month prepay from $${GLP1_INJ.threeMonthFromUsd} · high-dose from $${GLP1_INJ.threeMonthHighDoseFromUsd}`,
+    GLP1_PROGRAM.followUpIncluded,
     "No insurance required · HSA/FSA receipts available",
-    "Intake visit & labs quoted separately — full transparency",
   ],
   pricingRows: [
-    { label: "Semaglutide program", price: "From $299/mo", href: "/semaglutide-oswego", note: "Medication + check-ins included" },
-    { label: "Tirzepatide program", price: "From $399/mo", href: "/tirzepatide-oswego", note: "Dual-action GLP-1 + GIP" },
-    { label: "Initial intake & labs", price: "Consult", note: "Quoted before any commitment" },
-    { label: "Free consultation", price: "$0", note: "Honest candidacy assessment" },
+    {
+      label: "New patient consult (in-person)",
+      price: `$${GLP1_PROGRAM_CONSULT_USD}`,
+      note: "Credited to month 1 injectables if you start",
+    },
+    {
+      label: "Semaglutide injectable",
+      price: `From $${GLP1_INJ.semaglutideFromUsd}/mo`,
+      href: "/semaglutide-oswego",
+      note: "Medication + supplies + monthly check-in",
+    },
+    {
+      label: "Tirzepatide injectable",
+      price: `From $${GLP1_INJ.tirzepatideStarterUsd}/mo`,
+      href: "/tirzepatide-oswego",
+      note: `Standard $${GLP1_INJ.tirzepatideStandardUsd} · advanced $${GLP1_INJ.tirzepatideAdvancedUsd}`,
+    },
+    {
+      label: "3-month injectable prepay",
+      price: `From $${GLP1_INJ.threeMonthFromUsd}`,
+      note: GLP1_INJ.pendingNote,
+    },
+    {
+      label: "Oral GLP-1 (home delivery)",
+      price: `$${GLP1_ORAL.monthlyFromUsd}–$${GLP1_ORAL.monthlyToUsd}/mo`,
+      note: GLP1_ORAL.note,
+    },
+    {
+      label: "Pharmacy Rx evaluation",
+      price: `$${GLP1_RX.monthlyEvalUsd}/mo`,
+      note: "Rx only — med cost at pharmacy separate",
+    },
   ],
-  pricingBadge: "FROM $299/MO",
+  pricingBadge: `FROM $${GLP1_INJ.monthlyFromUsd}/MO`,
   howItWorksHighlights: [
     "Mimics your natural fullness hormone — eat less without feeling deprived",
     "Weekly self-injection — tiny needle, we teach you how",
@@ -37,12 +68,16 @@ export const GLP1_WEIGHT_LOSS_OSWEGO_MENU = buildOswegoMenu("glp-1-weight-loss-o
   careGuideHref: "/pre-post-care/weight-loss",
   treatmentTime: "Monthly visits",
   whyRows: [
-    { label: "Free consultation", price: "Always", note: "We're honest if GLP-1 isn't right for you" },
-    { label: "Monthly check-ins", price: "Included", note: "Dose adjustments & side-effect management" },
+    {
+      label: "New patient consult",
+      price: `$${GLP1_PROGRAM_CONSULT_USD}`,
+      note: "Credited to first month injectables if you enroll",
+    },
+    { label: "Monthly check-ins", price: "Included", note: "In-person or Charm telehealth" },
     { label: "Medication source", price: "US pharmacies", note: "Licensed 503A/503B — never gray-market" },
   ],
   whatToExpectDescription:
-    "Free consult, comprehensive medical intake, prescription with injection training, then monthly check-ins for weight, dose titration, and side-effect management — the part most programs skip.",
+    `$${GLP1_PROGRAM_CONSULT_USD} consult, comprehensive medical intake, prescription with injection training, then included monthly check-ins for weight, dose titration, and side-effect management.`,
   relatedDescription:
     "Weight loss works best as part of a bigger plan — hormones, peptides, and body contouring each play a role for the right client.",
   relatedHighlights: [
@@ -56,22 +91,31 @@ export const GLP1_WEIGHT_LOSS_OSWEGO_MENU = buildOswegoMenu("glp-1-weight-loss-o
 export const SEMAGLUTIDE_OSWEGO_MENU = buildOswegoMenu("semaglutide-oswego", {
   eyebrow: "Oswego, IL · NP-supervised medical weight loss",
   titleBefore: "Semaglutide in Oswego, IL —",
-  titleAccent: "From $299/month",
+  titleAccent: `From $${GLP1_INJ.semaglutideFromUsd}/month`,
   secondaryCta: { label: "Weight loss program menu", href: "/glp-1-weight-loss-oswego" },
   pricingTitle: "Semaglutide pricing",
   pricingHighlights: [
-    "From $299/month — medication, check-ins & support included",
+    `From $${GLP1_INJ.semaglutideFromUsd}/month — medication, supplies & check-ins included`,
+    `Consult $${GLP1_PROGRAM_CONSULT_USD} — credited to month 1 if you start`,
     "Same active ingredient as Wegovy & Ozempic",
     "Average 12–15% body weight loss over 12 months in trials",
     "No insurance required · no hidden fees",
-    "Intake & labs quoted separately at free consult",
   ],
   pricingRows: [
-    { label: "Semaglutide program", price: "From $299/mo", note: "All-inclusive monthly" },
-    { label: "Tirzepatide alternative", price: "From $399/mo", href: "/tirzepatide-oswego", note: "Stronger average results" },
-    { label: "Initial intake & labs", price: "Consult", note: "Quoted before starting" },
+    { label: "Semaglutide injectable", price: `From $${GLP1_INJ.semaglutideFromUsd}/mo`, note: "All-inclusive monthly" },
+    {
+      label: "Tirzepatide alternative",
+      price: `From $${GLP1_INJ.tirzepatideStarterUsd}/mo`,
+      href: "/tirzepatide-oswego",
+      note: "Stronger average results",
+    },
+    {
+      label: "New patient consult",
+      price: `$${GLP1_PROGRAM_CONSULT_USD}`,
+      note: "Credited to first month injectables",
+    },
   ],
-  pricingBadge: "$299/MO",
+  pricingBadge: `$${GLP1_INJ.semaglutideFromUsd}/MO`,
   howItWorksHighlights: [
     "GLP-1 receptor agonist — mimics your fullness hormone",
     "Weekly self-injection with a tiny insulin-style pen",
@@ -87,12 +131,12 @@ export const SEMAGLUTIDE_OSWEGO_MENU = buildOswegoMenu("semaglutide-oswego", {
   careGuideHref: "/pre-post-care/weight-loss",
   treatmentTime: "Monthly visits",
   whyRows: [
-    { label: "Free consultation", price: "Always", note: "Honest fit assessment first" },
+    { label: "New patient consult", price: `$${GLP1_PROGRAM_CONSULT_USD}`, note: "Credited if you enroll" },
     { label: "Monthly check-ins", price: "Included", note: "Most programs skip this — we don't" },
     { label: "Medication source", price: "US pharmacies", note: "FDA-regulated compounders only" },
   ],
   whatToExpectDescription:
-    "Free consult, medical intake with labs if indicated, prescription and injection training, then monthly check-ins to track weight, adjust dose, and plan your long-term maintenance strategy.",
+    `$${GLP1_PROGRAM_CONSULT_USD} consult, medical intake with labs if indicated, prescription and injection training, then included monthly check-ins to track weight, adjust dose, and plan maintenance.`,
   relatedDescription:
     "Semaglutide is one tool — if it's not the right one, we'll say so and point you to what is.",
   relatedHighlights: [
@@ -106,22 +150,23 @@ export const SEMAGLUTIDE_OSWEGO_MENU = buildOswegoMenu("semaglutide-oswego", {
 export const TIRZEPATIDE_OSWEGO_MENU = buildOswegoMenu("tirzepatide-oswego", {
   eyebrow: "Oswego, IL · NP-supervised medical weight loss",
   titleBefore: "Tirzepatide in Oswego, IL —",
-  titleAccent: "From $399/month",
+  titleAccent: `From $${GLP1_INJ.tirzepatideStarterUsd}/month`,
   secondaryCta: { label: "Weight loss program menu", href: "/glp-1-weight-loss-oswego" },
   pricingTitle: "Tirzepatide pricing",
   pricingHighlights: [
-    "From $399/month — medication, check-ins & support included",
+    `Starter from $${GLP1_INJ.tirzepatideStarterUsd}/mo · standard $${GLP1_INJ.tirzepatideStandardUsd} · advanced $${GLP1_INJ.tirzepatideAdvancedUsd}`,
+    `Consult $${GLP1_PROGRAM_CONSULT_USD} — credited to month 1 if you start`,
     "Same active ingredient as Mounjaro & Zepbound",
     "Average 15–22% body weight loss over 12 months at higher doses",
-    "Dual-action GLP-1 + GIP — often stronger than semaglutide",
-    "Switching between medications possible if one underperforms",
+    "3-month prepay from $" + GLP1_INJ.threeMonthFromUsd,
   ],
   pricingRows: [
-    { label: "Tirzepatide program", price: "From $399/mo", note: "All-inclusive monthly" },
-    { label: "Semaglutide alternative", price: "From $299/mo", href: "/semaglutide-oswego", note: "Lower cost, longer record" },
-    { label: "Initial intake & labs", price: "Consult", note: "Quoted before starting" },
+    { label: "Tirzepatide starter", price: `From $${GLP1_INJ.tirzepatideStarterUsd}/mo`, note: "Medication + supplies + check-in" },
+    { label: "Standard / advanced tiers", price: `$${GLP1_INJ.tirzepatideStandardUsd}–$${GLP1_INJ.tirzepatideAdvancedUsd}/mo`, note: "Based on weekly dose" },
+    { label: "Semaglutide alternative", price: `From $${GLP1_INJ.semaglutideFromUsd}/mo`, href: "/semaglutide-oswego", note: "Lower cost option" },
+    { label: "New patient consult", price: `$${GLP1_PROGRAM_CONSULT_USD}`, note: "Credited to first month injectables" },
   ],
-  pricingBadge: "$399/MO",
+  pricingBadge: `$${GLP1_INJ.tirzepatideStarterUsd}/MO`,
   howItWorksHighlights: [
     "Targets BOTH GLP-1 and GIP receptors",
     "GIP adds appetite, fat-metabolism & insulin-sensitivity effects",
@@ -137,16 +182,16 @@ export const TIRZEPATIDE_OSWEGO_MENU = buildOswegoMenu("tirzepatide-oswego", {
   careGuideHref: "/pre-post-care/weight-loss",
   treatmentTime: "Monthly visits",
   whyRows: [
-    { label: "Free consultation", price: "Always", note: "Sema vs tirz tradeoffs explained honestly" },
+    { label: "New patient consult", price: `$${GLP1_PROGRAM_CONSULT_USD}`, note: "Credited if you enroll" },
     { label: "Monthly check-ins", price: "Included", note: "Weight, side effects, dose titration" },
     { label: "Medication source", price: "US pharmacies", note: "FDA-regulated compounders only" },
   ],
   whatToExpectDescription:
-    "Free consult to weigh tirzepatide vs semaglutide for your case, medical intake, injection training, then monthly check-ins with dose titration and long-term maintenance planning.",
+    `$${GLP1_PROGRAM_CONSULT_USD} consult to weigh tirzepatide vs semaglutide, medical intake, injection training, then included monthly check-ins with dose titration and maintenance planning.`,
   relatedDescription:
     "Tirzepatide leads on average results, but the right choice depends on your history, tolerance, and budget — we map it at consult.",
   relatedHighlights: [
-    "Semaglutide at $100/month less if budget leads",
+    `Semaglutide from $${GLP1_INJ.semaglutideFromUsd}/mo if budget leads`,
     "Full program menu compares both side by side",
     "Peptide therapy stacks for energy & recovery",
     "HSA/FSA-compatible receipts available",

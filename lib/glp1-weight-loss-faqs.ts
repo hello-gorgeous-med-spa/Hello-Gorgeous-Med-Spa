@@ -1,4 +1,5 @@
 import type { FAQ } from "@/lib/seo";
+import { GLP1_PROGRAM, GLP1_PROGRAM_CONSULT_USD } from "@/lib/glp1-program-pricing";
 
 /** Single source for GLP-1 landing FAQ UI + JSON-LD */
 export const GLP1_WEIGHT_LOSS_FAQS: readonly FAQ[] = [
@@ -49,7 +50,6 @@ export const GLP1_WEIGHT_LOSS_FAQS: readonly FAQ[] = [
   },
   {
     question: "How much does the program cost?",
-    answer:
-      "Pricing depends on medication, dose, and program structure. Book a consultation for transparent, personalized pricing and payment options.",
+    answer: `New patient consult is $${GLP1_PROGRAM_CONSULT_USD} (credited toward your first month of injectable medication if you enroll). Injectable programs start at $${GLP1_PROGRAM.injectable.monthlyFromUsd}/month including medication and supplies — final price depends on semaglutide vs tirzepatide and dose. Three-month prepay from $${GLP1_PROGRAM.injectable.threeMonthFromUsd}. Oral options $${GLP1_PROGRAM.oral.monthlyFromUsd}–$${GLP1_PROGRAM.oral.monthlyToUsd}/month. Active members receive included monthly check-ins.`,
   },
 ];

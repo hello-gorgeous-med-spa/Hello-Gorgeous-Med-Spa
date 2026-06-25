@@ -12,10 +12,9 @@ export const PEPTIDE_PREPAY_DISCOUNT_PERCENT = 10;
 /** Typical cold-chain / pharmacy shipping line (aggressive + 15%). */
 export const PEPTIDE_PHARMACY_SHIPPING_USD = 35;
 
-export const GLP1_RETAIL_PROGRAM = {
-  semaglutideFromUsd: 349,
-  tirzepatideFromUsd: 459,
-} as const;
+import { GLP1_RETAIL_PROGRAM } from "@/lib/glp1-program-pricing";
+
+export { GLP1_RETAIL_PROGRAM };
 
 /** Lowest published monthly protocol (sermorelin injectable). */
 export const PEPTIDE_RETAIL_FROM_MONTHLY_USD = 149;
