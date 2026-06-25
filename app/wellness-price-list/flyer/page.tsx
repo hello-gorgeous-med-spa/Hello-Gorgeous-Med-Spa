@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   ...pageMetadata({
     title: "Wellness Menu Brochure — Print | Hello Gorgeous Med Spa",
     description:
-      "Print-ready Hello Gorgeous wellness brochure — peptides, vitamin shots, hormones, and GLP-1 pricing with branded thumbnails.",
+      "Print-ready Hello Gorgeous wellness brochure — peptides, vitamin shots, IV therapy, hormones, GLP-1 weight loss, and memberships with elegant layout.",
     path: WELLNESS_PRICE_LIST_FLYER_PATH,
   }),
   robots: { index: false, follow: false },
