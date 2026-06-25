@@ -250,6 +250,7 @@ export const VITAMIN_MEMBERSHIPS: VitaminMembership[] = [
       "Skip-the-line drive-thru priority",
       "Rolls over 1 unused shot",
     ],
+    squarePayUrl: "https://square.link/u/mqNowNGP",
     image: "/images/memberships/glow-pass.png",
   },
   {
@@ -264,6 +265,7 @@ export const VITAMIN_MEMBERSHIPS: VitaminMembership[] = [
       "10% off IV therapy",
     ],
     highlight: true,
+    squarePayUrl: "https://square.link/u/K59btMLl",
     image: "/images/memberships/energy-unlimited.png",
   },
   {
@@ -277,6 +279,7 @@ export const VITAMIN_MEMBERSHIPS: VitaminMembership[] = [
       "Member pricing on all services",
       "Priority booking + drive-thru VIP lane",
     ],
+    squarePayUrl: "https://square.link/u/tHYGx2AX",
     image: "/images/memberships/vip-wellness.png",
   },
 ];
