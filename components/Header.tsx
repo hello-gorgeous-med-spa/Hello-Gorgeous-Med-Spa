@@ -887,7 +887,7 @@ export function Header() {
             <Link
               href={LADIES_CLUB_PATH}
               className={NAV_LINK_BASE}
-              style={navPillStyle(1, isLadiesClubActive)}
+              style={navPillStyle(0, isLadiesClubActive)}
             >
               Ladies&apos; Club 👑
             </Link>
@@ -1110,9 +1110,11 @@ export function Header() {
                     : "text-white/80 hover:bg-white/5 hover:text-[#f472b6]"
                 )}
                 style={
-                  "highlight" in link && link.highlight
-                    ? { background: "rgba(24,24,27,0.8)", border: "1px solid rgba(59, 130, 246, 0.35)" }
-                    : undefined
+                  link.href === LADIES_CLUB_PATH
+                    ? { background: "rgba(24,24,27,0.8)", border: "1px solid rgba(236, 72, 153, 0.45)" }
+                    : "highlight" in link && link.highlight
+                      ? { background: "rgba(24,24,27,0.8)", border: "1px solid rgba(59, 130, 246, 0.35)" }
+                      : undefined
                 }
               >
                 {link.label}

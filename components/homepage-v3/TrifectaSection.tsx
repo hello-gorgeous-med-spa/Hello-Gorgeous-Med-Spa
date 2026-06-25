@@ -37,8 +37,9 @@ const TRIFECTA_CARDS = [
       "Gold standard fractional CO₂ resurfacing. Maximum transformation for wrinkles, scars, sun damage, and overall skin renewal.",
     bullets: ["Deep resurfacing", "Scar revision", "Skin renewal"],
     href: "/solaria-co2-oswego",
-    image: "/images/trifecta/solaria-co2.png",
-    imageAlt: "Solaria CO2 Fractional Laser Treatment",
+    image: "/images/solaria/solaria-co2-home-treatment.jpg",
+    imageAlt:
+      "Solaria by InMode CO₂ fractional laser treatment in session at Hello Gorgeous Med Spa Oswego IL",
     badge: "VIP ACCESS",
   },
 ] as const;

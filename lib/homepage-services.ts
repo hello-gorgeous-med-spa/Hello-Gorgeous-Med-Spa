@@ -63,9 +63,9 @@ export const homepageServicesRow1: HomepageServiceCard[] = [
       "Fractional CO₂ laser resurfacing for wrinkles, scars, sun damage, and body stretch marks — gold-standard skin renewal.",
     link: "/solaria-co2-oswego",
     items: ["Face & Neck", "Body Resurfacing", "Stretch Marks", "Texture & Tone"],
-    image: "/images/solaria/solaria-workstation.png",
+    image: "/images/solaria/solaria-co2-home-treatment.jpg",
     imageAlt:
-      "InMode Solaria CO₂ fractional laser workstation for skin resurfacing at Hello Gorgeous Med Spa Oswego IL",
+      "Solaria by InMode CO₂ fractional laser treatment in session at Hello Gorgeous Med Spa Oswego IL",
     badge: "NEW",
   },
   {
