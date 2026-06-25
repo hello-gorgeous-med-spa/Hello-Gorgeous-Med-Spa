@@ -8,6 +8,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { createAdminSupabaseClient, isAdminConfigured } from "@/lib/hgos/supabase";
 import { SITE, HOME_FAQS, SERVICES } from "@/lib/seo";
 import { BOOKING_URL, FULLSCRIPT_DISPENSARY_URL } from "@/lib/flows";
+import { GLP1_PROGRAM, GLP1_PROGRAM_CONSULT_USD } from "@/lib/glp1-program-pricing";
 import { getActiveCollections } from "@/lib/fullscript/collections";
 import { MASCOT_SCRIPT, isFeedbackOrOwnerIntent } from "@/lib/mascot";
 import {
@@ -216,7 +217,7 @@ function getStaticKnowledge(): KnowledgeEntry[] {
   // Precision Hormone & Metabolic Reset (tirzepatide)
   entries.push({
     title: "Precision Hormone Metabolic Reset tirzepatide weight loss program",
-    content: "Precision Hormone Program: hormone optimization, prescriptions, IV therapy, vitamin injections, HRT, blood work, same-day visits, next-day labs, AI insights. Metabolic Reset: medical weight loss with tirzepatide — up to 5mg $450/mo or 7.5mg $499/mo; same-day visits, next-day labs, quarterly check-ins. We only offer tirzepatide for weight loss, not semaglutide. Both include secure messaging and Fullscript supplement support.",
+    content: `Precision Hormone Program: hormone optimization, prescriptions, IV therapy, vitamin injections, HRT, blood work, same-day visits, next-day labs, AI insights. About $199/mo. Metabolic Reset: medical weight loss with semaglutide or tirzepatide — semaglutide from $${GLP1_PROGRAM.injectable.semaglutideFromUsd}/mo, tirzepatide from $${GLP1_PROGRAM.injectable.tirzepatideStarterUsd}/mo (starter), standard $${GLP1_PROGRAM.injectable.tirzepatideStandardUsd}/mo, advanced $${GLP1_PROGRAM.injectable.tirzepatideAdvancedUsd}/mo. $${GLP1_PROGRAM_CONSULT_USD} consult credited to month 1 injectables if you enroll. Included monthly check-ins. Both include secure messaging and Fullscript supplement support.`,
   });
 
   return entries;

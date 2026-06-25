@@ -16,6 +16,53 @@ export type GbpPostPreset = {
 
 export const GBP_POST_PRESETS: GbpPostPreset[] = [
   {
+    id: "blast-memberships",
+    label: "Blast — Memberships (Glow/Luxe/Platinum)",
+    message: `⭐ Med spa memberships — Hello Gorgeous, Oswego IL
+
+Glow $79/mo · Luxe $149/mo · Platinum $249/mo
+Save $1–$3 off every Botox unit + monthly treatment credits
+
+Vitamin Bar memberships from $49/mo — drive-thru wellness shots
+
+Ryan Kent, FNP-BC on site · 74 W Washington St
+Serving Naperville, Aurora & Plainfield
+
+Join online — tap Learn more`,
+    linkPath: "/memberships?utm_source=google&utm_medium=gbp_post&utm_campaign=memberships_blast",
+    imagePath: "/images/memberships/energy-unlimited.png",
+  },
+  {
+    id: "blast-glp1",
+    label: "Blast — GLP-1 weight loss Oswego",
+    message: `Medical weight loss Oswego IL — Hello Gorgeous Med Spa
+
+GLP-1 programs with clear pricing:
+• $49 consult (credited if you start injectables)
+• Semaglutide from $249/mo
+• Tirzepatide from $299/mo
+• Monthly NP check-ins included
+
+Ryan Kent, FNP-BC · downtown Oswego
+Book or learn more below`,
+    linkPath: "/glp-1-weight-loss-oswego?utm_source=google&utm_medium=gbp_post&utm_campaign=glp1_blast",
+    imagePath: "/images/marketing/hello-gorgeous-app-scan-flyer.jpg",
+  },
+  {
+    id: "blast-wellness-hub",
+    label: "Blast — Wellness hub (Vitamin Bar + peptides + GLP-1)",
+    message: `Wellness memberships at Hello Gorgeous — Oswego
+
+Vitamin Bar · hormones · GLP-1 · peptides
+Glow Pass $49/mo · Energy Unlimited $89/mo · Gentlemen's Club from $99/mo · Peptide Member $79/mo
+
+Join in our app or book a consult with Ryan Kent, FNP-BC
+
+74 W Washington St · 630-636-6193`,
+    linkPath: "/monthly-memberships?utm_source=google&utm_medium=gbp_post&utm_campaign=wellness_hub",
+    imagePath: "/images/gentlemens-club/gentlemens-club-hero.png",
+  },
+  {
     id: "botox-10-unit",
     label: "Botox $10/unit (Oswego)",
     message: `💉 Botox in Oswego — $10/unit at Hello Gorgeous Med Spa

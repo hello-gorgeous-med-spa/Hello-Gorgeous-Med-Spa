@@ -1,4 +1,5 @@
 import { GENTLEMENS_CLUB_HERO_IMAGE } from "@/lib/gentlemens-club";
+import { GLP1_PROGRAM } from "@/lib/glp1-program-pricing";
 import { SITE } from "@/lib/seo";
 import { WELLNESS_MEMBERSHIP_PLANS } from "@/lib/wellness-memberships";
 
@@ -13,7 +14,7 @@ export const MONTHLY_MEMBERSHIPS_FAQS: MembershipFaq[] = [
   {
     question: "What monthly wellness memberships does Hello Gorgeous offer in Oswego, IL?",
     answer:
-      "Four pillars: Vitamin Bar plans (Glow Pass $49/mo, Energy Unlimited $89/mo, VIP Wellness $149/mo), hormone memberships (The Gentlemen's Club from $99/mo for men, Women's Hormone Member $99/mo), NP-supervised wellness programs (Precision Hormone $199/mo, Metabolic Reset from $450/mo), and peptide memberships (Peptide Member $79/mo, Peptide Protocol from $149/mo). Aesthetic facial/lash memberships are coming later.",
+      `Four pillars: Vitamin Bar plans (Glow Pass $49/mo, Energy Unlimited $89/mo, VIP Wellness $149/mo), hormone memberships (The Gentlemen's Club from $99/mo for men, Women's Hormone Member $99/mo), NP-supervised wellness programs (Precision Hormone $199/mo, Metabolic Reset GLP-1 from $${GLP1_PROGRAM.injectable.tirzepatideStarterUsd}/mo), and peptide memberships (Peptide Member $79/mo, Peptide Protocol from $149/mo). Aesthetic facial/lash memberships are coming later.`,
   },
   {
     question: "How do I join a Hello Gorgeous membership?",
@@ -112,6 +113,7 @@ Peptides · hormones · NP programs · Vitamin Bar — one monthly price.
 👔 Gentlemen's Club — from $99/mo · Brotox, hormones & peptides
 🧬 Peptide Member — $79/mo · consult waived + member pricing
 📊 Precision Hormone — $199/mo · labs, HRT & IV support
+⚡ Metabolic Reset — GLP-1 from $${GLP1_PROGRAM.injectable.tirzepatideStarterUsd}/mo
 
 Join in the Hello Gorgeous app or book a free consult.
 Ryan Kent, FNP-BC · Naperville · Aurora · Plainfield`;
@@ -127,7 +129,7 @@ Peptides. Hormones. NP-supervised programs. Vitamin Bar drive-thru.
 👔 THE GENTLEMEN'S CLUB — from $99/mo
 🧬 Peptide Member — $79/mo (meds separate)
 📊 Precision Hormone Program — $199/mo
-⚡ Metabolic Reset — from $450/mo (tirzepatide)
+⚡ Metabolic Reset — GLP-1 from $${GLP1_PROGRAM.injectable.tirzepatideStarterUsd}/mo (semaglutide from $${GLP1_PROGRAM.injectable.semaglutideFromUsd}/mo)
 
 Join in the Hello Gorgeous app or book a free consult 👇
 

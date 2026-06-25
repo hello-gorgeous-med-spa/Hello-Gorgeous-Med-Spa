@@ -34,7 +34,7 @@ export type WellnessMembershipPlan = {
   category: WellnessMembershipCategoryId;
   name: string;
   pricePerMonth: number;
-  /** e.g. "From $450" when price varies */
+  /** e.g. "From $299" when price varies */
   priceLabel?: string;
   summary: string;
   perks: string[];

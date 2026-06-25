@@ -496,6 +496,91 @@ export const FACEBOOK_PAGE_PRESET_MONTHLY_MEMBERSHIPS: FacebookPagePreset = {
   defaultChannels: ["facebook", "instagram", "google"],
 };
 
+/** June 2025 FB blast — Mon */
+export const FACEBOOK_PAGE_PRESET_BLAST_MEMBERSHIPS: FacebookPagePreset = {
+  id: "blast-memberships",
+  label: "Blast — Memberships (Glow/Luxe/Platinum)",
+  blurb: "Botox savings, monthly credits, Vitamin Bar from $49/mo.",
+  message: `Oswego — if you get Botox more than a few times a year, read this. 💗
+
+Hello Gorgeous Memberships — real savings, every month:
+
+🌸 Glow — $79/mo · $1 off EVERY unit (Botox, Dysport, Jeuveau, Xeomin, Daxxify) + monthly vitamin shot
+💎 Luxe — $149/mo · $2/unit off + HydraFacial OR Dermaplaning monthly + 15% off services
+👑 Platinum — $249/mo · $3/unit off + IV or advanced facial monthly + VIP booking
+
+Vitamin Bar drive-thru memberships from $49/mo ⚡
+
+Credits roll over. Ryan Kent, FNP-BC on site. Downtown Oswego — 74 W Washington St.
+
+Join online 👇
+hellogorgeousmedspa.com/memberships
+
+Or get the app: hellogorgeousmedspa.com/app
+
+📞 630-636-6193
+Serving Naperville · Aurora · Plainfield · Yorkville`,
+  linkPath: "/memberships?utm_source=facebook&utm_medium=organic&utm_campaign=memberships_blast",
+  imagePath: "/images/memberships/energy-unlimited.png",
+  defaultChannels: ["facebook"],
+};
+
+/** June 2025 FB blast — Wed */
+export const FACEBOOK_PAGE_PRESET_BLAST_GLP1: FacebookPagePreset = {
+  id: "blast-glp1",
+  label: "Blast — GLP-1 weight loss (published pricing)",
+  blurb: "Semaglutide from $249 · tirzepatide from $299 · $49 consult credited.",
+  message: `Medical weight loss in Oswego — with published pricing. No "call for quote." 💗
+
+Hello Gorgeous RX™ GLP-1 programs:
+
+✅ $49 NP consult — credited to month 1 injectables if you enroll
+✅ Semaglutide injectable from $249/mo
+✅ Tirzepatide injectable from $299/mo
+✅ 3-month prepay options
+✅ Included monthly check-ins (in-person or telehealth)
+
+Ryan Kent, FNP-BC — on site in Oswego, not a random out-of-state telehealth mill.
+
+Start here 👇
+hellogorgeousmedspa.com/glp-1-weight-loss-oswego
+
+Take the screener: hellogorgeousmedspa.com/quiz/glp-1-readiness
+
+📞 630-636-6193 · Book: hellogorgeousmedspa.com/book
+
+*Compounded GLP-1 requires medical evaluation. Not all candidates qualify. Individual results vary.`,
+  linkPath: "/glp-1-weight-loss-oswego?utm_source=facebook&utm_medium=organic&utm_campaign=glp1_blast",
+  imagePath: "/images/marketing/hello-gorgeous-app-scan-flyer.jpg",
+  defaultChannels: ["facebook"],
+};
+
+/** June 2025 FB blast — Fri */
+export const FACEBOOK_PAGE_PRESET_BLAST_RX_APP: FacebookPagePreset = {
+  id: "blast-rx-peptides-app",
+  label: "Blast — Peptides + Hello Gorgeous app",
+  blurb: "Peptide protocols, secure intake, app for Vitamin Bar & memberships.",
+  message: `Peptides + wellness memberships — now easy to start from your phone. 🧬💗
+
+Hello Gorgeous RX™ in Oswego:
+
+🧬 Peptide protocols — BPC-157, sermorelin, recovery stacks & more
+🧬 Secure intake online → NP review → real protocol (not "add to cart")
+🧬 Peptide Member from $79/mo
+
+📱 Hello Gorgeous app — book, Vitamin Bar, memberships, GLP-1 screener:
+hellogorgeousmedspa.com/app
+
+Peptide request 👇
+hellogorgeousmedspa.com/peptide-request
+
+Ryan Kent, FNP-BC · 74 W Washington St, Oswego
+630-636-6193 · Naperville · Aurora · Plainfield`,
+  linkPath: "/hello-gorgeous-rx/start-here?utm_source=facebook&utm_medium=organic&utm_campaign=rx_blast",
+  imagePath: "/images/memberships/energy-unlimited.png",
+  defaultChannels: ["facebook"],
+};
+
 export const FACEBOOK_PAGE_PRESET_NON_SURGICAL_FACELIFT: FacebookPagePreset = {
   id: "non-surgical-facelift",
   label: "Non-Surgical Facelift — Oswego, IL",
@@ -557,6 +642,9 @@ Read the full guide (free consult link inside) 👇`,
 };
 
 export const FACEBOOK_PAGE_PRESETS: FacebookPagePreset[] = [
+  FACEBOOK_PAGE_PRESET_BLAST_MEMBERSHIPS,
+  FACEBOOK_PAGE_PRESET_BLAST_GLP1,
+  FACEBOOK_PAGE_PRESET_BLAST_RX_APP,
   FACEBOOK_PAGE_PRESET_BOTOX_49,
   FACEBOOK_PAGE_PRESET_MONTHLY_MEMBERSHIPS,
   FACEBOOK_PAGE_PRESET_NON_SURGICAL_FACELIFT,

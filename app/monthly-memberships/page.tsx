@@ -8,12 +8,13 @@ import {
   MONTHLY_MEMBERSHIPS_URL,
   membershipsItemListJsonLd,
 } from "@/lib/monthly-memberships-marketing";
+import { GLP1_PROGRAM } from "@/lib/glp1-program-pricing";
 import { breadcrumbJsonLd, faqJsonLd, pageMetadata, SITE, siteJsonLd } from "@/lib/seo";
 
 const baseMeta = pageMetadata({
   title: "Wellness Memberships Oswego IL — Peptides, Hormones, Vitamin Bar",
   description:
-    "Hello Gorgeous monthly wellness memberships in Oswego, IL: Vitamin Bar from $49/mo, peptide & hormone plans, Precision Hormone $199/mo, Metabolic Reset from $450/mo, Gentlemen's Club from $99/mo. Ryan Kent, FNP-BC. Naperville, Aurora & Plainfield.",
+    `Hello Gorgeous monthly wellness memberships in Oswego, IL: Vitamin Bar from $49/mo, peptide & hormone plans, Precision Hormone $199/mo, Metabolic Reset GLP-1 from $${GLP1_PROGRAM.injectable.tirzepatideStarterUsd}/mo, Gentlemen's Club from $99/mo. Ryan Kent, FNP-BC. Naperville, Aurora & Plainfield.`,
   path: MONTHLY_MEMBERSHIPS_PATH,
   keywords: [
     "med spa membership Oswego IL",

@@ -6,6 +6,12 @@ import { FadeUp } from "@/components/Section";
 import { YourVisitStepByStep } from "@/components/YourVisitStepByStep";
 import { PrecisionStartsFAQ } from "@/components/PrecisionStartsFAQ";
 import { useChatOpen } from "@/components/ChatOpenContext";
+import { GLP1_PROGRAM, GLP1_PROGRAM_CONSULT_USD } from "@/lib/glp1-program-pricing";
+
+const GLP1_START = GLP1_PROGRAM.injectable.tirzepatideStarterUsd;
+const GLP1_SEMA = GLP1_PROGRAM.injectable.semaglutideFromUsd;
+const GLP1_STD = GLP1_PROGRAM.injectable.tirzepatideStandardUsd;
+const GLP1_ADV = GLP1_PROGRAM.injectable.tirzepatideAdvancedUsd;
 
 const PROGRAMS = [
   {
@@ -52,34 +58,35 @@ const PROGRAMS = [
     name: "Metabolic Reset Program",
     tagline: "Tirzepatide. Support. Results.",
     description:
-      "Medical weight loss with tirzepatide. Prescription included—up to 5mg for $450/mo or up to 7.5mg for $499/mo. Higher doses available as upgrade. Same-day visits. Next-day labs.",
+      `Medical weight loss with semaglutide or tirzepatide. Prescription, supplies, and included monthly check-ins. Semaglutide from $${GLP1_SEMA}/mo · tirzepatide from $${GLP1_START}/mo. $${GLP1_PROGRAM_CONSULT_USD} consult credited to month 1 injectables if you enroll.`,
     benefits: [
-      "Tirzepatide prescription (up to 5mg or 7.5mg)",
+      `Semaglutide or tirzepatide prescription (from $${GLP1_SEMA}/mo or $${GLP1_START}/mo)`,
+      "Included monthly NP check-ins (in-person or telehealth)",
       "Same-day visit availability",
       "Next-day blood work results",
-      "Quarterly check-ins & AI lab insights",
+      "Quarterly reviews & AI lab insights",
       "Secure messaging with provider",
       "Supplement support (Fullscript)",
     ],
     benefitPillars: ["Weight loss", "Appetite control", "Metabolic support", "Energy", "Body composition"],
     learnMore: {
-      headline: "Tirzepatide Weight Loss Program",
+      headline: "GLP-1 Weight Loss Program",
       items: [
-        "$450/month: Includes prescription up to 5mg tirzepatide",
-        "$499/month: Includes prescription up to 7.5mg tirzepatide",
-        "Higher doses available—upgrade pricing applies",
-        "We only offer tirzepatide for weight loss (no semaglutide)",
+        `Semaglutide injectable from $${GLP1_SEMA}/month`,
+        `Tirzepatide starter $${GLP1_START}/mo · standard $${GLP1_STD}/mo · advanced $${GLP1_ADV}/mo`,
+        `$${GLP1_PROGRAM_CONSULT_USD} consult credited to month 1 injectables if you enroll`,
+        "Included monthly check-ins (in-person or Charm telehealth)",
+        "3-month prepay from $" + GLP1_PROGRAM.injectable.threeMonthFromUsd,
         "Same-day visit availability",
         "Next-day lab results for monitoring",
-        "Quarterly check-ins and AI-powered lab insights",
         "Prescriptions, IV therapy, vitamin injections as needed",
       ],
       ctaLink: "/glp1-weight-loss",
       ctaText: "Learn about weight loss therapy",
     },
-    priceDisplay: "From $450",
-    price: 450,
-    priceDaily: "~$15/day",
+    priceDisplay: `From $${GLP1_START}`,
+    price: GLP1_START,
+    priceDaily: `~$${(GLP1_START / 30).toFixed(0)}/day`,
     priceLabel: "per month",
     cta: "Join Weight Loss Program",
     icon: "⚡",

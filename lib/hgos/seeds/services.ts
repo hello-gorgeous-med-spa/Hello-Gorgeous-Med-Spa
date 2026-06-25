@@ -386,8 +386,8 @@ Administration Guidelines
 • Rotate injection sites to prevent irritation
 • Take consistently on the same day each week`,
     shortDescription: 'Dual GLP-1/GIP agonist for powerful weight loss',
-    priceCents: 45000,
-    priceDisplay: 'From $450',
+    priceCents: 29900,
+    priceDisplay: 'From $299',
     priceType: 'starting_at',
     durationMinutes: 15,
     bufferBeforeMinutes: 0,

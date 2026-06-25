@@ -3,10 +3,19 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { GLP1_PROGRAM } from "@/lib/glp1-program-pricing";
+
+const GLP1_START = GLP1_PROGRAM.injectable.tirzepatideStarterUsd;
+const GLP1_STD = GLP1_PROGRAM.injectable.tirzepatideStandardUsd;
+const GLP1_ADV = GLP1_PROGRAM.injectable.tirzepatideAdvancedUsd;
 
 const PROGRAMS: Record<string, { name: string; price: number; priceLabel?: string }> = {
   "precision-hormone": { name: "Precision Hormone Program", price: 199 },
-  "metabolic-reset": { name: "Metabolic Reset Program", price: 450, priceLabel: "From $450/mo (5mg) or $499/mo (7.5mg)" },
+  "metabolic-reset": {
+    name: "Metabolic Reset Program",
+    price: GLP1_START,
+    priceLabel: `From $${GLP1_START}/mo (tirzepatide) · $${GLP1_STD}/mo standard · $${GLP1_ADV}/mo advanced`,
+  },
 };
 
 export function MembershipsSignupContent({ programSlug }: { programSlug?: string }) {

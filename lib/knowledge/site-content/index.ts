@@ -1,4 +1,5 @@
 import type { KnowledgeEntry } from "../types";
+import { GLP1_PROGRAM, GLP1_PROGRAM_CONSULT_USD } from "@/lib/glp1-program-pricing";
 
 /**
  * Site-wide content: membership, VIP/Trifecta, pre & post care, general FAQs.
@@ -185,7 +186,7 @@ export const SITE_CONTENT: readonly KnowledgeEntry[] = [
     topic: "Precision Hormone Program and Metabolic Reset Program",
     category: "membership",
     explanation:
-      "Precision Hormone Program: full-spectrum hormone optimization — prescriptions, IV therapy, vitamin injections, HRT, blood work with next-day results, same-day visits, AI-powered insights. About $199/month. Metabolic Reset Program: medical weight loss with tirzepatide — prescription included (up to 5mg for $450/mo or 7.5mg for $499/mo), same-day visits, next-day labs, quarterly check-ins, secure messaging. Both programs include supplement support via Fullscript. No semaglutide; we only offer tirzepatide for weight loss.",
+      `Precision Hormone Program: full-spectrum hormone optimization — prescriptions, IV therapy, vitamin injections, HRT, blood work with next-day results, same-day visits, AI-powered insights. About $199/month. Metabolic Reset Program: medical weight loss with semaglutide or tirzepatide — semaglutide injectable from $${GLP1_PROGRAM.injectable.semaglutideFromUsd}/mo, tirzepatide from $${GLP1_PROGRAM.injectable.tirzepatideStarterUsd}/mo (starter), standard $${GLP1_PROGRAM.injectable.tirzepatideStandardUsd}/mo, advanced $${GLP1_PROGRAM.injectable.tirzepatideAdvancedUsd}/mo. $${GLP1_PROGRAM_CONSULT_USD} consult credited to month 1 injectables if you enroll. Included monthly check-ins, same-day visits, next-day labs, secure messaging. Both programs include supplement support via Fullscript.`,
     whatItHelpsWith: ["Understanding hormone and weight loss programs", "Pricing and what's included"],
     whoItsFor: ["Anyone interested in hormone optimization or medical weight loss"],
     whoItsNotFor: [],

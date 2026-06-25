@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { GLP1_PROGRAM } from "@/lib/glp1-program-pricing";
 
 const FAQ_ITEMS = [
   {
@@ -33,7 +34,7 @@ const FAQ_ITEMS = [
   },
   {
     q: "How much does it cost if I decide to move forward?",
-    a: "Initial visit pricing varies by service. Membership programs start at $199/mo (Hormone) and from $450/mo (Weight Loss). No hidden fees.",
+    a: `Initial visit pricing varies by service. Membership programs start at $199/mo (Hormone) and from $${GLP1_PROGRAM.injectable.tirzepatideStarterUsd}/mo (Weight Loss). No hidden fees.`,
   },
   {
     q: "Do you work with women or couples?",
