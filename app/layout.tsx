@@ -169,6 +169,10 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
         <meta name="apple-mobile-web-app-title" content="Hello Gorgeous" />
         <meta name="mobile-web-app-capable" content="yes" />
+        <meta
+          name="trustpilot-one-time-domain-verification-id"
+          content="f5a14c91-c7e2-4248-8748-0a6fb8835be4"
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd()) }}
