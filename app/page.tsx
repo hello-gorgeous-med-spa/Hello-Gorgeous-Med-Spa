@@ -41,6 +41,9 @@ const _homeBase = pageMetadata({
 
 export const metadata: Metadata = {
   ..._homeBase,
+  other: {
+    "trustpilot-one-time-domain-verification-id": "f5a14c91-c7e2-4248-8748-0a6fb8835be4",
+  },
   openGraph: {
     ..._homeBase.openGraph,
     images: [{ url: SITE_OG_IMAGE, width: 1200, height: 630, alt: SITE_OG_IMAGE_ALT }],
