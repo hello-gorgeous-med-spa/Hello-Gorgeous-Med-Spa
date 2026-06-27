@@ -83,7 +83,7 @@ export function formatGlp1StaffAlert(opts: {
   const smsLines = [
     signerName || "—",
     clientPhone || "—",
-    isRefill ? "GLP-1 REFILL" : "GLP-1 INTAKE",
+    isRefill ? "GLP-1 REFILL REQUEST" : "GLP-1 INTAKE",
     isRefill ? String(responses.current_medication || "—") : String(responses.bmi ?? "—"),
     status,
     `Ref ${ref}`,

@@ -5,6 +5,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 import { GLP1_REFILL_PATH } from "@/lib/flows";
 import { insertRxPaymentLedger } from "@/lib/rx-payment-ledger";
+import { notifyStaffGlp1RefillCheckoutStarted } from "@/lib/glp1-refill-staff-sms";
 import {
   getRxInvoiceTemplate,
   resolveTemplateAmountUsd,
@@ -63,6 +64,14 @@ export async function POST(req: NextRequest) {
       paymentUrl: result.url,
       deliveryMethod: "patient_portal",
       metadata: { mode: result.mode, reference: reference || null },
+    });
+
+    void notifyStaffGlp1RefillCheckoutStarted({
+      event: "autopay",
+      intakeRef: reference || null,
+      templateName: template.name,
+      lineLabel,
+      amountUsd,
     });
 
     return NextResponse.json({

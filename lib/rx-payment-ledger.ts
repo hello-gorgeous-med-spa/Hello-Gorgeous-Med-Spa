@@ -5,6 +5,7 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
 
 import { getSupabaseAdminClient } from "@/lib/hgos/supabase-admin";
+import { notifyStaffGlp1RefillPaidFromLedger } from "@/lib/glp1-refill-staff-sms";
 import type { RxInvoiceTrack } from "@/lib/rx-invoice-templates";
 
 export type RxLedgerSource =
@@ -347,7 +348,9 @@ export async function reconcileRxLedgerFromSquarePayment(
 
   const { data: matches, error } = await admin
     .from("hg_rx_payment_ledger")
-    .select("id, payment_status")
+    .select(
+      "id, payment_status, source, intake_ref, client_name, client_phone, template_name, line_label, amount_usd, metadata",
+    )
     .eq("square_order_id", orderId)
     .neq("payment_status", "paid");
 
@@ -367,7 +370,22 @@ export async function reconcileRxLedgerFromSquarePayment(
       })
       .eq("id", row.id);
 
-    if (!updErr) ledgerIds.push(String(row.id));
+    if (!updErr) {
+      ledgerIds.push(String(row.id));
+      if (status === "paid") {
+        void notifyStaffGlp1RefillPaidFromLedger({
+          id: String(row.id),
+          source: row.source as RxPaymentLedgerRow["source"],
+          intake_ref: row.intake_ref,
+          client_name: row.client_name,
+          client_phone: row.client_phone,
+          template_name: row.template_name,
+          line_label: row.line_label,
+          amount_usd: Number(row.amount_usd),
+          metadata: (row.metadata as Record<string, unknown>) ?? {},
+        });
+      }
+    }
   }
 
   return { updated: ledgerIds.length, ledgerIds };
