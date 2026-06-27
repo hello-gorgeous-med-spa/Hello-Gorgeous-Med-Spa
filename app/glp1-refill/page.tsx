@@ -66,10 +66,13 @@ export default function Glp1RefillPage() {
             </p>
             <ul className="text-sm text-black/65 space-y-1 max-w-xl">
               <li>
-                Tirzepatide from{" "}
-                <strong className="text-black">${GLP1_PROGRAM.injectable.tirzepatideStarterUsd}/mo</strong>{" "}
-                (dose tier may vary)
+                <strong className="text-black">Semaglutide</strong> — ${GLP1_PROGRAM.injectable.semaglutideFromUsd}/mo
               </li>
+              <li>
+                <strong className="text-black">Tirzepatide</strong> — starter ${GLP1_PROGRAM.injectable.tirzepatideStarterUsd} ·
+                standard ${GLP1_PROGRAM.injectable.tirzepatideStandardUsd} · advanced ${GLP1_PROGRAM.injectable.tirzepatideAdvancedUsd}/mo
+              </li>
+              <li>Price calculates automatically when you select your dose tier</li>
               <li>Monthly NP check-in required before each refill</li>
               <li>
                 New to Hello Gorgeous?{" "}

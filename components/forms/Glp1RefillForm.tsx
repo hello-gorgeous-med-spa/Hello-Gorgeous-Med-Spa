@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import Link from "next/link";
 
 import { SMSDisclosure } from "@/components/SMSDisclosure";
@@ -12,10 +12,17 @@ import {
   evaluateGlp1RefillEligibility,
   glp1SignerName,
 } from "@/lib/glp1-refill-intake";
+import {
+  computeGlp1RefillQuote,
+  glp1RefillPricingRequiresTier,
+  glp1RefillTierOptions,
+  type Glp1RefillQuote,
+  type Glp1RefillTierOption,
+} from "@/lib/glp1-refill-pricing";
 import type { IntakeFormField } from "@/lib/hgos/intake-forms";
 
 type SubmitResult =
-  | { kind: "qualified"; reference: string }
+  | { kind: "qualified"; reference: string; priceLabel?: string; lineLabel?: string }
   | { kind: "disqualified"; reference: string };
 
 function SignaturePad({ onChange }: { onChange: (dataUrl: string) => void }) {
@@ -126,6 +133,13 @@ function validateStep(stepIndex: number, data: Record<string, unknown>): Record<
   }
 
   if (step.id === "refill") {
+    const med = String(data.current_medication || "");
+    if (glp1RefillPricingRequiresTier(med) && !String(data.refill_dose_tier || "").trim()) {
+      errors.refill_dose_tier = "Select your dose tier";
+    }
+    if (glp1RefillPricingRequiresTier(med) && !computeGlp1RefillQuote(med, String(data.refill_dose_tier || ""))) {
+      errors.refill_dose_tier = "Select a valid dose tier";
+    }
     const weight = Number.parseFloat(String(data.weight_lbs || ""));
     if (Number.isNaN(weight) || weight < 50 || weight > 700) errors.weight_lbs = "Enter weight in lbs";
     if (data.dose_changes === "Yes" && !String(data.dose_changes_detail || "").trim()) {
@@ -166,9 +180,49 @@ export function Glp1RefillForm() {
   const [result, setResult] = useState<SubmitResult | null>(null);
 
   const currentStep = GLP1_REFILL_STEPS[step];
+  const medication = String(formData.current_medication || "");
+  const tierOptions = useMemo(() => glp1RefillTierOptions(medication), [medication]);
+  const refillQuote = useMemo(
+    () => computeGlp1RefillQuote(medication, String(formData.refill_dose_tier || "")),
+    [medication, formData.refill_dose_tier],
+  );
 
   function handleChange(fieldId: string, value: unknown) {
-    setFormData((prev) => ({ ...prev, [fieldId]: value }));
+    setFormData((prev) => {
+      const next: Record<string, unknown> = { ...prev, [fieldId]: value };
+      if (fieldId === "current_medication") {
+        delete next.refill_dose_tier;
+        delete next.refill_price_usd;
+        delete next.refill_price_label;
+        delete next.rx_invoice_template_id;
+        delete next.refill_line_label;
+        if (value === "Semaglutide") {
+          next.refill_dose_tier = "Monthly";
+          const quote = computeGlp1RefillQuote("Semaglutide", "Monthly");
+          if (quote) {
+            next.refill_price_usd = quote.priceUsd;
+            next.refill_price_label = quote.priceLabel;
+            next.rx_invoice_template_id = quote.invoiceTemplateId;
+            next.refill_line_label = quote.lineLabel;
+          }
+        }
+      }
+      if (fieldId === "refill_dose_tier") {
+        const quote = computeGlp1RefillQuote(String(next.current_medication || ""), String(value || ""));
+        if (quote) {
+          next.refill_price_usd = quote.priceUsd;
+          next.refill_price_label = quote.priceLabel;
+          next.rx_invoice_template_id = quote.invoiceTemplateId;
+          next.refill_line_label = quote.lineLabel;
+        } else {
+          delete next.refill_price_usd;
+          delete next.refill_price_label;
+          delete next.rx_invoice_template_id;
+          delete next.refill_line_label;
+        }
+      }
+      return next;
+    });
     if (errors[fieldId]) {
       setErrors((prev) => {
         const next = { ...prev };
@@ -202,6 +256,10 @@ export function Glp1RefillForm() {
     const signerName = glp1SignerName(formData);
     const clientPhone = String(formData.phone || "").trim();
     const signatureData = String(formData.signature || "");
+    const quote = computeGlp1RefillQuote(
+      String(formData.current_medication || ""),
+      String(formData.refill_dose_tier || ""),
+    );
 
     setBusy(true);
     try {
@@ -211,6 +269,14 @@ export function Glp1RefillForm() {
         disqualification_reasons: eligibility.disqualificationReasons,
         provider_flags: eligibility.providerFlags,
         submitted_at: new Date().toISOString(),
+        ...(quote
+          ? {
+              refill_price_usd: quote.priceUsd,
+              refill_price_label: quote.priceLabel,
+              rx_invoice_template_id: quote.invoiceTemplateId,
+              refill_line_label: quote.lineLabel,
+            }
+          : {}),
       };
       delete responses.signature;
 
@@ -233,7 +299,12 @@ export function Glp1RefillForm() {
       const reference = String(data.reference || "");
       setResult(
         eligibility.qualified
-          ? { kind: "qualified", reference }
+          ? {
+              kind: "qualified",
+              reference,
+              priceLabel: quote?.priceLabel,
+              lineLabel: quote?.lineLabel,
+            }
           : { kind: "disqualified", reference },
       );
     } catch {
@@ -255,9 +326,21 @@ export function Glp1RefillForm() {
             ? " Once approved, medication ships directly to your home address."
             : " We'll contact you about spa pick-up when your refill is ready."}
         </p>
+        {result.priceLabel && (
+          <div className="mt-4 mx-auto max-w-sm rounded-xl border-2 border-green-700/30 bg-white px-4 py-3">
+            <p className="text-[10px] font-bold uppercase tracking-widest text-[#E6007E]">
+              Your refill total
+            </p>
+            <p className="mt-1 text-3xl font-black text-green-900">{result.priceLabel}</p>
+            {result.lineLabel && (
+              <p className="mt-1 text-xs text-green-800">{result.lineLabel} · medication + supplies</p>
+            )}
+          </div>
+        )}
         <p className="mt-3 text-xs text-green-800 max-w-md mx-auto">
-          If you haven&apos;t completed your monthly check-in yet, book telehealth now. Payment for this month may
-          arrive separately by text from our team.
+          Our team will text you a secure payment link for{" "}
+          {result.priceLabel ? result.priceLabel.replace("/mo", "") : "your refill"} after Ryan approves your
+          check-in.
         </p>
         <a
           href={HG_RX_TELEHEALTH_BOOKING_URL}
@@ -324,6 +407,32 @@ export function Glp1RefillForm() {
         <div className="space-y-5">
           {currentStep.fields.map((field) => {
             if (!fieldVisible(field, formData)) return null;
+            if (field.id === "current_medication") {
+              return (
+                <div key={field.id} className="space-y-5">
+                  <FieldRenderer
+                    field={field}
+                    value={formData[field.id]}
+                    error={errors[field.id]}
+                    onChange={(v) => handleChange(field.id, v)}
+                  />
+                  {glp1RefillPricingRequiresTier(medication) ? (
+                    <RefillTierSelector
+                      medication={medication}
+                      options={tierOptions}
+                      value={String(formData.refill_dose_tier || "")}
+                      quote={refillQuote}
+                      error={errors.refill_dose_tier}
+                      onChange={(tier) => handleChange("refill_dose_tier", tier)}
+                    />
+                  ) : medication === "Other / switching — discuss with NP" ? (
+                    <p className="rounded-xl border-2 border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900">
+                      Pricing will be confirmed by Ryan at your check-in — no charge calculated online yet.
+                    </p>
+                  ) : null}
+                </div>
+              );
+            }
             return (
               <FieldRenderer
                 key={field.id}
@@ -360,6 +469,68 @@ export function Glp1RefillForm() {
       <p className="border-t border-black/10 px-5 py-4 text-center text-[11px] text-black/45">
         Protected health information · stored securely for your chart
       </p>
+    </div>
+  );
+}
+
+function RefillTierSelector({
+  medication,
+  options,
+  value,
+  quote,
+  error,
+  onChange,
+}: {
+  medication: string;
+  options: Glp1RefillTierOption[];
+  value: string;
+  quote: Glp1RefillQuote | null;
+  error?: string;
+  onChange: (tier: string) => void;
+}) {
+  return (
+    <div>
+      <label className="block text-sm font-semibold text-black">
+        Dose tier for this refill <span className="text-red-500">*</span>
+      </label>
+      <p className="mt-1 text-xs text-black/50">
+        Select the tier for your {medication.toLowerCase()} program — price updates automatically.
+      </p>
+      <div className="mt-3 space-y-2">
+        {options.map((opt) => (
+          <label
+            key={opt.tier}
+            className={`flex cursor-pointer items-center justify-between gap-3 rounded-xl border-2 px-4 py-3 text-sm transition ${
+              value === opt.tier
+                ? "border-[#E6007E] bg-[#FFF0F7]"
+                : "border-black/15 hover:border-[#E6007E]/40"
+            }`}
+          >
+            <span className="flex items-center gap-2.5">
+              <input
+                type="radio"
+                name="refill_dose_tier"
+                value={opt.tier}
+                checked={value === opt.tier}
+                onChange={() => onChange(opt.tier)}
+                className="accent-[#E6007E]"
+              />
+              <span className="font-medium">{opt.label}</span>
+            </span>
+            <span className="shrink-0 font-black text-[#E6007E]">${opt.priceUsd}/mo</span>
+          </label>
+        ))}
+      </div>
+      {quote && (
+        <div className="mt-4 rounded-xl border-2 border-[#E6007E]/30 bg-[#FFF0F7] px-4 py-3">
+          <p className="text-[10px] font-bold uppercase tracking-widest text-[#E6007E]">
+            Refill total this month
+          </p>
+          <p className="mt-1 text-3xl font-black text-black">{quote.priceLabel}</p>
+          <p className="mt-1 text-xs text-black/55">{quote.lineLabel} · includes medication & supplies</p>
+        </div>
+      )}
+      {error && <p className="mt-2 text-xs text-red-500">{error}</p>}
     </div>
   );
 }

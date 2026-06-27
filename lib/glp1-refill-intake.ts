@@ -117,16 +117,9 @@ const REFILL_FIELDS: IntakeFormField[] = [
   {
     id: "current_medication",
     type: "radio",
-    label: "Current GLP-1 medication",
+    label: "Medication for this refill",
     required: true,
     options: ["Semaglutide", "Tirzepatide", "Other / switching — discuss with NP"],
-  },
-  {
-    id: "dose_tier",
-    type: "select",
-    label: "Current dose tier (if known)",
-    required: false,
-    options: ["Starter", "Standard", "Advanced", "Not sure — NP to confirm"],
   },
   {
     id: "current_dose",
@@ -323,10 +316,8 @@ export function evaluateGlp1RefillEligibility(data: Record<string, unknown>): {
 
 export function suggestGlp1RefillDrug(data: Record<string, unknown>): string {
   const med = String(data.current_medication || "").trim();
-  const tier = String(data.dose_tier || "").trim();
+  const tier = String(data.refill_dose_tier || data.dose_tier || "").trim();
   const dose = String(data.current_dose || "").trim();
-  const parts = [med, tier !== "Not sure — NP to confirm" ? tier : null, dose ? `${dose}/wk` : null].filter(
-    Boolean,
-  );
+  const parts = [med, tier || null, dose ? `${dose}/wk` : null].filter(Boolean);
   return parts.length ? parts.join(" — ") : "GLP-1 injectable — NP to specify";
 }

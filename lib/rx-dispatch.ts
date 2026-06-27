@@ -349,7 +349,10 @@ export function intakeSummaryLines(
   if (track === "glp1") {
     if (slug === "glp1-refill-request") {
       lines.push(`Medication: ${String(responses.current_medication || "—")}`);
-      lines.push(`Dose tier: ${String(responses.dose_tier || "—")}`);
+      lines.push(`Dose tier: ${String(responses.refill_dose_tier || responses.dose_tier || "—")}`);
+      lines.push(
+        `Price: ${String(responses.refill_price_label || (responses.refill_price_usd != null ? `$${responses.refill_price_usd}/mo` : "—"))}`,
+      );
       lines.push(`Weight: ${String(responses.weight_lbs || "—")} lbs`);
       lines.push(`Ship: ${String(responses.ship_to_home || "—")}`);
     } else {

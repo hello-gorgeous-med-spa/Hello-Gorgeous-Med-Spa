@@ -56,7 +56,9 @@ export function formatGlp1StaffAlert(opts: {
     ...(isRefill
       ? [
           line("Medication", responses.current_medication),
-          line("Dose tier", responses.dose_tier),
+          line("Dose tier", responses.refill_dose_tier || responses.dose_tier),
+          line("Refill price", responses.refill_price_label || responses.refill_price_usd),
+          line("RX invoice template", responses.rx_invoice_template_id),
           line("Current dose", responses.current_dose),
           line("Last injection", responses.last_dose_date),
           line("Weight (lbs)", responses.weight_lbs),
