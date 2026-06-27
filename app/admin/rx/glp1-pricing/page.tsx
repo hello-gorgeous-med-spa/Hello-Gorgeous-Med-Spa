@@ -126,13 +126,11 @@ export default function Glp1PricingPage() {
         <p className="font-bold">Current policy</p>
         <ul className="list-disc pl-5 text-black/80 space-y-0.5">
           <li>
-            <strong>Patient retail</strong> — dose tiers in{" "}
-            <code className="text-xs bg-white px-1 rounded">lib/glp1-dose-tiers.ts</code> ($195–$395/mo
-            med)
+            <strong>Patient retail (menu)</strong> — BoomRx wholesale × 2.5 per month (product only)
           </li>
           <li>
-            <strong>Website checkout</strong> — 3× monthly med + $35 shipping for 90-day (default) or
-            1× monthly + $35 for 30-day
+            <strong>Website checkout</strong> — product total + $35 cold-chain shipping. 90-day product
+            gets an extra 10% off before shipping.
           </li>
           <li>
             <strong>Order pharmacy</strong> — <strong>BoomRx</strong> for online refills &amp; 90-day

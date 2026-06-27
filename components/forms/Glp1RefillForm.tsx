@@ -1049,7 +1049,7 @@ function SupplyCycleSelector({
             {opt.quote && (
               <p className="pl-6 text-xs text-black/55">
                 {opt.quote.lineLabel}
-                {opt.quote.shippingUsd > 0 ? ` · includes $${opt.quote.shippingUsd} shipping` : ""}
+                {opt.quote.shippingUsd > 0 ? ` · + $${opt.quote.shippingUsd} shipping` : ""}
                 {opt.quote.savingsNote ? ` · ${opt.quote.savingsNote}` : ""}
               </p>
             )}
@@ -1106,7 +1106,7 @@ function RefillTierSelector({
               />
               <span className="font-medium">{opt.doseLabel}</span>
             </span>
-            <span className="shrink-0 font-black text-[#E6007E]">${opt.priceUsd}/mo</span>
+            <span className="shrink-0 font-black text-[#E6007E]">${opt.priceUsd}/mo + ship</span>
           </label>
         ))}
       </div>
@@ -1116,10 +1116,12 @@ function RefillTierSelector({
             {quote.supplyCycle === "90-day" ? "90-day refill total" : "Refill total this month"}
           </p>
           <p className="mt-1 text-3xl font-black text-black">{quote.priceLabel}</p>
-          <p className="mt-1 text-xs text-black/55">{quote.lineLabel} · includes medication & supplies</p>
-          {quote.shippingUsd > 0 && (
-            <p className="mt-1 text-xs text-black/50">Includes ${quote.shippingUsd} cold-chain shipping</p>
-          )}
+          <p className="mt-1 text-xs text-black/55">
+            {quote.lineLabel}
+            {quote.productUsd > 0 && quote.shippingUsd > 0
+              ? ` · $${quote.productUsd} medication + $${quote.shippingUsd} shipping`
+              : " · includes medication & supplies"}
+          </p>
           {quote.savingsNote && (
             <p className="mt-2 text-xs font-semibold text-[#E6007E]">{quote.savingsNote}</p>
           )}

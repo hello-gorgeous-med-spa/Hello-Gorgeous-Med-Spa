@@ -14,26 +14,27 @@ import { useAuth } from '@/lib/hgos/AuthContext';
 
 // Dashboard view tabs
 const DASHBOARD_VIEWS = [
-  { id: 'staff', label: 'Staff', href: '/admin', icon: '👤', description: 'Day-to-day operations' },
+  { id: 'staff', label: 'Portal', href: '/admin', icon: '🩺', description: 'RX & daily operations' },
   { id: 'owner', label: 'Owner', href: '/admin/owner', icon: '👑', description: 'Business control center' },
   { id: 'pos', label: 'POS', href: '/pos', icon: '💳', description: 'Point of sale' },
-  { id: 'portal', label: 'Portal', href: '/portal', icon: '🌐', description: 'Client view' },
+  { id: 'portal', label: 'Client', href: '/portal', icon: '🌐', description: 'Client-facing portal' },
 ];
 
-// Quick access vendor links - updated with actual portal URLs
+// Quick access vendor links — full list (Manage All → /admin/vendors)
 const QUICK_VENDORS = [
+  { name: 'BoomRx', url: 'https://portal.boomrx.com/en-US/boomrx/prescriptions', icon: '💊', color: 'text-indigo-300' },
   { name: 'Charm EHR', url: 'https://accounts.charmtracker.com/signin', icon: '🏥', color: 'text-purple-300' },
-  { name: 'eFax Portal', url: 'https://myportal.efax.com/login', icon: '📠', color: 'text-black' },
+  { name: 'Formulation', url: 'https://fccrxportal.com/dashboard', icon: '🧪', color: 'text-rose-300' },
+  { name: 'Olympia', url: 'https://olympiapharmacy.drscriptportal.com/dashboard', icon: '💊', color: 'text-violet-300' },
+  { name: 'Square', url: 'https://squareup.com/dashboard', icon: '💳', color: 'text-emerald-300' },
   { name: 'McKesson', url: 'https://connect.mckesson.com/', icon: '📦', color: 'text-blue-300' },
   { name: 'Allergan', url: 'https://www.brilliantconnections.com/', icon: '💉', color: 'text-pink-300' },
+  { name: 'Allē Portal', url: 'https://provider.alle.com/', icon: '⭐', color: 'text-yellow-300' },
   { name: 'Evolus', url: 'https://providers.evolus.com/', icon: '💎', color: 'text-cyan-300' },
   { name: 'AnteAGE', url: 'https://provider.anteage.com/login.php', icon: '✨', color: 'text-amber-300' },
   { name: 'Skin Script', url: 'https://skinscriptrx.com/', icon: '🧴', color: 'text-green-300' },
-  { name: 'Olympia', url: 'https://olympiapharmacy.drscriptportal.com/dashboard', icon: '💊', color: 'text-violet-300' },
-  { name: 'Formulation', url: 'https://fccrxportal.com/dashboard', icon: '🧪', color: 'text-rose-300' },
-  { name: 'BoomRx', url: 'https://portal.boomrx.com/en-US/boomrx/prescriptions', icon: '💊', color: 'text-indigo-300' },
+  { name: 'eFax Portal', url: 'https://myportal.efax.com/login', icon: '📠', color: 'text-slate-300' },
   { name: 'Amazon', url: 'https://www.amazon.com/gc/balance', icon: '📦', color: 'text-orange-300' },
-  { name: 'Allē Portal', url: 'https://provider.alle.com/', icon: '⭐', color: 'text-yellow-300' },
 ];
 
 export function AdminHeader() {
@@ -90,7 +91,7 @@ export function AdminHeader() {
                 className={`flex items-center gap-1.5 px-4 py-2 rounded-md text-sm font-medium transition-all ${
                   currentView === view.id
                     ? 'bg-white text-black shadow-sm'
-                    : 'text-black hover:text-white hover:bg-white'
+                    : 'text-white/75 hover:text-white hover:bg-white/10'
                 }`}
               >
                 <span aria-hidden>{view.icon}</span>
@@ -191,15 +192,25 @@ export function AdminHeader() {
             Charm EHR
           </a>
           <Link
+            href="/admin/flowwave"
+            className="hidden md:inline-flex items-center gap-1.5 px-3 py-2 bg-white/10 hover:bg-white/15 rounded-lg text-sm font-medium transition-colors border border-white/20"
+          >
+            FlowWave
+          </Link>
+          <Link
+            href="/admin/rx"
+            className="hidden sm:inline-flex items-center gap-1.5 px-3 py-2 bg-white/10 hover:bg-white/15 rounded-lg text-sm font-medium transition-colors border border-white/20"
+          >
+            RX
+          </Link>
+          <Link
             href="/admin/appointments/new"
             className="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 bg-[#FF2D8E] hover:bg-[#c90a68] rounded-lg text-sm font-medium transition-colors"
           >
-            <span aria-hidden>➕</span>
             Book
           </Link>
-          <button type="button" className="relative p-2.5 hover:bg-white rounded-xl transition-all" aria-label="Notifications">
+          <button type="button" className="hidden md:inline-flex p-2.5 hover:bg-white/10 rounded-xl transition-all text-white/60" aria-label="Notifications">
             <span aria-hidden>🔔</span>
-            <span className="absolute top-1.5 right-1.5 w-2.5 h-2.5 bg-gradient-to-r from-red-500 to-rose-500 rounded-full animate-pulse" aria-hidden />
           </button>
 
           {isLoading ? (

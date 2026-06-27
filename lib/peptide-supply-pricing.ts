@@ -1,47 +1,44 @@
 /**
- * Peptide protocol pricing — 30-day & 90-day supply (same model as GLP-1).
+ * Peptide protocol pricing — BoomRx wholesale × 2.5 + shipping, 10% off 90-day product.
  */
 
-import { PEPTIDE_REQUEST_ITEMS } from "@/lib/peptide-request-menu";
 import {
-  getPeptideRetailMonthlyUsd,
-  PEPTIDE_PHARMACY_SHIPPING_USD,
-} from "@/lib/peptide-retail-pricing";
+  boomrx90DaySavingsNote,
+  boomrxConsumerMonthlyUsd,
+  boomrxConsumerPriceLabel,
+  boomrxConsumerProductUsd,
+  boomrxConsumerShippingUsd,
+} from "@/lib/boomrx-consumer-pricing";
 import { pickPeptideBoomRxPack } from "@/lib/peptide-boomrx-catalog";
-import {
-  computeRxSupplyQuote,
-  parseRxSupplyCycle,
-  type RxSupplyCycleId,
-} from "@/lib/rx-supply-cycle";
+import { PEPTIDE_REQUEST_ITEMS } from "@/lib/peptide-request-menu";
+import { parseRxSupplyCycle, type RxSupplyCycleId } from "@/lib/rx-supply-cycle";
 
 export type PeptideSupplyQuoteLine = {
   peptideMenuId: string;
   peptideName: string;
   monthlyRetailUsd: number;
   supplyCycle: RxSupplyCycleId;
-  medicationSubtotalUsd: number;
+  productUsd: number;
   shippingUsd: number;
+  boomrxWholesaleUsd: number;
   totalUsd: number;
   lineLabel: string;
   priceLabel: string;
   invoiceTemplateId: string;
-  boomrxWholesaleUsd: number | null;
   savingsNote?: string;
 };
 
 export type PeptideCombinedSupplyQuote = {
   supplyCycle: RxSupplyCycleId;
   lines: PeptideSupplyQuoteLine[];
-  medicationSubtotalUsd: number;
+  productSubtotalUsd: number;
   shippingUsd: number;
+  totalWholesaleUsd: number;
   totalUsd: number;
   priceLabel: string;
   lineLabel: string;
   savingsNote?: string;
 };
-
-/** Default monthly retail when not on published menu (NP confirms at visit). */
-export const PEPTIDE_DEFAULT_MONTHLY_RETAIL_USD = 169;
 
 export function peptideMenuIdFromDisplayName(name: string): string | null {
   const n = name.trim();
@@ -49,8 +46,10 @@ export function peptideMenuIdFromDisplayName(name: string): string | null {
   return item?.id ?? null;
 }
 
-export function peptideMonthlyRetailUsd(menuId: string): number {
-  return getPeptideRetailMonthlyUsd(menuId) ?? PEPTIDE_DEFAULT_MONTHLY_RETAIL_USD;
+export function peptideMonthlyRetailUsd(menuId: string): number | null {
+  const pack30 = pickPeptideBoomRxPack(menuId, "30-day");
+  if (!pack30) return null;
+  return boomrxConsumerMonthlyUsd(pack30.wholesaleUsd);
 }
 
 export function peptideInvoiceTemplateId(menuId: string, supplyCycle: RxSupplyCycleId): string {
@@ -72,29 +71,32 @@ export function computePeptideSupplyQuote(
   }
 
   const supplyCycle = parseRxSupplyCycle(supplyCycleRaw ?? "90-day");
-  const monthlyRetailUsd = peptideMonthlyRetailUsd(id);
-  const supply = computeRxSupplyQuote({
-    monthlyMedUsd: monthlyRetailUsd,
-    supplyCycle,
-    lineBase: item.name,
-    shippingUsd: PEPTIDE_PHARMACY_SHIPPING_USD,
-  });
+  const pack = pickPeptideBoomRxPack(id, supplyCycle);
+  const pack30 = pickPeptideBoomRxPack(id, "30-day");
+  if (!pack || !pack30) return null;
 
-  const boomrx = pickPeptideBoomRxPack(id, supplyCycle);
+  const productUsd = boomrxConsumerProductUsd(pack.wholesaleUsd, supplyCycle);
+  const shippingUsd = boomrxConsumerShippingUsd();
+  const totalUsd = productUsd + shippingUsd;
+  const months = supplyCycle === "90-day" ? 3 : 1;
+  const periodLabel = months === 1 ? "1 mo" : `${months} mo`;
 
   return {
     peptideMenuId: id,
     peptideName: item.name,
-    monthlyRetailUsd,
+    monthlyRetailUsd: boomrxConsumerMonthlyUsd(pack30.wholesaleUsd),
     supplyCycle,
-    medicationSubtotalUsd: supply.medicationSubtotalUsd,
-    shippingUsd: supply.shippingUsd,
-    totalUsd: supply.totalUsd,
-    lineLabel: supply.lineLabel,
-    priceLabel: supply.priceLabel,
+    productUsd,
+    shippingUsd,
+    boomrxWholesaleUsd: pack.wholesaleUsd,
+    totalUsd,
+    lineLabel: `${item.name} (${periodLabel} + shipping)`,
+    priceLabel: boomrxConsumerPriceLabel(totalUsd, supplyCycle),
     invoiceTemplateId: peptideInvoiceTemplateId(id, supplyCycle),
-    boomrxWholesaleUsd: boomrx?.wholesaleUsd ?? null,
-    savingsNote: supply.savingsNote,
+    savingsNote:
+      supplyCycle === "90-day"
+        ? boomrx90DaySavingsNote(pack30.wholesaleUsd, pack.wholesaleUsd)
+        : undefined,
   };
 }
 
@@ -114,26 +116,28 @@ export function computePeptideCombinedQuote(
 
   if (lines.length === 0) return null;
 
-  const medicationSubtotalUsd = lines.reduce((s, l) => s + l.medicationSubtotalUsd, 0);
-  const shippingUsd = PEPTIDE_PHARMACY_SHIPPING_USD;
-  const totalUsd = medicationSubtotalUsd + shippingUsd;
+  const productSubtotalUsd = lines.reduce((s, l) => s + l.productUsd, 0);
+  const shippingUsd = boomrxConsumerShippingUsd();
+  const totalUsd = productSubtotalUsd + shippingUsd;
+  const totalWholesaleUsd = lines.reduce((s, l) => s + l.boomrxWholesaleUsd, 0);
   const months = supplyCycle === "90-day" ? 3 : 1;
   const periodLabel = months === 1 ? "1 mo" : `${months} mo`;
 
-  const monthlyAltShipping = PEPTIDE_PHARMACY_SHIPPING_USD * months;
   const savingsNote =
-    supplyCycle === "90-day" && monthlyAltShipping > shippingUsd
-      ? `Save $${monthlyAltShipping - shippingUsd} on shipping vs three monthly shipments`
-      : undefined;
+    supplyCycle === "90-day" && lines.length === 1 && lines[0]?.savingsNote
+      ? lines[0].savingsNote
+      : supplyCycle === "90-day"
+        ? `${lines.length} protocol(s) · 10% off 90-day product + $${shippingUsd} shipping`
+        : undefined;
 
   return {
     supplyCycle,
     lines,
-    medicationSubtotalUsd,
+    productSubtotalUsd,
     shippingUsd,
+    totalWholesaleUsd,
     totalUsd,
-    priceLabel:
-      months === 1 ? `$${totalUsd}/mo` : `$${totalUsd} / ${months} mo`,
+    priceLabel: boomrxConsumerPriceLabel(totalUsd, supplyCycle),
     lineLabel: `${lines.map((l) => l.peptideName).join(" + ")} (${periodLabel} + shipping)`,
     savingsNote,
   };

@@ -1,7 +1,15 @@
 /**
- * GLP-1 refill pricing — maps medication + weekly dose tier + supply cycle → invoice total.
+ * GLP-1 refill pricing — BoomRx wholesale × 2.5 + shipping, 10% off 90-day product.
  */
 
+import { pickBoomRxGlp1Pack } from "@/lib/glp1-boomrx-catalog";
+import {
+  boomrx90DaySavingsNote,
+  boomrxConsumerMonthlyUsd,
+  boomrxConsumerPriceLabel,
+  boomrxConsumerProductUsd,
+  boomrxConsumerShippingUsd,
+} from "@/lib/boomrx-consumer-pricing";
 import {
   GLP1_INSURANCE_OVERSIGHT,
   glp1DoseTierById,
@@ -33,7 +41,9 @@ export type Glp1RefillQuote = {
   priceLabel: string;
   supplyCycle: RxSupplyCycleId;
   monthlyMedUsd: number;
+  productUsd: number;
   shippingUsd: number;
+  boomrxWholesaleUsd: number;
   savingsNote?: string;
 };
 
@@ -42,13 +52,17 @@ export function formatGlp1RefillPriceUsd(amountUsd: number): string {
 }
 
 function tierToOption(tier: Glp1DoseTier): Glp1RefillTierOption {
+  const pack30 = pickBoomRxGlp1Pack(tier.id, "30-day");
+  const monthlyUsd = pack30
+    ? boomrxConsumerMonthlyUsd(pack30.wholesaleUsd)
+    : tier.priceUsd;
   return {
     tier: tier.id,
     doseLabel: tier.doseLabel,
-    label: `${tier.doseLabel} — ${formatGlp1RefillPriceUsd(tier.priceUsd)}/mo med`,
-    priceUsd: tier.priceUsd,
+    label: `${tier.doseLabel} — ${formatGlp1RefillPriceUsd(monthlyUsd)}/mo + shipping`,
+    priceUsd: monthlyUsd,
     invoiceTemplateId: tier.invoiceTemplateId,
-    lineLabel: `${tier.medication} ${tier.doseLabel} (1 mo)`,
+    lineLabel: `${tier.medication} ${tier.doseLabel} (1 mo + shipping)`,
   };
 }
 
@@ -96,7 +110,9 @@ export function computeGlp1RefillQuote(
       priceLabel: supply.priceLabel,
       supplyCycle,
       monthlyMedUsd: GLP1_INSURANCE_OVERSIGHT.monthlyUsd,
+      productUsd: supply.medicationSubtotalUsd,
       shippingUsd: supply.shippingUsd,
+      boomrxWholesaleUsd: 0,
       savingsNote: supply.savingsNote,
     };
   }
@@ -104,24 +120,33 @@ export function computeGlp1RefillQuote(
   const doseTier = glp1DoseTierById(tierKey);
   if (!doseTier || doseTier.medication !== med) return null;
 
-  const supply = computeRxSupplyQuote({
-    monthlyMedUsd: doseTier.priceUsd,
-    supplyCycle,
-    lineBase: `${doseTier.medication} ${doseTier.doseLabel}`,
-  });
+  const pack = pickBoomRxGlp1Pack(tierKey, supplyCycle);
+  const pack30 = pickBoomRxGlp1Pack(tierKey, "30-day");
+  if (!pack || !pack30) return null;
+
+  const productUsd = boomrxConsumerProductUsd(pack.wholesaleUsd, supplyCycle);
+  const shippingUsd = boomrxConsumerShippingUsd();
+  const totalUsd = productUsd + shippingUsd;
+  const months = supplyCycle === "90-day" ? 3 : 1;
+  const periodLabel = months === 1 ? "1 mo" : `${months} mo`;
 
   return {
     medication: med,
     tier: doseTier.id,
     doseLabel: doseTier.doseLabel,
-    priceUsd: supply.totalUsd,
+    priceUsd: totalUsd,
     invoiceTemplateId: doseTier.invoiceTemplateId,
-    lineLabel: supply.lineLabel,
-    priceLabel: supply.priceLabel,
+    lineLabel: `${doseTier.medication} ${doseTier.doseLabel} (${periodLabel} + shipping)`,
+    priceLabel: boomrxConsumerPriceLabel(totalUsd, supplyCycle),
     supplyCycle,
-    monthlyMedUsd: doseTier.priceUsd,
-    shippingUsd: supply.shippingUsd,
-    savingsNote: supply.savingsNote,
+    monthlyMedUsd: boomrxConsumerMonthlyUsd(pack30.wholesaleUsd),
+    productUsd,
+    shippingUsd,
+    boomrxWholesaleUsd: pack.wholesaleUsd,
+    savingsNote:
+      supplyCycle === "90-day"
+        ? boomrx90DaySavingsNote(pack30.wholesaleUsd, pack.wholesaleUsd)
+        : undefined,
   };
 }
 

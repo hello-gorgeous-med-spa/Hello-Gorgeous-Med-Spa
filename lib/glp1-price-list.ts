@@ -122,7 +122,7 @@ function buildTierRow(tier: Glp1DoseTier, cycle: RxSupplyCycleId): Glp1PriceList
     supplyCycle: cycle,
     supplyMonths: cycle === "90-day" ? 3 : 1,
     retailMonthlyUsd: tier.priceUsd,
-    medSubtotalUsd: quote?.monthlyMedUsd != null ? quote.monthlyMedUsd * (cycle === "90-day" ? 3 : 1) : tier.priceUsd * (cycle === "90-day" ? 3 : 1),
+    medSubtotalUsd: quote?.productUsd ?? tier.priceUsd * (cycle === "90-day" ? 3 : 1),
     shippingUsd: quote?.shippingUsd ?? GLP1_PHARMACY_POLICY.shippingUsd,
     websiteChargeUsd,
     preferredVendor,

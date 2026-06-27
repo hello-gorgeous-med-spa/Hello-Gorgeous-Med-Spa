@@ -54,7 +54,7 @@ export function buildPeptideMasterPriceList(): PeptidePriceListRow[] {
         peptideName: item.name,
         category: item.category,
         supplyCycle: cycle,
-        retailMonthlyUsd: peptideMonthlyRetailUsd(entry.peptideMenuId),
+        retailMonthlyUsd: peptideMonthlyRetailUsd(entry.peptideMenuId) ?? quote.monthlyRetailUsd,
         websiteChargeUsd: quote.totalUsd,
         shippingUsd: quote.shippingUsd,
         boomrxSku: pack?.id ?? null,

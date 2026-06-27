@@ -725,9 +725,12 @@ export function PeptideRequestForm({
                       <ul className="mt-2 space-y-1 text-xs text-black/70">
                         {refillQuote.lines.map((l) => (
                           <li key={l.peptideMenuId}>
-                            {l.peptideName}: {l.priceLabel} retail/mo × {refillQuote.supplyCycle === "90-day" ? 3 : 1}
+                            {l.peptideName}: ${l.productUsd} product
                           </li>
                         ))}
+                        <li className="font-semibold text-black/80">
+                          + ${refillQuote.shippingUsd} shipping · ${refillQuote.totalUsd} total
+                        </li>
                       </ul>
                     </div>
                   )}
@@ -852,6 +855,11 @@ function PeptideSupplyCycleSelector({
               <span className="text-right">
                 <span className="block text-xl font-black text-[#E6007E]">{opt.quote.priceLabel}</span>
                 <span className="block text-[10px] text-black/50 uppercase">due at checkout</span>
+                {opt.quote.shippingUsd > 0 && (
+                  <span className="block text-[10px] text-black/45">
+                    ${opt.quote.productSubtotalUsd} product + ${opt.quote.shippingUsd} ship
+                  </span>
+                )}
               </span>
             )}
           </label>

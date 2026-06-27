@@ -1,64 +1,16 @@
 'use client';
 
-// ============================================================
-// EXECUTIVE DASHBOARD - CEO COCKPIT
-// Real-time business intelligence and operational control
-// Owner/Admin Only - Full visibility into all metrics
-// ============================================================
-
 import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import { fetchWithTimeout } from '@/lib/fetchWithTimeout';
-
-// ============================================================
-// TYPES
-// ============================================================
+import { ADMIN_DASHBOARD_QUICK_LINKS, ADMIN_PORTAL_TAGLINE } from '@/lib/admin-nav';
 
 interface DashboardStats {
-  // Revenue
   todayRevenue: number;
-  weekRevenue: number;
   monthRevenue: number;
-  yearRevenue: number;
-  membershipMRR: number;
-  retailRevenue: number;
-  serviceRevenue: number;
-  
-  // Appointments
   todayAppointments: number;
-  weekAppointments: number;
-  monthAppointments: number;
   completedToday: number;
-  
-  // Rates
-  utilizationRate: number;
-  noShowRate: number;
-  cancellationRate: number;
-  rebookRate: number;
-  avgTicket: number;
-  
-  // Clients
   totalClients: number;
-  newClientsMonth: number;
-  activeMembers: number;
-}
-
-interface ProviderStats {
-  id: string;
-  name: string;
-  appointments: number;
-  completed: number;
-  revenue: number;
-  noShows: number;
-  utilization: number;
-}
-
-interface ServiceStats {
-  id: string;
-  name: string;
-  bookings: number;
-  revenue: number;
-  avgPrice: number;
 }
 
 interface UpcomingAppointment {
@@ -67,430 +19,216 @@ interface UpcomingAppointment {
   status: string;
   client_name: string;
   service: string;
-  provider_name?: string;
-  amount?: number;
 }
 
-// ============================================================
-// COMPONENTS
-// ============================================================
+interface RxQueueItem {
+  submissionId: string;
+  patientName: string;
+  track: string;
+  dispatchStatus: string;
+  paymentStatus: string | null;
+  submittedAt: string;
+}
 
 function StatusBadge({ status }: { status: string }) {
   const styles: Record<string, string> = {
-    completed: 'bg-green-100 text-green-700',
-    in_progress: 'bg-purple-100 text-purple-700',
-    checked_in: 'bg-blue-100 text-blue-700',
-    confirmed: 'bg-white text-black',
+    completed: 'bg-emerald-100 text-emerald-800',
+    in_progress: 'bg-violet-100 text-violet-800',
+    checked_in: 'bg-blue-100 text-blue-800',
+    confirmed: 'bg-slate-100 text-slate-800',
     cancelled: 'bg-red-100 text-red-700',
-    no_show: 'bg-amber-100 text-amber-700',
+    no_show: 'bg-amber-100 text-amber-800',
   };
-
   return (
-    <span className={`px-2 py-1 text-xs font-medium rounded-full ${styles[status] || 'bg-white text-black'}`}>
-      {status.replace('_', ' ')}
+    <span className={`px-2 py-0.5 text-[11px] font-semibold rounded-full capitalize ${styles[status] || 'bg-slate-100 text-slate-700'}`}>
+      {status.replace(/_/g, ' ')}
     </span>
   );
 }
 
-function Skeleton({ className = '' }: { className?: string }) {
-  return <div className={`animate-pulse bg-white rounded ${className}`} />;
-}
-
-function KPICard({ 
-  label, 
-  value, 
-  subValue, 
-  trend, 
+function StatCard({
+  label,
+  value,
+  sub,
   loading,
-  color = 'gray',
-  icon,
-  gradient,
-}: { 
-  label: string; 
-  value: string | number; 
-  subValue?: string;
-  trend?: { value: number; positive: boolean };
+}: {
+  label: string;
+  value: string;
+  sub?: string;
   loading?: boolean;
-  color?: 'gray' | 'green' | 'red' | 'blue' | 'purple' | 'amber' | 'pink' | 'teal';
-  icon?: string;
-  gradient?: boolean;
 }) {
-  const colorClasses = {
-    gray: 'text-black',
-    green: 'text-emerald-600',
-    red: 'text-rose-600',
-    blue: 'text-blue-600',
-    purple: 'text-violet-600',
-    amber: 'text-amber-600',
-    pink: 'text-pink-600',
-    teal: 'text-teal-600',
-  };
-
-  const gradientBg = gradient ? {
-    green: 'bg-white border-black',
-    blue: 'bg-white border-black',
-    pink: 'bg-white border-black',
-    purple: 'bg-white border-black',
-    amber: 'bg-white border-black',
-    teal: 'bg-white border-black',
-    red: 'bg-white border-black',
-    gray: 'bg-white border-black',
-  }[color] : 'bg-white border-black';
-
   return (
-    <div className={`rounded-lg border shadow-sm p-5 transition-shadow hover:shadow ${gradientBg}`}>
-      <div className="flex items-start justify-between">
-        <p className="text-sm font-medium text-black mb-1">{label}</p>
-        {icon && <span className="text-xl opacity-80">{icon}</span>}
-      </div>
+    <div className="rounded-xl border border-black/10 bg-white p-5 shadow-sm">
+      <p className="text-xs font-semibold uppercase tracking-wider text-black/45">{label}</p>
       {loading ? (
-        <Skeleton className="w-24 h-8" />
+        <div className="mt-2 h-9 w-28 animate-pulse rounded bg-black/5" />
       ) : (
         <>
-          <p className={`text-3xl font-bold tracking-tight ${colorClasses[color]}`}>{value}</p>
-          {subValue && <p className="text-sm text-black mt-1">{subValue}</p>}
-          {trend && (
-            <p className={`text-sm mt-1 font-medium ${trend.positive ? 'text-emerald-600' : 'text-rose-600'}`}>
-              {trend.positive ? '↑' : '↓'} {Math.abs(trend.value)}% vs last period
-            </p>
-          )}
+          <p className="mt-1 text-3xl font-bold tracking-tight text-black">{value}</p>
+          {sub && <p className="mt-1 text-sm text-black/55">{sub}</p>}
         </>
       )}
     </div>
   );
 }
 
-// ============================================================
-// MAIN COMPONENT
-// ============================================================
+function QuickLinkGrid({
+  title,
+  links,
+}: {
+  title: string;
+  links: readonly { href: string; label: string; desc: string }[];
+}) {
+  return (
+    <div>
+      <h2 className="text-xs font-bold uppercase tracking-widest text-black/40 mb-3">{title}</h2>
+      <div className="grid sm:grid-cols-2 gap-2">
+        {links.map((link) => (
+          <Link
+            key={link.href}
+            href={link.href}
+            className="group rounded-xl border border-black/10 bg-white px-4 py-3 hover:border-[#E6007E]/40 hover:shadow-sm transition-all"
+          >
+            <p className="font-semibold text-black group-hover:text-[#E6007E]">{link.label}</p>
+            <p className="text-xs text-black/50 mt-0.5">{link.desc}</p>
+          </Link>
+        ))}
+      </div>
+    </div>
+  );
+}
 
-export default function ExecutiveDashboard() {
-  // State
+export default function AdminDashboard() {
   const [stats, setStats] = useState<DashboardStats | null>(null);
-  const [providerStats, setProviderStats] = useState<ProviderStats[]>([]);
-  const [serviceStats, setServiceStats] = useState<ServiceStats[]>([]);
-  const [upcomingAppointments, setUpcomingAppointments] = useState<UpcomingAppointment[]>([]);
+  const [upcoming, setUpcoming] = useState<UpcomingAppointment[]>([]);
+  const [rxItems, setRxItems] = useState<RxQueueItem[]>([]);
+  const [rxDue, setRxDue] = useState({ overdue: 0, dueSoon: 0 });
+  const [unsignedConsents, setUnsignedConsents] = useState<{ id: string; client_name: string; time: string }[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
   const [squareSyncing, setSquareSyncing] = useState(false);
   const [squareSyncMsg, setSquareSyncMsg] = useState<string | null>(null);
-  const [unsignedConsentAppts, setUnsignedConsentAppts] = useState<{id: string; client_name: string; time: string}[]>([]);
-  
-  // Filters
-  const [dateRange, setDateRange] = useState<'today' | 'week' | 'month' | 'year'>('month');
-  const [selectedProvider, setSelectedProvider] = useState<string>('all');
-  const [providers, setProviders] = useState<{id: string; name: string}[]>([]);
-  const [businessName, setBusinessName] = useState<string>('Your Med Spa');
+  const [businessName, setBusinessName] = useState('Hello Gorgeous');
 
   const today = new Date().toLocaleDateString('en-US', {
     weekday: 'long',
     month: 'long',
     day: 'numeric',
-    year: 'numeric',
   });
 
-  useEffect(() => {
-    fetch('/api/settings')
-      .then((r) => r.ok ? r.json() : null)
-      .then((data) => {
-        const name = data?.settings?.business_name;
-        if (name && typeof name === 'string') setBusinessName(name.trim() || 'Your Med Spa');
-      })
-      .catch(() => {});
-  }, []);
+  const formatTime = (iso: string) =>
+    new Date(iso).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
 
-  const formatTime = (isoString: string) => {
-    return new Date(isoString).toLocaleTimeString('en-US', {
-      hour: 'numeric',
-      minute: '2-digit',
-      hour12: true,
-    });
-  };
-
-  // Fetch dashboard data (timeout so dashboard never sticks on loading)
   const fetchDashboard = useCallback(async () => {
     setLoading(true);
     setError(null);
     try {
-      const dashRes = await fetchWithTimeout('/api/dashboard');
+      const [dashRes, aptsRes, rxRes] = await Promise.all([
+        fetchWithTimeout('/api/dashboard'),
+        fetchWithTimeout(`/api/appointments?date=${new Date().toISOString().split('T')[0]}`),
+        fetchWithTimeout('/api/admin/rx?limit=8'),
+      ]);
+
       const dashData = await dashRes.json().catch(() => ({}));
-      const dashboardOk = dashRes.ok && dashData.source !== 'local';
-      if (!dashboardOk && dashData.source === 'local') {
-        setError('Database not connected. Set NEXT_PUBLIC_SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY in your hosting environment (e.g. Vercel).');
-        setLoading(false);
-        return;
-      }
-      if (!dashRes.ok && dashRes.status !== 401) {
-        setError(dashData?.error || 'Failed to load dashboard');
-      }
-
-      const todayDate = new Date().toISOString().split('T')[0];
-      const monthStart = new Date();
-      monthStart.setDate(1);
-      monthStart.setHours(0, 0, 0, 0);
-      const startDate = monthStart.toISOString().split('T')[0];
-      const endDate = new Date().toISOString().split('T')[0];
-
-      const providerParam = selectedProvider !== 'all' ? `&provider_id=${selectedProvider}` : '';
-      const aptsRes = await fetchWithTimeout(`/api/appointments?date=${todayDate}${providerParam}`);
       const aptsData = await aptsRes.json().catch(() => ({}));
+      const rxData = await rxRes.json().catch(() => ({}));
+
+      if (dashRes.ok && dashData.source === 'local') {
+        setError('Database not connected — check Supabase env vars.');
+      }
+
       const appointments = aptsData.appointments || [];
-
-      const allAptsRes = await fetchWithTimeout(`/api/appointments?start_date=${startDate}&end_date=${endDate}&include_cancelled=true&limit=1000${providerParam}`);
-      const allAptsData = await allAptsRes.json().catch(() => ({}));
-      const allAppointments = allAptsData.appointments || [];
-
-      const provRes = await fetchWithTimeout('/api/providers');
-      const provData = await provRes.json().catch(() => ({}));
-      const providerList = provData.providers || [];
-      setProviders(providerList.map((p: any) => {
-        // Build name from display_name or first_name + last_name
-        const firstName = p.first_name || p.firstName || '';
-        const lastName = p.last_name || p.lastName || '';
-        const fullName = `${firstName} ${lastName}`.trim();
-        // Use display_name if available, otherwise fallback to constructed name or "Provider"
-        const name = p.display_name || (fullName && fullName !== 'Provider' ? fullName : 'Provider');
-        return { id: p.id, name };
-      }));
-
-      // Calculate stats - use calendar month start
-      const now = new Date();
-      const weekAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
-
-      const todayAppts = appointments.filter((a: any) => a.status !== 'cancelled');
-      const completedToday = appointments.filter((a: any) => a.status === 'completed').length;
-      const noShows = allAppointments.filter((a: any) => a.status === 'no_show').length;
-      const cancelled = allAppointments.filter((a: any) => a.status === 'cancelled').length;
-      const totalAppts = allAppointments.length;
-
-      // Revenue calculations - filter by current calendar month
-      const monthAppts = allAppointments.filter((a: any) => 
-        a.status === 'completed' && new Date(a.starts_at) >= monthStart
-      );
-      const weekAppts = allAppointments.filter((a: any) => 
-        a.status === 'completed' && new Date(a.starts_at) >= weekAgo
-      );
-      const todayCompleted = appointments.filter((a: any) => a.status === 'completed');
-
-      // Use ACTUAL transaction revenue from dashboard API if available
-      // Only fallback to service prices if no transaction data
-      const apiTodayRevenue = dashData.stats?.todayRevenue || 0;
-      const apiWeekRevenue = dashData.stats?.weekRevenue || 0;
-      const apiMonthRevenue = dashData.stats?.monthRevenue || 0;
-      
-      // Calculate from appointments as fallback
-      const aptTodayRevenue = todayCompleted.reduce((sum: number, a: any) => sum + (a.service_price || 0), 0);
-      const aptWeekRevenue = weekAppts.reduce((sum: number, a: any) => sum + (a.service_price || 0), 0);
-      const aptMonthRevenue = monthAppts.reduce((sum: number, a: any) => sum + (a.service_price || 0), 0);
-      
-      // Prefer transaction data (actual payments) over appointment service prices
-      const todayRevenue = apiTodayRevenue > 0 ? apiTodayRevenue : aptTodayRevenue;
-      const weekRevenue = apiWeekRevenue > 0 ? apiWeekRevenue : aptWeekRevenue;
-      const monthRevenue = apiMonthRevenue > 0 ? apiMonthRevenue : aptMonthRevenue;
-
-      // Provider stats
-      const providerStatsMap = new Map<string, ProviderStats>();
-      allAppointments.forEach((apt: any) => {
-        const providerId = apt.provider_id;
-        const providerName = apt.provider_name || 'Unknown';
-        if (!providerId) return;
-
-        if (!providerStatsMap.has(providerId)) {
-          providerStatsMap.set(providerId, {
-            id: providerId,
-            name: providerName,
-            appointments: 0,
-            completed: 0,
-            revenue: 0,
-            noShows: 0,
-            utilization: 0,
-          });
-        }
-
-        const ps = providerStatsMap.get(providerId)!;
-        ps.appointments++;
-        if (apt.status === 'completed') {
-          ps.completed++;
-          ps.revenue += apt.service_price || 0;
-        }
-        if (apt.status === 'no_show') {
-          ps.noShows++;
-        }
-      });
-
-      // Calculate utilization (completed / total scheduled * 100)
-      providerStatsMap.forEach(ps => {
-        ps.utilization = ps.appointments > 0 
-          ? Math.round((ps.completed / ps.appointments) * 100) 
-          : 0;
-      });
-
-      setProviderStats(Array.from(providerStatsMap.values()).sort((a, b) => b.revenue - a.revenue));
-
-      // Service stats
-      const serviceStatsMap = new Map<string, ServiceStats>();
-      monthAppts.forEach((apt: any) => {
-        const serviceId = apt.service_id;
-        const serviceName = apt.service_name || 'Service';
-        if (!serviceId) return;
-
-        if (!serviceStatsMap.has(serviceId)) {
-          serviceStatsMap.set(serviceId, {
-            id: serviceId,
-            name: serviceName,
-            bookings: 0,
-            revenue: 0,
-            avgPrice: 0,
-          });
-        }
-
-        const ss = serviceStatsMap.get(serviceId)!;
-        ss.bookings++;
-        ss.revenue += apt.service_price || 0;
-      });
-
-      serviceStatsMap.forEach(ss => {
-        ss.avgPrice = ss.bookings > 0 ? Math.round(ss.revenue / ss.bookings) : 0;
-      });
-
-      setServiceStats(Array.from(serviceStatsMap.values()).sort((a, b) => b.revenue - a.revenue).slice(0, 10));
-
-      // Set stats
-      // Calculate rebook rate - clients who booked again within 90 days
-      // This is a simplified calculation - count clients with 2+ appointments in period
-      const clientAppointments = new Map<string, number>();
-      allAppointments.forEach((apt: any) => {
-        if (apt.client_id) {
-          clientAppointments.set(apt.client_id, (clientAppointments.get(apt.client_id) || 0) + 1);
-        }
-      });
-      const totalClientsWithAppts = clientAppointments.size;
-      const rebookedClients = Array.from(clientAppointments.values()).filter(count => count >= 2).length;
-      const calculatedRebookRate = totalClientsWithAppts > 0 ? Math.round((rebookedClients / totalClientsWithAppts) * 100) : 0;
+      const todayAppts = appointments.filter((a: { status: string }) => a.status !== 'cancelled');
+      const completedToday = appointments.filter((a: { status: string }) => a.status === 'completed').length;
 
       setStats({
-        todayRevenue,
-        weekRevenue,
-        monthRevenue,
-        yearRevenue: dashData.stats?.yearRevenue || monthRevenue * 12, // Estimate from month
-        membershipMRR: dashData.stats?.membershipMRR || 0,
-        retailRevenue: dashData.stats?.retailRevenue || 0,
-        serviceRevenue: monthRevenue,
+        todayRevenue: dashData.stats?.todayRevenue || 0,
+        monthRevenue: dashData.stats?.monthRevenue || 0,
         todayAppointments: todayAppts.length,
-        weekAppointments: weekAppts.length,
-        monthAppointments: monthAppts.length,
         completedToday,
-        utilizationRate: totalAppts > 0 ? Math.round(((totalAppts - noShows - cancelled) / totalAppts) * 100) : 0,
-        noShowRate: totalAppts > 0 ? Math.round((noShows / totalAppts) * 100) : 0,
-        cancellationRate: totalAppts > 0 ? Math.round((cancelled / totalAppts) * 100) : 0,
-        rebookRate: calculatedRebookRate,
-        avgTicket: monthAppts.length > 0 ? Math.round(monthRevenue / monthAppts.length) : 0,
         totalClients: dashData.stats?.totalClients || 0,
-        newClientsMonth: dashData.stats?.newClientsMonth || 0,
-        activeMembers: dashData.stats?.activeMembers || 0,
       });
 
-      // Set upcoming appointments
-      const upcoming = appointments
-        .filter((a: any) => !['cancelled', 'completed', 'no_show'].includes(a.status))
-        .sort((a: any, b: any) => new Date(a.starts_at).getTime() - new Date(b.starts_at).getTime())
-        .slice(0, 8)
-        .map((a: any) => ({
-          id: a.id,
-          time: a.starts_at,
-          status: a.status,
-          client_name: a.client_name || 'Client',
-          service: a.service_name || 'Service',
-          provider_name: a.provider_name,
-          amount: a.service_price,
-        }));
+      setUpcoming(
+        appointments
+          .filter((a: { status: string }) => !['cancelled', 'completed', 'no_show'].includes(a.status))
+          .sort((a: { starts_at: string }, b: { starts_at: string }) =>
+            new Date(a.starts_at).getTime() - new Date(b.starts_at).getTime(),
+          )
+          .slice(0, 8)
+          .map((a: { id: string; starts_at: string; status: string; client_name?: string; service_name?: string }) => ({
+            id: a.id,
+            time: a.starts_at,
+            status: a.status,
+            client_name: a.client_name || 'Client',
+            service: a.service_name || 'Service',
+          })),
+      );
 
-      setUpcomingAppointments(upcoming);
-      
-      // Check consent status for today's appointments
-      const pendingApptIds = appointments
-        .filter((a: any) => ['pending', 'confirmed', 'checked_in'].includes(a.status))
-        .map((a: any) => a.id)
+      const pendingRx = (rxData.items || []).filter(
+        (i: RxQueueItem) =>
+          i.dispatchStatus !== 'shipped' && i.dispatchStatus !== 'complete' && i.dispatchStatus !== 'cancelled',
+      );
+      setRxItems(pendingRx.slice(0, 6));
+      setRxDue(rxData.dueCounts || { overdue: 0, dueSoon: 0 });
+
+      const pendingIds = appointments
+        .filter((a: { status: string }) => ['pending', 'confirmed', 'checked_in'].includes(a.status))
+        .map((a: { id: string }) => a.id)
         .filter(Boolean);
-      
-      if (pendingApptIds.length > 0) {
+
+      if (pendingIds.length > 0) {
         try {
-          const consentRes = await fetchWithTimeout(`/api/appointments/consent-status?ids=${pendingApptIds.join(',')}`);
+          const consentRes = await fetchWithTimeout(
+            `/api/appointments/consent-status?ids=${pendingIds.join(',')}`,
+          );
           const consentData = await consentRes.json().catch(() => ({}));
           if (consentData.statuses) {
-            const unsigned = appointments
-              .filter((a: any) => {
-                const cs = consentData.statuses[a.id];
-                return cs && cs.total > 0 && cs.status !== 'complete';
-              })
-              .map((a: any) => ({
-                id: a.id,
-                client_name: a.client_name || 'Unknown',
-                time: formatTime(a.starts_at),
-              }));
-            setUnsignedConsentAppts(unsigned);
+            setUnsignedConsents(
+              appointments
+                .filter((a: { id: string; client_name?: string; starts_at: string }) => {
+                  const cs = consentData.statuses[a.id];
+                  return cs && cs.total > 0 && cs.status !== 'complete';
+                })
+                .slice(0, 5)
+                .map((a: { id: string; client_name?: string; starts_at: string }) => ({
+                  id: a.id,
+                  client_name: a.client_name || 'Client',
+                  time: formatTime(a.starts_at),
+                })),
+            );
           }
-        } catch (err) {
-          console.error('Failed to check consent status:', err);
+        } catch {
+          /* optional */
         }
+      } else {
+        setUnsignedConsents([]);
       }
-      
-      setError(null);
+
       setLastUpdated(new Date());
-    } catch (err) {
-      console.error('Dashboard fetch error:', err);
-      setError(null);
-      setStats((prev) => prev || {
-        todayRevenue: 0, weekRevenue: 0, monthRevenue: 0, yearRevenue: 0,
-        membershipMRR: 0, retailRevenue: 0, serviceRevenue: 0,
-        todayAppointments: 0, weekAppointments: 0, monthAppointments: 0,
-        completedToday: 0, utilizationRate: 0, noShowRate: 0, cancellationRate: 0,
-        rebookRate: 0, avgTicket: 0, totalClients: 0, newClientsMonth: 0, activeMembers: 0,
-      });
+    } catch {
+      setError('Could not load dashboard data.');
     } finally {
       setLoading(false);
     }
-  }, [dateRange, selectedProvider]);
+  }, []);
 
   useEffect(() => {
-    fetchDashboard();
-    // Refresh every 30 seconds
-    const interval = setInterval(fetchDashboard, 30000);
+    fetch('/api/settings')
+      .then((r) => (r.ok ? r.json() : null))
+      .then((data) => {
+        const name = data?.settings?.business_name;
+        if (name && typeof name === 'string') setBusinessName(name.trim() || 'Hello Gorgeous');
+      })
+      .catch(() => {});
+  }, []);
+
+  useEffect(() => {
+    void fetchDashboard();
+    const interval = setInterval(fetchDashboard, 60000);
     return () => clearInterval(interval);
   }, [fetchDashboard]);
-
-  // Export functions
-  const handleExportCSV = () => {
-    const csvData = [
-      ['Metric', 'Value'],
-      ['Today Revenue', `$${stats?.todayRevenue || 0}`],
-      ['Week Revenue', `$${stats?.weekRevenue || 0}`],
-      ['Month Revenue', `$${stats?.monthRevenue || 0}`],
-      ['Today Appointments', stats?.todayAppointments || 0],
-      ['Completed Today', stats?.completedToday || 0],
-      ['Utilization Rate', `${stats?.utilizationRate || 0}%`],
-      ['No Show Rate', `${stats?.noShowRate || 0}%`],
-      ['Avg Ticket', `$${stats?.avgTicket || 0}`],
-      ['Total Clients', stats?.totalClients || 0],
-      ['', ''],
-      ['Provider', 'Revenue', 'Appointments', 'Utilization'],
-      ...providerStats.map(p => [p.name, `$${p.revenue}`, p.appointments, `${p.utilization}%`]),
-    ];
-
-    const csv = csvData.map(row => row.join(',')).join('\n');
-    const blob = new Blob([csv], { type: 'text/csv' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `dashboard-snapshot-${new Date().toISOString().split('T')[0]}.csv`;
-    a.click();
-    URL.revokeObjectURL(url);
-  };
-
-  const handleExportPDF = () => {
-    window.print();
-  };
 
   const handleSquareSync = async () => {
     setSquareSyncing(true);
@@ -501,413 +239,155 @@ export default function ExecutiveDashboard() {
       });
       const data = await res.json();
       if (data.ok) {
-        setSquareSyncMsg(`✓ Synced ${data.fetched} payments from Square`);
-        setTimeout(() => fetchDashboard(), 1000);
+        setSquareSyncMsg(`Synced ${data.fetched} Square payments`);
+        setTimeout(() => void fetchDashboard(), 1000);
       } else {
-        setSquareSyncMsg(`⚠ ${data.error || 'Sync failed'}`);
+        setSquareSyncMsg(data.error || 'Sync failed');
       }
     } catch {
-      setSquareSyncMsg('⚠ Sync failed — check connection');
+      setSquareSyncMsg('Sync failed — check Square connection');
     } finally {
       setSquareSyncing(false);
       setTimeout(() => setSquareSyncMsg(null), 6000);
     }
   };
 
+  const rxActionCount = rxItems.length + rxDue.overdue + rxDue.dueSoon;
+
   return (
-    <div className="space-y-6 print:space-y-4">
-      {/* Header - Modern glassmorphic style */}
-      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 print:hidden bg-white rounded-lg p-5 shadow-sm border border-black">
+    <div className="max-w-6xl mx-auto space-y-6">
+      {/* Header */}
+      <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-black">
-            {businessName} — Dashboard
-          </h1>
-          <p className="text-black mt-0.5">{today}</p>
-        {lastUpdated && (
-          <p className="text-xs text-black mt-1">
-            Last updated {lastUpdated.toLocaleTimeString()}
-          </p>
-        )}
+          <p className="text-xs font-bold uppercase tracking-widest text-[#E6007E]">Medical portal</p>
+          <h1 className="text-2xl font-bold text-black mt-0.5">{businessName}</h1>
+          <p className="text-sm text-black/55 mt-0.5">{today} · {ADMIN_PORTAL_TAGLINE}</p>
+          {lastUpdated && (
+            <p className="text-xs text-black/40 mt-1">
+              Updated {lastUpdated.toLocaleTimeString()}
+            </p>
+          )}
         </div>
-        <div className="flex flex-wrap items-center gap-3">
-          {/* Date Range Filter - Pill style */}
-          <div className="flex bg-white rounded-xl p-1">
-            {(['today', 'week', 'month', 'year'] as const).map((range) => (
-              <button
-                key={range}
-                onClick={() => setDateRange(range)}
-                className={`px-4 py-2 text-sm font-medium capitalize rounded-lg transition-all ${
-                  dateRange === range
-                    ? 'bg-[#2D63A4] text-white'
-                    : 'text-black hover:bg-white/70'
-                }`}
-              >
-                {range === 'today' ? 'Today' : range === 'week' ? 'Week' : range === 'month' ? 'Month' : 'Year'}
-              </button>
-            ))}
-          </div>
-
-          {/* Provider Filter */}
-          <select
-            value={selectedProvider}
-            onChange={(e) => setSelectedProvider(e.target.value)}
-            className="px-4 py-2.5 bg-white border border-black rounded-xl text-sm text-black shadow-sm focus:ring-2 focus:ring-[#2D63A4]/30 focus:border-[#2D63A4] transition-all"
-          >
-            <option value="all">All Providers</option>
-            {providers.map((p) => (
-              <option key={p.id} value={p.id}>{p.name}</option>
-            ))}
-          </select>
-
-          {/* Square Sync */}
-          <div className="flex flex-col items-end gap-0.5">
-            <button
-              onClick={handleSquareSync}
-              disabled={squareSyncing}
-              className="px-4 py-2.5 bg-emerald-600 text-white font-medium rounded-xl hover:bg-emerald-700 text-sm shadow-sm transition-all disabled:opacity-60 disabled:cursor-wait"
-            >
-              {squareSyncing ? '⏳ Syncing…' : '🔄 Sync Square'}
-            </button>
-            {squareSyncMsg && (
-              <p className="text-xs text-emerald-700 font-medium">{squareSyncMsg}</p>
-            )}
-          </div>
-
-          {/* Export Buttons */}
+        <div className="flex flex-wrap items-center gap-2">
           <button
-            onClick={handleExportCSV}
-            className="px-4 py-2.5 bg-white border border-black text-black font-medium rounded-xl hover:bg-white hover:border-black text-sm shadow-sm transition-all"
+            type="button"
+            onClick={() => void handleSquareSync()}
+            disabled={squareSyncing}
+            className="px-4 py-2.5 rounded-lg border border-black/15 bg-white text-sm font-semibold text-black hover:border-[#E6007E]/40 disabled:opacity-50"
           >
-            📊 Export CSV
+            {squareSyncing ? 'Syncing Square…' : 'Sync Square'}
           </button>
-          <button
-            onClick={handleExportPDF}
-            className="px-4 py-2.5 bg-black text-white font-medium rounded-xl hover:bg-black text-sm shadow-md transition-all"
-          >
-            📄 Print/PDF
-          </button>
-
-          {/* Quick Actions — one click to daily ops */}
-          <Link
-            href="/admin/calendar"
-            className="px-4 py-2.5 bg-white border border-black text-black font-medium rounded-lg hover:bg-black/5 text-sm transition-colors"
-          >
-            🗓 Calendar
-          </Link>
-          <Link
-            href="/admin/clients/new"
-            className="px-4 py-2.5 bg-white border border-black text-black font-medium rounded-lg hover:bg-black/5 text-sm transition-colors"
-          >
-            + Add Client
-          </Link>
           <Link
             href="/admin/appointments/new"
-            className="px-5 py-2.5 bg-[#FF2D8E] text-white font-medium rounded-lg hover:bg-[#c90a68] text-sm transition-colors"
+            className="px-4 py-2.5 rounded-lg bg-[#E6007E] text-white text-sm font-semibold hover:bg-[#c90a68]"
           >
-            + New Booking
+            New booking
+          </Link>
+          <Link
+            href="/pos"
+            className="px-4 py-2.5 rounded-lg bg-black text-white text-sm font-semibold hover:bg-black/85"
+          >
+            Open POS
           </Link>
         </div>
       </div>
 
-      {/* Print Header */}
-      <div className="hidden print:block">
-        <h1 className="text-xl font-bold">{businessName} — Executive Dashboard</h1>
-        <p className="text-black">{today}</p>
-      </div>
+      {squareSyncMsg && (
+        <p className="text-sm font-medium text-emerald-700 bg-emerald-50 border border-emerald-200 rounded-lg px-4 py-2">
+          {squareSyncMsg}
+        </p>
+      )}
 
-      {/* Error State */}
       {error && (
-        <div className="bg-amber-50 border border-amber-200 text-amber-700 px-4 py-3 rounded-lg">
+        <p className="text-sm text-amber-800 bg-amber-50 border border-amber-200 rounded-lg px-4 py-2">
           {error}
-        </div>
+        </p>
       )}
 
-      {/* Unsigned Consent Alert */}
-      {unsignedConsentAppts.length > 0 && (
-        <div className="bg-red-50 border border-red-200 rounded-xl p-4 print:hidden">
-          <div className="flex items-start gap-3">
-            <span className="text-2xl">⚠️</span>
-            <div className="flex-1">
-              <h3 className="font-semibold text-red-800">Unsigned Consent Forms</h3>
-              <p className="text-sm text-red-700 mt-1">
-                {unsignedConsentAppts.length} appointment{unsignedConsentAppts.length > 1 ? 's' : ''} today with pending consent forms:
-              </p>
-              <div className="flex flex-wrap gap-2 mt-2">
-                {unsignedConsentAppts.slice(0, 5).map((apt) => (
-                  <Link
-                    key={apt.id}
-                    href={`/admin/appointments/${apt.id}`}
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white border border-red-200 rounded-lg text-sm text-red-800 hover:bg-red-100 transition-colors"
-                  >
-                    <span className="font-medium">{apt.client_name}</span>
-                    <span className="text-red-500">@ {apt.time}</span>
-                  </Link>
-                ))}
-                {unsignedConsentAppts.length > 5 && (
-                  <Link
-                    href="/admin/appointments"
-                    className="inline-flex items-center px-3 py-1.5 text-sm text-red-600 hover:underline"
-                  >
-                    +{unsignedConsentAppts.length - 5} more
-                  </Link>
-                )}
-              </div>
-            </div>
-            <Link
-              href="/admin/appointments"
-              className="px-4 py-2 bg-red-600 text-white font-medium rounded-lg hover:bg-red-700 text-sm whitespace-nowrap"
-            >
-              View All
-            </Link>
+      {unsignedConsents.length > 0 && (
+        <div className="rounded-xl border border-red-200 bg-red-50 px-4 py-3">
+          <p className="text-sm font-semibold text-red-800">
+            {unsignedConsents.length} appointment{unsignedConsents.length > 1 ? 's' : ''} need consent forms
+          </p>
+          <div className="flex flex-wrap gap-2 mt-2">
+            {unsignedConsents.map((apt) => (
+              <Link
+                key={apt.id}
+                href={`/admin/appointments/${apt.id}`}
+                className="text-xs font-medium text-red-700 bg-white border border-red-200 rounded-lg px-2.5 py-1 hover:bg-red-100"
+              >
+                {apt.client_name} · {apt.time}
+              </Link>
+            ))}
           </div>
         </div>
       )}
 
-      {/* Revenue KPIs - Modern gradient cards */}
-      <div className="grid grid-cols-2 lg:grid-cols-5 gap-4">
-        <KPICard
-          label="Today's Revenue"
-          value={`$${(stats?.todayRevenue || 0).toLocaleString()}`}
-          subValue={`${stats?.completedToday || 0} completed`}
-          loading={loading}
-          color="green"
-          icon="💰"
-          gradient
-        />
-        <KPICard
-          label="Week Revenue"
-          value={`$${(stats?.weekRevenue || 0).toLocaleString()}`}
-          loading={loading}
-          color="blue"
-          icon="📈"
-          gradient
-        />
-        <KPICard
-          label="Month Revenue"
-          value={`$${(stats?.monthRevenue || 0).toLocaleString()}`}
-          subValue={`${stats?.monthAppointments || 0} appointments`}
-          loading={loading}
-          color="pink"
-          icon="🎯"
-          gradient
-        />
-        <KPICard
-          label="Avg Ticket"
-          value={`$${(stats?.avgTicket || 0).toLocaleString()}`}
-          loading={loading}
-          color="purple"
-          icon="🎫"
-          gradient
-        />
-        <KPICard
-          label="Membership MRR"
-          value={`$${(stats?.membershipMRR || 0).toLocaleString()}`}
-          subValue={`${stats?.activeMembers || 0} members`}
-          loading={loading}
-          color="teal"
-          icon="⭐"
-          gradient
-        />
-      </div>
-
-      {/* Operational KPIs */}
-      <div className="grid grid-cols-2 lg:grid-cols-5 gap-4">
-        <KPICard
-          label="Today's Appointments"
-          value={stats?.todayAppointments || 0}
-          subValue={`${stats?.completedToday || 0} completed`}
-          loading={loading}
-          icon="📅"
-          color="blue"
-          gradient
-        />
-        <KPICard
-          label="Utilization Rate"
-          value={`${stats?.utilizationRate || 0}%`}
-          loading={loading}
-          color={stats?.utilizationRate && stats.utilizationRate >= 80 ? 'green' : 'amber'}
-          icon="⚡"
-          gradient
-        />
-        <KPICard
-          label="No-Show Rate"
-          value={`${stats?.noShowRate || 0}%`}
-          loading={loading}
-          color={stats?.noShowRate && stats.noShowRate > 10 ? 'red' : 'green'}
-          icon="👻"
-          gradient
-        />
-        <KPICard
-          label="Cancellation Rate"
-          value={`${stats?.cancellationRate || 0}%`}
-          loading={loading}
-          color={stats?.cancellationRate && stats.cancellationRate > 15 ? 'red' : 'amber'}
-          icon="❌"
-          gradient
-        />
-        <KPICard
-          label="Rebook Rate"
-          value={`${stats?.rebookRate || 0}%`}
-          loading={loading}
-          color={stats?.rebookRate && stats.rebookRate >= 60 ? 'green' : 'amber'}
-          icon="🔄"
-          gradient
-        />
-      </div>
-
-      {/* Client & Service Mix */}
+      {/* KPI row */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        <KPICard
-          label="Total Clients"
-          value={(stats?.totalClients || 0).toLocaleString()}
+        <StatCard
+          label="Today revenue"
+          value={`$${(stats?.todayRevenue || 0).toLocaleString()}`}
+          sub={`${stats?.completedToday || 0} completed · Square synced`}
           loading={loading}
-          icon="👥"
-          color="purple"
-          gradient
         />
-        <KPICard
-          label="New This Month"
-          value={stats?.newClientsMonth || 0}
+        <StatCard
+          label="Month revenue"
+          value={`$${(stats?.monthRevenue || 0).toLocaleString()}`}
           loading={loading}
-          color="blue"
-          icon="✨"
-          gradient
         />
-        <KPICard
-          label="Service Revenue"
-          value={`$${(stats?.serviceRevenue || 0).toLocaleString()}`}
+        <StatCard
+          label="Today's schedule"
+          value={String(stats?.todayAppointments ?? 0)}
+          sub={`${stats?.completedToday || 0} done`}
           loading={loading}
-          icon="💆"
-          color="pink"
-          gradient
         />
-        <KPICard
-          label="Retail Revenue"
-          value={`$${(stats?.retailRevenue || 0).toLocaleString()}`}
+        <StatCard
+          label="RX queue"
+          value={String(rxActionCount)}
+          sub={
+            rxDue.overdue > 0
+              ? `${rxDue.overdue} overdue refills`
+              : rxDue.dueSoon > 0
+                ? `${rxDue.dueSoon} due soon`
+                : 'Pending dispatch & refills'
+          }
           loading={loading}
-          icon="🛍️"
-          color="amber"
-          gradient
         />
       </div>
 
-      {/* Main Content Grid */}
-      <div className="grid lg:grid-cols-3 gap-6">
-        {/* Revenue by Provider */}
-        <div className="bg-white rounded-xl border border-black shadow-sm overflow-hidden">
-          <div className="px-5 py-4 border-b border-black flex items-center justify-between">
-            <h2 className="font-semibold text-black">Revenue by Provider</h2>
-            <Link href="/admin/reports?tab=providers" className="text-sm text-[#2D63A4] hover:text-[#002168]">
-              Details →
+      {/* Schedule + RX */}
+      <div className="grid lg:grid-cols-5 gap-6">
+        <div className="lg:col-span-3 rounded-xl border border-black/10 bg-white shadow-sm overflow-hidden">
+          <div className="flex items-center justify-between px-5 py-4 border-b border-black/10">
+            <h2 className="font-semibold text-black">Today&apos;s schedule</h2>
+            <Link href="/admin/calendar" className="text-sm font-medium text-[#E6007E] hover:underline">
+              Full calendar →
             </Link>
           </div>
-          <div className="divide-y divide-black max-h-80 overflow-y-auto">
+          <div className="divide-y divide-black/5 max-h-[420px] overflow-y-auto">
             {loading ? (
-              Array.from({ length: 3 }).map((_, i) => (
-                <div key={i} className="px-5 py-3">
-                  <Skeleton className="h-12 w-full" />
+              Array.from({ length: 4 }).map((_, i) => (
+                <div key={i} className="px-5 py-4">
+                  <div className="h-10 animate-pulse rounded bg-black/5" />
                 </div>
               ))
-            ) : providerStats.length === 0 ? (
-              <div className="px-5 py-8 text-center text-black">
-                No provider data yet
-              </div>
+            ) : upcoming.length === 0 ? (
+              <p className="px-5 py-10 text-center text-sm text-black/45">No upcoming appointments today</p>
             ) : (
-              providerStats.map((provider, idx) => (
-                <div key={provider.id} className="px-5 py-3 flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-full bg-[#2D63A4] flex items-center justify-center text-white text-sm font-bold">
-                      {idx + 1}
-                    </div>
-                    <div>
-                      <p className="font-medium text-black">{provider.name}</p>
-                      <p className="text-xs text-black">
-                        {provider.appointments} appts • {provider.utilization}% util
-                      </p>
-                    </div>
-                  </div>
-                  <div className="text-right">
-                    <p className="font-bold text-green-600">${provider.revenue.toLocaleString()}</p>
-                    <p className="text-xs text-black">{provider.completed} completed</p>
-                  </div>
-                </div>
-              ))
-            )}
-          </div>
-        </div>
-
-        {/* Top Services */}
-        <div className="bg-white rounded-xl border border-black shadow-sm overflow-hidden">
-          <div className="px-5 py-4 border-b border-black flex items-center justify-between">
-            <h2 className="font-semibold text-black">Top Services (Month)</h2>
-            <Link href="/admin/reports?tab=services" className="text-sm text-[#2D63A4] hover:text-[#002168]">
-              Details →
-            </Link>
-          </div>
-          <div className="divide-y divide-black max-h-80 overflow-y-auto">
-            {loading ? (
-              Array.from({ length: 5 }).map((_, i) => (
-                <div key={i} className="px-5 py-3">
-                  <Skeleton className="h-10 w-full" />
-                </div>
-              ))
-            ) : serviceStats.length === 0 ? (
-              <div className="px-5 py-8 text-center text-black">
-                No service data yet
-              </div>
-            ) : (
-              serviceStats.map((service, idx) => (
-                <div key={service.id} className="px-5 py-3 flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <span className="text-lg font-bold text-black">#{idx + 1}</span>
-                    <div>
-                      <p className="font-medium text-black truncate max-w-[150px]">{service.name}</p>
-                      <p className="text-xs text-black">{service.bookings} bookings</p>
-                    </div>
-                  </div>
-                  <div className="text-right">
-                    <p className="font-semibold text-black">${service.revenue.toLocaleString()}</p>
-                    <p className="text-xs text-black">${service.avgPrice} avg</p>
-                  </div>
-                </div>
-              ))
-            )}
-          </div>
-        </div>
-
-        {/* Upcoming Appointments */}
-        <div className="bg-white rounded-xl border border-black shadow-sm overflow-hidden">
-          <div className="px-5 py-4 border-b border-black flex items-center justify-between">
-            <h2 className="font-semibold text-black">Today's Schedule</h2>
-            <Link href="/admin/calendar" className="text-sm text-[#2D63A4] hover:text-[#002168]">
-              Full Calendar →
-            </Link>
-          </div>
-          <div className="divide-y divide-black max-h-80 overflow-y-auto">
-            {loading ? (
-              Array.from({ length: 5 }).map((_, i) => (
-                <div key={i} className="px-5 py-3">
-                  <Skeleton className="h-12 w-full" />
-                </div>
-              ))
-            ) : upcomingAppointments.length === 0 ? (
-              <div className="px-5 py-8 text-center text-black">
-                No appointments scheduled
-              </div>
-            ) : (
-              upcomingAppointments.map((apt) => (
+              upcoming.map((apt) => (
                 <Link
                   key={apt.id}
                   href={`/admin/appointments/${apt.id}`}
-                  className="px-5 py-3 flex items-center justify-between hover:bg-white"
+                  className="flex items-center justify-between gap-3 px-5 py-3.5 hover:bg-[#FFF0F7]/50 transition-colors"
                 >
-                  <div className="flex items-center gap-3">
-                    <span className="text-sm font-medium text-black w-16">
+                  <div className="flex items-center gap-4 min-w-0">
+                    <span className="text-sm font-semibold text-black/70 w-16 shrink-0">
                       {formatTime(apt.time)}
                     </span>
-                    <div>
-                      <p className="font-medium text-black">{apt.client_name}</p>
-                      <p className="text-sm text-black">{apt.service}</p>
+                    <div className="min-w-0">
+                      <p className="font-medium text-black truncate">{apt.client_name}</p>
+                      <p className="text-sm text-black/50 truncate">{apt.service}</p>
                     </div>
                   </div>
                   <StatusBadge status={apt.status} />
@@ -916,90 +396,84 @@ export default function ExecutiveDashboard() {
             )}
           </div>
         </div>
-      </div>
 
-      {/* Live System State - Featured */}
-      <Link
-        href="/admin/owner/live-state"
-        className="block bg-gradient-to-r from-green-500 to-emerald-600 rounded-xl shadow-lg p-5 hover:shadow-xl transition-all text-white print:hidden"
-      >
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <span className="text-3xl">📡</span>
-            <div>
-              <h2 className="text-lg font-bold">Live System State</h2>
-              <p className="text-green-100 text-sm">See exactly what your system is doing - no hidden logic</p>
+        <div className="lg:col-span-2 rounded-xl border border-black/10 bg-white shadow-sm overflow-hidden">
+          <div className="flex items-center justify-between px-5 py-4 border-b border-black/10">
+            <h2 className="font-semibold text-black">RX & refills</h2>
+            <Link href="/admin/rx" className="text-sm font-medium text-[#E6007E] hover:underline">
+              Command center →
+            </Link>
+          </div>
+          <div className="p-4 space-y-3">
+            {(rxDue.overdue > 0 || rxDue.dueSoon > 0) && (
+              <div className="rounded-lg bg-amber-50 border border-amber-200 px-3 py-2 text-sm">
+                <span className="font-semibold text-amber-900">Refills: </span>
+                {rxDue.overdue > 0 && (
+                  <span className="text-amber-800">{rxDue.overdue} overdue · </span>
+                )}
+                {rxDue.dueSoon > 0 && (
+                  <span className="text-amber-800">{rxDue.dueSoon} due soon</span>
+                )}
+              </div>
+            )}
+            <div className="divide-y divide-black/5 max-h-[320px] overflow-y-auto">
+              {loading ? (
+                <div className="py-8 text-center text-sm text-black/40">Loading…</div>
+              ) : rxItems.length === 0 ? (
+                <p className="py-8 text-center text-sm text-black/45">No pending RX orders</p>
+              ) : (
+                rxItems.map((item) => (
+                  <Link
+                    key={item.submissionId}
+                    href={`/admin/rx-dispatch?ref=${encodeURIComponent(item.submissionId)}`}
+                    className="block py-3 hover:bg-black/[0.02] -mx-1 px-1 rounded-lg"
+                  >
+                    <div className="flex items-start justify-between gap-2">
+                      <div>
+                        <p className="font-medium text-black text-sm">{item.patientName}</p>
+                        <p className="text-xs text-black/50 capitalize mt-0.5">
+                          {item.track} · {item.dispatchStatus.replace(/_/g, ' ')}
+                        </p>
+                      </div>
+                      <span
+                        className={`text-[10px] font-bold uppercase px-2 py-0.5 rounded-full shrink-0 ${
+                          item.paymentStatus === 'paid'
+                            ? 'bg-emerald-100 text-emerald-800'
+                            : 'bg-amber-100 text-amber-800'
+                        }`}
+                      >
+                        {item.paymentStatus === 'paid' ? 'Paid' : 'Unpaid'}
+                      </span>
+                    </div>
+                  </Link>
+                ))
+              )}
+            </div>
+            <div className="grid grid-cols-2 gap-2 pt-1">
+              <Link
+                href="/admin/flowwave"
+                className="text-center text-xs font-semibold py-2 rounded-lg border border-[#E6007E]/30 bg-[#FFF0F7] text-[#E6007E] hover:border-[#E6007E]"
+              >
+                FlowWave
+              </Link>
+              <Link
+                href="/admin/rx/pharmacy-orders"
+                className="text-center text-xs font-semibold py-2 rounded-lg border border-black/10 hover:border-[#E6007E]/40"
+              >
+                Pharmacy orders
+              </Link>
             </div>
           </div>
-          <span className="text-2xl">→</span>
         </div>
-      </Link>
+      </div>
 
-      {/* Quick Links */}
-      <div className="grid grid-cols-2 lg:grid-cols-8 gap-4 print:hidden">
-        <Link
-          href="/admin/clients"
-          className="bg-white rounded-xl border border-black shadow-sm p-4 hover:border-black hover:shadow transition-all text-center"
-        >
-          <span className="text-2xl block mb-1">👥</span>
-          <p className="font-medium text-black text-sm">Clients</p>
-        </Link>
-        <Link
-          href="/admin/services"
-          className="bg-white rounded-xl border border-black shadow-sm p-4 hover:border-black hover:shadow transition-all text-center"
-        >
-          <span className="text-2xl block mb-1">✨</span>
-          <p className="font-medium text-black text-sm">Services</p>
-        </Link>
-        <Link
-          href="/admin/prescriptions"
-          className="bg-white rounded-xl border border-black shadow-sm p-4 hover:border-black hover:shadow transition-all text-center"
-        >
-          <span className="text-2xl block mb-1">💊</span>
-          <p className="font-medium text-black text-sm">Prescriptions</p>
-        </Link>
-        <Link
-          href="/admin/reports"
-          className="bg-white rounded-xl border border-black shadow-sm p-4 hover:border-black hover:shadow transition-all text-center"
-        >
-          <span className="text-2xl block mb-1">📈</span>
-          <p className="font-medium text-black text-sm">Reports</p>
-        </Link>
-        <Link
-          href="/admin/compliance"
-          className="bg-white rounded-xl border border-black shadow-sm p-4 hover:border-black hover:shadow transition-all text-center"
-        >
-          <span className="text-2xl block mb-1">✅</span>
-          <p className="font-medium text-black text-sm">Compliance</p>
-        </Link>
-        <Link
-          href="/admin/marketing"
-          className="bg-white rounded-xl border border-black shadow-sm p-4 hover:border-black hover:shadow transition-all text-center"
-        >
-          <span className="text-2xl block mb-1">📣</span>
-          <p className="font-medium text-black text-sm">Marketing</p>
-        </Link>
-        <Link
-          href="/admin/local-dominance-sprint"
-          className="bg-white rounded-xl border border-black shadow-sm p-4 hover:border-black hover:shadow transition-all text-center"
-        >
-          <span className="text-2xl block mb-1">🚀</span>
-          <p className="font-medium text-black text-sm">Lead Sprint</p>
-        </Link>
-        <Link
-          href="/admin/content/providers"
-          className="bg-white rounded-xl border border-black shadow-sm p-4 hover:border-black hover:shadow transition-all text-center"
-        >
-          <span className="text-2xl block mb-1">👩‍⚕️</span>
-          <p className="font-medium text-black text-sm">Providers</p>
-        </Link>
-        <Link
-          href="/pos"
-          className="bg-green-500 rounded-xl shadow-sm p-4 hover:bg-green-600 transition-all text-center text-white"
-        >
-          <span className="text-2xl block mb-1">💳</span>
-          <p className="font-medium text-sm">Open POS</p>
-        </Link>
+      {/* Quick links */}
+      <div className="grid lg:grid-cols-2 xl:grid-cols-3 gap-8 pt-2">
+        <QuickLinkGrid title="Prescriptions & RX" links={ADMIN_DASHBOARD_QUICK_LINKS.rx} />
+        <QuickLinkGrid title="Patients & schedule" links={ADMIN_DASHBOARD_QUICK_LINKS.patients} />
+        <QuickLinkGrid title="Payments & Square" links={ADMIN_DASHBOARD_QUICK_LINKS.payments} />
+        <QuickLinkGrid title="Marketing" links={ADMIN_DASHBOARD_QUICK_LINKS.marketing} />
+        <QuickLinkGrid title="Forms, docs & vendors" links={ADMIN_DASHBOARD_QUICK_LINKS.resources} />
       </div>
     </div>
   );

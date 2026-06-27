@@ -1,121 +1,26 @@
 'use client';
 
-// ============================================================
-// MOBILE NAVIGATION COMPONENT
-// Full navigation accessible on mobile via hamburger menu
-// ============================================================
-
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-
-interface NavItem {
-  href: string;
-  label: string;
-  icon: string;
-  description?: string;
-}
-
-interface NavSection {
-  title: string;
-  items: NavItem[];
-}
-
-const NAV_SECTIONS: NavSection[] = [
-  {
-    title: 'Quick access',
-    items: [
-      { href: '/admin', label: 'Dashboard', icon: '📊', description: 'Overview' },
-      { href: '/admin/calendar', label: "Today's schedule", icon: '📅', description: 'See appointments' },
-      { href: '/admin/pmu-brows', label: 'PMU & Brows', icon: '💗', description: 'Mapping, intake & pre/post' },
-      { href: '/admin/appointments/new', label: 'Book appointment', icon: '➕', description: 'Schedule a client' },
-      { href: '/pos', label: 'Check out / POS', icon: '💳', description: 'Take payment' },
-    ],
-  },
-  {
-    title: 'Clients & bookings',
-    items: [
-      { href: '/admin/clients', label: 'Client list', icon: '👥', description: 'Find or view clients' },
-      { href: '/admin/clients/new', label: 'Add new client', icon: '✨', description: 'Register a new client' },
-      { href: '/admin/appointments', label: 'All appointments', icon: '🗓️', description: 'View or edit bookings' },
-    ],
-  },
-  {
-    title: 'PMU & brows',
-    items: [
-      { href: '/admin/pmu-brows', label: 'PMU & Brows hub', icon: '💗', description: 'All brow tools in one place' },
-      { href: '/admin/tools/brow-mapping', label: 'Brow Mapping Intelligence', icon: '✏️', description: 'Shape, pigment & mapping' },
-      { href: '/forms/brow-intake', label: 'Brow intake (client)', icon: '📋', description: 'Digital consultation form' },
-      { href: '/pre-post-care/microblading', label: 'Microblading pre/post', icon: '📄', description: 'Client care guide' },
-    ],
-  },
-  {
-    title: 'Care & charting',
-    items: [
-      { href: '/admin/clinical/guidance', label: 'Clinical guidance', icon: '🩺' },
-      { href: '/admin/charts', label: 'Charts & notes', icon: '📋' },
-      { href: '/admin/charting/injection-map', label: 'Injection mapping', icon: '💉' },
-      { href: '/admin/consents', label: 'Consent forms', icon: '📝' },
-      { href: '/admin/medications', label: 'Medications', icon: '💊' },
-      { href: '/admin/inventory', label: 'Inventory', icon: '📦' },
-      { href: '/admin/compliance', label: 'Compliance', icon: '🛡️' },
-    ],
-  },
-  {
-    title: 'Sales & payments',
-    items: [
-      { href: '/admin/sales', label: 'Sales Ledger', icon: '📊' },
-      { href: '/admin/sales/wallet', label: 'Business Wallet', icon: '💼' },
-      { href: '/admin/gift-cards', label: 'Gift cards', icon: '🎁' },
-      { href: '/admin/memberships', label: 'Memberships', icon: '💎' },
-    ],
-  },
-  {
-    title: 'Marketing & reports',
-    items: [
-      { href: '/admin/insights', label: 'AI Insights', icon: '✨' },
-      { href: '/admin/marketing/assistant', label: 'Marketing Assistant', icon: '🤖' },
-      { href: '/admin/marketing/post-social', label: 'Post to Social', icon: '📲' },
-      { href: '/admin/marketing/contacts', label: 'Contact Collection', icon: '📋' },
-      { href: '/admin/reports', label: 'Reports', icon: '📈' },
-      { href: '/admin/sms', label: 'SMS / text', icon: '💬' },
-    ],
-  },
-  {
-    title: 'Team & settings',
-    items: [
-      { href: '/admin/staff', label: 'Staff & schedules', icon: '👤' },
-      { href: '/admin/services', label: 'Services & pricing', icon: '✨' },
-      { href: '/admin/users', label: 'Users & access', icon: '🔐' },
-      { href: '/admin/settings', label: 'Settings', icon: '⚙️' },
-      { href: '/admin/settings/pretreatment', label: 'Pre-treatment', icon: '📋' },
-      { href: '/admin/settings/aftercare', label: 'Aftercare', icon: '📄' },
-      { href: '/admin/system-health', label: 'System Health', icon: '🩺' },
-    ],
-  },
-];
+import { ADMIN_MOBILE_BOTTOM_NAV, ADMIN_NAV_GROUPS } from '@/lib/admin-nav';
 
 interface MobileNavProps {
-  /** Use "dark" when the menu button is on a dark background (e.g. admin header) */
   variant?: 'light' | 'dark';
 }
 
 export function MobileNav({ variant = 'light' }: MobileNavProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const [collapsedOpen, setCollapsedOpen] = useState<Record<string, boolean>>({});
   const pathname = usePathname();
 
-  // Close menu when route changes
   useEffect(() => {
     setIsOpen(false);
   }, [pathname]);
 
-  // Prevent body scroll when menu is open
   useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
+    if (isOpen) document.body.style.overflow = 'hidden';
+    else document.body.style.overflow = '';
     return () => {
       document.body.style.overflow = '';
     };
@@ -126,10 +31,14 @@ export function MobileNav({ variant = 'light' }: MobileNavProps) {
     return pathname.startsWith(href);
   };
 
+  const toggleCollapsed = (section: string) => {
+    setCollapsedOpen((prev) => ({ ...prev, [section]: !prev[section] }));
+  };
+
   return (
     <>
-      {/* Hamburger Button */}
       <button
+        type="button"
         onClick={() => setIsOpen(true)}
         className={`lg:hidden p-2.5 rounded-lg transition-colors ${
           variant === 'dark' ? 'text-white hover:bg-white/20' : 'text-black hover:bg-black/10'
@@ -141,27 +50,33 @@ export function MobileNav({ variant = 'light' }: MobileNavProps) {
         </svg>
       </button>
 
-      {/* Overlay */}
       {isOpen && (
-        <div 
-          className="fixed inset-0 bg-white z-[9998] lg:hidden"
+        <div
+          className="fixed inset-0 bg-black/40 z-[9998] lg:hidden"
           onClick={() => setIsOpen(false)}
+          aria-hidden
         />
       )}
 
-      {/* Slide-out Menu */}
-      <div className={`fixed top-0 left-0 bottom-0 w-80 bg-white z-[9999] transform transition-transform duration-300 ease-in-out lg:hidden ${
-        isOpen ? 'translate-x-0' : '-translate-x-full'
-      }`}>
-        {/* Header */}
-        <div className="flex items-center justify-between p-4 border-b border-black">
-          <div className="flex items-center gap-2">
-            <span className="text-xl">💗</span>
-            <span className="font-semibold text-black">Hello Gorgeous</span>
+      <div
+        className={`fixed top-0 left-0 bottom-0 w-80 max-w-[85vw] bg-white z-[9999] transform transition-transform duration-300 ease-in-out lg:hidden shadow-xl ${
+          isOpen ? 'translate-x-0' : '-translate-x-full'
+        }`}
+      >
+        <div className="flex items-center justify-between p-4 border-b border-black/10">
+          <div>
+            <div className="flex items-center gap-2">
+              <span className="text-xl">💗</span>
+              <span className="font-bold text-black">Hello Gorgeous</span>
+            </div>
+            <p className="text-[10px] font-semibold uppercase tracking-wider text-[#E6007E] mt-1">
+              Medical portal
+            </p>
           </div>
           <button
+            type="button"
             onClick={() => setIsOpen(false)}
-            className="p-2 text-black hover:bg-white rounded-lg"
+            className="p-2 text-black hover:bg-black/5 rounded-lg"
             aria-label="Close menu"
           >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -170,38 +85,109 @@ export function MobileNav({ variant = 'light' }: MobileNavProps) {
           </button>
         </div>
 
-        {/* Navigation */}
-        <nav className="flex-1 overflow-y-auto p-4 pb-24">
-          {NAV_SECTIONS.map((section) => (
-            <div key={section.title} className="mb-6">
-              <h3 className="text-xs font-semibold text-black uppercase tracking-wider mb-2 px-2">
-                {section.title}
-              </h3>
-              <ul className="space-y-1">
-                {section.items.map((item) => (
-                  <li key={item.href}>
-                    <Link
-                      href={item.href}
-                      onClick={() => setIsOpen(false)}
-                      className={`flex items-center gap-3 px-3 py-2.5 rounded-lg transition-colors ${
-                        isActive(item.href)
-                          ? 'bg-pink-50 text-pink-700'
-                          : 'text-black hover:bg-white'
-                      }`}
-                    >
-                      <span className="text-lg">{item.icon}</span>
-                      <span className="font-medium">{item.label}</span>
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
+        <nav className="overflow-y-auto p-3 pb-28 max-h-[calc(100vh-72px)]">
+          <div className="mb-4 grid grid-cols-3 gap-2">
+            <Link
+              href="/admin/rx"
+              onClick={() => setIsOpen(false)}
+              className="rounded-lg bg-[#E6007E] text-white text-center py-2 text-xs font-semibold"
+            >
+              RX
+            </Link>
+            <Link
+              href="/admin/flowwave"
+              onClick={() => setIsOpen(false)}
+              className="rounded-lg bg-[#2D63A4] text-white text-center py-2 text-xs font-semibold"
+            >
+              FlowWave
+            </Link>
+            <Link
+              href="/pos"
+              onClick={() => setIsOpen(false)}
+              className="rounded-lg bg-black text-white text-center py-2 text-xs font-semibold"
+            >
+              POS
+            </Link>
+          </div>
+
+          {ADMIN_NAV_GROUPS.map((group) => {
+            const items = group.items;
+            if (group.collapsed) {
+              const open = !!collapsedOpen[group.section];
+              return (
+                <div key={group.section} className="mb-4">
+                  <button
+                    type="button"
+                    onClick={() => toggleCollapsed(group.section)}
+                    className="w-full flex items-center justify-between px-2 py-1 text-xs font-bold uppercase tracking-wider text-black/45"
+                  >
+                    {group.section}
+                    <span>{open ? '−' : '+'}</span>
+                  </button>
+                  {open &&
+                    items.map((item) => (
+                      <Link
+                        key={item.href}
+                        href={item.href}
+                        onClick={() => setIsOpen(false)}
+                        className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm ${
+                          isActive(item.href)
+                            ? 'bg-[#FFF0F7] text-[#E6007E] font-semibold'
+                            : 'text-black hover:bg-black/5'
+                        }`}
+                      >
+                        <span>{item.icon}</span>
+                        <span>{item.label}</span>
+                      </Link>
+                    ))}
+                </div>
+              );
+            }
+
+            return (
+              <div key={group.section} className="mb-4">
+                <h3 className="px-2 py-1 text-xs font-bold uppercase tracking-wider text-black/45">
+                  {group.section}
+                </h3>
+                <ul className="space-y-0.5">
+                  {items.map((item) => (
+                    <li key={item.href}>
+                      <Link
+                        href={item.href}
+                        onClick={() => setIsOpen(false)}
+                        className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm ${
+                          isActive(item.href)
+                            ? 'bg-[#FFF0F7] text-[#E6007E] font-semibold'
+                            : 'text-black hover:bg-black/5'
+                        }`}
+                      >
+                        <span>{item.icon}</span>
+                        <span>{item.label}</span>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            );
+          })}
         </nav>
 
-        {/* Footer */}
-        <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-black bg-white">
-          <p className="text-xs text-black text-center">Hello Gorgeous OS v1.4.0</p>
+        <div className="absolute bottom-0 left-0 right-0 p-3 border-t border-black/10 bg-white safe-area-pb">
+          <div className="flex justify-around">
+            {ADMIN_MOBILE_BOTTOM_NAV.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                onClick={() => setIsOpen(false)}
+                className={`flex flex-col items-center gap-0.5 px-2 py-1 rounded-lg text-[10px] font-semibold ${
+                  isActive(item.href) ? 'text-[#E6007E]' : 'text-black/55'
+                }`}
+              >
+                <span className="text-base">{item.icon}</span>
+                {item.label}
+              </Link>
+            ))}
+          </div>
         </div>
       </div>
     </>
