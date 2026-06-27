@@ -4,6 +4,10 @@
  */
 
 import { GLP1_PROGRAM } from "@/lib/glp1-program-pricing";
+import {
+  GLP1_ALL_DOSE_TIERS,
+  GLP1_INSURANCE_OVERSIGHT,
+} from "@/lib/glp1-dose-tiers";
 import { PROGRAM_CONSULT_FEE_USD } from "@/lib/flows";
 import {
   PEPTIDE_PHARMACY_SHIPPING_USD,
@@ -32,6 +36,19 @@ export type RxInvoiceTemplate = {
   allowCustomAmount?: boolean;
 };
 
+function glp1DoseTierTemplates(): RxInvoiceTemplate[] {
+  return GLP1_ALL_DOSE_TIERS.map((tier) => ({
+    id: tier.invoiceTemplateId,
+    track: "weight-loss" as const,
+    group: `${tier.medication} — dose tiers`,
+    name: `${tier.medication} ${tier.doseLabel}`,
+    lineLabel: `${tier.medication} ${tier.doseLabel} (1 mo)`,
+    amountUsd: tier.priceUsd,
+    squareName: `Hello Gorgeous RX™ — ${tier.medication} ${tier.doseLabel}`,
+    allowCustomAmount: true,
+  }));
+}
+
 function glp1Templates(): RxInvoiceTemplate[] {
   const p = GLP1_PROGRAM;
   return [
@@ -47,46 +64,17 @@ function glp1Templates(): RxInvoiceTemplate[] {
       squareSlug: "peptide-consult",
       note: "Credited to month 1 injectables if they start the program",
     },
+    ...glp1DoseTierTemplates(),
     {
-      id: "glp1-sema-monthly",
+      id: GLP1_INSURANCE_OVERSIGHT.invoiceTemplateId,
       track: "weight-loss",
-      group: "Injectable — monthly",
-      name: "Semaglutide — monthly",
-      lineLabel: "Semaglutide injectable program (1 mo)",
-      amountUsd: p.injectable.semaglutideFromUsd,
-      squareName: "Hello Gorgeous RX™ — Semaglutide Program (1 mo)",
+      group: "Insurance oversight",
+      name: "GLP-1 insurance oversight",
+      lineLabel: GLP1_INSURANCE_OVERSIGHT.lineLabel,
+      amountUsd: GLP1_INSURANCE_OVERSIGHT.monthlyUsd,
+      squareName: "Hello Gorgeous RX™ — GLP-1 Insurance Oversight (1 mo)",
       allowCustomAmount: true,
-    },
-    {
-      id: "glp1-tirz-starter",
-      track: "weight-loss",
-      group: "Injectable — monthly",
-      name: "Tirzepatide — starter",
-      lineLabel: "Tirzepatide injectable — starter tier (1 mo)",
-      amountUsd: p.injectable.tirzepatideStarterUsd,
-      squareName: "Hello Gorgeous RX™ — Tirzepatide Starter (1 mo)",
-      squareSlug: "tirzepatide",
-      allowCustomAmount: true,
-    },
-    {
-      id: "glp1-tirz-standard",
-      track: "weight-loss",
-      group: "Injectable — monthly",
-      name: "Tirzepatide — standard",
-      lineLabel: "Tirzepatide injectable — standard tier (1 mo)",
-      amountUsd: p.injectable.tirzepatideStandardUsd,
-      squareName: "Hello Gorgeous RX™ — Tirzepatide Standard (1 mo)",
-      allowCustomAmount: true,
-    },
-    {
-      id: "glp1-tirz-advanced",
-      track: "weight-loss",
-      group: "Injectable — monthly",
-      name: "Tirzepatide — advanced",
-      lineLabel: "Tirzepatide injectable — advanced tier (1 mo)",
-      amountUsd: p.injectable.tirzepatideAdvancedUsd,
-      squareName: "Hello Gorgeous RX™ — Tirzepatide Advanced (1 mo)",
-      allowCustomAmount: true,
+      note: GLP1_INSURANCE_OVERSIGHT.note,
     },
     {
       id: "glp1-3mo-bundle",
@@ -131,11 +119,12 @@ function glp1Templates(): RxInvoiceTemplate[] {
     {
       id: "glp1-pharmacy-rx",
       track: "weight-loss",
-      group: "Pharmacy Rx path",
-      name: "Pharmacy Rx evaluation",
-      lineLabel: "Monthly Rx evaluation (med at pharmacy separate)",
-      amountUsd: p.pharmacyRx.monthlyEvalUsd,
-      squareName: "Hello Gorgeous — GLP-1 Pharmacy Rx Evaluation",
+      group: "Insurance oversight",
+      name: "Insurance oversight (legacy alias)",
+      lineLabel: "GLP-1 medical oversight — insurance pharmacy fill (1 mo)",
+      amountUsd: p.insuranceOversight.monthlyUsd,
+      squareName: "Hello Gorgeous — GLP-1 Insurance Oversight",
+      note: "Same as Insurance oversight template",
     },
   ];
 }

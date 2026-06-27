@@ -4,6 +4,7 @@
 
 import { SITE } from "@/lib/seo";
 import { glp1SignerName } from "@/lib/glp1-intake";
+import { glp1DoseTierById } from "@/lib/glp1-dose-tiers";
 import { suggestGlp1RefillDrug } from "@/lib/glp1-refill-intake";
 
 export const RX_INTAKE_SLUGS = [
@@ -348,8 +349,10 @@ export function intakeSummaryLines(
 
   if (track === "glp1") {
     if (slug === "glp1-refill-request") {
+      const tierId = String(responses.refill_dose_tier || responses.dose_tier || "");
+      const doseTier = tierId ? glp1DoseTierById(tierId) : undefined;
       lines.push(`Medication: ${String(responses.current_medication || "—")}`);
-      lines.push(`Dose tier: ${String(responses.refill_dose_tier || responses.dose_tier || "—")}`);
+      lines.push(`Weekly dose: ${doseTier?.doseLabel || tierId || "—"}`);
       lines.push(
         `Price: ${String(responses.refill_price_label || (responses.refill_price_usd != null ? `$${responses.refill_price_usd}/mo` : "—"))}`,
       );

@@ -5,6 +5,8 @@
 
 import type { IntakeFormField } from "@/lib/hgos/intake-forms";
 import { glp1SignerName } from "@/lib/glp1-intake";
+import { glp1DoseTierById } from "@/lib/glp1-dose-tiers";
+import { GLP1_INSURANCE_OVERSIGHT } from "@/lib/glp1-refill-pricing";
 
 export const GLP1_REFILL_INTAKE_SLUG = "glp1-refill-request";
 
@@ -119,7 +121,7 @@ const REFILL_FIELDS: IntakeFormField[] = [
     type: "radio",
     label: "Medication for this refill",
     required: true,
-    options: ["Semaglutide", "Tirzepatide", "Other / switching — discuss with NP"],
+    options: ["Semaglutide", "Tirzepatide", "Insurance oversight (med via my plan)", "Other / switching — discuss with NP"],
   },
   {
     id: "current_dose",
@@ -303,6 +305,9 @@ export function evaluateGlp1RefillEligibility(data: Record<string, unknown>): {
   if (data.current_medication === "Other / switching — discuss with NP") {
     providerFlags.push("Medication switch requested — NP review required");
   }
+  if (data.current_medication === GLP1_INSURANCE_OVERSIGHT.label) {
+    providerFlags.push("Insurance pharmacy fill — confirm coverage & pharmacy");
+  }
   if (String(data.ship_to_home || "").startsWith("No")) {
     providerFlags.push("Clinic pick-up requested — do not ship to patient address");
   }
@@ -316,8 +321,12 @@ export function evaluateGlp1RefillEligibility(data: Record<string, unknown>): {
 
 export function suggestGlp1RefillDrug(data: Record<string, unknown>): string {
   const med = String(data.current_medication || "").trim();
-  const tier = String(data.refill_dose_tier || data.dose_tier || "").trim();
+  const tierId = String(data.refill_dose_tier || data.dose_tier || "").trim();
+  const doseTier = tierId ? glp1DoseTierById(tierId) : undefined;
   const dose = String(data.current_dose || "").trim();
-  const parts = [med, tier || null, dose ? `${dose}/wk` : null].filter(Boolean);
+  const tierLabel =
+    doseTier?.doseLabel ??
+    (tierId === GLP1_INSURANCE_OVERSIGHT.id ? "Insurance oversight" : tierId || null);
+  const parts = [med, tierLabel, dose ? `${dose}/wk` : null].filter(Boolean);
   return parts.length ? parts.join(" — ") : "GLP-1 injectable — NP to specify";
 }

@@ -14,6 +14,7 @@ import {
 } from "@/lib/glp1-refill-intake";
 import {
   computeGlp1RefillQuote,
+  GLP1_INSURANCE_OVERSIGHT,
   glp1RefillPricingRequiresTier,
   glp1RefillTierOptions,
   type Glp1RefillQuote,
@@ -196,9 +197,9 @@ export function Glp1RefillForm() {
         delete next.refill_price_label;
         delete next.rx_invoice_template_id;
         delete next.refill_line_label;
-        if (value === "Semaglutide") {
-          next.refill_dose_tier = "Monthly";
-          const quote = computeGlp1RefillQuote("Semaglutide", "Monthly");
+        if (value === GLP1_INSURANCE_OVERSIGHT.label) {
+          next.refill_dose_tier = GLP1_INSURANCE_OVERSIGHT.id;
+          const quote = computeGlp1RefillQuote(String(value), GLP1_INSURANCE_OVERSIGHT.id);
           if (quote) {
             next.refill_price_usd = quote.priceUsd;
             next.refill_price_label = quote.priceLabel;
@@ -491,10 +492,10 @@ function RefillTierSelector({
   return (
     <div>
       <label className="block text-sm font-semibold text-black">
-        Dose tier for this refill <span className="text-red-500">*</span>
+        Weekly dose for this refill <span className="text-red-500">*</span>
       </label>
       <p className="mt-1 text-xs text-black/50">
-        Select the tier for your {medication.toLowerCase()} program — price updates automatically.
+        Select your dose — your monthly total updates automatically. Medication included.
       </p>
       <div className="mt-3 space-y-2">
         {options.map((opt) => (
@@ -506,16 +507,16 @@ function RefillTierSelector({
                 : "border-black/15 hover:border-[#E6007E]/40"
             }`}
           >
-            <span className="flex items-center gap-2.5">
+            <span className="flex items-center gap-2.5 min-w-0">
               <input
                 type="radio"
                 name="refill_dose_tier"
                 value={opt.tier}
                 checked={value === opt.tier}
                 onChange={() => onChange(opt.tier)}
-                className="accent-[#E6007E]"
+                className="accent-[#E6007E] shrink-0"
               />
-              <span className="font-medium">{opt.label}</span>
+              <span className="font-medium">{opt.doseLabel}</span>
             </span>
             <span className="shrink-0 font-black text-[#E6007E]">${opt.priceUsd}/mo</span>
           </label>

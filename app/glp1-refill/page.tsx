@@ -5,6 +5,11 @@ import Link from "next/link";
 import { Glp1RefillForm } from "@/components/forms/Glp1RefillForm";
 import { GLP1_INTAKE_PATH, GLP1_REFILL_PATH } from "@/lib/flows";
 import { GLP1_PROGRAM } from "@/lib/glp1-program-pricing";
+import {
+  GLP1_SEMAGLUTIDE_DOSE_TIERS,
+  GLP1_TIRZEPATIDE_DOSE_TIERS,
+  GLP1_INSURANCE_OVERSIGHT,
+} from "@/lib/glp1-dose-tiers";
 import { pageMetadata, SITE } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
@@ -66,11 +71,20 @@ export default function Glp1RefillPage() {
             </p>
             <ul className="text-sm text-black/65 space-y-1 max-w-xl">
               <li>
-                <strong className="text-black">Semaglutide</strong> — ${GLP1_PROGRAM.injectable.semaglutideFromUsd}/mo
+                <strong className="text-black">From ${GLP1_PROGRAM.injectable.monthlyFromUsd}/mo</strong> — medication
+                included · price scales with weekly dose
               </li>
               <li>
-                <strong className="text-black">Tirzepatide</strong> — starter ${GLP1_PROGRAM.injectable.tirzepatideStarterUsd} ·
-                standard ${GLP1_PROGRAM.injectable.tirzepatideStandardUsd} · advanced ${GLP1_PROGRAM.injectable.tirzepatideAdvancedUsd}/mo
+                <strong className="text-black">Semaglutide</strong>:{" "}
+                {GLP1_SEMAGLUTIDE_DOSE_TIERS.map((t) => `${t.doseLabel} $${t.priceUsd}`).join(" · ")}
+              </li>
+              <li>
+                <strong className="text-black">Tirzepatide</strong>:{" "}
+                {GLP1_TIRZEPATIDE_DOSE_TIERS.map((t) => `${t.doseLabel} $${t.priceUsd}`).join(" · ")}
+              </li>
+              <li>
+                <strong className="text-black">Insurance oversight</strong>: ${GLP1_INSURANCE_OVERSIGHT.monthlyUsd}/mo
+                (med via your plan)
               </li>
               <li>Price calculates automatically when you select your dose tier</li>
               <li>Monthly NP check-in required before each refill</li>

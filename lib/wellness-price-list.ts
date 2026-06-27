@@ -6,6 +6,11 @@
 import { PEPTIDE_FLYER_IMAGES, VITAMIN_BAR_FLYER_IMAGES } from "@/lib/club-flyer-images";
 import { GLP1_PROGRAM, GLP1_PROGRAM_DISCLAIMER } from "@/lib/glp1-program-pricing";
 import {
+  GLP1_ALL_DOSE_TIERS,
+  GLP1_INSURANCE_OVERSIGHT,
+  GLP1_PROGRAM_INCLUDES,
+} from "@/lib/glp1-dose-tiers";
+import {
   formatFromMonthly,
   formatPrepayLine,
   PEPTIDE_PREPAY_DISCOUNT_PERCENT,
@@ -293,48 +298,45 @@ function buildMembershipItems(): WellnessPriceListItem[] {
   }));
 }
 
+const GLP1_DOSE_ITEMS: WellnessPriceListItem[] = GLP1_ALL_DOSE_TIERS.map((tier) => ({
+  id: tier.id,
+  name: `${tier.medication} — ${tier.doseLabel}`,
+  priceLabel: `$${tier.priceUsd}/mo`,
+  tagline: "Medication included · NP oversight",
+  note: GLP1_PROGRAM.injectable.includes,
+  benefits: [...GLP1_PROGRAM_INCLUDES],
+  image:
+    tier.medication === "Semaglutide"
+      ? PEPTIDE_FLYER_IMAGES.semaglutide
+      : PEPTIDE_FLYER_IMAGES.tirzepatide,
+  imageAlt: `${tier.medication} ${tier.doseLabel} — Hello Gorgeous Oswego IL`,
+  href: "/glp-1-weight-loss-oswego",
+  consultFirst: true,
+}));
+
 const GLP1_ITEMS: WellnessPriceListItem[] = [
   {
-    id: "semaglutide",
-    name: "Semaglutide program",
-    priceLabel: `From $${GLP1_PROGRAM.injectable.semaglutideFromUsd}/mo`,
-    tagline: "Injectable GLP-1 · medical weight loss",
-    note: "Medication + supplies · NP oversight · dose titration",
-    benefits: ["Appetite regulation", "Monthly NP check-ins", "Medication shipped to you"],
-    image: PEPTIDE_FLYER_IMAGES.semaglutide,
-    imageAlt: "Semaglutide medical weight loss — Hello Gorgeous Oswego IL",
-    href: "/glp-1-weight-loss-oswego",
-    consultFirst: true,
-  },
-  {
-    id: "tirzepatide-starter",
-    name: "Tirzepatide — starter",
-    priceLabel: `$${GLP1_PROGRAM.injectable.tirzepatideStarterUsd}/mo`,
-    tagline: "Lower starting dose · titration included",
-    note: "Injectable compounded · ideal for new patients",
-    benefits: ["Dual GLP-1/GIP action", "Guided titration", "NP supervision"],
+    id: "glp1-program",
+    name: "GLP-1 Weight Loss Program",
+    priceLabel: `From $${GLP1_PROGRAM.injectable.monthlyFromUsd}/mo`,
+    tagline: "Most popular · medication included at every dose",
+    note: "Price scales with weekly dose — see tiers below",
+    benefits: [...GLP1_PROGRAM_INCLUDES],
     image: PEPTIDE_FLYER_IMAGES.tirzepatide,
-    imageAlt: "Tirzepatide medical weight loss — Hello Gorgeous Oswego IL",
+    imageAlt: "GLP-1 medical weight loss — Hello Gorgeous Oswego IL",
     href: "/glp-1-weight-loss-oswego",
     consultFirst: true,
   },
+  ...GLP1_DOSE_ITEMS,
   {
-    id: "tirzepatide-standard",
-    name: "Tirzepatide — standard",
-    priceLabel: `$${GLP1_PROGRAM.injectable.tirzepatideStandardUsd}/mo`,
-    tagline: "Most common maintenance dose",
-    benefits: ["Sustained weight loss", "Monthly check-ins", "Supply included"],
-    consultFirst: true,
+    id: GLP1_INSURANCE_OVERSIGHT.id,
+    name: "Medical oversight (insurance)",
+    priceLabel: `$${GLP1_INSURANCE_OVERSIGHT.monthlyUsd}/mo`,
+    tagline: "Only if insurance covers your medication",
+    note: GLP1_INSURANCE_OVERSIGHT.note,
+    benefits: [...GLP1_PROGRAM.insuranceOversight.includes],
     href: "/glp-1-weight-loss-oswego",
-  },
-  {
-    id: "tirzepatide-advanced",
-    name: "Tirzepatide — advanced",
-    priceLabel: `$${GLP1_PROGRAM.injectable.tirzepatideAdvancedUsd}/mo`,
-    tagline: "Higher dose tier",
-    benefits: ["For plateaued patients", "NP-guided escalation", "Full program support"],
     consultFirst: true,
-    href: "/glp-1-weight-loss-oswego",
   },
   {
     id: "glp1-oral",

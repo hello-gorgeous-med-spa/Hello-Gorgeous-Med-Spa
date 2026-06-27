@@ -1,13 +1,18 @@
 /**
- * GLP-1 refill tier pricing — maps medication + dose tier → monthly program price.
- * Keeps refill form, RX invoices, and staff alerts in sync with GLP1_PROGRAM tiers.
+ * GLP-1 refill pricing — maps medication + weekly dose tier → monthly price.
  */
 
-import { GLP1_PROGRAM } from "@/lib/glp1-program-pricing";
+import {
+  GLP1_INSURANCE_OVERSIGHT,
+  glp1DoseTierById,
+  glp1DoseTiersForMedication,
+  type Glp1DoseTier,
+} from "@/lib/glp1-dose-tiers";
 
 export type Glp1RefillTierOption = {
   tier: string;
   label: string;
+  doseLabel: string;
   priceUsd: number;
   invoiceTemplateId: string;
   lineLabel: string;
@@ -16,81 +21,85 @@ export type Glp1RefillTierOption = {
 export type Glp1RefillQuote = {
   medication: string;
   tier: string;
+  doseLabel: string;
   priceUsd: number;
   invoiceTemplateId: string;
   lineLabel: string;
   priceLabel: string;
 };
 
-const INJ = GLP1_PROGRAM.injectable;
-
 export function formatGlp1RefillPriceUsd(amountUsd: number): string {
   return `$${amountUsd.toFixed(0)}`;
 }
 
+function tierToOption(tier: Glp1DoseTier): Glp1RefillTierOption {
+  return {
+    tier: tier.id,
+    doseLabel: tier.doseLabel,
+    label: `${tier.doseLabel} — ${formatGlp1RefillPriceUsd(tier.priceUsd)}/mo`,
+    priceUsd: tier.priceUsd,
+    invoiceTemplateId: tier.invoiceTemplateId,
+    lineLabel: `${tier.medication} ${tier.doseLabel} (1 mo)`,
+  };
+}
+
 export function glp1RefillTierOptions(medication: string): Glp1RefillTierOption[] {
-  if (medication === "Semaglutide") {
+  if (medication === GLP1_INSURANCE_OVERSIGHT.label) {
     return [
       {
-        tier: "Monthly",
-        label: `Semaglutide — monthly program (${formatGlp1RefillPriceUsd(INJ.semaglutideFromUsd)}/mo)`,
-        priceUsd: INJ.semaglutideFromUsd,
-        invoiceTemplateId: "glp1-sema-monthly",
-        lineLabel: "Semaglutide injectable program (1 mo)",
+        tier: GLP1_INSURANCE_OVERSIGHT.id,
+        doseLabel: "Medical oversight only",
+        label: `Insurance oversight — ${formatGlp1RefillPriceUsd(GLP1_INSURANCE_OVERSIGHT.monthlyUsd)}/mo`,
+        priceUsd: GLP1_INSURANCE_OVERSIGHT.monthlyUsd,
+        invoiceTemplateId: GLP1_INSURANCE_OVERSIGHT.invoiceTemplateId,
+        lineLabel: GLP1_INSURANCE_OVERSIGHT.lineLabel,
       },
     ];
   }
 
-  if (medication === "Tirzepatide") {
-    return [
-      {
-        tier: "Starter",
-        label: `Starter tier (${formatGlp1RefillPriceUsd(INJ.tirzepatideStarterUsd)}/mo)`,
-        priceUsd: INJ.tirzepatideStarterUsd,
-        invoiceTemplateId: "glp1-tirz-starter",
-        lineLabel: "Tirzepatide injectable — starter tier (1 mo)",
-      },
-      {
-        tier: "Standard",
-        label: `Standard tier (${formatGlp1RefillPriceUsd(INJ.tirzepatideStandardUsd)}/mo)`,
-        priceUsd: INJ.tirzepatideStandardUsd,
-        invoiceTemplateId: "glp1-tirz-standard",
-        lineLabel: "Tirzepatide injectable — standard tier (1 mo)",
-      },
-      {
-        tier: "Advanced",
-        label: `Advanced tier (${formatGlp1RefillPriceUsd(INJ.tirzepatideAdvancedUsd)}/mo)`,
-        priceUsd: INJ.tirzepatideAdvancedUsd,
-        invoiceTemplateId: "glp1-tirz-advanced",
-        lineLabel: "Tirzepatide injectable — advanced tier (1 mo)",
-      },
-    ];
-  }
-
-  return [];
+  return glp1DoseTiersForMedication(medication).map(tierToOption);
 }
 
 export function computeGlp1RefillQuote(
   medication: string,
-  tier: string,
+  tierId: string,
 ): Glp1RefillQuote | null {
   const med = String(medication || "").trim();
-  const tierKey = String(tier || "").trim();
+  const tierKey = String(tierId || "").trim();
   if (!med || !tierKey) return null;
 
-  const match = glp1RefillTierOptions(med).find((o) => o.tier === tierKey);
-  if (!match) return null;
+  if (med === GLP1_INSURANCE_OVERSIGHT.label && tierKey === GLP1_INSURANCE_OVERSIGHT.id) {
+    return {
+      medication: med,
+      tier: tierKey,
+      doseLabel: "Medical oversight only",
+      priceUsd: GLP1_INSURANCE_OVERSIGHT.monthlyUsd,
+      invoiceTemplateId: GLP1_INSURANCE_OVERSIGHT.invoiceTemplateId,
+      lineLabel: GLP1_INSURANCE_OVERSIGHT.lineLabel,
+      priceLabel: `${formatGlp1RefillPriceUsd(GLP1_INSURANCE_OVERSIGHT.monthlyUsd)}/mo`,
+    };
+  }
+
+  const doseTier = glp1DoseTierById(tierKey);
+  if (!doseTier || doseTier.medication !== med) return null;
 
   return {
     medication: med,
-    tier: match.tier,
-    priceUsd: match.priceUsd,
-    invoiceTemplateId: match.invoiceTemplateId,
-    lineLabel: match.lineLabel,
-    priceLabel: `${formatGlp1RefillPriceUsd(match.priceUsd)}/mo`,
+    tier: doseTier.id,
+    doseLabel: doseTier.doseLabel,
+    priceUsd: doseTier.priceUsd,
+    invoiceTemplateId: doseTier.invoiceTemplateId,
+    lineLabel: `${doseTier.medication} ${doseTier.doseLabel} (1 mo)`,
+    priceLabel: `${formatGlp1RefillPriceUsd(doseTier.priceUsd)}/mo`,
   };
 }
 
 export function glp1RefillPricingRequiresTier(medication: string): boolean {
-  return medication === "Semaglutide" || medication === "Tirzepatide";
+  return (
+    medication === "Semaglutide" ||
+    medication === "Tirzepatide" ||
+    medication === GLP1_INSURANCE_OVERSIGHT.label
+  );
 }
+
+export { GLP1_INSURANCE_OVERSIGHT };
