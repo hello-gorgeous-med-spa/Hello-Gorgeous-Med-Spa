@@ -32,7 +32,7 @@ export const GLP1_PROGRAM = {
   telehealthIntro:
     "Book your NP video visit on our Fresha schedule when an in-person slot isn't convenient. Same medical team, same candidacy review — from home.",
   followUpIncluded:
-    "Active GLP-1 members: telehealth with Ryan every 90 days when stable on dose ($0 visit fee). Message us anytime for dose changes — we'll book you sooner if needed.",
+    "90-day supply or 3-month monthly auto-pay: no telehealth required for that order. After your cycle, a $49 telehealth check-in is required before your next reorder. Payment is collected at checkout — we email and text you if telehealth is needed before we ship.",
   injectable: {
     heading: "Injectable compounded medications",
     includes: "Medication included at every dose tier",

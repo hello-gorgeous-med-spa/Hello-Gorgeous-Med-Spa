@@ -4,6 +4,7 @@
  * Telehealth is required every 90 days (not monthly) unless dose/strength changes.
  */
 
+import { PROGRAM_CONSULT_FEE_USD } from "@/lib/flows";
 import { PEPTIDE_PHARMACY_SHIPPING_USD } from "@/lib/peptide-retail-pricing";
 
 export type RxSupplyCycleId = "30-day" | "90-day";
@@ -110,7 +111,7 @@ export function computeRxSupplyQuote(input: RxSupplyQuoteInput): RxSupplyQuote {
 
 export function rxTelehealthDueCopy(supplyCycle: RxSupplyCycleId = "90-day"): string {
   void supplyCycle;
-  return `Telehealth with Ryan is required every ${RX_TELEHEALTH_CADENCE_DAYS} days — not monthly. Reach out anytime if you need a dose or strength change before then.`;
+  return `90-day supply and 3-month monthly auto-pay do not require telehealth for that order. After your cycle, a $${PROGRAM_CONSULT_FEE_USD} telehealth check-in is required before your next reorder. Single-month 30-day refills may require telehealth if you have not checked in within ${RX_TELEHEALTH_CADENCE_DAYS} days.`;
 }
 
 export function doseChangeRequiresTelehealth(data: Record<string, unknown>): boolean {

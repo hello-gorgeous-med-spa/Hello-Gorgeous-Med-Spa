@@ -9,9 +9,14 @@ import { glp1DoseTierById } from "@/lib/glp1-dose-tiers";
 import { GLP1_INSURANCE_OVERSIGHT } from "@/lib/glp1-refill-pricing";
 import { GLP1_REFILL_ADDON_FIELD_OPTIONS } from "@/lib/peptide-monthly-addons";
 import {
+  GLP1_PAYMENT_FIRST_FINE_PRINT,
+  GLP1_REORDER_TELEHEALTH_COPY,
+  GLP1_REORDER_TELEHEALTH_FEE_USD,
+  GLP1_SUPPLY_CYCLE_TELEHEALTH_COPY,
+  glp1TelehealthProviderFlags,
+} from "@/lib/glp1-telehealth-policy";
+import {
   RX_SUPPLY_CYCLE_FIELD_OPTIONS,
-  RX_TELEHEALTH_CADENCE_DAYS,
-  rxTelehealthDueCopy,
 } from "@/lib/rx-supply-cycle";
 
 export const GLP1_REFILL_INTAKE_SLUG = "glp1-refill-request";
@@ -118,10 +123,10 @@ const REFILL_FIELDS: IntakeFormField[] = [
   {
     id: "last_visit_within_12mo",
     type: "radio",
-    label: `Have you had a GLP-1 telehealth check-in with us in the last ${RX_TELEHEALTH_CADENCE_DAYS} days?`,
+    label: `Have you completed a Hello Gorgeous GLP-1 check-in in the last 90 days?`,
     required: true,
     options: ["Yes", "No"],
-    helpText: rxTelehealthDueCopy(),
+    helpText: `Required for single-month (30-day) refills only. 90-day supply and 3-month auto-pay skip telehealth for this order. ${GLP1_REORDER_TELEHEALTH_COPY}`,
   },
   {
     id: "current_medication",
@@ -192,8 +197,7 @@ const REFILL_FIELDS: IntakeFormField[] = [
     label: "Prescription supply cycle",
     required: true,
     options: [...RX_SUPPLY_CYCLE_FIELD_OPTIONS],
-    helpText:
-      "90-day supply prepays three months of medication with one cold-chain shipping fee — most patients choose this. 30-day pays and ships monthly.",
+    helpText: `${GLP1_SUPPLY_CYCLE_TELEHEALTH_COPY["90-day"]} ${GLP1_SUPPLY_CYCLE_TELEHEALTH_COPY["30-day"]} Prices update when you select your dose tier.`,
   },
   {
     id: "monthly_peptide_addon",
@@ -252,9 +256,11 @@ const CONSENT_FIELDS: IntakeFormField[] = [
     required: true,
     options: [
       "I am requesting a refill of my Hello Gorgeous GLP-1 program — this is not a prescription until approved by our NP",
-      `I understand telehealth with Ryan is required every ${RX_TELEHEALTH_CADENCE_DAYS} days when stable on dose — sooner if I request a dose or strength change`,
+      "I will complete payment at checkout now — medication ships only after clinical review",
+      GLP1_PAYMENT_FIRST_FINE_PRINT,
+      `I understand 90-day supply or 3-month monthly auto-pay does not require telehealth for this order; a $${GLP1_REORDER_TELEHEALTH_FEE_USD} telehealth check-in is required before my next reorder afterward`,
       "I confirm my shipping address is correct for cold-chain home delivery",
-      "Hello Gorgeous may contact me at the information provided",
+      "Hello Gorgeous may contact me at the information provided by email and text",
     ],
   },
   {
@@ -316,15 +322,12 @@ export function evaluateGlp1RefillEligibility(data: Record<string, unknown>): {
   if (data.pregnant === "Yes") {
     disqualificationReasons.push("Pregnant, trying to conceive, or breastfeeding");
   }
-  if (data.last_visit_within_12mo === "No") {
-    providerFlags.push(`No telehealth within ${RX_TELEHEALTH_CADENCE_DAYS} days — book Fresha visit before refill ships`);
-  }
-  if (data.side_effects === "Yes") {
-    providerFlags.push("Reported side effects — NP review required before refill");
-  }
-  if (data.dose_changes === "Yes") {
-    providerFlags.push("Health or dose changes reported — NP review required");
-  }
+  providerFlags.push(...glp1TelehealthProviderFlags({
+    supplyCycleRaw: data.supply_cycle,
+    lastVisitWithin90Days: data.last_visit_within_12mo,
+    doseChanges: data.dose_changes,
+    sideEffects: data.side_effects,
+  }));
   if (data.current_medication === "Other / switching — discuss with NP") {
     providerFlags.push("Medication switch requested — NP review required");
   }

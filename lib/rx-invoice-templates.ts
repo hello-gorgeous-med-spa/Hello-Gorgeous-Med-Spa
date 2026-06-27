@@ -196,7 +196,7 @@ function feeTemplates(): RxInvoiceTemplate[] {
       group: "Fees & shipping",
       name: "Telehealth refill review",
       lineLabel: "Telehealth refill review (NP)",
-      amountUsd: 0,
+      amountUsd: PROGRAM_CONSULT_FEE_USD,
       squareName: "Hello Gorgeous RX™ — Telehealth Refill Review",
       sku: "HG-RX-REFILL-TH",
       squareSlug: "telehealth-refill-review",

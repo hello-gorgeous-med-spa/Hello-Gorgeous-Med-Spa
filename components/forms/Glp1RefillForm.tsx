@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 
+import type { IntakeFormField } from "@/lib/hgos/intake-forms";
 import { SMSDisclosure } from "@/components/SMSDisclosure";
 import { RxSecureMessages } from "@/components/rx/RxSecureMessages";
 import { RxPatientStatusCard } from "@/components/rx/RxPatientStatusCard";
@@ -40,6 +41,13 @@ import {
   type Glp1RefillTierOption,
 } from "@/lib/glp1-refill-pricing";
 import {
+  GLP1_PAYMENT_FIRST_FINE_PRINT,
+  GLP1_REORDER_TELEHEALTH_COPY,
+  GLP1_REORDER_TELEHEALTH_FEE_USD,
+  glp1TelehealthRequiredBeforeShip,
+  glp1TelehealthWaivedForOrder,
+} from "@/lib/glp1-telehealth-policy";
+import {
   formatAddonPriceLabel,
   GLP1_REFILL_ADDON_NONE,
   parseGlp1RefillAddonSelection,
@@ -50,7 +58,6 @@ import {
 } from "@/lib/peptide-monthly-addons";
 import {
   RX_SUPPLY_CYCLES,
-  RX_TELEHEALTH_CADENCE_DAYS,
 } from "@/lib/rx-supply-cycle";
 import { rxMessagesHref } from "@/lib/rx-secure-messages";
 import { rxStatusHref } from "@/lib/rx-patient-status";
@@ -66,6 +73,7 @@ type SubmitResult =
       invoiceTemplateId?: string;
       medication?: string;
       supplyCycle?: string;
+      savingsNote?: string;
       addon?: {
         id: PeptideMonthlyAddonId;
         shortLabel: string;
@@ -246,7 +254,7 @@ export function Glp1RefillForm() {
     if (ref && paid) markGlp1RefillPaid(ref);
 
     const pending = readPendingGlp1RefillSuccess();
-    if (pending) setResult(pending);
+    if (pending) setResult(pending as SubmitResult);
 
     cleanGlp1RefillReturnUrl();
   }, []);
@@ -493,22 +501,49 @@ export function Glp1RefillForm() {
     const is90Day =
       result.supplyCycle === "90-day" || String(formData.supply_cycle || "").includes("90");
     const patientEmail = String(formData.email || "").trim();
+    const telehealthWaived = glp1TelehealthWaivedForOrder({
+      supplyCycleRaw: result.supplyCycle ?? formData.supply_cycle,
+    });
+    const telehealthBeforeShip = glp1TelehealthRequiredBeforeShip({
+      supplyCycleRaw: result.supplyCycle ?? formData.supply_cycle,
+      lastVisitWithin90Days: formData.last_visit_within_12mo,
+      doseChanges: formData.dose_changes,
+      sideEffects: formData.side_effects,
+    });
 
     return (
       <div className="rounded-2xl border-2 border-black bg-green-50 p-8 text-center shadow-lg">
-        <span className="text-4xl">{refillPaid ? "✓" : "📋"}</span>
-        <h2 className="mt-4 font-serif text-2xl font-semibold text-green-900">Refill request received</h2>
+        <span className="text-4xl">{refillPaid ? "✓" : "💳"}</span>
+        <h2 className="mt-4 font-serif text-2xl font-semibold text-green-900">
+          {refillPaid ? "Payment received — thank you" : "Complete payment to reserve your refill"}
+        </h2>
         <p className="mt-3 text-sm text-green-800 leading-relaxed max-w-md mx-auto">
-          Our clinical team will review your request within one business day. Reference{" "}
-          <span className="font-mono font-bold">{result.reference}</span>.
+          Reference <span className="font-mono font-bold">{result.reference}</span>.
+          {!refillPaid
+            ? " Pay now — our team reviews your request after payment. Medication is not shipped until clinically approved."
+            : " Our clinical team will review and ship after approval (typically within one business day)."}
           {String(formData.ship_to_home || "").startsWith("Yes")
-            ? " Once approved, medication ships directly to your home address."
+            ? " Cold-chain delivery to your home address."
             : " We'll contact you about spa pick-up when your refill is ready."}
         </p>
+        <p className="mt-3 text-[11px] text-green-800/90 max-w-md mx-auto leading-relaxed">
+          {GLP1_PAYMENT_FIRST_FINE_PRINT}
+        </p>
+        {telehealthWaived && !telehealthBeforeShip && (
+          <p className="mt-2 text-xs font-semibold text-green-900 max-w-md mx-auto">
+            No telehealth required for this {is90Day ? "90-day" : "3-month"} order. {GLP1_REORDER_TELEHEALTH_COPY}
+          </p>
+        )}
+        {telehealthBeforeShip && !refillPaid && (
+          <p className="mt-2 text-xs font-semibold text-amber-900 max-w-md mx-auto rounded-lg bg-amber-50 border border-amber-200 px-3 py-2">
+            A ${GLP1_REORDER_TELEHEALTH_FEE_USD} telehealth visit may be required before we ship — we will email and
+            text you to schedule after payment.
+          </p>
+        )}
         {result.priceLabel && (
           <div className="mt-4 mx-auto max-w-sm rounded-xl border-2 border-green-700/30 bg-white px-4 py-3">
             <p className="text-[10px] font-bold uppercase tracking-widest text-[#E6007E]">
-              Your refill total
+              {is90Day ? "90-day total due now" : "Monthly total due now"}
             </p>
             <p className="mt-1 text-3xl font-black text-green-900">{result.priceLabel}</p>
             {result.lineLabel && (
@@ -540,30 +575,8 @@ export function Glp1RefillForm() {
             ✓ {payAmountLabel} paid — thank you
           </p>
         )}
-        <p className="mt-4 text-xs text-green-800 max-w-md mx-auto leading-relaxed">
-          Download your guides below, pay when ready, book telehealth on Fresha every{" "}
-          {RX_TELEHEALTH_CADENCE_DAYS} days (sooner if your dose changes), and message us securely anytime.
-        </p>
 
         <div className="mt-6 mx-auto max-w-sm space-y-3 text-left">
-          <a
-            href={GLP1_SUBCUTANEOUS_INJECTION_GUIDE_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex w-full items-center justify-between rounded-xl border-2 border-black bg-white px-4 py-3.5 text-sm font-bold text-green-900 hover:border-[#E6007E] transition-colors"
-          >
-            <span>Download injection guide</span>
-            <span aria-hidden="true">↓</span>
-          </a>
-          <a
-            href={patientGuideUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex w-full items-center justify-between rounded-xl border-2 border-black bg-white px-4 py-3.5 text-sm font-bold text-green-900 hover:border-[#E6007E] transition-colors"
-          >
-            <span>{glp1PatientGuideLabel(medication)}</span>
-            <span aria-hidden="true">↓</span>
-          </a>
           {canPay && !refillPaid && (
             <button
               type="button"
@@ -577,13 +590,13 @@ export function Glp1RefillForm() {
                   result.supplyCycle,
                 )
               }
-              className="flex w-full items-center justify-between rounded-xl bg-[#E6007E] px-4 py-3.5 text-sm font-bold text-white hover:bg-black transition-colors disabled:opacity-60"
+              className="flex w-full items-center justify-between rounded-xl bg-[#E6007E] px-4 py-3.5 text-sm font-bold text-white hover:bg-black transition-colors disabled:opacity-60 shadow-[4px_4px_0_0_rgba(0,0,0,0.2)]"
             >
-              <span>{payBusy ? "Starting checkout…" : `Pay invoice — ${payAmountLabel}`}</span>
+              <span>{payBusy ? "Starting checkout…" : `Pay now — ${payAmountLabel}`}</span>
               <span aria-hidden="true">→</span>
             </button>
           )}
-          {canPay && !is90Day && (
+          {canPay && !refillPaid && !is90Day && (
             <button
               type="button"
               disabled={payBusy || autopayBusy}
@@ -602,11 +615,29 @@ export function Glp1RefillForm() {
               <span>
                 {autopayBusy
                   ? "Starting auto-pay…"
-                  : `Set up monthly auto-pay — ${result.priceLabel}`}
+                  : `3-month auto-pay — ${result.priceLabel} (no telehealth for this cycle)`}
               </span>
               <span aria-hidden="true">↻</span>
             </button>
           )}
+          <a
+            href={GLP1_SUBCUTANEOUS_INJECTION_GUIDE_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex w-full items-center justify-between rounded-xl border-2 border-black bg-white px-4 py-3.5 text-sm font-bold text-green-900 hover:border-[#E6007E] transition-colors"
+          >
+            <span>Download injection guide</span>
+            <span aria-hidden="true">↓</span>
+          </a>
+          <a
+            href={patientGuideUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex w-full items-center justify-between rounded-xl border-2 border-black bg-white px-4 py-3.5 text-sm font-bold text-green-900 hover:border-[#E6007E] transition-colors"
+          >
+            <span>{glp1PatientGuideLabel(medication)}</span>
+            <span aria-hidden="true">↓</span>
+          </a>
           {result.addon && (
             <button
               type="button"
@@ -641,15 +672,17 @@ export function Glp1RefillForm() {
                 <span aria-hidden="true">↓</span>
               </a>
             ))}
-          <a
-            href={HG_RX_TELEHEALTH_BOOKING_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex w-full items-center justify-between rounded-xl border-2 border-green-800 bg-green-800 px-4 py-3.5 text-sm font-bold text-white hover:bg-black transition-colors"
-          >
-            <span>{HG_RX_TELEHEALTH_BOOKING_LABEL}</span>
-            <span aria-hidden="true">→</span>
-          </a>
+          {telehealthBeforeShip && (
+            <a
+              href={HG_RX_TELEHEALTH_BOOKING_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex w-full items-center justify-between rounded-xl border-2 border-green-800 bg-green-800 px-4 py-3.5 text-sm font-bold text-white hover:bg-black transition-colors"
+            >
+              <span>{HG_RX_TELEHEALTH_BOOKING_LABEL} — ${GLP1_REORDER_TELEHEALTH_FEE_USD}</span>
+              <span aria-hidden="true">→</span>
+            </a>
+          )}
           <Link
             href={rxStatusHref(result.reference, patientEmail)}
             className="flex w-full items-center justify-between rounded-xl border-2 border-black bg-white px-4 py-3.5 text-sm font-bold text-green-900 hover:border-[#E6007E] transition-colors"
@@ -767,6 +800,44 @@ export function Glp1RefillForm() {
                     </p>
                   ) : null}
                 </div>
+              );
+            }
+            if (field.id === "supply_cycle") {
+              const tierId = glp1RefillPricingRequiresTier(medication)
+                ? String(formData.refill_dose_tier || "")
+                : medication === GLP1_INSURANCE_OVERSIGHT.label
+                  ? GLP1_INSURANCE_OVERSIGHT.id
+                  : "";
+              if (!tierId && glp1RefillPricingRequiresTier(medication)) {
+                return (
+                  <p
+                    key={field.id}
+                    className="rounded-xl border-2 border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900"
+                  >
+                    Select your dose tier above to see 30-day and 90-day pricing.
+                  </p>
+                );
+              }
+              if (!tierId) {
+                return (
+                  <FieldRenderer
+                    key={field.id}
+                    field={field}
+                    value={formData[field.id]}
+                    error={errors[field.id]}
+                    onChange={(v) => handleChange(field.id, v)}
+                  />
+                );
+              }
+              return (
+                <SupplyCycleSelector
+                  key={field.id}
+                  medication={medication}
+                  tierId={tierId}
+                  value={String(formData.supply_cycle || RX_SUPPLY_CYCLES["90-day"].label)}
+                  error={errors.supply_cycle}
+                  onChange={(label) => handleChange("supply_cycle", label)}
+                />
               );
             }
             if (field.id === "monthly_peptide_addon") {
@@ -887,14 +958,106 @@ export function Glp1RefillForm() {
             disabled={busy}
             className="rounded-xl bg-[#E6007E] px-8 py-3.5 font-bold text-white hover:bg-black transition-colors disabled:opacity-60"
           >
-            {busy ? "Submitting…" : isLastStep ? "Submit refill request" : "Continue →"}
+            {busy ? "Submitting…" : isLastStep ? "Submit & continue to payment →" : "Continue →"}
           </button>
         </div>
       </form>
 
-      <p className="border-t border-black/10 px-5 py-4 text-center text-[11px] text-black/45">
+      <p className="border-t border-black/10 px-5 py-4 text-center text-[11px] text-black/45 leading-relaxed">
         Protected health information · stored securely for your chart
+        <br />
+        {GLP1_PAYMENT_FIRST_FINE_PRINT}
       </p>
+    </div>
+  );
+}
+
+function SupplyCycleSelector({
+  medication,
+  tierId,
+  value,
+  error,
+  onChange,
+}: {
+  medication: string;
+  tierId: string;
+  value: string;
+  error?: string;
+  onChange: (cycleLabel: string) => void;
+}) {
+  const quote30 = useMemo(
+    () => computeGlp1RefillQuote(medication, tierId, "30-day"),
+    [medication, tierId],
+  );
+  const quote90 = useMemo(
+    () => computeGlp1RefillQuote(medication, tierId, "90-day"),
+    [medication, tierId],
+  );
+
+  const options = [
+    {
+      label: RX_SUPPLY_CYCLES["90-day"].label,
+      quote: quote90,
+      badge: "Recommended · No telehealth for this order",
+    },
+    {
+      label: RX_SUPPLY_CYCLES["30-day"].label,
+      quote: quote30,
+      badge: "Pay monthly · 3-month auto-pay skips telehealth",
+    },
+  ];
+
+  return (
+    <div>
+      <label className="block text-sm font-semibold text-black">
+        Prescription supply cycle <span className="text-red-500">*</span>
+      </label>
+      <p className="mt-1 text-xs text-black/50">
+        Both options include medication, supplies, and cold-chain shipping. Choose 30-day or 90-day — full
+        price shown for each.
+      </p>
+      <div className="mt-3 space-y-3">
+        {options.map((opt) => (
+          <label
+            key={opt.label}
+            className={`flex cursor-pointer flex-col gap-2 rounded-xl border-2 px-4 py-4 transition ${
+              value === opt.label
+                ? "border-[#E6007E] bg-[#FFF0F7]"
+                : "border-black/15 hover:border-[#E6007E]/40"
+            }`}
+          >
+            <span className="flex items-start gap-2.5">
+              <input
+                type="radio"
+                name="supply_cycle"
+                value={opt.label}
+                checked={value === opt.label}
+                onChange={() => onChange(opt.label)}
+                className="mt-1 accent-[#E6007E] shrink-0"
+              />
+              <span className="min-w-0 flex-1">
+                <span className="block text-sm font-bold text-black">{opt.label}</span>
+                <span className="mt-0.5 block text-xs font-semibold text-[#E6007E]">{opt.badge}</span>
+              </span>
+              {opt.quote && (
+                <span className="shrink-0 text-right">
+                  <span className="block text-xl font-black text-[#E6007E]">{opt.quote.priceLabel}</span>
+                  <span className="block text-[10px] text-black/50 uppercase tracking-wide">due at checkout</span>
+                </span>
+              )}
+            </span>
+            {opt.quote && (
+              <p className="pl-6 text-xs text-black/55">
+                {opt.quote.lineLabel}
+                {opt.quote.shippingUsd > 0 ? ` · includes $${opt.quote.shippingUsd} shipping` : ""}
+                {opt.quote.savingsNote ? ` · ${opt.quote.savingsNote}` : ""}
+              </p>
+            )}
+          </label>
+        ))}
+      </div>
+      <p className="mt-3 text-[11px] text-black/45 leading-relaxed">{GLP1_REORDER_TELEHEALTH_COPY}</p>
+      {error && <p className="mt-2 text-xs text-red-500">{error}</p>}
     </div>
   );
 }
@@ -920,7 +1083,7 @@ function RefillTierSelector({
         Weekly dose for this refill <span className="text-red-500">*</span>
       </label>
       <p className="mt-1 text-xs text-black/50">
-        Select your dose — your monthly total updates automatically. Medication included.
+        Select your dose — 30-day and 90-day checkout totals appear when you choose your supply cycle below.
       </p>
       <div className="mt-3 space-y-2">
         {options.map((opt) => (
