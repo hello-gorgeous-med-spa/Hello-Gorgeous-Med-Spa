@@ -5,6 +5,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 import { GLP1_REFILL_PATH } from "@/lib/flows";
 import { createRxPaymentLink } from "@/lib/rx-invoice-payment-link";
+import { insertRxPaymentLedger } from "@/lib/rx-payment-ledger";
 import {
   getRxInvoiceTemplate,
   resolveTemplateAmountUsd,
@@ -57,6 +58,21 @@ export async function POST(req: NextRequest) {
   if (!linkResult.ok) {
     return NextResponse.json({ error: linkResult.error }, { status: linkResult.status });
   }
+
+  await insertRxPaymentLedger({
+    intakeRef: reference || null,
+    source: "glp1_checkout",
+    templateId: template.id,
+    templateName: template.name,
+    track: template.track,
+    lineLabel: template.lineLabel,
+    amountUsd,
+    paymentUrl: linkResult.url,
+    squarePaymentLinkId: linkResult.paymentLinkId,
+    squareOrderId: linkResult.orderId,
+    deliveryMethod: "patient_portal",
+    metadata: reference ? { reference } : {},
+  });
 
   return NextResponse.json({ url: linkResult.url, amountUsd });
 }

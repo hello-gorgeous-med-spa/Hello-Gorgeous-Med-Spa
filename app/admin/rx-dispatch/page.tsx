@@ -155,6 +155,9 @@ export default function RxDispatchPage() {
           </p>
         </div>
         <div className="flex flex-col items-end gap-1 shrink-0">
+          <Link href="/admin/rx-ledger" className="text-xs text-[#FFB8DC] hover:text-white">
+            Payment ledger →
+          </Link>
           <Link href="/admin/rx-invoices" className="text-xs text-[#FFB8DC] hover:text-white">
             RX Invoices →
           </Link>

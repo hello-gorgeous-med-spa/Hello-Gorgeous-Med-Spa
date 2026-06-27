@@ -6,6 +6,7 @@ import {
   emailClientRxPaymentLink,
   smsClientRxPaymentLink,
 } from "@/lib/rx-invoice-notify";
+import { insertRxPaymentLedger } from "@/lib/rx-payment-ledger";
 import {
   getRxInvoiceTemplate,
   resolveTemplateAmountUsd,
@@ -30,6 +31,9 @@ export async function POST(req: NextRequest) {
 
   let body: {
     templateId?: string;
+    clientId?: string;
+    submissionId?: string;
+    intakeRef?: string;
     clientName?: string;
     email?: string;
     phone?: string;
@@ -131,9 +135,31 @@ export async function POST(req: NextRequest) {
   const deliveryFailed =
     (notify.email && !notify.email.ok) || (notify.sms && !notify.sms.ok);
 
+  const ledgerRow = await insertRxPaymentLedger({
+    clientId: body.clientId?.trim() || null,
+    clientName: clientName || clientLabel,
+    clientEmail: email || null,
+    clientPhone: phone || null,
+    submissionId: body.submissionId?.trim() || null,
+    intakeRef: body.intakeRef?.trim() || null,
+    source: "staff_invoice",
+    templateId: template.id,
+    templateName: template.name,
+    track: template.track,
+    lineLabel: template.lineLabel,
+    amountUsd,
+    paymentUrl: url,
+    squarePaymentLinkId: linkResult.paymentLinkId,
+    squareOrderId: linkResult.orderId,
+    deliveryMethod: delivery,
+    sentBy: auth.user.email,
+    staffNote: staffNote || null,
+  });
+
   return NextResponse.json({
     ok: !deliveryFailed || delivery === "link",
     url,
+    ledgerId: ledgerRow?.id,
     template: {
       id: template.id,
       name: template.name,

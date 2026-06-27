@@ -61,6 +61,7 @@ export default function RxInvoicesPage() {
 
   const [clientQuery, setClientQuery] = useState("");
   const [clients, setClients] = useState<Client[]>([]);
+  const [selectedClientId, setSelectedClientId] = useState<string | null>(null);
   const [searchingClients, setSearchingClients] = useState(false);
   const [clientName, setClientName] = useState("");
   const [email, setEmail] = useState("");
@@ -153,6 +154,7 @@ export default function RxInvoicesPage() {
     setClientName(`${c.first_name} ${c.last_name}`.trim());
     setEmail(c.email ?? "");
     setPhone(c.phone ?? "");
+    setSelectedClientId(c.id);
     setClientQuery("");
     setClients([]);
   }, []);
@@ -196,6 +198,7 @@ export default function RxInvoicesPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           templateId: selected.id,
+          clientId: selectedClientId,
           clientName: clientName.trim(),
           email: email.trim(),
           phone: phone.trim(),
@@ -239,9 +242,14 @@ export default function RxInvoicesPage() {
             Premade GLP-1, peptide &amp; fee invoices — Square link, email, or text in one tap.
           </p>
         </div>
-        <Link href="/admin" className="text-xs text-gray-500 hover:text-white shrink-0 pt-1">
-          ← Admin
-        </Link>
+        <div className="flex flex-col items-end gap-1 shrink-0">
+          <Link href="/admin/rx-ledger" className="text-xs text-[#FFB8DC] hover:text-white">
+            Payment ledger →
+          </Link>
+          <Link href="/admin" className="text-xs text-gray-500 hover:text-white">
+            ← Admin
+          </Link>
+        </div>
       </div>
 
       {paidBanner ? (

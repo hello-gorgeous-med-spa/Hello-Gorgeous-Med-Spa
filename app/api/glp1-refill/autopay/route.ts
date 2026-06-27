@@ -4,6 +4,7 @@
 import { NextRequest, NextResponse } from "next/server";
 
 import { GLP1_REFILL_PATH } from "@/lib/flows";
+import { insertRxPaymentLedger } from "@/lib/rx-payment-ledger";
 import {
   getRxInvoiceTemplate,
   resolveTemplateAmountUsd,
@@ -49,6 +50,19 @@ export async function POST(req: NextRequest) {
       name: `${template.name} — monthly auto-pay`,
       priceDollars: amountUsd,
       redirectUrl,
+    });
+
+    await insertRxPaymentLedger({
+      intakeRef: reference || null,
+      source: "glp1_autopay",
+      templateId: template.id,
+      templateName: template.name,
+      track: template.track,
+      lineLabel: lineLabel,
+      amountUsd,
+      paymentUrl: result.url,
+      deliveryMethod: "patient_portal",
+      metadata: { mode: result.mode, reference: reference || null },
     });
 
     return NextResponse.json({

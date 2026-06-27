@@ -43,7 +43,7 @@ export type CreateRxPaymentLinkInput = {
 };
 
 export type CreateRxPaymentLinkResult =
-  | { ok: true; url: string }
+  | { ok: true; url: string; paymentLinkId?: string; orderId?: string }
   | { ok: false; error: string; status: number };
 
 export async function createRxPaymentLink(
@@ -90,16 +90,26 @@ export async function createRxPaymentLink(
     });
 
     const link =
-      (res as { result?: { paymentLink?: { url?: string; longUrl?: string } } })?.result
-        ?.paymentLink ??
-      (res as { paymentLink?: { url?: string; longUrl?: string } })?.paymentLink;
+      (res as {
+        result?: {
+          paymentLink?: { id?: string; orderId?: string; url?: string; longUrl?: string };
+        };
+      })?.result?.paymentLink ??
+      (res as {
+        paymentLink?: { id?: string; orderId?: string; url?: string; longUrl?: string };
+      })?.paymentLink;
     const url = link?.url || link?.longUrl;
 
     if (!url) {
       return { ok: false, error: "Could not create payment link", status: 502 };
     }
 
-    return { ok: true, url };
+    return {
+      ok: true,
+      url,
+      paymentLinkId: link?.id,
+      orderId: link?.orderId,
+    };
   } catch (e: unknown) {
     const msg = e instanceof Error ? e.message : String(e);
     console.error("[rx-invoice-payment-link]", msg);

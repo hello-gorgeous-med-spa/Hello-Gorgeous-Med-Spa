@@ -6,19 +6,11 @@ import { NextRequest, NextResponse } from "next/server";
 import { PEPTIDE_REQUEST_PATH } from "@/lib/flows";
 import { CLIENT_APP } from "@/lib/client-app";
 import { PEPTIDE_CONSULT_FEE_USD } from "@/lib/peptide-request-menu";
-import {
-  getCheckoutApiAsync,
-  getSquareLocationIdAsync,
-  getLocationsApiAsync,
-  dollarsToCents,
-} from "@/lib/square/client";
+import { createRxPaymentLink } from "@/lib/rx-invoice-payment-link";
+import { insertRxPaymentLedger } from "@/lib/rx-payment-ledger";
 import { SITE } from "@/lib/seo";
 
 export const dynamic = "force-dynamic";
-
-function idempotencyKey(): string {
-  return `pr-${Date.now()}-${Math.random().toString(36).slice(2, 11)}`;
-}
 
 export async function POST(req: NextRequest) {
   let body: { reference?: string; returnTo?: string };
@@ -33,34 +25,6 @@ export async function POST(req: NextRequest) {
   const name = "Hello Gorgeous RX™ — Peptide Consult (NP)";
   const priceDollars = PEPTIDE_CONSULT_FEE_USD;
 
-  const checkoutApi = await getCheckoutApiAsync();
-  if (!checkoutApi?.createPaymentLink) {
-    return NextResponse.json(
-      { error: "Square checkout is not connected yet. Call 630-636-6193 to pay by phone." },
-      { status: 503 },
-    );
-  }
-
-  let locationId = await getSquareLocationIdAsync();
-  if (!locationId) {
-    try {
-      const locationsApi = await getLocationsApiAsync();
-      const res = await locationsApi?.listLocations?.();
-      const locations =
-        (res as { result?: { locations?: Array<{ id?: string; status?: string }> } })?.result
-          ?.locations ??
-        (res as { locations?: Array<{ id?: string; status?: string }> })?.locations ??
-        [];
-      const active = locations.find((l) => l?.status === "ACTIVE") ?? locations[0];
-      locationId = active?.id ?? null;
-    } catch (e) {
-      console.error("[peptide-request/checkout] listLocations", e);
-    }
-  }
-  if (!locationId) {
-    return NextResponse.json({ error: "No Square location configured." }, { status: 503 });
-  }
-
   const redirectBase =
     returnTo === "app"
       ? `${SITE.url}${CLIENT_APP.path}?rx=1`
@@ -70,36 +34,35 @@ export async function POST(req: NextRequest) {
     ? `${redirectBase}${joiner}paid=1&ref=${encodeURIComponent(reference)}`
     : `${redirectBase}${joiner}paid=1`;
 
-  try {
-    const res = await checkoutApi.createPaymentLink({
-      idempotencyKey: idempotencyKey(),
-      quickPay: {
-        name,
-        priceMoney: { amount: dollarsToCents(priceDollars), currency: "USD" },
-        locationId,
-      },
-      checkoutOptions: {
-        redirectUrl,
-        askForShippingAddress: false,
-      },
-      description: reference
-        ? `Hello Gorgeous RX consult pre-pay · Ref ${reference}`
-        : "Hello Gorgeous RX consult pre-pay",
-    });
+  const description = reference
+    ? `Hello Gorgeous RX consult pre-pay · Ref ${reference}`
+    : "Hello Gorgeous RX consult pre-pay";
 
-    const link =
-      (res as { result?: { paymentLink?: { url?: string; longUrl?: string } } })?.result
-        ?.paymentLink ??
-      (res as { paymentLink?: { url?: string; longUrl?: string } })?.paymentLink;
-    const url = link?.url || link?.longUrl;
+  const linkResult = await createRxPaymentLink({
+    squareName: name,
+    amountUsd: priceDollars,
+    description,
+    redirectUrl,
+  });
 
-    if (!url) {
-      return NextResponse.json({ error: "Could not create payment link" }, { status: 502 });
-    }
-    return NextResponse.json({ url });
-  } catch (e: unknown) {
-    const msg = e instanceof Error ? e.message : String(e);
-    console.error("[peptide-request/checkout]", msg);
-    return NextResponse.json({ error: "Payment link creation failed" }, { status: 500 });
+  if (!linkResult.ok) {
+    return NextResponse.json({ error: linkResult.error }, { status: linkResult.status });
   }
+
+  await insertRxPaymentLedger({
+    intakeRef: reference || null,
+    source: "peptide_checkout",
+    templateId: "peptide-consult",
+    templateName: "Peptide NP consult",
+    track: "fees",
+    lineLabel: "Peptide consult pre-pay (NP)",
+    amountUsd: priceDollars,
+    paymentUrl: linkResult.url,
+    squarePaymentLinkId: linkResult.paymentLinkId,
+    squareOrderId: linkResult.orderId,
+    deliveryMethod: "patient_portal",
+    metadata: reference ? { reference, returnTo } : { returnTo },
+  });
+
+  return NextResponse.json({ url: linkResult.url });
 }
