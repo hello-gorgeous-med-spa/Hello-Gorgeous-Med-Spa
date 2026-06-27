@@ -286,8 +286,8 @@ export function PeptideTherapyPageContent() {
                   Stack longevity protocols with GLP-1 or peptide care
                 </h3>
                 <p className="mt-2 text-sm leading-relaxed text-black/75">
-                  Download official dosing guides, then add a monthly protocol at checkout on your GLP-1
-                  refill or request through Hello Gorgeous RX™.
+                  Download official dosing guides, then add a monthly protocol on your GLP-1 refill.
+                  Choose injectable liquid bundle or NAD+ liquid + Sermorelin troche combo.
                 </p>
                 <ul className="mt-4 flex flex-wrap gap-2 text-xs font-semibold">
                   {PEPTIDE_MONTHLY_ADDONS.map((addon) => (
@@ -576,7 +576,7 @@ export function PeptideTherapyPageContent() {
               {
                 label: "Peptide blends & stacks",
                 range: "From $229/mo",
-                detail: "Recovery Blend, HEAL, NAD+ & Sermorelin Bundle ($289/mo)",
+                detail: "Recovery Blend, HEAL, NAD+ bundles from $289/mo",
               },
               {
                 label: "GLP-1 programs",

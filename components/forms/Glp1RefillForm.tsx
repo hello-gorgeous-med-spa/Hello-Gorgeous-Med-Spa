@@ -36,10 +36,12 @@ import {
 } from "@/lib/glp1-refill-pricing";
 import {
   formatAddonPriceLabel,
+  GLP1_REFILL_ADDON_NONE,
   parseGlp1RefillAddonSelection,
+  peptideMonthlyAddonsByGroup,
   peptidePatientPdfHref,
   peptidePatientPdfsForAddon,
-  type PeptideMonthlyAddon,
+  type PeptideMonthlyAddonId,
 } from "@/lib/peptide-monthly-addons";
 
 type SubmitResult =
@@ -52,7 +54,7 @@ type SubmitResult =
       invoiceTemplateId?: string;
       medication?: string;
       addon?: {
-        id: PeptideMonthlyAddon["id"];
+        id: PeptideMonthlyAddonId;
         shortLabel: string;
         monthlyUsd: number;
         invoiceTemplateId: string;
@@ -209,7 +211,10 @@ function validateStep(stepIndex: number, data: Record<string, unknown>): Record<
 
 export function Glp1RefillForm() {
   const [step, setStep] = useState(0);
-  const [formData, setFormData] = useState<Record<string, unknown>>({ state: "IL" });
+  const [formData, setFormData] = useState<Record<string, unknown>>({
+    state: "IL",
+    monthly_peptide_addon: GLP1_REFILL_ADDON_NONE,
+  });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [busy, setBusy] = useState(false);
   const [payBusy, setPayBusy] = useState(false);
@@ -670,18 +675,82 @@ export function Glp1RefillForm() {
               );
             }
             if (field.id === "monthly_peptide_addon") {
+              const selected = String(formData.monthly_peptide_addon || GLP1_REFILL_ADDON_NONE);
               return (
-                <div key={field.id} className="space-y-3">
-                  <FieldRenderer
-                    field={field}
-                    value={formData[field.id]}
-                    error={errors[field.id]}
-                    onChange={(v) => handleChange(field.id, v)}
-                  />
-                  <p className="text-xs text-black/55 leading-relaxed">
-                    Stack NAD+, Sermorelin, or our bundled longevity protocol with your GLP-1 refill.
-                    Ryan confirms eligibility at your check-in — dosing PDFs unlock after submit.
-                  </p>
+                <div key={field.id} className="space-y-4">
+                  <div>
+                    <p className="text-sm font-semibold text-black">
+                      Optional monthly add-on <span className="text-red-500">*</span>
+                    </p>
+                    <p className="mt-1 text-xs text-black/55 leading-relaxed">
+                      Stack with your GLP-1 refill after Ryan approves. Choose individual protocols or
+                      pick a NAD+ &amp; Sermorelin bundle format below.
+                    </p>
+                  </div>
+
+                  <label
+                    className={`flex cursor-pointer items-start gap-3 rounded-xl border-2 px-4 py-3 text-sm transition ${
+                      selected === GLP1_REFILL_ADDON_NONE
+                        ? "border-[#E6007E] bg-[#FFF0F7]"
+                        : "border-black/15 hover:border-[#E6007E]/40"
+                    }`}
+                  >
+                    <input
+                      type="radio"
+                      name="monthly_peptide_addon"
+                      checked={selected === GLP1_REFILL_ADDON_NONE}
+                      onChange={() => handleChange("monthly_peptide_addon", GLP1_REFILL_ADDON_NONE)}
+                      className="mt-1 accent-[#E6007E]"
+                    />
+                    <span>
+                      <span className="font-bold text-black">No monthly add-ons</span>
+                      <span className="mt-0.5 block text-xs text-black/55">GLP-1 refill only</span>
+                    </span>
+                  </label>
+
+                  {peptideMonthlyAddonsByGroup().map((section) => (
+                    <div key={section.group}>
+                      <p className="mb-2 text-[10px] font-bold uppercase tracking-widest text-[#E6007E]">
+                        {section.title}
+                      </p>
+                      <div className="space-y-2">
+                        {section.addons.map((addon) => (
+                          <label
+                            key={addon.id}
+                            className={`flex cursor-pointer items-start gap-3 rounded-xl border-2 px-4 py-3 text-sm transition ${
+                              selected === addon.label
+                                ? "border-[#E6007E] bg-[#FFF0F7]"
+                                : "border-black/15 hover:border-[#E6007E]/40"
+                            }`}
+                          >
+                            <input
+                              type="radio"
+                              name="monthly_peptide_addon"
+                              checked={selected === addon.label}
+                              onChange={() => handleChange("monthly_peptide_addon", addon.label)}
+                              className="mt-1 accent-[#E6007E]"
+                            />
+                            <span className="min-w-0">
+                              <span className="font-bold text-black">{addon.shortLabel}</span>
+                              <span className="ml-2 font-black text-[#E6007E]">
+                                {formatAddonPriceLabel(addon.monthlyUsd)}
+                              </span>
+                              {addon.description && (
+                                <span className="mt-1 block text-xs text-black/60 leading-relaxed">
+                                  {addon.description}
+                                </span>
+                              )}
+                            </span>
+                          </label>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+
+                  {errors.monthly_peptide_addon && (
+                    <p className="text-xs text-red-600">{errors.monthly_peptide_addon}</p>
+                  )}
+
                   {selectedAddon && refillQuote && combinedMonthlyUsd != null && (
                     <div className="rounded-xl border-2 border-[#E6007E]/30 bg-[#FFF0F7] px-4 py-3 text-sm">
                       <p className="font-bold text-[#E6007E]">Estimated combined total</p>

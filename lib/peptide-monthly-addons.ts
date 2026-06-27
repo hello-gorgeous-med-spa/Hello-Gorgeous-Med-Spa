@@ -3,7 +3,11 @@
  * PDFs from Olympia / Hello Gorgeous patient education (2025–2026).
  */
 
-export type PeptideMonthlyAddonId = "nad-plus" | "sermorelin" | "nad-sermorelin-bundle";
+export type PeptideMonthlyAddonId =
+  | "nad-plus"
+  | "sermorelin"
+  | "nad-sermorelin-liquid-bundle"
+  | "nad-sermorelin-rdt-combo";
 
 export type PeptidePatientPdf = {
   id: string;
@@ -20,6 +24,9 @@ export type PeptideMonthlyAddon = {
   invoiceTemplateId: string;
   lineLabel: string;
   note: string;
+  /** Shown under the option on the refill form */
+  description?: string;
+  group?: "individual" | "bundle";
   /** Patient PDFs to offer after selection */
   pdfIds: string[];
 };
@@ -35,7 +42,7 @@ export const PEPTIDE_PATIENT_PDFS: PeptidePatientPdf[] = [
     id: "nad-sermorelin-dosing",
     title: "NAD+ & Sermorelin — Recommended Dosing Guide",
     filename: "nad-sermorelin-recommended-dosing-guide.pdf",
-    description: "Week-by-week subcutaneous dosing for the bundle protocol.",
+    description: "Week-by-week subcutaneous dosing for the injectable bundle protocol.",
   },
   {
     id: "nad-plus-dosing-chart",
@@ -55,6 +62,15 @@ const PDF_BY_ID = new Map(PEPTIDE_PATIENT_PDFS.map((p) => [p.id, p]));
 
 export const PEPTIDE_PATIENT_PDF_PATH = "/handouts/peptide-therapy/pdf";
 
+/** Liquid injectable bundle — Olympia BUNDLE NAD + Sermorelin (10mL each). */
+export const NAD_SERMORELIN_LIQUID_BUNDLE_MONTHLY_USD = 289;
+
+/** NAD liquid + Sermorelin 500 mcg RDT 30-count combo kit. */
+export const NAD_SERMORELIN_RDT_COMBO_MONTHLY_USD = 299;
+
+/** @deprecated Use NAD_SERMORELIN_LIQUID_BUNDLE_MONTHLY_USD */
+export const NAD_SERMORELIN_BUNDLE_MONTHLY_USD = NAD_SERMORELIN_LIQUID_BUNDLE_MONTHLY_USD;
+
 export function peptidePatientPdfHref(filename: string): string {
   return `${PEPTIDE_PATIENT_PDF_PATH}/${filename}`;
 }
@@ -69,9 +85,6 @@ export function peptidePatientPdfsForAddon(addonId: PeptideMonthlyAddonId): Pept
   return addon.pdfIds.map((id) => PDF_BY_ID.get(id)).filter(Boolean) as PeptidePatientPdf[];
 }
 
-/** Bundle saves vs buying NAD+ + Sermorelin separately ($169 + $149). */
-export const NAD_SERMORELIN_BUNDLE_MONTHLY_USD = 289;
-
 export const PEPTIDE_MONTHLY_ADDONS: PeptideMonthlyAddon[] = [
   {
     id: "nad-plus",
@@ -81,26 +94,31 @@ export const PEPTIDE_MONTHLY_ADDONS: PeptideMonthlyAddon[] = [
     invoiceTemplateId: "peptide-nad-plus",
     lineLabel: "NAD+ (injectable protocol) — 1 mo add-on",
     note: "Cellular energy & clarity · sub-Q or IM per your protocol",
+    group: "individual",
     pdfIds: ["nad-plus-dosing-chart", "nad-sermorelin-dosing"],
   },
   {
     id: "sermorelin",
     label: "Sermorelin injectable — $149/mo",
-    shortLabel: "Sermorelin",
+    shortLabel: "Sermorelin injectable",
     monthlyUsd: 149,
     invoiceTemplateId: "peptide-sermorelin",
     lineLabel: "Sermorelin (injectable) — 1 mo add-on",
     note: "Natural GH support · sleep & recovery",
+    group: "individual",
     pdfIds: ["sermorelin-insert", "nad-sermorelin-dosing"],
   },
   {
-    id: "nad-sermorelin-bundle",
-    label: "NAD+ & Sermorelin Bundle — $289/mo",
-    shortLabel: "NAD+ & Sermorelin Bundle",
-    monthlyUsd: NAD_SERMORELIN_BUNDLE_MONTHLY_USD,
-    invoiceTemplateId: "peptide-nad-sermorelin-bundle",
-    lineLabel: "NAD+ & Sermorelin Bundle — 1 mo add-on",
-    note: "Cellular energy + GH support · save vs separate protocols",
+    id: "nad-sermorelin-liquid-bundle",
+    label: `NAD+ & Sermorelin injectable bundle — $${NAD_SERMORELIN_LIQUID_BUNDLE_MONTHLY_USD}/mo`,
+    shortLabel: "Liquid injectable bundle",
+    monthlyUsd: NAD_SERMORELIN_LIQUID_BUNDLE_MONTHLY_USD,
+    invoiceTemplateId: "peptide-nad-sermorelin-liquid-bundle",
+    lineLabel: "NAD+ & Sermorelin liquid injectable bundle — 1 mo add-on",
+    note: "Olympia liquid NAD 100 mg/mL + Sermorelin 0.9 mg/mL · both 10 mL",
+    description:
+      "Both medications as subcutaneous injections — NAD+ 100 mg/mL (10 mL) + Sermorelin 0.9 mg/mL (10 mL). Best if you want the full injectable longevity stack.",
+    group: "bundle",
     pdfIds: [
       "nad-sermorelin-bundle-info",
       "nad-sermorelin-dosing",
@@ -108,19 +126,53 @@ export const PEPTIDE_MONTHLY_ADDONS: PeptideMonthlyAddon[] = [
       "sermorelin-insert",
     ],
   },
+  {
+    id: "nad-sermorelin-rdt-combo",
+    label: `NAD+ liquid + Sermorelin RDT combo — $${NAD_SERMORELIN_RDT_COMBO_MONTHLY_USD}/mo`,
+    shortLabel: "NAD+ liquid + Sermorelin troches",
+    monthlyUsd: NAD_SERMORELIN_RDT_COMBO_MONTHLY_USD,
+    invoiceTemplateId: "peptide-nad-sermorelin-rdt-combo",
+    lineLabel: "NAD+ liquid + Sermorelin RDT combo — 1 mo add-on",
+    note: "NAD+ 100 mg/mL 10 mL + Sermorelin 500 mcg RDT 30-count · needle-free GH support",
+    description:
+      "NAD+ as a liquid injection + Sermorelin as daily dissolving troches (no Sermorelin needle). Good if you prefer fewer injections.",
+    group: "bundle",
+    pdfIds: ["nad-sermorelin-bundle-info", "nad-plus-dosing-chart"],
+  },
 ];
 
+export const GLP1_REFILL_ADDON_NONE = "No monthly add-ons";
+
 export const GLP1_REFILL_ADDON_FIELD_OPTIONS = [
-  "No monthly add-ons",
+  GLP1_REFILL_ADDON_NONE,
   ...PEPTIDE_MONTHLY_ADDONS.map((a) => a.label),
 ];
 
 export function parseGlp1RefillAddonSelection(value: unknown): PeptideMonthlyAddon | null {
   const raw = String(value || "").trim();
-  if (!raw || raw === "No monthly add-ons") return null;
+  if (!raw || raw === GLP1_REFILL_ADDON_NONE) return null;
   return PEPTIDE_MONTHLY_ADDONS.find((a) => a.label === raw) ?? null;
 }
 
 export function formatAddonPriceLabel(monthlyUsd: number): string {
   return `$${monthlyUsd}/mo`;
+}
+
+export function peptideMonthlyAddonsByGroup(): Array<{
+  group: "individual" | "bundle";
+  title: string;
+  addons: PeptideMonthlyAddon[];
+}> {
+  return [
+    {
+      group: "individual",
+      title: "Individual add-ons",
+      addons: PEPTIDE_MONTHLY_ADDONS.filter((a) => a.group === "individual"),
+    },
+    {
+      group: "bundle",
+      title: "NAD+ & Sermorelin bundles — choose one format",
+      addons: PEPTIDE_MONTHLY_ADDONS.filter((a) => a.group === "bundle"),
+    },
+  ];
 }

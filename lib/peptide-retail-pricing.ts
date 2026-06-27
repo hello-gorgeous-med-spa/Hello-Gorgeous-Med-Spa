@@ -117,11 +117,18 @@ export const PEPTIDE_RETAIL_MENU: PeptideRetailRow[] = [
     note: "Cellular energy & clarity",
   },
   {
-    id: "nad-sermorelin-bundle",
-    name: "NAD+ & Sermorelin Bundle",
+    id: "nad-sermorelin-liquid-bundle",
+    name: "NAD+ & Sermorelin injectable bundle",
     category: "Blends & Support",
     fromMonthlyUsd: 289,
-    note: "Cellular energy + natural GH support · monthly stack",
+    note: "Olympia liquid NAD 100 mg/mL + Sermorelin 0.9 mg/mL · 10 mL each",
+  },
+  {
+    id: "nad-sermorelin-rdt-combo",
+    name: "NAD+ liquid + Sermorelin RDT combo",
+    category: "Blends & Support",
+    fromMonthlyUsd: 299,
+    note: "NAD+ 100 mg/mL 10 mL + Sermorelin 500 mcg RDT 30-count kit",
   },
   {
     id: "cjc-1295",

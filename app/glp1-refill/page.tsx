@@ -142,7 +142,7 @@ export default function Glp1RefillPage() {
             <li>After submit: download guides, pay invoice, or set up monthly auto-pay</li>
             <li>
               <strong className="text-black">Monthly add-ons</strong>: NAD+ $169/mo · Sermorelin $149/mo ·
-              NAD+ &amp; Sermorelin Bundle $289/mo
+              injectable bundle $289/mo · NAD+ liquid + Sermorelin RDT combo $299/mo
             </li>
             <li>
               New to Hello Gorgeous?{" "}
