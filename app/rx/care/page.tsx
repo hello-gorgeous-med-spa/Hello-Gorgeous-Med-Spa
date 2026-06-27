@@ -10,16 +10,15 @@ import {
   breadcrumbJsonLd,
   pageMetadata,
   SITE,
-  SITE_OG_IMAGE,
   siteJsonLd,
 } from "@/lib/seo";
 
 const PAGE_URL = `${SITE.url}${RX_PATIENT_CARE_PATH}`;
 
 const baseMeta = pageMetadata({
-  title: "RX Refills & Patient Care | GLP-1 · Peptides · Add-ons | Hello Gorgeous Oswego IL",
+  title: "RX Patient Care Hub | Refills, Add-ons & Guides | Hello Gorgeous Oswego IL",
   description:
-    "One hub for Hello Gorgeous RX patients: GLP-1 refills with home delivery, peptide renewals, NAD+ & Sermorelin monthly add-ons, patient guides, telehealth check-ins, and pay online. Ryan Kent, FNP-BC — Oswego, Naperville, Aurora IL.",
+    "Refill like a main character — GLP-1 home delivery, peptide renewals, NAD+ & Sermorelin stacks, patient guides, pay online, and telehealth. Hello Gorgeous RX™ · Ryan Kent, FNP-BC.",
   path: RX_PATIENT_CARE_PATH,
   keywords: [
     "GLP-1 refill Oswego IL",
@@ -37,12 +36,19 @@ export const metadata: Metadata = {
   openGraph: {
     ...baseMeta.openGraph,
     url: PAGE_URL,
-    images: [{ url: SITE_OG_IMAGE, width: 1200, height: 630, alt: "Hello Gorgeous RX — Patient Care Hub" }],
+    images: [
+      {
+        url: `${SITE.url}/images/homepage-services/compounded-tirzepatide-weight-loss.png`,
+        width: 1024,
+        height: 682,
+        alt: "Hello Gorgeous RX Patient Care Hub",
+      },
+    ],
   },
   twitter: {
     ...baseMeta.twitter,
     card: "summary_large_image",
-    images: [SITE_OG_IMAGE],
+    images: [`${SITE.url}/images/homepage-services/compounded-tirzepatide-weight-loss.png`],
   },
 };
 
