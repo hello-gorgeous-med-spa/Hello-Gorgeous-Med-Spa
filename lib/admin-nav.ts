@@ -52,6 +52,7 @@ export const ADMIN_NAV_GROUPS: AdminNavGroup[] = [
   {
     section: "Payments & Square",
     items: [
+      { href: "/admin/settings/payments", label: "Square Connect", icon: "🔗" },
       { href: "/admin/sales/payments", label: "Square Payments", icon: "💳" },
       { href: "/admin/sales/daily-summary", label: "Daily Summary", icon: "📈" },
       { href: "/admin/sales", label: "Sales Ledger", icon: "🧾" },
@@ -126,6 +127,7 @@ export const ADMIN_DASHBOARD_QUICK_LINKS = {
     { href: "/admin/consents", label: "Consents", desc: "Pending signatures" },
   ],
   payments: [
+    { href: "/admin/settings/payments", label: "Square Connect", desc: "Link account & download data" },
     { href: "/admin/sales/payments", label: "Square Payments", desc: "Synced transactions" },
     { href: "/admin/sales/daily-summary", label: "Daily Summary", desc: "End-of-day totals" },
     { href: "/admin/rx-ledger", label: "RX Ledger", desc: "Online RX payments" },

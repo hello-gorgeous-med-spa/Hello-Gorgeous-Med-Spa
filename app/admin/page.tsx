@@ -230,25 +230,27 @@ export default function AdminDashboard() {
     return () => clearInterval(interval);
   }, [fetchDashboard]);
 
-  const handleSquareSync = async () => {
+  const handleSquareSync = async (days = 7) => {
     setSquareSyncing(true);
     setSquareSyncMsg(null);
     try {
-      const res = await fetch('/api/cron/sync-square-payments?days=7', {
-        headers: { 'x-vercel-cron': '1' },
+      const res = await fetch('/api/admin/square/sync', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ type: 'payments', days }),
       });
       const data = await res.json();
       if (data.ok) {
-        setSquareSyncMsg(`Synced ${data.fetched} Square payments`);
+        setSquareSyncMsg(`Synced ${data.fetched} payments (${data.upserted} saved)`);
         setTimeout(() => void fetchDashboard(), 1000);
       } else {
-        setSquareSyncMsg(data.error || 'Sync failed');
+        setSquareSyncMsg(data.error || 'Sync failed — connect Square in Settings → Payments');
       }
     } catch {
       setSquareSyncMsg('Sync failed — check Square connection');
     } finally {
       setSquareSyncing(false);
-      setTimeout(() => setSquareSyncMsg(null), 6000);
+      setTimeout(() => setSquareSyncMsg(null), 8000);
     }
   };
 

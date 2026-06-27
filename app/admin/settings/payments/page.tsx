@@ -23,10 +23,69 @@ export default function AdminSettingsPaymentsPage() {
   const [connection, setConnection] = useState<SquareConnection | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
+  const [syncBusy, setSyncBusy] = useState<string | null>(null);
+  const [syncStats, setSyncStats] = useState<{
+    transactionCount: number;
+    lastSyncAt: string | null;
+    last30DaysTotalUsd: number;
+  } | null>(null);
 
   useEffect(() => {
     fetchConnection();
+    fetchSyncStats();
   }, []);
+
+  const fetchSyncStats = async () => {
+    try {
+      const res = await fetch('/api/admin/square/sync');
+      const data = await res.json();
+      if (res.ok && data.payments) {
+        setSyncStats(data.payments);
+      }
+    } catch {
+      /* optional */
+    }
+  };
+
+  const runSync = async (type: 'payments' | 'customers' | 'all', days = 30) => {
+    const busyKey = type === 'payments' ? `payments-${days}` : type;
+    setSyncBusy(busyKey);
+    setMessage(null);
+    try {
+      const res = await fetch('/api/admin/square/sync', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ type, days }),
+      });
+      const data = await res.json();
+      if (!res.ok || data.ok === false) {
+        setMessage({ type: 'error', text: data.error || 'Sync failed' });
+        return;
+      }
+      if (type === 'payments') {
+        setMessage({
+          type: 'success',
+          text: `Downloaded ${data.fetched} payments · ${data.upserted} saved to database`,
+        });
+      } else if (type === 'customers') {
+        setMessage({
+          type: 'success',
+          text: `Customers: ${data.synced} new · ${data.updated} updated · ${data.total} in Square`,
+        });
+      } else {
+        setMessage({
+          type: 'success',
+          text: `Full sync done — ${data.payments?.fetched ?? 0} payments, ${data.customers?.synced ?? 0} new clients`,
+        });
+      }
+      await fetchSyncStats();
+    } catch {
+      setMessage({ type: 'error', text: 'Sync request failed' });
+    } finally {
+      setSyncBusy(null);
+      setTimeout(() => setMessage(null), 8000);
+    }
+  };
 
   const fetchConnection = async () => {
     setLoading(true);
@@ -184,6 +243,76 @@ export default function AdminSettingsPaymentsPage() {
                 </p>
               </div>
             </div>
+          </div>
+
+          {/* Download data from Square */}
+          <div className="bg-white rounded-xl border p-6 space-y-4">
+            <div>
+              <h2 className="text-lg font-semibold text-black">Download Square data</h2>
+              <p className="text-sm text-gray-500 mt-1">
+                Pull payments and customers into Hello Gorgeous for dashboard revenue, client records, and reporting.
+              </p>
+            </div>
+
+            {syncStats && (
+              <div className="grid grid-cols-3 gap-3">
+                <div className="bg-gray-50 rounded-lg p-3">
+                  <p className="text-xs text-gray-500 uppercase">Cached payments</p>
+                  <p className="text-xl font-bold mt-1">{syncStats.transactionCount.toLocaleString()}</p>
+                </div>
+                <div className="bg-gray-50 rounded-lg p-3">
+                  <p className="text-xs text-gray-500 uppercase">Last sync</p>
+                  <p className="text-sm font-medium mt-1">
+                    {syncStats.lastSyncAt
+                      ? new Date(syncStats.lastSyncAt).toLocaleString()
+                      : 'Never'}
+                  </p>
+                </div>
+                <div className="bg-gray-50 rounded-lg p-3">
+                  <p className="text-xs text-gray-500 uppercase">30-day total</p>
+                  <p className="text-xl font-bold mt-1">${syncStats.last30DaysTotalUsd.toLocaleString()}</p>
+                </div>
+              </div>
+            )}
+
+            <div className="flex flex-wrap gap-2">
+              <button
+                type="button"
+                disabled={!!syncBusy}
+                onClick={() => runSync('payments', 7)}
+                className="px-4 py-2.5 bg-[#E6007E] text-white text-sm font-semibold rounded-lg hover:bg-[#c90a68] disabled:opacity-50"
+              >
+                {syncBusy === 'payments-7' ? 'Syncing…' : 'Sync payments (7 days)'}
+              </button>
+              <button
+                type="button"
+                disabled={!!syncBusy}
+                onClick={() => runSync('payments', 90)}
+                className="px-4 py-2.5 border border-black/15 text-sm font-semibold rounded-lg hover:border-[#E6007E]/40 disabled:opacity-50"
+              >
+                {syncBusy === 'payments-90' ? 'Syncing…' : 'Backfill 90 days'}
+              </button>
+              <button
+                type="button"
+                disabled={!!syncBusy}
+                onClick={() => runSync('customers')}
+                className="px-4 py-2.5 border border-black/15 text-sm font-semibold rounded-lg hover:border-[#E6007E]/40 disabled:opacity-50"
+              >
+                {syncBusy === 'customers' ? 'Syncing…' : 'Import customers'}
+              </button>
+              <button
+                type="button"
+                disabled={!!syncBusy}
+                onClick={() => runSync('all', 30)}
+                className="px-4 py-2.5 border border-black/15 text-sm font-semibold rounded-lg hover:border-[#E6007E]/40 disabled:opacity-50"
+              >
+                {syncBusy === 'all' ? 'Syncing…' : 'Sync all (30 days)'}
+              </button>
+            </div>
+
+            <p className="text-xs text-gray-500">
+              Automatic sync runs every 6 hours via cron once connected. Use backfill after first connect.
+            </p>
           </div>
 
           {/* Quick Actions */}
