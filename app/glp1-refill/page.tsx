@@ -10,7 +10,10 @@ import {
   GLP1_TIRZEPATIDE_DOSE_TIERS,
   GLP1_INSURANCE_OVERSIGHT,
 } from "@/lib/glp1-dose-tiers";
-import { pageMetadata, SITE } from "@/lib/seo";
+import {
+  NAD_SERMORELIN_BUNDLE_MONTHLY_USD,
+  PEPTIDE_MONTHLY_ADDONS,
+} from "@/lib/peptide-monthly-addons";
 
 const HERO_IMAGE = "/images/homepage-services/compounded-tirzepatide-weight-loss.png";
 
@@ -145,8 +148,11 @@ export default function Glp1RefillPage() {
             <li>Price calculates automatically when you select your dose tier</li>
             <li>After submit: download guides, pay invoice, or set up monthly auto-pay</li>
             <li>
-              <strong className="text-black">Monthly add-ons</strong>: NAD+ $169/mo · Sermorelin $149/mo ·
-              injectable bundle $289/mo · NAD+ liquid + Sermorelin RDT combo $299/mo
+              <strong className="text-black">Monthly add-ons</strong>: NAD+ $
+              {PEPTIDE_MONTHLY_ADDONS.find((a) => a.id === "nad-plus")?.monthlyUsd}/mo · Sermorelin $
+              {PEPTIDE_MONTHLY_ADDONS.find((a) => a.id === "sermorelin")?.monthlyUsd}/mo · NAD+ &
+              Sermorelin bundles ${NAD_SERMORELIN_BUNDLE_MONTHLY_USD}/mo (liquid injectable or NAD+ liquid +
+              Sermorelin troches)
             </li>
             <li>
               New to Hello Gorgeous?{" "}

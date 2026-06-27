@@ -62,14 +62,14 @@ const PDF_BY_ID = new Map(PEPTIDE_PATIENT_PDFS.map((p) => [p.id, p]));
 
 export const PEPTIDE_PATIENT_PDF_PATH = "/handouts/peptide-therapy/pdf";
 
-/** Liquid injectable bundle — Olympia BUNDLE NAD + Sermorelin (10mL each). */
-export const NAD_SERMORELIN_LIQUID_BUNDLE_MONTHLY_USD = 289;
+/** NAD+ & Sermorelin bundle — both formats (liquid injectable or NAD liquid + Sermorelin RDT). */
+export const NAD_SERMORELIN_BUNDLE_MONTHLY_USD = 350;
 
-/** NAD liquid + Sermorelin 500 mcg RDT 30-count combo kit. */
-export const NAD_SERMORELIN_RDT_COMBO_MONTHLY_USD = 299;
+/** @deprecated Use NAD_SERMORELIN_BUNDLE_MONTHLY_USD */
+export const NAD_SERMORELIN_LIQUID_BUNDLE_MONTHLY_USD = NAD_SERMORELIN_BUNDLE_MONTHLY_USD;
 
-/** @deprecated Use NAD_SERMORELIN_LIQUID_BUNDLE_MONTHLY_USD */
-export const NAD_SERMORELIN_BUNDLE_MONTHLY_USD = NAD_SERMORELIN_LIQUID_BUNDLE_MONTHLY_USD;
+/** @deprecated Use NAD_SERMORELIN_BUNDLE_MONTHLY_USD */
+export const NAD_SERMORELIN_RDT_COMBO_MONTHLY_USD = NAD_SERMORELIN_BUNDLE_MONTHLY_USD;
 
 export function peptidePatientPdfHref(filename: string): string {
   return `${PEPTIDE_PATIENT_PDF_PATH}/${filename}`;
@@ -110,9 +110,9 @@ export const PEPTIDE_MONTHLY_ADDONS: PeptideMonthlyAddon[] = [
   },
   {
     id: "nad-sermorelin-liquid-bundle",
-    label: `NAD+ & Sermorelin injectable bundle — $${NAD_SERMORELIN_LIQUID_BUNDLE_MONTHLY_USD}/mo`,
+    label: `NAD+ & Sermorelin injectable bundle — $${NAD_SERMORELIN_BUNDLE_MONTHLY_USD}/mo`,
     shortLabel: "Liquid injectable bundle",
-    monthlyUsd: NAD_SERMORELIN_LIQUID_BUNDLE_MONTHLY_USD,
+    monthlyUsd: NAD_SERMORELIN_BUNDLE_MONTHLY_USD,
     invoiceTemplateId: "peptide-nad-sermorelin-liquid-bundle",
     lineLabel: "NAD+ & Sermorelin liquid injectable bundle — 1 mo add-on",
     note: "Olympia liquid NAD 100 mg/mL + Sermorelin 0.9 mg/mL · both 10 mL",
@@ -128,9 +128,9 @@ export const PEPTIDE_MONTHLY_ADDONS: PeptideMonthlyAddon[] = [
   },
   {
     id: "nad-sermorelin-rdt-combo",
-    label: `NAD+ liquid + Sermorelin RDT combo — $${NAD_SERMORELIN_RDT_COMBO_MONTHLY_USD}/mo`,
+    label: `NAD+ liquid + Sermorelin RDT combo — $${NAD_SERMORELIN_BUNDLE_MONTHLY_USD}/mo`,
     shortLabel: "NAD+ liquid + Sermorelin troches",
-    monthlyUsd: NAD_SERMORELIN_RDT_COMBO_MONTHLY_USD,
+    monthlyUsd: NAD_SERMORELIN_BUNDLE_MONTHLY_USD,
     invoiceTemplateId: "peptide-nad-sermorelin-rdt-combo",
     lineLabel: "NAD+ liquid + Sermorelin RDT combo — 1 mo add-on",
     note: "NAD+ 100 mg/mL 10 mL + Sermorelin 500 mcg RDT 30-count · needle-free GH support",

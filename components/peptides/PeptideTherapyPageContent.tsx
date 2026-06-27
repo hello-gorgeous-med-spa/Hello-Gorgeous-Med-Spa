@@ -10,6 +10,7 @@ import { PeptideHubFaqSection } from "@/components/peptides/PeptideHubFaqSection
 import { FadeUp, Section } from "@/components/Section";
 import { FIND_YOUR_PEPTIDE_GUIDE } from "@/data/skin-101-find-your-peptide-guide";
 import {
+  NAD_SERMORELIN_BUNDLE_MONTHLY_USD,
   PEPTIDE_MONTHLY_ADDONS,
   PEPTIDE_PATIENT_PDFS,
   peptidePatientPdfHref,
@@ -576,7 +577,7 @@ export function PeptideTherapyPageContent() {
               {
                 label: "Peptide blends & stacks",
                 range: "From $229/mo",
-                detail: "Recovery Blend, HEAL, NAD+ bundles from $289/mo",
+                detail: `Recovery Blend, HEAL, NAD+ bundles from $${NAD_SERMORELIN_BUNDLE_MONTHLY_USD}/mo`,
               },
               {
                 label: "GLP-1 programs",

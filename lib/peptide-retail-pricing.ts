@@ -13,6 +13,7 @@ export const PEPTIDE_PREPAY_DISCOUNT_PERCENT = 10;
 export const PEPTIDE_PHARMACY_SHIPPING_USD = 35;
 
 import { GLP1_RETAIL_PROGRAM } from "@/lib/glp1-program-pricing";
+import { NAD_SERMORELIN_BUNDLE_MONTHLY_USD } from "@/lib/peptide-monthly-addons";
 
 export { GLP1_RETAIL_PROGRAM };
 
@@ -120,14 +121,14 @@ export const PEPTIDE_RETAIL_MENU: PeptideRetailRow[] = [
     id: "nad-sermorelin-liquid-bundle",
     name: "NAD+ & Sermorelin injectable bundle",
     category: "Blends & Support",
-    fromMonthlyUsd: 289,
+    fromMonthlyUsd: NAD_SERMORELIN_BUNDLE_MONTHLY_USD,
     note: "Olympia liquid NAD 100 mg/mL + Sermorelin 0.9 mg/mL · 10 mL each",
   },
   {
     id: "nad-sermorelin-rdt-combo",
     name: "NAD+ liquid + Sermorelin RDT combo",
     category: "Blends & Support",
-    fromMonthlyUsd: 299,
+    fromMonthlyUsd: NAD_SERMORELIN_BUNDLE_MONTHLY_USD,
     note: "NAD+ 100 mg/mL 10 mL + Sermorelin 500 mcg RDT 30-count kit",
   },
   {
