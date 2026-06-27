@@ -12,6 +12,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useToast } from '@/components/ui/Toast';
 import { KioskAppointmentLink } from '@/components/admin/KioskAppointmentLink';
+import { ClinicRxAppointmentBanner } from '@/components/admin/ClinicRxAppointmentBanner';
 import { CalendarNavBar } from '@/components/calendar/CalendarNavBar';
 import { DANIELLE_CREDENTIALS, RYAN_CREDENTIALS } from '@/lib/provider-credentials';
 import { businessDateTimeToUTC } from '@/lib/business-timezone';
@@ -1608,6 +1609,15 @@ export default function CalendarPage() {
                   <span>💳</span> Checkout
                 </Link>
               </div>
+              {selectedAppointment.client_id && (
+                <ClinicRxAppointmentBanner
+                  clientId={selectedAppointment.client_id}
+                  appointmentId={selectedAppointment.id}
+                  serviceName={selectedAppointment.service_name}
+                  notes={selectedAppointment.notes || selectedAppointment.internal_notes}
+                  clientName={selectedAppointment.client_name}
+                />
+              )}
               <div className="mt-4 p-3 rounded-xl border border-dashed border-gray-300 bg-gray-50">
                 <p className="text-xs font-semibold text-black uppercase tracking-wider mb-1">Kiosk (iPad)</p>
                 <p className="text-xs text-gray-600 mb-2">

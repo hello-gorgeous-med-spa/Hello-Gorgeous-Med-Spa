@@ -92,6 +92,11 @@ export type RxClinicEncounterRow = {
   tracking_number: string | null;
   carrier: string | null;
   shipped_at: string | null;
+  appointment_id: string | null;
+  autopay_status: "none" | "pending" | "active" | "cancelled";
+  autopay_payment_url: string | null;
+  autopay_ledger_id: string | null;
+  autopay_enrolled_at: string | null;
 };
 
 export type ComputeClinicSaleInput = {
@@ -118,6 +123,7 @@ export type SaveClinicEncounterInput = ComputeClinicSaleInput & {
   clinical?: RxClinicClinical;
   staffNotes?: string | null;
   status?: RxClinicEncounterStatus;
+  appointmentId?: string | null;
 };
 
 export const RX_CLINIC_ENCOUNTER_TYPES: { id: RxClinicEncounterType; label: string }[] = [
@@ -177,6 +183,11 @@ function mapRow(raw: Record<string, unknown>): RxClinicEncounterRow {
     tracking_number: (raw.tracking_number as string | null) ?? null,
     carrier: (raw.carrier as string | null) ?? null,
     shipped_at: (raw.shipped_at as string | null) ?? null,
+    appointment_id: (raw.appointment_id as string | null) ?? null,
+    autopay_status: (raw.autopay_status as RxClinicEncounterRow["autopay_status"]) ?? "none",
+    autopay_payment_url: (raw.autopay_payment_url as string | null) ?? null,
+    autopay_ledger_id: (raw.autopay_ledger_id as string | null) ?? null,
+    autopay_enrolled_at: (raw.autopay_enrolled_at as string | null) ?? null,
   };
 }
 
@@ -263,6 +274,7 @@ export async function insertClinicEncounter(
     sig: input.sig?.trim() || null,
     clinical: input.clinical ?? {},
     staff_notes: input.staffNotes?.trim() || null,
+    appointment_id: input.appointmentId ?? null,
     status: input.status ?? "draft",
     updated_at: new Date().toISOString(),
   };
@@ -300,6 +312,11 @@ export async function updateClinicEncounter(
     trackingNumber?: string | null;
     carrier?: string | null;
     shippedAt?: string | null;
+    appointmentId?: string | null;
+    autopayStatus?: RxClinicEncounterRow["autopay_status"];
+    autopayPaymentUrl?: string | null;
+    autopayLedgerId?: string | null;
+    autopayEnrolledAt?: string | null;
   },
   client?: SupabaseClient | null,
 ): Promise<{ row: RxClinicEncounterRow } | { error: string }> {
@@ -378,6 +395,11 @@ export async function updateClinicEncounter(
   if (patch.trackingNumber !== undefined) updateRow.tracking_number = patch.trackingNumber?.trim() || null;
   if (patch.carrier !== undefined) updateRow.carrier = patch.carrier?.trim() || null;
   if (patch.shippedAt !== undefined) updateRow.shipped_at = patch.shippedAt;
+  if (patch.appointmentId !== undefined) updateRow.appointment_id = patch.appointmentId;
+  if (patch.autopayStatus !== undefined) updateRow.autopay_status = patch.autopayStatus;
+  if (patch.autopayPaymentUrl !== undefined) updateRow.autopay_payment_url = patch.autopayPaymentUrl;
+  if (patch.autopayLedgerId !== undefined) updateRow.autopay_ledger_id = patch.autopayLedgerId;
+  if (patch.autopayEnrolledAt !== undefined) updateRow.autopay_enrolled_at = patch.autopayEnrolledAt;
 
   const { data, error } = await admin
     .from("hg_rx_clinic_encounters")

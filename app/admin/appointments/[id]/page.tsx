@@ -7,6 +7,7 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
+import { ClinicRxAppointmentBanner } from '@/components/admin/ClinicRxAppointmentBanner';
 
 // Skeleton component
 function Skeleton({ className = '' }: { className?: string }) {
@@ -314,6 +315,18 @@ export default function AppointmentDetailPage({ params }: { params: { id: string
                 )}
               </div>
             </div>
+
+            {appointment.client?.id && (
+              <div className="mt-6">
+                <ClinicRxAppointmentBanner
+                  clientId={String(appointment.client.id)}
+                  appointmentId={String(appointment.id)}
+                  serviceName={String(appointment.service?.name || "")}
+                  notes={String(appointment.notes || appointment.internal_notes || "")}
+                  clientName={clientName}
+                />
+              </div>
+            )}
 
             {/* How booked */}
             {(appointment.booking_source || appointment.source) && (

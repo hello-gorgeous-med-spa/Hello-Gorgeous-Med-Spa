@@ -72,6 +72,7 @@ export async function POST(req: NextRequest) {
     sig: body.sig ?? null,
     clinical: body.clinical ?? {},
     staffNotes: body.staffNotes ?? null,
+    appointmentId: body.appointmentId ?? null,
     createdBy: auth.user.email,
   };
 

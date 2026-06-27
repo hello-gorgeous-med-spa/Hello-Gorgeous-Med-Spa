@@ -15,7 +15,8 @@ export type RxLedgerSource =
   | "peptide_checkout"
   | "manual"
   | "clinic_terminal"
-  | "clinic_cash";
+  | "clinic_cash"
+  | "clinic_autopay";
 
 export type RxLedgerPaymentStatus = "pending" | "paid" | "failed" | "refunded" | "unknown";
 
@@ -507,6 +508,9 @@ export const RX_LEDGER_SOURCES: { id: RxLedgerSource; label: string }[] = [
   { id: "glp1_autopay", label: "GLP-1 auto-pay" },
   { id: "peptide_checkout", label: "Peptide consult" },
   { id: "manual", label: "Manual" },
+  { id: "clinic_terminal", label: "Clinic terminal" },
+  { id: "clinic_cash", label: "Clinic cash" },
+  { id: "clinic_autopay", label: "Clinic auto-pay" },
 ];
 
 export const RX_LEDGER_STATUSES: { id: RxLedgerPaymentStatus; label: string }[] = [

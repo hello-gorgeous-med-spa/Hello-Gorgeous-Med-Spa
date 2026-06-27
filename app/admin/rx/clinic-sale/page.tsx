@@ -54,6 +54,7 @@ export default function ClinicRxSalePage() {
   const searchParams = useSearchParams();
   const prefillClientId = searchParams.get("client") || "";
   const prefillEncounterId = searchParams.get("encounter") || "";
+  const prefillAppointmentId = searchParams.get("appointment") || "";
   const prefillRefill = searchParams.get("refill") === "1";
 
   const [medications, setMedications] = useState<MedicationOption[]>([]);
@@ -102,6 +103,8 @@ export default function ClinicRxSalePage() {
   const [trackingNumber, setTrackingNumber] = useState("");
   const [carrier, setCarrier] = useState("");
   const [dispatchSaving, setDispatchSaving] = useState(false);
+  const [autopayBusy, setAutopayBusy] = useState(false);
+  const [autopayMsg, setAutopayMsg] = useState<string | null>(null);
 
   useEffect(() => {
     (async () => {
@@ -249,6 +252,7 @@ export default function ClinicRxSalePage() {
       sig,
       staffNotes,
       clinical,
+      appointmentId: prefillAppointmentId || undefined,
     }),
     [
       selectedClient,
@@ -268,6 +272,7 @@ export default function ClinicRxSalePage() {
       sig,
       staffNotes,
       clinical,
+      prefillAppointmentId,
     ],
   );
 
@@ -434,6 +439,38 @@ export default function ClinicRxSalePage() {
     }
   };
 
+  const setupAutopay = async (sendSms: boolean) => {
+    if (!savedEncounter) return;
+    setAutopayBusy(true);
+    setAutopayMsg(null);
+    setError(null);
+    try {
+      const res = await fetch(
+        `/api/admin/rx/clinic-encounters/${savedEncounter.id}/autopay`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ sendSms }),
+        },
+      );
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Auto-pay failed");
+      setAutopayMsg(
+        sendSms && data.smsSent
+          ? "Auto-pay link sent by text (also copied)"
+          : "Auto-pay link copied to clipboard",
+      );
+      const detail = await fetch(`/api/admin/rx/clinic-encounters/${savedEncounter.id}`);
+      const detailData = await detail.json();
+      if (detail.ok) setSavedEncounter(detailData.encounter);
+      if (data.url) await navigator.clipboard.writeText(data.url);
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "Auto-pay failed");
+    } finally {
+      setAutopayBusy(false);
+    }
+  };
+
   return (
     <div className="max-w-5xl mx-auto px-4 py-8 space-y-8">
       <div className="flex flex-wrap items-start justify-between gap-4">
@@ -463,6 +500,12 @@ export default function ClinicRxSalePage() {
           </Link>
         </div>
       </div>
+
+      {prefillAppointmentId && (
+        <div className="rounded-xl border-2 border-[#E6007E]/30 bg-rose-50 px-4 py-2 mb-4 text-sm text-black/80">
+          Linked to calendar appointment — this sale will appear on the client&apos;s visit record.
+        </div>
+      )}
 
       {prefillRefill && (
         <div className="rounded-2xl border-4 border-black bg-amber-50 px-4 py-3 mb-6">
@@ -856,6 +899,44 @@ export default function ClinicRxSalePage() {
               <pre className="text-xs whitespace-pre-wrap font-mono text-black/80">{dispatchPreview}</pre>
             </div>
           )}
+
+          {savedEncounter &&
+            (savedEncounter.status === "paid" ||
+              savedEncounter.status === "ready_to_ship" ||
+              savedEncounter.status === "shipped") &&
+            savedEncounter.supply_cycle === "30-day" &&
+            savedEncounter.autopay_status !== "active" && (
+              <div className="rounded-2xl border-4 border-black bg-violet-50 p-4 space-y-3">
+                <h3 className="font-black text-sm">Monthly auto-pay (30-day)</h3>
+                <p className="text-xs text-black/70">
+                  Square subscription at list tier price — ships to patient each month.
+                </p>
+                {savedEncounter.autopay_payment_url && (
+                  <p className="text-xs font-mono break-all text-black/60">
+                    {savedEncounter.autopay_payment_url}
+                  </p>
+                )}
+                {autopayMsg && <p className="text-xs font-bold text-green-800">{autopayMsg}</p>}
+                <div className="flex flex-wrap gap-2">
+                  <button
+                    type="button"
+                    disabled={autopayBusy}
+                    onClick={() => void setupAutopay(true)}
+                    className="px-3 py-2 rounded-full bg-violet-600 text-white text-xs font-bold disabled:opacity-50"
+                  >
+                    {autopayBusy ? "…" : "Text auto-pay link"}
+                  </button>
+                  <button
+                    type="button"
+                    disabled={autopayBusy}
+                    onClick={() => void setupAutopay(false)}
+                    className="px-3 py-2 rounded-full border-2 border-black text-xs font-bold disabled:opacity-50"
+                  >
+                    Copy link only
+                  </button>
+                </div>
+              </div>
+            )}
 
           {savedEncounter &&
             (savedEncounter.status === "paid" ||
