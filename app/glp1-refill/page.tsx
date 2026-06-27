@@ -14,6 +14,7 @@ import {
   NAD_SERMORELIN_BUNDLE_MONTHLY_USD,
   PEPTIDE_MONTHLY_ADDONS,
 } from "@/lib/peptide-monthly-addons";
+import { pageMetadata, SITE } from "@/lib/seo";
 
 const HERO_IMAGE = "/images/homepage-services/compounded-tirzepatide-weight-loss.png";
 

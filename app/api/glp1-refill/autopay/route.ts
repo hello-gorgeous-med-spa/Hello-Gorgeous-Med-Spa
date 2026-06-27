@@ -71,7 +71,7 @@ export async function POST(req: NextRequest) {
     });
 
     await insertRxPaymentLedger({
-      submissionId: ctx?.submissionId ?? submissionId || null,
+      submissionId: (ctx?.submissionId ?? submissionId) || null,
       intakeRef,
       clientId: ctx?.clientId ?? null,
       clientName: ctx?.clientName ?? null,
@@ -98,7 +98,7 @@ export async function POST(req: NextRequest) {
     void notifyStaffGlp1RefillCheckoutStarted({
       event: "autopay",
       intakeRef,
-      submissionId: ctx?.submissionId ?? submissionId || null,
+      submissionId: (ctx?.submissionId ?? submissionId) || null,
       templateName: template.name,
       lineLabel,
       amountUsd,
