@@ -64,69 +64,55 @@ export default function Glp1RefillPage() {
         </div>
       </div>
 
-      {/* Hero */}
-      <section className="relative overflow-hidden border-b-4 border-black">
-        <div className="absolute inset-0">
-          <Image
-            src={HERO_IMAGE}
-            alt=""
-            fill
-            priority
-            className="object-cover object-center"
-            sizes="100vw"
-          />
-          <div
-            className="absolute inset-0 bg-gradient-to-br from-[#0a0a0a]/92 via-[#2d1020]/88 to-[#0a0a0a]/95"
-            aria-hidden
-          />
-          <div
-            className="absolute inset-0 opacity-40"
-            style={{
-              background:
-                "radial-gradient(ellipse 70% 60% at 20% 30%, rgba(230,0,126,0.35), transparent 55%), radial-gradient(ellipse 50% 50% at 85% 70%, rgba(255,45,142,0.25), transparent 50%)",
-            }}
-            aria-hidden
-          />
-        </div>
+      {/* Hero — solid dark base so text stays readable even if the photo fails to load */}
+      <section className="relative overflow-hidden border-b-4 border-black bg-[#1a0812]">
+        <div
+          className="pointer-events-none absolute inset-0 opacity-50"
+          style={{
+            background:
+              "radial-gradient(ellipse 60% 70% at 15% 40%, rgba(230,0,126,0.45), transparent 60%), radial-gradient(ellipse 50% 60% at 90% 80%, rgba(255,45,142,0.3), transparent 55%)",
+          }}
+          aria-hidden
+        />
 
-        <div className="relative mx-auto max-w-5xl px-4 py-14 md:py-20">
-          <div className="max-w-2xl">
-            <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-[11px] font-bold uppercase tracking-widest text-white backdrop-blur-sm">
-              <span className="h-2 w-2 rounded-full bg-[#E6007E] animate-pulse" aria-hidden />
-              Existing patients only
-            </span>
-            <p className="mt-5 text-xs font-bold uppercase tracking-[0.25em] text-[#FFB8DC]">
-              Hello Gorgeous RX™ · Oswego, IL
-            </p>
-            <h1 className="mt-3 font-serif text-4xl md:text-5xl font-black text-white leading-tight">
-              GLP-1{" "}
-              <span
-                className="bg-gradient-to-r from-[#FFB8DC] via-[#FF2D8E] to-[#E6007E] bg-clip-text text-transparent"
-                style={{ WebkitBackgroundClip: "text" }}
-              >
-                refill request
+        <div className="relative mx-auto max-w-5xl px-4 py-12 md:py-16">
+          <div className="grid items-center gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-12">
+            <div>
+              <span className="inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 px-4 py-1.5 text-[11px] font-bold uppercase tracking-widest text-white backdrop-blur-sm">
+                <span className="h-2 w-2 rounded-full bg-[#E6007E] animate-pulse" aria-hidden />
+                Existing patients only
               </span>
-            </h1>
-            <p className="mt-4 text-base md:text-lg text-white/85 leading-relaxed max-w-xl font-medium">
-              Request your next month of tirzepatide or semaglutide. Medication ships{" "}
-              <strong className="text-white">directly to your home</strong> after Ryan approves your refill and
-              monthly check-in.
-            </p>
-            <div className="mt-6 flex flex-wrap gap-3">
-              <Image
-                src="/images/marketing/glp1-vial-hello-gorgeous.svg"
-                alt=""
-                width={72}
-                height={108}
-                className="drop-shadow-lg opacity-95"
-              />
-              <Image
-                src="/images/marketing/tirzepatide-vial-hello-gorgeous.svg"
-                alt=""
-                width={72}
-                height={108}
-                className="drop-shadow-lg opacity-95"
-              />
+              <p className="mt-5 text-xs font-bold uppercase tracking-[0.25em] text-[#FFB8DC]">
+                Hello Gorgeous RX™ · Oswego, IL
+              </p>
+              <h1 className="mt-3 font-serif text-4xl md:text-5xl font-black leading-tight">
+                <span className="text-white">GLP-1 </span>
+                <span
+                  className="bg-gradient-to-r from-[#FFB8DC] via-[#FF2D8E] to-[#E6007E] bg-clip-text text-transparent"
+                  style={{ WebkitBackgroundClip: "text" }}
+                >
+                  refill request
+                </span>
+              </h1>
+              <p className="mt-4 text-base md:text-lg text-[#FFB8DC]/95 leading-relaxed max-w-xl font-medium">
+                Request your next month of tirzepatide or semaglutide. Medication ships{" "}
+                <strong className="text-white">directly to your home</strong> after Ryan approves your refill
+                and monthly check-in.
+              </p>
+            </div>
+
+            <div className="relative mx-auto w-full max-w-md lg:max-w-none">
+              <div className="overflow-hidden rounded-3xl border-4 border-black shadow-[8px_8px_0_0_rgba(230,0,126,0.45)]">
+                <Image
+                  src={HERO_IMAGE}
+                  alt="Hello Gorgeous GLP-1 weight loss — tirzepatide and semaglutide home delivery"
+                  width={1024}
+                  height={682}
+                  priority
+                  className="h-auto w-full object-cover"
+                  sizes="(max-width: 1024px) 90vw, 480px"
+                />
+              </div>
             </div>
           </div>
         </div>
