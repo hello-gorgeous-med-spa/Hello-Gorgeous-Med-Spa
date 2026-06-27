@@ -4,6 +4,13 @@
  */
 
 import type { IntakeFormField } from "@/lib/hgos/intake-forms";
+import {
+  GLP1_SUPPLY_CYCLE_TELEHEALTH_COPY,
+  glp1TelehealthProviderFlags,
+} from "@/lib/glp1-telehealth-policy";
+import {
+  RX_SUPPLY_CYCLE_FIELD_OPTIONS,
+} from "@/lib/rx-supply-cycle";
 
 export const PEPTIDE_REQUEST_INTAKE_SLUG = "peptide-therapy-request";
 export const PEPTIDE_REFILL_INTAKE_SLUG = "peptide-refill-request";
@@ -169,6 +176,14 @@ const REFILL_FIELDS: IntakeFormField[] = [
     label: "Anything you want Ryan to know before approving this refill?",
     required: false,
     placeholder: "How you're feeling, goals for this cycle, shipping notes…",
+  },
+  {
+    id: "supply_cycle",
+    type: "radio",
+    label: "Prescription supply cycle",
+    required: true,
+    options: [...RX_SUPPLY_CYCLE_FIELD_OPTIONS],
+    helpText: `${GLP1_SUPPLY_CYCLE_TELEHEALTH_COPY["90-day"]} ${GLP1_SUPPLY_CYCLE_TELEHEALTH_COPY["30-day"]} Combined total updates for all peptides selected.`,
   },
 ];
 
@@ -358,15 +373,12 @@ export function evaluatePeptideEligibility(data: Record<string, unknown>): {
     if (data.existing_patient === "No") {
       disqualificationReasons.push("Refills require an existing Hello Gorgeous RX™ patient relationship");
     }
-    if (data.last_visit_within_12mo === "No") {
-      providerFlags.push("No visit within 12 months — full telehealth evaluation required");
-    }
-    if (data.side_effects === "Yes") {
-      providerFlags.push("Reported side effects — NP review required before refill");
-    }
-    if (data.dose_changes === "Yes") {
-      providerFlags.push("Health or dose changes reported — NP review required");
-    }
+    providerFlags.push(...glp1TelehealthProviderFlags({
+      supplyCycleRaw: data.supply_cycle,
+      lastVisitWithin90Days: data.last_visit_within_12mo,
+      doseChanges: data.dose_changes,
+      sideEffects: data.side_effects,
+    }));
   }
 
   if (data.prior_peptide_use === "Yes" && type === "new") {

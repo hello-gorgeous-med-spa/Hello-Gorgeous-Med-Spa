@@ -6,6 +6,7 @@ import { SITE } from "@/lib/seo";
 import { glp1SignerName } from "@/lib/glp1-intake";
 import { glp1DoseTierById } from "@/lib/glp1-dose-tiers";
 import { fulfillmentFromIntakeResponses } from "@/lib/glp1-vial-fulfillment";
+import { fulfillmentFromPeptideIntakeResponses } from "@/lib/peptide-vial-fulfillment";
 import { suggestGlp1RefillDrug } from "@/lib/glp1-refill-intake";
 
 export const RX_INTAKE_SLUGS = [
@@ -262,6 +263,7 @@ export type PharmacyCopyInput = {
   pharmacyProduct?: string | null;
   pharmacyPack?: string | null;
   coldShip?: boolean;
+  pharmacyOrderSummary?: string | null;
 };
 
 export function formatPharmacyAddress(input: PharmacyCopyInput): string {
@@ -305,6 +307,9 @@ export function formatPharmacyCopyPack(input: PharmacyCopyInput): string {
             : `Vials to order: ${input.vialsToOrder}${input.vialWholesaleUsd != null ? ` ($${input.vialWholesaleUsd}/vial est.)` : ""}`,
         ].join("\n")
       : null,
+    input.pharmacyOrderSummary
+      ? `Pharmacy order:\n${input.pharmacyOrderSummary}`
+      : null,
     `Sig: ${input.sig || "(enter sig)"}`,
     "",
     input.phone ? `Phone: ${input.phone}` : null,
@@ -325,8 +330,11 @@ export function buildCopyPackFromSubmission(opts: {
 }): string {
   const { slug, signerName, clientPhone, responses, dispatch, portal, intakeRef } = opts;
   const patientName = intakeDisplayName(slug, signerName, responses);
-  const fulfillment =
+  const glp1Fulfillment =
     slug === "glp1-refill-request" ? fulfillmentFromIntakeResponses(responses) : null;
+  const peptideFulfillment =
+    slug === "peptide-refill-request" ? fulfillmentFromPeptideIntakeResponses(responses) : null;
+  const fulfillment = glp1Fulfillment;
 
   return formatPharmacyCopyPack({
     portal,
@@ -345,13 +353,15 @@ export function buildCopyPackFromSubmission(opts: {
     phone: clientPhone || String(responses.phone || "").trim() || undefined,
     email: String(responses.email || "").trim() || undefined,
     intakeRef,
-    vialsToOrder: fulfillment?.vialsToOrder ?? null,
+    vialsToOrder: fulfillment?.vialsToOrder ?? peptideFulfillment?.totalVials ?? null,
     vialWholesaleUsd: fulfillment?.wholesaleCostPerVialUsd ?? null,
-    pharmacyWholesaleTotalUsd: fulfillment?.totalWholesaleUsd ?? null,
+    pharmacyWholesaleTotalUsd:
+      fulfillment?.totalWholesaleUsd ?? peptideFulfillment?.totalWholesaleUsd ?? null,
     pharmacySku: fulfillment?.pharmacySku ?? null,
     pharmacyProduct: fulfillment?.pharmacyProduct ?? null,
     pharmacyPack: fulfillment?.pharmacyPack ?? null,
     coldShip: fulfillment?.coldShip ?? false,
+    pharmacyOrderSummary: peptideFulfillment?.orderSummary ?? null,
   });
 }
 
@@ -368,6 +378,12 @@ export function intakeSummaryLines(
     lines.push(`Request: ${formatArray(responses.request_type) || slug}`);
     if (slug === "peptide-refill-request") {
       lines.push(`Current: ${String(responses.current_peptide || "—")}`);
+      lines.push(`Supply: ${String(responses.supply_cycle || "—")}`);
+      lines.push(
+        `Price: ${String(responses.refill_price_label || (responses.refill_price_usd != null ? `$${responses.refill_price_usd}` : "—"))}`,
+      );
+      const pf = fulfillmentFromPeptideIntakeResponses(responses);
+      if (pf) lines.push(pf.orderSummary);
     } else {
       lines.push(`Goal: ${String(responses.primary_goal || "—")}`);
     }

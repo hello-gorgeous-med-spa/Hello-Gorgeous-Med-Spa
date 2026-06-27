@@ -5,8 +5,9 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 
 import type { Glp1InsurancePriceRow, Glp1PriceListRow } from "@/lib/glp1-price-list";
 import type { Glp1OrderProfitRow, Glp1OrderProfitTotals } from "@/lib/glp1-order-profit";
+import type { PeptidePriceListRow } from "@/lib/peptide-price-list";
 
-type Tab = "price-list" | "order-profit";
+type Tab = "glp1" | "peptides" | "order-profit";
 
 function formatUsd(n: number | null | undefined): string {
   if (n == null || Number.isNaN(n)) return "—";
@@ -27,13 +28,15 @@ function shortDate(iso: string): string {
 }
 
 export default function Glp1PricingPage() {
-  const [tab, setTab] = useState<Tab>("price-list");
+  const [tab, setTab] = useState<Tab>("glp1");
   const [loading, setLoading] = useState(true);
   const [includeShipped, setIncludeShipped] = useState(false);
   const [cycleFilter, setCycleFilter] = useState<"all" | "30-day" | "90-day">("all");
   const [medFilter, setMedFilter] = useState<"all" | "Semaglutide" | "Tirzepatide">("all");
+  const [peptideFilter, setPeptideFilter] = useState("");
 
   const [priceList, setPriceList] = useState<Glp1PriceListRow[]>([]);
+  const [peptidePriceList, setPeptidePriceList] = useState<PeptidePriceListRow[]>([]);
   const [insuranceRows, setInsuranceRows] = useState<Glp1InsurancePriceRow[]>([]);
   const [orderProfit, setOrderProfit] = useState<Glp1OrderProfitRow[]>([]);
   const [profitTotals, setProfitTotals] = useState<Glp1OrderProfitTotals | null>(null);
@@ -47,6 +50,7 @@ export default function Glp1PricingPage() {
       const data = await res.json();
       if (res.ok) {
         setPriceList(data.priceList || []);
+        setPeptidePriceList(data.peptidePriceList || []);
         setInsuranceRows(data.insuranceRows || []);
         setOrderProfit(data.orderProfit || []);
         setProfitTotals(data.profitTotals || null);
@@ -69,8 +73,22 @@ export default function Glp1PricingPage() {
     });
   }, [priceList, cycleFilter, medFilter]);
 
-  const exportCsv = (sheet: "price-list" | "orders") => {
-    const q = new URLSearchParams({ format: "csv", sheet: sheet === "orders" ? "orders" : "price-list" });
+  const filteredPeptideList = useMemo(() => {
+    const q = peptideFilter.trim().toLowerCase();
+    return peptidePriceList.filter((r) => {
+      if (cycleFilter !== "all" && r.supplyCycle !== cycleFilter) return false;
+      if (q && !r.peptideName.toLowerCase().includes(q) && !r.category.toLowerCase().includes(q)) {
+        return false;
+      }
+      return true;
+    });
+  }, [peptidePriceList, cycleFilter, peptideFilter]);
+
+  const exportCsv = (sheet: "glp1" | "peptides" | "orders") => {
+    const q = new URLSearchParams({
+      format: "csv",
+      sheet: sheet === "orders" ? "orders" : sheet === "peptides" ? "peptides" : "price-list",
+    });
     if (includeShipped) q.set("include_shipped", "1");
     window.open(`/api/admin/rx/glp1-pricing?${q}`, "_blank");
   };
@@ -82,17 +100,18 @@ export default function Glp1PricingPage() {
           <p className="text-sm font-semibold text-[#E6007E] uppercase tracking-wider">
             Hello Gorgeous RX™
           </p>
-          <h1 className="text-3xl font-black text-black">GLP-1 price list &amp; profit</h1>
+          <h1 className="text-3xl font-black text-black">RX price list &amp; profit</h1>
           <p className="text-black/60 mt-1 text-sm max-w-2xl">
-            Canonical retail tiers + website checkout totals + BoomRx wholesale (preferred for 90-day).
-            Gross profit = what the client paid minus pharmacy COGS — shipping revenue is included in
-            paid amount.
+            GLP-1 dose tiers + all orderable peptides — 30-day and 90-day checkout totals with BoomRx
+            wholesale from your tailored PDF. Items marked &quot;est&quot; use estimated COGS until confirmed on BoomRx.
           </p>
         </div>
         <div className="flex flex-wrap gap-2">
           <button
             type="button"
-            onClick={() => exportCsv(tab === "order-profit" ? "orders" : "price-list")}
+            onClick={() =>
+              exportCsv(tab === "order-profit" ? "orders" : tab === "peptides" ? "peptides" : "glp1")
+            }
             className="px-4 py-2 rounded-full border-2 border-black font-bold text-sm"
           >
             Export CSV
@@ -135,8 +154,9 @@ export default function Glp1PricingPage() {
       <div className="flex flex-wrap gap-2 no-print">
         {(
           [
-            ["price-list", "Master price list"],
-            ["order-profit", "Order profit (paid)"],
+            ["glp1", "GLP-1"],
+            ["peptides", "Peptides"],
+            ["order-profit", "Order profit (GLP-1)"],
           ] as const
         ).map(([id, label]) => (
           <button
@@ -152,7 +172,7 @@ export default function Glp1PricingPage() {
         ))}
       </div>
 
-      {tab === "price-list" && (
+      {tab === "glp1" && (
         <>
           <div className="flex flex-wrap gap-3 no-print">
             <select
@@ -258,6 +278,80 @@ export default function Glp1PricingPage() {
               </div>
             </div>
           )}
+        </>
+      )}
+
+      {tab === "peptides" && (
+        <>
+          <div className="flex flex-wrap gap-3 no-print">
+            <select
+              value={cycleFilter}
+              onChange={(e) => setCycleFilter(e.target.value as typeof cycleFilter)}
+              className="border-2 border-black rounded-lg px-3 py-1.5 text-sm font-medium"
+            >
+              <option value="all">All supply cycles</option>
+              <option value="90-day">90-day only</option>
+              <option value="30-day">30-day only</option>
+            </select>
+            <input
+              type="search"
+              placeholder="Filter peptide…"
+              value={peptideFilter}
+              onChange={(e) => setPeptideFilter(e.target.value)}
+              className="border-2 border-black rounded-lg px-3 py-1.5 text-sm font-medium min-w-[180px]"
+            />
+          </div>
+
+          <div className="overflow-x-auto rounded-2xl border-4 border-black bg-white shadow-[6px_6px_0_0_rgba(230,0,126,0.3)]">
+            <table className="w-full text-sm min-w-[1000px]">
+              <thead className="bg-black text-white text-left">
+                <tr>
+                  <th className="px-3 py-2">Peptide</th>
+                  <th className="px-3 py-2">Category</th>
+                  <th className="px-3 py-2">Cycle</th>
+                  <th className="px-3 py-2">Retail/mo</th>
+                  <th className="px-3 py-2">Website charge</th>
+                  <th className="px-3 py-2">BoomRx COGS</th>
+                  <th className="px-3 py-2">Profit</th>
+                  <th className="px-3 py-2">Margin</th>
+                  <th className="px-3 py-2">PDF</th>
+                </tr>
+              </thead>
+              <tbody>
+                {loading ? (
+                  <tr>
+                    <td colSpan={9} className="px-4 py-8 text-center text-black/50">
+                      Loading…
+                    </td>
+                  </tr>
+                ) : (
+                  filteredPeptideList.map((r) => (
+                    <tr
+                      key={`${r.peptideMenuId}-${r.supplyCycle}`}
+                      className={`border-t border-black/10 ${r.supplyCycle === "90-day" ? "bg-rose-50/50" : ""}`}
+                    >
+                      <td className="px-3 py-2 font-medium">{r.peptideName}</td>
+                      <td className="px-3 py-2 text-xs">{r.category}</td>
+                      <td className="px-3 py-2 font-bold">{r.supplyCycle === "90-day" ? "90-day ★" : "30-day"}</td>
+                      <td className="px-3 py-2">{formatUsd(r.retailMonthlyUsd)}</td>
+                      <td className="px-3 py-2 font-bold text-[#E6007E]">{formatUsd(r.websiteChargeUsd)}</td>
+                      <td className="px-3 py-2 font-mono text-xs">
+                        {formatUsd(r.boomrxWholesaleUsd)}
+                        {r.boomrxSku && <span className="block text-black/50">{r.boomrxSku}</span>}
+                      </td>
+                      <td className="px-3 py-2 font-bold text-green-700">{formatUsd(r.grossProfitUsd)}</td>
+                      <td className="px-3 py-2">{formatPct(r.marginPct)}</td>
+                      <td className="px-3 py-2 text-xs">{r.inPdf ? "PDF" : "est"}</td>
+                    </tr>
+                  ))
+                )}
+              </tbody>
+            </table>
+          </div>
+          <p className="text-xs text-black/50">
+            90-day wholesale = 3× monthly BoomRx vial from your PDF. Combined multi-peptide refills add one $35
+            shipping fee at checkout (same as GLP-1).
+          </p>
         </>
       )}
 

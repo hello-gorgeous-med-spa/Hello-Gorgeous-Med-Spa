@@ -32,6 +32,26 @@ import {
   startConsultCheckout,
 } from "@/lib/peptide-rx-consult-pay";
 import {
+  cleanPeptideRefillReturnUrl,
+  isPeptideRefillPaid,
+  markPeptideRefillPaid,
+  readPendingPeptideRefillSuccess,
+  savePendingPeptideRefillSuccess,
+  startPeptideRefillCheckout,
+} from "@/lib/peptide-refill-pay";
+import {
+  computePeptideCombinedQuote,
+  type PeptideCombinedSupplyQuote,
+} from "@/lib/peptide-supply-pricing";
+import {
+  GLP1_PAYMENT_FIRST_FINE_PRINT,
+  GLP1_REORDER_TELEHEALTH_COPY,
+  GLP1_REORDER_TELEHEALTH_FEE_USD,
+  glp1TelehealthRequiredBeforeShip,
+  glp1TelehealthWaivedForOrder,
+} from "@/lib/glp1-telehealth-policy";
+import { RX_SUPPLY_CYCLES } from "@/lib/rx-supply-cycle";
+import {
   PEPTIDE_CONSULT_FEE_USD,
   PEPTIDE_CONSULT_PAY_NOTE,
   PEPTIDE_REQUEST_DISCLAIMER,
@@ -116,7 +136,18 @@ function SignaturePad({ onChange }: { onChange: (dataUrl: string) => void }) {
 }
 
 type SubmitResult =
-  | { kind: "qualified"; reference: string; requestType: PeptideRequestType }
+  | {
+      kind: "qualified";
+      reference: string;
+      requestType: PeptideRequestType;
+      submissionId?: string;
+      priceLabel?: string;
+      lineLabel?: string;
+      priceUsd?: number;
+      invoiceTemplateId?: string;
+      supplyCycle?: string;
+      savingsNote?: string;
+    }
   | { kind: "disqualified"; reference: string };
 
 function fieldVisible(field: IntakeFormField, data: Record<string, unknown>): boolean {
@@ -177,6 +208,13 @@ function validateStep(
     if (!data.signature) errors.signature = "Signature required";
   }
 
+  if (step.id === "refill-details" && peptideRequestType(data) === "refill") {
+    const names = Array.isArray(data.selected_peptides) ? (data.selected_peptides as string[]) : [];
+    if (!computePeptideCombinedQuote(names, data.supply_cycle)) {
+      errors.supply_cycle = "Select peptides and a valid supply cycle for pricing";
+    }
+  }
+
   return errors;
 }
 
@@ -194,7 +232,9 @@ export function PeptideRequestForm({
 
   const [step, setStep] = useState(0);
   const [formData, setFormData] = useState<Record<string, unknown>>(() => {
-    const initial: Record<string, unknown> = {};
+    const initial: Record<string, unknown> = {
+      supply_cycle: RX_SUPPLY_CYCLES["90-day"].label,
+    };
     if (preselectedName) initial.selected_peptides = [preselectedName];
     if (initialRequestType === "refill") {
       initial.request_type = requestTypeLabel("refill");
@@ -215,6 +255,15 @@ export function PeptideRequestForm({
     [currentStep.id, formData],
   );
 
+  const selectedPeptideNames = useMemo(() => {
+    return Array.isArray(formData.selected_peptides) ? (formData.selected_peptides as string[]) : [];
+  }, [formData.selected_peptides]);
+
+  const refillQuote = useMemo((): PeptideCombinedSupplyQuote | null => {
+    if (requestType !== "refill" || selectedPeptideNames.length === 0) return null;
+    return computePeptideCombinedQuote(selectedPeptideNames, formData.supply_cycle);
+  }, [requestType, selectedPeptideNames, formData.supply_cycle]);
+
   useEffect(() => {
     const prefill = readRxStartPrefill();
     if (!prefill) return;
@@ -232,23 +281,56 @@ export function PeptideRequestForm({
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
-    if (params.get("paid") !== "1") return;
+    const consultPaid = params.get("paid") === "1";
+    const refillPaid = params.get("refill_paid") === "1";
 
-    const ref = params.get("ref")?.trim();
-    if (ref) markConsultPaid(ref);
+    if (consultPaid) {
+      const ref = params.get("ref")?.trim();
+      if (ref) markConsultPaid(ref);
+      const pending = readPendingRxSuccess();
+      if (pending) setResult(pending as SubmitResult);
+      const url = new URL(window.location.href);
+      url.searchParams.delete("paid");
+      url.searchParams.delete("ref");
+      window.history.replaceState({}, "", url.pathname + (url.search || ""));
+      return;
+    }
 
-    const pending = readPendingRxSuccess();
-    if (pending) setResult(pending);
-
-    const url = new URL(window.location.href);
-    url.searchParams.delete("paid");
-    url.searchParams.delete("ref");
-    const clean = url.pathname + (url.search || "");
-    window.history.replaceState({}, "", clean);
+    if (refillPaid) {
+      const ref = params.get("ref")?.trim();
+      if (ref) markPeptideRefillPaid(ref);
+      const pending = readPendingPeptideRefillSuccess();
+      if (pending) setResult(pending as SubmitResult);
+      cleanPeptideRefillReturnUrl();
+    }
   }, []);
 
   function handleChange(fieldId: string, value: unknown) {
-    setFormData((prev) => ({ ...prev, [fieldId]: value }));
+    setFormData((prev) => {
+      const next = { ...prev, [fieldId]: value };
+      if (
+        requestType === "refill" &&
+        (fieldId === "selected_peptides" || fieldId === "supply_cycle")
+      ) {
+        const names = Array.isArray(next.selected_peptides)
+          ? (next.selected_peptides as string[])
+          : [];
+        const quote = computePeptideCombinedQuote(names, next.supply_cycle);
+        if (quote && quote.lines[0]) {
+          next.refill_price_usd = quote.totalUsd;
+          next.refill_price_label = quote.priceLabel;
+          next.refill_line_label = quote.lineLabel;
+          next.refill_invoice_template_id = quote.lines[0].invoiceTemplateId;
+          next.refill_supply_cycle = quote.supplyCycle;
+        } else {
+          delete next.refill_price_usd;
+          delete next.refill_price_label;
+          delete next.refill_line_label;
+          delete next.refill_invoice_template_id;
+        }
+      }
+      return next;
+    });
     if (errors[fieldId]) {
       setErrors((prev) => {
         const next = { ...prev };
@@ -294,6 +376,16 @@ export function PeptideRequestForm({
 
     setBusy(true);
     try {
+      const quote =
+        type === "refill"
+          ? computePeptideCombinedQuote(
+              Array.isArray(formData.selected_peptides)
+                ? (formData.selected_peptides as string[])
+                : [],
+              formData.supply_cycle,
+            )
+          : null;
+
       const responses: Record<string, unknown> = {
         ...formData,
         request_type_label: type === "refill" ? "Refill request" : "New protocol request",
@@ -302,6 +394,13 @@ export function PeptideRequestForm({
         provider_flags: eligibility.providerFlags,
         submitted_at: new Date().toISOString(),
       };
+      if (quote) {
+        responses.refill_price_usd = quote.totalUsd;
+        responses.refill_price_label = quote.priceLabel;
+        responses.refill_line_label = quote.lineLabel;
+        responses.refill_invoice_template_id = quote.lines[0]?.invoiceTemplateId;
+        responses.refill_supply_cycle = quote.supplyCycle;
+      }
       delete responses.signature;
 
       const res = await fetch("/api/public/forms/submit", {
@@ -321,7 +420,9 @@ export function PeptideRequestForm({
         return;
       }
       const reference = String(data.reference || "");
+      const submissionId = data.submission_id ? String(data.submission_id) : "";
       const recordToken = data.record_token ? String(data.record_token) : "";
+
       const peptides = Array.isArray(formData.selected_peptides)
         ? (formData.selected_peptides as string[])
         : [];
@@ -339,11 +440,37 @@ export function PeptideRequestForm({
 
       setResult(
         eligibility.qualified
-          ? { kind: "qualified", reference, requestType: type }
+          ? {
+              kind: "qualified",
+              reference,
+              submissionId: submissionId || undefined,
+              requestType: type,
+              priceLabel: quote?.priceLabel,
+              lineLabel: quote?.lineLabel,
+              priceUsd: quote?.totalUsd,
+              invoiceTemplateId: quote?.lines[0]?.invoiceTemplateId,
+              supplyCycle: quote?.supplyCycle,
+              savingsNote: quote?.savingsNote,
+            }
           : { kind: "disqualified", reference },
       );
       if (eligibility.qualified) {
-        savePendingRxSuccess({ kind: "qualified", reference, requestType: type });
+        if (type === "refill" && quote) {
+          savePendingPeptideRefillSuccess({
+            kind: "qualified",
+            reference,
+            submissionId: submissionId || undefined,
+            requestType: "refill",
+            priceLabel: quote.priceLabel,
+            lineLabel: quote.lineLabel,
+            priceUsd: quote.totalUsd,
+            invoiceTemplateId: quote.lines[0]?.invoiceTemplateId,
+            supplyCycle: quote.supplyCycle,
+            savingsNote: quote.savingsNote,
+          });
+        } else {
+          savePendingRxSuccess({ kind: "qualified", reference, requestType: type });
+        }
       }
     } catch {
       setErr("Network error. Try again or call 630-636-6193.");
@@ -352,10 +479,101 @@ export function PeptideRequestForm({
     }
   }
 
+  async function payRefill(result: Extract<SubmitResult, { kind: "qualified" }>) {
+    if (!result.invoiceTemplateId || result.priceUsd == null) return;
+    setPayBusy(true);
+    setErr(null);
+    const outcome = await startPeptideRefillCheckout({
+      reference: result.reference,
+      submissionId: result.submissionId,
+      templateId: result.invoiceTemplateId,
+      amountUsd: result.priceUsd,
+      supplyCycle: result.supplyCycle,
+      lineLabel: result.lineLabel,
+    });
+    if (outcome.error) setErr(outcome.error);
+    setPayBusy(false);
+  }
+
   if (result?.kind === "qualified") {
     const isNew = result.requestType === "new";
     const consultPaid = isConsultPaid(result.reference);
+    const refillPaid = !isNew && isPeptideRefillPaid(result.reference);
     const needsPrepay = isNew && !consultPaid;
+    const canPayRefill =
+      !isNew && Boolean(result.invoiceTemplateId && result.priceUsd) && !refillPaid;
+    const telehealthWaived = glp1TelehealthWaivedForOrder({ supplyCycleRaw: result.supplyCycle });
+    const telehealthBeforeShip = glp1TelehealthRequiredBeforeShip({
+      supplyCycleRaw: result.supplyCycle ?? formData.supply_cycle,
+      lastVisitWithin90Days: formData.last_visit_within_12mo,
+      doseChanges: formData.dose_changes,
+      sideEffects: formData.side_effects,
+    });
+
+    if (!isNew) {
+      return (
+        <div className="rounded-2xl border-2 border-black bg-green-50 p-8 text-center shadow-lg">
+          <span className="text-4xl">{refillPaid ? "✓" : "💳"}</span>
+          <h2 className="mt-4 font-serif text-2xl font-semibold text-green-900">
+            {refillPaid ? "Payment received — thank you" : "Complete payment to reserve your refill"}
+          </h2>
+          <p className="mt-3 text-sm text-green-800 leading-relaxed max-w-md mx-auto">
+            Reference <span className="font-mono font-bold">{result.reference}</span>.
+            {!refillPaid
+              ? " Pay now — Ryan reviews after payment. Medication ships only after clinical approval."
+              : " Our team will review and ship after approval."}
+          </p>
+          <p className="mt-3 text-[11px] text-green-800/90 max-w-md mx-auto leading-relaxed">
+            {GLP1_PAYMENT_FIRST_FINE_PRINT}
+          </p>
+          {telehealthWaived && !telehealthBeforeShip && (
+            <p className="mt-2 text-xs font-semibold text-green-900 max-w-md mx-auto">
+              No telehealth required for this 90-day order. {GLP1_REORDER_TELEHEALTH_COPY}
+            </p>
+          )}
+          {result.priceLabel && (
+            <div className="mt-4 mx-auto max-w-sm rounded-xl border-2 border-green-700/30 bg-white px-4 py-3">
+              <p className="text-[10px] font-bold uppercase tracking-widest text-[#E6007E]">
+                Refill total due now
+              </p>
+              <p className="mt-1 text-3xl font-black text-green-900">{result.priceLabel}</p>
+              {result.lineLabel && (
+                <p className="mt-1 text-xs text-green-800">
+                  {result.lineLabel}
+                  {result.savingsNote ? ` · ${result.savingsNote}` : ""}
+                </p>
+              )}
+            </div>
+          )}
+          <div className="mt-6 flex flex-col items-center gap-3 max-w-sm mx-auto">
+            {canPayRefill && (
+              <button
+                type="button"
+                disabled={payBusy}
+                onClick={() => payRefill(result)}
+                className="inline-flex w-full items-center justify-center rounded-xl bg-[#E6007E] px-8 py-4 font-bold text-white hover:bg-black transition-colors disabled:opacity-60"
+              >
+                {payBusy ? "Starting checkout…" : `Pay now — ${result.priceLabel}`}
+              </button>
+            )}
+            {telehealthBeforeShip && (
+              <a
+                href={HG_RX_TELEHEALTH_BOOKING_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex w-full items-center justify-center rounded-xl border-2 border-green-800 bg-green-800 px-8 py-3.5 text-sm font-bold text-white hover:bg-black transition-colors"
+              >
+                {HG_RX_TELEHEALTH_BOOKING_LABEL} — ${GLP1_REORDER_TELEHEALTH_FEE_USD}
+              </a>
+            )}
+          </div>
+          {err && <p className="mt-4 text-sm text-red-700">{err}</p>}
+          <Link href="/app?rx=1" className="mt-4 inline-block text-xs font-semibold text-green-700 underline">
+            View in Hello Gorgeous app →
+          </Link>
+        </div>
+      );
+    }
 
     return (
       <div className="rounded-2xl border-2 border-black bg-green-50 p-8 text-center shadow-lg">
@@ -481,6 +699,41 @@ export function PeptideRequestForm({
         <div className="space-y-5">
           {currentFields.map((field) => {
             if (!fieldVisible(field, formData)) return null;
+            if (field.id === "supply_cycle" && requestType === "refill") {
+              return (
+                <PeptideSupplyCycleSelector
+                  key={field.id}
+                  peptideNames={selectedPeptideNames}
+                  value={String(formData.supply_cycle || RX_SUPPLY_CYCLES["90-day"].label)}
+                  error={errors.supply_cycle}
+                  onChange={(label) => handleChange("supply_cycle", label)}
+                />
+              );
+            }
+            if (field.id === "selected_peptides" && requestType === "refill") {
+              return (
+                <div key={field.id} className="space-y-4">
+                  <FieldRenderer
+                    field={field}
+                    value={formData[field.id]}
+                    error={errors[field.id]}
+                    onChange={(v) => handleChange(field.id, v)}
+                  />
+                  {refillQuote && (
+                    <div className="rounded-xl border-2 border-[#E6007E]/30 bg-[#FFF0F7] px-4 py-3 text-sm">
+                      <p className="font-bold text-[#E6007E]">Estimated refill total</p>
+                      <ul className="mt-2 space-y-1 text-xs text-black/70">
+                        {refillQuote.lines.map((l) => (
+                          <li key={l.peptideMenuId}>
+                            {l.peptideName}: {l.priceLabel} retail/mo × {refillQuote.supplyCycle === "90-day" ? 3 : 1}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                </div>
+              );
+            }
             return (
               <FieldRenderer
                 key={field.id}
@@ -509,14 +762,103 @@ export function PeptideRequestForm({
             disabled={busy}
             className="rounded-xl bg-[#E6007E] px-8 py-3.5 font-bold text-white hover:bg-black transition-colors disabled:opacity-60"
           >
-            {busy ? "Submitting…" : isLastStep ? "Submit request" : "Continue →"}
+            {busy
+              ? "Submitting…"
+              : isLastStep
+                ? requestType === "refill"
+                  ? "Submit & continue to payment →"
+                  : "Submit request"
+                : "Continue →"}
           </button>
         </div>
       </form>
 
-      <p className="border-t border-black/10 px-5 py-4 text-center text-[11px] text-black/45">
-        Hello Gorgeous RX™ · NP telehealth required · not a prescription until approved
+      <p className="border-t border-black/10 px-5 py-4 text-center text-[11px] text-black/45 leading-relaxed">
+        Hello Gorgeous RX™ · not a prescription until approved
+        {requestType === "refill" && (
+          <>
+            <br />
+            {GLP1_PAYMENT_FIRST_FINE_PRINT}
+          </>
+        )}
       </p>
+    </div>
+  );
+}
+
+function PeptideSupplyCycleSelector({
+  peptideNames,
+  value,
+  error,
+  onChange,
+}: {
+  peptideNames: string[];
+  value: string;
+  error?: string;
+  onChange: (label: string) => void;
+}) {
+  const quote30 = useMemo(
+    () => computePeptideCombinedQuote(peptideNames, "30-day"),
+    [peptideNames],
+  );
+  const quote90 = useMemo(
+    () => computePeptideCombinedQuote(peptideNames, "90-day"),
+    [peptideNames],
+  );
+
+  const options = [
+    {
+      label: RX_SUPPLY_CYCLES["90-day"].label,
+      badge: "Recommended · No telehealth for this order",
+      quote: quote90,
+    },
+    {
+      label: RX_SUPPLY_CYCLES["30-day"].label,
+      badge: "Pay monthly",
+      quote: quote30,
+    },
+  ];
+
+  return (
+    <div>
+      <label className="block text-sm font-semibold text-black">
+        Prescription supply cycle <span className="text-red-500">*</span>
+      </label>
+      <p className="mt-1 text-xs text-black/50">
+        30-day or 90-day — same pricing model as GLP-1. One shipping fee per checkout when ordering
+        multiple peptides together.
+      </p>
+      <div className="mt-3 space-y-3">
+        {options.map((opt) => (
+          <label
+            key={opt.label}
+            className={`flex cursor-pointer items-start gap-2.5 rounded-xl border-2 px-4 py-4 transition ${
+              value === opt.label ? "border-[#E6007E] bg-[#FFF0F7]" : "border-black/15 hover:border-[#E6007E]/40"
+            }`}
+          >
+            <input
+              type="radio"
+              name="supply_cycle"
+              value={opt.label}
+              checked={value === opt.label}
+              onChange={() => onChange(opt.label)}
+              className="mt-1 accent-[#E6007E]"
+            />
+            <span className="flex-1 min-w-0">
+              <span className="block text-sm font-bold">{opt.label}</span>
+              <span className="block text-xs font-semibold text-[#E6007E]">{opt.badge}</span>
+            </span>
+            {opt.quote && (
+              <span className="text-right">
+                <span className="block text-xl font-black text-[#E6007E]">{opt.quote.priceLabel}</span>
+                <span className="block text-[10px] text-black/50 uppercase">due at checkout</span>
+              </span>
+            )}
+          </label>
+        ))}
+      </div>
+      <p className="mt-3 text-[11px] text-black/45">{GLP1_REORDER_TELEHEALTH_COPY}</p>
+      {error && <p className="mt-2 text-xs text-red-500">{error}</p>}
     </div>
   );
 }

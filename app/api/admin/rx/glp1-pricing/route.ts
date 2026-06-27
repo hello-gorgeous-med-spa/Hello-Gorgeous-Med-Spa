@@ -9,10 +9,15 @@ import {
   GLP1_PHARMACY_POLICY,
 } from "@/lib/glp1-price-list";
 import { glp1OrderProfitToCsv, listGlp1OrderProfit } from "@/lib/glp1-order-profit";
+import {
+  buildPeptideMasterPriceList,
+  peptidePriceListToCsv,
+  PEPTIDE_PHARMACY_POLICY,
+} from "@/lib/peptide-price-list";
 
 export const dynamic = "force-dynamic";
 
-/** GET /api/admin/rx/glp1-pricing — master price list + order profit spreadsheet */
+/** GET /api/admin/rx/glp1-pricing — GLP-1 + peptide master price lists */
 export async function GET(req: NextRequest) {
   const auth = requireProviderAreaAccess(req);
   if ("error" in auth) return auth.error;
@@ -22,6 +27,7 @@ export async function GET(req: NextRequest) {
   const includeShipped = req.nextUrl.searchParams.get("include_shipped") === "1";
 
   const priceList = buildGlp1MasterPriceList();
+  const peptidePriceList = buildPeptideMasterPriceList();
   const insuranceRows = buildGlp1InsurancePriceRows();
   const summary = glp1PriceListSummary(priceList);
   const { rows: orderProfit, totals: profitTotals, tableReady } = await listGlp1OrderProfit({
@@ -32,8 +38,15 @@ export async function GET(req: NextRequest) {
     const body =
       sheet === "orders"
         ? glp1OrderProfitToCsv(orderProfit)
-        : glp1PriceListToCsv(priceList);
-    const filename = sheet === "orders" ? "glp1-order-profit.csv" : "glp1-price-list.csv";
+        : sheet === "peptides"
+          ? peptidePriceListToCsv(peptidePriceList)
+          : glp1PriceListToCsv(priceList);
+    const filename =
+      sheet === "orders"
+        ? "glp1-order-profit.csv"
+        : sheet === "peptides"
+          ? "peptide-price-list.csv"
+          : "glp1-price-list.csv";
     return new NextResponse(body, {
       headers: {
         "Content-Type": "text/csv; charset=utf-8",
@@ -44,8 +57,10 @@ export async function GET(req: NextRequest) {
 
   return NextResponse.json({
     policy: GLP1_PHARMACY_POLICY,
+    peptidePolicy: PEPTIDE_PHARMACY_POLICY,
     summary,
     priceList,
+    peptidePriceList,
     insuranceRows,
     orderProfit,
     profitTotals,

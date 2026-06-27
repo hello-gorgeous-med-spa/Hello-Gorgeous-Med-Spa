@@ -222,22 +222,8 @@ const BOOMRX_SEMA_B12: Record<string, { "30-day": BoomRxGlp1Pack; "90-day": Boom
   },
 };
 
-/** Peptide wholesale (5 mL vials) — BoomRx tailored list. */
-export const BOOMRX_PEPTIDE_VIALS: { productName: string; concentration: string; wholesaleUsd: number }[] = [
-  { productName: "BPC-157 / GHK-Cu / KPV / TB-500", concentration: "3/10/3/3 mg/mL; 5 mL", wholesaleUsd: 80 },
-  { productName: "BPC-157 / KPV / TB-500", concentration: "3/3/3 mg/mL; 5 mL", wholesaleUsd: 80 },
-  { productName: "BPC-157 / TB-500 / GHK-Cu", concentration: "3/3/10 mg/mL; 5 mL", wholesaleUsd: 80 },
-  { productName: "BPC-157 / TB-500", concentration: "3/3/3 mg/mL; 5 mL", wholesaleUsd: 80 },
-  { productName: "CJC-1295 / Ipamorelin", concentration: "1.2/2 mg; 5 mL", wholesaleUsd: 80 },
-  { productName: "Tesamorelin / Ipamorelin", concentration: "3/2 mg/mL; 5 mL", wholesaleUsd: 80 },
-  { productName: "MOTS-c / Tesamorelin", concentration: "4/3 mg/mL; 5 mL", wholesaleUsd: 80 },
-  { productName: "BPC-157", concentration: "3 mg/mL; 5 mL", wholesaleUsd: 70 },
-  { productName: "GHK-Cu", concentration: "10 mg/mL; 5 mL", wholesaleUsd: 70 },
-  { productName: "TB-500", concentration: "3 mg/mL; 5 mL", wholesaleUsd: 70 },
-  { productName: "AOD-9604", concentration: "2 mg/mL; 5 mL", wholesaleUsd: 70 },
-  { productName: "PT-141", concentration: "2 mg/mL; 5 mL", wholesaleUsd: 70 },
-  { productName: "NAD+", concentration: "100 mg/mL; 10 mL", wholesaleUsd: 60 },
-];
+/** Peptide wholesale (5 mL vials) — see lib/peptide-boomrx-catalog.ts */
+export { BOOMRX_PEPTIDE_PDF_PRODUCTS as BOOMRX_PEPTIDE_VIALS } from "@/lib/peptide-boomrx-catalog";
 
 export function pickBoomRxGlp1Pack(
   doseTierId: string,

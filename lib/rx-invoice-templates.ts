@@ -17,6 +17,7 @@ import {
   peptidePrepayTotal,
   type PeptideRetailCategory,
 } from "@/lib/peptide-retail-pricing";
+import { computeRxSupplyQuote } from "@/lib/rx-supply-cycle";
 
 export type RxInvoiceTrack = "weight-loss" | "peptides" | "fees";
 
@@ -134,35 +135,61 @@ function peptideCategoryGroup(cat: PeptideRetailCategory): string {
 }
 
 function peptideTemplates(): RxInvoiceTemplate[] {
-  const monthly: RxInvoiceTemplate[] = PEPTIDE_RETAIL_MENU.map((row) => ({
+  const monthly: RxInvoiceTemplate[] = PEPTIDE_RETAIL_MENU.filter(
+    (r) => r.category !== "Medical Weight Loss",
+  ).map((row) => ({
     id: `peptide-${row.id}`,
-    track: row.category === "Medical Weight Loss" ? ("weight-loss" as const) : ("peptides" as const),
+    track: "peptides" as const,
     group: peptideCategoryGroup(row.category),
-    name: row.name,
-    lineLabel: `${row.name} — 1-month protocol`,
-    amountUsd: row.fromMonthlyUsd,
-    squareName: `Hello Gorgeous RX™ — ${row.name} (1 mo)`,
+    name: `${row.name} — 30-day`,
+    lineLabel: `${row.name} — 30-day supply + shipping`,
+    amountUsd: row.fromMonthlyUsd + PEPTIDE_PHARMACY_SHIPPING_USD,
+    squareName: `Hello Gorgeous RX™ — ${row.name} (30-day)`,
     squareSlug: row.id,
     note: row.note,
     allowCustomAmount: true,
   }));
 
+  const ninetyDay: RxInvoiceTemplate[] = PEPTIDE_RETAIL_MENU.filter(
+    (r) => r.category !== "Medical Weight Loss",
+  ).map((row) => {
+    const supply = computeRxSupplyQuote({
+      monthlyMedUsd: row.fromMonthlyUsd,
+      supplyCycle: "90-day",
+      lineBase: row.name,
+      shippingUsd: PEPTIDE_PHARMACY_SHIPPING_USD,
+    });
+    return {
+      id: `peptide-${row.id}-90day`,
+      track: "peptides" as const,
+      group: "90-day supply",
+      name: `${row.name} — 90-day`,
+      lineLabel: supply.lineLabel,
+      amountUsd: supply.totalUsd,
+      squareName: `Hello Gorgeous RX™ — ${row.name} (90-day)`,
+      squareSlug: row.id,
+      note: row.note,
+      allowCustomAmount: true,
+    };
+  });
+
+  /** @deprecated Legacy 10% prepay — use 90-day supply templates */
   const prepay: RxInvoiceTemplate[] = PEPTIDE_RETAIL_MENU.filter(
     (r) => r.category !== "Medical Weight Loss",
   ).map((row) => ({
     id: `peptide-${row.id}-prepay`,
     track: "peptides" as const,
-    group: "3-month prepay (10% off)",
-    name: `${row.name} — 3-mo prepay`,
+    group: "Legacy 3-mo prepay (10% off)",
+    name: `${row.name} — 3-mo prepay (legacy)`,
     lineLabel: `${row.name} — ${PEPTIDE_PREPAY_MONTHS}-month prepay`,
     amountUsd: peptidePrepayTotal(row.fromMonthlyUsd),
     squareName: `Hello Gorgeous RX™ — ${row.name} (${PEPTIDE_PREPAY_MONTHS}-mo prepay)`,
     squareSlug: row.id,
-    note: `${PEPTIDE_PREPAY_DISCOUNT_PERCENT}% prepay discount applied`,
+    note: `${PEPTIDE_PREPAY_DISCOUNT_PERCENT}% prepay discount — prefer 90-day supply template`,
     allowCustomAmount: true,
   }));
 
-  return [...monthly, ...prepay];
+  return [...monthly, ...ninetyDay, ...prepay];
 }
 
 function feeTemplates(): RxInvoiceTemplate[] {
