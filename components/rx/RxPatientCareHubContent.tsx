@@ -5,7 +5,7 @@ import { useCallback, useState } from "react";
 
 import { CTA } from "@/components/CTA";
 import { FadeUp, Section } from "@/components/Section";
-import { HG_RX_TELEHEALTH_BOOKING_URL } from "@/lib/flows";
+import { HG_RX_TELEHEALTH_BOOKING_LABEL, HG_RX_TELEHEALTH_BOOKING_URL } from "@/lib/flows";
 import {
   RX_PATIENT_CARE_ADDON_GROUPS,
   RX_PATIENT_CARE_GUIDES,
@@ -469,7 +469,7 @@ export function RxPatientCareHubContent() {
               rel="noopener noreferrer"
               className="inline-flex rounded-full bg-white px-7 py-3 text-sm font-semibold text-[#E6007E] hover:bg-[#FFF0F7]"
             >
-              Book telehealth
+              {HG_RX_TELEHEALTH_BOOKING_LABEL}
             </a>
             <Link
               href="/app"

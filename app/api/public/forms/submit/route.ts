@@ -135,8 +135,9 @@ export async function POST(req: NextRequest) {
   return NextResponse.json({
     success: true,
     id: row.id,
+    submission_id: row.id,
     submitted_at: row.submitted_at,
     reference: ref,
-    ...(isPeptideFormSlug(slug) ? { record_token: token } : {}),
+    ...(isPeptideFormSlug(slug) || isGlp1FormSlug(slug) ? { record_token: token } : {}),
   });
 }

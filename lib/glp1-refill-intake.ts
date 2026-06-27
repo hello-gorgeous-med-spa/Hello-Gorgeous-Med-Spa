@@ -8,6 +8,11 @@ import { glp1SignerName } from "@/lib/glp1-intake";
 import { glp1DoseTierById } from "@/lib/glp1-dose-tiers";
 import { GLP1_INSURANCE_OVERSIGHT } from "@/lib/glp1-refill-pricing";
 import { GLP1_REFILL_ADDON_FIELD_OPTIONS } from "@/lib/peptide-monthly-addons";
+import {
+  RX_SUPPLY_CYCLE_FIELD_OPTIONS,
+  RX_TELEHEALTH_CADENCE_DAYS,
+  rxTelehealthDueCopy,
+} from "@/lib/rx-supply-cycle";
 
 export const GLP1_REFILL_INTAKE_SLUG = "glp1-refill-request";
 
@@ -113,9 +118,10 @@ const REFILL_FIELDS: IntakeFormField[] = [
   {
     id: "last_visit_within_12mo",
     type: "radio",
-    label: "Have you had a GLP-1 check-in with us in the last 12 months?",
+    label: `Have you had a GLP-1 telehealth check-in with us in the last ${RX_TELEHEALTH_CADENCE_DAYS} days?`,
     required: true,
     options: ["Yes", "No"],
+    helpText: rxTelehealthDueCopy(),
   },
   {
     id: "current_medication",
@@ -181,6 +187,15 @@ const REFILL_FIELDS: IntakeFormField[] = [
     placeholder: "How you're feeling, goals for this month, shipping notes…",
   },
   {
+    id: "supply_cycle",
+    type: "radio",
+    label: "Prescription supply cycle",
+    required: true,
+    options: [...RX_SUPPLY_CYCLE_FIELD_OPTIONS],
+    helpText:
+      "90-day supply prepays three months of medication with one cold-chain shipping fee — most patients choose this. 30-day pays and ships monthly.",
+  },
+  {
     id: "monthly_peptide_addon",
     type: "radio",
     label: "Optional monthly add-on (ships with your refill after NP approval)",
@@ -237,7 +252,7 @@ const CONSENT_FIELDS: IntakeFormField[] = [
     required: true,
     options: [
       "I am requesting a refill of my Hello Gorgeous GLP-1 program — this is not a prescription until approved by our NP",
-      "I understand a monthly check-in (telehealth or in-person) may be required before each refill",
+      `I understand telehealth with Ryan is required every ${RX_TELEHEALTH_CADENCE_DAYS} days when stable on dose — sooner if I request a dose or strength change`,
       "I confirm my shipping address is correct for cold-chain home delivery",
       "Hello Gorgeous may contact me at the information provided",
     ],
@@ -302,7 +317,7 @@ export function evaluateGlp1RefillEligibility(data: Record<string, unknown>): {
     disqualificationReasons.push("Pregnant, trying to conceive, or breastfeeding");
   }
   if (data.last_visit_within_12mo === "No") {
-    providerFlags.push("No check-in within 12 months — full evaluation required");
+    providerFlags.push(`No telehealth within ${RX_TELEHEALTH_CADENCE_DAYS} days — book Fresha visit before refill ships`);
   }
   if (data.side_effects === "Yes") {
     providerFlags.push("Reported side effects — NP review required before refill");

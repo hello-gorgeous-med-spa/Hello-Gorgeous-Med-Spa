@@ -30,9 +30,9 @@ export const GLP1_PROGRAM = {
   newPatientIntro:
     "This in-person visit is your personalized introduction to our medical weight loss program. We'll review your health history, discuss your goals, and create a custom plan designed to help you achieve lasting results — with Ryan Kent, FNP-BC on site in Oswego.",
   telehealthIntro:
-    "This secured Charm EHR video visit is your personalized introduction to our medical weight loss program when an in-person slot isn't convenient. Same medical team, same candidacy review — from home.",
+    "Book your NP video visit on our Fresha schedule when an in-person slot isn't convenient. Same medical team, same candidacy review — from home.",
   followUpIncluded:
-    "Active GLP-1 members: one 30-minute check-in per month included ($0) — in-person or Charm telehealth.",
+    "Active GLP-1 members: telehealth with Ryan every 90 days when stable on dose ($0 visit fee). Message us anytime for dose changes — we'll book you sooner if needed.",
   injectable: {
     heading: "Injectable compounded medications",
     includes: "Medication included at every dose tier",

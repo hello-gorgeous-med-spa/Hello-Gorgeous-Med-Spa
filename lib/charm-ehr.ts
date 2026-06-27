@@ -1,11 +1,10 @@
 /**
- * Charm EHR — clinical chart, e-prescribe, and patient telehealth (PHR).
- * Med spa aesthetics stay on Fresha; NP telehealth / Hello Gorgeous RX™ uses Charm.
+ * Charm EHR — clinical chart, e-prescribe, and staff workflows.
+ * Patient-facing Hello Gorgeous RX™ telehealth booking uses Fresha (see lib/flows.ts).
  *
  * Env (Vercel / .env.local):
- *   NEXT_PUBLIC_CHARM_TELEHEALTH_BOOKING_URL — web-embed calendar or direct booking link
- *     from Charm: Settings → Calendar → Web Embed (Ryan + Video Consult visit type).
- *   Falls back to Charm Patient Portal (PHR) where patients Request Appointment → Video Consult.
+ *   NEXT_PUBLIC_CHARM_TELEHEALTH_BOOKING_URL — staff / legacy PHR embed (not public RX CTAs)
+ *   NEXT_PUBLIC_CHARM_PHR_URL — patient portal for existing Charm chart access
  *
  * Staff sign-in: https://accounts.charmtracker.com/signin
  */
@@ -29,7 +28,8 @@ export const CHARM_PHR_PORTAL_URL =
   CHARM_PHR_DEFAULT;
 
 /**
- * Book NP telehealth (video consult). Prefer web-embed URL when configured in Charm admin.
+ * Legacy Charm telehealth booking — staff tools & PHR deep links only.
+ * Public RX funnels use {@link HG_RX_TELEHEALTH_BOOKING_URL} from lib/flows.ts (Fresha).
  */
 export const CHARM_TELEHEALTH_BOOKING_URL =
   readCharmUrl(
@@ -37,10 +37,7 @@ export const CHARM_TELEHEALTH_BOOKING_URL =
     "NEXT_PUBLIC_CHARM_RX_TELEHEALTH_URL",
   ) ?? CHARM_PHR_PORTAL_URL;
 
-/** Hello Gorgeous RX™ peptide protocol / refill telehealth — always Charm, never Fresha. */
-export const HG_RX_TELEHEALTH_BOOKING_URL = CHARM_TELEHEALTH_BOOKING_URL;
-
-export const CHARM_TELEHEALTH_BOOKING_LABEL = "Book telehealth in Charm";
+export const CHARM_TELEHEALTH_BOOKING_LABEL = "Open Charm patient portal";
 
 export const CHARM_RX_TELEHEALTH_INSTRUCTIONS =
-  "After submitting your request, book a Video Consult with Ryan in the Charm patient portal (or use your Charm booking link). Telehealth is required before any peptide approval or refill.";
+  "Clinical charting and e-prescribe remain in Charm EHR. Patients book NP telehealth on Fresha — see Hello Gorgeous RX™ patient hub.";

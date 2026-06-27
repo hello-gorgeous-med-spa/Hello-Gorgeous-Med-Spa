@@ -167,13 +167,26 @@ export const HELLO_GORGEOUS_RX_START_PATH = "/hello-gorgeous-rx/start-here";
 /** Unified patient hub — refills, add-ons, guides, telehealth at `/rx/care`. */
 export const RX_PATIENT_CARE_PATH = "/rx/care";
 
+/** Secure RX patient ↔ staff messaging at `/rx/messages`. */
+export { RX_MESSAGES_PATH } from "@/lib/rx-secure-messages";
+
+/**
+ * Hello Gorgeous RX™ NP telehealth — **Fresha schedule** (not Charm).
+ * Override with `NEXT_PUBLIC_FRESHA_RX_TELEHEALTH_URL` for a dedicated service link.
+ */
+export const HG_RX_TELEHEALTH_BOOKING_URL = resolvePublicBookingUrl(
+  process.env.NEXT_PUBLIC_FRESHA_RX_TELEHEALTH_URL,
+  FRESHA_49_CONSULT_BOOKING_URL,
+);
+
+export const HG_RX_TELEHEALTH_BOOKING_LABEL = "Book telehealth on Fresha";
+
 export {
   CHARM_EHR_STAFF_URL,
   CHARM_PHR_PORTAL_URL,
   CHARM_TELEHEALTH_BOOKING_URL,
   CHARM_TELEHEALTH_BOOKING_LABEL,
   CHARM_RX_TELEHEALTH_INSTRUCTIONS,
-  HG_RX_TELEHEALTH_BOOKING_URL,
 } from "@/lib/charm-ehr";
 
 /** VIP Model Program — $250 deposit / Reserve (Fresha paid plans). */

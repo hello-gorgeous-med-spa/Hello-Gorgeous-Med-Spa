@@ -4,7 +4,12 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 
 import { SMSDisclosure } from "@/components/SMSDisclosure";
-import { HG_RX_TELEHEALTH_BOOKING_URL } from "@/lib/flows";
+import { RxSecureMessages } from "@/components/rx/RxSecureMessages";
+import { RxPatientStatusCard } from "@/components/rx/RxPatientStatusCard";
+import {
+  HG_RX_TELEHEALTH_BOOKING_LABEL,
+  HG_RX_TELEHEALTH_BOOKING_URL,
+} from "@/lib/flows";
 import {
   GLP1_SUBCUTANEOUS_INJECTION_GUIDE_URL,
   glp1PatientGuideLabel,
@@ -43,16 +48,24 @@ import {
   peptidePatientPdfsForAddon,
   type PeptideMonthlyAddonId,
 } from "@/lib/peptide-monthly-addons";
+import {
+  RX_SUPPLY_CYCLES,
+  RX_TELEHEALTH_CADENCE_DAYS,
+} from "@/lib/rx-supply-cycle";
+import { rxMessagesHref } from "@/lib/rx-secure-messages";
+import { rxStatusHref } from "@/lib/rx-patient-status";
 
 type SubmitResult =
   | {
       kind: "qualified";
       reference: string;
+      submissionId?: string;
       priceLabel?: string;
       lineLabel?: string;
       priceUsd?: number;
       invoiceTemplateId?: string;
       medication?: string;
+      supplyCycle?: string;
       addon?: {
         id: PeptideMonthlyAddonId;
         shortLabel: string;
@@ -175,7 +188,7 @@ function validateStep(stepIndex: number, data: Record<string, unknown>): Record<
     if (glp1RefillPricingRequiresTier(med) && !String(data.refill_dose_tier || "").trim()) {
       errors.refill_dose_tier = "Select your dose tier";
     }
-    if (glp1RefillPricingRequiresTier(med) && !computeGlp1RefillQuote(med, String(data.refill_dose_tier || ""))) {
+    if (glp1RefillPricingRequiresTier(med) && !computeGlp1RefillQuote(med, String(data.refill_dose_tier || ""), data.supply_cycle)) {
       errors.refill_dose_tier = "Select a valid dose tier";
     }
     const weight = Number.parseFloat(String(data.weight_lbs || ""));
@@ -214,6 +227,7 @@ export function Glp1RefillForm() {
   const [formData, setFormData] = useState<Record<string, unknown>>({
     state: "IL",
     monthly_peptide_addon: GLP1_REFILL_ADDON_NONE,
+    supply_cycle: RX_SUPPLY_CYCLES["90-day"].label,
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [busy, setBusy] = useState(false);
@@ -241,8 +255,13 @@ export function Glp1RefillForm() {
   const medication = String(formData.current_medication || "");
   const tierOptions = useMemo(() => glp1RefillTierOptions(medication), [medication]);
   const refillQuote = useMemo(
-    () => computeGlp1RefillQuote(medication, String(formData.refill_dose_tier || "")),
-    [medication, formData.refill_dose_tier],
+    () =>
+      computeGlp1RefillQuote(
+        medication,
+        String(formData.refill_dose_tier || ""),
+        formData.supply_cycle,
+      ),
+    [medication, formData.refill_dose_tier, formData.supply_cycle],
   );
   const selectedAddon = useMemo(
     () => parseGlp1RefillAddonSelection(formData.monthly_peptide_addon),
@@ -262,7 +281,11 @@ export function Glp1RefillForm() {
         delete next.refill_line_label;
         if (value === GLP1_INSURANCE_OVERSIGHT.label) {
           next.refill_dose_tier = GLP1_INSURANCE_OVERSIGHT.id;
-          const quote = computeGlp1RefillQuote(String(value), GLP1_INSURANCE_OVERSIGHT.id);
+          const quote = computeGlp1RefillQuote(
+            String(value),
+            GLP1_INSURANCE_OVERSIGHT.id,
+            next.supply_cycle,
+          );
           if (quote) {
             next.refill_price_usd = quote.priceUsd;
             next.refill_price_label = quote.priceLabel;
@@ -271,8 +294,12 @@ export function Glp1RefillForm() {
           }
         }
       }
-      if (fieldId === "refill_dose_tier") {
-        const quote = computeGlp1RefillQuote(String(next.current_medication || ""), String(value || ""));
+      if (fieldId === "refill_dose_tier" || fieldId === "supply_cycle") {
+        const quote = computeGlp1RefillQuote(
+          String(next.current_medication || ""),
+          String(next.refill_dose_tier || ""),
+          next.supply_cycle,
+        );
         if (quote) {
           next.refill_price_usd = quote.priceUsd;
           next.refill_price_label = quote.priceLabel;
@@ -309,10 +336,22 @@ export function Glp1RefillForm() {
     setStep((s) => Math.max(s - 1, 0));
   }
 
-  async function payRefill(reference: string, templateId: string, priceUsd?: number) {
+  async function payRefill(
+    reference: string,
+    templateId: string,
+    priceUsd?: number,
+    submissionId?: string,
+    supplyCycle?: string,
+  ) {
     setPayBusy(true);
     setErr(null);
-    const outcome = await startGlp1RefillCheckout({ reference, templateId, amountUsd: priceUsd });
+    const outcome = await startGlp1RefillCheckout({
+      reference,
+      submissionId,
+      templateId,
+      amountUsd: priceUsd,
+      supplyCycle,
+    });
     if (outcome.error) setErr(outcome.error);
     setPayBusy(false);
   }
@@ -322,14 +361,18 @@ export function Glp1RefillForm() {
     templateId: string,
     priceUsd?: number,
     lineLabel?: string,
+    submissionId?: string,
+    supplyCycle?: string,
   ) {
     setAutopayBusy(true);
     setErr(null);
     const outcome = await startGlp1RefillAutopay({
       reference,
+      submissionId,
       templateId,
       amountUsd: priceUsd,
       lineLabel,
+      supplyCycle,
     });
     if (outcome.error) setErr(outcome.error);
     setAutopayBusy(false);
@@ -349,6 +392,7 @@ export function Glp1RefillForm() {
     const quote = computeGlp1RefillQuote(
       String(formData.current_medication || ""),
       String(formData.refill_dose_tier || ""),
+      formData.supply_cycle,
     );
     const addon = parseGlp1RefillAddonSelection(formData.monthly_peptide_addon);
 
@@ -366,6 +410,9 @@ export function Glp1RefillForm() {
               refill_price_label: quote.priceLabel,
               rx_invoice_template_id: quote.invoiceTemplateId,
               refill_line_label: quote.lineLabel,
+              supply_cycle: quote.supplyCycle,
+              supply_shipping_usd: quote.shippingUsd,
+              supply_savings_note: quote.savingsNote,
             }
           : {}),
         ...(addon
@@ -402,15 +449,19 @@ export function Glp1RefillForm() {
         return;
       }
       const reference = String(data.reference || "");
+      const submissionId = String(data.submission_id || data.id || "");
       const qualifiedResult: SubmitResult = eligibility.qualified
         ? {
             kind: "qualified",
             reference,
+            submissionId: submissionId || undefined,
             priceLabel: quote?.priceLabel,
             lineLabel: quote?.lineLabel,
             priceUsd: quote?.priceUsd,
             invoiceTemplateId: quote?.invoiceTemplateId,
             medication: String(formData.current_medication || "").trim(),
+            supplyCycle: quote?.supplyCycle,
+            savingsNote: quote?.savingsNote,
             addon: addon
               ? {
                   id: addon.id,
@@ -438,7 +489,10 @@ export function Glp1RefillForm() {
     const canPay = Boolean(result.invoiceTemplateId && result.priceUsd);
     const medication = result.medication || String(formData.current_medication || "").trim();
     const patientGuideUrl = glp1PatientGuideUrl(medication);
-    const payAmountLabel = result.priceLabel?.replace("/mo", "") ?? `$${result.priceUsd ?? ""}`;
+    const payAmountLabel = result.priceLabel ?? `$${result.priceUsd ?? ""}`;
+    const is90Day =
+      result.supplyCycle === "90-day" || String(formData.supply_cycle || "").includes("90");
+    const patientEmail = String(formData.email || "").trim();
 
     return (
       <div className="rounded-2xl border-2 border-black bg-green-50 p-8 text-center shadow-lg">
@@ -458,7 +512,10 @@ export function Glp1RefillForm() {
             </p>
             <p className="mt-1 text-3xl font-black text-green-900">{result.priceLabel}</p>
             {result.lineLabel && (
-              <p className="mt-1 text-xs text-green-800">{result.lineLabel} · medication + supplies</p>
+              <p className="mt-1 text-xs text-green-800">
+                {result.lineLabel} · medication + supplies
+                {result.savingsNote || refillQuote?.savingsNote ? ` · ${result.savingsNote || refillQuote?.savingsNote}` : ""}
+              </p>
             )}
             {result.addon && (
               <div className="mt-3 border-t border-green-700/20 pt-3 text-left">
@@ -484,7 +541,8 @@ export function Glp1RefillForm() {
           </p>
         )}
         <p className="mt-4 text-xs text-green-800 max-w-md mx-auto leading-relaxed">
-          Download your guides below, pay your invoice when ready, and book your monthly check-in with Ryan.
+          Download your guides below, pay when ready, book telehealth on Fresha every{" "}
+          {RX_TELEHEALTH_CADENCE_DAYS} days (sooner if your dose changes), and message us securely anytime.
         </p>
 
         <div className="mt-6 mx-auto max-w-sm space-y-3 text-left">
@@ -511,7 +569,13 @@ export function Glp1RefillForm() {
               type="button"
               disabled={payBusy || autopayBusy}
               onClick={() =>
-                payRefill(result.reference, result.invoiceTemplateId!, result.priceUsd)
+                payRefill(
+                  result.reference,
+                  result.invoiceTemplateId!,
+                  result.priceUsd,
+                  result.submissionId,
+                  result.supplyCycle,
+                )
               }
               className="flex w-full items-center justify-between rounded-xl bg-[#E6007E] px-4 py-3.5 text-sm font-bold text-white hover:bg-black transition-colors disabled:opacity-60"
             >
@@ -519,7 +583,7 @@ export function Glp1RefillForm() {
               <span aria-hidden="true">→</span>
             </button>
           )}
-          {canPay && (
+          {canPay && !is90Day && (
             <button
               type="button"
               disabled={payBusy || autopayBusy}
@@ -529,6 +593,8 @@ export function Glp1RefillForm() {
                   result.invoiceTemplateId!,
                   result.priceUsd,
                   result.lineLabel,
+                  result.submissionId,
+                  result.supplyCycle,
                 )
               }
               className="flex w-full items-center justify-between rounded-xl border-2 border-[#E6007E] bg-white px-4 py-3.5 text-sm font-bold text-[#E6007E] hover:bg-[#FFF0F7] transition-colors disabled:opacity-60"
@@ -581,9 +647,38 @@ export function Glp1RefillForm() {
             rel="noopener noreferrer"
             className="flex w-full items-center justify-between rounded-xl border-2 border-green-800 bg-green-800 px-4 py-3.5 text-sm font-bold text-white hover:bg-black transition-colors"
           >
-            <span>Book monthly check-in</span>
+            <span>{HG_RX_TELEHEALTH_BOOKING_LABEL}</span>
             <span aria-hidden="true">→</span>
           </a>
+          <Link
+            href={rxStatusHref(result.reference, patientEmail)}
+            className="flex w-full items-center justify-between rounded-xl border-2 border-black bg-white px-4 py-3.5 text-sm font-bold text-green-900 hover:border-[#E6007E] transition-colors"
+          >
+            <span>Track refill status</span>
+            <span aria-hidden="true">📍</span>
+          </Link>
+          <Link
+            href={rxMessagesHref(result.reference, patientEmail)}
+            className="flex w-full items-center justify-between rounded-xl border-2 border-black bg-white px-4 py-3.5 text-sm font-bold text-green-900 hover:border-[#E6007E] transition-colors"
+          >
+            <span>Message us securely</span>
+            <span aria-hidden="true">💬</span>
+          </Link>
+        </div>
+
+        <div className="mt-6 mx-auto max-w-sm">
+          <RxPatientStatusCard
+            compact
+            initialRef={result.reference}
+            initialEmail={patientEmail}
+          />
+        </div>
+        <div className="mt-4 mx-auto max-w-sm">
+          <RxSecureMessages
+            compact
+            initialRef={result.reference}
+            initialEmail={patientEmail}
+          />
         </div>
 
         <p className="mt-4 text-[11px] text-green-700/80 max-w-sm mx-auto">
@@ -855,10 +950,16 @@ function RefillTierSelector({
       {quote && (
         <div className="mt-4 rounded-xl border-2 border-[#E6007E]/30 bg-[#FFF0F7] px-4 py-3">
           <p className="text-[10px] font-bold uppercase tracking-widest text-[#E6007E]">
-            Refill total this month
+            {quote.supplyCycle === "90-day" ? "90-day refill total" : "Refill total this month"}
           </p>
           <p className="mt-1 text-3xl font-black text-black">{quote.priceLabel}</p>
           <p className="mt-1 text-xs text-black/55">{quote.lineLabel} · includes medication & supplies</p>
+          {quote.shippingUsd > 0 && (
+            <p className="mt-1 text-xs text-black/50">Includes ${quote.shippingUsd} cold-chain shipping</p>
+          )}
+          {quote.savingsNote && (
+            <p className="mt-2 text-xs font-semibold text-[#E6007E]">{quote.savingsNote}</p>
+          )}
         </div>
       )}
       {error && <p className="mt-2 text-xs text-red-500">{error}</p>}

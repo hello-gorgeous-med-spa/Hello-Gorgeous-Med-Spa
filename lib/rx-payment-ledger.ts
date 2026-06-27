@@ -453,6 +453,52 @@ export function rxLedgerToCsv(rows: RxPaymentLedgerRow[]): string {
   return lines.join("\n");
 }
 
+/** Latest ledger row for a submission (paid preferred over pending). */
+export async function getLatestLedgerForSubmission(
+  submissionId: string,
+  client?: SupabaseClient | null,
+): Promise<RxPaymentLedgerRow | null> {
+  const admin = client ?? getSupabaseAdminClient();
+  if (!admin || !submissionId.trim()) return null;
+
+  const { data: bySubmission } = await admin
+    .from("hg_rx_payment_ledger")
+    .select("*")
+    .eq("submission_id", submissionId)
+    .order("created_at", { ascending: false })
+    .limit(5);
+
+  if (bySubmission?.length) {
+    const rows = (bySubmission as Record<string, unknown>[]).map(mapRow);
+    const paid = rows.find((r) => r.payment_status === "paid");
+    return paid ?? rows[0] ?? null;
+  }
+
+  return null;
+}
+
+/** Latest ledger row matched by intake ref prefix. */
+export async function getLatestLedgerForIntakeRef(
+  intakeRef: string,
+  client?: SupabaseClient | null,
+): Promise<RxPaymentLedgerRow | null> {
+  const admin = client ?? getSupabaseAdminClient();
+  const ref = intakeRef.trim().toUpperCase();
+  if (!admin || !ref) return null;
+
+  const { data } = await admin
+    .from("hg_rx_payment_ledger")
+    .select("*")
+    .ilike("intake_ref", `${ref}%`)
+    .order("created_at", { ascending: false })
+    .limit(5);
+
+  if (!data?.length) return null;
+  const rows = (data as Record<string, unknown>[]).map(mapRow);
+  const paid = rows.find((r) => r.payment_status === "paid");
+  return paid ?? rows[0] ?? null;
+}
+
 export const RX_LEDGER_SOURCES: { id: RxLedgerSource; label: string }[] = [
   { id: "staff_invoice", label: "Staff invoice" },
   { id: "glp1_checkout", label: "GLP-1 checkout" },

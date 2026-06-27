@@ -6,9 +6,9 @@ import { FadeUp } from "@/components/Section";
 import { CTA } from "@/components/CTA";
 import {
   CHARM_PHR_PORTAL_URL,
-  CHARM_TELEHEALTH_BOOKING_LABEL,
-  CHARM_TELEHEALTH_BOOKING_URL,
-} from "@/lib/charm-ehr";
+  HG_RX_TELEHEALTH_BOOKING_LABEL,
+  HG_RX_TELEHEALTH_BOOKING_URL,
+} from "@/lib/flows";
 
 const telehealthServices = [
   {
@@ -138,8 +138,8 @@ export function TelehealthContent() {
                 Get expert medical care from the comfort of your home. Connect with Ryan Kent, FNP-BC for consultations, follow-ups, and prescription management.
               </p>
               <div className="mt-8 flex flex-col sm:flex-row gap-4">
-                <CTA href={CHARM_TELEHEALTH_BOOKING_URL} variant="gradient" className="inline-flex">
-                  {CHARM_TELEHEALTH_BOOKING_LABEL}
+                <CTA href={HG_RX_TELEHEALTH_BOOKING_URL} variant="gradient" className="inline-flex">
+                  {HG_RX_TELEHEALTH_BOOKING_LABEL}
                 </CTA>
                 <a
                   href={CHARM_PHR_PORTAL_URL}
@@ -230,8 +230,8 @@ export function TelehealthContent() {
                       &ldquo;Telehealth allows me to provide the same high-quality care you&apos;d receive in-office, with the convenience of connecting from wherever you are. I&apos;m committed to making healthcare accessible and personalized for every patient.&rdquo;
                     </p>
                   </div>
-                  <CTA href={CHARM_TELEHEALTH_BOOKING_URL} variant="gradient" className="inline-flex">
-                    {CHARM_TELEHEALTH_BOOKING_LABEL}
+                  <CTA href={HG_RX_TELEHEALTH_BOOKING_URL} variant="gradient" className="inline-flex">
+                    {HG_RX_TELEHEALTH_BOOKING_LABEL}
                   </CTA>
                 </div>
               </div>
@@ -287,7 +287,7 @@ export function TelehealthContent() {
                   <p className="text-black/80 text-sm flex-1 mb-4">{service.description}</p>
                   <div className="flex items-center justify-between mt-auto">
                     <span className="text-[#E6007E] font-bold">{service.price}</span>
-                    <CTA href={CHARM_TELEHEALTH_BOOKING_URL} variant="outline" className="!px-4 !py-2 !text-sm">
+                    <CTA href={HG_RX_TELEHEALTH_BOOKING_URL} variant="outline" className="!px-4 !py-2 !text-sm">
                       Book in Charm
                     </CTA>
                   </div>
@@ -443,8 +443,8 @@ export function TelehealthContent() {
               Book your telehealth appointment with Ryan Kent, FNP-BC today. Same-day appointments often available.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <CTA href={CHARM_TELEHEALTH_BOOKING_URL} variant="gradient" className="inline-flex">
-                {CHARM_TELEHEALTH_BOOKING_LABEL}
+              <CTA href={HG_RX_TELEHEALTH_BOOKING_URL} variant="gradient" className="inline-flex">
+                {HG_RX_TELEHEALTH_BOOKING_LABEL}
               </CTA>
               <a
                 href="tel:630-636-6193"

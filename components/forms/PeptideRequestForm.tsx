@@ -5,7 +5,7 @@ import Link from "next/link";
 
 import { SMSDisclosure } from "@/components/SMSDisclosure";
 import {
-  CHARM_TELEHEALTH_BOOKING_LABEL,
+  HG_RX_TELEHEALTH_BOOKING_LABEL,
   HG_RX_TELEHEALTH_BOOKING_URL,
 } from "@/lib/flows";
 import type { IntakeFormField } from "@/lib/hgos/intake-forms";
@@ -403,7 +403,7 @@ export function PeptideRequestForm({
               rel="noopener noreferrer"
               className="inline-flex w-full max-w-sm items-center justify-center rounded-xl bg-[#E6007E] px-8 py-4 font-bold text-white hover:bg-black transition-colors"
             >
-              {CHARM_TELEHEALTH_BOOKING_LABEL} →
+              {HG_RX_TELEHEALTH_BOOKING_LABEL} →
             </a>
           )}
         </div>

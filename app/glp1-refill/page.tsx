@@ -102,9 +102,10 @@ export default function Glp1RefillPage() {
                 </span>
               </h1>
               <p className="mt-4 text-base md:text-lg text-[#FFB8DC]/95 leading-relaxed max-w-xl font-medium">
-                Request your next month of tirzepatide or semaglutide. Medication ships{" "}
-                <strong className="text-white">directly to your home</strong> after Ryan approves your refill
-                and monthly check-in.
+                Request your next month of tirzepatide or semaglutide — or prepay a{" "}
+                <strong className="text-white">90-day supply</strong> with one shipping fee. Medication ships
+                directly to your home after Ryan approves your refill and your Fresha telehealth visit (every
+                90 days when stable on dose).
               </p>
             </div>
 

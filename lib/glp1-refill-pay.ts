@@ -8,11 +8,14 @@ const PENDING_SUCCESS_KEY = "hg-glp1-refill-pending-success";
 export type PendingGlp1RefillSuccess = {
   kind: "qualified";
   reference: string;
+  submissionId?: string;
   priceLabel?: string;
   lineLabel?: string;
   priceUsd?: number;
   invoiceTemplateId?: string;
   medication?: string;
+  supplyCycle?: string;
+  savingsNote?: string;
   addon?: {
     id: string;
     shortLabel: string;
@@ -74,8 +77,10 @@ export function clearPendingGlp1RefillSuccess() {
 export async function startGlp1RefillCheckout(
   input: {
     reference: string;
+    submissionId?: string;
     templateId: string;
     amountUsd?: number;
+    supplyCycle?: string;
   },
 ): Promise<{ error?: string }> {
   try {
@@ -98,9 +103,11 @@ export async function startGlp1RefillCheckout(
 export async function startGlp1RefillAutopay(
   input: {
     reference: string;
+    submissionId?: string;
     templateId: string;
     amountUsd?: number;
     lineLabel?: string;
+    supplyCycle?: string;
   },
 ): Promise<{ error?: string; mode?: string }> {
   try {

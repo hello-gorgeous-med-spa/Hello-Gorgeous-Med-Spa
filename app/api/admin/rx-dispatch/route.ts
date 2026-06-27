@@ -95,6 +95,23 @@ export async function GET(req: NextRequest) {
     }
   }
 
+  let ledgerBySubmission = new Map<string, Record<string, unknown>>();
+  let ledgerByRef = new Map<string, Record<string, unknown>>();
+  if (submissionIds.length > 0) {
+    const { data: ledgerRows } = await admin
+      .from("hg_rx_payment_ledger")
+      .select("id, submission_id, intake_ref, payment_status, amount_usd, paid_at, line_label")
+      .in("submission_id", submissionIds)
+      .order("created_at", { ascending: false });
+
+    for (const row of ledgerRows ?? []) {
+      const sid = String(row.submission_id || "");
+      if (sid && !ledgerBySubmission.has(sid)) ledgerBySubmission.set(sid, row);
+      const ref = String(row.intake_ref || "").toUpperCase();
+      if (ref && !ledgerByRef.has(ref)) ledgerByRef.set(ref, row);
+    }
+  }
+
   const items = rows
     .map((row) => {
       const template = templateById.get(row.template_id);
@@ -112,10 +129,15 @@ export async function GET(req: NextRequest) {
         ? { ...defaults, ...existing, submission_id: row.id }
         : { ...defaults, submission_id: row.id };
 
+      const ref = intakeRef(row.access_token);
+      const ledger =
+        ledgerBySubmission.get(row.id) ??
+        (ref ? ledgerByRef.get(ref.toUpperCase()) : undefined);
+
       return {
         submissionId: row.id,
         submittedAt: row.submitted_at,
-        intakeRef: intakeRef(row.access_token),
+        intakeRef: ref,
         slug,
         templateTitle: template?.title ?? slug,
         track: intakeTrackFromSlug(slug),
@@ -126,6 +148,15 @@ export async function GET(req: NextRequest) {
         summary: intakeSummaryLines(slug, responses),
         responses,
         dispatch,
+        payment: ledger
+          ? {
+              id: String(ledger.id),
+              status: String(ledger.payment_status),
+              amountUsd: Number(ledger.amount_usd),
+              paidAt: (ledger.paid_at as string | null) ?? null,
+              lineLabel: (ledger.line_label as string | null) ?? null,
+            }
+          : null,
       };
     })
     .filter(Boolean) as Array<{

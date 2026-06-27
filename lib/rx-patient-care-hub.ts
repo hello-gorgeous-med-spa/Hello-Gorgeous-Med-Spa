@@ -7,11 +7,15 @@ import {
   GLP1_INTAKE_PATH,
   GLP1_REFILL_PATH,
   HELLO_GORGEOUS_RX_START_PATH,
+  HG_RX_TELEHEALTH_BOOKING_LABEL,
   HG_RX_TELEHEALTH_BOOKING_URL,
   PEPTIDE_REQUEST_PATH,
   PROGRAM_CONSULT_FEE_USD,
+  RX_MESSAGES_PATH,
   RX_PATIENT_CARE_PATH,
 } from "@/lib/flows";
+import { RX_STATUS_PATH } from "@/lib/rx-patient-status";
+import { RX_TELEHEALTH_CADENCE_DAYS } from "@/lib/rx-supply-cycle";
 import { GLP1_PROGRAM } from "@/lib/glp1-program-pricing";
 import { GLP1_SUBCUTANEOUS_INJECTION_GUIDE_URL } from "@/lib/glp1-refill-patient-docs";
 import {
@@ -97,9 +101,9 @@ export type RxCareAddonCard = {
 
 export const RX_PATIENT_CARE_TRUST = [
   "Home delivery",
+  "90-day supply option",
   "Pay online",
-  "Auto-pay available",
-  "Patient guides included",
+  "Secure messaging 24/7",
   "NP-supervised",
   "Illinois residents",
 ] as const;
@@ -117,9 +121,9 @@ export const RX_PATIENT_CARE_JOURNEY = [
     id: "approve",
     step: 2,
     title: "Telehealth check-in",
-    detail: "Ryan reviews your chart and confirms your monthly visit in Charm.",
+    detail: `Book NP telehealth on Fresha every ${RX_TELEHEALTH_CADENCE_DAYS} days when stable on dose — sooner if you need a dose change.`,
     href: HG_RX_TELEHEALTH_BOOKING_URL,
-    cta: "Book telehealth",
+    cta: HG_RX_TELEHEALTH_BOOKING_LABEL,
     external: true,
   },
   {
@@ -161,9 +165,9 @@ export const RX_PATIENT_CARE_SECTIONS: RxCareSection[] = [
     cards: [
       {
         id: "glp1-refill",
-        title: "GLP-1 monthly refill",
+        title: "GLP-1 refill",
         description:
-          "Tirzepatide or semaglutide with home delivery, dose-tier pricing, pay online, and optional auto-pay.",
+          "Tirzepatide or semaglutide with 30- or 90-day supply, one shipping fee per 90 days, pay online, optional monthly auto-pay on 30-day cycles.",
         href: GLP1_REFILL_PATH,
         cta: "Start GLP-1 refill",
         priceHint: `$${GLP1_PROGRAM.injectable.monthlyFromUsd}–$${GLP1_PROGRAM.injectable.tirzepatideStandardUsd}/mo`,
@@ -198,15 +202,39 @@ export const RX_PATIENT_CARE_SECTIONS: RxCareSection[] = [
       {
         id: "telehealth-checkin",
         title: "Telehealth check-in",
-        description: "Required before shipping. Book your monthly NP visit in Charm EHR.",
+        description: `Required every ${RX_TELEHEALTH_CADENCE_DAYS} days before shipping. Book on Fresha — not monthly unless your dose changes.`,
         href: HG_RX_TELEHEALTH_BOOKING_URL,
-        cta: "Book telehealth",
+        cta: HG_RX_TELEHEALTH_BOOKING_LABEL,
         badge: "Required",
         icon: "📹",
         external: true,
         image: RX_CARE_IMAGES.telehealth,
         imageAlt: "Ryan Kent, FNP-BC",
         iconTag: { emoji: "🩺", label: "NP-supervised" },
+      },
+      {
+        id: "secure-messages",
+        title: "Secure clinical messaging",
+        description: "Message Ryan's team anytime — dose questions, shipping, or protocol changes. Replies in your private thread.",
+        href: RX_MESSAGES_PATH,
+        cta: "Open secure messages",
+        badge: "24/7",
+        icon: "💬",
+        image: RX_CARE_IMAGES.team,
+        imageAlt: "Hello Gorgeous clinical team",
+        iconTag: { emoji: "🔒", label: "Private thread" },
+      },
+      {
+        id: "refill-status",
+        title: "Track your refill",
+        description: "See intake, telehealth, payment, pharmacy approval, and shipping in one timeline.",
+        href: RX_STATUS_PATH,
+        cta: "Check status",
+        badge: "Live",
+        icon: "📍",
+        image: RX_CARE_IMAGES.rxOverview,
+        imageAlt: "Track Hello Gorgeous RX refill",
+        iconTag: { emoji: "✓", label: "Step by step" },
       },
     ],
   },

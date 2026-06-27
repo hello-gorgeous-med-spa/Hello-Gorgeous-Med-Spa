@@ -5,6 +5,14 @@
 import { getSupabaseAdminClient } from "@/lib/hgos/supabase-admin";
 import { notifyOwnerFormSubmission } from "@/lib/notifications/form-alert";
 import type { RxPaymentLedgerRow } from "@/lib/rx-payment-ledger";
+import { SITE } from "@/lib/seo";
+
+const BASE = () => process.env.NEXT_PUBLIC_APP_URL || SITE.url;
+
+function adminDispatchLink(intakeRef?: string | null): string | null {
+  if (!intakeRef?.trim()) return `${BASE()}/admin/rx`;
+  return `${BASE()}/admin/rx-dispatch?ref=${encodeURIComponent(intakeRef.trim().toUpperCase())}`;
+}
 
 type RefillContext = {
   patientName: string | null;
@@ -65,6 +73,8 @@ export function notifyStaffGlp1RefillPaymentEvent(opts: {
       ? `$${opts.amountUsd.toFixed(2)}`
       : null;
 
+  const dispatchLink = adminDispatchLink(opts.intakeRef);
+
   const lines = [
     eventHeadline(opts.event),
     opts.patientName || "—",
@@ -73,6 +83,7 @@ export function notifyStaffGlp1RefillPaymentEvent(opts: {
     amount || "—",
     opts.intakeRef ? `Ref ${opts.intakeRef}` : null,
     eventDetail(opts.event),
+    dispatchLink ? `Open: ${dispatchLink}` : null,
   ].filter(Boolean);
 
   notifyOwnerFormSubmission({
@@ -85,6 +96,7 @@ export function notifyStaffGlp1RefillPaymentEvent(opts: {
 export async function notifyStaffGlp1RefillCheckoutStarted(opts: {
   event: "checkout" | "autopay";
   intakeRef?: string | null;
+  submissionId?: string | null;
   templateName?: string | null;
   lineLabel?: string | null;
   amountUsd?: number | null;

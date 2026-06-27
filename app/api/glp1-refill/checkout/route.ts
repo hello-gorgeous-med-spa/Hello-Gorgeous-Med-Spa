@@ -1,5 +1,5 @@
 // GLP-1 refill — one-time monthly invoice (Square Payment Links)
-// POST { reference, templateId, amountUsd? }
+// POST { reference, submissionId?, templateId, amountUsd?, supplyCycle? }
 
 import { NextRequest, NextResponse } from "next/server";
 
@@ -11,12 +11,20 @@ import {
   getRxInvoiceTemplate,
   resolveTemplateAmountUsd,
 } from "@/lib/rx-invoice-templates";
+import { getSupabaseAdminClient } from "@/lib/hgos/supabase-admin";
+import { resolveRxSubmissionContext } from "@/lib/rx-submission-context";
 import { SITE } from "@/lib/seo";
 
 export const dynamic = "force-dynamic";
 
 export async function POST(req: NextRequest) {
-  let body: { reference?: string; templateId?: string; amountUsd?: number };
+  let body: {
+    reference?: string;
+    submissionId?: string;
+    templateId?: string;
+    amountUsd?: number;
+    supplyCycle?: string;
+  };
   try {
     body = await req.json();
   } catch {
@@ -24,6 +32,7 @@ export async function POST(req: NextRequest) {
   }
 
   const reference = String(body?.reference || "").trim();
+  const submissionId = String(body?.submissionId || "").trim();
   const templateId = String(body?.templateId || "").trim();
   if (!templateId) {
     return NextResponse.json({ error: "templateId is required" }, { status: 400 });
@@ -39,13 +48,21 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Invalid amount for this template" }, { status: 400 });
   }
 
+  const admin = getSupabaseAdminClient();
+  const ctx =
+    admin && (submissionId || reference)
+      ? await resolveRxSubmissionContext(admin, { submissionId, intakeRef: reference })
+      : null;
+
+  const intakeRef = ctx?.intakeRef || reference || null;
+
   const redirectBase = `${SITE.url}${GLP1_REFILL_PATH}`;
-  const redirectUrl = reference
-    ? `${redirectBase}?paid=1&ref=${encodeURIComponent(reference)}`
+  const redirectUrl = intakeRef
+    ? `${redirectBase}?paid=1&ref=${encodeURIComponent(intakeRef)}`
     : `${redirectBase}?paid=1`;
 
-  const description = reference
-    ? `Hello Gorgeous RX refill · Ref ${reference} · ${template.lineLabel}`
+  const description = intakeRef
+    ? `Hello Gorgeous RX refill · Ref ${intakeRef} · ${template.lineLabel}`
     : `Hello Gorgeous RX refill · ${template.lineLabel}`;
 
   const linkResult = await createRxPaymentLink({
@@ -61,7 +78,12 @@ export async function POST(req: NextRequest) {
   }
 
   await insertRxPaymentLedger({
-    intakeRef: reference || null,
+    submissionId: ctx?.submissionId ?? submissionId || null,
+    intakeRef,
+    clientId: ctx?.clientId ?? null,
+    clientName: ctx?.clientName ?? null,
+    clientEmail: ctx?.clientEmail ?? null,
+    clientPhone: ctx?.clientPhone ?? null,
     source: "glp1_checkout",
     templateId: template.id,
     templateName: template.name,
@@ -72,12 +94,17 @@ export async function POST(req: NextRequest) {
     squarePaymentLinkId: linkResult.paymentLinkId,
     squareOrderId: linkResult.orderId,
     deliveryMethod: "patient_portal",
-    metadata: reference ? { reference } : {},
+    metadata: {
+      ...(intakeRef ? { reference: intakeRef } : {}),
+      ...(body.supplyCycle ? { supply_cycle: body.supplyCycle } : {}),
+      ...(ctx?.submissionId ? { submission_id: ctx.submissionId } : {}),
+    },
   });
 
   void notifyStaffGlp1RefillCheckoutStarted({
     event: "checkout",
-    intakeRef: reference || null,
+    intakeRef,
+    submissionId: ctx?.submissionId ?? submissionId || null,
     templateName: template.name,
     lineLabel: template.lineLabel,
     amountUsd,

@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 
 import {
-  CHARM_TELEHEALTH_BOOKING_LABEL,
+  HG_RX_TELEHEALTH_BOOKING_LABEL,
   GLP1_REFILL_PATH,
   HELLO_GORGEOUS_RX_START_PATH,
   HG_RX_TELEHEALTH_BOOKING_URL,
@@ -171,7 +171,7 @@ export function ClientAppRxHub({ onClose }: Props) {
           className="rounded-xl py-3 text-center text-sm font-semibold"
           style={{ border: `1px solid ${accent.border}`, color: accent.subtitle }}
         >
-          {CHARM_TELEHEALTH_BOOKING_LABEL} →
+          {HG_RX_TELEHEALTH_BOOKING_LABEL} →
         </a>
       </div>
 
@@ -228,7 +228,7 @@ export function ClientAppRxHub({ onClose }: Props) {
                           className="mt-3 block w-full rounded-xl py-2.5 text-center text-sm font-semibold"
                           style={{ border: `1px solid ${accent.border}`, color: accent.subtitle }}
                         >
-                          {CHARM_TELEHEALTH_BOOKING_LABEL} →
+                          {HG_RX_TELEHEALTH_BOOKING_LABEL} →
                         </a>
                       )}
                     </div>

@@ -1,5 +1,5 @@
 // GLP-1 refill — monthly auto-pay (Square subscription checkout)
-// POST { reference, templateId, amountUsd?, lineLabel? }
+// POST { reference, submissionId?, templateId, amountUsd?, lineLabel?, supplyCycle? }
 
 import { NextRequest, NextResponse } from "next/server";
 
@@ -10,13 +10,22 @@ import {
   getRxInvoiceTemplate,
   resolveTemplateAmountUsd,
 } from "@/lib/rx-invoice-templates";
+import { getSupabaseAdminClient } from "@/lib/hgos/supabase-admin";
+import { resolveRxSubmissionContext } from "@/lib/rx-submission-context";
 import { SITE } from "@/lib/seo";
 import { createMembershipCheckoutUrl } from "@/lib/square/membership-checkout";
 
 export const dynamic = "force-dynamic";
 
 export async function POST(req: NextRequest) {
-  let body: { reference?: string; templateId?: string; amountUsd?: number; lineLabel?: string };
+  let body: {
+    reference?: string;
+    submissionId?: string;
+    templateId?: string;
+    amountUsd?: number;
+    lineLabel?: string;
+    supplyCycle?: string;
+  };
   try {
     body = await req.json();
   } catch {
@@ -24,6 +33,7 @@ export async function POST(req: NextRequest) {
   }
 
   const reference = String(body?.reference || "").trim();
+  const submissionId = String(body?.submissionId || "").trim();
   const templateId = String(body?.templateId || "").trim();
   if (!templateId) {
     return NextResponse.json({ error: "templateId is required" }, { status: 400 });
@@ -39,10 +49,17 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Invalid amount for this template" }, { status: 400 });
   }
 
+  const admin = getSupabaseAdminClient();
+  const ctx =
+    admin && (submissionId || reference)
+      ? await resolveRxSubmissionContext(admin, { submissionId, intakeRef: reference })
+      : null;
+
+  const intakeRef = ctx?.intakeRef || reference || null;
   const lineLabel = String(body?.lineLabel || template.lineLabel).trim();
   const redirectBase = `${SITE.url}${GLP1_REFILL_PATH}`;
-  const redirectUrl = reference
-    ? `${redirectBase}?autopay=1&ref=${encodeURIComponent(reference)}`
+  const redirectUrl = intakeRef
+    ? `${redirectBase}?autopay=1&ref=${encodeURIComponent(intakeRef)}`
     : `${redirectBase}?autopay=1`;
 
   try {
@@ -54,21 +71,32 @@ export async function POST(req: NextRequest) {
     });
 
     await insertRxPaymentLedger({
-      intakeRef: reference || null,
+      submissionId: ctx?.submissionId ?? submissionId || null,
+      intakeRef,
+      clientId: ctx?.clientId ?? null,
+      clientName: ctx?.clientName ?? null,
+      clientEmail: ctx?.clientEmail ?? null,
+      clientPhone: ctx?.clientPhone ?? null,
       source: "glp1_autopay",
       templateId: template.id,
       templateName: template.name,
       track: template.track,
-      lineLabel: lineLabel,
+      lineLabel,
       amountUsd,
       paymentUrl: result.url,
       deliveryMethod: "patient_portal",
-      metadata: { mode: result.mode, reference: reference || null },
+      metadata: {
+        mode: result.mode,
+        reference: intakeRef,
+        ...(body.supplyCycle ? { supply_cycle: body.supplyCycle } : {}),
+        ...(ctx?.submissionId ? { submission_id: ctx.submissionId } : {}),
+      },
     });
 
     void notifyStaffGlp1RefillCheckoutStarted({
       event: "autopay",
-      intakeRef: reference || null,
+      intakeRef,
+      submissionId: ctx?.submissionId ?? submissionId || null,
       templateName: template.name,
       lineLabel,
       amountUsd,

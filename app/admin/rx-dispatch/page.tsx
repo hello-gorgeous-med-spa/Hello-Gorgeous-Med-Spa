@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useCallback, useEffect, useMemo, useState } from "react";
+import { useSearchParams } from "next/navigation";
 
 import {
   CLINIC_SHIP_ADDRESS,
@@ -28,6 +29,13 @@ type QueueItem = {
   summary: string[];
   responses: Record<string, unknown>;
   dispatch: RxDispatchRecord;
+  payment: {
+    id: string;
+    status: string;
+    amountUsd: number;
+    paidAt: string | null;
+    lineLabel: string | null;
+  } | null;
 };
 
 const STATUS_FILTERS: { id: RxDispatchStatus | "all"; label: string }[] = [
@@ -36,6 +44,8 @@ const STATUS_FILTERS: { id: RxDispatchStatus | "all"; label: string }[] = [
 ];
 
 export default function RxDispatchPage() {
+  const searchParams = useSearchParams();
+  const refFilter = searchParams.get("ref")?.trim().toUpperCase() || "";
   const [items, setItems] = useState<QueueItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [statusFilter, setStatusFilter] = useState<RxDispatchStatus | "all">("all");
@@ -66,10 +76,21 @@ export default function RxDispatchPage() {
     loadQueue();
   }, [loadQueue]);
 
+  const visibleItems = useMemo(() => {
+    if (!refFilter) return items;
+    return items.filter((i) => i.intakeRef.toUpperCase().startsWith(refFilter));
+  }, [items, refFilter]);
+
   const selected = useMemo(
-    () => items.find((i) => i.submissionId === selectedId) ?? null,
-    [items, selectedId],
+    () => visibleItems.find((i) => i.submissionId === selectedId) ?? items.find((i) => i.submissionId === selectedId) ?? null,
+    [visibleItems, items, selectedId],
   );
+
+  useEffect(() => {
+    if (refFilter && visibleItems.length === 1) {
+      setSelectedId(visibleItems[0].submissionId);
+    }
+  }, [refFilter, visibleItems]);
 
   useEffect(() => {
     if (selected) {
@@ -155,6 +176,9 @@ export default function RxDispatchPage() {
           </p>
         </div>
         <div className="flex flex-col items-end gap-1 shrink-0">
+          <Link href="/admin/rx" className="text-xs text-[#FFB8DC] hover:text-white">
+            Command center →
+          </Link>
           <Link href="/admin/rx-ledger" className="text-xs text-[#FFB8DC] hover:text-white">
             Payment ledger →
           </Link>
@@ -184,16 +208,26 @@ export default function RxDispatchPage() {
         ))}
       </div>
 
+      {refFilter && (
+        <p className="text-xs text-[#FFB8DC] mb-3">
+          Filtered to ref <span className="font-mono font-bold">{refFilter}</span> ·{" "}
+          <Link href="/admin/rx-dispatch" className="underline">
+            clear
+          </Link>
+        </p>
+      )}
+
       {loading ? (
         <p className="text-sm text-gray-500 py-8 text-center">Loading intake queue…</p>
-      ) : items.length === 0 ? (
+      ) : visibleItems.length === 0 ? (
         <p className="text-sm text-gray-500 py-8 text-center">
-          No peptide or GLP-1 intakes yet. Submissions from /peptide-request and /glp1-intake
-          appear here.
+          {refFilter
+            ? `No intake matching ref ${refFilter}.`
+            : "No peptide or GLP-1 intakes yet. Submissions from /peptide-request and /glp1-intake appear here."}
         </p>
       ) : (
         <div className="space-y-2 mb-8">
-          {items.map((item) => {
+          {visibleItems.map((item) => {
             const active = selectedId === item.submissionId;
             return (
               <button
@@ -230,6 +264,15 @@ export default function RxDispatchPage() {
                     <p className="text-[10px] text-[#FFB8DC] mt-1 uppercase tracking-wide">
                       {item.dispatch.status.replace("_", " ")}
                     </p>
+                    {item.payment && (
+                      <p
+                        className={`text-[10px] mt-1 font-bold uppercase ${
+                          item.payment.status === "paid" ? "text-green-300" : "text-amber-200"
+                        }`}
+                      >
+                        Pay {item.payment.status} · ${item.payment.amountUsd}
+                      </p>
+                    )}
                   </div>
                 </div>
               </button>

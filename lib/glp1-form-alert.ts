@@ -62,7 +62,8 @@ export function formatGlp1StaffAlert(opts: {
           line("Current dose", responses.current_dose),
           line("Last injection", responses.last_dose_date),
           line("Weight (lbs)", responses.weight_lbs),
-          line("Visit within 12 mo", responses.last_visit_within_12mo),
+          line("Supply cycle", responses.supply_cycle),
+          line("Visit within 90 days", responses.last_visit_within_12mo),
           line("Side effects", responses.side_effects),
           line("Dose changes", responses.dose_changes),
           line("Ship to home", responses.ship_to_home),
@@ -75,9 +76,9 @@ export function formatGlp1StaffAlert(opts: {
     line("Disqualification reasons", disqual),
     "",
     isRefill
-      ? "ACTION: Ryan to review → monthly check-in → RX Dispatch (ship to patient) → BoomRx."
+      ? "ACTION: Ryan to review → Fresha telehealth (every 90d) → RX Dispatch (ship) → BoomRx. Secure messages: /admin/rx-messages"
       : "ACTION: Review intake → book consult if qualified.",
-    "Hub: https://www.hellogorgeousmedspa.com/admin/rx-dispatch",
+    "Hub: https://www.hellogorgeousmedspa.com/admin/rx",
   ].filter(Boolean);
 
   const smsLines = [
