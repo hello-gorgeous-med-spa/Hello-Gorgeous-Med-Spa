@@ -35,8 +35,21 @@ function payBadge(status: string | null) {
   return "bg-red-500/20 text-red-200";
 }
 
+type RefillDueItem = {
+  clientId: string;
+  clientName: string | null;
+  medication: string;
+  doseLabel: string | null;
+  supplyCycle: string;
+  urgency: "due_soon" | "overdue";
+  daysUntilDue: number;
+  dueAt: string;
+};
+
 export default function AdminRxCommandCenterPage() {
   const [items, setItems] = useState<RxCommandItem[]>([]);
+  const [dueRefills, setDueRefills] = useState<RefillDueItem[]>([]);
+  const [dueCounts, setDueCounts] = useState({ overdue: 0, dueSoon: 0 });
   const [loading, setLoading] = useState(true);
   const [actionMsg, setActionMsg] = useState<string | null>(null);
   const [busyId, setBusyId] = useState<string | null>(null);
@@ -46,7 +59,11 @@ export default function AdminRxCommandCenterPage() {
     try {
       const res = await fetch("/api/admin/rx?limit=50");
       const data = await res.json();
-      if (res.ok) setItems(data.items || []);
+      if (res.ok) {
+        setItems(data.items || []);
+        setDueRefills(data.dueRefills || []);
+        setDueCounts(data.dueCounts || { overdue: 0, dueSoon: 0 });
+      }
     } finally {
       setLoading(false);
     }
@@ -120,6 +137,9 @@ export default function AdminRxCommandCenterPage() {
             <Link href="/admin/rx/clinic-sale" className="text-[#FFB8DC] hover:text-white">
               Clinic sale →
             </Link>
+            <Link href="/admin/rx/clinic-reports" className="text-[#FFB8DC] hover:text-white">
+              Clinic reports →
+            </Link>
             <Link href="/admin/rx-invoices" className="text-[#FFB8DC] hover:text-white">
               Invoices →
             </Link>
@@ -130,6 +150,47 @@ export default function AdminRxCommandCenterPage() {
           <p className="mb-4 rounded-lg border border-[#E6007E]/40 bg-[#E6007E]/10 px-4 py-2 text-sm text-[#FFB8DC]">
             {actionMsg}
           </p>
+        )}
+
+        {(dueCounts.overdue > 0 || dueCounts.dueSoon > 0) && (
+          <div className="mb-6 rounded-xl border border-amber-500/40 bg-amber-500/10 p-4">
+            <div className="flex flex-wrap items-center justify-between gap-3 mb-3">
+              <h2 className="font-black text-amber-100">Clinic refills due</h2>
+              <span className="text-xs text-amber-200/80">
+                {dueCounts.overdue} overdue · {dueCounts.dueSoon} due within 7 days
+              </span>
+            </div>
+            <div className="space-y-2">
+              {dueRefills.slice(0, 8).map((d) => (
+                <div
+                  key={d.clientId}
+                  className="flex flex-wrap items-center justify-between gap-2 rounded-lg bg-black/20 px-3 py-2 text-sm"
+                >
+                  <div>
+                    <span className="font-semibold">{d.clientName || "Client"}</span>
+                    <span className="text-gray-400 ml-2">
+                      {d.medication} {d.doseLabel} · {d.supplyCycle}
+                    </span>
+                    <span
+                      className={`ml-2 text-[10px] font-bold uppercase ${
+                        d.urgency === "overdue" ? "text-red-300" : "text-amber-200"
+                      }`}
+                    >
+                      {d.urgency === "overdue"
+                        ? `${Math.abs(d.daysUntilDue)}d overdue`
+                        : `${d.daysUntilDue}d left`}
+                    </span>
+                  </div>
+                  <Link
+                    href={`/admin/rx/clinic-sale?client=${d.clientId}&refill=1`}
+                    className="text-[#FFB8DC] font-bold text-xs hover:underline"
+                  >
+                    Refill →
+                  </Link>
+                </div>
+              ))}
+            </div>
+          </div>
         )}
 
         {loading ? (

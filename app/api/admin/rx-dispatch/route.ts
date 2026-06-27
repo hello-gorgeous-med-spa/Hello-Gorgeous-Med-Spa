@@ -10,6 +10,7 @@ import {
   intakeTrackFromSlug,
   type RxDispatchRecord,
 } from "@/lib/rx-dispatch";
+import { listClinicDispatchQueue } from "@/lib/rx-clinic-refill";
 
 export const dynamic = "force-dynamic";
 
@@ -170,8 +171,13 @@ export async function GET(req: NextRequest) {
       ? items.filter((i) => i.dispatch.status === statusFilter)
       : items;
 
+  const { items: clinicItems, tableReady: clinicTableReady } =
+    await listClinicDispatchQueue(statusFilter ?? undefined, admin);
+
   return NextResponse.json({
     items: filtered,
+    clinicItems,
+    clinicTableReady,
     dispatchTableReady: dispatchBySubmission.size > 0 || submissionIds.length === 0,
   });
 }

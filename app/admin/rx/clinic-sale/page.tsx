@@ -54,6 +54,7 @@ export default function ClinicRxSalePage() {
   const searchParams = useSearchParams();
   const prefillClientId = searchParams.get("client") || "";
   const prefillEncounterId = searchParams.get("encounter") || "";
+  const prefillRefill = searchParams.get("refill") === "1";
 
   const [medications, setMedications] = useState<MedicationOption[]>([]);
   const [supplyCycles, setSupplyCycles] = useState<SupplyCycle[]>([]);
@@ -122,6 +123,39 @@ export default function ClinicRxSalePage() {
       if (res.ok && data.client) pickClient(data.client as Client);
     })();
   }, [prefillClientId]);
+
+  useEffect(() => {
+    if (!prefillClientId || !prefillRefill) return;
+    (async () => {
+      const res = await fetch(
+        `/api/admin/rx/clinic-refills/prep?client_id=${encodeURIComponent(prefillClientId)}`,
+      );
+      const data = await res.json();
+      if (!res.ok || !data.prefill) {
+        setError(data.error || "Could not load refill");
+        return;
+      }
+      const p = data.prefill;
+      setSavedEncounter(null);
+      setEncounterType("refill");
+      setMedication(p.medication);
+      setDoseTierId(p.doseTierId);
+      setSupplyCycle(p.supplyCycle);
+      setConsultFeeUsd("0");
+      setDiscountUsd("0");
+      setDiscountReason("");
+      setShipLine1(p.shipAddressLine1 || "");
+      setShipLine2(p.shipAddressLine2 || "");
+      setShipCity(p.shipCity || "");
+      setShipState(p.shipState || "IL");
+      setShipZip(p.shipZip || "");
+      setPharmacy(p.pharmacy || "formulation");
+      setSig(p.sig || "");
+      setStaffNotes(p.staffNotes || "");
+      setClinical(p.clinical || {});
+      if (data.snapshot) setSnapshot(data.snapshot);
+    })();
+  }, [prefillClientId, prefillRefill]);
 
   useEffect(() => {
     if (!prefillEncounterId) return;
@@ -429,6 +463,15 @@ export default function ClinicRxSalePage() {
           </Link>
         </div>
       </div>
+
+      {prefillRefill && (
+        <div className="rounded-2xl border-4 border-black bg-amber-50 px-4 py-3 mb-6">
+          <p className="font-black text-amber-900">One-click refill — same dose & address</p>
+          <p className="text-sm text-amber-900/80 mt-1">
+            Pricing recalculates from your tier table. Confirm and charge at the terminal.
+          </p>
+        </div>
+      )}
 
       {error && (
         <div className="rounded-xl border-2 border-red-600 bg-red-50 px-4 py-3 text-red-800 font-medium">

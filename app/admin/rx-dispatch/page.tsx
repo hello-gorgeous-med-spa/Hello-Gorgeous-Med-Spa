@@ -14,6 +14,7 @@ import {
   type RxPharmacy,
   type RxShipTo,
 } from "@/lib/rx-dispatch";
+import type { ClinicDispatchQueueItem } from "@/lib/rx-clinic-refill";
 
 type QueueItem = {
   submissionId: string;
@@ -47,6 +48,8 @@ export default function RxDispatchPage() {
   const searchParams = useSearchParams();
   const refFilter = searchParams.get("ref")?.trim().toUpperCase() || "";
   const [items, setItems] = useState<QueueItem[]>([]);
+  const [clinicItems, setClinicItems] = useState<ClinicDispatchQueueItem[]>([]);
+  const [queueTab, setQueueTab] = useState<"online" | "clinic">("online");
   const [loading, setLoading] = useState(true);
   const [statusFilter, setStatusFilter] = useState<RxDispatchStatus | "all">("all");
   const [selectedId, setSelectedId] = useState<string | null>(null);
@@ -65,6 +68,7 @@ export default function RxDispatchPage() {
       const data = await res.json();
       if (res.ok) {
         setItems(data.items || []);
+        setClinicItems(data.clinicItems || []);
       }
     } catch (e) {
       console.error(e);
@@ -174,7 +178,7 @@ export default function RxDispatchPage() {
             <span className="text-[#FF2D8E]">RX</span> Dispatch
           </h1>
           <p className="text-xs text-gray-400 mt-1 max-w-md">
-            Approved intakes → copy into Formulation or BoomRx → send payment link.
+            Online intakes + in-person clinic sales → ship to patient home.
           </p>
         </div>
         <div className="flex flex-col items-end gap-1 shrink-0">
@@ -193,6 +197,70 @@ export default function RxDispatchPage() {
         </div>
       </div>
 
+      <div className="flex flex-wrap gap-2 mb-4">
+        <button
+          type="button"
+          onClick={() => setQueueTab("online")}
+          className={`rounded-full px-3 py-1.5 text-xs font-bold border-2 ${
+            queueTab === "online"
+              ? "border-[#E6007E] bg-[#E6007E]/20 text-[#FFB8DC]"
+              : "border-gray-700 text-gray-400"
+          }`}
+        >
+          Online ({items.length})
+        </button>
+        <button
+          type="button"
+          onClick={() => setQueueTab("clinic")}
+          className={`rounded-full px-3 py-1.5 text-xs font-bold border-2 ${
+            queueTab === "clinic"
+              ? "border-[#E6007E] bg-[#E6007E]/20 text-[#FFB8DC]"
+              : "border-gray-700 text-gray-400"
+          }`}
+        >
+          Clinic ({clinicItems.length})
+        </button>
+      </div>
+
+      {queueTab === "clinic" ? (
+        <div className="space-y-3 mb-8">
+          {loading ? (
+            <p className="text-sm text-gray-500 py-8 text-center">Loading…</p>
+          ) : clinicItems.length === 0 ? (
+            <p className="text-sm text-gray-500 py-8 text-center">No paid clinic sales awaiting ship.</p>
+          ) : (
+            clinicItems.map((c) => (
+              <div
+                key={c.encounterId}
+                className="rounded-xl border border-white/10 bg-white/5 p-4 space-y-2"
+              >
+                <div className="flex flex-wrap justify-between gap-2">
+                  <div>
+                    <p className="font-semibold">{c.patientName}</p>
+                    <p className="text-[11px] text-gray-500 font-mono">{c.intakeRef}</p>
+                  </div>
+                  <span className="text-[10px] uppercase font-bold text-[#FFB8DC]">
+                    {c.dispatchStatus}
+                  </span>
+                </div>
+                <p className="text-sm text-gray-300">
+                  {c.medication} {c.doseLabel} · {c.supplyCycle} · ${c.paymentAmountUsd}
+                </p>
+                <p className="text-xs text-gray-500">
+                  Ship: {c.shipAddressLine1}, {c.shipCity}, {c.shipState} {c.shipZip}
+                </p>
+                <Link
+                  href={`/admin/rx/clinic-sale?encounter=${c.encounterId}`}
+                  className="inline-block text-xs font-bold text-[#FFB8DC] hover:underline"
+                >
+                  Ship / tracking →
+                </Link>
+              </div>
+            ))
+          )}
+        </div>
+      ) : (
+        <>
       <div className="flex flex-wrap gap-2 mb-4">
         {STATUS_FILTERS.map((f) => (
           <button
@@ -526,6 +594,8 @@ export default function RxDispatchPage() {
         <p className="text-center text-sm text-gray-500 py-4">
           Select an intake to prepare the pharmacy order.
         </p>
+      )}
+        </>
       )}
     </div>
   );

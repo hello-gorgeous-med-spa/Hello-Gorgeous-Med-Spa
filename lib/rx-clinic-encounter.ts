@@ -7,6 +7,7 @@ import type { SupabaseClient } from "@supabase/supabase-js";
 
 import { computeGlp1RefillQuote, type Glp1RefillQuote } from "@/lib/glp1-refill-pricing";
 import { getSupabaseAdminClient } from "@/lib/hgos/supabase-admin";
+import { notifyPatientClinicRxShipped } from "@/lib/rx-clinic-ship-notify";
 import {
   insertRxPaymentLedger,
   updateRxPaymentLedger,
@@ -679,7 +680,7 @@ export async function updateClinicEncounterDispatch(
     status = "shipped";
   }
 
-  return updateClinicEncounter(
+  const result = await updateClinicEncounter(
     id,
     {
       dispatchStatus,
@@ -690,6 +691,34 @@ export async function updateClinicEncounterDispatch(
     },
     client,
   );
+
+  if ("error" in result) return result;
+
+  if (
+    dispatchStatus === "shipped" &&
+    encounter.dispatch_status !== "shipped"
+  ) {
+    const admin = client ?? getSupabaseAdminClient();
+    if (admin) {
+      const { data: clientRow } = await admin
+        .from("clients")
+        .select("first_name, last_name, phone")
+        .eq("id", result.row.client_id)
+        .maybeSingle();
+      const patientName = clientRow
+        ? `${clientRow.first_name || ""} ${clientRow.last_name || ""}`.trim()
+        : "Patient";
+      await notifyPatientClinicRxShipped({
+        phone: clientRow?.phone,
+        patientName,
+        carrier: result.row.carrier,
+        trackingNumber: result.row.tracking_number,
+        encounter: result.row,
+      });
+    }
+  }
+
+  return result;
 }
 
 export type RxClinicEncounterWithClient = RxClinicEncounterRow & {

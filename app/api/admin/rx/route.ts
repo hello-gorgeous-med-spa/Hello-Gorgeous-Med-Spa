@@ -14,6 +14,7 @@ import {
   listClinicEncountersWithClient,
   type RxClinicEncounterWithClient,
 } from "@/lib/rx-clinic-encounter";
+import { listDueClinicRefills } from "@/lib/rx-clinic-refill";
 import { intakeRefFromToken } from "@/lib/rx-submission-context";
 
 export const dynamic = "force-dynamic";
@@ -141,7 +142,18 @@ export async function GET(req: NextRequest) {
     clinicItems.sort(
       (a, b) => new Date(b.submittedAt).getTime() - new Date(a.submittedAt).getTime(),
     );
-    return NextResponse.json({ items: clinicItems.slice(0, limit) });
+    const { items: dueRefills, tableReady: dueTableReady } = await listDueClinicRefills({
+      limit: 20,
+    });
+    return NextResponse.json({
+      items: clinicItems.slice(0, limit),
+      dueRefills,
+      dueTableReady,
+      dueCounts: {
+        overdue: dueRefills.filter((d) => d.urgency === "overdue").length,
+        dueSoon: dueRefills.filter((d) => d.urgency === "due_soon").length,
+      },
+    });
   }
 
   const { data: submissions } = await admin
@@ -248,5 +260,17 @@ export async function GET(req: NextRequest) {
     (a, b) => new Date(b.submittedAt).getTime() - new Date(a.submittedAt).getTime(),
   );
 
-  return NextResponse.json({ items: merged.slice(0, limit) });
+  const { items: dueRefills, tableReady: dueTableReady } = await listDueClinicRefills({
+    limit: 20,
+  });
+
+  return NextResponse.json({
+    items: merged.slice(0, limit),
+    dueRefills,
+    dueTableReady,
+    dueCounts: {
+      overdue: dueRefills.filter((d) => d.urgency === "overdue").length,
+      dueSoon: dueRefills.filter((d) => d.urgency === "due_soon").length,
+    },
+  });
 }

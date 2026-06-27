@@ -5,6 +5,7 @@ import { useCallback, useEffect, useState } from "react";
 
 import type { RxClinicEncounterWithClient } from "@/lib/rx-clinic-encounter";
 import { RX_CLINIC_ENCOUNTER_TYPES } from "@/lib/rx-clinic-encounter";
+import type { RefillDueItem, RefillPrepResult } from "@/lib/rx-clinic-refill";
 
 function formatUsd(n: number): string {
   return `$${n.toFixed(2)}`;
@@ -12,6 +13,18 @@ function formatUsd(n: number): string {
 
 function encounterTypeLabel(id: string): string {
   return RX_CLINIC_ENCOUNTER_TYPES.find((t) => t.id === id)?.label ?? id;
+}
+
+function urgencyLabel(item: RefillDueItem | RefillPrepResult["due"]): string {
+  if (item.urgency === "overdue") {
+    const days = "daysUntilDue" in item && item.daysUntilDue != null ? Math.abs(item.daysUntilDue) : 0;
+    return days > 0 ? `${days} days overdue` : "Overdue";
+  }
+  if (item.urgency === "due_soon") {
+    const days = "daysUntilDue" in item ? item.daysUntilDue : null;
+    return days != null ? `Due in ${days} days` : "Due soon";
+  }
+  return "On track";
 }
 
 export function ClientRxWeightLossTab({
@@ -22,16 +35,22 @@ export function ClientRxWeightLossTab({
   clientName: string;
 }) {
   const [rows, setRows] = useState<RxClinicEncounterWithClient[]>([]);
+  const [refillPrep, setRefillPrep] = useState<RefillPrepResult | null>(null);
   const [loading, setLoading] = useState(true);
 
   const load = useCallback(async () => {
     setLoading(true);
     try {
-      const res = await fetch(
-        `/api/admin/rx/clinic-encounters?client_id=${encodeURIComponent(clientId)}&limit=20`,
-      );
-      const data = await res.json();
-      if (res.ok) setRows(data.rows || []);
+      const [encRes, prepRes] = await Promise.all([
+        fetch(`/api/admin/rx/clinic-encounters?client_id=${encodeURIComponent(clientId)}&limit=20`),
+        fetch(`/api/admin/rx/clinic-refills/prep?client_id=${encodeURIComponent(clientId)}`),
+      ]);
+      const encData = await encRes.json();
+      if (encRes.ok) setRows(encData.rows || []);
+
+      const prepData = await prepRes.json();
+      if (prepRes.ok) setRefillPrep(prepData as RefillPrepResult);
+      else setRefillPrep(null);
     } finally {
       setLoading(false);
     }
@@ -44,6 +63,8 @@ export function ClientRxWeightLossTab({
   const active = rows.find(
     (r) => r.status === "paid" || r.status === "ready_to_ship" || r.status === "shipped",
   );
+
+  const canRefill = !!refillPrep;
 
   if (loading) {
     return <div className="animate-pulse h-40 bg-white rounded-xl border border-black/10" />;
@@ -59,13 +80,41 @@ export function ClientRxWeightLossTab({
             {clientName}.
           </p>
         </div>
-        <Link
-          href={`/admin/rx/clinic-sale?client=${clientId}`}
-          className="px-4 py-2 rounded-full bg-gradient-to-r from-[#FF2D8E] to-[#E6007E] text-white text-sm font-bold"
-        >
-          + New clinic sale
-        </Link>
+        <div className="flex flex-wrap gap-2">
+          {canRefill && (
+            <Link
+              href={`/admin/rx/clinic-sale?client=${clientId}&refill=1`}
+              className="px-4 py-2 rounded-full border-2 border-black font-bold text-sm hover:border-[#E6007E] hover:text-[#E6007E]"
+            >
+              Refill — same dose
+            </Link>
+          )}
+          <Link
+            href={`/admin/rx/clinic-sale?client=${clientId}`}
+            className="px-4 py-2 rounded-full bg-gradient-to-r from-[#FF2D8E] to-[#E6007E] text-white text-sm font-bold"
+          >
+            + New clinic sale
+          </Link>
+        </div>
       </div>
+
+      {refillPrep && refillPrep.due.urgency !== "ok" && (
+        <div
+          className={`rounded-2xl border-4 border-black p-4 ${
+            refillPrep.due.urgency === "overdue" ? "bg-red-50" : "bg-amber-50"
+          }`}
+        >
+          <p className="font-black text-sm uppercase tracking-wider">
+            {refillPrep.due.urgency === "overdue" ? "Refill overdue" : "Refill due soon"}
+          </p>
+          <p className="text-sm mt-1">{urgencyLabel(refillPrep.due)}</p>
+          {refillPrep.due.dueAt && (
+            <p className="text-xs text-black/60 mt-1">
+              Next refill target: {new Date(refillPrep.due.dueAt).toLocaleDateString()}
+            </p>
+          )}
+        </div>
+      )}
 
       {active && (
         <div className="rounded-2xl border-4 border-black bg-rose-50 p-5 shadow-[6px_6px_0_0_rgba(230,0,126,0.25)]">
