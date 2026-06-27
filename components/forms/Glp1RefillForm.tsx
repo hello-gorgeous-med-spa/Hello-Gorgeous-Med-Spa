@@ -1,10 +1,24 @@
 "use client";
 
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 
 import { SMSDisclosure } from "@/components/SMSDisclosure";
 import { HG_RX_TELEHEALTH_BOOKING_URL } from "@/lib/flows";
+import {
+  GLP1_SUBCUTANEOUS_INJECTION_GUIDE_URL,
+  glp1PatientGuideLabel,
+  glp1PatientGuideUrl,
+} from "@/lib/glp1-refill-patient-docs";
+import {
+  cleanGlp1RefillReturnUrl,
+  isGlp1RefillPaid,
+  markGlp1RefillPaid,
+  readPendingGlp1RefillSuccess,
+  savePendingGlp1RefillSuccess,
+  startGlp1RefillAutopay,
+  startGlp1RefillCheckout,
+} from "@/lib/glp1-refill-pay";
 import {
   GLP1_REFILL_DISQUALIFIED_MESSAGE,
   GLP1_REFILL_INTAKE_SLUG,
@@ -23,7 +37,15 @@ import {
 import type { IntakeFormField } from "@/lib/hgos/intake-forms";
 
 type SubmitResult =
-  | { kind: "qualified"; reference: string; priceLabel?: string; lineLabel?: string }
+  | {
+      kind: "qualified";
+      reference: string;
+      priceLabel?: string;
+      lineLabel?: string;
+      priceUsd?: number;
+      invoiceTemplateId?: string;
+      medication?: string;
+    }
   | { kind: "disqualified"; reference: string };
 
 function SignaturePad({ onChange }: { onChange: (dataUrl: string) => void }) {
@@ -177,8 +199,25 @@ export function Glp1RefillForm() {
   const [formData, setFormData] = useState<Record<string, unknown>>({ state: "IL" });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [busy, setBusy] = useState(false);
+  const [payBusy, setPayBusy] = useState(false);
+  const [autopayBusy, setAutopayBusy] = useState(false);
   const [err, setErr] = useState<string | null>(null);
   const [result, setResult] = useState<SubmitResult | null>(null);
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const paid = params.get("paid") === "1";
+    const autopay = params.get("autopay") === "1";
+    if (!paid && !autopay) return;
+
+    const ref = params.get("ref")?.trim();
+    if (ref && paid) markGlp1RefillPaid(ref);
+
+    const pending = readPendingGlp1RefillSuccess();
+    if (pending) setResult(pending);
+
+    cleanGlp1RefillReturnUrl();
+  }, []);
 
   const currentStep = GLP1_REFILL_STEPS[step];
   const medication = String(formData.current_medication || "");
@@ -246,6 +285,32 @@ export function Glp1RefillForm() {
     setStep((s) => Math.max(s - 1, 0));
   }
 
+  async function payRefill(reference: string, templateId: string, priceUsd?: number) {
+    setPayBusy(true);
+    setErr(null);
+    const outcome = await startGlp1RefillCheckout({ reference, templateId, amountUsd: priceUsd });
+    if (outcome.error) setErr(outcome.error);
+    setPayBusy(false);
+  }
+
+  async function setupAutopay(
+    reference: string,
+    templateId: string,
+    priceUsd?: number,
+    lineLabel?: string,
+  ) {
+    setAutopayBusy(true);
+    setErr(null);
+    const outcome = await startGlp1RefillAutopay({
+      reference,
+      templateId,
+      amountUsd: priceUsd,
+      lineLabel,
+    });
+    if (outcome.error) setErr(outcome.error);
+    setAutopayBusy(false);
+  }
+
   async function submit(e: React.FormEvent) {
     e.preventDefault();
     setErr(null);
@@ -298,16 +363,21 @@ export function Glp1RefillForm() {
         return;
       }
       const reference = String(data.reference || "");
-      setResult(
-        eligibility.qualified
-          ? {
-              kind: "qualified",
-              reference,
-              priceLabel: quote?.priceLabel,
-              lineLabel: quote?.lineLabel,
-            }
-          : { kind: "disqualified", reference },
-      );
+      const qualifiedResult: SubmitResult = eligibility.qualified
+        ? {
+            kind: "qualified",
+            reference,
+            priceLabel: quote?.priceLabel,
+            lineLabel: quote?.lineLabel,
+            priceUsd: quote?.priceUsd,
+            invoiceTemplateId: quote?.invoiceTemplateId,
+            medication: String(formData.current_medication || "").trim(),
+          }
+        : { kind: "disqualified", reference };
+      setResult(qualifiedResult);
+      if (eligibility.qualified && qualifiedResult.kind === "qualified") {
+        savePendingGlp1RefillSuccess(qualifiedResult);
+      }
     } catch {
       setErr("Network error. Try again or call 630-636-6193.");
     } finally {
@@ -316,9 +386,15 @@ export function Glp1RefillForm() {
   }
 
   if (result?.kind === "qualified") {
+    const refillPaid = isGlp1RefillPaid(result.reference);
+    const canPay = Boolean(result.invoiceTemplateId && result.priceUsd);
+    const medication = result.medication || String(formData.current_medication || "").trim();
+    const patientGuideUrl = glp1PatientGuideUrl(medication);
+    const payAmountLabel = result.priceLabel?.replace("/mo", "") ?? `$${result.priceUsd ?? ""}`;
+
     return (
       <div className="rounded-2xl border-2 border-black bg-green-50 p-8 text-center shadow-lg">
-        <span className="text-4xl">✓</span>
+        <span className="text-4xl">{refillPaid ? "✓" : "📋"}</span>
         <h2 className="mt-4 font-serif text-2xl font-semibold text-green-900">Refill request received</h2>
         <p className="mt-3 text-sm text-green-800 leading-relaxed max-w-md mx-auto">
           Our clinical team will review your request within one business day. Reference{" "}
@@ -338,19 +414,85 @@ export function Glp1RefillForm() {
             )}
           </div>
         )}
-        <p className="mt-3 text-xs text-green-800 max-w-md mx-auto">
-          Our team will text you a secure payment link for{" "}
-          {result.priceLabel ? result.priceLabel.replace("/mo", "") : "your refill"} after Ryan approves your
-          check-in.
+        {refillPaid && (
+          <p className="mt-3 inline-flex items-center gap-2 rounded-full bg-white border border-green-600 px-4 py-1.5 text-xs font-bold text-green-800">
+            ✓ {payAmountLabel} paid — thank you
+          </p>
+        )}
+        <p className="mt-4 text-xs text-green-800 max-w-md mx-auto leading-relaxed">
+          Download your guides below, pay your invoice when ready, and book your monthly check-in with Ryan.
         </p>
-        <a
-          href={HG_RX_TELEHEALTH_BOOKING_URL}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="mt-6 inline-flex w-full max-w-sm items-center justify-center rounded-xl bg-[#E6007E] px-8 py-4 font-bold text-white hover:bg-black transition-colors"
-        >
-          Book monthly check-in →
-        </a>
+
+        <div className="mt-6 mx-auto max-w-sm space-y-3 text-left">
+          <a
+            href={GLP1_SUBCUTANEOUS_INJECTION_GUIDE_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex w-full items-center justify-between rounded-xl border-2 border-black bg-white px-4 py-3.5 text-sm font-bold text-green-900 hover:border-[#E6007E] transition-colors"
+          >
+            <span>Download injection guide</span>
+            <span aria-hidden="true">↓</span>
+          </a>
+          <a
+            href={patientGuideUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex w-full items-center justify-between rounded-xl border-2 border-black bg-white px-4 py-3.5 text-sm font-bold text-green-900 hover:border-[#E6007E] transition-colors"
+          >
+            <span>{glp1PatientGuideLabel(medication)}</span>
+            <span aria-hidden="true">↓</span>
+          </a>
+          {canPay && !refillPaid && (
+            <button
+              type="button"
+              disabled={payBusy || autopayBusy}
+              onClick={() =>
+                payRefill(result.reference, result.invoiceTemplateId!, result.priceUsd)
+              }
+              className="flex w-full items-center justify-between rounded-xl bg-[#E6007E] px-4 py-3.5 text-sm font-bold text-white hover:bg-black transition-colors disabled:opacity-60"
+            >
+              <span>{payBusy ? "Starting checkout…" : `Pay invoice — ${payAmountLabel}`}</span>
+              <span aria-hidden="true">→</span>
+            </button>
+          )}
+          {canPay && (
+            <button
+              type="button"
+              disabled={payBusy || autopayBusy}
+              onClick={() =>
+                setupAutopay(
+                  result.reference,
+                  result.invoiceTemplateId!,
+                  result.priceUsd,
+                  result.lineLabel,
+                )
+              }
+              className="flex w-full items-center justify-between rounded-xl border-2 border-[#E6007E] bg-white px-4 py-3.5 text-sm font-bold text-[#E6007E] hover:bg-[#FFF0F7] transition-colors disabled:opacity-60"
+            >
+              <span>
+                {autopayBusy
+                  ? "Starting auto-pay…"
+                  : `Set up monthly auto-pay — ${result.priceLabel}`}
+              </span>
+              <span aria-hidden="true">↻</span>
+            </button>
+          )}
+          <a
+            href={HG_RX_TELEHEALTH_BOOKING_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex w-full items-center justify-between rounded-xl border-2 border-green-800 bg-green-800 px-4 py-3.5 text-sm font-bold text-white hover:bg-black transition-colors"
+          >
+            <span>Book monthly check-in</span>
+            <span aria-hidden="true">→</span>
+          </a>
+        </div>
+
+        <p className="mt-4 text-[11px] text-green-700/80 max-w-sm mx-auto">
+          Guides open in a new tab — use Print or Save as PDF to download. Secure Square checkout for payment
+          and auto-pay.
+        </p>
+        {err && <p className="mt-4 text-sm text-red-700">{err}</p>}
         <p className="mt-4 text-xs text-green-700">
           Questions?{" "}
           <a href="tel:+16306366193" className="font-semibold underline">

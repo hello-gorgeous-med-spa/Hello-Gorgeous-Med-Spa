@@ -39,6 +39,7 @@ export type CreateRxPaymentLinkInput = {
   amountUsd: number;
   description?: string;
   clientLabel?: string;
+  redirectUrl?: string;
 };
 
 export type CreateRxPaymentLinkResult =
@@ -66,7 +67,7 @@ export async function createRxPaymentLink(
     return { ok: false, error: "No Square location configured.", status: 503 };
   }
 
-  const redirectUrl = `${SITE.url}/admin/rx-invoices?paid=1`;
+  const redirectUrl = input.redirectUrl?.trim() || `${SITE.url}/admin/rx-invoices?paid=1`;
   const description =
     input.description?.trim() ||
     (input.clientLabel
