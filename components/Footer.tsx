@@ -339,6 +339,12 @@ export function Footer({
               <Link className="hover:text-[#FF2D8E] transition-colors" href="/privacy#hipaa">
                 HIPAA Notice
               </Link>
+              <Link className="hover:text-[#FF2D8E] transition-colors" href="/telehealth/consent">
+                Telehealth Consent
+              </Link>
+              <Link className="hover:text-[#FF2D8E] transition-colors" href="/privacy/consumer-health-data">
+                Consumer Health Data
+              </Link>
             </div>
             <p className="text-center md:text-right text-xs">
               Medical spa services vary by provider, eligibility, and treatment plan.

@@ -386,16 +386,28 @@ export default function PrivacyPolicyPage() {
         </section>
       </main>
 
+      {/* Consumer Health Data link */}
+      <div className="max-w-4xl mx-auto px-4 pb-8">
+        <div className="p-4 rounded-lg border border-pink-200 bg-pink-50 text-sm">
+          <strong>Consumer Health Data:</strong> For our detailed Consumer Health Data Privacy Policy covering your rights under applicable state law (including Illinois, Washington, and others),{" "}
+          <Link href="/privacy/consumer-health-data" className="text-pink-600 underline">
+            view the Consumer Health Data Privacy Policy →
+          </Link>
+        </div>
+      </div>
+
       {/* Footer */}
       <footer className="bg-black text-white py-8">
         <div className="max-w-4xl mx-auto px-4 text-center">
-          <p className="text-black">
+          <p className="text-white">
             © {new Date().getFullYear()} Hello Gorgeous Med Spa. All rights reserved.
           </p>
-          <div className="flex justify-center gap-6 mt-4 text-sm">
-            <Link href="/terms" className="text-black hover:text-white">Terms of Service</Link>
-            <Link href="/privacy" className="text-black hover:text-white">Privacy Policy</Link>
-            <Link href="/contact" className="text-black hover:text-white">Contact</Link>
+          <div className="flex justify-center gap-6 mt-4 text-sm flex-wrap">
+            <Link href="/terms" className="text-white/70 hover:text-white">Terms of Service</Link>
+            <Link href="/privacy" className="text-white/70 hover:text-white">Privacy Policy</Link>
+            <Link href="/privacy/consumer-health-data" className="text-white/70 hover:text-white">Consumer Health Data</Link>
+            <Link href="/telehealth/consent" className="text-white/70 hover:text-white">Telehealth Consent</Link>
+            <Link href="/contact" className="text-white/70 hover:text-white">Contact</Link>
           </div>
         </div>
       </footer>
