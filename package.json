@@ -24,6 +24,7 @@
     "upload-square-hg-rx-images:dry-run": "npx tsx scripts/upload-hg-rx-square-images.ts --dry-run",
     "generate-peptide-picker-images": "node scripts/generate-peptide-picker-images.mjs",
     "generate-rx-care-thumbs": "npx tsx scripts/generate-rx-care-square-thumbs.ts",
+    "generate-client-rx-protocol": "npx tsx scripts/generate-client-rx-protocol-sheet.ts",
     "import-fresha-clients": "node --env-file=.env.local scripts/import-fresha-clients.mjs",
     "import-fresha-appointments": "node --env-file=.env.local scripts/import-fresha-appointments.mjs",
     "test:ai-concierge": "node scripts/test-ai-concierge.mjs"
