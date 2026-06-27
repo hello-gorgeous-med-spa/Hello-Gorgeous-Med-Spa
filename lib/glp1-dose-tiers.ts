@@ -70,7 +70,7 @@ export const GLP1_TIRZEPATIDE_DOSE_TIERS: Glp1DoseTier[] = [
     id: "tirz-10",
     medication: "Tirzepatide",
     doseLabel: "10 mg/week",
-    priceUsd: 355,
+    priceUsd: 350,
     invoiceTemplateId: "glp1-tirz-10",
   },
   {

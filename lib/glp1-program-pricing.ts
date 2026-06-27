@@ -44,7 +44,7 @@ export const GLP1_PROGRAM = {
     tirzepatideToUsd: tirzHigh,
     /** Legacy tier names — map to lowest / mid / highest tirzepatide dose tiers */
     tirzepatideStarterUsd: tirzLow,
-    tirzepatideStandardUsd: GLP1_TIRZEPATIDE_DOSE_TIERS[3]?.priceUsd ?? 355,
+    tirzepatideStandardUsd: GLP1_TIRZEPATIDE_DOSE_TIERS[3]?.priceUsd ?? 350,
     tirzepatideAdvancedUsd: tirzHigh,
     threeMonthFromUsd: 825,
     threeMonthHighDoseFromUsd: 999,

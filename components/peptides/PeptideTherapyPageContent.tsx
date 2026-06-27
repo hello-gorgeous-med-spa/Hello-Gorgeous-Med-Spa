@@ -18,6 +18,10 @@ import { getPeptideHandout, PEPTIDE_HANDOUTS, peptideHandoutHref } from "@/lib/p
 import { HELLO_GORGEOUS_RX_START_PATH, PEPTIDE_REQUEST_PATH } from "@/lib/flows";
 import { RYAN_FULL_NAME } from "@/lib/founder-credentials";
 import {
+  GLP1_PROGRAM,
+  GLP1_RETAIL_PROGRAM,
+} from "@/lib/glp1-program-pricing";
+import {
   GLP1_CATALOG,
   PEPTIDE_CATALOG,
   PEPTIDE_CATALOG_DISCLAIMER,
@@ -576,7 +580,7 @@ export function PeptideTherapyPageContent() {
               },
               {
                 label: "GLP-1 programs",
-                range: "From $349/mo",
+                range: `From $${GLP1_PROGRAM.injectable.tirzepatideStandardUsd}/mo`,
                 detail: "Semaglutide & tirzepatide with NP oversight",
               },
               {

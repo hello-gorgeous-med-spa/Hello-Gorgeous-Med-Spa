@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 
 import { Glp1IntakeForm } from "@/components/forms/Glp1IntakeForm";
@@ -41,14 +40,14 @@ export default function GLP1IntakePage() {
       <div className="mx-auto max-w-4xl px-4 py-12 md:py-16">
         <div className="flex flex-col md:flex-row md:items-center gap-8 mb-10">
           <div className="flex gap-4 shrink-0 justify-center md:justify-start">
-            <Image
+            <img
               src="/images/marketing/glp1-vial-hello-gorgeous.svg"
               alt=""
               width={100}
               height={150}
               className="drop-shadow-md"
             />
-            <Image
+            <img
               src="/images/marketing/glp1-tablets-hello-gorgeous.svg"
               alt=""
               width={100}

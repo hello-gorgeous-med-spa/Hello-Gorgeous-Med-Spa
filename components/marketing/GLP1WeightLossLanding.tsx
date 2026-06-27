@@ -1,12 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { GLP1EducationTabs } from "@/components/marketing/GLP1EducationTabs";
 import { Glp1ProgramOfferSection } from "@/components/marketing/Glp1ProgramOfferSection";
 import { BOOKING_URL, GLP1_INTAKE_PATH, PROGRAM_CONSULT_BOOKING_URL } from "@/lib/flows";
-import { GLP1_PROGRAM_CONSULT_USD } from "@/lib/glp1-program-pricing";
+import { GLP1_PROGRAM, GLP1_PROGRAM_CONSULT_USD } from "@/lib/glp1-program-pricing";
 import { GLP1_WEIGHT_LOSS_FAQS } from "@/lib/glp1-weight-loss-faqs";
 import { SITE } from "@/lib/seo";
 
@@ -45,10 +44,22 @@ export function GLP1WeightLossLanding() {
               <br />
               <em className="text-[#E6007E] not-italic font-serif">Keep your life.</em>
             </h1>
-            <p className="text-lg text-black/70 max-w-xl mx-auto lg:mx-0 mb-8 font-light">
+            <p className="text-lg text-black/70 max-w-xl mx-auto lg:mx-0 mb-4 font-light">
               Medically supervised GLP-1 therapy, personalized to you — right here in Oswego, IL. Serving Naperville, Aurora,
               Plainfield & the Fox Valley. No insurance hassle. Just real, in-person care.
             </p>
+            <div className="mb-8 inline-flex flex-col items-center lg:items-start rounded-2xl border-2 border-[#E6007E]/30 bg-white/80 px-5 py-4 shadow-sm">
+              <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#E6007E]">
+                Medication included
+              </p>
+              <p className="mt-1 font-serif text-4xl md:text-5xl font-black text-black">
+                ${GLP1_PROGRAM.injectable.tirzepatideStandardUsd}
+                <span className="text-2xl md:text-3xl font-bold text-black/70">/mo</span>
+              </p>
+              <p className="mt-1 text-sm text-black/65">
+                Tirzepatide standard dose · semaglutide from ${GLP1_PROGRAM.injectable.semaglutideFromUsd}/mo
+              </p>
+            </div>
             <div className="flex flex-wrap gap-4 justify-center lg:justify-start">
               <Link
                 href={GLP1_INTAKE_PATH}
@@ -85,20 +96,21 @@ export function GLP1WeightLossLanding() {
               .
             </p>
           </div>
-          <div className="flex justify-center lg:justify-end gap-6 order-1 lg:order-2" aria-hidden>
-            <Image
+          <div className="flex justify-center lg:justify-end items-end gap-4 sm:gap-6 order-1 lg:order-2">
+            {/* Native img — Next/Image SVG optimization breaks vial asset in production */}
+            <img
               src="/images/marketing/glp1-vial-hello-gorgeous.svg"
               alt=""
               width={140}
               height={210}
-              className="drop-shadow-xl w-[min(140px,38vw)] h-auto"
+              className="drop-shadow-xl w-[min(130px,34vw)] h-auto"
             />
-            <Image
+            <img
               src="/images/marketing/glp1-tablets-hello-gorgeous.svg"
               alt=""
               width={140}
               height={240}
-              className="drop-shadow-xl w-[min(140px,38vw)] h-auto translate-y-4"
+              className="drop-shadow-xl w-[min(140px,38vw)] h-auto translate-y-2 sm:translate-y-4"
             />
           </div>
         </div>
