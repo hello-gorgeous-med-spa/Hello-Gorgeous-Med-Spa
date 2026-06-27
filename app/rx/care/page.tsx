@@ -18,7 +18,7 @@ const PAGE_URL = `${SITE.url}${RX_PATIENT_CARE_PATH}`;
 const baseMeta = pageMetadata({
   title: "RX Patient Care Hub | Refills, Add-ons & Guides | Hello Gorgeous Oswego IL",
   description:
-    "Refill like a main character — GLP-1 home delivery, peptide renewals, NAD+ & Sermorelin stacks, patient guides, pay online, and telehealth. Hello Gorgeous RX™ · Ryan Kent, FNP-BC.",
+    "Refill GLP-1, renew peptides, stack monthly add-ons, pay your invoice, and download patient guides — supervised by Ryan Kent, FNP-BC.",
   path: RX_PATIENT_CARE_PATH,
   keywords: [
     "GLP-1 refill Oswego IL",

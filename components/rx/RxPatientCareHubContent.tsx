@@ -16,60 +16,40 @@ import {
   RX_PATIENT_CARE_TRUST,
   rxCareAddonPriceLabel,
   type RxCareCard,
-  type RxCareVisualKind,
 } from "@/lib/rx-patient-care-hub";
 import { SITE } from "@/lib/seo";
 
-function CardVisual({
-  visual = "none",
-  image,
-  imageAlt,
-  icon,
-}: {
-  visual?: RxCareVisualKind;
-  image?: string;
-  imageAlt?: string;
-  icon: string;
-}) {
-  if (visual === "photo" && image) {
-    return (
-      <div className="relative h-36 w-full shrink-0 overflow-hidden bg-[#f7f4f5] sm:h-auto sm:w-44 md:w-52">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={image}
-          alt={imageAlt ?? ""}
-          className="h-full w-full object-cover object-center transition duration-500 group-hover:scale-[1.03]"
-          loading="lazy"
-        />
-      </div>
-    );
-  }
-
-  if (visual === "vial" && image) {
-    return (
-      <div className="flex h-28 w-full shrink-0 items-center justify-center bg-gradient-to-br from-[#FFF0F7] to-white sm:h-auto sm:w-36 md:w-40">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={image}
-          alt={imageAlt ?? ""}
-          className="h-24 w-auto object-contain drop-shadow-md transition duration-500 group-hover:scale-105"
-          loading="lazy"
-        />
-      </div>
-    );
-  }
-
+function IconTagBadge({ emoji, label }: { emoji: string; label: string }) {
   return (
-    <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-[#FFF0F7] text-2xl sm:mx-1">
-      {icon}
+    <div className="hidden shrink-0 flex-col items-center justify-center gap-2 border-l border-black/8 bg-[#FFFBFC] px-5 py-4 text-center sm:flex md:px-6">
+      <span className="flex h-14 w-14 items-center justify-center rounded-full bg-[#FFF0F7] text-2xl shadow-inner ring-2 ring-[#E6007E]/15">
+        {emoji}
+      </span>
+      <span className="max-w-[88px] text-[10px] font-bold uppercase leading-tight tracking-wide text-[#E6007E]">
+        {label}
+      </span>
     </div>
   );
 }
 
 function ServiceRow({ card }: { card: RxCareCard }) {
   const body = (
-    <div className="group flex h-full flex-col overflow-hidden rounded-2xl border border-black/10 bg-white shadow-sm transition hover:border-[#E6007E]/35 hover:shadow-[0_12px_40px_rgba(230,0,126,0.12)] sm:flex-row sm:items-stretch">
-      <CardVisual visual={card.visual} image={card.image} imageAlt={card.imageAlt} icon={card.icon} />
+    <div className="group flex h-full flex-col overflow-hidden rounded-2xl border border-black/10 bg-white shadow-sm transition hover:border-[#E6007E]/35 hover:shadow-[0_16px_48px_rgba(230,0,126,0.14)] sm:flex-row sm:items-stretch">
+      {card.image ? (
+        <div className="relative h-40 w-full shrink-0 overflow-hidden bg-gradient-to-br from-[#FFF0F7] to-white sm:h-auto sm:w-48 md:w-56">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={card.image}
+            alt={card.imageAlt ?? card.title}
+            className="h-full w-full object-cover object-[center_20%] transition duration-500 group-hover:scale-[1.04]"
+            loading="lazy"
+          />
+        </div>
+      ) : (
+        <div className="flex h-24 w-full shrink-0 items-center justify-center bg-[#FFF0F7] text-4xl sm:h-auto sm:w-48 md:w-56">
+          {card.icon}
+        </div>
+      )}
       <div className="flex flex-1 flex-col justify-center p-5 sm:p-6">
         <div className="flex flex-wrap items-center gap-2">
           {card.badge && (
@@ -90,6 +70,7 @@ function ServiceRow({ card }: { card: RxCareCard }) {
           </span>
         </span>
       </div>
+      {card.iconTag && <IconTagBadge emoji={card.iconTag.emoji} label={card.iconTag.label} />}
     </div>
   );
 
@@ -377,33 +358,34 @@ export function RxPatientCareHubContent() {
                       key={addon.id}
                       type="button"
                       onClick={() => setSelectedAddon(selected ? null : addon.id)}
-                      className={`group flex w-full flex-col overflow-hidden rounded-2xl border bg-white text-left transition sm:flex-row ${
+                      className={`group flex w-full flex-col overflow-hidden rounded-2xl border bg-white text-left transition sm:flex-row sm:items-stretch ${
                         selected
                           ? "border-[#E6007E] ring-2 ring-[#E6007E]/25 shadow-[0_8px_30px_rgba(230,0,126,0.15)]"
                           : "border-black/10 shadow-sm hover:border-[#E6007E]/30 hover:shadow-md"
                       }`}
                     >
-                      <div className="flex h-32 w-full shrink-0 items-center justify-center bg-gradient-to-br from-white to-[#FFF0F7] sm:h-auto sm:w-36">
+                      <div className="relative h-36 w-full shrink-0 overflow-hidden bg-gradient-to-br from-[#FFF0F7] to-white sm:h-auto sm:w-44">
                         {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img
                           src={addon.image}
                           alt={addon.imageAlt}
-                          className="max-h-24 w-auto max-w-[80%] object-contain"
+                          className="h-full w-full object-cover object-[center_15%] transition duration-500 group-hover:scale-[1.04]"
                           loading="lazy"
                         />
                       </div>
                       <div className="flex flex-1 flex-col p-5">
                         <div className="flex items-start justify-between gap-2">
-                          <h4 className="font-bold text-black">{addon.title}</h4>
-                          <span className="shrink-0 text-sm font-bold text-[#E6007E]">
+                          <h4 className="font-bold text-black group-hover:text-[#E6007E]">{addon.title}</h4>
+                          <span className="shrink-0 rounded-lg bg-[#FFF0F7] px-2 py-1 text-sm font-bold text-[#E6007E]">
                             {rxCareAddonPriceLabel(addon.monthlyUsd)}
                           </span>
                         </div>
                         <p className="mt-2 flex-1 text-sm leading-relaxed text-black/65">{addon.description}</p>
                         {selected && (
-                          <p className="mt-3 text-xs font-semibold text-[#E6007E]">Selected for your refill</p>
+                          <p className="mt-3 text-xs font-semibold text-[#E6007E]">✓ Selected — add on refill form</p>
                         )}
                       </div>
+                      <IconTagBadge emoji={addon.iconTag.emoji} label={addon.iconTag.label} />
                     </button>
                   );
                 })}

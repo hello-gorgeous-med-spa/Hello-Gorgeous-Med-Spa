@@ -31,8 +31,19 @@ export function glp1RefillAddonsHref(): string {
   return `${GLP1_REFILL_PATH}#${GLP1_REFILL_ADDONS_ANCHOR}`;
 }
 
-/** Clean vial SVG, lifestyle photo, or text-only (no marketing flyers). */
-export type RxCareVisualKind = "none" | "vial" | "photo";
+/** Hub art — cropped from Hello Gorgeous peptide patient education (PNG, not SVG). */
+export const RX_CARE_IMAGES = {
+  nadPlus: "/images/rx-care/nad-plus-thumb.jpg",
+  sermorelin: "/images/rx-care/sermorelin-thumb.jpg",
+  bpc157: "/images/rx-care/bpc-157-thumb.jpg",
+  tirzepatide: "/images/rx-care/tirzepatide-thumb.jpg",
+  peptideLineup: "/images/rx-care/peptide-lineup-thumb.jpg",
+  nadSermorelinDuo: "/images/rx-care/nad-sermorelin-duo-thumb.jpg",
+  nadSermorelinBundle: "/images/rx-care/nad-sermorelin-bundle-thumb.jpg",
+  glp1Hero: "/images/homepage-services/compounded-tirzepatide-weight-loss.png",
+  ryanKent: "/images/providers/ryan-kent-clinic.jpg",
+  team: "/images/team/dani-ryan-founders-portrait.png",
+} as const;
 
 export type RxCareCard = {
   id: string;
@@ -44,9 +55,10 @@ export type RxCareCard = {
   badge?: string;
   icon: string;
   external?: boolean;
-  visual?: RxCareVisualKind;
   image?: string;
   imageAlt?: string;
+  /** Right-column badge like the hub mockup */
+  iconTag?: { emoji: string; label: string };
 };
 
 export type RxCareSection = {
@@ -76,6 +88,7 @@ export type RxCareAddonCard = {
   group: "individual" | "bundle";
   image: string;
   imageAlt: string;
+  iconTag: { emoji: string; label: string };
 };
 
 export const RX_PATIENT_CARE_TRUST = [
@@ -131,7 +144,7 @@ export const RX_PATIENT_CARE_HERO = {
     "Refill GLP-1, renew peptides, stack monthly add-ons, pay your invoice, and download patient guides — one place, supervised by Ryan Kent, FNP-BC.",
   primaryCta: { label: "Renew GLP-1", href: GLP1_REFILL_PATH },
   secondaryCta: { label: "Peptide refill", href: PEPTIDE_REQUEST_PATH },
-  heroImage: "/images/homepage-services/compounded-tirzepatide-weight-loss.png",
+  heroImage: RX_CARE_IMAGES.glp1Hero,
   heroImageAlt: "Compounded tirzepatide — Hello Gorgeous RX weight loss",
 } as const;
 
@@ -152,9 +165,9 @@ export const RX_PATIENT_CARE_SECTIONS: RxCareSection[] = [
         priceHint: `$${GLP1_PROGRAM.injectable.monthlyFromUsd}–$${GLP1_PROGRAM.injectable.tirzepatideStandardUsd}/mo`,
         badge: "Most requested",
         icon: "⚖️",
-        visual: "photo",
-        image: "/images/homepage-services/compounded-tirzepatide-weight-loss.png",
+        image: RX_CARE_IMAGES.glp1Hero,
         imageAlt: "GLP-1 tirzepatide refill",
+        iconTag: { emoji: "📦", label: "Home delivery" },
       },
       {
         id: "peptide-refill",
@@ -163,9 +176,9 @@ export const RX_PATIENT_CARE_SECTIONS: RxCareSection[] = [
         href: PEPTIDE_REQUEST_PATH,
         cta: "Peptide request / refill",
         icon: "🧬",
-        visual: "vial",
-        image: "/images/marketing/sermorelin-vial-hello-gorgeous.svg",
-        imageAlt: "Peptide refill",
+        image: RX_CARE_IMAGES.peptideLineup,
+        imageAlt: "Peptide protocol refill",
+        iconTag: { emoji: "🔁", label: "Keep your protocol going" },
       },
       {
         id: "rx-start-here",
@@ -174,9 +187,9 @@ export const RX_PATIENT_CARE_SECTIONS: RxCareSection[] = [
         href: HELLO_GORGEOUS_RX_START_PATH,
         cta: "Open Start Here",
         icon: "✨",
-        visual: "vial",
-        image: "/images/marketing/nad-plus-vial-hello-gorgeous.svg",
+        image: RX_CARE_IMAGES.bpc157,
         imageAlt: "Hello Gorgeous RX Start Here",
+        iconTag: { emoji: "✅", label: "Easy · fast · done for you" },
       },
       {
         id: "telehealth-checkin",
@@ -187,9 +200,9 @@ export const RX_PATIENT_CARE_SECTIONS: RxCareSection[] = [
         badge: "Required",
         icon: "📹",
         external: true,
-        visual: "photo",
-        image: "/images/providers/ryan-kent-clinic.jpg",
+        image: RX_CARE_IMAGES.ryanKent,
         imageAlt: "Ryan Kent, FNP-BC",
+        iconTag: { emoji: "🩺", label: "NP-supervised" },
       },
     ],
   },
@@ -208,9 +221,9 @@ export const RX_PATIENT_CARE_SECTIONS: RxCareSection[] = [
         priceHint: `From $${GLP1_PROGRAM.injectable.monthlyFromUsd}/mo after consult`,
         badge: "Weight loss",
         icon: "📋",
-        visual: "vial",
-        image: "/images/marketing/glp1-vial-hello-gorgeous.svg",
+        image: RX_CARE_IMAGES.tirzepatide,
         imageAlt: "GLP-1 screening",
+        iconTag: { emoji: "⚖️", label: "Medical weight loss" },
       },
       {
         id: "peptide-new",
@@ -219,9 +232,9 @@ export const RX_PATIENT_CARE_SECTIONS: RxCareSection[] = [
         href: HELLO_GORGEOUS_RX_START_PATH,
         cta: "Pick a peptide",
         icon: "🧪",
-        visual: "vial",
-        image: "/images/marketing/sermorelin-vial-hello-gorgeous.svg",
+        image: RX_CARE_IMAGES.peptideLineup,
         imageAlt: "New peptide protocol",
+        iconTag: { emoji: "🧬", label: "Personalized protocols" },
       },
       {
         id: "np-consult",
@@ -232,9 +245,9 @@ export const RX_PATIENT_CARE_SECTIONS: RxCareSection[] = [
         priceHint: `$${PROGRAM_CONSULT_FEE_USD} consult fee`,
         icon: "🩺",
         external: true,
-        visual: "photo",
-        image: "/images/team/dani-ryan-founders-portrait.png",
+        image: RX_CARE_IMAGES.team,
         imageAlt: "Hello Gorgeous medical team",
+        iconTag: { emoji: "💬", label: "Talk to our team" },
       },
       {
         id: "rx-overview",
@@ -243,28 +256,34 @@ export const RX_PATIENT_CARE_SECTIONS: RxCareSection[] = [
         href: "/rx",
         cta: "View programs",
         icon: "💎",
-        visual: "none",
+        image: RX_CARE_IMAGES.nadPlus,
+        imageAlt: "Hello Gorgeous RX programs",
+        iconTag: { emoji: "✨", label: "Full RX menu" },
       },
     ],
   },
 ];
 
-const ADDON_VISUALS: Record<PeptideMonthlyAddon["id"], Pick<RxCareAddonCard, "image" | "imageAlt">> = {
+const ADDON_VISUALS: Record<PeptideMonthlyAddon["id"], Pick<RxCareAddonCard, "image" | "imageAlt" | "iconTag">> = {
   "nad-plus": {
-    image: "/images/marketing/nad-plus-vial-hello-gorgeous.svg",
+    image: RX_CARE_IMAGES.nadPlus,
     imageAlt: "NAD+ injectable",
+    iconTag: { emoji: "⚡", label: "Cellular energy" },
   },
   sermorelin: {
-    image: "/images/marketing/sermorelin-vial-hello-gorgeous.svg",
+    image: RX_CARE_IMAGES.sermorelin,
     imageAlt: "Sermorelin injectable",
+    iconTag: { emoji: "🌙", label: "Sleep & recovery" },
   },
   "nad-sermorelin-liquid-bundle": {
-    image: "/images/nad-plus/nad-science-vial-syringe.png",
+    image: RX_CARE_IMAGES.nadSermorelinDuo,
     imageAlt: "NAD+ and Sermorelin injectable bundle",
+    iconTag: { emoji: "🔗", label: "Better together" },
   },
   "nad-sermorelin-rdt-combo": {
-    image: "/images/marketing/glp1-tablets-hello-gorgeous.svg",
+    image: RX_CARE_IMAGES.nadSermorelinBundle,
     imageAlt: "NAD+ liquid and Sermorelin troches",
+    iconTag: { emoji: "✨", label: "Fewer injections" },
   },
 };
 
