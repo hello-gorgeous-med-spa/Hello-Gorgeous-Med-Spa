@@ -36,17 +36,19 @@ function ServiceRow({ card }: { card: RxCareCard }) {
   const body = (
     <div className="group flex h-full flex-col overflow-hidden rounded-2xl border border-black/10 bg-white shadow-sm transition hover:border-[#E6007E]/35 hover:shadow-[0_16px_48px_rgba(230,0,126,0.14)] sm:flex-row sm:items-stretch">
       {card.image ? (
-        <div className="relative h-40 w-full shrink-0 overflow-hidden bg-gradient-to-br from-[#FFF0F7] to-white sm:h-auto sm:w-48 md:w-56">
+        <div className="relative aspect-square w-full shrink-0 overflow-hidden bg-[#FFF0F7] sm:w-36 md:w-40 lg:w-44">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={card.image}
             alt={card.imageAlt ?? card.title}
-            className="h-full w-full object-cover object-[center_20%] transition duration-500 group-hover:scale-[1.04]"
+            className="h-full w-full object-cover object-center transition duration-500 group-hover:scale-[1.03]"
             loading="lazy"
+            width={480}
+            height={480}
           />
         </div>
       ) : (
-        <div className="flex h-24 w-full shrink-0 items-center justify-center bg-[#FFF0F7] text-4xl sm:h-auto sm:w-48 md:w-56">
+        <div className="flex aspect-square w-full shrink-0 items-center justify-center bg-[#FFF0F7] text-4xl sm:w-36 md:w-40 lg:w-44">
           {card.icon}
         </div>
       )}
@@ -364,13 +366,15 @@ export function RxPatientCareHubContent() {
                           : "border-black/10 shadow-sm hover:border-[#E6007E]/30 hover:shadow-md"
                       }`}
                     >
-                      <div className="relative h-36 w-full shrink-0 overflow-hidden bg-gradient-to-br from-[#FFF0F7] to-white sm:h-auto sm:w-44">
+                      <div className="relative aspect-square w-full shrink-0 overflow-hidden bg-[#FFF0F7] sm:w-32 md:w-36">
                         {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img
                           src={addon.image}
                           alt={addon.imageAlt}
-                          className="h-full w-full object-cover object-[center_15%] transition duration-500 group-hover:scale-[1.04]"
+                          className="h-full w-full object-cover object-center transition duration-500 group-hover:scale-[1.03]"
                           loading="lazy"
+                          width={480}
+                          height={480}
                         />
                       </div>
                       <div className="flex flex-1 flex-col p-5">

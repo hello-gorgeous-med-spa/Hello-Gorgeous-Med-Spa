@@ -31,18 +31,22 @@ export function glp1RefillAddonsHref(): string {
   return `${GLP1_REFILL_PATH}#${GLP1_REFILL_ADDONS_ANCHOR}`;
 }
 
-/** Hub art — cropped from Hello Gorgeous peptide patient education (PNG, not SVG). */
+/** Hub art — square 480×480 crops for card rows (see scripts/generate-rx-care-square-thumbs.ts). */
 export const RX_CARE_IMAGES = {
-  nadPlus: "/images/rx-care/nad-plus-thumb.jpg",
-  sermorelin: "/images/rx-care/sermorelin-thumb.jpg",
-  bpc157: "/images/rx-care/bpc-157-thumb.jpg",
-  tirzepatide: "/images/rx-care/tirzepatide-thumb.jpg",
-  peptideLineup: "/images/rx-care/peptide-lineup-thumb.jpg",
-  nadSermorelinDuo: "/images/rx-care/nad-sermorelin-duo-thumb.jpg",
-  nadSermorelinBundle: "/images/rx-care/nad-sermorelin-bundle-thumb.jpg",
+  glp1Refill: "/images/rx-care/square/glp1-refill.jpg",
+  glp1Intake: "/images/rx-care/square/glp1-intake.jpg",
+  peptide: "/images/rx-care/square/peptide.jpg",
+  telehealth: "/images/rx-care/square/telehealth.jpg",
+  team: "/images/rx-care/square/team.jpg",
   glp1Hero: "/images/homepage-services/compounded-tirzepatide-weight-loss.png",
-  ryanKent: "/images/providers/ryan-kent-clinic.jpg",
-  team: "/images/team/dani-ryan-founders-portrait.png",
+  nadPlus: "/images/rx-care/square/nad-plus.jpg",
+  sermorelin: "/images/rx-care/square/sermorelin.jpg",
+  bpc157: "/images/rx-care/square/bpc-157.jpg",
+  nadSermorelinDuo: "/images/rx-care/square/nad-sermorelin-duo.jpg",
+  nadSermorelinBundle: "/images/rx-care/square/nad-sermorelin-bundle.jpg",
+  rxOverview: "/images/rx-care/square/rx-overview.jpg",
+  /** Wide hero only — card rows use square assets above */
+  peptideMolecule: "/images/rx-care/peptide-molecule-hero.png",
 } as const;
 
 export type RxCareCard = {
@@ -165,7 +169,7 @@ export const RX_PATIENT_CARE_SECTIONS: RxCareSection[] = [
         priceHint: `$${GLP1_PROGRAM.injectable.monthlyFromUsd}–$${GLP1_PROGRAM.injectable.tirzepatideStandardUsd}/mo`,
         badge: "Most requested",
         icon: "⚖️",
-        image: RX_CARE_IMAGES.glp1Hero,
+        image: RX_CARE_IMAGES.glp1Refill,
         imageAlt: "GLP-1 tirzepatide refill",
         iconTag: { emoji: "📦", label: "Home delivery" },
       },
@@ -176,8 +180,8 @@ export const RX_PATIENT_CARE_SECTIONS: RxCareSection[] = [
         href: PEPTIDE_REQUEST_PATH,
         cta: "Peptide request / refill",
         icon: "🧬",
-        image: RX_CARE_IMAGES.peptideLineup,
-        imageAlt: "Peptide protocol refill",
+        image: RX_CARE_IMAGES.peptide,
+        imageAlt: "Peptide therapy — Hello Gorgeous RX",
         iconTag: { emoji: "🔁", label: "Keep your protocol going" },
       },
       {
@@ -187,8 +191,8 @@ export const RX_PATIENT_CARE_SECTIONS: RxCareSection[] = [
         href: HELLO_GORGEOUS_RX_START_PATH,
         cta: "Open Start Here",
         icon: "✨",
-        image: RX_CARE_IMAGES.bpc157,
-        imageAlt: "Hello Gorgeous RX Start Here",
+        image: RX_CARE_IMAGES.peptide,
+        imageAlt: "Add a peptide protocol — Hello Gorgeous RX",
         iconTag: { emoji: "✅", label: "Easy · fast · done for you" },
       },
       {
@@ -200,7 +204,7 @@ export const RX_PATIENT_CARE_SECTIONS: RxCareSection[] = [
         badge: "Required",
         icon: "📹",
         external: true,
-        image: RX_CARE_IMAGES.ryanKent,
+        image: RX_CARE_IMAGES.telehealth,
         imageAlt: "Ryan Kent, FNP-BC",
         iconTag: { emoji: "🩺", label: "NP-supervised" },
       },
@@ -221,7 +225,7 @@ export const RX_PATIENT_CARE_SECTIONS: RxCareSection[] = [
         priceHint: `From $${GLP1_PROGRAM.injectable.monthlyFromUsd}/mo after consult`,
         badge: "Weight loss",
         icon: "📋",
-        image: RX_CARE_IMAGES.tirzepatide,
+        image: RX_CARE_IMAGES.glp1Intake,
         imageAlt: "GLP-1 screening",
         iconTag: { emoji: "⚖️", label: "Medical weight loss" },
       },
@@ -232,8 +236,8 @@ export const RX_PATIENT_CARE_SECTIONS: RxCareSection[] = [
         href: HELLO_GORGEOUS_RX_START_PATH,
         cta: "Pick a peptide",
         icon: "🧪",
-        image: RX_CARE_IMAGES.peptideLineup,
-        imageAlt: "New peptide protocol",
+        image: RX_CARE_IMAGES.peptide,
+        imageAlt: "New peptide protocol — Hello Gorgeous RX",
         iconTag: { emoji: "🧬", label: "Personalized protocols" },
       },
       {
@@ -256,7 +260,7 @@ export const RX_PATIENT_CARE_SECTIONS: RxCareSection[] = [
         href: "/rx",
         cta: "View programs",
         icon: "💎",
-        image: RX_CARE_IMAGES.nadPlus,
+        image: RX_CARE_IMAGES.rxOverview,
         imageAlt: "Hello Gorgeous RX programs",
         iconTag: { emoji: "✨", label: "Full RX menu" },
       },
