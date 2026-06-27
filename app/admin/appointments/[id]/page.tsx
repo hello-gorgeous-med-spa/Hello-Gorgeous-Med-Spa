@@ -8,6 +8,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import { ClinicRxAppointmentBanner } from '@/components/admin/ClinicRxAppointmentBanner';
+import { FlowWaveAppointmentBanner } from '@/components/admin/FlowWaveAppointmentBanner';
 
 // Skeleton component
 function Skeleton({ className = '' }: { className?: string }) {
@@ -317,8 +318,15 @@ export default function AppointmentDetailPage({ params }: { params: { id: string
             </div>
 
             {appointment.client?.id && (
-              <div className="mt-6">
+              <div className="mt-6 space-y-4">
                 <ClinicRxAppointmentBanner
+                  clientId={String(appointment.client.id)}
+                  appointmentId={String(appointment.id)}
+                  serviceName={String(appointment.service?.name || "")}
+                  notes={String(appointment.notes || appointment.internal_notes || "")}
+                  clientName={clientName}
+                />
+                <FlowWaveAppointmentBanner
                   clientId={String(appointment.client.id)}
                   appointmentId={String(appointment.id)}
                   serviceName={String(appointment.service?.name || "")}

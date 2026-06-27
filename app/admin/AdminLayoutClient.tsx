@@ -21,6 +21,7 @@ const MAIN_NAV: { href: string; label: string; icon: string }[] = [
   { href: '/admin/rx', label: 'RX Command', icon: '🎯' },
   { href: '/admin/rx-ledger', label: 'RX Ledger', icon: '📒' },
   { href: '/admin/rx-dispatch', label: 'RX Dispatch', icon: '📤' },
+  { href: '/admin/flowwave', label: 'FlowWave', icon: '🌊' },
   { href: '/admin/rx-messages', label: 'RX Messages', icon: '💬' },
   { href: '/admin/scan', label: 'Scan Client', icon: '📷' },
   { href: '/admin/charting', label: 'Charting', icon: '📋' },

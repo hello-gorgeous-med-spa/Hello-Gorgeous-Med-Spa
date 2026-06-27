@@ -11,6 +11,7 @@ import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { ClientInbox } from '@/components/clinical/ClientInbox';
 import { ClientRxWeightLossTab } from '@/components/admin/ClientRxWeightLossTab';
+import { ClientFlowWaveTab } from '@/components/admin/ClientFlowWaveTab';
 
 // Skeleton component
 function Skeleton({ className = '' }: { className?: string }) {
@@ -823,13 +824,14 @@ function ClientChartNotes({ clientId }: { clientId: string }) {
 }
 
 // Tab IDs for client hub (PRD Phase 2)
-type ClientTabId = 'overview' | 'appointments' | 'charting' | 'consents' | 'photos' | 'purchases' | 'memberships' | 'wallet' | 'messages' | 'files' | 'alerts' | 'rx';
+type ClientTabId = 'overview' | 'appointments' | 'charting' | 'consents' | 'photos' | 'purchases' | 'memberships' | 'wallet' | 'messages' | 'files' | 'alerts' | 'rx' | 'flowwave';
 
 const CLIENT_TABS: { id: ClientTabId; label: string; count?: number }[] = [
   { id: 'overview', label: 'Overview' },
   { id: 'appointments', label: 'Appointments', count: 0 },
   { id: 'charting', label: 'Charting' },
   { id: 'rx', label: 'RX / Weight Loss' },
+  { id: 'flowwave', label: 'FlowWave / Shockwave' },
   { id: 'consents', label: 'Consents', count: 0 },
   { id: 'photos', label: 'Photos' },
   { id: 'purchases', label: 'Purchases', count: 0 },
@@ -949,6 +951,7 @@ export default function AdminClientDetailPage({ params }: { params: { id: string
   useEffect(() => {
     const tab = searchParams.get('tab');
     if (tab === 'rx') setActiveTab('rx');
+    if (tab === 'flowwave') setActiveTab('flowwave');
   }, [searchParams]);
 
   useEffect(() => {
@@ -1477,6 +1480,13 @@ export default function AdminClientDetailPage({ params }: { params: { id: string
 
       {activeTab === 'rx' && (
         <ClientRxWeightLossTab
+          clientId={client.id}
+          clientName={`${client.first_name} ${client.last_name}`}
+        />
+      )}
+
+      {activeTab === 'flowwave' && (
+        <ClientFlowWaveTab
           clientId={client.id}
           clientName={`${client.first_name} ${client.last_name}`}
         />
