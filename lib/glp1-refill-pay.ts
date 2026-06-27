@@ -13,6 +13,13 @@ export type PendingGlp1RefillSuccess = {
   priceUsd?: number;
   invoiceTemplateId?: string;
   medication?: string;
+  addon?: {
+    id: string;
+    shortLabel: string;
+    monthlyUsd: number;
+    invoiceTemplateId: string;
+    lineLabel: string;
+  } | null;
 };
 
 function readPaidRefs(): Set<string> {

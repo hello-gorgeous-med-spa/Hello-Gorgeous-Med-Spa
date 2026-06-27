@@ -28,8 +28,8 @@ export async function POST(req: NextRequest) {
   }
 
   const template = getRxInvoiceTemplate(templateId);
-  if (!template || template.track !== "weight-loss") {
-    return NextResponse.json({ error: "Unknown GLP-1 invoice template" }, { status: 404 });
+  if (!template || (template.track !== "weight-loss" && template.track !== "peptides")) {
+    return NextResponse.json({ error: "Unknown refill or add-on invoice template" }, { status: 404 });
   }
 
   const amountUsd = resolveTemplateAmountUsd(template, body?.amountUsd);

@@ -34,7 +34,13 @@ import {
   type Glp1RefillQuote,
   type Glp1RefillTierOption,
 } from "@/lib/glp1-refill-pricing";
-import type { IntakeFormField } from "@/lib/hgos/intake-forms";
+import {
+  formatAddonPriceLabel,
+  parseGlp1RefillAddonSelection,
+  peptidePatientPdfHref,
+  peptidePatientPdfsForAddon,
+  type PeptideMonthlyAddon,
+} from "@/lib/peptide-monthly-addons";
 
 type SubmitResult =
   | {
@@ -45,6 +51,13 @@ type SubmitResult =
       priceUsd?: number;
       invoiceTemplateId?: string;
       medication?: string;
+      addon?: {
+        id: PeptideMonthlyAddon["id"];
+        shortLabel: string;
+        monthlyUsd: number;
+        invoiceTemplateId: string;
+        lineLabel: string;
+      } | null;
     }
   | { kind: "disqualified"; reference: string };
 
@@ -226,6 +239,12 @@ export function Glp1RefillForm() {
     () => computeGlp1RefillQuote(medication, String(formData.refill_dose_tier || "")),
     [medication, formData.refill_dose_tier],
   );
+  const selectedAddon = useMemo(
+    () => parseGlp1RefillAddonSelection(formData.monthly_peptide_addon),
+    [formData.monthly_peptide_addon],
+  );
+  const combinedMonthlyUsd =
+    (refillQuote?.priceUsd ?? 0) + (selectedAddon?.monthlyUsd ?? 0) || undefined;
 
   function handleChange(fieldId: string, value: unknown) {
     setFormData((prev) => {
@@ -326,6 +345,7 @@ export function Glp1RefillForm() {
       String(formData.current_medication || ""),
       String(formData.refill_dose_tier || ""),
     );
+    const addon = parseGlp1RefillAddonSelection(formData.monthly_peptide_addon);
 
     setBusy(true);
     try {
@@ -341,6 +361,20 @@ export function Glp1RefillForm() {
               refill_price_label: quote.priceLabel,
               rx_invoice_template_id: quote.invoiceTemplateId,
               refill_line_label: quote.lineLabel,
+            }
+          : {}),
+        ...(addon
+          ? {
+              peptide_addon_id: addon.id,
+              peptide_addon_label: addon.shortLabel,
+              peptide_addon_monthly_usd: addon.monthlyUsd,
+              peptide_addon_invoice_template_id: addon.invoiceTemplateId,
+              peptide_addon_line_label: addon.lineLabel,
+            }
+          : {}),
+        ...(quote && addon
+          ? {
+              combined_monthly_usd: quote.priceUsd + addon.monthlyUsd,
             }
           : {}),
       };
@@ -372,6 +406,15 @@ export function Glp1RefillForm() {
             priceUsd: quote?.priceUsd,
             invoiceTemplateId: quote?.invoiceTemplateId,
             medication: String(formData.current_medication || "").trim(),
+            addon: addon
+              ? {
+                  id: addon.id,
+                  shortLabel: addon.shortLabel,
+                  monthlyUsd: addon.monthlyUsd,
+                  invoiceTemplateId: addon.invoiceTemplateId,
+                  lineLabel: addon.lineLabel,
+                }
+              : null,
           }
         : { kind: "disqualified", reference };
       setResult(qualifiedResult);
@@ -411,6 +454,22 @@ export function Glp1RefillForm() {
             <p className="mt-1 text-3xl font-black text-green-900">{result.priceLabel}</p>
             {result.lineLabel && (
               <p className="mt-1 text-xs text-green-800">{result.lineLabel} · medication + supplies</p>
+            )}
+            {result.addon && (
+              <div className="mt-3 border-t border-green-700/20 pt-3 text-left">
+                <p className="text-[10px] font-bold uppercase tracking-widest text-[#E6007E]">
+                  Monthly add-on
+                </p>
+                <p className="mt-1 text-lg font-black text-green-900">
+                  + {formatAddonPriceLabel(result.addon.monthlyUsd)}
+                </p>
+                <p className="mt-1 text-xs text-green-800">{result.addon.shortLabel}</p>
+              </div>
+            )}
+            {result.addon && result.priceUsd != null && (
+              <p className="mt-3 text-sm font-bold text-green-900 border-t border-green-700/20 pt-3">
+                Combined estimate: ${result.priceUsd + result.addon.monthlyUsd}/mo
+              </p>
             )}
           </div>
         )}
@@ -477,6 +536,40 @@ export function Glp1RefillForm() {
               <span aria-hidden="true">↻</span>
             </button>
           )}
+          {result.addon && (
+            <button
+              type="button"
+              disabled={payBusy || autopayBusy}
+              onClick={() =>
+                payRefill(
+                  result.reference,
+                  result.addon!.invoiceTemplateId,
+                  result.addon!.monthlyUsd,
+                )
+              }
+              className="flex w-full items-center justify-between rounded-xl border-2 border-black bg-white px-4 py-3.5 text-sm font-bold text-green-900 hover:border-[#E6007E] transition-colors disabled:opacity-60"
+            >
+              <span>
+                {payBusy
+                  ? "Starting checkout…"
+                  : `Pay add-on — ${formatAddonPriceLabel(result.addon.monthlyUsd)} (${result.addon.shortLabel})`}
+              </span>
+              <span aria-hidden="true">→</span>
+            </button>
+          )}
+          {result.addon &&
+            peptidePatientPdfsForAddon(result.addon.id).map((pdf) => (
+              <a
+                key={pdf.id}
+                href={peptidePatientPdfHref(pdf.filename)}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex w-full items-center justify-between rounded-xl border-2 border-black/60 bg-white px-4 py-3.5 text-sm font-bold text-green-900 hover:border-[#E6007E] transition-colors"
+              >
+                <span className="text-left pr-2">{pdf.title}</span>
+                <span aria-hidden="true">↓</span>
+              </a>
+            ))}
           <a
             href={HG_RX_TELEHEALTH_BOOKING_URL}
             target="_blank"
@@ -573,6 +666,32 @@ export function Glp1RefillForm() {
                       Pricing will be confirmed by Ryan at your check-in — no charge calculated online yet.
                     </p>
                   ) : null}
+                </div>
+              );
+            }
+            if (field.id === "monthly_peptide_addon") {
+              return (
+                <div key={field.id} className="space-y-3">
+                  <FieldRenderer
+                    field={field}
+                    value={formData[field.id]}
+                    error={errors[field.id]}
+                    onChange={(v) => handleChange(field.id, v)}
+                  />
+                  <p className="text-xs text-black/55 leading-relaxed">
+                    Stack NAD+, Sermorelin, or our bundled longevity protocol with your GLP-1 refill.
+                    Ryan confirms eligibility at your check-in — dosing PDFs unlock after submit.
+                  </p>
+                  {selectedAddon && refillQuote && combinedMonthlyUsd != null && (
+                    <div className="rounded-xl border-2 border-[#E6007E]/30 bg-[#FFF0F7] px-4 py-3 text-sm">
+                      <p className="font-bold text-[#E6007E]">Estimated combined total</p>
+                      <p className="mt-1 text-lg font-black text-black">${combinedMonthlyUsd}/mo</p>
+                      <p className="mt-1 text-xs text-black/60">
+                        {refillQuote.priceLabel} GLP-1 + {formatAddonPriceLabel(selectedAddon.monthlyUsd)}{" "}
+                        {selectedAddon.shortLabel}
+                      </p>
+                    </div>
+                  )}
                 </div>
               );
             }

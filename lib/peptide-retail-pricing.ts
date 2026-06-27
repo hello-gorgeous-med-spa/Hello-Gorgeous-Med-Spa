@@ -117,6 +117,13 @@ export const PEPTIDE_RETAIL_MENU: PeptideRetailRow[] = [
     note: "Cellular energy & clarity",
   },
   {
+    id: "nad-sermorelin-bundle",
+    name: "NAD+ & Sermorelin Bundle",
+    category: "Blends & Support",
+    fromMonthlyUsd: 289,
+    note: "Cellular energy + natural GH support · monthly stack",
+  },
+  {
     id: "cjc-1295",
     name: "CJC-1295",
     category: "Hormone & GH Support",

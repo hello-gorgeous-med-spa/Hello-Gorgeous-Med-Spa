@@ -7,6 +7,7 @@ import type { IntakeFormField } from "@/lib/hgos/intake-forms";
 import { glp1SignerName } from "@/lib/glp1-intake";
 import { glp1DoseTierById } from "@/lib/glp1-dose-tiers";
 import { GLP1_INSURANCE_OVERSIGHT } from "@/lib/glp1-refill-pricing";
+import { GLP1_REFILL_ADDON_FIELD_OPTIONS } from "@/lib/peptide-monthly-addons";
 
 export const GLP1_REFILL_INTAKE_SLUG = "glp1-refill-request";
 
@@ -178,6 +179,13 @@ const REFILL_FIELDS: IntakeFormField[] = [
     label: "Anything Ryan should know before approving this refill?",
     required: false,
     placeholder: "How you're feeling, goals for this month, shipping notes…",
+  },
+  {
+    id: "monthly_peptide_addon",
+    type: "radio",
+    label: "Optional monthly add-on (ships with your refill after NP approval)",
+    required: true,
+    options: GLP1_REFILL_ADDON_FIELD_OPTIONS,
   },
 ];
 

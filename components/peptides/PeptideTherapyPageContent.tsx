@@ -9,6 +9,11 @@ import { PeptideHandoutsSection } from "@/components/peptides/PeptideHandoutsSec
 import { PeptideHubFaqSection } from "@/components/peptides/PeptideHubFaqSection";
 import { FadeUp, Section } from "@/components/Section";
 import { FIND_YOUR_PEPTIDE_GUIDE } from "@/data/skin-101-find-your-peptide-guide";
+import {
+  PEPTIDE_MONTHLY_ADDONS,
+  PEPTIDE_PATIENT_PDFS,
+  peptidePatientPdfHref,
+} from "@/lib/peptide-monthly-addons";
 import { getPeptideHandout, PEPTIDE_HANDOUTS, peptideHandoutHref } from "@/lib/peptide-handouts";
 import { HELLO_GORGEOUS_RX_START_PATH, PEPTIDE_REQUEST_PATH } from "@/lib/flows";
 import { RYAN_FULL_NAME } from "@/lib/founder-credentials";
@@ -269,6 +274,52 @@ export function PeptideTherapyPageContent() {
                   </div>
                 ) : null}
               </div>
+              <div className="mt-8 rounded-2xl border-2 border-black bg-gradient-to-br from-[#FFF0F7] to-white p-5 md:p-6">
+                <p className="text-[10px] font-bold uppercase tracking-widest text-[#E6007E]">
+                  NEW · NAD+ &amp; Sermorelin monthly add-ons
+                </p>
+                <h3 className="mt-2 text-lg font-black text-black">
+                  Stack longevity protocols with GLP-1 or peptide care
+                </h3>
+                <p className="mt-2 text-sm leading-relaxed text-black/75">
+                  Download official dosing guides, then add a monthly protocol at checkout on your GLP-1
+                  refill or request through Hello Gorgeous RX™.
+                </p>
+                <ul className="mt-4 flex flex-wrap gap-2 text-xs font-semibold">
+                  {PEPTIDE_MONTHLY_ADDONS.map((addon) => (
+                    <li
+                      key={addon.id}
+                      className="rounded-full border-2 border-black/15 bg-white px-3 py-1.5 text-black"
+                    >
+                      {addon.shortLabel} · ${addon.monthlyUsd}/mo
+                    </li>
+                  ))}
+                </ul>
+                <ul className="mt-5 space-y-2 border-t border-black/10 pt-4">
+                  {PEPTIDE_PATIENT_PDFS.map((pdf) => (
+                    <li key={pdf.id}>
+                      <a
+                        href={peptidePatientPdfHref(pdf.filename)}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex flex-wrap items-center justify-between gap-2 text-sm font-semibold text-[#E6007E] hover:underline"
+                      >
+                        <span>{pdf.title}</span>
+                        <span className="text-black/50 font-normal">PDF ↓</span>
+                      </a>
+                      <p className="text-xs text-black/55">{pdf.description}</p>
+                    </li>
+                  ))}
+                </ul>
+                <div className="mt-4">
+                  <Link
+                    href="/glp1-refill"
+                    className="inline-flex min-h-[44px] items-center justify-center rounded-full bg-[#E6007E] px-5 py-2.5 text-sm font-bold text-white hover:bg-black"
+                  >
+                    Add on at GLP-1 refill →
+                  </Link>
+                </div>
+              </div>
               <p className="mt-6 text-center text-sm">
                 <a
                   href="#patient-handouts"
@@ -519,9 +570,9 @@ export function PeptideTherapyPageContent() {
                 detail: "Sermorelin, BPC-157, TB-500, GHK-Cu, NAD+ & more",
               },
               {
-                label: "Peptide blends",
+                label: "Peptide blends & stacks",
                 range: "From $229/mo",
-                detail: "Recovery Blend, HEAL Blend",
+                detail: "Recovery Blend, HEAL, NAD+ & Sermorelin Bundle ($289/mo)",
               },
               {
                 label: "GLP-1 programs",

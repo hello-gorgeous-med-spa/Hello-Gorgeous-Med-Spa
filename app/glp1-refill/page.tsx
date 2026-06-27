@@ -141,6 +141,10 @@ export default function Glp1RefillPage() {
             <li>Price calculates automatically when you select your dose tier</li>
             <li>After submit: download guides, pay invoice, or set up monthly auto-pay</li>
             <li>
+              <strong className="text-black">Monthly add-ons</strong>: NAD+ $169/mo · Sermorelin $149/mo ·
+              NAD+ &amp; Sermorelin Bundle $289/mo
+            </li>
+            <li>
               New to Hello Gorgeous?{" "}
               <Link href={GLP1_INTAKE_PATH} className="text-[#E6007E] font-semibold underline">
                 Start with screening intake
