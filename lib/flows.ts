@@ -155,6 +155,9 @@ export const FRESHA_BOOKING_END_LABEL =
 /** GLP-1 weight loss screening form at `/glp1-intake`. Booking follows after qualification. */
 export const GLP1_INTAKE_PATH = "/glp1-intake";
 
+/** GLP-1 refill request for existing patients — home delivery at `/glp1-refill`. */
+export const GLP1_REFILL_PATH = "/glp1-refill";
+
 /** Hello Gorgeous RX™ peptide request & refill at `/peptide-request`. Telehealth required before approval. */
 export const PEPTIDE_REQUEST_PATH = "/peptide-request";
 

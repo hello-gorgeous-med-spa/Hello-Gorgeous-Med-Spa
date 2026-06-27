@@ -6,6 +6,7 @@ import { resolveOrCreateClientForIntake } from "@/lib/resolveClientForIntake";
 import { randomBytes } from "crypto";
 import { alertStaffOnFormSubmission, notifyOwnerFormSubmission } from "@/lib/notifications/form-alert";
 import { formatPeptideStaffAlert, isPeptideFormSlug } from "@/lib/peptide-form-alert";
+import { formatGlp1StaffAlert, isGlp1FormSlug } from "@/lib/glp1-form-alert";
 
 export const dynamic = "force-dynamic";
 
@@ -79,7 +80,7 @@ export async function POST(req: NextRequest) {
   const ref = token.slice(0, 8).toUpperCase();
   const qualified = responses.qualified;
   const statusLine =
-    slug === "glp1-weight-loss-intake" && typeof qualified === "boolean"
+    isGlp1FormSlug(slug) && typeof qualified === "boolean"
       ? qualified
         ? "QUALIFIED"
         : "DISQUALIFIED"
@@ -87,6 +88,23 @@ export async function POST(req: NextRequest) {
 
   if (isPeptideFormSlug(slug)) {
     const alert = formatPeptideStaffAlert({
+      slug,
+      ref,
+      signerName,
+      clientPhone,
+      responses,
+    });
+    const clientEmail =
+      typeof responses.email === "string" ? String(responses.email).trim() : undefined;
+    void alertStaffOnFormSubmission({
+      formName: alert.formName,
+      emailSubject: alert.emailSubject,
+      emailBody: alert.emailBody,
+      smsLines: alert.smsLines,
+      replyTo: clientEmail,
+    });
+  } else if (isGlp1FormSlug(slug)) {
+    const alert = formatGlp1StaffAlert({
       slug,
       ref,
       signerName,

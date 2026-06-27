@@ -4,11 +4,13 @@
 
 import { SITE } from "@/lib/seo";
 import { glp1SignerName } from "@/lib/glp1-intake";
+import { suggestGlp1RefillDrug } from "@/lib/glp1-refill-intake";
 
 export const RX_INTAKE_SLUGS = [
   "peptide-therapy-request",
   "peptide-refill-request",
   "glp1-weight-loss-intake",
+  "glp1-refill-request",
 ] as const;
 
 export type RxIntakeSlug = (typeof RX_INTAKE_SLUGS)[number];
@@ -85,7 +87,7 @@ function formatDob(value: unknown): string {
 
 export function intakeTrackFromSlug(slug: string): "peptide" | "glp1" | "unknown" {
   if (slug.startsWith("peptide-")) return "peptide";
-  if (slug === "glp1-weight-loss-intake") return "glp1";
+  if (slug === "glp1-weight-loss-intake" || slug === "glp1-refill-request") return "glp1";
   return "unknown";
 }
 
@@ -95,7 +97,7 @@ export function intakeDisplayName(
   responses: Record<string, unknown>,
 ): string {
   if (signerName?.trim()) return signerName.trim();
-  if (slug === "glp1-weight-loss-intake") {
+  if (slug === "glp1-weight-loss-intake" || slug === "glp1-refill-request") {
     return glp1SignerName(responses) || "Unknown patient";
   }
   const first = String(responses.first_name || "").trim();
@@ -115,6 +117,10 @@ export function suggestDrugFromIntake(
   const selected = responses.selected_peptides;
   if (Array.isArray(selected) && selected.length > 0) {
     return selected.join(", ");
+  }
+
+  if (slug === "glp1-refill-request") {
+    return suggestGlp1RefillDrug(responses);
   }
 
   if (slug === "glp1-weight-loss-intake") {
@@ -138,6 +144,14 @@ export function suggestSigFromIntake(slug: string, responses: Record<string, unk
   }
   if (slug.startsWith("peptide-")) {
     return "Per Hello Gorgeous RX protocol — NP to finalize sig";
+  }
+  if (slug === "glp1-refill-request") {
+    const parts = [
+      responses.dose_changes === "Yes" ? `Changes: ${responses.dose_changes_detail || "see chart"}` : null,
+      responses.side_effects === "Yes" ? `Side effects: ${responses.side_effects_detail || "see chart"}` : null,
+    ].filter(Boolean);
+    if (parts.length) return parts.join(" · ");
+    return "Continue prior GLP-1 protocol per NP — titrate as indicated";
   }
   if (slug === "glp1-weight-loss-intake") {
     return "Titrate per Hello Gorgeous GLP-1 protocol — NP to finalize sig";
@@ -167,23 +181,55 @@ export function medicationsFromIntake(slug: string, responses: Record<string, un
   return glp1List || "";
 }
 
+function glp1PharmacySlug(slug: string): RxPharmacy {
+  return slug === "glp1-weight-loss-intake" || slug === "glp1-refill-request" ? "boomrx" : "formulation";
+}
+
+function shipToFromGlp1Refill(responses: Record<string, unknown>): RxShipTo {
+  const pref = String(responses.ship_to_home || "");
+  return pref.startsWith("No") ? "clinic" : "patient";
+}
+
 export function defaultDispatchFromIntake(opts: {
   slug: string;
   signerName: string | null;
   responses: Record<string, unknown>;
 }): Omit<RxDispatchRecord, "submission_id" | "updated_at" | "updated_by"> {
-  const { slug, signerName, responses } = opts;
+  const { slug, responses } = opts;
   const zip = String(responses.zip || "").trim() || null;
+  const isGlp1Refill = slug === "glp1-refill-request";
+  const shipTo = isGlp1Refill ? shipToFromGlp1Refill(responses) : "patient";
+
+  const addressFromIntake =
+    isGlp1Refill && shipTo === "patient"
+      ? {
+          address_line1: String(responses.address_line1 || "").trim() || "",
+          address_line2: String(responses.address_line2 || "").trim() || "",
+          city: String(responses.city || "").trim() || "",
+          state: String(responses.state || "").trim() || "IL",
+          zip: zip || "",
+        }
+      : shipTo === "clinic"
+        ? {
+            address_line1: CLINIC_SHIP_ADDRESS.line1,
+            address_line2: CLINIC_SHIP_ADDRESS.line2,
+            city: CLINIC_SHIP_ADDRESS.city,
+            state: CLINIC_SHIP_ADDRESS.state,
+            zip: CLINIC_SHIP_ADDRESS.zip,
+          }
+        : {
+            address_line1: "",
+            address_line2: "",
+            city: "",
+            state: "IL",
+            zip: zip || "",
+          };
 
   return {
     status: "new",
-    pharmacy: slug === "glp1-weight-loss-intake" ? "boomrx" : "formulation",
-    ship_to: "patient",
-    address_line1: "",
-    address_line2: "",
-    city: "",
-    state: "IL",
-    zip,
+    pharmacy: glp1PharmacySlug(slug),
+    ship_to: shipTo,
+    ...addressFromIntake,
     drug: suggestDrugFromIntake(slug, responses),
     sig: suggestSigFromIntake(slug, responses),
     staff_notes: "",
@@ -301,9 +347,18 @@ export function intakeSummaryLines(
   }
 
   if (track === "glp1") {
-    const bmi = responses.bmi != null ? String(responses.bmi) : null;
-    if (bmi) lines.push(`BMI: ${bmi}`);
-    lines.push(`Conditions: ${formatArray(responses.conditions) || formatArray(responses.medical_conditions) || "—"}`);
+    if (slug === "glp1-refill-request") {
+      lines.push(`Medication: ${String(responses.current_medication || "—")}`);
+      lines.push(`Dose tier: ${String(responses.dose_tier || "—")}`);
+      lines.push(`Weight: ${String(responses.weight_lbs || "—")} lbs`);
+      lines.push(`Ship: ${String(responses.ship_to_home || "—")}`);
+    } else {
+      const bmi = responses.bmi != null ? String(responses.bmi) : null;
+      if (bmi) lines.push(`BMI: ${bmi}`);
+      lines.push(
+        `Conditions: ${formatArray(responses.conditions) || formatArray(responses.medical_conditions) || "—"}`,
+      );
+    }
   }
 
   const flags = formatArray(responses.provider_flags);

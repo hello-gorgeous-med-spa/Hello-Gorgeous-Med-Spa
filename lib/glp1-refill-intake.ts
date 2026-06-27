@@ -1,0 +1,332 @@
+/**
+ * Hello Gorgeous RX™ GLP-1 weight loss refill — `/glp1-refill`
+ * Submissions → hg_form_submissions slug `glp1-refill-request`
+ */
+
+import type { IntakeFormField } from "@/lib/hgos/intake-forms";
+import { glp1SignerName } from "@/lib/glp1-intake";
+
+export const GLP1_REFILL_INTAKE_SLUG = "glp1-refill-request";
+
+export const GLP1_REFILL_DISQUALIFIED_MESSAGE =
+  "Thank you for your submission. Based on your answers, we cannot process this refill online at this time. Please call (630) 636-6193 — we may still be able to help after a direct clinical conversation. New patients should complete the full GLP-1 screening at /glp1-intake.";
+
+export type Glp1RefillStep = {
+  id: string;
+  title: string;
+  description?: string;
+  fields: IntakeFormField[];
+};
+
+const CONTACT_FIELDS: IntakeFormField[] = [
+  {
+    id: "first_name",
+    type: "text",
+    label: "First name",
+    required: true,
+    placeholder: "Jane",
+  },
+  {
+    id: "last_name",
+    type: "text",
+    label: "Last name",
+    required: true,
+    placeholder: "Doe",
+  },
+  {
+    id: "email",
+    type: "text",
+    label: "Email",
+    required: true,
+    placeholder: "you@email.com",
+  },
+  {
+    id: "phone",
+    type: "phone",
+    label: "Mobile phone",
+    required: true,
+    placeholder: "(630) 555-1234",
+    helpText: "Used to match your chart and send refill updates.",
+  },
+  { id: "dob", type: "date", label: "Date of birth", required: true },
+];
+
+const SHIPPING_FIELDS: IntakeFormField[] = [
+  {
+    id: "address_line1",
+    type: "text",
+    label: "Street address",
+    required: true,
+    placeholder: "123 Main St",
+  },
+  {
+    id: "address_line2",
+    type: "text",
+    label: "Apt / unit (optional)",
+    required: false,
+    placeholder: "Apt 2B",
+  },
+  {
+    id: "city",
+    type: "text",
+    label: "City",
+    required: true,
+    placeholder: "Oswego",
+  },
+  {
+    id: "state",
+    type: "text",
+    label: "State",
+    required: true,
+    placeholder: "IL",
+    helpText: "2-letter state code",
+  },
+  {
+    id: "zip",
+    type: "text",
+    label: "ZIP code",
+    required: true,
+    placeholder: "60543",
+  },
+  {
+    id: "ship_to_home",
+    type: "radio",
+    label: "Ship medication to this address?",
+    required: true,
+    options: ["Yes — ship to my home (cold-chain delivery)", "No — I will pick up at the spa"],
+    helpText: "Most patients choose home delivery. Pick-up is at 74 W Washington St, Oswego.",
+  },
+];
+
+const REFILL_FIELDS: IntakeFormField[] = [
+  {
+    id: "existing_patient",
+    type: "radio",
+    label: "Are you an existing Hello Gorgeous GLP-1 weight loss patient?",
+    required: true,
+    options: ["Yes", "No"],
+    helpText: "Refills are for patients already established with Ryan Kent, FNP-BC.",
+  },
+  {
+    id: "last_visit_within_12mo",
+    type: "radio",
+    label: "Have you had a GLP-1 check-in with us in the last 12 months?",
+    required: true,
+    options: ["Yes", "No"],
+  },
+  {
+    id: "current_medication",
+    type: "radio",
+    label: "Current GLP-1 medication",
+    required: true,
+    options: ["Semaglutide", "Tirzepatide", "Other / switching — discuss with NP"],
+  },
+  {
+    id: "dose_tier",
+    type: "select",
+    label: "Current dose tier (if known)",
+    required: false,
+    options: ["Starter", "Standard", "Advanced", "Not sure — NP to confirm"],
+  },
+  {
+    id: "current_dose",
+    type: "text",
+    label: "Current weekly dose (mg) if known",
+    required: false,
+    placeholder: "e.g. 5 mg / week",
+  },
+  {
+    id: "last_dose_date",
+    type: "date",
+    label: "Date of your last injection",
+    required: true,
+  },
+  {
+    id: "weight_lbs",
+    type: "text",
+    label: "Current weight (lbs)",
+    required: true,
+    placeholder: "165",
+  },
+  {
+    id: "dose_changes",
+    type: "radio",
+    label: "Any dose, medication, or health changes since your last visit?",
+    required: true,
+    options: ["Yes", "No"],
+  },
+  {
+    id: "dose_changes_detail",
+    type: "textarea",
+    label: "Describe changes (if yes)",
+    required: false,
+    placeholder: "New medications, dose adjustments requested, hospital visits…",
+    conditionalOn: { field: "dose_changes", value: "Yes" },
+  },
+  {
+    id: "side_effects",
+    type: "radio",
+    label: "Any side effects since your last refill?",
+    required: true,
+    options: ["Yes", "No"],
+  },
+  {
+    id: "side_effects_detail",
+    type: "textarea",
+    label: "Describe side effects (if yes)",
+    required: false,
+    conditionalOn: { field: "side_effects", value: "Yes" },
+  },
+  {
+    id: "refill_notes",
+    type: "textarea",
+    label: "Anything Ryan should know before approving this refill?",
+    required: false,
+    placeholder: "How you're feeling, goals for this month, shipping notes…",
+  },
+];
+
+const MEDICAL_UPDATE_FIELDS: IntakeFormField[] = [
+  {
+    id: "pregnant",
+    type: "radio",
+    label: "Are you pregnant, trying to conceive, or breastfeeding?",
+    required: true,
+    options: ["Yes", "No", "N/A"],
+  },
+  {
+    id: "med_allergies",
+    type: "radio",
+    label: "Medication allergies?",
+    required: true,
+    options: ["Yes", "No"],
+  },
+  {
+    id: "med_allergies_list",
+    type: "textarea",
+    label: "List medication allergies",
+    required: false,
+    placeholder: "Drug name and reaction",
+    conditionalOn: { field: "med_allergies", value: "Yes" },
+  },
+  {
+    id: "rx_medications",
+    type: "radio",
+    label: "Any new prescription medications since your last visit?",
+    required: true,
+    options: ["Yes", "No"],
+  },
+  {
+    id: "rx_medications_list",
+    type: "textarea",
+    label: "List new medications",
+    required: false,
+    placeholder: "Include dose if known",
+    conditionalOn: { field: "rx_medications", value: "Yes" },
+  },
+];
+
+const CONSENT_FIELDS: IntakeFormField[] = [
+  {
+    id: "refill_consent",
+    type: "checkbox",
+    label: "Refill & shipping acknowledgement",
+    required: true,
+    options: [
+      "I am requesting a refill of my Hello Gorgeous GLP-1 program — this is not a prescription until approved by our NP",
+      "I understand a monthly check-in (telehealth or in-person) may be required before each refill",
+      "I confirm my shipping address is correct for cold-chain home delivery",
+      "Hello Gorgeous may contact me at the information provided",
+    ],
+  },
+  {
+    id: "legal_name",
+    type: "text",
+    label: "Electronic signature (type your full legal name)",
+    required: true,
+    placeholder: "Must match first and last name above",
+  },
+  { id: "signature", type: "signature", label: "Sign below", required: true },
+];
+
+export const GLP1_REFILL_STEPS: Glp1RefillStep[] = [
+  {
+    id: "contact",
+    title: "Your information",
+    description: "We'll match this to your chart and send refill updates.",
+    fields: CONTACT_FIELDS,
+  },
+  {
+    id: "shipping",
+    title: "Home delivery address",
+    description: "Medication ships directly to you — not to the spa unless you choose pick-up.",
+    fields: SHIPPING_FIELDS,
+  },
+  {
+    id: "refill",
+    title: "Refill details",
+    description: "Help Ryan approve your refill quickly at your check-in.",
+    fields: REFILL_FIELDS,
+  },
+  {
+    id: "medical",
+    title: "Health update",
+    description: "Quick safety check since your last visit.",
+    fields: MEDICAL_UPDATE_FIELDS,
+  },
+  {
+    id: "consent",
+    title: "Consent & signature",
+    description: "This form is a refill request only — not a diagnosis or prescription.",
+    fields: CONSENT_FIELDS,
+  },
+];
+
+export { glp1SignerName };
+
+export function evaluateGlp1RefillEligibility(data: Record<string, unknown>): {
+  qualified: boolean;
+  disqualificationReasons: string[];
+  providerFlags: string[];
+} {
+  const disqualificationReasons: string[] = [];
+  const providerFlags: string[] = [];
+
+  if (data.existing_patient === "No") {
+    disqualificationReasons.push("Refills require an existing Hello Gorgeous GLP-1 patient relationship");
+  }
+  if (data.pregnant === "Yes") {
+    disqualificationReasons.push("Pregnant, trying to conceive, or breastfeeding");
+  }
+  if (data.last_visit_within_12mo === "No") {
+    providerFlags.push("No check-in within 12 months — full evaluation required");
+  }
+  if (data.side_effects === "Yes") {
+    providerFlags.push("Reported side effects — NP review required before refill");
+  }
+  if (data.dose_changes === "Yes") {
+    providerFlags.push("Health or dose changes reported — NP review required");
+  }
+  if (data.current_medication === "Other / switching — discuss with NP") {
+    providerFlags.push("Medication switch requested — NP review required");
+  }
+  if (String(data.ship_to_home || "").startsWith("No")) {
+    providerFlags.push("Clinic pick-up requested — do not ship to patient address");
+  }
+
+  return {
+    qualified: disqualificationReasons.length === 0,
+    disqualificationReasons,
+    providerFlags,
+  };
+}
+
+export function suggestGlp1RefillDrug(data: Record<string, unknown>): string {
+  const med = String(data.current_medication || "").trim();
+  const tier = String(data.dose_tier || "").trim();
+  const dose = String(data.current_dose || "").trim();
+  const parts = [med, tier !== "Not sure — NP to confirm" ? tier : null, dose ? `${dose}/wk` : null].filter(
+    Boolean,
+  );
+  return parts.length ? parts.join(" — ") : "GLP-1 injectable — NP to specify";
+}

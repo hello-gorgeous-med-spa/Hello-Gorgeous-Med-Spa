@@ -3,7 +3,7 @@
  * The Vitamin Bar is one section inside this app, not a separate product.
  */
 
-import { BOOKING_URL, GLP1_INTAKE_PATH, HELLO_GORGEOUS_RX_START_PATH, PEPTIDE_REQUEST_PATH } from "@/lib/flows";
+import { BOOKING_URL, GLP1_INTAKE_PATH, GLP1_REFILL_PATH, HELLO_GORGEOUS_RX_START_PATH, PEPTIDE_REQUEST_PATH } from "@/lib/flows";
 
 export const CLIENT_APP = {
   name: "Hello Gorgeous Med Spa",
@@ -60,11 +60,18 @@ export const CLIENT_APP_QUICK_ACTIONS = [
     icon: "🎁",
   },
   {
+    id: "glp1-refill",
+    label: "Renew GLP-1",
+    blurb: "Tirzepatide / sema refill",
+    href: GLP1_REFILL_PATH,
+    icon: "⚖️",
+  },
+  {
     id: "glp1-intake",
     label: "GLP-1 Screening",
     blurb: "Start weight loss intake",
     href: GLP1_INTAKE_PATH,
-    icon: "⚖️",
+    icon: "📋",
   },
   {
     id: "peptide-start",
@@ -153,6 +160,7 @@ export const CLIENT_APP_WELLNESS_PROGRAMS = [
 
 export const CLIENT_APP_PORTAL_LINKS = [
   { label: "My Portal", href: "/portal", icon: "🏠" },
+  { label: "GLP-1 Refill", href: GLP1_REFILL_PATH, icon: "💊" },
   { label: "GLP-1 Screening", href: GLP1_INTAKE_PATH, icon: "⚖️" },
   { label: "Hello Gorgeous RX", href: "/app?rx=1", icon: "🧬" },
   { label: "Peptide Request / Refill", href: PEPTIDE_REQUEST_PATH, icon: "📋" },
