@@ -9,42 +9,66 @@ import { KeyboardShortcutsProvider } from '@/components/ui/KeyboardShortcuts';
 
 type AdminRole = 'owner' | 'admin' | 'staff' | 'provider' | 'readonly' | null;
 
-const MAIN_NAV: { href: string; label: string; icon: string }[] = [
-  { href: '/admin', label: 'Dashboard', icon: '📊' },
-  { href: '/admin/calendar', label: 'Calendar', icon: '🗓' },
-  { href: '/admin/appointments', label: 'Appointments', icon: '📅' },
-  { href: '/admin/clients', label: 'Clients', icon: '👥' },
-  { href: '/admin/unit-bank', label: 'Unit Bank', icon: '💉' },
-  { href: '/admin/rx/clinic-sale', label: 'Clinic RX Sale', icon: '🏥' },
-  { href: '/admin/rx/clinic-reports', label: 'Clinic Reports', icon: '📊' },
-  { href: '/admin/rx-invoices', label: 'RX Invoices', icon: '💊' },
-  { href: '/admin/rx', label: 'RX Command', icon: '🎯' },
-  { href: '/admin/rx-ledger', label: 'RX Ledger', icon: '📒' },
-  { href: '/admin/rx-dispatch', label: 'RX Dispatch', icon: '📤' },
-  { href: '/admin/flowwave', label: 'FlowWave', icon: '🌊' },
-  { href: '/admin/rx-messages', label: 'RX Messages', icon: '💬' },
-  { href: '/admin/scan', label: 'Scan Client', icon: '📷' },
-  { href: '/admin/charting', label: 'Charting', icon: '📋' },
-  { href: '/admin/procedures/contour-lift', label: 'Contour / Quantum', icon: '⚡' },
-  { href: '/admin/services', label: 'Services', icon: '✨' },
-  { href: '/admin/memberships', label: 'Memberships', icon: '💎' },
-  { href: '/admin/inventory', label: 'Inventory', icon: '📦' },
-  { href: '/admin/marketing', label: 'Marketing', icon: '📈' },
-  { href: '/admin/local-dominance-sprint', label: 'Oswego #1', icon: '🏆' },
-  { href: '/admin/campaign-studio', label: 'AI Campaign Studio', icon: '🤖' },
-  { href: '/admin/campaign-analytics', label: 'Campaign Analytics', icon: '📊' },
-  { href: '/admin/email-campaigns', label: 'Email Campaigns', icon: '📧' },
-  { href: '/admin/marketing/blog-social', label: 'Blog → Social', icon: '📣' },
-  { href: '/admin/marketing/post-social', label: 'Post to Social', icon: '📲' },
-  { href: '/admin/marketing/social-content-agent', label: 'Social Content Agent', icon: '🤖' },
-  { href: '/admin/proposals', label: 'Proposals', icon: '📄' },
-  { href: '/admin/video-generator', label: 'Video Generator', icon: '🎬' },
-  { href: '/admin/ai-concierge', label: 'AI Concierge', icon: '📞' },
-  { href: '/admin/staff', label: 'Staff', icon: '👤' },
-  { href: '/admin/reports', label: 'Reports', icon: '📊' },
-  { href: '/admin/content/site', label: 'Website / Content', icon: '📝' },
-  { href: '/admin/settings', label: 'Settings', icon: '⚙️' },
+type NavItem = { href: string; label: string; icon: string };
+type NavGroup = { section: string; items: NavItem[] };
+
+const NAV_GROUPS: NavGroup[] = [
+  {
+    section: 'Daily Ops',
+    items: [
+      { href: '/admin', label: 'Dashboard', icon: '📊' },
+      { href: '/admin/calendar', label: 'Calendar', icon: '🗓' },
+      { href: '/admin/appointments', label: 'Appointments', icon: '📅' },
+      { href: '/admin/clients', label: 'Clients', icon: '👥' },
+      { href: '/admin/scan', label: 'Scan Client', icon: '📷' },
+    ],
+  },
+  {
+    section: 'RX & Clinical',
+    items: [
+      { href: '/admin/rx', label: 'RX Command', icon: '🎯' },
+      { href: '/admin/rx-dispatch', label: 'RX Dispatch', icon: '📤' },
+      { href: '/admin/rx-invoices', label: 'RX Invoices', icon: '💊' },
+      { href: '/admin/rx-ledger', label: 'RX Ledger', icon: '📒' },
+      { href: '/admin/rx-messages', label: 'RX Messages', icon: '💬' },
+      { href: '/admin/rx/clinic-sale', label: 'Clinic Sale', icon: '🏥' },
+      { href: '/admin/rx/clinic-reports', label: 'Clinic Reports', icon: '📋' },
+      { href: '/admin/flowwave', label: 'FlowWave', icon: '🌊' },
+      { href: '/admin/charting', label: 'Charting', icon: '🩺' },
+      { href: '/admin/consents', label: 'Consents', icon: '✅' },
+      { href: '/admin/prescriptions', label: 'Prescriptions', icon: '📝' },
+      { href: '/admin/procedures/contour-lift', label: 'Contour / Quantum', icon: '⚡' },
+    ],
+  },
+  {
+    section: 'Business',
+    items: [
+      { href: '/admin/unit-bank', label: 'Unit Bank', icon: '💉' },
+      { href: '/admin/memberships', label: 'Memberships', icon: '💎' },
+      { href: '/admin/services', label: 'Services', icon: '✨' },
+      { href: '/admin/gift-cards', label: 'Gift Cards', icon: '🎁' },
+      { href: '/admin/packages', label: 'Packages', icon: '📦' },
+    ],
+  },
+  {
+    section: 'Marketing',
+    items: [
+      { href: '/admin/campaign-studio', label: 'AI Campaign Studio', icon: '🤖' },
+      { href: '/admin/email-campaigns', label: 'Email Campaigns', icon: '📧' },
+      { href: '/admin/sms', label: 'SMS', icon: '📱' },
+      { href: '/admin/proposals', label: 'Proposals', icon: '📄' },
+    ],
+  },
+  {
+    section: 'System',
+    items: [
+      { href: '/admin/settings', label: 'Settings', icon: '⚙️' },
+    ],
+  },
 ];
+
+// Flat list for role-based visibility checks
+const MAIN_NAV: NavItem[] = NAV_GROUPS.flatMap((g) => g.items);
 
 const PMU_BROWS_NAV: { href: string; label: string; icon: string; external?: boolean }[] = [
   { href: '/admin/pmu-brows', label: 'PMU & Brows hub', icon: '💗' },
@@ -185,13 +209,22 @@ export default function AdminLayoutClient({ children }: { children: React.ReactN
                   <span>POS</span>
                 </Link>
               </div>
-              <nav className="flex-1 py-2 px-2 space-y-0.5">
-                {navItems.map((item) => (
-                  <Link key={item.href} href={item.href} className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-all ${isActive(item.href) ? 'bg-[#2D63A4] text-white font-medium' : 'text-black hover:bg-black/5'}`}>
-                    <span className="text-lg">{item.icon}</span>
-                    <span>{item.label}</span>
-                  </Link>
-                ))}
+              <nav className="flex-1 py-2 px-2">
+                {NAV_GROUPS.map((group) => {
+                  const groupItems = group.items.filter((item) => visible.has(item.href));
+                  if (groupItems.length === 0) return null;
+                  return (
+                    <div key={group.section} className="mb-1">
+                      <p className="px-3 pt-3 pb-1 text-[10px] font-bold uppercase tracking-widest text-black/40">{group.section}</p>
+                      {groupItems.map((item) => (
+                        <Link key={item.href} href={item.href} className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-all ${isActive(item.href) ? 'bg-[#2D63A4] text-white font-medium' : 'text-black hover:bg-black/5'}`}>
+                          <span className="text-base">{item.icon}</span>
+                          <span>{item.label}</span>
+                        </Link>
+                      ))}
+                    </div>
+                  );
+                })}
                 {pmuBrowsVisible(role) ? (
                   <>
                     <p className="px-3 pt-4 pb-1 text-[10px] font-bold uppercase tracking-widest text-black/45">PMU &amp; brows</p>
