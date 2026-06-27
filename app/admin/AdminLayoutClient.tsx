@@ -28,6 +28,8 @@ const NAV_GROUPS: NavGroup[] = [
     items: [
       { href: '/admin/rx', label: 'RX Command', icon: '🎯' },
       { href: '/admin/rx-dispatch', label: 'RX Dispatch', icon: '📤' },
+      { href: '/admin/rx/pharmacy-orders', label: 'Pharmacy Orders', icon: '🧪' },
+      { href: '/admin/rx/glp1-pricing', label: 'GLP-1 Pricing', icon: '📊' },
       { href: '/admin/rx-invoices', label: 'RX Invoices', icon: '💊' },
       { href: '/admin/rx-ledger', label: 'RX Ledger', icon: '📒' },
       { href: '/admin/rx-messages', label: 'RX Messages', icon: '💬' },

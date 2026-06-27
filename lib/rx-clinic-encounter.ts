@@ -7,6 +7,7 @@ import type { SupabaseClient } from "@supabase/supabase-js";
 
 import { computeGlp1RefillQuote, type Glp1RefillQuote } from "@/lib/glp1-refill-pricing";
 import { getSupabaseAdminClient } from "@/lib/hgos/supabase-admin";
+import { computeGlp1VialFulfillment } from "@/lib/glp1-vial-fulfillment";
 import { notifyPatientClinicRxShipped } from "@/lib/rx-clinic-ship-notify";
 import {
   insertRxPaymentLedger,
@@ -228,10 +229,21 @@ export function computeClinicSalePricing(input: ComputeClinicSaleInput): {
 }
 
 export function formatClinicDispatchPreview(row: RxClinicEncounterRow, clientName: string): string {
+  const fulfillment = computeGlp1VialFulfillment(
+    row.medication,
+    row.dose_tier_id,
+    row.supply_cycle,
+    row.pharmacy === "formulation" ? "formulation" : "boomrx",
+  );
   const lines = [
     `Patient: ${clientName}`,
     `Medication: ${row.medication} — ${row.dose_label || row.dose_tier_id}`,
     `Supply: ${row.supply_cycle}`,
+    fulfillment
+      ? fulfillment.pharmacySku
+        ? `Formulation SKU ${fulfillment.pharmacySku} — ${fulfillment.vialsToOrder} vial${fulfillment.vialsToOrder === 1 ? "" : "s"} · $${fulfillment.totalWholesaleUsd} wholesale · ❄ cold ship`
+        : `Vials to order: ${fulfillment.vialsToOrder} ($${fulfillment.totalWholesaleUsd} wholesale)`
+      : null,
     `Ship to: ${row.ship_address_line1 || ""}${row.ship_address_line2 ? `, ${row.ship_address_line2}` : ""}`,
     `${row.ship_city || ""}, ${row.ship_state || "IL"} ${row.ship_zip || ""}`.trim(),
     row.sig ? `Sig: ${row.sig}` : "",

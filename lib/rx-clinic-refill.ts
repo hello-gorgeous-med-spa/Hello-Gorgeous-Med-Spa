@@ -251,6 +251,7 @@ export type ClinicDispatchQueueItem = {
   email: string | null;
   medication: string;
   doseLabel: string | null;
+  doseTierId: string;
   supplyCycle: RxSupplyCycleId;
   pharmacy: string | null;
   dispatchStatus: string;
@@ -298,6 +299,7 @@ export async function listClinicDispatchQueue(
     email: r.client_email,
     medication: r.medication,
     doseLabel: r.dose_label,
+    doseTierId: r.dose_tier_id,
     supplyCycle: r.supply_cycle,
     pharmacy: r.pharmacy,
     dispatchStatus: r.dispatch_status,

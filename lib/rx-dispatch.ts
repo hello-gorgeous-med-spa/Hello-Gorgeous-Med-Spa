@@ -5,6 +5,7 @@
 import { SITE } from "@/lib/seo";
 import { glp1SignerName } from "@/lib/glp1-intake";
 import { glp1DoseTierById } from "@/lib/glp1-dose-tiers";
+import { fulfillmentFromIntakeResponses } from "@/lib/glp1-vial-fulfillment";
 import { suggestGlp1RefillDrug } from "@/lib/glp1-refill-intake";
 
 export const RX_INTAKE_SLUGS = [
@@ -254,6 +255,13 @@ export type PharmacyCopyInput = {
   email?: string;
   portal: RxPharmacy;
   intakeRef?: string;
+  vialsToOrder?: number | null;
+  vialWholesaleUsd?: number | null;
+  pharmacyWholesaleTotalUsd?: number | null;
+  pharmacySku?: string | null;
+  pharmacyProduct?: string | null;
+  pharmacyPack?: string | null;
+  coldShip?: boolean;
 };
 
 export function formatPharmacyAddress(input: PharmacyCopyInput): string {
@@ -288,6 +296,15 @@ export function formatPharmacyCopyPack(input: PharmacyCopyInput): string {
     `Allergies: ${input.allergies || "None reported"}`,
     input.medications ? `Medications: ${input.medications}` : null,
     `Drug: ${input.drug || "(enter drug / strength / vial size)"}`,
+    input.vialsToOrder != null
+      ? [
+          input.pharmacySku
+            ? input.pharmacySku.startsWith("tirz-") || input.pharmacySku.startsWith("sema-")
+              ? `BoomRx ${input.pharmacySku}: ${input.pharmacyProduct || ""} — ${input.pharmacyPack || ""} — $${input.pharmacyWholesaleTotalUsd?.toFixed(2) ?? "?"} wholesale`
+              : `Formulation SKU ${input.pharmacySku}: ${input.pharmacyProduct || "Tirzepatide/B6"} — ${input.pharmacyPack || ""} — $${input.pharmacyWholesaleTotalUsd?.toFixed(2) ?? "?"} wholesale${input.coldShip ? " · ❄ Cold ship · Next day only" : ""}`
+            : `Vials to order: ${input.vialsToOrder}${input.vialWholesaleUsd != null ? ` ($${input.vialWholesaleUsd}/vial est.)` : ""}`,
+        ].join("\n")
+      : null,
     `Sig: ${input.sig || "(enter sig)"}`,
     "",
     input.phone ? `Phone: ${input.phone}` : null,
@@ -308,6 +325,8 @@ export function buildCopyPackFromSubmission(opts: {
 }): string {
   const { slug, signerName, clientPhone, responses, dispatch, portal, intakeRef } = opts;
   const patientName = intakeDisplayName(slug, signerName, responses);
+  const fulfillment =
+    slug === "glp1-refill-request" ? fulfillmentFromIntakeResponses(responses) : null;
 
   return formatPharmacyCopyPack({
     portal,
@@ -326,6 +345,13 @@ export function buildCopyPackFromSubmission(opts: {
     phone: clientPhone || String(responses.phone || "").trim() || undefined,
     email: String(responses.email || "").trim() || undefined,
     intakeRef,
+    vialsToOrder: fulfillment?.vialsToOrder ?? null,
+    vialWholesaleUsd: fulfillment?.wholesaleCostPerVialUsd ?? null,
+    pharmacyWholesaleTotalUsd: fulfillment?.totalWholesaleUsd ?? null,
+    pharmacySku: fulfillment?.pharmacySku ?? null,
+    pharmacyProduct: fulfillment?.pharmacyProduct ?? null,
+    pharmacyPack: fulfillment?.pharmacyPack ?? null,
+    coldShip: fulfillment?.coldShip ?? false,
   });
 }
 
@@ -356,6 +382,10 @@ export function intakeSummaryLines(
       lines.push(
         `Price: ${String(responses.refill_price_label || (responses.refill_price_usd != null ? `$${responses.refill_price_usd}/mo` : "—"))}`,
       );
+      const fulfillment = fulfillmentFromIntakeResponses(responses);
+      if (fulfillment) {
+        lines.push(fulfillment.orderLine);
+      }
       lines.push(`Weight: ${String(responses.weight_lbs || "—")} lbs`);
       lines.push(`Ship: ${String(responses.ship_to_home || "—")}`);
     } else {

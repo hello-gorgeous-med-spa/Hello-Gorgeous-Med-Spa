@@ -11,6 +11,10 @@ export type Glp1DoseTier = {
   doseLabel: string;
   priceUsd: number;
   invoiceTemplateId: string;
+  /** Vials to order from pharmacy per 30-day (4-week) supply at this dose */
+  vialsPer30Day: number;
+  /** Your wholesale cost per vial from compounding pharmacy */
+  wholesaleCostPerVialUsd: number;
 };
 
 export const GLP1_SEMAGLUTIDE_DOSE_TIERS: Glp1DoseTier[] = [
@@ -20,6 +24,8 @@ export const GLP1_SEMAGLUTIDE_DOSE_TIERS: Glp1DoseTier[] = [
     doseLabel: "0.25–0.5 mg/week",
     priceUsd: 195,
     invoiceTemplateId: "glp1-sema-0.25-0.5",
+    vialsPer30Day: 1,
+    wholesaleCostPerVialUsd: 30,
   },
   {
     id: "sema-1.0",
@@ -27,6 +33,8 @@ export const GLP1_SEMAGLUTIDE_DOSE_TIERS: Glp1DoseTier[] = [
     doseLabel: "1.0 mg/week",
     priceUsd: 235,
     invoiceTemplateId: "glp1-sema-1.0",
+    vialsPer30Day: 1,
+    wholesaleCostPerVialUsd: 50,
   },
   {
     id: "sema-1.7",
@@ -34,6 +42,8 @@ export const GLP1_SEMAGLUTIDE_DOSE_TIERS: Glp1DoseTier[] = [
     doseLabel: "1.7 mg/week",
     priceUsd: 265,
     invoiceTemplateId: "glp1-sema-1.7",
+    vialsPer30Day: 1,
+    wholesaleCostPerVialUsd: 60,
   },
   {
     id: "sema-2.4",
@@ -41,6 +51,8 @@ export const GLP1_SEMAGLUTIDE_DOSE_TIERS: Glp1DoseTier[] = [
     doseLabel: "2.4 mg/week",
     priceUsd: 295,
     invoiceTemplateId: "glp1-sema-2.4",
+    vialsPer30Day: 1,
+    wholesaleCostPerVialUsd: 68,
   },
 ];
 
@@ -51,6 +63,8 @@ export const GLP1_TIRZEPATIDE_DOSE_TIERS: Glp1DoseTier[] = [
     doseLabel: "2.5 mg/week",
     priceUsd: 235,
     invoiceTemplateId: "glp1-tirz-2.5",
+    vialsPer30Day: 1,
+    wholesaleCostPerVialUsd: 50,
   },
   {
     id: "tirz-5",
@@ -58,6 +72,8 @@ export const GLP1_TIRZEPATIDE_DOSE_TIERS: Glp1DoseTier[] = [
     doseLabel: "5 mg/week",
     priceUsd: 275,
     invoiceTemplateId: "glp1-tirz-5",
+    vialsPer30Day: 1,
+    wholesaleCostPerVialUsd: 90,
   },
   {
     id: "tirz-7.5",
@@ -65,6 +81,8 @@ export const GLP1_TIRZEPATIDE_DOSE_TIERS: Glp1DoseTier[] = [
     doseLabel: "7.5 mg/week",
     priceUsd: 315,
     invoiceTemplateId: "glp1-tirz-7.5",
+    vialsPer30Day: 1,
+    wholesaleCostPerVialUsd: 115,
   },
   {
     id: "tirz-10",
@@ -72,6 +90,8 @@ export const GLP1_TIRZEPATIDE_DOSE_TIERS: Glp1DoseTier[] = [
     doseLabel: "10 mg/week",
     priceUsd: 350,
     invoiceTemplateId: "glp1-tirz-10",
+    vialsPer30Day: 1,
+    wholesaleCostPerVialUsd: 130,
   },
   {
     id: "tirz-12.5",
@@ -79,15 +99,14 @@ export const GLP1_TIRZEPATIDE_DOSE_TIERS: Glp1DoseTier[] = [
     doseLabel: "12.5 mg/week",
     priceUsd: 395,
     invoiceTemplateId: "glp1-tirz-12.5",
-  },
-  {
-    id: "tirz-15",
-    medication: "Tirzepatide",
-    doseLabel: "15 mg/week",
-    priceUsd: 435,
-    invoiceTemplateId: "glp1-tirz-15",
+    /** Max dose — BoomRx 3mL 60mg ($150/mo) or Formulation SKU 2498/2500 */
+    vialsPer30Day: 1,
+    wholesaleCostPerVialUsd: 150,
   },
 ];
+
+/** Highest tirzepatide dose we offer in-clinic and online (12.5 mg/week). */
+export const GLP1_MAX_TIRZEPATIDE_DOSE_LABEL = "12.5 mg/week";
 
 export const GLP1_ALL_DOSE_TIERS: Glp1DoseTier[] = [
   ...GLP1_SEMAGLUTIDE_DOSE_TIERS,
@@ -148,5 +167,5 @@ export function glp1HighestSemaglutideUsd(): number {
 }
 
 export function glp1HighestTirzepatideUsd(): number {
-  return GLP1_TIRZEPATIDE_DOSE_TIERS.at(-1)?.priceUsd ?? 435;
+  return GLP1_TIRZEPATIDE_DOSE_TIERS.at(-1)?.priceUsd ?? 395;
 }
