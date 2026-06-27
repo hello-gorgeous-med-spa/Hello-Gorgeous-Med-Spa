@@ -302,10 +302,10 @@ export async function insertClinicEncounter(
     return { error: error.message };
   }
 
-  const row = mapRow(data as Record<string, unknown>);
-  await createClinicEncounterChartNote(row, input.createdBy, admin);
+  const savedRow = mapRow(data as Record<string, unknown>);
+  await createClinicEncounterChartNote(savedRow, input.createdBy, admin);
 
-  const withChart = (await getClinicEncounter(row.id, admin)) ?? row;
+  const withChart = (await getClinicEncounter(savedRow.id, admin)) ?? savedRow;
   return { row: withChart };
 }
 
