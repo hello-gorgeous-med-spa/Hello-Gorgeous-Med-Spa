@@ -36,7 +36,7 @@ export const RX_LANDING_HERO = {
   primaryCta: { label: "Begin evaluation", href: BOOKING_URL },
   secondaryCta: { label: "Explore programs", href: "#programs" },
   heroImage: "/images/homepage-buyer-paths/hello-gorgeous-rx.png",
-  heroImageAlt: "Hello Gorgeous RX — peptide and prescription care",
+  heroImageAlt: "Hello Gorgeous RX — peptides and prescriptions, personalized wellness",
   accentImages: [
     { src: RX_CARE_IMAGES.glp1Refill, alt: "GLP-1 refill" },
     { src: RX_CARE_IMAGES.peptide, alt: "Peptide therapy" },

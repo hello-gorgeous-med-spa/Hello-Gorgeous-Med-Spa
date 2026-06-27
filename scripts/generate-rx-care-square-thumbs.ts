@@ -39,7 +39,7 @@ const JOBS: CropJob[] = [
     src: "rx-care/nad-sermorelin-bundle-1.png",
     position: "top",
   },
-  { out: "rx-overview.jpg", src: "rx-care/peptide-grid.png", position: "centre" },
+  { out: "rx-overview.jpg", src: "homepage-buyer-paths/hello-gorgeous-rx.png", position: "centre" },
 ];
 
 async function main() {
