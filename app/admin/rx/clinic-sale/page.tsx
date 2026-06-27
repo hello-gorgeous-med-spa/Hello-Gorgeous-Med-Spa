@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useCallback, useEffect, useMemo, useState } from "react";
+import { useSearchParams } from "next/navigation";
 
 import TerminalStatusModal from "@/components/TerminalStatusModal";
 import {
@@ -50,6 +51,10 @@ function formatUsd(n: number): string {
 }
 
 export default function ClinicRxSalePage() {
+  const searchParams = useSearchParams();
+  const prefillClientId = searchParams.get("client") || "";
+  const prefillEncounterId = searchParams.get("encounter") || "";
+
   const [medications, setMedications] = useState<MedicationOption[]>([]);
   const [supplyCycles, setSupplyCycles] = useState<SupplyCycle[]>([]);
   const [recent, setRecent] = useState<RxClinicEncounterRow[]>([]);
@@ -93,6 +98,9 @@ export default function ClinicRxSalePage() {
   const [terminalOpen, setTerminalOpen] = useState(false);
   const [terminalSaleId, setTerminalSaleId] = useState("");
   const [terminalAmount, setTerminalAmount] = useState(0);
+  const [trackingNumber, setTrackingNumber] = useState("");
+  const [carrier, setCarrier] = useState("");
+  const [dispatchSaving, setDispatchSaving] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -105,6 +113,49 @@ export default function ClinicRxSalePage() {
     })();
     loadRecent();
   }, []);
+
+  useEffect(() => {
+    if (!prefillClientId) return;
+    (async () => {
+      const res = await fetch(`/api/clients?id=${encodeURIComponent(prefillClientId)}`);
+      const data = await res.json();
+      if (res.ok && data.client) pickClient(data.client as Client);
+    })();
+  }, [prefillClientId]);
+
+  useEffect(() => {
+    if (!prefillEncounterId) return;
+    (async () => {
+      const res = await fetch(`/api/admin/rx/clinic-encounters/${prefillEncounterId}`);
+      const data = await res.json();
+      if (!res.ok || !data.encounter) return;
+      const e = data.encounter as RxClinicEncounterRow;
+      setSavedEncounter(e);
+      setDispatchPreview(data.dispatchPreview || "");
+      setEncounterType(e.encounter_type);
+      setMedication(e.medication);
+      setDoseTierId(e.dose_tier_id);
+      setSupplyCycle(e.supply_cycle);
+      setConsultFeeUsd(String(e.consult_fee_usd));
+      setDiscountUsd(String(e.discount_usd));
+      setDiscountReason(e.discount_reason || "");
+      setShipLine1(e.ship_address_line1 || "");
+      setShipLine2(e.ship_address_line2 || "");
+      setShipCity(e.ship_city || "");
+      setShipState(e.ship_state || "IL");
+      setShipZip(e.ship_zip || "");
+      setPharmacy(e.pharmacy || "formulation");
+      setSig(e.sig || "");
+      setStaffNotes(e.staff_notes || "");
+      setClinical((e.clinical as RxClinicClinical) || {});
+      setTrackingNumber(e.tracking_number || "");
+      setCarrier(e.carrier || "");
+      if (e.pricing_snapshot) setSnapshot(e.pricing_snapshot as RxClinicPricingSnapshot);
+      const clientRes = await fetch(`/api/clients?id=${encodeURIComponent(e.client_id)}`);
+      const clientData = await clientRes.json();
+      if (clientRes.ok && clientData.client) pickClient(clientData.client as Client);
+    })();
+  }, [prefillEncounterId]);
 
   const loadRecent = async () => {
     const res = await fetch("/api/admin/rx/clinic-encounters?limit=12");
@@ -314,6 +365,39 @@ export default function ClinicRxSalePage() {
     setDiscountReason("");
     setStaffNotes("");
     setSig("");
+    setTrackingNumber("");
+    setCarrier("");
+  };
+
+  const updateDispatch = async (dispatchStatus: string) => {
+    if (!savedEncounter) return;
+    setDispatchSaving(true);
+    setError(null);
+    try {
+      const res = await fetch(
+        `/api/admin/rx/clinic-encounters/${savedEncounter.id}/dispatch`,
+        {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            dispatchStatus,
+            trackingNumber,
+            carrier,
+          }),
+        },
+      );
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Update failed");
+      setSavedEncounter(data.encounter);
+      const detail = await fetch(`/api/admin/rx/clinic-encounters/${savedEncounter.id}`);
+      const detailData = await detail.json();
+      if (detail.ok) setDispatchPreview(detailData.dispatchPreview || "");
+      await loadRecent();
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "Dispatch update failed");
+    } finally {
+      setDispatchSaving(false);
+    }
   };
 
   return (
@@ -729,6 +813,51 @@ export default function ClinicRxSalePage() {
               <pre className="text-xs whitespace-pre-wrap font-mono text-black/80">{dispatchPreview}</pre>
             </div>
           )}
+
+          {savedEncounter &&
+            (savedEncounter.status === "paid" ||
+              savedEncounter.status === "ready_to_ship" ||
+              savedEncounter.status === "shipped") && (
+              <div className="rounded-2xl border-4 border-black bg-white p-4 space-y-3">
+                <h3 className="font-black text-sm">Ship to patient</h3>
+                <p className="text-xs text-black/60">
+                  Status: {savedEncounter.dispatch_status} · {savedEncounter.status.replace(/_/g, " ")}
+                </p>
+                {savedEncounter.chart_note_id && (
+                  <Link
+                    href={`/admin/clients/${savedEncounter.client_id}?tab=rx`}
+                    className="text-xs font-bold text-[#E6007E] underline block"
+                  >
+                    Chart note saved in portal →
+                  </Link>
+                )}
+                <input
+                  value={carrier}
+                  onChange={(e) => setCarrier(e.target.value)}
+                  placeholder="Carrier (UPS, FedEx…)"
+                  className="w-full rounded-xl border-2 border-black px-3 py-2 text-sm"
+                />
+                <input
+                  value={trackingNumber}
+                  onChange={(e) => setTrackingNumber(e.target.value)}
+                  placeholder="Tracking number"
+                  className="w-full rounded-xl border-2 border-black px-3 py-2 text-sm"
+                />
+                <div className="flex flex-wrap gap-2">
+                  {(["reviewed", "sent", "shipped"] as const).map((s) => (
+                    <button
+                      key={s}
+                      type="button"
+                      disabled={dispatchSaving}
+                      onClick={() => void updateDispatch(s)}
+                      className="px-3 py-1.5 rounded-full border-2 border-black text-xs font-bold hover:border-[#E6007E] disabled:opacity-50"
+                    >
+                      Mark {s}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
         </div>
       </div>
 

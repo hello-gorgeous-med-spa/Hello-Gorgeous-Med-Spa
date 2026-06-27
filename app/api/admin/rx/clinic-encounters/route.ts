@@ -4,10 +4,9 @@ import { requireProviderAreaAccess } from "@/lib/api-auth";
 import {
   computeClinicSalePricing,
   insertClinicEncounter,
-  listClinicEncounters,
+  listClinicEncountersWithClient,
   type RxClinicEncounterStatus,
   type RxClinicEncounterType,
-  type SaveClinicEncounterInput,
 } from "@/lib/rx-clinic-encounter";
 import type { RxSupplyCycleId } from "@/lib/rx-supply-cycle";
 import {
@@ -37,7 +36,7 @@ export async function GET(req: NextRequest) {
     });
   }
 
-  const { rows, tableReady } = await listClinicEncounters({
+  const { rows, tableReady } = await listClinicEncountersWithClient({
     clientId,
     status: status as RxClinicEncounterStatus | "all",
     limit: parseInt(req.nextUrl.searchParams.get("limit") || "30", 10),

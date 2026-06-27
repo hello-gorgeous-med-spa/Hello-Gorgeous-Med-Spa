@@ -4,6 +4,8 @@ import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 
 type RxCommandItem = {
+  kind: "intake" | "clinic";
+  id: string;
   submissionId: string;
   submittedAt: string;
   intakeRef: string;
@@ -21,6 +23,9 @@ type RxCommandItem = {
   templateId: string | null;
   ledgerId: string | null;
   unreadMessages: number;
+  clientId?: string | null;
+  encounterStatus?: string | null;
+  trackingNumber?: string | null;
 };
 
 function payBadge(status: string | null) {
@@ -112,6 +117,9 @@ export default function AdminRxCommandCenterPage() {
             <Link href="/admin/rx-messages" className="text-[#FFB8DC] hover:text-white">
               Messages →
             </Link>
+            <Link href="/admin/rx/clinic-sale" className="text-[#FFB8DC] hover:text-white">
+              Clinic sale →
+            </Link>
             <Link href="/admin/rx-invoices" className="text-[#FFB8DC] hover:text-white">
               Invoices →
             </Link>
@@ -144,10 +152,15 @@ export default function AdminRxCommandCenterPage() {
               </thead>
               <tbody>
                 {items.map((item) => (
-                  <tr key={item.submissionId} className="border-b border-white/5 hover:bg-white/5">
+                  <tr key={item.id} className="border-b border-white/5 hover:bg-white/5">
                     <td className="px-4 py-3">
                       <p className="font-semibold">{item.patientName}</p>
                       <p className="text-[11px] text-gray-500">{new Date(item.submittedAt).toLocaleString()}</p>
+                      {item.kind === "clinic" && (
+                        <span className="mt-1 inline-block rounded bg-[#E6007E]/30 px-1.5 py-0.5 text-[9px] font-bold uppercase text-[#FFB8DC]">
+                          In-person
+                        </span>
+                      )}
                     </td>
                     <td className="px-4 py-3 font-mono text-xs">{item.intakeRef || "—"}</td>
                     <td className="px-4 py-3 text-xs capitalize">{item.track}</td>
@@ -157,7 +170,14 @@ export default function AdminRxCommandCenterPage() {
                         {item.paymentAmountUsd != null ? ` · $${item.paymentAmountUsd}` : ""}
                       </span>
                     </td>
-                    <td className="px-4 py-3 text-xs uppercase text-[#FFB8DC]">{item.dispatchStatus}</td>
+                    <td className="px-4 py-3 text-xs uppercase text-[#FFB8DC]">
+                      {item.dispatchStatus}
+                      {item.trackingNumber ? (
+                        <span className="block text-[10px] text-gray-500 normal-case">
+                          {item.trackingNumber}
+                        </span>
+                      ) : null}
+                    </td>
                     <td className="px-4 py-3">
                       {item.unreadMessages > 0 ? (
                         <span className="rounded-full bg-[#E6007E] px-2 py-0.5 text-[10px] font-bold">
@@ -169,6 +189,25 @@ export default function AdminRxCommandCenterPage() {
                     </td>
                     <td className="px-4 py-3">
                       <div className="flex flex-wrap gap-2 text-[11px]">
+                        {item.kind === "clinic" ? (
+                          <>
+                            <Link
+                              href={`/admin/rx/clinic-sale?encounter=${item.id}`}
+                              className="text-[#FFB8DC] hover:underline"
+                            >
+                              Clinic sale
+                            </Link>
+                            {item.clientId && (
+                              <Link
+                                href={`/admin/clients/${item.clientId}?tab=rx`}
+                                className="text-[#FFB8DC] hover:underline"
+                              >
+                                Client RX
+                              </Link>
+                            )}
+                          </>
+                        ) : (
+                          <>
                         <Link
                           href={`/admin/rx-dispatch?ref=${encodeURIComponent(item.intakeRef)}`}
                           className="text-[#FFB8DC] hover:underline"
@@ -200,11 +239,6 @@ export default function AdminRxCommandCenterPage() {
                         >
                           Invoice
                         </Link>
-                        {item.ledgerId && (
-                          <Link href="/admin/rx-ledger" className="text-gray-400 hover:text-white">
-                            Ledger
-                          </Link>
-                        )}
                         <Link href="/admin/rx-messages" className="text-[#FFB8DC] hover:underline">
                           Message
                         </Link>
@@ -216,6 +250,13 @@ export default function AdminRxCommandCenterPage() {
                         >
                           Patient view
                         </a>
+                          </>
+                        )}
+                        {item.ledgerId && (
+                          <Link href="/admin/rx-ledger" className="text-gray-400 hover:text-white">
+                            Ledger
+                          </Link>
+                        )}
                       </div>
                     </td>
                   </tr>

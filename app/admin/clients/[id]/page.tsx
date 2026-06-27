@@ -8,7 +8,9 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 import { ClientInbox } from '@/components/clinical/ClientInbox';
+import { ClientRxWeightLossTab } from '@/components/admin/ClientRxWeightLossTab';
 
 // Skeleton component
 function Skeleton({ className = '' }: { className?: string }) {
@@ -821,12 +823,13 @@ function ClientChartNotes({ clientId }: { clientId: string }) {
 }
 
 // Tab IDs for client hub (PRD Phase 2)
-type ClientTabId = 'overview' | 'appointments' | 'charting' | 'consents' | 'photos' | 'purchases' | 'memberships' | 'wallet' | 'messages' | 'files' | 'alerts';
+type ClientTabId = 'overview' | 'appointments' | 'charting' | 'consents' | 'photos' | 'purchases' | 'memberships' | 'wallet' | 'messages' | 'files' | 'alerts' | 'rx';
 
 const CLIENT_TABS: { id: ClientTabId; label: string; count?: number }[] = [
   { id: 'overview', label: 'Overview' },
   { id: 'appointments', label: 'Appointments', count: 0 },
   { id: 'charting', label: 'Charting' },
+  { id: 'rx', label: 'RX / Weight Loss' },
   { id: 'consents', label: 'Consents', count: 0 },
   { id: 'photos', label: 'Photos' },
   { id: 'purchases', label: 'Purchases', count: 0 },
@@ -838,6 +841,7 @@ const CLIENT_TABS: { id: ClientTabId; label: string; count?: number }[] = [
 ];
 
 export default function AdminClientDetailPage({ params }: { params: { id: string } }) {
+  const searchParams = useSearchParams();
   const [activeTab, setActiveTab] = useState<ClientTabId>('overview');
   
   // State for API data
@@ -941,6 +945,11 @@ export default function AdminClientDetailPage({ params }: { params: { id: string
   useEffect(() => {
     fetchClient();
   }, [fetchClient]);
+
+  useEffect(() => {
+    const tab = searchParams.get('tab');
+    if (tab === 'rx') setActiveTab('rx');
+  }, [searchParams]);
 
   useEffect(() => {
     if (params.id) {
@@ -1463,6 +1472,13 @@ export default function AdminClientDetailPage({ params }: { params: { id: string
           consents={consents}
           formatDate={formatDate}
           loadingExtra={loadingExtra}
+        />
+      )}
+
+      {activeTab === 'rx' && (
+        <ClientRxWeightLossTab
+          clientId={client.id}
+          clientName={`${client.first_name} ${client.last_name}`}
         />
       )}
 

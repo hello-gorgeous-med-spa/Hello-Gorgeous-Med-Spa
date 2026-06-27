@@ -25,7 +25,7 @@ export type RxClinicEncounterStatus =
   | "complete"
   | "cancelled";
 
-export type RxClinicDispatchStatus = "new" | "reviewed" | "sent";
+export type RxClinicDispatchStatus = "new" | "reviewed" | "sent" | "shipped";
 
 export type RxClinicPaymentMethod = "terminal" | "payment_link" | "cash" | "other";
 
@@ -87,6 +87,10 @@ export type RxClinicEncounterRow = {
   square_order_id: string | null;
   square_payment_id: string | null;
   paid_at: string | null;
+  chart_note_id: string | null;
+  tracking_number: string | null;
+  carrier: string | null;
+  shipped_at: string | null;
 };
 
 export type ComputeClinicSaleInput = {
@@ -168,6 +172,10 @@ function mapRow(raw: Record<string, unknown>): RxClinicEncounterRow {
     square_order_id: (raw.square_order_id as string | null) ?? null,
     square_payment_id: (raw.square_payment_id as string | null) ?? null,
     paid_at: (raw.paid_at as string | null) ?? null,
+    chart_note_id: (raw.chart_note_id as string | null) ?? null,
+    tracking_number: (raw.tracking_number as string | null) ?? null,
+    carrier: (raw.carrier as string | null) ?? null,
+    shipped_at: (raw.shipped_at as string | null) ?? null,
   };
 }
 
@@ -269,7 +277,11 @@ export async function insertClinicEncounter(
     return { error: error.message };
   }
 
-  return { row: mapRow(data as Record<string, unknown>) };
+  const row = mapRow(data as Record<string, unknown>);
+  await createClinicEncounterChartNote(row, input.createdBy, admin);
+
+  const withChart = (await getClinicEncounter(row.id, admin)) ?? row;
+  return { row: withChart };
 }
 
 export async function updateClinicEncounter(
@@ -283,6 +295,10 @@ export async function updateClinicEncounter(
     squareOrderId?: string | null;
     squarePaymentId?: string | null;
     paidAt?: string | null;
+    chartNoteId?: string | null;
+    trackingNumber?: string | null;
+    carrier?: string | null;
+    shippedAt?: string | null;
   },
   client?: SupabaseClient | null,
 ): Promise<{ row: RxClinicEncounterRow } | { error: string }> {
@@ -357,6 +373,10 @@ export async function updateClinicEncounter(
   if (patch.squareOrderId !== undefined) updateRow.square_order_id = patch.squareOrderId;
   if (patch.squarePaymentId !== undefined) updateRow.square_payment_id = patch.squarePaymentId;
   if (patch.paidAt !== undefined) updateRow.paid_at = patch.paidAt;
+  if (patch.chartNoteId !== undefined) updateRow.chart_note_id = patch.chartNoteId;
+  if (patch.trackingNumber !== undefined) updateRow.tracking_number = patch.trackingNumber?.trim() || null;
+  if (patch.carrier !== undefined) updateRow.carrier = patch.carrier?.trim() || null;
+  if (patch.shippedAt !== undefined) updateRow.shipped_at = patch.shippedAt;
 
   const { data, error } = await admin
     .from("hg_rx_clinic_encounters")
@@ -531,5 +551,190 @@ export async function markClinicEncounterPaid(
       paidAt,
     },
     client,
+  ).then(async (result) => {
+    if ("error" in result) return result;
+    if (!result.row.chart_note_id) {
+      await createClinicEncounterChartNote(result.row, opts.sentBy, client);
+      const refreshed = await getClinicEncounter(encounterId, client);
+      if (refreshed) return { row: refreshed };
+    }
+    return result;
+  });
+}
+
+/** Auto-create hormone-style chart note so Ryan/Danielle stay in sync. */
+export async function createClinicEncounterChartNote(
+  encounter: RxClinicEncounterRow,
+  createdByEmail?: string | null,
+  client?: SupabaseClient | null,
+): Promise<string | null> {
+  if (encounter.chart_note_id) return encounter.chart_note_id;
+
+  const admin = client ?? getSupabaseAdminClient();
+  if (!admin) return null;
+
+  const encounterLabel =
+    RX_CLINIC_ENCOUNTER_TYPES.find((t) => t.id === encounter.encounter_type)?.label ??
+    "Clinic visit";
+  const clinical = encounter.clinical ?? {};
+
+  const subjective = [
+    clinical.allergiesReviewed ? "Allergies reviewed." : null,
+    clinical.currentMedicationsReviewed ? "Current medications reviewed." : null,
+    clinical.contraindicationsNone ? "No contraindications noted." : null,
+    clinical.labsOnFile ? "Labs on file." : null,
+  ]
+    .filter(Boolean)
+    .join(" ");
+
+  const objectiveParts: string[] = [];
+  if (clinical.weightLbs) objectiveParts.push(`Weight: ${clinical.weightLbs} lbs`);
+  if (clinical.goalWeightLbs) objectiveParts.push(`Goal weight: ${clinical.goalWeightLbs} lbs`);
+  const objective = objectiveParts.join(". ");
+
+  const assessment = `${encounter.medication} ${encounter.dose_label || encounter.dose_tier_id} — ${encounter.supply_cycle} supply (ship to home)`;
+
+  const plan = [
+    clinical.titrationNote,
+    encounter.sig ? `Sig: ${encounter.sig}` : null,
+    `Pharmacy: ${encounter.pharmacy || "TBD"}. Medication ships to patient — not held at clinic.`,
+    clinical.nextTelehealthDue
+      ? `Next telehealth due: ${clinical.nextTelehealthDue}`
+      : "Telehealth every 90 days per Hello Gorgeous RX protocol.",
+    encounter.staff_notes ? `Staff notes: ${encounter.staff_notes}` : null,
+  ]
+    .filter(Boolean)
+    .join("\n");
+
+  const procedureDetails = {
+    source: "rx_clinic_encounter",
+    clinicEncounterId: encounter.id,
+    medication: encounter.medication,
+    doseTierId: encounter.dose_tier_id,
+    doseLabel: encounter.dose_label,
+    supplyCycle: encounter.supply_cycle,
+    pharmacy: encounter.pharmacy,
+    shipToHome: true,
+    shipAddress: {
+      line1: encounter.ship_address_line1,
+      line2: encounter.ship_address_line2,
+      city: encounter.ship_city,
+      state: encounter.ship_state,
+      zip: encounter.ship_zip,
+    },
+    clinical,
+    pricing: encounter.pricing_snapshot,
+    createdByEmail: createdByEmail ?? null,
+  };
+
+  const { data, error } = await admin
+    .from("chart_notes")
+    .insert({
+      client_id: encounter.client_id,
+      note_type: "consult",
+      title: `GLP-1 ${encounterLabel} — ${encounter.medication}`,
+      status: "final",
+      subjective: subjective || null,
+      objective: objective || null,
+      assessment,
+      plan,
+      procedure_details: procedureDetails,
+    })
+    .select("id")
+    .single();
+
+  if (error) {
+    console.error("[rx-clinic-encounter] chart note", error.message);
+    return null;
+  }
+
+  const chartNoteId = String(data.id);
+  await updateClinicEncounter(encounter.id, { chartNoteId }, admin);
+  return chartNoteId;
+}
+
+export async function updateClinicEncounterDispatch(
+  id: string,
+  patch: {
+    dispatchStatus?: RxClinicDispatchStatus;
+    trackingNumber?: string | null;
+    carrier?: string | null;
+  },
+  client?: SupabaseClient | null,
+): Promise<{ row: RxClinicEncounterRow } | { error: string }> {
+  const encounter = await getClinicEncounter(id, client);
+  if (!encounter) return { error: "Encounter not found" };
+
+  const dispatchStatus = patch.dispatchStatus ?? encounter.dispatch_status;
+  const shippedAt =
+    dispatchStatus === "shipped" && !encounter.shipped_at
+      ? new Date().toISOString()
+      : encounter.shipped_at;
+
+  let status = encounter.status;
+  if (dispatchStatus === "sent" && encounter.status === "paid") {
+    status = "ready_to_ship";
+  }
+  if (dispatchStatus === "shipped") {
+    status = "shipped";
+  }
+
+  return updateClinicEncounter(
+    id,
+    {
+      dispatchStatus,
+      trackingNumber: patch.trackingNumber,
+      carrier: patch.carrier,
+      shippedAt,
+      status,
+    },
+    client,
   );
+}
+
+export type RxClinicEncounterWithClient = RxClinicEncounterRow & {
+  client_name: string | null;
+  client_phone: string | null;
+  client_email: string | null;
+};
+
+export async function listClinicEncountersWithClient(
+  filters: { clientId?: string; status?: RxClinicEncounterStatus | "all"; limit?: number } = {},
+  client?: SupabaseClient | null,
+): Promise<{ rows: RxClinicEncounterWithClient[]; tableReady: boolean }> {
+  const { rows, tableReady } = await listClinicEncounters(filters, client);
+  if (!rows.length) return { rows: [], tableReady };
+
+  const admin = client ?? getSupabaseAdminClient();
+  if (!admin) return { rows: rows.map((r) => ({ ...r, client_name: null, client_phone: null, client_email: null })), tableReady };
+
+  const clientIds = [...new Set(rows.map((r) => r.client_id))];
+  const { data: clients } = await admin
+    .from("clients")
+    .select("id, first_name, last_name, phone, email")
+    .in("id", clientIds);
+
+  const clientMap = new Map(
+    (clients ?? []).map((c) => [
+      String(c.id),
+      {
+        name: `${c.first_name || ""} ${c.last_name || ""}`.trim(),
+        phone: c.phone as string | null,
+        email: c.email as string | null,
+      },
+    ]),
+  );
+
+  return {
+    rows: rows.map((r) => {
+      const c = clientMap.get(r.client_id);
+      return {
+        ...r,
+        client_name: c?.name ?? null,
+        client_phone: c?.phone ?? null,
+        client_email: c?.email ?? null,
+      };
+    }),
+    tableReady,
+  };
 }

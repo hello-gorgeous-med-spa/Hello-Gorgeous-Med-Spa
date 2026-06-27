@@ -10,6 +10,10 @@ import {
   intakeTrackFromSlug,
   type RxDispatchRecord,
 } from "@/lib/rx-dispatch";
+import {
+  listClinicEncountersWithClient,
+  type RxClinicEncounterWithClient,
+} from "@/lib/rx-clinic-encounter";
 import { intakeRefFromToken } from "@/lib/rx-submission-context";
 
 export const dynamic = "force-dynamic";
@@ -30,6 +34,8 @@ type SubmissionRow = {
 };
 
 export type RxCommandCenterItem = {
+  kind: "intake" | "clinic";
+  id: string;
   submissionId: string;
   submittedAt: string;
   intakeRef: string;
@@ -47,12 +53,55 @@ export type RxCommandCenterItem = {
   templateId: string | null;
   ledgerId: string | null;
   unreadMessages: number;
+  clientId?: string | null;
+  encounterStatus?: string | null;
+  trackingNumber?: string | null;
 };
 
 function mapLedger(raw: Record<string, unknown>): RxPaymentLedgerRow {
   return raw as unknown as RxPaymentLedgerRow;
 }
 
+function clinicRef(id: string): string {
+  return `CL-${id.replace(/-/g, "").slice(0, 8).toUpperCase()}`;
+}
+
+function paymentStatusFromEncounter(row: RxClinicEncounterWithClient): string {
+  if (row.status === "paid" || row.status === "ready_to_ship" || row.status === "shipped" || row.status === "complete") {
+    return "paid";
+  }
+  if (row.status === "awaiting_payment") return "pending";
+  if (row.status === "cancelled") return "failed";
+  return "pending";
+}
+
+function mapClinicToCommandItem(row: RxClinicEncounterWithClient): RxCommandCenterItem {
+  const quote = row.pricing_snapshot?.quote;
+  return {
+    kind: "clinic",
+    id: row.id,
+    submissionId: row.id,
+    submittedAt: row.created_at,
+    intakeRef: clinicRef(row.id),
+    slug: "clinic-sale",
+    templateTitle: "In-person clinic sale",
+    track: "glp1",
+    patientName: row.client_name || "Client",
+    phone: row.client_phone,
+    email: row.client_email,
+    qualified: true,
+    dispatchStatus: row.dispatch_status,
+    paymentStatus: paymentStatusFromEncounter(row),
+    paymentAmountUsd: row.final_total_usd,
+    paymentUrl: null,
+    templateId: quote?.invoiceTemplateId ?? null,
+    ledgerId: row.ledger_id,
+    unreadMessages: 0,
+    clientId: row.client_id,
+    encounterStatus: row.status,
+    trackingNumber: row.tracking_number,
+  };
+}
 function pickLedgerForSubmission(
   submissionId: string,
   intakeRef: string,
@@ -84,7 +133,16 @@ export async function GET(req: NextRequest) {
 
   const templateById = new Map((templates as TemplateRow[] | null)?.map((t) => [t.id, t]) ?? []);
   const templateIds = Array.from(templateById.keys());
-  if (!templateIds.length) return NextResponse.json({ items: [] });
+
+  const { rows: clinicRows } = await listClinicEncountersWithClient({ limit });
+
+  if (!templateIds.length) {
+    const clinicItems = clinicRows.map(mapClinicToCommandItem);
+    clinicItems.sort(
+      (a, b) => new Date(b.submittedAt).getTime() - new Date(a.submittedAt).getTime(),
+    );
+    return NextResponse.json({ items: clinicItems.slice(0, limit) });
+  }
 
   const { data: submissions } = await admin
     .from("hg_form_submissions")
@@ -160,6 +218,8 @@ export async function GET(req: NextRequest) {
       const ledger = pickLedgerForSubmission(row.id, ref, ledgerRows);
 
       return {
+        kind: "intake" as const,
+        id: row.id,
         submissionId: row.id,
         submittedAt: row.submitted_at,
         intakeRef: ref,
@@ -177,9 +237,16 @@ export async function GET(req: NextRequest) {
         templateId: ledger?.template_id ?? null,
         ledgerId: ledger?.id ?? null,
         unreadMessages: unreadByRef.get(ref) ?? 0,
+        clientId: row.client_id,
       };
     })
     .filter(Boolean) as RxCommandCenterItem[];
 
-  return NextResponse.json({ items });
+  const clinicItems = clinicRows.map(mapClinicToCommandItem);
+  const merged = [...items, ...clinicItems];
+  merged.sort(
+    (a, b) => new Date(b.submittedAt).getTime() - new Date(a.submittedAt).getTime(),
+  );
+
+  return NextResponse.json({ items: merged.slice(0, limit) });
 }
