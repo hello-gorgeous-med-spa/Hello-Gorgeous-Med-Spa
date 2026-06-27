@@ -13,7 +13,9 @@ export type RxLedgerSource =
   | "glp1_checkout"
   | "glp1_autopay"
   | "peptide_checkout"
-  | "manual";
+  | "manual"
+  | "clinic_terminal"
+  | "clinic_cash";
 
 export type RxLedgerPaymentStatus = "pending" | "paid" | "failed" | "refunded" | "unknown";
 

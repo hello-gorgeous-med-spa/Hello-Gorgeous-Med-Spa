@@ -15,6 +15,7 @@ const MAIN_NAV: { href: string; label: string; icon: string }[] = [
   { href: '/admin/appointments', label: 'Appointments', icon: '📅' },
   { href: '/admin/clients', label: 'Clients', icon: '👥' },
   { href: '/admin/unit-bank', label: 'Unit Bank', icon: '💉' },
+  { href: '/admin/rx/clinic-sale', label: 'Clinic RX Sale', icon: '🏥' },
   { href: '/admin/rx-invoices', label: 'RX Invoices', icon: '💊' },
   { href: '/admin/rx', label: 'RX Command', icon: '🎯' },
   { href: '/admin/rx-ledger', label: 'RX Ledger', icon: '📒' },
