@@ -173,6 +173,8 @@ export default function ExecutiveDashboard() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
+  const [squareSyncing, setSquareSyncing] = useState(false);
+  const [squareSyncMsg, setSquareSyncMsg] = useState<string | null>(null);
   const [unsignedConsentAppts, setUnsignedConsentAppts] = useState<{id: string; client_name: string; time: string}[]>([]);
   
   // Filters
@@ -487,8 +489,29 @@ export default function ExecutiveDashboard() {
   };
 
   const handleExportPDF = () => {
-    // Simple print-based PDF export
     window.print();
+  };
+
+  const handleSquareSync = async () => {
+    setSquareSyncing(true);
+    setSquareSyncMsg(null);
+    try {
+      const res = await fetch('/api/cron/sync-square-payments?days=7', {
+        headers: { 'x-vercel-cron': '1' },
+      });
+      const data = await res.json();
+      if (data.ok) {
+        setSquareSyncMsg(`✓ Synced ${data.fetched} payments from Square`);
+        setTimeout(() => fetchDashboard(), 1000);
+      } else {
+        setSquareSyncMsg(`⚠ ${data.error || 'Sync failed'}`);
+      }
+    } catch {
+      setSquareSyncMsg('⚠ Sync failed — check connection');
+    } finally {
+      setSquareSyncing(false);
+      setTimeout(() => setSquareSyncMsg(null), 6000);
+    }
   };
 
   return (
@@ -535,6 +558,20 @@ export default function ExecutiveDashboard() {
               <option key={p.id} value={p.id}>{p.name}</option>
             ))}
           </select>
+
+          {/* Square Sync */}
+          <div className="flex flex-col items-end gap-0.5">
+            <button
+              onClick={handleSquareSync}
+              disabled={squareSyncing}
+              className="px-4 py-2.5 bg-emerald-600 text-white font-medium rounded-xl hover:bg-emerald-700 text-sm shadow-sm transition-all disabled:opacity-60 disabled:cursor-wait"
+            >
+              {squareSyncing ? '⏳ Syncing…' : '🔄 Sync Square'}
+            </button>
+            {squareSyncMsg && (
+              <p className="text-xs text-emerald-700 font-medium">{squareSyncMsg}</p>
+            )}
+          </div>
 
           {/* Export Buttons */}
           <button

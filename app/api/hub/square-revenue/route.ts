@@ -140,7 +140,7 @@ export async function GET(req: NextRequest) {
   }
 
   const end = new Date();
-  const begin = new Date(Date.now() - 40 * 86400000 * 1000);
+  const begin = new Date(Date.now() - 40 * 86400000);
   const beginIso = begin.toISOString();
   const endIso = end.toISOString();
 

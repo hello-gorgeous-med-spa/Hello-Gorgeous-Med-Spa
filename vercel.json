@@ -96,6 +96,10 @@
       "schedule": "0 10 * * 1"
     },
     {
+      "path": "/api/cron/sync-square-payments",
+      "schedule": "0 */6 * * *"
+    },
+    {
       "path": "/api/app/aftercare/process",
       "schedule": "0 15 * * *"
     }
