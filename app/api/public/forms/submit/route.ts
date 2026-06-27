@@ -138,6 +138,12 @@ export async function POST(req: NextRequest) {
     submission_id: row.id,
     submitted_at: row.submitted_at,
     reference: ref,
-    ...(isPeptideFormSlug(slug) || isGlp1FormSlug(slug) ? { record_token: token } : {}),
+    ...(isPeptideFormSlug(slug) || isGlp1FormSlug(slug)
+      ? {
+          record_token: token,
+          status_url: `/rx/status?token=${encodeURIComponent(token)}`,
+          messages_url: `/rx/messages?token=${encodeURIComponent(token)}`,
+        }
+      : {}),
   });
 }

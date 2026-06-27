@@ -43,6 +43,8 @@ export type RxCommandCenterItem = {
   dispatchStatus: string;
   paymentStatus: string | null;
   paymentAmountUsd: number | null;
+  paymentUrl: string | null;
+  templateId: string | null;
   ledgerId: string | null;
   unreadMessages: number;
 };
@@ -171,6 +173,8 @@ export async function GET(req: NextRequest) {
         dispatchStatus,
         paymentStatus: ledger?.payment_status ?? null,
         paymentAmountUsd: ledger?.amount_usd ?? null,
+        paymentUrl: ledger?.payment_url ?? null,
+        templateId: ledger?.template_id ?? null,
         ledgerId: ledger?.id ?? null,
         unreadMessages: unreadByRef.get(ref) ?? 0,
       };

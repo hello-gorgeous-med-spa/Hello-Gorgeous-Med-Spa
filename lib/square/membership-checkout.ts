@@ -130,10 +130,15 @@ async function createFirstMonthCheckoutUrl(opts: {
   name: string;
   priceDollars: number;
   redirectUrl: string;
-}): Promise<string> {
+}): Promise<MembershipCheckoutResult> {
   const locationId = await resolveSquareLocationId();
   const linkData = await squareFetch<{
-    payment_link?: { url?: string; long_url?: string };
+    payment_link?: {
+      id?: string;
+      order_id?: string;
+      url?: string;
+      long_url?: string;
+    };
   }>("/v2/online-checkout/payment-links", {
     method: "POST",
     body: {
@@ -156,13 +161,20 @@ async function createFirstMonthCheckoutUrl(opts: {
 
   const url = linkData.payment_link?.url || linkData.payment_link?.long_url;
   if (!url) throw new Error("Could not create first-month checkout link");
-  return url;
+  return {
+    url,
+    mode: "first_month",
+    paymentLinkId: linkData.payment_link?.id,
+    orderId: linkData.payment_link?.order_id,
+  };
 }
 
 export type MembershipCheckoutResult = {
   url: string;
   /** subscription = recurring Square billing; first_month = one-time until Square scopes updated */
   mode: "subscription" | "first_month";
+  paymentLinkId?: string;
+  orderId?: string;
 };
 
 /** Create a Square hosted checkout URL for a monthly membership. */
@@ -182,7 +194,12 @@ export async function createMembershipCheckoutUrl(opts: {
     await resolveSquareLocationId();
 
     const linkData = await squareFetch<{
-      payment_link?: { url?: string; long_url?: string };
+      payment_link?: {
+        id?: string;
+        order_id?: string;
+        url?: string;
+        long_url?: string;
+      };
     }>("/v2/online-checkout/payment-links", {
       method: "POST",
       body: {
@@ -199,13 +216,18 @@ export async function createMembershipCheckoutUrl(opts: {
 
     const url = linkData.payment_link?.url || linkData.payment_link?.long_url;
     if (!url) throw new Error("Could not create membership checkout link");
-    return { url, mode: "subscription" };
+    return {
+      url,
+      mode: "subscription",
+      paymentLinkId: linkData.payment_link?.id,
+      orderId: linkData.payment_link?.order_id,
+    };
   } catch (subErr) {
     console.warn(
       "[membership-checkout] Subscription flow unavailable, using first-month payment:",
       subErr instanceof Error ? subErr.message : subErr,
     );
     const url = await createFirstMonthCheckoutUrl(opts);
-    return { url, mode: "first_month" };
+    return url;
   }
 }

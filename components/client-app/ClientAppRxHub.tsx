@@ -125,7 +125,7 @@ export function ClientAppRxHub({ onClose }: Props) {
         <h1 className="text-2xl font-black text-white">Hello Gorgeous RX</h1>
         <p className="mt-2 text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.6)" }}>
           Start a protocol, request refills, and keep your submission history — all in one place.
-          New protocols: pre-pay ${PEPTIDE_CONSULT_FEE_USD} via Square, then book Charm telehealth with{" "}
+          New protocols: pre-pay ${PEPTIDE_CONSULT_FEE_USD} via Square, then book Fresha telehealth with{" "}
           {HELLO_GORGEOUS_RX.providerName}.
         </p>
       </div>

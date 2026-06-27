@@ -53,6 +53,7 @@ export default function RxDispatchPage() {
   const [draft, setDraft] = useState<RxDispatchRecord | null>(null);
   const [saving, setSaving] = useState(false);
   const [copyMsg, setCopyMsg] = useState<string | null>(null);
+  const [copyPreview, setCopyPreview] = useState<string | null>(null);
   const [saveError, setSaveError] = useState<string | null>(null);
 
   const loadQueue = useCallback(async () => {
@@ -151,6 +152,7 @@ export default function RxDispatchPage() {
     });
     try {
       await navigator.clipboard.writeText(text);
+      setCopyPreview(text);
       setCopyMsg(`Copied for ${RX_PHARMACY_PORTALS[portal].name}`);
       setTimeout(() => setCopyMsg(null), 2500);
       void saveDraft({ pharmacy: portal });
@@ -466,6 +468,18 @@ export default function RxDispatchPage() {
             </button>
           </div>
 
+          {copyPreview ? (
+            <label className="block mb-4">
+              <span className="text-xs text-gray-400">Copy preview — verify before pasting</span>
+              <textarea
+                readOnly
+                value={copyPreview}
+                rows={8}
+                className="mt-1 w-full rounded-lg bg-gray-950 border border-gray-700 px-3 py-2 text-xs font-mono text-gray-300 resize-y"
+              />
+            </label>
+          ) : null}
+
           <div className="flex flex-wrap gap-2 mb-4">
             <a
               href={RX_PHARMACY_PORTALS.formulation.url}
@@ -484,7 +498,7 @@ export default function RxDispatchPage() {
               Open BoomRx ↗
             </a>
             <Link
-              href="/admin/rx-invoices"
+              href={`/admin/rx-invoices?ref=${encodeURIComponent(selected.intakeRef)}&name=${encodeURIComponent(selected.patientName)}&email=${encodeURIComponent(selected.email || "")}&phone=${encodeURIComponent(selected.phone || "")}`}
               className="rounded-lg bg-gradient-to-r from-[#FF2D8E]/80 to-[#E6007E]/80 px-3 py-2 text-xs font-bold"
             >
               Send payment link →

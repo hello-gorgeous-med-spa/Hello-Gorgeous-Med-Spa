@@ -27,6 +27,7 @@ import {
 import { getAccessToken } from '@/lib/square/oauth';
 import { enqueueReviewRequest } from '@/lib/reviews/enqueue';
 import { creditHgRewardsFromSquarePayment } from '@/lib/hg-rewards/credit-from-square-payment';
+import { reconcileRxLedgerFromSquarePayment } from '@/lib/rx-payment-ledger';
 
 // Helper to get access token for webhook processing
 async function getAccessTokenForWebhook(): Promise<string | null> {
@@ -510,6 +511,17 @@ export async function POST(request: NextRequest) {
         } else if (rewards.reason !== 'Already processed') {
           console.log('[Webhook] HG Rewards skipped:', rewards.reason, payment.id);
         }
+
+        void reconcileRxLedgerFromSquarePayment(
+          {
+            id: payment.id,
+            status: payment.status,
+            order_id: payment.order_id,
+            updated_at: payment.updated_at,
+            created_at: payment.created_at,
+          },
+          supabase,
+        );
       }
       
       await updateWebhookEventStatus(eventId, 'processed');

@@ -11,13 +11,14 @@ export const metadata: Metadata = {
 };
 
 type PageProps = {
-  searchParams: Promise<{ ref?: string; email?: string }>;
+  searchParams: Promise<{ ref?: string; email?: string; token?: string }>;
 };
 
 export default async function RxStatusPage({ searchParams }: PageProps) {
   const params = await searchParams;
   const initialRef = params.ref?.trim() || "";
   const initialEmail = params.email?.trim() || "";
+  const initialToken = params.token?.trim() || "";
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-[#FFF0F7] via-white to-gray-50 px-4 py-12">
@@ -29,11 +30,15 @@ export default async function RxStatusPage({ searchParams }: PageProps) {
           Refill status
         </h1>
         <p className="mt-3 text-center text-sm text-black/60 leading-relaxed">
-          One place to see telehealth, payment, and shipping — use the reference from your refill
-          confirmation and the email on your chart.
+          One place to see telehealth, payment, and shipping — use your secure link from confirmation,
+          or your reference code plus email.
         </p>
         <div className="mt-8">
-          <RxPatientStatusCard initialRef={initialRef} initialEmail={initialEmail} />
+          <RxPatientStatusCard
+            initialRef={initialRef}
+            initialEmail={initialEmail}
+            initialToken={initialToken}
+          />
         </div>
       </div>
     </main>

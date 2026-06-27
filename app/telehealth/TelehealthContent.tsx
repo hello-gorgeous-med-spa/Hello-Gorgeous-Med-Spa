@@ -93,7 +93,7 @@ const benefits = [
 const faqs = [
   {
     q: "How do I join my telehealth appointment?",
-    a: "Book a Video Consult in the Charm patient portal. Before your visit, Charm sends a secure join link by email and in your PHR account. Open that link at your scheduled time—no separate app required.",
+    a: "Book NP telehealth on Fresha. Fresha confirms your visit and sends appointment details by email and text. Join from the link at your scheduled time—no separate app required.",
   },
   {
     q: "What do I need for a telehealth visit?",
@@ -147,7 +147,7 @@ export function TelehealthContent() {
                   rel="noopener noreferrer"
                   className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-lg border-2 border-white text-white font-semibold hover:bg-white hover:text-black transition-colors"
                 >
-                  Charm Patient Portal
+                  Existing Charm chart
                 </a>
               </div>
               <p className="mt-4 text-white/60 text-sm">No download required</p>
@@ -174,12 +174,12 @@ export function TelehealthContent() {
           <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8">
             <span className="text-white font-semibold">Have an appointment?</span>
             <a
-              href={CHARM_PHR_PORTAL_URL}
+              href={HG_RX_TELEHEALTH_BOOKING_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-white text-[#E6007E] font-bold hover:bg-black hover:text-white transition-colors"
             >
-              Open Charm Portal
+              {HG_RX_TELEHEALTH_BOOKING_LABEL}
             </a>
           </div>
         </div>
@@ -288,7 +288,7 @@ export function TelehealthContent() {
                   <div className="flex items-center justify-between mt-auto">
                     <span className="text-[#E6007E] font-bold">{service.price}</span>
                     <CTA href={HG_RX_TELEHEALTH_BOOKING_URL} variant="outline" className="!px-4 !py-2 !text-sm">
-                      Book in Charm
+                      Book on Fresha
                     </CTA>
                   </div>
                 </div>
@@ -308,9 +308,9 @@ export function TelehealthContent() {
           </FadeUp>
           <div className="grid md:grid-cols-4 gap-8">
             {[
-              { step: "1", title: "Book in Charm", desc: "Request a Video Consult in the Charm patient portal (Ryan Kent, FNP-BC)", icon: "📅" },
-              { step: "2", title: "Get Confirmation", desc: "Charm confirms your visit and sends your secure video link", icon: "📧" },
-              { step: "3", title: "Join Visit", desc: "Open the link from Charm PHR or your email at appointment time", icon: "🖥️" },
+              { step: "1", title: "Book on Fresha", desc: "Schedule NP telehealth with Ryan Kent, FNP-BC on Fresha", icon: "📅" },
+              { step: "2", title: "Get Confirmation", desc: "Fresha confirms your visit and sends your appointment details", icon: "📧" },
+              { step: "3", title: "Join Visit", desc: "Open your Fresha appointment link at your scheduled time", icon: "🖥️" },
               { step: "4", title: "Get Care", desc: "Meet with Ryan, get your treatment plan & prescriptions", icon: "✅" },
             ].map((item, i) => (
               <FadeUp key={item.step} delayMs={i * 60}>
@@ -415,19 +415,24 @@ export function TelehealthContent() {
           <FadeUp>
             <div className="inline-flex items-center gap-3 px-5 py-2 rounded-full bg-white/10 border border-white/20 mb-6">
               <span className="text-2xl">🔒</span>
-              <span className="text-white font-semibold">Powered by Charm EHR Telehealth</span>
+              <span className="text-white font-semibold">HIPAA-compliant care — Fresha booking + Charm EHR chart</span>
             </div>
             <p className="text-white/70 text-sm mb-6">
-              NP video visits are booked and hosted through Charm Health—HIPAA-compliant charting, e-prescribe, and Video Consult in one system. Fresha remains for med spa aesthetics only.
+              Patients book NP telehealth on Fresha. Clinical charting, e-prescribe, and your medical record stay in Charm EHR — the same secure system our care team uses daily.
             </p>
-            <a
-              href={CHARM_PHR_PORTAL_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-lg border-2 border-[#E6007E] text-[#E6007E] font-semibold hover:bg-[#E6007E] hover:text-white transition-colors"
-            >
-              Charm Patient Portal
-            </a>
+            <CTA href={HG_RX_TELEHEALTH_BOOKING_URL} variant="gradient" className="inline-flex">
+              {HG_RX_TELEHEALTH_BOOKING_LABEL}
+            </CTA>
+            <p className="mt-4">
+              <a
+                href={CHARM_PHR_PORTAL_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-sm text-white/50 hover:text-[#FFB8DC] underline"
+              >
+                Already have a Charm patient portal link?
+              </a>
+            </p>
           </FadeUp>
         </div>
       </div>

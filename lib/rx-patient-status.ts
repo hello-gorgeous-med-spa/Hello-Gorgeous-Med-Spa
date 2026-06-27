@@ -43,9 +43,22 @@ export type RxPatientStatus = {
 };
 
 export function rxStatusHref(intakeRef?: string, email?: string): string {
+  return rxStatusHrefWithToken(undefined, intakeRef, email);
+}
+
+/** Prefer secure token when available (from intake confirmation). */
+export function rxStatusHrefWithToken(
+  accessToken?: string,
+  intakeRef?: string,
+  email?: string,
+): string {
   const params = new URLSearchParams();
-  if (intakeRef?.trim()) params.set("ref", intakeRef.trim().toUpperCase());
-  if (email?.trim()) params.set("email", email.trim());
+  if (accessToken?.trim()) {
+    params.set("token", accessToken.trim());
+  } else {
+    if (intakeRef?.trim()) params.set("ref", intakeRef.trim().toUpperCase());
+    if (email?.trim()) params.set("email", email.trim());
+  }
   const q = params.toString();
   return q ? `${RX_STATUS_PATH}?${q}` : RX_STATUS_PATH;
 }

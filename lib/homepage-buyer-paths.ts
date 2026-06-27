@@ -54,7 +54,7 @@ export const HOMEPAGE_BUYER_PATHS: BuyerPathCategory[] = [
     id: "hello-gorgeous-rx",
     title: "Hello Gorgeous RX™",
     summary:
-      "NP-led peptide protocols — pre-pay $49 consult (Square), then HIPAA video telehealth in Charm EHR with Ryan Kent, FNP-BC.",
+      "NP-led peptide protocols — pre-pay $49 consult (Square), then HIPAA video telehealth on Fresha with Ryan Kent, FNP-BC.",
     treatments: ["BPC-157", "TB-500", "Recovery Blend", "Sermorelin", "NAD+", "22+ peptides"],
     href: "/hello-gorgeous-rx/start-here",
     cta: "Start peptide request",

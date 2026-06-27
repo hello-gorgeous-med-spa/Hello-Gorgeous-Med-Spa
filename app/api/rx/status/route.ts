@@ -7,25 +7,29 @@ import {
   getLatestLedgerForIntakeRef,
   getLatestLedgerForSubmission,
 } from "@/lib/rx-payment-ledger";
-import { loadSubmissionByIntakeRef } from "@/lib/rx-submission-context";
+import { verifyRxPatientAccess } from "@/lib/rx-submission-context";
 
 export const dynamic = "force-dynamic";
 
-/** GET /api/rx/status?ref=&email= — patient journey status */
+/** GET /api/rx/status?token= | ?ref=&email= — patient journey status */
 export async function GET(req: NextRequest) {
   const admin = getSupabaseAdminClient();
   if (!admin) return NextResponse.json({ error: "Unavailable" }, { status: 503 });
 
+  const accessToken = req.nextUrl.searchParams.get("token") || "";
   const intakeRef = req.nextUrl.searchParams.get("ref") || "";
   const email = req.nextUrl.searchParams.get("email") || "";
-  if (!intakeRef.trim() || !email.trim()) {
-    return NextResponse.json({ error: "Reference and email required" }, { status: 400 });
+
+  const verified = await verifyRxPatientAccess(admin, {
+    accessToken: accessToken || undefined,
+    intakeRef: intakeRef || undefined,
+    email: email || undefined,
+  });
+  if (!verified.ok) {
+    return NextResponse.json({ error: verified.error }, { status: 403 });
   }
 
-  const submission = await loadSubmissionByIntakeRef(admin, intakeRef, email);
-  if (!submission) {
-    return NextResponse.json({ error: "Reference and email do not match our records" }, { status: 403 });
-  }
+  const submission = verified.submission;
 
   const [ledger, dispatchRes] = await Promise.all([
     getLatestLedgerForSubmission(submission.submissionId, admin).then(
@@ -45,5 +49,8 @@ export async function GET(req: NextRequest) {
     dispatch: { ...dispatch, submission_id: submission.submissionId },
   });
 
-  return NextResponse.json({ status });
+  return NextResponse.json({
+    status,
+    accessToken: submission.accessToken,
+  });
 }

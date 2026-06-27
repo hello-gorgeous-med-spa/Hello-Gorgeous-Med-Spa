@@ -48,9 +48,39 @@ function formatUsd(amount: number): string {
   return `$${amount.toFixed(2)}`;
 }
 
+const FAVORITES_KEY = "hg-rx-invoice-favorites";
+
+type RecentSend = {
+  id: string;
+  created_at: string;
+  client_name: string | null;
+  template_name: string | null;
+  amount_usd: number;
+  payment_status: string;
+  payment_url: string | null;
+};
+
+function loadFavorites(): string[] {
+  if (typeof window === "undefined") return [];
+  try {
+    const raw = localStorage.getItem(FAVORITES_KEY);
+    return raw ? (JSON.parse(raw) as string[]) : [];
+  } catch {
+    return [];
+  }
+}
+
+function saveFavorites(ids: string[]) {
+  localStorage.setItem(FAVORITES_KEY, JSON.stringify(ids));
+}
+
 export default function RxInvoicesPage() {
   const searchParams = useSearchParams();
   const paidBanner = searchParams.get("paid") === "1";
+  const prefillRef = searchParams.get("ref") || "";
+  const prefillName = searchParams.get("name") || "";
+  const prefillEmail = searchParams.get("email") || "";
+  const prefillPhone = searchParams.get("phone") || "";
 
   const [tracks, setTracks] = useState<TrackMeta[]>([]);
   const [templates, setTemplates] = useState<RxTemplate[]>([]);
@@ -58,6 +88,8 @@ export default function RxInvoicesPage() {
   const [trackFilter, setTrackFilter] = useState<RxTrack | "all">("all");
   const [search, setSearch] = useState("");
   const [selected, setSelected] = useState<RxTemplate | null>(null);
+  const [favoriteIds, setFavoriteIds] = useState<string[]>([]);
+  const [recentSends, setRecentSends] = useState<RecentSend[]>([]);
 
   const [clientQuery, setClientQuery] = useState("");
   const [clients, setClients] = useState<Client[]>([]);
@@ -74,6 +106,32 @@ export default function RxInvoicesPage() {
   const [copied, setCopied] = useState(false);
 
   const clientSearchRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    setFavoriteIds(loadFavorites());
+  }, []);
+
+  useEffect(() => {
+    if (prefillName) setClientName(prefillName);
+    if (prefillEmail) setEmail(prefillEmail);
+    if (prefillPhone) setPhone(prefillPhone);
+  }, [prefillName, prefillEmail, prefillPhone]);
+
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      try {
+        const res = await fetch("/api/admin/rx-ledger?limit=12&source=staff_invoice");
+        const data = await res.json();
+        if (!cancelled && res.ok) setRecentSends(data.rows || []);
+      } catch {
+        /* ignore */
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [result?.ok]);
 
   useEffect(() => {
     let cancelled = false;
@@ -150,6 +208,21 @@ export default function RxInvoicesPage() {
     setStaffNote("");
   }, []);
 
+  const toggleFavorite = useCallback((templateId: string) => {
+    setFavoriteIds((prev) => {
+      const next = prev.includes(templateId)
+        ? prev.filter((id) => id !== templateId)
+        : [...prev, templateId];
+      saveFavorites(next);
+      return next;
+    });
+  }, []);
+
+  const favoriteTemplates = useMemo(
+    () => templates.filter((t) => favoriteIds.includes(t.id)),
+    [templates, favoriteIds],
+  );
+
   const pickClient = useCallback((c: Client) => {
     setClientName(`${c.first_name} ${c.last_name}`.trim());
     setEmail(c.email ?? "");
@@ -199,6 +272,7 @@ export default function RxInvoicesPage() {
         body: JSON.stringify({
           templateId: selected.id,
           clientId: selectedClientId,
+          intakeRef: prefillRef.trim() || undefined,
           clientName: clientName.trim(),
           email: email.trim(),
           phone: phone.trim(),
@@ -258,6 +332,54 @@ export default function RxInvoicesPage() {
         </div>
       ) : null}
 
+      {recentSends.length > 0 ? (
+        <section className="mb-6 rounded-xl border border-white/10 bg-white/5 p-4">
+          <h2 className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#FFB8DC] mb-3">
+            Recent sends
+          </h2>
+          <ul className="space-y-2 max-h-40 overflow-y-auto">
+            {recentSends.map((row) => (
+              <li
+                key={row.id}
+                className="flex items-center justify-between gap-2 text-xs border-b border-white/5 pb-2 last:border-0"
+              >
+                <span className="text-gray-300 truncate">
+                  {row.client_name || "Client"} · {row.template_name || "Invoice"} · $
+                  {Number(row.amount_usd).toFixed(0)}
+                </span>
+                <span
+                  className={`shrink-0 uppercase font-bold ${
+                    row.payment_status === "paid" ? "text-green-400" : "text-amber-300"
+                  }`}
+                >
+                  {row.payment_status}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
+
+      {favoriteTemplates.length > 0 ? (
+        <section className="mb-6">
+          <h2 className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#FFB8DC] mb-2">
+            Pinned favorites
+          </h2>
+          <div className="flex flex-wrap gap-2">
+            {favoriteTemplates.map((t) => (
+              <button
+                key={t.id}
+                type="button"
+                onClick={() => pickTemplate(t)}
+                className="rounded-full border-2 border-[#E6007E]/50 bg-[#E6007E]/10 px-3 py-1.5 text-xs font-bold hover:border-[#E6007E]"
+              >
+                ★ {t.name}
+              </button>
+            ))}
+          </div>
+        </section>
+      ) : null}
+
       <div className="mb-4">
         <input
           type="search"
@@ -314,27 +436,41 @@ export default function RxInvoicesPage() {
                         ? "Custom"
                         : "—";
                   return (
-                    <button
+                    <div
                       key={t.id}
-                      type="button"
-                      onClick={() => pickTemplate(t)}
-                      className={`w-full text-left rounded-xl border-2 px-4 py-3 transition ${
+                      className={`relative w-full text-left rounded-xl border-2 px-4 py-3 transition ${
                         active
                           ? "border-[#E6007E] bg-[#E6007E]/15 shadow-[4px_4px_0_0_rgba(230,0,126,0.35)]"
                           : "border-gray-800 bg-gray-900 hover:border-gray-600"
                       }`}
                     >
-                      <div className="flex items-start justify-between gap-3">
-                        <div>
-                          <p className="font-bold text-sm">{t.name}</p>
-                          <p className="text-xs text-gray-400 mt-0.5">{t.lineLabel}</p>
-                          {t.note ? (
-                            <p className="text-[11px] text-gray-500 mt-1">{t.note}</p>
-                          ) : null}
+                      <button
+                        type="button"
+                        onClick={() => pickTemplate(t)}
+                        className="w-full text-left"
+                      >
+                        <div className="flex items-start justify-between gap-3">
+                          <div className="min-w-0 flex-1">
+                            <p className="font-bold text-sm pr-8">{t.name}</p>
+                            <p className="text-xs text-gray-400 mt-0.5">{t.lineLabel}</p>
+                            {t.note ? (
+                              <p className="text-[11px] text-gray-500 mt-1">{t.note}</p>
+                            ) : null}
+                          </div>
+                          <span className="shrink-0 text-sm font-black text-[#FF2D8E]">{price}</span>
                         </div>
-                        <span className="shrink-0 text-sm font-black text-[#FF2D8E]">{price}</span>
-                      </div>
-                    </button>
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => toggleFavorite(t.id)}
+                        className={`absolute top-3 right-12 text-sm ${
+                          favoriteIds.includes(t.id) ? "text-yellow-400" : "text-gray-600 hover:text-yellow-400"
+                        }`}
+                        aria-label={favoriteIds.includes(t.id) ? "Unpin template" : "Pin template"}
+                      >
+                        {favoriteIds.includes(t.id) ? "★" : "☆"}
+                      </button>
+                    </div>
                   );
                 })}
               </div>

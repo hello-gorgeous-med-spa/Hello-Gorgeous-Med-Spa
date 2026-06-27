@@ -35,7 +35,7 @@ export const RX_RECURRING_JOURNEY: RxJourneyStep[] = [
   {
     id: "telehealth",
     title: "Book required NP telehealth",
-    detail: "After consult pre-pay, schedule your Charm EHR Video Consult with Ryan Kent, FNP-BC.",
+    detail: "After consult pre-pay, book your NP telehealth visit on Fresha with Ryan Kent, FNP-BC.",
     icon: "💻",
   },
   {

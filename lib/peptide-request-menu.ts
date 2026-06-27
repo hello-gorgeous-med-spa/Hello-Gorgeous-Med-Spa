@@ -45,7 +45,7 @@ export const PEPTIDE_REQUEST_DISCLAIMER =
   "Requesting a peptide does not create a prescription. All Hello Gorgeous RX™ protocols require NP telehealth review, medical evaluation, and pharmacy fulfillment after approval. Medication is priced separately.";
 
 export const PEPTIDE_TELEHEALTH_NOTE =
-  "A required Video Consult with Ryan Kent, FNP-BC is scheduled through Charm EHR (patient portal)—not Fresha. Book after you submit your request; Ryan reviews safety and authorizes any new protocol or refill.";
+  "A required Video Consult with Ryan Kent, FNP-BC is booked on Fresha after you submit your request. Ryan reviews safety and authorizes any new protocol or refill. Clinical charting stays in Charm EHR for your care team.";
 
 /** Request catalog — mirrors branded education thumbnails. */
 export const PEPTIDE_REQUEST_ITEMS: PeptideRequestItem[] = [

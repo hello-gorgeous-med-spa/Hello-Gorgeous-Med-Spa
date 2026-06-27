@@ -17,6 +17,8 @@ type RxCommandItem = {
   dispatchStatus: string;
   paymentStatus: string | null;
   paymentAmountUsd: number | null;
+  paymentUrl: string | null;
+  templateId: string | null;
   ledgerId: string | null;
   unreadMessages: number;
 };
@@ -31,6 +33,8 @@ function payBadge(status: string | null) {
 export default function AdminRxCommandCenterPage() {
   const [items, setItems] = useState<RxCommandItem[]>([]);
   const [loading, setLoading] = useState(true);
+  const [actionMsg, setActionMsg] = useState<string | null>(null);
+  const [busyId, setBusyId] = useState<string | null>(null);
 
   const load = useCallback(async () => {
     setLoading(true);
@@ -46,6 +50,45 @@ export default function AdminRxCommandCenterPage() {
   useEffect(() => {
     void load();
   }, [load]);
+
+  const copyPaymentUrl = async (item: RxCommandItem) => {
+    if (!item.paymentUrl) {
+      setActionMsg("No payment link yet — use Resend pay link");
+      return;
+    }
+    try {
+      await navigator.clipboard.writeText(item.paymentUrl);
+      setActionMsg(`Copied payment link for ${item.patientName}`);
+    } catch {
+      setActionMsg("Could not copy — check browser permissions");
+    }
+    setTimeout(() => setActionMsg(null), 2500);
+  };
+
+  const resendPayLink = async (item: RxCommandItem) => {
+    setBusyId(item.submissionId);
+    setActionMsg(null);
+    try {
+      const res = await fetch("/api/admin/rx/resend-pay-link", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          submissionId: item.submissionId,
+          templateId: item.templateId || undefined,
+          delivery: "both",
+        }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Send failed");
+      setActionMsg(`Payment link sent to ${item.patientName}`);
+      void load();
+    } catch (e) {
+      setActionMsg(e instanceof Error ? e.message : "Could not send payment link");
+    } finally {
+      setBusyId(null);
+      setTimeout(() => setActionMsg(null), 4000);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-gray-950 text-white p-4 md:p-8">
@@ -74,6 +117,12 @@ export default function AdminRxCommandCenterPage() {
             </Link>
           </div>
         </div>
+
+        {actionMsg && (
+          <p className="mb-4 rounded-lg border border-[#E6007E]/40 bg-[#E6007E]/10 px-4 py-2 text-sm text-[#FFB8DC]">
+            {actionMsg}
+          </p>
+        )}
 
         {loading ? (
           <p className="text-sm text-gray-500 py-12 text-center">Loading RX queue…</p>
@@ -126,15 +175,37 @@ export default function AdminRxCommandCenterPage() {
                         >
                           Dispatch
                         </Link>
+                        {item.paymentUrl && item.paymentStatus === "pending" && (
+                          <button
+                            type="button"
+                            onClick={() => void copyPaymentUrl(item)}
+                            className="text-[#FFB8DC] hover:underline"
+                          >
+                            Copy pay link
+                          </button>
+                        )}
+                        {item.paymentStatus !== "paid" && (
+                          <button
+                            type="button"
+                            disabled={busyId === item.submissionId}
+                            onClick={() => void resendPayLink(item)}
+                            className="text-[#FFB8DC] hover:underline disabled:opacity-50"
+                          >
+                            {busyId === item.submissionId ? "Sending…" : "Resend pay link"}
+                          </button>
+                        )}
+                        <Link
+                          href={`/admin/rx-invoices?ref=${encodeURIComponent(item.intakeRef)}&name=${encodeURIComponent(item.patientName)}&email=${encodeURIComponent(item.email || "")}&phone=${encodeURIComponent(item.phone || "")}`}
+                          className="text-[#FFB8DC] hover:underline"
+                        >
+                          Invoice
+                        </Link>
                         {item.ledgerId && (
-                          <Link href="/admin/rx-ledger" className="text-[#FFB8DC] hover:underline">
+                          <Link href="/admin/rx-ledger" className="text-gray-400 hover:text-white">
                             Ledger
                           </Link>
                         )}
-                        <Link
-                          href={`/admin/rx-messages`}
-                          className="text-[#FFB8DC] hover:underline"
-                        >
+                        <Link href="/admin/rx-messages" className="text-[#FFB8DC] hover:underline">
                           Message
                         </Link>
                         <a

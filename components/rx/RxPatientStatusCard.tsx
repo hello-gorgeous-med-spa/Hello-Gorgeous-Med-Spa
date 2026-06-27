@@ -4,42 +4,65 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 
 import type { RxPatientStatus } from "@/lib/rx-patient-status";
-import { rxStatusHref, rxStatusQuickLinks } from "@/lib/rx-patient-status";
+import { rxStatusHrefWithToken, rxStatusQuickLinks } from "@/lib/rx-patient-status";
 
 type Props = {
   initialRef?: string;
   initialEmail?: string;
+  initialToken?: string;
   compact?: boolean;
 };
 
-export function RxPatientStatusCard({ initialRef = "", initialEmail = "", compact = false }: Props) {
+export function RxPatientStatusCard({
+  initialRef = "",
+  initialEmail = "",
+  initialToken = "",
+  compact = false,
+}: Props) {
+  const [accessToken, setAccessToken] = useState(initialToken);
   const [intakeRef, setIntakeRef] = useState(initialRef);
   const [email, setEmail] = useState(initialEmail);
-  const [unlocked, setUnlocked] = useState(Boolean(initialRef && initialEmail));
+  const [unlocked, setUnlocked] = useState(
+    Boolean(initialToken || (initialRef && initialEmail)),
+  );
   const [status, setStatus] = useState<RxPatientStatus | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!unlocked || !intakeRef.trim() || !email.trim()) return;
+    if (!unlocked) return;
+    if (!accessToken.trim() && (!intakeRef.trim() || !email.trim())) return;
+
     setLoading(true);
     setError(null);
-    fetch(
-      `/api/rx/status?ref=${encodeURIComponent(intakeRef)}&email=${encodeURIComponent(email)}`,
-    )
+    const params = new URLSearchParams();
+    if (accessToken.trim()) {
+      params.set("token", accessToken.trim());
+    } else {
+      params.set("ref", intakeRef.trim());
+      params.set("email", email.trim());
+    }
+
+    fetch(`/api/rx/status?${params.toString()}`)
       .then(async (r) => {
         const data = await r.json();
         if (!r.ok) throw new Error(data.error || "Could not load status");
         setStatus(data.status);
+        if (data.accessToken) setAccessToken(String(data.accessToken));
+        if (data.status?.intakeRef) setIntakeRef(String(data.status.intakeRef));
       })
       .catch((e) => setError(e instanceof Error ? e.message : "Could not load status"))
       .finally(() => setLoading(false));
-  }, [unlocked, intakeRef, email]);
+  }, [unlocked, accessToken, intakeRef, email]);
 
   function unlock(e: React.FormEvent) {
     e.preventDefault();
+    if (accessToken.trim()) {
+      setUnlocked(true);
+      return;
+    }
     if (!intakeRef.trim() || !email.trim()) {
-      setError("Enter your reference code and email");
+      setError("Enter your reference code and email, or use your secure link");
       return;
     }
     setUnlocked(true);
@@ -47,15 +70,33 @@ export function RxPatientStatusCard({ initialRef = "", initialEmail = "", compac
 
   if (!unlocked) {
     return (
-      <form onSubmit={unlock} className={compact ? "space-y-3" : "rounded-2xl border-2 border-black bg-white p-6 space-y-4"}>
+      <form
+        onSubmit={unlock}
+        className={
+          compact ? "space-y-3" : "rounded-2xl border-2 border-black bg-white p-6 space-y-4"
+        }
+      >
         {!compact && (
           <>
             <h2 className="font-serif text-xl font-bold text-black">Track your RX refill</h2>
             <p className="text-sm text-black/65 leading-relaxed">
-              See where you are: intake, telehealth, payment, pharmacy approval, and shipping.
+              Use the secure link from your confirmation email, or enter your reference code and
+              email.
             </p>
           </>
         )}
+        <div>
+          <label className="block text-xs font-bold uppercase tracking-wider text-black/55">
+            Secure link code (optional)
+          </label>
+          <input
+            value={accessToken}
+            onChange={(e) => setAccessToken(e.target.value)}
+            placeholder="From confirmation email — fastest unlock"
+            className="mt-1 w-full rounded-xl border-2 border-black/15 px-4 py-3 text-sm outline-none focus:border-[#E6007E]"
+          />
+        </div>
+        <p className="text-center text-xs text-black/45">— or —</p>
         <div>
           <label className="block text-xs font-bold uppercase tracking-wider text-black/55">
             Reference code
@@ -68,7 +109,9 @@ export function RxPatientStatusCard({ initialRef = "", initialEmail = "", compac
           />
         </div>
         <div>
-          <label className="block text-xs font-bold uppercase tracking-wider text-black/55">Email</label>
+          <label className="block text-xs font-bold uppercase tracking-wider text-black/55">
+            Email
+          </label>
           <input
             type="email"
             value={email}
@@ -87,15 +130,29 @@ export function RxPatientStatusCard({ initialRef = "", initialEmail = "", compac
     );
   }
 
-  const links = rxStatusQuickLinks(intakeRef, email);
+  const ref = status?.intakeRef || intakeRef;
+  const links = rxStatusQuickLinks(ref, email);
+  const statusHref = rxStatusHrefWithToken(
+    accessToken || undefined,
+    ref || undefined,
+    email || undefined,
+  );
 
   return (
-    <div className={compact ? "space-y-3" : "rounded-2xl border-2 border-black bg-white overflow-hidden shadow-[6px_6px_0_0_rgba(230,0,126,0.25)]"}>
+    <div
+      className={
+        compact
+          ? "space-y-3"
+          : "rounded-2xl border-2 border-black bg-white overflow-hidden shadow-[6px_6px_0_0_rgba(230,0,126,0.25)]"
+      }
+    >
       {!compact && (
         <div className="border-b border-black/10 bg-[#FFF0F7] px-5 py-4">
-          <p className="text-[10px] font-bold uppercase tracking-widest text-[#E6007E]">Your RX status</p>
+          <p className="text-[10px] font-bold uppercase tracking-widest text-[#E6007E]">
+            Your RX status
+          </p>
           <p className="mt-1 text-sm font-semibold text-black">
-            Ref {intakeRef.toUpperCase()}
+            Ref {ref.toUpperCase()}
             {status?.patientName ? ` · ${status.patientName}` : ""}
           </p>
           {status?.supplyCycle && (
@@ -152,7 +209,7 @@ export function RxPatientStatusCard({ initialRef = "", initialEmail = "", compac
           Secure message
         </Link>
         <Link
-          href={rxStatusHref(intakeRef, email)}
+          href={statusHref}
           className="rounded-full border-2 border-black px-3 py-1.5 text-xs font-bold hover:border-[#E6007E]"
         >
           Full status page

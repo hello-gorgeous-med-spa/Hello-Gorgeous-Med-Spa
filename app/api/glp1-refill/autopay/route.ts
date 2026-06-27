@@ -84,6 +84,8 @@ export async function POST(req: NextRequest) {
       lineLabel,
       amountUsd,
       paymentUrl: result.url,
+      squarePaymentLinkId: result.paymentLinkId ?? null,
+      squareOrderId: result.orderId ?? null,
       deliveryMethod: "patient_portal",
       metadata: {
         mode: result.mode,

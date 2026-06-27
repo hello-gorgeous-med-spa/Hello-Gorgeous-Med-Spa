@@ -5,6 +5,7 @@ import Link from "next/link";
 
 import {
   HELLO_GORGEOUS_RX_START_PATH,
+  HG_RX_TELEHEALTH_BOOKING_LABEL,
   HG_RX_TELEHEALTH_BOOKING_URL,
   PEPTIDE_REQUEST_PATH,
 } from "@/lib/flows";
@@ -16,7 +17,7 @@ const RX_QUICK_LINKS = [
   { href: HELLO_GORGEOUS_RX_START_PATH, label: "Start Here — pick a peptide" },
   { href: PEPTIDE_REQUEST_PATH, label: "Peptide request form" },
   { href: "/peptides", label: "All 22 peptide guides" },
-  { href: "/telehealth", label: "Charm telehealth (HIPAA video)" },
+  { href: "/telehealth", label: "Fresha telehealth (HIPAA video)" },
   { href: "/app?rx=1", label: "Hello Gorgeous RX in the app" },
 ] as const;
 
@@ -50,7 +51,7 @@ export function BuyerPathsSection() {
               New peptide protocols: submit your request, pre-pay the{" "}
               <strong className="text-white">${PEPTIDE_CONSULT_FEE_USD} NP consult</strong> via Square (same
               checkout as our Vitamin Bar), then book a secured{" "}
-              <strong className="text-white">Charm EHR video visit</strong> with Ryan Kent, FNP-BC. Includes
+              <strong className="text-white">NP video visit on Fresha</strong> with Ryan Kent, FNP-BC. Includes
               BPC-157, TB-500, Recovery Blend, Sermorelin, NAD+, and more.
             </p>
             <div className="mt-4 flex flex-wrap gap-2">
@@ -72,7 +73,7 @@ export function BuyerPathsSection() {
                 rel="noopener noreferrer"
                 className="inline-flex items-center rounded-full border border-white/20 bg-white/5 px-4 py-2 text-xs font-bold text-[#FFB8DC] hover:border-[#E6007E] transition"
               >
-                Charm patient portal
+                {HG_RX_TELEHEALTH_BOOKING_LABEL}
               </a>
             </div>
             <ul className="mt-4 flex flex-wrap gap-x-4 gap-y-1 text-[11px] text-white/45">

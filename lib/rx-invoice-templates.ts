@@ -249,3 +249,11 @@ export function resolveTemplateAmountUsd(
 export function formatUsd(amount: number): string {
   return `$${amount.toFixed(2)}`;
 }
+
+/** Default premade invoice when staff resend from command center / dispatch. */
+export function defaultInvoiceTemplateForTrack(
+  track: "peptide" | "glp1" | "unknown",
+): string {
+  if (track === "glp1") return "glp1-consult";
+  return "rx-consult";
+}

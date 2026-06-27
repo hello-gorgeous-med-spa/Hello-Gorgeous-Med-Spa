@@ -55,6 +55,27 @@ export async function loadSubmissionById(
   return mapSubmission(row as SubmissionRow, slug);
 }
 
+/** Full intake access token from form confirmation — stronger patient identity than ref alone. */
+export async function loadSubmissionByAccessToken(
+  admin: SupabaseClient,
+  accessToken: string,
+): Promise<RxSubmissionContext | null> {
+  const token = accessToken.trim();
+  if (token.length < 16) return null;
+
+  const { data: row } = await admin
+    .from("hg_form_submissions")
+    .select(
+      "id, submitted_at, signer_name, client_phone, client_id, access_token, responses_json, template_id",
+    )
+    .eq("access_token", token)
+    .maybeSingle();
+
+  if (!row) return null;
+  const slug = await templateSlug(admin, row.template_id);
+  return mapSubmission(row as SubmissionRow, slug);
+}
+
 export async function loadSubmissionByIntakeRef(
   admin: SupabaseClient,
   intakeRef: string,
@@ -119,13 +140,51 @@ function mapSubmission(
 
 export async function resolveRxSubmissionContext(
   admin: SupabaseClient,
-  opts: { submissionId?: string | null; intakeRef?: string | null; email?: string | null },
+  opts: {
+    submissionId?: string | null;
+    intakeRef?: string | null;
+    email?: string | null;
+    accessToken?: string | null;
+  },
 ): Promise<RxSubmissionContext | null> {
   if (opts.submissionId?.trim()) {
     return loadSubmissionById(admin, opts.submissionId);
+  }
+  if (opts.accessToken?.trim()) {
+    return loadSubmissionByAccessToken(admin, opts.accessToken);
   }
   if (opts.intakeRef?.trim()) {
     return loadSubmissionByIntakeRef(admin, opts.intakeRef, opts.email ?? undefined);
   }
   return null;
+}
+
+export type RxPatientAccessResult =
+  | { ok: true; submission: RxSubmissionContext }
+  | { ok: false; error: string };
+
+/** Verify patient access via secure token or reference + email. */
+export async function verifyRxPatientAccess(
+  admin: SupabaseClient,
+  opts: { accessToken?: string; intakeRef?: string; email?: string },
+): Promise<RxPatientAccessResult> {
+  if (opts.accessToken?.trim()) {
+    const submission = await loadSubmissionByAccessToken(admin, opts.accessToken);
+    if (!submission) {
+      return { ok: false, error: "This secure link is invalid or expired" };
+    }
+    return { ok: true, submission };
+  }
+
+  const ref = opts.intakeRef?.trim() || "";
+  const email = opts.email?.trim() || "";
+  if (!ref || !email) {
+    return { ok: false, error: "Enter your reference code and email, or use your secure link" };
+  }
+
+  const submission = await loadSubmissionByIntakeRef(admin, ref, email);
+  if (!submission) {
+    return { ok: false, error: "Reference and email do not match our records" };
+  }
+  return { ok: true, submission };
 }
