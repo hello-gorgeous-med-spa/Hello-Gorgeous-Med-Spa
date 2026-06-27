@@ -3,7 +3,7 @@
  * The Vitamin Bar is one section inside this app, not a separate product.
  */
 
-import { BOOKING_URL, GLP1_INTAKE_PATH, GLP1_REFILL_PATH, HELLO_GORGEOUS_RX_START_PATH, PEPTIDE_REQUEST_PATH } from "@/lib/flows";
+import { BOOKING_URL, GLP1_INTAKE_PATH, GLP1_REFILL_PATH, HELLO_GORGEOUS_RX_START_PATH, PEPTIDE_REQUEST_PATH, RX_PATIENT_CARE_PATH } from "@/lib/flows";
 
 export const CLIENT_APP = {
   name: "Hello Gorgeous Med Spa",
@@ -58,6 +58,14 @@ export const CLIENT_APP_QUICK_ACTIONS = [
     blurb: "Specials & gift cards",
     tab: "deals" as ClientAppTab,
     icon: "🎁",
+  },
+  {
+    id: "rx-care-hub",
+    label: "RX Refills & Care",
+    blurb: "GLP-1 · peptides · add-ons · guides",
+    href: RX_PATIENT_CARE_PATH,
+    icon: "💊",
+    accent: true,
   },
   {
     id: "glp1-refill",
@@ -160,6 +168,7 @@ export const CLIENT_APP_WELLNESS_PROGRAMS = [
 
 export const CLIENT_APP_PORTAL_LINKS = [
   { label: "My Portal", href: "/portal", icon: "🏠" },
+  { label: "RX Refills & Care Hub", href: RX_PATIENT_CARE_PATH, icon: "💊" },
   { label: "GLP-1 Refill", href: GLP1_REFILL_PATH, icon: "💊" },
   { label: "GLP-1 Screening", href: GLP1_INTAKE_PATH, icon: "⚖️" },
   { label: "Hello Gorgeous RX", href: "/app?rx=1", icon: "🧬" },

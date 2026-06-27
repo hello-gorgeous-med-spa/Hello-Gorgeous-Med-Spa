@@ -4,6 +4,7 @@ import Image from "next/image";
 import { FadeUp, Section } from "@/components/Section";
 import { CTA } from "@/components/CTA";
 import { RxContactForm, RxCTASection } from "@/components/RxContactForm";
+import { RX_PATIENT_CARE_PATH } from "@/lib/flows";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
@@ -139,6 +140,41 @@ export default function RxPage() {
                 className="rounded-2xl shadow-2xl"
                 priority
               />
+            </div>
+          </div>
+        </FadeUp>
+      </Section>
+
+      {/* Existing patient hub — Hers-style self-service */}
+      <Section className="bg-gradient-to-r from-[#FFF0F7] via-white to-[#FFF0F7] py-10 border-b-4 border-black">
+        <FadeUp>
+          <div className="max-w-5xl mx-auto rounded-3xl border-4 border-black bg-white p-8 md:p-10 shadow-[8px_8px_0_0_rgba(230,0,126,0.35)]">
+            <div className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr] lg:items-center">
+              <div>
+                <p className="text-xs font-bold uppercase tracking-[0.25em] text-[#E6007E] mb-2">
+                  Already a patient?
+                </p>
+                <h2 className="text-2xl md:text-3xl font-black text-black mb-3">
+                  Refills, add-ons &amp; patient guides — one hub
+                </h2>
+                <p className="text-black/70 leading-relaxed mb-4">
+                  Renew GLP-1 or peptides, stack NAD+ &amp; Sermorelin add-ons, pay your invoice, download injection
+                  guides, and book your telehealth check-in — without hunting for links.
+                </p>
+                <ul className="text-sm text-black/65 space-y-1.5 mb-0">
+                  <li>▸ GLP-1 refill with home delivery &amp; auto-pay</li>
+                  <li>▸ Peptide renewals &amp; Start Here wizard</li>
+                  <li>▸ Monthly NAD+ / Sermorelin bundle options</li>
+                </ul>
+              </div>
+              <div className="flex flex-col gap-3">
+                <CTA href={RX_PATIENT_CARE_PATH} variant="gradient" className="w-full py-4 text-center text-lg">
+                  Open Patient Care Hub
+                </CTA>
+                <CTA href="/glp1-refill" variant="outline" className="w-full py-3 text-center">
+                  GLP-1 refill only
+                </CTA>
+              </div>
             </div>
           </div>
         </FadeUp>

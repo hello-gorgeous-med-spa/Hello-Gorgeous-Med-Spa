@@ -3,7 +3,7 @@
  * Only list routes we actually offer; omit DEXA / bone-density screeners.
  */
 
-import { BOOKING_URL } from "@/lib/flows";
+import { BOOKING_URL, RX_PATIENT_CARE_PATH } from "@/lib/flows";
 import { PEPTIDE_CONSULT_SPECIAL } from "@/lib/peptide-featured";
 import { MEDICAL_OPTIMIZATION_PATH } from "@/lib/medical-optimization";
 
@@ -84,6 +84,12 @@ export const MEDICAL_NAV = {
       sub: "Prescription hub — hormones, GLP-1, peptides",
     },
     {
+      label: "Refills & Patient Care",
+      href: RX_PATIENT_CARE_PATH,
+      sub: "GLP-1 refills · peptides · add-ons · guides",
+      badge: "HUB",
+    },
+    {
       label: "Sexual Wellness",
       href: "/rx/sexual-health",
       sub: "Libido, ED & hormone-supported care",
@@ -118,6 +124,9 @@ export const MEDICAL_ACTIVE_PREFIXES = [
   "/understand-your-body",
   "/blood-work",
   "/hello-gorgeous-rx",
+  "/glp1-refill",
+  "/glp1-intake",
+  "/peptide-request",
 ] as const;
 
 export function isMedicalNavActive(pathname: string | null): boolean {

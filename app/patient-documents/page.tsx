@@ -98,6 +98,22 @@ export default function PatientDocumentsPage() {
           </div>
 
           <div className="mt-4 rounded-2xl border-2 border-[#E6007E]/25 bg-rose-50 p-5 shadow-sm">
+            <p className="text-sm font-semibold text-black">RX refills &amp; renewals</p>
+            <p className="mt-1 text-sm text-black/70">
+              GLP-1 refills, peptide renewals, NAD+ / Sermorelin add-ons, patient guides, and telehealth check-ins —
+              all in one patient care hub.
+            </p>
+            <div className="mt-3">
+              <Link
+                href="/rx/care"
+                className="inline-flex items-center gap-2 rounded-xl border-2 border-black bg-white px-4 py-2.5 text-sm font-bold text-[#E6007E] hover:border-[#E6007E]"
+              >
+                Open RX Patient Care Hub →
+              </Link>
+            </div>
+          </div>
+
+          <div className="mt-4 rounded-2xl border-2 border-[#E6007E]/25 bg-rose-50 p-5 shadow-sm">
             <p className="text-sm font-semibold text-black">New client intake form</p>
             <p className="mt-1 text-sm text-black/70">
               Send this secure form before consultations so we can review goals, medical history, and build a

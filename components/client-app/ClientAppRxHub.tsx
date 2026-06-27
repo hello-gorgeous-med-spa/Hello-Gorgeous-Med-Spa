@@ -5,9 +5,11 @@ import { useCallback, useEffect, useState } from "react";
 
 import {
   CHARM_TELEHEALTH_BOOKING_LABEL,
+  GLP1_REFILL_PATH,
   HELLO_GORGEOUS_RX_START_PATH,
   HG_RX_TELEHEALTH_BOOKING_URL,
   PEPTIDE_REQUEST_PATH,
+  RX_PATIENT_CARE_PATH,
 } from "@/lib/flows";
 import { HELLO_GORGEOUS_RX, RX_RECURRING_JOURNEY } from "@/lib/hello-gorgeous-rx";
 import {
@@ -129,6 +131,31 @@ export function ClientAppRxHub({ onClose }: Props) {
       </div>
 
       <Link
+        href={RX_PATIENT_CARE_PATH}
+        className="block rounded-2xl p-4 text-center font-bold text-white transition active:scale-[0.99]"
+        style={{ background: "rgba(255,255,255,0.08)", border: `2px solid ${accent.border}` }}
+      >
+        💊 Patient Care Hub — refills, add-ons &amp; guides
+      </Link>
+
+      <div className="grid grid-cols-2 gap-2">
+        <Link
+          href={GLP1_REFILL_PATH}
+          className="rounded-xl py-3 text-center text-sm font-semibold text-white"
+          style={{ background: trifectaButtonGradient(accent) }}
+        >
+          Renew GLP-1
+        </Link>
+        <Link
+          href={`${PEPTIDE_REQUEST_PATH}?type=refill`}
+          className="rounded-xl py-3 text-center text-sm font-semibold text-white"
+          style={{ background: "rgba(255,255,255,0.06)", border: `1px solid ${accent.border}` }}
+        >
+          Peptide refill
+        </Link>
+      </div>
+
+      <Link
         href={HELLO_GORGEOUS_RX_START_PATH}
         className="block rounded-2xl p-5 text-center font-bold text-white transition active:scale-[0.99]"
         style={{ background: trifectaButtonGradient(accent) }}
@@ -136,14 +163,7 @@ export function ClientAppRxHub({ onClose }: Props) {
         ✨ Start Here — pick your peptide
       </Link>
 
-      <div className="grid grid-cols-2 gap-2">
-        <Link
-          href={`${PEPTIDE_REQUEST_PATH}?type=refill`}
-          className="rounded-xl py-3 text-center text-sm font-semibold text-white"
-          style={{ background: "rgba(255,255,255,0.06)", border: `1px solid ${accent.border}` }}
-        >
-          Request refill
-        </Link>
+      <div className="grid grid-cols-1 gap-2">
         <a
           href={HG_RX_TELEHEALTH_BOOKING_URL}
           target="_blank"
@@ -151,7 +171,7 @@ export function ClientAppRxHub({ onClose }: Props) {
           className="rounded-xl py-3 text-center text-sm font-semibold"
           style={{ border: `1px solid ${accent.border}`, color: accent.subtitle }}
         >
-          Charm telehealth (after $49 prepay)
+          {CHARM_TELEHEALTH_BOOKING_LABEL} →
         </a>
       </div>
 

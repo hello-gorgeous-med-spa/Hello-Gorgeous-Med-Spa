@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import { PeptideRequestForm } from "@/components/forms/PeptideRequestForm";
-import { HELLO_GORGEOUS_RX_START_PATH, PEPTIDE_REQUEST_PATH } from "@/lib/flows";
+import { HELLO_GORGEOUS_RX_START_PATH, PEPTIDE_REQUEST_PATH, RX_PATIENT_CARE_PATH } from "@/lib/flows";
 import {
   PEPTIDE_CONSULT_FEE_USD,
   PEPTIDE_REQUEST_DISCLAIMER,
@@ -37,7 +37,11 @@ export default async function PeptideRequestPage({ searchParams }: PageProps) {
             <span className="text-black/70 text-sm font-sans font-medium ml-2">RX™</span>
           </Link>
           <div className="flex flex-wrap gap-2 text-sm">
-            <Link href="/peptides" className="text-[#E6007E] font-medium hover:underline">
+            <Link href={RX_PATIENT_CARE_PATH} className="font-medium text-[#E6007E] hover:underline">
+              Patient care hub
+            </Link>
+            <span className="text-black/30">|</span>
+            <Link href="/peptides" className="text-black/70 hover:text-[#E6007E]">
               Peptide therapy
             </Link>
             <span className="text-black/30">|</span>

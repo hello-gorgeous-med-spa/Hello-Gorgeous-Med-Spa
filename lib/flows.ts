@@ -164,6 +164,9 @@ export const PEPTIDE_REQUEST_PATH = "/peptide-request";
 /** Start Here — pick peptide → quick verification → full request (recurring RX funnel). */
 export const HELLO_GORGEOUS_RX_START_PATH = "/hello-gorgeous-rx/start-here";
 
+/** Unified patient hub — refills, add-ons, guides, telehealth at `/rx/care`. */
+export const RX_PATIENT_CARE_PATH = "/rx/care";
+
 export {
   CHARM_EHR_STAFF_URL,
   CHARM_PHR_PORTAL_URL,

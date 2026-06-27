@@ -226,6 +226,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.88,
     },
     {
+      url: `${baseUrl}/glp1-refill`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.92,
+    },
+    {
+      url: `${baseUrl}/rx/care`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.93,
+    },
+    {
       url: `${baseUrl}/peptide-request`,
       lastModified: currentDate,
       changeFrequency: 'weekly',

@@ -677,7 +677,7 @@ export function Glp1RefillForm() {
             if (field.id === "monthly_peptide_addon") {
               const selected = String(formData.monthly_peptide_addon || GLP1_REFILL_ADDON_NONE);
               return (
-                <div key={field.id} className="space-y-4">
+                <div key={field.id} id="monthly-add-ons" className="scroll-mt-24 space-y-4">
                   <div>
                     <p className="text-sm font-semibold text-black">
                       Optional monthly add-on <span className="text-red-500">*</span>

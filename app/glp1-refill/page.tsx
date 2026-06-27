@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { Glp1RefillForm } from "@/components/forms/Glp1RefillForm";
-import { GLP1_INTAKE_PATH, GLP1_REFILL_PATH } from "@/lib/flows";
+import { GLP1_INTAKE_PATH, GLP1_REFILL_PATH, RX_PATIENT_CARE_PATH } from "@/lib/flows";
 import { GLP1_PROGRAM } from "@/lib/glp1-program-pricing";
 import {
   GLP1_SEMAGLUTIDE_DOSE_TIERS,
@@ -49,7 +49,11 @@ export default function Glp1RefillPage() {
             <span className="text-black/70 text-sm font-sans font-medium ml-2">RX™</span>
           </Link>
           <div className="flex flex-wrap gap-2 text-sm">
-            <Link href="/glp1-weight-loss" className="text-[#E6007E] font-medium hover:underline">
+            <Link href={RX_PATIENT_CARE_PATH} className="font-medium text-[#E6007E] hover:underline">
+              Patient care hub
+            </Link>
+            <span className="text-black/30">|</span>
+            <Link href="/glp1-weight-loss" className="text-black/70 hover:text-[#E6007E]">
               Program overview
             </Link>
             <span className="text-black/30">|</span>

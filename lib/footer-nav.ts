@@ -55,6 +55,7 @@ export const FOOTER_PRIMARY_COLUMNS: FooterNavColumn[] = [
       { label: "Skin 101", href: "/skin-101" },
       { label: "FAQs", href: "/faq" },
       { label: "Help Me Choose", href: "/help-me-choose" },
+      { label: "RX Refills & Care", href: "/rx/care" },
     ],
   },
   {
@@ -97,6 +98,7 @@ export const FOOTER_SEO_LINKS: FooterNavLink[] = [
   { label: "Telehealth", href: "/telehealth" },
   { label: "Pre & post care guides", href: "/pre-post-care" },
   { label: "Patient documents", href: "/patient-documents" },
+  { label: "RX refills & patient care", href: "/rx/care" },
   { label: "Products we offer (Rx)", href: "/products-we-offer" },
   { label: "The Book", href: "/the-book" },
   { label: "Community", href: "/community" },
