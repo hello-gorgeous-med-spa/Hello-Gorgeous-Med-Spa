@@ -455,6 +455,11 @@ export function GentlemensClubPageContent() {
             <p className="mt-4 max-w-3xl text-gray-400">
               Testosterone optimization done right — comprehensive testing, personalized protocols, and ongoing monitoring.
             </p>
+            <div className="mt-6">
+              <CTA href="/gentlemens-club/testosterone" variant="gradient">
+                Full TRT experience →
+              </CTA>
+            </div>
           </FadeUp>
 
           <FadeUp delayMs={40}>

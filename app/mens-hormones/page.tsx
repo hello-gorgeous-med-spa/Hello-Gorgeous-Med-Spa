@@ -1,9 +1,9 @@
 import { redirect } from "next/navigation";
 
-import { GENTLEMENS_CLUB_PATH } from "@/lib/gentlemens-club";
+import { GENTLEMENS_CLUB_TESTOSTERONE_PATH } from "@/lib/gentlemens-club-testosterone";
 
 export const revalidate = 3600;
 
 export default function MensHormonesPage() {
-  redirect(`${GENTLEMENS_CLUB_PATH}#hormones`);
+  redirect(GENTLEMENS_CLUB_TESTOSTERONE_PATH);
 }

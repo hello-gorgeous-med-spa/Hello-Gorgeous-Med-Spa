@@ -223,14 +223,24 @@ export const SHOP_RX_CATEGORIES: ShopRxCategory[] = [
       },
       {
         heading: "Men's TRT",
-        items: HRT_INGREDIENTS.filter((item) => item.audience === "men")
-          .map((item) => ({
+        items: [
+          {
+            id: "trt-flagship",
+            label: "Testosterone & TRT",
+            href: "/gentlemens-club/testosterone",
+            rx: true,
+            tagline: "Visual TRT hub · from $200/mo · Oswego in-person",
+            imageSrc: "/images/gentlemens-club/the-distinguished-hero.png",
+            imageAlt: "Men's TRT at Hello Gorgeous Gentlemen's Club",
+          },
+          ...HRT_INGREDIENTS.filter((item) => item.audience === "men").map((item) => ({
             id: item.id,
             label: item.name,
             href: `/rx/hormones#${item.id}`,
-            rx: true,
+            rx: true as const,
             tagline: `${item.tagline} · from $${hrtIngredientFromMonthlyUsd(item)}/mo`,
           })),
+        ],
       },
     ],
   },
