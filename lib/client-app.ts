@@ -10,6 +10,7 @@ export const CLIENT_APP = {
   shortName: "Hello Gorgeous",
   tagline: "Your med spa, in your pocket · Oswego, IL",
   path: "/app",
+  myRxPath: "/portal/rx",
   phone: "630-636-6193",
   phoneHref: "tel:+16306366193",
   address: "74 W. Washington St, Oswego, IL",
@@ -58,6 +59,14 @@ export const CLIENT_APP_QUICK_ACTIONS = [
     blurb: "Specials & gift cards",
     tab: "deals" as ClientAppTab,
     icon: "🎁",
+  },
+  {
+    id: "my-rx",
+    label: "My RX",
+    blurb: "Track orders · pay · refill",
+    href: CLIENT_APP.myRxPath,
+    icon: "💊",
+    accent: true,
   },
   {
     id: "rx-care-hub",
@@ -167,6 +176,7 @@ export const CLIENT_APP_WELLNESS_PROGRAMS = [
 ] as const;
 
 export const CLIENT_APP_PORTAL_LINKS = [
+  { label: "My RX", href: CLIENT_APP.myRxPath, icon: "💊" },
   { label: "My Portal", href: "/portal", icon: "🏠" },
   { label: "RX Refills & Care Hub", href: RX_PATIENT_CARE_PATH, icon: "💊" },
   { label: "GLP-1 Refill", href: GLP1_REFILL_PATH, icon: "💊" },

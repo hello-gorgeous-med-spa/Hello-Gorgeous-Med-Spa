@@ -72,6 +72,12 @@
       "icons": [{ "src": "/icons/vitamin-bar-icon-192.png", "sizes": "192x192" }]
     },
     {
+      "name": "My RX",
+      "short_name": "My RX",
+      "url": "/portal/rx",
+      "icons": [{ "src": "/icons/icon-96x96.png", "sizes": "96x96" }]
+    },
+    {
       "name": "My Appointments",
       "short_name": "Appointments",
       "url": "/portal/appointments",

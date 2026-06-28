@@ -1561,6 +1561,38 @@ function MeTab({ onOpenIntake, intakeRefresh, homeData }: {
         <p className="mt-1 text-sm" style={{ color: "rgba(255,255,255,0.45)" }}>Portal, rewards, documents, and more.</p>
       </div>
 
+      <Link
+        href={
+          homeData?.authenticated
+            ? CLIENT_APP.myRxPath
+            : `/portal/login?redirect=${encodeURIComponent(CLIENT_APP.myRxPath)}`
+        }
+        className="flex items-center gap-4 rounded-2xl px-4 py-4 transition active:scale-[0.98]"
+        style={{
+          background: "linear-gradient(135deg, rgba(230,0,126,0.22), rgba(255,45,142,0.1))",
+          border: "2px solid rgba(230,0,126,0.45)",
+        }}
+      >
+        <div
+          className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl text-2xl"
+          style={{ background: "rgba(230,0,126,0.2)" }}
+        >
+          💊
+        </div>
+        <div className="flex-1 min-w-0">
+          <p className="text-[10px] font-bold uppercase tracking-widest" style={{ color: "#FFB8DC" }}>
+            Hello Gorgeous RX™
+          </p>
+          <p className="text-sm font-bold text-white leading-tight">My prescriptions</p>
+          <p className="mt-0.5 text-xs" style={{ color: "rgba(255,255,255,0.5)" }}>
+            Track GLP-1 & peptide orders, pay invoices, reorder
+          </p>
+        </div>
+        <span className="shrink-0 text-xs font-semibold" style={{ color: "#FF2D8E" }}>
+          Open →
+        </span>
+      </Link>
+
       {/* Loyalty tier card */}
       {tier && (
         <div className="rounded-2xl p-5 overflow-hidden relative"

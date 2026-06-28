@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 
 interface User {
   id: string;
@@ -19,6 +19,7 @@ interface AuthState {
 
 export function usePortalAuth(requireAuth = true) {
   const router = useRouter();
+  const pathname = usePathname();
   const [state, setState] = useState<AuthState>({
     user: null,
     loading: true,
@@ -39,16 +40,18 @@ export function usePortalAuth(requireAuth = true) {
       } else {
         setState({ user: null, loading: false, authenticated: false });
         if (requireAuth) {
-          router.push('/portal/login');
+          const returnTo = pathname && pathname.startsWith("/portal") ? pathname : "/portal";
+          router.push(`/portal/login?redirect=${encodeURIComponent(returnTo)}`);
         }
       }
     } catch {
       setState({ user: null, loading: false, authenticated: false });
       if (requireAuth) {
-        router.push('/portal/login');
+        const returnTo = pathname && pathname.startsWith("/portal") ? pathname : "/portal";
+        router.push(`/portal/login?redirect=${encodeURIComponent(returnTo)}`);
       }
     }
-  }, [requireAuth, router]);
+  }, [requireAuth, router, pathname]);
 
   const logout = useCallback(async () => {
     try {
