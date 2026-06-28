@@ -1,11 +1,115 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
+import { useCallback, useEffect, useState } from "react";
 
 import { FadeUp } from "@/components/Section";
-import { SHOP_RX_HOMEPAGE_INTERESTS } from "@/lib/medical-mega-menu";
+import {
+  getShopRxCategory,
+  getShopRxCategoryFeatured,
+  getShopRxCategoryItems,
+  parseShopRxCategoryId,
+  resolveShopRxItemImage,
+  SHOP_RX_CATEGORIES,
+  type ShopRxCategoryId,
+} from "@/lib/medical-mega-menu";
+
+function RxMark() {
+  return (
+    <sup className="ml-0.5 align-super text-[9px] font-bold text-[#E6007E]">Rx</sup>
+  );
+}
+
+function useShopCategoryFromUrl(setActiveId: (id: ShopRxCategoryId) => void) {
+  useEffect(() => {
+    const read = () => {
+      const params = new URLSearchParams(window.location.search);
+      const fromShop = parseShopRxCategoryId(params.get("shop"));
+      if (fromShop) setActiveId(fromShop);
+    };
+    read();
+    window.addEventListener("popstate", read);
+    return () => window.removeEventListener("popstate", read);
+  }, [setActiveId]);
+
+  return useCallback(
+    (id: ShopRxCategoryId) => {
+      setActiveId(id);
+      const url = new URL(window.location.href);
+      url.searchParams.set("shop", id);
+      url.hash = "find-your-treatment";
+      window.history.replaceState(null, "", url.toString());
+    },
+    [setActiveId],
+  );
+}
+
+function ProductTile({
+  item,
+  categoryId,
+  compact = false,
+}: {
+  item: import("@/lib/medical-mega-menu").MedicalMegaMenuItem;
+  categoryId: ShopRxCategoryId;
+  compact?: boolean;
+}) {
+  const image = resolveShopRxItemImage(item, categoryId);
+
+  return (
+    <Link
+      href={item.href}
+      className={`group flex h-full flex-col overflow-hidden rounded-2xl border border-black/10 bg-white transition hover:-translate-y-0.5 hover:border-[#E6007E]/25 hover:shadow-[0_16px_40px_rgba(230,0,126,0.1)] ${
+        compact ? "shadow-[0_4px_20px_rgba(0,0,0,0.04)]" : "shadow-[0_8px_30px_rgba(0,0,0,0.06)]"
+      }`}
+    >
+      <div
+        className={`relative overflow-hidden bg-[#f5f0eb] ${
+          compact ? "aspect-[4/3]" : "aspect-[5/4]"
+        }`}
+      >
+        <Image
+          src={image.src}
+          alt={image.alt}
+          fill
+          className="object-contain p-4 transition duration-300 group-hover:scale-[1.03]"
+          sizes={compact ? "(max-width:768px) 50vw, 220px" : "(max-width:768px) 100vw, 320px"}
+        />
+        {item.badge === "POPULAR" ? (
+          <span className="absolute left-3 top-3 rounded-full bg-white/95 px-2.5 py-1 text-[9px] font-bold uppercase tracking-wide text-black/70 shadow-sm">
+            Popular
+          </span>
+        ) : null}
+      </div>
+      <div className={compact ? "flex flex-1 flex-col p-4" : "flex flex-1 flex-col p-5"}>
+        <p className={`font-serif leading-snug text-black group-hover:text-[#E6007E] ${compact ? "text-base" : "text-lg"}`}>
+          {item.label}
+          {item.rx ? <RxMark /> : null}
+        </p>
+        {item.tagline ? (
+          <p className={`mt-1.5 flex-1 text-black/55 ${compact ? "text-xs leading-relaxed" : "text-sm leading-relaxed"}`}>
+            {item.tagline}
+          </p>
+        ) : null}
+        <span className="mt-3 text-xs font-semibold text-[#E6007E] group-hover:underline">
+          Get started →
+        </span>
+      </div>
+    </Link>
+  );
+}
 
 export function HomepageShopRxFinder() {
+  const [activeCategoryId, setActiveCategoryId] = useState<ShopRxCategoryId>(
+    SHOP_RX_CATEGORIES[0]!.id,
+  );
+  const selectCategory = useShopCategoryFromUrl(setActiveCategoryId);
+
+  const category = getShopRxCategory(activeCategoryId) ?? SHOP_RX_CATEGORIES[0]!;
+  const featured = getShopRxCategoryFeatured(category);
+  const featuredImage = resolveShopRxItemImage(featured, category.id);
+  const products = getShopRxCategoryItems(category).filter((item) => item.id !== featured.id);
+
   return (
     <section
       id="find-your-treatment"
@@ -21,27 +125,111 @@ export function HomepageShopRxFinder() {
             I&apos;m interested in
           </h2>
           <p className="mx-auto mt-3 max-w-lg text-sm text-black/55">
-            Choose a category to explore programs, pricing, and how to get started.
+            Pick a category, then choose a treatment to get started.
           </p>
         </FadeUp>
 
-        <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {SHOP_RX_HOMEPAGE_INTERESTS.map((interest, index) => (
-            <FadeUp key={interest.id} delayMs={index * 60}>
-              <Link
-                href={interest.startHref}
-                className="group flex h-full flex-col rounded-2xl border border-black/10 bg-white p-6 shadow-[0_8px_30px_rgba(0,0,0,0.06)] transition hover:-translate-y-0.5 hover:border-[#E6007E]/25 hover:shadow-[0_16px_40px_rgba(230,0,126,0.12)]"
-              >
-                <p className="font-serif text-xl text-black transition group-hover:text-[#E6007E]">
-                  {interest.label}
+        <FadeUp delayMs={80}>
+          <div
+            className="mt-8 flex flex-wrap justify-center gap-2 border-b border-black/10 pb-6"
+            role="tablist"
+            aria-label="Shop RX categories"
+          >
+            {SHOP_RX_CATEGORIES.map((cat) => {
+              const active = cat.id === activeCategoryId;
+              return (
+                <button
+                  key={cat.id}
+                  type="button"
+                  role="tab"
+                  aria-selected={active}
+                  aria-controls={`shop-rx-panel-${cat.id}`}
+                  id={`shop-rx-tab-${cat.id}`}
+                  onClick={() => selectCategory(cat.id)}
+                  className={`rounded-full px-4 py-2 text-xs font-bold uppercase tracking-[0.14em] transition ${
+                    active
+                      ? "bg-black text-white shadow-sm"
+                      : "bg-white text-black/55 ring-1 ring-black/10 hover:text-black"
+                  }`}
+                >
+                  {cat.navLabel}
+                </button>
+              );
+            })}
+          </div>
+        </FadeUp>
+
+        <div
+          id={`shop-rx-panel-${category.id}`}
+          role="tabpanel"
+          aria-labelledby={`shop-rx-tab-${category.id}`}
+        >
+          <FadeUp delayMs={120}>
+            <div className="mt-8 overflow-hidden rounded-3xl border border-black/10 bg-white shadow-[0_12px_40px_rgba(0,0,0,0.06)] lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)]">
+              <div className="relative aspect-[4/3] bg-[#f5f0eb] lg:aspect-auto lg:min-h-[320px]">
+                <Image
+                  src={featuredImage.src}
+                  alt={featuredImage.alt}
+                  fill
+                  className="object-contain p-8"
+                  sizes="(max-width:1024px) 100vw, 420px"
+                  priority
+                />
+              </div>
+              <div className="flex flex-col justify-center p-6 sm:p-8 lg:p-10">
+                <p className="text-[10px] font-bold uppercase tracking-[0.24em] text-black/45">
+                  Featured · {category.navLabel}
                 </p>
-                <p className="mt-2 flex-1 text-sm leading-relaxed text-black/60">{interest.blurb}</p>
-                <span className="mt-5 text-sm font-semibold text-[#E6007E] group-hover:underline">
-                  {interest.cta} →
-                </span>
-              </Link>
+                <h3 className="mt-3 font-serif text-2xl text-black sm:text-3xl">
+                  {featured.label}
+                  {featured.rx ? <RxMark /> : null}
+                </h3>
+                {featured.tagline ? (
+                  <p className="mt-3 max-w-md text-sm leading-relaxed text-black/60">{featured.tagline}</p>
+                ) : null}
+                <div className="mt-6 flex flex-wrap gap-3">
+                  <Link
+                    href={featured.href}
+                    className="inline-flex items-center justify-center rounded-lg bg-[#3d5a4c] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#2f463a]"
+                  >
+                    Get started
+                  </Link>
+                  <Link
+                    href={category.hubHref}
+                    className="inline-flex items-center justify-center rounded-lg border border-black/15 px-6 py-3 text-sm font-semibold text-black/75 transition hover:border-black/30 hover:text-black"
+                  >
+                    {category.exploreLabel}
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </FadeUp>
+
+          {products.length > 0 ? (
+            <FadeUp delayMs={180}>
+              <div className="mt-10">
+                <p className="text-[10px] font-bold uppercase tracking-[0.24em] text-black/45">
+                  More in {category.navLabel}
+                </p>
+                <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                  {products.slice(0, 6).map((item) => (
+                    <ProductTile key={item.id} item={item} categoryId={category.id} compact />
+                  ))}
+                </div>
+              </div>
             </FadeUp>
-          ))}
+          ) : null}
+
+          <FadeUp delayMs={240}>
+            <p className="mt-8 text-center">
+              <Link
+                href={category.hubHref}
+                className="text-sm font-semibold text-[#E6007E] underline underline-offset-4 hover:no-underline"
+              >
+                {category.exploreLabel} →
+              </Link>
+            </p>
+          </FadeUp>
         </div>
 
         <FadeUp delayMs={280}>

@@ -277,9 +277,52 @@ export const SHOP_RX_HOMEPAGE_INTERESTS = SHOP_RX_CATEGORIES.map((cat) => ({
   startHref: cat.columns[0]?.items[0]?.href ?? cat.hubHref,
 }));
 
+export const SHOP_RX_CATEGORY_IMAGE_FALLBACK: Record<ShopRxCategoryId, `/${string}`> = {
+  "weight-loss": "/images/rx-care/tirzepatide.png",
+  peptides: "/images/rx-care/bpc-157.png",
+  hormones: "/images/homepage-buyer-paths/weight-loss-hormones.png",
+  intimacy: "/images/rx-care/square/peptide.jpg",
+};
+
 const ALL_ITEMS = SHOP_RX_CATEGORIES.flatMap((cat) =>
   cat.columns.flatMap((col) => col.items),
 );
+
+export function getShopRxCategoryFeatured(category: ShopRxCategory): MedicalMegaMenuItem {
+  return (
+    getMedicalMegaMenuItem(category.defaultFeaturedId) ??
+    category.columns[0]?.items[0] ?? {
+      id: category.id,
+      label: category.navLabel,
+      href: category.hubHref,
+      tagline: category.homepageBlurb,
+    }
+  );
+}
+
+export function getShopRxCategoryItems(category: ShopRxCategory): MedicalMegaMenuItem[] {
+  return category.columns.flatMap((col) => col.items);
+}
+
+export function resolveShopRxItemImage(
+  item: MedicalMegaMenuItem,
+  categoryId: ShopRxCategoryId,
+): { src: `/${string}`; alt: string } {
+  if (item.imageSrc) {
+    return { src: item.imageSrc, alt: item.imageAlt ?? item.label };
+  }
+  return {
+    src: SHOP_RX_CATEGORY_IMAGE_FALLBACK[categoryId],
+    alt: `${item.label} — Hello Gorgeous RX`,
+  };
+}
+
+export function parseShopRxCategoryId(value: string | null | undefined): ShopRxCategoryId | undefined {
+  if (!value) return undefined;
+  return SHOP_RX_CATEGORIES.some((cat) => cat.id === value)
+    ? (value as ShopRxCategoryId)
+    : undefined;
+}
 
 export function getShopRxCategory(id: ShopRxCategoryId): ShopRxCategory | undefined {
   return SHOP_RX_CATEGORIES.find((cat) => cat.id === id);
