@@ -9,6 +9,7 @@ import {
   getMedicalMegaMenuItem,
   getShopRxCategory,
   MEDICAL_MEGA_MENU_FOOTER,
+  resolveShopRxItemImage,
   SHOP_RX_CATEGORIES,
   SHOP_RX_NAV,
   type ShopRxCategoryId,
@@ -91,6 +92,7 @@ export function MedicalMegaMenu({
   const featured =
     getMedicalMegaMenuItem(featuredId) ??
     getMedicalMegaMenuItem(category.defaultFeaturedId)!;
+  const featuredImage = resolveShopRxItemImage(featured, category.id);
 
   return (
     <div
@@ -157,13 +159,13 @@ export function MedicalMegaMenu({
 
           <aside className="hidden lg:flex flex-col rounded-2xl border border-white/10 bg-white/[0.04] p-5">
             <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/40">Featured</p>
-            {featured.imageSrc ? (
+            {featuredImage.src ? (
               <div className="relative mt-4 aspect-square w-full overflow-hidden rounded-xl border border-white/10 bg-black/40">
                 <Image
-                  src={featured.imageSrc}
-                  alt={featured.imageAlt ?? featured.label}
+                  src={featuredImage.src}
+                  alt={featuredImage.alt}
                   fill
-                  className="object-contain p-3"
+                  className="object-contain p-4"
                   sizes="260px"
                 />
               </div>

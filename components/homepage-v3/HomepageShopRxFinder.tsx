@@ -64,15 +64,15 @@ function ProductTile({
       }`}
     >
       <div
-        className={`relative overflow-hidden bg-[#f5f0eb] ${
-          compact ? "aspect-[4/3]" : "aspect-[5/4]"
+        className={`relative overflow-hidden bg-gradient-to-br from-[#f8f4f0] to-[#ece6df] ${
+          compact ? "aspect-[5/4]" : "aspect-[4/3]"
         }`}
       >
         <Image
           src={image.src}
           alt={image.alt}
           fill
-          className="object-contain p-4 transition duration-300 group-hover:scale-[1.03]"
+          className="object-contain p-6 sm:p-8 transition duration-300 group-hover:scale-[1.02]"
           sizes={compact ? "(max-width:768px) 50vw, 220px" : "(max-width:768px) 100vw, 320px"}
         />
         {item.badge === "POPULAR" ? (
@@ -108,7 +108,9 @@ export function HomepageShopRxFinder() {
   const category = getShopRxCategory(activeCategoryId) ?? SHOP_RX_CATEGORIES[0]!;
   const featured = getShopRxCategoryFeatured(category);
   const featuredImage = resolveShopRxItemImage(featured, category.id);
-  const products = getShopRxCategoryItems(category).filter((item) => item.id !== featured.id);
+  const products = getShopRxCategoryItems(category).filter(
+    (item) => item.id !== featured.id && item.rx,
+  );
 
   return (
     <section
@@ -165,14 +167,14 @@ export function HomepageShopRxFinder() {
           aria-labelledby={`shop-rx-tab-${category.id}`}
         >
           <FadeUp delayMs={120}>
-            <div className="mt-8 overflow-hidden rounded-3xl border border-black/10 bg-white shadow-[0_12px_40px_rgba(0,0,0,0.06)] lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)]">
-              <div className="relative aspect-[4/3] bg-[#f5f0eb] lg:aspect-auto lg:min-h-[320px]">
+            <div className="mt-8 overflow-hidden rounded-3xl border border-black/10 bg-white shadow-[0_12px_40px_rgba(0,0,0,0.06)] lg:grid lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)]">
+              <div className="relative aspect-square max-h-[320px] bg-gradient-to-br from-[#f8f4f0] to-[#ece6df] lg:aspect-auto lg:max-h-none lg:min-h-[300px]">
                 <Image
                   src={featuredImage.src}
                   alt={featuredImage.alt}
                   fill
-                  className="object-contain p-8"
-                  sizes="(max-width:1024px) 100vw, 420px"
+                  className="object-contain p-10 sm:p-12"
+                  sizes="(max-width:1024px) 100vw, 380px"
                   priority
                 />
               </div>
@@ -190,7 +192,7 @@ export function HomepageShopRxFinder() {
                 <div className="mt-6 flex flex-wrap gap-3">
                   <Link
                     href={featured.href}
-                    className="inline-flex items-center justify-center rounded-lg bg-[#3d5a4c] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#2f463a]"
+                    className="inline-flex items-center justify-center rounded-lg bg-[#E6007E] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#FF2D8E]"
                   >
                     Get started
                   </Link>

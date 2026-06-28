@@ -9,6 +9,7 @@ import {
   getMedicalMegaMenuItem,
   getShopRxCategory,
   MEDICAL_MEGA_MENU_DEFAULT_FEATURED_ID,
+  resolveShopRxItemImage,
 } from "@/lib/medical-mega-menu";
 
 const DISMISS_KEY = "hg-shop-rx-floating-dismissed";
@@ -28,6 +29,9 @@ export function ShopRxFloatingProduct() {
 
   const featured = getMedicalMegaMenuItem(MEDICAL_MEGA_MENU_DEFAULT_FEATURED_ID);
   const category = getShopRxCategory("weight-loss");
+  const featuredImage = featured
+    ? resolveShopRxItemImage(featured, "weight-loss")
+    : null;
 
   if (!featured || !visible) return null;
 
@@ -56,13 +60,13 @@ export function ShopRxFloatingProduct() {
             ×
           </button>
 
-          <div className="relative h-[88px] w-[72px] shrink-0 overflow-hidden rounded-xl bg-[#f5f0eb]">
-            {featured.imageSrc ? (
+          <div className="relative h-[88px] w-[72px] shrink-0 overflow-hidden rounded-xl bg-gradient-to-br from-[#f8f4f0] to-[#ece6df]">
+            {featuredImage ? (
               <Image
-                src={featured.imageSrc}
-                alt={featured.imageAlt ?? featured.label}
+                src={featuredImage.src}
+                alt={featuredImage.alt}
                 fill
-                className="object-contain p-1.5"
+                className="object-contain p-2"
                 sizes="72px"
               />
             ) : null}
@@ -93,7 +97,7 @@ export function ShopRxFloatingProduct() {
           </Link>
           <Link
             href={featured.href ?? GLP1_INTAKE_PATH}
-            className="inline-flex flex-1 items-center justify-center rounded-lg bg-[#3d5a4c] px-3 py-2 text-xs font-semibold text-white transition hover:bg-[#2f463a]"
+            className="inline-flex flex-1 items-center justify-center rounded-lg bg-[#E6007E] px-3 py-2 text-xs font-semibold text-white transition hover:bg-[#FF2D8E]"
           >
             Get started
           </Link>

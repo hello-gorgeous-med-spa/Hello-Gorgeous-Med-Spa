@@ -13,6 +13,7 @@ import {
 import { MEDICAL_OPTIMIZATION_PATH } from "@/lib/medical-optimization";
 import { helloGorgeousRxStartUrl } from "@/lib/peptide-request-menu";
 import { getPeptidePickerThumbnail } from "@/lib/peptide-thumbnails";
+import { resolveShopRxProductImage } from "@/lib/shop-rx-product-images";
 
 export type MedicalMegaMenuItem = {
   id: string;
@@ -79,8 +80,8 @@ export const SHOP_RX_CATEGORIES: ShopRxCategory[] = [
             rx: true,
             badge: "POPULAR",
             tagline: "Dual GLP-1 + GIP pathway · medical weight loss",
-            imageSrc: "/images/rx-care/tirzepatide.png",
-            imageAlt: "Compounded tirzepatide — Hello Gorgeous RX",
+            imageSrc: "/images/peptides/tirzepatide-picker.webp",
+            imageAlt: "Compounded tirzepatide vial — Hello Gorgeous RX",
           },
           {
             id: "semaglutide-glp1",
@@ -88,7 +89,7 @@ export const SHOP_RX_CATEGORIES: ShopRxCategory[] = [
             href: GLP1_INTAKE_PATH,
             rx: true,
             tagline: "GLP-1 injection · supervised weight loss program",
-            imageSrc: "/images/rx-care/square/glp1-intake.jpg",
+            imageSrc: "/images/peptides/semaglutide-picker.webp",
             imageAlt: "Compounded semaglutide — Hello Gorgeous RX",
           },
           {
@@ -97,7 +98,7 @@ export const SHOP_RX_CATEGORIES: ShopRxCategory[] = [
             href: GLP1_REFILL_PATH,
             rx: true,
             tagline: "Renew semaglutide or tirzepatide · ship to home",
-            imageSrc: "/images/rx-care/square/glp1-refill.jpg",
+            imageSrc: "/images/rx-care/mockup-row-refills.png",
             imageAlt: "GLP-1 refill request — Hello Gorgeous RX",
           },
         ],
@@ -110,7 +111,7 @@ export const SHOP_RX_CATEGORIES: ShopRxCategory[] = [
             label: "Weight loss overview",
             href: "/glp-1-weight-loss-oswego",
             tagline: "Pricing, telehealth & what to expect",
-            imageSrc: "/images/homepage-buyer-paths/weight-loss-hormones.png",
+            imageSrc: "/images/rx-care/square/rx-overview.jpg",
             imageAlt: "Medical weight loss at Hello Gorgeous Med Spa",
           },
           {
@@ -119,7 +120,7 @@ export const SHOP_RX_CATEGORIES: ShopRxCategory[] = [
             href: GLP1_INTAKE_PATH,
             rx: true,
             tagline: "Online screening · pay at checkout",
-            imageSrc: "/images/rx-care/square/glp1-intake.jpg",
+            imageSrc: "/images/marketing/glp1-vial-hello-gorgeous.svg",
             imageAlt: "Start GLP-1 intake — Hello Gorgeous RX",
           },
         ],
@@ -277,13 +278,6 @@ export const SHOP_RX_HOMEPAGE_INTERESTS = SHOP_RX_CATEGORIES.map((cat) => ({
   startHref: cat.columns[0]?.items[0]?.href ?? cat.hubHref,
 }));
 
-export const SHOP_RX_CATEGORY_IMAGE_FALLBACK: Record<ShopRxCategoryId, `/${string}`> = {
-  "weight-loss": "/images/rx-care/tirzepatide.png",
-  peptides: "/images/rx-care/bpc-157.png",
-  hormones: "/images/homepage-buyer-paths/weight-loss-hormones.png",
-  intimacy: "/images/rx-care/square/peptide.jpg",
-};
-
 const ALL_ITEMS = SHOP_RX_CATEGORIES.flatMap((cat) =>
   cat.columns.flatMap((col) => col.items),
 );
@@ -308,13 +302,7 @@ export function resolveShopRxItemImage(
   item: MedicalMegaMenuItem,
   categoryId: ShopRxCategoryId,
 ): { src: `/${string}`; alt: string } {
-  if (item.imageSrc) {
-    return { src: item.imageSrc, alt: item.imageAlt ?? item.label };
-  }
-  return {
-    src: SHOP_RX_CATEGORY_IMAGE_FALLBACK[categoryId],
-    alt: `${item.label} — Hello Gorgeous RX`,
-  };
+  return resolveShopRxProductImage(item.id, item.label, categoryId, item.imageSrc);
 }
 
 export function parseShopRxCategoryId(value: string | null | undefined): ShopRxCategoryId | undefined {
