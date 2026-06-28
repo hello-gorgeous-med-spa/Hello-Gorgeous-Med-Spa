@@ -7,13 +7,8 @@ import type { SupabaseClient } from "@supabase/supabase-js";
 import { GLP1_REFILL_PATH, HG_RX_TELEHEALTH_BOOKING_URL, PEPTIDE_REQUEST_PATH } from "@/lib/flows";
 import { normalizePatientEmail } from "@/lib/rx-secure-messages";
 import { defaultDispatchFromIntake, RX_INTAKE_SLUGS } from "@/lib/rx-dispatch";
-import {
-  computeNextRefillDue,
-  daysUntilDue,
-  pickLastRefillableEncounter,
-  refillUrgencyForDue,
-  type RefillUrgency,
-} from "@/lib/rx-clinic-refill";
+import { pickClientRefillCadence } from "@/lib/rx-refill-cadence";
+import type { RefillUrgency } from "@/lib/rx-clinic-refill";
 import type { RxClinicEncounterRow } from "@/lib/rx-clinic-encounter";
 import {
   getLatestLedgerForIntakeRef,
@@ -230,23 +225,17 @@ export async function loadRxPortalDashboard(
   );
 
   let refillDue: RxPortalRefillDue | null = null;
-  const lastRefillable = pickLastRefillableEncounter(encounters);
-  if (lastRefillable) {
-    const due = computeNextRefillDue(lastRefillable);
-    if (due) {
-      const urgency = refillUrgencyForDue(due);
-      if (urgency !== "ok") {
-        refillDue = {
-          medication: lastRefillable.medication,
-          doseLabel: lastRefillable.dose_label,
-          supplyCycle: lastRefillable.supply_cycle,
-          dueAt: due.toISOString(),
-          daysUntilDue: daysUntilDue(due),
-          urgency,
-          reorderHref: GLP1_REFILL_PATH,
-        };
-      }
-    }
+  const cadence = await pickClientRefillCadence(admin, clientId, clientEmail);
+  if (cadence && cadence.urgency !== "ok") {
+    refillDue = {
+      medication: cadence.medication,
+      doseLabel: cadence.doseLabel,
+      supplyCycle: cadence.supplyCycle,
+      dueAt: cadence.dueAt,
+      daysUntilDue: cadence.daysUntilDue,
+      urgency: cadence.urgency,
+      reorderHref: cadence.reorderHref,
+    };
   }
 
   return {

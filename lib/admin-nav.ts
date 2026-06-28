@@ -34,6 +34,7 @@ export const ADMIN_NAV_GROUPS: AdminNavGroup[] = [
       { href: "/admin/rx/pharmacy-orders", label: "Pharmacy Orders", icon: "🧪" },
       { href: "/admin/rx-invoices", label: "RX Invoices", icon: "💊" },
       { href: "/admin/rx/glp1-pricing", label: "RX Pricing", icon: "💲" },
+      { href: "/admin/rx/e2e-checklist", label: "E2E Checklist", icon: "✅" },
       { href: "/admin/rx-ledger", label: "Payment Ledger", icon: "📒" },
       { href: "/admin/rx-messages", label: "Patient Messages", icon: "💬" },
       { href: "/admin/rx/clinic-sale", label: "Clinic Sale", icon: "🏥" },

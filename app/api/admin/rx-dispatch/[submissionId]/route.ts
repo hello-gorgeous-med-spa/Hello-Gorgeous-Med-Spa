@@ -6,10 +6,13 @@ import {
   RX_INTAKE_SLUGS,
   buildCopyPackFromSubmission,
   defaultDispatchFromIntake,
+  intakeTrackFromSlug,
   type RxDispatchStatus,
   type RxPharmacy,
   type RxShipTo,
 } from "@/lib/rx-dispatch";
+import { notifyPatientIntakeRxShipped } from "@/lib/rx-intake-ship-notify";
+import { intakeRefFromToken } from "@/lib/rx-submission-context";
 
 export const dynamic = "force-dynamic";
 
@@ -132,6 +135,13 @@ export async function PATCH(req: NextRequest, { params }: RouteParams) {
     return NextResponse.json({ error: "Intake not found" }, { status: 404 });
   }
 
+  const { data: priorRow } = await admin
+    .from("hg_rx_dispatch")
+    .select("status, staff_notes")
+    .eq("submission_id", submissionId)
+    .maybeSingle();
+  const priorStatus = priorRow?.status as RxDispatchStatus | undefined;
+
   const patch: Record<string, unknown> = {
     submission_id: submissionId,
     updated_at: new Date().toISOString(),
@@ -184,5 +194,28 @@ export async function PATCH(req: NextRequest, { params }: RouteParams) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 
+  const newStatus = data.status as RxDispatchStatus;
+  if (newStatus === "sent" && priorStatus !== "sent") {
+    const patientName =
+      submission.signer_name ||
+      glp1SignerNameFromResponses(submission.responses_json) ||
+      "Patient";
+    const phone =
+      submission.client_phone ||
+      String(submission.responses_json.phone || submission.responses_json.client_phone || "");
+    void notifyPatientIntakeRxShipped({
+      phone,
+      patientName,
+      intakeRef: intakeRefFromToken(submission.access_token),
+      staffNotes: data.staff_notes as string | null,
+      track: intakeTrackFromSlug(submission.slug),
+    });
+  }
+
   return NextResponse.json({ ok: true, dispatch: data });
+}
+
+function glp1SignerNameFromResponses(responses: Record<string, unknown>): string | null {
+  const name = String(responses.full_name || responses.name || "").trim();
+  return name || null;
 }

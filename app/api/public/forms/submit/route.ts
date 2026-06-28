@@ -7,6 +7,7 @@ import { randomBytes } from "crypto";
 import { alertStaffOnFormSubmission, notifyOwnerFormSubmission } from "@/lib/notifications/form-alert";
 import { formatPeptideStaffAlert, isPeptideFormSlug } from "@/lib/peptide-form-alert";
 import { formatGlp1StaffAlert, isGlp1FormSlug } from "@/lib/glp1-form-alert";
+import { ensureRxDispatchForSubmission } from "@/lib/rx-dispatch-auto";
 
 export const dynamic = "force-dynamic";
 
@@ -76,6 +77,10 @@ export async function POST(req: NextRequest) {
     .single();
 
   if (insErr) return NextResponse.json({ error: insErr.message }, { status: 500 });
+
+  if (isPeptideFormSlug(slug) || isGlp1FormSlug(slug)) {
+    void ensureRxDispatchForSubmission(admin, row.id as string);
+  }
 
   const ref = token.slice(0, 8).toUpperCase();
   const qualified = responses.qualified;

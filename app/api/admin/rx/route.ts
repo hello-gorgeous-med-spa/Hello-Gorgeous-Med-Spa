@@ -14,7 +14,7 @@ import {
   listClinicEncountersWithClient,
   type RxClinicEncounterWithClient,
 } from "@/lib/rx-clinic-encounter";
-import { listDueClinicRefills } from "@/lib/rx-clinic-refill";
+import { listAllRefillCadence } from "@/lib/rx-refill-cadence";
 import { intakeRefFromToken } from "@/lib/rx-submission-context";
 
 export const dynamic = "force-dynamic";
@@ -260,17 +260,25 @@ export async function GET(req: NextRequest) {
     (a, b) => new Date(b.submittedAt).getTime() - new Date(a.submittedAt).getTime(),
   );
 
-  const { items: dueRefills, tableReady: dueTableReady } = await listDueClinicRefills({
-    limit: 20,
-  });
+  const { items: cadenceItems, counts: dueCounts, tableReady: dueTableReady } =
+    await listAllRefillCadence(admin, { limit: 20 });
+
+  const dueRefills = cadenceItems.map((c) => ({
+    clientId: c.clientId,
+    clientName: c.clientName,
+    medication: c.medication,
+    doseLabel: c.doseLabel,
+    supplyCycle: c.supplyCycle,
+    urgency: c.urgency,
+    daysUntilDue: c.daysUntilDue,
+    dueAt: c.dueAt,
+    source: c.source,
+  }));
 
   return NextResponse.json({
     items: merged.slice(0, limit),
     dueRefills,
     dueTableReady,
-    dueCounts: {
-      overdue: dueRefills.filter((d) => d.urgency === "overdue").length,
-      dueSoon: dueRefills.filter((d) => d.urgency === "due_soon").length,
-    },
+    dueCounts,
   });
 }

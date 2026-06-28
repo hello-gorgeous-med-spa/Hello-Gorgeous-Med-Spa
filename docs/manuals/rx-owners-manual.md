@@ -302,6 +302,8 @@ Follow form flags + NP review. Payment-first same as GLP-1.
 
 ## 10. How to run a test order
 
+**Admin → Prescriptions & RX → E2E Checklist** (`/admin/rx/e2e-checklist`) shows live system health + the step-by-step script below.
+
 Use this checklist before telling patients the system is ready.
 
 ### Test A — GLP-1 refill
@@ -359,14 +361,31 @@ We'll text/email if telehealth is needed before we ship. Questions? (630) 636-61
 | GLP-1 + peptide refill forms | ✅ Live |
 | BoomRx pricing (×2.5, 90-day 10% off, $35 ship) | ✅ Live |
 | Square checkout + payment ledger | ✅ Live |
+| **Auto dispatch row on intake + paid** | ✅ Live |
+| **Patient ship SMS when dispatch → sent** | ✅ Live |
+| **E2E checklist + health checks** | ✅ Live (`/admin/rx/e2e-checklist`) |
 | Patient status page | ✅ Live |
 | **My RX portal dashboard** | ✅ Live |
 | **My RX in client app + PWA shortcut** | ✅ Live |
 | Admin RX-first nav + FlowWave | ✅ Live |
 | Square OAuth + payment download | ✅ Live |
-| Auto subscription / auto-charge every 30–90 days | 🔜 Phase 3 |
+| **Refill cadence (clinic + shipped intakes)** | ✅ Live |
+| **Daily refill reminder SMS/email cron** | ✅ Live (9 AM CT via Vercel) |
+| Square monthly auto-pay enrollment | ✅ Live (GLP-1 refill form) |
+| Fully hands-free auto-refill on subscription charge | 🔜 Future polish |
 | Push notifications for refill due | 🔜 Future |
 | Native App Store app | ❌ Not planned — PWA only |
+
+### Phase 3 — how refill cadence works
+
+1. **Anchor date** = when the last order shipped (dispatch `sent` for online intakes, or clinic `shipped_at`).
+2. **Due date** = anchor + 30 or 90 days (from supply cycle on the order).
+3. **My RX** shows a banner when due within 7 days or overdue.
+4. **RX Command** lists due refills for staff (clinic + online patients).
+5. **Daily cron** (`/api/cron/rx-refill-reminder`) texts/emails patients with refill links (won't repeat same alert within 7 days).
+6. **Monthly auto-pay** (Square subscription on GLP-1 form) collects payment each month; staff still run dispatch → pharmacy for each cycle.
+
+**Env:** set `RX_REFILL_REMINDER_CRON_ENABLED=false` to pause patient refill nudges.
 
 ---
 

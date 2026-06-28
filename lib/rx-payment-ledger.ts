@@ -6,6 +6,7 @@ import type { SupabaseClient } from "@supabase/supabase-js";
 
 import { getSupabaseAdminClient } from "@/lib/hgos/supabase-admin";
 import { notifyStaffGlp1RefillPaidFromLedger } from "@/lib/glp1-refill-staff-sms";
+import { ensureRxDispatchForSubmission } from "@/lib/rx-dispatch-auto";
 import type { RxInvoiceTrack } from "@/lib/rx-invoice-templates";
 
 export type RxLedgerSource =
@@ -352,7 +353,7 @@ export async function reconcileRxLedgerFromSquarePayment(
   const { data: matches, error } = await admin
     .from("hg_rx_payment_ledger")
     .select(
-      "id, payment_status, source, intake_ref, client_name, client_phone, template_name, line_label, amount_usd, metadata",
+      "id, payment_status, source, intake_ref, client_name, client_phone, template_name, line_label, amount_usd, metadata, submission_id",
     )
     .eq("square_order_id", orderId)
     .neq("payment_status", "paid");
@@ -387,6 +388,10 @@ export async function reconcileRxLedgerFromSquarePayment(
           amount_usd: Number(row.amount_usd),
           metadata: (row.metadata as Record<string, unknown>) ?? {},
         });
+        const submissionId = (row as { submission_id?: string | null }).submission_id;
+        if (submissionId) {
+          void ensureRxDispatchForSubmission(admin, submissionId);
+        }
       }
     }
   }
