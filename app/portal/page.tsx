@@ -16,6 +16,7 @@ function Skeleton({ className = '' }: { className?: string }) {
 
 const QUICK_ACTIONS = [
   { title: 'Book Appointment', description: 'Schedule your next visit', href: BOOKING_URL, icon: '📅', color: 'from-[#FF2D8E] to-[#c90a68]', primary: true, external: true },
+  { title: 'My RX', description: 'Track refills & pay invoices', href: '/portal/rx', icon: '💊', color: 'from-[#E6007E] to-[#9b0a4d] text-white', rx: true },
   { title: 'Lab Insights', description: 'Upload hormone labs for AI insights', href: '/portal/labs', icon: '🧪', color: 'bg-white border border-black' },
   { title: 'My Documents', description: 'Access your records', href: '/portal/documents', icon: '📁', color: 'bg-white border border-black' },
   { title: 'Consent Forms', description: 'Sign required forms', href: '/portal/consents', icon: '📝', color: 'bg-white border border-black' },
@@ -87,6 +88,23 @@ export default function PortalDashboard() {
         </div>
       </section>
 
+      <Link
+        href="/portal/rx"
+        className="block rounded-2xl border-2 border-black bg-gradient-to-br from-[#FFF0F7] to-white p-6 shadow-[6px_6px_0_0_rgba(230,0,126,0.25)] hover:border-[#E6007E] transition-colors"
+      >
+        <div className="flex items-start justify-between gap-4">
+          <div>
+            <p className="text-xs font-bold uppercase tracking-widest text-[#E6007E]">Hello Gorgeous RX™</p>
+            <h2 className="text-xl font-bold text-black mt-1">My prescriptions</h2>
+            <p className="text-sm text-black/60 mt-1 max-w-md">
+              Track GLP-1 and peptide refills, pay invoices, and reorder — all in one place.
+            </p>
+          </div>
+          <span className="text-4xl shrink-0">💊</span>
+        </div>
+        <span className="inline-flex mt-4 text-sm font-semibold text-[#E6007E]">Open My RX →</span>
+      </Link>
+
       {/* Alert Cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {/* Notifications */}
@@ -155,7 +173,7 @@ export default function PortalDashboard() {
         <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
           {QUICK_ACTIONS.map((action) => {
             const card = (
-              <div className={`${action.primary ? "bg-gradient-to-br " + action.color + " text-white" : "bg-white border border-black text-black"} rounded-2xl p-5 h-full hover:shadow-md transition-all`}>
+              <div className={`${action.primary || 'rx' in action ? "bg-gradient-to-br " + action.color + " text-white" : "bg-white border border-black text-black"} rounded-2xl p-5 h-full hover:shadow-md transition-all`}>
                 <span className="text-3xl mb-3 block">{action.icon}</span>
                 <h3 className="font-semibold mb-1">{action.title}</h3>
                 <p className={`text-sm ${action.primary ? "text-white/90" : "text-black"}`}>{action.description}</p>

@@ -44,14 +44,15 @@ function useClientManifest() {
 
 const NAV_ITEMS = [
   { href: '/portal', label: 'Home', icon: '🏠' },
+  { href: '/portal/rx', label: 'My RX', icon: '💊' },
   { href: '/portal/appointments', label: 'Appts', icon: '📅' },
-  { href: '/portal/documents', label: 'Docs', icon: '📁' },
   { href: '/portal/notifications', label: 'Alerts', icon: '🔔' },
   { href: '/portal/account', label: 'Me', icon: '👤' },
 ];
 
 const FULL_NAV_ITEMS = [
   { href: '/portal', label: 'Dashboard', icon: '🏠' },
+  { href: '/portal/rx', label: 'My RX', icon: '💊' },
   { href: '/portal/appointments', label: 'Appointments', icon: '📅' },
   { href: BOOKING_URL, label: 'Book Now', icon: '✨', external: true },
   { href: '/portal/labs', label: 'Lab Insights', icon: '🧪' },
