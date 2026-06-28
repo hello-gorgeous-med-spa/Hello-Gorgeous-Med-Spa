@@ -3,9 +3,10 @@ import Link from "next/link";
 import { CTA } from "@/components/CTA";
 import { FadeUp, Section } from "@/components/Section";
 import type { PeptideTopic } from "@/data/peptides";
-import { peptideHandoutHref } from "@/lib/peptide-handouts";
 import { BOOKING_URL } from "@/lib/flows";
 import { PEPTIDE_CONSULT_SPECIAL } from "@/lib/peptide-featured";
+import { helloGorgeousRxStartUrl } from "@/lib/peptide-request-menu";
+import { peptideHandoutHref } from "@/lib/peptide-handouts";
 import { PEPTIDES_HUB_PATH, tierCta } from "@/lib/peptides-hub";
 
 const BRAND = {
@@ -19,6 +20,8 @@ const BRAND = {
 export function PeptideTopicTemplate({ topic }: { topic: PeptideTopic }) {
   const cta = tierCta(topic.tier);
   const handoutHref = topic.handoutFilename ? peptideHandoutHref(topic.handoutFilename) : null;
+  const isRxTopic = topic.tier === "prescription" || topic.tier === "patient";
+  const startHereHref = isRxTopic ? helloGorgeousRxStartUrl(topic.slug) : cta.href;
 
   return (
     <div className="relative min-h-screen">
@@ -216,25 +219,30 @@ export function PeptideTopicTemplate({ topic }: { topic: PeptideTopic }) {
         <FadeUp>
           <div className="text-center">
             <h2 className="text-3xl font-black">
-              {topic.tier === "prescription" || topic.tier === "patient"
-                ? `Book your ${PEPTIDE_CONSULT_SPECIAL.price} consult`
-                : "Questions about this topic?"}
+              {isRxTopic ? `Start your ${topic.name} request` : "Questions about this topic?"}
             </h2>
             <p className="mt-3 max-w-2xl mx-auto text-white/90">
-              {topic.tier === "prescription" || topic.tier === "patient"
-                ? `${PEPTIDE_CONSULT_SPECIAL.detail}. Same-day visits often available in Oswego.`
+              {isRxTopic
+                ? `${PEPTIDE_CONSULT_SPECIAL.detail}. Online request takes a few minutes — or book a ${PEPTIDE_CONSULT_SPECIAL.price} consult on Fresha if you prefer to talk first.`
                 : "We're happy to answer questions — book a consult to see if peptide therapy fits your goals."}
             </p>
             <div className="mt-8 flex flex-col sm:flex-row flex-wrap justify-center gap-4">
               <CTA
-                href={topic.tier === "prescription" || topic.tier === "patient" ? BOOKING_URL : cta.href}
+                href={startHereHref}
                 variant="outline"
-                className="min-h-[44px] border-white text-white hover:bg-white hover:text-black"
+                className="min-h-[44px] border-white bg-white text-black hover:bg-white/90 hover:text-black font-bold"
               >
-                {topic.tier === "prescription" || topic.tier === "patient"
-                  ? `Book ${PEPTIDE_CONSULT_SPECIAL.price} consult`
-                  : cta.label}
+                {isRxTopic ? `Start ${topic.name} request` : cta.label}
               </CTA>
+              {isRxTopic ? (
+                <CTA
+                  href={BOOKING_URL}
+                  variant="outline"
+                  className="min-h-[44px] border-white/80 text-white hover:bg-white/10"
+                >
+                  Book {PEPTIDE_CONSULT_SPECIAL.price} consult first
+                </CTA>
+              ) : null}
               {handoutHref ? (
                 <a
                   href={handoutHref}

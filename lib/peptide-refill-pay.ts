@@ -9,6 +9,7 @@ export type PendingPeptideRefillSuccess = {
   kind: "qualified";
   reference: string;
   submissionId?: string;
+  recordToken?: string;
   requestType: "refill";
   priceLabel?: string;
   lineLabel?: string;

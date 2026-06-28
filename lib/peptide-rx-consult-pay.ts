@@ -7,6 +7,7 @@ export type PendingRxSuccess = {
   kind: "qualified";
   reference: string;
   requestType: "new" | "refill";
+  recordToken?: string;
 };
 
 function readPaidRefs(): Set<string> {

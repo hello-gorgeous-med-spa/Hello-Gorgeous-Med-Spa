@@ -1,3 +1,5 @@
+import { HELLO_GORGEOUS_RX_START_PATH } from "@/lib/flows";
+
 /** Hello Gorgeous RX™ — client-facing peptide request catalog (not instant Rx checkout). */
 
 export type PeptideRequestCategory =
@@ -260,6 +262,22 @@ export const PEPTIDE_REQUEST_ITEMS: PeptideRequestItem[] = [
 
 export function getPeptideRequestItem(id: string): PeptideRequestItem | undefined {
   return PEPTIDE_REQUEST_ITEMS.find((p) => p.id === id);
+}
+
+/** Map education hub slug → Start Here / request-menu id (e.g. ghk-cu-injectable → ghk-cu). */
+export function peptideRequestIdFromHubSlug(hubSlug: string): string {
+  const slug = hubSlug.trim();
+  const byHub = PEPTIDE_REQUEST_ITEMS.find((p) => p.hubSlug === slug);
+  if (byHub) return byHub.id;
+  const byId = PEPTIDE_REQUEST_ITEMS.find((p) => p.id === slug);
+  if (byId) return byId.id;
+  return slug;
+}
+
+export function helloGorgeousRxStartUrl(peptideHubOrId?: string): string {
+  if (!peptideHubOrId?.trim()) return HELLO_GORGEOUS_RX_START_PATH;
+  const id = peptideRequestIdFromHubSlug(peptideHubOrId.trim());
+  return `${HELLO_GORGEOUS_RX_START_PATH}?peptide=${encodeURIComponent(id)}`;
 }
 
 export function peptideRequestItemsByCategory(): Array<{

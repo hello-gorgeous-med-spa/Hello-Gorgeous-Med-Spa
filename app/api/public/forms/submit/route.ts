@@ -7,6 +7,7 @@ import { randomBytes } from "crypto";
 import { alertStaffOnFormSubmission, notifyOwnerFormSubmission } from "@/lib/notifications/form-alert";
 import { formatPeptideStaffAlert, isPeptideFormSlug } from "@/lib/peptide-form-alert";
 import { formatGlp1StaffAlert, isGlp1FormSlug } from "@/lib/glp1-form-alert";
+import { notifyPatientRxIntakeSubmitted } from "@/lib/rx-intake-patient-notify";
 import { ensureRxDispatchForSubmission } from "@/lib/rx-dispatch-auto";
 import { recordRxWeightFromSubmission } from "@/lib/rx-weight-log";
 
@@ -122,6 +123,16 @@ export async function POST(req: NextRequest) {
       smsLines: alert.smsLines,
       replyTo: clientEmail,
     });
+    if (typeof qualified === "boolean" && qualified) {
+      void notifyPatientRxIntakeSubmitted({
+        phone: clientPhone,
+        signerName,
+        slug,
+        ref,
+        token,
+        responses,
+      });
+    }
   } else if (isGlp1FormSlug(slug)) {
     const alert = formatGlp1StaffAlert({
       slug,
@@ -139,6 +150,16 @@ export async function POST(req: NextRequest) {
       smsLines: alert.smsLines,
       replyTo: clientEmail,
     });
+    if (typeof qualified === "boolean" && qualified) {
+      void notifyPatientRxIntakeSubmitted({
+        phone: clientPhone,
+        signerName,
+        slug,
+        ref,
+        token,
+        responses,
+      });
+    }
   } else {
     notifyOwnerFormSubmission({
       formName: `Public form: ${slug}`,

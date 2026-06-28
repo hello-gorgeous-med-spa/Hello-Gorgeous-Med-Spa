@@ -10,6 +10,7 @@ import {
   RxPostSubmitCard,
   type RxPostSubmitStep,
 } from "@/components/rx/intake/RxPostSubmitHeader";
+import { RxTelehealthHandoff } from "@/components/rx/intake/RxTelehealthHandoff";
 import {
   HG_RX_TELEHEALTH_BOOKING_LABEL,
   HG_RX_TELEHEALTH_BOOKING_URL,
@@ -148,6 +149,7 @@ type SubmitResult =
       reference: string;
       requestType: PeptideRequestType;
       submissionId?: string;
+      recordToken?: string;
       priceLabel?: string;
       lineLabel?: string;
       priceUsd?: number;
@@ -156,6 +158,11 @@ type SubmitResult =
       savingsNote?: string;
     }
   | { kind: "disqualified"; reference: string };
+
+function rxStatusHref(recordToken?: string): string | undefined {
+  if (!recordToken) return undefined;
+  return `/rx/status?token=${encodeURIComponent(recordToken)}`;
+}
 
 function fieldVisible(field: IntakeFormField, data: Record<string, unknown>): boolean {
   if (!field.conditionalOn) return true;
@@ -453,6 +460,7 @@ export function PeptideRequestForm({
               kind: "qualified",
               reference,
               submissionId: submissionId || undefined,
+              recordToken: recordToken || undefined,
               requestType: type,
               priceLabel: quote?.priceLabel,
               lineLabel: quote?.lineLabel,
@@ -469,6 +477,7 @@ export function PeptideRequestForm({
             kind: "qualified",
             reference,
             submissionId: submissionId || undefined,
+            recordToken: recordToken || undefined,
             requestType: "refill",
             priceLabel: quote.priceLabel,
             lineLabel: quote.lineLabel,
@@ -478,7 +487,12 @@ export function PeptideRequestForm({
             savingsNote: quote.savingsNote,
           });
         } else {
-          savePendingRxSuccess({ kind: "qualified", reference, requestType: type });
+          savePendingRxSuccess({
+            kind: "qualified",
+            reference,
+            requestType: type,
+            recordToken: recordToken || undefined,
+          });
         }
       }
     } catch {
@@ -620,6 +634,14 @@ export function PeptideRequestForm({
             )}
           </div>
           {err && <p className="mt-4 text-sm text-red-700 text-center">{err}</p>}
+          {result.recordToken ? (
+            <Link
+              href={rxStatusHref(result.recordToken)!}
+              className="mt-4 block text-center text-xs font-semibold text-[#E6007E] underline"
+            >
+              Track full order status →
+            </Link>
+          ) : null}
           <Link href="/app?rx=1" className="mt-4 block text-center text-xs font-semibold text-[#E6007E] underline">
             View in Hello Gorgeous app →
           </Link>
@@ -643,7 +665,11 @@ export function PeptideRequestForm({
     return (
       <RxPostSubmitCard
         emoji={needsPrepay ? "🎉" : "✓"}
-        headline={needsPrepay ? "Request received — pre-pay to book telehealth" : "Request received — book telehealth"}
+        headline={
+          needsPrepay
+            ? "Request received — pre-pay to book telehealth"
+            : "Consult paid — book your telehealth visit"
+        }
         reference={result.reference}
         intro={`Ryan Kent, FNP-BC will review your protocol request at a required telehealth visit before any approval.`}
         steps={newSteps}
@@ -671,20 +697,20 @@ export function PeptideRequestForm({
                   ? "Starting Square checkout…"
                   : `Pay $${PEPTIDE_CONSULT_FEE_USD} & book telehealth`}
               </button>
-              <p className="text-[11px] text-green-700/80 max-w-sm">
+              <p className="text-[11px] text-green-700/80 max-w-sm text-center">
                 Secure Square checkout — same pre-pay flow as our Vitamin Bar. Telehealth booking unlocks after
                 payment.
               </p>
+              <RxTelehealthHandoff
+                showBooking={false}
+                statusHref={rxStatusHref(result.recordToken)}
+              />
             </>
           ) : (
-            <a
-              href={HG_RX_TELEHEALTH_BOOKING_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex w-full max-w-sm items-center justify-center rounded-xl bg-[#E6007E] px-8 py-4 font-bold text-white hover:bg-black transition-colors"
-            >
-              {HG_RX_TELEHEALTH_BOOKING_LABEL} →
-            </a>
+            <RxTelehealthHandoff
+              showBooking
+              statusHref={rxStatusHref(result.recordToken)}
+            />
           )}
         </div>
         {err && <p className="mt-4 text-sm text-red-700 text-center">{err}</p>}

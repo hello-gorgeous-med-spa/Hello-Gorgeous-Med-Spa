@@ -216,9 +216,14 @@ export function StartHereFlow({ initialPeptideId }: { initialPeptideId?: string 
                             {(() => {
                               const usd = getPeptideRetailMonthlyUsd(item.id);
                               return usd ? (
-                                <p className="text-[10px] font-bold text-[#E6007E] mt-1">
-                                  {formatFromMonthly(usd)}
-                                </p>
+                                <div className="mt-1 space-y-0.5">
+                                  <p className="text-[10px] font-bold text-[#E6007E]">
+                                    {formatFromMonthly(usd)}
+                                  </p>
+                                  <p className="text-[10px] font-semibold text-black/45">
+                                    ${PEPTIDE_CONSULT_FEE_USD} consult to start · med after NP approval
+                                  </p>
+                                </div>
                               ) : null;
                             })()}
                           </div>
