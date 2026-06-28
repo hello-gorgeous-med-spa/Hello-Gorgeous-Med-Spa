@@ -374,8 +374,8 @@ We'll text/email if telehealth is needed before we ship. Questions? (630) 636-61
 | **Daily refill reminder SMS/email cron** | ✅ Live (9 AM CT via Vercel) |
 | Square monthly auto-pay enrollment | ✅ Live (GLP-1 refill form) |
 | **Auto-refill on subscription charge → dispatch approved** | ✅ Live (Phase 4A) |
+| **Push notifications when refill is due** | ✅ Live (Phase 4B) |
 | Fully hands-free ship (no staff BoomRx click) | 🔜 Future polish |
-| Push notifications for refill due | 🔜 Future |
 | Native App Store app | ❌ Not planned — PWA only |
 
 ### Phase 3 — how refill cadence works
@@ -404,6 +404,18 @@ When Square charges a patient's **active auto-pay enrollment** (second charge an
 **Staff still:** open **RX Dispatch**, place BoomRx order, mark **sent** (patient ship SMS fires on sent).
 
 **Amount guard:** renewal skipped if charge differs from enrollment by more than **$2** (log in webhook).
+
+### Phase 4B — push notifications on refill due
+
+When a patient's refill is **due soon** or **overdue** (same cadence as Phase 3):
+
+1. **Daily cron** (`/api/cron/rx-refill-reminder`) sends SMS + email **and** a browser push (if opted in).
+2. Patient opts in on **`/portal/rx`** (“Turn on notifications”) or the **Hello Gorgeous app** (`/app`) when logged in.
+3. Tap notification → opens pre-filled refill form or My RX.
+
+**Requires VAPID keys in Vercel:** `VAPID_SUBJECT`, `NEXT_PUBLIC_VAPID_PUBLIC_KEY`, `VAPID_PRIVATE_KEY`.
+
+**Dedupe:** won't repeat the same push within 7 days (same as SMS/email).
 
 ---
 
@@ -462,6 +474,7 @@ When Square charges a patient's **active auto-pay enrollment** (second charge an
 | Auto dispatch on intake/pay | `lib/rx-dispatch-auto.ts` |
 | Refill cadence + reminders | `lib/rx-refill-cadence.ts`, `lib/rx-refill-reminder.ts` |
 | Auto-pay renewal (Phase 4A) | `lib/rx-autopay-renewal.ts`, Square webhook |
+| Refill push (Phase 4B) | `lib/web-push.ts`, `lib/rx-refill-reminder.ts`, `/portal/rx` |
 
 **Related docs:**
 - [Client Portal Guide](./client-portal.md) — general portal features

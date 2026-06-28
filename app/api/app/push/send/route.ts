@@ -1,29 +1,10 @@
 export const runtime = "nodejs";
 
 import { NextRequest, NextResponse } from "next/server";
-import webpush from "web-push";
+
 import { createAdminSupabaseClient } from "@/lib/hgos/supabase";
+import { ensureWebPushVapid, sendWebPushToClient } from "@/lib/web-push";
 
-let vapidConfigured = false;
-
-function ensureVapidConfigured(): boolean {
-  if (vapidConfigured) return true;
-
-  const subject = process.env.VAPID_SUBJECT;
-  const publicKey = process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY;
-  const privateKey = process.env.VAPID_PRIVATE_KEY;
-  if (!subject || !publicKey || !privateKey) return false;
-
-  try {
-    webpush.setVapidDetails(subject, publicKey, privateKey);
-    vapidConfigured = true;
-    return true;
-  } catch {
-    return false;
-  }
-}
-
-// Simple admin auth via Bearer token (reuse your AUTH_CREDENTIALS secret)
 function isAdmin(request: NextRequest): boolean {
   const auth = request.headers.get("authorization") ?? "";
   const token = auth.replace("Bearer ", "");
@@ -35,7 +16,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  if (!ensureVapidConfigured()) {
+  if (!ensureWebPushVapid()) {
     return NextResponse.json({ error: "Push notifications not configured" }, { status: 503 });
   }
 
@@ -47,40 +28,23 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "title and body required" }, { status: 400 });
   }
 
-  // If clientId provided, target one client. Otherwise broadcast to all.
-  let query = supabase.from("push_subscriptions").select("endpoint, p256dh, auth");
-  if (clientId) query = query.eq("client_id", clientId);
-
-  const { data: subs } = await query;
-  if (!subs?.length) return NextResponse.json({ sent: 0 });
-
-  const payload = JSON.stringify({ title, body, url: url ?? "/app" });
-  let sent = 0;
-  let failed = 0;
-  const expired: string[] = [];
-
-  await Promise.allSettled(
-    subs.map(async (sub) => {
-      try {
-        await webpush.sendNotification(
-          { endpoint: sub.endpoint, keys: { p256dh: sub.p256dh, auth: sub.auth } },
-          payload
-        );
-        sent++;
-      } catch (err: unknown) {
-        const status = (err as { statusCode?: number }).statusCode;
-        if (status === 410 || status === 404) {
-          // Subscription expired — clean it up
-          expired.push(sub.endpoint);
-        }
-        failed++;
-      }
-    })
-  );
-
-  if (expired.length) {
-    await supabase.from("push_subscriptions").delete().in("endpoint", expired);
+  if (clientId) {
+    const result = await sendWebPushToClient(supabase, clientId, { title, body, url });
+    return NextResponse.json(result);
   }
 
-  return NextResponse.json({ sent, failed, expired: expired.length });
+  const { data: subs } = await supabase.from("push_subscriptions").select("client_id");
+  const clientIds = [...new Set((subs ?? []).map((s) => s.client_id))];
+  let sent = 0;
+  let failed = 0;
+  let expired = 0;
+
+  for (const id of clientIds) {
+    const result = await sendWebPushToClient(supabase, id, { title, body, url });
+    sent += result.sent;
+    failed += result.failed;
+    expired += result.expired;
+  }
+
+  return NextResponse.json({ sent, failed, expired });
 }

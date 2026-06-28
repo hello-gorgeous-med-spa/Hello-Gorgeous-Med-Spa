@@ -106,6 +106,20 @@ export async function buildRxE2eReport(admin?: SupabaseClient | null): Promise<R
       : "Set SQUARE_WEBHOOK_SIGNATURE_KEY for auto-reconcile",
   });
 
+  const vapidOk = Boolean(
+    process.env.VAPID_SUBJECT &&
+      process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY &&
+      process.env.VAPID_PRIVATE_KEY,
+  );
+  checks.push({
+    id: "push",
+    label: "RX refill push (VAPID)",
+    status: vapidOk ? "pass" : "warn",
+    detail: vapidOk
+      ? "Refill due push notifications enabled"
+      : "Set VAPID_SUBJECT, NEXT_PUBLIC_VAPID_PUBLIC_KEY, VAPID_PRIVATE_KEY",
+  });
+
   const { count: pendingDispatch } = await client
     .from("hg_rx_dispatch")
     .select("submission_id", { count: "exact", head: true })

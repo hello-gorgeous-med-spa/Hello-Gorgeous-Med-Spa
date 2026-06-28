@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -39,6 +39,7 @@ import { BrandHero } from "@/components/BrandHero";
 import {
   usePwaInstall,
 } from "@/lib/hooks/use-pwa-install";
+import { useRxPushNotifications } from "@/lib/hooks/use-rx-push-notifications";
 import {
   TRIFECTA_GLASS,
   TRIFECTA_GRADIENT_TITLE,
@@ -92,44 +93,11 @@ function useHomeData() {
   return data;
 }
 
-function usePushNotifications(authenticated: boolean) {
-  const [permission, setPermission] = useState<NotificationPermission | "unsupported">("default");
-  const [subscribed, setSubscribed] = useState(false);
-
-  useEffect(() => {
-    if (typeof Notification === "undefined") { setPermission("unsupported"); return; }
-    setPermission(Notification.permission);
-  }, []);
-
-  useEffect(() => {
-    if ("serviceWorker" in navigator) navigator.serviceWorker.register("/app-sw.js", { scope: "/" }).catch(() => {});
-  }, []);
-
-  const subscribe = useCallback(async () => {
-    if (!authenticated || typeof Notification === "undefined") return;
-    const perm = await Notification.requestPermission();
-    setPermission(perm);
-    if (perm !== "granted") return;
-    try {
-      const reg = await navigator.serviceWorker.ready;
-      const sub = await reg.pushManager.subscribe({
-        userVisibleOnly: true,
-        applicationServerKey: process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY,
-      });
-      const json = sub.toJSON();
-      await fetch("/api/app/push/subscribe", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ endpoint: json.endpoint, keys: json.keys }),
-      });
-      setSubscribed(true);
-    } catch { /* silent */ }
-  }, [authenticated]);
-
-  return { permission, subscribed, subscribe };
+function priceLabel(n: number) {
+  return `$${n}`;
 }
 
-function priceLabel(n: number) { return `$${n}`; }
+// ─── Root ─────────────────────────────────────────────────────────────────────
 
 function formatApptDate(iso: string): string {
   return new Date(iso).toLocaleDateString("en-US", {
@@ -159,9 +127,9 @@ export function ClientApp({
     useClientManifest: true,
   });
   const homeData = useHomeData();
-  const { permission, subscribed, subscribe } = usePushNotifications(homeData?.authenticated ?? false);
+  const { permission, subscribed, subscribe, canPrompt } = useRxPushNotifications(homeData?.authenticated ?? false);
 
-  const showPushBanner = homeData?.authenticated && permission === "default" && !subscribed;
+  const showPushBanner = canPrompt;
 
   return (
     <div className="relative min-h-screen pb-24 text-white" style={{ background: BG }}>
@@ -213,7 +181,7 @@ export function ClientApp({
             className="flex items-center justify-between gap-3 px-5 py-3"
             style={{ background: "linear-gradient(90deg, rgba(236,72,153,0.12), rgba(59,130,246,0.12))", borderTop: "1px solid rgba(236, 72, 153, 0.2)" }}
           >
-            <p className="text-xs leading-snug text-white/70">Get notified about deals & appointment reminders</p>
+            <p className="text-xs leading-snug text-white/70">Refill due alerts, deals & appointment reminders</p>
             <button
               type="button"
               onClick={() => void subscribe()}

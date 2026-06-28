@@ -13,14 +13,18 @@ import {
 } from "@/lib/rx-refill-cadence";
 import { CLIENT_APP } from "@/lib/client-app";
 import { SITE } from "@/lib/seo";
+import { isWebPushConfigured, sendWebPushToClient } from "@/lib/web-push";
 
 const MAX_REMINDERS_PER_RUN = 25;
 const REMINDER_COOLDOWN_DAYS = REFILL_DUE_SOON_DAYS;
+
+type ReminderChannel = "sms" | "email" | "push";
 
 export type RxRefillReminderResult = {
   scanned: number;
   sent: number;
   skipped: number;
+  pushSent: number;
   errors: string[];
 };
 
@@ -28,7 +32,7 @@ async function wasRecentlyReminded(
   admin: SupabaseClient,
   item: RxRefillCadenceItem,
   urgency: string,
-  channel: "sms" | "email",
+  channel: ReminderChannel,
 ): Promise<boolean> {
   const since = new Date(Date.now() - REMINDER_COOLDOWN_DAYS * 86400000).toISOString();
   const { data } = await admin
@@ -48,7 +52,7 @@ async function wasRecentlyReminded(
 async function recordReminder(
   admin: SupabaseClient,
   item: RxRefillCadenceItem,
-  channel: "sms" | "email",
+  channel: ReminderChannel,
 ): Promise<void> {
   await admin.from("hg_rx_refill_reminders").insert({
     client_id: item.clientId,
@@ -63,6 +67,9 @@ function reminderCopy(item: RxRefillCadenceItem): {
   subject: string;
   sms: string;
   emailNote: string;
+  pushTitle: string;
+  pushBody: string;
+  pushUrl: string;
 } {
   const first = item.clientName?.split(/\s+/)[0] || "there";
   const med = `${item.medication}${item.doseLabel ? ` · ${item.doseLabel}` : ""}`;
@@ -74,6 +81,9 @@ function reminderCopy(item: RxRefillCadenceItem): {
       subject: `${SITE.name} — refill overdue`,
       sms: `Hi ${first}! Your ${med} refill is overdue. Reorder: ${refillUrl} · Track: ${portalUrl} · ${SITE.phone}`,
       emailNote: `Your ${med} refill is overdue. Reorder here: ${refillUrl}\n\nTrack all RX orders: ${portalUrl}`,
+      pushTitle: "Refill overdue",
+      pushBody: `Your ${med} refill is overdue — tap to reorder.`,
+      pushUrl: item.reorderHref,
     };
   }
 
@@ -81,6 +91,9 @@ function reminderCopy(item: RxRefillCadenceItem): {
     subject: `${SITE.name} — refill due soon`,
     sms: `Hi ${first}! Your ${med} refill is due in ${item.daysUntilDue} day(s). Start here: ${refillUrl} · My RX: ${portalUrl}`,
     emailNote: `Your ${med} refill is due in ${item.daysUntilDue} day(s).\n\nStart refill: ${refillUrl}\nMy RX dashboard: ${portalUrl}`,
+    pushTitle: "Refill due soon",
+    pushBody: `Your ${med} refill is due in ${item.daysUntilDue} day(s). Tap to start.`,
+    pushUrl: item.reorderHref,
   };
 }
 
@@ -88,19 +101,21 @@ export async function processRxRefillReminders(
   admin: SupabaseClient,
 ): Promise<RxRefillReminderResult> {
   if (process.env.RX_REFILL_REMINDER_CRON_ENABLED === "false") {
-    return { scanned: 0, sent: 0, skipped: 0, errors: ["disabled"] };
+    return { scanned: 0, sent: 0, skipped: 0, pushSent: 0, errors: ["disabled"] };
   }
 
   const { items, tableReady } = await listAllRefillCadence(admin, { urgency: "all", limit: 50 });
   if (!tableReady) {
-    return { scanned: 0, sent: 0, skipped: 0, errors: ["cadence tables not ready"] };
+    return { scanned: 0, sent: 0, skipped: 0, pushSent: 0, errors: ["cadence tables not ready"] };
   }
 
   const dueItems = items.filter((i) => i.urgency === "due_soon" || i.urgency === "overdue");
+  const pushEnabled = isWebPushConfigured();
   const result: RxRefillReminderResult = {
     scanned: dueItems.length,
     sent: 0,
     skipped: 0,
+    pushSent: 0,
     errors: [],
   };
 
@@ -109,6 +124,24 @@ export async function processRxRefillReminders(
 
     const copy = reminderCopy(item);
     let delivered = false;
+
+    if (pushEnabled) {
+      const recentPush = await wasRecentlyReminded(admin, item, item.urgency, "push");
+      if (recentPush) {
+        // skip push only
+      } else {
+        const pushRes = await sendWebPushToClient(admin, item.clientId, {
+          title: copy.pushTitle,
+          body: copy.pushBody,
+          url: copy.pushUrl,
+        });
+        if (pushRes.sent > 0) {
+          await recordReminder(admin, item, "push");
+          result.pushSent += pushRes.sent;
+          delivered = true;
+        }
+      }
+    }
 
     const email = item.clientEmail?.trim() || "";
     if (email) {
@@ -150,9 +183,11 @@ export async function processRxRefillReminders(
     }
 
     if (delivered) result.sent++;
-    else if (!email && !phone) {
+    else if (!email && !phone && !pushEnabled) {
       result.skipped++;
       result.errors.push(`${item.clientId}: no contact info`);
+    } else if (!delivered) {
+      result.skipped++;
     }
   }
 

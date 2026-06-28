@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
+import { useRxPushNotifications } from "@/lib/hooks/use-rx-push-notifications";
 import { usePortalAuth } from "@/lib/portal/useAuth";
 import type { RxPortalDashboard, RxPortalOrder } from "@/lib/rx-portal-dashboard";
 
@@ -95,6 +96,7 @@ function OrderCard({ order }: { order: RxPortalOrder }) {
 
 export function PortalRxDashboard() {
   const { user, loading: authLoading, authenticated } = usePortalAuth(true);
+  const { canPrompt, subscribe, busy, permission } = useRxPushNotifications(authenticated);
   const [data, setData] = useState<(RxPortalDashboard & { activeOrders: RxPortalOrder[]; pastOrders: RxPortalOrder[] }) | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -140,6 +142,31 @@ export function PortalRxDashboard() {
           Track refills, pay invoices, and reorder — like a modern telehealth portal.
         </p>
       </div>
+
+      {canPrompt && (
+        <div className="rounded-2xl border-2 border-[#E6007E] bg-gradient-to-r from-[#FFF0F7] to-white px-5 py-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+          <div>
+            <p className="font-bold text-black">Get refill reminders on this device</p>
+            <p className="text-sm text-black/60 mt-1">
+              Push alerts when your GLP-1 or peptide refill is due — no app store required.
+            </p>
+          </div>
+          <button
+            type="button"
+            disabled={busy}
+            onClick={() => void subscribe()}
+            className="shrink-0 rounded-lg bg-[#E6007E] px-4 py-2.5 text-sm font-bold text-white hover:bg-black disabled:opacity-60"
+          >
+            {busy ? "Enabling…" : "Turn on notifications"}
+          </button>
+        </div>
+      )}
+
+      {permission === "denied" && (
+        <p className="text-xs text-black/45">
+          Notifications are blocked in your browser settings — enable them to get refill alerts here.
+        </p>
+      )}
 
       {data?.refillDue && (
         <div
