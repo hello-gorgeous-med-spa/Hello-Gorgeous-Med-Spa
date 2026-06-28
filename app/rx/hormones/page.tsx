@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { FadeUp, Section } from "@/components/Section";
+import { HrtIngredientPicker } from "@/components/hrt/HrtIngredientPicker";
 import { RxPageLayout, RxServiceCard } from "@/components/RxPageLayout";
 import { MEDICAL_TEAM_IMAGE } from "@/lib/medical-optimization";
 import { pageMetadata } from "@/lib/seo";
@@ -58,6 +59,10 @@ export default function HormonesPage() {
       icon="🧬"
       heroImage={MEDICAL_TEAM_IMAGE}
     >
+      <Section className="bg-gradient-to-b from-[#FFF0F7] to-white">
+        <HrtIngredientPicker />
+      </Section>
+
       {/* Services Grid */}
       <Section className="bg-gradient-to-b from-white to-pink-50/30">
         <FadeUp>

@@ -11,6 +11,12 @@ import {
   RX_PATIENT_CARE_PATH,
 } from "@/lib/flows";
 import { MEDICAL_OPTIMIZATION_PATH } from "@/lib/medical-optimization";
+import {
+  HRT_INGREDIENTS,
+  HRT_LEARN_LINKS,
+  HRT_SYMPTOM_LINKS,
+  hrtIngredientFromMonthlyUsd,
+} from "@/lib/hrt-formulation-catalog";
 import { helloGorgeousRxStartUrl } from "@/lib/peptide-request-menu";
 import { getPeptidePickerThumbnail } from "@/lib/peptide-thumbnails";
 import { resolveShopRxProductImage } from "@/lib/shop-rx-product-images";
@@ -159,53 +165,56 @@ export const SHOP_RX_CATEGORIES: ShopRxCategory[] = [
   {
     id: "hormones",
     navLabel: "Hormones",
-    hubHref: "/medical",
+    hubHref: "/rx/hormones",
     exploreLabel: "Explore hormones",
-    homepageBlurb: "BioTE, TRT, ladies' & men's wellness clubs",
-    defaultFeaturedId: "biote-women",
+    homepageBlurb: "HRT ingredients · capsule, troche or injectable",
+    defaultFeaturedId: "progesterone",
     columns: [
       {
-        heading: "For women",
-        items: [
-          {
-            id: "biote-women",
-            label: "Women's Hormones (BioTE)",
-            href: "/biote-hormone-therapy-oswego",
-            rx: true,
-            tagline: "Pellet therapy · perimenopause & menopause",
-            imageSrc: "/images/homepage-buyer-paths/weight-loss-hormones.png",
-            imageAlt: "BioTE hormone therapy for women",
-          },
-          {
-            id: "ladies-club",
-            label: "The Ladies' Club",
-            href: "/ladies-club",
-            tagline: "GLP-1, hormones, peptides & wellness",
-          },
-          {
-            id: "bhrt-cost",
-            label: "BHRT cost guide",
-            href: "/ladies-club/bhrt-cost",
-            tagline: "BioTE pricing & what women pay",
-          },
-        ],
+        heading: "Get support for",
+        items: HRT_SYMPTOM_LINKS.map((symptom) => ({
+          id: symptom.id,
+          label: symptom.label,
+          href: `/rx/hormones#${symptom.id}`,
+          tagline: "Filter ingredients by symptom",
+        })),
       },
       {
-        heading: "For men",
-        items: [
-          {
-            id: "gentlemens-club",
-            label: "The Gentlemen's Club",
-            href: "/gentlemens-club",
-            tagline: "TRT, Brotox, peptides & men's weight loss",
-          },
-          {
-            id: "trt-hub",
-            label: "Men's hormone optimization",
-            href: "/gentlemens-club",
-            tagline: "TRT & executive wellness programs",
-          },
-        ],
+        heading: "Learn",
+        items: HRT_LEARN_LINKS.map((link) => ({
+          id: link.href.replace(/\//g, "-").replace(/^-/, ""),
+          label: link.label,
+          href: link.href,
+          tagline: link.blurb,
+        })),
+      },
+      {
+        heading: "Ingredients",
+        items: HRT_INGREDIENTS.filter((item) => item.audience === "women" || item.audience === "both")
+          .slice(0, 6)
+          .map((item) => ({
+            id: item.id,
+            label: item.name,
+            href: `/rx/hormones#${item.id}`,
+            rx: true,
+            tagline: `${item.tagline} · from $${hrtIngredientFromMonthlyUsd(item)}/mo`,
+            imageSrc:
+              item.id === "progesterone"
+                ? ("/images/homepage-buyer-paths/weight-loss-hormones.png" as const)
+                : undefined,
+            imageAlt: item.id === "progesterone" ? `${item.name} — Hello Gorgeous RX` : undefined,
+          })),
+      },
+      {
+        heading: "Men's TRT",
+        items: HRT_INGREDIENTS.filter((item) => item.audience === "men")
+          .map((item) => ({
+            id: item.id,
+            label: item.name,
+            href: `/rx/hormones#${item.id}`,
+            rx: true,
+            tagline: `${item.tagline} · from $${hrtIngredientFromMonthlyUsd(item)}/mo`,
+          })),
       },
     ],
   },
