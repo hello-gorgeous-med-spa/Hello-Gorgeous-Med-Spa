@@ -18,7 +18,7 @@ import {
 import { GENTLEMENS_CLUB_PATH } from "@/lib/gentlemens-club";
 import { LADIES_CLUB_PATH } from "@/lib/ladies-club";
 import { isMedicalNavActive, MEDICAL_NAV } from "@/lib/medical-nav";
-import { medicalMegaMenuMobileGroups } from "@/lib/medical-mega-menu";
+import { medicalMegaMenuMobileGroups, SHOP_RX_NAV } from "@/lib/medical-mega-menu";
 import { MedicalMegaMenu } from "@/components/header/MedicalMegaMenu";
 import { isQuizNavActive, QUIZ_NAV, type QuizNavLink } from "@/lib/quiz-nav";
 import { HG_TAGLINE } from "@/lib/brand-tagline";
@@ -714,18 +714,18 @@ export function Header() {
               />
             </div>
 
-            {/* Medical */}
+            {/* Shop RX */}
             <div
               className="relative flex items-center"
               onMouseEnter={() => openDropdown("medical")}
               onMouseLeave={closeDropdown}
             >
               <Link
-                href={NAV.medical.href}
+                href={SHOP_RX_NAV.href}
                 className={NAV_LINK_BASE}
                 style={navPillStyle(1, isMedicalNavActiveState)}
               >
-                Medical
+                Shop RX
                 <svg className={cx("h-3 w-3 transition-transform", activeDropdown === "medical" && "rotate-180")} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                 </svg>
@@ -963,7 +963,7 @@ export function Header() {
               { key: "services", label: "Services", links: NAV.services.sections.flatMap((s) => s.links) },
               {
                 key: "medical",
-                label: "Medical",
+                label: "Shop RX",
                 groups: medicalMegaMenuMobileGroups(),
                 highlight: true,
               },

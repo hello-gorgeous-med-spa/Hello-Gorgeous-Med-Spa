@@ -2,16 +2,16 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { BOOKING_URL } from "@/lib/flows";
-import { MEDICAL_OPTIMIZATION_PATH } from "@/lib/medical-optimization";
 import {
   getMedicalMegaMenuItem,
-  MEDICAL_MEGA_MENU_COLUMNS,
-  MEDICAL_MEGA_MENU_DEFAULT_FEATURED_ID,
+  getShopRxCategory,
   MEDICAL_MEGA_MENU_FOOTER,
-  type MedicalMegaMenuItem,
+  SHOP_RX_CATEGORIES,
+  SHOP_RX_NAV,
+  type ShopRxCategoryId,
 } from "@/lib/medical-mega-menu";
 
 const MEGA_MENU_TOP = "top-[7.75rem]";
@@ -29,7 +29,7 @@ function MegaMenuItemLink({
   onClose,
   onHover,
 }: {
-  item: MedicalMegaMenuItem;
+  item: import("@/lib/medical-mega-menu").MedicalMegaMenuItem;
   onClose: () => void;
   onHover: () => void;
 }) {
@@ -62,18 +62,35 @@ export function MedicalMegaMenu({
   isOpen,
   onClose,
   onMouseEnter,
+  initialCategoryId,
 }: {
   isOpen: boolean;
   onClose: () => void;
   onMouseEnter: () => void;
+  initialCategoryId?: ShopRxCategoryId;
 }) {
-  const [featuredId, setFeaturedId] = useState(MEDICAL_MEGA_MENU_DEFAULT_FEATURED_ID);
+  const [activeCategoryId, setActiveCategoryId] = useState<ShopRxCategoryId>(
+    initialCategoryId ?? SHOP_RX_CATEGORIES[0]!.id,
+  );
+  const category =
+    getShopRxCategory(activeCategoryId) ?? SHOP_RX_CATEGORIES[0]!;
+  const [featuredId, setFeaturedId] = useState(category.defaultFeaturedId);
+
+  useEffect(() => {
+    if (isOpen && initialCategoryId) {
+      setActiveCategoryId(initialCategoryId);
+    }
+  }, [isOpen, initialCategoryId]);
+
+  useEffect(() => {
+    setFeaturedId(category.defaultFeaturedId);
+  }, [category.defaultFeaturedId, activeCategoryId]);
 
   if (!isOpen) return null;
 
   const featured =
     getMedicalMegaMenuItem(featuredId) ??
-    getMedicalMegaMenuItem(MEDICAL_MEGA_MENU_DEFAULT_FEATURED_ID)!;
+    getMedicalMegaMenuItem(category.defaultFeaturedId)!;
 
   return (
     <div
@@ -82,10 +99,40 @@ export function MedicalMegaMenu({
       onMouseEnter={onMouseEnter}
       onMouseLeave={onClose}
     >
-      <div className="mx-auto max-w-6xl px-6 py-8 max-h-[calc(100vh-5.5rem)] overflow-y-auto overscroll-contain">
-        <div className="grid gap-8 lg:grid-cols-[1fr_260px]">
-          <div className="grid grid-cols-2 gap-x-8 gap-y-10 md:grid-cols-4">
-            {MEDICAL_MEGA_MENU_COLUMNS.map((column) => (
+      <div className="mx-auto max-w-6xl px-6 py-6 max-h-[calc(100vh-5.5rem)] overflow-y-auto overscroll-contain">
+        {/* Category tabs — Good Life style */}
+        <div className="flex flex-wrap gap-2 border-b border-dotted border-white/15 pb-4">
+          {SHOP_RX_CATEGORIES.map((cat) => {
+            const active = cat.id === activeCategoryId;
+            return (
+              <button
+                key={cat.id}
+                type="button"
+                onMouseEnter={() => setActiveCategoryId(cat.id)}
+                onFocus={() => setActiveCategoryId(cat.id)}
+                onClick={() => setActiveCategoryId(cat.id)}
+                className={`rounded-full px-4 py-2 text-xs font-bold uppercase tracking-[0.14em] transition ${
+                  active
+                    ? "bg-[#E6007E] text-white shadow-[2px_2px_0_0_rgba(230,0,126,0.45)]"
+                    : "bg-white/5 text-white/55 hover:bg-white/10 hover:text-white"
+                }`}
+              >
+                {cat.navLabel}
+              </button>
+            );
+          })}
+          <Link
+            href={SHOP_RX_NAV.href}
+            onClick={onClose}
+            className="ml-auto hidden items-center self-center text-xs font-semibold text-[#FFB8DC] underline underline-offset-2 hover:text-white sm:inline-flex"
+          >
+            {category.exploreLabel} →
+          </Link>
+        </div>
+
+        <div className="mt-6 grid gap-8 lg:grid-cols-[1fr_260px]">
+          <div className="grid grid-cols-2 gap-x-10 gap-y-8">
+            {category.columns.map((column) => (
               <div key={column.heading}>
                 <p className="mb-3 text-[10px] font-bold uppercase tracking-[0.24em] text-[#FFB8DC]/85">
                   {column.heading}
@@ -138,11 +185,11 @@ export function MedicalMegaMenu({
               Get started →
             </Link>
             <Link
-              href={MEDICAL_OPTIMIZATION_PATH}
+              href={category.hubHref}
               onClick={onClose}
               className="mt-3 text-center text-xs font-semibold text-white/50 underline underline-offset-2 hover:text-[#FFB8DC]"
             >
-              View all medical programs
+              {category.exploreLabel}
             </Link>
           </aside>
         </div>
