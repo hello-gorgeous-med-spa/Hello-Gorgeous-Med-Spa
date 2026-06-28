@@ -5,6 +5,12 @@ import Link from "next/link";
 
 import type { IntakeFormField } from "@/lib/hgos/intake-forms";
 import { SMSDisclosure } from "@/components/SMSDisclosure";
+import { RxIntakeFormCard } from "@/components/rx/intake/RxIntakeFormCard";
+import {
+  RxIntakeDisqualifiedCard,
+  RxPostSubmitCard,
+  type RxPostSubmitStep,
+} from "@/components/rx/intake/RxPostSubmitHeader";
 import { RxSecureMessages } from "@/components/rx/RxSecureMessages";
 import { RxPatientStatusCard } from "@/components/rx/RxPatientStatusCard";
 import {
@@ -61,6 +67,7 @@ import {
 } from "@/lib/rx-supply-cycle";
 import { rxMessagesHref } from "@/lib/rx-secure-messages";
 import { rxStatusHref } from "@/lib/rx-patient-status";
+import { GLP1_REFILL_STEP_LABELS } from "@/lib/rx-intake-nav";
 
 type SubmitResult =
   | {
@@ -511,22 +518,38 @@ export function Glp1RefillForm() {
       sideEffects: formData.side_effects,
     });
 
+    const postSubmitSteps: RxPostSubmitStep[] = refillPaid
+      ? [
+          { label: "Refill request submitted", status: "complete" },
+          { label: "Payment received", status: "complete" },
+          { label: "Clinical review by Ryan Kent, FNP-BC", status: "current" },
+          { label: "Cold-chain home delivery", status: "upcoming" },
+        ]
+      : [
+          { label: "Refill request submitted", status: "complete" },
+          { label: "Pay your invoice (medication + shipping)", status: "current" },
+          { label: "Clinical review by Ryan Kent, FNP-BC", status: "upcoming" },
+          { label: "Cold-chain home delivery", status: "upcoming" },
+        ];
+
     return (
-      <div className="rounded-2xl border-2 border-black bg-green-50 p-8 text-center shadow-lg">
-        <span className="text-4xl">{refillPaid ? "✓" : "💳"}</span>
-        <h2 className="mt-4 font-serif text-2xl font-semibold text-green-900">
-          {refillPaid ? "Payment received — thank you" : "Complete payment to reserve your refill"}
-        </h2>
-        <p className="mt-3 text-sm text-green-800 leading-relaxed max-w-md mx-auto">
-          Reference <span className="font-mono font-bold">{result.reference}</span>.
-          {!refillPaid
-            ? " Pay now — our team reviews your request after payment. Medication is not shipped until clinically approved."
-            : " Our clinical team will review and ship after approval (typically within one business day)."}
-          {String(formData.ship_to_home || "").startsWith("Yes")
-            ? " Cold-chain delivery to your home address."
-            : " We'll contact you about spa pick-up when your refill is ready."}
-        </p>
-        <p className="mt-3 text-[11px] text-green-800/90 max-w-md mx-auto leading-relaxed">
+      <RxPostSubmitCard
+        emoji={refillPaid ? "✓" : "🎉"}
+        headline={refillPaid ? "You're all set — we're on it" : "Request received — one step left"}
+        reference={result.reference}
+        intro={
+          <>
+            {!refillPaid
+              ? " Pay now — our team reviews your request after payment. Medication is not shipped until clinically approved."
+              : " Our clinical team will review and ship after approval (typically within one business day)."}
+            {String(formData.ship_to_home || "").startsWith("Yes")
+              ? " Cold-chain delivery to your home address."
+              : " We'll contact you about spa pick-up when your refill is ready."}
+          </>
+        }
+        steps={postSubmitSteps}
+      >
+        <p className="text-[11px] text-black/60 max-w-md mx-auto text-center leading-relaxed mb-4">
           {GLP1_PAYMENT_FIRST_FINE_PRINT}
         </p>
         {telehealthWaived && !telehealthBeforeShip && (
@@ -719,55 +742,37 @@ export function Glp1RefillForm() {
           and auto-pay.
         </p>
         {err && <p className="mt-4 text-sm text-red-700">{err}</p>}
-        <p className="mt-4 text-xs text-green-700">
+        <p className="mt-4 text-xs text-black/55 text-center">
           Questions?{" "}
-          <a href="tel:+16306366193" className="font-semibold underline">
+          <a href="tel:+16306366193" className="font-semibold text-[#E6007E] underline">
             630-636-6193
           </a>
         </p>
-      </div>
+      </RxPostSubmitCard>
     );
   }
 
   if (result?.kind === "disqualified") {
     return (
-      <div className="rounded-2xl border-2 border-black bg-white p-8 shadow-lg">
-        <h2 className="font-serif text-2xl font-semibold text-black">Thank you for your submission</h2>
-        <p className="mt-4 text-sm text-black/75 leading-relaxed">{GLP1_REFILL_DISQUALIFIED_MESSAGE}</p>
-        <p className="mt-4 text-xs text-black/50">
-          Reference <span className="font-mono">{result.reference}</span> — our team has been notified.
-        </p>
-        <Link
-          href="/glp1-intake"
-          className="mt-6 inline-block text-sm font-semibold text-[#E6007E] underline"
-        >
-          New patient? Start full GLP-1 screening →
-        </Link>
-      </div>
+      <RxIntakeDisqualifiedCard
+        headline="Thank you for your submission"
+        body={GLP1_REFILL_DISQUALIFIED_MESSAGE}
+        reference={result.reference}
+        ctaHref="/glp1-intake"
+        ctaLabel="New patient? Start full GLP-1 screening →"
+      />
     );
   }
 
   const isLastStep = step === GLP1_REFILL_STEPS.length - 1;
 
   return (
-    <div className="rounded-2xl border-2 border-black bg-white shadow-lg overflow-hidden">
-      <div className="border-b border-black/10 bg-[#FFF0F7] px-5 py-4">
-        <div className="flex items-center justify-between gap-3 text-xs font-bold uppercase tracking-wider text-[#E6007E]">
-          <span>
-            Step {step + 1} of {GLP1_REFILL_STEPS.length}
-          </span>
-          <span>{currentStep.title}</span>
-        </div>
-        <div className="mt-3 flex gap-1">
-          {GLP1_REFILL_STEPS.map((s, i) => (
-            <div
-              key={s.id}
-              className={`h-1.5 flex-1 rounded-full ${i <= step ? "bg-[#E6007E]" : "bg-black/10"}`}
-            />
-          ))}
-        </div>
-      </div>
-
+    <RxIntakeFormCard
+      stepIndex={step}
+      stepCount={GLP1_REFILL_STEPS.length}
+      stepTitle={currentStep.title}
+      stepLabels={GLP1_REFILL_STEP_LABELS}
+    >
       <form onSubmit={isLastStep ? submit : (e) => { e.preventDefault(); goNext(); }} className="p-5 md:p-8">
         {currentStep.description && (
           <p className="mb-5 text-sm text-black/65 leading-relaxed">{currentStep.description}</p>
@@ -963,12 +968,12 @@ export function Glp1RefillForm() {
         </div>
       </form>
 
-      <p className="border-t border-black/10 px-5 py-4 text-center text-[11px] text-black/45 leading-relaxed">
+      <p className="border-t border-black/10 px-5 py-4 text-center text-[11px] text-black/45 leading-relaxed md:px-8">
         Protected health information · stored securely for your chart
         <br />
         {GLP1_PAYMENT_FIRST_FINE_PRINT}
       </p>
-    </div>
+    </RxIntakeFormCard>
   );
 }
 
