@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import {
   HeroV3,
+  HomepageTrackFork,
   BuyerPathsSection,
   ServicesSection,
   TrifectaSection,
@@ -148,6 +149,7 @@ export default function HomePage() {
 
       <main className="bg-black">
         <HeroV3 />
+        <HomepageTrackFork />
         <BuyerPathsSection />
         <TrifectaSection />
         <HomepageTestimonials />
