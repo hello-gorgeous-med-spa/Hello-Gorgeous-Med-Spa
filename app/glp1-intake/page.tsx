@@ -41,7 +41,7 @@ export default function GLP1IntakePage() {
         <div className="flex flex-col md:flex-row md:items-center gap-8 mb-10">
           <div className="shrink-0 justify-center md:justify-start flex">
             <img
-              src="/images/shop-rx/glp1-intake.png"
+              src="/images/shop-rx/glp1-intake-flyer.png"
               alt="GLP-1 intake — Hello Gorgeous Med Spa medical weight loss screening"
               width={220}
               height={330}

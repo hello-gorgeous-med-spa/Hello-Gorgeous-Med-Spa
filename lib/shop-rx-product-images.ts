@@ -19,11 +19,11 @@ export const SHOP_RX_PRODUCT_IMAGES: Record<
     alt: "Compounded semaglutide — Hello Gorgeous RX medical weight loss",
   },
   "glp1-refill": {
-    src: `${BASE}/glp1-refill.png`,
-    alt: "GLP-1 refill — Hello Gorgeous RX",
+    src: `${BASE}/glp1-refill-flyer.png`,
+    alt: "GLP-1 refill — Hello Gorgeous RX home delivery",
   },
   "glp1-intake": {
-    src: `${BASE}/glp1-intake.png`,
+    src: `${BASE}/glp1-intake-flyer.png`,
     alt: "GLP-1 intake — Hello Gorgeous RX medical weight loss screening",
   },
   "weight-loss-hub": {
@@ -135,7 +135,9 @@ export function shopRxImageObjectClass(
   const brandedCard =
     src.startsWith(`${BASE}/`) ||
     src.includes("/gentlemens-club/tirzepatide-weight-loss") ||
-    src.includes("/gentlemens-club/semaglutide-weight-loss");
+    src.includes("/gentlemens-club/semaglutide-weight-loss") ||
+    src.includes("glp1-intake-flyer") ||
+    src.includes("glp1-refill-flyer");
   if (brandedCard) {
     const pad = variant === "featured" ? "p-2 sm:p-3" : "p-3 sm:p-4";
     return `object-contain object-center ${pad}`;

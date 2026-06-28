@@ -22,7 +22,7 @@ import {
 import { RX_INTAKE_NAV_GLPI_REFILL } from "@/lib/rx-intake-nav";
 import { pageMetadata, SITE } from "@/lib/seo";
 
-const HERO_IMAGE = "/images/shop-rx/glp1-refill.png";
+const HERO_IMAGE = "/images/shop-rx/glp1-refill-flyer.png";
 
 export const metadata: Metadata = {
   ...pageMetadata({

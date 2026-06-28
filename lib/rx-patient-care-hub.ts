@@ -37,8 +37,8 @@ export function glp1RefillAddonsHref(): string {
 
 /** Hub art — square 480×480 crops for card rows (see scripts/generate-rx-care-square-thumbs.ts). */
 export const RX_CARE_IMAGES = {
-  glp1Refill: "/images/shop-rx/glp1-refill.png",
-  glp1Intake: "/images/shop-rx/glp1-intake.png",
+  glp1Refill: "/images/shop-rx/glp1-refill-flyer.png",
+  glp1Intake: "/images/shop-rx/glp1-intake-flyer.png",
   peptide: "/images/rx-care/square/peptide.jpg",
   telehealth: "/images/rx-care/square/telehealth.jpg",
   team: "/images/rx-care/square/team.jpg",

@@ -1,5 +1,6 @@
 export { HeroV3 } from "./HeroV3";
 export { HomepageTrackFork } from "./HomepageTrackFork";
+export { Glp1HomePathCards } from "./Glp1HomePathCards";
 export { HomepageShopRxFinder } from "./HomepageShopRxFinder";
 export { ShopRxTrustBar } from "./ShopRxTrustBar";
 export { ShopRxHero } from "./ShopRxHero";
