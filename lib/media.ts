@@ -8,31 +8,14 @@ export type MascotVideoIntent =
   | "vision"
   | "oversight";
 
+/** Mascot intro clips retired — static portraits + chat only. */
 export const mascotVideos: Record<PersonaId, Record<string, string>> = {
-  peppi: {
-    intro: "/videos/mascots/peppi/peppi-intro.mp4",
-    reassurance: "/videos/mascots/peppi/peppi-reassurance.mp4",
-  },
-  "beau-tox": {
-    intro: "/videos/mascots/beau-tox/beau-tox.mp4",
-    education: "/videos/mascots/beau-tox/beau-tox.mp4",
-  },
-  "filla-grace": {
-    // TODO: add filla-grace-intro.mp4 and filla-grace-aesthetics.mp4 under public/videos/mascots/filla-grace/
-    intro: "/videos/mascots/founder/founder-vision.mp4",
-    aesthetics: "/videos/mascots/founder/founder-vision.mp4",
-  },
-  harmony: {
-    intro: "/videos/mascots/harmony/harmony-intro.mp4",
-    education: "/videos/mascots/harmony/harmony-intro.mp4",
-  },
-  founder: {
-    vision: "/videos/mascots/founder/founder-vision.mp4",
-  },
-  ryan: {
-    intro: "/videos/mascots/ryan/ryan-intro.mp4",
-    oversight: "/videos/mascots/ryan/ryan-intro.mp4",
-  },
+  peppi: {},
+  "beau-tox": {},
+  "filla-grace": {},
+  harmony: {},
+  founder: {},
+  ryan: {},
 };
 
 export const mascotImages: Record<PersonaId, { portrait: string; poster?: string }> = {
@@ -88,4 +71,3 @@ export function pickMascotVideoIntentForContext({
   if (personaId === "peppi") return mode === "care-reassurance" || mode === "care-confidence" ? "reassurance" : "intro";
   return "intro";
 }
-

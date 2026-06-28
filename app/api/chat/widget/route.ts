@@ -1,7 +1,6 @@
 // ============================================================
 // PUBLIC CHAT WIDGET API — Hello Gorgeous super mascot
 // Knowledge: Business Memory + website + services + Fullscript.
-// See docs/MASCOT_SUPERPOWERS.md.
 // ============================================================
 
 import { NextRequest, NextResponse } from "next/server";

@@ -92,7 +92,7 @@ export const PROVIDER_FALLBACKS: Record<string, ProviderFallback> = {
       "Medical weight loss and hormone therapy built around safety, labs, and data. Every clinical decision at Hello Gorgeous goes through me — on site seven days a week.",
     headshot_url: "/images/providers/ryan-kent-clinic.jpg",
     hero_image_url: `${SITE.url}/images/gallery/treatment-2.png`,
-    intro_video_url: "/videos/mascots/ryan/ryan-intro.mp4",
+    intro_video_url: "",
     booking_url: FRESHA_BOOKING_URL_RYAN,
   },
 };
@@ -154,19 +154,6 @@ export const PROVIDER_MEDIA_FALLBACK: Record<string, ProviderMediaFallback[]> = 
     },
   ],
   ryan: [
-    // Videos
-    {
-      id: "fallback-ryan-vid-1",
-      media_type: "video",
-      status: "published",
-      service_tag: "hormone_therapy",
-      title: "Understanding Hormone Optimization",
-      description: "Ryan explains how bioidentical hormone therapy works and who can benefit.",
-      video_url: "/videos/mascots/ryan/ryan-intro.mp4",
-      thumbnail_url: "/images/providers/ryan-kent-clinic.jpg",
-      duration_seconds: 120,
-      featured: true,
-    },
     // Before/After
     {
       id: "fallback-ryan-ba-1",

@@ -17,10 +17,8 @@ export const MASCOT_SCRIPT = {
     "Just type or use the mic — ask about services, book now, or say you want to speak to the owner or leave feedback. Use the buttons to Book now or Call us. Everything you send to the owner (feedback, requests, complaints) comes to me first, and I make sure Danielle gets it.",
 };
 
-/** Path for the mascot intro video (waving + script). Put your file at public/videos/mascots/hello-gorgeous-intro.mp4 */
-export const MASCOT_INTRO_VIDEO_PATH = "/videos/mascots/hello-gorgeous-intro.mp4";
-/** Fallback when custom intro is missing — use an existing mascot video so "Watch intro" always plays something */
-export const MASCOT_INTRO_VIDEO_FALLBACK = "/videos/mascots/ryan/ryan-intro.mp4";
+/** Retired — mascot intro clips removed; chat uses static portrait only. */
+export const MASCOT_INTRO_VIDEO_PATH: string | null = null;
 
 /** Keywords that suggest the user wants to reach the owner / leave feedback / complain */
 export const FEEDBACK_OWNER_KEYWORDS = [

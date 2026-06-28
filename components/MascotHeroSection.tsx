@@ -28,7 +28,7 @@ const mascotHeroData: MascotHeroData[] = [
   {
     id: "peppi",
     characterImage: "/images/characters/peppi.png",
-    videoSrc: "/videos/mascots/peppi/peppi-intro.mp4",
+    videoSrc: null,
     features: [
       { icon: "🫶", title: "First-Time Guidance", description: "What to expect at your first visit" },
       { icon: "😌", title: "Anxiety Relief", description: "Calm explanations and reassurance" },
@@ -39,7 +39,7 @@ const mascotHeroData: MascotHeroData[] = [
   {
     id: "beau-tox",
     characterImage: "/images/characters/beau.png",
-    videoSrc: "/videos/mascots/beau-tox/beau-tox.mp4",
+    videoSrc: null,
     features: [
       { icon: "💉", title: "Botox Education", description: "How neuromodulators actually work" },
       { icon: "⏱️", title: "Timeline & Results", description: "What to expect and when" },
@@ -50,7 +50,7 @@ const mascotHeroData: MascotHeroData[] = [
   {
     id: "filla-grace",
     characterImage: "/images/characters/filla-grace.png",
-    videoSrc: "/videos/mascots/founder/founder-vision.mp4", // Placeholder until filla-grace-intro.mp4 added
+    videoSrc: null,
     features: [
       { icon: "✨", title: "Filler Types", description: "Understanding different filler options" },
       { icon: "🎭", title: "Facial Harmony", description: "Balance and natural enhancement" },
@@ -61,7 +61,7 @@ const mascotHeroData: MascotHeroData[] = [
   {
     id: "founder",
     characterImage: "/images/characters/founder.png",
-    videoSrc: "/videos/mascots/founder/founder-vision.mp4",
+    videoSrc: null,
     features: [
       { icon: "🖤", title: "Our Vision", description: "Why Hello Gorgeous exists" },
       { icon: "💫", title: "Patient-First Care", description: "Our core philosophy" },
@@ -72,7 +72,7 @@ const mascotHeroData: MascotHeroData[] = [
   {
     id: "ryan",
     characterImage: "/images/providers/ryan-kent-clinic.jpg",
-    videoSrc: "/videos/mascots/ryan/ryan-intro.mp4",
+    videoSrc: null,
     imageCover: true,
     features: [
       { icon: "🩺", title: "Clinical Authority", description: "Medical oversight and safety" },
