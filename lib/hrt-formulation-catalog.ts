@@ -5,6 +5,11 @@
 
 import { BOOKING_URL } from "@/lib/flows";
 import {
+  hrtMensProgramFormPrice,
+  hrtMensProgramFromMonthlyUsd,
+  hrtIngredientUsesMensProgramPricing,
+} from "@/lib/hrt-mens-program-pricing";
+import {
   hrtCheckoutUsd,
   hrtFromMonthlyUsd,
   hrtProductUsd,
@@ -153,7 +158,7 @@ export const HRT_INGREDIENTS: HrtIngredient[] = [
     tagline: "Men's energy, muscle & libido · lab-guided",
     audience: "men",
     symptomTags: ["low-energy", "low-libido"],
-    learnHref: "/gentlemens-club",
+    learnHref: "/gentlemens-club/testosterone",
     forms: [
       { id: "injectable", label: "Injectable (cypionate)", formulationSku: "2818", wholesaleUsd: 27, controlled: true },
       { id: "cream", label: "Topical cream", formulationSku: "2729", wholesaleUsd: 24, controlled: true },
@@ -174,6 +179,7 @@ export const HRT_INGREDIENTS: HrtIngredient[] = [
     name: "Enclomiphene",
     tagline: "Natural testosterone signaling · men's fertility-friendly option",
     audience: "men",
+    learnHref: "/gentlemens-club/testosterone",
     forms: [
       { id: "capsule", label: "Capsule", formulationSku: "2591", wholesaleUsd: 43 },
     ],
@@ -206,10 +212,24 @@ export function hrtIngredientById(id: string): HrtIngredient | undefined {
 }
 
 export function hrtIngredientFromMonthlyUsd(ingredient: HrtIngredient): number {
+  if (hrtIngredientUsesMensProgramPricing(ingredient)) {
+    return hrtMensProgramFromMonthlyUsd(ingredient);
+  }
   return hrtFromMonthlyUsd(ingredient.forms.map((f) => f.wholesaleUsd));
 }
 
-export function hrtFormProductLabel(form: HrtIngredientForm): string {
+export function hrtIngredientPriceTagline(ingredient: HrtIngredient): string {
+  if (hrtIngredientUsesMensProgramPricing(ingredient)) {
+    return `${ingredient.tagline} · from $${hrtMensProgramFromMonthlyUsd(ingredient)}/mo program`;
+  }
+  return `${ingredient.tagline} · from $${hrtFromMonthlyUsd(ingredient.forms.map((f) => f.wholesaleUsd))}/mo`;
+}
+
+export function hrtFormProductLabel(form: HrtIngredientForm, ingredient?: HrtIngredient): string {
+  if (ingredient) {
+    const program = hrtMensProgramFormPrice(ingredient, form);
+    if (program) return program.priceLabel;
+  }
   return `$${hrtProductUsd(form.wholesaleUsd)}/mo`;
 }
 

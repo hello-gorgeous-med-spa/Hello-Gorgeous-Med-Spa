@@ -22,6 +22,12 @@ import {
   type HrtIngredient,
   type HrtIngredientForm,
 } from "@/lib/hrt-formulation-catalog";
+import {
+  HRT_MENS_PROGRAM_DISCLAIMER,
+  hrtIngredientUsesMensProgramPricing,
+  hrtMensProgramFormPrice,
+  hrtMensProgramSkuNote,
+} from "@/lib/hrt-mens-program-pricing";
 import { HRT_PRICING_DISCLAIMER, hrtShippingUsd } from "@/lib/hrt-supply-pricing";
 
 function RxMark() {
@@ -42,6 +48,7 @@ function FormCard({
   onSelect: () => void;
 }) {
   const flags = hrtFormFlags(form);
+  const programPrice = hrtMensProgramFormPrice(ingredient, form);
 
   return (
     <button
@@ -54,10 +61,16 @@ function FormCard({
       }`}
     >
       <p className="font-semibold text-black">{form.label}</p>
-      <p className="mt-1 text-lg font-serif text-[#E6007E]">{hrtFormProductLabel(form)}</p>
-      <p className="mt-1 text-xs text-black/55">
-        + ${hrtShippingUsd()} shipping · checkout ${hrtFormCheckoutUsd(form.wholesaleUsd)}
+      <p className="mt-1 text-lg font-serif text-[#E6007E]">
+        {hrtFormProductLabel(form, ingredient)}
       </p>
+      {programPrice ? (
+        <p className="mt-1 text-xs text-black/55">{programPrice.priceNote}</p>
+      ) : (
+        <p className="mt-1 text-xs text-black/55">
+          + ${hrtShippingUsd()} shipping · checkout ${hrtFormCheckoutUsd(form.wholesaleUsd)}
+        </p>
+      )}
       <p className="mt-2 font-mono text-[10px] text-black/45">Formulation SKU {form.formulationSku}</p>
       {flags.length ? (
         <p className="mt-2 text-[10px] font-semibold uppercase tracking-wide text-black/45">
@@ -65,7 +78,11 @@ function FormCard({
         </p>
       ) : null}
       {form.shipNote ? <p className="mt-1 text-[10px] text-black/45">{form.shipNote}</p> : null}
-      <p className="sr-only">{hrtFormulationOrderLine(ingredient, form)}</p>
+      <p className="sr-only">
+        {programPrice
+          ? hrtMensProgramSkuNote(ingredient, form)
+          : hrtFormulationOrderLine(ingredient, form)}
+      </p>
     </button>
   );
 }
@@ -94,6 +111,9 @@ export function HrtIngredientPicker() {
   const activeForm =
     selectedIngredient.forms.find((f) => f.id === selectedFormId) ??
     selectedIngredient.forms[0]!;
+
+  const activeProgramPrice = hrtMensProgramFormPrice(selectedIngredient, activeForm);
+  const usesMensProgram = hrtIngredientUsesMensProgramPricing(selectedIngredient);
 
   const pickIngredient = (item: HrtIngredient) => {
     setSelectedIngredientId(item.id);
@@ -232,8 +252,11 @@ export function HrtIngredientPicker() {
                         </span>
                         <span className="mt-0.5 block text-xs text-black/50">{item.tagline}</span>
                       </span>
-                      <span className="shrink-0 text-xs font-bold text-black/45">
+                      <span className="shrink-0 text-right text-xs font-bold text-black/45">
                         from ${hrtIngredientFromMonthlyUsd(item)}/mo
+                        {hrtIngredientUsesMensProgramPricing(item) ? (
+                          <span className="block font-semibold normal-case text-black/35">program</span>
+                        ) : null}
                       </span>
                     </button>
                   </li>
@@ -254,7 +277,9 @@ export function HrtIngredientPicker() {
             </h3>
             <p className="mt-2 text-sm text-black/60">{selectedIngredient.tagline}</p>
             <p className="mt-4 text-xs font-medium text-black/50">
-              Choose a form — {HRT_FORMULATION_PRICING_FORMULA}. Dose/strength selected by your provider.
+              {usesMensProgram
+                ? "Gentlemen's Club all-inclusive program pricing — consult, monitoring & medication bundled."
+                : `Choose a form — ${HRT_FORMULATION_PRICING_FORMULA}. Dose/strength selected by your provider.`}
             </p>
 
             <div className="mt-5 grid gap-3 sm:grid-cols-2">
@@ -277,10 +302,21 @@ export function HrtIngredientPicker() {
                 {selectedIngredient.name} · {activeForm.label}
               </p>
               <p className="mt-1 text-sm text-black/60">
-                {hrtFormProductLabel(activeForm)} + ${hrtShippingUsd()} shipping
+                {activeProgramPrice ? (
+                  <>
+                    <span className="block text-lg font-serif text-[#E6007E]">
+                      {activeProgramPrice.priceLabel}
+                    </span>
+                    {activeProgramPrice.priceNote}
+                  </>
+                ) : (
+                  `${hrtFormProductLabel(activeForm, selectedIngredient)} + $${hrtShippingUsd()} shipping`
+                )}
               </p>
               <p className="mt-2 font-mono text-[11px] text-black/50">
-                {hrtFormulationOrderLine(selectedIngredient, activeForm)}
+                {activeProgramPrice
+                  ? hrtMensProgramSkuNote(selectedIngredient, activeForm)
+                  : hrtFormulationOrderLine(selectedIngredient, activeForm)}
               </p>
             </div>
 
@@ -301,7 +337,9 @@ export function HrtIngredientPicker() {
               ) : null}
             </div>
 
-            <p className="mt-4 text-[11px] leading-relaxed text-black/45">{HRT_PRICING_DISCLAIMER}</p>
+            <p className="mt-4 text-[11px] leading-relaxed text-black/45">
+              {usesMensProgram ? HRT_MENS_PROGRAM_DISCLAIMER : HRT_PRICING_DISCLAIMER}
+            </p>
           </div>
         </FadeUp>
       </div>

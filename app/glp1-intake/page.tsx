@@ -39,20 +39,13 @@ export default function GLP1IntakePage() {
 
       <div className="mx-auto max-w-4xl px-4 py-12 md:py-16">
         <div className="flex flex-col md:flex-row md:items-center gap-8 mb-10">
-          <div className="flex gap-4 shrink-0 justify-center md:justify-start">
+          <div className="shrink-0 justify-center md:justify-start flex">
             <img
-              src="/images/marketing/glp1-vial-hello-gorgeous.svg"
-              alt=""
-              width={100}
-              height={150}
-              className="drop-shadow-md"
-            />
-            <img
-              src="/images/marketing/glp1-tablets-hello-gorgeous.svg"
-              alt=""
-              width={100}
-              height={172}
-              className="drop-shadow-md"
+              src="/images/shop-rx/glp1-intake.png"
+              alt="GLP-1 intake — Hello Gorgeous Med Spa medical weight loss screening"
+              width={220}
+              height={330}
+              className="rounded-2xl border-2 border-black/10 shadow-[6px_6px_0_0_rgba(230,0,126,0.25)]"
             />
           </div>
           <div>

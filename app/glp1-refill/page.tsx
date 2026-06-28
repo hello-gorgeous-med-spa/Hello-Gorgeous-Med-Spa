@@ -22,7 +22,7 @@ import {
 import { RX_INTAKE_NAV_GLPI_REFILL } from "@/lib/rx-intake-nav";
 import { pageMetadata, SITE } from "@/lib/seo";
 
-const HERO_IMAGE = "/images/homepage-services/compounded-tirzepatide-weight-loss.png";
+const HERO_IMAGE = "/images/shop-rx/glp1-refill.png";
 
 export const metadata: Metadata = {
   ...pageMetadata({
@@ -41,9 +41,9 @@ export const metadata: Metadata = {
     images: [
       {
         url: `${SITE.url}${HERO_IMAGE}`,
-        width: 1024,
-        height: 682,
-        alt: "Hello Gorgeous GLP-1 weight loss refill — tirzepatide and semaglutide home delivery",
+        width: 512,
+        height: 768,
+        alt: "Hello Gorgeous GLP-1 refill — ship to your door",
       },
     ],
   },

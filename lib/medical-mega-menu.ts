@@ -16,6 +16,7 @@ import {
   HRT_LEARN_LINKS,
   HRT_SYMPTOM_LINKS,
   hrtIngredientFromMonthlyUsd,
+  hrtIngredientPriceTagline,
 } from "@/lib/hrt-formulation-catalog";
 import { helloGorgeousRxStartUrl } from "@/lib/peptide-request-menu";
 import { getPeptidePickerThumbnail } from "@/lib/peptide-thumbnails";
@@ -104,8 +105,8 @@ export const SHOP_RX_CATEGORIES: ShopRxCategory[] = [
             href: GLP1_REFILL_PATH,
             rx: true,
             tagline: "Renew semaglutide or tirzepatide · ship to home",
-            imageSrc: "/images/rx-care/mockup-row-refills.png",
-            imageAlt: "GLP-1 refill request — Hello Gorgeous RX",
+            imageSrc: "/images/shop-rx/glp1-refill.png",
+            imageAlt: "GLP-1 refill — Hello Gorgeous RX home delivery",
           },
         ],
       },
@@ -142,8 +143,8 @@ export const SHOP_RX_CATEGORIES: ShopRxCategory[] = [
             href: GLP1_INTAKE_PATH,
             rx: true,
             tagline: "Online screening · pay at checkout",
-            imageSrc: "/images/marketing/glp1-vial-hello-gorgeous.svg",
-            imageAlt: "Start GLP-1 intake — Hello Gorgeous RX",
+            imageSrc: "/images/shop-rx/glp1-intake.png",
+            imageAlt: "GLP-1 intake — Hello Gorgeous RX medical weight loss screening",
           },
         ],
       },
@@ -238,7 +239,7 @@ export const SHOP_RX_CATEGORIES: ShopRxCategory[] = [
             label: item.name,
             href: `/rx/hormones#${item.id}`,
             rx: true as const,
-            tagline: `${item.tagline} · from $${hrtIngredientFromMonthlyUsd(item)}/mo`,
+            tagline: hrtIngredientPriceTagline(item),
           })),
         ],
       },

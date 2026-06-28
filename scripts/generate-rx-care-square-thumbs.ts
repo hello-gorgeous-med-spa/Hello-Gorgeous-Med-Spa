@@ -20,8 +20,8 @@ type CropJob = {
 };
 
 const JOBS: CropJob[] = [
-  { out: "glp1-refill.jpg", src: "rx-care/tirzepatide.png", position: "top" },
-  { out: "glp1-intake.jpg", src: "rx-care/tirzepatide.png", position: "top" },
+  { out: "glp1-refill.jpg", src: "shop-rx/glp1-refill.png", position: "center" },
+  { out: "glp1-intake.jpg", src: "shop-rx/glp1-intake.png", position: "center" },
   { out: "peptide.jpg", src: "rx-care/peptide-molecule-hero.png", position: "centre" },
   { out: "telehealth.jpg", src: "providers/ryan-kent-clinic.jpg", position: "top" },
   { out: "team.jpg", src: "team/dani-ryan-founders-portrait.png", position: "top" },

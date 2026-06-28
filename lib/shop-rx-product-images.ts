@@ -23,8 +23,8 @@ export const SHOP_RX_PRODUCT_IMAGES: Record<
     alt: "GLP-1 refill — Hello Gorgeous RX",
   },
   "glp1-intake": {
-    src: "/images/gentlemens-club/semaglutide-weight-loss.png",
-    alt: "Start GLP-1 intake — Hello Gorgeous RX",
+    src: `${BASE}/glp1-intake.png`,
+    alt: "GLP-1 intake — Hello Gorgeous RX medical weight loss screening",
   },
   "weight-loss-hub": {
     src: `${BASE}/hello-gorgeous-rx-brand.png`,
