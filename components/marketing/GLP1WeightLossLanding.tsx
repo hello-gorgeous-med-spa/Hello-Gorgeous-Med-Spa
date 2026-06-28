@@ -81,6 +81,12 @@ export function GLP1WeightLossLanding() {
               >
                 How it works
               </a>
+              <Link
+                href="/glp1-weight-loss/science"
+                className="inline-flex items-center justify-center border border-[#E6007E]/30 text-[#E6007E] font-semibold px-6 py-4 rounded-xl hover:bg-[#FFF0F7] transition-colors"
+              >
+                The science
+              </Link>
             </div>
             <p className="mt-4 text-xs text-black/45 max-w-md mx-auto lg:mx-0">
               HIPAA-compliant screening first; eligible patients schedule on Fresha after submission.

@@ -113,6 +113,14 @@ export const SHOP_RX_CATEGORIES: ShopRxCategory[] = [
         heading: "Program",
         items: [
           {
+            id: "weight-loss-science",
+            label: "The science",
+            href: "/glp1-weight-loss/science",
+            tagline: "How GLP-1 & dual-pathway meds work",
+            imageSrc: "/images/rx-care/square/rx-overview.jpg",
+            imageAlt: "GLP-1 weight loss science — Hello Gorgeous RX",
+          },
+          {
             id: "weight-loss-hub",
             label: "Weight loss overview",
             href: "/glp-1-weight-loss-oswego",
