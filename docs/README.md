@@ -42,6 +42,7 @@ docs/
 
 ### System Manuals
 - [Admin Dashboard Guide](./manuals/admin-guide.md)
+- [**RX & My RX Owner's Manual**](./manuals/rx-owners-manual.md) — GLP-1/peptides, portal, dispatch, pricing
 - [SMS Marketing Guide](./manuals/sms-marketing.md)
 - [Client Portal Guide](./manuals/client-portal.md)
 - [POS Terminal Guide](./manuals/pos-terminal.md)

@@ -36,6 +36,27 @@ export default function OwnerManualPage() {
           <h2 className="font-semibold text-lg">Owner portal</h2>
           <p className="text-sm mt-1"><Link href="/admin/owner" className="text-[#2D63A4] hover:underline">Owner</Link> gives a revenue snapshot, no-show rate, top providers/services, and quick links to edit services, promos, and content.</p>
         </section>
+        <section>
+          <h2 className="font-semibold text-lg">RX, My RX &amp; pharmacy (GLP-1 + peptides)</h2>
+          <p className="text-sm mt-1">
+            Full owner&apos;s manual:{' '}
+            <a href="/docs/rx-owners-manual.md" className="text-[#2D63A4] hover:underline font-medium" target="_blank" rel="noopener noreferrer">
+              RX Owner&apos;s Manual (download / print)
+            </a>
+          </p>
+          <ul className="text-sm mt-3 space-y-1.5 list-disc list-inside text-black/80">
+            <li><Link href="/admin/rx" className="text-[#2D63A4] hover:underline">RX Command</Link> — intake queue</li>
+            <li><Link href="/admin/flowwave" className="text-[#2D63A4] hover:underline">FlowWave</Link> — patient flow</li>
+            <li><Link href="/admin/rx-dispatch" className="text-[#2D63A4] hover:underline">Dispatch</Link> — approve &amp; ship</li>
+            <li><Link href="/admin/rx/pharmacy-orders" className="text-[#2D63A4] hover:underline">Pharmacy Orders</Link> — BoomRx fulfillment</li>
+            <li><Link href="/admin/rx/glp1-pricing" className="text-[#2D63A4] hover:underline">RX Pricing</Link> — wholesale × 2.5 + $35 ship</li>
+            <li><Link href="/admin/rx-ledger" className="text-[#2D63A4] hover:underline">Payment Ledger</Link> — Square pay status</li>
+            <li><Link href="/admin/settings/payments" className="text-[#2D63A4] hover:underline">Square Connect</Link> — OAuth &amp; sync</li>
+          </ul>
+          <p className="text-xs mt-3 text-black/55">
+            Patients track orders at <Link href="/portal/rx" className="text-[#2D63A4] hover:underline">/portal/rx</Link> (My RX) or from the client app Me tab.
+          </p>
+        </section>
       </div>
     </div>
   );

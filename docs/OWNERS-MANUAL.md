@@ -487,11 +487,14 @@ Most reports can be exported:
 
 ## 12. Client Portal
 
+> **RX & refills:** See the dedicated [**RX Owner's Manual**](./manuals/rx-owners-manual.md) for My RX, GLP-1/peptide workflows, pricing, dispatch, and the client app.
+
 ### What Clients Can Do
 
 At **hellogorgeousmedspa.com/portal**, clients can:
 
 - View upcoming appointments
+- **Track GLP-1 & peptide orders (My RX)**
 - See past visit history
 - Access treatment photos
 - View and sign consents
