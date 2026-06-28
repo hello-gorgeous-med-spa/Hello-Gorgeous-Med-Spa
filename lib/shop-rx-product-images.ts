@@ -127,10 +127,14 @@ function isLegacyAsset(src: string): boolean {
   );
 }
 
-/** Full-bleed marketing cards vs vial product shots. */
-export function shopRxImageObjectClass(src: string): string {
-  if (src.startsWith(`${BASE}/`) && !src.includes("hello-gorgeous-rx-brand")) {
-    return "object-cover object-center";
+/** Branded marketing cards — contain so titles and vials stay fully visible. */
+export function shopRxImageObjectClass(
+  src: string,
+  variant: "card" | "featured" = "card",
+): string {
+  if (src.startsWith(`${BASE}/`)) {
+    const pad = variant === "featured" ? "p-2 sm:p-3" : "p-3 sm:p-4";
+    return `object-contain object-center ${pad}`;
   }
   return "object-contain p-6 sm:p-8";
 }

@@ -44,6 +44,92 @@ const STATUS_FILTERS: { id: RxDispatchStatus | "all"; label: string }[] = [
   ...RX_DISPATCH_STATUSES,
 ];
 
+type FormulationSkuHit = {
+  sku: string;
+  product: string;
+  size: string;
+  concentration: string;
+  wholesaleUsd: number;
+  category: string;
+  flags: string[];
+};
+
+function FormulationSkuPicker({
+  onPick,
+}: {
+  onPick: (drugLine: string, orderLine: string) => void;
+}) {
+  const [query, setQuery] = useState("");
+  const [hits, setHits] = useState<FormulationSkuHit[]>([]);
+  const [searching, setSearching] = useState(false);
+
+  useEffect(() => {
+    const q = query.trim();
+    if (q.length < 2) {
+      setHits([]);
+      return;
+    }
+    const t = window.setTimeout(async () => {
+      setSearching(true);
+      try {
+        const res = await fetch(`/api/admin/formulation-catalog?q=${encodeURIComponent(q)}`);
+        const data = await res.json();
+        if (res.ok) setHits(data.items || []);
+      } catch {
+        setHits([]);
+      } finally {
+        setSearching(false);
+      }
+    }, 250);
+    return () => window.clearTimeout(t);
+  }, [query]);
+
+  return (
+    <div className="mb-4 rounded-xl border border-gray-700 bg-gray-950/60 p-3">
+      <p className="text-[10px] font-bold uppercase tracking-widest text-[#FFB8DC] mb-2">
+        Formulation SKU lookup
+      </p>
+      <input
+        value={query}
+        onChange={(e) => setQuery(e.target.value)}
+        placeholder="Search SKU, tirzepatide, PT-141, NAD+…"
+        className="w-full rounded-lg bg-gray-800 border border-gray-700 px-3 py-2 text-sm"
+      />
+      {searching ? <p className="mt-2 text-[11px] text-gray-500">Searching…</p> : null}
+      {hits.length > 0 ? (
+        <ul className="mt-2 max-h-40 overflow-y-auto space-y-1">
+          {hits.map((item) => (
+            <li key={item.sku}>
+              <button
+                type="button"
+                onClick={() => {
+                  const drugLine = `${item.product} · ${item.concentration} · ${item.size} (SKU ${item.sku})`;
+                  const orderLine = `SKU ${item.sku} — ${item.product} · ${item.size} · $${item.wholesaleUsd.toFixed(2)}`;
+                  onPick(drugLine, orderLine);
+                  setQuery("");
+                  setHits([]);
+                }}
+                className="w-full rounded-lg border border-gray-800 bg-gray-900/80 px-2 py-1.5 text-left text-[11px] hover:border-[#E6007E]/40"
+              >
+                <span className="font-mono text-[#FFB8DC]">{item.sku}</span>{" "}
+                <span className="text-gray-200">{item.product}</span>
+                <span className="block text-gray-500">
+                  {item.size} · ${item.wholesaleUsd.toFixed(2)} · {item.category}
+                </span>
+              </button>
+            </li>
+          ))}
+        </ul>
+      ) : null}
+      <p className="mt-2 text-[10px] text-gray-600">
+        Full catalog: save Formulation export as{" "}
+        <code className="text-gray-500">data/formulation-pharmacy-catalog.tsv</code> then run{" "}
+        <code className="text-gray-500">npm run import:formulation-catalog</code>
+      </p>
+    </div>
+  );
+}
+
 export default function RxDispatchPage() {
   const searchParams = useSearchParams();
   const refFilter = searchParams.get("ref")?.trim().toUpperCase() || "";
@@ -487,6 +573,21 @@ export default function RxDispatchPage() {
               </label>
             </div>
           ) : null}
+
+          <FormulationSkuPicker
+            onPick={(drugLine, orderLine) => {
+              setDraft((d) =>
+                d
+                  ? {
+                      ...d,
+                      drug: drugLine,
+                      pharmacy: "formulation",
+                      staff_notes: d.staff_notes ? `${d.staff_notes}\n${orderLine}` : orderLine,
+                    }
+                  : d,
+              );
+            }}
+          />
 
           <label className="block mb-3">
             <span className="text-xs text-gray-400">Drug (name, strength, vial size)</span>

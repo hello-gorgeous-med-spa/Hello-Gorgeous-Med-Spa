@@ -6,7 +6,7 @@
 import { boomRxOrderLine, pickBoomRxGlp1Pack, type BoomRxGlp1Pack } from "@/lib/glp1-boomrx-catalog";
 import {
   formulationOrderLine,
-  pickFormulationTirzInjectablePack,
+  pickFormulationGlp1InjectablePack,
   type FormulationGlp1Pack,
 } from "@/lib/glp1-formulation-catalog";
 import {
@@ -178,8 +178,8 @@ export function computeGlp1VialFulfillment(
     }
   }
 
-  if (pharmacy === "formulation" && tier.medication === "Tirzepatide") {
-    const pack = pickFormulationTirzInjectablePack(vialsToOrder);
+  if (pharmacy === "formulation" && isInjectableGlp1Medication(tier.medication)) {
+    const pack = pickFormulationGlp1InjectablePack(tier.medication, vialsToOrder);
     if (pack) {
       return fulfillmentFromFormulationPack(tier, supplyCycle, supplyMonths, pack);
     }

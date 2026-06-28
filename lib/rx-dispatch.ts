@@ -48,7 +48,7 @@ export const RX_PHARMACY_PORTALS: Record<
   formulation: {
     name: "Formulation",
     url: "https://fccrxportal.com/dashboard",
-    hint: "Peptides & many GLP-1 compounds",
+    hint: "FCCRx portal — peptides, GLP-1, hormones (SKU catalog)",
   },
   boomrx: {
     name: "BoomRx",

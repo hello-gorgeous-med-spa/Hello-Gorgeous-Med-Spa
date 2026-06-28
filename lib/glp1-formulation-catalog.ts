@@ -119,6 +119,93 @@ export function pickFormulationTirzInjectablePack(
   );
 }
 
+/** Semaglutide / B6 · 2.5mg/10mg/mL · cold ship · next day only. */
+export const FORMULATION_SEMA_B6_INJECTABLE_PACKS: FormulationGlp1Pack[] = [
+  {
+    sku: "2488",
+    productName: "Semaglutide / B6 (Pyridoxine)",
+    packDescription: "1mL Vial",
+    vialCount: 1,
+    concentration: "2.5mg/10mg/mL",
+    form: "injectable",
+    wholesaleUsd: 35,
+    coldShip: true,
+    shipNote: "Cold ship · Next day only",
+  },
+  {
+    sku: "2489",
+    productName: "Semaglutide / B6 (Pyridoxine)",
+    packDescription: "2mL Vial",
+    vialCount: 2,
+    concentration: "2.5mg/10mg/mL",
+    form: "injectable",
+    wholesaleUsd: 70,
+    coldShip: true,
+    shipNote: "Cold ship · Next day only",
+  },
+  {
+    sku: "2490",
+    productName: "Semaglutide / B6 (Pyridoxine)",
+    packDescription: "3mL (Vial #1: 1mL) (Vial #2: 1mL) (Vial #3: 1mL)",
+    vialCount: 3,
+    concentration: "2.5mg/10mg/mL",
+    form: "injectable",
+    wholesaleUsd: 106,
+    coldShip: true,
+    shipNote: "Cold ship · Next day only",
+  },
+  {
+    sku: "2491",
+    productName: "Semaglutide / B6 (Pyridoxine)",
+    packDescription: "4mL (Vial #1: 2mL) (Vial #2: 2mL)",
+    vialCount: 4,
+    concentration: "2.5mg/10mg/mL",
+    form: "injectable",
+    wholesaleUsd: 131,
+    coldShip: true,
+    shipNote: "Cold ship · Next day only",
+  },
+  {
+    sku: "2492",
+    productName: "Semaglutide / B6 (Pyridoxine)",
+    packDescription: "5mL (5 × 1mL vials)",
+    vialCount: 5,
+    concentration: "2.5mg/10mg/mL",
+    form: "injectable",
+    wholesaleUsd: 167,
+    coldShip: true,
+    shipNote: "Cold ship · Next day only",
+  },
+  {
+    sku: "2493",
+    productName: "Semaglutide / B6 (Pyridoxine)",
+    packDescription: "6mL (Vial #1: 2mL) (Vial #2: 2mL) (Vial #3: 2mL)",
+    vialCount: 6,
+    concentration: "2.5mg/10mg/mL",
+    form: "injectable",
+    wholesaleUsd: 190,
+    coldShip: true,
+    shipNote: "Cold ship · Next day only",
+  },
+];
+
+export function pickFormulationSemaInjectablePack(
+  vialCount: number,
+): FormulationGlp1Pack | null {
+  return (
+    FORMULATION_SEMA_B6_INJECTABLE_PACKS.find((p) => p.vialCount === vialCount) ?? null
+  );
+}
+
+export function pickFormulationGlp1InjectablePack(
+  medication: "Semaglutide" | "Tirzepatide",
+  vialCount: number,
+): FormulationGlp1Pack | null {
+  return medication === "Semaglutide"
+    ? pickFormulationSemaInjectablePack(vialCount)
+    : pickFormulationTirzInjectablePack(vialCount);
+}
+
 export function formulationOrderLine(pack: FormulationGlp1Pack): string {
   return `SKU ${pack.sku} — ${pack.productName} · ${pack.packDescription} · $${pack.wholesaleUsd.toFixed(2)} · ${pack.shipNote}`;
 }

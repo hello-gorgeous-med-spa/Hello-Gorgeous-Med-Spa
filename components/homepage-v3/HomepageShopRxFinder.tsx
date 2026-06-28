@@ -110,7 +110,7 @@ export function HomepageShopRxFinder() {
   const category = getShopRxCategory(activeCategoryId) ?? SHOP_RX_CATEGORIES[0]!;
   const featured = getShopRxCategoryFeatured(category);
   const featuredImage = resolveShopRxItemImage(featured, category.id);
-  const featuredImageClass = shopRxImageObjectClass(featuredImage.src);
+  const featuredImageClass = shopRxImageObjectClass(featuredImage.src, "featured");
   const products = getShopRxCategoryItems(category).filter(
     (item) => item.id !== featured.id && item.rx,
   );
@@ -170,14 +170,14 @@ export function HomepageShopRxFinder() {
           aria-labelledby={`shop-rx-tab-${category.id}`}
         >
           <FadeUp delayMs={120}>
-            <div className="mt-8 overflow-hidden rounded-3xl border border-black/10 bg-white shadow-[0_12px_40px_rgba(0,0,0,0.06)] lg:grid lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)]">
-              <div className="relative aspect-square max-h-[320px] bg-gradient-to-br from-[#f8f4f0] to-[#ece6df] lg:aspect-auto lg:max-h-none lg:min-h-[300px]">
+            <div className="mt-8 overflow-hidden rounded-3xl border border-black/10 bg-white shadow-[0_12px_40px_rgba(0,0,0,0.06)] lg:grid lg:grid-cols-[minmax(0,0.88fr)_minmax(0,1.12fr)]">
+              <div className="relative mx-auto aspect-[16/10] w-full max-h-[220px] bg-gradient-to-br from-[#f8f4f0] to-[#ece6df] sm:max-h-[240px] lg:mx-0 lg:max-h-[260px]">
                 <Image
                   src={featuredImage.src}
                   alt={featuredImage.alt}
                   fill
                   className={`${featuredImageClass} transition duration-300`}
-                  sizes="(max-width:1024px) 100vw, 380px"
+                  sizes="(max-width:1024px) 100vw, 340px"
                   priority
                 />
               </div>
