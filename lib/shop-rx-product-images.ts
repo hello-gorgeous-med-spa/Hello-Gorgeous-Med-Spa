@@ -11,19 +11,19 @@ export const SHOP_RX_PRODUCT_IMAGES: Record<
   { src: `/${string}`; alt: string }
 > = {
   "tirzepatide-glp1": {
-    src: `${BASE}/tirzepatide-glp1.png`,
-    alt: "Compounded tirzepatide — Hello Gorgeous RX",
+    src: "/images/gentlemens-club/tirzepatide-weight-loss.png",
+    alt: "Compounded tirzepatide — Hello Gorgeous RX medical weight loss",
   },
   "semaglutide-glp1": {
-    src: `${BASE}/semaglutide-glp1.png`,
-    alt: "Compounded semaglutide — Hello Gorgeous RX",
+    src: "/images/gentlemens-club/semaglutide-weight-loss.png",
+    alt: "Compounded semaglutide — Hello Gorgeous RX medical weight loss",
   },
   "glp1-refill": {
     src: `${BASE}/glp1-refill.png`,
     alt: "GLP-1 refill — Hello Gorgeous RX",
   },
   "glp1-intake": {
-    src: `${BASE}/glp1-intake.png`,
+    src: "/images/gentlemens-club/semaglutide-weight-loss.png",
     alt: "Start GLP-1 intake — Hello Gorgeous RX",
   },
   "weight-loss-hub": {
@@ -85,7 +85,7 @@ export const SHOP_RX_PRODUCT_IMAGES: Record<
 };
 
 export const SHOP_RX_CATEGORY_IMAGE_FALLBACK: Record<ShopRxCategoryId, `/${string}`> = {
-  "weight-loss": `${BASE}/tirzepatide-glp1.png`,
+  "weight-loss": "/images/gentlemens-club/tirzepatide-weight-loss.png",
   peptides: `${BASE}/hello-gorgeous-rx-brand.png`,
   hormones: "/images/homepage-buyer-paths/weight-loss-hormones.png",
   intimacy: `${BASE}/pt-141.png`,
@@ -132,7 +132,11 @@ export function shopRxImageObjectClass(
   src: string,
   variant: "card" | "featured" = "card",
 ): string {
-  if (src.startsWith(`${BASE}/`)) {
+  const brandedCard =
+    src.startsWith(`${BASE}/`) ||
+    src.includes("/gentlemens-club/tirzepatide-weight-loss") ||
+    src.includes("/gentlemens-club/semaglutide-weight-loss");
+  if (brandedCard) {
     const pad = variant === "featured" ? "p-2 sm:p-3" : "p-3 sm:p-4";
     return `object-contain object-center ${pad}`;
   }

@@ -86,8 +86,8 @@ export const SHOP_RX_CATEGORIES: ShopRxCategory[] = [
             rx: true,
             badge: "POPULAR",
             tagline: "Dual GLP-1 + GIP pathway · medical weight loss",
-            imageSrc: "/images/peptides/tirzepatide-picker.webp",
-            imageAlt: "Compounded tirzepatide vial — Hello Gorgeous RX",
+            imageSrc: "/images/gentlemens-club/tirzepatide-weight-loss.png",
+            imageAlt: "Compounded tirzepatide — Hello Gorgeous RX medical weight loss",
           },
           {
             id: "semaglutide-glp1",
@@ -95,8 +95,8 @@ export const SHOP_RX_CATEGORIES: ShopRxCategory[] = [
             href: GLP1_INTAKE_PATH,
             rx: true,
             tagline: "GLP-1 injection · supervised weight loss program",
-            imageSrc: "/images/peptides/semaglutide-picker.webp",
-            imageAlt: "Compounded semaglutide — Hello Gorgeous RX",
+            imageSrc: "/images/gentlemens-club/semaglutide-weight-loss.png",
+            imageAlt: "Compounded semaglutide — Hello Gorgeous RX medical weight loss",
           },
           {
             id: "glp1-refill",
