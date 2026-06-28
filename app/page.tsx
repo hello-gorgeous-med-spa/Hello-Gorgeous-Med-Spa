@@ -2,6 +2,9 @@ import { Metadata } from "next";
 import {
   HeroV3,
   HomepageShopRxFinder,
+  ShopRxTrustBar,
+  ShopRxHero,
+  ShopRxFloatingProduct,
   HomepageTrackFork,
   BuyerPathsSection,
   ServicesSection,
@@ -150,7 +153,12 @@ export default function HomePage() {
 
       <main className="bg-black">
         <HeroV3 />
-        <HomepageShopRxFinder />
+        <div className="bg-[#FAF7F4]">
+          <ShopRxTrustBar />
+          <ShopRxHero />
+          <HomepageShopRxFinder />
+        </div>
+        <ShopRxFloatingProduct />
         <HomepageTrackFork />
         <BuyerPathsSection />
         <TrifectaSection />

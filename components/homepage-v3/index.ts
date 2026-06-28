@@ -1,6 +1,9 @@
 export { HeroV3 } from "./HeroV3";
 export { HomepageTrackFork } from "./HomepageTrackFork";
 export { HomepageShopRxFinder } from "./HomepageShopRxFinder";
+export { ShopRxTrustBar } from "./ShopRxTrustBar";
+export { ShopRxHero } from "./ShopRxHero";
+export { ShopRxFloatingProduct } from "./ShopRxFloatingProduct";
 export { BuyerPathsSection } from "./BuyerPathsSection";
 export {
   ContourSignatureSection,
