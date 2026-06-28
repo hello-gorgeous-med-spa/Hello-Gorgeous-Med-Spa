@@ -7,6 +7,7 @@ import type { SupabaseClient } from "@supabase/supabase-js";
 import { getSupabaseAdminClient } from "@/lib/hgos/supabase-admin";
 import { notifyStaffGlp1RefillPaidFromLedger } from "@/lib/glp1-refill-staff-sms";
 import { ensureRxDispatchForSubmission } from "@/lib/rx-dispatch-auto";
+import { maybeAutoApproveRxDispatch } from "@/lib/rx-dispatch-auto-approve";
 import type { RxInvoiceTrack } from "@/lib/rx-invoice-templates";
 
 export type RxLedgerSource =
@@ -14,6 +15,7 @@ export type RxLedgerSource =
   | "glp1_checkout"
   | "glp1_autopay"
   | "peptide_checkout"
+  | "peptide_autopay"
   | "manual"
   | "clinic_terminal"
   | "clinic_cash"
@@ -390,7 +392,9 @@ export async function reconcileRxLedgerFromSquarePayment(
         });
         const submissionId = (row as { submission_id?: string | null }).submission_id;
         if (submissionId) {
-          void ensureRxDispatchForSubmission(admin, submissionId);
+          void ensureRxDispatchForSubmission(admin, submissionId).then(() =>
+            maybeAutoApproveRxDispatch(admin, submissionId),
+          );
         }
       }
     }

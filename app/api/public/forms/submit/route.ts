@@ -8,6 +8,7 @@ import { alertStaffOnFormSubmission, notifyOwnerFormSubmission } from "@/lib/not
 import { formatPeptideStaffAlert, isPeptideFormSlug } from "@/lib/peptide-form-alert";
 import { formatGlp1StaffAlert, isGlp1FormSlug } from "@/lib/glp1-form-alert";
 import { ensureRxDispatchForSubmission } from "@/lib/rx-dispatch-auto";
+import { recordRxWeightFromSubmission } from "@/lib/rx-weight-log";
 
 export const dynamic = "force-dynamic";
 
@@ -80,6 +81,19 @@ export async function POST(req: NextRequest) {
 
   if (isPeptideFormSlug(slug) || isGlp1FormSlug(slug)) {
     void ensureRxDispatchForSubmission(admin, row.id as string);
+
+    const clientEmail =
+      typeof responses.email === "string" ? String(responses.email).trim() : "";
+    if (clientEmail && responses.weight_lbs != null) {
+      void recordRxWeightFromSubmission(admin, {
+        clientId,
+        submissionId: row.id as string,
+        patientEmail: clientEmail,
+        responses,
+        source: slug.includes("refill") ? "refill" : "intake",
+        submittedAt: row.submitted_at as string,
+      });
+    }
   }
 
   const ref = token.slice(0, 8).toUpperCase();

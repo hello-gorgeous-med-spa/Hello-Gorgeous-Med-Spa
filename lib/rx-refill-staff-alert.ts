@@ -25,7 +25,7 @@ async function loadActiveAutopayClientIds(admin: SupabaseClient): Promise<Set<st
   const { data } = await admin
     .from("hg_rx_payment_ledger")
     .select("client_id")
-    .in("source", ["glp1_autopay", "clinic_autopay"])
+    .in("source", ["glp1_autopay", "peptide_autopay", "clinic_autopay"])
     .eq("payment_status", "paid")
     .eq("metadata->>autopay_enrollment", "active");
 

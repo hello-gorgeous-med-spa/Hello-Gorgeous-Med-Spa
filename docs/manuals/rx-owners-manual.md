@@ -432,6 +432,19 @@ When a patient's refill is **overdue** and they are **not** on active Square aut
 
 **Staff action:** call or text the patient to retain; send them to `/glp1-refill` or `/peptide-request` as shown in the SMS.
 
+### Hims-compete Phases 1–4 (patient portal parity)
+
+| Phase | What shipped |
+|-------|----------------|
+| **1 — Weight progress** | `hg_rx_weight_logs` + goal weight; chart on **My RX**; auto-log from intake/refill |
+| **2 — Fast clinical path** | Auto-approve dispatch when **paid + clinically clear** (90-day, auto-pay, no flags) |
+| **3 — Care team chat** | Secure messaging in **My RX** (portal session — no ref/email re-entry) |
+| **4 — Peptide auto-pay** | `peptide_autopay` Square subscription + renewal parity with GLP-1 |
+
+**Env:** `RX_AUTO_APPROVE_DISPATCH_ENABLED=false` pauses Phase 2 auto-approval (staff manual review only).
+
+**Still manual vs Hims:** BoomRx portal click to ship (Phase 5 polish). No separate $149/mo membership fee.
+
 ---
 
 ## 13. Troubleshooting
@@ -491,6 +504,10 @@ When a patient's refill is **overdue** and they are **not** on active Square aut
 | Auto-pay renewal (Phase 4A) | `lib/rx-autopay-renewal.ts`, Square webhook |
 | Refill push (Phase 4B) | `lib/web-push.ts`, `lib/rx-refill-reminder.ts`, `/portal/rx` |
 | Staff overdue alerts (Phase 4C) | `lib/rx-refill-staff-alert.ts`, `lib/glp1-refill-staff-sms.ts`, cron route |
+| Weight progress (Hims Phase 1) | `lib/rx-weight-log.ts`, `/api/portal/rx/weight`, `PortalRxWeightProgress` |
+| Auto-approve dispatch (Hims Phase 2) | `lib/rx-dispatch-auto-approve.ts`, payment webhook |
+| Portal care team (Hims Phase 3) | `lib/rx-portal-messages.ts`, `/api/portal/rx/messages`, `PortalRxCareTeam` |
+| Peptide auto-pay (Hims Phase 4) | `app/api/peptide-refill/autopay/route.ts`, `peptide_autopay` ledger source |
 
 **Related docs:**
 - [Client Portal Guide](./client-portal.md) — general portal features

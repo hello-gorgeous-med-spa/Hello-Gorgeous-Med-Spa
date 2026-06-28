@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 import { getSupabaseAdminClient } from "@/lib/hgos/supabase-admin";
 import { getPortalClientSession } from "@/lib/portal/session";
+import { loadPortalRxAutopayStatus } from "@/lib/rx-portal-messages";
 import { loadRxPortalDashboard } from "@/lib/rx-portal-dashboard";
 
 export const dynamic = "force-dynamic";
@@ -19,6 +20,7 @@ export async function GET(req: NextRequest) {
   }
 
   const dashboard = await loadRxPortalDashboard(admin, session.clientId, session.email);
+  const autopay = await loadPortalRxAutopayStatus(admin, session.clientId);
 
   const activeOrders = dashboard.orders.filter((o) => o.isActive);
   const pastOrders = dashboard.orders.filter((o) => !o.isActive);
@@ -27,6 +29,7 @@ export async function GET(req: NextRequest) {
     ...dashboard,
     activeOrders,
     pastOrders,
+    autopay,
     patient: {
       firstName: session.firstName,
       email: session.email,

@@ -40,7 +40,7 @@ export type SquareRxPayment = SquarePaymentLike & {
   created_at?: string | null;
 };
 
-const AUTOPAY_SOURCES: RxLedgerSource[] = ["glp1_autopay", "clinic_autopay"];
+const AUTOPAY_SOURCES: RxLedgerSource[] = ["glp1_autopay", "peptide_autopay", "clinic_autopay"];
 
 function paymentAmountUsd(payment: SquareRxPayment): number {
   const cents = Number(payment.total_money?.amount ?? payment.amount_money?.amount ?? 0);
@@ -202,10 +202,12 @@ async function queueIntakeRenewalDispatch(
     responses: opts.responses,
   });
 
-  const telehealthWaived = glp1TelehealthWaivedForOrder({
-    supplyCycleRaw: opts.responses.supply_cycle,
-    monthlyAutopayCommitment: true,
-  });
+  const telehealthWaived =
+    opts.slug.includes("peptide") ||
+    glp1TelehealthWaivedForOrder({
+      supplyCycleRaw: opts.responses.supply_cycle,
+      monthlyAutopayCommitment: true,
+    });
 
   const status: RxDispatchStatus = telehealthWaived ? "approved" : "reviewed";
   const staffNotes = [
@@ -260,7 +262,7 @@ async function processIntakeAutopayRenewal(
       clientName: enrollment.client_name,
       clientEmail: enrollment.client_email,
       clientPhone: enrollment.client_phone,
-      source: "glp1_autopay",
+      source: enrollment.source === "peptide_autopay" ? "peptide_autopay" : "glp1_autopay",
       templateId: enrollment.template_id,
       templateName: enrollment.template_name,
       track: enrollment.track,
@@ -458,7 +460,7 @@ export async function processRxAutopayRenewalFromSquarePayment(
       : { processed: false, reason: result.error };
   }
 
-  if (enrollment.source === "glp1_autopay") {
+  if (enrollment.source === "glp1_autopay" || enrollment.source === "peptide_autopay") {
     const result = await processIntakeAutopayRenewal(admin, enrollment, payment);
     return result.ok
       ? { processed: true, intakeRef: result.intakeRef }

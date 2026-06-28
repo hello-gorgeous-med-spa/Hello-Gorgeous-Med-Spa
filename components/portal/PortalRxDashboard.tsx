@@ -5,7 +5,10 @@ import { useEffect, useState } from "react";
 
 import { useRxPushNotifications } from "@/lib/hooks/use-rx-push-notifications";
 import { usePortalAuth } from "@/lib/portal/useAuth";
+import { PortalRxCareTeam } from "@/components/portal/PortalRxCareTeam";
+import { PortalRxWeightProgress } from "@/components/portal/PortalRxWeightProgress";
 import type { RxPortalDashboard, RxPortalOrder } from "@/lib/rx-portal-dashboard";
+import type { PortalRxAutopayStatus } from "@/lib/rx-portal-messages";
 
 function StepSummary({ order }: { order: RxPortalOrder }) {
   if (!order.status) {
@@ -97,7 +100,11 @@ function OrderCard({ order }: { order: RxPortalOrder }) {
 export function PortalRxDashboard() {
   const { user, loading: authLoading, authenticated } = usePortalAuth(true);
   const { canPrompt, subscribe, busy, permission } = useRxPushNotifications(authenticated);
-  const [data, setData] = useState<(RxPortalDashboard & { activeOrders: RxPortalOrder[]; pastOrders: RxPortalOrder[] }) | null>(null);
+  const [data, setData] = useState<(RxPortalDashboard & {
+    activeOrders: RxPortalOrder[];
+    pastOrders: RxPortalOrder[];
+    autopay?: PortalRxAutopayStatus;
+  }) | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [showPast, setShowPast] = useState(false);
@@ -195,6 +202,24 @@ export function PortalRxDashboard() {
         </div>
       )}
 
+      {data?.autopay?.active && (
+        <div className="rounded-2xl border-2 border-green-600 bg-green-50 px-5 py-4">
+          <p className="text-xs font-bold uppercase tracking-widest text-green-800">Auto-pay active</p>
+          <p className="font-bold text-black mt-1">
+            {data.autopay.lineLabel || "Monthly RX subscription"}
+          </p>
+          <p className="text-sm text-black/65 mt-1">
+            ${data.autopay.amountUsd?.toFixed(0) ?? "—"}/mo · renews automatically · no separate membership fee
+          </p>
+          <p className="text-xs text-black/50 mt-2">
+            To pause or update billing, message the care team below or call (630) 636-6193.
+          </p>
+        </div>
+      )}
+
+      <PortalRxWeightProgress />
+      <PortalRxCareTeam />
+
       <div className="grid sm:grid-cols-2 gap-3">
         <Link
           href={links?.glp1Refill || "/glp1-refill"}
@@ -225,6 +250,15 @@ export function PortalRxDashboard() {
         >
           <p className="font-bold text-black">Injection guides</p>
           <p className="text-xs text-black/55 mt-1">Care hub & protocols</p>
+        </Link>
+        <Link
+          href="/glp1-weight-loss"
+          className="rounded-xl border-2 border-black bg-white p-4 hover:border-[#E6007E] transition-colors sm:col-span-2"
+        >
+          <p className="font-bold text-black">Why Hello Gorgeous vs big telehealth?</p>
+          <p className="text-xs text-black/55 mt-1">
+            Local NP · no $149/mo membership · peptides + GLP-1 in one portal
+          </p>
         </Link>
       </div>
 

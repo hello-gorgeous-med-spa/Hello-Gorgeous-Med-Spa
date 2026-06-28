@@ -88,9 +88,39 @@ export async function startPeptideRefillCheckout(input: {
   }
 }
 
+export async function startPeptideRefillAutopay(input: {
+  reference: string;
+  submissionId?: string;
+  templateId: string;
+  amountUsd?: number;
+  lineLabel?: string;
+  supplyCycle?: string;
+}): Promise<{ error?: string; mode?: string }> {
+  try {
+    const res = await fetch("/api/peptide-refill/autopay", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(input),
+    });
+    const data = (await res.json().catch(() => ({}))) as {
+      url?: string;
+      error?: string;
+      mode?: string;
+    };
+    if (!res.ok || !data.url) {
+      return { error: data.error || "Could not start auto-pay setup. Call 630-636-6193." };
+    }
+    window.location.href = data.url;
+    return { mode: data.mode };
+  } catch {
+    return { error: "Network error starting auto-pay." };
+  }
+}
+
 export function cleanPeptideRefillReturnUrl() {
   const url = new URL(window.location.href);
   url.searchParams.delete("refill_paid");
+  url.searchParams.delete("autopay");
   url.searchParams.delete("ref");
   const clean = `${PEPTIDE_REQUEST_PATH}${url.search || ""}`;
   window.history.replaceState({}, "", clean);

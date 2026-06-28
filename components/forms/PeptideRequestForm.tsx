@@ -43,6 +43,7 @@ import {
   markPeptideRefillPaid,
   readPendingPeptideRefillSuccess,
   savePendingPeptideRefillSuccess,
+  startPeptideRefillAutopay,
   startPeptideRefillCheckout,
 } from "@/lib/peptide-refill-pay";
 import {
@@ -250,6 +251,7 @@ export function PeptideRequestForm({
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [busy, setBusy] = useState(false);
   const [payBusy, setPayBusy] = useState(false);
+  const [autopayBusy, setAutopayBusy] = useState(false);
   const [err, setErr] = useState<string | null>(null);
   const [result, setResult] = useState<SubmitResult | null>(null);
 
@@ -289,6 +291,7 @@ export function PeptideRequestForm({
     const params = new URLSearchParams(window.location.search);
     const consultPaid = params.get("paid") === "1";
     const refillPaid = params.get("refill_paid") === "1";
+    const autopay = params.get("autopay") === "1";
 
     if (consultPaid) {
       const ref = params.get("ref")?.trim();
@@ -302,9 +305,9 @@ export function PeptideRequestForm({
       return;
     }
 
-    if (refillPaid) {
+    if (refillPaid || autopay) {
       const ref = params.get("ref")?.trim();
-      if (ref) markPeptideRefillPaid(ref);
+      if (ref && refillPaid) markPeptideRefillPaid(ref);
       const pending = readPendingPeptideRefillSuccess();
       if (pending) setResult(pending as SubmitResult);
       cleanPeptideRefillReturnUrl();
@@ -501,6 +504,22 @@ export function PeptideRequestForm({
     setPayBusy(false);
   }
 
+  async function setupAutopay(result: Extract<SubmitResult, { kind: "qualified" }>) {
+    if (!result.invoiceTemplateId) return;
+    setAutopayBusy(true);
+    setErr(null);
+    const outcome = await startPeptideRefillAutopay({
+      reference: result.reference,
+      submissionId: result.submissionId,
+      templateId: result.invoiceTemplateId,
+      amountUsd: result.priceUsd,
+      lineLabel: result.lineLabel,
+      supplyCycle: result.supplyCycle,
+    });
+    if (outcome.error) setErr(outcome.error);
+    setAutopayBusy(false);
+  }
+
   if (result?.kind === "qualified") {
     const isNew = result.requestType === "new";
     const consultPaid = isConsultPaid(result.reference);
@@ -508,6 +527,7 @@ export function PeptideRequestForm({
     const needsPrepay = isNew && !consultPaid;
     const canPayRefill =
       !isNew && Boolean(result.invoiceTemplateId && result.priceUsd) && !refillPaid;
+    const is90Day = String(result.supplyCycle || "").includes("90");
     const telehealthWaived = glp1TelehealthWaivedForOrder({ supplyCycleRaw: result.supplyCycle });
     const telehealthBeforeShip = glp1TelehealthRequiredBeforeShip({
       supplyCycleRaw: result.supplyCycle ?? formData.supply_cycle,
@@ -569,11 +589,23 @@ export function PeptideRequestForm({
             {canPayRefill && (
               <button
                 type="button"
-                disabled={payBusy}
+                disabled={payBusy || autopayBusy}
                 onClick={() => payRefill(result)}
                 className="inline-flex w-full items-center justify-center rounded-xl bg-[#E6007E] px-8 py-4 font-bold text-white hover:bg-black transition-colors disabled:opacity-60"
               >
                 {payBusy ? "Starting checkout…" : `Pay now — ${result.priceLabel}`}
+              </button>
+            )}
+            {canPayRefill && !is90Day && (
+              <button
+                type="button"
+                disabled={payBusy || autopayBusy}
+                onClick={() => setupAutopay(result)}
+                className="inline-flex w-full items-center justify-center rounded-xl border-2 border-[#E6007E] bg-white px-8 py-3.5 text-sm font-bold text-[#E6007E] hover:bg-[#FFF0F7] transition-colors disabled:opacity-60"
+              >
+                {autopayBusy
+                  ? "Starting auto-pay…"
+                  : `3-month auto-pay — ${result.priceLabel}`}
               </button>
             )}
             {telehealthBeforeShip && (
