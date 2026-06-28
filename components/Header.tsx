@@ -17,7 +17,9 @@ import {
 } from "@/lib/regenerative-medicine-nav";
 import { GENTLEMENS_CLUB_PATH } from "@/lib/gentlemens-club";
 import { LADIES_CLUB_PATH } from "@/lib/ladies-club";
-import { isMedicalNavActive, MEDICAL_NAV, type MedicalNavLink } from "@/lib/medical-nav";
+import { isMedicalNavActive, MEDICAL_NAV } from "@/lib/medical-nav";
+import { medicalMegaMenuMobileGroups } from "@/lib/medical-mega-menu";
+import { MedicalMegaMenu } from "@/components/header/MedicalMegaMenu";
 import { isQuizNavActive, QUIZ_NAV, type QuizNavLink } from "@/lib/quiz-nav";
 import { HG_TAGLINE } from "@/lib/brand-tagline";
 import { isSkin101Active, SKIN_101_NAV } from "@/lib/skin-101-nav";
@@ -491,88 +493,6 @@ function QuizMenu({
   );
 }
 
-function MedicalMenu({
-  isOpen,
-  onClose,
-  onMouseEnter,
-}: {
-  isOpen: boolean;
-  onClose: () => void;
-  onMouseEnter: () => void;
-}) {
-  if (!isOpen) return null;
-
-  const renderLink = (link: MedicalNavLink) => {
-    const className = cx(
-      "group block rounded-lg px-4 py-2.5 transition hover:bg-white/5",
-      link.overview && "py-3",
-    );
-    const inner = (
-      <>
-        <div className="flex items-center gap-2">
-          <span
-            className={cx(
-              "text-sm text-white group-hover:text-[#f472b6]",
-              link.overview ? "font-bold uppercase tracking-wider text-xs" : "font-semibold",
-            )}
-          >
-            {link.label}
-          </span>
-          {link.badge ? (
-            <span className="rounded-full bg-[#E6007E] px-2 py-0.5 text-[9px] font-bold uppercase text-white">
-              {link.badge}
-            </span>
-          ) : null}
-        </div>
-        {link.sub && !link.overview ? (
-          <p className="mt-0.5 text-xs text-white/45 leading-snug">{link.sub}</p>
-        ) : link.sub && link.overview ? (
-          <p className="mt-1 text-xs text-white/50 leading-snug normal-case font-normal">{link.sub}</p>
-        ) : null}
-      </>
-    );
-
-    if (link.external) {
-      return (
-        <a
-          key={link.href + link.label}
-          href={link.href}
-          target="_blank"
-          rel="noopener noreferrer"
-          onClick={onClose}
-          className={className}
-        >
-          {inner}
-        </a>
-      );
-    }
-
-    return (
-      <Link key={link.href + link.label} href={link.href} onClick={onClose} className={className}>
-        {inner}
-      </Link>
-    );
-  };
-
-  return (
-    <div className="absolute top-full left-0 z-[100] pt-2" onMouseEnter={onMouseEnter} onMouseLeave={onClose}>
-      <div
-        className="min-w-[min(280px,calc(100vw-2rem))] max-w-[320px] overflow-hidden rounded-xl border shadow-2xl backdrop-blur-md"
-        style={{ backgroundColor: "rgba(24, 24, 27, 0.97)", borderColor: "rgba(255,255,255,0.12)" }}
-      >
-        <div className="max-h-[min(75vh,32rem)] overflow-y-auto overscroll-contain p-1.5">
-          {MEDICAL_NAV.links.map((link) => (
-            <React.Fragment key={link.href + link.label}>
-              {link.dividerBefore ? <div className="mx-3 my-1 border-t border-white/10" aria-hidden /> : null}
-              {renderLink(link)}
-            </React.Fragment>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-}
-
 function SimpleMenu({
   data,
   isOpen,
@@ -810,7 +730,7 @@ export function Header() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                 </svg>
               </Link>
-              <MedicalMenu
+              <MedicalMegaMenu
                 isOpen={activeDropdown === "medical"}
                 onClose={() => setActiveDropdown(null)}
                 onMouseEnter={() => openDropdown("medical")}
@@ -1041,13 +961,18 @@ export function Header() {
             {/* Services accordion */}
             {[
               { key: "services", label: "Services", links: NAV.services.sections.flatMap((s) => s.links) },
-              { key: "medical", label: "Medical", links: NAV.medical.links, highlight: true },
+              {
+                key: "medical",
+                label: "Medical",
+                groups: medicalMegaMenuMobileGroups(),
+                highlight: true,
+              },
               { key: "quiz", label: "Quiz", links: NAV.quiz.links, highlight: true },
               { key: "specials", label: "Specials", links: NAV.specials.links, highlight: true },
               { key: "skin101", label: "Skin 101", links: NAV.skin101.links, highlight: true },
               { key: "about", label: "About", links: NAV.about.links },
               { key: "patient", label: "Patient Info", links: NAV.patient.links },
-            ].map(({ key, label, links, highlight }) => (
+            ].map(({ key, label, links, groups, highlight }) => (
               <div key={key} className="border-b border-white/10 pb-1">
                 <button
                   type="button"
@@ -1069,20 +994,45 @@ export function Header() {
                   </svg>
                 </button>
                 {mobileSection === key && (
-                  <div className="max-h-[min(50vh,20rem)] space-y-0.5 overflow-y-auto overscroll-contain pb-2">
-                    {links.map((link) => (
-                      <Link
-                        key={link.href}
-                        href={link.href}
-                        onClick={() => setMobileOpen(false)}
-                        target={"external" in link && link.external ? "_blank" : undefined}
-                        rel={"external" in link && link.external ? "noopener noreferrer" : undefined}
-                        className="block rounded-lg px-6 py-2.5 text-sm text-white/75 transition-colors hover:bg-white/5 hover:text-[#f472b6]"
-                      >
-                        {link.label}
-                        {"sub" in link && <span className="mt-0.5 block text-xs text-white/40">{link.sub}</span>}
-                      </Link>
-                    ))}
+                  <div className="max-h-[min(55vh,24rem)] overflow-y-auto overscroll-contain pb-2">
+                    {groups
+                      ? groups.map((group) => (
+                          <div key={group.heading} className="px-2 pt-2">
+                            <p className="px-4 pb-1 text-[10px] font-bold uppercase tracking-[0.18em] text-[#FFB8DC]/80">
+                              {group.heading}
+                            </p>
+                            <div className="space-y-0.5">
+                              {group.links.map((link) => (
+                                <Link
+                                  key={link.href + link.label}
+                                  href={link.href}
+                                  onClick={() => setMobileOpen(false)}
+                                  className="block rounded-lg px-6 py-2.5 text-sm text-white/75 transition-colors hover:bg-white/5 hover:text-[#f472b6]"
+                                >
+                                  {link.label}
+                                  {link.sub ? (
+                                    <span className="mt-0.5 block text-xs text-white/40">{link.sub}</span>
+                                  ) : null}
+                                </Link>
+                              ))}
+                            </div>
+                          </div>
+                        ))
+                      : links?.map((link) => (
+                          <Link
+                            key={link.href}
+                            href={link.href}
+                            onClick={() => setMobileOpen(false)}
+                            target={"external" in link && link.external ? "_blank" : undefined}
+                            rel={"external" in link && link.external ? "noopener noreferrer" : undefined}
+                            className="block rounded-lg px-6 py-2.5 text-sm text-white/75 transition-colors hover:bg-white/5 hover:text-[#f472b6]"
+                          >
+                            {link.label}
+                            {"sub" in link && link.sub ? (
+                              <span className="mt-0.5 block text-xs text-white/40">{link.sub}</span>
+                            ) : null}
+                          </Link>
+                        ))}
                   </div>
                 )}
               </div>
