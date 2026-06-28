@@ -87,6 +87,12 @@ export function GLP1WeightLossLanding() {
               >
                 The science
               </Link>
+              <Link
+                href="/glp1-weight-loss/membership"
+                className="inline-flex items-center justify-center bg-black text-white font-semibold px-6 py-4 rounded-xl hover:bg-[#E6007E] transition-colors"
+              >
+                $49/mo membership
+              </Link>
             </div>
             <p className="mt-4 text-xs text-black/45 max-w-md mx-auto lg:mx-0">
               HIPAA-compliant screening first; eligible patients schedule on Fresha after submission.

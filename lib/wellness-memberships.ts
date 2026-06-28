@@ -9,6 +9,7 @@
  */
 
 import { BOOKING_URL } from "@/lib/flows";
+import { GLP1_MEMBERSHIP_PLAN_COPY } from "@/lib/glp1-weight-loss-membership";
 import { GLP1_PROGRAM, GLP1_PROGRAM_CONSULT_USD } from "@/lib/glp1-program-pricing";
 import { GENTLEMENS_CLUB_PATH, GENTLEMENS_CLUB_TIERS } from "@/lib/gentlemens-club";
 import { PEPTIDE_CONSULT_FEE_USD } from "@/lib/peptide-request-menu";
@@ -146,6 +147,20 @@ export const HORMONE_MEMBERSHIP_PLANS: WellnessMembershipPlan[] = [
 ];
 
 export const WELLNESS_PROGRAM_PLANS: WellnessMembershipPlan[] = [
+  {
+    id: GLP1_MEMBERSHIP_PLAN_COPY.id,
+    category: "wellness",
+    name: GLP1_MEMBERSHIP_PLAN_COPY.name,
+    pricePerMonth: GLP1_MEMBERSHIP_PLAN_COPY.pricePerMonth,
+    summary: GLP1_MEMBERSHIP_PLAN_COPY.summary,
+    perks: [...GLP1_MEMBERSHIP_PLAN_COPY.perks],
+    highlight: true,
+    badge: "GLP-1 · $49/mo platform",
+    consultFirst: true,
+    bookHref: BOOKING_URL,
+    learnMoreHref: "/glp1-weight-loss/membership",
+    footnote: GLP1_MEMBERSHIP_PLAN_COPY.footnote,
+  },
   {
     id: "precision-hormone",
     category: "wellness",

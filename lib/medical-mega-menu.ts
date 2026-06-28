@@ -113,6 +113,14 @@ export const SHOP_RX_CATEGORIES: ShopRxCategory[] = [
         heading: "Program",
         items: [
           {
+            id: "weight-loss-membership",
+            label: "Weight loss membership",
+            href: "/glp1-weight-loss/membership",
+            tagline: "$49/mo care platform · Formulation GLP-1 SKUs",
+            imageSrc: "/images/rx-care/square/rx-overview.jpg",
+            imageAlt: "Hello Gorgeous RX weight loss membership",
+          },
+          {
             id: "weight-loss-science",
             label: "The science",
             href: "/glp1-weight-loss/science",

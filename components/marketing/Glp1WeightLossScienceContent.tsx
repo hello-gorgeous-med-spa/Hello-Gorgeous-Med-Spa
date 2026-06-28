@@ -279,10 +279,10 @@ export function Glp1WeightLossScienceContent() {
               Start GLP-1 intake
             </CTA>
             <Link
-              href="/glp1-weight-loss"
+              href="/glp1-weight-loss/membership"
               className="inline-flex items-center justify-center rounded-xl border-2 border-white/40 px-6 py-3 text-sm font-semibold text-white transition hover:bg-white/10"
             >
-              Program overview
+              $49/mo membership
             </Link>
           </div>
           <p className="mt-6 text-[11px] text-white/50">
