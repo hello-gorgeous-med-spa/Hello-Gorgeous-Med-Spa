@@ -178,6 +178,39 @@ export async function notifyStaffGlp1RefillPaidFromLedger(
   return true;
 }
 
+function adminClientRxLink(clientId: string): string {
+  return `${BASE()}/admin/clients/${clientId}?tab=rx`;
+}
+
+/** Staff alert when cadence engine marks a refill overdue (Phase 4C). */
+export function notifyStaffRxRefillOverdue(opts: {
+  clientId: string;
+  patientName: string | null;
+  patientPhone: string | null;
+  medication: string;
+  doseLabel?: string | null;
+  track: "glp1" | "peptide" | "unknown";
+  daysOverdue: number;
+  reorderHref: string;
+}): void {
+  const med = `${opts.medication}${opts.doseLabel ? ` · ${opts.doseLabel}` : ""}`;
+  const trackLabel =
+    opts.track === "peptide" ? "Peptide" : opts.track === "glp1" ? "GLP-1" : "RX";
+
+  notifyOwnerFormSubmission({
+    formName: "HG RX — OVERDUE REFILL",
+    lines: [
+      opts.patientName || "—",
+      opts.patientPhone || "—",
+      `${trackLabel} · ${med}`,
+      `${opts.daysOverdue} day(s) overdue · not on auto-pay`,
+      `Client: ${adminClientRxLink(opts.clientId)}`,
+      `Reorder form: ${BASE()}${opts.reorderHref}`,
+      "Patient has not reordered — call or text to retain.",
+    ],
+  });
+}
+
 /** Staff alert when Square auto-pay renewal auto-queues dispatch. */
 export function notifyStaffRxAutopayRenewal(opts: {
   kind: "intake" | "clinic";

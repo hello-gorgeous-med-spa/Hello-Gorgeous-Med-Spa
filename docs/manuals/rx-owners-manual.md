@@ -375,6 +375,7 @@ We'll text/email if telehealth is needed before we ship. Questions? (630) 636-61
 | Square monthly auto-pay enrollment | ✅ Live (GLP-1 refill form) |
 | **Auto-refill on subscription charge → dispatch approved** | ✅ Live (Phase 4A) |
 | **Push notifications when refill is due** | ✅ Live (Phase 4B) |
+| **Staff SMS when refill overdue (not on auto-pay)** | ✅ Live (Phase 4C) |
 | Fully hands-free ship (no staff BoomRx click) | 🔜 Future polish |
 | Native App Store app | ❌ Not planned — PWA only |
 
@@ -416,6 +417,20 @@ When a patient's refill is **due soon** or **overdue** (same cadence as Phase 3)
 **Requires VAPID keys in Vercel:** `VAPID_SUBJECT`, `NEXT_PUBLIC_VAPID_PUBLIC_KEY`, `VAPID_PRIVATE_KEY`.
 
 **Dedupe:** won't repeat the same push within 7 days (same as SMS/email).
+
+### Phase 4C — staff SMS when refill is overdue
+
+When a patient's refill is **overdue** and they are **not** on active Square auto-pay:
+
+1. **Same daily cron** (`/api/cron/rx-refill-reminder`, 9 AM CT) runs after patient reminders.
+2. Staff cell gets **“HG RX — OVERDUE REFILL”** with patient name/phone, medication, days overdue, client admin link, and reorder form link.
+3. **Skipped** if patient has active auto-pay enrollment (`glp1_autopay` / `clinic_autopay` in RX ledger) — renewal handles those (Phase 4A).
+4. **Dedupe:** won't repeat the same staff alert for the same shipment within **7 days** (logged as `staff_sms` in refill reminder table).
+5. **Cap:** max **20** staff alerts per cron run.
+
+**Env:** set `RX_REFILL_STAFF_ALERT_CRON_ENABLED=false` to pause staff overdue alerts (patient reminders still run unless `RX_REFILL_REMINDER_CRON_ENABLED=false`).
+
+**Staff action:** call or text the patient to retain; send them to `/glp1-refill` or `/peptide-request` as shown in the SMS.
 
 ---
 
@@ -475,6 +490,7 @@ When a patient's refill is **due soon** or **overdue** (same cadence as Phase 3)
 | Refill cadence + reminders | `lib/rx-refill-cadence.ts`, `lib/rx-refill-reminder.ts` |
 | Auto-pay renewal (Phase 4A) | `lib/rx-autopay-renewal.ts`, Square webhook |
 | Refill push (Phase 4B) | `lib/web-push.ts`, `lib/rx-refill-reminder.ts`, `/portal/rx` |
+| Staff overdue alerts (Phase 4C) | `lib/rx-refill-staff-alert.ts`, `lib/glp1-refill-staff-sms.ts`, cron route |
 
 **Related docs:**
 - [Client Portal Guide](./client-portal.md) — general portal features
