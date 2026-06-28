@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 
 import type { RxSecureMessage } from "@/lib/rx-secure-messages";
+import { RX_CARE_TEXT_DISPLAY, RX_CARE_TEXT_SMS } from "@/lib/rx-contact";
 
 type Props = {
   initialRef?: string;
@@ -95,9 +96,9 @@ export function RxSecureMessages({ initialRef = "", initialEmail = "", compact =
             <h2 className="font-serif text-xl font-bold text-black">Secure RX messaging</h2>
             <p className="text-sm text-black/65 leading-relaxed">
               Message our clinical team 24/7 — dose questions, shipping updates, or anything about your
-              Hello Gorgeous RX™ protocol. Replies during business hours; urgent issues call{" "}
-              <a href="tel:+16306366193" className="font-semibold text-[#E6007E] underline">
-                630-636-6193
+              Hello Gorgeous RX™ protocol. Replies during business hours; urgent issues text{" "}
+              <a href={RX_CARE_TEXT_SMS} className="font-semibold text-[#E6007E] underline">
+                {RX_CARE_TEXT_DISPLAY}
               </a>
               .
             </p>

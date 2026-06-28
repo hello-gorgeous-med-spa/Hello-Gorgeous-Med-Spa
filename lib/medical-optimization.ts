@@ -11,6 +11,11 @@ import { NAD_PLUS_INJECTION_PRICE_USD } from "@/lib/nad-plus-injections";
 
 export const MEDICAL_OPTIMIZATION_PATH = "/medical";
 
+/** Team section hero — must exist under `public/`. */
+export const MEDICAL_TEAM_IMAGE = "/images/homepage-buyer-paths/weight-loss-hormones.png";
+export const MEDICAL_TEAM_IMAGE_ALT =
+  "Hello Gorgeous medical optimization — hormone and peptide therapy";
+
 export type MedicalServiceCard = {
   id: string;
   eyebrow: string;

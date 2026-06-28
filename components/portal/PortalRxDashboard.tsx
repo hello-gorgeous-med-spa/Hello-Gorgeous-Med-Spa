@@ -3,10 +3,11 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-import { useRxPushNotifications } from "@/lib/hooks/use-rx-push-notifications";
-import { usePortalAuth } from "@/lib/portal/useAuth";
 import { PortalRxCareTeam } from "@/components/portal/PortalRxCareTeam";
 import { PortalRxWeightProgress } from "@/components/portal/PortalRxWeightProgress";
+import { useRxPushNotifications } from "@/lib/hooks/use-rx-push-notifications";
+import { usePortalAuth } from "@/lib/portal/useAuth";
+import { RX_CARE_TEXT_DISPLAY, RX_CARE_TEXT_SMS } from "@/lib/rx-contact";
 import type { RxPortalDashboard, RxPortalOrder } from "@/lib/rx-portal-dashboard";
 import type { PortalRxAutopayStatus } from "@/lib/rx-portal-messages";
 
@@ -212,7 +213,11 @@ export function PortalRxDashboard() {
             ${data.autopay.amountUsd?.toFixed(0) ?? "—"}/mo · renews automatically · no separate membership fee
           </p>
           <p className="text-xs text-black/50 mt-2">
-            To pause or update billing, message the care team below or call (630) 636-6193.
+            To pause or update billing, message the care team below or text{" "}
+            <a href={RX_CARE_TEXT_SMS} className="font-semibold text-[#E6007E] underline">
+              {RX_CARE_TEXT_DISPLAY}
+            </a>
+            .
           </p>
         </div>
       )}

@@ -10,6 +10,8 @@ import {
   MEDICAL_OPTIMIZATION_FAQS,
   MEDICAL_PRICING_TIERS,
   MEDICAL_SERVICES,
+  MEDICAL_TEAM_IMAGE,
+  MEDICAL_TEAM_IMAGE_ALT,
   MEDICAL_TEAM_QUOTE,
 } from "@/lib/medical-optimization";
 import { SITE } from "@/lib/seo";
@@ -139,8 +141,8 @@ export function MedicalOptimizationPageContent() {
           <FadeUp delayMs={80}>
             <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-neutral-200 shadow-lg">
               <Image
-                src="/images/rx/rx-hormone-vial.png"
-                alt="Hello Gorgeous medical optimization — hormone and peptide therapy"
+                src={MEDICAL_TEAM_IMAGE}
+                alt={MEDICAL_TEAM_IMAGE_ALT}
                 fill
                 className="object-cover"
                 sizes="(max-width: 1024px) 100vw, 480px"

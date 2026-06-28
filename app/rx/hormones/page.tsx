@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { FadeUp, Section } from "@/components/Section";
 import { RxPageLayout, RxServiceCard } from "@/components/RxPageLayout";
+import { MEDICAL_TEAM_IMAGE } from "@/lib/medical-optimization";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
@@ -55,7 +56,7 @@ export default function HormonesPage() {
       subtitle="Bio-Identical Hormone Therapy for Men & Women"
       description="Restore hormonal balance with physician-supervised bio-identical hormone replacement therapy, customized to your unique physiology."
       icon="🧬"
-      heroImage="/images/rx/rx-hormone-vial.png"
+      heroImage={MEDICAL_TEAM_IMAGE}
     >
       {/* Services Grid */}
       <Section className="bg-gradient-to-b from-white to-pink-50/30">

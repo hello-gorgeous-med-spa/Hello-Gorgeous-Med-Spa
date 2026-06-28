@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 
+import { rxCareTextHint } from "@/lib/rx-contact";
 import type { RxSecureMessage } from "@/lib/rx-secure-messages";
 
 type ThreadSummary = {
@@ -73,7 +74,7 @@ export function PortalRxCareTeam() {
       if (json.threadId) setActiveThreadId(json.threadId);
       await loadMessages(json.threadId || activeThreadId!);
     } catch {
-      alert("Could not send message. Try again or call (630) 636-6193.");
+      alert(rxCareTextHint("Could not send message."));
     } finally {
       setBusy(false);
     }

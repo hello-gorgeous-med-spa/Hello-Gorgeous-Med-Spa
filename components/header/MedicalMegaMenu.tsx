@@ -14,6 +14,7 @@ import {
   SHOP_RX_NAV,
   type ShopRxCategoryId,
 } from "@/lib/medical-mega-menu";
+import { shopRxImageObjectClass } from "@/lib/shop-rx-product-images";
 
 const MEGA_MENU_TOP = "top-[7.75rem]";
 
@@ -93,6 +94,7 @@ export function MedicalMegaMenu({
     getMedicalMegaMenuItem(featuredId) ??
     getMedicalMegaMenuItem(category.defaultFeaturedId)!;
   const featuredImage = resolveShopRxItemImage(featured, category.id);
+  const featuredImageClass = shopRxImageObjectClass(featuredImage.src);
 
   return (
     <div
@@ -165,7 +167,7 @@ export function MedicalMegaMenu({
                   src={featuredImage.src}
                   alt={featuredImage.alt}
                   fill
-                  className="object-contain p-4"
+                  className={`${featuredImageClass} p-1`}
                   sizes="260px"
                 />
               </div>

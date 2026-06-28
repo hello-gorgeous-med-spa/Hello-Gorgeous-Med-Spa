@@ -14,6 +14,7 @@ import {
   SHOP_RX_CATEGORIES,
   type ShopRxCategoryId,
 } from "@/lib/medical-mega-menu";
+import { shopRxImageObjectClass } from "@/lib/shop-rx-product-images";
 
 function RxMark() {
   return (
@@ -55,6 +56,7 @@ function ProductTile({
   compact?: boolean;
 }) {
   const image = resolveShopRxItemImage(item, categoryId);
+  const imageClass = shopRxImageObjectClass(image.src);
 
   return (
     <Link
@@ -72,7 +74,7 @@ function ProductTile({
           src={image.src}
           alt={image.alt}
           fill
-          className="object-contain p-6 sm:p-8 transition duration-300 group-hover:scale-[1.02]"
+          className={`${imageClass} transition duration-300 group-hover:scale-[1.02]`}
           sizes={compact ? "(max-width:768px) 50vw, 220px" : "(max-width:768px) 100vw, 320px"}
         />
         {item.badge === "POPULAR" ? (
@@ -108,6 +110,7 @@ export function HomepageShopRxFinder() {
   const category = getShopRxCategory(activeCategoryId) ?? SHOP_RX_CATEGORIES[0]!;
   const featured = getShopRxCategoryFeatured(category);
   const featuredImage = resolveShopRxItemImage(featured, category.id);
+  const featuredImageClass = shopRxImageObjectClass(featuredImage.src);
   const products = getShopRxCategoryItems(category).filter(
     (item) => item.id !== featured.id && item.rx,
   );
@@ -173,7 +176,7 @@ export function HomepageShopRxFinder() {
                   src={featuredImage.src}
                   alt={featuredImage.alt}
                   fill
-                  className="object-contain p-10 sm:p-12"
+                  className={`${featuredImageClass} transition duration-300`}
                   sizes="(max-width:1024px) 100vw, 380px"
                   priority
                 />

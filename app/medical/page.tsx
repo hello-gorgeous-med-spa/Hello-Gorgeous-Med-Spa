@@ -4,6 +4,7 @@ import { MedicalOptimizationPageContent } from "@/components/medical/MedicalOpti
 import {
   MEDICAL_OPTIMIZATION_FAQS,
   MEDICAL_OPTIMIZATION_PATH,
+  MEDICAL_TEAM_IMAGE,
 } from "@/lib/medical-optimization";
 import { GLP1_RETAIL_PROGRAM, PEPTIDE_RETAIL_FROM_MONTHLY_USD } from "@/lib/peptide-retail-pricing";
 import { PEPTIDE_CONSULT_FEE_USD } from "@/lib/peptide-request-menu";
@@ -54,7 +55,7 @@ export default function MedicalOptimizationPage() {
               title: "Medical Optimization Services | Hello Gorgeous Med Spa Oswego",
               description: PAGE_DESCRIPTION,
               path: MEDICAL_OPTIMIZATION_PATH,
-              image: "/images/rx/rx-hormone-vial.png",
+              image: MEDICAL_TEAM_IMAGE,
               dateModified: new Date().toISOString().split("T")[0],
             }),
           ),

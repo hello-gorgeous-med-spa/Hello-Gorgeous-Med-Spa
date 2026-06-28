@@ -6,10 +6,11 @@
 import type { FAQ } from "@/lib/seo";
 import { GLP1_RETAIL_PROGRAM } from "@/lib/peptide-retail-pricing";
 import { GENTLEMENS_CLUB_TIERS } from "@/lib/gentlemens-club";
+import { MEDICAL_TEAM_IMAGE } from "@/lib/medical-optimization";
 
 export const MENS_HORMONES_PATH = "/mens-hormones";
 
-export const MENS_HORMONES_HERO_IMAGE = "/images/rx/rx-hormone-vial.png";
+export const MENS_HORMONES_HERO_IMAGE = MEDICAL_TEAM_IMAGE;
 
 export type LowTSymptom = {
   title: string;
