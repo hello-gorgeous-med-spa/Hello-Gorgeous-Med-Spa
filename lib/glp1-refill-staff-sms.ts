@@ -43,16 +43,18 @@ async function lookupRefillByIntakeRef(reference: string): Promise<RefillContext
   };
 }
 
-export type Glp1RefillStaffSmsEvent = "checkout" | "autopay" | "paid";
+export type Glp1RefillStaffSmsEvent = "checkout" | "autopay" | "paid" | "renewal";
 
 function eventHeadline(event: Glp1RefillStaffSmsEvent): string {
   if (event === "paid") return "HG RX REFILL — PAID";
+  if (event === "renewal") return "HG RX AUTO-PAY RENEWAL — SHIP";
   if (event === "autopay") return "HG RX REFILL — AUTO-PAY SETUP";
   return "HG RX REFILL — CHECKOUT";
 }
 
 function eventDetail(event: Glp1RefillStaffSmsEvent): string {
   if (event === "paid") return "Square payment received — review in RX Ledger.";
+  if (event === "renewal") return "Monthly auto-pay charged — dispatch approved, ready for BoomRx.";
   if (event === "autopay") return "Patient enrolling in monthly auto-pay on Square.";
   return "Patient opening Square checkout now.";
 }
@@ -174,4 +176,24 @@ export async function notifyStaffGlp1RefillPaidFromLedger(
   }
 
   return true;
+}
+
+/** Staff alert when Square auto-pay renewal auto-queues dispatch. */
+export function notifyStaffRxAutopayRenewal(opts: {
+  kind: "intake" | "clinic";
+  intakeRef?: string | null;
+  patientName?: string | null;
+  patientPhone?: string | null;
+  lineLabel?: string | null;
+  amountUsd?: number | null;
+}): void {
+  notifyStaffGlp1RefillPaymentEvent({
+    event: "renewal",
+    intakeRef: opts.intakeRef,
+    lineLabel: opts.lineLabel,
+    amountUsd: opts.amountUsd,
+    patientName: opts.patientName,
+    patientPhone: opts.patientPhone,
+    medication: opts.kind === "clinic" ? "Clinic GLP-1" : null,
+  });
 }

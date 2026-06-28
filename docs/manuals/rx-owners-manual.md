@@ -159,7 +159,8 @@ Rules in [§9 Telehealth](#9-telehealth-rules). If flagged:
 For **in-clinic GLP-1 starts** logged as clinic encounters, My RX calculates **refill due** from supply cycle.  
 Patient sees “due soon / overdue” banner → taps **Start refill**.
 
-> **Phase 3 (not built yet):** auto-charge every 30/90 days without patient re-submitting.
+> **Phase 3:** daily refill reminders + due banners (patient still submits or auto-pay charges).  
+> **Phase 4A:** when Square auto-pay renews, a new dispatch row opens **approved** — staff place the BoomRx order.
 
 ---
 
@@ -372,7 +373,8 @@ We'll text/email if telehealth is needed before we ship. Questions? (630) 636-61
 | **Refill cadence (clinic + shipped intakes)** | ✅ Live |
 | **Daily refill reminder SMS/email cron** | ✅ Live (9 AM CT via Vercel) |
 | Square monthly auto-pay enrollment | ✅ Live (GLP-1 refill form) |
-| Fully hands-free auto-refill on subscription charge | 🔜 Future polish |
+| **Auto-refill on subscription charge → dispatch approved** | ✅ Live (Phase 4A) |
+| Fully hands-free ship (no staff BoomRx click) | 🔜 Future polish |
 | Push notifications for refill due | 🔜 Future |
 | Native App Store app | ❌ Not planned — PWA only |
 
@@ -383,9 +385,25 @@ We'll text/email if telehealth is needed before we ship. Questions? (630) 636-61
 3. **My RX** shows a banner when due within 7 days or overdue.
 4. **RX Command** lists due refills for staff (clinic + online patients).
 5. **Daily cron** (`/api/cron/rx-refill-reminder`) texts/emails patients with refill links (won't repeat same alert within 7 days).
-6. **Monthly auto-pay** (Square subscription on GLP-1 form) collects payment each month; staff still run dispatch → pharmacy for each cycle.
+6. **Monthly auto-pay** (Square subscription on GLP-1 form) collects payment each month.
 
 **Env:** set `RX_REFILL_REMINDER_CRON_ENABLED=false` to pause patient refill nudges.
+
+### Phase 4A — auto-pay renewal → dispatch queue
+
+When Square charges a patient's **active auto-pay enrollment** (second charge and after):
+
+1. **Square webhook** receives `payment.updated` (completed).
+2. System finds the patient's **active enrollment** in RX ledger (`glp1_autopay` or `clinic_autopay`).
+3. **Online GLP-1:** clones a new intake submission from their last order → paid ledger → dispatch **approved**.
+4. **In-clinic:** creates a new clinic encounter from last refillable visit → paid → dispatch **approved**.
+5. **Staff SMS:** “AUTO-PAY RENEWAL — SHIP” with link to **RX Dispatch**.
+
+**First auto-pay payment** only activates enrollment (links Square customer) — same as a normal paid refill.
+
+**Staff still:** open **RX Dispatch**, place BoomRx order, mark **sent** (patient ship SMS fires on sent).
+
+**Amount guard:** renewal skipped if charge differs from enrollment by more than **$2** (log in webhook).
 
 ---
 
@@ -441,6 +459,9 @@ We'll text/email if telehealth is needed before we ship. Questions? (630) 636-61
 | Admin nav | `lib/admin-nav.ts` |
 | PWA manifest shortcuts | `public/client-manifest.json` |
 | Dispatch schema | `supabase/migrations/20260624120000_rx_dispatch.sql` |
+| Auto dispatch on intake/pay | `lib/rx-dispatch-auto.ts` |
+| Refill cadence + reminders | `lib/rx-refill-cadence.ts`, `lib/rx-refill-reminder.ts` |
+| Auto-pay renewal (Phase 4A) | `lib/rx-autopay-renewal.ts`, Square webhook |
 
 **Related docs:**
 - [Client Portal Guide](./client-portal.md) — general portal features

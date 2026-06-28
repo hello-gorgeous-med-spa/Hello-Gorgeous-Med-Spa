@@ -28,6 +28,7 @@ import { getAccessToken } from '@/lib/square/oauth';
 import { enqueueReviewRequest } from '@/lib/reviews/enqueue';
 import { creditHgRewardsFromSquarePayment } from '@/lib/hg-rewards/credit-from-square-payment';
 import { reconcileRxLedgerFromSquarePayment } from '@/lib/rx-payment-ledger';
+import { processRxAutopayRenewalFromSquarePayment } from '@/lib/rx-autopay-renewal';
 
 // Helper to get access token for webhook processing
 async function getAccessTokenForWebhook(): Promise<string | null> {
@@ -512,7 +513,7 @@ export async function POST(request: NextRequest) {
           console.log('[Webhook] HG Rewards skipped:', rewards.reason, payment.id);
         }
 
-        void reconcileRxLedgerFromSquarePayment(
+        const reconcileResult = await reconcileRxLedgerFromSquarePayment(
           {
             id: payment.id,
             status: payment.status,
@@ -522,6 +523,27 @@ export async function POST(request: NextRequest) {
           },
           supabase,
         );
+        if (reconcileResult.updated > 0) {
+          console.log('[Webhook] RX ledger reconciled:', reconcileResult.ledgerIds);
+        }
+
+        const renewal = await processRxAutopayRenewalFromSquarePayment(
+          supabase,
+          {
+            id: payment.id,
+            status: payment.status,
+            customer_id: payment.customer_id,
+            order_id: payment.order_id,
+            updated_at: payment.updated_at,
+            created_at: payment.created_at,
+            amount_money: payment.amount_money,
+            total_money: payment.total_money,
+          },
+          { reconciledLedgerIds: reconcileResult.ledgerIds },
+        );
+        if (renewal.processed) {
+          console.log('[Webhook] RX auto-pay renewal queued:', renewal.intakeRef || 'clinic');
+        }
       }
       
       await updateWebhookEventStatus(eventId, 'processed');
