@@ -24,6 +24,7 @@ export const FOOTER_PRIMARY_COLUMNS: FooterNavColumn[] = [
       { label: "Solaria CO₂", href: "/solaria-co2-oswego" },
       { label: "Quantum RF", href: "/quantum-rf-oswego" },
       { label: "Medical Weight Loss", href: "/glp-1-weight-loss-oswego" },
+      { label: "Peptide Therapy", href: "/services/peptides" },
       { label: "Hormone Therapy", href: "/biote-hormone-therapy-oswego" },
       { label: "IV Therapy", href: "/iv-therapy" },
       { label: "All services", href: "/services" },
