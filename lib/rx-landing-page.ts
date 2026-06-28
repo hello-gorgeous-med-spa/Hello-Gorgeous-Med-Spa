@@ -35,13 +35,9 @@ export const RX_LANDING_HERO = {
     "NP-supervised hormone therapy, GLP-1 weight loss, peptides, prescription dermatology, and sexual wellness — for qualified Illinois patients.",
   primaryCta: { label: "Begin evaluation", href: BOOKING_URL },
   secondaryCta: { label: "Explore programs", href: "#programs" },
-  heroImage: "/images/homepage-buyer-paths/hello-gorgeous-rx.png",
-  heroImageAlt: "Hello Gorgeous RX — peptides and prescriptions, personalized wellness",
-  accentImages: [
-    { src: RX_CARE_IMAGES.glp1Refill, alt: "GLP-1 refill" },
-    { src: RX_CARE_IMAGES.peptide, alt: "Peptide therapy" },
-    { src: RX_CARE_IMAGES.nadPlus, alt: "NAD+ protocol" },
-  ],
+  heroImage: "/images/shop-rx/rx-hero-team.png",
+  heroImageAlt: "Ryan Kent, FNP-BC and Danielle Alcala-Glazier — Hello Gorgeous RX medical team, Oswego IL",
+  accentImages: [] as const,
 } as const;
 
 export const RX_LANDING_NAV = [
@@ -95,8 +91,8 @@ export const RX_LANDING_PROGRAMS: RxLandingProgram[] = [
     href: "/rx/peptides",
     cta: "Peptide programs",
     priceHint: "Bundles from $149/mo",
-    image: RX_CARE_IMAGES.peptide,
-    imageAlt: "Peptide longevity therapy",
+    image: "/images/shop-rx/new-peptide-protocol.png",
+    imageAlt: "Hello Gorgeous RX peptide protocols — BPC-157, GHK-Cu, TB-500",
     iconTag: { emoji: "🧪", label: "Cellular longevity" },
   },
   {

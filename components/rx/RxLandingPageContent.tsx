@@ -214,23 +214,12 @@ export function RxLandingPageContent() {
                 <img
                   src={RX_LANDING_HERO.heroImage}
                   alt={RX_LANDING_HERO.heroImageAlt}
-                  className="aspect-[4/3] w-full object-cover object-center"
-                  width={1024}
-                  height={768}
+                  className="aspect-[4/5] w-full object-cover object-[center_20%] sm:aspect-[3/4]"
+                  width={900}
+                  height={1125}
                   fetchPriority="high"
                 />
               </div>
-              {RX_LANDING_HERO.accentImages.map((img, i) => (
-                <div
-                  key={img.alt}
-                  className={`absolute hidden w-20 overflow-hidden rounded-2xl border-2 border-black shadow-lg ring-2 ring-white/20 md:block lg:w-24 ${
-                    i === 0 ? "-left-4 top-8 rotate-[-6deg]" : i === 1 ? "-right-3 bottom-16 rotate-[5deg]" : "right-8 -top-2 rotate-[3deg]"
-                  }`}
-                >
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={img.src} alt={img.alt} className="aspect-square w-full object-cover" />
-                </div>
-              ))}
             </div>
           </FadeUp>
         </div>
