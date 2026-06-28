@@ -21,12 +21,17 @@ export type HomepageTrackForkColumn = {
   hubHref: string;
   posterImage: `/${string}`;
   posterAlt: string;
+  /** Short line overlaid on the poster image */
+  imageHeadline: string;
   title: string;
   description: string;
+  tags: string[];
   ctaLabel: string;
   microLabel: string;
   microDetail: string;
   accent: "blue" | "pink";
+  /** Tailwind object-position class for poster focal point */
+  imagePosition?: string;
 };
 
 export const HOMEPAGE_TRACK_FORK: HomepageTrackForkColumn[] = [
@@ -36,27 +41,33 @@ export const HOMEPAGE_TRACK_FORK: HomepageTrackForkColumn[] = [
     hubHref: "/services",
     posterImage: "/images/homepage-buyer-paths/injectables.png",
     posterAlt: "Medical aesthetics — injectables, Morpheus8 and skin treatments at Hello Gorgeous Oswego",
+    imageHeadline: "Injectables · skin · body",
     title: "Aesthetics track",
     description:
-      "Botox, fillers, Morpheus8, Solaria CO₂, body contouring, and facials — NP-directed care in Oswego.",
+      "Botox, fillers, Morpheus8, Solaria CO₂, body contouring, and facials — NP-directed care in downtown Oswego.",
+    tags: ["Botox & fillers", "Morpheus8", "Solaria CO₂", "HydraFacial", "Body RF"],
     ctaLabel: "Explore treatments",
     microLabel: "Free consult · Book on Fresha",
-    microDetail: "Same trusted local team — injectables to advanced skin & body technology.",
+    microDetail: "Same trusted local team — from injectables to advanced skin & body technology.",
     accent: "blue",
+    imagePosition: "object-center",
   },
   {
     track: "medical",
     anchor: HOMEPAGE_MEDICAL_ANCHOR,
     hubHref: "/medical",
-    posterImage: "/images/homepage-buyer-paths/hello-gorgeous-rx.png",
-    posterAlt: "Hello Gorgeous RX — GLP-1, hormones, peptides and telehealth programs",
+    posterImage: "/images/homepage-buyer-paths/weight-loss-hormones.png",
+    posterAlt: "Medical programs — GLP-1 weight loss, hormones, peptides and Hello Gorgeous RX telehealth",
+    imageHeadline: "GLP-1 · peptides · hormones",
     title: "Medical track",
     description:
-      "GLP-1 weight loss, hormones, peptides, and RX refills — supervised by Ryan Kent, FNP-BC.",
+      "Weight loss, peptide protocols, hormone optimization, and RX refills — supervised by Ryan Kent, FNP-BC with telehealth built in.",
+    tags: ["GLP-1 programs", "Hello Gorgeous RX™", "BPC-157 & peptides", "HRT / TRT", "My RX portal"],
     ctaLabel: "Explore medical programs",
-    microLabel: "Telehealth · My RX portal",
-    microDetail: "No separate membership fee — pay at checkout, Illinois patients.",
+    microLabel: "Telehealth · Ship to home",
+    microDetail: "No separate membership fee — pay at checkout. Illinois patients.",
     accent: "pink",
+    imagePosition: "object-cover object-center",
   },
 ];
 
