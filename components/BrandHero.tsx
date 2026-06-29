@@ -1,10 +1,8 @@
 "use client";
 
-import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { CLIENT_APP, type ClientAppTab } from "@/lib/client-app";
-import { HOMEPAGE_AESTHETICS_ANCHOR, HOMEPAGE_MEDICAL_ANCHOR } from "@/lib/homepage-buyer-paths";
 import { PRIMARY_BOOKING_CTA } from "@/lib/primary-cta";
 import { SITE, SITE_HERO_IMAGE } from "@/lib/seo";
 import { TRIFECTA_GRADIENT_TITLE, trifectaButtonGradient, trifectaAccent } from "@/lib/trifecta-tokens";
@@ -121,20 +119,20 @@ export function BrandHero({
         </div>
       </div>
 
-      <div
-        className={`relative mx-auto ${actionMaxW} ${actionPad} transition-all duration-700 ease-out ${
-          revealed ? "translate-y-0 opacity-100" : "translate-y-5 opacity-0"
-        }`}
-        style={{ transitionDelay: "480ms" }}
-      >
+      {isApp ? (
         <div
-          className={`rounded-2xl backdrop-blur-md ${isApp ? "p-4" : "p-4 sm:p-5 md:p-6"}`}
-          style={{
-            backgroundColor: "rgba(24, 24, 27, 0.85)",
-            border: `1px solid ${trifectaAccent(1).border}`,
-          }}
+          className={`relative mx-auto ${actionMaxW} ${actionPad} transition-all duration-700 ease-out ${
+            revealed ? "translate-y-0 opacity-100" : "translate-y-5 opacity-0"
+          }`}
+          style={{ transitionDelay: "480ms" }}
         >
-          {isApp ? (
+          <div
+            className="rounded-2xl p-4 backdrop-blur-md"
+            style={{
+              backgroundColor: "rgba(24, 24, 27, 0.85)",
+              border: `1px solid ${trifectaAccent(1).border}`,
+            }}
+          >
             <div className="space-y-3">
               <div>
                 <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#60a5fa]">
@@ -188,71 +186,9 @@ export function BrandHero({
                 ) : null}
               </div>
             </div>
-          ) : (
-            <div className="flex flex-col gap-4">
-              <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
-                <div className="min-w-0">
-                  <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-[#60a5fa] sm:text-[11px]">
-                    NP-directed · Oswego, IL · Family-owned
-                  </p>
-                  <h1 className="mt-2 text-2xl font-black leading-[1.08] tracking-tight text-white sm:text-3xl md:text-4xl">
-                    Oswego&apos;s trusted team for{" "}
-                    <span
-                      className="bg-clip-text text-transparent"
-                      style={{ backgroundImage: TRIFECTA_GRADIENT_TITLE, WebkitBackgroundClip: "text" }}
-                    >
-                      aesthetics &amp; medical RX
-                    </span>
-                  </h1>
-                  <p className="mt-2 max-w-2xl text-sm font-medium leading-relaxed text-white/70 sm:text-base">
-                    Two clear paths — in-office med spa treatments, or NP-supervised programs with
-                    telehealth and home delivery. Same family-owned practice, downtown Oswego.
-                  </p>
-                </div>
-
-                <div className="flex shrink-0 flex-col gap-2 sm:flex-row sm:flex-wrap lg:min-w-[220px] lg:flex-col">
-                  <Link
-                    href={`#${HOMEPAGE_MEDICAL_ANCHOR}`}
-                    className="inline-flex items-center justify-center rounded-xl px-5 py-3 text-sm font-bold text-white transition hover:brightness-110 sm:min-w-[200px]"
-                    style={{ background: trifectaButtonGradient(trifectaAccent(0)) }}
-                  >
-                    Medical &amp; RX programs
-                  </Link>
-                  <Link
-                    href={`#${HOMEPAGE_AESTHETICS_ANCHOR}`}
-                    className="inline-flex items-center justify-center rounded-xl border px-5 py-3 text-sm font-bold text-white transition hover:bg-white/5 sm:min-w-[200px]"
-                    style={{ borderColor: trifectaAccent(1).border, color: trifectaAccent(1).subtitle }}
-                  >
-                    Med spa treatments
-                  </Link>
-                  <Link
-                    href={PRIMARY_BOOKING_CTA.href}
-                    data-book-now
-                    className="inline-flex items-center justify-center rounded-xl border border-white/15 bg-white/5 px-5 py-3 text-sm font-bold text-[#FFB8DC] transition hover:border-[#E6007E]/40 hover:bg-white/10 sm:min-w-[200px]"
-                  >
-                    {PRIMARY_BOOKING_CTA.shortLabel}
-                  </Link>
-                </div>
-              </div>
-
-              <ul className="grid gap-2 sm:grid-cols-2">
-                {[
-                  "Hello Gorgeous RX™ — GLP-1, peptides, hormones & refills",
-                  "Botox, fillers, Morpheus8, Solaria CO₂ & body contouring",
-                ].map((badge) => (
-                  <li
-                    key={badge}
-                    className="flex items-start gap-2 rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-[11px] font-semibold leading-snug text-white/85"
-                  >
-                    <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[#E6007E]" aria-hidden />
-                    {badge}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
+          </div>
         </div>
-      </div>
+      ) : null}
     </section>
   );
 }

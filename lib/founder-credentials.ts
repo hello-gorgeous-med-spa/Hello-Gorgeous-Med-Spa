@@ -70,6 +70,8 @@ export const DANI_IMAGE = "/images/team/danielle-alcala-glazier-portrait.png";
 /** Primary Dani portrait on /about — clinic setting with InMode equipment visible */
 export const ABOUT_DANI_IMAGE = "/images/team/danielle-alcala-glazier-about.png";
 export const RYAN_IMAGE = "/images/providers/ryan-kent-clinic.jpg";
+/** Ryan with young patient — homepage trust band below hero */
+export const RYAN_PATIENT_CARE_IMAGE = "/images/team/ryan-kent.png";
 export const TEAM_FOUNDERS_IMAGE = "/images/team/dani-ryan-about-neon.png";
 export const SOLARIA_DANI_DEVICE_IMAGE = "/images/solaria/danielle-solaria-inmode-clinic.png";
 export const SOLARIA_TREATMENT_IMAGE = "/images/solaria/solaria-co2-treatment-oswego.png";

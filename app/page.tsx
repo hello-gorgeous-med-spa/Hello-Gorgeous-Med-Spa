@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import {
   HeroV3,
+  HomepageRyanCareSection,
   HomepageTestimonials,
   HomepageClosingCTARow,
 } from "@/components/homepage-v3";
@@ -145,6 +146,7 @@ export default function HomePage() {
 
       <main className="bg-black">
         <HeroV3 />
+        <HomepageRyanCareSection />
         <HomepageAestheticsLane />
         <HomepageTestimonials />
         <MeetDaniRyanSection />

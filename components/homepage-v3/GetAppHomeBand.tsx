@@ -1,61 +1,52 @@
+import Image from "next/image";
 import Link from "next/link";
 
-import { GetAppQrPromo } from "@/components/GetAppQrPromo";
 import { CLIENT_APP } from "@/lib/client-app";
 
-/** Trimmed homepage band — app install only (men's TRT linked from medical lane). */
+export const HELLO_GORGEOUS_APP_HOME_BANNER =
+  "/images/marketing/hello-gorgeous-app-home-banner.png" as const;
+
+/** Homepage app install band — full promotional banner with QR. */
 export function GetAppHomeBand() {
   return (
     <section
       id="get-the-app"
-      className="relative scroll-mt-20 border-b-4 border-black"
-      style={{ background: "linear-gradient(180deg, #FFF0F7 0%, #ffffff 100%)" }}
+      className="scroll-mt-20 border-b border-white/10 bg-black"
       aria-labelledby="get-app-home-heading"
     >
-      <div
-        className="pointer-events-none absolute inset-0 opacity-50"
-        style={{
-          background:
-            "radial-gradient(circle at 15% 50%, rgba(255,45,142,0.15), transparent 50%), radial-gradient(circle at 85% 30%, rgba(255,184,220,0.2), transparent 45%)",
-        }}
-      />
+      <div className="mx-auto max-w-6xl px-4 py-10 sm:py-12 md:py-14">
+        <h2 id="get-app-home-heading" className="sr-only">
+          Get the Hello Gorgeous App
+        </h2>
 
-      <div className="relative mx-auto max-w-3xl px-4 py-8 md:py-10">
-        <div className="rounded-3xl border-4 border-black bg-white/90 p-5 shadow-[8px_8px_0_0_rgba(230,0,126,0.35)] backdrop-blur-sm md:p-8">
-          <div className="mb-5 text-center md:text-left">
-            <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-[#E6007E]">
-              📱 Scan · tap · save to home screen
-            </p>
-            <h2 id="get-app-home-heading" className="mt-2 text-2xl font-black text-black md:text-3xl">
-              Get the{" "}
-              <span
-                className="bg-gradient-to-r from-[#FFB8DC] via-[#FF2D8E] to-[#E6007E] bg-clip-text text-transparent"
-                style={{ WebkitBackgroundClip: "text" }}
-              >
-                Hello Gorgeous App
-              </span>
-            </h2>
-            <p className="mx-auto mt-2 max-w-lg text-sm text-black/70 md:mx-0">
-              {CLIENT_APP.tagline}. Book, My RX refills, deals &amp; messaging — no App Store. Open{" "}
-              <Link
-                href={`${CLIENT_APP.path}?rx=1`}
-                className="font-semibold text-[#E6007E] underline decoration-[#FF2D8E]/40"
-              >
-                hellogorgeousmedspa.com/app
-              </Link>{" "}
-              and tap <strong>Add to Home Screen</strong>.
-            </p>
-          </div>
+        <Link
+          href={`${CLIENT_APP.path}?utm_source=homepage&utm_medium=get_app_band&utm_campaign=pwa_install`}
+          className="group block overflow-hidden rounded-2xl border border-white/10 shadow-[0_24px_60px_rgba(0,0,0,0.45)] transition hover:border-white/20"
+        >
+          <Image
+            src={HELLO_GORGEOUS_APP_HOME_BANNER}
+            alt="Get the Hello Gorgeous App — scan the QR code to add to your home screen. Book Botox, facials, Morpheus8, build your IV bag, Vitamin Bar, deals, gift cards, and rewards at Hello Gorgeous Med Spa Oswego."
+            width={1024}
+            height={576}
+            className="h-auto w-full transition duration-300 group-hover:brightness-[1.03]"
+            sizes="(max-width: 1152px) 100vw, 1152px"
+            priority={false}
+          />
+        </Link>
 
-          <GetAppQrPromo qrSize={140} utmMedium="homepage_band" layout="row" theme="light" />
-
-          <p className="mt-5 text-center text-[11px] text-black/45 md:text-left">
-            Also at the front desk ·{" "}
-            <Link href="/get-app" className="font-semibold text-[#E6007E] hover:underline">
-              full-screen QR page
-            </Link>
-          </p>
-        </div>
+        <p className="mt-4 text-center text-sm text-white/50">
+          Open{" "}
+          <Link
+            href={CLIENT_APP.path}
+            className="font-medium text-white/75 underline underline-offset-2 hover:text-white"
+          >
+            hellogorgeousmedspa.com/app
+          </Link>{" "}
+          ·{" "}
+          <Link href="/get-app" className="font-medium text-white/75 underline underline-offset-2 hover:text-white">
+            Full-screen QR page
+          </Link>
+        </p>
       </div>
     </section>
   );
