@@ -253,8 +253,15 @@ export function PortalRxDashboard() {
           href={links?.careHub || "/rx/care"}
           className="rounded-xl border-2 border-black bg-white p-4 hover:border-[#E6007E] transition-colors"
         >
-          <p className="font-bold text-black">Injection guides</p>
-          <p className="text-xs text-black/55 mt-1">Care hub & protocols</p>
+          <p className="font-bold text-black">Care hub</p>
+          <p className="text-xs text-black/55 mt-1">Refills, add-ons & guides</p>
+        </Link>
+        <Link
+          href="/rx/guide"
+          className="rounded-xl border-2 border-black bg-white p-4 hover:border-[#E6007E] transition-colors"
+        >
+          <p className="font-bold text-black">Online refill guide</p>
+          <p className="text-xs text-black/55 mt-1">Bookmark links · print to save</p>
         </Link>
         <Link
           href="/glp1-weight-loss"

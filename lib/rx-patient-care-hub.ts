@@ -14,6 +14,7 @@ import {
   RX_MESSAGES_PATH,
   RX_PATIENT_CARE_PATH,
 } from "@/lib/flows";
+import { RX_ONLINE_GUIDE_PATH } from "@/lib/rx-online-guide";
 import { RX_STATUS_PATH } from "@/lib/rx-patient-status";
 import { RX_TELEHEALTH_CADENCE_DAYS } from "@/lib/rx-supply-cycle";
 import { GLP1_PROGRAM } from "@/lib/glp1-program-pricing";
@@ -338,6 +339,14 @@ export const RX_PATIENT_CARE_ADDON_GROUPS = peptideMonthlyAddonsByGroup().map((s
 }));
 
 export const RX_PATIENT_CARE_GUIDES: RxCareGuide[] = [
+  {
+    id: "online-refill-guide",
+    title: "Your online refill guide",
+    description: "Bookmark every RX link — refills, pay, track, message & app.",
+    href: RX_ONLINE_GUIDE_PATH,
+    emoji: "📱",
+    tag: "Start here",
+  },
   {
     id: "glp1-injection",
     title: "Subcutaneous injection guide",

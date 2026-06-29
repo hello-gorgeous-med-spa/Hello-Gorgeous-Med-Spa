@@ -12,6 +12,7 @@ import {
 } from "@/lib/flows";
 import { GENTLEMENS_CLUB_PATH } from "@/lib/gentlemens-club";
 import { HOMEPAGE_MEDICAL_ANCHOR } from "@/lib/homepage-buyer-paths";
+import { RX_ONLINE_GUIDE_PATH } from "@/lib/rx-online-guide";
 import { CLIENT_APP } from "@/lib/client-app";
 import { SHOP_RX_HERO_IMAGE } from "@/lib/shop-rx-product-images";
 
@@ -33,6 +34,7 @@ const QUICK_ACTIONS = [
 ] as const;
 
 const MORE_MEDICAL = [
+  { href: RX_ONLINE_GUIDE_PATH, label: "Online refill guide" },
   { href: "/iv-therapy", label: "IV therapy" },
   { href: "/vitamin-bar", label: "Vitamin bar" },
   { href: GENTLEMENS_CLUB_PATH, label: "Men's TRT" },
