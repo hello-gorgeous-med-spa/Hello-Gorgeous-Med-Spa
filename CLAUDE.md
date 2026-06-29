@@ -125,6 +125,10 @@ and labeled review proof. GLP-1 intake success uses `RxPostSubmitCard` + `glp1In
 blocked richer content. Flagship pages kept: `botox-oswego-il`, `hormone-therapy-oswego-il` (ISR +
 live reviews). Far-flung cities stay deindexed/301 per `lib/city-seo-tier.ts`.
 
+**Olympia wholesale pricelist:** `data/olympia-pricelist.json` + `lib/olympia-pricelist.ts` (331 SKUs,
+HELLO45844 portal export). Re-sync when Olympia updates pricing: `npm run sync:olympia` (PDF at
+`data/source/olympia-pricelist-2026-06-29.pdf`). Use for COGS / menu expansion — not client-facing retail.
+
 ## Content & legal guardrails (medical / advertising)
 
 - **Never disparage or make comparative claims about competitors** (defamation / Lanham

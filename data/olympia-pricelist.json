@@ -1,0 +1,2368 @@
+{
+  "source": "olympiapharmacy.drscriptportal.com/reports/print_pricing",
+  "sourcePdf": "data/source/olympia-pricelist-2026-06-29.pdf",
+  "clinic": "HELLO GORGEOUS PC",
+  "doctor": "Ryan Kent",
+  "username": "HELLO45844",
+  "exportedAt": "2026-06-29",
+  "productCount": 331,
+  "products": [
+    {
+      "sku": 1,
+      "name": "10 - Pack Savor Female Libido",
+      "concentration": "Enhancer Ashwagandha: 62.5mg, L- Citrulline: 500mg, Damiana Powder (Leaf): 75mg, Gingko Biloba Powder (Leaf): 60mg",
+      "dispenseSize": "ea",
+      "wholesaleUsd": 200
+    },
+    {
+      "sku": 1,
+      "name": "Kit",
+      "concentration": "",
+      "dispenseSize": "",
+      "wholesaleUsd": 127
+    },
+    {
+      "sku": 1,
+      "name": "Kit",
+      "concentration": "",
+      "dispenseSize": "",
+      "wholesaleUsd": 127
+    },
+    {
+      "sku": 2,
+      "name": "10 - Pack Vigor Natural",
+      "concentration": "Testosterone Booster Tribulus Terrestris Extract 500mg, Fenugreek Extract 450mg, Shilajit Extract (40% Fulvic Acid) 200mg, Boron 3mg",
+      "dispenseSize": "ea",
+      "wholesaleUsd": 200
+    },
+    {
+      "sku": 3,
+      "name": "Alcohol swabs (100ct) box",
+      "concentration": "",
+      "dispenseSize": "100 count",
+      "wholesaleUsd": 5
+    },
+    {
+      "sku": 4,
+      "name": "Alleviate (PMS Relief) IV KIT",
+      "concentration": "Calcium Chloride 100mg/ml , Magnesium Chloride 300mg/ml ,B1, B3 100mg B2,B5, B6 2mg /ml, Hydroxocobalamin B12 2mg/ml 1.Calcium Chloride 30ml 2.Magnesium Chloride 30ml 3.Olympia Vita Complex 30ml 4.Hydroxocobalamin 30ml",
+      "dispenseSize": "",
+      "wholesaleUsd": 253.04
+    },
+    {
+      "sku": 5,
+      "name": "Alpha - Lipoic Acid 25mg/ml",
+      "concentration": "25mg/ml",
+      "dispenseSize": "30ml",
+      "wholesaleUsd": 88
+    },
+    {
+      "sku": 6,
+      "name": "Amino Blend",
+      "concentration": "L-Proline 50mg, L-Arginine HCL100mg, L-Lysine HCL 50mg, L-Carnitine 100mg (per ml)",
+      "dispenseSize": "30ml",
+      "wholesaleUsd": 79.35
+    },
+    {
+      "sku": 7,
+      "name": "Anastrozole 0.25mg IR Capsules",
+      "concentration": "0.25mg",
+      "dispenseSize": "ea",
+      "wholesaleUsd": 1
+    },
+    {
+      "sku": 8,
+      "name": "Anastrozole 0.5mg IR Capsules",
+      "concentration": "0.5mg",
+      "dispenseSize": "ea",
+      "wholesaleUsd": 1.1
+    },
+    {
+      "sku": 9,
+      "name": "Anastrozole 0.75mg IR Capsules",
+      "concentration": "0.75mg",
+      "dispenseSize": "ea",
+      "wholesaleUsd": 1.2
+    },
+    {
+      "sku": 10,
+      "name": "Anastrozole 1.5mg IR Capsules",
+      "concentration": "1.5mg capsule",
+      "dispenseSize": "ea",
+      "wholesaleUsd": 1.3
+    },
+    {
+      "sku": 11,
+      "name": "Ascorbic Acid (with preservative)",
+      "concentration": "30ml 500mg/ml (with preservative)",
+      "dispenseSize": "30ml",
+      "wholesaleUsd": 61.5
+    },
+    {
+      "sku": 12,
+      "name": "AUTO JECT 2",
+      "concentration": "",
+      "dispenseSize": "ea",
+      "wholesaleUsd": 35
+    },
+    {
+      "sku": 13,
+      "name": "B - Lean IV Kit",
+      "concentration": "Taurine 50mg/ml : B1,B3 100mg/ml, B2,B5, B6 2mg/ml : Methylcobalamin 5mg/ml 1.Taurine 30ml 2.Olympia Vita Complex 30ml 3. Methylcobalamin 10ml",
+      "dispenseSize": "",
+      "wholesaleUsd": 162.59
+    },
+    {
+      "sku": 14,
+      "name": "B12 Cyanocobalamin 2mg/ml",
+      "concentration": "2mg/ml",
+      "dispenseSize": "10ml",
+      "wholesaleUsd": 29.1
+    },
+    {
+      "sku": 15,
+      "name": "B12 Hydroxocobalamin 2mg/ml x",
+      "concentration": "30ml 2 mg/ml",
+      "dispenseSize": "30ml",
+      "wholesaleUsd": 64.8
+    },
+    {
+      "sku": 16,
+      "name": "B12 Methylcobalamin 5mg/ml 10ml",
+      "concentration": "(Ten Milliliters) 5mg/ml",
+      "dispenseSize": "10ml",
+      "wholesaleUsd": 29.1
+    },
+    {
+      "sku": 17,
+      "name": "B12 Methylcobalamin 5mg/ml 30ml",
+      "concentration": "(Thirty Milliliters) 5mg/ml",
+      "dispenseSize": "30ml",
+      "wholesaleUsd": 64.8
+    },
+    {
+      "sku": 18,
+      "name": "Benzocaine/Lidocaine/Tetracaine",
+      "concentration": "(20%/10%/10%) Cream 120g Jar - Lipoderm Base Benzocaine/Lidocaine/Tetracaine 20%/10%/10%",
+      "dispenseSize": "120g",
+      "wholesaleUsd": 120
+    },
+    {
+      "sku": 19,
+      "name": "Benzocaine/Lidocaine/Tetracaine",
+      "concentration": "(20%/10%/10%) Cream 120g Jar - Lipoderm Base. Benzocaine/Lidocaine/Tetracaine 20%/10%/10%",
+      "dispenseSize": "120g",
+      "wholesaleUsd": 120
+    },
+    {
+      "sku": 20,
+      "name": "Benzocaine/Lidocaine/Tetracaine",
+      "concentration": "(20%/10%/10%) Cream 30g Jar - Lipoderm base Benzocaine/ Lidocaine/ Tetracaine (20%/10%/10%)",
+      "dispenseSize": "30g",
+      "wholesaleUsd": 30
+    },
+    {
+      "sku": 21,
+      "name": "Benzocaine/Lidocaine/Tetracaine",
+      "concentration": "(20%/10%/10%) Cream 30g Jar - Lipoderm base. Benzocaine/ Lidocaine/ Tetracaine (20%/10%/10%)",
+      "dispenseSize": "30g",
+      "wholesaleUsd": 30
+    },
+    {
+      "sku": 22,
+      "name": "Benzocaine/Lidocaine/Tetracaine",
+      "concentration": "(20%/10%/10%) Cream 60g Jar - Lipoderm Base Benzocaine/Lidocaine/Tetracaine 20%/10%/10%",
+      "dispenseSize": "60g",
+      "wholesaleUsd": 60
+    },
+    {
+      "sku": 23,
+      "name": "Benzocaine/Lidocaine/Tetracaine",
+      "concentration": "(20%/10%/10%) Cream 60g Jar - Lipoderm Base. Benzocaine/Lidocaine/Tetracaine 20%/10%/10%",
+      "dispenseSize": "60g",
+      "wholesaleUsd": 60
+    },
+    {
+      "sku": 24,
+      "name": "Benzocaine/Lidocaine/Tetracaine",
+      "concentration": "(20%/6%/4%) Cream 120g Jar- Lipoderm Base Benzocaine/Lidocaine/Tetracaine 20%/6%/4%",
+      "dispenseSize": "120g",
+      "wholesaleUsd": 120
+    },
+    {
+      "sku": 25,
+      "name": "Benzocaine/Lidocaine/Tetracaine",
+      "concentration": "(20%/6%/4%) Cream 120g Jar- Lipoderm Base. Benzocaine/Lidocaine/Tetracaine 20%/6%/4%",
+      "dispenseSize": "120g",
+      "wholesaleUsd": 120
+    },
+    {
+      "sku": 26,
+      "name": "Benzocaine/Lidocaine/Tetracaine",
+      "concentration": "(20%/6%/4%) Cream 240g Jar - Lipoderm Base Benzocaine/Lidocaine/Tetracaine 20%/6%/4%",
+      "dispenseSize": "240g",
+      "wholesaleUsd": 240
+    },
+    {
+      "sku": 27,
+      "name": "Benzocaine/Lidocaine/Tetracaine",
+      "concentration": "(20%/6%/4%) Cream 240g Jar - Lipoderm Base. Benzocaine/Lidocaine/Tetracaine 20%/6%/4%",
+      "dispenseSize": "240g",
+      "wholesaleUsd": 240
+    },
+    {
+      "sku": 28,
+      "name": "Benzocaine/Lidocaine/Tetracaine",
+      "concentration": "(20%/6%/4%) Cream 30g Jar - Lipoderm Base Benzocaine/Lidocaine/Tetracaine 20%/6%/4%",
+      "dispenseSize": "30g",
+      "wholesaleUsd": 30
+    },
+    {
+      "sku": 29,
+      "name": "Benzocaine/Lidocaine/Tetracaine",
+      "concentration": "(20%/6%/4%) Cream 30g Jar - Lipoderm Base. Benzocaine/Lidocaine/Tetracaine 20%/6%/4%",
+      "dispenseSize": "30g",
+      "wholesaleUsd": 30
+    },
+    {
+      "sku": 30,
+      "name": "Benzocaine/Lidocaine/Tetracaine",
+      "concentration": "(20%/6%/4%) Cream 60g Jar - Lipoderm Base Benzocaine/Lidocaine/Tetracaine 20%/6%/4%",
+      "dispenseSize": "60g",
+      "wholesaleUsd": 60
+    },
+    {
+      "sku": 31,
+      "name": "Benzocaine/Lidocaine/Tetracaine",
+      "concentration": "(20%/6%/4%) Cream 60g Jar - Lipoderm Base. Benzocaine/Lidocaine/Tetracaine 20%/6%/4%",
+      "dispenseSize": "60g",
+      "wholesaleUsd": 60
+    },
+    {
+      "sku": 32,
+      "name": "Biest (50/50) 0.05% (0.5mg/ml)",
+      "concentration": "Cream 30g Topiclick - Versa Base 0.05%",
+      "dispenseSize": "30g",
+      "wholesaleUsd": 36
+    },
+    {
+      "sku": 33,
+      "name": "Biest (50/50) 0.1% (1mg/ml) Cream",
+      "concentration": "30g Topiclick - Versa Base 0.1%",
+      "dispenseSize": "30g",
+      "wholesaleUsd": 36
+    },
+    {
+      "sku": 34,
+      "name": "Biest (80/20) 0.05% (0.5mg/mL)",
+      "concentration": "Cream 30g Topiclick - Versa Base 0.05%",
+      "dispenseSize": "30g",
+      "wholesaleUsd": 36
+    },
+    {
+      "sku": 35,
+      "name": "Biest (80/20) 0.1% (1mg/ml) Cream",
+      "concentration": "30g Topiclick - Versa Base 0.1%",
+      "dispenseSize": "30g",
+      "wholesaleUsd": 36
+    },
+    {
+      "sku": 36,
+      "name": "Biest (80/20) 0.25% (2.5mg/ml)",
+      "concentration": "Cream 30g Topiclick - Versa Base 0.25%",
+      "dispenseSize": "30g",
+      "wholesaleUsd": 36
+    },
+    {
+      "sku": 37,
+      "name": "Biest (80/20) 1.25mg RDTs",
+      "concentration": "1.25mg",
+      "dispenseSize": "ea",
+      "wholesaleUsd": 1.1
+    },
+    {
+      "sku": 38,
+      "name": "Biest (80/20) 1.5mg RDTs",
+      "concentration": "1.5",
+      "dispenseSize": "ea",
+      "wholesaleUsd": 1.2
+    },
+    {
+      "sku": 39,
+      "name": "Biest (80/20) 1mg RDTs",
+      "concentration": "1",
+      "dispenseSize": "ea",
+      "wholesaleUsd": 1
+    },
+    {
+      "sku": 40,
+      "name": "Biest (80/20) 2.5mg RDTs",
+      "concentration": "2.5",
+      "dispenseSize": "ea",
+      "wholesaleUsd": 1.4
+    },
+    {
+      "sku": 41,
+      "name": "Biest (80/20) 2mg RDTs",
+      "concentration": "2",
+      "dispenseSize": "ea",
+      "wholesaleUsd": 1.3
+    },
+    {
+      "sku": 42,
+      "name": "Biest (80/20) 3mg RDTs",
+      "concentration": "3",
+      "dispenseSize": "ea",
+      "wholesaleUsd": 1.5
+    },
+    {
+      "sku": 43,
+      "name": "BM3 (10ml) Papaverine 30mg/ml",
+      "concentration": "|Phentolamine 3 mg/ml",
+      "dispenseSize": "10ml",
+      "wholesaleUsd": 109.25
+    },
+    {
+      "sku": 44,
+      "name": "BM3 (2.5ml) Papaverine 30mg/ml",
+      "concentration": "|Phentolamine 3 mg/ml",
+      "dispenseSize": "2.5ml",
+      "wholesaleUsd": 84.64
+    },
+    {
+      "sku": 45,
+      "name": "Brainstorm IV Kit",
+      "concentration": "Alpha Lipoic Acid 25mg/ml : Taurine 50mg/ml : Pyridoxine (B6) 85mg/ml 1.Alpha Lipoic Acid 30ml 2.Taurine 30ml 3. Pyridoxine (B6) 85mg/ml",
+      "dispenseSize": "",
+      "wholesaleUsd": 195.84
+    },
+    {
+      "sku": 46,
+      "name": "BUNDLE Lipo Mino 30ml and L-",
+      "concentration": "Carnitine 30ml Bundle (2 vials) Lipo Mino: (pyridoxine (B6) 2mg ,methionine 12.4mg, inositol 25mg, choline25mg, B12 Cyanocobalamin1mg (inactive), thiamine B1 50mg, riboflavin B2 5mg) /ml x 30ml, L-Carnitine 500mg/ml x 30ml",
+      "dispenseSize": "2 x 30ml",
+      "wholesaleUsd": 141.45
+    },
+    {
+      "sku": 47,
+      "name": "BUNDLE NAD (Liquid) and",
+      "concentration": "Sermorelin (Liquid) NAD 100 mg/ml, Sermorelin 0.9 mg/ml",
+      "dispenseSize": "10mL , 10mL",
+      "wholesaleUsd": 143.24
+    },
+    {
+      "sku": 48,
+      "name": "Burn Bundle Bundle - 2 vials",
+      "concentration": "methionine 25mg, inositol 50mg, choline 50mg, cyanocobalamin 330 mcg, L-Carnitine 500mg/ml 1. MICC 30ML 2. L-Carnitine 30ML",
+      "dispenseSize": "",
+      "wholesaleUsd": 115
+    },
+    {
+      "sku": 49,
+      "name": "Calcium Chloride (NOT for IM)",
+      "concentration": "100mg/ml",
+      "dispenseSize": "30ml",
+      "wholesaleUsd": 64.8
+    },
+    {
+      "sku": 50,
+      "name": "Circulate",
+      "concentration": "Arginine HCl 100mg/mL, Niacinamide 10mg/mL, Pyridoxine HCl 10mg/mL, Taurine 5mg/mL",
+      "dispenseSize": "10ml",
+      "wholesaleUsd": 68.15
+    },
+    {
+      "sku": 51,
+      "name": "Climax Cream 30g Pump",
+      "concentration": "(Theophylline 3%/ Arginine 6% / Ergoloid Mesylate 0.05% / Pentotoxifylline 5%) Theophylline 3% / Arginine 6% / Ergoloid Mesylate 0.05% / Pentoxifylline 5%",
+      "dispenseSize": "30grams",
+      "wholesaleUsd": 65
+    },
+    {
+      "sku": 52,
+      "name": "Clomiphene 25mg Tablets",
+      "concentration": "25mg",
+      "dispenseSize": "ea",
+      "wholesaleUsd": 1.25
+    },
+    {
+      "sku": 53,
+      "name": "Clomiphene 50mg Tablets",
+      "concentration": "50mg",
+      "dispenseSize": "ea",
+      "wholesaleUsd": 1.5
+    },
+    {
+      "sku": 54,
+      "name": "Corrector (Hydroquinone 6%) 30g",
+      "concentration": "Cream 6%",
+      "dispenseSize": "30g",
+      "wholesaleUsd": 50
+    },
+    {
+      "sku": 55,
+      "name": "Corrector Max (Hydroquinone 12%)",
+      "concentration": "30g Cream 12%",
+      "dispenseSize": "30g",
+      "wholesaleUsd": 71
+    },
+    {
+      "sku": 56,
+      "name": "Corrector Plus (Hydroquinone 10%)",
+      "concentration": "30g Cream 10%",
+      "dispenseSize": "30g",
+      "wholesaleUsd": 65
+    },
+    {
+      "sku": 57,
+      "name": "Debloat Bundle",
+      "concentration": "L-Glutamine 25mg/mL, Magnesium Chloride 300mg/mL, Zinc Sulfate 10mg/mL, Via- Complex 30mL 1. L-Glutamine 30mL 2. Magnesium Chloride 30mL 3. Zinc Sulfate 10mL 4. Vita- Complex 30mL",
+      "dispenseSize": "",
+      "wholesaleUsd": 224.47
+    },
+    {
+      "sku": 58,
+      "name": "Dexpanthenol (B5)",
+      "concentration": "250 mg/ml",
+      "dispenseSize": "30ml",
+      "wholesaleUsd": 64.8
+    },
+    {
+      "sku": 59,
+      "name": "DHEA 10MG Capsules 60ct",
+      "concentration": "10mg",
+      "dispenseSize": "each",
+      "wholesaleUsd": 25
+    },
+    {
+      "sku": 60,
+      "name": "DHEA 25MG Capsules 60ct",
+      "concentration": "25mg",
+      "dispenseSize": "each",
+      "wholesaleUsd": 25
+    },
+    {
+      "sku": 61,
+      "name": "DHEA 25mg/Pregnenolone 250mg",
+      "concentration": "E4M Cap",
+      "dispenseSize": "DHEA 25mg/Pregnenolone 250mg ea",
+      "wholesaleUsd": 1.3
+    },
+    {
+      "sku": 62,
+      "name": "DHEA 30mg/Pregnenolone 25mg",
+      "concentration": "E4M Capsules (30mg/25mg)",
+      "dispenseSize": "ea",
+      "wholesaleUsd": 1.2
+    },
+    {
+      "sku": 63,
+      "name": "DHEA 5MG Capsules 60ct",
+      "concentration": "5mg",
+      "dispenseSize": "each",
+      "wholesaleUsd": 25
+    },
+    {
+      "sku": 64,
+      "name": "DHEA 5mg/Pregnenolone 200mg",
+      "concentration": "E4M Capsules DHEA 5mg/Pregnenolone 200mg",
+      "dispenseSize": "ea",
+      "wholesaleUsd": 1.2
+    },
+    {
+      "sku": 65,
+      "name": "Enclomiphene Citrate 12.5mg IR",
+      "concentration": "12.5mg",
+      "dispenseSize": "ea",
+      "wholesaleUsd": 1.75
+    },
+    {
+      "sku": 66,
+      "name": "Enclomiphene Citrate 25mg IR",
+      "concentration": "25mg",
+      "dispenseSize": "ea",
+      "wholesaleUsd": 2.25
+    },
+    {
+      "sku": 67,
+      "name": "Erase (Retinoic Acid 0.1% /",
+      "concentration": "Clindamycin 2%) 30g Cream 0.1% / 2%",
+      "dispenseSize": "30g",
+      "wholesaleUsd": 50
+    },
+    {
+      "sku": 68,
+      "name": "Estradiol 0.4% (4mg/mL) Cream 30g",
+      "concentration": "Topiclick - Ellage Base 0.4%",
+      "dispenseSize": "30g",
+      "wholesaleUsd": 35
+    },
+    {
+      "sku": 69,
+      "name": "Estradiol 0.5mg RDTs",
+      "concentration": ".5",
+      "dispenseSize": "ea",
+      "wholesaleUsd": 1
+    },
+    {
+      "sku": 70,
+      "name": "Estradiol 0.8% (8mg/mL) Cream 30g",
+      "concentration": "Topiclick - Ellage Base 0.8%",
+      "dispenseSize": "30g",
+      "wholesaleUsd": 35
+    },
+    {
+      "sku": 71,
+      "name": "Estradiol 1.2% (12mg/mL) Cream",
+      "concentration": "30g Topiclick - Ellage Base 1.2%",
+      "dispenseSize": "30g",
+      "wholesaleUsd": 35
+    },
+    {
+      "sku": 72,
+      "name": "Estradiol 1.25mg RDT",
+      "concentration": "1.25mg",
+      "dispenseSize": "ea",
+      "wholesaleUsd": 1
+    },
+    {
+      "sku": 73,
+      "name": "Estradiol 1.5mg RDT",
+      "concentration": "1.5mg",
+      "dispenseSize": "ea",
+      "wholesaleUsd": 1
+    },
+    {
+      "sku": 74,
+      "name": "Estradiol 1.75mg RDT",
+      "concentration": "1.75mg",
+      "dispenseSize": "ea",
+      "wholesaleUsd": 1
+    },
+    {
+      "sku": 75,
+      "name": "Estradiol 1mg RDTs",
+      "concentration": "1mg",
+      "dispenseSize": "ea",
+      "wholesaleUsd": 1
+    },
+    {
+      "sku": 76,
+      "name": "Estradiol 2.1mg RDT",
+      "concentration": "2.1mg",
+      "dispenseSize": "ea",
+      "wholesaleUsd": 1
+    },
+    {
+      "sku": 77,
+      "name": "Estradiol 2.25mg RDT",
+      "concentration": "2.25mg",
+      "dispenseSize": "ea",
+      "wholesaleUsd": 1
+    },
+    {
+      "sku": 78,
+      "name": "Estradiol 2.5mg RDT",
+      "concentration": "2.5mg",
+      "dispenseSize": "ea",
+      "wholesaleUsd": 1
+    },
+    {
+      "sku": 79,
+      "name": "Estradiol 2.75mg RDT",
+      "concentration": "2.75mg",
+      "dispenseSize": "ea",
+      "wholesaleUsd": 1
+    },
+    {
+      "sku": 80,
+      "name": "Estradiol 3.5mg RDT",
+      "concentration": "3mg",
+      "dispenseSize": "ea",
+      "wholesaleUsd": 1
+    },
+    {
+      "sku": 81,
+      "name": "Estradiol 3mg RDT",
+      "concentration": "3mg",
+      "dispenseSize": "ea",
+      "wholesaleUsd": 1
+    },
+    {
+      "sku": 82,
+      "name": "Estradiol 4mg RDT",
+      "concentration": "4mg",
+      "dispenseSize": "ea",
+      "wholesaleUsd": 1
+    },
+    {
+      "sku": 83,
+      "name": "Estradiol 6mg RDT",
+      "concentration": "6mg",
+      "dispenseSize": "ea",
+      "wholesaleUsd": 1.5
+    },
+    {
+      "sku": 84,
+      "name": "Euphoria Cream 30g Pump Arginine HCl 6%, Papaverine HCl",
+      "concentration": "5%, Alprostadil 0.2%",
+      "dispenseSize": "30g",
+      "wholesaleUsd": 71
+    },
+    {
+      "sku": 85,
+      "name": "F-1 (10ml)",
+      "concentration": "Papaverine 1.8mg/ml |Phentolamine 0.2 mg/ml |PGE 18 mcg/ml |Atropine 0.02mg/ml",
+      "dispenseSize": "10ml",
+      "wholesaleUsd": 86.25
+    },
+    {
+      "sku": 86,
+      "name": "F-1 (2.5ml)",
+      "concentration": "Papaverine 1.8mg/ml |Phentolamine 0.2 mg/ml |PGE 18 mcg/ml |Atropine 0.02mg/ml",
+      "dispenseSize": "2.5ml",
+      "wholesaleUsd": 60
+    },
+    {
+      "sku": 87,
+      "name": "F-9 (10ml)",
+      "concentration": "Papaverine 0.9mg/ml |Phentolamine 0.1 mg/ml |PGE 20 mcg/ml |Atropine 0.01mg/ml",
+      "dispenseSize": "10ml",
+      "wholesaleUsd": 86.25
+    },
+    {
+      "sku": 88,
+      "name": "F-9 (2.5ml)",
+      "concentration": "Papaverine 0.9mg/ml |Phentolamine 0.1 mg/ml |PGE 20 mcg/ml |Atropine 0.01mg/ml",
+      "dispenseSize": "2.5ml",
+      "wholesaleUsd": 66.13
+    },
+    {
+      "sku": 89,
+      "name": "FA (10ml)",
+      "concentration": "Papaverine 20mg/ml |Phentolamine 2 mg/ml |PGE 20 mcg/ml |Atropine 0.2mg/ml",
+      "dispenseSize": "10ml",
+      "wholesaleUsd": 96.6
+    },
+    {
+      "sku": 90,
+      "name": "FA (2.5ml)",
+      "concentration": "Papaverine 20mg/ml |Phentolamine 2 mg/ml |PGE 20 mcg/ml |Atropine 0.2mg/ml",
+      "dispenseSize": "2.5ml",
+      "wholesaleUsd": 69
+    },
+    {
+      "sku": 91,
+      "name": "Get Up and Go IV KIT",
+      "concentration": "B1,B3 100mg B2,B5,B6 2mg : L- Proline 50mg, L-Arginine HCL100mg, L-Lysine HCL 50mg, L-Carnitine 100mg (per ml) 1.Olympia Vita Complex 30ml 2.Amino Blend 30ml",
+      "dispenseSize": "",
+      "wholesaleUsd": 149.49
+    },
+    {
+      "sku": 92,
+      "name": "Glow (Kojic Acid 5%/ Hyaluronic",
+      "concentration": "0.5% Ascorbic Acid 2%) 30g Cream 5% / 2% / 0.5%",
+      "dispenseSize": "30g",
+      "wholesaleUsd": 50
+    },
+    {
+      "sku": 93,
+      "name": "Glutathione 30ML (Thirty Milliliters)",
+      "concentration": "(*Cold Ship Item) 200mg/ml",
+      "dispenseSize": "30ml",
+      "wholesaleUsd": 58,
+      "coldShip": true
+    },
+    {
+      "sku": 94,
+      "name": "Glutathione 5ml (Five Milliliters)",
+      "concentration": "(*Cold Ship Item) 200mg/ml",
+      "dispenseSize": "5ml",
+      "wholesaleUsd": 26.45,
+      "coldShip": true
+    },
+    {
+      "sku": 95,
+      "name": "Glutatonic (30 day supply)",
+      "concentration": "60ml's",
+      "dispenseSize": "1 bottle",
+      "wholesaleUsd": 34
+    },
+    {
+      "sku": 96,
+      "name": "Glycerin 48% / Lidocaine 0.33%",
+      "concentration": "Glycerin 48% / Lidocaine 0.33%",
+      "dispenseSize": "10ml",
+      "wholesaleUsd": 32.2
+    },
+    {
+      "sku": 97,
+      "name": "Glycerin 72%",
+      "concentration": "72%",
+      "dispenseSize": "10ml",
+      "wholesaleUsd": 32.2
+    },
+    {
+      "sku": 98,
+      "name": "Healing (Post-Op Recovery) IV Kit",
+      "concentration": "Ascorbic Acid 500mg/ml, MagnesiumCL 80mg, Zinc 1mg,Manganese 0.02mg, Copper 0.2mg/ml, B1,B3 @ 100mg/ml B2,B5,B6 @ 2mg/ml, Taurine 50mg/ml 1.Ascorbic Acid 30ml 2.Mineral Blend 30ml 3.Olympia Vita Complex 30ml 4.Taurine 30ml",
+      "dispenseSize": "",
+      "wholesaleUsd": 273.87
+    },
+    {
+      "sku": 99,
+      "name": "HIGH CONCENTRATION Biotin",
+      "concentration": "Injection 10mg/mL 10mg/mL",
+      "dispenseSize": "10ml",
+      "wholesaleUsd": 56.35
+    },
+    {
+      "sku": 100,
+      "name": "Illuminate (Retinoic Acid 0.05%/",
+      "concentration": "Hyaluronic Acid 0.1%/ Ascorbic Acid 2%) 30g Cream 0.05% / 0.1% / 2%",
+      "dispenseSize": "30g",
+      "wholesaleUsd": 50
+    },
+    {
+      "sku": 101,
+      "name": "Illuminate Max (Hydroquinone 8%/",
+      "concentration": "Retinoic Acid 0.05%/ Hyaluronic Acid 0.2%/Ascorbic Acid 2%) 30g Cream 8%/ 0.05%/ 0.2%/ 2%",
+      "dispenseSize": "30g",
+      "wholesaleUsd": 71
+    },
+    {
+      "sku": 102,
+      "name": "Illuminate Plus (Retinoic Acid",
+      "concentration": "0.05%/ Hyaluronic Acid 0.2%/ Ascorbic Acid 2%) 30g Cream 0.05% / 0.2% / 2%",
+      "dispenseSize": "30g",
+      "wholesaleUsd": 65
+    },
+    {
+      "sku": 103,
+      "name": "IM Syringes 20g x 1 x 3cc",
+      "concentration": "",
+      "dispenseSize": "ea",
+      "wholesaleUsd": 0.3
+    },
+    {
+      "sku": 104,
+      "name": "IM Syringes 25g x 1 x 3cc",
+      "concentration": "25g x 1",
+      "dispenseSize": "ea",
+      "wholesaleUsd": 0.3
+    },
+    {
+      "sku": 105,
+      "name": "Immunity IV KIT",
+      "concentration": "Ascorbic Acid 500mg/ml : B1,B3 100mg/ml, B2,B5, B6 2mg/ml : Zinc Sulfate 10mg/ml 1.Ascorbic Acid 30ml 2.Olympia Vita Complex 30ml 3. Zinc Sulfate 10ml",
+      "dispenseSize": "",
+      "wholesaleUsd": 163.18
+    },
+    {
+      "sku": 106,
+      "name": "Inner Beauty Bundle (Fortify hair,",
+      "concentration": "skin, nails) Ascorbic Acid 500mg /mL | Vita Complex B1,B3 100mg/mL & B2, B5 ,B6 2mg /ml | Biotin (High Concentration) 10mg/mL 1.Ascorbic Acid 500mg/mL, 30ml 2. Olympia Vita Complex 30ml 3.Biotin (High Concentration) 10mg/mL, 10mL",
+      "dispenseSize": "",
+      "wholesaleUsd": 184.14
+    },
+    {
+      "sku": 107,
+      "name": "L-Arginine",
+      "concentration": "200mg/ml",
+      "dispenseSize": "30ml",
+      "wholesaleUsd": 64.8
+    },
+    {
+      "sku": 108,
+      "name": "L-Carnitine 500mg/ml",
+      "concentration": "500mg/ml",
+      "dispenseSize": "30ml",
+      "wholesaleUsd": 64.8
+    },
+    {
+      "sku": 109,
+      "name": "L-Glutamine 25mg/ml (Cold Ship",
+      "concentration": "Item) 25mg/ml",
+      "dispenseSize": "30ml",
+      "wholesaleUsd": 64.8,
+      "coldShip": true
+    },
+    {
+      "sku": 110,
+      "name": "L-Lysine",
+      "concentration": "100mg/ml",
+      "dispenseSize": "30ml",
+      "wholesaleUsd": 64.8
+    },
+    {
+      "sku": 111,
+      "name": "L-Proline",
+      "concentration": "100mg/ml",
+      "dispenseSize": "30ml",
+      "wholesaleUsd": 64.8
+    },
+    {
+      "sku": 112,
+      "name": "Lidocaine 1% HCL - Case of 25",
+      "concentration": "vials (*drug shortage item) 1%",
+      "dispenseSize": "30ml",
+      "wholesaleUsd": 661.25
+    },
+    {
+      "sku": 113,
+      "name": "Lidocaine 1% HCL with Epinephrine",
+      "concentration": "1:100,000 (*drug shortage item) 1% | 1:100,000",
+      "dispenseSize": "30ml",
+      "wholesaleUsd": 32.85
+    },
+    {
+      "sku": 114,
+      "name": "Lidocaine HCL 1% (*drug shortage",
+      "concentration": "item) 1%",
+      "dispenseSize": "30ml",
+      "wholesaleUsd": 25.85
+    },
+    {
+      "sku": 115,
+      "name": "Lidocaine HCL 2% MDV 30ml (*drug",
+      "concentration": "shortage item) 2%",
+      "dispenseSize": "30ml",
+      "wholesaleUsd": 32.85
+    },
+    {
+      "sku": 116,
+      "name": "Lidocaine/Prilocaine/Phenylephrine",
+      "concentration": "(23%/10%/0.5%) Ointment 30g Jar 23%/10%/0.5%",
+      "dispenseSize": "30g",
+      "wholesaleUsd": 37.5
+    },
+    {
+      "sku": 117,
+      "name": "Lidocaine/Prilocaine/Phenylephrine",
+      "concentration": "(23%/10%/0.5%) Ointment 30g Jar. 23%/10%/0.5%",
+      "dispenseSize": "30g",
+      "wholesaleUsd": 37.5
+    },
+    {
+      "sku": 118,
+      "name": "Lidocaine/Tetracaine (23%/7%) Gel",
+      "concentration": "120g Jar - Plasticized Base Lidocaine/Tetracaine (23%/7%)",
+      "dispenseSize": "120g",
+      "wholesaleUsd": 150
+    },
+    {
+      "sku": 119,
+      "name": "Lidocaine/Tetracaine (23%/7%) Gel",
+      "concentration": "120g Jar - Plasticized Base. Lidocaine/Tetracaine (23%/7%)",
+      "dispenseSize": "120g",
+      "wholesaleUsd": 150
+    },
+    {
+      "sku": 120,
+      "name": "Lidocaine/Tetracaine (23%/7%) Gel",
+      "concentration": "240g Jar - Plasticized Base Lidocaine/Tetracaine (23%/7%)",
+      "dispenseSize": "240g",
+      "wholesaleUsd": 300
+    },
+    {
+      "sku": 121,
+      "name": "Lidocaine/Tetracaine (23%/7%) Gel",
+      "concentration": "240g Jar - Plasticized Base. Lidocaine/Tetracaine (23%/7%)",
+      "dispenseSize": "240g",
+      "wholesaleUsd": 300
+    },
+    {
+      "sku": 122,
+      "name": "Lidocaine/Tetracaine (23%/7%) Gel",
+      "concentration": "30g Jar - Plasticized Base Lidocaine/Tetracaine (23%/7%)",
+      "dispenseSize": "30g",
+      "wholesaleUsd": 37.5
+    },
+    {
+      "sku": 123,
+      "name": "Lidocaine/Tetracaine (23%/7%) Gel",
+      "concentration": "30g Jar - Plasticized Base. Lidocaine/Tetracaine (23%/7%)",
+      "dispenseSize": "30g",
+      "wholesaleUsd": 37.5
+    },
+    {
+      "sku": 124,
+      "name": "Lidocaine/Tetracaine (23%/7%) Gel",
+      "concentration": "60g Jar - Plasticized Base Lidocaine/Tetracaine (23%/7%)",
+      "dispenseSize": "60g",
+      "wholesaleUsd": 75
+    },
+    {
+      "sku": 125,
+      "name": "Lidocaine/Tetracaine (23%/7%) Gel",
+      "concentration": "60g Jar - Plasticized Base. Lidocaine/Tetracaine (23%/7%)",
+      "dispenseSize": "60g",
+      "wholesaleUsd": 75
+    },
+    {
+      "sku": 126,
+      "name": "Lidocaine/Tetracaine/Phenylephrine",
+      "concentration": "(23%/7%/2%) Gel 30g Jar - Plasticized Base 23 / 7 / 2%",
+      "dispenseSize": "30g",
+      "wholesaleUsd": 37.5
+    },
+    {
+      "sku": 127,
+      "name": "Lidocaine/Tetracaine/Phenylephrine",
+      "concentration": "(23%/7%/2%) Gel 30g Jar - Plasticized Base. 23 / 7 / 2%",
+      "dispenseSize": "30g",
+      "wholesaleUsd": 37.5
+    },
+    {
+      "sku": 128,
+      "name": "Lidocaine/Tetracaine/Prilocaine",
+      "concentration": "(23%/7%/2%) Gel 120g Jar - Plasticized Base Lido / Tetra / Prilo (23% / 7% / 2% )",
+      "dispenseSize": "120g",
+      "wholesaleUsd": 150
+    },
+    {
+      "sku": 129,
+      "name": "Lidocaine/Tetracaine/Prilocaine",
+      "concentration": "(23%/7%/2%) Gel 120g Jar - Plasticized Base. Lido / Tetra / Prilo (23% / 7% / 2% )",
+      "dispenseSize": "120g",
+      "wholesaleUsd": 150
+    },
+    {
+      "sku": 130,
+      "name": "Lidocaine/Tetracaine/Prilocaine",
+      "concentration": "(23%/7%/2%) Gel 60g Jar - Plasticized Base Lido / Tetra / Prilo (23% / 7% / 2% )",
+      "dispenseSize": "60g",
+      "wholesaleUsd": 75
+    },
+    {
+      "sku": 131,
+      "name": "Lidocaine/Tetracaine/Prilocaine",
+      "concentration": "(23%/7%/2%) Gel 60g Jar - Plasticized Base. Lido / Tetra / Prilo (23% / 7% / 2% )",
+      "dispenseSize": "60g",
+      "wholesaleUsd": 75
+    },
+    {
+      "sku": 132,
+      "name": "Lipo +",
+      "concentration": "pyridoxine (B6) 2mg ,methionine 12.4mg, inositol 25mg, choline25mg",
+      "dispenseSize": "30ml",
+      "wholesaleUsd": 64.8
+    },
+    {
+      "sku": 133,
+      "name": "Lipo + with Methyl B12 Combo",
+      "concentration": "pyridoxine (B6) 2mg ,methionine 12.4mg, inositol 25mg, choline25mg50mg, per ML x 30ml : Methyl B12 5mg/ml x 10ml",
+      "dispenseSize": "2 vials ( 1 x 30ml , 1 x 10ml)",
+      "wholesaleUsd": 82.8
+    },
+    {
+      "sku": 134,
+      "name": "Lipo - Burn Tablets OTC",
+      "concentration": "Each tablet: 620mg ascorbic acid, 9.4mcg D3, 74mg thiamine, 58mg riboflavin, 52mg niacin, 61mg B6, 680mcg folate, 55mcg B12 (cyanocobalamn), 58mcg biotin, 55mg pantothenic acid, 57mg choline, 54mg calcium, 55mg inositol, 32mg PABA granular",
+      "dispenseSize": "1 bottle",
+      "wholesaleUsd": 39
+    },
+    {
+      "sku": 135,
+      "name": "Lipo - Mino 30ml (*without",
+      "concentration": "Carnitine) (pyridoxine (B6) 2mg ,methionine 12.4mg, inositol 25mg, choline25mg, B12 Cyanocobalamin1mg (inactive), thiamine B1 50mg, riboflavin B2 5mg) /ml",
+      "dispenseSize": "30ml",
+      "wholesaleUsd": 80.5
+    },
+    {
+      "sku": 136,
+      "name": "Lipo - Trim SL Spray OTC",
+      "concentration": "6 sprays contains: Acetyl Carnitine 100mg, Methyl B12 1000mcg, Leucine 10mg, Arginine 60mg, Inositol 25mg, Choline 35mg, Methionine 2mg, Betaine 5mg, B1 0.75mg, Folic acid 80mcg",
+      "dispenseSize": "1oz spray bottle",
+      "wholesaleUsd": 34
+    },
+    {
+      "sku": 137,
+      "name": "Lipo-Mino 10ml with L-Carnitine",
+      "concentration": "(Cold Ship Item) pyridoxine (B6) 2mg ,methionine 12.4mg, inositol 25mg, choline25mg, B12 Cyanocobalamin 1mg, carnitine 125mg, thiamine B1 50mg, riboflavin B2 5mg",
+      "dispenseSize": "10ml",
+      "wholesaleUsd": 36.8,
+      "coldShip": true
+    },
+    {
+      "sku": 138,
+      "name": "Lipo-Mino 30ml with L-Carnitine",
+      "concentration": "(cold ship item) pyridoxine (B6) 2mg ,methionine 12.4mg, inositol 25mg, choline25mg, B12 Cyanocobalamin1mg, carnitine 125mg, thiamine B1 50mg, riboflavin B2 5mg",
+      "dispenseSize": "30ml",
+      "wholesaleUsd": 80.5,
+      "coldShip": true
+    },
+    {
+      "sku": 139,
+      "name": "LipoStat Plus",
+      "concentration": "methionine 25mg, inositol 50mg, choline 50mg, B6 175mcg, Cyanocobalamin 1mg",
+      "dispenseSize": "30ml",
+      "wholesaleUsd": 79.35
+    },
+    {
+      "sku": 140,
+      "name": "LipoStat Plus SF (Sulfur Free)",
+      "concentration": "175mcg, Cyanocobalamin 1mg",
+      "dispenseSize": "30ml",
+      "wholesaleUsd": 79.35
+    },
+    {
+      "sku": 141,
+      "name": "Liquid NAD 100mg/ml 10ml &",
+      "concentration": "Sermorelin 500mcg RDT 30 ct Combo NAD 100mg/ml, Sermorelin 500mcg RDT",
+      "dispenseSize": "1 Kit",
+      "wholesaleUsd": 157.08
+    },
+    {
+      "sku": 142,
+      "name": "LIQUID Sermorelin Injection",
+      "concentration": "0.9mg/ml (cold ship item) 0.9mg/ml",
+      "dispenseSize": "10mL",
+      "wholesaleUsd": 94.36,
+      "coldShip": true
+    },
+    {
+      "sku": 143,
+      "name": "Liraglutide Injection 30mg (5 ML x",
+      "concentration": "6mg/ml) (cold ship item) 6mg/ml",
+      "dispenseSize": "5ml",
+      "wholesaleUsd": 100,
+      "coldShip": true
+    },
+    {
+      "sku": 144,
+      "name": "Liraglutide injection 60mg (10ML X",
+      "concentration": "6mg/ml) (cold ship item) 6mg/ml",
+      "dispenseSize": "10mL",
+      "wholesaleUsd": 190,
+      "coldShip": true
+    },
+    {
+      "sku": 145,
+      "name": "Liraglutide Pro Bundle (Month 3+,",
+      "concentration": "60-day supply), 3 x 10mL 6mg/mL",
+      "dispenseSize": "1 Kit",
+      "wholesaleUsd": 790.5
+    },
+    {
+      "sku": 146,
+      "name": "Liraglutide Starter Bundle (Month",
+      "concentration": "1-2, 60-day supply), 2 x 5mL Liraglutide, 1 x 10mL Liraglutide, Peptide Vite, Tighten cream, 60 syringes (30g x 5/16x0.5cc), Alcohol swabs 6mg/mL",
+      "dispenseSize": "1 Kit",
+      "wholesaleUsd": 552.5
+    },
+    {
+      "sku": 147,
+      "name": "LOW CONCENTRATION Biotin",
+      "concentration": "Injection 0.5mg/mL 0.5mg/ml",
+      "dispenseSize": "10ml",
+      "wholesaleUsd": 33.06
+    },
+    {
+      "sku": 148,
+      "name": "Magnesium Chloride 300mg/ml",
+      "concentration": "300mg",
+      "dispenseSize": "30ml",
+      "wholesaleUsd": 64.8
+    },
+    {
+      "sku": 149,
+      "name": "ManeTain (Minoxidil",
+      "concentration": "5%/Fluocinolone Acetonide 0.01%/Retinoic Acid 0.01%/Vitamin E Acetate 0.5% solution) 100ml spray bottle ( 5% / 0.01% / 0.01% / 0.5% )",
+      "dispenseSize": "100ml",
+      "wholesaleUsd": 69
+    },
+    {
+      "sku": 150,
+      "name": "MICC 10ml (Ten Milliliters)",
+      "concentration": "methionine 25mg, inositol 50mg, choline 50mg, cyanocobalamin 330 mcg",
+      "dispenseSize": "10ml",
+      "wholesaleUsd": 33.06
+    },
+    {
+      "sku": 151,
+      "name": "MICC 30ml (Thirty Milliliters)",
+      "concentration": "methionine 25mg, inositol 50mg, choline 50mg, cyanocobalamin 330 mcg",
+      "dispenseSize": "30ml",
+      "wholesaleUsd": 79.35
+    },
+    {
+      "sku": 152,
+      "name": "Miracle (Hydroquinone 4%/",
+      "concentration": "Retinoic Acid 0.1%/ Kojic Acid 4%) 30g Cream 4%/ 0.1%/ 4%",
+      "dispenseSize": "30g",
+      "wholesaleUsd": 50
+    },
+    {
+      "sku": 153,
+      "name": "Miracle Max (Hydroquinone",
+      "concentration": "8%/Retinoic Acid 0.1%/Kojic Acid 4%Azelaic Acid 15%/Hydrocortisone 1%) 30g Cream 8%/0.1%/4%/15%/1%",
+      "dispenseSize": "30g",
+      "wholesaleUsd": 71
+    },
+    {
+      "sku": 154,
+      "name": "Miracle Plus (Hydroquinone 6%/",
+      "concentration": "Retinoic Acid 0.5%/ Kojic Acid 4%) 30g Cream 6% / 0.5% / 4%",
+      "dispenseSize": "30g",
+      "wholesaleUsd": 65
+    },
+    {
+      "sku": 155,
+      "name": "MONTH 1 (IM) Weight Management",
+      "concentration": "Days 1-30, Naltrexone 1.5mg, Sermorelin 10ml SQ, Lipo-mino with Carnitine 10ml IM (includes 30 SQ syringes, 10 IM syringes) COLD SHIP Naltrexone 1.5mg, Sermorelin 10ml, Lipo-Mino with Carnitine 10ml, IM",
+      "dispenseSize": "1 kit",
+      "wholesaleUsd": 127,
+      "coldShip": true
+    },
+    {
+      "sku": 156,
+      "name": "MONTH 1 NON INJ Weight",
+      "concentration": "Management Days 1-30, Naltrexone 1.5mg, Sermorelin 500mcg RDT x 30, Lipo Trim Spray Naltrexone 1.5mg, Sermorelin 500mcg, Lipo-Trim SL Spray",
+      "dispenseSize": "1 Kit",
+      "wholesaleUsd": 127
+    },
+    {
+      "sku": 157,
+      "name": "MONTH 1 Weight Management",
+      "concentration": "Days 1-30, Naltrexone 1.5mg, Sermorelin 10ml, Lipo Trim Spray (includes 30 SQ syringes) Naltrexone 1.5mg, Sermorelin 10ml, Lipo-Trim SL Spray",
+      "dispenseSize": "1 Kit",
+      "wholesaleUsd": 127
+    },
+    {
+      "sku": 159,
+      "name": "MONTH 2 NON INJ Weight",
+      "concentration": "Management Days 31-60, Naltrexone 3mg, Sermorelin 500mcg RDT x 30, Lipo Trim Spray Naltrexone 3mg, Sermorelin 500mcg, Lipo-Trim SL Spray",
+      "dispenseSize": "1 Kit",
+      "wholesaleUsd": 127
+    },
+    {
+      "sku": 160,
+      "name": "MONTH 2 Weight Management",
+      "concentration": "Days 31-60, Naltrexone 3mg, Sermorelin 10ml, Lipo Trim Spray (includes 30 SQ syringes) Naltrexone 3mg, Sermorelin 10ml, Lipo-Trim SL Spray",
+      "dispenseSize": "1 Kit",
+      "wholesaleUsd": 127
+    },
+    {
+      "sku": 162,
+      "name": "MONTH 3+ NON INJ Weight",
+      "concentration": "Management Days 61 +, Naltrexone 4.5mg, Sermorelin 500mcg x 30RDT, Lipo Trim Spray Naltrexone 4.5mg, Sermorelin 500mcg, Lipo-Trim SL Spray",
+      "dispenseSize": "1 Kit",
+      "wholesaleUsd": 127
+    },
+    {
+      "sku": 163,
+      "name": "MONTH 3+ Weight Management",
+      "concentration": "Days 61+, Naltrexone 4.5mg, Naltrexone 4.5mg, Sermorelin",
+      "dispenseSize": "10ml, Lipo-Trim SL Spray 1 Kit",
+      "wholesaleUsd": 127
+    },
+    {
+      "sku": 164,
+      "name": "Mount Olympia Sildenafil 50mg / Tadalafil 25mg /",
+      "concentration": "Oxytocin 200iu",
+      "dispenseSize": "ea",
+      "wholesaleUsd": 5
+    },
+    {
+      "sku": 165,
+      "name": "Myers Cocktail (premix) 10ML (cold",
+      "concentration": "ship item) MagnesiumCL 9.65, B1 1.62, B2 3.23, B3 1.62, B5 4.07, B6 1.63, B12 Hydroxo 0.1, Calcium Gluc 4.03, Ascorbic Acid 64.4 (per ml)",
+      "dispenseSize": "10ml",
+      "wholesaleUsd": 61.5,
+      "coldShip": true
+    },
+    {
+      "sku": 166,
+      "name": "N-Acetyl-Cysteine (with",
+      "concentration": "preservative) 200mg/ml",
+      "dispenseSize": "30ml",
+      "wholesaleUsd": 64.8
+    },
+    {
+      "sku": 167,
+      "name": "NAD+ Injection - 10mL, 100mg/ml,",
+      "concentration": "1,000mg (1g), (cold ship item) 100mg/ml",
+      "dispenseSize": "10ml",
+      "wholesaleUsd": 64.8,
+      "coldShip": true
+    },
+    {
+      "sku": 168,
+      "name": "NADvantage (Nicotinamide Adenine",
+      "concentration": "Dinucleotide 10%) 30g Cream 10%",
+      "dispenseSize": "30g",
+      "wholesaleUsd": 71
+    },
+    {
+      "sku": 169,
+      "name": "Naltrexone 1.5mg Tablets 30 count 1.5mg",
+      "concentration": "",
+      "dispenseSize": "30",
+      "wholesaleUsd": 25.5
+    },
+    {
+      "sku": 170,
+      "name": "Naltrexone 3mg Tablets 30 count",
+      "concentration": "3mg",
+      "dispenseSize": "30",
+      "wholesaleUsd": 25.5
+    },
+    {
+      "sku": 171,
+      "name": "Naltrexone 4.5mg Tablets 30 count 4.5mg",
+      "concentration": "",
+      "dispenseSize": "30",
+      "wholesaleUsd": 25.5
+    },
+    {
+      "sku": 172,
+      "name": "NB-243 (10ml)",
+      "concentration": "Papaverine 30mg/ml |Phentolamine 3 mg/ml |PGE 20 mcg/ml",
+      "dispenseSize": "10ml",
+      "wholesaleUsd": 104.65
+    },
+    {
+      "sku": 173,
+      "name": "NB-243 (2.5ml)",
+      "concentration": "Papaverine 30mg/ml |Phentolamine 3 mg/ml |PGE 20 mcg/ml",
+      "dispenseSize": "2.5ml",
+      "wholesaleUsd": 74.75
+    },
+    {
+      "sku": 174,
+      "name": "NB-343 (10ml)",
+      "concentration": "Papaverine 30mg/ml |Phentolamine 3 mg/ml |PGE 30 mcg/ml",
+      "dispenseSize": "10ml",
+      "wholesaleUsd": 104.65
+    },
+    {
+      "sku": 175,
+      "name": "NB-343 (2.5ml)",
+      "concentration": "Papaverine 30mg/ml |Phentolamine 3 mg/ml |PGE 30 mcg/ml",
+      "dispenseSize": "2.5ml",
+      "wholesaleUsd": 74.75
+    },
+    {
+      "sku": 176,
+      "name": "Niagen – 5mL, 100mg/mL, 500mg",
+      "concentration": "100mg/ml",
+      "dispenseSize": "5ml",
+      "wholesaleUsd": 220
+    },
+    {
+      "sku": 177,
+      "name": "Olympia Mineral Blend",
+      "concentration": "MagnesiumCL 80mg, Zinc 1mg,Manganese 0.02mg, Copper 0.2mg",
+      "dispenseSize": "30ml",
+      "wholesaleUsd": 91.25
+    },
+    {
+      "sku": 178,
+      "name": "Olympia Vita - Complex B1,B3 @ 100mg/ml B2,B5,B6 @",
+      "concentration": "2mg/ml",
+      "dispenseSize": "30ml",
+      "wholesaleUsd": 86.75
+    },
+    {
+      "sku": 179,
+      "name": "OlympiaGO - Bundle 30 sticks each",
+      "concentration": "of Orange, Pink Lemonade and Strawberry 100mg",
+      "dispenseSize": "ea",
+      "wholesaleUsd": 150
+    },
+    {
+      "sku": 180,
+      "name": "OlympiaGO - ImmunityGO Orange",
+      "concentration": "30 sticks 100mg",
+      "dispenseSize": "ea",
+      "wholesaleUsd": 60
+    },
+    {
+      "sku": 181,
+      "name": "OlympiaGO - QuenchGO Pink",
+      "concentration": "Lemonade 30 sticks 100mg",
+      "dispenseSize": "ea",
+      "wholesaleUsd": 60
+    },
+    {
+      "sku": 182,
+      "name": "OlympiaGO - QuenchGO",
+      "concentration": "Strawberry 30 sticks 100mg",
+      "dispenseSize": "ea",
+      "wholesaleUsd": 60
+    },
+    {
+      "sku": 183,
+      "name": "Ondansetron 1mg/ml",
+      "concentration": "1mg/ml",
+      "dispenseSize": "30ml",
+      "wholesaleUsd": 64.8
+    },
+    {
+      "sku": 184,
+      "name": "Oxytocin 40iu RDTs",
+      "concentration": "40iu",
+      "dispenseSize": "ea",
+      "wholesaleUsd": 1.2
+    },
+    {
+      "sku": 185,
+      "name": "PeptideVite Daily GLP-1 Support",
+      "concentration": "Vitamin (60 capsules) thiamine, B6, Folate, B12, magnesium, chromium, potassium, sodium, Co-Enzyme Q10 (2mg, 4mg, 88mcg, 2mcg, 50mg, 400mcg, 30mg, 20mg, 100mg)",
+      "dispenseSize": "ea",
+      "wholesaleUsd": 40
+    },
+    {
+      "sku": 186,
+      "name": "PGE2 (10ml) 80mcg/ml",
+      "concentration": "PGE 80mcg/ml",
+      "dispenseSize": "10ml",
+      "wholesaleUsd": 71.3
+    },
+    {
+      "sku": 187,
+      "name": "PGE2 (2.5ml) 80mcg/ml",
+      "concentration": "80mcg/ml",
+      "dispenseSize": "2.5ml",
+      "wholesaleUsd": 57.5
+    },
+    {
+      "sku": 188,
+      "name": "Phenylephrine 5ML (reversal)",
+      "concentration": "1mg/ml",
+      "dispenseSize": "5ml",
+      "wholesaleUsd": 31.74
+    },
+    {
+      "sku": 189,
+      "name": "Plump (Retinoic Acid",
+      "concentration": "0.05%/Hyaluronic Ac 0.2%) 30g Cream 0.05% / 0.2%",
+      "dispenseSize": "30g",
+      "wholesaleUsd": 50
+    },
+    {
+      "sku": 190,
+      "name": "Plump Max (Retinoic Acid",
+      "concentration": "0.1%/Niacinamide 4%/Hyaluronic Acid 0.5%) 30g Pump 0.1% / 4% /0.5%",
+      "dispenseSize": "30g",
+      "wholesaleUsd": 71
+    },
+    {
+      "sku": 191,
+      "name": "Plump Plus (Retinoic Acid",
+      "concentration": "0.1%/Hyaluronic Acid 0.5%) 30g Cream 0.1% / 0.5%",
+      "dispenseSize": "30g",
+      "wholesaleUsd": 65
+    },
+    {
+      "sku": 192,
+      "name": "Progesterone 10% (100mg/mL)",
+      "concentration": "Cream 30g Topiclick - Versa Base 10%",
+      "dispenseSize": "30g",
+      "wholesaleUsd": 41
+    },
+    {
+      "sku": 193,
+      "name": "Progesterone 100mg E4M Capsules 100mg",
+      "concentration": "",
+      "dispenseSize": "ea",
+      "wholesaleUsd": 0.85
+    },
+    {
+      "sku": 194,
+      "name": "Progesterone 100mg RDTs",
+      "concentration": "100mg",
+      "dispenseSize": "ea",
+      "wholesaleUsd": 0.85
+    },
+    {
+      "sku": 195,
+      "name": "Progesterone 112.5mg IR Capsules 112.5mg",
+      "concentration": "",
+      "dispenseSize": "ea",
+      "wholesaleUsd": 1
+    },
+    {
+      "sku": 196,
+      "name": "Progesterone 12.5mg E4M",
+      "concentration": "Capsules 12.5mg",
+      "dispenseSize": "ea",
+      "wholesaleUsd": 0.85
+    },
+    {
+      "sku": 197,
+      "name": "Progesterone 125mg E4M Capsules 125mg",
+      "concentration": "",
+      "dispenseSize": "ea",
+      "wholesaleUsd": 1
+    },
+    {
+      "sku": 198,
+      "name": "Progesterone 150mg E4M Capsules 150mg",
+      "concentration": "",
+      "dispenseSize": "ea",
+      "wholesaleUsd": 1
+    },
+    {
+      "sku": 199,
+      "name": "Progesterone 150mg IR Capsules",
+      "concentration": "150mg",
+      "dispenseSize": "ea",
+      "wholesaleUsd": 1
+    },
+    {
+      "sku": 200,
+      "name": "Progesterone 150mg RDTs",
+      "concentration": "150mg",
+      "dispenseSize": "ea",
+      "wholesaleUsd": 1
+    },
+    {
+      "sku": 201,
+      "name": "Progesterone 175mg E4M Capsules 175mg",
+      "concentration": "",
+      "dispenseSize": "ea",
+      "wholesaleUsd": 1
+    },
+    {
+      "sku": 202,
+      "name": "Progesterone 20% (200mg/mL)",
+      "concentration": "Cream 30g Topiclick - Versa Base 200mg/ml",
+      "dispenseSize": "30g",
+      "wholesaleUsd": 48
+    },
+    {
+      "sku": 203,
+      "name": "Progesterone 200mg E4M Capsules 200mg",
+      "concentration": "",
+      "dispenseSize": "ea",
+      "wholesaleUsd": 1.2
+    },
+    {
+      "sku": 204,
+      "name": "Progesterone 200mg RDTs",
+      "concentration": "200mg",
+      "dispenseSize": "ea",
+      "wholesaleUsd": 1.2
+    },
+    {
+      "sku": 205,
+      "name": "Progesterone 225mg E4M Capsules 225mg",
+      "concentration": "",
+      "dispenseSize": "ea",
+      "wholesaleUsd": 1.2
+    },
+    {
+      "sku": 206,
+      "name": "Progesterone 225mg IR Capsules",
+      "concentration": "225mg",
+      "dispenseSize": "ea",
+      "wholesaleUsd": 1.2
+    },
+    {
+      "sku": 207,
+      "name": "Progesterone 250mg E4M Capsules 250mg",
+      "concentration": "",
+      "dispenseSize": "ea",
+      "wholesaleUsd": 1.2
+    },
+    {
+      "sku": 208,
+      "name": "Progesterone 25mg E4M Capsules 25mg",
+      "concentration": "",
+      "dispenseSize": "ea",
+      "wholesaleUsd": 0.85
+    },
+    {
+      "sku": 209,
+      "name": "Progesterone 300mg E4M Capsules 300mg",
+      "concentration": "",
+      "dispenseSize": "ea",
+      "wholesaleUsd": 1.4
+    },
+    {
+      "sku": 210,
+      "name": "Progesterone 300mg IR Capsules",
+      "concentration": "300mg",
+      "dispenseSize": "ea",
+      "wholesaleUsd": 1.4
+    },
+    {
+      "sku": 211,
+      "name": "Progesterone 300mg RDTs",
+      "concentration": "300mg",
+      "dispenseSize": "ea",
+      "wholesaleUsd": 1.4
+    },
+    {
+      "sku": 212,
+      "name": "Progesterone 400mg E4M Capsules 400mg",
+      "concentration": "",
+      "dispenseSize": "ea",
+      "wholesaleUsd": 1.5
+    },
+    {
+      "sku": 213,
+      "name": "Progesterone 400mg IR Capsules",
+      "concentration": "400mg",
+      "dispenseSize": "ea",
+      "wholesaleUsd": 1.5
+    },
+    {
+      "sku": 214,
+      "name": "Progesterone 5% (50mg/mL) Cream",
+      "concentration": "30g Topiclick - Versa Base 5%",
+      "dispenseSize": "30g",
+      "wholesaleUsd": 36
+    },
+    {
+      "sku": 215,
+      "name": "Progesterone 50mg E4M Capsules 50mg",
+      "concentration": "",
+      "dispenseSize": "ea",
+      "wholesaleUsd": 0.85
+    },
+    {
+      "sku": 216,
+      "name": "Progesterone 50mg IR Capsules",
+      "concentration": "50mg",
+      "dispenseSize": "ea",
+      "wholesaleUsd": 0.85
+    },
+    {
+      "sku": 217,
+      "name": "Progesterone 50mg RDTs",
+      "concentration": "50mg",
+      "dispenseSize": "ea",
+      "wholesaleUsd": 0.85
+    },
+    {
+      "sku": 218,
+      "name": "Progesterone 75mg E4M Capsules 75mg",
+      "concentration": "",
+      "dispenseSize": "ea",
+      "wholesaleUsd": 0.85
+    },
+    {
+      "sku": 219,
+      "name": "Progesterone 75mg IR Capsules",
+      "concentration": "75mg",
+      "dispenseSize": "ea",
+      "wholesaleUsd": 0.85
+    },
+    {
+      "sku": 220,
+      "name": "Progesterone 75mg RDTs",
+      "concentration": "75mg",
+      "dispenseSize": "ea",
+      "wholesaleUsd": 0.85
+    },
+    {
+      "sku": 221,
+      "name": "PT-141 (Bremelanotide) ODT",
+      "concentration": "Combo MAXX (tadalafil 20mg, oxytocin 100iu, PT141 2mg) (tadalafil 20mg, oxytocin 100iu, PT141 2mg)",
+      "dispenseSize": "each",
+      "wholesaleUsd": 6
+    },
+    {
+      "sku": 222,
+      "name": "PT-141 (Bremelanotide) ODT",
+      "concentration": "Combo MAXX PLUS for Men (tadalafil 75mg, oxytocin 100iu, PT141 2mg) tadalafil 75mg, oxytocin 100iu, PT141 2mg",
+      "dispenseSize": "each",
+      "wholesaleUsd": 7
+    },
+    {
+      "sku": 223,
+      "name": "Pyridoxine (B6) MDV 30ml (*ASHP",
+      "concentration": "drug shortage item) 85mg/ml",
+      "dispenseSize": "30ml",
+      "wholesaleUsd": 64.8
+    },
+    {
+      "sku": 224,
+      "name": "QM2 (10ml)",
+      "concentration": "Papaverine 30mg/ml |Phentolamine 3 mg/ml |PGE 60 mcg/ml |Atropine 0.2mg/ml",
+      "dispenseSize": "10ml",
+      "wholesaleUsd": 125.58
+    },
+    {
+      "sku": 225,
+      "name": "QM2 (2.5ml)",
+      "concentration": "Papaverine 30mg/ml |Phentolamine 3 mg/ml |PGE 60 mcg/ml |Atropine 0.2mg/ml",
+      "dispenseSize": "2.5ml",
+      "wholesaleUsd": 89.7
+    },
+    {
+      "sku": 226,
+      "name": "QM2 (5ml)",
+      "concentration": "Papaverine 30mg/ml |Phentolamine 3 mg/ml |PGE 60 mcg/ml |Atropine 0.2mg/ml",
+      "dispenseSize": "5ml",
+      "wholesaleUsd": 107.64
+    },
+    {
+      "sku": 227,
+      "name": "QM3 (10ml)",
+      "concentration": "Papaverine 30mg/ml |Phentolamine 3 mg/ml |PGE 150 mcg/ml |Atropine 0.2mg/ml",
+      "dispenseSize": "10ml",
+      "wholesaleUsd": 139.1
+    },
+    {
+      "sku": 228,
+      "name": "QM3 (2.5ml)",
+      "concentration": "Papaverine 30mg/ml |Phentolamine 3 mg/ml |PGE 150 mcg/ml |Atropine 0.2mg/ml",
+      "dispenseSize": "2.5ml",
+      "wholesaleUsd": 99.36
+    },
+    {
+      "sku": 229,
+      "name": "QM3 (5ml)",
+      "concentration": "Papaverine 30mg/ml |Phentolamine 3 mg/ml |PGE 150 mcg/ml |Atropine 0.2mg/ml",
+      "dispenseSize": "5ml",
+      "wholesaleUsd": 119.23
+    },
+    {
+      "sku": 230,
+      "name": "QM4 (10ml)",
+      "concentration": "Papaverine 30mg/ml |Phentolamine 3 mg/ml |PGE 300 mcg/ml |Atropine 0.2mg/ml",
+      "dispenseSize": "10ml",
+      "wholesaleUsd": 205.39
+    },
+    {
+      "sku": 231,
+      "name": "QM4 (2.5ml)",
+      "concentration": "Papaverine 30mg/ml |Phentolamine 3 mg/ml |PGE 300 mcg/ml |Atropine 0.2mg/ml",
+      "dispenseSize": "2.5ml",
+      "wholesaleUsd": 146.51
+    },
+    {
+      "sku": 232,
+      "name": "QUENCH IV KIT",
+      "concentration": "100mg B2,B5,B6 2mg : MagnesiumCL 80mg, Zinc 1mg, 1. Ascorbic Acid 30ml 2.Olympia Vita Complex 30ml 3.Olympia Mineral Blend 30ml",
+      "dispenseSize": "",
+      "wholesaleUsd": 215.55
+    },
+    {
+      "sku": 233,
+      "name": "RE1 (10ml)",
+      "concentration": "Papaverine 30mg/ml |Phentolamine 3 mg/ml |PGE 200 mcg/ml",
+      "dispenseSize": "10ml",
+      "wholesaleUsd": 171.63
+    },
+    {
+      "sku": 234,
+      "name": "RE1 (2.5ml)",
+      "concentration": "Papaverine 30mg/ml |Phentolamine 3 mg/ml |PGE 200 mcg/ml",
+      "dispenseSize": "2.5ml",
+      "wholesaleUsd": 122.59
+    },
+    {
+      "sku": 235,
+      "name": "REBOOT (Hangover Relief) IV Kit",
+      "concentration": "Ondansetron 1mg/ml : B1,B3 100mg B2,B5,B6 2mg : MagnesiumCL 80mg, Zinc 1mg, Manganese 0.02mg, Copper 0.2mg 1. Ondansetron 30ml 2.Olympia Vita Complex 30ml 3.Olympia Mineral Blend 30ml",
+      "dispenseSize": "",
+      "wholesaleUsd": 218.52
+    },
+    {
+      "sku": 236,
+      "name": "Recovery and Performance IV KIT",
+      "concentration": "Ascorbic Acid 500mg : B1,B3 100mg B2,B5,B6 2mg /ml : L- Proline 50mg, L-Arginine HCL100mg, L-Lysine HCL 50mg, L-Carnitine 100mg (per ml) : MagnesiumCL 80mg, Zinc 1mg, Manganese 0.02mg, Copper 0.2mg 1.Ascorbic Acid 30ml 2.Olympia Vita Complex 30ml 3.Amino Blend 30ml 4.Olympia Mineral Blend 30ml",
+      "dispenseSize": "",
+      "wholesaleUsd": 286.97
+    },
+    {
+      "sku": 237,
+      "name": "Renew (Azelaic Acid",
+      "concentration": "10%/Niacinamide 2%) 30g Cream 10% / 2%",
+      "dispenseSize": "30g",
+      "wholesaleUsd": 50
+    },
+    {
+      "sku": 238,
+      "name": "Renew Max (Retinoic Acid",
+      "concentration": "0.05%/Azelaic Acid 15%/Niacinamide 5%/Hyaluronic Acid 0.25%) 30g Cream 0.05%/ 15%/ 5%/ 0.25%",
+      "dispenseSize": "30g",
+      "wholesaleUsd": 71
+    },
+    {
+      "sku": 239,
+      "name": "Renew Plus (Retinoic Acid 0.025%/",
+      "concentration": "Azelaic Acid 10%/ Niacinamide 4%) 30g Cream 0.025%/ 10%/ 4%",
+      "dispenseSize": "30g",
+      "wholesaleUsd": 65
+    },
+    {
+      "sku": 240,
+      "name": "Root Cause Hair Loss Gummies 30",
+      "concentration": "count Minoxidil 4mg, Finasteride 1mg, Biotin 4mg",
+      "dispenseSize": "30",
+      "wholesaleUsd": 43.24
+    },
+    {
+      "sku": 241,
+      "name": "Savor Female Libido Enhancer",
+      "concentration": "Ashwagandha: 62.5mg, L- Citrulline: 500mg, Damiana Powder (Leaf): 75mg, Gingko Biloba Powder (Leaf): 60mg",
+      "dispenseSize": "ea",
+      "wholesaleUsd": 25
+    },
+    {
+      "sku": 242,
+      "name": "SB4 (10ml)",
+      "concentration": "Papaverine 30mg/ml |Phentolamine 3 mg/ml |PGE 40 mcg/ml",
+      "dispenseSize": "10ml",
+      "wholesaleUsd": 104.65
+    },
+    {
+      "sku": 243,
+      "name": "SB4 (2.5ml)",
+      "concentration": "Papaverine 30mg/ml |Phentolamine 3 mg/ml |PGE 40 mcg/ml",
+      "dispenseSize": "2.5ml",
+      "wholesaleUsd": 74.75
+    },
+    {
+      "sku": 244,
+      "name": "SB4 (5ml)",
+      "concentration": "Papaverine 30mg/ml |Phentolamine 3 mg/ml |PGE 40 mcg/ml",
+      "dispenseSize": "5ml",
+      "wholesaleUsd": 89.7
+    },
+    {
+      "sku": 245,
+      "name": "SB5 (10ml)",
+      "concentration": "Papaverine 30mg/ml |Phentolamine 3 mg/ml |PGE 50 mcg/ml",
+      "dispenseSize": "10ml",
+      "wholesaleUsd": 104.65
+    },
+    {
+      "sku": 246,
+      "name": "SB5 (2.5ml)",
+      "concentration": "Papaverine 30mg/ml |Phentolamine 3 mg/ml |PGE 50 mcg/ml",
+      "dispenseSize": "2.5ml",
+      "wholesaleUsd": 74.75
+    },
+    {
+      "sku": 247,
+      "name": "SB5 (5ml)",
+      "concentration": "Papaverine 30mg/ml |Phentolamine 3 mg/ml |PGE 50 mcg/ml",
+      "dispenseSize": "5ml",
+      "wholesaleUsd": 89.7
+    },
+    {
+      "sku": 248,
+      "name": "SB6 (10ml)",
+      "concentration": "Papaverine 30mg/ml |Phentolamine 3 mg/ml |PGE 60 mcg/ml",
+      "dispenseSize": "10ml",
+      "wholesaleUsd": 104.65
+    },
+    {
+      "sku": 249,
+      "name": "SB6 (2.5ml)",
+      "concentration": "Papaverine 30mg/ml |Phentolamine 3 mg/ml |PGE 60 mcg/ml",
+      "dispenseSize": "2.5ml",
+      "wholesaleUsd": 74.75
+    },
+    {
+      "sku": 250,
+      "name": "SB6 (5ml)",
+      "concentration": "Papaverine 30mg/ml |Phentolamine 3 mg/ml |PGE 60 mcg/ml",
+      "dispenseSize": "5ml",
+      "wholesaleUsd": 89.7
+    },
+    {
+      "sku": 251,
+      "name": "Scream Cream 30g Pump",
+      "concentration": "(Theophylline 3% / Arginine 6% / Sildenafil 2%) Theophylline 3% / Arginine 6% / Sildenafil 2%",
+      "dispenseSize": "30g",
+      "wholesaleUsd": 50
+    },
+    {
+      "sku": 252,
+      "name": "Sermorelin 500mcg RDT 30 count",
+      "concentration": "500mcg",
+      "dispenseSize": "ea",
+      "wholesaleUsd": 120
+    },
+    {
+      "sku": 253,
+      "name": "Sildenafil Citrate 100mg/Tadalafil",
+      "concentration": "40mg RDTs Sildenafil Citrate 100mg/Tadalafil 40mg",
+      "dispenseSize": "ea",
+      "wholesaleUsd": 5
+    },
+    {
+      "sku": 254,
+      "name": "Sildenafil Citrate 110mg RDTs",
+      "concentration": "110mg",
+      "dispenseSize": "ea",
+      "wholesaleUsd": 5
+    },
+    {
+      "sku": 255,
+      "name": "Sildenafil Citrate 150mg/",
+      "concentration": "Papaverine HCL 20mg RDT Sildenafil 150mg/ Papaverine 20mg",
+      "dispenseSize": "ea",
+      "wholesaleUsd": 5
+    },
+    {
+      "sku": 256,
+      "name": "Sildenafil Citrate 40mg/Tadalafil",
+      "concentration": "20mg/Apomorphine HCl 3mg/Methyl-B12 2mg RDTs Sildenafil Citrate 40mg/Tadalafil 20mg/Apomorphine HCl 3mg/Methyl-B12 2mg",
+      "dispenseSize": "ea",
+      "wholesaleUsd": 6
+    },
+    {
+      "sku": 257,
+      "name": "Sildenafil Citrate 150mg RDTS",
+      "concentration": "150mg",
+      "dispenseSize": "ea",
+      "wholesaleUsd": 5
+    },
+    {
+      "sku": 258,
+      "name": "Skinny Set Bundle - 2 vials",
+      "concentration": "1.L-Proline 50mg, L-Arginine HCL100mg, L-Lysine HCL 50mg, L-Carnitine 100mg (per ml) , 2. Methylcobalamin 5mg/ml 1 x 30 ML Amino Blend,1 X 10ML Methylcobalamin",
+      "dispenseSize": "",
+      "wholesaleUsd": 100
+    },
+    {
+      "sku": 259,
+      "name": "Snow Bright Bundle",
+      "concentration": "Ascorbic Acid 500mg/mL | Glutathione 200mg/mL | Alpha Lipoic Acid 25mg/mL 1. Ascorbic 500mg/mL, 30mL 2. Glutathione 200mg/mL, 30mL 3. Alpha Lipoic Acid 25mg/mL, 30mL",
+      "dispenseSize": "",
+      "wholesaleUsd": 186.75
+    },
+    {
+      "sku": 260,
+      "name": "Sodium Bi Carbonate (*drug",
+      "concentration": "shortage item) 8.4%",
+      "dispenseSize": "30ml",
+      "wholesaleUsd": 31.74
+    },
+    {
+      "sku": 261,
+      "name": "Sodium Bicarbonate - Case of 25",
+      "concentration": "vials(*drug shortage item) 8.4%",
+      "dispenseSize": "25 x 30ml",
+      "wholesaleUsd": 793.5
+    },
+    {
+      "sku": 262,
+      "name": "Sodium Tetradecyl Sulfate 1.5%",
+      "concentration": "(30ml) 1.5%",
+      "dispenseSize": "30ml",
+      "wholesaleUsd": 185.15
+    },
+    {
+      "sku": 263,
+      "name": "ST#1 (10ml)",
+      "concentration": "Papaverine 30mg/ml |Phentolamine 1.5 mg/ml |PGE 50 mcg/ml",
+      "dispenseSize": "10ml",
+      "wholesaleUsd": 92.58
+    },
+    {
+      "sku": 264,
+      "name": "ST#1 (2.5ml)",
+      "concentration": "Papaverine 30mg/ml |Phentolamine 1.5 mg/ml |PGE 50 mcg/ml",
+      "dispenseSize": "2.5ml",
+      "wholesaleUsd": 66.13
+    },
+    {
+      "sku": 265,
+      "name": "ST2 (10ml)",
+      "concentration": "Papaverine 30mg/ml |Phentolamine 3 mg/ml |PGE 100 mcg/ml",
+      "dispenseSize": "10ml",
+      "wholesaleUsd": 108.84
+    },
+    {
+      "sku": 266,
+      "name": "ST2 (2.5ml)",
+      "concentration": "Papaverine 30mg/ml |Phentolamine 3 mg/ml |PGE 100 mcg/ml",
+      "dispenseSize": "2.5ml",
+      "wholesaleUsd": 77.74
+    },
+    {
+      "sku": 267,
+      "name": "ST2 (5ml)",
+      "concentration": "Papaverine 30mg/ml |Phentolamine 3 mg/ml |PGE 100 mcg/ml",
+      "dispenseSize": "5ml",
+      "wholesaleUsd": 93.29
+    },
+    {
+      "sku": 268,
+      "name": "SubQ Syringes (bag of 10) 30g x 1/2",
+      "concentration": "x 1cc 30g x 1/2x 1cc",
+      "dispenseSize": "bag of 10",
+      "wholesaleUsd": 2
+    },
+    {
+      "sku": 269,
+      "name": "SubQ Syringes (bag of 10) 30g x",
+      "concentration": "5/16 x 0.5cc (50u) 30g 5/16\" 0.5cc (50u)",
+      "dispenseSize": "bag of 10",
+      "wholesaleUsd": 2
+    },
+    {
+      "sku": 270,
+      "name": "SubQ Syringes (bag of 10) 30g x",
+      "concentration": "5/16 x 1cc 30g x 5/16 x 1cc",
+      "dispenseSize": "bag of 10",
+      "wholesaleUsd": 2
+    },
+    {
+      "sku": 271,
+      "name": "T101 (10ml)",
+      "concentration": "Papaverine 17.65mg/ml |Phentolamine 0.59 mg/ml |PGE 5.9 mcg/ml",
+      "dispenseSize": "10ml",
+      "wholesaleUsd": 99.98
+    },
+    {
+      "sku": 272,
+      "name": "T101 (2.5ml)",
+      "concentration": "Papaverine 17.65mg/ml |Phentolamine 0.59 mg/ml |PGE 5.9 mcg/ml",
+      "dispenseSize": "2.5ml",
+      "wholesaleUsd": 71.42
+    },
+    {
+      "sku": 273,
+      "name": "T101 (5ml)",
+      "concentration": "Papaverine 17.65mg/ml |Phentolamine 0.59 mg/ml |PGE 5.9 mcg/ml",
+      "dispenseSize": "5ml",
+      "wholesaleUsd": 85.7
+    },
+    {
+      "sku": 274,
+      "name": "T105 (10ml)",
+      "concentration": "Papaverine 30mg/ml |Phentolamine 1 mg/ml |PGE 10 mcg/ml",
+      "dispenseSize": "10ml",
+      "wholesaleUsd": 92.58
+    },
+    {
+      "sku": 275,
+      "name": "T105 (2.5ml)",
+      "concentration": "Papaverine 30mg/ml |Phentolamine 1 mg/ml |PGE 10 mcg/ml",
+      "dispenseSize": "2.5ml",
+      "wholesaleUsd": 66.13
+    },
+    {
+      "sku": 276,
+      "name": "T105 (5ml)",
+      "concentration": "Papaverine 30mg/ml |Phentolamine 1 mg/ml |PGE 10 mcg/ml",
+      "dispenseSize": "5ml",
+      "wholesaleUsd": 79.35
+    },
+    {
+      "sku": 277,
+      "name": "T106 (10ml)",
+      "concentration": "Papaverine 30mg/ml |Phentolamine 1 mg/ml |PGE 25 mcg/ml",
+      "dispenseSize": "10ml",
+      "wholesaleUsd": 92.58
+    },
+    {
+      "sku": 278,
+      "name": "T106 (2.5ml)",
+      "concentration": "Papaverine 30mg/ml |Phentolamine 1 mg/ml |PGE 25 mcg/ml",
+      "dispenseSize": "2.5ml",
+      "wholesaleUsd": 66.13
+    },
+    {
+      "sku": 279,
+      "name": "T106 (5ml)",
+      "concentration": "Papaverine 30mg/ml |Phentolamine 1 mg/ml |PGE 25 mcg/ml",
+      "dispenseSize": "5ml",
+      "wholesaleUsd": 79.35
+    },
+    {
+      "sku": 280,
+      "name": "Tadalafil 100mg/Oxytocin 125iu",
+      "concentration": "RDT Tadalafil 100mg/Oxytocin 125iu",
+      "dispenseSize": "ea",
+      "wholesaleUsd": 6
+    },
+    {
+      "sku": 281,
+      "name": "Tadalafil 20mg RDTs",
+      "concentration": "20mg",
+      "dispenseSize": "ea",
+      "wholesaleUsd": 5
+    },
+    {
+      "sku": 282,
+      "name": "Tadalafil 20mg/Paroxetine HCl",
+      "concentration": "25mg IR Capsules 20mg/25mg",
+      "dispenseSize": "ea",
+      "wholesaleUsd": 5
+    },
+    {
+      "sku": 283,
+      "name": "Tadalafil 75mg RDTs",
+      "concentration": "75mg",
+      "dispenseSize": "ea",
+      "wholesaleUsd": 5
+    },
+    {
+      "sku": 284,
+      "name": "Tadalafil 75mg/ Papaverine HCL",
+      "concentration": "25mg RDT Tadalafil 75mg/ Papaverine HCL 25mg",
+      "dispenseSize": "ea",
+      "wholesaleUsd": 5
+    },
+    {
+      "sku": 285,
+      "name": "Tadalafil 75mg/Apomorphine HCl",
+      "concentration": "10mg RDTs Tadalafil 75mg/Apomorphine HCl 10mg",
+      "dispenseSize": "ea",
+      "wholesaleUsd": 5
+    },
+    {
+      "sku": 286,
+      "name": "Taurine",
+      "concentration": "50mg/ml",
+      "dispenseSize": "30ml",
+      "wholesaleUsd": 64.8
+    },
+    {
+      "sku": 287,
+      "name": "Testosterone 0.1% (1mg/mL) Cream",
+      "concentration": "30g Topiclick - Versa Base *signature req* 0.1%",
+      "dispenseSize": "30g",
+      "wholesaleUsd": 36,
+      "signatureRequired": true
+    },
+    {
+      "sku": 288,
+      "name": "Testosterone 0.2% (2mg/mL) Cream",
+      "concentration": "30g Topiclick - Versa Base *signature req* 0.2%",
+      "dispenseSize": "30g",
+      "wholesaleUsd": 36,
+      "signatureRequired": true
+    },
+    {
+      "sku": 289,
+      "name": "Testosterone 0.4% (4mg/mL) Cream",
+      "concentration": "30g Topiclick - Versa Base *signature req* 0.4%",
+      "dispenseSize": "30g",
+      "wholesaleUsd": 36,
+      "signatureRequired": true
+    },
+    {
+      "sku": 290,
+      "name": "Testosterone 0.6% (6mg/mL) Cream",
+      "concentration": "30g Topiclick - Versa Base *signature req* 0.6%",
+      "dispenseSize": "30g",
+      "wholesaleUsd": 36,
+      "signatureRequired": true
+    },
+    {
+      "sku": 291,
+      "name": "Testosterone 0.8% (8mg/mL) Cream",
+      "concentration": "30g Topiclick - Versa Base *signature req* 0.8%",
+      "dispenseSize": "30g",
+      "wholesaleUsd": 36,
+      "signatureRequired": true
+    },
+    {
+      "sku": 292,
+      "name": "Testosterone 1.5mg RDTs",
+      "concentration": "*signature required* 1.5mg",
+      "dispenseSize": "ea",
+      "wholesaleUsd": 1,
+      "signatureRequired": true
+    },
+    {
+      "sku": 293,
+      "name": "Testosterone 10% (100mg/mL)",
+      "concentration": "Cream 30g Topiclick - Ellage Base *signature req* 10%",
+      "dispenseSize": "30g",
+      "wholesaleUsd": 48,
+      "signatureRequired": true
+    },
+    {
+      "sku": 294,
+      "name": "Testosterone 10% (100mg/mL)",
+      "concentration": "Cream 30g Topiclick - Versa Base *signature req* 10%",
+      "dispenseSize": "30g",
+      "wholesaleUsd": 48,
+      "signatureRequired": true
+    },
+    {
+      "sku": 295,
+      "name": "Testosterone 100mg RDTs",
+      "concentration": "*signature req* 100mg",
+      "dispenseSize": "ea",
+      "wholesaleUsd": 1.5,
+      "signatureRequired": true
+    },
+    {
+      "sku": 296,
+      "name": "Testosterone 10mg RDTs",
+      "concentration": "*signature req* 10mg",
+      "dispenseSize": "ea",
+      "wholesaleUsd": 1,
+      "signatureRequired": true
+    },
+    {
+      "sku": 297,
+      "name": "Testosterone 125mg RDTs",
+      "concentration": "*signature req* 125mg",
+      "dispenseSize": "ea",
+      "wholesaleUsd": 1.7,
+      "signatureRequired": true
+    },
+    {
+      "sku": 298,
+      "name": "Testosterone 150mg RDTs",
+      "concentration": "*signature req* 150mg",
+      "dispenseSize": "ea",
+      "wholesaleUsd": 1.8,
+      "signatureRequired": true
+    },
+    {
+      "sku": 299,
+      "name": "Testosterone 1mg RDTs *signature",
+      "concentration": "req* 1mg",
+      "dispenseSize": "ea",
+      "wholesaleUsd": 1,
+      "signatureRequired": true
+    },
+    {
+      "sku": 300,
+      "name": "Testosterone 2% (20mg/mL) Cream",
+      "concentration": "30g Topiclick - Versa Base *signature req* 2%",
+      "dispenseSize": "30g",
+      "wholesaleUsd": 41,
+      "signatureRequired": true
+    },
+    {
+      "sku": 301,
+      "name": "Testosterone 2.5mg RDTs",
+      "concentration": "*signature req* 2.5mg",
+      "dispenseSize": "ea",
+      "wholesaleUsd": 1,
+      "signatureRequired": true
+    },
+    {
+      "sku": 302,
+      "name": "Testosterone 20% (200mg/mL)",
+      "concentration": "Cream 30g Topiclick - Ellage Base *signature req* 20%",
+      "dispenseSize": "30g",
+      "wholesaleUsd": 48,
+      "signatureRequired": true
+    },
+    {
+      "sku": 303,
+      "name": "Testosterone 20% (200mg/mL)",
+      "concentration": "Cream 30g Topiclick - Versa Base *signature req* 20%",
+      "dispenseSize": "30g",
+      "wholesaleUsd": 48,
+      "signatureRequired": true
+    },
+    {
+      "sku": 304,
+      "name": "Testosterone 25mg RDTs",
+      "concentration": "*signature req* 25mg",
+      "dispenseSize": "ea",
+      "wholesaleUsd": 1.2,
+      "signatureRequired": true
+    },
+    {
+      "sku": 305,
+      "name": "Testosterone 2mg RDTs *signature",
+      "concentration": "req* 2mg",
+      "dispenseSize": "ea",
+      "wholesaleUsd": 1,
+      "signatureRequired": true
+    },
+    {
+      "sku": 306,
+      "name": "Testosterone 3mg RDTs *signature",
+      "concentration": "required* 3mg",
+      "dispenseSize": "ea",
+      "wholesaleUsd": 1,
+      "signatureRequired": true
+    },
+    {
+      "sku": 307,
+      "name": "Testosterone 4% (40mg/mL) Cream",
+      "concentration": "30g Topiclick - Ellage Base *signature req* 4%",
+      "dispenseSize": "30g",
+      "wholesaleUsd": 41,
+      "signatureRequired": true
+    },
+    {
+      "sku": 308,
+      "name": "Testosterone 4mg RDTs *signature",
+      "concentration": "required* 4mg",
+      "dispenseSize": "ea",
+      "wholesaleUsd": 1,
+      "signatureRequired": true
+    },
+    {
+      "sku": 309,
+      "name": "Testosterone 5% (50mg/mL) Cream",
+      "concentration": "30g Topiclick - Ellage Base *signature req* 5%",
+      "dispenseSize": "30g",
+      "wholesaleUsd": 41,
+      "signatureRequired": true
+    },
+    {
+      "sku": 310,
+      "name": "Testosterone 5% (50mg/mL) Cream",
+      "concentration": "30g Topiclick - Versa Base *signature req* 5%",
+      "dispenseSize": "30g",
+      "wholesaleUsd": 41,
+      "signatureRequired": true
+    },
+    {
+      "sku": 311,
+      "name": "Testosterone 5mg RDTs *signature",
+      "concentration": "req* 5mg",
+      "dispenseSize": "ea",
+      "wholesaleUsd": 1,
+      "signatureRequired": true
+    },
+    {
+      "sku": 312,
+      "name": "Testosterone 6mg RDTs *signature",
+      "concentration": "req* 6mg",
+      "dispenseSize": "ea",
+      "wholesaleUsd": 1,
+      "signatureRequired": true
+    },
+    {
+      "sku": 313,
+      "name": "Testosterone 7.5% (75mg/mL)",
+      "concentration": "Cream 30g Topiclick - Versa Base *signature required 75mg/ml",
+      "dispenseSize": "30g",
+      "wholesaleUsd": 48,
+      "signatureRequired": true
+    },
+    {
+      "sku": 314,
+      "name": "Testosterone Cypionate MCT Oil",
+      "concentration": "5ml *signature req'd 200mg/ml",
+      "dispenseSize": "5ml",
+      "wholesaleUsd": 30,
+      "signatureRequired": true
+    },
+    {
+      "sku": 315,
+      "name": "Tighten (GHK-Cu 0.5%) 30g Cream 0.5%",
+      "concentration": "",
+      "dispenseSize": "30g",
+      "wholesaleUsd": 50
+    },
+    {
+      "sku": 316,
+      "name": "Tighten Max (GHK-Cu 4%) 30g",
+      "concentration": "Cream 4%",
+      "dispenseSize": "30g",
+      "wholesaleUsd": 71
+    },
+    {
+      "sku": 317,
+      "name": "Tighten Plus (GHK-Cu 2%) 30g",
+      "concentration": "Cream 2%",
+      "dispenseSize": "30g",
+      "wholesaleUsd": 65
+    },
+    {
+      "sku": 318,
+      "name": "Timeless IV Kit",
+      "concentration": "Acetyl Cysteine 200mg/ml, Hydroxocobalamin B12 2mg/ml, B1, B3 100mg B2,B5, B6 2mg /ml, Magnesium Chloride 300mg/ml 1. Preserved Acetylcysteine 30ml 2. Hydroxocobalamin 30ml 3. Olympia Vita - Complex 30ml 4. Magnesium Chloride 30ml",
+      "dispenseSize": "",
+      "wholesaleUsd": 253.04
+    },
+    {
+      "sku": 319,
+      "name": "Tres Aminos Injection Arginine 100mg/ml, L-Lysine",
+      "concentration": "50mg/ml, L-Proline 50mg/ml",
+      "dispenseSize": "30ml",
+      "wholesaleUsd": 71.15
+    },
+    {
+      "sku": 320,
+      "name": "Tri Immune Boost IM/IV 30ml (Cold",
+      "concentration": "Ship Item) Ascorbic Acid 200mg/ml, Glutathione 200mg/ml, Zinc Sulfate 2.5mg/ml",
+      "dispenseSize": "30ml",
+      "wholesaleUsd": 64.8,
+      "coldShip": true
+    },
+    {
+      "sku": 321,
+      "name": "TriMix Travel Case",
+      "concentration": "NA",
+      "dispenseSize": "1",
+      "wholesaleUsd": 40
+    },
+    {
+      "sku": 322,
+      "name": "Vaginal Cream Applicator",
+      "concentration": "NA",
+      "dispenseSize": "ea",
+      "wholesaleUsd": 1.5
+    },
+    {
+      "sku": 323,
+      "name": "Vardenafil HCl 20mg/Paroxetine",
+      "concentration": "HCl 12.5mg IR Capsules 20mg/12.5mg",
+      "dispenseSize": "ea",
+      "wholesaleUsd": 5
+    },
+    {
+      "sku": 324,
+      "name": "Vardenafil HCl 20mg/Paroxetine",
+      "concentration": "HCl 25mg IR Capsules 20mg/25mg",
+      "dispenseSize": "ea",
+      "wholesaleUsd": 5
+    },
+    {
+      "sku": 325,
+      "name": "Vardenafil HCl 75mg RDTs",
+      "concentration": "75mg",
+      "dispenseSize": "ea",
+      "wholesaleUsd": 5
+    },
+    {
+      "sku": 326,
+      "name": "Vardenafil HCl 75mg/Papaverine",
+      "concentration": "HCl 25mg RDTs Vardenafil HCl 75mg/Papaverine HCl 25mg",
+      "dispenseSize": "ea",
+      "wholesaleUsd": 5
+    },
+    {
+      "sku": 327,
+      "name": "Vigor Natural Testosterone Booster",
+      "concentration": "Tribulus Terrestris Extract 500mg, Fenugreek Extract 450mg, Shilajit Extract (40% Fulvic Acid) 200mg, Boron 3mg",
+      "dispenseSize": "ea",
+      "wholesaleUsd": 25
+    },
+    {
+      "sku": 328,
+      "name": "Vitamin D3 in MCT Oil (IM ONLY)",
+      "concentration": "50,000iu / ml",
+      "dispenseSize": "30ml",
+      "wholesaleUsd": 59.51
+    },
+    {
+      "sku": 329,
+      "name": "Wesley IM Syringes 25g x 1 x 3cc",
+      "concentration": "25g x 1",
+      "dispenseSize": "ea",
+      "wholesaleUsd": 0.3
+    },
+    {
+      "sku": 330,
+      "name": "Wesley Mineral Blend",
+      "concentration": "MagnesiumCL 80mg, Zinc 1mg,Manganese 0.02mg, Copper 0.2mg",
+      "dispenseSize": "30ML",
+      "wholesaleUsd": 91.25
+    },
+    {
+      "sku": 331,
+      "name": "Zinc Sulfate",
+      "concentration": "10mg/ml",
+      "dispenseSize": "10ml",
+      "wholesaleUsd": 33.06
+    }
+  ]
+}

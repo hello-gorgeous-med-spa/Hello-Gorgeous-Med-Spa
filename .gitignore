@@ -167,4 +167,7 @@ public/images/*/incoming/
 
 # Local review-send launchd log
 .review-send.log
+
+# Generated Olympia PDF text extract (npm run sync:olympia)
+data/olympia-pricelist.extract.txt
 .tmp-brow-journey-build/
