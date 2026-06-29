@@ -50,116 +50,57 @@ function TrustBar() {
 }
 
 /* ─────────────────────────────────────────────────────────────
-   HERO — Clean gradient with product showcase
+   HERO — Full-width branded banner
 ───────────────────────────────────────────────────────────── */
 
 function HeroSection() {
   return (
-    <section className="relative overflow-hidden bg-white">
-      <div className="mx-auto max-w-6xl px-4 py-16 sm:py-20 lg:py-24">
-        <div className="grid items-center gap-12 lg:grid-cols-2">
-          {/* Left: Copy */}
-          <div>
-            <RegenLogo width={180} priority />
-            
-            <h1 className="mt-8 text-4xl font-semibold leading-tight tracking-tight text-neutral-900 sm:text-5xl">
-              We're simplifying<br />
-              your path to wellness.
-            </h1>
-            
-            <p className="mt-6 max-w-md text-lg text-neutral-600">
-              NP-supervised prescriptions for weight loss, hormones, peptides, and more — delivered to your door in Illinois.
-            </p>
+    <section className="relative">
+      {/* Full-width hero banner */}
+      <Link href="/rx/weight-loss" className="block">
+        <div className="relative w-full">
+          <Image
+            src="/images/regen/brand/regen-hero-banner.png"
+            alt="REGEN by Hello Gorgeous Med Spa — Done surviving. I'm ready to thrive. NAD+, MIC-B12, Sermorelin."
+            width={1024}
+            height={438}
+            className="h-auto w-full object-cover"
+            priority
+            sizes="100vw"
+          />
+        </div>
+      </Link>
 
-            <div className="mt-8 flex flex-wrap gap-3">
-              <Link
-                href="/rx/weight-loss"
-                className="inline-flex items-center gap-2 rounded-lg bg-[#E6007E] px-6 py-3.5 text-sm font-semibold text-white transition hover:bg-[#FF2D8E]"
-              >
-                Find your treatment
-                <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                </svg>
-              </Link>
-              <Link
-                href="/book"
-                className="inline-flex items-center gap-2 rounded-lg border border-neutral-300 px-6 py-3.5 text-sm font-semibold text-neutral-700 transition hover:border-neutral-400"
-              >
-                Book consult
-              </Link>
-            </div>
-
-            {/* Trust bullets */}
-            <ul className="mt-10 flex flex-wrap gap-x-6 gap-y-2">
-              {["Real providers", "Ship to home", "100% online"].map((item) => (
-                <li key={item} className="flex items-center gap-2 text-sm text-neutral-600">
-                  <svg className="h-4 w-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Right: Featured product card */}
-          <div className="flex justify-center lg:justify-end">
-            <div className="w-full max-w-sm overflow-hidden rounded-2xl border border-neutral-200 bg-white shadow-xl">
-              {/* Product image */}
-              <div className="relative bg-gradient-to-br from-neutral-50 to-neutral-100 p-8">
-                <span className="absolute left-4 top-4 flex items-center gap-1 rounded-full bg-amber-100 px-3 py-1 text-xs font-semibold text-amber-800">
-                  <svg className="h-3.5 w-3.5" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                  </svg>
-                  Most Popular
-                </span>
-                <Image
-                  src="/images/shop-rx/tirzepatide-glp1.png"
-                  alt="Compounded Tirzepatide"
-                  width={200}
-                  height={240}
-                  className="mx-auto h-auto w-full max-w-[180px] object-contain"
-                  priority
-                />
-              </div>
-
-              {/* Product info */}
-              <div className="p-6">
-                <p className="text-xs font-bold uppercase tracking-wider text-[#E6007E]">
-                  Weight Loss
-                </p>
-                <h3 className="mt-2 text-xl font-semibold text-neutral-900">
-                  Compounded Tirzepatide
-                  <sup className="ml-1 text-sm font-medium text-neutral-400">Rx</sup>
-                </h3>
-                <p className="mt-2 text-sm text-neutral-600">
-                  Dual GLP-1 + GIP pathway for sustainable weight loss
-                </p>
-
-                <div className="mt-6 flex gap-3">
-                  <Link
-                    href="/glp-1-weight-loss-oswego"
-                    className="flex-1 rounded-lg border border-neutral-300 py-3 text-center text-sm font-semibold text-neutral-700 transition hover:border-neutral-400"
-                  >
-                    Learn more
-                  </Link>
-                  <Link
-                    href={GLP1_INTAKE_PATH}
-                    className="flex-1 rounded-lg bg-[#E6007E] py-3 text-center text-sm font-semibold text-white transition hover:bg-[#FF2D8E]"
-                  >
-                    Get started
-                  </Link>
-                </div>
-
-                <p className="mt-4 text-center text-xs text-neutral-500">
-                  <span className="inline-flex items-center gap-1">
-                    <span className="h-2 w-2 rounded-full bg-green-500" />
-                    In stock via REGEN
-                  </span>
-                </p>
-              </div>
-            </div>
-          </div>
+      {/* CTA row below banner */}
+      <div className="bg-white py-6">
+        <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-center gap-4 px-4">
+          <Link
+            href="/rx/weight-loss"
+            className="inline-flex items-center gap-2 rounded-lg bg-[#E6007E] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#FF2D8E]"
+          >
+            Explore weight loss
+            <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
+          </Link>
+          <Link
+            href="/rx/peptides"
+            className="inline-flex items-center gap-2 rounded-lg border border-neutral-300 px-6 py-3 text-sm font-semibold text-neutral-700 transition hover:border-neutral-400"
+          >
+            Explore peptides
+          </Link>
+          <Link
+            href="/iv-shots"
+            className="inline-flex items-center gap-2 rounded-lg border border-neutral-300 px-6 py-3 text-sm font-semibold text-neutral-700 transition hover:border-neutral-400"
+          >
+            IV & NAD+
+          </Link>
+          <Link
+            href="/book"
+            className="inline-flex items-center gap-2 rounded-lg border border-neutral-300 px-6 py-3 text-sm font-semibold text-neutral-700 transition hover:border-neutral-400"
+          >
+            Book consult
+          </Link>
         </div>
       </div>
     </section>
