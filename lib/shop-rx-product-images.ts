@@ -2,6 +2,12 @@
  * Card-safe Shop RX product art — branded marketing cards under public/images/shop-rx/.
  */
 
+import {
+  HRT_HORMONES_HERO_IMAGE,
+  hrtBannerAltForIngredient,
+  hrtBannerImageForIngredient,
+} from "@/lib/hrt-banner-images";
+
 export type ShopRxCategoryId =
   | "weight-loss"
   | "peptides"
@@ -100,15 +106,59 @@ export const SHOP_RX_PRODUCT_IMAGES: Record<
     alt: "Recovery Blend Rx — Hello Gorgeous RX",
   },
   "biote-women": {
-    src: "/images/homepage-buyer-paths/weight-loss-hormones.png",
-    alt: "BioTE hormone therapy for women — Hello Gorgeous RX",
+    src: hrtBannerImageForIngredient("biote-women")!,
+    alt: hrtBannerAltForIngredient("biote-women", "BioTE hormone therapy"),
+  },
+  progesterone: {
+    src: hrtBannerImageForIngredient("progesterone")!,
+    alt: hrtBannerAltForIngredient("progesterone", "Progesterone"),
+  },
+  "estrogen-biest": {
+    src: hrtBannerImageForIngredient("estrogen-biest")!,
+    alt: hrtBannerAltForIngredient("estrogen-biest", "Estrogen (Bi-Est)"),
+  },
+  estradiol: {
+    src: hrtBannerImageForIngredient("estradiol")!,
+    alt: hrtBannerAltForIngredient("estradiol", "Estradiol (E2)"),
+  },
+  estriol: {
+    src: hrtBannerImageForIngredient("estriol")!,
+    alt: hrtBannerAltForIngredient("estriol", "Estriol (E3)"),
+  },
+  "testosterone-women": {
+    src: hrtBannerImageForIngredient("testosterone-women")!,
+    alt: hrtBannerAltForIngredient("testosterone-women", "Testosterone"),
+  },
+  dhea: {
+    src: hrtBannerImageForIngredient("dhea")!,
+    alt: hrtBannerAltForIngredient("dhea", "DHEA"),
+  },
+  "testosterone-trt": {
+    src: hrtBannerImageForIngredient("testosterone-trt")!,
+    alt: hrtBannerAltForIngredient("testosterone-trt", "Testosterone & TRT"),
+  },
+  "trt-flagship": {
+    src: hrtBannerImageForIngredient("trt-flagship")!,
+    alt: hrtBannerAltForIngredient("testosterone-trt", "Testosterone & TRT"),
+  },
+  thyroid: {
+    src: hrtBannerImageForIngredient("thyroid")!,
+    alt: hrtBannerAltForIngredient("thyroid", "Thyroid (T3 / T4)"),
+  },
+  anastrozole: {
+    src: hrtBannerImageForIngredient("anastrozole")!,
+    alt: hrtBannerAltForIngredient("anastrozole", "Anastrozole"),
+  },
+  enclomiphene: {
+    src: hrtBannerImageForIngredient("enclomiphene")!,
+    alt: hrtBannerAltForIngredient("enclomiphene", "Enclomiphene"),
   },
 };
 
 export const SHOP_RX_CATEGORY_IMAGE_FALLBACK: Record<ShopRxCategoryId, `/${string}`> = {
   "weight-loss": "/images/gentlemens-club/tirzepatide-weight-loss.png",
   peptides: `${BASE}/hello-gorgeous-rx-brand.png`,
-  hormones: "/images/homepage-buyer-paths/weight-loss-hormones.png",
+  hormones: HRT_HORMONES_HERO_IMAGE,
   intimacy: `${BASE}/pt-141.png`,
   wellness: "/images/homepage-services/iv-therapy-immunity-infusion.png",
 };
@@ -156,11 +206,15 @@ export function shopRxImageObjectClass(
 ): string {
   const brandedCard =
     src.startsWith(`${BASE}/`) ||
+    src.includes("/shop-rx/hrt/") ||
     src.includes("/gentlemens-club/tirzepatide-weight-loss") ||
     src.includes("/gentlemens-club/semaglutide-weight-loss") ||
     src.includes("glp1-intake-flyer") ||
     src.includes("glp1-refill-flyer");
   if (brandedCard) {
+    if (src.includes("/shop-rx/hrt/")) {
+      return "object-cover object-center";
+    }
     const pad = variant === "featured" ? "p-2 sm:p-3" : "p-3 sm:p-4";
     return `object-contain object-center ${pad}`;
   }

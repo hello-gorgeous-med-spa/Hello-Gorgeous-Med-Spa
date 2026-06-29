@@ -18,9 +18,19 @@ import {
   hrtIngredientFromMonthlyUsd,
   hrtIngredientPriceTagline,
 } from "@/lib/hrt-formulation-catalog";
+import { hrtBannerAltForIngredient, hrtBannerImageForIngredient } from "@/lib/hrt-banner-images";
 import { helloGorgeousRxStartUrl } from "@/lib/peptide-request-menu";
 import { getPeptidePickerThumbnail } from "@/lib/peptide-thumbnails";
 import { resolveShopRxProductImage } from "@/lib/shop-rx-product-images";
+
+function hrtMenuItemImage(item: { id: string; name: string }) {
+  const src = hrtBannerImageForIngredient(item.id);
+  if (!src) return {};
+  return {
+    imageSrc: src,
+    imageAlt: hrtBannerAltForIngredient(item.id, item.name),
+  };
+}
 
 export type MedicalMegaMenuItem = {
   id: string;
@@ -190,7 +200,7 @@ export const SHOP_RX_CATEGORIES: ShopRxCategory[] = [
     hubHref: "/rx/hormones",
     exploreLabel: "Explore hormones",
     homepageBlurb: "HRT ingredients · capsule, troche or injectable",
-    defaultFeaturedId: "progesterone",
+    defaultFeaturedId: "estrogen-biest",
     columns: [
       {
         heading: "Get support for",
@@ -220,11 +230,7 @@ export const SHOP_RX_CATEGORIES: ShopRxCategory[] = [
             href: `/rx/hormones#${item.id}`,
             rx: true,
             tagline: `${item.tagline} · from $${hrtIngredientFromMonthlyUsd(item)}/mo`,
-            imageSrc:
-              item.id === "progesterone"
-                ? ("/images/homepage-buyer-paths/weight-loss-hormones.png" as const)
-                : undefined,
-            imageAlt: item.id === "progesterone" ? `${item.name} — Hello Gorgeous RX` : undefined,
+            ...hrtMenuItemImage(item),
           })),
       },
       {
@@ -236,8 +242,7 @@ export const SHOP_RX_CATEGORIES: ShopRxCategory[] = [
             href: "/gentlemens-club/testosterone",
             rx: true,
             tagline: "Visual TRT hub · from $200/mo · Oswego in-person",
-            imageSrc: "/images/gentlemens-club/the-distinguished-hero.png",
-            imageAlt: "Men's TRT at Hello Gorgeous Gentlemen's Club",
+            ...hrtMenuItemImage({ id: "trt-flagship", name: "Testosterone & TRT" }),
           },
           ...HRT_INGREDIENTS.filter((item) => item.audience === "men").map((item) => ({
             id: item.id,
@@ -245,6 +250,7 @@ export const SHOP_RX_CATEGORIES: ShopRxCategory[] = [
             href: `/rx/hormones#${item.id}`,
             rx: true as const,
             tagline: hrtIngredientPriceTagline(item),
+            ...hrtMenuItemImage(item),
           })),
         ],
       },

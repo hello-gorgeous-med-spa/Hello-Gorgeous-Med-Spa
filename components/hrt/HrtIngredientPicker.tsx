@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 
@@ -22,6 +23,7 @@ import {
   type HrtIngredient,
   type HrtIngredientForm,
 } from "@/lib/hrt-formulation-catalog";
+import { hrtBannerAltForIngredient, hrtBannerImageForIngredient } from "@/lib/hrt-banner-images";
 import {
   HRT_MENS_PROGRAM_DISCLAIMER,
   hrtIngredientUsesMensProgramPricing,
@@ -114,6 +116,7 @@ export function HrtIngredientPicker() {
 
   const activeProgramPrice = hrtMensProgramFormPrice(selectedIngredient, activeForm);
   const usesMensProgram = hrtIngredientUsesMensProgramPricing(selectedIngredient);
+  const featuredBanner = hrtBannerImageForIngredient(selectedIngredient.id);
 
   const pickIngredient = (item: HrtIngredient) => {
     setSelectedIngredientId(item.id);
@@ -267,7 +270,20 @@ export function HrtIngredientPicker() {
         </FadeUp>
 
         <FadeUp delayMs={140}>
-          <div className="rounded-3xl border border-black/10 bg-[#FAF7F4] p-6 sm:p-8">
+          <div className="overflow-hidden rounded-3xl border border-black/10 bg-[#FAF7F4]">
+            {featuredBanner ? (
+              <div className="relative aspect-[16/9] w-full border-b border-black/10 bg-[#0A0C10] sm:aspect-[2/1]">
+                <Image
+                  src={featuredBanner}
+                  alt={hrtBannerAltForIngredient(selectedIngredient.id, selectedIngredient.name)}
+                  fill
+                  className="object-cover object-center"
+                  sizes="(max-width: 1024px) 100vw, 55vw"
+                  priority
+                />
+              </div>
+            ) : null}
+            <div className="p-6 sm:p-8">
             <p className="text-[10px] font-bold uppercase tracking-[0.24em] text-black/45">
               Featured · {audience === "women" ? "Women's HRT" : "Men's TRT"}
             </p>
@@ -340,6 +356,7 @@ export function HrtIngredientPicker() {
             <p className="mt-4 text-[11px] leading-relaxed text-black/45">
               {usesMensProgram ? HRT_MENS_PROGRAM_DISCLAIMER : HRT_PRICING_DISCLAIMER}
             </p>
+            </div>
           </div>
         </FadeUp>
       </div>

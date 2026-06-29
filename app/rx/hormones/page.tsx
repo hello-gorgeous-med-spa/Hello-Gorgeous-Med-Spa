@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { FadeUp, Section } from "@/components/Section";
 import { HrtIngredientPicker } from "@/components/hrt/HrtIngredientPicker";
 import { RxPageLayout, RxServiceCard } from "@/components/RxPageLayout";
-import { MEDICAL_TEAM_IMAGE } from "@/lib/medical-optimization";
+import { HRT_HORMONES_HERO_IMAGE } from "@/lib/hrt-banner-images";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
@@ -57,7 +57,7 @@ export default function HormonesPage() {
       subtitle="Bio-Identical Hormone Therapy for Men & Women"
       description="Restore hormonal balance with physician-supervised bio-identical hormone replacement therapy, customized to your unique physiology."
       icon="🧬"
-      heroImage={MEDICAL_TEAM_IMAGE}
+      heroImage={HRT_HORMONES_HERO_IMAGE}
     >
       <Section className="bg-gradient-to-b from-[#FFF0F7] to-white">
         <HrtIngredientPicker />
