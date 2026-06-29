@@ -3,7 +3,7 @@
  * Only list routes we actually offer; omit DEXA / bone-density screeners.
  */
 
-import { BOOKING_URL, RX_PATIENT_CARE_PATH } from "@/lib/flows";
+import { BOOKING_URL, LABS_HUB_PATH, RX_PATIENT_CARE_PATH } from "@/lib/flows";
 import { PEPTIDE_CONSULT_SPECIAL } from "@/lib/peptide-featured";
 import { MEDICAL_OPTIMIZATION_PATH } from "@/lib/medical-optimization";
 
@@ -30,15 +30,15 @@ export const MEDICAL_NAV = {
       overview: true,
     },
     {
-      label: "Blood Panels & Labs",
-      href: "/blood-work",
-      sub: "60+ biomarkers · FullScript · Quest & LabCorp",
+      label: "Hello Gorgeous Labs",
+      href: LABS_HUB_PATH,
+      sub: "Cash-pay panels · in-house draws · from $199",
       dividerBefore: true,
     },
     {
-      label: "Lab & Body Guide",
-      href: "/understand-your-body",
-      sub: "Persona-guided education before you book",
+      label: "Lab guide & biomarkers",
+      href: "/blood-work",
+      sub: "Education before you order",
     },
     {
       label: "The Gentlemen's Club",

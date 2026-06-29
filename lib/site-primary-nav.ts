@@ -4,6 +4,7 @@
  */
 
 import { BOOKING_URL, RX_PATIENT_CARE_PATH } from "@/lib/flows";
+import { LABS_NAV } from "@/lib/labs-nav";
 import { GENTLEMENS_CLUB_PATH } from "@/lib/gentlemens-club";
 import { LADIES_CLUB_PATH } from "@/lib/ladies-club";
 import { PRIMARY_BOOKING_CTA } from "@/lib/primary-cta";
@@ -15,6 +16,7 @@ import { SHOP_RX_NAV } from "@/lib/medical-mega-menu";
 export const PRIMARY_NAV_HUBS = [
   { id: "services", label: "Services", href: "/services", hasDropdown: true },
   { id: "shop-rx", label: SHOP_RX_NAV.label, href: SHOP_RX_NAV.href, hasDropdown: true },
+  { id: "labs", label: LABS_NAV.label, href: LABS_NAV.href, hasDropdown: true },
   { id: "specials", label: "Specials", href: SPECIALS_PATH, hasDropdown: true },
   { id: "about", label: "About", href: "/about", hasDropdown: true },
   {
@@ -79,6 +81,12 @@ export const SERVICES_RX_BRIDGE_LINKS = [
     badge: "Rx" as const,
   },
   {
+    label: "Hello Gorgeous Labs",
+    href: LABS_NAV.href,
+    sub: "Cash-pay panels · in-house draws Oswego",
+    badge: "NEW" as const,
+  },
+  {
     label: "RX refills & patient care",
     href: RX_PATIENT_CARE_PATH,
     sub: "Existing patients — refills, pay & guides",
@@ -94,6 +102,7 @@ export const SERVICES_EXPLORE_LINKS = [
 export const MOBILE_PRIMARY_NAV_SECTIONS = [
   { id: "services", label: "Services" },
   { id: "shop-rx", label: "Shop RX", highlight: true },
+  { id: "labs", label: "Labs", highlight: true },
   { id: "specials", label: "Specials", highlight: true },
   { id: "about", label: "About" },
 ] as const;
