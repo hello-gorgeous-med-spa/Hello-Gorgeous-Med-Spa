@@ -25,6 +25,7 @@ import { helloGorgeousRxStartUrl } from "@/lib/peptide-request-menu";
 import { LAB_PANELS } from "@/lib/lab-panel-catalog";
 import { getPeptidePickerThumbnail } from "@/lib/peptide-thumbnails";
 import { resolveShopRxProductImage } from "@/lib/shop-rx-product-images";
+import { REGEN_CATEGORY_HUBS, REGEN_EXPLORE_FOOTER } from "@/lib/rx-category-hubs";
 
 function hrtMenuItemImage(item: { id: string; name: string }) {
   const src = hrtBannerImageForIngredient(item.id);
@@ -90,7 +91,7 @@ export const SHOP_RX_CATEGORIES: ShopRxCategory[] = [
   {
     id: "weight-loss",
     navLabel: "Weight Loss",
-    hubHref: "/glp-1-weight-loss-oswego",
+    hubHref: "/rx/weight-loss",
     exploreLabel: "Explore weight loss",
     homepageBlurb: "GLP-1 programs · ship to home · NP-supervised",
     defaultFeaturedId: "tirzepatide-glp1",
@@ -398,7 +399,7 @@ export const MEDICAL_MEGA_MENU_DEFAULT_FEATURED_ID =
   SHOP_RX_CATEGORIES[0]?.defaultFeaturedId ?? "tirzepatide-glp1";
 
 export const SHOP_RX_NAV = {
-  label: "Shop RX",
+  label: "REGEN",
   href: "/rx",
 } as const;
 
@@ -473,19 +474,17 @@ export function medicalMegaMenuMobileGroups(): Array<{
   links: Array<{ label: string; href: string; sub?: string }>;
 }> {
   return [
-    ...SHOP_RX_CATEGORIES.map((cat) => ({
-      heading: cat.navLabel,
-      links: cat.columns.flatMap((col) =>
-        col.items.map((item) => ({
-          label: item.rx ? `${item.label} · Rx` : item.label,
-          href: item.href,
-          sub: item.tagline,
-        })),
-      ),
-    })),
     {
-      heading: "Explore & patient hub",
-      links: MEDICAL_MEGA_MENU_FOOTER.map((link) => ({
+      heading: "Explore REGEN",
+      links: REGEN_CATEGORY_HUBS.map((hub) => ({
+        label: hub.navLabel,
+        href: hub.hubPath,
+        sub: hub.trustLine,
+      })),
+    },
+    {
+      heading: "Patient hub",
+      links: REGEN_EXPLORE_FOOTER.map((link) => ({
         label: link.label,
         href: link.href,
       })),

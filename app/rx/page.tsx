@@ -1,23 +1,24 @@
 import type { Metadata } from "next";
 
-import { RxLandingPageContent } from "@/components/rx/RxLandingPageContent";
+import { RegenLandingPageContent } from "@/components/regen/RegenLandingPageContent";
+import { REGEN_BRAND, REGEN_LOGO } from "@/lib/regen-brand";
 import { pageMetadata, SITE } from "@/lib/seo";
 
 const PAGE_PATH = "/rx";
 const PAGE_URL = `${SITE.url}${PAGE_PATH}`;
 
 const baseMeta = pageMetadata({
-  title: "Hello Gorgeous RX™ | Same-Day Rx Care | Oswego, Naperville, Aurora IL",
+  title: `${REGEN_BRAND.fullName} | Medical Wellness · Oswego, IL`,
   description:
-    "Prescription hormone, metabolic, dermatology, and peptide care with NP oversight in Oswego, IL. Same-day appointments often available — in-office or telehealth. Serving Naperville, Aurora, Plainfield, and the western suburbs.",
+    "REGEN by Hello Gorgeous Med Spa — medical weight loss, labs, hormones, peptides, and wellness with NP supervision. Online intake, telehealth when needed, discreet shipping across Illinois.",
   path: PAGE_PATH,
   keywords: [
-    "Hello Gorgeous RX",
+    "REGEN Hello Gorgeous",
     "medical weight loss Oswego",
-    "hormone therapy Illinois",
-    "peptide therapy Naperville",
+    "GLP-1 Illinois",
+    "hormone therapy Naperville",
+    "peptide therapy",
     "Ryan Kent FNP",
-    "GLP-1 prescription Illinois",
   ],
 });
 
@@ -28,17 +29,17 @@ export const metadata: Metadata = {
     url: PAGE_URL,
     images: [
       {
-        url: `${SITE.url}/images/homepage-buyer-paths/hello-gorgeous-rx.png`,
-        width: 1200,
-        height: 900,
-        alt: "Hello Gorgeous RX — medical optimization programs",
+        url: `${SITE.url}${REGEN_LOGO.primary}`,
+        width: REGEN_LOGO.width,
+        height: REGEN_LOGO.height,
+        alt: REGEN_LOGO.alt,
       },
     ],
   },
   twitter: {
     ...baseMeta.twitter,
     card: "summary_large_image",
-    images: [`${SITE.url}/images/homepage-buyer-paths/hello-gorgeous-rx.png`],
+    images: [`${SITE.url}${REGEN_LOGO.primary}`],
   },
 };
 
@@ -46,9 +47,9 @@ export default function RxPage() {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "MedicalClinic",
-    name: "Hello Gorgeous RX™",
+    name: REGEN_BRAND.fullName,
     description:
-      "Hello Gorgeous RX™ — hormone, metabolic, dermatology, and peptide prescriptions with NP oversight. Same-day and next-day appointments often available in Oswego, IL; telehealth and in-office. Serves Naperville, Aurora, Plainfield, and surrounding areas.",
+      "REGEN — prescription medical wellness including weight loss, hormone therapy, peptides, labs, and sexual health with NP oversight in Oswego, IL.",
     url: PAGE_URL,
     address: {
       "@type": "PostalAddress",
@@ -59,21 +60,7 @@ export default function RxPage() {
       addressCountry: "US",
     },
     telephone: "(630) 636-6193",
-    medicalSpecialty: ["Hormone Therapy", "Medical Weight Loss", "Dermatology"],
-    availableService: [
-      {
-        "@type": "TelehealthService",
-        name: "Virtual Medical Evaluation",
-        description:
-          "Telehealth consultations for hormone therapy, weight loss, and prescription dermatology. Same-day scheduling when available.",
-      },
-      {
-        "@type": "MedicalProcedure",
-        name: "In-office Rx consultation",
-        description:
-          "Same-day and next-day prescription care appointments in Oswego when the schedule allows — hormones, metabolic, dermatology, peptides.",
-      },
-    ],
+    medicalSpecialty: ["Hormone Therapy", "Medical Weight Loss", "Peptide Therapy"],
     physician: {
       "@type": "Physician",
       name: "Ryan Kent, FNP-BC",
@@ -87,7 +74,7 @@ export default function RxPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <RxLandingPageContent />
+      <RegenLandingPageContent />
     </>
   );
 }

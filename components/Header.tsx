@@ -651,7 +651,7 @@ export function Header() {
                 className={NAV_LINK_BASE}
                 style={navPillStyle(1, isMedicalNavActiveState)}
               >
-                Shop RX
+                {SHOP_RX_NAV.label}
                 <svg className={cx("h-3 w-3 transition-transform", activeDropdown === "medical" && "rotate-180")} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                 </svg>
@@ -800,7 +800,7 @@ export function Header() {
               { key: "services", label: "Services", links: NAV.services.sections.flatMap((s) => s.links) },
               {
                 key: "medical",
-                label: "Shop RX",
+                label: SHOP_RX_NAV.label,
                 groups: medicalMegaMenuMobileGroups(),
                 highlight: true,
               },

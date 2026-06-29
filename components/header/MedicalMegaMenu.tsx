@@ -4,58 +4,92 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
+import { RegenLogo } from "@/components/regen/RegenLogo";
 import { BOOKING_URL } from "@/lib/flows";
+import { SHOP_RX_NAV } from "@/lib/medical-mega-menu";
 import {
-  getMedicalMegaMenuItem,
-  getShopRxCategory,
-  MEDICAL_MEGA_MENU_FOOTER,
-  resolveShopRxItemImage,
-  SHOP_RX_CATEGORIES,
-  SHOP_RX_NAV,
-  type ShopRxCategoryId,
-} from "@/lib/medical-mega-menu";
-import { shopRxImageObjectClass } from "@/lib/shop-rx-product-images";
+  REGEN_CATEGORY_HUBS,
+  REGEN_EXPLORE_FOOTER,
+  type RxCategoryHub,
+  type RxCategoryHubId,
+} from "@/lib/rx-category-hubs";
 
 const MEGA_MENU_TOP = "top-[7.75rem]";
 
-function RxMark() {
-  return (
-    <sup className="ml-0.5 align-super text-[9px] font-bold tracking-normal text-[#FF2D8E]">
-      Rx
-    </sup>
-  );
-}
-
-function MegaMenuItemLink({
-  item,
+function ExploreRow({
+  hub,
+  active,
+  onSelect,
   onClose,
-  onHover,
 }: {
-  item: import("@/lib/medical-mega-menu").MedicalMegaMenuItem;
+  hub: RxCategoryHub;
+  active: boolean;
+  onSelect: () => void;
   onClose: () => void;
-  onHover: () => void;
 }) {
   return (
     <Link
-      href={item.href}
+      href={hub.hubPath}
       onClick={onClose}
-      onMouseEnter={onHover}
-      onFocus={onHover}
-      className="group flex items-start justify-between gap-2 py-3 transition-colors"
+      onMouseEnter={onSelect}
+      onFocus={onSelect}
+      className={`group flex items-center justify-between gap-3 rounded-lg px-3 py-3 transition ${
+        active ? "bg-neutral-100" : "hover:bg-neutral-50"
+      }`}
     >
-      <span className="text-[15px] font-semibold leading-snug text-white group-hover:text-[#FFB8DC]">
-        {item.label}
-        {item.rx ? <RxMark /> : null}
+      <span
+        className={`text-[15px] font-medium ${
+          active ? "text-neutral-900" : "text-neutral-700 group-hover:text-neutral-900"
+        }`}
+      >
+        {hub.navLabel}
       </span>
-      {item.badge === "NEW" ? (
-        <span className="shrink-0 rounded bg-white/10 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wide text-white/70">
-          New
-        </span>
-      ) : item.badge === "POPULAR" ? (
-        <span className="shrink-0 rounded bg-[#E6007E]/25 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wide text-[#FFB8DC]">
-          Popular
-        </span>
-      ) : null}
+      <svg
+        className={`h-4 w-4 shrink-0 transition ${
+          active ? "text-neutral-900" : "text-neutral-300 group-hover:text-neutral-500"
+        }`}
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+        aria-hidden
+      >
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+      </svg>
+    </Link>
+  );
+}
+
+function PreviewProduct({
+  product,
+  onClose,
+}: {
+  product: RxCategoryHub["products"][number];
+  onClose: () => void;
+}) {
+  return (
+    <Link
+      href={product.href}
+      onClick={onClose}
+      className="group flex items-center gap-3 rounded-lg border border-neutral-200 bg-white p-3 transition hover:border-neutral-300 hover:shadow-sm"
+    >
+      <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-md bg-neutral-50">
+        <Image
+          src={product.image}
+          alt=""
+          fill
+          className="object-contain p-1"
+          sizes="56px"
+        />
+      </div>
+      <div className="min-w-0 flex-1">
+        <p className="truncate text-sm font-semibold text-neutral-900 group-hover:text-neutral-700">
+          {product.name}
+          {product.rx ? (
+            <sup className="ml-0.5 text-[9px] font-medium text-neutral-400">Rx</sup>
+          ) : null}
+        </p>
+        <p className="truncate text-xs text-neutral-500">{product.priceLabel}</p>
+      </div>
     </Link>
   );
 }
@@ -69,156 +103,130 @@ export function MedicalMegaMenu({
   isOpen: boolean;
   onClose: () => void;
   onMouseEnter: () => void;
-  initialCategoryId?: ShopRxCategoryId;
+  initialCategoryId?: RxCategoryHubId;
 }) {
-  const [activeCategoryId, setActiveCategoryId] = useState<ShopRxCategoryId>(
-    initialCategoryId ?? SHOP_RX_CATEGORIES[0]!.id,
+  const [activeId, setActiveId] = useState<RxCategoryHubId>(
+    initialCategoryId ?? REGEN_CATEGORY_HUBS[0]!.id,
   );
-  const category =
-    getShopRxCategory(activeCategoryId) ?? SHOP_RX_CATEGORIES[0]!;
-  const [featuredId, setFeaturedId] = useState(category.defaultFeaturedId);
 
   useEffect(() => {
     if (isOpen && initialCategoryId) {
-      setActiveCategoryId(initialCategoryId);
+      setActiveId(initialCategoryId);
     }
   }, [isOpen, initialCategoryId]);
 
-  useEffect(() => {
-    setFeaturedId(category.defaultFeaturedId);
-  }, [category.defaultFeaturedId, activeCategoryId]);
-
   if (!isOpen) return null;
 
-  const featured =
-    getMedicalMegaMenuItem(featuredId) ??
-    getMedicalMegaMenuItem(category.defaultFeaturedId)!;
-  const featuredImage = resolveShopRxItemImage(featured, category.id);
-  const featuredImageClass = shopRxImageObjectClass(featuredImage.src);
+  const active =
+    REGEN_CATEGORY_HUBS.find((hub) => hub.id === activeId) ?? REGEN_CATEGORY_HUBS[0]!;
+  const previewProducts = active.products.slice(0, 3);
 
   return (
     <div
-      className={`fixed left-0 right-0 z-50 border-t border-white/10 shadow-2xl backdrop-blur-md ${MEGA_MENU_TOP}`}
-      style={{ backgroundColor: "rgba(16, 16, 20, 0.98)" }}
+      className={`fixed left-0 right-0 z-50 border-t border-neutral-200 bg-white shadow-2xl ${MEGA_MENU_TOP}`}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onClose}
     >
       <div className="mx-auto max-w-6xl px-6 py-6 max-h-[calc(100vh-5.5rem)] overflow-y-auto overscroll-contain">
-        {/* Category tabs — Good Life style */}
-        <div className="flex flex-wrap gap-2 border-b border-dotted border-white/15 pb-4">
-          {SHOP_RX_CATEGORIES.map((cat) => {
-            const active = cat.id === activeCategoryId;
-            return (
-              <button
-                key={cat.id}
-                type="button"
-                onMouseEnter={() => setActiveCategoryId(cat.id)}
-                onFocus={() => setActiveCategoryId(cat.id)}
-                onClick={() => setActiveCategoryId(cat.id)}
-                className={`rounded-full px-4 py-2 text-xs font-bold uppercase tracking-[0.14em] transition ${
-                  active
-                    ? "bg-[#E6007E] text-white shadow-[2px_2px_0_0_rgba(230,0,126,0.45)]"
-                    : "bg-white/5 text-white/55 hover:bg-white/10 hover:text-white"
-                }`}
-              >
-                {cat.navLabel}
-              </button>
-            );
-          })}
+        <div className="flex items-center justify-between gap-4 border-b border-neutral-200 pb-5">
+          <RegenLogo width={150} onClick={onClose} />
           <Link
             href={SHOP_RX_NAV.href}
             onClick={onClose}
-            className="ml-auto hidden items-center self-center text-xs font-semibold text-[#FFB8DC] underline underline-offset-2 hover:text-white sm:inline-flex"
+            className="text-sm font-medium text-neutral-600 transition hover:text-neutral-900"
           >
-            {category.exploreLabel} →
+            REGEN home →
           </Link>
         </div>
 
-        <div className="mt-6 grid gap-8 lg:grid-cols-[1fr_260px]">
-          <div className="grid grid-cols-2 gap-x-10 gap-y-8">
-            {category.columns.map((column) => (
-              <div key={column.heading}>
-                <p className="mb-3 text-[10px] font-bold uppercase tracking-[0.24em] text-[#FFB8DC]/85">
-                  {column.heading}
-                </p>
-                <ul>
-                  {column.items.map((item, index) => (
-                    <li
-                      key={item.id}
-                      className={index > 0 ? "border-t border-dotted border-white/15" : undefined}
-                    >
-                      <MegaMenuItemLink
-                        item={item}
-                        onClose={onClose}
-                        onHover={() => setFeaturedId(item.id)}
-                      />
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
+        <div className="mt-6 grid gap-8 lg:grid-cols-[minmax(0,240px)_1fr]">
+          <nav aria-label="Explore REGEN categories">
+            <p className="mb-2 px-3 text-[11px] font-semibold uppercase tracking-[0.18em] text-neutral-400">
+              Explore
+            </p>
+            <ul className="space-y-0.5">
+              {REGEN_CATEGORY_HUBS.map((hub) => (
+                <li key={hub.id}>
+                  <ExploreRow
+                    hub={hub}
+                    active={hub.id === activeId}
+                    onSelect={() => setActiveId(hub.id)}
+                    onClose={onClose}
+                  />
+                </li>
+              ))}
+            </ul>
+          </nav>
 
-          <aside className="hidden lg:flex flex-col rounded-2xl border border-white/10 bg-white/[0.04] p-5">
-            <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/40">Featured</p>
-            {featuredImage.src ? (
-              <div className="relative mt-4 aspect-square w-full overflow-hidden rounded-xl border border-white/10 bg-black/40">
+          <div className="grid gap-6 lg:grid-cols-[1fr_220px]">
+            <div>
+              <div className="relative aspect-[16/10] overflow-hidden rounded-xl bg-neutral-100">
                 <Image
-                  src={featuredImage.src}
-                  alt={featuredImage.alt}
+                  src={active.previewImage}
+                  alt={active.previewAlt}
                   fill
-                  className={`${featuredImageClass} p-1`}
-                  sizes="260px"
+                  className="object-cover object-center"
+                  sizes="(max-width: 1024px) 100vw, 480px"
+                  priority
                 />
               </div>
+              <div className="mt-5">
+                <p className="text-xs font-medium uppercase tracking-[0.16em] text-neutral-500">
+                  {active.hero.eyebrow}
+                </p>
+                <h2 className="mt-2 text-2xl font-semibold tracking-tight text-neutral-900">
+                  {active.hero.title}{" "}
+                  {active.hero.titleAccent ? (
+                    <span className="text-neutral-600">{active.hero.titleAccent}</span>
+                  ) : null}
+                </h2>
+                <p className="mt-2 max-w-xl text-sm leading-relaxed text-neutral-600">
+                  {active.hero.subtitle}
+                </p>
+                <Link
+                  href={active.hubPath}
+                  onClick={onClose}
+                  className="mt-5 inline-flex items-center justify-center rounded-full bg-neutral-900 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-neutral-800"
+                >
+                  Explore {active.navLabel.toLowerCase()} →
+                </Link>
+              </div>
+            </div>
+
+            {previewProducts.length > 0 ? (
+              <aside className="flex flex-col gap-2">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-neutral-400">
+                  Shop
+                </p>
+                {previewProducts.map((product) => (
+                  <PreviewProduct key={product.id} product={product} onClose={onClose} />
+                ))}
+              </aside>
             ) : null}
-            <p className="mt-4 text-lg font-bold leading-tight text-white">
-              {featured.label}
-              {featured.rx ? <RxMark /> : null}
-            </p>
-            {featured.tagline ? (
-              <p className="mt-2 text-[11px] font-bold uppercase leading-relaxed tracking-[0.12em] text-[#E6007E]">
-                {featured.tagline}
-              </p>
-            ) : null}
-            <Link
-              href={featured.href}
-              onClick={onClose}
-              className="mt-5 inline-flex items-center justify-center rounded-full border-2 border-black bg-[#E6007E] px-5 py-2.5 text-sm font-bold text-white transition hover:bg-[#FF2D8E]"
-            >
-              Get started →
-            </Link>
-            <Link
-              href={category.hubHref}
-              onClick={onClose}
-              className="mt-3 text-center text-xs font-semibold text-white/50 underline underline-offset-2 hover:text-[#FFB8DC]"
-            >
-              {category.exploreLabel}
-            </Link>
-          </aside>
+          </div>
         </div>
 
-        <div className="mt-8 border-t border-dotted border-white/15 pt-5">
+        <div className="mt-8 border-t border-neutral-200 pt-5">
           <div className="flex flex-wrap gap-x-5 gap-y-2">
-            {MEDICAL_MEGA_MENU_FOOTER.map((link) => (
+            {REGEN_EXPLORE_FOOTER.map((link) => (
               <Link
                 key={link.href + link.label}
                 href={link.href}
                 onClick={onClose}
-                className="text-xs font-semibold text-white/50 transition hover:text-[#FFB8DC]"
+                className="text-xs font-medium text-neutral-500 transition hover:text-neutral-900"
               >
                 {link.label}
               </Link>
             ))}
           </div>
           <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-            <p className="text-xs text-white/40 max-w-lg">
+            <p className="max-w-lg text-xs text-neutral-500">
               NP-supervised · telehealth when required · ship to home · Illinois patients
             </p>
             <Link
               href={BOOKING_URL}
               onClick={onClose}
-              className="inline-flex shrink-0 items-center justify-center rounded-xl bg-[#E6007E] px-5 py-2.5 text-xs font-bold text-white transition hover:bg-[#FF2D8E]"
+              className="inline-flex shrink-0 items-center justify-center rounded-full bg-neutral-900 px-5 py-2.5 text-xs font-semibold text-white transition hover:bg-neutral-800"
             >
               Book $49 consult
             </Link>
