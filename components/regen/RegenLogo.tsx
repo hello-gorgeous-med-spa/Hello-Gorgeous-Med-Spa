@@ -12,6 +12,25 @@ type RegenLogoProps = {
   onClick?: () => void;
 };
 
+/** Compact logo for dark site header nav — white chip so black wordmark reads. */
+export function RegenNavLogo({ className = "" }: { className?: string }) {
+  return (
+    <span
+      className={`inline-flex items-center rounded-md bg-white px-2 py-0.5 shadow-sm ${className}`}
+      aria-hidden
+    >
+      <Image
+        src={REGEN_LOGO.primary}
+        alt=""
+        width={88}
+        height={49}
+        className="h-7 w-auto max-w-[5.5rem] object-contain object-left"
+        priority
+      />
+    </span>
+  );
+}
+
 export function RegenLogo({
   href = "/rx",
   className = "",
