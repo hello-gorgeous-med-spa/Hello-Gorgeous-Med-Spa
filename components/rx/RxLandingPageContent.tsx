@@ -184,9 +184,12 @@ export function RxLandingPageContent() {
             <p className="mt-4 max-w-lg text-base leading-relaxed text-white/75 md:text-lg">
               {RX_LANDING_HERO.body}
             </p>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
               <CTA href={RX_LANDING_HERO.primaryCta.href} variant="gradient" className="px-8 py-3.5">
                 {RX_LANDING_HERO.primaryCta.label}
+              </CTA>
+              <CTA href="/rx/request" variant="outline" className="border-white/80 px-8 py-3.5 text-white hover:bg-white hover:text-black">
+                Browse RX catalog
               </CTA>
               <CTA
                 href={RX_LANDING_HERO.secondaryCta.href}

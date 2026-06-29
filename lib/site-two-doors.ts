@@ -76,6 +76,7 @@ export const SITE_TWO_DOORS: SiteDoor[] = [
     accent: "pink",
     footerLinks: [
       { label: "Hello Gorgeous RX hub", href: "/rx" },
+      { label: "RX Request Portal", href: "/rx/request" },
       { label: "Hormone therapy", href: "/rx/hormones" },
       { label: "GLP-1 / metabolic", href: "/rx/metabolic" },
       { label: "Peptide programs", href: "/rx/peptides" },
