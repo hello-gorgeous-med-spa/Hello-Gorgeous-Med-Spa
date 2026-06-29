@@ -1,7 +1,6 @@
 import { Metadata } from "next";
 import {
   HeroV3,
-  HomepageRxNavigator,
   HomepageTestimonials,
   HomepageClosingCTARow,
 } from "@/components/homepage-v3";
@@ -146,11 +145,10 @@ export default function HomePage() {
 
       <main className="bg-black">
         <HeroV3 />
-        <HomepageRxNavigator />
-        <HomepageMedicalLane />
         <HomepageAestheticsLane />
         <HomepageTestimonials />
         <MeetDaniRyanSection />
+        <HomepageMedicalLane />
         <IllinoisExcellenceBand />
         <GetAppHomeBand />
         <HomepageClosingCTARow />

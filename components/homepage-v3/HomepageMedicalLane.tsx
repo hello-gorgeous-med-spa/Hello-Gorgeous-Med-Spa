@@ -18,10 +18,10 @@ const MORE_MEDICAL = [
   { href: `${CLIENT_APP.path}?rx=1`, label: "Hello Gorgeous app" },
 ] as const;
 
-/** Product finder + footer links — navigation lives in {@link HomepageRxNavigator}. */
+/** Product finder + footer links — below founder content; not between hero sections. */
 export function HomepageMedicalLane() {
   return (
-    <div>
+    <div id={HOMEPAGE_MEDICAL_ANCHOR} className="scroll-mt-20">
       <HomepageShopRxFinder />
       <div className="border-b border-neutral-200 bg-neutral-50 px-4 py-6 pb-20 md:pb-6">
         <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-center gap-x-4 gap-y-2 text-sm">
