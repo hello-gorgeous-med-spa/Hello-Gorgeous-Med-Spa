@@ -1,4 +1,6 @@
-export type HomepageTrack = "aesthetics" | "medical";
+import { doorForTrack, type HomepageTrack } from "@/lib/site-two-doors";
+
+export type { HomepageTrack };
 
 export type BuyerPathCategory = {
   id: string;
@@ -34,39 +36,40 @@ export type HomepageTrackForkColumn = {
   imagePosition?: string;
 };
 
+const aestheticsDoor = doorForTrack("aesthetics");
+const medicalDoor = doorForTrack("medical");
+
 export const HOMEPAGE_TRACK_FORK: HomepageTrackForkColumn[] = [
   {
     track: "aesthetics",
     anchor: HOMEPAGE_AESTHETICS_ANCHOR,
-    hubHref: "/services",
+    hubHref: aestheticsDoor.hubHref,
     posterImage: "/images/homepage-buyer-paths/injectables.png",
     posterAlt: "Medical aesthetics — injectables, Morpheus8 and skin treatments at Hello Gorgeous Oswego",
     imageHeadline: "Injectables · skin · body",
     title: "Aesthetics track",
-    description:
-      "Botox, fillers, Morpheus8, Solaria CO₂, body contouring, and facials — NP-directed care in downtown Oswego.",
+    description: aestheticsDoor.description,
     tags: ["Botox & fillers", "Morpheus8", "Solaria CO₂", "HydraFacial", "Body RF"],
-    ctaLabel: "Explore treatments",
-    microLabel: "Free consult · Book on Fresha",
-    microDetail: "Same trusted local team — from injectables to advanced skin & body technology.",
-    accent: "blue",
+    ctaLabel: aestheticsDoor.hubCta,
+    microLabel: aestheticsDoor.microLabel,
+    microDetail: aestheticsDoor.microDetail,
+    accent: aestheticsDoor.accent,
     imagePosition: "object-center",
   },
   {
     track: "medical",
     anchor: HOMEPAGE_MEDICAL_ANCHOR,
-    hubHref: "/medical",
+    hubHref: medicalDoor.hubHref,
     posterImage: "/images/homepage-buyer-paths/weight-loss-hormones.png",
     posterAlt: "Medical programs — GLP-1 weight loss, hormones, peptides and Hello Gorgeous RX telehealth",
     imageHeadline: "GLP-1 · peptides · hormones",
-    title: "Medical track",
-    description:
-      "Weight loss, peptide protocols, hormone optimization, and RX refills — supervised by Ryan Kent, FNP-BC with telehealth built in.",
+    title: "Hello Gorgeous RX track",
+    description: medicalDoor.description,
     tags: ["GLP-1 programs", "Hello Gorgeous RX™", "BPC-157 & peptides", "HRT / TRT", "My RX portal"],
-    ctaLabel: "Explore medical programs",
-    microLabel: "Telehealth · Ship to home",
-    microDetail: "No separate membership fee — pay at checkout. Illinois patients.",
-    accent: "pink",
+    ctaLabel: medicalDoor.hubCta,
+    microLabel: medicalDoor.microLabel,
+    microDetail: medicalDoor.microDetail,
+    accent: medicalDoor.accent,
     imagePosition: "object-cover object-center",
   },
 ];

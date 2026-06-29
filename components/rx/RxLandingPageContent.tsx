@@ -6,6 +6,7 @@ import { useCallback, useState } from "react";
 import { CTA } from "@/components/CTA";
 import { RxContactForm, RxCTASection } from "@/components/RxContactForm";
 import { FadeUp, Section } from "@/components/Section";
+import { TwoDoorsForkBand } from "@/components/TwoDoorsForkBand";
 import {
   RX_LANDING_HERO,
   RX_LANDING_JOURNEY,
@@ -224,6 +225,12 @@ export function RxLandingPageContent() {
           </FadeUp>
         </div>
       </section>
+
+      <div className="border-b-4 border-black bg-[#FFF0F7] px-4 py-10 sm:py-12">
+        <div className="mx-auto max-w-6xl">
+          <TwoDoorsForkBand activeDoor="hello-gorgeous-rx" surface="light" />
+        </div>
+      </div>
 
       {/* Sticky nav */}
       <div className="sticky top-0 z-30 border-b border-black/10 bg-white/95 backdrop-blur-md">

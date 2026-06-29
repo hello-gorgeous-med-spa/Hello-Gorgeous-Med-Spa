@@ -1,4 +1,5 @@
 import { SITE } from "@/lib/seo";
+import { SITE_TWO_DOORS } from "@/lib/site-two-doors";
 
 export type FooterNavLink = {
   label: string;
@@ -12,22 +13,13 @@ export type FooterNavColumn = {
   links: FooterNavLink[];
 };
 
-/** Primary footer navigation — conversion-focused groups (Phase 1 trim). */
+/** Primary footer navigation — two-door columns + shared booking layer (Phase 3). */
 export const FOOTER_PRIMARY_COLUMNS: FooterNavColumn[] = [
-  {
-    id: "popular-services",
-    title: "Popular Services",
-    links: [
-      { label: "Botox", href: "/botox-oswego" },
-      { label: "Lip Filler", href: "/lip-filler-oswego" },
-      { label: "Morpheus8", href: "/morpheus8-burst-oswego" },
-      { label: "Medical Weight Loss", href: "/glp-1-weight-loss-oswego" },
-      { label: "Hello Gorgeous RX", href: "/rx" },
-      { label: "Hormone Therapy", href: "/rx/hormones" },
-      { label: "IV Therapy", href: "/iv-therapy" },
-      { label: "All services", href: "/services" },
-    ],
-  },
+  ...SITE_TWO_DOORS.map((door) => ({
+    id: door.id,
+    title: door.footerColumnTitle,
+    links: door.footerLinks,
+  })),
   {
     id: "service-areas",
     title: "Service Areas",
@@ -42,16 +34,15 @@ export const FOOTER_PRIMARY_COLUMNS: FooterNavColumn[] = [
   },
   {
     id: "patient-resources",
-    title: "Patient Resources",
+    title: "Book & Support",
     links: [
       { label: "Book a free consult", href: "/book" },
       { label: "Specials", href: "/specials" },
-      { label: "RX refills & care", href: "/rx/care" },
-      { label: "Online refill guide", href: "/rx/guide" },
-      { label: "My RX portal", href: "/portal/rx" },
       { label: "Get the app", href: "/get-app" },
       { label: "FAQs", href: "/faq" },
       { label: "Reviews", href: "/reviews" },
+      { label: "Pre & post care", href: "/pre-post-care" },
+      { label: "Contact", href: "/contact" },
     ],
   },
   {
@@ -60,7 +51,7 @@ export const FOOTER_PRIMARY_COLUMNS: FooterNavColumn[] = [
     links: [
       { label: "About Hello Gorgeous", href: "/about" },
       { label: "Meet Dani & Ryan", href: "/about" },
-      { label: "Contact", href: "/contact" },
+      { label: "Why choose us", href: "/why-choose-us" },
       { label: "Google Reviews", href: SITE.googleReviewUrl, external: true },
     ],
   },
@@ -68,13 +59,11 @@ export const FOOTER_PRIMARY_COLUMNS: FooterNavColumn[] = [
 
 /** Secondary links — collapsed in footer; keep high-value hubs only. */
 export const FOOTER_SEO_LINKS: FooterNavLink[] = [
-  { label: "Ladies' Club", href: "/ladies-club" },
-  { label: "Gentlemen's Club", href: "/gentlemens-club" },
+  { label: "Medical optimization overview", href: "/medical" },
+  { label: "IV Therapy", href: "/iv-therapy" },
   { label: "Peptide education", href: "/peptides" },
   { label: "Telehealth", href: "/telehealth" },
-  { label: "Pre & post care", href: "/pre-post-care" },
   { label: "Products we offer (Rx)", href: "/products-we-offer" },
-  { label: "Why choose us", href: "/why-choose-us" },
   { label: "Help me choose", href: "/help-me-choose" },
   { label: "Skin 101", href: "/skin-101" },
   { label: "Financing", href: "/financing" },

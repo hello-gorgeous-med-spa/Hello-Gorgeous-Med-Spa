@@ -6,6 +6,7 @@ import Link from "next/link";
 import { FadeUp } from "@/components/Section";
 import { PRIMARY_BOOKING_CTA } from "@/lib/primary-cta";
 import { HOMEPAGE_TRACK_FORK } from "@/lib/homepage-buyer-paths";
+import { SITE_TWO_DOORS_HEADLINE, SITE_TWO_DOORS_SUBLINE } from "@/lib/site-two-doors";
 
 const BRAND = {
   pink: "#E6007E",
@@ -170,7 +171,7 @@ export function HomepageTrackFork() {
             id="homepage-track-fork-heading"
             className="mt-4 text-3xl font-black text-white sm:text-4xl md:text-[2.65rem] leading-tight"
           >
-            Two doors.{" "}
+            {SITE_TWO_DOORS_HEADLINE.split(".")[0]}.{" "}
             <span
               className="bg-clip-text text-transparent"
               style={{
@@ -182,8 +183,7 @@ export function HomepageTrackFork() {
             </span>
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-sm leading-relaxed text-white/60 sm:text-base">
-            Pick the path that matches what you need today — aesthetics in-office or medical programs
-            with telehealth and home delivery.
+            {SITE_TWO_DOORS_SUBLINE}
           </p>
         </FadeUp>
 

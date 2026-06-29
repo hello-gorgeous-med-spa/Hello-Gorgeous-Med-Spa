@@ -3,6 +3,7 @@ import Link from "next/link";
 
 import { CTA } from "@/components/CTA";
 import { FadeUp, Section } from "@/components/Section";
+import { TwoDoorsForkBand } from "@/components/TwoDoorsForkBand";
 import { BOOKING_URL } from "@/lib/flows";
 import { DANI_FULL_NAME, RYAN_FULL_NAME } from "@/lib/founder-credentials";
 import {
@@ -107,6 +108,12 @@ export function MedicalOptimizationPageContent() {
               </CTA>
             </div>
           </FadeUp>
+        </div>
+      </Section>
+
+      <Section className="border-b border-neutral-200 bg-neutral-50 !py-10 sm:!py-12">
+        <div className="mx-auto max-w-6xl">
+          <TwoDoorsForkBand activeDoor="hello-gorgeous-rx" surface="light" />
         </div>
       </Section>
 

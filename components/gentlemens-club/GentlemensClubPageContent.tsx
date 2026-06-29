@@ -9,6 +9,7 @@ import { ClubFlyerGallery } from "@/components/club/ClubFlyerGallery";
 import { ClubStartHereBand } from "@/components/club/ClubStartHereBand";
 import { ClubStickyCta } from "@/components/club/ClubStickyCta";
 import { FadeUp, Section } from "@/components/Section";
+import { TwoDoorsForkBand } from "@/components/TwoDoorsForkBand";
 import { GENTLEMENS_CLUB_START_PATHS, GENTLEMENS_CLUB_STICKY_CTA } from "@/lib/club-start-here";
 import { BOOKING_URL, PROGRAM_CONSULT_BOOKING_URL } from "@/lib/flows";
 import {
@@ -389,6 +390,12 @@ export function GentlemensClubPageContent() {
               <p className="mt-4 text-sm text-white/50">Medically reviewed by {RYAN_FULL_NAME}</p>
             </div>
           </FadeUp>
+        </div>
+      </Section>
+
+      <Section className="border-b border-white/10 !py-10 md:!py-12 !px-0">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+          <TwoDoorsForkBand activeDoor="hello-gorgeous-rx" />
         </div>
       </Section>
 

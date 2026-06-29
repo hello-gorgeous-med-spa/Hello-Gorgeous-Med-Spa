@@ -3,6 +3,7 @@ import Link from "next/link";
 
 import { FadeUp, Section } from "@/components/Section";
 import { CTA } from "@/components/CTA";
+import { TwoDoorsForkBand } from "@/components/TwoDoorsForkBand";
 import { SERVICES, pageMetadata, servicePublicPath, siteJsonLd } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
@@ -52,6 +53,12 @@ export default function ServicesPage() {
               </Link>
             </div>
           </FadeUp>
+        </div>
+      </Section>
+
+      <Section className="!py-10 sm:!py-12">
+        <div className="mx-auto max-w-6xl">
+          <TwoDoorsForkBand activeDoor="med-spa" surface="light" />
         </div>
       </Section>
 

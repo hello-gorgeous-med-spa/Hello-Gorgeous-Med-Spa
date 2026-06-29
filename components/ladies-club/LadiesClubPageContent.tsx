@@ -9,6 +9,7 @@ import { ClubFlyerGallery } from "@/components/club/ClubFlyerGallery";
 import { ClubStartHereBand } from "@/components/club/ClubStartHereBand";
 import { ClubStickyCta } from "@/components/club/ClubStickyCta";
 import { FadeUp, Section } from "@/components/Section";
+import { TwoDoorsForkBand } from "@/components/TwoDoorsForkBand";
 import { LADIES_CLUB_START_PATHS, LADIES_CLUB_STICKY_CTA } from "@/lib/club-start-here";
 import { PROGRAM_CONSULT_BOOKING_URL } from "@/lib/flows";
 import { RYAN_FULL_NAME } from "@/lib/founder-credentials";
@@ -152,6 +153,12 @@ export function LadiesClubPageContent() {
               </div>
             </div>
           </FadeUp>
+        </div>
+      </Section>
+
+      <Section className="border-b border-white/10 !py-10 md:!py-12 !px-0">
+        <div className="max-w-6xl mx-auto px-4 w-full">
+          <TwoDoorsForkBand activeDoor="hello-gorgeous-rx" />
         </div>
       </Section>
 

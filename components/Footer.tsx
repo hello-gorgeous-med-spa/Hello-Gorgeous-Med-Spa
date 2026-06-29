@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import { TwoDoorsForkBand } from "@/components/TwoDoorsForkBand";
 import { GoogleMapEmbed } from "@/components/GoogleMapEmbed";
 import { BestOfOswegoBadge } from "@/components/BestOfOswegoBadge";
 import { BookingBadges } from "@/components/BookingBadges";
@@ -40,6 +41,11 @@ export function Footer({
           <p className="mt-2 text-xs md:text-sm text-white/75 leading-relaxed max-w-4xl mx-auto">
             {FOOTER_CREDENTIALS_LINE}
           </p>
+        </div>
+      </div>
+      <div className="border-b border-white/10 bg-zinc-900/80">
+        <div className="max-w-7xl mx-auto px-4 md:px-6 py-10">
+          <TwoDoorsForkBand variant="footer" />
         </div>
       </div>
       {/* Main Footer */}
@@ -128,7 +134,7 @@ export function Footer({
             </div>
           </div>
 
-          <div className="sm:col-span-2 lg:col-span-8 grid gap-8 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-5">
+          <div className="sm:col-span-2 lg:col-span-8 grid gap-8 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-3">
           {FOOTER_PRIMARY_COLUMNS.map((column) => (
             <div key={column.id} className="min-w-0">
               <FooterNavColumnBlock column={column} />
