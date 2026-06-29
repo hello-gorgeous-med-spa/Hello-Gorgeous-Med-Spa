@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { BOOKING_URL } from "@/lib/flows";
+import { PRIMARY_BOOKING_CTA } from "@/lib/primary-cta";
 
 type FinalCTAProps = {
   /** Side-by-side homepage row: no outer section, tighter type and left-aligned */
@@ -41,7 +41,7 @@ export function FinalCTA({ compact = false }: FinalCTAProps) {
         }
       >
         <Link
-          href={BOOKING_URL}
+          href={PRIMARY_BOOKING_CTA.href}
           data-book-now
           className={
             compact
@@ -49,7 +49,7 @@ export function FinalCTA({ compact = false }: FinalCTAProps) {
               : "inline-flex items-center justify-center bg-[#E6007E] text-white px-10 py-4 rounded-lg font-semibold uppercase tracking-wide hover:opacity-90 transition-all duration-300 hover:scale-[1.03]"
           }
         >
-          Book Consultation
+          {PRIMARY_BOOKING_CTA.label}
         </Link>
         <a
           href="tel:630-636-6193"

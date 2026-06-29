@@ -3,9 +3,9 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { BOOKING_URL } from "@/lib/flows";
-import { HOMEPAGE_AESTHETICS_ANCHOR, HOMEPAGE_MEDICAL_ANCHOR } from "@/lib/homepage-buyer-paths";
 import { CLIENT_APP, type ClientAppTab } from "@/lib/client-app";
+import { HOMEPAGE_AESTHETICS_ANCHOR, HOMEPAGE_MEDICAL_ANCHOR } from "@/lib/homepage-buyer-paths";
+import { PRIMARY_BOOKING_CTA } from "@/lib/primary-cta";
 import { SITE, SITE_HERO_IMAGE } from "@/lib/seo";
 import { TRIFECTA_GRADIENT_TITLE, trifectaButtonGradient, trifectaAccent } from "@/lib/trifecta-tokens";
 
@@ -168,13 +168,13 @@ export function BrandHero({
 
               <div className="flex flex-col gap-2 sm:flex-row">
                 <a
-                  href={BOOKING_URL}
+                  href={PRIMARY_BOOKING_CTA.href}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex flex-1 items-center justify-center rounded-xl px-4 py-3 text-sm font-bold text-white transition hover:brightness-110"
                   style={{ background: trifectaButtonGradient(trifectaAccent(0)) }}
                 >
-                  Book Appointment
+                  {PRIMARY_BOOKING_CTA.label}
                 </a>
                 {onNavigate ? (
                   <button
@@ -226,11 +226,11 @@ export function BrandHero({
                     Med spa treatments
                   </Link>
                   <Link
-                    href={BOOKING_URL}
+                    href={PRIMARY_BOOKING_CTA.href}
                     data-book-now
                     className="inline-flex items-center justify-center rounded-xl border border-white/15 bg-white/5 px-5 py-3 text-sm font-bold text-[#FFB8DC] transition hover:border-[#E6007E]/40 hover:bg-white/10 sm:min-w-[200px]"
                   >
-                    Book free consult
+                    {PRIMARY_BOOKING_CTA.shortLabel}
                   </Link>
                 </div>
               </div>

@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 import { createServerSupabaseClient } from "@/lib/hgos/supabase";
+import { googleReviewIntro } from "@/lib/review-trust";
 import { HOME_TESTIMONIALS, SITE } from "@/lib/seo";
 
 /**
@@ -226,8 +227,7 @@ export async function RealPatientReviews({
             {heading ?? `What ${label} clients are saying`}
           </h2>
           <p className="mt-4 text-black/70 max-w-2xl mx-auto">
-            {intro ??
-              `${SITE.reviewCount}+ verified Google reviews · ${SITE.reviewRating} stars · Real clients in their own words.`}
+            {intro ?? `${googleReviewIntro()} · Real clients in their own words.`}
           </p>
           <div className="mt-4 flex items-center justify-center gap-2">
             <span className="text-[#E6007E] text-2xl tracking-wide">★ ★ ★ ★ ★</span>

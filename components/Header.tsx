@@ -17,6 +17,7 @@ import {
 } from "@/lib/regenerative-medicine-nav";
 import { GENTLEMENS_CLUB_PATH } from "@/lib/gentlemens-club";
 import { LADIES_CLUB_PATH } from "@/lib/ladies-club";
+import { PRIMARY_BOOKING_CTA } from "@/lib/primary-cta";
 import { isMedicalNavActive, MEDICAL_NAV } from "@/lib/medical-nav";
 import { medicalMegaMenuMobileGroups, SHOP_RX_NAV } from "@/lib/medical-mega-menu";
 import { MedicalMegaMenu } from "@/components/header/MedicalMegaMenu";
@@ -297,12 +298,12 @@ function ServicesMenu({
             {HG_TAGLINE} · Oswego, IL
           </p>
           <Link
-            href={BOOKING_URL}
+            href={PRIMARY_BOOKING_CTA.href}
             onClick={onClose}
             className="rounded-xl px-5 py-2 text-xs font-bold text-white transition hover:brightness-110"
             style={{ background: trifectaButtonGradient(trifectaAccent(0)) }}
           >
-            Book a Free Consultation
+            {PRIMARY_BOOKING_CTA.label}
           </Link>
         </div>
       </div>
@@ -671,8 +672,8 @@ export function Header() {
         </Link>
 
         <div className="flex flex-shrink-0 items-center gap-2">
-          <CTA href={BOOKING_URL} variant="gradient" className="hidden px-5 py-2 text-sm lg:flex">
-            Book Now
+          <CTA href={PRIMARY_BOOKING_CTA.href} variant="gradient" className="hidden px-5 py-2 text-sm lg:flex">
+            {PRIMARY_BOOKING_CTA.shortLabel}
           </CTA>
           <button
             type="button"
@@ -935,12 +936,12 @@ export function Header() {
 
             {/* Quick actions */}
             <Link
-              href={BOOKING_URL}
+              href={PRIMARY_BOOKING_CTA.href}
               onClick={() => setMobileOpen(false)}
               className="mb-4 flex w-full items-center justify-center gap-2 rounded-xl px-4 py-3.5 text-sm font-bold text-white"
               style={{ background: trifectaButtonGradient(trifectaAccent(0)) }}
             >
-              Book an Appointment
+              {PRIMARY_BOOKING_CTA.label}
             </Link>
 
             {/* Before & After */}

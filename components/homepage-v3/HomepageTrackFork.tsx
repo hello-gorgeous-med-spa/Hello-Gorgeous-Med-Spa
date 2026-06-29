@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { FadeUp } from "@/components/Section";
-import { BOOKING_URL } from "@/lib/flows";
+import { PRIMARY_BOOKING_CTA } from "@/lib/primary-cta";
 import { HOMEPAGE_TRACK_FORK } from "@/lib/homepage-buyer-paths";
 
 const BRAND = {
@@ -196,8 +196,8 @@ export function HomepageTrackFork() {
         <FadeUp delayMs={150}>
           <p className="mt-8 text-center text-sm text-white/45">
             Not sure which track?{" "}
-            <Link href={BOOKING_URL} className="font-semibold text-[#FFB8DC] underline underline-offset-2 hover:text-white">
-              Book a free consult on Fresha
+            <Link href={PRIMARY_BOOKING_CTA.href} className="font-semibold text-[#FFB8DC] underline underline-offset-2 hover:text-white">
+              {PRIMARY_BOOKING_CTA.label}
             </Link>{" "}
             — we&apos;ll point you in the right direction.
           </p>

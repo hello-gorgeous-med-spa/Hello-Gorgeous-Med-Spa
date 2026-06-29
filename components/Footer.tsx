@@ -6,9 +6,10 @@ import { BookingBadges } from "@/components/BookingBadges";
 import { LocationsServed } from "@/components/LocationsServed";
 import { FOOTER_CREDENTIALS_HEADLINE, FOOTER_CREDENTIALS_LINE } from "@/lib/founder-credentials";
 import { FooterNavColumnBlock } from "@/components/FooterNavColumn";
+import { ReviewTrustStrip } from "@/components/ReviewTrustStrip";
 import { FOOTER_PRIMARY_COLUMNS, FOOTER_SEO_LINKS } from "@/lib/footer-nav";
-import { reviewTrustBody } from "@/lib/review-trust-copy";
-import { BOOKING_URL, SQUARE_MAILING_LIST_ENROLL_URL } from "@/lib/flows";
+import { SQUARE_MAILING_LIST_ENROLL_URL } from "@/lib/flows";
+import { PRIMARY_BOOKING_CTA } from "@/lib/primary-cta";
 import { HG_TAGLINE } from "@/lib/brand-tagline";
 import { SITE } from "@/lib/seo";
 import type { SiteSettings } from "@/lib/cms-readers";
@@ -25,13 +26,6 @@ export function Footer({
   const hours = siteSettings?.business_hours;
   const hasHours = hours && (hours.mon_fri || hours.sat || hours.sun);
 
-  // Prefer live Google data; fall back to SITE static values when unavailable.
-  const ratingValue = livePlace?.rating
-    ? livePlace.rating.toFixed(1)
-    : SITE.reviewRating;
-  const reviewCount = livePlace?.userRatingCount
-    ? String(livePlace.userRatingCount)
-    : SITE.reviewCount;
   const isOpenNow = livePlace?.openNow === true;
   const isClosedNow = livePlace?.openNow === false;
 
@@ -72,38 +66,7 @@ export function Footer({
               <BestOfOswegoBadge variant="compact" className="!bg-[#FFD700]/10 !border-[#FFD700]/40" />
             </div>
             <BookingBadges />
-            <a
-              href={SITE.googleReviewUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-4 inline-flex items-center gap-2 text-white hover:text-[#E6007E] transition-colors"
-              aria-label="Read our Google reviews"
-            >
-              <span className="flex items-center gap-1">
-                {[1, 2, 3, 4, 5].map((i) => (
-                  <svg key={i} className="w-4 h-4 text-[#E6007E]" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
-                  </svg>
-                ))}
-              </span>
-              <span className="font-semibold">{ratingValue} Stars</span>
-              <span className="text-white/80">·</span>
-              <span>{reviewCount} Google Reviews</span>
-            </a>
-            <div className="mt-2 inline-flex items-center gap-2 text-sm text-white/90">
-              <span className="flex items-center gap-1 text-[#FFD86B]" aria-hidden="true">
-                {[1, 2, 3, 4, 5].map((i) => (
-                  <svg key={i} className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
-                  </svg>
-                ))}
-              </span>
-              <span className="font-semibold">{SITE.freshaReviewRating} Stars</span>
-              <span className="text-white/60">·</span>
-              <span className="text-white/80 text-xs leading-snug max-w-md">
-                {reviewTrustBody({ googleRating: ratingValue, googleCount: reviewCount })}
-              </span>
-            </div>
+            <ReviewTrustStrip livePlace={livePlace} theme="dark" className="mt-4" />
             {(isOpenNow || isClosedNow) && (
               <div className="mt-3">
                 <span
@@ -168,18 +131,7 @@ export function Footer({
           <div className="sm:col-span-2 lg:col-span-8 grid gap-8 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-5">
           {FOOTER_PRIMARY_COLUMNS.map((column) => (
             <div key={column.id} className="min-w-0">
-              <FooterNavColumnBlock
-                column={
-                  column.id === "book"
-                    ? {
-                        ...column,
-                        links: column.links.map((link) =>
-                          link.label === "Book Online" ? { ...link, href: BOOKING_URL, external: true } : link,
-                        ),
-                      }
-                    : column
-                }
-              />
+              <FooterNavColumnBlock column={column} />
             </div>
           ))}
           </div>
@@ -288,12 +240,10 @@ export function Footer({
               </span>
             </div>
             <a
-              href={BOOKING_URL}
-              target="_blank"
-              rel="noopener noreferrer"
+              href={PRIMARY_BOOKING_CTA.href}
               className="inline-flex items-center gap-2 px-10 py-4 bg-hg-pink hover:bg-hg-pinkDeep text-white text-sm font-semibold uppercase tracking-widest rounded-md transition-all duration-300 ease-out hover:-translate-y-[2px] hover:shadow-lg"
             >
-              Book Your Appointment
+              {PRIMARY_BOOKING_CTA.label}
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
               </svg>

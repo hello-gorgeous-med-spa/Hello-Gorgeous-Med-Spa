@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 import { FadeUp } from "@/components/Section";
-import { BOOKING_URL } from "@/lib/flows";
+import { PRIMARY_BOOKING_CTA } from "@/lib/primary-cta";
 import {
   HOMEPAGE_AESTHETICS_ANCHOR,
   homepageBuyerPathsForTrack,
@@ -101,10 +101,10 @@ export function HomepageAestheticsLane() {
           <FadeUp delayMs={120}>
             <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
               <Link
-                href={BOOKING_URL}
+                href={PRIMARY_BOOKING_CTA.href}
                 className="inline-flex items-center justify-center rounded-full bg-[#2563eb] px-8 py-3.5 text-sm font-bold text-white shadow-[4px_4px_0_0_rgba(37,99,235,0.55)] transition hover:bg-[#1d4ed8]"
               >
-                Book free consult
+                {PRIMARY_BOOKING_CTA.label}
               </Link>
               <Link
                 href="/services"
