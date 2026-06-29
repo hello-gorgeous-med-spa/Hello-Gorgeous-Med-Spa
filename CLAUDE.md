@@ -120,6 +120,11 @@ menu pages default booking to `PRIMARY_BOOKING_CTA`.
 and labeled review proof. GLP-1 intake success uses `RxPostSubmitCard` + `glp1IntakeQualifiedSteps`.
 `/reviews` shows `GoogleBusinessSpotlight` aligned with `lib/google-business-post-presets.ts`.
 
+**Phase 9 indexing:** One canonical URL per GBP intent — `GbpLocationPage` + `LOCATION_PAGE_CONTENT`
+(850+ words, CI-gated) via `app/[slug]`. Removed thin duplicate `app/{service}-{city}-il` pages that
+blocked richer content. Flagship pages kept: `botox-oswego-il`, `hormone-therapy-oswego-il` (ISR +
+live reviews). Far-flung cities stay deindexed/301 per `lib/city-seo-tier.ts`.
+
 ## Content & legal guardrails (medical / advertising)
 
 - **Never disparage or make comparative claims about competitors** (defamation / Lanham

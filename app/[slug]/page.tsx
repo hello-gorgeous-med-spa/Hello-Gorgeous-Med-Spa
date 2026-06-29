@@ -6,25 +6,22 @@ import { CTA } from "@/components/CTA";
 import { ContentWithLinks } from "@/components/ContentWithLinks";
 import { GeoContextBlock } from "@/components/GeoContextBlock";
 import { FadeUp, Section } from "@/components/Section";
-import { ServiceExpertWidget } from "@/components/ServiceExpertWidget";
 import { PRIMARY_BOOKING_CTA } from "@/lib/primary-cta";
+import { GbpLocationPage } from "@/components/seo/GbpLocationPage";
+import { gbpLocationMetadata } from "@/lib/gbp-location-page";
 import {
   GBP_SERVICE_SLUGS,
   GBP_SLUG_TO_SERVICE,
   MED_SPA_LOCATION_SLUGS,
   MED_SPA_SLUG_TO_CITY,
+  type GbpServiceSlug,
 } from "@/lib/gbp-urls";
 import { isDeindexedLocalSlug } from "@/lib/city-seo-tier";
 import { LOCATION_PAGE_CONTENT } from "@/lib/local-seo-content";
 import {
-  SERVICES,
   breadcrumbJsonLd,
-  faqJsonLd,
   pageMetadata,
   serviceHrefBySlug,
-  serviceJsonLd,
-  serviceLocationJsonLd,
-  servicePublicPath,
   siteJsonLd,
 } from "@/lib/seo";
 import { CITIES, DEVICES, getCityDeviceSlug } from "@/data/city-seo";
@@ -122,14 +119,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   }
 
   if (GBP_SLUG_TO_SERVICE[slug]) {
-    const { serviceSlug, cityLabel } = GBP_SLUG_TO_SERVICE[slug];
-    const s = SERVICES.find((x) => x.slug === serviceSlug);
-    if (!s) return pageMetadata({ title: "Service", description: "Service.", path: `/${slug}` });
-    return withRobots(pageMetadata({
-      title: `${s.name} in ${cityLabel} — ${SITE.name}`,
-      description: `${s.name} in ${cityLabel} with licensed nurse practitioners at Hello Gorgeous Med Spa. ${s.short} Free consultations. Call ${SITE.phone}.`,
-      path: `/${slug}`,
-    }));
+    return withRobots(gbpLocationMetadata(slug as GbpServiceSlug));
   }
 
   if (MED_SPA_SLUG_TO_CITY[slug]) {
@@ -144,39 +134,12 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   return { title: "Not Found" };
 }
 
-const CONTEXTUAL_LINKS: Record<string, string> = {
+const MED_SPA_CONTEXTUAL_LINKS: Record<string, string> = {
   "Weight Loss in Oswego": "/weight-loss-oswego-il",
   "PRF Hair Restoration in Oswego": "/prf-hair-restoration-oswego-il",
   "Hormone Therapy in Oswego": "/hormone-therapy-oswego-il",
   "Botox in Oswego": "/botox-oswego",
 };
-
-const TREATMENT_FAQ_TEMPLATES: Record<string, { howLong?: string; cost?: string; isSafe?: string }> = {
-  "botox-dysport-jeuveau": { howLong: "Most clients see results for about 3–4 months.", cost: "Botox starts at $10/unit for new clients. We'll provide clear pricing at your consultation.", isSafe: "Yes. Botox is FDA-approved. Our injectors use precise dosing for natural results." },
-  "weight-loss-therapy": { howLong: "Many clients see noticeable changes within the first few months.", cost: "Pricing depends on your plan. We'll outline costs during your consultation.", isSafe: "Yes. Our programs are medically supervised with lab monitoring." },
-  "prf-prp": { howLong: "Many protocols recommend a series. Results can be gradual over weeks to months.", cost: "PRF/PRP pricing varies by treatment area. We'll provide clear pricing at your consultation.", isSafe: "Yes. PRF and PRP use your own blood-derived components." },
-  "biote-hormone-therapy": { howLong: "Some notice improvements within weeks.", cost: "Costs depend on protocol and labs. We'll outline at your consultation.", isSafe: "Yes. BioTE is administered by licensed providers with lab monitoring." },
-  "lip-filler": { howLong: "Often 6–12+ months depending on product.", cost: "Lip filler pricing depends on product and volume.", isSafe: "Yes. Lip fillers are FDA-approved. Our injectors use conservative dosing." },
-};
-
-function localFaqs(serviceName: string, cityLabel: string, serviceSlug: string): Array<{ question: string; answer: string }> {
-  const t = TREATMENT_FAQ_TEMPLATES[serviceSlug] || {};
-  const items: Array<{ question: string; answer: string }> = [
-    {
-      question: `Do you offer ${serviceName} in ${cityLabel}?`,
-      answer:
-        "Yes—Hello Gorgeous Med Spa is located in Oswego, IL and serves clients from the surrounding area including Naperville, Aurora, Plainfield, and Yorkville. We offer consultations to determine the best plan for your goals.",
-    },
-  ];
-  if (t.howLong) items.push({ question: `How long does ${serviceName} last?`, answer: t.howLong });
-  if (t.cost) items.push({ question: `How much does ${serviceName} cost in Oswego?`, answer: t.cost });
-  if (t.isSafe) items.push({ question: `Is ${serviceName} safe?`, answer: t.isSafe });
-  items.push(
-    { question: "Do I need a consultation first?", answer: "We recommend starting with a consultation so we can confirm candidacy, set expectations, and build a safe plan." },
-    { question: "How do I book?", answer: "Use our Book page to schedule. If you have questions first, contact us or use the expert chat for general education." },
-  );
-  return items;
-}
 
 export default async function SlugPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
@@ -345,94 +308,7 @@ export default async function SlugPage({ params }: { params: Promise<{ slug: str
   }
 
   if (GBP_SLUG_TO_SERVICE[slug]) {
-    const { serviceSlug, cityLabel } = GBP_SLUG_TO_SERVICE[slug];
-    const s = SERVICES.find((x) => x.slug === serviceSlug);
-    if (!s) notFound();
-    const faqs = localFaqs(s.name, cityLabel, serviceSlug);
-    const cityShort = cityLabel.replace(", IL", "");
-    const breadcrumbs = [{ name: "Home", url: SITE.url }, { name: s.name, url: `${SITE.url}/${slug}` }];
-
-    return (
-      <>
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(siteJsonLd()) }} />
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceJsonLd(s)) }} />
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceLocationJsonLd(s.name, cityLabel)) }} />
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd(faqs)) }} />
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd(breadcrumbs)) }} />
-        <Section className="relative bg-white">
-          <div className="absolute inset-0 bg-white" />
-          <div className="relative z-10">
-            <FadeUp>
-              <p className="text-[#FF2D8E] text-lg md:text-xl font-medium mb-6 tracking-wide">{cityLabel.toUpperCase()}</p>
-              <h1 className="text-4xl md:text-6xl font-bold leading-tight"><span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-pink-400">{s.name}</span> in {cityShort}, IL</h1>
-              <p className="mt-6 text-xl text-black max-w-3xl leading-relaxed">{LOCATION_PAGE_CONTENT[slug]?.intro ?? s.heroSubtitle}</p>
-              <div className="mt-10 flex flex-col sm:flex-row gap-4">
-                <CTA href={PRIMARY_BOOKING_CTA.href} variant="gradient">{PRIMARY_BOOKING_CTA.label}</CTA>
-                <CTA href={servicePublicPath(s)} variant="outline">Full service details</CTA>
-                <CTA href="/contact" variant="outline">Contact Us</CTA>
-              </div>
-              <p className="mt-6 text-sm text-black/70">{SITE.address.streetAddress}, {SITE.address.addressLocality}, {SITE.address.addressRegion} {SITE.address.postalCode} · {SITE.phone}</p>
-            </FadeUp>
-          </div>
-        </Section>
-        <Section>
-          <div className="grid gap-8 lg:grid-cols-12">
-            <div className="lg:col-span-7">
-              <FadeUp>
-                <h2 className="text-3xl md:text-4xl font-bold text-[#FF2D8E]">Why choose Hello Gorgeous for {s.name} in {cityShort}?</h2>
-                <p className="mt-4 text-black max-w-2xl">{LOCATION_PAGE_CONTENT[slug]?.aboutTreatment ? <ContentWithLinks content={LOCATION_PAGE_CONTENT[slug]!.aboutTreatment} links={CONTEXTUAL_LINKS} /> : `We serve ${cityLabel} and the surrounding area from our Oswego location. Our clinical-first approach means personalized plans, clear expectations, and results you'll love.`}</p>
-              </FadeUp>
-              {LOCATION_PAGE_CONTENT[slug]?.aboutTreatment ? (
-                <>
-                  <FadeUp delayMs={40}><h2 className="mt-12 text-2xl md:text-3xl font-bold text-[#FF2D8E]">Who Is a Good Candidate for {s.name}?</h2><p className="mt-4 text-black max-w-2xl leading-relaxed"><ContentWithLinks content={LOCATION_PAGE_CONTENT[slug]!.candidacy} links={CONTEXTUAL_LINKS} /></p></FadeUp>
-                  <FadeUp delayMs={80}><h2 className="mt-12 text-2xl md:text-3xl font-bold text-[#FF2D8E]">What to Expect During Your {s.name} Appointment</h2><p className="mt-4 text-black max-w-2xl leading-relaxed"><ContentWithLinks content={LOCATION_PAGE_CONTENT[slug]!.whatToExpect} links={CONTEXTUAL_LINKS} /></p></FadeUp>
-                  <FadeUp delayMs={120}><h2 className="mt-12 text-2xl md:text-3xl font-bold text-[#FF2D8E]">Is {s.name} Safe?</h2><p className="mt-4 text-black max-w-2xl leading-relaxed"><ContentWithLinks content={LOCATION_PAGE_CONTENT[slug]!.safetyAndTraining} links={CONTEXTUAL_LINKS} /></p></FadeUp>
-                  <FadeUp delayMs={160}><h2 className="mt-12 text-2xl md:text-3xl font-bold text-[#FF2D8E]">{s.name} for Kendall County Clients</h2><p className="mt-4 text-black max-w-2xl leading-relaxed"><ContentWithLinks content={LOCATION_PAGE_CONTENT[slug]!.communityContext} links={CONTEXTUAL_LINKS} /></p></FadeUp>
-                  <FadeUp delayMs={200}>
-                    <div className="mt-10 rounded-2xl border-2 border-black bg-white p-6">
-                      <p className="text-black leading-relaxed"><ContentWithLinks content={LOCATION_PAGE_CONTENT[slug]!.callToAction} links={CONTEXTUAL_LINKS} /></p>
-                      <div className="mt-6 flex flex-col sm:flex-row gap-4"><CTA href={PRIMARY_BOOKING_CTA.href} variant="white">{PRIMARY_BOOKING_CTA.label}</CTA><CTA href={servicePublicPath(s)} variant="outline">View full {s.name} page</CTA><CTA href="/providers" variant="outline">Meet the Experts</CTA></div>
-                    </div>
-                  </FadeUp>
-                </>
-              ) : (
-                <>
-                  <div className="mt-10 grid gap-4">
-                    {[{ t: "Consult-first", b: "We confirm candidacy, review goals, and build a plan designed around your outcomes and safety." }, { t: "Premium, not pushy", b: "A luxury experience with a clinical mindset—clear timelines and expectations." }, { t: `Serving ${cityShort} & the area`, b: "Convenient to Oswego, Naperville, Aurora, Plainfield, and Yorkville with flexible scheduling." }].map((x, idx) => (
-                      <FadeUp key={x.t} delayMs={40 * idx}><div className="rounded-2xl border-2 border-black bg-white p-6"><h3 className="text-xl font-bold text-[#FF2D8E]">{x.t}</h3><p className="mt-3 text-black">{x.b}</p></div></FadeUp>
-                    ))}
-                  </div>
-                  {LOCATION_PAGE_CONTENT[slug]?.whatToExpect && <FadeUp delayMs={120}><h2 className="mt-12 text-2xl font-bold text-[#FF2D8E]">What to expect in {cityShort}</h2><p className="mt-4 text-black max-w-2xl leading-relaxed">{LOCATION_PAGE_CONTENT[slug]?.whatToExpect}</p></FadeUp>}
-                  <FadeUp delayMs={160}>
-                    <div className="mt-10 rounded-2xl border-2 border-black bg-white p-6">
-                      <h3 className="text-xl font-bold text-[#FF2D8E]">More about {s.name}</h3>
-                      <p className="mt-3 text-black">{LOCATION_PAGE_CONTENT[slug]?.communityContext ?? LOCATION_PAGE_CONTENT[slug]?.community ?? "Read the full service overview, FAQs, and what to expect on our main service page."}</p>
-                      <div className="mt-6 flex flex-col sm:flex-row gap-4"><CTA href={servicePublicPath(s)} variant="white">View full {s.name} page</CTA><CTA href="/providers" variant="outline">Meet the Experts</CTA></div>
-                    </div>
-                  </FadeUp>
-                </>
-              )}
-            </div>
-            <div className="lg:col-span-5"><FadeUp delayMs={120}><ServiceExpertWidget serviceName={s.name} slug={s.slug} category={s.category} /></FadeUp></div>
-          </div>
-        </Section>
-        <Section>
-          <FadeUp><h2 className="text-3xl md:text-4xl font-bold text-[#FF2D8E]">Frequently asked questions</h2><p className="mt-4 text-black max-w-2xl">Common questions about {s.name} in {cityLabel}.</p></FadeUp>
-          <div className="mt-10 grid gap-4">
-            {faqs.map((f, idx) => (
-              <FadeUp key={f.question} delayMs={40 * idx}>
-                <details className="group rounded-2xl border-2 border-black bg-white p-6"><summary className="cursor-pointer list-none text-lg font-semibold text-black flex items-center justify-between"><span>{f.question}</span><span className="text-black/60 group-open:rotate-45 transition-transform">+</span></summary><p className="mt-4 text-black">{f.answer}</p></details>
-              </FadeUp>
-            ))}
-          </div>
-          <div className="mt-12 text-center">
-            <GeoContextBlock city={cityShort.toLowerCase().includes("naperville") ? "naperville" : cityShort.toLowerCase().includes("plainfield") ? "plainfield" : cityShort.toLowerCase().includes("aurora") ? "aurora" : "oswego"} className="mb-8" />
-            <CTA href={PRIMARY_BOOKING_CTA.href} variant="white" className="group inline-flex">{PRIMARY_BOOKING_CTA.shortLabel}<svg stroke="currentColor" fill="none" strokeWidth="2" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round" className="group-hover:translate-x-1 transition-transform ml-1 w-5 h-5"><line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" /></svg></CTA>
-            <p className="text-sm text-black mt-8"><Link className="underline hover:text-[#FF2D8E]" href="/contact">Contact us</Link> with questions.</p>
-          </div>
-        </Section>
-      </>
-    );
+    return <GbpLocationPage slug={slug} />;
   }
 
   if (MED_SPA_SLUG_TO_CITY[slug]) {
@@ -461,14 +337,14 @@ export default async function SlugPage({ params }: { params: Promise<{ slug: str
           </div>
         </Section>
         <Section>
-          <FadeUp><h2 className="text-3xl md:text-4xl font-bold text-[#FF2D8E]">Why Choose Our Med Spa in {cityShort}?</h2><p className="mt-4 text-black max-w-2xl leading-relaxed">{LOCATION_PAGE_CONTENT[slug]?.aboutTreatment ? <ContentWithLinks content={LOCATION_PAGE_CONTENT[slug]!.aboutTreatment} links={CONTEXTUAL_LINKS} /> : "We offer a full range of medical aesthetics and wellness services."}</p></FadeUp>
+          <FadeUp><h2 className="text-3xl md:text-4xl font-bold text-[#FF2D8E]">Why Choose Our Med Spa in {cityShort}?</h2><p className="mt-4 text-black max-w-2xl leading-relaxed">{LOCATION_PAGE_CONTENT[slug]?.aboutTreatment ? <ContentWithLinks content={LOCATION_PAGE_CONTENT[slug]!.aboutTreatment} links={MED_SPA_CONTEXTUAL_LINKS} /> : "We offer a full range of medical aesthetics and wellness services."}</p></FadeUp>
           {LOCATION_PAGE_CONTENT[slug]?.aboutTreatment && (
             <>
-              <FadeUp delayMs={40}><h2 className="mt-12 text-2xl md:text-3xl font-bold text-[#FF2D8E]">Who Is a Good Candidate for Our Med Spa?</h2><p className="mt-4 text-black max-w-2xl leading-relaxed"><ContentWithLinks content={LOCATION_PAGE_CONTENT[slug]!.candidacy} links={CONTEXTUAL_LINKS} /></p></FadeUp>
-              <FadeUp delayMs={80}><h2 className="mt-12 text-2xl md:text-3xl font-bold text-[#FF2D8E]">What to Expect at Our {cityShort} Med Spa</h2><p className="mt-4 text-black max-w-2xl leading-relaxed"><ContentWithLinks content={LOCATION_PAGE_CONTENT[slug]!.whatToExpect} links={CONTEXTUAL_LINKS} /></p></FadeUp>
-              <FadeUp delayMs={120}><h2 className="mt-12 text-2xl md:text-3xl font-bold text-[#FF2D8E]">Safety and Training</h2><p className="mt-4 text-black max-w-2xl leading-relaxed"><ContentWithLinks content={LOCATION_PAGE_CONTENT[slug]!.safetyAndTraining} links={CONTEXTUAL_LINKS} /></p></FadeUp>
-              <FadeUp delayMs={160}><h2 className="mt-12 text-2xl md:text-3xl font-bold text-[#FF2D8E]">Med Spa for Kendall County Clients</h2><p className="mt-4 text-black max-w-2xl leading-relaxed"><ContentWithLinks content={LOCATION_PAGE_CONTENT[slug]!.communityContext} links={CONTEXTUAL_LINKS} /></p></FadeUp>
-              <FadeUp delayMs={200}><div className="mt-10 rounded-2xl border-2 border-black bg-white p-6"><p className="text-black leading-relaxed"><ContentWithLinks content={LOCATION_PAGE_CONTENT[slug]!.callToAction} links={CONTEXTUAL_LINKS} /></p></div></FadeUp>
+              <FadeUp delayMs={40}><h2 className="mt-12 text-2xl md:text-3xl font-bold text-[#FF2D8E]">Who Is a Good Candidate for Our Med Spa?</h2><p className="mt-4 text-black max-w-2xl leading-relaxed"><ContentWithLinks content={LOCATION_PAGE_CONTENT[slug]!.candidacy} links={MED_SPA_CONTEXTUAL_LINKS} /></p></FadeUp>
+              <FadeUp delayMs={80}><h2 className="mt-12 text-2xl md:text-3xl font-bold text-[#FF2D8E]">What to Expect at Our {cityShort} Med Spa</h2><p className="mt-4 text-black max-w-2xl leading-relaxed"><ContentWithLinks content={LOCATION_PAGE_CONTENT[slug]!.whatToExpect} links={MED_SPA_CONTEXTUAL_LINKS} /></p></FadeUp>
+              <FadeUp delayMs={120}><h2 className="mt-12 text-2xl md:text-3xl font-bold text-[#FF2D8E]">Safety and Training</h2><p className="mt-4 text-black max-w-2xl leading-relaxed"><ContentWithLinks content={LOCATION_PAGE_CONTENT[slug]!.safetyAndTraining} links={MED_SPA_CONTEXTUAL_LINKS} /></p></FadeUp>
+              <FadeUp delayMs={160}><h2 className="mt-12 text-2xl md:text-3xl font-bold text-[#FF2D8E]">Med Spa for Kendall County Clients</h2><p className="mt-4 text-black max-w-2xl leading-relaxed"><ContentWithLinks content={LOCATION_PAGE_CONTENT[slug]!.communityContext} links={MED_SPA_CONTEXTUAL_LINKS} /></p></FadeUp>
+              <FadeUp delayMs={200}><div className="mt-10 rounded-2xl border-2 border-black bg-white p-6"><p className="text-black leading-relaxed"><ContentWithLinks content={LOCATION_PAGE_CONTENT[slug]!.callToAction} links={MED_SPA_CONTEXTUAL_LINKS} /></p></div></FadeUp>
             </>
           )}
           {(LOCATION_PAGE_CONTENT[slug]?.whatToExpect && !LOCATION_PAGE_CONTENT[slug]?.aboutTreatment) && <FadeUp><h2 className="mt-12 text-2xl font-bold text-[#FF2D8E]">What to expect at our {cityShort} med spa</h2><p className="mt-4 text-black max-w-2xl leading-relaxed">{LOCATION_PAGE_CONTENT[slug]?.whatToExpect}</p></FadeUp>}

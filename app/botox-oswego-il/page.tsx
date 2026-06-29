@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { SITE, siteJsonLd, localBusinessJsonLd, faqJsonLd, breadcrumbJsonLd } from '@/lib/seo';
 import { InjectablesBlogPromo } from '@/components/InjectablesBlogPromo';
 import { RealPatientReviews } from '@/components/RealPatientReviews';
+import { LocalSeoConversionStrip } from '@/components/seo/LocalSeoConversionStrip';
 
 // ============================================================
 // BOTOX OSWEGO IL - Primary Local SEO Landing Page
@@ -461,6 +462,7 @@ export default function BotoxOswegoPage() {
             </div>
           </div>
         </section>
+        <LocalSeoConversionStrip />
       </main>
     </>
   );

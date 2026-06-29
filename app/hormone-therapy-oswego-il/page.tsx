@@ -2,6 +2,7 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 import { SITE, siteJsonLd, localBusinessJsonLd, faqJsonLd, breadcrumbJsonLd } from '@/lib/seo';
 import { RealPatientReviews } from '@/components/RealPatientReviews';
+import { LocalSeoConversionStrip } from '@/components/seo/LocalSeoConversionStrip';
 
 export const revalidate = 3600;
 
@@ -137,6 +138,7 @@ export default function HormoneTherapyOswegoPage() {
             </div>
           </div>
         </section>
+        <LocalSeoConversionStrip showRxCatalog />
       </main>
     </>
   );
