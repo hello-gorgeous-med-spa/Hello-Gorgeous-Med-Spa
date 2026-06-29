@@ -7,6 +7,7 @@ import { CTA } from "@/components/CTA";
 import { RxContactForm, RxCTASection } from "@/components/RxContactForm";
 import { FadeUp, Section } from "@/components/Section";
 import { MedicalTrustBand } from "@/components/MedicalTrustBand";
+import { RxPatientJourneyBand } from "@/components/rx/RxPatientJourneyBand";
 import { TwoDoorsForkBand } from "@/components/TwoDoorsForkBand";
 import {
   RX_LANDING_HERO,
@@ -237,6 +238,8 @@ export function RxLandingPageContent() {
       </div>
 
       <MedicalTrustBand surface="rose" />
+
+      <RxPatientJourneyBand surface="light" />
 
       {/* Sticky nav */}
       <div className="sticky top-0 z-30 border-b border-black/10 bg-white/95 backdrop-blur-md">

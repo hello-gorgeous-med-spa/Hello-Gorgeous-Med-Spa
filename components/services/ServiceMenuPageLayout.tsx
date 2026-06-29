@@ -6,7 +6,7 @@ import { CTA } from "@/components/CTA";
 import { ServiceConversionBand } from "@/components/services/ServiceConversionBand";
 import { ServiceMenuClinicMedia } from "@/components/services/ServiceMenuClinicMedia";
 import { FadeUp, Section } from "@/components/Section";
-import { BOOKING_URL } from "@/lib/flows";
+import { PRIMARY_BOOKING_CTA } from "@/lib/primary-cta";
 import { getServiceConversionProfile, slugFromMenuPath } from "@/lib/service-conversion-profiles";
 import { getServicePageOswego } from "@/lib/service-pages-oswego";
 import type { ServiceMenuConfig, ServiceMenuPriceRow, ServiceMenuSection } from "@/lib/service-menu-types";
@@ -92,7 +92,7 @@ export function ServiceMenuPageLayout({ config }: { config: ServiceMenuConfig })
   const slug = slugFromMenuPath(config.path);
   const pageData = getServicePageOswego(slug);
   const conversionProfile = getServiceConversionProfile(slug);
-  const bookingHref = hero.primaryCta?.href ?? pageData?.bookingUrl ?? BOOKING_URL;
+  const bookingHref = hero.primaryCta?.href ?? pageData?.bookingUrl ?? PRIMARY_BOOKING_CTA.href;
   const serviceName = pageData?.serviceName ?? hero.titleAccent;
   const allVideos = [...(heroVideo ? [heroVideo] : []), ...(videos ?? [])];
   const hasClinicMedia =
@@ -129,7 +129,7 @@ export function ServiceMenuPageLayout({ config }: { config: ServiceMenuConfig })
             <p className="mx-auto mt-4 max-w-2xl text-lg text-white/75 leading-relaxed">{hero.subtitle}</p>
             <div className="mt-8 flex flex-col sm:flex-row flex-wrap justify-center gap-3">
               <CTA href={bookingHref} variant="gradient" className="!px-8 !py-4">
-                {hero.primaryCta?.label ?? "Book Free Consultation"}
+                {hero.primaryCta?.label ?? PRIMARY_BOOKING_CTA.label}
               </CTA>
               {hero.secondaryCta ? (
                 <CTA
@@ -231,7 +231,7 @@ export function ServiceMenuPageLayout({ config }: { config: ServiceMenuConfig })
           </p>
           <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
             <CTA href={bookingHref} variant="white">
-              Book Free Consultation
+              {PRIMARY_BOOKING_CTA.label}
             </CTA>
             <CTA href={`tel:${SITE.phone.replace(/\D/g, "")}`} variant="outline">
               Call {SITE.phone}

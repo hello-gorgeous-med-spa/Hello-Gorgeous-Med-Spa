@@ -7,7 +7,7 @@ import { FadeUp, Section } from "@/components/Section";
 import { getCityHubProfile } from "@/lib/city-hub-content";
 import { TechBlogPromo } from "@/components/TechBlogPromo";
 import { ServiceExpertWidget } from "@/components/ServiceExpertWidget";
-import { BOOKING_URL } from "@/lib/flows";
+import { PRIMARY_BOOKING_CTA } from "@/lib/primary-cta";
 import { SERVICES, faqJsonLd, pageMetadata, siteJsonLd } from "@/lib/seo";
 
 const topNapervilleSlugs = [
@@ -83,8 +83,8 @@ export default function NapervilleHubPage() {
                 "We serve Naperville clients with a consult-first, safety-driven approach—so you can feel confident in your plan and your results."}
             </p>
             <div className="mt-10 flex flex-col sm:flex-row gap-4">
-              <CTA href={BOOKING_URL} variant="gradient">
-                Book a Consultation
+              <CTA href={PRIMARY_BOOKING_CTA.href} variant="gradient">
+                {PRIMARY_BOOKING_CTA.label}
               </CTA>
               <CTA href="/providers" variant="outline">
                 Meet the Experts
@@ -199,9 +199,9 @@ export default function NapervilleHubPage() {
                   <li>▸ Free consult · same-day often available</li>
                 </ul>
                 <div className="mt-6">
-                  <CTA href={BOOKING_URL} variant="gradient">
-                    Book your free Naperville consult
-                  </CTA>
+                  <CTA href={PRIMARY_BOOKING_CTA.href} variant="gradient">
+                {PRIMARY_BOOKING_CTA.label}
+              </CTA>
                 </div>
               </div>
             </FadeUp>

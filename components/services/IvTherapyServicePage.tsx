@@ -3,6 +3,7 @@ import Link from "next/link";
 import { CTA } from "@/components/CTA";
 import { ServiceExpertWidget } from "@/components/ServiceExpertWidget";
 import { FadeUp, Section } from "@/components/Section";
+import { PRIMARY_BOOKING_CTA } from "@/lib/primary-cta";
 import { BOOKING_URL, FRESHA_BOOKING_URL_DANIELLE, FRESHA_BOOKING_URL_RYAN } from "@/lib/flows";
 import {
   IV_DRIP_MENU,
@@ -77,7 +78,8 @@ export function IvTherapyServicePage() {
               <p className="mt-4 max-w-2xl text-lg text-white/75 leading-relaxed">{service.heroSubtitle}</p>
 
               <div className="mt-8 flex flex-col sm:flex-row flex-wrap gap-3">
-                <CTA href={BOOKING_URL} variant="gradient" className="!px-8 !py-4">
+                <CTA href={PRIMARY_BOOKING_CTA.href} variant="gradient" className="!px-8 !py-4">
+                  {PRIMARY_BOOKING_CTA.label}
                   Book IV Therapy
                 </CTA>
                 <CTA href={buildUrl} variant="outline" className="!border-[#FF2D8E] !text-[#FFB8DC] hover:!bg-[#FF2D8E] hover:!text-white !px-8 !py-4">
@@ -207,8 +209,8 @@ export function IvTherapyServicePage() {
               Book your IV session or build a custom bag in the Hello Gorgeous app — Ryan Kent, FNP-BC on site 7 days a week.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
-              <CTA href={BOOKING_URL} variant="white">
-                Book Now
+              <CTA href={PRIMARY_BOOKING_CTA.href} variant="white">
+                {PRIMARY_BOOKING_CTA.label}
               </CTA>
               <CTA href={buildUrl} variant="outline" className="!border-white !text-white hover:!bg-white hover:!text-[#E6007E]">
                 Build Your IV Bag

@@ -83,7 +83,7 @@ Console · **Meta/Facebook** social posting. Cron jobs are defined in `vercel.js
 - New SEO landing page → copy an existing `*-il` route; keep per-page metadata + JSON-LD
   (`MedicalBusiness`/`LocalBusiness`/`FAQPage`). Don't disable indexing.
 
-## Site architecture (2026 audit — Phases 1–6)
+## Site architecture (2026 audit — Phases 1–7)
 
 Canonical config lives in `lib/` — extend these modules instead of one-off nav/footer copies.
 
@@ -95,6 +95,7 @@ Canonical config lives in `lib/` — extend these modules instead of one-off nav
 | **4** | City SEO tiers: primary Fox Valley hubs, deindex + 301 far-flung cities | `lib/city-seo-tier.ts`, `lib/city-hub-content.ts`, `next.config.js` redirects |
 | **5** | **RX Request Portal** — Hims-style goal + form-factor catalog at `/rx/request` | `lib/rx-request-portal.ts`, `components/rx/RxRequestPortal.tsx`, `app/rx/request/page.tsx` |
 | **6** | **Illinois excellence** — conversion hierarchy, NP trust band, provider faces on key hubs | `lib/illinois-excellence.ts`, `lib/medical-trust.ts`, `components/MedicalTrustBand.tsx`, `components/IllinoisExcellenceBand.tsx` |
+| **7** | **Service + local dominance + RX funnel** — service CTAs, city Google actions, catalog→portal journey | `lib/local-dominance.ts`, `lib/rx-patient-journey.ts`, `components/rx/RxPatientJourneyBand.tsx`, `ServiceMenuPageLayout`, `CityHubLocalBlock` |
 
 **RX Request Portal:** goal cards (weight loss, hormones, peptides, sexual health, hair & skin,
 vitamins & IV) + injectable/capsule/troche/patch/topical filters. **Pricing must come from
@@ -109,6 +110,10 @@ keep `city-seo-tier.ts` and `next.config.js` in sync when adding/removing cities
 **Phase 6 conversion:** one primary action sitewide (`lib/primary-cta.ts` → `/book`). Secondary:
 RX portal, app, catalog (`lib/illinois-excellence.ts` `CONVERSION_HIERARCHY`). Reuse
 `MedicalTrustBand` on RX, club, and services hubs — do not duplicate provider copy.
+
+**Phase 7 funnel:** `RxPatientJourneyBand` on `/rx` and `/rx/request`; city hubs use
+`LOCAL_DOMINANCE_ACTIONS` in `CityHubLocalBlock` (book, directions, Google review). Service
+menu pages default booking to `PRIMARY_BOOKING_CTA`.
 
 ## Content & legal guardrails (medical / advertising)
 

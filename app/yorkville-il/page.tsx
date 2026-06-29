@@ -6,7 +6,7 @@ import { CityHubLocalBlock } from "@/components/CityHubLocalBlock";
 import { FadeUp, Section } from "@/components/Section";
 import { getCityHubProfile } from "@/lib/city-hub-content";
 import { ServiceExpertWidget } from "@/components/ServiceExpertWidget";
-import { BOOKING_URL } from "@/lib/flows";
+import { PRIMARY_BOOKING_CTA } from "@/lib/primary-cta";
 import { SERVICES, SITE, faqJsonLd, pageMetadata, siteJsonLd, breadcrumbJsonLd, localBusinessJsonLd } from "@/lib/seo";
 
 const topServiceSlugs = [
@@ -93,8 +93,8 @@ export default function YorkvilleHubPage() {
                 "Hello Gorgeous Med Spa brings premium clinical aesthetics to Yorkville residents — luxury with medical oversight in nearby Oswego."}
             </p>
             <div className="mt-10 flex flex-col sm:flex-row gap-4">
-              <CTA href={BOOKING_URL} variant="gradient">
-                Book a Consultation
+              <CTA href={PRIMARY_BOOKING_CTA.href} variant="gradient">
+                {PRIMARY_BOOKING_CTA.label}
               </CTA>
               <CTA href="/providers" variant="outline">
                 Meet the Experts
@@ -240,8 +240,8 @@ export default function YorkvilleHubPage() {
               for Botox pricing, medical weight loss, Morpheus8 and how to choose well.
             </p>
             <div className="mt-8">
-              <CTA href={BOOKING_URL} variant="gradient">
-                Book your free Yorkville consult
+              <CTA href={PRIMARY_BOOKING_CTA.href} variant="gradient">
+                {PRIMARY_BOOKING_CTA.label}
               </CTA>
             </div>
           </FadeUp>

@@ -7,7 +7,7 @@ import { FadeUp, Section } from "@/components/Section";
 import { getCityHubProfile } from "@/lib/city-hub-content";
 import { TechBlogPromo } from "@/components/TechBlogPromo";
 import { ServiceExpertWidget } from "@/components/ServiceExpertWidget";
-import { BOOKING_URL } from "@/lib/flows";
+import { PRIMARY_BOOKING_CTA } from "@/lib/primary-cta";
 import { SERVICES, faqJsonLd, pageMetadata, siteJsonLd } from "@/lib/seo";
 
 const topPlainfieldSlugs = [
@@ -83,8 +83,8 @@ export default function PlainfieldHubPage() {
                 "We serve Plainfield clients with a consult-first, safety-driven approach—designed for confident, natural-looking outcomes."}
             </p>
             <div className="mt-10 flex flex-col sm:flex-row gap-4">
-              <CTA href={BOOKING_URL} variant="gradient">
-                Book a Consultation
+              <CTA href={PRIMARY_BOOKING_CTA.href} variant="gradient">
+                {PRIMARY_BOOKING_CTA.label}
               </CTA>
               <CTA href="/providers" variant="outline">
                 Meet the Experts
@@ -178,8 +178,8 @@ export default function PlainfieldHubPage() {
               for Botox pricing, medical weight loss, Morpheus8 and how to choose well.
             </p>
             <div className="mt-8">
-              <CTA href={BOOKING_URL} variant="gradient">
-                Book your free Plainfield consult
+              <CTA href={PRIMARY_BOOKING_CTA.href} variant="gradient">
+                {PRIMARY_BOOKING_CTA.label}
               </CTA>
             </div>
           </FadeUp>

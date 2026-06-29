@@ -1,7 +1,9 @@
 import Link from "next/link";
 
 import { CTA } from "@/components/CTA";
+import { ReviewTrustStrip } from "@/components/ReviewTrustStrip";
 import { FadeUp, Section } from "@/components/Section";
+import { PRIMARY_BOOKING_CTA } from "@/lib/primary-cta";
 import type { ServiceConversionProfile } from "@/lib/service-conversion-profiles";
 
 function ConversionCard({
@@ -71,9 +73,12 @@ export function ServiceConversionBand({
         </div>
 
         <FadeUp delayMs={200}>
-          <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
+          <div className="mt-8 flex justify-center">
+            <ReviewTrustStrip theme="light" />
+          </div>
+          <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
             <CTA href={bookingHref} variant="gradient" className="!px-8 !py-4">
-              Book Free Consultation
+              {PRIMARY_BOOKING_CTA.label}
             </CTA>
             <Link
               href="/help-me-choose"

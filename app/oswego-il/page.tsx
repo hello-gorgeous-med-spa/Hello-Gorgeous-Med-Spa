@@ -7,7 +7,7 @@ import { FadeUp, Section } from "@/components/Section";
 import { getCityHubProfile } from "@/lib/city-hub-content";
 import { TechBlogPromo } from "@/components/TechBlogPromo";
 import { ServiceExpertWidget } from "@/components/ServiceExpertWidget";
-import { BOOKING_URL } from "@/lib/flows";
+import { PRIMARY_BOOKING_CTA } from "@/lib/primary-cta";
 import { SERVICES, faqJsonLd, pageMetadata, siteJsonLd } from "@/lib/seo";
 
 const topOswegoSlugs = [
@@ -83,8 +83,8 @@ export default function OswegoHubPage() {
                 "Hello Gorgeous Med Spa combines luxury aesthetics with clinical oversight—so you can feel confident in your plan, your outcomes, and your safety."}
             </p>
             <div className="mt-10 flex flex-col sm:flex-row gap-4">
-              <CTA href={BOOKING_URL} variant="gradient">
-                Book a Consultation
+              <CTA href={PRIMARY_BOOKING_CTA.href} variant="gradient">
+                {PRIMARY_BOOKING_CTA.label}
               </CTA>
               <CTA href="/providers" variant="outline">
                 Meet the Experts
@@ -109,7 +109,7 @@ export default function OswegoHubPage() {
               Daxxify — up to 6 months on one treatment
             </h2>
             <p className="mt-2 max-w-2xl text-sm text-white/75 md:text-base">
-              Oswego&apos;s only med spa with Botox, Dysport, Jeuveau, Xeomin, and Daxxify. Peptide-powered. Fast onset. Book a free consult.
+              Oswego&apos;s only med spa with Botox, Dysport, Jeuveau, Xeomin, and Daxxify. Peptide-powered. Fast onset — book a free consult to compare.
             </p>
             <p className="mt-4 text-sm font-bold text-[#FFB8DC]">
               Learn about Daxxify{" "}
@@ -253,8 +253,8 @@ export default function OswegoHubPage() {
                   <li>▸ Free consult · same-day often available</li>
                 </ul>
                 <div className="mt-6">
-                  <CTA href={BOOKING_URL} variant="gradient">
-                    Book your free consult
+                  <CTA href={PRIMARY_BOOKING_CTA.href} variant="gradient">
+                    {PRIMARY_BOOKING_CTA.label}
                   </CTA>
                 </div>
               </div>

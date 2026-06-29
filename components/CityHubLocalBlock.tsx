@@ -1,4 +1,5 @@
 import { getCityHubProfile } from "@/lib/city-hub-content";
+import { LOCAL_DOMINANCE_ACTIONS, LOCAL_DOMINANCE_TAGLINE } from "@/lib/local-dominance";
 
 export function CityHubLocalBlock({ hubSlug }: { hubSlug: string }) {
   const profile = getCityHubProfile(hubSlug);
@@ -34,6 +35,23 @@ export function CityHubLocalBlock({ hubSlug }: { hubSlug: string }) {
           </li>
         ))}
       </ul>
+      <p className="mt-6 text-sm font-medium text-black/70">{LOCAL_DOMINANCE_TAGLINE}</p>
+      <div className="mt-4 flex flex-wrap gap-2">
+        {LOCAL_DOMINANCE_ACTIONS.map((action) => (
+          <a
+            key={action.id}
+            href={action.href}
+            {...(action.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+            className={
+              action.primary
+                ? "inline-flex items-center rounded-full bg-[#E6007E] px-4 py-2 text-xs font-bold uppercase tracking-wide text-white shadow-[3px_3px_0_0_rgba(0,0,0,0.85)] transition hover:-translate-y-0.5"
+                : "inline-flex items-center rounded-full border-2 border-black bg-white px-4 py-2 text-xs font-bold text-black transition hover:border-[#E6007E] hover:text-[#E6007E]"
+            }
+          >
+            {action.label}
+          </a>
+        ))}
+      </div>
     </div>
   );
 }

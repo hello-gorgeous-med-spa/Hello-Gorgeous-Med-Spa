@@ -71,6 +71,11 @@ export type RxGuideLink = {
 
 export const RX_GUIDE_LINKS: RxGuideLink[] = [
   {
+    title: "RX Request Portal",
+    description: "Pick your goal, see pricing, and start intake — new patients",
+    href: "/rx/request",
+  },
+  {
     title: "Care hub",
     description: "Refills, add-ons & patient guides — start here every time",
     href: "/rx/care",

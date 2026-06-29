@@ -6,6 +6,8 @@ import { useMemo, useState } from "react";
 
 import { CTA } from "@/components/CTA";
 import { FadeUp } from "@/components/Section";
+import { RxPatientJourneyBand } from "@/components/rx/RxPatientJourneyBand";
+import { CONVERSION_HIERARCHY } from "@/lib/illinois-excellence";
 import { PROGRAM_CONSULT_FEE_USD } from "@/lib/flows";
 import {
   filterRxRequestProducts,
@@ -202,6 +204,8 @@ export function RxRequestPortal() {
         </div>
       </section>
 
+      <RxPatientJourneyBand surface="rose" />
+
       {/* Form factor + catalog */}
       <section className="px-4 py-10 md:px-6 md:py-12">
         <div className="mx-auto max-w-6xl">
@@ -261,12 +265,12 @@ export function RxRequestPortal() {
           <FadeUp className="mt-12 rounded-2xl border-2 border-black bg-gradient-to-r from-[#FF2D8E] via-[#E6007E] to-[#9b0a4d] p-8 text-center text-white shadow-[6px_6px_0_0_rgba(0,0,0,0.9)]">
             <h3 className="text-xl font-black md:text-2xl">Not sure which treatment fits?</h3>
             <p className="mx-auto mt-2 max-w-lg text-sm text-white/85">
-              Book a ${PROGRAM_CONSULT_FEE_USD} NP consult — Ryan Kent, FNP-BC reviews your goals and
-              recommends a protocol with published pricing before you pay.
+              Book a NP consult — Ryan Kent, FNP-BC reviews your goals and recommends a protocol
+              with published pricing before you pay.
             </p>
             <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
-              <CTA href="/book" variant="outline" className="!border-white !text-white hover:!bg-white hover:!text-black">
-                Book free consult
+              <CTA href={CONVERSION_HIERARCHY.primary.href} variant="outline" className="!border-white !text-white hover:!bg-white hover:!text-black">
+                {CONVERSION_HIERARCHY.primary.label}
               </CTA>
               <CTA href="/rx/care" variant="outline" className="!border-white/40 !text-white hover:!bg-white/10">
                 Existing patient — refills
