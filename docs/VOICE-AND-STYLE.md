@@ -48,4 +48,4 @@
 
 ---
 
-*Reference: CLAUDE.MD.md, globals.css*
+*Reference: CLAUDE.md, globals.css*
