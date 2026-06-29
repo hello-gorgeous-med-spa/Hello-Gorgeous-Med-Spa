@@ -6,6 +6,7 @@
 
 import type { LocationContentSection } from "./local-seo-content-types.ts";
 import { GBP_SERVICE_SLUGS, MED_SPA_LOCATION_SLUGS } from "./gbp-urls.ts";
+import { isDeindexedLocalSlug } from "./city-seo-tier.ts";
 import { ADDITIONAL_LOCATION_PAGE_CONTENT } from "./local-seo-content-additions.ts";
 
 export type { LocationContentSection } from "./local-seo-content-types.ts";
@@ -104,8 +105,10 @@ export function getLocationPageWordCount(slug: string): number {
   return Object.values(content).reduce((sum, t) => sum + wordCount(t || ""), 0);
 }
 
-/** Every GBP service slug + med-spa city page must meet MIN_WORDS in prebuild check. */
-export const REQUIRED_SLUGS = [...GBP_SERVICE_SLUGS, ...MED_SPA_LOCATION_SLUGS];
+/** Indexed GBP + med-spa slugs that must meet MIN_WORDS in prebuild check. */
+export const REQUIRED_SLUGS = [...GBP_SERVICE_SLUGS, ...MED_SPA_LOCATION_SLUGS].filter(
+  (slug) => !isDeindexedLocalSlug(slug),
+);
 
 const MIN_WORDS = 850;
 

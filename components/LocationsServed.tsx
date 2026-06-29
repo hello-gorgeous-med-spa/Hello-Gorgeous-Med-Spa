@@ -5,6 +5,7 @@ import {
   MED_SPA_LOCATION_SLUGS,
   MED_SPA_SLUG_TO_CITY,
 } from "@/lib/gbp-urls";
+import { PRIMARY_CITY_SLUGS } from "@/lib/city-seo-tier";
 import { OSWEGO_CHIP_CANONICAL_PATH } from "@/lib/service-pages-oswego/canonical-paths";
 
 /**
@@ -26,26 +27,15 @@ import { OSWEGO_CHIP_CANONICAL_PATH } from "@/lib/service-pages-oswego/canonical
 // Sandwich, Bolingbrook) were thin templated pages Google refused to index, so
 // they are noindexed and intentionally not linked here — we concentrate
 // internal link equity on the cities we actually rank for.
-const CITY_ORDER: Array<{ slug: string; label: string }> = [
-  { slug: "oswego-il", label: "Oswego" },
-  { slug: "naperville-il", label: "Naperville" },
-  { slug: "aurora-il", label: "Aurora" },
-  { slug: "plainfield-il", label: "Plainfield" },
-  { slug: "yorkville-il", label: "Yorkville" },
-  { slug: "montgomery-il", label: "Montgomery" },
-];
+const CITY_ORDER = PRIMARY_CITY_SLUGS.map((slug) => ({
+  slug: `${slug}-il`,
+  label: slug.charAt(0).toUpperCase() + slug.slice(1).replace(/-/g, " "),
+}));
 
 // These cities have a dedicated hub route (/{slug}) with service sub-pages.
 // Linking the city name straight to the hub fixes the "Discovered - not
 // indexed" orphan problem (the hubs previously had no inbound internal links).
-const CITY_HUB_SLUGS = new Set([
-  "oswego-il",
-  "naperville-il",
-  "aurora-il",
-  "plainfield-il",
-  "yorkville-il",
-  "montgomery-il",
-]);
+const CITY_HUB_SLUGS = new Set(PRIMARY_CITY_SLUGS.map((c) => `${c}-il`));
 
 const SERVICE_CHIPS: Array<{ prefix: string; short: string }> = [
   { prefix: "med-spa", short: "Med Spa" },

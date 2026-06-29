@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import { CTA } from "@/components/CTA";
+import { CityHubLocalBlock } from "@/components/CityHubLocalBlock";
 import { FadeUp, Section } from "@/components/Section";
+import { getCityHubProfile } from "@/lib/city-hub-content";
 import { TechBlogPromo } from "@/components/TechBlogPromo";
 import { ServiceExpertWidget } from "@/components/ServiceExpertWidget";
 import { BOOKING_URL } from "@/lib/flows";
@@ -45,6 +47,7 @@ function pageFaqs() {
 }
 
 export default function OswegoHubPage() {
+  const hubProfile = getCityHubProfile("oswego-il");
   const topServices = topOswegoSlugs
     .map((slug) => SERVICES.find((s) => s.slug === slug))
     .filter(Boolean);
@@ -76,8 +79,8 @@ export default function OswegoHubPage() {
               </span>
             </h1>
             <p className="mt-6 text-xl text-black/80 max-w-3xl leading-relaxed">
-              Hello Gorgeous Med Spa combines luxury aesthetics with clinical oversight—so you
-              can feel confident in your plan, your outcomes, and your safety.
+              {hubProfile?.heroSubline ??
+                "Hello Gorgeous Med Spa combines luxury aesthetics with clinical oversight—so you can feel confident in your plan, your outcomes, and your safety."}
             </p>
             <div className="mt-10 flex flex-col sm:flex-row gap-4">
               <CTA href={BOOKING_URL} variant="gradient">
@@ -90,6 +93,7 @@ export default function OswegoHubPage() {
             <p className="mt-6 text-sm text-black/60">
               74 W. Washington St., Oswego, IL 60543 · (630) 636‑6193
             </p>
+            <CityHubLocalBlock hubSlug="oswego-il" />
           </FadeUp>
         </div>
       </Section>

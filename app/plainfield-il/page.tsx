@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import { CTA } from "@/components/CTA";
+import { CityHubLocalBlock } from "@/components/CityHubLocalBlock";
 import { FadeUp, Section } from "@/components/Section";
+import { getCityHubProfile } from "@/lib/city-hub-content";
 import { TechBlogPromo } from "@/components/TechBlogPromo";
 import { ServiceExpertWidget } from "@/components/ServiceExpertWidget";
 import { BOOKING_URL } from "@/lib/flows";
@@ -45,6 +47,7 @@ function pageFaqs() {
 }
 
 export default function PlainfieldHubPage() {
+  const hubProfile = getCityHubProfile("plainfield-il");
   const topServices = topPlainfieldSlugs
     .map((slug) => SERVICES.find((s) => s.slug === slug))
     .filter(Boolean);
@@ -76,8 +79,8 @@ export default function PlainfieldHubPage() {
               </span>
             </h1>
             <p className="mt-6 text-xl text-black/80 max-w-3xl leading-relaxed">
-              We serve Plainfield clients with a consult-first, safety-driven approach—designed for
-              confident, natural-looking outcomes.
+              {hubProfile?.heroSubline ??
+                "We serve Plainfield clients with a consult-first, safety-driven approach—designed for confident, natural-looking outcomes."}
             </p>
             <div className="mt-10 flex flex-col sm:flex-row gap-4">
               <CTA href={BOOKING_URL} variant="gradient">
@@ -93,6 +96,7 @@ export default function PlainfieldHubPage() {
             <p className="mt-6 text-sm text-black/60">
               Located in Oswego: 74 W. Washington St., Oswego, IL 60543 · (630) 636‑6193
             </p>
+            <CityHubLocalBlock hubSlug="plainfield-il" />
           </FadeUp>
         </div>
       </Section>

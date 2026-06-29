@@ -14,6 +14,7 @@ import {
   MED_SPA_LOCATION_SLUGS,
   MED_SPA_SLUG_TO_CITY,
 } from "@/lib/gbp-urls";
+import { isDeindexedLocalSlug } from "@/lib/city-seo-tier";
 import { LOCATION_PAGE_CONTENT } from "@/lib/local-seo-content";
 import {
   SERVICES,
@@ -60,21 +61,7 @@ const ALL_LOCAL_SLUGS = [...GBP_SERVICE_SLUGS, ...MED_SPA_LOCATION_SLUGS, ...SER
   (s) => !DEDICATED_LOCAL_PAGE_SLUGS.has(s)
 );
 
-// Far-flung cities with no unique local content — Google was crawling these
-// thin templated pages and refusing to index them ("Crawled - currently not
-// indexed"), which dilutes site-wide quality signals. We noindex (follow) them
-// so crawl budget + ranking focus stays on the core Fox Valley service area.
-// They are also excluded from the sitemap (see app/sitemap.ts).
-const DEINDEXED_CITY_SUFFIXES = [
-  "sugar-grove-il",
-  "ottawa-il",
-  "sandwich-il",
-  "bolingbrook-il",
-] as const;
-
-function isDeindexedLocalSlug(slug: string): boolean {
-  return DEINDEXED_CITY_SUFFIXES.some((city) => slug.endsWith(`-${city}`));
-}
+// Far-flung cities — see lib/city-seo-tier.ts (301 redirects + noindex fallback).
 
 function parseTreatmentCitySlug(slug: string) {
   for (const city of CITIES) {

@@ -1,5 +1,33 @@
 const path = require("path");
 
+/** Phase 4 — keep in sync with lib/city-seo-tier.ts DEINDEXED_CITY_REDIRECT_TARGETS */
+const DEINDEXED_CITY_REDIRECT_TARGETS = {
+  "sugar-grove": "aurora",
+  ottawa: "yorkville",
+  sandwich: "yorkville",
+  bolingbrook: "naperville",
+  geneva: "aurora",
+  batavia: "aurora",
+  "st-charles": "aurora",
+  "north-aurora": "aurora",
+};
+const DEINDEXED_GBP_PREFIXES = ["botox", "lip-filler", "weight-loss", "med-spa"];
+
+function buildDeindexedCityRedirects() {
+  const rules = [];
+  for (const [from, to] of Object.entries(DEINDEXED_CITY_REDIRECT_TARGETS)) {
+    rules.push({ source: `/${from}-il`, destination: `/${to}-il`, permanent: true });
+    for (const prefix of DEINDEXED_GBP_PREFIXES) {
+      rules.push({
+        source: `/${prefix}-${from}-il`,
+        destination: `/${prefix}-${to}-il`,
+        permanent: true,
+      });
+    }
+  }
+  return rules;
+}
+
 /** CSP for static HTML embedded in iframes on www (intake forms, education handouts). */
 const EMBEDDABLE_HTML_CSP = [
   "default-src 'self'",
@@ -278,6 +306,8 @@ const nextConfig = {
     { source: "/menopause-therapy", destination: "/rx/hormones", permanent: true },
     { source: "/o-shot-rejuvenation", destination: "/rx", permanent: true },
     { source: "/botox-fillers", destination: "/botox-oswego", permanent: true },
+    // Phase 4 — thin far-flung city pages → nearest primary Fox Valley hub
+    ...buildDeindexedCityRedirects(),
   ],
 };
 

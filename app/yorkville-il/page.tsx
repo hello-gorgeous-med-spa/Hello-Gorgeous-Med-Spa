@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import { CTA } from "@/components/CTA";
+import { CityHubLocalBlock } from "@/components/CityHubLocalBlock";
 import { FadeUp, Section } from "@/components/Section";
+import { getCityHubProfile } from "@/lib/city-hub-content";
 import { ServiceExpertWidget } from "@/components/ServiceExpertWidget";
 import { BOOKING_URL } from "@/lib/flows";
 import { SERVICES, SITE, faqJsonLd, pageMetadata, siteJsonLd, breadcrumbJsonLd, localBusinessJsonLd } from "@/lib/seo";
@@ -44,6 +46,7 @@ function pageFaqs() {
 }
 
 export default function YorkvilleHubPage() {
+  const hubProfile = getCityHubProfile("yorkville-il");
   const topServices = topServiceSlugs
     .map((slug) => SERVICES.find((s) => s.slug === slug))
     .filter(Boolean);
@@ -86,8 +89,8 @@ export default function YorkvilleHubPage() {
               </span>
             </h1>
             <p className="mt-6 text-xl text-black/80 max-w-3xl leading-relaxed">
-              Hello Gorgeous Med Spa brings premium clinical aesthetics to Yorkville residents. 
-              Located in nearby Oswego, we combine luxury with medical oversight for results you can trust.
+              {hubProfile?.heroSubline ??
+                "Hello Gorgeous Med Spa brings premium clinical aesthetics to Yorkville residents — luxury with medical oversight in nearby Oswego."}
             </p>
             <div className="mt-10 flex flex-col sm:flex-row gap-4">
               <CTA href={BOOKING_URL} variant="gradient">
@@ -100,6 +103,7 @@ export default function YorkvilleHubPage() {
             <p className="mt-6 text-sm text-black/60">
               Located in Oswego: 74 W. Washington St., Oswego, IL 60543 · (630) 636‑6193
             </p>
+            <CityHubLocalBlock hubSlug="yorkville-il" />
           </FadeUp>
         </div>
       </Section>

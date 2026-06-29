@@ -13,6 +13,7 @@ import { MEDICAL_OPTIMIZATION_PATH } from '@/lib/medical-optimization';
 import { QUIZ_HUB_PATH } from '@/lib/quiz-nav';
 import { getPublishedPeptideTopics, PEPTIDES_HUB_PATH } from '@/lib/peptides-hub';
 import { SKIN_101_GUIDES, SKIN_101_PATH } from '@/lib/skin-101-nav';
+import { isDeindexedSeoPath } from '@/lib/city-seo-tier';
 
 // ============================================================
 // SITEMAP - Auto-generates for Google indexing
@@ -988,12 +989,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...canonicalDestinations,
   ];
 
-  // Far-flung cities with thin, templated content are noindexed (see
-  // app/[slug]/page.tsx) and must not appear in the sitemap — listing
-  // noindexed URLs creates "Excluded by noindex" conflicts in Search Console.
-  const DEINDEXED_CITY_SUFFIXES = ['sugar-grove-il', 'ottawa-il', 'sandwich-il', 'bolingbrook-il'];
-  const isDeindexedPath = (path: string) =>
-    DEINDEXED_CITY_SUFFIXES.some((city) => path.endsWith(`-${city}`));
+  const isDeindexedPath = (path: string) => isDeindexedSeoPath(path);
 
   // Strip redirect sources + noindexed far-flung pages, then dedupe by URL.
   const seen = new Set<string>();
