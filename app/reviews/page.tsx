@@ -5,11 +5,12 @@ import { ReviewsList } from "@/components/ReviewsList";
 import { StaticFeaturedReviews } from "@/components/reviews/StaticFeaturedReviews";
 import { CTA } from "@/components/CTA";
 import { FadeUp, Section } from "@/components/Section";
-import { BOOKING_URL } from "@/lib/flows";
+import { GoogleBusinessSpotlight } from "@/components/marketing/GoogleBusinessSpotlight";
+import { PRIMARY_BOOKING_CTA } from "@/lib/primary-cta";
 import { REVIEW_TRUST_HEADLINE, reviewTrustBody } from "@/lib/review-trust-copy";
-import { pageMetadata } from "@/lib/seo";
+import { SITE, pageMetadata } from "@/lib/seo";
 
-const GOOGLE_REVIEW_URL = "https://g.page/r/CYQOWmT_HcwQEBM/review";
+const GOOGLE_REVIEW_URL = SITE.googleReviewUrl;
 
 export const metadata: Metadata = pageMetadata({
   title: "Reviews",
@@ -55,6 +56,8 @@ export default function ReviewsPage() {
           <ReviewsList />
         </FadeUp>
       </Section>
+
+      <GoogleBusinessSpotlight />
 
       <Section id="leave-review">
         <div className="grid gap-10 lg:grid-cols-2 items-start">
@@ -120,8 +123,8 @@ export default function ReviewsPage() {
               use this page or the QR code above anytime—we appreciate every piece of feedback.
             </p>
             <div className="mt-8 flex flex-wrap justify-center gap-4">
-              <CTA href={BOOKING_URL} variant="gradient">
-                Book your next visit
+              <CTA href={PRIMARY_BOOKING_CTA.href} variant="gradient">
+                {PRIMARY_BOOKING_CTA.label}
               </CTA>
               <CTA href="/contact" variant="outline">
                 Contact us

@@ -12,7 +12,11 @@ import {
 import { WeightLossBlogPromo } from '@/components/WeightLossBlogPromo';
 import { LaserHairMembershipsPromo } from '@/components/LaserHairMembershipsPromo';
 import { RealPatientReviews, type ReviewServiceCategory } from '@/components/RealPatientReviews';
+import { LocalSeoConversionStrip } from '@/components/seo/LocalSeoConversionStrip';
+import { ReviewTrustStrip } from '@/components/ReviewTrustStrip';
 import { GoogleMapEmbed } from '@/components/GoogleMapEmbed';
+import { PRIMARY_BOOKING_CTA } from '@/lib/primary-cta';
+import { LOCAL_DOMINANCE_ACTIONS } from '@/lib/local-dominance';
 
 const REVIEW_CATEGORY_BY_SERVICE: Record<string, ReviewServiceCategory> = {
   'weight-loss': 'weight-loss',
@@ -114,11 +118,19 @@ export function LocationServicePage({ service, area, nearbyAreas, localIntro }: 
                 
                 <div className="flex flex-col sm:flex-row gap-4 mb-8">
                   <Link
-                    href="/book"
+                    href={PRIMARY_BOOKING_CTA.href}
                     className="inline-flex items-center justify-center px-8 py-4 bg-[#FF2D8E] text-white font-semibold rounded-xl hover:bg-[#e0267d] transition-all text-lg"
                   >
-                    Book Free Consultation
+                    {PRIMARY_BOOKING_CTA.label}
                   </Link>
+                  {service.slug === 'weight-loss' ? (
+                    <Link
+                      href="/rx/request"
+                      className="inline-flex items-center justify-center px-8 py-4 border-2 border-[#FFB8DC] text-[#FFB8DC] font-semibold rounded-xl hover:bg-[#FFB8DC] hover:text-black transition-all text-lg"
+                    >
+                      Browse RX catalog
+                    </Link>
+                  ) : null}
                   <a
                     href={`tel:${SITE.phone.replace(/-/g, '')}`}
                     className="inline-flex items-center justify-center px-8 py-4 border-2 border-white text-white font-semibold rounded-xl hover:bg-white hover:text-black transition-all text-lg"
@@ -127,11 +139,14 @@ export function LocationServicePage({ service, area, nearbyAreas, localIntro }: 
                   </a>
                 </div>
 
+                <div className="mt-6 mb-4">
+                  <ReviewTrustStrip theme="dark" />
+                </div>
+
                 <div className="flex flex-wrap gap-4 text-sm">
+                  <span className="flex items-center gap-2 bg-white/10 px-4 py-2 rounded-full">✓ Licensed NPs on site</span>
+                  <span className="flex items-center gap-2 bg-white/10 px-4 py-2 rounded-full">✓ Free consultations</span>
                   <span className="flex items-center gap-2 bg-[#FFD700]/20 border border-[#FFD700]/50 px-4 py-2 rounded-full text-[#FFD700] font-semibold">🏆 Best of Oswego</span>
-                  <span className="flex items-center gap-2 bg-white/10 px-4 py-2 rounded-full">⭐ 4.9 Stars</span>
-                  <span className="flex items-center gap-2 bg-white/10 px-4 py-2 rounded-full">✓ Licensed NPs</span>
-                  <span className="flex items-center gap-2 bg-white/10 px-4 py-2 rounded-full">✓ Free Consultations</span>
                 </div>
               </div>
 
@@ -270,10 +285,10 @@ export function LocationServicePage({ service, area, nearbyAreas, localIntro }: 
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
-                href="/book"
+                href={PRIMARY_BOOKING_CTA.href}
                 className="inline-flex items-center justify-center px-8 py-4 bg-[#FF2D8E] text-white font-semibold rounded-xl hover:bg-[#e0267d] transition-all text-lg"
               >
-                Book Online Now
+                {PRIMARY_BOOKING_CTA.label}
               </Link>
               <a
                 href={`tel:${SITE.phone.replace(/-/g, '')}`}
@@ -284,6 +299,8 @@ export function LocationServicePage({ service, area, nearbyAreas, localIntro }: 
             </div>
           </div>
         </section>
+
+        <LocalSeoConversionStrip showRxCatalog={service.slug === 'weight-loss'} />
 
         {/* Real Patient Reviews — named-patient social proof + Schema.org Review markup for SERP stars */}
         <RealPatientReviews
@@ -318,20 +335,16 @@ export function LocationServicePage({ service, area, nearbyAreas, localIntro }: 
                   <span className="font-semibold">Hours:</span> Mon–Fri 10am–8pm · Sat 10am–5pm · Sun closed
                 </p>
                 <div className="flex flex-wrap gap-3">
-                  <a
-                    href={`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent('74 W Washington St, Oswego, IL 60543')}&destination_place_id=ChIJt2xHqd_vDogRhA5aZP8dzBA`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-[#E6007E] text-white font-semibold hover:bg-[#c9006e] transition text-sm"
-                  >
-                    📍 Get Directions
-                  </a>
-                  <a
-                    href="tel:630-636-6193"
-                    className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg border-2 border-black text-black font-semibold hover:bg-black hover:text-white transition text-sm"
-                  >
-                    📞 Call (630) 636-6193
-                  </a>
+                  {LOCAL_DOMINANCE_ACTIONS.filter((a) => a.id === 'directions' || a.id === 'call' || a.id === 'review').map((action) => (
+                    <a
+                      key={action.id}
+                      href={action.href}
+                      {...(action.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                      className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg border-2 border-black text-black font-semibold hover:bg-black hover:text-white transition text-sm"
+                    >
+                      {action.id === 'directions' ? '📍' : action.id === 'review' ? '★' : '📞'} {action.label}
+                    </a>
+                  ))}
                 </div>
               </div>
             </div>

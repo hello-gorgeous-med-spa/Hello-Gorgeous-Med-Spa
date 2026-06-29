@@ -83,7 +83,7 @@ Console · **Meta/Facebook** social posting. Cron jobs are defined in `vercel.js
 - New SEO landing page → copy an existing `*-il` route; keep per-page metadata + JSON-LD
   (`MedicalBusiness`/`LocalBusiness`/`FAQPage`). Don't disable indexing.
 
-## Site architecture (2026 audit — Phases 1–7)
+## Site architecture (2026 audit — Phases 1–8)
 
 Canonical config lives in `lib/` — extend these modules instead of one-off nav/footer copies.
 
@@ -96,6 +96,7 @@ Canonical config lives in `lib/` — extend these modules instead of one-off nav
 | **5** | **RX Request Portal** — Hims-style goal + form-factor catalog at `/rx/request` | `lib/rx-request-portal.ts`, `components/rx/RxRequestPortal.tsx`, `app/rx/request/page.tsx` |
 | **6** | **Illinois excellence** — conversion hierarchy, NP trust band, provider faces on key hubs | `lib/illinois-excellence.ts`, `lib/medical-trust.ts`, `components/MedicalTrustBand.tsx`, `components/IllinoisExcellenceBand.tsx` |
 | **7** | **Service + local dominance + RX funnel** — service CTAs, city Google actions, catalog→portal journey | `lib/local-dominance.ts`, `lib/rx-patient-journey.ts`, `components/rx/RxPatientJourneyBand.tsx`, `ServiceMenuPageLayout`, `CityHubLocalBlock` |
+| **8** | **SEO lander sweep + intake next-steps + GBP spotlight** | `components/seo/LocalSeoConversionStrip.tsx`, `LocationServicePage`, `lib/intake-what-happens-next.ts`, `GoogleBusinessSpotlight` |
 
 **RX Request Portal:** goal cards (weight loss, hormones, peptides, sexual health, hair & skin,
 vitamins & IV) + injectable/capsule/troche/patch/topical filters. **Pricing must come from
@@ -114,6 +115,10 @@ RX portal, app, catalog (`lib/illinois-excellence.ts` `CONVERSION_HIERARCHY`). R
 **Phase 7 funnel:** `RxPatientJourneyBand` on `/rx` and `/rx/request`; city hubs use
 `LOCAL_DOMINANCE_ACTIONS` in `CityHubLocalBlock` (book, directions, Google review). Service
 menu pages default booking to `PRIMARY_BOOKING_CTA`.
+
+**Phase 8 SEO:** `LocationServicePage` + `app/[slug]` GBP landers use `LocalSeoConversionStrip`
+and labeled review proof. GLP-1 intake success uses `RxPostSubmitCard` + `glp1IntakeQualifiedSteps`.
+`/reviews` shows `GoogleBusinessSpotlight` aligned with `lib/google-business-post-presets.ts`.
 
 ## Content & legal guardrails (medical / advertising)
 

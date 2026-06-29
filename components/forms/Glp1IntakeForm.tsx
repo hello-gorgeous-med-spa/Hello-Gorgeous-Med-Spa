@@ -3,8 +3,14 @@
 import { useMemo, useRef, useState } from "react";
 import Link from "next/link";
 
+import { RxIntakeDisqualifiedCard, RxPostSubmitCard } from "@/components/rx/intake/RxPostSubmitHeader";
 import { SMSDisclosure } from "@/components/SMSDisclosure";
-import { BOOKING_URL } from "@/lib/flows";
+import { PRIMARY_BOOKING_CTA } from "@/lib/primary-cta";
+import {
+  GLP1_INTAKE_SUCCESS_HEADLINE,
+  GLP1_INTAKE_SUCCESS_INTRO,
+  glp1IntakeQualifiedSteps,
+} from "@/lib/intake-what-happens-next";
 import {
   GLP1_DISQUALIFIED_MESSAGE,
   GLP1_INTAKE_SLUG,
@@ -249,46 +255,46 @@ export function Glp1IntakeForm() {
 
   if (result?.kind === "qualified") {
     return (
-      <div className="rounded-2xl border-2 border-black bg-green-50 p-8 text-center shadow-lg">
-        <span className="text-4xl">✓</span>
-        <h2 className="mt-4 font-serif text-2xl font-semibold text-green-900">You qualify — let&apos;s get started</h2>
-        <p className="mt-3 text-sm text-green-800 leading-relaxed max-w-md mx-auto">
-          Our clinical team will review your intake within one business day. Reference{" "}
-          <span className="font-mono font-bold">{result.reference}</span>. You can book your consultation now.
-        </p>
+      <RxPostSubmitCard
+        emoji="✓"
+        headline={GLP1_INTAKE_SUCCESS_HEADLINE}
+        reference={result.reference}
+        intro={GLP1_INTAKE_SUCCESS_INTRO}
+        steps={glp1IntakeQualifiedSteps()}
+      >
         <a
-          href={BOOKING_URL}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="mt-6 inline-flex w-full max-w-sm items-center justify-center rounded-xl bg-[#E6007E] px-8 py-4 font-bold text-white hover:bg-black transition-colors"
+          href={PRIMARY_BOOKING_CTA.href}
+          className="inline-flex w-full max-w-sm items-center justify-center rounded-xl bg-[#E6007E] px-8 py-4 font-bold text-white hover:bg-black transition-colors"
         >
-          Book my consultation →
+          {PRIMARY_BOOKING_CTA.label} →
         </a>
-        <p className="mt-4 text-xs text-green-700">
+        <div className="mt-4 flex flex-col items-center gap-2 text-center">
+          <Link href="/portal/rx" className="text-xs font-semibold text-[#E6007E] underline">
+            Open my RX portal
+          </Link>
+          <Link href="/rx/status" className="text-xs font-semibold text-[#E6007E] underline">
+            Track order status
+          </Link>
+        </div>
+        <p className="mt-4 text-xs text-black/55 text-center">
           Questions?{" "}
-          <a href="tel:+16306366193" className="font-semibold underline">
+          <a href="tel:+16306366193" className="font-semibold text-[#E6007E] underline">
             630-636-6193
           </a>
         </p>
-      </div>
+      </RxPostSubmitCard>
     );
   }
 
   if (result?.kind === "disqualified") {
     return (
-      <div className="rounded-2xl border-2 border-black bg-white p-8 shadow-lg">
-        <h2 className="font-serif text-2xl font-semibold text-black">Thank you for your intake</h2>
-        <p className="mt-4 text-sm text-black/75 leading-relaxed">{GLP1_DISQUALIFIED_MESSAGE}</p>
-        <p className="mt-4 text-xs text-black/50">
-          Reference <span className="font-mono">{result.reference}</span> — our team has been notified.
-        </p>
-        <Link
-          href="/glp1-weight-loss"
-          className="mt-6 inline-block text-sm font-semibold text-[#E6007E] underline"
-        >
-          ← Back to program overview
-        </Link>
-      </div>
+      <RxIntakeDisqualifiedCard
+        headline="Thank you for your intake"
+        body={GLP1_DISQUALIFIED_MESSAGE}
+        reference={result.reference}
+        ctaHref="/glp1-weight-loss"
+        ctaLabel="← Back to program overview"
+      />
     );
   }
 

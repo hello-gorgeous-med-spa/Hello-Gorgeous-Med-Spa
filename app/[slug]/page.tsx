@@ -7,7 +7,7 @@ import { ContentWithLinks } from "@/components/ContentWithLinks";
 import { GeoContextBlock } from "@/components/GeoContextBlock";
 import { FadeUp, Section } from "@/components/Section";
 import { ServiceExpertWidget } from "@/components/ServiceExpertWidget";
-import { BOOKING_URL } from "@/lib/flows";
+import { PRIMARY_BOOKING_CTA } from "@/lib/primary-cta";
 import {
   GBP_SERVICE_SLUGS,
   GBP_SLUG_TO_SERVICE,
@@ -367,7 +367,7 @@ export default async function SlugPage({ params }: { params: Promise<{ slug: str
               <h1 className="text-4xl md:text-6xl font-bold leading-tight"><span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-pink-400">{s.name}</span> in {cityShort}, IL</h1>
               <p className="mt-6 text-xl text-black max-w-3xl leading-relaxed">{LOCATION_PAGE_CONTENT[slug]?.intro ?? s.heroSubtitle}</p>
               <div className="mt-10 flex flex-col sm:flex-row gap-4">
-                <CTA href={BOOKING_URL} variant="gradient">Book a Consultation</CTA>
+                <CTA href={PRIMARY_BOOKING_CTA.href} variant="gradient">{PRIMARY_BOOKING_CTA.label}</CTA>
                 <CTA href={servicePublicPath(s)} variant="outline">Full service details</CTA>
                 <CTA href="/contact" variant="outline">Contact Us</CTA>
               </div>
@@ -391,7 +391,7 @@ export default async function SlugPage({ params }: { params: Promise<{ slug: str
                   <FadeUp delayMs={200}>
                     <div className="mt-10 rounded-2xl border-2 border-black bg-white p-6">
                       <p className="text-black leading-relaxed"><ContentWithLinks content={LOCATION_PAGE_CONTENT[slug]!.callToAction} links={CONTEXTUAL_LINKS} /></p>
-                      <div className="mt-6 flex flex-col sm:flex-row gap-4"><CTA href={BOOKING_URL} variant="white">Book a Consultation</CTA><CTA href={servicePublicPath(s)} variant="outline">View full {s.name} page</CTA><CTA href="/providers" variant="outline">Meet the Experts</CTA></div>
+                      <div className="mt-6 flex flex-col sm:flex-row gap-4"><CTA href={PRIMARY_BOOKING_CTA.href} variant="white">{PRIMARY_BOOKING_CTA.label}</CTA><CTA href={servicePublicPath(s)} variant="outline">View full {s.name} page</CTA><CTA href="/providers" variant="outline">Meet the Experts</CTA></div>
                     </div>
                   </FadeUp>
                 </>
@@ -427,7 +427,7 @@ export default async function SlugPage({ params }: { params: Promise<{ slug: str
           </div>
           <div className="mt-12 text-center">
             <GeoContextBlock city={cityShort.toLowerCase().includes("naperville") ? "naperville" : cityShort.toLowerCase().includes("plainfield") ? "plainfield" : cityShort.toLowerCase().includes("aurora") ? "aurora" : "oswego"} className="mb-8" />
-            <CTA href={BOOKING_URL} variant="white" className="group inline-flex">Book Now<svg stroke="currentColor" fill="none" strokeWidth="2" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round" className="group-hover:translate-x-1 transition-transform ml-1 w-5 h-5"><line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" /></svg></CTA>
+            <CTA href={PRIMARY_BOOKING_CTA.href} variant="white" className="group inline-flex">{PRIMARY_BOOKING_CTA.shortLabel}<svg stroke="currentColor" fill="none" strokeWidth="2" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round" className="group-hover:translate-x-1 transition-transform ml-1 w-5 h-5"><line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" /></svg></CTA>
             <p className="text-sm text-black mt-8"><Link className="underline hover:text-[#FF2D8E]" href="/contact">Contact us</Link> with questions.</p>
           </div>
         </Section>
@@ -452,7 +452,7 @@ export default async function SlugPage({ params }: { params: Promise<{ slug: str
               <h1 className="text-4xl md:text-6xl font-bold leading-tight">Med Spa serving <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-pink-400">{cityShort}</span></h1>
               <p className="mt-6 text-xl text-black max-w-3xl leading-relaxed">{LOCATION_PAGE_CONTENT[slug]?.intro ?? `Hello Gorgeous Med Spa is located in Oswego, IL and proudly serves ${cityLabel} and the surrounding area. Botox, dermal fillers, weight loss therapy, hormone optimization, microneedling, IV therapy, and more—all in a luxury, clinical-first setting.`}</p>
               <div className="mt-10 flex flex-col sm:flex-row gap-4">
-                <CTA href={BOOKING_URL} variant="gradient">Book a Consultation</CTA>
+                <CTA href={PRIMARY_BOOKING_CTA.href} variant="gradient">{PRIMARY_BOOKING_CTA.label}</CTA>
                 <CTA href={hubPath} variant="outline">View {cityShort} services</CTA>
                 <CTA href="/services" variant="outline">All Services</CTA>
               </div>
@@ -480,7 +480,7 @@ export default async function SlugPage({ params }: { params: Promise<{ slug: str
           </div>
           <div className="mt-12 text-center">
             <GeoContextBlock city={slug.includes("naperville") ? "naperville" : slug.includes("plainfield") ? "plainfield" : slug.includes("aurora") ? "aurora" : "oswego"} className="mb-8" />
-            <CTA href={BOOKING_URL} variant="white">Book Your Visit</CTA>
+            <CTA href={PRIMARY_BOOKING_CTA.href} variant="white">{PRIMARY_BOOKING_CTA.label}</CTA>
           </div>
         </Section>
       </>
