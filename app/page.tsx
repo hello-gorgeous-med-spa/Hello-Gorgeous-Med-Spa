@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import {
   HeroV3,
-  HomepageTrackFork,
+  HomepageRxNavigator,
   HomepageTestimonials,
   HomepageClosingCTARow,
 } from "@/components/homepage-v3";
@@ -146,7 +146,7 @@ export default function HomePage() {
 
       <main className="bg-black">
         <HeroV3 />
-        <HomepageTrackFork />
+        <HomepageRxNavigator />
         <HomepageMedicalLane />
         <HomepageAestheticsLane />
         <HomepageTestimonials />

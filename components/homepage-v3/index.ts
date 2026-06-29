@@ -2,7 +2,7 @@ export { HeroV3 } from "./HeroV3";
 export { HomepageMedicalLane } from "./HomepageMedicalLane";
 export { HomepageAestheticsLane } from "./HomepageAestheticsLane";
 export { HomepageMedicalStickyBar } from "./HomepageMedicalStickyBar";
-export { HomepageTrackFork } from "./HomepageTrackFork";
+export { HomepageRxNavigator } from "./HomepageRxNavigator";
 export { Glp1HomePathCards } from "./Glp1HomePathCards";
 export { HomepageShopRxFinder } from "./HomepageShopRxFinder";
 export { ShopRxTrustBar } from "./ShopRxTrustBar";

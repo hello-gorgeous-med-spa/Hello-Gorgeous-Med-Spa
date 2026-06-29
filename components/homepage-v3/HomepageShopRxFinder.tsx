@@ -118,14 +118,14 @@ export function HomepageShopRxFinder() {
   return (
     <section
       id="find-your-treatment"
-      className="scroll-mt-24 border-b border-black/10 bg-[#FAF7F4] px-4 py-12 sm:py-16"
+      className="scroll-mt-24 border-b border-neutral-200 bg-white px-4 py-12 sm:py-16"
       aria-labelledby="shop-rx-finder-heading"
     >
       <div className="mx-auto max-w-6xl">
         <FadeUp className="text-center">
           <h2
             id="shop-rx-finder-heading"
-            className="font-serif text-3xl font-normal text-black sm:text-4xl"
+            className="mt-3 text-2xl font-semibold tracking-tight text-neutral-900 sm:text-3xl"
           >
             I&apos;m interested in
           </h2>
