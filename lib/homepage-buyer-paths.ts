@@ -36,26 +36,9 @@ export type HomepageTrackForkColumn = {
   imagePosition?: string;
 };
 
-const aestheticsDoor = doorForTrack("aesthetics");
 const medicalDoor = doorForTrack("medical");
 
 export const HOMEPAGE_TRACK_FORK: HomepageTrackForkColumn[] = [
-  {
-    track: "aesthetics",
-    anchor: HOMEPAGE_AESTHETICS_ANCHOR,
-    hubHref: aestheticsDoor.hubHref,
-    posterImage: "/images/homepage-buyer-paths/injectables.png",
-    posterAlt: "Medical aesthetics — injectables, Morpheus8 and skin treatments at Hello Gorgeous Oswego",
-    imageHeadline: "Injectables · skin · body",
-    title: "Aesthetics track",
-    description: aestheticsDoor.description,
-    tags: ["Botox & fillers", "Morpheus8", "Solaria CO₂", "HydraFacial", "Body RF"],
-    ctaLabel: aestheticsDoor.hubCta,
-    microLabel: aestheticsDoor.microLabel,
-    microDetail: aestheticsDoor.microDetail,
-    accent: aestheticsDoor.accent,
-    imagePosition: "object-center",
-  },
   {
     track: "medical",
     anchor: HOMEPAGE_MEDICAL_ANCHOR,

@@ -3,7 +3,8 @@
  * Pricing pulled from peptide-retail, GLP-1 program, and HRT formulation libs.
  */
 
-import { GLP1_INTAKE_PATH, GLP1_REFILL_PATH, PROGRAM_CONSULT_FEE_USD } from "@/lib/flows";
+import { GLP1_INTAKE_PATH, GLP1_REFILL_PATH, PROGRAM_CONSULT_FEE_USD, hrtRequestUrl, labRequestUrl } from "@/lib/flows";
+import { LAB_PANELS } from "@/lib/lab-panel-catalog";
 import { GLP1_PROGRAM, GLP1_RETAIL_PROGRAM } from "@/lib/glp1-program-pricing";
 import {
   HRT_INGREDIENTS,
@@ -34,7 +35,8 @@ export type RxRequestGoalId =
   | "peptides"
   | "sexual-health"
   | "hair-skin"
-  | "vitamins-iv";
+  | "vitamins-iv"
+  | "labs";
 
 export type RxFormFactorId = "injectable" | "capsule" | "troche" | "patch" | "topical";
 
@@ -80,6 +82,7 @@ export const RX_REQUEST_GOALS: Array<{
   { id: "sexual-health", label: "Sexual Health", subtitle: "Intimacy & libido support", emoji: "✨" },
   { id: "hair-skin", label: "Hair & Skin", subtitle: "Regrowth, glow & renewal", emoji: "🌿" },
   { id: "vitamins-iv", label: "Vitamins & IV", subtitle: "Boosters & injectable shots", emoji: "⚡" },
+  { id: "labs", label: "Lab Panels", subtitle: "Cash-pay wellness & hormone labs", emoji: "🔬" },
 ];
 
 export const RX_FORM_FACTORS: Array<{ id: RxFormFactorId; label: string }> = [
@@ -135,7 +138,11 @@ function hrtProducts(): RxRequestProduct[] {
         fromMonthlyUsd: monthlyUsd,
         priceLabel: mens?.priceLabel ?? formatFromMonthly(monthlyUsd),
         tagline: ingredient.tagline,
-        href: `/rx/hormones#${ingredient.id}`,
+        href: hrtRequestUrl({
+          ingredient: ingredient.id,
+          form: form.id,
+          supply: "90-day",
+        }),
         imageSrc: img,
         imageAlt: `${ingredient.name} — Hello Gorgeous RX hormone therapy`,
         rx: true,
@@ -248,11 +255,31 @@ function wellnessVisitProducts(): RxRequestProduct[] {
   ];
 }
 
+function labPanelProducts(): RxRequestProduct[] {
+  return LAB_PANELS.map((panel) => ({
+    id: `lab-${panel.id}`,
+    name: panel.name,
+    goal: "labs" as const,
+    formFactor: "capsule" as const,
+    priceLabel: `$${panel.retailUsd}`,
+    tagline: panel.tagline,
+    href: labRequestUrl({ panel: panel.id, draw: "in-office" }),
+    imageSrc:
+      panel.id === "peak-performance"
+        ? ("/images/promo/peak-performance-profile-flyer.png" as const)
+        : undefined,
+    imageAlt: `${panel.name} — Hello Gorgeous lab panel`,
+    rx: true as const,
+    badge: panel.badge === "POPULAR" ? ("POPULAR" as const) : undefined,
+  }));
+}
+
 export const RX_REQUEST_CATALOG: RxRequestProduct[] = [
   ...weightLossProducts(),
   ...hrtProducts(),
   ...peptideCatalogProducts(),
   ...wellnessVisitProducts(),
+  ...labPanelProducts(),
 ];
 
 export function filterRxRequestProducts(opts: {

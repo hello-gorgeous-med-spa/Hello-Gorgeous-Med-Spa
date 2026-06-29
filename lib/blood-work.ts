@@ -3,7 +3,7 @@
  */
 
 import type { FAQ } from "@/lib/seo";
-import { FULLSCRIPT_DISPENSARY_URL } from "@/lib/flows";
+import { FULLSCRIPT_DISPENSARY_URL, labRequestUrl } from "@/lib/flows";
 import { RYAN_FULL_NAME } from "@/lib/founder-credentials";
 
 export const BLOOD_WORK_PATH = "/blood-work";
@@ -30,6 +30,9 @@ export type BloodWorkPricingTier = {
   description: string;
   badge?: string;
   highlight?: boolean;
+  /** Links to self-serve lab order when panel id is known */
+  labPanelId?: string;
+  orderHref?: string;
 };
 
 export type BloodWorkJumpLink = {
@@ -71,7 +74,7 @@ export const BLOOD_WORK_HERO = {
   title: "Comprehensive Blood Panels",
   subtitle:
     "Lab testing that goes beyond a standard annual physical — 60+ biomarkers across hormones, metabolism, heart health, thyroid, and nutrients. Ordered by Ryan Kent, FNP-BC and reviewed in context at your consult.",
-  ctaLabel: "Book Lab Consult",
+  ctaLabel: "Shop lab panels",
 } as const;
 
 /** Moonshot-style category cards — link into full domain breakdown below. */
@@ -128,20 +131,33 @@ export const BLOOD_WORK_QUICK_FACTS: BloodWorkQuickFact[] = [
 
 export const BLOOD_WORK_PRICING: BloodWorkPricingTier[] = [
   {
-    id: "comprehensive",
-    name: "Comprehensive Wellness Panel",
-    price: "$250–450",
+    id: "peak-performance",
+    name: "Peak Performance Profile",
+    price: "$199",
     description:
-      "60+ biomarkers including hormone panel, metabolic markers, advanced lipids, thyroid, nutrients, CBC, and inflammation — selected for your goals at consult.",
+      "25+ markers — energy, hormones, metabolism & heart snapshot. Results typically in 24–48 hours. Our most accessible wellness screen.",
     highlight: true,
     badge: "Most popular",
+    labPanelId: "peak-performance",
+    orderHref: labRequestUrl({ panel: "peak-performance" }),
+  },
+  {
+    id: "comprehensive",
+    name: "Comprehensive Wellness Panel",
+    price: "$399",
+    description:
+      "60+ biomarkers including hormone panel, metabolic markers, advanced lipids, thyroid, nutrients, CBC, and inflammation — selected for optimization goals.",
+    labPanelId: "comprehensive-wellness",
+    orderHref: labRequestUrl({ panel: "comprehensive-wellness" }),
   },
   {
     id: "hormone-baseline",
     name: "BioTE / TRT Baseline Panel",
-    price: "$250–450",
+    price: "$299",
     description:
-      "Targeted hormone and metabolic baseline before pellet therapy or TRT — we never dose blind. Follow-up panels quoted at each monitoring visit.",
+      "Full hormone and metabolic baseline before pellet therapy or TRT — we never dose blind. Follow-up panels available at monitoring visits.",
+    labPanelId: "hormone-baseline",
+    orderHref: labRequestUrl({ panel: "hormone-baseline" }),
   },
 ];
 
@@ -169,9 +185,24 @@ export const BLOOD_WORK_BOTTOM_LINE = [
 
 export const BLOOD_WORK_LAB_PARTNERS = [
   {
+    id: "access-medical",
+    name: "Access Medical Labs",
+    badge: "Hormone panels",
+    description:
+      "Our in-house blood draws are processed through Access Medical Labs — CAP-accredited, high-complexity CLIA. Comprehensive Male (778), Female (779), Plus panels (3778/3779), and NextGen saliva options. Results typically 24–48 hours.",
+    href: "https://accessmedlab.com/physician-tests/hormone-panel",
+    cta: "Access Medical hormone panels →",
+    bullets: [
+      "778 / 779 comprehensive hormone blood panels",
+      "3778 / 3779 Plus with vitamin D, A1C, cortisol",
+      "NextGen saliva: menopause, andropause, adrenal",
+      "Drawn at Hello Gorgeous Oswego → shipped to AML",
+    ],
+  },
+  {
     id: "fullscript",
     name: "FullScript Labs",
-    badge: "Primary",
+    badge: "Supplements + labs",
     description:
       "We run most comprehensive panels through FullScript — our preferred lab workflow for hormone, metabolic, and wellness testing. Requisitions, tracking, and results stay organized in one place.",
     href: FULLSCRIPT_DISPENSARY_URL,
@@ -199,9 +230,9 @@ export const BLOOD_WORK_LAB_PARTNERS = [
   {
     id: "in-office",
     name: "Hello Gorgeous Oswego",
-    badge: "In-office",
+    badge: "In-house draws",
     description:
-      "Many panels can be drawn on site at our Oswego med spa — convenient when you are already here for a consult, pellet insertion, or follow-up.",
+      "Phlebotomy on site at our med spa — book a fasting morning slot or combine with your consult. This is what sets us apart from mail-only lab brands.",
     bullets: [
       "Phlebotomy on site when available",
       "Same-day consult + draw options",

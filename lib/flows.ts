@@ -161,6 +161,37 @@ export const GLP1_REFILL_PATH = "/glp1-refill";
 /** Hello Gorgeous RX™ peptide request & refill at `/peptide-request`. Telehealth required before approval. */
 export const PEPTIDE_REQUEST_PATH = "/peptide-request";
 
+/** Hormone therapy request — pay first, telehealth before ship at `/hrt-request`. */
+export const HRT_REQUEST_PATH = "/hrt-request";
+
+/** Lab panel request — pay first, NP review → requisition at `/lab-request`. */
+export const LAB_REQUEST_PATH = "/lab-request";
+
+/** Hims-style labs shop hub — panel picker + in-house draw highlight at `/labs`. */
+export const LABS_HUB_PATH = "/labs";
+
+export function hrtRequestUrl(input: {
+  ingredient: string;
+  form: string;
+  supply?: string;
+}): string {
+  const params = new URLSearchParams({
+    ingredient: input.ingredient,
+    form: input.form,
+    supply: input.supply ?? "90-day",
+  });
+  return `${HRT_REQUEST_PATH}?${params.toString()}`;
+}
+
+export function labRequestUrl(input: {
+  panel: string;
+  draw?: string;
+}): string {
+  const params = new URLSearchParams({ panel: input.panel });
+  if (input.draw) params.set("draw", input.draw);
+  return `${LAB_REQUEST_PATH}?${params.toString()}`;
+}
+
 /** Start Here — pick peptide → quick verification → full request (recurring RX funnel). */
 export const HELLO_GORGEOUS_RX_START_PATH = "/hello-gorgeous-rx/start-here";
 

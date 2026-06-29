@@ -3,17 +3,19 @@
  * Hers-style ingredient + form picker; strength is provider-determined after labs.
  */
 
-import { BOOKING_URL } from "@/lib/flows";
+import { BOOKING_URL, hrtRequestUrl } from "@/lib/flows";
 import {
   hrtMensProgramFormPrice,
   hrtMensProgramFromMonthlyUsd,
   hrtIngredientUsesMensProgramPricing,
 } from "@/lib/hrt-mens-program-pricing";
 import {
+  computeHrtSupplyQuote,
   hrtCheckoutUsd,
   hrtFromMonthlyUsd,
   hrtProductUsd,
 } from "@/lib/hrt-supply-pricing";
+import type { RxSupplyCycleId } from "@/lib/rx-supply-cycle";
 
 export type HrtAudience = "women" | "men";
 
@@ -201,6 +203,21 @@ export const HRT_BOOKING_CTA = {
   href: BOOKING_URL,
 } as const;
 
+export function hrtStartRequestCta(
+  ingredientId: string,
+  formId: HrtFormId,
+  supplyCycle: RxSupplyCycleId = "90-day",
+): { label: string; href: string } {
+  return {
+    label: "Pay & start request",
+    href: hrtRequestUrl({
+      ingredient: ingredientId,
+      form: formId,
+      supply: supplyCycle,
+    }),
+  };
+}
+
 export function hrtIngredientsForAudience(audience: HrtAudience): HrtIngredient[] {
   return HRT_INGREDIENTS.filter(
     (item) => item.audience === audience || item.audience === "both",
@@ -225,16 +242,27 @@ export function hrtIngredientPriceTagline(ingredient: HrtIngredient): string {
   return `${ingredient.tagline} · from $${hrtFromMonthlyUsd(ingredient.forms.map((f) => f.wholesaleUsd))}/mo`;
 }
 
-export function hrtFormProductLabel(form: HrtIngredientForm, ingredient?: HrtIngredient): string {
+export function hrtFormProductLabel(
+  form: HrtIngredientForm,
+  ingredient?: HrtIngredient,
+  supplyCycle: RxSupplyCycleId = "30-day",
+): string {
   if (ingredient) {
     const program = hrtMensProgramFormPrice(ingredient, form);
     if (program) return program.priceLabel;
   }
-  return `$${hrtProductUsd(form.wholesaleUsd)}/mo`;
+  if (supplyCycle === "90-day") {
+    const quote = computeHrtSupplyQuote(form.wholesaleUsd, "90-day");
+    return `$${quote.totalUsd} / 3 mo`;
+  }
+  return `$${hrtProductUsd(form.wholesaleUsd, "30-day")}/mo`;
 }
 
-export function hrtFormCheckoutUsd(wholesaleUsd: number): number {
-  return hrtCheckoutUsd(wholesaleUsd);
+export function hrtFormCheckoutUsd(
+  wholesaleUsd: number,
+  supplyCycle: RxSupplyCycleId = "30-day",
+): number {
+  return hrtCheckoutUsd(wholesaleUsd, supplyCycle);
 }
 
 export function hrtFormFlags(form: HrtIngredientForm): string[] {
@@ -244,8 +272,13 @@ export function hrtFormFlags(form: HrtIngredientForm): string[] {
   return flags;
 }
 
-export function hrtFormulationOrderLine(ingredient: HrtIngredient, form: HrtIngredientForm): string {
+export function hrtFormulationOrderLine(
+  ingredient: HrtIngredient,
+  form: HrtIngredientForm,
+  supplyCycle: RxSupplyCycleId = "30-day",
+): string {
   const flags = hrtFormFlags(form);
   const flagText = flags.length ? ` · ${flags.join(" · ")}` : "";
-  return `SKU ${form.formulationSku} — ${ingredient.name} (${form.label}) · $${hrtProductUsd(form.wholesaleUsd)} product + $35 ship${flagText}`;
+  const quote = computeHrtSupplyQuote(form.wholesaleUsd, supplyCycle);
+  return `SKU ${form.formulationSku} — ${ingredient.name} (${form.label}) · ${quote.priceLabel} product + $${quote.shippingUsd} ship${flagText}`;
 }

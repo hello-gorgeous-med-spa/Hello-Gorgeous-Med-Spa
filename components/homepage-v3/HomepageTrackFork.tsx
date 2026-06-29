@@ -5,8 +5,7 @@ import Link from "next/link";
 
 import { FadeUp } from "@/components/Section";
 import { PRIMARY_BOOKING_CTA } from "@/lib/primary-cta";
-import { HOMEPAGE_TRACK_FORK } from "@/lib/homepage-buyer-paths";
-import { SITE_TWO_DOORS_HEADLINE, SITE_TWO_DOORS_SUBLINE } from "@/lib/site-two-doors";
+import { HOMEPAGE_AESTHETICS_ANCHOR, HOMEPAGE_TRACK_FORK } from "@/lib/homepage-buyer-paths";
 
 const BRAND = {
   pink: "#E6007E",
@@ -171,23 +170,28 @@ export function HomepageTrackFork() {
             id="homepage-track-fork-heading"
             className="mt-4 text-3xl font-black text-white sm:text-4xl md:text-[2.65rem] leading-tight"
           >
-            {SITE_TWO_DOORS_HEADLINE.split(".")[0]}.{" "}
+            Hello Gorgeous{" "}
             <span
               className="bg-clip-text text-transparent"
               style={{
-                backgroundImage: `linear-gradient(to right, ${BRAND.blue}, ${BRAND.tint}, ${BRAND.hot})`,
+                backgroundImage: `linear-gradient(to right, ${BRAND.tint}, ${BRAND.hot}, ${BRAND.pink})`,
                 WebkitBackgroundClip: "text",
               }}
             >
-              One team.
+              RX™
             </span>
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-sm leading-relaxed text-white/60 sm:text-base">
-            {SITE_TWO_DOORS_SUBLINE}
+            GLP-1, hormones, peptides, and telehealth — pay online, meet Ryan on video, ship to your door.
+            Med spa injectables and skin treatments are in{" "}
+            <Link href={`#${HOMEPAGE_AESTHETICS_ANCHOR}`} className="font-semibold text-[#60a5fa] underline underline-offset-2">
+              aesthetics below
+            </Link>
+            .
           </p>
         </FadeUp>
 
-        <div className="grid gap-6 md:grid-cols-2 md:gap-8">
+        <div className="mx-auto grid max-w-2xl gap-6 md:gap-8">
           {HOMEPAGE_TRACK_FORK.map((column, index) => (
             <TrackColumn key={column.track} column={column} index={index} />
           ))}

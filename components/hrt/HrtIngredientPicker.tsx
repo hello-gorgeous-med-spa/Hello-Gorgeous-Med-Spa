@@ -11,26 +11,28 @@ import {
   HRT_INGREDIENTS,
   HRT_LEARN_LINKS,
   HRT_SYMPTOM_LINKS,
-  hrtFormCheckoutUsd,
   hrtFormFlags,
   hrtFormProductLabel,
   hrtFormulationOrderLine,
   hrtIngredientById,
   hrtIngredientFromMonthlyUsd,
   hrtIngredientsForAudience,
+  hrtStartRequestCta,
   type HrtAudience,
   type HrtFormId,
   type HrtIngredient,
   type HrtIngredientForm,
 } from "@/lib/hrt-formulation-catalog";
-import { hrtBannerAltForIngredient, hrtBannerImageForIngredient } from "@/lib/hrt-banner-images";
+import { hrtBannerAltForIngredient, hrtBannerImageForIngredient, hrtBannerImageObjectClass } from "@/lib/hrt-banner-images";
 import {
   HRT_MENS_PROGRAM_DISCLAIMER,
   hrtIngredientUsesMensProgramPricing,
   hrtMensProgramFormPrice,
   hrtMensProgramSkuNote,
 } from "@/lib/hrt-mens-program-pricing";
-import { HRT_PRICING_DISCLAIMER, hrtShippingUsd } from "@/lib/hrt-supply-pricing";
+import { HRT_PAYMENT_FIRST_COPY, HRT_PRICING_DISCLAIMER, hrtShippingUsd } from "@/lib/hrt-supply-pricing";
+import { computeHrtFormSupplyQuote } from "@/lib/hrt-intake";
+import { RX_SUPPLY_CYCLES, type RxSupplyCycleId } from "@/lib/rx-supply-cycle";
 
 function RxMark() {
   return (
@@ -42,15 +44,18 @@ function FormCard({
   ingredient,
   form,
   selected,
+  supplyCycle,
   onSelect,
 }: {
   ingredient: HrtIngredient;
   form: HrtIngredientForm;
   selected: boolean;
+  supplyCycle: RxSupplyCycleId;
   onSelect: () => void;
 }) {
   const flags = hrtFormFlags(form);
   const programPrice = hrtMensProgramFormPrice(ingredient, form);
+  const supplyQuote = programPrice ? null : computeHrtFormSupplyQuote(ingredient.id, form.id, supplyCycle);
 
   return (
     <button
@@ -64,15 +69,16 @@ function FormCard({
     >
       <p className="font-semibold text-black">{form.label}</p>
       <p className="mt-1 text-lg font-serif text-[#E6007E]">
-        {hrtFormProductLabel(form, ingredient)}
+        {hrtFormProductLabel(form, ingredient, supplyCycle)}
       </p>
       {programPrice ? (
         <p className="mt-1 text-xs text-black/55">{programPrice.priceNote}</p>
-      ) : (
+      ) : supplyQuote ? (
         <p className="mt-1 text-xs text-black/55">
-          + ${hrtShippingUsd()} shipping · checkout ${hrtFormCheckoutUsd(form.wholesaleUsd)}
+          Checkout ${supplyQuote.totalUsd} · + ${hrtShippingUsd()} ship
+          {supplyQuote.savingsNote ? ` · ${supplyQuote.savingsNote}` : ""}
         </p>
-      )}
+      ) : null}
       <p className="mt-2 font-mono text-[10px] text-black/45">Formulation SKU {form.formulationSku}</p>
       {flags.length ? (
         <p className="mt-2 text-[10px] font-semibold uppercase tracking-wide text-black/45">
@@ -94,6 +100,7 @@ export function HrtIngredientPicker() {
   const [symptomFilter, setSymptomFilter] = useState<string | null>(null);
   const [selectedIngredientId, setSelectedIngredientId] = useState<string>("progesterone");
   const [selectedFormId, setSelectedFormId] = useState<HrtFormId>("capsule");
+  const [supplyCycle, setSupplyCycle] = useState<RxSupplyCycleId>("90-day");
 
   const ingredients = useMemo(() => hrtIngredientsForAudience(audience), [audience]);
 
@@ -116,6 +123,12 @@ export function HrtIngredientPicker() {
 
   const activeProgramPrice = hrtMensProgramFormPrice(selectedIngredient, activeForm);
   const usesMensProgram = hrtIngredientUsesMensProgramPricing(selectedIngredient);
+  const activeSupplyQuote = usesMensProgram
+    ? null
+    : computeHrtFormSupplyQuote(selectedIngredient.id, activeForm.id, supplyCycle);
+  const startCta = usesMensProgram
+    ? HRT_BOOKING_CTA
+    : hrtStartRequestCta(selectedIngredient.id, activeForm.id, supplyCycle);
   const featuredBanner = hrtBannerImageForIngredient(selectedIngredient.id);
 
   const pickIngredient = (item: HrtIngredient) => {
@@ -156,7 +169,8 @@ export function HrtIngredientPicker() {
         </h2>
         <p className="mx-auto mt-3 max-w-2xl text-sm leading-relaxed text-black/60">
           Choose the ingredient and delivery format that fits your plan — capsule, troche, injectable, or
-          cream when available. Strength and dosing are set by your provider after labs, not at checkout.
+          cream when available. Pick 30-day or 90-day supply (10% off product on 90-day). Strength and dosing are
+          set by your provider after labs.
         </p>
       </FadeUp>
 
@@ -277,7 +291,7 @@ export function HrtIngredientPicker() {
                   src={featuredBanner}
                   alt={hrtBannerAltForIngredient(selectedIngredient.id, selectedIngredient.name)}
                   fill
-                  className="object-cover object-center"
+                  className={`${hrtBannerImageObjectClass(selectedIngredient.id)} p-2 sm:p-3`}
                   sizes="(max-width: 1024px) 100vw, 55vw"
                   priority
                 />
@@ -295,8 +309,42 @@ export function HrtIngredientPicker() {
             <p className="mt-4 text-xs font-medium text-black/50">
               {usesMensProgram
                 ? "Gentlemen's Club all-inclusive program pricing — consult, monitoring & medication bundled."
-                : `Choose a form — ${HRT_FORMULATION_PRICING_FORMULA}. Dose/strength selected by your provider.`}
+                : `${HRT_FORMULATION_PRICING_FORMULA}. ${HRT_PAYMENT_FIRST_COPY}`}
             </p>
+
+            {!usesMensProgram ? (
+              <div className="mt-5 grid gap-3 sm:grid-cols-2">
+                {(["90-day", "30-day"] as const).map((cycle) => {
+                  const active = supplyCycle === cycle;
+                  const quote = computeHrtFormSupplyQuote(
+                    selectedIngredient.id,
+                    activeForm.id,
+                    cycle,
+                  );
+                  if (!quote) return null;
+                  return (
+                    <button
+                      key={cycle}
+                      type="button"
+                      onClick={() => setSupplyCycle(cycle)}
+                      className={`rounded-2xl border-2 p-3 text-left transition ${
+                        active
+                          ? "border-[#E6007E] bg-[#FFF0F7]"
+                          : "border-black/10 bg-white hover:border-[#E6007E]/30"
+                      }`}
+                    >
+                      <p className="text-[10px] font-bold uppercase tracking-wide text-black/45">
+                        {RX_SUPPLY_CYCLES[cycle].shortLabel}
+                      </p>
+                      <p className="mt-1 font-serif text-lg text-[#E6007E]">${quote.totalUsd}</p>
+                      {quote.savingsNote ? (
+                        <p className="mt-1 text-[10px] font-semibold text-[#E6007E]">{quote.savingsNote}</p>
+                      ) : null}
+                    </button>
+                  );
+                })}
+              </div>
+            ) : null}
 
             <div className="mt-5 grid gap-3 sm:grid-cols-2">
               {selectedIngredient.forms.map((form) => (
@@ -305,6 +353,7 @@ export function HrtIngredientPicker() {
                   ingredient={selectedIngredient}
                   form={form}
                   selected={activeForm.id === form.id}
+                  supplyCycle={supplyCycle}
                   onSelect={() => setSelectedFormId(form.id)}
                 />
               ))}
@@ -325,23 +374,31 @@ export function HrtIngredientPicker() {
                     </span>
                     {activeProgramPrice.priceNote}
                   </>
+                ) : activeSupplyQuote ? (
+                  <>
+                    <span className="block text-lg font-serif text-[#E6007E]">
+                      ${activeSupplyQuote.totalUsd} checkout
+                    </span>
+                    {activeSupplyQuote.priceLabel} + ${activeSupplyQuote.shippingUsd} shipping
+                    {activeSupplyQuote.savingsNote ? ` · ${activeSupplyQuote.savingsNote}` : ""}
+                  </>
                 ) : (
-                  `${hrtFormProductLabel(activeForm, selectedIngredient)} + $${hrtShippingUsd()} shipping`
+                  `${hrtFormProductLabel(activeForm, selectedIngredient, supplyCycle)} + $${hrtShippingUsd()} shipping`
                 )}
               </p>
               <p className="mt-2 font-mono text-[11px] text-black/50">
                 {activeProgramPrice
                   ? hrtMensProgramSkuNote(selectedIngredient, activeForm)
-                  : hrtFormulationOrderLine(selectedIngredient, activeForm)}
+                  : hrtFormulationOrderLine(selectedIngredient, activeForm, supplyCycle)}
               </p>
             </div>
 
             <div className="mt-6 flex flex-wrap gap-3">
               <Link
-                href={HRT_BOOKING_CTA.href}
+                href={startCta.href}
                 className="inline-flex items-center justify-center rounded-lg bg-[#E6007E] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#FF2D8E]"
               >
-                {HRT_BOOKING_CTA.label}
+                {startCta.label}
               </Link>
               {selectedIngredient.learnHref ? (
                 <Link

@@ -223,12 +223,12 @@ const HORMONE_ITEMS: WellnessPriceListItem[] = [
   {
     id: "hormone-labs",
     name: "Baseline hormone labs",
-    priceLabel: "$200–400",
+    priceLabel: "$299",
     tagline: "Comprehensive panel before therapy",
     note: "Full hormone panel with NP review",
     benefits: ["Complete hormone picture", "Results in 36–72 hrs", "Required before starting"],
     consultFirst: true,
-    href: "/rx/hormones",
+    href: "/lab-request?panel=hormone-baseline",
   },
   {
     id: "hormone-starter",

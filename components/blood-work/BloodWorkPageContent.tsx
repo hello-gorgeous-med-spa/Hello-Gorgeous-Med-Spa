@@ -6,7 +6,7 @@ import Link from "next/link";
 import { CTA } from "@/components/CTA";
 import { FAQAccordion } from "@/components/FAQAccordion";
 import { FadeUp, Section } from "@/components/Section";
-import { BOOKING_URL } from "@/lib/flows";
+import { BOOKING_URL, LABS_HUB_PATH } from "@/lib/flows";
 import {
   BLOOD_WORK_BOTTOM_LINE,
   BLOOD_WORK_DOMAINS,
@@ -127,15 +127,15 @@ export function BloodWorkPageContent() {
                     {BLOOD_WORK_MEDICAL_REVIEW.updated}
                   </p>
                   <div className="mt-10 flex flex-col gap-3 sm:flex-row">
-                    <CTA href={BOOKING_URL} variant="gradient" className="px-8 py-4">
+                    <CTA href={LABS_HUB_PATH} variant="gradient" className="px-8 py-4">
                       {BLOOD_WORK_HERO.ctaLabel}
                     </CTA>
                     <CTA
-                      href={`tel:${SITE.phone}`}
+                      href={BOOKING_URL}
                       variant="outline"
                       className="border-white/30 px-8 py-4 text-white hover:border-white hover:bg-white/10"
                     >
-                      Call {SITE.phone}
+                      Book in-house draw
                     </CTA>
                   </div>
                 </div>
@@ -314,7 +314,7 @@ export function BloodWorkPageContent() {
           <div className="mx-auto max-w-6xl px-4 md:px-6">
             <FadeUp>
               <h2 className="mb-8 text-center text-3xl font-black text-neutral-900">Pricing</h2>
-              <div className="grid gap-6 md:grid-cols-2">
+              <div className="grid gap-6 md:grid-cols-3">
                 {BLOOD_WORK_PRICING.map((tier) => (
                   <article
                     key={tier.id}
@@ -332,13 +332,21 @@ export function BloodWorkPageContent() {
                     <p className="mt-4 flex-1 text-sm font-medium leading-relaxed text-black/80">
                       {tier.description}
                     </p>
+                    {tier.orderHref ? (
+                      <CTA href={tier.orderHref} variant="gradient" className="mt-5 w-full justify-center py-3 text-sm">
+                        Order this panel →
+                      </CTA>
+                    ) : null}
                   </article>
                 ))}
               </div>
               <p className="mt-6 text-center text-sm font-medium text-black/70">{BLOOD_WORK_PRICING_NOTE}</p>
-              <div className="mt-8 flex justify-center">
-                <CTA href={BOOKING_URL} variant="gradient">
+              <div className="mt-8 flex flex-wrap justify-center gap-3">
+                <CTA href={LABS_HUB_PATH} variant="gradient">
                   {BLOOD_WORK_HERO.ctaLabel}
+                </CTA>
+                <CTA href={BOOKING_URL} variant="outline">
+                  Book in-house draw
                 </CTA>
               </div>
             </FadeUp>

@@ -7,6 +7,8 @@ import {
   GLP1_INTAKE_PATH,
   GLP1_REFILL_PATH,
   HELLO_GORGEOUS_RX_START_PATH,
+  labRequestUrl,
+  LABS_HUB_PATH,
   PEPTIDE_REQUEST_PATH,
   RX_PATIENT_CARE_PATH,
 } from "@/lib/flows";
@@ -20,6 +22,7 @@ import {
 } from "@/lib/hrt-formulation-catalog";
 import { hrtBannerAltForIngredient, hrtBannerImageForIngredient } from "@/lib/hrt-banner-images";
 import { helloGorgeousRxStartUrl } from "@/lib/peptide-request-menu";
+import { LAB_PANELS } from "@/lib/lab-panel-catalog";
 import { getPeptidePickerThumbnail } from "@/lib/peptide-thumbnails";
 import { resolveShopRxProductImage } from "@/lib/shop-rx-product-images";
 
@@ -340,9 +343,21 @@ export const SHOP_RX_CATEGORIES: ShopRxCategory[] = [
           },
           {
             id: "blood-work",
-            label: "Blood panels & labs",
-            href: "/blood-work",
-            tagline: "Wellness labs · hormone & weight-loss panels",
+            label: "Hello Gorgeous Labs",
+            href: LABS_HUB_PATH,
+            tagline: "Shop panels · in-house draws Oswego",
+          },
+          ...LAB_PANELS.slice(0, 3).map((panel) => ({
+            id: `lab-${panel.id}`,
+            label: panel.name,
+            href: labRequestUrl({ panel: panel.id, draw: "in-office" }),
+            tagline: `$${panel.retailUsd} · ${panel.markerCount} markers`,
+          })),
+          {
+            id: "lab-request-all",
+            label: "Order any lab panel",
+            href: LABS_HUB_PATH,
+            tagline: "Pay online · in-house or Quest/LabCorp",
           },
           {
             id: "recovery-blend-wellness",
@@ -376,7 +391,7 @@ export const MEDICAL_MEGA_MENU_FOOTER = [
   { label: "My RX portal", href: "/portal/rx" },
   { label: "Patient care hub", href: RX_PATIENT_CARE_PATH },
   { label: "IV therapy & vitamin bar", href: "/iv-shots" },
-  { label: "Blood panels & labs", href: "/blood-work" },
+  { label: "Blood panels & labs", href: LABS_HUB_PATH },
 ] as const;
 
 export const MEDICAL_MEGA_MENU_DEFAULT_FEATURED_ID =

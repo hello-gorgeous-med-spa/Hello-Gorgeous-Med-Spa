@@ -6,6 +6,7 @@ import {
   HRT_HORMONES_HERO_IMAGE,
   hrtBannerAltForIngredient,
   hrtBannerImageForIngredient,
+  hrtBannerImageObjectClass,
 } from "@/lib/hrt-banner-images";
 
 export type ShopRxCategoryId =
@@ -213,7 +214,10 @@ export function shopRxImageObjectClass(
     src.includes("glp1-refill-flyer");
   if (brandedCard) {
     if (src.includes("/shop-rx/hrt/")) {
-      return "object-cover object-center";
+      const ingredientId = src.split("/").pop()?.replace(/\.(png|webp|jpg)$/i, "") ?? "";
+      const mappedId = ingredientId === "estradiol-e2" ? "estradiol" : ingredientId === "estriol-e3" ? "estriol" : ingredientId;
+      const pad = variant === "featured" ? "p-1.5 sm:p-2" : "p-2 sm:p-3";
+      return `${hrtBannerImageObjectClass(mappedId)} ${pad}`.trim();
     }
     const pad = variant === "featured" ? "p-2 sm:p-3" : "p-3 sm:p-4";
     return `object-contain object-center ${pad}`;

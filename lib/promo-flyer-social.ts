@@ -64,7 +64,7 @@ For women + men who want real data behind wellness, weight, hormones & performan
 
 Ryan Kent, FNP-BC · serving Naperville, Aurora & Plainfield.
 Book your lab panel — link below.`,
-    link: `${base}/app?utm_source=social&utm_medium=peak_performance_profile&utm_campaign=lab_panel_199`,
+    link: `${base}/labs?panel=peak-performance&utm_source=social&utm_medium=peak_performance_profile&utm_campaign=lab_panel_199`,
     imagePath: "/images/promo/peak-performance-profile-flyer.png",
   },
   {
