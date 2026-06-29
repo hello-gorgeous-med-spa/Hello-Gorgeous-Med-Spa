@@ -365,7 +365,11 @@ export const MEDICAL_MEGA_MENU_COLUMNS: MedicalMegaMenuColumn[] =
 
 export const MEDICAL_MEGA_MENU_FOOTER = [
   { label: "Hello Gorgeous RX hub", href: "/rx" },
+  { label: "Online refill guide", href: "/rx/guide" },
   { label: "Medical overview", href: MEDICAL_OPTIMIZATION_PATH },
+  { label: "Ladies' Club", href: "/ladies-club" },
+  { label: "Gentlemen's Club", href: "/gentlemens-club" },
+  { label: "Quizzes & screeners", href: "/quiz" },
   { label: "Start Here — pick a peptide", href: HELLO_GORGEOUS_RX_START_PATH },
   { label: "Peptide request form", href: PEPTIDE_REQUEST_PATH },
   { label: "My RX portal", href: "/portal/rx" },

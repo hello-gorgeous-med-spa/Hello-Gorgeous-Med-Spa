@@ -7,7 +7,6 @@ import React, { useState, useRef, useEffect } from "react";
 
 import { CTA } from "./CTA";
 import { SITE } from "@/lib/seo";
-import { BOOKING_URL } from "@/lib/flows";
 import { SIGNATURE_MENU_POSTER } from "@/lib/signature-treatment-menu";
 import { SPECIALS_PATH } from "@/lib/specials";
 import {
@@ -18,12 +17,19 @@ import {
 import { GENTLEMENS_CLUB_PATH } from "@/lib/gentlemens-club";
 import { LADIES_CLUB_PATH } from "@/lib/ladies-club";
 import { PRIMARY_BOOKING_CTA } from "@/lib/primary-cta";
-import { isMedicalNavActive, MEDICAL_NAV } from "@/lib/medical-nav";
+import {
+  ABOUT_NAV_EXTRA_LINKS,
+  isAboutNavActive,
+  SERVICES_EXPLORE_LINKS,
+  SERVICES_RX_BRIDGE_LINKS,
+  SPECIALS_NAV_EXTRA_LINKS,
+} from "@/lib/site-primary-nav";
+import { isMedicalNavActive } from "@/lib/medical-nav";
 import { medicalMegaMenuMobileGroups, SHOP_RX_NAV } from "@/lib/medical-mega-menu";
 import { MedicalMegaMenu } from "@/components/header/MedicalMegaMenu";
-import { isQuizNavActive, QUIZ_NAV, type QuizNavLink } from "@/lib/quiz-nav";
+import { QUIZ_NAV } from "@/lib/quiz-nav";
 import { HG_TAGLINE } from "@/lib/brand-tagline";
-import { isSkin101Active, SKIN_101_NAV } from "@/lib/skin-101-nav";
+import { SKIN_101_NAV } from "@/lib/skin-101-nav";
 import {
   trifectaAccent,
   trifectaButtonGradient,
@@ -128,16 +134,16 @@ const NAV = {
       },
       ...REGENERATIVE_NAV.sections,
       {
-        heading: "Medical & Wellness",
-        links: [
-          {
-            label: "Medical Optimization Hub",
-            href: "/medical",
-            sub: "All NP-supervised programs — hormones, GLP-1, peptides, IV",
-            badge: "NEW",
-          },
-          { label: "All Services", href: "/services", sub: "Browse the full treatment menu" },
-        ],
+        heading: "Explore",
+        links: [...SERVICES_EXPLORE_LINKS],
+      },
+      {
+        heading: "Hello Gorgeous RX",
+        links: [...SERVICES_RX_BRIDGE_LINKS],
+      },
+      {
+        heading: "Browse",
+        links: [{ label: "All Services", href: "/services", sub: "Full in-office treatment menu" }],
       },
     ],
   },
@@ -156,6 +162,7 @@ const NAV = {
       { label: "Why Choose Us", href: "/why-choose-us", sub: "#1 Best Med Spa in Oswego" },
       { label: "FAQ", href: "/faq", sub: "Common questions answered" },
       { label: "Blog & Resources", href: "/blog", sub: "Tips, guides & med spa news" },
+      ...ABOUT_NAV_EXTRA_LINKS,
     ],
   },
   specials: {
@@ -190,24 +197,10 @@ const NAV = {
       { label: "Memberships", href: "/monthly-memberships", sub: "Peptides, hormones, wellness & Vitamin Bar" },
       { label: "Free Vitamin Shot", href: "/free-vitamin", sub: "New clients only", badge: "FREE" },
       { label: "Alle Rewards", href: "/alle-botox-rewards", sub: "Earn points on Botox & Juvederm" },
-    ],
-  },
-  patient: {
-    label: "Patient Info",
-    href: "/pre-post-care",
-    links: [
-      { label: "Pre & Post Care", href: "/pre-post-care", sub: "Treatment care guides" },
-      { label: "Microblading Pre/Post", href: "/pre-post-care/microblading", sub: "Brow PMU healing guide" },
-      { label: "Brow Consultation Intake", href: "/forms/brow-intake", sub: "PMU health history & consent" },
-      { label: "Client Intake Form", href: "/forms/client-intake", sub: "Complete before your visit" },
-      { label: "Hello Gorgeous App", href: "/app", sub: "Add to home screen — book, Vitamin Bar & more", badge: "APP" },
-      { label: "Consent & Documents", href: "/patient-documents", sub: "Forms, PDFs & consent" },
-      { label: "Book Online", href: BOOKING_URL, sub: "Schedule via Fresha", external: true },
-      { label: "Contact Us", href: "/contact", sub: "Hours, location & phone" },
+      ...SPECIALS_NAV_EXTRA_LINKS,
     ],
   },
   skin101: SKIN_101_NAV,
-  medical: MEDICAL_NAV,
   quiz: QUIZ_NAV,
 };
 
@@ -422,78 +415,6 @@ function SpecialsMenu({
   );
 }
 
-function QuizMenu({
-  isOpen,
-  onClose,
-  onMouseEnter,
-}: {
-  isOpen: boolean;
-  onClose: () => void;
-  onMouseEnter: () => void;
-}) {
-  if (!isOpen) return null;
-
-  const renderLink = (link: QuizNavLink) => {
-    const className = cx(
-      "group block rounded-lg px-4 py-2.5 transition hover:bg-white/5",
-      link.overview && "py-3",
-    );
-    const inner = (
-      <>
-        <div className="flex items-center gap-2">
-          <span
-            className={cx(
-              "text-sm text-white group-hover:text-[#f472b6]",
-              link.overview ? "font-bold uppercase tracking-wider text-xs" : "font-semibold",
-            )}
-          >
-            {link.label}
-          </span>
-          {link.badge ? (
-            <span className="rounded-full bg-[#E6007E] px-2 py-0.5 text-[9px] font-bold uppercase text-white">
-              {link.badge}
-            </span>
-          ) : null}
-        </div>
-        {link.sub ? (
-          <p
-            className={cx(
-              "mt-0.5 text-xs leading-snug text-white/45",
-              link.overview && "mt-1 normal-case font-normal text-white/50",
-            )}
-          >
-            {link.sub}
-          </p>
-        ) : null}
-      </>
-    );
-
-    return (
-      <Link key={link.href + link.label} href={link.href} onClick={onClose} className={className}>
-        {inner}
-      </Link>
-    );
-  };
-
-  return (
-    <div className="absolute top-full left-0 z-[100] pt-2" onMouseEnter={onMouseEnter} onMouseLeave={onClose}>
-      <div
-        className="min-w-[min(280px,calc(100vw-2rem))] max-w-[320px] overflow-hidden rounded-xl border shadow-2xl backdrop-blur-md"
-        style={{ backgroundColor: "rgba(24, 24, 27, 0.97)", borderColor: "rgba(255,255,255,0.12)" }}
-      >
-        <div className="max-h-[min(75vh,32rem)] overflow-y-auto overscroll-contain p-1.5">
-          {QUIZ_NAV.links.map((link) => (
-            <React.Fragment key={link.href + link.label}>
-              {link.dividerBefore ? <div className="mx-3 my-1 border-t border-white/10" aria-hidden /> : null}
-              {renderLink(link)}
-            </React.Fragment>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-}
-
 function SimpleMenu({
   data,
   isOpen,
@@ -595,6 +516,13 @@ export function Header() {
   const isSpecialsActive =
     pathname === SPECIALS_PATH ||
     pathname === "/signature-treatment-menu" ||
+    pathname === "/monthly-memberships" ||
+    pathname === "/memberships" ||
+    pathname === "/financing" ||
+    pathname === GENTLEMENS_CLUB_PATH ||
+    pathname === LADIES_CLUB_PATH ||
+    (pathname?.startsWith(`${GENTLEMENS_CLUB_PATH}/`) ?? false) ||
+    (pathname?.startsWith(`${LADIES_CLUB_PATH}/`) ?? false) ||
     NAV.specials.links.some(
       (link) =>
         !link.external &&
@@ -602,14 +530,9 @@ export function Header() {
         (pathname === link.href || pathname?.startsWith(link.href + "/"))
     );
 
-  const isGentlemensClubActive =
-    pathname === GENTLEMENS_CLUB_PATH || (pathname?.startsWith(`${GENTLEMENS_CLUB_PATH}/`) ?? false);
-  const isLadiesClubActive =
-    pathname === LADIES_CLUB_PATH || (pathname?.startsWith(`${LADIES_CLUB_PATH}/`) ?? false);
-  const isFinancingActive = pathname === "/financing" || pathname?.startsWith("/financing/");
-
   const isServicesNavActive =
     isActive("/services") ||
+    pathname === "/gallery" ||
     pathname === REGENERATIVE_MEDICINE_PATH ||
     REGENERATIVE_NAV_FLAT_LINKS.some(
       (link) =>
@@ -625,9 +548,8 @@ export function Header() {
     );
 
   const isMedicalNavActiveState = isMedicalNavActive(pathname ?? null);
-  const isQuizNavActiveState = isQuizNavActive(pathname ?? null);
-
-  const isSkin101NavActive = isSkin101Active(pathname ?? null);
+  const isAboutNavActiveState = isAboutNavActive(pathname ?? null);
+  const isBookNavActive = pathname === PRIMARY_BOOKING_CTA.href;
 
   return (
     <header className="sticky top-0 z-50 overflow-visible border-b border-white/10 bg-black">
@@ -738,29 +660,6 @@ export function Header() {
               />
             </div>
 
-            {/* Quiz */}
-            <div
-              className="relative flex items-center"
-              onMouseEnter={() => openDropdown("quiz")}
-              onMouseLeave={closeDropdown}
-            >
-              <Link
-                href={NAV.quiz.href}
-                className={NAV_LINK_BASE}
-                style={navPillStyle(2, isQuizNavActiveState)}
-              >
-                Quiz
-                <svg className={cx("h-3 w-3 transition-transform", activeDropdown === "quiz" && "rotate-180")} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                </svg>
-              </Link>
-              <QuizMenu
-                isOpen={activeDropdown === "quiz"}
-                onClose={() => setActiveDropdown(null)}
-                onMouseEnter={() => openDropdown("quiz")}
-              />
-            </div>
-
             {/* Specials */}
             <div
               className={cx("relative flex items-center", activeDropdown === "specials" && "z-[110]")}
@@ -786,76 +685,7 @@ export function Header() {
               />
             </div>
 
-            {/* Memberships */}
-            <Link
-              href="/monthly-memberships"
-              className={NAV_LINK_BASE}
-              style={navPillStyle(2, pathname === "/memberships" || pathname === "/monthly-memberships")}
-            >
-              Memberships ⭐
-            </Link>
-
-            {/* Gentlemen's Club */}
-            <Link
-              href={GENTLEMENS_CLUB_PATH}
-              className={NAV_LINK_BASE}
-              style={navPillStyle(1, isGentlemensClubActive)}
-            >
-              Gentlemen&apos;s Club 👑
-            </Link>
-
-            {/* Ladies' Club */}
-            <Link
-              href={LADIES_CLUB_PATH}
-              className={NAV_LINK_BASE}
-              style={navPillStyle(0, isLadiesClubActive)}
-            >
-              Ladies&apos; Club 👑
-            </Link>
-
-            {/* 0% Financing */}
-            <Link
-              href="/financing"
-              className={NAV_LINK_BASE}
-              style={navPillStyle(1, isFinancingActive)}
-            >
-              0% Financing
-            </Link>
-
-            {/* Before & After */}
-            <Link
-              href="/gallery"
-              className={NAV_LINK_BASE}
-              style={navPillStyle(2, pathname === "/gallery")}
-            >
-              Before &amp; After
-            </Link>
-
-            {/* Skin 101 */}
-            <div
-              className="relative flex items-center"
-              onMouseEnter={() => openDropdown("skin101")}
-              onMouseLeave={closeDropdown}
-            >
-              <Link
-                href={NAV.skin101.href}
-                className={NAV_LINK_BASE}
-                style={navPillStyle(0, isSkin101NavActive)}
-              >
-                Skin 101
-                <svg className={cx("h-3 w-3 transition-transform", activeDropdown === "skin101" && "rotate-180")} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                </svg>
-              </Link>
-              <SimpleMenu
-                data={NAV.skin101}
-                isOpen={activeDropdown === "skin101"}
-                onClose={() => setActiveDropdown(null)}
-                onMouseEnter={() => openDropdown("skin101")}
-              />
-            </div>
-
-            {/* About */}
+            {/* About — team, patient resources, Skin 101 & quizzes */}
             <div
               className="relative flex items-center"
               onMouseEnter={() => openDropdown("about")}
@@ -864,7 +694,7 @@ export function Header() {
               <Link
                 href="/about"
                 className={NAV_LINK_BASE}
-                style={navPillStyle(0, isActive("/about"))}
+                style={navPillStyle(0, isAboutNavActiveState)}
               >
                 About
                 <svg className={cx("h-3 w-3 transition-transform", activeDropdown === "about" && "rotate-180")} fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -879,29 +709,23 @@ export function Header() {
               />
             </div>
 
-            {/* Patient Info */}
-            <div
-              className="relative flex items-center"
-              onMouseEnter={() => openDropdown("patient")}
-              onMouseLeave={closeDropdown}
+            {/* Book — single primary conversion path */}
+            <Link
+              href={PRIMARY_BOOKING_CTA.href}
+              className={NAV_LINK_BASE}
+              style={{
+                ...navPillStyle(0, isBookNavActive),
+                ...(isBookNavActive
+                  ? {}
+                  : {
+                      background: trifectaButtonGradient(trifectaAccent(0)),
+                      border: `1px solid ${trifectaAccent(0).border}`,
+                      color: "#ffffff",
+                    }),
+              }}
             >
-              <Link
-                href="/pre-post-care"
-                className={NAV_LINK_BASE}
-                style={navPillStyle(1, isActive("/pre-post-care") || isActive("/forms") || isActive("/patient-documents"))}
-              >
-                Patient Info
-                <svg className={cx("h-3 w-3 transition-transform", activeDropdown === "patient" && "rotate-180")} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                </svg>
-              </Link>
-              <SimpleMenu
-                data={NAV.patient}
-                isOpen={activeDropdown === "patient"}
-                onClose={() => setActiveDropdown(null)}
-                onMouseEnter={() => openDropdown("patient")}
-              />
-            </div>
+              {PRIMARY_BOOKING_CTA.shortLabel}
+            </Link>
 
         </nav>
       </div>
@@ -944,21 +768,6 @@ export function Header() {
               {PRIMARY_BOOKING_CTA.label}
             </Link>
 
-            {/* Before & After */}
-            <Link
-              href="/gallery"
-              onClick={() => setMobileOpen(false)}
-              className="flex items-center justify-between rounded-xl px-4 py-3.5 text-sm font-semibold text-white backdrop-blur-sm"
-              style={{ background: "rgba(24,24,27,0.8)", border: "1px solid rgba(59, 130, 246, 0.35)" }}
-            >
-              Before &amp; After Gallery
-              <span className="rounded-full px-2.5 py-0.5 text-[10px] font-bold text-white" style={{ background: "#3b82f6" }}>NEW</span>
-            </Link>
-
-            <div className="pb-1 pt-2">
-              <p className="px-2 text-[10px] font-bold uppercase tracking-[0.2em] text-white/35">Navigation</p>
-            </div>
-
             {/* Services accordion */}
             {[
               { key: "services", label: "Services", links: NAV.services.sections.flatMap((s) => s.links) },
@@ -968,11 +777,8 @@ export function Header() {
                 groups: medicalMegaMenuMobileGroups(),
                 highlight: true,
               },
-              { key: "quiz", label: "Quiz", links: NAV.quiz.links, highlight: true },
               { key: "specials", label: "Specials", links: NAV.specials.links, highlight: true },
-              { key: "skin101", label: "Skin 101", links: NAV.skin101.links, highlight: true },
               { key: "about", label: "About", links: NAV.about.links },
-              { key: "patient", label: "Patient Info", links: NAV.patient.links },
             ].map(({ key, label, links, groups, highlight }) => (
               <div key={key} className="border-b border-white/10 pb-1">
                 <button
@@ -1039,34 +845,20 @@ export function Header() {
               </div>
             ))}
 
-            {/* Standalone links */}
+            <div className="pb-1 pt-4">
+              <p className="px-2 text-[10px] font-bold uppercase tracking-[0.2em] text-white/35">Quick links</p>
+            </div>
             {[
-              { label: "Memberships ⭐", href: "/monthly-memberships", highlight: true },
-              { label: "Gentlemen's Club 👑", href: GENTLEMENS_CLUB_PATH, highlight: true },
-              { label: "Ladies' Club 👑", href: LADIES_CLUB_PATH, highlight: true },
-              { label: "0% Financing", href: "/financing", highlight: true },
-              { label: "Skin 101", href: "/skin-101", highlight: true },
+              { label: "Before & After Gallery", href: "/gallery" },
               { label: "FAQ", href: "/faq" },
-              { label: "Blog & Resources", href: "/blog" },
-              { label: "Contact Us", href: "/contact" },
+              { label: "Blog", href: "/blog" },
+              { label: "Contact", href: "/contact" },
             ].map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
                 onClick={() => setMobileOpen(false)}
-                className={cx(
-                  "flex items-center justify-between rounded-xl border-b border-white/10 px-4 py-3.5 text-sm font-semibold transition-colors",
-                  "highlight" in link && link.highlight
-                    ? "text-white backdrop-blur-sm"
-                    : "text-white/80 hover:bg-white/5 hover:text-[#f472b6]"
-                )}
-                style={
-                  link.href === LADIES_CLUB_PATH
-                    ? { background: "rgba(24,24,27,0.8)", border: "1px solid rgba(236, 72, 153, 0.45)" }
-                    : "highlight" in link && link.highlight
-                      ? { background: "rgba(24,24,27,0.8)", border: "1px solid rgba(59, 130, 246, 0.35)" }
-                      : undefined
-                }
+                className="flex items-center rounded-xl border-b border-white/10 px-4 py-3.5 text-sm font-semibold text-white/80 transition-colors hover:bg-white/5 hover:text-[#f472b6]"
               >
                 {link.label}
               </Link>
