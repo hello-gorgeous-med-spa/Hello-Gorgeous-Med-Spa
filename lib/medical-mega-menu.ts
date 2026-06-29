@@ -38,7 +38,12 @@ export type MedicalMegaMenuColumn = {
   items: MedicalMegaMenuItem[];
 };
 
-export type ShopRxCategoryId = "weight-loss" | "peptides" | "hormones" | "intimacy";
+export type ShopRxCategoryId =
+  | "weight-loss"
+  | "peptides"
+  | "hormones"
+  | "intimacy"
+  | "wellness";
 
 export type ShopRxCategory = {
   id: ShopRxCategoryId;
@@ -274,6 +279,73 @@ export const SHOP_RX_CATEGORIES: ShopRxCategory[] = [
             href: helloGorgeousRxStartUrl("pt-141"),
             rx: true,
             tagline: "Start Here · $49 consult · telehealth required",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: "wellness",
+    navLabel: "Vitamins & IV",
+    hubHref: "/iv-therapy",
+    exploreLabel: "Explore IV & vitamin bar",
+    homepageBlurb: "IV drips, vitamin shots & in-clinic wellness",
+    defaultFeaturedId: "iv-therapy-hub",
+    columns: [
+      {
+        heading: "In-clinic wellness",
+        items: [
+          {
+            id: "iv-therapy-hub",
+            label: "IV Therapy",
+            href: "/iv-therapy",
+            tagline: "Myers, immunity, hydration & recovery drips",
+            imageSrc: "/images/homepage-services/iv-therapy-immunity-infusion.png",
+            imageAlt: "IV therapy — immunity and wellness drips at Hello Gorgeous Med Spa",
+          },
+          {
+            id: "vitamin-bar",
+            label: "Vitamin Bar",
+            href: "/vitamin-bar",
+            tagline: "B12, biotin, glutathione & drive-thru shots",
+            imageSrc: "/images/homepage-services/vitamin-injections-fruit-syringe.png",
+            imageAlt: "Vitamin Bar — wellness injections at Hello Gorgeous Med Spa",
+          },
+          {
+            id: "iv-shots",
+            label: "Vitamin injections",
+            href: "/iv-shots",
+            tagline: "Quick shots — energy, immunity & glow",
+            imageSrc: "/images/homepage-services/vitamin-injections-fruit-syringe.png",
+            imageAlt: "Vitamin injections at Hello Gorgeous Med Spa Oswego IL",
+          },
+        ],
+      },
+      {
+        heading: "Memberships & labs",
+        items: [
+          {
+            id: "vitamin-memberships",
+            label: "Vitamin Bar memberships",
+            href: "/vitamin-bar#memberships",
+            tagline: "Monthly shot packs — member pricing",
+            imageSrc: "/images/homepage-services/vitamin-injections-fruit-syringe.png",
+            imageAlt: "Vitamin Bar membership plans",
+          },
+          {
+            id: "blood-work",
+            label: "Blood panels & labs",
+            href: "/blood-work",
+            tagline: "Wellness labs · hormone & weight-loss panels",
+          },
+          {
+            id: "recovery-blend-wellness",
+            label: "Recovery Blend Rx",
+            href: "/hello-gorgeous-rx/start-here?peptide=recovery-blend",
+            rx: true,
+            tagline: "Peptide recovery protocol · ship to home",
+            imageSrc: "/images/homepage-services/recovery-blend-rx.jpg",
+            imageAlt: "Recovery Blend peptide Rx — Hello Gorgeous RX",
           },
         ],
       },

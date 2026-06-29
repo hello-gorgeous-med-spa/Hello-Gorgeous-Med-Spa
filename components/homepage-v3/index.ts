@@ -1,4 +1,7 @@
 export { HeroV3 } from "./HeroV3";
+export { HomepageMedicalLane } from "./HomepageMedicalLane";
+export { HomepageAestheticsLane } from "./HomepageAestheticsLane";
+export { HomepageMedicalStickyBar } from "./HomepageMedicalStickyBar";
 export { HomepageTrackFork } from "./HomepageTrackFork";
 export { Glp1HomePathCards } from "./Glp1HomePathCards";
 export { HomepageShopRxFinder } from "./HomepageShopRxFinder";

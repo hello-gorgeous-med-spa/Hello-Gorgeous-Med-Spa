@@ -2,7 +2,12 @@
  * Card-safe Shop RX product art — branded marketing cards under public/images/shop-rx/.
  */
 
-export type ShopRxCategoryId = "weight-loss" | "peptides" | "hormones" | "intimacy";
+export type ShopRxCategoryId =
+  | "weight-loss"
+  | "peptides"
+  | "hormones"
+  | "intimacy"
+  | "wellness";
 
 const BASE = "/images/shop-rx";
 
@@ -78,6 +83,22 @@ export const SHOP_RX_PRODUCT_IMAGES: Record<
     src: `${BASE}/pt-141.png`,
     alt: "Request PT-141 protocol — Hello Gorgeous RX",
   },
+  "iv-therapy-hub": {
+    src: "/images/homepage-services/iv-therapy-immunity-infusion.png",
+    alt: "IV therapy — Hello Gorgeous Med Spa",
+  },
+  "vitamin-bar": {
+    src: "/images/homepage-services/vitamin-injections-fruit-syringe.png",
+    alt: "Vitamin Bar — Hello Gorgeous Med Spa",
+  },
+  "iv-shots": {
+    src: "/images/homepage-services/vitamin-injections-fruit-syringe.png",
+    alt: "Vitamin injections — Hello Gorgeous Med Spa",
+  },
+  "recovery-blend-wellness": {
+    src: "/images/homepage-services/recovery-blend-rx.jpg",
+    alt: "Recovery Blend Rx — Hello Gorgeous RX",
+  },
   "biote-women": {
     src: "/images/homepage-buyer-paths/weight-loss-hormones.png",
     alt: "BioTE hormone therapy for women — Hello Gorgeous RX",
@@ -89,6 +110,7 @@ export const SHOP_RX_CATEGORY_IMAGE_FALLBACK: Record<ShopRxCategoryId, `/${strin
   peptides: `${BASE}/hello-gorgeous-rx-brand.png`,
   hormones: "/images/homepage-buyer-paths/weight-loss-hormones.png",
   intimacy: `${BASE}/pt-141.png`,
+  wellness: "/images/homepage-services/iv-therapy-immunity-infusion.png",
 };
 
 export const SHOP_RX_HERO_IMAGE = "/images/rx-care/square/telehealth.jpg";

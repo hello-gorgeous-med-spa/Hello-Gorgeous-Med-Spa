@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { BOOKING_URL } from "@/lib/flows";
+import { HOMEPAGE_AESTHETICS_ANCHOR, HOMEPAGE_MEDICAL_ANCHOR } from "@/lib/homepage-buyer-paths";
 import { CLIENT_APP, type ClientAppTab } from "@/lib/client-app";
 import { SITE, SITE_HERO_IMAGE } from "@/lib/seo";
 import { TRIFECTA_GRADIENT_TITLE, trifectaButtonGradient, trifectaAccent } from "@/lib/trifecta-tokens";
@@ -195,52 +196,49 @@ export function BrandHero({
                     NP-directed · Oswego, IL · Family-owned
                   </p>
                   <h1 className="mt-2 text-2xl font-black leading-[1.08] tracking-tight text-white sm:text-3xl md:text-4xl">
-                    Oswego&apos;s NP-Directed Med Spa for{" "}
+                    Oswego&apos;s trusted team for{" "}
                     <span
                       className="bg-clip-text text-transparent"
                       style={{ backgroundImage: TRIFECTA_GRADIENT_TITLE, WebkitBackgroundClip: "text" }}
                     >
-                      Skin, Body, Hormones &amp; Weight Loss
+                      aesthetics &amp; medical RX
                     </span>
                   </h1>
                   <p className="mt-2 max-w-2xl text-sm font-medium leading-relaxed text-white/70 sm:text-base">
-                    Advanced aesthetics with real medical oversight — Botox, fillers, Morpheus8,
-                    Quantum RF, Solaria CO₂, GLP-1 weight loss, hormones, and wellness care in one
-                    trusted local practice.
+                    Two clear paths — in-office med spa treatments, or NP-supervised programs with
+                    telehealth and home delivery. Same family-owned practice, downtown Oswego.
                   </p>
                 </div>
 
                 <div className="flex shrink-0 flex-col gap-2 sm:flex-row sm:flex-wrap lg:min-w-[220px] lg:flex-col">
                   <Link
-                    href={BOOKING_URL}
-                    data-book-now
+                    href={`#${HOMEPAGE_MEDICAL_ANCHOR}`}
                     className="inline-flex items-center justify-center rounded-xl px-5 py-3 text-sm font-bold text-white transition hover:brightness-110 sm:min-w-[200px]"
                     style={{ background: trifectaButtonGradient(trifectaAccent(0)) }}
                   >
-                    Book Free Consultation
+                    Medical &amp; RX programs
                   </Link>
                   <Link
-                    href="/specials"
+                    href={`#${HOMEPAGE_AESTHETICS_ANCHOR}`}
                     className="inline-flex items-center justify-center rounded-xl border px-5 py-3 text-sm font-bold text-white transition hover:bg-white/5 sm:min-w-[200px]"
-                    style={{ borderColor: trifectaAccent(2).border, color: trifectaAccent(2).subtitle }}
+                    style={{ borderColor: trifectaAccent(1).border, color: trifectaAccent(1).subtitle }}
                   >
-                    View Current Specials
+                    Med spa treatments
                   </Link>
                   <Link
-                    href="/help-me-choose"
+                    href={BOOKING_URL}
+                    data-book-now
                     className="inline-flex items-center justify-center rounded-xl border border-white/15 bg-white/5 px-5 py-3 text-sm font-bold text-[#FFB8DC] transition hover:border-[#E6007E]/40 hover:bg-white/10 sm:min-w-[200px]"
                   >
-                    Help Me Choose
+                    Book free consult
                   </Link>
                 </div>
               </div>
 
-              <ul className="grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
+              <ul className="grid gap-2 sm:grid-cols-2">
                 {[
-                  "NP-Directed Medical Aesthetic Care",
-                  "Family-Owned in Oswego",
-                  "Advanced Skin, Body & Wellness Technology",
-                  "Serving Oswego, Aurora, Naperville, Plainfield & Fox Valley",
+                  "Hello Gorgeous RX™ — GLP-1, peptides, hormones & refills",
+                  "Botox, fillers, Morpheus8, Solaria CO₂ & body contouring",
                 ].map((badge) => (
                   <li
                     key={badge}

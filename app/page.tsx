@@ -1,23 +1,14 @@
 import { Metadata } from "next";
 import {
   HeroV3,
-  HomepageShopRxFinder,
-  Glp1HomePathCards,
-  ShopRxTrustBar,
-  ShopRxHero,
-  ShopRxFloatingProduct,
   HomepageTrackFork,
-  BuyerPathsSection,
-  ServicesSection,
-  TrifectaSection,
   HomepageTestimonials,
   HomepageClosingCTARow,
 } from "@/components/homepage-v3";
+import { HomepageAestheticsLane } from "@/components/homepage-v3/HomepageAestheticsLane";
+import { HomepageMedicalLane } from "@/components/homepage-v3/HomepageMedicalLane";
 import { GetAppHomeBand } from "@/components/homepage-v3/GetAppHomeBand";
-import { GentlemensClubHomeBand } from "@/components/homepage-v3/GentlemensClubHomeBand";
 import { MeetDaniRyanSection } from "@/components/marketing/MeetDaniRyanSection";
-import { HomepageHydrafacialBanner } from "@/components/HomepageHydrafacialBanner";
-import { GiftCardShopSection } from "@/components/gift-cards/GiftCardShopSection";
 import {
   SITE,
   SITE_HERO_IMAGE,
@@ -154,23 +145,12 @@ export default function HomePage() {
 
       <main className="bg-black">
         <HeroV3 />
-        <div className="bg-[#FAF7F4]">
-          <ShopRxTrustBar />
-          <ShopRxHero />
-          <Glp1HomePathCards />
-          <HomepageShopRxFinder />
-        </div>
-        <ShopRxFloatingProduct />
         <HomepageTrackFork />
-        <BuyerPathsSection />
-        <TrifectaSection />
+        <HomepageMedicalLane />
+        <HomepageAestheticsLane />
         <HomepageTestimonials />
-        <ServicesSection />
         <MeetDaniRyanSection />
         <GetAppHomeBand />
-        <HomepageHydrafacialBanner />
-        <GiftCardShopSection variant="compact" className="border-y-4 border-black" />
-        <GentlemensClubHomeBand />
         <HomepageClosingCTARow />
       </main>
     </>
