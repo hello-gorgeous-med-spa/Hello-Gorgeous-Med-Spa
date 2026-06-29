@@ -6,7 +6,8 @@ import { CTA } from "@/components/CTA";
 import type { PersonaId } from "@/lib/personas/types";
 import { DEFAULT_PERSONA_ID, PERSONA_CONFIGS } from "@/lib/personas/index";
 import { PERSONA_UI } from "@/lib/personas/ui";
-import { BOOKING_URL, PRECONSULT_DEFAULTS, type CareModuleId, type PreConsultAnswer, suggestPersonaForServiceSlug, suggestServiceSlugsFromPreConsult } from "@/lib/flows";
+import { PRIMARY_BOOKING_CTA } from "@/lib/primary-cta";
+import { PRECONSULT_DEFAULTS, type CareModuleId, type PreConsultAnswer, suggestPersonaForServiceSlug, suggestServiceSlugsFromPreConsult } from "@/lib/flows";
 import { serviceHrefBySlug } from "@/lib/seo";
 import { complianceFooter, postTreatmentRedFlags, ryanSafetyOverrideReply } from "@/lib/guardrails";
 import {
@@ -256,8 +257,8 @@ export function CareEngine() {
               .
             </p>
           </div>
-          <CTA href={BOOKING_URL} variant="gradient" className="px-4 py-2 rounded-lg text-sm">
-            Book Now
+          <CTA href={PRIMARY_BOOKING_CTA.href} variant="gradient" className="px-4 py-2 rounded-lg text-sm">
+            {PRIMARY_BOOKING_CTA.shortLabel}
           </CTA>
         </div>
       </div>
@@ -481,7 +482,8 @@ export function CareEngine() {
                   are below (non‑binding).
                 </p>
                 <div className="mt-6 flex flex-col sm:flex-row gap-4">
-                  <CTA href={BOOKING_URL} variant="gradient">
+                  <CTA href={PRIMARY_BOOKING_CTA.href} variant="gradient">
+                    {PRIMARY_BOOKING_CTA.label}
                     Book online now
                   </CTA>
                   <CTA href="/services" variant="outline">
@@ -652,7 +654,7 @@ export function CareEngine() {
               >
                 Generate Summary
               </button>
-              <CTA href={BOOKING_URL} variant="outline">
+              <CTA href={PRIMARY_BOOKING_CTA.href} variant="outline">
                 Optional: Book a consult
               </CTA>
               <button
@@ -813,7 +815,8 @@ export function CareEngine() {
             </div>
 
             <div className="mt-6 flex flex-col sm:flex-row gap-3">
-              <CTA href={BOOKING_URL} variant="gradient">
+              <CTA href={PRIMARY_BOOKING_CTA.href} variant="gradient">
+                {PRIMARY_BOOKING_CTA.label}
                 Book online (optional)
               </CTA>
               <CTA href="/contact" variant="outline">
@@ -911,7 +914,7 @@ export function CareEngine() {
               <CTA href="/contact" variant="outline">
                 Contact us
               </CTA>
-              <CTA href={BOOKING_URL} variant="outline">
+              <CTA href={PRIMARY_BOOKING_CTA.href} variant="outline">
                 Optional: Book
               </CTA>
             </div>
@@ -1094,7 +1097,8 @@ export function CareEngine() {
                       </button>
                     </div>
                     <div className="mt-4 flex flex-col sm:flex-row gap-3">
-                      <CTA href={BOOKING_URL} variant="gradient">
+                      <CTA href={PRIMARY_BOOKING_CTA.href} variant="gradient">
+                    {PRIMARY_BOOKING_CTA.label}
                         Book online (optional)
                       </CTA>
                       <CTA href="/services" variant="outline">
@@ -1159,7 +1163,7 @@ export function CareEngine() {
                 >
                   Generate Roadmap
                 </button>
-                <CTA href={BOOKING_URL} variant="outline">
+                <CTA href={PRIMARY_BOOKING_CTA.href} variant="outline">
                   Optional: Book a consult
                 </CTA>
                 <button

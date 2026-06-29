@@ -3,7 +3,10 @@ import Link from "next/link";
 
 import { FadeUp, Section } from "@/components/Section";
 import { CTA } from "@/components/CTA";
+import { MedicalTrustBand } from "@/components/MedicalTrustBand";
 import { TwoDoorsForkBand } from "@/components/TwoDoorsForkBand";
+import { CONVERSION_HIERARCHY } from "@/lib/illinois-excellence";
+import { PRIMARY_BOOKING_CTA } from "@/lib/primary-cta";
 import { SERVICES, pageMetadata, servicePublicPath, siteJsonLd } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
@@ -39,11 +42,14 @@ export default function ServicesPage() {
               Prefer a guided experience? Start with Explore Care to navigate by how you feel—no pressure, education first.
             </p>
             <div className="mt-10 flex flex-col sm:flex-row gap-4 flex-wrap">
-              <CTA href="/explore-care" variant="gradient">
-                Explore Care (Services Atlas™)
+              <CTA href={PRIMARY_BOOKING_CTA.href} variant="gradient">
+                {PRIMARY_BOOKING_CTA.label}
+              </CTA>
+              <CTA href={CONVERSION_HIERARCHY.exploreCare.href} variant="outline">
+                {CONVERSION_HIERARCHY.exploreCare.label}
               </CTA>
               <CTA href="/providers" variant="outline">
-                Meet Your Care Team
+                Meet your care team
               </CTA>
               <Link
                 href="/membership"
@@ -61,6 +67,8 @@ export default function ServicesPage() {
           <TwoDoorsForkBand activeDoor="med-spa" surface="light" />
         </div>
       </Section>
+
+      <MedicalTrustBand surface="rose" showBookCta />
 
       <Section>
         <FadeUp>

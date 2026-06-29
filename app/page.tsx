@@ -8,6 +8,7 @@ import {
 import { HomepageAestheticsLane } from "@/components/homepage-v3/HomepageAestheticsLane";
 import { HomepageMedicalLane } from "@/components/homepage-v3/HomepageMedicalLane";
 import { GetAppHomeBand } from "@/components/homepage-v3/GetAppHomeBand";
+import { IllinoisExcellenceBand } from "@/components/IllinoisExcellenceBand";
 import { MeetDaniRyanSection } from "@/components/marketing/MeetDaniRyanSection";
 import {
   SITE,
@@ -150,6 +151,7 @@ export default function HomePage() {
         <HomepageAestheticsLane />
         <HomepageTestimonials />
         <MeetDaniRyanSection />
+        <IllinoisExcellenceBand />
         <GetAppHomeBand />
         <HomepageClosingCTARow />
       </main>

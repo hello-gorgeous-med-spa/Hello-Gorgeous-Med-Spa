@@ -9,6 +9,7 @@ import { ClubFlyerGallery } from "@/components/club/ClubFlyerGallery";
 import { ClubStartHereBand } from "@/components/club/ClubStartHereBand";
 import { ClubStickyCta } from "@/components/club/ClubStickyCta";
 import { FadeUp, Section } from "@/components/Section";
+import { MedicalTrustBand } from "@/components/MedicalTrustBand";
 import { TwoDoorsForkBand } from "@/components/TwoDoorsForkBand";
 import { LADIES_CLUB_START_PATHS, LADIES_CLUB_STICKY_CTA } from "@/lib/club-start-here";
 import { PROGRAM_CONSULT_BOOKING_URL } from "@/lib/flows";
@@ -161,6 +162,8 @@ export function LadiesClubPageContent() {
           <TwoDoorsForkBand activeDoor="hello-gorgeous-rx" />
         </div>
       </Section>
+
+      <MedicalTrustBand surface="dark" />
 
       <ClubStartHereBand
         eyebrow="Not sure where to start?"

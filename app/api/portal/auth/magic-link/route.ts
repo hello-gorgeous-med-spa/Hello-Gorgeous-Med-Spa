@@ -117,7 +117,7 @@ export async function POST(request: NextRequest) {
 
     // Returning-client flow: do not reveal whether the account exists.
     if (!client || client.is_blocked) {
-      console.info("[portal/magic-link] No active client for email lookup", { emailNorm, mode });
+      console.info("[portal/magic-link] No active client for email lookup", { mode });
       return NextResponse.json({
         success: true,
         sent: false,
@@ -183,7 +183,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: emailResult.message }, { status: emailResult.status });
     }
 
-    console.info("[portal/magic-link] Login email sent", { clientId: client.id, toEmail });
+    console.info("[portal/magic-link] Login email sent", { clientId: client.id });
 
     return NextResponse.json({
       success: true,

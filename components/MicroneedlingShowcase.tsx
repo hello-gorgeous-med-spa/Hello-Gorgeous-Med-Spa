@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { FadeUp } from "./Section";
-import { BOOKING_URL } from "@/lib/flows";
+import { PRIMARY_BOOKING_CTA } from "@/lib/primary-cta";
 
 const tiers = [
   {
@@ -263,7 +263,7 @@ export function MicroneedlingShowcase() {
 
                 {/* CTA */}
                 <a
-                  href={BOOKING_URL}
+                  href={PRIMARY_BOOKING_CTA.href}
                   target="_blank"
                   rel="noopener noreferrer"
                   className={`inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-gradient-to-r ${currentTier.color} text-white font-bold hover:opacity-90 transition transform hover:scale-105 shadow-lg`}
@@ -420,7 +420,7 @@ export function MicroneedlingShowcase() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
-                href={BOOKING_URL}
+                href={PRIMARY_BOOKING_CTA.href}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="px-8 py-4 rounded-xl bg-[#FF2D8E] text-white font-bold hover:opacity-90 transition transform hover:scale-105 shadow-lg shadow-[#FF2D8E]/25"

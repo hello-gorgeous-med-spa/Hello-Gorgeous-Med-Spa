@@ -83,7 +83,7 @@ Console · **Meta/Facebook** social posting. Cron jobs are defined in `vercel.js
 - New SEO landing page → copy an existing `*-il` route; keep per-page metadata + JSON-LD
   (`MedicalBusiness`/`LocalBusiness`/`FAQPage`). Don't disable indexing.
 
-## Site architecture (2026 audit — Phases 1–5)
+## Site architecture (2026 audit — Phases 1–6)
 
 Canonical config lives in `lib/` — extend these modules instead of one-off nav/footer copies.
 
@@ -94,6 +94,7 @@ Canonical config lives in `lib/` — extend these modules instead of one-off nav
 | **3** | **Two doors** sitewide: Med Spa vs Hello Gorgeous RX | `lib/site-two-doors.ts`, `components/TwoDoorsForkBand.tsx` |
 | **4** | City SEO tiers: primary Fox Valley hubs, deindex + 301 far-flung cities | `lib/city-seo-tier.ts`, `lib/city-hub-content.ts`, `next.config.js` redirects |
 | **5** | **RX Request Portal** — Hims-style goal + form-factor catalog at `/rx/request` | `lib/rx-request-portal.ts`, `components/rx/RxRequestPortal.tsx`, `app/rx/request/page.tsx` |
+| **6** | **Illinois excellence** — conversion hierarchy, NP trust band, provider faces on key hubs | `lib/illinois-excellence.ts`, `lib/medical-trust.ts`, `components/MedicalTrustBand.tsx`, `components/IllinoisExcellenceBand.tsx` |
 
 **RX Request Portal:** goal cards (weight loss, hormones, peptides, sexual health, hair & skin,
 vitamins & IV) + injectable/capsule/troche/patch/topical filters. **Pricing must come from
@@ -104,6 +105,10 @@ patient portal dashboard, and sitemap.
 **City SEO:** primary slugs = `oswego`, `naperville`, `aurora`, `plainfield`, `yorkville`,
 `montgomery`. Far-flung cities in `DEINDEXED_CITY_REDIRECT_TARGETS` 301 to nearest primary hub —
 keep `city-seo-tier.ts` and `next.config.js` in sync when adding/removing cities.
+
+**Phase 6 conversion:** one primary action sitewide (`lib/primary-cta.ts` → `/book`). Secondary:
+RX portal, app, catalog (`lib/illinois-excellence.ts` `CONVERSION_HIERARCHY`). Reuse
+`MedicalTrustBand` on RX, club, and services hubs — do not duplicate provider copy.
 
 ## Content & legal guardrails (medical / advertising)
 

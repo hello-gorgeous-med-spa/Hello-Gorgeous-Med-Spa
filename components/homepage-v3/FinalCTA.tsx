@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { ILLINOIS_EXCELLENCE } from "@/lib/illinois-excellence";
 import { PRIMARY_BOOKING_CTA } from "@/lib/primary-cta";
 
 type FinalCTAProps = {
@@ -28,7 +29,7 @@ export function FinalCTA({ compact = false }: FinalCTAProps) {
             : "mt-6 text-lg text-white/80 max-w-xl mx-auto"
         }
       >
-        Book your consultation today and discover the Hello Gorgeous difference.
+        {ILLINOIS_EXCELLENCE.subline}
       </p>
       <p className={compact ? "mt-1.5 text-xs text-white/65" : "mt-2 text-sm text-white/70"}>
         Free consultation · No obligation

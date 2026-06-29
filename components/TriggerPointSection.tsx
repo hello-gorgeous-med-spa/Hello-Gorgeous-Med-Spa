@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 
 import { FadeUp } from "./Section";
 import { StreamVideo } from "./StreamVideo";
-import { BOOKING_URL } from "@/lib/flows";
+import { PRIMARY_BOOKING_CTA } from "@/lib/primary-cta";
 
 function getYoutubeEmbedId(url: string): string | null {
   const m = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/))([^&?/]+)/);
@@ -174,7 +174,7 @@ export function TriggerPointSection() {
               </div>
 
               <a
-                href={BOOKING_URL}
+                href={PRIMARY_BOOKING_CTA.href}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-3 px-8 py-4 rounded-lg bg-[#FF2D8E] text-white font-bold hover:bg-black transition"
@@ -227,12 +227,12 @@ export function TriggerPointSection() {
                 </p>
                 <div className="flex flex-col sm:flex-row gap-3 justify-center md:justify-end">
                   <a
-                    href={BOOKING_URL}
+                    href={PRIMARY_BOOKING_CTA.href}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="px-6 py-3 rounded-lg bg-[#FF2D8E] text-white font-bold hover:bg-black transition"
                   >
-                    Book Now →
+                    {PRIMARY_BOOKING_CTA.shortLabel} →
                   </a>
                   <a
                     href="tel:630-636-6193"

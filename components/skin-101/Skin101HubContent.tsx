@@ -5,7 +5,7 @@ import Link from "next/link";
 import { CTA } from "@/components/CTA";
 import { FadeUp, Section } from "@/components/Section";
 import { Skin101GuideCard } from "@/components/skin-101/Skin101GuideCard";
-import { BOOKING_URL } from "@/lib/flows";
+import { PRIMARY_BOOKING_CTA } from "@/lib/primary-cta";
 import { HG_TAGLINE } from "@/lib/brand-tagline";
 import { SITE } from "@/lib/seo";
 import { SKIN_101_PATH, SKIN_101_SKIN_ONLY_GUIDES } from "@/lib/skin-101-nav";
@@ -76,8 +76,8 @@ export function Skin101HubContent() {
                 lymphatic drainage, peptides, goal-based peptide matching, and the science behind what we do at Hello Gorgeous in Oswego.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <CTA href={BOOKING_URL} variant="gradient">
-                  Book a free consultation
+                <CTA href={PRIMARY_BOOKING_CTA.href} variant="gradient">
+                  {PRIMARY_BOOKING_CTA.label}
                 </CTA>
                 <CTA href="/faq" variant="outline" className="border-2 border-white text-white hover:bg-white hover:text-black">
                   Read our FAQ
@@ -155,8 +155,8 @@ export function Skin101HubContent() {
             <p className="text-white/90 mb-8 font-medium">
               That&apos;s what consults are for — no pressure, just honest answers. {SITE.phone}
             </p>
-            <CTA href={BOOKING_URL} variant="outline" className="border-2 border-white text-white hover:bg-white hover:text-[#E6007E]">
-              Schedule your free consult
+            <CTA href={PRIMARY_BOOKING_CTA.href} variant="outline" className="border-2 border-white text-white hover:bg-white hover:text-[#E6007E]">
+              {PRIMARY_BOOKING_CTA.label}
             </CTA>
           </div>
         </Section>

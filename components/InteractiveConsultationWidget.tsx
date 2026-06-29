@@ -3,7 +3,7 @@
 import { useState, useRef } from "react";
 import Link from "next/link";
 import { CTA } from "@/components/CTA";
-import { BOOKING_URL } from "@/lib/flows";
+import { PRIMARY_BOOKING_CTA } from "@/lib/primary-cta";
 
 type BodyZone = {
   id: string;
@@ -114,7 +114,7 @@ export function InteractiveConsultationWidget({ onScrollToBotox }: { onScrollToB
             <p className="text-black text-sm mb-4">Book a free consultation and we&apos;ll create your plan together.</p>
           )}
           <div className="space-y-3">
-            <CTA href={BOOKING_URL} variant="gradient" className="w-full justify-center">Book Free Consultation</CTA>
+            <CTA href={PRIMARY_BOOKING_CTA.href} variant="gradient" className="w-full justify-center">{PRIMARY_BOOKING_CTA.label}</CTA>
             {onScrollToBotox && (
               <button
                 type="button"
