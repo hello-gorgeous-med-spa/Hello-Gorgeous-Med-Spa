@@ -4,32 +4,76 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 
-import { LabsBanner } from "@/components/regen/RegenLabsSection";
-import { RegenLogo } from "@/components/regen/RegenLogo";
-import {
-  REGEN_CTA,
-  REGEN_FAQ,
-  REGEN_GOALS,
-  REGEN_HERO,
-  REGEN_HOW_IT_WORKS,
-  REGEN_SITE,
-  REGEN_SOCIAL_PROOF,
-  REGEN_TRUST_BAR,
-  REGEN_WHY,
-  type RegenGoal,
-} from "@/lib/regen-site";
+import { CartButton } from "@/components/regen/RegenCartDrawer";
 
 /* ─────────────────────────────────────────────────────────────
-   TRUST BAR
+   CONSTANTS
 ───────────────────────────────────────────────────────────── */
 
-function TrustBar() {
+const PHONE = "(630) 636-6193";
+const PHONE_HREF = "tel:+16306366193";
+
+const NAV_CATS = [
+  { title: "Weight Loss", href: "/rx/weight-loss" },
+  { title: "Daily Wellness", href: "/rx/wellness" },
+  { title: "Sexual Health", href: "/rx/sexual-health" },
+  { title: "Hormones", href: "/rx/hormones" },
+  { title: "Labs", href: "/labs" },
+];
+
+const TRUST_ITEMS = [
+  { id: "pharmacy", icon: "💊", text: "US-based licensed pharmacies" },
+  { id: "pricing", icon: "🛡️", text: "Transparent pricing, no hidden fees" },
+  { id: "providers", icon: "👤", text: "Board-certified providers" },
+];
+
+const SOCIAL_PROOF = [
+  { id: "google", value: "4.4★", label: "117 Google reviews" },
+  { id: "fresha", value: "5.0★", label: "1,931 Fresha reviews" },
+  { id: "best", value: "#1", label: "Best Med Spa in Oswego" },
+  { id: "np", value: "NP", label: "Nurse-practitioner directed" },
+];
+
+const CATEGORY_TILES = [
+  { id: "weight", title: "Weight Loss", tag: "GLP-1 & metabolic", icon: "⚖️", href: "/rx/weight-loss", tint: "#FFF8F0" },
+  { id: "labs", title: "Labs", tag: "Advanced lab testing", icon: "🧪", href: "/labs", tint: "#F0F8FF" },
+  { id: "wellness", title: "Daily Wellness", tag: "Longevity, NAD+ & peptides", icon: "✦", href: "/rx/wellness", tint: "#F8FFF0" },
+  { id: "vitamins", title: "Vitamin Injections", tag: "At-home wellness shots", icon: "💉", href: "/rx/vitamins", tint: "#FFF0F8" },
+  { id: "sexual", title: "Sexual Health", tag: "ED, libido & intimacy", icon: "❤️", href: "/rx/sexual-health", tint: "#FFF0F0" },
+  { id: "hormones", title: "Hormones", tag: "TRT, HCG & bioidentical HRT", icon: "⚕️", href: "/rx/hormones", tint: "#F0FFF8" },
+  { id: "hair", title: "Hair + Skin", tag: "Regrowth & Rx dermatology", icon: "✨", href: "/rx/hair-skin", tint: "#FFF8FF" },
+];
+
+const STEPS = [
+  { num: 1, title: "Complete a free consult", body: "Share your history and goals in minutes. We screen you like a medical practice — because we are one." },
+  { num: 2, title: "A provider reviews", body: "Our nurse-practitioner-directed team reviews your intake and, if appropriate, prescribes a personalized plan." },
+  { num: 3, title: "Delivered to your door", body: "Your compounded medication ships discreetly from a licensed pharmacy. Flat $30 shipping on every order." },
+];
+
+const WHY_BULLETS = [
+  { title: "NP-directed care", desc: "Licensed clinicians review every order" },
+  { title: "US-based compounding pharmacies", desc: "503A/503B partners, shipped nationwide" },
+  { title: "Transparent pricing", desc: "No hidden fees — flat $30 shipping" },
+];
+
+const FAQ_ITEMS = [
+  { q: "Is this legitimate medical care?", a: "Yes. RE GEN is the prescription arm of Hello Gorgeous Med Spa, a nurse-practitioner-directed medical practice. A licensed provider reviews your intake before anything is prescribed." },
+  { q: "What does shipping cost?", a: "A flat $30 ships your order discreetly to your door, anywhere we serve. Pricing for each medication is shown on its treatment page." },
+  { q: "Are compounded medications FDA-approved?", a: "Compounded medications are prepared by a licensed pharmacy for an individual patient and are not FDA-approved products. Your provider will review whether a compounded option is appropriate for you." },
+  { q: "Do I need to come in to the clinic?", a: "Most treatments can be started 100% online. Some therapies may require labs or an in-person visit in Oswego, IL — your provider will let you know." },
+];
+
+/* ─────────────────────────────────────────────────────────────
+   UTILITY BAR (Black top bar)
+───────────────────────────────────────────────────────────── */
+
+function UtilityBar() {
   return (
-    <div className="bg-neutral-900 py-2.5">
-      <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-center gap-x-6 gap-y-1 px-4 text-[11px] font-medium tracking-wide text-white/90">
-        {REGEN_TRUST_BAR.map((item) => (
-          <span key={item.id} className="flex items-center gap-1.5">
-            <span className="text-[#E6007E]">✦</span>
+    <div className="border-b border-white/10 bg-black">
+      <div className="mx-auto flex max-w-[1280px] flex-wrap items-center justify-center gap-x-8 gap-y-2 px-6 py-2.5 text-[11.5px] font-semibold uppercase tracking-[0.12em] text-white/80">
+        {TRUST_ITEMS.map((item) => (
+          <span key={item.id} className="flex items-center gap-2">
+            <span className="text-sm">{item.icon}</span>
             {item.text}
           </span>
         ))}
@@ -39,113 +83,148 @@ function TrustBar() {
 }
 
 /* ─────────────────────────────────────────────────────────────
-   SOCIAL PROOF BADGES
+   NAV (Black sticky nav)
 ───────────────────────────────────────────────────────────── */
 
-function SocialProofBadges() {
+function Nav() {
+  const [menuOpen, setMenuOpen] = useState(false);
+
   return (
-    <div className="flex flex-wrap items-center gap-3">
-      {REGEN_SOCIAL_PROOF.map((item) => (
-        <span
-          key={item.id}
-          className="inline-flex items-center gap-1.5 rounded-full border border-neutral-200 bg-white px-3 py-1.5 text-xs font-medium text-neutral-700 shadow-sm"
-        >
-          {"rating" in item ? (
-            <>
-              <span className="text-amber-500">★</span>
-              {item.rating}
-              <span className="text-neutral-400">·</span>
-              {item.count} {item.source}
-            </>
-          ) : (
-            <>
-              {item.id === "best" && <span className="text-amber-500">🏆</span>}
-              {item.id === "np" && <span className="text-[#E6007E]">NP</span>}
-              {item.text}
-            </>
-          )}
-        </span>
-      ))}
-    </div>
+    <nav className="sticky top-0 z-40 bg-black text-white">
+      <div className="mx-auto flex max-w-[1280px] items-center justify-between gap-6 px-6 py-3">
+        <Link href="/rx">
+          <Image
+            src="/images/regen/regen-logo-white.png"
+            alt="RE GEN by Hello Gorgeous Med Spa"
+            width={160}
+            height={46}
+            className="h-[46px] w-auto"
+            priority
+          />
+        </Link>
+
+        {/* Desktop links */}
+        <div className="hidden items-center gap-2 md:flex">
+          {NAV_CATS.map((cat, i) => (
+            <Link
+              key={cat.title}
+              href={cat.href}
+              className="relative px-3 py-1.5 text-[15px] font-medium opacity-90 transition hover:text-[#FF2D8E] hover:opacity-100"
+            >
+              {i > 0 && (
+                <span className="absolute left-0 top-1/2 -translate-y-1/2 h-1.5 w-1.5 rounded-full bg-[#FF2D8E] opacity-85" />
+              )}
+              {cat.title}
+            </Link>
+          ))}
+        </div>
+
+        {/* Right side */}
+        <div className="flex items-center gap-4">
+          <CartButton />
+          <Link
+            href="/rx/start"
+            className="hidden items-center gap-2 rounded-full border border-white/40 px-4 py-2 text-sm font-semibold transition hover:border-[#FF2D8E] hover:text-[#FF2D8E] sm:inline-flex"
+          >
+            <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+            </svg>
+            Login
+          </Link>
+          {/* Mobile burger */}
+          <button
+            type="button"
+            onClick={() => setMenuOpen(!menuOpen)}
+            className="p-1 md:hidden"
+            aria-label="Menu"
+          >
+            <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      {/* Mobile menu */}
+      {menuOpen && (
+        <div className="border-t border-white/10 bg-black px-6 py-4 md:hidden">
+          {NAV_CATS.map((cat) => (
+            <Link
+              key={cat.title}
+              href={cat.href}
+              className="block py-3 text-lg font-semibold"
+              onClick={() => setMenuOpen(false)}
+            >
+              {cat.title}
+            </Link>
+          ))}
+        </div>
+      )}
+    </nav>
   );
 }
 
 /* ─────────────────────────────────────────────────────────────
-   HERO
+   HERO (Dark with photo background)
 ───────────────────────────────────────────────────────────── */
 
-function HeroSection() {
-  const { featuredProduct } = REGEN_HERO;
-
+function Hero() {
   return (
-    <section className="bg-white py-12 lg:py-20">
-      <div className="mx-auto max-w-6xl px-4">
-        <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
-          {/* Left */}
-          <div>
-            <RegenLogo width={200} priority />
+    <section className="relative min-h-[600px] overflow-hidden bg-[#0c0b0c] text-white">
+      {/* Background image with Ken Burns */}
+      <div
+        className="absolute inset-0 left-[40%] animate-[kenburns_24s_ease-in-out_infinite_alternate] bg-cover bg-right bg-no-repeat"
+        style={{ backgroundImage: "url('/images/regen/hero-photo.jpg')" }}
+      >
+        <div className="absolute inset-0 bg-gradient-to-r from-[#0c0b0c] via-[#0c0b0c]/55 to-transparent" />
+      </div>
 
-            <h1 className="mt-8 text-4xl font-semibold leading-tight tracking-tight text-neutral-900 sm:text-5xl lg:text-[3.25rem]">
-              {REGEN_HERO.headline}
-            </h1>
+      {/* Content */}
+      <div className="relative z-10 mx-auto max-w-[1280px] px-6 py-20 lg:py-24">
+        <h1 className="max-w-[13ch] text-[clamp(2.6rem,5.4vw,4.6rem)] font-bold leading-[1.0] tracking-tight">
+          We're simplifying your path to wellness
+          <span className="inline-block animate-[dotpulse_2.6s_ease-in-out_infinite] text-[#FF2D8E]">.</span>
+        </h1>
+        <div className="my-7 h-[3px] w-[120px] bg-[#FF2D8E]" />
+        <Link
+          href="#treatments"
+          className="inline-flex items-center gap-2 rounded-full bg-[#FF2D8E] px-7 py-4 text-base font-semibold shadow-lg transition hover:scale-[1.02] hover:shadow-xl"
+        >
+          Find your treatment
+        </Link>
 
-            <Link
-              href={REGEN_HERO.ctaHref}
-              className="mt-8 inline-flex items-center gap-2 rounded-lg bg-[#E6007E] px-6 py-3.5 text-sm font-semibold text-white shadow-lg shadow-[#E6007E]/25 transition hover:bg-[#FF2D8E]"
-            >
-              {REGEN_HERO.cta}
-              <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </svg>
-            </Link>
-
-            <div className="mt-10">
-              <SocialProofBadges />
-            </div>
+        {/* Floating product card */}
+        <div className="mt-9 flex max-w-[440px] gap-4 rounded-2xl bg-white p-4 text-black shadow-2xl">
+          <div className="flex h-24 w-24 flex-none items-center justify-center overflow-hidden rounded-xl bg-white p-1.5">
+            <Image
+              src="/images/regen/prod-tirzepatide.jpg"
+              alt="Compounded Tirzepatide"
+              width={96}
+              height={96}
+              className="h-full w-full object-contain"
+            />
           </div>
-
-          {/* Right — Featured product card */}
-          <div className="flex justify-center lg:justify-end">
-            <div className="w-full max-w-sm overflow-hidden rounded-2xl border border-neutral-200 bg-white shadow-xl">
-              <div className="relative bg-gradient-to-br from-neutral-50 to-neutral-100 p-8">
-                <span className="absolute left-4 top-4 flex items-center gap-1 rounded-full bg-amber-100 px-3 py-1 text-xs font-semibold text-amber-800">
-                  <span className="text-amber-500">★</span>
-                  {featuredProduct.badge}
-                </span>
-                <Image
-                  src={featuredProduct.image}
-                  alt={featuredProduct.name}
-                  width={180}
-                  height={220}
-                  className="mx-auto h-auto w-full max-w-[160px] object-contain"
-                  priority
-                />
-              </div>
-              <div className="p-5">
-                <p className="text-[10px] font-bold uppercase tracking-wider text-[#E6007E]">
-                  {featuredProduct.category}
-                </p>
-                <h3 className="mt-1 text-lg font-semibold text-neutral-900">
-                  {featuredProduct.name}
-                  {featuredProduct.rx && (
-                    <sup className="ml-1 text-xs font-medium text-neutral-400">Rx</sup>
-                  )}
-                </h3>
-                <div className="mt-4 flex gap-2">
-                  <Link
-                    href={featuredProduct.learnHref}
-                    className="flex-1 rounded-lg border border-neutral-300 py-2.5 text-center text-xs font-semibold text-neutral-700 transition hover:border-neutral-400"
-                  >
-                    Learn more
-                  </Link>
-                  <Link
-                    href={featuredProduct.startHref}
-                    className="flex-1 rounded-lg bg-[#E6007E] py-2.5 text-center text-xs font-semibold text-white transition hover:bg-[#FF2D8E]"
-                  >
-                    Get started
-                  </Link>
-                </div>
-              </div>
+          <div className="flex-1">
+            <span className="inline-flex items-center gap-1 rounded-full bg-[#FFF8E7] px-2.5 py-1 text-[10px] font-bold text-[#7a5b00]">
+              ★ Most Popular
+            </span>
+            <p className="mt-2 text-[11px] font-bold uppercase tracking-wider text-black/50">Weight Loss</p>
+            <p className="text-lg font-bold leading-tight">
+              Compounded Tirzepatide <span className="text-xs italic text-black/40">Rx</span>
+            </p>
+            <div className="mt-3 flex gap-2">
+              <Link
+                href="/rx/weight-loss"
+                className="flex-1 rounded-full border border-black/25 py-2.5 text-center text-xs font-semibold transition hover:border-black"
+              >
+                Learn more
+              </Link>
+              <Link
+                href="/rx/start"
+                className="flex-1 rounded-full bg-black py-2.5 text-center text-xs font-semibold text-white transition hover:bg-[#FF2D8E]"
+              >
+                Get started
+              </Link>
             </div>
           </div>
         </div>
@@ -155,101 +234,58 @@ function HeroSection() {
 }
 
 /* ─────────────────────────────────────────────────────────────
-   GOAL CARD
+   SOCIAL PROOF BAR
 ───────────────────────────────────────────────────────────── */
 
-function GoalIcon({ icon }: { icon: string }) {
-  const cls = "h-6 w-6";
-  switch (icon) {
-    case "scale":
-      return (
-        <svg className={cls} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3" />
-        </svg>
-      );
-    case "sun":
-      return (
-        <svg className={cls} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-        </svg>
-      );
-    case "heart":
-      return (
-        <svg className={cls} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-        </svg>
-      );
-    case "dna":
-      return (
-        <svg className={cls} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
-        </svg>
-      );
-    case "sparkle":
-      return (
-        <svg className={cls} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
-        </svg>
-      );
-    case "beaker":
-      return (
-        <svg className={cls} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
-        </svg>
-      );
-    default:
-      return null;
-  }
-}
-
-function GoalCard({ goal }: { goal: RegenGoal }) {
+function SocialProofBar() {
   return (
-    <Link
-      href={goal.href}
-      className="group flex items-center gap-4 rounded-xl border border-neutral-200 bg-white p-4 transition hover:border-[#E6007E]/30 hover:shadow-md"
-    >
-      <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-neutral-100 text-neutral-600 transition group-hover:bg-[#FFF0F7] group-hover:text-[#E6007E]">
-        <GoalIcon icon={goal.icon} />
+    <section className="bg-black text-white">
+      <div className="mx-auto flex max-w-[1280px] flex-wrap items-center justify-center gap-x-12 gap-y-4 px-6 py-7">
+        {SOCIAL_PROOF.map((item) => (
+          <div key={item.id} className="flex items-center gap-2.5 text-[15px]">
+            <span className="font-display text-[22px] font-bold text-[#FF2D8E]">{item.value}</span>
+            {item.label}
+          </div>
+        ))}
       </div>
-      <div className="flex-1">
-        <div className="flex items-center gap-2">
-          <span className="font-semibold text-neutral-900">{goal.title}</span>
-          {goal.tag && (
-            <span className="rounded bg-[#E6007E]/10 px-1.5 py-0.5 text-[10px] font-semibold text-[#E6007E]">
-              {goal.tag}
-            </span>
-          )}
-        </div>
-      </div>
-      <svg
-        className="h-5 w-5 text-neutral-300 transition group-hover:text-[#E6007E]"
-        fill="none"
-        stroke="currentColor"
-        viewBox="0 0 24 24"
-      >
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-      </svg>
-    </Link>
+    </section>
   );
 }
 
 /* ─────────────────────────────────────────────────────────────
-   SHOP BY GOAL SECTION
+   CATEGORY TILES
 ───────────────────────────────────────────────────────────── */
 
-function ShopByGoalSection() {
+function CategoryGrid() {
   return (
-    <section className="border-y border-neutral-100 bg-neutral-50 py-16">
-      <div className="mx-auto max-w-6xl px-4">
-        <p className="text-xs font-semibold uppercase tracking-widest text-neutral-500">
-          Shop by goal
-        </p>
-        <h2 className="mt-2 text-2xl font-semibold text-neutral-900 sm:text-3xl">
-          Prescription treatments for your health goals
+    <section id="treatments" className="bg-white py-16">
+      <div className="mx-auto max-w-[1280px] px-6">
+        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-black/50">Shop by goal</p>
+        <h2 className="mt-3 text-3xl font-bold">
+          Prescription treatments for your <span className="text-[#FF2D8E]">health goals</span>
         </h2>
-        <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-          {REGEN_GOALS.map((goal) => (
-            <GoalCard key={goal.id} goal={goal} />
+
+        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {CATEGORY_TILES.map((cat) => (
+            <Link
+              key={cat.id}
+              href={cat.href}
+              className="group flex min-h-[118px] items-center gap-4 rounded-2xl px-6 py-5 transition hover:-translate-y-1 hover:shadow-lg"
+              style={{ background: cat.tint }}
+            >
+              <span className="flex h-[62px] w-[62px] flex-none items-center justify-center rounded-xl bg-white/70 text-2xl">
+                {cat.icon}
+              </span>
+              <div className="flex-1">
+                <p className="text-xl font-bold leading-tight">{cat.title}</p>
+                <p className="mt-1 text-[13px] text-black/60">{cat.tag}</p>
+              </div>
+              <span className="flex h-10 w-10 flex-none items-center justify-center rounded-full bg-black text-white transition group-hover:bg-[#FF2D8E]">
+                <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.2} d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+              </span>
+            </Link>
           ))}
         </div>
       </div>
@@ -261,25 +297,23 @@ function ShopByGoalSection() {
    HOW IT WORKS
 ───────────────────────────────────────────────────────────── */
 
-function HowItWorksSection() {
+function HowItWorks() {
   return (
-    <section className="bg-white py-16">
-      <div className="mx-auto max-w-6xl px-4">
-        <p className="text-xs font-semibold uppercase tracking-widest text-neutral-500">
-          How it works
-        </p>
-        <h2 className="mt-2 text-2xl font-semibold text-neutral-900 sm:text-3xl">
-          {REGEN_HOW_IT_WORKS.headline}
+    <section className="bg-white pb-20 pt-5">
+      <div className="mx-auto max-w-[1100px] px-6 text-center">
+        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-black/50">How it works</p>
+        <h2 className="mt-3 text-3xl font-bold">
+          Care that's <span className="text-[#FF2D8E]">100% online</span>
         </h2>
 
-        <div className="mt-10 grid gap-8 sm:grid-cols-3">
-          {REGEN_HOW_IT_WORKS.steps.map((step) => (
-            <div key={step.number} className="relative">
-              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#E6007E] text-lg font-bold text-white">
-                {step.number}
+        <div className="mt-12 grid gap-10 sm:grid-cols-3">
+          {STEPS.map((step) => (
+            <div key={step.num} className="text-left">
+              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#FF2D8E] text-xl font-bold text-white">
+                {step.num}
               </div>
-              <h3 className="mt-4 text-lg font-semibold text-neutral-900">{step.title}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-neutral-600">{step.description}</p>
+              <h3 className="mt-4 text-lg font-bold">{step.title}</h3>
+              <p className="mt-2 text-[15px] leading-relaxed text-black/70">{step.body}</p>
             </div>
           ))}
         </div>
@@ -292,47 +326,50 @@ function HowItWorksSection() {
    WHY RE GEN
 ───────────────────────────────────────────────────────────── */
 
-function WhyRegenSection() {
+function WhyRegen() {
   return (
-    <section className="border-y border-neutral-100 bg-neutral-50 py-16">
-      <div className="mx-auto max-w-6xl px-4">
-        <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-widest text-neutral-500">
-              Why RE GEN
-            </p>
-            <h2 className="mt-2 text-2xl font-semibold text-neutral-900 sm:text-3xl">
-              {REGEN_WHY.headline}
-            </h2>
-            <p className="mt-4 text-base leading-relaxed text-neutral-600">{REGEN_WHY.intro}</p>
+    <section className="bg-black py-20 text-white">
+      <div className="mx-auto grid max-w-[1100px] items-center gap-14 px-6 lg:grid-cols-2">
+        <div>
+          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/50">Why RE GEN</p>
+          <h2 className="mt-3 text-3xl font-bold">
+            Real providers. <span className="text-[#FF2D8E]">Real medicine.</span>
+          </h2>
+          <p className="mt-5 text-lg leading-relaxed text-white/80">
+            RE GEN is the medical-prescription arm of Hello Gorgeous Med Spa — the #1 best med spa in Oswego. 
+            Founders Dani & Ryan, a female + male provider team, are on site weekly. Every plan is directed 
+            by a full-authority nurse practitioner.
+          </p>
 
-            <ul className="mt-8 space-y-4">
-              {REGEN_WHY.bullets.map((bullet) => (
-                <li key={bullet.id} className="flex gap-3">
-                  <span className="text-[#E6007E]">✦</span>
-                  <div>
-                    <span className="font-semibold text-neutral-900">{bullet.title}</span>
-                    <br />
-                    <span className="text-sm text-neutral-600">{bullet.description}</span>
-                  </div>
-                </li>
-              ))}
-            </ul>
-
-            <Link
-              href={`tel:+16306366193`}
-              className="mt-8 inline-flex items-center gap-2 rounded-lg border border-neutral-300 px-5 py-3 text-sm font-semibold text-neutral-700 transition hover:border-neutral-400"
-            >
-              Call {REGEN_SITE.phone}
-            </Link>
+          <div className="mt-8 space-y-4">
+            {WHY_BULLETS.map((b) => (
+              <div key={b.title} className="flex gap-3">
+                <span className="text-[#FF2D8E]">✦</span>
+                <div>
+                  <span className="font-bold">{b.title}</span>
+                  <br />
+                  <span className="text-[15px] text-white/65">{b.desc}</span>
+                </div>
+              </div>
+            ))}
           </div>
 
-          <div className="flex justify-center">
-            <div className="relative rounded-2xl bg-gradient-to-br from-[#0a0a1a] to-[#1a1a2e] p-8 text-white">
-              <RegenLogo width={160} className="brightness-0 invert" />
-              <p className="mt-4 text-lg font-light italic">— done surviving, ready to thrive</p>
-            </div>
-          </div>
+          <Link
+            href={PHONE_HREF}
+            className="mt-8 inline-flex items-center gap-2 rounded-full bg-[#FF2D8E] px-7 py-4 text-base font-semibold transition hover:scale-[1.02]"
+          >
+            Call {PHONE}
+          </Link>
+        </div>
+
+        <div className="overflow-hidden rounded-2xl bg-[#0c0b0c]">
+          <Image
+            src="/images/regen/banner-wellness.jpg"
+            alt="RE GEN — done surviving, ready to thrive"
+            width={600}
+            height={480}
+            className="w-full"
+          />
         </div>
       </div>
     </section>
@@ -340,44 +377,39 @@ function WhyRegenSection() {
 }
 
 /* ─────────────────────────────────────────────────────────────
-   FAQ SECTION
+   FAQ
 ───────────────────────────────────────────────────────────── */
 
-function FaqSection() {
-  const [openIndex, setOpenIndex] = useState<number | null>(null);
+function Faq() {
+  const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
-    <section className="bg-white py-16">
-      <div className="mx-auto max-w-3xl px-4">
-        <p className="text-xs font-semibold uppercase tracking-widest text-neutral-500">
-          Common questions
-        </p>
-        <h2 className="mt-2 text-2xl font-semibold text-neutral-900 sm:text-3xl">
-          {REGEN_FAQ.headline}
-        </h2>
+    <section className="bg-white py-20">
+      <div className="mx-auto max-w-[820px] px-6">
+        <div className="mb-9 text-center">
+          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-black/50">Common questions</p>
+          <h2 className="mt-3 text-3xl font-bold">
+            Good to <span className="text-[#FF2D8E]">know</span>
+          </h2>
+        </div>
 
-        <div className="mt-8 divide-y divide-neutral-200 border-y border-neutral-200">
-          {REGEN_FAQ.items.map((item, index) => (
-            <div key={index}>
-              <button
-                type="button"
-                onClick={() => setOpenIndex(openIndex === index ? null : index)}
-                className="flex w-full items-center justify-between gap-4 py-5 text-left"
-              >
-                <span className="font-semibold text-neutral-900">{item.q}</span>
-                <svg
-                  className={`h-5 w-5 shrink-0 text-neutral-400 transition ${openIndex === index ? "rotate-180" : ""}`}
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                </svg>
-              </button>
-              {openIndex === index && (
-                <p className="pb-5 text-sm leading-relaxed text-neutral-600">{item.a}</p>
-              )}
-            </div>
+        <div className="divide-y divide-black/10 border-y border-black/10">
+          {FAQ_ITEMS.map((item, i) => (
+            <details
+              key={i}
+              open={openIndex === i}
+              onToggle={(e) => {
+                if ((e.target as HTMLDetailsElement).open) setOpenIndex(i);
+              }}
+            >
+              <summary className="flex cursor-pointer list-none items-center justify-between gap-4 py-5 text-[19px] font-semibold">
+                {item.q}
+                <span className="text-2xl font-normal text-[#FF2D8E] transition-transform">
+                  {openIndex === i ? "×" : "+"}
+                </span>
+              </summary>
+              <p className="max-w-[70ch] pb-5 text-[16px] leading-[1.7] text-black/70">{item.a}</p>
+            </details>
           ))}
         </div>
       </div>
@@ -386,27 +418,29 @@ function FaqSection() {
 }
 
 /* ─────────────────────────────────────────────────────────────
-   CTA SECTION
+   CTA BAND
 ───────────────────────────────────────────────────────────── */
 
-function CtaSection() {
+function CtaBand() {
   return (
-    <section className="bg-gradient-to-br from-[#E6007E] to-[#9b0a4d] py-16 text-white">
-      <div className="mx-auto max-w-3xl px-4 text-center">
-        <h2 className="text-2xl font-semibold sm:text-3xl">{REGEN_CTA.headline}</h2>
-        <p className="mt-4 text-white/80">{REGEN_CTA.sub}</p>
-        <div className="mt-8 flex flex-wrap justify-center gap-3">
+    <section className="bg-gradient-to-br from-[#FF2D8E] to-[#E6007E] py-20 text-center text-white">
+      <div className="mx-auto max-w-[720px] px-6">
+        <h2 className="text-3xl font-bold">Ready to start feeling gorgeous?</h2>
+        <p className="mt-4 text-lg text-white/90">
+          Take the free intake — a provider will review and reach out, often same day.
+        </p>
+        <div className="mt-8 flex flex-wrap justify-center gap-4">
           <Link
-            href={REGEN_CTA.primaryHref}
-            className="inline-flex items-center gap-2 rounded-lg bg-white px-6 py-3.5 text-sm font-semibold text-[#E6007E] shadow-lg transition hover:bg-neutral-100"
+            href="/rx/start"
+            className="inline-flex items-center gap-2 rounded-full bg-white px-8 py-4 text-base font-semibold text-[#FF2D8E] transition hover:scale-[1.02]"
           >
-            {REGEN_CTA.primaryCta}
+            Get started
           </Link>
           <Link
-            href={REGEN_CTA.secondaryHref}
-            className="inline-flex items-center gap-2 rounded-lg border border-white/30 px-6 py-3.5 text-sm font-semibold text-white transition hover:bg-white/10"
+            href={PHONE_HREF}
+            className="inline-flex items-center gap-2 rounded-full border-2 border-white/30 px-8 py-4 text-base font-semibold transition hover:bg-white/10"
           >
-            {REGEN_CTA.secondaryCta}
+            Call {PHONE}
           </Link>
         </div>
       </div>
@@ -418,33 +452,37 @@ function CtaSection() {
    FOOTER
 ───────────────────────────────────────────────────────────── */
 
-function RegenFooter() {
+function Footer() {
   return (
-    <footer className="border-t border-neutral-200 bg-white py-12">
-      <div className="mx-auto max-w-6xl px-4">
-        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+    <footer className="bg-black text-white">
+      <div className="mx-auto max-w-[1280px] px-6 pb-9 pt-16">
+        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
           {/* Brand */}
           <div>
-            <RegenLogo width={140} />
-            <p className="mt-4 text-sm text-neutral-600">
-              {REGEN_SITE.address.street}
+            <Image
+              src="/images/regen/regen-logo-white.png"
+              alt="RE GEN"
+              width={140}
+              height={40}
+              className="h-10 w-auto"
+            />
+            <p className="mt-4 text-[15px] text-white/70">
+              74 W. Washington Street
               <br />
-              {REGEN_SITE.address.city}, {REGEN_SITE.address.state} {REGEN_SITE.address.zip}
+              Oswego, IL 60543
               <br />
-              {REGEN_SITE.phone}
+              {PHONE}
             </p>
           </div>
 
           {/* Treatments */}
           <div>
-            <h4 className="text-xs font-semibold uppercase tracking-wider text-neutral-500">
-              Treatments
-            </h4>
-            <ul className="mt-4 space-y-2">
-              {REGEN_GOALS.map((g) => (
-                <li key={g.id}>
-                  <Link href={g.href} className="text-sm text-neutral-600 hover:text-neutral-900">
-                    {g.title}
+            <h4 className="text-[13px] font-semibold uppercase tracking-wider text-white/60">Treatments</h4>
+            <ul className="mt-4 space-y-2.5">
+              {NAV_CATS.map((cat) => (
+                <li key={cat.title}>
+                  <Link href={cat.href} className="text-[15px] text-white/85 hover:text-[#FF2D8E]">
+                    {cat.title}
                   </Link>
                 </li>
               ))}
@@ -453,62 +491,30 @@ function RegenFooter() {
 
           {/* Company */}
           <div>
-            <h4 className="text-xs font-semibold uppercase tracking-wider text-neutral-500">
-              Company
-            </h4>
-            <ul className="mt-4 space-y-2">
-              <li>
-                <Link href="/rx" className="text-sm text-neutral-600 hover:text-neutral-900">
-                  RX Home
-                </Link>
-              </li>
-              <li>
-                <Link href="/rx/start" className="text-sm text-neutral-600 hover:text-neutral-900">
-                  Get started
-                </Link>
-              </li>
-              <li>
-                <Link href="/" className="text-sm text-neutral-600 hover:text-neutral-900">
-                  Hello Gorgeous Med Spa
-                </Link>
-              </li>
+            <h4 className="text-[13px] font-semibold uppercase tracking-wider text-white/60">Company</h4>
+            <ul className="mt-4 space-y-2.5">
+              <li><Link href="/rx" className="text-[15px] text-white/85 hover:text-[#FF2D8E]">RX Home</Link></li>
+              <li><Link href="/rx/start" className="text-[15px] text-white/85 hover:text-[#FF2D8E]">Get started</Link></li>
+              <li><Link href="/" className="text-[15px] text-white/85 hover:text-[#FF2D8E]">Hello Gorgeous Med Spa</Link></li>
             </ul>
           </div>
 
           {/* Get Started */}
           <div>
-            <h4 className="text-xs font-semibold uppercase tracking-wider text-neutral-500">
-              Get started
-            </h4>
-            <ul className="mt-4 space-y-2">
-              <li>
-                <Link href="/rx/start" className="text-sm text-neutral-600 hover:text-neutral-900">
-                  Free intake
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="tel:+16306366193"
-                  className="text-sm text-neutral-600 hover:text-neutral-900"
-                >
-                  Call us
-                </Link>
-              </li>
-              <li>
-                <Link href="/book" className="text-sm text-neutral-600 hover:text-neutral-900">
-                  Book on Fresha
-                </Link>
-              </li>
+            <h4 className="text-[13px] font-semibold uppercase tracking-wider text-white/60">Get started</h4>
+            <ul className="mt-4 space-y-2.5">
+              <li><Link href="/rx/start" className="text-[15px] text-white/85 hover:text-[#FF2D8E]">Free intake</Link></li>
+              <li><Link href={PHONE_HREF} className="text-[15px] text-white/85 hover:text-[#FF2D8E]">Call us</Link></li>
+              <li><Link href="/book" className="text-[15px] text-white/85 hover:text-[#FF2D8E]">Book on Fresha</Link></li>
             </ul>
           </div>
         </div>
 
-        {/* Disclaimer */}
-        <p className="mt-10 border-t border-neutral-200 pt-8 text-xs leading-relaxed text-neutral-500">
-          RE GEN by Hello Gorgeous Med Spa. Information on this site is for general educational
-          purposes and is not medical advice. Prescription products require evaluation by a licensed
-          provider, who determines whether treatment is appropriate. Some products are compounded by
-          a licensed pharmacy and are not FDA-approved. Individual results vary. © 2026 Hello
+        <p className="mt-10 max-w-[1000px] border-t border-white/12 pt-6 text-xs leading-relaxed text-white/50">
+          RE GEN by Hello Gorgeous Med Spa. Information on this site is for general educational purposes and is not 
+          medical advice. Prescription products require evaluation by a licensed provider, who determines whether 
+          treatment is appropriate. Some products are compounded by a licensed pharmacy and are not FDA-approved. 
+          Individual results vary. Patient information is treated as protected health information. © 2026 Hello 
           Gorgeous Med Spa.
         </p>
       </div>
@@ -522,16 +528,27 @@ function RegenFooter() {
 
 export function RegenSiteLanding() {
   return (
-    <div className="min-h-[100dvh] bg-white">
-      <TrustBar />
-      <HeroSection />
-      <ShopByGoalSection />
-      <HowItWorksSection />
-      <LabsBanner />
-      <WhyRegenSection />
-      <FaqSection />
-      <CtaSection />
-      <RegenFooter />
+    <div className="min-h-[100dvh]">
+      <style jsx global>{`
+        @keyframes kenburns {
+          from { transform: scale(1) translateX(0); }
+          to { transform: scale(1.13) translateX(-2%); }
+        }
+        @keyframes dotpulse {
+          0%, 100% { transform: scale(1); opacity: 1; }
+          50% { transform: scale(1.7); opacity: 0.55; }
+        }
+      `}</style>
+      <UtilityBar />
+      <Nav />
+      <Hero />
+      <SocialProofBar />
+      <CategoryGrid />
+      <HowItWorks />
+      <WhyRegen />
+      <Faq />
+      <CtaBand />
+      <Footer />
     </div>
   );
 }
