@@ -133,6 +133,15 @@
   .rgx-prod .acts { display:flex; gap:9px; margin-top:auto; }
   .rgx-btn-dark { flex:1; background:#000; color:#fff; border:none; border-radius:24px; padding:11px 8px; font-weight:600; font-size:14px; cursor:pointer; transition:background .2s; font-family:var(--font-body); }
   .rgx-btn-dark:hover { background:var(--hg-pink); }
+  .rgx-btn-sm { background:var(--hg-pink); color:#fff; border:none; border-radius:16px; padding:6px 14px; font-weight:600; font-size:12px; cursor:pointer; transition:background .2s; font-family:var(--font-body); white-space:nowrap; }
+  .rgx-btn-sm:hover { background:#000; }
+  .rgx-supply-toggle { display:inline-flex; background:#f0f0f0; border-radius:25px; padding:3px; }
+  .rgx-supply-btn { background:transparent; border:none; padding:8px 16px; border-radius:22px; font-size:13px; font-weight:600; cursor:pointer; transition:all .2s; font-family:var(--font-body); display:flex; align-items:center; gap:6px; }
+  .rgx-supply-btn.active { background:#fff; box-shadow:0 2px 8px rgba(0,0,0,.1); }
+  .rgx-supply-btn .savings { background:var(--hg-pink); color:#fff; font-size:10px; padding:2px 6px; border-radius:10px; }
+  .rgx-price-col { display:flex; flex-direction:column; align-items:flex-end; gap:2px; }
+  .rgx-price-col .og { text-decoration:line-through; color:rgba(0,0,0,.4); font-size:12px; }
+  .rgx-price-col .save-tag { background:var(--hg-pink); color:#fff; font-size:10px; font-weight:700; padding:2px 6px; border-radius:10px; }
   .rgx-btn-ghost { flex:1; background:#fff; color:#000; border:1px solid rgba(0,0,0,.25); border-radius:24px; padding:11px 8px; font-weight:600; font-size:14px; cursor:pointer; transition:all .2s; font-family:var(--font-body); }
   .rgx-btn-ghost:hover { border-color:#000; }
   .rgx-prodbadge { position:absolute; top:12px; left:12px; background:var(--hg-gold-soft); color:#7a5b00; font-size:11px; font-weight:700; padding:5px 10px; border-radius:20px; z-index:2; }
@@ -439,7 +448,12 @@
                 <span class="rgx-stock"><span class="dot"></span> In stock</span>
                 <p class="nm">{{ p.name }}</p>
                 <p class="mol">{{ p.mol }}</p>
-                <p class="pr">{{ p.price }} <small>{{ p.unit }}</small></p>
+                <div class="rgx-price-col" style="align-items:flex-start;">
+                  <sc-if value="{{ p.is3Month }}">
+                    <span class="og">{{ p.price3Full }}</span>
+                  </sc-if>
+                  <p class="pr" style="margin:0;">{{ p.displayPrice }} <small>{{ p.unit }}</small></p>
+                </div>
                 <div class="acts">
                   <button class="rgx-btn-ghost" onClick="{{ openQuiz }}">Learn more</button>
                   <button class="rgx-btn-dark" onClick="{{ p.add }}">Add to cart</button>
@@ -460,12 +474,42 @@
 
     <section id="options" class="section-white" style="padding:10px 24px 80px;">
       <div class="rgx-subhead">All options &amp; transparent pricing</div>
+      <div style="max-width:980px;margin:0 auto 16px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
+        <div class="rgx-supply-toggle">
+          <button class="rgx-supply-btn {{ supplyBtnClass1 }}" onClick="{{ setSupply1 }}">1 Month</button>
+          <button class="rgx-supply-btn {{ supplyBtnClass3 }}" onClick="{{ setSupply3 }}">3 Months <span class="savings">Save 10%</span></button>
+        </div>
+        <sc-if value="{{ is3Month }}">
+          <span style="font-size:13px;color:var(--hg-pink);font-weight:600;">✓ 10% savings applied</span>
+        </sc-if>
+      </div>
       <div class="rgx-tablewrap">
         <table class="rgx-table">
-          <thead><tr><th>{{ active.colName }}</th><th>{{ active.colDetail }}</th><th class="r">Price</th></tr></thead>
+          <thead><tr><th>{{ active.colName }}</th><th>{{ active.colDetail }}</th><th class="r">{{ supplyLabel }}</th><th></th></tr></thead>
           <tbody>
             <sc-for list="{{ active.rows }}" as="r" hint-placeholder-count="8">
-              <tr><td class="nm">{{ r.name }}</td><td class="det">{{ r.detail }}</td><td class="r"><span class="pr">{{ r.price }}</span></td></tr>
+              <tr>
+                <td class="nm">{{ r.name }}</td>
+                <td class="det">{{ r.detail }}</td>
+                <td class="r">
+                  <sc-if value="{{ r.canBuy }}">
+                    <div class="rgx-price-col">
+                      <sc-if value="{{ is3Month }}">
+                        <span class="og">{{ r.price3Full }}</span>
+                      </sc-if>
+                      <span class="pr">{{ r.displayPrice }}</span>
+                    </div>
+                  </sc-if>
+                  <sc-if value="{{ r.cantBuy }}">
+                    <span class="pr">{{ r.price }}</span>
+                  </sc-if>
+                </td>
+                <td class="r">
+                  <sc-if value="{{ r.canBuy }}">
+                    <button class="rgx-btn-sm" onClick="{{ r.add }}">Add</button>
+                  </sc-if>
+                </td>
+              </tr>
             </sc-for>
           </tbody>
         </table>
@@ -914,7 +958,7 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:&quot;100%&quot;,&quot;height&quot;:&quot;100%&quot;}}">
 class Component extends DCLogic {
-  state = { view: 'hub', cat: 'weight-loss', cartOpen: false, cart: [], menuOpen: false, quizOpen: false, quizStep: 0, quizGoal: '', logoOpen: false };
+  state = { view: 'hub', cat: 'weight-loss', cartOpen: false, cart: [], menuOpen: false, quizOpen: false, quizStep: 0, quizGoal: '', logoOpen: false, supplyMonths: 1 };
 
   cats() {
     if (this._cats) return this._cats;
@@ -922,8 +966,19 @@ class Component extends DCLogic {
     const fmt = n => '$' + (Number.isInteger(n) ? n.toLocaleString('en-US') : n.toFixed(2));
     const m = w => fmt(x(w));
     const T = { pink:'#F7E9F0', sand:'#EFE9E2', mist:'#E7EBF0', clay:'#F0EAE6', lilac:'#F3ECF5', sage:'#E9EFEA', white:'#F7F5F3' };
-    const prod = (name, mol, w, unit, tint, badge, img) => ({ name, mol, priceN: x(w), price: m(w), unit: unit||'', tint, badge: badge||'', img: img||'' });
-    const row = (name, detail, w) => ({ name, detail, price: (typeof w === 'string' ? w : m(w)) });
+    const prod = (name, mol, w, unit, tint, badge, img) => {
+      const price1 = x(w);
+      const price3Full = price1 * 3;
+      const price3 = Math.round(price3Full * 0.9 * 100) / 100;
+      return { name, mol, priceN: price1, price: m(w), price3N: price3, price3Full: fmt(price3Full), unit: unit||'', tint, badge: badge||'', img: img||'' };
+    };
+    const row = (name, detail, w) => {
+      const isNum = typeof w === 'number';
+      const price1 = isNum ? x(w) : null;
+      const price3Full = isNum ? price1 * 3 : null;
+      const price3 = isNum ? Math.round(price3Full * 0.9 * 100) / 100 : null;
+      return { name, detail, price: (isNum ? m(w) : w), priceN: price1, price3N: price3, price3Full: price3Full ? fmt(price3Full) : null, canBuy: isNum, cantBuy: !isNum };
+    };
 
     this._cats = [
       {
@@ -1176,7 +1231,20 @@ class Component extends DCLogic {
       hasEditorial: !!(active.editorial && active.editorial.length),
       editorialHeadHtml: { __html: active.editorialHead || '' },
       editorialItems: (active.editorial || []).map((src,i) => ({ imgEl: React.createElement('img', { src: this.R(src), alt: active.title + ' — ' + (i+1), style:{ width:'100%', display:'block' } }) })),
-      products: (active.products || []).map(p => ({ ...p, add:() => this.addToCart(p), noimg: !p.img, imgEl: p.img ? React.createElement('img', { className:'pimg', src:this.R(p.img), alt:p.name }) : null })),
+      products: (active.products || []).map(p => {
+        const is3 = this.state.supplyMonths === 3;
+        const priceN = is3 ? p.price3N : p.priceN;
+        const displayPrice = this.fmt(priceN);
+        const supplyLabel = is3 ? '3-month supply' : '1-month supply';
+        return { ...p, displayPrice, price3Full: p.price3Full, is3Month: is3, add:() => this.addToCart({ ...p, name: p.name + ' (' + supplyLabel + ')', priceN, price: displayPrice }), noimg: !p.img, imgEl: p.img ? React.createElement('img', { className:'pimg', src:this.R(p.img), alt:p.name }) : null };
+      }),
+      rows: (active.rows || []).map(r => {
+        const is3 = this.state.supplyMonths === 3;
+        const priceN = is3 ? r.price3N : r.priceN;
+        const displayPrice = r.canBuy ? this.fmt(priceN) : r.price;
+        const supplyLabel = is3 ? '3-month supply' : '1-month supply';
+        return { ...r, displayPrice, add: r.canBuy ? () => this.addToCart({ name: r.name + ' — ' + r.detail + ' (' + supplyLabel + ')', priceN, price: displayPrice, unit: '' }) : null };
+      }),
       banners: (active.banners || []).map(b => ({ ...b, go:() => this.setState({ quizOpen:true, quizStep:0, quizGoal:active.id }), imgEl: React.createElement('img', { src:this.R(b.img), alt:b.alt, style:{ width:'100%', display:'block' } }) })),
       bannerMode: !!active.banners,
       cardMode: !active.banners
@@ -1222,6 +1290,13 @@ class Component extends DCLogic {
       shipping: cart.length ? '$30' : '$0',
       total: this.fmt(sub + ship),
       checkout:() => { this.setState({ cartOpen:false, quizOpen:true, quizStep:0, quizGoal:'' }); },
+      supplyMonths: this.state.supplyMonths,
+      is3Month: this.state.supplyMonths === 3,
+      supplyLabel: this.state.supplyMonths === 3 ? '3-Month Price' : 'Price',
+      supplyBtnClass1: this.state.supplyMonths === 1 ? 'active' : '',
+      supplyBtnClass3: this.state.supplyMonths === 3 ? 'active' : '',
+      setSupply1:() => this.setState({ supplyMonths: 1 }),
+      setSupply3:() => this.setState({ supplyMonths: 3 }),
       openMenu:() => this.setState({ menuOpen:true }),
       closeMenu:() => this.setState({ menuOpen:false }),
       menuOpen: this.state.menuOpen,
