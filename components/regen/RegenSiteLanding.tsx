@@ -45,7 +45,7 @@ export function RegenSiteLanding() {
         .rgx-login:hover { border-color:var(--hg-pink); color:var(--hg-pink); }
         .rgx-burger { display:none; background:none; border:none; color:#fff; cursor:pointer; padding:4px; }
         .rgx-hero { position:relative; background:#0c0b0c; color:#fff; overflow:hidden; min-height:600px; display:flex; align-items:center; }
-        .rgx-hero-img { position:absolute; inset:0 0 0 40%; background:#0c0b0c url("/images/regen/hero-photo.jpg") right center / cover no-repeat; animation: rgx-kenburns 24s ease-in-out infinite alternate; transform-origin:center; }
+        .rgx-hero-img { position:absolute; inset:0 0 0 40%; background:#0c0b0c right center / cover no-repeat; animation: rgx-kenburns 24s ease-in-out infinite alternate; transform-origin:center; }
         .rgx-hero-img::after { content:""; position:absolute; inset:0; background:linear-gradient(90deg,#0c0b0c 2%,rgba(12,11,12,.55) 26%,rgba(12,11,12,0) 58%); }
         .rgx-hero-in { position:relative; z-index:2; max-width:1280px; margin:0 auto; padding:90px 24px; width:100%; }
         .rgx-hero h1 { color:#fff; font-family:var(--font-display); font-size:clamp(2.6rem,5.4vw,4.6rem); line-height:1.0; max-width:13ch; margin:0; font-weight:700; animation: rgx-fadeup .9s var(--ease-out) both; }
@@ -174,7 +174,7 @@ export function RegenSiteLanding() {
 
         {/* ============ HERO ============ */}
         <section className="rgx-hero">
-          <div className="rgx-hero-img"></div>
+          <div className="rgx-hero-img" style={{backgroundImage: 'url(/images/regen/hero-photo.jpg)'}}></div>
           <div className="rgx-hero-in">
             <h1>We're simplifying your path to wellness<span className="dot">.</span></h1>
             <div className="rule"></div>
