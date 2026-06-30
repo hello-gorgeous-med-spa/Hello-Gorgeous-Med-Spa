@@ -144,15 +144,15 @@ export function PortalRxDashboard() {
   return (
     <div className="space-y-8 max-w-3xl">
       <Link
-        href="/rx/request"
+        href="/rx"
         className="block rounded-2xl border-2 border-black bg-gradient-to-r from-[#0a0a0f] to-[#2d1020] p-5 text-white shadow-[4px_4px_0_0_rgba(230,0,126,0.35)] transition hover:-translate-y-0.5"
       >
-        <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#FFB8DC]">New prescription?</p>
-        <p className="mt-1 text-lg font-bold">Open the RX Request Portal</p>
+        <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#FFB8DC]">RE GEN</p>
+        <p className="mt-1 text-lg font-bold">Shop the RE GEN Storefront</p>
         <p className="mt-1 text-sm text-white/70">
-          Pick your goal, see published pricing, and start intake — NP reviews every order.
+          Weight loss, peptides, hormones, sexual health — browse products, start intake, NP reviews every order.
         </p>
-        <span className="mt-3 inline-flex text-sm font-semibold text-[#FFB8DC]">Browse treatments →</span>
+        <span className="mt-3 inline-flex text-sm font-semibold text-[#FFB8DC]">Browse RE GEN →</span>
       </Link>
 
       <div>

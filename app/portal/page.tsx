@@ -16,6 +16,7 @@ function Skeleton({ className = '' }: { className?: string }) {
 
 const QUICK_ACTIONS = [
   { title: 'Book Appointment', description: 'Schedule your next visit', href: BOOKING_URL, icon: '📅', color: 'from-[#FF2D8E] to-[#c90a68]', primary: true, external: true },
+  { title: 'RE GEN Shop', description: 'Weight loss, peptides & more', href: '/rx', icon: '🛒', color: 'from-[#0a0a0f] to-[#2d1020] text-white' },
   { title: 'My RX', description: 'Track refills & pay invoices', href: '/portal/rx', icon: '💊', color: 'from-[#E6007E] to-[#9b0a4d] text-white', rx: true },
   { title: 'Lab Insights', description: 'Upload hormone labs for AI insights', href: '/portal/labs', icon: '🧪', color: 'bg-white border border-black' },
   { title: 'My Documents', description: 'Access your records', href: '/portal/documents', icon: '📁', color: 'bg-white border border-black' },
