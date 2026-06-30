@@ -89,7 +89,13 @@ if [[ "$REMAINING" != "0" ]]; then
   exit 1
 fi
 
+# --- restore custom overrides (images that live in /images/regen/ instead of assets/) ---
+# These are referenced by absolute paths in the HTML so they persist across exports.
+echo "✅ Custom images stay in /images/regen/ (not overwritten by export)"
+
 echo
 echo "🎉 RE GEN site updated and CSP-safe (0 unpkg references)."
 echo "   Next:  npm run dev   →   open http://localhost:3000/rx   to review"
 echo "   Then:  git add public/regen-site && git commit && git push"
+echo
+echo "📝 Note: Custom images live in public/images/regen/ — edit there, not in regen-site/assets/"
