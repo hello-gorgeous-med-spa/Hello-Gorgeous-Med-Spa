@@ -71,9 +71,9 @@ const nextConfig = {
   headers: async () => [
     // Global security headers — do NOT use source "/(.*)": that matches /docs/* and stacks a second CSP.
     // Multiple CSPs are intersected; frame-ancestors 'none' (global) + explicit hosts (/docs) still forbids iframes.
-    // Exempt: embeddable HTML (public/docs, public/forms, education handouts) — see dedicated blocks below.
+    // Exempt: embeddable HTML (public/docs, public/forms, education handouts, RE GEN site) — see dedicated blocks below.
     {
-      source: "/((?!docs$|docs/|forms/|handouts/education/).*)",
+      source: "/((?!docs$|docs/|forms/|handouts/education/|regen-site/).*)",
       headers: [
         { key: "X-Frame-Options", value: "DENY" },
         { key: "X-Content-Type-Options", value: "nosniff" },
@@ -137,6 +137,16 @@ const nextConfig = {
     // Education handouts embedded on /education/your-brow-journey
     {
       source: "/handouts/education/:path*",
+      headers: [
+        { key: "X-Frame-Options", value: "SAMEORIGIN" },
+        { key: "Content-Security-Policy", value: EMBEDDABLE_HTML_CSP },
+      ],
+    },
+    // RE GEN site (public/regen-site) — the prescription-arm prototype iframed on /rx.
+    // Needs SAMEORIGIN framing + 'self' scripts (React/ReactDOM/Babel are vendored under
+    // /regen-site/vendor) so it isn't blocked by the global DENY / unpkg-less script-src.
+    {
+      source: "/regen-site/:path*",
       headers: [
         { key: "X-Frame-Options", value: "SAMEORIGIN" },
         { key: "Content-Security-Policy", value: EMBEDDABLE_HTML_CSP },
