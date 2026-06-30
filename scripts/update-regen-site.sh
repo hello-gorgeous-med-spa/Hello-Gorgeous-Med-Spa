@@ -93,6 +93,19 @@ fi
 # These are referenced by absolute paths in the HTML so they persist across exports.
 echo "✅ Custom images stay in /images/regen/ (not overwritten by export)"
 
+# --- add Hello Gorgeous integration script (login + checkout wiring) ---
+if [[ ! -f "$DEST/hg-integration.js" ]]; then
+  echo "⚠️  hg-integration.js missing — copy it from a previous deploy or regenerate"
+else
+  # Ensure the script tag is in the HTML
+  if ! grep -q 'hg-integration.js' "$DEST/index.html"; then
+    sed -i '' 's|</body>|<script src="hg-integration.js"></script>\n</body>|' "$DEST/index.html"
+    echo "✅ Added hg-integration.js to index.html"
+  else
+    echo "✅ hg-integration.js already in index.html"
+  fi
+fi
+
 echo
 echo "🎉 RE GEN site updated and CSP-safe (0 unpkg references)."
 echo "   Next:  npm run dev   →   open http://localhost:3000/rx   to review"
