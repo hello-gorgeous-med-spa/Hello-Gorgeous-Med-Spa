@@ -3,7 +3,7 @@
  * "Done surviving. Ready to thrive."
  */
 
-import { GLP1_INTAKE_PATH, LABS_HUB_PATH, PEPTIDE_REQUEST_PATH } from "@/lib/flows";
+import { GLP1_INTAKE_PATH } from "@/lib/flows";
 
 /* ─────────────────────────────────────────────────────────────
    BRAND
@@ -144,7 +144,7 @@ export const REGEN_GOALS: RegenGoal[] = [
     id: "labs",
     title: "Labs",
     icon: "beaker",
-    href: LABS_HUB_PATH,
+    href: "/labs",
     eyebrow: "Blood panels",
     headline: "Know your numbers.",
     sub: "Comprehensive panels through Access Medical Labs — results in days, not weeks.",

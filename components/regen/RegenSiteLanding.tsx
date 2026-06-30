@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 
+import { LabsBanner } from "@/components/regen/RegenLabsSection";
 import { RegenLogo } from "@/components/regen/RegenLogo";
 import {
   REGEN_CTA,
@@ -11,7 +12,6 @@ import {
   REGEN_GOALS,
   REGEN_HERO,
   REGEN_HOW_IT_WORKS,
-  REGEN_LAB_PANELS,
   REGEN_SITE,
   REGEN_SOCIAL_PROOF,
   REGEN_TRUST_BAR,
@@ -527,6 +527,7 @@ export function RegenSiteLanding() {
       <HeroSection />
       <ShopByGoalSection />
       <HowItWorksSection />
+      <LabsBanner />
       <WhyRegenSection />
       <FaqSection />
       <CtaSection />
