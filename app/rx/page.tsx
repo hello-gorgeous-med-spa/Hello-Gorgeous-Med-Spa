@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 export default function RxPage() {
   return (
     <iframe
-      src="/regen-standalone.html"
+      src="/regen-site/index.html"
       style={{
         width: "100%",
         height: "100vh",

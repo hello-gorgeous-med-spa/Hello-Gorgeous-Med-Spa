@@ -1,0 +1,1236 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+<!-- Resources referenced as strings in JS (React.createElement) — lifted so the bundler inlines them -->
+<meta name="ext-resource-dependency" content="assets/hero-photo.jpg" data-resource-id="assets/hero-photo.jpg" />
+<meta name="ext-resource-dependency" content="assets/prod-semaglutide.jpg" data-resource-id="assets/prod-semaglutide.jpg" />
+<meta name="ext-resource-dependency" content="assets/prod-tirzepatide.jpg" data-resource-id="assets/prod-tirzepatide.jpg" />
+<meta name="ext-resource-dependency" content="assets/prod-lipomino.jpg" data-resource-id="assets/prod-lipomino.jpg" />
+<meta name="ext-resource-dependency" content="assets/prod-nad-sermorelin.png" data-resource-id="assets/prod-nad-sermorelin.png" />
+<meta name="ext-resource-dependency" content="assets/banner-wellness.jpg" data-resource-id="assets/banner-wellness.jpg" />
+<meta name="ext-resource-dependency" content="assets/hero-nad.jpg" data-resource-id="assets/hero-nad.jpg" />
+<meta name="ext-resource-dependency" content="assets/dw-ed1.jpg" data-resource-id="assets/dw-ed1.jpg" />
+<meta name="ext-resource-dependency" content="assets/dw-ed2.jpg" data-resource-id="assets/dw-ed2.jpg" />
+<meta name="ext-resource-dependency" content="assets/dw-ed3.jpg" data-resource-id="assets/dw-ed3.jpg" />
+<meta name="ext-resource-dependency" content="assets/dw-ed4.jpg" data-resource-id="assets/dw-ed4.jpg" />
+<meta name="ext-resource-dependency" content="assets/prod-nadvantage.jpg" data-resource-id="assets/prod-nadvantage.jpg" />
+<meta name="ext-resource-dependency" content="assets/prod-vitd3.png" data-resource-id="assets/prod-vitd3.png" />
+<meta name="ext-resource-dependency" content="assets/hero-vitamin-injections.jpg" data-resource-id="assets/hero-vitamin-injections.jpg" />
+<meta name="ext-resource-dependency" content="assets/lifestyle-b12.jpg" data-resource-id="assets/lifestyle-b12.jpg" />
+<meta name="ext-resource-dependency" content="assets/hero-ldn.jpg" data-resource-id="assets/hero-ldn.jpg" />
+<meta name="ext-resource-dependency" content="assets/prod-b12.png" data-resource-id="assets/prod-b12.png" />
+<meta name="ext-resource-dependency" content="assets/prod-glutathione.png" data-resource-id="assets/prod-glutathione.png" />
+<meta name="ext-resource-dependency" content="assets/sh-couple.jpg" data-resource-id="assets/sh-couple.jpg" />
+<meta name="ext-resource-dependency" content="assets/prod-sildenafil.jpg" data-resource-id="assets/prod-sildenafil.jpg" />
+<meta name="ext-resource-dependency" content="assets/prod-tadalafil.jpg" data-resource-id="assets/prod-tadalafil.jpg" />
+<meta name="ext-resource-dependency" content="assets/prod-maxxpe.jpg" data-resource-id="assets/prod-maxxpe.jpg" />
+<meta name="ext-resource-dependency" content="assets/prod-screamcream.jpg" data-resource-id="assets/prod-screamcream.jpg" />
+<meta name="ext-resource-dependency" content="assets/banner-h6.jpg" data-resource-id="assets/banner-h6.jpg" />
+<meta name="ext-resource-dependency" content="assets/banner-enclomiphene.jpg" data-resource-id="assets/banner-enclomiphene.jpg" />
+<meta name="ext-resource-dependency" content="assets/banner-hcg.jpg" data-resource-id="assets/banner-hcg.jpg" />
+<meta name="ext-resource-dependency" content="assets/banner-h2.jpg" data-resource-id="assets/banner-h2.jpg" />
+<meta name="ext-resource-dependency" content="assets/banner-h1.jpg" data-resource-id="assets/banner-h1.jpg" />
+<meta name="ext-resource-dependency" content="assets/banner-h3.jpg" data-resource-id="assets/banner-h3.jpg" />
+<meta name="ext-resource-dependency" content="assets/banner-h4.jpg" data-resource-id="assets/banner-h4.jpg" />
+<meta name="ext-resource-dependency" content="assets/banner-h5.jpg" data-resource-id="assets/banner-h5.jpg" />
+<meta name="ext-resource-dependency" content="assets/prod-manetain.png" data-resource-id="assets/prod-manetain.png" />
+<meta name="ext-resource-dependency" content="assets/prod-glow.jpg" data-resource-id="assets/prod-glow.jpg" />
+<meta name="ext-resource-dependency" content="assets/prod-miracle.jpg" data-resource-id="assets/prod-miracle.jpg" />
+<meta name="ext-resource-dependency" content="assets/prod-erase.jpg" data-resource-id="assets/prod-erase.jpg" />
+<meta name="ext-resource-dependency" content="assets/hero-hair.jpg" data-resource-id="assets/hero-hair.jpg" />
+<template id="__bundler_thumbnail" data-bg-color="#000000">
+  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+    <rect width="1200" height="800" fill="#000000"/>
+    <text x="600" y="380" font-family="Georgia, serif" font-size="150" font-weight="700" fill="#ffffff" text-anchor="middle">RE GEN</text>
+    <circle cx="855" cy="320" r="22" fill="#FF2D8E"/>
+    <text x="600" y="470" font-family="Helvetica, Arial, sans-serif" font-size="34" letter-spacing="6" fill="#FF2D8E" text-anchor="middle">RX</text>
+  </svg>
+</template>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/hello-gorgeous-design-system-e2c42b49-2a75-4fd9-8346-7cd2672ec52b/tokens/fonts.css">
+<link rel="stylesheet" href="_ds/hello-gorgeous-design-system-e2c42b49-2a75-4fd9-8346-7cd2672ec52b/tokens/colors.css">
+<link rel="stylesheet" href="_ds/hello-gorgeous-design-system-e2c42b49-2a75-4fd9-8346-7cd2672ec52b/tokens/typography.css">
+<link rel="stylesheet" href="_ds/hello-gorgeous-design-system-e2c42b49-2a75-4fd9-8346-7cd2672ec52b/tokens/spacing.css">
+<link rel="stylesheet" href="_ds/hello-gorgeous-design-system-e2c42b49-2a75-4fd9-8346-7cd2672ec52b/tokens/base.css">
+<link rel="stylesheet" href="_ds/hello-gorgeous-design-system-e2c42b49-2a75-4fd9-8346-7cd2672ec52b/styles.css">
+<script src="_ds/hello-gorgeous-design-system-e2c42b49-2a75-4fd9-8346-7cd2672ec52b/_ds_bundle.js"></script>
+<style>
+  .rgx { font-family: var(--font-body); color:#000; }
+  .rgx a { text-decoration:none; }
+  .rgx .btn { transition: transform .25s var(--ease-out), box-shadow .25s var(--ease-out); }
+  .rgx-util { background:#000; color:#fff; border-bottom:1px solid rgba(255,255,255,.1); }
+  .rgx-util-in { max-width:1280px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; gap:20px; padding:9px 24px; font-size:11.5px; letter-spacing:.12em; text-transform:uppercase; font-weight:600; color:rgba(255,255,255,.82); }
+  .rgx-util .u { display:inline-flex; align-items:center; gap:8px; }
+  .rgx-nav { position:sticky; top:0; z-index:40; background:#000; color:#fff; }
+  .rgx-nav-in { max-width:1280px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; padding:12px 24px; gap:24px; }
+  .rgx-logo { height:46px; width:auto; display:block; }
+  .rgx-links { display:flex; gap:8px; align-items:center; }
+  .rgx-links button { background:none; border:none; color:#fff; font-family:var(--font-body); font-size:15px; font-weight:500; cursor:pointer; padding:6px 12px; letter-spacing:.01em; opacity:.92; transition:color .2s,opacity .2s; display:inline-flex; align-items:center; }
+  .rgx-links button:not(:first-child)::before { content:""; width:5px; height:5px; border-radius:50%; background:var(--hg-pink); opacity:.85; display:inline-block; margin-right:20px; }
+  .rgx-links button:hover { color:var(--hg-pink); opacity:1; }
+  .rgx-icons { display:flex; gap:16px; align-items:center; }
+  .rgx-iconbtn { background:none; border:none; color:#fff; cursor:pointer; display:inline-flex; position:relative; padding:4px; }
+  .rgx-iconbtn:hover { color:var(--hg-pink); }
+  .rgx-login { display:inline-flex; align-items:center; gap:7px; border:1px solid rgba(255,255,255,.4); color:#fff; background:none; border-radius:24px; padding:9px 18px; font-size:14px; font-weight:600; cursor:pointer; font-family:var(--font-body); transition:all .2s; white-space:nowrap; }
+  .rgx-login:hover { border-color:var(--hg-pink); color:var(--hg-pink); }
+  .rgx-cartcount { position:absolute; top:-4px; right:-6px; background:var(--hg-pink); color:#fff; font-size:10px; font-weight:700; min-width:16px; height:16px; border-radius:8px; display:flex; align-items:center; justify-content:center; padding:0 4px; }
+  .rgx-burger { display:none; background:none; border:none; color:#fff; cursor:pointer; }
+  .rgx-hero { position:relative; background:#0c0b0c; color:#fff; overflow:hidden; min-height:600px; display:flex; align-items:center; }
+  .rgx-hero-img { position:absolute; inset:0 0 0 40%; background:#0c0b0c url("assets/hero-photo.jpg") right center / cover no-repeat; }
+  .rgx-hero-img::after { content:""; position:absolute; inset:0; background:linear-gradient(90deg,#0c0b0c 2%,rgba(12,11,12,.55) 26%,rgba(12,11,12,0) 58%); }
+  .rgx-hero-in { position:relative; z-index:2; max-width:1280px; margin:0 auto; padding:90px 24px; width:100%; }
+  .rgx-hero h1 { color:#fff; font-size:clamp(2.6rem,5.4vw,4.6rem); line-height:1.0; max-width:13ch; margin:0; }
+  .rgx-hero h1 .dot { color:var(--hg-pink); }
+  .rgx-hero .rule { width:120px; height:3px; background:var(--hg-pink); margin:26px 0 30px; }
+  /* ---- ambient hero motion (no video file) ---- */
+  @keyframes rgx-kenburns { from { transform:scale(1) translateX(0); } to { transform:scale(1.13) translateX(-2%); } }
+  @keyframes rgx-fadeup { from { opacity:0; transform:translateY(26px); } to { opacity:1; transform:translateY(0); } }
+  @keyframes rgx-dotpulse { 0%,100% { transform:scale(1); opacity:1; } 50% { transform:scale(1.7); opacity:.55; } }
+  .rgx-hero-img { animation: rgx-kenburns 24s ease-in-out infinite alternate; transform-origin:center; will-change:transform; }
+  .rgx-hero h1 { animation: rgx-fadeup .9s var(--ease-out) both; }
+  .rgx-hero .rule { animation: rgx-fadeup .9s .12s var(--ease-out) both; }
+  .rgx-hero-in > a.btn { animation: rgx-fadeup .9s .26s var(--ease-out) both; }
+  .rgx-floatcard { animation: rgx-fadeup 1s .42s var(--ease-out) both; }
+  .rgx-hero h1 .dot { display:inline-block; transform-origin:center; animation: rgx-dotpulse 2.6s ease-in-out infinite; }
+  @media (prefers-reduced-motion: reduce) {
+    .rgx-hero-img, .rgx-hero h1, .rgx-hero .rule, .rgx-hero-in > a.btn, .rgx-floatcard, .rgx-hero h1 .dot { animation:none; }
+  }
+  .rgx-floatcard { background:#fff; color:#000; border-radius:18px; box-shadow:0 24px 60px rgba(0,0,0,.4); padding:18px; max-width:440px; display:flex; gap:16px; align-items:center; margin-top:34px; }
+  .rgx-floatcard .thumb { width:96px; height:96px; border-radius:12px; flex:none; display:flex; align-items:flex-end; justify-content:center; font-family:var(--font-display); font-weight:700; color:rgba(0,0,0,.32); font-size:12px; padding-bottom:8px; background:#EFE9E2; }
+  .rgx-pop { display:inline-flex; align-items:center; gap:5px; background:var(--hg-gold-soft); color:#7a5b00; font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:.08em; padding:4px 9px; border-radius:20px; }
+  .rgx-trust { background:#000; color:#fff; }
+  .rgx-trust-in { max-width:1280px; margin:0 auto; padding:30px 24px; display:flex; flex-wrap:wrap; gap:18px 48px; align-items:center; justify-content:center; }
+  .rgx-trust .item { display:flex; align-items:center; gap:10px; font-size:15px; }
+  .rgx-trust .n { font-family:var(--font-display); font-weight:700; color:var(--hg-pink); font-size:22px; }
+  .rgx-catgrid { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; max-width:1280px; margin:0 auto; }
+  .rgx-tile { display:flex; align-items:center; gap:18px; padding:22px 24px; border-radius:16px; border:none; cursor:pointer; text-align:left; transition:transform .2s, box-shadow .2s; min-height:118px; }
+  .rgx-tile:hover { transform:translateY(-3px); box-shadow:0 16px 36px rgba(0,0,0,.10); }
+  .rgx-tile .ico { width:62px; height:62px; border-radius:13px; flex:none; background:rgba(255,255,255,.7); display:flex; align-items:center; justify-content:center; font-size:26px; }
+  .rgx-tile .ttl { font-family:var(--font-display); font-weight:700; font-size:20px; line-height:1.15; margin:0 0 3px; }
+  .rgx-tile .tag { font-size:13px; color:rgba(0,0,0,.6); margin:0; }
+  .rgx-tile .arrow { margin-left:auto; width:38px; height:38px; border-radius:50%; background:#000; color:#fff; display:flex; align-items:center; justify-content:center; flex:none; transition:background .2s; }
+  .rgx-tile:hover .arrow { background:var(--hg-pink); }
+  .rgx-prodgrid { display:grid; grid-template-columns:repeat(4,1fr); gap:22px; max-width:1280px; margin:0 auto; }
+  .rgx-prod { background:#fff; border-radius:16px; overflow:hidden; display:flex; flex-direction:column; transition:transform .2s, box-shadow .2s; border:1px solid var(--border-hairline); }
+  .rgx-prod:hover { transform:translateY(-4px); box-shadow:0 18px 40px rgba(0,0,0,.10); }
+  .rgx-prod .pic { aspect-ratio:1/1; display:flex; align-items:center; justify-content:center; position:relative; }
+  .rgx-prod .pic .rx { position:absolute; top:12px; right:14px; font-family:var(--font-display); font-style:italic; color:rgba(0,0,0,.3); font-size:18px; }
+  .rgx-prod .pic .ph { font-family:var(--font-display); font-weight:700; font-size:15px; color:rgba(0,0,0,.34); text-align:center; padding:0 18px; line-height:1.25; }
+  .rgx-prod .pic .pimg { width:100%; height:100%; object-fit:contain; padding:16px; }
+  .rgx-prod .body { padding:16px 18px 20px; display:flex; flex-direction:column; flex:1; }
+  .rgx-stock { display:inline-flex; align-items:center; gap:6px; font-size:12px; font-weight:600; color:var(--hg-success); margin-bottom:9px; }
+  .rgx-stock .dot { width:7px; height:7px; border-radius:50%; background:var(--hg-success); }
+  .rgx-prod .nm { font-family:var(--font-display); font-weight:700; font-size:19px; margin:0; line-height:1.15; }
+  .rgx-prod .mol { font-size:13px; color:rgba(0,0,0,.55); margin:3px 0 0; }
+  .rgx-prod .pr { font-family:var(--font-display); font-weight:700; font-size:22px; color:var(--hg-pink); margin:12px 0 14px; }
+  .rgx-prod .pr small { font-family:var(--font-body); font-weight:500; font-size:12px; color:rgba(0,0,0,.5); }
+  .rgx-prod .acts { display:flex; gap:9px; margin-top:auto; }
+  .rgx-btn-dark { flex:1; background:#000; color:#fff; border:none; border-radius:24px; padding:11px 8px; font-weight:600; font-size:14px; cursor:pointer; transition:background .2s; font-family:var(--font-body); }
+  .rgx-btn-dark:hover { background:var(--hg-pink); }
+  .rgx-btn-ghost { flex:1; background:#fff; color:#000; border:1px solid rgba(0,0,0,.25); border-radius:24px; padding:11px 8px; font-weight:600; font-size:14px; cursor:pointer; transition:all .2s; font-family:var(--font-body); }
+  .rgx-btn-ghost:hover { border-color:#000; }
+  .rgx-prodbadge { position:absolute; top:12px; left:12px; background:var(--hg-gold-soft); color:#7a5b00; font-size:11px; font-weight:700; padding:5px 10px; border-radius:20px; z-index:2; }
+  .rgx-bannergrid { display:grid; grid-template-columns:1fr 1fr; gap:20px; max-width:1280px; margin:0 auto; }
+  .rgx-banner { border:none; background:none; padding:0; cursor:pointer; border-radius:16px; overflow:hidden; display:block; box-shadow:0 6px 20px rgba(0,0,0,.10); transition:transform .2s, box-shadow .2s; }
+  .rgx-banner:hover { transform:translateY(-4px); box-shadow:0 18px 42px rgba(0,0,0,.20); }
+  .rgx-banner img { width:100%; display:block; }
+  .rgx-labpanels { display:grid; grid-template-columns:repeat(3,1fr); gap:22px; max-width:1120px; margin:0 auto; align-items:stretch; }
+  .rgx-panel { position:relative; border:2px solid #000; border-radius:18px; padding:28px 26px; display:flex; flex-direction:column; background:#fff; transition:transform .2s, box-shadow .2s, border-color .2s; }
+  .rgx-panel:hover { transform:translateY(-4px); box-shadow:0 18px 40px rgba(0,0,0,.10); border-color:var(--hg-pink); }
+  .rgx-panel.feat { border-color:var(--hg-pink); box-shadow:0 10px 30px rgba(255,45,142,.16); }
+  .rgx-panel .pname { font-family:var(--font-display); font-weight:700; font-size:23px; margin:0; }
+  .rgx-panel .pprice { font-family:var(--font-display); font-weight:700; font-size:34px; color:var(--hg-pink); margin:10px 0 2px; }
+  .rgx-panel .pprice small { font-family:var(--font-body); font-weight:500; font-size:13px; color:rgba(0,0,0,.5); }
+  .rgx-panel ul { list-style:none; padding:0; margin:18px 0 24px; display:flex; flex-direction:column; gap:11px; }
+  .rgx-panel li { display:flex; gap:10px; font-size:14.5px; color:rgba(0,0,0,.78); line-height:1.45; }
+  .rgx-panel li svg { color:var(--hg-pink); flex:none; margin-top:2px; }
+  .rgx-panel .pfeat { position:absolute; top:-13px; left:50%; transform:translateX(-50%); background:var(--hg-pink); color:#fff; font-size:11px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; padding:5px 14px; border-radius:20px; white-space:nowrap; }
+  .rgx-biogrid { display:grid; grid-template-columns:repeat(4,1fr); gap:18px; max-width:1280px; margin:0 auto; }
+  .rgx-bio { border:1px solid var(--border-hairline); border-radius:14px; padding:22px 20px; transition:transform .2s, box-shadow .2s; }
+  .rgx-bio:hover { transform:translateY(-3px); box-shadow:0 12px 28px rgba(0,0,0,.08); }
+  .rgx-bio .bi { width:44px; height:44px; border-radius:11px; background:var(--hg-pink-soft); color:var(--hg-pink); display:flex; align-items:center; justify-content:center; margin-bottom:14px; }
+  .rgx-bio h4 { font-family:var(--font-display); font-size:18px; font-weight:700; margin:0 0 6px; }
+  .rgx-bio p { font-size:13px; color:rgba(0,0,0,.58); margin:0; line-height:1.5; }
+  .rgx-partners { display:grid; grid-template-columns:1fr 1fr; gap:22px; max-width:1000px; margin:0 auto; }
+  .rgx-partner { border:1px solid var(--border-hairline); border-radius:16px; padding:30px 32px; display:flex; flex-direction:column; gap:8px; background:#fff; }
+  .rgx-partner .wm { display:inline-flex; align-items:center; gap:10px; font-family:var(--font-display); font-weight:700; font-size:23px; margin-bottom:4px; }
+  .rgx-partner .wm .dot { width:11px; height:11px; border-radius:50%; background:var(--hg-pink); }
+  .rgx-partner .role { font-size:12px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:rgba(0,0,0,.45); }
+  .rgx-steps { display:grid; grid-template-columns:repeat(3,1fr); gap:34px; max-width:1100px; margin:0 auto; }
+  .rgx-step .num { width:46px; height:46px; border-radius:50%; background:var(--hg-pink); color:#fff; font-family:var(--font-display); font-weight:700; font-size:20px; display:flex; align-items:center; justify-content:center; margin-bottom:16px; }
+  .rgx-tablewrap { max-width:980px; margin:0 auto; border:1px solid var(--border-hairline); border-radius:16px; overflow:hidden; }
+  .rgx-table { width:100%; border-collapse:collapse; font-size:15px; }
+  .rgx-table th { text-align:left; background:#000; color:#fff; padding:14px 20px; font-weight:600; font-size:13px; text-transform:uppercase; letter-spacing:.05em; }
+  .rgx-table th.r, .rgx-table td.r { text-align:right; }
+  .rgx-table td { padding:14px 20px; border-top:1px solid var(--border-hairline); }
+  .rgx-table tr:nth-child(even) td { background:var(--hg-pink-soft); }
+  .rgx-table .nm { font-weight:600; }
+  .rgx-table .det { color:rgba(0,0,0,.6); font-size:14px; }
+  .rgx-table .pr { font-family:var(--font-display); font-weight:700; color:var(--hg-pink); white-space:nowrap; }
+  .rgx-subhead { font-family:var(--font-display); font-weight:700; font-size:24px; max-width:980px; margin:0 auto 16px; }
+  .rgx-faq { max-width:820px; margin:0 auto; }
+  .rgx-faq details { border-bottom:1px solid var(--border-hairline); }
+  .rgx-faq summary { cursor:pointer; list-style:none; display:flex; justify-content:space-between; align-items:center; gap:16px; padding:22px 4px; font-family:var(--font-display); font-size:19px; font-weight:600; }
+  .rgx-faq summary::-webkit-details-marker { display:none; }
+  .rgx-faq summary::after { content:"+"; color:var(--hg-pink); font-size:26px; font-weight:400; transition:transform .3s; }
+  .rgx-faq details[open] summary::after { transform:rotate(45deg); }
+  .rgx-faq .ans { padding:0 4px 22px; font-size:16px; line-height:1.7; color:rgba(0,0,0,.72); margin:0; max-width:70ch; }
+  .rgx-foot { background:#000; color:#fff; }
+  .rgx-foot-in { max-width:1280px; margin:0 auto; padding:64px 24px 36px; }
+  .rgx-foot-cols { display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:40px; }
+  .rgx-foot h4 { color:#fff; font-family:var(--font-body); font-size:13px; text-transform:uppercase; letter-spacing:.08em; opacity:.6; margin:0 0 16px; }
+  .rgx-foot ul { list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:11px; }
+  .rgx-foot button.lnk { background:none; border:none; color:rgba(255,255,255,.85); cursor:pointer; font-size:15px; text-align:left; padding:0; font-family:var(--font-body); }
+  .rgx-foot button.lnk:hover { color:var(--hg-pink); }
+  .rgx-disc { margin-top:40px; padding-top:24px; border-top:1px solid rgba(255,255,255,.12); font-size:12px; line-height:1.7; color:rgba(255,255,255,.5); max-width:1000px; }
+  .rgx-overlay { position:fixed; inset:0; background:rgba(0,0,0,.5); z-index:60; }
+  .rgx-drawer { position:fixed; top:0; right:0; bottom:0; width:400px; max-width:92vw; background:#fff; z-index:70; box-shadow:-12px 0 40px rgba(0,0,0,.2); display:flex; flex-direction:column; }
+  .rgx-drawer-h { display:flex; align-items:center; justify-content:space-between; padding:22px 24px; border-bottom:1px solid var(--border-hairline); }
+  .rgx-drawer-h h3 { margin:0; font-size:20px; }
+  .rgx-drawer-b { flex:1; overflow:auto; padding:8px 24px; }
+  .rgx-citem { display:flex; gap:14px; padding:16px 0; border-bottom:1px solid var(--border-hairline); }
+  .rgx-citem .t { width:56px; height:56px; border-radius:10px; flex:none; }
+  .rgx-drawer-f { padding:20px 24px; border-top:1px solid var(--border-hairline); }
+  .rgx-row { display:flex; justify-content:space-between; font-size:15px; margin-bottom:8px; }
+  .rgx-row.tot { font-family:var(--font-display); font-weight:700; font-size:20px; margin:12px 0 16px; }
+  .rgx-qtybtn { width:26px; height:26px; border-radius:50%; border:1px solid rgba(0,0,0,.25); background:#fff; cursor:pointer; font-size:15px; line-height:1; }
+  .rgx-modal { position:fixed; z-index:70; top:50%; left:50%; transform:translate(-50%,-50%); width:560px; max-width:94vw; max-height:90vh; overflow:auto; background:#fff; border-radius:20px; box-shadow:0 30px 80px rgba(0,0,0,.4); }
+  .rgx-modal-h { padding:20px 28px; border-bottom:1px solid var(--border-hairline); display:flex; justify-content:space-between; align-items:center; }
+  .rgx-modal-h img { height:34px; }
+  .rgx-prog { height:5px; background:var(--hg-pink-mid); }
+  .rgx-prog .bar { height:100%; background:var(--hg-pink); transition:width .3s; }
+  .rgx-modal-b { padding:30px 28px 34px; }
+  .rgx-goalbtn { display:flex; align-items:center; gap:14px; width:100%; text-align:left; padding:16px 18px; border:2px solid var(--border-hairline); border-radius:12px; background:#fff; cursor:pointer; font-size:17px; font-weight:600; font-family:var(--font-display); transition:border-color .2s, background .2s; }
+  .rgx-goalbtn:hover { border-color:var(--hg-pink); background:var(--hg-pink-soft); }
+  .rgx-input { width:100%; padding:14px 16px; border:1px solid rgba(0,0,0,.25); border-radius:10px; font-size:16px; font-family:var(--font-body); margin-bottom:14px; }
+  .rgx-input:focus { outline:none; border-color:var(--hg-pink); box-shadow:0 0 0 3px rgba(255,45,142,.18); }
+  .rgx-mobile { position:fixed; inset:0; background:#fff; z-index:80; padding:20px 24px; overflow:auto; }
+  .rgx-mobile button.mi { display:flex; width:100%; justify-content:space-between; align-items:center; padding:20px 0; border:none; border-bottom:1px solid var(--border-hairline); background:none; font-family:var(--font-display); font-size:24px; font-weight:600; cursor:pointer; }
+  @media (max-width:980px){
+    .rgx-catgrid { grid-template-columns:1fr 1fr; }
+    .rgx-prodgrid { grid-template-columns:1fr 1fr; }
+    .rgx-bannergrid { grid-template-columns:1fr; }
+    .rgx-steps { grid-template-columns:1fr; gap:24px; }
+    .rgx-foot-cols { grid-template-columns:1fr 1fr; gap:32px; }
+    .rgx-labpanels { grid-template-columns:1fr; }
+    .rgx-biogrid { grid-template-columns:1fr 1fr; }
+    .rgx-partners { grid-template-columns:1fr; }
+    .rgx-hero-img { inset:0 0 0 34%; }
+    .rgx-util-in .u:nth-child(2){ display:none; }
+  }
+  @media (max-width:680px){
+    .rgx-links { display:none; }
+    .rgx-login span { display:none; }
+    .rgx-burger { display:inline-flex; }
+    .rgx-catgrid { grid-template-columns:1fr; }
+    .rgx-prodgrid { grid-template-columns:1fr 1fr; }
+    .rgx-hero-img { display:none; }
+    .rgx-hero { background:linear-gradient(160deg,#1a1216,#3a2730); }
+    .rgx-foot-cols { grid-template-columns:1fr; }
+  }
+</style>
+</helmet>
+<div class="rgx">
+
+  <!-- ============ NAV ============ -->
+  <div class="rgx-util">
+    <div class="rgx-util-in">
+      <span class="u"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"/><path d="m8.5 8.5 7 7"/></svg> US-based licensed pharmacies</span>
+      <span class="u"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> Transparent pricing, no hidden fees</span>
+      <span class="u"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></svg> Board-certified providers</span>
+    </div>
+  </div>
+  <nav class="rgx-nav">
+    <div class="rgx-nav-in">
+      <button onClick="{{ goHome }}" style="background:none;border:none;cursor:pointer;padding:0;">
+        <img class="rgx-logo" src="assets/regen-logo-white.png" alt="RE GEN by Hello Gorgeous Med Spa">
+      </button>
+      <div class="rgx-links">
+        <sc-for list="{{ navCats }}" as="c" hint-placeholder-count="5">
+          <button onClick="{{ c.go }}">{{ c.title }}</button>
+        </sc-for>
+      </div>
+      <div class="rgx-icons">
+        <button class="rgx-iconbtn" onClick="{{ openCart }}" aria-label="Cart">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+          <sc-if value="{{ hasCart }}" hint-placeholder-val="{{ true }}"><span class="rgx-cartcount">{{ cartCount }}</span></sc-if>
+        </button>
+        <button class="rgx-login" onClick="{{ openQuiz }}">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          <span>Login</span>
+        </button>
+        <button class="rgx-burger" onClick="{{ openMenu }}" aria-label="Menu">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ============ HUB ============ -->
+  <sc-if value="{{ isHub }}" hint-placeholder-val="{{ true }}">
+  <div data-screen-label="RX Hub">
+    <section class="rgx-hero">
+      <div class="rgx-hero-img"></div>
+      <div class="rgx-hero-in">
+        <h1>We're simplifying your path to wellness<span class="dot">.</span></h1>
+        <div class="rule"></div>
+        <a href="#treatments" class="btn btn-primary btn-cta">Find your treatment</a>
+        <div class="rgx-floatcard">
+          <div class="thumb" style="background:#fff;padding:6px;overflow:hidden;"><img src="assets/prod-tirzepatide.jpg" alt="Compounded Tirzepatide" style="width:100%;height:100%;object-fit:contain;"></div>
+          <div style="flex:1;">
+            <span class="rgx-pop">★ Most Popular</span>
+            <p style="font-family:var(--font-body);font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(0,0,0,.5);margin:9px 0 2px;">Weight Loss</p>
+            <p style="font-family:var(--font-display);font-weight:700;font-size:20px;margin:0 0 12px;line-height:1.1;">Compounded Tirzepatide <span style="font-size:12px;font-style:italic;color:rgba(0,0,0,.4);">Rx</span></p>
+            <div style="display:flex;gap:8px;">
+              <button class="rgx-btn-ghost" onClick="{{ goWeight }}">Learn more</button>
+              <button class="rgx-btn-dark" onClick="{{ openQuiz }}">Get started</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="rgx-trust">
+      <div class="rgx-trust-in">
+        <div class="item"><span class="n">4.4★</span> 117 Google reviews</div>
+        <div class="item"><span class="n">5.0★</span> 1,931 Fresha reviews</div>
+        <div class="item"><span class="n">#1</span> Best Med Spa in Oswego</div>
+        <div class="item"><span class="n">NP</span> Nurse-practitioner directed</div>
+      </div>
+    </section>
+
+    <section id="treatments" class="section-white section-padding">
+      <div style="max-width:1280px;margin:0 auto 40px;">
+        <p class="hg-eyebrow">Shop by goal</p>
+        <h2 style="margin:12px 0 0;max-width:18ch;">Prescription treatments for your <span class="accent">health goals</span></h2>
+      </div>
+      <div class="rgx-catgrid">
+        <sc-for list="{{ catTiles }}" as="c" hint-placeholder-count="5">
+          <button class="rgx-tile" style="background: {{ c.tint }};" onClick="{{ c.go }}">
+            <span class="ico">{{ c.icon }}</span>
+            <span>
+              <span class="ttl">{{ c.title }}</span>
+              <span class="tag">{{ c.tag }}</span>
+            </span>
+            <span class="arrow">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </span>
+          </button>
+        </sc-for>
+      </div>
+    </section>
+
+    <section class="section-white" style="padding:20px 24px 90px;">
+      <div style="text-align:center;max-width:720px;margin:0 auto 48px;">
+        <p class="hg-eyebrow">How it works</p>
+        <h2 style="margin:12px 0 0;">Care that's <span class="accent">100% online</span></h2>
+      </div>
+      <div class="rgx-steps">
+        <div class="rgx-step"><div class="num">1</div><h3 style="margin:0 0 8px;">Complete a free consult</h3><p style="color:rgba(0,0,0,.7);margin:0;">Share your history and goals in minutes. We screen you like a medical practice — because we are one.</p></div>
+        <div class="rgx-step"><div class="num">2</div><h3 style="margin:0 0 8px;">A provider reviews</h3><p style="color:rgba(0,0,0,.7);margin:0;">Our nurse-practitioner-directed team reviews your intake and, if appropriate, prescribes a personalized plan.</p></div>
+        <div class="rgx-step"><div class="num">3</div><h3 style="margin:0 0 8px;">Delivered to your door</h3><p style="color:rgba(0,0,0,.7);margin:0;">Your compounded medication ships discreetly from a licensed pharmacy. Flat $30 shipping on every order.</p></div>
+      </div>
+    </section>
+
+    <section class="section-black section-padding">
+      <div style="max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;">
+        <div>
+          <p class="hg-eyebrow">Why RE GEN</p>
+          <h2 style="color:#fff;margin:12px 0 18px;">Real providers. <span style="color:var(--hg-pink);">Real medicine.</span></h2>
+          <p style="color:rgba(255,255,255,.8);font-size:18px;margin:0 0 24px;">RE GEN is the medical-prescription arm of Hello Gorgeous Med Spa — the #1 best med spa in Oswego. Founders Dani &amp; Ryan, a female + male provider team, are on site weekly. Every plan is directed by a full-authority nurse practitioner.</p>
+          <div style="display:flex;flex-direction:column;gap:14px;">
+            <div style="display:flex;gap:12px;"><span style="color:var(--hg-pink);">✦</span><span><b>NP-directed care</b><br><span style="color:rgba(255,255,255,.65);font-size:15px;">Licensed clinicians review every order</span></span></div>
+            <div style="display:flex;gap:12px;"><span style="color:var(--hg-pink);">✦</span><span><b>US-based compounding pharmacies</b><br><span style="color:rgba(255,255,255,.65);font-size:15px;">503A/503B partners, shipped nationwide</span></span></div>
+            <div style="display:flex;gap:12px;"><span style="color:var(--hg-pink);">✦</span><span><b>Transparent pricing</b><br><span style="color:rgba(255,255,255,.65);font-size:15px;">No hidden fees — flat $30 shipping</span></span></div>
+          </div>
+          <a href="tel:6306366193" class="btn btn-primary btn-cta" style="margin-top:28px;">Call (630) 636-6193</a>
+        </div>
+        <div style="border-radius:18px;overflow:hidden;background:#0c0b0c;"><img src="assets/banner-wellness.jpg" alt="RE GEN — done surviving, ready to thrive" style="width:100%;display:block;"></div>
+      </div>
+    </section>
+
+    <section class="section-white section-padding">
+      <div style="text-align:center;margin-bottom:36px;"><p class="hg-eyebrow">Common questions</p><h2 style="margin:12px 0 0;">Good to <span class="accent">know</span></h2></div>
+      <div class="rgx-faq">
+        <details open><summary>Is this legitimate medical care?</summary><p class="ans">Yes. RE GEN is the prescription arm of Hello Gorgeous Med Spa, a nurse-practitioner-directed medical practice. A licensed provider reviews your intake before anything is prescribed.</p></details>
+        <details><summary>What does shipping cost?</summary><p class="ans">A flat $30 ships your order discreetly to your door, anywhere we serve. Pricing for each medication is shown on its treatment page.</p></details>
+        <details><summary>Are compounded medications FDA-approved?</summary><p class="ans">Compounded medications are prepared by a licensed pharmacy for an individual patient and are not FDA-approved products. Your provider will review whether a compounded option is appropriate for you.</p></details>
+        <details><summary>Do I need to come in to the clinic?</summary><p class="ans">Most treatments can be started 100% online. Some therapies may require labs or an in-person visit in Oswego, IL — your provider will let you know.</p></details>
+      </div>
+    </section>
+
+    <section class="section-pink" style="padding:80px 24px;text-align:center;">
+      <div style="max-width:720px;margin:0 auto;">
+        <h2 style="color:#fff;margin:0;">Ready to start feeling gorgeous?</h2>
+        <p style="color:rgba(255,255,255,.92);font-size:18px;margin:14px 0 28px;">Take the free intake — a provider will review and reach out, often same day.</p>
+        <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;">
+          <button class="btn btn-white btn-cta" onClick="{{ openQuiz }}">Get started</button>
+          <a href="tel:6306366193" class="btn btn-secondary">Call (630) 636-6193</a>
+        </div>
+      </div>
+    </section>
+  </div>
+  </sc-if>
+
+  <!-- ============ CATEGORY PAGE ============ -->
+  <sc-if value="{{ isCategory }}">
+  <div data-screen-label="Category page">
+    <section class="section-white" style="padding:30px 24px 0;">
+      <div style="max-width:1280px;margin:0 auto;">
+        <button onClick="{{ goHome }}" style="background:none;border:none;cursor:pointer;color:rgba(0,0,0,.55);font-size:14px;display:inline-flex;align-items:center;gap:6px;font-family:var(--font-body);">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+          All treatments
+        </button>
+      </div>
+    </section>
+    <sc-if value="{{ active.splitHero }}">
+    <section class="section-white" style="padding:30px 24px 50px;">
+      <div style="max-width:1280px;margin:0 auto;display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center;">
+        <div>
+          <p class="hg-eyebrow">{{ active.eyebrow }}</p>
+          <h1 style="margin:14px 0 0;">{{ active.headline }}</h1>
+          <p style="font-size:20px;margin:20px 0 0;color:rgba(0,0,0,.78);max-width:46ch;">{{ active.sub }}</p>
+          <div style="display:flex;gap:14px;margin-top:30px;flex-wrap:wrap;">
+            <button class="btn btn-primary btn-cta" onClick="{{ openQuiz }}">Get started</button>
+            <a href="#options" class="btn btn-outline">See pricing</a>
+          </div>
+          <p style="font-size:13px;color:rgba(0,0,0,.5);margin-top:18px;">Flat $30 shipping · NP-directed · {{ active.priceNote }}</p>
+        </div>
+        <div style="aspect-ratio:5/4;border-radius:20px;overflow:hidden;background:#0c0b0c;display:flex;align-items:center;justify-content:center;">
+          {{ active.heroImgEl }}
+        </div>
+      </div>
+    </section>
+    </sc-if>
+    <sc-if value="{{ active.heroBanner }}">
+    <section class="section-white" style="padding:0;">{{ active.heroBannerEl }}</section>
+    <section class="section-white" style="padding:26px 24px;border-bottom:1px solid var(--border-hairline);">
+      <div style="max-width:1280px;margin:0 auto;display:flex;flex-wrap:wrap;gap:18px 28px;align-items:center;justify-content:space-between;">
+        <p style="margin:0;font-size:19px;color:rgba(0,0,0,.78);max-width:54ch;">{{ active.sub }}</p>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;">
+          <button class="btn btn-primary btn-cta" onClick="{{ openQuiz }}">Get started</button>
+          <a href="#options" class="btn btn-outline">See pricing</a>
+        </div>
+      </div>
+    </section>
+    </sc-if>
+
+    <section class="section-white" style="padding:10px 24px 70px;">
+      <div style="max-width:1280px;margin:0 auto 28px;">
+        <h2 style="margin:0;">Popular <span class="accent">options</span></h2>
+        <p style="color:rgba(0,0,0,.6);margin:8px 0 0;">All prices shown are patient pricing. Shipped after a provider reviews your intake.</p>
+      </div>
+      <sc-if value="{{ active.cardMode }}">
+        <div class="rgx-prodgrid">
+          <sc-for list="{{ active.products }}" as="p" hint-placeholder-count="0">
+            <div class="rgx-prod">
+              <div class="pic" style="background: {{ p.tint }};">
+                <sc-if value="{{ p.badge }}"><span class="rgx-prodbadge">{{ p.badge }}</span></sc-if>
+                <sc-if value="{{ p.img }}">{{ p.imgEl }}</sc-if>
+                <sc-if value="{{ p.noimg }}"><span class="rx">Rx</span><span class="ph">{{ p.name }}</span></sc-if>
+              </div>
+              <div class="body">
+                <span class="rgx-stock"><span class="dot"></span> In stock</span>
+                <p class="nm">{{ p.name }}</p>
+                <p class="mol">{{ p.mol }}</p>
+                <p class="pr">{{ p.price }} <small>{{ p.unit }}</small></p>
+                <div class="acts">
+                  <button class="rgx-btn-ghost" onClick="{{ openQuiz }}">Learn more</button>
+                  <button class="rgx-btn-dark" onClick="{{ p.add }}">Add to cart</button>
+                </div>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </sc-if>
+      <sc-if value="{{ active.bannerMode }}">
+        <div class="rgx-bannergrid">
+          <sc-for list="{{ active.banners }}" as="b" hint-placeholder-count="0">
+            <button class="rgx-banner" onClick="{{ b.go }}">{{ b.imgEl }}</button>
+          </sc-for>
+        </div>
+      </sc-if>
+    </section>
+
+    <section id="options" class="section-white" style="padding:10px 24px 80px;">
+      <div class="rgx-subhead">All options &amp; transparent pricing</div>
+      <div class="rgx-tablewrap">
+        <table class="rgx-table">
+          <thead><tr><th>{{ active.colName }}</th><th>{{ active.colDetail }}</th><th class="r">Price</th></tr></thead>
+          <tbody>
+            <sc-for list="{{ active.rows }}" as="r" hint-placeholder-count="8">
+              <tr><td class="nm">{{ r.name }}</td><td class="det">{{ r.detail }}</td><td class="r"><span class="pr">{{ r.price }}</span></td></tr>
+            </sc-for>
+          </tbody>
+        </table>
+      </div>
+      <p style="max-width:980px;margin:18px auto 0;font-size:13px;color:rgba(0,0,0,.5);">{{ active.tableNote }} Prices are patient pricing and exclude a flat $30 shipping fee applied at checkout. Dosing is determined by your provider.</p>
+    </section>
+
+    <sc-if value="{{ active.hasEditorial }}">
+    <section class="section-white" style="padding:20px 24px 70px;">
+      <div style="text-align:center;max-width:720px;margin:0 auto 40px;">
+        <p class="hg-eyebrow">{{ active.editorialEyebrow }}</p>
+        <h2 style="margin:12px 0 0;" dangerouslySetInnerHTML="{{ active.editorialHeadHtml }}"></h2>
+      </div>
+      <div style="max-width:1180px;margin:0 auto;display:flex;flex-direction:column;gap:22px;">
+        <sc-for list="{{ active.editorialItems }}" as="e" hint-placeholder-count="0">
+          <div style="border-radius:18px;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,.10);">{{ e.imgEl }}</div>
+        </sc-for>
+      </div>
+    </section>
+    </sc-if>
+
+    <section class="section-black section-padding">
+      <div style="text-align:center;max-width:720px;margin:0 auto 44px;"><p class="hg-eyebrow">How it works</p><h2 style="color:#fff;margin:12px 0 0;">From consult to <span style="color:var(--hg-pink);">doorstep</span></h2></div>
+      <div class="rgx-steps">
+        <div class="rgx-step"><div class="num">1</div><h3 style="color:#fff;margin:0 0 8px;">Free online consult</h3><p style="color:rgba(255,255,255,.72);margin:0;">Tell us about your health and goals.</p></div>
+        <div class="rgx-step"><div class="num">2</div><h3 style="color:#fff;margin:0 0 8px;">Provider review</h3><p style="color:rgba(255,255,255,.72);margin:0;">A licensed NP-directed clinician reviews and prescribes if appropriate.</p></div>
+        <div class="rgx-step"><div class="num">3</div><h3 style="color:#fff;margin:0 0 8px;">Discreet delivery</h3><p style="color:rgba(255,255,255,.72);margin:0;">Shipped to your door for a flat $30.</p></div>
+      </div>
+    </section>
+
+    <section class="section-white section-padding">
+      <div style="text-align:center;margin-bottom:36px;"><p class="hg-eyebrow">Questions</p><h2 style="margin:12px 0 0;">{{ active.title }} <span class="accent">FAQ</span></h2></div>
+      <div class="rgx-faq">
+        <sc-for list="{{ active.faqs }}" as="f" hint-placeholder-count="3">
+          <details><summary>{{ f.q }}</summary><p class="ans">{{ f.a }}</p></details>
+        </sc-for>
+      </div>
+    </section>
+
+    <section class="section-pink" style="padding:80px 24px;text-align:center;">
+      <div style="max-width:720px;margin:0 auto;">
+        <h2 style="color:#fff;margin:0;">{{ active.ctaHead }}</h2>
+        <p style="color:rgba(255,255,255,.92);font-size:18px;margin:14px 0 28px;">Start the free intake — a provider reviews and reaches out, often same day.</p>
+        <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;">
+          <button class="btn btn-white btn-cta" onClick="{{ openQuiz }}">Get started</button>
+          <a href="tel:6306366193" class="btn btn-secondary">Call (630) 636-6193</a>
+        </div>
+      </div>
+    </section>
+  </div>
+  </sc-if>
+
+  <!-- ============ LABS PAGE ============ -->
+  <sc-if value="{{ isLabs }}">
+  <div data-screen-label="Labs">
+    <section class="section-white" style="padding:30px 24px 0;">
+      <div style="max-width:1280px;margin:0 auto;">
+        <button onClick="{{ goHome }}" style="background:none;border:none;cursor:pointer;color:rgba(0,0,0,.55);font-size:14px;display:inline-flex;align-items:center;gap:6px;font-family:var(--font-body);">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+          All treatments
+        </button>
+      </div>
+    </section>
+
+    <section class="section-white" style="padding:20px 0 0;">
+      <img src="assets/hero-labs.jpg" alt="RE GEN Labs — test for signals of 1,000+ health conditions" style="width:100%;display:block;">
+    </section>
+    <section class="section-white" style="padding:26px 24px;border-bottom:1px solid var(--border-hairline);">
+      <div style="max-width:1280px;margin:0 auto;display:flex;flex-wrap:wrap;gap:18px 28px;align-items:center;justify-content:space-between;">
+        <p style="margin:0;font-size:19px;color:rgba(0,0,0,.78);max-width:56ch;">Comprehensive blood panels drawn through <b>Access Medical Labs</b>, with results and a personalized plan delivered through <b>Fullscript</b>.</p>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;">
+          <button class="btn btn-primary btn-cta" onClick="{{ openQuiz }}">Get started</button>
+          <a href="#labpanels" class="btn btn-outline">See panels</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- PANELS -->
+    <section id="labpanels" class="section-white section-padding">
+      <div style="text-align:center;max-width:720px;margin:0 auto 50px;">
+        <p class="hg-eyebrow">Lab panels</p>
+        <h2 style="margin:12px 0 0;">Choose your <span class="accent">panel</span></h2>
+        <p style="color:rgba(0,0,0,.65);margin:14px 0 0;font-size:17px;">One simple draw. Provider-reviewed results. A plan built around your numbers.</p>
+      </div>
+      <div class="rgx-labpanels">
+        <div class="rgx-panel">
+          <p class="pname">Essential Wellness</p>
+          <p class="pprice">$99 <small>one-time</small></p>
+          <p style="font-size:14px;color:rgba(0,0,0,.6);margin:6px 0 0;">A smart annual baseline of your core health markers.</p>
+          <ul>
+            <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Complete blood count (CBC)</li>
+            <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Metabolic panel &amp; HbA1c</li>
+            <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Lipid (cholesterol) panel</li>
+            <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Thyroid (TSH) &amp; Vitamin D</li>
+          </ul>
+          <button class="btn btn-secondary btn-cta" style="width:100%;margin-top:auto;" onClick="{{ openQuiz }}">Get started</button>
+        </div>
+        <div class="rgx-panel feat">
+          <span class="pfeat">★ Most popular</span>
+          <p class="pname">Hormone &amp; Vitality</p>
+          <p class="pprice">$199 <small>one-time</small></p>
+          <p style="font-size:14px;color:rgba(0,0,0,.6);margin:6px 0 0;">Everything in Essential, plus a full hormone workup.</p>
+          <ul>
+            <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Everything in Essential Wellness</li>
+            <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Total &amp; free testosterone, estradiol, progesterone</li>
+            <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> DHEA-S, SHBG &amp; full thyroid (T3/T4/TSH)</li>
+            <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Ferritin &amp; B12</li>
+          </ul>
+          <button class="btn btn-primary btn-cta" style="width:100%;margin-top:auto;" onClick="{{ openQuiz }}">Get started</button>
+        </div>
+        <div class="rgx-panel">
+          <p class="pname">Comprehensive Longevity</p>
+          <p class="pprice">$349 <small>one-time</small></p>
+          <p style="font-size:14px;color:rgba(0,0,0,.6);margin:6px 0 0;">Our deepest screen for proactive, science-backed aging.</p>
+          <ul>
+            <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Everything in Hormone &amp; Vitality</li>
+            <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Inflammation: hs-CRP &amp; homocysteine</li>
+            <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Fasting insulin, cortisol &amp; ApoB</li>
+            <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Advanced biomarker add-ons available</li>
+          </ul>
+          <button class="btn btn-secondary btn-cta" style="width:100%;margin-top:auto;" onClick="{{ openQuiz }}">Get started</button>
+        </div>
+      </div>
+      <p style="text-align:center;max-width:760px;margin:26px auto 0;font-size:13px;color:rgba(0,0,0,.5);">Representative pricing — your exact panel and price are confirmed at your consult. Draw fee may apply at out-of-clinic Access Medical Labs locations.</p>
+    </section>
+
+    <!-- WHAT WE TEST -->
+    <section class="section-white" style="padding:10px 24px 90px;">
+      <div style="text-align:center;max-width:760px;margin:0 auto 44px;">
+        <p class="hg-eyebrow">What we test</p>
+        <h2 style="margin:12px 0 0;">Insight across every <span class="accent">major system</span></h2>
+      </div>
+      <div class="rgx-biogrid">
+        <div class="rgx-bio">
+          <span class="bi"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></span>
+          <h4>Heart &amp; cholesterol</h4>
+          <p>Lipid panel, ApoB, hs-CRP — your cardiovascular risk picture.</p>
+        </div>
+        <div class="rgx-bio">
+          <span class="bi"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg></span>
+          <h4>Metabolic &amp; blood sugar</h4>
+          <p>Glucose, HbA1c and fasting insulin to track metabolic health.</p>
+        </div>
+        <div class="rgx-bio">
+          <span class="bi"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>
+          <h4>Thyroid</h4>
+          <p>TSH, Free T3 and Free T4 — energy, weight and mood drivers.</p>
+        </div>
+        <div class="rgx-bio">
+          <span class="bi"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a7 7 0 0 1 7 7c0 5-7 13-7 13S5 14 5 9a7 7 0 0 1 7-7z"/><circle cx="12" cy="9" r="2.5"/></svg></span>
+          <h4>Hormones</h4>
+          <p>Testosterone, estradiol, progesterone, DHEA-S &amp; SHBG.</p>
+        </div>
+        <div class="rgx-bio">
+          <span class="bi"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v6"/><path d="M7 8h10l-1.5 11a2 2 0 0 1-2 1.8h-3a2 2 0 0 1-2-1.8z"/></svg></span>
+          <h4>Vitamins &amp; nutrients</h4>
+          <p>Vitamin D, B12, folate and ferritin to spot deficiencies.</p>
+        </div>
+        <div class="rgx-bio">
+          <span class="bi"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l2 5 4-12 2 7h6"/></svg></span>
+          <h4>Inflammation &amp; longevity</h4>
+          <p>hs-CRP, homocysteine and cortisol — the aging signals.</p>
+        </div>
+        <div class="rgx-bio">
+          <span class="bi"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11z"/></svg></span>
+          <h4>Liver &amp; kidney</h4>
+          <p>ALT, AST, creatinine and eGFR — your filtration organs.</p>
+        </div>
+        <div class="rgx-bio">
+          <span class="bi"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3.5"/></svg></span>
+          <h4>Blood count &amp; immunity</h4>
+          <p>Full CBC with white-cell differential and platelets.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- STAT BAND -->
+    <section class="section-black" style="padding:54px 24px;">
+      <div style="max-width:1100px;margin:0 auto;display:flex;flex-wrap:wrap;gap:24px 60px;align-items:center;justify-content:center;text-align:center;">
+        <div><div style="font-family:var(--font-display);font-weight:700;font-size:40px;color:var(--hg-pink);">1,000+</div><div style="color:rgba(255,255,255,.72);font-size:15px;">biomarkers available</div></div>
+        <div><div style="font-family:var(--font-display);font-weight:700;font-size:40px;color:var(--hg-pink);">Days</div><div style="color:rgba(255,255,255,.72);font-size:15px;">not weeks, to results</div></div>
+        <div><div style="font-family:var(--font-display);font-weight:700;font-size:40px;color:var(--hg-pink);">1 draw</div><div style="color:rgba(255,255,255,.72);font-size:15px;">reviewed by an NP-directed provider</div></div>
+      </div>
+    </section>
+
+    <!-- SPECIALTY TESTING -->
+    <section class="section-white" style="padding:10px 24px 90px;">
+      <div style="text-align:center;max-width:760px;margin:0 auto 44px;">
+        <p class="hg-eyebrow">Also available</p>
+        <h2 style="margin:12px 0 0;">Specialty testing through <span class="accent">Access Medical Labs</span></h2>
+        <p style="color:rgba(0,0,0,.65);margin:14px 0 0;font-size:17px;">Beyond our core panels, we can order advanced diagnostics for you on request.</p>
+      </div>
+      <div class="rgx-biogrid" style="max-width:1080px;grid-template-columns:repeat(3,1fr);">
+        <div class="rgx-bio">
+          <span class="bi"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="8" r="2"/><circle cx="17" cy="16" r="2"/><circle cx="16" cy="6" r="1.6"/><path d="M8.5 9.2 15 14.8M9 8h5M8 9.5 7 14"/></svg></span>
+          <h4>Advanced hormones</h4>
+          <p>Detailed hormone profiles for a full picture of hormone function and overall health.</p>
+        </div>
+        <div class="rgx-bio">
+          <span class="bi"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v9a2 2 0 0 1-4 0V2M6 11v11"/><path d="M18 2c-1.5 0-3 2-3 5s1.5 4 3 4 3-1 3-4-1.5-5-3-5zM18 11v11"/></svg></span>
+          <h4>Food sensitivity (IgG)</h4>
+          <p>Measures total IgG antibodies across 286 food antigens.</p>
+        </div>
+        <div class="rgx-bio">
+          <span class="bi"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M5 19l2-2M17 7l2-2"/></svg></span>
+          <h4>Environmental + Food (IgE)</h4>
+          <p>Evaluates 295 allergens from environmental and food sources.</p>
+        </div>
+        <div class="rgx-bio">
+          <span class="bi"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.5-9.5-9C1 9 2.5 5.5 6 5.5c2 0 3.2 1.2 4 2.5.8-1.3 2-2.5 4-2.5 3.5 0 5 3.5 3.5 6.5C19 16.5 12 21 12 21z"/></svg></span>
+          <h4>Heart health (cardioPRO)</h4>
+          <p>In-depth lipoprotein particles, plaque buildup and key cardiac functions.</p>
+        </div>
+        <div class="rgx-bio">
+          <span class="bi"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5.5 5.5 7.5 7.5M16.5 16.5l2 2M18.5 5.5l-2 2M5.5 18.5l2-2"/></svg></span>
+          <h4>STD panel</h4>
+          <p>Next-day results so concerns are diagnosed and treated with speed and ease.</p>
+        </div>
+        <div class="rgx-bio">
+          <span class="bi"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><circle cx="12" cy="11" r="3"/><path d="M9 11h6M12 8v6"/></svg></span>
+          <h4>Immigration &amp; TB</h4>
+          <p>Government-required immune testing (DOS, USCIS) with 50% less blood drawn.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- PARTNERS -->
+    <section class="section-white section-padding" style="background:var(--hg-pink-soft);">
+      <div style="text-align:center;max-width:720px;margin:0 auto 44px;">
+        <p class="hg-eyebrow">Our lab partners</p>
+        <h2 style="margin:12px 0 0;">Trusted infrastructure, <span class="accent">end to end</span></h2>
+      </div>
+      <div class="rgx-partners">
+        <div class="rgx-partner">
+          <img src="assets/partner-accesslabs.png" alt="Access Medical Labs" style="height:44px;width:auto;align-self:flex-start;margin-bottom:6px;">
+          <span class="role">Blood draws &amp; analysis</span>
+          <p style="margin:8px 0 12px;color:rgba(0,0,0,.72);font-size:15px;line-height:1.6;">A CLIA-certified national laboratory with fully automated Siemens Aptio® technology. Get drawn at our Oswego clinic or a nearby patient service center.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;">
+            <span style="font-size:12px;font-weight:600;background:var(--hg-pink-soft);color:#a01a5c;padding:6px 12px;border-radius:20px;">Next-day results</span>
+            <span style="font-size:12px;font-weight:600;background:var(--hg-pink-soft);color:#a01a5c;padding:6px 12px;border-radius:20px;">50% less blood per draw</span>
+            <span style="font-size:12px;font-weight:600;background:var(--hg-pink-soft);color:#a01a5c;padding:6px 12px;border-radius:20px;">CLIA-certified</span>
+          </div>
+        </div>
+        <div class="rgx-partner">
+          <img src="assets/partner-fullscript.png" alt="Fullscript" style="height:38px;width:auto;align-self:flex-start;margin-bottom:8px;">
+          <span class="role">Results, plans &amp; fulfillment</span>
+          <p style="margin:8px 0 14px;color:rgba(0,0,0,.72);font-size:15px;line-height:1.6;">Your secure portal for results, your provider's recommendations, and any professional-grade supplements or prescriptions — delivered to your door.</p>
+          <a href="https://us.fullscript.com/welcome/hellogorgeousmedspa" target="_blank" rel="noopener" class="btn btn-outline" style="align-self:flex-start;margin-top:auto;">Visit your Fullscript portal →</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section class="section-white" style="padding:0 24px 90px;">
+      <div style="text-align:center;max-width:720px;margin:0 auto 44px;"><p class="hg-eyebrow">How it works</p><h2 style="margin:12px 0 0;">From draw to <span class="accent">plan</span></h2></div>
+      <div class="rgx-steps">
+        <div class="rgx-step"><div class="num">1</div><h3 style="margin:0 0 8px;">Choose a panel or consult</h3><p style="color:rgba(0,0,0,.7);margin:0;">Pick a panel above or let a provider recommend the right testing for your goals.</p></div>
+        <div class="rgx-step"><div class="num">2</div><h3 style="margin:0 0 8px;">Get your draw</h3><p style="color:rgba(0,0,0,.7);margin:0;">Visit our Oswego clinic or a nearby Access Medical Labs location — the order is sent ahead.</p></div>
+        <div class="rgx-step"><div class="num">3</div><h3 style="margin:0 0 8px;">Review results &amp; plan</h3><p style="color:rgba(0,0,0,.7);margin:0;">Your provider interprets your results and builds a personalized plan, delivered through Fullscript.</p></div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="section-white section-padding">
+      <div style="text-align:center;margin-bottom:36px;"><p class="hg-eyebrow">Questions</p><h2 style="margin:12px 0 0;">Labs <span class="accent">FAQ</span></h2></div>
+      <div class="rgx-faq">
+        <sc-for list="{{ active.faqs }}" as="f" hint-placeholder-count="4">
+          <details><summary>{{ f.q }}</summary><p class="ans">{{ f.a }}</p></details>
+        </sc-for>
+      </div>
+    </section>
+
+    <section class="section-pink" style="padding:80px 24px;text-align:center;">
+      <div style="max-width:720px;margin:0 auto;">
+        <h2 style="color:#fff;margin:0;">Get ahead of your health</h2>
+        <p style="color:rgba(255,255,255,.92);font-size:18px;margin:14px 0 28px;">Start the free intake and a provider will set up the right panel for you.</p>
+        <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;">
+          <button class="btn btn-white btn-cta" onClick="{{ openQuiz }}">Get started</button>
+          <a href="tel:6306366193" class="btn btn-secondary">Call (630) 636-6193</a>
+        </div>
+      </div>
+    </section>
+  </div>
+  </sc-if>
+
+  <!-- ============ GET THE APP ============ -->
+  <section style="background:#000;padding:56px 24px 64px;">
+    <a href="https://www.hellogorgeousmedspa.com/app" target="_blank" rel="noopener" style="display:block;max-width:1080px;margin:0 auto;border-radius:20px;overflow:hidden;box-shadow:0 24px 60px rgba(214,51,132,.18);line-height:0;transition:transform .3s ease,box-shadow .3s ease;" style-hover="transform:translateY(-4px);box-shadow:0 30px 72px rgba(214,51,132,.32);">
+      <img src="assets/get-app-banner.jpg" alt="Get the Hello Gorgeous App — scan the QR code or tap to open" style="width:100%;height:auto;display:block;">
+    </a>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="rgx-foot">
+    <div class="rgx-foot-in">
+      <div class="rgx-foot-cols">
+        <div>
+          <button onClick="{{ openLogo }}" title="View logo" style="background:none;border:none;padding:0;cursor:pointer;display:block;margin-bottom:10px;">
+            <img src="assets/regen-logo-white.png" alt="RE GEN — click to enlarge" style="height:52px;width:auto;display:block;">
+          </button>
+          <button onClick="{{ openLogo }}" style="background:none;border:none;padding:0;cursor:pointer;color:rgba(255,255,255,.45);font-size:12px;font-family:var(--font-body);display:inline-flex;align-items:center;gap:6px;margin-bottom:14px;">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg> View logo
+          </button>
+          <p style="color:rgba(255,255,255,.55);font-size:14px;line-height:1.7;margin:0;">74 W. Washington Street<br>Oswego, IL 60543<br><a href="tel:6306366193" style="color:var(--hg-pink);">(630) 636-6193</a></p>
+        </div>
+        <div>
+          <h4>Treatments</h4>
+          <ul>
+            <sc-for list="{{ navCats }}" as="c" hint-placeholder-count="5"><li><button class="lnk" onClick="{{ c.go }}">{{ c.title }}</button></li></sc-for>
+          </ul>
+        </div>
+        <div>
+          <h4>Company</h4>
+          <ul>
+            <li><button class="lnk" onClick="{{ goHome }}">RX Home</button></li>
+            <li><button class="lnk" onClick="{{ openQuiz }}">Get started</button></li>
+            <li><a class="lnk" href="https://www.hellogorgeousmedspa.com" style="color:rgba(255,255,255,.85);">Hello Gorgeous Med Spa</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Get started</h4>
+          <ul>
+            <li><button class="lnk" onClick="{{ openQuiz }}">Free intake</button></li>
+            <li><a class="lnk" href="tel:6306366193" style="color:rgba(255,255,255,.85);">Call us</a></li>
+            <li><a class="lnk" href="https://www.fresha.com" style="color:rgba(255,255,255,.85);">Book on Fresha</a></li>
+          </ul>
+        </div>
+      </div>
+      <p class="rgx-disc">RE GEN by Hello Gorgeous Med Spa. Information on this site is for general educational purposes and is not medical advice. Prescription products require evaluation by a licensed provider, who determines whether treatment is appropriate. Some products are compounded by a licensed pharmacy and are not FDA-approved. Individual results vary. Patient information is treated as protected health information. © 2026 Hello Gorgeous Med Spa.</p>
+    </div>
+  </footer>
+
+  <!-- ============ CART DRAWER ============ -->
+  <sc-if value="{{ cartOpen }}">
+    <div class="rgx-overlay" onClick="{{ closeCart }}"></div>
+    <aside class="rgx-drawer">
+      <div class="rgx-drawer-h">
+        <h3>Your cart</h3>
+        <button class="rgx-iconbtn" style="color:#000;" onClick="{{ closeCart }}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+      </div>
+      <div class="rgx-drawer-b">
+        <sc-if value="{{ cartEmpty }}">
+          <p style="color:rgba(0,0,0,.55);padding:40px 0;text-align:center;">Your cart is empty.<br>Add a treatment to get started.</p>
+        </sc-if>
+        <sc-for list="{{ cartItems }}" as="i" hint-placeholder-count="0">
+          <div class="rgx-citem">
+            <div class="t" style="background: {{ i.tint }};"></div>
+            <div style="flex:1;">
+              <p style="font-weight:600;margin:0 0 2px;font-family:var(--font-display);">{{ i.name }}</p>
+              <p style="font-size:13px;color:rgba(0,0,0,.55);margin:0 0 8px;">{{ i.price }} {{ i.unit }}</p>
+              <div style="display:flex;align-items:center;gap:10px;">
+                <button class="rgx-qtybtn" onClick="{{ i.dec }}">–</button>
+                <span style="min-width:18px;text-align:center;">{{ i.qty }}</span>
+                <button class="rgx-qtybtn" onClick="{{ i.inc }}">+</button>
+                <button onClick="{{ i.remove }}" style="margin-left:auto;background:none;border:none;color:rgba(0,0,0,.45);cursor:pointer;font-size:13px;text-decoration:underline;">Remove</button>
+              </div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+      <div class="rgx-drawer-f">
+        <div class="rgx-row"><span>Subtotal</span><span>{{ subtotal }}</span></div>
+        <div class="rgx-row"><span>Shipping</span><span>{{ shipping }}</span></div>
+        <div class="rgx-row tot"><span>Total</span><span>{{ total }}</span></div>
+        <button class="btn btn-primary btn-cta" style="width:100%;" onClick="{{ checkout }}">Checkout</button>
+        <p style="font-size:12px;color:rgba(0,0,0,.5);text-align:center;margin:12px 0 0;">A provider must review your intake before any prescription ships.</p>
+      </div>
+    </aside>
+  </sc-if>
+
+  <!-- ============ QUIZ MODAL ============ -->
+  <sc-if value="{{ quizOpen }}">
+    <div class="rgx-overlay" onClick="{{ closeQuiz }}"></div>
+    <div class="rgx-modal">
+      <div class="rgx-prog"><div class="bar" style="width: {{ quizPct }};"></div></div>
+      <div class="rgx-modal-h">
+        <img src="assets/regen-logo.png" alt="RE GEN">
+        <button class="rgx-iconbtn" style="color:#000;" onClick="{{ closeQuiz }}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+      </div>
+      <div class="rgx-modal-b">
+        <sc-if value="{{ quizStep0 }}">
+          <h2 style="margin:0 0 6px;">What brings you to RE GEN?</h2>
+          <p style="color:rgba(0,0,0,.6);margin:0 0 22px;">Pick a goal and we'll tailor your intake.</p>
+          <div style="display:flex;flex-direction:column;gap:12px;">
+            <sc-for list="{{ catTiles }}" as="c" hint-placeholder-count="5">
+              <button class="rgx-goalbtn" onClick="{{ c.pick }}"><span style="font-size:20px;">{{ c.icon }}</span> {{ c.title }}</button>
+            </sc-for>
+          </div>
+        </sc-if>
+        <sc-if value="{{ quizStep1 }}">
+          <h2 style="margin:0 0 6px;">A few details</h2>
+          <p style="color:rgba(0,0,0,.6);margin:0 0 22px;">So a provider can follow up about <b>{{ quizGoalLabel }}</b>.</p>
+          <input class="rgx-input" placeholder="Full name" />
+          <input class="rgx-input" placeholder="Email address" type="email" />
+          <input class="rgx-input" placeholder="Phone number" type="tel" />
+          <div style="display:flex;gap:12px;margin-top:8px;">
+            <button class="btn btn-outline" style="flex:1;" onClick="{{ quizBack }}">Back</button>
+            <button class="btn btn-primary btn-cta" style="flex:2;" onClick="{{ quizNext }}">Continue</button>
+          </div>
+        </sc-if>
+        <sc-if value="{{ quizStep2 }}">
+          <div style="text-align:center;padding:18px 0 8px;">
+            <div style="width:70px;height:70px;border-radius:50%;background:var(--hg-pink-soft);display:flex;align-items:center;justify-content:center;margin:0 auto 22px;">
+              <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#FF2D8E" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <h2 style="margin:0 0 10px;">You're all set!</h2>
+            <p style="color:rgba(0,0,0,.7);margin:0 0 26px;max-width:40ch;margin-left:auto;margin-right:auto;">Thanks for completing your intake. A nurse-practitioner-directed provider will review it and reach out — often the same day.</p>
+            <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+              <a href="tel:6306366193" class="btn btn-outline">Call (630) 636-6193</a>
+              <button class="btn btn-primary btn-cta" onClick="{{ closeQuiz }}">Done</button>
+            </div>
+          </div>
+        </sc-if>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- ============ MOBILE MENU ============ -->
+  <sc-if value="{{ menuOpen }}">
+    <div class="rgx-mobile">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
+        <img src="assets/regen-logo.png" alt="RE GEN" style="height:40px;">
+        <button class="rgx-iconbtn" style="color:#000;" onClick="{{ closeMenu }}"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+      </div>
+      <p class="hg-eyebrow" style="margin:18px 0 4px;">Explore</p>
+      <sc-for list="{{ navCats }}" as="c" hint-placeholder-count="5">
+        <button class="mi" onClick="{{ c.goM }}">{{ c.title }}<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button>
+      </sc-for>
+      <button class="btn btn-primary btn-cta" style="width:100%;margin-top:28px;" onClick="{{ openQuizFromMenu }}">Get started</button>
+    </div>
+  </sc-if>
+
+  <!-- ============ LOGO POPUP ============ -->
+  <sc-if value="{{ logoOpen }}">
+    <div class="rgx-overlay" style="background:rgba(0,0,0,.78);display:flex;align-items:center;justify-content:center;padding:24px;" onClick="{{ closeLogo }}">
+      <div style="position:relative;background:#fff;border-radius:22px;box-shadow:0 30px 90px rgba(0,0,0,.5);padding:46px 54px;max-width:680px;width:100%;text-align:center;">
+        <button class="rgx-iconbtn" style="color:#000;position:absolute;top:16px;right:16px;" onClick="{{ closeLogo }}"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+        <img src="assets/regen-logo.png" alt="RE GEN by Hello Gorgeous Med Spa" style="width:100%;max-width:560px;height:auto;display:block;margin:0 auto;">
+        <p style="margin:24px 0 0;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:rgba(0,0,0,.45);font-weight:600;">The medical-prescription arm of Hello Gorgeous Med Spa</p>
+        <a href="assets/regen-logo.png" download="REGEN-logo.png" class="btn btn-outline" style="margin-top:22px;">Download logo</a>
+      </div>
+    </div>
+  </sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:&quot;100%&quot;,&quot;height&quot;:&quot;100%&quot;}}">
+class Component extends DCLogic {
+  state = { view: 'hub', cat: 'weight-loss', cartOpen: false, cart: [], menuOpen: false, quizOpen: false, quizStep: 0, quizGoal: '', logoOpen: false };
+
+  cats() {
+    if (this._cats) return this._cats;
+    const x = w => Math.round(w * 2.5 * 100) / 100;
+    const fmt = n => '$' + (Number.isInteger(n) ? n.toLocaleString('en-US') : n.toFixed(2));
+    const m = w => fmt(x(w));
+    const T = { pink:'#F7E9F0', sand:'#EFE9E2', mist:'#E7EBF0', clay:'#F0EAE6', lilac:'#F3ECF5', sage:'#E9EFEA', white:'#F7F5F3' };
+    const prod = (name, mol, w, unit, tint, badge, img) => ({ name, mol, priceN: x(w), price: m(w), unit: unit||'', tint, badge: badge||'', img: img||'' });
+    const row = (name, detail, w) => ({ name, detail, price: (typeof w === 'string' ? w : m(w)) });
+
+    this._cats = [
+      {
+        id:'weight-loss', title:'Weight Loss', tag:'GLP-1 & metabolic', icon:'⚖', heroImg:'assets/hero-photo.jpg',
+        eyebrow:'Weight Loss', headline:'Lose weight with compounded GLP-1s',
+        sub:'Compounded semaglutide and tirzepatide, prescribed and dosed by a provider — paired with B12 and lipotropic support.',
+        priceNote:'from $100', colName:'Medication', colDetail:'Strength / vial', tableNote:'Additional strengths available — your provider selects your dose.',
+        ctaHead:'Start losing weight',
+        products:[
+          prod('Compounded Semaglutide','Semaglutide / glycine', 40, '/ vial', T.white, 'Most popular', 'assets/prod-semaglutide.jpg'),
+          prod('Compounded Tirzepatide','Tirzepatide / glycine', 50, '/ vial', T.white, 'Best results', 'assets/prod-tirzepatide.jpg'),
+          prod('Lipo-Mino (MIC)','B12 + lipotropic blend', 80.5, '/ 30 mL', T.white, '', 'assets/prod-lipomino.jpg'),
+          prod('Sermorelin','GH-support peptide', 154.39, '/ 9 mg', T.white, '', 'assets/prod-nad-sermorelin.png')
+        ],
+        rows:[
+          row('Compounded Semaglutide','2 mg vial (0.5 mL)', 40),
+          row('Compounded Semaglutide','4 mg vial (1 mL)', 50),
+          row('Compounded Semaglutide','8 mg vial (2 mL)', 70),
+          row('Compounded Semaglutide','16 mg vial (4 mL)', 110),
+          row('Compounded Tirzepatide','10 mg vial (1 mL)', 50),
+          row('Compounded Tirzepatide','20 mg vial (1 mL)', 90),
+          row('Compounded Tirzepatide','40 mg vial (2 mL)', 130),
+          row('Compounded Tirzepatide','60 mg vial (3 mL)', 150),
+          row('Lipo-Mino-Mix (MIC)','30 mL multi-dose vial', 80.5),
+          row('B12 Methylcobalamin','5 mg/mL · 10 mL', 29.10),
+          row('Sermorelin','9 mg, lyophilized', 154.39)
+        ],
+        faqs:[
+          {q:'How is the dose decided?', a:'Your provider reviews your intake and sets a titration schedule. You start low and step up gradually to limit side effects.'},
+          {q:'Semaglutide or tirzepatide?', a:'Both are GLP-1-based. Tirzepatide is dual-action and many patients see greater results; your provider helps you choose based on your history.'},
+          {q:'Is compounded GLP-1 FDA-approved?', a:'Compounded medications are prepared by a licensed pharmacy for an individual patient and are not FDA-approved products. Your provider determines if it is appropriate for you.'}
+        ]
+      },
+      {
+        id:'labs', title:'Labs', tag:'Advanced lab testing', icon:'⚗',
+        eyebrow:'Lab Testing', headline:'Test for signals of 1,000+ health conditions',
+        sub:'Comprehensive blood panels drawn through Access Medical Labs, with results and a personalized plan delivered through Fullscript.',
+        title2:'Labs', ctaHead:'Get ahead of your health',
+        faqs:[
+          {q:'Where do I get my blood drawn?', a:'At our Oswego clinic, or at any Access Medical Labs patient service center near you. We send the order ahead so the draw takes just a few minutes.'},
+          {q:'How fast are results?', a:'Most panels result within a few business days. Your provider reviews them and shares an interpretation and plan through your secure Fullscript portal.'},
+          {q:'Do I need a doctor\'s order?', a:'No separate order is needed — your RE GEN intake covers it. A licensed, NP-directed provider authorizes your panel and reviews every result.'},
+          {q:'What is Fullscript used for?', a:'Fullscript is where you receive your results, your provider\'s recommendations, and any professional-grade supplements or prescriptions — all in one secure place, shipped to your door.'},
+          {q:'Can labs guide my treatment?', a:'Yes — labs are the foundation of our hormone, weight-loss and longevity programs. We test first, then tailor your plan to your biomarkers.'}
+        ]
+      },
+      {
+        id:'daily-wellness', title:'Daily Wellness', tag:'Longevity, NAD+ & peptides', icon:'✦', heroImg:'assets/banner-wellness.jpg', heroBanner:'assets/hero-nad.jpg',
+        editorial:['assets/dw-ed1.jpg','assets/dw-ed2.jpg','assets/dw-ed3.jpg','assets/dw-ed4.jpg'],
+        editorialEyebrow:'Why peptides', editorialHead:'Recovery that works <span class="accent">with your body</span>',
+        eyebrow:'Daily Wellness', headline:'Done surviving. Ready to thrive.',
+        sub:'NAD+, MIC-B12, sermorelin and research-backed peptides for energy, recovery and science-backed longevity — prescribed and guided.',
+        priceNote:'from $72.75', colName:'Treatment', colDetail:'Vial / detail', tableNote:'Peptides are compounded vials; dosing per provider.',
+        ctaHead:'Optimize your wellness',
+        products:[
+          prod('NAD+','Cellular energy & longevity', 60, '/ 10 mL', T.white, 'Longevity', 'assets/prod-nad-sermorelin.png'),
+          prod('NADvantage','NAD+ face cream', 71, '/ 30 g', T.white, '', 'assets/prod-nadvantage.jpg'),
+          prod('Vitamin D3','50,000 IU injection', 59.51, '/ 30 mL', T.white, '', 'assets/prod-vitd3.png'),
+          prod('Sermorelin','GH-support peptide', 154.39, '/ 9 mg', T.lilac)
+        ],
+        rows:[
+          row('NAD+','100 mg/mL · 10 mL vial', 60),
+          row('NAD+ & Glutatonic Bundle','injection + SL spray', 148.35),
+          row('MIC-B12','methylcobalamin · 10 mL', 29.10),
+          row('Sermorelin','9 mg, lyophilized', 154.39),
+          row('Glutathione','200 mg/mL · 5 mL', 26.45),
+          row('BPC-157','3 mg/mL · 5 mL', 70),
+          row('CJC-1295 / Ipamorelin','1.2/2 mg · 5 mL', 80),
+          row('Tesamorelin','3 mg/mL · 5 mL', 70),
+          row('GHK-Cu','10 mg/mL · 5 mL', 70),
+          row('Vitamin D3','50,000 IU · 30 mL', 59.51),
+          row('NADvantage','NAD+ face cream · 30 g', 71)
+        ],
+        faqs:[
+          {q:'What is NAD+?', a:'NAD+ is a coenzyme involved in cellular energy and repair. Many patients use it to support energy, focus and healthy aging.'},
+          {q:'Are peptides prescription?', a:'Yes — the peptides we offer are compounded by a licensed pharmacy and require a provider prescription. They are not FDA-approved products.'},
+          {q:'How are these taken?', a:'Most are subcutaneous injections you self-administer with a tiny needle; some come as creams or sprays. Your provider sets your protocol.'}
+        ]
+      },
+      {
+        id:'vitamin-injections', title:'Vitamin Injections', tag:'At-home wellness shots', icon:'✚', heroImg:'assets/hero-vitamin-injections.jpg', heroBanner:'assets/hero-vitamin-injections.jpg',
+        editorial:['assets/lifestyle-b12.jpg','assets/hero-ldn.jpg'],
+        editorialEyebrow:'At-home injections', editorialHead:'Wellness, <span class="accent">delivered to your door</span>',
+        eyebrow:'Vitamin Injections', headline:'At-home vitamin injections',
+        sub:'NAD+, glutathione, B12, vitamin D3 and biotin injections — plus low-dose naltrexone — prescribed, shipped, and self-administered at home.',
+        priceNote:'from $66', colName:'Injection', colDetail:'Concentration / count', tableNote:'Injections ship as multi-dose vials with supplies; low-dose naltrexone ships as oral capsules.',
+        ctaHead:'Start your wellness shots',
+        products:[
+          prod('NAD+','Cellular energy & longevity', 60, '/ 10 mL', T.white, 'Longevity', 'assets/prod-nad-sermorelin.png'),
+          prod('B12 (Methylcobalamin)','Energy & metabolism', 28, '/ 10 mL', T.white, 'Best seller', 'assets/prod-b12.png'),
+          prod('Glutathione','Antioxidant & glow', 26.45, '/ 5 mL', T.white, '', 'assets/prod-glutathione.png'),
+          prod('Vitamin D3','Immune support', 60, '/ 10 mL', T.white, '', 'assets/prod-vitd3.png'),
+          prod('Biotin','Hair, skin & nails', 33.06, '/ 10 mL', T.white, '', ''),
+          prod('Low Dose Naltrexone','Immune & inflammation · oral', 27.50, '/ 30 caps', T.white, '', '')
+        ],
+        rows:[
+          row('B12 (Methylcobalamin)','1 mg/mL · 10 mL vial', 28),
+          row('NAD+','100 mg/mL · 10 mL vial', 60),
+          row('Glutathione','200 mg/mL · 5 mL vial', 26.45),
+          row('Vitamin D3','50,000 IU/mL · 10 mL vial', 60),
+          row('Vitamin D3','100,000 IU/mL · 10 mL vial', 70),
+          row('Biotin','0.5 mg/mL · 10 mL vial', 33.06),
+          row('Low Dose Naltrexone','1.5 mg · 30 capsules', 27.50),
+          row('Low Dose Naltrexone','4.5 mg · 30 capsules', 27.50),
+          row('Low Dose Naltrexone','4.5 mg · 90 capsules', 70)
+        ],
+        faqs:[
+          {q:'Are these injections safe to do at home?', a:'Yes — these are simple subcutaneous or intramuscular shots. Your kit ships with supplies and instructions, and a provider walks you through your first dose.'},
+          {q:'What is low-dose naltrexone (LDN)?', a:'LDN is a prescription capsule used off-label to support immune balance and reduce inflammation. It ships as oral capsules, not an injection, and is dosed by your provider.'},
+          {q:'How often do I inject?', a:'It depends on the product and your goals — B12 and D3 are often weekly, NAD+ and glutathione vary. Your provider sets a simple schedule for you.'}
+        ]
+      },
+      {
+        id:'sexual-health', title:'Sexual Health', tag:'ED, libido & intimacy', icon:'❤', heroImg:'assets/sh-couple.jpg',
+        eyebrow:'Sexual Health', headline:'Better intimacy, on your terms',
+        sub:'Fast-dissolve ED tablets for men and prescription intimacy creams for women — discreet, prescribed, delivered.',
+        priceNote:'from $12.50/dose', colName:'Treatment', colDetail:'Form / blend', tableNote:'Oral tablets are priced per dose; creams are priced per 30 g tube.',
+        ctaHead:'Unlock better sex',
+        products:[
+          prod('Sildenafil RDT','Rapid-dissolve tablet', 5, '/ dose', T.white, 'Men · best seller', 'assets/prod-sildenafil.jpg'),
+          prod('Tadalafil RDT','Rapid-dissolve tablet', 5, '/ dose', T.white, '', 'assets/prod-tadalafil.jpg'),
+          prod('MAXX PE','Tadalafil / oxytocin / PT-141', 6, '/ dose', T.white, '', 'assets/prod-maxxpe.jpg'),
+          prod('Scream Cream','Arginine / sildenafil · topical', 50, '/ 30 g', T.white, 'Women', 'assets/prod-screamcream.jpg')
+        ],
+        rows:[
+          row('Sildenafil','100 mg rapid-dissolve tablet', 5),
+          row('Sildenafil','150 mg rapid-dissolve tablet', 5),
+          row('Tadalafil','20 mg rapid-dissolve tablet', 5),
+          row('Tadalafil','75 mg rapid-dissolve tablet', 5),
+          row('MAXX PE','Tadalafil 20 / oxytocin / PT-141', 6),
+          row('MAXX PLUS PE','Tadalafil 75 / oxytocin / PT-141', 7),
+          row('Scream Cream','theophylline / arginine / sildenafil · 30 g', 50),
+          row('Climax Cream','theophylline / arginine / ergoloid · 30 g', 65),
+          row('Euphoria Cream','arginine / papaverine / alprostadil · 30 g', 71),
+          row('PT-141','bremelanotide · 2 mg/mL · 5 mL', 70)
+        ],
+        faqs:[
+          {q:'How fast do ED tablets work?', a:'Rapid-dissolve tablets are designed to act faster than swallowed pills. Your provider will advise on timing and the right option for you.'},
+          {q:'What are the intimacy creams?', a:'Compounded topical creams for women that combine vasodilators and other actives to support arousal and sensation. A provider determines suitability.'},
+          {q:'Is my order discreet?', a:'Yes — every order ships in plain, discreet packaging for a flat $30.'}
+        ]
+      },
+      {
+        id:'hormones', title:'Hormones', tag:'TRT, HCG & bioidentical HRT', icon:'⚕', heroImg:'assets/banner-h6.jpg', heroBanner:'assets/banner-h6.jpg',
+        eyebrow:'Hormone Therapy', headline:'Feel like yourself again',
+        sub:'Testosterone optimization and TRT for men, bioidentical estrogen and progesterone for women, plus enclomiphene, HCG and DHEA — all guided by labs and a provider.',
+        priceNote:'TRT from $75', colName:'Medication', colDetail:'Form / concentration', tableNote:'Enclomiphene, HCG and DHEA are priced at consult. Many additional strengths of estradiol, progesterone and testosterone are available.',
+        ctaHead:'Rebalance your hormones',
+        banners:[
+          { img:'assets/banner-h6.jpg', alt:'Testosterone & TRT' },
+          { img:'assets/banner-enclomiphene.jpg', alt:'Enclomiphene' },
+          { img:'assets/banner-hcg.jpg', alt:'HCG' },
+          { img:'assets/banner-h2.jpg', alt:'Estradiol (E2)' },
+          { img:'assets/banner-h1.jpg', alt:'Estrogen (Bi-Est)' },
+          { img:'assets/banner-h3.jpg', alt:'Estriol (E3)' },
+          { img:'assets/banner-h4.jpg', alt:'Testosterone' },
+          { img:'assets/banner-h5.jpg', alt:'DHEA' }
+        ],
+        rows:[
+          row('Testosterone Cypionate (Grapeseed)','200 mg/mL IM · 5 mL', 30),
+          row('Testosterone Cypionate (Grapeseed)','200 mg/mL IM · 10 mL', 60),
+          row('Testosterone Cypionate (Sesame)','200 mg/mL IM · 5 mL', 30),
+          row('Enclomiphene','testosterone support · capsule', 'At consult'),
+          row('HCG','reproductive & T support · injection', 'At consult'),
+          row('DHEA','adrenal & hormone support', 'At consult'),
+          row('Anastrozole','0.5 mg capsule (IR)', 1.10),
+          row('Estradiol (E2)','1 mg rapid-dissolve tablet', 1),
+          row('Biest (80/20) Cream','estriol / estradiol · 30 g', 36),
+          row('Progesterone Cream 10%','100 mg/mL · 30 g', 41),
+          row('Progesterone','100 mg capsule', 0.85)
+        ],
+        faqs:[
+          {q:'Do I need bloodwork?', a:'Yes — hormone therapy is guided by labs. Your provider orders baseline labs and rechecks periodically to keep you in range.'},
+          {q:'What is the difference between TRT, enclomiphene and HCG?', a:'TRT supplies testosterone directly; enclomiphene and HCG stimulate your body to make more of its own, which can help preserve fertility and testicular function. Your provider helps you choose.'},
+          {q:'Do you treat women too?', a:'Yes — bioidentical estradiol, estriol, Bi-Est, progesterone, low-dose testosterone and DHEA for hormonal balance and menopause wellness.'}
+        ]
+      },
+      {
+        id:'hair-skin', title:'Hair + Skin', tag:'Regrowth & Rx dermatology', icon:'✦', heroImg:'assets/prod-manetain.png', heroBanner:'assets/hero-hair.jpg',
+        eyebrow:'Hair + Skin', headline:'Keep your hair. Love your skin.',
+        sub:'Prescription-strength dermatology creams for brightening, acne and anti-aging, plus a leave-in spray to defend and regrow your hair.',
+        priceNote:'from $125', colName:'Treatment', colDetail:'Concern / actives', tableNote:'Creams come in 30 g; Plus and Max tiers step up the active concentration.',
+        ctaHead:'Improve your hair & skin',
+        products:[
+          prod('ManeTain','Minoxidil 5% leave-in spray', 69, '/ 100 mL', T.white, 'Hair · best seller', 'assets/prod-manetain.png'),
+          prod('Glow','Even skin tone · kojic + ascorbic', 50, '/ 30 g', T.white, 'Skin', 'assets/prod-glow.jpg'),
+          prod('Miracle','Extreme repair · brightening', 50, '/ 30 g', T.white, '', 'assets/prod-miracle.jpg'),
+          prod('Erase','Acne · retinoic + clindamycin', 50, '/ 30 g', T.white, '', 'assets/prod-erase.jpg')
+        ],
+        rows:[
+          row('ManeTain Leave-In Spray','minoxidil 5% / fluocinolone / retinoic / vit E · 100 mL', 69),
+          row('Biotin Injection','0.5 mg/mL · 10 mL', 33.06),
+          row('GHK-Cu (copper peptide)','10 mg/mL · 5 mL', 70),
+          row('Corrector','spot lightener · hydroquinone 6%', 50),
+          row('Glow','even tone · kojic / ascorbic / HA', 50),
+          row('Illuminate','lightener · retinoic / HA / ascorbic', 50),
+          row('Miracle','extreme repair · hydroquinone / retinoic', 50),
+          row('Plump','anti-aging · retinoic / HA', 50),
+          row('Erase','acne · retinoic / clindamycin', 50),
+          row('Tighten','wrinkle · GHK copper 0.5%', 50),
+          row('NADvantage','NAD+ face cream · 30 g', 71)
+        ],
+        faqs:[
+          {q:'Are these prescription?', a:'Yes — these are compounded prescription-strength formulas. A provider reviews your goals and history before prescribing.'},
+          {q:'How long until I see results?', a:'Skin actives often show change in 6–12 weeks; hair treatments typically need 3–6 months of consistent use.'},
+          {q:'Can I combine products?', a:'Often, yes — your provider can build a simple AM/PM routine and tell you how to layer safely.'}
+        ]
+      }
+    ];
+    return this._cats;
+  }
+
+  go(id) { this.setState({ view:'category', cat:id, menuOpen:false }); if (typeof window!=='undefined') window.scrollTo({ top:0 }); }
+  home() { this.setState({ view:'hub', menuOpen:false }); if (typeof window!=='undefined') window.scrollTo({ top:0 }); }
+
+  addToCart(p) {
+    this.setState(s => {
+      const cart = s.cart.slice();
+      const i = cart.findIndex(c => c.name === p.name);
+      if (i >= 0) cart[i] = { ...cart[i], qty: cart[i].qty + 1 };
+      else cart.push({ name:p.name, priceN:p.priceN, price:p.price, unit:p.unit, tint:(p.img? '#EDE7E1' : p.tint), qty:1 });
+      return { cart, cartOpen:true };
+    });
+  }
+  changeQty(name, d) {
+    this.setState(s => ({ cart: s.cart.map(c => c.name===name ? { ...c, qty:c.qty+d } : c).filter(c => c.qty > 0) }));
+  }
+  fmt(n) { return '$' + (Number.isInteger(n) ? n.toLocaleString('en-US') : n.toFixed(2)); }
+  R(p) { return (typeof window !== 'undefined' && window.__resources && window.__resources[p]) || p; }
+
+  renderVals() {
+    const cats = this.cats();
+    const active = cats.find(c => c.id === this.state.cat) || cats[0];
+    const navCats = cats.map(c => ({ title:c.title, go:() => this.go(c.id), goM:() => this.go(c.id) }));
+    const catTiles = cats.map(c => ({
+      title:c.title, tag:c.tag, icon:c.icon, tint:'#F7E9F0',
+      go:() => this.go(c.id),
+      pick:() => this.setState({ quizGoal:c.id, quizStep:1 })
+    }));
+    // distinct tints per tile
+    const tintList = ['#EFE9E2','#E7EBF0','#F7E9F0','#F3ECF5','#E9EFEA'];
+    catTiles.forEach((t,i) => { t.tint = tintList[i % tintList.length]; });
+
+    const activeView = {
+      ...active,
+      heroImgEl: active.heroImg ? React.createElement('img', { src: this.R(active.heroImg), alt: active.title, style: { width:'100%', height:'100%', objectFit:'cover' } }) : null,
+      heroBanner: active.heroBanner || '',
+      heroBannerEl: active.heroBanner ? React.createElement('img', { src: this.R(active.heroBanner), alt: active.title, style:{ width:'100%', display:'block' } }) : null,
+      splitHero: !active.heroBanner,
+      hasEditorial: !!(active.editorial && active.editorial.length),
+      editorialHeadHtml: { __html: active.editorialHead || '' },
+      editorialItems: (active.editorial || []).map((src,i) => ({ imgEl: React.createElement('img', { src: this.R(src), alt: active.title + ' — ' + (i+1), style:{ width:'100%', display:'block' } }) })),
+      products: (active.products || []).map(p => ({ ...p, add:() => this.addToCart(p), noimg: !p.img, imgEl: p.img ? React.createElement('img', { className:'pimg', src:this.R(p.img), alt:p.name }) : null })),
+      banners: (active.banners || []).map(b => ({ ...b, go:() => this.setState({ quizOpen:true, quizStep:0, quizGoal:active.id }), imgEl: React.createElement('img', { src:this.R(b.img), alt:b.alt, style:{ width:'100%', display:'block' } }) })),
+      bannerMode: !!active.banners,
+      cardMode: !active.banners
+    };
+    const cart = this.state.cart;
+    const sub = cart.reduce((t,i) => t + i.priceN * i.qty, 0);
+    const ship = cart.length ? 30 : 0;
+    const cartItems = cart.map(i => ({
+      ...i,
+      inc:() => this.changeQty(i.name, 1),
+      dec:() => this.changeQty(i.name, -1),
+      remove:() => this.changeQty(i.name, -i.qty)
+    }));
+    const goalCat = cats.find(c => c.id === this.state.quizGoal);
+
+    return {
+      isHub: this.state.view === 'hub',
+      isCategory: this.state.view === 'category' && this.state.cat !== 'labs',
+      isLabs: this.state.view === 'category' && this.state.cat === 'labs',
+      active: activeView,
+      navCats, catTiles,
+      goHome:() => this.home(),
+      goWeight:() => this.go('weight-loss'),
+      openQuiz:() => this.setState({ quizOpen:true, quizStep:0, quizGoal:'', menuOpen:false }),
+      openQuizFromMenu:() => this.setState({ quizOpen:true, quizStep:0, quizGoal:'', menuOpen:false }),
+      closeQuiz:() => this.setState({ quizOpen:false }),
+      quizNext:() => this.setState(s => ({ quizStep: Math.min(2, s.quizStep + 1) })),
+      quizBack:() => this.setState(s => ({ quizStep: Math.max(0, s.quizStep - 1) })),
+      quizOpen: this.state.quizOpen,
+      quizStep0: this.state.quizStep === 0,
+      quizStep1: this.state.quizStep === 1,
+      quizStep2: this.state.quizStep === 2,
+      quizPct: ((this.state.quizStep + 1) / 3 * 100) + '%',
+      quizGoalLabel: goalCat ? goalCat.title : 'your goals',
+      openCart:() => this.setState({ cartOpen:true }),
+      closeCart:() => this.setState({ cartOpen:false }),
+      cartOpen: this.state.cartOpen,
+      cartEmpty: cart.length === 0,
+      hasCart: cart.length > 0,
+      cartCount: cart.reduce((t,i) => t + i.qty, 0),
+      cartItems,
+      subtotal: this.fmt(sub),
+      shipping: cart.length ? '$30' : '$0',
+      total: this.fmt(sub + ship),
+      checkout:() => { this.setState({ cartOpen:false, quizOpen:true, quizStep:0, quizGoal:'' }); },
+      openMenu:() => this.setState({ menuOpen:true }),
+      closeMenu:() => this.setState({ menuOpen:false }),
+      menuOpen: this.state.menuOpen,
+      openLogo:() => this.setState({ logoOpen:true }),
+      closeLogo:() => this.setState({ logoOpen:false }),
+      logoOpen: this.state.logoOpen
+    };
+  }
+}
+</script>
+</body>
+</html>
