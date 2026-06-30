@@ -50,6 +50,7 @@ export type RxCategoryHub = {
   steps: Array<{ title: string; body: string }>;
   products: RxCategoryProduct[];
   trustLine: string;
+  faq?: Array<{ q: string; a: string }>;
 };
 
 const WEIGHT_LOSS_PRODUCTS: RxCategoryProduct[] = [
