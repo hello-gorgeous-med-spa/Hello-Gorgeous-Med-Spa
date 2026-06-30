@@ -7,6 +7,7 @@
     "postinstall": "node scripts/sync-mediapipe-face-mesh.mjs",
     "prebuild": "node scripts/sync-mascot-media.mjs && node scripts/sync-mediapipe-face-mesh.mjs && npx tsx scripts/check-seo-content-depth.ts",
     "export-fresha-reviews": "node scripts/export-fresha-reviews.mjs",
+    "update-regen": "bash scripts/update-regen-site.sh",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",

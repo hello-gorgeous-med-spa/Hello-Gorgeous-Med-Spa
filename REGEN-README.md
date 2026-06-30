@@ -8,6 +8,24 @@ RE GEN is the **prescription arm** of Hello Gorgeous Med Spa. NP-directed medica
 
 ---
 
+## Updating the RE GEN page (one command)
+
+The `/rx` page serves the owner's Claude/designcombo export from `public/regen-site/`.
+The export loads React/ReactDOM/Babel from `unpkg.com`, which the site CSP blocks — so a
+raw export renders **blank**. To install a fresh export and auto-fix this in one step:
+
+```bash
+npm run update-regen -- "/path/to/exported/folder"
+# optional 2nd arg if the main file isn't "RE GEN RX.dc.html":
+npm run update-regen -- "/path/to/folder" "YOUR FILE.dc.html"
+```
+
+It copies `index.html` + `support.js` + `assets/` + `_ds/`, vendors React/ReactDOM/Babel
+locally under `public/regen-site/vendor/`, and repoints `support.js` at them (0 unpkg refs).
+Then review at `localhost:3000/rx` and `git commit && push`. Script: `scripts/update-regen-site.sh`.
+
+---
+
 ## Design System (from owner's Claude prototype)
 
 ### Brand Colors
