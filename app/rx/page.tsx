@@ -1,23 +1,26 @@
 import type { Metadata } from "next";
 
-import { RegenLandingPageContent } from "@/components/regen/RegenLandingPageContent";
-import { REGEN_BRAND, REGEN_LOGO } from "@/lib/regen-brand";
+import { RegenSiteLanding } from "@/components/regen/RegenSiteLanding";
+import { REGEN_SITE } from "@/lib/regen-site";
 import { pageMetadata, SITE } from "@/lib/seo";
 
 const PAGE_PATH = "/rx";
 const PAGE_URL = `${SITE.url}${PAGE_PATH}`;
 
 const baseMeta = pageMetadata({
-  title: `${REGEN_BRAND.fullName} | Medical Wellness · Oswego, IL`,
+  title: `${REGEN_SITE.fullName} | Medical Prescriptions · Oswego, IL`,
   description:
-    "REGEN by Hello Gorgeous Med Spa — medical weight loss, labs, hormones, peptides, and wellness with NP supervision. Online intake, telehealth when needed, discreet shipping across Illinois.",
+    "RE GEN — the prescription arm of Hello Gorgeous Med Spa. NP-directed medical weight loss, peptides, hormones, and labs. 100% online. Flat $30 shipping.",
   path: PAGE_PATH,
   keywords: [
-    "REGEN Hello Gorgeous",
+    "RE GEN",
+    "Hello Gorgeous RX",
     "medical weight loss Oswego",
     "GLP-1 Illinois",
-    "hormone therapy Naperville",
+    "tirzepatide prescription",
+    "semaglutide",
     "peptide therapy",
+    "hormone therapy",
     "Ryan Kent FNP",
   ],
 });
@@ -29,17 +32,17 @@ export const metadata: Metadata = {
     url: PAGE_URL,
     images: [
       {
-        url: `${SITE.url}${REGEN_LOGO.primary}`,
-        width: REGEN_LOGO.width,
-        height: REGEN_LOGO.height,
-        alt: REGEN_LOGO.alt,
+        url: `${SITE.url}/images/regen/brand/regen-logo-primary.png`,
+        width: 1024,
+        height: 576,
+        alt: "RE GEN by Hello Gorgeous Med Spa",
       },
     ],
   },
   twitter: {
     ...baseMeta.twitter,
     card: "summary_large_image",
-    images: [`${SITE.url}${REGEN_LOGO.primary}`],
+    images: [`${SITE.url}/images/regen/brand/regen-logo-primary.png`],
   },
 };
 
@@ -47,25 +50,37 @@ export default function RxPage() {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "MedicalClinic",
-    name: REGEN_BRAND.fullName,
+    name: REGEN_SITE.fullName,
     description:
-      "REGEN — prescription medical wellness including weight loss, hormone therapy, peptides, labs, and sexual health with NP oversight in Oswego, IL.",
+      "RE GEN — the medical-prescription arm of Hello Gorgeous Med Spa. NP-directed weight loss, peptide, hormone, and lab services. 100% online with flat $30 shipping.",
     url: PAGE_URL,
     address: {
       "@type": "PostalAddress",
-      streetAddress: "74 W. Washington Street",
-      addressLocality: "Oswego",
-      addressRegion: "IL",
-      postalCode: "60543",
+      streetAddress: REGEN_SITE.address.street,
+      addressLocality: REGEN_SITE.address.city,
+      addressRegion: REGEN_SITE.address.state,
+      postalCode: REGEN_SITE.address.zip,
       addressCountry: "US",
     },
-    telephone: "(630) 636-6193",
-    medicalSpecialty: ["Hormone Therapy", "Medical Weight Loss", "Peptide Therapy"],
-    physician: {
-      "@type": "Physician",
-      name: "Ryan Kent, FNP-BC",
-      medicalSpecialty: "Family Nurse Practitioner",
-    },
+    telephone: REGEN_SITE.phone,
+    medicalSpecialty: ["Medical Weight Loss", "Hormone Therapy", "Peptide Therapy"],
+    availableService: [
+      {
+        "@type": "MedicalProcedure",
+        name: "GLP-1 Weight Loss Program",
+        description: "Compounded tirzepatide and semaglutide for medical weight loss.",
+      },
+      {
+        "@type": "MedicalProcedure",
+        name: "Peptide Therapy",
+        description: "BPC-157, sermorelin, NAD+ and 22+ peptide protocols.",
+      },
+      {
+        "@type": "MedicalProcedure",
+        name: "Hormone Optimization",
+        description: "HRT for men and women — testosterone, estrogen, progesterone.",
+      },
+    ],
   };
 
   return (
@@ -74,7 +89,7 @@ export default function RxPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <RegenLandingPageContent />
+      <RegenSiteLanding />
     </>
   );
 }
