@@ -115,12 +115,25 @@ lib/regen/checkout.ts        → Square payment integration
 
 ---
 
+## Authentication
+
+- **Customer login**: `/portal/login` (magic link — no password)
+- **Integration**: `hg-integration.js` intercepts Login button clicks
+- **Redirect after login**: `/rx`
+
 ## Payments
 
 - **Provider**: Square (via existing Hello Gorgeous integration)
 - **Shipping**: Flat $30 on all orders
 - **API endpoint**: `/api/regen/checkout`
-- **Flow**: Cart → Square hosted checkout → Success page
+- **Flow**: Cart → Integration script → `/api/regen/checkout` → Square hosted checkout → `/rx/checkout/success`
+
+## Integration Script
+
+`public/regen-site/hg-integration.js` bridges the Claude prototype to Hello Gorgeous systems:
+- Intercepts Login button → redirects to `/portal/login`
+- Intercepts Cart checkout → calls `/api/regen/checkout` → redirects to Square
+- Auto-added by `npm run update-regen` on new exports
 
 ---
 
