@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 
+import { CartProvider } from "@/lib/regen/cart-context";
+import { RegenCartDrawer } from "@/components/regen/RegenCartDrawer";
+
 export const metadata: Metadata = {
   robots: {
     index: true,
@@ -8,5 +11,10 @@ export const metadata: Metadata = {
 };
 
 export default function RxLayout({ children }: { children: React.ReactNode }) {
-  return <>{children}</>;
+  return (
+    <CartProvider>
+      {children}
+      <RegenCartDrawer />
+    </CartProvider>
+  );
 }
