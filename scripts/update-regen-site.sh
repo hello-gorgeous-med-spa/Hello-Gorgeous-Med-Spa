@@ -89,9 +89,22 @@ if [[ "$REMAINING" != "0" ]]; then
   exit 1
 fi
 
-# --- restore custom overrides (images that live in /images/regen/ instead of assets/) ---
-# These are referenced by absolute paths in the HTML so they persist across exports.
-echo "✅ Custom images stay in /images/regen/ (not overwritten by export)"
+# --- restore custom image overrides (survive re-exports) ---------------------
+# Master copies live in public/images/regen/ and are re-stamped over the export's
+# assets/ after each update, so a fresh export never reverts a custom photo.
+# Format: "master-filename-in-images-regen:asset-filename-in-regen-site".
+OVERRIDES_DIR="$APP_DIR/public/images/regen"
+OVERRIDES=(
+  "hair-skin-hero.jpg:hero-hair.jpg"   # Peptide + Skin hero for the Hair + Skin category
+)
+for map in "${OVERRIDES[@]}"; do
+  src="${map%%:*}"
+  dst="${map##*:}"
+  if [[ -f "$OVERRIDES_DIR/$src" ]]; then
+    cp "$OVERRIDES_DIR/$src" "$DEST/assets/$dst"
+    echo "✅ Restored custom image: assets/$dst ← images/regen/$src"
+  fi
+done
 
 # --- add Hello Gorgeous integration script (login + checkout wiring) ---
 if [[ ! -f "$DEST/hg-integration.js" ]]; then
