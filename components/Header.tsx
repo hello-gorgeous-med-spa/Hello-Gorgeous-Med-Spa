@@ -27,7 +27,6 @@ import {
 import { isMedicalNavActive } from "@/lib/medical-nav";
 import { isLabsNavActive, labsNavSection } from "@/lib/labs-nav";
 import { medicalMegaMenuMobileGroups, SHOP_RX_NAV } from "@/lib/medical-mega-menu";
-import { MedicalMegaMenu } from "@/components/header/MedicalMegaMenu";
 import { RegenNavLogo } from "@/components/regen/RegenLogo";
 import { QUIZ_NAV } from "@/lib/quiz-nav";
 import { HG_TAGLINE } from "@/lib/brand-tagline";
@@ -641,28 +640,19 @@ export function Header() {
               />
             </div>
 
-            {/* Shop RX */}
+            {/* REGEN — direct link to the RE GEN site (no hover mega menu) */}
             <div
               className="relative flex items-center"
-              onMouseEnter={() => openDropdown("medical")}
-              onMouseLeave={closeDropdown}
+              onMouseEnter={closeDropdown}
             >
               <Link
                 href={SHOP_RX_NAV.href}
-                className={cx(NAV_LINK_BASE, "h-9 gap-1.5")}
+                className={cx(NAV_LINK_BASE, "h-9")}
                 style={navPillStyle(1, isMedicalNavActiveState)}
                 aria-label="REGEN by Hello Gorgeous Med Spa"
               >
                 <RegenNavLogo />
-                <svg className={cx("h-3 w-3 shrink-0 transition-transform", activeDropdown === "medical" && "rotate-180")} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                </svg>
               </Link>
-              <MedicalMegaMenu
-                isOpen={activeDropdown === "medical"}
-                onClose={() => setActiveDropdown(null)}
-                onMouseEnter={() => openDropdown("medical")}
-              />
             </div>
 
             {/* Labs */}
@@ -811,20 +801,30 @@ export function Header() {
               { key: "about", label: "About", links: NAV.about.links },
             ].map(({ key, label, links, groups, highlight }) => (
               <div key={key} className="border-b border-white/10 pb-1">
+                {key === "medical" ? (
+                  <Link
+                    href={SHOP_RX_NAV.href}
+                    onClick={() => setMobileOpen(false)}
+                    className="flex w-full items-center gap-2 px-4 py-3.5 text-sm font-semibold"
+                    style={{ color: trifectaAccent(0).subtitle }}
+                    aria-label="REGEN by Hello Gorgeous Med Spa"
+                  >
+                    <span className="flex flex-1 items-center">
+                      <RegenNavLogo />
+                    </span>
+                    <span className="flex-shrink-0 rounded-full px-2 py-0.5 text-[9px] font-bold uppercase text-white" style={{ background: trifectaAccent(0).badgeBg }}>
+                      NEW
+                    </span>
+                  </Link>
+                ) : (
+                <>
                 <button
                   type="button"
                   onClick={() => setMobileSection(mobileSection === key ? null : key)}
                   className="flex w-full items-center gap-2 px-4 py-3.5 text-sm font-semibold text-white"
                   style={highlight ? { color: trifectaAccent(0).subtitle } : undefined}
-                  aria-label={key === "medical" ? "REGEN by Hello Gorgeous Med Spa" : undefined}
                 >
-                  {key === "medical" ? (
-                    <span className="flex flex-1 items-center">
-                      <RegenNavLogo />
-                    </span>
-                  ) : (
-                    <span className="flex-1 text-left">{label}</span>
-                  )}
+                  <span className="flex-1 text-left">{label}</span>
                   {highlight ? (
                     <span className="flex-shrink-0 rounded-full px-2 py-0.5 text-[9px] font-bold uppercase text-white" style={{ background: trifectaAccent(0).badgeBg }}>
                       NEW
@@ -878,6 +878,8 @@ export function Header() {
                           </Link>
                         ))}
                   </div>
+                )}
+                </>
                 )}
               </div>
             ))}

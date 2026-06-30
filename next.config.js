@@ -145,10 +145,13 @@ const nextConfig = {
     // RE GEN site (public/regen-site) — the prescription-arm prototype iframed on /rx.
     // Needs SAMEORIGIN framing + 'self' scripts (React/ReactDOM/Babel are vendored under
     // /regen-site/vendor) so it isn't blocked by the global DENY / unpkg-less script-src.
+    // noindex: the canonical indexable URL is /rx — this raw client-rendered shell must not
+    // compete as a thin duplicate. It stays crawlable so Googlebot can still render the iframe.
     {
       source: "/regen-site/:path*",
       headers: [
         { key: "X-Frame-Options", value: "SAMEORIGIN" },
+        { key: "X-Robots-Tag", value: "noindex" },
         { key: "Content-Security-Policy", value: EMBEDDABLE_HTML_CSP },
       ],
     },
