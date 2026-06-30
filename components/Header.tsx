@@ -25,7 +25,7 @@ import {
   SPECIALS_NAV_EXTRA_LINKS,
 } from "@/lib/site-primary-nav";
 import { isMedicalNavActive } from "@/lib/medical-nav";
-import { isLabsNavActive, labsNavSection } from "@/lib/labs-nav";
+import { labsNavSection } from "@/lib/labs-nav";
 import { medicalMegaMenuMobileGroups, SHOP_RX_NAV } from "@/lib/medical-mega-menu";
 import { RegenNavLogo } from "@/components/regen/RegenLogo";
 import { QUIZ_NAV } from "@/lib/quiz-nav";
@@ -550,7 +550,6 @@ export function Header() {
     );
 
   const isMedicalNavActiveState = isMedicalNavActive(pathname ?? null);
-  const isLabsNavActiveState = isLabsNavActive(pathname ?? null);
   const isAboutNavActiveState = isAboutNavActive(pathname ?? null);
   const isBookNavActive = pathname === PRIMARY_BOOKING_CTA.href;
 
@@ -655,29 +654,7 @@ export function Header() {
               </Link>
             </div>
 
-            {/* Labs */}
-            <div
-              className="relative flex items-center"
-              onMouseEnter={() => openDropdown("labs")}
-              onMouseLeave={closeDropdown}
-            >
-              <Link
-                href={NAV.labs.href}
-                className={NAV_LINK_BASE}
-                style={navPillStyle(2, isLabsNavActiveState)}
-              >
-                Labs
-                <svg className={cx("h-3 w-3 transition-transform", activeDropdown === "labs" && "rotate-180")} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                </svg>
-              </Link>
-              <SimpleMenu
-                data={NAV.labs}
-                isOpen={activeDropdown === "labs"}
-                onClose={() => setActiveDropdown(null)}
-                onMouseEnter={() => openDropdown("labs")}
-              />
-            </div>
+            {/* Labs — hidden from nav pending a RE GEN-style rebuild; /labs still live */}
 
             {/* Specials */}
             <div
@@ -796,7 +773,6 @@ export function Header() {
                 groups: medicalMegaMenuMobileGroups(),
                 highlight: true,
               },
-              { key: "labs", label: "Labs", links: NAV.labs.links, highlight: true },
               { key: "specials", label: "Specials", links: NAV.specials.links, highlight: true },
               { key: "about", label: "About", links: NAV.about.links },
             ].map(({ key, label, links, groups, highlight }) => (
