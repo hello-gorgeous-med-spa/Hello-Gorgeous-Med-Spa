@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 
 import { createRegenCheckout, createRegenQuickPay, type RegenCartItem } from "@/lib/regen/checkout";
+import { validateCartPricing } from "@/lib/regen/pricing-sync";
 import { SITE } from "@/lib/seo";
 
 export const runtime = "nodejs";
@@ -46,8 +47,28 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    // Validate and potentially adjust prices against canonical pricing
+    const cartItems = body.items.map((item) => ({
+      id: item.id,
+      name: item.name,
+      price: item.priceUsd,
+      quantity: item.quantity,
+    }));
+    const validation = validateCartPricing(cartItems);
+    
+    // Log warnings but proceed with validated prices
+    if (validation.warnings.length > 0) {
+      console.warn("[regen/checkout] Price validation warnings:", validation.warnings);
+    }
+
+    // Use validated items (prices adjusted to canonical if needed)
+    const validatedItems: RegenCartItem[] = validation.items.map((item, i) => ({
+      ...body.items![i],
+      priceUsd: item.price,
+    }));
+
     const result = await createRegenCheckout({
-      items: body.items,
+      items: validatedItems,
       customerEmail: body.customerEmail,
       redirectUrl,
     });
