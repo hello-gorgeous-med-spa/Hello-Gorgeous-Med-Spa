@@ -243,6 +243,7 @@
     .rgx-hero-img { display:none; }
     .rgx-hero { background:linear-gradient(160deg,#1a1216,#3a2730); }
     .rgx-foot-cols { grid-template-columns:1fr; }
+    .rgx-timeline-grid { grid-template-columns:1fr !important; gap:32px !important; }
   }
 </style>
 </helmet>
@@ -336,15 +337,56 @@
       </div>
     </section>
 
-    <section class="section-white" style="padding:20px 24px 90px;">
-      <div style="text-align:center;max-width:720px;margin:0 auto 48px;">
-        <p class="hg-eyebrow">How it works</p>
-        <h2 style="margin:12px 0 0;">Care that's <span class="accent">100% online</span></h2>
-      </div>
-      <div class="rgx-steps">
-        <div class="rgx-step"><div class="num">1</div><h3 style="margin:0 0 8px;">Complete a free consult</h3><p style="color:rgba(0,0,0,.7);margin:0;">Share your history and goals in minutes. We screen you like a medical practice — because we are one.</p></div>
-        <div class="rgx-step"><div class="num">2</div><h3 style="margin:0 0 8px;">A provider reviews</h3><p style="color:rgba(0,0,0,.7);margin:0;">Our nurse-practitioner-directed team reviews your intake and, if appropriate, prescribes a personalized plan.</p></div>
-        <div class="rgx-step"><div class="num">3</div><h3 style="margin:0 0 8px;">Delivered to your door</h3><p style="color:rgba(0,0,0,.7);margin:0;">Your compounded medication ships discreetly from a licensed pharmacy. Flat $30 shipping on every order.</p></div>
+    <section class="section-white" style="padding:40px 24px 100px;">
+      <div class="rgx-timeline-grid" style="max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1.4fr;gap:60px;align-items:start;">
+        <div>
+          <p class="hg-eyebrow">How it works</p>
+          <h2 style="margin:12px 0 20px;">Your Path to<br><span class="accent">Prescription Wellness</span></h2>
+          <p style="color:rgba(0,0,0,.7);font-size:17px;line-height:1.6;margin:0 0 28px;">Every journey with RE GEN begins with your goals. From there, your plan is personalized based on your health history and NP review.</p>
+          <button class="btn btn-primary btn-cta" onClick="{{ openQuiz }}">Get Started Today</button>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:0;">
+          <div style="display:flex;gap:20px;padding:24px 0;border-bottom:1px solid rgba(0,0,0,.1);">
+            <div style="width:44px;height:44px;border-radius:50%;border:2px solid var(--hg-pink);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#E6007E" stroke-width="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+            </div>
+            <div>
+              <p style="margin:0 0 2px;font-size:12px;font-weight:700;color:var(--hg-pink);text-transform:uppercase;letter-spacing:0.08em;">Today</p>
+              <h3 style="margin:0 0 6px;font-size:18px;">Pick your treatment & pay.</h3>
+              <p style="margin:0;color:rgba(0,0,0,.6);font-size:15px;">Choose your goal, answer a few health questions, and check out. No appointments required to start.</p>
+            </div>
+          </div>
+          <div style="display:flex;gap:20px;padding:24px 0;border-bottom:1px solid rgba(0,0,0,.1);">
+            <div style="width:44px;height:44px;border-radius:50%;border:2px solid rgba(0,0,0,.15);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="rgba(0,0,0,.4)" stroke-width="2.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </div>
+            <div>
+              <p style="margin:0 0 2px;font-size:12px;font-weight:700;color:rgba(0,0,0,.4);text-transform:uppercase;letter-spacing:0.08em;">Also today <span style="font-weight:400;text-transform:none;letter-spacing:0;">— or within 24 hours</span></p>
+              <h3 style="margin:0 0 6px;font-size:18px;">NP telehealth visit.</h3>
+              <p style="margin:0;color:rgba(0,0,0,.6);font-size:15px;">Schedule a quick video call with Ryan Kent, FNP-BC. He'll review your health history and confirm your protocol is right for you.</p>
+            </div>
+          </div>
+          <div style="display:flex;gap:20px;padding:24px 0;border-bottom:1px solid rgba(0,0,0,.1);">
+            <div style="width:44px;height:44px;border-radius:50%;border:2px solid rgba(0,0,0,.15);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="rgba(0,0,0,.4)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <div>
+              <p style="margin:0 0 2px;font-size:12px;font-weight:700;color:rgba(0,0,0,.4);text-transform:uppercase;letter-spacing:0.08em;">Okay, maybe not today <span style="font-weight:400;text-transform:none;letter-spacing:0;">— expect within the week</span></p>
+              <h3 style="margin:0 0 6px;font-size:18px;">Treatment ships to your door.</h3>
+              <p style="margin:0;color:rgba(0,0,0,.6);font-size:15px;">After approval, your compounded prescription ships discreetly from a US-licensed pharmacy. Flat $30 shipping on every order.</p>
+            </div>
+          </div>
+          <div style="display:flex;gap:20px;padding:24px 0;">
+            <div style="width:44px;height:44px;border-radius:50%;border:2px solid rgba(0,0,0,.15);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="rgba(0,0,0,.4)" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <div>
+              <p style="margin:0 0 2px;font-size:12px;font-weight:700;color:rgba(0,0,0,.4);text-transform:uppercase;letter-spacing:0.08em;">Ongoing</p>
+              <h3 style="margin:0 0 6px;font-size:18px;">Real support. Real results.</h3>
+              <p style="margin:0;color:rgba(0,0,0,.6);font-size:15px;">Questions? Call us at (630) 636-6193. Refills are easy, and Ryan is available for follow-up visits as needed.</p>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
