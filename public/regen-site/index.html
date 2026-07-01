@@ -98,6 +98,7 @@
   .rgx-hero-in > a.btn { animation: rgx-fadeup .9s .26s var(--ease-out) both; }
   .rgx-floatcard { animation: rgx-fadeup 1s .42s var(--ease-out) both; }
   .rgx-hero h1 .dot { display:inline-block; transform-origin:center; animation: rgx-dotpulse 2.6s ease-in-out infinite; }
+  @keyframes spin { to { transform:rotate(360deg); } }
   @media (prefers-reduced-motion: reduce) {
     .rgx-hero-img, .rgx-hero h1, .rgx-hero .rule, .rgx-hero-in > a.btn, .rgx-floatcard, .rgx-hero h1 .dot { animation:none; }
   }
@@ -900,27 +901,28 @@
           </div>
         </sc-if>
         <sc-if value="{{ quizStep1 }}">
-          <h2 style="margin:0 0 6px;">A few details</h2>
-          <p style="color:rgba(0,0,0,.6);margin:0 0 22px;">So a provider can follow up about <b>{{ quizGoalLabel }}</b>.</p>
-          <input class="rgx-input" placeholder="Full name" />
-          <input class="rgx-input" placeholder="Email address" type="email" />
-          <input class="rgx-input" placeholder="Phone number" type="tel" />
+          <h2 style="margin:0 0 6px;">Ready to start?</h2>
+          <p style="color:rgba(0,0,0,.6);margin:0 0 22px;">Complete your medical intake for <b>{{ quizGoalLabel }}</b>. An NP reviews it — often the same day.</p>
+          <div style="background:#f9f9f9;border-radius:12px;padding:16px;margin-bottom:18px;">
+            <p style="font-size:14px;color:rgba(0,0,0,.7);margin:0;">
+              <strong style="color:#000;">What happens next:</strong><br>
+              1. Complete intake (5-10 min)<br>
+              2. NP reviews your information<br>
+              3. If approved, Rx ships with flat $30 shipping
+            </p>
+          </div>
           <div style="display:flex;gap:12px;margin-top:8px;">
             <button class="btn btn-outline" style="flex:1;" onClick="{{ quizBack }}">Back</button>
-            <button class="btn btn-primary btn-cta" style="flex:2;" onClick="{{ quizNext }}">Continue</button>
+            <button class="btn btn-primary btn-cta" style="flex:2;" id="regen-start-intake" data-goal="{{ quizGoal }}" onClick="{{ startIntake }}">Start Intake →</button>
           </div>
         </sc-if>
         <sc-if value="{{ quizStep2 }}">
           <div style="text-align:center;padding:18px 0 8px;">
             <div style="width:70px;height:70px;border-radius:50%;background:var(--hg-pink-soft);display:flex;align-items:center;justify-content:center;margin:0 auto 22px;">
-              <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#FF2D8E" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <div style="border:3px solid #FFB8DC;border-top-color:#FF2D8E;width:34px;height:34px;border-radius:50%;animation:spin 1s linear infinite;"></div>
             </div>
-            <h2 style="margin:0 0 10px;">You're all set!</h2>
-            <p style="color:rgba(0,0,0,.7);margin:0 0 26px;max-width:40ch;margin-left:auto;margin-right:auto;">Thanks for completing your intake. A nurse-practitioner-directed provider will review it and reach out — often the same day.</p>
-            <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
-              <a href="tel:6306366193" class="btn btn-outline">Call (630) 636-6193</a>
-              <button class="btn btn-primary btn-cta" onClick="{{ closeQuiz }}">Done</button>
-            </div>
+            <h2 style="margin:0 0 10px;">Redirecting...</h2>
+            <p style="color:rgba(0,0,0,.7);margin:0 0 26px;max-width:40ch;margin-left:auto;margin-right:auto;">Taking you to your intake form. If not redirected, <a href="tel:6306366193" style="color:#FF2D8E;">call us</a>.</p>
           </div>
         </sc-if>
       </div>
@@ -1286,11 +1288,37 @@ class Component extends DCLogic {
       closeQuiz:() => this.setState({ quizOpen:false }),
       quizNext:() => this.setState(s => ({ quizStep: Math.min(2, s.quizStep + 1) })),
       quizBack:() => this.setState(s => ({ quizStep: Math.max(0, s.quizStep - 1) })),
+      startIntake: async () => {
+        this.setState({ quizStep: 2 });
+        const goal = this.state.quizGoal || 'weight-loss';
+        const cart = this.state.cart || [];
+        try {
+          const res = await fetch('/api/regen/intake-route', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ 
+              productId: goal, 
+              productName: goal.replace(/-/g, ' '),
+              items: cart.map(i => ({ id: i.name.toLowerCase().replace(/[^a-z0-9]+/g, '-'), name: i.name, price: i.priceN || 0, quantity: i.qty || 1 }))
+            })
+          });
+          const data = await res.json();
+          if (data.success && data.intakeUrl) {
+            window.top.location.href = data.intakeUrl;
+          } else {
+            window.top.location.href = '/intake/glp1';
+          }
+        } catch (err) {
+          console.error('Intake route error:', err);
+          window.top.location.href = '/intake/glp1';
+        }
+      },
       quizOpen: this.state.quizOpen,
       quizStep0: this.state.quizStep === 0,
       quizStep1: this.state.quizStep === 1,
       quizStep2: this.state.quizStep === 2,
       quizPct: ((this.state.quizStep + 1) / 3 * 100) + '%',
+      quizGoal: this.state.quizGoal,
       quizGoalLabel: goalCat ? goalCat.title : 'your goals',
       openCart:() => this.setState({ cartOpen:true }),
       closeCart:() => this.setState({ cartOpen:false }),
