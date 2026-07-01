@@ -69,8 +69,12 @@ export async function POST(req: NextRequest) {
 
     // Use validated items (prices adjusted to canonical if needed)
     const validatedItems: RegenCartItem[] = validation.items.map((item, i) => ({
-      ...body.items![i],
+      id: body.items![i].id,
+      name: body.items![i].name,
       priceUsd: item.price,
+      quantity: item.quantity,
+      category: body.goal || "general",
+      rx: true,
     }));
 
     // Store the order in database BEFORE payment (pay-first model)
@@ -102,7 +106,6 @@ export async function POST(req: NextRequest) {
       items: validatedItems,
       customerEmail: body.customerEmail,
       redirectUrl: `${redirectUrl}?ref=${orderRef}`,
-      orderReference: orderRef,
     });
 
     return NextResponse.json({
