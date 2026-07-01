@@ -85,93 +85,11 @@
     return items;
   }
 
-  // Wire checkout to go through intake flow
+  // Checkout is now handled directly in the prototype via proceedToPayment()
+  // This function is disabled to prevent conflicts with the new pay-first flow
   function wireCheckout() {
-    document.addEventListener('click', async (e) => {
-      const target = e.target;
-      
-      // Detect checkout/continue buttons in the cart drawer
-      const isCheckoutBtn = (
-        target.closest('.rgx-drawer') && 
-        (target.tagName === 'BUTTON' || target.closest('button')) &&
-        (target.textContent?.toLowerCase().includes('checkout') ||
-         target.textContent?.toLowerCase().includes('continue') ||
-         target.textContent?.toLowerCase().includes('proceed'))
-      );
-
-      // Also detect "Add to cart" → "Buy now" single-item purchase
-      const isBuyNowBtn = (
-        target.textContent?.toLowerCase().includes('buy now') ||
-        target.textContent?.toLowerCase().includes('get started') ||
-        target.textContent?.toLowerCase().includes('start intake')
-      );
-
-      if (isCheckoutBtn || isBuyNowBtn) {
-        e.preventDefault();
-        e.stopPropagation();
-        
-        const btn = target.closest('button') || target;
-        const originalText = btn.textContent;
-        btn.disabled = true;
-        btn.textContent = 'Loading...';
-
-        try {
-          const cartItems = extractCartItems();
-          
-          if (cartItems.length === 0) {
-            // No cart items - maybe it's a "Get Started" button for a specific product
-            // Check if we can get product info from the current view
-            const productCard = target.closest('[data-product-id]') || 
-                               document.querySelector('.rgx-hero-in, .product-detail');
-            
-            if (productCard) {
-              const productName = productCard.querySelector('h1, h2, h3')?.textContent?.trim();
-              const priceEl = productCard.querySelector('[class*="price"], .price');
-              const priceMatch = priceEl?.textContent?.match(/\$?([\d,]+(?:\.\d{2})?)/);
-              
-              if (productName) {
-                cartItems.push({
-                  id: productName.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
-                  name: productName,
-                  price: priceMatch ? parseFloat(priceMatch[1].replace(',', '')) : 0,
-                  quantity: 1
-                });
-              }
-            }
-          }
-
-          if (cartItems.length === 0) {
-            alert('Please add items to your cart first.');
-            btn.disabled = false;
-            btn.textContent = originalText;
-            return;
-          }
-
-          // Get the intake route for these products
-          const routeRes = await fetch(HG_INTAKE_ROUTE_API, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ items: cartItems }),
-          });
-
-          const routeData = await routeRes.json();
-          
-          if (routeData.success && routeData.intakeUrl) {
-            // Redirect to intake form (which will handle payment after)
-            window.top.location.href = routeData.intakeUrl;
-          } else {
-            throw new Error(routeData.error || 'Could not determine intake form');
-          }
-        } catch (err) {
-          console.error('[HG] Checkout error:', err);
-          alert('Something went wrong. Please try again or call us at 630-636-6193.');
-          btn.disabled = false;
-          btn.textContent = originalText;
-        }
-      }
-    }, true);
-
-    console.log('[HG] Checkout wired to intake flow');
+    // No longer intercepting checkout - prototype handles it directly
+    console.log('[HG] Checkout handled by prototype (pay-first flow)');
   }
 
   // Wire "Start" / "Begin Intake" buttons on category pages
