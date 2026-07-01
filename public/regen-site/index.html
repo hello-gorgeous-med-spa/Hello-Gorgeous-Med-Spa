@@ -498,7 +498,12 @@
                   <p class="pr" style="margin:0;">{{ p.displayPrice }} <small>{{ p.unit }}</small></p>
                 </div>
                 <div class="acts">
-                  <button class="rgx-btn-ghost" onClick="{{ openQuiz }}">Learn more</button>
+                  <sc-if value="{{ p.hasGuide }}">
+                    <a class="rgx-btn-ghost" href="{{ p.guideUrl }}" target="_blank" rel="noopener">Dosing guide</a>
+                  </sc-if>
+                  <sc-if value="{{ p.noGuide }}">
+                    <button class="rgx-btn-ghost" onClick="{{ openQuiz }}">Learn more</button>
+                  </sc-if>
                   <button class="rgx-btn-dark" onClick="{{ p.add }}">Add to cart</button>
                 </div>
               </div>
@@ -1032,11 +1037,11 @@ class Component extends DCLogic {
     const fmt = n => '$' + (Number.isInteger(n) ? n.toLocaleString('en-US') : n.toFixed(2));
     const m = w => fmt(x(w));
     const T = { pink:'#F7E9F0', sand:'#EFE9E2', mist:'#E7EBF0', clay:'#F0EAE6', lilac:'#F3ECF5', sage:'#E9EFEA', white:'#F7F5F3' };
-    const prod = (name, mol, w, unit, tint, badge, img) => {
+    const prod = (name, mol, w, unit, tint, badge, img, guide) => {
       const price1 = x(w);
       const price3Full = price1 * 3;
       const price3 = Math.round(price3Full * 0.9 * 100) / 100;
-      return { name, mol, priceN: price1, price: m(w), price3N: price3, price3Full: fmt(price3Full), unit: unit||'', tint, badge: badge||'', img: img||'' };
+      return { name, mol, priceN: price1, price: m(w), price3N: price3, price3Full: fmt(price3Full), unit: unit||'', tint, badge: badge||'', img: img||'', guide: guide||'' };
     };
     const row = (name, detail, w) => {
       const isNum = typeof w === 'number';
@@ -1054,10 +1059,10 @@ class Component extends DCLogic {
         priceNote:'from $100', colName:'Medication', colDetail:'Strength / vial', tableNote:'Additional strengths available — your provider selects your dose.',
         ctaHead:'Start losing weight',
         products:[
-          prod('Compounded Semaglutide','Semaglutide / B6', 35, '/ vial', T.white, 'Most popular', 'assets/prod-semaglutide.jpg'),
-          prod('Compounded Tirzepatide','Tirzepatide / glycine', 50, '/ vial', T.white, 'Best results', 'assets/prod-tirzepatide.jpg'),
-          prod('Lipo-Mino (MIC)','B12 + lipotropic blend', 80.5, '/ 30 mL', T.white, '', 'assets/prod-lipomino.jpg'),
-          prod('Sermorelin','GH-support peptide', 38, '/ 6 mL', T.white, '', 'assets/prod-nad-sermorelin.png')
+          prod('Compounded Semaglutide','Semaglutide / B6', 35, '/ vial', T.white, 'Most popular', 'assets/prod-semaglutide.jpg', '/docs/dosing-guides/glp1-side-effects.pdf'),
+          prod('Compounded Tirzepatide','Tirzepatide / glycine', 50, '/ vial', T.white, 'Best results', 'assets/prod-tirzepatide.jpg', '/docs/dosing-guides/glp1-side-effects.pdf'),
+          prod('Lipo-Mino (MIC)','B12 + lipotropic blend', 80.5, '/ 30 mL', T.white, '', 'assets/prod-lipomino.jpg', ''),
+          prod('Sermorelin','GH-support peptide', 38, '/ 6 mL', T.white, '', 'assets/prod-nad-sermorelin.png', '/docs/dosing-guides/sermorelin-injection.pdf')
         ],
         rows:[
           row('Compounded Semaglutide','2.5 mg vial (1 mL)', 35),
@@ -1103,10 +1108,10 @@ class Component extends DCLogic {
         priceNote:'from $72.75', colName:'Treatment', colDetail:'Vial / detail', tableNote:'Peptides are compounded vials; dosing per provider.',
         ctaHead:'Optimize your wellness',
         products:[
-          prod('NAD+','Cellular energy & longevity', 35, '/ 5 mL', T.white, 'Longevity', 'assets/prod-nad-sermorelin.png'),
-          prod('Sermorelin','GH-support peptide', 38, '/ 6 mL', T.white, 'Recovery', 'assets/prod-nad-sermorelin.png'),
-          prod('BPC-157','Tissue repair peptide', 70, '/ 5 mL', T.white, '', ''),
-          prod('Glutathione','Master antioxidant', 26.45, '/ 5 mL', T.lilac)
+          prod('NAD+','Cellular energy & longevity', 35, '/ 5 mL', T.white, 'Longevity', 'assets/prod-nad-sermorelin.png', '/docs/dosing-guides/nad-injection.pdf'),
+          prod('Sermorelin','GH-support peptide', 38, '/ 6 mL', T.white, 'Recovery', 'assets/prod-nad-sermorelin.png', '/docs/dosing-guides/sermorelin-injection.pdf'),
+          prod('BPC-157','Tissue repair peptide', 70, '/ 5 mL', T.white, '', '', '/docs/dosing-guides/pentadeca-arginate.pdf'),
+          prod('Glutathione','Master antioxidant', 26.45, '/ 5 mL', T.lilac, '', '', '/docs/dosing-guides/glutathione-injection.pdf')
         ],
         rows:[
           row('NAD+','1 mg/mL · 5 mL vial', 35),
@@ -1140,12 +1145,12 @@ class Component extends DCLogic {
         priceNote:'from $66', colName:'Injection', colDetail:'Concentration / count', tableNote:'Injections ship as multi-dose vials with supplies; low-dose naltrexone ships as oral capsules.',
         ctaHead:'Start your wellness shots',
         products:[
-          prod('B12 (Methylcobalamin)','Energy & metabolism', 29.1, '/ 10 mL', T.white, 'Best seller', 'assets/prod-b12.png'),
-          prod('NAD+','Cellular energy & longevity', 35, '/ 5 mL', T.white, 'Longevity', 'assets/prod-nad-sermorelin.png'),
-          prod('Glutathione','Antioxidant & glow', 26.45, '/ 5 mL', T.white, '', 'assets/prod-glutathione.png'),
-          prod('Vitamin D3','Immune support', 59.51, '/ 30 mL', T.white, '', 'assets/prod-vitd3.png'),
-          prod('Biotin','Hair, skin & nails', 33.06, '/ 10 mL', T.white, '', ''),
-          prod('Low Dose Naltrexone','Immune & inflammation · oral', 27.50, '/ 30 caps', T.white, '', '')
+          prod('B12 (Methylcobalamin)','Energy & metabolism', 29.1, '/ 10 mL', T.white, 'Best seller', 'assets/prod-b12.png', ''),
+          prod('NAD+','Cellular energy & longevity', 35, '/ 5 mL', T.white, 'Longevity', 'assets/prod-nad-sermorelin.png', '/docs/dosing-guides/nad-injection.pdf'),
+          prod('Glutathione','Antioxidant & glow', 26.45, '/ 5 mL', T.white, '', 'assets/prod-glutathione.png', '/docs/dosing-guides/glutathione-injection.pdf'),
+          prod('Vitamin D3','Immune support', 59.51, '/ 30 mL', T.white, '', 'assets/prod-vitd3.png', ''),
+          prod('Biotin','Hair, skin & nails', 33.06, '/ 10 mL', T.white, '', '', ''),
+          prod('Low Dose Naltrexone','Immune & inflammation · oral', 27.50, '/ 30 caps', T.white, '', '', '/docs/dosing-guides/ldn-low-dose-naltrexone.pdf')
         ],
         rows:[
           row('B12 (Methylcobalamin)','5 mg/mL · 10 mL vial', 29.1),
@@ -1174,10 +1179,10 @@ class Component extends DCLogic {
         priceNote:'from $12.50/dose', colName:'Treatment', colDetail:'Form / blend', tableNote:'Oral tablets are priced per dose; creams are priced per 30 g tube.',
         ctaHead:'Unlock better sex',
         products:[
-          prod('Sildenafil RDT','Rapid-dissolve tablet', 5, '/ dose', T.white, 'Men · best seller', 'assets/prod-sildenafil.jpg'),
-          prod('Tadalafil RDT','Rapid-dissolve tablet', 5, '/ dose', T.white, '', 'assets/prod-tadalafil.jpg'),
-          prod('MAXX PE','Tadalafil / oxytocin / PT-141', 6, '/ dose', T.white, '', 'assets/prod-maxxpe.jpg'),
-          prod('Scream Cream','Arginine / sildenafil · topical', 50, '/ 30 g', T.white, 'Women', 'assets/prod-screamcream.jpg')
+          prod('Sildenafil RDT','Rapid-dissolve tablet', 5, '/ dose', T.white, 'Men · best seller', 'assets/prod-sildenafil.jpg', ''),
+          prod('Tadalafil RDT','Rapid-dissolve tablet', 5, '/ dose', T.white, '', 'assets/prod-tadalafil.jpg', ''),
+          prod('MAXX PE','Tadalafil / oxytocin / PT-141', 6, '/ dose', T.white, '', 'assets/prod-maxxpe.jpg', '/docs/dosing-guides/pt-141-bremelanotide.pdf'),
+          prod('Scream Cream','Arginine / sildenafil · topical', 50, '/ 30 g', T.white, 'Women', 'assets/prod-screamcream.jpg', '')
         ],
         rows:[
           row('Sildenafil','100 mg rapid-dissolve tablet', 5),
@@ -1315,7 +1320,7 @@ class Component extends DCLogic {
         const priceN = is3 ? p.price3N : p.priceN;
         const displayPrice = this.fmt(priceN);
         const supplyLabel = is3 ? '3-month supply' : '1-month supply';
-        return { ...p, displayPrice, price3Full: p.price3Full, is3Month: is3, add:() => this.addToCart({ ...p, name: p.name + ' (' + supplyLabel + ')', priceN, price: displayPrice }), noimg: !p.img, imgEl: p.img ? React.createElement('img', { className:'pimg', src:this.R(p.img), alt:p.name }) : null };
+        return { ...p, displayPrice, price3Full: p.price3Full, is3Month: is3, add:() => this.addToCart({ ...p, name: p.name + ' (' + supplyLabel + ')', priceN, price: displayPrice }), noimg: !p.img, imgEl: p.img ? React.createElement('img', { className:'pimg', src:this.R(p.img), alt:p.name }) : null, hasGuide: !!p.guide, noGuide: !p.guide, guideUrl: p.guide || '' };
       }),
       rows: (active.rows || []).map(r => {
         const is3 = this.state.supplyMonths === 3;
