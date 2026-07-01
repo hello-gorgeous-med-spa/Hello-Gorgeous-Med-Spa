@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 import { createRegenCheckout, createRegenQuickPay, type RegenCartItem } from "@/lib/regen/checkout";
 import { validateCartPricing } from "@/lib/regen/pricing-sync";
+import { createClient } from "@/lib/supabase/server";
 import { SITE } from "@/lib/seo";
 
 export const runtime = "nodejs";
@@ -15,6 +16,11 @@ type CheckoutRequestBody = {
     priceUsd: number;
   };
   customerEmail?: string;
+  customerName?: string;
+  customerPhone?: string;
+  goal?: string;
+  allergies?: string;
+  supplyMonths?: number;
 };
 
 export async function POST(req: NextRequest) {
@@ -67,16 +73,43 @@ export async function POST(req: NextRequest) {
       priceUsd: item.price,
     }));
 
+    // Store the order in database BEFORE payment (pay-first model)
+    const supabase = await createClient();
+    const orderRef = `RG-${Date.now().toString(36).toUpperCase()}`;
+    const supplyLabel = body.supplyMonths === 3 ? "90-day" : "30-day";
+    
+    const { error: dbError } = await supabase.from("regen_orders").insert({
+      reference: orderRef,
+      customer_name: body.customerName || null,
+      customer_email: body.customerEmail || null,
+      customer_phone: body.customerPhone || null,
+      goal: body.goal || null,
+      allergies: body.allergies || "None",
+      supply_cycle: supplyLabel,
+      items: validatedItems,
+      subtotal_usd: validation.items.reduce((sum, i) => sum + i.price * i.quantity, 0),
+      shipping_usd: 30,
+      status: "pending_payment",
+      created_at: new Date().toISOString(),
+    });
+
+    if (dbError) {
+      console.error("[regen/checkout] DB error:", dbError);
+      // Continue anyway - payment is priority
+    }
+
     const result = await createRegenCheckout({
       items: validatedItems,
       customerEmail: body.customerEmail,
-      redirectUrl,
+      redirectUrl: `${redirectUrl}?ref=${orderRef}`,
+      orderReference: orderRef,
     });
 
     return NextResponse.json({
       success: true,
       checkoutUrl: result.url,
       orderId: result.orderId,
+      orderReference: orderRef,
     });
   } catch (err) {
     console.error("[regen/checkout] Error:", err);

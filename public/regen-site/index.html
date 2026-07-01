@@ -901,19 +901,50 @@
           </div>
         </sc-if>
         <sc-if value="{{ quizStep1 }}">
-          <h2 style="margin:0 0 6px;">Ready to start?</h2>
-          <p style="color:rgba(0,0,0,.6);margin:0 0 22px;">Complete your medical intake for <b>{{ quizGoalLabel }}</b>. An NP reviews it — often the same day.</p>
-          <div style="background:#f9f9f9;border-radius:12px;padding:16px;margin-bottom:18px;">
-            <p style="font-size:14px;color:rgba(0,0,0,.7);margin:0;">
-              <strong style="color:#000;">What happens next:</strong><br>
-              1. Complete intake (5-10 min)<br>
-              2. NP reviews your information<br>
-              3. If approved, Rx ships with flat $30 shipping
+          <h2 style="margin:0 0 6px;">Quick health check</h2>
+          <p style="color:rgba(0,0,0,.6);margin:0 0 18px;">A few questions for <b>{{ quizGoalLabel }}</b> to ensure this is right for you.</p>
+          <div style="margin-bottom:16px;">
+            <label style="display:block;font-size:14px;font-weight:600;margin-bottom:8px;">Are you pregnant, breastfeeding, or trying to conceive?</label>
+            <div style="display:flex;gap:10px;">
+              <button type="button" class="btn btn-outline" style="flex:1;padding:10px;" onClick="{{ setPregnantNo }}">No</button>
+              <button type="button" class="btn btn-outline" style="flex:1;padding:10px;opacity:0.6;" onClick="{{ setPregnantYes }}">Yes</button>
+            </div>
+          </div>
+          <div style="margin-bottom:16px;">
+            <label style="display:block;font-size:14px;font-weight:600;margin-bottom:8px;">Any known allergies to medications?</label>
+            <input class="rgx-input" placeholder="None, or list them" id="regen-allergies" style="width:100%;" />
+          </div>
+          <div style="display:flex;gap:12px;margin-top:18px;">
+            <button class="btn btn-outline" style="flex:1;" onClick="{{ quizBack }}">Back</button>
+            <button class="btn btn-primary btn-cta" style="flex:2;" onClick="{{ quizNext }}">Continue →</button>
+          </div>
+        </sc-if>
+        <sc-if value="{{ quizStep2 }}">
+          <h2 style="margin:0 0 6px;">Your information</h2>
+          <p style="color:rgba(0,0,0,.6);margin:0 0 18px;">So we can process your order and schedule telehealth.</p>
+          <input class="rgx-input" placeholder="Full name" id="regen-name" style="width:100%;margin-bottom:12px;" />
+          <input class="rgx-input" placeholder="Email address" type="email" id="regen-email" style="width:100%;margin-bottom:12px;" />
+          <input class="rgx-input" placeholder="Phone number" type="tel" id="regen-phone" style="width:100%;margin-bottom:12px;" />
+          <div style="background:#FFF0F7;border-radius:12px;padding:14px;margin:16px 0;">
+            <p style="font-size:13px;color:rgba(0,0,0,.7);margin:0;">
+              <strong style="color:#E6007E;">Pay first, telehealth second:</strong><br>
+              1. Pay now to secure your order<br>
+              2. We schedule your NP telehealth visit<br>
+              3. After approval, Rx ships with $30 flat shipping
             </p>
           </div>
           <div style="display:flex;gap:12px;margin-top:8px;">
             <button class="btn btn-outline" style="flex:1;" onClick="{{ quizBack }}">Back</button>
-            <button class="btn btn-primary btn-cta" style="flex:2;" id="regen-start-intake" data-goal="{{ quizGoal }}" onClick="{{ startIntake }}">Start Intake →</button>
+            <button class="btn btn-primary btn-cta" style="flex:2;" onClick="{{ proceedToPayment }}">Pay Now →</button>
+          </div>
+        </sc-if>
+        <sc-if value="{{ quizStep3 }}">
+          <div style="text-align:center;padding:18px 0 8px;">
+            <div style="width:70px;height:70px;border-radius:50%;background:var(--hg-pink-soft);display:flex;align-items:center;justify-content:center;margin:0 auto 22px;">
+              <div style="border:3px solid #FFB8DC;border-top-color:#FF2D8E;width:34px;height:34px;border-radius:50%;animation:spin 1s linear infinite;"></div>
+            </div>
+            <h2 style="margin:0 0 10px;">Redirecting to payment...</h2>
+            <p style="color:rgba(0,0,0,.7);margin:0 0 26px;max-width:40ch;margin-left:auto;margin-right:auto;">Taking you to secure checkout. If not redirected, <a href="tel:6306366193" style="color:#FF2D8E;">call us</a>.</p>
           </div>
         </sc-if>
         <sc-if value="{{ quizStep2 }}">
@@ -1286,38 +1317,58 @@ class Component extends DCLogic {
       openQuiz:() => this.setState({ quizOpen:true, quizStep:0, quizGoal:'', menuOpen:false }),
       openQuizFromMenu:() => this.setState({ quizOpen:true, quizStep:0, quizGoal:'', menuOpen:false }),
       closeQuiz:() => this.setState({ quizOpen:false }),
-      quizNext:() => this.setState(s => ({ quizStep: Math.min(2, s.quizStep + 1) })),
+      quizNext:() => this.setState(s => ({ quizStep: Math.min(3, s.quizStep + 1) })),
       quizBack:() => this.setState(s => ({ quizStep: Math.max(0, s.quizStep - 1) })),
-      startIntake: async () => {
-        this.setState({ quizStep: 2 });
+      setPregnantNo:() => this.setState({ pregnant: 'no' }),
+      setPregnantYes:() => { alert('For your safety, we cannot process orders for those who are pregnant, breastfeeding, or trying to conceive. Please consult your OB/GYN.'); this.setState({ quizOpen: false }); },
+      proceedToPayment: async () => {
+        const name = document.getElementById('regen-name')?.value?.trim() || '';
+        const email = document.getElementById('regen-email')?.value?.trim() || '';
+        const phone = document.getElementById('regen-phone')?.value?.trim() || '';
+        const allergies = document.getElementById('regen-allergies')?.value?.trim() || 'None';
+        if (!name || !email || !phone) { alert('Please fill in all fields.'); return; }
+        this.setState({ quizStep: 3 });
         const goal = this.state.quizGoal || 'weight-loss';
         const cart = this.state.cart || [];
+        const supplyLabel = this.state.supplyMonths === 3 ? '3-month supply' : '1-month supply';
         try {
-          const res = await fetch('/api/regen/intake-route', {
+          const res = await fetch('/api/regen/checkout', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ 
-              productId: goal, 
-              productName: goal.replace(/-/g, ' '),
-              items: cart.map(i => ({ id: i.name.toLowerCase().replace(/[^a-z0-9]+/g, '-'), name: i.name, price: i.priceN || 0, quantity: i.qty || 1 }))
+            body: JSON.stringify({
+              items: cart.map(i => ({ 
+                id: i.name.toLowerCase().replace(/[^a-z0-9]+/g, '-'), 
+                name: i.name + ' (' + supplyLabel + ')', 
+                priceUsd: i.priceN || 0, 
+                quantity: i.qty || 1 
+              })),
+              customerEmail: email,
+              customerName: name,
+              customerPhone: phone,
+              goal: goal,
+              allergies: allergies,
+              supplyMonths: this.state.supplyMonths
             })
           });
           const data = await res.json();
-          if (data.success && data.intakeUrl) {
-            window.top.location.href = data.intakeUrl;
+          if (data.success && data.checkoutUrl) {
+            window.top.location.href = data.checkoutUrl;
           } else {
-            window.top.location.href = '/intake/glp1';
+            alert(data.error || 'Checkout failed. Please call 630-636-6193.');
+            this.setState({ quizStep: 2 });
           }
         } catch (err) {
-          console.error('Intake route error:', err);
-          window.top.location.href = '/intake/glp1';
+          console.error('Checkout error:', err);
+          alert('Connection error. Please try again or call 630-636-6193.');
+          this.setState({ quizStep: 2 });
         }
       },
       quizOpen: this.state.quizOpen,
       quizStep0: this.state.quizStep === 0,
       quizStep1: this.state.quizStep === 1,
       quizStep2: this.state.quizStep === 2,
-      quizPct: ((this.state.quizStep + 1) / 3 * 100) + '%',
+      quizStep3: this.state.quizStep === 3,
+      quizPct: ((this.state.quizStep + 1) / 4 * 100) + '%',
       quizGoal: this.state.quizGoal,
       quizGoalLabel: goalCat ? goalCat.title : 'your goals',
       openCart:() => this.setState({ cartOpen:true }),
