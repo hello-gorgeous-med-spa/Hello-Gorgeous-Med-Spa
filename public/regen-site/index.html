@@ -1360,20 +1360,36 @@ class Component extends DCLogic {
         const phone = document.getElementById('regen-phone')?.value?.trim() || '';
         const allergies = document.getElementById('regen-allergies')?.value?.trim() || 'None';
         if (!name || !email || !phone) { alert('Please fill in all fields.'); return; }
-        this.setState({ quizStep: 3 });
+        
         const goal = this.state.quizGoal || 'weight-loss';
-        const cart = this.state.cart || [];
+        let cart = this.state.cart || [];
         const supplyLabel = this.state.supplyMonths === 3 ? '3-month supply' : '1-month supply';
+        
+        // If cart is empty, add a consultation based on goal
+        if (cart.length === 0) {
+          const goalProducts = {
+            'weight-loss': { name: 'GLP-1 Weight Loss Consultation', priceN: 99, unit: '' },
+            'daily-wellness': { name: 'Peptide Therapy Consultation', priceN: 99, unit: '' },
+            'vitamin-injections': { name: 'Vitamin Injection Consultation', priceN: 49, unit: '' },
+            'sexual-health': { name: 'Sexual Health Consultation', priceN: 99, unit: '' },
+            'hormones': { name: 'Hormone Therapy Consultation', priceN: 99, unit: '' },
+            'hair-skin': { name: 'Hair & Skin Consultation', priceN: 99, unit: '' },
+          };
+          const consult = goalProducts[goal] || goalProducts['weight-loss'];
+          cart = [{ ...consult, qty: 1, tint: '#F7E9F0' }];
+        }
+        
+        this.setState({ quizStep: 3 });
         try {
           const res = await fetch('/api/regen/checkout', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-              items: cart.map(i => ({ 
-                id: i.name.toLowerCase().replace(/[^a-z0-9]+/g, '-'), 
-                name: i.name + ' (' + supplyLabel + ')', 
-                priceUsd: i.priceN || 0, 
-                quantity: i.qty || 1 
+              items: cart.map(i => ({
+                id: i.name.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
+                name: i.name + ' (' + supplyLabel + ')',
+                priceUsd: i.priceN || 0,
+                quantity: i.qty || 1
               })),
               customerEmail: email,
               customerName: name,
