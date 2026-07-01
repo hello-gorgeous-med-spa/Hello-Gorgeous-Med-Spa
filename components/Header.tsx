@@ -654,7 +654,19 @@ export function Header() {
               </Link>
             </div>
 
-            {/* Labs — hidden from nav pending a RE GEN-style rebuild; /labs still live */}
+            {/* Shop — Fullscript supplements & labs */}
+            <div
+              className="relative flex items-center"
+              onMouseEnter={closeDropdown}
+            >
+              <Link
+                href="/shop"
+                className={NAV_LINK_BASE}
+                style={navPillStyle(0, pathname === "/shop")}
+              >
+                Shop
+              </Link>
+            </div>
 
             {/* Specials */}
             <div
@@ -773,6 +785,7 @@ export function Header() {
                 groups: medicalMegaMenuMobileGroups(),
                 highlight: true,
               },
+              { key: "shop", label: "Shop", links: [{ label: "Supplements & Labs", href: "/shop", sub: "Fullscript dispensary" }] },
               { key: "specials", label: "Specials", links: NAV.specials.links, highlight: true },
               { key: "about", label: "About", links: NAV.about.links },
             ].map(({ key, label, links, groups, highlight }) => (
