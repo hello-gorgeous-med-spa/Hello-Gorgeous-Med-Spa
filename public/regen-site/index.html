@@ -1279,11 +1279,13 @@ class Component extends DCLogic {
   home() { this.setState({ view:'hub', menuOpen:false }); if (typeof window!=='undefined') window.scrollTo({ top:0 }); }
 
   addToCart(p) {
+    console.log('[REGEN] addToCart called with:', JSON.stringify(p));
     this.setState(s => {
       const cart = s.cart.slice();
       const i = cart.findIndex(c => c.name === p.name);
       if (i >= 0) cart[i] = { ...cart[i], qty: cart[i].qty + 1 };
       else cart.push({ name:p.name, priceN:p.priceN, price:p.price, unit:p.unit, tint:(p.img? '#EDE7E1' : p.tint), qty:1 });
+      console.log('[REGEN] Updated cart:', JSON.stringify(cart));
       return { cart, cartOpen:true };
     });
   }
@@ -1360,6 +1362,9 @@ class Component extends DCLogic {
       setPregnantNo:() => this.setState({ pregnant: 'no' }),
       setPregnantYes:() => { alert('For your safety, we cannot process orders for those who are pregnant, breastfeeding, or trying to conceive. Please consult your OB/GYN.'); this.setState({ quizOpen: false }); },
       proceedToPayment: async () => {
+        console.log('[REGEN] proceedToPayment called');
+        console.log('[REGEN] Current state:', JSON.stringify(this.state));
+        
         const name = document.getElementById('regen-name')?.value?.trim() || '';
         const email = document.getElementById('regen-email')?.value?.trim() || '';
         const phone = document.getElementById('regen-phone')?.value?.trim() || '';
@@ -1368,10 +1373,13 @@ class Component extends DCLogic {
         
         const goal = this.state.quizGoal || 'weight-loss';
         let cart = this.state.cart || [];
+        console.log('[REGEN] Cart before fallback:', JSON.stringify(cart));
+        
         const supplyLabel = this.state.supplyMonths === 3 ? '3-month supply' : '1-month supply';
         
         // If cart is empty, add a consultation based on goal
         if (cart.length === 0) {
+          console.log('[REGEN] Cart empty, adding consultation for goal:', goal);
           const goalProducts = {
             'weight-loss': { name: 'GLP-1 Weight Loss Consultation', priceN: 99, unit: '' },
             'daily-wellness': { name: 'Peptide Therapy Consultation', priceN: 99, unit: '' },
@@ -1383,6 +1391,7 @@ class Component extends DCLogic {
           const consult = goalProducts[goal] || goalProducts['weight-loss'];
           cart = [{ ...consult, qty: 1, tint: '#F7E9F0' }];
         }
+        console.log('[REGEN] Final cart:', JSON.stringify(cart));
         
         this.setState({ quizStep: 3 });
         try {
