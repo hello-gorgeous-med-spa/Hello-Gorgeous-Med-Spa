@@ -8,15 +8,19 @@ export const metadata: Metadata = {
 
 export default function StaffPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-pink-50 to-white">
+    <div className="min-h-screen bg-gradient-to-b from-gray-900 via-purple-950 to-black">
       <div className="max-w-md mx-auto px-4 py-12">
-        {/* Header */}
+        {/* Header with new RE GEN logo */}
         <div className="text-center mb-10">
-          <div className="text-5xl mb-4">💖</div>
-          <h1 className="text-2xl font-bold text-gray-900 mb-2">
-            Hello Gorgeous Staff Hub
+          <img 
+            src="/images/regen/regen-logo.png" 
+            alt="RE GEN - Renew. Rebalance. Regenerate." 
+            className="h-24 mx-auto mb-6 rounded-lg"
+          />
+          <h1 className="text-2xl font-bold text-white mb-2">
+            Staff Training Hub
           </h1>
-          <p className="text-gray-600">
+          <p className="text-pink-300">
             Your tools & training resources
           </p>
         </div>
@@ -26,13 +30,13 @@ export default function StaffPage() {
           {/* Pharmacy Selector */}
           <a
             href="/staff/pharmacy-selector.html"
-            className="block bg-white rounded-2xl p-5 shadow-lg border-2 border-pink-200 hover:border-pink-400 hover:shadow-xl transition-all"
+            className="block bg-white/10 backdrop-blur rounded-2xl p-5 border-2 border-pink-500/30 hover:border-pink-500 hover:bg-white/15 transition-all"
           >
             <div className="flex items-center gap-4">
               <div className="text-4xl">💊</div>
               <div className="flex-1">
-                <h2 className="font-bold text-gray-900 text-lg">Pharmacy Selector</h2>
-                <p className="text-gray-500 text-sm">Compare prices across pharmacies</p>
+                <h2 className="font-bold text-white text-lg">Pharmacy Selector</h2>
+                <p className="text-pink-200/70 text-sm">Compare prices across pharmacies</p>
               </div>
               <div className="text-pink-500 text-2xl">→</div>
             </div>
@@ -42,15 +46,15 @@ export default function StaffPage() {
           <a
             href="/staff/pharmacy-install-card.pdf"
             target="_blank"
-            className="block bg-white rounded-2xl p-5 shadow-lg border-2 border-purple-200 hover:border-purple-400 hover:shadow-xl transition-all"
+            className="block bg-white/10 backdrop-blur rounded-2xl p-5 border-2 border-purple-500/30 hover:border-purple-500 hover:bg-white/15 transition-all"
           >
             <div className="flex items-center gap-4">
               <div className="text-4xl">📲</div>
               <div className="flex-1">
-                <h2 className="font-bold text-gray-900 text-lg">Install Instructions</h2>
-                <p className="text-gray-500 text-sm">Add Pharmacy Selector to home screen</p>
+                <h2 className="font-bold text-white text-lg">Install Instructions</h2>
+                <p className="text-purple-200/70 text-sm">Add Pharmacy Selector to home screen</p>
               </div>
-              <div className="text-purple-500 text-2xl">→</div>
+              <div className="text-purple-400 text-2xl">→</div>
             </div>
           </a>
 
@@ -58,15 +62,31 @@ export default function StaffPage() {
           <a
             href="/staff/regen-study-guide.pdf"
             target="_blank"
-            className="block bg-white rounded-2xl p-5 shadow-lg border-2 border-blue-200 hover:border-blue-400 hover:shadow-xl transition-all"
+            className="block bg-white/10 backdrop-blur rounded-2xl p-5 border-2 border-cyan-500/30 hover:border-cyan-500 hover:bg-white/15 transition-all"
           >
             <div className="flex items-center gap-4">
               <div className="text-4xl">📚</div>
               <div className="flex-1">
-                <h2 className="font-bold text-gray-900 text-lg">REGEN Study Guide</h2>
-                <p className="text-gray-500 text-sm">Product knowledge & training</p>
+                <h2 className="font-bold text-white text-lg">RE GEN Study Guide</h2>
+                <p className="text-cyan-200/70 text-sm">Product knowledge & training</p>
               </div>
-              <div className="text-blue-500 text-2xl">→</div>
+              <div className="text-cyan-400 text-2xl">→</div>
+            </div>
+          </a>
+
+          {/* Promo Kit - NEW */}
+          <a
+            href="/promo-kit/"
+            target="_blank"
+            className="block bg-gradient-to-r from-pink-600/20 to-purple-600/20 backdrop-blur rounded-2xl p-5 border-2 border-pink-400/50 hover:border-pink-400 hover:from-pink-600/30 hover:to-purple-600/30 transition-all"
+          >
+            <div className="flex items-center gap-4">
+              <div className="text-4xl">🎨</div>
+              <div className="flex-1">
+                <h2 className="font-bold text-white text-lg">Promo Kit</h2>
+                <p className="text-pink-200/70 text-sm">Social graphics & marketing assets</p>
+              </div>
+              <div className="text-pink-400 text-2xl">→</div>
             </div>
           </a>
         </div>
@@ -79,8 +99,8 @@ export default function StaffPage() {
         </div>
 
         {/* Quick tip */}
-        <div className="mt-6 bg-gradient-to-r from-pink-100 to-purple-100 rounded-xl p-4 text-center">
-          <p className="text-sm text-gray-700">
+        <div className="mt-6 bg-gradient-to-r from-pink-500/20 to-purple-500/20 rounded-xl p-4 text-center border border-pink-500/20">
+          <p className="text-sm text-pink-100">
             <strong>Pro tip:</strong> Bookmark this page or add to your home screen for quick access!
           </p>
         </div>

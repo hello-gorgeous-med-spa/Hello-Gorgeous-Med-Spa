@@ -39,16 +39,16 @@ export const metadata: Metadata = {
     ...baseMetadata.openGraph,
     images: [
       {
-        url: "https://www.hellogorgeousmedspa.com/images/regen/regen-logo.png",
+        url: "https://www.hellogorgeousmedspa.com/images/regen/regen-og-image.png",
         width: 1200,
         height: 630,
-        alt: "RE GEN by Hello Gorgeous Med Spa",
+        alt: "RE GEN - Renew. Rebalance. Regenerate. | Medical Weight Loss, Peptides & Hormones",
       },
     ],
   },
   twitter: {
     ...baseMetadata.twitter,
-    images: ["https://www.hellogorgeousmedspa.com/images/regen/regen-logo.png"],
+    images: ["https://www.hellogorgeousmedspa.com/images/regen/regen-og-image.png"],
   },
 };
 
