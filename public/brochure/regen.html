@@ -112,19 +112,25 @@
       height: 3.1in;
       background: #000;
       display: flex;
-      align-items: flex-start;
+      flex-direction: row;
+      align-items: flex-end;
       justify-content: center;
       border-top: 4px solid var(--pink);
       border-bottom: 4px solid #000;
       line-height: 0;
     }
     .cover-hero-img {
-      width: auto;
+      flex: 1 1 50%;
+      width: 50%;
       height: 100%;
-      max-width: 100%;
+      max-width: 50%;
       object-fit: contain;
-      object-position: center top;
+      object-position: center bottom;
       display: block;
+      background: #000;
+    }
+    .cover-hero-img + .cover-hero-img {
+      border-left: 3px solid var(--pink);
     }
     .cover-services {
       display: grid;
@@ -298,6 +304,12 @@
       display: block;
       background: #fff;
       box-shadow: 2px 2px 0 rgba(230,0,126,0.15);
+    }
+    .menu-block .product-stack img.lifestyle {
+      object-fit: cover;
+      object-position: center 30%;
+      aspect-ratio: 5/4;
+      background: #1a1025;
     }
 
     .menu-grid {
@@ -498,7 +510,8 @@
         <p class="cover-sub">NP-directed medical weight loss, peptide therapy, hormones &amp; wellness — compounded by US pharmacies and shipped to your door across Illinois.</p>
       </div>
       <div class="cover-hero-wrap">
-        <img class="cover-hero-img" src="/images/regen/regen-provider-hero.jpg" alt="RE GEN — Medical weight loss, peptides and hormones">
+        <img class="cover-hero-img" src="/images/regen/regen-provider-hero.jpg" alt="Dani — RE GEN provider, Hello Gorgeous Med Spa">
+        <img class="cover-hero-img" src="/brochure/assets/ryan-regen-provider.png" alt="Ryan — RE GEN provider, Hello Gorgeous Med Spa">
       </div>
       <div class="cover-services">
         <div class="cover-svc">
@@ -625,9 +638,14 @@
           </div>
         </div>
 
-        <div class="menu-block">
+        <div class="menu-block has-visual">
           <div class="mh teal">Energy, performance + healthy aging</div>
           <div class="mb">
+            <div class="mb-inner">
+              <div class="product-stack">
+                <img src="/brochure/assets/nad-sermorelin.png" alt="NAD+ and Sermorelin Acetate — RE GEN">
+              </div>
+              <div>
             <p class="why">Mitochondrial support, GH-axis, sleep &amp; recovery education</p>
             <table>
               <thead><tr><th>Peptide</th><th class="r">Price</th></tr></thead>
@@ -641,6 +659,8 @@
                 <tr><td><strong>Thymosin A-1</strong><br><span class="dim">5 mg/mL · 5 mL</span></td><td class="r">$175/mo</td></tr>
               </tbody>
             </table>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -668,9 +688,14 @@
           </div>
         </div>
 
-        <div class="menu-block">
+        <div class="menu-block has-visual">
           <div class="mh purple">Mood, focus + body composition</div>
           <div class="mb">
+            <div class="mb-inner">
+              <div class="product-stack">
+                <img class="lifestyle" src="/brochure/assets/trimix-intimacy.png" alt="Intimacy and wellness support — RE GEN">
+              </div>
+              <div>
             <p class="why">Cognitive wellness, intimacy &amp; metabolic support</p>
             <table>
               <thead><tr><th>Option</th><th class="r">Price</th></tr></thead>
@@ -682,6 +707,8 @@
                 <tr><td><strong>Epithalon</strong><br><span class="dim">Longevity peptide</span></td><td class="r">consult</td></tr>
               </tbody>
             </table>
+              </div>
+            </div>
           </div>
         </div>
       </div>
