@@ -17,7 +17,7 @@ const RX_TITLE = "RE GEN by Hello Gorgeous Med Spa | Online Medical Weight Loss,
 const RX_DESCRIPTION =
   "RE GEN is the telehealth arm of Hello Gorgeous Med Spa in Oswego, IL — NP-directed medical weight loss (GLP-1), peptides, hormone therapy, sexual health, and lab testing. Online intake, NP review, shipped to your door with flat $30 shipping.";
 
-export const metadata: Metadata = pageMetadata({
+const baseMetadata = pageMetadata({
   title: RX_TITLE,
   description: RX_DESCRIPTION,
   path: RX_PATH,
@@ -32,6 +32,25 @@ export const metadata: Metadata = pageMetadata({
     "NP-directed weight loss Naperville Aurora",
   ],
 });
+
+export const metadata: Metadata = {
+  ...baseMetadata,
+  openGraph: {
+    ...baseMetadata.openGraph,
+    images: [
+      {
+        url: "https://www.hellogorgeousmedspa.com/images/regen/regen-logo.png",
+        width: 1200,
+        height: 630,
+        alt: "RE GEN by Hello Gorgeous Med Spa",
+      },
+    ],
+  },
+  twitter: {
+    ...baseMetadata.twitter,
+    images: ["https://www.hellogorgeousmedspa.com/images/regen/regen-logo.png"],
+  },
+};
 
 /** Defensible, non-prescriptive FAQs — also emitted as FAQPage structured data. */
 const REGEN_FAQS: readonly FAQ[] = [
