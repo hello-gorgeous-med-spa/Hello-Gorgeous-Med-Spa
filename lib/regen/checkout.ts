@@ -123,61 +123,16 @@ export async function createRegenCheckout(opts: {
   console.log("[regen/checkout] Line items:", lineItems.map(li => ({ name: li.name, amount: li.base_price_money.amount })));
 
   // Add flat $30 shipping
-  const shippingCents = 3000;
   lineItems.push({
     name: "Flat Rate Shipping",
     quantity: "1",
     base_price_money: {
-      amount: shippingCents,
+      amount: 3000,
       currency: "USD",
     },
   });
 
-  // Build order - simplified to avoid potential API issues
-  const orderData: {
-    idempotency_key: string;
-    order: {
-      location_id: string;
-      line_items: typeof lineItems;
-      customer_id?: string;
-    };
-  } = {
-    idempotency_key: idempotencyKey("regen-order"),
-    order: {
-      location_id: locationId,
-      line_items: lineItems,
-    },
-  };
-  
-  console.log("[regen/checkout] Creating order with data:", JSON.stringify(orderData, null, 2));
-
-  // Create the order first
-  const orderResult = await squareFetch<{
-    order?: { id: string };
-  }>("/v2/orders", {
-    method: "POST",
-    body: orderData,
-  });
-
-  const orderId = orderResult.order?.id;
-  if (!orderId) {
-    throw new Error("Failed to create order");
-  }
-
-  // Create payment link for this order
-  const paymentLinkBody = {
-    idempotency_key: idempotencyKey("regen-link"),
-    order_id: orderId,
-    checkout_options: {
-      redirect_url: opts.redirectUrl,
-      ask_for_shipping_address: true,
-      merchant_support_email: "hello@hellogorgeousmedspa.com",
-    },
-    description: "RE GEN by Hello Gorgeous Med Spa — Prescription order (provider review required)",
-  };
-  
-  console.log("[regen/checkout] Creating payment link with body:", JSON.stringify(paymentLinkBody, null, 2));
-  
+  // Square requires `order` or `quick_pay` on the payment link — not order_id alone.
   const linkData = await squareFetch<{
     payment_link?: {
       id?: string;
@@ -187,7 +142,19 @@ export async function createRegenCheckout(opts: {
     };
   }>("/v2/online-checkout/payment-links", {
     method: "POST",
-    body: paymentLinkBody,
+    body: {
+      idempotency_key: idempotencyKey("regen-link"),
+      order: {
+        location_id: locationId,
+        line_items: lineItems,
+      },
+      checkout_options: {
+        redirect_url: opts.redirectUrl,
+        ask_for_shipping_address: true,
+        merchant_support_email: "hello@hellogorgeousmedspa.com",
+      },
+      description: "RE GEN by Hello Gorgeous Med Spa — Prescription order (provider review required)",
+    },
   });
 
   const url = linkData.payment_link?.url || linkData.payment_link?.long_url;
@@ -198,7 +165,7 @@ export async function createRegenCheckout(opts: {
   return {
     url,
     paymentLinkId: linkData.payment_link?.id,
-    orderId,
+    orderId: linkData.payment_link?.order_id,
   };
 }
 
