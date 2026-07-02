@@ -136,6 +136,9 @@
   .rgx-btn-dark:hover { background:var(--hg-pink); }
   .rgx-btn-sm { background:var(--hg-pink); color:#fff; border:none; border-radius:16px; padding:6px 14px; font-weight:600; font-size:12px; cursor:pointer; transition:background .2s; font-family:var(--font-body); white-space:nowrap; }
   .rgx-btn-sm:hover { background:#000; }
+  .rgx-dose-btn { background:#f5f5f5; border:2px solid #e0e0e0; border-radius:12px; padding:10px 18px; font-weight:700; font-size:14px; cursor:pointer; transition:all .2s; font-family:var(--font-body); }
+  .rgx-dose-btn:hover { border-color:var(--hg-pink); background:#fff0f5; }
+  .rgx-dose-btn.active { background:var(--hg-pink); border-color:var(--hg-pink); color:#fff; }
   .rgx-supply-toggle { display:inline-flex; background:#f0f0f0; border-radius:25px; padding:3px; }
   .rgx-supply-btn { background:transparent; border:none; padding:8px 16px; border-radius:22px; font-size:13px; font-weight:600; cursor:pointer; transition:all .2s; font-family:var(--font-body); display:flex; align-items:center; gap:6px; }
   .rgx-supply-btn.active { background:#fff; box-shadow:0 2px 8px rgba(0,0,0,.1); }
@@ -523,9 +526,17 @@
     <section id="options" class="section-white" style="padding:10px 24px 80px;">
       <div class="rgx-subhead">All options &amp; transparent pricing</div>
       <div style="max-width:980px;margin:0 auto 16px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
-        <div class="rgx-supply-toggle">
-          <button class="rgx-supply-btn {{ supplyBtnClass1 }}" onClick="{{ setSupply1 }}">1 Month</button>
-          <button class="rgx-supply-btn {{ supplyBtnClass3 }}" onClick="{{ setSupply3 }}">3 Months <span class="savings">Save 10%</span></button>
+        <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+          <div class="rgx-supply-toggle">
+            <button class="rgx-supply-btn {{ supplyBtnClass1 }}" onClick="{{ setSupply1 }}">1 Month</button>
+            <button class="rgx-supply-btn {{ supplyBtnClass3 }}" onClick="{{ setSupply3 }}">3 Months <span class="savings">Save 10%</span></button>
+          </div>
+          <sc-if value="{{ isWeightLoss }}">
+            <button onClick="{{ openDosingCalc }}" style="display:inline-flex;align-items:center;gap:6px;background:linear-gradient(135deg,#FF2D8E,#E6007E);color:#fff;border:none;border-radius:20px;padding:8px 16px;font-size:13px;font-weight:600;cursor:pointer;font-family:var(--font-body);">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="12" y2="14"/><line x1="8" y1="18" x2="12" y2="18"/></svg>
+              Dosing Calculator
+            </button>
+          </sc-if>
         </div>
         <sc-if value="{{ is3Month }}">
           <span style="font-size:13px;color:var(--hg-pink);font-weight:600;">✓ 10% savings applied</span>
@@ -1013,6 +1024,103 @@
     </div>
   </sc-if>
 
+  <!-- ============ DOSING CALCULATOR ============ -->
+  <sc-if value="{{ dosingCalcOpen }}">
+    <div class="rgx-overlay" style="background:rgba(0,0,0,.85);display:flex;align-items:center;justify-content:center;padding:16px;overflow-y:auto;">
+      <div style="position:relative;background:#fff;border-radius:22px;box-shadow:0 30px 90px rgba(0,0,0,.5);max-width:640px;width:100%;max-height:90vh;overflow-y:auto;" onClick="{{ stopProp }}">
+        <button class="rgx-iconbtn" style="color:#000;position:absolute;top:16px;right:16px;z-index:10;" onClick="{{ closeDosingCalc }}"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+        
+        <div style="padding:32px 28px 24px;">
+          <p class="hg-eyebrow" style="margin:0 0 8px;">GLP-1 Dosing Guide</p>
+          <h2 style="margin:0 0 6px;font-size:26px;">How Much Do I Need?</h2>
+          <p style="color:rgba(0,0,0,.6);margin:0 0 24px;font-size:15px;">Select your medication and weekly dose to see how many vials to order.</p>
+          
+          <!-- Medication Toggle -->
+          <div style="display:flex;gap:8px;margin-bottom:20px;">
+            <button class="btn" style="{{ dosingMedSemaStyle }}" onClick="{{ setDosingMedSema }}">Semaglutide</button>
+            <button class="btn" style="{{ dosingMedTirzStyle }}" onClick="{{ setDosingMedTirz }}">Tirzepatide</button>
+          </div>
+          
+          <!-- Titration Guide -->
+          <div style="background:linear-gradient(135deg,#FFF5F9,#FFF0F5);border:2px solid #FFB8DC;border-radius:14px;padding:16px 18px;margin-bottom:20px;">
+            <p style="margin:0 0 10px;font-weight:700;font-size:14px;color:#E6007E;">📋 Typical Titration Schedule</p>
+            <sc-if value="{{ dosingIsSema }}">
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px 16px;font-size:13px;">
+                <div><span style="color:#888;">Weeks 1-4:</span> <strong>0.25 mg/wk</strong></div>
+                <div><span style="color:#888;">Weeks 5-8:</span> <strong>0.5 mg/wk</strong></div>
+                <div><span style="color:#888;">Weeks 9-12:</span> <strong>1.0 mg/wk</strong></div>
+                <div><span style="color:#888;">Weeks 13-16:</span> <strong>1.7 mg/wk</strong></div>
+                <div style="grid-column:span 2;margin-top:4px;"><span style="color:#888;">Maintenance:</span> <strong>2.5 mg/wk</strong> <span style="color:#E6007E;">(max)</span></div>
+              </div>
+            </sc-if>
+            <sc-if value="{{ dosingIsTirz }}">
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px 16px;font-size:13px;">
+                <div><span style="color:#888;">Weeks 1-4:</span> <strong>2.5 mg/wk</strong></div>
+                <div><span style="color:#888;">Weeks 5-8:</span> <strong>5.0 mg/wk</strong></div>
+                <div><span style="color:#888;">Weeks 9-12:</span> <strong>7.5 mg/wk</strong></div>
+                <div><span style="color:#888;">Weeks 13-16:</span> <strong>10 mg/wk</strong></div>
+                <div style="grid-column:span 2;margin-top:4px;"><span style="color:#888;">Maintenance:</span> <strong>12.5-15 mg/wk</strong> <span style="color:#E6007E;">(max)</span></div>
+              </div>
+            </sc-if>
+          </div>
+          
+          <!-- Dose Selector -->
+          <p style="margin:0 0 8px;font-weight:600;font-size:14px;">Select your weekly dose:</p>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px;">
+            <sc-if value="{{ dosingIsSema }}">
+              <button class="rgx-dose-btn {{ doseActive025 }}" onClick="{{ setDose025 }}">0.25 mg</button>
+              <button class="rgx-dose-btn {{ doseActive05 }}" onClick="{{ setDose05 }}">0.5 mg</button>
+              <button class="rgx-dose-btn {{ doseActive10 }}" onClick="{{ setDose10 }}">1.0 mg</button>
+              <button class="rgx-dose-btn {{ doseActive17 }}" onClick="{{ setDose17 }}">1.7 mg</button>
+              <button class="rgx-dose-btn {{ doseActive25 }}" onClick="{{ setDose25 }}">2.5 mg</button>
+            </sc-if>
+            <sc-if value="{{ dosingIsTirz }}">
+              <button class="rgx-dose-btn {{ doseActive25 }}" onClick="{{ setDose25 }}">2.5 mg</button>
+              <button class="rgx-dose-btn {{ doseActive50 }}" onClick="{{ setDose50 }}">5.0 mg</button>
+              <button class="rgx-dose-btn {{ doseActive75 }}" onClick="{{ setDose75 }}">7.5 mg</button>
+              <button class="rgx-dose-btn {{ doseActive100 }}" onClick="{{ setDose100 }}">10 mg</button>
+              <button class="rgx-dose-btn {{ doseActive125 }}" onClick="{{ setDose125 }}">12.5 mg</button>
+              <button class="rgx-dose-btn {{ doseActive150 }}" onClick="{{ setDose150 }}">15 mg</button>
+            </sc-if>
+          </div>
+        </div>
+        
+        <!-- Results Section -->
+        <div style="background:linear-gradient(135deg,#0a0a0a,#1a0a12);color:#fff;padding:28px;border-radius:0 0 22px 22px;">
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;">
+            <div style="width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#FF2D8E,#E6007E);display:flex;align-items:center;justify-content:center;font-size:20px;">💉</div>
+            <div>
+              <p style="margin:0;font-size:13px;color:#FFB8DC;text-transform:uppercase;letter-spacing:.08em;">Your {{ dosingMedLabel }} order</p>
+              <p style="margin:0;font-size:20px;font-weight:800;">{{ dosingWeeklyMg }} mg per week</p>
+            </div>
+          </div>
+          
+          <div style="background:rgba(255,255,255,.08);border-radius:12px;padding:18px;margin-bottom:16px;">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+              <div>
+                <p style="margin:0 0 4px;color:#FFB8DC;font-size:12px;font-weight:600;">1-MONTH SUPPLY</p>
+                <p style="margin:0;font-size:15px;">{{ dosingVials1mo }} × {{ dosingVialStrength }}</p>
+                <p style="margin:6px 0 0;font-size:22px;font-weight:800;">{{ dosingPrice1mo }}</p>
+              </div>
+              <div>
+                <p style="margin:0 0 4px;color:#FFB8DC;font-size:12px;font-weight:600;">3-MONTH SUPPLY <span style="background:#E6007E;padding:2px 6px;border-radius:4px;font-size:10px;margin-left:4px;">SAVE 10%</span></p>
+                <p style="margin:0;font-size:15px;">{{ dosingVials3mo }} × {{ dosingVialStrength }}</p>
+                <p style="margin:6px 0 0;font-size:22px;font-weight:800;">{{ dosingPrice3mo }}</p>
+              </div>
+            </div>
+          </div>
+          
+          <p style="margin:0 0 16px;font-size:13px;color:rgba(255,255,255,.6);">{{ dosingExplanation }}</p>
+          
+          <div style="display:flex;gap:10px;">
+            <button class="btn btn-primary btn-cta" style="flex:1;" onClick="{{ addDosingToCart1mo }}">Add 1-Month to Cart</button>
+            <button class="btn btn-outline" style="flex:1;border-color:#FFB8DC;color:#FFB8DC;" onClick="{{ addDosingToCart3mo }}">Add 3-Month to Cart</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
   <!-- ============ LOGO POPUP ============ -->
   <sc-if value="{{ logoOpen }}">
     <div class="rgx-overlay" style="background:rgba(0,0,0,.78);display:flex;align-items:center;justify-content:center;padding:24px;" onClick="{{ closeLogo }}">
@@ -1029,7 +1137,7 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:&quot;100%&quot;,&quot;height&quot;:&quot;100%&quot;}}">
 class Component extends DCLogic {
-  state = { view: 'hub', cat: 'weight-loss', cartOpen: false, cart: [], menuOpen: false, quizOpen: false, quizStep: 0, quizGoal: '', logoOpen: false, supplyMonths: 1 };
+  state = { view: 'hub', cat: 'weight-loss', cartOpen: false, cart: [], menuOpen: false, quizOpen: false, quizStep: 0, quizGoal: '', logoOpen: false, supplyMonths: 1, dosingCalcOpen: false, dosingMed: 'semaglutide', dosingWeeklyMg: 2.5 };
 
   cats() {
     if (this._cats) return this._cats;
@@ -1448,6 +1556,7 @@ class Component extends DCLogic {
       checkout:() => { this.setState({ cartOpen:false, quizOpen:true, quizStep:0, quizGoal:'' }); },
       supplyMonths: this.state.supplyMonths,
       is3Month: this.state.supplyMonths === 3,
+      isWeightLoss: this.state.cat === 'weight-loss',
       supplyLabel: this.state.supplyMonths === 3 ? '3-Month Price' : 'Price',
       supplyBtnClass1: this.state.supplyMonths === 1 ? 'active' : '',
       supplyBtnClass3: this.state.supplyMonths === 3 ? 'active' : '',
@@ -1458,7 +1567,113 @@ class Component extends DCLogic {
       menuOpen: this.state.menuOpen,
       openLogo:() => this.setState({ logoOpen:true }),
       closeLogo:() => this.setState({ logoOpen:false }),
-      logoOpen: this.state.logoOpen
+      logoOpen: this.state.logoOpen,
+      
+      // Dosing Calculator
+      dosingCalcOpen: this.state.dosingCalcOpen,
+      openDosingCalc:() => this.setState({ dosingCalcOpen:true }),
+      closeDosingCalc:() => this.setState({ dosingCalcOpen:false }),
+      stopProp:(e) => e.stopPropagation(),
+      dosingMed: this.state.dosingMed,
+      dosingMedLabel: this.state.dosingMed === 'semaglutide' ? 'Semaglutide' : 'Tirzepatide',
+      dosingIsSema: this.state.dosingMed === 'semaglutide',
+      dosingIsTirz: this.state.dosingMed === 'tirzepatide',
+      setDosingMedSema:() => this.setState({ dosingMed:'semaglutide', dosingWeeklyMg: 2.5 }),
+      setDosingMedTirz:() => this.setState({ dosingMed:'tirzepatide', dosingWeeklyMg: 2.5 }),
+      dosingMedSemaStyle: this.state.dosingMed === 'semaglutide' ? 'background:var(--hg-pink);color:#fff;border-color:var(--hg-pink);' : 'background:#f5f5f5;color:#333;border:2px solid #ddd;',
+      dosingMedTirzStyle: this.state.dosingMed === 'tirzepatide' ? 'background:var(--hg-pink);color:#fff;border-color:var(--hg-pink);' : 'background:#f5f5f5;color:#333;border:2px solid #ddd;',
+      dosingWeeklyMg: this.state.dosingWeeklyMg,
+      setDose025:() => this.setState({ dosingWeeklyMg: 0.25 }),
+      setDose05:() => this.setState({ dosingWeeklyMg: 0.5 }),
+      setDose10:() => this.setState({ dosingWeeklyMg: 1.0 }),
+      setDose17:() => this.setState({ dosingWeeklyMg: 1.7 }),
+      setDose25:() => this.setState({ dosingWeeklyMg: 2.5 }),
+      setDose50:() => this.setState({ dosingWeeklyMg: 5.0 }),
+      setDose75:() => this.setState({ dosingWeeklyMg: 7.5 }),
+      setDose100:() => this.setState({ dosingWeeklyMg: 10.0 }),
+      setDose125:() => this.setState({ dosingWeeklyMg: 12.5 }),
+      setDose150:() => this.setState({ dosingWeeklyMg: 15.0 }),
+      doseActive025: this.state.dosingWeeklyMg === 0.25 ? 'active' : '',
+      doseActive05: this.state.dosingWeeklyMg === 0.5 ? 'active' : '',
+      doseActive10: this.state.dosingWeeklyMg === 1.0 ? 'active' : '',
+      doseActive17: this.state.dosingWeeklyMg === 1.7 ? 'active' : '',
+      doseActive25: this.state.dosingWeeklyMg === 2.5 ? 'active' : '',
+      doseActive50: this.state.dosingWeeklyMg === 5.0 ? 'active' : '',
+      doseActive75: this.state.dosingWeeklyMg === 7.5 ? 'active' : '',
+      doseActive100: this.state.dosingWeeklyMg === 10.0 ? 'active' : '',
+      doseActive125: this.state.dosingWeeklyMg === 12.5 ? 'active' : '',
+      doseActive150: this.state.dosingWeeklyMg === 15.0 ? 'active' : '',
+      ...this.calcDosingResult()
+    };
+  }
+  
+  calcDosingResult() {
+    const med = this.state.dosingMed;
+    const weeklyMg = this.state.dosingWeeklyMg;
+    const monthlyMg = weeklyMg * 4; // 4 weeks per month
+    
+    // Vial options with wholesale prices
+    const semaVials = [
+      { mg: 2.5, size: '2.5 mg vial (1 mL)', wholesale: 35 },
+      { mg: 4, size: '4 mg vial (1 mL)', wholesale: 50 },
+      { mg: 8, size: '8 mg vial (2 mL)', wholesale: 70 },
+      { mg: 16, size: '16 mg vial (4 mL)', wholesale: 110 }
+    ];
+    const tirzVials = [
+      { mg: 10, size: '10 mg vial (1 mL)', wholesale: 50 },
+      { mg: 20, size: '20 mg vial (1 mL)', wholesale: 90 },
+      { mg: 40, size: '40 mg vial (2 mL)', wholesale: 130 },
+      { mg: 60, size: '60 mg vial (3 mL)', wholesale: 150 }
+    ];
+    
+    const vials = med === 'semaglutide' ? semaVials : tirzVials;
+    
+    // Find most cost-effective vial combination for 1 month
+    let bestVial = vials[0];
+    let bestVialsNeeded = Math.ceil(monthlyMg / bestVial.mg);
+    let bestCost = bestVialsNeeded * (bestVial.wholesale * 2.5);
+    
+    for (const v of vials) {
+      const vialsNeeded = Math.ceil(monthlyMg / v.mg);
+      const cost = vialsNeeded * (v.wholesale * 2.5);
+      if (cost < bestCost || (cost === bestCost && vialsNeeded < bestVialsNeeded)) {
+        bestVial = v;
+        bestVialsNeeded = vialsNeeded;
+        bestCost = cost;
+      }
+    }
+    
+    const vials1mo = bestVialsNeeded;
+    const vials3mo = Math.ceil((monthlyMg * 3) / bestVial.mg);
+    const price1mo = bestCost;
+    const price3mo = Math.round((vials3mo * bestVial.wholesale * 2.5) * 0.9 * 100) / 100;
+    
+    const explanation = `At ${weeklyMg} mg/week, you need ${monthlyMg} mg per month. The ${bestVial.size} provides ${bestVial.mg} mg, so you'll need ${vials1mo} vial${vials1mo > 1 ? 's' : ''} per month.`;
+    
+    return {
+      dosingVialStrength: bestVial.size,
+      dosingVials1mo: vials1mo,
+      dosingVials3mo: vials3mo,
+      dosingPrice1mo: '$' + price1mo.toFixed(2),
+      dosingPrice3mo: '$' + price3mo.toFixed(2),
+      dosingExplanation: explanation,
+      addDosingToCart1mo: () => {
+        const name = med === 'semaglutide' ? 'Compounded Semaglutide' : 'Compounded Tirzepatide';
+        const fullName = name + ' — ' + bestVial.size + ' (1-month supply)';
+        const priceN = bestVial.wholesale * 2.5 * vials1mo;
+        for (let i = 0; i < vials1mo; i++) {
+          this.addToCart({ name: name + ' — ' + bestVial.size, priceN: bestVial.wholesale * 2.5, price: '$' + (bestVial.wholesale * 2.5).toFixed(2), unit: '' });
+        }
+        this.setState({ dosingCalcOpen: false });
+      },
+      addDosingToCart3mo: () => {
+        const name = med === 'semaglutide' ? 'Compounded Semaglutide' : 'Compounded Tirzepatide';
+        const unitPrice = Math.round(bestVial.wholesale * 2.5 * 0.9 * 100) / 100;
+        for (let i = 0; i < vials3mo; i++) {
+          this.addToCart({ name: name + ' — ' + bestVial.size + ' (3-mo)', priceN: unitPrice, price: '$' + unitPrice.toFixed(2), unit: '' });
+        }
+        this.setState({ dosingCalcOpen: false, supplyMonths: 3 });
+      }
     };
   }
 }
