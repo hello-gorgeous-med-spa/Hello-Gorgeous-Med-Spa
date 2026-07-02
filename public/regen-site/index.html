@@ -3,33 +3,6 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script>
-(function(){
-  // Block right-click context menu
-  document.addEventListener('contextmenu', function(e) { e.preventDefault(); return false; }, true);
-  
-  // Block keyboard shortcuts for DevTools and View Source
-  document.addEventListener('keydown', function(e) {
-    // F12
-    if (e.key === 'F12') { e.preventDefault(); return false; }
-    // Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+Shift+C (DevTools)
-    if (e.ctrlKey && e.shiftKey && ['I','i','J','j','C','c'].includes(e.key)) { e.preventDefault(); return false; }
-    // Cmd+Option+I, Cmd+Option+J, Cmd+Option+C (Mac DevTools)
-    if (e.metaKey && e.altKey && ['I','i','J','j','C','c'].includes(e.key)) { e.preventDefault(); return false; }
-    // Ctrl+U / Cmd+U (View Source)
-    if ((e.ctrlKey || e.metaKey) && ['U','u'].includes(e.key)) { e.preventDefault(); return false; }
-    // Ctrl+S / Cmd+S (Save Page)
-    if ((e.ctrlKey || e.metaKey) && ['S','s'].includes(e.key)) { e.preventDefault(); return false; }
-  }, true);
-  
-  // Block copy/cut
-  document.addEventListener('copy', function(e) { e.preventDefault(); return false; }, true);
-  document.addEventListener('cut', function(e) { e.preventDefault(); return false; }, true);
-  
-  // Block drag
-  document.addEventListener('dragstart', function(e) { e.preventDefault(); return false; }, true);
-})();
-</script>
 <script src="./support.js"></script>
 <!-- Resources referenced as strings in JS (React.createElement) — lifted so the bundler inlines them -->
 <meta name="ext-resource-dependency" content="assets/hero-photo.jpg" data-resource-id="assets/hero-photo.jpg" />
@@ -88,9 +61,6 @@
 <link rel="stylesheet" href="_ds/hello-gorgeous-design-system-e2c42b49-2a75-4fd9-8346-7cd2672ec52b/styles.css">
 <script src="_ds/hello-gorgeous-design-system-e2c42b49-2a75-4fd9-8346-7cd2672ec52b/_ds_bundle.js"></script>
 <style>
-  /* Anti-copy protection */
-  body, .rgx { -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; }
-  
   .rgx { font-family: var(--font-body); color:#000; }
   .rgx a { text-decoration:none; }
   .rgx .btn { transition: transform .25s var(--ease-out), box-shadow .25s var(--ease-out); }
