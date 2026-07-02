@@ -50,6 +50,28 @@ export async function GET() {
         clientIntake: `${SITE.url}/forms/client-intake`,
       },
     },
+    reGen: {
+      brand: "RE GEN",
+      tagline: "Gorgeous, delivered.",
+      motto: "Renew. Rebalance. Regenerate.",
+      parentClinic: SITE.name,
+      primaryUrl: `${SITE.url}/rx`,
+      requestPortalUrl: `${SITE.url}/rx/request`,
+      patientCareUrl: `${SITE.url}/rx/care`,
+      categoryHubs: {
+        weightLoss: `${SITE.url}/rx/weight-loss`,
+        hormones: `${SITE.url}/rx/hormones`,
+        peptides: `${SITE.url}/peptides`,
+        sexualHealth: `${SITE.url}/rx/sexual-health`,
+        dermatology: `${SITE.url}/rx/dermatology`,
+        labs: `${SITE.url}/rx/labs`,
+      },
+      clinicalModel:
+        "NP-directed telehealth and prescription programs; Ryan Kent, FNP-BC supervises Illinois protocols; medications compounded by US-licensed pharmacies and shipped statewide.",
+      shippingNote: "Flat $30 shipping on eligible prescription orders.",
+      serviceAreas: SITE.serviceAreas,
+      phone: SITE.phone,
+    },
     services: SERVICES.map((service) => ({
       slug: service.slug,
       name: service.name,

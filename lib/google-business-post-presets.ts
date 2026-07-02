@@ -16,6 +16,24 @@ export type GbpPostPreset = {
 
 export const GBP_POST_PRESETS: GbpPostPreset[] = [
   {
+    id: "regen-launch",
+    label: "RE GEN — Launch (telehealth Rx)",
+    message: `Introducing RE GEN — prescription weight loss, peptides & hormones, delivered across Illinois.
+
+NP-directed telehealth from Hello Gorgeous Med Spa in Oswego:
+• GLP-1 weight loss from $125/mo
+• Peptide protocols $175–$200/mo
+• NAD+ $150 / 10-week supply
+• TRT & HRT — provider-guided
+
+Ryan Kent, FNP-BC · Danielle Alcala, RN-S
+5-minute online intake · $30 flat shipping
+
+Start now — link below`,
+    linkPath: "/rx?utm_source=google&utm_medium=gbp_post&utm_campaign=regen_launch",
+    imagePath: "/promo-kit/regen-social-provider.jpg",
+  },
+  {
     id: "blast-memberships",
     label: "Blast — Memberships (Glow/Luxe/Platinum)",
     message: `⭐ Med spa memberships — Hello Gorgeous, Oswego IL

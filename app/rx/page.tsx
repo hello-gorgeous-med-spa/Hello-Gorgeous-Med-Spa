@@ -146,6 +146,31 @@ export default function RxPage() {
         />
       </div>
 
+      {/* Mobile-first crawlable copy — sr-only so storefront iframe stays full-screen */}
+      <section className="sr-only" aria-label="RE GEN online medical weight loss peptides hormones Illinois">
+        <h1>RE GEN by Hello Gorgeous Med Spa — Online Medical Weight Loss, Peptides and Hormones</h1>
+        <p>
+          RE GEN is the telehealth prescription arm of Hello Gorgeous Med Spa in Oswego, Illinois.
+          Nurse-practitioner-directed GLP-1 weight loss, peptide therapy, hormone optimization, sexual
+          wellness, and lab testing. Online intake, provider review by Ryan Kent FNP-BC, prescriptions
+          shipped to your door across Illinois with flat $30 shipping.
+        </p>
+        <ul>
+          <li>
+            <a href="/rx/weight-loss">Medical weight loss — compounded semaglutide and tirzepatide</a>
+          </li>
+          <li>
+            <a href="/peptides">Peptide therapy — BPC-157, NAD+, recovery and longevity protocols</a>
+          </li>
+          <li>
+            <a href="/rx/hormones">Hormone therapy — TRT and HRT</a>
+          </li>
+          <li>
+            <a href="/rx/request">Start your RE GEN intake</a>
+          </li>
+        </ul>
+      </section>
+
       {/* Crawlable SEO copy — desktop only; storefront iframe is the mobile experience */}
       <section
         className="hidden md:block relative z-10"

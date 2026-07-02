@@ -11,6 +11,18 @@
 - Fresha profile: https://www.fresha.com/a/hello-gorgeous-med-spa-oswego-74-west-washington-street-y6oakkwf
 - Book (canonical): https://www.hellogorgeousmedspa.com/book
 
+## RE GEN — online prescriptions (telehealth arm)
+- Brand: RE GEN — Renew. Rebalance. Regenerate.
+- Primary URL: https://www.hellogorgeousmedspa.com/rx
+- Request portal: https://www.hellogorgeousmedspa.com/rx/request
+- Weight loss hub: https://www.hellogorgeousmedspa.com/rx/weight-loss
+- Hormones hub: https://www.hellogorgeousmedspa.com/rx/hormones
+- Peptides hub: https://www.hellogorgeousmedspa.com/peptides
+- Sexual health: https://www.hellogorgeousmedspa.com/rx/sexual-health
+- Patient care / refills: https://www.hellogorgeousmedspa.com/rx/care
+- Model: NP-directed telehealth; Ryan Kent FNP-BC; US pharmacy compounding; $30 flat shipping across Illinois
+- Clinic: Hello Gorgeous Med Spa, Oswego IL — same address as med spa
+
 ## Core services
 - Botox, Dysport, Jeuveau
 - Dermal fillers and lip filler

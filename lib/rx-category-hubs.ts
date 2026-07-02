@@ -12,6 +12,7 @@ import {
 import { GLP1_PROGRAM } from "@/lib/glp1-program-pricing";
 import { GENTLEMENS_CLUB_PATH } from "@/lib/gentlemens-club";
 import { REGEN_PREVIEW_FALLBACKS } from "@/lib/regen-brand";
+import { PEPTIDES_HUB_PATH } from "@/lib/peptides-hub";
 
 export type RxCategoryHubId =
   | "weight-loss"
@@ -144,7 +145,7 @@ export const REGEN_CATEGORY_HUBS: RxCategoryHub[] = [
   {
     id: "peptides",
     navLabel: "Peptides",
-    hubPath: "/rx/peptides",
+    hubPath: PEPTIDES_HUB_PATH,
     previewImage: REGEN_PREVIEW_FALLBACKS.peptides,
     previewAlt: "REGEN peptide therapy",
     hero: {

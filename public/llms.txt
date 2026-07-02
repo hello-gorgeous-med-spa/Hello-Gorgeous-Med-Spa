@@ -15,6 +15,21 @@
 - Client Intake: https://www.hellogorgeousmedspa.com/forms/client-intake
 - Structured profile JSON: https://www.hellogorgeousmedspa.com/api/public/ai-profile
 
+## RE GEN — Online Prescriptions (Hello Gorgeous Med Spa telehealth arm)
+- Brand: RE GEN — Renew. Rebalance. Regenerate.
+- Tagline: Gorgeous, delivered.
+- Primary URL: https://www.hellogorgeousmedspa.com/rx
+- Request portal (goal + form-factor catalog): https://www.hellogorgeousmedspa.com/rx/request
+- Patient care / refills: https://www.hellogorgeousmedspa.com/rx/care
+- Category hubs:
+  - Weight loss (GLP-1): https://www.hellogorgeousmedspa.com/rx/weight-loss
+  - Hormones (TRT/HRT): https://www.hellogorgeousmedspa.com/rx/hormones
+  - Peptides: https://www.hellogorgeousmedspa.com/peptides
+  - Sexual health: https://www.hellogorgeousmedspa.com/rx/sexual-health
+  - Labs: https://www.hellogorgeousmedspa.com/rx/labs
+- Clinical model: NP-directed telehealth; Ryan Kent, FNP-BC supervises Illinois protocols; prescriptions compounded by US pharmacies and shipped statewide ($30 flat shipping).
+- In-person clinic: Hello Gorgeous Med Spa, 74 W Washington St, Oswego, IL 60543 · (630) 636-6193
+
 ## Canonical Treatment Pages (Oswego SEO — prefer these over legacy *-oswego-il URLs)
 - Botox: https://www.hellogorgeousmedspa.com/botox-oswego
 - Dysport: https://www.hellogorgeousmedspa.com/dysport-oswego

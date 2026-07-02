@@ -12,6 +12,7 @@ import { LADIES_CLUB_PATH } from '@/lib/ladies-club';
 import { MEDICAL_OPTIMIZATION_PATH } from '@/lib/medical-optimization';
 import { QUIZ_HUB_PATH } from '@/lib/quiz-nav';
 import { getPublishedPeptideTopics, PEPTIDES_HUB_PATH } from '@/lib/peptides-hub';
+import { REGEN_CATEGORY_HUBS } from '@/lib/rx-category-hubs';
 import { SKIN_101_GUIDES, SKIN_101_PATH } from '@/lib/skin-101-nav';
 import { isDeindexedSeoPath } from '@/lib/city-seo-tier';
 
@@ -264,6 +265,36 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     {
       url: `${baseUrl}/rx/messages`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.88,
+    },
+    ...REGEN_CATEGORY_HUBS.map((hub) => ({
+      url: `${baseUrl}${hub.hubPath.split('?')[0]}`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly' as const,
+      priority: hub.id === 'weight-loss' || hub.id === 'peptides' || hub.id === 'hormones' ? 0.92 : 0.88,
+    })),
+    {
+      url: `${baseUrl}/rx/metabolic`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly',
+      priority: 0.85,
+    },
+    {
+      url: `${baseUrl}/rx/safety`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly',
+      priority: 0.82,
+    },
+    {
+      url: `${baseUrl}/rx/membership`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly',
+      priority: 0.85,
+    },
+    {
+      url: `${baseUrl}/rx/labs`,
       lastModified: currentDate,
       changeFrequency: 'weekly',
       priority: 0.88,
