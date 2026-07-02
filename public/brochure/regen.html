@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>RE GEN Brochure | Hello Gorgeous Med Spa</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --pink: #E6007E;
+      --pink-hot: #FF2D8E;
+      --pink-soft: #FFB8DC;
+      --rose: #FFF0F7;
+      --black: #0a0a0a;
+      --ink: #1a1025;
+      --muted: #6b7280;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: #e5e7eb;
+      color: var(--ink);
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    .screen-bar {
+      position: sticky; top: 0; z-index: 100;
+      background: var(--black); color: #fff;
+      padding: 14px 24px;
+      display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+      border-bottom: 3px solid var(--pink);
+    }
+    .screen-bar p { font-size: 14px; opacity: 0.9; }
+    .screen-bar button {
+      background: linear-gradient(135deg, var(--pink-hot), var(--pink));
+      color: #fff; border: none; padding: 12px 24px; border-radius: 999px;
+      font-weight: 700; font-size: 14px; cursor: pointer;
+    }
+    .screen-bar button:hover { opacity: 0.92; }
+    .brochure { max-width: 8.5in; margin: 24px auto; }
+    .page {
+      width: 8.5in; min-height: 11in;
+      background: #fff;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+      margin-bottom: 24px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* ─── FRONT COVER ─── */
+    .cover {
+      background: linear-gradient(160deg, #0a0a0a 0%, #1a1025 40%, #2d1a3d 100%);
+      color: #fff;
+      min-height: 11in;
+      display: flex;
+      flex-direction: column;
+      padding: 0;
+    }
+    .cover-top {
+      padding: 0.55in 0.6in 0.35in;
+      text-align: center;
+      position: relative;
+    }
+    .cover-top::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 50% 0%, rgba(230,0,126,0.25) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .cover-logo {
+      width: 4.2in; max-width: 90%; height: auto;
+      margin: 0 auto 0.2in;
+      display: block;
+      border-radius: 8px;
+    }
+    .cover-tagline {
+      font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--pink-soft); font-weight: 600; margin-bottom: 0.15in;
+    }
+    .cover-headline {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 38px; font-weight: 700; line-height: 1.1;
+      margin-bottom: 0.12in;
+    }
+    .cover-headline em {
+      font-style: italic;
+      background: linear-gradient(90deg, var(--pink-soft), var(--pink-hot), var(--pink));
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    .cover-sub {
+      font-size: 13px; line-height: 1.55; color: rgba(255,255,255,0.75);
+      max-width: 5.5in; margin: 0 auto 0.25in;
+    }
+    .cover-hero-img {
+      width: 100%; height: 2.4in; object-fit: cover;
+      border-top: 4px solid var(--pink);
+      border-bottom: 4px solid #000;
+    }
+    .cover-services {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 0;
+      border-bottom: 4px solid #000;
+    }
+    .cover-svc {
+      padding: 0.22in 0.12in;
+      text-align: center;
+      border-right: 1px solid rgba(255,255,255,0.1);
+      background: rgba(0,0,0,0.35);
+    }
+    .cover-svc:last-child { border-right: none; }
+    .cover-svc .icon { font-size: 22px; margin-bottom: 4px; }
+    .cover-svc .label { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #fff; }
+    .cover-svc .from { font-size: 8px; color: var(--pink-soft); margin-top: 3px; }
+    .cover-bottom {
+      flex: 1;
+      padding: 0.35in 0.6in 0.5in;
+      display: flex; flex-direction: column; justify-content: flex-end;
+    }
+    .cover-cta-row {
+      display: flex; align-items: center; justify-content: space-between; gap: 0.3in;
+      background: linear-gradient(125deg, var(--pink-hot), var(--pink));
+      border: 4px solid #000;
+      border-radius: 16px;
+      padding: 0.28in 0.35in;
+      box-shadow: 8px 8px 0 rgba(230,0,126,0.35);
+    }
+    .cover-cta-text h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px; font-weight: 700; margin-bottom: 4px;
+    }
+    .cover-cta-text p { font-size: 11px; opacity: 0.95; }
+    .cover-qr {
+      flex-shrink: 0;
+      background: #fff; padding: 8px; border-radius: 10px;
+      border: 2px solid #000;
+    }
+    .cover-qr img { width: 0.9in; height: 0.9in; display: block; }
+    .cover-footer {
+      margin-top: 0.2in;
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 9px; color: rgba(255,255,255,0.55);
+    }
+
+    /* ─── INSIDE / BACK ─── */
+    .inside {
+      padding: 0.45in 0.5in 0.4in;
+      min-height: 11in;
+      display: flex;
+      flex-direction: column;
+    }
+    .inside-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding-bottom: 0.2in;
+      border-bottom: 3px solid #000;
+      margin-bottom: 0.22in;
+    }
+    .inside-header img { height: 0.55in; width: auto; }
+    .inside-header .badge {
+      background: var(--rose); border: 2px solid var(--pink);
+      color: var(--pink); font-size: 9px; font-weight: 800;
+      text-transform: uppercase; letter-spacing: 0.1em;
+      padding: 6px 12px; border-radius: 999px;
+    }
+    .how-row {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.15in;
+      margin-bottom: 0.25in;
+    }
+    .how-step {
+      background: var(--rose);
+      border: 2px solid #000;
+      border-radius: 12px;
+      padding: 0.15in 0.12in;
+      text-align: center;
+      box-shadow: 4px 4px 0 rgba(230,0,126,0.2);
+    }
+    .how-step .num {
+      width: 24px; height: 24px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--pink-hot), var(--pink));
+      color: #fff; font-size: 12px; font-weight: 800;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 6px;
+    }
+    .how-step h3 { font-size: 9px; font-weight: 800; text-transform: uppercase; margin-bottom: 3px; }
+    .how-step p { font-size: 7.5px; line-height: 1.35; color: var(--muted); }
+
+    .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 0.2in; flex: 1; }
+    .col-card {
+      border: 3px solid #000;
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 6px 6px 0 rgba(230,0,126,0.25);
+    }
+    .col-card .card-head {
+      padding: 0.12in 0.15in;
+      font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em;
+      color: #fff;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .col-card .card-head.wl { background: linear-gradient(135deg, #ef4444, #f97316); }
+    .col-card .card-head.pt { background: linear-gradient(135deg, #3b82f6, #06b6d4); }
+    .col-card .card-head.hm { background: linear-gradient(135deg, #ec4899, #a855f7); }
+    .col-card .card-head.vt { background: linear-gradient(135deg, #10b981, #059669); }
+    .col-card .card-head.lb { background: linear-gradient(135deg, #6366f1, #8b5cf6); }
+    .col-card .card-body { padding: 0.14in 0.15in; background: #fff; }
+    .col-card .card-body p { font-size: 8px; line-height: 1.45; color: #444; margin-bottom: 8px; }
+    .col-card ul { list-style: none; }
+    .col-card li {
+      font-size: 7.5px; line-height: 1.4; padding: 3px 0;
+      border-bottom: 1px solid #f0f0f0;
+      display: flex; justify-content: space-between; gap: 8px;
+    }
+    .col-card li:last-child { border-bottom: none; }
+    .col-card li .price { font-weight: 700; color: var(--pink); white-space: nowrap; }
+
+    .full-width-card { grid-column: 1 / -1; }
+    .labs-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.1in;
+    }
+    .lab-pill {
+      background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 8px;
+      padding: 8px; text-align: center;
+    }
+    .lab-pill strong { display: block; font-size: 8px; margin-bottom: 2px; }
+    .lab-pill span { font-size: 11px; font-weight: 800; color: var(--pink); }
+
+    .inside-footer {
+      margin-top: 0.2in;
+      padding-top: 0.15in;
+      border-top: 2px solid #000;
+      display: grid; grid-template-columns: 1fr auto 1fr;
+      align-items: center; gap: 0.2in;
+    }
+    .contact-block h4 { font-size: 10px; font-weight: 800; margin-bottom: 4px; }
+    .contact-block p { font-size: 8px; line-height: 1.5; color: #555; }
+    .contact-block a { color: var(--pink); text-decoration: none; font-weight: 600; }
+    .footer-qr { text-align: center; }
+    .footer-qr img { width: 0.75in; height: 0.75in; border: 2px solid #000; border-radius: 8px; padding: 4px; background: #fff; }
+    .footer-qr p { font-size: 7px; margin-top: 4px; font-weight: 600; }
+    .trust-pills { text-align: right; }
+    .trust-pills span {
+      display: inline-block; font-size: 7px; font-weight: 600;
+      background: var(--rose); border: 1px solid var(--pink-soft);
+      color: var(--pink); padding: 3px 8px; border-radius: 999px; margin: 2px;
+    }
+    .disclaimer {
+      margin-top: 0.12in; font-size: 6.5px; line-height: 1.4; color: #999; text-align: center;
+    }
+
+    @media print {
+      body { background: #fff; }
+      .screen-bar { display: none !important; }
+      .brochure { margin: 0; max-width: none; }
+      .page { box-shadow: none; margin: 0; page-break-after: always; }
+      .page:last-child { page-break-after: auto; }
+    }
+    @page { size: letter; margin: 0; }
+  </style>
+</head>
+<body>
+  <div class="screen-bar">
+    <p><strong>RE GEN Brochure</strong> — Print double-sided on 8.5×11 paper (flip on long edge). Or save as PDF.</p>
+    <button type="button" onclick="window.print()">🖨️ Print / Save PDF</button>
+  </div>
+
+  <div class="brochure">
+    <!-- PAGE 1: FRONT COVER -->
+    <div class="page cover">
+      <div class="cover-top">
+        <img class="cover-logo" src="/images/regen/regen-logo.png" alt="RE GEN — Renew. Rebalance. Regenerate.">
+        <p class="cover-tagline">Renew · Rebalance · Regenerate</p>
+        <h1 class="cover-headline">Prescription care,<br><em>gorgeous, delivered.</em></h1>
+        <p class="cover-sub">NP-directed weight loss, peptides, hormones, vitamins &amp; labs — compounded by US pharmacies and shipped to your door across Illinois.</p>
+      </div>
+      <img class="cover-hero-img" src="/promo-kit/regen-social-launch.png" alt="">
+      <div class="cover-services">
+        <div class="cover-svc">
+          <div class="icon">⚖️</div>
+          <div class="label">Weight Loss</div>
+          <div class="from">GLP-1 from $88/mo</div>
+        </div>
+        <div class="cover-svc">
+          <div class="icon">🧬</div>
+          <div class="label">Peptides</div>
+          <div class="from">30+ from $66/mo</div>
+        </div>
+        <div class="cover-svc">
+          <div class="icon">💊</div>
+          <div class="label">Hormones</div>
+          <div class="from">TRT/HRT from $55</div>
+        </div>
+        <div class="cover-svc">
+          <div class="icon">💉</div>
+          <div class="label">Vitamins</div>
+          <div class="from">B12, Biotin, LDN</div>
+        </div>
+        <div class="cover-svc">
+          <div class="icon">🔬</div>
+          <div class="label">Labs</div>
+          <div class="from">Panels from $99</div>
+        </div>
+      </div>
+      <div class="cover-bottom">
+        <div class="cover-cta-row">
+          <div class="cover-cta-text">
+            <h2>Skip the waiting room.</h2>
+            <p>Start your 5-minute online intake today. Provider-reviewed. Transparent pricing. $30 flat shipping.</p>
+          </div>
+          <div class="cover-qr">
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fwww.hellogorgeousmedspa.com%2Frx" alt="Scan to start intake">
+          </div>
+        </div>
+        <div class="cover-footer">
+          <span>RE GEN by Hello Gorgeous Med Spa</span>
+          <span>hellogorgeousmedspa.com/rx</span>
+          <span>(630) 636-6193</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- PAGE 2: INSIDE -->
+    <div class="page inside">
+      <div class="inside-header">
+        <img src="/images/regen/regen-logo.png" alt="RE GEN">
+        <span class="badge">NP-Directed · Illinois</span>
+      </div>
+
+      <div class="how-row">
+        <div class="how-step">
+          <div class="num">1</div>
+          <h3>Intake</h3>
+          <p>Complete your online health form in about 5 minutes</p>
+        </div>
+        <div class="how-step">
+          <div class="num">2</div>
+          <h3>Review</h3>
+          <p>A nurse practitioner evaluates your history &amp; goals</p>
+        </div>
+        <div class="how-step">
+          <div class="num">3</div>
+          <h3>Pay &amp; Ship</h3>
+          <p>Secure checkout — Rx ships from a licensed US pharmacy</p>
+        </div>
+        <div class="how-step">
+          <div class="num">4</div>
+          <h3>Support</h3>
+          <p>Ongoing care, dose adjustments &amp; refills when you need them</p>
+        </div>
+      </div>
+
+      <div class="cols">
+        <div class="col-card">
+          <div class="card-head wl">⚖️ Weight Loss</div>
+          <div class="card-body">
+            <p>Compounded GLP-1 medications prescribed and supervised by our NP team. Weekly injections, dose titration, metabolic support.</p>
+            <ul>
+              <li><span>Compounded Semaglutide</span><span class="price">from $88/mo</span></li>
+              <li><span>Compounded Tirzepatide</span><span class="price">from $125/mo</span></li>
+              <li><span>Lipo-Mino (MIC) injections</span><span class="price">from $92</span></li>
+              <li><span>B12 metabolic support</span><span class="price">from $73</span></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="col-card">
+          <div class="card-head pt">🧬 Peptide Therapy</div>
+          <div class="card-body">
+            <p>Recovery, longevity, energy &amp; performance — 30+ peptides including the Wolverine Stack (BPC-157 + TB-500) and KLOW 4-in-1 blend.</p>
+            <ul>
+              <li><span>BPC-157 · TB-500 · Wolverine Stack</span><span class="price">from $175</span></li>
+              <li><span>NAD+ · Sermorelin · Glutathione</span><span class="price">from $66</span></li>
+              <li><span>CJC/Ipamorelin · Tesamorelin</span><span class="price">from $175</span></li>
+              <li><span>MOTS-c · SS-31 · Epithalon</span><span class="price">from $238</span></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="col-card">
+          <div class="card-head hm">💊 Hormones</div>
+          <div class="card-body">
+            <p>Bioidentical hormone optimization for men and women. Labs-guided protocols with Ryan Kent, FNP-BC — on site 7 days a week.</p>
+            <ul>
+              <li><span>Testosterone Cypionate (TRT)</span><span class="price">from $55</span></li>
+              <li><span>Bi-Est · Progesterone (HRT)</span><span class="price">from $64</span></li>
+              <li><span>Testosterone cream · Clomiphene</span><span class="price">from $88</span></li>
+              <li><span>Anastrozole · Estradiol RDT</span><span class="price">from $75</span></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="col-card">
+          <div class="card-head vt">💉 Vitamins &amp; Wellness</div>
+          <div class="card-body">
+            <p>Professional-grade injectable vitamins and wellness compounds — energy, hair, skin, immune support &amp; more.</p>
+            <ul>
+              <li><span>B12 Methylcobalamin</span><span class="price">from $73</span></li>
+              <li><span>Biotin (hair, skin, nails)</span><span class="price">from $83</span></li>
+              <li><span>Vitamin D3 injection</span><span class="price">$149</span></li>
+              <li><span>Low Dose Naltrexone (LDN)</span><span class="price">from $69</span></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="col-card full-width-card">
+          <div class="card-head lb">🔬 Lab Panels</div>
+          <div class="card-body">
+            <p style="margin-bottom:10px;">At-home or in-clinic blood work reviewed by your provider — the data behind smarter prescriptions.</p>
+            <div class="labs-grid">
+              <div class="lab-pill">
+                <strong>Essential Wellness</strong>
+                <span>$99</span>
+                <div style="font-size:6.5px;color:#888;margin-top:2px;">CBC · Metabolic · Lipids · Thyroid · Vit D</div>
+              </div>
+              <div class="lab-pill">
+                <strong>Hormone &amp; Vitality</strong>
+                <span>$199</span>
+                <div style="font-size:6.5px;color:#888;margin-top:2px;">+ Full hormone panel · Ferritin · B12</div>
+              </div>
+              <div class="lab-pill">
+                <strong>Comprehensive Longevity</strong>
+                <span>$349</span>
+                <div style="font-size:6.5px;color:#888;margin-top:2px;">+ Inflammation · Insulin · Cortisol · ApoB</div>
+              </div>
+              <div class="lab-pill">
+                <strong>Functional Health</strong>
+                <span>$399</span>
+                <div style="font-size:6.5px;color:#888;margin-top:2px;">55+ biomarkers · Full thyroid &amp; hormones</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="inside-footer">
+        <div class="contact-block">
+          <h4>Hello Gorgeous Med Spa</h4>
+          <p>74 W. Washington Street<br>Oswego, IL 60543</p>
+          <p><a href="tel:6306366193">(630) 636-6193</a><br>
+          <a href="https://www.hellogorgeousmedspa.com/rx">hellogorgeousmedspa.com/rx</a></p>
+        </div>
+        <div class="footer-qr">
+          <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fwww.hellogorgeousmedspa.com%2Frx" alt="QR">
+          <p>SCAN TO START</p>
+        </div>
+        <div class="trust-pills">
+          <span>US Pharmacies</span>
+          <span>NP-Directed</span>
+          <span>Shipped to IL</span>
+          <span>No Hidden Fees</span>
+          <span>90-Day Save 10%</span>
+        </div>
+      </div>
+
+      <p class="disclaimer">
+        RE GEN by Hello Gorgeous Med Spa · Prescription products require provider review and approval before dispensing.
+        Not for emergency use. Individual results vary. Compounded medications are not FDA-approved.
+        Hello Gorgeous Med Spa — Oswego, Illinois · hellogorgeousmedspa.com
+      </p>
+    </div>
+  </div>
+</body>
+</html>

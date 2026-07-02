@@ -89,6 +89,22 @@ export default function StaffPage() {
               <div className="text-pink-400 text-2xl">→</div>
             </div>
           </a>
+
+          {/* Print Brochure */}
+          <a
+            href="/brochure/regen.html"
+            target="_blank"
+            className="block bg-gradient-to-r from-cyan-600/20 to-blue-600/20 backdrop-blur rounded-2xl p-5 border-2 border-cyan-400/50 hover:border-cyan-400 hover:from-cyan-600/30 hover:to-blue-600/30 transition-all"
+          >
+            <div className="flex items-center gap-4">
+              <div className="text-4xl">📄</div>
+              <div className="flex-1">
+                <h2 className="font-bold text-white text-lg">RE GEN Brochure</h2>
+                <p className="text-cyan-200/70 text-sm">Print-ready handout — 2 pages, double-sided</p>
+              </div>
+              <div className="text-cyan-400 text-2xl">→</div>
+            </div>
+          </a>
         </div>
 
         {/* Footer */}
