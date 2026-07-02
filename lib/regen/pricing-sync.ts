@@ -85,6 +85,10 @@ export const REGEN_PEPTIDE_PRICING: RegenProductPrice[] = [
   // Glutathione
   { id: "glutathione-5ml", name: "Glutathione Injection 5mL", category: "daily-wellness", wholesale: 26.45, ...calcRetailPricing(26.45), priceLabel: "$66.13/vial", isFromPrice: true, rx: false },
   { id: "glutathione-30ml", name: "Glutathione Injection 30mL", category: "daily-wellness", wholesale: 58, ...calcRetailPricing(58), priceLabel: "$145/vial", isFromPrice: false, rx: false },
+  // Methylene Blue (Anti-Aging)
+  { id: "methylene-blue-15mg", name: "Methylene Blue 15mg 30 caps", category: "daily-wellness", wholesale: 55, ...calcRetailPricing(55), priceLabel: "$137.50/30ct", isFromPrice: true, rx: true },
+  { id: "methylene-blue-25mg", name: "Methylene Blue 25mg 30 caps", category: "daily-wellness", wholesale: 75, ...calcRetailPricing(75), priceLabel: "$187.50/30ct", isFromPrice: false, rx: true },
+  { id: "methylene-blue-45mg", name: "Methylene Blue 45mg 30 caps", category: "daily-wellness", wholesale: 119, ...calcRetailPricing(119), priceLabel: "$297.50/30ct", isFromPrice: false, rx: true },
 ];
 
 /**
