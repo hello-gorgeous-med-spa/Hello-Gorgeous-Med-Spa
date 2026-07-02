@@ -94,7 +94,8 @@ export const REGEN_VITAMIN_PRICING: RegenProductPrice[] = [
   { id: "b12-10ml", name: "B12 Methylcobalamin 10mL", category: "vitamins", wholesale: 29.1, ...calcRetailPricing(29.1), priceLabel: "$72.75/vial", isFromPrice: true, rx: false },
   { id: "b12-30ml", name: "B12 Methylcobalamin 30mL", category: "vitamins", wholesale: 64.8, ...calcRetailPricing(64.8), priceLabel: "$162/vial", isFromPrice: false, rx: false },
   { id: "vitamin-d3", name: "Vitamin D3 Injection 30mL", category: "vitamins", wholesale: 59.51, ...calcRetailPricing(59.51), priceLabel: "$148.78/vial", isFromPrice: false, rx: false },
-  { id: "biotin", name: "Biotin Injection 10mL", category: "vitamins", wholesale: 33.06, ...calcRetailPricing(33.06), priceLabel: "$82.65/vial", isFromPrice: false, rx: false },
+  { id: "biotin-low", name: "Biotin LOW 0.5mg/mL 10mL", category: "vitamins", wholesale: 33.06, ...calcRetailPricing(33.06), priceLabel: "$82.65/vial", isFromPrice: true, rx: false },
+  { id: "biotin-high", name: "Biotin HIGH 10mg/mL 10mL", category: "vitamins", wholesale: 56.35, ...calcRetailPricing(56.35), priceLabel: "$140.88/vial", isFromPrice: false, rx: false },
   { id: "ldn-30", name: "Low Dose Naltrexone 30 caps", category: "vitamins", wholesale: 27.5, ...calcRetailPricing(27.5), priceLabel: "$68.75/30ct", isFromPrice: true, rx: true },
   { id: "ldn-90", name: "Low Dose Naltrexone 90 caps", category: "vitamins", wholesale: 70, ...calcRetailPricing(70), priceLabel: "$175/90ct", isFromPrice: false, rx: true },
 ];
