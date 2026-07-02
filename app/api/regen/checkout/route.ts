@@ -26,6 +26,14 @@ type CheckoutRequestBody = {
 export async function POST(req: NextRequest) {
   try {
     const body = (await req.json()) as CheckoutRequestBody;
+    
+    console.log("[regen/checkout] Request received:", {
+      hasItems: !!body.items?.length,
+      itemCount: body.items?.length || 0,
+      hasQuickPay: !!body.quickPay,
+      hasEmail: !!body.customerEmail,
+      goal: body.goal,
+    });
 
     const redirectUrl = `${SITE.url}/rx/checkout/success`;
 

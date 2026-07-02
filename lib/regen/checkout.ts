@@ -22,10 +22,27 @@ async function squareFetch<T>(
   path: string,
   init: RequestInit & { body?: unknown } = {},
 ): Promise<T> {
-  const token = (await getAccessToken()) || process.env.SQUARE_ACCESS_TOKEN;
-  if (!token) throw new Error("Square is not connected");
+  let token: string | null = null;
+  try {
+    token = await getAccessToken();
+  } catch (oauthErr) {
+    console.error("[regen/checkout] OAuth error, falling back to env var:", oauthErr);
+  }
+  token = token || process.env.SQUARE_ACCESS_TOKEN || null;
+  
+  if (!token) {
+    console.error("[regen/checkout] No Square token available - check SQUARE_ACCESS_TOKEN env var or OAuth connection");
+    throw new Error("Square is not connected - missing access token");
+  }
 
   const { body, ...rest } = init;
+  
+  // Log the request for debugging (without sensitive data)
+  console.log(`[regen/checkout] Square API: ${init.method || 'GET'} ${path}`);
+  if (body) {
+    console.log("[regen/checkout] Request body keys:", Object.keys(body as object));
+  }
+  
   const res = await fetch(`${SQUARE_API_HOST}${path}`, {
     ...rest,
     headers: {
@@ -39,13 +56,14 @@ async function squareFetch<T>(
   });
 
   const data = (await res.json().catch(() => ({}))) as T & {
-    errors?: Array<{ detail?: string; code?: string }>;
+    errors?: Array<{ detail?: string; code?: string; field?: string; category?: string }>;
   };
   if (!res.ok) {
-    const msg =
-      data.errors?.map((e) => e.detail || e.code).join("; ") ||
-      `Square API ${res.status}`;
-    throw new Error(msg);
+    const errorDetails = data.errors?.map((e) => 
+      `${e.code || 'ERROR'}${e.field ? ` (field: ${e.field})` : ''}: ${e.detail || 'Unknown'}`
+    ).join("; ");
+    console.error("[regen/checkout] Square API error:", res.status, errorDetails, data.errors);
+    throw new Error(errorDetails || `Square API ${res.status}`);
   }
   return data;
 }
@@ -79,6 +97,11 @@ export async function createRegenCheckout(opts: {
   }
 
   const locationId = await resolveSquareLocationId();
+  console.log("[regen/checkout] Using location ID:", locationId ? `${locationId.slice(0, 8)}...` : "MISSING!");
+  
+  if (!locationId) {
+    throw new Error("Square location not configured - check SQUARE_LOCATION_ID env var");
+  }
 
   // Build line items
   const lineItems = opts.items.map((item) => ({
