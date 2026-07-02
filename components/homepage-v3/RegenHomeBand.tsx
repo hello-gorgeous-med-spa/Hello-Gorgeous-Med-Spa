@@ -94,8 +94,8 @@ export function RegenHomeBand() {
               {/* Main large image */}
               <div className="col-span-2 overflow-hidden rounded-2xl shadow-2xl">
                 <Image
-                  src="/promo-kit/regen-social-launch.png"
-                  alt="RE GEN - Skip the waiting room"
+                  src="/images/regen/regen-og-image.png"
+                  alt="RE GEN — Gorgeous, delivered"
                   width={600}
                   height={400}
                   className="h-auto w-full object-cover"
