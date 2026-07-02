@@ -28,16 +28,6 @@
   
   // Block drag
   document.addEventListener('dragstart', function(e) { e.preventDefault(); return false; }, true);
-  
-  // DevTools detection - makes debugging annoying for copiers
-  (function detect(){
-    var t = new Date().getTime();
-    debugger;
-    if (new Date().getTime() - t > 100) {
-      document.body.innerHTML = '<div style="text-align:center;padding:100px;font-family:system-ui"><h1>Developer Tools Detected</h1><p>Please close DevTools to continue.</p></div>';
-    }
-    setTimeout(detect, 1000);
-  })();
 })();
 </script>
 <script src="./support.js"></script>
