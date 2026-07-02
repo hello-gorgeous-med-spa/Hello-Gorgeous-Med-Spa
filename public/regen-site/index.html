@@ -476,6 +476,28 @@
     </section>
     </sc-if>
 
+    <sc-if value="{{ active.pdfGuide }}">
+    <section class="section-white" style="padding:40px 24px;">
+      <div style="max-width:1280px;margin:0 auto;">
+        <div style="display:grid;grid-template-columns:auto 1fr;gap:28px;align-items:center;background:linear-gradient(135deg,#fff5f9,#fff);border:2px solid var(--hg-pink);border-radius:20px;padding:28px 32px;box-shadow:0 4px 24px rgba(233,30,140,0.12);">
+          <div style="width:80px;height:100px;background:linear-gradient(145deg,#E6007E,#FF2D8E);border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(233,30,140,0.25);">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+            <span style="color:#fff;font-size:10px;font-weight:700;margin-top:6px;">PDF GUIDE</span>
+          </div>
+          <div>
+            <p style="margin:0 0 6px;font-size:12px;text-transform:uppercase;letter-spacing:1.5px;color:var(--hg-pink);font-weight:600;">Download Our Guide</p>
+            <h3 style="margin:0 0 8px;font-size:22px;color:#111;">{{ active.pdfGuideTitle }}</h3>
+            <p style="margin:0 0 16px;font-size:15px;color:rgba(0,0,0,.65);">Complete overview of peptide options, protocols, and what to expect. Provider-approved educational resource.</p>
+            <a href="{{ active.pdfGuide }}" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,#FF2D8E,#E6007E);color:#fff;text-decoration:none;padding:12px 24px;border-radius:10px;font-weight:600;font-size:14px;box-shadow:0 4px 12px rgba(233,30,140,0.3);transition:transform 0.2s, box-shadow 0.2s;" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 6px 16px rgba(233,30,140,0.4)';" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 4px 12px rgba(233,30,140,0.3)';">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Download PDF Guide
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+    </sc-if>
+
     <section class="section-white" style="padding:10px 24px 70px;">
       <div style="max-width:1280px;margin:0 auto 28px;">
         <h2 style="margin:0;">Popular <span class="accent">options</span></h2>
@@ -1208,44 +1230,71 @@ class Component extends DCLogic {
         ]
       },
       {
-        id:'daily-wellness', title:'Daily Wellness', tag:'Longevity, NAD+ & peptides', icon:'✦', heroImg:'assets/banner-wellness.jpg', heroBanner:'assets/hero-nad.jpg',
+        id:'peptide-therapy', title:'Peptide Therapy', tag:'Recovery, longevity & performance', icon:'✦', heroImg:'assets/banner-wellness.jpg', heroBanner:'assets/hero-nad.jpg',
         editorial:['assets/dw-ed1.jpg','assets/dw-ed2.jpg','assets/dw-ed3.jpg','assets/dw-ed4.jpg'],
-        editorialEyebrow:'Why peptides', editorialHead:'Recovery that works <span class="accent">with your body</span>',
-        eyebrow:'Daily Wellness', headline:'Done surviving. Ready to thrive.',
-        sub:'NAD+, MIC-B12, sermorelin and research-backed peptides for energy, recovery and science-backed longevity — prescribed and guided.',
-        priceNote:'from $72.75', colName:'Treatment', colDetail:'Vial / detail', tableNote:'Peptides are compounded vials; dosing per provider.',
-        ctaHead:'Optimize your wellness',
+        editorialEyebrow:'Peptide Therapy', editorialHead:'Recovery that works <span class="accent">with your body</span>',
+        eyebrow:'Peptide Therapy', headline:'Done surviving. Ready to thrive.',
+        sub:'Provider-guided peptide therapy for recovery, performance, longevity and healthy aging. Research-backed protocols — prescribed and monitored.',
+        priceNote:'from $66', colName:'Peptide', colDetail:'Form / concentration', tableNote:'All peptides compounded by licensed 503A/503B pharmacies. Dosing individualized per provider.',
+        pdfGuide:'/docs/dosing-guides/peptide-therapy-guide.pdf',
+        pdfGuideTitle:'Peptide Therapy Menu',
+        ctaHead:'Start your peptide protocol',
         products:[
-          prod('NAD+','Cellular energy & longevity', 35, '/ 5 mL', T.white, 'Longevity', 'assets/prod-nad-sermorelin.png', '/docs/dosing-guides/nad-injection.pdf'),
-          prod('Methylene Blue','Anti-aging capsules', 55, '/ 30 ct', T.white, 'Popular', 'assets/prod-methylene-blue.png', '/docs/dosing-guides/methylene-blue-capsules.pdf'),
-          prod('Sermorelin','GH-support peptide', 38, '/ 6 mL', T.white, 'Recovery', 'assets/prod-nad-sermorelin.png', '/docs/dosing-guides/sermorelin-injection.pdf'),
-          prod('BPC-157','Tissue repair peptide', 70, '/ 5 mL', T.white, '', 'assets/prod-bpc157.png', '/docs/dosing-guides/pentadeca-arginate.pdf'),
-          prod('Glutathione','Master antioxidant', 26.45, '/ 5 mL', T.lilac, '', 'assets/prod-glutathione.png', '/docs/dosing-guides/glutathione-injection.pdf')
+          prod('BPC-157','Recovery + gut support', 70, '/ 5 mL', T.white, 'Recovery', 'assets/prod-bpc157.png', '/docs/dosing-guides/pentadeca-arginate.pdf'),
+          prod('TB-500','Mobility + tissue repair', 85, '/ 5 mL', T.white, 'Recovery', 'assets/prod-bpc157.png', ''),
+          prod('BPC + TB-500','Combo recovery stack', 130, '/ 5 mL', T.white, 'Popular', 'assets/prod-bpc157.png', ''),
+          prod('Sermorelin','GH-axis + sleep support', 38, '/ 6 mL', T.white, 'GH Support', 'assets/prod-nad-sermorelin.png', '/docs/dosing-guides/sermorelin-injection.pdf'),
+          prod('CJC / Ipamorelin','GH-axis + recovery', 80, '/ 5 mL', T.white, 'GH Support', 'assets/prod-nad-sermorelin.png', ''),
+          prod('Tesamorelin / Ipamorelin','Body comp + GH-axis', 80, '/ 5 mL', T.white, '', 'assets/prod-nad-sermorelin.png', ''),
+          prod('NAD+','Cellular energy + focus', 35, '/ 5 mL', T.white, 'Longevity', 'assets/prod-nad-sermorelin.png', '/docs/dosing-guides/nad-injection.pdf'),
+          prod('Methylene Blue','Anti-aging + cognition', 55, '/ 30 ct', T.white, 'Popular', 'assets/prod-methylene-blue.png', '/docs/dosing-guides/methylene-blue-capsules.pdf'),
+          prod('GHK-Cu','Skin + collagen support', 50, '/ 30 g', T.lilac, 'Skin', 'assets/prod-ghkcu.png', ''),
+          prod('Glutathione','Master antioxidant', 26.45, '/ 5 mL', T.lilac, 'Detox', 'assets/prod-glutathione.png', '/docs/dosing-guides/glutathione-injection.pdf'),
+          prod('MOTS-c','Mitochondrial + metabolic', 95, '/ 5 mL', T.white, 'Performance', '', ''),
+          prod('Thymosin A-1','Immune support', 90, '/ 5 mL', T.white, 'Immune', '', ''),
+          prod('Selank','Calm + cognitive', 65, '/ 5 mL', T.white, 'Mood', '', ''),
+          prod('Semax','Focus + mental energy', 65, '/ 5 mL', T.white, 'Cognitive', '', ''),
+          prod('Epithalon','Longevity + telomere', 120, '/ 5 mL', T.white, 'Longevity', '', ''),
+          prod('AOD-9604','Body composition', 85, '/ 5 mL', T.white, 'Body Comp', '', '')
         ],
         rows:[
+          row('BPC-157','3 mg/mL · 5 mL vial', 70),
+          row('TB-500','5 mg · lyophilized vial', 85),
+          row('BPC-157 + TB-500','combo · 5 mL vial', 130),
+          row('BPC / GHK-Cu / KPV / TB-500','Advanced recovery blend', 180),
+          row('HEAL Blend','Restorative tissue support', 150),
+          row('Sermorelin','1 mg/mL · 6 mL vial', 38),
+          row('Sermorelin','1.5 mg/mL · 6 mL vial', 49),
+          row('Sermorelin','1.5 mg/mL · 12 mL (2-pack)', 85),
+          row('CJC-1295 / Ipamorelin','combo · 5 mL vial', 80),
+          row('Tesamorelin','5 mL vial', 70),
+          row('Tesamorelin / Ipamorelin','combo · 5 mL vial', 80),
           row('NAD+','1 mg/mL · 5 mL vial', 35),
           row('NAD+','50 mg/mL · 10 mL vial', 45),
           row('NAD+','100 mg/mL · 10 mL vial', 60),
           row('NADvantage','NAD+ face cream · 30 g', 71),
-          row('Methylene Blue','15mg - 30 capsules', 55),
-          row('Methylene Blue','25mg - 30 capsules', 75),
-          row('Methylene Blue','45mg - 30 capsules', 119),
-          row('Sermorelin','1 mg/mL · 6 mL vial', 38),
-          row('Sermorelin','1.5 mg/mL · 6 mL vial', 49),
-          row('Sermorelin','1.5 mg/mL · 12 mL (2-pack)', 85),
-          row('BPC-157','3 mg/mL · 5 mL vial', 70),
-          row('CJC-1295 / Ipamorelin','combo · 5 mL vial', 80),
-          row('Tesamorelin','5 mL vial', 70),
-          row('Tesamorelin / Ipamorelin','combo · 5 mL vial', 80),
+          row('Methylene Blue','15mg · 30 capsules', 55),
+          row('Methylene Blue','25mg · 30 capsules', 75),
+          row('Methylene Blue','45mg · 30 capsules', 119),
+          row('GHK-Cu Cream','0.5% · 30 g', 50),
+          row('GHK-Cu Cream','2% · 30 g', 65),
+          row('GHK-Cu Cream','4% (Max) · 30 g', 71),
           row('Glutathione','200 mg/mL · 5 mL', 26.45),
           row('Glutathione','200 mg/mL · 30 mL', 58),
-          row('GHK-Cu Cream (Tighten)','0.5% · 30 g', 50),
-          row('GHK-Cu Cream (Tighten Max)','4% · 30 g', 71)
+          row('MOTS-c','5 mg · lyophilized vial', 95),
+          row('SS-31','Mitochondrial support vial', 110),
+          row('Thymosin A-1','Immune support · 5 mL', 90),
+          row('Selank','5 mg · nasal spray', 65),
+          row('Semax','5 mg · nasal spray', 65),
+          row('Epithalon','10 mg · lyophilized vial', 120),
+          row('AOD-9604','5 mg · lyophilized vial', 85)
         ],
         faqs:[
-          {q:'What is NAD+?', a:'NAD+ is a coenzyme involved in cellular energy and repair. Many patients use it to support energy, focus and healthy aging.'},
-          {q:'Are peptides prescription?', a:'Yes — the peptides we offer are compounded by a licensed pharmacy and require a provider prescription. They are not FDA-approved products.'},
-          {q:'How are these taken?', a:'Most are subcutaneous injections you self-administer with a tiny needle; some come as creams or sprays. Your provider sets your protocol.'}
+          {q:'What are peptides?', a:'Peptides are short chains of amino acids that signal specific responses in the body — like recovery, growth hormone support, or tissue repair. They are compounded by licensed pharmacies and require a prescription.'},
+          {q:'How are peptides taken?', a:'Most are subcutaneous injections you self-administer with a tiny insulin needle; some come as nasal sprays or creams. Your provider sets your protocol based on your goals.'},
+          {q:'Are peptides FDA-approved?', a:'Compounded peptides are prepared by a licensed pharmacy for an individual patient and are not FDA-approved products. Your provider will review whether a peptide protocol is appropriate for you.'},
+          {q:'What results can I expect?', a:'Results vary by peptide and individual. Many patients notice improved recovery, sleep, energy or body composition over weeks to months. Your provider will set realistic expectations at your consult.'},
+          {q:'Do I need labs?', a:'Some peptide protocols benefit from baseline labs (like IGF-1 for GH-axis peptides). Your provider will recommend any needed testing during your evaluation.'}
         ]
       },
       {
@@ -1507,7 +1556,7 @@ class Component extends DCLogic {
           console.log('[REGEN] Cart empty, adding consultation for goal:', goal);
           const goalProducts = {
             'weight-loss': { name: 'GLP-1 Weight Loss Consultation', priceN: 99, unit: '' },
-            'daily-wellness': { name: 'Peptide Therapy Consultation', priceN: 99, unit: '' },
+            'peptide-therapy': { name: 'Peptide Therapy Consultation', priceN: 99, unit: '' },
             'vitamin-injections': { name: 'Vitamin Injection Consultation', priceN: 49, unit: '' },
             'sexual-health': { name: 'Sexual Health Consultation', priceN: 99, unit: '' },
             'hormones': { name: 'Hormone Therapy Consultation', priceN: 99, unit: '' },

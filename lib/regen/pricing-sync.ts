@@ -64,31 +64,43 @@ export const REGEN_WEIGHT_LOSS_PRICING: RegenProductPrice[] = [
 ];
 
 /**
- * Peptides & Daily Wellness (from verified pharmacy bible)
+ * Peptide Therapy (from verified pharmacy bible)
  */
 export const REGEN_PEPTIDE_PRICING: RegenProductPrice[] = [
-  // NAD+
-  { id: "nad-5ml", name: "NAD+ Injection 1mg/mL 5mL", category: "daily-wellness", wholesale: 35, ...calcRetailPricing(35), priceLabel: "$87.50/vial", isFromPrice: true, rx: true, coldShip: true },
-  { id: "nad-10ml-50", name: "NAD+ Injection 50mg/mL 10mL", category: "daily-wellness", wholesale: 45, ...calcRetailPricing(45), priceLabel: "$112.50/vial", isFromPrice: false, rx: true, coldShip: true },
-  { id: "nad-10ml-100", name: "NAD+ Injection 100mg/mL 10mL", category: "daily-wellness", wholesale: 60, ...calcRetailPricing(60), priceLabel: "$150/vial", isFromPrice: false, rx: true },
-  { id: "nadvantage", name: "NADvantage Face Cream", category: "daily-wellness", wholesale: 71, ...calcRetailPricing(71), priceLabel: "$177.50/tube", isFromPrice: false, rx: false },
-  // Sermorelin
-  { id: "sermorelin-6ml", name: "Sermorelin Injection 1mg/mL 6mL", category: "daily-wellness", wholesale: 38, ...calcRetailPricing(38), priceLabel: "$95/vial", isFromPrice: true, rx: true, coldShip: true },
-  { id: "sermorelin-6ml-1.5", name: "Sermorelin Injection 1.5mg/mL 6mL", category: "daily-wellness", wholesale: 49, ...calcRetailPricing(49), priceLabel: "$122.50/vial", isFromPrice: false, rx: true, coldShip: true },
-  { id: "sermorelin-12ml", name: "Sermorelin Injection 12mL (2-pack)", category: "daily-wellness", wholesale: 85, ...calcRetailPricing(85), priceLabel: "$212.50/pack", isFromPrice: false, rx: true, coldShip: true },
-  // BPC-157
-  { id: "bpc-157", name: "BPC-157 Injection", category: "daily-wellness", wholesale: 70, ...calcRetailPricing(70), priceLabel: "$175/vial", isFromPrice: false, rx: true },
-  // Tesamorelin
-  { id: "tesamorelin", name: "Tesamorelin Injection", category: "daily-wellness", wholesale: 70, ...calcRetailPricing(70), priceLabel: "$175/vial", isFromPrice: false, rx: true },
-  // CJC/Ipamorelin
-  { id: "cjc-ipamorelin", name: "CJC-1295 / Ipamorelin Combo", category: "daily-wellness", wholesale: 80, ...calcRetailPricing(80), priceLabel: "$200/vial", isFromPrice: false, rx: true },
-  // Glutathione
-  { id: "glutathione-5ml", name: "Glutathione Injection 5mL", category: "daily-wellness", wholesale: 26.45, ...calcRetailPricing(26.45), priceLabel: "$66.13/vial", isFromPrice: true, rx: false },
-  { id: "glutathione-30ml", name: "Glutathione Injection 30mL", category: "daily-wellness", wholesale: 58, ...calcRetailPricing(58), priceLabel: "$145/vial", isFromPrice: false, rx: false },
-  // Methylene Blue (Anti-Aging)
-  { id: "methylene-blue-15mg", name: "Methylene Blue 15mg 30 caps", category: "daily-wellness", wholesale: 55, ...calcRetailPricing(55), priceLabel: "$137.50/30ct", isFromPrice: true, rx: true },
-  { id: "methylene-blue-25mg", name: "Methylene Blue 25mg 30 caps", category: "daily-wellness", wholesale: 75, ...calcRetailPricing(75), priceLabel: "$187.50/30ct", isFromPrice: false, rx: true },
-  { id: "methylene-blue-45mg", name: "Methylene Blue 45mg 30 caps", category: "daily-wellness", wholesale: 119, ...calcRetailPricing(119), priceLabel: "$297.50/30ct", isFromPrice: false, rx: true },
+  // Recovery + Tissue Support
+  { id: "bpc-157", name: "BPC-157 Injection", category: "peptide-therapy", wholesale: 70, ...calcRetailPricing(70), priceLabel: "$175/vial", isFromPrice: false, rx: true },
+  { id: "tb-500", name: "TB-500 Injection", category: "peptide-therapy", wholesale: 85, ...calcRetailPricing(85), priceLabel: "$212.50/vial", isFromPrice: false, rx: true },
+  { id: "bpc-tb-combo", name: "BPC-157 + TB-500 Combo", category: "peptide-therapy", wholesale: 130, ...calcRetailPricing(130), priceLabel: "$325/vial", isFromPrice: false, rx: true },
+  { id: "advanced-recovery", name: "BPC/GHK-Cu/KPV/TB-500 Blend", category: "peptide-therapy", wholesale: 180, ...calcRetailPricing(180), priceLabel: "$450/vial", isFromPrice: false, rx: true },
+  { id: "heal-blend", name: "HEAL Blend (Tissue Support)", category: "peptide-therapy", wholesale: 150, ...calcRetailPricing(150), priceLabel: "$375/vial", isFromPrice: false, rx: true },
+  // GH-Axis Support
+  { id: "sermorelin-6ml", name: "Sermorelin Injection 1mg/mL 6mL", category: "peptide-therapy", wholesale: 38, ...calcRetailPricing(38), priceLabel: "$95/vial", isFromPrice: true, rx: true, coldShip: true },
+  { id: "sermorelin-6ml-1.5", name: "Sermorelin Injection 1.5mg/mL 6mL", category: "peptide-therapy", wholesale: 49, ...calcRetailPricing(49), priceLabel: "$122.50/vial", isFromPrice: false, rx: true, coldShip: true },
+  { id: "sermorelin-12ml", name: "Sermorelin Injection 12mL (2-pack)", category: "peptide-therapy", wholesale: 85, ...calcRetailPricing(85), priceLabel: "$212.50/pack", isFromPrice: false, rx: true, coldShip: true },
+  { id: "cjc-ipamorelin", name: "CJC-1295 / Ipamorelin Combo", category: "peptide-therapy", wholesale: 80, ...calcRetailPricing(80), priceLabel: "$200/vial", isFromPrice: false, rx: true },
+  { id: "tesamorelin", name: "Tesamorelin Injection", category: "peptide-therapy", wholesale: 70, ...calcRetailPricing(70), priceLabel: "$175/vial", isFromPrice: false, rx: true },
+  { id: "tesamorelin-ipamorelin", name: "Tesamorelin / Ipamorelin Combo", category: "peptide-therapy", wholesale: 80, ...calcRetailPricing(80), priceLabel: "$200/vial", isFromPrice: false, rx: true },
+  // Longevity + Energy
+  { id: "nad-5ml", name: "NAD+ Injection 1mg/mL 5mL", category: "peptide-therapy", wholesale: 35, ...calcRetailPricing(35), priceLabel: "$87.50/vial", isFromPrice: true, rx: true, coldShip: true },
+  { id: "nad-10ml-50", name: "NAD+ Injection 50mg/mL 10mL", category: "peptide-therapy", wholesale: 45, ...calcRetailPricing(45), priceLabel: "$112.50/vial", isFromPrice: false, rx: true, coldShip: true },
+  { id: "nad-10ml-100", name: "NAD+ Injection 100mg/mL 10mL", category: "peptide-therapy", wholesale: 60, ...calcRetailPricing(60), priceLabel: "$150/vial", isFromPrice: false, rx: true },
+  { id: "nadvantage", name: "NADvantage Face Cream", category: "peptide-therapy", wholesale: 71, ...calcRetailPricing(71), priceLabel: "$177.50/tube", isFromPrice: false, rx: false },
+  { id: "methylene-blue-15mg", name: "Methylene Blue 15mg 30 caps", category: "peptide-therapy", wholesale: 55, ...calcRetailPricing(55), priceLabel: "$137.50/30ct", isFromPrice: true, rx: true },
+  { id: "methylene-blue-25mg", name: "Methylene Blue 25mg 30 caps", category: "peptide-therapy", wholesale: 75, ...calcRetailPricing(75), priceLabel: "$187.50/30ct", isFromPrice: false, rx: true },
+  { id: "methylene-blue-45mg", name: "Methylene Blue 45mg 30 caps", category: "peptide-therapy", wholesale: 119, ...calcRetailPricing(119), priceLabel: "$297.50/30ct", isFromPrice: false, rx: true },
+  { id: "epithalon", name: "Epithalon Injection", category: "peptide-therapy", wholesale: 120, ...calcRetailPricing(120), priceLabel: "$300/vial", isFromPrice: false, rx: true },
+  // Performance + Metabolic
+  { id: "mots-c", name: "MOTS-c Injection", category: "peptide-therapy", wholesale: 95, ...calcRetailPricing(95), priceLabel: "$237.50/vial", isFromPrice: false, rx: true },
+  { id: "ss-31", name: "SS-31 (Elamipretide) Injection", category: "peptide-therapy", wholesale: 110, ...calcRetailPricing(110), priceLabel: "$275/vial", isFromPrice: false, rx: true },
+  { id: "aod-9604", name: "AOD-9604 Injection", category: "peptide-therapy", wholesale: 85, ...calcRetailPricing(85), priceLabel: "$212.50/vial", isFromPrice: false, rx: true },
+  // Immune Support
+  { id: "thymosin-a1", name: "Thymosin Alpha-1 Injection", category: "peptide-therapy", wholesale: 90, ...calcRetailPricing(90), priceLabel: "$225/vial", isFromPrice: false, rx: true },
+  // Cognitive + Mood
+  { id: "selank", name: "Selank Nasal Spray", category: "peptide-therapy", wholesale: 65, ...calcRetailPricing(65), priceLabel: "$162.50/spray", isFromPrice: false, rx: true },
+  { id: "semax", name: "Semax Nasal Spray", category: "peptide-therapy", wholesale: 65, ...calcRetailPricing(65), priceLabel: "$162.50/spray", isFromPrice: false, rx: true },
+  // Skin + Glow
+  { id: "glutathione-5ml", name: "Glutathione Injection 5mL", category: "peptide-therapy", wholesale: 26.45, ...calcRetailPricing(26.45), priceLabel: "$66.13/vial", isFromPrice: true, rx: false },
+  { id: "glutathione-30ml", name: "Glutathione Injection 30mL", category: "peptide-therapy", wholesale: 58, ...calcRetailPricing(58), priceLabel: "$145/vial", isFromPrice: false, rx: false },
 ];
 
 /**
