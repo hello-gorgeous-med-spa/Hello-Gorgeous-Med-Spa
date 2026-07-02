@@ -25,7 +25,7 @@ export default function StaffPage() {
         <div className="space-y-4">
           {/* Pharmacy Selector */}
           <a
-            href="/staff/pharmacy"
+            href="/staff/pharmacy-selector.html"
             className="block bg-white rounded-2xl p-5 shadow-lg border-2 border-pink-200 hover:border-pink-400 hover:shadow-xl transition-all"
           >
             <div className="flex items-center gap-4">

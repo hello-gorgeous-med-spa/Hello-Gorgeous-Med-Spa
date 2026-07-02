@@ -1,17 +1,5 @@
-import { Metadata } from 'next';
-
-export const metadata: Metadata = {
-  title: 'Pharmacy Selector | Hello Gorgeous Staff',
-  robots: 'noindex, nofollow',
-};
+import { redirect } from 'next/navigation';
 
 export default function PharmacySelectorPage() {
-  return (
-    <iframe
-      src="/staff/pharmacy-selector.html"
-      className="w-full h-screen border-0"
-      title="Pharmacy Selector"
-      sandbox="allow-scripts allow-same-origin allow-popups"
-    />
-  );
+  redirect('/staff/pharmacy-selector.html');
 }
