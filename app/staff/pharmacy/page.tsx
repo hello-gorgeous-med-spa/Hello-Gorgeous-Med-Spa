@@ -1,27 +1,14 @@
 'use client';
 
 import { useState, useMemo } from 'react';
-import pharmacyData from '@/data/pharmacy-catalog-raw.json';
+import { pharmacyData } from '@/data/pharmacy-catalog';
 
 const MARKUP = 2.5;
 const SHIPPING = 30;
 
-type Product = {
-  pharmacy: string;
-  sku: string | null;
-  name: string;
-  size: string;
-  conc: string;
-  budDays: number;
-  controlled: boolean;
-  coldShip: boolean;
-  category: string;
-  route: string;
-  cost: number;
-  id: string;
-};
+type Product = typeof pharmacyData[number];
 
-const data = pharmacyData as Product[];
+const data = pharmacyData;
 
 const pharmacies = ['Formulation Rx', 'BoomRx', 'Olympia'] as const;
 const categories = [
