@@ -264,6 +264,41 @@
     .rgx-shopbtn .sicon { width:18px; height:18px; font-size:12px; }
     .rgx-shopbar-cta { padding:8px 14px; font-size:12px; }
   }
+  /* Mascot Chat Widget */
+  .rgx-chat-btn { position:fixed; bottom:24px; right:24px; z-index:50; display:flex; align-items:center; gap:12px; padding:14px 22px; border-radius:50px; border:none; color:#fff; font-size:15px; font-weight:600; cursor:pointer; box-shadow:0 8px 30px rgba(0,0,0,0.3); transition:all 0.3s ease; font-family:var(--font-body); }
+  .rgx-chat-btn:hover { transform:translateY(-2px); box-shadow:0 12px 40px rgba(0,0,0,0.4); }
+  .rgx-chat-btn img { width:36px; height:36px; border-radius:50%; object-fit:cover; object-position:top; border:2px solid rgba(255,255,255,0.3); }
+  .rgx-chat-modal { position:fixed; bottom:100px; right:24px; z-index:60; width:400px; max-width:calc(100vw - 48px); height:540px; max-height:calc(100vh - 140px); background:#fff; border-radius:20px; box-shadow:0 25px 80px rgba(0,0,0,0.35); display:flex; flex-direction:column; overflow:hidden; }
+  .rgx-chat-header { padding:16px 20px; display:flex; align-items:center; gap:14px; }
+  .rgx-chat-header img { width:52px; height:52px; border-radius:50%; object-fit:cover; object-position:top; border:3px solid rgba(255,255,255,0.2); }
+  .rgx-chat-header .info { flex:1; }
+  .rgx-chat-header .name { font-weight:700; color:#fff; font-size:17px; margin:0; }
+  .rgx-chat-header .role { font-size:12px; color:rgba(255,255,255,0.7); margin:2px 0 0; }
+  .rgx-chat-header .online { position:absolute; bottom:2px; right:2px; width:12px; height:12px; background:#4ade80; border-radius:50%; border:2px solid currentColor; }
+  .rgx-chat-close { background:rgba(255,255,255,0.1); border:none; color:#fff; width:36px; height:36px; border-radius:10px; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:background 0.2s; }
+  .rgx-chat-close:hover { background:rgba(255,255,255,0.2); }
+  .rgx-chat-messages { flex:1; overflow-y:auto; padding:16px 20px; background:#f9fafb; display:flex; flex-direction:column; gap:16px; }
+  .rgx-chat-msg { display:flex; gap:10px; max-width:85%; }
+  .rgx-chat-msg.user { margin-left:auto; flex-direction:row-reverse; }
+  .rgx-chat-msg .avatar { width:32px; height:32px; border-radius:50%; object-fit:cover; object-position:top; flex-shrink:0; }
+  .rgx-chat-msg .bubble { padding:12px 16px; border-radius:18px; font-size:14px; line-height:1.5; }
+  .rgx-chat-msg.bot .bubble { background:#fff; color:#333; border:1px solid #e5e7eb; box-shadow:0 1px 3px rgba(0,0,0,0.05); }
+  .rgx-chat-msg.user .bubble { color:#fff; }
+  .rgx-chat-loading { display:flex; gap:5px; padding:12px 16px; background:#fff; border-radius:18px; border:1px solid #e5e7eb; }
+  .rgx-chat-loading span { width:8px; height:8px; border-radius:50%; animation:chatBounce 1.4s infinite ease-in-out both; }
+  .rgx-chat-loading span:nth-child(1) { animation-delay:-0.32s; }
+  .rgx-chat-loading span:nth-child(2) { animation-delay:-0.16s; }
+  @keyframes chatBounce { 0%,80%,100% { transform:scale(0); } 40% { transform:scale(1); } }
+  .rgx-chat-quick { padding:12px 20px; background:#fff; border-top:1px solid #f0f0f0; display:flex; flex-wrap:wrap; gap:8px; }
+  .rgx-chat-quick button { padding:8px 14px; border-radius:20px; border:1px solid #e5e7eb; background:#fff; font-size:12px; font-weight:500; cursor:pointer; transition:all 0.2s; font-family:var(--font-body); }
+  .rgx-chat-quick button:hover { border-color:var(--hg-pink); color:var(--hg-pink); }
+  .rgx-chat-input { padding:16px 20px; background:#fff; border-top:1px solid #e5e7eb; display:flex; gap:12px; }
+  .rgx-chat-input input { flex:1; padding:12px 16px; border:1px solid #e5e7eb; border-radius:12px; font-size:14px; font-family:var(--font-body); outline:none; transition:border 0.2s; }
+  .rgx-chat-input input:focus { border-color:var(--hg-pink); }
+  .rgx-chat-input button { width:44px; height:44px; border-radius:12px; border:none; color:#fff; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:opacity 0.2s; }
+  .rgx-chat-input button:disabled { opacity:0.5; cursor:not-allowed; }
+  .rgx-chat-disclaimer { padding:8px 20px; background:#f9fafb; text-align:center; font-size:10px; color:#9ca3af; border-top:1px solid #f0f0f0; }
+  @media (max-width:500px) { .rgx-chat-modal { bottom:0; right:0; width:100%; max-width:100%; height:100vh; max-height:100vh; border-radius:0; } .rgx-chat-btn { bottom:16px; right:16px; padding:12px 18px; font-size:14px; } }
 </style>
 </helmet>
 <div class="rgx">
@@ -982,6 +1017,67 @@
     </a>
   </section>
 
+  <!-- ============ MASCOT CHAT WIDGET ============ -->
+  <sc-if value="{{ showMascotChat }}">
+  <button class="rgx-chat-btn" onClick="{{ openChat }}" style="background:{{ chatMascot.gradient }};">
+    <img src="{{ chatMascot.avatar }}" alt="{{ chatMascot.name }}">
+    Ask {{ chatMascot.name }}
+  </button>
+  </sc-if>
+
+  <sc-if value="{{ chatOpen }}">
+  <div class="rgx-overlay" onClick="{{ closeChat }}"></div>
+  <div class="rgx-chat-modal">
+    <div class="rgx-chat-header" style="background:{{ chatMascot.headerBg }};">
+      <div style="position:relative;">
+        <img src="{{ chatMascot.avatar }}" alt="{{ chatMascot.name }}">
+        <span class="rgx-chat-header .online" style="position:absolute;bottom:2px;right:2px;width:12px;height:12px;background:#4ade80;border-radius:50%;border:2px solid {{ chatMascot.headerBgStart }};"></span>
+      </div>
+      <div class="info">
+        <p class="name">{{ chatMascot.name }}</p>
+        <p class="role">{{ chatMascot.role }}</p>
+      </div>
+      <button class="rgx-chat-close" onClick="{{ closeChat }}">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="rgx-chat-messages" id="chat-messages">
+      <sc-for list="{{ chatMessages }}" as="msg" hint-placeholder-count="1">
+        <div class="rgx-chat-msg {{ msg.class }}">
+          <sc-if value="{{ msg.isBot }}">
+            <img class="avatar" src="{{ chatMascot.avatar }}" alt="{{ chatMascot.name }}">
+          </sc-if>
+          <div class="bubble" style="{{ msg.bubbleStyle }}">{{ msg.content }}</div>
+        </div>
+      </sc-for>
+      <sc-if value="{{ chatLoading }}">
+        <div class="rgx-chat-msg bot">
+          <img class="avatar" src="{{ chatMascot.avatar }}" alt="{{ chatMascot.name }}">
+          <div class="rgx-chat-loading">
+            <span style="background:{{ chatMascot.accent }};"></span>
+            <span style="background:{{ chatMascot.accent }};"></span>
+            <span style="background:{{ chatMascot.accent }};"></span>
+          </div>
+        </div>
+      </sc-if>
+    </div>
+    <sc-if value="{{ showQuickQuestions }}">
+    <div class="rgx-chat-quick">
+      <sc-for list="{{ chatMascot.quickQuestions }}" as="q" hint-placeholder-count="4">
+        <button onClick="{{ q.send }}">{{ q.text }}</button>
+      </sc-for>
+    </div>
+    </sc-if>
+    <form class="rgx-chat-input" onSubmit="{{ sendChatMessage }}">
+      <input type="text" id="chat-input" placeholder="{{ chatMascot.placeholder }}" autocomplete="off">
+      <button type="submit" style="background:{{ chatMascot.gradient }};" disabled="{{ chatLoading }}">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/></svg>
+      </button>
+    </form>
+    <div class="rgx-chat-disclaimer">Not medical advice. Book an NP consult for personalized care.</div>
+  </div>
+  </sc-if>
+
   <!-- ============ FOOTER ============ -->
   <footer class="rgx-foot">
     <div class="rgx-foot-in">
@@ -1258,7 +1354,7 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:&quot;100%&quot;,&quot;height&quot;:&quot;100%&quot;}}">
 class Component extends DCLogic {
-  state = { view: 'hub', cat: 'weight-loss', cartOpen: false, cart: [], menuOpen: false, quizOpen: false, quizStep: 0, quizGoal: '', logoOpen: false, supplyMonths: 1, dosingCalcOpen: false, dosingMed: 'semaglutide', dosingWeeklyMg: 2.5 };
+  state = { view: 'hub', cat: 'weight-loss', cartOpen: false, cart: [], menuOpen: false, quizOpen: false, quizStep: 0, quizGoal: '', logoOpen: false, supplyMonths: 1, dosingCalcOpen: false, dosingMed: 'semaglutide', dosingWeeklyMg: 2.5, chatOpen: false, chatMessages: [], chatLoading: false };
 
   cats() {
     if (this._cats) return this._cats;
@@ -1575,8 +1671,8 @@ class Component extends DCLogic {
     return this._cats;
   }
 
-  go(id) { this.setState({ view:'category', cat:id, menuOpen:false }); if (typeof window!=='undefined') window.scrollTo({ top:0 }); }
-  home() { this.setState({ view:'hub', menuOpen:false }); if (typeof window!=='undefined') window.scrollTo({ top:0 }); }
+  go(id) { this.setState({ view:'category', cat:id, menuOpen:false, chatOpen:false, chatMessages:[], chatLoading:false }); if (typeof window!=='undefined') window.scrollTo({ top:0 }); }
+  home() { this.setState({ view:'hub', menuOpen:false, chatOpen:false, chatMessages:[], chatLoading:false }); if (typeof window!=='undefined') window.scrollTo({ top:0 }); }
 
   addToCart(p) {
     console.log('[REGEN] addToCart called with:', JSON.stringify(p));
@@ -1808,7 +1904,131 @@ class Component extends DCLogic {
       doseActive100: this.state.dosingWeeklyMg === 10.0 ? 'active' : '',
       doseActive125: this.state.dosingWeeklyMg === 12.5 ? 'active' : '',
       doseActive150: this.state.dosingWeeklyMg === 15.0 ? 'active' : '',
-      ...this.calcDosingResult()
+      ...this.calcDosingResult(),
+      
+      // Mascot Chat
+      ...this.getMascotChatVals(active)
+    };
+  }
+  
+  getMascotChatVals(active) {
+    const mascotConfigs = {
+      'weight-loss': {
+        id: 'slim-t',
+        name: 'Slim-T',
+        role: 'Your Weight Loss Coach',
+        avatar: '/images/mascots/slim-t.png',
+        gradient: 'linear-gradient(135deg, #ef4444, #f97316)',
+        headerBg: 'linear-gradient(135deg, #7f1d1d, #9a3412)',
+        headerBgStart: '#7f1d1d',
+        accent: '#ef4444',
+        placeholder: 'Ask about weight loss...',
+        greeting: "Hey! I'm Slim-T, and I'm all about helping you crush your weight loss goals! Whether it's semaglutide, tirzepatide, or metabolic support — I've got the energy and the answers. What would you like to know?",
+        quickQuestions: ['Semaglutide vs tirzepatide?', 'How fast can I lose weight?', 'What are GLP-1 side effects?', 'How do I get started?']
+      },
+      'peptide-therapy': {
+        id: 'peppy',
+        name: 'Peppy',
+        role: 'Your Peptide Guide',
+        avatar: '/images/mascots/peppy-avatar.png',
+        gradient: 'linear-gradient(135deg, #3b82f6, #06b6d4)',
+        headerBg: 'linear-gradient(135deg, #1e3a5f, #0c4a6e)',
+        headerBgStart: '#1e3a5f',
+        accent: '#3b82f6',
+        placeholder: 'Ask about peptides...',
+        greeting: "Hey there! I'm Peppy, your science-obsessed peptide guide! Ask me anything about peptides, recovery, longevity, or how to get started. What can I help you with?",
+        quickQuestions: ["What's the Wolverine Stack?", 'Best peptide for recovery?', 'What is NAD+?', 'How do I get started?']
+      },
+      'hormones': {
+        id: 'harmony',
+        name: 'Harmony',
+        role: 'Your Hormone Balance Guide',
+        avatar: '/images/mascots/harmony.png',
+        gradient: 'linear-gradient(135deg, #ec4899, #a855f7)',
+        headerBg: 'linear-gradient(135deg, #701a52, #581c87)',
+        headerBgStart: '#701a52',
+        accent: '#ec4899',
+        placeholder: 'Ask about hormones...',
+        greeting: "Hi, I'm Harmony! Hormones are the conductors of your body's symphony — when they're balanced, everything works better. Whether you're curious about TRT, HRT, or just want to understand your options, I'm here to help. What's on your mind?",
+        quickQuestions: ['What is TRT?', 'Signs of low testosterone?', 'HRT for women explained', 'How do I get started?']
+      }
+    };
+    
+    const mascotConfig = mascotConfigs[this.state.cat] || null;
+    const showMascotChat = this.state.view === 'category' && mascotConfig !== null;
+    
+    const chatMessages = this.state.chatMessages.length > 0 
+      ? this.state.chatMessages 
+      : mascotConfig ? [{ id: 'welcome', role: 'assistant', content: mascotConfig.greeting }] : [];
+    
+    const formattedMessages = chatMessages.map(m => ({
+      ...m,
+      class: m.role === 'user' ? 'user' : 'bot',
+      isBot: m.role === 'assistant',
+      bubbleStyle: m.role === 'user' ? `background:${mascotConfig?.gradient || '#E6007E'};` : ''
+    }));
+    
+    return {
+      showMascotChat,
+      chatOpen: this.state.chatOpen,
+      chatLoading: this.state.chatLoading,
+      chatMessages: formattedMessages,
+      showQuickQuestions: chatMessages.length <= 2,
+      chatMascot: mascotConfig ? {
+        ...mascotConfig,
+        quickQuestions: mascotConfig.quickQuestions.map(q => ({
+          text: q,
+          send: () => this.sendChatMessage(q)
+        }))
+      } : {},
+      openChat: () => {
+        const welcomeMsg = mascotConfig ? [{ id: 'welcome', role: 'assistant', content: mascotConfig.greeting }] : [];
+        this.setState({ chatOpen: true, chatMessages: this.state.chatMessages.length > 0 ? this.state.chatMessages : welcomeMsg });
+      },
+      closeChat: () => this.setState({ chatOpen: false }),
+      sendChatMessage: async (e) => {
+        if (e && e.preventDefault) e.preventDefault();
+        const input = document.getElementById('chat-input');
+        const content = typeof e === 'string' ? e : (input?.value || '').trim();
+        if (!content || this.state.chatLoading || !mascotConfig) return;
+        
+        if (input) input.value = '';
+        const userMsg = { id: Date.now().toString(), role: 'user', content };
+        const newMessages = [...this.state.chatMessages, userMsg];
+        if (newMessages.length === 1) {
+          newMessages.unshift({ id: 'welcome', role: 'assistant', content: mascotConfig.greeting });
+        }
+        this.setState({ chatMessages: newMessages, chatLoading: true });
+        
+        // Scroll to bottom
+        setTimeout(() => {
+          const container = document.getElementById('chat-messages');
+          if (container) container.scrollTop = container.scrollHeight;
+        }, 50);
+        
+        try {
+          const res = await fetch('/api/regen/mascot-chat', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              mascotId: mascotConfig.id,
+              messages: newMessages.filter(m => m.id !== 'welcome').map(m => ({ role: m.role, content: m.content }))
+            })
+          });
+          const data = await res.json();
+          const botMsg = { id: (Date.now() + 1).toString(), role: 'assistant', content: data.response || "Hmm, I had trouble with that. Call us at (630) 636-6193!" };
+          this.setState({ chatMessages: [...newMessages, botMsg], chatLoading: false });
+        } catch (err) {
+          const errorMsg = { id: (Date.now() + 1).toString(), role: 'assistant', content: "Oops! Something went wrong. Call us at (630) 636-6193!" };
+          this.setState({ chatMessages: [...newMessages, errorMsg], chatLoading: false });
+        }
+        
+        // Scroll to bottom after response
+        setTimeout(() => {
+          const container = document.getElementById('chat-messages');
+          if (container) container.scrollTop = container.scrollHeight;
+        }, 100);
+      }
     };
   }
   
