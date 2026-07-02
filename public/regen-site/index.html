@@ -507,6 +507,7 @@
             <div style="position:absolute;top:-20px;left:-20px;width:60px;height:60px;background:linear-gradient(135deg,#FF2D8E,#E6007E);border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(233,30,140,0.4);z-index:2;">
               <span style="font-size:28px;">🧬</span>
             </div>
+            <sc-if value="{{ active.mascot.video }}">
             <video 
               src="{{ active.mascot.video }}" 
               autoplay 
@@ -515,6 +516,14 @@
               playsinline
               style="width:100%;border-radius:16px;box-shadow:0 4px 24px rgba(0,0,0,0.3);"
             ></video>
+            </sc-if>
+            <sc-if value="{{ active.mascot.imageOnly }}">
+            <img 
+              src="{{ active.mascot.image }}" 
+              alt="{{ active.mascot.name }}"
+              style="width:100%;border-radius:16px;box-shadow:0 4px 24px rgba(0,0,0,0.3);"
+            />
+            </sc-if>
           </div>
           <div>
             <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:20px;padding:6px 14px;margin-bottom:16px;">
@@ -1225,6 +1234,14 @@ class Component extends DCLogic {
         id:'weight-loss', title:'Weight Loss', tag:'GLP-1 & metabolic', icon:'⚖', heroImg:'assets/hero-photo.jpg',
         eyebrow:'Weight Loss', headline:'Lose weight with compounded GLP-1s',
         sub:'Compounded semaglutide and tirzepatide, prescribed and dosed by a provider — paired with B12 and lipotropic support.',
+        mascot: {
+          name: 'Slim-T',
+          role: 'Your Weight Loss Coach',
+          image: '/images/mascots/slim-t.png',
+          imageOnly: true,
+          greeting: "Hey! I'm Slim-T, and I'm all about helping you crush your weight loss goals with science-backed GLP-1 medications. Semaglutide, tirzepatide — I know them inside and out. Let's find the right protocol to help you feel confident in your own skin!",
+          personality: 'Motivating, energetic, results-focused'
+        },
         priceNote:'from $100', colName:'Medication', colDetail:'Strength / vial', tableNote:'Additional strengths available — your provider selects your dose.',
         ctaHead:'Start losing weight',
         products:[
@@ -1419,6 +1436,14 @@ class Component extends DCLogic {
         id:'hormones', title:'Hormones', tag:'TRT, HCG & bioidentical HRT', icon:'⚕', heroImg:'assets/banner-h6.jpg', heroBanner:'assets/banner-h6.jpg',
         eyebrow:'Hormone Therapy', headline:'Feel like yourself again',
         sub:'Testosterone optimization and TRT for men, bioidentical estrogen and progesterone for women, plus enclomiphene, HCG and DHEA — all guided by labs and a provider.',
+        mascot: {
+          name: 'Harmony',
+          role: 'Your Hormone Balance Guide',
+          video: '/videos/mascots/harmony/harmony-intro.mp4',
+          image: '/images/mascots/harmony.png',
+          greeting: "Hi, I'm Harmony! Hormones are the conductors of your body's symphony — when they're balanced, everything just works better. Whether you're exploring TRT, bioidentical HRT, or just curious about your levels, I'm here to help you understand your options and feel like yourself again.",
+          personality: 'Calm, knowledgeable, reassuring'
+        },
         priceNote:'TRT from $75', colName:'Medication', colDetail:'Form / concentration', tableNote:'Enclomiphene, HCG and DHEA are priced at consult. Many additional strengths of estradiol, progesterone and testosterone are available.',
         ctaHead:'Rebalance your hormones',
         banners:[
