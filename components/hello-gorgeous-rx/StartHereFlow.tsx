@@ -69,7 +69,7 @@ export function StartHereFlow({ initialPeptideId }: { initialPeptideId?: string 
       return "Peptide therapy is not appropriate during pregnancy, while trying to conceive, or while breastfeeding. Please call us to discuss alternatives.";
     }
     if (requestType === "refill" && existingPatient === "No") {
-      return "Refills are for established Hello Gorgeous RX™ patients. Choose "New peptide protocol" to get started, or call us if you need help matching your chart.";
+      return "Refills are for established Hello Gorgeous RX™ patients. Choose 'New peptide protocol' to get started, or call us if you need help matching your chart.";
     }
     return null;
   }
