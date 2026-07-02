@@ -53,19 +53,28 @@ async function squareFetch<T>(
 }
 
 export async function resolveSquareLocationId(): Promise<string> {
-  let locationId = await getSquareLocationIdAsync();
-  if (locationId) return locationId;
+  // Try env var first (fastest, most reliable)
+  const envLocationId = process.env.SQUARE_LOCATION_ID;
+  if (envLocationId) return envLocationId;
 
-  const locationsApi = await getLocationsApiAsync();
-  const res = await locationsApi?.listLocations?.();
-  const locations =
-    (res as { result?: { locations?: Array<{ id?: string; status?: string }> } })?.result
-      ?.locations ??
-    (res as { locations?: Array<{ id?: string; status?: string }> })?.locations ??
-    [];
-  const active = locations.find((l) => l?.status === "ACTIVE") ?? locations[0];
-  if (!active?.id) throw new Error("No Square location configured");
-  return active.id;
+  try {
+    let locationId = await getSquareLocationIdAsync();
+    if (locationId) return locationId;
+
+    const locationsApi = await getLocationsApiAsync();
+    const res = await locationsApi?.listLocations?.();
+    const locations =
+      (res as { result?: { locations?: Array<{ id?: string; status?: string }> } })?.result
+        ?.locations ??
+      (res as { locations?: Array<{ id?: string; status?: string }> })?.locations ??
+      [];
+    const active = locations.find((l) => l?.status === "ACTIVE") ?? locations[0];
+    if (!active?.id) throw new Error("No Square location configured");
+    return active.id;
+  } catch (err) {
+    console.error("[Square] Failed to resolve location ID:", err);
+    throw new Error("No Square location configured - set SQUARE_LOCATION_ID env var");
+  }
 }
 
 type PlanIds = { planId: string; variationId: string };
