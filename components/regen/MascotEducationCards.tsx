@@ -6,27 +6,27 @@ import type { MascotExplanation } from "@/lib/regen/mascot-education";
 const MASCOT_CONFIG = {
   peppy: {
     name: "Peppy",
-    emoji: "🧬",
-    color: "from-purple-600 to-pink-600",
-    bgColor: "bg-purple-50",
-    borderColor: "border-purple-200",
-    textColor: "text-purple-700",
+    avatar: "/images/mascots/peppy-avatar.png",
+    color: "from-blue-500 to-cyan-500",
+    bgColor: "bg-blue-50",
+    borderColor: "border-blue-200",
+    textColor: "text-blue-700",
   },
   "slim-t": {
     name: "Slim-T",
-    emoji: "⚖️",
-    color: "from-pink-600 to-rose-600",
-    bgColor: "bg-pink-50",
-    borderColor: "border-pink-200",
-    textColor: "text-pink-700",
+    avatar: "/images/mascots/slim-t.png",
+    color: "from-red-500 to-orange-500",
+    bgColor: "bg-red-50",
+    borderColor: "border-red-200",
+    textColor: "text-red-700",
   },
   harmony: {
     name: "Harmony",
-    emoji: "🧘‍♀️",
-    color: "from-violet-600 to-purple-600",
-    bgColor: "bg-violet-50",
-    borderColor: "border-violet-200",
-    textColor: "text-violet-700",
+    avatar: "/images/mascots/harmony.png",
+    color: "from-pink-400 to-rose-400",
+    bgColor: "bg-pink-50",
+    borderColor: "border-pink-200",
+    textColor: "text-pink-700",
   },
 };
 
@@ -41,9 +41,13 @@ function EducationCard({ item }: { item: MascotExplanation }) {
       {/* Mascot Badge */}
       <div className="absolute -right-2 -top-2">
         <div
-          className={`flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br ${config.color} text-xl shadow-lg`}
+          className={`flex h-14 w-14 items-center justify-center overflow-hidden rounded-full bg-gradient-to-br ${config.color} shadow-lg ring-2 ring-white`}
         >
-          {config.emoji}
+          <img 
+            src={config.avatar} 
+            alt={config.name}
+            className="h-12 w-12 object-cover object-top"
+          />
         </div>
       </div>
 

@@ -639,22 +639,23 @@ export function Header() {
               />
             </div>
 
-            {/* REGEN — direct link to the RE GEN site (no hover mega menu) */}
+            {/* REGEN STORE — direct link to the RE GEN site (no hover mega menu) */}
             <div
               className="relative flex items-center"
               onMouseEnter={closeDropdown}
             >
               <Link
                 href={SHOP_RX_NAV.href}
-                className={cx(NAV_LINK_BASE, "h-9")}
+                className={cx(NAV_LINK_BASE, "h-9 gap-1.5")}
                 style={navPillStyle(1, isMedicalNavActiveState)}
-                aria-label="REGEN by Hello Gorgeous Med Spa"
+                aria-label="REGEN Store — prescription care by Hello Gorgeous Med Spa"
               >
                 <RegenNavLogo />
+                <span className="text-xs font-bold uppercase tracking-wide text-pink-600">Store</span>
               </Link>
             </div>
 
-            {/* Shop — Fullscript supplements & labs */}
+            {/* Supplements — Fullscript dispensary */}
             <div
               className="relative flex items-center"
               onMouseEnter={closeDropdown}
@@ -664,7 +665,7 @@ export function Header() {
                 className={NAV_LINK_BASE}
                 style={navPillStyle(0, pathname === "/shop")}
               >
-                Shop
+                Supplements
               </Link>
             </div>
 
@@ -785,7 +786,7 @@ export function Header() {
                 groups: medicalMegaMenuMobileGroups(),
                 highlight: true,
               },
-              { key: "shop", label: "Shop", links: [{ label: "Supplements & Labs", href: "/shop", sub: "Fullscript dispensary" }] },
+              { key: "supplements", label: "Supplements", links: [{ label: "Fullscript Dispensary", href: "/shop", sub: "Professional-grade supplements shipped to your door" }] },
               { key: "specials", label: "Specials", links: NAV.specials.links, highlight: true },
               { key: "about", label: "About", links: NAV.about.links },
             ].map(({ key, label, links, groups, highlight }) => (
@@ -796,10 +797,11 @@ export function Header() {
                     onClick={() => setMobileOpen(false)}
                     className="flex w-full items-center gap-2 px-4 py-3.5 text-sm font-semibold"
                     style={{ color: trifectaAccent(0).subtitle }}
-                    aria-label="REGEN by Hello Gorgeous Med Spa"
+                    aria-label="REGEN Store — prescription care by Hello Gorgeous Med Spa"
                   >
-                    <span className="flex flex-1 items-center">
+                    <span className="flex flex-1 items-center gap-2">
                       <RegenNavLogo />
+                      <span className="text-xs font-bold uppercase tracking-wide text-pink-400">Store</span>
                     </span>
                     <span className="flex-shrink-0 rounded-full px-2 py-0.5 text-[9px] font-bold uppercase text-white" style={{ background: trifectaAccent(0).badgeBg }}>
                       NEW
