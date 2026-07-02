@@ -346,46 +346,55 @@ export async function getActiveConnection(): Promise<SquareConnection | null> {
  * Get decrypted access token for API calls
  */
 export async function getAccessToken(connectionId?: string): Promise<string | null> {
-  const supabase = createAdminSupabaseClient();
-  
-  let query = supabase
-    .from('square_connections')
-    .select('id, access_token_encrypted, refresh_token_encrypted, token_expires_at')
-    .eq('status', 'active');
-  
-  if (connectionId) {
-    query = query.eq('id', connectionId);
-  }
-  
-  const { data, error } = await query.order('connected_at', { ascending: false }).limit(1).single();
-  
-  if (error || !data) {
-    return null;
-  }
-  
-  // Check if token is expired (with 5 min buffer)
-  const expiresAt = new Date(data.token_expires_at);
-  const now = new Date();
-  const bufferMs = 5 * 60 * 1000;
-  
-  if (expiresAt.getTime() - now.getTime() < bufferMs && data.refresh_token_encrypted) {
-    // Token is expired or expiring soon, refresh it
-    try {
-      const newTokens = await refreshAccessToken(data.refresh_token_encrypted);
-      await storeConnection(newTokens);
-      return newTokens.access_token;
-    } catch (refreshError) {
-      console.error('Failed to refresh token:', refreshError);
-      // Mark connection as expired
-      await supabase
-        .from('square_connections')
-        .update({ status: 'expired' })
-        .eq('id', data.id);
+  try {
+    const supabase = createAdminSupabaseClient();
+    if (!supabase) {
+      // Fall back to env var if Supabase not available
       return null;
     }
-  }
+
+    let query = supabase
+      .from('square_connections')
+      .select('id, access_token_encrypted, refresh_token_encrypted, token_expires_at')
+      .eq('status', 'active');
   
-  return decryptToken(data.access_token_encrypted);
+    if (connectionId) {
+      query = query.eq('id', connectionId);
+    }
+  
+    const { data, error } = await query.order('connected_at', { ascending: false }).limit(1).single();
+  
+    if (error || !data) {
+      return null;
+    }
+  
+    // Check if token is expired (with 5 min buffer)
+    const expiresAt = new Date(data.token_expires_at);
+    const now = new Date();
+    const bufferMs = 5 * 60 * 1000;
+  
+    if (expiresAt.getTime() - now.getTime() < bufferMs && data.refresh_token_encrypted) {
+      // Token is expired or expiring soon, refresh it
+      try {
+        const newTokens = await refreshAccessToken(data.refresh_token_encrypted);
+        await storeConnection(newTokens);
+        return newTokens.access_token;
+      } catch (refreshError) {
+        console.error('Failed to refresh token:', refreshError);
+        // Mark connection as expired
+        await supabase
+          .from('square_connections')
+          .update({ status: 'expired' })
+          .eq('id', data.id);
+        return null;
+      }
+    }
+  
+    return decryptToken(data.access_token_encrypted);
+  } catch (err) {
+    console.error('[Square OAuth] getAccessToken error:', err);
+    return null;
+  }
 }
 
 /**
