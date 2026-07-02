@@ -4,6 +4,7 @@ import {
   HomepageRyanCareSection,
   HomepageTestimonials,
   HomepageClosingCTARow,
+  RegenHomeBand,
 } from "@/components/homepage-v3";
 import { HomepageAestheticsLane } from "@/components/homepage-v3/HomepageAestheticsLane";
 import { HomepageMedicalLane } from "@/components/homepage-v3/HomepageMedicalLane";
@@ -151,6 +152,7 @@ export default function HomePage() {
         <HomepageTestimonials />
         <MeetDaniRyanSection />
         <HomepageMedicalLane />
+        <RegenHomeBand />
         <IllinoisExcellenceBand />
         <GetAppHomeBand />
         <HomepageClosingCTARow />

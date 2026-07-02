@@ -37,3 +37,4 @@ export { HomepageClosingCTARow } from "./HomepageClosingCTARow";
 export { HomepageProfessionalGrid } from "./HomepageProfessionalGrid";
 export { HomepageCherryFaqRow } from "./HomepageCherryFaqRow";
 export { OurPromiseSection } from "./OurPromiseSection";
+export { RegenHomeBand } from "./RegenHomeBand";

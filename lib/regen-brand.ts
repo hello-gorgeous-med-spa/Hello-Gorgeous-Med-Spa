@@ -3,10 +3,11 @@
  */
 
 export const REGEN_BRAND = {
-  name: "REGEN",
+  name: "RE GEN",
   legalLine: "by Hello Gorgeous Med Spa",
-  fullName: "REGEN by Hello Gorgeous Med Spa",
-  tagline: "NP-supervised prescriptions · Oswego, IL · ship to home",
+  fullName: "RE GEN by Hello Gorgeous Med Spa",
+  tagline: "Renew. Rebalance. Regenerate.",
+  taglineLong: "Medical weight loss, peptides & hormones — NP-directed, shipped to your door",
   pink: "#E6007E",
   pinkSoft: "#FFF0F7",
 } as const;
