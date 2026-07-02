@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <script src="./support.js"></script>
 <!-- Resources referenced as strings in JS (React.createElement) — lifted so the bundler inlines them -->
 <meta name="ext-resource-dependency" content="assets/hero-photo.jpg" data-resource-id="assets/hero-photo.jpg" />
@@ -61,7 +61,7 @@
 <link rel="stylesheet" href="_ds/hello-gorgeous-design-system-e2c42b49-2a75-4fd9-8346-7cd2672ec52b/styles.css">
 <script src="_ds/hello-gorgeous-design-system-e2c42b49-2a75-4fd9-8346-7cd2672ec52b/_ds_bundle.js"></script>
 <style>
-  .rgx { font-family: var(--font-body); color:#000; }
+  .rgx { font-family: var(--font-body); color:#000; overflow-x:hidden; max-width:100%; }
   .rgx a { text-decoration:none; }
   .rgx .btn { transition: transform .25s var(--ease-out), box-shadow .25s var(--ease-out); }
   .rgx-util { background:#000; color:#fff; border-bottom:1px solid rgba(255,255,255,.1); }
@@ -92,8 +92,8 @@
   .rgx-shopbar-cta { margin-left:auto; display:inline-flex; align-items:center; gap:6px; padding:10px 20px; border-radius:30px; border:none; background:#000; color:#fff; font-family:var(--font-body); font-size:14px; font-weight:600; cursor:pointer; white-space:nowrap; transition:all .2s ease; }
   .rgx-shopbar-cta:hover { background:var(--hg-pink); }
   .rgx-hero { position:relative; background:#0c0b0c; color:#fff; overflow:hidden; min-height:600px; display:flex; align-items:center; }
-  .rgx-hero-img { position:absolute; inset:0 0 0 40%; background:#0c0b0c url("assets/hero-photo.jpg") right center / cover no-repeat; }
-  .rgx-hero-img::after { content:""; position:absolute; inset:0; background:linear-gradient(90deg,#0c0b0c 2%,rgba(12,11,12,.55) 26%,rgba(12,11,12,0) 58%); }
+  .rgx-hero-img { position:absolute; inset:0 0 0 32%; background:#0c0b0c url("assets/regen-provider-hero.jpg") center top / cover no-repeat; }
+  .rgx-hero-img::after { content:""; position:absolute; inset:0; background:linear-gradient(90deg,#0c0b0c 0%,rgba(12,11,12,.72) 38%,rgba(12,11,12,.15) 62%,rgba(12,11,12,0) 78%); }
   .rgx-hero-in { position:relative; z-index:2; max-width:1280px; margin:0 auto; padding:90px 24px; width:100%; }
   .rgx-hero h1 { color:#fff; font-size:clamp(2.6rem,5.4vw,4.6rem); line-height:1.0; max-width:13ch; margin:0; }
   .rgx-hero h1 .dot { color:var(--hg-pink); }
@@ -188,8 +188,8 @@
   .rgx-partner .role { font-size:12px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:rgba(0,0,0,.45); }
   .rgx-steps { display:grid; grid-template-columns:repeat(3,1fr); gap:34px; max-width:1100px; margin:0 auto; }
   .rgx-step .num { width:46px; height:46px; border-radius:50%; background:var(--hg-pink); color:#fff; font-family:var(--font-display); font-weight:700; font-size:20px; display:flex; align-items:center; justify-content:center; margin-bottom:16px; }
-  .rgx-tablewrap { max-width:980px; margin:0 auto; border:1px solid var(--border-hairline); border-radius:16px; overflow:hidden; }
-  .rgx-table { width:100%; border-collapse:collapse; font-size:15px; }
+  .rgx-tablewrap { max-width:980px; margin:0 auto; border:1px solid var(--border-hairline); border-radius:16px; overflow-x:auto; -webkit-overflow-scrolling:touch; }
+  .rgx-table { width:100%; min-width:520px; border-collapse:collapse; font-size:15px; }
   .rgx-table th { text-align:left; background:#000; color:#fff; padding:14px 20px; font-weight:600; font-size:13px; text-transform:uppercase; letter-spacing:.05em; }
   .rgx-table th.r, .rgx-table td.r { text-align:right; }
   .rgx-table td { padding:14px 20px; border-top:1px solid var(--border-hairline); }
@@ -236,6 +236,19 @@
   .rgx-input:focus { outline:none; border-color:var(--hg-pink); box-shadow:0 0 0 3px rgba(255,45,142,.18); }
   .rgx-mobile { position:fixed; inset:0; background:#fff; z-index:80; padding:20px 24px; overflow:auto; }
   .rgx-mobile button.mi { display:flex; width:100%; justify-content:space-between; align-items:center; padding:20px 0; border:none; border-bottom:1px solid var(--border-hairline); background:none; font-family:var(--font-display); font-size:24px; font-weight:600; cursor:pointer; }
+  .rgx-timeline-grid { max-width:1100px; margin:0 auto; display:grid; grid-template-columns:1fr 1.4fr; gap:60px; align-items:start; }
+  .rgx-split-2 { max-width:1100px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:center; }
+  .rgx-cat-hero { max-width:1280px; margin:0 auto; display:grid; grid-template-columns:1.05fr .95fr; gap:48px; align-items:center; }
+  .rgx-cat-hero-img { aspect-ratio:5/4; border-radius:20px; overflow:hidden; background:#0c0b0c; display:flex; align-items:center; justify-content:center; }
+  .rgx-pdf-card { display:grid; grid-template-columns:auto 1fr; gap:28px; align-items:center; background:linear-gradient(135deg,#fff5f9,#fff); border:2px solid var(--hg-pink); border-radius:20px; padding:28px 32px; box-shadow:0 4px 24px rgba(233,30,140,0.12); }
+  .rgx-pdf-icon { width:80px; height:100px; background:linear-gradient(145deg,#E6007E,#FF2D8E); border-radius:8px; display:flex; flex-direction:column; align-items:center; justify-content:center; box-shadow:0 4px 12px rgba(233,30,140,0.25); flex-shrink:0; }
+  .rgx-mascot-card { display:grid; grid-template-columns:1fr 1.2fr; gap:40px; align-items:center; background:linear-gradient(135deg,#1a1025 0%,#2d1a3d 50%,#1a1025 100%); border-radius:24px; padding:40px; box-shadow:0 8px 32px rgba(233,30,140,0.2); border:2px solid rgba(233,30,140,0.3); }
+  .rgx-mascot-media { position:relative; }
+  .rgx-mascot-badge { position:absolute; top:-20px; left:-20px; width:60px; height:60px; background:linear-gradient(135deg,#FF2D8E,#E6007E); border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 16px rgba(233,30,140,0.4); z-index:2; }
+  .rgx-dose-grid { display:grid; grid-template-columns:1fr 1fr; gap:6px 16px; font-size:13px; }
+  .rgx-dose-results { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  .rgx-biogrid-3 { max-width:1080px; grid-template-columns:repeat(3,1fr) !important; }
+  .rgx-pricing-bar { max-width:980px; margin:0 auto 16px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; }
   @media (max-width:980px){
     .rgx-catgrid { grid-template-columns:1fr 1fr; }
     .rgx-prodgrid { grid-template-columns:1fr 1fr; }
@@ -247,22 +260,52 @@
     .rgx-partners { grid-template-columns:1fr; }
     .rgx-hero-img { inset:0 0 0 34%; }
     .rgx-util-in .u:nth-child(2){ display:none; }
+    .rgx-split-2, .rgx-cat-hero, .rgx-mascot-card { grid-template-columns:1fr; gap:32px; }
+    .rgx-pdf-card { grid-template-columns:1fr; gap:20px; }
+    .rgx-pdf-icon { margin:0 auto; }
+    .rgx-mascot-media { order:-1; max-width:300px; margin:0 auto; }
+    .rgx-biogrid-3 { grid-template-columns:1fr 1fr !important; }
+    .rgx-timeline-grid { grid-template-columns:1fr !important; gap:36px !important; }
   }
   @media (max-width:680px){
     .rgx-links { display:none; }
     .rgx-login span { display:none; }
     .rgx-burger { display:inline-flex; }
     .rgx-catgrid { grid-template-columns:1fr; }
-    .rgx-prodgrid { grid-template-columns:1fr 1fr; }
+    .rgx-prodgrid { grid-template-columns:1fr; }
     .rgx-hero-img { display:none; }
-    .rgx-hero { background:linear-gradient(160deg,#1a1216,#3a2730); }
+    .rgx-hero { background:linear-gradient(160deg,#1a1216,#3a2730); min-height:auto; }
+    .rgx-hero-in { padding:48px 16px 56px; }
+    .rgx-hero h1 { font-size:clamp(2rem,9vw,2.6rem); }
+    .rgx-floatcard { flex-direction:column; max-width:100%; margin-top:22px; padding:14px; }
+    .rgx-floatcard .thumb { width:100%; height:110px; }
+    .rgx-nav-in { padding:10px 16px; gap:12px; }
+    .rgx-logo { height:36px; }
+    .rgx-util-in { padding:8px 14px; font-size:10px; gap:10px; overflow-x:auto; scrollbar-width:none; -ms-overflow-style:none; }
+    .rgx-util-in::-webkit-scrollbar { display:none; }
     .rgx-foot-cols { grid-template-columns:1fr; }
-    .rgx-timeline-grid { grid-template-columns:1fr !important; gap:32px !important; }
-    .rgx-shopbar { top:62px; }
+    .rgx-timeline-grid { gap:28px !important; }
+    .rgx-shopbar { top:58px; }
     .rgx-shopbar-in { padding:10px 16px; gap:6px; }
     .rgx-shopbtn { padding:8px 12px; font-size:12px; }
     .rgx-shopbtn .sicon { width:18px; height:18px; font-size:12px; }
     .rgx-shopbar-cta { padding:8px 14px; font-size:12px; }
+    .rgx-mascot-card { padding:28px 20px 24px; border-radius:18px; }
+    .rgx-mascot-badge { top:-10px; left:-10px; width:48px; height:48px; }
+    .rgx-mascot-badge span { font-size:22px; }
+    .rgx-pdf-card { padding:22px 20px; }
+    .rgx-biogrid-3 { grid-template-columns:1fr !important; }
+    .rgx-dose-results { grid-template-columns:1fr; }
+    .rgx-pricing-bar { flex-direction:column; align-items:flex-start; }
+    .rgx-table th, .rgx-table td { padding:12px 14px; font-size:13px; }
+    .rgx-table { min-width:480px; }
+    .rgx-chat-btn { bottom:max(16px, env(safe-area-inset-bottom, 0px)); right:max(16px, env(safe-area-inset-right, 0px)); }
+    .rgx-chat-input input { font-size:16px; }
+  }
+  @media (max-width:400px){
+    .rgx-prod .acts { flex-direction:column; }
+    .rgx-prod .acts .rgx-btn-dark, .rgx-prod .acts .rgx-btn-ghost { width:100%; }
+    .rgx-dose-grid { grid-template-columns:1fr; }
   }
   /* Mascot Chat Widget */
   .rgx-chat-btn { position:fixed; bottom:24px; right:24px; z-index:50; display:flex; align-items:center; gap:12px; padding:14px 22px; border-radius:50px; border:none; color:#fff; font-size:15px; font-weight:600; cursor:pointer; box-shadow:0 8px 30px rgba(0,0,0,0.3); transition:all 0.3s ease; font-family:var(--font-body); }
@@ -298,7 +341,29 @@
   .rgx-chat-input button { width:44px; height:44px; border-radius:12px; border:none; color:#fff; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:opacity 0.2s; }
   .rgx-chat-input button:disabled { opacity:0.5; cursor:not-allowed; }
   .rgx-chat-disclaimer { padding:8px 20px; background:#f9fafb; text-align:center; font-size:10px; color:#9ca3af; border-top:1px solid #f0f0f0; }
-  @media (max-width:500px) { .rgx-chat-modal { bottom:0; right:0; width:100%; max-width:100%; height:100vh; max-height:100vh; border-radius:0; } .rgx-chat-btn { bottom:16px; right:16px; padding:12px 18px; font-size:14px; } }
+  @media (max-width:500px) { .rgx-chat-modal { bottom:0; right:0; width:100%; max-width:100%; height:100dvh; max-height:100dvh; border-radius:0; } .rgx-chat-btn { bottom:max(16px, env(safe-area-inset-bottom, 0px)); right:max(16px, env(safe-area-inset-right, 0px)); padding:12px 18px; font-size:14px; } }
+  /* Logo reveal intro (first hub visit per session) */
+  .rgx-intro {
+    position:fixed; inset:0; z-index:90; background:#000;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .rgx-intro video {
+    width:100%; height:100%; object-fit:contain; background:#000;
+  }
+  .rgx-intro-skip {
+    position:absolute; top:max(16px, env(safe-area-inset-top, 0px)); right:max(16px, env(safe-area-inset-right, 0px));
+    background:rgba(255,255,255,0.12); border:1px solid rgba(255,255,255,0.35); color:#fff;
+    font-family:var(--font-body); font-size:13px; font-weight:600; padding:10px 18px; border-radius:999px;
+    cursor:pointer; backdrop-filter:blur(8px); transition:background .2s, border-color .2s;
+  }
+  .rgx-intro-skip:hover { background:rgba(255,45,142,0.35); border-color:var(--hg-pink); }
+  .rgx-intro-enter {
+    position:absolute; bottom:max(24px, env(safe-area-inset-bottom, 0px)); left:50%; transform:translateX(-50%);
+    background:linear-gradient(135deg,#FF2D8E,#E6007E); border:2px solid #000; color:#fff;
+    font-family:var(--font-body); font-size:14px; font-weight:700; padding:12px 28px; border-radius:999px;
+    cursor:pointer; box-shadow:0 8px 30px rgba(230,0,126,0.45); opacity:0; pointer-events:none; transition:opacity .4s;
+  }
+  .rgx-intro-enter.visible { opacity:1; pointer-events:auto; }
 </style>
 </helmet>
 <div class="rgx">
@@ -392,7 +457,7 @@
     </section>
 
     <section class="section-white" style="padding:40px 24px 100px;">
-      <div class="rgx-timeline-grid" style="max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1.4fr;gap:60px;align-items:start;">
+      <div class="rgx-timeline-grid">
         <div>
           <p class="hg-eyebrow">How it works</p>
           <h2 style="margin:12px 0 20px;">Your Path to<br><span class="accent">Prescription Wellness</span></h2>
@@ -445,7 +510,7 @@
     </section>
 
     <section class="section-black section-padding">
-      <div style="max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;">
+      <div class="rgx-split-2">
         <div>
           <p class="hg-eyebrow">Why RE GEN</p>
           <h2 style="color:#fff;margin:12px 0 18px;">Real providers. <span style="color:var(--hg-pink);">Real medicine.</span></h2>
@@ -497,7 +562,7 @@
     </section>
     <sc-if value="{{ active.splitHero }}">
     <section class="section-white" style="padding:30px 24px 50px;">
-      <div style="max-width:1280px;margin:0 auto;display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center;">
+      <div class="rgx-cat-hero">
         <div>
           <p class="hg-eyebrow">{{ active.eyebrow }}</p>
           <h1 style="margin:14px 0 0;">{{ active.headline }}</h1>
@@ -508,7 +573,7 @@
           </div>
           <p style="font-size:13px;color:rgba(0,0,0,.5);margin-top:18px;">Flat $30 shipping · NP-directed · {{ active.priceNote }}</p>
         </div>
-        <div style="aspect-ratio:5/4;border-radius:20px;overflow:hidden;background:#0c0b0c;display:flex;align-items:center;justify-content:center;">
+        <div class="rgx-cat-hero-img">
           {{ active.heroImgEl }}
         </div>
       </div>
@@ -530,8 +595,8 @@
     <sc-if value="{{ active.pdfGuide }}">
     <section class="section-white" style="padding:40px 24px;">
       <div style="max-width:1280px;margin:0 auto;">
-        <div style="display:grid;grid-template-columns:auto 1fr;gap:28px;align-items:center;background:linear-gradient(135deg,#fff5f9,#fff);border:2px solid var(--hg-pink);border-radius:20px;padding:28px 32px;box-shadow:0 4px 24px rgba(233,30,140,0.12);">
-          <div style="width:80px;height:100px;background:linear-gradient(145deg,#E6007E,#FF2D8E);border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(233,30,140,0.25);">
+        <div class="rgx-pdf-card">
+          <div class="rgx-pdf-icon">
             <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
             <span style="color:#fff;font-size:10px;font-weight:700;margin-top:6px;">PDF GUIDE</span>
           </div>
@@ -552,9 +617,9 @@
     <sc-if value="{{ active.mascot }}">
     <section class="section-white" style="padding:50px 24px;">
       <div style="max-width:1100px;margin:0 auto;">
-        <div style="display:grid;grid-template-columns:1fr 1.2fr;gap:40px;align-items:center;background:linear-gradient(135deg,#1a1025 0%,#2d1a3d 50%,#1a1025 100%);border-radius:24px;padding:40px;box-shadow:0 8px 32px rgba(233,30,140,0.2);border:2px solid rgba(233,30,140,0.3);">
-          <div style="position:relative;">
-            <div style="position:absolute;top:-20px;left:-20px;width:60px;height:60px;background:linear-gradient(135deg,#FF2D8E,#E6007E);border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(233,30,140,0.4);z-index:2;">
+        <div class="rgx-mascot-card">
+          <div class="rgx-mascot-media">
+            <div class="rgx-mascot-badge">
               <span style="font-size:28px;">🧬</span>
             </div>
             <sc-if value="{{ active.mascot.video }}">
@@ -645,7 +710,7 @@
 
     <section id="options" class="section-white" style="padding:10px 24px 80px;">
       <div class="rgx-subhead">All options &amp; transparent pricing</div>
-      <div style="max-width:980px;margin:0 auto 16px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
+      <div class="rgx-pricing-bar">
         <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
           <div class="rgx-supply-toggle">
             <button class="rgx-supply-btn {{ supplyBtnClass1 }}" onClick="{{ setSupply1 }}">1 Month</button>
@@ -881,7 +946,7 @@
         <h2 style="margin:12px 0 0;">Specialty testing through <span class="accent">Access Medical Labs</span></h2>
         <p style="color:rgba(0,0,0,.65);margin:14px 0 0;font-size:17px;">Beyond our core panels, we can order advanced diagnostics for you on request.</p>
       </div>
-      <div class="rgx-biogrid" style="max-width:1080px;grid-template-columns:repeat(3,1fr);">
+      <div class="rgx-biogrid rgx-biogrid-3">
         <div class="rgx-bio">
           <span class="bi"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="8" r="2"/><circle cx="17" cy="16" r="2"/><circle cx="16" cy="6" r="1.6"/><path d="M8.5 9.2 15 14.8M9 8h5M8 9.5 7 14"/></svg></span>
           <h4>Advanced hormones</h4>
@@ -1262,7 +1327,7 @@
           <div style="background:linear-gradient(135deg,#FFF5F9,#FFF0F5);border:2px solid #FFB8DC;border-radius:14px;padding:16px 18px;margin-bottom:20px;">
             <p style="margin:0 0 10px;font-weight:700;font-size:14px;color:#E6007E;">📋 Typical Titration Schedule</p>
             <sc-if value="{{ dosingIsSema }}">
-              <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px 16px;font-size:13px;">
+              <div class="rgx-dose-grid">
                 <div><span style="color:#888;">Weeks 1-4:</span> <strong>0.25 mg/wk</strong></div>
                 <div><span style="color:#888;">Weeks 5-8:</span> <strong>0.5 mg/wk</strong></div>
                 <div><span style="color:#888;">Weeks 9-12:</span> <strong>1.0 mg/wk</strong></div>
@@ -1271,7 +1336,7 @@
               </div>
             </sc-if>
             <sc-if value="{{ dosingIsTirz }}">
-              <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px 16px;font-size:13px;">
+              <div class="rgx-dose-grid">
                 <div><span style="color:#888;">Weeks 1-4:</span> <strong>2.5 mg/wk</strong></div>
                 <div><span style="color:#888;">Weeks 5-8:</span> <strong>5.0 mg/wk</strong></div>
                 <div><span style="color:#888;">Weeks 9-12:</span> <strong>7.5 mg/wk</strong></div>
@@ -1313,7 +1378,7 @@
           </div>
           
           <div style="background:rgba(255,255,255,.08);border-radius:12px;padding:18px;margin-bottom:16px;">
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+            <div class="rgx-dose-results">
               <div>
                 <p style="margin:0 0 4px;color:#FFB8DC;font-size:12px;font-weight:600;">1-MONTH SUPPLY</p>
                 <p style="margin:0;font-size:15px;">{{ dosingVials1mo }} × {{ dosingVialStrength }}</p>
@@ -1338,6 +1403,14 @@
     </div>
   </sc-if>
 
+  <!-- ============ LOGO REVEAL INTRO ============ -->
+  <sc-if value="{{ showIntro }}">
+    <div class="rgx-intro" onClick="{{ stopProp }}">
+      <video autoplay muted playsinline onEnded="{{ closeIntro }}" src="/videos/regen/regen-logo-reveal.mp4"></video>
+      <button type="button" class="rgx-intro-skip" onClick="{{ closeIntro }}">Skip intro</button>
+    </div>
+  </sc-if>
+
   <!-- ============ LOGO POPUP ============ -->
   <sc-if value="{{ logoOpen }}">
     <div class="rgx-overlay" style="background:rgba(0,0,0,.78);display:flex;align-items:center;justify-content:center;padding:24px;" onClick="{{ closeLogo }}">
@@ -1354,7 +1427,7 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:&quot;100%&quot;,&quot;height&quot;:&quot;100%&quot;}}">
 class Component extends DCLogic {
-  state = { view: 'hub', cat: 'weight-loss', cartOpen: false, cart: [], menuOpen: false, quizOpen: false, quizStep: 0, quizGoal: '', logoOpen: false, supplyMonths: 1, dosingCalcOpen: false, dosingMed: 'semaglutide', dosingWeeklyMg: 2.5, chatOpen: false, chatMessages: [], chatLoading: false };
+  state = { view: 'hub', cat: 'weight-loss', cartOpen: false, cart: [], menuOpen: false, quizOpen: false, quizStep: 0, quizGoal: '', logoOpen: false, introOpen: true, supplyMonths: 1, dosingCalcOpen: false, dosingMed: 'semaglutide', dosingWeeklyMg: 2.5, chatOpen: false, chatMessages: [], chatLoading: false };
 
   cats() {
     if (this._cats) return this._cats;
@@ -1757,8 +1830,11 @@ class Component extends DCLogic {
       activeStyle: this.state.cat === sc.id ? 'background:linear-gradient(135deg,#FF2D8E 0%,#E6007E 100%);color:#fff;border-color:transparent;box-shadow:0 4px 14px rgba(230,0,126,.25);' : ''
     }));
 
+    const introSeen = typeof window !== 'undefined' && window.sessionStorage && window.sessionStorage.getItem('regen-intro-seen') === '1';
+
     return {
       isHub: this.state.view === 'hub',
+      showIntro: this.state.introOpen && this.state.view === 'hub' && !introSeen,
       isCategory: this.state.view === 'category' && this.state.cat !== 'labs',
       isLabs: this.state.view === 'category' && this.state.cat === 'labs',
       active: activeView,
@@ -1869,6 +1945,12 @@ class Component extends DCLogic {
       openLogo:() => this.setState({ logoOpen:true }),
       closeLogo:() => this.setState({ logoOpen:false }),
       logoOpen: this.state.logoOpen,
+      closeIntro:() => {
+        if (typeof window !== 'undefined' && window.sessionStorage) {
+          window.sessionStorage.setItem('regen-intro-seen', '1');
+        }
+        this.setState({ introOpen: false });
+      },
       
       // Dosing Calculator
       dosingCalcOpen: this.state.dosingCalcOpen,

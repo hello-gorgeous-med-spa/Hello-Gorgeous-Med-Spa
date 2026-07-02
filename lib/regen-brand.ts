@@ -19,6 +19,15 @@ export const REGEN_LOGO = {
   height: 576,
 } as const;
 
+/** Canonical marketing photography & social crops (Jul 2026 refresh). */
+export const REGEN_MARKETING = {
+  ogImage: "/images/regen/regen-og-image.jpg",
+  providerHero: "/images/regen/regen-provider-hero.jpg",
+  flyerServices: "/images/regen/regen-flyer-services.jpg",
+  brandBanner: "/images/regen/regen-brand-banner.jpg",
+  logoRevealVideo: "/videos/regen/regen-logo-reveal.mp4",
+} as const;
+
 /** Fallback preview art until category shoots are delivered. */
 export const REGEN_PREVIEW_FALLBACKS = {
   "weight-loss": "/images/gentlemens-club/tirzepatide-weight-loss.png",

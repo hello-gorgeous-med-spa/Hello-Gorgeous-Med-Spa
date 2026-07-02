@@ -38,7 +38,6 @@
       color: #fff; border: none; padding: 12px 24px; border-radius: 999px;
       font-weight: 700; font-size: 14px; cursor: pointer;
     }
-    .screen-bar button:hover { opacity: 0.92; }
     .brochure { max-width: 8.5in; margin: 24px auto; }
     .page {
       width: 8.5in; min-height: 11in;
@@ -56,24 +55,33 @@
       min-height: 11in;
       display: flex;
       flex-direction: column;
-      padding: 0;
     }
     .cover-logo-wrap {
       width: 100%;
       background: #000;
       line-height: 0;
       border-bottom: 4px solid var(--pink);
+      position: relative;
     }
-    .cover-logo {
+    .cover-logo-video {
       width: 100%;
       height: auto;
-      max-height: 2.15in;
+      max-height: 2in;
       object-fit: cover;
       object-position: center;
       display: block;
+      background: #000;
+    }
+    .cover-logo-print {
+      display: none;
+      width: 100%;
+      height: auto;
+      max-height: 1.85in;
+      object-fit: cover;
+      object-position: center;
     }
     .cover-top {
-      padding: 0.38in 0.6in 0.28in;
+      padding: 0.28in 0.6in 0.22in;
       text-align: center;
       position: relative;
       background: linear-gradient(180deg, #0a0a0a 0%, #1a1025 100%);
@@ -99,10 +107,24 @@
       font-size: 13px; line-height: 1.55; color: rgba(255,255,255,0.75);
       max-width: 5.5in; margin: 0 auto 0.25in;
     }
-    .cover-hero-img {
-      width: 100%; height: 2.4in; object-fit: cover;
+    .cover-hero-wrap {
+      width: 100%;
+      height: 3.1in;
+      background: #000;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
       border-top: 4px solid var(--pink);
       border-bottom: 4px solid #000;
+      line-height: 0;
+    }
+    .cover-hero-img {
+      width: auto;
+      height: 100%;
+      max-width: 100%;
+      object-fit: contain;
+      object-position: center top;
+      display: block;
     }
     .cover-services {
       display: grid;
@@ -119,7 +141,7 @@
     .cover-svc:last-child { border-right: none; }
     .cover-svc .icon { font-size: 22px; margin-bottom: 4px; }
     .cover-svc .label { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #fff; }
-    .cover-svc .from { font-size: 8px; color: var(--pink-soft); margin-top: 3px; }
+    .cover-svc .from { font-size: 8px; color: var(--pink-soft); margin-top: 3px; line-height: 1.3; }
     .cover-bottom {
       flex: 1;
       padding: 0.35in 0.6in 0.5in;
@@ -152,107 +174,296 @@
 
     /* ─── INSIDE / BACK ─── */
     .inside {
-      padding: 0.45in 0.5in 0.4in;
+      padding: 0.32in 0.42in 0.28in;
       min-height: 11in;
       display: flex;
       flex-direction: column;
     }
     .inside-header {
       display: flex; align-items: center; justify-content: space-between;
-      padding-bottom: 0.2in;
+      padding-bottom: 0.14in;
       border-bottom: 3px solid #000;
-      margin-bottom: 0.22in;
+      margin-bottom: 0.14in;
     }
-    .inside-header img { height: 0.45in; width: auto; max-width: 2.8in; object-fit: contain; object-position: left; }
+    .inside-header img { height: 0.4in; width: auto; max-width: 2.6in; object-fit: contain; object-position: left; }
     .inside-header .badge {
       background: var(--rose); border: 2px solid var(--pink);
-      color: var(--pink); font-size: 9px; font-weight: 800;
+      color: var(--pink); font-size: 8px; font-weight: 800;
       text-transform: uppercase; letter-spacing: 0.1em;
-      padding: 6px 12px; border-radius: 999px;
+      padding: 5px 10px; border-radius: 999px;
     }
-    .how-row {
-      display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.15in;
-      margin-bottom: 0.25in;
-    }
-    .how-step {
-      background: var(--rose);
-      border: 2px solid #000;
-      border-radius: 12px;
-      padding: 0.15in 0.12in;
+    .menu-hero {
       text-align: center;
-      box-shadow: 4px 4px 0 rgba(230,0,126,0.2);
+      margin-bottom: 0.14in;
     }
-    .how-step .num {
-      width: 24px; height: 24px; border-radius: 50%;
-      background: linear-gradient(135deg, var(--pink-hot), var(--pink));
-      color: #fff; font-size: 12px; font-weight: 800;
-      display: flex; align-items: center; justify-content: center;
-      margin: 0 auto 6px;
+    .menu-hero h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 4px;
     }
-    .how-step h3 { font-size: 9px; font-weight: 800; text-transform: uppercase; margin-bottom: 3px; }
-    .how-step p { font-size: 7.5px; line-height: 1.35; color: var(--muted); }
-
-    .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 0.2in; flex: 1; }
-    .col-card {
+    .menu-hero p {
+      font-size: 8px;
+      color: var(--muted);
+      max-width: 6.2in;
+      margin: 0 auto;
+      line-height: 1.45;
+    }
+    .price-tiers {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.1in;
+      margin-bottom: 0.14in;
+    }
+    .tier {
       border: 3px solid #000;
-      border-radius: 14px;
-      overflow: hidden;
-      box-shadow: 6px 6px 0 rgba(230,0,126,0.25);
+      border-radius: 12px;
+      padding: 0.12in 0.1in;
+      text-align: center;
+      box-shadow: 4px 4px 0 rgba(230,0,126,0.22);
     }
-    .col-card .card-head {
-      padding: 0.12in 0.15in;
-      font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em;
-      color: #fff;
-      display: flex; align-items: center; gap: 8px;
+    .tier.wellness { background: linear-gradient(135deg, #ecfdf5, #d1fae5); }
+    .tier.single { background: linear-gradient(135deg, #eff6ff, #dbeafe); }
+    .tier.blend { background: linear-gradient(135deg, var(--rose), #fce7f3); }
+    .tier .amt {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--pink);
+      line-height: 1;
     }
-    .col-card .card-head.wl { background: linear-gradient(135deg, #ef4444, #f97316); }
-    .col-card .card-head.pt { background: linear-gradient(135deg, #3b82f6, #06b6d4); }
-    .col-card .card-head.hm { background: linear-gradient(135deg, #ec4899, #a855f7); }
-    .col-card .card-head.vt { background: linear-gradient(135deg, #10b981, #059669); }
-    .col-card .card-head.lb { background: linear-gradient(135deg, #6366f1, #8b5cf6); }
-    .col-card .card-body { padding: 0.14in 0.15in; background: #fff; }
-    .col-card .card-body p { font-size: 8px; line-height: 1.45; color: #444; margin-bottom: 8px; }
-    .col-card ul { list-style: none; }
-    .col-card li {
-      font-size: 7.5px; line-height: 1.4; padding: 3px 0;
-      border-bottom: 1px solid #f0f0f0;
-      display: flex; justify-content: space-between; gap: 8px;
+    .tier .lbl {
+      font-size: 8px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-top: 4px;
     }
-    .col-card li:last-child { border-bottom: none; }
-    .col-card li .price { font-weight: 700; color: var(--pink); white-space: nowrap; }
+    .tier .sub { font-size: 6.5px; color: #555; margin-top: 3px; line-height: 1.3; }
 
-    .full-width-card { grid-column: 1 / -1; }
-    .labs-grid {
-      display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.1in;
+    .visual-showcase {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 0.08in;
+      margin-bottom: 0.12in;
     }
-    .lab-pill {
-      background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 8px;
-      padding: 8px; text-align: center;
+    .visual-showcase .vitem {
+      border: 2px solid #000;
+      border-radius: 10px;
+      overflow: hidden;
+      background: #fff;
+      box-shadow: 3px 3px 0 rgba(230,0,126,0.2);
     }
-    .lab-pill strong { display: block; font-size: 8px; margin-bottom: 2px; }
-    .lab-pill span { font-size: 11px; font-weight: 800; color: var(--pink); }
+    .visual-showcase img {
+      width: 100%;
+      height: 0.78in;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+      background: #f9fafb;
+    }
+    .visual-showcase .vcap {
+      font-size: 5.5px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      text-align: center;
+      padding: 4px 5px;
+      background: linear-gradient(135deg, var(--rose), #fff);
+      color: var(--ink);
+      line-height: 1.25;
+      border-top: 1px solid #eee;
+    }
+    .visual-showcase .vcap em {
+      display: block;
+      color: var(--pink);
+      font-style: normal;
+      margin-top: 1px;
+    }
+
+    .menu-block.has-visual .mb-inner {
+      display: grid;
+      grid-template-columns: 1.05in 1fr;
+      gap: 0.08in;
+      align-items: start;
+    }
+    .menu-block .product-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 0.06in;
+    }
+    .menu-block .product-stack img {
+      width: 100%;
+      border: 2px solid #000;
+      border-radius: 8px;
+      display: block;
+      background: #fff;
+      box-shadow: 2px 2px 0 rgba(230,0,126,0.15);
+    }
+
+    .menu-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.12in;
+      flex: 1;
+    }
+    .menu-block {
+      border: 2px solid #000;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 3px 3px 0 rgba(230,0,126,0.18);
+    }
+    .menu-block .mh {
+      padding: 0.08in 0.1in;
+      font-size: 8px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #fff;
+      background: linear-gradient(135deg, var(--pink-hot), var(--pink));
+    }
+    .menu-block .mh.dark { background: linear-gradient(135deg, #1a1025, #3d1a3d); }
+    .menu-block .mh.teal { background: linear-gradient(135deg, #0d9488, #059669); }
+    .menu-block .mh.gold { background: linear-gradient(135deg, #d97706, #f59e0b); }
+    .menu-block .mh.purple { background: linear-gradient(135deg, #7c3aed, #a855f7); }
+    .menu-block .mb { padding: 0.08in 0.1in; background: #fff; }
+    .menu-block .mb .why {
+      font-size: 6.5px;
+      color: var(--muted);
+      line-height: 1.35;
+      margin-bottom: 5px;
+      font-style: italic;
+    }
+    .menu-block table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 6.5px;
+    }
+    .menu-block th {
+      text-align: left;
+      font-size: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #888;
+      padding: 2px 0;
+      border-bottom: 1px solid #eee;
+    }
+    .menu-block th.r { text-align: right; }
+    .menu-block td {
+      padding: 2.5px 0;
+      border-bottom: 1px solid #f5f5f5;
+      vertical-align: top;
+      line-height: 1.25;
+    }
+    .menu-block tr:last-child td { border-bottom: none; }
+    .menu-block td.r {
+      text-align: right;
+      font-weight: 800;
+      color: var(--pink);
+      white-space: nowrap;
+    }
+    .menu-block td.dim { color: #666; font-size: 6px; }
+
+    .bottom-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.12in;
+      margin-top: 0.12in;
+    }
+    .visual-mini-card {
+      border: 2px solid #000;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 3px 3px 0 rgba(230,0,126,0.18);
+      background: #fff;
+    }
+    .visual-mini-card .vimg {
+      width: 100%;
+      height: 0.95in;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+      border-bottom: 2px solid #000;
+    }
+    .visual-mini-card .vimg.contain {
+      object-fit: contain;
+      background: #0f172a;
+      padding: 0.04in;
+    }
+    .visual-mini-card ul {
+      list-style: none;
+      padding: 0.08in 0.1in;
+    }
+    .visual-mini-card li {
+      font-size: 6.5px;
+      display: flex;
+      justify-content: space-between;
+      gap: 6px;
+      padding: 2px 0;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    .visual-mini-card li:last-child { border-bottom: none; }
+    .visual-mini-card li .p { font-weight: 800; color: var(--pink); white-space: nowrap; }
+    .visual-mini-card .mh {
+      padding: 0.07in 0.1in;
+      font-size: 7.5px;
+      font-weight: 800;
+      text-transform: uppercase;
+      color: #fff;
+    }
+    .visual-mini-card .mh.wl { background: linear-gradient(135deg, #ef4444, #f97316); }
+    .visual-mini-card .mh.hm { background: linear-gradient(135deg, #ec4899, #a855f7); }
+
+    .mini-card {
+      border: 2px solid #000;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .mini-card .mh {
+      padding: 0.07in 0.1in;
+      font-size: 7.5px;
+      font-weight: 800;
+      text-transform: uppercase;
+      color: #fff;
+    }
+    .mini-card .mh.wl { background: linear-gradient(135deg, #ef4444, #f97316); }
+    .mini-card .mh.hm { background: linear-gradient(135deg, #ec4899, #a855f7); }
+    .mini-card ul {
+      list-style: none;
+      padding: 0.08in 0.1in;
+    }
+    .mini-card li {
+      font-size: 6.5px;
+      display: flex;
+      justify-content: space-between;
+      gap: 6px;
+      padding: 2px 0;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    .mini-card li:last-child { border-bottom: none; }
+    .mini-card li .p { font-weight: 800; color: var(--pink); white-space: nowrap; }
 
     .inside-footer {
-      margin-top: 0.2in;
-      padding-top: 0.15in;
+      margin-top: 0.12in;
+      padding-top: 0.12in;
       border-top: 2px solid #000;
-      display: grid; grid-template-columns: 1fr auto 1fr;
-      align-items: center; gap: 0.2in;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center; gap: 0.15in;
     }
-    .contact-block h4 { font-size: 10px; font-weight: 800; margin-bottom: 4px; }
-    .contact-block p { font-size: 8px; line-height: 1.5; color: #555; }
+    .contact-block h4 { font-size: 9px; font-weight: 800; margin-bottom: 3px; }
+    .contact-block p { font-size: 7px; line-height: 1.45; color: #555; }
     .contact-block a { color: var(--pink); text-decoration: none; font-weight: 600; }
     .footer-qr { text-align: center; }
-    .footer-qr img { width: 0.75in; height: 0.75in; border: 2px solid #000; border-radius: 8px; padding: 4px; background: #fff; }
-    .footer-qr p { font-size: 7px; margin-top: 4px; font-weight: 600; }
+    .footer-qr img { width: 0.7in; height: 0.7in; border: 2px solid #000; border-radius: 8px; padding: 3px; background: #fff; }
+    .footer-qr p { font-size: 6.5px; margin-top: 3px; font-weight: 700; }
     .trust-pills { text-align: right; }
     .trust-pills span {
-      display: inline-block; font-size: 7px; font-weight: 600;
+      display: inline-block; font-size: 6.5px; font-weight: 600;
       background: var(--rose); border: 1px solid var(--pink-soft);
-      color: var(--pink); padding: 3px 8px; border-radius: 999px; margin: 2px;
+      color: var(--pink); padding: 2px 7px; border-radius: 999px; margin: 1px;
     }
     .disclaimer {
-      margin-top: 0.12in; font-size: 6.5px; line-height: 1.4; color: #999; text-align: center;
+      margin-top: 0.08in; font-size: 5.5px; line-height: 1.35; color: #999; text-align: center;
     }
 
     @media print {
@@ -261,13 +472,15 @@
       .brochure { margin: 0; max-width: none; }
       .page { box-shadow: none; margin: 0; page-break-after: always; }
       .page:last-child { page-break-after: auto; }
+      .cover-logo-video { display: none !important; }
+      .cover-logo-print { display: block !important; }
     }
     @page { size: letter; margin: 0; }
   </style>
 </head>
 <body>
   <div class="screen-bar">
-    <p><strong>RE GEN Brochure</strong> — Print double-sided on 8.5×11 paper (flip on long edge). Or save as PDF.</p>
+    <p><strong>RE GEN Brochure</strong> — Print double-sided on 8.5×11 paper (flip on long edge). Pricing from NP-approved menu draft (Jul 2026).</p>
     <button type="button" onclick="window.print()">🖨️ Print / Save PDF</button>
   </div>
 
@@ -275,23 +488,28 @@
     <!-- PAGE 1: FRONT COVER -->
     <div class="page cover">
       <div class="cover-logo-wrap">
-        <img class="cover-logo" src="/images/regen/regen-logo.png" alt="RE GEN — Renew. Rebalance. Regenerate.">
+        <video class="cover-logo-video" autoplay muted loop playsinline poster="/images/regen/regen-brand-banner.jpg" aria-label="RE GEN logo reveal">
+          <source src="/videos/regen/regen-logo-reveal.mp4" type="video/mp4">
+        </video>
+        <img class="cover-logo-print" src="/images/regen/regen-brand-banner.jpg" alt="RE GEN — Renew. Rebalance. Regenerate.">
       </div>
       <div class="cover-top">
         <h1 class="cover-headline">Prescription care,<br><em>gorgeous, delivered.</em></h1>
-        <p class="cover-sub">NP-directed weight loss, peptides, hormones, vitamins &amp; labs — compounded by US pharmacies and shipped to your door across Illinois.</p>
+        <p class="cover-sub">NP-directed medical weight loss, peptide therapy, hormones &amp; wellness — compounded by US pharmacies and shipped to your door across Illinois.</p>
       </div>
-      <img class="cover-hero-img" src="/images/regen/regen-og-image.png" alt="RE GEN — Medical weight loss, peptides and hormones">
+      <div class="cover-hero-wrap">
+        <img class="cover-hero-img" src="/images/regen/regen-provider-hero.jpg" alt="RE GEN — Medical weight loss, peptides and hormones">
+      </div>
       <div class="cover-services">
         <div class="cover-svc">
           <div class="icon">⚖️</div>
           <div class="label">Weight Loss</div>
-          <div class="from">GLP-1 from $88/mo</div>
+          <div class="from">GLP-1 from $125/mo</div>
         </div>
         <div class="cover-svc">
           <div class="icon">🧬</div>
           <div class="label">Peptides</div>
-          <div class="from">30+ from $66/mo</div>
+          <div class="from">$175–$200/mo</div>
         </div>
         <div class="cover-svc">
           <div class="icon">💊</div>
@@ -300,8 +518,8 @@
         </div>
         <div class="cover-svc">
           <div class="icon">💉</div>
-          <div class="label">Vitamins</div>
-          <div class="from">B12, Biotin, LDN</div>
+          <div class="label">Wellness</div>
+          <div class="from">NAD+ $150 / 10 wks</div>
         </div>
         <div class="cover-svc">
           <div class="icon">🔬</div>
@@ -313,7 +531,7 @@
         <div class="cover-cta-row">
           <div class="cover-cta-text">
             <h2>Gorgeous, delivered.</h2>
-            <p>Start your 5-minute online intake today. Provider-reviewed. Transparent pricing. $30 flat shipping.</p>
+            <p>5-minute online intake · Provider-reviewed · Monthly peptide pricing · $30 flat shipping</p>
           </div>
           <div class="cover-qr">
             <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fwww.hellogorgeousmedspa.com%2Frx" alt="Scan to start intake">
@@ -327,143 +545,194 @@
       </div>
     </div>
 
-    <!-- PAGE 2: INSIDE -->
+    <!-- PAGE 2: PEPTIDE & WELLNESS MENU (pricing handoff) -->
     <div class="page inside">
       <div class="inside-header">
         <img src="/images/regen/regen-logo.png" alt="RE GEN">
-        <span class="badge">NP-Directed · Illinois</span>
+        <span class="badge">What we carry · Patient pricing</span>
       </div>
 
-      <div class="how-row">
-        <div class="how-step">
-          <div class="num">1</div>
-          <h3>Intake</h3>
-          <p>Complete your online health form in about 5 minutes</p>
+      <div class="menu-hero">
+        <h2>Peptide &amp; Wellness Menu</h2>
+        <p>Provider-guided options after NP-led evaluation. <strong>Peptide prices = typical monthly protocol</strong> (one 5 mL vial, ~4 weeks at standard dose). <strong>NAD+ $150 = 10-week supply</strong> (100 mg/mL · 10 mL). Final plan confirmed at consult.</p>
+      </div>
+
+      <div class="price-tiers">
+        <div class="tier wellness">
+          <div class="amt">$150</div>
+          <div class="lbl">Wellness injection</div>
+          <div class="sub">NAD+ · 10-week supply<br>100 mg/mL · 10 mL vial</div>
         </div>
-        <div class="how-step">
-          <div class="num">2</div>
-          <h3>Review</h3>
-          <p>A nurse practitioner evaluates your history &amp; goals</p>
+        <div class="tier single">
+          <div class="amt">$175<span style="font-size:11px;font-weight:700">/mo</span></div>
+          <div class="lbl">Single peptide</div>
+          <div class="sub">Typical monthly protocol · 5 mL vial<br>BPC-157 · TB-500 · GHK-Cu · more</div>
         </div>
-        <div class="how-step">
-          <div class="num">3</div>
-          <h3>Pay &amp; Ship</h3>
-          <p>Secure checkout — Rx ships from a licensed US pharmacy</p>
-        </div>
-        <div class="how-step">
-          <div class="num">4</div>
-          <h3>Support</h3>
-          <p>Ongoing care, dose adjustments &amp; refills when you need them</p>
+        <div class="tier blend">
+          <div class="amt">$200<span style="font-size:11px;font-weight:700">/mo</span></div>
+          <div class="lbl">Specialty blend</div>
+          <div class="sub">Typical monthly protocol · 5 mL vial<br>Recovery stacks · GH-axis combos</div>
         </div>
       </div>
 
-      <div class="cols">
-        <div class="col-card">
-          <div class="card-head wl">⚖️ Weight Loss</div>
-          <div class="card-body">
-            <p>Compounded GLP-1 medications prescribed and supervised by our NP team. Weekly injections, dose titration, metabolic support.</p>
-            <ul>
-              <li><span>Compounded Semaglutide</span><span class="price">from $88/mo</span></li>
-              <li><span>Compounded Tirzepatide</span><span class="price">from $125/mo</span></li>
-              <li><span>Lipo-Mino (MIC) injections</span><span class="price">from $92</span></li>
-              <li><span>B12 metabolic support</span><span class="price">from $73</span></li>
-            </ul>
-          </div>
+      <div class="visual-showcase">
+        <div class="vitem">
+          <img src="/brochure/assets/bpc-157-product.png" alt="RE GEN BPC-157">
+          <div class="vcap">BPC-157<em>$175/mo</em></div>
         </div>
-
-        <div class="col-card">
-          <div class="card-head pt">🧬 Peptide Therapy</div>
-          <div class="card-body">
-            <p>Recovery, longevity, energy &amp; performance — 30+ peptides including the Wolverine Stack (BPC-157 + TB-500) and KLOW 4-in-1 blend.</p>
-            <ul>
-              <li><span>BPC-157 · TB-500 · Wolverine Stack</span><span class="price">from $175</span></li>
-              <li><span>NAD+ · Sermorelin · Glutathione</span><span class="price">from $66</span></li>
-              <li><span>CJC/Ipamorelin · Tesamorelin</span><span class="price">from $175</span></li>
-              <li><span>MOTS-c · SS-31 · Epithalon</span><span class="price">from $238</span></li>
-            </ul>
-          </div>
+        <div class="vitem">
+          <img src="/brochure/assets/tb-500-product.png" alt="RE GEN TB-500">
+          <div class="vcap">TB-500<em>$175/mo</em></div>
         </div>
-
-        <div class="col-card">
-          <div class="card-head hm">💊 Hormones</div>
-          <div class="card-body">
-            <p>Bioidentical hormone optimization for men and women. Labs-guided protocols with Ryan Kent, FNP-BC — on site 7 days a week.</p>
-            <ul>
-              <li><span>Testosterone Cypionate (TRT)</span><span class="price">from $55</span></li>
-              <li><span>Bi-Est · Progesterone (HRT)</span><span class="price">from $64</span></li>
-              <li><span>Testosterone cream · Clomiphene</span><span class="price">from $88</span></li>
-              <li><span>Anastrozole · Estradiol RDT</span><span class="price">from $75</span></li>
-            </ul>
-          </div>
+        <div class="vitem">
+          <img src="/brochure/assets/methylene-blue-capsules.png" alt="Methylene Blue">
+          <div class="vcap">Methylene Blue<em>Ask provider</em></div>
         </div>
-
-        <div class="col-card">
-          <div class="card-head vt">💉 Vitamins &amp; Wellness</div>
-          <div class="card-body">
-            <p>Professional-grade injectable vitamins and wellness compounds — energy, hair, skin, immune support &amp; more.</p>
-            <ul>
-              <li><span>B12 Methylcobalamin</span><span class="price">from $73</span></li>
-              <li><span>Biotin (hair, skin, nails)</span><span class="price">from $83</span></li>
-              <li><span>Vitamin D3 injection</span><span class="price">$149</span></li>
-              <li><span>Low Dose Naltrexone (LDN)</span><span class="price">from $69</span></li>
-            </ul>
-          </div>
+        <div class="vitem">
+          <img src="/brochure/assets/glp-weight-loss.png" alt="GLP-1 Weight Loss">
+          <div class="vcap">GLP-1<em>from $125/mo</em></div>
         </div>
+        <div class="vitem">
+          <img src="/brochure/assets/enclomiphene.png" alt="Enclomiphene">
+          <div class="vcap">Enclomiphene<em>TRT support</em></div>
+        </div>
+      </div>
 
-        <div class="col-card full-width-card">
-          <div class="card-head lb">🔬 Lab Panels</div>
-          <div class="card-body">
-            <p style="margin-bottom:10px;">At-home or in-clinic blood work reviewed by your provider — the data behind smarter prescriptions.</p>
-            <div class="labs-grid">
-              <div class="lab-pill">
-                <strong>Essential Wellness</strong>
-                <span>$99</span>
-                <div style="font-size:6.5px;color:#888;margin-top:2px;">CBC · Metabolic · Lipids · Thyroid · Vit D</div>
+      <div class="menu-grid">
+        <div class="menu-block has-visual">
+          <div class="mh">Recovery + tissue support</div>
+          <div class="mb">
+            <div class="mb-inner">
+              <div class="product-stack">
+                <img src="/brochure/assets/bpc-157-product.png" alt="BPC-157 vial">
+                <img src="/brochure/assets/tb-500-product.png" alt="TB-500 vial">
               </div>
-              <div class="lab-pill">
-                <strong>Hormone &amp; Vitality</strong>
-                <span>$199</span>
-                <div style="font-size:6.5px;color:#888;margin-top:2px;">+ Full hormone panel · Ferritin · B12</div>
-              </div>
-              <div class="lab-pill">
-                <strong>Comprehensive Longevity</strong>
-                <span>$349</span>
-                <div style="font-size:6.5px;color:#888;margin-top:2px;">+ Inflammation · Insulin · Cortisol · ApoB</div>
-              </div>
-              <div class="lab-pill">
-                <strong>Functional Health</strong>
-                <span>$399</span>
-                <div style="font-size:6.5px;color:#888;margin-top:2px;">55+ biomarkers · Full thyroid &amp; hormones</div>
+              <div>
+            <p class="why">Common goals: recovery, gut support, mobility, tissue repair</p>
+            <table>
+              <thead><tr><th>Peptide</th><th class="r">Price</th></tr></thead>
+              <tbody>
+                <tr><td><strong>BPC-157</strong><br><span class="dim">3 mg/mL · 5 mL · ~4 wk protocol</span></td><td class="r">$175/mo</td></tr>
+                <tr><td><strong>TB-500</strong><br><span class="dim">3 mg/mL · 5 mL · ~4 wk protocol</span></td><td class="r">$175/mo</td></tr>
+                <tr><td><strong>BPC-157 / TB-500</strong><br><span class="dim">Wolverine stack · 5 mL</span></td><td class="r">$200/mo</td></tr>
+                <tr><td><strong>BPC / GHK-Cu / KPV / TB-500</strong><br><span class="dim">Advanced recovery · 5 mL</span></td><td class="r">$200/mo</td></tr>
+                <tr><td><strong>BPC / KPV / TB-500</strong><br><span class="dim">5 mL vial</span></td><td class="r">$200/mo</td></tr>
+                <tr><td><strong>BPC / TB-500 / GHK-Cu</strong><br><span class="dim">5 mL vial</span></td><td class="r">$200/mo</td></tr>
+              </tbody>
+            </table>
               </div>
             </div>
           </div>
+        </div>
+
+        <div class="menu-block">
+          <div class="mh teal">Energy, performance + healthy aging</div>
+          <div class="mb">
+            <p class="why">Mitochondrial support, GH-axis, sleep &amp; recovery education</p>
+            <table>
+              <thead><tr><th>Peptide</th><th class="r">Price</th></tr></thead>
+              <tbody>
+                <tr><td><strong>NAD+</strong><br><span class="dim">100 mg/mL · 10 mL · 10-week supply</span></td><td class="r">$150</td></tr>
+                <tr><td><strong>CJC-1295 / Ipamorelin</strong><br><span class="dim">1.2 mg / 2 mg · 5 mL</span></td><td class="r">$200/mo</td></tr>
+                <tr><td><strong>Tesamorelin / Ipamorelin</strong><br><span class="dim">3 mg / 2 mg/mL · 5 mL</span></td><td class="r">$200/mo</td></tr>
+                <tr><td><strong>MOTS-c / Tesamorelin</strong><br><span class="dim">4 mg / 3 mg/mL · 5 mL</span></td><td class="r">$200/mo</td></tr>
+                <tr><td><strong>Tesamorelin</strong><br><span class="dim">3 mg/mL · 5 mL</span></td><td class="r">$175/mo</td></tr>
+                <tr><td><strong>SS-31</strong><br><span class="dim">4 mg/mL · 5 mL</span></td><td class="r">$175/mo</td></tr>
+                <tr><td><strong>Thymosin A-1</strong><br><span class="dim">5 mg/mL · 5 mL</span></td><td class="r">$175/mo</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="menu-block has-visual">
+          <div class="mh gold">Skin, hair + glow</div>
+          <div class="mb">
+            <div class="mb-inner">
+              <div class="product-stack">
+                <img src="/brochure/assets/methylene-blue-capsules.png" alt="Methylene Blue capsules">
+              </div>
+              <div>
+            <p class="why">Radiance, collagen, hair/scalp &amp; antioxidant support</p>
+            <table>
+              <thead><tr><th>Option</th><th class="r">Price</th></tr></thead>
+              <tbody>
+                <tr><td><strong>GHK-Cu</strong><br><span class="dim">10 mg/mL · 5 mL · monthly protocol</span></td><td class="r">$175/mo</td></tr>
+                <tr><td><strong>Glutathione</strong><br><span class="dim">Injectable antioxidant</span></td><td class="r">from $66/mo</td></tr>
+                <tr><td><strong>Biotin</strong><br><span class="dim">Hair, skin &amp; nails</span></td><td class="r">from $83/mo</td></tr>
+                <tr><td><strong>Methylene Blue</strong><br><span class="dim">Cognitive · anti-aging caps</span></td><td class="r">consult</td></tr>
+                <tr><td><strong>NAD+ topical / NADvantage</strong><br><span class="dim">Ask your provider</span></td><td class="r">consult</td></tr>
+              </tbody>
+            </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="menu-block">
+          <div class="mh purple">Mood, focus + body composition</div>
+          <div class="mb">
+            <p class="why">Cognitive wellness, intimacy &amp; metabolic support</p>
+            <table>
+              <thead><tr><th>Option</th><th class="r">Price</th></tr></thead>
+              <tbody>
+                <tr><td><strong>PT-141</strong><br><span class="dim">2 mg/mL · 5 mL</span></td><td class="r">$175/mo</td></tr>
+                <tr><td><strong>AOD-9604</strong><br><span class="dim">2 mg/mL · 5 mL</span></td><td class="r">$175/mo</td></tr>
+                <tr><td><strong>IGF-LR3</strong><br><span class="dim">200 mcg/mL · 5 mL</span></td><td class="r">$175/mo</td></tr>
+                <tr><td><strong>Selank · Semax</strong><br><span class="dim">Nasal sprays — ask provider</span></td><td class="r">consult</td></tr>
+                <tr><td><strong>Epithalon</strong><br><span class="dim">Longevity peptide</span></td><td class="r">consult</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="bottom-row">
+        <div class="visual-mini-card">
+          <img class="vimg contain" src="/brochure/assets/glp-weight-loss.png" alt="GLP-1 Weight Loss">
+          <div class="mh wl">⚖️ Medical weight loss (GLP-1)</div>
+          <ul>
+            <li><span>Compounded Semaglutide</span><span class="p">from $125/mo</span></li>
+            <li><span>Compounded Tirzepatide</span><span class="p">from $125/mo</span></li>
+            <li><span>Semaglutide 8 mg vial</span><span class="p">$175</span></li>
+            <li><span>Tirzepatide 40 mg vial</span><span class="p">$325</span></li>
+            <li><span>Tirzepatide 60 mg vial</span><span class="p">$375</span></li>
+          </ul>
+        </div>
+        <div class="visual-mini-card">
+          <img class="vimg contain" src="/brochure/assets/enclomiphene.png" alt="Enclomiphene — testosterone support">
+          <div class="mh hm">💊 Hormones · labs · more</div>
+          <ul>
+            <li><span>Testosterone Cypionate (TRT)</span><span class="p">from $55</span></li>
+            <li><span>Enclomiphene · Clomiphene</span><span class="p">consult</span></li>
+            <li><span>Bi-Est · Progesterone (HRT)</span><span class="p">from $64</span></li>
+            <li><span>Essential Wellness Labs</span><span class="p">$99</span></li>
+            <li><span>B12 · LDN · Vitamin D3</span><span class="p">from $69</span></li>
+          </ul>
         </div>
       </div>
 
       <div class="inside-footer">
         <div class="contact-block">
           <h4>Hello Gorgeous Med Spa</h4>
-          <p>74 W. Washington Street<br>Oswego, IL 60543</p>
-          <p><a href="tel:6306366193">(630) 636-6193</a><br>
-          <a href="https://www.hellogorgeousmedspa.com/rx">hellogorgeousmedspa.com/rx</a></p>
+          <p>74 W. Washington Street · Oswego, IL 60543</p>
+          <p><a href="tel:6306366193">(630) 636-6193</a> · <a href="https://www.hellogorgeousmedspa.com/rx">hellogorgeousmedspa.com/rx</a></p>
         </div>
         <div class="footer-qr">
           <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fwww.hellogorgeousmedspa.com%2Frx" alt="QR">
           <p>SCAN TO START</p>
         </div>
         <div class="trust-pills">
-          <span>US Pharmacies</span>
           <span>NP-Directed</span>
+          <span>US Pharmacies</span>
           <span>Shipped to IL</span>
-          <span>No Hidden Fees</span>
-          <span>90-Day Save 10%</span>
+          <span>90-Day −10%</span>
         </div>
       </div>
 
       <p class="disclaimer">
-        RE GEN by Hello Gorgeous Med Spa · Prescription products require provider review and approval before dispensing.
-        Not for emergency use. Individual results vary. Compounded medications are not FDA-approved.
-        Hello Gorgeous Med Spa — Oswego, Illinois · hellogorgeousmedspa.com
+        Educational menu — not a guarantee of candidacy, results, or availability. Compounded medications are not FDA-approved.
+        Monthly peptide pricing reflects a typical ~4-week protocol at standard dose; NAD+ $150 reflects a 10-week supply. Dosing varies by provider.
+        Pricing finalized after NP-led evaluation. RE GEN by Hello Gorgeous Med Spa · Oswego, Illinois.
       </p>
     </div>
   </div>

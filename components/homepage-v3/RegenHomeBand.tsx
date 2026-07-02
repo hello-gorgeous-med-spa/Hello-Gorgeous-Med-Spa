@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { REGEN_BRAND } from "@/lib/regen-brand";
+import { REGEN_BRAND, REGEN_MARKETING } from "@/lib/regen-brand";
 
 export function RegenHomeBand() {
   return (
@@ -88,38 +88,30 @@ export function RegenHomeBand() {
             </div>
           </div>
 
-          {/* Right - Image Grid */}
-          <div className="relative">
-            <div className="grid grid-cols-2 gap-4">
-              {/* Main large image */}
-              <div className="col-span-2 overflow-hidden rounded-2xl shadow-2xl">
-                <Image
-                  src="/images/regen/regen-og-image.png"
-                  alt="RE GEN — Gorgeous, delivered"
-                  width={600}
-                  height={400}
-                  className="h-auto w-full object-cover"
-                />
-              </div>
-              {/* Two smaller images */}
-              <div className="overflow-hidden rounded-xl shadow-xl">
-                <Image
-                  src="/promo-kit/regen-social-weightloss.png"
-                  alt="Weight loss with semaglutide and tirzepatide"
-                  width={300}
-                  height={200}
-                  className="h-full w-full object-cover"
-                />
-              </div>
-              <div className="overflow-hidden rounded-xl shadow-xl">
-                <Image
-                  src="/promo-kit/regen-social-peptides.png"
-                  alt="Peptide therapy - BPC-157, NAD+, and more"
-                  width={300}
-                  height={200}
-                  className="h-full w-full object-cover"
-                />
-              </div>
+          {/* Right - Hero imagery */}
+          <div className="relative space-y-4">
+            <div className="flex justify-center overflow-hidden rounded-2xl bg-black shadow-2xl shadow-pink-900/40 ring-1 ring-pink-500/25">
+              <Image
+                src={REGEN_MARKETING.providerHero}
+                alt="RE GEN provider — NP-directed prescription care"
+                width={819}
+                height={1024}
+                className="h-[380px] w-auto max-w-full object-contain object-top sm:h-[440px] md:h-[520px]"
+                priority
+              />
+            </div>
+            <div className="overflow-hidden rounded-xl shadow-xl ring-1 ring-pink-500/25 bg-black">
+              <video
+                autoPlay
+                muted
+                loop
+                playsInline
+                poster={REGEN_MARKETING.brandBanner}
+                className="h-auto w-full object-cover"
+                aria-label="RE GEN logo reveal"
+              >
+                <source src={REGEN_MARKETING.logoRevealVideo} type="video/mp4" />
+              </video>
             </div>
 
             {/* Floating badge */}

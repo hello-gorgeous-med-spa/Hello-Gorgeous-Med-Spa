@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>RE GEN In-Spa TV Loop | Hello Gorgeous Med Spa</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --pink: #E6007E;
+      --hot: #FF2D8E;
+      --soft: #FFB8DC;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      width: 100%; height: 100%; overflow: hidden;
+      background: #000; color: #fff;
+      font-family: Inter, system-ui, sans-serif;
+      cursor: none;
+    }
+    .stage { position: fixed; inset: 0; }
+    .slide {
+      position: absolute; inset: 0;
+      opacity: 0; transition: opacity 1.2s ease;
+      pointer-events: none;
+    }
+    .slide.active { opacity: 1; pointer-events: auto; z-index: 1; }
+    .slide video, .slide .bg-img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      background: #000;
+    }
+    .slide .bg-img.contain { object-fit: contain; background: #000; }
+    .slide-overlay {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column;
+      justify-content: flex-end;
+      padding: 5vh 6vw 7vh;
+      background: linear-gradient(180deg, transparent 35%, rgba(0,0,0,.75) 72%, rgba(0,0,0,.95) 100%);
+    }
+    .slide-overlay.center {
+      justify-content: center; align-items: center; text-align: center;
+      background: radial-gradient(ellipse at 50% 40%, rgba(230,0,126,.18), transparent 55%), rgba(0,0,0,.55);
+    }
+    .eyebrow {
+      font-size: clamp(12px, 1.4vw, 18px);
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--soft); font-weight: 700; margin-bottom: 0.6vh;
+    }
+    h1 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(32px, 5.5vw, 72px);
+      line-height: 1.05; max-width: 14ch;
+    }
+    h1 em {
+      font-style: italic;
+      background: linear-gradient(90deg, var(--soft), var(--hot), var(--pink));
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    .sub {
+      margin-top: 1.4vh;
+      font-size: clamp(14px, 2vw, 26px);
+      color: rgba(255,255,255,.82);
+      max-width: 42ch;
+      line-height: 1.45;
+    }
+    .price-row {
+      display: flex; flex-wrap: wrap; gap: 1.2vw; margin-top: 2.5vh;
+    }
+    .price-pill {
+      border: 2px solid rgba(255,255,255,.25);
+      background: rgba(255,255,255,.08);
+      backdrop-filter: blur(8px);
+      border-radius: 999px;
+      padding: 0.7vh 1.4vw;
+      font-size: clamp(12px, 1.5vw, 20px);
+      font-weight: 700;
+    }
+    .price-pill strong { color: var(--soft); }
+    .cta-band {
+      margin-top: 3vh;
+      display: inline-flex; align-items: center; gap: 2vw;
+      background: linear-gradient(125deg, var(--hot), var(--pink));
+      border: 3px solid #000;
+      border-radius: 20px;
+      padding: 2vh 2.5vw;
+      box-shadow: 8px 8px 0 rgba(230,0,126,.35);
+    }
+    .cta-band img { width: clamp(80px, 10vw, 140px); height: clamp(80px, 10vw, 140px); background: #fff; padding: 8px; border-radius: 12px; border: 2px solid #000; }
+    .cta-band .url { font-size: clamp(18px, 2.4vw, 36px); font-weight: 800; }
+    .cta-band .phone { font-size: clamp(14px, 1.6vw, 24px); opacity: .92; margin-top: 0.4vh; }
+    .hint {
+      position: fixed; bottom: 12px; left: 50%; transform: translateX(-50%);
+      font-size: 11px; color: rgba(255,255,255,.35); z-index: 10;
+      opacity: 1; transition: opacity 1s;
+    }
+    body.hide-hint .hint { opacity: 0; }
+    .start-gate {
+      position: fixed; inset: 0; z-index: 100;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 1.5rem; text-align: center; padding: 2rem;
+      background: radial-gradient(ellipse at 50% 35%, rgba(230,0,126,.22), #000 65%);
+      cursor: pointer;
+    }
+    .start-gate.hidden { display: none; }
+    .start-gate h2 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(28px, 4vw, 52px);
+      max-width: 16ch;
+      line-height: 1.1;
+    }
+    .start-gate p { color: rgba(255,255,255,.75); font-size: clamp(14px, 1.8vw, 22px); max-width: 36ch; }
+    .start-btn {
+      border: 3px solid #000;
+      border-radius: 999px;
+      padding: 1rem 2.2rem;
+      font-size: clamp(16px, 2vw, 24px);
+      font-weight: 800;
+      color: #fff;
+      background: linear-gradient(125deg, var(--hot), var(--pink));
+      box-shadow: 8px 8px 0 rgba(230,0,126,.35);
+    }
+    .boot-msg {
+      position: fixed; inset: 0; z-index: 90;
+      display: none; align-items: center; justify-content: center;
+      font-size: clamp(14px, 2vw, 22px); color: rgba(255,255,255,.55);
+      background: #000;
+    }
+    .boot-msg.show { display: flex; }
+  </style>
+</head>
+<body>
+  <div class="start-gate" id="startGate" role="button" tabindex="0" aria-label="Tap to start RE GEN TV loop">
+    <h2>RE GEN <em style="font-style:italic;color:var(--soft);">In-Spa TV</em></h2>
+    <p>Tap anywhere or press Enter to start the waiting-room loop.</p>
+    <span class="start-btn">Start TV Loop</span>
+  </div>
+  <div class="boot-msg" id="bootMsg" aria-live="polite">Loading RE GEN TV…</div>
+  <div class="stage" id="stage"></div>
+  <p class="hint">RE GEN TV · hellogorgeousmedspa.com/regen-tv · Press F11 for fullscreen</p>
+
+  <script>
+    const SLIDES = [
+      { type: 'video', src: '/videos/regen/regen-logo-reveal.mp4', fit: 'contain', maxDuration: 45000 },
+      {
+        type: 'image',
+        src: '/images/regen/regen-provider-hero.jpg',
+        fit: 'contain',
+        duration: 9000,
+        overlay: 'bottom',
+        eyebrow: 'RE GEN by Hello Gorgeous Med Spa',
+        title: 'Prescription care, <em>gorgeous, delivered.</em>',
+        sub: 'NP-directed weight loss, peptides, hormones & wellness — shipped to your door.',
+        pills: ['GLP-1 from $125/mo', 'Peptides $175–$200/mo', 'NAD+ $150 / 10 wks']
+      },
+      {
+        type: 'image',
+        src: '/brochure/assets/glp-weight-loss.png',
+        fit: 'cover',
+        duration: 8000,
+        overlay: 'bottom',
+        eyebrow: 'Medical weight loss',
+        title: 'Compounded <em>GLP-1</em>',
+        sub: 'Semaglutide & tirzepatide — provider-guided, transparent pricing.',
+        pills: ['From $125/mo', 'NP telehealth review', '$30 flat shipping']
+      },
+      {
+        type: 'image',
+        src: '/brochure/assets/bpc-157-product.png',
+        fit: 'contain',
+        duration: 8000,
+        overlay: 'bottom',
+        eyebrow: 'Peptide therapy',
+        title: 'Recovery · longevity · <em>performance</em>',
+        sub: 'BPC-157, TB-500, NAD+, GH-axis stacks & more.',
+        pills: ['Singles $175/mo', 'Blends $200/mo', '30+ options']
+      },
+      {
+        type: 'cta',
+        duration: 10000,
+        title: 'Start your <em>5-minute intake</em>',
+        sub: 'Scan to shop RE GEN — or ask our front desk.',
+        url: 'hellogorgeousmedspa.com/rx',
+        qr: 'https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=https%3A%2F%2Fwww.hellogorgeousmedspa.com%2Frx'
+      }
+    ];
+
+    let idx = 0;
+    let timer = null;
+    let started = false;
+    const stage = document.getElementById('stage');
+    const startGate = document.getElementById('startGate');
+    const bootMsg = document.getElementById('bootMsg');
+
+    function clearTimer() {
+      if (timer) { clearTimeout(timer); timer = null; }
+    }
+
+    function buildSlide(slide, i) {
+      const el = document.createElement('div');
+      el.className = 'slide' + (i === 0 ? ' active' : '');
+      el.dataset.index = String(i);
+
+      if (slide.type === 'video') {
+        const v = document.createElement('video');
+        v.src = slide.src;
+        v.muted = true;
+        v.playsInline = true;
+        v.autoplay = false;
+        v.preload = 'auto';
+        v.style.objectFit = slide.fit || 'contain';
+        v.className = 'bg-img';
+        v.addEventListener('ended', nextSlide);
+        v.addEventListener('error', () => {
+          console.warn('TV video failed:', slide.src);
+          setTimeout(nextSlide, 1200);
+        });
+        el.appendChild(v);
+        el._video = v;
+      } else if (slide.type === 'image') {
+        const img = document.createElement('img');
+        img.src = slide.src;
+        img.alt = '';
+        img.className = 'bg-img' + (slide.fit === 'contain' ? ' contain' : '');
+        img.addEventListener('error', () => {
+          console.warn('TV image failed:', slide.src);
+        });
+        el.appendChild(img);
+        if (slide.overlay) {
+          const ov = document.createElement('div');
+          ov.className = 'slide-overlay' + (slide.overlay === 'center' ? ' center' : '');
+          ov.innerHTML = `
+            ${slide.eyebrow ? `<p class="eyebrow">${slide.eyebrow}</p>` : ''}
+            ${slide.title ? `<h1>${slide.title}</h1>` : ''}
+            ${slide.sub ? `<p class="sub">${slide.sub}</p>` : ''}
+            ${slide.pills ? `<div class="price-row">${slide.pills.map(p => `<span class="price-pill"><strong>✦</strong> ${p}</span>`).join('')}</div>` : ''}
+          `;
+          el.appendChild(ov);
+        }
+      } else if (slide.type === 'cta') {
+        const ov = document.createElement('div');
+        ov.className = 'slide-overlay center';
+        ov.innerHTML = `
+          <p class="eyebrow">Hello Gorgeous Med Spa · Oswego, IL</p>
+          <h1>${slide.title}</h1>
+          <p class="sub">${slide.sub}</p>
+          <div class="cta-band">
+            <img src="${slide.qr}" alt="QR code to RE GEN">
+            <div>
+              <div class="url">${slide.url}</div>
+              <div class="phone">(630) 636-6193</div>
+            </div>
+          </div>
+        `;
+        el.appendChild(ov);
+      }
+
+      return el;
+    }
+
+    SLIDES.forEach((s, i) => stage.appendChild(buildSlide(s, i)));
+
+    function playCurrent() {
+      clearTimer();
+      const slide = SLIDES[idx];
+      const el = stage.querySelector(`.slide[data-index="${idx}"]`);
+      if (!el) return;
+
+      stage.querySelectorAll('.slide').forEach(s => s.classList.remove('active'));
+      el.classList.add('active');
+
+      if (slide.type === 'video' && el._video) {
+        const v = el._video;
+        v.currentTime = 0;
+        const maxMs = slide.maxDuration || 45000;
+        timer = setTimeout(nextSlide, maxMs);
+        v.play().catch(() => {
+          console.warn('TV autoplay blocked — advancing slide');
+          clearTimer();
+          setTimeout(nextSlide, 1500);
+        });
+      } else if (slide.duration) {
+        timer = setTimeout(nextSlide, slide.duration);
+      }
+    }
+
+    function nextSlide() {
+      idx = (idx + 1) % SLIDES.length;
+      playCurrent();
+    }
+
+    function beginLoop() {
+      if (started) return;
+      started = true;
+      startGate.classList.add('hidden');
+      bootMsg.classList.remove('show');
+      playCurrent();
+      setTimeout(() => document.body.classList.add('hide-hint'), 8000);
+    }
+
+    function warmAssets() {
+      bootMsg.classList.add('show');
+      SLIDES.forEach((slide) => {
+        if (slide.type === 'video') {
+          const link = document.createElement('link');
+          link.rel = 'preload';
+          link.as = 'video';
+          link.href = slide.src;
+          document.head.appendChild(link);
+        } else if (slide.type === 'image') {
+          const img = new Image();
+          img.src = slide.src;
+        }
+      });
+      setTimeout(() => bootMsg.classList.remove('show'), 600);
+    }
+
+    warmAssets();
+    startGate.addEventListener('click', beginLoop);
+    startGate.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); beginLoop(); }
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (!started && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); beginLoop(); return; }
+      if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); nextSlide(); }
+    });
+  </script>
+</body>
+</html>

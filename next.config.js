@@ -155,6 +155,27 @@ const nextConfig = {
         { key: "Content-Security-Policy", value: EMBEDDABLE_HTML_CSP },
       ],
     },
+    // In-spa RE GEN TV loop (public/regen-tv.html) — fullscreen slideshow for waiting-room displays.
+    {
+      source: "/regen-tv.html",
+      headers: [
+        { key: "X-Frame-Options", value: "SAMEORIGIN" },
+        { key: "X-Robots-Tag", value: "noindex" },
+        {
+          key: "Content-Security-Policy",
+          value: [
+            "default-src 'self'",
+            "script-src 'self' 'unsafe-inline'",
+            "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+            "img-src 'self' data: blob: https:",
+            "media-src 'self' blob:",
+            "font-src 'self' https://fonts.gstatic.com",
+            "connect-src 'self'",
+            "frame-ancestors 'self'",
+          ].join("; "),
+        },
+      ],
+    },
     // Staff tools (public/staff) — Pharmacy Selector and other bundled tools.
     // Needs blob: URLs for Claude artifact bundler to work.
     {
@@ -197,6 +218,7 @@ const nextConfig = {
   ],
   rewrites: async () => [],
   redirects: async () => [
+    { source: "/regen-tv", destination: "/regen-tv.html", permanent: false },
     { source: "/sitemap.website.xml", destination: "/sitemap.xml", permanent: true },
     { source: "/hydrafacial-oswego-il", destination: "/facials-oswego", permanent: true },
     { source: "/vitamin-bar", destination: "/app?tab=vitamin", permanent: false },

@@ -4,6 +4,22 @@
 
 ---
 
+## ASSET LIBRARY (Jul 2026 refresh)
+
+Browse & download everything at **`/promo-kit/`** (staff hub → Promo Kit).
+
+| Asset | Path | Best for |
+|-------|------|----------|
+| **Provider hero** | `/images/regen/regen-provider-hero.jpg` | Homepage band, `/rx` hero, brochure cover, IG feed |
+| **Services flyer** | `/images/regen/regen-flyer-services.jpg` | IG Story, in-spa poster, print handout |
+| **Brand banner** | `/images/regen/regen-brand-banner.jpg` | Email header, wide web bands, display ads |
+| **Link preview (OG)** | `/images/regen/regen-og-image.jpg` | Facebook, iMessage, Slack when sharing `/rx` |
+
+Promo-kit copies (same art, download-friendly names):  
+`regen-social-provider.jpg` · `regen-social-flyer-story.jpg` · `regen-social-brand-banner.jpg`
+
+---
+
 ## CORE TAGLINES
 
 ### Primary

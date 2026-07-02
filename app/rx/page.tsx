@@ -39,7 +39,7 @@ export const metadata: Metadata = {
     ...baseMetadata.openGraph,
     images: [
       {
-        url: "https://www.hellogorgeousmedspa.com/images/regen/regen-og-image.png",
+        url: "https://www.hellogorgeousmedspa.com/images/regen/regen-og-image.jpg",
         width: 1200,
         height: 630,
         alt: "RE GEN - Renew. Rebalance. Regenerate. | Medical Weight Loss, Peptides & Hormones",
@@ -48,7 +48,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     ...baseMetadata.twitter,
-    images: ["https://www.hellogorgeousmedspa.com/images/regen/regen-og-image.png"],
+    images: ["https://www.hellogorgeousmedspa.com/images/regen/regen-og-image.jpg"],
   },
 };
 
@@ -136,23 +136,27 @@ export default function RxPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqStructured) }}
       />
 
-      {/* Interactive RE GEN storefront (client-rendered prototype). */}
-      <iframe
-        src="/regen-site/index.html"
-        style={{ width: "100%", height: "100vh", border: "none", display: "block" }}
-        title="RE GEN by Hello Gorgeous Med Spa"
-      />
+      {/* Interactive RE GEN storefront — full viewport on mobile, no site chrome (see ConditionalLayout). */}
+      <div className="fixed inset-0 z-0 h-[100dvh] w-full bg-black">
+        <iframe
+          src="/regen-site/index.html"
+          className="h-full w-full border-0"
+          title="RE GEN by Hello Gorgeous Med Spa"
+          allow="payment *"
+        />
+      </div>
 
-      {/* Server-rendered, crawlable content so /rx can be indexed on its own merit
-          (iframe content is attributed to its own URL, not this page). */}
+      {/* Crawlable SEO copy — desktop only; storefront iframe is the mobile experience */}
       <section
+        className="hidden md:block relative z-10"
+        aria-label="About RE GEN by Hello Gorgeous Med Spa"
         style={{
           background: "#000",
           color: "#fff",
           padding: "72px 24px",
+          marginTop: "100dvh",
           fontFamily: "system-ui, -apple-system, sans-serif",
         }}
-        aria-label="About RE GEN by Hello Gorgeous Med Spa"
       >
         <div style={{ maxWidth: 1080, margin: "0 auto" }}>
           <p

@@ -105,6 +105,22 @@ export default function StaffPage() {
               <div className="text-cyan-400 text-2xl">→</div>
             </div>
           </a>
+
+          {/* In-Spa TV Loop */}
+          <a
+            href="/regen-tv"
+            target="_blank"
+            className="block bg-gradient-to-r from-fuchsia-600/20 to-pink-600/20 backdrop-blur rounded-2xl p-5 border-2 border-fuchsia-400/50 hover:border-fuchsia-400 hover:from-fuchsia-600/30 hover:to-pink-600/30 transition-all"
+          >
+            <div className="flex items-center gap-4">
+              <div className="text-4xl">📺</div>
+              <div className="flex-1">
+                <h2 className="font-bold text-white text-lg">In-Spa TV Loop</h2>
+                <p className="text-fuchsia-200/70 text-sm">Logo reveal + RE GEN promos — waiting room &amp; TVs</p>
+              </div>
+              <div className="text-fuchsia-400 text-2xl">→</div>
+            </div>
+          </a>
         </div>
 
         {/* Footer */}
