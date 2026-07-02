@@ -26,15 +26,16 @@ export default function StaffPage() {
           {/* Pharmacy Selector */}
           <a
             href="/staff/pharmacy-selector.html"
+            download="Pharmacy-Selector.html"
             className="block bg-white rounded-2xl p-5 shadow-lg border-2 border-pink-200 hover:border-pink-400 hover:shadow-xl transition-all"
           >
             <div className="flex items-center gap-4">
               <div className="text-4xl">💊</div>
               <div className="flex-1">
                 <h2 className="font-bold text-gray-900 text-lg">Pharmacy Selector</h2>
-                <p className="text-gray-500 text-sm">Compare prices across pharmacies</p>
+                <p className="text-gray-500 text-sm">Tap to download, then open file</p>
               </div>
-              <div className="text-pink-500 text-2xl">→</div>
+              <div className="text-pink-500 text-2xl">↓</div>
             </div>
           </a>
 
