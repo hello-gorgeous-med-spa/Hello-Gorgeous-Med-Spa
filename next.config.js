@@ -155,6 +155,25 @@ const nextConfig = {
         { key: "Content-Security-Policy", value: EMBEDDABLE_HTML_CSP },
       ],
     },
+    // Staff tools (public/staff) — Pharmacy Selector and other bundled tools.
+    // Needs blob: URLs for Claude artifact bundler to work.
+    {
+      source: "/staff/:path*.html",
+      headers: [
+        { key: "X-Frame-Options", value: "SAMEORIGIN" },
+        { key: "X-Robots-Tag", value: "noindex" },
+        { key: "Content-Security-Policy", value: [
+          "default-src 'self'",
+          "script-src 'self' 'unsafe-inline' 'unsafe-eval' blob:",
+          "worker-src 'self' blob:",
+          "style-src 'self' 'unsafe-inline'",
+          "img-src 'self' data: blob: https:",
+          "font-src 'self' data: https://fonts.gstatic.com",
+          "connect-src 'self' blob:",
+          "frame-ancestors 'self'",
+        ].join("; ") },
+      ],
+    },
     {
       source: "/.well-known/apple-developer-merchantid-domain-association",
       headers: [
