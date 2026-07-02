@@ -120,7 +120,7 @@ export function LabPanelsSection() {
           One simple draw. Provider-reviewed results. A plan built around your numbers.
         </p>
 
-        <div className="mt-10 grid gap-6 md:grid-cols-3">
+        <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {REGEN_LAB_PANELS.map((panel) => (
             <LabPanelCard key={panel.id} panel={panel} />
           ))}

@@ -280,6 +280,21 @@ export const REGEN_LAB_PANELS = [
     ],
     popular: false,
   },
+  {
+    id: "functional-health",
+    name: "Functional Health Evaluation",
+    price: "$399",
+    unit: "one-time",
+    description: "55+ biomarker deep-dive assessing your body's functional ecosystem.",
+    features: [
+      "CBC, CMP w/ GFR & full lipid panel",
+      "Complete thyroid: TSH, T3, T4, TPOAb, Thyroglobulin Abs",
+      "Full hormone panel: testosterone, estradiol, progesterone, LH, FSH, DHEA-S, SHBG",
+      "Metabolic: HbA1c, fasting insulin, IGF-1, cortisol, homocysteine",
+      "Vitamins: B12, D, folate, ferritin, iron",
+    ],
+    popular: false,
+  },
 ] as const;
 
 export const REGEN_LAB_CATEGORIES = [
