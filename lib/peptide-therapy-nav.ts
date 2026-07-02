@@ -120,7 +120,7 @@ export const PEPTIDE_THERAPY_NAV_FLAT_LINKS: PeptideTherapyNavLink[] =
 export const PEPTIDE_THERAPY_ACTIVE_PREFIXES = [
   PEPTIDES_HUB_PATH,
   PEPTIDE_HANDOUTS_PATH,
-  "/rx/peptides",
+  "/peptides",
   "/blog/which-peptide-is-right-for-you-oswego-il",
   "/blog/peptide-therapy-regenerative-medicine-hello-gorgeous-rx-oswego-il",
   "/blog/top-peptides-bpc157-sermorelin-ghk-cu-pt141-nad-49-consult-oswego-il",

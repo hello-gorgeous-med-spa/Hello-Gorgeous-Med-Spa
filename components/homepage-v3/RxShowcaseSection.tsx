@@ -120,7 +120,7 @@ export function RxShowcaseSection() {
 
             <div className="flex flex-col sm:flex-row gap-4">
               <Link
-                href="/rx/peptides"
+                href="/peptides"
                 className="inline-flex items-center justify-center bg-[#E6007E] text-white px-8 py-4 rounded-lg font-semibold hover:opacity-90 transition-all"
               >
                 Explore Peptides

@@ -79,7 +79,7 @@ export const SITE_TWO_DOORS: SiteDoor[] = [
       { label: "RX Request Portal", href: "/rx/request" },
       { label: "Hormone therapy", href: "/rx/hormones" },
       { label: "GLP-1 / metabolic", href: "/rx/metabolic" },
-      { label: "Peptide programs", href: "/rx/peptides" },
+      { label: "Peptide programs", href: "/peptides" },
       { label: "Online refill guide", href: "/rx/guide" },
       { label: "RX refills & care", href: RX_PATIENT_CARE_PATH },
       { label: "My RX portal", href: "/portal/rx" },

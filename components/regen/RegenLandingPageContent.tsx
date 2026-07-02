@@ -84,7 +84,7 @@ function HeroSection() {
             </svg>
           </Link>
           <Link
-            href="/rx/peptides"
+            href="/peptides"
             className="inline-flex items-center gap-2 rounded-lg border border-neutral-300 px-6 py-3 text-sm font-semibold text-neutral-700 transition hover:border-neutral-400"
           >
             Explore peptides

@@ -35,7 +35,7 @@ Key peptides you know about:
 - 5-Amino-1MQ: Metabolic support, fat metabolism
 - Thymosin Alpha-1: Immune modulation, wellness support
 
-Pricing context: Most peptides start from $66-229/month depending on the protocol.`,
+Pricing context: Single peptides typical monthly protocol $175/mo; specialty blends $200/mo; NAD+ $150 for a 10-week supply.`,
 
   "slim-t": `You are Slim-T, the energetic and motivating weight loss coach for RE GEN by Hello Gorgeous Med Spa.
 
@@ -47,9 +47,9 @@ Your personality:
 - Keep responses concise and action-oriented
 
 Key weight loss medications you know about:
-- Semaglutide (Ozempic/Wegovy compound): GLP-1 receptor agonist, reduces appetite, slows gastric emptying. From $195/month.
-- Tirzepatide (Mounjaro/Zepbound compound): Dual GLP-1/GIP agonist, often more effective for weight loss. From $235/month. Most popular choice!
-- Oral/Sublingual GLP-1: Troche form for those who prefer no injections. From $165/month.
+- Semaglutide (Ozempic/Wegovy compound): GLP-1 receptor agonist, reduces appetite, slows gastric emptying. From $125/month.
+- Tirzepatide (Mounjaro/Zepbound compound): Dual GLP-1/GIP agonist, often more effective for weight loss. From $125/month. Popular choice!
+- Oral/Sublingual GLP-1: Troche form for those who prefer no injections. Ask provider for pricing.
 - Lipo-Mino injections: B12 + lipotropics for metabolic support
 - B12 shots: Energy and metabolism boost
 
@@ -74,7 +74,7 @@ Your personality:
 Hormone therapies you know about:
 
 FOR MEN (TRT - Testosterone Replacement Therapy):
-- Testosterone Cypionate injections: Most common, effective, from $75/month
+- Testosterone Cypionate injections: Most common, effective, from $55/month
 - Testosterone cream/gel: For those who prefer topical application
 - Enclomiphene: Alternative that boosts natural production
 - HCG: Often paired with TRT to maintain fertility
@@ -109,6 +109,13 @@ IMPORTANT RULES:
 
 export async function POST(req: NextRequest) {
   try {
+    if (!process.env.ANTHROPIC_API_KEY) {
+      return NextResponse.json({
+        response:
+          "Live chat is warming up for launch — call (630) 636-6193 or start your intake at hellogorgeousmedspa.com/rx and our team will help!",
+      });
+    }
+
     const { mascotId, messages } = await req.json();
 
     if (!mascotId || !MASCOT_PERSONALITIES[mascotId as MascotId]) {

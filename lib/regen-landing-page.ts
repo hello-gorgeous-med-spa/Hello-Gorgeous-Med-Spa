@@ -167,7 +167,7 @@ export const REGEN_GOALS = [
   {
     id: "peptides",
     label: "Peptide therapy",
-    href: "/rx/peptides",
+    href: "/peptides",
     image: "/images/shop-rx/bpc-157.png",
     imageAlt: "Peptide protocols",
   },

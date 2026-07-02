@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { REGEN_BRAND, REGEN_MARKETING } from "@/lib/regen-brand";
+import { REGEN_BRAND, REGEN_MARKETING, REGEN_LAUNCH_PRICING } from "@/lib/regen-brand";
 
 export function RegenHomeBand() {
   return (
@@ -54,17 +54,17 @@ export function RegenHomeBand() {
               <div className="rounded-xl bg-white/5 p-4 backdrop-blur">
                 <div className="text-2xl mb-2">⚖️</div>
                 <div className="text-sm font-semibold text-white">Weight Loss</div>
-                <div className="text-xs text-pink-300">from $195/mo</div>
+                <div className="text-xs text-pink-300">{REGEN_LAUNCH_PRICING.glp1}</div>
               </div>
               <div className="rounded-xl bg-white/5 p-4 backdrop-blur">
                 <div className="text-2xl mb-2">🧬</div>
                 <div className="text-sm font-semibold text-white">Peptides</div>
-                <div className="text-xs text-pink-300">from $66/mo</div>
+                <div className="text-xs text-pink-300">{REGEN_LAUNCH_PRICING.peptides}</div>
               </div>
               <div className="rounded-xl bg-white/5 p-4 backdrop-blur">
                 <div className="text-2xl mb-2">💊</div>
                 <div className="text-sm font-semibold text-white">Hormones</div>
-                <div className="text-xs text-pink-300">from $75/mo</div>
+                <div className="text-xs text-pink-300">{REGEN_LAUNCH_PRICING.hormones}</div>
               </div>
             </div>
 

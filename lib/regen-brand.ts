@@ -28,6 +28,14 @@ export const REGEN_MARKETING = {
   logoRevealVideo: "/videos/regen/regen-logo-reveal.mp4",
 } as const;
 
+/** Patient-facing price anchors (brochure + NP menu draft, Jul 2026). */
+export const REGEN_LAUNCH_PRICING = {
+  glp1: "from $125/mo",
+  peptides: "$175–$200/mo",
+  nad: "$150 / 10 wks",
+  hormones: "from $55",
+} as const;
+
 /** Fallback preview art until category shoots are delivered. */
 export const REGEN_PREVIEW_FALLBACKS = {
   "weight-loss": "/images/gentlemens-club/tirzepatide-weight-loss.png",

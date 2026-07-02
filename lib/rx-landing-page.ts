@@ -88,7 +88,7 @@ export const RX_LANDING_PROGRAMS: RxLandingProgram[] = [
     title: "Peptides + longevity",
     description:
       "Sermorelin, NAD+, BPC-157, recovery stacks, and monthly add-ons — personalized protocols after NP telehealth.",
-    href: "/rx/peptides",
+    href: "/peptides",
     cta: "Peptide programs",
     priceHint: "Bundles from $149/mo",
     image: "/images/shop-rx/new-peptide-protocol.png",
