@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useState } from "react";
 
 import { RegenLogo } from "@/components/regen/RegenLogo";
+import { RegenMetabolicShiftVisual } from "@/components/regen/RegenMetabolicShiftVisual";
 import type { RxCategoryHub } from "@/lib/rx-category-hubs";
 import { REGEN_SITE, REGEN_TRUST_BAR } from "@/lib/regen-site";
 
@@ -219,6 +220,8 @@ export function RxCategoryLanding({ hub }: { hub: RxCategoryHub }) {
           </div>
         </div>
       </section>
+
+      {hub.id === "weight-loss" ? <RegenMetabolicShiftVisual variant="landing" /> : null}
 
       {/* How it works */}
       {steps.length > 0 && (

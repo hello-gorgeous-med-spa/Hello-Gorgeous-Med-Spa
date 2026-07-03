@@ -1,8 +1,9 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
+
+import { RegenMetabolicShiftVisual } from "@/components/regen/RegenMetabolicShiftVisual";
 
 import { RxIntakeFormCard } from "@/components/rx/intake/RxIntakeFormCard";
 import { SMSDisclosure } from "@/components/SMSDisclosure";
@@ -401,6 +402,10 @@ export function RegenPostPaymentIntakeForm({ orderRef, category, prefill, items 
         >
           {currentStep.description && (
             <p className="mb-5 text-sm text-black/65 leading-relaxed">{currentStep.description}</p>
+          )}
+
+          {category === "weight-loss" && currentStep.id === "weight-loss" && (
+            <RegenMetabolicShiftVisual variant="intake" />
           )}
 
           <div className="space-y-5">
