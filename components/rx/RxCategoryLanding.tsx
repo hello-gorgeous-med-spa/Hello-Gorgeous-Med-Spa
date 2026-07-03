@@ -42,6 +42,8 @@ function ProductCard({
   hubId: RxCategoryHubId;
 }) {
   const getStartedHref = regenStorefrontUrl(hubId, product.id);
+  const learnHref = product.href ?? "#faq";
+  const learnLabel = learnHref.startsWith("#") ? "Q&A" : "Learn more";
 
   return (
     <div className="group flex h-full flex-col overflow-hidden rounded-xl border border-neutral-200 bg-white transition hover:border-neutral-300 hover:shadow-md">
@@ -76,10 +78,10 @@ function ProductCard({
         <p className="mt-3 text-base font-bold text-neutral-900">{product.priceLabel}</p>
         <div className="mt-3 flex gap-2">
           <Link
-            href={product.href}
+            href={learnHref}
             className="flex-1 rounded-md border border-neutral-200 py-2 text-center text-xs font-semibold text-neutral-600 transition hover:border-neutral-300 hover:text-neutral-900"
           >
-            {product.href?.startsWith("#") ? "Q&A" : "Learn more"}
+            {learnLabel}
           </Link>
           <Link
             href={getStartedHref}

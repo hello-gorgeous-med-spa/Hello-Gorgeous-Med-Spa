@@ -10,6 +10,8 @@ import {
   type AccessMedicalPanelCode,
 } from "@/lib/access-medical-lab-catalog";
 
+export { ACCESS_MEDICAL_PANELS } from "@/lib/access-medical-lab-catalog";
+
 export type LabDrawOptionId = "in-office" | "quest-labcorp" | "fullscript";
 
 export type LabDrawOption = {

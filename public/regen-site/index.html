@@ -768,6 +768,7 @@
             </div>
           </div>
           <p class="blurb">Educational guide only — not medical advice. Ryan Kent, FNP-BC reviews every order before we ship.</p>
+          <button type="button" onClick="{{ openChat }}" style="margin-top:12px;width:100%;padding:10px 14px;border:none;border-radius:10px;font-size:13px;font-weight:600;color:#fff;cursor:pointer;background:linear-gradient(135deg,#E6007E,#FF2D8E);">Ask {{ active.mascot.name }}</button>
         </aside>
         </sc-if>
       </div>
@@ -2056,7 +2057,7 @@ class Component extends DCLogic {
     };
     
     const mascotConfig = mascotConfigs[this.state.cat] || null;
-    const showMascotChat = false;
+    const showMascotChat = mascotConfig !== null;
     
     const chatMessages = this.state.chatMessages.length > 0 
       ? this.state.chatMessages 
