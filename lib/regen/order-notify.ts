@@ -4,12 +4,16 @@
  * Complements existing rx-intake-*-notify modules.
  */
 
+import type { SupabaseClient } from "@supabase/supabase-js";
+
 import { getResendFromAddress, isResendBlockedAddressDomain } from "@/lib/resend-config";
 import { sendSms } from "@/lib/notifications/sms-outbound";
 import {
   emailStaffFormSubmission,
   notifyOwnerFormSubmission,
 } from "@/lib/notifications/form-alert";
+import { sendPortalMagicLinkForEmail } from "@/lib/portal-magic-link-server";
+import { regenCheckoutIntakeUrl } from "@/lib/flows";
 import { SITE } from "@/lib/seo";
 import { REGEN_SHIPPING_USD } from "@/lib/regen/pricing-sync";
 
@@ -65,7 +69,7 @@ Total: $${opts.total.toFixed(2)}
 What happens next:
 1. Our NP, Ryan Kent, FNP-BC, will review your intake within 1 business day
 2. Once approved, your order ships (tracking sent via text)
-3. Questions? Call ${REGEN_SUPPORT_PHONE} or check your status: ${opts.statusUrl}
+3. Questions? Call ${REGEN_SUPPORT_PHONE} or sign in to My RX: ${opts.statusUrl}
 
 ${REGEN_BRAND}
 Oswego, IL | ${SITE.url}
@@ -106,8 +110,9 @@ Oswego, IL | ${SITE.url}
         </div>
         
         <p style="text-align: center;">
-          <a href="${opts.statusUrl}" style="display: inline-block; background: #FF2D8E; color: #fff; text-decoration: none; padding: 14px 28px; border-radius: 30px; font-weight: bold;">Track Your Order</a>
+          <a href="${opts.statusUrl}" style="display: inline-block; background: #FF2D8E; color: #fff; text-decoration: none; padding: 14px 28px; border-radius: 30px; font-weight: bold;">Track Your Order in My RX</a>
         </p>
+        <p style="text-align: center; color: #666; font-size: 13px;">Secure one-time sign-in link — expires in 15 minutes. You can request a new link anytime at ${SITE.url}/portal/login</p>
         
         <p style="margin-top: 32px; color: #666; font-size: 14px;">
           Questions? Call us at ${REGEN_SUPPORT_PHONE}
@@ -303,4 +308,120 @@ export function notifyOwnerRegenOrderPlaced(opts: {
     text: emailText,
     replyTo: opts.customerEmail || undefined,
   }).catch((e) => console.error("[regen/order-notify] owner email error:", e));
+}
+
+/**
+ * SMS after payment — prompts patient to complete post-payment intake.
+ */
+export async function smsRegenPaymentReceived(opts: {
+  phone: string;
+  customerName?: string | null;
+  orderRef: string;
+}): Promise<{ ok: boolean; error?: string }> {
+  const firstName = (opts.customerName || "").split(/\s+/)[0] || "there";
+  const intakeUrl = `${SITE.url.replace(/\/$/, "")}${regenCheckoutIntakeUrl(opts.orderRef)}`;
+
+  const message = [
+    `Hi ${firstName}! ${REGEN_BRAND} — payment received for order ${opts.orderRef}.`,
+    `Complete your health intake next (required before we ship): ${intakeUrl}`,
+    `Questions? ${REGEN_SUPPORT_PHONE}. Reply STOP to opt out.`,
+  ].join(" ");
+
+  const result = await sendSms(opts.phone, message);
+  return result.success ? { ok: true } : { ok: false, error: result.error };
+}
+
+type RegenCustomerNotifyItem = {
+  name: string;
+  quantity: number;
+  priceUsd?: number;
+  price?: number;
+};
+
+/**
+ * After intake: order confirmation email + SMS + portal magic link (idempotent via customer_notified_at).
+ */
+export async function notifyCustomerRegenIntakeComplete(
+  supabase: SupabaseClient,
+  opts: {
+    orderRef: string;
+    customerName?: string | null;
+    customerEmail?: string | null;
+    customerPhone?: string | null;
+    items: RegenCustomerNotifyItem[];
+    subtotal: number;
+    total: number;
+    customerNotifiedAt?: string | null;
+  },
+): Promise<{ ok: boolean; notified: boolean }> {
+  if (opts.customerNotifiedAt) {
+    return { ok: true, notified: false };
+  }
+
+  const email = opts.customerEmail?.trim();
+  if (!email) {
+    console.warn("[regen/order-notify] customer email missing — skipping patient notify", opts.orderRef);
+    return { ok: false, notified: false };
+  }
+
+  const portalResult = await sendPortalMagicLinkForEmail(supabase, {
+    email,
+    customerName: opts.customerName,
+    phone: opts.customerPhone,
+    redirect: "/portal/rx",
+    linkOnly: true,
+  });
+
+  const baseUrl = SITE.url.replace(/\/$/, "");
+  const statusUrl =
+    portalResult.magicLink ||
+    portalResult.portalUrl ||
+    `${baseUrl}/portal/login?redirect=${encodeURIComponent("/portal/rx")}`;
+
+  const items = opts.items.map((i) => ({
+    name: i.name,
+    quantity: i.quantity,
+    price: Number(i.priceUsd ?? i.price ?? 0),
+  }));
+
+  const emailResult = await emailRegenOrderConfirmation({
+    to: email,
+    customerName: opts.customerName || "there",
+    orderRef: opts.orderRef,
+    items,
+    subtotal: opts.subtotal,
+    total: opts.total,
+    statusUrl,
+  });
+
+  if (!emailResult.ok) {
+    console.error("[regen/order-notify] customer confirmation email failed:", emailResult.error);
+    return { ok: false, notified: false };
+  }
+
+  if (opts.customerPhone) {
+    const smsResult = await smsRegenOrderConfirmation({
+      phone: opts.customerPhone,
+      customerName: opts.customerName || "there",
+      orderRef: opts.orderRef,
+      total: opts.total,
+      statusUrl: `${baseUrl}/portal/login?redirect=${encodeURIComponent("/portal/rx")}`,
+    });
+    if (!smsResult.ok) {
+      console.warn("[regen/order-notify] customer SMS failed:", smsResult.error);
+    }
+  }
+
+  const now = new Date().toISOString();
+  const { error: markErr } = await supabase
+    .from("regen_orders")
+    .update({ customer_notified_at: now, updated_at: now })
+    .eq("reference", opts.orderRef)
+    .is("customer_notified_at", null);
+
+  if (markErr) {
+    console.error("[regen/order-notify] customer_notified_at update failed:", markErr);
+  }
+
+  return { ok: true, notified: true };
 }

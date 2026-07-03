@@ -4,6 +4,8 @@ import { randomBytes } from "crypto";
 import { getSupabaseAdminClient } from "@/lib/hgos/supabase-admin";
 import { notifyOwnerFormSubmission } from "@/lib/notifications/form-alert";
 import { resolveOrCreateClientForIntake } from "@/lib/resolveClientForIntake";
+import { notifyCustomerRegenIntakeComplete } from "@/lib/regen/order-notify";
+import { REGEN_SHIPPING_USD } from "@/lib/regen/pricing-sync";
 import {
   REGEN_POST_PAYMENT_INTAKE_SLUG,
   buildRegenPostPaymentIntakeSteps,
@@ -25,7 +27,9 @@ type OrderRow = {
   goal: string | null;
   allergies: string | null;
   items: unknown;
+  subtotal_usd: number | string | null;
   intake_completed_at: string | null;
+  customer_notified_at: string | null;
   telehealth_required: boolean | null;
 };
 
@@ -47,7 +51,7 @@ export async function GET(req: NextRequest) {
   const { data: order, error } = await admin
     .from("regen_orders")
     .select(
-      "reference, status, customer_name, customer_email, customer_phone, goal, allergies, items, intake_completed_at, telehealth_required"
+      "reference, status, customer_name, customer_email, customer_phone, goal, allergies, items, intake_completed_at, customer_notified_at, subtotal_usd, telehealth_required"
     )
     .eq("reference", ref)
     .maybeSingle();
@@ -111,7 +115,7 @@ export async function POST(req: NextRequest) {
   const { data: order, error: fetchErr } = await admin
     .from("regen_orders")
     .select(
-      "reference, status, customer_name, customer_email, customer_phone, goal, allergies, items, intake_completed_at, telehealth_required"
+      "reference, status, customer_name, customer_email, customer_phone, goal, allergies, items, intake_completed_at, customer_notified_at, subtotal_usd, telehealth_required"
     )
     .eq("reference", orderRef)
     .maybeSingle();
@@ -231,6 +235,21 @@ export async function POST(req: NextRequest) {
       "Patient needs telehealth before ship",
     ].filter(Boolean),
   });
+
+  const customerEmail = String(responses.confirm_email || row.customer_email || "").trim() || row.customer_email;
+  const subtotal = Number(row.subtotal_usd) || 0;
+  const items = Array.isArray(row.items) ? (row.items as Array<{ name: string; quantity: number; priceUsd?: number; price?: number }>) : [];
+
+  void notifyCustomerRegenIntakeComplete(admin, {
+    orderRef,
+    customerName: signerName || row.customer_name,
+    customerEmail,
+    customerPhone: clientPhone || row.customer_phone,
+    items,
+    subtotal,
+    total: subtotal + REGEN_SHIPPING_USD,
+    customerNotifiedAt: row.customer_notified_at,
+  }).catch((e) => console.error("[regen/order-intake] customer notify error:", e));
 
   return NextResponse.json({
     success: true,

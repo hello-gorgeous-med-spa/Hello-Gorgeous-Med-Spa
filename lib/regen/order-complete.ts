@@ -4,7 +4,7 @@
  */
 
 import { getSupabaseAdminClient } from "@/lib/hgos/supabase-admin";
-import { notifyOwnerRegenOrderPlaced } from "@/lib/regen/order-notify";
+import { notifyOwnerRegenOrderPlaced, smsRegenPaymentReceived } from "@/lib/regen/order-notify";
 import { REGEN_SHIPPING_USD } from "@/lib/regen/pricing-sync";
 
 type RegenOrderRow = {
@@ -81,6 +81,14 @@ export async function completeRegenOrderAndNotify(
 
     updates.owner_notified_at = now;
     notified = true;
+
+    if (row.customer_phone) {
+      void smsRegenPaymentReceived({
+        phone: row.customer_phone,
+        customerName: row.customer_name,
+        orderRef: row.reference,
+      }).catch((e) => console.error("[regen/order-complete] payment SMS error:", e));
+    }
   }
 
   const { error: updateError } = await admin
