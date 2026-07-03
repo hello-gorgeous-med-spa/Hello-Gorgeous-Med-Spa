@@ -148,12 +148,12 @@ function CategoryFaq({ faq, hubId }: { faq?: RxCategoryHub["faq"]; hubId: RxCate
           className={`mt-8 grid gap-8 ${mascot ? "lg:grid-cols-[minmax(0,1fr)_220px] lg:items-start" : "max-w-3xl"}`}
         >
           {mascot ? (
-            <div className="order-first lg:order-2">
+            <div className="order-2 lg:order-2">
               <CategoryMascotAside hubId={hubId} />
             </div>
           ) : null}
 
-          <div className={`order-2 divide-y divide-neutral-200 border-y border-neutral-200 ${mascot ? "lg:order-1" : ""}`}>
+          <div className={`order-1 divide-y divide-neutral-200 border-y border-neutral-200 ${mascot ? "lg:order-1" : ""}`}>
             {faq.map((item, index) => (
               <div key={index}>
                 <button
