@@ -338,6 +338,7 @@ const HAIR_SKIN_FAQ = [
   },
 ] as const;
 
+export const REGEN_CATEGORY_HUBS: RxCategoryHub[] = [
   {
     id: "weight-loss",
     navLabel: "Weight Loss",
