@@ -1,0 +1,303 @@
+[
+  {
+    "id": "regen-sermorelin",
+    "storefrontFile": "prod-sermorelin-regen.png",
+    "name": "Sermorelin",
+    "chip": "GH Support",
+    "what": "A growth hormone–releasing hormone (GHRH) analog that signals the pituitary gland rather than replacing hormones directly.",
+    "studiedFor": [
+      "Prompts the body's own pituitary to release growth hormone",
+      "Lean muscle and recovery support",
+      "Sleep quality and next-day energy",
+      "Healthy-aging and vitality protocols"
+    ],
+    "specs": [
+      "5 mg",
+      "Sterile",
+      "Subcutaneous"
+    ],
+    "vial": "jpeg"
+  },
+  {
+    "id": "regen-cjc-ipamorelin",
+    "storefrontFile": "prod-cjc-ipamorelin-regen.png",
+    "name": "CJC-1295 / Ipamorelin",
+    "chip": "GH Support",
+    "what": "A dual blend: CJC-1295 , a long-acting GHRH analog, paired with Ipamorelin , a selective GH secretagogue.",
+    "studiedFor": [
+      "Two receptors amplify a natural GH pulse",
+      "Body composition and fat metabolism",
+      "Minimal cortisol or prolactin impact",
+      "Recovery and deeper sleep"
+    ],
+    "specs": [
+      "6 mL",
+      "Sterile",
+      "Subcutaneous"
+    ],
+    "vial": "jpeg"
+  },
+  {
+    "id": "regen-tesamorelin-ipamorelin",
+    "storefrontFile": "prod-tesamorelin-regen.png",
+    "name": "Tesamorelin / Ipamorelin",
+    "chip": "GH Support",
+    "what": "Tesamorelin , the most-studied GHRH analog for visceral fat, combined with Ipamorelin for a targeted GH pulse.",
+    "studiedFor": [
+      "Reduction of visceral (deep abdominal) fat",
+      "Body composition and metabolic support",
+      "Natural growth-hormone signaling",
+      "Recovery and lean-mass maintenance"
+    ],
+    "specs": [
+      "5 mg / 5 mg",
+      "Sterile",
+      "Subcutaneous"
+    ],
+    "vial": "jpeg"
+  },
+  {
+    "id": "regen-bpc-157",
+    "storefrontFile": "prod-bpc157-regen.png",
+    "name": "BPC-157",
+    "chip": "Recovery",
+    "what": "“Body Protection Compound” — a stable 15–amino-acid peptide originally identified in gastric juice.",
+    "studiedFor": [
+      "Angiogenesis — new blood-vessel formation (preclinical)",
+      "Tendon, ligament, and muscle tissue repair",
+      "Gut-lining and digestive health",
+      "Soft-tissue recovery protocols"
+    ],
+    "specs": [
+      "5 mg",
+      "Sterile",
+      "Subcutaneous"
+    ],
+    "vial": "jpeg"
+  },
+  {
+    "id": "regen-tb-500",
+    "storefrontFile": "prod-tb500-regen.png",
+    "name": "TB-500",
+    "chip": "Recovery",
+    "what": "A synthetic fragment of Thymosin Beta-4 , an actin-binding peptide found throughout the body's tissues.",
+    "studiedFor": [
+      "Tissue repair and faster recovery",
+      "Angiogenesis and improved blood flow",
+      "Flexibility and reduced scar adhesions",
+      "Often paired with BPC-157"
+    ],
+    "specs": [
+      "5 mg",
+      "Sterile",
+      "Subcutaneous"
+    ],
+    "vial": "jpeg"
+  },
+  {
+    "id": "regen-wolverine-stack",
+    "storefrontFile": "prod-wolverine-stack-regen.png",
+    "name": "Wolverine Stack",
+    "chip": "Recovery",
+    "what": "The two most-studied recovery peptides in one vial: BPC-157 + TB-500 — the “healing stack.”",
+    "studiedFor": [
+      "Accelerated soft-tissue repair",
+      "Tendon, ligament, and muscle recovery",
+      "Gut support and angiogenesis",
+      "Synergistic BPC-157 + TB-500 action"
+    ],
+    "specs": [
+      "5 mL",
+      "BPC-157 + TB-500",
+      "Sterile"
+    ],
+    "vial": "jpeg"
+  },
+  {
+    "id": "regen-klow",
+    "storefrontFile": "prod-klow-regen.png",
+    "name": "KLOW",
+    "chip": "Premium",
+    "what": "A premium 4-in-1 blend : BPC-157 + TB-500 + GHK-Cu + KPV — whole-body repair in one vial.",
+    "studiedFor": [
+      "Skin and collagen support (GHK-Cu)",
+      "Gut and inflammation support (KPV)",
+      "Soft-tissue recovery (BPC-157 / TB-500)",
+      "All-in-one repair protocol"
+    ],
+    "specs": [
+      "5 mL",
+      "BPC + TB + GHK-Cu + KPV",
+      "Sterile"
+    ],
+    "vial": "jpeg"
+  },
+  {
+    "id": "regen-nad-plus",
+    "storefrontFile": "prod-nad-regen.png",
+    "name": "NAD+",
+    "chip": "Longevity",
+    "what": "Nicotinamide adenine dinucleotide — a coenzyme present in every living cell whose levels decline with age.",
+    "studiedFor": [
+      "Mitochondrial energy production (ATP)",
+      "Fuels DNA-repair enzymes and sirtuins",
+      "Metabolism and cellular resilience",
+      "Mental clarity, focus, healthy aging"
+    ],
+    "specs": [
+      "100 mg/mL",
+      "Sterile",
+      "Subcutaneous"
+    ],
+    "vial": "jpeg"
+  },
+  {
+    "id": "regen-5-amino-1mq",
+    "storefrontFile": "prod-5amino1mq-regen.png",
+    "name": "5-Amino-1MQ",
+    "chip": "Metabolic",
+    "what": "A small-molecule NNMT enzyme inhibitor (not a peptide), taken orally in capsule form.",
+    "studiedFor": [
+      "Metabolism and fat metabolism",
+      "NAD+ support at the cellular level",
+      "Energy and body-composition goals",
+      "Studied alongside diet and training"
+    ],
+    "specs": [
+      "30 capsules",
+      "Oral"
+    ],
+    "vial": "svg-placeholder"
+  },
+  {
+    "id": "regen-ss-31",
+    "storefrontFile": "prod-ss31-regen.png",
+    "name": "SS-31",
+    "chip": "Performance",
+    "what": "A mitochondria-targeting peptide (elamipretide) that binds cardiolipin on the inner mitochondrial membrane.",
+    "studiedFor": [
+      "Mitochondrial energy efficiency",
+      "Cellular performance and recovery",
+      "Support against age-related decline",
+      "Endurance and vitality research"
+    ],
+    "specs": [
+      "5 mL",
+      "Sterile",
+      "Subcutaneous"
+    ],
+    "vial": "svg-placeholder"
+  },
+  {
+    "id": "regen-ghk-cu",
+    "storefrontFile": "prod-ghkcu-regen.png",
+    "name": "GHK-Cu",
+    "chip": "Skin",
+    "what": "A naturally occurring copper-binding tripeptide (Gly-His-Lys + copper) whose levels fall with age.",
+    "studiedFor": [
+      "Collagen and elastin for skin firmness",
+      "Wound healing and tissue remodeling",
+      "Hair-follicle support",
+      "Antioxidant and anti-inflammatory activity"
+    ],
+    "specs": [
+      "5 mg",
+      "Sterile",
+      "Subcutaneous"
+    ],
+    "vial": "jpeg"
+  },
+  {
+    "id": "regen-glutathione",
+    "storefrontFile": "prod-glutathione-regen.png",
+    "name": "Glutathione",
+    "chip": "Antioxidant",
+    "what": "The body's primary intracellular antioxidant — a tripeptide of glutamate, cysteine, and glycine.",
+    "studiedFor": [
+      "Antioxidant defense and cellular protection",
+      "Detoxification support",
+      "Skin brightness and clarity",
+      "Recovery from oxidative stress"
+    ],
+    "specs": [
+      "5 mL",
+      "Sterile",
+      "Subcutaneous"
+    ],
+    "vial": "svg-placeholder"
+  },
+  {
+    "id": "regen-semax",
+    "storefrontFile": "prod-semax-regen.png",
+    "name": "Semax",
+    "chip": "Cognitive",
+    "what": "A synthetic nootropic peptide based on a fragment of ACTH , delivered as a nasal spray.",
+    "studiedFor": [
+      "Focus and mental energy",
+      "Memory and learning support",
+      "Neuroprotection research",
+      "BDNF and neuroplasticity"
+    ],
+    "specs": [
+      "Nasal spray",
+      "Intranasal use"
+    ],
+    "vial": "jpeg"
+  },
+  {
+    "id": "regen-selank",
+    "storefrontFile": "prod-selank-regen.png",
+    "name": "Selank",
+    "chip": "Mood",
+    "what": "A synthetic anxiolytic peptide derived from the immune peptide tuftsin , delivered as a nasal spray.",
+    "studiedFor": [
+      "Calm without sedation",
+      "Anxiety and stress reduction",
+      "Focus and mental clarity",
+      "BDNF and neuroplasticity support"
+    ],
+    "specs": [
+      "Nasal spray",
+      "Intranasal use"
+    ],
+    "vial": "jpeg"
+  },
+  {
+    "id": "regen-methylene-blue",
+    "storefrontFile": "prod-methylene-blue-regen.png",
+    "name": "Methylene Blue",
+    "chip": "Cognitive",
+    "what": "A pharmaceutical-grade phenothiazine compound and mitochondrial electron carrier, taken orally.",
+    "studiedFor": [
+      "Mitochondrial cellular energy",
+      "Cognition and focus",
+      "Antioxidant activity",
+      "Healthy-aging research"
+    ],
+    "note": "Caution: interacts with SSRIs and other serotonergic medications (serotonin-syndrome risk). Also an approved drug for specific medical uses.",
+    "specs": [
+      "30 capsules",
+      "Oral"
+    ],
+    "vial": "svg-placeholder"
+  },
+  {
+    "id": "regen-thymosin-alpha-1",
+    "storefrontFile": "prod-thymosin-a1-regen.png",
+    "name": "Thymosin Alpha-1",
+    "chip": "Immune",
+    "what": "A 28–amino-acid peptide naturally produced by the thymus gland — a key immune-signaling molecule.",
+    "studiedFor": [
+      "Immune modulation and T-cell function",
+      "Resilience during infection or stress",
+      "Studied as a clinical adjuvant",
+      "General immune support"
+    ],
+    "specs": [
+      "5 mg",
+      "Sterile",
+      "Subcutaneous"
+    ],
+    "vial": "svg-placeholder"
+  }
+]

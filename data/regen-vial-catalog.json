@@ -9,6 +9,7 @@
   { "file": "prod-tesamorelin-regen.png", "name": "TESAMORELIN", "category": "GH SUPPORT", "dose": "5 mL", "usage": ["Sterile", "For Subcutaneous Use"], "skip": true },
   { "file": "prod-nad-regen.png", "name": "NAD+", "category": "LONGEVITY SUPPORT", "dose": "100 mg/mL", "usage": ["Sterile", "For Subcutaneous Use"], "skip": true },
   { "file": "prod-methylene-blue-regen.png", "name": "METHYLENE BLUE", "category": "COGNITIVE SUPPORT", "dose": "30 ct", "usage": ["Capsules", "For Oral Use"], "form": "bottle" },
+  { "file": "prod-thymosin-a1-regen.png", "name": "THYMOSIN A-1", "category": "IMMUNE SUPPORT", "dose": "5 mg", "usage": ["Sterile", "For Subcutaneous Use"] },
   { "file": "prod-glutathione-regen.png", "name": "GLUTATHIONE", "category": "ANTIOXIDANT", "dose": "5 mL", "usage": ["Sterile", "For Subcutaneous Use"], "skip": true },
   { "file": "prod-ss31-regen.png", "name": "SS-31", "category": "MITO SUPPORT", "dose": "5 mL", "usage": ["Sterile", "For Subcutaneous Use"], "skip": true },
   { "file": "prod-selank-regen.png", "name": "SELANK", "category": "CALM SUPPORT", "dose": "Spray", "usage": ["Nasal Spray", "For Intranasal Use"], "form": "spray", "skip": true },

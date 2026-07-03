@@ -243,6 +243,16 @@
   .rgx-prog { height:5px; background:var(--hg-pink-mid); }
   .rgx-prog .bar { height:100%; background:var(--hg-pink); transition:width .3s; }
   .rgx-modal-b { padding:30px 28px 34px; }
+  .rgx-learn-modal { width:620px; }
+  .rgx-learn-chip { display:inline-block; font-size:11px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; padding:5px 11px; border-radius:20px; background:var(--hg-pink-soft); color:#9b0a4d; margin:8px 0 0; }
+  .rgx-learn-eyebrow { font-size:11px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:rgba(0,0,0,.45); margin:18px 0 8px; }
+  .rgx-learn-list { margin:0; padding:0 0 0 18px; color:rgba(0,0,0,.78); line-height:1.65; font-size:15px; }
+  .rgx-learn-list li { margin-bottom:6px; }
+  .rgx-learn-specs { display:flex; flex-wrap:wrap; gap:8px; margin-top:16px; }
+  .rgx-learn-spec { font-size:12px; font-weight:600; padding:6px 11px; border-radius:8px; border:1px solid rgba(0,0,0,.12); background:#fafafa; }
+  .rgx-learn-note { margin:16px 0 0; padding:12px 14px; border-radius:10px; background:#FFF8E6; border:1px solid #F0D78C; font-size:13px; line-height:1.55; color:#5c4a12; }
+  .rgx-learn-disc { margin:18px 0 0; font-size:11px; line-height:1.6; color:rgba(0,0,0,.48); }
+  .rgx-learn-actions { display:flex; gap:10px; flex-wrap:wrap; margin-top:22px; }
   .rgx-goalbtn { display:flex; align-items:center; gap:14px; width:100%; text-align:left; padding:16px 18px; border:2px solid var(--border-hairline); border-radius:12px; background:#fff; cursor:pointer; font-size:17px; font-weight:600; font-family:var(--font-display); transition:border-color .2s, background .2s; }
   .rgx-goalbtn:hover { border-color:var(--hg-pink); background:var(--hg-pink-soft); }
   .rgx-input { width:100%; padding:14px 16px; border:1px solid rgba(0,0,0,.25); border-radius:10px; font-size:16px; font-family:var(--font-body); margin-bottom:14px; }
@@ -631,8 +641,11 @@
                   <sc-if value="{{ p.hasGuide }}">
                     <a class="rgx-btn-ghost" href="{{ p.guideUrl }}" target="_blank" rel="noopener">Dosing guide</a>
                   </sc-if>
-                  <sc-if value="{{ p.noGuide }}">
-                    <button class="rgx-btn-ghost" type="button" onClick="{{ openCategoryLanding }}">Learn more</button>
+                  <sc-if value="{{ p.hasLearn }}">
+                    <button class="rgx-btn-ghost" type="button" onClick="{{ p.openLearn }}">Learn more</button>
+                  </sc-if>
+                  <sc-if value="{{ p.fallbackQa }}">
+                    <button class="rgx-btn-ghost" type="button" onClick="{{ openCategoryLanding }}">Q&amp;A</button>
                   </sc-if>
                   <button class="rgx-btn-dark" onClick="{{ p.add }}">Add to cart</button>
                 </div>
@@ -1254,6 +1267,48 @@
     </div>
   </sc-if>
 
+  <!-- ============ PRODUCT LEARN MODAL ============ -->
+  <sc-if value="{{ learnOpen }}">
+    <div class="rgx-overlay" onClick="{{ closeLearn }}"></div>
+    <div class="rgx-modal rgx-learn-modal">
+      <div class="rgx-modal-h">
+        <div>
+          <h2 style="margin:0;font-size:22px;line-height:1.2;">{{ learnCardName }}</h2>
+          <span class="rgx-learn-chip">{{ learnCardChip }}</span>
+        </div>
+        <button class="rgx-iconbtn" style="color:#000;" onClick="{{ closeLearn }}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+      </div>
+      <div class="rgx-modal-b">
+        <sc-if value="{{ learnCardImg }}">
+          <div style="background:linear-gradient(160deg,#1a1216,#2d1020);border-radius:14px;padding:20px;margin-bottom:8px;display:flex;align-items:center;justify-content:center;min-height:160px;">{{ learnCardImgEl }}</div>
+        </sc-if>
+        <div class="rgx-learn-eyebrow">What it is</div>
+        <p style="margin:0;font-size:16px;line-height:1.65;color:rgba(0,0,0,.82);">{{ learnCardWhat }}</p>
+        <div class="rgx-learn-eyebrow">Studied for</div>
+        <ul class="rgx-learn-list">
+          <sc-for list="{{ learnCardBullets }}" as="b" hint-placeholder-count="0">
+            <li>{{ b.text }}</li>
+          </sc-for>
+        </ul>
+        <sc-if value="{{ learnCardNote }}">
+          <p class="rgx-learn-note">{{ learnCardNote }}</p>
+        </sc-if>
+        <div class="rgx-learn-specs">
+          <sc-for list="{{ learnCardSpecs }}" as="s" hint-placeholder-count="0">
+            <span class="rgx-learn-spec">{{ s.text }}</span>
+          </sc-for>
+        </div>
+        <p class="rgx-learn-disc">For educational purposes only. Not evaluated by the FDA to diagnose, treat, cure, or prevent disease. Your NP reviews your history before prescribing.</p>
+        <div class="rgx-learn-actions">
+          <sc-if value="{{ learnCardGuide }}">
+            <a class="rgx-btn-ghost" href="{{ learnCardGuide }}" target="_blank" rel="noopener">Dosing guide</a>
+          </sc-if>
+          <button class="rgx-btn-dark" type="button" onClick="{{ learnCardAdd }}">Add to cart</button>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
   <!-- ============ MOBILE MENU ============ -->
   <sc-if value="{{ menuOpen }}">
     <div class="rgx-mobile">
@@ -1390,7 +1445,59 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:&quot;100%&quot;,&quot;height&quot;:&quot;100%&quot;}}">
 class Component extends DCLogic {
-  state = { view: 'hub', cat: 'weight-loss', cartOpen: false, cart: [], menuOpen: false, quizOpen: false, quizStep: 0, quizGoal: '', logoOpen: false, introOpen: true, supplyMonths: 1, dosingCalcOpen: false, dosingMed: 'semaglutide', dosingWeeklyMg: 2.5, chatOpen: false, chatMessages: [], chatLoading: false };
+  state = { view: 'hub', cat: 'weight-loss', cartOpen: false, cart: [], menuOpen: false, quizOpen: false, quizStep: 0, quizGoal: '', logoOpen: false, introOpen: true, supplyMonths: 1, dosingCalcOpen: false, dosingMed: 'semaglutide', dosingWeeklyMg: 2.5, chatOpen: false, chatMessages: [], chatLoading: false, learnOpen: false, learnCard: null, learnProduct: null };
+
+  learnIds() {
+    if (this._learnIds) return this._learnIds;
+    this._learnIds = {
+      'Sermorelin': 'regen-sermorelin',
+      'BPC-157': 'regen-bpc-157',
+      'TB-500': 'regen-tb-500',
+      'Wolverine Stack': 'regen-wolverine-stack',
+      'KLOW': 'regen-klow',
+      'CJC / Ipamorelin': 'regen-cjc-ipamorelin',
+      'Tesamorelin / Ipamorelin': 'regen-tesamorelin-ipamorelin',
+      'NAD+': 'regen-nad-plus',
+      'Methylene Blue': 'regen-methylene-blue',
+      'GHK-Cu': 'regen-ghk-cu',
+      'Glutathione': 'regen-glutathione',
+      'SS-31': 'regen-ss-31',
+      'Thymosin A-1': 'regen-thymosin-alpha-1',
+      'Selank': 'regen-selank',
+      'Semax': 'regen-semax',
+      '5-Amino-1MQ': 'regen-5-amino-1mq',
+    };
+    return this._learnIds;
+  }
+
+  async ensureLearnCards() {
+    if (this._learnCards) return this._learnCards;
+    try {
+      const res = await fetch(this.R('data/regen-peptide-cards-content.json'));
+      if (!res.ok) throw new Error('missing content');
+      const cards = await res.json();
+      this._learnCards = Object.fromEntries(cards.map(c => [c.id, c]));
+    } catch (err) {
+      console.warn('[REGEN] learn cards unavailable', err);
+      this._learnCards = {};
+    }
+    return this._learnCards;
+  }
+
+  openLearnCard(learnId, product) {
+    this.ensureLearnCards().then(cards => {
+      const card = cards[learnId];
+      if (!card) {
+        this.goToLanding(this.state.cat);
+        return;
+      }
+      this.setState({ learnOpen: true, learnCard: card, learnProduct: product || null });
+    });
+  }
+
+  closeLearnCard() {
+    this.setState({ learnOpen: false, learnCard: null, learnProduct: null });
+  }
 
   cats() {
     if (this._cats) return this._cats;
@@ -1791,7 +1898,10 @@ class Component extends DCLogic {
         const priceN = is3 ? p.price3N : p.priceN;
         const displayPrice = this.fmt(priceN);
         const supplyLabel = is3 ? '3-month supply' : '1-month supply';
-        return { ...p, displayPrice, price3Full: p.price3Full, is3Month: is3, add:() => this.addToCart({ ...p, name: p.name + ' (' + supplyLabel + ')', priceN, price: displayPrice }), noimg: !p.img, imgEl: p.img ? React.createElement('img', { className:'pimg', src:this.R(p.img), alt:p.name }) : null, hasGuide: !!p.guide, noGuide: !p.guide, guideUrl: p.guide || '' };
+        const learnId = this.learnIds()[p.name] || '';
+        const addFn = () => this.addToCart({ ...p, name: p.name + ' (' + supplyLabel + ')', priceN, price: displayPrice });
+        const enriched = { ...p, displayPrice, price3Full: p.price3Full, is3Month: is3, add: addFn, noimg: !p.img, imgEl: p.img ? React.createElement('img', { className:'pimg', src:this.R(p.img), alt:p.name }) : null, hasGuide: !!p.guide, guideUrl: p.guide || '', learnId, hasLearn: !!learnId, fallbackQa: !p.guide && !learnId, openLearn: () => this.openLearnCard(learnId, { ...p, displayPrice, priceN, supplyLabel, guide: p.guide, img: p.img, add: addFn }) };
+        return enriched;
       }),
       rows: (active.rows || []).map(r => {
         const is3 = this.state.supplyMonths === 3;
@@ -1845,6 +1955,23 @@ class Component extends DCLogic {
       openQuiz:() => this.setState({ quizOpen:true, quizStep:0, quizGoal:'', menuOpen:false }),
       openQuizFromMenu:() => this.setState({ quizOpen:true, quizStep:0, quizGoal:'', menuOpen:false }),
       closeQuiz:() => this.setState({ quizOpen:false }),
+      learnOpen: this.state.learnOpen,
+      learnCardName: this.state.learnCard?.name || '',
+      learnCardChip: this.state.learnCard?.chip || '',
+      learnCardWhat: this.state.learnCard?.what || '',
+      learnCardNote: this.state.learnCard?.note || '',
+      learnCardGuide: this.state.learnProduct?.guide || '',
+      learnCardImg: !!(this.state.learnProduct?.img),
+      learnCardImgEl: this.state.learnProduct?.img ? React.createElement('img', { src: this.R(this.state.learnProduct.img), alt: this.state.learnCard?.name || 'Product', style: { maxHeight:'140px', width:'auto', objectFit:'contain' } }) : null,
+      learnCardBullets: (this.state.learnCard?.studiedFor || []).map((text, i) => ({ text, key: i })),
+      learnCardSpecs: (this.state.learnCard?.specs || []).map((text, i) => ({ text, key: i })),
+      closeLearn: () => this.closeLearnCard(),
+      learnCardAdd: () => {
+        const p = this.state.learnProduct;
+        if (p?.add) p.add();
+        this.closeLearnCard();
+        this.setState({ cartOpen: true });
+      },
       quizNext:() => this.setState(s => ({ quizStep: Math.min(3, s.quizStep + 1) })),
       quizBack:() => this.setState(s => ({ quizStep: Math.max(0, s.quizStep - 1) })),
       setPregnantNo:() => this.setState({ pregnant: 'no' }),
