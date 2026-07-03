@@ -308,6 +308,11 @@ const PEPTIDE_PRODUCTS: RxCategoryProduct[] = [
     rx: true,
   },
   {
+    id: "tb-500",
+    name: "TB-500 Injection",
+    description: "Mobility & tissue support — often paired with BPC-157",
+    priceLabel: "$212.50/vial",
+    href: "#faq",
     image: "/regen-site/assets/prod-tb500-regen.png",
     imageAlt: "TB-500 peptide — RE GEN",
     rx: true,

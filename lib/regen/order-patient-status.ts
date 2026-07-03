@@ -33,6 +33,7 @@ export type RegenOrderRecord = {
 
 const PAID_STATUSES = new Set([
   "paid",
+  "intake_complete",
   "telehealth_scheduled",
   "approved",
   "ordered",

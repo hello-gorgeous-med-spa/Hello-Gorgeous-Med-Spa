@@ -79,7 +79,7 @@ function ProductCard({
             href={product.href}
             className="flex-1 rounded-md border border-neutral-200 py-2 text-center text-xs font-semibold text-neutral-600 transition hover:border-neutral-300 hover:text-neutral-900"
           >
-            {product.href.startsWith("#") ? "Q&A" : "Learn more"}
+            {product.href?.startsWith("#") ? "Q&A" : "Learn more"}
           </Link>
           <Link
             href={getStartedHref}

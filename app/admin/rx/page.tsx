@@ -146,6 +146,9 @@ export default function AdminRxCommandCenterPage() {
             <Link href="/admin/rx/catalog" className="text-[#E6007E] font-semibold hover:text-white">
               RE GEN Catalog →
             </Link>
+            <Link href="/admin/rx/regen-orders" className="text-[#FF2D8E] font-semibold hover:text-white">
+              RE GEN Fulfillment →
+            </Link>
             <Link href="/admin/rx/glp1-pricing" className="text-[#FFB8DC] hover:text-white">
               GLP-1 Pricing →
             </Link>
@@ -280,6 +283,12 @@ export default function AdminRxCommandCenterPage() {
                           </>
                         ) : item.kind === "regen" ? (
                           <>
+                            <Link
+                              href={`/admin/rx/regen-orders/${encodeURIComponent(item.intakeRef)}`}
+                              className="text-[#FF2D8E] font-bold hover:underline"
+                            >
+                              Fulfill
+                            </Link>
                             <Link
                               href={`/rx/checkout/intake?ref=${encodeURIComponent(item.intakeRef)}`}
                               target="_blank"
