@@ -1,9 +1,9 @@
 [
   { "file": "prod-bpc157-regen.png", "name": "BPC-157", "category": "PEPTIDE SUPPORT", "dose": "5 mg", "usage": ["Sterile", "For Subcutaneous Use"], "skip": true },
   { "file": "prod-ghkcu-regen.png", "name": "GHK-CU", "category": "COPPER PEPTIDE", "dose": "5 mg", "usage": ["Sterile", "For Subcutaneous Use"], "skip": true },
-  { "file": "prod-tb500-regen.png", "name": "TB-500", "category": "PEPTIDE SUPPORT", "dose": "5 mg", "usage": ["Sterile", "For Subcutaneous Use"] },
-  { "file": "prod-wolverine-stack-regen.png", "name": "WOLVERINE", "category": "PEPTIDE STACK", "dose": "5 mL", "usage": ["Sterile", "For Subcutaneous Use"] },
-  { "file": "prod-klow-regen.png", "name": "KLOW", "category": "PEPTIDE STACK", "dose": "5 mL", "usage": ["Sterile", "For Subcutaneous Use"] },
+  { "file": "prod-tb500-regen.png", "name": "TB-500", "category": "PEPTIDE SUPPORT", "dose": "5 mg", "usage": ["Sterile", "For Subcutaneous Use"], "skip": true },
+  { "file": "prod-wolverine-stack-regen.png", "name": "WOLVERINE", "category": "PEPTIDE STACK", "dose": "5 mL", "usage": ["Sterile", "For Subcutaneous Use"], "skip": true },
+  { "file": "prod-klow-regen.png", "name": "KLOW", "category": "PEPTIDE STACK", "dose": "5 mL", "usage": ["Sterile", "For Subcutaneous Use"], "skip": true },
   { "file": "prod-sermorelin-regen.png", "name": "SERMORELIN", "category": "GH SUPPORT", "dose": "6 mL", "usage": ["Sterile", "For Subcutaneous Use"], "skip": true },
   { "file": "prod-cjc-ipamorelin-regen.png", "name": "CJC / IPA", "category": "GH SUPPORT", "dose": "5 mL", "usage": ["Sterile", "For Subcutaneous Use"], "skip": true },
   { "file": "prod-tesamorelin-regen.png", "name": "TESAMORELIN", "category": "GH SUPPORT", "dose": "5 mL", "usage": ["Sterile", "For Subcutaneous Use"], "skip": true },
