@@ -6,7 +6,6 @@ import { GENTLEMENS_CLUB_PATH } from "@/lib/gentlemens-club";
 import { RX_ONLINE_GUIDE_PATH } from "@/lib/rx-online-guide";
 
 import { HomepageMedicalStickyBar } from "./HomepageMedicalStickyBar";
-import { HomepageShopRxFinder } from "./HomepageShopRxFinder";
 
 const MORE_MEDICAL = [
   { href: RX_ONLINE_GUIDE_PATH, label: "Online refill guide" },
@@ -18,11 +17,10 @@ const MORE_MEDICAL = [
   { href: `${CLIENT_APP.path}?rx=1`, label: "Hello Gorgeous app" },
 ] as const;
 
-/** Product finder + footer links — below founder content; not between hero sections. */
+/** Medical footer links — RE GEN band below handles primary RX discovery. */
 export function HomepageMedicalLane() {
   return (
     <div id={HOMEPAGE_MEDICAL_ANCHOR} className="scroll-mt-20">
-      <HomepageShopRxFinder />
       <div className="border-b border-neutral-200 bg-neutral-50 px-4 py-6 pb-20 md:pb-6">
         <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-center gap-x-4 gap-y-2 text-sm">
           <span className="text-xs font-medium uppercase tracking-wider text-neutral-400">

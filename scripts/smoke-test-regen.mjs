@@ -17,6 +17,7 @@ const URLS = [
   "/rx/request",
   "/rx/care",
   "/peptides",
+  "/rx/brochure",
   "/brochure/regen.html",
   "/regen-tv",
   "/promo-kit/",

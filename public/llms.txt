@@ -21,6 +21,7 @@
 - Primary URL: https://www.hellogorgeousmedspa.com/rx
 - Request portal (goal + form-factor catalog): https://www.hellogorgeousmedspa.com/rx/request
 - Patient care / refills: https://www.hellogorgeousmedspa.com/rx/care
+- Patient brochure (share link): https://www.hellogorgeousmedspa.com/rx/brochure
 - Category hubs:
   - Weight loss (GLP-1): https://www.hellogorgeousmedspa.com/rx/weight-loss
   - Hormones (TRT/HRT): https://www.hellogorgeousmedspa.com/rx/hormones

@@ -92,7 +92,7 @@ export default function StaffPage() {
 
           {/* Print Brochure */}
           <a
-            href="/brochure/regen.html"
+            href="/rx/brochure"
             target="_blank"
             className="block bg-gradient-to-r from-cyan-600/20 to-blue-600/20 backdrop-blur rounded-2xl p-5 border-2 border-cyan-400/50 hover:border-cyan-400 hover:from-cyan-600/30 hover:to-blue-600/30 transition-all"
           >

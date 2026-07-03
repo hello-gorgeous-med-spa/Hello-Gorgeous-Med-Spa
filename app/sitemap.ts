@@ -264,6 +264,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.88,
     },
     {
+      url: `${baseUrl}/rx/brochure`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly',
+      priority: 0.9,
+    },
+    {
       url: `${baseUrl}/rx/messages`,
       lastModified: currentDate,
       changeFrequency: 'weekly',
