@@ -201,6 +201,19 @@ export const RX_PATIENT_CARE_PATH = "/rx/care";
 /** Secure RX patient ↔ staff messaging at `/rx/messages`. */
 export { RX_MESSAGES_PATH } from "@/lib/rx-secure-messages";
 
+/** RE GEN pay-first checkout — success marks paid, intake gathers health history. */
+export const REGEN_CHECKOUT_SUCCESS_PATH = "/rx/checkout/success";
+export const REGEN_CHECKOUT_INTAKE_PATH = "/rx/checkout/intake";
+export const REGEN_CHECKOUT_COMPLETE_PATH = "/rx/checkout/complete";
+
+export function regenCheckoutIntakeUrl(orderRef: string): string {
+  return `${REGEN_CHECKOUT_INTAKE_PATH}?ref=${encodeURIComponent(orderRef)}`;
+}
+
+export function regenCheckoutCompleteUrl(orderRef: string): string {
+  return `${REGEN_CHECKOUT_COMPLETE_PATH}?ref=${encodeURIComponent(orderRef)}`;
+}
+
 /**
  * Hello Gorgeous RX™ NP telehealth — **Fresha schedule** (not Charm).
  * Override with `NEXT_PUBLIC_FRESHA_RX_TELEHEALTH_URL` for a dedicated service link.

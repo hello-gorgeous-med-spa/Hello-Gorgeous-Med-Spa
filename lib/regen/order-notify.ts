@@ -6,6 +6,10 @@
 
 import { getResendFromAddress, isResendBlockedAddressDomain } from "@/lib/resend-config";
 import { sendSms } from "@/lib/notifications/sms-outbound";
+import {
+  emailStaffFormSubmission,
+  notifyOwnerFormSubmission,
+} from "@/lib/notifications/form-alert";
 import { SITE } from "@/lib/seo";
 import { REGEN_SHIPPING_USD } from "@/lib/regen/pricing-sync";
 
@@ -216,4 +220,87 @@ export async function smsRegenOrderShipped(opts: {
 
   const result = await sendSms(opts.phone, message);
   return result.success ? { ok: true } : { ok: false, error: result.error };
+}
+
+type RegenOrderItem = {
+  name: string;
+  quantity: number;
+  priceUsd?: number;
+  price?: number;
+};
+
+/**
+ * SMS + email the owner/staff when a RE GEN order is paid.
+ * Uses FORM_ALERT_PHONE / REVIEW_ALERT_PHONE and the med spa ops inbox.
+ */
+export function notifyOwnerRegenOrderPlaced(opts: {
+  orderRef: string;
+  customerName?: string | null;
+  customerEmail?: string | null;
+  customerPhone?: string | null;
+  goal?: string | null;
+  supplyCycle?: string | null;
+  items: RegenOrderItem[];
+  subtotal: number;
+  total: number;
+}): void {
+  const itemSummary = opts.items
+    .map((i) => {
+      const price = i.priceUsd ?? i.price;
+      const priceStr = price != null ? ` $${Number(price).toFixed(2)}` : "";
+      return `${i.name} x${i.quantity}${priceStr}`;
+    })
+    .join("; ");
+
+  const adminUrl = `${SITE.url}/rx/checkout/success?ref=${encodeURIComponent(opts.orderRef)}`;
+
+  const smsLines = [
+    `Ref ${opts.orderRef}`,
+    opts.customerName ? `Name: ${opts.customerName}` : "",
+    opts.customerPhone ? `Phone: ${opts.customerPhone}` : "",
+    opts.customerEmail ? `Email: ${opts.customerEmail}` : "",
+    opts.goal ? `Goal: ${opts.goal}` : "",
+    opts.supplyCycle ? `Supply: ${opts.supplyCycle}` : "",
+    `Total: $${opts.total.toFixed(2)}`,
+    itemSummary ? `Items: ${itemSummary}` : "",
+    adminUrl,
+  ].filter(Boolean);
+
+  notifyOwnerFormSubmission({
+    formName: "RE GEN ORDER PAID",
+    lines: smsLines,
+  });
+
+  const emailText = [
+    "New RE GEN order — payment received",
+    "",
+    `Reference: ${opts.orderRef}`,
+    opts.customerName ? `Name: ${opts.customerName}` : "",
+    opts.customerPhone ? `Phone: ${opts.customerPhone}` : "",
+    opts.customerEmail ? `Email: ${opts.customerEmail}` : "",
+    opts.goal ? `Goal: ${opts.goal}` : "",
+    opts.supplyCycle ? `Supply: ${opts.supplyCycle}` : "",
+    "",
+    "Items:",
+    ...opts.items.map((i) => {
+      const price = i.priceUsd ?? i.price;
+      return `  • ${i.name} x${i.quantity}${price != null ? ` — $${Number(price).toFixed(2)}` : ""}`;
+    }),
+    "",
+    `Subtotal: $${opts.subtotal.toFixed(2)}`,
+    `Shipping: $${REGEN_SHIPPING_USD.toFixed(2)}`,
+    `Total: $${opts.total.toFixed(2)}`,
+    "",
+    `View: ${adminUrl}`,
+    "",
+    "NP review required before pharmacy dispatch.",
+  ]
+    .filter((line) => line !== "")
+    .join("\n");
+
+  void emailStaffFormSubmission({
+    subject: `RE GEN order paid — ${opts.orderRef}${opts.customerName ? ` (${opts.customerName})` : ""}`,
+    text: emailText,
+    replyTo: opts.customerEmail || undefined,
+  }).catch((e) => console.error("[regen/order-notify] owner email error:", e));
 }
