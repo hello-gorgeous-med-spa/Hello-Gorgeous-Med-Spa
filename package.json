@@ -29,6 +29,7 @@
     "import:formulation-catalog": "node scripts/import-formulation-catalog.mjs",
     "sync:olympia": "node scripts/sync-olympia-pricelist.mjs",
     "sync:regen-vials": "node scripts/generate-regen-vial-images.mjs",
+    "sync:regen-peptide-cards": "node scripts/extract-regen-peptide-cards.mjs",
     "import-fresha-clients": "node --env-file=.env.local scripts/import-fresha-clients.mjs",
     "import-fresha-appointments": "node --env-file=.env.local scripts/import-fresha-appointments.mjs",
     "test:ai-concierge": "node scripts/test-ai-concierge.mjs"
