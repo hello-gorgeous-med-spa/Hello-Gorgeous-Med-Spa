@@ -39,6 +39,7 @@ function OrderCard({ order }: { order: RxPortalOrder }) {
         <div>
           <p className="text-[10px] font-bold uppercase tracking-widest text-[#E6007E]">
             {order.track === "peptide" ? "Peptide" : order.track === "glp1" ? "GLP-1" : "RX"}
+            {order.kind === "regen" ? " · RE GEN" : order.kind === "clinic" ? " · Clinic" : ""}
           </p>
           <p className="font-bold text-black">{order.title}</p>
           <p className="text-xs text-black/50 mt-0.5">

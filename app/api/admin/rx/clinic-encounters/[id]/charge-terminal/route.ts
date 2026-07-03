@@ -6,6 +6,7 @@ import {
   getClinicEncounter,
   updateClinicEncounter,
 } from "@/lib/rx-clinic-encounter";
+import type { RxClinicLineItem } from "@/lib/rx-clinic-regen-sale";
 import { getSupabaseAdminClient } from "@/lib/hgos/supabase-admin";
 import { dollarsToCents } from "@/lib/square/client";
 
@@ -60,14 +61,29 @@ export async function POST(req: NextRequest, { params }: RouteParams) {
     admin,
   );
 
-  const items = [
-    {
-      type: "service",
-      name: "Clinical service",
-      unit_price: refreshed.final_total_usd,
-      quantity: 1,
-    },
-  ];
+  const lineItems = (refreshed.line_items ?? []) as RxClinicLineItem[];
+  const isRegen = refreshed.sale_mode === "regen_catalog";
+
+  const items = isRegen && lineItems.length
+    ? [
+        ...lineItems.map((li) => ({
+          type: "product" as const,
+          name: li.name,
+          unit_price: li.lineTotalUsd,
+          quantity: 1,
+        })),
+        ...(refreshed.shipping_usd > 0
+          ? [{ type: "service" as const, name: "RE GEN shipping", unit_price: refreshed.shipping_usd, quantity: 1 }]
+          : []),
+      ]
+    : [
+        {
+          type: "service" as const,
+          name: isRegen ? "RE GEN in-clinic sale" : "Clinical RX service",
+          unit_price: refreshed.final_total_usd,
+          quantity: 1,
+        },
+      ];
 
   const subtotalCents = dollarsToCents(refreshed.final_total_usd);
   const grossTotal = subtotalCents;

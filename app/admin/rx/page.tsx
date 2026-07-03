@@ -4,7 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 
 type RxCommandItem = {
-  kind: "intake" | "clinic";
+  kind: "intake" | "clinic" | "regen";
   id: string;
   submissionId: string;
   submittedAt: string;
@@ -228,6 +228,11 @@ export default function AdminRxCommandCenterPage() {
                           In-person
                         </span>
                       )}
+                      {item.kind === "regen" && (
+                        <span className="mt-1 inline-block rounded bg-[#FF2D8E]/30 px-1.5 py-0.5 text-[9px] font-bold uppercase text-[#FFB8DC]">
+                          RE GEN online
+                        </span>
+                      )}
                     </td>
                     <td className="px-4 py-3 font-mono text-xs">{item.intakeRef || "—"}</td>
                     <td className="px-4 py-3 text-xs capitalize">{item.track}</td>
@@ -272,6 +277,33 @@ export default function AdminRxCommandCenterPage() {
                                 Client RX
                               </Link>
                             )}
+                          </>
+                        ) : item.kind === "regen" ? (
+                          <>
+                            <Link
+                              href={`/rx/checkout/intake?ref=${encodeURIComponent(item.intakeRef)}`}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-[#FFB8DC] hover:underline"
+                            >
+                              Intake
+                            </Link>
+                            <Link
+                              href={`/rx/checkout/complete?ref=${encodeURIComponent(item.intakeRef)}`}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-[#FFB8DC] hover:underline"
+                            >
+                              Order status
+                            </Link>
+                            <a
+                              href={`/portal/rx`}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-gray-400 hover:text-white"
+                            >
+                              Patient portal
+                            </a>
                           </>
                         ) : (
                           <>

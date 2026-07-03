@@ -10,13 +10,20 @@ import { getSupabaseAdminClient } from "@/lib/hgos/supabase-admin";
 import { computeGlp1VialFulfillment } from "@/lib/glp1-vial-fulfillment";
 import { notifyPatientClinicRxShipped } from "@/lib/rx-clinic-ship-notify";
 import {
+  formatRegenClinicDispatchPreview,
+  regenClinicPrimaryTrack,
+  type RxClinicLineItem,
+} from "@/lib/rx-clinic-regen-sale";
+import {
   insertRxPaymentLedger,
   updateRxPaymentLedger,
   type RxLedgerSource,
 } from "@/lib/rx-payment-ledger";
 import type { RxSupplyCycleId } from "@/lib/rx-supply-cycle";
 
-export type RxClinicEncounterType = "new_consult" | "refill" | "dose_change";
+export type RxClinicEncounterType = "new_consult" | "refill" | "dose_change" | "regen_in_clinic";
+
+export type RxClinicSaleMode = "glp1" | "regen_catalog";
 
 export type RxClinicEncounterStatus =
   | "draft"
@@ -61,10 +68,13 @@ export type RxClinicEncounterRow = {
   client_id: string;
   created_by: string | null;
   encounter_type: RxClinicEncounterType;
-  medication: string;
-  dose_tier_id: string;
+  sale_mode: RxClinicSaleMode;
+  medication: string | null;
+  dose_tier_id: string | null;
   dose_label: string | null;
   supply_cycle: RxSupplyCycleId;
+  line_items: RxClinicLineItem[];
+  shipping_usd: number;
   list_total_usd: number;
   consult_fee_usd: number;
   discount_usd: number;
@@ -131,6 +141,7 @@ export const RX_CLINIC_ENCOUNTER_TYPES: { id: RxClinicEncounterType; label: stri
   { id: "new_consult", label: "New weight loss consult" },
   { id: "refill", label: "Refill — same dose" },
   { id: "dose_change", label: "Dose change / titration" },
+  { id: "regen_in_clinic", label: "RE GEN in-clinic upsell" },
 ];
 
 export const RX_CLINIC_TITRATION_PRESETS = [
@@ -152,10 +163,15 @@ function mapRow(raw: Record<string, unknown>): RxClinicEncounterRow {
     client_id: String(raw.client_id),
     created_by: (raw.created_by as string | null) ?? null,
     encounter_type: raw.encounter_type as RxClinicEncounterType,
-    medication: String(raw.medication),
-    dose_tier_id: String(raw.dose_tier_id),
+    sale_mode: (raw.sale_mode as RxClinicSaleMode) ?? "glp1",
+    medication: (raw.medication as string | null) ?? null,
+    dose_tier_id: (raw.dose_tier_id as string | null) ?? null,
     dose_label: (raw.dose_label as string | null) ?? null,
     supply_cycle: raw.supply_cycle as RxSupplyCycleId,
+    line_items: Array.isArray(raw.line_items)
+      ? (raw.line_items as RxClinicLineItem[])
+      : [],
+    shipping_usd: Number(raw.shipping_usd ?? 0),
     list_total_usd: Number(raw.list_total_usd),
     consult_fee_usd: Number(raw.consult_fee_usd),
     discount_usd: Number(raw.discount_usd),
@@ -229,9 +245,13 @@ export function computeClinicSalePricing(input: ComputeClinicSaleInput): {
 }
 
 export function formatClinicDispatchPreview(row: RxClinicEncounterRow, clientName: string): string {
+  if (row.sale_mode === "regen_catalog") {
+    return formatRegenClinicDispatchPreview(row, clientName);
+  }
+
   const fulfillment = computeGlp1VialFulfillment(
-    row.medication,
-    row.dose_tier_id,
+    row.medication || "",
+    row.dose_tier_id || "",
     row.supply_cycle,
     row.pharmacy === "formulation" ? "formulation" : "boomrx",
   );
@@ -266,10 +286,13 @@ export async function insertClinicEncounter(
     client_id: input.clientId,
     created_by: input.createdBy?.trim() || null,
     encounter_type: input.encounterType,
+    sale_mode: "glp1",
     medication: input.medication,
     dose_tier_id: input.doseTierId,
     dose_label: pricing.quote.doseLabel,
     supply_cycle: input.supplyCycle,
+    line_items: [],
+    shipping_usd: 0,
     list_total_usd: pricing.snapshot.listTotalUsd,
     consult_fee_usd: pricing.snapshot.consultFeeUsd,
     discount_usd: pricing.snapshot.discountUsd,
@@ -480,6 +503,8 @@ export async function ensureClinicEncounterLedger(
   if (encounter.ledger_id) return encounter.ledger_id;
 
   const quote = encounter.pricing_snapshot?.quote;
+  const lineItems = encounter.line_items ?? [];
+  const isRegen = encounter.sale_mode === "regen_catalog";
   const discountNote =
     encounter.discount_usd > 0
       ? `Owner discount $${encounter.discount_usd.toFixed(2)} — ${encounter.discount_reason} (${encounter.discount_authorized_by})`
@@ -493,9 +518,13 @@ export async function ensureClinicEncounterLedger(
       clientPhone: clientInfo.phone,
       source,
       templateId: quote?.invoiceTemplateId,
-      templateName: `${encounter.medication} ${encounter.dose_label || encounter.dose_tier_id}`,
-      track: "weight-loss",
-      lineLabel: quote?.lineLabel ?? encounter.medication,
+      templateName: isRegen
+        ? `RE GEN in-clinic · ${lineItems.length} item(s)`
+        : `${encounter.medication} ${encounter.dose_label || encounter.dose_tier_id}`,
+      track: isRegen ? regenClinicPrimaryTrack(lineItems) : "weight-loss",
+      lineLabel: isRegen
+        ? lineItems.map((li) => li.name).join(", ")
+        : (quote?.lineLabel ?? encounter.medication ?? "Clinic RX"),
       amountUsd: encounter.final_total_usd,
       paymentStatus: "pending",
       sentBy,
@@ -504,10 +533,12 @@ export async function ensureClinicEncounterLedger(
       metadata: {
         clinicEncounterId: encounter.id,
         encounterType: encounter.encounter_type,
+        saleMode: encounter.sale_mode,
         supplyCycle: encounter.supply_cycle,
         listTotalUsd: encounter.list_total_usd,
         discountUsd: encounter.discount_usd,
         shipToHome: true,
+        lineItems: isRegen ? lineItems : undefined,
       },
     },
     client,
@@ -612,6 +643,8 @@ export async function createClinicEncounterChartNote(
     RX_CLINIC_ENCOUNTER_TYPES.find((t) => t.id === encounter.encounter_type)?.label ??
     "Clinic visit";
   const clinical = encounter.clinical ?? {};
+  const lineItems = encounter.line_items ?? [];
+  const isRegen = encounter.sale_mode === "regen_catalog";
 
   const subjective = [
     clinical.allergiesReviewed ? "Allergies reviewed." : null,
@@ -627,15 +660,19 @@ export async function createClinicEncounterChartNote(
   if (clinical.goalWeightLbs) objectiveParts.push(`Goal weight: ${clinical.goalWeightLbs} lbs`);
   const objective = objectiveParts.join(". ");
 
-  const assessment = `${encounter.medication} ${encounter.dose_label || encounter.dose_tier_id} — ${encounter.supply_cycle} supply (ship to home)`;
+  const assessment = isRegen
+    ? `RE GEN in-clinic sale — ${lineItems.map((li) => `${li.name} (${li.supplyCycle})`).join("; ")}`
+    : `${encounter.medication} ${encounter.dose_label || encounter.dose_tier_id} — ${encounter.supply_cycle} supply (ship to home)`;
 
   const plan = [
-    clinical.titrationNote,
+    isRegen ? null : clinical.titrationNote,
     encounter.sig ? `Sig: ${encounter.sig}` : null,
     `Pharmacy: ${encounter.pharmacy || "TBD"}. Medication ships to patient — not held at clinic.`,
-    clinical.nextTelehealthDue
-      ? `Next telehealth due: ${clinical.nextTelehealthDue}`
-      : "Telehealth every 90 days per Hello Gorgeous RX protocol.",
+    isRegen
+      ? "In-clinic RE GEN upsell — paid at terminal; dispatch after NP review."
+      : clinical.nextTelehealthDue
+        ? `Next telehealth due: ${clinical.nextTelehealthDue}`
+        : "Telehealth every 90 days per Hello Gorgeous RX protocol.",
     encounter.staff_notes ? `Staff notes: ${encounter.staff_notes}` : null,
   ]
     .filter(Boolean)
@@ -644,10 +681,12 @@ export async function createClinicEncounterChartNote(
   const procedureDetails = {
     source: "rx_clinic_encounter",
     clinicEncounterId: encounter.id,
+    saleMode: encounter.sale_mode,
     medication: encounter.medication,
     doseTierId: encounter.dose_tier_id,
     doseLabel: encounter.dose_label,
     supplyCycle: encounter.supply_cycle,
+    lineItems: isRegen ? lineItems : undefined,
     pharmacy: encounter.pharmacy,
     shipToHome: true,
     shipAddress: {
@@ -667,7 +706,9 @@ export async function createClinicEncounterChartNote(
     .insert({
       client_id: encounter.client_id,
       note_type: "consult",
-      title: `GLP-1 ${encounterLabel} — ${encounter.medication}`,
+      title: isRegen
+        ? `RE GEN in-clinic — ${lineItems[0]?.name ?? "Rx upsell"}`
+        : `GLP-1 ${encounterLabel} — ${encounter.medication}`,
       status: "final",
       subjective: subjective || null,
       objective: objective || null,

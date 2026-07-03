@@ -14,6 +14,11 @@ import {
   listClinicEncountersWithClient,
   type RxClinicEncounterWithClient,
 } from "@/lib/rx-clinic-encounter";
+import { regenClinicPrimaryTrack } from "@/lib/rx-clinic-regen-sale";
+import {
+  mapRegenOrderToAdminItem,
+  type RegenOrderRecord,
+} from "@/lib/regen/order-patient-status";
 import { listAllRefillCadence } from "@/lib/rx-refill-cadence";
 import { intakeRefFromToken } from "@/lib/rx-submission-context";
 
@@ -35,7 +40,7 @@ type SubmissionRow = {
 };
 
 export type RxCommandCenterItem = {
-  kind: "intake" | "clinic";
+  kind: "intake" | "clinic" | "regen";
   id: string;
   submissionId: string;
   submittedAt: string;
@@ -78,15 +83,17 @@ function paymentStatusFromEncounter(row: RxClinicEncounterWithClient): string {
 
 function mapClinicToCommandItem(row: RxClinicEncounterWithClient): RxCommandCenterItem {
   const quote = row.pricing_snapshot?.quote;
+  const isRegen = row.sale_mode === "regen_catalog";
+  const lineItems = row.line_items ?? [];
   return {
     kind: "clinic",
     id: row.id,
     submissionId: row.id,
     submittedAt: row.created_at,
     intakeRef: clinicRef(row.id),
-    slug: "clinic-sale",
-    templateTitle: "In-person clinic sale",
-    track: "glp1",
+    slug: isRegen ? "clinic-regen-sale" : "clinic-sale",
+    templateTitle: isRegen ? "RE GEN in-clinic sale" : "In-person clinic sale",
+    track: isRegen ? regenClinicPrimaryTrack(lineItems) : "glp1",
     patientName: row.client_name || "Client",
     phone: row.client_phone,
     email: row.client_email,
@@ -137,16 +144,29 @@ export async function GET(req: NextRequest) {
 
   const { rows: clinicRows } = await listClinicEncountersWithClient({ limit });
 
+  async function fetchRegenAdminItems() {
+    const { data: regenRowsRaw } = await admin
+      .from("regen_orders")
+      .select(
+        "reference, created_at, status, customer_name, customer_email, customer_phone, goal, items, subtotal_usd, shipping_usd, paid_at, intake_completed_at, telehealth_required, telehealth_completed_at, np_approved_at, shipped_at, tracking_number",
+      )
+      .order("created_at", { ascending: false })
+      .limit(limit);
+    return ((regenRowsRaw ?? []) as RegenOrderRecord[]).map(mapRegenOrderToAdminItem);
+  }
+
   if (!templateIds.length) {
     const clinicItems = clinicRows.map(mapClinicToCommandItem);
-    clinicItems.sort(
+    const regenItems = await fetchRegenAdminItems();
+    const mergedEarly = [...clinicItems, ...regenItems];
+    mergedEarly.sort(
       (a, b) => new Date(b.submittedAt).getTime() - new Date(a.submittedAt).getTime(),
     );
     const { items: dueRefills, tableReady: dueTableReady } = await listDueClinicRefills({
       limit: 20,
     });
     return NextResponse.json({
-      items: clinicItems.slice(0, limit),
+      items: mergedEarly.slice(0, limit),
       dueRefills,
       dueTableReady,
       dueCounts: {
@@ -255,7 +275,9 @@ export async function GET(req: NextRequest) {
     .filter(Boolean) as RxCommandCenterItem[];
 
   const clinicItems = clinicRows.map(mapClinicToCommandItem);
-  const merged = [...items, ...clinicItems];
+  const regenItems = await fetchRegenAdminItems();
+
+  const merged = [...items, ...clinicItems, ...regenItems];
   merged.sort(
     (a, b) => new Date(b.submittedAt).getTime() - new Date(a.submittedAt).getTime(),
   );

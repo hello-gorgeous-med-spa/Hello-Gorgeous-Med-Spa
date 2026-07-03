@@ -5,6 +5,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 
 import TerminalStatusModal from "@/components/TerminalStatusModal";
+import { ClinicRegenSalePanel } from "@/components/admin/ClinicRegenSalePanel";
 import {
   RX_CLINIC_ENCOUNTER_TYPES,
   RX_CLINIC_TITRATION_PRESETS,
@@ -15,6 +16,7 @@ import {
   type RxClinicPricingSnapshot,
 } from "@/lib/rx-clinic-encounter";
 import type { RxSupplyCycleId } from "@/lib/rx-supply-cycle";
+import { regenClinicEncounterTitle } from "@/lib/rx-clinic-regen-sale";
 
 type Client = {
   id: string;
@@ -56,6 +58,9 @@ export default function ClinicRxSalePage() {
   const prefillEncounterId = searchParams.get("encounter") || "";
   const prefillAppointmentId = searchParams.get("appointment") || "";
   const prefillRefill = searchParams.get("refill") === "1";
+  const prefillMode = searchParams.get("mode") === "regen" ? "regen" : "glp1";
+
+  const [saleMode, setSaleMode] = useState<"glp1" | "regen">(prefillMode);
 
   const [medications, setMedications] = useState<MedicationOption[]>([]);
   const [supplyCycles, setSupplyCycles] = useState<SupplyCycle[]>([]);
@@ -481,9 +486,32 @@ export default function ClinicRxSalePage() {
           <h1 className="text-3xl font-black text-black">In-Person Clinic Sale</h1>
           <p className="text-black/70 mt-1 max-w-2xl">
             Consult in clinic, charge at the front desk, ship meds to the patient&apos;s home — no
-            clinic drug inventory. Pricing auto-calculates from your tier table; owner discounts
-            stay visible in the ledger.
+            clinic drug inventory. Pricing auto-calculates; owner discounts stay visible in the ledger.
           </p>
+          <div className="mt-4 flex flex-wrap gap-2">
+            <button
+              type="button"
+              onClick={() => setSaleMode("glp1")}
+              className={`px-4 py-2 rounded-full border-2 text-sm font-bold ${
+                saleMode === "glp1"
+                  ? "border-black bg-black text-white"
+                  : "border-black/30 hover:border-[#E6007E]"
+              }`}
+            >
+              GLP-1 weight loss
+            </button>
+            <button
+              type="button"
+              onClick={() => setSaleMode("regen")}
+              className={`px-4 py-2 rounded-full border-2 text-sm font-bold ${
+                saleMode === "regen"
+                  ? "border-[#E6007E] bg-[#E6007E] text-white"
+                  : "border-black/30 hover:border-[#E6007E]"
+              }`}
+            >
+              RE GEN products (peptides & more)
+            </button>
+          </div>
         </div>
         <div className="flex gap-2">
           <Link
@@ -593,7 +621,18 @@ export default function ClinicRxSalePage() {
             )}
           </section>
 
-          {/* Protocol */}
+          {saleMode === "regen" && selectedClient ? (
+            <ClinicRegenSalePanel
+              client={selectedClient}
+              appointmentId={prefillAppointmentId || undefined}
+              onSaved={loadRecent}
+            />
+          ) : saleMode === "regen" ? (
+            <p className="text-black/55 text-sm px-1">Select a client above to build a RE GEN cart.</p>
+          ) : null}
+
+          {saleMode === "glp1" && (
+          <>
           <section className="rounded-2xl border-4 border-black bg-white p-5 shadow-[6px_6px_0_0_rgba(230,0,126,0.25)]">
             <h2 className="font-black text-lg mb-3">2. Protocol & pricing</h2>
             <div className="grid sm:grid-cols-2 gap-4">
@@ -805,9 +844,11 @@ export default function ClinicRxSalePage() {
               />
             </label>
           </section>
+          </>
+          )}
         </div>
 
-        {/* Sidebar: quote + actions */}
+        {saleMode === "glp1" && (
         <div className="space-y-4">
           <div className="sticky top-4 rounded-2xl border-4 border-black bg-white p-5 shadow-[8px_8px_0_0_rgba(230,0,126,0.35)]">
             <h2 className="font-black text-lg mb-3">Quote</h2>
@@ -983,6 +1024,7 @@ export default function ClinicRxSalePage() {
               </div>
             )}
         </div>
+        )}
       </div>
 
       {recent.length > 0 && (
@@ -1004,7 +1046,9 @@ export default function ClinicRxSalePage() {
                   <tr key={r.id} className="border-b border-black/5">
                     <td className="py-2 pr-4">{new Date(r.created_at).toLocaleDateString()}</td>
                     <td className="py-2 pr-4">
-                      {r.medication} {r.dose_label}
+                      {r.sale_mode === "regen_catalog"
+                        ? regenClinicEncounterTitle(r)
+                        : `${r.medication ?? ""} ${r.dose_label ?? ""}`.trim()}
                     </td>
                     <td className="py-2 pr-4">{r.supply_cycle}</td>
                     <td className="py-2 pr-4 font-bold">{formatUsd(r.final_total_usd)}</td>

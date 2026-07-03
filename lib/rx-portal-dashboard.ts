@@ -10,6 +10,14 @@ import { defaultDispatchFromIntake, RX_INTAKE_SLUGS } from "@/lib/rx-dispatch";
 import { pickClientRefillCadence } from "@/lib/rx-refill-cadence";
 import type { RefillUrgency } from "@/lib/rx-clinic-refill";
 import type { RxClinicEncounterRow } from "@/lib/rx-clinic-encounter";
+import { regenClinicEncounterTitle, regenClinicPrimaryTrack } from "@/lib/rx-clinic-regen-sale";
+import {
+  buildRegenPatientStatus,
+  regenOrderMatchesEmail,
+  regenOrderPatientHref,
+  regenOrderTitle,
+  type RegenOrderRecord,
+} from "@/lib/regen/order-patient-status";
 import {
   getLatestLedgerForIntakeRef,
   getLatestLedgerForSubmission,
@@ -18,7 +26,7 @@ import { buildRxPatientStatus, rxStatusHrefWithToken, type RxPatientStatus } fro
 import { intakeRefFromToken } from "@/lib/rx-submission-context";
 
 export type RxPortalOrder = {
-  kind: "intake" | "clinic";
+  kind: "intake" | "clinic" | "regen";
   id: string;
   title: string;
   track: RxPatientStatus["track"];
@@ -207,16 +215,48 @@ export async function loadRxPortalDashboard(
   const encounters = (clinicRows ?? []) as RxClinicEncounterRow[];
 
   for (const enc of encounters.filter((r) => !["cancelled", "draft"].includes(r.status)).slice(0, 5)) {
+    const isRegen = enc.sale_mode === "regen_catalog";
+    const lineItems = enc.line_items ?? [];
     orders.push({
       kind: "clinic",
       id: enc.id,
-      title: `${enc.medication}${enc.dose_label ? ` · ${enc.dose_label}` : ""}`,
-      track: "glp1",
+      title: isRegen
+        ? regenClinicEncounterTitle(enc)
+        : `${enc.medication}${enc.dose_label ? ` · ${enc.dose_label}` : ""}`,
+      track: isRegen ? regenClinicPrimaryTrack(lineItems) : "glp1",
       submittedAt: enc.created_at,
       status: null,
-      statusHref: GLP1_REFILL_PATH,
+      statusHref: "/portal/rx",
       paymentUrl: null,
       isActive: !["complete", "shipped"].includes(enc.status),
+    });
+  }
+
+  const { data: regenRows } = await admin
+    .from("regen_orders")
+    .select(
+      "reference, created_at, status, customer_name, customer_email, customer_phone, goal, items, subtotal_usd, shipping_usd, paid_at, intake_completed_at, telehealth_required, telehealth_completed_at, np_approved_at, shipped_at, tracking_number",
+    )
+    .order("created_at", { ascending: false })
+    .limit(20);
+
+  for (const row of (regenRows ?? []) as RegenOrderRecord[]) {
+    if (!regenOrderMatchesEmail(row, emailNorm)) continue;
+    if (row.status === "pending_payment" && !row.paid_at) continue;
+
+    const status = buildRegenPatientStatus(row);
+    const active = !["shipped", "delivered"].includes(row.status) && !row.shipped_at;
+
+    orders.push({
+      kind: "regen",
+      id: row.reference,
+      title: regenOrderTitle(row),
+      track: status.track,
+      submittedAt: row.created_at,
+      status,
+      statusHref: regenOrderPatientHref(row.reference),
+      paymentUrl: null,
+      isActive: active,
     });
   }
 
