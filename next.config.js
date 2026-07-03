@@ -354,7 +354,7 @@ const nextConfig = {
     { source: "/hello-gorgeous-signature", destination: "/services/hydra-facial", permanent: true },
     // Additional legacy 404s (batch 3)
     { source: "/facials", destination: "/services/hydra-facial", permanent: true },
-    { source: "/rx/peptides", destination: "/peptides", permanent: true },
+    { source: "/rx/vitamins", destination: "/rx/wellness", permanent: true },
     { source: "/womens-health-1", destination: "/rx/hormones", permanent: true },
     { source: "/waxing", destination: "/services/lash-spa", permanent: true },
     { source: "/3-in-1-elite-trio-1", destination: "/solaria-packages", permanent: true },

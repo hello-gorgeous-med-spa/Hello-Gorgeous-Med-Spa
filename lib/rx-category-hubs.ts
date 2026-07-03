@@ -12,7 +12,6 @@ import {
 import { GLP1_PROGRAM } from "@/lib/glp1-program-pricing";
 import { GENTLEMENS_CLUB_PATH } from "@/lib/gentlemens-club";
 import { REGEN_PREVIEW_FALLBACKS } from "@/lib/regen-brand";
-import { PEPTIDES_HUB_PATH } from "@/lib/peptides-hub";
 
 export type RxCategoryHubId =
   | "weight-loss"
@@ -265,6 +264,181 @@ const SEXUAL_HEALTH_PRODUCTS: RxCategoryProduct[] = [
   },
 ];
 
+const PEPTIDE_PRODUCTS: RxCategoryProduct[] = [
+  {
+    id: "bpc-157",
+    name: "BPC-157 Injection",
+    description: "Tissue repair & gut support — popular recovery peptide protocol",
+    priceLabel: "$175/vial",
+    href: "#faq",
+    image: "/images/shop-rx/bpc-157.png",
+    imageAlt: "BPC-157 peptide — RE GEN",
+    badge: "POPULAR",
+    rx: true,
+  },
+  {
+    id: "nad-100",
+    name: "NAD+ Injection",
+    description: "100 mg/mL · 10 mL — mitochondrial & cellular energy support",
+    priceLabel: "$150/vial",
+    href: "#faq",
+    image: "/images/shop-rx/nad-plus.png",
+    imageAlt: "NAD+ injection — RE GEN peptides",
+    badge: "POPULAR",
+    rx: true,
+  },
+  {
+    id: "sermorelin",
+    name: "Sermorelin Injection",
+    description: "Growth-hormone axis support — nightly injection protocol",
+    priceLabel: "from $95/vial",
+    href: "#faq",
+    image: "/images/shop-rx/sermorelin.png",
+    imageAlt: "Sermorelin — RE GEN",
+    rx: true,
+  },
+  {
+    id: "cjc-ipamorelin",
+    name: "CJC-1295 / Ipamorelin",
+    description: "GH secretagogue combo — recovery & body composition",
+    priceLabel: "$200/vial",
+    href: "#faq",
+    image: "/images/shop-rx/tesamorelin.png",
+    imageAlt: "CJC Ipamorelin — RE GEN",
+    rx: true,
+  },
+  {
+    id: "tb-500",
+    name: "TB-500 Injection",
+    description: "Mobility & tissue support — often paired with BPC-157",
+    priceLabel: "$212.50/vial",
+    href: "#faq",
+    image: "/images/shop-rx/bpc-157.png",
+    imageAlt: "TB-500 peptide — RE GEN",
+    rx: true,
+  },
+  {
+    id: "glutathione",
+    name: "Glutathione Injection",
+    description: "Master antioxidant — glow & detox support",
+    priceLabel: "from $66/vial",
+    href: "#faq",
+    image: "/images/shop-rx/nad-plus.png",
+    imageAlt: "Glutathione — RE GEN wellness",
+    rx: false,
+  },
+];
+
+const WELLNESS_PRODUCTS: RxCategoryProduct[] = [
+  {
+    id: "b12",
+    name: "B12 Methylcobalamin",
+    description: "Energy & metabolism — injectable wellness staple",
+    priceLabel: "from $72.75/vial",
+    href: "#faq",
+    image: "/images/shop-rx/nad-plus.png",
+    imageAlt: "B12 injection — RE GEN daily wellness",
+    badge: "POPULAR",
+    rx: false,
+  },
+  {
+    id: "nad-wellness",
+    name: "NAD+ Injection",
+    description: "10-week supply protocol — longevity & focus support",
+    priceLabel: "$150",
+    href: "#faq",
+    image: "/images/shop-rx/nad-plus.png",
+    imageAlt: "NAD+ — RE GEN daily wellness",
+    rx: true,
+  },
+  {
+    id: "vitamin-d3",
+    name: "Vitamin D3 Injection",
+    description: "Immune & bone support — especially in Midwest winters",
+    priceLabel: "$148.78/vial",
+    href: "#faq",
+    image: "/images/shop-rx/nad-plus.png",
+    imageAlt: "Vitamin D3 injection — RE GEN",
+    rx: false,
+  },
+  {
+    id: "biotin",
+    name: "Biotin Injection",
+    description: "Hair, skin & nail support — injectable biotin protocols",
+    priceLabel: "from $82.65/vial",
+    href: "#faq",
+    image: "/images/regen/prod-manetain.png",
+    imageAlt: "Biotin injection — RE GEN",
+    rx: false,
+  },
+  {
+    id: "glutathione-wellness",
+    name: "Glutathione Injection",
+    description: "Antioxidant & skin-brightening wellness shot supply",
+    priceLabel: "from $66/vial",
+    href: "#faq",
+    image: "/images/shop-rx/nad-plus.png",
+    imageAlt: "Glutathione — RE GEN",
+    rx: false,
+  },
+  {
+    id: "ldn",
+    name: "Low-Dose Naltrexone",
+    description: "LDN capsules — metabolic & inflammation support when appropriate",
+    priceLabel: "from $68.75/30ct",
+    href: "#faq",
+    image: "/images/shop-rx/hrt/dhea.png",
+    imageAlt: "LDN — RE GEN wellness Rx",
+    rx: true,
+  },
+];
+
+const PEPTIDE_FAQ = [
+  {
+    q: "Are RE GEN peptides prescription?",
+    a: "Most injectable peptide protocols are prescription-only. Ryan Kent, FNP-BC reviews your health history before approving any protocol. We do not sell research-grade or gray-market peptides.",
+  },
+  {
+    q: "What peptides are most popular at Hello Gorgeous?",
+    a: "BPC-157 for recovery, NAD+ for energy, sermorelin and CJC/ipamorelin for GH-axis support, and glutathione for antioxidant wellness — your provider tailors dosing to your goals.",
+  },
+  {
+    q: "Do I need labs before starting peptides?",
+    a: "Often yes for GH-axis and longevity protocols. Your NP will recommend baseline labs when appropriate and recheck on a schedule that matches your protocol.",
+  },
+  {
+    q: "How does ordering work?",
+    a: "Pay first at RE GEN, complete your post-payment health intake, book telehealth when required, and your vials ship after NP approval — flat $30 shipping.",
+  },
+  {
+    q: "Can I read more before I buy?",
+    a: "Yes — visit our education hub at /peptides for peptide explainers, or call 630-636-6193 to talk with our Oswego team.",
+  },
+] as const;
+
+const WELLNESS_FAQ = [
+  {
+    q: "What is RE GEN daily wellness?",
+    a: "Injectable B12, NAD+, vitamin D3, biotin, glutathione, and related wellness Rx — ordered online with NP review, shipped to your door across Illinois.",
+  },
+  {
+    q: "Can I still visit the Vitamin Bar in Oswego?",
+    a: "Yes! In-clinic drive-thru wellness shots and IV therapy remain available at Hello Gorgeous Med Spa. RE GEN daily wellness is for at-home injectable supplies when that fits your life better.",
+  },
+  {
+    q: "Are vitamin injections safe?",
+    a: "When prescribed appropriately and sourced from licensed pharmacies, injectable wellness protocols have a strong safety profile. Your provider screens your history and medications first.",
+  },
+  {
+    q: "How often do I inject?",
+    a: "It depends on the product — B12 and D3 are often weekly; NAD+ and glutathione vary. Your NP sets a simple schedule after reviewing your intake.",
+  },
+  {
+    q: "Is NAD+ a peptide or a vitamin?",
+    a: "NAD+ is a cellular cofactor used in both peptide and wellness protocols. On RE GEN it is offered as an injectable supply with NP oversight — not as an unregulated supplement.",
+  },
+] as const;
+
 const PAY_FIRST_STEPS = [
   {
     title: "Pay to secure your order",
@@ -417,18 +591,21 @@ export const REGEN_CATEGORY_HUBS: RxCategoryHub[] = [
   {
     id: "peptides",
     navLabel: "Peptides",
-    hubPath: PEPTIDES_HUB_PATH,
+    hubPath: "/rx/peptides",
     previewImage: REGEN_PREVIEW_FALLBACKS.peptides,
     previewAlt: "REGEN peptide therapy",
     hero: {
-      eyebrow: "REGEN · Peptides",
+      eyebrow: "RE GEN · Peptides",
       title: "Peptide protocols",
       titleAccent: "built for you.",
-      subtitle: "BPC-157, sermorelin, NAD+, and 22+ protocols — request online, telehealth before ship.",
+      subtitle:
+        "BPC-157, sermorelin, NAD+, and 22+ injectable protocols — pay first, NP review, telehealth when required, then ship across Illinois.",
     },
-    steps: [],
-    products: [],
-    trustLine: "Hello Gorgeous RX peptide menu",
+    steps: PAY_FIRST_STEPS,
+    products: PEPTIDE_PRODUCTS,
+    trustLine: "Licensed pharmacy · Ryan Kent, FNP-BC · No gray-market peptides",
+    getStartedPath: "/rx",
+    faq: [...PEPTIDE_FAQ],
   },
   {
     id: "sexual-health",
@@ -510,18 +687,21 @@ export const REGEN_CATEGORY_HUBS: RxCategoryHub[] = [
   {
     id: "wellness",
     navLabel: "Everyday Wellness",
-    hubPath: "/iv-shots",
+    hubPath: "/rx/wellness",
     previewImage: REGEN_PREVIEW_FALLBACKS.wellness,
-    previewAlt: "REGEN IV and vitamin wellness",
+    previewAlt: "REGEN daily wellness injectables",
     hero: {
-      eyebrow: "REGEN · Wellness",
+      eyebrow: "RE GEN · Daily wellness",
       title: "Everyday",
       titleAccent: "wellness.",
-      subtitle: "IV therapy, vitamin injections, and NAD+ at Hello Gorgeous Oswego.",
+      subtitle:
+        "Injectable B12, NAD+, vitamin D3, biotin, glutathione & more — NP-reviewed RE GEN supplies shipped to your door. In-clinic Vitamin Bar still available in Oswego.",
     },
-    steps: [],
-    products: [],
-    trustLine: "In-clinic vitamin bar & IV lounge",
+    steps: PAY_FIRST_STEPS,
+    products: WELLNESS_PRODUCTS,
+    trustLine: "Injectable wellness · Ryan Kent, FNP-BC · Illinois patients",
+    getStartedPath: "/rx",
+    faq: [...WELLNESS_FAQ],
   },
 ];
 
@@ -537,6 +717,8 @@ export const REGEN_CATEGORY_LANDING_PATHS: Partial<Record<string, string>> = {
   "sexual-health": "/rx/sexual-health",
   "peptide-therapy": "/rx/peptides",
   peptides: "/rx/peptides",
+  "vitamin-injections": "/rx/wellness",
+  wellness: "/rx/wellness",
   labs: "/labs",
 };
 

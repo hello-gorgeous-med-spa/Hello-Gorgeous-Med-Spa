@@ -34,6 +34,23 @@ Start now — link below`,
     imagePath: "/promo-kit/regen-social-provider.jpg",
   },
   {
+    id: "regen-blog-launch",
+    label: "RE GEN — Blog launch (Google post)",
+    message: `NEW on our blog — Introducing RE GEN: prescription care online from Hello Gorgeous Med Spa, Oswego IL.
+
+Pay first · health intake · telehealth when needed · ship across Illinois:
+• GLP-1 medical weight loss
+• Peptides — BPC-157, NAD+, sermorelin & more
+• Hormones, hair & skin Rx, sexual wellness
+
+Ryan Kent, FNP-BC supervises every protocol. Flat $30 shipping after NP approval.
+
+Read the full guide — link below`,
+    linkPath:
+      "/blog/introducing-re-gen-online-rx-oswego-il?utm_source=google&utm_medium=gbp_post&utm_campaign=regen_blog_2026",
+    imagePath: "/images/regen/regen-og-image.jpg",
+  },
+  {
     id: "blast-memberships",
     label: "Blast — Memberships (Glow/Luxe/Platinum)",
     message: `⭐ Med spa memberships — Hello Gorgeous, Oswego IL
