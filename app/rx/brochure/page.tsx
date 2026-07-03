@@ -13,9 +13,9 @@ const PAGE_URL = `${SITE.url}${PAGE_PATH}`;
 const THUMB_URL = `${SITE.url}${REGEN_MARKETING.ogImage}`;
 const PREVIEW_IMAGE = `${SITE.url}${REGEN_BROCHURE_THUMBNAIL}`;
 
-const title = `${REGEN_BRAND.name} Brochure | Weight Loss, Peptides & Hormones`;
+const title = `${REGEN_BRAND.name} Brochure & Pricing | Hello Gorgeous Med Spa`;
 const description =
-  "View or print the RE GEN patient brochure — GLP-1 weight loss, peptide therapy, hormones and wellness from Hello Gorgeous Med Spa in Oswego, IL. NP-directed, shipped across Illinois.";
+  "Download the RE GEN patient brochure or browse transparent pricing for GLP-1 weight loss, peptides, hormones and wellness — NP-directed care from Hello Gorgeous Med Spa, Oswego IL.";
 
 const baseMeta = pageMetadata({
   title,

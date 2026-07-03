@@ -765,5 +765,10 @@
       </p>
     </div>
   </div>
+  <script>
+    if (new URLSearchParams(window.location.search).get('print') === '1') {
+      window.addEventListener('load', function () { setTimeout(function () { window.print(); }, 600); });
+    }
+  </script>
 </body>
 </html>
