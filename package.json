@@ -28,6 +28,7 @@
     "generate-client-rx-protocol": "npx tsx scripts/generate-client-rx-protocol-sheet.ts",
     "import:formulation-catalog": "node scripts/import-formulation-catalog.mjs",
     "sync:olympia": "node scripts/sync-olympia-pricelist.mjs",
+    "sync:regen-vials": "node scripts/generate-regen-vial-images.mjs",
     "import-fresha-clients": "node --env-file=.env.local scripts/import-fresha-clients.mjs",
     "import-fresha-appointments": "node --env-file=.env.local scripts/import-fresha-appointments.mjs",
     "test:ai-concierge": "node scripts/test-ai-concierge.mjs"
