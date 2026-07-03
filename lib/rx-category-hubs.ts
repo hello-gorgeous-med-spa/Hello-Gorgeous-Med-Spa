@@ -42,6 +42,9 @@ export type RxCategoryHub = {
   hubPath: string;
   previewImage: string;
   previewAlt: string;
+  /** Optional full-width hero visual below headline */
+  heroImage?: string;
+  heroImageAlt?: string;
   hero: {
     eyebrow: string;
     title: string;
@@ -52,6 +55,8 @@ export type RxCategoryHub = {
   products: RxCategoryProduct[];
   trustLine: string;
   faq?: Array<{ q: string; a: string }>;
+  /** Storefront / checkout entry — defaults to /rx */
+  getStartedPath?: string;
 };
 
 const WEIGHT_LOSS_PRODUCTS: RxCategoryProduct[] = [
@@ -88,7 +93,251 @@ const WEIGHT_LOSS_PRODUCTS: RxCategoryProduct[] = [
   },
 ];
 
-export const REGEN_CATEGORY_HUBS: RxCategoryHub[] = [
+const HAIR_SKIN_PRODUCTS: RxCategoryProduct[] = [
+  {
+    id: "manetain",
+    name: "ManeTain Hair Spray",
+    description: "Minoxidil 5% leave-in with fluocinolone & retinoic — defend thinning hair",
+    priceLabel: "$172.50",
+    href: "#faq",
+    image: "/images/regen/prod-manetain.png",
+    imageAlt: "ManeTain prescription hair spray — RE GEN",
+    badge: "POPULAR",
+    rx: true,
+  },
+  {
+    id: "minoxidil-oral",
+    name: "Oral Minoxidil",
+    description: "Low-dose systemic hair regrowth support when topicals aren’t enough",
+    priceLabel: "from $95/30ct",
+    href: "#faq",
+    image: "/images/regen/prod-manetain.png",
+    imageAlt: "Oral minoxidil — RE GEN hair regrowth",
+    rx: true,
+  },
+  {
+    id: "ghk-cu",
+    name: "GHK-Cu Cream",
+    description: "Copper peptide topical — skin repair, tightening & collagen support",
+    priceLabel: "from $125/tube",
+    href: "#faq",
+    image: "/images/shop-rx/ghk-cu.png",
+    imageAlt: "GHK-Cu copper peptide cream — RE GEN",
+    rx: false,
+  },
+  {
+    id: "glow",
+    name: "Glow Cream",
+    description: "Even skin tone — kojic acid, ascorbic acid & hyaluronic acid",
+    priceLabel: "$125/30g",
+    href: "#faq",
+    image: "/images/regen/prod-glow.jpg",
+    imageAlt: "Glow brightening cream — RE GEN dermatology",
+    rx: true,
+  },
+  {
+    id: "miracle",
+    name: "Miracle Cream",
+    description: "Extreme repair & brightening — hydroquinone + retinoic blend",
+    priceLabel: "$125/30g",
+    href: "#faq",
+    image: "/images/regen/prod-miracle.jpg",
+    imageAlt: "Miracle repair cream — RE GEN",
+    rx: true,
+  },
+  {
+    id: "erase",
+    name: "Erase Cream",
+    description: "Acne-focused Rx — retinoic acid with clindamycin",
+    priceLabel: "$125/30g",
+    href: "#faq",
+    image: "/images/regen/prod-erase.jpg",
+    imageAlt: "Erase acne cream — RE GEN",
+    rx: true,
+  },
+];
+
+const HORMONE_PRODUCTS: RxCategoryProduct[] = [
+  {
+    id: "test-cyp",
+    name: "Testosterone Cypionate",
+    description: "Injectable TRT — grapeseed or MCT carrier · NP-guided dosing",
+    priceLabel: "from $75/vial",
+    href: "#faq",
+    image: "/images/shop-rx/hrt/testosterone-trt.png",
+    imageAlt: "Testosterone cypionate — RE GEN hormones",
+    badge: "POPULAR",
+    rx: true,
+  },
+  {
+    id: "test-cream",
+    name: "Testosterone Cream",
+    description: "Topical TRT — 10% or 20% strengths · daily application",
+    priceLabel: "$87.50/tube",
+    href: "#faq",
+    image: "/images/shop-rx/hrt/testosterone-trt.png",
+    imageAlt: "Testosterone cream — RE GEN",
+    rx: true,
+  },
+  {
+    id: "clomiphene",
+    name: "Clomiphene",
+    description: "Stimulate natural testosterone — fertility-friendly option for some men",
+    priceLabel: "$112.50/30ct",
+    href: "#faq",
+    image: "/images/shop-rx/hrt/dhea.png",
+    imageAlt: "Clomiphene — RE GEN hormone support",
+    rx: true,
+  },
+  {
+    id: "biest",
+    name: "Bi-Est Cream",
+    description: "Bioidentical estriol / estradiol blend for women’s HRT",
+    priceLabel: "$90/tube",
+    href: "#faq",
+    image: "/images/shop-rx/hrt/estrogen-biest.png",
+    imageAlt: "Bi-Est cream — RE GEN women's hormones",
+    rx: true,
+  },
+  {
+    id: "progesterone",
+    name: "Progesterone",
+    description: "Capsules or cream — menopause & cycle support",
+    priceLabel: "from $63.75/30ct",
+    href: "#faq",
+    image: "/images/shop-rx/hrt/dhea.png",
+    imageAlt: "Progesterone — RE GEN HRT",
+    rx: true,
+  },
+];
+
+const SEXUAL_HEALTH_PRODUCTS: RxCategoryProduct[] = [
+  {
+    id: "sildenafil",
+    name: "Sildenafil RDT",
+    description: "Fast-dissolve ED tablet — discreet, NP-prescribed dosing",
+    priceLabel: "from $125/10ct",
+    href: "#faq",
+    image: "/images/shop-rx/pt-141.png",
+    imageAlt: "Sildenafil — RE GEN sexual health",
+    badge: "POPULAR",
+    rx: true,
+  },
+  {
+    id: "tadalafil",
+    name: "Tadalafil RDT",
+    description: "Longer-window ED support — rapid-dissolve format",
+    priceLabel: "$125/10ct",
+    href: "#faq",
+    image: "/images/shop-rx/pt-141.png",
+    imageAlt: "Tadalafil — RE GEN",
+    rx: true,
+  },
+  {
+    id: "maxx-pe",
+    name: "MAXX PE",
+    description: "Triple-combo performance tablet for men",
+    priceLabel: "$150/10ct",
+    href: "#faq",
+    image: "/images/shop-rx/pt-141.png",
+    imageAlt: "MAXX PE — RE GEN men's sexual health",
+    rx: true,
+  },
+  {
+    id: "scream-cream",
+    name: "Scream Cream",
+    description: "Topical arousal cream for women — compounded Rx",
+    priceLabel: "$125/tube",
+    href: "#faq",
+    image: "/images/regen/prod-glow.jpg",
+    imageAlt: "Scream Cream — RE GEN women's wellness",
+    rx: true,
+  },
+  {
+    id: "pt-141",
+    name: "PT-141 Injection",
+    description: "Peptide arousal support — libido pathway for men & women",
+    priceLabel: "$175/vial",
+    href: "#faq",
+    image: "/images/shop-rx/pt-141.png",
+    imageAlt: "PT-141 — RE GEN peptide intimacy",
+    rx: true,
+  },
+];
+
+const PAY_FIRST_STEPS = [
+  {
+    title: "Pay to secure your order",
+    body: "Checkout online — your medication is reserved while we review your chart.",
+  },
+  {
+    title: "Complete health intake",
+    body: "Medical history, allergies, and goals so Ryan Kent, FNP-BC can review safely.",
+  },
+  {
+    title: "Telehealth if required",
+    body: "Book a quick video visit when your protocol needs NP clearance before ship.",
+  },
+  {
+    title: "Ships after approval",
+    body: "Nothing dispensed without clinical sign-off. Flat $30 shipping · tracking included.",
+  },
+];
+
+const WEIGHT_LOSS_FAQ = [
+  {
+    q: "Are compounded GLP-1 medications FDA-approved?",
+    a: "Compounded semaglutide and tirzepatide are prepared by a licensed US pharmacy for an individual patient when medically appropriate — they are not FDA-approved brand products. Your NP reviews candidacy, dosing, and follow-up before anything ships.",
+  },
+  {
+    q: "How does RE GEN weight loss work?",
+    a: "Pay first to secure your order, complete your health intake, book telehealth when required, and your NP approves your protocol before pharmacy dispatch. Ryan Kent, FNP-BC supervises every Illinois plan.",
+  },
+  {
+    q: "Semaglutide vs tirzepatide — which is right for me?",
+    a: "Both are GLP-1-class therapies with different mechanisms and titration schedules. Your provider reviews your history, goals, tolerability, and access — not marketing hype — to recommend a fit.",
+  },
+  {
+    q: "How much does shipping cost?",
+    a: "Flat $30 per RE GEN order, tracked to your door after NP approval.",
+  },
+  {
+    q: "Can existing patients refill?",
+    a: "Yes — established Hello Gorgeous GLP-1 patients can use our refill intake for home delivery when clinically appropriate.",
+  },
+] as const;
+
+const HAIR_SKIN_FAQ = [
+  {
+    q: "Are RE GEN hair and skin products prescription?",
+    a: "Yes — these are compounded prescription-strength formulas, not OTC cosmeceuticals. Ryan Kent, FNP-BC reviews your goals, health history, and contraindications before prescribing.",
+  },
+  {
+    q: "How long until I see results?",
+    a: "Skin actives often show visible change in 6–12 weeks with consistent use. Hair treatments typically need 3–6 months — hair growth cycles are slow; we set realistic expectations up front.",
+  },
+  {
+    q: "Can I combine hair and skin products?",
+    a: "Often, yes — your provider builds a simple AM/PM routine and tells you how to layer actives safely. We avoid stacking conflicting retinoids or irritants without guidance.",
+  },
+  {
+    q: "What is ManeTain?",
+    a: "ManeTain is our prescription leave-in hair spray with minoxidil 5% plus supportive actives — designed for thinning hair defense and regrowth support under NP supervision.",
+  },
+  {
+    q: "Do I need telehealth before my order ships?",
+    a: "Yes for new protocols. RE GEN is pay-first: you secure your order, complete intake, then book a telehealth visit when required. Nothing ships without NP approval.",
+  },
+  {
+    q: "Who compounds these medications?",
+    a: "Licensed US compounding pharmacies partner with Hello Gorgeous Med Spa — 503A/503B facilities, not gray-market research chemicals.",
+  },
+  {
+    q: "Can women use these hair treatments?",
+    a: "Many protocols are appropriate for women with thinning hair — pregnancy and breastfeeding are important screens. Your intake captures this before prescribing.",
+  },
+] as const;
+
   {
     id: "weight-loss",
     navLabel: "Weight Loss",
@@ -102,13 +351,11 @@ export const REGEN_CATEGORY_HUBS: RxCategoryHub[] = [
       subtitle:
         "Compounded GLP-1 programs supervised by Ryan Kent, FNP-BC — intake online, telehealth when needed, medication shipped to your door in Illinois.",
     },
-    steps: [
-      { title: "Choose your program", body: "Screen online — semaglutide or tirzepatide." },
-      { title: "NP clinical review", body: "Ryan Kent, FNP-BC confirms candidacy and dosing." },
-      { title: "Ship to home", body: "Medication and follow-up cadence built into your plan." },
-    ],
+    steps: PAY_FIRST_STEPS,
     products: WEIGHT_LOSS_PRODUCTS,
     trustLine: "NP-supervised · Illinois patients · No surprise pharmacy runaround",
+    faq: [...WEIGHT_LOSS_FAQ],
+    getStartedPath: "/rx",
   },
   {
     id: "labs",
@@ -133,14 +380,38 @@ export const REGEN_CATEGORY_HUBS: RxCategoryHub[] = [
     previewImage: REGEN_PREVIEW_FALLBACKS.hormones,
     previewAlt: "REGEN hormone therapy",
     hero: {
-      eyebrow: "REGEN · Hormones",
+      eyebrow: "RE GEN · Hormones",
       title: "Hormone therapy,",
       titleAccent: "personalized.",
-      subtitle: "HRT ingredients — capsule, troche, cream, or injectable — compounded and supervised.",
+      subtitle:
+        "TRT, women's bioidentical HRT, and fertility-friendly options — compounded, lab-guided, and supervised by Ryan Kent, FNP-BC in Oswego.",
     },
-    steps: [],
-    products: [],
-    trustLine: "Ryan Kent, FNP-BC on site 7 days a week",
+    steps: PAY_FIRST_STEPS,
+    products: HORMONE_PRODUCTS,
+    trustLine: "Lab-guided · Ryan Kent, FNP-BC · Illinois telehealth",
+    getStartedPath: "/rx",
+    faq: [
+      {
+        q: "Do I need bloodwork for hormone therapy?",
+        a: "Yes — hormone therapy is guided by labs. Your provider orders baseline panels and periodic rechecks to keep you in a safe, effective range.",
+      },
+      {
+        q: "What's the difference between TRT, clomiphene, and HCG?",
+        a: "TRT supplies testosterone directly. Clomiphene and HCG stimulate your body to produce more of its own — which can help preserve fertility and testicular function. Your NP helps you choose based on goals and labs.",
+      },
+      {
+        q: "Do you treat women for hormones too?",
+        a: "Yes — bioidentical estradiol, estriol, Bi-Est, progesterone, low-dose testosterone, and DHEA for perimenopause, menopause, and hormonal balance.",
+      },
+      {
+        q: "How does RE GEN hormone ordering work?",
+        a: "Pay first to secure your protocol, complete your health intake, book telehealth when required, and your medication ships after NP approval — flat $30 shipping.",
+      },
+      {
+        q: "Is testosterone a controlled substance?",
+        a: "Yes — testosterone protocols require ongoing monitoring, valid prescription, and identity verification per Illinois and federal rules.",
+      },
+    ],
   },
   {
     id: "peptides",
@@ -165,14 +436,38 @@ export const REGEN_CATEGORY_HUBS: RxCategoryHub[] = [
     previewImage: REGEN_PREVIEW_FALLBACKS["sexual-health"],
     previewAlt: "REGEN sexual wellness",
     hero: {
-      eyebrow: "REGEN · Sexual wellness",
+      eyebrow: "RE GEN · Sexual wellness",
       title: "Sexual health",
       titleAccent: "in your control.",
-      subtitle: "Libido and intimacy support for men and women — hormone-aware prescribing.",
+      subtitle:
+        "ED tablets, women's arousal creams, and peptide libido support — discreet, hormone-aware prescribing by Ryan Kent, FNP-BC.",
     },
-    steps: [],
-    products: [],
-    trustLine: "Discreet telehealth · NP-supervised",
+    steps: PAY_FIRST_STEPS,
+    products: SEXUAL_HEALTH_PRODUCTS,
+    trustLine: "Discreet shipping · NP-supervised · Illinois patients",
+    getStartedPath: "/rx",
+    faq: [
+      {
+        q: "Is RE GEN sexual health care discreet?",
+        a: "Yes — telehealth visits are private, packaging is discreet, and our team treats intimacy concerns with clinical professionalism.",
+      },
+      {
+        q: "Can I take ED medication if I use nitrates?",
+        a: "No — PDE-5 medications like sildenafil and tadalafil are contraindicated with nitrates. Your intake screens for this; always disclose cardiac medications.",
+      },
+      {
+        q: "Do women have options too?",
+        a: "Yes — Scream Cream, hormone balancing, and PT-141 peptide protocols may support arousal and libido when medically appropriate.",
+      },
+      {
+        q: "How fast can I get started?",
+        a: "Pay online, complete your intake, and book telehealth when required. Many patients connect with our NP same-day or next business day.",
+      },
+      {
+        q: "Are these compounded medications?",
+        a: "Many protocols are compounded by licensed US pharmacies for individual patients. Your NP confirms safety and appropriateness before prescribing.",
+      },
+    ],
   },
   {
     id: "testosterone",
@@ -193,18 +488,23 @@ export const REGEN_CATEGORY_HUBS: RxCategoryHub[] = [
   {
     id: "hair-skin",
     navLabel: "Hair & Skin",
-    hubPath: "/rx/dermatology",
+    hubPath: "/rx/hair-skin",
     previewImage: REGEN_PREVIEW_FALLBACKS["hair-skin"],
-    previewAlt: "REGEN hair and skin Rx",
+    previewAlt: "RE GEN hair and skin Rx",
+    heroImage: "/images/regen/hero-hair-skin.jpg",
+    heroImageAlt: "RE GEN prescription hair regrowth and dermatology care",
     hero: {
-      eyebrow: "REGEN · Dermatology",
-      title: "Hair & skin",
-      titleAccent: "Rx care.",
-      subtitle: "Prescription dermatology and regenerative skin protocols.",
+      eyebrow: "RE GEN · Hair + Skin",
+      title: "Keep your hair.",
+      titleAccent: "Love your skin.",
+      subtitle:
+        "Prescription-strength dermatology creams for brightening, acne, and anti-aging — plus ManeTain and minoxidil protocols for thinning hair. NP-reviewed before anything ships.",
     },
-    steps: [],
-    products: [],
-    trustLine: "Clinical protocols · NP oversight",
+    steps: PAY_FIRST_STEPS,
+    products: HAIR_SKIN_PRODUCTS,
+    trustLine: "Compounded Rx · Ryan Kent, FNP-BC · Shipped after approval",
+    getStartedPath: "/rx",
+    faq: [...HAIR_SKIN_FAQ],
   },
   {
     id: "wellness",
@@ -227,6 +527,17 @@ export const REGEN_CATEGORY_HUBS: RxCategoryHub[] = [
 export function getRegenCategoryHub(id: RxCategoryHubId): RxCategoryHub | undefined {
   return REGEN_CATEGORY_HUBS.find((c) => c.id === id);
 }
+
+/** Next.js landing pages for storefront "Learn more" deep links */
+export const REGEN_CATEGORY_LANDING_PATHS: Partial<Record<string, string>> = {
+  "weight-loss": "/rx/weight-loss",
+  "hair-skin": "/rx/hair-skin",
+  hormones: "/rx/hormones",
+  "sexual-health": "/rx/sexual-health",
+  "peptide-therapy": "/rx/peptides",
+  peptides: "/rx/peptides",
+  labs: "/labs",
+};
 
 export function isRegenHubActive(pathname: string | null, hub: RxCategoryHub): boolean {
   if (!pathname) return false;

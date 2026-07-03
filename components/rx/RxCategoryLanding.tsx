@@ -34,8 +34,10 @@ function TrustBar() {
 
 function ProductCard({
   product,
+  getStartedHref,
 }: {
   product: RxCategoryHub["products"][number];
+  getStartedHref: string;
 }) {
   return (
     <div className="group flex h-full flex-col overflow-hidden rounded-2xl border border-neutral-200 bg-white transition hover:shadow-lg">
@@ -73,10 +75,10 @@ function ProductCard({
             href={product.href}
             className="flex-1 rounded-lg border border-neutral-300 py-2.5 text-center text-xs font-semibold text-neutral-700 transition hover:border-neutral-400"
           >
-            Learn more
+            {product.href.startsWith("#") ? "Q&A" : "Learn more"}
           </Link>
           <Link
-            href="/rx/start"
+            href={getStartedHref}
             className="flex-1 rounded-lg bg-[#E6007E] py-2.5 text-center text-xs font-semibold text-white transition hover:bg-[#FF2D8E]"
           >
             Get started
@@ -97,7 +99,7 @@ function CategoryFaq({ faq }: { faq?: RxCategoryHub["faq"] }) {
   if (!faq || faq.length === 0) return null;
 
   return (
-    <section className="border-y border-neutral-100 bg-neutral-50 py-16">
+    <section id="faq" className="border-y border-neutral-100 bg-neutral-50 py-16 scroll-mt-20">
       <div className="mx-auto max-w-3xl px-4">
         <p className="text-xs font-semibold uppercase tracking-widest text-neutral-500">
           Questions
@@ -127,6 +129,46 @@ function CategoryFaq({ faq }: { faq?: RxCategoryHub["faq"] }) {
               {openIndex === index && (
                 <p className="pb-5 text-sm leading-relaxed text-neutral-600">{item.a}</p>
               )}
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function CategoryCredibility() {
+  return (
+    <section className="border-y border-neutral-100 bg-neutral-950 py-12 text-white">
+      <div className="mx-auto max-w-6xl px-4">
+        <p className="text-center text-xs font-semibold uppercase tracking-[0.2em] text-[#FFB8DC]">
+          Why patients trust RE GEN
+        </p>
+        <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {[
+            {
+              title: "Ryan Kent, FNP-BC",
+              body: "Board-certified NP on site in Oswego — not an anonymous telehealth mill.",
+            },
+            {
+              title: "Licensed compounding",
+              body: "503A/503B US pharmacy partners. No gray-market research chemicals.",
+            },
+            {
+              title: "4.4★ Google · 5.0★ Fresha",
+              body: "Hello Gorgeous Med Spa — #1 rated med spa in Oswego, Illinois.",
+            },
+            {
+              title: "Pay → intake → telehealth",
+              body: "Secure your order, complete health history, NP approves before anything ships.",
+            },
+          ].map((item) => (
+            <div
+              key={item.title}
+              className="rounded-2xl border border-white/10 bg-white/5 p-5"
+            >
+              <p className="font-semibold text-[#FFB8DC]">{item.title}</p>
+              <p className="mt-2 text-sm leading-relaxed text-white/70">{item.body}</p>
             </div>
           ))}
         </div>
@@ -172,7 +214,8 @@ function CategoryFooter() {
 ───────────────────────────────────────────────────────────── */
 
 export function RxCategoryLanding({ hub }: { hub: RxCategoryHub }) {
-  const { hero, steps, products, trustLine, faq } = hub;
+  const { hero, steps, products, trustLine, faq, heroImage, heroImageAlt } = hub;
+  const getStartedHref = hub.getStartedPath || "/rx";
 
   return (
     <div className="min-h-[100dvh] bg-white">
@@ -206,20 +249,41 @@ export function RxCategoryLanding({ hub }: { hub: RxCategoryHub }) {
 
           <div className="mt-8 flex flex-wrap gap-3">
             <Link
-              href="/rx/start"
+              href={getStartedHref}
               className="inline-flex items-center gap-2 rounded-lg bg-[#E6007E] px-6 py-3.5 text-sm font-semibold text-white shadow-lg shadow-[#E6007E]/25 transition hover:bg-[#FF2D8E]"
             >
               Get started
             </Link>
-            <Link
-              href="#products"
-              className="inline-flex items-center gap-2 rounded-lg border border-neutral-300 px-6 py-3.5 text-sm font-semibold text-neutral-700 transition hover:border-neutral-400"
-            >
-              See pricing
-            </Link>
+            {faq && faq.length > 0 ? (
+              <Link
+                href="#faq"
+                className="inline-flex items-center gap-2 rounded-lg border border-neutral-300 px-6 py-3.5 text-sm font-semibold text-neutral-700 transition hover:border-neutral-400"
+              >
+                Read Q&A
+              </Link>
+            ) : (
+              <Link
+                href="#products"
+                className="inline-flex items-center gap-2 rounded-lg border border-neutral-300 px-6 py-3.5 text-sm font-semibold text-neutral-700 transition hover:border-neutral-400"
+              >
+                See pricing
+              </Link>
+            )}
           </div>
+
+          {heroImage ? (
+            <div className="mt-10 overflow-hidden rounded-2xl border border-neutral-200 shadow-lg">
+              <img
+                src={heroImage}
+                alt={heroImageAlt || hub.navLabel}
+                className="h-auto w-full max-h-[420px] object-cover"
+              />
+            </div>
+          ) : null}
         </div>
       </section>
+
+      <CategoryCredibility />
 
       {hub.id === "weight-loss" ? <RegenMetabolicShiftVisual variant="landing" /> : null}
 
@@ -234,7 +298,7 @@ export function RxCategoryLanding({ hub }: { hub: RxCategoryHub }) {
               From consult to doorstep
             </h2>
 
-            <div className="mt-10 grid gap-8 sm:grid-cols-3">
+            <div className="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
               {steps.map((step, index) => (
                 <div key={step.title}>
                   <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#E6007E] text-lg font-bold text-white">
@@ -265,7 +329,7 @@ export function RxCategoryLanding({ hub }: { hub: RxCategoryHub }) {
 
             <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {products.map((product) => (
-                <ProductCard key={product.id} product={product} />
+                <ProductCard key={product.id} product={product} getStartedHref={getStartedHref} />
               ))}
             </div>
           </div>
@@ -280,14 +344,15 @@ export function RxCategoryLanding({ hub }: { hub: RxCategoryHub }) {
         <div className="mx-auto max-w-3xl px-4 text-center">
           <h2 className="text-2xl font-semibold sm:text-3xl">Ready to start?</h2>
           <p className="mt-4 text-white/80">
-            Start the free intake — a provider reviews and reaches out, often same day.
+            Pay first, complete your health intake, book telehealth when required — your NP reviews
+            before anything ships.
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-3">
             <Link
-              href="/rx/start"
+              href={getStartedHref}
               className="inline-flex items-center gap-2 rounded-lg bg-white px-6 py-3.5 text-sm font-semibold text-[#E6007E] shadow-lg transition hover:bg-neutral-100"
             >
-              Get started
+              Shop RE GEN
             </Link>
             <Link
               href={`tel:+16306366193`}

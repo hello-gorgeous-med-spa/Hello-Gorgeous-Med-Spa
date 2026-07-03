@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import { RxCategoryLanding } from "@/components/rx/RxCategoryLanding";
+import { RegenCategoryRoute } from "@/components/rx/RegenCategoryRoute";
 import { getRegenCategoryHub } from "@/lib/rx-category-hubs";
 import { REGEN_SITE } from "@/lib/regen-site";
 import { pageMetadata, SITE } from "@/lib/seo";
@@ -42,5 +42,5 @@ export const metadata: Metadata = {
 };
 
 export default function RegenWeightLossPage() {
-  return <RxCategoryLanding hub={hub} />;
+  return <RegenCategoryRoute hub={hub} />;
 }

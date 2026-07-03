@@ -36,11 +36,13 @@ import { bestMedSpaNearPlainfieldPost } from "./blog-post-best-med-spa-near-plai
 import { bestMedSpaNearYorkvillePost } from "./blog-post-best-med-spa-near-yorkville";
 import { skinBoostersPrpPrfPdrnPost } from "./blog-post-skin-boosters-prp-prf-pdrn";
 import { buildYourIvBagAppLaunchPost } from "./blog-post-build-your-iv-bag-app-launch";
+import { regenLaunchOswegoPost } from "./blog-post-regen-launch-oswego";
 import type { BlogPost } from "./blog-types";
 
 export type { BlogPost } from "./blog-types";
 
 const coreBlogPosts: BlogPost[] = [
+  regenLaunchOswegoPost,
   skinBoostersPrpPrfPdrnPost,
   buildYourIvBagAppLaunchPost,
   tirzepatideProgramLetterPost,

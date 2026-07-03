@@ -569,6 +569,7 @@
           <p style="font-size:20px;margin:20px 0 0;color:rgba(0,0,0,.78);max-width:46ch;">{{ active.sub }}</p>
           <div style="display:flex;gap:14px;margin-top:30px;flex-wrap:wrap;">
             <button class="btn btn-primary btn-cta" onClick="{{ openQuiz }}">Get started</button>
+            <button class="btn btn-outline" type="button" onClick="{{ openCategoryLanding }}">Full Q&A guide</button>
             <a href="#options" class="btn btn-outline">See pricing</a>
           </div>
           <p style="font-size:13px;color:rgba(0,0,0,.5);margin-top:18px;">Flat $30 shipping · NP-directed · {{ active.priceNote }}</p>
@@ -690,7 +691,7 @@
                     <a class="rgx-btn-ghost" href="{{ p.guideUrl }}" target="_blank" rel="noopener">Dosing guide</a>
                   </sc-if>
                   <sc-if value="{{ p.noGuide }}">
-                    <button class="rgx-btn-ghost" onClick="{{ openQuiz }}">Learn more</button>
+                    <button class="rgx-btn-ghost" type="button" onClick="{{ openCategoryLanding }}">Learn more</button>
                   </sc-if>
                   <button class="rgx-btn-dark" onClick="{{ p.add }}">Add to cart</button>
                 </div>
@@ -1746,6 +1747,20 @@ class Component extends DCLogic {
   }
 
   go(id) { this.setState({ view:'category', cat:id, menuOpen:false, chatOpen:false, chatMessages:[], chatLoading:false }); if (typeof window!=='undefined') window.scrollTo({ top:0 }); }
+  landingPath(id) {
+    const paths = {
+      'weight-loss': '/rx/weight-loss',
+      'hair-skin': '/rx/hair-skin',
+      'hormones': '/rx/hormones',
+      'sexual-health': '/rx/sexual-health',
+      'peptide-therapy': '/rx/peptides',
+    };
+    return paths[id] || null;
+  }
+  goToLanding(id) {
+    const path = this.landingPath(id || this.state.cat);
+    if (path && typeof window !== 'undefined') window.top.location.href = path;
+  }
   home() { this.setState({ view:'hub', menuOpen:false, chatOpen:false, chatMessages:[], chatLoading:false }); if (typeof window!=='undefined') window.scrollTo({ top:0 }); }
 
   addToCart(p) {
@@ -1841,6 +1856,8 @@ class Component extends DCLogic {
       active: activeView,
       navCats, catTiles, shopCats,
       goHome:() => this.home(),
+      goWeight:() => this.goToLanding('weight-loss'),
+      openCategoryLanding:() => this.goToLanding(this.state.cat),
       openQuiz:() => this.setState({ quizOpen:true, quizStep:0, quizGoal:'', menuOpen:false }),
       openQuizFromMenu:() => this.setState({ quizOpen:true, quizStep:0, quizGoal:'', menuOpen:false }),
       closeQuiz:() => this.setState({ quizOpen:false }),
