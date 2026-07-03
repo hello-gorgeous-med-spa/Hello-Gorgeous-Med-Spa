@@ -13,7 +13,7 @@
   { "file": "prod-ss31-regen.png", "name": "SS-31", "category": "MITO SUPPORT", "dose": "5 mL", "usage": ["Sterile", "For Subcutaneous Use"] },
   { "file": "prod-selank-regen.png", "name": "SELANK", "category": "CALM SUPPORT", "dose": "Spray", "usage": ["Nasal Spray", "For Intranasal Use"], "form": "spray", "skip": true },
   { "file": "prod-semax-regen.png", "name": "SEMAX", "category": "FOCUS SUPPORT", "dose": "Spray", "usage": ["Nasal Spray", "For Intranasal Use"], "form": "spray", "skip": true },
-  { "file": "prod-5amino1mq-regen.png", "name": "5-AMINO-1MQ", "category": "METABOLIC SUPPORT", "dose": "30 ct", "usage": ["Capsules", "For Oral Use"], "form": "bottle" },
+  { "file": "prod-5amino1mq-regen.png", "name": "5-AMINO-1MQ", "category": "METABOLIC SUPPORT", "dose": "30 ct", "usage": ["Capsules", "For Oral Use"], "form": "bottle", "skip": true },
   { "file": "prod-oxytocin-regen.png", "name": "OXYTOCIN", "category": "MOOD SUPPORT", "dose": "Spray", "usage": ["Nasal Spray", "For Intranasal Use"], "form": "spray" },
   { "file": "prod-semaglutide-regen.png", "name": "SEMAGLUTIDE", "category": "GLP-1 SUPPORT", "dose": "Multi-dose", "usage": ["Sterile", "For Subcutaneous Use"], "skip": true },
   { "file": "prod-tirzepatide-regen.png", "name": "TIRZEPATIDE", "category": "GLP-1 / GIP", "dose": "Multi-dose", "usage": ["Sterile", "For Subcutaneous Use"], "skip": true },
