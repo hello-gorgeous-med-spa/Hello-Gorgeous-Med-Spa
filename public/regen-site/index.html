@@ -242,9 +242,9 @@
   .rgx-cat-hero-img { aspect-ratio:5/4; border-radius:20px; overflow:hidden; background:#0c0b0c; display:flex; align-items:center; justify-content:center; }
   .rgx-pdf-card { display:grid; grid-template-columns:auto 1fr; gap:28px; align-items:center; background:linear-gradient(135deg,#fff5f9,#fff); border:2px solid var(--hg-pink); border-radius:20px; padding:28px 32px; box-shadow:0 4px 24px rgba(233,30,140,0.12); }
   .rgx-pdf-icon { width:80px; height:100px; background:linear-gradient(145deg,#E6007E,#FF2D8E); border-radius:8px; display:flex; flex-direction:column; align-items:center; justify-content:center; box-shadow:0 4px 12px rgba(233,30,140,0.25); flex-shrink:0; }
-  .rgx-mascot-card { display:grid; grid-template-columns:1fr 1.2fr; gap:40px; align-items:center; background:linear-gradient(135deg,#1a1025 0%,#2d1a3d 50%,#1a1025 100%); border-radius:24px; padding:40px; box-shadow:0 8px 32px rgba(233,30,140,0.2); border:2px solid rgba(233,30,140,0.3); }
-  .rgx-mascot-media { position:relative; }
-  .rgx-mascot-badge { position:absolute; top:-20px; left:-20px; width:60px; height:60px; background:linear-gradient(135deg,#FF2D8E,#E6007E); border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 16px rgba(233,30,140,0.4); z-index:2; }
+  .rgx-mascot-card { display:grid; grid-template-columns:140px 1fr; gap:24px; align-items:center; background:linear-gradient(135deg,#1a1025 0%,#2d1a3d 50%,#1a1025 100%); border-radius:18px; padding:24px 28px; box-shadow:0 6px 24px rgba(233,30,140,0.15); border:1px solid rgba(233,30,140,0.25); max-width:820px; margin:0 auto; }
+  .rgx-mascot-media { position:relative; max-width:140px; }
+  .rgx-mascot-badge { position:absolute; top:-12px; left:-12px; width:44px; height:44px; background:linear-gradient(135deg,#FF2D8E,#E6007E); border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 16px rgba(233,30,140,0.4); z-index:2; }
   .rgx-dose-grid { display:grid; grid-template-columns:1fr 1fr; gap:6px 16px; font-size:13px; }
   .rgx-dose-results { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
   .rgx-biogrid-3 { max-width:1080px; grid-template-columns:repeat(3,1fr) !important; }
@@ -662,7 +662,7 @@
     </section>
     </sc-if>
 
-    <section class="section-white" style="padding:10px 24px 70px;">
+    <section class="section-white" style="padding:10px 24px 70px;" data-rgx-products>
       <div style="max-width:1280px;margin:0 auto 28px;">
         <h2 style="margin:0;">Popular <span class="accent">options</span></h2>
         <p style="color:rgba(0,0,0,.6);margin:8px 0 0;">All prices shown are patient pricing. Shipped after a provider reviews your intake.</p>
@@ -1747,6 +1747,28 @@ class Component extends DCLogic {
   }
 
   go(id) { this.setState({ view:'category', cat:id, menuOpen:false, chatOpen:false, chatMessages:[], chatLoading:false }); if (typeof window!=='undefined') window.scrollTo({ top:0 }); }
+
+  initFromUrl() {
+    if (this._deepLinkApplied || typeof window === 'undefined') return;
+    this._deepLinkApplied = true;
+    try {
+      const params = new URLSearchParams(window.location.search);
+      const cat = params.get('cat');
+      if (!cat) return;
+      const valid = this.cats().some((c) => c.id === cat);
+      if (!valid) return;
+      this.go(cat);
+      const productId = params.get('product');
+      if (productId) {
+        setTimeout(() => {
+          const el = document.querySelector('[data-rgx-products]');
+          el?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 120);
+      }
+    } catch (e) {
+      console.warn('[REGEN] deep link init failed', e);
+    }
+  }
   landingPath(id) {
     const paths = {
       'weight-loss': '/rx/weight-loss',
@@ -1782,6 +1804,7 @@ class Component extends DCLogic {
   R(p) { return (typeof window !== 'undefined' && window.__resources && window.__resources[p]) || p; }
 
   renderVals() {
+    this.initFromUrl();
     const cats = this.cats();
     const active = cats.find(c => c.id === this.state.cat) || cats[0];
     const navCats = cats.map(c => ({ title:c.title, go:() => this.go(c.id), goM:() => this.go(c.id) }));

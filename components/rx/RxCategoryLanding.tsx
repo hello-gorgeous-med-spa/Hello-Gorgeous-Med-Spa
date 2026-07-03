@@ -6,7 +6,9 @@ import { useState } from "react";
 
 import { RegenLogo } from "@/components/regen/RegenLogo";
 import { RegenMetabolicShiftVisual } from "@/components/regen/RegenMetabolicShiftVisual";
-import type { RxCategoryHub } from "@/lib/rx-category-hubs";
+import { getCategoryMascot } from "@/lib/regen/category-mascots";
+import { regenStorefrontUrl } from "@/lib/regen/storefront-deep-link";
+import type { RxCategoryHub, RxCategoryHubId } from "@/lib/rx-category-hubs";
 import { REGEN_SITE, REGEN_TRUST_BAR } from "@/lib/regen-site";
 
 /* ─────────────────────────────────────────────────────────────
@@ -34,20 +36,22 @@ function TrustBar() {
 
 function ProductCard({
   product,
-  getStartedHref,
+  hubId,
 }: {
   product: RxCategoryHub["products"][number];
-  getStartedHref: string;
+  hubId: RxCategoryHubId;
 }) {
+  const getStartedHref = regenStorefrontUrl(hubId, product.id);
+
   return (
-    <div className="group flex h-full flex-col overflow-hidden rounded-2xl border border-neutral-200 bg-white transition hover:shadow-lg">
-      <div className="relative aspect-[4/3] bg-gradient-to-br from-neutral-50 to-neutral-100">
+    <div className="group flex h-full flex-col overflow-hidden rounded-xl border border-neutral-200 bg-white transition hover:border-neutral-300 hover:shadow-md">
+      <div className="relative aspect-[5/4] max-h-[200px] bg-neutral-50">
         <Image
           src={product.image}
           alt={product.imageAlt}
           fill
-          className="object-contain p-6 transition duration-300 group-hover:scale-[1.02]"
-          sizes="(max-width: 768px) 100vw, 33vw"
+          className="object-contain p-4 transition duration-300 group-hover:scale-[1.02]"
+          sizes="(max-width: 768px) 50vw, 280px"
         />
         {product.badge ? (
           <span className="absolute left-4 top-4 flex items-center gap-1 rounded-full bg-amber-100 px-3 py-1 text-xs font-semibold text-amber-800">
@@ -56,30 +60,30 @@ function ProductCard({
           </span>
         ) : null}
       </div>
-      <div className="flex flex-1 flex-col p-5">
+      <div className="flex flex-1 flex-col p-4">
         <div className="flex items-center gap-2">
-          <span className="rounded bg-green-100 px-2 py-0.5 text-xs font-medium text-green-700">
+          <span className="rounded bg-emerald-50 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-emerald-700">
             In stock
           </span>
         </div>
-        <h3 className="mt-3 text-lg font-semibold text-neutral-900">
+        <h3 className="mt-2 text-base font-semibold text-neutral-900">
           {product.name}
           {product.rx ? (
             <sup className="ml-1 text-xs font-medium text-neutral-400">Rx</sup>
           ) : null}
         </h3>
         <p className="mt-1 text-sm text-neutral-500">{product.description}</p>
-        <p className="mt-3 text-lg font-bold text-neutral-900">{product.priceLabel}</p>
-        <div className="mt-4 flex gap-2">
+        <p className="mt-3 text-base font-bold text-neutral-900">{product.priceLabel}</p>
+        <div className="mt-3 flex gap-2">
           <Link
             href={product.href}
-            className="flex-1 rounded-lg border border-neutral-300 py-2.5 text-center text-xs font-semibold text-neutral-700 transition hover:border-neutral-400"
+            className="flex-1 rounded-md border border-neutral-200 py-2 text-center text-xs font-semibold text-neutral-600 transition hover:border-neutral-300 hover:text-neutral-900"
           >
             {product.href.startsWith("#") ? "Q&A" : "Learn more"}
           </Link>
           <Link
             href={getStartedHref}
-            className="flex-1 rounded-lg bg-[#E6007E] py-2.5 text-center text-xs font-semibold text-white transition hover:bg-[#FF2D8E]"
+            className="flex-1 rounded-md bg-neutral-900 py-2 text-center text-xs font-semibold text-white transition hover:bg-[#E6007E]"
           >
             Get started
           </Link>
@@ -93,44 +97,86 @@ function ProductCard({
    FAQ ACCORDION
 ───────────────────────────────────────────────────────────── */
 
-function CategoryFaq({ faq }: { faq?: RxCategoryHub["faq"] }) {
+function CategoryMascotAside({ hubId }: { hubId: RxCategoryHubId }) {
+  const mascot = getCategoryMascot(hubId);
+  if (!mascot) return null;
+
+  return (
+    <aside className="rounded-xl border border-neutral-200 bg-white p-4 shadow-sm lg:sticky lg:top-24">
+      <div className="flex items-center gap-3">
+        <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-lg bg-neutral-50">
+          <Image
+            src={mascot.avatar}
+            alt={mascot.name}
+            fill
+            className="object-cover object-top"
+            sizes="64px"
+          />
+        </div>
+        <div className="min-w-0">
+          <p className="text-[10px] font-semibold uppercase tracking-widest text-neutral-400">
+            Clinical educator
+          </p>
+          <p className="font-semibold text-neutral-900">{mascot.name}</p>
+          <p className="text-xs text-neutral-500">{mascot.role}</p>
+        </div>
+      </div>
+      <p className="mt-3 text-sm leading-relaxed text-neutral-600">{mascot.blurb}</p>
+    </aside>
+  );
+}
+
+function CategoryFaq({ faq, hubId }: { faq?: RxCategoryHub["faq"]; hubId: RxCategoryHubId }) {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const mascot = getCategoryMascot(hubId);
 
   if (!faq || faq.length === 0) return null;
 
   return (
-    <section id="faq" className="border-y border-neutral-100 bg-neutral-50 py-16 scroll-mt-20">
-      <div className="mx-auto max-w-3xl px-4">
-        <p className="text-xs font-semibold uppercase tracking-widest text-neutral-500">
-          Questions
-        </p>
-        <h2 className="mt-2 text-2xl font-semibold text-neutral-900 sm:text-3xl">
-          Frequently asked
-        </h2>
+    <section id="faq" className="border-y border-neutral-100 bg-white py-14 scroll-mt-20">
+      <div className="mx-auto max-w-6xl px-4">
+        <div className="max-w-3xl">
+          <p className="text-xs font-semibold uppercase tracking-widest text-neutral-500">
+            Questions
+          </p>
+          <h2 className="mt-2 text-2xl font-semibold tracking-tight text-neutral-900 sm:text-3xl">
+            Frequently asked
+          </h2>
+        </div>
 
-        <div className="mt-8 divide-y divide-neutral-200 border-y border-neutral-200">
-          {faq.map((item, index) => (
-            <div key={index}>
-              <button
-                type="button"
-                onClick={() => setOpenIndex(openIndex === index ? null : index)}
-                className="flex w-full items-center justify-between gap-4 py-5 text-left"
-              >
-                <span className="font-semibold text-neutral-900">{item.q}</span>
-                <svg
-                  className={`h-5 w-5 shrink-0 text-neutral-400 transition ${openIndex === index ? "rotate-180" : ""}`}
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                </svg>
-              </button>
-              {openIndex === index && (
-                <p className="pb-5 text-sm leading-relaxed text-neutral-600">{item.a}</p>
-              )}
+        <div
+          className={`mt-8 grid gap-8 ${mascot ? "lg:grid-cols-[minmax(0,1fr)_220px] lg:items-start" : "max-w-3xl"}`}
+        >
+          {mascot ? (
+            <div className="order-first lg:order-2">
+              <CategoryMascotAside hubId={hubId} />
             </div>
-          ))}
+          ) : null}
+
+          <div className={`order-2 divide-y divide-neutral-200 border-y border-neutral-200 ${mascot ? "lg:order-1" : ""}`}>
+            {faq.map((item, index) => (
+              <div key={index}>
+                <button
+                  type="button"
+                  onClick={() => setOpenIndex(openIndex === index ? null : index)}
+                  className="flex w-full items-center justify-between gap-4 py-4 text-left"
+                >
+                  <span className="text-sm font-semibold text-neutral-900 sm:text-base">{item.q}</span>
+                  <svg
+                    className={`h-4 w-4 shrink-0 text-neutral-400 transition ${openIndex === index ? "rotate-180" : ""}`}
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+                {openIndex === index && (
+                  <p className="pb-4 text-sm leading-relaxed text-neutral-600">{item.a}</p>
+                )}
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>
@@ -214,8 +260,8 @@ function CategoryFooter() {
 ───────────────────────────────────────────────────────────── */
 
 export function RxCategoryLanding({ hub }: { hub: RxCategoryHub }) {
-  const { hero, steps, products, trustLine, faq, heroImage, heroImageAlt } = hub;
-  const getStartedHref = hub.getStartedPath || "/rx";
+  const { hero, steps, products, trustLine, faq, heroImage, heroImageAlt, id: hubId } = hub;
+  const getStartedHref = regenStorefrontUrl(hubId);
 
   return (
     <div className="min-h-[100dvh] bg-white">
@@ -327,9 +373,9 @@ export function RxCategoryLanding({ hub }: { hub: RxCategoryHub }) {
               Shipped after a provider reviews your intake.
             </p>
 
-            <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
               {products.map((product) => (
-                <ProductCard key={product.id} product={product} getStartedHref={getStartedHref} />
+                <ProductCard key={product.id} product={product} hubId={hubId} />
               ))}
             </div>
           </div>
@@ -337,7 +383,7 @@ export function RxCategoryLanding({ hub }: { hub: RxCategoryHub }) {
       )}
 
       {/* FAQ */}
-      <CategoryFaq faq={faq} />
+      <CategoryFaq faq={faq} hubId={hubId} />
 
       {/* CTA */}
       <section className="bg-gradient-to-br from-[#E6007E] to-[#9b0a4d] py-16 text-white">
