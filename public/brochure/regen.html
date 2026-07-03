@@ -264,10 +264,11 @@
     .visual-showcase img {
       width: 100%;
       height: 0.78in;
-      object-fit: cover;
+      object-fit: contain;
       object-position: center;
       display: block;
-      background: #f9fafb;
+      background: #0c0b0c;
+      padding: 0.04in;
     }
     .visual-showcase .vcap {
       font-size: 5.5px;
@@ -304,14 +305,11 @@
       border: 2px solid #000;
       border-radius: 8px;
       display: block;
-      background: #fff;
+      background: #0c0b0c;
+      object-fit: contain;
+      aspect-ratio: 1 / 1;
+      padding: 0.04in;
       box-shadow: 2px 2px 0 rgba(230,0,126,0.15);
-    }
-    .menu-block .product-stack img.lifestyle {
-      object-fit: cover;
-      object-position: center 30%;
-      aspect-ratio: 5/4;
-      background: #1a1025;
     }
 
     .menu-grid {
@@ -400,8 +398,8 @@
     }
     .visual-mini-card .vimg.contain {
       object-fit: contain;
-      background: #0f172a;
-      padding: 0.04in;
+      background: #0c0b0c;
+      padding: 0.05in;
     }
     .visual-mini-card ul {
       list-style: none;
@@ -592,24 +590,24 @@
 
       <div class="visual-showcase">
         <div class="vitem">
-          <img src="/brochure/assets/bpc-157-product.png" alt="RE GEN BPC-157">
+          <img src="/regen-site/assets/prod-bpc157-regen.png" alt="RE GEN BPC-157">
           <div class="vcap">BPC-157<em>$175/mo</em></div>
         </div>
         <div class="vitem">
-          <img src="/brochure/assets/tb-500-product.png" alt="RE GEN TB-500">
+          <img src="/regen-site/assets/prod-tb500-regen.png" alt="RE GEN TB-500">
           <div class="vcap">TB-500<em>$175/mo</em></div>
         </div>
         <div class="vitem">
-          <img src="/brochure/assets/methylene-blue-capsules.png" alt="Methylene Blue">
-          <div class="vcap">Methylene Blue<em>Ask provider</em></div>
+          <img src="/regen-site/assets/prod-nad-regen.png" alt="RE GEN NAD+">
+          <div class="vcap">NAD+<em>$150 · 10 wk</em></div>
         </div>
         <div class="vitem">
-          <img src="/brochure/assets/glp-weight-loss.png" alt="GLP-1 Weight Loss">
+          <img src="/regen-site/assets/prod-semaglutide-regen.png" alt="RE GEN Semaglutide">
           <div class="vcap">GLP-1<em>from $125/mo</em></div>
         </div>
         <div class="vitem">
-          <img src="/brochure/assets/enclomiphene.png" alt="Enclomiphene">
-          <div class="vcap">Enclomiphene<em>TRT support</em></div>
+          <img src="/regen-site/assets/prod-sermorelin-regen.png" alt="RE GEN Sermorelin">
+          <div class="vcap">Sermorelin<em>GH support</em></div>
         </div>
       </div>
 
@@ -619,8 +617,8 @@
           <div class="mb">
             <div class="mb-inner">
               <div class="product-stack">
-                <img src="/brochure/assets/bpc-157-product.png" alt="BPC-157 vial">
-                <img src="/brochure/assets/tb-500-product.png" alt="TB-500 vial">
+                <img src="/regen-site/assets/prod-bpc157-regen.png" alt="BPC-157 vial">
+                <img src="/regen-site/assets/prod-wolverine-stack-regen.png" alt="Wolverine stack vial">
               </div>
               <div>
             <p class="why">Common goals: recovery, gut support, mobility, tissue repair</p>
@@ -645,7 +643,8 @@
           <div class="mb">
             <div class="mb-inner">
               <div class="product-stack">
-                <img src="/brochure/assets/nad-sermorelin.png" alt="NAD+ and Sermorelin Acetate — RE GEN">
+                <img src="/regen-site/assets/prod-nad-regen.png" alt="NAD+ vial — RE GEN">
+                <img src="/regen-site/assets/prod-ss31-regen.png" alt="SS-31 vial — RE GEN">
               </div>
               <div>
             <p class="why">Mitochondrial support, GH-axis, sleep &amp; recovery education</p>
@@ -671,7 +670,8 @@
           <div class="mb">
             <div class="mb-inner">
               <div class="product-stack">
-                <img src="/brochure/assets/methylene-blue-capsules.png" alt="Methylene Blue capsules">
+                <img src="/regen-site/assets/prod-ghkcu-regen.png" alt="GHK-Cu vial — RE GEN">
+                <img src="/regen-site/assets/prod-glutathione-regen.png" alt="Glutathione vial — RE GEN">
               </div>
               <div>
             <p class="why">Radiance, collagen, hair/scalp &amp; antioxidant support</p>
@@ -695,7 +695,8 @@
           <div class="mb">
             <div class="mb-inner">
               <div class="product-stack">
-                <img class="lifestyle" src="/brochure/assets/trimix-intimacy.png" alt="Intimacy and wellness support — RE GEN">
+                <img src="/regen-site/assets/prod-selank-regen.png" alt="Selank — RE GEN">
+                <img src="/regen-site/assets/prod-semax-regen.png" alt="Semax — RE GEN">
               </div>
               <div>
             <p class="why">Cognitive wellness, intimacy &amp; metabolic support</p>
@@ -717,7 +718,7 @@
 
       <div class="bottom-row">
         <div class="visual-mini-card">
-          <img class="vimg contain" src="/brochure/assets/glp-weight-loss.png" alt="GLP-1 Weight Loss">
+          <img class="vimg contain" src="/regen-site/assets/prod-tirzepatide-regen.png" alt="RE GEN Tirzepatide">
           <div class="mh wl">⚖️ Medical weight loss (GLP-1)</div>
           <ul>
             <li><span>Compounded Semaglutide</span><span class="p">from $125/mo</span></li>
@@ -728,7 +729,7 @@
           </ul>
         </div>
         <div class="visual-mini-card">
-          <img class="vimg contain" src="/brochure/assets/enclomiphene.png" alt="Enclomiphene — testosterone support">
+          <img class="vimg contain" src="/regen-site/assets/prod-testosterone-regen.png" alt="RE GEN Testosterone">
           <div class="mh hm">💊 Hormones · labs · more</div>
           <ul>
             <li><span>Testosterone Cypionate (TRT)</span><span class="p">from $55</span></li>
