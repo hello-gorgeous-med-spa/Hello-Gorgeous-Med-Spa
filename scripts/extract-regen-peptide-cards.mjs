@@ -13,9 +13,14 @@ const MAP = {
   "regen-sermorelin": "prod-sermorelin-regen.png",
   "regen-cjc-ipamorelin": "prod-cjc-ipamorelin-regen.png",
   "regen-tesamorelin-ipamorelin": "prod-tesamorelin-regen.png",
-  "regen-nad-plus": "prod-nad-regen.png",
   "regen-bpc-157": "prod-bpc157-regen.png",
+  "regen-tb-500": "prod-tb500-regen.png",
+  "regen-wolverine-stack": "prod-wolverine-stack-regen.png",
+  "regen-klow": "prod-klow-regen.png",
+  "regen-nad-plus": "prod-nad-regen.png",
   "regen-ghk-cu": "prod-ghkcu-regen.png",
+  "regen-semax": "prod-semax-regen.png",
+  "regen-selank": "prod-selank-regen.png",
 };
 
 const htmlPath = process.argv[2];
