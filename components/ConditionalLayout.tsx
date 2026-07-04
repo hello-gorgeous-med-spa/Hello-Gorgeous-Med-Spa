@@ -38,7 +38,14 @@ const ADMIN_ROUTES = [
 const STANDALONE_FORM_ROUTES = ["/forms/brow-intake", "/education/your-brow-journey"];
 
 /** Full-screen client app + GLP-1 intake — no site header/footer over the experience */
-const STANDALONE_APP_ROUTES = ["/app", "/glp1-intake", "/peptide-request", "/hello-gorgeous-rx/start-here", "/rx"];
+const STANDALONE_APP_ROUTES = [
+  "/app",
+  "/glp1-intake",
+  "/peptide-request",
+  "/hello-gorgeous-rx/start-here",
+  "/rx",
+  "/services/flowwave",
+];
 
 export function ConditionalLayout({
   children,

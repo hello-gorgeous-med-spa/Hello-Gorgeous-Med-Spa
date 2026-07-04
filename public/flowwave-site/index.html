@@ -1,0 +1,2934 @@
+<!DOCTYPE html>
+<html><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="/flowwave-site/vendor/react.production.min.js"></script>
+<script src="/flowwave-site/vendor/react-dom.production.min.js"></script>
+<script src="/flowwave-site/assets/4392f717-be68-4d52-b38d-60d99d515159.js"></script>
+</head>
+<body>
+
+<x-dc>
+<helmet>
+  <style>/* ============================================================
+   HELLO GORGEOUS — WEBFONTS
+   Playfair Display + Inter (brand). Montserrat for the embedded
+   Cherry financing widget only.
+   Loaded from Google Fonts. If you need self-hosted binaries,
+   drop them in /assets and add @font-face rules here.
+   ============================================================ */
+
+/* cyrillic-ext */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/flowwave-site/assets/b0d607b8-ce3c-49c8-a17f-3239c436ad1e.woff2") format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/flowwave-site/assets/e42c7d54-fb15-4bbc-8538-8a1bd9cdb6b1.woff2") format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* greek-ext */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/flowwave-site/assets/9501392c-4554-454e-9166-23c0ac7cf75b.woff2") format('woff2');
+  unicode-range: U+1F00-1FFF;
+}
+/* greek */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/flowwave-site/assets/47c14e45-c15c-4e3a-92e5-b5b1ac37fed5.woff2") format('woff2');
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/flowwave-site/assets/6b655847-92bb-44d6-9136-d950f845caa5.woff2") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/flowwave-site/assets/4877c9c8-3033-4a7c-892b-638a2ec9f7ef.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/flowwave-site/assets/769c0f9e-523d-4ffd-9c9d-5ff31b357331.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("/flowwave-site/assets/b0d607b8-ce3c-49c8-a17f-3239c436ad1e.woff2") format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("/flowwave-site/assets/e42c7d54-fb15-4bbc-8538-8a1bd9cdb6b1.woff2") format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* greek-ext */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("/flowwave-site/assets/9501392c-4554-454e-9166-23c0ac7cf75b.woff2") format('woff2');
+  unicode-range: U+1F00-1FFF;
+}
+/* greek */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("/flowwave-site/assets/47c14e45-c15c-4e3a-92e5-b5b1ac37fed5.woff2") format('woff2');
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("/flowwave-site/assets/6b655847-92bb-44d6-9136-d950f845caa5.woff2") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("/flowwave-site/assets/4877c9c8-3033-4a7c-892b-638a2ec9f7ef.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("/flowwave-site/assets/769c0f9e-523d-4ffd-9c9d-5ff31b357331.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("/flowwave-site/assets/b0d607b8-ce3c-49c8-a17f-3239c436ad1e.woff2") format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("/flowwave-site/assets/e42c7d54-fb15-4bbc-8538-8a1bd9cdb6b1.woff2") format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* greek-ext */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("/flowwave-site/assets/9501392c-4554-454e-9166-23c0ac7cf75b.woff2") format('woff2');
+  unicode-range: U+1F00-1FFF;
+}
+/* greek */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("/flowwave-site/assets/47c14e45-c15c-4e3a-92e5-b5b1ac37fed5.woff2") format('woff2');
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("/flowwave-site/assets/6b655847-92bb-44d6-9136-d950f845caa5.woff2") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("/flowwave-site/assets/4877c9c8-3033-4a7c-892b-638a2ec9f7ef.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("/flowwave-site/assets/769c0f9e-523d-4ffd-9c9d-5ff31b357331.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("/flowwave-site/assets/b0d607b8-ce3c-49c8-a17f-3239c436ad1e.woff2") format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("/flowwave-site/assets/e42c7d54-fb15-4bbc-8538-8a1bd9cdb6b1.woff2") format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* greek-ext */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("/flowwave-site/assets/9501392c-4554-454e-9166-23c0ac7cf75b.woff2") format('woff2');
+  unicode-range: U+1F00-1FFF;
+}
+/* greek */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("/flowwave-site/assets/47c14e45-c15c-4e3a-92e5-b5b1ac37fed5.woff2") format('woff2');
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("/flowwave-site/assets/6b655847-92bb-44d6-9136-d950f845caa5.woff2") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("/flowwave-site/assets/4877c9c8-3033-4a7c-892b-638a2ec9f7ef.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("/flowwave-site/assets/769c0f9e-523d-4ffd-9c9d-5ff31b357331.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url("/flowwave-site/assets/b0d607b8-ce3c-49c8-a17f-3239c436ad1e.woff2") format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url("/flowwave-site/assets/e42c7d54-fb15-4bbc-8538-8a1bd9cdb6b1.woff2") format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* greek-ext */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url("/flowwave-site/assets/9501392c-4554-454e-9166-23c0ac7cf75b.woff2") format('woff2');
+  unicode-range: U+1F00-1FFF;
+}
+/* greek */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url("/flowwave-site/assets/47c14e45-c15c-4e3a-92e5-b5b1ac37fed5.woff2") format('woff2');
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url("/flowwave-site/assets/6b655847-92bb-44d6-9136-d950f845caa5.woff2") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url("/flowwave-site/assets/4877c9c8-3033-4a7c-892b-638a2ec9f7ef.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url("/flowwave-site/assets/769c0f9e-523d-4ffd-9c9d-5ff31b357331.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/flowwave-site/assets/cf0248ec-388a-4b39-8fcc-8cf1d0de2005.woff2") format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/flowwave-site/assets/1d2c3ea5-2419-424e-a423-163de352d49f.woff2") format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/flowwave-site/assets/56706488-2b84-4cb6-9aa5-6a7197bf75f0.woff2") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/flowwave-site/assets/408f5326-11a5-476e-b262-2b366d1d5dd0.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/flowwave-site/assets/00a6a178-5f0e-46c4-beb7-b56e41602fa9.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("/flowwave-site/assets/cf0248ec-388a-4b39-8fcc-8cf1d0de2005.woff2") format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("/flowwave-site/assets/1d2c3ea5-2419-424e-a423-163de352d49f.woff2") format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("/flowwave-site/assets/56706488-2b84-4cb6-9aa5-6a7197bf75f0.woff2") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("/flowwave-site/assets/408f5326-11a5-476e-b262-2b366d1d5dd0.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("/flowwave-site/assets/00a6a178-5f0e-46c4-beb7-b56e41602fa9.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("/flowwave-site/assets/cf0248ec-388a-4b39-8fcc-8cf1d0de2005.woff2") format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("/flowwave-site/assets/1d2c3ea5-2419-424e-a423-163de352d49f.woff2") format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("/flowwave-site/assets/56706488-2b84-4cb6-9aa5-6a7197bf75f0.woff2") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("/flowwave-site/assets/408f5326-11a5-476e-b262-2b366d1d5dd0.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("/flowwave-site/assets/00a6a178-5f0e-46c4-beb7-b56e41602fa9.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/flowwave-site/assets/7759e0e1-b49c-43e3-a17a-703bb69d1d0b.woff2") format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/flowwave-site/assets/e875a476-c3f7-413c-a51d-210fa472a3b7.woff2") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/flowwave-site/assets/2bf65116-20e2-4a4d-b908-d1439f368b5a.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/flowwave-site/assets/49c4acd4-0fbe-4153-9279-4a01dac3a20e.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: italic;
+  font-weight: 600;
+  font-display: swap;
+  src: url("/flowwave-site/assets/7759e0e1-b49c-43e3-a17a-703bb69d1d0b.woff2") format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: italic;
+  font-weight: 600;
+  font-display: swap;
+  src: url("/flowwave-site/assets/e875a476-c3f7-413c-a51d-210fa472a3b7.woff2") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: italic;
+  font-weight: 600;
+  font-display: swap;
+  src: url("/flowwave-site/assets/2bf65116-20e2-4a4d-b908-d1439f368b5a.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: italic;
+  font-weight: 600;
+  font-display: swap;
+  src: url("/flowwave-site/assets/49c4acd4-0fbe-4153-9279-4a01dac3a20e.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/flowwave-site/assets/90d0a0d5-e231-4b13-bb92-d196908f8862.woff2") format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/flowwave-site/assets/47ce21fa-06f1-4c5a-b7ff-7aa3c0f220eb.woff2") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/flowwave-site/assets/41456ff3-ca80-45f2-a826-29276a286015.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/flowwave-site/assets/10a39899-804d-4d62-afe5-c745a0af19da.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("/flowwave-site/assets/90d0a0d5-e231-4b13-bb92-d196908f8862.woff2") format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("/flowwave-site/assets/47ce21fa-06f1-4c5a-b7ff-7aa3c0f220eb.woff2") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("/flowwave-site/assets/41456ff3-ca80-45f2-a826-29276a286015.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("/flowwave-site/assets/10a39899-804d-4d62-afe5-c745a0af19da.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("/flowwave-site/assets/90d0a0d5-e231-4b13-bb92-d196908f8862.woff2") format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("/flowwave-site/assets/47ce21fa-06f1-4c5a-b7ff-7aa3c0f220eb.woff2") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("/flowwave-site/assets/41456ff3-ca80-45f2-a826-29276a286015.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("/flowwave-site/assets/10a39899-804d-4d62-afe5-c745a0af19da.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("/flowwave-site/assets/90d0a0d5-e231-4b13-bb92-d196908f8862.woff2") format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("/flowwave-site/assets/47ce21fa-06f1-4c5a-b7ff-7aa3c0f220eb.woff2") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("/flowwave-site/assets/41456ff3-ca80-45f2-a826-29276a286015.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("/flowwave-site/assets/10a39899-804d-4d62-afe5-c745a0af19da.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url("/flowwave-site/assets/90d0a0d5-e231-4b13-bb92-d196908f8862.woff2") format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url("/flowwave-site/assets/47ce21fa-06f1-4c5a-b7ff-7aa3c0f220eb.woff2") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url("/flowwave-site/assets/41456ff3-ca80-45f2-a826-29276a286015.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url("/flowwave-site/assets/10a39899-804d-4d62-afe5-c745a0af19da.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+  src: url("/flowwave-site/assets/90d0a0d5-e231-4b13-bb92-d196908f8862.woff2") format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+  src: url("/flowwave-site/assets/47ce21fa-06f1-4c5a-b7ff-7aa3c0f220eb.woff2") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+  src: url("/flowwave-site/assets/41456ff3-ca80-45f2-a826-29276a286015.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+  src: url("/flowwave-site/assets/10a39899-804d-4d62-afe5-c745a0af19da.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+</style>
+  <style>/* ============================================================
+   HELLO GORGEOUS — COLOR TOKENS
+   Brand law: White, Black, Hot Pink. No gray on the public site.
+   ============================================================ */
+
+:root {
+  /* ---- Core brand ---- */
+  --hg-white: #FFFFFF;
+  --hg-black: #000000;
+  --hg-pink: #FF2D8E;        /* primary hot pink (UI, accents, CTAs) */
+  --hg-pink-deep: #E6007E;   /* deeper pink (hover, gradients, logo) */
+  --hg-pink-wine: #C90A68;   /* darkest pink (pressed, deep accents) */
+
+  /* ---- Brand pink scale ---- */
+  --hg-pink-50:  #FFF0F7;
+  --hg-pink-100: #FFE0F0;
+  --hg-pink-200: #FFC1E2;
+  --hg-pink-300: #FF92CC;
+  --hg-pink-400: #FF5FB1;
+  --hg-pink-500: #FF2D8E;
+  --hg-pink-600: #E6007E;
+  --hg-pink-700: #C90A68;
+  --hg-pink-800: #9B0B52;
+  --hg-pink-900: #730A3F;
+  --hg-pink-950: #4B062A;
+
+  /* Soft pink tints for backgrounds / surfaces */
+  --hg-pink-soft: #FFF5F9;   /* near-white pink wash */
+  --hg-pink-mid:  #FCE7F3;   /* light pink panel */
+  --hg-pink-light: #FFB8DC;  /* light pink text on black (footer credential) */
+
+  /* ---- Accent metals ---- */
+  --hg-gold: #FFD700;        /* award / "Best of Oswego" */
+  --hg-gold-soft: #FFD86B;
+
+  /* ---- Trifecta accent set (homepage showcase, nav pills, app) ----
+     A three-way accent system layered on the brand. Use for tech
+     showcases (Morpheus8 + Quantum RF + Solaria CO2) and nav rhythm. */
+  --tri-pink: #ec4899;
+  --tri-pink-deep: #db2777;
+  --tri-pink-subtitle: #f472b6;
+  --tri-blue: #3b82f6;
+  --tri-blue-deep: #6366f1;
+  --tri-blue-subtitle: #60a5fa;
+  --tri-amber: #f59e0b;
+  --tri-amber-deep: #f97316;
+  --tri-amber-subtitle: #fbbf24;
+  --tri-gradient-title: linear-gradient(to right, #ec4899, #60a5fa, #f59e0b);  /* @kind color */
+  --tri-glass: rgba(24, 24, 27, 0.85);
+  --tri-glass-soft: rgba(24, 24, 27, 0.6);
+  --tri-panel: #18181b;
+
+  /* ---- Clinical palette (admin / charting only — NOT public) ---- */
+  --clinical-navy: #002168;
+  --clinical-navy-light: #1e3a5f;
+  --clinical-blue: #2D63A4;
+  --clinical-blue-light: #5E94C2;
+  --clinical-ink: #111827;
+  --clinical-ink-soft: #374151;
+
+  /* ---- Semantic status ---- */
+  --hg-success: #16a34a;
+  --hg-warning: #f59e0b;
+  --hg-error: #dc2626;
+
+  /* ============================================================
+     SEMANTIC ALIASES — prefer these in components
+     ============================================================ */
+
+  /* Surfaces */
+  --surface-page: var(--hg-white);
+  --surface-card: var(--hg-white);
+  --surface-inverse: var(--hg-black);     /* black header / footer */
+  --surface-pink: var(--hg-pink);
+  --surface-pink-wash: var(--hg-pink-soft);
+  --surface-glass: var(--tri-glass);
+
+  /* Text */
+  --text-strong: var(--hg-black);
+  --text-body: var(--hg-black);
+  --text-on-dark: var(--hg-white);
+  --text-on-pink: var(--hg-white);
+  --text-accent: var(--hg-pink);
+  --text-muted-on-dark: rgba(255, 255, 255, 0.55);
+
+  /* Borders */
+  --border-strong: var(--hg-black);       /* 2px black card outline */
+  --border-accent: var(--hg-pink);
+  --border-hairline: rgba(0, 0, 0, 0.1);
+  --border-on-dark: rgba(255, 255, 255, 0.12);
+
+  /* Interactive */
+  --action-primary: var(--hg-pink);
+  --action-primary-hover: var(--hg-pink-deep);
+  --action-primary-text: var(--hg-white);
+  --focus-ring: var(--hg-pink);
+}
+</style>
+  <style>/* ============================================================
+   HELLO GORGEOUS — TYPOGRAPHY TOKENS
+   Playfair Display (serif display) + Inter (sans body).
+   Montserrat is used only by the embedded Cherry financing widget.
+   ============================================================ */
+
+:root {
+  /* ---- Families ---- */
+  --font-serif: "Playfair Display", Georgia, "Times New Roman", serif;
+  --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: var(--font-serif);  /* headings */
+  --font-body: var(--font-sans);      /* paragraphs, UI */
+
+  /* ---- Weights ---- */
+  --fw-regular: 400;   /* @kind other */
+  --fw-medium: 500;    /* @kind other */
+  --fw-semibold: 600;  /* @kind other */
+  --fw-bold: 700;      /* @kind other */
+
+  /* ---- Type scale (desktop) ---- */
+  --fs-display: 56px;   /* hero h1 */
+  --fs-h1: 52px;
+  --fs-h2: 38px;
+  --fs-h3: 28px;
+  --fs-h4: 22px;
+  --fs-lead: 20px;      /* lead paragraph */
+  --fs-body: 18px;      /* body copy */
+  --fs-sm: 16px;
+  --fs-xs: 13px;
+  --fs-eyebrow: 11px;   /* uppercase eyebrow / kicker */
+
+  /* ---- Line heights ---- */
+  --lh-display: 1.1;  /* @kind other */
+  --lh-heading: 1.2;  /* @kind other */
+  --lh-body: 1.7;     /* @kind other */
+  --lh-snug: 1.3;     /* @kind other */
+
+  /* ---- Letter spacing ---- */
+  --ls-display: -0.02em;   /* @kind other */
+  --ls-tight: -0.01em;     /* @kind other */
+  --ls-normal: 0;          /* @kind other */
+  --ls-wide: 0.05em;       /* @kind other */
+  --ls-widest: 0.2em;      /* @kind other */
+}
+</style>
+  <style>/* ============================================================
+   HELLO GORGEOUS — SPACING, RADII, SHADOWS, LAYOUT
+   Generous "luxury" spacing: 100px major sections.
+   ============================================================ */
+
+:root {
+  /* ---- Spacing scale ---- */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 40px;
+  --space-8: 60px;
+  --space-9: 80px;
+  --space-10: 100px;
+  --space-11: 120px;
+
+  /* ---- Semantic spacing ---- */
+  --section-y: 100px;        /* major vertical section padding */
+  --section-y-lg: 120px;
+  --section-y-sm: 60px;
+  --section-x: 24px;         /* page gutter */
+  --card-gap: 40px;          /* grid gap between cards */
+  --card-pad: 32px;          /* inner card padding */
+
+  /* ---- Radii ---- */
+  --radius-sm: 8px;          /* buttons, inputs */
+  --radius-md: 12px;         /* small cards, dropdowns */
+  --radius-lg: 16px;         /* cards (xl) */
+  --radius-xl: 22px;         /* large feature cards (2xl) */
+  --radius-pill: 999px;      /* badges, nav pills */
+
+  /* ---- Shadows ---- */
+  --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.08);
+  --shadow-card-hover: 0 20px 40px rgba(0, 0, 0, 0.1);
+  --shadow-glow: 0 0 0 1px rgba(255, 45, 142, 0.2), 0 18px 55px rgba(255, 45, 142, 0.18);
+  --shadow-clinical: 0 1px 3px rgba(0, 0, 0, 0.06), 0 4px 12px rgba(0, 0, 0, 0.04);
+  --shadow-pink: 0 10px 30px rgba(255, 45, 142, 0.25);
+
+  /* ---- Layout ---- */
+  --container-max: 1280px;
+  --container-wide: 1440px;
+
+  /* ---- Motion ---- */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);  /* @kind other */
+  --dur-fast: 0.2s;   /* @kind other */
+  --dur-base: 0.3s;   /* @kind other */
+  --dur-slow: 0.6s;   /* @kind other */
+}
+</style>
+  <style>/* ============================================================
+   HELLO GORGEOUS — BASE & HELPER STYLES
+   Brand-law contrast system, typography defaults, and the
+   button / card / section helpers used across the marketing site.
+   ============================================================ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--surface-page);
+  color: var(--text-body);
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: rgba(255, 45, 142, 0.3);
+  color: var(--hg-black);
+}
+
+/* ---- Headings: Playfair serif ---- */
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: var(--fw-bold);
+  line-height: var(--lh-heading);
+  margin: 0 0 0.5em;
+  color: var(--text-strong);
+}
+
+h1 { font-size: clamp(2.5rem, 6vw, 3.5rem); line-height: var(--lh-display); letter-spacing: var(--ls-display); }
+h2 { font-size: clamp(1.75rem, 4vw, 2.5rem); }
+h3 { font-size: clamp(1.25rem, 3vw, 1.75rem); font-weight: var(--fw-semibold); }
+h4 { font-size: var(--fs-h4); font-weight: var(--fw-semibold); }
+
+p { margin: 0 0 1em; }
+
+a { color: inherit; }
+
+/* ---- Eyebrow / kicker ---- */
+.hg-eyebrow {
+  font-family: var(--font-body);
+  font-size: var(--fs-eyebrow);
+  font-weight: var(--fw-bold);
+  text-transform: uppercase;
+  letter-spacing: var(--ls-widest);
+  color: var(--text-accent);
+}
+
+/* ============================================================
+   SECTION COLOR CONTROL
+   ============================================================ */
+.section-white { background: var(--hg-white); color: var(--hg-black); }
+.section-black { background: var(--hg-black); color: var(--hg-white); }
+.section-pink  { background: var(--hg-pink);  color: var(--hg-white); }
+.section-white *, .section-black *, .section-pink * { color: inherit; }
+.section-white .accent, .section-black .accent { color: var(--hg-pink); }
+
+/* ============================================================
+   LAYOUT HELPERS
+   ============================================================ */
+.hg-container {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding-left: var(--section-x);
+  padding-right: var(--section-x);
+}
+.section-padding    { padding: var(--section-y) var(--section-x); }
+.section-padding-lg { padding: var(--section-y-lg) var(--section-x); }
+.section-padding-sm { padding: var(--section-y-sm) var(--section-x); }
+
+/* ============================================================
+   BUTTON SYSTEM
+   ============================================================ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 48px;
+  padding: 16px 36px;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-body);
+  font-weight: var(--fw-semibold);
+  font-size: var(--fs-sm);
+  cursor: pointer;
+  transition: all var(--dur-base) var(--ease-out);
+  text-decoration: none;
+}
+.btn:hover { transform: translateY(-2px); }
+
+.btn-primary { background: var(--hg-pink); color: #fff; }
+.btn-primary:hover { background: var(--hg-black); color: var(--hg-pink); box-shadow: var(--shadow-card-hover); }
+
+.btn-secondary { background: var(--hg-black); color: #fff; border: 2px solid var(--hg-black); }
+.btn-secondary:hover { background: #fff; color: var(--hg-black); box-shadow: var(--shadow-card-hover); }
+
+.btn-outline { background: transparent; color: var(--hg-black); border: 2px solid var(--hg-black); }
+.btn-outline:hover { background: var(--hg-pink); color: #fff; border-color: var(--hg-pink); }
+
+.btn-white { background: #fff; color: var(--hg-black); }
+.btn-white:hover { background: var(--hg-black); color: #fff; }
+
+/* Premium "CTA" variant: uppercase, wide tracking */
+.btn-cta {
+  text-transform: uppercase;
+  letter-spacing: var(--ls-widest);
+  font-size: var(--fs-xs);
+}
+
+/* Trifecta gradient button */
+.btn-gradient {
+  background: linear-gradient(to right, var(--tri-pink), var(--tri-pink-deep));
+  color: #fff;
+}
+.btn-gradient:hover { filter: brightness(1.1); }
+
+/* ============================================================
+   CARD SYSTEM
+   ============================================================ */
+.hg-card {
+  background: var(--surface-card);
+  color: var(--hg-black);
+  border: 2px solid var(--hg-black);
+  border-radius: var(--radius-lg);
+  padding: var(--card-pad);
+  transition: all var(--dur-base) var(--ease-out);
+}
+.hg-card:hover {
+  border-color: var(--hg-pink);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-card-hover);
+}
+.hg-card .accent { color: var(--hg-pink); }
+
+/* Soft card (shadow instead of hard border) */
+.hg-card-soft {
+  background: #fff;
+  border: 1px solid var(--border-hairline);
+  border-radius: var(--radius-lg);
+  padding: var(--card-pad);
+  box-shadow: var(--shadow-card);
+}
+
+/* ============================================================
+   BADGE / PILL
+   ============================================================ */
+.hg-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+  background: var(--hg-pink-deep);
+  color: #fff;
+  font-size: 9px;
+  font-weight: var(--fw-bold);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* ============================================================
+   DIVIDERS
+   ============================================================ */
+.divider-gradient {
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, transparent, var(--hg-pink), transparent);
+}
+
+/* ============================================================
+   MOTION
+   ============================================================ */
+.fade-up { opacity: 0; transform: translateY(24px); }
+.fade-up.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity var(--dur-slow) var(--ease-out), transform var(--dur-slow) var(--ease-out);
+}
+@media (prefers-reduced-motion: reduce) {
+  .fade-up { opacity: 1; transform: none; }
+}
+</style>
+  <style>/* ============================================================
+   HELLO GORGEOUS MED SPA — DESIGN SYSTEM
+   Global entry point. Consumers link this one file.
+   Brand law: White · Black · Hot Pink (#FF2D8E). No gray on public.
+   ============================================================ */
+
+/* ============================================================
+   HELLO GORGEOUS — WEBFONTS
+   Playfair Display + Inter (brand). Montserrat for the embedded
+   Cherry financing widget only.
+   Loaded from Google Fonts. If you need self-hosted binaries,
+   drop them in /assets and add @font-face rules here.
+   ============================================================ */
+
+/* cyrillic-ext */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/flowwave-site/assets/b0d607b8-ce3c-49c8-a17f-3239c436ad1e.woff2") format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/flowwave-site/assets/e42c7d54-fb15-4bbc-8538-8a1bd9cdb6b1.woff2") format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* greek-ext */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/flowwave-site/assets/9501392c-4554-454e-9166-23c0ac7cf75b.woff2") format('woff2');
+  unicode-range: U+1F00-1FFF;
+}
+/* greek */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/flowwave-site/assets/47c14e45-c15c-4e3a-92e5-b5b1ac37fed5.woff2") format('woff2');
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/flowwave-site/assets/6b655847-92bb-44d6-9136-d950f845caa5.woff2") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/flowwave-site/assets/4877c9c8-3033-4a7c-892b-638a2ec9f7ef.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/flowwave-site/assets/769c0f9e-523d-4ffd-9c9d-5ff31b357331.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("/flowwave-site/assets/b0d607b8-ce3c-49c8-a17f-3239c436ad1e.woff2") format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("/flowwave-site/assets/e42c7d54-fb15-4bbc-8538-8a1bd9cdb6b1.woff2") format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* greek-ext */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("/flowwave-site/assets/9501392c-4554-454e-9166-23c0ac7cf75b.woff2") format('woff2');
+  unicode-range: U+1F00-1FFF;
+}
+/* greek */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("/flowwave-site/assets/47c14e45-c15c-4e3a-92e5-b5b1ac37fed5.woff2") format('woff2');
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("/flowwave-site/assets/6b655847-92bb-44d6-9136-d950f845caa5.woff2") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("/flowwave-site/assets/4877c9c8-3033-4a7c-892b-638a2ec9f7ef.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("/flowwave-site/assets/769c0f9e-523d-4ffd-9c9d-5ff31b357331.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("/flowwave-site/assets/b0d607b8-ce3c-49c8-a17f-3239c436ad1e.woff2") format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("/flowwave-site/assets/e42c7d54-fb15-4bbc-8538-8a1bd9cdb6b1.woff2") format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* greek-ext */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("/flowwave-site/assets/9501392c-4554-454e-9166-23c0ac7cf75b.woff2") format('woff2');
+  unicode-range: U+1F00-1FFF;
+}
+/* greek */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("/flowwave-site/assets/47c14e45-c15c-4e3a-92e5-b5b1ac37fed5.woff2") format('woff2');
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("/flowwave-site/assets/6b655847-92bb-44d6-9136-d950f845caa5.woff2") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("/flowwave-site/assets/4877c9c8-3033-4a7c-892b-638a2ec9f7ef.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("/flowwave-site/assets/769c0f9e-523d-4ffd-9c9d-5ff31b357331.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("/flowwave-site/assets/b0d607b8-ce3c-49c8-a17f-3239c436ad1e.woff2") format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("/flowwave-site/assets/e42c7d54-fb15-4bbc-8538-8a1bd9cdb6b1.woff2") format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* greek-ext */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("/flowwave-site/assets/9501392c-4554-454e-9166-23c0ac7cf75b.woff2") format('woff2');
+  unicode-range: U+1F00-1FFF;
+}
+/* greek */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("/flowwave-site/assets/47c14e45-c15c-4e3a-92e5-b5b1ac37fed5.woff2") format('woff2');
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("/flowwave-site/assets/6b655847-92bb-44d6-9136-d950f845caa5.woff2") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("/flowwave-site/assets/4877c9c8-3033-4a7c-892b-638a2ec9f7ef.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("/flowwave-site/assets/769c0f9e-523d-4ffd-9c9d-5ff31b357331.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url("/flowwave-site/assets/b0d607b8-ce3c-49c8-a17f-3239c436ad1e.woff2") format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url("/flowwave-site/assets/e42c7d54-fb15-4bbc-8538-8a1bd9cdb6b1.woff2") format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* greek-ext */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url("/flowwave-site/assets/9501392c-4554-454e-9166-23c0ac7cf75b.woff2") format('woff2');
+  unicode-range: U+1F00-1FFF;
+}
+/* greek */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url("/flowwave-site/assets/47c14e45-c15c-4e3a-92e5-b5b1ac37fed5.woff2") format('woff2');
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url("/flowwave-site/assets/6b655847-92bb-44d6-9136-d950f845caa5.woff2") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url("/flowwave-site/assets/4877c9c8-3033-4a7c-892b-638a2ec9f7ef.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url("/flowwave-site/assets/769c0f9e-523d-4ffd-9c9d-5ff31b357331.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/flowwave-site/assets/cf0248ec-388a-4b39-8fcc-8cf1d0de2005.woff2") format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/flowwave-site/assets/1d2c3ea5-2419-424e-a423-163de352d49f.woff2") format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/flowwave-site/assets/56706488-2b84-4cb6-9aa5-6a7197bf75f0.woff2") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/flowwave-site/assets/408f5326-11a5-476e-b262-2b366d1d5dd0.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/flowwave-site/assets/00a6a178-5f0e-46c4-beb7-b56e41602fa9.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("/flowwave-site/assets/cf0248ec-388a-4b39-8fcc-8cf1d0de2005.woff2") format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("/flowwave-site/assets/1d2c3ea5-2419-424e-a423-163de352d49f.woff2") format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("/flowwave-site/assets/56706488-2b84-4cb6-9aa5-6a7197bf75f0.woff2") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("/flowwave-site/assets/408f5326-11a5-476e-b262-2b366d1d5dd0.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("/flowwave-site/assets/00a6a178-5f0e-46c4-beb7-b56e41602fa9.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("/flowwave-site/assets/cf0248ec-388a-4b39-8fcc-8cf1d0de2005.woff2") format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("/flowwave-site/assets/1d2c3ea5-2419-424e-a423-163de352d49f.woff2") format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("/flowwave-site/assets/56706488-2b84-4cb6-9aa5-6a7197bf75f0.woff2") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("/flowwave-site/assets/408f5326-11a5-476e-b262-2b366d1d5dd0.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("/flowwave-site/assets/00a6a178-5f0e-46c4-beb7-b56e41602fa9.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/flowwave-site/assets/7759e0e1-b49c-43e3-a17a-703bb69d1d0b.woff2") format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/flowwave-site/assets/e875a476-c3f7-413c-a51d-210fa472a3b7.woff2") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/flowwave-site/assets/2bf65116-20e2-4a4d-b908-d1439f368b5a.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/flowwave-site/assets/49c4acd4-0fbe-4153-9279-4a01dac3a20e.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: italic;
+  font-weight: 600;
+  font-display: swap;
+  src: url("/flowwave-site/assets/7759e0e1-b49c-43e3-a17a-703bb69d1d0b.woff2") format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: italic;
+  font-weight: 600;
+  font-display: swap;
+  src: url("/flowwave-site/assets/e875a476-c3f7-413c-a51d-210fa472a3b7.woff2") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: italic;
+  font-weight: 600;
+  font-display: swap;
+  src: url("/flowwave-site/assets/2bf65116-20e2-4a4d-b908-d1439f368b5a.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: italic;
+  font-weight: 600;
+  font-display: swap;
+  src: url("/flowwave-site/assets/49c4acd4-0fbe-4153-9279-4a01dac3a20e.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/flowwave-site/assets/90d0a0d5-e231-4b13-bb92-d196908f8862.woff2") format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/flowwave-site/assets/47ce21fa-06f1-4c5a-b7ff-7aa3c0f220eb.woff2") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/flowwave-site/assets/41456ff3-ca80-45f2-a826-29276a286015.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/flowwave-site/assets/10a39899-804d-4d62-afe5-c745a0af19da.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("/flowwave-site/assets/90d0a0d5-e231-4b13-bb92-d196908f8862.woff2") format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("/flowwave-site/assets/47ce21fa-06f1-4c5a-b7ff-7aa3c0f220eb.woff2") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("/flowwave-site/assets/41456ff3-ca80-45f2-a826-29276a286015.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("/flowwave-site/assets/10a39899-804d-4d62-afe5-c745a0af19da.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("/flowwave-site/assets/90d0a0d5-e231-4b13-bb92-d196908f8862.woff2") format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("/flowwave-site/assets/47ce21fa-06f1-4c5a-b7ff-7aa3c0f220eb.woff2") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("/flowwave-site/assets/41456ff3-ca80-45f2-a826-29276a286015.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("/flowwave-site/assets/10a39899-804d-4d62-afe5-c745a0af19da.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("/flowwave-site/assets/90d0a0d5-e231-4b13-bb92-d196908f8862.woff2") format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("/flowwave-site/assets/47ce21fa-06f1-4c5a-b7ff-7aa3c0f220eb.woff2") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("/flowwave-site/assets/41456ff3-ca80-45f2-a826-29276a286015.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("/flowwave-site/assets/10a39899-804d-4d62-afe5-c745a0af19da.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url("/flowwave-site/assets/90d0a0d5-e231-4b13-bb92-d196908f8862.woff2") format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url("/flowwave-site/assets/47ce21fa-06f1-4c5a-b7ff-7aa3c0f220eb.woff2") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url("/flowwave-site/assets/41456ff3-ca80-45f2-a826-29276a286015.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url("/flowwave-site/assets/10a39899-804d-4d62-afe5-c745a0af19da.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+  src: url("/flowwave-site/assets/90d0a0d5-e231-4b13-bb92-d196908f8862.woff2") format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+  src: url("/flowwave-site/assets/47ce21fa-06f1-4c5a-b7ff-7aa3c0f220eb.woff2") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+  src: url("/flowwave-site/assets/41456ff3-ca80-45f2-a826-29276a286015.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+  src: url("/flowwave-site/assets/10a39899-804d-4d62-afe5-c745a0af19da.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+
+/* ============================================================
+   HELLO GORGEOUS — COLOR TOKENS
+   Brand law: White, Black, Hot Pink. No gray on the public site.
+   ============================================================ */
+
+:root {
+  /* ---- Core brand ---- */
+  --hg-white: #FFFFFF;
+  --hg-black: #000000;
+  --hg-pink: #FF2D8E;        /* primary hot pink (UI, accents, CTAs) */
+  --hg-pink-deep: #E6007E;   /* deeper pink (hover, gradients, logo) */
+  --hg-pink-wine: #C90A68;   /* darkest pink (pressed, deep accents) */
+
+  /* ---- Brand pink scale ---- */
+  --hg-pink-50:  #FFF0F7;
+  --hg-pink-100: #FFE0F0;
+  --hg-pink-200: #FFC1E2;
+  --hg-pink-300: #FF92CC;
+  --hg-pink-400: #FF5FB1;
+  --hg-pink-500: #FF2D8E;
+  --hg-pink-600: #E6007E;
+  --hg-pink-700: #C90A68;
+  --hg-pink-800: #9B0B52;
+  --hg-pink-900: #730A3F;
+  --hg-pink-950: #4B062A;
+
+  /* Soft pink tints for backgrounds / surfaces */
+  --hg-pink-soft: #FFF5F9;   /* near-white pink wash */
+  --hg-pink-mid:  #FCE7F3;   /* light pink panel */
+  --hg-pink-light: #FFB8DC;  /* light pink text on black (footer credential) */
+
+  /* ---- Accent metals ---- */
+  --hg-gold: #FFD700;        /* award / "Best of Oswego" */
+  --hg-gold-soft: #FFD86B;
+
+  /* ---- Trifecta accent set (homepage showcase, nav pills, app) ----
+     A three-way accent system layered on the brand. Use for tech
+     showcases (Morpheus8 + Quantum RF + Solaria CO2) and nav rhythm. */
+  --tri-pink: #ec4899;
+  --tri-pink-deep: #db2777;
+  --tri-pink-subtitle: #f472b6;
+  --tri-blue: #3b82f6;
+  --tri-blue-deep: #6366f1;
+  --tri-blue-subtitle: #60a5fa;
+  --tri-amber: #f59e0b;
+  --tri-amber-deep: #f97316;
+  --tri-amber-subtitle: #fbbf24;
+  --tri-gradient-title: linear-gradient(to right, #ec4899, #60a5fa, #f59e0b);  /* @kind color */
+  --tri-glass: rgba(24, 24, 27, 0.85);
+  --tri-glass-soft: rgba(24, 24, 27, 0.6);
+  --tri-panel: #18181b;
+
+  /* ---- Clinical palette (admin / charting only — NOT public) ---- */
+  --clinical-navy: #002168;
+  --clinical-navy-light: #1e3a5f;
+  --clinical-blue: #2D63A4;
+  --clinical-blue-light: #5E94C2;
+  --clinical-ink: #111827;
+  --clinical-ink-soft: #374151;
+
+  /* ---- Semantic status ---- */
+  --hg-success: #16a34a;
+  --hg-warning: #f59e0b;
+  --hg-error: #dc2626;
+
+  /* ============================================================
+     SEMANTIC ALIASES — prefer these in components
+     ============================================================ */
+
+  /* Surfaces */
+  --surface-page: var(--hg-white);
+  --surface-card: var(--hg-white);
+  --surface-inverse: var(--hg-black);     /* black header / footer */
+  --surface-pink: var(--hg-pink);
+  --surface-pink-wash: var(--hg-pink-soft);
+  --surface-glass: var(--tri-glass);
+
+  /* Text */
+  --text-strong: var(--hg-black);
+  --text-body: var(--hg-black);
+  --text-on-dark: var(--hg-white);
+  --text-on-pink: var(--hg-white);
+  --text-accent: var(--hg-pink);
+  --text-muted-on-dark: rgba(255, 255, 255, 0.55);
+
+  /* Borders */
+  --border-strong: var(--hg-black);       /* 2px black card outline */
+  --border-accent: var(--hg-pink);
+  --border-hairline: rgba(0, 0, 0, 0.1);
+  --border-on-dark: rgba(255, 255, 255, 0.12);
+
+  /* Interactive */
+  --action-primary: var(--hg-pink);
+  --action-primary-hover: var(--hg-pink-deep);
+  --action-primary-text: var(--hg-white);
+  --focus-ring: var(--hg-pink);
+}
+
+/* ============================================================
+   HELLO GORGEOUS — TYPOGRAPHY TOKENS
+   Playfair Display (serif display) + Inter (sans body).
+   Montserrat is used only by the embedded Cherry financing widget.
+   ============================================================ */
+
+:root {
+  /* ---- Families ---- */
+  --font-serif: "Playfair Display", Georgia, "Times New Roman", serif;
+  --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: var(--font-serif);  /* headings */
+  --font-body: var(--font-sans);      /* paragraphs, UI */
+
+  /* ---- Weights ---- */
+  --fw-regular: 400;   /* @kind other */
+  --fw-medium: 500;    /* @kind other */
+  --fw-semibold: 600;  /* @kind other */
+  --fw-bold: 700;      /* @kind other */
+
+  /* ---- Type scale (desktop) ---- */
+  --fs-display: 56px;   /* hero h1 */
+  --fs-h1: 52px;
+  --fs-h2: 38px;
+  --fs-h3: 28px;
+  --fs-h4: 22px;
+  --fs-lead: 20px;      /* lead paragraph */
+  --fs-body: 18px;      /* body copy */
+  --fs-sm: 16px;
+  --fs-xs: 13px;
+  --fs-eyebrow: 11px;   /* uppercase eyebrow / kicker */
+
+  /* ---- Line heights ---- */
+  --lh-display: 1.1;  /* @kind other */
+  --lh-heading: 1.2;  /* @kind other */
+  --lh-body: 1.7;     /* @kind other */
+  --lh-snug: 1.3;     /* @kind other */
+
+  /* ---- Letter spacing ---- */
+  --ls-display: -0.02em;   /* @kind other */
+  --ls-tight: -0.01em;     /* @kind other */
+  --ls-normal: 0;          /* @kind other */
+  --ls-wide: 0.05em;       /* @kind other */
+  --ls-widest: 0.2em;      /* @kind other */
+}
+
+/* ============================================================
+   HELLO GORGEOUS — SPACING, RADII, SHADOWS, LAYOUT
+   Generous "luxury" spacing: 100px major sections.
+   ============================================================ */
+
+:root {
+  /* ---- Spacing scale ---- */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 40px;
+  --space-8: 60px;
+  --space-9: 80px;
+  --space-10: 100px;
+  --space-11: 120px;
+
+  /* ---- Semantic spacing ---- */
+  --section-y: 100px;        /* major vertical section padding */
+  --section-y-lg: 120px;
+  --section-y-sm: 60px;
+  --section-x: 24px;         /* page gutter */
+  --card-gap: 40px;          /* grid gap between cards */
+  --card-pad: 32px;          /* inner card padding */
+
+  /* ---- Radii ---- */
+  --radius-sm: 8px;          /* buttons, inputs */
+  --radius-md: 12px;         /* small cards, dropdowns */
+  --radius-lg: 16px;         /* cards (xl) */
+  --radius-xl: 22px;         /* large feature cards (2xl) */
+  --radius-pill: 999px;      /* badges, nav pills */
+
+  /* ---- Shadows ---- */
+  --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.08);
+  --shadow-card-hover: 0 20px 40px rgba(0, 0, 0, 0.1);
+  --shadow-glow: 0 0 0 1px rgba(255, 45, 142, 0.2), 0 18px 55px rgba(255, 45, 142, 0.18);
+  --shadow-clinical: 0 1px 3px rgba(0, 0, 0, 0.06), 0 4px 12px rgba(0, 0, 0, 0.04);
+  --shadow-pink: 0 10px 30px rgba(255, 45, 142, 0.25);
+
+  /* ---- Layout ---- */
+  --container-max: 1280px;
+  --container-wide: 1440px;
+
+  /* ---- Motion ---- */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);  /* @kind other */
+  --dur-fast: 0.2s;   /* @kind other */
+  --dur-base: 0.3s;   /* @kind other */
+  --dur-slow: 0.6s;   /* @kind other */
+}
+
+/* ============================================================
+   HELLO GORGEOUS — BASE & HELPER STYLES
+   Brand-law contrast system, typography defaults, and the
+   button / card / section helpers used across the marketing site.
+   ============================================================ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--surface-page);
+  color: var(--text-body);
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: rgba(255, 45, 142, 0.3);
+  color: var(--hg-black);
+}
+
+/* ---- Headings: Playfair serif ---- */
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: var(--fw-bold);
+  line-height: var(--lh-heading);
+  margin: 0 0 0.5em;
+  color: var(--text-strong);
+}
+
+h1 { font-size: clamp(2.5rem, 6vw, 3.5rem); line-height: var(--lh-display); letter-spacing: var(--ls-display); }
+h2 { font-size: clamp(1.75rem, 4vw, 2.5rem); }
+h3 { font-size: clamp(1.25rem, 3vw, 1.75rem); font-weight: var(--fw-semibold); }
+h4 { font-size: var(--fs-h4); font-weight: var(--fw-semibold); }
+
+p { margin: 0 0 1em; }
+
+a { color: inherit; }
+
+/* ---- Eyebrow / kicker ---- */
+.hg-eyebrow {
+  font-family: var(--font-body);
+  font-size: var(--fs-eyebrow);
+  font-weight: var(--fw-bold);
+  text-transform: uppercase;
+  letter-spacing: var(--ls-widest);
+  color: var(--text-accent);
+}
+
+/* ============================================================
+   SECTION COLOR CONTROL
+   ============================================================ */
+.section-white { background: var(--hg-white); color: var(--hg-black); }
+.section-black { background: var(--hg-black); color: var(--hg-white); }
+.section-pink  { background: var(--hg-pink);  color: var(--hg-white); }
+.section-white *, .section-black *, .section-pink * { color: inherit; }
+.section-white .accent, .section-black .accent { color: var(--hg-pink); }
+
+/* ============================================================
+   LAYOUT HELPERS
+   ============================================================ */
+.hg-container {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding-left: var(--section-x);
+  padding-right: var(--section-x);
+}
+.section-padding    { padding: var(--section-y) var(--section-x); }
+.section-padding-lg { padding: var(--section-y-lg) var(--section-x); }
+.section-padding-sm { padding: var(--section-y-sm) var(--section-x); }
+
+/* ============================================================
+   BUTTON SYSTEM
+   ============================================================ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 48px;
+  padding: 16px 36px;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-body);
+  font-weight: var(--fw-semibold);
+  font-size: var(--fs-sm);
+  cursor: pointer;
+  transition: all var(--dur-base) var(--ease-out);
+  text-decoration: none;
+}
+.btn:hover { transform: translateY(-2px); }
+
+.btn-primary { background: var(--hg-pink); color: #fff; }
+.btn-primary:hover { background: var(--hg-black); color: var(--hg-pink); box-shadow: var(--shadow-card-hover); }
+
+.btn-secondary { background: var(--hg-black); color: #fff; border: 2px solid var(--hg-black); }
+.btn-secondary:hover { background: #fff; color: var(--hg-black); box-shadow: var(--shadow-card-hover); }
+
+.btn-outline { background: transparent; color: var(--hg-black); border: 2px solid var(--hg-black); }
+.btn-outline:hover { background: var(--hg-pink); color: #fff; border-color: var(--hg-pink); }
+
+.btn-white { background: #fff; color: var(--hg-black); }
+.btn-white:hover { background: var(--hg-black); color: #fff; }
+
+/* Premium "CTA" variant: uppercase, wide tracking */
+.btn-cta {
+  text-transform: uppercase;
+  letter-spacing: var(--ls-widest);
+  font-size: var(--fs-xs);
+}
+
+/* Trifecta gradient button */
+.btn-gradient {
+  background: linear-gradient(to right, var(--tri-pink), var(--tri-pink-deep));
+  color: #fff;
+}
+.btn-gradient:hover { filter: brightness(1.1); }
+
+/* ============================================================
+   CARD SYSTEM
+   ============================================================ */
+.hg-card {
+  background: var(--surface-card);
+  color: var(--hg-black);
+  border: 2px solid var(--hg-black);
+  border-radius: var(--radius-lg);
+  padding: var(--card-pad);
+  transition: all var(--dur-base) var(--ease-out);
+}
+.hg-card:hover {
+  border-color: var(--hg-pink);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-card-hover);
+}
+.hg-card .accent { color: var(--hg-pink); }
+
+/* Soft card (shadow instead of hard border) */
+.hg-card-soft {
+  background: #fff;
+  border: 1px solid var(--border-hairline);
+  border-radius: var(--radius-lg);
+  padding: var(--card-pad);
+  box-shadow: var(--shadow-card);
+}
+
+/* ============================================================
+   BADGE / PILL
+   ============================================================ */
+.hg-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+  background: var(--hg-pink-deep);
+  color: #fff;
+  font-size: 9px;
+  font-weight: var(--fw-bold);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* ============================================================
+   DIVIDERS
+   ============================================================ */
+.divider-gradient {
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, transparent, var(--hg-pink), transparent);
+}
+
+/* ============================================================
+   MOTION
+   ============================================================ */
+.fade-up { opacity: 0; transform: translateY(24px); }
+.fade-up.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity var(--dur-slow) var(--ease-out), transform var(--dur-slow) var(--ease-out);
+}
+@media (prefers-reduced-motion: reduce) {
+  .fade-up { opacity: 1; transform: none; }
+}
+
+</style>
+  <style>
+    .fw-wrap { font-family: var(--font-body); color:#000; }
+    .fw-nav { position:sticky; top:0; z-index:50; background:#000; color:#fff; display:flex; align-items:center; justify-content:space-between; padding:14px 32px; border-bottom:1px solid rgba(255,255,255,0.12); }
+    .fw-nav .brand { display:flex; align-items:center; gap:11px; font-family:var(--font-display); font-weight:700; font-size:19px; }
+    .fw-nav .hg { width:34px; height:34px; border-radius:9px; background:linear-gradient(135deg,#FF2D8E,#E6007E); display:inline-flex; align-items:center; justify-content:center; font-size:12px; font-weight:800; letter-spacing:0.02em; }
+    .fw-nav .links { display:flex; align-items:center; gap:28px; font-size:14px; }
+    .fw-nav .links a { text-decoration:none; opacity:0.82; }
+    .fw-nav .links a:hover { opacity:1; color:var(--hg-pink); }
+    .fw-hero { display:grid; grid-template-columns:1fr 1.05fr; gap:56px; align-items:center; max-width:1280px; margin:0 auto; }
+    .fw-stats { display:grid; grid-template-columns:repeat(4,1fr); gap:28px; max-width:1180px; margin:0 auto; text-align:center; }
+    .fw-stat .n { font-family:var(--font-display); font-weight:700; font-size:42px; color:var(--hg-pink); line-height:1; }
+    .fw-stat .l { font-size:13px; letter-spacing:0.16em; text-transform:uppercase; color:rgba(255,255,255,0.72); margin-top:10px; }
+    .fw-feature { display:grid; grid-template-columns:1fr 1fr; gap:52px; align-items:center; max-width:1220px; margin:0 auto; }
+    .fw-shot { border-radius:20px; overflow:hidden; box-shadow:0 20px 50px rgba(0,0,0,0.18); border:1px solid rgba(0,0,0,0.06); display:block; }
+    .fw-shot img { width:100%; display:block; }
+    .fw-use { display:grid; grid-template-columns:repeat(3,1fr); gap:28px; max-width:1220px; margin:56px auto 0; }
+    .fw-usecard { border:2px solid #000; border-radius:18px; overflow:hidden; background:#fff; transition:all .3s var(--ease-out); display:flex; flex-direction:column; }
+    .fw-usecard:hover { border-color:var(--hg-pink); transform:translateY(-4px); box-shadow:var(--shadow-card-hover); }
+    .fw-usecard .body { padding:24px 26px 28px; }
+    .fw-xray { position:relative; border-radius:14px; overflow:hidden; aspect-ratio:1/1; border:1px solid rgba(255,255,255,0.14); background:#0a0a0a; cursor:default; transition:all .3s var(--ease-out); }
+    .fw-xray img { width:100%; height:100%; object-fit:cover; filter:contrast(1.06) brightness(1.0) saturate(1.08); transition:transform .5s var(--ease-out), filter .3s var(--ease-out); }
+    .fw-xray::after { content:""; position:absolute; inset:0; background:linear-gradient(to top, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.15) 42%, rgba(0,0,0,0) 68%); }
+    .fw-xray .lbl { position:absolute; left:0; right:0; bottom:12px; z-index:2; text-align:center; font-family:var(--font-display); font-weight:600; font-size:17px; color:#fff; letter-spacing:0.01em; }
+    .fw-xray:hover { border-color:var(--hg-pink); box-shadow:0 0 0 1px var(--hg-pink), 0 14px 34px rgba(255,45,142,0.28); transform:translateY(-4px); }
+    .fw-xray:hover img { transform:scale(1.08); filter:contrast(1.1) brightness(1.06) saturate(1.15); }
+    .fw-steps { display:grid; grid-template-columns:repeat(4,1fr); gap:24px; max-width:1220px; margin:0 auto; }
+    .fw-step .num { width:46px; height:46px; border-radius:50%; background:var(--hg-pink); color:#fff; font-family:var(--font-display); font-weight:700; font-size:20px; display:flex; align-items:center; justify-content:center; margin-bottom:16px; }
+    .fw-faq { max-width:840px; margin:0 auto; }
+    .fw-faq details { border-bottom:1px solid var(--border-hairline); }
+    .fw-faq summary { cursor:pointer; list-style:none; display:flex; justify-content:space-between; align-items:center; gap:16px; padding:22px 4px; font-family:var(--font-display); font-size:19px; font-weight:600; }
+    .fw-faq summary::-webkit-details-marker { display:none; }
+    .fw-faq summary::after { content:"+"; color:var(--hg-pink); font-size:26px; transition:transform .3s; }
+    .fw-faq details[open] summary::after { transform:rotate(45deg); }
+    .fw-faq .ans { padding:0 4px 22px; font-size:16px; line-height:1.7; color:rgba(0,0,0,0.72); margin:0; max-width:720px; }
+    @media (max-width:900px){ .fw-hero,.fw-feature,.fw-use,.fw-steps,.fw-stats{ grid-template-columns:1fr; } .fw-nav .links{ display:none; } .fw-feature.rev .fw-shot{ order:-1; } }
+    @media (max-width:900px){ #treats [style*="repeat(5"]{ grid-template-columns:repeat(2,1fr) !important; } }
+    .fw-price { border:2px solid #000; border-radius:18px; padding:28px 24px; display:flex; flex-direction:column; background:#fff; transition:all .3s var(--ease-out); position:relative; }
+    .fw-price:hover { border-color:var(--hg-pink); transform:translateY(-4px); box-shadow:var(--shadow-card-hover); }
+    .fw-price.feat { border-color:var(--hg-pink); box-shadow:0 10px 30px rgba(255,45,142,0.25); }
+    .fw-price .tier { font-family:var(--font-display); font-weight:600; font-size:18px; color:#000; }
+    .fw-price .price { font-family:var(--font-display); font-weight:700; font-size:42px; color:var(--hg-pink); margin-top:10px; line-height:1; }
+    .fw-price .per { font-size:13px; color:rgba(0,0,0,0.6); margin-top:7px; min-height:34px; }
+    .fw-price ul { list-style:none; padding:0; margin:18px 0 22px; display:flex; flex-direction:column; gap:9px; flex:1; }
+    .fw-price li { font-size:14px; color:rgba(0,0,0,0.72); padding-left:24px; position:relative; line-height:1.4; }
+    .fw-price li::before { content:"\2713"; position:absolute; left:0; color:var(--hg-pink); font-weight:700; }
+    .fw-price .pop { position:absolute; top:-13px; left:50%; transform:translateX(-50%); background:var(--hg-pink); color:#fff; font-size:10px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; padding:5px 14px; border-radius:999px; white-space:nowrap; }
+    .fw-inp { width:100%; padding:13px 15px; border:1px solid var(--border-hairline); border-radius:8px; font-family:var(--font-body); font-size:15px; background:#fff; color:#000; box-sizing:border-box; }
+    .fw-inp:focus { outline:none; border-color:var(--hg-pink); box-shadow:0 0 0 3px rgba(255,45,142,0.18); }
+    .fw-lbl { display:block; font-size:13px; font-weight:600; letter-spacing:0.02em; margin-bottom:8px; color:#000; }
+    .fw-chip { display:flex; align-items:center; gap:9px; font-size:14px; padding:11px 14px; border:1px solid var(--border-hairline); border-radius:10px; cursor:pointer; color:#000; transition:border-color .2s; }
+    .fw-chip:hover { border-color:var(--hg-pink); }
+    .fw-chip input { accent-color:var(--hg-pink); width:17px; height:17px; flex-shrink:0; }
+    @media (max-width:900px){ #pricing [style*="repeat(4"]{ grid-template-columns:repeat(2,1fr) !important; } .fw-intake-grid{ grid-template-columns:1fr !important; } #intake [style*="repeat(3"],#intake [style*="repeat(2"]{ grid-template-columns:1fr 1fr !important; } }
+  </style>
+</helmet>
+<div class="fw-wrap">
+
+  <!-- NAV -->
+  <nav class="fw-nav">
+    <span class="brand"><span class="hg">HG</span> Hello Gorgeous Med Spa</span>
+    <span class="links">
+      <a href="#how">How it works</a>
+      <a href="#treats">What it treats</a>
+      <a href="#who">Who it's for</a>
+      <a href="#story">Our story</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#intake">Client Intake</a>
+      <a href="#faq">FAQ</a>
+    </span>
+    <a href="https://www.fresha.com/book-now/hello-gorgeous-tallrfb5/services?lid=102610&amp;share=true&amp;pId=95245" target="_blank" rel="noopener" class="btn btn-primary btn-cta" style="min-height:auto;padding:11px 24px;">Book Now</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="section-white" style="padding:76px 24px 84px;">
+    <div class="fw-hero">
+      <div>
+        <span class="hg-badge" style="font-size:11px;padding:6px 14px;">New at Hello Gorgeous</span>
+        <h1 style="margin:18px 0 0;font-size:clamp(2.6rem,5.2vw,3.9rem);">Shockwave <span class="accent">Therapy</span></h1>
+        <p style="font-size:22px;line-height:1.5;margin-top:18px;color:rgba(0,0,0,0.82);">Focused acoustic-wave treatment for deep-tissue pain, faster recovery, and men's wellness — <strong>non-invasive, drug-free,</strong> and just 3–10 minutes per area.</p>
+        <p style="font-size:16px;margin-top:16px;color:rgba(0,0,0,0.62);">Every session is directed by a full-authority nurse practitioner. We screen you like a medical practice, because we are one.</p>
+        <div style="display:flex;gap:14px;margin-top:30px;flex-wrap:wrap;">
+          <a href="https://www.fresha.com/book-now/hello-gorgeous-tallrfb5/services?lid=102610&amp;share=true&amp;pId=95245" target="_blank" rel="noopener" class="btn btn-primary btn-cta">Book Free Consult</a>
+          <a href="tel:6306366193" class="btn btn-outline">Call (630) 636-6193</a>
+        </div>
+      </div>
+      <a class="fw-shot" href="#book" style="text-decoration:none;background:#000;">
+        <img src="/flowwave-site/assets/63c886cb-4b17-4bd9-913e-bdeef2e06780.png" alt="FlowWave Shockwave Therapy treatment zones — neck, shoulder, back, knee, ankle and more">
+      </a>
+    </div>
+  </section>
+
+  <!-- TRUST STRIP -->
+  <section class="section-black" style="padding:56px 24px;">
+    <div class="fw-stats">
+      <div class="fw-stat"><div class="n">3–10</div><div class="l">Minute sessions</div></div>
+      <div class="fw-stat"><div class="n">12&nbsp;cm</div><div class="l">Penetration depth</div></div>
+      <div class="fw-stat"><div class="n">150+</div><div class="l">Treatment zones</div></div>
+      <div class="fw-stat"><div class="n">0</div><div class="l">Downtime</div></div>
+    </div>
+  </section>
+
+  <!-- FOUNDER STORY -->
+  <section id="story" class="section-black" style="padding:96px 24px;">
+    <div class="fw-feature">
+      <div style="border-radius:20px;overflow:hidden;background:#000;box-shadow:0 20px 60px rgba(255,45,142,0.18);">
+        <img src="/flowwave-site/assets/349fac8c-2a05-4ec5-93b1-55b4fc42e185.png" alt="Founder of Hello Gorgeous Med Spa with the FlowWave FOCUS device" style="width:100%;display:block;">
+      </div>
+      <div>
+        <p class="hg-eyebrow">A message from our founder</p>
+        <h2 style="margin:14px 0 0;color:#fff;">My <span style="color:var(--hg-pink);">story</span></h2>
+        <div style="font-size:17px;line-height:1.72;color:rgba(255,255,255,0.82);margin-top:20px;">
+          <p style="margin:0 0 14px;">It all started with a car accident on Halloween of 2024. I tried everything — and I mean <em>everything</em> — to get out of pain. Then, at one of the million ortho appointments I sat through, a doctor asked: “Have you ever heard of shockwave therapy?”</p>
+          <p style="margin:0 0 14px;">I was skeptical. Nothing else had worked — why would this? Well, my friends… it did. It didn’t happen overnight, but every single session it got better and better. Today I can actually move my neck and show up fully for my patients and my clinic.</p>
+          <p style="margin:0;">I’m a believer — and that’s exactly why I invested in this for Hello Gorgeous. I know what it feels like to live in pain. <strong style="color:#fff;">Give me the opportunity to help.</strong></p>
+        </div>
+        <div style="margin-top:24px;font-family:var(--font-display);">
+          <div style="font-weight:700;font-size:22px;color:#fff;">Dani</div>
+          <div style="font-family:var(--font-body);font-size:14px;letter-spacing:0.08em;text-transform:uppercase;color:var(--hg-pink);margin-top:2px;">Founder · Hello Gorgeous Med Spa</div>
+        </div>
+        <a href="#intake" class="btn btn-primary btn-cta" style="margin-top:28px;">Start your free screening</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT IT IS -->
+  <section id="how" class="section-white" style="padding:96px 24px;">
+    <div class="fw-feature">
+      <div>
+        <p class="hg-eyebrow">The technology</p>
+        <h2 style="margin:14px 0 0;">Cellular Response <span class="accent">Technology</span></h2>
+        <p style="font-size:19px;line-height:1.65;margin-top:18px;color:rgba(0,0,0,0.8);">FlowWave™ FOCUS uses an <strong>electrohydraulic spark-gap system</strong> with a custom saline-filled head to send focused acoustic waves deep into tissue — targeting the source of discomfort, not just the surface.</p>
+        <p style="font-size:16px;line-height:1.7;margin-top:14px;color:rgba(0,0,0,0.68);">Those waves travel through tissue at speeds above <strong>3,500&nbsp;mph</strong>, triggering biochemical reactions that support local blood flow, encourage the body's natural healing response, and help restore mobility — all without needles, medication, or recovery time. And it runs remarkably quiet.</p>
+        <div style="display:flex;gap:26px;margin-top:26px;flex-wrap:wrap;">
+          <div><div style="font-family:var(--font-display);font-weight:700;font-size:22px;" class="accent">Non-invasive</div><div style="font-size:14px;color:rgba(0,0,0,0.6);margin-top:2px;">No surgery, no needles</div></div>
+          <div><div style="font-family:var(--font-display);font-weight:700;font-size:22px;" class="accent">Drug-free</div><div style="font-size:14px;color:rgba(0,0,0,0.6);margin-top:2px;">No medication, no side effects</div></div>
+        </div>
+      </div>
+      <a class="fw-shot" href="#book" style="text-decoration:none;background:#000;">
+        <img src="/flowwave-site/assets/2428119c-b139-4645-8f41-6a16477992ad.png" alt="Cellular Response Technology — focused shockwave reaching deep into tissue">
+      </a>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS - MECHANISM -->
+  <section class="section-black" style="padding:96px 24px;">
+    <div style="max-width:760px;margin:0 auto 56px;text-align:center;">
+      <p class="hg-eyebrow">The science</p>
+      <h2 style="margin:14px 0 0;color:#fff;">How focused shockwave <span style="color:var(--hg-pink);">works</span></h2>
+      <p style="font-size:19px;margin-top:16px;color:rgba(255,255,255,0.78);">Four steps, start to finish — from spark to healing response.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1px;max-width:1160px;margin:0 auto;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.1);border-radius:16px;overflow:hidden;">
+      <div style="background:#000;padding:34px 28px;">
+        <div style="font-family:var(--font-display);font-weight:700;font-size:30px;color:var(--hg-pink);">01</div>
+        <h3 style="margin:14px 0 8px;color:#fff;font-size:19px;">Spark-gap discharge</h3>
+        <p style="font-size:14.5px;line-height:1.6;color:rgba(255,255,255,0.68);margin:0;">A precise electrical spark fires inside the saline-filled applicator head.</p>
+      </div>
+      <div style="background:#000;padding:34px 28px;">
+        <div style="font-family:var(--font-display);font-weight:700;font-size:30px;color:var(--hg-pink);">02</div>
+        <h3 style="margin:14px 0 8px;color:#fff;font-size:19px;">Acoustic wave</h3>
+        <p style="font-size:14.5px;line-height:1.6;color:rgba(255,255,255,0.68);margin:0;">That spark generates a high-energy pressure wave traveling faster than 3,500&nbsp;mph.</p>
+      </div>
+      <div style="background:#000;padding:34px 28px;">
+        <div style="font-family:var(--font-display);font-weight:700;font-size:30px;color:var(--hg-pink);">03</div>
+        <h3 style="margin:14px 0 8px;color:#fff;font-size:19px;">Focused delivery</h3>
+        <p style="font-size:14.5px;line-height:1.6;color:rgba(255,255,255,0.68);margin:0;">The wave converges to a focal point deep in the target tissue — up to 12&nbsp;cm down.</p>
+      </div>
+      <div style="background:#000;padding:34px 28px;">
+        <div style="font-family:var(--font-display);font-weight:700;font-size:30px;color:var(--hg-pink);">04</div>
+        <h3 style="margin:14px 0 8px;color:#fff;font-size:19px;">Healing response</h3>
+        <p style="font-size:14.5px;line-height:1.6;color:rgba(255,255,255,0.68);margin:0;">Mechanical energy supports local blood flow and the body's own regeneration — while surface tissue stays comfortable.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY ELECTROHYDRAULIC -->
+  <section class="section-white" style="padding:96px 24px 0;">
+    <div style="max-width:1160px;margin:0 auto;">
+      <div style="max-width:760px;margin:0 auto 44px;text-align:center;">
+        <p class="hg-eyebrow">Powerful by design</p>
+        <h2 style="margin:14px 0 0;">Why <span class="accent">electrohydraulic</span>?</h2>
+        <p style="font-size:19px;line-height:1.6;margin-top:16px;color:rgba(0,0,0,0.75);">FlowWave™ FOCUS uses electrohydraulic focused shockwave — the wave-generation method known for the <strong>highest peak energy and the largest focal zone</strong> of the focused-shockwave family. More power, spread across a broader target, reaching deeper tissue.</p>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;">
+        <div class="hg-card-soft" style="text-align:center;">
+          <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#FF2D8E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin:0 auto;"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path></svg>
+          <h3 style="margin:16px 0 6px;font-size:20px;">Powerful energy</h3>
+          <p style="font-size:15px;line-height:1.6;color:rgba(0,0,0,0.68);margin:0;">High-intensity acoustic waves for strong, effective treatment where it counts.</p>
+        </div>
+        <div class="hg-card-soft" style="text-align:center;">
+          <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#FF2D8E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin:0 auto;"><circle cx="12" cy="12" r="9"></circle><circle cx="12" cy="12" r="4.5"></circle><circle cx="12" cy="12" r="1" fill="#FF2D8E" stroke="none"></circle></svg>
+          <h3 style="margin:16px 0 6px;font-size:20px;">Broad focal zone</h3>
+          <p style="font-size:15px;line-height:1.6;color:rgba(0,0,0,0.68);margin:0;">A wide, focused target covers larger areas efficiently — not just a pinpoint.</p>
+        </div>
+        <div class="hg-card-soft" style="text-align:center;">
+          <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#FF2D8E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin:0 auto;"><path d="M12 2v20"></path><path d="M8 6l4-4 4 4"></path><path d="M8 18l4 4 4-4"></path></svg>
+          <h3 style="margin:16px 0 6px;font-size:20px;">Deep, tunable reach</h3>
+          <p style="font-size:15px;line-height:1.6;color:rgba(0,0,0,0.68);margin:0;">Up to 12&nbsp;cm deep, with focal depth you can adjust in real time.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DEPTH CONTROL -->
+  <section class="section-white" style="padding:96px 24px;">
+    <div class="fw-feature">
+      <div>
+        <p class="hg-eyebrow">Real-time precision</p>
+        <h2 style="margin:14px 0 0;">Depth you can <span class="accent">dial in</span></h2>
+        <p style="font-size:18px;line-height:1.65;margin-top:18px;color:rgba(0,0,0,0.75);">An adjustable water-sac level shifts the focal depth mid-session — from surface structures to deep joints — with no gel-pad swaps or interruptions.</p>
+        <div style="display:flex;flex-direction:column;gap:14px;margin-top:26px;">
+          <div style="display:flex;align-items:center;gap:18px;border:1px solid var(--border-hairline);border-radius:12px;padding:16px 20px;box-shadow:var(--shadow-card);">
+            <div style="font-family:var(--font-display);font-weight:700;color:var(--hg-pink);font-size:15px;white-space:nowrap;min-width:78px;">Surface</div>
+            <div style="font-size:14.5px;line-height:1.5;color:rgba(0,0,0,0.7);">Trigger points, tendon insertions &amp; surface-level structures.</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:18px;border:1px solid var(--border-hairline);border-radius:12px;padding:16px 20px;box-shadow:var(--shadow-card);">
+            <div style="font-family:var(--font-display);font-weight:700;color:var(--hg-pink);font-size:15px;white-space:nowrap;min-width:78px;">Mid-depth</div>
+            <div style="font-size:14.5px;line-height:1.5;color:rgba(0,0,0,0.7);">Muscle, tendon &amp; joint areas — the range for most treatments.</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:18px;border:1px solid var(--border-hairline);border-radius:12px;padding:16px 20px;box-shadow:var(--shadow-card);">
+            <div style="font-family:var(--font-display);font-weight:700;color:var(--hg-pink);font-size:15px;white-space:nowrap;min-width:78px;">Deep</div>
+            <div style="font-size:14.5px;line-height:1.5;color:rgba(0,0,0,0.7);">Hips, low back &amp; deep structures — reaching up to 12&nbsp;cm.</div>
+          </div>
+        </div>
+      </div>
+      <a class="fw-shot" href="#book" style="text-decoration:none;">
+        <img src="/flowwave-site/assets/4513c1e1-eb0b-4ba7-82eb-dd66a2fea51a.png" alt="Adjustable-depth focused shockwave recovery">
+      </a>
+    </div>
+  </section>
+
+  <!-- TECHNOLOGY ADVANTAGES -->
+  <section class="section-white" style="padding:0 24px 96px;">
+    <div style="max-width:1220px;margin:0 auto;">
+      <div style="max-width:720px;margin:0 auto 44px;text-align:center;">
+        <p class="hg-eyebrow">Why it's different</p>
+        <h2 style="margin:14px 0 0;">Technology <span class="accent">advantages</span></h2>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;">
+        <div class="hg-card-soft">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#FF2D8E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1 0 10 10"></path><path d="M12 6a6 6 0 1 0 6 6"></path><circle cx="12" cy="12" r="1.6" fill="#FF2D8E" stroke="none"></circle></svg>
+          <h3 style="margin:14px 0 6px;font-size:19px;">Deep, focused waves</h3>
+          <p style="font-size:15px;line-height:1.6;color:rgba(0,0,0,0.68);margin:0;">Accurately reaches up to 12&nbsp;cm into deep tissue while a wide focal zone covers larger areas efficiently.</p>
+        </div>
+        <div class="hg-card-soft">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#FF2D8E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path></svg>
+          <h3 style="margin:14px 0 6px;font-size:19px;">Electrohydraulic system</h3>
+          <p style="font-size:15px;line-height:1.6;color:rgba(0,0,0,0.68);margin:0;">A spark-gap head with a saline-filled tip delivers powerful, highly targeted energy at clinically relevant depths.</p>
+        </div>
+        <div class="hg-card-soft">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#FF2D8E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4"></path><path d="M12 18v4"></path><path d="M4.9 4.9l2.9 2.9"></path><path d="M16.2 16.2l2.9 2.9"></path><path d="M2 12h4"></path><path d="M18 12h4"></path><path d="M4.9 19.1l2.9-2.9"></path><path d="M16.2 7.8l2.9-2.9"></path></svg>
+          <h3 style="margin:14px 0 6px;font-size:19px;">One versatile handpiece</h3>
+          <p style="font-size:15px;line-height:1.6;color:rgba(0,0,0,0.68);margin:0;">Treats both superficial and deep tissue with adjustable energy levels — across 150+ treatment zones.</p>
+        </div>
+        <div class="hg-card-soft">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#FF2D8E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg>
+          <h3 style="margin:14px 0 6px;font-size:19px;">Ultra-fast sessions</h3>
+          <p style="font-size:15px;line-height:1.6;color:rgba(0,0,0,0.68);margin:0;">Large focal zones and adjustable energy mean most treatments take only 3–10 minutes.</p>
+        </div>
+        <div class="hg-card-soft">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#FF2D8E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5L6 9H2v6h4l5 4V5z"></path><path d="M22 9l-6 6"></path><path d="M16 9l6 6"></path></svg>
+          <h3 style="margin:14px 0 6px;font-size:19px;">Remarkably quiet</h3>
+          <p style="font-size:15px;line-height:1.6;color:rgba(0,0,0,0.68);margin:0;">Runs with far less noise than traditional shockwave systems — for a calmer treatment room.</p>
+        </div>
+        <div class="hg-card-soft">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#FF2D8E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+          <h3 style="margin:14px 0 6px;font-size:19px;">Natural &amp; drug-free</h3>
+          <p style="font-size:15px;line-height:1.6;color:rgba(0,0,0,0.68);margin:0;">Non-invasive, medication-free, and with no recovery time — supporting your body's own ability to heal.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS STEPS -->
+  <section class="section-white" style="padding:0 24px 96px;">
+    <div style="max-width:720px;margin:0 auto 52px;text-align:center;">
+      <p class="hg-eyebrow">Simple &amp; fast</p>
+      <h2 style="margin:14px 0 0;">What to <span class="accent">expect</span></h2>
+    </div>
+    <div class="fw-steps">
+      <div class="fw-step">
+        <div class="num">1</div>
+        <h3 style="margin:0 0 8px;">Free consult</h3>
+        <p style="font-size:15px;line-height:1.6;color:rgba(0,0,0,0.68);margin:0;">Your NP reviews your history and screens you for candidacy — no cost, no pressure.</p>
+      </div>
+      <div class="fw-step">
+        <div class="num">2</div>
+        <h3 style="margin:0 0 8px;">Target the area</h3>
+        <p style="font-size:15px;line-height:1.6;color:rgba(0,0,0,0.68);margin:0;">We map the treatment zone and set the device to your comfort level.</p>
+      </div>
+      <div class="fw-step">
+        <div class="num">3</div>
+        <h3 style="margin:0 0 8px;">3–10 min session</h3>
+        <p style="font-size:15px;line-height:1.6;color:rgba(0,0,0,0.68);margin:0;">Focused waves are delivered directly to the tissue. Most clients find it very tolerable.</p>
+      </div>
+      <div class="fw-step">
+        <div class="num">4</div>
+        <h3 style="margin:0 0 8px;">Back to your day</h3>
+        <p style="font-size:15px;line-height:1.6;color:rgba(0,0,0,0.68);margin:0;">No downtime — walk out and carry on. Courses are typically spaced weekly.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- BENEFITS FOR PAIN & INJURY -->
+  <section class="section-white" style="padding:0 24px 96px;">
+    <div style="max-width:1120px;margin:0 auto;">
+      <div style="max-width:760px;margin:0 auto 44px;text-align:center;">
+        <p class="hg-eyebrow">Why clients love it</p>
+        <h2 style="margin:14px 0 0;">Benefits for pain &amp; <span class="accent">injury</span></h2>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));gap:18px 32px;">
+        <div style="display:flex;gap:14px;align-items:flex-start;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FF2D8E" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px;"><path d="M20 6L9 17l-5-5"></path></svg><div><strong style="font-family:var(--font-display);font-size:17px;">Accelerates healing</strong><p style="font-size:14.5px;line-height:1.55;color:rgba(0,0,0,0.68);margin:3px 0 0;">Supports blood flow and cellular activity to help speed recovery of tissue, bone, and stubborn injuries.</p></div></div>
+        <div style="display:flex;gap:14px;align-items:flex-start;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FF2D8E" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px;"><path d="M20 6L9 17l-5-5"></path></svg><div><strong style="font-family:var(--font-display);font-size:17px;">Eases inflammation</strong><p style="font-size:14.5px;line-height:1.55;color:rgba(0,0,0,0.68);margin:3px 0 0;">Helps calm the inflammation behind chronic issues like tendonitis and overuse pain.</p></div></div>
+        <div style="display:flex;gap:14px;align-items:flex-start;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FF2D8E" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px;"><path d="M20 6L9 17l-5-5"></path></svg><div><strong style="font-family:var(--font-display);font-size:17px;">Supports natural repair</strong><p style="font-size:14.5px;line-height:1.55;color:rgba(0,0,0,0.68);margin:3px 0 0;">Encourages the body's own tissue-repair response in muscles, ligaments, and tendons.</p></div></div>
+        <div style="display:flex;gap:14px;align-items:flex-start;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FF2D8E" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px;"><path d="M20 6L9 17l-5-5"></path></svg><div><strong style="font-family:var(--font-display);font-size:17px;">Targets the source of pain</strong><p style="font-size:14.5px;line-height:1.55;color:rgba(0,0,0,0.68);margin:3px 0 0;">Works on the underlying cause of chronic and acute pain — not just the symptoms.</p></div></div>
+        <div style="display:flex;gap:14px;align-items:flex-start;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FF2D8E" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px;"><path d="M20 6L9 17l-5-5"></path></svg><div><strong style="font-family:var(--font-display);font-size:17px;">Non-invasive &amp; drug-free</strong><p style="font-size:14.5px;line-height:1.55;color:rgba(0,0,0,0.68);margin:3px 0 0;">No needles, incisions, or anesthesia — fewer risks and complications than surgery.</p></div></div>
+        <div style="display:flex;gap:14px;align-items:flex-start;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FF2D8E" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px;"><path d="M20 6L9 17l-5-5"></path></svg><div><strong style="font-family:var(--font-display);font-size:17px;">No downtime</strong><p style="font-size:14.5px;line-height:1.55;color:rgba(0,0,0,0.68);margin:3px 0 0;">Resume your normal activities right after — convenient for busy schedules.</p></div></div>
+        <div style="display:flex;gap:14px;align-items:flex-start;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FF2D8E" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px;"><path d="M20 6L9 17l-5-5"></path></svg><div><strong style="font-family:var(--font-display);font-size:17px;">Results that build</strong><p style="font-size:14.5px;line-height:1.55;color:rgba(0,0,0,0.68);margin:3px 0 0;">Many clients notice improvement develop over the following weeks as the body responds.</p></div></div>
+        <div style="display:flex;gap:14px;align-items:flex-start;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FF2D8E" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px;"><path d="M20 6L9 17l-5-5"></path></svg><div><strong style="font-family:var(--font-display);font-size:17px;">Minimal discomfort</strong><p style="font-size:14.5px;line-height:1.55;color:rgba(0,0,0,0.68);margin:3px 0 0;">Most describe a warm sensation rather than pain — mild at most.</p></div></div>
+        <div style="display:flex;gap:14px;align-items:flex-start;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FF2D8E" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px;"><path d="M20 6L9 17l-5-5"></path></svg><div><strong style="font-family:var(--font-display);font-size:17px;">Quick sessions</strong><p style="font-size:14.5px;line-height:1.55;color:rgba(0,0,0,0.68);margin:3px 0 0;">Most treatments take just 3–10 minutes per area.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT IT TREATS -->
+  <section id="treats" class="section-black" style="padding:96px 24px;">
+    <div style="max-width:720px;margin:0 auto 48px;text-align:center;">
+      <p class="hg-eyebrow">Deep-tissue relief</p>
+      <h2 style="margin:14px 0 0;color:#fff;">What it <span style="color:var(--hg-pink);">treats</span></h2>
+      <p style="font-size:19px;margin-top:16px;color:rgba(255,255,255,0.78);">One device, many areas — target pain and stimulate the body's own healing.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:18px;max-width:1160px;margin:0 auto;">
+      <div class="fw-xray"><img src="/flowwave-site/assets/f91baff9-0d9d-43eb-a348-8f445aabcf97.png" alt="Neck x-ray"><span class="lbl">Neck</span></div>
+      <div class="fw-xray"><img src="/flowwave-site/assets/a2bd5857-f991-4371-a4f5-08ef7a2093a2.png" alt="Shoulder x-ray"><span class="lbl">Shoulders</span></div>
+      <div class="fw-xray"><img src="/flowwave-site/assets/74e6c27a-faaf-4b64-a8db-b67f9f5d78ea.png" alt="Back x-ray"><span class="lbl">Low back</span></div>
+      <div class="fw-xray"><img src="/flowwave-site/assets/1b225395-3eaf-410e-af19-9d2ff11fbb12.png" alt="Hip x-ray"><span class="lbl">Hips</span></div>
+      <div class="fw-xray"><img src="/flowwave-site/assets/4df52ec8-f863-4729-b360-53ff13eecb54.png" alt="Elbow x-ray"><span class="lbl">Elbows</span></div>
+      <div class="fw-xray"><img src="/flowwave-site/assets/fcd69059-8a03-4b6c-82e5-4983c70b5318.png" alt="Wrist x-ray"><span class="lbl">Wrists</span></div>
+      <div class="fw-xray"><img src="/flowwave-site/assets/dfa4ee5e-94eb-4ee4-85cf-c177544ca3cd.png" alt="Hand x-ray"><span class="lbl">Hands</span></div>
+      <div class="fw-xray"><img src="/flowwave-site/assets/2abd0297-ebf5-4a44-9a3e-abc4176872c5.png" alt="Knee x-ray"><span class="lbl">Knees</span></div>
+      <div class="fw-xray"><img src="/flowwave-site/assets/2eaeddc0-fcab-4b9f-8b28-d2a039c2cba1.png" alt="Ankle x-ray"><span class="lbl">Ankles</span></div>
+      <div class="fw-xray"><img src="/flowwave-site/assets/bd50c88d-47f7-4a0f-9479-2283de92a5f6.png" alt="Foot x-ray"><span class="lbl">Feet</span></div>
+    </div>
+    <p style="text-align:center;color:rgba(255,255,255,0.5);font-size:14px;margin:34px auto 0;max-width:640px;">…and 150+ preset treatment zones on the FlowWave™ FOCUS.</p>
+  </section>
+
+  <!-- WHO IT'S FOR -->
+  <section id="who" class="section-white" style="padding:96px 24px;">
+    <div style="max-width:760px;margin:0 auto;text-align:center;">
+      <p class="hg-eyebrow">Who it's for</p>
+      <h2 style="margin:14px 0 0;">Built for <span class="accent">how you move</span></h2>
+      <p style="font-size:19px;margin-top:16px;color:rgba(0,0,0,0.75);">From chronic aches to athletic recovery to men's wellness — all under NP direction.</p>
+    </div>
+    <div class="fw-use">
+      <div class="fw-usecard">
+        <img src="/flowwave-site/assets/4513c1e1-eb0b-4ba7-82eb-dd66a2fea51a.png" alt="Shockwave recovery for athletes" style="width:100%;display:block;">
+        <div class="body">
+          <h3 class="accent" style="margin:0 0 8px;">Pain &amp; Recovery</h3>
+          <p style="font-size:15px;line-height:1.6;color:rgba(0,0,0,0.7);margin:0;">Reduce pain, restore mobility, and get back to performing at your best — knees, shoulders, elbows, feet and low back.</p>
+        </div>
+      </div>
+      <div class="fw-usecard">
+        <img src="/flowwave-site/assets/fb4a567e-6f3e-46eb-b07b-03612a4955fb.png" alt="Men's shockwave therapy" style="width:100%;display:block;">
+        <div class="body">
+          <h3 class="accent" style="margin:0 0 8px;">Men's Wellness</h3>
+          <p style="font-size:15px;line-height:1.6;color:rgba(0,0,0,0.7);margin:0;">A discreet, non-invasive men's health option — fast, drug-free, with no downtime. Provider-directed and confidential.</p>
+        </div>
+      </div>
+      <div class="fw-usecard">
+        <img src="/flowwave-site/assets/867f016d-9f0e-4a72-9b6c-e71589479e75.png" alt="Focused shockwave therapy technology" style="width:100%;display:block;">
+        <div class="body">
+          <h3 class="accent" style="margin:0 0 8px;">Orthopedic Support</h3>
+          <p style="font-size:15px;line-height:1.6;color:rgba(0,0,0,0.7);margin:0;">Advanced focused technology reaching up to 12&nbsp;cm deep across 150+ treatment zones — in quick, in-and-out sessions.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BENEFIT SHOWCASE -->
+  <section class="section-white" style="padding:0 24px 96px;">
+    <div style="max-width:1120px;margin:0 auto;">
+      <div style="max-width:720px;margin:0 auto 44px;text-align:center;">
+        <p class="hg-eyebrow">At a glance</p>
+        <h2 style="margin:14px 0 0;">The FlowWave <span class="accent">difference</span></h2>
+      </div>
+      <div class="fw-shot" style="border:1px solid rgba(0,0,0,0.08);">
+        <img src="/flowwave-site/assets/921159a7-1295-4b4a-a4ad-1a16b6c34d1d.png" alt="FlowWave FOCUS benefits — deep targeted relief, fast sessions, cellular response technology, men's health and more">
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section id="pricing" class="section-white" style="padding:96px 24px;">
+    <div style="max-width:1180px;margin:0 auto;">
+      <div style="max-width:760px;margin:0 auto 40px;text-align:center;">
+        <p class="hg-eyebrow">Pricing</p>
+        <h2 style="margin:14px 0 0;">Simple, honest <span class="accent">pricing</span></h2>
+        <p style="font-size:19px;margin-top:16px;color:rgba(0,0,0,0.75);">Start with our intro offer, then save more with a package. Every plan begins with a free medical screening.</p>
+      </div>
+
+      <!-- INTRO DEAL -->
+      <div style="background:#000;border-radius:20px;padding:36px 40px;margin:0 auto 48px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:space-between;gap:28px;flex-wrap:wrap;">
+        <div style="position:absolute;top:-90px;right:-70px;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(255,45,142,0.35),rgba(255,45,142,0) 70%);"></div>
+        <div style="position:relative;">
+          <span class="hg-badge" style="font-size:11px;padding:6px 14px;">Intro offer</span>
+          <div style="font-family:var(--font-display);font-weight:700;font-size:34px;color:#fff;margin-top:14px;">First session — any area</div>
+          <p style="color:rgba(255,255,255,0.72);font-size:16px;margin-top:8px;max-width:520px;">Try focused shockwave on whatever’s bothering you most — no commitment, fully screened by our NP.</p>
+        </div>
+        <div style="position:relative;text-align:center;">
+          <div style="display:flex;align-items:flex-start;justify-content:center;gap:3px;color:var(--hg-pink);font-family:var(--font-display);font-weight:700;line-height:1;"><span style="font-size:28px;margin-top:8px;">$</span><span style="font-size:82px;">49</span></div>
+          <a href="#intake" class="btn btn-primary btn-cta" style="margin-top:14px;">Claim intro offer</a>
+        </div>
+      </div>
+
+      <!-- PACKAGES -->
+      <div style="text-align:center;margin-bottom:20px;"><p class="hg-eyebrow" style="color:#000;opacity:0.5;">Pain &amp; Recovery packages</p></div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:20px;align-items:stretch;">
+        <div class="fw-price">
+          <div class="tier">Single session</div>
+          <div class="price">$175</div>
+          <div class="per">per area</div>
+          <ul><li>One focused session</li><li>Any single area</li><li>NP-directed care</li></ul>
+          <a href="#intake" class="btn btn-outline" style="width:100%;">Book</a>
+        </div>
+        <div class="fw-price">
+          <div class="tier">6-Session</div>
+          <div class="price">$870</div>
+          <div class="per">$145 / session · save 17%</div>
+          <ul><li>6 focused sessions</li><li>Mix &amp; match areas</li><li>Flexible scheduling</li><li>Save $180 vs. single</li></ul>
+          <a href="#intake" class="btn btn-outline" style="width:100%;">Choose 6</a>
+        </div>
+        <div class="fw-price feat">
+          <span class="pop">Most popular</span>
+          <div class="tier">12-Session</div>
+          <div class="price">$1,500</div>
+          <div class="per">$125 / session · save 29%</div>
+          <ul><li>12 focused sessions</li><li>Mix &amp; match areas</li><li>Priority booking</li><li>Save $600 vs. single</li></ul>
+          <a href="#intake" class="btn btn-primary" style="width:100%;">Choose 12</a>
+        </div>
+        <div class="fw-price">
+          <div class="tier">24-Session</div>
+          <div class="price">$2,376</div>
+          <div class="per">as low as $99 / session · save 43%</div>
+          <ul><li>24 focused sessions</li><li>Whole-body coverage</li><li>Priority booking</li><li>Lowest per-session rate</li></ul>
+          <a href="#intake" class="btn btn-outline" style="width:100%;">Choose 24</a>
+        </div>
+      </div>
+
+      <!-- MEN'S PROGRAMS -->
+      <div style="text-align:center;margin:52px 0 20px;"><p class="hg-eyebrow" style="color:#000;opacity:0.5;">Men’s Wellness programs</p></div>
+      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:20px;max-width:760px;margin:0 auto;">
+        <div class="fw-price">
+          <div class="tier">6-Session Program</div>
+          <div class="price">$1,800</div>
+          <div class="per">$300 / session</div>
+          <ul><li>Private, provider-directed</li><li>Discreet men’s wellness track</li><li>Full confidentiality</li></ul>
+          <a href="#intake" class="btn btn-outline" style="width:100%;">Inquire privately</a>
+        </div>
+        <div class="fw-price">
+          <div class="tier">12-Session Program</div>
+          <div class="price">$3,000</div>
+          <div class="per">$250 / session · best value</div>
+          <ul><li>Private, provider-directed</li><li>Extended course</li><li>Full confidentiality</li></ul>
+          <a href="#intake" class="btn btn-outline" style="width:100%;">Inquire privately</a>
+        </div>
+      </div>
+
+      <!-- CHERRY FINANCING -->
+      <div style="margin:44px auto 0;border:2px solid #000;border-radius:18px;padding:26px 30px;display:flex;align-items:center;gap:30px;flex-wrap:wrap;">
+        <img src="/flowwave-site/assets/ce88939a-f8da-44cc-8be0-fd37449ee197.png" alt="Live life without limits — flexible payment plans powered by Cherry" style="width:210px;border-radius:14px;flex-shrink:0;display:block;">
+        <div style="flex:1 1 320px;">
+          <div style="display:flex;align-items:center;gap:10px;">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#FF2D8E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21c4-3 7-6.5 7-10a4 4 0 0 0-7-2.6A4 4 0 0 0 5 11c0 3.5 3 7 7 10z"></path><path d="M12 8V4"></path><path d="M12 4c1.2 0 2.4-.6 3-1.6"></path></svg>
+            <span class="hg-eyebrow" style="color:#000;opacity:0.55;">Financing</span>
+          </div>
+          <div style="font-family:var(--font-display);font-weight:700;font-size:26px;margin-top:10px;">Pay over time with <span class="accent">Cherry</span></div>
+          <p style="font-size:15px;line-height:1.6;color:rgba(0,0,0,0.7);margin:8px 0 0;max-width:520px;">Split any package into easy monthly payments. Checking your eligibility takes seconds and <strong>won’t affect your credit score</strong>.</p>
+        </div>
+        <a href="https://pay.withcherry.com/hellogorgeous?utm_source=practice&amp;utm_medium=website&amp;m=466" target="_blank" rel="noopener" class="btn btn-primary btn-cta">Check your rate</a>
+      </div>
+
+      <p style="text-align:center;font-size:13px;color:rgba(0,0,0,0.55);margin:36px auto 0;max-width:720px;line-height:1.6;">Pricing shown is for planning — your final plan is confirmed at your free consultation. HSA/FSA cards welcome. Packages are per person and non-transferable. Ask about membership pricing.</p>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" class="section-white" style="padding:0 24px 100px;">
+    <div class="fw-faq">
+      <div style="text-align:center;margin-bottom:36px;">
+        <p class="hg-eyebrow">Common questions</p>
+        <h2 style="margin:14px 0 0;">Good to <span class="accent">know</span></h2>
+      </div>
+      <details open="">
+        <summary>Does shockwave therapy hurt?</summary>
+        <p class="ans">Most clients describe it as a firm tapping sensation that's very tolerable. Your provider adjusts intensity to your comfort throughout the session.</p>
+      </details>
+      <details>
+        <summary>How many sessions will I need?</summary>
+        <p class="ans">It depends on the area and your goals. Many clients follow a short weekly course; your nurse practitioner will map out a plan at your free consultation.</p>
+      </details>
+      <details>
+        <summary>Is there any downtime?</summary>
+        <p class="ans">No. Sessions run about 3–10 minutes per area and you can return to your normal day right afterward.</p>
+      </details>
+      <details>
+        <summary>Am I a candidate?</summary>
+        <p class="ans">We screen every client first. Certain conditions — such as pregnancy, pacemakers, or metal implants in the treatment area — mean shockwave isn't appropriate. That's exactly what your free medical screening is for.</p>
+      </details>
+      <details>
+        <summary>Is the men's treatment confidential?</summary>
+        <p class="ans">Absolutely. Men's wellness treatments are provider-directed, private, and handled with full discretion.</p>
+      </details>
+    </div>
+  </section>
+
+  <!-- CLIENT INTAKE -->
+  <section id="intake" class="section-black" style="padding:96px 24px;">
+    <div style="max-width:920px;margin:0 auto;">
+      <div style="text-align:center;margin-bottom:40px;">
+        <p class="hg-eyebrow">Client intake</p>
+        <h2 style="color:#fff;margin:14px 0 0;">Start your <span style="color:var(--hg-pink);">free screening</span></h2>
+        <p style="color:rgba(255,255,255,0.75);font-size:18px;margin-top:14px;">Tell us a little about you and we’ll confirm your candidacy and book your visit. We screen you like a medical practice, because we are one.</p>
+      </div>
+      <div style="background:#fff;border-radius:20px;padding:40px;">
+        <sc-if value="{{ notSubmitted }}" hint-placeholder-val="{{ true }}">
+          <form onsubmit="{{ onSubmit }}">
+            <div class="fw-intake-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+              <div><label class="fw-lbl">Full name</label><input class="fw-inp" type="text" required="" placeholder="Jane Doe"></div>
+              <div><label class="fw-lbl">Phone</label><input class="fw-inp" type="tel" required="" placeholder="(630) 555-0123"></div>
+              <div><label class="fw-lbl">Email</label><input class="fw-inp" type="email" required="" placeholder="you@email.com"></div>
+              <div><label class="fw-lbl">Preferred location</label><select class="fw-inp"><option>Oswego</option><option>Naperville area</option><option>Aurora area</option><option>Plainfield area</option><option>Yorkville area</option></select></div>
+            </div>
+            <div style="margin-top:24px;">
+              <label class="fw-lbl">What would you like to treat? <span style="font-weight:400;color:rgba(0,0,0,0.5);">(select all that apply)</span></label>
+              <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;">
+                <label class="fw-chip"><input type="checkbox">Knee</label>
+                <label class="fw-chip"><input type="checkbox">Shoulder</label>
+                <label class="fw-chip"><input type="checkbox">Low back</label>
+                <label class="fw-chip"><input type="checkbox">Elbow</label>
+                <label class="fw-chip"><input type="checkbox">Foot / ankle</label>
+                <label class="fw-chip"><input type="checkbox">Hand / wrist</label>
+                <label class="fw-chip"><input type="checkbox">Neck</label>
+                <label class="fw-chip"><input type="checkbox">Hip</label>
+                <label class="fw-chip"><input type="checkbox">Men’s wellness</label>
+              </div>
+            </div>
+            <div style="margin-top:24px;">
+              <label class="fw-lbl">Quick health screening <span style="font-weight:400;color:rgba(0,0,0,0.5);">(check any that apply to you)</span></label>
+              <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px;">
+                <label class="fw-chip"><input type="checkbox">Pacemaker / implanted device</label>
+                <label class="fw-chip"><input type="checkbox">Pregnant or possibly pregnant</label>
+                <label class="fw-chip"><input type="checkbox">Metal implant in the area</label>
+                <label class="fw-chip"><input type="checkbox">Blood thinners / clotting disorder</label>
+                <label class="fw-chip"><input type="checkbox">Active cancer or tumor</label>
+                <label class="fw-chip"><input type="checkbox">None of the above</label>
+              </div>
+              <p style="font-size:12.5px;color:rgba(0,0,0,0.55);margin:10px 0 0;line-height:1.5;">These help our NP confirm shockwave is right for you — nothing here disqualifies you automatically. We’ll review everything together at your screening.</p>
+            </div>
+            <div style="margin-top:24px;border:1px solid var(--border-hairline);border-radius:14px;overflow:hidden;">
+              <div style="background:#FFF0F7;border-bottom:1px solid rgba(201,10,104,0.18);padding:14px 20px;display:flex;align-items:center;gap:10px;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C90A68" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                <span style="font-family:var(--font-display);font-weight:700;font-size:16px;color:#C90A68;">Contraindications</span>
+              </div>
+              <div class="fw-intake-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:26px;padding:22px;">
+                <div>
+                  <div style="font-weight:700;font-size:12px;letter-spacing:0.08em;text-transform:uppercase;color:#C90A68;margin-bottom:12px;">Do not use if you have</div>
+                  <ul style="list-style:disc;padding-left:18px;margin:0;display:flex;flex-direction:column;gap:7px;font-size:13px;line-height:1.45;color:rgba(0,0,0,0.75);">
+                    <li>Heart-rate regulator, cardiac pacemaker, or ECG device</li>
+                    <li>Artificial bone</li>
+                    <li>Silicosis</li>
+                    <li>Intoxication or high fever</li>
+                    <li>High-sensitivity mental illness or epilepsy</li>
+                    <li>No independent awareness or inability to self-care</li>
+                    <li>Metal in the body (including metal teeth), pregnancy, cachexia, or malignant tumor</li>
+                    <li>Severe hypertension, or severe cardiovascular / cerebrovascular disease</li>
+                    <li>Renal failure</li>
+                    <li>Severe infection</li>
+                  </ul>
+                </div>
+                <div>
+                  <div style="font-weight:700;font-size:12px;letter-spacing:0.08em;text-transform:uppercase;color:#000;margin-bottom:12px;">Use only under professional guidance</div>
+                  <ul style="list-style:disc;padding-left:18px;margin:0;display:flex;flex-direction:column;gap:7px;font-size:13px;line-height:1.45;color:rgba(0,0,0,0.75);">
+                    <li>During menstruation</li>
+                    <li>Children</li>
+                    <li>Hemorrhagic disease or trauma, inflammation, skin disease, or skin infection</li>
+                    <li>Numbness, or no response to hot and cold</li>
+                    <li>Immune-system deficiency, scar-formation history, or physical illness</li>
+                    <li>Prior face-lifting, or any artificial / cosmetic implant in the body</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div style="margin-top:24px;"><label class="fw-lbl">Anything else? <span style="font-weight:400;color:rgba(0,0,0,0.5);">(optional)</span></label><textarea class="fw-inp" rows="3" placeholder="Your goals, pain history, or questions."></textarea></div>
+            <label class="fw-chip" style="margin-top:20px;align-items:flex-start;"><input type="checkbox" required="" style="margin-top:2px;"><span style="font-size:13px;color:rgba(0,0,0,0.7);line-height:1.5;">I consent to be contacted by Hello Gorgeous Med Spa about my inquiry. This form is not a medical diagnosis.</span></label>
+            <button type="submit" class="btn btn-primary btn-cta" style="margin-top:24px;width:100%;">Request my free screening</button>
+          </form>
+        </sc-if>
+        <sc-if value="{{ submitted }}" hint-placeholder-val="{{ false }}">
+          <div style="text-align:center;padding:24px 10px;">
+            <div style="width:64px;height:64px;border-radius:50%;background:var(--hg-pink);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg></div>
+            <h3 style="margin:0 0 8px;font-size:26px;">Thank you — we’ve got it.</h3>
+            <p style="font-size:16px;color:rgba(0,0,0,0.7);max-width:460px;margin:0 auto;">Our team will reach out within one business day to confirm your free screening. For anything urgent, call <strong>(630) 636-6193</strong>.</p>
+          </div>
+        </sc-if>
+      </div>
+    </div>
+  </section>
+
+  <!-- BOOK CTA -->
+  <section id="book" class="section-pink" style="padding:88px 24px;text-align:center;">
+    <div style="max-width:740px;margin:0 auto;">
+      <h2 style="color:#fff;margin:0;font-size:clamp(2rem,4.5vw,2.9rem);">Ready for real relief?</h2>
+      <p style="color:rgba(255,255,255,0.92);font-size:19px;margin-top:16px;">Book your free consultation in Oswego, IL — same-day appointments often available. Serving Oswego, Naperville, Aurora, Plainfield &amp; Yorkville.</p>
+      <div style="display:flex;gap:14px;justify-content:center;margin-top:30px;flex-wrap:wrap;">
+        <a href="https://www.fresha.com/book-now/hello-gorgeous-tallrfb5/services?lid=102610&amp;share=true&amp;pId=95245" target="_blank" rel="noopener" class="btn btn-white btn-cta">Book Free Consult</a>
+        <a href="tel:6306366193" class="btn btn-secondary">Call (630) 636-6193</a>
+      </div>
+      <p style="color:rgba(255,255,255,0.92);font-size:15px;margin-top:22px;">Prefer to pay over time? <a href="https://pay.withcherry.com/hellogorgeous?utm_source=practice&amp;utm_medium=website&amp;m=466" target="_blank" rel="noopener" style="color:#fff;font-weight:700;text-decoration:underline;">Finance with Cherry →</a></p>
+      <p style="color:rgba(255,255,255,0.82);font-size:14px;margin-top:26px;">74 W. Washington Street, Oswego, IL 60543</p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer style="background:#000;color:rgba(255,255,255,0.6);padding:28px 32px;font-size:13px;">
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;">
+      <span class="brand" style="display:flex;align-items:center;gap:10px;color:#fff;font-family:var(--font-display);font-weight:700;font-size:16px;"><span style="width:30px;height:30px;border-radius:8px;background:linear-gradient(135deg,#FF2D8E,#E6007E);display:inline-flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;">HG</span> Hello Gorgeous Med Spa</span>
+      <span>Nurse-practitioner-directed medical aesthetics · Oswego, IL</span>
+    </div>
+    <p style="margin:20px 0 0;padding-top:18px;border-top:1px solid rgba(255,255,255,0.12);font-size:11.5px;line-height:1.6;color:rgba(255,255,255,0.42);max-width:100%;"><strong style="color:rgba(255,255,255,0.6);">Medical disclaimer:</strong> Focused shockwave (acoustic-wave) therapy at Hello Gorgeous Med Spa is provided for general wellness and the temporary relief of minor muscle and joint aches and pains. It is not intended to diagnose, treat, cure, or prevent any disease or medical condition. Every client is medically screened before treatment, and the contraindications listed above apply. Treatment is directed by a licensed nurse practitioner. Individual results vary and are not guaranteed. This information is not a substitute for professional medical advice — consult your provider with any questions about a medical condition. Not offered as an FDA-cleared medical device.</p>
+  </footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script="">
+class Component extends DCLogic {
+  state = { submitted: false };
+  renderVals() {
+    return {
+      submitted: this.state.submitted,
+      notSubmitted: !this.state.submitted,
+      onSubmit: (e) => { e.preventDefault(); this.setState({ submitted: true }); }
+    };
+  }
+}
+</script>
+
+
+</body></html>

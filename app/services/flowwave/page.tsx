@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 
-import { FlowWavePageContent } from "@/components/flowwave/FlowWavePageContent";
 import {
   FLOWWAVE_FAQS,
   FLOWWAVE_MARKETING,
@@ -99,7 +98,43 @@ export default function FlowWavePage() {
           ),
         }}
       />
-      <FlowWavePageContent />
+
+      {/* Interactive FlowWave landing — full viewport, no site chrome (see ConditionalLayout). */}
+      <div className="fixed inset-0 z-0 h-[100dvh] w-full bg-black">
+        <iframe
+          src="/flowwave-site/index.html"
+          className="h-full w-full border-0"
+          title="FlowWave Shockwave Therapy — Hello Gorgeous Med Spa"
+        />
+      </div>
+
+      {/* Crawlable copy — sr-only so the design iframe stays full-screen */}
+      <section
+        className="sr-only"
+        aria-label="FlowWave shockwave therapy Oswego Illinois"
+      >
+        <h1>
+          FlowWave Shockwave Therapy in Oswego, IL — Hello Gorgeous Med Spa
+        </h1>
+        <p>{description}</p>
+        <p>{FLOWWAVE_MARKETING.trustLine}</p>
+        <ul>
+          <li>
+            <a href={FLOWWAVE_MARKETING.bookHref}>Book a FlowWave session</a>
+          </li>
+          <li>
+            <a href={FLOWWAVE_MARKETING.phoneHref}>
+              Call {FLOWWAVE_MARKETING.phoneDisplay}
+            </a>
+          </li>
+        </ul>
+        {FLOWWAVE_FAQS.map((faq) => (
+          <div key={faq.q}>
+            <h2>{faq.q}</h2>
+            <p>{faq.a}</p>
+          </div>
+        ))}
+      </section>
     </>
   );
 }
