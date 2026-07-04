@@ -28,6 +28,7 @@ import {
 import { isMedicalNavActive } from "@/lib/medical-nav";
 import { labsNavSection } from "@/lib/labs-nav";
 import { medicalMegaMenuMobileGroups, SHOP_RX_NAV } from "@/lib/medical-mega-menu";
+import { FlowWaveNavLogo } from "@/components/flowwave/FlowWaveLogo";
 import { RegenNavLogo } from "@/components/regen/RegenLogo";
 import { QUIZ_NAV } from "@/lib/quiz-nav";
 import { HG_TAGLINE } from "@/lib/brand-tagline";
@@ -661,7 +662,7 @@ export function Header() {
                 style={navPillStyle(0, isFlowWaveNavActive)}
                 aria-label="FlowWave shockwave therapy"
               >
-                FlowWave
+                <FlowWaveNavLogo />
                 <span className="rounded-full bg-gradient-to-r from-[#FF2D8E] to-[#E6007E] px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wide text-white">
                   New
                 </span>
@@ -811,7 +812,12 @@ export function Header() {
               onClick={() => setMobileOpen(false)}
               className="mb-4 flex w-full items-center justify-between gap-2 rounded-xl border border-[#E6007E]/40 bg-gradient-to-r from-[#2d1020] to-black px-4 py-3.5 text-sm font-bold text-white"
             >
-              <span>FlowWave Shockwave</span>
+              <span className="flex items-center gap-2">
+                <FlowWaveNavLogo />
+                <span className="text-xs font-bold uppercase tracking-wide text-[#FFB8DC]">
+                  Shockwave
+                </span>
+              </span>
               <span className="rounded-full bg-gradient-to-r from-[#FF2D8E] to-[#E6007E] px-2 py-0.5 text-[9px] font-bold uppercase text-white">
                 New
               </span>
