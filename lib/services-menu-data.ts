@@ -35,6 +35,15 @@ export const SERVICES_MENU_HERO: ServiceMenuSection = {
   badge: "exclusive",
   items: [
     {
+      id: "flowwave",
+      name: "FlowWave Shockwave",
+      description: "Deep-tissue pain & recovery — intro $175",
+      href: "/services/flowwave",
+      icon: "🌊",
+      badge: "new",
+      featured: true,
+    },
+    {
       id: "vip-trifecta",
       name: "VIP Trifecta Package",
       description: "All 3 treatments — exclusive bundle pricing",
@@ -93,6 +102,13 @@ export const SERVICES_MENU_GOALS: ServiceMenuSection[] = [
     name: "Body Contouring & Wellness",
     subtitle: "Transform your body with medical-grade treatments",
     items: [
+      {
+        id: "flowwave-body",
+        name: "FlowWave Shockwave",
+        href: "/services/flowwave",
+        icon: "🌊",
+        badge: "new",
+      },
       { id: "qf-body", name: "Quantum RF", href: "/services/quantum-rf", icon: "🎯" },
       {
         id: "glp1",
@@ -148,6 +164,13 @@ export const SERVICES_MENU_GOALS: ServiceMenuSection[] = [
     name: "Regenerative Medicine",
     subtitle: "Harness your body's natural healing power",
     items: [
+      {
+        id: "flowwave-regen",
+        name: "FlowWave Shockwave",
+        href: "/services/flowwave",
+        icon: "🌊",
+        badge: "new",
+      },
       { id: "prp-prf", name: "PRP / PRF Treatments", href: "/services/prf-prp", icon: "🧬" },
       { id: "prp-facial-r", name: "PRP Facial", href: "/services/prp-facial", icon: "✨" },
       { id: "ez-prf", name: "EZ PRF Gel", href: "/services/ez-prf-gel", icon: "💎" },
@@ -181,6 +204,7 @@ export function isServicesDropdownContext(pathname: string | null | undefined): 
     [
       "/services/morpheus8",
       "/services/quantum-rf",
+      "/services/flowwave",
       "/services/solaria-co2",
       "/solaria-co2-oswego",
       "/services/microneedling-rf",

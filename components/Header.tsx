@@ -17,6 +17,7 @@ import {
 import { GENTLEMENS_CLUB_PATH } from "@/lib/gentlemens-club";
 import { LADIES_CLUB_PATH } from "@/lib/ladies-club";
 import { PRIMARY_BOOKING_CTA } from "@/lib/primary-cta";
+import { FLOWWAVE_PATH } from "@/lib/flowwave-marketing";
 import {
   ABOUT_NAV_EXTRA_LINKS,
   isAboutNavActive,
@@ -127,6 +128,12 @@ const NAV = {
       {
         heading: "Advanced Technology",
         links: [
+          {
+            label: "FlowWave Shockwave",
+            href: FLOWWAVE_PATH,
+            sub: "Deep-tissue pain & recovery — intro $175",
+            badge: "NEW",
+          },
           { label: "Morpheus8 Burst", href: "/morpheus8-burst-oswego", sub: "Deep RF microneedling — skin tightening" },
           { label: "Quantum RF", href: "/quantum-rf-oswego", sub: "Subdermal body contouring without surgery" },
           { label: "Solaria CO₂", href: "/solaria-co2-oswego", sub: "Fractional laser resurfacing" },
@@ -532,8 +539,12 @@ export function Header() {
         (pathname === link.href || pathname?.startsWith(link.href + "/"))
     );
 
+  const isFlowWaveNavActive =
+    pathname === FLOWWAVE_PATH || (pathname?.startsWith(`${FLOWWAVE_PATH}/`) ?? false);
+
   const isServicesNavActive =
-    isActive("/services") ||
+    !isFlowWaveNavActive &&
+    (isActive("/services") ||
     pathname === "/gallery" ||
     pathname === REGENERATIVE_MEDICINE_PATH ||
     REGENERATIVE_NAV_FLAT_LINKS.some(
@@ -547,7 +558,7 @@ export function Header() {
           pathname === link.href.split("#")[0] ||
           pathname?.startsWith(link.href.split("#")[0] + "/")
       )
-    );
+    ));
 
   const isMedicalNavActiveState = isMedicalNavActive(pathname ?? null);
   const isAboutNavActiveState = isAboutNavActive(pathname ?? null);
@@ -637,6 +648,24 @@ export function Header() {
                 onClose={() => setActiveDropdown(null)}
                 onMouseEnter={() => openDropdown("services")}
               />
+            </div>
+
+            {/* FlowWave — focused shockwave therapy launch */}
+            <div
+              className="relative flex items-center"
+              onMouseEnter={closeDropdown}
+            >
+              <Link
+                href={FLOWWAVE_PATH}
+                className={cx(NAV_LINK_BASE, "h-9 gap-1.5")}
+                style={navPillStyle(0, isFlowWaveNavActive)}
+                aria-label="FlowWave shockwave therapy"
+              >
+                FlowWave
+                <span className="rounded-full bg-gradient-to-r from-[#FF2D8E] to-[#E6007E] px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wide text-white">
+                  New
+                </span>
+              </Link>
             </div>
 
             {/* REGEN STORE — direct link to the RE GEN site (no hover mega menu) */}
@@ -775,6 +804,17 @@ export function Header() {
               style={{ background: trifectaButtonGradient(trifectaAccent(0)) }}
             >
               {PRIMARY_BOOKING_CTA.label}
+            </Link>
+
+            <Link
+              href={FLOWWAVE_PATH}
+              onClick={() => setMobileOpen(false)}
+              className="mb-4 flex w-full items-center justify-between gap-2 rounded-xl border border-[#E6007E]/40 bg-gradient-to-r from-[#2d1020] to-black px-4 py-3.5 text-sm font-bold text-white"
+            >
+              <span>FlowWave Shockwave</span>
+              <span className="rounded-full bg-gradient-to-r from-[#FF2D8E] to-[#E6007E] px-2 py-0.5 text-[9px] font-bold uppercase text-white">
+                New
+              </span>
             </Link>
 
             {/* Services accordion */}

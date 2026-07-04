@@ -4,6 +4,7 @@ import {
   HomepageRyanCareSection,
   HomepageTestimonials,
   HomepageClosingCTARow,
+  FlowWaveHomeBand,
   RegenHomeBand,
 } from "@/components/homepage-v3";
 import { HomepageAestheticsLane } from "@/components/homepage-v3/HomepageAestheticsLane";
@@ -147,6 +148,7 @@ export default function HomePage() {
 
       <main className="bg-black">
         <HeroV3 />
+        <FlowWaveHomeBand />
         <HomepageRyanCareSection />
         <HomepageAestheticsLane />
         <HomepageTestimonials />

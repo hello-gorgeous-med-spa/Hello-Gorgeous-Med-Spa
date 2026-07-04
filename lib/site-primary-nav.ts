@@ -15,6 +15,7 @@ import { SHOP_RX_NAV } from "@/lib/medical-mega-menu";
 
 export const PRIMARY_NAV_HUBS = [
   { id: "services", label: "Services", href: "/services", hasDropdown: true },
+  { id: "flowwave", label: "FlowWave", href: "/services/flowwave", hasDropdown: false },
   { id: "shop-rx", label: SHOP_RX_NAV.label, href: SHOP_RX_NAV.href, hasDropdown: true },
   { id: "labs", label: LABS_NAV.label, href: LABS_NAV.href, hasDropdown: true },
   { id: "specials", label: "Specials", href: SPECIALS_PATH, hasDropdown: true },
