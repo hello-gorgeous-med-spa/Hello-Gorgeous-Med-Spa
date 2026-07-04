@@ -82,6 +82,8 @@ if [[ -n "$DC_JS" ]]; then
 fi
 echo "✅ Vendored react, react-dom, babel in flowwave-site/vendor/"
 
+node "$SCRIPT_DIR/patch-flowwave-intro.mjs"
+
 echo
 echo "🎉 FlowWave site updated."
 echo "   Next:  npm run dev   →   open http://localhost:3000/services/flowwave"
