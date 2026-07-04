@@ -294,6 +294,24 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.82,
     },
     {
+      url: `${baseUrl}/rx/learn`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly',
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/rx/learn/what-is-glp-1`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly',
+      priority: 0.91,
+    },
+    {
+      url: `${baseUrl}/rx/guides`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly',
+      priority: 0.88,
+    },
+    {
       url: `${baseUrl}/rx/membership`,
       lastModified: currentDate,
       changeFrequency: 'monthly',

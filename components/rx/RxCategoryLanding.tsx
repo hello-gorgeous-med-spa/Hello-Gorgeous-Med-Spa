@@ -302,6 +302,14 @@ export function RxCategoryLanding({ hub }: { hub: RxCategoryHub }) {
             >
               Get started
             </Link>
+            {hub.id === "weight-loss" ? (
+              <Link
+                href="/rx/learn/what-is-glp-1"
+                className="inline-flex items-center gap-2 rounded-lg border border-neutral-300 px-6 py-3.5 text-sm font-semibold text-neutral-700 transition hover:border-[#E6007E] hover:text-[#E6007E]"
+              >
+                What is GLP-1?
+              </Link>
+            ) : null}
             {faq && faq.length > 0 ? (
               <Link
                 href="#faq"

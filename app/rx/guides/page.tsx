@@ -12,6 +12,13 @@ export const metadata: Metadata = pageMetadata({
 
 const GUIDES = [
   {
+    title: "What is GLP-1?",
+    description: "Understanding glucagon-like peptide-1 and weight-management medications",
+    category: "Weight Loss",
+    href: "/rx/learn/what-is-glp-1",
+    isArticle: true,
+  },
+  {
     title: "GLP-1 Side Effect Support",
     description: "Managing common side effects during your weight loss journey",
     category: "Weight Loss",
@@ -110,12 +117,20 @@ export default function RxGuidesPage() {
         </div>
 
         <div className="grid gap-4 md:grid-cols-2">
-          {GUIDES.map((guide) => (
+          {GUIDES.map((guide) => {
+            const href =
+              "href" in guide && guide.href
+                ? guide.href
+                : `/docs/dosing-guides/${guide.file}`;
+            const isExternalPdf = !("isArticle" in guide && guide.isArticle);
+
+            return (
             <a
-              key={guide.file}
-              href={`/docs/dosing-guides/${guide.file}`}
-              target="_blank"
-              rel="noopener noreferrer"
+              key={guide.title}
+              href={href}
+              {...(isExternalPdf
+                ? { target: "_blank", rel: "noopener noreferrer" }
+                : {})}
               className="group flex items-start gap-4 rounded-xl border-2 border-black/10 bg-white p-5 hover:border-[#E6007E] hover:shadow-lg transition-all"
             >
               <div className="flex-shrink-0 w-12 h-12 rounded-lg bg-[#FFF0F7] flex items-center justify-center">
@@ -157,7 +172,8 @@ export default function RxGuidesPage() {
                 </svg>
               </div>
             </a>
-          ))}
+            );
+          })}
         </div>
 
         <div className="mt-12 p-6 rounded-xl bg-[#FFF0F7] border-2 border-[#E6007E]/20">
