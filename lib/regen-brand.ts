@@ -19,7 +19,8 @@ export const REGEN_LOGO = {
   primary: "/images/regen/brand/regen-logo-primary.png",
   alt: "REGEN by Hello Gorgeous Med Spa — regenerative medicine and prescription care",
   navAlt: "RE GEN — prescription care by Hello Gorgeous Med Spa",
-  /** Inline SVG nav lockup aspect ratio. */
+  /** Center-crop of primary banner — wordmark band for header nav. */
+  navCropY: "38%",
   navWidth: 88,
   navCompactWidth: 72,
   navHeight: 28,

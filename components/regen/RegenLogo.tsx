@@ -55,11 +55,21 @@ function RegenMark({
   );
 }
 
-/** Compact logo for site header nav. */
+/** Real brand logo — center crop of the DNA banner for header nav. */
 export function RegenNavLogo({ className = "" }: { className?: string }) {
   return (
-    <span className={`inline-flex shrink-0 items-center ${className}`} aria-hidden>
-      <RegenMark sizeClass="h-[1.125rem] w-[4.5rem]" variant="nav" />
+    <span
+      className={`relative inline-block h-8 w-[5.75rem] shrink-0 overflow-hidden rounded-md ${className}`}
+      aria-hidden
+    >
+      <Image
+        src={REGEN_LOGO.primary}
+        alt=""
+        width={REGEN_LOGO.width}
+        height={REGEN_LOGO.height}
+        priority
+        className="absolute left-1/2 top-[38%] h-[4rem] w-auto max-w-none -translate-x-1/2 -translate-y-1/2"
+      />
     </span>
   );
 }
