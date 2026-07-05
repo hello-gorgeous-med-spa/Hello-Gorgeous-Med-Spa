@@ -132,7 +132,7 @@ const NAV = {
           {
             label: "FlowWave Shockwave",
             href: FLOWWAVE_PATH,
-            sub: "Deep-tissue pain & recovery — intro $175",
+            sub: "Deep-tissue pain & recovery — intro $49",
             badge: "NEW",
           },
           { label: "Morpheus8 Burst", href: "/morpheus8-burst-oswego", sub: "Deep RF microneedling — skin tightening" },

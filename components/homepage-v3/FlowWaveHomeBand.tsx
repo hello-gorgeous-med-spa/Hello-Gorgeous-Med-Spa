@@ -134,10 +134,10 @@ export function FlowWaveHomeBand() {
               </h3>
             </div>
             <Link
-              href={FLOWWAVE_PATH}
+              href="/services/flowwave/learn/what-is-shockwave-therapy"
               className="text-sm font-bold text-[#E6007E] underline decoration-2 underline-offset-4"
             >
-              Full FlowWave guide →
+              What is shockwave therapy? →
             </Link>
           </div>
 

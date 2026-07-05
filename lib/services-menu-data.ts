@@ -37,7 +37,7 @@ export const SERVICES_MENU_HERO: ServiceMenuSection = {
     {
       id: "flowwave",
       name: "FlowWave Shockwave",
-      description: "Deep-tissue pain & recovery — intro $175",
+      description: "Deep-tissue pain & recovery — intro $49",
       href: "/services/flowwave",
       icon: "🌊",
       badge: "new",

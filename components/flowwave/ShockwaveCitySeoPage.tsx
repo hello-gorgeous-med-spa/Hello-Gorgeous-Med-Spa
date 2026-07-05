@@ -4,6 +4,7 @@ import Link from "next/link";
 import { FAQAccordion } from "@/components/FAQAccordion";
 import { LocalSeoConversionStrip } from "@/components/seo/LocalSeoConversionStrip";
 import {
+  FLOWWAVE_INTRO_SPECIAL,
   FLOWWAVE_MARKETING,
   FLOWWAVE_PATH,
   FLOWWAVE_PACKAGES,
@@ -137,7 +138,7 @@ export function ShockwaveCitySeoPage({ content }: { content: ShockwaveCitySeoCon
           ))}
         </div>
         <p className="mt-6 text-sm text-gray-600">
-          Intro special: first session any area $175 — includes free NP screening.{" "}
+          Intro special: first session any area {FLOWWAVE_INTRO_SPECIAL.priceLabel} — includes free NP screening.{" "}
           <Link href={FLOWWAVE_PATH} className="font-semibold text-[#E6007E] hover:underline">
             View full FlowWave experience →
           </Link>
@@ -182,7 +183,13 @@ export function ShockwaveCitySeoPage({ content }: { content: ShockwaveCitySeoCon
             href={FLOWWAVE_PATH}
             className="inline-flex rounded-xl bg-[#E6007E] px-8 py-3.5 font-bold text-white hover:bg-[#FF2D8E] transition"
           >
-            FlowWave landing page
+            Book FlowWave
+          </Link>
+          <Link
+            href="/services/flowwave/learn"
+            className="inline-flex rounded-xl border-2 border-white px-8 py-3.5 font-bold text-white hover:bg-white hover:text-black transition"
+          >
+            FlowWave Learn
           </Link>
           <a
             href={`tel:${SITE.phone.replace(/[^\d+]/g, "")}`}

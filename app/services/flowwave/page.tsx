@@ -19,7 +19,7 @@ const OG_IMAGE = FLOWWAVE_MARKETING.images.recoveryBanner;
 
 const title = "FlowWave Shockwave Therapy in Oswego, IL | Hello Gorgeous Med Spa";
 const description =
-  "FlowWave FOCUS focused shockwave therapy in Oswego, IL — deep-tissue pain relief, recovery, and men's wellness. Non-invasive, drug-free, 3–10 minute sessions. Intro special $175 first session. NP-directed care.";
+  "FlowWave FOCUS focused shockwave therapy in Oswego, IL — deep-tissue pain relief, recovery, and men's wellness. Non-invasive, drug-free, 3–10 minute sessions. Intro special $49 first session. NP-directed care.";
 
 const baseMeta = pageMetadata({
   title,

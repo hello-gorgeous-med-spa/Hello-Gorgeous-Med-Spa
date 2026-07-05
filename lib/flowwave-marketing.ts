@@ -6,6 +6,11 @@
 import { PRIMARY_BOOKING_CTA } from "@/lib/primary-cta";
 
 export const FLOWWAVE_PATH = "/services/flowwave" as const;
+export const FLOWWAVE_LEARN_PATH = "/services/flowwave/learn" as const;
+export const FLOWWAVE_START_PATH = "/services/flowwave/start" as const;
+
+/** Introductory first-session special (any area). */
+export const FLOWWAVE_INTRO_PRICE = "$49";
 
 export const FLOWWAVE_MARKETING = {
   name: "FlowWave",
@@ -35,7 +40,7 @@ export const FLOWWAVE_MARKETING = {
 export const FLOWWAVE_INTRO_SPECIAL = {
   badge: "Intro special",
   title: "First session — any area",
-  priceLabel: "$175",
+  priceLabel: FLOWWAVE_INTRO_PRICE,
   priceNote: "per area · includes free NP screening",
   description:
     "Try focused shockwave on whatever is bothering you most — no commitment, fully screened by our NP.",

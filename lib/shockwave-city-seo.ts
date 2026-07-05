@@ -3,7 +3,7 @@
  * Clinic address is always Oswego; city pages target "near me" searches.
  */
 
-import { FLOWWAVE_FAQS } from "@/lib/flowwave-marketing";
+import { FLOWWAVE_FAQS, FLOWWAVE_INTRO_PRICE } from "@/lib/flowwave-marketing";
 import type { PrimaryCitySlug } from "@/lib/city-seo-tier";
 import { PRIMARY_CITY_SLUGS } from "@/lib/city-seo-tier";
 
@@ -47,7 +47,7 @@ function baseFaqs(city: string, localAngle: string): ShockwaveCitySeoContent["fa
     {
       question: `How much does shockwave therapy cost near ${city}?`,
       answer:
-        "Intro sessions start at $175 per area and include NP screening. Package pricing is available — 6 sessions from $870 and 12 sessions from $1,500. Your provider maps a plan at your free consultation.",
+        `Intro special: first session any area ${FLOWWAVE_INTRO_PRICE} (includes NP screening). Standard single sessions are $175 per area. Packages from 6 sessions — your provider maps a plan at your free consultation.`,
     },
     {
       question: "Does shockwave therapy hurt?",
@@ -93,7 +93,7 @@ const CITY_CONTENT: Record<PrimaryCitySlug, Omit<ShockwaveCitySeoContent, "slug"
     cityLabel: "Naperville",
     metaTitle: "Shockwave Therapy Near Naperville IL | FlowWave FOCUS | Hello Gorgeous",
     metaDescription:
-      "FlowWave FOCUS shockwave therapy 15 minutes from Naperville, IL — deep-tissue pain relief, sports recovery, and men's wellness at Hello Gorgeous Med Spa in Oswego. NP-directed, intro $175.",
+      "FlowWave FOCUS shockwave therapy 15 minutes from Naperville, IL — deep-tissue pain relief, sports recovery, and men's wellness at Hello Gorgeous Med Spa in Oswego. NP-directed, intro $49.",
     keywords: [
       "shockwave therapy Naperville IL",
       "shockwave therapy near Naperville",
@@ -167,7 +167,7 @@ const CITY_CONTENT: Record<PrimaryCitySlug, Omit<ShockwaveCitySeoContent, "slug"
     cityLabel: "Plainfield",
     metaTitle: "Shockwave Therapy Near Plainfield IL | FlowWave FOCUS | Hello Gorgeous",
     metaDescription:
-      "FlowWave FOCUS shockwave therapy near Plainfield, IL — non-invasive pain relief and recovery at Hello Gorgeous Med Spa in Oswego. Short drive, NP-directed sessions from $175.",
+      "FlowWave FOCUS shockwave therapy near Plainfield, IL — non-invasive pain relief and recovery at Hello Gorgeous Med Spa in Oswego. Short drive, NP-directed intro $49.",
     keywords: [
       "shockwave therapy Plainfield IL",
       "shockwave therapy near Plainfield",
@@ -219,7 +219,7 @@ const CITY_CONTENT: Record<PrimaryCitySlug, Omit<ShockwaveCitySeoContent, "slug"
     cityLabel: "Montgomery",
     metaTitle: "Shockwave Therapy Near Montgomery IL | FlowWave FOCUS | Hello Gorgeous",
     metaDescription:
-      "FlowWave FOCUS shockwave therapy near Montgomery, IL — focused acoustic-wave treatment for pain and recovery at Hello Gorgeous Med Spa in Oswego. Non-invasive, NP-directed, intro $175.",
+      "FlowWave FOCUS shockwave therapy near Montgomery, IL — focused acoustic-wave treatment for pain and recovery at Hello Gorgeous Med Spa in Oswego. Non-invasive, NP-directed, intro $49.",
     keywords: [
       "shockwave therapy Montgomery IL",
       "shockwave therapy near Montgomery",

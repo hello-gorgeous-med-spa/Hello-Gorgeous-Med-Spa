@@ -581,6 +581,42 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.85,
     },
     {
+      url: `${baseUrl}/services/flowwave/start`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.88,
+    },
+    {
+      url: `${baseUrl}/services/flowwave/learn`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.88,
+    },
+    {
+      url: `${baseUrl}/services/flowwave/learn/what-is-shockwave-therapy`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly',
+      priority: 0.87,
+    },
+    {
+      url: `${baseUrl}/services/flowwave/learn/how-flowwave-works`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly',
+      priority: 0.87,
+    },
+    {
+      url: `${baseUrl}/services/flowwave/learn/shockwave-pain-recovery`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly',
+      priority: 0.87,
+    },
+    {
+      url: `${baseUrl}/services/flowwave/learn/shockwave-mens-wellness`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly',
+      priority: 0.86,
+    },
+    {
       url: `${baseUrl}/cellulite-treatment-oswego-il`,
       lastModified: currentDate,
       changeFrequency: 'weekly',

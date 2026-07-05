@@ -32,7 +32,7 @@ Focused acoustic waves for deep-tissue pain, sports recovery & men's wellness �
 
 ✓ NP-directed every session
 ✓ Knees · shoulders · back · hips & more
-✓ Intro special: $175 first session (any area)
+✓ Intro special: $49 first session (any area)
 
 Book your free screening 👇
 
@@ -78,7 +78,7 @@ FlowWave FOCUS reaches up to 12 cm deep — targeting muscle, tendon & joint tis
 → NP screening included
 → Oswego · Naperville · Aurora area
 
-First session $175 any area 👇
+First session $49 any area 👇
 
 #ShockwaveTherapy #KneePain #ShoulderPain #Recovery #FlowWave #FoxValley`,
     link: `${SITE}/shockwave-therapy-naperville-il`,
@@ -153,7 +153,7 @@ Start your intake 👇`,
 
 Download our shockwave therapy brochure or explore the interactive version on our site.
 
-Focused waves · 12 cm depth · NP-directed · Intro $175
+Focused waves · 12 cm depth · NP-directed · Intro $49
 
 Oswego, IL · Serving the Fox Valley 👇
 
