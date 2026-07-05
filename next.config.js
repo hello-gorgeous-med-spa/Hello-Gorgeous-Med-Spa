@@ -73,7 +73,7 @@ const nextConfig = {
     // Multiple CSPs are intersected; frame-ancestors 'none' (global) + explicit hosts (/docs) still forbids iframes.
     // Exempt: embeddable HTML (public/docs, public/forms, education handouts, RE GEN site) — see dedicated blocks below.
     {
-      source: "/((?!docs$|docs/|forms/|handouts/education/|regen-site/|flowwave-site/).*)",
+      source: "/((?!docs$|docs/|forms/|handouts/education/|regen-site/|flowwave-site/|flowwave-brochure-site/).*)",
       headers: [
         { key: "X-Frame-Options", value: "DENY" },
         { key: "X-Content-Type-Options", value: "nosniff" },
@@ -158,6 +158,15 @@ const nextConfig = {
     // FlowWave site (public/flowwave-site) — shockwave therapy landing iframed on /services/flowwave.
     {
       source: "/flowwave-site/:path*",
+      headers: [
+        { key: "X-Frame-Options", value: "SAMEORIGIN" },
+        { key: "X-Robots-Tag", value: "noindex" },
+        { key: "Content-Security-Policy", value: EMBEDDABLE_HTML_CSP },
+      ],
+    },
+    // FlowWave brochure (public/flowwave-brochure-site) — iframed on /services/flowwave/brochure.
+    {
+      source: "/flowwave-brochure-site/:path*",
       headers: [
         { key: "X-Frame-Options", value: "SAMEORIGIN" },
         { key: "X-Robots-Tag", value: "noindex" },

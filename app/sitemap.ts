@@ -306,6 +306,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.91,
     },
     {
+      url: `${baseUrl}/rx/learn/what-are-peptides`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly',
+      priority: 0.91,
+    },
+    {
       url: `${baseUrl}/rx/guides`,
       lastModified: currentDate,
       changeFrequency: 'monthly',
@@ -471,6 +477,24 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: currentDate,
       changeFrequency: 'weekly',
       priority: 0.88,
+    },
+    {
+      url: `${baseUrl}/shockwave-therapy-oswego-il`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/services/flowwave`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.92,
+    },
+    {
+      url: `${baseUrl}/services/flowwave/brochure`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly',
+      priority: 0.85,
     },
     {
       url: `${baseUrl}/cellulite-treatment-oswego-il`,

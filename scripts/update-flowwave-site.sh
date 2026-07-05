@@ -83,6 +83,7 @@ fi
 echo "✅ Vendored react, react-dom, babel in flowwave-site/vendor/"
 
 node "$SCRIPT_DIR/patch-flowwave-intro.mjs"
+node "$SCRIPT_DIR/patch-flowwave-intake.mjs"
 
 echo
 echo "🎉 FlowWave site updated."

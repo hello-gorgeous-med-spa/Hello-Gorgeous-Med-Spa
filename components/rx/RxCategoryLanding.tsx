@@ -310,6 +310,14 @@ export function RxCategoryLanding({ hub }: { hub: RxCategoryHub }) {
                 What is GLP-1?
               </Link>
             ) : null}
+            {hub.id === "peptides" ? (
+              <Link
+                href="/rx/learn/what-are-peptides"
+                className="inline-flex items-center gap-2 rounded-lg border border-neutral-300 px-6 py-3.5 text-sm font-semibold text-neutral-700 transition hover:border-[#E6007E] hover:text-[#E6007E]"
+              >
+                What are peptides?
+              </Link>
+            ) : null}
             {faq && faq.length > 0 ? (
               <Link
                 href="#faq"

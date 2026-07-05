@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="/flowwave-brochure-site/assets/04affee8-bc45-4fa9-8399-c69acbf8f558.js"></script>
+</head>
+<body>
+
+<x-dc>
+<helmet>
+  <style>/* ============================================================
+   HELLO GORGEOUS — COLOR TOKENS
+   Brand law: White, Black, Hot Pink. No gray on the public site.
+   ============================================================ */
+
+:root {
+  /* ---- Core brand ---- */
+  --hg-white: #FFFFFF;
+  --hg-black: #000000;
+  --hg-pink: #FF2D8E;        /* primary hot pink (UI, accents, CTAs) */
+  --hg-pink-deep: #E6007E;   /* deeper pink (hover, gradients, logo) */
+  --hg-pink-wine: #C90A68;   /* darkest pink (pressed, deep accents) */
+
+  /* ---- Brand pink scale ---- */
+  --hg-pink-50:  #FFF0F7;
+  --hg-pink-100: #FFE0F0;
+  --hg-pink-200: #FFC1E2;
+  --hg-pink-300: #FF92CC;
+  --hg-pink-400: #FF5FB1;
+  --hg-pink-500: #FF2D8E;
+  --hg-pink-600: #E6007E;
+  --hg-pink-700: #C90A68;
+  --hg-pink-800: #9B0B52;
+  --hg-pink-900: #730A3F;
+  --hg-pink-950: #4B062A;
+
+  /* Soft pink tints for backgrounds / surfaces */
+  --hg-pink-soft: #FFF5F9;   /* near-white pink wash */
+  --hg-pink-mid:  #FCE7F3;   /* light pink panel */
+  --hg-pink-light: #FFB8DC;  /* light pink text on black (footer credential) */
+
+  /* ---- Accent metals ---- */
+  --hg-gold: #FFD700;        /* award / "Best of Oswego" */
+  --hg-gold-soft: #FFD86B;
+
+  /* ---- Trifecta accent set (homepage showcase, nav pills, app) ----
+     A three-way accent system layered on the brand. Use for tech
+     showcases (Morpheus8 + Quantum RF + Solaria CO2) and nav rhythm. */
+  --tri-pink: #ec4899;
+  --tri-pink-deep: #db2777;
+  --tri-pink-subtitle: #f472b6;
+  --tri-blue: #3b82f6;
+  --tri-blue-deep: #6366f1;
+  --tri-blue-subtitle: #60a5fa;
+  --tri-amber: #f59e0b;
+  --tri-amber-deep: #f97316;
+  --tri-amber-subtitle: #fbbf24;
+  --tri-gradient-title: linear-gradient(to right, #ec4899, #60a5fa, #f59e0b);  /* @kind color */
+  --tri-glass: rgba(24, 24, 27, 0.85);
+  --tri-glass-soft: rgba(24, 24, 27, 0.6);
+  --tri-panel: #18181b;
+
+  /* ---- Clinical palette (admin / charting only — NOT public) ---- */
+  --clinical-navy: #002168;
+  --clinical-navy-light: #1e3a5f;
+  --clinical-blue: #2D63A4;
+  --clinical-blue-light: #5E94C2;
+  --clinical-ink: #111827;
+  --clinical-ink-soft: #374151;
+
+  /* ---- Semantic status ---- */
+  --hg-success: #16a34a;
+  --hg-warning: #f59e0b;
+  --hg-error: #dc2626;
+
+  /* ============================================================
+     SEMANTIC ALIASES — prefer these in components
+     ============================================================ */
+
+  /* Surfaces */
+  --surface-page: var(--hg-white);
+  --surface-card: var(--hg-white);
+  --surface-inverse: var(--hg-black);     /* black header / footer */
+  --surface-pink: var(--hg-pink);
+  --surface-pink-wash: var(--hg-pink-soft);
+  --surface-glass: var(--tri-glass);
+
+  /* Text */
+  --text-strong: var(--hg-black);
+  --text-body: var(--hg-black);
+  --text-on-dark: var(--hg-white);
+  --text-on-pink: var(--hg-white);
+  --text-accent: var(--hg-pink);
+  --text-muted-on-dark: rgba(255, 255, 255, 0.55);
+
+  /* Borders */
+  --border-strong: var(--hg-black);       /* 2px black card outline */
+  --border-accent: var(--hg-pink);
+  --border-hairline: rgba(0, 0, 0, 0.1);
+  --border-on-dark: rgba(255, 255, 255, 0.12);
+
+  /* Interactive */
+  --action-primary: var(--hg-pink);
+  --action-primary-hover: var(--hg-pink-deep);
+  --action-primary-text: var(--hg-white);
+  --focus-ring: var(--hg-pink);
+}
+</style>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <style>/* cyrillic-ext */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url("/flowwave-brochure-site/assets/b19a26a8-81f6-4faa-a3df-20e3e26b773b.woff2") format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url("/flowwave-brochure-site/assets/4686620e-27c9-4221-93e3-7148449825d8.woff2") format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* greek-ext */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url("/flowwave-brochure-site/assets/a53bd4a3-7380-4161-b835-140bad78851a.woff2") format('woff2');
+  unicode-range: U+1F00-1FFF;
+}
+/* greek */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url("/flowwave-brochure-site/assets/e9e74b4a-4db7-4ad6-b16b-3e81f71d6a36.woff2") format('woff2');
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url("/flowwave-brochure-site/assets/91610bc0-ebc0-4eae-84a4-ed9fc30ede09.woff2") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url("/flowwave-brochure-site/assets/8548dc40-ceb4-4527-a427-7ec7515fe49f.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url("/flowwave-brochure-site/assets/782d4c5e-fcc4-48fd-93a3-62ad42246cb8.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/flowwave-brochure-site/assets/b19a26a8-81f6-4faa-a3df-20e3e26b773b.woff2") format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/flowwave-brochure-site/assets/4686620e-27c9-4221-93e3-7148449825d8.woff2") format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* greek-ext */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/flowwave-brochure-site/assets/a53bd4a3-7380-4161-b835-140bad78851a.woff2") format('woff2');
+  unicode-range: U+1F00-1FFF;
+}
+/* greek */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/flowwave-brochure-site/assets/e9e74b4a-4db7-4ad6-b16b-3e81f71d6a36.woff2") format('woff2');
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/flowwave-brochure-site/assets/91610bc0-ebc0-4eae-84a4-ed9fc30ede09.woff2") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/flowwave-brochure-site/assets/8548dc40-ceb4-4527-a427-7ec7515fe49f.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/flowwave-brochure-site/assets/782d4c5e-fcc4-48fd-93a3-62ad42246cb8.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("/flowwave-brochure-site/assets/b19a26a8-81f6-4faa-a3df-20e3e26b773b.woff2") format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("/flowwave-brochure-site/assets/4686620e-27c9-4221-93e3-7148449825d8.woff2") format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* greek-ext */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("/flowwave-brochure-site/assets/a53bd4a3-7380-4161-b835-140bad78851a.woff2") format('woff2');
+  unicode-range: U+1F00-1FFF;
+}
+/* greek */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("/flowwave-brochure-site/assets/e9e74b4a-4db7-4ad6-b16b-3e81f71d6a36.woff2") format('woff2');
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("/flowwave-brochure-site/assets/91610bc0-ebc0-4eae-84a4-ed9fc30ede09.woff2") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("/flowwave-brochure-site/assets/8548dc40-ceb4-4527-a427-7ec7515fe49f.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("/flowwave-brochure-site/assets/782d4c5e-fcc4-48fd-93a3-62ad42246cb8.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("/flowwave-brochure-site/assets/b19a26a8-81f6-4faa-a3df-20e3e26b773b.woff2") format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("/flowwave-brochure-site/assets/4686620e-27c9-4221-93e3-7148449825d8.woff2") format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* greek-ext */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("/flowwave-brochure-site/assets/a53bd4a3-7380-4161-b835-140bad78851a.woff2") format('woff2');
+  unicode-range: U+1F00-1FFF;
+}
+/* greek */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("/flowwave-brochure-site/assets/e9e74b4a-4db7-4ad6-b16b-3e81f71d6a36.woff2") format('woff2');
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("/flowwave-brochure-site/assets/91610bc0-ebc0-4eae-84a4-ed9fc30ede09.woff2") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("/flowwave-brochure-site/assets/8548dc40-ceb4-4527-a427-7ec7515fe49f.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("/flowwave-brochure-site/assets/782d4c5e-fcc4-48fd-93a3-62ad42246cb8.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("/flowwave-brochure-site/assets/b19a26a8-81f6-4faa-a3df-20e3e26b773b.woff2") format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("/flowwave-brochure-site/assets/4686620e-27c9-4221-93e3-7148449825d8.woff2") format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* greek-ext */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("/flowwave-brochure-site/assets/a53bd4a3-7380-4161-b835-140bad78851a.woff2") format('woff2');
+  unicode-range: U+1F00-1FFF;
+}
+/* greek */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("/flowwave-brochure-site/assets/e9e74b4a-4db7-4ad6-b16b-3e81f71d6a36.woff2") format('woff2');
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("/flowwave-brochure-site/assets/91610bc0-ebc0-4eae-84a4-ed9fc30ede09.woff2") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("/flowwave-brochure-site/assets/8548dc40-ceb4-4527-a427-7ec7515fe49f.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("/flowwave-brochure-site/assets/782d4c5e-fcc4-48fd-93a3-62ad42246cb8.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("/flowwave-brochure-site/assets/bae74eb2-9e39-4fea-92df-b1a2d2abce43.woff2") format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("/flowwave-brochure-site/assets/87f60e4b-1b63-4165-b675-7bdcc19c49c2.woff2") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("/flowwave-brochure-site/assets/3fd156ba-c9cd-408e-9e0a-1ea713388ade.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("/flowwave-brochure-site/assets/ebb42989-77fc-4b2d-b7af-ec5424bdbaa3.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("/flowwave-brochure-site/assets/bae74eb2-9e39-4fea-92df-b1a2d2abce43.woff2") format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("/flowwave-brochure-site/assets/87f60e4b-1b63-4165-b675-7bdcc19c49c2.woff2") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("/flowwave-brochure-site/assets/3fd156ba-c9cd-408e-9e0a-1ea713388ade.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("/flowwave-brochure-site/assets/ebb42989-77fc-4b2d-b7af-ec5424bdbaa3.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("/flowwave-brochure-site/assets/bae74eb2-9e39-4fea-92df-b1a2d2abce43.woff2") format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("/flowwave-brochure-site/assets/87f60e4b-1b63-4165-b675-7bdcc19c49c2.woff2") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("/flowwave-brochure-site/assets/3fd156ba-c9cd-408e-9e0a-1ea713388ade.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("/flowwave-brochure-site/assets/ebb42989-77fc-4b2d-b7af-ec5424bdbaa3.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url("/flowwave-brochure-site/assets/bae74eb2-9e39-4fea-92df-b1a2d2abce43.woff2") format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url("/flowwave-brochure-site/assets/87f60e4b-1b63-4165-b675-7bdcc19c49c2.woff2") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url("/flowwave-brochure-site/assets/3fd156ba-c9cd-408e-9e0a-1ea713388ade.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url("/flowwave-brochure-site/assets/ebb42989-77fc-4b2d-b7af-ec5424bdbaa3.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+</style>
+  <style>
+    body { margin:0; background:#e7e7ec; font-family:'Inter',sans-serif; }
+    .screenwrap { display:flex; flex-direction:column; align-items:center; gap:32px; padding:32px; }
+    .sheet { width:1056px; height:816px; display:flex; background:#fff; box-shadow:0 12px 40px rgba(0,0,0,0.22); overflow:hidden; }
+    .panel { flex:1; padding:30px 26px; position:relative; overflow:hidden; display:flex; flex-direction:column; box-sizing:border-box; }
+    .fold { border-right:1px dashed rgba(0,0,0,0.22); }
+    .eyebrow { font-weight:700; font-size:10px; letter-spacing:0.26em; text-transform:uppercase; color:#FF2D8E; margin:0; }
+    .ptitle { font-family:'Playfair Display',serif; font-weight:700; color:#000; letter-spacing:-0.01em; line-height:1.05; margin:8px 0 0; }
+    .body { font-size:11.5px; line-height:1.55; color:rgba(0,0,0,0.72); }
+    .chk { font-size:11px; line-height:1.4; color:rgba(0,0,0,0.78); padding-left:18px; position:relative; margin-bottom:7px; }
+    .chk::before { content:"\2713"; position:absolute; left:0; color:#FF2D8E; font-weight:700; }
+    .hgmark { width:30px; height:30px; border-radius:8px; background:linear-gradient(135deg,#FF2D8E,#E6007E); display:inline-flex; align-items:center; justify-content:center; font-size:11px; font-weight:800; color:#fff; font-family:'Inter'; }
+    @page { size:11in 8.5in; margin:0; }
+    @media print { body { background:#fff; } .screenwrap { padding:0; gap:0; } .sheet { box-shadow:none; page-break-after:always; } }
+  </style>
+</helmet>
+<div class="screenwrap">
+
+  <!-- ============ SHEET 1 — OUTSIDE ============ -->
+  <div class="sheet">
+
+    <!-- LEFT PANEL: inner flap — What it treats -->
+    <div class="panel fold" style="background:#000;">
+      <p class="eyebrow">Deep-tissue relief</p>
+      <h2 class="ptitle" style="color:#fff;font-size:28px;">What it <span style="color:#FF2D8E;">treats</span></h2>
+      <p style="font-size:11px;line-height:1.5;color:rgba(255,255,255,0.7);margin:10px 0 16px;">One device, many areas — targeting pain at the source across 150+ zones.</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+        <div style="position:relative;border-radius:9px;overflow:hidden;aspect-ratio:1/1;border:1px solid rgba(255,255,255,0.14);"><img src="/flowwave-brochure-site/assets/7d8bf8c7-4b9a-4be3-aaf8-375976bd9f3e.png" style="width:100%;height:100%;object-fit:cover;"><span style="position:absolute;bottom:5px;left:0;right:0;text-align:center;font-family:'Playfair Display',serif;font-weight:600;font-size:12px;color:#fff;text-shadow:0 1px 4px #000;">Neck</span></div>
+        <div style="position:relative;border-radius:9px;overflow:hidden;aspect-ratio:1/1;border:1px solid rgba(255,255,255,0.14);"><img src="/flowwave-brochure-site/assets/0a1bac16-3d12-43a0-abaa-ce8ed8683860.png" style="width:100%;height:100%;object-fit:cover;"><span style="position:absolute;bottom:5px;left:0;right:0;text-align:center;font-family:'Playfair Display',serif;font-weight:600;font-size:12px;color:#fff;text-shadow:0 1px 4px #000;">Shoulder</span></div>
+        <div style="position:relative;border-radius:9px;overflow:hidden;aspect-ratio:1/1;border:1px solid rgba(255,255,255,0.14);"><img src="/flowwave-brochure-site/assets/6becc064-9ef0-4324-a2b0-5ea32697d776.png" style="width:100%;height:100%;object-fit:cover;"><span style="position:absolute;bottom:5px;left:0;right:0;text-align:center;font-family:'Playfair Display',serif;font-weight:600;font-size:12px;color:#fff;text-shadow:0 1px 4px #000;">Back</span></div>
+        <div style="position:relative;border-radius:9px;overflow:hidden;aspect-ratio:1/1;border:1px solid rgba(255,255,255,0.14);"><img src="/flowwave-brochure-site/assets/1526abfb-1e8b-43b5-b85a-acfc3cfd50a4.png" style="width:100%;height:100%;object-fit:cover;"><span style="position:absolute;bottom:5px;left:0;right:0;text-align:center;font-family:'Playfair Display',serif;font-weight:600;font-size:12px;color:#fff;text-shadow:0 1px 4px #000;">Knee</span></div>
+        <div style="position:relative;border-radius:9px;overflow:hidden;aspect-ratio:1/1;border:1px solid rgba(255,255,255,0.14);"><img src="/flowwave-brochure-site/assets/88fd6a0b-d464-4424-b81e-c0a87c11715e.png" style="width:100%;height:100%;object-fit:cover;"><span style="position:absolute;bottom:5px;left:0;right:0;text-align:center;font-family:'Playfair Display',serif;font-weight:600;font-size:12px;color:#fff;text-shadow:0 1px 4px #000;">Elbow</span></div>
+        <div style="position:relative;border-radius:9px;overflow:hidden;aspect-ratio:1/1;border:1px solid rgba(255,255,255,0.14);"><img src="/flowwave-brochure-site/assets/e9b0d642-f3b8-450b-83ff-e585c313e392.png" style="width:100%;height:100%;object-fit:cover;"><span style="position:absolute;bottom:5px;left:0;right:0;text-align:center;font-family:'Playfair Display',serif;font-weight:600;font-size:12px;color:#fff;text-shadow:0 1px 4px #000;">Foot</span></div>
+      </div>
+      <div style="margin-top:auto;background:linear-gradient(135deg,#FF2D8E,#E6007E);border-radius:12px;padding:16px;text-align:center;">
+        <div style="font-size:9px;font-weight:700;letter-spacing:0.24em;text-transform:uppercase;color:rgba(255,255,255,0.9);">Intro offer</div>
+        <div style="font-family:'Playfair Display',serif;font-weight:700;color:#fff;font-size:15px;margin-top:4px;">First session, any area</div>
+        <div style="font-family:'Playfair Display',serif;font-weight:800;color:#fff;font-size:44px;line-height:1;margin-top:4px;">$49</div>
+      </div>
+    </div>
+
+    <!-- MIDDLE PANEL: back cover — spa info -->
+    <div class="panel fold" style="background:#fff;align-items:center;text-align:center;">
+      <div style="margin-top:6px;">
+        <div class="eyebrow" style="letter-spacing:0.3em;">Book an appointment</div>
+        <h2 class="ptitle" style="font-size:30px;margin-top:10px;">Book now</h2>
+      </div>
+      <div style="margin-top:26px;">
+        <div class="eyebrow" style="color:#000;opacity:0.5;">Call or book online</div>
+        <div style="font-family:'Playfair Display',serif;font-weight:700;font-size:26px;color:#FF2D8E;margin-top:6px;">(630) 636-6193</div>
+      </div>
+      <div style="margin-top:24px;">
+        <div class="eyebrow" style="color:#000;opacity:0.5;">Visit us</div>
+        <div style="font-size:13px;line-height:1.6;color:#000;margin-top:6px;">Hello Gorgeous Med Spa<br>74 W. Washington Street<br>Oswego, IL 60543</div>
+      </div>
+      <div style="margin-top:20px;">
+        <div class="eyebrow" style="color:#000;opacity:0.5;">Serving</div>
+        <div style="font-size:11.5px;line-height:1.5;color:rgba(0,0,0,0.7);margin-top:6px;">Oswego · Naperville · Aurora<br>Plainfield · Yorkville · Montgomery</div>
+      </div>
+      <div style="margin-top:22px;width:100%;">
+        <div class="eyebrow" style="color:#000;opacity:0.5;">Trusted in Oswego</div>
+        <div style="display:flex;justify-content:center;margin-top:10px;">
+          <div><div style="color:#FF2D8E;font-size:16px;letter-spacing:2px;">★★★★★</div><div style="font-family:'Playfair Display',serif;font-weight:700;font-size:18px;margin-top:3px;">5.0 <span style="font-size:11px;font-weight:400;color:rgba(0,0,0,0.55);">on Fresha · 1,931 reviews</span></div></div>
+        </div>
+        <div style="margin-top:12px;"><span style="display:inline-block;background:#000;color:#FFD700;font-size:9px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;padding:5px 13px;border-radius:999px;">🏆 Best of Oswego</span></div>
+      </div>
+      <div style="margin-top:auto;">
+        <img src="/flowwave-brochure-site/assets/965c4bc8-ce5a-4e6a-b250-9d7be31f91ef.png" style="width:100%;display:block;border-radius:12px;">
+      </div>
+    </div>
+
+    <!-- RIGHT PANEL: front cover -->
+    <div class="panel" style="background:#000;align-items:center;text-align:center;">
+      <div style="display:flex;align-items:center;gap:8px;"><span class="hgmark">HG</span><span style="font-family:'Playfair Display',serif;font-weight:700;font-size:14px;color:#fff;">Hello Gorgeous Med Spa</span></div>
+      <span style="margin-top:22px;display:inline-block;background:#E6007E;color:#fff;font-size:8.5px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;padding:5px 12px;border-radius:999px;">New at Hello Gorgeous</span>
+      <h1 class="ptitle" style="color:#fff;font-size:40px;margin-top:14px;">Shockwave<br><span style="color:#FF2D8E;">Therapy</span></h1>
+      <p style="font-size:11px;letter-spacing:0.02em;color:rgba(255,255,255,0.72);margin:12px 0 0;line-height:1.5;">Non-invasive, drug-free relief for pain, recovery &amp; men's wellness.</p>
+      <div style="flex:1;display:flex;align-items:center;justify-content:center;width:100%;margin:10px 0;">
+        <img src="/flowwave-brochure-site/assets/70e8abdf-c365-41c9-8654-a211a3faf4d0.png" style="max-width:100%;max-height:340px;object-fit:contain;border-radius:12px;">
+      </div>
+      <p style="font-family:'Playfair Display',serif;font-style:italic;font-size:13px;color:#fff;line-height:1.4;margin:0;">“We screen you like a medical practice, because we are one.”</p>
+      <div style="margin-top:12px;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:#FF2D8E;">FlowWave™ FOCUS · Focused Shockwave</div>
+    </div>
+
+  </div>
+
+  <!-- ============ SHEET 2 — INSIDE ============ -->
+  <div class="sheet">
+
+    <!-- PANEL 1: How it works -->
+    <div class="panel fold" style="background:#fff;">
+      <p class="eyebrow">The science</p>
+      <h2 class="ptitle" style="font-size:26px;">How it <span style="color:#FF2D8E;">works</span></h2>
+      <p class="body" style="margin:8px 0 12px;">FlowWave™ FOCUS uses an electrohydraulic spark-gap system with a saline-filled head to send focused acoustic waves deep into tissue — targeting the source of discomfort.</p>
+      <div style="display:flex;flex-direction:column;gap:9px;">
+        <div style="display:flex;gap:12px;align-items:flex-start;"><div style="flex-shrink:0;width:26px;height:26px;border-radius:50%;background:#FF2D8E;color:#fff;font-family:'Playfair Display',serif;font-weight:700;font-size:13px;display:flex;align-items:center;justify-content:center;">1</div><div><div style="font-family:'Playfair Display',serif;font-weight:600;font-size:13px;">Spark-gap discharge</div><div class="body" style="font-size:10.5px;">A precise spark fires in the saline-filled head.</div></div></div>
+        <div style="display:flex;gap:12px;align-items:flex-start;"><div style="flex-shrink:0;width:26px;height:26px;border-radius:50%;background:#FF2D8E;color:#fff;font-family:'Playfair Display',serif;font-weight:700;font-size:13px;display:flex;align-items:center;justify-content:center;">2</div><div><div style="font-family:'Playfair Display',serif;font-weight:600;font-size:13px;">Acoustic wave</div><div class="body" style="font-size:10.5px;">A pressure wave forms, traveling over 3,500 mph.</div></div></div>
+        <div style="display:flex;gap:12px;align-items:flex-start;"><div style="flex-shrink:0;width:26px;height:26px;border-radius:50%;background:#FF2D8E;color:#fff;font-family:'Playfair Display',serif;font-weight:700;font-size:13px;display:flex;align-items:center;justify-content:center;">3</div><div><div style="font-family:'Playfair Display',serif;font-weight:600;font-size:13px;">Focused delivery</div><div class="body" style="font-size:10.5px;">Energy converges deep in tissue — up to 12 cm.</div></div></div>
+        <div style="display:flex;gap:12px;align-items:flex-start;"><div style="flex-shrink:0;width:26px;height:26px;border-radius:50%;background:#FF2D8E;color:#fff;font-family:'Playfair Display',serif;font-weight:700;font-size:13px;display:flex;align-items:center;justify-content:center;">4</div><div><div style="font-family:'Playfair Display',serif;font-weight:600;font-size:13px;">Healing response</div><div class="body" style="font-size:10.5px;">Supports blood flow &amp; the body's natural repair.</div></div></div>
+      </div>
+      <div style="border-radius:12px;overflow:hidden;margin-top:14px;border:1px solid rgba(255,45,142,0.25);">
+        <img src="/flowwave-brochure-site/assets/5ae207d7-01a1-4e9c-bd77-3c479cc3a42a.png" style="width:100%;display:block;">
+      </div>
+      <div style="margin-top:16px;">
+        <div class="eyebrow" style="color:#000;opacity:0.5;">Common questions</div>
+        <div style="margin-top:9px;">
+          <div style="margin-bottom:9px;"><div style="font-family:'Playfair Display',serif;font-weight:700;font-size:11.5px;color:#000;">Does it hurt?</div><div class="body" style="font-size:10px;margin:1px 0 0;">Most feel a firm tapping sensation — intensity is set to your comfort.</div></div>
+          <div style="margin-bottom:9px;"><div style="font-family:'Playfair Display',serif;font-weight:700;font-size:11.5px;color:#000;">How many sessions?</div><div class="body" style="font-size:10px;margin:1px 0 0;">Often a short weekly course — your NP maps a plan at your free screening.</div></div>
+          <div><div style="font-family:'Playfair Display',serif;font-weight:700;font-size:11.5px;color:#000;">Is there downtime?</div><div class="body" style="font-size:10px;margin:1px 0 0;">None — sessions run 3–10 minutes and you return to your day.</div></div>
+        </div>
+      </div>
+      <div style="margin-top:16px;display:grid;grid-template-columns:1fr 1fr;gap:10px;background:#000;border-radius:12px;padding:16px;">
+        <div style="text-align:center;"><div style="font-family:'Playfair Display',serif;font-weight:700;font-size:22px;color:#FF2D8E;line-height:1;">3–10</div><div style="font-size:8px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.7);margin-top:4px;">Min sessions</div></div>
+        <div style="text-align:center;"><div style="font-family:'Playfair Display',serif;font-weight:700;font-size:22px;color:#FF2D8E;line-height:1;">12 cm</div><div style="font-size:8px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.7);margin-top:4px;">Depth</div></div>
+        <div style="text-align:center;"><div style="font-family:'Playfair Display',serif;font-weight:700;font-size:22px;color:#FF2D8E;line-height:1;">150+</div><div style="font-size:8px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.7);margin-top:4px;">Zones</div></div>
+        <div style="text-align:center;"><div style="font-family:'Playfair Display',serif;font-weight:700;font-size:22px;color:#FF2D8E;line-height:1;">0</div><div style="font-size:8px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.7);margin-top:4px;">Downtime</div></div>
+      </div>
+    </div>
+
+    <!-- PANEL 2: Benefits + what to expect -->
+    <div class="panel fold" style="background:#fff;">
+      <p class="eyebrow">Why clients love it</p>
+      <h2 class="ptitle" style="font-size:26px;">Benefits for pain &amp; <span style="color:#FF2D8E;">injury</span></h2>
+      <div style="margin-top:14px;">
+        <div class="chk">Accelerates healing &amp; recovery</div>
+        <div class="chk">Eases inflammation and chronic pain</div>
+        <div class="chk">Supports the body's natural repair</div>
+        <div class="chk">Targets the source of pain, not just symptoms</div>
+        <div class="chk">Non-invasive &amp; drug-free — no needles</div>
+        <div class="chk">No downtime — resume your day</div>
+        <div class="chk">Minimal discomfort — a warm sensation</div>
+        <div class="chk">Restores mobility so you perform at your best</div>
+      </div>
+      <div style="border-radius:12px;overflow:hidden;margin-top:16px;">
+        <img src="/flowwave-brochure-site/assets/36cf6aa4-ddf3-478c-8f6c-35507324edf7.png" style="width:100%;display:block;">
+      </div>
+      <div style="margin-top:18px;">
+        <div class="eyebrow" style="color:#000;opacity:0.5;">Common conditions we help</div>
+        <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:9px;">
+          <span style="font-size:10px;font-weight:600;color:#000;border:1px solid rgba(0,0,0,0.18);border-radius:999px;padding:5px 11px;">Plantar fasciitis</span>
+          <span style="font-size:10px;font-weight:600;color:#000;border:1px solid rgba(0,0,0,0.18);border-radius:999px;padding:5px 11px;">Tennis &amp; golfer's elbow</span>
+          <span style="font-size:10px;font-weight:600;color:#000;border:1px solid rgba(0,0,0,0.18);border-radius:999px;padding:5px 11px;">Tendonitis</span>
+          <span style="font-size:10px;font-weight:600;color:#000;border:1px solid rgba(0,0,0,0.18);border-radius:999px;padding:5px 11px;">Frozen shoulder</span>
+          <span style="font-size:10px;font-weight:600;color:#000;border:1px solid rgba(0,0,0,0.18);border-radius:999px;padding:5px 11px;">Low-back pain</span>
+          <span style="font-size:10px;font-weight:600;color:#000;border:1px solid rgba(0,0,0,0.18);border-radius:999px;padding:5px 11px;">Knee pain</span>
+          <span style="font-size:10px;font-weight:600;color:#000;border:1px solid rgba(0,0,0,0.18);border-radius:999px;padding:5px 11px;">Achilles pain</span>
+          <span style="font-size:10px;font-weight:600;color:#000;border:1px solid rgba(0,0,0,0.18);border-radius:999px;padding:5px 11px;">Hip pain</span>
+        </div>
+      </div>
+      <div style="margin-top:auto;background:#FFF0F7;border-radius:12px;padding:14px 16px;">
+        <div class="eyebrow" style="color:#C90A68;">What to expect</div>
+        <p class="body" style="font-size:10.5px;margin:6px 0 0;">A quick medical screening, a comfortable 3–10 minute session per area, and no downtime afterward. Courses are typically spaced weekly — your NP builds a plan for you.</p>
+      </div>
+    </div>
+
+    <!-- PANEL 3: Founder + pricing -->
+    <div class="panel" style="background:#000;">
+      <div style="border-radius:12px;overflow:hidden;height:158px;flex-shrink:0;">
+        <img src="/flowwave-brochure-site/assets/8cd86d97-d304-4e94-a08a-43ec479b0732.png" style="width:100%;height:100%;object-fit:cover;object-position:50% 20%;">
+      </div>
+      <p class="eyebrow" style="margin-top:14px;">From our founder</p>
+      <p style="font-family:'Playfair Display',serif;font-style:italic;font-size:12.5px;line-height:1.5;color:#fff;margin:8px 0 0;">“After my accident I tried everything for the pain. Shockwave is what finally worked — that's why I brought it to Hello Gorgeous. I know what it feels like to be in pain. Let me help.”</p>
+      <div style="font-family:'Playfair Display',serif;font-weight:700;font-size:13px;color:#FF2D8E;margin-top:8px;">— Dani, Founder</div>
+
+      <div style="margin-top:16px;background:#fff;border-radius:12px;padding:14px 16px;">
+        <div class="eyebrow" style="color:#000;opacity:0.5;">Packages</div>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;border-bottom:1px solid rgba(0,0,0,0.08);padding:6px 0;"><span style="font-size:12px;font-weight:600;">6 sessions</span><span style="font-family:'Playfair Display',serif;font-weight:700;color:#FF2D8E;font-size:15px;">$870</span></div>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;border-bottom:1px solid rgba(0,0,0,0.08);padding:6px 0;"><span style="font-size:12px;font-weight:600;">12 sessions</span><span style="font-family:'Playfair Display',serif;font-weight:700;color:#FF2D8E;font-size:15px;">$1,500</span></div>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;padding:6px 0;"><span style="font-size:12px;font-weight:600;">24 sessions</span><span style="font-family:'Playfair Display',serif;font-weight:700;color:#FF2D8E;font-size:15px;">$2,376</span></div>
+        <div style="font-size:9px;color:rgba(0,0,0,0.5);margin-top:4px;">As low as $99/session · HSA/FSA welcome · financing via Cherry</div>
+      </div>
+
+      <div style="margin-top:12px;border:2px dashed #FF2D8E;border-radius:12px;padding:12px 14px;background:rgba(255,45,142,0.10);">
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <span style="font-size:9.5px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#FF2D8E;">★ July Promotion</span>
+          <span style="font-size:8px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.5);">Limited time</span>
+        </div>
+        <div style="display:flex;margin-top:10px;text-align:center;">
+          <div style="flex:1;"><div style="font-family:'Playfair Display',serif;font-weight:700;color:#fff;font-size:17px;line-height:1;">$100</div><div style="font-size:8px;letter-spacing:0.06em;text-transform:uppercase;color:rgba(255,255,255,0.62);margin-top:3px;">off 6</div></div>
+          <div style="flex:1;border-left:1px solid rgba(255,255,255,0.16);border-right:1px solid rgba(255,255,255,0.16);"><div style="font-family:'Playfair Display',serif;font-weight:700;color:#fff;font-size:17px;line-height:1;">$200</div><div style="font-size:8px;letter-spacing:0.06em;text-transform:uppercase;color:rgba(255,255,255,0.62);margin-top:3px;">off 12</div></div>
+          <div style="flex:1;"><div style="font-family:'Playfair Display',serif;font-weight:700;color:#fff;font-size:17px;line-height:1;">$300</div><div style="font-size:8px;letter-spacing:0.06em;text-transform:uppercase;color:rgba(255,255,255,0.62);margin-top:3px;">off 24</div></div>
+        </div>
+      </div>
+
+      <div style="margin-top:auto;text-align:center;padding-top:14px;">
+        <div style="font-family:'Playfair Display',serif;font-weight:700;font-size:15px;color:#fff;">Start with our $49 intro</div>
+        <div style="font-family:'Playfair Display',serif;font-weight:700;font-size:20px;color:#FF2D8E;margin-top:6px;">(630) 636-6193</div>
+        <div style="font-size:9.5px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.6);margin-top:4px;">Call or book online today</div>
+      </div>
+    </div>
+
+  </div>
+
+  <p style="text-align:center;font-size:11px;color:rgba(0,0,0,0.5);max-width:1000px;line-height:1.5;">Medical disclaimer: Provided for general wellness and temporary relief of minor muscle &amp; joint aches. Not intended to diagnose, treat, cure, or prevent any disease. All clients are medically screened; contraindications apply. NP-directed. Individual results vary.</p>
+
+</div>
+</x-dc>
+
+
+</body></html>

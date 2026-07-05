@@ -19,6 +19,13 @@ const GUIDES = [
     isArticle: true,
   },
   {
+    title: "What are peptides?",
+    description: "Peptide therapy basics, common uses, and provider oversight",
+    category: "Peptides",
+    href: "/rx/learn/what-are-peptides",
+    isArticle: true,
+  },
+  {
     title: "GLP-1 Side Effect Support",
     description: "Managing common side effects during your weight loss journey",
     category: "Weight Loss",

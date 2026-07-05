@@ -2957,11 +2957,32 @@ class Component extends DCLogic {
         }
         this.setState({ introOpen: false });
       },
-      onSubmit: (e) => { e.preventDefault(); this.setState({ submitted: true }); }
+      onSubmit: async (e) => {
+        e.preventDefault();
+        if (this._fwBusy) return;
+        this._fwBusy = true;
+        try {
+          const form = e.target;
+          const payload = window.HG_flowwaveCollect(form);
+          const res = await fetch("/api/flowwave/intake", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload),
+          });
+          const data = await res.json().catch(() => ({}));
+          if (!res.ok) throw new Error(data.error || "Request failed");
+          this.setState({ submitted: true });
+        } catch (err) {
+          alert("We could not submit right now. Please call (630) 636-6193.");
+        } finally {
+          this._fwBusy = false;
+        }
+      }
     };
   }
 }
 </script>
 
 
+<script src="/flowwave-site/hg-intake.js"></script>
 </body></html>

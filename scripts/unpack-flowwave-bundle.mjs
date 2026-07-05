@@ -16,8 +16,7 @@ import { fileURLToPath } from "node:url";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const APP_DIR = path.resolve(__dirname, "..");
 const DEFAULT_SRC = path.join(APP_DIR, "data/source/flowwave-shockwave-therapy.html");
-const DEST = path.join(APP_DIR, "public/flowwave-site");
-const ASSETS = path.join(DEST, "assets");
+const DEFAULT_DEST_NAME = "flowwave-site";
 
 const MIME_EXT = {
   "image/png": "png",
@@ -41,7 +40,10 @@ function decodeEntry(entry) {
   return bytes;
 }
 
-function extract(html) {
+function extract(html, destName) {
+  const DEST = path.join(APP_DIR, "public", destName);
+  const ASSETS = path.join(DEST, "assets");
+  const publicPrefix = `/${destName}`;
   const manifestMatch = html.match(
     /<script type="__bundler\/manifest">([\s\S]*?)<\/script>/,
   );
@@ -62,7 +64,7 @@ function extract(html) {
     const entry = manifest[uuid];
     const ext = extForMime(entry.mime);
     const filename = `${uuid}.${ext}`;
-    const assetPath = `/flowwave-site/assets/${filename}`;
+    const assetPath = `${publicPrefix}/assets/${filename}`;
     const bytes = decodeEntry(entry);
     fs.writeFileSync(path.join(ASSETS, filename), bytes);
 
@@ -88,11 +90,12 @@ function extract(html) {
     types[ext] = (types[ext] ?? 0) + 1;
   }
 
-  return { assetCount: uuids.length, types, htmlBytes: Buffer.byteLength(template, "utf8") };
+  return { assetCount: uuids.length, types, htmlBytes: Buffer.byteLength(template, "utf8"), destName, DEST };
 }
 
 function main() {
   const src = process.argv[2] ? path.resolve(process.argv[2]) : DEFAULT_SRC;
+  const destName = process.argv[3] || DEFAULT_DEST_NAME;
   if (!fs.existsSync(src)) {
     console.error(`❌ Source not found: ${src}`);
     process.exit(1);
@@ -100,16 +103,20 @@ function main() {
 
   console.log(`📦 Unpacking FlowWave bundle`);
   console.log(`   Source: ${src}`);
-  console.log(`   Dest:   ${DEST}`);
+  console.log(`   Dest:   public/${destName}/`);
 
   const html = fs.readFileSync(src, "utf8");
-  const result = extract(html);
+  const result = extract(html, destName);
 
   console.log(`✅ Wrote index.html (${(result.htmlBytes / 1024).toFixed(1)} KB)`);
   console.log(`✅ Extracted ${result.assetCount} assets → assets/`);
   console.log(`   ${Object.entries(result.types).map(([k, v]) => `${v} ${k}`).join(", ")}`);
-  console.log(`\n🎉 FlowWave site ready at /flowwave-site/index.html`);
-  console.log(`   Review: npm run dev → http://localhost:3000/services/flowwave`);
+  console.log(`\n🎉 Ready at /${destName}/index.html`);
+  if (destName === "flowwave-site") {
+    console.log(`   Review: npm run dev → http://localhost:3000/services/flowwave`);
+  } else if (destName === "flowwave-brochure-site") {
+    console.log(`   Review: npm run dev → http://localhost:3000/services/flowwave/brochure`);
+  }
 }
 
 main();

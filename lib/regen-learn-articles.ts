@@ -304,7 +304,205 @@ export const WHAT_IS_GLP1_ARTICLE: RegenLearnArticle = {
   },
 };
 
-export const REGEN_LEARN_ARTICLES: RegenLearnArticle[] = [WHAT_IS_GLP1_ARTICLE];
+export const WHAT_ARE_PEPTIDES_ARTICLE: RegenLearnArticle = {
+  slug: "what-are-peptides",
+  path: "/rx/learn/what-are-peptides",
+  category: "Peptides & Recovery",
+  categoryPath: "/rx/peptides",
+  title: "What are peptides?",
+  subtitle:
+    "Understanding peptide therapy, common uses, and how RE GEN delivers provider-supervised protocols in Illinois",
+  metaTitle: "What Are Peptides? | RE GEN Peptide Education | Hello Gorgeous Med Spa",
+  metaDescription:
+    "Learn what peptides are, how peptide therapy works, common wellness and recovery uses, safety considerations, and how RE GEN delivers NP-supervised peptide protocols across Illinois.",
+  keywords: [
+    "what are peptides",
+    "peptide therapy Illinois",
+    "BPC-157 peptide",
+    "sermorelin peptide",
+    "NAD+ peptide Oswego",
+    "RE GEN peptides",
+    "Hello Gorgeous peptide therapy",
+    "compounded peptides Illinois",
+    "recovery peptides",
+  ],
+  updated: "2026-07-04",
+  readTime: "7 min",
+  reviewedBy: "Ryan Kent, FNP-BC",
+  heroImage: "/images/rx-care/peptide-molecule-hero.png",
+  heroImageAlt: "RE GEN peptide therapy — molecular science illustration",
+  intro: [
+    "Peptides are short chains of amino acids — the building blocks of proteins. In the body, they act as signaling molecules that help coordinate repair, metabolism, hormone release, and other cellular processes.",
+    "In medical and wellness settings, certain peptides are compounded into injectable or other prescription forms when a provider determines they may support specific goals — such as recovery, energy, body composition, or sexual health. This guide explains the basics so you can have an informed conversation before starting a RE GEN intake.",
+  ],
+  toc: [
+    { id: "basics", label: "Peptide basics" },
+    { id: "how-they-work", label: "How peptide therapy works" },
+    { id: "common-uses", label: "Common wellness uses" },
+    { id: "examples", label: "Peptides you may hear about" },
+    { id: "safety", label: "Safety & provider oversight" },
+    { id: "compounded", label: "Compounded vs. brand-name" },
+    { id: "candidates", label: "Who may benefit" },
+    { id: "regen", label: "How RE GEN delivers peptide care" },
+    { id: "takeaways", label: "Key takeaways" },
+    { id: "faq", label: "Frequently asked questions" },
+  ],
+  sections: [
+    {
+      id: "basics",
+      title: "What are peptides, in plain language?",
+      paragraphs: [
+        "Think of peptides as short instruction notes your cells use to communicate. Proteins are longer chains; peptides are smaller fragments — often just a few to a few dozen amino acids — that can bind to receptors and trigger specific responses.",
+        "Because different peptides have different sequences, each one may influence a different pathway. That is why peptide therapy is not one-size-fits-all — your provider matches options to your history, goals, and lab work when appropriate.",
+      ],
+    },
+    {
+      id: "how-they-work",
+      title: "How does peptide therapy work?",
+      paragraphs: [
+        "Peptide therapy uses prescription formulations — commonly subcutaneous injections — to deliver a specific peptide at a dose and schedule chosen by your provider. The peptide may mimic or support natural signals involved in healing, hormone regulation, metabolism, or other processes.",
+        "Results vary by individual, peptide, dose, and adherence. Peptide therapy is not a substitute for sleep, nutrition, movement, or treating underlying medical conditions. RE GEN programs emphasize provider review before any prescription ships.",
+      ],
+    },
+    {
+      id: "common-uses",
+      title: "What are peptides used for in wellness care?",
+      paragraphs: [
+        "Providers may discuss peptides when patients are interested in recovery support, metabolic health, growth-hormone axis support, cellular energy, skin health, sexual wellness, or performance — always after reviewing medical history and contraindications.",
+        "At Hello Gorgeous Med Spa, peptide conversations often connect to broader regenerative and optimization goals. Your nurse practitioner helps determine whether a peptide protocol is appropriate or whether another pathway — such as hormones, weight management, or in-spa treatments — is a better fit.",
+      ],
+      bullets: [
+        "Recovery & tissue support (e.g., musculoskeletal complaints)",
+        "Growth hormone axis support (e.g., sermorelin-class protocols)",
+        "Cellular energy & longevity (e.g., NAD+)",
+        "Sexual health (e.g., PT-141 / bremelanotide-class options)",
+        "Skin & antioxidant support (e.g., GHK-Cu, glutathione)",
+      ],
+    },
+    {
+      id: "examples",
+      title: "Peptides you may hear about",
+      paragraphs: [
+        "Marketing and social media mention many peptide names. Below are categories patients often ask about — not recommendations. Only a licensed provider can determine what is safe and appropriate for you.",
+      ],
+      subsections: [
+        {
+          title: "Recovery & repair",
+          paragraphs: [
+            "BPC-157 and TB-500 (thymosin beta-4 fragment) are frequently discussed for musculoskeletal recovery. Evidence in humans is still evolving; RE GEN uses them only when a provider determines medical appropriateness.",
+          ],
+        },
+        {
+          title: "Growth hormone support",
+          paragraphs: [
+            "Sermorelin and CJC-1295 / ipamorelin combinations aim to support natural growth hormone release rather than replacing it directly. Labs and follow-up help guide titration.",
+          ],
+        },
+        {
+          title: "Energy & metabolism",
+          paragraphs: [
+            "NAD+ supports cellular energy pathways. AOD-9604 and similar peptides are sometimes discussed for body-composition goals — always alongside lifestyle changes and, when relevant, weight-management programs.",
+          ],
+        },
+      ],
+    },
+    {
+      id: "safety",
+      title: "Safety, side effects, and oversight",
+      paragraphs: [
+        "Peptides are prescription medications when used therapeutically. Side effects depend on the specific peptide and may include injection-site reactions, flushing, headache, nausea, or changes in appetite or sleep. Serious risks exist for some populations — pregnancy, certain cancers, uncontrolled chronic conditions, or drug interactions.",
+        "RE GEN requires a health intake and nurse practitioner review before dispensing. We do not sell peptides without a prescription, and we do not guarantee specific outcomes.",
+      ],
+    },
+    {
+      id: "compounded",
+      title: "Compounded peptides vs. brand-name products",
+      paragraphs: [
+        "Many peptides used in optimization care are compounded by US-licensed pharmacies rather than purchased as FDA-approved brand-name drugs. Compounded products are prepared for an individual patient per provider order.",
+        "RE GEN lists transparent monthly pricing for common protocols during intake. HSA/FSA cards are often accepted; confirm with your plan administrator.",
+      ],
+    },
+    {
+      id: "candidates",
+      title: "Who may be a candidate?",
+      paragraphs: [
+        "Candidacy depends on your health history, medications, goals, and labs. Peptide therapy may not be appropriate if you are pregnant, have certain active malignancies, or have conditions that make injections or specific pathways unsafe.",
+        "If peptides are not the right fit, your provider may recommend alternatives — including in-spa FlowWave shockwave for musculoskeletal complaints, hormone therapy, GLP-1 weight management, or other RE GEN pathways.",
+      ],
+    },
+    {
+      id: "regen",
+      title: "How RE GEN delivers peptide care",
+      paragraphs: [
+        "Start at hellogorgeousmedspa.com/rx/peptides to browse protocols and pricing. Complete the online intake, and Ryan Kent, FNP-BC reviews your information. When approved, medication ships from a US compounding pharmacy with flat-rate Illinois shipping.",
+        "You can also visit Hello Gorgeous Med Spa in Oswego for in-person consults, labs, and coordination with other services — including peptide injections administered on site when appropriate.",
+      ],
+    },
+  ],
+  keyTakeaways: [
+    "Peptides are short amino-acid chains that act as signaling molecules in the body.",
+    "Peptide therapy uses prescription formulations matched to individual goals — not generic wellness shots.",
+    "Safety depends on the specific peptide, your health history, and ongoing provider oversight.",
+    "RE GEN offers NP-supervised peptide protocols with transparent pricing and Illinois telehealth delivery.",
+  ],
+  faqs: [
+    {
+      q: "Are peptides the same as steroids?",
+      a: "No. Peptides are short chains of amino acids that signal specific pathways. Anabolic steroids are a different class of hormones with distinct risks and regulations. Your provider explains what a recommended peptide does and how it differs from other options.",
+    },
+    {
+      q: "Do I need labs before starting peptides?",
+      a: "It depends on the protocol. Growth-hormone-axis peptides and hormone-adjacent programs often benefit from baseline labs. Your NP will tell you what is recommended during intake review.",
+    },
+    {
+      q: "How are RE GEN peptides shipped?",
+      a: "Approved prescriptions ship from US-licensed compounding pharmacies to your door across Illinois. RE GEN uses flat $30 shipping on most programs; syringes and supplies are included where applicable.",
+    },
+    {
+      q: "Can I get peptides in person at Hello Gorgeous?",
+      a: "Yes. Oswego clients can book in-spa visits for consults, labs, and peptide injections when clinically appropriate, in addition to RE GEN mail-order protocols.",
+    },
+    {
+      q: "What peptides does RE GEN offer?",
+      a: "The catalog includes recovery, metabolic, GH-support, NAD+, sexual health, and wellness options — with pricing shown during intake. Visit /rx/peptides for the current menu.",
+    },
+  ],
+  relatedLinks: [
+    {
+      label: "RE GEN Peptide programs",
+      href: "/rx/peptides",
+      description: "Browse protocols and transparent pricing",
+    },
+    {
+      label: "Peptide therapy in Oswego",
+      href: "/services/peptides",
+      description: "In-spa peptide care at Hello Gorgeous",
+    },
+    {
+      label: "What is GLP-1?",
+      href: "/rx/learn/what-is-glp-1",
+      description: "Weight-management education",
+    },
+    {
+      label: "RE GEN safety information",
+      href: "/rx/safety",
+      description: "Treatment warnings and consent",
+    },
+  ],
+  cta: {
+    title: "Talk to a provider about peptide therapy",
+    body: "RE GEN peptide programs include NP review, telehealth when required, and medication shipped across Illinois — starting with a short online intake.",
+    href: "/rx/peptides",
+    label: "Explore peptide programs",
+    secondaryHref: "/rx",
+    secondaryLabel: "Browse RE GEN",
+  },
+};
+
+export const REGEN_LEARN_ARTICLES: RegenLearnArticle[] = [
+  WHAT_IS_GLP1_ARTICLE,
+  WHAT_ARE_PEPTIDES_ARTICLE,
+];
 
 export function getRegenLearnArticle(slug: string): RegenLearnArticle | undefined {
   return REGEN_LEARN_ARTICLES.find((a) => a.slug === slug);
