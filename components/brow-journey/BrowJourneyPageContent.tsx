@@ -209,8 +209,8 @@ export function BrowJourneyPageContent() {
               ))}
             </div>
           </div>
-          <div className="overflow-hidden rounded-3xl border border-[#FF2D8E]/35 shadow-[0_20px_60px_rgba(255,45,142,0.22)]">
-            <div className="relative aspect-[4/5] w-full bg-black">
+          <div className="mx-auto w-full max-w-md overflow-hidden rounded-3xl border border-[#FF2D8E]/35 shadow-[0_20px_60px_rgba(255,45,142,0.22)] lg:max-w-lg">
+            <div className="relative aspect-video w-full bg-black">
               <video
                 src={BROW_JOURNEY_IMAGES.heroVideo}
                 autoPlay
@@ -218,7 +218,7 @@ export function BrowJourneyPageContent() {
                 loop
                 playsInline
                 preload="auto"
-                className="absolute inset-0 h-full w-full object-cover"
+                className="absolute inset-0 h-full w-full object-contain"
                 aria-label="Microblading and brow PMU at Hello Gorgeous Med Spa — Jen Vokoun, permanent makeup artist"
               />
             </div>
