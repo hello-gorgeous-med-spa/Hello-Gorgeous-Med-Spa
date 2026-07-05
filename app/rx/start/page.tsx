@@ -4,7 +4,8 @@ import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense } from "react";
 
-import { RegenLogo } from "@/components/regen/RegenLogo";
+import { RegenBannerLogo } from "@/components/regen/RegenLogo";
+import { FlowWaveRxPromoBand } from "@/components/flowwave/FlowWaveRxPromoBand";
 import { REGEN_LAUNCH_PRICING } from "@/lib/regen-brand";
 import { REGEN_GOALS, REGEN_SITE, type RegenGoalId } from "@/lib/regen-site";
 
@@ -68,7 +69,7 @@ function IntakeContent() {
     <div className="min-h-[100dvh] bg-neutral-50">
       <div className="mx-auto max-w-xl px-4 py-10">
         <Link href="/rx" className="mb-6 inline-block">
-          <RegenLogo width={140} />
+          <RegenBannerLogo width={300} priority />
         </Link>
 
         {fromSpa ? (
@@ -116,6 +117,8 @@ function IntakeContent() {
             </a>
           </div>
         </div>
+
+        <FlowWaveRxPromoBand />
       </div>
     </div>
   );

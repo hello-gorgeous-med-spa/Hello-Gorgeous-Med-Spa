@@ -1,10 +1,12 @@
 /**
  * FlowWave — shockwave therapy brand tokens (nav + marketing shell).
+ * Device marketing uses STEMWAVE™; public route is FlowWave FOCUS.
  */
 
 export const FLOWWAVE_BRAND = {
   name: "FlowWave",
   product: "FlowWave FOCUS",
+  stemwaveMark: "STEMWAVE",
   descriptor: "Shockwave Therapy",
   tagline: "Focused relief. Faster recovery.",
   pink: "#FF2D8E",
@@ -13,8 +15,9 @@ export const FLOWWAVE_BRAND = {
 } as const;
 
 export const FLOWWAVE_LOGO = {
-  navAlt: "FlowWave shockwave therapy",
-  /** Aspect ratio for raster exports (nav lockup). */
-  width: 132,
-  height: 28,
+  /** Full STEMWAVE™ shockwave therapy banner (Jul 2026). */
+  primary: "/images/flowwave/brand/stemwave-shockwave-banner.png",
+  navAlt: "STEMWAVE shockwave therapy by Hello Gorgeous Med Spa",
+  width: 1024,
+  height: 341,
 } as const;
