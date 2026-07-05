@@ -9,9 +9,29 @@ import {
   BROW_INTAKE_PATH,
 } from "@/data/brow-microblading-care";
 import { BROW_PMU_OSWEGO_PATH, BROW_PMU_SEO_KEYWORDS } from "@/data/brow-pmu-seo";
+import { PRIMARY_CITY_SLUGS } from "@/lib/city-seo-tier";
 import { SITE } from "@/lib/seo";
 
 export const BROW_JOURNEY_PATH = BROW_PMU_OSWEGO_PATH;
+
+export const BROW_MICROBLADING_NAV = {
+  label: "Microblading",
+  href: BROW_JOURNEY_PATH,
+  sub: "Your Brow Journey · Jen Vokoun PMU",
+} as const;
+
+/** Paths that highlight the Microblading top-level nav tab. */
+export const BROW_NAV_ACTIVE_PREFIXES = [
+  BROW_JOURNEY_PATH,
+  ...PRIMARY_CITY_SLUGS.filter((s) => s !== "oswego").map((slug) => `/microblading-${slug}-il`),
+] as const;
+
+export function isBrowMicrobladingNavActive(pathname: string | null): boolean {
+  if (!pathname) return false;
+  return BROW_NAV_ACTIVE_PREFIXES.some(
+    (p) => pathname === p || pathname.startsWith(`${p}/`),
+  );
+}
 
 export const BROW_JOURNEY_BRAND = {
   pink: "#FF2D8E",
@@ -42,6 +62,7 @@ export const BROW_JOURNEY_PRICING = {
 const IMG = "/images/brow-journey";
 
 export const BROW_JOURNEY_IMAGES = {
+  heroVideo: "/videos/brow-journey/microblading-hero.mp4",
   heroJen: `${IMG}/jen-vokoun-2.jpg`,
   artistJen: `${IMG}/jen-vokoun.jpg`,
   founderDani: `${IMG}/founder-dani.png`,

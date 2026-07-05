@@ -533,6 +533,42 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.88,
     },
     {
+      url: `${baseUrl}/microblading-brow-pmu-oswego-il`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.92,
+    },
+    {
+      url: `${baseUrl}/microblading-naperville-il`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/microblading-aurora-il`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/microblading-plainfield-il`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.89,
+    },
+    {
+      url: `${baseUrl}/microblading-yorkville-il`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.89,
+    },
+    {
+      url: `${baseUrl}/microblading-montgomery-il`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.89,
+    },
+    {
       url: `${baseUrl}/regen-weight-loss-oswego-il`,
       lastModified: currentDate,
       changeFrequency: 'weekly',
@@ -873,10 +909,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // Aftercare / Patient Resources (solaria content on /solaria; no separate aftercare URL)
   const aftercarePages: MetadataRoute.Sitemap = [
     {
-      url: `${baseUrl}/microblading-brow-pmu-oswego-il`,
+      url: `${baseUrl}/handouts/brow-in-spa-start.html`,
       lastModified: currentDate,
-      changeFrequency: 'weekly',
-      priority: 0.9,
+      changeFrequency: 'monthly',
+      priority: 0.75,
     },
     {
       url: `${baseUrl}/pre-post-care/microblading`,

@@ -210,14 +210,16 @@ export function BrowJourneyPageContent() {
             </div>
           </div>
           <div className="overflow-hidden rounded-3xl border border-[#FF2D8E]/35 shadow-[0_20px_60px_rgba(255,45,142,0.22)]">
-            <div className="relative aspect-[4/5] w-full">
-              <Image
-                src={BROW_JOURNEY_IMAGES.heroJen}
-                alt="Jen Vokoun — Permanent Makeup Artist at Hello Gorgeous Med Spa"
-                fill
-                className="object-cover object-[center_25%]"
-                priority
-                sizes="(max-width: 1024px) 100vw, 520px"
+            <div className="relative aspect-[4/5] w-full bg-black">
+              <video
+                src={BROW_JOURNEY_IMAGES.heroVideo}
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="auto"
+                className="absolute inset-0 h-full w-full object-cover"
+                aria-label="Microblading and brow PMU at Hello Gorgeous Med Spa — Jen Vokoun, permanent makeup artist"
               />
             </div>
           </div>

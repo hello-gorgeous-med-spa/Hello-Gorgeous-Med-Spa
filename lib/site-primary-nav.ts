@@ -5,6 +5,7 @@
 
 import { BOOKING_URL, RX_PATIENT_CARE_PATH } from "@/lib/flows";
 import { LABS_NAV } from "@/lib/labs-nav";
+import { BROW_MICROBLADING_NAV } from "@/lib/brow-journey-marketing";
 import { GENTLEMENS_CLUB_PATH } from "@/lib/gentlemens-club";
 import { LADIES_CLUB_PATH } from "@/lib/ladies-club";
 import { PRIMARY_BOOKING_CTA } from "@/lib/primary-cta";
@@ -16,6 +17,12 @@ import { SHOP_RX_NAV } from "@/lib/medical-mega-menu";
 export const PRIMARY_NAV_HUBS = [
   { id: "services", label: "Services", href: "/services", hasDropdown: true },
   { id: "flowwave", label: "FlowWave", href: "/services/flowwave", hasDropdown: false },
+  {
+    id: "microblading",
+    label: BROW_MICROBLADING_NAV.label,
+    href: BROW_MICROBLADING_NAV.href,
+    hasDropdown: false,
+  },
   { id: "shop-rx", label: SHOP_RX_NAV.label, href: SHOP_RX_NAV.href, hasDropdown: true },
   { id: "labs", label: LABS_NAV.label, href: LABS_NAV.href, hasDropdown: true },
   { id: "specials", label: "Specials", href: SPECIALS_PATH, hasDropdown: true },

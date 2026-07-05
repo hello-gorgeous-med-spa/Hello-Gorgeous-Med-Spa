@@ -18,6 +18,7 @@ import { GENTLEMENS_CLUB_PATH } from "@/lib/gentlemens-club";
 import { LADIES_CLUB_PATH } from "@/lib/ladies-club";
 import { PRIMARY_BOOKING_CTA } from "@/lib/primary-cta";
 import { FLOWWAVE_PATH } from "@/lib/flowwave-marketing";
+import { BROW_MICROBLADING_NAV, isBrowMicrobladingNavActive } from "@/lib/brow-journey-marketing";
 import {
   ABOUT_NAV_EXTRA_LINKS,
   isAboutNavActive,
@@ -43,41 +44,6 @@ import type { CSSProperties } from "react";
 /* ─────────────────────────────────────────────────────────────
    NAV STRUCTURE — clean, client-first, no emojis
 ───────────────────────────────────────────────────────────── */
-
-const MICROBLADING_SERVICE_LINKS = [
-  {
-    label: "Brow PMU results (Oswego)",
-    href: "/microblading-brow-pmu-oswego-il",
-    sub: "Microblading, powder, combo & nano — before & after",
-    badge: "PMU",
-  },
-  {
-    label: "Your Brow Journey",
-    href: "/education/your-brow-journey",
-    sub: "Client-friendly step-by-step consult guide",
-  },
-  {
-    label: "Brow consultation intake",
-    href: "/forms/brow-intake",
-    sub: "Digital PMU health history and consent",
-  },
-  {
-    label: "Pre & post care guide",
-    href: "/pre-post-care/microblading",
-    sub: "Healing timeline, do's & don'ts",
-  },
-  {
-    label: "Your Brow Journey (PDF)",
-    href: "/handouts/education/your-brow-journey.pdf",
-    sub: "Print or AirDrop for clients",
-  },
-  {
-    label: "Consultation packet (PDF)",
-    href: "/handouts/education/brow-consultation-packet.pdf",
-    sub: "Full printable packet",
-    external: true,
-  },
-] as const;
 
 const NAV = {
   services: {
@@ -106,10 +72,6 @@ const NAV = {
             badge: "NEW",
           },
         ],
-      },
-      {
-        heading: "Brow PMU & Microblading",
-        links: [...MICROBLADING_SERVICE_LINKS],
       },
       {
         heading: "Injectables",
@@ -543,8 +505,11 @@ export function Header() {
   const isFlowWaveNavActive =
     pathname === FLOWWAVE_PATH || (pathname?.startsWith(`${FLOWWAVE_PATH}/`) ?? false);
 
+  const isMicrobladingNavActive = isBrowMicrobladingNavActive(pathname ?? null);
+
   const isServicesNavActive =
     !isFlowWaveNavActive &&
+    !isMicrobladingNavActive &&
     (isActive("/services") ||
     pathname === "/gallery" ||
     pathname === REGENERATIVE_MEDICINE_PATH ||
@@ -666,6 +631,18 @@ export function Header() {
                 <span className="rounded-full bg-gradient-to-r from-[#FF2D8E] to-[#E6007E] px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wide text-white">
                   New
                 </span>
+              </Link>
+            </div>
+
+            {/* Microblading — Your Brow Journey landing */}
+            <div className="relative flex items-center" onMouseEnter={closeDropdown}>
+              <Link
+                href={BROW_MICROBLADING_NAV.href}
+                className={NAV_LINK_BASE}
+                style={navPillStyle(0, isMicrobladingNavActive)}
+                aria-label="Microblading and brow PMU — Your Brow Journey"
+              >
+                Microblading
               </Link>
             </div>
 
@@ -822,6 +799,17 @@ export function Header() {
               </span>
               <span className="rounded-full bg-gradient-to-r from-[#FF2D8E] to-[#E6007E] px-2 py-0.5 text-[9px] font-bold uppercase text-white">
                 New
+              </span>
+            </Link>
+
+            <Link
+              href={BROW_MICROBLADING_NAV.href}
+              onClick={() => setMobileOpen(false)}
+              className="mb-4 flex w-full items-center justify-between gap-2 rounded-xl border border-[#E6007E]/40 bg-gradient-to-r from-[#2d1020] to-black px-4 py-3.5 text-sm font-bold text-white"
+            >
+              <span className="flex flex-col items-start gap-0.5">
+                <span>Microblading</span>
+                <span className="text-xs font-semibold text-[#FFB8DC]">Your Brow Journey</span>
               </span>
             </Link>
 

@@ -39,3 +39,4 @@ export { HomepageCherryFaqRow } from "./HomepageCherryFaqRow";
 export { OurPromiseSection } from "./OurPromiseSection";
 export { RegenHomeBand } from "./RegenHomeBand";
 export { FlowWaveHomeBand } from "./FlowWaveHomeBand";
+export { BrowJourneyHomeBand } from "./BrowJourneyHomeBand";

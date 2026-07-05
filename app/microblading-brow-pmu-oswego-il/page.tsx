@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     ...baseMeta.openGraph,
     images: [
       {
-        url: `${SITE.url}${BROW_JOURNEY_IMAGES.heroJen}`,
+        url: `${SITE.url}${BROW_JOURNEY_IMAGES.artistJen}`,
         width: 1200,
         height: 1500,
         alt: BROW_JOURNEY_SEO.ogAlt,
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     ...baseMeta.twitter,
-    images: [`${SITE.url}${BROW_JOURNEY_IMAGES.heroJen}`],
+    images: [`${SITE.url}${BROW_JOURNEY_IMAGES.artistJen}`],
   },
 };
 
@@ -120,7 +120,7 @@ export default function MicrobladingBrowPmuOswegoPage() {
               title: BROW_JOURNEY_SEO.title,
               description: BROW_JOURNEY_SEO.description,
               path: BROW_JOURNEY_PATH,
-              image: BROW_JOURNEY_IMAGES.heroJen,
+              image: BROW_JOURNEY_IMAGES.artistJen,
             }),
           ),
         }}
