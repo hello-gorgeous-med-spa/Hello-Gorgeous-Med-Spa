@@ -18,6 +18,10 @@ export const REGEN_BRAND = {
 export const REGEN_LOGO = {
   primary: "/images/regen/brand/regen-logo-primary.png",
   alt: "REGEN by Hello Gorgeous Med Spa — regenerative medicine and prescription care",
+  navAlt: "RE GEN — prescription care by Hello Gorgeous Med Spa",
+  /** Inline SVG nav lockup aspect ratio. */
+  navWidth: 108,
+  navHeight: 28,
   width: 1024,
   height: 576,
 } as const;
