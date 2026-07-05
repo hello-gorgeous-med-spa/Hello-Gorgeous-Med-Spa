@@ -672,10 +672,150 @@ export const WHAT_IS_HORMONE_THERAPY_ARTICLE: RegenLearnArticle = {
   },
 };
 
+export const HOW_REGEN_WORKS_ARTICLE: RegenLearnArticle = {
+  slug: "how-regen-works",
+  path: "/rx/learn/how-regen-works",
+  category: "RE GEN",
+  categoryPath: "/rx",
+  title: "How RE GEN works",
+  subtitle:
+    "From picking a treatment to NP review and doorstep delivery — the full RE GEN patient journey in Illinois",
+  metaTitle: "How RE GEN Works | Illinois Telehealth Rx | Hello Gorgeous Med Spa",
+  metaDescription:
+    "Learn how RE GEN works: browse programs, complete intake, NP review, and prescription delivery across Illinois — supervised by Hello Gorgeous Med Spa in Oswego.",
+  keywords: [
+    "how RE GEN works",
+    "Hello Gorgeous RX telehealth",
+    "Illinois prescription delivery",
+    "RE GEN intake process",
+    "NP supervised telehealth Illinois",
+    "medical weight loss online Illinois",
+  ],
+  updated: "2026-07-05",
+  readTime: "6 min",
+  reviewedBy: "Ryan Kent, FNP-BC",
+  heroImage: "/images/regen/regen-flyer-services.jpg",
+  heroImageAlt: "How RE GEN works — prescription care from Hello Gorgeous Med Spa",
+  intro: [
+    "RE GEN is the prescription and telehealth arm of Hello Gorgeous Med Spa — a real clinic in Oswego, Illinois with nurse practitioners you can call. Programs include medical weight loss, peptides, hormones, sexual health, and wellness prescriptions shipped from US-licensed compounding pharmacies.",
+    "This guide walks through the patient journey from browsing to delivery so you know exactly what to expect before you start.",
+  ],
+  toc: [
+    { id: "overview", label: "Overview" },
+    { id: "step-1", label: "Pick your treatment" },
+    { id: "step-2", label: "Complete intake" },
+    { id: "step-3", label: "NP review" },
+    { id: "step-4", label: "Delivery & refills" },
+    { id: "trust", label: "Why trust RE GEN" },
+    { id: "takeaways", label: "Key takeaways" },
+    { id: "faq", label: "FAQ" },
+  ],
+  sections: [
+    {
+      id: "overview",
+      title: "What is RE GEN?",
+      paragraphs: [
+        "RE GEN delivers NP-supervised prescription programs across Illinois — weight loss (GLP-1), peptides, hormone therapy, and more — with transparent pricing shown during intake. There is no separate membership fee to browse or start.",
+        "Unlike anonymous online pharmacies, RE GEN is backed by Hello Gorgeous Med Spa at 74 W. Washington Street, Oswego. Ryan Kent, FNP-BC reviews clinical intakes before prescriptions ship.",
+      ],
+    },
+    {
+      id: "step-1",
+      title: "Step 1 — Pick your treatment",
+      paragraphs: [
+        "Start at hellogorgeousmedspa.com/rx or choose a category hub: weight loss, peptides, hormones, sexual health, hair & skin, or wellness. Published pricing and program details are shown before checkout.",
+        "Not sure where to begin? RE GEN Learn articles explain GLP-1, peptides, and hormone therapy in plain language — or visit /rx/start at the spa to scan a QR code and pick a goal.",
+      ],
+    },
+    {
+      id: "step-2",
+      title: "Step 2 — Complete your intake",
+      paragraphs: [
+        "After selecting a program, you complete a secure online health intake — goals, history, medications, and consent. This typically takes about five minutes.",
+        "Be accurate and complete. Your nurse practitioner uses this information for screening — the same way an in-office visit would begin.",
+      ],
+    },
+    {
+      id: "step-3",
+      title: "Step 3 — NP review & approval",
+      paragraphs: [
+        "Ryan Kent, FNP-BC (or a covering Hello Gorgeous provider) reviews your intake. If labs are needed for your program — common for hormones and some weight-loss pathways — you receive instructions before prescribing.",
+        "If you are not a candidate, you are notified. RE GEN does not ship prescriptions without provider approval.",
+      ],
+    },
+    {
+      id: "step-4",
+      title: "Step 4 — Shipped to your door",
+      paragraphs: [
+        "Approved prescriptions are filled by US-licensed compounding pharmacies and shipped across Illinois. Flat-rate shipping applies on most RE GEN orders.",
+        "Track orders and request refills through your RX patient portal at hellogorgeousmedspa.com/portal/rx when enrolled.",
+      ],
+    },
+    {
+      id: "trust",
+      title: "Why patients trust RE GEN",
+      paragraphs: [
+        "RE GEN combines telehealth convenience with a local med spa you can visit, call, or review on Google. Providers know your chart; pricing is transparent; pharmacies are US-licensed.",
+        "That is the difference between a prescription program and a supplement drop-shipped from nowhere.",
+      ],
+      bullets: [
+        "Real Oswego clinic — not a PO box brand",
+        "NP-directed screening on every new protocol",
+        "Published pricing before you pay",
+        "Illinois-only shipping with pharmacy partners",
+        "Phone support: (630) 636-6193",
+      ],
+    },
+  ],
+  keyTakeaways: [
+    "RE GEN is Hello Gorgeous Med Spa’s prescription division — real NP oversight, not an anonymous app.",
+    "The path is browse → intake → NP review → ship — typically starting online in minutes.",
+    "Labs may be required depending on your program; your provider will guide you.",
+    "Refills and order tracking live in the RX patient portal once enrolled.",
+  ],
+  faqs: [
+    {
+      q: "Is RE GEN available outside Illinois?",
+      a: "RE GEN ships to Illinois addresses only. In-person care at Hello Gorgeous Med Spa is available in Oswego for consults, labs, and select treatments.",
+    },
+    {
+      q: "How long does NP review take?",
+      a: "Many intakes are reviewed within one business day. Complex histories or missing labs may take longer — we contact you if we need more information.",
+    },
+    {
+      q: "Do I need a video visit?",
+      a: "Some new protocols include a telehealth consult fee; others proceed after async intake review. Your checkout summary and confirmation email explain what applies to your program.",
+    },
+    {
+      q: "Can I use insurance for RE GEN?",
+      a: "RE GEN programs are cash-pay with transparent pricing. HSA/FSA cards are often accepted; confirm with your plan administrator.",
+    },
+    {
+      q: "Where do I start?",
+      a: "Visit /rx to browse all programs, /rx/weight-loss for GLP-1, or /rx/start at the spa to pick a goal on your phone.",
+    },
+  ],
+  relatedLinks: [
+    { label: "Browse RE GEN", href: "/rx", description: "All prescription programs" },
+    { label: "Weight loss programs", href: "/rx/weight-loss", description: "GLP-1 semaglutide & tirzepatide" },
+    { label: "What is GLP-1?", href: "/rx/learn/what-is-glp-1", description: "Weight loss education" },
+    { label: "RE GEN safety", href: "/rx/safety", description: "Warnings & consent" },
+  ],
+  cta: {
+    title: "Ready to start RE GEN?",
+    body: "Pick a program, complete your intake, and a nurse practitioner will review your information before anything ships.",
+    href: "/rx",
+    label: "Browse RE GEN programs",
+    secondaryHref: "/rx/start",
+    secondaryLabel: "Quick start (in-spa QR)",
+  },
+};
+
 export const REGEN_LEARN_ARTICLES: RegenLearnArticle[] = [
   WHAT_IS_GLP1_ARTICLE,
   WHAT_ARE_PEPTIDES_ARTICLE,
   WHAT_IS_HORMONE_THERAPY_ARTICLE,
+  HOW_REGEN_WORKS_ARTICLE,
 ];
 
 export function getRegenLearnArticle(slug: string): RegenLearnArticle | undefined {

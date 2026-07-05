@@ -33,6 +33,13 @@ const GUIDES = [
     isArticle: true,
   },
   {
+    title: "How RE GEN works",
+    description: "Browse → intake → NP review → delivery across Illinois",
+    category: "RE GEN",
+    href: "/rx/learn/how-regen-works",
+    isArticle: true,
+  },
+  {
     title: "GLP-1 Side Effect Support",
     description: "Managing common side effects during your weight loss journey",
     category: "Weight Loss",

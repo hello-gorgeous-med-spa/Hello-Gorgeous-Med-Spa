@@ -2,9 +2,10 @@
 
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useState, Suspense } from "react";
+import { Suspense } from "react";
 
 import { RegenLogo } from "@/components/regen/RegenLogo";
+import { REGEN_LAUNCH_PRICING } from "@/lib/regen-brand";
 import { REGEN_GOALS, REGEN_SITE, type RegenGoalId } from "@/lib/regen-site";
 
 function GoalIcon({ icon }: { icon: string }) {
@@ -54,159 +55,67 @@ function GoalIcon({ icon }: { icon: string }) {
 function IntakeContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const preselectedGoal = searchParams.get("goal") as RegenGoalId | null;
-
-  const [step, setStep] = useState<"goal" | "details" | "done">(preselectedGoal ? "details" : "goal");
-  const [selectedGoal, setSelectedGoal] = useState<RegenGoalId | null>(preselectedGoal);
-  const [formData, setFormData] = useState({ name: "", email: "", phone: "" });
-
-  const selectedGoalData = REGEN_GOALS.find((g) => g.id === selectedGoal);
+  const fromSpa = searchParams.get("utm_source") === "spa";
 
   const handleGoalSelect = (goalId: RegenGoalId) => {
-    setSelectedGoal(goalId);
-    setStep("details");
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setStep("done");
+    const goal = REGEN_GOALS.find((g) => g.id === goalId);
+    if (!goal) return;
+    const utm = fromSpa ? "?utm_source=spa" : "";
+    router.push(`${goal.href}${utm}`);
   };
 
   return (
     <div className="min-h-[100dvh] bg-neutral-50">
-      <div className="mx-auto max-w-xl px-4 py-12">
-        <Link href="/rx" className="mb-8 inline-block">
+      <div className="mx-auto max-w-xl px-4 py-10">
+        <Link href="/rx" className="mb-6 inline-block">
           <RegenLogo width={140} />
         </Link>
 
-        {step === "goal" && (
-          <div className="rounded-2xl border border-neutral-200 bg-white p-8 shadow-lg">
-            <h1 className="text-2xl font-semibold text-neutral-900">What brings you to RE GEN?</h1>
-            <p className="mt-2 text-neutral-600">Pick a goal and we'll tailor your intake.</p>
-
-            <div className="mt-8 grid gap-3">
-              {REGEN_GOALS.map((goal) => (
-                <button
-                  key={goal.id}
-                  type="button"
-                  onClick={() => handleGoalSelect(goal.id)}
-                  className="group flex items-center gap-4 rounded-xl border border-neutral-200 bg-white p-4 text-left transition hover:border-[#E6007E]/30 hover:shadow-md"
-                >
-                  <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-neutral-100 text-neutral-600 transition group-hover:bg-[#FFF0F7] group-hover:text-[#E6007E]">
-                    <GoalIcon icon={goal.icon} />
-                  </div>
-                  <span className="font-semibold text-neutral-900">{goal.title}</span>
-                </button>
-              ))}
-            </div>
+        {fromSpa ? (
+          <div className="mb-6 rounded-2xl border-2 border-[#E6007E]/30 bg-[#FFF0F7] px-4 py-3 text-sm font-medium text-[#9b0a4d]">
+            Welcome from Hello Gorgeous Med Spa — pick a goal to start RE GEN on your phone.
           </div>
-        )}
+        ) : null}
 
-        {step === "details" && (
-          <div className="rounded-2xl border border-neutral-200 bg-white p-8 shadow-lg">
-            <h1 className="text-2xl font-semibold text-neutral-900">A few details</h1>
-            <p className="mt-2 text-neutral-600">
-              So a provider can follow up about{" "}
-              <strong className="text-[#E6007E]">{selectedGoalData?.title}</strong>.
-            </p>
+        <div className="rounded-2xl border border-neutral-200 bg-white p-8 shadow-lg">
+          <h1 className="text-2xl font-semibold text-neutral-900">What brings you to RE GEN?</h1>
+          <p className="mt-2 text-neutral-600">
+            NP-supervised prescriptions shipped across Illinois · GLP-1 {REGEN_LAUNCH_PRICING.glp1}
+          </p>
 
-            <form onSubmit={handleSubmit} className="mt-8 space-y-4">
-              <div>
-                <label htmlFor="name" className="block text-sm font-medium text-neutral-700">
-                  Name
-                </label>
-                <input
-                  type="text"
-                  id="name"
-                  required
-                  value={formData.name}
-                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  className="mt-1 block w-full rounded-lg border border-neutral-300 px-4 py-3 focus:border-[#E6007E] focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20"
-                  placeholder="Your full name"
-                />
-              </div>
-              <div>
-                <label htmlFor="email" className="block text-sm font-medium text-neutral-700">
-                  Email
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  required
-                  value={formData.email}
-                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  className="mt-1 block w-full rounded-lg border border-neutral-300 px-4 py-3 focus:border-[#E6007E] focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20"
-                  placeholder="you@example.com"
-                />
-              </div>
-              <div>
-                <label htmlFor="phone" className="block text-sm font-medium text-neutral-700">
-                  Phone
-                </label>
-                <input
-                  type="tel"
-                  id="phone"
-                  required
-                  value={formData.phone}
-                  onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                  className="mt-1 block w-full rounded-lg border border-neutral-300 px-4 py-3 focus:border-[#E6007E] focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20"
-                  placeholder="(555) 555-5555"
-                />
-              </div>
-
-              <div className="flex gap-3 pt-4">
-                <button
-                  type="button"
-                  onClick={() => {
-                    setStep("goal");
-                    setSelectedGoal(null);
-                  }}
-                  className="rounded-lg border border-neutral-300 px-5 py-3 text-sm font-semibold text-neutral-700 transition hover:border-neutral-400"
-                >
-                  Back
-                </button>
-                <button
-                  type="submit"
-                  className="flex-1 rounded-lg bg-[#E6007E] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#FF2D8E]"
-                >
-                  Continue
-                </button>
-              </div>
-            </form>
-          </div>
-        )}
-
-        {step === "done" && (
-          <div className="rounded-2xl border border-neutral-200 bg-white p-8 text-center shadow-lg">
-            <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-green-100 text-green-600">
-              <svg className="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-              </svg>
-            </div>
-
-            <h1 className="mt-6 text-2xl font-semibold text-neutral-900">You're all set!</h1>
-            <p className="mt-2 text-neutral-600">
-              Thanks for completing your intake. A nurse-practitioner-directed provider will review
-              it and reach out — often the same day.
-            </p>
-
-            <div className="mt-8 flex flex-col gap-3">
-              <Link
-                href={`tel:+16306366193`}
-                className="inline-flex items-center justify-center gap-2 rounded-lg border border-neutral-300 px-5 py-3 text-sm font-semibold text-neutral-700 transition hover:border-neutral-400"
-              >
-                Call {REGEN_SITE.phone}
-              </Link>
+          <div className="mt-8 grid gap-3">
+            {REGEN_GOALS.map((goal) => (
               <button
+                key={goal.id}
                 type="button"
-                onClick={() => router.push("/rx")}
-                className="rounded-lg bg-[#E6007E] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#FF2D8E]"
+                onClick={() => handleGoalSelect(goal.id)}
+                className="group flex items-center gap-4 rounded-xl border border-neutral-200 bg-white p-4 text-left transition hover:border-[#E6007E]/30 hover:shadow-md"
               >
-                Done
+                <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-neutral-100 text-neutral-600 transition group-hover:bg-[#FFF0F7] group-hover:text-[#E6007E]">
+                  <GoalIcon icon={goal.icon} />
+                </div>
+                <div>
+                  <span className="font-semibold text-neutral-900">{goal.title}</span>
+                  {goal.tag ? (
+                    <span className="ml-2 rounded-full bg-[#E6007E]/10 px-2 py-0.5 text-[10px] font-bold uppercase text-[#E6007E]">
+                      {goal.tag}
+                    </span>
+                  ) : null}
+                  <p className="mt-0.5 text-sm text-neutral-500">{goal.priceNote}</p>
+                </div>
               </button>
-            </div>
+            ))}
           </div>
-        )}
+
+          <div className="mt-8 flex flex-wrap gap-3 border-t border-neutral-100 pt-6 text-sm">
+            <Link href="/rx/learn/how-regen-works" className="font-semibold text-[#E6007E] hover:underline">
+              How RE GEN works →
+            </Link>
+            <a href={`tel:${REGEN_SITE.phone.replace(/\D/g, "")}`} className="text-neutral-600 hover:text-neutral-900">
+              {REGEN_SITE.phone}
+            </a>
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -214,11 +123,13 @@ function IntakeContent() {
 
 export default function RxStartPage() {
   return (
-    <Suspense fallback={
-      <div className="min-h-[100dvh] bg-neutral-50 flex items-center justify-center">
-        <div className="animate-pulse text-neutral-400">Loading...</div>
-      </div>
-    }>
+    <Suspense
+      fallback={
+        <div className="flex min-h-[100dvh] items-center justify-center bg-neutral-50">
+          <div className="animate-pulse text-neutral-400">Loading...</div>
+        </div>
+      }
+    >
       <IntakeContent />
     </Suspense>
   );

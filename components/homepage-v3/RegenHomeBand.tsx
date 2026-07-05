@@ -71,7 +71,7 @@ export function RegenHomeBand() {
             {/* CTAs */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
               <Link
-                href="/rx"
+                href="/rx/start"
                 className="inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-pink-600 to-pink-500 px-8 py-4 text-lg font-bold text-white shadow-lg shadow-pink-500/30 transition-all hover:scale-105 hover:shadow-xl hover:shadow-pink-500/40"
               >
                 Start Your Intake
@@ -80,10 +80,10 @@ export function RegenHomeBand() {
                 </svg>
               </Link>
               <Link
-                href="/rx"
+                href="/rx/learn/how-regen-works"
                 className="inline-flex items-center justify-center gap-2 rounded-full border-2 border-white/30 px-8 py-4 text-lg font-semibold text-white transition-all hover:bg-white/10 hover:border-white/50"
               >
-                Learn More
+                How RE GEN works
               </Link>
             </div>
           </div>

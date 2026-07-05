@@ -318,6 +318,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.91,
     },
     {
+      url: `${baseUrl}/rx/learn/how-regen-works`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly',
+      priority: 0.92,
+    },
+    {
+      url: `${baseUrl}/rx/start`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly',
+      priority: 0.88,
+    },
+    {
       url: `${baseUrl}/rx/guides`,
       lastModified: currentDate,
       changeFrequency: 'monthly',
@@ -516,6 +528,42 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     {
       url: `${baseUrl}/shockwave-therapy-montgomery-il`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.88,
+    },
+    {
+      url: `${baseUrl}/regen-weight-loss-oswego-il`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/regen-weight-loss-naperville-il`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.89,
+    },
+    {
+      url: `${baseUrl}/regen-weight-loss-aurora-il`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.89,
+    },
+    {
+      url: `${baseUrl}/regen-weight-loss-plainfield-il`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.88,
+    },
+    {
+      url: `${baseUrl}/regen-weight-loss-yorkville-il`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.88,
+    },
+    {
+      url: `${baseUrl}/regen-weight-loss-montgomery-il`,
       lastModified: currentDate,
       changeFrequency: 'weekly',
       priority: 0.88,
