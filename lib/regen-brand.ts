@@ -8,6 +8,9 @@ export const REGEN_BRAND = {
   fullName: "RE GEN by Hello Gorgeous Med Spa",
   tagline: "Renew. Rebalance. Regenerate.",
   taglineLong: "Medical weight loss, peptides & hormones — NP-directed, shipped to your door",
+  /** Dedicated Facebook Page (Re Gen RX). */
+  facebookPageId: "61591289596151",
+  facebookPageUrl: "https://www.facebook.com/profile.php?id=61591289596151",
   pink: "#E6007E",
   pinkSoft: "#FFF0F7",
 } as const;

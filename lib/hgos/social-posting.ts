@@ -11,10 +11,45 @@ const GOOGLE_MYBUSINESS = "https://mybusiness.googleapis.com/v4";
 
 export type SocialChannel = "facebook" | "instagram" | "google";
 
+/** Which Meta Page to post to. `regen` → RE GEN dedicated Page env vars. */
+export type SocialMetaBrand = "default" | "regen";
+
 export interface SocialPostInput {
   message: string;
   link?: string;
   imageUrl?: string;
+}
+
+export interface SocialPostOptions {
+  metaBrand?: SocialMetaBrand;
+}
+
+function metaEnvForBrand(brand: SocialMetaBrand): {
+  pageId?: string;
+  pageToken?: string;
+  igAccountId?: string;
+} {
+  if (brand === "regen") {
+    return {
+      pageId: process.env.META_REGEN_PAGE_ID,
+      pageToken:
+        process.env.META_REGEN_PAGE_ACCESS_TOKEN ||
+        process.env.META_PAGE_ACCESS_TOKEN ||
+        process.env.FACEBOOK_PAGE_ACCESS_TOKEN,
+      igAccountId:
+        process.env.META_REGEN_INSTAGRAM_BUSINESS_ACCOUNT_ID ||
+        process.env.META_REGEN_IG_ACCOUNT_ID,
+    };
+  }
+  return {
+    pageId: process.env.META_PAGE_ID || process.env.FACEBOOK_PAGE_ID,
+    pageToken:
+      process.env.META_PAGE_ACCESS_TOKEN || process.env.FACEBOOK_PAGE_ACCESS_TOKEN,
+    igAccountId:
+      process.env.META_INSTAGRAM_BUSINESS_ACCOUNT_ID ||
+      process.env.META_IG_ACCOUNT_ID ||
+      process.env.INSTAGRAM_BUSINESS_ACCOUNT_ID,
+  };
 }
 
 export interface ChannelResult {
@@ -236,13 +271,13 @@ export async function postToGoogle(
 /** Post to selected channels. Uses env vars for credentials. */
 export async function postToChannels(
   input: SocialPostInput,
-  channels: SocialChannel[]
+  channels: SocialChannel[],
+  options?: SocialPostOptions
 ): Promise<Record<SocialChannel, ChannelResult | undefined>> {
   const results: Record<string, ChannelResult | undefined> = {};
-  const configuredPageId = process.env.META_PAGE_ID || process.env.FACEBOOK_PAGE_ID;
-  const configuredPageToken =
-    process.env.META_PAGE_ACCESS_TOKEN || process.env.FACEBOOK_PAGE_ACCESS_TOKEN;
-  const configuredIgAccountId = process.env.META_INSTAGRAM_BUSINESS_ACCOUNT_ID;
+  const brand = options?.metaBrand ?? "default";
+  const { pageId: configuredPageId, pageToken: configuredPageToken, igAccountId: configuredIgAccountId } =
+    metaEnvForBrand(brand);
   const googleAccountId = process.env.GOOGLE_BUSINESS_ACCOUNT_ID;
   const googleLocationId = process.env.GOOGLE_BUSINESS_LOCATION_ID;
   const meta = await resolveMetaPostingContext(
@@ -261,7 +296,9 @@ export async function postToChannels(
       results.facebook = {
         ok: false,
         error:
-          "META_PAGE_ID (or FACEBOOK_PAGE_ID) and META_PAGE_ACCESS_TOKEN (or FACEBOOK_PAGE_ACCESS_TOKEN) required.",
+          brand === "regen"
+            ? "META_REGEN_PAGE_ID and a Page access token required (META_REGEN_PAGE_ACCESS_TOKEN or META_PAGE_ACCESS_TOKEN)."
+            : "META_PAGE_ID (or FACEBOOK_PAGE_ID) and META_PAGE_ACCESS_TOKEN (or FACEBOOK_PAGE_ACCESS_TOKEN) required.",
       };
     }
   }
@@ -272,7 +309,9 @@ export async function postToChannels(
       results.instagram = {
         ok: false,
         error:
-          "META_INSTAGRAM_BUSINESS_ACCOUNT_ID and a Page access token (META_PAGE_ACCESS_TOKEN or FACEBOOK_PAGE_ACCESS_TOKEN) required.",
+          brand === "regen"
+            ? "META_REGEN_INSTAGRAM_BUSINESS_ACCOUNT_ID and a Page access token required."
+            : "META_INSTAGRAM_BUSINESS_ACCOUNT_ID and a Page access token (META_PAGE_ACCESS_TOKEN or FACEBOOK_PAGE_ACCESS_TOKEN) required.",
       };
     }
   }

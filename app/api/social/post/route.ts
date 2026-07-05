@@ -259,6 +259,7 @@ async function handleTextPost(body: {
   link?: string;
   imageUrl?: string;
   scheduledAt?: string;
+  metaBrand?: "default" | "regen";
 }) {
   const message = typeof body.message === "string" ? body.message.trim() : "";
   if (!message) {
@@ -313,7 +314,8 @@ async function handleTextPost(body: {
     });
   }
 
-  const postResults = await postToChannels({ message, link, imageUrl }, channels);
+  const metaBrand = body.metaBrand === "regen" ? "regen" : "default";
+  const postResults = await postToChannels({ message, link, imageUrl }, channels, { metaBrand });
   return NextResponse.json({ results: postResults });
 }
 
@@ -340,7 +342,7 @@ export async function POST(request: Request) {
     return NextResponse.json(
       {
         error:
-          'Invalid body. Use { message, channels: ["facebook"|"instagram"|"google"], link?, imageUrl?, scheduledAt? } or { platform, videoUrl, caption } for video.',
+          'Invalid body. Use { message, channels: ["facebook"|"instagram"|"google"], link?, imageUrl?, scheduledAt?, metaBrand?: "regen" } or { platform, videoUrl, caption } for video.',
       },
       { status: 400 }
     );

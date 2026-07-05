@@ -27,7 +27,12 @@ async function postViaApi({
   imagePath: string;
   channels: string[];
 }) {
-  const body: Record<string, unknown> = { message, channels, link };
+  const body: Record<string, unknown> = {
+    message,
+    channels,
+    link,
+    metaBrand: "regen",
+  };
   if (imagePath) body.imageUrl = `${SITE_URL}${imagePath}`;
   const res = await fetch(`${SITE_URL}/api/social/post`, {
     method: "POST",
