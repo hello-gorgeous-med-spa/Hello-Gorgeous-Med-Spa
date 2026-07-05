@@ -6,7 +6,7 @@ import { pageMetadata } from "@/lib/seo";
 
 export const revalidate = 3600;
 
-const content = getShockwaveCitySeo("oswego");
+const content = getShockwaveCitySeo("plainfield");
 
 export const metadata: Metadata = pageMetadata({
   title: content.metaTitle,
@@ -15,6 +15,6 @@ export const metadata: Metadata = pageMetadata({
   keywords: content.keywords,
 });
 
-export default function ShockwaveTherapyOswegoPage() {
-  return <ShockwaveCityRoutePage slug="oswego" />;
+export default function ShockwaveTherapyPlainfieldPage() {
+  return <ShockwaveCityRoutePage slug="plainfield" />;
 }

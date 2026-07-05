@@ -485,6 +485,36 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
     },
     {
+      url: `${baseUrl}/shockwave-therapy-naperville-il`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.89,
+    },
+    {
+      url: `${baseUrl}/shockwave-therapy-aurora-il`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.89,
+    },
+    {
+      url: `${baseUrl}/shockwave-therapy-plainfield-il`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.88,
+    },
+    {
+      url: `${baseUrl}/shockwave-therapy-yorkville-il`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.88,
+    },
+    {
+      url: `${baseUrl}/shockwave-therapy-montgomery-il`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.88,
+    },
+    {
       url: `${baseUrl}/services/flowwave`,
       lastModified: currentDate,
       changeFrequency: 'weekly',

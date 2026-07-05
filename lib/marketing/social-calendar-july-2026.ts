@@ -81,7 +81,7 @@ FlowWave FOCUS reaches up to 12 cm deep — targeting muscle, tendon & joint tis
 First session $175 any area 👇
 
 #ShockwaveTherapy #KneePain #ShoulderPain #Recovery #FlowWave #FoxValley`,
-    link: `${SITE}/shockwave-therapy-oswego-il`,
+    link: `${SITE}/shockwave-therapy-naperville-il`,
     imagePath: "/images/flowwave/flowwave-zones-banner.png",
   },
   {
