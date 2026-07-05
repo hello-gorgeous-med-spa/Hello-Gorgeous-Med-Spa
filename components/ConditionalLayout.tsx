@@ -45,6 +45,7 @@ const STANDALONE_APP_ROUTES = [
   "/hello-gorgeous-rx/start-here",
   "/rx",
   "/services/flowwave",
+  "/microblading-brow-pmu-oswego-il",
 ];
 
 export function ConditionalLayout({
