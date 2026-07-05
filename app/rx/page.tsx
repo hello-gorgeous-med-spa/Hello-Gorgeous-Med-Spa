@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
+import { FlowWaveRxPromoBand } from "@/components/flowwave/FlowWaveRxPromoBand";
 import { REGEN_CATEGORY_HUBS } from "@/lib/rx-category-hubs";
 import {
   type FAQ,
@@ -266,6 +267,10 @@ export default function RxPage() {
               </li>
             ))}
           </ul>
+
+          <div style={{ marginTop: 48 }}>
+            <FlowWaveRxPromoBand />
+          </div>
 
           <h2
             style={{
