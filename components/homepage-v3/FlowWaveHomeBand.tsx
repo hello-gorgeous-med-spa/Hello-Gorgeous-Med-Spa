@@ -141,6 +141,23 @@ export function FlowWaveHomeBand() {
             </Link>
           </div>
 
+          <p className="mb-6 text-center text-xs font-semibold text-black/50 sm:text-left">
+            Shockwave near you:{" "}
+            {[
+              { href: "/shockwave-therapy-oswego-il", label: "Oswego" },
+              { href: "/shockwave-therapy-naperville-il", label: "Naperville" },
+              { href: "/shockwave-therapy-aurora-il", label: "Aurora" },
+              { href: "/shockwave-therapy-plainfield-il", label: "Plainfield" },
+            ].map((city, i, arr) => (
+              <span key={city.href}>
+                <Link href={city.href} className="text-[#E6007E] hover:underline">
+                  {city.label}
+                </Link>
+                {i < arr.length - 1 ? " · " : null}
+              </span>
+            ))}
+          </p>
+
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {FLOWWAVE_WHAT_IT_DOES.map((item, i) => (
               <article

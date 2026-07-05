@@ -10,6 +10,7 @@ import {
   type FlowWaveIntakeData,
 } from "@/lib/flowwave-focus";
 import { insertFlowWaveIntake } from "@/lib/flowwave-intake";
+import { notifyFlowWaveLeadFollowUp } from "@/lib/flowwave-intake-followup";
 import { getSupabaseAdminClient } from "@/lib/hgos/supabase-admin";
 import { resolveOrCreateClientForIntake } from "@/lib/resolveClientForIntake";
 import { normalizeToE164 } from "@/lib/phone-e164";
@@ -172,6 +173,12 @@ export async function submitFlowWavePublicIntake(
       `Admin: /admin/flowwave`,
     ],
     replyTo: payload.email,
+  });
+
+  notifyFlowWaveLeadFollowUp({
+    fullName: payload.fullName,
+    phone: payload.phone,
+    email: payload.email,
   });
 
   return {

@@ -499,9 +499,183 @@ export const WHAT_ARE_PEPTIDES_ARTICLE: RegenLearnArticle = {
   },
 };
 
+export const WHAT_IS_HORMONE_THERAPY_ARTICLE: RegenLearnArticle = {
+  slug: "what-is-hormone-therapy",
+  path: "/rx/learn/what-is-hormone-therapy",
+  category: "Hormones & TRT",
+  categoryPath: "/rx/hormones",
+  title: "What is hormone therapy?",
+  subtitle:
+    "Understanding TRT, bioidentical HRT, lab-guided dosing, and how RE GEN delivers NP-supervised hormone care in Illinois",
+  metaTitle: "What Is Hormone Therapy? | TRT & HRT Education | RE GEN | Hello Gorgeous",
+  metaDescription:
+    "Learn what hormone therapy is, how TRT and bioidentical HRT work, who may be a candidate, lab monitoring, and how RE GEN delivers NP-supervised programs in Oswego, IL.",
+  keywords: [
+    "what is hormone therapy",
+    "TRT Illinois",
+    "testosterone replacement Oswego",
+    "bioidentical HRT",
+    "hormone therapy men women",
+    "RE GEN hormones",
+    "Hello Gorgeous TRT",
+    "HRT telehealth Illinois",
+  ],
+  updated: "2026-07-04",
+  readTime: "8 min",
+  reviewedBy: "Ryan Kent, FNP-BC",
+  heroImage: "/images/regen/banner-h1.jpg",
+  heroImageAlt: "RE GEN hormone therapy — TRT and HRT supervised in Oswego, IL",
+  intro: [
+    "Hormone therapy uses prescription medications to restore or optimize hormone levels when labs and symptoms suggest a deficiency or imbalance. For men, that often means testosterone replacement therapy (TRT). For women, bioidentical hormone replacement (HRT) may support perimenopause and menopause symptoms.",
+    "Hormone care is medical — not a one-size-fits-all supplement stack. RE GEN programs at Hello Gorgeous Med Spa pair Illinois telehealth convenience with nurse-practitioner oversight, US compounding pharmacies, and lab-guided titration when appropriate.",
+  ],
+  toc: [
+    { id: "basics", label: "Hormone therapy basics" },
+    { id: "trt", label: "Testosterone replacement (TRT)" },
+    { id: "womens-hrt", label: "Women's bioidentical HRT" },
+    { id: "alternatives", label: "Clomiphene & HCG options" },
+    { id: "labs", label: "Labs & monitoring" },
+    { id: "candidates", label: "Who may benefit" },
+    { id: "risks", label: "Risks & contraindications" },
+    { id: "regen", label: "How RE GEN delivers hormone care" },
+    { id: "takeaways", label: "Key takeaways" },
+    { id: "faq", label: "Frequently asked questions" },
+  ],
+  sections: [
+    {
+      id: "basics",
+      title: "What is hormone therapy?",
+      paragraphs: [
+        "Hormones are chemical messengers that influence energy, mood, libido, body composition, sleep, and more. When levels fall outside a healthy range — often due to aging, medical conditions, or stress — some people experience symptoms that affect daily life.",
+        "Hormone therapy means using FDA-approved or compounded prescription treatments under provider supervision to address documented imbalances. It is not the same as over-the-counter “booster” products sold online without labs or medical review.",
+      ],
+    },
+    {
+      id: "trt",
+      title: "Testosterone replacement therapy (TRT) for men",
+      paragraphs: [
+        "TRT supplies testosterone when your body is not producing enough on its own. Common forms include injectable testosterone cypionate, topical gels or creams, and pellets in some settings. RE GEN offers compounded injectable and topical options with transparent pricing after NP review.",
+        "Goals may include improved energy, libido, mood, and body composition — but individual response varies and no outcome is guaranteed. Dosing starts conservatively and adjusts based on symptoms and follow-up labs.",
+      ],
+      bullets: [
+        "Injectable TRT — often weekly or biweekly self-administration after training",
+        "Topical TRT — daily application; avoid skin-to-skin transfer to partners/children",
+        "Provider titration — dose changes follow labs and how you feel",
+      ],
+    },
+    {
+      id: "womens-hrt",
+      title: "Bioidentical HRT for women",
+      paragraphs: [
+        "Women experiencing perimenopause or menopause may discuss estrogen, progesterone, or combination bioidentical formulations when symptoms — such as hot flashes, sleep disruption, mood changes, or vaginal dryness — interfere with quality of life.",
+        "Bioidentical means the hormone structure matches what the body produces. Compounded creams, capsules, and troches are common delivery forms. Your NP reviews history, symptoms, and risk factors before recommending a pathway.",
+      ],
+    },
+    {
+      id: "alternatives",
+      title: "Clomiphene and HCG — fertility-friendly options",
+      paragraphs: [
+        "Not every man needs direct testosterone. Clomiphene citrate stimulates the pituitary to increase natural testosterone production. Human chorionic gonadotropin (HCG) can help maintain testicular function during or after TRT.",
+        "These pathways are sometimes chosen when preserving fertility matters. Your provider explains trade-offs between direct TRT and stimulation-based approaches.",
+      ],
+    },
+    {
+      id: "labs",
+      title: "Why labs matter",
+      paragraphs: [
+        "Responsible hormone care starts with baseline labs — typically total and free testosterone, estradiol, CBC, metabolic panel, and lipids for men; a tailored panel for women based on symptoms and history. Follow-up labs guide dose adjustments and safety monitoring.",
+        "RE GEN integrates lab orders and review into the program. Skipping labs increases risk — reputable providers will not prescribe blindly.",
+      ],
+    },
+    {
+      id: "candidates",
+      title: "Who may be a candidate?",
+      paragraphs: [
+        "Candidacy depends on symptoms, exam, medical history, and lab results — not age alone. Men with consistently low testosterone and compatible symptoms may discuss TRT. Women with menopausal symptoms may discuss HRT when benefits outweigh risks.",
+        "Certain conditions — including some cancers, untreated sleep apnea, uncontrolled heart disease, desire for fertility without a fertility plan, or elevated hematocrit — may mean hormone therapy is not appropriate.",
+      ],
+    },
+    {
+      id: "risks",
+      title: "Risks and what to watch for",
+      paragraphs: [
+        "TRT can affect red blood cell count, cholesterol, fertility, acne, and mood. Topicals require careful handling. Women on estrogen-containing HRT need individualized risk assessment, especially with a uterus (progesterone is typically required to protect the lining).",
+        "Report side effects promptly. RE GEN programs include follow-up touchpoints — you are not left on autopilot after the first shipment.",
+      ],
+    },
+    {
+      id: "regen",
+      title: "How RE GEN delivers hormone care",
+      paragraphs: [
+        "Start at hellogorgeousmedspa.com/rx/hormones to review TRT, women's HRT, and related options. Complete the online intake; Ryan Kent, FNP-BC reviews your history and labs plan before any prescription ships.",
+        "Medications come from US-licensed compounding pharmacies with flat-rate Illinois shipping. You can also visit Hello Gorgeous in Oswego for in-person consults and lab draws when needed.",
+      ],
+    },
+  ],
+  keyTakeaways: [
+    "Hormone therapy uses prescription treatments under provider supervision — not unregulated online boosters.",
+    "TRT addresses low testosterone in men; bioidentical HRT may help qualifying women with menopause symptoms.",
+    "Baseline and follow-up labs are essential for safe titration.",
+    "RE GEN pairs NP oversight with Illinois telehealth delivery and transparent program pricing.",
+  ],
+  faqs: [
+    {
+      q: "What is the difference between TRT and “testosterone boosters”?",
+      a: "TRT is prescription testosterone with medical monitoring. OTC boosters are supplements not equivalent to prescription therapy and are not reviewed by your NP. RE GEN offers prescription TRT programs only after clinical review.",
+    },
+    {
+      q: "Do I need labs before starting TRT?",
+      a: "Yes — reputable hormone care requires baseline labs and follow-up monitoring. Your RE GEN intake includes guidance on which labs to order or upload.",
+    },
+    {
+      q: "Does RE GEN treat women for hormones?",
+      a: "Yes. RE GEN offers bioidentical HRT pathways for qualifying women, in addition to men's TRT, clomiphene, and HCG options.",
+    },
+    {
+      q: "Can TRT affect fertility?",
+      a: "Direct testosterone can suppress sperm production. If fertility is a goal, discuss clomiphene or HCG with your provider before starting classic TRT.",
+    },
+    {
+      q: "How do I start a hormone program with Hello Gorgeous?",
+      a: "Visit /rx/hormones, review programs and pricing, then complete checkout and your health intake. A nurse practitioner reviews your information before any prescription ships.",
+    },
+  ],
+  relatedLinks: [
+    {
+      label: "RE GEN Hormone programs",
+      href: "/rx/hormones",
+      description: "TRT, HRT, clomiphene & HCG pricing",
+    },
+    {
+      label: "Gentlemen's Club TRT",
+      href: "/gentlemens-club",
+      description: "Men's optimization membership",
+    },
+    {
+      label: "What are peptides?",
+      href: "/rx/learn/what-are-peptides",
+      description: "Recovery & optimization education",
+    },
+    {
+      label: "RE GEN safety information",
+      href: "/rx/safety",
+      description: "Treatment warnings",
+    },
+  ],
+  cta: {
+    title: "Talk to a provider about hormone therapy",
+    body: "RE GEN hormone programs include NP review, lab guidance, and medication shipped across Illinois — starting with a short online intake.",
+    href: "/rx/hormones",
+    label: "Explore hormone programs",
+    secondaryHref: "/rx",
+    secondaryLabel: "Browse RE GEN",
+  },
+};
+
 export const REGEN_LEARN_ARTICLES: RegenLearnArticle[] = [
   WHAT_IS_GLP1_ARTICLE,
   WHAT_ARE_PEPTIDES_ARTICLE,
+  WHAT_IS_HORMONE_THERAPY_ARTICLE,
 ];
 
 export function getRegenLearnArticle(slug: string): RegenLearnArticle | undefined {

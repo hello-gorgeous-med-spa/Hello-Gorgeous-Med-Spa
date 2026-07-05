@@ -26,6 +26,13 @@ const GUIDES = [
     isArticle: true,
   },
   {
+    title: "What is hormone therapy?",
+    description: "TRT, bioidentical HRT, labs, and NP-supervised RE GEN programs",
+    category: "Hormones",
+    href: "/rx/learn/what-is-hormone-therapy",
+    isArticle: true,
+  },
+  {
     title: "GLP-1 Side Effect Support",
     description: "Managing common side effects during your weight loss journey",
     category: "Weight Loss",

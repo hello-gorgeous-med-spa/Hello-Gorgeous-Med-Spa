@@ -318,6 +318,14 @@ export function RxCategoryLanding({ hub }: { hub: RxCategoryHub }) {
                 What are peptides?
               </Link>
             ) : null}
+            {hub.id === "hormones" ? (
+              <Link
+                href="/rx/learn/what-is-hormone-therapy"
+                className="inline-flex items-center gap-2 rounded-lg border border-neutral-300 px-6 py-3.5 text-sm font-semibold text-neutral-700 transition hover:border-[#E6007E] hover:text-[#E6007E]"
+              >
+                What is hormone therapy?
+              </Link>
+            ) : null}
             {faq && faq.length > 0 ? (
               <Link
                 href="#faq"

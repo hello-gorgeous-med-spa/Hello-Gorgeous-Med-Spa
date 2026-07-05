@@ -312,6 +312,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.91,
     },
     {
+      url: `${baseUrl}/rx/learn/what-is-hormone-therapy`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly',
+      priority: 0.91,
+    },
+    {
       url: `${baseUrl}/rx/guides`,
       lastModified: currentDate,
       changeFrequency: 'monthly',
