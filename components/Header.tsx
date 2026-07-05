@@ -676,12 +676,14 @@ export function Header() {
             >
               <Link
                 href={SHOP_RX_NAV.href}
-                className={cx(NAV_LINK_BASE, "h-9 gap-1.5")}
+                className={cx(NAV_LINK_BASE, "h-9 shrink-0 gap-1.5")}
                 style={navPillStyle(1, isMedicalNavActiveState)}
-                aria-label="REGEN Store — prescription care by Hello Gorgeous Med Spa"
+                aria-label="RE GEN — prescription care by Hello Gorgeous Med Spa"
               >
                 <RegenNavLogo />
-                <span className="text-xs font-bold uppercase tracking-wide text-pink-600">Store</span>
+                <span className="rounded-full bg-gradient-to-r from-[#FF2D8E] to-[#E6007E] px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wide text-white">
+                  New
+                </span>
               </Link>
             </div>
 
@@ -845,9 +847,8 @@ export function Header() {
                     style={{ color: trifectaAccent(0).subtitle }}
                     aria-label="REGEN Store — prescription care by Hello Gorgeous Med Spa"
                   >
-                    <span className="flex flex-1 items-center gap-2">
+                    <span className="flex shrink-0 items-center gap-2">
                       <RegenNavLogo />
-                      <span className="text-xs font-bold uppercase tracking-wide text-pink-400">Store</span>
                     </span>
                     <span className="flex-shrink-0 rounded-full px-2 py-0.5 text-[9px] font-bold uppercase text-white" style={{ background: trifectaAccent(0).badgeBg }}>
                       NEW

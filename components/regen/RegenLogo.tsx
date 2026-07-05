@@ -13,22 +13,26 @@ type RegenLogoProps = {
   onClick?: () => void;
 };
 
-/** Split RE/GEN wordmark — pink RE + silver GEN, matches Jul 2026 brand lockup on dark nav. */
+/** Split RE/GEN wordmark — nav uses soft-pink GEN so both halves read on pill backgrounds. */
 function RegenMark({
   sizeClass,
   width,
+  variant = "default",
 }: {
   sizeClass?: string;
   width?: number;
+  variant?: "nav" | "default";
 }) {
   const pink = REGEN_BRAND.pink;
+  const genFill = variant === "nav" ? "#FFB8DC" : "#ffffff";
+  const vb = variant === "nav" ? REGEN_LOGO.navCompactWidth : REGEN_LOGO.navWidth;
   const style = width
-    ? { width, height: (width / REGEN_LOGO.navWidth) * REGEN_LOGO.navHeight }
+    ? { width, height: (width / vb) * REGEN_LOGO.navHeight }
     : undefined;
 
   return (
     <svg
-      viewBox={`0 0 ${REGEN_LOGO.navWidth} ${REGEN_LOGO.navHeight}`}
+      viewBox={`0 0 ${vb} ${REGEN_LOGO.navHeight}`}
       xmlns="http://www.w3.org/2000/svg"
       className={sizeClass ?? (width ? undefined : "h-8 w-auto")}
       style={style}
@@ -40,12 +44,12 @@ function RegenMark({
         x="0"
         y="20"
         fontFamily="ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"
-        fontSize="17"
+        fontSize="16"
         fontWeight="800"
-        letterSpacing="0.08em"
+        letterSpacing="0.04em"
       >
         <tspan fill={pink}>RE</tspan>
-        <tspan fill="#ffffff"> GEN</tspan>
+        <tspan fill={genFill}>GEN</tspan>
       </text>
     </svg>
   );
@@ -54,8 +58,8 @@ function RegenMark({
 /** Compact logo for site header nav. */
 export function RegenNavLogo({ className = "" }: { className?: string }) {
   return (
-    <span className={`inline-flex items-center ${className}`} aria-hidden>
-      <RegenMark sizeClass="h-7 w-auto" />
+    <span className={`inline-flex shrink-0 items-center ${className}`} aria-hidden>
+      <RegenMark sizeClass="h-[1.125rem] w-[4.5rem]" variant="nav" />
     </span>
   );
 }
