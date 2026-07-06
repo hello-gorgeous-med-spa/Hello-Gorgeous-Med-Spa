@@ -8,6 +8,7 @@ import {
   BrowJourneyHomeBand,
   Morpheus8HomeBand,
   SolariaHomeBand,
+  InjectablesHomeBand,
   RegenHomeBand,
 } from "@/components/homepage-v3";
 import { HomepageAestheticsLane } from "@/components/homepage-v3/HomepageAestheticsLane";
@@ -155,6 +156,7 @@ export default function HomePage() {
         <BrowJourneyHomeBand />
         <Morpheus8HomeBand />
         <SolariaHomeBand />
+        <InjectablesHomeBand />
         <HomepageRyanCareSection />
         <HomepageAestheticsLane />
         <HomepageTestimonials />

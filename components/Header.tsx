@@ -21,6 +21,7 @@ import { FLOWWAVE_PATH } from "@/lib/flowwave-marketing";
 import { BROW_MICROBLADING_NAV, isBrowMicrobladingNavActive } from "@/lib/brow-journey-marketing";
 import { MORPHEUS8_PATH, isMorpheus8NavActive } from "@/lib/morpheus8-marketing";
 import { SOLARIA_CO2_PATH, isSolariaNavActive } from "@/lib/solaria-marketing";
+import { INJECTABLES_NAV, INJECTABLES_PATH, isInjectablesNavActive } from "@/lib/injectables-marketing";
 import {
   ABOUT_NAV_EXTRA_LINKS,
   isAboutNavActive,
@@ -73,21 +74,6 @@ const NAV = {
             sub: "Pay-per-session · memberships · spring specials",
             badge: "NEW",
           },
-        ],
-      },
-      {
-        heading: "Injectables",
-        links: [
-          {
-            label: "Injectables Menu",
-            href: "/services/injectables",
-            sub: "Botox $10 · lip filler · dermal fillers · Sculptra · all 5 neurotoxins",
-            badge: "MENU",
-          },
-          { label: "Botox Oswego", href: "/botox-oswego", sub: "From $10/unit · NP on site · free consult" },
-          { label: "Daxxify — 6-Month Neurotoxin", href: "/daxxify-oswego-il", sub: "Longest-lasting · only Fox Valley with all 5 brands", badge: "NEW" },
-          { label: "Compare All 5 Neurotoxins", href: "/botox-vs-dysport-vs-jeuveau", sub: "Botox · Dysport · Jeuveau · Xeomin · Daxxify" },
-          { label: "Lip Studio", href: "/lip-studio", sub: "AI preview · natural lip filler consult" },
         ],
       },
       {
@@ -508,12 +494,14 @@ export function Header() {
   const isMicrobladingNavActive = isBrowMicrobladingNavActive(pathname ?? null);
   const isMorpheus8NavActiveState = isMorpheus8NavActive(pathname ?? null);
   const isSolariaNavActiveState = isSolariaNavActive(pathname ?? null);
+  const isInjectablesNavActiveState = isInjectablesNavActive(pathname ?? null);
 
   const isServicesNavActive =
     !isFlowWaveNavActive &&
     !isMicrobladingNavActive &&
     !isMorpheus8NavActiveState &&
     !isSolariaNavActiveState &&
+    !isInjectablesNavActiveState &&
     (isActive("/services") ||
     pathname === "/gallery" ||
     pathname === REGENERATIVE_MEDICINE_PATH ||
@@ -661,6 +649,18 @@ export function Header() {
             <div className="relative flex items-center" onMouseEnter={closeDropdown}>
               <Link href={SOLARIA_CO2_PATH} className={NAV_LINK_BASE} style={navPillStyle(0, isSolariaNavActiveState)} aria-label="Solaria CO2 laser resurfacing">
                 Solaria CO₂
+              </Link>
+            </div>
+
+            {/* Botox & Fillers — injectables flagship */}
+            <div className="relative flex items-center" onMouseEnter={closeDropdown}>
+              <Link
+                href={INJECTABLES_PATH}
+                className={NAV_LINK_BASE}
+                style={navPillStyle(0, isInjectablesNavActiveState)}
+                aria-label="Botox and dermal fillers — injectables menu"
+              >
+                {INJECTABLES_NAV.label}
               </Link>
             </div>
 
@@ -845,11 +845,22 @@ export function Header() {
             <Link
               href={SOLARIA_CO2_PATH}
               onClick={() => setMobileOpen(false)}
-              className="mb-4 flex w-full items-center justify-between gap-2 rounded-xl border border-[#E6007E]/40 bg-gradient-to-r from-[#2d1020] to-black px-4 py-3.5 text-sm font-bold text-white"
+              className="mb-3 flex w-full items-center justify-between gap-2 rounded-xl border border-[#E6007E]/40 bg-gradient-to-r from-[#2d1020] to-black px-4 py-3.5 text-sm font-bold text-white"
             >
               <span className="flex flex-col items-start gap-0.5">
                 <span>Solaria CO₂</span>
                 <span className="text-xs font-semibold text-[#FFB8DC]">Laser resurfacing · $899 launch</span>
+              </span>
+            </Link>
+
+            <Link
+              href={INJECTABLES_PATH}
+              onClick={() => setMobileOpen(false)}
+              className="mb-4 flex w-full items-center justify-between gap-2 rounded-xl border border-[#E6007E]/40 bg-gradient-to-r from-[#2d1020] to-black px-4 py-3.5 text-sm font-bold text-white"
+            >
+              <span className="flex flex-col items-start gap-0.5">
+                <span>{INJECTABLES_NAV.label}</span>
+                <span className="text-xs font-semibold text-[#FFB8DC]">Botox $10/unit · lip filler $450</span>
               </span>
             </Link>
 

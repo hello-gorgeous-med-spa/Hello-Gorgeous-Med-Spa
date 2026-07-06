@@ -42,3 +42,4 @@ export { FlowWaveHomeBand } from "./FlowWaveHomeBand";
 export { BrowJourneyHomeBand } from "./BrowJourneyHomeBand";
 export { Morpheus8HomeBand } from "./Morpheus8HomeBand";
 export { SolariaHomeBand } from "./SolariaHomeBand";
+export { InjectablesHomeBand } from "./InjectablesHomeBand";
