@@ -6,6 +6,8 @@
 import { BOOKING_URL, RX_PATIENT_CARE_PATH } from "@/lib/flows";
 import { LABS_NAV } from "@/lib/labs-nav";
 import { BROW_MICROBLADING_NAV } from "@/lib/brow-journey-marketing";
+import { MORPHEUS8_PATH } from "@/lib/morpheus8-marketing";
+import { SOLARIA_CO2_PATH } from "@/lib/solaria-marketing";
 import { GENTLEMENS_CLUB_PATH } from "@/lib/gentlemens-club";
 import { LADIES_CLUB_PATH } from "@/lib/ladies-club";
 import { PRIMARY_BOOKING_CTA } from "@/lib/primary-cta";
@@ -23,6 +25,8 @@ export const PRIMARY_NAV_HUBS = [
     href: BROW_MICROBLADING_NAV.href,
     hasDropdown: false,
   },
+  { id: "morpheus8", label: "Morpheus8", href: MORPHEUS8_PATH, hasDropdown: false },
+  { id: "solaria", label: "Solaria CO₂", href: SOLARIA_CO2_PATH, hasDropdown: false },
   { id: "shop-rx", label: SHOP_RX_NAV.label, href: SHOP_RX_NAV.href, hasDropdown: true },
   { id: "labs", label: LABS_NAV.label, href: LABS_NAV.href, hasDropdown: true },
   { id: "specials", label: "Specials", href: SPECIALS_PATH, hasDropdown: true },

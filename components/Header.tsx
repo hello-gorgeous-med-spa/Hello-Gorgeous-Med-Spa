@@ -19,6 +19,8 @@ import { LADIES_CLUB_PATH } from "@/lib/ladies-club";
 import { PRIMARY_BOOKING_CTA } from "@/lib/primary-cta";
 import { FLOWWAVE_PATH } from "@/lib/flowwave-marketing";
 import { BROW_MICROBLADING_NAV, isBrowMicrobladingNavActive } from "@/lib/brow-journey-marketing";
+import { MORPHEUS8_PATH, isMorpheus8NavActive } from "@/lib/morpheus8-marketing";
+import { SOLARIA_CO2_PATH, isSolariaNavActive } from "@/lib/solaria-marketing";
 import {
   ABOUT_NAV_EXTRA_LINKS,
   isAboutNavActive,
@@ -97,9 +99,7 @@ const NAV = {
             sub: "Deep-tissue pain & recovery — intro $49",
             badge: "NEW",
           },
-          { label: "Morpheus8 Burst", href: "/morpheus8-burst-oswego", sub: "Deep RF microneedling — skin tightening" },
           { label: "Quantum RF", href: "/quantum-rf-oswego", sub: "Subdermal body contouring without surgery" },
-          { label: "Solaria CO₂", href: "/solaria-co2-oswego", sub: "Fractional laser resurfacing" },
           { label: "InMode Trifecta", href: "/specials", sub: "Morpheus8 + Quantum RF + Solaria CO₂ packages" },
         ],
       },
@@ -506,10 +506,14 @@ export function Header() {
     pathname === FLOWWAVE_PATH || (pathname?.startsWith(`${FLOWWAVE_PATH}/`) ?? false);
 
   const isMicrobladingNavActive = isBrowMicrobladingNavActive(pathname ?? null);
+  const isMorpheus8NavActiveState = isMorpheus8NavActive(pathname ?? null);
+  const isSolariaNavActiveState = isSolariaNavActive(pathname ?? null);
 
   const isServicesNavActive =
     !isFlowWaveNavActive &&
     !isMicrobladingNavActive &&
+    !isMorpheus8NavActiveState &&
+    !isSolariaNavActiveState &&
     (isActive("/services") ||
     pathname === "/gallery" ||
     pathname === REGENERATIVE_MEDICINE_PATH ||
@@ -643,6 +647,20 @@ export function Header() {
                 aria-label="Microblading and brow PMU — Your Brow Journey"
               >
                 Microblading
+              </Link>
+            </div>
+
+            {/* Morpheus8 — InMode Trifecta flagship */}
+            <div className="relative flex items-center" onMouseEnter={closeDropdown}>
+              <Link href={MORPHEUS8_PATH} className={NAV_LINK_BASE} style={navPillStyle(0, isMorpheus8NavActiveState)} aria-label="Morpheus8 Burst RF microneedling">
+                Morpheus8
+              </Link>
+            </div>
+
+            {/* Solaria CO₂ — fractional laser flagship */}
+            <div className="relative flex items-center" onMouseEnter={closeDropdown}>
+              <Link href={SOLARIA_CO2_PATH} className={NAV_LINK_BASE} style={navPillStyle(0, isSolariaNavActiveState)} aria-label="Solaria CO2 laser resurfacing">
+                Solaria CO₂
               </Link>
             </div>
 
@@ -810,6 +828,28 @@ export function Header() {
               <span className="flex flex-col items-start gap-0.5">
                 <span>Microblading</span>
                 <span className="text-xs font-semibold text-[#FFB8DC]">Your Brow Journey</span>
+              </span>
+            </Link>
+
+            <Link
+              href={MORPHEUS8_PATH}
+              onClick={() => setMobileOpen(false)}
+              className="mb-3 flex w-full items-center justify-between gap-2 rounded-xl border border-[#E6007E]/40 bg-gradient-to-r from-[#2d1020] to-black px-4 py-3.5 text-sm font-bold text-white"
+            >
+              <span className="flex flex-col items-start gap-0.5">
+                <span>Morpheus8 Burst</span>
+                <span className="text-xs font-semibold text-[#FFB8DC]">RF microneedling · from $850</span>
+              </span>
+            </Link>
+
+            <Link
+              href={SOLARIA_CO2_PATH}
+              onClick={() => setMobileOpen(false)}
+              className="mb-4 flex w-full items-center justify-between gap-2 rounded-xl border border-[#E6007E]/40 bg-gradient-to-r from-[#2d1020] to-black px-4 py-3.5 text-sm font-bold text-white"
+            >
+              <span className="flex flex-col items-start gap-0.5">
+                <span>Solaria CO₂</span>
+                <span className="text-xs font-semibold text-[#FFB8DC]">Laser resurfacing · $899 launch</span>
               </span>
             </Link>
 

@@ -6,6 +6,8 @@ import {
   HomepageClosingCTARow,
   FlowWaveHomeBand,
   BrowJourneyHomeBand,
+  Morpheus8HomeBand,
+  SolariaHomeBand,
   RegenHomeBand,
 } from "@/components/homepage-v3";
 import { HomepageAestheticsLane } from "@/components/homepage-v3/HomepageAestheticsLane";
@@ -151,6 +153,8 @@ export default function HomePage() {
         <HeroV3 />
         <FlowWaveHomeBand />
         <BrowJourneyHomeBand />
+        <Morpheus8HomeBand />
+        <SolariaHomeBand />
         <HomepageRyanCareSection />
         <HomepageAestheticsLane />
         <HomepageTestimonials />
