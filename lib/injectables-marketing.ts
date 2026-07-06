@@ -4,6 +4,7 @@
  */
 
 import { INJECTABLES_MENU, INJECTABLES_MENU_PATH } from "@/lib/injectables-menu";
+import { PRIMARY_CITY_SLUGS } from "@/lib/city-seo-tier";
 import { PRIMARY_BOOKING_CTA } from "@/lib/primary-cta";
 
 export const INJECTABLES_PATH = INJECTABLES_MENU_PATH;
@@ -197,6 +198,8 @@ export const INJECTABLES_FAQS = [
 
 export const INJECTABLES_NAV_ACTIVE_PREFIXES = [
   INJECTABLES_PATH,
+  "/injectables",
+  ...PRIMARY_CITY_SLUGS.filter((s) => s !== "oswego").map((slug) => `/injectables-${slug}-il`),
   "/services/botox",
   "/services/dermal-fillers",
   "/botox",

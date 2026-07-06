@@ -569,6 +569,42 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.89,
     },
     {
+      url: `${baseUrl}/services/injectables`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.92,
+    },
+    {
+      url: `${baseUrl}/injectables-naperville-il`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/injectables-aurora-il`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/injectables-plainfield-il`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.89,
+    },
+    {
+      url: `${baseUrl}/injectables-yorkville-il`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.89,
+    },
+    {
+      url: `${baseUrl}/injectables-montgomery-il`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.89,
+    },
+    {
       url: `${baseUrl}/regen-weight-loss-oswego-il`,
       lastModified: currentDate,
       changeFrequency: 'weekly',

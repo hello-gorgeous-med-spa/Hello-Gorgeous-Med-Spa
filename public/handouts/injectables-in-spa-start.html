@@ -2,39 +2,53 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Botox & Fillers — In-Spa QR | Hello Gorgeous Med Spa</title>
   <style>
-    body { font-family: system-ui, sans-serif; margin: 24px; color: #111; }
+    * { box-sizing: border-box; }
+    body { font-family: system-ui, sans-serif; margin: 0; padding: 24px; color: #111; background: #fff; }
+    h1 { font-size: 1.75rem; margin: 0 0 8px; }
+    .sub { color: #666; margin-bottom: 24px; max-width: 640px; }
     .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; max-width: 960px; }
-    .card { border: 3px solid #111; border-radius: 16px; padding: 16px; text-align: center; }
+    .card { border: 3px solid #111; border-radius: 16px; padding: 16px; text-align: center; break-inside: avoid; }
     .card img { width: 160px; height: 160px; }
-    .card h2 { font-size: 1rem; color: #E6007E; }
+    .card h2 { font-size: 1rem; margin: 12px 0 4px; color: #E6007E; }
+    .card p { font-size: 0.85rem; color: #444; margin: 0; }
+    .footer { margin-top: 32px; font-size: 0.9rem; color: #666; max-width: 640px; }
+    @media print { body { padding: 12px; } .no-print { display: none; } }
   </style>
 </head>
 <body>
+  <p class="no-print"><a href="/handouts/injectables-in-spa-start.html">Print this handout</a> · Treatment rooms & front desk</p>
   <h1>Botox & Fillers — Scan to explore</h1>
-  <p>Injectables menu at Hello Gorgeous Med Spa, Oswego IL</p>
+  <p class="sub">Injectables at Hello Gorgeous Med Spa, Oswego — Botox $10/unit · lip filler $450 · all 5 neurotoxins · NP-led · free consult.</p>
+
   <div class="grid">
     <div class="card">
-      <img src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&amp;data=https%3A%2F%2Fwww.hellogorgeousmedspa.com%2Fservices%2Finjectables%3Futm_source%3Dspa" alt="QR Injectables menu" width="160" height="160" />
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&amp;data=https%3A%2F%2Fwww.hellogorgeousmedspa.com%2Fservices%2Finjectables%3Futm_source%3Dspa" alt="QR — Botox & Fillers menu" width="160" height="160" />
       <h2>Botox & Fillers</h2>
       <p>Full menu · Botox $10/unit</p>
     </div>
     <div class="card">
-      <img src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&amp;data=https%3A%2F%2Fwww.hellogorgeousmedspa.com%2Flip-studio%3Futm_source%3Dspa" alt="QR Lip Studio" width="160" height="160" />
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&amp;data=https%3A%2F%2Fwww.hellogorgeousmedspa.com%2Fbook" alt="QR — Book consult" width="160" height="160" />
+      <h2>Book consult</h2>
+      <p>/book</p>
+    </div>
+    <div class="card">
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&amp;data=https%3A%2F%2Fwww.hellogorgeousmedspa.com%2Flip-studio%3Futm_source%3Dspa" alt="QR — Lip Studio" width="160" height="160" />
       <h2>Lip Studio</h2>
       <p>AI preview · free consult</p>
     </div>
     <div class="card">
-      <img src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&amp;data=https%3A%2F%2Fwww.hellogorgeousmedspa.com%2Fbotox-oswego%3Futm_source%3Dspa" alt="QR Botox Oswego" width="160" height="160" />
-      <h2>Botox Oswego</h2>
-      <p>$10/unit first-time</p>
-    </div>
-    <div class="card">
-      <img src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&amp;data=https%3A%2F%2Fwww.hellogorgeousmedspa.com%2Fbook" alt="QR Book" width="160" height="160" />
-      <h2>Book consult</h2>
-      <p>/book</p>
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&amp;data=https%3A%2F%2Fwww.hellogorgeousmedspa.com%2Finjectables-naperville-il" alt="QR — Injectables near Naperville" width="160" height="160" />
+      <h2>Near Naperville</h2>
+      <p>Local guide · ~15 min</p>
     </div>
   </div>
+
+  <p class="footer">
+    <strong>Hello Gorgeous Med Spa</strong> · 74 W. Washington St, Oswego IL 60543 · (630) 636-6193<br />
+    All 5 neurotoxins · NP-led injectors · Alle rewards · Cherry financing
+  </p>
 </body>
 </html>

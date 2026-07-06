@@ -139,7 +139,7 @@ Hello Gorgeous Med Spa Oswego:
 → NP on site · free consult
 
 Book 👇`,
-    link: `${SITE}/botox-oswego-il`,
+    link: `${SITE}/injectables-naperville-il`,
     imagePath: "/images/promo/injection-menu-poster.png",
   },
   {
@@ -181,7 +181,7 @@ Explore injectables menu 👇`,
 Hello Gorgeous Med Spa Oswego — lip filler $450 · dermal from $650 · 2-syringe packages.
 
 Local + full menu 👇`,
-    link: `${SITE}/dermal-fillers-plainfield-il`,
+    link: `${SITE}/injectables-plainfield-il`,
     imagePath: "/images/promo/lip-filler-promo-flyer.png",
   },
   {
