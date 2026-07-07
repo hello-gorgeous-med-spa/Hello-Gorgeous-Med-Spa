@@ -1,6 +1,8 @@
 import Link from 'next/link';
 import { Metadata } from 'next';
 
+import { BESTIE_SQUARE_DISCOUNT } from '@/lib/square/bestie-discount';
+
 export const metadata: Metadata = {
   title: 'Staff Resources | Hello Gorgeous Med Spa',
   robots: 'noindex, nofollow',
@@ -37,10 +39,27 @@ export default function StaffPage() {
               <div className="flex-1">
                 <h2 className="font-bold text-white text-lg">Protocols &amp; Quick Tools</h2>
                 <p className="text-emerald-200/80 text-sm">
-                  Dosing guides · July social posts · RX invoice quick-send
+                  Dosing guides · cheat sheets · July social · RX invoices
                 </p>
               </div>
               <div className="text-emerald-400 text-2xl">→</div>
+            </div>
+          </Link>
+
+          {/* Bestie $100 Square discount */}
+          <Link
+            href="/admin/promos/bestie"
+            className="block bg-gradient-to-r from-amber-600/25 to-pink-600/25 backdrop-blur rounded-2xl p-5 border-2 border-amber-400/60 hover:border-amber-400 transition-all"
+          >
+            <div className="flex items-center gap-4">
+              <div className="text-4xl">💕</div>
+              <div className="flex-1">
+                <h2 className="font-bold text-white text-lg">Bestie — ${BESTIE_SQUARE_DISCOUNT.amountUsd} Off</h2>
+                <p className="text-amber-200/80 text-sm font-mono">
+                  Square code: {BESTIE_SQUARE_DISCOUNT.code}
+                </p>
+              </div>
+              <div className="text-amber-400 text-2xl">→</div>
             </div>
           </Link>
 

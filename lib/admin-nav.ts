@@ -67,6 +67,7 @@ export const ADMIN_NAV_GROUPS: AdminNavGroup[] = [
     items: [
       { href: "/admin/sms", label: "SMS Marketing", icon: "📱" },
       { href: "/admin/marketing/post-social", label: "Post to Social", icon: "📲" },
+      { href: "/admin/promos/bestie", label: "Bestie $100 Off", icon: "💕" },
       { href: "/admin/email-campaigns", label: "Email Campaigns", icon: "📧" },
     ],
   },
@@ -78,6 +79,7 @@ export const ADMIN_NAV_GROUPS: AdminNavGroup[] = [
       { href: "/admin/settings/pretreatment", label: "Pre-Treatment", icon: "📋" },
       { href: "/admin/settings/aftercare", label: "Aftercare", icon: "📄" },
       { href: "/admin/templates", label: "Message Templates", icon: "💬" },
+      { href: "/admin/cheat-sheets", label: "Clinical Cheat Sheets", icon: "📑" },
       { href: "/admin/pmu-brows", label: "PMU & Client Handouts", icon: "💗" },
     ],
   },
@@ -134,6 +136,7 @@ export const ADMIN_DASHBOARD_QUICK_LINKS = {
     { href: "/admin/consents", label: "Consents", desc: "Pending signatures" },
   ],
   payments: [
+    { href: "/admin/promos/bestie", label: "Bestie $100 Off", desc: "Square POS code BESTIE100" },
     { href: "/admin/settings/payments", label: "Square Connect", desc: "Link account & download data" },
     { href: "/admin/sales/payments", label: "Square Payments", desc: "Synced transactions" },
     { href: "/admin/sales/daily-summary", label: "Daily Summary", desc: "End-of-day totals" },
@@ -146,6 +149,8 @@ export const ADMIN_DASHBOARD_QUICK_LINKS = {
     { href: "/admin/email-campaigns", label: "Email Campaigns", desc: "Newsletter & promos" },
   ],
   resources: [
+    { href: "/admin/cheat-sheets", label: "Clinical Cheat Sheets", desc: "36 printable treatment & ops PDFs" },
+    { href: "/staff/protocols", label: "Protocols & Quick Tools", desc: "Guides, social kit & invoice quick-send" },
     { href: "/admin/vendors", label: "Vendor Portals", desc: "BoomRx, Allergan, Square…" },
     { href: "/admin/settings/aftercare", label: "Aftercare Docs", desc: "Client-facing care guides" },
     { href: "/admin/pmu-brows", label: "Client Handouts", desc: "PMU forms & PDFs" },

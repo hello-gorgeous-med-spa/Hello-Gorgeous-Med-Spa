@@ -781,6 +781,7 @@ export function RxOpsConsole() {
                   <p className="mb-4 text-sm text-black/55">M4–M6 from your build ticket.</p>
                   <div className="grid gap-2">
                     {[
+                      ["Clinical Cheat Sheets", "36 treatment & ops PDFs", "/staff/protocols?tab=cheat-sheets"],
                       ["Protocols & Quick Tools", "Guides · social · invoices", "/staff/protocols"],
                       ["Square", data.squareConnected ? "Connected" : "Not connected", "/admin/settings/payments"],
                       ["RE GEN Catalog", `${data.overview.formularySkuCount} SKUs`, "/admin/rx/catalog"],

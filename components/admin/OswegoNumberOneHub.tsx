@@ -108,6 +108,8 @@ export function OswegoNumberOneHub() {
           rival on Washington Street.
         </p>
         <div className="mt-4 flex flex-wrap gap-2">
+          <QuickLink href="/admin/promos/bestie" label="Bestie $100 Off" />
+          <QuickLink href="/admin/cheat-sheets" label="Clinical Cheat Sheets" />
           <QuickLink href="/staff/protocols" label="Protocols & Quick Tools" />
           <QuickLink href="/admin/marketing/post-social" label="Post to Social" />
           <QuickLink href="/admin/marketing/social-content-agent" label="Facebook presets" />

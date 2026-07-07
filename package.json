@@ -24,6 +24,8 @@
     "upload-square-hg-rx-images": "npx tsx scripts/upload-hg-rx-square-images.ts",
     "upload-square-hg-rx-images:local": "npx tsx --env-file=.env.local scripts/upload-hg-rx-square-images.ts",
     "upload-square-hg-rx-images:dry-run": "npx tsx scripts/upload-hg-rx-square-images.ts --dry-run",
+    "square:discount-code": "npx tsx scripts/create-square-discount-code.ts",
+    "square:discount-code:local": "npx tsx --env-file=.env.local scripts/create-square-discount-code.ts",
     "generate-peptide-picker-images": "node scripts/generate-peptide-picker-images.mjs",
     "generate-rx-care-thumbs": "npx tsx scripts/generate-rx-care-square-thumbs.ts",
     "generate-client-rx-protocol": "npx tsx scripts/generate-client-rx-protocol-sheet.ts",
