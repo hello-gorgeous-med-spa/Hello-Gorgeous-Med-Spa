@@ -15,6 +15,7 @@ import { RX_OPS_STAGE_COLORS } from "@/lib/rx-ops/stages";
 import type {
   RxOpsConsolePayload,
   RxOpsFormularyRow,
+  RxOpsPaymentRow,
   RxOpsRequest,
   RxOpsRequestDetail,
   RxOpsShipmentRow,
@@ -92,6 +93,16 @@ export function RxOpsConsole() {
         formulary: [],
         refills: [],
         payments: [],
+        paymentsSummary: {
+          paidCount: 0,
+          pendingCount: 0,
+          failedCount: 0,
+          refundedCount: 0,
+          paidAmountUsd: 0,
+          pendingAmountUsd: 0,
+          refundedAmountUsd: 0,
+          revenue30dUsd: 0,
+        },
         threads: [],
         shipments: [],
         overview: {
@@ -211,6 +222,95 @@ export function RxOpsConsole() {
   const canApprove = detail?.allowedActions?.includes("approve") ?? false;
   const canDecline = detail?.allowedActions?.includes("decline") ?? false;
   const canRequestInfo = detail?.allowedActions?.includes("info") ?? false;
+  const canSendInvoice = detail?.request.stage === "Awaiting payment";
+
+  const sendInvoiceFromRequest = async () => {
+    if (!selectedRequest || !detail || demo) return;
+    const [kind, id] = selectedRequest.split(":");
+    if (!kind || !id) return;
+    setBusy(true);
+    try {
+      const res = await fetch("/api/admin/rx/ops/invoices", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          requestKind: kind,
+          requestId: id,
+          delivery: "both",
+        }),
+      });
+      const json = await res.json();
+      if (!res.ok) throw new Error(json.error || "Could not send invoice");
+      flash(`Invoice sent · ${money(json.amountUsd)}`);
+      void load();
+    } catch (e) {
+      flash(e instanceof Error ? e.message : "Could not send invoice");
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  const resendLedgerInvoice = async (row: RxOpsPaymentRow, delivery: "email" | "sms" | "both") => {
+    if (demo) return;
+    setBusy(true);
+    try {
+      const res = await fetch("/api/admin/rx/ops/invoices", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ resend: true, ledgerId: row.id, delivery }),
+      });
+      const json = await res.json();
+      if (!res.ok) throw new Error(json.error || "Resend failed");
+      flash(`Payment link resent to ${row.patientName}`);
+      void load();
+    } catch (e) {
+      flash(e instanceof Error ? e.message : "Could not resend");
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  const markLedgerRefunded = async (row: RxOpsPaymentRow) => {
+    if (demo) return;
+    if (!confirm(`Mark ${money(row.amountUsd)} for ${row.patientName} as refunded?`)) return;
+    setBusy(true);
+    try {
+      const res = await fetch(`/api/admin/rx/ops/ledger/${encodeURIComponent(row.id)}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          paymentStatus: "refunded",
+          intakeRef: row.intakeRef,
+        }),
+      });
+      const json = await res.json();
+      if (!res.ok) throw new Error(json.error || "Update failed");
+      flash("Marked refunded in ledger");
+      void load();
+    } catch (e) {
+      flash(e instanceof Error ? e.message : "Could not update");
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  function paymentStatusPill(status: string) {
+    const colors: Record<string, string> = {
+      paid: "#059669",
+      pending: "#d97706",
+      failed: "#dc2626",
+      refunded: "#6b7280",
+    };
+    const color = colors[status] || "#6b7280";
+    return (
+      <span
+        className="inline-flex rounded-full px-2.5 py-0.5 text-[11px] font-bold uppercase"
+        style={{ background: `${color}18`, color }}
+      >
+        {status}
+      </span>
+    );
+  }
 
   const shipmentAction = async (
     shipmentId: string,
@@ -692,8 +792,8 @@ export function RxOpsConsole() {
                   <h2 className="font-serif text-xl font-bold m-0">Square</h2>
                   <p className="text-sm text-white/70 mt-1 m-0">
                     {data.squareConnected
-                      ? "Connected — ledger rows below"
-                      : "Connect in Settings to sync invoices & payouts (HGRX-050)."}
+                      ? "Connected — ledger syncs via webhooks (HGRX-050)"
+                      : "Connect in Settings to send invoices & sync payouts."}
                   </p>
                 </div>
                 <Link
@@ -703,23 +803,127 @@ export function RxOpsConsole() {
                   {data.squareConnected ? "Square settings" : "Connect Square"}
                 </Link>
               </div>
+
+              <div className="mb-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+                {[
+                  {
+                    label: "Collected (30d)",
+                    value: money(data.paymentsSummary.revenue30dUsd),
+                    sub: `${data.paymentsSummary.paidCount} paid`,
+                  },
+                  {
+                    label: "Pending invoices",
+                    value: money(data.paymentsSummary.pendingAmountUsd),
+                    sub: `${data.paymentsSummary.pendingCount} open`,
+                  },
+                  {
+                    label: "Failed",
+                    value: String(data.paymentsSummary.failedCount),
+                    sub: "needs follow-up",
+                  },
+                  {
+                    label: "Refunded",
+                    value: money(data.paymentsSummary.refundedAmountUsd),
+                    sub: `${data.paymentsSummary.refundedCount} rows`,
+                  },
+                ].map((kpi) => (
+                  <div
+                    key={kpi.label}
+                    className="rounded-2xl border-4 border-black bg-white p-4 shadow-[6px_6px_0_0_rgba(230,0,126,0.25)]"
+                  >
+                    <p className="text-[11px] font-bold uppercase tracking-wide text-black/45 m-0">
+                      {kpi.label}
+                    </p>
+                    <p className="font-serif text-2xl font-black mt-1 mb-0">{kpi.value}</p>
+                    <p className="text-xs text-black/50 mt-1 m-0">{kpi.sub}</p>
+                  </div>
+                ))}
+              </div>
+
               {data.payments.length === 0 ? (
                 <EmptyState
                   icon="💳"
                   title="No transactions yet"
-                  body="Paid RX ledger rows appear here once patients pay via Square."
+                  body="Send an invoice from a request in Awaiting payment, or use the RX ledger."
+                  cta={{ label: "Open RX ledger", href: "/admin/rx-ledger" }}
                 />
               ) : (
-                <DataTable
-                  headers={["Date", "Patient", "For", "Method", "Amount"]}
-                  rows={data.payments.map((t) => [
-                    t.date,
-                    t.patientName,
-                    t.forLabel,
-                    t.method,
-                    money(t.amountUsd),
-                  ])}
-                />
+                <>
+                  <div className="overflow-x-auto rounded-2xl border-4 border-black bg-white shadow-[6px_6px_0_0_rgba(230,0,126,0.25)]">
+                    <table className="w-full min-w-[720px] text-sm">
+                      <thead>
+                        <tr className="border-b-2 border-black/10 text-left text-[11px] font-bold uppercase tracking-wide text-black/45">
+                          <th className="px-4 py-3">Date</th>
+                          <th className="px-4 py-3">Patient</th>
+                          <th className="px-4 py-3">For</th>
+                          <th className="px-4 py-3">Status</th>
+                          <th className="px-4 py-3">Amount</th>
+                          <th className="px-4 py-3">Actions</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {data.payments.map((t) => (
+                          <tr key={t.id} className="border-b border-black/5 last:border-0">
+                            <td className="px-4 py-3 whitespace-nowrap">{t.date}</td>
+                            <td className="px-4 py-3 font-semibold">{t.patientName}</td>
+                            <td className="px-4 py-3 text-black/70">{t.forLabel}</td>
+                            <td className="px-4 py-3">{paymentStatusPill(t.status)}</td>
+                            <td className="px-4 py-3 font-serif font-bold">{money(t.amountUsd)}</td>
+                            <td className="px-4 py-3">
+                              <div className="flex flex-wrap gap-1.5">
+                                {t.status === "pending" && t.paymentUrl ? (
+                                  <>
+                                    <button
+                                      type="button"
+                                      disabled={busy}
+                                      onClick={() => void resendLedgerInvoice(t, "sms")}
+                                      className="rounded-md border border-black/15 px-2 py-1 text-[11px] font-bold hover:border-[#E6007E] disabled:opacity-50 cursor-pointer"
+                                    >
+                                      Text
+                                    </button>
+                                    <button
+                                      type="button"
+                                      disabled={busy}
+                                      onClick={() => void resendLedgerInvoice(t, "email")}
+                                      className="rounded-md border border-black/15 px-2 py-1 text-[11px] font-bold hover:border-[#E6007E] disabled:opacity-50 cursor-pointer"
+                                    >
+                                      Email
+                                    </button>
+                                  </>
+                                ) : null}
+                                {t.status === "paid" ? (
+                                  <button
+                                    type="button"
+                                    disabled={busy}
+                                    onClick={() => void markLedgerRefunded(t)}
+                                    className="rounded-md border border-black/15 px-2 py-1 text-[11px] font-bold hover:border-[#E6007E] disabled:opacity-50 cursor-pointer"
+                                  >
+                                    Refund
+                                  </button>
+                                ) : null}
+                                {t.paymentUrl ? (
+                                  <a
+                                    href={t.paymentUrl}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="rounded-md border border-black/15 px-2 py-1 text-[11px] font-bold hover:border-[#E6007E]"
+                                  >
+                                    Link
+                                  </a>
+                                ) : null}
+                              </div>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                  <p className="mt-4 text-sm">
+                    <Link href="/admin/rx-ledger" className="font-bold text-[#E6007E] underline">
+                      Full compliance ledger →
+                    </Link>
+                  </p>
+                </>
               )}
             </div>
           ) : null}
@@ -942,6 +1146,16 @@ export function RxOpsConsole() {
                   </div>
                 </div>
                 <div className="sticky bottom-0 border-t border-black/10 bg-white p-4 space-y-2">
+                  {canSendInvoice ? (
+                    <button
+                      type="button"
+                      disabled={busy}
+                      onClick={() => void sendInvoiceFromRequest()}
+                      className="w-full rounded-lg bg-black py-3.5 text-sm font-extrabold uppercase tracking-wide text-white disabled:opacity-50 cursor-pointer disabled:cursor-not-allowed"
+                    >
+                      {busy ? "Sending…" : "💳 Send Square invoice (text + email)"}
+                    </button>
+                  ) : null}
                   {canApprove ? (
                     <button
                       type="button"

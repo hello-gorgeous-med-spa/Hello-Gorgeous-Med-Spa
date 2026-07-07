@@ -60,12 +60,28 @@ export type RxOpsRefillRow = {
 };
 
 export type RxOpsPaymentRow = {
+  id: string;
   date: string;
   patientName: string;
   forLabel: string;
   method: string;
+  deliveryMethod: string;
   amountUsd: number;
   status: string;
+  intakeRef: string | null;
+  paymentUrl: string | null;
+  paidAt: string | null;
+};
+
+export type RxOpsPaymentsSummary = {
+  paidCount: number;
+  pendingCount: number;
+  failedCount: number;
+  refundedCount: number;
+  paidAmountUsd: number;
+  pendingAmountUsd: number;
+  refundedAmountUsd: number;
+  revenue30dUsd: number;
 };
 
 export type RxOpsMessageThread = {
@@ -107,6 +123,7 @@ export type RxOpsConsolePayload = {
   formulary: RxOpsFormularyRow[];
   refills: RxOpsRefillRow[];
   payments: RxOpsPaymentRow[];
+  paymentsSummary: RxOpsPaymentsSummary;
   threads: RxOpsMessageThread[];
   shipments: RxOpsShipmentRow[];
   overview: RxOpsOverviewKpis;

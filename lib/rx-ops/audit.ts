@@ -7,7 +7,10 @@ export type RxOpsAuditAction =
   | "clinical_approve"
   | "clinical_decline"
   | "clinical_info_requested"
-  | "prescription_signed";
+  | "prescription_signed"
+  | "invoice_sent"
+  | "invoice_resent"
+  | "payment_refunded";
 
 export async function logRxOpsAudit(
   input: {

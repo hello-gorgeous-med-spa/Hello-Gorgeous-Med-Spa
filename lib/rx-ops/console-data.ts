@@ -25,7 +25,7 @@ import {
 } from "@/lib/rx-dispatch";
 import { mapRegenOrderToAdminItem, type RegenOrderRecord } from "@/lib/regen/order-patient-status";
 import { regenOrderNeedsReview } from "@/lib/regen/order-fulfillment";
-import { listRxPaymentLedger } from "@/lib/rx-payment-ledger";
+import { buildRxOpsPaymentsPayload } from "@/lib/rx-ops/payments";
 import { listAllRefillCadence } from "@/lib/rx-refill-cadence";
 import { intakeRefFromToken } from "@/lib/rx-submission-context";
 import { listPharmacyShipments } from "@/lib/rx-pharmacy-fulfillment/shipments";
@@ -315,7 +315,17 @@ export async function buildRxOpsConsolePayload(
   requests.sort((a, b) => new Date(b.submittedAt).getTime() - new Date(a.submittedAt).getTime());
 
   const refills: RxOpsRefillRow[] = [];
-  const payments: RxOpsPaymentRow[] = [];
+  let payments: RxOpsConsolePayload["payments"] = [];
+  let paymentsSummary: RxOpsConsolePayload["paymentsSummary"] = {
+    paidCount: 0,
+    pendingCount: 0,
+    failedCount: 0,
+    refundedCount: 0,
+    paidAmountUsd: 0,
+    pendingAmountUsd: 0,
+    refundedAmountUsd: 0,
+    revenue30dUsd: 0,
+  };
   const threads: RxOpsConsolePayload["threads"] = [];
   const shipments: RxOpsConsolePayload["shipments"] = [];
 
@@ -378,24 +388,9 @@ export async function buildRxOpsConsolePayload(
   }
 
   try {
-    const { rows: ledgerRows } = await listRxPaymentLedger({
-      status: "all",
-      limit: 25,
-      offset: 0,
-    });
-    for (const row of ledgerRows) {
-      payments.push({
-        date: new Date(row.created_at).toLocaleDateString("en-US", {
-          month: "short",
-          day: "numeric",
-        }),
-        patientName: row.client_name || "Patient",
-        forLabel: row.line_label || row.template_name || row.intake_ref || "RX payment",
-        method: row.source?.replace(/_/g, " ") || "Square",
-        amountUsd: Number(row.amount_usd) || 0,
-        status: row.payment_status,
-      });
-    }
+    const paymentPayload = await buildRxOpsPaymentsPayload(db);
+    payments = paymentPayload.payments;
+    paymentsSummary = paymentPayload.summary;
   } catch {
     // ledger optional at build time
   }
@@ -408,9 +403,7 @@ export async function buildRxOpsConsolePayload(
 
   const overview = {
     requestsToReview: requests.filter((r) => r.stage === "Clinical review").length,
-    revenue30dUsd: payments.length
-      ? payments.reduce((sum, p) => sum + (p.status === "paid" ? p.amountUsd : 0), 0)
-      : null,
+    revenue30dUsd: paymentsSummary.revenue30dUsd || null,
     activeRefillPlans: refills.filter((r) => r.status === "Active").length,
     totalPatients: patientSet.size,
     awaitingShipment: shipments.length || requests.filter((r) => r.stage === "Approved").length,
@@ -425,6 +418,7 @@ export async function buildRxOpsConsolePayload(
     formulary,
     refills,
     payments,
+    paymentsSummary,
     threads,
     shipments,
     overview,
