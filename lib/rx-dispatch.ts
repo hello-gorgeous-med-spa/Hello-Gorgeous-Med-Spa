@@ -18,7 +18,13 @@ export const RX_INTAKE_SLUGS = [
 
 export type RxIntakeSlug = (typeof RX_INTAKE_SLUGS)[number];
 
-export type RxDispatchStatus = "new" | "reviewed" | "approved" | "sent";
+export type RxDispatchStatus =
+  | "new"
+  | "reviewed"
+  | "approved"
+  | "sent"
+  | "declined"
+  | "info_requested";
 
 export type RxPharmacy = "formulation" | "boomrx";
 
@@ -62,6 +68,8 @@ export const RX_DISPATCH_STATUSES: { id: RxDispatchStatus; label: string }[] = [
   { id: "reviewed", label: "Reviewed" },
   { id: "approved", label: "Approved" },
   { id: "sent", label: "Sent to pharmacy" },
+  { id: "declined", label: "Declined" },
+  { id: "info_requested", label: "Info requested" },
 ];
 
 export const CLINIC_SHIP_ADDRESS = {

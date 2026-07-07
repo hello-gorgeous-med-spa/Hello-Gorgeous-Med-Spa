@@ -169,7 +169,7 @@ export function RxOpsConsole() {
       );
       const json = await res.json();
       if (!res.ok) throw new Error(json.error || "Approve failed");
-      flash(`Approved — routed to ${routePharmacy || "pharmacy"}`);
+      flash(json.message || `Approved — routed to ${routePharmacy || "pharmacy"}`);
       closeReview();
       void load();
     } catch (e) {
@@ -178,6 +178,37 @@ export function RxOpsConsole() {
       setBusy(false);
     }
   };
+
+  const clinicalAction = async (action: "decline" | "info") => {
+    if (!selectedRequest || demo) return;
+    setBusy(true);
+    try {
+      const res = await fetch(
+        `/api/admin/rx/ops/requests/${encodeURIComponent(selectedRequest)}`,
+        {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            action,
+            npNotes: npNote,
+          }),
+        },
+      );
+      const json = await res.json();
+      if (!res.ok) throw new Error(json.error || "Action failed");
+      flash(json.message || (action === "decline" ? "Request declined" : "Info requested"));
+      closeReview();
+      void load();
+    } catch (e) {
+      flash(e instanceof Error ? e.message : "Could not save action");
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  const canApprove = detail?.allowedActions?.includes("approve") ?? false;
+  const canDecline = detail?.allowedActions?.includes("decline") ?? false;
+  const canRequestInfo = detail?.allowedActions?.includes("info") ?? false;
 
   return (
     <div className="flex h-[calc(100vh-56px)] w-full overflow-hidden bg-[#faf7f8] text-[#111] font-sans">
@@ -822,29 +853,43 @@ export function RxOpsConsole() {
                   </div>
                 </div>
                 <div className="sticky bottom-0 border-t border-black/10 bg-white p-4 space-y-2">
-                  <button
-                    type="button"
-                    disabled={busy || detail.request.kind !== "regen"}
-                    onClick={() => void approveRequest()}
-                    className="w-full rounded-lg bg-[#FF2D8E] py-3.5 text-sm font-extrabold uppercase tracking-wide text-white shadow-lg shadow-pink-500/30 disabled:opacity-50 cursor-pointer disabled:cursor-not-allowed"
-                  >
-                    {busy
-                      ? "Saving…"
-                      : `✓ Approve & route to ${routePharmacy || "pharmacy"}`}
-                  </button>
-                  {detail.request.kind !== "regen" ? (
-                    <p className="text-center text-xs text-black/45">
-                      Intake/clinic approval — use{" "}
-                      <Link href={detail.request.actionHref || "#"} className="text-[#E6007E] underline">
-                        Dispatch / Clinic Sale
-                      </Link>{" "}
-                      until HGRX-032 is complete.
-                    </p>
-                  ) : (
-                    <p className="text-center text-[11px] text-black/45">
-                      E-signature under Ryan Kent, FNP-BC · logged to fulfillment
-                    </p>
-                  )}
+                  {canApprove ? (
+                    <button
+                      type="button"
+                      disabled={busy || !routePharmacy}
+                      onClick={() => void approveRequest()}
+                      className="w-full rounded-lg bg-[#FF2D8E] py-3.5 text-sm font-extrabold uppercase tracking-wide text-white shadow-lg shadow-pink-500/30 disabled:opacity-50 cursor-pointer disabled:cursor-not-allowed"
+                    >
+                      {busy
+                        ? "Saving…"
+                        : `✓ Approve & route to ${routePharmacy || "pharmacy"}`}
+                    </button>
+                  ) : null}
+                  <div className="grid grid-cols-2 gap-2">
+                    {canRequestInfo ? (
+                      <button
+                        type="button"
+                        disabled={busy}
+                        onClick={() => void clinicalAction("info")}
+                        className="rounded-lg border-2 border-[#7c3aed] bg-white py-3 text-xs font-bold uppercase tracking-wide text-[#7c3aed] disabled:opacity-50 cursor-pointer"
+                      >
+                        Request info
+                      </button>
+                    ) : null}
+                    {canDecline ? (
+                      <button
+                        type="button"
+                        disabled={busy}
+                        onClick={() => void clinicalAction("decline")}
+                        className="rounded-lg border-2 border-[#b42318] bg-white py-3 text-xs font-bold uppercase tracking-wide text-[#b42318] disabled:opacity-50 cursor-pointer"
+                      >
+                        Decline
+                      </button>
+                    ) : null}
+                  </div>
+                  <p className="text-center text-[11px] text-black/45">
+                    E-signature under Ryan Kent, FNP-BC · immutable Rx record logged
+                  </p>
                 </div>
               </>
             )}

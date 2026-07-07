@@ -98,6 +98,8 @@ export type RxOpsConsolePayload = {
   squareConnected: boolean;
 };
 
+export type RxOpsClinicalAction = "approve" | "decline" | "info";
+
 export type RxOpsRequestDetail = {
   request: RxOpsRequest;
   screening: Array<{ icon: string; ok: boolean; text: string }>;
@@ -111,4 +113,5 @@ export type RxOpsRequestDetail = {
   suggestedNote: string;
   npNotes: string | null;
   shipTo: string | null;
+  allowedActions: RxOpsClinicalAction[];
 };

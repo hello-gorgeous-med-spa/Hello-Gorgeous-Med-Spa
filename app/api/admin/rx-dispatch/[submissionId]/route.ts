@@ -16,7 +16,14 @@ import { intakeRefFromToken } from "@/lib/rx-submission-context";
 
 export const dynamic = "force-dynamic";
 
-const VALID_STATUS = new Set<RxDispatchStatus>(["new", "reviewed", "approved", "sent"]);
+const VALID_STATUS = new Set<RxDispatchStatus>([
+  "new",
+  "reviewed",
+  "approved",
+  "sent",
+  "declined",
+  "info_requested",
+]);
 const VALID_PHARMACY = new Set<RxPharmacy>(["formulation", "boomrx"]);
 const VALID_SHIP = new Set<RxShipTo>(["patient", "clinic"]);
 
