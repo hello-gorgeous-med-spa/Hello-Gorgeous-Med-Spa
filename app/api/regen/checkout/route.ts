@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 
 import { createRegenCheckout, createRegenQuickPay, type RegenCartItem } from "@/lib/regen/checkout";
-import { validateClientAppPromoCode } from "@/lib/client-app-promo-codes";
 import { validateCartPricing } from "@/lib/regen/pricing-sync";
 import { getSupabaseAdminClient } from "@/lib/hgos/supabase-admin";
 import { SITE } from "@/lib/seo";
@@ -22,7 +21,6 @@ type CheckoutRequestBody = {
   goal?: string;
   allergies?: string;
   supplyMonths?: number;
-  promoCode?: string;
 };
 
 export async function POST(req: NextRequest) {
@@ -38,7 +36,6 @@ export async function POST(req: NextRequest) {
     });
 
     const redirectUrl = `${SITE.url}/rx/checkout/success`;
-    const promoCode = String(body.promoCode || "").trim() || undefined;
 
     // Quick pay for single product
     if (body.quickPay) {
@@ -47,7 +44,6 @@ export async function POST(req: NextRequest) {
         name: body.quickPay.name,
         priceUsd: body.quickPay.priceUsd,
         redirectUrl,
-        promoCode,
       });
 
       return NextResponse.json({
@@ -122,7 +118,6 @@ export async function POST(req: NextRequest) {
       customerEmail: body.customerEmail,
       redirectUrl: `${redirectUrl}?ref=${orderRef}`,
       orderReference: orderRef,
-      promoCode,
     });
 
     // Link Square order for webhook + payment verification after checkout

@@ -1,11 +1,11 @@
 /**
  * RE GEN Checkout — Square payment link creation for RX products.
+ * Promo codes (e.g. BESTIE100) are entered on Square's hosted checkout — not in-app.
  */
 
 import "server-only";
 
 import { getAccessToken } from "@/lib/square/oauth";
-import { validateClientAppPromoCode } from "@/lib/client-app-promo-codes";
 import { resolveSquareLocationId } from "@/lib/square/membership-checkout";
 
 const SQUARE_API_HOST =
@@ -30,20 +30,19 @@ async function squareFetch<T>(
     console.error("[regen/checkout] OAuth error, falling back to env var:", oauthErr);
   }
   token = token || process.env.SQUARE_ACCESS_TOKEN || null;
-  
+
   if (!token) {
     console.error("[regen/checkout] No Square token available - check SQUARE_ACCESS_TOKEN env var or OAuth connection");
     throw new Error("Square is not connected - missing access token");
   }
 
   const { body, ...rest } = init;
-  
-  // Log the request for debugging (without sensitive data)
-  console.log(`[regen/checkout] Square API: ${init.method || 'GET'} ${path}`);
+
+  console.log(`[regen/checkout] Square API: ${init.method || "GET"} ${path}`);
   if (body) {
     console.log("[regen/checkout] Request body keys:", Object.keys(body as object));
   }
-  
+
   const res = await fetch(`${SQUARE_API_HOST}${path}`, {
     ...rest,
     headers: {
@@ -60,9 +59,12 @@ async function squareFetch<T>(
     errors?: Array<{ detail?: string; code?: string; field?: string; category?: string }>;
   };
   if (!res.ok) {
-    const errorDetails = data.errors?.map((e) => 
-      `${e.code || 'ERROR'}${e.field ? ` (field: ${e.field})` : ''}: ${e.detail || 'Unknown'}`
-    ).join("; ");
+    const errorDetails = data.errors
+      ?.map(
+        (e) =>
+          `${e.code || "ERROR"}${e.field ? ` (field: ${e.field})` : ""}: ${e.detail || "Unknown"}`,
+      )
+      .join("; ");
     console.error("[regen/checkout] Square API error:", res.status, errorDetails, data.errors);
     throw new Error(errorDetails || `Square API ${res.status}`);
   }
@@ -88,26 +90,11 @@ export type RegenCheckoutResult = {
  * Create a Square payment link for RE GEN cart items.
  * Flat $30 shipping is added automatically.
  */
-function resolvePromoDiscount(
-  promoCode: string | undefined,
-  itemsSubtotalUsd: number,
-): { discountUsd: number; code: string } | null {
-  if (!promoCode?.trim()) return null;
-  const promo = validateClientAppPromoCode({
-    code: promoCode,
-    subtotalUsd: itemsSubtotalUsd,
-    context: "regen",
-  });
-  if (!promo.ok) throw new Error(promo.error);
-  return { discountUsd: promo.discountUsd, code: promo.code };
-}
-
 export async function createRegenCheckout(opts: {
   items: RegenCartItem[];
   customerEmail?: string;
   redirectUrl: string;
   orderReference?: string;
-  promoCode?: string;
 }): Promise<RegenCheckoutResult> {
   if (!opts.items.length) {
     throw new Error("Cart is empty");
@@ -115,12 +102,11 @@ export async function createRegenCheckout(opts: {
 
   const locationId = await resolveSquareLocationId();
   console.log("[regen/checkout] Using location ID:", locationId ? `${locationId.slice(0, 8)}...` : "MISSING!");
-  
+
   if (!locationId) {
     throw new Error("Square location not configured - check SQUARE_LOCATION_ID env var");
   }
 
-  // Build line items
   const lineItems = opts.items.map((item) => {
     const priceInCents = Math.round(item.priceUsd * 100);
     if (priceInCents <= 0) {
@@ -136,14 +122,11 @@ export async function createRegenCheckout(opts: {
       },
     };
   });
-  
-  console.log("[regen/checkout] Line items:", lineItems.map(li => ({ name: li.name, amount: li.base_price_money.amount })));
 
-  const itemsSubtotalUsd = opts.items.reduce(
-    (sum, item) => sum + item.priceUsd * item.quantity,
-    0,
+  console.log(
+    "[regen/checkout] Line items:",
+    lineItems.map((li) => ({ name: li.name, amount: li.base_price_money.amount })),
   );
-  const promo = resolvePromoDiscount(opts.promoCode, itemsSubtotalUsd);
 
   lineItems.push({
     name: "Flat Rate Shipping",
@@ -160,22 +143,6 @@ export async function createRegenCheckout(opts: {
     line_items: lineItems,
   };
 
-  if (promo && promo.discountUsd > 0) {
-    orderPayload.discounts = [
-      {
-        uid: `promo-${promo.code}`,
-        name: promo.code,
-        type: "FIXED_AMOUNT",
-        scope: "ORDER",
-        amount_money: {
-          amount: Math.round(promo.discountUsd * 100),
-          currency: "USD",
-        },
-      },
-    ];
-  }
-
-  // Square requires `order` or `quick_pay` on the payment link — not order_id alone.
   const linkData = await squareFetch<{
     payment_link?: {
       id?: string;
@@ -193,7 +160,8 @@ export async function createRegenCheckout(opts: {
         ask_for_shipping_address: true,
         merchant_support_email: "hello@hellogorgeousmedspa.com",
       },
-      description: "RE GEN by Hello Gorgeous Med Spa — Prescription order (provider review required)",
+      description:
+        "RE GEN by Hello Gorgeous Med Spa — Prescription order (provider review required)",
     },
   });
 
@@ -217,24 +185,10 @@ export async function createRegenQuickPay(opts: {
   name: string;
   priceUsd: number;
   redirectUrl: string;
-  promoCode?: string;
 }): Promise<RegenCheckoutResult> {
   const locationId = await resolveSquareLocationId();
 
-  const promo = resolvePromoDiscount(opts.promoCode, opts.priceUsd);
-  const productAfterPromo = promo
-    ? Math.max(0, opts.priceUsd - promo.discountUsd)
-    : opts.priceUsd;
-
-  // Price + $30 shipping
-  const totalCents = Math.round(productAfterPromo * 100) + 3000;
-  if (totalCents <= 0) {
-    throw new Error("Total after promo must be greater than $0");
-  }
-
-  const quickPayName = promo
-    ? `${opts.name} + $30 shipping (${promo.code} -$${promo.discountUsd})`
-    : `${opts.name} + $30 shipping`;
+  const totalCents = Math.round(opts.priceUsd * 100) + 3000;
 
   const linkData = await squareFetch<{
     payment_link?: {
@@ -248,7 +202,7 @@ export async function createRegenQuickPay(opts: {
     body: {
       idempotency_key: idempotencyKey(`regen-qp-${opts.productId}`),
       quick_pay: {
-        name: quickPayName,
+        name: `${opts.name} + $30 shipping`,
         price_money: {
           amount: totalCents,
           currency: "USD",
@@ -260,7 +214,8 @@ export async function createRegenQuickPay(opts: {
         ask_for_shipping_address: true,
         merchant_support_email: "hello@hellogorgeousmedspa.com",
       },
-      description: "RE GEN by Hello Gorgeous Med Spa — Provider must review intake before shipping.",
+      description:
+        "RE GEN by Hello Gorgeous Med Spa — Provider must review intake before shipping.",
     },
   });
 

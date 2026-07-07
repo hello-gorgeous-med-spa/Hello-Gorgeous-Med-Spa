@@ -136,7 +136,7 @@ export const ADMIN_DASHBOARD_QUICK_LINKS = {
     { href: "/admin/consents", label: "Consents", desc: "Pending signatures" },
   ],
   payments: [
-    { href: "/admin/promos/bestie", label: "Bestie $100 Off", desc: "Square POS code BESTIE100" },
+    { href: "/admin/promos/bestie", label: "Bestie $100 Off", desc: "Square checkout code BESTIE100" },
     { href: "/admin/settings/payments", label: "Square Connect", desc: "Link account & download data" },
     { href: "/admin/sales/payments", label: "Square Payments", desc: "Synced transactions" },
     { href: "/admin/sales/daily-summary", label: "Daily Summary", desc: "End-of-day totals" },

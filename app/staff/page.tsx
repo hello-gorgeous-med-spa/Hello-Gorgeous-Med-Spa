@@ -55,8 +55,8 @@ export default function StaffPage() {
               <div className="text-4xl">💕</div>
               <div className="flex-1">
                 <h2 className="font-bold text-white text-lg">Bestie — ${BESTIE_SQUARE_DISCOUNT.amountUsd} Off</h2>
-                <p className="text-amber-200/80 text-sm font-mono">
-                  Square code: {BESTIE_SQUARE_DISCOUNT.code}
+                <p className="text-amber-200/80 text-sm">
+                  Square checkout &amp; POS — code {BESTIE_SQUARE_DISCOUNT.code}
                 </p>
               </div>
               <div className="text-amber-400 text-2xl">→</div>

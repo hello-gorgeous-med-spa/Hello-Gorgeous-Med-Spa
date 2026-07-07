@@ -296,7 +296,7 @@ export default function RegenStaffProtocolsContent({
           <p className="text-xs font-bold uppercase tracking-wider text-amber-300">Bestie program</p>
           <p className="mt-1 font-black text-white text-lg font-mono">{BESTIE_SQUARE_DISCOUNT.code}</p>
           <p className="text-sm text-amber-100/80 mt-0.5">
-            ${BESTIE_SQUARE_DISCOUNT.amountUsd} off at Square POS → Discounts → search code
+            ${BESTIE_SQUARE_DISCOUNT.amountUsd} off — Square checkout or POS only (not in-app)
           </p>
         </Link>
 

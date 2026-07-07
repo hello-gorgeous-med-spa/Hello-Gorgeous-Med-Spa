@@ -2,7 +2,7 @@
 // VITAMIN BAR — dynamic Square checkout (Payment Links)
 // POST { itemId, kind: "shot" | "membership" }
 // Creates a Square hosted Payment Link (quickPay) and returns its URL.
-// No manual dashboard links needed; prices come from lib/vitamin-bar.ts.
+// Promo codes (e.g. BESTIE100) are entered on Square's hosted checkout — not in-app.
 // ============================================================
 
 import { NextRequest, NextResponse } from "next/server";
@@ -13,7 +13,6 @@ import {
   getLocationsApiAsync,
   dollarsToCents,
 } from "@/lib/square/client";
-import { validateClientAppPromoCode } from "@/lib/client-app-promo-codes";
 import { SITE } from "@/lib/seo";
 import { CLIENT_APP } from "@/lib/client-app";
 import { VITAMIN_SHOTS, VITAMIN_MEMBERSHIPS, VITAMIN_BAR } from "@/lib/vitamin-bar";
@@ -25,7 +24,7 @@ function idempotencyKey(): string {
 }
 
 export async function POST(req: NextRequest) {
-  let body: { itemId?: string; kind?: string; promoCode?: string };
+  let body: { itemId?: string; kind?: string };
   try {
     body = await req.json();
   } catch {
@@ -38,7 +37,6 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "itemId is required" }, { status: 400 });
   }
 
-  // Resolve name + price from our menu data (server-side source of truth).
   let name: string;
   let priceDollars: number;
   let isRecurring = false;
@@ -56,8 +54,6 @@ export async function POST(req: NextRequest) {
     priceDollars = s.price;
   }
 
-  // Memberships are recurring — Payment Links quickPay is one-time only.
-  // Send members to a call-to-join until a Square subscription plan is wired.
   if (isRecurring) {
     return NextResponse.json(
       {
@@ -69,34 +65,6 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  const promoCode = String(body?.promoCode || "").trim();
-  let chargeDollars = priceDollars;
-  let promoApplied: { code: string; discountUsd: number } | null = null;
-
-  if (promoCode) {
-    const promo = validateClientAppPromoCode({
-      code: promoCode,
-      subtotalUsd: priceDollars,
-      context: "vitamin",
-    });
-    if (!promo.ok) {
-      return NextResponse.json({ error: promo.error }, { status: 400 });
-    }
-    chargeDollars = promo.finalUsd;
-    promoApplied = { code: promo.code, discountUsd: promo.discountUsd };
-  }
-
-  if (chargeDollars <= 0) {
-    return NextResponse.json(
-      { error: "Total after promo must be greater than $0. Call us to complete this order." },
-      { status: 400 },
-    );
-  }
-
-  const checkoutLabel = promoApplied
-    ? `${name} (${promoApplied.code} -$${promoApplied.discountUsd})`
-    : name;
-
   const checkoutApi = await getCheckoutApiAsync();
   if (!checkoutApi?.createPaymentLink) {
     return NextResponse.json(
@@ -107,7 +75,6 @@ export async function POST(req: NextRequest) {
 
   let locationId = await getSquareLocationIdAsync();
   if (!locationId) {
-    // Fall back to the first active location on the connected Square account.
     try {
       const locationsApi = await getLocationsApiAsync();
       const res = await locationsApi?.listLocations?.();
@@ -130,8 +97,8 @@ export async function POST(req: NextRequest) {
     const res = await checkoutApi.createPaymentLink({
       idempotencyKey: idempotencyKey(),
       quickPay: {
-        name: checkoutLabel,
-        priceMoney: { amount: dollarsToCents(chargeDollars), currency: "USD" },
+        name,
+        priceMoney: { amount: dollarsToCents(priceDollars), currency: "USD" },
         locationId,
       },
       checkoutOptions: {
@@ -150,11 +117,7 @@ export async function POST(req: NextRequest) {
     if (!url) {
       return NextResponse.json({ error: "Could not create payment link" }, { status: 502 });
     }
-    return NextResponse.json({
-      url,
-      promo: promoApplied,
-      chargedUsd: chargeDollars,
-    });
+    return NextResponse.json({ url });
   } catch (e: unknown) {
     const msg = e instanceof Error ? e.message : String(e);
     console.error("[vitamin-bar/checkout]", msg);

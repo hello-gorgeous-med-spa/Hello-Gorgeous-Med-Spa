@@ -11,6 +11,12 @@ export const BESTIE_SQUARE_DISCOUNT = {
     'Search "BESTIE100"',
     "Apply — $100.00 comes off the order",
   ],
+  checkoutSteps: [
+    "Client taps Pre-pay / Checkout in the app (or uses a Square payment link)",
+    "On Square's hosted checkout page, tap Add promo code or Discount",
+    "Enter BESTIE100 — $100.00 comes off the order",
+    "Complete payment on Square (not in the Hello Gorgeous app)",
+  ],
   dashboardNote:
-    "For customer-enterable codes on Square Online: Dashboard → Items & services → Discounts → Create discount code → BESTIE100",
+    "BESTIE100 is configured in Square Dashboard for checkout redemption. Do not apply discounts in-app — Square checkout is the only client redemption path.",
 } as const;
