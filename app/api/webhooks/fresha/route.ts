@@ -15,6 +15,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 import { syncFreshaAppointmentToRx } from '@/lib/rx-telehealth/sync';
+import { isRxConsultServiceName } from '@/lib/rx-telehealth/requirement';
 
 export const dynamic = 'force-dynamic';
 
@@ -121,6 +122,7 @@ export async function POST(req: NextRequest) {
   const clientEmail         = body.client_email || body.email || null;
   const clientPhone         = body.client_phone || body.phone || null;
   const serviceName         = body.service_name || body.service || null;
+  const telehealthLink      = body.telehealth_link || body.video_link || body.meeting_url || null;
   const providerName        = body.provider_name || body.staff_name || body.employee || null;
   const startTime           = body.start_time || body.starts_at || body.start || null;
   const endTime             = body.end_time   || body.ends_at   || body.end   || null;
@@ -245,6 +247,13 @@ export async function POST(req: NextRequest) {
     service_price: servicePriceCents,
     updated_at:    new Date().toISOString(),
   };
+
+  if (isRxConsultServiceName(serviceName)) {
+    appointmentRow.type = 'telehealth';
+    if (telehealthLink) {
+      appointmentRow.telehealth_link = telehealthLink;
+    }
+  }
 
   if (status === 'cancelled') {
     appointmentRow.cancelled_at = new Date().toISOString();

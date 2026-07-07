@@ -35,7 +35,9 @@ import {
 import { ClientAppRxHub } from "@/components/client-app/ClientAppRxHub";
 import { ClientAppIvBagBuilder } from "@/components/client-app/ClientAppIvBagBuilder";
 import { AppGetQrCard } from "@/components/client-app/AppGetQrCard";
+import { RegenOrderTrackerCard } from "@/components/regen/RegenOrderTrackerCard";
 import { BrandHero } from "@/components/BrandHero";
+import { getStoredRegenOrderRefs } from "@/lib/client-app-regen-orders";
 import {
   usePwaInstall,
 } from "@/lib/hooks/use-pwa-install";
@@ -64,12 +66,25 @@ type HomeData = {
   clientId?: string | null;
   firstName?: string | null;
   totalVisits?: number;
-  nextAppointment?: { id: string; startsAt: string; serviceName: string | null } | null;
+  nextAppointment?: {
+    id: string;
+    startsAt: string;
+    serviceName: string | null;
+    isTelehealth?: boolean;
+    regenOrderRef?: string | null;
+  } | null;
   lastAppointment?: {
     id: string;
     startsAt: string;
     serviceName: string | null;
     daysSince: number | null;
+  } | null;
+  activeRegenOrder?: {
+    reference: string;
+    title: string;
+    telehealthScheduledAt: string | null;
+    telehealthCompletedAt: boolean;
+    nextAction: { label: string; href: string; external?: boolean } | null;
   } | null;
   rewardPoints?: number;
   creditBalance?: number;
@@ -85,12 +100,20 @@ type HomeData = {
 function useHomeData() {
   const [data, setData] = useState<HomeData | null>(null);
   useEffect(() => {
-    fetch("/api/app/home-data")
+    fetch("/api/app/home-data", { credentials: "include" })
       .then((r) => r.json())
       .then(setData)
       .catch(() => setData({ authenticated: false }));
   }, []);
   return data;
+}
+
+function useStoredRegenOrderRefs() {
+  const [refs, setRefs] = useState<string[]>([]);
+  useEffect(() => {
+    setRefs(getStoredRegenOrderRefs());
+  }, []);
+  return refs;
 }
 
 function priceLabel(n: number) {
@@ -127,6 +150,7 @@ export function ClientApp({
     useClientManifest: true,
   });
   const homeData = useHomeData();
+  const storedRegenRefs = useStoredRegenOrderRefs();
   const { permission, subscribed, subscribe, canPrompt } = useRxPushNotifications(homeData?.authenticated ?? false);
 
   const showPushBanner = canPrompt;
@@ -204,7 +228,7 @@ export function ClientApp({
           <ClientAppIvBagBuilder onClose={() => setShowIvBuilder(false)} />
         ) : (
           <>
-            {tab === "home"       && <HomeTab onNavigate={setTab} onOpenIntake={() => setShowIntake(true)} onOpenIvBuilder={() => { setTab("vitamin"); setShowIvBuilder(true); }} onOpenRxHub={() => setShowRxHub(true)} intakeRefresh={intakeRefresh} homeData={homeData} canInstall={canInstall} promptInstall={promptInstall} />}
+            {tab === "home"       && <HomeTab onNavigate={setTab} onOpenIntake={() => setShowIntake(true)} onOpenIvBuilder={() => { setTab("vitamin"); setShowIvBuilder(true); }} onOpenRxHub={() => setShowRxHub(true)} intakeRefresh={intakeRefresh} homeData={homeData} storedRegenRefs={storedRegenRefs} canInstall={canInstall} promptInstall={promptInstall} />}
             {tab === "vitamin"    && <VitaminTab onSelect={setSelected} onOpenIntake={() => setShowIntake(true)} onOpenIvBuilder={() => setShowIvBuilder(true)} intakeRefresh={intakeRefresh} />}
             {tab === "deals"      && <DealsTab />}
             {tab === "membership" && <MembershipTab />}
@@ -246,13 +270,14 @@ export function ClientApp({
 
 // ─── Home Tab ─────────────────────────────────────────────────────────────────
 
-function HomeTab({ onNavigate, onOpenIntake, onOpenIvBuilder, onOpenRxHub, intakeRefresh, homeData, canInstall, promptInstall }: {
+function HomeTab({ onNavigate, onOpenIntake, onOpenIvBuilder, onOpenRxHub, intakeRefresh, homeData, storedRegenRefs, canInstall, promptInstall }: {
   onNavigate: (t: ClientAppTab) => void;
   onOpenIntake: () => void;
   onOpenIvBuilder: () => void;
   onOpenRxHub: () => void;
   intakeRefresh: number;
   homeData: HomeData | null;
+  storedRegenRefs: string[];
   canInstall: boolean;
   promptInstall: () => Promise<void>;
 }) {
@@ -268,6 +293,12 @@ function HomeTab({ onNavigate, onOpenIntake, onOpenIvBuilder, onOpenRxHub, intak
   const totalVisits    = homeData?.totalVisits ?? 0;
   const tier           = auth ? getTierForVisits(totalVisits) : null;
   const visitsToNext   = auth ? getVisitsToNextTier(totalVisits) : null;
+
+  const activeRegenRef =
+    homeData?.activeRegenOrder?.reference ||
+    storedRegenRefs.find((ref) => ref !== homeData?.activeRegenOrder?.reference) ||
+    storedRegenRefs[0] ||
+    null;
 
   return (
     <div className="space-y-4">
@@ -297,14 +328,23 @@ function HomeTab({ onNavigate, onOpenIntake, onOpenIvBuilder, onOpenRxHub, intak
 
       <ClientAppIntakeCard onOpen={onOpenIntake} refreshKey={intakeRefresh} />
 
+      {activeRegenRef ? <RegenOrderTrackerCard orderRef={activeRegenRef} variant="app" pollMs={30000} /> : null}
+
       {/* Next appointment / touch-up nudge */}
       {(next || nudge) && (
         <div className="rounded-2xl p-4 backdrop-blur-sm" style={glassStyle(0)}>
-          {next ? (
+          {next && !(activeRegenRef && next.regenOrderRef === activeRegenRef) ? (
             <div className="rounded-xl px-4 py-3" style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.1)" }}>
-              <p className="text-[10px] uppercase tracking-wider" style={{ color: "rgba(255,255,255,0.4)" }}>Your next appointment</p>
+              <p className="text-[10px] uppercase tracking-wider" style={{ color: "rgba(255,255,255,0.4)" }}>
+                {next.isTelehealth ? "Your telehealth visit" : "Your next appointment"}
+              </p>
               <p className="mt-1 font-semibold text-white">{next.serviceName ?? "Appointment"}</p>
               <p className="text-sm" style={{ color: "rgba(255,255,255,0.55)" }}>{formatApptDate(next.startsAt)}</p>
+              {next.isTelehealth ? (
+                <p className="mt-2 text-xs" style={{ color: "rgba(255,255,255,0.45)" }}>
+                  Video link is in your Fresha confirmation email — no Charm account needed.
+                </p>
+              ) : null}
             </div>
           ) : null}
 

@@ -8,6 +8,7 @@ import { RegenMetabolicShiftVisual } from "@/components/regen/RegenMetabolicShif
 import { RxIntakeFormCard } from "@/components/rx/intake/RxIntakeFormCard";
 import { SMSDisclosure } from "@/components/SMSDisclosure";
 import { regenCheckoutCompleteUrl } from "@/lib/flows";
+import { rememberRegenOrderRef } from "@/lib/client-app-regen-orders";
 import type { IntakeFormField } from "@/lib/hgos/intake-forms";
 import {
   buildRegenPostPaymentIntakeSteps,
@@ -359,6 +360,7 @@ export function RegenPostPaymentIntakeForm({ orderRef, category, prefill, items 
         setErr(data.error || "Could not submit intake. Please call 630-636-6193.");
         return;
       }
+      rememberRegenOrderRef(orderRef);
       router.push(regenCheckoutCompleteUrl(orderRef));
     } catch {
       setErr("Network error. Try again or call 630-636-6193.");

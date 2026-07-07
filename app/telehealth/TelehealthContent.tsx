@@ -147,7 +147,7 @@ export function TelehealthContent() {
                   rel="noopener noreferrer"
                   className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-lg border-2 border-white text-white font-semibold hover:bg-white hover:text-black transition-colors"
                 >
-                  Existing Charm chart
+                  Existing Charm chart only
                 </a>
               </div>
               <p className="mt-4 text-white/60 text-sm">No download required</p>

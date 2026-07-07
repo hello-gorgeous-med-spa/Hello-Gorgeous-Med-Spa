@@ -27,6 +27,7 @@ export type RegenOrderRecord = {
   payment_id?: string | null;
   intake_completed_at?: string | null;
   telehealth_required?: boolean | null;
+  telehealth_scheduled_at?: string | null;
   telehealth_completed_at?: string | null;
   np_approved_at?: string | null;
   shipped_at?: string | null;
@@ -121,15 +122,32 @@ export function buildRegenPatientStatus(order: RegenOrderRecord): RxPatientStatu
   ];
 
   if (teleRequired) {
+    const teleScheduled = order.telehealth_scheduled_at
+      ? new Date(order.telehealth_scheduled_at).toLocaleString("en-US", {
+          weekday: "short",
+          month: "short",
+          day: "numeric",
+          hour: "numeric",
+          minute: "2-digit",
+        })
+      : null;
+
     steps.push({
       id: "telehealth",
       label: "Telehealth",
       status: !intakeDone ? "pending" : teleDone ? "complete" : "action_needed",
       detail: teleDone
         ? "Telehealth visit completed."
-        : "Book your NP visit when required before we ship.",
-      href: intakeDone && !teleDone ? HG_RX_TELEHEALTH_BOOKING_URL : undefined,
-      external: true,
+        : teleScheduled
+          ? `Telehealth booked for ${teleScheduled}. Check your Fresha confirmation email for the video link.`
+          : "Book your NP visit on Fresha — no Charm account needed.",
+      href:
+        intakeDone && !teleDone
+          ? teleScheduled
+            ? regenCheckoutCompleteUrl(order.reference)
+            : HG_RX_TELEHEALTH_BOOKING_URL
+          : undefined,
+      external: intakeDone && !teleDone && !teleScheduled,
     });
   }
 

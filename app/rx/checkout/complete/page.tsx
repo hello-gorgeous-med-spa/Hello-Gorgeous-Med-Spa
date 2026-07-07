@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
-import { RxTelehealthHandoff } from "@/components/rx/intake/RxTelehealthHandoff";
+import { RegenCheckoutCompleteClient } from "@/components/regen/RegenCheckoutCompleteClient";
 import { getSupabaseAdminClient } from "@/lib/hgos/supabase-admin";
 import { buildRegenPatientTracker } from "@/lib/rx-pharmacy-fulfillment/patient-tracker";
 import {
@@ -136,11 +136,15 @@ export default async function RegenCheckoutCompletePage({ searchParams }: PagePr
         </div>
 
         <div className="text-left">
-          <RxTelehealthHandoff showBooking />
+          <RegenCheckoutCompleteClient
+            orderRef={orderRef}
+            telehealthRequired={order?.telehealth_required !== false}
+          />
         </div>
 
         <p className="mt-4 text-xs text-white/40">
-          On Fresha, select &quot;RE GEN Telehealth&quot; and mention order ref: {orderRef}
+          After booking on Fresha, this page updates automatically when your visit is linked to order{" "}
+          {orderRef}.
         </p>
 
         {tracker ? (

@@ -4,6 +4,7 @@
 // ============================================================
 // CLIENT LOGIN: /login is client-only (magic link). Never apply admin auth to /login.
 // Admin auth guard applies ONLY to /admin and /admin/* (and /provider, /portal, /pos).
+// Staff training hub (/staff/*) uses STAFF_PORTAL_PIN when set — see lib/staff-session.ts.
 // ============================================================
 
 import { NextResponse } from 'next/server';
@@ -13,6 +14,14 @@ import {
   hubPasswordGateEnabled,
   verifyHubSessionToken,
 } from '@/lib/hub-session';
+import {
+  STAFF_SESSION_COOKIE_NAME,
+  isStaffLoginPath,
+  isStaffProtectedPath,
+  staffPortalGateEnabled,
+  STAFF_ADMIN_BYPASS_ROLES,
+  verifyStaffSessionToken,
+} from '@/lib/staff-session';
 
 // Routes that require authentication (admin guard applies only to these)
 const PROTECTED_ROUTES = ['/admin', '/provider', '/portal', '/pos'];
@@ -47,6 +56,24 @@ function hubPasswordRedirect(request: NextRequest, nextPathWithSearch: string) {
   const loginUrl = new URL('/hub/login', base);
   loginUrl.searchParams.set('next', nextPathWithSearch);
   return NextResponse.redirect(loginUrl);
+}
+
+function staffPinRedirect(request: NextRequest, nextPathWithSearch: string) {
+  const loginUrl = new URL('/staff/login', request.url);
+  loginUrl.searchParams.set('next', nextPathWithSearch);
+  return NextResponse.redirect(loginUrl);
+}
+
+function hgosStaffRoleFromCookie(request: NextRequest): string | null {
+  const sessionCookie = request.cookies.get('hgos_session');
+  if (!sessionCookie?.value) return null;
+  try {
+    const sessionData = JSON.parse(decodeURIComponent(sessionCookie.value));
+    const role = sessionData.role;
+    return typeof role === 'string' ? role : null;
+  } catch {
+    return null;
+  }
 }
 
 export async function middleware(request: NextRequest) {
@@ -93,6 +120,21 @@ export async function middleware(request: NextRequest) {
           return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
         }
         return hubPasswordRedirect(request, pathForHubGate + url.search);
+      }
+    }
+  }
+
+  // Staff training hub PIN gate (STAFF_PORTAL_PIN) — /staff/* including PDFs & protocols
+  if (staffPortalGateEnabled() && isStaffProtectedPath(pathname)) {
+    const isStaffAuthApi = pathname.startsWith('/api/staff/auth');
+    if (!isStaffLoginPath(pathname) && !isStaffAuthApi) {
+      const adminRole = hgosStaffRoleFromCookie(request);
+      const adminBypass = adminRole != null && STAFF_ADMIN_BYPASS_ROLES.has(adminRole);
+      const staffSessionOk = await verifyStaffSessionToken(
+        request.cookies.get(STAFF_SESSION_COOKIE_NAME)?.value,
+      );
+      if (!adminBypass && !staffSessionOk) {
+        return staffPinRedirect(request, pathname + url.search);
       }
     }
   }

@@ -7,15 +7,30 @@ type RxTelehealthHandoffProps = {
   /** Show Fresha booking CTA (after consult pre-pay for new protocols). */
   showBooking?: boolean;
   statusHref?: string;
+  /** RE GEN order ref — shown so staff/patient can match Fresha booking. */
+  orderRef?: string;
 };
 
-export function RxTelehealthHandoff({ showBooking = true, statusHref }: RxTelehealthHandoffProps) {
+export function RxTelehealthHandoff({
+  showBooking = true,
+  statusHref,
+  orderRef,
+}: RxTelehealthHandoffProps) {
+  const freshaUrl = orderRef
+    ? `${HG_RX_TELEHEALTH_BOOKING_URL}${HG_RX_TELEHEALTH_BOOKING_URL.includes("?") ? "&" : "?"}notes=${encodeURIComponent(`RE GEN order ${orderRef}`)}`
+    : HG_RX_TELEHEALTH_BOOKING_URL;
+
   return (
     <div className="mt-5 mx-auto max-w-md rounded-2xl border-2 border-black bg-[#FFF0F7] p-5 text-left shadow-[4px_4px_0_0_rgba(230,0,126,0.2)]">
       <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#E6007E]">
         NP telehealth visit
       </p>
       <p className="mt-2 text-lg font-black text-black">{HELLO_GORGEOUS_RX.providerName}</p>
+      {orderRef ? (
+        <p className="mt-2 rounded-lg bg-black/5 px-3 py-2 text-xs font-mono text-black/70">
+          Order ref: <strong className="text-black">{orderRef}</strong> — add this in Fresha booking notes if prompted
+        </p>
+      ) : null}
       <p className="mt-2 text-sm text-black/70 leading-relaxed">
         Plan on about <strong className="text-black">15 minutes</strong> by secure video. Ryan reviews
         your health history, goals, and whether your requested protocol is safe and appropriate.{" "}
@@ -27,13 +42,13 @@ export function RxTelehealthHandoff({ showBooking = true, statusHref }: RxTelehe
         <li>
           ▸{" "}
           {showBooking
-            ? "Book on Fresha — you'll get a confirmation email with the video link"
+            ? "Book on Fresha — confirmation email includes your video link (no Charm account needed)"
             : "Fresha booking unlocks right after your consult payment above"}
         </li>
       </ul>
       {showBooking ? (
         <a
-          href={HG_RX_TELEHEALTH_BOOKING_URL}
+          href={freshaUrl}
           target="_blank"
           rel="noopener noreferrer"
           className="mt-5 inline-flex w-full items-center justify-center rounded-xl bg-[#E6007E] px-6 py-3.5 text-sm font-bold text-white hover:bg-black transition-colors"
