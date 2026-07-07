@@ -28,6 +28,8 @@ import { regenOrderNeedsReview } from "@/lib/regen/order-fulfillment";
 import { listRxPaymentLedger } from "@/lib/rx-payment-ledger";
 import { listAllRefillCadence } from "@/lib/rx-refill-cadence";
 import { intakeRefFromToken } from "@/lib/rx-submission-context";
+import { listPharmacyShipments } from "@/lib/rx-pharmacy-fulfillment/shipments";
+import { PHARMACY_SHIPMENT_STATUS_LABELS } from "@/lib/rx-pharmacy-fulfillment/types";
 
 const RX_SLUG_SET = new Set<string>(RX_INTAKE_SLUGS);
 
@@ -315,6 +317,7 @@ export async function buildRxOpsConsolePayload(
   const refills: RxOpsRefillRow[] = [];
   const payments: RxOpsPaymentRow[] = [];
   const threads: RxOpsConsolePayload["threads"] = [];
+  const shipments: RxOpsConsolePayload["shipments"] = [];
 
   if (db) {
     const { items: cadenceItems } = await listAllRefillCadence(db, { limit: 40 });
@@ -355,6 +358,23 @@ export async function buildRxOpsConsolePayload(
         intakeRef: String(t.intake_ref || ""),
       });
     }
+
+    const shipmentRows = await listPharmacyShipments({ status: "active", limit: 40 }, db);
+    for (const s of shipmentRows) {
+      shipments.push({
+        id: s.id,
+        patientName: s.patient_name,
+        pharmacy: s.pharmacy,
+        product: s.product_label || s.compound || "RX order",
+        status: s.status,
+        statusLabel: PHARMACY_SHIPMENT_STATUS_LABELS[s.status],
+        requestKind: s.request_kind,
+        requestId: s.request_id,
+        trackingNumber: s.tracking_number,
+        carrier: s.carrier,
+        updatedLabel: relativeSubmittedLabel(s.updated_at),
+      });
+    }
   }
 
   try {
@@ -393,7 +413,7 @@ export async function buildRxOpsConsolePayload(
       : null,
     activeRefillPlans: refills.filter((r) => r.status === "Active").length,
     totalPatients: patientSet.size,
-    awaitingShipment: requests.filter((r) => r.stage === "Approved").length,
+    awaitingShipment: shipments.length || requests.filter((r) => r.stage === "Approved").length,
     formularySkuCount: formulary.length,
   };
 
@@ -406,6 +426,7 @@ export async function buildRxOpsConsolePayload(
     refills,
     payments,
     threads,
+    shipments,
     overview,
     squareConnected,
   };

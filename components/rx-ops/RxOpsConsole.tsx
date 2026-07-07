@@ -17,6 +17,7 @@ import type {
   RxOpsFormularyRow,
   RxOpsRequest,
   RxOpsRequestDetail,
+  RxOpsShipmentRow,
   RxOpsStage,
 } from "@/lib/rx-ops/types";
 
@@ -92,6 +93,7 @@ export function RxOpsConsole() {
         refills: [],
         payments: [],
         threads: [],
+        shipments: [],
         overview: {
           requestsToReview: 0,
           revenue30dUsd: null,
@@ -209,6 +211,30 @@ export function RxOpsConsole() {
   const canApprove = detail?.allowedActions?.includes("approve") ?? false;
   const canDecline = detail?.allowedActions?.includes("decline") ?? false;
   const canRequestInfo = detail?.allowedActions?.includes("info") ?? false;
+
+  const shipmentAction = async (
+    shipmentId: string,
+    action: "submit" | "ship",
+    trackingNumber?: string,
+  ) => {
+    if (demo) return;
+    setBusy(true);
+    try {
+      const res = await fetch(`/api/admin/rx/ops/shipments?id=${encodeURIComponent(shipmentId)}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ action, trackingNumber, carrier: "USPS" }),
+      });
+      const json = await res.json();
+      if (!res.ok) throw new Error(json.error || "Shipment action failed");
+      flash(action === "submit" ? "Submitted to pharmacy queue" : "Marked shipped");
+      void load();
+    } catch (e) {
+      flash(e instanceof Error ? e.message : "Could not update shipment");
+    } finally {
+      setBusy(false);
+    }
+  };
 
   return (
     <div className="flex h-[calc(100vh-56px)] w-full overflow-hidden bg-[#faf7f8] text-[#111] font-sans">
@@ -412,6 +438,69 @@ export function RxOpsConsole() {
                   </div>
                 </div>
               </div>
+              {data.shipments.length > 0 ? (
+                <div className="mt-8">
+                  <h2 className="font-serif text-lg font-bold mb-1">
+                    Pharmacy shipments <span className="text-[#FF2D8E]">(M4)</span>
+                  </h2>
+                  <p className="mb-4 text-sm text-black/55">
+                    Unified queue across Formulation Rx, BoomRx & Olympia — submit after NP approval.
+                  </p>
+                  <div className="overflow-hidden rounded-2xl border-2 border-black bg-white shadow-[6px_6px_0_0_rgba(230,0,126,0.25)]">
+                    <table className="w-full text-sm">
+                      <thead className="bg-[#faf7f8] text-left text-[11px] font-bold uppercase tracking-wide text-black/50">
+                        <tr>
+                          <th className="px-4 py-3">Patient</th>
+                          <th className="px-4 py-3">Product</th>
+                          <th className="px-4 py-3">Pharmacy</th>
+                          <th className="px-4 py-3">Status</th>
+                          <th className="px-4 py-3">Actions</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {data.shipments.map((s: RxOpsShipmentRow) => (
+                          <tr key={s.id} className="border-t border-black/10">
+                            <td className="px-4 py-3 font-semibold">{s.patientName}</td>
+                            <td className="px-4 py-3 text-black/70">{s.product}</td>
+                            <td className="px-4 py-3">{pharmacyBadge(s.pharmacy)}</td>
+                            <td className="px-4 py-3 text-xs font-bold">{s.statusLabel}</td>
+                            <td className="px-4 py-3">
+                              <div className="flex flex-wrap gap-2">
+                                {s.status === "queued" || s.status === "failed" ? (
+                                  <button
+                                    type="button"
+                                    disabled={busy || demo}
+                                    onClick={() => void shipmentAction(s.id, "submit")}
+                                    className="rounded-lg bg-[#FF2D8E] px-3 py-1.5 text-[11px] font-bold text-white disabled:opacity-50"
+                                  >
+                                    Submit
+                                  </button>
+                                ) : null}
+                                {(s.status === "submitted" || s.status === "processing") && !s.trackingNumber ? (
+                                  <button
+                                    type="button"
+                                    disabled={busy || demo}
+                                    onClick={() => {
+                                      const tracking = window.prompt("Tracking number");
+                                      if (tracking) void shipmentAction(s.id, "ship", tracking);
+                                    }}
+                                    className="rounded-lg border-2 border-black px-3 py-1.5 text-[11px] font-bold disabled:opacity-50"
+                                  >
+                                    Mark shipped
+                                  </button>
+                                ) : null}
+                                {s.trackingNumber ? (
+                                  <span className="text-[11px] text-black/60">{s.trackingNumber}</span>
+                                ) : null}
+                              </div>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              ) : null}
             </div>
           ) : null}
 

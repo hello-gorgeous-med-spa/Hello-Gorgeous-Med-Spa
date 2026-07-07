@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 
 import { RxTelehealthHandoff } from "@/components/rx/intake/RxTelehealthHandoff";
 import { getSupabaseAdminClient } from "@/lib/hgos/supabase-admin";
+import { buildRegenPatientTracker } from "@/lib/rx-pharmacy-fulfillment/patient-tracker";
 import {
   REGEN_CHECKOUT_COMPLETE_PATH,
   REGEN_CHECKOUT_INTAKE_PATH,
@@ -46,6 +47,7 @@ export default async function RegenCheckoutCompletePage({ searchParams }: PagePr
   }
 
   const items = (Array.isArray(order?.items) ? order.items : []) as Array<{ name?: string }>;
+  const tracker = orderRef ? await buildRegenPatientTracker(orderRef) : null;
 
   return (
     <main className="min-h-screen bg-black text-white">
@@ -140,6 +142,42 @@ export default async function RegenCheckoutCompletePage({ searchParams }: PagePr
         <p className="mt-4 text-xs text-white/40">
           On Fresha, select &quot;RE GEN Telehealth&quot; and mention order ref: {orderRef}
         </p>
+
+        {tracker ? (
+          <div className="mt-8 rounded-2xl border border-white/10 bg-white/5 p-6 text-left">
+            <h2 className="font-serif text-lg font-bold mb-4">Pharmacy shipment status</h2>
+            <p className="text-sm text-white/60 mb-4">
+              {tracker.pharmacy ? `Routed to ${tracker.pharmacy}` : "Fulfillment tracking"}
+            </p>
+            <div className="space-y-3">
+              {tracker.steps.map((step) => (
+                <div key={step.id} className="flex items-start gap-3">
+                  <span
+                    className={`mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-xs font-bold ${
+                      step.complete
+                        ? "bg-[#E6007E] text-white"
+                        : step.current
+                          ? "bg-[#FF2D8E]/20 text-[#FF2D8E] ring-2 ring-[#FF2D8E]"
+                          : "bg-white/10 text-white/40"
+                    }`}
+                  >
+                    {step.complete ? "✓" : "·"}
+                  </span>
+                  <div>
+                    <p
+                      className={`text-sm font-semibold ${
+                        step.complete || step.current ? "text-white" : "text-white/50"
+                      }`}
+                    >
+                      {step.label}
+                    </p>
+                    {step.detail ? <p className="text-xs text-white/50">{step.detail}</p> : null}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        ) : null}
 
         <div className="flex flex-col sm:flex-row gap-3 justify-center mt-8">
           <Link

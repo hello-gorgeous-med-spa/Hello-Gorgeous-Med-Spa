@@ -16,6 +16,7 @@ import { recordRxPrescription } from "@/lib/rx-ops/prescriptions";
 import type { ClinicalAction } from "@/lib/rx-ops/state-machine";
 import { assertClinicalActionAllowed } from "@/lib/rx-ops/state-machine";
 import type { RxOpsRequest, RxOpsRequestKind } from "@/lib/rx-ops/types";
+import { enqueuePharmacyShipment } from "@/lib/rx-pharmacy-fulfillment/shipments";
 import { getClinicEncounter, updateClinicEncounter } from "@/lib/rx-clinic-encounter";
 import type { RxDispatchStatus } from "@/lib/rx-dispatch";
 
@@ -72,6 +73,26 @@ async function upsertIntakeDispatch(
   return {};
 }
 
+async function queuePharmacyShipmentAfterApprove(
+  input: ClinicalActionInput,
+  pharmacyLabel: string,
+  sig: string | null,
+  prescriptionId?: string,
+): Promise<void> {
+  await enqueuePharmacyShipment({
+    requestKind: input.kind,
+    requestId: input.id,
+    prescriptionId,
+    patientName: input.request.patientName,
+    patientEmail: input.request.email,
+    patientPhone: input.request.phone,
+    pharmacyLabel,
+    productLabel: input.request.product,
+    compound: input.request.compound,
+    sig,
+  });
+}
+
 export async function applyClinicalAction(
   input: ClinicalActionInput,
 ): Promise<ClinicalActionResult> {
@@ -120,6 +141,8 @@ export async function applyClinicalAction(
         actorEmail: input.actorEmail,
         detail: { pharmacy: pharmacyLabel, prescriptionId: rx.id },
       });
+
+      await queuePharmacyShipmentAfterApprove(input, pharmacyLabel!, sig, rx.id);
 
       return {
         ok: true,
@@ -232,6 +255,15 @@ export async function applyClinicalAction(
       detail: { status, pharmacy: dispatchPharmacy },
     });
 
+    if (input.action === "approve" && pharmacyLabel) {
+      await queuePharmacyShipmentAfterApprove(
+        input,
+        pharmacyLabel,
+        sig,
+        "error" in rx ? undefined : rx.id,
+      );
+    }
+
     const msg =
       input.action === "approve"
         ? `Approved — routed to ${dispatchPharmacy}`
@@ -290,6 +322,8 @@ export async function applyClinicalAction(
       actorEmail: input.actorEmail,
       detail: { pharmacy: clinicPharmacy, prescriptionId: rx.id },
     });
+
+    await queuePharmacyShipmentAfterApprove(input, pharmacyLabel!, sig, rx.id);
 
     return {
       ok: true,

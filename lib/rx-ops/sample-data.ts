@@ -106,6 +106,7 @@ export function rxOpsSamplePayload(formularySkuCount: number): RxOpsConsolePaylo
         intakeRef: "DEMO-Q1",
       },
     ],
+    shipments: [],
     overview: {
       requestsToReview: 2,
       revenue30dUsd: 14280,

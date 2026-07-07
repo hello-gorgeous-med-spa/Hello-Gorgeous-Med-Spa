@@ -78,6 +78,20 @@ export type RxOpsMessageThread = {
   intakeRef: string;
 };
 
+export type RxOpsShipmentRow = {
+  id: string;
+  patientName: string;
+  pharmacy: string;
+  product: string;
+  status: string;
+  statusLabel: string;
+  requestKind: RxOpsRequestKind;
+  requestId: string;
+  trackingNumber: string | null;
+  carrier: string | null;
+  updatedLabel: string;
+};
+
 export type RxOpsOverviewKpis = {
   requestsToReview: number;
   revenue30dUsd: number | null;
@@ -94,6 +108,7 @@ export type RxOpsConsolePayload = {
   refills: RxOpsRefillRow[];
   payments: RxOpsPaymentRow[];
   threads: RxOpsMessageThread[];
+  shipments: RxOpsShipmentRow[];
   overview: RxOpsOverviewKpis;
   squareConnected: boolean;
 };
