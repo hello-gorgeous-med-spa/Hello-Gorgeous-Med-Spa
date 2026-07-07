@@ -55,6 +55,12 @@ Older drafts referenced `AI_CONCIERGE_STAFF_SMS_TO`; the code uses **`AI_CONCIER
 ## Phase 1 only recap
 
 `TWILIO_*`, `NEXT_PUBLIC_SUPABASE_URL`, and `SUPABASE_SERVICE_ROLE_KEY` remain required for call logging.
+
+## Voice disabled (Comcast voicemail — default Jul 2026)
+
+Set `AI_CONCIERGE_VOICE_ENABLED=false` (or omit — default is off). Twilio voice webhooks return `<Hangup/>` immediately; no Sarah, no ring-first. Main business line should **not** point at Twilio — use Comcast voicemail on the spa handset.
+
+To re-enable Sarah later: set `AI_CONCIERGE_VOICE_ENABLED=true`, configure Twilio number webhook to `/api/ai-concierge/voice/incoming`.
 ## Twilio Console fields (not env vars, but must match your deployment)
 
 - **Voice webhook (HTTP POST):** `https://<your-domain>/api/ai-concierge/voice/incoming`  

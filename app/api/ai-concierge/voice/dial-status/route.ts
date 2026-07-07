@@ -10,6 +10,10 @@ import { NextRequest, NextResponse } from "next/server";
 
 import { sendMissedCallSms } from "@/lib/ai-concierge/missed-call-sms";
 import {
+  isAiConciergeVoiceEnabled,
+  VOICE_DISABLED_TWIML,
+} from "@/lib/ai-concierge/voice-enabled";
+import {
   SARAH_GREETING_AFTER_RING,
   buildSarahGreetingTwiml,
   twimlResponse,
@@ -29,6 +33,10 @@ export async function POST(request: NextRequest) {
 
   if (!twilioSignatureValid(request, raw, formObject)) {
     return NextResponse.json({ error: "Invalid signature" }, { status: 403 });
+  }
+
+  if (!isAiConciergeVoiceEnabled()) {
+    return twimlResponse(VOICE_DISABLED_TWIML);
   }
 
   const callSid = form.get("CallSid") ?? "";

@@ -17,6 +17,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
 
 import { SITE } from "@/lib/seo";
+import { isAiConciergeVoiceEnabled } from "@/lib/ai-concierge/voice-enabled";
 import { getSupabaseAdminClient } from "@/lib/hgos/supabase-admin";
 import { MEDSPA_OPS_EMAIL, MEDSPA_SEND_FROM } from "@/lib/business-contact";
 
@@ -118,6 +119,14 @@ ${
 export async function GET(request: NextRequest) {
   const auth = authorize(request);
   if (auth) return auth;
+
+  if (!isAiConciergeVoiceEnabled()) {
+    return NextResponse.json({
+      ok: true,
+      skipped: true,
+      reason: "AI Concierge voice disabled — Comcast voicemail in use",
+    });
+  }
 
   const admin = getSupabaseAdminClient();
   if (!admin) {

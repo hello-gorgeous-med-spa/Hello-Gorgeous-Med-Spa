@@ -12,6 +12,7 @@ import { buildSarahSystemPrompt } from "@/lib/ai-concierge/prompt";
 import { sarahTools } from "@/lib/ai-concierge/tools";
 import { escapeTwiMLSayText, sanitizeSpeechText } from "@/lib/ai-concierge/twiml";
 import { SARAH_VOICE } from "@/lib/ai-concierge/voice-twiml";
+import { isAiConciergeVoiceEnabled, VOICE_DISABLED_TWIML } from "@/lib/ai-concierge/voice-enabled";
 import { getSupabaseAdminClient } from "@/lib/hgos/supabase-admin";
 import { twilioSignatureValid } from "@/lib/twilio-webhook";
 
@@ -82,6 +83,10 @@ export async function POST(request: NextRequest) {
 
   if (!twilioSignatureValid(request, raw, formObject)) {
     return NextResponse.json({ error: "Invalid signature" }, { status: 403 });
+  }
+
+  if (!isAiConciergeVoiceEnabled()) {
+    return twimlResponse(VOICE_DISABLED_TWIML);
   }
 
   const callSid = form.get("CallSid") ?? "";

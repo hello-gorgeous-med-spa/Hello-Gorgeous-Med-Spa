@@ -1,15 +1,16 @@
 // Twilio Voice — "A call comes in" webhook (POST form-urlencoded)
 // https://www.twilio.com/docs/voice/twiml
 //
-// Pattern B (ring-first) by default: Dial the staff cell with a timeout. If the
-// staff line is busy / no-answer / failed, Twilio invokes the Dial `action`
-// callback (`/api/ai-concierge/voice/dial-status`), which then hands off to
-// Sarah's TwiML greeting + Gather. Owners can disable this in the admin
-// settings to fall back to "AI answers immediately."
+// Pattern B (ring-first) when voice enabled: Dial staff, then Sarah on no-answer.
+// Voice disabled (default Jul 2026): Comcast handles main line + voicemail — hang up if Twilio still receives a stray call.
 
 import { NextRequest, NextResponse } from "next/server";
 
 import { getRingFirstConfig } from "@/lib/ai-concierge/ring-first";
+import {
+  isAiConciergeVoiceEnabled,
+  VOICE_DISABLED_TWIML,
+} from "@/lib/ai-concierge/voice-enabled";
 import {
   buildSarahGreetingTwiml,
   twimlResponse,
@@ -35,6 +36,10 @@ export async function POST(request: NextRequest) {
 
   if (!twilioSignatureValid(request, raw, formObject)) {
     return NextResponse.json({ error: "Invalid signature" }, { status: 403 });
+  }
+
+  if (!isAiConciergeVoiceEnabled()) {
+    return twimlResponse(VOICE_DISABLED_TWIML);
   }
 
   const callSid = form.get("CallSid");
@@ -104,6 +109,7 @@ export async function GET() {
   return NextResponse.json({
     ok: true,
     service: "AI Concierge incoming voice",
+    voiceEnabled: isAiConciergeVoiceEnabled(),
     method: "POST (Twilio only); validates X-Twilio-Signature",
   });
 }

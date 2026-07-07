@@ -89,9 +89,14 @@ export default function AiConciergeSettingsPage() {
   return (
     <>
       <h2 className="text-lg font-semibold mb-2">Settings</h2>
+      <div className="mb-4 rounded-lg border border-amber-300 bg-amber-50 px-4 py-3 text-sm text-amber-950">
+        <strong>Sarah / Twilio voice is retired.</strong> Main line uses Comcast voicemail with Michelle at
+        the front desk. These settings apply only if you re-enable{" "}
+        <code className="bg-black/5 px-1 rounded">AI_CONCIERGE_VOICE_ENABLED=true</code> in Vercel and point
+        a Twilio number at this webhook again.
+      </div>
       <p className="text-sm text-black/70 mb-4">
-        These values are read live by the Twilio voice routes — no redeploy needed.
-        Greeting is informational for now (incoming TwiML uses Sarah&apos;s default until we wire greeting server-side).
+        When voice is enabled, values are read live by Twilio routes — no redeploy needed.
       </p>
       {loading ? (
         <p className="text-sm">Loading…</p>
