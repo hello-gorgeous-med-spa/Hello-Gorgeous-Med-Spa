@@ -13,6 +13,7 @@ import {
   getLocationsApiAsync,
   dollarsToCents,
 } from "@/lib/square/client";
+import { validateClientAppPromoCode } from "@/lib/client-app-promo-codes";
 import { SITE } from "@/lib/seo";
 import { CLIENT_APP } from "@/lib/client-app";
 import { VITAMIN_SHOTS, VITAMIN_MEMBERSHIPS, VITAMIN_BAR } from "@/lib/vitamin-bar";
@@ -24,7 +25,7 @@ function idempotencyKey(): string {
 }
 
 export async function POST(req: NextRequest) {
-  let body: { itemId?: string; kind?: string };
+  let body: { itemId?: string; kind?: string; promoCode?: string };
   try {
     body = await req.json();
   } catch {
@@ -68,6 +69,34 @@ export async function POST(req: NextRequest) {
     );
   }
 
+  const promoCode = String(body?.promoCode || "").trim();
+  let chargeDollars = priceDollars;
+  let promoApplied: { code: string; discountUsd: number } | null = null;
+
+  if (promoCode) {
+    const promo = validateClientAppPromoCode({
+      code: promoCode,
+      subtotalUsd: priceDollars,
+      context: "vitamin",
+    });
+    if (!promo.ok) {
+      return NextResponse.json({ error: promo.error }, { status: 400 });
+    }
+    chargeDollars = promo.finalUsd;
+    promoApplied = { code: promo.code, discountUsd: promo.discountUsd };
+  }
+
+  if (chargeDollars <= 0) {
+    return NextResponse.json(
+      { error: "Total after promo must be greater than $0. Call us to complete this order." },
+      { status: 400 },
+    );
+  }
+
+  const checkoutLabel = promoApplied
+    ? `${name} (${promoApplied.code} -$${promoApplied.discountUsd})`
+    : name;
+
   const checkoutApi = await getCheckoutApiAsync();
   if (!checkoutApi?.createPaymentLink) {
     return NextResponse.json(
@@ -101,8 +130,8 @@ export async function POST(req: NextRequest) {
     const res = await checkoutApi.createPaymentLink({
       idempotencyKey: idempotencyKey(),
       quickPay: {
-        name,
-        priceMoney: { amount: dollarsToCents(priceDollars), currency: "USD" },
+        name: checkoutLabel,
+        priceMoney: { amount: dollarsToCents(chargeDollars), currency: "USD" },
         locationId,
       },
       checkoutOptions: {
@@ -121,7 +150,11 @@ export async function POST(req: NextRequest) {
     if (!url) {
       return NextResponse.json({ error: "Could not create payment link" }, { status: 502 });
     }
-    return NextResponse.json({ url });
+    return NextResponse.json({
+      url,
+      promo: promoApplied,
+      chargedUsd: chargeDollars,
+    });
   } catch (e: unknown) {
     const msg = e instanceof Error ? e.message : String(e);
     console.error("[vitamin-bar/checkout]", msg);

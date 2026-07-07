@@ -27,6 +27,20 @@ export type AppDeal = {
 
 export const APP_DEALS: AppDeal[] = [
   {
+    id: "bestie-100",
+    badge: "BESTIE",
+    title: "$100 Off — Bestie Program",
+    subtitle: "Code BESTIE100 in the app",
+    description:
+      "Open Deals tab → enter BESTIE100 → apply before checkout. Valid on app pre-pay $100+ (memberships, RE GEN, qualifying services).",
+    savings: "$100 off",
+    expires: null,
+    cta: "Apply Code",
+    href: "/app?tab=deals&promo=BESTIE100",
+    accentIndex: 2,
+    pinned: true,
+  },
+  {
     id: "botox-app-special",
     badge: "APP EXCLUSIVE",
     title: "Botox Special",

@@ -35,6 +35,11 @@ import {
 import { ClientAppRxHub } from "@/components/client-app/ClientAppRxHub";
 import { ClientAppIvBagBuilder } from "@/components/client-app/ClientAppIvBagBuilder";
 import { AppGetQrCard } from "@/components/client-app/AppGetQrCard";
+import {
+  ClientAppPromoCodeCard,
+  useAppPromoCode,
+  writeStoredAppPromoCode,
+} from "@/components/client-app/ClientAppPromoCode";
 import { BrandHero } from "@/components/BrandHero";
 import {
   usePwaInstall,
@@ -128,6 +133,14 @@ export function ClientApp({
   });
   const homeData = useHomeData();
   const { permission, subscribed, subscribe, canPrompt } = useRxPushNotifications(homeData?.authenticated ?? false);
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const promo = params.get("promo") || params.get("code");
+    if (promo?.trim()) {
+      writeStoredAppPromoCode(promo.trim().toUpperCase());
+    }
+  }, []);
 
   const showPushBanner = canPrompt;
 
@@ -702,6 +715,8 @@ function DealsTab() {
         </p>
       </div>
 
+      <ClientAppPromoCodeCard previewSubtotalUsd={100} />
+
       {/* Gift Card Showcase */}
       <div className="mb-6">
         <div className="flex items-center justify-between mb-1">
@@ -963,22 +978,50 @@ function VitaminTab({ onSelect, onOpenIntake, onOpenIvBuilder, intakeRefresh }: 
 
 function ShotSheet({ shot, onClose }: { shot: VitaminShot; onClose: () => void }) {
   const freshaUrl = shot.freshaUrl || BOOKING_URL;
+  const promoCode = useAppPromoCode();
   const [payBusy, setPayBusy] = useState(false);
   const [payErr, setPayErr] = useState<string | null>(null);
+  const [promoPreview, setPromoPreview] = useState<{ discountUsd: number; finalUsd: number } | null>(
+    null,
+  );
+
+  useEffect(() => {
+    if (!promoCode) {
+      setPromoPreview(null);
+      return;
+    }
+    void fetch("/api/client-app/promo/validate", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ code: promoCode, subtotalUsd: shot.price, context: "vitamin" }),
+    })
+      .then((r) => r.json())
+      .then((d) => {
+        if (d.ok) setPromoPreview({ discountUsd: d.discountUsd, finalUsd: d.finalUsd });
+        else setPromoPreview(null);
+      })
+      .catch(() => setPromoPreview(null));
+  }, [promoCode, shot.price]);
 
   async function prepay() {
     setPayErr(null); setPayBusy(true);
     try {
       const res = await fetch("/api/vitamin-bar/checkout", {
         method: "POST", headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ itemId: shot.id, kind: "shot" }),
+        body: JSON.stringify({
+          itemId: shot.id,
+          kind: "shot",
+          promoCode: promoCode || undefined,
+        }),
       });
       const data = await res.json().catch(() => ({}));
       if (res.ok && data.url) { window.location.href = data.url; return; }
-      setPayErr("Couldn't start pre-pay. Pay at the window or call us.");
+      setPayErr(data.error || "Couldn't start pre-pay. Pay at the window or call us.");
     } catch { setPayErr("Network error. Pay at the window or call us."); }
     finally { setPayBusy(false); }
   }
+
+  const displayPrice = promoPreview ? promoPreview.finalUsd : shot.price;
 
   return (
     <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/70" onClick={onClose}>
@@ -992,12 +1035,29 @@ function ShotSheet({ shot, onClose }: { shot: VitaminShot; onClose: () => void }
         ) : null}
         <h3 className="text-lg font-bold text-white">{shot.name}</h3>
         <p className="mt-1 text-sm" style={{ color: "rgba(255,255,255,0.55)" }}>{shot.benefit}</p>
-        <div className="mt-3 text-2xl font-black" style={{ color: trifectaAccent(0).subtitle }}>{priceLabel(shot.price)}</div>
+        <ClientAppPromoCodeCard previewSubtotalUsd={shot.price} compact />
+        <div className="mt-3">
+          {promoPreview ? (
+            <>
+              <div className="text-sm line-through text-white/35">{priceLabel(shot.price)}</div>
+              <div className="text-2xl font-black" style={{ color: trifectaAccent(0).subtitle }}>
+                {priceLabel(displayPrice)}
+              </div>
+              <p className="text-xs mt-1 text-amber-300">
+                {promoCode} applied (−{priceLabel(promoPreview.discountUsd)})
+              </p>
+            </>
+          ) : (
+            <div className="text-2xl font-black" style={{ color: trifectaAccent(0).subtitle }}>
+              {priceLabel(shot.price)}
+            </div>
+          )}
+        </div>
         <div className="mt-5 space-y-2.5">
           <button type="button" onClick={() => void prepay()} disabled={payBusy}
             className="block w-full rounded-xl py-3.5 font-bold text-white disabled:opacity-60"
             style={{ background: trifectaButtonGradient(trifectaAccent(0)) }}>
-            {payBusy ? "Starting checkout…" : `Pre-pay ${priceLabel(shot.price)} & reserve`}
+            {payBusy ? "Starting checkout…" : `Pre-pay ${priceLabel(displayPrice)} & reserve`}
           </button>
           {payErr && <p className="text-center text-xs text-red-400">{payErr}</p>}
           <a href={freshaUrl} target="_blank" rel="noopener noreferrer"
@@ -1019,6 +1079,7 @@ function ShotSheet({ shot, onClose }: { shot: VitaminShot; onClose: () => void }
 function MembershipTab() {
   const [busyId, setBusyId] = useState<string | null>(null);
   const [err, setErr] = useState<string | null>(null);
+  const promoCode = useAppPromoCode();
 
   async function joinPlan(plan: WellnessMembershipPlan) {
     setErr(null);
@@ -1031,7 +1092,10 @@ function MembershipTab() {
       const res = await fetch("/api/client-app/membership/checkout", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ membershipId: plan.id }),
+        body: JSON.stringify({
+          membershipId: plan.id,
+          promoCode: promoCode || undefined,
+        }),
       });
       const data = await res.json().catch(() => ({}));
       if (res.ok && data.url) {
@@ -1052,6 +1116,8 @@ function MembershipTab() {
       <p className="mt-1 text-sm" style={{ color: "rgba(255,255,255,0.5)" }}>
         Peptides · hormones · NP programs · Vitamin Bar — billed monthly through Square.
       </p>
+
+      <ClientAppPromoCodeCard previewSubtotalUsd={100} />
 
       <div className="mt-5 space-y-8">
         {WELLNESS_MEMBERSHIP_CATEGORIES.map((category, ci) => {

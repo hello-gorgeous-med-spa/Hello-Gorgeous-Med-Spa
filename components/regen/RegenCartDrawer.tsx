@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 
+import { ClientAppPromoCodeCard, readStoredAppPromoCode } from "@/components/client-app/ClientAppPromoCode";
 import { useCart } from "@/lib/regen/cart-context";
 
 export function RegenCartDrawer() {
@@ -40,6 +41,7 @@ export function RegenCartDrawer() {
             category: i.category,
             rx: i.rx,
           })),
+          promoCode: readStoredAppPromoCode() || undefined,
         }),
       });
 
@@ -48,8 +50,6 @@ export function RegenCartDrawer() {
       if (!data.success) {
         throw new Error(data.error || "Checkout failed");
       }
-
-      // Redirect to Square checkout
       window.location.href = data.checkoutUrl;
     } catch (err) {
       setError(err instanceof Error ? err.message : "Checkout failed");
@@ -152,6 +152,8 @@ export function RegenCartDrawer() {
         {/* Footer */}
         {items.length > 0 && (
           <div className="border-t border-neutral-200 p-6">
+            <ClientAppPromoCodeCard previewSubtotalUsd={Math.max(subtotal, 100)} compact />
+
             <div className="space-y-2 text-sm">
               <div className="flex justify-between">
                 <span className="text-neutral-600">Subtotal</span>

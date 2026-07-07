@@ -41,6 +41,15 @@ export default function AdminBestiePromoPage() {
         </ol>
       </section>
 
+      <section className="mt-8">
+        <h2 className="text-sm font-bold uppercase tracking-wide text-black/45">In the client app</h2>
+        <ol className="mt-3 space-y-2 text-sm text-black/80 list-decimal list-inside">
+          <li>Open <span className="font-mono">/app?tab=deals&amp;promo=BESTIE100</span></li>
+          <li>Tap <strong>Apply</strong> on the promo card (or enter BESTIE100)</li>
+          <li>Checkout — discount applies on $100+ orders (membership, RE GEN cart, etc.)</li>
+        </ol>
+      </section>
+
       <section className="mt-8 rounded-xl border-2 border-black/10 bg-gray-50 p-4 text-xs text-black/55 space-y-1">
         <p>
           <span className="font-semibold text-black/70">Discount ID:</span> {d.discountId}

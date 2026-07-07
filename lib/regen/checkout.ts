@@ -5,6 +5,7 @@
 import "server-only";
 
 import { getAccessToken } from "@/lib/square/oauth";
+import { validateClientAppPromoCode } from "@/lib/client-app-promo-codes";
 import { resolveSquareLocationId } from "@/lib/square/membership-checkout";
 
 const SQUARE_API_HOST =
@@ -87,11 +88,26 @@ export type RegenCheckoutResult = {
  * Create a Square payment link for RE GEN cart items.
  * Flat $30 shipping is added automatically.
  */
+function resolvePromoDiscount(
+  promoCode: string | undefined,
+  itemsSubtotalUsd: number,
+): { discountUsd: number; code: string } | null {
+  if (!promoCode?.trim()) return null;
+  const promo = validateClientAppPromoCode({
+    code: promoCode,
+    subtotalUsd: itemsSubtotalUsd,
+    context: "regen",
+  });
+  if (!promo.ok) throw new Error(promo.error);
+  return { discountUsd: promo.discountUsd, code: promo.code };
+}
+
 export async function createRegenCheckout(opts: {
   items: RegenCartItem[];
   customerEmail?: string;
   redirectUrl: string;
   orderReference?: string;
+  promoCode?: string;
 }): Promise<RegenCheckoutResult> {
   if (!opts.items.length) {
     throw new Error("Cart is empty");
@@ -123,7 +139,12 @@ export async function createRegenCheckout(opts: {
   
   console.log("[regen/checkout] Line items:", lineItems.map(li => ({ name: li.name, amount: li.base_price_money.amount })));
 
-  // Add flat $30 shipping
+  const itemsSubtotalUsd = opts.items.reduce(
+    (sum, item) => sum + item.priceUsd * item.quantity,
+    0,
+  );
+  const promo = resolvePromoDiscount(opts.promoCode, itemsSubtotalUsd);
+
   lineItems.push({
     name: "Flat Rate Shipping",
     quantity: "1",
@@ -132,6 +153,27 @@ export async function createRegenCheckout(opts: {
       currency: "USD",
     },
   });
+
+  const orderPayload: Record<string, unknown> = {
+    location_id: locationId,
+    reference_id: opts.orderReference?.slice(0, 40) || undefined,
+    line_items: lineItems,
+  };
+
+  if (promo && promo.discountUsd > 0) {
+    orderPayload.discounts = [
+      {
+        uid: `promo-${promo.code}`,
+        name: promo.code,
+        type: "FIXED_AMOUNT",
+        scope: "ORDER",
+        amount_money: {
+          amount: Math.round(promo.discountUsd * 100),
+          currency: "USD",
+        },
+      },
+    ];
+  }
 
   // Square requires `order` or `quick_pay` on the payment link — not order_id alone.
   const linkData = await squareFetch<{
@@ -145,11 +187,7 @@ export async function createRegenCheckout(opts: {
     method: "POST",
     body: {
       idempotency_key: idempotencyKey("regen-link"),
-      order: {
-        location_id: locationId,
-        reference_id: opts.orderReference?.slice(0, 40) || undefined,
-        line_items: lineItems,
-      },
+      order: orderPayload,
       checkout_options: {
         redirect_url: opts.redirectUrl,
         ask_for_shipping_address: true,
@@ -179,11 +217,24 @@ export async function createRegenQuickPay(opts: {
   name: string;
   priceUsd: number;
   redirectUrl: string;
+  promoCode?: string;
 }): Promise<RegenCheckoutResult> {
   const locationId = await resolveSquareLocationId();
 
+  const promo = resolvePromoDiscount(opts.promoCode, opts.priceUsd);
+  const productAfterPromo = promo
+    ? Math.max(0, opts.priceUsd - promo.discountUsd)
+    : opts.priceUsd;
+
   // Price + $30 shipping
-  const totalCents = Math.round(opts.priceUsd * 100) + 3000;
+  const totalCents = Math.round(productAfterPromo * 100) + 3000;
+  if (totalCents <= 0) {
+    throw new Error("Total after promo must be greater than $0");
+  }
+
+  const quickPayName = promo
+    ? `${opts.name} + $30 shipping (${promo.code} -$${promo.discountUsd})`
+    : `${opts.name} + $30 shipping`;
 
   const linkData = await squareFetch<{
     payment_link?: {
@@ -197,7 +248,7 @@ export async function createRegenQuickPay(opts: {
     body: {
       idempotency_key: idempotencyKey(`regen-qp-${opts.productId}`),
       quick_pay: {
-        name: `${opts.name} + $30 shipping`,
+        name: quickPayName,
         price_money: {
           amount: totalCents,
           currency: "USD",
