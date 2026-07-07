@@ -6,6 +6,7 @@ import {
   applyRegenFulfillmentAction,
   fetchRegenFulfillmentOrder,
 } from "@/lib/regen/order-fulfillment";
+import { assertRxLicensingGate } from "@/lib/rx-compliance/licensing";
 import { logRxOpsAudit } from "@/lib/rx-ops/audit";
 import {
   mapCatalogPharmacyToClinic,
@@ -109,6 +110,16 @@ export async function applyClinicalAction(
 
   if (input.action === "approve" && !pharmacyLabel) {
     return { ok: false, error: "Select a pharmacy before approving" };
+  }
+
+  if (input.action === "approve") {
+    const licenseGate = await assertRxLicensingGate({
+      kind: input.kind,
+      id: input.id,
+      compound: input.request.compound,
+      action: "approve",
+    });
+    if (!licenseGate.ok) return { ok: false, error: licenseGate.error };
   }
 
   if (input.kind === "regen") {

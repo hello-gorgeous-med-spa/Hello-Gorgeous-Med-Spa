@@ -22,6 +22,7 @@ import type {
   RxOpsStage,
 } from "@/lib/rx-ops/types";
 import type { RxMessageThread, RxSecureMessage } from "@/lib/rx-secure-messages";
+import type { RxComplianceReport } from "@/lib/rx-compliance/types";
 
 function stagePill(stage: RxOpsStage) {
   const color = RX_OPS_STAGE_COLORS[stage];
@@ -72,6 +73,7 @@ export function RxOpsConsole() {
   const [msgItems, setMsgItems] = useState<RxSecureMessage[]>([]);
   const [msgReply, setMsgReply] = useState("");
   const [msgLoading, setMsgLoading] = useState(false);
+  const [compliance, setCompliance] = useState<RxComplianceReport | null>(null);
 
   const load = useCallback(async () => {
     setLoading(true);
@@ -86,6 +88,14 @@ export function RxOpsConsole() {
   useEffect(() => {
     void load();
   }, [load]);
+
+  useEffect(() => {
+    if (view !== "overview" || demo) return;
+    void fetch("/api/admin/rx/ops/compliance")
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data) => setCompliance(data))
+      .catch(() => setCompliance(null));
+  }, [view, demo, live?.generatedAt]);
 
   const data = useMemo(() => {
     if (demo) {
@@ -535,6 +545,37 @@ export function RxOpsConsole() {
 
           {view === "overview" ? (
             <div className="p-6 md:p-8">
+              {compliance ? (
+                <div
+                  className={`mb-7 rounded-2xl border-4 p-4 shadow-[6px_6px_0_0_rgba(230,0,126,0.25)] ${
+                    compliance.readyForGoLive
+                      ? "border-emerald-600 bg-emerald-50"
+                      : "border-amber-500 bg-amber-50"
+                  }`}
+                >
+                  <div className="flex flex-wrap items-center justify-between gap-3">
+                    <div>
+                      <p className="text-xs font-bold uppercase tracking-wide text-black/45">
+                        M9 · Go-live readiness
+                      </p>
+                      <p className="font-extrabold text-lg">
+                        {compliance.readyForGoLive
+                          ? "Blocking gates clear"
+                          : `${compliance.gates.filter((g) => g.status === "fail").length} blocking gate(s)`}
+                      </p>
+                      <p className="text-sm text-black/55 mt-0.5">
+                        BAAs · pen test · licensing · UAT · infrastructure (HGRX-100–103)
+                      </p>
+                    </div>
+                    <Link
+                      href="/admin/rx/go-live"
+                      className="rounded-xl bg-gradient-to-r from-[#FF2D8E] to-[#E6007E] px-5 py-2.5 text-sm font-bold text-white"
+                    >
+                      Open checklist →
+                    </Link>
+                  </div>
+                </div>
+              ) : null}
               <div className="mb-7 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
                 {[
                   {
@@ -623,6 +664,7 @@ export function RxOpsConsole() {
                       ["RE GEN Catalog", `${data.overview.formularySkuCount} SKUs`, "/admin/rx/catalog"],
                       ["RE GEN Fulfillment", "Online orders", "/admin/rx/regen-orders"],
                       ["RX Dispatch", "Intake copy-packs", "/admin/rx-dispatch"],
+                      ["Go-live checklist", compliance?.readyForGoLive ? "Ready" : "Review gates", "/admin/rx/go-live"],
                     ].map(([name, status, href]) => (
                       <Link
                         key={name}
