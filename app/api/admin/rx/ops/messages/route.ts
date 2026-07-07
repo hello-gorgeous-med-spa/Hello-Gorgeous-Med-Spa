@@ -12,7 +12,7 @@ import {
 
 export const dynamic = "force-dynamic";
 
-/** GET /api/admin/rx-messages — thread inbox */
+/** GET /api/admin/rx/ops/messages — ops console inbox (HGRX-080) */
 export async function GET(req: NextRequest) {
   const auth = requireProviderAreaAccess(req);
   if ("error" in auth) return auth.error;
@@ -29,10 +29,11 @@ export async function GET(req: NextRequest) {
   }
 
   const threads = await listRxMessageThreads(80);
-  return NextResponse.json({ threads });
+  const unread = threads.filter((t) => t.unreadStaff > 0).length;
+  return NextResponse.json({ threads, unread });
 }
 
-/** POST /api/admin/rx-messages — staff reply */
+/** POST /api/admin/rx/ops/messages — staff reply from ops console */
 export async function POST(req: NextRequest) {
   const auth = requireProviderAreaAccess(req);
   if ("error" in auth) return auth.error;
@@ -40,7 +41,7 @@ export async function POST(req: NextRequest) {
   const admin = getSupabaseAdminClient();
   if (!admin) return NextResponse.json({ error: "Unavailable" }, { status: 503 });
 
-  let body: { threadId?: string; messageBody?: string; sentBy?: string };
+  let body: { threadId?: string; messageBody?: string };
   try {
     body = await req.json();
   } catch {
@@ -55,7 +56,7 @@ export async function POST(req: NextRequest) {
 
   try {
     const message = await sendStaffRxMessage(admin, threadId, messageBody, auth.user.email);
-    return NextResponse.json({ success: true, message });
+    return NextResponse.json({ ok: true, message });
   } catch (err) {
     const msg = err instanceof Error ? err.message : "Could not send";
     return NextResponse.json({ error: msg }, { status: 500 });

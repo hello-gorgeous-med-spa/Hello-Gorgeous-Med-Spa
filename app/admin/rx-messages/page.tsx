@@ -55,7 +55,7 @@ export default function AdminRxMessagesPage() {
       const res = await fetch("/api/admin/rx-messages", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ threadId: selectedId, messageBody: reply.trim(), sentBy: "Ryan" }),
+        body: JSON.stringify({ threadId: selectedId, messageBody: reply.trim() }),
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Send failed");

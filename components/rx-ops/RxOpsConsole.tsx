@@ -21,6 +21,7 @@ import type {
   RxOpsShipmentRow,
   RxOpsStage,
 } from "@/lib/rx-ops/types";
+import type { RxMessageThread, RxSecureMessage } from "@/lib/rx-secure-messages";
 
 function stagePill(stage: RxOpsStage) {
   const color = RX_OPS_STAGE_COLORS[stage];
@@ -66,6 +67,11 @@ export function RxOpsConsole() {
   const [npNote, setNpNote] = useState("");
   const [toast, setToast] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
+  const [msgThreadId, setMsgThreadId] = useState<string | null>(null);
+  const [msgThread, setMsgThread] = useState<RxMessageThread | null>(null);
+  const [msgItems, setMsgItems] = useState<RxSecureMessage[]>([]);
+  const [msgReply, setMsgReply] = useState("");
+  const [msgLoading, setMsgLoading] = useState(false);
 
   const load = useCallback(async () => {
     setLoading(true);
@@ -377,6 +383,52 @@ export function RxOpsConsole() {
       void load();
     } catch (e) {
       flash(e instanceof Error ? e.message : "Could not update shipment");
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  const openMessageThread = async (threadId: string) => {
+    if (demo || threadId.startsWith("demo:")) {
+      flash("Sample data — toggle off to open live threads");
+      return;
+    }
+    setMsgThreadId(threadId);
+    setMsgLoading(true);
+    try {
+      const res = await fetch(
+        `/api/admin/rx/ops/messages?threadId=${encodeURIComponent(threadId)}`,
+      );
+      const json = await res.json();
+      if (!res.ok) throw new Error(json.error || "Could not load thread");
+      setMsgThread(json.thread);
+      setMsgItems(json.messages || []);
+      void load();
+    } catch (e) {
+      flash(e instanceof Error ? e.message : "Could not load thread");
+    } finally {
+      setMsgLoading(false);
+    }
+  };
+
+  const sendMessageReply = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!msgThreadId || !msgReply.trim() || demo) return;
+    setBusy(true);
+    try {
+      const res = await fetch("/api/admin/rx/ops/messages", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ threadId: msgThreadId, messageBody: msgReply.trim() }),
+      });
+      const json = await res.json();
+      if (!res.ok) throw new Error(json.error || "Send failed");
+      setMsgItems((prev) => [...prev, json.message]);
+      setMsgReply("");
+      flash("Reply sent — patient notified (no PHI in SMS/email)");
+      void load();
+    } catch (err) {
+      flash(err instanceof Error ? err.message : "Send failed");
     } finally {
       setBusy(false);
     }
@@ -1064,27 +1116,118 @@ export function RxOpsConsole() {
                 <EmptyState
                   icon="💬"
                   title="No messages yet"
-                  body="Secure threads from the care hub — or open the full inbox."
+                  body="Secure threads from the care hub — patients message via the RX portal."
                   cta={{ label: "Open RX Messages", href: "/admin/rx-messages" }}
                 />
               ) : (
-                <>
-                  <DataTable
-                    headers={["Patient", "Preview", "When", ""]}
-                    rows={data.threads.map((t) => [
-                      t.patientName,
-                      t.preview,
-                      t.time,
-                      t.unread ? "● unread" : "",
-                    ])}
-                  />
-                  <p className="mt-4 text-sm">
-                    <Link href="/admin/rx-messages" className="font-bold text-[#E6007E] underline">
-                      Full messaging inbox →
-                    </Link>
-                  </p>
-                </>
+                <div className="grid gap-4 lg:grid-cols-[280px_1fr] min-h-[480px]">
+                  <div className="rounded-2xl border-4 border-black bg-white shadow-[6px_6px_0_0_rgba(230,0,126,0.25)] overflow-hidden">
+                    <div className="border-b-2 border-black/10 px-4 py-3 text-[11px] font-bold uppercase tracking-wide text-black/45">
+                      Inbox ({data.threads.filter((t) => t.unread).length} unread)
+                    </div>
+                    <div className="max-h-[440px] overflow-y-auto">
+                      {data.threads.map((t) => (
+                        <button
+                          key={t.id}
+                          type="button"
+                          onClick={() => void openMessageThread(t.id)}
+                          className={`w-full border-b border-black/5 px-4 py-3 text-left transition hover:bg-rose-50/80 ${
+                            msgThreadId === t.id ? "bg-[#FFF0F7]" : ""
+                          }`}
+                        >
+                          <div className="flex items-center justify-between gap-2">
+                            <span className="font-bold text-sm truncate">{t.patientName}</span>
+                            {t.unread ? (
+                              <span className="shrink-0 rounded-full bg-[#E6007E] px-2 py-0.5 text-[10px] font-bold text-white">
+                                new
+                              </span>
+                            ) : null}
+                          </div>
+                          <p className="mt-0.5 text-xs text-black/50 truncate">{t.preview}</p>
+                          <p className="mt-1 text-[10px] font-semibold text-black/35">
+                            Ref {t.intakeRef} · {t.time}
+                          </p>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="rounded-2xl border-4 border-black bg-white shadow-[6px_6px_0_0_rgba(230,0,126,0.25)] flex flex-col min-h-[440px]">
+                    {!msgThreadId ? (
+                      <div className="flex flex-1 items-center justify-center p-8 text-center text-black/45 text-sm">
+                        Select a thread to view and reply. Replies are logged to chart + audit trail
+                        (HGRX-080).
+                      </div>
+                    ) : msgLoading ? (
+                      <div className="flex flex-1 items-center justify-center text-sm text-black/45">
+                        Loading thread…
+                      </div>
+                    ) : (
+                      <>
+                        <div className="border-b-2 border-black/10 px-4 py-3">
+                          <p className="font-extrabold">
+                            {msgThread?.patientName || "Patient"}
+                          </p>
+                          <p className="text-xs text-black/50">
+                            Ref {msgThread?.intakeRef} · {msgThread?.patientEmail}
+                          </p>
+                        </div>
+                        <div className="flex-1 overflow-y-auto p-4 space-y-3 max-h-[300px]">
+                          {msgItems.map((m) => (
+                            <div
+                              key={m.id}
+                              className={`max-w-[85%] rounded-2xl px-4 py-2.5 text-sm ${
+                                m.senderType === "staff"
+                                  ? "ml-auto bg-gradient-to-br from-[#FF2D8E] to-[#E6007E] text-white"
+                                  : "bg-black/5 text-black/85"
+                              }`}
+                            >
+                              <p className="whitespace-pre-wrap">{m.body}</p>
+                              <p
+                                className={`mt-1 text-[10px] ${
+                                  m.senderType === "staff" ? "text-white/70" : "text-black/40"
+                                }`}
+                              >
+                                {m.senderType === "staff" ? m.sentBy || "Staff" : "Patient"} ·{" "}
+                                {new Date(m.createdAt).toLocaleString()}
+                              </p>
+                            </div>
+                          ))}
+                        </div>
+                        <form
+                          onSubmit={(e) => void sendMessageReply(e)}
+                          className="border-t-2 border-black/10 p-4"
+                        >
+                          <textarea
+                            value={msgReply}
+                            onChange={(e) => setMsgReply(e.target.value)}
+                            rows={3}
+                            placeholder="Secure reply — patient gets portal link only (no PHI in SMS/email)…"
+                            className="w-full rounded-xl border-2 border-black/15 px-3 py-2 text-sm focus:border-[#E6007E] focus:outline-none"
+                          />
+                          <div className="mt-2 flex flex-wrap items-center justify-between gap-2">
+                            <p className="text-[10px] text-black/40">
+                              HGRX-081 · Chart + audit on send
+                            </p>
+                            <button
+                              type="submit"
+                              disabled={busy || !msgReply.trim()}
+                              className="rounded-xl bg-gradient-to-r from-[#FF2D8E] to-[#E6007E] px-5 py-2 text-sm font-bold text-white disabled:opacity-50 cursor-pointer"
+                            >
+                              Send reply
+                            </button>
+                          </div>
+                        </form>
+                      </>
+                    )}
+                  </div>
+                </div>
               )}
+              <p className="mt-4 text-sm">
+                <Link href="/admin/rx-messages" className="font-bold text-[#E6007E] underline">
+                  Full messaging inbox →
+                </Link>
+              </p>
             </div>
           ) : null}
 

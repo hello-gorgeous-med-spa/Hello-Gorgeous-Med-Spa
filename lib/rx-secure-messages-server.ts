@@ -6,6 +6,9 @@ import type { SupabaseClient } from "@supabase/supabase-js";
 
 import { getSupabaseAdminClient } from "@/lib/hgos/supabase-admin";
 import { notifyOwnerFormSubmission } from "@/lib/notifications/form-alert";
+import { logRxMessageAudit } from "@/lib/rx-messaging/audit";
+import { logRxMessageToChart, resolveThreadClientId } from "@/lib/rx-messaging/chart";
+import { notifyPatientRxMessageAlert } from "@/lib/rx-messaging/notify";
 import {
   normalizeIntakeRef,
   normalizePatientEmail,
@@ -129,6 +132,8 @@ export async function getOrCreateRxMessageThread(
 
   if (existing) return mapThread(existing as ThreadRow);
 
+  const clientId = await resolveThreadClientId(admin, submission.id, patientEmail);
+
   const { data: created, error } = await admin
     .from("hg_rx_message_threads")
     .insert({
@@ -137,6 +142,7 @@ export async function getOrCreateRxMessageThread(
       patient_email: patientEmail,
       patient_name: submission.signer_name,
       patient_phone: submission.client_phone,
+      client_id: clientId,
       track,
     })
     .select("*")
@@ -181,6 +187,8 @@ export async function sendPatientRxMessage(
 
   if (error || !msg) throw new Error(error?.message || "Could not send message");
 
+  const mapped = mapMessage(msg as MessageRow);
+
   await admin
     .from("hg_rx_message_threads")
     .update({
@@ -190,6 +198,27 @@ export async function sendPatientRxMessage(
       updated_at: new Date().toISOString(),
     })
     .eq("id", thread.id);
+
+  await logRxMessageAudit(
+    {
+      threadId: thread.id,
+      messageId: mapped.id,
+      action: "message_sent",
+      actorType: "patient",
+      detail: { preview: trimmed.slice(0, 120) },
+    },
+    admin,
+  );
+
+  void logRxMessageToChart(
+    {
+      thread,
+      messageId: mapped.id,
+      body: trimmed,
+      senderType: "patient",
+    },
+    admin,
+  );
 
   notifyOwnerFormSubmission({
     formName: "RX secure message",
@@ -201,7 +230,7 @@ export async function sendPatientRxMessage(
     ],
   });
 
-  return mapMessage(msg as MessageRow);
+  return mapped;
 }
 
 export async function sendStaffRxMessage(
@@ -212,6 +241,9 @@ export async function sendStaffRxMessage(
 ): Promise<RxSecureMessage> {
   const trimmed = body.trim().slice(0, 4000);
   if (!trimmed) throw new Error("Message required");
+
+  const thread = await getRxMessageThread(threadId);
+  if (!thread) throw new Error("Thread not found");
 
   const { data: msg, error } = await admin
     .from("hg_rx_messages")
@@ -225,6 +257,8 @@ export async function sendStaffRxMessage(
     .single();
 
   if (error || !msg) throw new Error(error?.message || "Could not send message");
+
+  const mapped = mapMessage(msg as MessageRow);
 
   await admin
     .from("hg_rx_message_threads")
@@ -246,7 +280,32 @@ export async function sendStaffRxMessage(
     .update({ unread_patient_count: currentUnread + 1 })
     .eq("id", threadId);
 
-  return mapMessage(msg as MessageRow);
+  await logRxMessageAudit(
+    {
+      threadId,
+      messageId: mapped.id,
+      action: "message_sent",
+      actorType: "staff",
+      actorEmail: sentBy,
+      detail: { preview: trimmed.slice(0, 120) },
+    },
+    admin,
+  );
+
+  void logRxMessageToChart(
+    {
+      thread,
+      messageId: mapped.id,
+      body: trimmed,
+      senderType: "staff",
+      sentBy,
+    },
+    admin,
+  );
+
+  void notifyPatientRxMessageAlert(thread, mapped.id, admin);
+
+  return mapped;
 }
 
 export async function listRxMessageThreads(limit = 50): Promise<RxMessageThread[]> {
@@ -284,6 +343,16 @@ export async function markRxMessagesRead(
       ? { unread_staff_count: 0 }
       : { unread_patient_count: 0 };
   await admin.from("hg_rx_message_threads").update(patch).eq("id", threadId);
+
+  await logRxMessageAudit(
+    {
+      threadId,
+      action: "message_read",
+      actorType: reader,
+      detail: { reader },
+    },
+    admin,
+  );
 }
 
 export async function getRxMessageThread(threadId: string): Promise<RxMessageThread | null> {
