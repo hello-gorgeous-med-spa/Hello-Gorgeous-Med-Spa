@@ -5,6 +5,7 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
 
 import { defaultDispatchFromIntake, RX_INTAKE_SLUGS } from "@/lib/rx-dispatch";
+import { telehealthRequiredForIntakeSlug } from "@/lib/rx-telehealth/requirement";
 
 const RX_SLUG_SET = new Set<string>(RX_INTAKE_SLUGS);
 
@@ -42,9 +43,13 @@ export async function ensureRxDispatchForSubmission(
     responses: (sub.responses_json ?? {}) as Record<string, unknown>,
   });
 
+  const responses = (sub.responses_json ?? {}) as Record<string, unknown>;
+  const telehealthRequired = telehealthRequiredForIntakeSlug(slug, responses);
+
   const { error: insErr } = await admin.from("hg_rx_dispatch").insert({
     submission_id: submissionId,
     ...defaults,
+    telehealth_required: telehealthRequired,
     updated_by: "system:auto",
   });
 

@@ -223,6 +223,32 @@ export function RxOpsConsole() {
   const canDecline = detail?.allowedActions?.includes("decline") ?? false;
   const canRequestInfo = detail?.allowedActions?.includes("info") ?? false;
   const canSendInvoice = detail?.request.stage === "Awaiting payment";
+  const canCompleteTelehealth =
+    detail?.request.stage === "Awaiting telehealth" &&
+    detail.request.telehealthStatus !== "complete";
+
+  const markTelehealthComplete = async () => {
+    if (!selectedRequest || !detail || demo) return;
+    const [kind, id] = selectedRequest.split(":");
+    if (!kind || !id) return;
+    setBusy(true);
+    try {
+      const res = await fetch("/api/admin/rx/ops/telehealth", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ requestKind: kind, requestId: id }),
+      });
+      const json = await res.json();
+      if (!res.ok) throw new Error(json.error || "Could not mark telehealth complete");
+      flash("Telehealth marked complete — clinical review unlocked");
+      void load();
+      void openReview(selectedRequest);
+    } catch (e) {
+      flash(e instanceof Error ? e.message : "Could not update telehealth");
+    } finally {
+      setBusy(false);
+    }
+  };
 
   const sendInvoiceFromRequest = async () => {
     if (!selectedRequest || !detail || demo) return;
@@ -769,13 +795,14 @@ export function RxOpsConsole() {
                 />
               ) : (
                 <DataTable
-                  headers={["Patient", "Plan", "Cadence", "Next refill", "Status"]}
+                  headers={["Patient", "Plan", "Cadence", "Next refill", "Status", "Notes"]}
                   rows={data.refills.map((r) => [
                     r.patientName,
                     r.plan,
                     r.cadence,
                     r.nextRefill,
                     r.status,
+                    r.telehealthRecheckDue ? "⚕ Recheck due" : "—",
                   ])}
                 />
               )}
@@ -1105,6 +1132,42 @@ export function RxOpsConsole() {
                     <div className="rounded-xl border border-black/10 p-4 text-sm">
                       <p className="font-bold text-[11px] uppercase text-black/45">Ship to</p>
                       <p className="whitespace-pre-line mt-1">{detail.shipTo}</p>
+                    </div>
+                  ) : null}
+                  {detail.request.telehealthRequired && detail.request.telehealthStatus !== "not_required" ? (
+                    <div className="rounded-2xl border-2 border-[#2563eb] bg-[#eff6ff] p-4">
+                      <p className="text-[11px] font-bold uppercase tracking-wide text-[#2563eb] m-0">
+                        NP telehealth (Fresha)
+                      </p>
+                      <p className="text-sm text-black/70 mt-2 mb-3">
+                        {detail.request.telehealthStatus === "complete"
+                          ? "Visit complete — ready for clinical approval."
+                          : detail.request.telehealthStatus === "scheduled"
+                            ? `Scheduled${detail.telehealthScheduledAt ? ` · ${new Date(detail.telehealthScheduledAt).toLocaleString()}` : ""}`
+                            : "$49 consult required before NP can approve and ship."}
+                      </p>
+                      {detail.request.telehealthStatus !== "complete" ? (
+                        <div className="flex flex-wrap gap-2">
+                          <a
+                            href={detail.telehealthBookingUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="rounded-lg bg-[#2563eb] px-4 py-2 text-xs font-bold text-white"
+                          >
+                            Open Fresha booking
+                          </a>
+                          {canCompleteTelehealth ? (
+                            <button
+                              type="button"
+                              disabled={busy}
+                              onClick={() => void markTelehealthComplete()}
+                              className="rounded-lg border-2 border-black px-4 py-2 text-xs font-bold disabled:opacity-50 cursor-pointer"
+                            >
+                              Mark visit complete
+                            </button>
+                          ) : null}
+                        </div>
+                      ) : null}
                     </div>
                   ) : null}
                   <div>

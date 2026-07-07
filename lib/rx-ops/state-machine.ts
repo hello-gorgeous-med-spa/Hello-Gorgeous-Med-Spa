@@ -16,6 +16,10 @@ export function assertClinicalActionAllowed(
     return { ok: false, error: "Payment must complete before clinical approval" };
   }
 
+  if (action === "approve" && stage === "Awaiting telehealth") {
+    return { ok: false, error: "NP telehealth visit must be completed before approval" };
+  }
+
   if (action === "approve" && stage === "New request") {
     return { ok: false, error: "Intake or payment must be complete before approval" };
   }
@@ -25,7 +29,7 @@ export function assertClinicalActionAllowed(
 
 export function allowedClinicalActions(stage: RxOpsStage): ClinicalAction[] {
   if (TERMINAL_STAGES.has(stage)) return [];
-  if (stage === "Awaiting payment" || stage === "New request") {
+  if (stage === "Awaiting payment" || stage === "New request" || stage === "Awaiting telehealth") {
     return ["decline", "info"];
   }
   return ["approve", "decline", "info"];

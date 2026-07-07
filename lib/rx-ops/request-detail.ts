@@ -15,6 +15,7 @@ import { allowedClinicalActions } from "@/lib/rx-ops/state-machine";
 import type { RxOpsRequestDetail, RxOpsRequestKind } from "@/lib/rx-ops/types";
 import { getClinicEncounter } from "@/lib/rx-clinic-encounter";
 import { RX_INTAKE_SLUGS } from "@/lib/rx-dispatch";
+import { HG_RX_TELEHEALTH_BOOKING_URL } from "@/lib/flows";
 import { formatSquareShippingAddress } from "@/lib/square/order-shipping";
 
 export async function buildRxOpsRequestDetail(
@@ -35,10 +36,15 @@ export async function buildRxOpsRequestDetail(
   let npNotes: string | null = null;
   let shipTo: string | null = null;
 
+  let telehealthScheduledAt: string | null = null;
+  let telehealthCompletedAt: string | null = null;
+
   if (kind === "regen" && admin) {
     const order = await fetchRegenFulfillmentOrder(admin, id);
     if (order) {
       npNotes = order.np_notes ?? null;
+      telehealthScheduledAt = order.telehealth_scheduled_at ?? null;
+      telehealthCompletedAt = order.telehealth_completed_at ?? null;
       const intakeData = (order.intake_data ?? {}) as Record<string, unknown>;
       intake = intakePairsFromResponses(intakeData, 16);
       screening = screeningForRegen(order.goal, intakeData, {
@@ -61,6 +67,8 @@ export async function buildRxOpsRequestDetail(
       intake = detail.intake;
       npNotes = detail.npNotes;
       shipTo = detail.shipTo;
+      telehealthScheduledAt = detail.telehealthScheduledAt;
+      telehealthCompletedAt = detail.telehealthCompletedAt;
     }
   }
 
@@ -97,6 +105,9 @@ export async function buildRxOpsRequestDetail(
     npNotes,
     shipTo,
     allowedActions,
+    telehealthBookingUrl: HG_RX_TELEHEALTH_BOOKING_URL,
+    telehealthScheduledAt,
+    telehealthCompletedAt,
   };
 }
 
@@ -108,6 +119,8 @@ async function loadIntakeDetail(
   intake: RxOpsRequestDetail["intake"];
   npNotes: string | null;
   shipTo: string | null;
+  telehealthScheduledAt: string | null;
+  telehealthCompletedAt: string | null;
 } | null> {
   const { data: sub } = await admin
     .from("hg_form_submissions")
@@ -128,7 +141,9 @@ async function loadIntakeDetail(
 
   const { data: dispatch } = await admin
     .from("hg_rx_dispatch")
-    .select("staff_notes, address_line1, address_line2, city, state, zip")
+    .select(
+      "staff_notes, address_line1, address_line2, city, state, zip, telehealth_required, telehealth_scheduled_at, telehealth_completed_at",
+    )
     .eq("submission_id", submissionId)
     .maybeSingle();
 
@@ -144,6 +159,14 @@ async function loadIntakeDetail(
     [responses.shipping_state, responses.shipping_zip].filter(Boolean).join(" "),
   ].filter(Boolean);
 
+  if (dispatch?.telehealth_required) {
+    if (!dispatch.telehealth_completed_at) {
+      screening.push({ icon: "!", ok: false, text: "NP telehealth visit pending — book on Fresha" });
+    } else {
+      screening.push({ icon: "✓", ok: true, text: "Telehealth complete" });
+    }
+  }
+
   return {
     screening,
     intake,
@@ -154,5 +177,7 @@ async function loadIntakeDetail(
         : responseShip.length > 0
           ? responseShip.map(String).join("\n")
           : null,
+    telehealthScheduledAt: (dispatch?.telehealth_scheduled_at as string | null) ?? null,
+    telehealthCompletedAt: (dispatch?.telehealth_completed_at as string | null) ?? null,
   };
 }

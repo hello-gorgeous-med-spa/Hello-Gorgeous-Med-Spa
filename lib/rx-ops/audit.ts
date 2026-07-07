@@ -10,7 +10,8 @@ export type RxOpsAuditAction =
   | "prescription_signed"
   | "invoice_sent"
   | "invoice_resent"
-  | "payment_refunded";
+  | "payment_refunded"
+  | "telehealth_completed";
 
 export async function logRxOpsAudit(
   input: {

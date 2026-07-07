@@ -3,6 +3,7 @@
 export type RxOpsStage =
   | "New request"
   | "Awaiting payment"
+  | "Awaiting telehealth"
   | "Clinical review"
   | "Approved"
   | "Shipped"
@@ -29,6 +30,8 @@ export type RxOpsRequest = {
   paymentStatus: string | null;
   paymentAmountUsd: number | null;
   intakeRef: string;
+  telehealthStatus: "not_required" | "pending" | "scheduled" | "complete";
+  telehealthRequired: boolean;
   detailHref: string;
   actionHref: string | null;
 };
@@ -56,6 +59,7 @@ export type RxOpsRefillRow = {
   nextSoon: boolean;
   price: string | null;
   status: "Active" | "Paused" | "Due";
+  telehealthRecheckDue: boolean;
   reorderHref: string;
 };
 
@@ -146,4 +150,7 @@ export type RxOpsRequestDetail = {
   npNotes: string | null;
   shipTo: string | null;
   allowedActions: RxOpsClinicalAction[];
+  telehealthBookingUrl: string;
+  telehealthScheduledAt: string | null;
+  telehealthCompletedAt: string | null;
 };

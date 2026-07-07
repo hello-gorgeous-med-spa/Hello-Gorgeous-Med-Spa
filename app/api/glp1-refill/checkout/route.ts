@@ -14,6 +14,7 @@ import {
 } from "@/lib/rx-invoice-templates";
 import { getSupabaseAdminClient } from "@/lib/hgos/supabase-admin";
 import { resolveRxSubmissionContext } from "@/lib/rx-submission-context";
+import { assertTelehealthRecheckClear } from "@/lib/rx-telehealth/recheck";
 import { SITE } from "@/lib/seo";
 
 export const dynamic = "force-dynamic";
@@ -56,6 +57,16 @@ export async function POST(req: NextRequest) {
       : null;
 
   const intakeRef = ctx?.intakeRef || reference || null;
+
+  if (ctx?.clientId) {
+    const recheck = await assertTelehealthRecheckClear(ctx.clientId, admin);
+    if (!recheck.ok) {
+      return NextResponse.json(
+        { error: recheck.error, telehealthBookingUrl: recheck.bookingUrl },
+        { status: 403 },
+      );
+    }
+  }
 
   const redirectBase = `${SITE.url}${GLP1_REFILL_PATH}`;
   const redirectUrl = intakeRef

@@ -43,6 +43,10 @@ export type RxDispatchRecord = {
   drug: string | null;
   sig: string | null;
   staff_notes: string | null;
+  telehealth_required?: boolean | null;
+  telehealth_scheduled_at?: string | null;
+  telehealth_completed_at?: string | null;
+  fresha_appointment_id?: string | null;
   updated_at?: string;
   updated_by?: string | null;
 };

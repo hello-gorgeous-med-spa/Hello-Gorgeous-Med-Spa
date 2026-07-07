@@ -3,6 +3,7 @@ import type { RxOpsStage, RxOpsRequestKind } from "@/lib/rx-ops/types";
 export const RX_OPS_STAGE_COLORS: Record<RxOpsStage, string> = {
   "New request": "#6b7280",
   "Awaiting payment": "#b45309",
+  "Awaiting telehealth": "#2563eb",
   "Clinical review": "#FF2D8E",
   Approved: "#3b82f6",
   Shipped: "#0f8a4d",
@@ -38,6 +39,7 @@ type StageInput = {
   regenStatus?: string | null;
   paid?: boolean;
   intakeComplete?: boolean;
+  telehealthRequired?: boolean;
   telehealthComplete?: boolean;
   npApproved?: boolean;
   shipped?: boolean;
@@ -57,7 +59,7 @@ export function mapToOpsStage(input: StageInput): RxOpsStage {
   if (input.kind === "regen") {
     if (!input.paid || input.regenStatus === "pending_payment") return "Awaiting payment";
     if (!input.intakeComplete) return "Awaiting payment";
-    if (input.telehealthComplete === false) return "Clinical review";
+    if (input.telehealthComplete === false) return "Awaiting telehealth";
     if (input.npApproved || input.regenStatus === "approved" || input.regenStatus === "ordered") {
       return "Approved";
     }
@@ -67,6 +69,11 @@ export function mapToOpsStage(input: StageInput): RxOpsStage {
 
   if (input.paymentStatus === "pending" || input.encounterStatus === "awaiting_payment") {
     return "Awaiting payment";
+  }
+
+  const paid = input.paymentStatus === "paid" || input.encounterStatus === "paid";
+  if (paid && input.telehealthRequired && input.telehealthComplete === false) {
+    return "Awaiting telehealth";
   }
 
   if (input.dispatchStatus === "approved" || input.encounterStatus === "ready_to_ship") {
@@ -80,7 +87,7 @@ export function mapToOpsStage(input: StageInput): RxOpsStage {
     input.dispatchStatus === "intake_complete" ||
     input.dispatchStatus === "telehealth_pending"
   ) {
-    if (input.paymentStatus === "paid" || input.encounterStatus === "paid") {
+    if (paid) {
       return "Clinical review";
     }
     return "New request";

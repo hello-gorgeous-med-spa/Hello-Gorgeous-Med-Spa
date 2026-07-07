@@ -29,7 +29,8 @@ import { buildRxOpsPaymentsPayload } from "@/lib/rx-ops/payments";
 import { listAllRefillCadence } from "@/lib/rx-refill-cadence";
 import { intakeRefFromToken } from "@/lib/rx-submission-context";
 import { listPharmacyShipments } from "@/lib/rx-pharmacy-fulfillment/shipments";
-import { PHARMACY_SHIPMENT_STATUS_LABELS } from "@/lib/rx-pharmacy-fulfillment/types";
+import { telehealthRequiredForIntakeSlug } from "@/lib/rx-telehealth/requirement";
+import { getTelehealthRecheckStatus } from "@/lib/rx-telehealth/recheck";
 
 const RX_SLUG_SET = new Set<string>(RX_INTAKE_SLUGS);
 
@@ -76,6 +77,17 @@ function productLabelFromItem(item: {
   };
 }
 
+function deriveTelehealthStatus(input: {
+  required: boolean;
+  scheduledAt?: string | null;
+  completedAt?: string | null;
+}): RxOpsRequest["telehealthStatus"] {
+  if (!input.required) return "not_required";
+  if (input.completedAt) return "complete";
+  if (input.scheduledAt) return "scheduled";
+  return "pending";
+}
+
 function mapIntakeToRequest(
   row: SubmissionRow,
   template: TemplateRow | undefined,
@@ -94,10 +106,18 @@ function mapIntakeToRequest(
   const dispatchStatus = dispatch?.status ?? defaults.status;
   const track = intakeTrackFromSlug(slug);
   const patientName = intakeDisplayName(slug, row.signer_name, responses);
+  const telehealthRequired =
+    dispatch?.telehealth_required ??
+    telehealthRequiredForIntakeSlug(slug, responses);
+  const telehealthComplete = telehealthRequired
+    ? Boolean(dispatch?.telehealth_completed_at)
+    : true;
   const stage = mapToOpsStage({
     kind: "intake",
     dispatchStatus,
     paymentStatus,
+    telehealthRequired,
+    telehealthComplete,
   });
   const { compound, product, reason } = productLabelFromItem({
     kind: "intake",
@@ -124,6 +144,12 @@ function mapIntakeToRequest(
     paymentStatus,
     paymentAmountUsd,
     intakeRef: ref,
+    telehealthStatus: deriveTelehealthStatus({
+      required: telehealthRequired,
+      scheduledAt: dispatch?.telehealth_scheduled_at,
+      completedAt: dispatch?.telehealth_completed_at,
+    }),
+    telehealthRequired,
     detailHref: `/admin/rx-dispatch?submission=${row.id}`,
     actionHref: `/admin/rx-dispatch?submission=${row.id}`,
   };
@@ -170,6 +196,8 @@ function mapClinicToRequest(row: Awaited<ReturnType<typeof listClinicEncountersW
     paymentStatus,
     paymentAmountUsd: row.final_total_usd,
     intakeRef: `CL-${row.id.replace(/-/g, "").slice(0, 8).toUpperCase()}`,
+    telehealthStatus: "not_required",
+    telehealthRequired: false,
     detailHref: `/admin/rx/clinic-sale?encounter=${row.id}`,
     actionHref: `/admin/rx/clinic-sale?encounter=${row.id}`,
   };
@@ -184,6 +212,10 @@ function mapRegenToRequest(
   const names = items.map((i) => i.name).filter(Boolean);
   const product = names.length ? names.join(", ") : "RE GEN order";
   const paid = item.paymentStatus === "paid";
+  const telehealthRequired = order.telehealth_required !== false;
+  const telehealthComplete = telehealthRequired
+    ? Boolean(order.telehealth_completed_at)
+    : true;
   const stage = mapToOpsStage({
     kind: "regen",
     dispatchStatus: item.dispatchStatus,
@@ -191,8 +223,8 @@ function mapRegenToRequest(
     regenStatus: order.status,
     paid,
     intakeComplete: Boolean(order.intake_completed_at),
-    telehealthComplete:
-      order.telehealth_required === false ? true : Boolean(order.telehealth_completed_at),
+    telehealthRequired,
+    telehealthComplete,
     npApproved: Boolean(order.np_approved_at),
     shipped: Boolean(order.shipped_at) || order.status === "shipped" || order.status === "delivered",
   });
@@ -206,7 +238,7 @@ function mapRegenToRequest(
     compound: item.track === "glp1" ? "GLP-1" : "Peptide",
     product,
     reason: order.goal?.replace(/-/g, " ") || "RE GEN online",
-    stage: needsReview && stage !== "Shipped" ? "Clinical review" : stage,
+    stage: needsReview && stage !== "Shipped" && stage !== "Awaiting telehealth" ? "Clinical review" : stage,
     submittedAt: order.created_at,
     submittedLabel: relativeSubmittedLabel(order.created_at),
     track: item.track,
@@ -215,6 +247,12 @@ function mapRegenToRequest(
     paymentStatus: item.paymentStatus,
     paymentAmountUsd: item.paymentAmountUsd,
     intakeRef: order.reference,
+    telehealthStatus: deriveTelehealthStatus({
+      required: telehealthRequired,
+      scheduledAt: (order as { telehealth_scheduled_at?: string | null }).telehealth_scheduled_at,
+      completedAt: order.telehealth_completed_at,
+    }),
+    telehealthRequired,
     detailHref: `/admin/rx/regen-orders/${encodeURIComponent(order.reference)}`,
     actionHref: `/admin/rx/ops?review=${encodeURIComponent(order.reference)}`,
   };
@@ -234,7 +272,7 @@ export async function buildRxOpsConsolePayload(
     const { data: regenRowsRaw } = await db
       .from("regen_orders")
       .select(
-        "reference, created_at, status, customer_name, customer_email, customer_phone, goal, items, subtotal_usd, shipping_usd, paid_at, payment_id, intake_completed_at, telehealth_required, telehealth_completed_at, np_approved_at, shipped_at, tracking_number",
+        "reference, created_at, status, customer_name, customer_email, customer_phone, goal, items, subtotal_usd, shipping_usd, paid_at, payment_id, intake_completed_at, telehealth_required, telehealth_scheduled_at, telehealth_completed_at, np_approved_at, shipped_at, tracking_number",
       )
       .not("status", "eq", "cancelled")
       .order("created_at", { ascending: false })
@@ -331,7 +369,18 @@ export async function buildRxOpsConsolePayload(
 
   if (db) {
     const { items: cadenceItems } = await listAllRefillCadence(db, { limit: 40 });
+    const recheckCache = new Map<string, boolean>();
     for (const c of cadenceItems) {
+      let telehealthRecheckDue = false;
+      if (c.clientId) {
+        let cached = recheckCache.get(c.clientId);
+        if (cached === undefined) {
+          const recheck = await getTelehealthRecheckStatus(c.clientId, db);
+          cached = recheck.due;
+          recheckCache.set(c.clientId, cached);
+        }
+        telehealthRecheckDue = cached;
+      }
       refills.push({
         patientName: c.clientName || "Client",
         plan: `${c.medication}${c.doseLabel ? ` · ${c.doseLabel}` : ""}`,
@@ -343,7 +392,8 @@ export async function buildRxOpsConsolePayload(
         }),
         nextSoon: c.urgency === "due_soon" || c.urgency === "overdue",
         price: null,
-        status: c.urgency === "overdue" ? "Due" : "Active",
+        status: telehealthRecheckDue ? "Due" : c.urgency === "overdue" ? "Due" : "Active",
+        telehealthRecheckDue,
         reorderHref: c.reorderHref,
       });
     }

@@ -14,6 +14,7 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
+import { syncFreshaAppointmentToRx } from '@/lib/rx-telehealth/sync';
 
 export const dynamic = 'force-dynamic';
 
@@ -271,6 +272,16 @@ export async function POST(req: NextRequest) {
     serviceId,
     providerId,
     status,
+    rxSync: await syncFreshaAppointmentToRx({
+      freshaAppointmentId: String(freshaAppointmentId),
+      appointmentId: upserted?.id ?? null,
+      clientId,
+      clientEmail,
+      clientPhone,
+      serviceName,
+      status,
+      startTime,
+    }),
   });
 }
 
