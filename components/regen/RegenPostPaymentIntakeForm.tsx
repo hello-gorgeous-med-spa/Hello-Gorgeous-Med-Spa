@@ -131,7 +131,7 @@ function FieldRenderer({
   error?: string;
   onChange: (v: unknown) => void;
 }) {
-  const inputClass = `mt-1.5 w-full rounded-xl border-2 px-4 py-3 outline-none focus:border-[#E6007E] ${
+  const inputClass = `mt-1.5 w-full rounded-xl border-2 bg-white px-4 py-3 text-black outline-none placeholder:text-black/40 focus:border-[#E6007E] [color-scheme:light] ${
     error ? "border-red-400" : "border-black/15"
   }`;
 
@@ -398,7 +398,7 @@ export function RegenPostPaymentIntakeForm({ orderRef, category, prefill, items 
       >
         <form
           onSubmit={isLastStep ? submit : (e) => { e.preventDefault(); goNext(); }}
-          className="p-5 md:p-8"
+          className="p-5 md:p-8 text-black"
         >
           {currentStep.description && (
             <p className="mb-5 text-sm text-black/65 leading-relaxed">{currentStep.description}</p>

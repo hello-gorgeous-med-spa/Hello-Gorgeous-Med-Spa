@@ -48,7 +48,9 @@ export function RxIntakeFormCard({
           </div>
         )}
       </div>
-      {children}
+      <div className="text-black [color-scheme:light] [&_input:not([type=radio]):not([type=checkbox])]:bg-white [&_input:not([type=radio]):not([type=checkbox])]:text-black [&_textarea]:bg-white [&_textarea]:text-black [&_select]:bg-white [&_select]:text-black [&_input::placeholder]:text-black/40 [&_textarea::placeholder]:text-black/40">
+        {children}
+      </div>
     </div>
   );
 }
