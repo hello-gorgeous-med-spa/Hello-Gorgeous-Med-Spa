@@ -14,7 +14,7 @@ export type RxOpsViewId = (typeof RX_OPS_NAV)[number]["id"];
 export const RX_OPS_VIEW_TITLES: Record<RxOpsViewId, { title: string; sub: string }> = {
   overview: { title: "Overview", sub: "Prescription operations at a glance" },
   requests: { title: "Requests", sub: "Refill & new-protocol intake pipeline" },
-  patients: { title: "Patients", sub: "Charts & demographics (PHI)" },
+  patients: { title: "Patients", sub: "EHR-lite charts — demographics, plans, orders & notes (HGRX-020)" },
   messages: { title: "Messages", sub: "Secure patient threads" },
   formulary: { title: "Formulary", sub: "Full RE GEN catalog — pricing & pharmacy routing" },
   refills: { title: "Refills", sub: "30/90-day recurring plans" },

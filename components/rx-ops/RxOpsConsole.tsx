@@ -23,6 +23,7 @@ import type {
 } from "@/lib/rx-ops/types";
 import type { RxMessageThread, RxSecureMessage } from "@/lib/rx-secure-messages";
 import type { RxComplianceReport } from "@/lib/rx-compliance/types";
+import type { RxPatientDetail, RxPatientSummary } from "@/lib/rx-patients/types";
 
 function stagePill(stage: RxOpsStage) {
   const color = RX_OPS_STAGE_COLORS[stage];
@@ -74,6 +75,15 @@ export function RxOpsConsole() {
   const [msgReply, setMsgReply] = useState("");
   const [msgLoading, setMsgLoading] = useState(false);
   const [compliance, setCompliance] = useState<RxComplianceReport | null>(null);
+  const [patientQuery, setPatientQuery] = useState("");
+  const [patientList, setPatientList] = useState<RxPatientSummary[]>([]);
+  const [selectedPatientId, setSelectedPatientId] = useState<string | null>(null);
+  const [patientDetail, setPatientDetail] = useState<RxPatientDetail | null>(null);
+  const [patientLoading, setPatientLoading] = useState(false);
+  const [chartAllergies, setChartAllergies] = useState("");
+  const [chartMeds, setChartMeds] = useState("");
+  const [chartInternalNotes, setChartInternalNotes] = useState("");
+  const [newClinicalNote, setNewClinicalNote] = useState("");
 
   const load = useCallback(async () => {
     setLoading(true);
@@ -442,6 +452,101 @@ export function RxOpsConsole() {
     } finally {
       setBusy(false);
     }
+  };
+
+  const loadPatients = useCallback(async (q?: string) => {
+    if (demo) return;
+    setPatientLoading(true);
+    try {
+      const params = new URLSearchParams();
+      if (q?.trim()) params.set("q", q.trim());
+      const res = await fetch(`/api/admin/rx/ops/patients?${params.toString()}`);
+      const json = await res.json();
+      if (!res.ok) throw new Error(json.error || "Could not load patients");
+      setPatientList(json.patients || []);
+    } catch (e) {
+      flash(e instanceof Error ? e.message : "Could not load patients");
+    } finally {
+      setPatientLoading(false);
+    }
+  }, [demo]);
+
+  useEffect(() => {
+    if (view !== "patients" || demo) return;
+    void loadPatients(patientQuery);
+  }, [view, demo, loadPatients]);
+
+  const openPatientChart = async (clientId: string) => {
+    if (demo || clientId.startsWith("demo:")) {
+      flash("Sample data — toggle off for live patient charts");
+      return;
+    }
+    setSelectedPatientId(clientId);
+    setPatientLoading(true);
+    try {
+      const res = await fetch(`/api/admin/rx/ops/patients/${encodeURIComponent(clientId)}`);
+      const json = await res.json();
+      if (!res.ok) throw new Error(json.error || "Could not load chart");
+      const p = json.patient as RxPatientDetail;
+      setPatientDetail(p);
+      setChartAllergies(p.allergies || "");
+      setChartMeds(p.medications || "");
+      setChartInternalNotes(p.internalNotes || "");
+    } catch (e) {
+      flash(e instanceof Error ? e.message : "Could not load chart");
+    } finally {
+      setPatientLoading(false);
+    }
+  };
+
+  const savePatientChart = async () => {
+    if (!selectedPatientId || demo) return;
+    setBusy(true);
+    try {
+      const res = await fetch(`/api/admin/rx/ops/patients/${encodeURIComponent(selectedPatientId)}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          allergies: chartAllergies,
+          medications: chartMeds,
+          internalNotes: chartInternalNotes,
+        }),
+      });
+      const json = await res.json();
+      if (!res.ok) throw new Error(json.error || "Save failed");
+      setPatientDetail(json.patient);
+      flash("Chart updated — access audited (HGRX-020)");
+    } catch (e) {
+      flash(e instanceof Error ? e.message : "Save failed");
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  const addPatientNote = async () => {
+    if (!selectedPatientId || !newClinicalNote.trim() || demo) return;
+    setBusy(true);
+    try {
+      const res = await fetch(`/api/admin/rx/ops/patients/${encodeURIComponent(selectedPatientId)}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ noteBody: newClinicalNote.trim() }),
+      });
+      const json = await res.json();
+      if (!res.ok) throw new Error(json.error || "Could not add note");
+      setPatientDetail(json.patient);
+      setNewClinicalNote("");
+      flash("Clinical note saved to chart");
+    } catch (e) {
+      flash(e instanceof Error ? e.message : "Could not add note");
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  const openPatientMessages = (threadId: string) => {
+    setView("messages");
+    void openMessageThread(threadId);
   };
 
   return (
@@ -1275,12 +1380,253 @@ export function RxOpsConsole() {
 
           {view === "patients" ? (
             <div className="p-6 md:p-8">
-              <EmptyState
-                icon="👥"
-                title="Patient charts (EHR-lite)"
-                body="HGRX-020 wires demographics, allergies, meds & order history. For now, use Clients + per-request review."
-                cta={{ label: "Open Clients", href: "/admin/clients" }}
-              />
+              <div className="mb-4 flex flex-wrap items-center gap-3">
+                <input
+                  type="search"
+                  value={patientQuery}
+                  onChange={(e) => setPatientQuery(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") void loadPatients(patientQuery);
+                  }}
+                  placeholder="Search name, email, phone…"
+                  className="min-w-[220px] flex-1 rounded-xl border-2 border-black/15 px-3 py-2 text-sm focus:border-[#E6007E] focus:outline-none"
+                />
+                <button
+                  type="button"
+                  disabled={patientLoading || demo}
+                  onClick={() => void loadPatients(patientQuery)}
+                  className="rounded-xl border-2 border-black px-4 py-2 text-sm font-bold hover:border-[#E6007E] disabled:opacity-50 cursor-pointer"
+                >
+                  Search
+                </button>
+                <Link
+                  href="/admin/clients"
+                  className="text-sm font-bold text-[#E6007E] underline"
+                >
+                  Full clients →
+                </Link>
+              </div>
+
+              {demo ? (
+                <EmptyState
+                  icon="👥"
+                  title="Patient charts (EHR-lite)"
+                  body="Toggle off sample data to search live RX patients with audited chart access."
+                />
+              ) : patientList.length === 0 && !patientLoading ? (
+                <EmptyState
+                  icon="👥"
+                  title="No patients found"
+                  body="RX-active clients appear here. Search by name or email, or run an intake to create a record."
+                  cta={{ label: "Open Clients", href: "/admin/clients" }}
+                />
+              ) : (
+                <div className="grid gap-4 lg:grid-cols-[280px_1fr] min-h-[520px]">
+                  <div className="rounded-2xl border-4 border-black bg-white shadow-[6px_6px_0_0_rgba(230,0,126,0.25)] overflow-hidden">
+                    <div className="border-b-2 border-black/10 px-4 py-3 text-[11px] font-bold uppercase tracking-wide text-black/45">
+                      {patientLoading ? "Loading…" : `${patientList.length} patients`}
+                    </div>
+                    <div className="max-h-[480px] overflow-y-auto">
+                      {patientList.map((p) => (
+                        <button
+                          key={p.id}
+                          type="button"
+                          onClick={() => void openPatientChart(p.id)}
+                          className={`w-full border-b border-black/5 px-4 py-3 text-left transition hover:bg-rose-50/80 ${
+                            selectedPatientId === p.id ? "bg-[#FFF0F7]" : ""
+                          }`}
+                        >
+                          <div className="flex items-center justify-between gap-2">
+                            <span className="font-bold text-sm truncate">{p.name}</span>
+                            {p.rxActive ? (
+                              <span className="shrink-0 rounded-full bg-[#E6007E]/15 px-2 py-0.5 text-[10px] font-bold text-[#E6007E]">
+                                RX
+                              </span>
+                            ) : null}
+                          </div>
+                          <p className="mt-0.5 text-xs text-black/50 truncate">{p.email || p.phone || "—"}</p>
+                          {p.duplicateOf ? (
+                            <p className="mt-1 text-[10px] font-bold text-amber-700">Possible duplicate</p>
+                          ) : null}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="rounded-2xl border-4 border-black bg-white shadow-[6px_6px_0_0_rgba(230,0,126,0.25)] flex flex-col min-h-[480px]">
+                    {!selectedPatientId ? (
+                      <div className="flex flex-1 items-center justify-center p-8 text-center text-black/45 text-sm">
+                        Select a patient for demographics, allergies, meds, plans, orders & notes
+                        (HGRX-020 / HGRX-023).
+                      </div>
+                    ) : patientLoading && !patientDetail ? (
+                      <div className="flex flex-1 items-center justify-center text-sm text-black/45">
+                        Loading chart…
+                      </div>
+                    ) : patientDetail ? (
+                      <div className="flex flex-col flex-1 min-h-0">
+                        <div className="border-b-2 border-black/10 px-4 py-3 flex flex-wrap items-start justify-between gap-3">
+                          <div>
+                            <p className="font-extrabold text-lg">{patientDetail.name}</p>
+                            <p className="text-xs text-black/50">
+                              {patientDetail.email} · {patientDetail.phone || "no phone"}
+                              {patientDetail.state ? ` · ${patientDetail.state}` : ""}
+                            </p>
+                            {patientDetail.dateOfBirth ? (
+                              <p className="text-xs text-black/40 mt-0.5">
+                                DOB {patientDetail.dateOfBirth}
+                                {patientDetail.sex ? ` · ${patientDetail.sex}` : ""}
+                              </p>
+                            ) : null}
+                          </div>
+                          <div className="flex flex-wrap gap-2">
+                            {patientDetail.messageThreads[0] ? (
+                              <button
+                                type="button"
+                                onClick={() => openPatientMessages(patientDetail.messageThreads[0].id)}
+                                className="rounded-lg border-2 border-black px-3 py-1.5 text-[11px] font-bold hover:border-[#E6007E] cursor-pointer"
+                              >
+                                Message
+                              </button>
+                            ) : null}
+                            <Link
+                              href={`/admin/clients/${patientDetail.id}`}
+                              className="rounded-lg bg-black px-3 py-1.5 text-[11px] font-bold text-white"
+                            >
+                              Full profile
+                            </Link>
+                          </div>
+                        </div>
+
+                        <div className="flex-1 overflow-y-auto p-4 space-y-4">
+                          {patientDetail.duplicateCandidates.length > 0 ? (
+                            <div className="rounded-xl border-2 border-amber-400 bg-amber-50 px-3 py-2 text-xs text-amber-900">
+                              <b>De-dupe check:</b> possible duplicate{" "}
+                              {patientDetail.duplicateCandidates.map((d) => d.name).join(", ")}
+                            </div>
+                          ) : null}
+
+                          <div className="grid gap-3 md:grid-cols-2">
+                            <label className="text-xs font-bold text-black/55">
+                              Allergies
+                              <textarea
+                                value={chartAllergies}
+                                onChange={(e) => setChartAllergies(e.target.value)}
+                                rows={2}
+                                className="mt-1 w-full rounded-xl border-2 border-black/15 px-3 py-2 text-sm"
+                              />
+                            </label>
+                            <label className="text-xs font-bold text-black/55">
+                              Medications
+                              <textarea
+                                value={chartMeds}
+                                onChange={(e) => setChartMeds(e.target.value)}
+                                rows={2}
+                                className="mt-1 w-full rounded-xl border-2 border-black/15 px-3 py-2 text-sm"
+                              />
+                            </label>
+                          </div>
+                          <label className="block text-xs font-bold text-black/55">
+                            Internal notes
+                            <textarea
+                              value={chartInternalNotes}
+                              onChange={(e) => setChartInternalNotes(e.target.value)}
+                              rows={2}
+                              className="mt-1 w-full rounded-xl border-2 border-black/15 px-3 py-2 text-sm"
+                            />
+                          </label>
+                          <button
+                            type="button"
+                            disabled={busy}
+                            onClick={() => void savePatientChart()}
+                            className="rounded-xl bg-gradient-to-r from-[#FF2D8E] to-[#E6007E] px-4 py-2 text-sm font-bold text-white disabled:opacity-50 cursor-pointer"
+                          >
+                            Save chart fields
+                          </button>
+
+                          <div>
+                            <h3 className="text-sm font-extrabold mb-2">Active refill plans</h3>
+                            {patientDetail.activePlans.length === 0 ? (
+                              <p className="text-xs text-black/45">No active plans</p>
+                            ) : (
+                              <ul className="space-y-2">
+                                {patientDetail.activePlans.map((plan) => (
+                                  <li
+                                    key={plan.id}
+                                    className="rounded-xl border border-black/10 px-3 py-2 text-sm"
+                                  >
+                                    <span className="font-bold">{plan.medication}</span>
+                                    <span className="text-black/50 text-xs block">
+                                      {plan.cadence} · next {plan.nextRefill} · {plan.status}
+                                    </span>
+                                  </li>
+                                ))}
+                              </ul>
+                            )}
+                          </div>
+
+                          <div>
+                            <h3 className="text-sm font-extrabold mb-2">Order history</h3>
+                            {patientDetail.orders.length === 0 ? (
+                              <p className="text-xs text-black/45">No RX orders yet</p>
+                            ) : (
+                              <ul className="space-y-1.5 max-h-[160px] overflow-y-auto">
+                                {patientDetail.orders.map((o) => (
+                                  <li
+                                    key={o.id}
+                                    className="flex justify-between gap-2 text-xs border-b border-black/5 pb-1"
+                                  >
+                                    <span>
+                                      <span className="font-semibold">{o.label}</span>
+                                      <span className="text-black/45"> · {o.kind}</span>
+                                    </span>
+                                    <span className="text-black/50 whitespace-nowrap">
+                                      {o.status}
+                                      {o.amountUsd != null ? ` · ${money(o.amountUsd)}` : ""}
+                                    </span>
+                                  </li>
+                                ))}
+                              </ul>
+                            )}
+                          </div>
+
+                          <div>
+                            <h3 className="text-sm font-extrabold mb-2">Clinical notes</h3>
+                            <div className="flex gap-2 mb-2">
+                              <textarea
+                                value={newClinicalNote}
+                                onChange={(e) => setNewClinicalNote(e.target.value)}
+                                rows={2}
+                                placeholder="Add NP/staff note (audited)…"
+                                className="flex-1 rounded-xl border-2 border-black/15 px-3 py-2 text-sm"
+                              />
+                              <button
+                                type="button"
+                                disabled={busy || !newClinicalNote.trim()}
+                                onClick={() => void addPatientNote()}
+                                className="shrink-0 rounded-xl border-2 border-black px-3 py-2 text-xs font-bold self-end disabled:opacity-50 cursor-pointer"
+                              >
+                                Add note
+                              </button>
+                            </div>
+                            <ul className="space-y-2 max-h-[140px] overflow-y-auto">
+                              {patientDetail.notes.map((n) => (
+                                <li key={n.id} className="rounded-lg bg-black/5 px-3 py-2 text-xs">
+                                  <p className="font-bold">{n.title}</p>
+                                  <p className="text-black/70 whitespace-pre-wrap mt-0.5">{n.body}</p>
+                                  <p className="text-black/40 mt-1">
+                                    {new Date(n.createdAt).toLocaleString()}
+                                  </p>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    ) : null}
+                  </div>
+                </div>
+              )}
             </div>
           ) : null}
 
