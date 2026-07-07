@@ -3,6 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { createAdminSupabaseClient } from "@/lib/hgos/supabase";
 import { processRxRefillReminders } from "@/lib/rx-refill-reminder";
 import { processRxRefillStaffOverdueAlerts } from "@/lib/rx-refill-staff-alert";
+import { processRefillPlanDraftInvoices } from "@/lib/rx-refill-plans/triggers";
 
 export const dynamic = "force-dynamic";
 export const maxDuration = 60;
@@ -20,10 +21,11 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ error: "Database not configured" }, { status: 503 });
   }
 
-  const [patient, staff] = await Promise.all([
+  const [patient, staff, drafts] = await Promise.all([
     processRxRefillReminders(supabase),
     processRxRefillStaffOverdueAlerts(supabase),
+    processRefillPlanDraftInvoices(supabase),
   ]);
 
-  return NextResponse.json({ patient, staff });
+  return NextResponse.json({ patient, staff, drafts });
 }

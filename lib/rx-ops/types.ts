@@ -51,6 +51,7 @@ export type RxOpsFormularyRow = {
 };
 
 export type RxOpsRefillRow = {
+  id: string;
   patientName: string;
   plan: string;
   pharmacy: string;
@@ -59,7 +60,9 @@ export type RxOpsRefillRow = {
   nextSoon: boolean;
   price: string | null;
   status: "Active" | "Paused" | "Due";
+  planStatus: "active" | "paused" | "cancelled";
   telehealthRecheckDue: boolean;
+  draftLedgerId: string | null;
   reorderHref: string;
 };
 

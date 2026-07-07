@@ -26,11 +26,11 @@ import {
 import { mapRegenOrderToAdminItem, type RegenOrderRecord } from "@/lib/regen/order-patient-status";
 import { regenOrderNeedsReview } from "@/lib/regen/order-fulfillment";
 import { buildRxOpsPaymentsPayload } from "@/lib/rx-ops/payments";
-import { listAllRefillCadence } from "@/lib/rx-refill-cadence";
+import { buildRxOpsRefillsPayload } from "@/lib/rx-ops/refills";
 import { intakeRefFromToken } from "@/lib/rx-submission-context";
 import { listPharmacyShipments } from "@/lib/rx-pharmacy-fulfillment/shipments";
+import { PHARMACY_SHIPMENT_STATUS_LABELS } from "@/lib/rx-pharmacy-fulfillment/types";
 import { telehealthRequiredForIntakeSlug } from "@/lib/rx-telehealth/requirement";
-import { getTelehealthRecheckStatus } from "@/lib/rx-telehealth/recheck";
 
 const RX_SLUG_SET = new Set<string>(RX_INTAKE_SLUGS);
 
@@ -368,34 +368,11 @@ export async function buildRxOpsConsolePayload(
   const shipments: RxOpsConsolePayload["shipments"] = [];
 
   if (db) {
-    const { items: cadenceItems } = await listAllRefillCadence(db, { limit: 40 });
-    const recheckCache = new Map<string, boolean>();
-    for (const c of cadenceItems) {
-      let telehealthRecheckDue = false;
-      if (c.clientId) {
-        let cached = recheckCache.get(c.clientId);
-        if (cached === undefined) {
-          const recheck = await getTelehealthRecheckStatus(c.clientId, db);
-          cached = recheck.due;
-          recheckCache.set(c.clientId, cached);
-        }
-        telehealthRecheckDue = cached;
-      }
-      refills.push({
-        patientName: c.clientName || "Client",
-        plan: `${c.medication}${c.doseLabel ? ` · ${c.doseLabel}` : ""}`,
-        pharmacy: "—",
-        cadence: c.supplyCycle,
-        nextRefill: new Date(c.dueAt).toLocaleDateString("en-US", {
-          month: "short",
-          day: "numeric",
-        }),
-        nextSoon: c.urgency === "due_soon" || c.urgency === "overdue",
-        price: null,
-        status: telehealthRecheckDue ? "Due" : c.urgency === "overdue" ? "Due" : "Active",
-        telehealthRecheckDue,
-        reorderHref: c.reorderHref,
-      });
+    try {
+      const refillPayload = await buildRxOpsRefillsPayload(db);
+      refills.push(...refillPayload.refills);
+    } catch {
+      // plans optional at build time
     }
 
     const { data: threadRows } = await db

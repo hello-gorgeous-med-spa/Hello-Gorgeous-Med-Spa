@@ -338,6 +338,26 @@ export function RxOpsConsole() {
     );
   }
 
+  const refillPlanAction = async (planId: string, status: "active" | "paused" | "cancelled") => {
+    if (demo) return;
+    setBusy(true);
+    try {
+      const res = await fetch("/api/admin/rx/ops/refill-plans", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ planId, status }),
+      });
+      const json = await res.json();
+      if (!res.ok) throw new Error(json.error || "Could not update plan");
+      flash(status === "paused" ? "Refill plan paused" : status === "active" ? "Plan resumed" : "Plan cancelled");
+      void load();
+    } catch (e) {
+      flash(e instanceof Error ? e.message : "Could not update plan");
+    } finally {
+      setBusy(false);
+    }
+  };
+
   const shipmentAction = async (
     shipmentId: string,
     action: "submit" | "ship",
@@ -791,20 +811,103 @@ export function RxOpsConsole() {
                 <EmptyState
                   icon="🔁"
                   title="No refill plans yet"
-                  body="90-day and 30-day recurring plans show here with next refill dates (HGRX-070)."
+                  body="Plans appear after a shipped order — 30/90-day cadence with pause/resume (HGRX-070)."
                 />
               ) : (
-                <DataTable
-                  headers={["Patient", "Plan", "Cadence", "Next refill", "Status", "Notes"]}
-                  rows={data.refills.map((r) => [
-                    r.patientName,
-                    r.plan,
-                    r.cadence,
-                    r.nextRefill,
-                    r.status,
-                    r.telehealthRecheckDue ? "⚕ Recheck due" : "—",
-                  ])}
-                />
+                <div className="overflow-x-auto rounded-2xl border-4 border-black bg-white shadow-[6px_6px_0_0_rgba(230,0,126,0.25)]">
+                  <table className="w-full min-w-[800px] text-sm">
+                    <thead>
+                      <tr className="border-b-2 border-black/10 text-left text-[11px] font-bold uppercase tracking-wide text-black/45">
+                        <th className="px-4 py-3">Patient</th>
+                        <th className="px-4 py-3">Plan</th>
+                        <th className="px-4 py-3">Pharmacy</th>
+                        <th className="px-4 py-3">Cadence</th>
+                        <th className="px-4 py-3">Next</th>
+                        <th className="px-4 py-3">Status</th>
+                        <th className="px-4 py-3">Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {data.refills.map((r) => (
+                        <tr key={r.id} className="border-b border-black/5 last:border-0">
+                          <td className="px-4 py-3 font-semibold">{r.patientName}</td>
+                          <td className="px-4 py-3">
+                            {r.plan}
+                            {r.price ? (
+                              <span className="block text-xs text-black/50">{r.price}</span>
+                            ) : null}
+                          </td>
+                          <td className="px-4 py-3">{r.pharmacy}</td>
+                          <td className="px-4 py-3">{r.cadence}</td>
+                          <td className="px-4 py-3 whitespace-nowrap">{r.nextRefill}</td>
+                          <td className="px-4 py-3">
+                            <span
+                              className={`inline-flex rounded-full px-2.5 py-0.5 text-[11px] font-bold uppercase ${
+                                r.status === "Paused"
+                                  ? "bg-gray-100 text-gray-600"
+                                  : r.status === "Due"
+                                    ? "bg-amber-100 text-amber-800"
+                                    : "bg-emerald-100 text-emerald-800"
+                              }`}
+                            >
+                              {r.status}
+                            </span>
+                            {r.telehealthRecheckDue ? (
+                              <span className="block text-[10px] font-bold text-[#2563eb] mt-1">
+                                ⚕ Recheck due
+                              </span>
+                            ) : null}
+                            {r.draftLedgerId ? (
+                              <span className="block text-[10px] font-bold text-[#E6007E] mt-1">
+                                Invoice draft ready
+                              </span>
+                            ) : null}
+                          </td>
+                          <td className="px-4 py-3">
+                            <div className="flex flex-wrap gap-1.5">
+                              {r.planStatus === "active" ? (
+                                <button
+                                  type="button"
+                                  disabled={busy}
+                                  onClick={() => void refillPlanAction(r.id, "paused")}
+                                  className="rounded-md border border-black/15 px-2 py-1 text-[11px] font-bold hover:border-[#E6007E] disabled:opacity-50 cursor-pointer"
+                                >
+                                  Pause
+                                </button>
+                              ) : null}
+                              {r.planStatus === "paused" ? (
+                                <button
+                                  type="button"
+                                  disabled={busy}
+                                  onClick={() => void refillPlanAction(r.id, "active")}
+                                  className="rounded-md border border-black/15 px-2 py-1 text-[11px] font-bold hover:border-[#E6007E] disabled:opacity-50 cursor-pointer"
+                                >
+                                  Resume
+                                </button>
+                              ) : null}
+                              {r.planStatus !== "cancelled" ? (
+                                <button
+                                  type="button"
+                                  disabled={busy}
+                                  onClick={() => void refillPlanAction(r.id, "cancelled")}
+                                  className="rounded-md border border-black/15 px-2 py-1 text-[11px] font-bold hover:border-[#E6007E] disabled:opacity-50 cursor-pointer"
+                                >
+                                  Cancel
+                                </button>
+                              ) : null}
+                              <Link
+                                href={r.reorderHref}
+                                className="rounded-md border border-black/15 px-2 py-1 text-[11px] font-bold hover:border-[#E6007E]"
+                              >
+                                Reorder
+                              </Link>
+                            </div>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
               )}
             </div>
           ) : null}

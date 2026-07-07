@@ -110,6 +110,20 @@ export async function processRxRefillReminders(
   }
 
   const dueItems = items.filter((i) => i.urgency === "due_soon" || i.urgency === "overdue");
+
+  const pausedKeys = new Set<string>();
+  try {
+    const { rows: pausedPlans } = await admin
+      .from("hg_rx_refill_plans")
+      .select("source_kind, source_id")
+      .eq("status", "paused");
+    for (const p of pausedPlans ?? []) {
+      pausedKeys.add(`${p.source_kind}:${p.source_id}`);
+    }
+  } catch {
+    // plans table optional
+  }
+
   const pushEnabled = isWebPushConfigured();
   const result: RxRefillReminderResult = {
     scanned: dueItems.length,
@@ -121,6 +135,11 @@ export async function processRxRefillReminders(
 
   for (const item of dueItems) {
     if (result.sent >= MAX_REMINDERS_PER_RUN) break;
+
+    if (pausedKeys.has(`${item.source}:${item.sourceId}`)) {
+      result.skipped++;
+      continue;
+    }
 
     const copy = reminderCopy(item);
     let delivered = false;
