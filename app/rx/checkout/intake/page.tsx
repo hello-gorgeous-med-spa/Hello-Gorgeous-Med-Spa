@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 
 import { RegenPostPaymentIntakeForm } from "@/components/regen/RegenPostPaymentIntakeForm";
 import { completeRegenOrderAndNotify } from "@/lib/regen/order-complete";
+import { regenOrderSquareSettled } from "@/lib/regen/order-patient-status";
 import {
   prefillRegenIntakeFromOrder,
   resolveOrderCategory,
@@ -61,12 +62,12 @@ export default async function RegenCheckoutIntakePage({ searchParams }: PageProp
   const { data: order } = await admin
     .from("regen_orders")
     .select(
-      "reference, status, customer_name, customer_email, customer_phone, goal, allergies, items, intake_completed_at"
+      "reference, status, payment_id, customer_name, customer_email, customer_phone, goal, allergies, items, intake_completed_at",
     )
     .eq("reference", orderRef)
     .maybeSingle();
 
-  if (!order || order.status === "pending_payment") {
+  if (!order || !regenOrderSquareSettled(order)) {
     return (
       <main className="min-h-screen bg-black text-white flex items-center justify-center px-4">
         <div className="text-center max-w-md">

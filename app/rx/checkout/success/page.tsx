@@ -29,7 +29,11 @@ export default async function RegenCheckoutSuccessPage({ searchParams }: PagePro
     redirect("/rx");
   }
 
-  await completeRegenOrderAndNotify(orderRef);
+  const result = await completeRegenOrderAndNotify(orderRef);
+
+  if (result.paymentPending) {
+    redirect(`/rx/checkout/complete?ref=${encodeURIComponent(orderRef)}&payment=pending`);
+  }
 
   const admin = getSupabaseAdminClient();
   if (admin) {

@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 import { createRegenCheckout, createRegenQuickPay, type RegenCartItem } from "@/lib/regen/checkout";
 import { validateCartPricing } from "@/lib/regen/pricing-sync";
-import { createServerSupabaseClient } from "@/lib/supabase/server";
+import { getSupabaseAdminClient } from "@/lib/hgos/supabase-admin";
 import { SITE } from "@/lib/seo";
 
 export const runtime = "nodejs";
@@ -88,32 +88,29 @@ export async function POST(req: NextRequest) {
     // Store the order in database BEFORE payment (pay-first model)
     const orderRef = `RG-${Date.now().toString(36).toUpperCase()}`;
     const supplyLabel = body.supplyMonths === 3 ? "90-day" : "30-day";
-    
-    // Try to save to database, but don't block checkout if DB unavailable
-    try {
-      const supabase = await createServerSupabaseClient();
-      if (supabase) {
-        const { error: dbError } = await supabase.from("regen_orders").insert({
-          reference: orderRef,
-          customer_name: body.customerName || null,
-          customer_email: body.customerEmail || null,
-          customer_phone: body.customerPhone || null,
-          goal: body.goal || null,
-          allergies: body.allergies || "None",
-          supply_cycle: supplyLabel,
-          items: validatedItems,
-          subtotal_usd: validation.items.reduce((sum, i) => sum + i.price * i.quantity, 0),
-          shipping_usd: 30,
-          status: "pending_payment",
-          created_at: new Date().toISOString(),
-        });
-        if (dbError) {
-          console.error("[regen/checkout] DB error:", dbError);
-        }
+    const subtotalUsd = validation.items.reduce((sum, i) => sum + i.price * i.quantity, 0);
+
+    const admin = getSupabaseAdminClient();
+    if (admin) {
+      const { error: dbError } = await admin.from("regen_orders").insert({
+        reference: orderRef,
+        customer_name: body.customerName || null,
+        customer_email: body.customerEmail || null,
+        customer_phone: body.customerPhone || null,
+        goal: body.goal || null,
+        allergies: body.allergies || "None",
+        supply_cycle: supplyLabel,
+        items: validatedItems,
+        subtotal_usd: subtotalUsd,
+        shipping_usd: 30,
+        status: "pending_payment",
+        created_at: new Date().toISOString(),
+      });
+      if (dbError) {
+        console.error("[regen/checkout] DB error:", dbError);
       }
-    } catch (dbErr) {
-      console.error("[regen/checkout] DB save failed:", dbErr);
-      // Continue anyway - payment is priority
+    } else {
+      console.error("[regen/checkout] Supabase admin unavailable — order not persisted before checkout");
     }
 
     const result = await createRegenCheckout({
@@ -123,21 +120,19 @@ export async function POST(req: NextRequest) {
       orderReference: orderRef,
     });
 
-    // Link Square order for shipping sync after payment
-    try {
-      const supabase = await createServerSupabaseClient();
-      if (supabase && result.orderId) {
-        await supabase
-          .from("regen_orders")
-          .update({
-            square_order_id: result.orderId,
-            square_payment_link_id: result.paymentLinkId ?? null,
-            updated_at: new Date().toISOString(),
-          })
-          .eq("reference", orderRef);
+    // Link Square order for webhook + payment verification after checkout
+    if (admin && result.orderId) {
+      const { error: linkErr } = await admin
+        .from("regen_orders")
+        .update({
+          square_order_id: result.orderId,
+          square_payment_link_id: result.paymentLinkId ?? null,
+          updated_at: new Date().toISOString(),
+        })
+        .eq("reference", orderRef);
+      if (linkErr) {
+        console.error("[regen/checkout] square_order_id link failed:", linkErr);
       }
-    } catch (linkErr) {
-      console.error("[regen/checkout] square_order_id link failed:", linkErr);
     }
 
     return NextResponse.json({

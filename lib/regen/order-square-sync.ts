@@ -165,14 +165,19 @@ export async function syncRegenOrderShippingFromSquare(
 /** Webhook helper — match paid Square payment to RE GEN order by square_order_id. */
 export async function syncRegenShippingForSquarePayment(
   admin: SupabaseClient,
-  payment: { order_id?: string | null; id?: string | null },
-): Promise<{ synced: boolean; orderRef?: string }> {
+  payment: {
+    order_id?: string | null;
+    id?: string | null;
+    status?: string | null;
+    updated_at?: string | null;
+  },
+): Promise<{ synced: boolean; orderRef?: string; markedPaid?: boolean }> {
   const orderId = payment.order_id?.trim();
   if (!orderId) return { synced: false };
 
   let { data: order } = await admin
     .from("regen_orders")
-    .select("reference, shipping_address")
+    .select("reference, shipping_address, status, payment_id")
     .eq("square_order_id", orderId)
     .maybeSingle();
 
@@ -185,8 +190,25 @@ export async function syncRegenShippingForSquarePayment(
 
   if (!order?.reference) return { synced: false };
 
+  const paymentCompleted = payment.status === "COMPLETED";
+  let markedPaid = false;
+
+  if (paymentCompleted && payment.id) {
+    const paidUpdates: Record<string, unknown> = {
+      payment_id: payment.id,
+      square_order_id: orderId,
+      updated_at: new Date().toISOString(),
+    };
+    if (order.status === "pending_payment" || !order.payment_id) {
+      paidUpdates.status = "paid";
+      paidUpdates.paid_at = payment.updated_at || new Date().toISOString();
+      markedPaid = order.status === "pending_payment";
+    }
+    await admin.from("regen_orders").update(paidUpdates).eq("reference", order.reference);
+  }
+
   if (order.shipping_address && typeof order.shipping_address === "object") {
-    return { synced: true, orderRef: order.reference as string };
+    return { synced: true, orderRef: order.reference as string, markedPaid };
   }
 
   const result = await syncRegenOrderShippingFromSquare(admin, order.reference as string, {
@@ -194,12 +216,12 @@ export async function syncRegenShippingForSquarePayment(
     retry: true,
   });
 
-  if (payment.id) {
+  if (payment.id && !paymentCompleted) {
     await admin
       .from("regen_orders")
       .update({ payment_id: payment.id, updated_at: new Date().toISOString() })
       .eq("reference", order.reference);
   }
 
-  return { synced: result.ok, orderRef: order.reference as string };
+  return { synced: result.ok, orderRef: order.reference as string, markedPaid };
 }

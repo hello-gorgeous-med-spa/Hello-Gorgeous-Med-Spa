@@ -148,7 +148,7 @@ export async function GET(req: NextRequest) {
     const { data: regenRowsRaw } = await admin
       .from("regen_orders")
       .select(
-        "reference, created_at, status, customer_name, customer_email, customer_phone, goal, items, subtotal_usd, shipping_usd, paid_at, intake_completed_at, telehealth_required, telehealth_completed_at, np_approved_at, shipped_at, tracking_number",
+        "reference, created_at, status, customer_name, customer_email, customer_phone, goal, items, subtotal_usd, shipping_usd, paid_at, payment_id, intake_completed_at, telehealth_required, telehealth_completed_at, np_approved_at, shipped_at, tracking_number",
       )
       .order("created_at", { ascending: false })
       .limit(limit);

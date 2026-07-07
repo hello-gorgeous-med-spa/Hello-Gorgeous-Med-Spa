@@ -30,6 +30,7 @@ type RxCommandItem = {
 
 function payBadge(status: string | null) {
   if (status === "paid") return "bg-green-500/20 text-green-300";
+  if (status === "unverified") return "bg-orange-500/20 text-orange-200";
   if (status === "pending") return "bg-amber-500/20 text-amber-200";
   if (!status) return "bg-gray-700 text-gray-400";
   return "bg-red-500/20 text-red-200";

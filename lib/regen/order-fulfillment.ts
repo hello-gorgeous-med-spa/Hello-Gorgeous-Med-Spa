@@ -31,6 +31,7 @@ const FULFILLMENT_SELECT =
   "reference, created_at, status, customer_name, customer_email, customer_phone, goal, allergies, items, subtotal_usd, shipping_usd, supply_cycle, paid_at, intake_completed_at, intake_data, telehealth_required, telehealth_scheduled_at, telehealth_completed_at, np_approved_at, np_notes, pharmacy_ordered_at, pharmacy_source, tracking_number, shipped_at, delivered_at, payment_id, square_order_id, shipping_address";
 
 export function regenOrderNeedsReview(order: RegenFulfillmentOrder): boolean {
+  if (!order.payment_id) return false;
   if (order.status === "pending_payment" || order.status === "cancelled") return false;
   if (order.shipped_at || order.status === "shipped" || order.status === "delivered") return false;
   if (!order.intake_completed_at) return false;

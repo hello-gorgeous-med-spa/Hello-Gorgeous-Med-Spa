@@ -8,6 +8,7 @@ import {
   regenCheckoutIntakeUrl,
 } from "@/lib/flows";
 import { REGEN_SHIPPING_USD } from "@/lib/regen/pricing-sync";
+import { regenOrderPaymentVerified } from "@/lib/regen/order-payment-verify";
 import type { RxPatientStatus, RxPatientStatusStep } from "@/lib/rx-patient-status";
 import { normalizePatientEmail } from "@/lib/rx-secure-messages";
 
@@ -23,6 +24,7 @@ export type RegenOrderRecord = {
   subtotal_usd: number | string | null;
   shipping_usd?: number | string | null;
   paid_at: string | null;
+  payment_id?: string | null;
   intake_completed_at?: string | null;
   telehealth_required?: boolean | null;
   telehealth_completed_at?: string | null;
@@ -42,7 +44,13 @@ const PAID_STATUSES = new Set([
 ]);
 
 export function regenOrderIsPaid(order: RegenOrderRecord): boolean {
+  if (regenOrderPaymentVerified(order)) return true;
   return PAID_STATUSES.has(order.status) || Boolean(order.paid_at);
+}
+
+/** Financially settled in Square — required before fulfillment. */
+export function regenOrderSquareSettled(order: RegenOrderRecord): boolean {
+  return regenOrderPaymentVerified(order);
 }
 
 export function regenOrderTitle(order: RegenOrderRecord): string {
@@ -195,7 +203,8 @@ export type RegenAdminQueueItem = {
 };
 
 export function mapRegenOrderToAdminItem(order: RegenOrderRecord): RegenAdminQueueItem {
-  const paid = regenOrderIsPaid(order);
+  const settled = regenOrderSquareSettled(order);
+  const legacyPaid = regenOrderIsPaid(order);
   return {
     kind: "regen",
     id: order.reference,
@@ -210,7 +219,7 @@ export function mapRegenOrderToAdminItem(order: RegenOrderRecord): RegenAdminQue
     email: order.customer_email,
     qualified: true,
     dispatchStatus: regenOrderDispatchLabel(order),
-    paymentStatus: paid ? "paid" : "pending",
+    paymentStatus: settled ? "paid" : legacyPaid ? "unverified" : "pending",
     paymentAmountUsd: regenOrderTotalUsd(order),
     paymentUrl: null,
     templateId: null,
