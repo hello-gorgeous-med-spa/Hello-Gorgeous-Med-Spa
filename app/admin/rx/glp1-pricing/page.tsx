@@ -116,6 +116,12 @@ export default function Glp1PricingPage() {
           >
             Export CSV
           </button>
+          <Link
+            href="/admin/rx/catalog"
+            className="px-4 py-2 rounded-full border-2 border-black font-bold text-sm self-center"
+          >
+            Full catalog + vendors
+          </Link>
           <Link href="/admin/rx/pharmacy-orders" className="text-sm font-bold text-[#E6007E] underline self-center">
             Pharmacy orders
           </Link>
@@ -348,7 +354,12 @@ export default function Glp1PricingPage() {
           </div>
           <p className="text-xs text-black/50">
             90-day wholesale = 3× monthly BoomRx vial from your PDF. Combined multi-peptide refills add one $35
-            shipping fee at checkout (same as GLP-1).
+            shipping fee at checkout (same as GLP-1). For all peptides with Formulation Rx, BoomRx &amp; Olympia
+            vendors, see{" "}
+            <Link href="/admin/rx/catalog" className="font-bold text-[#E6007E] underline">
+              RE GEN Catalog
+            </Link>
+            .
           </p>
         </>
       )}

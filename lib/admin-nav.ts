@@ -29,11 +29,13 @@ export const ADMIN_NAV_GROUPS: AdminNavGroup[] = [
     section: "Prescriptions & RX",
     items: [
       { href: "/admin/rx", label: "RX Command", icon: "🎯" },
+      { href: "/admin/rx/ops", label: "RX Ops Console", icon: "🖥️" },
       { href: "/admin/flowwave", label: "FlowWave", icon: "🌊" },
       { href: "/admin/rx-dispatch", label: "Dispatch", icon: "📤" },
       { href: "/admin/rx/pharmacy-orders", label: "Pharmacy Orders", icon: "🧪" },
       { href: "/admin/rx-invoices", label: "RX Invoices", icon: "💊" },
       { href: "/admin/rx/glp1-pricing", label: "RX Pricing", icon: "💲" },
+      { href: "/admin/rx/catalog", label: "RE GEN Catalog", icon: "📋" },
       { href: "/admin/rx/e2e-checklist", label: "E2E Checklist", icon: "✅" },
       { href: "/admin/rx-ledger", label: "Payment Ledger", icon: "📒" },
       { href: "/admin/rx-messages", label: "Patient Messages", icon: "💬" },
@@ -114,12 +116,14 @@ export const ADMIN_MOBILE_BOTTOM_NAV = [
 
 export const ADMIN_DASHBOARD_QUICK_LINKS = {
   rx: [
+    { href: "/admin/rx/ops", label: "RX Ops Console", desc: "Unified requests, formulary & review" },
     { href: "/admin/rx", label: "RX Command", desc: "Intake queue, refills & approvals" },
     { href: "/admin/flowwave", label: "FlowWave", desc: "RX workflow & patient flow" },
     { href: "/admin/rx-dispatch", label: "Dispatch", desc: "Ship GLP-1 & peptides" },
     { href: "/admin/rx/pharmacy-orders", label: "Pharmacy Orders", desc: "BoomRx order sheets" },
     { href: "/admin/rx-invoices", label: "RX Invoices", desc: "Send pay links" },
-    { href: "/admin/rx/glp1-pricing", label: "RX Pricing", desc: "Margins & wholesale" },
+    { href: "/admin/rx/glp1-pricing", label: "RX Pricing", desc: "GLP-1 & peptide margins" },
+    { href: "/admin/rx/catalog", label: "RE GEN Catalog", desc: "All peptides + vendors" },
   ],
   patients: [
     { href: "/admin/clients", label: "Clients", desc: "Profiles & RX history" },

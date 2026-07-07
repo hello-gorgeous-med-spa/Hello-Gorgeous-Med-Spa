@@ -280,11 +280,13 @@ export default function AdminLayoutClient({ children }: { children: React.ReactN
             </nav>
             <main
               className={`flex-1 w-full min-w-0 min-h-[calc(100vh-56px)] safe-area-pb ${
-                ['/admin/video-generator', '/admin/campaign-studio', '/admin/campaign-analytics'].some(
-                  (p) => pathname.startsWith(p),
-                )
-                  ? 'bg-black'
-                  : 'bg-[#F3F7F8] p-4 sm:p-6 pb-20 sm:pb-6 lg:pb-6'
+                pathname.startsWith('/admin/rx/ops')
+                  ? 'bg-[#faf7f8] p-0 pb-20 sm:pb-0 lg:pb-0'
+                  : ['/admin/video-generator', '/admin/campaign-studio', '/admin/campaign-analytics'].some(
+                      (p) => pathname.startsWith(p),
+                    )
+                    ? 'bg-black'
+                    : 'bg-[#F3F7F8] p-4 sm:p-6 pb-20 sm:pb-6 lg:pb-6'
               }`}
             >
               {children}
