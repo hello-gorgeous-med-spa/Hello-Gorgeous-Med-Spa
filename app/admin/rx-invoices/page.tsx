@@ -81,6 +81,7 @@ export default function RxInvoicesPage() {
   const prefillName = searchParams.get("name") || "";
   const prefillEmail = searchParams.get("email") || "";
   const prefillPhone = searchParams.get("phone") || "";
+  const prefillTemplateId = searchParams.get("template") || "";
 
   const [tracks, setTracks] = useState<TrackMeta[]>([]);
   const [templates, setTemplates] = useState<RxTemplate[]>([]);
@@ -154,6 +155,16 @@ export default function RxInvoicesPage() {
       cancelled = true;
     };
   }, []);
+
+  useEffect(() => {
+    if (!prefillTemplateId || templates.length === 0) return;
+    const match = templates.find((t) => t.id === prefillTemplateId);
+    if (match) {
+      setSelected(match);
+      setTrackFilter(match.track);
+      setSearch("");
+    }
+  }, [prefillTemplateId, templates]);
 
   useEffect(() => {
     if (clientQuery.length < 2) {

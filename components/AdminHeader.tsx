@@ -204,6 +204,12 @@ export function AdminHeader() {
             RX
           </Link>
           <Link
+            href="/staff/protocols"
+            className="hidden sm:inline-flex items-center gap-1.5 px-3 py-2 bg-emerald-600/90 hover:bg-emerald-500 rounded-lg text-sm font-medium transition-colors border border-emerald-400/30"
+          >
+            Protocols
+          </Link>
+          <Link
             href="/admin/appointments/new"
             className="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 bg-[#FF2D8E] hover:bg-[#c90a68] rounded-lg text-sm font-medium transition-colors"
           >

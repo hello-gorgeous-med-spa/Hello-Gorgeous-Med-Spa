@@ -27,6 +27,23 @@ export default function StaffPage() {
 
         {/* Resource Cards */}
         <div className="space-y-4">
+          {/* Protocols Hub — guides, social, invoices */}
+          <Link
+            href="/staff/protocols"
+            className="block bg-gradient-to-r from-emerald-600/25 to-pink-600/25 backdrop-blur rounded-2xl p-5 border-2 border-emerald-400/60 hover:border-emerald-400 hover:from-emerald-600/35 hover:to-pink-600/35 transition-all"
+          >
+            <div className="flex items-center gap-4">
+              <div className="text-4xl">📋</div>
+              <div className="flex-1">
+                <h2 className="font-bold text-white text-lg">Protocols &amp; Quick Tools</h2>
+                <p className="text-emerald-200/80 text-sm">
+                  Dosing guides · July social posts · RX invoice quick-send
+                </p>
+              </div>
+              <div className="text-emerald-400 text-2xl">→</div>
+            </div>
+          </Link>
+
           {/* Pharmacy Selector */}
           <a
             href="/staff/pharmacy-selector.html"

@@ -86,13 +86,20 @@ export function MobileNav({ variant = 'light' }: MobileNavProps) {
         </div>
 
         <nav className="overflow-y-auto p-3 pb-28 max-h-[calc(100vh-72px)]">
-          <div className="mb-4 grid grid-cols-3 gap-2">
+          <div className="mb-4 grid grid-cols-2 gap-2">
             <Link
               href="/admin/rx"
               onClick={() => setIsOpen(false)}
               className="rounded-lg bg-[#E6007E] text-white text-center py-2 text-xs font-semibold"
             >
               RX
+            </Link>
+            <Link
+              href="/staff/protocols"
+              onClick={() => setIsOpen(false)}
+              className="rounded-lg bg-emerald-600 text-white text-center py-2 text-xs font-semibold"
+            >
+              Protocols
             </Link>
             <Link
               href="/admin/flowwave"

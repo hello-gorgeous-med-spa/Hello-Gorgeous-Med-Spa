@@ -147,6 +147,9 @@ export default function AdminRxCommandCenterPage() {
             <Link href="/admin/rx/ops" className="text-[#FF2D8E] font-semibold hover:text-white">
               RX Ops Console →
             </Link>
+            <Link href="/staff/protocols" className="text-emerald-300 font-semibold hover:text-white">
+              Protocols &amp; Quick Tools →
+            </Link>
             <Link href="/admin/rx/catalog" className="text-[#E6007E] font-semibold hover:text-white">
               RE GEN Catalog →
             </Link>

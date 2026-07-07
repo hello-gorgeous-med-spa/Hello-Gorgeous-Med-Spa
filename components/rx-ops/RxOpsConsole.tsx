@@ -602,6 +602,16 @@ export function RxOpsConsole() {
             })}
           </ul>
         </nav>
+        <div className="border-t border-[#1c1c1c] p-3">
+          <Link
+            href="/staff/protocols"
+            className="flex w-full items-center gap-3 rounded-xl border border-emerald-500/35 bg-emerald-500/10 px-3 py-2.5 text-sm font-semibold text-emerald-200 hover:bg-emerald-500/20 transition-colors"
+          >
+            <span className="text-lg">🧰</span>
+            <span className="flex-1">Protocols &amp; Quick Tools</span>
+            <span className="text-emerald-400">→</span>
+          </Link>
+        </div>
         <div className="border-t border-[#1c1c1c] p-3.5 text-xs text-white/50">
           <Link href="/admin/rx" className="text-[#FFB8DC] hover:text-white font-semibold">
             ← Legacy RX Command
@@ -617,6 +627,12 @@ export function RxOpsConsole() {
             <p className="mt-1 text-sm text-black/55 m-0">{headings.sub}</p>
           </div>
           <div className="flex items-center gap-3">
+            <Link
+              href="/staff/protocols"
+              className="inline-flex items-center gap-2 rounded-lg border border-emerald-600 bg-emerald-50 px-3 py-2 text-xs font-bold text-emerald-900 hover:bg-emerald-100"
+            >
+              🧰 Protocols
+            </Link>
             <button
               type="button"
               onClick={() => setDemo((d) => !d)}
@@ -765,6 +781,7 @@ export function RxOpsConsole() {
                   <p className="mb-4 text-sm text-black/55">M4–M6 from your build ticket.</p>
                   <div className="grid gap-2">
                     {[
+                      ["Protocols & Quick Tools", "Guides · social · invoices", "/staff/protocols"],
                       ["Square", data.squareConnected ? "Connected" : "Not connected", "/admin/settings/payments"],
                       ["RE GEN Catalog", `${data.overview.formularySkuCount} SKUs`, "/admin/rx/catalog"],
                       ["RE GEN Fulfillment", "Online orders", "/admin/rx/regen-orders"],
