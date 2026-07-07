@@ -10,6 +10,7 @@ import { notifyStaffGlp1RefillCheckoutStarted } from "@/lib/glp1-refill-staff-sm
 import {
   getRxInvoiceTemplate,
   resolveTemplateAmountUsd,
+  templateRequiresShippingAddress,
 } from "@/lib/rx-invoice-templates";
 import { getSupabaseAdminClient } from "@/lib/hgos/supabase-admin";
 import { resolveRxSubmissionContext } from "@/lib/rx-submission-context";
@@ -71,6 +72,7 @@ export async function POST(req: NextRequest) {
     description,
     clientLabel: template.lineLabel,
     redirectUrl,
+    askForShippingAddress: templateRequiresShippingAddress(template),
   });
 
   if (!linkResult.ok) {

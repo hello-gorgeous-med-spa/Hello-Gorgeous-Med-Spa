@@ -277,6 +277,13 @@ export function formatUsd(amount: number): string {
   return `$${amount.toFixed(2)}`;
 }
 
+/** Consult / fee templates — no ship-to-home on Square checkout. Meds & peptides require address. */
+export function templateRequiresShippingAddress(template: RxInvoiceTemplate): boolean {
+  if (template.track === "fees") return false;
+  if (template.id === "glp1-consult") return false;
+  return true;
+}
+
 /** Default premade invoice when staff resend from command center / dispatch. */
 export function defaultInvoiceTemplateForTrack(
   track: "peptide" | "glp1" | "unknown",

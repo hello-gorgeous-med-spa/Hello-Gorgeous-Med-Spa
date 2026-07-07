@@ -120,7 +120,25 @@ export async function POST(req: NextRequest) {
       items: validatedItems,
       customerEmail: body.customerEmail,
       redirectUrl: `${redirectUrl}?ref=${orderRef}`,
+      orderReference: orderRef,
     });
+
+    // Link Square order for shipping sync after payment
+    try {
+      const supabase = await createServerSupabaseClient();
+      if (supabase && result.orderId) {
+        await supabase
+          .from("regen_orders")
+          .update({
+            square_order_id: result.orderId,
+            square_payment_link_id: result.paymentLinkId ?? null,
+            updated_at: new Date().toISOString(),
+          })
+          .eq("reference", orderRef);
+      }
+    } catch (linkErr) {
+      console.error("[regen/checkout] square_order_id link failed:", linkErr);
+    }
 
     return NextResponse.json({
       success: true,

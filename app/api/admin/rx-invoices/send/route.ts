@@ -10,6 +10,7 @@ import { insertRxPaymentLedger } from "@/lib/rx-payment-ledger";
 import {
   getRxInvoiceTemplate,
   resolveTemplateAmountUsd,
+  templateRequiresShippingAddress,
 } from "@/lib/rx-invoice-templates";
 
 export const dynamic = "force-dynamic";
@@ -101,6 +102,7 @@ export async function POST(req: NextRequest) {
     amountUsd,
     clientLabel,
     description: descriptionParts.join(" · "),
+    askForShippingAddress: templateRequiresShippingAddress(template),
   });
 
   if (!linkResult.ok) {

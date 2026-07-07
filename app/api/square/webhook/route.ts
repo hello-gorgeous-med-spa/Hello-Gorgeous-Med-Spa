@@ -29,6 +29,7 @@ import { enqueueReviewRequest } from '@/lib/reviews/enqueue';
 import { creditHgRewardsFromSquarePayment } from '@/lib/hg-rewards/credit-from-square-payment';
 import { reconcileRxLedgerFromSquarePayment } from '@/lib/rx-payment-ledger';
 import { processRxAutopayRenewalFromSquarePayment } from '@/lib/rx-autopay-renewal';
+import { syncRegenShippingForSquarePayment } from '@/lib/regen/order-square-sync';
 
 // Helper to get access token for webhook processing
 async function getAccessTokenForWebhook(): Promise<string | null> {
@@ -525,6 +526,14 @@ export async function POST(request: NextRequest) {
         );
         if (reconcileResult.updated > 0) {
           console.log('[Webhook] RX ledger reconciled:', reconcileResult.ledgerIds);
+        }
+
+        const regenShip = await syncRegenShippingForSquarePayment(supabase, {
+          id: payment.id,
+          order_id: payment.order_id,
+        });
+        if (regenShip.synced) {
+          console.log('[Webhook] RE GEN shipping synced:', regenShip.orderRef);
         }
 
         const renewal = await processRxAutopayRenewalFromSquarePayment(

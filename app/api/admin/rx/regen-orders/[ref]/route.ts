@@ -7,6 +7,8 @@ import {
   fetchRegenFulfillmentOrder,
   regenFulfillmentSummary,
 } from "@/lib/regen/order-fulfillment";
+import { syncRegenOrderShippingFromSquare } from "@/lib/regen/order-square-sync";
+import { formatSquareShippingAddress } from "@/lib/square/order-shipping";
 
 export const dynamic = "force-dynamic";
 
@@ -55,15 +57,36 @@ export async function PATCH(req: NextRequest, { params }: RouteParams) {
   const { ref } = await params;
   const body = (await req.json().catch(() => ({}))) as PatchBody;
 
+  const admin = getSupabaseAdminClient();
+  if (!admin) {
+    return NextResponse.json({ error: "Database unavailable" }, { status: 503 });
+  }
+
   const actionType = body.action;
   if (
     actionType !== "telehealth_complete" &&
     actionType !== "approve" &&
     actionType !== "pharmacy_ordered" &&
     actionType !== "ship" &&
-    actionType !== "delivered"
+    actionType !== "delivered" &&
+    actionType !== "sync_shipping"
   ) {
     return NextResponse.json({ error: "Invalid action" }, { status: 400 });
+  }
+
+  if (actionType === "sync_shipping") {
+    const decodedRef = decodeURIComponent(ref);
+    const sync = await syncRegenOrderShippingFromSquare(admin, decodedRef);
+    const order = await fetchRegenFulfillmentOrder(admin, decodedRef);
+    if (!order) {
+      return NextResponse.json({ error: "Order not found" }, { status: 404 });
+    }
+    return NextResponse.json({
+      ok: sync.ok,
+      shippingAddress: formatSquareShippingAddress(sync.shippingAddress),
+      summary: regenFulfillmentSummary(order),
+      order,
+    });
   }
 
   const result = await applyRegenFulfillmentAction(decodeURIComponent(ref), {

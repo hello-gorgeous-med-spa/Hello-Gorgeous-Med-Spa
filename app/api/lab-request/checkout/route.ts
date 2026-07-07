@@ -46,6 +46,7 @@ export async function POST(req: NextRequest) {
     amountUsd,
     description,
     redirectUrl,
+    askForShippingAddress: false,
   });
 
   if (!linkResult.ok) {

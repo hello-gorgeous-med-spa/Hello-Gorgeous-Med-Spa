@@ -11,6 +11,7 @@ import {
   defaultInvoiceTemplateForTrack,
   getRxInvoiceTemplate,
   resolveTemplateAmountUsd,
+  templateRequiresShippingAddress,
 } from "@/lib/rx-invoice-templates";
 import { insertRxPaymentLedger } from "@/lib/rx-payment-ledger";
 import { intakeTrackFromSlug } from "@/lib/rx-dispatch";
@@ -94,6 +95,7 @@ export async function POST(req: NextRequest) {
     amountUsd,
     clientLabel: clientName || email || phone || "Client",
     description: `${template.lineLabel} · Ref ${submission.intakeRef}`,
+    askForShippingAddress: templateRequiresShippingAddress(template),
   });
 
   if (!linkResult.ok) {

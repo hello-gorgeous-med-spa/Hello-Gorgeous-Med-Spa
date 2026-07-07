@@ -20,6 +20,8 @@ type OrderDetail = {
   items: OrderItem[];
   subtotal_usd: number | string | null;
   shipping_usd?: number | string | null;
+  shipping_address?: Record<string, unknown> | null;
+  square_order_id?: string | null;
   paid_at: string | null;
   intake_completed_at: string | null;
   intake_data?: Record<string, unknown> | null;
@@ -39,6 +41,8 @@ type Summary = {
   telehealthRequired: boolean;
   totalUsd: number;
   title: string;
+  shippingAddress?: string;
+  hasShippingAddress?: boolean;
 };
 
 export default function RegenOrderFulfillmentDetailPage() {
@@ -156,6 +160,29 @@ export default function RegenOrderFulfillmentDetailPage() {
             {order.customer_name} · {order.customer_phone || "no phone"} · {order.customer_email || "no email"}
           </p>
         </div>
+
+        <section className="rounded-xl border border-white/10 bg-white/5 p-5 mb-6">
+          <div className="flex flex-wrap items-start justify-between gap-3 mb-3">
+            <h2 className="text-sm font-bold uppercase tracking-wider text-[#FFB8DC]">Ship to</h2>
+            {!summary.hasShippingAddress ? (
+              <button
+                type="button"
+                disabled={busy}
+                onClick={() => void runAction("sync_shipping")}
+                className="rounded-lg border border-[#E6007E]/50 px-3 py-1.5 text-xs font-bold text-[#FFB8DC] hover:bg-[#E6007E]/10 disabled:opacity-50"
+              >
+                Sync from Square
+              </button>
+            ) : null}
+          </div>
+          {summary.shippingAddress ? (
+            <pre className="whitespace-pre-wrap text-sm text-gray-200 font-sans">{summary.shippingAddress}</pre>
+          ) : (
+            <p className="text-sm text-amber-300/90">
+              No ship-to address on file. If the patient paid via Square, tap Sync from Square — or check Square Dashboard → Orders.
+            </p>
+          )}
+        </section>
 
         {message && (
           <p className="mb-4 rounded-lg border border-[#E6007E]/40 bg-[#E6007E]/10 px-4 py-2 text-sm text-[#FFB8DC]">

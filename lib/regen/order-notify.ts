@@ -16,6 +16,8 @@ import { sendPortalMagicLinkForEmail } from "@/lib/portal-magic-link-server";
 import { regenCheckoutIntakeUrl } from "@/lib/flows";
 import { SITE } from "@/lib/seo";
 import { REGEN_SHIPPING_USD } from "@/lib/regen/pricing-sync";
+import type { SquareShippingAddress } from "@/lib/square/order-shipping";
+import { formatSquareShippingAddress } from "@/lib/square/order-shipping";
 
 const REGEN_BRAND = "RE GEN by Hello Gorgeous";
 const REGEN_SUPPORT_PHONE = SITE.phone;
@@ -248,6 +250,8 @@ export function notifyOwnerRegenOrderPlaced(opts: {
   items: RegenOrderItem[];
   subtotal: number;
   total: number;
+  shippingAddress?: SquareShippingAddress | null;
+  shippingAddressText?: string;
 }): void {
   const itemSummary = opts.items
     .map((i) => {
@@ -257,13 +261,17 @@ export function notifyOwnerRegenOrderPlaced(opts: {
     })
     .join("; ");
 
-  const adminUrl = `${SITE.url}/rx/checkout/success?ref=${encodeURIComponent(opts.orderRef)}`;
+  const adminUrl = `${SITE.url}/admin/rx/regen-orders/${encodeURIComponent(opts.orderRef)}`;
+  const shipTo =
+    opts.shippingAddressText?.trim() ||
+    formatSquareShippingAddress(opts.shippingAddress ?? null);
 
   const smsLines = [
     `Ref ${opts.orderRef}`,
     opts.customerName ? `Name: ${opts.customerName}` : "",
     opts.customerPhone ? `Phone: ${opts.customerPhone}` : "",
     opts.customerEmail ? `Email: ${opts.customerEmail}` : "",
+    shipTo ? `Ship to:\n${shipTo}` : "Ship to: (missing — sync in admin)",
     opts.goal ? `Goal: ${opts.goal}` : "",
     opts.supplyCycle ? `Supply: ${opts.supplyCycle}` : "",
     `Total: $${opts.total.toFixed(2)}`,
@@ -285,6 +293,9 @@ export function notifyOwnerRegenOrderPlaced(opts: {
     opts.customerEmail ? `Email: ${opts.customerEmail}` : "",
     opts.goal ? `Goal: ${opts.goal}` : "",
     opts.supplyCycle ? `Supply: ${opts.supplyCycle}` : "",
+    "",
+    shipTo ? "Ship to:" : "Ship to: (not captured — check Square or admin sync)",
+    ...(shipTo ? shipTo.split("\n").map((line) => `  ${line}`) : []),
     "",
     "Items:",
     ...opts.items.map((i) => {

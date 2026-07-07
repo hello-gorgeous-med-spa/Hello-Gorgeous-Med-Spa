@@ -40,6 +40,8 @@ export type CreateRxPaymentLinkInput = {
   description?: string;
   clientLabel?: string;
   redirectUrl?: string;
+  /** When true, Square checkout collects shipping address (required for ship-to-home RX). */
+  askForShippingAddress?: boolean;
 };
 
 export type CreateRxPaymentLinkResult =
@@ -73,6 +75,7 @@ export async function createRxPaymentLink(
     (input.clientLabel
       ? `Hello Gorgeous RX · ${input.clientLabel}`
       : "Hello Gorgeous RX payment");
+  const askForShippingAddress = input.askForShippingAddress ?? true;
 
   try {
     const res = await checkoutApi.createPaymentLink({
@@ -84,7 +87,10 @@ export async function createRxPaymentLink(
       },
       checkoutOptions: {
         redirectUrl,
-        askForShippingAddress: false,
+        askForShippingAddress,
+        ...(askForShippingAddress
+          ? { merchantSupportEmail: "hello@hellogorgeousmedspa.com" }
+          : {}),
       },
       description,
     });

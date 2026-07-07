@@ -91,6 +91,7 @@ export async function createRegenCheckout(opts: {
   items: RegenCartItem[];
   customerEmail?: string;
   redirectUrl: string;
+  orderReference?: string;
 }): Promise<RegenCheckoutResult> {
   if (!opts.items.length) {
     throw new Error("Cart is empty");
@@ -146,6 +147,7 @@ export async function createRegenCheckout(opts: {
       idempotency_key: idempotencyKey("regen-link"),
       order: {
         location_id: locationId,
+        reference_id: opts.orderReference?.slice(0, 40) || undefined,
         line_items: lineItems,
       },
       checkout_options: {

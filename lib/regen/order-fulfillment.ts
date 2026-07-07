@@ -11,6 +11,8 @@ import {
 } from "@/lib/regen/order-notify";
 import type { RegenOrderRecord } from "@/lib/regen/order-patient-status";
 import { regenOrderTitle, regenOrderTotalUsd } from "@/lib/regen/order-patient-status";
+import type { SquareShippingAddress } from "@/lib/square/order-shipping";
+import { formatSquareShippingAddress } from "@/lib/square/order-shipping";
 
 export type RegenFulfillmentOrder = RegenOrderRecord & {
   np_notes?: string | null;
@@ -21,10 +23,12 @@ export type RegenFulfillmentOrder = RegenOrderRecord & {
   supply_cycle?: string | null;
   intake_data?: Record<string, unknown> | null;
   payment_id?: string | null;
+  square_order_id?: string | null;
+  shipping_address?: Record<string, unknown> | null;
 };
 
 const FULFILLMENT_SELECT =
-  "reference, created_at, status, customer_name, customer_email, customer_phone, goal, allergies, items, subtotal_usd, shipping_usd, supply_cycle, paid_at, intake_completed_at, intake_data, telehealth_required, telehealth_scheduled_at, telehealth_completed_at, np_approved_at, np_notes, pharmacy_ordered_at, pharmacy_source, tracking_number, shipped_at, delivered_at, payment_id";
+  "reference, created_at, status, customer_name, customer_email, customer_phone, goal, allergies, items, subtotal_usd, shipping_usd, supply_cycle, paid_at, intake_completed_at, intake_data, telehealth_required, telehealth_scheduled_at, telehealth_completed_at, np_approved_at, np_notes, pharmacy_ordered_at, pharmacy_source, tracking_number, shipped_at, delivered_at, payment_id, square_order_id, shipping_address";
 
 export function regenOrderNeedsReview(order: RegenFulfillmentOrder): boolean {
   if (order.status === "pending_payment" || order.status === "cancelled") return false;
@@ -257,6 +261,11 @@ export async function applyRegenFulfillmentAction(
 }
 
 export function regenFulfillmentSummary(order: RegenFulfillmentOrder) {
+  const shippingAddress =
+    order.shipping_address && typeof order.shipping_address === "object"
+      ? formatSquareShippingAddress(order.shipping_address as SquareShippingAddress)
+      : "";
+
   return {
     reference: order.reference,
     title: regenOrderTitle(order),
@@ -276,5 +285,7 @@ export function regenFulfillmentSummary(order: RegenFulfillmentOrder) {
     pharmacyOrderedAt: order.pharmacy_ordered_at,
     shippedAt: order.shipped_at,
     trackingNumber: order.tracking_number,
+    shippingAddress,
+    hasShippingAddress: Boolean(shippingAddress),
   };
 }

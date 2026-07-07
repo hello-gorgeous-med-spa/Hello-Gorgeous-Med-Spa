@@ -5,6 +5,8 @@
 
 import { getSupabaseAdminClient } from "@/lib/hgos/supabase-admin";
 import { notifyOwnerRegenOrderPlaced, smsRegenPaymentReceived } from "@/lib/regen/order-notify";
+import { syncRegenOrderShippingFromSquare } from "@/lib/regen/order-square-sync";
+import { formatSquareShippingAddress, type SquareShippingAddress } from "@/lib/square/order-shipping";
 import { REGEN_SHIPPING_USD } from "@/lib/regen/pricing-sync";
 
 type RegenOrderRow = {
@@ -18,6 +20,8 @@ type RegenOrderRow = {
   items: unknown;
   subtotal_usd: number | string | null;
   owner_notified_at: string | null;
+  square_order_id: string | null;
+  shipping_address: SquareShippingAddress | null;
 };
 
 type RegenOrderItem = {
@@ -42,7 +46,7 @@ export async function completeRegenOrderAndNotify(
   const { data: order, error } = await admin
     .from("regen_orders")
     .select(
-      "reference, status, customer_name, customer_email, customer_phone, goal, supply_cycle, items, subtotal_usd, owner_notified_at"
+      "reference, status, customer_name, customer_email, customer_phone, goal, supply_cycle, items, subtotal_usd, owner_notified_at, square_order_id, shipping_address",
     )
     .eq("reference", ref)
     .maybeSingle();
@@ -56,6 +60,18 @@ export async function completeRegenOrderAndNotify(
   const now = new Date().toISOString();
   const updates: Record<string, unknown> = { updated_at: now };
   let notified = false;
+
+  let shippingAddress =
+    row.shipping_address && typeof row.shipping_address === "object"
+      ? (row.shipping_address as SquareShippingAddress)
+      : null;
+
+  if (!shippingAddress && row.square_order_id) {
+    const sync = await syncRegenOrderShippingFromSquare(admin, ref, {
+      squareOrderId: row.square_order_id,
+    });
+    shippingAddress = sync.shippingAddress;
+  }
 
   if (row.status === "pending_payment") {
     updates.status = "paid";
@@ -77,6 +93,8 @@ export async function completeRegenOrderAndNotify(
       items,
       subtotal,
       total,
+      shippingAddress,
+      shippingAddressText: formatSquareShippingAddress(shippingAddress),
     });
 
     updates.owner_notified_at = now;
