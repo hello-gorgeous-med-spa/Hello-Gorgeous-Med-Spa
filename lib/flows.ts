@@ -6,9 +6,17 @@
  * Legacy: `NEXT_PUBLIC_FRESHA_BOOKING_URL` still accepted if Square URL unset.
  * `/book` merges UTM params then redirects to the active booking provider.
  */
-/** Square Online Booking — Hello Gorgeous Oswego location services menu. */
+/**
+ * Square Online Booking — Hello Gorgeous Oswego start URL
+ * @see https://app.squareup.com/appointments/book/c6d3183a-3e54-4f32-8923-61c56c170c64/PYYB8NKD45N8P/start
+ */
 export const SQUARE_ORG_BOOKING_URL =
-  "https://book.squareup.com/appointments/c6d3183a-3e54-4f32-8923-61c56c170c64/location/PYYB8NKD45N8P/services";
+  process.env.NEXT_PUBLIC_SQUARE_BOOKING_URL?.trim() ||
+  "https://app.squareup.com/appointments/book/c6d3183a-3e54-4f32-8923-61c56c170c64/PYYB8NKD45N8P/start";
+
+/** Square Appointments embed script (Dashboard → Online Booking → Embed). */
+export const SQUARE_APPOINTMENTS_EMBED_SCRIPT_URL =
+  "https://square.site/appointments/buyer/widget/c6d3183a-3e54-4f32-8923-61c56c170c64/PYYB8NKD45N8P.js";
 
 /** Fresha Link Builder org URL (legacy — kept for optional telehealth deep links). */
 export const FRESHA_ORG_BOOKING_URL =
@@ -48,12 +56,16 @@ export function isSquareAppointmentsBookingUrl(url: string): boolean {
   const u = url.trim();
   if (!u) return false;
   if (/book\.squareup\.com/i.test(u)) return true;
+  if (/app\.squareup\.com\/appointments/i.test(u)) return true;
+  if (/square\.site\/appointments/i.test(u)) return true;
   try {
     const { hostname, pathname } = new URL(u);
     const host = hostname.toLowerCase();
+    const isSquareHost =
+      host.endsWith("squareup.com") || host === "square.site" || host.endsWith(".square.site");
     return (
-      host.endsWith("squareup.com") &&
-      (pathname.includes("/appointments") || pathname.includes("/appointment"))
+      isSquareHost &&
+      (pathname.includes("/appointments") || pathname.includes("/appointment") || pathname.includes("/book"))
     );
   } catch {
     return false;

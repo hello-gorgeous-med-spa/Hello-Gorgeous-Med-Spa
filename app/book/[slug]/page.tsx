@@ -1,5 +1,5 @@
 // ============================================================
-// /book/[slug] → Square Appointments (org booking site)
+// /book/[slug] → Square Appointments booking page
 // ============================================================
 
 import { redirect } from "next/navigation";
@@ -12,8 +12,9 @@ type Props = {
 };
 
 export default async function BookSlugRedirect({ params, searchParams }: Props) {
-  await params; // slug reserved for future Square service deep links
+  await params; // reserved for future Square service deep links
   const sp = await searchParams;
+  // Keep branded /book as embed home; deep links open Square start URL
   const dest = mergeBookRedirectUrl(BOOKING_URL, sp);
   redirect(dest);
 }

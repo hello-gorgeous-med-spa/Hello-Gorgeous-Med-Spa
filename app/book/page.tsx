@@ -1,22 +1,17 @@
 // ============================================================
-// Public booking — /book → Square Appointments (merges UTM / ad click IDs)
+// Public booking — /book embeds Square Appointments widget
 // ============================================================
 
 import type { Metadata } from "next";
-import { redirect } from "next/navigation";
-import { BOOKING_URL } from "@/lib/flows";
-import { pageMetadata } from "@/lib/seo";
-import { mergeBookRedirectUrl } from "@/lib/booking/merge-fresha-redirect-url";
 
-type Props = {
-  searchParams: Promise<Record<string, string | string[] | undefined>>;
-};
+import { SquareBookPageContent } from "@/components/booking/SquareBookPageContent";
+import { pageMetadata, SITE, siteJsonLd, breadcrumbJsonLd } from "@/lib/seo";
 
 export const metadata: Metadata = {
   ...pageMetadata({
     title: "Book Consultation | Hello Gorgeous Med Spa",
     description:
-      "Book your consultation at Hello Gorgeous Med Spa in Oswego, IL. Schedule injectables, Morpheus8, Quantum RF, Solaria CO2, medical weight loss, and wellness visits.",
+      "Book your consultation at Hello Gorgeous Med Spa in Oswego, IL. Schedule injectables, Morpheus8, Quantum RF, Solaria CO2, medical weight loss, and wellness visits online with Square.",
     path: "/book",
   }),
   robots: {
@@ -26,11 +21,23 @@ export const metadata: Metadata = {
   },
 };
 
-export default async function BookPage({ searchParams }: Props) {
-  const sp = await searchParams;
-  const forwarded: Record<string, string | string[] | undefined> = { ...sp };
-  delete forwarded["service"];
+export default function BookPage() {
+  const breadcrumb = breadcrumbJsonLd([
+    { name: "Home", url: SITE.url },
+    { name: "Book", url: `${SITE.url}/book` },
+  ]);
 
-  const dest = mergeBookRedirectUrl(BOOKING_URL, forwarded);
-  redirect(dest);
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(siteJsonLd()) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumb) }}
+      />
+      <SquareBookPageContent />
+    </>
+  );
 }
