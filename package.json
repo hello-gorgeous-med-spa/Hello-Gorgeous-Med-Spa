@@ -37,7 +37,8 @@
     "sync:regen-peptide-cards": "node scripts/extract-regen-peptide-cards.mjs",
     "import-fresha-clients": "node --env-file=.env.local scripts/import-fresha-clients.mjs",
     "import-fresha-appointments": "node --env-file=.env.local scripts/import-fresha-appointments.mjs",
-    "test:ai-concierge": "node scripts/test-ai-concierge.mjs"
+    "test:ai-concierge": "node scripts/test-ai-concierge.mjs",
+    "square:july-recovery-stack": "node --env-file=.env.local scripts/add-july-recovery-stack-to-square.mjs"
   },
   "keywords": [
     "medspa",

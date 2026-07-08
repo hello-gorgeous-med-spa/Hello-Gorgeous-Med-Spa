@@ -1,0 +1,11 @@
+Hello Gorgeous - July Recovery Stack booking links
+
+SQUARE DIRECT BOOKING (use on flyers):
+https://app.squareup.com/appointments/book/c6d3183a-3e54-4f32-8923-61c56c170c64/PYYB8NKD45N8P/start
+
+WEBSITE /book WITH UTM (embed + brand page):
+https://www.hellogorgeousmedspa.com/book?utm_source=qr&utm_medium=print&utm_campaign=july_recovery_stack
+
+QR FILES:
+- square-booking-qr.png  -> Square start URL
+- book-page-qr.png       -> hellogorgeousmedspa.com/book
