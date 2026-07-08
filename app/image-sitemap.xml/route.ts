@@ -146,6 +146,9 @@ export async function GET() {
     "/about": allImages.filter(img => 
       img.src.includes("team")
     ),
+    "/meet-the-team": allImages.filter(img =>
+      img.src.includes("team")
+    ),
     ...buildInModePageImageMap(allImages),
   };
 

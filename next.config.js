@@ -280,7 +280,6 @@ const nextConfig = {
     },
     { source: "/services/regenerative", destination: "/regenerative-medicine-oswego-il", permanent: true },
     { source: "/your-care-team", destination: "/providers", permanent: true },
-    { source: "/meet-the-team", destination: "/providers", permanent: true },
     { source: "/care-and-support", destination: "/pre-post-care", permanent: true },
     // Sitemap/legacy URLs that have no page - redirect to avoid 404
     { source: "/pricing", destination: "/book", permanent: true },

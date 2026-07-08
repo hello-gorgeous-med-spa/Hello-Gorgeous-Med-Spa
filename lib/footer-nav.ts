@@ -50,6 +50,7 @@ export const FOOTER_PRIMARY_COLUMNS: FooterNavColumn[] = [
     title: "Company",
     links: [
       { label: "About Hello Gorgeous", href: "/about" },
+      { label: "Meet the Team", href: "/meet-the-team" },
       { label: "Meet Dani & Ryan", href: "/about" },
       { label: "Why choose us", href: "/why-choose-us" },
       { label: "Google Reviews", href: SITE.googleReviewUrl, external: true },
