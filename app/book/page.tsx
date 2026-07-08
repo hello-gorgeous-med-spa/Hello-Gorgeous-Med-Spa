@@ -1,5 +1,5 @@
 // ============================================================
-// Public booking — /book → Fresha (merges UTM / ad click IDs)
+// Public booking — /book → Square Appointments (merges UTM / ad click IDs)
 // ============================================================
 
 import type { Metadata } from "next";
@@ -7,8 +7,6 @@ import { redirect } from "next/navigation";
 import { BOOKING_URL } from "@/lib/flows";
 import { pageMetadata } from "@/lib/seo";
 import { mergeBookRedirectUrl } from "@/lib/booking/merge-fresha-redirect-url";
-import { freshaBookingUrlForService } from "@/lib/booking/fresha-booking-url";
-import { resolveFreshaServiceIdForSlug } from "@/lib/booking/fresha-service-slugs";
 
 type Props = {
   searchParams: Promise<Record<string, string | string[] | undefined>>;
@@ -30,18 +28,9 @@ export const metadata: Metadata = {
 
 export default async function BookPage({ searchParams }: Props) {
   const sp = await searchParams;
-  const slugParam = sp["service"];
-  const slug = Array.isArray(slugParam) ? slugParam[0] : slugParam;
-
-  let baseUrl = BOOKING_URL;
-  if (slug) {
-    const freshaServiceId = await resolveFreshaServiceIdForSlug(slug);
-    baseUrl = freshaBookingUrlForService(freshaServiceId);
-  }
-
   const forwarded: Record<string, string | string[] | undefined> = { ...sp };
   delete forwarded["service"];
 
-  const dest = mergeBookRedirectUrl(baseUrl, forwarded);
+  const dest = mergeBookRedirectUrl(BOOKING_URL, forwarded);
   redirect(dest);
 }

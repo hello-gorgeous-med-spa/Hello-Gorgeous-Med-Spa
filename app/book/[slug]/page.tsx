@@ -1,12 +1,10 @@
 // ============================================================
-// /book/[slug] → Fresha (service deep link when mapped in fresha-service-slugs)
+// /book/[slug] → Square Appointments (org booking site)
 // ============================================================
 
 import { redirect } from "next/navigation";
 import { BOOKING_URL } from "@/lib/flows";
 import { mergeBookRedirectUrl } from "@/lib/booking/merge-fresha-redirect-url";
-import { freshaBookingUrlForService } from "@/lib/booking/fresha-booking-url";
-import { resolveFreshaServiceIdForSlug } from "@/lib/booking/fresha-service-slugs";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -14,10 +12,8 @@ type Props = {
 };
 
 export default async function BookSlugRedirect({ params, searchParams }: Props) {
-  const { slug } = await params;
+  await params; // slug reserved for future Square service deep links
   const sp = await searchParams;
-  const freshaServiceId = await resolveFreshaServiceIdForSlug(slug);
-  const baseUrl = freshaBookingUrlForService(freshaServiceId);
-  const dest = mergeBookRedirectUrl(baseUrl, sp);
+  const dest = mergeBookRedirectUrl(BOOKING_URL, sp);
   redirect(dest);
 }

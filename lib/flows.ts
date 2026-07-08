@@ -1,12 +1,16 @@
 /**
- * Public online booking — **Fresha** (org + optional per-staff Link Builder URLs).
- * Square is for in-spa payments / POS, not appointments.
+ * Public online booking — **Square Appointments** (org booking site).
+ * Fresha URLs remain as legacy fallbacks for telehealth deep links until migrated.
  *
- * Vercel: `NEXT_PUBLIC_FRESHA_BOOKING_URL` (org). Alias: `NEXT_PUBLIC_BOOKING_URL`.
- * Optional: `NEXT_PUBLIC_FRESHA_BOOKING_URL_DANIELLE`, `NEXT_PUBLIC_FRESHA_BOOKING_URL_RYAN`.
- * `/book` merges UTM params then redirects to Fresha.
+ * Vercel: `NEXT_PUBLIC_SQUARE_BOOKING_URL` (preferred) or `NEXT_PUBLIC_BOOKING_URL`.
+ * Legacy: `NEXT_PUBLIC_FRESHA_BOOKING_URL` still accepted if Square URL unset.
+ * `/book` merges UTM params then redirects to the active booking provider.
  */
-/** Fresha Link Builder org URL (May 2026 — canonical /a/… path). */
+/** Square Online Booking — Hello Gorgeous Oswego location services menu. */
+export const SQUARE_ORG_BOOKING_URL =
+  "https://book.squareup.com/appointments/c6d3183a-3e54-4f32-8923-61c56c170c64/location/PYYB8NKD45N8P/services";
+
+/** Fresha Link Builder org URL (legacy — kept for optional telehealth deep links). */
 export const FRESHA_ORG_BOOKING_URL =
   "https://www.fresha.com/a/hello-gorgeous-med-spa-oswego-74-west-washington-street-y6oakkwf/booking?menu=true&share=true&pId=95245&dppub=true";
 
@@ -17,6 +21,7 @@ export const LEGACY_FRESHA_ORG_BOOKING_URL =
 /**
  * Fresha deep link — $49 NP consult for wellness & RX programs
  * (Ladies' / Gentlemen's Club, hormones, GLP-1, peptides, TRT).
+ * TODO: replace with Square service deep link when RX telehealth exists in Square.
  */
 export const FRESHA_49_CONSULT_BOOKING_URL =
   "https://www.fresha.com/book-now/hello-gorgeous-tallrfb5/services?lid=102610&eid=4566698&oiid=sv%3A22845867&share=true&pId=95245";
@@ -26,7 +31,7 @@ export const PROGRAM_CONSULT_FEE_USD = 49;
 /** Alias for club & program funnels — same as {@link FRESHA_49_CONSULT_BOOKING_URL}. */
 export const PROGRAM_CONSULT_BOOKING_URL = FRESHA_49_CONSULT_BOOKING_URL;
 
-/** @deprecated Use `BOOKING_URL` / `FRESHA_ORG_BOOKING_URL`. */
+/** @deprecated Use `BOOKING_URL` / `SQUARE_ORG_BOOKING_URL`. */
 export const FRESHA_BOOKING_URL = FRESHA_ORG_BOOKING_URL;
 
 /** Branded entry on our domain — redirects to {@link BOOKING_URL} with optional UTM merge. */
@@ -38,7 +43,7 @@ function isDikidiBookingUrl(url: string): boolean {
   return /dikidi\.(app|ru|net)/i.test(u);
 }
 
-/** Square Appointments URLs must never be used for public booking (payments only). */
+/** True when URL is Square Appointments online booking. */
 export function isSquareAppointmentsBookingUrl(url: string): boolean {
   const u = url.trim();
   if (!u) return false;
@@ -72,12 +77,11 @@ function isFirstPartyBookUrl(url: string): boolean {
 
 function resolvePublicBookingUrl(
   raw: string | undefined,
-  fallback: string = FRESHA_ORG_BOOKING_URL,
+  fallback: string = SQUARE_ORG_BOOKING_URL,
 ): string {
   const trimmed = raw?.trim();
   if (
     !trimmed ||
-    isSquareAppointmentsBookingUrl(trimmed) ||
     isDikidiBookingUrl(trimmed) ||
     isFirstPartyBookUrl(trimmed) ||
     !/^https?:\/\//i.test(trimmed)
@@ -88,17 +92,22 @@ function resolvePublicBookingUrl(
 }
 
 function readOrgBookingEnv(): string | undefined {
-  return (
-    process.env.NEXT_PUBLIC_FRESHA_BOOKING_URL?.trim() ||
-    process.env.NEXT_PUBLIC_BOOKING_URL?.trim()
-  );
+  const candidates = [
+    process.env.NEXT_PUBLIC_SQUARE_BOOKING_URL?.trim(),
+    process.env.NEXT_PUBLIC_BOOKING_URL?.trim(),
+  ].filter(Boolean) as string[];
+  for (const c of candidates) {
+    if (isSquareAppointmentsBookingUrl(c)) return c;
+  }
+  // Ignore leftover NEXT_PUBLIC_FRESHA_BOOKING_URL for primary CTAs — Square is SoT.
+  return undefined;
 }
 
 /** Primary scheduler URL for header/footer CTAs and `/book` redirect target. */
-export const BOOKING_URL = resolvePublicBookingUrl(readOrgBookingEnv(), FRESHA_ORG_BOOKING_URL);
+export const BOOKING_URL = resolvePublicBookingUrl(readOrgBookingEnv(), SQUARE_ORG_BOOKING_URL);
 
-export function bookingProvider(): "fresha" {
-  return "fresha";
+export function bookingProvider(): "square" | "fresha" {
+  return isSquareAppointmentsBookingUrl(BOOKING_URL) ? "square" : "fresha";
 }
 
 /**
@@ -109,13 +118,15 @@ export const SQUARE_MAILING_LIST_ENROLL_URL =
   process.env.NEXT_PUBLIC_SQUARE_MAILING_LIST_URL?.trim() ||
   "https://squareup.com/customer-programs/enroll/hg4NM8qZXwGm?utm_source=hellogorgeousmedspa.com&utm_medium=website&utm_campaign=mailing_list";
 
-/** Per–staff Fresha booking URLs; unset falls back to org `BOOKING_URL`. */
+/** Per–staff booking URLs; unset falls back to org `BOOKING_URL`. */
 export const FRESHA_BOOKING_URL_DANIELLE = resolvePublicBookingUrl(
-  process.env.NEXT_PUBLIC_FRESHA_BOOKING_URL_DANIELLE,
+  process.env.NEXT_PUBLIC_FRESHA_BOOKING_URL_DANIELLE ||
+    process.env.NEXT_PUBLIC_SQUARE_BOOKING_URL_DANIELLE,
   BOOKING_URL,
 );
 export const FRESHA_BOOKING_URL_RYAN = resolvePublicBookingUrl(
-  process.env.NEXT_PUBLIC_FRESHA_BOOKING_URL_RYAN,
+  process.env.NEXT_PUBLIC_FRESHA_BOOKING_URL_RYAN ||
+    process.env.NEXT_PUBLIC_SQUARE_BOOKING_URL_RYAN,
   BOOKING_URL,
 );
 
@@ -129,7 +140,7 @@ export function providerPublicBookingUrl(slug: string | null | undefined): strin
 
 /**
  * Public booking CTA: prefer a full `https?` `bookingUrl` from CMS when it is not a fake `?provider=` hack; otherwise
- * per-provider Fresha env URLs (`FRESHA_BOOKING_URL_*` in `flows.ts`).
+ * per-provider env URLs.
  */
 export function getProviderPublicBookingHref(
   slug: string,
@@ -140,7 +151,6 @@ export function getProviderPublicBookingHref(
     u &&
     /^https?:\/\//i.test(u) &&
     !/[?&]provider=/i.test(u) &&
-    !isSquareAppointmentsBookingUrl(u) &&
     !isFirstPartyBookUrl(u)
   ) {
     return u;

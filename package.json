@@ -18,6 +18,8 @@
     "import-square-catalog": "node scripts/import-services-to-square.js",
     "import-square-fresha": "node scripts/import-services-to-square.mjs",
     "import-square-fresha:local": "node --env-file=.env.local scripts/import-services-to-square.mjs",
+    "rebuild-square-services": "node --env-file=.env.local scripts/rebuild-square-services-from-fresha-csv.mjs",
+    "upload-square-customers": "node --env-file=.env.local scripts/upload-square-customers-from-fresha-csv.mjs",
     "import-square-hg-rx": "npx tsx scripts/import-hg-rx-to-square.ts",
     "import-square-hg-rx:local": "npx tsx --env-file=.env.local scripts/import-hg-rx-to-square.ts",
     "import-square-hg-rx:dry-run": "npx tsx scripts/import-hg-rx-to-square.ts --dry-run",
