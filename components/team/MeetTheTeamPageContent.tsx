@@ -284,13 +284,13 @@ export function MeetTheTeamPageContent() {
             </FadeUp>
 
             <FadeUp delayMs={40}>
-              <div className="relative mb-8 aspect-[16/9] max-h-[320px] w-full overflow-hidden rounded-3xl border-4 border-black shadow-[8px_8px_0_0_rgba(230,0,126,0.35)]">
+              <div className="relative mx-auto mb-8 aspect-[4/5] w-full max-w-md overflow-hidden rounded-3xl border-4 border-black shadow-[8px_8px_0_0_rgba(230,0,126,0.35)]">
                 <Image
                   src={TEAM_FOUNDERS_GROUP_IMAGE}
                   alt="Danielle Alcala-Glazier and Ryan Kent, FNP-BC — founders of Hello Gorgeous Med Spa in Oswego, IL"
                   fill
-                  className="object-cover"
-                  sizes="(max-width: 768px) 100vw, 896px"
+                  className="object-cover object-center"
+                  sizes="(max-width: 768px) 100vw, 448px"
                 />
               </div>
             </FadeUp>
