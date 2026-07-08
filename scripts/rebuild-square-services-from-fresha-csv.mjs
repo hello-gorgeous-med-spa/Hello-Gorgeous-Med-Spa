@@ -220,6 +220,13 @@ function sleep(ms) {
   return new Promise((r) => setTimeout(r, ms));
 }
 
+async function getBookableTeamMemberIds() {
+  const data = await squareFetch("GET", "/bookings/team-member-booking-profiles");
+  return (data.team_member_booking_profiles || [])
+    .filter((p) => p.is_bookable)
+    .map((p) => p.team_member_id);
+}
+
 function buildItemObject({
   svc,
   categoryId,
@@ -227,6 +234,7 @@ function buildItemObject({
   existingVariationId,
   existingItemVersion,
   existingVariationVersion,
+  teamMemberIds = [],
 }) {
   const key = slugKey(svc.freshaId || svc.name);
   const itemId = existingItemId || `#hg-svc-${key}`;
@@ -257,6 +265,9 @@ function buildItemObject({
               : {}),
             service_duration: svc.durationMin * 60_000,
             available_for_booking: svc.onlineBooking,
+            ...(svc.onlineBooking && teamMemberIds.length
+              ? { team_member_ids: teamMemberIds }
+              : {}),
           },
         },
       ],
@@ -299,6 +310,8 @@ async function main() {
 
   // Load existing catalog
   console.log("📥 Loading existing Square catalog…");
+  const bookableTeamIds = await getBookableTeamMemberIds();
+  console.log(`   Bookable staff: ${bookableTeamIds.length} (${bookableTeamIds.join(", ")})`);
   const objects = await listCatalogObjects(["ITEM", "CATEGORY", "ITEM_VARIATION"]);
   const existingCats = objects.filter((o) => o.type === "CATEGORY" && !o.is_deleted);
   const existingItems = objects.filter(
@@ -393,6 +406,7 @@ async function main() {
         existingVariationId: existingVar?.id,
         existingItemVersion: existing?.version,
         existingVariationVersion: existingVar?.version,
+        teamMemberIds: bookableTeamIds,
       });
       const idem = `${serviceIdemKey(svc)}-${existing ? "upd" : "new"}-v3-${Date.now()}`;
       await squareFetch("POST", "/catalog/object", {
@@ -419,7 +433,7 @@ async function main() {
   console.log(`   Created: ${created}`);
   console.log(`   Updated: ${updated}`);
   console.log(`   Failed:  ${failed}`);
-  console.log("\nNext: Square Dashboard → Appointments → confirm Online Booking + staff.");
+  console.log("\nNext: verify Square Online Booking shows services (staff auto-assigned when bookable).");
 }
 
 main().catch((e) => {
