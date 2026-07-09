@@ -22,7 +22,7 @@ const topNapervilleSlugs = [
 export const metadata: Metadata = pageMetadata({
   title: "Med Spa Near Naperville, IL",
   description:
-    "Hello Gorgeous Med Spa — luxury clinical aesthetics near Naperville, IL. Botox/Dysport/Jeuveau, dermal fillers, weight loss prescriptions, hormone therapy, microneedling, IV therapy, and more.",
+    "Hello Gorgeous Med Spa — luxury clinical aesthetics near Naperville, IL. Botox, fillers, GLP-1, peptide therapy ($49 consult), hormone therapy, Morpheus8, IV & more. ~15 min to Oswego.",
   path: "/naperville-il",
 });
 
@@ -133,6 +133,22 @@ export default function NapervilleHubPage() {
               </Link>
             </FadeUp>
           ))}
+          <FadeUp delayMs={40 * topServices.length}>
+            <Link
+              href="/peptide-therapy-naperville-il"
+              className="group block rounded-2xl border border-black bg-gradient-to-b from-[#2d1020] to-black p-6 hover:border-[#E6007E] transition"
+            >
+              <p className="text-[#FFB8DC] text-sm font-semibold tracking-wide">HELLO GORGEOUS RX</p>
+              <h3 className="mt-3 text-2xl font-bold text-white">Peptide Therapy</h3>
+              <p className="mt-3 text-white/80">
+                BPC-157, Sermorelin, NAD+, recovery blends — $49 NP consult, protocols from $149/mo.
+              </p>
+              <p className="mt-6 text-sm font-semibold text-[#FFB8DC]">
+                Naperville peptide menu{" "}
+                <span className="inline-block transition-transform group-hover:translate-x-1">→</span>
+              </p>
+            </Link>
+          </FadeUp>
         </div>
       </Section>
 

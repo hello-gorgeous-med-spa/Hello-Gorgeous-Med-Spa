@@ -25,6 +25,10 @@ export type OswegoMenuCustom = {
   whyRows?: ServiceMenuPriceRow[];
   /** Overrides the injectable-flavored section 04 description. */
   whatToExpectDescription?: string;
+  /** Overrides default "Book Free Consultation" hero CTA. */
+  primaryCta?: { label: string; href: string };
+  /** Overrides section 05 title (default: Related treatments in Oswego). */
+  relatedSectionTitle?: string;
 };
 
 /** Builds the standard 5-section dark menu config from Oswego landing copy. */
@@ -41,7 +45,10 @@ export function buildOswegoMenu(slug: string, custom: OswegoMenuCustom): Service
       titleBefore: custom.titleBefore,
       titleAccent: custom.titleAccent,
       subtitle: page.valueProp,
-      primaryCta: { label: "Book Free Consultation", href: page.bookingUrl ?? BOOKING_URL },
+      primaryCta: custom.primaryCta ?? {
+        label: "Book Free Consultation",
+        href: page.bookingUrl ?? BOOKING_URL,
+      },
       secondaryCta,
     },
     sections: [
@@ -95,7 +102,7 @@ export function buildOswegoMenu(slug: string, custom: OswegoMenuCustom): Service
       {
         id: "related",
         number: "05",
-        title: "Related treatments in Oswego",
+        title: custom.relatedSectionTitle ?? "Related treatments in Oswego",
         description: custom.relatedDescription,
         highlights: custom.relatedHighlights,
         pricing: page.relatedServices.map((rel) => {

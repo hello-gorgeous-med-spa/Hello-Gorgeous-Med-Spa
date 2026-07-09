@@ -14,10 +14,19 @@ export async function OswegoMenuLanding({
   slug,
   config,
   breadcrumbName,
+  locationLabel = "Oswego, IL",
+  breadcrumbTrail,
+  includeMedicalTherapy = false,
 }: {
   slug: string;
   config: ServiceMenuConfig;
   breadcrumbName: string;
+  /** Used in MedicalProcedure / MedicalTherapy schema (e.g. "Near Naperville, IL"). */
+  locationLabel?: string;
+  /** Optional middle crumbs — default: Home → Services → breadcrumbName */
+  breadcrumbTrail?: Array<{ name: string; url: string }>;
+  /** Add MedicalTherapy JSON-LD (peptide landings). */
+  includeMedicalTherapy?: boolean;
 }) {
   const pageData = getServicePageOswego(slug)!;
   const pageUrl = `${SITE.url}${config.path}`;
@@ -44,11 +53,34 @@ export async function OswegoMenuLanding({
   const medicalProcedure = {
     "@context": "https://schema.org",
     "@type": "MedicalProcedure",
-    name: `${pageData.serviceName} in Oswego, IL`,
+    name: `${pageData.serviceName} — ${locationLabel}`,
     procedureType: pageData.procedureType,
     ...(pageData.bodyLocation ? { bodyLocation: pageData.bodyLocation } : {}),
     performer: { "@id": `${SITE.url}/#organization` },
   };
+
+  const medicalTherapy = includeMedicalTherapy
+    ? {
+        "@context": "https://schema.org",
+        "@type": "MedicalTherapy",
+        "@id": `${pageUrl}#therapy`,
+        name: `${pageData.serviceName} — Hello Gorgeous Med Spa (${locationLabel})`,
+        description: pageData.metaDescription,
+        alternateName: [
+          "Peptide therapy Naperville IL",
+          "BPC-157 Naperville",
+          "Sermorelin near Naperville",
+        ],
+        provider: { "@id": `${SITE.url}/#organization` },
+        areaServed: SITE.serviceAreas.map((area) => ({ "@type": "Place", name: area })),
+      }
+    : null;
+
+  const breadcrumbs = breadcrumbTrail ?? [
+    { name: "Home", url: SITE.url },
+    { name: "Services", url: `${SITE.url}/services` },
+    { name: breadcrumbName, url: pageUrl },
+  ];
 
   const clinicalVideos = pageData.clinicalVideos ?? [];
   const clinicalPhotos = pageData.clinicalPhotos ?? [];
@@ -67,6 +99,12 @@ export async function OswegoMenuLanding({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(medicalProcedure) }}
       />
+      {medicalTherapy ? (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(medicalTherapy) }}
+        />
+      ) : null}
       {videoSchema.map((schema) => (
         <script
           key={schema["@id"]}
@@ -84,11 +122,7 @@ export async function OswegoMenuLanding({
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(
-            breadcrumbJsonLd([
-              { name: "Home", url: SITE.url },
-              { name: "Services", url: `${SITE.url}/services` },
-              { name: breadcrumbName, url: pageUrl },
-            ])
+            breadcrumbJsonLd(breadcrumbs)
           ),
         }}
       />

@@ -1,3 +1,4 @@
+import { BOOKING_URL } from "@/lib/flows";
 import { buildOswegoMenu } from "@/lib/oswego-injectable-menus";
 import { GLP1_PROGRAM, GLP1_PROGRAM_CONSULT_USD } from "@/lib/glp1-program-pricing";
 
@@ -253,6 +254,7 @@ export const PEPTIDE_THERAPY_OSWEGO_MENU = buildOswegoMenu("peptide-therapy-oswe
   eyebrow: "Oswego, IL · Prescription peptides, NP-supervised",
   titleBefore: "Peptide Therapy —",
   titleAccent: "$49 Consult",
+  primaryCta: { label: "Book $49 Consult", href: BOOKING_URL },
   secondaryCta: WELLNESS_SECONDARY,
   pricingTitle: "Peptide protocol pricing",
   pricingHighlights: [
@@ -299,6 +301,61 @@ export const PEPTIDE_THERAPY_OSWEGO_MENU = buildOswegoMenu("peptide-therapy-oswe
     "BioTE / TRT when hormones are the bottleneck",
     "Vitamin Bar shots from $25 for quick boosts",
   ],
+});
+
+export const PEPTIDE_THERAPY_NAPERVILLE_MENU = buildOswegoMenu("peptide-therapy-naperville-il", {
+  eyebrow: "Naperville, IL · ~15 min to Oswego · DuPage & Will counties",
+  titleBefore: "Peptide Therapy —",
+  titleAccent: "$49 Consult",
+  primaryCta: { label: "Book $49 Consult", href: BOOKING_URL },
+  secondaryCta: { label: "Peptide education hub", href: "/peptides" },
+  pricingTitle: "Peptide protocol pricing (Naperville clients)",
+  pricingHighlights: [
+    "$49 peptide consultation — goals, history & protocol design",
+    "Monthly protocols from $149/mo — published starting rates by peptide",
+    "Recovery Blend from $229/mo · BPC-157 from $169/mo · Sermorelin from $149/mo",
+    "Licensed US compounding pharmacies — never research-grade vials",
+    "Clinic in downtown Oswego — ~15 min from south Naperville via Route 59 or Route 34",
+  ],
+  pricingRows: [
+    { label: "Peptide consultation", price: "$49", note: "NP evaluation · no obligation to start" },
+    { label: "Monthly protocols", price: "From $149/mo", href: "/peptides#peptide-pricing", note: "Full published menu" },
+    { label: "BPC-157 guide", price: "Learn →", href: "/peptides/bpc-157", note: "Recovery & gut support" },
+    { label: "Recovery Blend", price: "From $229/mo", note: "BPC · GHK-Cu · KPV · TB-500" },
+    { label: "Naperville city hub", price: "Directions →", href: "/naperville-il", note: "Route 59 · Route 34 drive times" },
+  ],
+  pricingBadge: "$49 CONSULT",
+  howItWorksHighlights: [
+    "Short amino-acid chains that signal recovery, sleep, skin & metabolism pathways",
+    "Self-administered subcutaneous injections — we teach you in office",
+    "Ryan Kent, FNP-BC designs dose, frequency & cycle — not a telehealth script mill",
+    "503A pharmacy sourcing · RE GEN staff places pharmacy orders after NP approval",
+    "Sleep support often 1–2 weeks · skin & longevity typically 8–12 weeks",
+  ],
+  howItWorksLinks: [
+    { label: "Which peptide fits your goal?", price: "Guide →", href: "/blog/which-peptide-is-right-for-you-oswego-il" },
+    { label: "GLP-1 weight loss menu", price: "Menu →", href: "/glp-1-weight-loss-oswego" },
+    { label: "Full peptide hub", price: "Explore →", href: "/peptides" },
+  ],
+  howItWorksLearnMore: "/peptides",
+  careGuideHref: "/pre-post-care",
+  treatmentTime: "Self-injected",
+  whyRows: [
+    { label: "Consultation", price: "$49", note: "Honest screening — peptides aren't for everyone" },
+    { label: "Follow-up & dose adjustment", price: "Included", note: "Peptides are iterative — we stay involved" },
+    { label: "Drive from Naperville", price: "~15 min", note: "Route 59 south or Route 34 west" },
+  ],
+  whatToExpectDescription:
+    "Book the $49 consult in Oswego, complete screening and labs if needed, receive a written protocol with dose and cycle, get hands-on injection training, then follow up as your body responds — same NP team many Naperville clients use for Botox, GLP-1, and Morpheus8.",
+  relatedDescription:
+    "Naperville clients often stack peptides with weight loss, hormones, or skin tightening at the same Oswego clinic — one address, one medical team.",
+  relatedHighlights: [
+    "GLP-1 programs when weight is the primary goal",
+    "BioTE / TRT when hormones are the bottleneck",
+    "Morpheus8 Burst & Solaria CO₂ for skin tightening",
+    "NAD+ IV for cellular energy between peptide cycles",
+  ],
+  relatedSectionTitle: "Related treatments for Naperville clients",
 });
 
 export const BIOTE_HORMONE_OSWEGO_MENU = buildOswegoMenu("biote-hormone-therapy-oswego", {

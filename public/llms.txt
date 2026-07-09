@@ -26,6 +26,7 @@
   - Weight loss (GLP-1): https://www.hellogorgeousmedspa.com/rx/weight-loss
   - Hormones (TRT/HRT): https://www.hellogorgeousmedspa.com/rx/hormones
   - Peptides: https://www.hellogorgeousmedspa.com/peptides
+  - Peptide therapy (Naperville): https://www.hellogorgeousmedspa.com/peptide-therapy-naperville-il
   - Sexual health: https://www.hellogorgeousmedspa.com/rx/sexual-health
   - Labs: https://www.hellogorgeousmedspa.com/rx/labs
 - Clinical model: NP-directed telehealth; Ryan Kent, FNP-BC supervises Illinois protocols; prescriptions compounded by US pharmacies and shipped statewide ($30 flat shipping).
@@ -46,6 +47,7 @@
 - BioTE Hormone Therapy: https://www.hellogorgeousmedspa.com/biote-hormone-therapy-oswego
 - Testosterone Replacement (TRT): https://www.hellogorgeousmedspa.com/testosterone-replacement-oswego
 - Peptide Therapy: https://www.hellogorgeousmedspa.com/peptide-therapy-oswego
+- Peptide Therapy (Naperville): https://www.hellogorgeousmedspa.com/peptide-therapy-naperville-il
 - PRP Joint Injections: https://www.hellogorgeousmedspa.com/services/prp-joint-injections
 - Full list (28): https://www.hellogorgeousmedspa.com/api/public/ai-profile (field: oswegoServicePages)
 
