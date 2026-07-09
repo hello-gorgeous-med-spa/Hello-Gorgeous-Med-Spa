@@ -39,7 +39,8 @@
     "import-fresha-appointments": "node --env-file=.env.local scripts/import-fresha-appointments.mjs",
     "test:ai-concierge": "node scripts/test-ai-concierge.mjs",
     "square:july-recovery-stack": "node --env-file=.env.local scripts/add-july-recovery-stack-to-square.mjs",
-    "assign-square-appointment-staff": "node --env-file=.env.local scripts/assign-square-appointment-staff.mjs"
+    "assign-square-appointment-staff": "node --env-file=.env.local scripts/assign-square-appointment-staff.mjs",
+    "sync-ryan-square-pay": "node --env-file=.env.local scripts/sync-ryan-square-pay.mjs"
   },
   "keywords": [
     "medspa",

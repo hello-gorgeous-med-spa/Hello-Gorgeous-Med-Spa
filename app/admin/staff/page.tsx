@@ -10,10 +10,23 @@ export default function AdminStaffPage() {
         <span className="text-black">/</span>
         <h1 className="text-xl font-bold text-black">Staff</h1>
       </div>
-      <div className="bg-white rounded-xl border border-black p-6 text-black">
-        <p className="font-medium">Staff builder</p>
-        <p className="text-sm mt-1 text-black/80">Manage staff profiles: name, title, permissions, schedule, service eligibility, commission, bio, booking color. Full Staff builder coming in a future release.</p>
-        <Link href="/admin/settings" className="inline-block mt-4 text-[#2D63A4] font-medium hover:underline">Back to Settings</Link>
+      <div className="bg-white rounded-xl border border-black p-6 text-black space-y-4">
+        <div>
+          <p className="font-medium">Staff & payroll</p>
+          <p className="text-sm mt-1 text-black/80">
+            Compensation rules for Ryan (1099), Michelle ($22/hr + 10%), and Marissa ($20/hr + reviews + commission).
+            Weekly pay via Square Payroll.
+          </p>
+        </div>
+        <Link
+          href="/admin/payroll"
+          className="inline-block px-4 py-2 rounded-lg bg-[#FF2D8E] text-white font-semibold text-sm hover:bg-black"
+        >
+          Weekly payroll preview →
+        </Link>
+        <p className="text-xs text-black/60">
+          Full staff builder (permissions, schedule, service eligibility) coming in a future release.
+        </p>
       </div>
     </div>
   );
