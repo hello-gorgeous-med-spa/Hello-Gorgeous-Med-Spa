@@ -96,7 +96,7 @@ export const SITE = {
   },
 } as const;
 
-/** First-party booking entry for ReserveAction schema — `/book` redirects to Fresha. */
+/** First-party booking entry for ReserveAction schema — `/book` embeds Square Appointments. */
 export const BOOK_PAGE_URL = `${SITE.url}${BOOK_PAGE_PATH}`;
 
 function reserveActionJsonLd(reservationName = "Appointment at Hello Gorgeous Med Spa") {

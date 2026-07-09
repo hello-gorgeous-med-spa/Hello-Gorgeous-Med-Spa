@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 
-import { BOOKING_URL } from "@/lib/flows";
+import { BOOK_PAGE_PATH } from "@/lib/flows";
 import { SITE } from "@/lib/seo";
 
 function XIcon({ size = 18 }: { size?: number }) {
@@ -44,18 +44,15 @@ export default function BookingTransitionBanner() {
     <div className="w-full bg-black text-[#FF2D8E] text-xs sm:text-sm md:text-base font-semibold text-center px-4 py-3 relative animate-fade sticky top-0 z-50 shrink-0">
       <div className="pr-8 max-w-4xl mx-auto space-y-1">
         <p className="text-white/95 font-normal text-[11px] sm:text-xs md:text-sm leading-snug">
-          <span className="text-[#FF2D8E] font-semibold">Book online:</span> Hello Gorgeous books through{" "}
-          <strong className="text-white">Fresha</strong> — easy scheduling, confirmations, and reminders. In-spa
-          payments stay on Square. Questions?{" "}
-          <span className="text-white/90">{SITE.phone}</span>.
+          <span className="text-[#FF2D8E] font-semibold">New:</span> Book online at Hello Gorgeous through{" "}
+          <strong className="text-white">Square</strong> — same-day confirmations & reminders. In-spa payments stay on
+          Square. Questions? <span className="text-white/90">{SITE.phone}</span>.
         </p>
         <a
-          href={BOOKING_URL}
-          target="_blank"
-          rel="noopener noreferrer"
+          href={BOOK_PAGE_PATH}
           className="inline-block hover:opacity-90 transition"
         >
-          Book now on Fresha <span className="underline">→</span>
+          Book now online <span className="underline">→</span>
         </a>
       </div>
 

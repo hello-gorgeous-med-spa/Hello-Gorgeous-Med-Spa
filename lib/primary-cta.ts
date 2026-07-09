@@ -2,7 +2,7 @@ import { BOOK_PAGE_PATH } from "@/lib/flows";
 
 /**
  * Site-wide primary conversion action — audit Phase 1.
- * Use this label + `/book` everywhere a visitor should schedule (Fresha redirect).
+ * Use this label + `/book` everywhere a visitor should schedule (Square online booking).
  */
 export const PRIMARY_BOOKING_CTA = {
   label: "Book a free consult",

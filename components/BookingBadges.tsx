@@ -1,8 +1,8 @@
 import Image from "next/image";
 
-import { BOOKING_URL, SQUARE_MAILING_LIST_ENROLL_URL } from "@/lib/flows";
+import { BOOK_PAGE_PATH, BOOKING_URL, SQUARE_MAILING_LIST_ENROLL_URL } from "@/lib/flows";
 
-/** Legacy Square Appointments QR assets (front-desk print). Link targets Fresha via `BOOKING_URL`. */
+/** Legacy Square Appointments QR assets (front-desk print). Link targets `/book` (Square embed). */
 const LEGACY_QR_PDF_PATH = "/booking/square-appointments-qr.pdf";
 const LEGACY_QR_PREVIEW_PNG_PATH = "/booking/square-appointments-qr.png";
 
@@ -11,20 +11,18 @@ const QR_PREVIEW_W = 1224;
 const QR_PREVIEW_H = 1584;
 
 /**
- * Book-online QR (legacy print file) + Fresha Best in Class badges. Payments stay on Square POS in-spa.
+ * Book-online QR + trust badges. Online scheduling via Square at `/book`.
  */
 export function BookingBadges({ className = "" }: { className?: string }) {
   return (
     <div className={`mt-6 ${className}`.trim()}>
-      <p className="mb-3 text-xs uppercase tracking-wider text-white/60">Book online · Fresha</p>
+      <p className="mb-3 text-xs uppercase tracking-wider text-white/60">Book online · Square</p>
       <div className="flex flex-col flex-wrap items-start gap-6 sm:flex-row sm:items-end">
         <div className="flex flex-col items-start gap-2">
           <a
-            href={BOOKING_URL}
-            target="_blank"
-            rel="noopener noreferrer"
+            href={BOOK_PAGE_PATH}
             className="block overflow-hidden rounded-lg border border-white/20 bg-white/5 p-1 transition-colors hover:border-[#FF2D8E]/50 focus:outline-none focus:ring-2 focus:ring-[#FF2D8E] focus:ring-offset-2 focus:ring-offset-black"
-            aria-label="Book on Fresha — tap or scan QR on your phone"
+            aria-label="Book Hello Gorgeous online — tap or scan QR on your phone"
           >
             <Image
               src={LEGACY_QR_PREVIEW_PNG_PATH}
