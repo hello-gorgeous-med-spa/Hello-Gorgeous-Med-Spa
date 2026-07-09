@@ -78,6 +78,12 @@ export type RegenCartItem = {
   quantity: number;
   category: string;
   rx?: boolean;
+  /** Square catalog variation — links line to Item Library */
+  squareVariationId?: string;
+  /** regen-best-prices / manifest catalog_id */
+  regenCatalogId?: string;
+  variantLabel?: string;
+  supplyDays?: 30 | 90;
 };
 
 export type RegenCheckoutResult = {
@@ -95,6 +101,9 @@ export async function createRegenCheckout(opts: {
   customerEmail?: string;
   redirectUrl: string;
   orderReference?: string;
+  /** When set, shipping uses Square catalog variation (RE GEN flat ship SKU). */
+  shippingSquareVariationId?: string;
+  shippingUsd?: number;
 }): Promise<RegenCheckoutResult> {
   if (!opts.items.length) {
     throw new Error("Cart is empty");
@@ -113,6 +122,16 @@ export async function createRegenCheckout(opts: {
       console.error("[regen/checkout] Invalid price for item:", item.name, item.priceUsd);
       throw new Error(`Invalid price for ${item.name}: $${item.priceUsd}`);
     }
+    if (item.squareVariationId) {
+      return {
+        catalog_object_id: item.squareVariationId,
+        quantity: String(item.quantity),
+        base_price_money: {
+          amount: priceInCents,
+          currency: "USD",
+        },
+      };
+    }
     return {
       name: item.rx ? `${item.name} Rx` : item.name,
       quantity: String(item.quantity),
@@ -125,17 +144,33 @@ export async function createRegenCheckout(opts: {
 
   console.log(
     "[regen/checkout] Line items:",
-    lineItems.map((li) => ({ name: li.name, amount: li.base_price_money.amount })),
+    lineItems.map((li) =>
+      "catalog_object_id" in li && li.catalog_object_id
+        ? { catalog: li.catalog_object_id.slice(0, 8), amount: li.base_price_money.amount }
+        : { name: (li as { name?: string }).name, amount: li.base_price_money.amount },
+    ),
   );
 
-  lineItems.push({
-    name: "Flat Rate Shipping",
-    quantity: "1",
-    base_price_money: {
-      amount: 3000,
-      currency: "USD",
-    },
-  });
+  const shippingCents = Math.round((opts.shippingUsd ?? 30) * 100);
+  if (opts.shippingSquareVariationId) {
+    lineItems.push({
+      catalog_object_id: opts.shippingSquareVariationId,
+      quantity: "1",
+      base_price_money: {
+        amount: shippingCents,
+        currency: "USD",
+      },
+    });
+  } else {
+    lineItems.push({
+      name: "Flat Rate Shipping",
+      quantity: "1",
+      base_price_money: {
+        amount: shippingCents,
+        currency: "USD",
+      },
+    });
+  }
 
   const orderPayload: Record<string, unknown> = {
     location_id: locationId,

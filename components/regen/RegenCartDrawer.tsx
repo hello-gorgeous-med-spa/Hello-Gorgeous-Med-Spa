@@ -36,8 +36,41 @@ export function RegenCartDrawer() {
     if (items.length === 0) return;
 
     if (catalogMode) {
-      closeCart();
-      window.dispatchEvent(new CustomEvent("regen-catalog-checkout"));
+      setIsCheckingOut(true);
+      setError(null);
+
+      try {
+        const res = await fetch("/api/regen/checkout", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            items: items.map((i) => ({
+              id: i.id,
+              name: i.name,
+              priceUsd: i.priceUsd,
+              quantity: i.quantity,
+              category: i.category,
+              rx: i.rx ?? true,
+              variantLabel: i.variantLabel,
+              supplyDays: i.supplyDays,
+            })),
+            subscribe,
+            refillWeeks,
+            goal: items[0]?.category,
+            supplyMonths: items.every((i) => i.supplyDays === 90) ? 3 : 1,
+          }),
+        });
+
+        const data = await res.json();
+
+        if (!data.success) {
+          throw new Error(data.error || "Checkout failed");
+        }
+        window.location.href = data.checkoutUrl;
+      } catch (err) {
+        setError(err instanceof Error ? err.message : "Checkout failed");
+        setIsCheckingOut(false);
+      }
       return;
     }
 
@@ -264,15 +297,15 @@ export function RegenCartDrawer() {
               }`}
             >
               {isCheckingOut
-                ? "Redirecting…"
+                ? "Redirecting to Square…"
                 : catalogMode
-                  ? "Checkout & start intake →"
+                  ? "Pay with Square & start intake →"
                   : "Checkout"}
             </button>
 
             <p className="mt-3 text-center text-xs text-black/50">
               {catalogMode
-                ? "Ryan Kent, FNP-BC reviews every order. Full refund if not approved."
+                ? "Pay securely via Square. Ryan Kent, FNP-BC reviews every order before anything ships."
                 : "A provider must review your intake before any prescription ships."}
             </p>
           </div>

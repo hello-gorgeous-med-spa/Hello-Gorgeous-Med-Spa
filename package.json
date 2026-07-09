@@ -26,6 +26,7 @@
     "import-square-regen-catalog": "node scripts/import-regen-catalog-to-square.mjs",
     "import-square-regen-catalog:dry-run": "node scripts/import-regen-catalog-to-square.mjs --dry-run",
     "import-square-regen-catalog:local": "node --env-file=.env.local scripts/import-regen-catalog-to-square.mjs",
+    "build:catalog-square-map": "node scripts/build-catalog-square-map.mjs",
     "upload-square-hg-rx-images": "npx tsx scripts/upload-hg-rx-square-images.ts",
     "upload-square-hg-rx-images:local": "npx tsx --env-file=.env.local scripts/upload-hg-rx-square-images.ts",
     "upload-square-hg-rx-images:dry-run": "npx tsx scripts/upload-hg-rx-square-images.ts --dry-run",

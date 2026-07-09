@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 
 import { useCart } from "@/lib/regen/cart-context";
 import {
@@ -32,7 +32,6 @@ import {
   formatCatalogMoney,
 } from "@/components/regen/catalog/CatalogProductCard";
 import { ProductDetailDrawer } from "@/components/regen/catalog/ProductDetailDrawer";
-import { RegenCatalogOrderConfirm } from "@/components/regen/catalog/RegenCatalogOrderConfirm";
 
 type View = "home" | "goal" | "all" | "search";
 
@@ -72,7 +71,6 @@ export function RegenCatalogPortal({ initialGoalSlug }: { initialGoalSlug?: stri
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [selVar, setSelVar] = useState(0);
   const [supply, setSupply] = useState<SupplyDays>(30);
-  const [orderNo, setOrderNo] = useState<string | null>(null);
 
   const counts = useMemo(() => goalCounts(CATALOG_PRODUCTS), []);
 
@@ -213,10 +211,6 @@ export function RegenCatalogPortal({ initialGoalSlug }: { initialGoalSlug?: stri
         : view === "all"
           ? "Everything your provider can prescribe."
           : "";
-
-  const handleCheckoutStart = () => {
-    setOrderNo(`HG${String(Date.now()).slice(-6)}`);
-  };
 
   return (
     <div className="min-h-screen bg-[#FFF9FB] text-[#0a0a0a]">
@@ -552,26 +546,6 @@ export function RegenCatalogPortal({ initialGoalSlug }: { initialGoalSlug?: stri
           onSupplyChange={setSupply}
         />
       )}
-
-      {orderNo && (
-        <RegenCatalogOrderConfirm
-          orderNo={orderNo}
-          onClose={() => setOrderNo(null)}
-        />
-      )}
-
-      {/* Expose checkout trigger for cart drawer via custom event */}
-      <CatalogCheckoutBridge onCheckout={handleCheckoutStart} />
     </div>
   );
-}
-
-/** Lets the global cart drawer trigger catalog order confirmation. */
-function CatalogCheckoutBridge({ onCheckout }: { onCheckout: () => void }) {
-  useEffect(() => {
-    const handler = () => onCheckout();
-    window.addEventListener("regen-catalog-checkout", handler);
-    return () => window.removeEventListener("regen-catalog-checkout", handler);
-  }, [onCheckout]);
-  return null;
 }
