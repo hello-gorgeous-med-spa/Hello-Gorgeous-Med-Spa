@@ -1,5 +1,5 @@
 /**
- * RE GEN client-facing peptide menu — sourced from BoomRx tailored pricing (6/22)
+ * RE GEN client-facing peptide menu — sourced from BoomRx tailored pricing (Jul 2026)
  * and Hello Gorgeous internal planner (2.5× retail). Educational; NP review required.
  */
 
@@ -73,12 +73,12 @@ export const REGEN_PEPTIDE_MENU_SECTIONS: PeptideMenuSection[] = [
     title: "Energy, Performance + Healthy Aging",
     hook: "GH-axis, mitochondrial & immune education",
     items: [
-      { id: "cjc-ipa", name: "CJC-1295 / Ipamorelin", detail: "1.2 mg / 2 mg · 5 mL vial", boomRxCost: 80 },
+      { id: "cjc-ipa", name: "CJC-1295 / Ipamorelin", detail: "1 mg / 1 mg/mL · 5 mL vial", boomRxCost: 80 },
       { id: "tesa-ipa", name: "Tesamorelin / Ipamorelin", detail: "3 mg / 2 mg/mL · 5 mL vial", boomRxCost: 80 },
-      { id: "mots-tesa-blend", name: "MOTS-c / Tesamorelin", detail: "4 mg / 3 mg/mL · 5 mL vial", boomRxCost: 80 },
+      { id: "mots-tesa-blend", name: "MOTS-c / Tesamorelin", detail: "2 mg / 3 mg/mL · 5 mL vial", boomRxCost: 80 },
       { id: "tesamorelin", name: "Tesamorelin", detail: "3 mg/mL · 5 mL vial", boomRxCost: 70 },
-      { id: "mots-c", name: "MOTS-c", detail: "20 mg/mL · 5 mL vial", boomRxCost: 70 },
-      { id: "ss-31", name: "SS-31 (Elamipretide)", detail: "4 mg/mL · 5 mL vial", boomRxCost: 70 },
+      { id: "mots-c", name: "MOTS-c", detail: "2 mg/mL · 5 mL vial", boomRxCost: 70 },
+      { id: "ss-31", name: "SS-31 (Elamipretide)", detail: "2 mg/mL · 5 mL vial", boomRxCost: 70 },
       { id: "thymosin-a1", name: "Thymosin A-1", detail: "5 mg/mL · 5 mL vial", boomRxCost: 70 },
       { id: "igf-lr3", name: "IGF-LR3", detail: "200 mcg/mL · 5 mL vial", boomRxCost: 70 },
     ],

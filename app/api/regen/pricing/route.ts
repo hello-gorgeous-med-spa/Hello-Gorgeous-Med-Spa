@@ -1,3 +1,5 @@
+import { readFileSync, existsSync } from "fs";
+import { join } from "path";
 import { NextResponse } from "next/server";
 
 import {
@@ -19,6 +21,17 @@ export const runtime = "nodejs";
  * Can be used by storefront to display live prices.
  */
 export async function GET() {
+  let catalogUpdatedAt: string | undefined;
+  const catalogPath = join(process.cwd(), "data/regen-best-prices.json");
+  if (existsSync(catalogPath)) {
+    try {
+      const raw = JSON.parse(readFileSync(catalogPath, "utf-8"));
+      catalogUpdatedAt = raw.generatedAt;
+    } catch {
+      /* ignore */
+    }
+  }
+
   return NextResponse.json({
     success: true,
     shipping: REGEN_SHIPPING_USD,
@@ -26,11 +39,11 @@ export async function GET() {
       "weight-loss": REGEN_WEIGHT_LOSS_PRICING,
       "sexual-health": REGEN_SEXUAL_HEALTH_PRICING,
       "daily-wellness": REGEN_PEPTIDE_PRICING,
-      "hormones": REGEN_HORMONE_PRICING,
+      hormones: REGEN_HORMONE_PRICING,
       "hair-skin": REGEN_HAIR_SKIN_PRICING,
-      "vitamins": REGEN_VITAMIN_PRICING,
+      vitamins: REGEN_VITAMIN_PRICING,
     },
     all: ALL_REGEN_PRICING,
-    updatedAt: new Date().toISOString(),
+    updatedAt: catalogUpdatedAt || new Date().toISOString(),
   });
 }

@@ -1,5 +1,5 @@
 /**
- * BoomRx — Hello Gorgeous tailored wholesale pricing (June 2025 PDF).
+ * BoomRx — Illinois formulary wholesale pricing (July 2026 PDF).
  * GLP-1 injectable vials mapped to weekly dose tiers + supply cycle.
  */
 

@@ -9,6 +9,7 @@ import {
   smsRegenOrderApproved,
   smsRegenOrderShipped,
 } from "@/lib/regen/order-notify";
+import { REGEN_PHARMACY_STAFF_PLACED_ONLY } from "@/lib/regen/pharmacy-placement";
 import type { RegenOrderRecord } from "@/lib/regen/order-patient-status";
 import { regenOrderTitle, regenOrderTotalUsd } from "@/lib/regen/order-patient-status";
 import type { SquareShippingAddress } from "@/lib/square/order-shipping";
@@ -41,11 +42,15 @@ export function regenOrderNeedsReview(order: RegenFulfillmentOrder): boolean {
 
 export function regenOrderReadyToShip(order: RegenFulfillmentOrder): boolean {
   if (order.shipped_at || order.status === "shipped" || order.status === "delivered") return false;
-  return Boolean(
-    order.np_approved_at ||
-      order.status === "approved" ||
-      order.status === "ordered",
-  );
+  const npOk =
+    Boolean(order.np_approved_at) ||
+    order.status === "approved" ||
+    order.status === "ordered";
+  if (!npOk) return false;
+  if (REGEN_PHARMACY_STAFF_PLACED_ONLY) {
+    return Boolean(order.pharmacy_ordered_at) || order.status === "ordered";
+  }
+  return true;
 }
 
 export async function fetchRegenFulfillmentOrder(
@@ -217,6 +222,16 @@ export async function applyRegenFulfillmentAction(
       }
       if (!order.np_approved_at && order.status !== "approved" && order.status !== "ordered") {
         return { ok: false, error: "NP must approve before shipping" };
+      }
+      if (
+        REGEN_PHARMACY_STAFF_PLACED_ONLY &&
+        !order.pharmacy_ordered_at &&
+        order.status !== "ordered"
+      ) {
+        return {
+          ok: false,
+          error: "RE GEN staff must place the pharmacy order before shipping",
+        };
       }
       updates.shipped_at = now;
       updates.status = "shipped";

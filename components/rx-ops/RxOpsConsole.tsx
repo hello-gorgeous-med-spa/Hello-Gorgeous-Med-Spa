@@ -807,7 +807,7 @@ export function RxOpsConsole() {
                     Pharmacy shipments <span className="text-[#FF2D8E]">(M4)</span>
                   </h2>
                   <p className="mb-4 text-sm text-black/55">
-                    Unified queue across Formulation Rx, BoomRx & Olympia — submit after NP approval.
+                    Unified queue across Formulation Rx, BoomRx & Olympia — RE GEN staff places pharmacy orders after NP approval (patients do not order from BoomRx directly).
                   </p>
                   <div className="overflow-hidden rounded-2xl border-2 border-black bg-white shadow-[6px_6px_0_0_rgba(230,0,126,0.25)]">
                     <table className="w-full text-sm">

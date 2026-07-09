@@ -7,6 +7,7 @@ import {
   regenCheckoutCompleteUrl,
   regenCheckoutIntakeUrl,
 } from "@/lib/flows";
+import { REGEN_PHARMACY_PLACEMENT_COPY } from "@/lib/regen/pharmacy-placement";
 import { REGEN_SHIPPING_USD } from "@/lib/regen/pricing-sync";
 import { regenOrderPaymentVerified } from "@/lib/regen/order-payment-verify";
 import type { RxPatientStatus, RxPatientStatusStep } from "@/lib/rx-patient-status";
@@ -30,6 +31,7 @@ export type RegenOrderRecord = {
   telehealth_scheduled_at?: string | null;
   telehealth_completed_at?: string | null;
   np_approved_at?: string | null;
+  pharmacy_ordered_at?: string | null;
   shipped_at?: string | null;
   tracking_number?: string | null;
 };
@@ -100,6 +102,9 @@ export function buildRegenPatientStatus(order: RegenOrderRecord): RxPatientStatu
   const approved =
     Boolean(order.np_approved_at) ||
     ["approved", "ordered", "shipped", "delivered"].includes(order.status);
+  const pharmacyPlaced =
+    Boolean(order.pharmacy_ordered_at) ||
+    ["ordered", "shipped", "delivered"].includes(order.status);
   const shipped =
     Boolean(order.shipped_at) || order.status === "shipped" || order.status === "delivered";
 
@@ -161,14 +166,22 @@ export function buildRegenPatientStatus(order: RegenOrderRecord): RxPatientStatu
         : "Clinical review in progress — nothing ships without NP sign-off.",
     },
     {
+      id: "pharmacy",
+      label: REGEN_PHARMACY_PLACEMENT_COPY.patientStepLabel,
+      status: !approved ? "pending" : pharmacyPlaced ? "complete" : "pending",
+      detail: pharmacyPlaced
+        ? REGEN_PHARMACY_PLACEMENT_COPY.patientComplete
+        : REGEN_PHARMACY_PLACEMENT_COPY.patientPending,
+    },
+    {
       id: "shipped",
       label: "Home delivery",
-      status: shipped ? "complete" : approved ? "pending" : "pending",
+      status: shipped ? "complete" : pharmacyPlaced ? "pending" : "pending",
       detail: shipped
         ? order.tracking_number
           ? `Shipped — tracking ${order.tracking_number}`
           : "Your order has shipped."
-        : "Ships after NP approval. Flat $30 shipping.",
+        : "Ships after our team places your pharmacy order. Flat $30 shipping.",
       href: intakeDone ? regenCheckoutCompleteUrl(order.reference) : undefined,
     },
   );

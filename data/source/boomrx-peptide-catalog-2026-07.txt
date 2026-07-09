@@ -1,0 +1,48 @@
+Product Name 	Category 	Form 	Strength / Size 	Unit Price
+BPC-157 ACETATE 	Peptide 	Capsule 	500mcg 	$2.00
+CJC-1295 / Ipamorelin 	Peptide - Injection 	injectable 	1 mg / 1 mg/mL; 5 mL (5 mg / 5 mg Vial) 	$80.00
+Pentadeca Arginate 	Peptide - Injection 	Injectable 	3 mg/mL; 5 mL (15 mg Vial) 	$70.00
+Tesamorelin 	Peptide - Injection 	Injectable 	2 mg/mL; 10 mL (20 mg Vial) 	$80.00
+BPC-157 	Peptide - Injection 	Injectable 	3 mg/mL; 5 mL (15 mg Vial) 	$70.00
+BPC-157 / GHK-Cu / KPV / TB-500 	Peptide - Injection 	Injectable 	3 mg / 10 mg / 3 mg / 3 mg/mL; 5 mL (15 mg / 50 mg / 15 mg / 15 mg Vial) 	$80.00
+BPC-157 / KPV / TB-500 	Peptide - Injection 	Injectable 	3 mg / 3 mg / 3 mg/mL; 5 mL (15 mg / 15 mg / 15 mg Vial) 	$80.00
+BPC-157 / TB-500 	Peptide - Injection 	Injectable 	3 mg / 3 mg/mL; 5 mL (15 mg / 15 mg Vial) 	$80.00
+BPC-157 / TB-500 / GHK-Cu 	Peptide - Injection 	Injectable 	3 mg / 3 mg / 10 mg/mL; 5 mL (15 mg / 15 mg / 50 mg Vial) 	$80.00
+GHK-Cu 	Peptide - Injection 	Injectable 	10 mg/mL; 5 mL (50 mg Vial) 	$70.00
+IGF-LR3 	Peptide - Injection 	Injectable 	200 mcg/mL; 5 mL (1,000 mcg Vial) 	$70.00
+MOTS-C 	Peptide - Injection 	Injectable 	2 mg/mL; 5 mL (10 mg Vial) 	$70.00
+MOTS-c / Tesamorelin 	Peptide - Injection 	Injectable 	2 mg / 3 mg/mL; 5 mL (10 mg / 15 mg Vial) 	$80.00
+PT-141 	Peptide - Injection 	Injectable 	2 mg/mL; 5 mL (10 mg Vial) 	$70.00
+Tesamorelin 	Peptide - Injection 	Injectable 	3 mg/mL; 5 mL (15 mg Vial) 	$70.00
+Tesamorelin / Ipamorelin 	Peptide - Injection 	Injectable 	3 mg / 2 mg/mL; 5 mL (15 mg / 10 mg Vial) 	$80.00
+Thymosin A-1 	Peptide - Injection 	Injectable 	5 mg/mL; 5 mL (25 mg Vial) 	$70.00
+Bremelanotide (PT-141) 	Peptide - Injection 	Injectable 	10,000 mcg/mL; 1 mL (10,000 mcg Vial) 	$70.00
+Gonadorelin 	Peptide - Injection 	Injectable 	1 mg/mL; 5 mL (5 mg Vial) 	$50.00
+Sermorelin 	Peptide - Injection 	Injectable 	1.5 mg/mL; 4 mL (6 mg Vial) 	$60.00
+NAD+ 1000mg/10mL 	Peptide - Injection 	Injectable 	100mg/10ml 	$60.00
+NAD+ 1200mg/6mL 	Peptide - Injection 	Injectable 	200mg/6ml 	$90.00
+NAD+ 500mg/2.5mL 	Peptide - Injection 	Injectable 	200mg/2.5ml 	$55.00
+NAD+ Sublinguals 	Peptide - Injection 	Injectable 	100mg/ampul (30) 	$60.00
+Phenylephrine 2mg/2mL 	Peptide - Injection 	Injectable 	1mg/2ml 	$35.00
+Sermorelin 15mg/6mL 	Peptide - Injection 	Injectable 	2.5mg/6ml 	$90.00
+Sermorelin 8mg/3.2mL 	Peptide - Injection 	Injectable 	2.5mg/3.2ml 	$65.00
+Sermorelin 9mg/3.6mL 	Peptide - Injection 	Injectable 	2.5mg/3.6ml 	$67.00
+Tri-Mix 1 	Peptide - Injection 	Injectable 	20 doses 	$65.00
+Tri-Mix 2 	Peptide - Injection 	Injectable 	20 doses 	$70.00
+DSIP / BPC-157 / CJC-1295 	Peptide - Injection 	Injectable 	1 mg / 2 mg / 2 mg/mL; 5 mL Vial 	$80.00
+Glutathione 	Wellness 	Injectable 	200 mg/mL; 10 mL Vial 	$40.00
+GLOW (BPC-157 / TB-500 / GHK-Cu) 	Peptide - Injection 	Injectable 	3mg / 3mg / 10 mg/mL; 5 mL Vial 	$80.00
+LIPO-C 	Anti-Aging 	Injectable 	15 mg / 50 mg / 50 mg/mL; 10 mL Vial 	$70.00
+LL-37 	Peptide - Injection 	Injectable 	2 mg/mL; 5 mL Vial 	$70.00
+Melanotan II 	Peptide - Injection 	Injectable 	2 mg/mL; 5 mL Vial 	$70.00
+Pinealon / PE22-28 / Selank 	Peptide - Injection 	Injectable 	2 mg / 2 mg/mL; 5 mL Vial 	$80.00
+Semax / Selank 	Peptide - Injection 	Injectable 	1 mg / 1 mg/mL; 5 mL Vial 	$80.00
+SS-31 	Peptide - Injection 	Injectable 	2 mg/mL; 5 mL Vial 	$70.00
+Epithalon 	Peptide - Injection 	Injectable 	2 mg/mL; 5 mL Vial 	$70.00
+GHK-Cu / Epithalon 	Peptide - Injection 	Injectable 	10 mg / 2 mg/mL; 5 mL Vial 	$80.00
+GHK-Cu / Epithalon / CJC-1295 	Peptide - Injection 	Injectable 	10 mg / 2 mg / 2 mg/mL; 5 mL Vial 	$80.00
+Kisspeptin 	Peptide - Injection 	Injectable 	1 mg/mL; 5 mL Vial 	$70.00
+TB-500 	Peptide - Injection 	Injectable 	3 mg/mL; 5 mL Vial 	$70.00
+
+-- 1 of 1 --
+

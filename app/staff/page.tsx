@@ -65,7 +65,7 @@ export default function StaffPage() {
 
           {/* Pharmacy Selector */}
           <a
-            href="/staff/pharmacy-selector.html"
+            href="/staff/pharmacy-catalog"
             className="block bg-white/10 backdrop-blur rounded-2xl p-5 border-2 border-pink-500/30 hover:border-pink-500 hover:bg-white/15 transition-all"
           >
             <div className="flex items-center gap-4">

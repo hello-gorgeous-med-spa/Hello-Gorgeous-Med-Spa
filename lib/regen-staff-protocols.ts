@@ -117,7 +117,7 @@ export const REGEN_CORE_PROTOCOL_GUIDES: RegenProtocolGuide[] = [
     id: "pharmacy-selector",
     title: "Pharmacy Selector",
     description: "Compare Formulation Rx, BoomRx & Olympia pricing at the counter.",
-    href: "/staff/pharmacy-selector.html",
+    href: "/staff/pharmacy-catalog",
     category: "getting-started",
     format: "html",
   },

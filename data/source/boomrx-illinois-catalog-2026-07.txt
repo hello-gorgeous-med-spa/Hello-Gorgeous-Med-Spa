@@ -1,0 +1,510 @@
+BoomRx Formulary — Illinois
+Confidential — Hello Gorgeous
+Generated July 7, 2026
+Vince Deker · vince@boomrx.com
+Product Name 	Category 	Form 	Strength / Size 	Unit Price
+Semaglutide 2mg/mL SL Sol (30 Ampules) 	Weight Loss 	Sol 	2mg per ampule 	$90.00
+Semaglutide 3mg/mL SL Sol (30 Ampules) 	Weight Loss 	Sol 	3mg per ampule 	$100.00
+Semaglutide 4mg/mL SL Sol (30 Ampules) 	Weight Loss 	Sol 	4mg per ampule 	$110.00
+Sildenafil-Tadalafil-Vardenafil (30 Ampules) 	Sexual Health 	Emulsion 	25mg-5.0mg-7.5mg per ampule 	$75.00
+Sildenafil-Tadalafil-Vardenafil (30 Ampules) 	Sexual Health 	Emulsion 	75mg-5mg-20mg per ampule 	$75.00
+Sildenafil-Tadalafil-Vardenafil (30 Ampules) 	Sexual Health 	Emulsion 	50mg-5mg-10mg per ampule 	$75.00
+Tirzepatide 12mg/mL SL Sol (30 Ampules) 	Weight Loss 	Sol 	12mg per ampule 	$225.00
+Tirzepatide 15 mg/mL SL Sol (30 Ampules) 	Weight Loss 	Sol 	15mg per ampule 	$275.00
+Tirzepatide 4mg/mL SL Sol (30 Ampules) 	Weight Loss 	Sol 	4mg per ampule 	$125.00
+Tirzepatide 6mg/mL SL Sol (30 Ampules) 	Weight Loss 	Sol 	6mg per ampule 	$150.00
+Tirzepatide 9mg/mL SL Sol (30 Ampules) 	Weight Loss 	Sol 	9mg per ampule 	$200.00
+7-Keto DHEA SR 	HRT 	Capsule 	10 mg 	$1.60
+Amour Thyroid 	HRT 	Tablet 	60 mg 	$2.90
+Amour Thyroid 	HRT 	Tablet 	30 mg 	$2.50
+Anastrozole 	HRT 	Tablet 	1 mg 	$1.00
+Anastrozole SR 	HRT 	Capsule 	0.1mg 	$0.80
+Anastrozole SR 	HRT 	Capsule 	0.125mg 	$0.80
+Anastrozole SR 	HRT 	Capsule 	0.25mg 	$1.00
+Anastrozole SR 	HRT 	Capsule 	0.4mg 	$1.00
+Anastrozole SR 	HRT 	Capsule 	0.5mg 	$1.00
+Anastrozole SR 	HRT 	Capsule 	0.75mg 	$1.00
+Anastrozole SR 	HRT 	Capsule 	1.1mg 	$1.20
+Ascorbic Acid / Hydrocortisone / Hydroquinone / Kojic Acid / Tretinoin / Vitamin E 	Cosmetic Anti-Aging 	Cream 	1/0.05/6/3/0.05%; 30mL Tube 	$75.00
+Bacteriostatic Water 	Weight Loss 	Each (Solution) 	30mL 	$10.00
+BIEST (20:80) 	HRT 	ODT 	0.1 MG 	$1.20
+BIEST (20:80) 	HRT 	ODT 	0.05 MG 	$1.20
+BIEST (20:80) (TOPI-CLICK) 	HRT 	Cream 	1.25 MG/ML; 30mL Tube 	$30.00
+BIEST (20:80) (TOPI-CLICK) 	HRT 	Cream 	0.4 MG/ML; 30mL Tube 	$30.00
+BIEST (20:80) (TOPI-CLICK) 	HRT 	Cream 	0.2 MG/ML; 30mL Tube 	$30.00
+BIEST (20:80) (TOPI-CLICK) 	HRT 	Cream 	0.625 MG/ML; 30mL Tube 	$30.00
+BIEST (20:80) (TOPI-CLICK) 	HRT 	Cream 	2 MG/ML; 30mL Tube 	$30.00
+BIEST (20:80) (TOPI-CLICK) 	HRT 	Cream 	2.5 MG/ML; 30mL Tube 	$30.00
+BIEST (20:80) (TOPI-CLICK) 	HRT 	Cream 	1 MG/ML; 30mL Tube 	$30.00
+BIEST (20:80) (VERSABASE) (TOPI-CLICK) 	HRT 	Cream 	3 MG/ML; 30mL Tube 	$30.00
+BIEST (20:80) IR 	HRT 	Capsule 	1.5 MG 	$1.20
+BIEST (50:50) 	HRT 	ODT 	0.1 MG 	$1.20
+BIEST (50:50) 	HRT 	ODT 	0.05 MG 	$1.20
+BIEST (50:50) 	HRT 	ODT 	0.2 MG 	$1.20
+BIEST (50:50) 	HRT 	ODT 	0.4 MG 	$1.20
+BIEST (50:50) 	HRT 	ODT 	0.5 MG 	$1.20
+BIEST (50:50) 	HRT 	ODT 	1 MG 	$1.20
+BIEST (50:50) - CREME DE MENTHE 	HRT 	Troche 	0.1 MG 	$1.20
+BIEST (50:50) (TOPI-CLICK) 	HRT 	Cream 	1.5 MG/ML; 30mL Tube 	$30.00
+BIEST (50:50) (TOPI-CLICK) 	HRT 	Cream 	8mg/mL; 30mL 	$30.00
+BIEST (50:50) (TOPI-CLICK) 	HRT 	Cream 	3 MG/ML; 30mL Tube 	$30.00
+BIEST (50:50) (TOPI-CLICK) 	HRT 	Cream 	2.75 MG/ML; 30mL Tube 	$30.00
+BIEST (50:50) (TOPI-CLICK) 	HRT 	Cream 	2 MG/ML; 30mL Tube 	$30.00
+BIEST (50:50) (TOPI-CLICK) 	HRT 	Cream 	1.25 MG/ML; 30mL Tube 	$30.00
+BIEST (50:50) (TOPI-CLICK) 	HRT 	Cream 	1 MG/ML; 30mL Tube 	$30.00
+BIEST (50:50) (TOPI-CLICK) 	HRT 	Cream 	0.75 MG/ML; 30mL Tube 	$30.00
+BIEST (50:50) IR 	HRT 	Capsule 	1 MG 	$1.00
+BIEST (50:50) IR 	HRT 	Capsule 	2 MG 	$1.20
+BIEST 50/50/Progesterone SR 	HRT 	Capsule 	1.8mg/200mg 	$1.20
+Biotin/Minoxidil 	Hair Loss 	Capsule 	5mg/3mg 	$2.00
+Biotin/Minoxidil 	Hair Loss 	Capsule 	5mg/1.25mg 	$2.00
+ViOS
+BPC-157 ACETATE 	Peptide 	Capsule 	500mcg 	$2.00
+Cabergoline (commercial) 	HRT 	Tablet 	0.5mg (8 count bottle) 	$300.00
+Caffeine / Finasteride / Latanoprost / Minoxidil / Tretinoin 	Hair Loss 	Solution 	0.1/0.1/0.01/5/0.01%; 30mL Tube 	$120.00
+ViOS
+CJC-1295 / Ipamorelin 	Peptide - Injection 	injectable 	1 mg / 1 mg/mL; 5 mL (5 mg / 5 mg Vial) 	$150.00
+Climax Cream (ARGIN/ERGOLOID/PENTOX/SILD/THEOPH) 	Sexual Health 	Cream 	9/0.075/7.5/1.5/4.5mg/0.21mL; 30mL Tube 	$80.00
+Clindamycin / Erythromycin / Ketoconazole 	Cosmetic Anti-Aging 	Cream 	2/4/2%; 30mL Tube 	$90.00
+Clindamycin / Erythromycin / Ketoconazole / Tretinoin 	Cosmetic Anti-Aging 	Cream 	2/4/2/0.015%; 30mL Tube 	$100.00
+Clomiphene CITRATE 	HRT 	Capsule 	51mg 	$1.50
+Clomiphene CITRATE 	HRT 	Capsule 	25mg 	$1.25
+COQ-10 	Wellness 	Capsule 	100mg 	$2.00
+
+-- 1 of 7 --
+
+Cyanocobalamin (B12) - Commercial 	Wellness 	Injectable 	1,000 mcg/mL; 30 mL (30,000 mcg Vial) 	$48.00
+DHEA SR 	HRT 	Capsule 	5mg 	$1.10
+DHEA SR 	HRT 	Capsule 	50mg 	$1.10
+DHEA SR 	HRT 	Capsule 	25mg 	$1.10
+DHEA SR 	HRT 	Capsule 	10mg 	$1.10
+DHEA/Pregnenolone 	HRT 	Capsule 	10mg/50mg 	$1.10
+DHEA/Pregnenolone 	HRT 	Capsule 	25mg/25mg 	$1.10
+Doxycycline Hycalate 	Wellness 	Capsule 	50mg 	$1.20
+Doxycycline Hycalate 	Wellness 	Capsule 	20mg 	$1.20
+Dutasteride / Latanoprost / Minoxidil / Tretinoin 	Hair Loss 	Solution 	0.005%/0.5/6/0.025%; 30mL Tube 	$120.00
+Dutasteride SR 	Hair Loss 	Capsule 	0.25mg 	$2.10
+Dutasteride SR 	Hair Loss 	Capsule 	1.5mg 	$2.10
+Dutasteride SR 	Hair Loss 	Capsule 	1.0mg 	$2.10
+Enclomiphene CITRATE 	HRT 	Capsule 	25mg 	$1.50
+Enclomiphene CITRATE 	HRT 	Capsule 	75mg 	$3.00
+Enclomiphene CITRATE 	HRT 	Capsule 	12.5mg 	$1.20
+Enclomiphene CITRATE 	HRT 	Capsule 	51mg 	$2.00
+Enclomiphene CITRATE (DYE-FREE) 	HRT 	Capsule 	12.5mg 	$1.20
+Estradiol 	HRT 	TAB 	1mg 	$1.00
+Estradiol 	HRT 	TAB 	2mg 	$1.00
+Estradiol 	HRT 	Vag. Insert 	10mcg (8 inserts) 	$1.20
+Estradiol 	HRT 	TAB 	0.5mg 	$1.00
+ESTRADIOL 	HRT 	Vag. Cream 	0.1 MG/ML; 30mL Tube 	$30.00
+ESTRADIOL 	HRT 	Vag. Cream 	0.015 MG/ML; 30mL Tube 	$30.00
+ESTRADIOL 	HRT 	Vag. Cream 	0.5 MG/ML; 30mL Tube 	$30.00
+Estradiol (TOPI-CLICK) 	HRT 	Cream 	2 MG/ML; 30ml Tube 	$30.00
+Estradiol (TOPI-CLICK) 	HRT 	Cream 	2.5 MG/ML; 30ml Tube 	$30.00
+Estradiol (TOPI-CLICK) 	HRT 	Cream 	3 MG/ML; 30ml Tube 	$30.00
+Estradiol (TOPI-CLICK) 	HRT 	Cream 	4mg/mL; 30mL 	$30.00
+Estradiol (TOPI-CLICK) 	HRT 	Cream 	10mg/mL; 30mL 	$30.00
+Estradiol (TOPI-CLICK) 	HRT 	Cream 	1.5 MG/ML; 30ml Tube 	$30.00
+Estradiol (TOPI-CLICK) 	HRT 	Cream 	1 MG/ML; 30ml Tube 	$30.00
+ESTRADIOL (VERSABASE) 	HRT 	Vag. Cream 	0.2 MG/ML; 30mL Tube 	$30.00
+ESTRADIOL (VERSABASE) 	HRT 	Vag. Cream 	0.15 MG/ML; 30mL Tube 	$30.00
+ESTRADIOL (VERSABASE) 	HRT 	Vag. Cream 	1 MG/ML; 30mL Tube 	$30.00
+ESTRADIOL (VERSABASE) 	HRT 	Vag. Cream 	2 MG/ML; 30mL Tube 	$30.00
+Estradiol Cypionate MCT 	HRT 	Injectable 	10mg/mL; 10mL Vial 	$50.00
+Estradiol IR 	HRT 	Capsule 	2.5 MG 	$1.20
+Estradiol IR 	HRT 	Capsule 	1.0mg 	$1.00
+Estradiol IR 	HRT 	Capsule 	1.5mg 	$1.00
+Estradiol IR 	HRT 	Capsule 	2 MG 	$1.20
+Estradiol IR 	HRT 	Capsule 	4 MG 	$1.20
+ESTRADIOL IR (DYE-FREE) (LACTOSE FREE) 	HRT 	Capsule 	2 MG 	$1.20
+ESTRADIOL SL - CREME DE MENTHE 	HRT 	Troche 	4.5 MG 	$1.20
+Estradiol SR 	HRT 	Capsule 	1 MG 	$1.20
+ESTRADIOL/PROGESTERONE (TOPI-CLICK) 	HRT 	Cream 	1mg/100mg/mL; 30mL Tube 	$40.00
+ESTRADIOL/PROGESTERONE (TOPI-CLICK) 	HRT 	Cream 	2mg/200mg/mL; 30mL Tube 	$40.00
+Estriol (TOPI-CLICK) 	HRT 	Cream 	0.5mg/mL; 30mL Tube 	$30.00
+Estriol (TOPI-CLICK) 	HRT 	Cream 	1mg/mL; 30mL Tube 	$30.00
+Estriol (TOPI-CLICK) 	HRT 	Cream 	2mg/mL; 30mL Tube 	$30.00
+Estriol (TOPI-CLICK) 	HRT 	Cream 	3mg/mL; 30mL Tube 	$30.00
+Estriol (TOPI-CLICK) 	HRT 	Cream 	4mg/mL; 30mL Tube 	$30.00
+Estriol (TOPI-CLICK) 	HRT 	Cream 	25mg/mL; 30mL Tube 	$40.00
+Estriol (TOPI-CLICK) 	HRT 	Cream 	0.01mg/mL; 30mL Tube 	$30.00
+Exemestane 	HRT 	Tab 	25mg 	$2.20
+Ezetimibe 	Wellness 	Tablet 	10mg 	$1.00
+Finasteride 	Hair Loss 	Capsule 	.50mg 	$1.50
+Finasteride-commercial 	Hair Loss 	Tab 	1.0mg 	$3.00
+Finasteride/Minoxidil 	Hair Loss 	Foam 	0.25mg/5mg; 60mL 	$60.00
+Finasteride/Minoxidil 	Hair Loss 	Foam 	0.25/12%; 60mL 	$60.00
+Finasteride/Minoxidil 	Hair Loss 	Capsule 	1mg/2.5mg 	$1.40
+Finasteride/Minoxidil 	Hair Loss 	Solution 	0.25/12%; 30mL 	$60.00
+Finasteride/Minoxidil/Tretinoin 	Hair Loss 	Foam 	0.25mg/5.0mg/0.03%; 60mL 	$60.00
+GHK-Cu / Hyaluronic Acid / Hydroquinone / Niacinamide 	Cosmetic Anti-Aging 	Cream 	0.05/0.2/6/4%; 30mL Tube 	$120.00
+GHK-CU Cosmetic Cream 	Cosmetic Skin Health 	Cream 	0.5%; 30mL Tube 	$100.00
+Glutathione 	Wellness 	Capsule 	100mg 	$1.20
+Glutathione 	Wellness 	Injectable 	200 mg/mL; 10 mL (2,000 mg Vial) 	$35.00
+Glutathione 	Wellness 	Injectable 	200 mg/mL; 30 mL (6,000 mg Vial) 	$55.00
+Gonadorelin 	RDT 	Tablet 	1000mcg 	$2.60
+Gonadorelin 	Sexual Health 	Injectable 	1 mg/mL; 5 mL (5 mg Vial) 	$50.00
+HCG (Chorionic) - Commercial 	HRT 	Injectable 	10,000iu 	$210.00
+
+-- 2 of 7 --
+
+Hyaluronic Acid / Vitamin A / Vitamin E 	Sexual Wellness 	Cream 	5/1/1%; 30mL Tube 	$60.00
+Hydroquinone 	Cosmetic Anti-Aging 	Cream 	0.1%; 30mL Tube 	$60.00
+Hydroquinone / Kojic Acid / Hydrocortisone 	Cosmetic Anti-Aging 	Cream 	8/4/0.5%; 30mL Tube 	$60.00
+Hydroquinone / Tretinoin / Hydrocortisone 	Cosmetic Anti-Aging 	Cream 	6/0.025/2.5%; 30mL Tube 	$60.00
+IM 10 Pack (1ML LL, 25G NEEDLE, SPIKE, ALCOHOL PADS) 	HRT 	Device 	25g 	$20.00
+IM 5 Pack (1ML LL, SPIKE, 25G NEEDLE, ALCOHOL PADS) 	HRT 	Device 	25g 	$10.00
+IM 8 Pack (1ML LL, SPIKE, 25G NEEDLE, ALCOHOL PADS) 	HRT 	Device 	25g 	$16.00
+Ketamine 	Wellness 	ODT 	100mg 	$2.75
+Ketamine 	Wellness 	ODT 	50mg 	$2.50
+KyzaTrex 	HRT 	Capsule 	200mg (1 bottle, 120 capsules) 	$140.00
+Liothyronine (T3) IR 	HRT 	Capsule 	6.5 MCG 	$1.20
+Liothyronine (T3) IR 	HRT 	Capsule 	12 MCG 	$1.00
+Liothyronine (T3) SR 	HRT 	Capsule 	12mcg 	$1.20
+Liothyronine (T3) SR 	HRT 	Capsule 	6.5mcg 	$1.20
+Liothyronine (T3) SR 	HRT 	Capsule 	22mcg 	$1.20
+Liothyronine (T3) SR (Dye-Free) 	HRT 	Capsule 	22.5mcg 	$1.00
+Liothyronine (T3) SR (Dye-Free) 	HRT 	Capsule 	12mcg 	$1.00
+Luer Lock 	Supplies 	Syringe 	Luer Lock 1mL 	$0.37
+Metformin 	Weight Loss 	Tab 	1000mg 	$1.75
+Metformin 	Weight Loss 	Tab 	500mg 	$0.80
+Methylcobalamin (B12) 	Wellness 	Injectable 	1mg/mL; 10mL Vial (10mg vial) 	$20.00
+Methylene Blue 	Wellness 	Capsule 	50mg 	$4.00
+Methylene Blue 	Wellness 	Capsule 	25mg 	$2.50
+MIC/B12 	Wellness 	Injectable 	25 mg / 50 mg / 50 mg / 1 mg/mL; 10 mL (250 mg / 500 mg / 500 mg / 10 mg Vial) 	$25.00
+Minoxidlil 	Hair Loss 	Tab 	2.5mg 	$0.60
+NAD+ 	Wellness 	Injectable 	200mg/mL; 5mL Vial 	$90.00
+Naltrexone 	Addiction 	Capsule 	8mg 	$0.90
+Naltrexone 	Addiction 	Capsule 	1.5mg 	$0.90
+Naltrexone 	Addiction 	Capsule 	3mg 	$0.90
+Naltrexone 	Addiction 	Capsule 	4mg 	$0.90
+Naltrexone 	Addiction 	Capsule 	5mg 	$0.90
+Naltrexone 	Addiction 	Capsule 	6mg 	$0.90
+Naltrexone (DYE-FREE) 	Addiction 	Capsule 	6mg 	$1.00
+Naltrexone (DYE-FREE) 	Addiction 	Capsule 	3mg 	$1.00
+Naltrexone (DYE-FREE) 	Addiction 	Capsule 	1.5mg 	$1.00
+Nandrolone 	HRT 	Cream 	200mg/mL; 30mL 	$70.00
+Nandrolone DECANOATE 	HRT 	Injectable 	200mg/mL; 5mL 	$75.00
+Needle Tips 	Supplies 	Syringe 	27G 1/2in draw tip, no Syringe 	$0.37
+Needle Tips 	Supplies 	Syringe 	18G 1in draw tip, no Syringe 	$0.37
+Needle Tips 	Supplies 	Syringe 	21G 1in draw tip, no Syringe 	$0.37
+Needle Tips 	Supplies 	Syringe 	23G/1in draw tip, no Syringe 	$0.37
+Needle Tips 	Supplies 	Syringe 	25G 5/8in draw tip, no Syringe 	$0.37
+Needle Tips 	Supplies 	Syringe 	25G 1in draw tip, no Syringe 	$0.37
+Omnitrope - Commercial 	HGH 	Injectable 	5.8mg 	$425.00
+Oxandrolone 	HRT 	Capsule 	10mg 	$4.00
+Oxandrolone 	HRT 	Capsule 	25mg 	$4.50
+Oxandrolone 	HRT 	Capsule 	50mg 	$6.20
+Oxandrolone 	HRT 	Capsule 	5mg 	$3.00
+Oxandrolone SL - Berry Explosion 	HRT 	Troche 	50mg 	$6.20
+Oxandrolone SL - Berry Explosion 	HRT 	Troche 	25mg 	$4.50
+Oxytocin 	HRT 	Rapid Dissolve Tablet 	50IU 	$2.00
+Oxytocin 	HRT 	Rapid Dissolve Tablet 	250IU 	$2.25
+Oxytocin SL 	Sexual Wellness 	Troche 	300IU 	$2.50
+Pentadeca Arginate 	Peptide - Injection 	Injectable 	3 mg/mL; 5 mL (15 mg Vial) 	$120.00
+Phentermine 	Weight Loss 	Tab 	37.5mg 	$0.90
+Phentermine/Topiramate 	Weight Loss 	Capsule 	30mg/12.5mg 	$1.30
+Phentermine/Topiramate 	Weight Loss 	Capsule 	15mg/12.5mg 	$1.30
+Pregnenolone IR 	HRT 	Capsule 	25mg 	$1.00
+Progesterone (TOPI-CLICK) 	HRT 	Cream 	100mg/mL; 30mL Tube 	$30.00
+Progesterone (TOPI-CLICK) 	HRT 	Cream 	200mg/mL; 30mL Tube 	$30.00
+Progesterone (TOPI-CLICK) 	HRT 	Cream 	50mg/mL; 30mL Tube 	$30.00
+Progesterone IR 	HRT 	Capsule 	300mg 	$1.20
+Progesterone IR 	HRT 	Capsule 	125mg 	$1.00
+Progesterone IR 	HRT 	Capsule 	175mg 	$1.20
+Progesterone IR 	HRT 	Capsule 	100mg 	$1.00
+Progesterone IR 	HRT 	Capsule 	180mg 	$1.20
+Progesterone IR 	HRT 	Capsule 	50mg 	$1.00
+Progesterone IR 	HRT 	Capsule 	150mg 	$1.00
+Progesterone IR 	HRT 	Capsule 	25mg 	$1.00
+Progesterone IR 	HRT 	Capsule 	200mg 	$1.00
+Progesterone IR 	HRT 	Capsule 	250mg 	$1.00
+
+-- 3 of 7 --
+
+Progesterone IR (Dye-Free) 	HRT 	Capsule 	200mg 	$1.00
+Progesterone IR (Dye-Free) 	HRT 	Capsule 	50mg 	$1.00
+Progesterone IR (Dye-Free) 	HRT 	Capsule 	100mg 	$1.00
+Progesterone IR (Dye-Free) 	HRT 	Capsule 	150mg 	$1.00
+Progesterone IR (Dye-Free) 	HRT 	Capsule 	175mg 	$1.00
+Progesterone IR (Dye-Free) 	HRT 	Capsule 	250mg 	$1.00
+Progesterone SR 	HRT 	Capsule 	300mg 	$1.20
+Progesterone SR 	HRT 	Capsule 	100mg 	$1.00
+Progesterone SR 	HRT 	Capsule 	150mg 	$1.00
+Progesterone SR (Dye-Free) 	HRT 	Capsule 	150mg 	$1.00
+Semaglutide - 30 Day 	Weight Loss 	Oral Disintegrating Tablet 	6mg 	$170.00
+Semaglutide - 30 Day 	Weight Loss 	Oral Disintegrating Tablet 	2mg 	$98.00
+Semaglutide - 30 Day 	Weight Loss 	Oral Disintegrating Tablet 	4mg 	$140.00
+Semaglutide - 30 Day 	Weight Loss 	Oral Disintegrating Tablet 	8mg 	$200.00
+Semaglutide - 30 Day 	Weight Loss 	Oral Disintegrating Tablet 	10mg 	$230.00
+Semaglutide - 30 Day 	Weight Loss 	Oral Disintegrating Tablet 	12mg 	$260.00
+SEMAGLUTIDE/L-CARNITINE 	Weight Loss 	Injectable 	1 mg / 100 mg/mL; 3 mL (3 mg / 300 mg Vial) 	$85.00
+SEMAGLUTIDE/L-CARNITINE 	Weight Loss 	Injectable 	2 mg / 100 mg/mL; 4 mL (8 mg / 100 mg Vial) 	$120.00
+SEMAGLUTIDE/L-CARNITINE 	Weight Loss 	Injectable 	2 mg / 100 mg/mL; 2 mL (4 mg / 200 mg Vial) 	$90.00
+SEMAGLUTIDE/L-CARNITINE 	Weight Loss 	Injectable 	5 mg / 100 mg/mL; 2 mL (10 mg / 200 mg Vial) 	$140.00
+Semaglutide/Methylcobalamin/Glycine 	Weight Loss 	Injectable 	5 mg / 1 mg / 10 mg/mL; 2.5 mL (12.5 mg / 2.5 mg / 25 mg Vial) 	$140.00
+Sermorelin 	HGH 	Injectable 	3 mg/mL; 5 mL (15 mg Vial) 	$90.00
+Sildenafil 	Sexual Health 	Tablet 	100mg 	$1.40
+Sildenafil 	Sexual Health 	Troche 	100mg 	$1.40
+Sildenafil 	Sexual Health 	Troche 	110mg 	$2.75
+Sildenafil 	Sexual Health 	Tablet 	50mg 	$2.00
+Sildenafil 	Sexual Health 	Tablet 	20mg 	$0.70
+Sildenafil Citrate SL 	Sexual Health 	Troche 	125mg 	$2.00
+Sildenafil/Tadalafil SL 	Sexual Health 	Troche 	120mg/22mg 	$2.75
+Spironolactone SR 	Wellness 	Capsule 	10mg 	$1.00
+Spironolactone SR 	Wellness 	Capsule 	55mg 	$1.00
+Spironolactone SR 	Wellness 	Capsule 	75mg 	$1.00
+Spironolactone SR 	Wellness 	Capsule 	115mg 	$1.00
+Stanozolol (DYE-FREE) 	HRT 	Capsule 	25mg 	$4.00
+Stanozolol SL - BERRY EXP 	HRT 	Troche 	10mg 	$2.00
+Stanozolol SL - BERRY EXP 	HRT 	Troche 	5mg 	$2.00
+Stanozolol SL - BERRY EXP 	HRT 	Troche 	25mg 	$4.00
+Stanozolol SL - BERRY EXP 	HRT 	Troche 	50mg 	$6.00
+Syringe w/ Attached Needle 	Supplies 	Syringe 	25G 1in, 3cc Syringe 	$0.37
+Syringe w/ Attached Needle 	Supplies 	Syringe 	27G 1/2in/1cc Syringe 	$0.37
+Syringe w/ Attached Needle 	Supplies 	Syringe 	31G 5/16in .50cc Syringe 	$0.37
+Syringe w/ Attached Needle 	Supplies 	Syringe 	23G 1in, 3cc Syringe 	$0.37
+Syringe w/ Attached Needle 	Supplies 	Syringe 	25G 5/8in, 3cc Syringe 	$0.37
+Syringe w/ Attached Needle 	Supplies 	Syringe 	31G 5/16in 0.5cc Syringe 	$0.37
+Syringe w/ Attached Needle 	Supplies 	Syringe 	31G 5/16in 1cc Syringe 	$0.37
+T3/T4 - triiodothyronine/thyroxine 	HRT 	Capsule 	12/50mcg 	$1.20
+T3/T4 - triiodothyronine/thyroxine 	HRT 	Capsule 	4.5mcg/19mcg 	$1.20
+T3/T4 - triiodothyronine/thyroxine 	HRT 	Capsule 	9mcg/38mcg 	$1.20
+T3/T4 - triiodothyronine/thyroxine 	HRT 	Capsule 	27mcg/114mcg 	$1.20
+T3/T4 - triiodothyronine/thyroxine 	HRT 	Capsule 	18mcg/76mcg 	$1.20
+T3/T4 - triiodothyronine/thyroxine 	HRT 	Capsule 	25/150mcg 	$1.20
+T4 - thyroxine (levothyroxine) 	HRT 	Capsule 	50mcg 	$1.00
+Tadalafil 	Sexual Health 	Tablet 	20mg 	$0.90
+Tadalafil 	Sexual Health 	Capsule 	25mg 	$1.75
+Tadalafil 	Sexual Health 	Capsule 	5.5mg 	$1.75
+Tadalafil SL - Berry Explosion 	Sexual Health 	Troche 	20mg 	$2.00
+Tamoxifen 	HRT 	Tablet 	10mg 	$1.50
+Tamoxifen 	HRT 	Tablet 	20mg 	$2.00
+TB Syringe BD PG 	Supplies 	Syringe 	27G 1/2in 1mL 	$0.35
+Tesamorelin 	Peptide - Injection 	Injectable 	2 mg/mL; 10 mL (20 mg Vial) 	$120.00
+Testosterone (Syringe) 	HRT 	Cream 	0.05mg/mL 	$40.00
+Testosterone (TOPI-CLICK) 	HRT 	Cream 	120mg/ml; 30mL Tube 	$30.00
+Testosterone (TOPI-CLICK) 	HRT 	Cream 	200mg/ml; 30mL Tube 	$30.00
+Testosterone (TOPI-CLICK) 	HRT 	Cream 	1mg/mL; 30mL 	$30.00
+Testosterone (TOPI-CLICK) 	HRT 	Cream 	2mg/mL; 30mL 	$30.00
+Testosterone (TOPI-CLICK) 	HRT 	Cream 	4mg/mL; 30mL 	$30.00
+Testosterone (TOPI-CLICK) 	HRT 	Cream 	30mg/ml; 30mL Tube 	$30.00
+Testosterone (TOPI-CLICK) 	HRT 	Cream 	0.05mg/mL 	$30.00
+Testosterone (TOPI-CLICK) 	HRT 	Cream 	10mg/ml; 30mL Tube 	$30.00
+Testosterone (TOPI-CLICK) 	HRT 	Cream 	20mg/ml; 30mL Tube 	$30.00
+Testosterone (TOPI-CLICK) 	HRT 	Cream 	40mg/ml; 30mL Tube 	$30.00
+
+-- 4 of 7 --
+
+Testosterone (TOPI-CLICK) 	HRT 	Cream 	50mg/ml; 30mL Tube 	$30.00
+Testosterone Cypionate - Commercial 	HRT 	Injectable 	200 mg/mL; 10 mL (2,000 mg Vial) 	$70.00
+Testosterone Cypionate (GSO) 	HRT 	Injectable 	200 mg/mL; 5 mL (1,000 mg Vial) 	$17.50
+Testosterone Cypionate (GSO) 	HRT 	Injectable 	25 mg/mL; 5 mL (125 mg Vial) 	$17.50
+Testosterone Cypionate (MCT) 	HRT 	Injectable 	25 mg/mL; 5 mL (125 mg Vial) 	$17.50
+Testosterone Cypionate (MCT) 	HRT 	Injectable 	200 mg/mL; 5 mL (1,000 mg Vial) 	$17.50
+Testosterone Enanthate (GSO) 	HRT 	Injectable 	200 mg/mL; 5 mL (1,000 mg Vial) 	$17.50
+Testosterone Enanthate (MCT) 	HRT 	Injectable 	200 mg/mL; 5 mL (1,000 mg Vial) 	$17.50
+Testosterone SR 	HRT 	Troche 	25mg 	$1.20
+Testosterone SR 	HRT 	Troche 	75mg 	$1.20
+Testosterone SR 	HRT 	Troche 	100mg 	$1.20
+Testosterone SR 	HRT 	Troche 	200mg 	$1.20
+Testosterone SR 	HRT 	Troche 	50mg 	$1.20
+Testosterone SR 	HRT 	Troche 	10mg 	$1.20
+Tirzepatide - 30 Day 	Weight Loss 	Oral Disintegrating Tablet 	4mg 	$155.00
+Tirzepatide - 30 Day 	Weight Loss 	Oral Disintegrating Tablet 	5mg 	$165.00
+Tirzepatide - 30 Day 	Weight Loss 	Oral Disintegrating Tablet 	6mg 	$175.00
+Tirzepatide - 30 Day 	Weight Loss 	Oral Disintegrating Tablet 	7mg 	$185.00
+Tirzepatide - 30 Day 	Weight Loss 	Oral Disintegrating Tablet 	8mg 	$195.00
+Tirzepatide - 30 Day 	Weight Loss 	Oral Disintegrating Tablet 	10mg 	$205.00
+Tirzepatide - 30 Day 	Weight Loss 	Oral Disintegrating Tablet 	12mg 	$225.00
+Tirzepatide - 30 Day 	Weight Loss 	Oral Disintegrating Tablet 	3mg 	$145.00
+Tirzepatide/Glycine/Methylcobalamin 	Weight Loss 	Injectable 	68mg/40mg/4mg (17/10/1mg/mL); 4mL Vial 	$190.00
+Tirzepatide/Glycine/Methylcobalamin 	Weight Loss 	Injectable 	17mg/20mg/2mg (8.5/10/1mg/mL); 2mL Vial 	$100.00
+Tirzepatide/Glycine/Methylcobalamin 	Weight Loss 	Injectable 	34mg/20mg/2mg (17/10/1mg/mL); 2mL Vial 	$137.00
+Tirzepatide/Glycine/Methylcobalamin 	Weight Loss 	Injectable 	51mg/30mg/3mg (17/10/1mg/mL); 3mL Vial 	$170.00
+Tirzepatide/Glycine/Methylcobalamin 	Weight Loss 	Injectable 	8.5mg/10mg/1mg/mL; 1mL Vial 	$70.00
+TIRZEPATIDE/L-CARNITINE 	Weight Loss 	Injectable 	30mg/300mg/ml (10mg/100mg/ml); 3ml Vial 	$140.00
+TIRZEPATIDE/L-CARNITINE 	Weight Loss 	Injectable 	60mg/300mg/ml (20mg/100mg/ml); 3ml Vial 	$180.00
+TIRZEPATIDE/L-CARNITINE 	Weight Loss 	Injectable 	10mg/100mg/ml; 1ml Vial 	$120.00
+Topi-Click Perl 	Supplies 	Syringe 	Topi-Click Perl Device 	$4.00
+Topiramate 	Anti-Convulsant 	Tab 	50mg 	$1.00
+Topiramate 	Anti-Convulsant 	Tab 	25mg 	$1.00
+Tretinoin 	Cosmetic Anti-Aging 	Cream 	0.15%; 30mL Tube 	$60.00
+Tretinoin 	Cosmetic Anti-Aging 	Gel 	0.1%; 30mL Tube 	$40.00
+Tretinoin 	Cosmetic Anti-Aging 	Gel 	0.15%; 30mL Tube 	$60.00
+Tretinoin 	Cosmetic Anti-Aging 	Cream 	0.015%; 30mL Tube 	$40.00
+Tretinoin 	Cosmetic Anti-Aging 	Cream 	0.02%; 30mL Tube 	$40.00
+Tretinoin / Niacinamide / Hyaluronic Acid 	Cosmetic Anti-Aging 	Cream 	0.025/4/0.5%; 30mL Tube 	$60.00
+Tretinoin / Niacinamide / Hyaluronic Acid 	Cosmetic Anti-Aging 	Cream 	0.045/4/0.5%; 30mL Tube 	$60.00
+Vardenafil 	Sexual Health 	Capsule 	20mg 	$1.40
+Vitamin D3 	Wellness 	Capsule 	10,000U 	$0.50
+Vitamin D3 	Wellness 	Capsule 	5000U 	$0.50
+Vitamin D3/Vitamin K2 	Wellness 	Capsule 	10,000iu/180mcg 	$0.60
+Zomacton - Commercial 	HGH 	Injectable 	5mg vial 	$410.00
+Clarity Cream (Azelaic Acid / Niacinamide / Clindamycin / Tretinoin) 	Cosmetic Cream 	Cream 	10 / 4 / 2 / 0.1%; 30 g Tube 	$100.00
+ClearTone (Azelaic Acid / Hydroquinone / Kojic Acid / Tranexamic Acid / Niacinamide) 	Cosmetic Cream 	Cream 	10 / 4 / 2 / 5 / 4%; 30 g Tube 	$100.00
+Ecstasy Cream for Her (Oxytocin / Theophylline / Arginine / Sildenafil) - Raspberry 	Sexual Health 	Cream 	50 IU / 3 / 6 / 2%; 10 g Tube 	$100.00
+Eos Cream (Azelaic Acid / Niacinamide / Hyaluronic Acid / Tretinoin) 	Cosmetic Cream 	Cream 	10 / 5 / 0.25 / 0.05%; 30 g Tube 	$100.00
+Glutathione 	Anti-Aging 	Injectable 	200 mg/mL; 30 mL (6,000 mg Vial) 	$60.00
+Glutathione 	Anti-Aging 	Injectable 	200 mg/mL; 10 mL (2,000 mg Vial) 	$40.00
+HydroTone Gel (Niacinamide / Dexpanthenol / Vitamin E / Hyaluronic Acid) 	Cosmetic Cream 	Cream 	4 / 2 / 1 / 0.2%; 30 g Tube 	$100.00
+LuminEye (GHK-Cu / Caffeine / Tranexamic Acid / Hyaluronic Acid ) 	Cosmetic Cream 	Cream 	0.5 / 1 / 3 / 0.2%; 10 g Tube 	$100.00
+MICC B12 	Vitamin Replacement 	Injectable 	25 mg / 50 mg / 50 mg / 330 mcg/mL; 10 mL (250 mg / 500 mg / 500 mg / 3,300 mcg Vial) 	$30.00
+NAD+ Injectable 	Anti-Aging 	Injectable 	100 mg/mL; 10 mL (1,000 mg Vial) 	$90.00
+Refine PM (GHK-Cu / Tretinoin / Dexpanthenol / Vitamin E / Hyaluronic Acid ) 	Cosmetic Cream 	Cream 	0.5 / 0.05 / 0.3 / 2 / 1%; 30 g Tube 	$100.00
+Semaglutide / Glycine 	Weight Loss 	Injectable 	2.5 mg / 2.5 mg / 1 mL; 1 mL (2.5 mg Vial) 	$55.00
+Semaglutide / Glycine 	Weight Loss 	Injectable 	2.5 mg / 2.5 mg / 1 mL; 2 mL (5 mg Vial) 	$70.00
+Semaglutide / Glycine 	Weight Loss 	Injectable 	2.5 mg / 2.5 mg / 1 mL; 3 mL (7.5 mg Vial) 	$90.00
+Semaglutide / Glycine 	Weight Loss 	Injectable 	2.5 mg / 2.5 mg / 1 mL; 4 mL (10 mg Vial) 	$105.00
+Semaglutide / Glycine 	Weight Loss 	Injectable 	1 mg / 1 mg / 1 mL; 1 mL (1 mg Vial) 	$40.00
+Semaglutide / Glycine / B12 	Weight Loss 	Injectable 	5 mg / 5 mg / 1 mg / 1 mL; 2 mL (10 mg Vial) 	$105.00
+Semaglutide / Glycine / B12 	Weight Loss 	Injectable 	5 mg / 5 mg / 1 mg / 1 mL; 3 mL (15 mg Vial) 	$135.00
+Sermorelin 	HGH 	Injectable 	1 mg/mL; 9 mL Vial 	$90.00
+Tirzepatide / Glycine 	Weight Loss 	Injectable 	20 mg / 5 mg / 1 mL; 1 mL (20 mg Vial) 	$100.00
+Tirzepatide / Glycine 	Weight Loss 	Injectable 	10 mg / 5 mg / 1 mL; 4 mL (40 mg Vial) 	$150.00
+Tirzepatide / Glycine 	Weight Loss 	Injectable 	10 mg / 5 mg / 1 mL; 3 mL (30 mg Vial) 	$135.00
+Tirzepatide / Glycine 	Weight Loss 	Injectable 	10 mg / 5 mg / 1 mL; 2 mL (20 mg Vial) 	$100.00
+Tirzepatide / Glycine 	Weight Loss 	Injectable 	10 mg / 5 mg / 1 mL; 1 mL (10 mg Vial) 	$75.00
+Tirzepatide / Glycine 	Weight Loss 	Injectable 	20 mg / 5 mg / 1 mL; 2 mL (40 mg Vial) 	$150.00
+Tirzepatide / Glycine 	Weight Loss 	Injectable 	20 mg / 5 mg / 1 mL; 3 mL (60 mg Vial) 	$185.00
+
+-- 5 of 7 --
+
+Tirzepatide / Glycine / B12 	Weight Loss 	Injectable 	10 mg / 5 mg / 500 mcg / 1 mL; 2 mL (20 mg Vial) 	$100.00
+Tirzepatide / Glycine / B12 	Weight Loss 	Injectable 	10 mg / 5 mg / 500 mcg / 1 mL; 6 mL (60 mg Vial) 	$185.00
+Vital C5 (Vitamin C / Niacinamide / Resveratrol / Vitamin E / Hyaluronic Acid) 	Cosmetic Cream 	Cream 	5 / 5 / 1 / 1 / 0.3%; 30 g Tube 	$100.00
+BPC-157 	Peptide - Injection 	Injectable 	3 mg/mL; 5 mL (15 mg Vial) 	$120.00
+BPC-157 / GHK-Cu / KPV / TB-500 	Peptide - Injection 	Injectable 	3 mg / 10 mg / 3 mg / 3 mg/mL; 5 mL (15 mg / 50 mg / 15 mg / 15 mg Vial) 	$150.00
+BPC-157 / KPV / TB-500 	Peptide - Injection 	Injectable 	3 mg / 3 mg / 3 mg/mL; 5 mL (15 mg / 15 mg / 15 mg Vial) 	$150.00
+BPC-157 / TB-500 	Peptide - Injection 	Injectable 	3 mg / 3 mg/mL; 5 mL (15 mg / 15 mg Vial) 	$150.00
+BPC-157 / TB-500 / GHK-Cu 	Peptide - Injection 	Injectable 	3 mg / 3 mg / 10 mg/mL; 5 mL (15 mg / 15 mg / 50 mg Vial) 	$150.00
+CJC-1295 / Ipamorelin 	Peptide - Injection 	Injectable 	1.2 mg / 2 mg/mL; 5 mL (6 mg / 10 mg Vial) 	$150.00
+GHK-Cu 	Peptide - Injection 	Injectable 	10 mg/mL; 5 mL (50 mg Vial) 	$120.00
+IGF-LR3 	Peptide - Injection 	Injectable 	200 mcg/mL; 5 mL (1,000 mcg Vial) 	$120.00
+MOTS-C 	Peptide - Injection 	Injectable 	2 mg/mL; 5 mL (10 mg Vial) 	$120.00
+MOTS-c / Tesamorelin 	Peptide - Injection 	Injectable 	2 mg / 3 mg/mL; 5 mL (10 mg / 15 mg Vial) 	$150.00
+PT-141 	Peptide - Injection 	Injectable 	2 mg/mL; 5 mL (10 mg Vial) 	$120.00
+SS-31 	Peptide - Injection 	Injectable 	4 mg/mL; 5 mL (20 mg Vial) 	$120.00
+Tesamorelin 	Peptide - Injection 	Injectable 	3 mg/mL; 5 mL (15 mg Vial) 	$120.00
+Tesamorelin / Ipamorelin 	Peptide - Injection 	Injectable 	3 mg / 2 mg/mL; 5 mL (15 mg / 10 mg Vial) 	$150.00
+Thymosin A-1 	Peptide - Injection 	Injectable 	5 mg/mL; 5 mL (25 mg Vial) 	$120.00
+Tirzepatide / Glycine 	Weight Loss 	Injectable 	10 mg / 0.5 mg/mL; 2 mL (20 mg / 1 mg Vial) 	$100.00
+Tirzepatide / Glycine 	Weight Loss 	Injectable 	15 mg / 0.5 mg/mL; 2 mL (30 mg / 1 mg Vial) 	$135.00
+Tirzepatide / Glycine 	Weight Loss 	Injectable 	25 mg / 0.5 mg/mL; 2 mL (50 mg / 1 mg Vial) 	$170.00
+Tirzepatide / Glycine 	Weight Loss 	Injectable 	20 mg / 0.5 mg/mL; 2 mL (40 mg / 1 mg Vial) 	$150.00
+Tirzepatide / Glycine 	Weight Loss 	Injectable 	5 mg / 0.5 mg/mL; 2 mL (10 mg / 1 mg Vial) 	$75.00
+Tirzepatide / Glycine 	Weight Loss 	Injectable 	30 mg / 0.5 mg/mL; 2 mL (60 mg / 1 mg Vial) 	$185.00
+ANASTROZOLE 0.25 MG CAPSULE 	HRT 	Capsule 	0.25mg 	$1.00
+ANASTROZOLE 0.5 MG CAPSULE 	HRT 	Capsule 	0.5 MG 	$1.00
+Bremelanotide (PT-141) 	Peptide - Injection 	Injectable 	10,000 mcg/mL; 1 mL (10,000 mcg Vial) 	$120.00
+CLOMIPHENE CITRATE 25MG 	HRT 	Capsule 	25 MG 	$1.00
+CLOMIPHENE CITRATE 30MG 	HRT 	Capsule 	30 MG 	$1.00
+CLOMIPHENE CITRATE 50mg 	HRT 	Capsule 	50 MG 	$1.00
+ENCLOMIPHENE 12.5 MG 	HRT 	Capsule 	12.5 MG 	$1.00
+ENCLOMIPHENE 25MG 	HRT 	Capsule 	25MG 	$1.00
+ENCLOMIPHENE 50 MG 	HRT 	Capsule 	50 MG 	$1.00
+ENCLOMIPHENE 6.25 MG 	HRT 	Capsule 	6.25 MG 	$1.00
+Female Desire (Apomorphine / Bremelanotide / Oxytocin / L-Theanine) 	Sexual wellness 	Troche 	2 mg / 0.3 mg / 20 IU / 50 mg 	$1.00
+Glutathione 	Anti-Aging 	Injectable 	100 mg/mL; 10 mL (1,000 mg Vial) 	$35.00
+Glutathione 	Anti-Aging 	Injectable 	200 mg/mL; 10 mL (2,000 mg Vial) 	$40.00
+Gonadorelin 	HRT 	Injectable 	1 mg/mL; 2 mL Vial (2mg Vial) 	$50.00
+Gonadorelin 	Peptide - Injection 	Injectable 	1 mg/mL; 5 mL (5 mg Vial) 	$50.00
+Lipo-Methyl B12 (Methionine / Choline Chrolide / L-Carntitine / Methylcobalamin) 	Anti-Aging 	Injectable 	15 mg / 50 mg / 25 mg / 0.6 mg/mL; 5 mL (75 mg / 250 mg / 125 mg / 3 mg Vial) 	$35.00
+Lipo-Methyl B12 (Methionine / Choline Chrolide / L-Carntitine / Methylcobalamin) 	Anti-Aging 	Injectable 	15 mg / 50 mg / 25 mg / 0.6 mg/mL; 10 mL (150 mg / 500 mg / 250 mg / 6 mg Vial) 	$70.00
+Methylcobalamin 	Anti-Aging 	Injectable 	2 mg/mL; 10 mL (20 mg Vial) 	$30.00
+Methylcobalamin 	Anti-Aging 	Injectable 	1 mg/mL; 10 mL (10 mg Vial) 	$23.00
+NAD+ 	Anti-Aging 	Injectable 	50 mg/mL; 5 mL (250 mg Vial) 	$60.00
+Nandrolone Decanoate 	HRT 	Injectable 	300 mg/mL; 5 mL Vial 	$50.00
+Nandrolone Decanoate 	HRT 	Injectable 	100 mg/mL; 5 mL Vial 	$50.00
+Pregnyl 	HRT 	Injectable 	Pregnyl 	$180.00
+PT-141 	Sexual Wellness 	injectable 	10mg/mL (10mg Vial) 	$120.00
+Semaglutide / Glycine 	Weight Loss 	Injectable 	4 mg / 5 mg/mL; 0.5 mL (2 mg / 2.5 mg Vial) 	$50.00
+Semaglutide / Glycine 	Weight Loss 	Injectable 	4 mg / 5 mg/mL; 1 mL (4 mg / 5 mg Vial) 	$60.00
+Semaglutide / Glycine 	Weight Loss 	Injectable 	4 mg / 5 mg/mL; 2 mL (8 mg / 10 mg Vial) 	$90.00
+Semaglutide / Glycine 	Weight Loss 	Injectable 	4 mg / 5 mg/mL; 4 mL (16 mg / 20 mg Vial) 	$140.00
+Sermorelin 	Peptide - Injection 	Injectable 	1.5 mg/mL; 4 mL (6 mg Vial) 	$60.00
+Testosterone Cypionate - Ethyl Oleate 	HRT 	Injectable 	50 mg/mL; 5 mL Vial (250mg vial) 	$25.00
+Testosterone Cypionate - Ethyl Oleate 	HRT 	Injectable 	50 mg/mL; 5 mL Vial (250mg vial) 	$25.00
+Testosterone Cypionate - MCT 	HRT 	Injectable 	25 mg/mL; 5 mL Vial (125mg vial) 	$25.00
+Testosterone Cypionate - MCT 	HRT 	Injectable 	200 mg/mL; 5 mL Vial (1000mg Vial) 	$25.00
+Tirzepatide / Glycine 	Weight Loss 	Injectable 	20 mg / 5 mg/mL; 1 mL (20 mg / 5 mg Vial) 	$100.00
+Tirzepatide / Glycine 	Weight Loss 	Injectable 	20 mg / 5 mg/mL; 0.5 mL (10 mg / 2.5 mg Vial) 	$75.00
+Tirzepatide / Glycine 	Weight Loss 	Injectable 	20 mg / 5 mg/mL; 3 mL (60 mg / 15 mg Vial) 	$185.00
+Tirzepatide / Glycine 	Weight Loss 	Injectable 	20 mg / 5 mg/mL; 2 mL (40 mg / 10 mg Vial) 	$150.00
+Cyanocobalamin 10mg/10mL 	Wellness 	Injectable 	1mg/10ml 	$20.00
+Glutathione 2000mg/10mL 	Wellness 	Injectable 	200mg/10ml 	$25.00
+Glutathione 6000mg/30mL 	Wellness 	Injectable 	200mg/30ml 	$55.00
+Gonadorelin 10mg/5mL 	HRT 	Injectable 	2mg/5ml 	$80.00
+Gonadorelin 2mg 	HRT 	Injectable 	2mg/1ml 	$26.00
+Gonadorelin 6mg/6mL 	HRT 	Injectable 	1mg/1ml 	$60.00
+Methylcobalamin 10mg/10mL 	Wellness 	Injectable 	1mg/10ml 	$25.00
+MIC 	Weight Loss 	Injectable 	25/50/50/10ml 	$23.00
+NAD+ 1000mg/10mL 	Peptide - Injection 	Injectable 	100mg/10ml 	$90.00
+NAD+ 1200mg/6mL 	Peptide - Injection 	Injectable 	200mg/6ml 	$90.00
+
+-- 6 of 7 --
+
+NAD+ 500mg/2.5mL 	Peptide - Injection 	Injectable 	200mg/2.5ml 	$68.00
+NAD+ Sublinguals 	Peptide - Injection 	Injectable 	100mg/ampul (30) 	$60.00
+Phenylephrine 2mg/2mL 	Peptide - Injection 	Injectable 	1mg/2ml 	$35.00
+Sermorelin 15mg/6mL 	Peptide - Injection 	Injectable 	2.5mg/6ml 	$90.00
+Sermorelin 8mg/3.2mL 	Peptide - Injection 	Injectable 	2.5mg/3.2ml 	$65.00
+Sermorelin 9mg/3.6mL 	Peptide - Injection 	Injectable 	2.5mg/3.6ml 	$67.00
+Tri-Mix 1 	Peptide - Injection 	Injectable 	20 doses 	$65.00
+Tri-Mix 2 	Peptide - Injection 	Injectable 	20 doses 	$70.00
+DSIP / BPC-157 / CJC-1295 	Peptide - Injection 	Injectable 	1 mg / 2 mg / 2 mg/mL; 5 mL Vial 	$150.00
+Epithalon 	Peptide - Injection 	Injectable 	2 mg/mL; 5 mL Vial 	$120.00
+GHK-Cu / Epithalon 	Peptide - Injection 	Injectable 	10 mg / 2 mg/mL; 5 mL Vial 	$150.00
+GHK-Cu / Epithalon / CJC-1295 	Peptide - Injection 	Injectable 	10 mg / 2 mg / 2 mg/mL; 5 mL Vial 	$150.00
+Glutathione 	Wellness 	Injectable 	200 mg/mL; 10 mL Vial 	$40.00
+Gonadorelin 	Peptide - Injection 	Injectable 	1 mg/mL; 5 mL Vial 	$50.00
+Kisspeptin 	Peptide - Injection 	Injectable 	1 mg/mL; 5 mL Vial 	$120.00
+LIPO-C 	Anti-Aging 	Injectable 	15 mg / 50 mg / 50 mg/mL; 10 mL Vial 	$120.00
+LL-37 	Peptide - Injection 	Injectable 	2 mg/mL; 5 mL Vial 	$120.00
+Melanotan II 	Peptide - Injection 	Injectable 	2 mg/mL; 5 mL Vial 	$120.00
+NAD+ 	Wellness 	Injectable 	100 mg/mL; 10 mL Vial 	$90.00
+Pinealon / PE22-28 / Selank 	Peptide - Injection 	Injectable 	2 mg / 2 mg/mL; 5 mL Vial 	$150.00
+Semaglutide / Glycine 	Weight Loss 	Injectable 	4 mg (4 mg / 0.5 mg/mL); 1 mL Vial 	$60.00
+Semaglutide / Glycine 	Weight Loss 	Injectable 	2 mg (2 mg / 0.5 mg/mL); 1 mL Vial 	$55.00
+Semaglutide / Glycine 	Weight Loss 	Injectable 	6 mg (6 mg / 0.5 mg/mL); 1 mL Vial 	$60.00
+Semaglutide / Glycine 	Weight Loss 	Injectable 	1 mg (1 mg / 0.5 mg/mL); 1 mL Vial 	$40.00
+Semaglutide / Glycine 	Weight Loss 	Injectable 	10 mg (10 mg / 0.5 mg/mL); 1 mL Vial 	$105.00
+Semax / Selank 	Peptide - Injection 	Injectable 	1 mg / 1 mg/mL; 5 mL Vial 	$150.00
+Sermorelin 	Wellness 	Injectable 	3 mg/mL; 5 mL Vial 	$90.00
+SS-31 	Peptide - Injection 	Injectable 	2 mg/mL; 5 mL Vial 	$120.00
+TB-500 	Peptide - Injection 	Injectable 	3 mg/mL; 5 mL Vial 	$120.00
+Tirzepatide / Glycine 	Weight Loss 	Injectable 	20 mg (10 mg / 0.5 mg/mL); 2 mL Vial 	$100.00
+Tirzepatide / Glycine 	Weight Loss 	Injectable 	10 mg (5 mg / 0.5 mg/mL); 2 mL Vial 	$75.00
+Tirzepatide / Glycine 	Weight Loss 	Injectable 	60 mg (30 mg / 0.5 mg/mL); 2 mL Vial 	$185.00
+Tirzepatide / Glycine 	Weight Loss 	Injectable 	50 mg (25 mg / 0.5 mg/mL); 2 mL Vial 	$170.00
+Tirzepatide / Glycine 	Weight Loss 	Injectable 	40 mg (20 mg / 0.5 mg/mL); 2 mL Vial 	$150.00
+Tirzepatide / Glycine 	Weight Loss 	Injectable 	30 mg (15 mg / 0.5 mg/mL); 2 mL Vial 	$135.00
+DSIP / BPC-157 / CJC-1295 	Peptide - Injection 	Injectable 	1 mg / 2 mg / 2 mg/mL; 5 mL Vial 	$150.00
+Epithalon 	Peptide - Injection 	Injectable 	2 mg/mL; 5 mL Vial 	$120.00
+GHK-Cu / Epithalon 	Peptide - Injection 	Injectable 	10 mg / 2 mg/mL; 5 mL Vial 	$150.00
+GHK-Cu / Epithalon / CJC-1295 	Peptide - Injection 	Injectable 	10 mg / 2 mg / 2 mg/mL; 5 mL Vial 	$150.00
+Glutathione 	Wellness 	Injectable 	200 mg/mL; 10 mL Vial 	$40.00
+Gonadorelin 	Peptide - Injection 	Injectable 	1 mg/mL; 5 mL Vial 	$50.00
+Kisspeptin 	Peptide - Injection 	Injectable 	1 mg/mL; 5 mL Vial 	$120.00
+LIPO-C 	Anti-Aging 	Injectable 	15 mg / 50 mg / 50 mg/mL; 10 mL Vial 	$120.00
+LL-37 	Peptide - Injection 	Injectable 	2 mg/mL; 5 mL Vial 	$120.00
+Melanotan II 	Peptide - Injection 	Injectable 	2 mg/mL; 5 mL Vial 	$120.00
+NAD+ 	Wellness 	Injectable 	100 mg/mL; 10 mL Vial 	$90.00
+Pinealon / PE22-28 / Selank 	Peptide - Injection 	Injectable 	2 mg / 2 mg/mL; 5 mL Vial 	$150.00
+Semaglutide / Glycine 	Weight Loss 	Injectable 	10 mg (10 mg / 0.5 mg/mL); 1 mL Vial 	$105.00
+Semaglutide / Glycine 	Weight Loss 	Injectable 	1 mg (1 mg / 0.5 mg/mL); 1 mL Vial 	$40.00
+Semaglutide / Glycine 	Weight Loss 	Injectable 	2 mg (2 mg / 0.5 mg/mL); 1 mL Vial 	$55.00
+Semaglutide / Glycine 	Weight Loss 	Injectable 	4 mg (4 mg / 0.5 mg/mL); 1 mL Vial 	$60.00
+Semaglutide / Glycine 	Weight Loss 	Injectable 	6 mg (6 mg / 0.5 mg/mL); 1 mL Vial 	$60.00
+Semax / Selank 	Peptide - Injection 	Injectable 	1 mg / 1 mg/mL; 5 mL Vial 	$150.00
+Sermorelin 	Wellness 	Injectable 	3 mg/mL; 5 mL Vial 	$90.00
+SS-31 	Peptide - Injection 	Injectable 	2 mg/mL; 5 mL Vial 	$120.00
+TB-500 	Peptide - Injection 	Injectable 	3 mg/mL; 5 mL Vial 	$120.00
+Tirzepatide / Glycine 	Weight Loss 	Injectable 	50 mg (25 mg / 0.5 mg/mL); 2 mL Vial 	$170.00
+Tirzepatide / Glycine 	Weight Loss 	Injectable 	10 mg (5 mg / 0.5 mg/mL); 2 mL Vial 	$75.00
+Tirzepatide / Glycine 	Weight Loss 	Injectable 	20 mg (10 mg / 0.5 mg/mL); 2 mL Vial 	$100.00
+Tirzepatide / Glycine 	Weight Loss 	Injectable 	30 mg (15 mg / 0.5 mg/mL); 2 mL Vial 	$135.00
+Tirzepatide / Glycine 	Weight Loss 	Injectable 	40 mg (20 mg / 0.5 mg/mL); 2 mL Vial 	$150.00
+Tirzepatide / Glycine 	Weight Loss 	Injectable 	60 mg (30 mg / 0.5 mg/mL); 2 mL Vial 	$185.00
+
+-- 7 of 7 --
+

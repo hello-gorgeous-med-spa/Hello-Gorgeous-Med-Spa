@@ -1,6 +1,10 @@
 "use client";
 
 import Link from "next/link";
+import {
+  BOOMRX_STAFF_PORTAL_URL,
+  REGEN_PHARMACY_PLACEMENT_COPY,
+} from "@/lib/regen/pharmacy-placement";
 import { useParams, useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 
@@ -56,7 +60,7 @@ export default function RegenOrderFulfillmentDetailPage() {
   const [busy, setBusy] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
   const [npNotes, setNpNotes] = useState("");
-  const [pharmacySource, setPharmacySource] = useState("");
+  const [pharmacySource, setPharmacySource] = useState("BoomRx");
   const [trackingNumber, setTrackingNumber] = useState("");
   const [carrier, setCarrier] = useState("USPS");
 
@@ -69,7 +73,7 @@ export default function RegenOrderFulfillmentDetailPage() {
         setOrder(data.order);
         setSummary(data.summary);
         setNpNotes(data.order?.np_notes || "");
-        setPharmacySource(data.order?.pharmacy_source || "");
+        setPharmacySource(data.order?.pharmacy_source || "BoomRx");
         setTrackingNumber(data.order?.tracking_number || "");
       }
     } finally {
@@ -139,8 +143,8 @@ export default function RegenOrderFulfillmentDetailPage() {
     !order.np_approved_at;
   const canShip =
     Boolean(order.np_approved_at) &&
-    !order.shipped_at &&
-    (order.status === "approved" || order.status === "ordered" || Boolean(order.pharmacy_ordered_at));
+    Boolean(order.pharmacy_ordered_at) &&
+    !order.shipped_at;
 
   return (
     <div className="min-h-screen bg-gray-950 text-white p-4 md:p-8">
@@ -290,6 +294,20 @@ export default function RegenOrderFulfillmentDetailPage() {
 
           {order.np_approved_at && !order.pharmacy_ordered_at && (
             <>
+              <div className="rounded-lg border border-amber-500/40 bg-amber-500/10 px-4 py-3 text-sm text-amber-100">
+                <p className="font-bold">{REGEN_PHARMACY_PLACEMENT_COPY.staffTitle}</p>
+                <p className="mt-1 text-xs text-amber-100/90">
+                  {REGEN_PHARMACY_PLACEMENT_COPY.staffDetail}
+                </p>
+                <a
+                  href={BOOMRX_STAFF_PORTAL_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-2 inline-block text-xs font-bold text-[#FFB8DC] underline"
+                >
+                  Open BoomRx portal →
+                </a>
+              </div>
               <div>
                 <label className="block text-xs text-gray-400 mb-1">Pharmacy / vendor</label>
                 <input
@@ -301,11 +319,11 @@ export default function RegenOrderFulfillmentDetailPage() {
               </div>
               <button
                 type="button"
-                disabled={busy}
+                disabled={busy || !pharmacySource.trim()}
                 onClick={() => void runAction("pharmacy_ordered")}
                 className="w-full rounded-lg border border-[#FFB8DC] py-3 text-sm font-semibold text-[#FFB8DC] hover:bg-white/10 disabled:opacity-50"
               >
-                Mark pharmacy ordered
+                {REGEN_PHARMACY_PLACEMENT_COPY.adminCta}
               </button>
             </>
           )}

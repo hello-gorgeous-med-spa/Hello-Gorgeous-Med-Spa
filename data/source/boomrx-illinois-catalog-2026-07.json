@@ -1,2749 +1,5 @@
 [
   {
-    "pharmacy": "Formulation Rx",
-    "sku": null,
-    "name": "Estradiol Hemihydrate Injection (Sesame Oil)",
-    "size": "5mL Vial",
-    "conc": "5mg/mL",
-    "budDays": 45,
-    "controlled": false,
-    "coldShip": false,
-    "category": "Hormone Therapy",
-    "route": "Injectable",
-    "cost": 35,
-    "id": "it0"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "3501",
-    "name": "Gonadorelin Acetate",
-    "size": "5mL Vial",
-    "conc": "0.2mg/mL",
-    "budDays": 45,
-    "controlled": false,
-    "coldShip": true,
-    "category": "Hormone Therapy",
-    "route": "Injectable",
-    "cost": 50,
-    "id": "it1"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "2789",
-    "name": "Nandrolone Decanoate in Grapeseed Oil",
-    "size": "4mL Vial",
-    "conc": "200mg/mL",
-    "budDays": 45,
-    "controlled": true,
-    "coldShip": false,
-    "category": "Hormone Therapy",
-    "route": "Injectable",
-    "cost": 40,
-    "id": "it2"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "2710",
-    "name": "Progesterone in Grapeseed Oil",
-    "size": "10mL Vial",
-    "conc": "25mg/mL",
-    "budDays": 45,
-    "controlled": false,
-    "coldShip": false,
-    "category": "Hormone Therapy",
-    "route": "Injectable",
-    "cost": 77,
-    "id": "it3"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "2714",
-    "name": "Progesterone in Grapeseed Oil",
-    "size": "10mL Vial",
-    "conc": "100mg/mL",
-    "budDays": 45,
-    "controlled": false,
-    "coldShip": false,
-    "category": "Hormone Therapy",
-    "route": "Injectable",
-    "cost": 57,
-    "id": "it4"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "3637",
-    "name": "Progesterone in Grapeseed Oil",
-    "size": "30mL Solution (3 x 10mL MDV)",
-    "conc": "100mg/mL",
-    "budDays": 45,
-    "controlled": false,
-    "coldShip": false,
-    "category": "Hormone Therapy",
-    "route": "Injectable",
-    "cost": 90,
-    "id": "it5"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "3638",
-    "name": "Progesterone in Sesame Oil",
-    "size": "30mL Solution (3 x 10mL MDV)",
-    "conc": "100mg/mL",
-    "budDays": 45,
-    "controlled": false,
-    "coldShip": false,
-    "category": "Hormone Therapy",
-    "route": "Injectable",
-    "cost": 95,
-    "id": "it6"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "2718",
-    "name": "Progesterone in Sesame Seed Oil",
-    "size": "10mL Vial",
-    "conc": "25mg/mL",
-    "budDays": 45,
-    "controlled": false,
-    "coldShip": false,
-    "category": "Hormone Therapy",
-    "route": "Injectable",
-    "cost": 77,
-    "id": "it7"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "2722",
-    "name": "Progesterone in Sesame Seed Oil",
-    "size": "10mL Vial",
-    "conc": "100mg/mL",
-    "budDays": 45,
-    "controlled": false,
-    "coldShip": false,
-    "category": "Hormone Therapy",
-    "route": "Injectable",
-    "cost": 57,
-    "id": "it8"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "3597",
-    "name": "Testosterone Cream",
-    "size": "45g",
-    "conc": "200mg/mL",
-    "budDays": 45,
-    "controlled": true,
-    "coldShip": false,
-    "category": "Hormone Therapy",
-    "route": "Injectable",
-    "cost": 35,
-    "id": "it9"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "3896",
-    "name": "Testosterone Cream",
-    "size": "45g",
-    "conc": "10mg/mL",
-    "budDays": 45,
-    "controlled": true,
-    "coldShip": false,
-    "category": "Hormone Therapy",
-    "route": "Injectable",
-    "cost": 35,
-    "id": "it10"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "3903",
-    "name": "Testosterone Cream",
-    "size": "45g",
-    "conc": "8mg/mL",
-    "budDays": 45,
-    "controlled": true,
-    "coldShip": false,
-    "category": "Hormone Therapy",
-    "route": "Injectable",
-    "cost": 35,
-    "id": "it11"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "3904",
-    "name": "Testosterone Cream",
-    "size": "45g",
-    "conc": "6mg/mL",
-    "budDays": 45,
-    "controlled": true,
-    "coldShip": false,
-    "category": "Hormone Therapy",
-    "route": "Injectable",
-    "cost": 35,
-    "id": "it12"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "3905",
-    "name": "Testosterone Cream",
-    "size": "45g",
-    "conc": "4mg/mL",
-    "budDays": 45,
-    "controlled": true,
-    "coldShip": false,
-    "category": "Hormone Therapy",
-    "route": "Injectable",
-    "cost": 35,
-    "id": "it13"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "3906",
-    "name": "Testosterone Cream",
-    "size": "45g",
-    "conc": "12mg/mL",
-    "budDays": 45,
-    "controlled": true,
-    "coldShip": false,
-    "category": "Hormone Therapy",
-    "route": "Injectable",
-    "cost": 35,
-    "id": "it14"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "2798",
-    "name": "Testosterone Cypionate / Anastrozole in Grapeseed Oil",
-    "size": "5mL Vial",
-    "conc": "25mg/0.5mg/mL",
-    "budDays": 45,
-    "controlled": true,
-    "coldShip": false,
-    "category": "Hormone Therapy",
-    "route": "Injectable",
-    "cost": 46,
-    "id": "it15"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "2799",
-    "name": "Testosterone Cypionate / Anastrozole in Grapeseed Oil",
-    "size": "10mL (2 x 5mL Vials)",
-    "conc": "25mg/0.5mg/mL",
-    "budDays": 45,
-    "controlled": true,
-    "coldShip": false,
-    "category": "Hormone Therapy",
-    "route": "Injectable",
-    "cost": 86,
-    "id": "it16"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "2800",
-    "name": "Testosterone Cypionate / Anastrozole in Grapeseed Oil",
-    "size": "5mL Vial",
-    "conc": "50mg/0.5mg/mL",
-    "budDays": 45,
-    "controlled": true,
-    "coldShip": false,
-    "category": "Hormone Therapy",
-    "route": "Injectable",
-    "cost": 46,
-    "id": "it17"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "2801",
-    "name": "Testosterone Cypionate / Anastrozole in Grapeseed Oil",
-    "size": "10mL (2 x 5mL Vials)",
-    "conc": "50mg/0.5mg/mL",
-    "budDays": 45,
-    "controlled": true,
-    "coldShip": false,
-    "category": "Hormone Therapy",
-    "route": "Injectable",
-    "cost": 86,
-    "id": "it18"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "2802",
-    "name": "Testosterone Cypionate / Anastrozole in Grapeseed Oil",
-    "size": "5mL Vial",
-    "conc": "100mg/0.5mg/mL",
-    "budDays": 45,
-    "controlled": true,
-    "coldShip": false,
-    "category": "Hormone Therapy",
-    "route": "Injectable",
-    "cost": 46,
-    "id": "it19"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "2803",
-    "name": "Testosterone Cypionate / Anastrozole in Grapeseed Oil",
-    "size": "10mL (2 x 5mL Vials)",
-    "conc": "100mg/0.5mg/mL",
-    "budDays": 45,
-    "controlled": true,
-    "coldShip": false,
-    "category": "Hormone Therapy",
-    "route": "Injectable",
-    "cost": 86,
-    "id": "it20"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "2804",
-    "name": "Testosterone Cypionate / Anastrozole in Grapeseed Oil",
-    "size": "5mL Vial",
-    "conc": "200mg/0.5mg/mL",
-    "budDays": 45,
-    "controlled": true,
-    "coldShip": false,
-    "category": "Hormone Therapy",
-    "route": "Injectable",
-    "cost": 40,
-    "id": "it21"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "2805",
-    "name": "Testosterone Cypionate / Anastrozole in Grapeseed Oil",
-    "size": "10mL (2 x 5mL Vials)",
-    "conc": "200mg/0.5mg/mL",
-    "budDays": 45,
-    "controlled": true,
-    "coldShip": false,
-    "category": "Hormone Therapy",
-    "route": "Injectable",
-    "cost": 76,
-    "id": "it22"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "2806",
-    "name": "Testosterone Cypionate / Propionate in Grapeseed Oil",
-    "size": "5mL Vial",
-    "conc": "25mg/50mg/mL",
-    "budDays": 45,
-    "controlled": true,
-    "coldShip": false,
-    "category": "Hormone Therapy",
-    "route": "Injectable",
-    "cost": 55,
-    "id": "it23"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "2807",
-    "name": "Testosterone Cypionate / Propionate in Grapeseed Oil",
-    "size": "10mL (2 x 5mL Vials)",
-    "conc": "25mg/50mg/mL",
-    "budDays": 45,
-    "controlled": true,
-    "coldShip": false,
-    "category": "Hormone Therapy",
-    "route": "Injectable",
-    "cost": 109,
-    "id": "it24"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "2808",
-    "name": "Testosterone Cypionate / Propionate in Grapeseed Oil",
-    "size": "5mL Vial",
-    "conc": "50mg/50mg/mL",
-    "budDays": 45,
-    "controlled": true,
-    "coldShip": false,
-    "category": "Hormone Therapy",
-    "route": "Injectable",
-    "cost": 55,
-    "id": "it25"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "2809",
-    "name": "Testosterone Cypionate / Propionate in Grapeseed Oil",
-    "size": "10mL (2 x 5mL Vials)",
-    "conc": "50mg/50mg/mL",
-    "budDays": 45,
-    "controlled": true,
-    "coldShip": false,
-    "category": "Hormone Therapy",
-    "route": "Injectable",
-    "cost": 109,
-    "id": "it26"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "2810",
-    "name": "Testosterone Cypionate / Propionate in Grapeseed Oil",
-    "size": "5mL Vial",
-    "conc": "100mg/50mg/mL",
-    "budDays": 45,
-    "controlled": true,
-    "coldShip": false,
-    "category": "Hormone Therapy",
-    "route": "Injectable",
-    "cost": 55,
-    "id": "it27"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "2811",
-    "name": "Testosterone Cypionate / Propionate in Grapeseed Oil",
-    "size": "10mL (2 x 5mL Vials)",
-    "conc": "100mg/50mg/mL",
-    "budDays": 45,
-    "controlled": true,
-    "coldShip": false,
-    "category": "Hormone Therapy",
-    "route": "Injectable",
-    "cost": 109,
-    "id": "it28"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "2812",
-    "name": "Testosterone Cypionate / Propionate in Grapeseed Oil",
-    "size": "5mL Vial",
-    "conc": "200mg/50mg/mL",
-    "budDays": 45,
-    "controlled": true,
-    "coldShip": false,
-    "category": "Hormone Therapy",
-    "route": "Injectable",
-    "cost": 55,
-    "id": "it29"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "2813",
-    "name": "Testosterone Cypionate / Propionate in Grapeseed Oil",
-    "size": "10mL (2 x 5mL Vials)",
-    "conc": "200mg/50mg/mL",
-    "budDays": 45,
-    "controlled": true,
-    "coldShip": false,
-    "category": "Hormone Therapy",
-    "route": "Injectable",
-    "cost": 109,
-    "id": "it30"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "2814",
-    "name": "Testosterone Cypionate in Grapeseed Oil",
-    "size": "5mL Vial",
-    "conc": "25mg/mL",
-    "budDays": 45,
-    "controlled": true,
-    "coldShip": false,
-    "category": "Hormone Therapy",
-    "route": "Injectable",
-    "cost": 27,
-    "id": "it31"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "2815",
-    "name": "Testosterone Cypionate in Grapeseed Oil",
-    "size": "10mL (2 x 5mL Vials)",
-    "conc": "25mg/mL",
-    "budDays": 45,
-    "controlled": true,
-    "coldShip": false,
-    "category": "Hormone Therapy",
-    "route": "Injectable",
-    "cost": 32,
-    "id": "it32"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "2816",
-    "name": "Testosterone Cypionate in Grapeseed Oil",
-    "size": "5mL Vial",
-    "conc": "50mg/mL",
-    "budDays": 45,
-    "controlled": true,
-    "coldShip": false,
-    "category": "Hormone Therapy",
-    "route": "Injectable",
-    "cost": 27,
-    "id": "it33"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "2817",
-    "name": "Testosterone Cypionate in Grapeseed Oil",
-    "size": "10mL (2 x 5mL Vials)",
-    "conc": "50mg/mL",
-    "budDays": 45,
-    "controlled": true,
-    "coldShip": false,
-    "category": "Hormone Therapy",
-    "route": "Injectable",
-    "cost": 32,
-    "id": "it34"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "2818",
-    "name": "Testosterone Cypionate in Grapeseed Oil",
-    "size": "5mL Vial",
-    "conc": "100mg/mL",
-    "budDays": 45,
-    "controlled": true,
-    "coldShip": false,
-    "category": "Hormone Therapy",
-    "route": "Injectable",
-    "cost": 27,
-    "id": "it35"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "2819",
-    "name": "Testosterone Cypionate in Grapeseed Oil",
-    "size": "10mL (2 x 5mL Vials)",
-    "conc": "100mg/mL",
-    "budDays": 45,
-    "controlled": true,
-    "coldShip": false,
-    "category": "Hormone Therapy",
-    "route": "Injectable",
-    "cost": 32,
-    "id": "it36"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "2820",
-    "name": "Testosterone Cypionate in Grapeseed Oil",
-    "size": "5mL Vial",
-    "conc": "200mg/mL",
-    "budDays": 45,
-    "controlled": true,
-    "coldShip": false,
-    "category": "Hormone Therapy",
-    "route": "Injectable",
-    "cost": 27,
-    "id": "it37"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "2821",
-    "name": "Testosterone Cypionate in Grapeseed Oil",
-    "size": "10mL (2 x 5mL Vials)",
-    "conc": "200mg/mL",
-    "budDays": 45,
-    "controlled": true,
-    "coldShip": false,
-    "category": "Hormone Therapy",
-    "route": "Injectable",
-    "cost": 32,
-    "id": "it38"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "3504",
-    "name": "Testosterone Cypionate in Grapeseed Oil",
-    "size": "1mL MDV",
-    "conc": "50mg/mL",
-    "budDays": 45,
-    "controlled": true,
-    "coldShip": false,
-    "category": "Hormone Therapy",
-    "route": "Injectable",
-    "cost": 22,
-    "id": "it39"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "3529",
-    "name": "Testosterone Cypionate in Grapeseed Oil",
-    "size": "4mL (4 x 1mL Vials)",
-    "conc": "200mg/mL",
-    "budDays": 45,
-    "controlled": true,
-    "coldShip": false,
-    "category": "Hormone Therapy",
-    "route": "Injectable",
-    "cost": 30,
-    "id": "it40"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "3530",
-    "name": "Testosterone Cypionate in Grapeseed Oil",
-    "size": "2mL (2 x 1mL Vials)",
-    "conc": "50mg/mL",
-    "budDays": 45,
-    "controlled": true,
-    "coldShip": false,
-    "category": "Hormone Therapy",
-    "route": "Injectable",
-    "cost": 32,
-    "id": "it41"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "3531",
-    "name": "Testosterone Cypionate in Grapeseed Oil",
-    "size": "1mL MDV",
-    "conc": "20mg/mL",
-    "budDays": 45,
-    "controlled": true,
-    "coldShip": false,
-    "category": "Hormone Therapy",
-    "route": "Injectable",
-    "cost": 25,
-    "id": "it42"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "3532",
-    "name": "Testosterone Cypionate in Grapeseed Oil",
-    "size": "2mL (2 x 1mL Vials)",
-    "conc": "25mg/mL",
-    "budDays": 45,
-    "controlled": true,
-    "coldShip": false,
-    "category": "Hormone Therapy",
-    "route": "Injectable",
-    "cost": 25,
-    "id": "it43"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "3533",
-    "name": "Testosterone Cypionate in Grapeseed Oil",
-    "size": "4mL (4 x 1mL Vials)",
-    "conc": "25mg/mL",
-    "budDays": 45,
-    "controlled": true,
-    "coldShip": false,
-    "category": "Hormone Therapy",
-    "route": "Injectable",
-    "cost": 32,
-    "id": "it44"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "3646",
-    "name": "Testosterone Cypionate in Grapeseed Oil",
-    "size": "3mL (3 x 1mL Vials)",
-    "conc": "200mg/mL",
-    "budDays": 45,
-    "controlled": true,
-    "coldShip": false,
-    "category": "Hormone Therapy",
-    "route": "Injectable",
-    "cost": 40,
-    "id": "it45"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "3648",
-    "name": "Testosterone Cypionate in Grapeseed Oil",
-    "size": "2mL (2 x 1mL Vials)",
-    "conc": "200mg/mL",
-    "budDays": 45,
-    "controlled": true,
-    "coldShip": false,
-    "category": "Hormone Therapy",
-    "route": "Injectable",
-    "cost": 32,
-    "id": "it46"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "3867",
-    "name": "Testosterone Cypionate in Grapeseed Oil",
-    "size": "1mL Vial",
-    "conc": "100mg/mL",
-    "budDays": 45,
-    "controlled": true,
-    "coldShip": false,
-    "category": "Hormone Therapy",
-    "route": "Injectable",
-    "cost": 23,
-    "id": "it47"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "3946",
-    "name": "Testosterone Cypionate in Grapeseed Oil",
-    "size": "3mL (3 x 1mL Vials)",
-    "conc": "25mg/mL",
-    "budDays": 45,
-    "controlled": true,
-    "coldShip": false,
-    "category": "Hormone Therapy",
-    "route": "Injectable",
-    "cost": 28,
-    "id": "it48"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "4058",
-    "name": "Testosterone Cypionate in Grapeseed Oil",
-    "size": "1mL Vial",
-    "conc": "200mg/mL",
-    "budDays": 45,
-    "controlled": true,
-    "coldShip": false,
-    "category": "Hormone Therapy",
-    "route": "Injectable",
-    "cost": 23,
-    "id": "it49"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "3801",
-    "name": "Testosterone Cypionate in MCT Sterile Injectable Solution",
-    "size": "5mL Vial",
-    "conc": "200mg/mL",
-    "budDays": 60,
-    "controlled": true,
-    "coldShip": false,
-    "category": "Hormone Therapy",
-    "route": "Injectable",
-    "cost": 28,
-    "id": "it50"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "3802",
-    "name": "Testosterone Cypionate in MCT Sterile Injectable Solution",
-    "size": "5mL Vial",
-    "conc": "100mg/mL",
-    "budDays": 60,
-    "controlled": true,
-    "coldShip": false,
-    "category": "Hormone Therapy",
-    "route": "Injectable",
-    "cost": 27,
-    "id": "it51"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "3803",
-    "name": "Testosterone Cypionate in MCT Sterile Injectable Solution",
-    "size": "5mL Vial",
-    "conc": "50mg/mL",
-    "budDays": 60,
-    "controlled": true,
-    "coldShip": false,
-    "category": "Hormone Therapy",
-    "route": "Injectable",
-    "cost": 27,
-    "id": "it52"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "3804",
-    "name": "Testosterone Cypionate in MCT Sterile Injectable Solution",
-    "size": "5mL Vial",
-    "conc": "25mg/mL",
-    "budDays": 60,
-    "controlled": true,
-    "coldShip": false,
-    "category": "Hormone Therapy",
-    "route": "Injectable",
-    "cost": 27,
-    "id": "it53"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "2822",
-    "name": "Testosterone Cypionate in Sesame Oil",
-    "size": "5mL Vial",
-    "conc": "25mg/mL",
-    "budDays": 45,
-    "controlled": true,
-    "coldShip": false,
-    "category": "Hormone Therapy",
-    "route": "Injectable",
-    "cost": 27,
-    "id": "it54"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "2823",
-    "name": "Testosterone Cypionate in Sesame Oil",
-    "size": "10mL (2 x 5mL Vials)",
-    "conc": "25mg/mL",
-    "budDays": 45,
-    "controlled": true,
-    "coldShip": false,
-    "category": "Hormone Therapy",
-    "route": "Injectable",
-    "cost": 35,
-    "id": "it55"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "2824",
-    "name": "Testosterone Cypionate in Sesame Oil",
-    "size": "5mL Vial",
-    "conc": "50mg/mL",
-    "budDays": 45,
-    "controlled": true,
-    "coldShip": false,
-    "category": "Hormone Therapy",
-    "route": "Injectable",
-    "cost": 27,
-    "id": "it56"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "2825",
-    "name": "Testosterone Cypionate in Sesame Oil",
-    "size": "10mL (2 x 5mL Vials)",
-    "conc": "50mg/mL",
-    "budDays": 45,
-    "controlled": true,
-    "coldShip": false,
-    "category": "Hormone Therapy",
-    "route": "Injectable",
-    "cost": 35,
-    "id": "it57"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "2826",
-    "name": "Testosterone Cypionate in Sesame Oil",
-    "size": "5mL Vial",
-    "conc": "100mg/mL",
-    "budDays": 45,
-    "controlled": true,
-    "coldShip": false,
-    "category": "Hormone Therapy",
-    "route": "Injectable",
-    "cost": 27,
-    "id": "it58"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "2827",
-    "name": "Testosterone Cypionate in Sesame Oil",
-    "size": "10mL (2 x 5mL Vials)",
-    "conc": "100mg/mL",
-    "budDays": 45,
-    "controlled": true,
-    "coldShip": false,
-    "category": "Hormone Therapy",
-    "route": "Injectable",
-    "cost": 35,
-    "id": "it59"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "2828",
-    "name": "Testosterone Cypionate in Sesame Oil",
-    "size": "5mL Vial",
-    "conc": "200mg/mL",
-    "budDays": 45,
-    "controlled": true,
-    "coldShip": false,
-    "category": "Hormone Therapy",
-    "route": "Injectable",
-    "cost": 27,
-    "id": "it60"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "2829",
-    "name": "Testosterone Cypionate in Sesame Oil",
-    "size": "10mL (2 x 5mL Vials)",
-    "conc": "200mg/mL",
-    "budDays": 45,
-    "controlled": true,
-    "coldShip": false,
-    "category": "Hormone Therapy",
-    "route": "Injectable",
-    "cost": 35,
-    "id": "it61"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "3828",
-    "name": "Testosterone Cypionate with Propionate in MCT Sterile Injectable",
-    "size": "10mL (2 x 5mL Vials)",
-    "conc": "175mg/25mg/mL",
-    "budDays": 45,
-    "controlled": true,
-    "coldShip": false,
-    "category": "Hormone Therapy",
-    "route": "Injectable",
-    "cost": 40,
-    "id": "it62"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "3527",
-    "name": "Testosterone Cypionate / Anastrozole in Grapeseed Oil",
-    "size": "4mL (4 x 1mL Vials)",
-    "conc": "200mg/0.5mg/mL",
-    "budDays": 45,
-    "controlled": true,
-    "coldShip": false,
-    "category": "Hormone Therapy",
-    "route": "Injectable",
-    "cost": 30,
-    "id": "it63"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "3698",
-    "name": "Testosterone Cypionate / Anastrozole in Grapeseed Oil",
-    "size": "3mL (3 x 1mL Vials)",
-    "conc": "200mg/0.5mg/mL",
-    "budDays": 45,
-    "controlled": true,
-    "coldShip": false,
-    "category": "Hormone Therapy",
-    "route": "Injectable",
-    "cost": 38,
-    "id": "it64"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "3699",
-    "name": "Testosterone Cypionate / Anastrozole in Grapeseed Oil",
-    "size": "2mL (2 x 1mL Vials)",
-    "conc": "200mg/0.5mg/mL",
-    "budDays": 45,
-    "controlled": true,
-    "coldShip": false,
-    "category": "Hormone Therapy",
-    "route": "Injectable",
-    "cost": 30,
-    "id": "it65"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "2830",
-    "name": "Testosterone Propionate in Grapeseed Oil",
-    "size": "5mL Vial",
-    "conc": "25mg/mL",
-    "budDays": 45,
-    "controlled": true,
-    "coldShip": false,
-    "category": "Hormone Therapy",
-    "route": "Injectable",
-    "cost": 37,
-    "id": "it66"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "2831",
-    "name": "Testosterone Propionate in Grapeseed Oil",
-    "size": "10mL (2 x 5mL Vials)",
-    "conc": "25mg/mL",
-    "budDays": 45,
-    "controlled": true,
-    "coldShip": false,
-    "category": "Hormone Therapy",
-    "route": "Injectable",
-    "cost": 76,
-    "id": "it67"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "2832",
-    "name": "Testosterone Propionate in Grapeseed Oil",
-    "size": "5mL Vial",
-    "conc": "50mg/mL",
-    "budDays": 45,
-    "controlled": true,
-    "coldShip": false,
-    "category": "Hormone Therapy",
-    "route": "Injectable",
-    "cost": 37,
-    "id": "it68"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "2833",
-    "name": "Testosterone Propionate in Grapeseed Oil",
-    "size": "10mL (2 x 5mL Vials)",
-    "conc": "50mg/mL",
-    "budDays": 45,
-    "controlled": true,
-    "coldShip": false,
-    "category": "Hormone Therapy",
-    "route": "Injectable",
-    "cost": 76,
-    "id": "it69"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "2834",
-    "name": "Testosterone Propionate in Grapeseed Oil",
-    "size": "5mL Vial",
-    "conc": "100mg/mL",
-    "budDays": 45,
-    "controlled": true,
-    "coldShip": false,
-    "category": "Hormone Therapy",
-    "route": "Injectable",
-    "cost": 37,
-    "id": "it70"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "2835",
-    "name": "Testosterone Propionate in Grapeseed Oil",
-    "size": "10mL (2 x 5mL Vials)",
-    "conc": "100mg/mL",
-    "budDays": 45,
-    "controlled": true,
-    "coldShip": false,
-    "category": "Hormone Therapy",
-    "route": "Injectable",
-    "cost": 76,
-    "id": "it71"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "2836",
-    "name": "Testosterone Propionate in Grapeseed Oil",
-    "size": "5mL Vial",
-    "conc": "200mg/mL",
-    "budDays": 45,
-    "controlled": true,
-    "coldShip": false,
-    "category": "Hormone Therapy",
-    "route": "Injectable",
-    "cost": 37,
-    "id": "it72"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "2837",
-    "name": "Testosterone Propionate in Grapeseed Oil",
-    "size": "10mL (2 x 5mL Vials)",
-    "conc": "200mg/mL",
-    "budDays": 45,
-    "controlled": true,
-    "coldShip": false,
-    "category": "Hormone Therapy",
-    "route": "Injectable",
-    "cost": 76,
-    "id": "it73"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": null,
-    "name": "Dutasteride Sterile Oil Injection Solution (Intradermal)",
-    "size": "5mL Vial",
-    "conc": "1mg/mL",
-    "budDays": 45,
-    "controlled": false,
-    "coldShip": false,
-    "category": "Hair Loss",
-    "route": "Injectable",
-    "cost": 38,
-    "id": "it74"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "3710",
-    "name": "Minoxidil (PF) Sterile Injection (Intradermal)",
-    "size": "5mL Vial",
-    "conc": "0.25%",
-    "budDays": 45,
-    "controlled": false,
-    "coldShip": true,
-    "category": "Hair Loss",
-    "route": "Injectable",
-    "cost": 40,
-    "id": "it75"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "3711",
-    "name": "Minoxidil (PF) Sterile Injection (Intradermal)",
-    "size": "5mL Vial",
-    "conc": "0.5%",
-    "budDays": 45,
-    "controlled": false,
-    "coldShip": true,
-    "category": "Hair Loss",
-    "route": "Injectable",
-    "cost": 40,
-    "id": "it76"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "3713",
-    "name": "Minoxidil (PF) Sterile Injection (Intradermal)",
-    "size": "5mL Vial",
-    "conc": "0.75%",
-    "budDays": 45,
-    "controlled": false,
-    "coldShip": true,
-    "category": "Hair Loss",
-    "route": "Injectable",
-    "cost": 40,
-    "id": "it77"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "3706",
-    "name": "Minoxidil Sterile Injection (Intradermal)",
-    "size": "5mL Vial",
-    "conc": "0.25%",
-    "budDays": 45,
-    "controlled": false,
-    "coldShip": true,
-    "category": "Hair Loss",
-    "route": "Injectable",
-    "cost": 38,
-    "id": "it78"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "3707",
-    "name": "Minoxidil Sterile Injection (Intradermal)",
-    "size": "5mL Vial",
-    "conc": "0.5%",
-    "budDays": 45,
-    "controlled": false,
-    "coldShip": true,
-    "category": "Hair Loss",
-    "route": "Injectable",
-    "cost": 38,
-    "id": "it79"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "3708",
-    "name": "Minoxidil Sterile Injection (Intradermal)",
-    "size": "5mL Vial",
-    "conc": "0.75%",
-    "budDays": 45,
-    "controlled": false,
-    "coldShip": true,
-    "category": "Hair Loss",
-    "route": "Injectable",
-    "cost": 38,
-    "id": "it80"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "3703",
-    "name": "Minoxidil with Biotin (PF) Sterile Injection (Intradermal)",
-    "size": "5mL Vial",
-    "conc": "0.25% / 0.2%",
-    "budDays": 45,
-    "controlled": false,
-    "coldShip": true,
-    "category": "Hair Loss",
-    "route": "Injectable",
-    "cost": 40,
-    "id": "it81"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "3704",
-    "name": "Minoxidil with Biotin (PF) Sterile Injection (Intradermal)",
-    "size": "5mL Vial",
-    "conc": "0.5% / 0.2%",
-    "budDays": 45,
-    "controlled": false,
-    "coldShip": true,
-    "category": "Hair Loss",
-    "route": "Injectable",
-    "cost": 40,
-    "id": "it82"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "3705",
-    "name": "Minoxidil with Biotin (PF) Sterile Injection (Intradermal)",
-    "size": "5mL Vial",
-    "conc": "0.75% / 0.2%",
-    "budDays": 45,
-    "controlled": false,
-    "coldShip": true,
-    "category": "Hair Loss",
-    "route": "Injectable",
-    "cost": 40,
-    "id": "it83"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": null,
-    "name": "Tirzepatide / Glycine",
-    "size": "0.5 mL Vial (10 mg)",
-    "conc": "20mg / 5mg/mL",
-    "budDays": null,
-    "controlled": false,
-    "coldShip": false,
-    "category": "GLP-1 / Weight Loss",
-    "route": "Injectable",
-    "cost": 50,
-    "id": "it84"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": null,
-    "name": "Tirzepatide / Glycine",
-    "size": "1 mL Vial (20 mg)",
-    "conc": "20mg / 5mg/mL",
-    "budDays": null,
-    "controlled": false,
-    "coldShip": false,
-    "category": "GLP-1 / Weight Loss",
-    "route": "Injectable",
-    "cost": 90,
-    "id": "it85"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": null,
-    "name": "Tirzepatide / Glycine",
-    "size": "2 mL Vial (40 mg)",
-    "conc": "20mg / 5mg/mL",
-    "budDays": null,
-    "controlled": false,
-    "coldShip": false,
-    "category": "GLP-1 / Weight Loss",
-    "route": "Injectable",
-    "cost": 130,
-    "id": "it86"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": null,
-    "name": "Tirzepatide / Glycine",
-    "size": "3 mL Vial (60 mg)",
-    "conc": "20mg / 5mg/mL",
-    "budDays": null,
-    "controlled": false,
-    "coldShip": false,
-    "category": "GLP-1 / Weight Loss",
-    "route": "Injectable",
-    "cost": 150,
-    "id": "it87"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": null,
-    "name": "Tirzepatide / Glycine",
-    "size": "1 mL Vial (10 mg)",
-    "conc": "10mg / 5mg/mL",
-    "budDays": null,
-    "controlled": false,
-    "coldShip": false,
-    "category": "GLP-1 / Weight Loss",
-    "route": "Injectable",
-    "cost": 50,
-    "id": "it88"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": null,
-    "name": "Tirzepatide / Glycine",
-    "size": "2 mL Vial (20 mg)",
-    "conc": "10mg / 5mg/mL",
-    "budDays": null,
-    "controlled": false,
-    "coldShip": false,
-    "category": "GLP-1 / Weight Loss",
-    "route": "Injectable",
-    "cost": 90,
-    "id": "it89"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": null,
-    "name": "Tirzepatide / Glycine",
-    "size": "3 mL Vial (30 mg)",
-    "conc": "10mg / 5mg/mL",
-    "budDays": null,
-    "controlled": false,
-    "coldShip": false,
-    "category": "GLP-1 / Weight Loss",
-    "route": "Injectable",
-    "cost": 115,
-    "id": "it90"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": null,
-    "name": "Semaglutide / Glycine",
-    "size": "0.5 mL Vial (2 mg)",
-    "conc": "4mg / 5mg/mL",
-    "budDays": null,
-    "controlled": false,
-    "coldShip": false,
-    "category": "GLP-1 / Weight Loss",
-    "route": "Injectable",
-    "cost": 40,
-    "id": "it91"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": null,
-    "name": "Semaglutide / Glycine",
-    "size": "1 mL Vial (4 mg)",
-    "conc": "4mg / 5mg/mL",
-    "budDays": null,
-    "controlled": false,
-    "coldShip": false,
-    "category": "GLP-1 / Weight Loss",
-    "route": "Injectable",
-    "cost": 50,
-    "id": "it92"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": null,
-    "name": "Semaglutide / Glycine",
-    "size": "2 mL Vial (8 mg)",
-    "conc": "4mg / 5mg/mL",
-    "budDays": null,
-    "controlled": false,
-    "coldShip": false,
-    "category": "GLP-1 / Weight Loss",
-    "route": "Injectable",
-    "cost": 70,
-    "id": "it93"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": null,
-    "name": "Semaglutide / Glycine",
-    "size": "4 mL Vial (16 mg)",
-    "conc": "4mg / 5mg/mL",
-    "budDays": null,
-    "controlled": false,
-    "coldShip": false,
-    "category": "GLP-1 / Weight Loss",
-    "route": "Injectable",
-    "cost": 110,
-    "id": "it94"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "3640",
-    "name": "NAD+ Injectable Solution",
-    "size": "20mL (10 x 2mL vials)",
-    "conc": "50mg/mL",
-    "budDays": 60,
-    "controlled": false,
-    "coldShip": true,
-    "category": "Wellness",
-    "route": "Injectable",
-    "cost": 150,
-    "id": "it95"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "3115",
-    "name": "NAD+",
-    "size": "5mL Vial",
-    "conc": "1mg/mL",
-    "budDays": 60,
-    "controlled": false,
-    "coldShip": true,
-    "category": "Wellness",
-    "route": "Injectable",
-    "cost": 35,
-    "id": "it96"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "3116",
-    "name": "NAD+",
-    "size": "10mL (2 x 5mL)",
-    "conc": "1mg/mL",
-    "budDays": 60,
-    "controlled": false,
-    "coldShip": true,
-    "category": "Wellness",
-    "route": "Injectable",
-    "cost": 68,
-    "id": "it97"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "3117",
-    "name": "NAD+",
-    "size": "15mL (3 x 5mL)",
-    "conc": "1mg/mL",
-    "budDays": 60,
-    "controlled": false,
-    "coldShip": true,
-    "category": "Wellness",
-    "route": "Injectable",
-    "cost": 78,
-    "id": "it98"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "3118",
-    "name": "NAD+",
-    "size": "20mL (4 x 5mL)",
-    "conc": "1mg/mL",
-    "budDays": 60,
-    "controlled": false,
-    "coldShip": true,
-    "category": "Wellness",
-    "route": "Injectable",
-    "cost": 91,
-    "id": "it99"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "3119",
-    "name": "NAD+",
-    "size": "10mL Vial",
-    "conc": "100mg/mL",
-    "budDays": 60,
-    "controlled": false,
-    "coldShip": true,
-    "category": "Wellness",
-    "route": "Injectable",
-    "cost": 70,
-    "id": "it100"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "3120",
-    "name": "NAD+",
-    "size": "20mL (2 x 10mL)",
-    "conc": "100mg/mL",
-    "budDays": 60,
-    "controlled": false,
-    "coldShip": true,
-    "category": "Wellness",
-    "route": "Injectable",
-    "cost": 131,
-    "id": "it101"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "3503",
-    "name": "NAD+",
-    "size": "10mL Vial",
-    "conc": "50mg/mL",
-    "budDays": 60,
-    "controlled": false,
-    "coldShip": true,
-    "category": "Wellness",
-    "route": "Injectable",
-    "cost": 45,
-    "id": "it102"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "3560",
-    "name": "NAD+",
-    "size": "10mL (10 x 1mL vials)",
-    "conc": "200mg/mL",
-    "budDays": 60,
-    "controlled": false,
-    "coldShip": true,
-    "category": "Wellness",
-    "route": "Injectable",
-    "cost": 200,
-    "id": "it103"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "3677",
-    "name": "NAD+ Injectable Solution",
-    "size": "30mL MDV",
-    "conc": "50mg/mL",
-    "budDays": 60,
-    "controlled": false,
-    "coldShip": true,
-    "category": "Wellness",
-    "route": "Injectable",
-    "cost": 65,
-    "id": "it104"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "3639",
-    "name": "NAD+ Injection Solution",
-    "size": "10mL (5 x 2mL vials)",
-    "conc": "50mg/mL",
-    "budDays": 60,
-    "controlled": false,
-    "coldShip": true,
-    "category": "Wellness",
-    "route": "Injectable",
-    "cost": 85,
-    "id": "it105"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "3839",
-    "name": "NAD+ Sterile Injection Solution",
-    "size": "10mL Vial",
-    "conc": "200mg/mL",
-    "budDays": 60,
-    "controlled": false,
-    "coldShip": true,
-    "category": "Wellness",
-    "route": "Injectable",
-    "cost": 70,
-    "id": "it106"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "3502",
-    "name": "PT-141 (Bremelanotide)",
-    "size": "10mL Vial",
-    "conc": "2mg/mL",
-    "budDays": 45,
-    "controlled": false,
-    "coldShip": true,
-    "category": "Peptide Therapy",
-    "route": "Injectable",
-    "cost": 95,
-    "id": "it107"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "3511",
-    "name": "Pentadeca Arginate",
-    "size": "7.5mL Vial",
-    "conc": "2mg/mL",
-    "budDays": 60,
-    "controlled": false,
-    "coldShip": true,
-    "category": "Peptide Therapy",
-    "route": "Injectable",
-    "cost": 50,
-    "id": "it108"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "3811",
-    "name": "SS-31 (Elamipiretide) Sterile Injectable",
-    "size": "5mL Vial",
-    "conc": "16mg/mL",
-    "budDays": 45,
-    "controlled": false,
-    "coldShip": true,
-    "category": "Peptide Therapy",
-    "route": "Injectable",
-    "cost": 185,
-    "id": "it109"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "2884",
-    "name": "Sermorelin Injection",
-    "size": "6mL Vial",
-    "conc": "1mg/mL",
-    "budDays": 60,
-    "controlled": false,
-    "coldShip": true,
-    "category": "Peptide Therapy",
-    "route": "Injectable",
-    "cost": 38,
-    "id": "it110"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "2885",
-    "name": "Sermorelin Injection",
-    "size": "6mL Vial",
-    "conc": "1.5mg/mL",
-    "budDays": 60,
-    "controlled": false,
-    "coldShip": true,
-    "category": "Peptide Therapy",
-    "route": "Injectable",
-    "cost": 49,
-    "id": "it111"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "3950",
-    "name": "Sermorelin Injection",
-    "size": "12mL (2 x 6mL)",
-    "conc": "1.5mg/mL",
-    "budDays": 60,
-    "controlled": false,
-    "coldShip": true,
-    "category": "Peptide Therapy",
-    "route": "Injectable",
-    "cost": 85,
-    "id": "it112"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "2896",
-    "name": "Tesamorelin Sterile Injection Solution",
-    "size": "3mL Vial",
-    "conc": "5mg/mL",
-    "budDays": 60,
-    "controlled": false,
-    "coldShip": true,
-    "category": "Peptide Therapy",
-    "route": "Injectable",
-    "cost": 200,
-    "id": "it113"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "2897",
-    "name": "Tesamorelin Sterile Injection Solution",
-    "size": "6mL (2 x 3mL)",
-    "conc": "5mg/mL",
-    "budDays": 60,
-    "controlled": false,
-    "coldShip": true,
-    "category": "Peptide Therapy",
-    "route": "Injectable",
-    "cost": 325,
-    "id": "it114"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "3812",
-    "name": "Thymosin Beta-4 Acetate Sterile Injectable",
-    "size": "4mL Vial",
-    "conc": "2.5mg/mL",
-    "budDays": 60,
-    "controlled": false,
-    "coldShip": true,
-    "category": "Peptide Therapy",
-    "route": "Injectable",
-    "cost": 48,
-    "id": "it115"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "3813",
-    "name": "Thymosin Beta-4 Acetate Sterile Injectable",
-    "size": "8mL (2 x 4mL)",
-    "conc": "2.5mg/mL",
-    "budDays": 60,
-    "controlled": false,
-    "coldShip": true,
-    "category": "Peptide Therapy",
-    "route": "Injectable",
-    "cost": 85,
-    "id": "it116"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "2901",
-    "name": "Pentadeca Arginate Capsules",
-    "size": "30 Capsules",
-    "conc": "500mcg",
-    "budDays": 180,
-    "controlled": false,
-    "coldShip": true,
-    "category": "Peptide Therapy",
-    "route": "Capsule",
-    "cost": 39,
-    "id": "it117"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "2902",
-    "name": "Pentadeca Arginate Capsules",
-    "size": "30 Capsules",
-    "conc": "1000mcg",
-    "budDays": 180,
-    "controlled": false,
-    "coldShip": true,
-    "category": "Peptide Therapy",
-    "route": "Capsule",
-    "cost": 65,
-    "id": "it118"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "2488",
-    "name": "Semaglutide / B6 (Pyridoxine)",
-    "size": "1mL Vial",
-    "conc": "2.5mg / 10mg/mL",
-    "budDays": 90,
-    "controlled": false,
-    "coldShip": true,
-    "category": "GLP-1 / Weight Loss",
-    "route": "Injectable",
-    "cost": 35,
-    "id": "it119"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "2489",
-    "name": "Semaglutide / B6 (Pyridoxine)",
-    "size": "2mL Vial",
-    "conc": "2.5mg / 10mg/mL",
-    "budDays": 90,
-    "controlled": false,
-    "coldShip": true,
-    "category": "GLP-1 / Weight Loss",
-    "route": "Injectable",
-    "cost": 70,
-    "id": "it120"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "2490",
-    "name": "Semaglutide / B6 (Pyridoxine)",
-    "size": "3mL (3 x 1mL)",
-    "conc": "2.5mg / 10mg/mL",
-    "budDays": 90,
-    "controlled": false,
-    "coldShip": true,
-    "category": "GLP-1 / Weight Loss",
-    "route": "Injectable",
-    "cost": 106,
-    "id": "it121"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "2491",
-    "name": "Semaglutide / B6 (Pyridoxine)",
-    "size": "4mL (2 x 2mL)",
-    "conc": "2.5mg / 10mg/mL",
-    "budDays": 90,
-    "controlled": false,
-    "coldShip": true,
-    "category": "GLP-1 / Weight Loss",
-    "route": "Injectable",
-    "cost": 131,
-    "id": "it122"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "2492",
-    "name": "Semaglutide / B6 (Pyridoxine)",
-    "size": "5mL (5 x 1mL)",
-    "conc": "2.5mg / 10mg/mL",
-    "budDays": 90,
-    "controlled": false,
-    "coldShip": true,
-    "category": "GLP-1 / Weight Loss",
-    "route": "Injectable",
-    "cost": 167,
-    "id": "it123"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "2493",
-    "name": "Semaglutide / B6 (Pyridoxine)",
-    "size": "6mL (3 x 2mL)",
-    "conc": "2.5mg / 10mg/mL",
-    "budDays": 90,
-    "controlled": false,
-    "coldShip": true,
-    "category": "GLP-1 / Weight Loss",
-    "route": "Injectable",
-    "cost": 190,
-    "id": "it124"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "3602",
-    "name": "Semaglutide / B6 (Pyridoxine)",
-    "size": "8mL (4 x 2mL)",
-    "conc": "2.5mg / 10mg/mL",
-    "budDays": 90,
-    "controlled": false,
-    "coldShip": true,
-    "category": "GLP-1 / Weight Loss",
-    "route": "Injectable",
-    "cost": 240,
-    "id": "it125"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "3604",
-    "name": "Semaglutide / B6 (Pyridoxine)",
-    "size": "10mL (5 x 2mL)",
-    "conc": "2.5mg / 10mg/mL",
-    "budDays": 90,
-    "controlled": false,
-    "coldShip": true,
-    "category": "GLP-1 / Weight Loss",
-    "route": "Injectable",
-    "cost": 285,
-    "id": "it126"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "3605",
-    "name": "Semaglutide / B6 (Pyridoxine)",
-    "size": "12mL (6 x 2mL)",
-    "conc": "2.5mg / 10mg/mL",
-    "budDays": 90,
-    "controlled": false,
-    "coldShip": true,
-    "category": "GLP-1 / Weight Loss",
-    "route": "Injectable",
-    "cost": 320,
-    "id": "it127"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "2498",
-    "name": "Tirzepatide / B6 (Pyridoxine)",
-    "size": "1mL Vial",
-    "conc": "12.5mg / 10mg/mL",
-    "budDays": 90,
-    "controlled": false,
-    "coldShip": true,
-    "category": "GLP-1 / Weight Loss",
-    "route": "Injectable",
-    "cost": 85,
-    "id": "it128"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "2499",
-    "name": "Tirzepatide / B6 (Pyridoxine)",
-    "size": "2mL (2 x 1mL)",
-    "conc": "12.5mg / 10mg/mL",
-    "budDays": 90,
-    "controlled": false,
-    "coldShip": true,
-    "category": "GLP-1 / Weight Loss",
-    "route": "Injectable",
-    "cost": 140,
-    "id": "it129"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "2500",
-    "name": "Tirzepatide / B6 (Pyridoxine)",
-    "size": "3mL (3 x 1mL)",
-    "conc": "12.5mg / 10mg/mL",
-    "budDays": 90,
-    "controlled": false,
-    "coldShip": true,
-    "category": "GLP-1 / Weight Loss",
-    "route": "Injectable",
-    "cost": 190,
-    "id": "it130"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "2501",
-    "name": "Tirzepatide / B6 (Pyridoxine)",
-    "size": "4mL (4 x 1mL)",
-    "conc": "12.5mg / 10mg/mL",
-    "budDays": 90,
-    "controlled": false,
-    "coldShip": true,
-    "category": "GLP-1 / Weight Loss",
-    "route": "Injectable",
-    "cost": 240,
-    "id": "it131"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "2502",
-    "name": "Tirzepatide / B6 (Pyridoxine)",
-    "size": "5mL (5 x 1mL)",
-    "conc": "12.5mg / 10mg/mL",
-    "budDays": 90,
-    "controlled": false,
-    "coldShip": true,
-    "category": "GLP-1 / Weight Loss",
-    "route": "Injectable",
-    "cost": 285,
-    "id": "it132"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "3594",
-    "name": "Tirzepatide / B6 (Pyridoxine) Sterile Injection",
-    "size": "10mL (10 x 1mL MDV)",
-    "conc": "12.5mg / 10mg/mL",
-    "budDays": 90,
-    "controlled": false,
-    "coldShip": true,
-    "category": "GLP-1 / Weight Loss",
-    "route": "Injectable",
-    "cost": 400,
-    "id": "it133"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "3507",
-    "name": "Tirzepatide / B6 (Pyridoxine) Sterile Injection",
-    "size": "12mL (12 x 1mL MDV)",
-    "conc": "12.5mg / 10mg/mL",
-    "budDays": 90,
-    "controlled": false,
-    "coldShip": true,
-    "category": "GLP-1 / Weight Loss",
-    "route": "Injectable",
-    "cost": 480,
-    "id": "it134"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "3595",
-    "name": "Tirzepatide / B6 (Pyridoxine) Sterile Injection",
-    "size": "15mL (15 x 1mL MDV)",
-    "conc": "12.5mg / 10mg/mL",
-    "budDays": 90,
-    "controlled": false,
-    "coldShip": true,
-    "category": "GLP-1 / Weight Loss",
-    "route": "Injectable",
-    "cost": 600,
-    "id": "it135"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "3681",
-    "name": "Ivermectin Capsules",
-    "size": "30 Capsules",
-    "conc": "16mg",
-    "budDays": 180,
-    "controlled": false,
-    "coldShip": false,
-    "category": "Wellness",
-    "route": "Capsule",
-    "cost": 60,
-    "id": "it136"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "3680",
-    "name": "Ivermectin Vegetable Capsule",
-    "size": "60 Capsules",
-    "conc": "16mg",
-    "budDays": 180,
-    "controlled": false,
-    "coldShip": false,
-    "category": "Wellness",
-    "route": "Capsule",
-    "cost": 115,
-    "id": "it137"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "3682",
-    "name": "Ivermectin Vegetable Capsule",
-    "size": "12 Capsules",
-    "conc": "16mg",
-    "budDays": 180,
-    "controlled": false,
-    "coldShip": false,
-    "category": "Wellness",
-    "route": "Capsule",
-    "cost": 25,
-    "id": "it138"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "3539",
-    "name": "Ivermectin Vegetable Capsules",
-    "size": "24 Capsules",
-    "conc": "6mg",
-    "budDays": 180,
-    "controlled": false,
-    "coldShip": false,
-    "category": "Wellness",
-    "route": "Capsule",
-    "cost": 35,
-    "id": "it139"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "3540",
-    "name": "Ivermectin Vegetable Capsules",
-    "size": "30 Capsules",
-    "conc": "6mg",
-    "budDays": 180,
-    "controlled": false,
-    "coldShip": false,
-    "category": "Wellness",
-    "route": "Capsule",
-    "cost": 40,
-    "id": "it140"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "3541",
-    "name": "Ivermectin Vegetable Capsules",
-    "size": "60 Capsules",
-    "conc": "6mg",
-    "budDays": 180,
-    "controlled": false,
-    "coldShip": false,
-    "category": "Wellness",
-    "route": "Capsule",
-    "cost": 75,
-    "id": "it141"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "3542",
-    "name": "Ivermectin Vegetable Capsules",
-    "size": "24 Capsules",
-    "conc": "12mg",
-    "budDays": 180,
-    "controlled": false,
-    "coldShip": false,
-    "category": "Wellness",
-    "route": "Capsule",
-    "cost": 48,
-    "id": "it142"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "3543",
-    "name": "Ivermectin Vegetable Capsules",
-    "size": "30 Capsules",
-    "conc": "12mg",
-    "budDays": 180,
-    "controlled": false,
-    "coldShip": false,
-    "category": "Wellness",
-    "route": "Capsule",
-    "cost": 60,
-    "id": "it143"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "3544",
-    "name": "Ivermectin Vegetable Capsules",
-    "size": "60 Capsules",
-    "conc": "12mg",
-    "budDays": 180,
-    "controlled": false,
-    "coldShip": false,
-    "category": "Wellness",
-    "route": "Capsule",
-    "cost": 100,
-    "id": "it144"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "3545",
-    "name": "Ivermectin Vegetable Capsules",
-    "size": "24 Capsules",
-    "conc": "18mg",
-    "budDays": 180,
-    "controlled": false,
-    "coldShip": false,
-    "category": "Wellness",
-    "route": "Capsule",
-    "cost": 65,
-    "id": "it145"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "3546",
-    "name": "Ivermectin Vegetable Capsules",
-    "size": "30 Capsules",
-    "conc": "18mg",
-    "budDays": 180,
-    "controlled": false,
-    "coldShip": false,
-    "category": "Wellness",
-    "route": "Capsule",
-    "cost": 85,
-    "id": "it146"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "3551",
-    "name": "Larazotide Vegetable Capsules",
-    "size": "60 Capsules",
-    "conc": "0.25mg",
-    "budDays": 180,
-    "controlled": false,
-    "coldShip": false,
-    "category": "Wellness",
-    "route": "Capsule",
-    "cost": 95,
-    "id": "it147"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "3550",
-    "name": "Larazotide Vegetable Capsules",
-    "size": "30 Capsules",
-    "conc": "0.25mg",
-    "budDays": 180,
-    "controlled": false,
-    "coldShip": false,
-    "category": "Wellness",
-    "route": "Capsule",
-    "cost": 54,
-    "id": "it148"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "3552",
-    "name": "Larazotide Vegetable Capsule",
-    "size": "30 Capsules",
-    "conc": "0.5mg",
-    "budDays": 180,
-    "controlled": false,
-    "coldShip": false,
-    "category": "Wellness",
-    "route": "Capsule",
-    "cost": 95,
-    "id": "it149"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "3554",
-    "name": "Larazotide Vegetable Capsules",
-    "size": "60 Capsules",
-    "conc": "0.5mg",
-    "budDays": 180,
-    "controlled": false,
-    "coldShip": false,
-    "category": "Wellness",
-    "route": "Capsule",
-    "cost": 165,
-    "id": "it150"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "3863",
-    "name": "Leucovorin Calcium (Folinic Acid)",
-    "size": "60 Capsules",
-    "conc": "25mg",
-    "budDays": 180,
-    "controlled": false,
-    "coldShip": false,
-    "category": "Wellness",
-    "route": "Capsule",
-    "cost": 110,
-    "id": "it151"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "3829",
-    "name": "Mebendazole Vegetable Capsules",
-    "size": "30 Capsules",
-    "conc": "100mg",
-    "budDays": 180,
-    "controlled": false,
-    "coldShip": false,
-    "category": "Wellness",
-    "route": "Capsule",
-    "cost": 38,
-    "id": "it152"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "3830",
-    "name": "Mebendazole Vegetable Capsules",
-    "size": "60 Capsules",
-    "conc": "100mg",
-    "budDays": 180,
-    "controlled": false,
-    "coldShip": false,
-    "category": "Wellness",
-    "route": "Capsule",
-    "cost": 68,
-    "id": "it153"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "3517",
-    "name": "Naltrexone Low Dose (LDN) Capsules",
-    "size": "30 Capsules",
-    "conc": "0.5mg",
-    "budDays": 180,
-    "controlled": false,
-    "coldShip": false,
-    "category": "Wellness",
-    "route": "Capsule",
-    "cost": 27.5,
-    "id": "it154"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "3518",
-    "name": "Naltrexone Low Dose (LDN) Capsules",
-    "size": "30 Capsules",
-    "conc": "1mg",
-    "budDays": 180,
-    "controlled": false,
-    "coldShip": false,
-    "category": "Wellness",
-    "route": "Capsule",
-    "cost": 27.5,
-    "id": "it155"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "3519",
-    "name": "Naltrexone Low Dose (LDN) Capsules",
-    "size": "90 Capsules",
-    "conc": "0.5mg",
-    "budDays": 180,
-    "controlled": false,
-    "coldShip": false,
-    "category": "Wellness",
-    "route": "Capsule",
-    "cost": 70,
-    "id": "it156"
-  },
-  {
-    "pharmacy": "Formulation Rx",
-    "sku": "3606",
-    "name": "Naltrexone Low Dose (LDN) Veggie Capsules",
-    "size": "90 Capsules",
-    "conc": "1mg",
-    "budDays": 180,
-    "controlled": false,
-    "coldShip": false,
-    "category": "Wellness",
-    "route": "Capsule",
-    "cost": 70,
-    "id": "it157"
-  },
-  {
-    "pharmacy": "Olympia",
-    "sku": null,
-    "name": "Semaglutide",
-    "size": "5 mL Vial",
-    "conc": "1 mg/mL (5 mg)",
-    "budDays": null,
-    "controlled": false,
-    "coldShip": false,
-    "category": "GLP-1 / Weight Loss",
-    "route": "SQ",
-    "cost": 126.5,
-    "id": "it176"
-  },
-  {
-    "pharmacy": "Olympia",
-    "sku": null,
-    "name": "Semaglutide",
-    "size": "5 mL Vial",
-    "conc": "2.5 mg/mL (12.5 mg)",
-    "budDays": null,
-    "controlled": false,
-    "coldShip": false,
-    "category": "GLP-1 / Weight Loss",
-    "route": "SQ",
-    "cost": 250,
-    "id": "it177"
-  },
-  {
-    "pharmacy": "Olympia",
-    "sku": null,
-    "name": "Sermorelin",
-    "size": "9 mg Vial",
-    "conc": "Lyophilized + bac water",
-    "budDays": null,
-    "controlled": false,
-    "coldShip": false,
-    "category": "Peptide Therapy",
-    "route": "IM/SQ",
-    "cost": 154.39,
-    "id": "it178"
-  },
-  {
-    "pharmacy": "Olympia",
-    "sku": null,
-    "name": "Lipo-Mino-Mix-C",
-    "size": "10 mL",
-    "conc": "MIC + B-complex + Carnitine",
-    "budDays": null,
-    "controlled": false,
-    "coldShip": false,
-    "category": "GLP-1 / Weight Loss",
-    "route": "IM",
-    "cost": 36.8,
-    "id": "it179"
-  },
-  {
-    "pharmacy": "Olympia",
-    "sku": null,
-    "name": "Lipo-Mino-Mix-C",
-    "size": "30 mL",
-    "conc": "MIC + B-complex + Carnitine",
-    "budDays": null,
-    "controlled": false,
-    "coldShip": false,
-    "category": "GLP-1 / Weight Loss",
-    "route": "IM",
-    "cost": 80.5,
-    "id": "it180"
-  },
-  {
-    "pharmacy": "Olympia",
-    "sku": null,
-    "name": "Lipo Plus",
-    "size": "30 mL",
-    "conc": "MIC + B6",
-    "budDays": null,
-    "controlled": false,
-    "coldShip": false,
-    "category": "GLP-1 / Weight Loss",
-    "route": "IM",
-    "cost": 64.8,
-    "id": "it181"
-  },
-  {
-    "pharmacy": "Olympia",
-    "sku": null,
-    "name": "Lipo Plus + Methyl",
-    "size": "2 Vials",
-    "conc": "Lipo Plus + Methylcobalamin",
-    "budDays": null,
-    "controlled": false,
-    "coldShip": false,
-    "category": "GLP-1 / Weight Loss",
-    "route": "IM",
-    "cost": 82.8,
-    "id": "it182"
-  },
-  {
-    "pharmacy": "Olympia",
-    "sku": null,
-    "name": "LipoStat Plus",
-    "size": "30 mL",
-    "conc": "MIC + B6 + B12",
-    "budDays": null,
-    "controlled": false,
-    "coldShip": false,
-    "category": "GLP-1 / Weight Loss",
-    "route": "IM",
-    "cost": 79.35,
-    "id": "it183"
-  },
-  {
-    "pharmacy": "Olympia",
-    "sku": null,
-    "name": "LipoStat Plus SF (Sulfa Free)",
-    "size": "30 mL",
-    "conc": "IC + B6 + B12",
-    "budDays": null,
-    "controlled": false,
-    "coldShip": false,
-    "category": "GLP-1 / Weight Loss",
-    "route": "IM",
-    "cost": 79.35,
-    "id": "it184"
-  },
-  {
-    "pharmacy": "Olympia",
-    "sku": null,
-    "name": "MICC",
-    "size": "10 mL",
-    "conc": "Methionine/Inositol/Choline/B12",
-    "budDays": null,
-    "controlled": false,
-    "coldShip": false,
-    "category": "GLP-1 / Weight Loss",
-    "route": "IM",
-    "cost": 33.06,
-    "id": "it185"
-  },
-  {
-    "pharmacy": "Olympia",
-    "sku": null,
-    "name": "MICC",
-    "size": "30 mL",
-    "conc": "Methionine/Inositol/Choline/B12",
-    "budDays": null,
-    "controlled": false,
-    "coldShip": false,
-    "category": "GLP-1 / Weight Loss",
-    "route": "IM",
-    "cost": 79.35,
-    "id": "it186"
-  },
-  {
-    "pharmacy": "Olympia",
-    "sku": null,
-    "name": "B12 Methylcobalamin",
-    "size": "10 mL",
-    "conc": "5 mg/mL",
-    "budDays": null,
-    "controlled": false,
-    "coldShip": false,
-    "category": "Vitamin Injections",
-    "route": "IM/SQ",
-    "cost": 29.1,
-    "id": "it187"
-  },
-  {
-    "pharmacy": "Olympia",
-    "sku": null,
-    "name": "B12 Methylcobalamin",
-    "size": "30 mL",
-    "conc": "5 mg/mL",
-    "budDays": null,
-    "controlled": false,
-    "coldShip": false,
-    "category": "Vitamin Injections",
-    "route": "IM/SQ",
-    "cost": 64.8,
-    "id": "it188"
-  },
-  {
-    "pharmacy": "Olympia",
-    "sku": null,
-    "name": "B12 Cyanocobalamin",
-    "size": "10 mL",
-    "conc": "2 mg/mL",
-    "budDays": null,
-    "controlled": false,
-    "coldShip": false,
-    "category": "Vitamin Injections",
-    "route": "IM/SQ",
-    "cost": 29.1,
-    "id": "it189"
-  },
-  {
-    "pharmacy": "Olympia",
-    "sku": null,
-    "name": "B12 Hydroxocobalamin",
-    "size": "30 mL",
-    "conc": "2 mg/mL",
-    "budDays": null,
-    "controlled": false,
-    "coldShip": false,
-    "category": "Vitamin Injections",
-    "route": "IM/IV",
-    "cost": 64.8,
-    "id": "it190"
-  },
-  {
-    "pharmacy": "Olympia",
-    "sku": null,
-    "name": "Vitamin D3",
-    "size": "30 mL",
-    "conc": "50,000 iu",
-    "budDays": null,
-    "controlled": false,
-    "coldShip": false,
-    "category": "Vitamin Injections",
-    "route": "IM",
-    "cost": 59.51,
-    "id": "it191"
-  },
-  {
-    "pharmacy": "Olympia",
-    "sku": null,
-    "name": "Biotin",
-    "size": "10 mL",
-    "conc": "0.5 mg/mL",
-    "budDays": null,
-    "controlled": false,
-    "coldShip": false,
-    "category": "Vitamin Injections",
-    "route": "IM/IV",
-    "cost": 33.06,
-    "id": "it192"
-  },
-  {
-    "pharmacy": "Olympia",
-    "sku": null,
-    "name": "Glutathione",
-    "size": "5 mL",
-    "conc": "200 mg/mL",
-    "budDays": null,
-    "controlled": false,
-    "coldShip": false,
-    "category": "Wellness",
-    "route": "IM/IV",
-    "cost": 26.45,
-    "id": "it193"
-  },
-  {
-    "pharmacy": "Olympia",
-    "sku": null,
-    "name": "Glutathione",
-    "size": "30 mL",
-    "conc": "200 mg/mL",
-    "budDays": null,
-    "controlled": false,
-    "coldShip": false,
-    "category": "Wellness",
-    "route": "IM/IV",
-    "cost": 58,
-    "id": "it194"
-  },
-  {
-    "pharmacy": "Olympia",
-    "sku": null,
-    "name": "Tri Immune Boost",
-    "size": "30 mL",
-    "conc": "Ascorbic/Glutathione/Zinc",
-    "budDays": null,
-    "controlled": false,
-    "coldShip": false,
-    "category": "Wellness",
-    "route": "IM/IV",
-    "cost": 64.8,
-    "id": "it195"
-  },
-  {
-    "pharmacy": "Olympia",
-    "sku": null,
-    "name": "Vita Complex",
-    "size": "30 mL",
-    "conc": "B1/B2/B3/B5/B6",
-    "budDays": null,
-    "controlled": false,
-    "coldShip": false,
-    "category": "Wellness",
-    "route": "IM/IV",
-    "cost": 86.75,
-    "id": "it196"
-  },
-  {
-    "pharmacy": "Olympia",
-    "sku": null,
-    "name": "Amino Blend",
-    "size": "30 mL",
-    "conc": "Proline/Arginine/Lysine/Citrulline",
-    "budDays": null,
-    "controlled": false,
-    "coldShip": false,
-    "category": "Wellness",
-    "route": "IM/IV",
-    "cost": 79.35,
-    "id": "it197"
-  },
-  {
-    "pharmacy": "Olympia",
-    "sku": null,
-    "name": "NAD+",
-    "size": "500 mg Vial",
-    "conc": "Lyophilized + bac water",
-    "budDays": null,
-    "controlled": false,
-    "coldShip": false,
-    "category": "Wellness",
-    "route": "IV/IM/SQ",
-    "cost": 132.25,
-    "id": "it198"
-  },
-  {
-    "pharmacy": "Olympia",
-    "sku": null,
-    "name": "PeptideVite",
-    "size": "60 Capsules",
-    "conc": "B-complex + CoQ10",
-    "budDays": null,
-    "controlled": false,
-    "coldShip": false,
-    "category": "Wellness",
-    "route": "Oral",
-    "cost": 40,
-    "id": "it199"
-  },
-  {
-    "pharmacy": "Olympia",
-    "sku": null,
-    "name": "Glutatonic",
-    "size": "60 mL",
-    "conc": "Glutathione/Niacinamide/Inositol",
-    "budDays": null,
-    "controlled": false,
-    "coldShip": false,
-    "category": "Wellness",
-    "route": "Sublingual",
-    "cost": 34,
-    "id": "it200"
-  },
-  {
-    "pharmacy": "Olympia",
-    "sku": null,
-    "name": "Testosterone Cypionate in Grapeseed Oil",
-    "size": "5 mL Vial",
-    "conc": "200 mg/mL",
-    "budDays": null,
-    "controlled": false,
-    "coldShip": false,
-    "category": "Hormone Therapy",
-    "route": "IM",
-    "cost": 30,
-    "id": "it201"
-  },
-  {
-    "pharmacy": "Olympia",
-    "sku": null,
-    "name": "Testosterone Cypionate in Grapeseed Oil",
-    "size": "10 mL Vial",
-    "conc": "200 mg/mL",
-    "budDays": null,
-    "controlled": false,
-    "coldShip": false,
-    "category": "Hormone Therapy",
-    "route": "IM",
-    "cost": 60,
-    "id": "it202"
-  },
-  {
-    "pharmacy": "Olympia",
-    "sku": null,
-    "name": "Testosterone Cypionate in Sesame Oil",
-    "size": "5 mL Vial",
-    "conc": "200 mg/mL",
-    "budDays": null,
-    "controlled": false,
-    "coldShip": false,
-    "category": "Hormone Therapy",
-    "route": "IM",
-    "cost": 30,
-    "id": "it203"
-  },
-  {
-    "pharmacy": "Olympia",
-    "sku": null,
-    "name": "Progesterone (Oral)",
-    "size": "1 Capsule",
-    "conc": "100 mg",
-    "budDays": null,
-    "controlled": false,
-    "coldShip": false,
-    "category": "Hormone Therapy",
-    "route": "Oral",
-    "cost": 0.85,
-    "id": "it204"
-  },
-  {
-    "pharmacy": "Olympia",
-    "sku": null,
-    "name": "Progesterone 10% Cream",
-    "size": "30 gm Topiclick",
-    "conc": "100 mg/mL",
-    "budDays": null,
-    "controlled": false,
-    "coldShip": false,
-    "category": "Hormone Therapy",
-    "route": "Topical",
-    "cost": 41,
-    "id": "it205"
-  },
-  {
-    "pharmacy": "Olympia",
-    "sku": null,
-    "name": "Estradiol (Oral RDT)",
-    "size": "1 Tablet",
-    "conc": "2 mg",
-    "budDays": null,
-    "controlled": false,
-    "coldShip": false,
-    "category": "Hormone Therapy",
-    "route": "Oral",
-    "cost": 1,
-    "id": "it206"
-  },
-  {
-    "pharmacy": "Olympia",
-    "sku": null,
-    "name": "Biest (80/20) 0.1% Cream",
-    "size": "30 gm Topiclick",
-    "conc": "Estriol 0.8 / Estradiol 0.2 mg/mL",
-    "budDays": null,
-    "controlled": false,
-    "coldShip": false,
-    "category": "Hormone Therapy",
-    "route": "Topical",
-    "cost": 36,
-    "id": "it207"
-  },
-  {
-    "pharmacy": "Olympia",
-    "sku": null,
-    "name": "Testosterone 5% Cream (Versa)",
-    "size": "30 gm Topiclick",
-    "conc": "50 mg/mL",
-    "budDays": null,
-    "controlled": false,
-    "coldShip": false,
-    "category": "Hormone Therapy",
-    "route": "Topical",
-    "cost": 41,
-    "id": "it208"
-  },
-  {
-    "pharmacy": "Olympia",
-    "sku": null,
-    "name": "Anastrozole",
-    "size": "1 Capsule",
-    "conc": "1 mg",
-    "budDays": null,
-    "controlled": false,
-    "coldShip": false,
-    "category": "Hormone Therapy",
-    "route": "Oral",
-    "cost": 1.3,
-    "id": "it209"
-  },
-  {
-    "pharmacy": "Olympia",
-    "sku": null,
-    "name": "Clomiphene",
-    "size": "1 Tablet",
-    "conc": "50 mg",
-    "budDays": null,
-    "controlled": false,
-    "coldShip": false,
-    "category": "Hormone Therapy",
-    "route": "Oral",
-    "cost": 1.5,
-    "id": "it210"
-  },
-  {
-    "pharmacy": "Olympia",
-    "sku": null,
-    "name": "ManeTain Leave-In Hair Spray",
-    "size": "100 mL",
-    "conc": "Minoxidil 5% + Fluocinolone + Retinoic + Vit E",
-    "budDays": null,
-    "controlled": false,
-    "coldShip": false,
-    "category": "Hair Loss",
-    "route": "Topical",
-    "cost": 69,
-    "id": "it211"
-  },
-  {
-    "pharmacy": "Olympia",
-    "sku": null,
-    "name": "MAXX PE (Tadalafil / Oxytocin / PT-141)",
-    "size": "1 RDT Tablet",
-    "conc": "20 mg / 100 iu / 2 mg",
-    "budDays": null,
-    "controlled": false,
-    "coldShip": false,
-    "category": "Sexual Health",
-    "route": "Oral",
-    "cost": 6,
-    "id": "it212"
-  },
-  {
-    "pharmacy": "Olympia",
-    "sku": null,
-    "name": "Scream Cream",
-    "size": "30 gm",
-    "conc": "Theophylline 3% / Arginine 6% / Sildenafil 2%",
-    "budDays": null,
-    "controlled": false,
-    "coldShip": false,
-    "category": "Sexual Health",
-    "route": "Topical",
-    "cost": 50,
-    "id": "it213"
-  },
-  {
     "pharmacy": "BoomRx",
     "sku": null,
     "name": "Semaglutide 2mg/mL SL Sol (30 Ampules)",
@@ -2755,7 +11,9 @@
     "category": "GLP-1 / Weight Loss",
     "route": "Troche",
     "cost": 90,
-    "id": "brx-std-0"
+    "id": "brx-std-0",
+    "_source": "std",
+    "_form": "Sol"
   },
   {
     "pharmacy": "BoomRx",
@@ -2769,7 +27,9 @@
     "category": "GLP-1 / Weight Loss",
     "route": "Troche",
     "cost": 100,
-    "id": "brx-std-1"
+    "id": "brx-std-1",
+    "_source": "std",
+    "_form": "Sol"
   },
   {
     "pharmacy": "BoomRx",
@@ -2783,7 +43,9 @@
     "category": "GLP-1 / Weight Loss",
     "route": "Troche",
     "cost": 110,
-    "id": "brx-std-2"
+    "id": "brx-std-2",
+    "_source": "std",
+    "_form": "Sol"
   },
   {
     "pharmacy": "BoomRx",
@@ -2797,7 +59,9 @@
     "category": "Sexual Health",
     "route": "Topical",
     "cost": 75,
-    "id": "brx-std-3"
+    "id": "brx-std-3",
+    "_source": "std",
+    "_form": "Emulsion"
   },
   {
     "pharmacy": "BoomRx",
@@ -2811,7 +75,9 @@
     "category": "Sexual Health",
     "route": "Topical",
     "cost": 75,
-    "id": "brx-std-4"
+    "id": "brx-std-4",
+    "_source": "std",
+    "_form": "Emulsion"
   },
   {
     "pharmacy": "BoomRx",
@@ -2825,7 +91,9 @@
     "category": "Sexual Health",
     "route": "Topical",
     "cost": 75,
-    "id": "brx-std-5"
+    "id": "brx-std-5",
+    "_source": "std",
+    "_form": "Emulsion"
   },
   {
     "pharmacy": "BoomRx",
@@ -2839,7 +107,9 @@
     "category": "GLP-1 / Weight Loss",
     "route": "Troche",
     "cost": 225,
-    "id": "brx-std-6"
+    "id": "brx-std-6",
+    "_source": "std",
+    "_form": "Sol"
   },
   {
     "pharmacy": "BoomRx",
@@ -2853,7 +123,9 @@
     "category": "GLP-1 / Weight Loss",
     "route": "Troche",
     "cost": 275,
-    "id": "brx-std-7"
+    "id": "brx-std-7",
+    "_source": "std",
+    "_form": "Sol"
   },
   {
     "pharmacy": "BoomRx",
@@ -2867,7 +139,9 @@
     "category": "GLP-1 / Weight Loss",
     "route": "Troche",
     "cost": 125,
-    "id": "brx-std-8"
+    "id": "brx-std-8",
+    "_source": "std",
+    "_form": "Sol"
   },
   {
     "pharmacy": "BoomRx",
@@ -2881,7 +155,9 @@
     "category": "GLP-1 / Weight Loss",
     "route": "Troche",
     "cost": 150,
-    "id": "brx-std-9"
+    "id": "brx-std-9",
+    "_source": "std",
+    "_form": "Sol"
   },
   {
     "pharmacy": "BoomRx",
@@ -2895,7 +171,9 @@
     "category": "GLP-1 / Weight Loss",
     "route": "Troche",
     "cost": 200,
-    "id": "brx-std-10"
+    "id": "brx-std-10",
+    "_source": "std",
+    "_form": "Sol"
   },
   {
     "pharmacy": "BoomRx",
@@ -2909,7 +187,9 @@
     "category": "Hormone Therapy",
     "route": "Capsule",
     "cost": 1.6,
-    "id": "brx-std-11"
+    "id": "brx-std-11",
+    "_source": "std",
+    "_form": "Capsule"
   },
   {
     "pharmacy": "BoomRx",
@@ -2923,7 +203,9 @@
     "category": "Hormone Therapy",
     "route": "Capsule",
     "cost": 2.9,
-    "id": "brx-std-12"
+    "id": "brx-std-12",
+    "_source": "std",
+    "_form": "Tablet"
   },
   {
     "pharmacy": "BoomRx",
@@ -2937,7 +219,9 @@
     "category": "Hormone Therapy",
     "route": "Capsule",
     "cost": 2.5,
-    "id": "brx-std-13"
+    "id": "brx-std-13",
+    "_source": "std",
+    "_form": "Tablet"
   },
   {
     "pharmacy": "BoomRx",
@@ -2951,7 +235,9 @@
     "category": "Hormone Therapy",
     "route": "Capsule",
     "cost": 1,
-    "id": "brx-std-14"
+    "id": "brx-std-14",
+    "_source": "std",
+    "_form": "Tablet"
   },
   {
     "pharmacy": "BoomRx",
@@ -2965,7 +251,9 @@
     "category": "Hormone Therapy",
     "route": "Capsule",
     "cost": 0.8,
-    "id": "brx-std-15"
+    "id": "brx-std-15",
+    "_source": "std",
+    "_form": "Capsule"
   },
   {
     "pharmacy": "BoomRx",
@@ -2979,7 +267,9 @@
     "category": "Hormone Therapy",
     "route": "Capsule",
     "cost": 0.8,
-    "id": "brx-std-16"
+    "id": "brx-std-16",
+    "_source": "std",
+    "_form": "Capsule"
   },
   {
     "pharmacy": "BoomRx",
@@ -2993,7 +283,9 @@
     "category": "Hormone Therapy",
     "route": "Capsule",
     "cost": 1,
-    "id": "brx-std-17"
+    "id": "brx-std-17",
+    "_source": "std",
+    "_form": "Capsule"
   },
   {
     "pharmacy": "BoomRx",
@@ -3007,7 +299,9 @@
     "category": "Hormone Therapy",
     "route": "Capsule",
     "cost": 1,
-    "id": "brx-std-18"
+    "id": "brx-std-18",
+    "_source": "std",
+    "_form": "Capsule"
   },
   {
     "pharmacy": "BoomRx",
@@ -3021,7 +315,9 @@
     "category": "Hormone Therapy",
     "route": "Capsule",
     "cost": 1,
-    "id": "brx-std-19"
+    "id": "brx-std-19",
+    "_source": "std",
+    "_form": "Capsule"
   },
   {
     "pharmacy": "BoomRx",
@@ -3035,7 +331,9 @@
     "category": "Hormone Therapy",
     "route": "Capsule",
     "cost": 1,
-    "id": "brx-std-20"
+    "id": "brx-std-20",
+    "_source": "std",
+    "_form": "Capsule"
   },
   {
     "pharmacy": "BoomRx",
@@ -3049,7 +347,9 @@
     "category": "Hormone Therapy",
     "route": "Capsule",
     "cost": 1.2,
-    "id": "brx-std-21"
+    "id": "brx-std-21",
+    "_source": "std",
+    "_form": "Capsule"
   },
   {
     "pharmacy": "BoomRx",
@@ -3063,7 +363,9 @@
     "category": "Hair Loss",
     "route": "Topical",
     "cost": 75,
-    "id": "brx-std-22"
+    "id": "brx-std-22",
+    "_source": "std",
+    "_form": "Cream"
   },
   {
     "pharmacy": "BoomRx",
@@ -3077,7 +379,9 @@
     "category": "GLP-1 / Weight Loss",
     "route": "Troche",
     "cost": 10,
-    "id": "brx-std-23"
+    "id": "brx-std-23",
+    "_source": "std",
+    "_form": "Each (Solution)"
   },
   {
     "pharmacy": "BoomRx",
@@ -3091,7 +395,9 @@
     "category": "Hormone Therapy",
     "route": "Troche",
     "cost": 1.2,
-    "id": "brx-std-24"
+    "id": "brx-std-24",
+    "_source": "std",
+    "_form": "ODT"
   },
   {
     "pharmacy": "BoomRx",
@@ -3105,7 +411,9 @@
     "category": "Hormone Therapy",
     "route": "Troche",
     "cost": 1.2,
-    "id": "brx-std-25"
+    "id": "brx-std-25",
+    "_source": "std",
+    "_form": "ODT"
   },
   {
     "pharmacy": "BoomRx",
@@ -3119,7 +427,9 @@
     "category": "Hormone Therapy",
     "route": "Topical",
     "cost": 30,
-    "id": "brx-std-26"
+    "id": "brx-std-26",
+    "_source": "std",
+    "_form": "Cream"
   },
   {
     "pharmacy": "BoomRx",
@@ -3133,7 +443,9 @@
     "category": "Hormone Therapy",
     "route": "Topical",
     "cost": 30,
-    "id": "brx-std-27"
+    "id": "brx-std-27",
+    "_source": "std",
+    "_form": "Cream"
   },
   {
     "pharmacy": "BoomRx",
@@ -3147,7 +459,9 @@
     "category": "Hormone Therapy",
     "route": "Topical",
     "cost": 30,
-    "id": "brx-std-28"
+    "id": "brx-std-28",
+    "_source": "std",
+    "_form": "Cream"
   },
   {
     "pharmacy": "BoomRx",
@@ -3161,7 +475,9 @@
     "category": "Hormone Therapy",
     "route": "Topical",
     "cost": 30,
-    "id": "brx-std-29"
+    "id": "brx-std-29",
+    "_source": "std",
+    "_form": "Cream"
   },
   {
     "pharmacy": "BoomRx",
@@ -3175,7 +491,9 @@
     "category": "Hormone Therapy",
     "route": "Topical",
     "cost": 30,
-    "id": "brx-std-30"
+    "id": "brx-std-30",
+    "_source": "std",
+    "_form": "Cream"
   },
   {
     "pharmacy": "BoomRx",
@@ -3189,7 +507,9 @@
     "category": "Hormone Therapy",
     "route": "Topical",
     "cost": 30,
-    "id": "brx-std-31"
+    "id": "brx-std-31",
+    "_source": "std",
+    "_form": "Cream"
   },
   {
     "pharmacy": "BoomRx",
@@ -3203,7 +523,9 @@
     "category": "Hormone Therapy",
     "route": "Topical",
     "cost": 30,
-    "id": "brx-std-32"
+    "id": "brx-std-32",
+    "_source": "std",
+    "_form": "Cream"
   },
   {
     "pharmacy": "BoomRx",
@@ -3217,7 +539,9 @@
     "category": "Hormone Therapy",
     "route": "Topical",
     "cost": 30,
-    "id": "brx-std-33"
+    "id": "brx-std-33",
+    "_source": "std",
+    "_form": "Cream"
   },
   {
     "pharmacy": "BoomRx",
@@ -3231,7 +555,9 @@
     "category": "Hormone Therapy",
     "route": "Capsule",
     "cost": 1.2,
-    "id": "brx-std-34"
+    "id": "brx-std-34",
+    "_source": "std",
+    "_form": "Capsule"
   },
   {
     "pharmacy": "BoomRx",
@@ -3245,7 +571,9 @@
     "category": "Hormone Therapy",
     "route": "Troche",
     "cost": 1.2,
-    "id": "brx-std-35"
+    "id": "brx-std-35",
+    "_source": "std",
+    "_form": "ODT"
   },
   {
     "pharmacy": "BoomRx",
@@ -3259,7 +587,9 @@
     "category": "Hormone Therapy",
     "route": "Troche",
     "cost": 1.2,
-    "id": "brx-std-36"
+    "id": "brx-std-36",
+    "_source": "std",
+    "_form": "ODT"
   },
   {
     "pharmacy": "BoomRx",
@@ -3273,7 +603,9 @@
     "category": "Hormone Therapy",
     "route": "Troche",
     "cost": 1.2,
-    "id": "brx-std-37"
+    "id": "brx-std-37",
+    "_source": "std",
+    "_form": "ODT"
   },
   {
     "pharmacy": "BoomRx",
@@ -3287,7 +619,9 @@
     "category": "Hormone Therapy",
     "route": "Troche",
     "cost": 1.2,
-    "id": "brx-std-38"
+    "id": "brx-std-38",
+    "_source": "std",
+    "_form": "ODT"
   },
   {
     "pharmacy": "BoomRx",
@@ -3301,7 +635,9 @@
     "category": "Hormone Therapy",
     "route": "Troche",
     "cost": 1.2,
-    "id": "brx-std-39"
+    "id": "brx-std-39",
+    "_source": "std",
+    "_form": "ODT"
   },
   {
     "pharmacy": "BoomRx",
@@ -3315,7 +651,9 @@
     "category": "Hormone Therapy",
     "route": "Troche",
     "cost": 1.2,
-    "id": "brx-std-40"
+    "id": "brx-std-40",
+    "_source": "std",
+    "_form": "ODT"
   },
   {
     "pharmacy": "BoomRx",
@@ -3329,7 +667,9 @@
     "category": "Hormone Therapy",
     "route": "Troche",
     "cost": 1.2,
-    "id": "brx-std-41"
+    "id": "brx-std-41",
+    "_source": "std",
+    "_form": "Troche"
   },
   {
     "pharmacy": "BoomRx",
@@ -3343,7 +683,9 @@
     "category": "Hormone Therapy",
     "route": "Topical",
     "cost": 30,
-    "id": "brx-std-42"
+    "id": "brx-std-42",
+    "_source": "std",
+    "_form": "Cream"
   },
   {
     "pharmacy": "BoomRx",
@@ -3357,7 +699,9 @@
     "category": "Hormone Therapy",
     "route": "Topical",
     "cost": 30,
-    "id": "brx-std-43"
+    "id": "brx-std-43",
+    "_source": "std",
+    "_form": "Cream"
   },
   {
     "pharmacy": "BoomRx",
@@ -3371,7 +715,9 @@
     "category": "Hormone Therapy",
     "route": "Topical",
     "cost": 30,
-    "id": "brx-std-44"
+    "id": "brx-std-44",
+    "_source": "std",
+    "_form": "Cream"
   },
   {
     "pharmacy": "BoomRx",
@@ -3385,7 +731,9 @@
     "category": "Hormone Therapy",
     "route": "Topical",
     "cost": 30,
-    "id": "brx-std-45"
+    "id": "brx-std-45",
+    "_source": "std",
+    "_form": "Cream"
   },
   {
     "pharmacy": "BoomRx",
@@ -3399,7 +747,9 @@
     "category": "Hormone Therapy",
     "route": "Topical",
     "cost": 30,
-    "id": "brx-std-46"
+    "id": "brx-std-46",
+    "_source": "std",
+    "_form": "Cream"
   },
   {
     "pharmacy": "BoomRx",
@@ -3413,7 +763,9 @@
     "category": "Hormone Therapy",
     "route": "Topical",
     "cost": 30,
-    "id": "brx-std-47"
+    "id": "brx-std-47",
+    "_source": "std",
+    "_form": "Cream"
   },
   {
     "pharmacy": "BoomRx",
@@ -3427,7 +779,9 @@
     "category": "Hormone Therapy",
     "route": "Topical",
     "cost": 30,
-    "id": "brx-std-48"
+    "id": "brx-std-48",
+    "_source": "std",
+    "_form": "Cream"
   },
   {
     "pharmacy": "BoomRx",
@@ -3441,7 +795,9 @@
     "category": "Hormone Therapy",
     "route": "Topical",
     "cost": 30,
-    "id": "brx-std-49"
+    "id": "brx-std-49",
+    "_source": "std",
+    "_form": "Cream"
   },
   {
     "pharmacy": "BoomRx",
@@ -3455,7 +811,9 @@
     "category": "Hormone Therapy",
     "route": "Capsule",
     "cost": 1,
-    "id": "brx-std-50"
+    "id": "brx-std-50",
+    "_source": "std",
+    "_form": "Capsule"
   },
   {
     "pharmacy": "BoomRx",
@@ -3469,7 +827,9 @@
     "category": "Hormone Therapy",
     "route": "Capsule",
     "cost": 1.2,
-    "id": "brx-std-51"
+    "id": "brx-std-51",
+    "_source": "std",
+    "_form": "Capsule"
   },
   {
     "pharmacy": "BoomRx",
@@ -3483,7 +843,9 @@
     "category": "Hormone Therapy",
     "route": "Capsule",
     "cost": 1.2,
-    "id": "brx-std-52"
+    "id": "brx-std-52",
+    "_source": "std",
+    "_form": "Capsule"
   },
   {
     "pharmacy": "BoomRx",
@@ -3497,7 +859,9 @@
     "category": "Hair Loss",
     "route": "Capsule",
     "cost": 2,
-    "id": "brx-std-53"
+    "id": "brx-std-53",
+    "_source": "std",
+    "_form": "Capsule"
   },
   {
     "pharmacy": "BoomRx",
@@ -3511,7 +875,9 @@
     "category": "Hair Loss",
     "route": "Capsule",
     "cost": 2,
-    "id": "brx-std-54"
+    "id": "brx-std-54",
+    "_source": "std",
+    "_form": "Capsule"
   },
   {
     "pharmacy": "BoomRx",
@@ -3525,7 +891,9 @@
     "category": "Peptide Therapy",
     "route": "Capsule",
     "cost": 2,
-    "id": "brx-std-55"
+    "id": "brx-std-55",
+    "_source": "std",
+    "_form": "Capsule"
   },
   {
     "pharmacy": "BoomRx",
@@ -3539,7 +907,9 @@
     "category": "Hormone Therapy",
     "route": "Capsule",
     "cost": 300,
-    "id": "brx-std-56"
+    "id": "brx-std-56",
+    "_source": "std",
+    "_form": "Tablet"
   },
   {
     "pharmacy": "BoomRx",
@@ -3553,7 +923,9 @@
     "category": "Hair Loss",
     "route": "Troche",
     "cost": 120,
-    "id": "brx-std-57"
+    "id": "brx-std-57",
+    "_source": "std",
+    "_form": "Solution"
   },
   {
     "pharmacy": "BoomRx",
@@ -3567,7 +939,10 @@
     "category": "Peptide Therapy",
     "route": "Injectable",
     "cost": 80,
-    "id": "brx-std-58"
+    "id": "brx-std-58",
+    "_source": "std",
+    "_form": "injectable",
+    "_hgPeptidePrice": true
   },
   {
     "pharmacy": "BoomRx",
@@ -3581,7 +956,9 @@
     "category": "Sexual Health",
     "route": "Topical",
     "cost": 80,
-    "id": "brx-std-59"
+    "id": "brx-std-59",
+    "_source": "std",
+    "_form": "Cream"
   },
   {
     "pharmacy": "BoomRx",
@@ -3595,7 +972,9 @@
     "category": "Hair Loss",
     "route": "Topical",
     "cost": 90,
-    "id": "brx-std-60"
+    "id": "brx-std-60",
+    "_source": "std",
+    "_form": "Cream"
   },
   {
     "pharmacy": "BoomRx",
@@ -3609,7 +988,9 @@
     "category": "Hair Loss",
     "route": "Topical",
     "cost": 100,
-    "id": "brx-std-61"
+    "id": "brx-std-61",
+    "_source": "std",
+    "_form": "Cream"
   },
   {
     "pharmacy": "BoomRx",
@@ -3623,7 +1004,9 @@
     "category": "Hormone Therapy",
     "route": "Capsule",
     "cost": 1.5,
-    "id": "brx-std-62"
+    "id": "brx-std-62",
+    "_source": "std",
+    "_form": "Capsule"
   },
   {
     "pharmacy": "BoomRx",
@@ -3637,7 +1020,9 @@
     "category": "Hormone Therapy",
     "route": "Capsule",
     "cost": 1.25,
-    "id": "brx-std-63"
+    "id": "brx-std-63",
+    "_source": "std",
+    "_form": "Capsule"
   },
   {
     "pharmacy": "BoomRx",
@@ -3651,7 +1036,9 @@
     "category": "Wellness",
     "route": "Capsule",
     "cost": 2,
-    "id": "brx-std-64"
+    "id": "brx-std-64",
+    "_source": "std",
+    "_form": "Capsule"
   },
   {
     "pharmacy": "BoomRx",
@@ -3665,7 +1052,9 @@
     "category": "Wellness",
     "route": "Injectable",
     "cost": 48,
-    "id": "brx-std-65"
+    "id": "brx-std-65",
+    "_source": "std",
+    "_form": "Injectable"
   },
   {
     "pharmacy": "BoomRx",
@@ -3679,7 +1068,9 @@
     "category": "Hormone Therapy",
     "route": "Capsule",
     "cost": 1.1,
-    "id": "brx-std-66"
+    "id": "brx-std-66",
+    "_source": "std",
+    "_form": "Capsule"
   },
   {
     "pharmacy": "BoomRx",
@@ -3693,7 +1084,9 @@
     "category": "Hormone Therapy",
     "route": "Capsule",
     "cost": 1.1,
-    "id": "brx-std-67"
+    "id": "brx-std-67",
+    "_source": "std",
+    "_form": "Capsule"
   },
   {
     "pharmacy": "BoomRx",
@@ -3707,7 +1100,9 @@
     "category": "Hormone Therapy",
     "route": "Capsule",
     "cost": 1.1,
-    "id": "brx-std-68"
+    "id": "brx-std-68",
+    "_source": "std",
+    "_form": "Capsule"
   },
   {
     "pharmacy": "BoomRx",
@@ -3721,7 +1116,9 @@
     "category": "Hormone Therapy",
     "route": "Capsule",
     "cost": 1.1,
-    "id": "brx-std-69"
+    "id": "brx-std-69",
+    "_source": "std",
+    "_form": "Capsule"
   },
   {
     "pharmacy": "BoomRx",
@@ -3735,7 +1132,9 @@
     "category": "Hormone Therapy",
     "route": "Capsule",
     "cost": 1.1,
-    "id": "brx-std-70"
+    "id": "brx-std-70",
+    "_source": "std",
+    "_form": "Capsule"
   },
   {
     "pharmacy": "BoomRx",
@@ -3749,7 +1148,9 @@
     "category": "Hormone Therapy",
     "route": "Capsule",
     "cost": 1.1,
-    "id": "brx-std-71"
+    "id": "brx-std-71",
+    "_source": "std",
+    "_form": "Capsule"
   },
   {
     "pharmacy": "BoomRx",
@@ -3763,7 +1164,9 @@
     "category": "Wellness",
     "route": "Capsule",
     "cost": 1.2,
-    "id": "brx-std-72"
+    "id": "brx-std-72",
+    "_source": "std",
+    "_form": "Capsule"
   },
   {
     "pharmacy": "BoomRx",
@@ -3777,7 +1180,9 @@
     "category": "Wellness",
     "route": "Capsule",
     "cost": 1.2,
-    "id": "brx-std-73"
+    "id": "brx-std-73",
+    "_source": "std",
+    "_form": "Capsule"
   },
   {
     "pharmacy": "BoomRx",
@@ -3791,7 +1196,9 @@
     "category": "Hair Loss",
     "route": "Troche",
     "cost": 120,
-    "id": "brx-std-74"
+    "id": "brx-std-74",
+    "_source": "std",
+    "_form": "Solution"
   },
   {
     "pharmacy": "BoomRx",
@@ -3805,7 +1212,9 @@
     "category": "Hair Loss",
     "route": "Capsule",
     "cost": 2.1,
-    "id": "brx-std-75"
+    "id": "brx-std-75",
+    "_source": "std",
+    "_form": "Capsule"
   },
   {
     "pharmacy": "BoomRx",
@@ -3819,7 +1228,9 @@
     "category": "Hair Loss",
     "route": "Capsule",
     "cost": 2.1,
-    "id": "brx-std-76"
+    "id": "brx-std-76",
+    "_source": "std",
+    "_form": "Capsule"
   },
   {
     "pharmacy": "BoomRx",
@@ -3833,7 +1244,9 @@
     "category": "Hair Loss",
     "route": "Capsule",
     "cost": 2.1,
-    "id": "brx-std-77"
+    "id": "brx-std-77",
+    "_source": "std",
+    "_form": "Capsule"
   },
   {
     "pharmacy": "BoomRx",
@@ -3847,7 +1260,9 @@
     "category": "Hormone Therapy",
     "route": "Capsule",
     "cost": 1.5,
-    "id": "brx-std-78"
+    "id": "brx-std-78",
+    "_source": "std",
+    "_form": "Capsule"
   },
   {
     "pharmacy": "BoomRx",
@@ -3861,7 +1276,9 @@
     "category": "Hormone Therapy",
     "route": "Capsule",
     "cost": 3,
-    "id": "brx-std-79"
+    "id": "brx-std-79",
+    "_source": "std",
+    "_form": "Capsule"
   },
   {
     "pharmacy": "BoomRx",
@@ -3875,7 +1292,9 @@
     "category": "Hormone Therapy",
     "route": "Capsule",
     "cost": 1.2,
-    "id": "brx-std-80"
+    "id": "brx-std-80",
+    "_source": "std",
+    "_form": "Capsule"
   },
   {
     "pharmacy": "BoomRx",
@@ -3889,7 +1308,9 @@
     "category": "Hormone Therapy",
     "route": "Capsule",
     "cost": 2,
-    "id": "brx-std-81"
+    "id": "brx-std-81",
+    "_source": "std",
+    "_form": "Capsule"
   },
   {
     "pharmacy": "BoomRx",
@@ -3903,7 +1324,9 @@
     "category": "Hormone Therapy",
     "route": "Capsule",
     "cost": 1.2,
-    "id": "brx-std-82"
+    "id": "brx-std-82",
+    "_source": "std",
+    "_form": "Capsule"
   },
   {
     "pharmacy": "BoomRx",
@@ -3917,7 +1340,9 @@
     "category": "Hormone Therapy",
     "route": "Capsule",
     "cost": 1,
-    "id": "brx-std-83"
+    "id": "brx-std-83",
+    "_source": "std",
+    "_form": "TAB"
   },
   {
     "pharmacy": "BoomRx",
@@ -3931,7 +1356,9 @@
     "category": "Hormone Therapy",
     "route": "Capsule",
     "cost": 1,
-    "id": "brx-std-84"
+    "id": "brx-std-84",
+    "_source": "std",
+    "_form": "TAB"
   },
   {
     "pharmacy": "BoomRx",
@@ -3945,7 +1372,9 @@
     "category": "Hormone Therapy",
     "route": "Vag. Insert",
     "cost": 1.2,
-    "id": "brx-std-85"
+    "id": "brx-std-85",
+    "_source": "std",
+    "_form": "Vag. Insert"
   },
   {
     "pharmacy": "BoomRx",
@@ -3959,7 +1388,9 @@
     "category": "Hormone Therapy",
     "route": "Capsule",
     "cost": 1,
-    "id": "brx-std-86"
+    "id": "brx-std-86",
+    "_source": "std",
+    "_form": "TAB"
   },
   {
     "pharmacy": "BoomRx",
@@ -3973,7 +1404,9 @@
     "category": "Hormone Therapy",
     "route": "Topical",
     "cost": 30,
-    "id": "brx-std-87"
+    "id": "brx-std-87",
+    "_source": "std",
+    "_form": "Vag. Cream"
   },
   {
     "pharmacy": "BoomRx",
@@ -3987,7 +1420,9 @@
     "category": "Hormone Therapy",
     "route": "Topical",
     "cost": 30,
-    "id": "brx-std-88"
+    "id": "brx-std-88",
+    "_source": "std",
+    "_form": "Vag. Cream"
   },
   {
     "pharmacy": "BoomRx",
@@ -4001,7 +1436,9 @@
     "category": "Hormone Therapy",
     "route": "Topical",
     "cost": 30,
-    "id": "brx-std-89"
+    "id": "brx-std-89",
+    "_source": "std",
+    "_form": "Vag. Cream"
   },
   {
     "pharmacy": "BoomRx",
@@ -4015,7 +1452,9 @@
     "category": "Hormone Therapy",
     "route": "Topical",
     "cost": 30,
-    "id": "brx-std-90"
+    "id": "brx-std-90",
+    "_source": "std",
+    "_form": "Cream"
   },
   {
     "pharmacy": "BoomRx",
@@ -4029,7 +1468,9 @@
     "category": "Hormone Therapy",
     "route": "Topical",
     "cost": 30,
-    "id": "brx-std-91"
+    "id": "brx-std-91",
+    "_source": "std",
+    "_form": "Cream"
   },
   {
     "pharmacy": "BoomRx",
@@ -4043,7 +1484,9 @@
     "category": "Hormone Therapy",
     "route": "Topical",
     "cost": 30,
-    "id": "brx-std-92"
+    "id": "brx-std-92",
+    "_source": "std",
+    "_form": "Cream"
   },
   {
     "pharmacy": "BoomRx",
@@ -4057,7 +1500,9 @@
     "category": "Hormone Therapy",
     "route": "Topical",
     "cost": 30,
-    "id": "brx-std-93"
+    "id": "brx-std-93",
+    "_source": "std",
+    "_form": "Cream"
   },
   {
     "pharmacy": "BoomRx",
@@ -4071,7 +1516,9 @@
     "category": "Hormone Therapy",
     "route": "Topical",
     "cost": 30,
-    "id": "brx-std-94"
+    "id": "brx-std-94",
+    "_source": "std",
+    "_form": "Cream"
   },
   {
     "pharmacy": "BoomRx",
@@ -4085,7 +1532,9 @@
     "category": "Hormone Therapy",
     "route": "Topical",
     "cost": 30,
-    "id": "brx-std-95"
+    "id": "brx-std-95",
+    "_source": "std",
+    "_form": "Cream"
   },
   {
     "pharmacy": "BoomRx",
@@ -4099,7 +1548,9 @@
     "category": "Hormone Therapy",
     "route": "Topical",
     "cost": 30,
-    "id": "brx-std-96"
+    "id": "brx-std-96",
+    "_source": "std",
+    "_form": "Cream"
   },
   {
     "pharmacy": "BoomRx",
@@ -4113,7 +1564,9 @@
     "category": "Hormone Therapy",
     "route": "Topical",
     "cost": 30,
-    "id": "brx-std-97"
+    "id": "brx-std-97",
+    "_source": "std",
+    "_form": "Vag. Cream"
   },
   {
     "pharmacy": "BoomRx",
@@ -4127,7 +1580,9 @@
     "category": "Hormone Therapy",
     "route": "Topical",
     "cost": 30,
-    "id": "brx-std-98"
+    "id": "brx-std-98",
+    "_source": "std",
+    "_form": "Vag. Cream"
   },
   {
     "pharmacy": "BoomRx",
@@ -4141,7 +1596,9 @@
     "category": "Hormone Therapy",
     "route": "Topical",
     "cost": 30,
-    "id": "brx-std-99"
+    "id": "brx-std-99",
+    "_source": "std",
+    "_form": "Vag. Cream"
   },
   {
     "pharmacy": "BoomRx",
@@ -4155,7 +1612,9 @@
     "category": "Hormone Therapy",
     "route": "Topical",
     "cost": 30,
-    "id": "brx-std-100"
+    "id": "brx-std-100",
+    "_source": "std",
+    "_form": "Vag. Cream"
   },
   {
     "pharmacy": "BoomRx",
@@ -4169,7 +1628,9 @@
     "category": "Hormone Therapy",
     "route": "Injectable",
     "cost": 50,
-    "id": "brx-std-101"
+    "id": "brx-std-101",
+    "_source": "std",
+    "_form": "Injectable"
   },
   {
     "pharmacy": "BoomRx",
@@ -4183,7 +1644,9 @@
     "category": "Hormone Therapy",
     "route": "Capsule",
     "cost": 1.2,
-    "id": "brx-std-102"
+    "id": "brx-std-102",
+    "_source": "std",
+    "_form": "Capsule"
   },
   {
     "pharmacy": "BoomRx",
@@ -4197,7 +1660,9 @@
     "category": "Hormone Therapy",
     "route": "Capsule",
     "cost": 1,
-    "id": "brx-std-103"
+    "id": "brx-std-103",
+    "_source": "std",
+    "_form": "Capsule"
   },
   {
     "pharmacy": "BoomRx",
@@ -4211,7 +1676,9 @@
     "category": "Hormone Therapy",
     "route": "Capsule",
     "cost": 1,
-    "id": "brx-std-104"
+    "id": "brx-std-104",
+    "_source": "std",
+    "_form": "Capsule"
   },
   {
     "pharmacy": "BoomRx",
@@ -4225,7 +1692,9 @@
     "category": "Hormone Therapy",
     "route": "Capsule",
     "cost": 1.2,
-    "id": "brx-std-105"
+    "id": "brx-std-105",
+    "_source": "std",
+    "_form": "Capsule"
   },
   {
     "pharmacy": "BoomRx",
@@ -4239,7 +1708,9 @@
     "category": "Hormone Therapy",
     "route": "Capsule",
     "cost": 1.2,
-    "id": "brx-std-106"
+    "id": "brx-std-106",
+    "_source": "std",
+    "_form": "Capsule"
   },
   {
     "pharmacy": "BoomRx",
@@ -4253,7 +1724,9 @@
     "category": "Hormone Therapy",
     "route": "Capsule",
     "cost": 1.2,
-    "id": "brx-std-107"
+    "id": "brx-std-107",
+    "_source": "std",
+    "_form": "Capsule"
   },
   {
     "pharmacy": "BoomRx",
@@ -4267,7 +1740,9 @@
     "category": "Hormone Therapy",
     "route": "Troche",
     "cost": 1.2,
-    "id": "brx-std-108"
+    "id": "brx-std-108",
+    "_source": "std",
+    "_form": "Troche"
   },
   {
     "pharmacy": "BoomRx",
@@ -4281,7 +1756,9 @@
     "category": "Hormone Therapy",
     "route": "Capsule",
     "cost": 1.2,
-    "id": "brx-std-109"
+    "id": "brx-std-109",
+    "_source": "std",
+    "_form": "Capsule"
   },
   {
     "pharmacy": "BoomRx",
@@ -4295,7 +1772,9 @@
     "category": "Hormone Therapy",
     "route": "Topical",
     "cost": 40,
-    "id": "brx-std-110"
+    "id": "brx-std-110",
+    "_source": "std",
+    "_form": "Cream"
   },
   {
     "pharmacy": "BoomRx",
@@ -4309,7 +1788,9 @@
     "category": "Hormone Therapy",
     "route": "Topical",
     "cost": 40,
-    "id": "brx-std-111"
+    "id": "brx-std-111",
+    "_source": "std",
+    "_form": "Cream"
   },
   {
     "pharmacy": "BoomRx",
@@ -4323,7 +1804,9 @@
     "category": "Hormone Therapy",
     "route": "Topical",
     "cost": 30,
-    "id": "brx-std-112"
+    "id": "brx-std-112",
+    "_source": "std",
+    "_form": "Cream"
   },
   {
     "pharmacy": "BoomRx",
@@ -4337,7 +1820,9 @@
     "category": "Hormone Therapy",
     "route": "Topical",
     "cost": 30,
-    "id": "brx-std-113"
+    "id": "brx-std-113",
+    "_source": "std",
+    "_form": "Cream"
   },
   {
     "pharmacy": "BoomRx",
@@ -4351,7 +1836,9 @@
     "category": "Hormone Therapy",
     "route": "Topical",
     "cost": 30,
-    "id": "brx-std-114"
+    "id": "brx-std-114",
+    "_source": "std",
+    "_form": "Cream"
   },
   {
     "pharmacy": "BoomRx",
@@ -4365,7 +1852,9 @@
     "category": "Hormone Therapy",
     "route": "Topical",
     "cost": 30,
-    "id": "brx-std-115"
+    "id": "brx-std-115",
+    "_source": "std",
+    "_form": "Cream"
   },
   {
     "pharmacy": "BoomRx",
@@ -4379,7 +1868,9 @@
     "category": "Hormone Therapy",
     "route": "Topical",
     "cost": 30,
-    "id": "brx-std-116"
+    "id": "brx-std-116",
+    "_source": "std",
+    "_form": "Cream"
   },
   {
     "pharmacy": "BoomRx",
@@ -4393,7 +1884,9 @@
     "category": "Hormone Therapy",
     "route": "Topical",
     "cost": 40,
-    "id": "brx-std-117"
+    "id": "brx-std-117",
+    "_source": "std",
+    "_form": "Cream"
   },
   {
     "pharmacy": "BoomRx",
@@ -4407,7 +1900,9 @@
     "category": "Hormone Therapy",
     "route": "Topical",
     "cost": 30,
-    "id": "brx-std-118"
+    "id": "brx-std-118",
+    "_source": "std",
+    "_form": "Cream"
   },
   {
     "pharmacy": "BoomRx",
@@ -4421,7 +1916,9 @@
     "category": "Hormone Therapy",
     "route": "Capsule",
     "cost": 2.2,
-    "id": "brx-std-119"
+    "id": "brx-std-119",
+    "_source": "std",
+    "_form": "Tab"
   },
   {
     "pharmacy": "BoomRx",
@@ -4435,7 +1932,9 @@
     "category": "Wellness",
     "route": "Capsule",
     "cost": 1,
-    "id": "brx-std-120"
+    "id": "brx-std-120",
+    "_source": "std",
+    "_form": "Tablet"
   },
   {
     "pharmacy": "BoomRx",
@@ -4449,7 +1948,9 @@
     "category": "Hair Loss",
     "route": "Capsule",
     "cost": 1.5,
-    "id": "brx-std-121"
+    "id": "brx-std-121",
+    "_source": "std",
+    "_form": "Capsule"
   },
   {
     "pharmacy": "BoomRx",
@@ -4463,7 +1964,9 @@
     "category": "Hair Loss",
     "route": "Capsule",
     "cost": 3,
-    "id": "brx-std-122"
+    "id": "brx-std-122",
+    "_source": "std",
+    "_form": "Tab"
   },
   {
     "pharmacy": "BoomRx",
@@ -4477,7 +1980,9 @@
     "category": "Hair Loss",
     "route": "Foam",
     "cost": 60,
-    "id": "brx-std-123"
+    "id": "brx-std-123",
+    "_source": "std",
+    "_form": "Foam"
   },
   {
     "pharmacy": "BoomRx",
@@ -4491,7 +1996,9 @@
     "category": "Hair Loss",
     "route": "Foam",
     "cost": 60,
-    "id": "brx-std-124"
+    "id": "brx-std-124",
+    "_source": "std",
+    "_form": "Foam"
   },
   {
     "pharmacy": "BoomRx",
@@ -4505,7 +2012,9 @@
     "category": "Hair Loss",
     "route": "Capsule",
     "cost": 1.4,
-    "id": "brx-std-125"
+    "id": "brx-std-125",
+    "_source": "std",
+    "_form": "Capsule"
   },
   {
     "pharmacy": "BoomRx",
@@ -4519,7 +2028,9 @@
     "category": "Hair Loss",
     "route": "Troche",
     "cost": 60,
-    "id": "brx-std-126"
+    "id": "brx-std-126",
+    "_source": "std",
+    "_form": "Solution"
   },
   {
     "pharmacy": "BoomRx",
@@ -4533,7 +2044,9 @@
     "category": "Hair Loss",
     "route": "Foam",
     "cost": 60,
-    "id": "brx-std-127"
+    "id": "brx-std-127",
+    "_source": "std",
+    "_form": "Foam"
   },
   {
     "pharmacy": "BoomRx",
@@ -4547,7 +2060,9 @@
     "category": "Hair Loss",
     "route": "Topical",
     "cost": 120,
-    "id": "brx-std-128"
+    "id": "brx-std-128",
+    "_source": "std",
+    "_form": "Cream"
   },
   {
     "pharmacy": "BoomRx",
@@ -4561,7 +2076,9 @@
     "category": "Hair Loss",
     "route": "Topical",
     "cost": 100,
-    "id": "brx-std-129"
+    "id": "brx-std-129",
+    "_source": "std",
+    "_form": "Cream"
   },
   {
     "pharmacy": "BoomRx",
@@ -4575,7 +2092,9 @@
     "category": "Wellness",
     "route": "Capsule",
     "cost": 1.2,
-    "id": "brx-std-130"
+    "id": "brx-std-130",
+    "_source": "std",
+    "_form": "Capsule"
   },
   {
     "pharmacy": "BoomRx",
@@ -4589,7 +2108,9 @@
     "category": "Wellness",
     "route": "Injectable",
     "cost": 35,
-    "id": "brx-std-131"
+    "id": "brx-std-131",
+    "_source": "std",
+    "_form": "Injectable"
   },
   {
     "pharmacy": "BoomRx",
@@ -4603,7 +2124,9 @@
     "category": "Wellness",
     "route": "Injectable",
     "cost": 55,
-    "id": "brx-std-132"
+    "id": "brx-std-132",
+    "_source": "std",
+    "_form": "Injectable"
   },
   {
     "pharmacy": "BoomRx",
@@ -4617,7 +2140,9 @@
     "category": "Wellness",
     "route": "Capsule",
     "cost": 2.6,
-    "id": "brx-std-133"
+    "id": "brx-std-133",
+    "_source": "std",
+    "_form": "Tablet"
   },
   {
     "pharmacy": "BoomRx",
@@ -4631,7 +2156,9 @@
     "category": "Sexual Health",
     "route": "Injectable",
     "cost": 50,
-    "id": "brx-std-134"
+    "id": "brx-std-134",
+    "_source": "std",
+    "_form": "Injectable"
   },
   {
     "pharmacy": "BoomRx",
@@ -4645,7 +2172,9 @@
     "category": "Hormone Therapy",
     "route": "Injectable",
     "cost": 210,
-    "id": "brx-std-135"
+    "id": "brx-std-135",
+    "_source": "std",
+    "_form": "Injectable"
   },
   {
     "pharmacy": "BoomRx",
@@ -4659,7 +2188,9 @@
     "category": "Sexual Health",
     "route": "Topical",
     "cost": 60,
-    "id": "brx-std-136"
+    "id": "brx-std-136",
+    "_source": "std",
+    "_form": "Cream"
   },
   {
     "pharmacy": "BoomRx",
@@ -4673,7 +2204,9 @@
     "category": "Hair Loss",
     "route": "Topical",
     "cost": 60,
-    "id": "brx-std-137"
+    "id": "brx-std-137",
+    "_source": "std",
+    "_form": "Cream"
   },
   {
     "pharmacy": "BoomRx",
@@ -4687,7 +2220,9 @@
     "category": "Hair Loss",
     "route": "Topical",
     "cost": 60,
-    "id": "brx-std-138"
+    "id": "brx-std-138",
+    "_source": "std",
+    "_form": "Cream"
   },
   {
     "pharmacy": "BoomRx",
@@ -4701,7 +2236,9 @@
     "category": "Hair Loss",
     "route": "Topical",
     "cost": 60,
-    "id": "brx-std-139"
+    "id": "brx-std-139",
+    "_source": "std",
+    "_form": "Cream"
   },
   {
     "pharmacy": "BoomRx",
@@ -4715,7 +2252,9 @@
     "category": "Hormone Therapy",
     "route": "Supplies",
     "cost": 20,
-    "id": "brx-std-140"
+    "id": "brx-std-140",
+    "_source": "std",
+    "_form": "Device"
   },
   {
     "pharmacy": "BoomRx",
@@ -4729,7 +2268,9 @@
     "category": "Hormone Therapy",
     "route": "Supplies",
     "cost": 10,
-    "id": "brx-std-141"
+    "id": "brx-std-141",
+    "_source": "std",
+    "_form": "Device"
   },
   {
     "pharmacy": "BoomRx",
@@ -4743,7 +2284,9 @@
     "category": "Hormone Therapy",
     "route": "Supplies",
     "cost": 16,
-    "id": "brx-std-142"
+    "id": "brx-std-142",
+    "_source": "std",
+    "_form": "Device"
   },
   {
     "pharmacy": "BoomRx",
@@ -4757,7 +2300,9 @@
     "category": "Wellness",
     "route": "Troche",
     "cost": 2.75,
-    "id": "brx-std-143"
+    "id": "brx-std-143",
+    "_source": "std",
+    "_form": "ODT"
   },
   {
     "pharmacy": "BoomRx",
@@ -4771,7 +2316,9 @@
     "category": "Wellness",
     "route": "Troche",
     "cost": 2.5,
-    "id": "brx-std-144"
+    "id": "brx-std-144",
+    "_source": "std",
+    "_form": "ODT"
   },
   {
     "pharmacy": "BoomRx",
@@ -4785,7 +2332,9 @@
     "category": "Hormone Therapy",
     "route": "Capsule",
     "cost": 140,
-    "id": "brx-std-145"
+    "id": "brx-std-145",
+    "_source": "std",
+    "_form": "Capsule"
   },
   {
     "pharmacy": "BoomRx",
@@ -4799,7 +2348,9 @@
     "category": "Hormone Therapy",
     "route": "Capsule",
     "cost": 1.2,
-    "id": "brx-std-146"
+    "id": "brx-std-146",
+    "_source": "std",
+    "_form": "Capsule"
   },
   {
     "pharmacy": "BoomRx",
@@ -4813,7 +2364,9 @@
     "category": "Hormone Therapy",
     "route": "Capsule",
     "cost": 1,
-    "id": "brx-std-147"
+    "id": "brx-std-147",
+    "_source": "std",
+    "_form": "Capsule"
   },
   {
     "pharmacy": "BoomRx",
@@ -4827,7 +2380,9 @@
     "category": "Hormone Therapy",
     "route": "Capsule",
     "cost": 1.2,
-    "id": "brx-std-148"
+    "id": "brx-std-148",
+    "_source": "std",
+    "_form": "Capsule"
   },
   {
     "pharmacy": "BoomRx",
@@ -4841,7 +2396,9 @@
     "category": "Hormone Therapy",
     "route": "Capsule",
     "cost": 1.2,
-    "id": "brx-std-149"
+    "id": "brx-std-149",
+    "_source": "std",
+    "_form": "Capsule"
   },
   {
     "pharmacy": "BoomRx",
@@ -4855,7 +2412,9 @@
     "category": "Hormone Therapy",
     "route": "Capsule",
     "cost": 1.2,
-    "id": "brx-std-150"
+    "id": "brx-std-150",
+    "_source": "std",
+    "_form": "Capsule"
   },
   {
     "pharmacy": "BoomRx",
@@ -4869,7 +2428,9 @@
     "category": "Hormone Therapy",
     "route": "Capsule",
     "cost": 1,
-    "id": "brx-std-151"
+    "id": "brx-std-151",
+    "_source": "std",
+    "_form": "Capsule"
   },
   {
     "pharmacy": "BoomRx",
@@ -4883,7 +2444,9 @@
     "category": "Hormone Therapy",
     "route": "Capsule",
     "cost": 1,
-    "id": "brx-std-152"
+    "id": "brx-std-152",
+    "_source": "std",
+    "_form": "Capsule"
   },
   {
     "pharmacy": "BoomRx",
@@ -4897,7 +2460,9 @@
     "category": "Wellness",
     "route": "Supplies",
     "cost": 0.37,
-    "id": "brx-std-153"
+    "id": "brx-std-153",
+    "_source": "std",
+    "_form": "Syringe"
   },
   {
     "pharmacy": "BoomRx",
@@ -4911,7 +2476,9 @@
     "category": "GLP-1 / Weight Loss",
     "route": "Capsule",
     "cost": 1.75,
-    "id": "brx-std-154"
+    "id": "brx-std-154",
+    "_source": "std",
+    "_form": "Tab"
   },
   {
     "pharmacy": "BoomRx",
@@ -4925,7 +2492,9 @@
     "category": "GLP-1 / Weight Loss",
     "route": "Capsule",
     "cost": 0.8,
-    "id": "brx-std-155"
+    "id": "brx-std-155",
+    "_source": "std",
+    "_form": "Tab"
   },
   {
     "pharmacy": "BoomRx",
@@ -4939,7 +2508,9 @@
     "category": "Wellness",
     "route": "Injectable",
     "cost": 20,
-    "id": "brx-std-156"
+    "id": "brx-std-156",
+    "_source": "std",
+    "_form": "Injectable"
   },
   {
     "pharmacy": "BoomRx",
@@ -4953,7 +2524,9 @@
     "category": "Wellness",
     "route": "Capsule",
     "cost": 4,
-    "id": "brx-std-157"
+    "id": "brx-std-157",
+    "_source": "std",
+    "_form": "Capsule"
   },
   {
     "pharmacy": "BoomRx",
@@ -4967,7 +2540,9 @@
     "category": "Wellness",
     "route": "Capsule",
     "cost": 2.5,
-    "id": "brx-std-158"
+    "id": "brx-std-158",
+    "_source": "std",
+    "_form": "Capsule"
   },
   {
     "pharmacy": "BoomRx",
@@ -4981,7 +2556,9 @@
     "category": "Wellness",
     "route": "Injectable",
     "cost": 25,
-    "id": "brx-std-159"
+    "id": "brx-std-159",
+    "_source": "std",
+    "_form": "Injectable"
   },
   {
     "pharmacy": "BoomRx",
@@ -4995,7 +2572,9 @@
     "category": "Hair Loss",
     "route": "Capsule",
     "cost": 0.6,
-    "id": "brx-std-160"
+    "id": "brx-std-160",
+    "_source": "std",
+    "_form": "Tab"
   },
   {
     "pharmacy": "BoomRx",
@@ -5009,7 +2588,9 @@
     "category": "Wellness",
     "route": "Injectable",
     "cost": 90,
-    "id": "brx-std-161"
+    "id": "brx-std-161",
+    "_source": "std",
+    "_form": "Injectable"
   },
   {
     "pharmacy": "BoomRx",
@@ -5023,7 +2604,9 @@
     "category": "Wellness",
     "route": "Capsule",
     "cost": 0.9,
-    "id": "brx-std-162"
+    "id": "brx-std-162",
+    "_source": "std",
+    "_form": "Capsule"
   },
   {
     "pharmacy": "BoomRx",
@@ -5037,7 +2620,9 @@
     "category": "Wellness",
     "route": "Capsule",
     "cost": 0.9,
-    "id": "brx-std-163"
+    "id": "brx-std-163",
+    "_source": "std",
+    "_form": "Capsule"
   },
   {
     "pharmacy": "BoomRx",
@@ -5051,7 +2636,9 @@
     "category": "Wellness",
     "route": "Capsule",
     "cost": 0.9,
-    "id": "brx-std-164"
+    "id": "brx-std-164",
+    "_source": "std",
+    "_form": "Capsule"
   },
   {
     "pharmacy": "BoomRx",
@@ -5065,7 +2652,9 @@
     "category": "Wellness",
     "route": "Capsule",
     "cost": 0.9,
-    "id": "brx-std-165"
+    "id": "brx-std-165",
+    "_source": "std",
+    "_form": "Capsule"
   },
   {
     "pharmacy": "BoomRx",
@@ -5079,7 +2668,9 @@
     "category": "Wellness",
     "route": "Capsule",
     "cost": 0.9,
-    "id": "brx-std-166"
+    "id": "brx-std-166",
+    "_source": "std",
+    "_form": "Capsule"
   },
   {
     "pharmacy": "BoomRx",
@@ -5093,7 +2684,9 @@
     "category": "Wellness",
     "route": "Capsule",
     "cost": 0.9,
-    "id": "brx-std-167"
+    "id": "brx-std-167",
+    "_source": "std",
+    "_form": "Capsule"
   },
   {
     "pharmacy": "BoomRx",
@@ -5107,7 +2700,9 @@
     "category": "Wellness",
     "route": "Capsule",
     "cost": 1,
-    "id": "brx-std-168"
+    "id": "brx-std-168",
+    "_source": "std",
+    "_form": "Capsule"
   },
   {
     "pharmacy": "BoomRx",
@@ -5121,7 +2716,9 @@
     "category": "Wellness",
     "route": "Capsule",
     "cost": 1,
-    "id": "brx-std-169"
+    "id": "brx-std-169",
+    "_source": "std",
+    "_form": "Capsule"
   },
   {
     "pharmacy": "BoomRx",
@@ -5135,7 +2732,9 @@
     "category": "Wellness",
     "route": "Capsule",
     "cost": 1,
-    "id": "brx-std-170"
+    "id": "brx-std-170",
+    "_source": "std",
+    "_form": "Capsule"
   },
   {
     "pharmacy": "BoomRx",
@@ -5149,7 +2748,9 @@
     "category": "Hormone Therapy",
     "route": "Topical",
     "cost": 70,
-    "id": "brx-std-171"
+    "id": "brx-std-171",
+    "_source": "std",
+    "_form": "Cream"
   },
   {
     "pharmacy": "BoomRx",
@@ -5163,7 +2764,9 @@
     "category": "Hormone Therapy",
     "route": "Injectable",
     "cost": 75,
-    "id": "brx-std-172"
+    "id": "brx-std-172",
+    "_source": "std",
+    "_form": "Injectable"
   },
   {
     "pharmacy": "BoomRx",
@@ -5177,7 +2780,9 @@
     "category": "Wellness",
     "route": "Supplies",
     "cost": 0.37,
-    "id": "brx-std-173"
+    "id": "brx-std-173",
+    "_source": "std",
+    "_form": "Syringe"
   },
   {
     "pharmacy": "BoomRx",
@@ -5191,7 +2796,9 @@
     "category": "Wellness",
     "route": "Supplies",
     "cost": 0.37,
-    "id": "brx-std-174"
+    "id": "brx-std-174",
+    "_source": "std",
+    "_form": "Syringe"
   },
   {
     "pharmacy": "BoomRx",
@@ -5205,7 +2812,9 @@
     "category": "Wellness",
     "route": "Supplies",
     "cost": 0.37,
-    "id": "brx-std-175"
+    "id": "brx-std-175",
+    "_source": "std",
+    "_form": "Syringe"
   },
   {
     "pharmacy": "BoomRx",
@@ -5219,7 +2828,9 @@
     "category": "Wellness",
     "route": "Supplies",
     "cost": 0.37,
-    "id": "brx-std-176"
+    "id": "brx-std-176",
+    "_source": "std",
+    "_form": "Syringe"
   },
   {
     "pharmacy": "BoomRx",
@@ -5233,7 +2844,9 @@
     "category": "Wellness",
     "route": "Supplies",
     "cost": 0.37,
-    "id": "brx-std-177"
+    "id": "brx-std-177",
+    "_source": "std",
+    "_form": "Syringe"
   },
   {
     "pharmacy": "BoomRx",
@@ -5247,7 +2860,9 @@
     "category": "Wellness",
     "route": "Supplies",
     "cost": 0.37,
-    "id": "brx-std-178"
+    "id": "brx-std-178",
+    "_source": "std",
+    "_form": "Syringe"
   },
   {
     "pharmacy": "BoomRx",
@@ -5261,7 +2876,9 @@
     "category": "Hormone Therapy",
     "route": "Injectable",
     "cost": 425,
-    "id": "brx-std-179"
+    "id": "brx-std-179",
+    "_source": "std",
+    "_form": "Injectable"
   },
   {
     "pharmacy": "BoomRx",
@@ -5275,7 +2892,9 @@
     "category": "Hormone Therapy",
     "route": "Capsule",
     "cost": 4,
-    "id": "brx-std-180"
+    "id": "brx-std-180",
+    "_source": "std",
+    "_form": "Capsule"
   },
   {
     "pharmacy": "BoomRx",
@@ -5289,7 +2908,9 @@
     "category": "Hormone Therapy",
     "route": "Capsule",
     "cost": 4.5,
-    "id": "brx-std-181"
+    "id": "brx-std-181",
+    "_source": "std",
+    "_form": "Capsule"
   },
   {
     "pharmacy": "BoomRx",
@@ -5303,7 +2924,9 @@
     "category": "Hormone Therapy",
     "route": "Capsule",
     "cost": 6.2,
-    "id": "brx-std-182"
+    "id": "brx-std-182",
+    "_source": "std",
+    "_form": "Capsule"
   },
   {
     "pharmacy": "BoomRx",
@@ -5317,7 +2940,9 @@
     "category": "Hormone Therapy",
     "route": "Capsule",
     "cost": 3,
-    "id": "brx-std-183"
+    "id": "brx-std-183",
+    "_source": "std",
+    "_form": "Capsule"
   },
   {
     "pharmacy": "BoomRx",
@@ -5331,7 +2956,9 @@
     "category": "Hormone Therapy",
     "route": "Troche",
     "cost": 6.2,
-    "id": "brx-std-184"
+    "id": "brx-std-184",
+    "_source": "std",
+    "_form": "Troche"
   },
   {
     "pharmacy": "BoomRx",
@@ -5345,7 +2972,9 @@
     "category": "Hormone Therapy",
     "route": "Troche",
     "cost": 4.5,
-    "id": "brx-std-185"
+    "id": "brx-std-185",
+    "_source": "std",
+    "_form": "Troche"
   },
   {
     "pharmacy": "BoomRx",
@@ -5359,7 +2988,9 @@
     "category": "Hormone Therapy",
     "route": "Troche",
     "cost": 2,
-    "id": "brx-std-186"
+    "id": "brx-std-186",
+    "_source": "std",
+    "_form": "Rapid Dissolve Tablet"
   },
   {
     "pharmacy": "BoomRx",
@@ -5373,7 +3004,9 @@
     "category": "Hormone Therapy",
     "route": "Troche",
     "cost": 2.25,
-    "id": "brx-std-187"
+    "id": "brx-std-187",
+    "_source": "std",
+    "_form": "Rapid Dissolve Tablet"
   },
   {
     "pharmacy": "BoomRx",
@@ -5387,7 +3020,9 @@
     "category": "Sexual Health",
     "route": "Troche",
     "cost": 2.5,
-    "id": "brx-std-188"
+    "id": "brx-std-188",
+    "_source": "std",
+    "_form": "Troche"
   },
   {
     "pharmacy": "BoomRx",
@@ -5401,7 +3036,10 @@
     "category": "Peptide Therapy",
     "route": "Injectable",
     "cost": 70,
-    "id": "brx-std-189"
+    "id": "brx-std-189",
+    "_source": "std",
+    "_form": "Injectable",
+    "_hgPeptidePrice": true
   },
   {
     "pharmacy": "BoomRx",
@@ -5415,7 +3053,9 @@
     "category": "GLP-1 / Weight Loss",
     "route": "Capsule",
     "cost": 0.9,
-    "id": "brx-std-190"
+    "id": "brx-std-190",
+    "_source": "std",
+    "_form": "Tab"
   },
   {
     "pharmacy": "BoomRx",
@@ -5429,7 +3069,9 @@
     "category": "GLP-1 / Weight Loss",
     "route": "Capsule",
     "cost": 1.3,
-    "id": "brx-std-191"
+    "id": "brx-std-191",
+    "_source": "std",
+    "_form": "Capsule"
   },
   {
     "pharmacy": "BoomRx",
@@ -5443,7 +3085,9 @@
     "category": "GLP-1 / Weight Loss",
     "route": "Capsule",
     "cost": 1.3,
-    "id": "brx-std-192"
+    "id": "brx-std-192",
+    "_source": "std",
+    "_form": "Capsule"
   },
   {
     "pharmacy": "BoomRx",
@@ -5457,7 +3101,9 @@
     "category": "Hormone Therapy",
     "route": "Capsule",
     "cost": 1,
-    "id": "brx-std-193"
+    "id": "brx-std-193",
+    "_source": "std",
+    "_form": "Capsule"
   },
   {
     "pharmacy": "BoomRx",
@@ -5471,7 +3117,9 @@
     "category": "Hormone Therapy",
     "route": "Topical",
     "cost": 30,
-    "id": "brx-std-194"
+    "id": "brx-std-194",
+    "_source": "std",
+    "_form": "Cream"
   },
   {
     "pharmacy": "BoomRx",
@@ -5485,7 +3133,9 @@
     "category": "Hormone Therapy",
     "route": "Topical",
     "cost": 30,
-    "id": "brx-std-195"
+    "id": "brx-std-195",
+    "_source": "std",
+    "_form": "Cream"
   },
   {
     "pharmacy": "BoomRx",
@@ -5499,7 +3149,9 @@
     "category": "Hormone Therapy",
     "route": "Topical",
     "cost": 30,
-    "id": "brx-std-196"
+    "id": "brx-std-196",
+    "_source": "std",
+    "_form": "Cream"
   },
   {
     "pharmacy": "BoomRx",
@@ -5513,7 +3165,9 @@
     "category": "Hormone Therapy",
     "route": "Capsule",
     "cost": 1.2,
-    "id": "brx-std-197"
+    "id": "brx-std-197",
+    "_source": "std",
+    "_form": "Capsule"
   },
   {
     "pharmacy": "BoomRx",
@@ -5527,7 +3181,9 @@
     "category": "Hormone Therapy",
     "route": "Capsule",
     "cost": 1,
-    "id": "brx-std-198"
+    "id": "brx-std-198",
+    "_source": "std",
+    "_form": "Capsule"
   },
   {
     "pharmacy": "BoomRx",
@@ -5541,7 +3197,9 @@
     "category": "Hormone Therapy",
     "route": "Capsule",
     "cost": 1.2,
-    "id": "brx-std-199"
+    "id": "brx-std-199",
+    "_source": "std",
+    "_form": "Capsule"
   },
   {
     "pharmacy": "BoomRx",
@@ -5555,7 +3213,9 @@
     "category": "Hormone Therapy",
     "route": "Capsule",
     "cost": 1,
-    "id": "brx-std-200"
+    "id": "brx-std-200",
+    "_source": "std",
+    "_form": "Capsule"
   },
   {
     "pharmacy": "BoomRx",
@@ -5569,7 +3229,9 @@
     "category": "Hormone Therapy",
     "route": "Capsule",
     "cost": 1.2,
-    "id": "brx-std-201"
+    "id": "brx-std-201",
+    "_source": "std",
+    "_form": "Capsule"
   },
   {
     "pharmacy": "BoomRx",
@@ -5583,7 +3245,9 @@
     "category": "Hormone Therapy",
     "route": "Capsule",
     "cost": 1,
-    "id": "brx-std-202"
+    "id": "brx-std-202",
+    "_source": "std",
+    "_form": "Capsule"
   },
   {
     "pharmacy": "BoomRx",
@@ -5597,7 +3261,9 @@
     "category": "Hormone Therapy",
     "route": "Capsule",
     "cost": 1,
-    "id": "brx-std-203"
+    "id": "brx-std-203",
+    "_source": "std",
+    "_form": "Capsule"
   },
   {
     "pharmacy": "BoomRx",
@@ -5611,7 +3277,9 @@
     "category": "Hormone Therapy",
     "route": "Capsule",
     "cost": 1,
-    "id": "brx-std-204"
+    "id": "brx-std-204",
+    "_source": "std",
+    "_form": "Capsule"
   },
   {
     "pharmacy": "BoomRx",
@@ -5625,7 +3293,9 @@
     "category": "Hormone Therapy",
     "route": "Capsule",
     "cost": 1,
-    "id": "brx-std-205"
+    "id": "brx-std-205",
+    "_source": "std",
+    "_form": "Capsule"
   },
   {
     "pharmacy": "BoomRx",
@@ -5639,7 +3309,9 @@
     "category": "Hormone Therapy",
     "route": "Capsule",
     "cost": 1,
-    "id": "brx-std-206"
+    "id": "brx-std-206",
+    "_source": "std",
+    "_form": "Capsule"
   },
   {
     "pharmacy": "BoomRx",
@@ -5653,7 +3325,9 @@
     "category": "Hormone Therapy",
     "route": "Capsule",
     "cost": 1,
-    "id": "brx-std-207"
+    "id": "brx-std-207",
+    "_source": "std",
+    "_form": "Capsule"
   },
   {
     "pharmacy": "BoomRx",
@@ -5667,7 +3341,9 @@
     "category": "Hormone Therapy",
     "route": "Capsule",
     "cost": 1,
-    "id": "brx-std-208"
+    "id": "brx-std-208",
+    "_source": "std",
+    "_form": "Capsule"
   },
   {
     "pharmacy": "BoomRx",
@@ -5681,7 +3357,9 @@
     "category": "Hormone Therapy",
     "route": "Capsule",
     "cost": 1,
-    "id": "brx-std-209"
+    "id": "brx-std-209",
+    "_source": "std",
+    "_form": "Capsule"
   },
   {
     "pharmacy": "BoomRx",
@@ -5695,7 +3373,9 @@
     "category": "Hormone Therapy",
     "route": "Capsule",
     "cost": 1,
-    "id": "brx-std-210"
+    "id": "brx-std-210",
+    "_source": "std",
+    "_form": "Capsule"
   },
   {
     "pharmacy": "BoomRx",
@@ -5709,7 +3389,9 @@
     "category": "Hormone Therapy",
     "route": "Capsule",
     "cost": 1,
-    "id": "brx-std-211"
+    "id": "brx-std-211",
+    "_source": "std",
+    "_form": "Capsule"
   },
   {
     "pharmacy": "BoomRx",
@@ -5723,7 +3405,9 @@
     "category": "Hormone Therapy",
     "route": "Capsule",
     "cost": 1,
-    "id": "brx-std-212"
+    "id": "brx-std-212",
+    "_source": "std",
+    "_form": "Capsule"
   },
   {
     "pharmacy": "BoomRx",
@@ -5737,7 +3421,9 @@
     "category": "Hormone Therapy",
     "route": "Capsule",
     "cost": 1.2,
-    "id": "brx-std-213"
+    "id": "brx-std-213",
+    "_source": "std",
+    "_form": "Capsule"
   },
   {
     "pharmacy": "BoomRx",
@@ -5751,7 +3437,9 @@
     "category": "Hormone Therapy",
     "route": "Capsule",
     "cost": 1,
-    "id": "brx-std-214"
+    "id": "brx-std-214",
+    "_source": "std",
+    "_form": "Capsule"
   },
   {
     "pharmacy": "BoomRx",
@@ -5765,7 +3453,9 @@
     "category": "Hormone Therapy",
     "route": "Capsule",
     "cost": 1,
-    "id": "brx-std-215"
+    "id": "brx-std-215",
+    "_source": "std",
+    "_form": "Capsule"
   },
   {
     "pharmacy": "BoomRx",
@@ -5779,7 +3469,9 @@
     "category": "Hormone Therapy",
     "route": "Capsule",
     "cost": 1,
-    "id": "brx-std-216"
+    "id": "brx-std-216",
+    "_source": "std",
+    "_form": "Capsule"
   },
   {
     "pharmacy": "BoomRx",
@@ -5793,7 +3485,9 @@
     "category": "GLP-1 / Weight Loss",
     "route": "Capsule",
     "cost": 170,
-    "id": "brx-std-217"
+    "id": "brx-std-217",
+    "_source": "std",
+    "_form": "Oral Disintegrating Tablet"
   },
   {
     "pharmacy": "BoomRx",
@@ -5807,7 +3501,9 @@
     "category": "GLP-1 / Weight Loss",
     "route": "Capsule",
     "cost": 98,
-    "id": "brx-std-218"
+    "id": "brx-std-218",
+    "_source": "std",
+    "_form": "Oral Disintegrating Tablet"
   },
   {
     "pharmacy": "BoomRx",
@@ -5821,7 +3517,9 @@
     "category": "GLP-1 / Weight Loss",
     "route": "Capsule",
     "cost": 140,
-    "id": "brx-std-219"
+    "id": "brx-std-219",
+    "_source": "std",
+    "_form": "Oral Disintegrating Tablet"
   },
   {
     "pharmacy": "BoomRx",
@@ -5835,7 +3533,9 @@
     "category": "GLP-1 / Weight Loss",
     "route": "Capsule",
     "cost": 200,
-    "id": "brx-std-220"
+    "id": "brx-std-220",
+    "_source": "std",
+    "_form": "Oral Disintegrating Tablet"
   },
   {
     "pharmacy": "BoomRx",
@@ -5849,7 +3549,9 @@
     "category": "GLP-1 / Weight Loss",
     "route": "Capsule",
     "cost": 230,
-    "id": "brx-std-221"
+    "id": "brx-std-221",
+    "_source": "std",
+    "_form": "Oral Disintegrating Tablet"
   },
   {
     "pharmacy": "BoomRx",
@@ -5863,7 +3565,9 @@
     "category": "GLP-1 / Weight Loss",
     "route": "Capsule",
     "cost": 260,
-    "id": "brx-std-222"
+    "id": "brx-std-222",
+    "_source": "std",
+    "_form": "Oral Disintegrating Tablet"
   },
   {
     "pharmacy": "BoomRx",
@@ -5877,7 +3581,9 @@
     "category": "GLP-1 / Weight Loss",
     "route": "Injectable",
     "cost": 85,
-    "id": "brx-std-223"
+    "id": "brx-std-223",
+    "_source": "std",
+    "_form": "Injectable"
   },
   {
     "pharmacy": "BoomRx",
@@ -5891,7 +3597,9 @@
     "category": "GLP-1 / Weight Loss",
     "route": "Injectable",
     "cost": 120,
-    "id": "brx-std-224"
+    "id": "brx-std-224",
+    "_source": "std",
+    "_form": "Injectable"
   },
   {
     "pharmacy": "BoomRx",
@@ -5905,7 +3613,9 @@
     "category": "GLP-1 / Weight Loss",
     "route": "Injectable",
     "cost": 90,
-    "id": "brx-std-225"
+    "id": "brx-std-225",
+    "_source": "std",
+    "_form": "Injectable"
   },
   {
     "pharmacy": "BoomRx",
@@ -5919,7 +3629,9 @@
     "category": "GLP-1 / Weight Loss",
     "route": "Injectable",
     "cost": 140,
-    "id": "brx-std-226"
+    "id": "brx-std-226",
+    "_source": "std",
+    "_form": "Injectable"
   },
   {
     "pharmacy": "BoomRx",
@@ -5933,7 +3645,9 @@
     "category": "GLP-1 / Weight Loss",
     "route": "Injectable",
     "cost": 140,
-    "id": "brx-std-227"
+    "id": "brx-std-227",
+    "_source": "std",
+    "_form": "Injectable"
   },
   {
     "pharmacy": "BoomRx",
@@ -5947,7 +3661,9 @@
     "category": "Hormone Therapy",
     "route": "Injectable",
     "cost": 90,
-    "id": "brx-std-228"
+    "id": "brx-std-228",
+    "_source": "std",
+    "_form": "Injectable"
   },
   {
     "pharmacy": "BoomRx",
@@ -5961,7 +3677,9 @@
     "category": "Sexual Health",
     "route": "Capsule",
     "cost": 1.4,
-    "id": "brx-std-229"
+    "id": "brx-std-229",
+    "_source": "std",
+    "_form": "Tablet"
   },
   {
     "pharmacy": "BoomRx",
@@ -5975,7 +3693,9 @@
     "category": "Sexual Health",
     "route": "Troche",
     "cost": 1.4,
-    "id": "brx-std-230"
+    "id": "brx-std-230",
+    "_source": "std",
+    "_form": "Troche"
   },
   {
     "pharmacy": "BoomRx",
@@ -5989,7 +3709,9 @@
     "category": "Sexual Health",
     "route": "Troche",
     "cost": 2.75,
-    "id": "brx-std-231"
+    "id": "brx-std-231",
+    "_source": "std",
+    "_form": "Troche"
   },
   {
     "pharmacy": "BoomRx",
@@ -6003,7 +3725,9 @@
     "category": "Sexual Health",
     "route": "Capsule",
     "cost": 2,
-    "id": "brx-std-232"
+    "id": "brx-std-232",
+    "_source": "std",
+    "_form": "Tablet"
   },
   {
     "pharmacy": "BoomRx",
@@ -6017,7 +3741,9 @@
     "category": "Sexual Health",
     "route": "Capsule",
     "cost": 0.7,
-    "id": "brx-std-233"
+    "id": "brx-std-233",
+    "_source": "std",
+    "_form": "Tablet"
   },
   {
     "pharmacy": "BoomRx",
@@ -6031,7 +3757,9 @@
     "category": "Sexual Health",
     "route": "Troche",
     "cost": 2,
-    "id": "brx-std-234"
+    "id": "brx-std-234",
+    "_source": "std",
+    "_form": "Troche"
   },
   {
     "pharmacy": "BoomRx",
@@ -6045,7 +3773,9 @@
     "category": "Sexual Health",
     "route": "Troche",
     "cost": 2.75,
-    "id": "brx-std-235"
+    "id": "brx-std-235",
+    "_source": "std",
+    "_form": "Troche"
   },
   {
     "pharmacy": "BoomRx",
@@ -6059,7 +3789,9 @@
     "category": "Wellness",
     "route": "Capsule",
     "cost": 1,
-    "id": "brx-std-236"
+    "id": "brx-std-236",
+    "_source": "std",
+    "_form": "Capsule"
   },
   {
     "pharmacy": "BoomRx",
@@ -6073,7 +3805,9 @@
     "category": "Wellness",
     "route": "Capsule",
     "cost": 1,
-    "id": "brx-std-237"
+    "id": "brx-std-237",
+    "_source": "std",
+    "_form": "Capsule"
   },
   {
     "pharmacy": "BoomRx",
@@ -6087,7 +3821,9 @@
     "category": "Wellness",
     "route": "Capsule",
     "cost": 1,
-    "id": "brx-std-238"
+    "id": "brx-std-238",
+    "_source": "std",
+    "_form": "Capsule"
   },
   {
     "pharmacy": "BoomRx",
@@ -6101,7 +3837,9 @@
     "category": "Wellness",
     "route": "Capsule",
     "cost": 1,
-    "id": "brx-std-239"
+    "id": "brx-std-239",
+    "_source": "std",
+    "_form": "Capsule"
   },
   {
     "pharmacy": "BoomRx",
@@ -6115,7 +3853,9 @@
     "category": "Hormone Therapy",
     "route": "Capsule",
     "cost": 4,
-    "id": "brx-std-240"
+    "id": "brx-std-240",
+    "_source": "std",
+    "_form": "Capsule"
   },
   {
     "pharmacy": "BoomRx",
@@ -6129,7 +3869,9 @@
     "category": "Hormone Therapy",
     "route": "Troche",
     "cost": 2,
-    "id": "brx-std-241"
+    "id": "brx-std-241",
+    "_source": "std",
+    "_form": "Troche"
   },
   {
     "pharmacy": "BoomRx",
@@ -6143,7 +3885,9 @@
     "category": "Hormone Therapy",
     "route": "Troche",
     "cost": 2,
-    "id": "brx-std-242"
+    "id": "brx-std-242",
+    "_source": "std",
+    "_form": "Troche"
   },
   {
     "pharmacy": "BoomRx",
@@ -6157,7 +3901,9 @@
     "category": "Hormone Therapy",
     "route": "Troche",
     "cost": 4,
-    "id": "brx-std-243"
+    "id": "brx-std-243",
+    "_source": "std",
+    "_form": "Troche"
   },
   {
     "pharmacy": "BoomRx",
@@ -6171,7 +3917,9 @@
     "category": "Hormone Therapy",
     "route": "Troche",
     "cost": 6,
-    "id": "brx-std-244"
+    "id": "brx-std-244",
+    "_source": "std",
+    "_form": "Troche"
   },
   {
     "pharmacy": "BoomRx",
@@ -6185,7 +3933,9 @@
     "category": "Wellness",
     "route": "Supplies",
     "cost": 0.37,
-    "id": "brx-std-245"
+    "id": "brx-std-245",
+    "_source": "std",
+    "_form": "Syringe"
   },
   {
     "pharmacy": "BoomRx",
@@ -6199,7 +3949,9 @@
     "category": "Wellness",
     "route": "Supplies",
     "cost": 0.37,
-    "id": "brx-std-246"
+    "id": "brx-std-246",
+    "_source": "std",
+    "_form": "Syringe"
   },
   {
     "pharmacy": "BoomRx",
@@ -6213,7 +3965,9 @@
     "category": "Wellness",
     "route": "Supplies",
     "cost": 0.37,
-    "id": "brx-std-247"
+    "id": "brx-std-247",
+    "_source": "std",
+    "_form": "Syringe"
   },
   {
     "pharmacy": "BoomRx",
@@ -6227,7 +3981,9 @@
     "category": "Wellness",
     "route": "Supplies",
     "cost": 0.37,
-    "id": "brx-std-248"
+    "id": "brx-std-248",
+    "_source": "std",
+    "_form": "Syringe"
   },
   {
     "pharmacy": "BoomRx",
@@ -6241,7 +3997,9 @@
     "category": "Wellness",
     "route": "Supplies",
     "cost": 0.37,
-    "id": "brx-std-249"
+    "id": "brx-std-249",
+    "_source": "std",
+    "_form": "Syringe"
   },
   {
     "pharmacy": "BoomRx",
@@ -6255,7 +4013,9 @@
     "category": "Wellness",
     "route": "Supplies",
     "cost": 0.37,
-    "id": "brx-std-250"
+    "id": "brx-std-250",
+    "_source": "std",
+    "_form": "Syringe"
   },
   {
     "pharmacy": "BoomRx",
@@ -6269,7 +4029,9 @@
     "category": "Wellness",
     "route": "Supplies",
     "cost": 0.37,
-    "id": "brx-std-251"
+    "id": "brx-std-251",
+    "_source": "std",
+    "_form": "Syringe"
   },
   {
     "pharmacy": "BoomRx",
@@ -6283,7 +4045,9 @@
     "category": "Hormone Therapy",
     "route": "Capsule",
     "cost": 1.2,
-    "id": "brx-std-252"
+    "id": "brx-std-252",
+    "_source": "std",
+    "_form": "Capsule"
   },
   {
     "pharmacy": "BoomRx",
@@ -6297,7 +4061,9 @@
     "category": "Hormone Therapy",
     "route": "Capsule",
     "cost": 1.2,
-    "id": "brx-std-253"
+    "id": "brx-std-253",
+    "_source": "std",
+    "_form": "Capsule"
   },
   {
     "pharmacy": "BoomRx",
@@ -6311,7 +4077,9 @@
     "category": "Hormone Therapy",
     "route": "Capsule",
     "cost": 1.2,
-    "id": "brx-std-254"
+    "id": "brx-std-254",
+    "_source": "std",
+    "_form": "Capsule"
   },
   {
     "pharmacy": "BoomRx",
@@ -6325,7 +4093,9 @@
     "category": "Hormone Therapy",
     "route": "Capsule",
     "cost": 1.2,
-    "id": "brx-std-255"
+    "id": "brx-std-255",
+    "_source": "std",
+    "_form": "Capsule"
   },
   {
     "pharmacy": "BoomRx",
@@ -6339,7 +4109,9 @@
     "category": "Hormone Therapy",
     "route": "Capsule",
     "cost": 1.2,
-    "id": "brx-std-256"
+    "id": "brx-std-256",
+    "_source": "std",
+    "_form": "Capsule"
   },
   {
     "pharmacy": "BoomRx",
@@ -6353,7 +4125,9 @@
     "category": "Hormone Therapy",
     "route": "Capsule",
     "cost": 1.2,
-    "id": "brx-std-257"
+    "id": "brx-std-257",
+    "_source": "std",
+    "_form": "Capsule"
   },
   {
     "pharmacy": "BoomRx",
@@ -6367,7 +4141,9 @@
     "category": "Hormone Therapy",
     "route": "Capsule",
     "cost": 1,
-    "id": "brx-std-258"
+    "id": "brx-std-258",
+    "_source": "std",
+    "_form": "Capsule"
   },
   {
     "pharmacy": "BoomRx",
@@ -6381,7 +4157,9 @@
     "category": "Sexual Health",
     "route": "Capsule",
     "cost": 0.9,
-    "id": "brx-std-259"
+    "id": "brx-std-259",
+    "_source": "std",
+    "_form": "Tablet"
   },
   {
     "pharmacy": "BoomRx",
@@ -6395,7 +4173,9 @@
     "category": "Sexual Health",
     "route": "Capsule",
     "cost": 1.75,
-    "id": "brx-std-260"
+    "id": "brx-std-260",
+    "_source": "std",
+    "_form": "Capsule"
   },
   {
     "pharmacy": "BoomRx",
@@ -6409,7 +4189,9 @@
     "category": "Sexual Health",
     "route": "Capsule",
     "cost": 1.75,
-    "id": "brx-std-261"
+    "id": "brx-std-261",
+    "_source": "std",
+    "_form": "Capsule"
   },
   {
     "pharmacy": "BoomRx",
@@ -6423,7 +4205,9 @@
     "category": "Sexual Health",
     "route": "Troche",
     "cost": 2,
-    "id": "brx-std-262"
+    "id": "brx-std-262",
+    "_source": "std",
+    "_form": "Troche"
   },
   {
     "pharmacy": "BoomRx",
@@ -6437,7 +4221,9 @@
     "category": "Hormone Therapy",
     "route": "Capsule",
     "cost": 1.5,
-    "id": "brx-std-263"
+    "id": "brx-std-263",
+    "_source": "std",
+    "_form": "Tablet"
   },
   {
     "pharmacy": "BoomRx",
@@ -6451,7 +4237,9 @@
     "category": "Hormone Therapy",
     "route": "Capsule",
     "cost": 2,
-    "id": "brx-std-264"
+    "id": "brx-std-264",
+    "_source": "std",
+    "_form": "Tablet"
   },
   {
     "pharmacy": "BoomRx",
@@ -6465,7 +4253,9 @@
     "category": "Wellness",
     "route": "Supplies",
     "cost": 0.35,
-    "id": "brx-std-265"
+    "id": "brx-std-265",
+    "_source": "std",
+    "_form": "Syringe"
   },
   {
     "pharmacy": "BoomRx",
@@ -6479,7 +4269,10 @@
     "category": "Peptide Therapy",
     "route": "Injectable",
     "cost": 80,
-    "id": "brx-std-266"
+    "id": "brx-std-266",
+    "_source": "std",
+    "_form": "Injectable",
+    "_hgPeptidePrice": true
   },
   {
     "pharmacy": "BoomRx",
@@ -6493,7 +4286,9 @@
     "category": "Hormone Therapy",
     "route": "Topical",
     "cost": 40,
-    "id": "brx-std-267"
+    "id": "brx-std-267",
+    "_source": "std",
+    "_form": "Cream"
   },
   {
     "pharmacy": "BoomRx",
@@ -6507,7 +4302,9 @@
     "category": "Hormone Therapy",
     "route": "Topical",
     "cost": 30,
-    "id": "brx-std-268"
+    "id": "brx-std-268",
+    "_source": "std",
+    "_form": "Cream"
   },
   {
     "pharmacy": "BoomRx",
@@ -6521,7 +4318,9 @@
     "category": "Hormone Therapy",
     "route": "Topical",
     "cost": 30,
-    "id": "brx-std-269"
+    "id": "brx-std-269",
+    "_source": "std",
+    "_form": "Cream"
   },
   {
     "pharmacy": "BoomRx",
@@ -6535,7 +4334,9 @@
     "category": "Hormone Therapy",
     "route": "Topical",
     "cost": 30,
-    "id": "brx-std-270"
+    "id": "brx-std-270",
+    "_source": "std",
+    "_form": "Cream"
   },
   {
     "pharmacy": "BoomRx",
@@ -6549,7 +4350,9 @@
     "category": "Hormone Therapy",
     "route": "Topical",
     "cost": 30,
-    "id": "brx-std-271"
+    "id": "brx-std-271",
+    "_source": "std",
+    "_form": "Cream"
   },
   {
     "pharmacy": "BoomRx",
@@ -6563,7 +4366,9 @@
     "category": "Hormone Therapy",
     "route": "Topical",
     "cost": 30,
-    "id": "brx-std-272"
+    "id": "brx-std-272",
+    "_source": "std",
+    "_form": "Cream"
   },
   {
     "pharmacy": "BoomRx",
@@ -6577,7 +4382,9 @@
     "category": "Hormone Therapy",
     "route": "Topical",
     "cost": 30,
-    "id": "brx-std-273"
+    "id": "brx-std-273",
+    "_source": "std",
+    "_form": "Cream"
   },
   {
     "pharmacy": "BoomRx",
@@ -6591,7 +4398,9 @@
     "category": "Hormone Therapy",
     "route": "Topical",
     "cost": 30,
-    "id": "brx-std-274"
+    "id": "brx-std-274",
+    "_source": "std",
+    "_form": "Cream"
   },
   {
     "pharmacy": "BoomRx",
@@ -6605,7 +4414,9 @@
     "category": "Hormone Therapy",
     "route": "Topical",
     "cost": 30,
-    "id": "brx-std-275"
+    "id": "brx-std-275",
+    "_source": "std",
+    "_form": "Cream"
   },
   {
     "pharmacy": "BoomRx",
@@ -6619,7 +4430,9 @@
     "category": "Hormone Therapy",
     "route": "Topical",
     "cost": 30,
-    "id": "brx-std-276"
+    "id": "brx-std-276",
+    "_source": "std",
+    "_form": "Cream"
   },
   {
     "pharmacy": "BoomRx",
@@ -6633,7 +4446,9 @@
     "category": "Hormone Therapy",
     "route": "Topical",
     "cost": 30,
-    "id": "brx-std-277"
+    "id": "brx-std-277",
+    "_source": "std",
+    "_form": "Cream"
   },
   {
     "pharmacy": "BoomRx",
@@ -6647,7 +4462,9 @@
     "category": "Hormone Therapy",
     "route": "Topical",
     "cost": 30,
-    "id": "brx-std-278"
+    "id": "brx-std-278",
+    "_source": "std",
+    "_form": "Cream"
   },
   {
     "pharmacy": "BoomRx",
@@ -6661,7 +4478,9 @@
     "category": "Hormone Therapy",
     "route": "Injectable",
     "cost": 70,
-    "id": "brx-std-279"
+    "id": "brx-std-279",
+    "_source": "std",
+    "_form": "Injectable"
   },
   {
     "pharmacy": "BoomRx",
@@ -6675,7 +4494,9 @@
     "category": "Hormone Therapy",
     "route": "Injectable",
     "cost": 17.5,
-    "id": "brx-std-280"
+    "id": "brx-std-280",
+    "_source": "std",
+    "_form": "Injectable"
   },
   {
     "pharmacy": "BoomRx",
@@ -6689,7 +4510,9 @@
     "category": "Hormone Therapy",
     "route": "Injectable",
     "cost": 17.5,
-    "id": "brx-std-281"
+    "id": "brx-std-281",
+    "_source": "std",
+    "_form": "Injectable"
   },
   {
     "pharmacy": "BoomRx",
@@ -6703,7 +4526,9 @@
     "category": "Hormone Therapy",
     "route": "Injectable",
     "cost": 17.5,
-    "id": "brx-std-282"
+    "id": "brx-std-282",
+    "_source": "std",
+    "_form": "Injectable"
   },
   {
     "pharmacy": "BoomRx",
@@ -6717,7 +4542,9 @@
     "category": "Hormone Therapy",
     "route": "Injectable",
     "cost": 17.5,
-    "id": "brx-std-283"
+    "id": "brx-std-283",
+    "_source": "std",
+    "_form": "Injectable"
   },
   {
     "pharmacy": "BoomRx",
@@ -6731,7 +4558,9 @@
     "category": "Hormone Therapy",
     "route": "Injectable",
     "cost": 17.5,
-    "id": "brx-std-284"
+    "id": "brx-std-284",
+    "_source": "std",
+    "_form": "Injectable"
   },
   {
     "pharmacy": "BoomRx",
@@ -6745,7 +4574,9 @@
     "category": "Hormone Therapy",
     "route": "Injectable",
     "cost": 17.5,
-    "id": "brx-std-285"
+    "id": "brx-std-285",
+    "_source": "std",
+    "_form": "Injectable"
   },
   {
     "pharmacy": "BoomRx",
@@ -6759,7 +4590,9 @@
     "category": "Hormone Therapy",
     "route": "Troche",
     "cost": 1.2,
-    "id": "brx-std-286"
+    "id": "brx-std-286",
+    "_source": "std",
+    "_form": "Troche"
   },
   {
     "pharmacy": "BoomRx",
@@ -6773,7 +4606,9 @@
     "category": "Hormone Therapy",
     "route": "Troche",
     "cost": 1.2,
-    "id": "brx-std-287"
+    "id": "brx-std-287",
+    "_source": "std",
+    "_form": "Troche"
   },
   {
     "pharmacy": "BoomRx",
@@ -6787,7 +4622,9 @@
     "category": "Hormone Therapy",
     "route": "Troche",
     "cost": 1.2,
-    "id": "brx-std-288"
+    "id": "brx-std-288",
+    "_source": "std",
+    "_form": "Troche"
   },
   {
     "pharmacy": "BoomRx",
@@ -6801,7 +4638,9 @@
     "category": "Hormone Therapy",
     "route": "Troche",
     "cost": 1.2,
-    "id": "brx-std-289"
+    "id": "brx-std-289",
+    "_source": "std",
+    "_form": "Troche"
   },
   {
     "pharmacy": "BoomRx",
@@ -6815,7 +4654,9 @@
     "category": "Hormone Therapy",
     "route": "Troche",
     "cost": 1.2,
-    "id": "brx-std-290"
+    "id": "brx-std-290",
+    "_source": "std",
+    "_form": "Troche"
   },
   {
     "pharmacy": "BoomRx",
@@ -6829,7 +4670,9 @@
     "category": "Hormone Therapy",
     "route": "Troche",
     "cost": 1.2,
-    "id": "brx-std-291"
+    "id": "brx-std-291",
+    "_source": "std",
+    "_form": "Troche"
   },
   {
     "pharmacy": "BoomRx",
@@ -6843,7 +4686,9 @@
     "category": "GLP-1 / Weight Loss",
     "route": "Capsule",
     "cost": 155,
-    "id": "brx-std-292"
+    "id": "brx-std-292",
+    "_source": "std",
+    "_form": "Oral Disintegrating Tablet"
   },
   {
     "pharmacy": "BoomRx",
@@ -6857,7 +4702,9 @@
     "category": "GLP-1 / Weight Loss",
     "route": "Capsule",
     "cost": 165,
-    "id": "brx-std-293"
+    "id": "brx-std-293",
+    "_source": "std",
+    "_form": "Oral Disintegrating Tablet"
   },
   {
     "pharmacy": "BoomRx",
@@ -6871,7 +4718,9 @@
     "category": "GLP-1 / Weight Loss",
     "route": "Capsule",
     "cost": 175,
-    "id": "brx-std-294"
+    "id": "brx-std-294",
+    "_source": "std",
+    "_form": "Oral Disintegrating Tablet"
   },
   {
     "pharmacy": "BoomRx",
@@ -6885,7 +4734,9 @@
     "category": "GLP-1 / Weight Loss",
     "route": "Capsule",
     "cost": 185,
-    "id": "brx-std-295"
+    "id": "brx-std-295",
+    "_source": "std",
+    "_form": "Oral Disintegrating Tablet"
   },
   {
     "pharmacy": "BoomRx",
@@ -6899,7 +4750,9 @@
     "category": "GLP-1 / Weight Loss",
     "route": "Capsule",
     "cost": 195,
-    "id": "brx-std-296"
+    "id": "brx-std-296",
+    "_source": "std",
+    "_form": "Oral Disintegrating Tablet"
   },
   {
     "pharmacy": "BoomRx",
@@ -6913,7 +4766,9 @@
     "category": "GLP-1 / Weight Loss",
     "route": "Capsule",
     "cost": 205,
-    "id": "brx-std-297"
+    "id": "brx-std-297",
+    "_source": "std",
+    "_form": "Oral Disintegrating Tablet"
   },
   {
     "pharmacy": "BoomRx",
@@ -6927,7 +4782,9 @@
     "category": "GLP-1 / Weight Loss",
     "route": "Capsule",
     "cost": 225,
-    "id": "brx-std-298"
+    "id": "brx-std-298",
+    "_source": "std",
+    "_form": "Oral Disintegrating Tablet"
   },
   {
     "pharmacy": "BoomRx",
@@ -6941,7 +4798,9 @@
     "category": "GLP-1 / Weight Loss",
     "route": "Capsule",
     "cost": 145,
-    "id": "brx-std-299"
+    "id": "brx-std-299",
+    "_source": "std",
+    "_form": "Oral Disintegrating Tablet"
   },
   {
     "pharmacy": "BoomRx",
@@ -6955,7 +4814,9 @@
     "category": "GLP-1 / Weight Loss",
     "route": "Injectable",
     "cost": 190,
-    "id": "brx-std-300"
+    "id": "brx-std-300",
+    "_source": "std",
+    "_form": "Injectable"
   },
   {
     "pharmacy": "BoomRx",
@@ -6969,7 +4830,9 @@
     "category": "GLP-1 / Weight Loss",
     "route": "Injectable",
     "cost": 100,
-    "id": "brx-std-301"
+    "id": "brx-std-301",
+    "_source": "std",
+    "_form": "Injectable"
   },
   {
     "pharmacy": "BoomRx",
@@ -6983,7 +4846,9 @@
     "category": "GLP-1 / Weight Loss",
     "route": "Injectable",
     "cost": 137,
-    "id": "brx-std-302"
+    "id": "brx-std-302",
+    "_source": "std",
+    "_form": "Injectable"
   },
   {
     "pharmacy": "BoomRx",
@@ -6997,7 +4862,9 @@
     "category": "GLP-1 / Weight Loss",
     "route": "Injectable",
     "cost": 170,
-    "id": "brx-std-303"
+    "id": "brx-std-303",
+    "_source": "std",
+    "_form": "Injectable"
   },
   {
     "pharmacy": "BoomRx",
@@ -7011,7 +4878,9 @@
     "category": "GLP-1 / Weight Loss",
     "route": "Injectable",
     "cost": 70,
-    "id": "brx-std-304"
+    "id": "brx-std-304",
+    "_source": "std",
+    "_form": "Injectable"
   },
   {
     "pharmacy": "BoomRx",
@@ -7025,7 +4894,9 @@
     "category": "GLP-1 / Weight Loss",
     "route": "Injectable",
     "cost": 140,
-    "id": "brx-std-305"
+    "id": "brx-std-305",
+    "_source": "std",
+    "_form": "Injectable"
   },
   {
     "pharmacy": "BoomRx",
@@ -7039,7 +4910,9 @@
     "category": "GLP-1 / Weight Loss",
     "route": "Injectable",
     "cost": 180,
-    "id": "brx-std-306"
+    "id": "brx-std-306",
+    "_source": "std",
+    "_form": "Injectable"
   },
   {
     "pharmacy": "BoomRx",
@@ -7053,7 +4926,9 @@
     "category": "GLP-1 / Weight Loss",
     "route": "Injectable",
     "cost": 120,
-    "id": "brx-std-307"
+    "id": "brx-std-307",
+    "_source": "std",
+    "_form": "Injectable"
   },
   {
     "pharmacy": "BoomRx",
@@ -7067,7 +4942,9 @@
     "category": "Wellness",
     "route": "Supplies",
     "cost": 4,
-    "id": "brx-std-308"
+    "id": "brx-std-308",
+    "_source": "std",
+    "_form": "Syringe"
   },
   {
     "pharmacy": "BoomRx",
@@ -7081,7 +4958,9 @@
     "category": "Wellness",
     "route": "Capsule",
     "cost": 1,
-    "id": "brx-std-309"
+    "id": "brx-std-309",
+    "_source": "std",
+    "_form": "Tab"
   },
   {
     "pharmacy": "BoomRx",
@@ -7095,7 +4974,9 @@
     "category": "Wellness",
     "route": "Capsule",
     "cost": 1,
-    "id": "brx-std-310"
+    "id": "brx-std-310",
+    "_source": "std",
+    "_form": "Tab"
   },
   {
     "pharmacy": "BoomRx",
@@ -7109,7 +4990,9 @@
     "category": "Hair Loss",
     "route": "Topical",
     "cost": 60,
-    "id": "brx-std-311"
+    "id": "brx-std-311",
+    "_source": "std",
+    "_form": "Cream"
   },
   {
     "pharmacy": "BoomRx",
@@ -7123,7 +5006,9 @@
     "category": "Hair Loss",
     "route": "Topical",
     "cost": 40,
-    "id": "brx-std-312"
+    "id": "brx-std-312",
+    "_source": "std",
+    "_form": "Gel"
   },
   {
     "pharmacy": "BoomRx",
@@ -7137,7 +5022,9 @@
     "category": "Hair Loss",
     "route": "Topical",
     "cost": 60,
-    "id": "brx-std-313"
+    "id": "brx-std-313",
+    "_source": "std",
+    "_form": "Gel"
   },
   {
     "pharmacy": "BoomRx",
@@ -7151,7 +5038,9 @@
     "category": "Hair Loss",
     "route": "Topical",
     "cost": 40,
-    "id": "brx-std-314"
+    "id": "brx-std-314",
+    "_source": "std",
+    "_form": "Cream"
   },
   {
     "pharmacy": "BoomRx",
@@ -7165,7 +5054,9 @@
     "category": "Hair Loss",
     "route": "Topical",
     "cost": 40,
-    "id": "brx-std-315"
+    "id": "brx-std-315",
+    "_source": "std",
+    "_form": "Cream"
   },
   {
     "pharmacy": "BoomRx",
@@ -7179,7 +5070,9 @@
     "category": "Hair Loss",
     "route": "Topical",
     "cost": 60,
-    "id": "brx-std-316"
+    "id": "brx-std-316",
+    "_source": "std",
+    "_form": "Cream"
   },
   {
     "pharmacy": "BoomRx",
@@ -7193,7 +5086,9 @@
     "category": "Hair Loss",
     "route": "Topical",
     "cost": 60,
-    "id": "brx-std-317"
+    "id": "brx-std-317",
+    "_source": "std",
+    "_form": "Cream"
   },
   {
     "pharmacy": "BoomRx",
@@ -7207,7 +5102,9 @@
     "category": "Sexual Health",
     "route": "Capsule",
     "cost": 1.4,
-    "id": "brx-std-318"
+    "id": "brx-std-318",
+    "_source": "std",
+    "_form": "Capsule"
   },
   {
     "pharmacy": "BoomRx",
@@ -7221,7 +5118,9 @@
     "category": "Wellness",
     "route": "Capsule",
     "cost": 0.5,
-    "id": "brx-std-319"
+    "id": "brx-std-319",
+    "_source": "std",
+    "_form": "Capsule"
   },
   {
     "pharmacy": "BoomRx",
@@ -7235,7 +5134,9 @@
     "category": "Wellness",
     "route": "Capsule",
     "cost": 0.5,
-    "id": "brx-std-320"
+    "id": "brx-std-320",
+    "_source": "std",
+    "_form": "Capsule"
   },
   {
     "pharmacy": "BoomRx",
@@ -7249,7 +5150,9 @@
     "category": "Wellness",
     "route": "Capsule",
     "cost": 0.6,
-    "id": "brx-std-321"
+    "id": "brx-std-321",
+    "_source": "std",
+    "_form": "Capsule"
   },
   {
     "pharmacy": "BoomRx",
@@ -7263,7 +5166,9 @@
     "category": "Hormone Therapy",
     "route": "Injectable",
     "cost": 410,
-    "id": "brx-std-322"
+    "id": "brx-std-322",
+    "_source": "std",
+    "_form": "Injectable"
   },
   {
     "pharmacy": "BoomRx",
@@ -7277,7 +5182,9 @@
     "category": "Hair Loss",
     "route": "Topical",
     "cost": 100,
-    "id": "brx-std-323"
+    "id": "brx-std-323",
+    "_source": "std",
+    "_form": "Cream"
   },
   {
     "pharmacy": "BoomRx",
@@ -7291,7 +5198,9 @@
     "category": "Hair Loss",
     "route": "Topical",
     "cost": 100,
-    "id": "brx-std-324"
+    "id": "brx-std-324",
+    "_source": "std",
+    "_form": "Cream"
   },
   {
     "pharmacy": "BoomRx",
@@ -7305,7 +5214,9 @@
     "category": "Sexual Health",
     "route": "Topical",
     "cost": 100,
-    "id": "brx-std-325"
+    "id": "brx-std-325",
+    "_source": "std",
+    "_form": "Cream"
   },
   {
     "pharmacy": "BoomRx",
@@ -7319,7 +5230,9 @@
     "category": "Hair Loss",
     "route": "Topical",
     "cost": 100,
-    "id": "brx-std-326"
+    "id": "brx-std-326",
+    "_source": "std",
+    "_form": "Cream"
   },
   {
     "pharmacy": "BoomRx",
@@ -7333,7 +5246,9 @@
     "category": "Hair Loss",
     "route": "Topical",
     "cost": 100,
-    "id": "brx-std-329"
+    "id": "brx-std-329",
+    "_source": "std",
+    "_form": "Cream"
   },
   {
     "pharmacy": "BoomRx",
@@ -7347,7 +5262,9 @@
     "category": "Hair Loss",
     "route": "Topical",
     "cost": 100,
-    "id": "brx-std-330"
+    "id": "brx-std-330",
+    "_source": "std",
+    "_form": "Cream"
   },
   {
     "pharmacy": "BoomRx",
@@ -7361,7 +5278,9 @@
     "category": "Wellness",
     "route": "Injectable",
     "cost": 30,
-    "id": "brx-std-331"
+    "id": "brx-std-331",
+    "_source": "std",
+    "_form": "Injectable"
   },
   {
     "pharmacy": "BoomRx",
@@ -7375,7 +5294,9 @@
     "category": "Wellness",
     "route": "Injectable",
     "cost": 90,
-    "id": "brx-std-332"
+    "id": "brx-std-332",
+    "_source": "std",
+    "_form": "Injectable"
   },
   {
     "pharmacy": "BoomRx",
@@ -7389,7 +5310,9 @@
     "category": "Hair Loss",
     "route": "Topical",
     "cost": 100,
-    "id": "brx-std-333"
+    "id": "brx-std-333",
+    "_source": "std",
+    "_form": "Cream"
   },
   {
     "pharmacy": "BoomRx",
@@ -7403,7 +5326,9 @@
     "category": "GLP-1 / Weight Loss",
     "route": "Injectable",
     "cost": 55,
-    "id": "brx-std-334"
+    "id": "brx-std-334",
+    "_source": "std",
+    "_form": "Injectable"
   },
   {
     "pharmacy": "BoomRx",
@@ -7417,7 +5342,9 @@
     "category": "GLP-1 / Weight Loss",
     "route": "Injectable",
     "cost": 70,
-    "id": "brx-std-335"
+    "id": "brx-std-335",
+    "_source": "std",
+    "_form": "Injectable"
   },
   {
     "pharmacy": "BoomRx",
@@ -7431,7 +5358,9 @@
     "category": "GLP-1 / Weight Loss",
     "route": "Injectable",
     "cost": 90,
-    "id": "brx-std-336"
+    "id": "brx-std-336",
+    "_source": "std",
+    "_form": "Injectable"
   },
   {
     "pharmacy": "BoomRx",
@@ -7445,7 +5374,9 @@
     "category": "GLP-1 / Weight Loss",
     "route": "Injectable",
     "cost": 105,
-    "id": "brx-std-337"
+    "id": "brx-std-337",
+    "_source": "std",
+    "_form": "Injectable"
   },
   {
     "pharmacy": "BoomRx",
@@ -7459,7 +5390,9 @@
     "category": "GLP-1 / Weight Loss",
     "route": "Injectable",
     "cost": 40,
-    "id": "brx-std-338"
+    "id": "brx-std-338",
+    "_source": "std",
+    "_form": "Injectable"
   },
   {
     "pharmacy": "BoomRx",
@@ -7473,7 +5406,9 @@
     "category": "GLP-1 / Weight Loss",
     "route": "Injectable",
     "cost": 105,
-    "id": "brx-std-339"
+    "id": "brx-std-339",
+    "_source": "std",
+    "_form": "Injectable"
   },
   {
     "pharmacy": "BoomRx",
@@ -7487,7 +5422,9 @@
     "category": "GLP-1 / Weight Loss",
     "route": "Injectable",
     "cost": 135,
-    "id": "brx-std-340"
+    "id": "brx-std-340",
+    "_source": "std",
+    "_form": "Injectable"
   },
   {
     "pharmacy": "BoomRx",
@@ -7501,7 +5438,9 @@
     "category": "Hormone Therapy",
     "route": "Injectable",
     "cost": 90,
-    "id": "brx-std-341"
+    "id": "brx-std-341",
+    "_source": "std",
+    "_form": "Injectable"
   },
   {
     "pharmacy": "BoomRx",
@@ -7515,7 +5454,9 @@
     "category": "GLP-1 / Weight Loss",
     "route": "Injectable",
     "cost": 100,
-    "id": "brx-std-342"
+    "id": "brx-std-342",
+    "_source": "std",
+    "_form": "Injectable"
   },
   {
     "pharmacy": "BoomRx",
@@ -7529,7 +5470,9 @@
     "category": "GLP-1 / Weight Loss",
     "route": "Injectable",
     "cost": 150,
-    "id": "brx-std-343"
+    "id": "brx-std-343",
+    "_source": "std",
+    "_form": "Injectable"
   },
   {
     "pharmacy": "BoomRx",
@@ -7543,7 +5486,9 @@
     "category": "GLP-1 / Weight Loss",
     "route": "Injectable",
     "cost": 135,
-    "id": "brx-std-344"
+    "id": "brx-std-344",
+    "_source": "std",
+    "_form": "Injectable"
   },
   {
     "pharmacy": "BoomRx",
@@ -7557,7 +5502,9 @@
     "category": "GLP-1 / Weight Loss",
     "route": "Injectable",
     "cost": 100,
-    "id": "brx-std-345"
+    "id": "brx-std-345",
+    "_source": "std",
+    "_form": "Injectable"
   },
   {
     "pharmacy": "BoomRx",
@@ -7571,7 +5518,9 @@
     "category": "GLP-1 / Weight Loss",
     "route": "Injectable",
     "cost": 75,
-    "id": "brx-std-346"
+    "id": "brx-std-346",
+    "_source": "std",
+    "_form": "Injectable"
   },
   {
     "pharmacy": "BoomRx",
@@ -7585,7 +5534,9 @@
     "category": "GLP-1 / Weight Loss",
     "route": "Injectable",
     "cost": 150,
-    "id": "brx-std-347"
+    "id": "brx-std-347",
+    "_source": "std",
+    "_form": "Injectable"
   },
   {
     "pharmacy": "BoomRx",
@@ -7599,7 +5550,9 @@
     "category": "GLP-1 / Weight Loss",
     "route": "Injectable",
     "cost": 185,
-    "id": "brx-std-348"
+    "id": "brx-std-348",
+    "_source": "std",
+    "_form": "Injectable"
   },
   {
     "pharmacy": "BoomRx",
@@ -7613,7 +5566,9 @@
     "category": "GLP-1 / Weight Loss",
     "route": "Injectable",
     "cost": 100,
-    "id": "brx-std-349"
+    "id": "brx-std-349",
+    "_source": "std",
+    "_form": "Injectable"
   },
   {
     "pharmacy": "BoomRx",
@@ -7627,7 +5582,9 @@
     "category": "GLP-1 / Weight Loss",
     "route": "Injectable",
     "cost": 185,
-    "id": "brx-std-350"
+    "id": "brx-std-350",
+    "_source": "std",
+    "_form": "Injectable"
   },
   {
     "pharmacy": "BoomRx",
@@ -7641,7 +5598,9 @@
     "category": "Hair Loss",
     "route": "Topical",
     "cost": 100,
-    "id": "brx-std-351"
+    "id": "brx-std-351",
+    "_source": "std",
+    "_form": "Cream"
   },
   {
     "pharmacy": "BoomRx",
@@ -7655,7 +5614,10 @@
     "category": "Peptide Therapy",
     "route": "Injectable",
     "cost": 70,
-    "id": "brx-std-352"
+    "id": "brx-std-352",
+    "_source": "std",
+    "_form": "Injectable",
+    "_hgPeptidePrice": true
   },
   {
     "pharmacy": "BoomRx",
@@ -7669,7 +5631,10 @@
     "category": "Peptide Therapy",
     "route": "Injectable",
     "cost": 80,
-    "id": "brx-std-353"
+    "id": "brx-std-353",
+    "_source": "std",
+    "_form": "Injectable",
+    "_hgPeptidePrice": true
   },
   {
     "pharmacy": "BoomRx",
@@ -7683,7 +5648,10 @@
     "category": "Peptide Therapy",
     "route": "Injectable",
     "cost": 80,
-    "id": "brx-std-354"
+    "id": "brx-std-354",
+    "_source": "std",
+    "_form": "Injectable",
+    "_hgPeptidePrice": true
   },
   {
     "pharmacy": "BoomRx",
@@ -7697,7 +5665,10 @@
     "category": "Peptide Therapy",
     "route": "Injectable",
     "cost": 80,
-    "id": "brx-std-355"
+    "id": "brx-std-355",
+    "_source": "std",
+    "_form": "Injectable",
+    "_hgPeptidePrice": true
   },
   {
     "pharmacy": "BoomRx",
@@ -7711,7 +5682,10 @@
     "category": "Peptide Therapy",
     "route": "Injectable",
     "cost": 80,
-    "id": "brx-std-356"
+    "id": "brx-std-356",
+    "_source": "std",
+    "_form": "Injectable",
+    "_hgPeptidePrice": true
   },
   {
     "pharmacy": "BoomRx",
@@ -7725,7 +5699,9 @@
     "category": "Peptide Therapy",
     "route": "Injectable",
     "cost": 150,
-    "id": "brx-std-357"
+    "id": "brx-std-357",
+    "_source": "std",
+    "_form": "Injectable"
   },
   {
     "pharmacy": "BoomRx",
@@ -7739,7 +5715,10 @@
     "category": "Peptide Therapy",
     "route": "Injectable",
     "cost": 70,
-    "id": "brx-std-358"
+    "id": "brx-std-358",
+    "_source": "std",
+    "_form": "Injectable",
+    "_hgPeptidePrice": true
   },
   {
     "pharmacy": "BoomRx",
@@ -7753,7 +5732,10 @@
     "category": "Peptide Therapy",
     "route": "Injectable",
     "cost": 70,
-    "id": "brx-std-359"
+    "id": "brx-std-359",
+    "_source": "std",
+    "_form": "Injectable",
+    "_hgPeptidePrice": true
   },
   {
     "pharmacy": "BoomRx",
@@ -7767,7 +5749,10 @@
     "category": "Peptide Therapy",
     "route": "Injectable",
     "cost": 70,
-    "id": "brx-std-360"
+    "id": "brx-std-360",
+    "_source": "std",
+    "_form": "Injectable",
+    "_hgPeptidePrice": true
   },
   {
     "pharmacy": "BoomRx",
@@ -7781,7 +5766,10 @@
     "category": "Peptide Therapy",
     "route": "Injectable",
     "cost": 80,
-    "id": "brx-std-361"
+    "id": "brx-std-361",
+    "_source": "std",
+    "_form": "Injectable",
+    "_hgPeptidePrice": true
   },
   {
     "pharmacy": "BoomRx",
@@ -7795,7 +5783,10 @@
     "category": "Peptide Therapy",
     "route": "Injectable",
     "cost": 70,
-    "id": "brx-std-362"
+    "id": "brx-std-362",
+    "_source": "std",
+    "_form": "Injectable",
+    "_hgPeptidePrice": true
   },
   {
     "pharmacy": "BoomRx",
@@ -7809,7 +5800,9 @@
     "category": "Peptide Therapy",
     "route": "Injectable",
     "cost": 120,
-    "id": "brx-std-363"
+    "id": "brx-std-363",
+    "_source": "std",
+    "_form": "Injectable"
   },
   {
     "pharmacy": "BoomRx",
@@ -7823,7 +5816,10 @@
     "category": "Peptide Therapy",
     "route": "Injectable",
     "cost": 70,
-    "id": "brx-std-364"
+    "id": "brx-std-364",
+    "_source": "std",
+    "_form": "Injectable",
+    "_hgPeptidePrice": true
   },
   {
     "pharmacy": "BoomRx",
@@ -7837,7 +5833,10 @@
     "category": "Peptide Therapy",
     "route": "Injectable",
     "cost": 80,
-    "id": "brx-std-365"
+    "id": "brx-std-365",
+    "_source": "std",
+    "_form": "Injectable",
+    "_hgPeptidePrice": true
   },
   {
     "pharmacy": "BoomRx",
@@ -7851,7 +5850,10 @@
     "category": "Peptide Therapy",
     "route": "Injectable",
     "cost": 70,
-    "id": "brx-std-366"
+    "id": "brx-std-366",
+    "_source": "std",
+    "_form": "Injectable",
+    "_hgPeptidePrice": true
   },
   {
     "pharmacy": "BoomRx",
@@ -7865,7 +5867,9 @@
     "category": "GLP-1 / Weight Loss",
     "route": "Injectable",
     "cost": 100,
-    "id": "brx-std-367"
+    "id": "brx-std-367",
+    "_source": "std",
+    "_form": "Injectable"
   },
   {
     "pharmacy": "BoomRx",
@@ -7879,7 +5883,9 @@
     "category": "GLP-1 / Weight Loss",
     "route": "Injectable",
     "cost": 135,
-    "id": "brx-std-368"
+    "id": "brx-std-368",
+    "_source": "std",
+    "_form": "Injectable"
   },
   {
     "pharmacy": "BoomRx",
@@ -7893,7 +5899,9 @@
     "category": "GLP-1 / Weight Loss",
     "route": "Injectable",
     "cost": 170,
-    "id": "brx-std-369"
+    "id": "brx-std-369",
+    "_source": "std",
+    "_form": "Injectable"
   },
   {
     "pharmacy": "BoomRx",
@@ -7907,7 +5915,9 @@
     "category": "GLP-1 / Weight Loss",
     "route": "Injectable",
     "cost": 150,
-    "id": "brx-std-370"
+    "id": "brx-std-370",
+    "_source": "std",
+    "_form": "Injectable"
   },
   {
     "pharmacy": "BoomRx",
@@ -7921,7 +5931,9 @@
     "category": "GLP-1 / Weight Loss",
     "route": "Injectable",
     "cost": 75,
-    "id": "brx-std-371"
+    "id": "brx-std-371",
+    "_source": "std",
+    "_form": "Injectable"
   },
   {
     "pharmacy": "BoomRx",
@@ -7935,7 +5947,9 @@
     "category": "GLP-1 / Weight Loss",
     "route": "Injectable",
     "cost": 185,
-    "id": "brx-std-372"
+    "id": "brx-std-372",
+    "_source": "std",
+    "_form": "Injectable"
   },
   {
     "pharmacy": "BoomRx",
@@ -7949,7 +5963,9 @@
     "category": "Hormone Therapy",
     "route": "Capsule",
     "cost": 1,
-    "id": "brx-std-373"
+    "id": "brx-std-373",
+    "_source": "std",
+    "_form": "Capsule"
   },
   {
     "pharmacy": "BoomRx",
@@ -7963,7 +5979,9 @@
     "category": "Hormone Therapy",
     "route": "Capsule",
     "cost": 1,
-    "id": "brx-std-374"
+    "id": "brx-std-374",
+    "_source": "std",
+    "_form": "Capsule"
   },
   {
     "pharmacy": "BoomRx",
@@ -7977,7 +5995,10 @@
     "category": "Peptide Therapy",
     "route": "Injectable",
     "cost": 70,
-    "id": "brx-std-375"
+    "id": "brx-std-375",
+    "_source": "std",
+    "_form": "Injectable",
+    "_hgPeptidePrice": true
   },
   {
     "pharmacy": "BoomRx",
@@ -7991,7 +6012,9 @@
     "category": "Hormone Therapy",
     "route": "Capsule",
     "cost": 1,
-    "id": "brx-std-376"
+    "id": "brx-std-376",
+    "_source": "std",
+    "_form": "Capsule"
   },
   {
     "pharmacy": "BoomRx",
@@ -8005,7 +6028,9 @@
     "category": "Hormone Therapy",
     "route": "Capsule",
     "cost": 1,
-    "id": "brx-std-377"
+    "id": "brx-std-377",
+    "_source": "std",
+    "_form": "Capsule"
   },
   {
     "pharmacy": "BoomRx",
@@ -8019,7 +6044,9 @@
     "category": "Hormone Therapy",
     "route": "Capsule",
     "cost": 1,
-    "id": "brx-std-378"
+    "id": "brx-std-378",
+    "_source": "std",
+    "_form": "Capsule"
   },
   {
     "pharmacy": "BoomRx",
@@ -8033,7 +6060,9 @@
     "category": "Hormone Therapy",
     "route": "Capsule",
     "cost": 1,
-    "id": "brx-std-379"
+    "id": "brx-std-379",
+    "_source": "std",
+    "_form": "Capsule"
   },
   {
     "pharmacy": "BoomRx",
@@ -8047,7 +6076,9 @@
     "category": "Hormone Therapy",
     "route": "Capsule",
     "cost": 1,
-    "id": "brx-std-380"
+    "id": "brx-std-380",
+    "_source": "std",
+    "_form": "Capsule"
   },
   {
     "pharmacy": "BoomRx",
@@ -8061,7 +6092,9 @@
     "category": "Hormone Therapy",
     "route": "Capsule",
     "cost": 1,
-    "id": "brx-std-381"
+    "id": "brx-std-381",
+    "_source": "std",
+    "_form": "Capsule"
   },
   {
     "pharmacy": "BoomRx",
@@ -8075,7 +6108,9 @@
     "category": "Hormone Therapy",
     "route": "Capsule",
     "cost": 1,
-    "id": "brx-std-382"
+    "id": "brx-std-382",
+    "_source": "std",
+    "_form": "Capsule"
   },
   {
     "pharmacy": "BoomRx",
@@ -8089,7 +6124,9 @@
     "category": "Sexual Health",
     "route": "Troche",
     "cost": 1,
-    "id": "brx-std-383"
+    "id": "brx-std-383",
+    "_source": "std",
+    "_form": "Troche"
   },
   {
     "pharmacy": "BoomRx",
@@ -8103,7 +6140,9 @@
     "category": "Wellness",
     "route": "Injectable",
     "cost": 35,
-    "id": "brx-std-384"
+    "id": "brx-std-384",
+    "_source": "std",
+    "_form": "Injectable"
   },
   {
     "pharmacy": "BoomRx",
@@ -8117,7 +6156,9 @@
     "category": "Hormone Therapy",
     "route": "Injectable",
     "cost": 50,
-    "id": "brx-std-386"
+    "id": "brx-std-386",
+    "_source": "std",
+    "_form": "Injectable"
   },
   {
     "pharmacy": "BoomRx",
@@ -8131,7 +6172,9 @@
     "category": "Wellness",
     "route": "Injectable",
     "cost": 35,
-    "id": "brx-std-388"
+    "id": "brx-std-388",
+    "_source": "std",
+    "_form": "Injectable"
   },
   {
     "pharmacy": "BoomRx",
@@ -8145,7 +6188,9 @@
     "category": "Wellness",
     "route": "Injectable",
     "cost": 70,
-    "id": "brx-std-389"
+    "id": "brx-std-389",
+    "_source": "std",
+    "_form": "Injectable"
   },
   {
     "pharmacy": "BoomRx",
@@ -8159,7 +6204,9 @@
     "category": "Wellness",
     "route": "Injectable",
     "cost": 30,
-    "id": "brx-std-390"
+    "id": "brx-std-390",
+    "_source": "std",
+    "_form": "Injectable"
   },
   {
     "pharmacy": "BoomRx",
@@ -8173,7 +6220,9 @@
     "category": "Wellness",
     "route": "Injectable",
     "cost": 23,
-    "id": "brx-std-391"
+    "id": "brx-std-391",
+    "_source": "std",
+    "_form": "Injectable"
   },
   {
     "pharmacy": "BoomRx",
@@ -8187,7 +6236,9 @@
     "category": "Wellness",
     "route": "Injectable",
     "cost": 60,
-    "id": "brx-std-392"
+    "id": "brx-std-392",
+    "_source": "std",
+    "_form": "Injectable"
   },
   {
     "pharmacy": "BoomRx",
@@ -8201,7 +6252,9 @@
     "category": "Hormone Therapy",
     "route": "Injectable",
     "cost": 50,
-    "id": "brx-std-393"
+    "id": "brx-std-393",
+    "_source": "std",
+    "_form": "Injectable"
   },
   {
     "pharmacy": "BoomRx",
@@ -8215,7 +6268,9 @@
     "category": "Hormone Therapy",
     "route": "Injectable",
     "cost": 50,
-    "id": "brx-std-394"
+    "id": "brx-std-394",
+    "_source": "std",
+    "_form": "Injectable"
   },
   {
     "pharmacy": "BoomRx",
@@ -8229,7 +6284,9 @@
     "category": "Hormone Therapy",
     "route": "Injectable",
     "cost": 180,
-    "id": "brx-std-395"
+    "id": "brx-std-395",
+    "_source": "std",
+    "_form": "Injectable"
   },
   {
     "pharmacy": "BoomRx",
@@ -8243,7 +6300,9 @@
     "category": "Sexual Health",
     "route": "Injectable",
     "cost": 120,
-    "id": "brx-std-396"
+    "id": "brx-std-396",
+    "_source": "std",
+    "_form": "injectable"
   },
   {
     "pharmacy": "BoomRx",
@@ -8257,7 +6316,9 @@
     "category": "GLP-1 / Weight Loss",
     "route": "Injectable",
     "cost": 50,
-    "id": "brx-std-397"
+    "id": "brx-std-397",
+    "_source": "std",
+    "_form": "Injectable"
   },
   {
     "pharmacy": "BoomRx",
@@ -8271,7 +6332,9 @@
     "category": "GLP-1 / Weight Loss",
     "route": "Injectable",
     "cost": 60,
-    "id": "brx-std-398"
+    "id": "brx-std-398",
+    "_source": "std",
+    "_form": "Injectable"
   },
   {
     "pharmacy": "BoomRx",
@@ -8285,7 +6348,9 @@
     "category": "GLP-1 / Weight Loss",
     "route": "Injectable",
     "cost": 90,
-    "id": "brx-std-399"
+    "id": "brx-std-399",
+    "_source": "std",
+    "_form": "Injectable"
   },
   {
     "pharmacy": "BoomRx",
@@ -8299,7 +6364,9 @@
     "category": "GLP-1 / Weight Loss",
     "route": "Injectable",
     "cost": 140,
-    "id": "brx-std-400"
+    "id": "brx-std-400",
+    "_source": "std",
+    "_form": "Injectable"
   },
   {
     "pharmacy": "BoomRx",
@@ -8313,7 +6380,9 @@
     "category": "Peptide Therapy",
     "route": "Injectable",
     "cost": 60,
-    "id": "brx-std-401"
+    "id": "brx-std-401",
+    "_source": "std",
+    "_form": "Injectable"
   },
   {
     "pharmacy": "BoomRx",
@@ -8327,7 +6396,9 @@
     "category": "Hormone Therapy",
     "route": "Injectable",
     "cost": 25,
-    "id": "brx-std-402"
+    "id": "brx-std-402",
+    "_source": "std",
+    "_form": "Injectable"
   },
   {
     "pharmacy": "BoomRx",
@@ -8341,7 +6412,9 @@
     "category": "Hormone Therapy",
     "route": "Injectable",
     "cost": 25,
-    "id": "brx-std-404"
+    "id": "brx-std-404",
+    "_source": "std",
+    "_form": "Injectable"
   },
   {
     "pharmacy": "BoomRx",
@@ -8355,7 +6428,9 @@
     "category": "Hormone Therapy",
     "route": "Injectable",
     "cost": 25,
-    "id": "brx-std-405"
+    "id": "brx-std-405",
+    "_source": "std",
+    "_form": "Injectable"
   },
   {
     "pharmacy": "BoomRx",
@@ -8369,7 +6444,9 @@
     "category": "GLP-1 / Weight Loss",
     "route": "Injectable",
     "cost": 100,
-    "id": "brx-std-406"
+    "id": "brx-std-406",
+    "_source": "std",
+    "_form": "Injectable"
   },
   {
     "pharmacy": "BoomRx",
@@ -8383,7 +6460,9 @@
     "category": "GLP-1 / Weight Loss",
     "route": "Injectable",
     "cost": 75,
-    "id": "brx-std-407"
+    "id": "brx-std-407",
+    "_source": "std",
+    "_form": "Injectable"
   },
   {
     "pharmacy": "BoomRx",
@@ -8397,7 +6476,9 @@
     "category": "GLP-1 / Weight Loss",
     "route": "Injectable",
     "cost": 185,
-    "id": "brx-std-408"
+    "id": "brx-std-408",
+    "_source": "std",
+    "_form": "Injectable"
   },
   {
     "pharmacy": "BoomRx",
@@ -8411,7 +6492,9 @@
     "category": "GLP-1 / Weight Loss",
     "route": "Injectable",
     "cost": 150,
-    "id": "brx-std-409"
+    "id": "brx-std-409",
+    "_source": "std",
+    "_form": "Injectable"
   },
   {
     "pharmacy": "BoomRx",
@@ -8425,7 +6508,9 @@
     "category": "Wellness",
     "route": "Injectable",
     "cost": 20,
-    "id": "brx-std-410"
+    "id": "brx-std-410",
+    "_source": "std",
+    "_form": "Injectable"
   },
   {
     "pharmacy": "BoomRx",
@@ -8439,7 +6524,9 @@
     "category": "Wellness",
     "route": "Injectable",
     "cost": 25,
-    "id": "brx-std-411"
+    "id": "brx-std-411",
+    "_source": "std",
+    "_form": "Injectable"
   },
   {
     "pharmacy": "BoomRx",
@@ -8453,7 +6540,9 @@
     "category": "Wellness",
     "route": "Injectable",
     "cost": 55,
-    "id": "brx-std-412"
+    "id": "brx-std-412",
+    "_source": "std",
+    "_form": "Injectable"
   },
   {
     "pharmacy": "BoomRx",
@@ -8467,7 +6556,9 @@
     "category": "Hormone Therapy",
     "route": "Injectable",
     "cost": 80,
-    "id": "brx-std-413"
+    "id": "brx-std-413",
+    "_source": "std",
+    "_form": "Injectable"
   },
   {
     "pharmacy": "BoomRx",
@@ -8481,7 +6572,9 @@
     "category": "Hormone Therapy",
     "route": "Injectable",
     "cost": 26,
-    "id": "brx-std-414"
+    "id": "brx-std-414",
+    "_source": "std",
+    "_form": "Injectable"
   },
   {
     "pharmacy": "BoomRx",
@@ -8495,7 +6588,9 @@
     "category": "Hormone Therapy",
     "route": "Injectable",
     "cost": 60,
-    "id": "brx-std-415"
+    "id": "brx-std-415",
+    "_source": "std",
+    "_form": "Injectable"
   },
   {
     "pharmacy": "BoomRx",
@@ -8509,7 +6604,9 @@
     "category": "Wellness",
     "route": "Injectable",
     "cost": 25,
-    "id": "brx-std-416"
+    "id": "brx-std-416",
+    "_source": "std",
+    "_form": "Injectable"
   },
   {
     "pharmacy": "BoomRx",
@@ -8523,7 +6620,9 @@
     "category": "GLP-1 / Weight Loss",
     "route": "Injectable",
     "cost": 23,
-    "id": "brx-std-417"
+    "id": "brx-std-417",
+    "_source": "std",
+    "_form": "Injectable"
   },
   {
     "pharmacy": "BoomRx",
@@ -8537,7 +6636,10 @@
     "category": "Peptide Therapy",
     "route": "Injectable",
     "cost": 60,
-    "id": "brx-std-418"
+    "id": "brx-std-418",
+    "_source": "std",
+    "_form": "Injectable",
+    "_hgPeptidePrice": true
   },
   {
     "pharmacy": "BoomRx",
@@ -8551,7 +6653,9 @@
     "category": "Peptide Therapy",
     "route": "Injectable",
     "cost": 90,
-    "id": "brx-std-419"
+    "id": "brx-std-419",
+    "_source": "std",
+    "_form": "Injectable"
   },
   {
     "pharmacy": "BoomRx",
@@ -8565,7 +6669,10 @@
     "category": "Peptide Therapy",
     "route": "Injectable",
     "cost": 55,
-    "id": "brx-std-420"
+    "id": "brx-std-420",
+    "_source": "std",
+    "_form": "Injectable",
+    "_hgPeptidePrice": true
   },
   {
     "pharmacy": "BoomRx",
@@ -8579,7 +6686,9 @@
     "category": "Peptide Therapy",
     "route": "Injectable",
     "cost": 60,
-    "id": "brx-std-421"
+    "id": "brx-std-421",
+    "_source": "std",
+    "_form": "Injectable"
   },
   {
     "pharmacy": "BoomRx",
@@ -8593,7 +6702,9 @@
     "category": "Peptide Therapy",
     "route": "Injectable",
     "cost": 35,
-    "id": "brx-std-422"
+    "id": "brx-std-422",
+    "_source": "std",
+    "_form": "Injectable"
   },
   {
     "pharmacy": "BoomRx",
@@ -8607,7 +6718,9 @@
     "category": "Peptide Therapy",
     "route": "Injectable",
     "cost": 90,
-    "id": "brx-std-423"
+    "id": "brx-std-423",
+    "_source": "std",
+    "_form": "Injectable"
   },
   {
     "pharmacy": "BoomRx",
@@ -8621,7 +6734,9 @@
     "category": "Peptide Therapy",
     "route": "Injectable",
     "cost": 65,
-    "id": "brx-std-424"
+    "id": "brx-std-424",
+    "_source": "std",
+    "_form": "Injectable"
   },
   {
     "pharmacy": "BoomRx",
@@ -8635,7 +6750,9 @@
     "category": "Peptide Therapy",
     "route": "Injectable",
     "cost": 67,
-    "id": "brx-std-425"
+    "id": "brx-std-425",
+    "_source": "std",
+    "_form": "Injectable"
   },
   {
     "pharmacy": "BoomRx",
@@ -8649,7 +6766,9 @@
     "category": "Peptide Therapy",
     "route": "Injectable",
     "cost": 65,
-    "id": "brx-std-426"
+    "id": "brx-std-426",
+    "_source": "std",
+    "_form": "Injectable"
   },
   {
     "pharmacy": "BoomRx",
@@ -8663,7 +6782,9 @@
     "category": "Peptide Therapy",
     "route": "Injectable",
     "cost": 70,
-    "id": "brx-std-427"
+    "id": "brx-std-427",
+    "_source": "std",
+    "_form": "Injectable"
   },
   {
     "pharmacy": "BoomRx",
@@ -8677,7 +6798,10 @@
     "category": "Peptide Therapy",
     "route": "Injectable",
     "cost": 80,
-    "id": "brx-std-428"
+    "id": "brx-std-428",
+    "_source": "std",
+    "_form": "Injectable",
+    "_hgPeptidePrice": true
   },
   {
     "pharmacy": "BoomRx",
@@ -8691,7 +6815,10 @@
     "category": "Peptide Therapy",
     "route": "Injectable",
     "cost": 70,
-    "id": "brx-std-429"
+    "id": "brx-std-429",
+    "_source": "std",
+    "_form": "Injectable",
+    "_hgPeptidePrice": true
   },
   {
     "pharmacy": "BoomRx",
@@ -8705,7 +6832,10 @@
     "category": "Peptide Therapy",
     "route": "Injectable",
     "cost": 80,
-    "id": "brx-std-430"
+    "id": "brx-std-430",
+    "_source": "std",
+    "_form": "Injectable",
+    "_hgPeptidePrice": true
   },
   {
     "pharmacy": "BoomRx",
@@ -8719,7 +6849,10 @@
     "category": "Peptide Therapy",
     "route": "Injectable",
     "cost": 80,
-    "id": "brx-std-431"
+    "id": "brx-std-431",
+    "_source": "std",
+    "_form": "Injectable",
+    "_hgPeptidePrice": true
   },
   {
     "pharmacy": "BoomRx",
@@ -8733,7 +6866,9 @@
     "category": "Wellness",
     "route": "Injectable",
     "cost": 40,
-    "id": "brx-std-432"
+    "id": "brx-std-432",
+    "_source": "std",
+    "_form": "Injectable"
   },
   {
     "pharmacy": "BoomRx",
@@ -8747,7 +6882,9 @@
     "category": "Peptide Therapy",
     "route": "Injectable",
     "cost": 50,
-    "id": "brx-std-433"
+    "id": "brx-std-433",
+    "_source": "std",
+    "_form": "Injectable"
   },
   {
     "pharmacy": "BoomRx",
@@ -8761,7 +6898,10 @@
     "category": "Peptide Therapy",
     "route": "Injectable",
     "cost": 70,
-    "id": "brx-std-434"
+    "id": "brx-std-434",
+    "_source": "std",
+    "_form": "Injectable",
+    "_hgPeptidePrice": true
   },
   {
     "pharmacy": "BoomRx",
@@ -8775,7 +6915,10 @@
     "category": "Wellness",
     "route": "Injectable",
     "cost": 70,
-    "id": "brx-std-435"
+    "id": "brx-std-435",
+    "_source": "std",
+    "_form": "Injectable",
+    "_hgPeptidePrice": true
   },
   {
     "pharmacy": "BoomRx",
@@ -8789,7 +6932,10 @@
     "category": "Peptide Therapy",
     "route": "Injectable",
     "cost": 70,
-    "id": "brx-std-436"
+    "id": "brx-std-436",
+    "_source": "std",
+    "_form": "Injectable",
+    "_hgPeptidePrice": true
   },
   {
     "pharmacy": "BoomRx",
@@ -8803,7 +6949,10 @@
     "category": "Peptide Therapy",
     "route": "Injectable",
     "cost": 70,
-    "id": "brx-std-437"
+    "id": "brx-std-437",
+    "_source": "std",
+    "_form": "Injectable",
+    "_hgPeptidePrice": true
   },
   {
     "pharmacy": "BoomRx",
@@ -8817,7 +6966,9 @@
     "category": "Wellness",
     "route": "Injectable",
     "cost": 90,
-    "id": "brx-std-438"
+    "id": "brx-std-438",
+    "_source": "std",
+    "_form": "Injectable"
   },
   {
     "pharmacy": "BoomRx",
@@ -8831,7 +6982,10 @@
     "category": "Peptide Therapy",
     "route": "Injectable",
     "cost": 80,
-    "id": "brx-std-439"
+    "id": "brx-std-439",
+    "_source": "std",
+    "_form": "Injectable",
+    "_hgPeptidePrice": true
   },
   {
     "pharmacy": "BoomRx",
@@ -8845,7 +6999,9 @@
     "category": "GLP-1 / Weight Loss",
     "route": "Injectable",
     "cost": 60,
-    "id": "brx-std-440"
+    "id": "brx-std-440",
+    "_source": "std",
+    "_form": "Injectable"
   },
   {
     "pharmacy": "BoomRx",
@@ -8859,7 +7015,9 @@
     "category": "GLP-1 / Weight Loss",
     "route": "Injectable",
     "cost": 55,
-    "id": "brx-std-441"
+    "id": "brx-std-441",
+    "_source": "std",
+    "_form": "Injectable"
   },
   {
     "pharmacy": "BoomRx",
@@ -8873,7 +7031,9 @@
     "category": "GLP-1 / Weight Loss",
     "route": "Injectable",
     "cost": 60,
-    "id": "brx-std-442"
+    "id": "brx-std-442",
+    "_source": "std",
+    "_form": "Injectable"
   },
   {
     "pharmacy": "BoomRx",
@@ -8887,7 +7047,9 @@
     "category": "GLP-1 / Weight Loss",
     "route": "Injectable",
     "cost": 40,
-    "id": "brx-std-443"
+    "id": "brx-std-443",
+    "_source": "std",
+    "_form": "Injectable"
   },
   {
     "pharmacy": "BoomRx",
@@ -8901,7 +7063,9 @@
     "category": "GLP-1 / Weight Loss",
     "route": "Injectable",
     "cost": 105,
-    "id": "brx-std-444"
+    "id": "brx-std-444",
+    "_source": "std",
+    "_form": "Injectable"
   },
   {
     "pharmacy": "BoomRx",
@@ -8915,7 +7079,10 @@
     "category": "Peptide Therapy",
     "route": "Injectable",
     "cost": 80,
-    "id": "brx-std-445"
+    "id": "brx-std-445",
+    "_source": "std",
+    "_form": "Injectable",
+    "_hgPeptidePrice": true
   },
   {
     "pharmacy": "BoomRx",
@@ -8929,7 +7096,9 @@
     "category": "Wellness",
     "route": "Injectable",
     "cost": 90,
-    "id": "brx-std-446"
+    "id": "brx-std-446",
+    "_source": "std",
+    "_form": "Injectable"
   },
   {
     "pharmacy": "BoomRx",
@@ -8943,7 +7112,10 @@
     "category": "Peptide Therapy",
     "route": "Injectable",
     "cost": 70,
-    "id": "brx-std-447"
+    "id": "brx-std-447",
+    "_source": "std",
+    "_form": "Injectable",
+    "_hgPeptidePrice": true
   },
   {
     "pharmacy": "BoomRx",
@@ -8957,7 +7129,10 @@
     "category": "Peptide Therapy",
     "route": "Injectable",
     "cost": 70,
-    "id": "brx-std-448"
+    "id": "brx-std-448",
+    "_source": "std",
+    "_form": "Injectable",
+    "_hgPeptidePrice": true
   },
   {
     "pharmacy": "BoomRx",
@@ -8971,7 +7146,9 @@
     "category": "GLP-1 / Weight Loss",
     "route": "Injectable",
     "cost": 100,
-    "id": "brx-std-449"
+    "id": "brx-std-449",
+    "_source": "std",
+    "_form": "Injectable"
   },
   {
     "pharmacy": "BoomRx",
@@ -8985,7 +7162,9 @@
     "category": "GLP-1 / Weight Loss",
     "route": "Injectable",
     "cost": 75,
-    "id": "brx-std-450"
+    "id": "brx-std-450",
+    "_source": "std",
+    "_form": "Injectable"
   },
   {
     "pharmacy": "BoomRx",
@@ -8999,7 +7178,9 @@
     "category": "GLP-1 / Weight Loss",
     "route": "Injectable",
     "cost": 185,
-    "id": "brx-std-451"
+    "id": "brx-std-451",
+    "_source": "std",
+    "_form": "Injectable"
   },
   {
     "pharmacy": "BoomRx",
@@ -9013,7 +7194,9 @@
     "category": "GLP-1 / Weight Loss",
     "route": "Injectable",
     "cost": 170,
-    "id": "brx-std-452"
+    "id": "brx-std-452",
+    "_source": "std",
+    "_form": "Injectable"
   },
   {
     "pharmacy": "BoomRx",
@@ -9027,7 +7210,9 @@
     "category": "GLP-1 / Weight Loss",
     "route": "Injectable",
     "cost": 150,
-    "id": "brx-std-453"
+    "id": "brx-std-453",
+    "_source": "std",
+    "_form": "Injectable"
   },
   {
     "pharmacy": "BoomRx",
@@ -9041,20 +7226,8 @@
     "category": "GLP-1 / Weight Loss",
     "route": "Injectable",
     "cost": 135,
-    "id": "brx-std-454"
-  },
-  {
-    "pharmacy": "BoomRx",
-    "sku": null,
-    "name": "GLOW (BPC-157 / TB-500 / GHK-Cu)",
-    "size": "5 mL Vial",
-    "conc": "3mg / 3mg / 10 mg/mL; 5 mL Vial",
-    "budDays": null,
-    "controlled": false,
-    "coldShip": true,
-    "category": "Peptide Therapy",
-    "route": "Injectable",
-    "cost": 80,
-    "id": "brx-pep-32"
+    "id": "brx-std-454",
+    "_source": "std",
+    "_form": "Injectable"
   }
 ]

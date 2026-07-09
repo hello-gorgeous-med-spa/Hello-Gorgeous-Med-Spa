@@ -236,7 +236,7 @@ const nextConfig = {
   ],
   rewrites: async () => [],
   redirects: async () => [
-    { source: "/regen-tv", destination: "/regen-tv.html", permanent: false },
+    { source: "/staff/pharmacy-selector.html", destination: "/staff/pharmacy-catalog", permanent: false },
     { source: "/rx/dermatology", destination: "/rx/hair-skin", permanent: true },
     { source: "/sitemap.website.xml", destination: "/sitemap.xml", permanent: true },
     { source: "/hydrafacial-oswego-il", destination: "/facials-oswego", permanent: true },
