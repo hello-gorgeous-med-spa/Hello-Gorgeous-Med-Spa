@@ -4,7 +4,7 @@
  *
  * Vercel: `NEXT_PUBLIC_SQUARE_BOOKING_URL` (preferred) or `NEXT_PUBLIC_BOOKING_URL`.
  * Legacy: `NEXT_PUBLIC_FRESHA_BOOKING_URL` still accepted if Square URL unset.
- * `/book` merges UTM params then redirects to the active booking provider.
+ * `/book` merges UTM params then redirects to Square Appointments (`BOOKING_URL`).
  */
 /**
  * Square Online Booking — Hello Gorgeous Oswego start URL

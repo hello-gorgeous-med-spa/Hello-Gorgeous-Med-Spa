@@ -1,11 +1,17 @@
 // ============================================================
-// Public booking — /book embeds Square Appointments widget
+// Public booking — /book → Square Appointments start URL (merges UTM / ad click IDs)
 // ============================================================
 
 import type { Metadata } from "next";
+import { redirect } from "next/navigation";
 
-import { SquareBookPageContent } from "@/components/booking/SquareBookPageContent";
-import { pageMetadata, SITE, siteJsonLd, breadcrumbJsonLd } from "@/lib/seo";
+import { mergeBookRedirectUrl } from "@/lib/booking/merge-fresha-redirect-url";
+import { BOOKING_URL } from "@/lib/flows";
+import { pageMetadata } from "@/lib/seo";
+
+type Props = {
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+};
 
 export const metadata: Metadata = {
   ...pageMetadata({
@@ -21,23 +27,10 @@ export const metadata: Metadata = {
   },
 };
 
-export default function BookPage() {
-  const breadcrumb = breadcrumbJsonLd([
-    { name: "Home", url: SITE.url },
-    { name: "Book", url: `${SITE.url}/book` },
-  ]);
+export default async function BookPage({ searchParams }: Props) {
+  const sp = await searchParams;
+  const forwarded: Record<string, string | string[] | undefined> = { ...sp };
+  delete forwarded["service"];
 
-  return (
-    <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(siteJsonLd()) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumb) }}
-      />
-      <SquareBookPageContent />
-    </>
-  );
+  redirect(mergeBookRedirectUrl(BOOKING_URL, forwarded));
 }
