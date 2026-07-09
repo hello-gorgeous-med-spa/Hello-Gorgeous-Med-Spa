@@ -167,6 +167,9 @@ export default function RxPage() {
             <a href="/rx/hormones">Hormone therapy — TRT and HRT</a>
           </li>
           <li>
+            <a href="/rx/catalog">Shop the full RE GEN catalog</a>
+          </li>
+          <li>
             <a href="/rx/request">Start your RE GEN intake</a>
           </li>
         </ul>

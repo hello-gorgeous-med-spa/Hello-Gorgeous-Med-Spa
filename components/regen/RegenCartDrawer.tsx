@@ -1,11 +1,14 @@
 "use client";
 
+import { usePathname } from "next/navigation";
 import { useState } from "react";
 import Image from "next/image";
 
 import { useCart } from "@/lib/regen/cart-context";
+import { formatCatalogMoney } from "@/components/regen/catalog/CatalogProductCard";
 
 export function RegenCartDrawer() {
+  const pathname = usePathname();
   const {
     items,
     isOpen,
@@ -16,13 +19,27 @@ export function RegenCartDrawer() {
     subtotal,
     shipping,
     total,
+    subscribe,
+    refillWeeks,
+    toggleSubscribe,
+    setRefillWeeks,
+    hasCatalogItems,
   } = useCart();
 
   const [isCheckingOut, setIsCheckingOut] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  const catalogMode =
+    hasCatalogItems || (pathname?.startsWith("/rx/catalog") ?? false);
+
   const handleCheckout = async () => {
     if (items.length === 0) return;
+
+    if (catalogMode) {
+      closeCart();
+      window.dispatchEvent(new CustomEvent("regen-catalog-checkout"));
+      return;
+    }
 
     setIsCheckingOut(true);
     setError(null);
@@ -59,21 +76,25 @@ export function RegenCartDrawer() {
 
   return (
     <>
-      {/* Backdrop */}
       <div
         className="fixed inset-0 z-40 bg-black/50 transition-opacity"
         onClick={closeCart}
       />
 
-      {/* Drawer */}
-      <div className="fixed right-0 top-0 z-50 flex h-full w-full max-w-md flex-col bg-white shadow-xl">
-        {/* Header */}
-        <div className="flex items-center justify-between border-b border-neutral-200 px-6 py-4">
-          <h2 className="text-lg font-semibold text-neutral-900">Your cart</h2>
+      <div
+        className={`fixed right-0 top-0 z-50 flex h-full w-full flex-col bg-white shadow-xl ${
+          catalogMode ? "max-w-[460px]" : "max-w-md"
+        }`}
+      >
+        <div className="flex items-center justify-between border-b border-black/10 px-6 py-4">
+          <h2 className="font-serif text-lg font-extrabold text-[#0a0a0a]">
+            {catalogMode ? "Your order" : "Your cart"}
+          </h2>
           <button
             type="button"
             onClick={closeCart}
-            className="rounded-lg p-2 text-neutral-500 hover:bg-neutral-100"
+            className="rounded-lg p-2 text-black/50 hover:bg-black/5"
+            aria-label="Close cart"
           >
             <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -81,46 +102,56 @@ export function RegenCartDrawer() {
           </button>
         </div>
 
-        {/* Items */}
         <div className="flex-1 overflow-y-auto p-6">
           {items.length === 0 ? (
             <div className="flex flex-col items-center justify-center py-12 text-center">
-              <svg className="h-12 w-12 text-neutral-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="h-12 w-12 text-black/20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
               </svg>
-              <p className="mt-4 text-neutral-600">Your cart is empty.</p>
-              <p className="mt-1 text-sm text-neutral-500">Add a treatment to get started.</p>
+              <p className="mt-4 text-black/70">Your cart is empty.</p>
+              <p className="mt-1 text-sm text-black/50">
+                {catalogMode ? "Browse treatments to get started." : "Add a treatment to get started."}
+              </p>
             </div>
           ) : (
             <ul className="space-y-4">
               {items.map((item) => (
                 <li
                   key={item.id}
-                  className="flex gap-4 rounded-xl border border-neutral-200 bg-neutral-50 p-4"
+                  className="flex gap-4 rounded-xl border border-black/10 bg-[#FFF9FB] p-4"
                 >
                   {item.image && (
-                    <div className="relative h-16 w-16 shrink-0 rounded-lg bg-white">
+                    <div className="relative h-16 w-16 shrink-0 rounded-lg bg-[#0a0a0a]">
                       <Image
                         src={item.image}
                         alt={item.name}
                         fill
-                        className="object-contain p-1"
+                        className="object-cover"
                       />
                     </div>
                   )}
                   <div className="flex-1">
-                    <h3 className="font-medium text-neutral-900">
+                    <h3 className="font-bold text-[#0a0a0a]">
                       {item.name}
-                      {item.rx && <sup className="ml-1 text-xs text-neutral-400">Rx</sup>}
+                      {item.rx && <sup className="ml-1 text-xs text-black/40">Rx</sup>}
                     </h3>
-                    <p className="text-sm text-neutral-600">
-                      ${item.priceUsd.toFixed(2)}
-                    </p>
+                    {catalogMode && item.variantLabel && (
+                      <p className="text-xs text-black/55">
+                        {item.variantLabel} ·{" "}
+                        {item.supplyDays === 90 ? "90-day" : "30-day"} supply ·{" "}
+                        {formatCatalogMoney(item.priceUsd)}
+                      </p>
+                    )}
+                    {!catalogMode && (
+                      <p className="text-sm text-black/60">
+                        ${item.priceUsd.toFixed(2)}
+                      </p>
+                    )}
                     <div className="mt-2 flex items-center gap-3">
                       <button
                         type="button"
                         onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                        className="flex h-7 w-7 items-center justify-center rounded border border-neutral-300 text-neutral-600 hover:bg-neutral-100"
+                        className="flex h-7 w-7 items-center justify-center rounded border border-black/15 text-black/60 hover:bg-white"
                       >
                         –
                       </button>
@@ -128,58 +159,121 @@ export function RegenCartDrawer() {
                       <button
                         type="button"
                         onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                        className="flex h-7 w-7 items-center justify-center rounded border border-neutral-300 text-neutral-600 hover:bg-neutral-100"
+                        className="flex h-7 w-7 items-center justify-center rounded border border-black/15 text-black/60 hover:bg-white"
                       >
                         +
                       </button>
                       <button
                         type="button"
                         onClick={() => removeItem(item.id)}
-                        className="ml-auto text-xs text-neutral-500 hover:text-red-600"
+                        className="ml-auto text-xs text-black/45 hover:text-[#E6007E]"
                       >
                         Remove
                       </button>
                     </div>
+                    {catalogMode && (
+                      <p className="mt-2 font-serif text-lg font-extrabold text-[#FF2D8E]">
+                        {formatCatalogMoney(item.priceUsd * item.quantity)}
+                      </p>
+                    )}
                   </div>
                 </li>
               ))}
             </ul>
           )}
+
+          {catalogMode && items.length > 0 && (
+            <div className="mt-6 rounded-2xl bg-[#FFF0F7] p-4">
+              <div className="flex items-center justify-between gap-3">
+                <div>
+                  <p className="text-sm font-bold text-[#0a0a0a]">Auto-refill & save 10%</p>
+                  <p className="text-xs text-black/55">Provider confirms eligibility at review.</p>
+                </div>
+                <button
+                  type="button"
+                  onClick={toggleSubscribe}
+                  className={`relative h-7 w-12 shrink-0 rounded-full transition ${
+                    subscribe ? "bg-[#16a34a]" : "bg-black/20"
+                  }`}
+                  aria-pressed={subscribe}
+                >
+                  <span
+                    className={`absolute top-1 h-5 w-5 rounded-full bg-white transition ${
+                      subscribe ? "left-[23px]" : "left-[3px]"
+                    }`}
+                  />
+                </button>
+              </div>
+              {subscribe && (
+                <div className="mt-3 flex flex-wrap gap-2">
+                  {([4, 8, 12] as const).map((w) => (
+                    <button
+                      key={w}
+                      type="button"
+                      onClick={() => setRefillWeeks(w)}
+                      className={`rounded-full px-3 py-1.5 text-xs font-bold ${
+                        refillWeeks === w
+                          ? "border-2 border-[#FF2D8E] bg-white text-[#0a0a0a]"
+                          : "border border-black/15 bg-white/80 text-black/55"
+                      }`}
+                    >
+                      Every {w} wks
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
         </div>
 
-        {/* Footer */}
         {items.length > 0 && (
-          <div className="border-t border-neutral-200 p-6">
+          <div className="border-t border-black/10 p-6">
             <div className="space-y-2 text-sm">
               <div className="flex justify-between">
-                <span className="text-neutral-600">Subtotal</span>
-                <span className="font-medium">${subtotal.toFixed(2)}</span>
+                <span className="text-black/60">Subtotal</span>
+                <span className="font-medium">
+                  {catalogMode ? formatCatalogMoney(subtotal) : `$${subtotal.toFixed(2)}`}
+                </span>
               </div>
               <div className="flex justify-between">
-                <span className="text-neutral-600">Shipping</span>
-                <span className="font-medium">${shipping.toFixed(2)}</span>
+                <span className="text-black/60">
+                  {catalogMode ? "Shipping (flat, Illinois)" : "Shipping"}
+                </span>
+                <span className="font-medium">
+                  {catalogMode ? formatCatalogMoney(shipping) : `$${shipping.toFixed(2)}`}
+                </span>
               </div>
-              <div className="flex justify-between border-t border-neutral-200 pt-2 text-base">
-                <span className="font-semibold">Total</span>
-                <span className="font-bold">${total.toFixed(2)}</span>
+              <div className="flex justify-between border-t border-black/10 pt-2">
+                <span className="font-semibold">Total today</span>
+                <span className="font-serif text-[26px] font-extrabold text-[#FF2D8E]">
+                  {catalogMode ? formatCatalogMoney(total) : `$${total.toFixed(2)}`}
+                </span>
               </div>
             </div>
 
-            {error && (
-              <p className="mt-3 text-sm text-red-600">{error}</p>
-            )}
+            {error && <p className="mt-3 text-sm text-red-600">{error}</p>}
 
             <button
               type="button"
               onClick={handleCheckout}
               disabled={isCheckingOut}
-              className="mt-4 w-full rounded-lg bg-[#E6007E] py-3.5 text-sm font-semibold text-white transition hover:bg-[#FF2D8E] disabled:cursor-not-allowed disabled:opacity-50"
+              className={`mt-4 w-full rounded-full py-3.5 text-sm font-bold text-white transition disabled:cursor-not-allowed disabled:opacity-50 ${
+                catalogMode
+                  ? "bg-[#0a0a0a] hover:bg-[#FF2D8E]"
+                  : "bg-[#E6007E] hover:bg-[#FF2D8E]"
+              }`}
             >
-              {isCheckingOut ? "Redirecting to checkout..." : "Checkout"}
+              {isCheckingOut
+                ? "Redirecting…"
+                : catalogMode
+                  ? "Checkout & start intake →"
+                  : "Checkout"}
             </button>
 
-            <p className="mt-3 text-center text-xs text-neutral-500">
-              A provider must review your intake before any prescription ships.
+            <p className="mt-3 text-center text-xs text-black/50">
+              {catalogMode
+                ? "Ryan Kent, FNP-BC reviews every order. Full refund if not approved."
+                : "A provider must review your intake before any prescription ships."}
             </p>
           </div>
         )}

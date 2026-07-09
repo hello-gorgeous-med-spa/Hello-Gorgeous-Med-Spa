@@ -22,6 +22,6 @@ export const ILLINOIS_EXCELLENCE = {
 export const CONVERSION_HIERARCHY = {
   primary: PRIMARY_BOOKING_CTA,
   secondary: SECONDARY_PATIENT_ACTIONS,
-  rxCatalog: { label: "Browse RX catalog", href: "/rx/request" as const },
+  rxCatalog: { label: "Browse RX catalog", href: "/rx/catalog" as const },
   exploreCare: { label: "Explore care", href: "/explore-care" as const },
 } as const;

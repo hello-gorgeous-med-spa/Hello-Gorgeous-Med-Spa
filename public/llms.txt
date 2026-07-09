@@ -19,7 +19,8 @@
 - Brand: RE GEN — Renew. Rebalance. Regenerate.
 - Tagline: Gorgeous, delivered.
 - Primary URL: https://www.hellogorgeousmedspa.com/rx
-- Request portal (goal + form-factor catalog): https://www.hellogorgeousmedspa.com/rx/request
+- Shoppable RE GEN catalog (~195 products): https://www.hellogorgeousmedspa.com/rx/catalog
+- Request portal (goal + form-factor intake): https://www.hellogorgeousmedspa.com/rx/request
 - Patient care / refills: https://www.hellogorgeousmedspa.com/rx/care
 - Patient brochure (share link): https://www.hellogorgeousmedspa.com/rx/brochure
 - Category hubs:
