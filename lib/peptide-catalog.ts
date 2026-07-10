@@ -113,7 +113,7 @@ export const PEPTIDE_CATALOG: PeptideCatalogEntry[] = [
       "Synergistic GH secretagogue stack — enhanced GH/IGF-1 with selective release and minimal side-effect profile for recovery and lean mass.",
     commonUses: ["Recovery", "Body composition", "Sleep"],
     prepayEligible: true,
-    learnMoreHref: peptideTopicHref("cjc-1295"),
+    learnMoreHref: peptideTopicHref("cjc-1295-ipamorelin"),
     thumbnailSlug: "cjc-1295",
   }),
   catalogEntry({

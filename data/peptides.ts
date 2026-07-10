@@ -11,6 +11,7 @@ export type PeptideCategory =
 export type PeptideContentCard = { category: string; title: string; bullets: string[] };
 export type PeptideCallout = { title: string; body: string };
 export type PeptideExpectationRow = { claim: string; honest: string };
+export type PeptideFaq = { question: string; answer: string };
 
 export interface PeptideTopic {
   slug: string;
@@ -32,6 +33,7 @@ export interface PeptideTopic {
   duo?: { title: string; body: string }[];
   callouts?: PeptideCallout[];
   expectationsTable?: PeptideExpectationRow[];
+  faqs?: PeptideFaq[];
   handoutFilename?: string;
 }
 
@@ -1641,6 +1643,198 @@ export const PEPTIDE_TOPICS: PeptideTopic[] = [
       },
     ],
     handoutFilename: "tesamorelin-and-gh-support.html",
+  },
+  {
+    slug: "cjc-1295-ipamorelin",
+    name: "CJC-1295 / Ipamorelin",
+    tagline:
+      "The GH peptide stack for sleep, recovery & body composition — Hello Gorgeous RX™ · Oswego & Fox Valley",
+    category: "Hormone Support",
+    tier: "prescription",
+    accent: "#3b82f6",
+    published: true,
+    order: 3,
+    series: "Hello Gorgeous · Wellness Science Series",
+    metaTitle:
+      "CJC-1295 & Ipamorelin Peptide Therapy Oswego IL | Hello Gorgeous Med Spa",
+    metaDescription:
+      "Medically supervised CJC-1295 / Ipamorelin stack in Oswego, IL — serving Naperville, Aurora, Plainfield & Fox Valley. NP-led GH peptide education, RE GEN catalog & consult.",
+    pills: [
+      "#CJC1295",
+      "#Ipamorelin",
+      "#GrowthHormone",
+      "#SleepRecovery",
+      "#PrescriptionOnly",
+    ],
+    intro:
+      "Two peptides that work on different parts of the same growth-hormone axis — often run together as the most-requested GH stack in our clinic. CJC-1295 amplifies the GHRH signal; ipamorelin triggers a selective GH pulse through a separate receptor. Here's what that means, what the research explores, and why it's an NP conversation — not a DIY protocol.",
+    hero: {
+      title: "Two pathways, one naturalistic pulse",
+      body:
+        "CJC-1295 is a long-acting growth-hormone-releasing hormone (GHRH) analog — it mimics the upstream signal from your hypothalamus. Ipamorelin is a growth hormone secretagogue (GHRP) that acts on the ghrelin receptor at the pituitary for a selective GH release. Used together under medical supervision, they aim to support your body's own overnight GH rhythm rather than replacing hormone from the outside. Both are prescription peptides from licensed compounding pharmacies — not FDA-approved as finished retail products.",
+      stats: [
+        {
+          value: "GHRH + GHRP",
+          label: "Complementary mechanisms — often stacked for a stronger, more natural pulse",
+        },
+        {
+          value: "℞ only",
+          label: "Ryan Kent, FNP-BC · Hello Gorgeous RX™ · Oswego, IL",
+        },
+      ],
+    },
+    cardsHeading: "Where the research is pointing",
+    cards: [
+      {
+        category: "Discussed for",
+        title: "Sleep & recovery",
+        bullets: [
+          "Much of GH release happens during deep sleep",
+          "Often dosed at bedtime to match the natural cycle",
+          "Recovery from training may track with sleep gains",
+        ],
+      },
+      {
+        category: "Discussed for",
+        title: "Lean body composition",
+        bullets: [
+          "Gradual shift toward lean mass over months",
+          "Works alongside training & protein intake",
+          "Individual outcomes vary — no guarantees",
+        ],
+      },
+      {
+        category: "Discussed for",
+        title: "Energy & well-being",
+        bullets: [
+          "Explored when GH axis declines with age",
+          "Human evidence still building",
+          "Supportive tool, not a cure-all",
+        ],
+      },
+      {
+        category: "Discussed for",
+        title: "Selective GH pulse",
+        bullets: [
+          "Ipamorelin often chosen for selectivity in research",
+          "Minimal cortisol/prolactin shifts vs older GHRPs",
+          "Feedback loops stay intact vs direct HGH",
+        ],
+      },
+    ],
+    duo: [
+      {
+        title: "CJC-1295 — the GHRH analog",
+        body:
+          "CJC-1295 mimics growth hormone-releasing hormone, the upstream signal that asks the pituitary to release growth hormone in pulses. The longer-acting profile (including a DAC variant in some protocols) is why clinicians often pair it with a GHRP rather than using sermorelin alone when a stronger combined signal is the goal.",
+      },
+      {
+        title: "Ipamorelin — the selective secretagogue",
+        body:
+          "Ipamorelin triggers a GH pulse through the ghrelin receptor — a separate pathway from GHRH. Published reports often describe it as more selective than older GHRPs, with minimal effect on cortisol or prolactin. It's commonly dosed near bedtime because that's when your body naturally releases the most growth hormone.",
+      },
+      {
+        title: "Why the pair is run together",
+        body:
+          "CJC-1295 turns up the GHRH signal while ipamorelin opens a second release pathway. Research and clinical practice suggest the combination can produce a stronger, more naturalistic GH pulse than either peptide alone — while keeping the body's feedback loops intact, unlike direct HGH replacement.",
+      },
+      {
+        title: "CJC / ipamorelin vs sermorelin vs direct HGH",
+        body:
+          "Sermorelin is often the gentler GHRH entry point. The CJC / ipamorelin stack is usually the next step when sleep, recovery, and body-composition goals need a stronger combined signal. Direct HGH adds hormone from the outside and bypasses pituitary regulation — a different risk profile and clinical decision entirely. We walk through which lane fits at your consult.",
+      },
+    ],
+    callouts: [
+      {
+        title: "Honest timelines",
+        body:
+          "Many clients notice sleep-quality shifts in the first few weeks. Body composition and vitality changes typically take two to three months or longer and are evaluated cycle by cycle. We don't promise specific results — individual response varies.",
+      },
+      {
+        title: "Not FDA-approved as finished products",
+        body:
+          "Neither CJC-1295 nor ipamorelin is FDA approved as a finished drug product for general wellness use. Both are dispensed through licensed compounding pharmacies under medical supervision after evaluation. We discuss regulatory status openly at every consult.",
+      },
+      {
+        title: "How we think about it at Hello Gorgeous",
+        body:
+          "Our Oswego team — including Ryan Kent, FNP-BC — starts with goals, history, and labs when indicated. If a GH peptide belongs in the picture, we match the right stack (sermorelin, tesamorelin / ipamorelin, or CJC / ipamorelin) to your situation. Browse the full RE GEN catalog or book a consult to begin.",
+      },
+    ],
+    expectationsTable: [
+      {
+        claim: "Better sleep & morning energy",
+        honest:
+          "Often the first thing clients explore — gradual, individual, and paired with sleep hygiene. Many protocols dose at bedtime.",
+      },
+      {
+        claim: "Body composition support",
+        honest:
+          "Lean-mass and fat-metabolism conversations over months — never overnight. Training and nutrition still matter most.",
+      },
+      {
+        claim: "Your own growth hormone",
+        honest:
+          "Prompts natural pulsatile release rather than adding HGH from outside — preserving feedback loops when clinically appropriate.",
+      },
+      {
+        claim: "The \"miracle stack\"",
+        honest:
+          "Active area of clinical interest, not magic. We frame it as a potentially supportive tool with honest evidence limits.",
+      },
+      {
+        claim: "NP-led monitoring",
+        honest:
+          "Screening, prescription, pharmacy sourcing, and follow-up — part of Hello Gorgeous RX™, not a gray-market protocol.",
+      },
+    ],
+    faqs: [
+      {
+        question: "What are CJC-1295 and ipamorelin?",
+        answer:
+          "CJC-1295 is a GHRH analog that amplifies the upstream signal for growth hormone release. Ipamorelin is a selective GH secretagogue (GHRP) that triggers a GH pulse through the ghrelin receptor. They are often prescribed together so both pathways act in complement. Both require a provider evaluation and prescription through a licensed compounding pharmacy.",
+      },
+      {
+        question: "Why are CJC-1295 and ipamorelin used together?",
+        answer:
+          "They act on two complementary parts of the growth hormone axis — GHRH signaling and ghrelin-receptor signaling at the pituitary. Running them together is intended to produce a stronger, more naturalistic GH pulse than either peptide alone, while keeping the body's feedback loops intact.",
+      },
+      {
+        question: "Where can I get CJC-1295 / ipamorelin near Oswego or Naperville?",
+        answer:
+          "Hello Gorgeous Med Spa is in Oswego, IL — serving Naperville, Aurora, Plainfield, Yorkville, Montgomery, and the Fox Valley. After an NP consult, eligible patients can access the stack through Hello Gorgeous RX™ and our RE GEN pharmacy catalog. Book online or start a peptide request from our website.",
+      },
+      {
+        question: "How is this different from direct HGH?",
+        answer:
+          "Direct HGH replacement supplies growth hormone from the outside and bypasses the pituitary's natural regulation. CJC-1295 and ipamorelin ask your pituitary to release your own GH in pulses. The right approach depends on your clinical picture — we discuss both at consultation.",
+      },
+      {
+        question: "Ipamorelin vs sermorelin — which is better?",
+        answer:
+          "Sermorelin is often a gentler GHRH starting point. Ipamorelin is a GHRP and is usually paired with CJC-1295 (a longer-acting GHRH analog) when a stronger combined signal is the goal. Some patients rotate protocols over time. Your provider matches the option to your goals, tolerability, and history.",
+      },
+      {
+        question: "How are CJC-1295 and ipamorelin injected?",
+        answer:
+          "Both are typically given as small subcutaneous injections, often nightly before bed to align with the body's natural overnight GH pulse. We provide technique, storage, and timing guidance at your appointment — and dosing is individualized, not one-size-fits-all.",
+      },
+      {
+        question: "How long until I notice changes?",
+        answer:
+          "Sleep-quality shifts are often reported within the first few weeks. Recovery, body composition, and well-being changes usually take longer — commonly two to three months or more — and are reassessed each cycle. Individual outcomes vary; we do not guarantee specific results.",
+      },
+      {
+        question: "Are CJC-1295 and ipamorelin FDA approved?",
+        answer:
+          "No. Neither is FDA approved as a finished drug product for general wellness. Both are compounded prescription medications dispensed under medical supervision. We explain regulatory status clearly and never overstate what these peptides can do.",
+      },
+      {
+        question: "Can I order CJC / ipamorelin online from Hello Gorgeous?",
+        answer:
+          "You can browse the RE GEN catalog and start a peptide request online, but prescription peptides require NP review, medical screening, and an approved care plan before pharmacy fulfillment. That's the lane that keeps you safe.",
+      },
+    ],
   },
   {
     slug: "test-topic",

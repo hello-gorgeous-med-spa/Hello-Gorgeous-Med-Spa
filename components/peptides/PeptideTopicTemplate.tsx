@@ -209,6 +209,40 @@ export function PeptideTopicTemplate({ topic }: { topic: PeptideTopic }) {
         </Section>
       ) : null}
 
+      {/* FAQ */}
+      {topic.faqs?.length ? (
+        <Section id="faq" className="border-b-4 border-black bg-gradient-to-b from-white to-[#FFF0F7]">
+          <FadeUp>
+            <h2 className="mb-2 text-sm font-bold uppercase tracking-widest text-[#E6007E]">
+              Common questions
+            </h2>
+            <p className="mb-6 max-w-2xl text-black/65">
+              Education only — not medical advice. Individual plans require an NP evaluation at Hello
+              Gorgeous in Oswego, IL.
+            </p>
+            <div className="space-y-3">
+              {topic.faqs.map((faq, idx) => (
+                <details
+                  key={faq.question}
+                  className="group rounded-2xl border-2 border-black/10 bg-white open:border-[#E6007E]/40 open:shadow-[4px_4px_0_0_rgba(230,0,126,0.15)]"
+                  {...(idx === 0 ? { open: true } : {})}
+                >
+                  <summary className="cursor-pointer list-none px-5 py-4 font-bold text-black marker:content-none [&::-webkit-details-marker]:hidden">
+                    <span className="flex items-start justify-between gap-3">
+                      <span>{faq.question}</span>
+                      <span className="text-[#E6007E] transition group-open:rotate-45">+</span>
+                    </span>
+                  </summary>
+                  <div className="border-t border-black/5 px-5 pb-4 pt-3 text-sm leading-relaxed text-black/80">
+                    {faq.answer}
+                  </div>
+                </details>
+              ))}
+            </div>
+          </FadeUp>
+        </Section>
+      ) : null}
+
       {/* CTA band */}
       <Section
         className="border-b-4 border-black text-white"
@@ -241,6 +275,15 @@ export function PeptideTopicTemplate({ topic }: { topic: PeptideTopic }) {
                   className="min-h-[44px] border-white/80 text-white hover:bg-white/10"
                 >
                   Book {PEPTIDE_CONSULT_SPECIAL.price} consult first
+                </CTA>
+              ) : null}
+              {isRxTopic && topic.slug === "cjc-1295-ipamorelin" ? (
+                <CTA
+                  href="/rx/catalog?goal=recovery-and-performance"
+                  variant="outline"
+                  className="min-h-[44px] border-white/80 text-white hover:bg-white/10"
+                >
+                  Browse RE GEN catalog
                 </CTA>
               ) : null}
               {handoutHref ? (

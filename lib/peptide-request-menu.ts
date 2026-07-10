@@ -148,6 +148,16 @@ export const PEPTIDE_REQUEST_ITEMS: PeptideRequestItem[] = [
     rxRequired: true,
   },
   {
+    id: "cjc-ipamorelin",
+    name: "CJC-1295 / Ipamorelin",
+    thumbnailSlug: "cjc-1295",
+    category: "Hormone & GH Support",
+    benefit: "Dual-pathway GH stack — sleep, recovery & body comp",
+    hubSlug: "cjc-1295-ipamorelin",
+    screeningSet: "gh",
+    rxRequired: true,
+  },
+  {
     id: "pt-141",
     name: "PT-141",
     thumbnailSlug: "pt-141",

@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 
 import { PeptideTopicTemplate } from "@/components/peptides/PeptideTopicTemplate";
 import { PEPTIDE_TOPICS } from "@/data/peptides";
-import { breadcrumbJsonLd, pageMetadata, SITE, siteJsonLd, webPageJsonLd } from "@/lib/seo";
+import { breadcrumbJsonLd, faqJsonLd, pageMetadata, SITE, siteJsonLd, webPageJsonLd } from "@/lib/seo";
 import { getPeptideTopicBySlug, PEPTIDES_HUB_PATH } from "@/lib/peptides-hub";
 
 type Params = { slug: string };
@@ -56,6 +56,14 @@ export default function PeptideTopicPage({ params }: { params: Params }) {
           ),
         }}
       />
+      {topic.faqs?.length ? (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(faqJsonLd(topic.faqs, url)),
+          }}
+        />
+      ) : null}
       <PeptideTopicTemplate topic={topic} />
     </>
   );

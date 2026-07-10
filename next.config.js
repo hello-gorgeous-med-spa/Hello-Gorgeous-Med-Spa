@@ -252,6 +252,7 @@ const nextConfig = {
     { source: "/blood-panels", destination: "/blood-work", permanent: true },
     { source: "/medical/blood-panels", destination: "/blood-work", permanent: true },
     { source: "/peptide-therapy-men", destination: "/peptides", permanent: true },
+    { source: "/peptides/cjc-1295", destination: "/peptides/cjc-1295-ipamorelin", permanent: true },
     { source: "/schedule", destination: "/book", permanent: true },
     { source: "/signature-treatment-menu", destination: "/specials", permanent: true },
     { source: "/vip-skin-tightening", destination: "/contour-lift/inquiry", permanent: true },
