@@ -14,7 +14,8 @@ import { useAuth } from '@/lib/hgos/AuthContext';
 function LoginForm() {
   const searchParams = useSearchParams();
   const { login, isAuthenticated, user, isLoading: authLoading } = useAuth();
-  const [mode, setMode] = useState<'magic' | 'staff'>('magic');
+  const staffDefault = searchParams.get('staff') === '1' || searchParams.get('returnTo')?.startsWith('/admin');
+  const [mode, setMode] = useState<'magic' | 'staff'>(staffDefault ? 'staff' : 'magic');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -30,8 +31,8 @@ function LoginForm() {
         window.location.href = returnTo && returnTo.startsWith('/portal') ? returnTo : '/portal';
         return;
       }
-      // Admin/staff/provider/owner: redirect to dashboard only when returnTo indicates admin intent (e.g. came from /admin)
-      if (['owner', 'admin', 'staff', 'provider'].includes(user.role)) {
+      // Admin/staff/provider/owner: redirect to dashboard when returnTo indicates admin intent
+      if (['owner', 'admin', 'staff', 'provider', 'readonly'].includes(user.role)) {
         if (returnTo && !returnTo.includes('://') && (returnTo.startsWith('/admin') || returnTo.startsWith('/provider') || returnTo.startsWith('/pos'))) {
           window.location.href = returnTo;
           return;

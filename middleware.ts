@@ -251,6 +251,14 @@ export async function middleware(request: NextRequest) {
     }
   }
   
+  // Public admin entry — redirect to staff login (not a protected page)
+  if (pathname === '/admin/login' || pathname.startsWith('/admin/login/')) {
+    const loginUrl = new URL('/login', request.url);
+    loginUrl.searchParams.set('returnTo', '/admin');
+    loginUrl.searchParams.set('staff', '1');
+    return NextResponse.redirect(loginUrl);
+  }
+
   // Check if this is a protected route (admin, provider, portal, pos only)
   const isProtectedRoute = PROTECTED_ROUTES.some(route =>
     url.pathname === route || url.pathname.startsWith(`${route}/`)
