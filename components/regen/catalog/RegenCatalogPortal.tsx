@@ -51,7 +51,14 @@ function resolveView(params: {
   return { view: "home", activeGoal: null };
 }
 
-export function RegenCatalogPortal({ initialGoalSlug }: { initialGoalSlug?: string }) {
+export function RegenCatalogPortal({
+  initialGoalSlug,
+  basePath = "/rx/catalog",
+}: {
+  initialGoalSlug?: string;
+  /** Admin staff portal uses `/admin/rx/portal` */
+  basePath?: string;
+}) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { addItem, openCart } = useCart();
@@ -82,9 +89,9 @@ export function RegenCatalogPortal({ initialGoalSlug }: { initialGoalSlug?: stri
       else if (next.goal) params.set("goal", goalSlug(next.goal));
 
       const qs = params.toString();
-      router.push(qs ? `/rx/catalog?${qs}` : "/rx/catalog", { scroll: true });
+      router.push(qs ? `${basePath}?${qs}` : basePath, { scroll: true });
     },
-    [router],
+    [router, basePath],
   );
 
   const onSearchChange = (value: string) => {

@@ -30,6 +30,7 @@ export const ADMIN_NAV_GROUPS: AdminNavGroup[] = [
     items: [
       { href: "/admin/rx", label: "RX Command", icon: "🎯" },
       { href: "/admin/rx/ops", label: "RX Ops Console", icon: "🖥️" },
+      { href: "/admin/rx/portal", label: "RE GEN Portal", icon: "💗" },
       { href: "/staff/protocols", label: "Protocols & Quick Tools", icon: "🧰" },
       { href: "/admin/flowwave", label: "FlowWave", icon: "🌊" },
       { href: "/admin/rx-dispatch", label: "Dispatch", icon: "📤" },
@@ -120,6 +121,7 @@ export const ADMIN_MOBILE_BOTTOM_NAV = [
 export const ADMIN_DASHBOARD_QUICK_LINKS = {
   rx: [
     { href: "/admin/rx/ops", label: "RX Ops Console", desc: "Unified requests, formulary & review" },
+    { href: "/admin/rx/portal", label: "RE GEN Portal", desc: "Shoppable catalog for staff-assisted orders" },
     { href: "/staff/protocols", label: "Protocols & Quick Tools", desc: "Guides, social posts & invoice quick-send" },
     { href: "/admin/rx", label: "RX Command", desc: "Intake queue, refills & approvals" },
     { href: "/admin/flowwave", label: "FlowWave", desc: "RX workflow & patient flow" },

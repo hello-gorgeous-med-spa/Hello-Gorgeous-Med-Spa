@@ -784,6 +784,7 @@ export function RxOpsConsole() {
                       ["Clinical Cheat Sheets", "36 treatment & ops PDFs", "/staff/protocols?tab=cheat-sheets"],
                       ["Protocols & Quick Tools", "Guides · social · invoices", "/staff/protocols"],
                       ["Square", data.squareConnected ? "Connected" : "Not connected", "/admin/settings/payments"],
+                      ["RE GEN Portal", "Staff shop & checkout", "/admin/rx/portal"],
                       ["RE GEN Catalog", `${data.overview.formularySkuCount} SKUs`, "/admin/rx/catalog"],
                       ["RE GEN Fulfillment", "Online orders", "/admin/rx/regen-orders"],
                       ["RX Dispatch", "Intake copy-packs", "/admin/rx-dispatch"],

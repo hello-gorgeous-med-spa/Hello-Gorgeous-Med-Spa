@@ -30,7 +30,9 @@ export function RegenCartDrawer() {
   const [error, setError] = useState<string | null>(null);
 
   const catalogMode =
-    hasCatalogItems || (pathname?.startsWith("/rx/catalog") ?? false);
+    hasCatalogItems ||
+    (pathname?.startsWith("/rx/catalog") ?? false) ||
+    (pathname?.startsWith("/admin/rx/portal") ?? false);
 
   const handleCheckout = async () => {
     if (items.length === 0) return;
