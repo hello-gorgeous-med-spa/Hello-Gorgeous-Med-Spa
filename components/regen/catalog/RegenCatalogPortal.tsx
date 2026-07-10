@@ -53,7 +53,7 @@ function resolveView(params: {
 
 export function RegenCatalogPortal({
   initialGoalSlug,
-  basePath = "/rx/catalog",
+  basePath = "/rx",
 }: {
   initialGoalSlug?: string;
   /** Admin staff portal uses `/admin/rx/portal` */

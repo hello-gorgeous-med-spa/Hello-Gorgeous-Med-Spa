@@ -279,7 +279,7 @@ export function PeptideTopicTemplate({ topic }: { topic: PeptideTopic }) {
               ) : null}
               {isRxTopic && topic.slug === "cjc-1295-ipamorelin" ? (
                 <CTA
-                  href="/rx/catalog?goal=recovery-and-performance"
+                  href="/rx?goal=recovery-and-performance"
                   variant="outline"
                   className="min-h-[44px] border-white/80 text-white hover:bg-white/10"
                 >

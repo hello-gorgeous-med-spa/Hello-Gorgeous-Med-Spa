@@ -31,6 +31,7 @@ export function RegenCartDrawer() {
 
   const catalogMode =
     hasCatalogItems ||
+    pathname === "/rx" ||
     (pathname?.startsWith("/rx/catalog") ?? false) ||
     (pathname?.startsWith("/admin/rx/portal") ?? false);
 

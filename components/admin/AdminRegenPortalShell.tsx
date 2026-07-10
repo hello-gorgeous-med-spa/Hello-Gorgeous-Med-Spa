@@ -33,7 +33,7 @@ export function AdminRegenPortalShell() {
               In-clinic sale
             </Link>
             <Link
-              href="/rx/catalog"
+              href="/rx"
               target="_blank"
               rel="noopener noreferrer"
               className="rounded-full border border-black/15 px-3 py-1.5 font-semibold text-black/70 hover:border-[#E6007E] hover:text-[#E6007E]"

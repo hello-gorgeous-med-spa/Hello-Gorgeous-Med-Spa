@@ -87,7 +87,7 @@ export function CatalogBrandLockup({ onClickHome }: { onClickHome?: () => void }
   }
 
   return (
-    <Link href="/rx/catalog" className="flex flex-col items-start">
+    <Link href="/rx" className="flex flex-col items-start">
       {inner}
     </Link>
   );

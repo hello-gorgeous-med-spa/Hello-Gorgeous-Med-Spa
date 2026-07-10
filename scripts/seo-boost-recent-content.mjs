@@ -34,10 +34,10 @@ const PRIORITY_URLS = [
   `${SITE_URL.replace(/\/$/, "")}/solaria-co2-laser-oswego-il`,
   `${SITE_URL.replace(/\/$/, "")}/morpheus8-burst-oswego-il`,
   `${SITE_URL.replace(/\/$/, "")}/specials`,
-  `${SITE_URL.replace(/\/$/, "")}/rx/catalog`,
-  `${SITE_URL.replace(/\/$/, "")}/rx/catalog/goal/lose-weight`,
-  `${SITE_URL.replace(/\/$/, "")}/rx/catalog/goal/recovery-and-performance`,
-  `${SITE_URL.replace(/\/$/, "")}/rx/catalog/goal/hormones`,
+  `${SITE_URL.replace(/\/$/, "")}/rx`,
+  `${SITE_URL.replace(/\/$/, "")}/rx?goal=lose-weight`,
+  `${SITE_URL.replace(/\/$/, "")}/rx?goal=recovery-and-performance`,
+  `${SITE_URL.replace(/\/$/, "")}/rx?goal=hormones`,
   `${SITE_URL.replace(/\/$/, "")}/peptide-therapy-naperville-il`,
 ];
 

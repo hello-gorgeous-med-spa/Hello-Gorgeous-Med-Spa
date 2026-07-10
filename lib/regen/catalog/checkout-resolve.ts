@@ -62,7 +62,7 @@ export function resolveCatalogCartForCheckout(
     if (!parsed) {
       return {
         ok: false,
-        error: "Cart contains non-catalog items. Clear the cart and re-add from /rx/catalog.",
+        error: "Cart contains non-catalog items. Clear the cart and re-add from /rx.",
         unmapped: [item.name],
       };
     }

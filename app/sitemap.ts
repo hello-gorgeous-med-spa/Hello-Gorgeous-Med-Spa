@@ -243,7 +243,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${baseUrl}/rx`,
       lastModified: currentDate,
       changeFrequency: 'weekly',
-      priority: 0.95,
+      priority: 0.96,
     },
     {
       url: `${baseUrl}/rx/care`,
@@ -259,12 +259,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     {
       url: `${baseUrl}/rx/request`,
-      lastModified: currentDate,
-      changeFrequency: 'weekly',
-      priority: 0.94,
-    },
-    {
-      url: `${baseUrl}/rx/catalog`,
       lastModified: currentDate,
       changeFrequency: 'weekly',
       priority: 0.94,

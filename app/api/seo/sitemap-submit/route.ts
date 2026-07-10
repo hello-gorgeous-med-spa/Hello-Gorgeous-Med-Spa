@@ -46,10 +46,10 @@ const PREMIUM_URLS = [
   "https://www.hellogorgeousmedspa.com/quantum-rf-oswego-il",
   "https://www.hellogorgeousmedspa.com/solaria-co2-laser-oswego-il",
   "https://www.hellogorgeousmedspa.com/morpheus8-burst-oswego-il",
-  "https://www.hellogorgeousmedspa.com/rx/catalog",
-  "https://www.hellogorgeousmedspa.com/rx/catalog/goal/lose-weight",
-  "https://www.hellogorgeousmedspa.com/rx/catalog/goal/recovery-and-performance",
-  "https://www.hellogorgeousmedspa.com/rx/catalog/goal/hormones",
+  "https://www.hellogorgeousmedspa.com/rx",
+  "https://www.hellogorgeousmedspa.com/rx?goal=lose-weight",
+  "https://www.hellogorgeousmedspa.com/rx?goal=recovery-and-performance",
+  "https://www.hellogorgeousmedspa.com/rx?goal=hormones",
   "https://www.hellogorgeousmedspa.com/peptide-therapy-naperville-il",
 ];
 

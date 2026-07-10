@@ -1,57 +1,17 @@
-import type { Metadata } from "next";
-import { Suspense } from "react";
+import { redirect } from "next/navigation";
 
-import { RegenCatalogClient } from "@/components/regen/catalog/RegenCatalogClient";
-import { SITE, breadcrumbJsonLd, pageMetadata, siteJsonLd, webPageJsonLd } from "@/lib/seo";
+type Props = {
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+};
 
-const PATH = "/rx/catalog";
-const TITLE = "RE GEN Catalog | Shop Compounded Rx Treatments Online";
-const DESCRIPTION =
-  "Browse ~195 compounded prescriptions from RE GEN by Hello Gorgeous — GLP-1 weight loss, peptides, hormones, intimacy, skin & hair, and longevity. NP review required. Flat $30 Illinois shipping.";
-
-export const metadata: Metadata = pageMetadata({
-  title: TITLE,
-  description: DESCRIPTION,
-  path: PATH,
-  keywords: [
-    "RE GEN catalog",
-    "compounded semaglutide online Illinois",
-    "peptide therapy catalog Oswego",
-    "online hormone therapy Illinois",
-    "Hello Gorgeous RX shop",
-  ],
-});
-
-export default function RegenCatalogPage() {
-  const jsonLd = [
-    siteJsonLd(),
-    breadcrumbJsonLd([
-      { name: "Home", url: SITE.url },
-      { name: "RE GEN", url: `${SITE.url}/rx` },
-      { name: "Catalog", url: `${SITE.url}${PATH}` },
-    ]),
-    webPageJsonLd({
-      name: TITLE,
-      description: DESCRIPTION,
-      url: `${SITE.url}${PATH}`,
-    }),
-  ];
-
-  return (
-    <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
-      <Suspense
-        fallback={
-          <div className="flex min-h-[50vh] items-center justify-center bg-[#FFF9FB] text-black/50">
-            Loading catalog…
-          </div>
-        }
-      >
-        <RegenCatalogClient />
-      </Suspense>
-    </>
-  );
+/** Legacy URL — canonical shop is /rx */
+export default async function LegacyRxCatalogRedirect({ searchParams }: Props) {
+  const params = await searchParams;
+  const qs = new URLSearchParams();
+  for (const [key, value] of Object.entries(params)) {
+    if (typeof value === "string") qs.set(key, value);
+    else if (Array.isArray(value)) value.forEach((v) => qs.append(key, v));
+  }
+  const query = qs.toString();
+  redirect(query ? `/rx?${query}` : "/rx");
 }
