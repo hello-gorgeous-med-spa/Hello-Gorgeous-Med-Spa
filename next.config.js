@@ -88,6 +88,7 @@ const nextConfig = {
             "worker-src 'self' blob:",
             "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
             "img-src 'self' data: blob: https:",
+            "media-src 'self' blob:",
             "font-src 'self' https://fonts.gstatic.com",
             "connect-src 'self' https://*.supabase.co https://api.openai.com https://api.stripe.com wss://*.supabase.co https://*.withcherry.com https://assistloop.ai https://*.assistloop.ai wss://*.assistloop.ai https://square.site https://*.square.site https://*.squareup.com https://app.squareup.com https://book.squareup.com https://connect.squareup.com",
             "frame-src 'self' https://js.stripe.com https://challenges.cloudflare.com https://www.alle.com https://*.alle.com https://*.withcherry.com https://pay.withcherry.com https://www.facebook.com https://www.youtube.com https://www.youtube-nocookie.com https://www.google.com https://assistloop.ai https://*.assistloop.ai https://square.site https://*.square.site https://*.squareup.com https://app.squareup.com https://book.squareup.com",

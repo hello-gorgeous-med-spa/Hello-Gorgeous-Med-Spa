@@ -82,28 +82,26 @@ export function PeptideTopicTemplate({ topic }: { topic: PeptideTopic }) {
 
       {showScienceVideo ? (
         <Section className="border-b-4 border-black bg-gradient-to-b from-[#FFF0F7] to-white py-10 md:py-14">
-          <FadeUp>
-            <div className="grid items-center gap-8 lg:grid-cols-[1fr_1.15fr]">
-              <div>
-                <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#E6007E]">
-                  Animated science
-                </p>
-                <h2 className="mt-2 text-3xl font-black text-black md:text-4xl">
-                  See how peptide signaling works
-                </h2>
-                <p className="mt-4 max-w-lg text-base leading-relaxed text-black/75">
-                  These visuals break down cell-level messaging — the same precision science behind
-                  why peptides are studied as targeted signals, not blunt instruments. Education
-                  only; your NP matches the right protocol to your goals.
-                </p>
-              </div>
-              <PeptideScienceVideo
-                src={videos.hero}
-                label={`${topic.name} animated science visual`}
-                caption={`${topic.name} · peptide signaling at a glance`}
-              />
+          <div className="grid items-center gap-8 lg:grid-cols-[1fr_1.15fr]">
+            <div>
+              <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#E6007E]">
+                Animated science
+              </p>
+              <h2 className="mt-2 text-3xl font-black text-black md:text-4xl">
+                See how peptide signaling works
+              </h2>
+              <p className="mt-4 max-w-lg text-base leading-relaxed text-black/75">
+                These visuals break down cell-level messaging — the same precision science behind
+                why peptides are studied as targeted signals, not blunt instruments. Education
+                only; your NP matches the right protocol to your goals.
+              </p>
             </div>
-          </FadeUp>
+            <PeptideScienceVideo
+              src={videos.hero}
+              label={`${topic.name} animated science visual`}
+              caption={`${topic.name} · peptide signaling at a glance`}
+            />
+          </div>
         </Section>
       ) : null}
 
@@ -175,28 +173,26 @@ export function PeptideTopicTemplate({ topic }: { topic: PeptideTopic }) {
 
       {showScienceVideo ? (
         <Section className="border-b-4 border-black bg-[#0a1628] py-10 md:py-12">
-          <FadeUp>
-            <div className="mx-auto max-w-4xl text-center">
-              <p className="text-xs font-bold uppercase tracking-[0.22em] text-[#FFB8DC]">
-                Deep dive visual
-              </p>
-              <h2 className="mt-2 text-2xl font-black text-white md:text-3xl">
-                The biology behind {topic.name}
-              </h2>
-              <p className="mx-auto mt-3 max-w-2xl text-sm text-white/75 md:text-base">
-                Looping molecular animation — same premium science series used across Hello Gorgeous
-                peptide education. Pause anytime; questions belong in your NP consult.
-              </p>
-              <div className="mt-8">
-                <PeptideScienceVideo
-                  src={videos.science}
-                  label={`${topic.name} deep-dive science animation`}
-                  caption="Cellular signaling · recovery · hormone & metabolic pathways"
-                  className="mx-auto max-w-3xl"
-                />
-              </div>
+          <div className="mx-auto max-w-4xl text-center">
+            <p className="text-xs font-bold uppercase tracking-[0.22em] text-[#FFB8DC]">
+              Deep dive visual
+            </p>
+            <h2 className="mt-2 text-2xl font-black text-white md:text-3xl">
+              The biology behind {topic.name}
+            </h2>
+            <p className="mx-auto mt-3 max-w-2xl text-sm text-white/75 md:text-base">
+              Looping molecular animation — same premium science series used across Hello Gorgeous
+              peptide education. Pause anytime; questions belong in your NP consult.
+            </p>
+            <div className="mt-8">
+              <PeptideScienceVideo
+                src={videos.science}
+                label={`${topic.name} deep-dive science animation`}
+                caption="Cellular signaling · recovery · hormone & metabolic pathways"
+                className="mx-auto max-w-3xl"
+              />
             </div>
-          </FadeUp>
+          </div>
         </Section>
       ) : null}
 

@@ -4,6 +4,7 @@ import { Suspense } from "react";
 
 import { CTA } from "@/components/CTA";
 import { PeptideEducationSection } from "@/components/peptides/PeptideEducationSection";
+import { PeptidesHubGrid } from "@/components/peptides/PeptidesHubGrid";
 import { PeptideGuideEmailCapture } from "@/components/peptides/PeptideGuideEmailCapture";
 import { PeptideHandoutsSection } from "@/components/peptides/PeptideHandoutsSection";
 import { PeptideHubFaqSection } from "@/components/peptides/PeptideHubFaqSection";
@@ -658,6 +659,7 @@ export function PeptideTherapyPageContent() {
       </Section>
 
       <Suspense fallback={null}>
+        <PeptidesHubGrid />
         <PeptideEducationSection />
       </Suspense>
 

@@ -22,7 +22,8 @@ export function PeptideScienceVideo({
           loop
           muted
           playsInline
-          preload="metadata"
+          preload="auto"
+          poster="/images/education/peptides-101-not-all-created-equal.png"
           aria-label={label}
         >
           <source src={src} type="video/mp4" />
