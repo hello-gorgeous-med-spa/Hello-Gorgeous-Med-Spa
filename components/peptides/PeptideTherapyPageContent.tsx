@@ -2,13 +2,16 @@ import Image from "next/image";
 import Link from "next/link";
 import { Suspense } from "react";
 
-import { CTA } from "@/components/CTA";
 import {
   JOURNEY_HERO_BG,
+  JOURNEY_SECTION_BG_A,
+  JOURNEY_SECTION_BG_B,
   JourneyChip,
+  JourneyDarkCard,
   JourneyEyebrow,
   JourneyGhostBtn,
   JourneyPinkBtn,
+  JourneySectionHead,
   JourneyTrustBar,
   JourneyVideoFrame,
 } from "@/components/marketing/JourneyPageUi";
@@ -17,7 +20,7 @@ import { PeptidesHubGrid } from "@/components/peptides/PeptidesHubGrid";
 import { PeptideGuideEmailCapture } from "@/components/peptides/PeptideGuideEmailCapture";
 import { PeptideHandoutsSection } from "@/components/peptides/PeptideHandoutsSection";
 import { PeptideHubFaqSection } from "@/components/peptides/PeptideHubFaqSection";
-import { FadeUp, Section } from "@/components/Section";
+import { FadeUp } from "@/components/Section";
 import { FIND_YOUR_PEPTIDE_GUIDE } from "@/data/skin-101-find-your-peptide-guide";
 import {
   NAD_SERMORELIN_BUNDLE_MONTHLY_USD,
@@ -78,9 +81,9 @@ function PeptideCard({
   const thumbnail = getCatalogCardThumbnail(catalogId, thumbnailSlug);
 
   return (
-    <article className="flex h-full flex-col overflow-hidden rounded-2xl border-4 border-black bg-white shadow-[6px_6px_0_0_rgba(230,0,126,0.25)] transition hover:border-[#E6007E]/50 hover:shadow-[8px_8px_0_0_rgba(230,0,126,0.35)]">
+    <article className="flex h-full flex-col overflow-hidden rounded-[20px] border border-white/14 bg-[#0a0206] shadow-[0_4px_24px_rgba(0,0,0,0.35)] transition hover:-translate-y-1 hover:border-[#FF2D8E] hover:shadow-[0_20px_40px_rgba(255,45,142,0.18)] motion-reduce:hover:translate-y-0">
       {thumbnail ? (
-        <div className="relative aspect-[16/9] w-full border-b-4 border-black">
+        <div className="relative aspect-[16/9] w-full border-b border-white/10">
           <Image
             src={thumbnail.src}
             alt={thumbnail.alt}
@@ -93,37 +96,37 @@ function PeptideCard({
       <div className="flex flex-1 flex-col p-6">
       <div className="mb-4 flex items-start justify-between gap-3">
         <div>
-          <h3 className="text-xl font-bold text-neutral-900">{name}</h3>
-          <p className="mt-1 text-xs font-semibold uppercase tracking-wider text-[#E6007E]">
+          <h3 className="font-serif text-xl font-bold text-white">{name}</h3>
+          <p className="mt-1 text-xs font-semibold uppercase tracking-wider text-[#FF2D8E]">
             {categoryLabel}
           </p>
         </div>
-        <span className="shrink-0 rounded-full bg-emerald-50 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide text-emerald-700">
+        <span className="shrink-0 rounded-full bg-[#16a34a]/20 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide text-[#16a34a]">
           Available
         </span>
       </div>
-      <p className="text-sm leading-relaxed text-neutral-600">{description}</p>
-      <p className="mt-4 text-xs font-semibold uppercase tracking-wide text-neutral-400">
+      <p className="text-sm leading-relaxed text-white/70">{description}</p>
+      <p className="mt-4 text-xs font-semibold uppercase tracking-wide text-white/45">
         Common uses
       </p>
       <ul className="mt-2 space-y-1">
         {commonUses.map((use) => (
-          <li key={use} className="text-sm text-neutral-700">
+          <li key={use} className="text-sm text-white/75">
             • {use}
           </li>
         ))}
       </ul>
-      <div className="mt-auto border-t border-neutral-100 pt-5">
-        <p className="text-2xl font-bold text-neutral-900">${monthlyUsd}/month</p>
+      <div className="mt-auto border-t border-white/10 pt-5">
+        <p className="font-serif text-2xl font-bold text-white">${monthlyUsd}/month</p>
         {prepayEligible ? (
-          <p className="mt-1 text-sm text-neutral-500">{formatPrepayLine(monthlyUsd)}</p>
+          <p className="mt-1 text-sm text-white/55">{formatPrepayLine(monthlyUsd)}</p>
         ) : (
-          <p className="mt-1 text-sm text-neutral-500">Month-to-month only (as-needed)</p>
+          <p className="mt-1 text-sm text-white/55">Month-to-month only (as-needed)</p>
         )}
         {learnMoreHref ? (
           <Link
             href={learnMoreHref}
-            className="mt-3 inline-flex text-sm font-semibold text-[#E6007E] hover:underline"
+            className="mt-3 inline-flex text-sm font-semibold text-[#FF2D8E] hover:underline"
           >
             Learn more about {name} →
           </Link>
@@ -198,154 +201,119 @@ export function PeptideTherapyPageContent() {
       <JourneyTrustBar />
 
       {/* Free peptide guides — no email gate */}
-      <Section id="free-peptide-guides" className="border-b-4 border-black bg-gradient-to-b from-[#FFF0F7] to-white scroll-mt-20">
+      <section id="free-peptide-guides" className={`scroll-mt-20 ${JOURNEY_SECTION_BG_A} px-6 py-16 lg:py-24`}>
         <div className="mx-auto max-w-5xl">
           <FadeUp>
-            <div className="rounded-3xl border-4 border-black bg-white p-6 shadow-[8px_8px_0_0_rgba(230,0,126,0.35)] md:p-10">
-              <div className="flex flex-wrap items-center gap-3">
-                <span className="rounded-xl border-2 border-black bg-gradient-to-r from-[#FF2D8E] to-[#E6007E] px-3 py-1 text-xs font-bold uppercase tracking-wider text-white">
-                  Free download
-                </span>
-                <span className="text-xs font-semibold uppercase tracking-widest text-black/50">
-                  Hello Gorgeous RX™ patient education
-                </span>
-              </div>
-              <h2 className="mt-4 text-2xl font-black text-black md:text-3xl">
-                Download Danielle&apos;s{" "}
-                <span className="text-[#E6007E]">peptide guides</span> — no signup required
-              </h2>
-              <p className="mt-4 max-w-3xl text-base leading-relaxed text-black/80">
-                Match your goals to BPC-157, Sermorelin, NAD+, GHK-Cu, PT-141 and more. Open any
-                guide in your browser, then print or save as PDF. Bring it to your ${PEPTIDE_CONSULT_FEE_USD}{" "}
-                NP consult in Oswego.
-              </p>
-              <div className="mt-8 grid gap-4 md:grid-cols-2">
-                <div className="rounded-2xl border-2 border-black/10 bg-rose-50/60 p-5">
-                  <p className="text-[10px] font-bold uppercase tracking-widest text-[#E6007E]">
-                    {findYourPeptideHandout?.badge ?? "Featured"} · Goal matcher
+            <JourneySectionHead
+              eyebrow="Free download · Hello Gorgeous RX™"
+              title="Danielle's peptide"
+              titleAccent="guides"
+              description={`Match your goals to BPC-157, Sermorelin, NAD+, GHK-Cu, PT-141 and more. Open any guide in your browser, then print or save as PDF. Bring it to your $${PEPTIDE_CONSULT_FEE_USD} NP consult in Oswego.`}
+            />
+            <div className="mt-10 grid gap-4 md:grid-cols-2">
+              <JourneyDarkCard>
+                <p className="text-[10px] font-bold uppercase tracking-widest text-[#FF2D8E]">
+                  {findYourPeptideHandout?.badge ?? "Featured"} · Goal matcher
+                </p>
+                <h3 className="mt-2 font-serif text-lg font-bold text-white">{FIND_YOUR_PEPTIDE_GUIDE.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-white/70">
+                  {FIND_YOUR_PEPTIDE_GUIDE.subtitle} — nine wellness goals mapped to the peptides
+                  our team discusses most.
+                </p>
+                <div className="mt-4 flex flex-col gap-2 sm:flex-row">
+                  <JourneyPinkBtn href={FIND_YOUR_PEPTIDE_GUIDE.handoutPath} external className="flex-1 text-sm">
+                    Download handout →
+                  </JourneyPinkBtn>
+                  <JourneyGhostBtn href="/skin-101/find-your-peptide" className="flex-1 text-sm">
+                    Interactive guide →
+                  </JourneyGhostBtn>
+                </div>
+              </JourneyDarkCard>
+              {peptides101Handout ? (
+                <JourneyDarkCard>
+                  <p className="text-[10px] font-bold uppercase tracking-widest text-[#FF2D8E]">
+                    {peptides101Handout.badge ?? "Start here"} · Foundations
                   </p>
-                  <h3 className="mt-2 text-lg font-black text-black">{FIND_YOUR_PEPTIDE_GUIDE.title}</h3>
-                  <p className="mt-2 text-sm leading-relaxed text-black/75">
-                    {FIND_YOUR_PEPTIDE_GUIDE.subtitle} — nine wellness goals mapped to the peptides
-                    our team discusses most.
+                  <h3 className="mt-2 font-serif text-lg font-bold text-white">{peptides101Handout.title}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-white/70">
+                    {peptides101Handout.description}
                   </p>
                   <div className="mt-4 flex flex-col gap-2 sm:flex-row">
+                    <JourneyPinkBtn href={peptideHandoutHref(peptides101Handout.filename)} external className="flex-1 text-sm">
+                      View handout →
+                    </JourneyPinkBtn>
+                    <JourneyGhostBtn href="/handouts/education/peptides-101-guide.pdf" className="flex-1 text-sm">
+                      Download PDF →
+                    </JourneyGhostBtn>
+                  </div>
+                </JourneyDarkCard>
+              ) : null}
+            </div>
+            <JourneyDarkCard className="mt-8">
+              <p className="text-[10px] font-bold uppercase tracking-widest text-[#FF2D8E]">
+                NEW · NAD+ &amp; Sermorelin monthly add-ons
+              </p>
+              <h3 className="mt-2 font-serif text-lg font-bold text-white">
+                Stack longevity protocols with GLP-1 or peptide care
+              </h3>
+              <p className="mt-2 text-sm leading-relaxed text-white/70">
+                Download official dosing guides, then add a monthly protocol on your GLP-1 refill.
+                Choose injectable liquid bundle or NAD+ liquid + Sermorelin troche combo.
+              </p>
+              <ul className="mt-4 flex flex-wrap gap-2 text-xs font-semibold">
+                {PEPTIDE_MONTHLY_ADDONS.map((addon) => (
+                  <li
+                    key={addon.id}
+                    className="rounded-full border border-white/20 px-3 py-1.5 text-white/80"
+                  >
+                    {addon.shortLabel} · ${addon.monthlyUsd}/mo
+                  </li>
+                ))}
+              </ul>
+              <ul className="mt-5 space-y-2 border-t border-white/10 pt-4">
+                {PEPTIDE_PATIENT_PDFS.map((pdf) => (
+                  <li key={pdf.id}>
                     <a
-                      href={FIND_YOUR_PEPTIDE_GUIDE.handoutPath}
+                      href={peptidePatientPdfHref(pdf.filename)}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex min-h-[44px] flex-1 items-center justify-center rounded-full bg-[#E6007E] px-4 py-2.5 text-sm font-bold text-white transition hover:bg-[#c9006e]"
+                      className="flex flex-wrap items-center justify-between gap-2 text-sm font-semibold text-[#FF2D8E] hover:underline"
                     >
-                      Download handout →
+                      <span>{pdf.title}</span>
+                      <span className="font-normal text-white/50">PDF ↓</span>
                     </a>
-                    <Link
-                      href="/skin-101/find-your-peptide"
-                      className="inline-flex min-h-[44px] flex-1 items-center justify-center rounded-full border-2 border-[#E6007E] px-4 py-2.5 text-sm font-semibold text-[#E6007E] transition hover:bg-[#E6007E] hover:text-white"
-                    >
-                      Interactive guide →
-                    </Link>
-                  </div>
-                </div>
-                {peptides101Handout ? (
-                  <div className="rounded-2xl border-2 border-black/10 bg-neutral-50 p-5">
-                    <p className="text-[10px] font-bold uppercase tracking-widest text-[#E6007E]">
-                      {peptides101Handout.badge ?? "Start here"} · Foundations
-                    </p>
-                    <h3 className="mt-2 text-lg font-black text-black">{peptides101Handout.title}</h3>
-                    <p className="mt-2 text-sm leading-relaxed text-black/75">
-                      {peptides101Handout.description}
-                    </p>
-                    <div className="mt-4 flex flex-col gap-2 sm:flex-row">
-                      <a
-                        href={peptideHandoutHref(peptides101Handout.filename)}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex min-h-[44px] flex-1 items-center justify-center rounded-full bg-black px-4 py-2.5 text-sm font-bold text-white transition hover:bg-neutral-800"
-                      >
-                        View handout →
-                      </a>
-                      <a
-                        href="/handouts/education/peptides-101-guide.pdf"
-                        download
-                        className="inline-flex min-h-[44px] flex-1 items-center justify-center rounded-full border-2 border-black px-4 py-2.5 text-sm font-semibold text-black transition hover:bg-black hover:text-white"
-                      >
-                        Download PDF →
-                      </a>
-                    </div>
-                  </div>
-                ) : null}
+                    <p className="text-xs text-white/55">{pdf.description}</p>
+                  </li>
+                ))}
+              </ul>
+              <div className="mt-4">
+                <JourneyPinkBtn href="/glp1-refill" className="text-sm">
+                  Add on at GLP-1 refill →
+                </JourneyPinkBtn>
               </div>
-              <div className="mt-8 rounded-2xl border-2 border-black bg-gradient-to-br from-[#FFF0F7] to-white p-5 md:p-6">
-                <p className="text-[10px] font-bold uppercase tracking-widest text-[#E6007E]">
-                  NEW · NAD+ &amp; Sermorelin monthly add-ons
-                </p>
-                <h3 className="mt-2 text-lg font-black text-black">
-                  Stack longevity protocols with GLP-1 or peptide care
-                </h3>
-                <p className="mt-2 text-sm leading-relaxed text-black/75">
-                  Download official dosing guides, then add a monthly protocol on your GLP-1 refill.
-                  Choose injectable liquid bundle or NAD+ liquid + Sermorelin troche combo.
-                </p>
-                <ul className="mt-4 flex flex-wrap gap-2 text-xs font-semibold">
-                  {PEPTIDE_MONTHLY_ADDONS.map((addon) => (
-                    <li
-                      key={addon.id}
-                      className="rounded-full border-2 border-black/15 bg-white px-3 py-1.5 text-black"
-                    >
-                      {addon.shortLabel} · ${addon.monthlyUsd}/mo
-                    </li>
-                  ))}
-                </ul>
-                <ul className="mt-5 space-y-2 border-t border-black/10 pt-4">
-                  {PEPTIDE_PATIENT_PDFS.map((pdf) => (
-                    <li key={pdf.id}>
-                      <a
-                        href={peptidePatientPdfHref(pdf.filename)}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex flex-wrap items-center justify-between gap-2 text-sm font-semibold text-[#E6007E] hover:underline"
-                      >
-                        <span>{pdf.title}</span>
-                        <span className="text-black/50 font-normal">PDF ↓</span>
-                      </a>
-                      <p className="text-xs text-black/55">{pdf.description}</p>
-                    </li>
-                  ))}
-                </ul>
-                <div className="mt-4">
-                  <Link
-                    href="/glp1-refill"
-                    className="inline-flex min-h-[44px] items-center justify-center rounded-full bg-[#E6007E] px-5 py-2.5 text-sm font-bold text-white hover:bg-black"
-                  >
-                    Add on at GLP-1 refill →
-                  </Link>
-                </div>
-              </div>
-              <p className="mt-6 text-center text-sm">
-                <a
-                  href="#patient-handouts"
-                  className="font-semibold text-[#E6007E] underline decoration-[#E6007E] underline-offset-4"
-                >
-                  Browse all {PEPTIDE_HANDOUTS.length} printable peptide guides ↓
-                </a>
-              </p>
-              <div className="mt-8">
-                <PeptideGuideEmailCapture />
-              </div>
+            </JourneyDarkCard>
+            <p className="mt-6 text-center text-sm">
+              <a
+                href="#patient-handouts"
+                className="font-semibold text-[#FF2D8E] underline decoration-[#FF2D8E]/40 underline-offset-4 hover:text-white"
+              >
+                Browse all {PEPTIDE_HANDOUTS.length} printable peptide guides ↓
+              </a>
+            </p>
+            <div className="mt-8">
+              <PeptideGuideEmailCapture />
             </div>
           </FadeUp>
         </div>
-      </Section>
+      </section>
 
       {/* What are peptides */}
-      <Section className="bg-white">
+      <section className={`${JOURNEY_SECTION_BG_B} px-6 py-16 lg:py-24`}>
         <div className="mx-auto max-w-6xl">
           <FadeUp>
-            <h2 className="text-xs font-bold uppercase tracking-[0.25em] text-neutral-400">
-              What are peptides?
-            </h2>
-            <div className="mt-6 grid gap-10 lg:grid-cols-2 lg:gap-16">
-              <div className="space-y-4 text-neutral-700 leading-relaxed">
+            <JourneySectionHead eyebrow="Science first" title="What are" titleAccent="peptides?" />
+            <div className="mt-10 grid gap-10 lg:grid-cols-2 lg:gap-16">
+              <div className="space-y-4 leading-relaxed text-white/80">
                 <p>
                   Peptides are short chains of amino acids — essentially small proteins that signal
                   your body to do specific things. Your body makes peptides naturally; therapeutic
@@ -357,9 +325,9 @@ export function PeptideTherapyPageContent() {
                   protocol is individualized and prescribed only after NP evaluation.
                 </p>
               </div>
-              <div>
-                <p className="font-bold text-neutral-900">Peptides can help with:</p>
-                <ul className="mt-4 space-y-2 text-neutral-700">
+              <JourneyDarkCard>
+                <p className="font-bold text-white">Peptides can help with:</p>
+                <ul className="mt-4 space-y-2 text-white/80">
                   {[
                     "Injury recovery and healing",
                     "Gut health and inflammation",
@@ -370,27 +338,27 @@ export function PeptideTherapyPageContent() {
                     "Weight management (GLP-1 programs)",
                   ].map((item) => (
                     <li key={item} className="flex gap-2">
-                      <span className="text-[#E6007E]">•</span>
+                      <span className="text-[#FF2D8E]">•</span>
                       {item}
                     </li>
                   ))}
                 </ul>
-              </div>
+              </JourneyDarkCard>
             </div>
           </FadeUp>
         </div>
-      </Section>
+      </section>
 
       {/* Peptides we offer */}
-      <Section id="peptides-we-offer" className="border-t border-neutral-200 bg-neutral-50">
+      <section id="peptides-we-offer" className={`scroll-mt-20 ${JOURNEY_SECTION_BG_A} px-6 py-16 lg:py-24`}>
         <div className="mx-auto max-w-6xl">
           <FadeUp>
-            <h2 className="text-3xl font-black text-neutral-900 md:text-4xl">Peptides we offer</h2>
-            <p className="mt-3 max-w-2xl text-neutral-600">
-              Our peptide offerings are subject to change based on FDA guidelines and 503A compounding
-              pharmacy availability. Published rates are starting points — your NP confirms final
-              pricing at consult.
-            </p>
+            <JourneySectionHead
+              eyebrow="Hello Gorgeous RX™"
+              title="Peptides we"
+              titleAccent="offer"
+              description="Our peptide offerings are subject to change based on FDA guidelines and 503A compounding pharmacy availability. Published rates are starting points — your NP confirms final pricing at consult."
+            />
           </FadeUp>
           <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {PEPTIDE_CATALOG.map((peptide, idx) => (
@@ -400,21 +368,20 @@ export function PeptideTherapyPageContent() {
             ))}
           </div>
         </div>
-      </Section>
+      </section>
 
       {/* GLP-1 */}
-      <Section className="bg-white">
+      <section className={`${JOURNEY_SECTION_BG_B} px-6 py-16 lg:py-24`}>
         <div className="mx-auto max-w-6xl">
           <FadeUp>
-            <h2 className="text-2xl font-black text-neutral-900 md:text-3xl">
-              GLP-1 medical weight loss
-            </h2>
-            <p className="mt-3 text-neutral-600">
-              NP-supervised semaglutide and tirzepatide programs — often stacked with peptide therapy
-              when clinically appropriate.
-            </p>
+            <JourneySectionHead
+              eyebrow="Medical weight loss"
+              title="GLP-1"
+              titleAccent="programs"
+              description="NP-supervised semaglutide and tirzepatide programs — often stacked with peptide therapy when clinically appropriate."
+            />
           </FadeUp>
-          <div className="mt-8 grid gap-6 md:grid-cols-2">
+          <div className="mt-10 grid gap-6 md:grid-cols-2">
             {GLP1_CATALOG.map((program, idx) => (
               <FadeUp key={program.id} delayMs={idx * 40}>
                 <PeptideCard {...program} catalogId={program.id} />
@@ -422,29 +389,28 @@ export function PeptideTherapyPageContent() {
             ))}
           </div>
         </div>
-      </Section>
+      </section>
 
       {/* Vitamin injections */}
-      <Section className="border-t border-neutral-200 bg-neutral-50">
+      <section className={`${JOURNEY_SECTION_BG_A} px-6 py-16 lg:py-24`}>
         <div className="mx-auto max-w-6xl">
           <FadeUp>
-            <h2 className="text-2xl font-black text-neutral-900 md:text-3xl">
-              Vitamin &amp; nutrient injections
-            </h2>
-            <p className="mt-3 text-neutral-600">
-              Direct delivery for maximum absorption — skip the gut and get nutrients where they need
-              to go. Walk-in shots available; NAD+ may require consult first.
-            </p>
+            <JourneySectionHead
+              eyebrow="Vitamin bar"
+              title="Vitamin & nutrient"
+              titleAccent="injections"
+              description="Direct delivery for maximum absorption — skip the gut and get nutrients where they need to go. Walk-in shots available; NAD+ may require consult first."
+            />
           </FadeUp>
-          <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {VITAMIN_HIGHLIGHTS.map((shot, idx) => (
               <FadeUp key={shot.id} delayMs={idx * 30}>
                 <Link
                   href="/iv-shots"
-                  className="group flex h-full flex-col overflow-hidden rounded-2xl border-4 border-black bg-white shadow-[6px_6px_0_0_rgba(230,0,126,0.25)] transition hover:border-[#E6007E]/50"
+                  className="group flex h-full flex-col overflow-hidden rounded-[20px] border border-white/14 bg-[#0a0206] shadow-[0_4px_24px_rgba(0,0,0,0.35)] transition hover:-translate-y-1 hover:border-[#FF2D8E]"
                 >
                   {shot.image ? (
-                    <div className="relative aspect-[16/9] w-full border-b-4 border-black">
+                    <div className="relative aspect-[16/9] w-full border-b border-white/10">
                       <Image
                         src={shot.image}
                         alt={`${shot.name} — Hello Gorgeous Vitamin Bar Oswego IL`}
@@ -455,12 +421,12 @@ export function PeptideTherapyPageContent() {
                     </div>
                   ) : null}
                   <div className="flex flex-1 flex-col p-5">
-                  <p className="font-bold text-neutral-900 group-hover:text-[#E6007E]">
+                  <p className="font-serif font-bold text-white group-hover:text-[#FF2D8E]">
                     {shot.name}
                   </p>
-                  <p className="mt-1 text-sm text-neutral-600">{shot.benefit}</p>
-                  <p className="mt-auto pt-3 text-lg font-bold text-neutral-900">${shot.price}/shot</p>
-                  <p className="mt-1 text-sm font-semibold text-[#E6007E]">Learn more →</p>
+                  <p className="mt-1 text-sm text-white/65">{shot.benefit}</p>
+                  <p className="mt-auto pt-3 font-serif text-lg font-bold text-white">${shot.price}/shot</p>
+                  <p className="mt-1 text-sm font-semibold text-[#FF2D8E]">Learn more →</p>
                   </div>
                 </Link>
               </FadeUp>
@@ -468,58 +434,63 @@ export function PeptideTherapyPageContent() {
           </div>
           <FadeUp delayMs={200}>
             <p className="mt-6 text-center">
-              <Link href="/iv-shots" className="font-semibold text-[#E6007E] hover:underline">
+              <Link href="/iv-shots" className="font-semibold text-[#FF2D8E] hover:underline">
                 View full IV &amp; injection menu →
               </Link>
             </p>
           </FadeUp>
         </div>
-      </Section>
+      </section>
 
       {/* Our approach */}
-      <Section className="bg-white">
+      <section className={`${JOURNEY_SECTION_BG_B} px-6 py-16 lg:py-24`}>
         <div className="mx-auto max-w-3xl text-center">
           <FadeUp>
-            <h2 className="text-2xl font-black text-neutral-900 md:text-3xl">Our approach</h2>
-            <p className="mt-6 text-lg leading-relaxed text-neutral-700">
+            <JourneySectionHead
+              eyebrow="NP-directed care"
+              title="Our"
+              titleAccent="approach"
+              center
+            />
+            <p className="mt-8 text-lg leading-relaxed text-white/80">
               Peptides aren&apos;t magic — they&apos;re tools that work best when used appropriately
               with proper oversight. We start with understanding your goals and health status through
               a ${PEPTIDE_CONSULT_FEE_USD} NP consultation. Not everyone needs peptides, and not every
               peptide is right for every person.
             </p>
-            <p className="mt-4 text-neutral-600 leading-relaxed">
+            <p className="mt-4 leading-relaxed text-white/65">
               We source from licensed US compounding pharmacies, provide proper dosing protocols, and
               monitor your response with follow-up visits. Located at{" "}
-              <strong>{SITE.address.streetAddress}, {SITE.address.addressLocality}, IL</strong>, we
+              <strong className="text-white">{SITE.address.streetAddress}, {SITE.address.addressLocality}, IL</strong>, we
               serve Oswego, Naperville, Aurora, Plainfield, Yorkville, and the western suburbs — with
               aesthetics, hormones, GLP-1, and peptide therapy under one roof.
             </p>
           </FadeUp>
         </div>
-      </Section>
+      </section>
 
       {/* Protocol pricing table */}
-      <Section id="peptide-pricing" className="border-t border-neutral-200 bg-neutral-50">
+      <section id="peptide-pricing" className={`scroll-mt-20 ${JOURNEY_SECTION_BG_A} px-6 py-16 lg:py-24`}>
         <div className="mx-auto max-w-5xl">
           <FadeUp>
-            <h2 className="text-2xl font-black text-neutral-900 md:text-3xl">Protocol pricing</h2>
-            <p className="mt-3 text-neutral-600">
-              Peptide therapy works best over {PEPTIDE_PREPAY_MONTHS}+ months. Our protocol-based
-              pricing commits you to the timeline that produces results — and saves you{" "}
-              {PEPTIDE_PREPAY_DISCOUNT_PERCENT}% on medication when you prepay.
-            </p>
+            <JourneySectionHead
+              eyebrow="Transparent pricing"
+              title="Protocol"
+              titleAccent="pricing"
+              description={`Peptide therapy works best over ${PEPTIDE_PREPAY_MONTHS}+ months. Our protocol-based pricing commits you to the timeline that produces results — and saves you ${PEPTIDE_PREPAY_DISCOUNT_PERCENT}% on medication when you prepay.`}
+            />
           </FadeUp>
           <FadeUp delayMs={60}>
-            <div className="mt-8 overflow-x-auto rounded-xl border border-neutral-200 bg-white shadow-sm">
+            <div className="mt-10 overflow-x-auto rounded-2xl border border-white/14 bg-[#0a0206]">
               <table className="w-full min-w-[520px] text-left text-sm">
                 <thead>
-                  <tr className="border-b border-neutral-200 bg-neutral-50">
-                    <th className="px-5 py-3 font-bold text-neutral-900">Peptide</th>
-                    <th className="px-5 py-3 font-bold text-neutral-900">Monthly</th>
-                    <th className="px-5 py-3 font-bold text-neutral-900">
+                  <tr className="border-b border-white/10 bg-[#140109]">
+                    <th className="px-5 py-3 font-bold text-white">Peptide</th>
+                    <th className="px-5 py-3 font-bold text-white">Monthly</th>
+                    <th className="px-5 py-3 font-bold text-white">
                       {PEPTIDE_PREPAY_MONTHS}-Month
                     </th>
-                    <th className="px-5 py-3 font-bold text-neutral-900">You Save</th>
+                    <th className="px-5 py-3 font-bold text-white">You Save</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -528,42 +499,42 @@ export function PeptideTherapyPageContent() {
                     const saveMatch = prepay.match(/save \$(\d+)/);
                     const prepayTotal = prepay.match(/\$(\d+)/);
                     return (
-                      <tr key={row.id} className="border-b border-neutral-100 last:border-0">
-                        <td className="px-5 py-3 font-medium text-neutral-900">{row.name}</td>
-                        <td className="px-5 py-3 text-neutral-700">${row.monthlyUsd}/mo</td>
-                        <td className="px-5 py-3 text-neutral-700">
+                      <tr key={row.id} className="border-b border-white/10 last:border-0">
+                        <td className="px-5 py-3 font-medium text-white">{row.name}</td>
+                        <td className="px-5 py-3 text-white/75">${row.monthlyUsd}/mo</td>
+                        <td className="px-5 py-3 text-white/75">
                           ${prepayTotal?.[1] ?? "—"}
                         </td>
-                        <td className="px-5 py-3 text-emerald-700 font-medium">
+                        <td className="px-5 py-3 font-medium text-[#16a34a]">
                           ${saveMatch?.[1] ?? "—"}
                         </td>
                       </tr>
                     );
                   })}
-                  <tr className="bg-neutral-50/80">
-                    <td className="px-5 py-3 font-medium text-neutral-600">PT-141</td>
-                    <td className="px-5 py-3 text-neutral-600">From $209/mo</td>
-                    <td className="px-5 py-3 text-neutral-500">N/A (as-needed)</td>
-                    <td className="px-5 py-3 text-neutral-400">—</td>
+                  <tr className="bg-[#140109]/50">
+                    <td className="px-5 py-3 font-medium text-white/60">PT-141</td>
+                    <td className="px-5 py-3 text-white/60">From $209/mo</td>
+                    <td className="px-5 py-3 text-white/50">N/A (as-needed)</td>
+                    <td className="px-5 py-3 text-white/40">—</td>
                   </tr>
                 </tbody>
               </table>
             </div>
-            <p className="mt-4 text-xs text-neutral-500">
+            <p className="mt-4 text-xs text-white/50">
               Consult fee ${PEPTIDE_CONSULT_FEE_USD} separate. Shipping, labs, and supplies may be
               quoted separately. Final protocol confirmed after NP evaluation.
             </p>
           </FadeUp>
         </div>
-      </Section>
+      </section>
 
       {/* Pricing summary */}
-      <Section className="bg-white">
+      <section className={`${JOURNEY_SECTION_BG_B} px-6 py-16 lg:py-24`}>
         <div className="mx-auto max-w-5xl">
           <FadeUp>
-            <h2 className="text-center text-2xl font-black text-neutral-900">Pricing summary</h2>
+            <JourneySectionHead eyebrow="At a glance" title="Pricing" titleAccent="summary" center />
           </FadeUp>
-          <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {[
               {
                 label: "Peptides (individual)",
@@ -587,59 +558,57 @@ export function PeptideTherapyPageContent() {
               },
             ].map((box, idx) => (
               <FadeUp key={box.label} delayMs={idx * 40}>
-                <div className="rounded-xl border border-neutral-200 bg-neutral-50 p-5 text-center">
-                  <p className="text-xs font-bold uppercase tracking-wider text-neutral-500">
+                <JourneyDarkCard className="text-center">
+                  <p className="text-xs font-bold uppercase tracking-wider text-white/50">
                     {box.label}
                   </p>
-                  <p className="mt-2 text-xl font-black text-[#E6007E]">{box.range}</p>
-                  <p className="mt-2 text-xs text-neutral-600">{box.detail}</p>
-                </div>
+                  <p className="mt-2 font-serif text-xl font-bold text-[#FF2D8E]">{box.range}</p>
+                  <p className="mt-2 text-xs text-white/65">{box.detail}</p>
+                </JourneyDarkCard>
               </FadeUp>
             ))}
           </div>
           <FadeUp delayMs={160}>
-            <p className="mt-8 text-center text-sm text-neutral-500">
+            <p className="mt-8 text-center text-sm text-white/55">
               All peptide protocols require a ${PEPTIDE_CONSULT_FEE_USD} NP consultation. Many stack
               with GLP-1, BioTE hormone therapy, or aesthetics.
             </p>
-            <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
-              <CTA href={HELLO_GORGEOUS_RX_START_PATH} variant="gradient">
-                Book Consultation
-              </CTA>
+            <div className="mt-6 flex flex-col items-center justify-center gap-4 sm:flex-row">
+              <JourneyPinkBtn href={HELLO_GORGEOUS_RX_START_PATH}>Book consultation</JourneyPinkBtn>
               <Link
                 href="/skin-101/find-your-peptide"
-                className="text-sm font-semibold text-[#E6007E] hover:underline"
+                className="text-sm font-semibold text-[#FF2D8E] hover:underline"
               >
                 Not sure which peptide? Take our goal-based guide →
               </Link>
             </div>
           </FadeUp>
         </div>
-      </Section>
+      </section>
 
       {/* Full menu accordion — secondary */}
-      <Section className="border-t border-neutral-200 bg-neutral-50">
+      <section className={`${JOURNEY_SECTION_BG_A} px-6 py-16 lg:py-24`}>
         <div className="mx-auto max-w-3xl">
           <FadeUp>
-            <details className="group rounded-xl border border-neutral-200 bg-white">
-              <summary className="cursor-pointer list-none px-6 py-4 font-bold text-neutral-900 flex items-center justify-between">
+            <details className="group rounded-2xl border border-white/14 bg-[#0a0206]">
+              <summary className="flex cursor-pointer list-none items-center justify-between px-6 py-4 font-bold text-white">
                 View complete Hello Gorgeous RX™ formulary &amp; pricing
-                <span className="text-[#E6007E] group-open:rotate-45 transition-transform">+</span>
+                <span className="text-[#FF2D8E] transition-transform group-open:rotate-45">+</span>
               </summary>
-              <div className="border-t border-neutral-100 px-6 pb-6">
+              <div className="border-t border-white/10 px-6 pb-6">
                 {pricingGroups.map((group) => (
                   <div key={group.category} className="mt-6">
-                    <h3 className="text-xs font-bold uppercase tracking-wider text-[#E6007E]">
+                    <h3 className="text-xs font-bold uppercase tracking-wider text-[#FF2D8E]">
                       {group.category}
                     </h3>
-                    <ul className="mt-2 divide-y divide-neutral-100">
+                    <ul className="mt-2 divide-y divide-white/10">
                       {group.rows.map((row) => (
                         <li
                           key={row.id}
                           className="flex justify-between gap-4 py-2 text-sm"
                         >
-                          <span className="text-neutral-800">{row.name}</span>
-                          <span className="shrink-0 font-semibold text-neutral-900">
+                          <span className="text-white/85">{row.name}</span>
+                          <span className="shrink-0 font-semibold text-white">
                             From ${row.fromMonthlyUsd}/mo
                           </span>
                         </li>
@@ -651,7 +620,7 @@ export function PeptideTherapyPageContent() {
             </details>
           </FadeUp>
         </div>
-      </Section>
+      </section>
 
       <Suspense fallback={null}>
         <PeptidesHubGrid />
@@ -663,41 +632,33 @@ export function PeptideTherapyPageContent() {
       <PeptideHubFaqSection />
 
       {/* Closing CTA */}
-      <Section className="relative overflow-hidden border-t-4 border-black">
-        <div
-          className="absolute inset-0"
-          style={{
-            background: "linear-gradient(125deg, #FF2D8E 0%, #E6007E 45%, #9b0a4d 100%)",
-          }}
-        />
+      <section className="relative overflow-hidden bg-[#FF2D8E] px-6 py-16 text-black lg:py-20">
         <div className="relative z-10 mx-auto max-w-3xl text-center">
           <FadeUp>
-            <h2 className="text-3xl font-black text-white md:text-4xl">
+            <h2 className="font-serif text-3xl font-bold md:text-4xl">
               Enhance your protocol
             </h2>
-            <p className="mt-4 text-lg text-white/90">
+            <p className="mt-4 text-lg text-black/80">
               Find out which peptides and add-on therapies can support your goals — starting with a
               ${PEPTIDE_CONSULT_FEE_USD} NP consult.
             </p>
             <div className="mt-8 flex flex-col justify-center gap-4 sm:flex-row">
-              <CTA
+              <JourneyPinkBtn
                 href={HELLO_GORGEOUS_RX_START_PATH}
-                variant="outline"
-                className="border-2 border-white bg-white px-10 py-4 text-lg font-bold text-[#E6007E] hover:bg-white/90"
+                className="border-2 border-black bg-black text-white hover:bg-white hover:text-black"
               >
-                Book Consultation
-              </CTA>
-              <CTA
+                Book consultation
+              </JourneyPinkBtn>
+              <a
                 href={`tel:${SITE.phone}`}
-                variant="outline"
-                className="border-2 border-white/60 px-10 py-4 text-lg text-white hover:bg-white/10"
+                className="inline-flex min-h-[48px] items-center justify-center rounded-full border-2 border-black/60 px-8 py-3 text-sm font-bold text-black transition hover:bg-black hover:text-white"
               >
                 Call {SITE.phone}
-              </CTA>
+              </a>
             </div>
           </FadeUp>
         </div>
-      </Section>
+      </section>
     </div>
   );
 }

@@ -59,7 +59,7 @@ function CopyButton({ text, label = "Copy caption" }: { text: string; label?: st
     <button
       type="button"
       onClick={copy}
-      className="w-full rounded-xl border-2 border-pink-500/40 bg-pink-500/10 px-4 py-2.5 text-sm font-semibold text-pink-200 hover:border-pink-400 hover:bg-pink-500/20 transition-colors"
+      className="w-full rounded-xl border-2 border-[#E6007E]/30 bg-rose-50 px-4 py-2.5 text-sm font-semibold text-[#E6007E] transition-colors hover:border-[#E6007E] hover:bg-rose-100"
     >
       {copied ? "Copied!" : label}
     </button>
@@ -73,10 +73,10 @@ function CheatSheetCard({ sheet }: { sheet: ClinicalCheatSheet }) {
       href={sheet.href}
       target="_blank"
       rel="noopener noreferrer"
-      className="block rounded-2xl border-2 border-white/10 bg-white/5 overflow-hidden hover:border-amber-400/50 hover:bg-white/10 transition-all"
+      className="block overflow-hidden rounded-2xl border-2 border-neutral-200 bg-white shadow-sm transition-all hover:border-[#E6007E]/50 hover:shadow-md"
     >
       {sheet.thumbnail ? (
-        <div className="relative h-32 w-full bg-black/50 border-b border-white/10">
+        <div className="relative h-32 w-full border-b border-neutral-100 bg-neutral-50">
           <Image
             src={sheet.thumbnail}
             alt={sheet.title}
@@ -87,15 +87,15 @@ function CheatSheetCard({ sheet }: { sheet: ClinicalCheatSheet }) {
         </div>
       ) : null}
       <div className="flex items-start gap-3 p-4">
-        <span className="text-2xl shrink-0">{cat?.icon ?? "📑"}</span>
+        <span className="shrink-0 text-2xl">{cat?.icon ?? "📑"}</span>
         <div className="min-w-0 flex-1">
-          <h3 className="font-bold text-white text-sm leading-snug">{sheet.title}</h3>
-          <p className="text-amber-200/60 text-xs mt-1">{sheet.description}</p>
+          <h3 className="text-sm font-bold leading-snug text-neutral-900">{sheet.title}</h3>
+          <p className="mt-1 text-xs text-neutral-600">{sheet.description}</p>
           {cat ? (
-            <p className="text-[10px] uppercase tracking-wider text-gray-500 mt-1.5">{cat.label}</p>
+            <p className="mt-1.5 text-[10px] uppercase tracking-wider text-neutral-400">{cat.label}</p>
           ) : null}
         </div>
-        <span className="text-amber-400 shrink-0 text-xs font-bold">PDF</span>
+        <span className="shrink-0 text-xs font-bold text-[#E6007E]">PDF</span>
       </div>
     </a>
   );
@@ -107,15 +107,15 @@ function GuideCard({ guide }: { guide: RegenProtocolGuide }) {
       href={guide.href}
       target="_blank"
       rel="noopener noreferrer"
-      className="block rounded-2xl border-2 border-white/10 bg-white/5 p-4 hover:border-pink-500/50 hover:bg-white/10 transition-all"
+      className="block rounded-2xl border-2 border-neutral-200 bg-white p-4 shadow-sm transition-all hover:border-[#E6007E]/50 hover:shadow-md"
     >
       <div className="flex items-start gap-3">
-        <span className="text-2xl shrink-0">{guide.format === "html" ? "🌐" : "📄"}</span>
+        <span className="shrink-0 text-2xl">{guide.format === "html" ? "🌐" : "📄"}</span>
         <div className="min-w-0 flex-1">
-          <h3 className="font-bold text-white text-sm leading-snug">{guide.title}</h3>
-          <p className="text-pink-200/60 text-xs mt-1">{guide.description}</p>
+          <h3 className="text-sm font-bold leading-snug text-neutral-900">{guide.title}</h3>
+          <p className="mt-1 text-xs text-neutral-600">{guide.description}</p>
         </div>
-        <span className="text-pink-400 shrink-0">→</span>
+        <span className="shrink-0 text-[#E6007E]">→</span>
       </div>
     </a>
   );
@@ -125,8 +125,8 @@ function SocialPostCard({ post }: { post: RegenStaffSocialPost }) {
   const img = post.staffImagePath ?? post.imagePath;
 
   return (
-    <div className="rounded-2xl border-2 border-purple-500/30 bg-white/5 overflow-hidden">
-      <div className="relative aspect-square w-full bg-black/40">
+    <div className="overflow-hidden rounded-2xl border-2 border-neutral-200 bg-white shadow-sm">
+      <div className="relative aspect-square w-full bg-neutral-100">
         <Image
           src={img}
           alt={post.label}
@@ -135,21 +135,21 @@ function SocialPostCard({ post }: { post: RegenStaffSocialPost }) {
           sizes="(max-width: 480px) 100vw, 400px"
         />
       </div>
-      <div className="p-4 space-y-3">
+      <div className="space-y-3 p-4">
         <div className="flex items-center justify-between gap-2">
-          <span className="text-xs font-bold uppercase tracking-wider text-purple-300">
+          <span className="text-xs font-bold uppercase tracking-wider text-[#E6007E]">
             {post.dayLabel}
           </span>
-          <span className="text-xs text-gray-400">{post.channels.join(" · ")}</span>
+          <span className="text-xs text-neutral-500">{post.channels.join(" · ")}</span>
         </div>
-        <h3 className="font-bold text-white text-sm">{post.label}</h3>
-        <p className="text-pink-100/80 text-xs whitespace-pre-line line-clamp-4">{post.message}</p>
+        <h3 className="text-sm font-bold text-neutral-900">{post.label}</h3>
+        <p className="line-clamp-4 whitespace-pre-line text-xs text-neutral-700">{post.message}</p>
         <div className="flex flex-col gap-2">
           <CopyButton text={post.message} />
           <a
             href={img}
             download
-            className="text-center rounded-xl border-2 border-cyan-500/40 bg-cyan-500/10 px-4 py-2.5 text-sm font-semibold text-cyan-200 hover:border-cyan-400 transition-colors"
+            className="rounded-xl border-2 border-sky-200 bg-sky-50 px-4 py-2.5 text-center text-sm font-semibold text-sky-800 transition-colors hover:border-sky-400"
           >
             Download image
           </a>
@@ -157,7 +157,7 @@ function SocialPostCard({ post }: { post: RegenStaffSocialPost }) {
             href={post.link}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-center text-xs text-pink-300 underline decoration-pink-500"
+            className="text-center text-xs text-[#E6007E] underline decoration-[#E6007E]/40"
           >
             Post link: {post.link.replace("https://www.hellogorgeousmedspa.com", "")}
           </a>
@@ -171,14 +171,14 @@ function InvoiceRow({ template }: { template: RxInvoiceTemplate }) {
   return (
     <a
       href={rxInvoiceQuickLink(template.id)}
-      className="flex items-center gap-3 rounded-xl border-2 border-white/10 bg-white/5 px-4 py-3 hover:border-emerald-400/50 hover:bg-white/10 transition-all"
+      className="flex items-center gap-3 rounded-xl border-2 border-neutral-200 bg-white px-4 py-3 transition-all hover:border-emerald-400 hover:shadow-sm"
     >
       <div className="min-w-0 flex-1">
-        <p className="font-semibold text-white text-sm truncate">{template.name}</p>
-        <p className="text-xs text-gray-400 truncate">{template.group}</p>
+        <p className="truncate text-sm font-semibold text-neutral-900">{template.name}</p>
+        <p className="truncate text-xs text-neutral-500">{template.group}</p>
       </div>
-      <span className="shrink-0 font-bold text-emerald-300">{formatUsd(template.amountUsd)}</span>
-      <span className="text-emerald-400 shrink-0">→</span>
+      <span className="shrink-0 font-bold text-emerald-700">{formatUsd(template.amountUsd)}</span>
+      <span className="shrink-0 text-emerald-600">→</span>
     </a>
   );
 }
@@ -242,36 +242,38 @@ export default function RegenStaffProtocolsContent({
   }, [coreGuides, peptideGuides]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-900 via-purple-950 to-black">
-      <div className="max-w-lg mx-auto px-4 py-8 pb-16">
+    <div className="min-h-screen bg-neutral-50 text-neutral-900">
+      <div className="mx-auto max-w-lg px-4 py-8 pb-16">
         <div className="mb-6 flex flex-wrap items-center justify-between gap-2">
           <Link
             href="/staff"
-            className="text-sm text-pink-300 hover:text-pink-200 inline-flex items-center gap-1"
+            className="inline-flex items-center gap-1 text-sm font-semibold text-[#E6007E] hover:text-[#c9006e]"
           >
             ← Staff Hub
           </Link>
           <Link
             href="/admin/rx/ops"
-            className="text-sm text-emerald-300 hover:text-emerald-200 inline-flex items-center gap-1"
+            className="inline-flex items-center gap-1 text-sm font-semibold text-emerald-700 hover:text-emerald-900"
           >
             RX Ops Console →
           </Link>
         </div>
 
-        <div className="text-center mb-8">
+        <div className="mb-8 text-center">
           <img
             src="/images/regen/regen-logo.png"
             alt="RE GEN"
-            className="h-16 mx-auto mb-4 rounded-lg"
+            className="mx-auto mb-4 h-16 rounded-lg"
           />
-          <h1 className="text-2xl font-bold text-white mb-1">Protocols &amp; Quick Tools</h1>
-          <p className="text-pink-300 text-sm">
+          <h1 className="mb-1 font-serif text-2xl font-bold text-neutral-900">
+            Protocols &amp; Quick Tools
+          </h1>
+          <p className="text-sm text-neutral-600">
             Guides · clinical cheat sheets · social · RX invoices
           </p>
         </div>
 
-        <div className="grid grid-cols-2 gap-2 mb-6 sm:grid-cols-4">
+        <div className="mb-6 grid grid-cols-2 gap-2 sm:grid-cols-4">
           {TAB_LABELS.map((t) => (
             <button
               key={t.id}
@@ -279,11 +281,11 @@ export default function RegenStaffProtocolsContent({
               onClick={() => setTab(t.id)}
               className={`flex-1 rounded-xl border-2 px-2 py-2.5 text-xs font-bold transition-all ${
                 tab === t.id
-                  ? "border-pink-500 bg-pink-500/20 text-white"
-                  : "border-white/10 bg-white/5 text-gray-400 hover:border-pink-500/40"
+                  ? "border-[#E6007E] bg-rose-50 text-[#E6007E] shadow-sm"
+                  : "border-neutral-200 bg-white text-neutral-600 hover:border-[#E6007E]/40"
               }`}
             >
-              <span className="block text-lg mb-0.5">{t.icon}</span>
+              <span className="mb-0.5 block text-lg">{t.icon}</span>
               {t.label}
             </button>
           ))}
@@ -291,11 +293,13 @@ export default function RegenStaffProtocolsContent({
 
         <Link
           href="/admin/promos/bestie"
-          className="mb-6 block rounded-2xl border-2 border-amber-400/50 bg-amber-500/10 p-4 hover:bg-amber-500/15 transition-colors"
+          className="mb-6 block rounded-2xl border-2 border-amber-300 bg-amber-50 p-4 transition-colors hover:bg-amber-100/80"
         >
-          <p className="text-xs font-bold uppercase tracking-wider text-amber-300">Bestie program</p>
-          <p className="mt-1 font-black text-white text-lg font-mono">{BESTIE_SQUARE_DISCOUNT.code}</p>
-          <p className="text-sm text-amber-100/80 mt-0.5">
+          <p className="text-xs font-bold uppercase tracking-wider text-amber-800">Bestie program</p>
+          <p className="mt-1 font-mono text-lg font-black text-neutral-900">
+            {BESTIE_SQUARE_DISCOUNT.code}
+          </p>
+          <p className="mt-0.5 text-sm text-amber-900/80">
             ${BESTIE_SQUARE_DISCOUNT.amountUsd} off — Square checkout or POS only (not in-app)
           </p>
         </Link>
@@ -304,7 +308,7 @@ export default function RegenStaffProtocolsContent({
           <div className="space-y-6">
             {Object.entries(guidesByCategory).map(([heading, guides]) => (
               <section key={heading}>
-                <h2 className="text-xs font-bold uppercase tracking-widest text-purple-300 mb-3">
+                <h2 className="mb-3 text-xs font-bold uppercase tracking-widest text-[#E6007E]">
                   {heading}
                 </h2>
                 <div className="space-y-2">
@@ -319,7 +323,7 @@ export default function RegenStaffProtocolsContent({
 
         {tab === "cheat-sheets" && (
           <div className="space-y-4">
-            <p className="text-xs text-center text-gray-400">
+            <p className="text-center text-xs text-neutral-600">
               {cheatSheets.length} printable clinical reference PDFs — tap to open or save
             </p>
             <input
@@ -327,7 +331,7 @@ export default function RegenStaffProtocolsContent({
               value={cheatSearch}
               onChange={(e) => setCheatSearch(e.target.value)}
               placeholder="Search cheat sheets…"
-              className="w-full rounded-xl border-2 border-white/10 bg-white/5 px-4 py-2.5 text-sm text-white placeholder:text-gray-500"
+              className="w-full rounded-xl border-2 border-neutral-200 bg-white px-4 py-2.5 text-sm text-neutral-900 placeholder:text-neutral-400 focus:border-[#E6007E] focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20"
             />
             <div className="flex flex-wrap gap-2">
               <button
@@ -335,8 +339,8 @@ export default function RegenStaffProtocolsContent({
                 onClick={() => setCheatCategory("all")}
                 className={`rounded-full border px-3 py-1 text-xs font-semibold ${
                   cheatCategory === "all"
-                    ? "border-amber-400 text-amber-200"
-                    : "border-white/10 text-gray-400"
+                    ? "border-[#E6007E] bg-rose-50 text-[#E6007E]"
+                    : "border-neutral-200 bg-white text-neutral-600"
                 }`}
               >
                 All ({cheatSheets.length})
@@ -351,8 +355,8 @@ export default function RegenStaffProtocolsContent({
                     onClick={() => setCheatCategory(cat.id)}
                     className={`rounded-full border px-3 py-1 text-xs font-semibold ${
                       cheatCategory === cat.id
-                        ? "border-amber-400 text-amber-200"
-                        : "border-white/10 text-gray-400"
+                        ? "border-[#E6007E] bg-rose-50 text-[#E6007E]"
+                        : "border-neutral-200 bg-white text-neutral-600"
                     }`}
                   >
                     {cat.icon} {cat.label} ({count})
@@ -360,12 +364,12 @@ export default function RegenStaffProtocolsContent({
                 );
               })}
             </div>
-            <div className="space-y-2 max-h-[32rem] overflow-y-auto pr-1">
+            <div className="max-h-[32rem] space-y-2 overflow-y-auto pr-1">
               {filteredCheatSheets.map((s) => (
                 <CheatSheetCard key={s.id} sheet={s} />
               ))}
               {filteredCheatSheets.length === 0 && (
-                <p className="text-center text-sm text-gray-500 py-6">No cheat sheets match.</p>
+                <p className="py-6 text-center text-sm text-neutral-500">No cheat sheets match.</p>
               )}
             </div>
           </div>
@@ -379,8 +383,8 @@ export default function RegenStaffProtocolsContent({
                 onClick={() => setSocialPack("week1")}
                 className={`flex-1 rounded-xl border-2 py-2 text-xs font-bold ${
                   socialPack === "week1"
-                    ? "border-purple-500 bg-purple-500/20 text-white"
-                    : "border-white/10 text-gray-400"
+                    ? "border-[#E6007E] bg-rose-50 text-[#E6007E]"
+                    : "border-neutral-200 bg-white text-neutral-600"
                 }`}
               >
                 Week 1 (3 posts)
@@ -390,14 +394,14 @@ export default function RegenStaffProtocolsContent({
                 onClick={() => setSocialPack("july")}
                 className={`flex-1 rounded-xl border-2 py-2 text-xs font-bold ${
                   socialPack === "july"
-                    ? "border-purple-500 bg-purple-500/20 text-white"
-                    : "border-white/10 text-gray-400"
+                    ? "border-[#E6007E] bg-rose-50 text-[#E6007E]"
+                    : "border-neutral-200 bg-white text-neutral-600"
                 }`}
               >
                 Full July (12 posts)
               </button>
             </div>
-            <p className="text-xs text-center text-gray-400">
+            <p className="text-center text-xs text-neutral-600">
               Copy caption → download image → paste to Facebook, Instagram, or Google Business
             </p>
             <div className="space-y-4">
@@ -410,9 +414,9 @@ export default function RegenStaffProtocolsContent({
 
         {tab === "invoices" && (
           <div className="space-y-5">
-            <div className="rounded-2xl border-2 border-emerald-500/30 bg-emerald-500/10 p-4">
-              <p className="text-sm text-emerald-100 font-medium mb-1">Quick picks</p>
-              <p className="text-xs text-emerald-200/70 mb-3">
+            <div className="rounded-2xl border-2 border-emerald-200 bg-emerald-50 p-4">
+              <p className="mb-1 text-sm font-medium text-emerald-900">Quick picks</p>
+              <p className="mb-3 text-xs text-emerald-800/80">
                 Tap to open RX Invoices with template pre-selected (admin login required).
               </p>
               <div className="space-y-2">
@@ -423,7 +427,7 @@ export default function RegenStaffProtocolsContent({
             </div>
 
             <section>
-              <h2 className="text-xs font-bold uppercase tracking-widest text-emerald-300 mb-3">
+              <h2 className="mb-3 text-xs font-bold uppercase tracking-widest text-emerald-700">
                 All invoice templates ({allInvoices.length})
               </h2>
               <input
@@ -431,16 +435,16 @@ export default function RegenStaffProtocolsContent({
                 value={invoiceSearch}
                 onChange={(e) => setInvoiceSearch(e.target.value)}
                 placeholder="Search invoices…"
-                className="w-full rounded-xl border-2 border-white/10 bg-white/5 px-4 py-2.5 text-sm text-white placeholder:text-gray-500 mb-3"
+                className="mb-3 w-full rounded-xl border-2 border-neutral-200 bg-white px-4 py-2.5 text-sm text-neutral-900 placeholder:text-neutral-400 focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/20"
               />
-              <div className="flex flex-wrap gap-2 mb-3">
+              <div className="mb-3 flex flex-wrap gap-2">
                 <button
                   type="button"
                   onClick={() => setInvoiceTrack("all")}
                   className={`rounded-full border px-3 py-1 text-xs font-semibold ${
                     invoiceTrack === "all"
-                      ? "border-emerald-400 text-emerald-200"
-                      : "border-white/10 text-gray-400"
+                      ? "border-emerald-500 bg-emerald-50 text-emerald-800"
+                      : "border-neutral-200 bg-white text-neutral-600"
                   }`}
                 >
                   All
@@ -452,27 +456,27 @@ export default function RegenStaffProtocolsContent({
                     onClick={() => setInvoiceTrack(tr.id)}
                     className={`rounded-full border px-3 py-1 text-xs font-semibold ${
                       invoiceTrack === tr.id
-                        ? "border-emerald-400 text-emerald-200"
-                        : "border-white/10 text-gray-400"
+                        ? "border-emerald-500 bg-emerald-50 text-emerald-800"
+                        : "border-neutral-200 bg-white text-neutral-600"
                     }`}
                   >
                     {tr.label} ({tr.count})
                   </button>
                 ))}
               </div>
-              <div className="space-y-2 max-h-[28rem] overflow-y-auto pr-1">
+              <div className="max-h-[28rem] space-y-2 overflow-y-auto pr-1">
                 {filteredInvoices.map((t) => (
                   <InvoiceRow key={t.id} template={t} />
                 ))}
                 {filteredInvoices.length === 0 && (
-                  <p className="text-center text-sm text-gray-500 py-6">No templates match.</p>
+                  <p className="py-6 text-center text-sm text-neutral-500">No templates match.</p>
                 )}
               </div>
             </section>
 
             <a
               href="/admin/rx-invoices"
-              className="block text-center rounded-2xl border-2 border-emerald-500/50 bg-emerald-600/20 py-3 text-sm font-bold text-emerald-100 hover:bg-emerald-600/30 transition-colors"
+              className="block rounded-2xl border-2 border-emerald-500 bg-emerald-600 py-3 text-center text-sm font-bold text-white transition-colors hover:bg-emerald-700"
             >
               Open full RX Invoices console →
             </a>
