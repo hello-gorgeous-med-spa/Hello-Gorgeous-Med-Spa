@@ -5,15 +5,17 @@ import { MEET_THE_TEAM_SEO_DESCRIPTION, meetTheTeamJsonLd } from "@/lib/team-mem
 import { breadcrumbJsonLd, pageMetadata, SITE, siteJsonLd } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Meet the Team | Michelle Colby & Marissa Murray",
+  title: "Meet the Team | Michelle Colby, Marissa Murray & Jen Vokoun",
   description: MEET_THE_TEAM_SEO_DESCRIPTION,
   path: "/meet-the-team",
   keywords: [
     "Hello Gorgeous Med Spa team",
     "Michelle Colby Hello Gorgeous",
     "Marissa Murray esthetician Oswego",
+    "Jen Vokoun permanent makeup Oswego",
     "med spa staff Oswego IL",
     "lash artist Oswego",
+    "microblading artist Oswego",
     "front desk Hello Gorgeous",
   ],
 });
