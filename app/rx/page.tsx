@@ -17,9 +17,9 @@ import {
 
 const RX_PATH = "/rx";
 const RX_TITLE =
-  "RE GEN Shop | Online Medical Weight Loss, Peptides & Hormones | Hello Gorgeous";
+  "RE GEN | Peptide & Medical Programs | Hello Gorgeous Oswego IL";
 const RX_DESCRIPTION =
-  "Shop RE GEN by Hello Gorgeous Med Spa in Oswego, IL — browse ~195 compounded prescriptions by goal: GLP-1 weight loss, peptides, hormones, intimacy, skin & hair, and longevity. NP review, flat $30 Illinois shipping.";
+  "Science-driven peptide and medical programs from Hello Gorgeous RX™ in Oswego, IL — NP-supervised recovery, hormones, GLP-1, and longevity protocols. Learn what peptides are, then shop RE GEN by goal with flat $30 Illinois shipping.";
 
 const baseMetadata = pageMetadata({
   title: RX_TITLE,
@@ -152,7 +152,7 @@ export default function RxShopPage() {
 
       {/* Crawlable copy — portal UI is client-heavy; keep indexable anchors */}
       <section className="sr-only" aria-label="RE GEN shop categories">
-        <h1>RE GEN Shop — Online Medical Weight Loss, Peptides and Hormones</h1>
+        <h1>RE GEN — Peptide & Medical Programs | Hello Gorgeous Oswego IL</h1>
         <p>{RX_DESCRIPTION}</p>
         <ul>
           {SHOP_GOALS.map((goalId) => (

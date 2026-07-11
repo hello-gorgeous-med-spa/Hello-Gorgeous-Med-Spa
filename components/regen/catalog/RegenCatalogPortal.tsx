@@ -32,6 +32,8 @@ import {
   formatCatalogMoney,
 } from "@/components/regen/catalog/CatalogProductCard";
 import { ProductDetailDrawer } from "@/components/regen/catalog/ProductDetailDrawer";
+import { RxPeptideEducationSection } from "@/components/rx/RxPeptideEducationSection";
+import { RxScienceHomeHero } from "@/components/rx/RxScienceHomeHero";
 
 type View = "home" | "goal" | "all" | "search";
 
@@ -99,6 +101,10 @@ export function RegenCatalogPortal({
     if (value.trim()) navigate({ q: value });
     else navigate({ goal: activeGoal, browse: view === "all" ? "all" : null });
   };
+
+  const scrollToShopByGoal = useCallback(() => {
+    document.getElementById("shop-by-goal")?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }, []);
 
   const openProduct = (id: string) => {
     setSelectedId(id);
@@ -281,44 +287,23 @@ export function RegenCatalogPortal({
 
       {view === "home" ? (
         <>
-          {/* Hero */}
-          <section className="border-b border-black/5 bg-gradient-to-b from-[#FFF5F9] to-white px-6 py-14 md:py-20">
-            <div className="mx-auto max-w-[1200px]">
-              <p className="text-xs font-bold uppercase tracking-[0.26em] text-[#FF2D8E]">
-                RENEW · REBALANCE · REGENERATE
-              </p>
-              <h1 className="mt-4 max-w-3xl font-serif text-4xl font-extrabold leading-tight md:text-[56px]">
-                Your treatments, made{" "}
-                <span className="text-[#FF2D8E]">effortless.</span>
-              </h1>
-              <p className="mt-5 max-w-2xl text-base leading-relaxed text-black/75 md:text-lg">
-                Browse the full RE GEN formulary — NP-directed by{" "}
-                <strong>Ryan Kent, FNP-BC</strong>. Every order is reviewed before
-                anything ships. Flat <strong>$30</strong> Illinois shipping.
-              </p>
-              <div className="mt-8 flex flex-wrap gap-3">
-                <button
-                  type="button"
-                  onClick={() => navigate({ goal: "Lose Weight" })}
-                  className="rounded-full bg-[#FF2D8E] px-6 py-3 text-sm font-bold text-white shadow-[0_8px_24px_rgba(255,45,142,0.28)] hover:bg-[#E6007E]"
-                >
-                  Start with weight loss
-                </button>
-                <button
-                  type="button"
-                  onClick={() => navigate({ browse: "all" })}
-                  className="rounded-full border-2 border-[#0a0a0a] bg-transparent px-6 py-3 text-sm font-bold text-[#0a0a0a] hover:bg-[#0a0a0a] hover:text-white"
-                >
-                  Browse full catalog
-                </button>
-              </div>
-            </div>
-          </section>
+          <RxScienceHomeHero onExploreGoals={scrollToShopByGoal} />
+          <RxPeptideEducationSection />
 
           {/* Shop by goal */}
-          <section className="px-6 py-14">
+          <section id="shop-by-goal" className="scroll-mt-20 border-t-4 border-black px-6 py-14">
             <div className="mx-auto max-w-[1200px]">
-              <h2 className="font-serif text-3xl font-extrabold">Shop by goal</h2>
+              <p className="text-xs font-bold uppercase tracking-[0.22em] text-[#E6007E]">
+                Your protocol, matched to your goal
+              </p>
+              <h2 className="mt-2 font-serif text-3xl font-extrabold md:text-4xl">
+                Shop by goal
+              </h2>
+              <p className="mt-3 max-w-2xl text-black/65">
+                Once you understand the science, browse RE GEN by what you want to work on —
+                weight, recovery, hormones, intimacy, skin, or longevity. Every order is NP-reviewed
+                before it ships.
+              </p>
               <div className="mt-8 grid gap-[18px] sm:grid-cols-2 lg:grid-cols-3">
                 {SHOP_GOALS.map((goal) => {
                   const accent = goalAccent(goal);
