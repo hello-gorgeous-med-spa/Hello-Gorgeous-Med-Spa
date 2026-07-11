@@ -62,13 +62,20 @@ function TaskCard({ task }: { task: MyDayTask }) {
 export default function MyDayPage() {
   const [board, setBoard] = useState<MyDayBoard | null>(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     (async () => {
       try {
         const res = await fetch("/api/admin/rx/my-day");
-        const data = await res.json();
-        if (res.ok) setBoard(data.board);
+        const data = await res.json().catch(() => ({}));
+        if (res.ok) {
+          setBoard(data.board);
+        } else {
+          setError(data.error || `Could not load (HTTP ${res.status})`);
+        }
+      } catch {
+        setError("Network error — please try again.");
       } finally {
         setLoading(false);
       }
@@ -100,7 +107,11 @@ export default function MyDayPage() {
         </div>
       </div>
 
-      {loading || !board ? (
+      {error ? (
+        <p className="text-sm text-red-800 bg-red-50 border-2 border-red-200 rounded-xl px-4 py-3">
+          {error}
+        </p>
+      ) : loading || !board ? (
         <p className="text-black/50">Loading…</p>
       ) : (
         <>

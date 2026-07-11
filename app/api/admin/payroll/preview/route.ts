@@ -12,6 +12,11 @@ export async function GET(req: Request) {
   if (!session) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
+  // Full payroll (everyone's pay) is owner/admin only — staff see their own
+  // numbers via My Book / commission payouts instead.
+  if (session.role !== "owner" && session.role !== "admin") {
+    return NextResponse.json({ error: "Owner access required" }, { status: 403 });
+  }
 
   const url = new URL(req.url);
   const weekStart = url.searchParams.get("weekStart");

@@ -20,13 +20,21 @@ export default function MyRegenBookPage() {
   const [days, setDays] = useState(90);
   const [book, setBook] = useState<StaffRegenBook | null>(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   const load = useCallback(async () => {
     setLoading(true);
+    setError(null);
     try {
       const res = await fetch(`/api/admin/rx/my-book?days=${days}`);
-      const data = await res.json();
-      if (res.ok) setBook(data.book);
+      const data = await res.json().catch(() => ({}));
+      if (res.ok) {
+        setBook(data.book);
+      } else {
+        setError(data.error || `Could not load (HTTP ${res.status})`);
+      }
+    } catch {
+      setError("Network error — please try again.");
     } finally {
       setLoading(false);
     }
@@ -85,7 +93,11 @@ export default function MyRegenBookPage() {
         ))}
       </div>
 
-      {loading || !book ? (
+      {error ? (
+        <p className="text-sm text-red-800 bg-red-50 border-2 border-red-200 rounded-xl px-4 py-3">
+          {error}
+        </p>
+      ) : loading || !book ? (
         <p className="text-black/50">Loading…</p>
       ) : (
         <>

@@ -119,6 +119,29 @@ export async function resolveStaffSellerById(
   return staff.find((s) => s.userId === userId) ?? null;
 }
 
+/**
+ * Resolve the staff profile for the signed-in viewer. Env-credential sessions
+ * (e.g. owner-001) have synthetic ids, so fall back to email, then — for the
+ * owner role — the sole owner profile.
+ */
+export async function resolveStaffSellerForViewer(
+  viewer: Pick<ApiUser, "id" | "email" | "role">,
+  client?: SupabaseClient | null,
+): Promise<SalesStaffOption | null> {
+  const staff = await listSalesStaffOptions(client);
+  const byId = staff.find((s) => s.userId === viewer.id);
+  if (byId) return byId;
+  const email = viewer.email?.trim().toLowerCase();
+  if (email) {
+    const byEmail = staff.find((s) => s.email.toLowerCase() === email);
+    if (byEmail) return byEmail;
+  }
+  if (viewer.role === "owner") {
+    return staff.find((s) => s.role === "owner") ?? null;
+  }
+  return null;
+}
+
 /** Resolve sold-by from staff session + optional override (must be active staff). */
 export async function resolveSaleAttribution(
   request: NextRequest,
