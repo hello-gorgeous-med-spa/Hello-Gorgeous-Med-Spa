@@ -50,7 +50,7 @@ export const PHASE1_UNCONTESTED_PAGES: ServicePageData[] = [
       "Follow-up: a complimentary check-in around day 14, with continued improvement visible for 3–6 months as collagen rebuilds.",
     ],
     pricing:
-      "Solaria CO2 pricing starts from $1,200 per session and varies by area treated and depth selected. Most clients see ideal results from a single session, though more aggressive resurfacing may benefit from a series. We give you exact pricing at your free consultation — no surprises, no upsells.",
+      "Solaria CO2 pricing starts from $899 per session and varies by area treated and depth selected. Most clients see ideal results from a single session, though more aggressive resurfacing may benefit from a series. We give you exact pricing at your free consultation — no surprises, no upsells.",
     faqs: [
       {
         q: "What does Solaria CO2 actually treat?",

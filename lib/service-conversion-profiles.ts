@@ -87,7 +87,7 @@ export const SERVICE_CONVERSION_PROFILES: Record<PriorityConversionSlug, Service
     ],
     downtime: "5–7 days — skin sloughs, then pink new skin emerges. Full post-care kit and day-14 check-in included.",
     treatmentPlan: "Often 1 session for strong results · aggressive cases may need 2–3 spaced 3–4 months apart.",
-    pricingNote: "From $1,200 per session — area and depth confirmed at consult.",
+    pricingNote: "From $899 per session — area and depth confirmed at consult.",
   },
   "quantum-rf-oswego": {
     helpsWith: [

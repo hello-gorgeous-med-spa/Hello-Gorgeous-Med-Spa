@@ -56,18 +56,18 @@ export const MORPHEUS8_BURST_OSWEGO_MENU = buildOswegoMenu("morpheus8-burst-oswe
 export const SOLARIA_CO2_OSWEGO_MENU = buildOswegoMenu("solaria-co2-oswego", {
   eyebrow: "Oswego, IL · Only Solaria CO₂ in the western suburbs",
   titleBefore: "Solaria CO₂ Laser in Oswego, IL —",
-  titleAccent: "From $1,200/session",
+  titleAccent: "From $899/session",
   secondaryCta: INMODE_SECONDARY,
   pricingTitle: "Solaria CO₂ pricing",
   pricingHighlights: [
-    "From $1,200 per session — varies by area & depth",
+    "From $899 per session — varies by area & depth",
     "Most clients see ideal results from a single session",
     "Deeper resurfacing may benefit from 2–3 sessions",
     "Face, neck, décolleté & hands addressable",
     "Exact pricing at your free consultation — no upsells",
   ],
   pricingRows: [
-    { label: "Solaria CO₂ — single session", price: "From $1,200", note: "Area & depth dependent" },
+    { label: "Solaria CO₂ — single session", price: "From $899", note: "Area & depth dependent" },
     { label: "Series of 2–3 (aggressive resurfacing)", price: "Consult", note: "Spaced 3–4 months apart" },
     { label: "InMode Trifecta packages", price: "Specials →", href: "/specials" },
   ],

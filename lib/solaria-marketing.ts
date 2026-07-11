@@ -129,7 +129,7 @@ export const SOLARIA_PACKAGES = [
   {
     id: "single",
     name: "Single session",
-    price: "From $1,200",
+    price: "From $899",
     detail: "area dependent",
     bullets: ["Face, neck, eyes, hands", "Depth customized", "Honest candidacy screening"],
     highlight: false,
@@ -199,7 +199,7 @@ export const SOLARIA_FAQS = [
   },
   {
     q: "How much does Solaria cost?",
-    a: "Launch special: $899 full face (limited). Standard sessions from $1,200 depending on area and depth. Exact quote at your free consultation.",
+    a: "Launch special: $899 full face (limited). Sessions from $899 depending on area and depth. Exact quote at your free consultation.",
   },
 ] as const;
 
