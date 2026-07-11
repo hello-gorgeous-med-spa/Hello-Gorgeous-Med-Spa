@@ -5,6 +5,7 @@ export const SQUARE_TEAM = {
   ryan: "TMaXjwJEUCSGXteY",
   michelle: "TMb94KzYVHezBXDY",
   marissa: "TMSta22x3npmmEwp",
+  laura: "TMssEm0HXMDrFcwp",
 } as const;
 
 /**
