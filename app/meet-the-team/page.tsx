@@ -12,6 +12,7 @@ export const metadata: Metadata = pageMetadata({
     "Hello Gorgeous Med Spa team",
     "Michelle Colby Hello Gorgeous",
     "Marissa Murray esthetician Oswego",
+    "Laura Witt Hello Gorgeous",
     "Jen Vokoun permanent makeup Oswego",
     "med spa staff Oswego IL",
     "lash artist Oswego",

@@ -31,7 +31,7 @@ export type TeamMember = {
 };
 
 export const MEET_THE_TEAM_SEO_DESCRIPTION =
-  "Meet the Hello Gorgeous Med Spa team in Oswego, IL — Michelle Colby (client care & front desk), Marissa Murray (licensed esthetician & lash artist), Jen Vokoun (permanent makeup & brow artist), plus founders Danielle Alcala-Glazier and Ryan Kent, FNP-BC.";
+  "Meet the Hello Gorgeous Med Spa team in Oswego, IL — Michelle Colby (client care & front desk), Marissa Murray (licensed esthetician & lash artist), Laura Witt (client relations & wellness sales), Jen Vokoun (permanent makeup & brow artist), plus founders Danielle Alcala-Glazier and Ryan Kent, FNP-BC.";
 
 export const TEAM_MEMBERS: TeamMember[] = [
   {
@@ -83,6 +83,31 @@ export const TEAM_MEMBERS: TeamMember[] = [
       "Lash extensions",
       "Lash lifts & tints",
       "Brow services",
+    ],
+  },
+  {
+    id: "laura-witt",
+    slug: "laura-witt",
+    fullName: "Laura C. Witt",
+    badge: "Client Relations",
+    title: "Client Relations & Wellness Sales Specialist",
+    isNewHire: true,
+    image: {
+      src: "/images/team/laura-witt-2026.jpg",
+      alt: "Laura C. Witt, Client Relations and Wellness Sales Specialist at Hello Gorgeous Med Spa in Oswego, IL",
+    },
+    quote:
+      "I love creating memorable experiences through genuine connections.",
+    bioParagraphs: [
+      "Laura C. Witt is a customer-focused professional with more than 25 years of experience in sales, client relations, health and wellness coaching, and mortgage lending. Throughout her career, she has built a reputation for creating meaningful connections, solving problems with empathy, and delivering exceptional service in fast-paced environments.",
+      "Known for her positive attitude, professionalism, and strong communication skills, Laura thrives in roles where teamwork and customer care are top priorities. She enjoys meeting people from diverse backgrounds, adapting to new challenges, and creating memorable experiences through genuine connections.",
+      "As she transitions into the aesthetics industry, Laura is excited to bring her passion for helping others, attention to detail, and commitment to excellence to a role where she can contribute to both beauty and wellness experiences.",
+    ],
+    specialties: [
+      "Client relations",
+      "Health & wellness coaching",
+      "Sales & consultations",
+      "Customer care",
     ],
   },
   {
