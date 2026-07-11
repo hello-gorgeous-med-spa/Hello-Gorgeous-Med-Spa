@@ -49,6 +49,15 @@ export default function MyRegenBookPage() {
           </p>
         </div>
         <div className="flex flex-wrap gap-2 text-sm">
+          <Link href="/admin/rx/my-day" className="font-bold text-[#E6007E] underline">
+            My day
+          </Link>
+          <Link href="/admin/rx/leaderboard" className="font-bold text-[#E6007E] underline">
+            Leaderboard
+          </Link>
+          <Link href="/admin/rx/commission-payouts" className="font-bold text-[#E6007E] underline">
+            My payouts
+          </Link>
           <Link href="/admin/rx/portal" className="font-bold text-[#E6007E] underline">
             RE GEN Portal
           </Link>

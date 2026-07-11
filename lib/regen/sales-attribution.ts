@@ -181,6 +181,10 @@ export async function buildRegenSalesByStaffReport(
     scope?: "all" | "mine";
     viewerUserId?: string | null;
     client?: SupabaseClient | null;
+    /** Exact period start — overrides `days`. */
+    sinceIso?: string | null;
+    /** Exact period end (exclusive) — defaults to now. */
+    untilIso?: string | null;
   },
 ): Promise<RegenSalesByStaffReport> {
   const admin = options?.client ?? getSupabaseAdminClient();
@@ -190,7 +194,8 @@ export async function buildRegenSalesByStaffReport(
 
   const since = new Date();
   since.setDate(since.getDate() - days);
-  const sinceIso = since.toISOString();
+  const sinceIso = options?.sinceIso || since.toISOString();
+  const untilIso = options?.untilIso || null;
 
   const staffOptions = await listSalesStaffOptions(admin);
   const staffById = new Map(staffOptions.map((s) => [s.userId, s]));
@@ -228,12 +233,14 @@ export async function buildRegenSalesByStaffReport(
   let paidOrderCount = 0;
   let paidTotalUsd = 0;
 
-  const { data: orders } = await admin
+  let ordersQuery = admin
     .from("regen_orders")
     .select(
       "reference, created_at, status, customer_name, subtotal_usd, shipping_usd, paid_at, sold_by_user_id, sold_by_email, sales_channel",
     )
-    .gte("created_at", sinceIso)
+    .gte("created_at", sinceIso);
+  if (untilIso) ordersQuery = ordersQuery.lt("created_at", untilIso);
+  const { data: orders } = await ordersQuery
     .order("created_at", { ascending: false })
     .limit(1000);
 
@@ -278,13 +285,15 @@ export async function buildRegenSalesByStaffReport(
     });
   }
 
-  const { data: encounters } = await admin
+  let encountersQuery = admin
     .from("hg_rx_clinic_encounters")
     .select(
       "id, created_at, status, final_total_usd, paid_at, sold_by_user_id, sold_by_email, created_by, sale_mode, client_id",
     )
     .eq("sale_mode", "regen_catalog")
-    .gte("created_at", sinceIso)
+    .gte("created_at", sinceIso);
+  if (untilIso) encountersQuery = encountersQuery.lt("created_at", untilIso);
+  const { data: encounters } = await encountersQuery
     .order("created_at", { ascending: false })
     .limit(1000);
 

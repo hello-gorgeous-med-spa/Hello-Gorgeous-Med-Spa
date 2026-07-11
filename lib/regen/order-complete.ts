@@ -5,6 +5,7 @@
 
 import { getSupabaseAdminClient } from "@/lib/hgos/supabase-admin";
 import { notifyOwnerRegenOrderPlaced, smsRegenPaymentReceived } from "@/lib/regen/order-notify";
+import { notifyStaffSaleCredited } from "@/lib/regen/staff-sale-notify";
 import { verifyRegenSquarePayment } from "@/lib/regen/order-payment-verify";
 import { syncRegenOrderShippingFromSquare } from "@/lib/regen/order-square-sync";
 import { formatSquareShippingAddress, type SquareShippingAddress } from "@/lib/square/order-shipping";
@@ -24,6 +25,8 @@ type RegenOrderRow = {
   square_order_id: string | null;
   payment_id: string | null;
   shipping_address: SquareShippingAddress | null;
+  sold_by_user_id: string | null;
+  sold_by_email: string | null;
 };
 
 type RegenOrderItem = {
@@ -48,7 +51,7 @@ export async function completeRegenOrderAndNotify(
   const { data: order, error } = await admin
     .from("regen_orders")
     .select(
-      "reference, status, customer_name, customer_email, customer_phone, goal, supply_cycle, items, subtotal_usd, owner_notified_at, square_order_id, payment_id, shipping_address",
+      "reference, status, customer_name, customer_email, customer_phone, goal, supply_cycle, items, subtotal_usd, owner_notified_at, square_order_id, payment_id, shipping_address, sold_by_user_id, sold_by_email",
     )
     .eq("reference", ref)
     .maybeSingle();
@@ -136,6 +139,16 @@ export async function completeRegenOrderAndNotify(
 
     updates.owner_notified_at = now;
     notified = true;
+
+    if (row.sold_by_user_id || row.sold_by_email) {
+      void notifyStaffSaleCredited(admin, {
+        soldByUserId: row.sold_by_user_id,
+        soldByEmail: row.sold_by_email,
+        orderRef: row.reference,
+        customerName: row.customer_name,
+        totalUsd: total,
+      }).catch((e) => console.error("[regen/order-complete] staff sale notify error:", e));
+    }
 
     if (row.customer_phone) {
       void smsRegenPaymentReceived({
