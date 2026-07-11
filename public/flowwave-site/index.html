@@ -2293,11 +2293,11 @@ a { color: inherit; }
     .fw-nav .links { display:flex; align-items:center; gap:28px; font-size:14px; }
     .fw-nav .links a { text-decoration:none; opacity:0.82; }
     .fw-nav .links a:hover { opacity:1; color:var(--hg-pink); }
-    .fw-hero { display:grid; grid-template-columns:1fr 1.05fr; gap:56px; align-items:center; max-width:1280px; margin:0 auto; }
-    .fw-stats { display:grid; grid-template-columns:repeat(4,1fr); gap:28px; max-width:1180px; margin:0 auto; text-align:center; }
-    .fw-stat .n { font-family:var(--font-display); font-weight:700; font-size:42px; color:var(--hg-pink); line-height:1; }
-    .fw-stat .l { font-size:13px; letter-spacing:0.16em; text-transform:uppercase; color:rgba(255,255,255,0.72); margin-top:10px; }
-    .fw-feature { display:grid; grid-template-columns:1fr 1fr; gap:52px; align-items:center; max-width:1220px; margin:0 auto; }
+    .fw-hero { display:grid; grid-template-columns:1fr 1.05fr; gap:40px; align-items:center; max-width:1280px; margin:0 auto; }
+    .fw-stats { display:grid; grid-template-columns:repeat(4,1fr); gap:20px; max-width:1180px; margin:0 auto; text-align:center; }
+    .fw-stat .n { font-family:var(--font-display); font-weight:700; font-size:38px; color:var(--hg-pink); line-height:1; }
+    .fw-stat .l { font-size:12px; letter-spacing:0.14em; text-transform:uppercase; color:rgba(255,255,255,0.72); margin-top:8px; }
+    .fw-feature { display:grid; grid-template-columns:1fr 1fr; gap:36px; align-items:center; max-width:1220px; margin:0 auto; }
     .fw-shot { border-radius:20px; overflow:hidden; box-shadow:0 20px 50px rgba(0,0,0,0.18); border:1px solid rgba(255,45,142,0.35); display:block; }
     .fw-shot img, .fw-shot video { width:100%; display:block; }
     .fw-shot video { aspect-ratio:16/9; object-fit:contain; background:#000; }
@@ -2322,8 +2322,40 @@ a { color: inherit; }
     .fw-faq summary::after { content:"+"; color:var(--hg-pink); font-size:26px; transition:transform .3s; }
     .fw-faq details[open] summary::after { transform:rotate(45deg); }
     .fw-faq .ans { padding:0 4px 22px; font-size:16px; line-height:1.7; color:rgba(0,0,0,0.72); margin:0; max-width:720px; }
-    @media (max-width:900px){ .fw-hero,.fw-feature,.fw-use,.fw-steps,.fw-stats{ grid-template-columns:1fr; } .fw-nav .links{ display:none; } .fw-feature.rev .fw-shot{ order:-1; } }
-    @media (max-width:900px){ #treats [style*="repeat(5"]{ grid-template-columns:repeat(2,1fr) !important; } }
+    .fw-section { padding:48px 24px; }
+    .fw-section-lg { padding:64px 24px; }
+    .fw-section-sm { padding:32px 24px; }
+    .fw-section-head { max-width:680px; margin:0 auto 28px; text-align:center; }
+    .fw-section-head .hg-eyebrow { margin:0; }
+    .fw-section-head h2 { margin:12px 0 0; }
+    .fw-section-head p { font-size:17px; line-height:1.6; margin:12px 0 0; color:rgba(0,0,0,0.72); }
+    .fw-section-head--dark p { color:rgba(255,255,255,0.78); }
+    .fw-grid-adv { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; max-width:1160px; margin:0 auto; }
+    .fw-grid-adv .hg-card-soft { padding:18px 16px; }
+    .fw-grid-adv h3 { margin:10px 0 4px; font-size:16px; }
+    .fw-grid-adv p { font-size:14px; line-height:1.55; }
+    .fw-grid-benefits { display:grid; grid-template-columns:repeat(3,1fr); gap:12px 20px; max-width:1160px; margin:24px auto 0; }
+    .fw-grid-benefits strong { font-family:var(--font-display); font-size:15px; display:block; color:#000; }
+    .fw-grid-benefits strong::before { content:"✓ "; color:var(--hg-pink); font-weight:800; }
+    .fw-grid-benefits p { font-size:13px; line-height:1.5; color:rgba(0,0,0,0.68); margin:2px 0 0; }
+    .fw-depth-rows { display:flex; flex-direction:column; gap:10px; margin-top:18px; }
+    .fw-depth-row { display:flex; align-items:center; gap:14px; border:1px solid var(--border-hairline); border-radius:10px; padding:11px 14px; box-shadow:var(--shadow-card); }
+    .fw-depth-row .tag { font-family:var(--font-display); font-weight:700; color:var(--hg-pink); font-size:14px; white-space:nowrap; min-width:72px; }
+    .fw-depth-row .copy { font-size:13.5px; line-height:1.45; color:rgba(0,0,0,0.7); }
+    .fw-platform { display:grid; grid-template-columns:1.05fr 0.95fr; gap:32px; align-items:start; max-width:1220px; margin:32px auto 0; }
+    .fw-stats--hero { margin-top:36px; padding-top:24px; border-top:1px solid rgba(0,0,0,0.1); gap:16px; }
+    .fw-stats--hero .fw-stat .n { font-size:34px; }
+    .fw-stats--hero .fw-stat .l { color:rgba(0,0,0,0.55); font-size:11px; letter-spacing:0.12em; }
+    .fw-xray-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:12px; max-width:1160px; margin:0 auto; }
+    .fw-use { margin-top:32px; gap:18px; }
+    .fw-usecard .body { padding:18px 20px 22px; }
+    .fw-science-steps { display:grid; grid-template-columns:repeat(4,1fr); gap:1px; max-width:1160px; margin:0 auto; background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.1); border-radius:14px; overflow:hidden; }
+    .fw-science-step { background:#000; padding:24px 20px; }
+    .fw-science-step .num { font-family:var(--font-display); font-weight:700; font-size:26px; color:var(--hg-pink); }
+    .fw-science-step h3 { margin:10px 0 6px; color:#fff; font-size:17px; }
+    .fw-science-step p { font-size:13.5px; line-height:1.55; color:rgba(255,255,255,0.68); margin:0; }
+    @media (max-width:900px){ .fw-hero,.fw-feature,.fw-use,.fw-steps,.fw-stats,.fw-platform,.fw-grid-adv,.fw-grid-benefits,.fw-science-steps,.fw-xray-grid{ grid-template-columns:1fr; } .fw-nav .links{ display:none; } .fw-feature.rev .fw-shot{ order:-1; } }
+    @media (max-width:640px){ .fw-xray-grid{ grid-template-columns:repeat(2,1fr); } }
     .fw-price { border:2px solid #000; border-radius:18px; padding:28px 24px; display:flex; flex-direction:column; background:#fff; transition:all .3s var(--ease-out); position:relative; }
     .fw-price:hover { border-color:var(--hg-pink); transform:translateY(-4px); box-shadow:var(--shadow-card-hover); }
     .fw-price.feat { border-color:var(--hg-pink); box-shadow:0 10px 30px rgba(255,45,142,0.25); }
@@ -2367,37 +2399,32 @@ a { color: inherit; }
     <span class="links">
       <a href="#how">How it works</a>
       <a href="#treats">What it treats</a>
-      <a href="#who">Who it's for</a>
-      <a href="#story">Our story</a>
       <a href="#pricing">Pricing</a>
-      <a href="#intake">Client Intake</a>
+      <a href="#intake">Intake</a>
       <a href="#faq">FAQ</a>
     </span>
     <a href="https://www.fresha.com/book-now/hello-gorgeous-tallrfb5/services?lid=102610&amp;share=true&amp;pId=95245" target="_blank" rel="noopener" class="btn btn-primary btn-cta" style="min-height:auto;padding:11px 24px;">Book Now</a>
   </nav>
 
   <!-- HERO -->
-  <section class="section-white" style="padding:76px 24px 84px;">
+  <section class="section-white fw-section-lg" style="padding-bottom:56px;">
     <div class="fw-hero">
       <div>
         <span class="hg-badge" style="font-size:11px;padding:6px 14px;">New at Hello Gorgeous</span>
         <h1 style="margin:18px 0 0;font-size:clamp(2.6rem,5.2vw,3.9rem);">Shockwave <span class="accent">Therapy</span></h1>
-        <p style="font-size:22px;line-height:1.5;margin-top:18px;color:rgba(0,0,0,0.82);">Focused acoustic-wave treatment for deep-tissue pain, faster recovery, and men's wellness — <strong>non-invasive, drug-free,</strong> and just 3–10 minutes per area.</p>
-        <p style="font-size:16px;margin-top:16px;color:rgba(0,0,0,0.62);">Every session is directed by a full-authority nurse practitioner. We screen you like a medical practice, because we are one.</p>
-        <div style="display:flex;gap:14px;margin-top:30px;flex-wrap:wrap;">
+        <p style="font-size:20px;line-height:1.5;margin-top:16px;color:rgba(0,0,0,0.82);">Focused acoustic-wave treatment for deep-tissue pain, faster recovery, and men's wellness — <strong>non-invasive, drug-free,</strong> and just 3–10 minutes per area.</p>
+        <p style="font-size:15px;margin-top:12px;color:rgba(0,0,0,0.62);">Every session is directed by a full-authority nurse practitioner. We screen you like a medical practice, because we are one.</p>
+        <div style="display:flex;gap:12px;margin-top:24px;flex-wrap:wrap;">
           <a href="https://www.fresha.com/book-now/hello-gorgeous-tallrfb5/services?lid=102610&amp;share=true&amp;pId=95245" target="_blank" rel="noopener" class="btn btn-primary btn-cta">Book Free Consult</a>
           <a href="tel:6306366193" class="btn btn-outline">Call (630) 636-6193</a>
+          <a href="#intake" class="btn btn-outline" style="border-color:var(--hg-pink);color:var(--hg-pink);">$49 intro offer</a>
         </div>
       </div>
       <a class="fw-shot" href="#how" style="text-decoration:none;background:#000;">
         <video autoplay muted loop playsinline preload="auto" src="/videos/flowwave/animated-science-visuals-flowwave.mp4" aria-label="FlowWave focused shockwave therapy — science animation"></video>
       </a>
     </div>
-  </section>
-
-  <!-- TRUST STRIP -->
-  <section class="section-black" style="padding:56px 24px;">
-    <div class="fw-stats">
+    <div class="fw-stats fw-stats--hero">
       <div class="fw-stat"><div class="n">3–10</div><div class="l">Minute sessions</div></div>
       <div class="fw-stat"><div class="n">12&nbsp;cm</div><div class="l">Penetration depth</div></div>
       <div class="fw-stat"><div class="n">150+</div><div class="l">Treatment zones</div></div>
@@ -2406,7 +2433,7 @@ a { color: inherit; }
   </section>
 
   <!-- FOUNDER STORY -->
-  <section id="story" class="section-black" style="padding:96px 24px;">
+  <section id="story" class="section-black fw-section-lg">
     <div class="fw-feature">
       <div style="border-radius:20px;overflow:hidden;background:#000;box-shadow:0 20px 60px rgba(255,45,142,0.18);">
         <img src="/flowwave-site/assets/349fac8c-2a05-4ec5-93b1-55b4fc42e185.png" alt="Founder of Hello Gorgeous Med Spa with the FlowWave FOCUS device" style="width:100%;display:block;">
@@ -2429,7 +2456,7 @@ a { color: inherit; }
   </section>
 
   <!-- WHAT IT IS -->
-  <section id="how" class="section-white" style="padding:96px 24px;">
+  <section id="how" class="section-white fw-section-lg">
     <div class="fw-feature">
       <div>
         <p class="hg-eyebrow">The technology</p>
@@ -2448,142 +2475,97 @@ a { color: inherit; }
   </section>
 
   <!-- HOW IT WORKS - MECHANISM -->
-  <section class="section-black" style="padding:96px 24px;">
-    <div style="max-width:760px;margin:0 auto 56px;text-align:center;">
+  <section class="section-black fw-section-lg">
+    <div class="fw-section-head fw-section-head--dark">
       <p class="hg-eyebrow">The science</p>
-      <h2 style="margin:14px 0 0;color:#fff;">How focused shockwave <span style="color:var(--hg-pink);">works</span></h2>
-      <p style="font-size:19px;margin-top:16px;color:rgba(255,255,255,0.78);">Four steps, start to finish — from spark to healing response.</p>
+      <h2 style="color:#fff;">How focused shockwave <span style="color:var(--hg-pink);">works</span></h2>
+      <p style="color:rgba(255,255,255,0.78);">Four steps from spark to healing response — electrohydraulic focused energy up to 12&nbsp;cm deep.</p>
     </div>
-    <div class="fw-science-vid">
-      <video autoplay muted loop playsinline preload="auto" src="/videos/flowwave/animated-science-visuals-flowwave.mp4" aria-label="How focused shockwave therapy works — science animation"></video>
-    </div>
-    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1px;max-width:1160px;margin:0 auto;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.1);border-radius:16px;overflow:hidden;">
-      <div style="background:#000;padding:34px 28px;">
-        <div style="font-family:var(--font-display);font-weight:700;font-size:30px;color:var(--hg-pink);">01</div>
-        <h3 style="margin:14px 0 8px;color:#fff;font-size:19px;">Spark-gap discharge</h3>
-        <p style="font-size:14.5px;line-height:1.6;color:rgba(255,255,255,0.68);margin:0;">A precise electrical spark fires inside the saline-filled applicator head.</p>
+    <div class="fw-science-steps">
+      <div class="fw-science-step">
+        <div class="num">01</div>
+        <h3>Spark-gap discharge</h3>
+        <p>A precise electrical spark fires inside the saline-filled applicator head.</p>
       </div>
-      <div style="background:#000;padding:34px 28px;">
-        <div style="font-family:var(--font-display);font-weight:700;font-size:30px;color:var(--hg-pink);">02</div>
-        <h3 style="margin:14px 0 8px;color:#fff;font-size:19px;">Acoustic wave</h3>
-        <p style="font-size:14.5px;line-height:1.6;color:rgba(255,255,255,0.68);margin:0;">That spark generates a high-energy pressure wave traveling faster than 3,500&nbsp;mph.</p>
+      <div class="fw-science-step">
+        <div class="num">02</div>
+        <h3>Acoustic wave</h3>
+        <p>That spark generates a high-energy pressure wave traveling faster than 3,500&nbsp;mph.</p>
       </div>
-      <div style="background:#000;padding:34px 28px;">
-        <div style="font-family:var(--font-display);font-weight:700;font-size:30px;color:var(--hg-pink);">03</div>
-        <h3 style="margin:14px 0 8px;color:#fff;font-size:19px;">Focused delivery</h3>
-        <p style="font-size:14.5px;line-height:1.6;color:rgba(255,255,255,0.68);margin:0;">The wave converges to a focal point deep in the target tissue — up to 12&nbsp;cm down.</p>
+      <div class="fw-science-step">
+        <div class="num">03</div>
+        <h3>Focused delivery</h3>
+        <p>The wave converges to a focal point deep in the target tissue — up to 12&nbsp;cm down.</p>
       </div>
-      <div style="background:#000;padding:34px 28px;">
-        <div style="font-family:var(--font-display);font-weight:700;font-size:30px;color:var(--hg-pink);">04</div>
-        <h3 style="margin:14px 0 8px;color:#fff;font-size:19px;">Healing response</h3>
-        <p style="font-size:14.5px;line-height:1.6;color:rgba(255,255,255,0.68);margin:0;">Mechanical energy supports local blood flow and the body's own regeneration — while surface tissue stays comfortable.</p>
+      <div class="fw-science-step">
+        <div class="num">04</div>
+        <h3>Healing response</h3>
+        <p>Mechanical energy supports local blood flow and the body's own regeneration — while surface tissue stays comfortable.</p>
       </div>
     </div>
   </section>
 
-  <!-- WHY ELECTROHYDRAULIC -->
-  <section class="section-white" style="padding:96px 24px 0;">
-    <div style="max-width:1160px;margin:0 auto;">
-      <div style="max-width:760px;margin:0 auto 44px;text-align:center;">
-        <p class="hg-eyebrow">Powerful by design</p>
-        <h2 style="margin:14px 0 0;">Why <span class="accent">electrohydraulic</span>?</h2>
-        <p style="font-size:19px;line-height:1.6;margin-top:16px;color:rgba(0,0,0,0.75);">FlowWave™ FOCUS uses electrohydraulic focused shockwave — the wave-generation method known for the <strong>highest peak energy and the largest focal zone</strong> of the focused-shockwave family. More power, spread across a broader target, reaching deeper tissue.</p>
-      </div>
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;">
-        <div class="hg-card-soft" style="text-align:center;">
-          <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#FF2D8E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin:0 auto;"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path></svg>
-          <h3 style="margin:16px 0 6px;font-size:20px;">Powerful energy</h3>
-          <p style="font-size:15px;line-height:1.6;color:rgba(0,0,0,0.68);margin:0;">High-intensity acoustic waves for strong, effective treatment where it counts.</p>
-        </div>
-        <div class="hg-card-soft" style="text-align:center;">
-          <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#FF2D8E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin:0 auto;"><circle cx="12" cy="12" r="9"></circle><circle cx="12" cy="12" r="4.5"></circle><circle cx="12" cy="12" r="1" fill="#FF2D8E" stroke="none"></circle></svg>
-          <h3 style="margin:16px 0 6px;font-size:20px;">Broad focal zone</h3>
-          <p style="font-size:15px;line-height:1.6;color:rgba(0,0,0,0.68);margin:0;">A wide, focused target covers larger areas efficiently — not just a pinpoint.</p>
-        </div>
-        <div class="hg-card-soft" style="text-align:center;">
-          <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#FF2D8E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin:0 auto;"><path d="M12 2v20"></path><path d="M8 6l4-4 4 4"></path><path d="M8 18l4 4 4-4"></path></svg>
-          <h3 style="margin:16px 0 6px;font-size:20px;">Deep, tunable reach</h3>
-          <p style="font-size:15px;line-height:1.6;color:rgba(0,0,0,0.68);margin:0;">Up to 12&nbsp;cm deep, with focal depth you can adjust in real time.</p>
-        </div>
-      </div>
+  <!-- PLATFORM — electrohydraulic, depth, advantages -->
+  <section class="section-white fw-section-lg">
+    <div class="fw-section-head">
+      <p class="hg-eyebrow">Powerful by design</p>
+      <h2>Why <span class="accent">FlowWave FOCUS</span></h2>
+      <p>Electrohydraulic focused shockwave — highest peak energy and the largest focal zone in its class. Real-time depth control, one versatile handpiece, 150+ preset zones.</p>
     </div>
-  </section>
-
-  <!-- DEPTH CONTROL -->
-  <section class="section-white" style="padding:96px 24px;">
-    <div class="fw-feature">
+    <div class="fw-platform">
       <div>
         <p class="hg-eyebrow">Real-time precision</p>
-        <h2 style="margin:14px 0 0;">Depth you can <span class="accent">dial in</span></h2>
-        <p style="font-size:18px;line-height:1.65;margin-top:18px;color:rgba(0,0,0,0.75);">An adjustable water-sac level shifts the focal depth mid-session — from surface structures to deep joints — with no gel-pad swaps or interruptions.</p>
-        <div style="display:flex;flex-direction:column;gap:14px;margin-top:26px;">
-          <div style="display:flex;align-items:center;gap:18px;border:1px solid var(--border-hairline);border-radius:12px;padding:16px 20px;box-shadow:var(--shadow-card);">
-            <div style="font-family:var(--font-display);font-weight:700;color:var(--hg-pink);font-size:15px;white-space:nowrap;min-width:78px;">Surface</div>
-            <div style="font-size:14.5px;line-height:1.5;color:rgba(0,0,0,0.7);">Trigger points, tendon insertions &amp; surface-level structures.</div>
-          </div>
-          <div style="display:flex;align-items:center;gap:18px;border:1px solid var(--border-hairline);border-radius:12px;padding:16px 20px;box-shadow:var(--shadow-card);">
-            <div style="font-family:var(--font-display);font-weight:700;color:var(--hg-pink);font-size:15px;white-space:nowrap;min-width:78px;">Mid-depth</div>
-            <div style="font-size:14.5px;line-height:1.5;color:rgba(0,0,0,0.7);">Muscle, tendon &amp; joint areas — the range for most treatments.</div>
-          </div>
-          <div style="display:flex;align-items:center;gap:18px;border:1px solid var(--border-hairline);border-radius:12px;padding:16px 20px;box-shadow:var(--shadow-card);">
-            <div style="font-family:var(--font-display);font-weight:700;color:var(--hg-pink);font-size:15px;white-space:nowrap;min-width:78px;">Deep</div>
-            <div style="font-size:14.5px;line-height:1.5;color:rgba(0,0,0,0.7);">Hips, low back &amp; deep structures — reaching up to 12&nbsp;cm.</div>
-          </div>
+        <h3 style="margin:10px 0 0;font-size:22px;">Depth you can <span class="accent">dial in</span></h3>
+        <p style="font-size:16px;line-height:1.6;margin-top:10px;color:rgba(0,0,0,0.72);">An adjustable water-sac level shifts focal depth mid-session — from surface structures to deep joints — with no gel-pad swaps.</p>
+        <div class="fw-depth-rows">
+          <div class="fw-depth-row"><span class="tag">Surface</span><span class="copy">Trigger points, tendon insertions &amp; surface-level structures.</span></div>
+          <div class="fw-depth-row"><span class="tag">Mid-depth</span><span class="copy">Muscle, tendon &amp; joint areas — the range for most treatments.</span></div>
+          <div class="fw-depth-row"><span class="tag">Deep</span><span class="copy">Hips, low back &amp; deep structures — reaching up to 12&nbsp;cm.</span></div>
         </div>
       </div>
       <a class="fw-shot" href="#book" style="text-decoration:none;">
         <img src="/flowwave-site/assets/4513c1e1-eb0b-4ba7-82eb-dd66a2fea51a.png" alt="Adjustable-depth focused shockwave recovery">
       </a>
     </div>
-  </section>
-
-  <!-- TECHNOLOGY ADVANTAGES -->
-  <section class="section-white" style="padding:0 24px 96px;">
-    <div style="max-width:1220px;margin:0 auto;">
-      <div style="max-width:720px;margin:0 auto 44px;text-align:center;">
-        <p class="hg-eyebrow">Why it's different</p>
-        <h2 style="margin:14px 0 0;">Technology <span class="accent">advantages</span></h2>
+    <div class="fw-grid-adv" style="margin-top:28px;">
+      <div class="hg-card-soft">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#FF2D8E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path></svg>
+        <h3>Powerful energy</h3>
+        <p>High-intensity acoustic waves for strong, effective treatment where it counts.</p>
       </div>
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;">
-        <div class="hg-card-soft">
-          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#FF2D8E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1 0 10 10"></path><path d="M12 6a6 6 0 1 0 6 6"></path><circle cx="12" cy="12" r="1.6" fill="#FF2D8E" stroke="none"></circle></svg>
-          <h3 style="margin:14px 0 6px;font-size:19px;">Deep, focused waves</h3>
-          <p style="font-size:15px;line-height:1.6;color:rgba(0,0,0,0.68);margin:0;">Accurately reaches up to 12&nbsp;cm into deep tissue while a wide focal zone covers larger areas efficiently.</p>
-        </div>
-        <div class="hg-card-soft">
-          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#FF2D8E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path></svg>
-          <h3 style="margin:14px 0 6px;font-size:19px;">Electrohydraulic system</h3>
-          <p style="font-size:15px;line-height:1.6;color:rgba(0,0,0,0.68);margin:0;">A spark-gap head with a saline-filled tip delivers powerful, highly targeted energy at clinically relevant depths.</p>
-        </div>
-        <div class="hg-card-soft">
-          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#FF2D8E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4"></path><path d="M12 18v4"></path><path d="M4.9 4.9l2.9 2.9"></path><path d="M16.2 16.2l2.9 2.9"></path><path d="M2 12h4"></path><path d="M18 12h4"></path><path d="M4.9 19.1l2.9-2.9"></path><path d="M16.2 7.8l2.9-2.9"></path></svg>
-          <h3 style="margin:14px 0 6px;font-size:19px;">One versatile handpiece</h3>
-          <p style="font-size:15px;line-height:1.6;color:rgba(0,0,0,0.68);margin:0;">Treats both superficial and deep tissue with adjustable energy levels — across 150+ treatment zones.</p>
-        </div>
-        <div class="hg-card-soft">
-          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#FF2D8E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg>
-          <h3 style="margin:14px 0 6px;font-size:19px;">Ultra-fast sessions</h3>
-          <p style="font-size:15px;line-height:1.6;color:rgba(0,0,0,0.68);margin:0;">Large focal zones and adjustable energy mean most treatments take only 3–10 minutes.</p>
-        </div>
-        <div class="hg-card-soft">
-          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#FF2D8E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5L6 9H2v6h4l5 4V5z"></path><path d="M22 9l-6 6"></path><path d="M16 9l6 6"></path></svg>
-          <h3 style="margin:14px 0 6px;font-size:19px;">Remarkably quiet</h3>
-          <p style="font-size:15px;line-height:1.6;color:rgba(0,0,0,0.68);margin:0;">Runs with far less noise than traditional shockwave systems — for a calmer treatment room.</p>
-        </div>
-        <div class="hg-card-soft">
-          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#FF2D8E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"></path></svg>
-          <h3 style="margin:14px 0 6px;font-size:19px;">Natural &amp; drug-free</h3>
-          <p style="font-size:15px;line-height:1.6;color:rgba(0,0,0,0.68);margin:0;">Non-invasive, medication-free, and with no recovery time — supporting your body's own ability to heal.</p>
-        </div>
+      <div class="hg-card-soft">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#FF2D8E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><circle cx="12" cy="12" r="4.5"></circle><circle cx="12" cy="12" r="1" fill="#FF2D8E" stroke="none"></circle></svg>
+        <h3>Broad focal zone</h3>
+        <p>A wide, focused target covers larger areas efficiently — not just a pinpoint.</p>
+      </div>
+      <div class="hg-card-soft">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#FF2D8E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20"></path><path d="M8 6l4-4 4 4"></path><path d="M8 18l4 4 4-4"></path></svg>
+        <h3>Deep, tunable reach</h3>
+        <p>Up to 12&nbsp;cm deep, with focal depth you can adjust in real time.</p>
+      </div>
+      <div class="hg-card-soft">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#FF2D8E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg>
+        <h3>Ultra-fast sessions</h3>
+        <p>Large focal zones mean most treatments take only 3–10 minutes per area.</p>
+      </div>
+      <div class="hg-card-soft">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#FF2D8E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5L6 9H2v6h4l5 4V5z"></path><path d="M22 9l-6 6"></path><path d="M16 9l6 6"></path></svg>
+        <h3>Remarkably quiet</h3>
+        <p>Runs with far less noise than traditional shockwave systems — calmer treatment room.</p>
+      </div>
+      <div class="hg-card-soft">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#FF2D8E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+        <h3>Natural &amp; drug-free</h3>
+        <p>Non-invasive, medication-free, no recovery time — supporting your body's own healing.</p>
       </div>
     </div>
   </section>
 
-  <!-- HOW IT WORKS STEPS -->
-  <section class="section-white" style="padding:0 24px 96px;">
-    <div style="max-width:720px;margin:0 auto 52px;text-align:center;">
+  <!-- WHAT TO EXPECT + BENEFITS -->
+  <section class="section-white fw-section-lg">
+    <div class="fw-section-head">
       <p class="hg-eyebrow">Simple &amp; fast</p>
-      <h2 style="margin:14px 0 0;">What to <span class="accent">expect</span></h2>
+      <h2>What to <span class="accent">expect</span></h2>
     </div>
     <div class="fw-steps">
       <div class="fw-step">
@@ -2607,37 +2589,27 @@ a { color: inherit; }
         <p style="font-size:15px;line-height:1.6;color:rgba(0,0,0,0.68);margin:0;">No downtime — walk out and carry on. Courses are typically spaced weekly.</p>
       </div>
     </div>
-  </section>
-
-  <!-- BENEFITS FOR PAIN & INJURY -->
-  <section class="section-white" style="padding:0 24px 96px;">
-    <div style="max-width:1120px;margin:0 auto;">
-      <div style="max-width:760px;margin:0 auto 44px;text-align:center;">
-        <p class="hg-eyebrow">Why clients love it</p>
-        <h2 style="margin:14px 0 0;">Benefits for pain &amp; <span class="accent">injury</span></h2>
-      </div>
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));gap:18px 32px;">
-        <div style="display:flex;gap:14px;align-items:flex-start;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FF2D8E" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px;"><path d="M20 6L9 17l-5-5"></path></svg><div><strong style="font-family:var(--font-display);font-size:17px;">Accelerates healing</strong><p style="font-size:14.5px;line-height:1.55;color:rgba(0,0,0,0.68);margin:3px 0 0;">Supports blood flow and cellular activity to help speed recovery of tissue, bone, and stubborn injuries.</p></div></div>
-        <div style="display:flex;gap:14px;align-items:flex-start;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FF2D8E" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px;"><path d="M20 6L9 17l-5-5"></path></svg><div><strong style="font-family:var(--font-display);font-size:17px;">Eases inflammation</strong><p style="font-size:14.5px;line-height:1.55;color:rgba(0,0,0,0.68);margin:3px 0 0;">Helps calm the inflammation behind chronic issues like tendonitis and overuse pain.</p></div></div>
-        <div style="display:flex;gap:14px;align-items:flex-start;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FF2D8E" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px;"><path d="M20 6L9 17l-5-5"></path></svg><div><strong style="font-family:var(--font-display);font-size:17px;">Supports natural repair</strong><p style="font-size:14.5px;line-height:1.55;color:rgba(0,0,0,0.68);margin:3px 0 0;">Encourages the body's own tissue-repair response in muscles, ligaments, and tendons.</p></div></div>
-        <div style="display:flex;gap:14px;align-items:flex-start;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FF2D8E" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px;"><path d="M20 6L9 17l-5-5"></path></svg><div><strong style="font-family:var(--font-display);font-size:17px;">Targets the source of pain</strong><p style="font-size:14.5px;line-height:1.55;color:rgba(0,0,0,0.68);margin:3px 0 0;">Works on the underlying cause of chronic and acute pain — not just the symptoms.</p></div></div>
-        <div style="display:flex;gap:14px;align-items:flex-start;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FF2D8E" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px;"><path d="M20 6L9 17l-5-5"></path></svg><div><strong style="font-family:var(--font-display);font-size:17px;">Non-invasive &amp; drug-free</strong><p style="font-size:14.5px;line-height:1.55;color:rgba(0,0,0,0.68);margin:3px 0 0;">No needles, incisions, or anesthesia — fewer risks and complications than surgery.</p></div></div>
-        <div style="display:flex;gap:14px;align-items:flex-start;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FF2D8E" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px;"><path d="M20 6L9 17l-5-5"></path></svg><div><strong style="font-family:var(--font-display);font-size:17px;">No downtime</strong><p style="font-size:14.5px;line-height:1.55;color:rgba(0,0,0,0.68);margin:3px 0 0;">Resume your normal activities right after — convenient for busy schedules.</p></div></div>
-        <div style="display:flex;gap:14px;align-items:flex-start;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FF2D8E" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px;"><path d="M20 6L9 17l-5-5"></path></svg><div><strong style="font-family:var(--font-display);font-size:17px;">Results that build</strong><p style="font-size:14.5px;line-height:1.55;color:rgba(0,0,0,0.68);margin:3px 0 0;">Many clients notice improvement develop over the following weeks as the body responds.</p></div></div>
-        <div style="display:flex;gap:14px;align-items:flex-start;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FF2D8E" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px;"><path d="M20 6L9 17l-5-5"></path></svg><div><strong style="font-family:var(--font-display);font-size:17px;">Minimal discomfort</strong><p style="font-size:14.5px;line-height:1.55;color:rgba(0,0,0,0.68);margin:3px 0 0;">Most describe a warm sensation rather than pain — mild at most.</p></div></div>
-        <div style="display:flex;gap:14px;align-items:flex-start;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FF2D8E" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px;"><path d="M20 6L9 17l-5-5"></path></svg><div><strong style="font-family:var(--font-display);font-size:17px;">Quick sessions</strong><p style="font-size:14.5px;line-height:1.55;color:rgba(0,0,0,0.68);margin:3px 0 0;">Most treatments take just 3–10 minutes per area.</p></div></div>
-      </div>
+    <div class="fw-grid-benefits">
+      <div><strong>Accelerates healing</strong><p>Supports blood flow and cellular activity for tissue, bone, and stubborn injuries.</p></div>
+      <div><strong>Eases inflammation</strong><p>Helps calm inflammation behind chronic issues like tendonitis and overuse pain.</p></div>
+      <div><strong>Supports natural repair</strong><p>Encourages the body's own tissue-repair response in muscles, ligaments, and tendons.</p></div>
+      <div><strong>Targets the source</strong><p>Works on underlying causes of chronic and acute pain — not just symptoms.</p></div>
+      <div><strong>Non-invasive &amp; drug-free</strong><p>No needles, incisions, or anesthesia — fewer risks than surgery.</p></div>
+      <div><strong>No downtime</strong><p>Resume normal activities right after — convenient for busy schedules.</p></div>
+      <div><strong>Results that build</strong><p>Many clients notice improvement develop over the following weeks.</p></div>
+      <div><strong>Minimal discomfort</strong><p>Most describe a warm sensation rather than pain — mild at most.</p></div>
+      <div><strong>Quick sessions</strong><p>Most treatments take just 3–10 minutes per area.</p></div>
     </div>
   </section>
 
   <!-- WHAT IT TREATS -->
-  <section id="treats" class="section-black" style="padding:96px 24px;">
-    <div style="max-width:720px;margin:0 auto 48px;text-align:center;">
+  <section id="treats" class="section-black fw-section-lg">
+    <div class="fw-section-head fw-section-head--dark">
       <p class="hg-eyebrow">Deep-tissue relief</p>
-      <h2 style="margin:14px 0 0;color:#fff;">What it <span style="color:var(--hg-pink);">treats</span></h2>
-      <p style="font-size:19px;margin-top:16px;color:rgba(255,255,255,0.78);">One device, many areas — target pain and stimulate the body's own healing.</p>
+      <h2 style="color:#fff;">What it <span style="color:var(--hg-pink);">treats</span></h2>
+      <p style="color:rgba(255,255,255,0.78);">One device, many areas — target pain and stimulate the body's own healing.</p>
     </div>
-    <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:18px;max-width:1160px;margin:0 auto;">
+    <div class="fw-xray-grid">
       <div class="fw-xray"><img src="/flowwave-site/assets/f91baff9-0d9d-43eb-a348-8f445aabcf97.png" alt="Neck x-ray"><span class="lbl">Neck</span></div>
       <div class="fw-xray"><img src="/flowwave-site/assets/a2bd5857-f991-4371-a4f5-08ef7a2093a2.png" alt="Shoulder x-ray"><span class="lbl">Shoulders</span></div>
       <div class="fw-xray"><img src="/flowwave-site/assets/74e6c27a-faaf-4b64-a8db-b67f9f5d78ea.png" alt="Back x-ray"><span class="lbl">Low back</span></div>
@@ -2649,15 +2621,15 @@ a { color: inherit; }
       <div class="fw-xray"><img src="/flowwave-site/assets/2eaeddc0-fcab-4b9f-8b28-d2a039c2cba1.png" alt="Ankle x-ray"><span class="lbl">Ankles</span></div>
       <div class="fw-xray"><img src="/flowwave-site/assets/bd50c88d-47f7-4a0f-9479-2283de92a5f6.png" alt="Foot x-ray"><span class="lbl">Feet</span></div>
     </div>
-    <p style="text-align:center;color:rgba(255,255,255,0.5);font-size:14px;margin:34px auto 0;max-width:640px;">…and 150+ preset treatment zones on the FlowWave™ FOCUS.</p>
+    <p style="text-align:center;color:rgba(255,255,255,0.5);font-size:14px;margin:24px auto 0;max-width:640px;">…and 150+ preset treatment zones on the FlowWave™ FOCUS.</p>
   </section>
 
   <!-- WHO IT'S FOR -->
-  <section id="who" class="section-white" style="padding:96px 24px;">
-    <div style="max-width:760px;margin:0 auto;text-align:center;">
+  <section id="who" class="section-white fw-section-lg">
+    <div class="fw-section-head">
       <p class="hg-eyebrow">Who it's for</p>
-      <h2 style="margin:14px 0 0;">Built for <span class="accent">how you move</span></h2>
-      <p style="font-size:19px;margin-top:16px;color:rgba(0,0,0,0.75);">From chronic aches to athletic recovery to men's wellness — all under NP direction.</p>
+      <h2>Built for <span class="accent">how you move</span></h2>
+      <p>From chronic aches to athletic recovery to men's wellness — all under NP direction.</p>
     </div>
     <div class="fw-use">
       <div class="fw-usecard">
@@ -2684,26 +2656,13 @@ a { color: inherit; }
     </div>
   </section>
 
-  <!-- BENEFIT SHOWCASE -->
-  <section class="section-white" style="padding:0 24px 96px;">
-    <div style="max-width:1120px;margin:0 auto;">
-      <div style="max-width:720px;margin:0 auto 44px;text-align:center;">
-        <p class="hg-eyebrow">At a glance</p>
-        <h2 style="margin:14px 0 0;">The FlowWave <span class="accent">difference</span></h2>
-      </div>
-      <div class="fw-shot" style="border:1px solid rgba(0,0,0,0.08);">
-        <img src="/flowwave-site/assets/921159a7-1295-4b4a-a4ad-1a16b6c34d1d.png" alt="FlowWave FOCUS benefits — deep targeted relief, fast sessions, cellular response technology, men's health and more">
-      </div>
-    </div>
-  </section>
-
   <!-- PRICING -->
-  <section id="pricing" class="section-white" style="padding:96px 24px;">
+  <section id="pricing" class="section-white fw-section-lg">
     <div style="max-width:1180px;margin:0 auto;">
-      <div style="max-width:760px;margin:0 auto 40px;text-align:center;">
+      <div class="fw-section-head">
         <p class="hg-eyebrow">Pricing</p>
-        <h2 style="margin:14px 0 0;">Simple, honest <span class="accent">pricing</span></h2>
-        <p style="font-size:19px;margin-top:16px;color:rgba(0,0,0,0.75);">Start with our intro offer, then save more with a package. Every plan begins with a free medical screening.</p>
+        <h2>Simple, honest <span class="accent">pricing</span></h2>
+        <p>Start with our intro offer, then save more with a package. Every plan begins with a free medical screening.</p>
       </div>
 
       <!-- INTRO DEAL -->
@@ -2792,7 +2751,7 @@ a { color: inherit; }
   </section>
 
   <!-- FAQ -->
-  <section id="faq" class="section-white" style="padding:0 24px 100px;">
+  <section id="faq" class="section-white fw-section-lg">
     <div class="fw-faq">
       <div style="text-align:center;margin-bottom:36px;">
         <p class="hg-eyebrow">Common questions</p>
@@ -2822,7 +2781,7 @@ a { color: inherit; }
   </section>
 
   <!-- CLIENT INTAKE -->
-  <section id="intake" class="section-black" style="padding:96px 24px;">
+  <section id="intake" class="section-black fw-section-lg">
     <div style="max-width:920px;margin:0 auto;">
       <div style="text-align:center;margin-bottom:40px;">
         <p class="hg-eyebrow">Client intake</p>
@@ -2915,7 +2874,7 @@ a { color: inherit; }
   </section>
 
   <!-- BOOK CTA -->
-  <section id="book" class="section-pink" style="padding:88px 24px;text-align:center;">
+  <section id="book" class="section-pink fw-section-lg" style="text-align:center;">
     <div style="max-width:740px;margin:0 auto;">
       <h2 style="color:#fff;margin:0;font-size:clamp(2rem,4.5vw,2.9rem);">Ready for real relief?</h2>
       <p style="color:rgba(255,255,255,0.92);font-size:19px;margin-top:16px;">Book your free consultation in Oswego, IL — same-day appointments often available. Serving Oswego, Naperville, Aurora, Plainfield &amp; Yorkville.</p>
