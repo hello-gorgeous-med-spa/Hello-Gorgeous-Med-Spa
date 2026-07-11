@@ -23,6 +23,9 @@
 // SAFE TO RUN MULTIPLE TIMES — uses idempotency keys
 // ============================================================
 
+import { fileURLToPath } from "node:url";
+import path from "node:path";
+
 const DRY_RUN = process.argv.includes('--dry-run');
 
 function apiRoot() {
@@ -42,7 +45,7 @@ if (!DRY_RUN && (!TOKEN || TOKEN.length < 10)) {
 }
 
 // ── ALL 85 SERVICES FROM FRESHA ──────────────────────────────
-const SERVICES = [
+export const SERVICES = [
   // EXCLUSIVE MODEL SPECIALS
   { name: 'Professional Brazilian Laser Hair Removal', price: 49900, duration: 30, category: 'Spring Specials', description: '✨ Brazilian Laser Hair Removal — 3 Month Package\nApril · May · June — all three sessions included\n💰 Only $499 for all 3 months\n🎁 Book by end of March — get a FREE small area added to every session\n🔁 Not fully removed after 3 sessions? We\'ll do a FREE touch-up.\nMedical-grade laser technology with full clinical oversight.' },
   { name: 'The Trifecta', price: 199900, duration: 60, category: 'Exclusive Model Specials', description: 'Morpheus8 for tightening and collagen, Solaria CO₂ for resurfacing and tone, Quantum RF for fat reduction and contouring. Full face, neck, and sculpting protocol. Only 20 VIP Model spots.' },
@@ -304,4 +307,10 @@ async function main() {
   console.log(`   5. Add booking widget to hellogorgeousmedspa.com\n`);
 }
 
-main().catch(console.error);
+const isDirectRun =
+  process.argv[1] &&
+  path.resolve(process.argv[1]) === fileURLToPath(import.meta.url);
+
+if (isDirectRun) {
+  main().catch(console.error);
+}

@@ -408,6 +408,12 @@ export const SERVICE_CONTENT = {
   "Volume Lash Extensions — 2-Week Fill": {
     d: "Two-week volume lash fill — the standard maintenance interval to keep your set full. 60-minute appointment.",
   },
+  "Classic Lash Extensions — 3-Week Fill": {
+    d: "Three-week fill for classic lash extensions. Restores fall-out and keeps your natural-looking set fresh. 60-minute appointment.",
+  },
+  "Classic Lash Extensions — 2-Week Fill": {
+    d: "Two-week classic lash fill — standard maintenance to keep your set full and fluffy. 45-minute appointment.",
+  },
   "Lash Extensions - Hybrid Lash Fill": {
     n: "Hybrid Lash Fill",
     d: "Fill for hybrid lash extensions (mix of classic + volume). 60-minute appointment, ideal every 2–3 weeks.",
@@ -498,5 +504,112 @@ export const SERVICE_CONTENT = {
   },
   "Quantum RF, Morpheous 8 x3 package, and Solaria CO2": {
     d: "Three-modality bundle: Quantum RF for fat reduction, Morpheus8 (×3) for deep RF microneedling tightening, and Solaria CO₂ for skin resurfacing. Full contouring + resurfacing protocol at Hello Gorgeous Med Spa, Oswego.",
+  },
+
+  // ===== FRESHA CSV GAP FILL (2026-07-11) =====
+  "Yearly Refresher": {
+    cat: "Brow Spa",
+    d: "Annual microblading refresh to restore color, shape, and definition. Keeps your brows vibrant between full sessions. Includes mapping, numbing, and touch-up artistry at Hello Gorgeous Med Spa, Oswego.",
+  },
+  "Microblading Fine Line, Shade, or Powder": {
+    cat: "Brow Spa",
+    d: "Custom microblading — choose fine line, powder, or combo shading for natural, face-framing brows. Consultation, mapping, numbing, and same-day procedure with licensed artists at Hello Gorgeous Med Spa.",
+  },
+  "MICROBLADING CONSULTATION  - Free": {
+    n: "Microblading Consultation — Free",
+    cat: "Brow Spa",
+    d: "Complimentary 15-minute microblading consult: shape design, color match, health history, and candidacy review. No obligation — plan your brow transformation at Hello Gorgeous Med Spa, Oswego.",
+  },
+  "The Dani, Fix Me Facial": {
+    n: "The Dani, Fix Me Trifecta",
+    cat: "Exclusive Model Specials",
+    d: "Three-visit anti-aging correction plan: IPL for pigment and redness, Morpheus8 for collagen and tightening, and CO₂ resurfacing for texture and wrinkles. The signature Hello Gorgeous trifecta — not a basic facial.",
+  },
+  "Quantum RF Lipo Neck": {
+    n: "Quantum RF Lipo — Neck",
+    cat: "Exclusive Model Specials",
+    d: "Minimally invasive Quantum RF radiofrequency lipolysis for neck tightening and contouring. Medical-grade body sculpting with clinical oversight at Hello Gorgeous Med Spa, Oswego.",
+  },
+  "Quantum RF Lipo Neck  - Knees": {
+    n: "Quantum RF Lipo — Knees",
+    cat: "Exclusive Model Specials",
+    d: "Quantum RF body contouring focused on knee-area skin laxity and definition. RF-assisted tightening with minimal downtime at Hello Gorgeous Med Spa.",
+  },
+  "Quantum RF Lipo Neck  - Arms": {
+    n: "Quantum RF Lipo — Arms",
+    cat: "Exclusive Model Specials",
+    d: "Arm contouring with Quantum RF — targets stubborn fat and loose skin on upper arms. Physician-supervised InMode protocol at Hello Gorgeous Med Spa, Oswego.",
+  },
+  "Quantum RF Lipo Neck  - Abdomen": {
+    n: "Quantum RF Lipo — Abdomen (Full)",
+    cat: "Exclusive Model Specials",
+    d: "Full-abdomen Quantum RF lipo and skin tightening — advanced body contouring for the midsection. Comprehensive RF-assisted treatment at Hello Gorgeous Med Spa.",
+  },
+  "Peptide Therapy Consultation (Over 50 + Available)": {
+    n: "Peptide Therapy Consultation",
+    cat: "Bioidentical Hormone Therapy (BHRT)",
+    d: "Peptide therapy consult with our NP team — review goals, labs, and candidacy for growth-factor and recovery peptides. Personalized wellness roadmap at Hello Gorgeous Med Spa, Oswego.",
+  },
+  "4-Week Tirzepatide Program": {
+    cat: "Weight Loss Injections",
+    d: "Four-week compounded tirzepatide starter program with medical evaluation, dosing, and weekly support. GLP-1/GIP dual-agonist weight management supervised by Ryan Kent, FNP-BC.",
+  },
+  "Korean Lash Lift New Now Available": {
+    n: "Korean Lash Lift",
+    cat: "Lash Spa",
+    d: "Korean-style lash lift — deeply conditioned, lifted lashes from root to tip with a wide-eyed curl. Lasts 6–8 weeks; no extensions required. Now available at Hello Gorgeous Med Spa.",
+  },
+  "Wax - Lip and Chin": {
+    n: "Wax — Lip & Chin",
+    cat: "Brow Spa",
+    d: "Quick lip and chin wax for smooth, hair-free skin. 10-minute add-on or standalone service at Hello Gorgeous Med Spa, Oswego.",
+  },
+  "GLOW2FACIAL (GENEO)": {
+    n: "Geneo Glow2 Facial",
+    cat: "Skin Spa",
+    d: "Geneo Glow2Facial — advanced oxigenating facial that exfoliates, infuses nutrients, and leaves skin radiant. Non-invasive glow treatment at Hello Gorgeous Med Spa.",
+  },
+  "Photofacials (IPL)": {
+    cat: "Skin Spa",
+    d: "IPL photofacial for sun spots, redness, broken capillaries, and uneven tone. Non-invasive light therapy with minimal downtime at Hello Gorgeous Med Spa, Oswego.",
+  },
+  "High Frequency Acne Facial": {
+    cat: "Skin Spa",
+    d: "High-frequency acne facial — antibacterial oxygenation and deep cleansing to calm breakouts and prevent new blemishes. Ideal for acne-prone skin at Hello Gorgeous Med Spa.",
+  },
+  "Hydra Facial w/ Dermaplanning": {
+    n: "HydraFacial + Dermaplaning",
+    cat: "Skin Spa",
+    d: "HydraFacial paired with dermaplaning for instant smoothness, deep hydration, and a glass-skin glow. Exfoliation + infusion in one visit at Hello Gorgeous Med Spa.",
+  },
+  "Laser Hair Removal - Legs or Arms per session": {
+    n: "Laser Hair Removal — Legs or Arms",
+    cat: "Body Spa",
+    d: "Single-session laser hair removal for legs or arms. Medical-grade Class 4 laser; 3–6 sessions recommended for lasting reduction. Hello Gorgeous Med Spa, Oswego.",
+  },
+  "Laser Hair Removal - Underarm per session": {
+    n: "Laser Hair Removal — Underarms",
+    cat: "Body Spa",
+    d: "Underarm laser hair removal — quick 15-minute session. Permanent hair reduction over a series of treatments at Hello Gorgeous Med Spa.",
+  },
+  "Laser Hair Removal - Upper Lip or Chin per session": {
+    n: "Laser Hair Removal — Upper Lip or Chin",
+    cat: "Body Spa",
+    d: "Laser hair removal for upper lip or chin — fast, precise, permanent reduction over 3–6 sessions. Medical-grade laser at Hello Gorgeous Med Spa, Oswego.",
+  },
+  "Laser Hair Removal - Bikini per session": {
+    n: "Laser Hair Removal — Bikini",
+    cat: "Body Spa",
+    d: "Bikini-line laser hair removal per session. Smooth, long-lasting results with our medical-grade laser platform.",
+  },
+  "Laser Hair Removal - Brazilian per session": {
+    n: "Laser Hair Removal — Brazilian (Single Session)",
+    cat: "Body Spa",
+    d: "Single-session Brazilian laser hair removal. Part of a 3–6 session series for permanent reduction — medical-grade laser, NP-supervised at Hello Gorgeous Med Spa.",
+  },
+  "Laser Hair Removal Consultation  - Laser Hair Consultation  - Free": {
+    n: "Laser Hair Removal Consultation — Free",
+    cat: "Body Spa",
+    d: "Free laser hair removal consult: Fitzpatrick skin typing, contraindications, treatment plan, and pricing. 30 minutes, no obligation at Hello Gorgeous Med Spa.",
   },
 };

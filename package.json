@@ -45,6 +45,10 @@
     "test:ai-concierge": "node scripts/test-ai-concierge.mjs",
     "square:july-recovery-stack": "node --env-file=.env.local scripts/add-july-recovery-stack-to-square.mjs",
     "assign-square-appointment-staff": "node --env-file=.env.local scripts/assign-square-appointment-staff.mjs",
+    "square:polish-catalog": "node --env-file=.env.local scripts/square-polish-catalog.mjs",
+    "square:polish-catalog:dry-run": "node --env-file=.env.local scripts/square-polish-catalog.mjs --dry-run",
+    "sync-fresha-square": "node --env-file=.env.local scripts/sync-fresha-csv-to-square.mjs",
+    "sync-fresha-square:dry-run": "node --env-file=.env.local scripts/sync-fresha-csv-to-square.mjs --dry-run",
     "sync-ryan-square-pay": "node --env-file=.env.local scripts/sync-ryan-square-pay.mjs"
   },
   "keywords": [
