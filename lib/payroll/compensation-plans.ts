@@ -1,11 +1,11 @@
 import type { StaffCompensationPlan } from "@/lib/payroll/types";
 
-/** Square Team member IDs (production). */
+/** Square Team member IDs (Hello Gorgeous Med Spa RX — production). */
 export const SQUARE_TEAM = {
-  ryan: "TMaXjwJEUCSGXteY",
-  michelle: "TMb94KzYVHezBXDY",
-  marissa: "TMSta22x3npmmEwp",
-  laura: "TMssEm0HXMDrFcwp",
+  ryan: "TM1IptWCrgxkY4p7",
+  michelle: "TMqy8tRlmyMRkQ25",
+  marissa: "TMjZzrkoSsBocyWm",
+  laura: "TMxkWb1md-cZHvkq",
 } as const;
 
 /**
@@ -91,7 +91,7 @@ export const COMPENSATION_PLANS: StaffCompensationPlan[] = [
       "10% on RE GEN RX she sells or closes.",
       "20% on FlowWave / shockwave package sales.",
       "Collected revenue only; refunds/chargebacks deduct from next period.",
-      "Square Team reference_id: 2 · team member TMssEm0HXMDrFcwp.",
+      "Square Team reference_id: 2 · team member TMxkWb1md-cZHvkq (Hello Gorgeous Med Spa RX).",
     ],
   },
   {
