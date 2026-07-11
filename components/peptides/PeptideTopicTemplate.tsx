@@ -1,8 +1,18 @@
 import Link from "next/link";
 
-import { CTA } from "@/components/CTA";
-import { PeptideScienceVideo } from "@/components/peptides/PeptideScienceVideo";
-import { FadeUp, Section } from "@/components/Section";
+import {
+  JOURNEY_HERO_BG,
+  JOURNEY_SECTION_BG_A,
+  JOURNEY_SECTION_BG_B,
+  JourneyChip,
+  JourneyDarkCard,
+  JourneyEyebrow,
+  JourneyGhostBtn,
+  JourneyPinkBtn,
+  JourneySectionHead,
+  JourneyTrustBar,
+  JourneyVideoFrame,
+} from "@/components/marketing/JourneyPageUi";
 import type { PeptideTopic } from "@/data/peptides";
 import { rxCatalogGoalHref } from "@/lib/peptide-category-rx-goal";
 import { BOOKING_URL } from "@/lib/flows";
@@ -11,14 +21,6 @@ import { helloGorgeousRxStartUrl } from "@/lib/peptide-request-menu";
 import { peptideHandoutHref } from "@/lib/peptide-handouts";
 import { PEPTIDES_HUB_PATH, tierCta } from "@/lib/peptides-hub";
 import { peptideTopicVideos } from "@/lib/peptide-topic-media";
-
-const BRAND = {
-  navy: "#0a1628",
-  pink: "#D4537E",
-  hotPink: "#E6007E",
-  gold: "#c77b2a",
-  rose: "#FFF0F7",
-};
 
 export function PeptideTopicTemplate({ topic }: { topic: PeptideTopic }) {
   const cta = tierCta(topic.tier);
@@ -29,135 +31,115 @@ export function PeptideTopicTemplate({ topic }: { topic: PeptideTopic }) {
   const videos = peptideTopicVideos(topic.slug);
 
   return (
-    <div className="relative min-h-screen">
-      <div
-        className="fixed inset-0 -z-10 pointer-events-none"
-        style={{
-          background:
-            "linear-gradient(180deg, #FFF0F7 0%, #ffffff 45%, #f5f5f5 100%)",
-        }}
-        aria-hidden
-      />
-
+    <div className="min-h-[100dvh] bg-black font-sans text-white">
       {/* Hero */}
-      <section
-        className="relative overflow-hidden border-b-4 border-black text-white"
-        style={{
-          background: `linear-gradient(135deg, ${BRAND.navy} 0%, #1a2a40 55%, ${topic.accent}22 100%)`,
-        }}
-      >
+      <header className={JOURNEY_HERO_BG}>
         <div
-          className="pointer-events-none absolute inset-0 opacity-40"
-          style={{
-            background: `radial-gradient(circle at 20% 20%, ${topic.accent}55, transparent 45%), radial-gradient(circle at 80% 0%, ${BRAND.pink}33, transparent 40%)`,
-          }}
+          className="pointer-events-none absolute -right-28 -top-40 h-[620px] w-[620px] rounded-full bg-[radial-gradient(circle,rgba(255,45,142,0.28),transparent_62%)]"
           aria-hidden
         />
-        <div className="relative mx-auto max-w-6xl px-4 py-14 md:py-20">
-          <FadeUp>
-            <p className="text-[11px] font-bold uppercase tracking-[0.22em]" style={{ color: BRAND.gold }}>
-              {topic.series}
-            </p>
-            <h1 className="mt-3 text-4xl md:text-6xl font-black leading-[0.95]">
-              {topic.name}
+        <div className="relative mx-auto grid max-w-[1200px] gap-10 px-6 py-16 lg:grid-cols-2 lg:items-center lg:gap-14 lg:py-24">
+          <div>
+            <JourneyEyebrow>{topic.series}</JourneyEyebrow>
+            <h1 className="mt-4 font-serif text-[44px] font-bold leading-[1.02] text-white lg:text-[66px]">
+              {topic.name.split(" ").length > 2 ? (
+                <>
+                  {topic.name.split(" ").slice(0, -1).join(" ")}{" "}
+                  <span className="text-[#FF2D8E]">{topic.name.split(" ").slice(-1)[0]}</span>
+                </>
+              ) : (
+                <>
+                  {topic.name.split("/")[0]?.trim()}{" "}
+                  {topic.name.includes("/") ? (
+                    <span className="text-[#FF2D8E]">/ {topic.name.split("/")[1]?.trim()}</span>
+                  ) : null}
+                </>
+              )}
             </h1>
-            <p className="mt-2 text-xl md:text-2xl font-bold text-white/90">{topic.tagline}</p>
-            <p className="mt-5 max-w-3xl text-base md:text-lg text-white/80 leading-relaxed">{topic.intro}</p>
+            <p className="mt-3 text-lg font-semibold text-white/90">{topic.tagline}</p>
+            <p className="mt-5 max-w-lg text-lg leading-relaxed text-white/80">{topic.intro}</p>
             {topic.pills.length > 0 ? (
-              <div className="mt-6 flex flex-wrap gap-2">
+              <div className="mt-6 flex flex-wrap gap-2.5">
                 {topic.pills.map((pill) => (
-                  <span
-                    key={pill}
-                    className="rounded-full border border-white/25 bg-white/10 px-3 py-1 text-xs font-medium backdrop-blur"
-                  >
-                    {pill}
-                  </span>
+                  <JourneyChip key={pill}>{pill.replace(/^#/, "")}</JourneyChip>
                 ))}
               </div>
             ) : null}
-          </FadeUp>
-        </div>
-        <div className="h-1.5 w-full" style={{ background: `linear-gradient(90deg, ${topic.accent}, ${BRAND.pink}, ${BRAND.gold})` }} />
-      </section>
-
-      {showScienceVideo ? (
-        <Section className="border-b-4 border-black bg-gradient-to-b from-[#FFF0F7] to-white py-10 md:py-14">
-          <div className="grid items-center gap-8 lg:grid-cols-[1fr_1.15fr]">
-            <div>
-              <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#E6007E]">
-                Animated science
-              </p>
-              <h2 className="mt-2 text-3xl font-black text-black md:text-4xl">
-                See how peptide signaling works
-              </h2>
-              <p className="mt-4 max-w-lg text-base leading-relaxed text-black/75">
-                These visuals break down cell-level messaging — the same precision science behind
-                why peptides are studied as targeted signals, not blunt instruments. Education
-                only; your NP matches the right protocol to your goals.
-              </p>
+            <div className="mt-8 flex flex-wrap gap-4">
+              {isRxTopic ? (
+                <>
+                  <JourneyPinkBtn href={startHereHref}>Start {topic.name} request</JourneyPinkBtn>
+                  <JourneyGhostBtn href={BOOKING_URL}>
+                    Book {PEPTIDE_CONSULT_SPECIAL.price} consult
+                  </JourneyGhostBtn>
+                </>
+              ) : (
+                <JourneyPinkBtn href={BOOKING_URL}>{cta.label}</JourneyPinkBtn>
+              )}
             </div>
-            <PeptideScienceVideo
-              src={videos.hero}
-              label={`${topic.name} animated science visual`}
-              caption={`${topic.name} · peptide signaling at a glance`}
-            />
           </div>
-        </Section>
-      ) : null}
+          {showScienceVideo ? (
+            <JourneyVideoFrame
+              src={videos.hero}
+              label={`${topic.name} science animation`}
+              poster="/images/education/peptides-101-not-all-created-equal.png"
+              className="lg:max-w-lg"
+            />
+          ) : null}
+        </div>
+      </header>
 
-      {/* Hero detail */}
+      <JourneyTrustBar />
+
       {topic.hero ? (
-        <Section className="border-b-4 border-black bg-white">
-          <FadeUp>
-            <div className="grid gap-5 md:grid-cols-2">
-              <div
-                className="rounded-3xl border-4 border-black bg-white p-6 shadow-[8px_8px_0_0_rgba(230,0,126,0.25)]"
-                style={{ borderLeftColor: topic.accent, borderLeftWidth: 6 }}
-              >
-                <h2 className="text-2xl font-black text-black">{topic.hero.title}</h2>
-                <p className="mt-3 text-black/80 leading-relaxed">{topic.hero.body}</p>
-              </div>
+        <section className={`${JOURNEY_SECTION_BG_A} px-6 py-16 lg:py-24`}>
+          <div className="mx-auto max-w-[1200px]">
+            <JourneySectionHead eyebrow="How it works" title={topic.hero.title} />
+            <div className="mt-8 grid gap-6 lg:grid-cols-2">
+              <JourneyDarkCard>
+                <p className="text-[17px] leading-relaxed text-white/85">{topic.hero.body}</p>
+              </JourneyDarkCard>
               {topic.hero.stats?.length ? (
                 <div className="grid gap-4 sm:grid-cols-2">
                   {topic.hero.stats.map((stat) => (
                     <div
                       key={stat.value}
-                      className="rounded-2xl border-2 border-black/15 bg-[#FFF0F7] p-5"
+                      className="rounded-[20px] border border-[#FF2D8E]/35 bg-[#0a0206] p-5"
                     >
-                      <p className="text-3xl font-black" style={{ color: topic.accent }}>
-                        {stat.value}
-                      </p>
-                      <p className="mt-2 text-sm text-black/70">{stat.label}</p>
+                      <p className="font-serif text-3xl font-bold text-[#FF2D8E]">{stat.value}</p>
+                      <p className="mt-2 text-sm text-white/70">{stat.label}</p>
                     </div>
                   ))}
                 </div>
               ) : null}
             </div>
-          </FadeUp>
-        </Section>
+          </div>
+        </section>
       ) : null}
 
-      {/* Cards grid */}
       {topic.cards?.length ? (
-        <Section className="border-b-4 border-black bg-gradient-to-b from-[#FFF0F7] to-white">
-          <FadeUp>
-            <h2 className="mb-6 text-sm font-bold uppercase tracking-widest text-black/50">
-              {topic.cardsHeading ?? "What the research explores"}
-            </h2>
-            <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+        <section className="px-6 py-16 lg:py-24">
+          <div className="mx-auto max-w-[1200px]">
+            <JourneySectionHead
+              eyebrow="Research & clinical interest"
+              title={topic.cardsHeading ?? "What the research explores"}
+            />
+            <div className="mt-10 grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
               {topic.cards.map((card) => (
                 <article
                   key={card.title}
-                  className="flex h-full flex-col overflow-hidden rounded-2xl border-2 border-black/10 bg-white shadow-sm"
+                  className="flex h-full flex-col overflow-hidden rounded-[20px] border border-white/14 bg-[#0a0206]"
                 >
-                  <div className="px-4 py-3 text-white" style={{ background: topic.accent }}>
-                    <p className="text-[10px] font-bold uppercase tracking-wider opacity-90">{card.category}</p>
-                    <h3 className="text-lg font-black">{card.title}</h3>
+                  <div className="border-b border-[#FF2D8E]/35 px-4 py-3">
+                    <p className="text-[10px] font-extrabold uppercase tracking-[0.18em] text-[#FF2D8E]">
+                      {card.category}
+                    </p>
+                    <h3 className="mt-1 font-serif text-xl font-bold text-white">{card.title}</h3>
                   </div>
-                  <ul className="flex-1 space-y-2 px-4 py-4 text-sm text-black/80">
+                  <ul className="flex-1 space-y-2 px-4 py-4 text-sm text-white/80">
                     {card.bullets.map((bullet) => (
                       <li key={bullet} className="flex gap-2">
-                        <span style={{ color: topic.accent }} aria-hidden>
+                        <span className="text-[#FF2D8E]" aria-hidden>
                           ▸
                         </span>
                         <span>{bullet}</span>
@@ -167,210 +149,188 @@ export function PeptideTopicTemplate({ topic }: { topic: PeptideTopic }) {
                 </article>
               ))}
             </div>
-          </FadeUp>
-        </Section>
+          </div>
+        </section>
       ) : null}
 
       {showScienceVideo ? (
-        <Section className="border-b-4 border-black bg-[#0a1628] py-10 md:py-12">
-          <div className="mx-auto max-w-4xl text-center">
-            <p className="text-xs font-bold uppercase tracking-[0.22em] text-[#FFB8DC]">
-              Deep dive visual
-            </p>
-            <h2 className="mt-2 text-2xl font-black text-white md:text-3xl">
-              The biology behind {topic.name}
-            </h2>
-            <p className="mx-auto mt-3 max-w-2xl text-sm text-white/75 md:text-base">
-              Looping molecular animation — same premium science series used across Hello Gorgeous
-              peptide education. Pause anytime; questions belong in your NP consult.
-            </p>
-            <div className="mt-8">
-              <PeptideScienceVideo
+        <section className={`${JOURNEY_SECTION_BG_B} px-6 py-16 lg:py-24`}>
+          <div className="mx-auto max-w-[900px] text-center">
+            <JourneySectionHead
+              eyebrow="Deep dive visual"
+              title="The biology behind"
+              titleAccent={topic.name}
+              description="Looping molecular animation from our wellness science series. Education only — your NP matches the right protocol at consult."
+              center
+            />
+            <div className="mt-10">
+              <JourneyVideoFrame
                 src={videos.science}
-                label={`${topic.name} deep-dive science animation`}
-                caption="Cellular signaling · recovery · hormone & metabolic pathways"
-                className="mx-auto max-w-3xl"
+                label={`${topic.name} deep-dive animation`}
               />
             </div>
           </div>
-        </Section>
+        </section>
       ) : null}
 
-      {/* Duo blocks */}
       {topic.duo?.length ? (
-        <Section className="border-b-4 border-black bg-white">
-          <FadeUp>
-            <div className="grid gap-5 md:grid-cols-2">
-              {topic.duo.map((block) => (
-                <div
-                  key={block.title}
-                  className="rounded-3xl border-4 border-black bg-white p-6 shadow-[6px_6px_0_0_rgba(230,0,126,0.2)]"
-                >
-                  <h3 className="text-xl font-black text-[#E6007E]">{block.title}</h3>
-                  <p className="mt-3 text-black/80 leading-relaxed">{block.body}</p>
-                </div>
-              ))}
-            </div>
-          </FadeUp>
-        </Section>
+        <section className={`${JOURNEY_SECTION_BG_A} px-6 py-16 lg:py-24`}>
+          <div className="mx-auto grid max-w-[1200px] gap-6 md:grid-cols-2">
+            {topic.duo.map((block) => (
+              <JourneyDarkCard key={block.title}>
+                <h3 className="font-serif text-2xl font-bold text-[#FF2D8E]">{block.title}</h3>
+                <p className="mt-3 text-[17px] leading-relaxed text-white/85">{block.body}</p>
+              </JourneyDarkCard>
+            ))}
+          </div>
+        </section>
       ) : null}
 
-      {/* Callouts */}
       {topic.callouts?.length ? (
-        <Section className="border-b-4 border-black bg-[#FFF0F7]">
-          <FadeUp>
-            <div className="space-y-4">
-              {topic.callouts.map((callout) => (
-                <div
-                  key={callout.title}
-                  className="rounded-2xl border-l-4 bg-white p-5 shadow-sm"
-                  style={{ borderLeftColor: topic.accent }}
-                >
-                  <p className="text-xs font-bold uppercase tracking-wider" style={{ color: topic.accent }}>
-                    {callout.title}
-                  </p>
-                  <p className="mt-2 text-black/80 leading-relaxed">{callout.body}</p>
-                </div>
-              ))}
-            </div>
-          </FadeUp>
-        </Section>
+        <section className="px-6 py-16 lg:py-24">
+          <div className="mx-auto max-w-[1200px] space-y-4">
+            {topic.callouts.map((callout) => (
+              <blockquote
+                key={callout.title}
+                className="rounded-[20px] border border-[#FF2D8E]/35 bg-[#0a0206] p-6 md:p-8"
+              >
+                <p className="text-xs font-extrabold uppercase tracking-[0.18em] text-[#FF2D8E]">
+                  {callout.title}
+                </p>
+                <p className="mt-3 text-[17px] leading-relaxed text-white/85">{callout.body}</p>
+              </blockquote>
+            ))}
+          </div>
+        </section>
       ) : null}
 
-      {/* Expectations table */}
       {topic.expectationsTable?.length ? (
-        <Section className="border-b-4 border-black bg-white">
-          <FadeUp>
-            <h2 className="mb-4 text-2xl font-black text-black">How it helps & what to expect</h2>
-            <div className="overflow-x-auto rounded-2xl border-2 border-black/15">
+        <section className={`${JOURNEY_SECTION_BG_B} px-6 py-16 lg:py-24`}>
+          <div className="mx-auto max-w-[1200px]">
+            <JourneySectionHead
+              eyebrow="Honest expectations"
+              title="How it helps &"
+              titleAccent="what to expect"
+            />
+            <div className="mt-10 overflow-x-auto rounded-[20px] border border-white/14">
               <table className="min-w-[640px] w-full text-sm">
                 <thead>
-                  <tr className="bg-[#0a1628] text-left text-white">
-                    <th className="px-4 py-3 font-bold">Benefit</th>
-                    <th className="px-4 py-3 font-bold">At Hello Gorgeous</th>
+                  <tr className="bg-[#FF2D8E] text-left text-black">
+                    <th className="px-4 py-3 font-extrabold">Benefit</th>
+                    <th className="px-4 py-3 font-extrabold">At Hello Gorgeous</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {topic.expectationsTable.map((row) => (
-                    <tr key={row.claim} className="border-t border-black/10 even:bg-[#fafbfd]">
-                      <td className="px-4 py-3 font-semibold text-black align-top">{row.claim}</td>
-                      <td className="px-4 py-3 text-black/80 align-top">{row.honest}</td>
+                  {topic.expectationsTable.map((row, idx) => (
+                    <tr
+                      key={row.claim}
+                      className={idx % 2 === 0 ? "bg-[#0a0206]" : "bg-[#140109]"}
+                    >
+                      <td className="px-4 py-3 font-semibold text-white align-top">{row.claim}</td>
+                      <td className="px-4 py-3 text-white/80 align-top">{row.honest}</td>
                     </tr>
                   ))}
                 </tbody>
               </table>
             </div>
-          </FadeUp>
-        </Section>
+          </div>
+        </section>
       ) : null}
 
-      {/* FAQ */}
       {topic.faqs?.length ? (
-        <Section id="faq" className="border-b-4 border-black bg-gradient-to-b from-white to-[#FFF0F7]">
-          <FadeUp>
-            <h2 className="mb-2 text-sm font-bold uppercase tracking-widest text-[#E6007E]">
-              Common questions
-            </h2>
-            <p className="mb-6 max-w-2xl text-black/65">
-              Education only — not medical advice. Individual plans require an NP evaluation at Hello
-              Gorgeous in Oswego, IL.
-            </p>
-            <div className="space-y-3">
+        <section id="faq" className="px-6 py-16 lg:py-24">
+          <div className="mx-auto max-w-[1200px]">
+            <JourneySectionHead
+              eyebrow="Common questions"
+              title="Your questions,"
+              titleAccent="answered"
+              description="Education only — not medical advice. Individual plans require an NP evaluation at Hello Gorgeous in Oswego, IL."
+            />
+            <div className="mt-10 space-y-3">
               {topic.faqs.map((faq, idx) => (
                 <details
                   key={faq.question}
-                  className="group rounded-2xl border-2 border-black/10 bg-white open:border-[#E6007E]/40 open:shadow-[4px_4px_0_0_rgba(230,0,126,0.15)]"
+                  className="group rounded-[20px] border border-white/14 bg-[#0a0206] open:border-[#FF2D8E]/50"
                   {...(idx === 0 ? { open: true } : {})}
                 >
-                  <summary className="cursor-pointer list-none px-5 py-4 font-bold text-black marker:content-none [&::-webkit-details-marker]:hidden">
+                  <summary className="cursor-pointer list-none px-5 py-4 font-bold text-white marker:content-none [&::-webkit-details-marker]:hidden">
                     <span className="flex items-start justify-between gap-3">
                       <span>{faq.question}</span>
-                      <span className="text-[#E6007E] transition group-open:rotate-45">+</span>
+                      <span className="text-[#FF2D8E] transition group-open:rotate-45">+</span>
                     </span>
                   </summary>
-                  <div className="border-t border-black/5 px-5 pb-4 pt-3 text-sm leading-relaxed text-black/80">
+                  <div className="border-t border-white/10 px-5 pb-4 pt-3 text-sm leading-relaxed text-white/80">
                     {faq.answer}
                   </div>
                 </details>
               ))}
             </div>
-          </FadeUp>
-        </Section>
+          </div>
+        </section>
       ) : null}
 
-      {/* CTA band */}
-      <Section
-        className="border-b-4 border-black text-white"
-        style={{
-          background: `linear-gradient(125deg, ${topic.accent} 0%, ${BRAND.pink} 50%, #9b0a4d 100%)`,
-        }}
-      >
-        <FadeUp>
-          <div className="text-center">
-            <h2 className="text-3xl font-black">
-              {isRxTopic ? `Start your ${topic.name} request` : "Questions about this topic?"}
-            </h2>
-            <p className="mt-3 max-w-2xl mx-auto text-white/90">
-              {isRxTopic
-                ? `${PEPTIDE_CONSULT_SPECIAL.detail}. Online request takes a few minutes — or book a ${PEPTIDE_CONSULT_SPECIAL.price} consult on Fresha if you prefer to talk first.`
-                : "We're happy to answer questions — book a consult to see if peptide therapy fits your goals."}
-            </p>
-            <div className="mt-8 flex flex-col sm:flex-row flex-wrap justify-center gap-4">
-              <CTA
-                href={startHereHref}
-                variant="outline"
-                className="min-h-[44px] border-white bg-white text-black hover:bg-white/90 hover:text-black font-bold"
-              >
-                {isRxTopic ? `Start ${topic.name} request` : cta.label}
-              </CTA>
-              {isRxTopic ? (
-                <CTA
+      <section className="bg-[#FF2D8E] px-6 py-16 text-black lg:py-20">
+        <div className="mx-auto max-w-[720px] text-center">
+          <h2 className="font-serif text-[34px] font-bold leading-tight lg:text-[46px]">
+            {isRxTopic ? `Start your ${topic.name} request` : "Questions about this topic?"}
+          </h2>
+          <p className="mt-4 text-lg leading-relaxed text-black/80">
+            {isRxTopic
+              ? `${PEPTIDE_CONSULT_SPECIAL.detail}. Online request takes a few minutes — or book a ${PEPTIDE_CONSULT_SPECIAL.price} consult if you prefer to talk first.`
+              : "Book a consult to see if peptide therapy fits your goals."}
+          </p>
+          <div className="mt-8 flex flex-col flex-wrap items-center justify-center gap-4 sm:flex-row">
+            <Link
+              href={startHereHref}
+              className="inline-flex min-h-[48px] items-center justify-center rounded-full border-2 border-black bg-black px-8 py-3 text-sm font-extrabold text-white transition hover:bg-white hover:text-black"
+            >
+              {isRxTopic ? `Start ${topic.name} request` : cta.label}
+            </Link>
+            {isRxTopic ? (
+              <>
+                <Link
                   href={BOOKING_URL}
-                  variant="outline"
-                  className="min-h-[44px] border-white/80 text-white hover:bg-white/10"
+                  className="inline-flex min-h-[48px] items-center justify-center rounded-full border-2 border-black/60 px-8 py-3 text-sm font-bold text-black transition hover:bg-black hover:text-white"
                 >
                   Book {PEPTIDE_CONSULT_SPECIAL.price} consult first
-                </CTA>
-              ) : null}
-              {isRxTopic ? (
-                <CTA
+                </Link>
+                <Link
                   href={rxCatalogGoalHref(topic.category)}
-                  variant="outline"
-                  className="min-h-[44px] border-white/80 text-white hover:bg-white/10"
+                  className="inline-flex min-h-[48px] items-center justify-center rounded-full border-2 border-black/60 px-8 py-3 text-sm font-bold text-black transition hover:bg-black hover:text-white"
                 >
                   Browse RE GEN catalog
-                </CTA>
-              ) : null}
-              {handoutHref ? (
-                <a
-                  href={handoutHref}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex min-h-[44px] items-center justify-center rounded-full border-2 border-white/80 px-8 py-3 text-sm font-bold text-white transition hover:bg-white/10"
-                >
-                  Download printable handout
-                </a>
-              ) : null}
-              <Link
-                href={PEPTIDES_HUB_PATH}
-                className="inline-flex min-h-[44px] items-center justify-center rounded-full border-2 border-white/50 px-8 py-3 text-sm font-semibold text-white/90 hover:bg-white/10"
+                </Link>
+              </>
+            ) : null}
+            {handoutHref ? (
+              <a
+                href={handoutHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex min-h-[48px] items-center justify-center rounded-full border-2 border-black/60 px-8 py-3 text-sm font-bold text-black transition hover:bg-black hover:text-white"
               >
-                ← All topics
-              </Link>
-            </div>
+                Download printable handout
+              </a>
+            ) : null}
+            <Link
+              href={PEPTIDES_HUB_PATH}
+              className="text-sm font-bold text-black/70 underline underline-offset-4 hover:text-black"
+            >
+              ← All peptide topics
+            </Link>
           </div>
-        </FadeUp>
-      </Section>
+        </div>
+      </section>
 
-      <footer className="bg-[#0a1628] px-4 py-6 text-center text-xs text-white/60">
+      <footer className="border-t border-white/10 bg-black px-6 py-8 text-center text-xs text-white/55">
         <p>© 2026 Hello Gorgeous Med Spa · All Rights Reserved.</p>
         <p className="mt-2">
-          <Link href="/peptides" className="text-[#FFB8DC] underline underline-offset-2">
+          <Link href="/peptides" className="text-[#FF2D8E] underline underline-offset-2">
             Peptides & Wellness hub
           </Link>
           {" · "}
-          <Link href="/peptides#patient-handouts" className="text-[#FFB8DC] underline underline-offset-2">
-            Printable handouts
+          <Link href="/rx" className="text-[#FF2D8E] underline underline-offset-2">
+            RE GEN shop
           </Link>
         </p>
       </footer>

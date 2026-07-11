@@ -3,6 +3,15 @@ import Link from "next/link";
 import { Suspense } from "react";
 
 import { CTA } from "@/components/CTA";
+import {
+  JOURNEY_HERO_BG,
+  JourneyChip,
+  JourneyEyebrow,
+  JourneyGhostBtn,
+  JourneyPinkBtn,
+  JourneyTrustBar,
+  JourneyVideoFrame,
+} from "@/components/marketing/JourneyPageUi";
 import { PeptideEducationSection } from "@/components/peptides/PeptideEducationSection";
 import { PeptidesHubGrid } from "@/components/peptides/PeptidesHubGrid";
 import { PeptideGuideEmailCapture } from "@/components/peptides/PeptideGuideEmailCapture";
@@ -37,6 +46,7 @@ import {
   peptideRetailMenuByCategory,
 } from "@/lib/peptide-retail-pricing";
 import { getCatalogCardThumbnail } from "@/lib/peptide-thumbnails";
+import { PEPTIDE_SCIENCE_VIDEOS } from "@/lib/peptide-topic-media";
 import { SITE } from "@/lib/seo";
 import { IV_SHOTS_VITAMIN_SHOTS } from "@/lib/iv-shots-page";
 
@@ -131,76 +141,61 @@ export function PeptideTherapyPageContent() {
   const peptides101Handout = getPeptideHandout("peptides-101");
 
   return (
-    <>
+    <div className="bg-black text-white">
       {/* Medical disclaimer */}
-      <div className="border-b border-amber-200/80 bg-amber-50/90 px-4 py-3">
-        <p className="mx-auto max-w-4xl text-center text-xs leading-relaxed text-amber-950/90 md:text-sm">
-          <strong>Educational information only.</strong> {PEPTIDE_CATALOG_DISCLAIMER}
+      <div className="border-b border-[#FF2D8E]/20 bg-[#1a0510] px-4 py-3">
+        <p className="mx-auto max-w-4xl text-center text-xs leading-relaxed text-white/75 md:text-sm">
+          <strong className="text-white">Educational information only.</strong> {PEPTIDE_CATALOG_DISCLAIMER}
         </p>
       </div>
 
-      {/* Hero */}
-      <Section className="relative overflow-hidden border-b border-neutral-200 !py-0 !px-0">
+      {/* Hero — Brow Journey style */}
+      <header className={JOURNEY_HERO_BG}>
         <div
-          className="absolute inset-0"
-          style={{
-            background:
-              "linear-gradient(135deg, #0a0a0a 0%, #1a0a12 45%, #2d1020 100%)",
-          }}
+          className="pointer-events-none absolute -right-28 -top-40 h-[620px] w-[620px] rounded-full bg-[radial-gradient(circle,rgba(255,45,142,0.28),transparent_62%)]"
+          aria-hidden
         />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_30%,rgba(230,0,126,0.15)_0%,transparent_50%)]" />
-        <div className="relative z-10 mx-auto grid max-w-6xl gap-10 px-4 py-16 md:px-6 md:py-20 lg:grid-cols-2 lg:items-center lg:gap-16">
-          <FadeUp>
-            <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#FFB8DC]">
+        <div className="relative mx-auto grid max-w-[1200px] gap-10 px-6 py-16 lg:grid-cols-2 lg:items-center lg:gap-14 lg:py-24">
+          <div>
+            <JourneyEyebrow>
               <Link href="/medical" className="hover:text-white transition-colors">
                 Hello Gorgeous RX™ · Medical Services
               </Link>
-            </p>
-            <h1 className="mt-4 text-4xl font-black leading-tight text-white md:text-5xl">
-              Peptide Therapy &amp; Add-On Therapies
+            </JourneyEyebrow>
+            <h1 className="mt-4 font-serif text-[44px] font-bold leading-[1.02] text-white lg:text-[66px]">
+              Peptide Therapy &amp;{" "}
+              <span className="text-[#FF2D8E]">Add-On Protocols</span>
             </h1>
-            <p className="mt-5 text-lg leading-relaxed text-white/80">
+            <p className="mt-5 max-w-lg text-lg leading-relaxed text-white/80 lg:text-xl">
               Peptides, vitamin injections, and wellness protocols to support your optimization
-              goals — all with NP oversight at our Oswego clinic.
+              goals — all with NP oversight at our Oswego clinic. {SITE.tagline}
             </p>
-            <p className="mt-4 text-sm text-white/60">
+            <p className="mt-4 text-sm text-white/55">
               Medically reviewed by {RYAN_FULL_NAME} · Updated{" "}
               {new Date().toLocaleDateString("en-US", { month: "long", year: "numeric" })}
             </p>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-              <CTA href={HELLO_GORGEOUS_RX_START_PATH} variant="gradient" className="px-8 py-4">
-                Book ${PEPTIDE_CONSULT_FEE_USD} Consult
-              </CTA>
-              <CTA
-                href="#patient-handouts"
-                variant="outline"
-                className="border-white/30 px-8 py-4 text-white hover:bg-white hover:text-black"
-              >
-                Download free guides
-              </CTA>
-              <CTA
-                href={PEPTIDE_REQUEST_PATH}
-                variant="outline"
-                className="border-white/30 px-8 py-4 text-white hover:bg-white hover:text-black"
-              >
-                Request or refill
-              </CTA>
+            <div className="mt-8 flex flex-wrap gap-4">
+              <JourneyPinkBtn href={HELLO_GORGEOUS_RX_START_PATH}>
+                Book ${PEPTIDE_CONSULT_FEE_USD} consult
+              </JourneyPinkBtn>
+              <JourneyGhostBtn href="#patient-handouts">Download free guides</JourneyGhostBtn>
+              <JourneyGhostBtn href={PEPTIDE_REQUEST_PATH}>Request or refill</JourneyGhostBtn>
             </div>
-          </FadeUp>
-          <FadeUp delayMs={80} className="hidden lg:block">
-            <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-white/10 shadow-2xl">
-              <Image
-                src="/images/homepage-services/peptide-therapy-active-lifestyle.png"
-                alt="Peptide therapy at Hello Gorgeous Med Spa Oswego"
-                fill
-                className="object-cover"
-                sizes="(max-width: 1024px) 100vw, 480px"
-                priority
-              />
+            <div className="mt-6 flex flex-wrap gap-2.5">
+              {["NP-directed", "Licensed compounding", "Science-first education"].map((chip) => (
+                <JourneyChip key={chip}>{chip}</JourneyChip>
+              ))}
             </div>
-          </FadeUp>
+          </div>
+          <JourneyVideoFrame
+            src={PEPTIDE_SCIENCE_VIDEOS.primary}
+            label="Peptide science animation — Hello Gorgeous Med Spa"
+            poster="/images/homepage-services/peptide-therapy-active-lifestyle.png"
+            className="lg:max-w-lg"
+          />
         </div>
-      </Section>
+      </header>
+      <JourneyTrustBar />
 
       {/* Free peptide guides — no email gate */}
       <Section id="free-peptide-guides" className="border-b-4 border-black bg-gradient-to-b from-[#FFF0F7] to-white scroll-mt-20">
@@ -703,6 +698,6 @@ export function PeptideTherapyPageContent() {
           </FadeUp>
         </div>
       </Section>
-    </>
+    </div>
   );
 }

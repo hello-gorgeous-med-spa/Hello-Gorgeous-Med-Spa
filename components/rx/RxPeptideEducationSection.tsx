@@ -1,7 +1,14 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import { PeptideScienceVideo } from "@/components/peptides/PeptideScienceVideo";
+import {
+  JOURNEY_SECTION_BG_A,
+  JourneyCheckItem,
+  JourneyDarkCard,
+  JourneyEyebrow,
+  JourneySectionHead,
+  JourneyVideoFrame,
+} from "@/components/marketing/JourneyPageUi";
 import { PEPTIDE_SCIENCE_VIDEOS } from "@/lib/peptide-topic-media";
 import { peptideTopicHref } from "@/lib/peptides-hub";
 
@@ -16,37 +23,46 @@ const FEATURED_PEPTIDES = [
 
 export function RxPeptideEducationSection() {
   return (
-    <section className="border-b-4 border-black bg-gradient-to-b from-white to-[#FFF0F7] px-6 py-14 md:py-20">
-      <div className="mx-auto grid max-w-[1200px] items-center gap-10 lg:grid-cols-[1.05fr_0.95fr]">
+    <section className={`${JOURNEY_SECTION_BG_A} px-6 py-16 lg:py-24`}>
+      <div className="mx-auto grid max-w-[1200px] items-start gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-14">
         <div>
-          <p className="text-xs font-bold uppercase tracking-[0.22em] text-[#E6007E]">
-            A smarter approach
-          </p>
-          <h2 className="mt-3 text-3xl font-black text-black md:text-4xl">
-            What are peptides?
-          </h2>
-          <p className="mt-5 text-base leading-relaxed text-black/80 md:text-lg">
-            Peptides are short chains of amino acids — molecular messengers that tell your
-            cells to perform specific jobs. Think of them as precision signals, not blunt
-            instruments. Different peptides target different pathways:{" "}
-            <strong>tissue repair</strong> (BPC-157, TB-500),{" "}
-            <strong>growth hormone axis</strong> (sermorelin, CJC / ipamorelin),{" "}
-            <strong>metabolic health</strong> (GLP-1 programs), and{" "}
-            <strong>cellular energy</strong> (NAD+, MOTS-c).
-          </p>
-          <p className="mt-4 text-base leading-relaxed text-black/75">
-            At Hello Gorgeous in Oswego, every RE GEN protocol starts with your goals and an
-            NP evaluation — Ryan Kent, FNP-BC reviews history, labs when indicated, and
-            matches the right peptide or program. Prescription-only through licensed
-            compounding pharmacies; never gray-market research vials.
-          </p>
+          <JourneySectionHead
+            eyebrow="A smarter approach"
+            title="What are"
+            titleAccent="peptides?"
+            description="Peptides are short chains of amino acids — molecular messengers that tell your cells to perform specific jobs. Different peptides target different pathways; the right one depends on your skin, goals, and clinical picture."
+          />
+          <div className="mt-8 flex max-w-xl flex-col gap-4 text-[17px] leading-relaxed text-white/85">
+            <p>
+              Think of them as precision signals, not blunt instruments.{" "}
+              <strong className="text-white">Tissue repair</strong> (BPC-157, TB-500),{" "}
+              <strong className="text-white">growth hormone axis</strong> (sermorelin, CJC /
+              ipamorelin), <strong className="text-white">metabolic health</strong> (GLP-1 programs),
+              and <strong className="text-white">cellular energy</strong> (NAD+, MOTS-c).
+            </p>
+            <p>
+              At Hello Gorgeous in Oswego, every RE GEN protocol starts with your goals and an NP
+              evaluation — Ryan Kent, FNP-BC reviews history, labs when indicated, and matches the
+              right peptide or program. Prescription-only through licensed compounding pharmacies.
+            </p>
+          </div>
 
-          <div className="mt-6 flex flex-wrap gap-2">
+          <JourneyDarkCard className="mt-8">
+            <h3 className="font-serif text-2xl font-bold text-white">Why we educate first</h3>
+            <ul className="mt-4 space-y-3">
+              <JourneyCheckItem>Understand the science before you shop by goal</JourneyCheckItem>
+              <JourneyCheckItem>Every order NP-reviewed before anything ships</JourneyCheckItem>
+              <JourneyCheckItem>Deep-dive guides for each peptide we prescribe</JourneyCheckItem>
+              <JourneyCheckItem>Never gray-market &quot;research use only&quot; vials</JourneyCheckItem>
+            </ul>
+          </JourneyDarkCard>
+
+          <div className="mt-6 flex flex-wrap gap-2.5">
             {FEATURED_PEPTIDES.map((p) => (
               <Link
                 key={p.slug}
                 href={peptideTopicHref(p.slug)}
-                className="rounded-full border-2 border-black/15 bg-white px-3 py-1.5 text-xs font-semibold text-black/80 transition hover:border-[#E6007E] hover:text-[#E6007E]"
+                className="rounded-full border border-white/30 px-4 py-1.5 text-[13px] font-semibold text-white transition hover:border-[#FF2D8E] hover:text-[#FF2D8E]"
               >
                 {p.label}
               </Link>
@@ -56,35 +72,32 @@ export function RxPeptideEducationSection() {
           <div className="mt-8 flex flex-wrap gap-4">
             <Link
               href="/peptides"
-              className="inline-flex items-center gap-2 text-sm font-bold text-[#E6007E] underline decoration-[#E6007E]/40 underline-offset-4 hover:decoration-[#E6007E]"
+              className="text-sm font-bold text-[#FF2D8E] underline decoration-[#FF2D8E]/40 underline-offset-4 hover:text-white"
             >
               Full peptide education hub →
             </Link>
-            <Link
-              href="/rx/request"
-              className="inline-flex items-center gap-2 text-sm font-bold text-black/70 hover:text-[#E6007E]"
-            >
+            <Link href="/rx/request" className="text-sm font-bold text-white/70 hover:text-[#FF2D8E]">
               Start RE GEN intake →
             </Link>
           </div>
         </div>
 
-        <div className="space-y-5">
-          <PeptideScienceVideo
+        <div className="space-y-6">
+          <JourneyVideoFrame
             src={PEPTIDE_SCIENCE_VIDEOS.alternate}
             label="Peptide signaling animation"
-            caption="Cellular messaging · recovery · hormone pathways"
+            poster="/images/education/peptides-101-not-all-created-equal.png"
           />
-          <div className="overflow-hidden rounded-3xl border-4 border-black bg-white shadow-[8px_8px_0_0_rgba(230,0,126,0.3)]">
+          <div className="overflow-hidden rounded-3xl border border-[#FF2D8E]/35 shadow-[0_20px_60px_rgba(255,45,142,0.22)]">
             <Image
               src="/images/rx/peptide-vial-lineup-hello-gorgeous.png"
-              alt="Hello Gorgeous Med Spa RE GEN peptide and wellness vials — BPC-157, TB-500, NAD+, glutathione, semaglutide, CJC-1295, and GLP-1 programs"
+              alt="Hello Gorgeous Med Spa RE GEN peptide and wellness vials"
               width={1200}
               height={675}
               className="h-auto w-full object-cover"
               sizes="(max-width: 1024px) 100vw, 540px"
             />
-            <p className="border-t-4 border-black px-4 py-3 text-center text-xs font-semibold uppercase tracking-wider text-black/55">
+            <p className="border-t border-[#FF2D8E]/35 bg-black px-4 py-3 text-center text-xs font-semibold uppercase tracking-wider text-white/55">
               NP-supervised · Hello Gorgeous RX™ · Oswego, IL
             </p>
           </div>

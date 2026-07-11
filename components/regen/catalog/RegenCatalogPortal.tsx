@@ -34,6 +34,11 @@ import {
 import { ProductDetailDrawer } from "@/components/regen/catalog/ProductDetailDrawer";
 import { RxPeptideEducationSection } from "@/components/rx/RxPeptideEducationSection";
 import { RxScienceHomeHero } from "@/components/rx/RxScienceHomeHero";
+import {
+  JourneyEyebrow,
+  JourneySectionHead,
+  JOURNEY_SECTION_BG_B,
+} from "@/components/marketing/JourneyPageUi";
 
 type View = "home" | "goal" | "all" | "search";
 
@@ -226,24 +231,14 @@ export function RegenCatalogPortal({
           : "";
 
   return (
-    <div className="min-h-screen bg-[#FFF9FB] text-[#0a0a0a]">
-      {/* Ambient wash */}
-      <div
-        className="pointer-events-none fixed inset-0 -z-10"
-        style={{
-          background:
-            "linear-gradient(180deg, #FFF0F7 0%, #ffffff 40%, #f9fafb 100%)",
-        }}
-        aria-hidden
-      />
-
+    <div className="min-h-screen bg-black font-sans text-white">
       {/* Header */}
-      <header className="sticky top-0 z-40 border-b border-black/[0.08] bg-white/[0.92] backdrop-blur-[10px]">
+      <header className="sticky top-0 z-40 border-b border-white/10 bg-black/82 backdrop-blur-md">
         <div className="mx-auto flex h-[66px] max-w-[1200px] items-center gap-4 px-6">
           <CatalogBrandLockup onClickHome={() => navigate({})} />
           <div className="relative mx-auto hidden max-w-md flex-1 md:block">
             <svg
-              className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-black/35"
+              className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-white/35"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -260,27 +255,27 @@ export function RegenCatalogPortal({
               value={query}
               onChange={(e) => onSearchChange(e.target.value)}
               placeholder="Search treatments, goals, ingredients…"
-              className="h-[42px] w-full rounded-full border border-black/10 bg-white pl-11 pr-4 text-sm outline-none ring-[#FF2D8E] focus:ring-2"
+              className="h-[42px] w-full rounded-full border border-white/15 bg-[#0a0206] pl-11 pr-4 text-sm text-white outline-none ring-[#FF2D8E] placeholder:text-white/40 focus:ring-2"
             />
           </div>
           <div className="ml-auto flex items-center gap-3">
             <button
               type="button"
               onClick={() => navigate({})}
-              className="hidden text-sm font-semibold text-black/70 hover:text-[#E6007E] sm:block"
+              className="hidden text-sm font-semibold text-white/70 hover:text-[#FF2D8E] sm:block"
             >
               Home
             </button>
             <CatalogCartButton />
           </div>
         </div>
-        <div className="border-t border-black/[0.06] px-6 py-3 md:hidden">
+        <div className="border-t border-white/10 px-6 py-3 md:hidden">
           <input
             type="search"
             value={query}
             onChange={(e) => onSearchChange(e.target.value)}
             placeholder="Search treatments…"
-            className="h-[42px] w-full rounded-full border border-black/10 bg-white px-4 text-sm outline-none ring-[#FF2D8E] focus:ring-2"
+            className="h-[42px] w-full rounded-full border border-white/15 bg-[#0a0206] px-4 text-sm text-white outline-none ring-[#FF2D8E] placeholder:text-white/40 focus:ring-2"
           />
         </div>
       </header>
@@ -291,19 +286,14 @@ export function RegenCatalogPortal({
           <RxPeptideEducationSection />
 
           {/* Shop by goal */}
-          <section id="shop-by-goal" className="scroll-mt-20 border-t-4 border-black px-6 py-14">
+          <section id="shop-by-goal" className={`scroll-mt-20 ${JOURNEY_SECTION_BG_B} px-6 py-16 lg:py-24`}>
             <div className="mx-auto max-w-[1200px]">
-              <p className="text-xs font-bold uppercase tracking-[0.22em] text-[#E6007E]">
-                Your protocol, matched to your goal
-              </p>
-              <h2 className="mt-2 font-serif text-3xl font-extrabold md:text-4xl">
-                Shop by goal
-              </h2>
-              <p className="mt-3 max-w-2xl text-black/65">
-                Once you understand the science, browse RE GEN by what you want to work on —
-                weight, recovery, hormones, intimacy, skin, or longevity. Every order is NP-reviewed
-                before it ships.
-              </p>
+              <JourneySectionHead
+                eyebrow="Your protocol, matched to your goal"
+                title="Shop by"
+                titleAccent="goal"
+                description="Once you understand the science, browse RE GEN by what you want to work on — weight, recovery, hormones, intimacy, skin, or longevity. Every order is NP-reviewed before it ships."
+              />
               <div className="mt-8 grid gap-[18px] sm:grid-cols-2 lg:grid-cols-3">
                 {SHOP_GOALS.map((goal) => {
                   const accent = goalAccent(goal);
@@ -313,14 +303,7 @@ export function RegenCatalogPortal({
                       key={goal}
                       type="button"
                       onClick={() => navigate({ goal })}
-                      className="group rounded-[20px] border border-black/10 bg-white p-6 text-left shadow-[0_4px_24px_rgba(0,0,0,0.05)] transition hover:-translate-y-1 hover:shadow-[0_20px_40px_rgba(0,0,0,0.1)] motion-reduce:hover:translate-y-0"
-                      style={{ borderColor: "transparent" }}
-                      onMouseEnter={(e) => {
-                        e.currentTarget.style.borderColor = accent;
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.borderColor = "rgba(0,0,0,0.1)";
-                      }}
+                      className="group rounded-[20px] border border-white/14 bg-[#0a0206] p-6 text-left shadow-[0_4px_24px_rgba(0,0,0,0.35)] transition hover:-translate-y-1 hover:border-[#FF2D8E] hover:shadow-[0_20px_40px_rgba(255,45,142,0.18)] motion-reduce:hover:translate-y-0"
                     >
                       <div
                         className="mb-4 inline-flex h-11 w-11 items-center justify-center rounded-xl text-lg text-white"
@@ -338,8 +321,8 @@ export function RegenCatalogPortal({
                                   ? "✨"
                                   : "☀"}
                       </div>
-                      <h3 className="text-lg font-bold">{goal}</h3>
-                      <p className="mt-2 text-sm text-black/60">{meta?.blurb}</p>
+                      <h3 className="text-lg font-bold text-white">{goal}</h3>
+                      <p className="mt-2 text-sm text-white/60">{meta?.blurb}</p>
                       <p className="mt-4 text-sm font-bold" style={{ color: accent }}>
                         {counts[goal] ?? 0} options →
                       </p>
@@ -351,14 +334,14 @@ export function RegenCatalogPortal({
           </section>
 
           {/* Best sellers */}
-          <section className="border-t border-black/5 bg-white px-6 py-14">
+          <section className="px-6 py-16 lg:py-24">
             <div className="mx-auto max-w-[1200px]">
               <div className="flex items-end justify-between gap-4">
-                <h2 className="font-serif text-3xl font-extrabold">Client favorites</h2>
+                <JourneySectionHead eyebrow="Client favorites" title="Popular" titleAccent="protocols" />
                 <button
                   type="button"
                   onClick={() => navigate({ browse: "all" })}
-                  className="text-sm font-bold text-[#E6007E] hover:underline"
+                  className="text-sm font-bold text-[#FF2D8E] hover:underline"
                 >
                   View all →
                 </button>
@@ -372,25 +355,29 @@ export function RegenCatalogPortal({
           </section>
 
           {/* Bundles */}
-          <section className="px-6 py-14">
+          <section className={`${JOURNEY_SECTION_BG_B} px-6 py-16 lg:py-24`}>
             <div className="mx-auto max-w-[1200px]">
-              <h2 className="font-serif text-3xl font-extrabold">Stacks & bundles</h2>
-              <p className="mt-2 text-black/60">Curated combinations — save 10%.</p>
-              <div className="mt-8 grid gap-[18px] md:grid-cols-2">
+              <JourneySectionHead
+                eyebrow="Curated stacks"
+                title="Stacks &"
+                titleAccent="bundles"
+                description="Curated combinations — save 10% when you add a stack to cart."
+              />
+              <div className="mt-10 grid gap-[18px] md:grid-cols-2">
                 {bundles.map((b) => (
                   <div
                     key={b.id}
-                    className="rounded-[20px] border border-black/10 bg-white p-6 shadow-[0_4px_24px_rgba(0,0,0,0.05)]"
+                    className="rounded-[20px] border border-white/14 bg-[#0a0206] p-6 shadow-[0_4px_24px_rgba(0,0,0,0.35)]"
                   >
                     <span
-                      className="inline-block rounded-full px-3 py-1 text-xs font-bold text-white"
+                      className="inline-block rounded-full px-3 py-1 text-xs font-bold text-black"
                       style={{ backgroundColor: b.accent }}
                     >
                       {b.tagline}
                     </span>
-                    <h3 className="mt-3 font-serif text-2xl font-extrabold">{b.name}</h3>
-                    <p className="mt-2 text-sm text-black/65">{b.blurb}</p>
-                    <ul className="mt-4 space-y-1 text-sm text-black/70">
+                    <h3 className="mt-3 font-serif text-2xl font-extrabold text-white">{b.name}</h3>
+                    <p className="mt-2 text-sm text-white/65">{b.blurb}</p>
+                    <ul className="mt-4 space-y-1 text-sm text-white/70">
                       {b.items.map((item) => (
                         <li key={item.name} className="flex justify-between gap-2">
                           <span>{item.name}</span>
@@ -402,7 +389,7 @@ export function RegenCatalogPortal({
                       <span className="font-serif text-2xl font-extrabold text-[#FF2D8E]">
                         {b.price}
                       </span>
-                      <span className="text-sm text-black/40 line-through">{b.total}</span>
+                      <span className="text-sm text-white/40 line-through">{b.total}</span>
                       <span className="rounded-full bg-[#16a34a]/15 px-2 py-0.5 text-xs font-bold text-[#16a34a]">
                         Save {b.save}
                       </span>
@@ -410,7 +397,7 @@ export function RegenCatalogPortal({
                     <button
                       type="button"
                       onClick={b.add}
-                      className="mt-5 w-full rounded-full border-2 border-[#0a0a0a] py-3 text-sm font-bold hover:bg-[#0a0a0a] hover:text-white"
+                      className="mt-5 w-full rounded-full border-2 border-[#FF2D8E] py-3 text-sm font-bold text-[#FF2D8E] transition hover:bg-[#FF2D8E] hover:text-black"
                     >
                       Add stack to cart
                     </button>
@@ -422,8 +409,8 @@ export function RegenCatalogPortal({
 
           {/* How it works */}
           <section className="px-6 pb-16">
-            <div className="mx-auto max-w-[1200px] rounded-3xl bg-[#0a0a0a] px-8 py-12 text-white md:px-12">
-              <h2 className="font-serif text-3xl font-extrabold">How RE GEN works</h2>
+            <div className="mx-auto max-w-[1200px] rounded-3xl border border-[#FF2D8E]/35 bg-[#0a0206] px-8 py-12 md:px-12">
+              <JourneySectionHead eyebrow="How RE GEN works" title="Three steps to" titleAccent="your protocol" />
               <ol className="mt-8 grid gap-8 md:grid-cols-3">
                 {[
                   {
@@ -443,10 +430,10 @@ export function RegenCatalogPortal({
                   },
                 ].map((step) => (
                   <li key={step.n}>
-                    <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[#FF2D8E] text-sm font-bold">
+                    <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[#FF2D8E] text-sm font-extrabold text-black">
                       {step.n}
                     </span>
-                    <h3 className="mt-4 text-lg font-bold">{step.title}</h3>
+                    <h3 className="mt-4 text-lg font-bold text-white">{step.title}</h3>
                     <p className="mt-2 text-sm text-white/75">{step.body}</p>
                   </li>
                 ))}
@@ -460,13 +447,13 @@ export function RegenCatalogPortal({
             <button
               type="button"
               onClick={() => navigate({})}
-              className="text-sm font-semibold text-[#E6007E] hover:underline"
+              className="text-sm font-semibold text-[#FF2D8E] hover:underline"
             >
               ← All goals
             </button>
-            <h1 className="mt-4 font-serif text-4xl font-extrabold">{browseTitle}</h1>
-            <p className="mt-2 max-w-2xl text-black/65">{browseSub}</p>
-            <p className="mt-3 text-sm font-semibold text-black/50">
+            <h1 className="mt-4 font-serif text-4xl font-extrabold text-white">{browseTitle}</h1>
+            <p className="mt-2 max-w-2xl text-white/65">{browseSub}</p>
+            <p className="mt-3 text-sm font-semibold text-white/50">
               {filteredProducts.length} products
             </p>
 
@@ -477,10 +464,10 @@ export function RegenCatalogPortal({
                     key={f}
                     type="button"
                     onClick={() => setFormFilter(f)}
-                    className={`rounded-full px-4 py-2 text-sm font-semibold ${
+                    className={`rounded-full px-4 py-2 text-sm font-semibold transition ${
                       f === formFilter
-                        ? "border-2 border-[#FF2D8E] bg-[#FFF0F7] text-[#0a0a0a]"
-                        : "border border-black/15 bg-white text-[#555]"
+                        ? "border-2 border-[#FF2D8E] bg-[#FF2D8E]/15 text-[#FF2D8E]"
+                        : "border border-white/20 bg-[#0a0206] text-white/65 hover:border-[#FF2D8E]/50"
                     }`}
                   >
                     {f}
@@ -490,7 +477,7 @@ export function RegenCatalogPortal({
             )}
 
             {filteredProducts.length === 0 ? (
-              <p className="mt-12 text-center text-black/50">No products match your filters.</p>
+              <p className="mt-12 text-center text-white/50">No products match your filters.</p>
             ) : (
               <div className="mt-8 grid gap-[18px] sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
                 {filteredProducts.map((p) => (
