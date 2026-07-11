@@ -7,12 +7,12 @@
  * `/book` merges UTM params then redirects to Square Appointments (`BOOKING_URL`).
  */
 /**
- * Square Online Booking — Hello Gorgeous Oswego start URL
- * @see https://app.squareup.com/appointments/book/c6d3183a-3e54-4f32-8923-61c56c170c64/PYYB8NKD45N8P/start
+ * Square Online Booking — Hello Gorgeous Med Spa RX (merchant MLK7PBDE336M4, location L3QDRS4DX9ZE4).
+ * @see https://square.site/book/L3QDRS4DX9ZE4/hello-gorgeous-med-spa-rx-oswego-il
  */
 export const SQUARE_ORG_BOOKING_URL =
   process.env.NEXT_PUBLIC_SQUARE_BOOKING_URL?.trim() ||
-  "https://app.squareup.com/appointments/book/c6d3183a-3e54-4f32-8923-61c56c170c64/PYYB8NKD45N8P/start";
+  "https://square.site/book/L3QDRS4DX9ZE4/hello-gorgeous-med-spa-rx-oswego-il";
 
 /** Square Appointments embed script (Dashboard → Online Booking → Embed). */
 export const SQUARE_APPOINTMENTS_EMBED_SCRIPT_URL =
