@@ -3,9 +3,20 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import { FAQAccordion } from "@/components/FAQAccordion";
-import { CTA } from "@/components/CTA";
-import { FadeUp, Section } from "@/components/Section";
+import {
+  JOURNEY_HERO_BG,
+  JOURNEY_SECTION_BG_A,
+  JOURNEY_SECTION_BG_B,
+  JourneyChip,
+  JourneyDarkCard,
+  JourneyEyebrow,
+  JourneyGhostBtn,
+  JourneyPinkBtn,
+  JourneySectionHead,
+  JourneyTrustBar,
+  JourneyVideoFrame,
+} from "@/components/marketing/JourneyPageUi";
+import { FadeUp } from "@/components/Section";
 import {
   MORPHEUS8_FAQS,
   MORPHEUS8_INTRO_SPECIAL,
@@ -18,89 +29,55 @@ import {
   MORPHEUS8_WHAT_IT_DOES,
 } from "@/lib/morpheus8-marketing";
 
-const BRAND = { pink: "#E6007E", pinkHot: "#FF2D8E", rose: "#FFF0F7", dark: "#0a0a0a" };
-
 export function Morpheus8PageContent() {
   const { images } = MORPHEUS8_MARKETING;
 
   return (
-    <div className="relative min-h-[100dvh]">
-      <div
-        className="pointer-events-none fixed inset-0 -z-10 opacity-90"
-        style={{
-          background: `
-            radial-gradient(ellipse 80% 50% at 50% -10%, ${BRAND.pink}33 0%, transparent 55%),
-            radial-gradient(ellipse 60% 40% at 100% 30%, ${BRAND.pinkHot}22 0%, transparent 50%),
-            linear-gradient(180deg, ${BRAND.rose} 0%, #ffffff 35%, #fafafa 100%)
-          `,
-        }}
-      />
-
+    <div className="relative min-h-[100dvh] bg-black text-white">
       <main className="min-w-0">
-        <Section className="relative border-b-4 border-black py-14 lg:py-20 !px-0">
+        <header className={JOURNEY_HERO_BG}>
           <div
-            className="absolute inset-0"
-            style={{
-              background: `linear-gradient(135deg, ${BRAND.dark} 0%, #1a0a12 40%, #2d1020 70%, ${BRAND.dark} 100%)`,
-            }}
+            className="pointer-events-none absolute -right-28 -top-40 h-[620px] w-[620px] rounded-full bg-[radial-gradient(circle,rgba(255,45,142,0.28),transparent_62%)]"
+            aria-hidden
           />
-          <div className="relative mx-auto grid max-w-6xl gap-10 px-4 sm:px-6 lg:grid-cols-2 lg:items-center lg:px-8">
-            <FadeUp>
-              <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.16em] text-[#FFB8DC] backdrop-blur">
-                <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[#E6007E]" />
-                {MORPHEUS8_MARKETING.eyebrow}
-              </span>
-              <p className="mt-5 text-xs font-bold uppercase tracking-[0.2em] text-[#FFB8DC]">
-                Oswego · Naperville · Aurora · Fox Valley
-              </p>
-              <h1 className="mt-3 font-black text-4xl leading-[1.05] text-white sm:text-5xl lg:text-6xl">
+          <div className="relative mx-auto grid max-w-[1200px] gap-10 px-6 py-16 lg:grid-cols-2 lg:items-center lg:gap-14 lg:py-24">
+            <div>
+              <JourneyEyebrow>{MORPHEUS8_MARKETING.eyebrow} · Oswego, IL</JourneyEyebrow>
+              <h1 className="mt-4 font-serif text-[44px] font-bold leading-[1.02] text-white lg:text-[66px]">
                 Morpheus8{" "}
-                <span
-                  className="bg-gradient-to-r from-[#FFB8DC] via-[#FF2D8E] to-[#E6007E] bg-clip-text text-transparent"
-                  style={{ WebkitBackgroundClip: "text" }}
-                >
-                  Burst + Deep
-                </span>
+                <span className="text-[#FF2D8E]">Burst + Deep</span>
               </h1>
-              <p className="mt-5 max-w-xl text-base leading-relaxed text-white/85 sm:text-lg">
+              <p className="mt-5 max-w-lg text-lg leading-relaxed text-white/80 lg:text-xl">
                 {MORPHEUS8_MARKETING.subhead}
               </p>
-              <p className="mt-3 text-sm text-[#FFB8DC]">{MORPHEUS8_MARKETING.trustLine}</p>
-              <div className="mt-8 flex flex-wrap gap-3">
-                <CTA href={MORPHEUS8_MARKETING.bookHref} variant="gradient">
-                  Book free consult
-                </CTA>
-                <CTA href="#pricing" variant="outline" className="!border-white !text-white hover:!bg-white/10">
-                  See pricing
-                </CTA>
+              <p className="mt-3 text-sm text-white/60">{MORPHEUS8_MARKETING.trustLine}</p>
+              <div className="mt-8 flex flex-wrap gap-4">
+                <JourneyPinkBtn href={MORPHEUS8_MARKETING.bookHref}>Book free consult</JourneyPinkBtn>
+                <JourneyGhostBtn href="#pricing">See pricing</JourneyGhostBtn>
               </div>
-            </FadeUp>
-            <FadeUp delayMs={80}>
-              <div className="mx-auto w-full max-w-lg overflow-hidden rounded-3xl border-4 border-black shadow-[8px_8px_0_0_rgba(230,0,126,0.35)] lg:max-w-none">
-                <div className="relative aspect-video w-full bg-black">
-                  <video
-                    src={MORPHEUS8_MARKETING.introVideo}
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                    preload="auto"
-                    className="absolute inset-0 h-full w-full object-contain"
-                    aria-label="Morpheus8 Burst RF microneedling at Hello Gorgeous Med Spa"
-                  />
-                </div>
+              <div className="mt-6 flex flex-wrap gap-2.5">
+                {["InMode verified", "Up to 8mm depth", "Face + body"].map((chip) => (
+                  <JourneyChip key={chip}>{chip}</JourneyChip>
+                ))}
               </div>
-            </FadeUp>
+            </div>
+            <JourneyVideoFrame
+              src={MORPHEUS8_MARKETING.scienceVideo}
+              label="Morpheus8 RF microneedling — cellular science animation at Hello Gorgeous Med Spa"
+              poster={images.hero}
+              className="lg:max-w-lg"
+            />
           </div>
-        </Section>
+        </header>
+        <JourneyTrustBar />
 
-        <nav className="sticky top-0 z-20 border-b-4 border-black bg-white/70 backdrop-blur">
-          <div className="mx-auto flex max-w-6xl gap-2 overflow-x-auto px-4 py-3 sm:px-6 lg:px-8">
+        <nav className="sticky top-0 z-20 border-b border-white/10 bg-black/90 backdrop-blur-md">
+          <div className="mx-auto flex max-w-[1200px] gap-2 overflow-x-auto px-6 py-3">
             {MORPHEUS8_NAV.map((item) => (
               <a
                 key={item.href}
                 href={item.href}
-                className="shrink-0 rounded-full border-2 border-black/10 bg-gradient-to-b from-white to-rose-50 px-4 py-2 text-xs font-bold text-black transition hover:border-[#E6007E] hover:text-[#E6007E]"
+                className="shrink-0 rounded-full border border-white/20 px-4 py-2 text-xs font-bold text-white/80 transition hover:border-[#FF2D8E] hover:text-[#FF2D8E]"
               >
                 {item.label}
               </a>
@@ -108,192 +85,252 @@ export function Morpheus8PageContent() {
           </div>
         </nav>
 
-        <Section id="why" className="scroll-mt-24 border-b-4 border-black bg-white py-12">
+        <section id="why" className={`scroll-mt-24 ${JOURNEY_SECTION_BG_A} px-6 py-16 lg:py-24`}>
           <FadeUp>
-            <div className="mx-auto max-w-4xl rounded-3xl border-4 border-black bg-gradient-to-br from-white to-rose-50 p-6 shadow-[8px_8px_0_0_rgba(230,0,126,0.35)] sm:p-8">
+            <div className="mx-auto max-w-4xl rounded-[20px] border border-[#FF2D8E]/35 bg-[#0a0206] p-6 sm:p-8">
               <div className="flex flex-wrap items-start justify-between gap-4">
                 <div>
-                  <span className="inline-flex rounded-xl border-2 border-black bg-gradient-to-r from-[#FF2D8E] to-[#E6007E] px-3 py-1 text-[11px] font-bold uppercase tracking-wide text-white">
+                  <span className="inline-flex rounded-full bg-[#FF2D8E] px-3 py-1 text-[11px] font-extrabold uppercase tracking-wide text-black">
                     {MORPHEUS8_INTRO_SPECIAL.badge}
                   </span>
-                  <h2 className="mt-3 text-2xl font-black sm:text-3xl">{MORPHEUS8_INTRO_SPECIAL.title}</h2>
-                  <p className="mt-2 max-w-xl font-medium text-black/80">{MORPHEUS8_INTRO_SPECIAL.description}</p>
+                  <h2 className="mt-3 font-serif text-2xl font-bold text-white sm:text-3xl">{MORPHEUS8_INTRO_SPECIAL.title}</h2>
+                  <p className="mt-2 max-w-xl text-white/75">{MORPHEUS8_INTRO_SPECIAL.description}</p>
                 </div>
                 <div className="text-right">
-                  <p className="text-4xl font-black text-[#E6007E]">{MORPHEUS8_INTRO_SPECIAL.priceLabel}</p>
-                  <p className="text-sm font-semibold text-black/55">{MORPHEUS8_INTRO_SPECIAL.priceNote}</p>
+                  <p className="font-serif text-4xl font-bold text-[#FF2D8E]">{MORPHEUS8_INTRO_SPECIAL.priceLabel}</p>
+                  <p className="text-sm text-white/55">{MORPHEUS8_INTRO_SPECIAL.priceNote}</p>
                 </div>
               </div>
               <div className="mt-6">
-                <CTA href={MORPHEUS8_MARKETING.bookHref} variant="gradient">
-                  {MORPHEUS8_INTRO_SPECIAL.ctaLabel}
-                </CTA>
+                <JourneyPinkBtn href={MORPHEUS8_MARKETING.bookHref}>{MORPHEUS8_INTRO_SPECIAL.ctaLabel}</JourneyPinkBtn>
               </div>
             </div>
           </FadeUp>
-        </Section>
+        </section>
 
-        <Section className="border-b-4 border-black bg-gradient-to-b from-[#FFF0F7] to-white py-14">
-          <FadeUp>
-            <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#E6007E]">Why Morpheus8 Burst</p>
-            <h2 className="mt-2 text-3xl font-black sm:text-4xl">The deepest RF microneedling</h2>
-          </FadeUp>
-          <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {MORPHEUS8_WHAT_IT_DOES.map((item, i) => (
-              <FadeUp key={item.id} delayMs={i * 50}>
-                <article className="flex h-full flex-col rounded-3xl border-4 border-black bg-white p-5 shadow-[8px_8px_0_0_rgba(230,0,126,0.28)]">
-                  <p className="text-3xl font-black text-[#E6007E]">{item.stat}</p>
-                  <p className="text-[11px] font-bold uppercase tracking-wider text-black/45">{item.statLabel}</p>
-                  <h3 className="mt-3 text-lg font-bold text-[#E6007E]">▸ {item.title}</h3>
-                  <p className="mt-2 text-sm font-medium leading-relaxed text-black/80">{item.body}</p>
-                </article>
-              </FadeUp>
-            ))}
-          </div>
-        </Section>
-
-        <Section id="results" className="scroll-mt-24 border-b-4 border-black bg-white py-14">
-          <FadeUp>
-            <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#E6007E]">Real results</p>
-            <h2 className="mt-2 text-3xl font-black sm:text-4xl">Before & after — Morpheus8 Burst + Deep</h2>
-            <p className="mt-3 max-w-2xl font-medium text-black/75">
-              Real patient photos at Hello Gorgeous Med Spa, Oswego IL. Individual results vary.
-            </p>
-          </FadeUp>
-          <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {MORPHEUS8_RESULTS.map((item, i) => (
-              <FadeUp key={item.src} delayMs={i * 40}>
-                <figure className="overflow-hidden rounded-3xl border-4 border-black bg-white shadow-[6px_6px_0_0_rgba(230,0,126,0.3)]">
-                  <Image src={item.src} alt={item.alt} width={627} height={490} className="h-auto w-full" />
-                  <figcaption className="border-t-2 border-black px-4 py-2 text-sm font-bold text-[#E6007E]">
-                    {item.label}
-                  </figcaption>
-                </figure>
-              </FadeUp>
-            ))}
-          </div>
-        </Section>
-
-        <Section id="areas" className="scroll-mt-24 border-b-4 border-black bg-gradient-to-b from-[#FFF0F7] to-white py-14">
-          <FadeUp>
-            <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#E6007E]">Treatment areas</p>
-            <h2 className="mt-2 text-3xl font-black sm:text-4xl">Face + body — one platform</h2>
-          </FadeUp>
-          <div className="mt-8 flex flex-wrap gap-3">
-            {MORPHEUS8_TREATMENT_AREAS.map((area) => (
-              <span
-                key={area}
-                className="rounded-full border-2 border-black bg-white px-4 py-2 text-sm font-bold shadow-[3px_3px_0_0_rgba(230,0,126,0.25)]"
-              >
-                {area}
-              </span>
-            ))}
-          </div>
-          <div className="mt-10 overflow-hidden rounded-3xl border-4 border-black shadow-[8px_8px_0_0_rgba(230,0,126,0.35)]">
-            <Image src={images.bodyTech} alt="Morpheus8 Burst body RF microneedling technology" width={1200} height={630} className="h-auto w-full" />
-          </div>
-        </Section>
-
-        <Section id="how" className="scroll-mt-24 border-b-4 border-black bg-white py-14">
-          <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
+        <section className={`${JOURNEY_SECTION_BG_B} px-6 py-16 lg:py-24`}>
+          <div className="mx-auto max-w-[1200px]">
             <FadeUp>
-              <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#E6007E]">How it works</p>
-              <h2 className="mt-2 text-3xl font-black sm:text-4xl">Consult to collagen rebuild</h2>
+              <JourneySectionHead
+                eyebrow="Why Morpheus8 Burst"
+                title="The deepest"
+                titleAccent="RF microneedling"
+              />
+            </FadeUp>
+            <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+              {MORPHEUS8_WHAT_IT_DOES.map((item, i) => (
+                <FadeUp key={item.id} delayMs={i * 50}>
+                  <article className="flex h-full flex-col rounded-[20px] border border-white/14 bg-[#0a0206] p-5">
+                    <p className="font-serif text-3xl font-bold text-[#FF2D8E]">{item.stat}</p>
+                    <p className="text-[11px] font-extrabold uppercase tracking-wider text-white/45">{item.statLabel}</p>
+                    <h3 className="mt-3 font-serif text-lg font-bold text-white">{item.title}</h3>
+                    <p className="mt-2 text-sm leading-relaxed text-white/75">{item.body}</p>
+                  </article>
+                </FadeUp>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section id="results" className={`scroll-mt-24 px-6 py-16 lg:py-24`}>
+          <div className="mx-auto max-w-[1200px]">
+            <FadeUp>
+              <JourneySectionHead
+                eyebrow="Real results"
+                title="Before & after —"
+                titleAccent="Morpheus8 Burst + Deep"
+                description="Real patient photos at Hello Gorgeous Med Spa, Oswego IL. Individual results vary."
+              />
+            </FadeUp>
+            <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {MORPHEUS8_RESULTS.map((item, i) => (
+                <FadeUp key={item.src} delayMs={i * 40}>
+                  <figure className="overflow-hidden rounded-[20px] border border-[#FF2D8E]/35 bg-[#0a0206]">
+                    <Image src={item.src} alt={item.alt} width={627} height={490} className="h-auto w-full" />
+                    <figcaption className="border-t border-white/10 px-4 py-3 text-sm font-bold text-[#FF2D8E]">
+                      {item.label}
+                    </figcaption>
+                  </figure>
+                </FadeUp>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section id="areas" className={`scroll-mt-24 ${JOURNEY_SECTION_BG_A} px-6 py-16 lg:py-24`}>
+          <div className="mx-auto max-w-[1200px]">
+            <FadeUp>
+              <JourneySectionHead
+                eyebrow="Treatment areas"
+                title="Face + body —"
+                titleAccent="one platform"
+              />
+            </FadeUp>
+            <div className="mt-8 flex flex-wrap gap-3">
+              {MORPHEUS8_TREATMENT_AREAS.map((area) => (
+                <JourneyChip key={area}>{area}</JourneyChip>
+              ))}
+            </div>
+            <FadeUp delayMs={60}>
+              <div className="mt-10 overflow-hidden rounded-[20px] border border-[#FF2D8E]/35">
+                <Image src={images.bodyTech} alt="Morpheus8 Burst body RF microneedling technology" width={1200} height={630} className="h-auto w-full" />
+              </div>
+            </FadeUp>
+          </div>
+        </section>
+
+        <section id="how" className={`scroll-mt-24 ${JOURNEY_SECTION_BG_B} px-6 py-16 lg:py-24`}>
+          <div className="mx-auto grid max-w-[1200px] gap-10 lg:grid-cols-2 lg:items-center">
+            <FadeUp>
+              <JourneySectionHead
+                eyebrow="How it works"
+                title="Consult to"
+                titleAccent="collagen rebuild"
+              />
               <ol className="mt-8 space-y-4">
                 {MORPHEUS8_STEPS.map((step) => (
-                  <li key={step.step} className="rounded-2xl border-2 border-black bg-white p-4 shadow-[4px_4px_0_0_rgba(230,0,126,0.2)]">
+                  <li key={step.step} className="rounded-[20px] border border-white/14 bg-[#0a0206] p-4">
                     <div className="flex gap-3">
-                      <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border-2 border-black bg-gradient-to-r from-[#FF2D8E] to-[#E6007E] text-sm font-black text-white">
+                      <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#FF2D8E] text-sm font-extrabold text-black">
                         {step.step}
                       </span>
                       <div>
-                        <h3 className="font-bold text-[#E6007E]">▸ {step.title}</h3>
-                        <p className="mt-1 text-sm font-medium text-black/80">{step.body}</p>
+                        <h3 className="font-bold text-white">{step.title}</h3>
+                        <p className="mt-1 text-sm text-white/75">{step.body}</p>
                       </div>
                     </div>
                   </li>
                 ))}
               </ol>
-              <Link href={MORPHEUS8_MARKETING.careHref} className="mt-6 inline-flex text-sm font-bold text-[#E6007E] underline">
+              <Link href={MORPHEUS8_MARKETING.careHref} className="mt-6 inline-flex text-sm font-bold text-[#FF2D8E] underline underline-offset-4">
                 Pre & post care guide →
               </Link>
             </FadeUp>
             <FadeUp delayMs={80}>
-              <div className="overflow-hidden rounded-3xl border-4 border-black shadow-[8px_8px_0_0_rgba(230,0,126,0.35)]">
-                <Image src={images.verified} alt="Hello Gorgeous verified InMode Morpheus8 provider" width={800} height={600} className="h-auto w-full" />
-              </div>
+              <JourneyVideoFrame
+                src={MORPHEUS8_MARKETING.introVideo}
+                label="Morpheus8 Burst clinical treatment highlight — Hello Gorgeous Med Spa"
+                poster={images.verified}
+              />
             </FadeUp>
           </div>
-        </Section>
+        </section>
 
-        <Section id="pricing" className="scroll-mt-24 border-b-4 border-black bg-gradient-to-b from-[#FFF0F7] to-white py-14">
+        <section id="pricing" className={`scroll-mt-24 px-6 py-16 lg:py-24`}>
+          <div className="mx-auto max-w-[1200px]">
+            <FadeUp>
+              <JourneySectionHead
+                eyebrow="Pricing"
+                title="Honest packages ·"
+                titleAccent="free consult first"
+              />
+            </FadeUp>
+            <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+              {MORPHEUS8_PACKAGES.map((pkg, i) => (
+                <FadeUp key={pkg.id} delayMs={i * 40}>
+                  <article
+                    className={`flex h-full flex-col rounded-[20px] border bg-[#0a0206] p-5 ${
+                      pkg.highlight ? "border-[#FF2D8E]/60 ring-1 ring-[#FF2D8E]/30" : "border-white/14"
+                    }`}
+                  >
+                    <h3 className="font-serif text-lg font-bold text-white">{pkg.name}</h3>
+                    <p className="mt-2 font-serif text-3xl font-bold text-[#FF2D8E]">{pkg.price}</p>
+                    <p className="text-xs text-white/55">{pkg.detail}</p>
+                    <ul className="mt-4 flex-1 space-y-2 text-sm text-white/80">
+                      {pkg.bullets.map((b) => (
+                        <li key={b} className="flex gap-2">
+                          <span className="text-[#FF2D8E]" aria-hidden>
+                            ✓
+                          </span>
+                          <span>{b}</span>
+                        </li>
+                      ))}
+                    </ul>
+                    <div className="mt-5">
+                      <JourneyPinkBtn
+                        href={"href" in pkg && pkg.href ? pkg.href : MORPHEUS8_MARKETING.bookHref}
+                        className="w-full px-4 py-2.5 text-sm"
+                      >
+                        {"href" in pkg && pkg.href ? "View specials" : "Book consult"}
+                      </JourneyPinkBtn>
+                    </div>
+                  </article>
+                </FadeUp>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className={`${JOURNEY_SECTION_BG_A} px-6 py-16 lg:py-24`}>
           <FadeUp>
-            <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#E6007E]">Pricing</p>
-            <h2 className="mt-2 text-3xl font-black sm:text-4xl">Honest packages · free consult first</h2>
+            <JourneyDarkCard className="mx-auto max-w-4xl text-center">
+              <JourneyEyebrow>Pair with Solaria CO₂</JourneyEyebrow>
+              <h2 className="mt-3 font-serif text-2xl font-bold text-white sm:text-3xl">
+                Surface + depth = complete transformation
+              </h2>
+              <p className="mx-auto mt-3 max-w-xl text-white/75">
+                Morpheus8 remodels beneath the skin. Solaria resurfaces the surface. Together — VIP Trifecta.
+              </p>
+              <div className="mt-6 flex flex-wrap justify-center gap-3">
+                <JourneyGhostBtn href={MORPHEUS8_MARKETING.compareSolariaHref}>Explore Solaria CO₂</JourneyGhostBtn>
+                <JourneyPinkBtn href={MORPHEUS8_MARKETING.trifectaHref}>VIP Trifecta packages</JourneyPinkBtn>
+              </div>
+            </JourneyDarkCard>
           </FadeUp>
-          <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {MORPHEUS8_PACKAGES.map((pkg) => (
-              <article
-                key={pkg.id}
-                className={`flex h-full flex-col rounded-3xl border-4 border-black bg-white p-5 shadow-[8px_8px_0_0_rgba(230,0,126,0.28)] ${pkg.highlight ? "ring-4 ring-[#E6007E]/30" : ""}`}
+        </section>
+
+        <section id="faq" className={`scroll-mt-24 ${JOURNEY_SECTION_BG_B} px-6 py-16 lg:py-24`}>
+          <div className="mx-auto max-w-[900px]">
+            <FadeUp>
+              <JourneySectionHead eyebrow="FAQ" title="Morpheus8" titleAccent="questions" />
+            </FadeUp>
+            <div className="mt-10 space-y-3">
+              {MORPHEUS8_FAQS.map((faq, idx) => (
+                <FadeUp key={faq.q} delayMs={idx * 30}>
+                  <details
+                    className="group rounded-[20px] border border-white/14 bg-[#0a0206] open:border-[#FF2D8E]/50"
+                    {...(idx === 0 ? { open: true } : {})}
+                  >
+                    <summary className="cursor-pointer list-none px-5 py-4 font-bold text-white marker:content-none [&::-webkit-details-marker]:hidden">
+                      <span className="flex items-start justify-between gap-3">
+                        <span>{faq.q}</span>
+                        <span className="text-[#FF2D8E] transition group-open:rotate-45">+</span>
+                      </span>
+                    </summary>
+                    <div className="border-t border-white/10 px-5 pb-4 pt-3 text-sm leading-relaxed text-white/80">
+                      {faq.a}
+                    </div>
+                  </details>
+                </FadeUp>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="bg-[#FF2D8E] px-6 py-16 text-black lg:py-20">
+          <div className="mx-auto max-w-[720px] text-center">
+            <h2 className="font-serif text-[34px] font-bold leading-tight lg:text-[46px]">
+              Ready for tighter, smoother skin?
+            </h2>
+            <p className="mt-4 text-lg leading-relaxed text-black/80">
+              Free consult · InMode certified · Oswego IL
+            </p>
+            <div className="mt-8 flex flex-col flex-wrap items-center justify-center gap-4 sm:flex-row">
+              <Link
+                href={MORPHEUS8_MARKETING.bookHref}
+                className="inline-flex min-h-[48px] items-center justify-center rounded-full border-2 border-black bg-black px-8 py-3 text-sm font-extrabold text-white transition hover:bg-white hover:text-black"
               >
-                <h3 className="text-lg font-bold text-[#E6007E]">▸ {pkg.name}</h3>
-                <p className="mt-2 text-3xl font-black">{pkg.price}</p>
-                <p className="text-xs font-semibold text-black/55">{pkg.detail}</p>
-                <ul className="mt-4 flex-1 space-y-2 text-sm font-medium text-black/80">
-                  {pkg.bullets.map((b) => (
-                    <li key={b}>• {b}</li>
-                  ))}
-                </ul>
-                <Link
-                  href={"href" in pkg && pkg.href ? pkg.href : MORPHEUS8_MARKETING.bookHref}
-                  className="mt-5 inline-flex items-center justify-center rounded-full bg-gradient-to-r from-[#FF2D8E] to-[#E6007E] px-4 py-2.5 text-sm font-bold text-white"
-                >
-                  {"href" in pkg && pkg.href ? "View specials" : "Book consult"}
-                </Link>
-              </article>
-            ))}
+                Book free consult
+              </Link>
+              <a
+                href={MORPHEUS8_MARKETING.phoneHref}
+                className="inline-flex min-h-[48px] items-center justify-center rounded-full border-2 border-black/60 px-8 py-3 text-sm font-bold text-black transition hover:bg-black hover:text-white"
+              >
+                Call {MORPHEUS8_MARKETING.phoneDisplay}
+              </a>
+            </div>
           </div>
-        </Section>
-
-        <Section className="border-b-4 border-black bg-black py-12 text-center text-white">
-          <p className="text-sm font-bold uppercase tracking-widest text-[#FFB8DC]">Pair with Solaria CO₂</p>
-          <h2 className="mt-3 text-2xl font-black sm:text-3xl">Surface + depth = complete transformation</h2>
-          <p className="mx-auto mt-3 max-w-xl text-white/80">
-            Morpheus8 remodels beneath the skin. Solaria resurfaces the surface. Together — VIP Trifecta.
-          </p>
-          <div className="mt-6 flex flex-wrap justify-center gap-3">
-            <Link href={MORPHEUS8_MARKETING.compareSolariaHref} className="rounded-full border-2 border-white px-6 py-3 font-bold hover:bg-white hover:text-black">
-              Explore Solaria CO₂
-            </Link>
-            <Link href={MORPHEUS8_MARKETING.trifectaHref} className="rounded-full bg-[#E6007E] px-6 py-3 font-bold hover:bg-[#FF2D8E]">
-              VIP Trifecta packages
-            </Link>
-          </div>
-        </Section>
-
-        <Section id="faq" className="scroll-mt-24 bg-white py-14">
-          <FadeUp>
-            <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#E6007E]">FAQ</p>
-            <h2 className="mt-2 text-3xl font-black sm:text-4xl">Morpheus8 questions</h2>
-          </FadeUp>
-          <div className="mt-8 max-w-3xl">
-            <FAQAccordion items={MORPHEUS8_FAQS.map((f) => ({ question: f.q, answer: f.a }))} />
-          </div>
-        </Section>
-
-        <Section className="border-t-4 border-black bg-gradient-to-r from-[#FF2D8E] via-[#E6007E] to-[#9b0a4d] py-14 text-center text-white">
-          <h2 className="text-3xl font-black">Ready for tighter, smoother skin?</h2>
-          <p className="mx-auto mt-3 max-w-lg text-white/90">Free consult · InMode certified · Oswego IL</p>
-          <div className="mt-8 flex flex-wrap justify-center gap-3">
-            <CTA href={MORPHEUS8_MARKETING.bookHref} variant="outline" className="!border-white !bg-white !text-[#E6007E]">
-              Book free consult
-            </CTA>
-            <a href={MORPHEUS8_MARKETING.phoneHref} className="inline-flex items-center rounded-full border-2 border-white px-6 py-3 font-bold">
-              Call {MORPHEUS8_MARKETING.phoneDisplay}
-            </a>
-          </div>
-        </Section>
+        </section>
       </main>
     </div>
   );

@@ -22,6 +22,8 @@ export const MORPHEUS8_MARKETING = {
   careHref: "/pre-post-care/morpheus8-burst",
   compareSolariaHref: "/services/solaria-co2",
   trifectaHref: "/specials",
+  /** Animated Science Visuals (1) — journey hero */
+  scienceVideo: "/videos/morpheus8/animated-science-visuals-morpheus8.mp4",
   introVideo: "/videos/morpheus8-clinical-highlight.mp4",
   images: {
     hero: "/images/morpheus8/morpheus8-hero.jpg",
