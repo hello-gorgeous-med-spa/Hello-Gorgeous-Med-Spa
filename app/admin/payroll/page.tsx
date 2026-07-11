@@ -113,7 +113,7 @@ export default function AdminPayrollPage() {
             <strong>{data.period.label}</strong>
             {data.squareError ? ` · ⚠ ${data.squareError}` : ""}
             {data.meta
-              ? ` · ${data.meta.timecardCount} timecards · ${data.meta.paymentCount} payments`
+              ? ` · ${data.meta.timecardCount} timecards · ${data.meta.paymentCount} payments · ${data.meta.regenAttributedCount ?? 0} RE GEN attributed`
               : ""}
           </p>
 

@@ -3,8 +3,14 @@ import { NextRequest, NextResponse } from "next/server";
 import { requireProviderAreaAccess } from "@/lib/api-auth";
 import {
   buildRegenSalesByStaffReport,
+  listSalesStaffOptions,
   regenSalesReportScope,
 } from "@/lib/regen/sales-attribution";
+import {
+  estimateRegenCommissionUsd,
+  regenCommissionRateForPlan,
+  resolvePayrollPlanByUserId,
+} from "@/lib/payroll/staff-user-link";
 
 export const dynamic = "force-dynamic";
 
@@ -20,5 +26,21 @@ export async function GET(req: NextRequest) {
     viewerUserId: scope === "mine" ? auth.user.id : null,
   });
 
-  return NextResponse.json({ report, viewerRole: auth.user.role });
+  const staffOptions = await listSalesStaffOptions();
+  const byStaffWithCommission = report.byStaff.map((row) => {
+    const plan = row.userId
+      ? resolvePayrollPlanByUserId(row.userId, staffOptions)
+      : null;
+    const rate = plan ? regenCommissionRateForPlan(plan) : null;
+    return {
+      ...row,
+      commissionRate: rate,
+      estimatedCommissionUsd: estimateRegenCommissionUsd(row.totalUsd, rate),
+    };
+  });
+
+  return NextResponse.json({
+    report: { ...report, byStaff: byStaffWithCommission },
+    viewerRole: auth.user.role,
+  });
 }

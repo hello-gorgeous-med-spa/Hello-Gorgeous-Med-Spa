@@ -26,10 +26,13 @@ export type RegenFulfillmentOrder = RegenOrderRecord & {
   payment_id?: string | null;
   square_order_id?: string | null;
   shipping_address?: Record<string, unknown> | null;
+  sold_by_user_id?: string | null;
+  sold_by_email?: string | null;
+  sales_channel?: string | null;
 };
 
 const FULFILLMENT_SELECT =
-  "reference, created_at, status, customer_name, customer_email, customer_phone, goal, allergies, items, subtotal_usd, shipping_usd, supply_cycle, paid_at, intake_completed_at, intake_data, telehealth_required, telehealth_scheduled_at, telehealth_completed_at, np_approved_at, np_notes, pharmacy_ordered_at, pharmacy_source, tracking_number, shipped_at, delivered_at, payment_id, square_order_id, shipping_address";
+  "reference, created_at, status, customer_name, customer_email, customer_phone, goal, allergies, items, subtotal_usd, shipping_usd, supply_cycle, paid_at, intake_completed_at, intake_data, telehealth_required, telehealth_scheduled_at, telehealth_completed_at, np_approved_at, np_notes, pharmacy_ordered_at, pharmacy_source, tracking_number, shipped_at, delivered_at, payment_id, square_order_id, shipping_address, sold_by_user_id, sold_by_email, sales_channel";
 
 export function regenOrderNeedsReview(order: RegenFulfillmentOrder): boolean {
   if (!order.payment_id) return false;
@@ -282,6 +285,14 @@ export function regenFulfillmentSummary(order: RegenFulfillmentOrder) {
       ? formatSquareShippingAddress(order.shipping_address as SquareShippingAddress)
       : "";
 
+  const soldByLabel =
+    order.sold_by_email ||
+    (order.sales_channel === "staff_portal"
+      ? "Staff portal"
+      : order.sales_channel === "staff_assisted"
+        ? "Staff-assisted"
+        : null);
+
   return {
     reference: order.reference,
     title: regenOrderTitle(order),
@@ -303,5 +314,7 @@ export function regenFulfillmentSummary(order: RegenFulfillmentOrder) {
     trackingNumber: order.tracking_number,
     shippingAddress,
     hasShippingAddress: Boolean(shippingAddress),
+    soldByLabel,
+    salesChannel: order.sales_channel ?? "online",
   };
 }

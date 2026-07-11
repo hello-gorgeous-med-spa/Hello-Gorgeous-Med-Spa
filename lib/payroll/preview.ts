@@ -10,6 +10,10 @@ import {
   minWeeklyHoursInMonth,
   summarizeTimecards,
 } from "@/lib/payroll/square-data";
+import {
+  loadRegenAttributionRows,
+  mergeRegenAttributionIntoSales,
+} from "@/lib/regen/regen-payroll-sales";
 
 export type PayrollPreviewResult = {
   ok: boolean;
@@ -19,6 +23,7 @@ export type PayrollPreviewResult = {
   meta: {
     timecardCount: number;
     paymentCount: number;
+    regenAttributedCount: number;
     googleReviewsByPlan: Record<string, number>;
   };
 };
@@ -32,6 +37,8 @@ export async function buildPayrollPreview(options: {
   const plans = getActivePayrollPlans();
 
   const { timecards, sales, error } = await loadPayrollSquareData(period);
+  const regenAttributions = await loadRegenAttributionRows(period);
+  const mergedSales = mergeRegenAttributionIntoSales(sales, regenAttributions);
   const yearMonth = currentYearMonthChicago();
 
   const mtdData = await loadPayrollSquareData({
@@ -56,7 +63,7 @@ export async function buildPayrollPreview(options: {
       plan,
       period,
       timecard,
-      periodSales: sales,
+      periodSales: mergedSales,
       mtdGeneralSalesCents: mtdGeneral,
       mtdMinWeeklyHours: mtdMinWeekly,
       googleReviewsThisPeriod: googleReviews[plan.id] ?? 0,
@@ -70,7 +77,8 @@ export async function buildPayrollPreview(options: {
     squareError: error,
     meta: {
       timecardCount: timecards.length,
-      paymentCount: sales.length,
+      paymentCount: mergedSales.length,
+      regenAttributedCount: regenAttributions.filter((r) => r.teamMemberId).length,
       googleReviewsByPlan: googleReviews,
     },
   };

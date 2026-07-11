@@ -51,6 +51,9 @@ export default function ClinicRxReportsPage() {
           <Link href="/admin/rx/regen-sales" className="text-sm font-bold text-[#E6007E] underline">
             RE GEN sales
           </Link>
+          <Link href="/admin/rx/my-book" className="text-sm font-bold text-[#E6007E] underline">
+            My book
+          </Link>
         </div>
       </div>
 

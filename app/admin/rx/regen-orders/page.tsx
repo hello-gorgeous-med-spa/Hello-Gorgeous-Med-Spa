@@ -24,6 +24,8 @@ type OrderSummary = {
   pharmacyOrderedAt: string | null;
   shippedAt: string | null;
   trackingNumber: string | null;
+  soldByLabel?: string | null;
+  salesChannel?: string;
 };
 
 const FILTERS: { id: Filter; label: string }[] = [
@@ -119,6 +121,7 @@ export default function RegenOrdersFulfillmentPage() {
                 <tr className="border-b border-white/10 bg-white/5 text-left text-[10px] uppercase tracking-wider text-[#FFB8DC]">
                   <th className="px-4 py-3">Order</th>
                   <th className="px-4 py-3">Patient</th>
+                  <th className="px-4 py-3">Sold by</th>
                   <th className="px-4 py-3">Progress</th>
                   <th className="px-4 py-3">Status</th>
                   <th className="px-4 py-3">Actions</th>
@@ -135,6 +138,13 @@ export default function RegenOrdersFulfillmentPage() {
                     <td className="px-4 py-3">
                       <p className="font-semibold">{order.patientName || "—"}</p>
                       <p className="text-[11px] text-gray-500">{order.phone || order.email || "—"}</p>
+                    </td>
+                    <td className="px-4 py-3 text-[11px] text-gray-400">
+                      {order.soldByLabel ? (
+                        <span className="text-[#FFB8DC] font-semibold">{order.soldByLabel}</span>
+                      ) : (
+                        <span className="text-gray-600">Self-serve</span>
+                      )}
                     </td>
                     <td className="px-4 py-3 text-[11px] text-gray-400 space-y-0.5">
                       <p>{order.intakeCompletedAt ? "✓ Intake" : "○ Intake"}</p>

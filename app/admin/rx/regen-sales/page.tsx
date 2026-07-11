@@ -152,6 +152,16 @@ export default function RegenSalesByStaffPage() {
                       <p className="text-xs text-black/55">
                         {staff.orderCount} sale{staff.orderCount === 1 ? "" : "s"} · portal{" "}
                         {staff.portalCount} · clinic {staff.clinicCount}
+                        {"estimatedCommissionUsd" in staff &&
+                        staff.estimatedCommissionUsd != null ? (
+                          <>
+                            {" "}
+                            · est. commission{" "}
+                            <span className="text-[#E6007E]">
+                              {formatUsd(staff.estimatedCommissionUsd as number)}
+                            </span>
+                          </>
+                        ) : null}
                       </p>
                     </div>
                   </button>

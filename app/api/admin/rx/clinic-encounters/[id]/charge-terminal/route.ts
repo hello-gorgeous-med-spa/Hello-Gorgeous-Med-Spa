@@ -106,6 +106,7 @@ export async function POST(req: NextRequest, { params }: RouteParams) {
       amount_paid: 0,
       balance_due: grossTotal,
       internal_notes: `RX clinic encounter ${refreshed.id}`,
+      created_by: auth.user.id,
     })
     .select()
     .single();
