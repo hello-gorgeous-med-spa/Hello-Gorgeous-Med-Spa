@@ -80,7 +80,7 @@ export const COMPENSATION_PLANS: StaffCompensationPlan[] = [
     id: "laura-witt",
     displayName: "Laura Witt",
     role: "Independent Contractor (1099)",
-    squareTeamMemberId: null,
+    squareTeamMemberId: SQUARE_TEAM.laura,
     payoutChannel: "square_payroll_1099",
     payFrequency: "weekly",
     components: [
@@ -91,7 +91,7 @@ export const COMPENSATION_PLANS: StaffCompensationPlan[] = [
       "10% on RE GEN RX she sells or closes.",
       "20% on FlowWave / shockwave package sales.",
       "Collected revenue only; refunds/chargebacks deduct from next period.",
-      "Add Square team member ID when Laura is on Square Payroll for terminal attribution.",
+      "Square Team reference_id: 2 · team member TMssEm0HXMDrFcwp.",
     ],
   },
   {
