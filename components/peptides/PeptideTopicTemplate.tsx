@@ -1,13 +1,16 @@
 import Link from "next/link";
 
 import { CTA } from "@/components/CTA";
+import { PeptideScienceVideo } from "@/components/peptides/PeptideScienceVideo";
 import { FadeUp, Section } from "@/components/Section";
 import type { PeptideTopic } from "@/data/peptides";
+import { rxCatalogGoalHref } from "@/lib/peptide-category-rx-goal";
 import { BOOKING_URL } from "@/lib/flows";
 import { PEPTIDE_CONSULT_SPECIAL } from "@/lib/peptide-featured";
 import { helloGorgeousRxStartUrl } from "@/lib/peptide-request-menu";
 import { peptideHandoutHref } from "@/lib/peptide-handouts";
 import { PEPTIDES_HUB_PATH, tierCta } from "@/lib/peptides-hub";
+import { peptideTopicVideos } from "@/lib/peptide-topic-media";
 
 const BRAND = {
   navy: "#0a1628",
@@ -22,6 +25,8 @@ export function PeptideTopicTemplate({ topic }: { topic: PeptideTopic }) {
   const handoutHref = topic.handoutFilename ? peptideHandoutHref(topic.handoutFilename) : null;
   const isRxTopic = topic.tier === "prescription" || topic.tier === "patient";
   const startHereHref = isRxTopic ? helloGorgeousRxStartUrl(topic.slug) : cta.href;
+  const showScienceVideo = isRxTopic || topic.tier === "education";
+  const videos = peptideTopicVideos(topic.slug);
 
   return (
     <div className="relative min-h-screen">
@@ -74,6 +79,33 @@ export function PeptideTopicTemplate({ topic }: { topic: PeptideTopic }) {
         </div>
         <div className="h-1.5 w-full" style={{ background: `linear-gradient(90deg, ${topic.accent}, ${BRAND.pink}, ${BRAND.gold})` }} />
       </section>
+
+      {showScienceVideo ? (
+        <Section className="border-b-4 border-black bg-gradient-to-b from-[#FFF0F7] to-white py-10 md:py-14">
+          <FadeUp>
+            <div className="grid items-center gap-8 lg:grid-cols-[1fr_1.15fr]">
+              <div>
+                <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#E6007E]">
+                  Animated science
+                </p>
+                <h2 className="mt-2 text-3xl font-black text-black md:text-4xl">
+                  See how peptide signaling works
+                </h2>
+                <p className="mt-4 max-w-lg text-base leading-relaxed text-black/75">
+                  These visuals break down cell-level messaging — the same precision science behind
+                  why peptides are studied as targeted signals, not blunt instruments. Education
+                  only; your NP matches the right protocol to your goals.
+                </p>
+              </div>
+              <PeptideScienceVideo
+                src={videos.hero}
+                label={`${topic.name} animated science visual`}
+                caption={`${topic.name} · peptide signaling at a glance`}
+              />
+            </div>
+          </FadeUp>
+        </Section>
+      ) : null}
 
       {/* Hero detail */}
       {topic.hero ? (
@@ -136,6 +168,33 @@ export function PeptideTopicTemplate({ topic }: { topic: PeptideTopic }) {
                   </ul>
                 </article>
               ))}
+            </div>
+          </FadeUp>
+        </Section>
+      ) : null}
+
+      {showScienceVideo ? (
+        <Section className="border-b-4 border-black bg-[#0a1628] py-10 md:py-12">
+          <FadeUp>
+            <div className="mx-auto max-w-4xl text-center">
+              <p className="text-xs font-bold uppercase tracking-[0.22em] text-[#FFB8DC]">
+                Deep dive visual
+              </p>
+              <h2 className="mt-2 text-2xl font-black text-white md:text-3xl">
+                The biology behind {topic.name}
+              </h2>
+              <p className="mx-auto mt-3 max-w-2xl text-sm text-white/75 md:text-base">
+                Looping molecular animation — same premium science series used across Hello Gorgeous
+                peptide education. Pause anytime; questions belong in your NP consult.
+              </p>
+              <div className="mt-8">
+                <PeptideScienceVideo
+                  src={videos.science}
+                  label={`${topic.name} deep-dive science animation`}
+                  caption="Cellular signaling · recovery · hormone & metabolic pathways"
+                  className="mx-auto max-w-3xl"
+                />
+              </div>
             </div>
           </FadeUp>
         </Section>
@@ -277,9 +336,9 @@ export function PeptideTopicTemplate({ topic }: { topic: PeptideTopic }) {
                   Book {PEPTIDE_CONSULT_SPECIAL.price} consult first
                 </CTA>
               ) : null}
-              {isRxTopic && topic.slug === "cjc-1295-ipamorelin" ? (
+              {isRxTopic ? (
                 <CTA
-                  href="/rx?goal=recovery-and-performance"
+                  href={rxCatalogGoalHref(topic.category)}
                   variant="outline"
                   className="min-h-[44px] border-white/80 text-white hover:bg-white/10"
                 >

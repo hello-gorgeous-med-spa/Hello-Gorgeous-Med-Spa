@@ -1,8 +1,11 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 
 import { useCart } from "@/lib/regen/cart-context";
+import { peptideHubSlugFromCatalog } from "@/lib/peptide-hub-from-catalog";
+import { peptideTopicHref } from "@/lib/peptides-hub";
 import {
   REGEN_CATALOG_LOGO,
   getMonograph,
@@ -43,6 +46,8 @@ export function ProductDetailDrawer({
   const current = supply === 90 ? p90 : p30;
   const img = productImage(product.drugKey);
   const accent = goalAccent(product.goal);
+  const educationSlug = peptideHubSlugFromCatalog(product.drugKey, product.name);
+  const educationHref = educationSlug ? peptideTopicHref(educationSlug) : null;
 
   const handleAdd = () => {
     addItem({
@@ -184,6 +189,15 @@ export function ProductDetailDrawer({
           >
             Add to cart
           </button>
+
+          {educationHref ? (
+            <Link
+              href={educationHref}
+              className="flex w-full items-center justify-center gap-2 rounded-[22px] border-2 border-black py-3.5 text-sm font-bold text-[#0a0a0a] transition hover:border-[#E6007E] hover:text-[#E6007E]"
+            >
+              Full education page →
+            </Link>
+          ) : null}
 
           {mono.what && (
             <section>

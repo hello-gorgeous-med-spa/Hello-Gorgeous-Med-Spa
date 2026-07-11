@@ -82,7 +82,7 @@ export const PEPTIDE_CATALOG: PeptideCatalogEntry[] = [
       "Multi-peptide restorative stack (BPC-157, GHK-Cu, KPV & TB-500) for dual-pathway healing — blood supply and repair-cell mobilization in one protocol.",
     commonUses: ["Accelerated recovery", "Injury healing", "Post-treatment repair"],
     prepayEligible: true,
-    learnMoreHref: peptideTopicHref("bpc-157"),
+    learnMoreHref: peptideTopicHref("recovery-blend"),
   }),
   catalogEntry({
     id: "ghk-cu",

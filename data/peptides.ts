@@ -1,5 +1,7 @@
 /** HG_DEV_011 — Single source of truth for the Peptides & Wellness education hub. */
 
+import { BATCH_PEPTIDE_TOPICS } from "@/data/peptide-topics-batch";
+
 export type PeptideTier = "patient" | "prescription" | "education";
 export type PeptideCategory =
   | "Weight Health"
@@ -1836,6 +1838,7 @@ export const PEPTIDE_TOPICS: PeptideTopic[] = [
       },
     ],
   },
+  ...BATCH_PEPTIDE_TOPICS,
   {
     slug: "test-topic",
     name: "Test Topic",
