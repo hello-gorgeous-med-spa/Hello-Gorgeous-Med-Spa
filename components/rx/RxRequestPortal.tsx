@@ -5,8 +5,13 @@ import Link from "next/link";
 import { useMemo, useState } from "react";
 
 import { CTA } from "@/components/CTA";
+import {
+  JOURNEY_HERO_BG,
+  JourneyVideoFrame,
+} from "@/components/marketing/JourneyPageUi";
 import { FadeUp } from "@/components/Section";
 import { PROGRAM_CONSULT_FEE_USD } from "@/lib/flows";
+import { PEPTIDE_SCIENCE_VIDEOS } from "@/lib/peptide-topic-media";
 import {
   filterRxRequestProducts,
   RX_FORM_FACTORS,
@@ -140,30 +145,28 @@ export function RxRequestPortal() {
       </nav>
 
       {/* Hero */}
-      <section className="relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-black via-[#1a0a12] to-[#2d1020]" />
-        <div className="absolute inset-0 bg-[url('/regen-site/assets/hero-photo.jpg')] bg-cover bg-right bg-no-repeat opacity-40 mix-blend-overlay" />
-        <div className="absolute inset-0 bg-gradient-to-r from-black via-black/80 to-transparent" />
-        
-        <div className="relative mx-auto max-w-7xl px-6 py-16 md:py-24">
+      <header className={JOURNEY_HERO_BG}>
+        <div
+          className="pointer-events-none absolute -right-28 -top-40 h-[620px] w-[620px] rounded-full bg-[radial-gradient(circle,rgba(255,45,142,0.28),transparent_62%)]"
+          aria-hidden
+        />
+        <div className="relative mx-auto grid max-w-7xl gap-10 px-6 py-16 md:py-24 lg:grid-cols-2 lg:items-center lg:gap-14">
           <FadeUp>
             <p className="text-[11px] font-bold uppercase tracking-[0.25em] text-[#FF2D8E]">
               {RX_REQUEST_HERO.eyebrow}
             </p>
-            <h1 className="mt-4 max-w-2xl text-4xl font-black leading-[1.05] md:text-5xl lg:text-6xl">
+            <h1 className="mt-4 font-serif text-4xl font-bold leading-[1.05] md:text-5xl lg:text-[56px]">
               {RX_REQUEST_HERO.title}{" "}
-              <span className="bg-gradient-to-r from-[#FFB8DC] via-[#FF2D8E] to-[#E6007E] bg-clip-text text-transparent">
-                {RX_REQUEST_HERO.titleAccent}
-              </span>
+              <span className="text-[#FF2D8E]">{RX_REQUEST_HERO.titleAccent}</span>
             </h1>
-            <p className="mt-6 max-w-xl text-lg leading-relaxed text-white/70">
+            <p className="mt-6 max-w-xl text-lg leading-relaxed text-white/75">
               {RX_REQUEST_HERO.body}
             </p>
             <ul className="mt-8 flex flex-wrap gap-3">
               {RX_REQUEST_HERO.trust.map((t) => (
                 <li
                   key={t}
-                  className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-4 py-2 text-sm font-medium text-white/90 backdrop-blur-sm"
+                  className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-4 py-2 text-sm font-medium text-white/90"
                 >
                   <span className="h-1.5 w-1.5 rounded-full bg-[#FF2D8E]" />
                   {t}
@@ -173,24 +176,30 @@ export function RxRequestPortal() {
             <div className="mt-8 flex flex-wrap gap-4">
               <a
                 href="#catalog"
-                className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-[#FF2D8E] to-[#E6007E] px-8 py-4 text-base font-bold text-white shadow-[0_8px_30px_rgba(255,45,142,0.4)] transition hover:shadow-[0_12px_40px_rgba(255,45,142,0.5)]"
+                className="inline-flex items-center gap-2 rounded-full bg-[#FF2D8E] px-8 py-4 text-base font-extrabold text-black transition hover:bg-white"
               >
                 Find your treatment
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
               </a>
               <Link
                 href="/rx"
-                className="inline-flex items-center gap-2 rounded-full border-2 border-white/30 px-6 py-4 text-base font-bold text-white transition hover:border-white hover:bg-white/10"
+                className="inline-flex items-center gap-2 rounded-full border border-white/45 px-6 py-4 text-base font-bold text-white transition hover:border-[#FF2D8E] hover:text-[#FF2D8E]"
               >
                 Back to Store
               </Link>
             </div>
-            <p className="mt-6 text-xs text-white/40">
+            <p className="mt-6 text-xs text-white/45">
               NP-supervised · ${PROGRAM_CONSULT_FEE_USD} consult for new protocols · Illinois patients
             </p>
           </FadeUp>
+          <JourneyVideoFrame
+            src={PEPTIDE_SCIENCE_VIDEOS.rxRequestHero}
+            label="Hello Gorgeous RX request portal — peptide science animation"
+            poster="/images/rx/peptide-vial-lineup-hello-gorgeous.png"
+            className="lg:max-w-lg lg:justify-self-end"
+          />
         </div>
-      </section>
+      </header>
 
       {/* Goal picker */}
       <section className="border-b border-white/10 bg-gradient-to-b from-black to-[#0a0a0a] px-6 py-12 md:py-16">

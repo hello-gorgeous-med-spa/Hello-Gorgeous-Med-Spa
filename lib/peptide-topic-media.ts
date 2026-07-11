@@ -5,6 +5,8 @@ export const PEPTIDE_SCIENCE_VIDEOS = {
   rxHero: "/videos/peptides/animated-science-visuals-rx-hero.mp4",
   /** /rx "What are peptides?" education band — Animated Science Visuals (4) */
   rxEducation: "/videos/peptides/animated-science-visuals-rx-education.mp4",
+  /** /rx/request portal hero — Animated Science Visuals (5) */
+  rxRequestHero: "/videos/peptides/animated-science-visuals-rx-request-hero.mp4",
   primary: "/videos/peptides/animated-science-visuals.mp4",
   alternate: "/videos/peptides/animated-science-visuals-alt.mp4",
 } as const;
