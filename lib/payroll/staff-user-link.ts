@@ -6,7 +6,8 @@ import type { SalesStaffOption } from "@/lib/regen/sales-attribution";
 
 /** Optional explicit email → payroll plan id overrides. */
 const STAFF_EMAIL_PLAN: Record<string, string> = {
-  // Add staff emails here when known, e.g. "michelle@hellogorgeousmedspa.com": "michelle-colby",
+  "laura@hellogorgeousmedspa.com": "laura-witt",
+  "michelle@hellogorgeousmedspa.com": "michelle-colby",
 };
 
 function normalizeEmail(email: string | null | undefined): string {

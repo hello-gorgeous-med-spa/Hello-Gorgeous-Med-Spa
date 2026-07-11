@@ -2,7 +2,7 @@
 
 export type PayFrequency = "weekly" | "monthly";
 
-export type PayrollBucket = "general" | "regen" | "luxora" | "excluded";
+export type PayrollBucket = "general" | "regen" | "luxora" | "flowwave" | "excluded";
 
 export type PayoutChannel = "square_payroll_w2" | "square_payroll_1099" | "owner_draw";
 

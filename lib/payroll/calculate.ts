@@ -2,6 +2,7 @@ import type {
   CollectedSaleLine,
   PayLineItem,
   PayPeriod,
+  PayrollBucket,
   StaffCompensationPlan,
   StaffPayPreview,
   TimecardSummary,
@@ -18,6 +19,13 @@ export function ryanTieredRate(monthlyGeneralSalesCents: number): number {
   if (monthlyGeneralSalesCents >= 2_000_000) return 0.2;
   if (monthlyGeneralSalesCents >= 1_000_000) return 0.15;
   return 0.1;
+}
+
+function bucketCommissionLabel(bucket: PayrollBucket): string {
+  if (bucket === "regen") return "ReGen";
+  if (bucket === "luxora") return "Luxora";
+  if (bucket === "flowwave") return "FlowWave / shockwave";
+  return bucket;
 }
 
 function sumSales(lines: CollectedSaleLine[], bucket?: PayrollBucket, teamMemberId?: string): number {
@@ -87,7 +95,7 @@ export function buildStaffPayPreview(input: {
       const bucketSales = sumSales(periodSales, c.bucket, teamId);
       lineItems.push({
         code: `${c.bucket}_commission`,
-        label: `${c.bucket === "regen" ? "ReGen" : "Luxora"} commission (${(c.rate * 100).toFixed(0)}%)`,
+        label: `${bucketCommissionLabel(c.bucket)} commission (${(c.rate * 100).toFixed(0)}%)`,
         amountCents: Math.round(bucketSales * c.rate),
         detail: `$${(bucketSales / 100).toFixed(2)} collected this week`,
       });
@@ -99,7 +107,12 @@ export function buildStaffPayPreview(input: {
       }
       const rate = c.rate;
       const eligible = periodSales.filter(
-        (l) => l.teamMemberId === teamId && l.bucket !== "luxora" && l.bucket !== "excluded",
+        (l) =>
+          l.teamMemberId === teamId &&
+          l.bucket !== "luxora" &&
+          l.bucket !== "regen" &&
+          l.bucket !== "flowwave" &&
+          l.bucket !== "excluded",
       );
       const total = eligible.reduce((s, l) => s + l.amountCents, 0);
       if (total === 0 && periodSales.length > 0) {

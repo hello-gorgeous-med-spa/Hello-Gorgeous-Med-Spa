@@ -61,15 +61,36 @@ export const COMPENSATION_PLANS: StaffCompensationPlan[] = [
       {
         type: "flat_percent",
         rate: 0.1,
-        appliesTo: ["packages", "services", "regen_rx"],
+        appliesTo: ["packages", "services"],
         onCollectedRevenue: true,
       },
+      { type: "bucket_percent", bucket: "regen", rate: 0.1 },
+      { type: "bucket_percent", bucket: "flowwave", rate: 0.2 },
     ],
     notes: [
       "10% on packages, services & ReGen RX she sells or closes — collected revenue, pre-tax, after discounts.",
+      "20% on FlowWave / shockwave package sales (separate bucket — not stacked on the 10% package rate).",
       "Cherry-financed packages count when approved and funded.",
       "Refunds/chargebacks deduct from next commission total.",
       "Retail/product commission TBD with owner.",
+    ],
+  },
+  {
+    id: "laura-witt",
+    displayName: "Laura Witt",
+    role: "Independent Contractor (1099)",
+    squareTeamMemberId: null,
+    payoutChannel: "square_payroll_1099",
+    payFrequency: "weekly",
+    components: [
+      { type: "bucket_percent", bucket: "regen", rate: 0.1 },
+      { type: "bucket_percent", bucket: "flowwave", rate: 0.2 },
+    ],
+    notes: [
+      "10% on RE GEN RX she sells or closes.",
+      "20% on FlowWave / shockwave package sales.",
+      "Collected revenue only; refunds/chargebacks deduct from next period.",
+      "Add Square team member ID when Laura is on Square Payroll for terminal attribution.",
     ],
   },
   {
