@@ -48,6 +48,9 @@ export default function ClinicRxReportsPage() {
           <Link href="/admin/rx-ledger" className="text-sm font-bold text-[#E6007E] underline">
             Ledger
           </Link>
+          <Link href="/admin/rx/regen-sales" className="text-sm font-bold text-[#E6007E] underline">
+            RE GEN sales
+          </Link>
         </div>
       </div>
 

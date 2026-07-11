@@ -57,6 +57,8 @@ export type RxClinicRegenPricingSnapshot = {
 export type SaveRegenClinicEncounterInput = {
   clientId: string;
   createdBy?: string | null;
+  soldByUserId?: string | null;
+  soldByEmail?: string | null;
   lineItems: RxClinicLineItemInput[];
   includeShipping?: boolean;
   consultFeeUsd?: number;
@@ -246,6 +248,8 @@ export async function insertRegenClinicEncounter(
   const row = {
     client_id: input.clientId,
     created_by: input.createdBy?.trim() || null,
+    sold_by_user_id: input.soldByUserId?.trim() || null,
+    sold_by_email: input.soldByEmail?.trim() || null,
     encounter_type: "regen_in_clinic",
     sale_mode: "regen_catalog",
     medication: primary.name,

@@ -4,6 +4,7 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 import Image from "next/image";
 
+import { RegenSoldByPicker } from "@/components/admin/RegenSoldByPicker";
 import { useCart } from "@/lib/regen/cart-context";
 import { formatCatalogMoney } from "@/components/regen/catalog/CatalogProductCard";
 
@@ -28,12 +29,15 @@ export function RegenCartDrawer() {
 
   const [isCheckingOut, setIsCheckingOut] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [soldByUserId, setSoldByUserId] = useState("");
 
   const catalogMode =
     hasCatalogItems ||
     pathname === "/rx" ||
     (pathname?.startsWith("/rx/catalog") ?? false) ||
     (pathname?.startsWith("/admin/rx/portal") ?? false);
+
+  const staffPortalMode = pathname?.startsWith("/admin/rx/portal") ?? false;
 
   const handleCheckout = async () => {
     if (items.length === 0) return;
@@ -61,6 +65,9 @@ export function RegenCartDrawer() {
             refillWeeks,
             goal: items[0]?.category,
             supplyMonths: items.every((i) => i.supplyDays === 90) ? 3 : 1,
+            ...(staffPortalMode && soldByUserId
+              ? { soldByUserId, salesChannel: "staff_portal" as const }
+              : {}),
           }),
         });
 
@@ -288,6 +295,15 @@ export function RegenCartDrawer() {
             </div>
 
             {error && <p className="mt-3 text-sm text-red-600">{error}</p>}
+
+            {staffPortalMode && (
+              <RegenSoldByPicker
+                value={soldByUserId}
+                onChange={setSoldByUserId}
+                className="mt-4"
+                label="Credit sale to"
+              />
+            )}
 
             <button
               type="button"

@@ -141,6 +141,9 @@ export default function AdminRxCommandCenterPage() {
             <Link href="/admin/rx/clinic-reports" className="text-[#FFB8DC] hover:text-white">
               Clinic reports →
             </Link>
+            <Link href="/admin/rx/regen-sales" className="text-[#FFB8DC] hover:text-white">
+              RE GEN sales by staff →
+            </Link>
             <Link href="/admin/rx-invoices" className="text-[#FFB8DC] hover:text-white">
               Invoices →
             </Link>

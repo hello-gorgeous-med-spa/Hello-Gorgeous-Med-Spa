@@ -67,6 +67,8 @@ export type RxClinicEncounterRow = {
   updated_at: string;
   client_id: string;
   created_by: string | null;
+  sold_by_user_id: string | null;
+  sold_by_email: string | null;
   encounter_type: RxClinicEncounterType;
   sale_mode: RxClinicSaleMode;
   medication: string | null;
@@ -162,6 +164,8 @@ function mapRow(raw: Record<string, unknown>): RxClinicEncounterRow {
     updated_at: String(raw.updated_at),
     client_id: String(raw.client_id),
     created_by: (raw.created_by as string | null) ?? null,
+    sold_by_user_id: (raw.sold_by_user_id as string | null) ?? null,
+    sold_by_email: (raw.sold_by_email as string | null) ?? null,
     encounter_type: raw.encounter_type as RxClinicEncounterType,
     sale_mode: (raw.sale_mode as RxClinicSaleMode) ?? "glp1",
     medication: (raw.medication as string | null) ?? null,

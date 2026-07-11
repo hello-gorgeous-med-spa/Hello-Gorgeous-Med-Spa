@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 
 import { requireProviderAreaAccess } from "@/lib/api-auth";
+import { resolveStaffSellerById } from "@/lib/regen/sales-attribution";
 import {
   computeClinicSalePricing,
   createClinicEncounterChartNote,
@@ -63,6 +64,17 @@ export async function POST(req: NextRequest) {
   const saleMode = body.saleMode === "regen_catalog" ? "regen_catalog" : "glp1";
 
   if (saleMode === "regen_catalog") {
+    let soldByUserId = auth.user.id;
+    let soldByEmail = auth.user.email;
+    const requestedSeller = String(body.soldByUserId || "").trim();
+    if (requestedSeller && requestedSeller !== auth.user.id) {
+      const override = await resolveStaffSellerById(requestedSeller);
+      if (override) {
+        soldByUserId = override.userId;
+        soldByEmail = override.email;
+      }
+    }
+
     const regenInput = {
       clientId: String(body.clientId || "").trim(),
       lineItems: Array.isArray(body.lineItems) ? body.lineItems : [],
@@ -82,6 +94,8 @@ export async function POST(req: NextRequest) {
       staffNotes: body.staffNotes ?? null,
       appointmentId: body.appointmentId ?? null,
       createdBy: auth.user.email,
+      soldByUserId,
+      soldByEmail,
     };
 
     const pricing = computeRegenClinicPricing({

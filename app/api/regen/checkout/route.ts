@@ -2,6 +2,10 @@ import { NextRequest, NextResponse } from "next/server";
 
 import { createRegenCheckout, createRegenQuickPay, type RegenCartItem } from "@/lib/regen/checkout";
 import {
+  resolveSaleAttribution,
+  type RegenSalesChannel,
+} from "@/lib/regen/sales-attribution";
+import {
   catalogCartHasOnlyCatalogLines,
   resolveCatalogCartForCheckout,
 } from "@/lib/regen/catalog/checkout-resolve";
@@ -27,6 +31,8 @@ type CheckoutRequestBody = {
   supplyMonths?: number;
   subscribe?: boolean;
   refillWeeks?: 4 | 8 | 12;
+  soldByUserId?: string;
+  salesChannel?: RegenSalesChannel;
 };
 
 export async function POST(req: NextRequest) {
@@ -115,6 +121,10 @@ export async function POST(req: NextRequest) {
     }
 
     const orderRef = `RG-${Date.now().toString(36).toUpperCase()}`;
+    const attribution = await resolveSaleAttribution(req, {
+      soldByUserId: body.soldByUserId,
+      salesChannel: body.salesChannel,
+    });
 
     const admin = getSupabaseAdminClient();
     if (admin) {
@@ -130,6 +140,9 @@ export async function POST(req: NextRequest) {
         subtotal_usd: subtotalUsd,
         shipping_usd: shippingUsd,
         status: "pending_payment",
+        sold_by_user_id: attribution.soldByUserId,
+        sold_by_email: attribution.soldByEmail,
+        sales_channel: attribution.salesChannel,
         created_at: new Date().toISOString(),
       });
       if (dbError) {

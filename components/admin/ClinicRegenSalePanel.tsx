@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useCallback, useEffect, useMemo, useState } from "react";
 
 import TerminalStatusModal from "@/components/TerminalStatusModal";
+import { RegenSoldByPicker } from "@/components/admin/RegenSoldByPicker";
 import {
   RX_CLINIC_TITRATION_PRESETS,
   type RxClinicClinical,
@@ -56,6 +57,7 @@ export function ClinicRegenSalePanel({ client, appointmentId, onSaved }: Props) 
   const [includeShipping, setIncludeShipping] = useState(true);
   const [discountUsd, setDiscountUsd] = useState("0");
   const [discountReason, setDiscountReason] = useState("");
+  const [soldByUserId, setSoldByUserId] = useState("");
   const [shipLine1, setShipLine1] = useState(client.address_line1 || "");
   const [shipLine2, setShipLine2] = useState("");
   const [shipCity, setShipCity] = useState(client.city || "");
@@ -115,6 +117,7 @@ export function ClinicRegenSalePanel({ client, appointmentId, onSaved }: Props) 
       staffNotes,
       clinical,
       appointmentId: appointmentId || undefined,
+      soldByUserId: soldByUserId || undefined,
     }),
     [
       client.id,
@@ -132,6 +135,7 @@ export function ClinicRegenSalePanel({ client, appointmentId, onSaved }: Props) 
       staffNotes,
       clinical,
       appointmentId,
+      soldByUserId,
     ],
   );
 
@@ -537,6 +541,12 @@ export function ClinicRegenSalePanel({ client, appointmentId, onSaved }: Props) 
             ) : (
               <p className="text-black/50 text-sm mt-2">Add products to see pricing.</p>
             )}
+
+            <RegenSoldByPicker
+              value={soldByUserId}
+              onChange={setSoldByUserId}
+              className="mt-4"
+            />
 
             <label className="block mt-4 text-sm">
               <span className="font-bold">Owner discount ($)</span>
