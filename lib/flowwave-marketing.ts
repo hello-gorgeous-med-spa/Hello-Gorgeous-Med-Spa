@@ -25,7 +25,9 @@ export const FLOWWAVE_MARKETING = {
   phoneDisplay: "(630) 636-6193",
   phoneHref: "tel:6306366193",
   bookHref: PRIMARY_BOOKING_CTA.href,
-  /** Animated Science Visuals (3) — hero + science sections */
+  /** Animated Science Visuals (6) — STEMWAVE main hero on /services/flowwave */
+  heroVideo: "/videos/flowwave/animated-science-visuals-stemwave-hero.mp4",
+  /** Animated Science Visuals (3) — secondary science clip */
   scienceVideo: "/videos/flowwave/animated-science-visuals-flowwave.mp4",
   introVideo: "/videos/flowwave/flowwave-intro.mp4",
   images: {
