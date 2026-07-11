@@ -2298,8 +2298,11 @@ a { color: inherit; }
     .fw-stat .n { font-family:var(--font-display); font-weight:700; font-size:42px; color:var(--hg-pink); line-height:1; }
     .fw-stat .l { font-size:13px; letter-spacing:0.16em; text-transform:uppercase; color:rgba(255,255,255,0.72); margin-top:10px; }
     .fw-feature { display:grid; grid-template-columns:1fr 1fr; gap:52px; align-items:center; max-width:1220px; margin:0 auto; }
-    .fw-shot { border-radius:20px; overflow:hidden; box-shadow:0 20px 50px rgba(0,0,0,0.18); border:1px solid rgba(0,0,0,0.06); display:block; }
-    .fw-shot img { width:100%; display:block; }
+    .fw-shot { border-radius:20px; overflow:hidden; box-shadow:0 20px 50px rgba(0,0,0,0.18); border:1px solid rgba(255,45,142,0.35); display:block; }
+    .fw-shot img, .fw-shot video { width:100%; display:block; }
+    .fw-shot video { aspect-ratio:16/9; object-fit:contain; background:#000; }
+    .fw-science-vid { max-width:900px; margin:0 auto 56px; border-radius:20px; overflow:hidden; border:1px solid rgba(255,45,142,0.35); box-shadow:0 20px 60px rgba(255,45,142,0.18); background:#000; }
+    .fw-science-vid video { width:100%; display:block; aspect-ratio:16/9; object-fit:contain; background:#000; }
     .fw-use { display:grid; grid-template-columns:repeat(3,1fr); gap:28px; max-width:1220px; margin:56px auto 0; }
     .fw-usecard { border:2px solid #000; border-radius:18px; overflow:hidden; background:#fff; transition:all .3s var(--ease-out); display:flex; flex-direction:column; }
     .fw-usecard:hover { border-color:var(--hg-pink); transform:translateY(-4px); box-shadow:var(--shadow-card-hover); }
@@ -2386,8 +2389,8 @@ a { color: inherit; }
           <a href="tel:6306366193" class="btn btn-outline">Call (630) 636-6193</a>
         </div>
       </div>
-      <a class="fw-shot" href="#book" style="text-decoration:none;background:#000;">
-        <img src="/flowwave-site/assets/63c886cb-4b17-4bd9-913e-bdeef2e06780.png" alt="FlowWave Shockwave Therapy treatment zones — neck, shoulder, back, knee, ankle and more">
+      <a class="fw-shot" href="#how" style="text-decoration:none;background:#000;">
+        <video autoplay muted loop playsinline preload="auto" src="/videos/flowwave/animated-science-visuals-flowwave.mp4" aria-label="FlowWave focused shockwave therapy — science animation"></video>
       </a>
     </div>
   </section>
@@ -2450,6 +2453,9 @@ a { color: inherit; }
       <p class="hg-eyebrow">The science</p>
       <h2 style="margin:14px 0 0;color:#fff;">How focused shockwave <span style="color:var(--hg-pink);">works</span></h2>
       <p style="font-size:19px;margin-top:16px;color:rgba(255,255,255,0.78);">Four steps, start to finish — from spark to healing response.</p>
+    </div>
+    <div class="fw-science-vid">
+      <video autoplay muted loop playsinline preload="auto" src="/videos/flowwave/animated-science-visuals-flowwave.mp4" aria-label="How focused shockwave therapy works — science animation"></video>
     </div>
     <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1px;max-width:1160px;margin:0 auto;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.1);border-radius:16px;overflow:hidden;">
       <div style="background:#000;padding:34px 28px;">
