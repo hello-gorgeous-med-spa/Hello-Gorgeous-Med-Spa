@@ -7,31 +7,30 @@ import { SITE, siteJsonLd, localBusinessJsonLd, faqJsonLd, breadcrumbJsonLd } fr
 export const revalidate = 3600;
 
 export const metadata: Metadata = {
-  title: "HydraFacial in Oswego, IL | Deep Cleanse & Glow | Hello Gorgeous Med Spa",
+  title: "HydraFacial in Oswego, IL | Rejuva Fresh + $129 Marissa Special | Hello Gorgeous",
   description:
-    "HydraFacial with dermaplaning in Oswego, IL at Hello Gorgeous Med Spa. Cleanse, extract, hydrate, and glow in one treatment. Glow Facial Membership $99/mo. Free consultations.",
+    "Rejuva Fresh HydraFacial in Oswego with Marissa — $129 includes dermaplaning, oxygen spray, and 2 premium add-ons. Cleanse, extract, hydrate, glow. Zero downtime.",
   keywords: [
     "hydrafacial oswego il",
     "hydrafacial near me oswego",
-    "hydrafacial oswego illinois",
+    "rejuva fresh hydrafacial oswego",
     "dermaplaning oswego il",
-    "facial near me oswego",
     "hydrafacial with dermaplaning oswego",
     "best facial oswego il",
     "glow facial oswego",
     "hydrafacial membership oswego",
-    "hydrafacial near naperville",
-    "deep cleansing facial oswego",
+    "hydrafacial marissa oswego",
     "medical grade facial oswego il",
   ],
   alternates: { canonical: `${SITE.url}/hydrafacial-oswego-il` },
   openGraph: {
     type: "website",
     url: `${SITE.url}/hydrafacial-oswego-il`,
-    title: "HydraFacial in Oswego, IL | Hello Gorgeous Med Spa",
+    title: "HydraFacial in Oswego — $129 with Marissa | Hello Gorgeous",
     description:
-      "Medical-grade HydraFacial with dermaplaning in Oswego. Glow Facial Membership $99/mo. Free consultations.",
+      "Rejuva Fresh HydraFacial + dermaplaning + oxygen spray + 2 premium add-ons for $129 with Marissa.",
     siteName: SITE.name,
+    images: [{ url: `${SITE.url}/images/hydrafacial/rejuva-fresh-treatment-chair.jpg` }],
   },
   robots: { index: true, follow: true },
 };

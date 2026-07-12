@@ -44,6 +44,8 @@
     "import-fresha-appointments": "node --env-file=.env.local scripts/import-fresha-appointments.mjs",
     "test:ai-concierge": "node scripts/test-ai-concierge.mjs",
     "square:july-recovery-stack": "node --env-file=.env.local scripts/add-july-recovery-stack-to-square.mjs",
+    "square:hydrafacial-marissa-special": "node --env-file=.env.local scripts/add-hydrafacial-marissa-special-to-square.mjs",
+    "square:oswego-specials": "node --env-file=.env.local scripts/add-oswego-specials-to-square.mjs",
     "assign-square-appointment-staff": "node --env-file=.env.local scripts/assign-square-appointment-staff.mjs",
     "assign-square-staff-by-rules": "node --env-file=.env.local scripts/assign-square-staff-by-rules.mjs",
     "assign-square-staff-by-rules:dry-run": "node --env-file=.env.local scripts/assign-square-staff-by-rules.mjs --dry-run",

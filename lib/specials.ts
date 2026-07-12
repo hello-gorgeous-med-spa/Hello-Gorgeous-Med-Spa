@@ -5,6 +5,22 @@ export const SPECIALS_PATH = "/specials";
 /** Top conversion picks — shown above the full menu. */
 export const SPECIALS_FEATURED = [
   {
+    title: "Oswego specials blast",
+    accentLine: "Lashes $89 · Laser $59 · IPL $79",
+    description:
+      "Plus Marissa’s HydraFacial $129. Prices locked through Dec 31, 2026 — get Marissa busy.",
+    href: "/oswego-specials",
+    badge: "Hot",
+  },
+  {
+    title: "HydraFacial + Dermaplaning",
+    accentLine: "$129 with Marissa",
+    description:
+      "Rejuva Fresh HydraFacial, dermaplaning, oxygen spray, and 2 premium machine add-ons — book with Marissa.",
+    href: "/hydrafacial-oswego-il#special",
+    badge: "New",
+  },
+  {
     title: "First-time Botox",
     accentLine: "$10 per unit",
     description: "NP-directed neurotoxin with a written plan — not a revolving-door inject-only visit.",
@@ -17,20 +33,6 @@ export const SPECIALS_FEATURED = [
     description: "$399 each when you book 2 syringes. Natural volume with Dani's artistic eye.",
     href: "/lip-filler-oswego",
   },
-  {
-    title: "Quantum RF launch",
-    accentLine: "Neck $2,499 · Abdomen $3,999",
-    description: "Body contouring packages with FREE Morpheus8 Burst included — financing available.",
-    href: "/quantum-rf-oswego#packages",
-    badge: "Trifecta",
-  },
-  {
-    title: "The Trifecta",
-    accentLine: "FREE Solaria CO₂ included",
-    description: "Morpheus8 + Quantum RF package — receive full Solaria CO₂ resurfacing at no charge.",
-    href: "/specials#trifecta",
-    badge: "VIP",
-  },
 ] as const;
 
 export const SPECIALS_JUMP_LINKS = [
@@ -41,6 +43,18 @@ export const SPECIALS_JUMP_LINKS = [
 ] as const;
 
 export const MORE_SPECIALS_LINKS = [
+  {
+    label: "Oswego Specials Hub",
+    href: "/oswego-specials",
+    sub: "HydraFacial $129 · Lashes $89 · Laser $59 · IPL $79 · thru Dec 2026",
+    badge: "SEO",
+  },
+  {
+    label: "Marissa’s HydraFacial Glow Special",
+    href: "/hydrafacial-oswego-il#special",
+    sub: "$129 · HydraFacial + dermaplaning + O₂ + 2 add-ons",
+    badge: "NEW",
+  },
   {
     label: "Injection Menu",
     href: "/injection-menu",

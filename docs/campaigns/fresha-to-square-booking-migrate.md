@@ -3,7 +3,9 @@
 **Goal:** Tell every client online booking is no longer on Fresha. Book at Hello Gorgeous via Square (our site `/book`).
 
 **Primary channel:** Square Marketing **email** → audience `HG All Opt-In`  
-**Optional:** Opt-in SMS only (clients with `accepts_sms_marketing = true`) — never `/admin/sms` “Send to all”
+**No SMS** — Day 1–2 text reminder cancelled (email only).
+
+**Cost note:** On Square **Premium** (currently 30-day free trial). Email sends are unlimited / included — this announcement blast is **$0** while on the trial (and still included after trial if you stay on Premium).
 
 **Booking link (use this everywhere):**  
 https://www.hellogorgeousmedspa.com/book?ref=booking_migrate
@@ -17,7 +19,7 @@ https://www.hellogorgeousmedspa.com/book?ref=booking_migrate
 1. [ ] Sync Square segments: `/admin/marketing/square-segments` → **Run sync now**
 2. [ ] Confirm `/book` redirects to Square (`L3QDRS4DX9ZE4`) — already live
 3. [ ] Enable Laura for Appointments if FlowWave should show her online
-4. [ ] Decide: pure announcement, or announcement + small thank-you offer (recommended: `$25 off` next visit, code `SQUARE25`, 30 days)
+4. [x] Pure announcement (new booking link + no Fresha) — **no** discount offer
 5. [ ] Send yourself a test from Square Marketing first
 6. [ ] Send Tue–Thu **10am–12pm CT** (best open window)
 
@@ -30,8 +32,8 @@ https://www.hellogorgeousmedspa.com/book?ref=booking_migrate
 | Step | Channel | Audience | When |
 |------|---------|----------|------|
 | 1 | Email | `HG All Opt-In` | Day 0 |
-| 2 | SMS (opt-in only) | Clients with SMS consent | Day 1–2 (short reminder) |
-| 3 | Email reminder | Anyone who didn’t open #1 (Square “resend to non-openers” if available) | Day 5–7 |
+| 2 | ~~SMS reminder~~ | — | **Skipped** |
+| 3 | Email reminder (optional) | Anyone who didn’t open #1 (Square “resend to non-openers” if available) | Day 5–7 |
 | 4 | Google Business / IG / FB story | Public | Same day as email |
 
 ---
@@ -72,32 +74,9 @@ Danielle & the Hello Gorgeous team
 74 W Washington St, Oswego IL
 ```
 
-### With thank-you offer (optional add-on)
+## SMS — skipped
 
-After the “Book now” line, insert:
-
-```
-As a thank-you for updating with us, enjoy $25 off your next visit
-with code SQUARE25 — valid 30 days. Online or in-spa.
-```
-
-Create the `SQUARE25` discount in Square Catalog → Discounts before sending.
-
----
-
-## SMS — opt-in only
-
-**Do not** blast every phone number. Use opt-in list only.
-
-```
-Hello Gorgeous: We’re no longer booking on Fresha. Book online here: hellogorgeousmedspa.com/book?ref=sms_migrate Reply STOP to opt out.
-```
-
-Alt with offer:
-
-```
-Hello Gorgeous: Booking moved off Fresha → Square. Book + $25 off (SQUARE25): hellogorgeousmedspa.com/book?ref=sms_migrate Reply STOP to opt out.
-```
+No Day 1–2 text reminder for this campaign. Do not send from Square Text Marketing or `/admin/sms`.
 
 ---
 

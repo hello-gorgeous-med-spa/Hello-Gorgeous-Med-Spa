@@ -342,18 +342,27 @@ export const SERVICE_PAGES_BASE: ServicePageData[] = [
     fullServiceName: "Medical Facials & HydraFacial",
     targetKeyword: "facials oswego",
     h1: "Facials in Oswego, IL",
-    valueProp: "HydraFacial, Geneo, and medical-grade facials for glow, congestion, and event-ready skin.",
+    valueProp:
+      "Rejuva Fresh HydraFacial, Geneo, and medical-grade facials — including Marissa’s $129 Glow Special with dermaplaning, oxygen spray, and 2 premium add-ons.",
     tier: "contested",
     procedureType: "Topical",
     bodyLocation: "Face",
-    metaDescriptionExtra: "HydraFacial & medical facials in Oswego. Book your glow session today.",
+    metaDescriptionExtra:
+      "HydraFacial & medical facials in Oswego. Marissa’s $129 Glow Special — book at /hydrafacial-oswego-il.",
     howItWorksParagraphs: educationBlock("Facials", "facials oswego", [
-      "Medical facials combine professional exfoliation, extraction, hydration, and targeted serums. HydraFacial and Geneo protocols are popular before weddings, photos, and seasonal skin resets.",
-      "Facials complement injectables and laser work — they do not replace medical treatments for deep laxity or scars, but they keep skin healthy between visits.",
+      "Medical facials combine professional exfoliation, extraction, hydration, and targeted serums. Our HydraFacial-style treatments use the Rejuva Fresh Hydra Spa Infusion platform — vortex cleanse, hydrogen-oxygen spray, and premium handpieces for a customized glow.",
+      "Facials complement injectables and laser work — they do not replace medical treatments for deep laxity or scars, but they keep skin healthy between visits. Ask about Marissa’s $129 HydraFacial + Dermaplaning special.",
     ]),
     whatToExpectSteps: expectSteps("your facial"),
     faqs: standardFaqs("facials", "facials oswego", [
-      { q: "HydraFacial vs regular facial?", a: "HydraFacial uses vortex technology for deep cleanse and infusion. Classic facials may be better for specific peels or manual focus areas." },
+      {
+        q: "HydraFacial vs regular facial?",
+        a: "Our HydraFacial-style treatments use Rejuva Fresh vortex technology for deep cleanse and infusion, plus optional premium add-ons. Classic facials may be better for specific peels or manual focus areas.",
+      },
+      {
+        q: "What’s the $129 special?",
+        a: "Marissa’s Glow Special includes HydraFacial, dermaplaning, oxygen spray, and any 2 premium machine add-ons. Book at hellogorgeousmedspa.com/hydrafacial-oswego-il.",
+      },
     ]),
     relatedServices: ["dermaplaning-oswego", "chemical-peel-oswego", "botox-oswego"],
   }),

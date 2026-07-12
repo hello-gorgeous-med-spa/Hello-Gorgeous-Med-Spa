@@ -5,6 +5,7 @@ import {
   HomepageTestimonials,
   HomepageClosingCTARow,
   FlowWaveHomeBand,
+  HydraFacialHomeBand,
   BrowJourneyHomeBand,
   Morpheus8HomeBand,
   SolariaHomeBand,
@@ -152,6 +153,7 @@ export default function HomePage() {
 
       <main className="bg-black">
         <HeroV3 />
+        <HydraFacialHomeBand />
         <FlowWaveHomeBand />
         <BrowJourneyHomeBand />
         <Morpheus8HomeBand />

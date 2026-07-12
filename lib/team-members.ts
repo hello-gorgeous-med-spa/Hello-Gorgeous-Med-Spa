@@ -79,7 +79,8 @@ export const TEAM_MEMBERS: TeamMember[] = [
       "She is extremely excited to join the Hello Gorgeous family and cannot wait to build lasting relationships with clients while helping them look and feel their absolute best.",
     ],
     specialties: [
-      "Facials & skincare",
+      "HydraFacial & Rejuva Fresh facials",
+      "Dermaplaning",
       "Lash extensions",
       "Lash lifts & tints",
       "Brow services",

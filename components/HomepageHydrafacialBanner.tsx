@@ -1,10 +1,16 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import { BOOKING_URL } from "@/lib/flows";
+import {
+  HYDRAFACIAL_IMAGES,
+  HYDRAFACIAL_MARISSA_SPECIAL,
+  HYDRAFACIAL_PATH,
+} from "@/lib/hydrafacial-marketing";
 
-/** Compact homepage promo — HydraFacial $99 + free dermaplaning */
+/** Compact homepage promo — Marissa’s HydraFacial $129 Glow Special */
 export function HomepageHydrafacialBanner() {
+  const special = HYDRAFACIAL_MARISSA_SPECIAL;
+
   return (
     <section
       className="relative overflow-hidden border-b border-white/10"
@@ -26,30 +32,28 @@ export function HomepageHydrafacialBanner() {
           }}
         >
           <Image
-            src="/images/specials/hydrafacial-99-glow-up.png"
-            alt="HydraFacial $99 Glow-Up Special — Hello Gorgeous Med Spa Oswego IL"
+            src={HYDRAFACIAL_IMAGES.device}
+            alt="Rejuva Fresh HydraFacial $129 special with Marissa — Hello Gorgeous Med Spa"
             width={120}
             height={155}
-            className="h-auto w-[72px] md:w-[84px]"
+            className="h-auto w-[72px] object-cover md:w-[84px]"
           />
         </div>
 
         <div className="min-w-0 flex-1">
           <p className="text-[10px] font-bold uppercase tracking-[0.22em]" style={{ color: "#f472b6" }}>
-            Limited-time · Oswego
+            Limited-time · Book with Marissa
           </p>
           <p className="mt-0.5 text-sm font-bold leading-snug text-white sm:text-base">
-            HydraFacial{" "}
-            <span style={{ color: "#f472b6" }}>$99</span> Glow-Up
-            <span className="font-semibold text-white/70"> · free dermaplaning</span>
+            HydraFacial + Dermaplaning{" "}
+            <span style={{ color: "#f472b6" }}>{special.price}</span>
+            <span className="font-semibold text-white/70"> · O₂ + 2 premium add-ons</span>
           </p>
         </div>
 
         <div className="flex shrink-0 items-center gap-2">
           <Link
-            href={BOOKING_URL}
-            target="_blank"
-            rel="noopener noreferrer"
+            href={special.bookHref}
             data-book-now
             className="inline-flex items-center justify-center rounded-lg px-3 py-2 text-[11px] font-bold text-white sm:px-4 sm:text-xs"
             style={{ background: "linear-gradient(to right, #ec4899, #db2777)" }}
@@ -57,7 +61,7 @@ export function HomepageHydrafacialBanner() {
             Book →
           </Link>
           <Link
-            href="/facials-oswego"
+            href={`${HYDRAFACIAL_PATH}#special`}
             className="hidden rounded-lg border px-3 py-2 text-[11px] font-bold text-white/90 sm:inline-flex sm:text-xs"
             style={{ borderColor: "rgba(255,255,255,0.2)" }}
           >

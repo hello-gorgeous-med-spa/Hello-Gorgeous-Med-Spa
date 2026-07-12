@@ -6,7 +6,7 @@ export const FACIALS_PEELS_MENU: ServiceMenuConfig = {
   path: FACIALS_PEELS_MENU_PATH,
   metaTitle: "Facials & Peels Menu | HydraFacial, VI Peel & More | Hello Gorgeous Oswego",
   metaDescription:
-    "Medical-grade facials and peels in Oswego — Glass Glow $349, HydraFacial special $99, dermaplaning, chemical peels, VI Peel, IPL photofacial. Hello Gorgeous Med Spa.",
+    "Medical-grade facials and peels in Oswego — Marissa’s HydraFacial special $129, Glass Glow $349, dermaplaning, chemical peels, VI Peel, IPL. Hello Gorgeous Med Spa.",
   hero: {
     eyebrow: "Oswego, IL · Medical-grade skin care",
     titleAccent: "Facials & Peels",
@@ -50,6 +50,12 @@ export const FACIALS_PEELS_MENU: ServiceMenuConfig = {
         "No downtime — back to life same day",
       ],
       pricing: [
+        {
+          label: "Marissa’s Glow Special",
+          price: "$129",
+          href: "/hydrafacial-oswego-il#special",
+          note: "HydraFacial + dermaplaning + O₂ + 2 add-ons",
+        },
         { label: "HydraFacial Glow-Up Special", price: "$99", href: "/hydrafacial-oswego-il", note: "+ free dermaplaning" },
         { label: "Hydra Peel Facial", price: "$75", href: "/facials-oswego" },
         { label: "2-in-1 Hydra Pen + HydraFacial", price: "$169", href: "/facials-oswego" },

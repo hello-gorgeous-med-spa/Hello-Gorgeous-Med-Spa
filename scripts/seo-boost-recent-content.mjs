@@ -15,6 +15,8 @@ const SITE_URL = "https://www.hellogorgeousmedspa.com/";
 const SITEMAP_URL = "https://www.hellogorgeousmedspa.com/sitemap.xml";
 
 const PRIORITY_URLS = [
+  `${SITE_URL.replace(/\/$/, "")}/oswego-specials`,
+  `${SITE_URL.replace(/\/$/, "")}/hydrafacial-oswego-il`,
   `${SITE_URL.replace(/\/$/, "")}/blog/salmon-dna-sculptra-ipl-oswego-il-med-spa-guide`,
   `${SITE_URL.replace(/\/$/, "")}/services/sculptra-biostimulator`,
   `${SITE_URL.replace(/\/$/, "")}/services/salmon-dna-glass-facial`,

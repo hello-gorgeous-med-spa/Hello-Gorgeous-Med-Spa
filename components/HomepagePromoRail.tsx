@@ -15,6 +15,22 @@ type Slide = {
 
 const SLIDES: Slide[] = [
   {
+    id: "oswego-specials-blast",
+    badge: "Oswego specials",
+    line:
+      "Hello Gorgeous Med Spa Oswego: HydraFacial $129 · lashes $89 · laser $59 (listed areas) · IPL $79 — locked through Dec 31, 2026. Book Marissa.",
+    primary: { label: "See all specials", href: "/oswego-specials" },
+    secondary: { label: "Book now", href: "/book?ref=oswego_specials_2026" },
+  },
+  {
+    id: "hydrafacial-129",
+    badge: "New · Marissa",
+    line:
+      "HydraFacial + Dermaplaning $129 — oxygen spray + 2 premium Rejuva Fresh add-ons. Book with Marissa.",
+    primary: { label: "Book $129 special", href: "/book?ref=hydrafacial_129_marissa" },
+    secondary: { label: "See details", href: "/hydrafacial-oswego-il#special" },
+  },
+  {
     id: "what-makes-different",
     badge: "Why us",
     line:

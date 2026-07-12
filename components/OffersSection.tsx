@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { BOOKING_URL } from "@/lib/flows";
 
 export function OffersSection() {
   return (
@@ -15,6 +14,50 @@ export function OffersSection() {
         </div>
 
         <div className="grid md:grid-cols-3 gap-10 max-w-5xl mx-auto">
+          {/* Marissa HydraFacial $129 + Oswego specials */}
+          <Link href="/oswego-specials" className="group block h-full">
+            <div className="hg-card h-full border-2 border-[#FF2D8E]">
+              <div className="flex flex-col items-center text-center h-full">
+                <div className="relative mb-5 h-28 w-full overflow-hidden rounded-xl">
+                  <Image
+                    src="/images/hydrafacial/rejuva-fresh-treatment-chair.jpg"
+                    alt="Oswego med spa specials — HydraFacial, lashes, laser, IPL"
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-300"
+                    sizes="280px"
+                  />
+                </div>
+                <p className="text-[#FF2D8E] text-xs font-bold tracking-widest mb-2">
+                  OSWEGO SPECIALS · THRU 2026
+                </p>
+                <h3 className="text-2xl font-bold mb-3">
+                  Get Marissa Busy
+                </h3>
+                <div className="space-y-2 mb-6 flex-1 w-full text-left">
+                  <div className="flex justify-between px-3 py-2 rounded-lg border border-black/10 text-sm">
+                    <span>HydraFacial</span>
+                    <span className="font-bold text-[#FF2D8E]">$129</span>
+                  </div>
+                  <div className="flex justify-between px-3 py-2 rounded-lg border border-black/10 text-sm">
+                    <span>Full-set lashes</span>
+                    <span className="font-bold text-[#FF2D8E]">$89</span>
+                  </div>
+                  <div className="flex justify-between px-3 py-2 rounded-lg border border-black/10 text-sm">
+                    <span>Laser (listed areas)</span>
+                    <span className="font-bold text-[#FF2D8E]">$59</span>
+                  </div>
+                  <div className="flex justify-between px-3 py-2 rounded-lg border border-black/10 text-sm">
+                    <span>IPL photofacial</span>
+                    <span className="font-bold text-[#FF2D8E]">$79</span>
+                  </div>
+                </div>
+                <span className="btn-primary">
+                  See Oswego specials →
+                </span>
+              </div>
+            </div>
+          </Link>
+
           {/* Gift Card */}
           <a
             href="https://app.squareup.com/gift/T47CHJDW8177K/order"
@@ -53,7 +96,7 @@ export function OffersSection() {
           </a>
 
           {/* Specials */}
-          <Link href={BOOKING_URL} className="group block h-full">
+          <Link href="/specials" className="group block h-full">
             <div className="hg-card h-full">
               <div className="flex flex-col items-center text-center h-full">
                 <p className="text-[#FF2D8E] text-xs font-bold tracking-widest mb-2">
@@ -65,6 +108,10 @@ export function OffersSection() {
 
                 <div className="space-y-4 mb-8 flex-1 w-full">
                   <div className="flex items-center justify-between px-4 py-3 rounded-xl border-2 border-black">
+                    <span>✨ HydraFacial</span>
+                    <span className="text-[#FF2D8E] font-bold">$129</span>
+                  </div>
+                  <div className="flex items-center justify-between px-4 py-3 rounded-xl border-2 border-black">
                     <span>💉 Botox</span>
                     <span className="text-[#FF2D8E] font-bold">$10/unit</span>
                   </div>
@@ -73,51 +120,13 @@ export function OffersSection() {
                     <span className="text-[#FF2D8E] font-bold">1st Mo FREE</span>
                   </div>
                   <div className="flex items-center justify-between px-4 py-3 rounded-xl border-2 border-black">
-                    <span>✨ Dermal Filler</span>
-                    <span className="text-[#FF2D8E] font-bold">$500/syringe</span>
-                  </div>
-                  <div className="flex items-center justify-between px-4 py-3 rounded-xl border-2 border-black">
                     <span>⚡ Laser Hair</span>
                     <span className="text-[#FF2D8E] font-bold">$79+</span>
                   </div>
                 </div>
 
                 <span className="btn-primary">
-                  Book Now →
-                </span>
-              </div>
-            </div>
-          </Link>
-
-          {/* Spring Special Laser Hair */}
-          <Link href="/spring-special-laser-hair" className="group block h-full">
-            <div className="hg-card h-full border-2 border-[#FF2D8E]">
-              <div className="flex flex-col items-center text-center h-full">
-                <p className="text-[#FF2D8E] text-xs font-bold tracking-widest mb-2">
-                  🌸 SPRING SPECIAL
-                </p>
-                <h3 className="text-2xl font-bold mb-6">
-                  Laser Hair Removal
-                </h3>
-
-                <div className="space-y-3 mb-6 flex-1 w-full">
-                  <div className="flex items-center justify-between px-4 py-2 rounded-xl bg-[#FF2D8E]/10">
-                    <span className="text-sm">Underarms</span>
-                    <span className="text-[#FF2D8E] font-bold">$79</span>
-                  </div>
-                  <div className="flex items-center justify-between px-4 py-2 rounded-xl bg-[#FF2D8E]/10">
-                    <span className="text-sm">Lip & Chin</span>
-                    <span className="text-[#FF2D8E] font-bold">$59</span>
-                  </div>
-                  <div className="flex items-center justify-between px-4 py-2 rounded-xl bg-[#FF2D8E]/10">
-                    <span className="text-sm">Bikini</span>
-                    <span className="text-[#FF2D8E] font-bold">$129</span>
-                  </div>
-                </div>
-                <p className="text-xs text-black/70 mb-4">No packages. 2–3 sessions.</p>
-
-                <span className="btn-primary">
-                  Claim Offer →
+                  View specials →
                 </span>
               </div>
             </div>

@@ -9,6 +9,7 @@
  *   node --env-file=.env.local scripts/square-polish-catalog.mjs --dry-run
  *   node --env-file=.env.local scripts/square-polish-catalog.mjs --apply
  *   node --env-file=.env.local scripts/square-polish-catalog.mjs --apply --images-only
+ *   node --env-file=.env.local scripts/square-polish-catalog.mjs --apply --images-only --force-images
  *   node --env-file=.env.local scripts/square-polish-catalog.mjs --apply --meta-only
  */
 
@@ -26,6 +27,8 @@ const args = process.argv.slice(2);
 const DRY_RUN = args.includes("--dry-run") || !args.includes("--apply");
 const IMAGES_ONLY = args.includes("--images-only");
 const META_ONLY = args.includes("--meta-only");
+/** Re-upload category heroes even when the item already has image_ids. */
+const FORCE_IMAGES = args.includes("--force-images");
 
 const envName = (process.env.SQUARE_ENVIRONMENT || process.env.SQUARE_ENV || "production").toLowerCase();
 const HOST = envName === "sandbox" ? "https://connect.squareupsandbox.com" : "https://connect.squareup.com";
@@ -39,30 +42,30 @@ if (!DRY_RUN && (!TOKEN || TOKEN.length < 10)) {
 
 /** Category → branded thumbnail (relative to repo root). */
 const CATEGORY_IMAGES = {
-  "Spring Specials": "public/images/homepage-services/laser-hair-removal-zemits-quidion-lite.png",
-  "Exclusive Model Specials": "public/images/homepage-services/morpheus8-burst-verified-provider.png",
-  "Bioidentical Hormone Therapy (BHRT)": "public/images/homepage-services/biote-certified-provider-seal.png",
+  "Spring Specials": "public/images/square-appointments/solaria-inmode-intro-flyer.jpg",
+  "Exclusive Model Specials": "public/images/square-appointments/morpheus8-burst-results-flyer.jpg",
+  "Bioidentical Hormone Therapy (BHRT)": "public/images/square-appointments/biote-certified-provider-seal.jpg",
   Botox: "public/images/homepage-services/botox-cosmetic-authentic-vial.png",
   "Dermal Fillers": "public/images/homepage-buyer-paths/injectables.png",
-  "Skin Spa": "public/images/homepage-services/vamp-skin-revitalization.png",
+  "Skin Spa": "public/images/square-appointments/ipl-photofacial-zemits-530nm.jpg",
   "GlowTox Facial": "public/images/homepage-services/botox-cosmetic-authentic-vial.png",
-  "Body Spa": "public/images/homepage-services/morpheus8-burst-verified-provider.png",
-  "Lash Spa": "public/images/homepage-services/lash-bar-volume-hybrid-classic.png",
-  "Brow Spa": "public/images/brow/powder-nano-brows-before-after-danielle-alcala.png",
-  "AnteAGE Skin Regeneration": "public/images/homepage-services/anteage-md-brightening.png",
-  "IV Drip Package Deals": "public/images/homepage-services/iv-therapy-immunity-infusion.png",
+  "Body Spa": "public/images/square-appointments/quantum-rf-10-before-after.jpg",
+  "Lash Spa": "public/images/square-appointments/keratin-lash-lift-before-after.jpg",
+  "Brow Spa": "public/images/square-appointments/brow-styles-guide.png",
+  "AnteAGE Skin Regeneration": "public/images/square-appointments/anteage-mdx-hair-before-after.jpg",
+  "IV Drip Package Deals": "public/images/square-appointments/nad-plus-drip-flyer.png",
   "PRP Injections": "public/images/homepage-services/vamp-skin-revitalization.png",
-  "Weight Loss Injections": "public/images/homepage-services/compounded-tirzepatide-weight-loss.png",
+  "Weight Loss Injections": "public/images/square-appointments/tirzepatide-regen-vial.jpg",
   "Vitamin Injections": "public/images/homepage-services/vitamin-injections-fruit-syringe.png",
   "Trigger Point Injections": "public/images/homepage-services/trigger-point-injections-body-pain-grid.png",
   "Medical Consultations": "public/images/homepage-services/rx-prescription-care-pad-bottle.png",
   "Hello Gorgeous RX™ — Fees": "public/images/homepage-services/rx-prescription-care-pad-bottle.png",
-  "Hello Gorgeous RX™ — Recovery & Healing": "public/images/homepage-services/recovery-blend-rx.jpg",
-  "Hello Gorgeous RX™ — Skin & Aesthetics": "public/images/homepage-services/anteage-md-brightening.png",
-  "Hello Gorgeous RX™ — Weight & Metabolic": "public/images/homepage-services/compounded-tirzepatide-weight-loss.png",
-  "Hello Gorgeous RX™ — Hormones & Vitality": "public/images/homepage-services/biote-certified-provider-seal.png",
-  "Hello Gorgeous RX™ — Peptides": "public/images/homepage-services/peptide-therapy-active-lifestyle.png",
-  FlowWave: "public/images/flowwave/flowwave-device-portrait.png",
+  "Hello Gorgeous RX™ — Recovery & Healing": "public/images/square-appointments/july-recovery-stack-flyer.png",
+  "Hello Gorgeous RX™ — Skin & Aesthetics": "public/images/square-appointments/ghk-cu-regen-vial.jpg",
+  "Hello Gorgeous RX™ — Weight & Metabolic": "public/images/square-appointments/semaglutide-regen-vial.jpg",
+  "Hello Gorgeous RX™ — Hormones & Vitality": "public/images/square-appointments/biote-certified-provider-seal.jpg",
+  "Hello Gorgeous RX™ — Peptides": "public/images/square-appointments/peptide-vial-lineup.png",
+  FlowWave: "public/images/square-appointments/stemwave-shockwave-banner.png",
 };
 
 const CATEGORY_KEYWORDS = [
@@ -185,14 +188,17 @@ function mimeFor(filePath) {
 }
 
 async function uploadImage(objectId, imagePath, displayName) {
-  const idempotencyKey = `hg-polish-${objectId.slice(-12)}-${path.basename(imagePath).replace(/\W/g, "")}`;
+  const base = path.basename(imagePath).replace(/\W/g, "");
+  const idempotencyKey = FORCE_IMAGES
+    ? `hg-polish-f-${objectId.slice(-12)}-${base}-${Date.now().toString(36).slice(-6)}`
+    : `hg-polish-${objectId.slice(-12)}-${base}`;
   const requestBody = {
     idempotency_key: idempotencyKey,
     object_id: objectId,
     is_primary: true,
     image: {
       type: "IMAGE",
-      id: `#${idempotencyKey}`,
+      id: `#${idempotencyKey}`.slice(0, 46),
       image_data: {
         name: displayName,
         caption: `${displayName} — Hello Gorgeous Med Spa`,
@@ -232,6 +238,18 @@ async function main() {
     console.log("Dry run — would process live appointment services on --apply.");
     console.log(`Source categories mapped: ${categoryByName.size} service names`);
     console.log(`Category images ready: ${Object.keys(CATEGORY_IMAGES).length}`);
+    console.log(`Force replace images: ${FORCE_IMAGES ? "yes" : "no (only missing)"}`);
+    let missing = 0;
+    for (const [cat, rel] of Object.entries(CATEGORY_IMAGES)) {
+      const abs = path.join(ROOT, rel);
+      if (!fs.existsSync(abs)) {
+        console.log(`  ✕ missing file for ${cat}: ${rel}`);
+        missing++;
+      } else {
+        console.log(`  ✓ ${cat} ← ${path.basename(rel)}`);
+      }
+    }
+    if (missing) console.log(`\n⚠ ${missing} category image file(s) missing`);
     return;
   }
 
@@ -251,13 +269,13 @@ async function main() {
     const data = obj.item_data;
 
     if (!META_ONLY) {
-      const needsImage = !(data.image_ids?.length);
+      const needsImage = FORCE_IMAGES || !(data.image_ids?.length);
       if (needsImage && categoryName) {
         const rel = CATEGORY_IMAGES[categoryName];
         const abs = rel ? path.join(ROOT, rel) : null;
         if (abs && fs.existsSync(abs)) {
           try {
-            console.log(`  🖼  ${name} ← ${categoryName}`);
+            console.log(`  🖼  ${name} ← ${categoryName}${FORCE_IMAGES && data.image_ids?.length ? " (replace)" : ""}`);
             await uploadImage(item.id, abs, name.slice(0, 80));
             imagesUploaded++;
             await sleep(150);

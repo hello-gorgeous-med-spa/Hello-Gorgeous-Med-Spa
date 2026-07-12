@@ -1007,7 +1007,7 @@ export const PHASE2_PAGES: ServicePageData[] = [
       "Finishing — moisturizer, sunscreen, and product recommendations tailored to your skin for at-home maintenance.",
       "Plan — for clients with specific concerns (acne, aging, melasma, sensitivity), we design a treatment series and at-home routine together."
     ],
-    pricing: "Classic European facials start from $89. Our HydraFacial Glow-Up Special is just $99 — with dermaplaning included free. Corrective and treatment-series facials are quoted individually based on your skin needs. Most clients benefit from monthly facials as part of an ongoing skincare routine. Series packages available.",
+    pricing: "Classic European facials start from $89. Marissa’s HydraFacial + Dermaplaning Glow Special is $129 and includes oxygen spray plus 2 premium Rejuva Fresh add-ons. Our HydraFacial Glow-Up Special is $99 with dermaplaning included. Most clients benefit from monthly facials — Glow Facial Membership is $99/mo. Series packages available.",
     faqs: [
       {
         "q": "What kind of facial should I get?",

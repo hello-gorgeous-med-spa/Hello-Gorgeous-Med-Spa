@@ -5,62 +5,62 @@ export const LASER_HAIR_MENU_PATH = "/services/laser-hair-removal" as const;
 
 export const LASER_HAIR_MENU: ServiceMenuConfig = {
   path: LASER_HAIR_MENU_PATH,
-  metaTitle: "Laser Hair Removal Menu | Pay-Per-Session & Memberships | Hello Gorgeous Oswego",
+  metaTitle: "Laser Hair Removal Menu | $59 Year-End Specials | Hello Gorgeous Oswego",
   metaDescription:
-    "Laser hair removal in Oswego — underarms $79, lip/chin $59, Brazilian $129, legs $149. Memberships from $69/mo. Spring specials. Hello Gorgeous Med Spa.",
+    "Laser hair removal in Oswego — $59 year-end special on underarms, bikini, Brazilian, upper/lower legs, chin/neck/face through Dec 31, 2026. Hello Gorgeous Med Spa.",
   hero: {
     eyebrow: "Oswego, IL · All skin types",
     titleAccent: "Laser Hair Removal",
     subtitle:
-      "Permanent reduction with medical-grade laser technology. Pay-per-session pricing or membership packages — smooth, maintenance-free results.",
-    secondaryCta: { label: "Spring special", href: "/spring-special-laser-hair" },
+      "Medical-grade Zemits DuoCratus laser. Year-end $59 specials on listed areas — locked through December 31, 2026.",
+    secondaryCta: { label: "Year-end $59 specials", href: "/oswego-specials#laser" },
   },
   sections: [
     {
       id: "pay-per-session",
       number: "01",
-      title: "Pay-Per-Session",
+      title: "Year-End $59 Specials",
       description:
-        "No packages required — book individual sessions by area. Safe for all skin types, administered by trained clinicians.",
+        "Price locked through December 31, 2026 — $59 per session on every listed area. No package required.",
       highlights: [
-        "All skin types welcome (Fitz I–VI)",
-        "Clinician-administered every visit",
-        "Face · body · bikini · underarms",
-        "6–8 sessions typical for permanent reduction",
-        "Touch-ups as needed after series",
+        "Underarms · bikini · Brazilian",
+        "Upper legs · lower legs",
+        "Chin / neck / face",
+        "Zemits DuoCratus medical-grade platform",
+        "Series recommended for lasting reduction",
       ],
       pricing: [
-        { label: "Underarms", price: "$79", href: "/laser-hair-removal-oswego-il" },
-        { label: "Upper lip or chin", price: "$59", href: "/laser-hair-removal-oswego-il" },
-        { label: "Brazilian / bikini", price: "$129", href: "/laser-hair-removal-oswego-il" },
-        { label: "Full legs or arms", price: "$149", href: "/laser-hair-removal-oswego-il" },
-        { label: "Small area (custom)", price: "From $79", href: "/laser-hair-removal-oswego-il" },
-        { label: "Medium area", price: "$150–$200", href: "/laser-hair-removal-oswego-il", note: "Quoted at consult" },
-        { label: "Large area", price: "$250–$400", href: "/laser-hair-removal-oswego-il", note: "Quoted at consult" },
+        { label: "Underarms", price: "$59", href: "/oswego-specials#laser", note: "Thru Dec 31, 2026" },
+        { label: "Bikini", price: "$59", href: "/oswego-specials#laser", note: "Thru Dec 31, 2026" },
+        { label: "Brazilian", price: "$59", href: "/oswego-specials#laser", note: "Thru Dec 31, 2026" },
+        { label: "Upper legs", price: "$59", href: "/oswego-specials#laser", note: "Thru Dec 31, 2026" },
+        { label: "Lower legs", price: "$59", href: "/oswego-specials#laser", note: "Thru Dec 31, 2026" },
+        { label: "Chin / neck / face", price: "$59", href: "/oswego-specials#laser", note: "Thru Dec 31, 2026" },
       ],
-      learnMoreHref: "/laser-hair-removal-oswego-il",
+      learnMoreHref: "/oswego-specials#laser",
+      badge: "2026",
     },
     {
       id: "spring-special",
       number: "02",
-      title: "Spring Specials",
-      description:
-        "Limited-time laser promos — pay-per-session pricing with no package commitment, plus seasonal Brazilian packages.",
+      title: "Packages & Standard Pricing",
+      description: "Seasonal Brazilian packages and standard pricing for areas outside the $59 list.",
       highlights: [
-        "Underarms $79 · Bikini $129",
-        "No packages required for session pricing",
-        "Brazilian 3-month package available",
-        "Book spring promos while slots last",
-        "New & returning clients welcome",
+        "Brazilian 3-month package when offered",
+        "Full arms / custom large areas quoted",
+        "Memberships for long-term savings",
       ],
       pricing: [
-        { label: "Underarms (spring promo)", price: "$79", href: "/spring-special-laser-hair" },
-        { label: "Lip / chin (spring promo)", price: "$59", href: "/spring-special-laser-hair" },
-        { label: "Bikini (spring promo)", price: "$129", href: "/spring-special-laser-hair" },
-        { label: "Brazilian 3-month package", price: "$499", href: "/spring-special-laser-hair", note: "Apr–Jun · book by Mar 31 for add-ons" },
+        { label: "Listed areas — year-end special", price: "$59", href: "/oswego-specials#laser" },
+        {
+          label: "Brazilian 3-month package",
+          price: "$499",
+          href: "/spring-special-laser-hair",
+          note: "Seasonal package",
+        },
+        { label: "Full legs or arms (standard)", price: "$149", href: "/laser-hair-removal-oswego-il" },
       ],
-      learnMoreHref: "/spring-special-laser-hair",
-      badge: "SPRING",
+      learnMoreHref: "/oswego-specials#laser",
     },
     {
       id: "memberships",
@@ -87,6 +87,11 @@ export const LASER_HAIR_MENU: ServiceMenuConfig = {
   ],
   faqs: [
     {
+      question: "Which areas are $59 through the end of 2026?",
+      answer:
+        "Underarms, bikini, Brazilian, upper legs, lower legs, and chin/neck/face — $59 per session per area at Hello Gorgeous Med Spa in Oswego through December 31, 2026.",
+    },
+    {
       question: "How many sessions do I need?",
       answer:
         "Most areas need 6–8 sessions spaced 4–6 weeks apart for permanent reduction. Hormonal areas like face and bikini may need occasional maintenance touch-ups.",
@@ -94,12 +99,7 @@ export const LASER_HAIR_MENU: ServiceMenuConfig = {
     {
       question: "Is laser hair removal safe for dark skin?",
       answer:
-        "Yes — our laser is safe for Fitzpatrick types I through VI when settings are adjusted for your skin. We assess candidacy at your first visit.",
-    },
-    {
-      question: "Membership vs pay-per-session?",
-      answer:
-        "Pay-per-session is best for trying one area or seasonal touch-ups. Memberships save up to 30% monthly and include a structured 24-month plan with lifetime touch-up pricing after completion.",
+        "Yes — our Zemits DuoCratus laser is safe for Fitzpatrick types I through VI when settings are adjusted for your skin. We assess candidacy at your first visit.",
     },
   ],
 };

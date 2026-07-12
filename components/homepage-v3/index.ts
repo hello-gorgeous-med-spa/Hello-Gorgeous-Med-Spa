@@ -40,6 +40,7 @@ export { OurPromiseSection } from "./OurPromiseSection";
 export { RegenHomeBand } from "./RegenHomeBand";
 export { FlowWaveHomeBand } from "./FlowWaveHomeBand";
 export { BrowJourneyHomeBand } from "./BrowJourneyHomeBand";
+export { HydraFacialHomeBand } from "./HydraFacialHomeBand";
 export { Morpheus8HomeBand } from "./Morpheus8HomeBand";
 export { SolariaHomeBand } from "./SolariaHomeBand";
 export { InjectablesHomeBand } from "./InjectablesHomeBand";
