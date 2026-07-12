@@ -354,15 +354,15 @@ export const CONSENT_FORMS: ConsentForm[] = [
       <p class="clinic-name"><strong>Hello Gorgeous Med Spa</strong><br>74 W. Washington St, Oswego, IL 60543<br>(630) 636-6193</p>
       
       <h3>1. CANCELLATION POLICY</h3>
-      <p>We understand that circumstances may arise that require you to cancel or reschedule your appointment. We kindly request that you provide at least <strong>24 hours notice</strong> for any cancellation or rescheduling.</p>
+      <p>We understand that circumstances may arise that require you to cancel or reschedule your appointment. We kindly request at least <strong>24 hours notice</strong> for standard treatments, and <strong>48 hours notice</strong> for extended or advanced services (CO₂, Morpheus8 / RF, and other longer bookings).</p>
       
       <h3>2. LATE CANCELLATION FEE</h3>
-      <p>Appointments cancelled with less than 24 hours notice may be subject to a cancellation fee of <strong>50% of the scheduled service price</strong>. This fee helps us compensate for the time that was reserved for you.</p>
+      <p>Appointments cancelled with less than the required notice may be subject to a cancellation fee of <strong>$50 or 50% of the scheduled service price, whichever is greater</strong>. This fee helps us compensate for the time that was reserved for you.</p>
       
       <h3>3. NO-SHOW POLICY</h3>
       <p>A "no-show" is defined as failing to arrive for your scheduled appointment without providing any advance notice. No-shows may be subject to:</p>
       <ul>
-        <li>A fee equal to <strong>100% of the scheduled service price</strong></li>
+        <li>A fee of <strong>$100 or 100% of the scheduled service price, whichever is greater</strong></li>
         <li>Forfeiture of any deposit paid</li>
         <li>Requirement to prepay for future appointments</li>
       </ul>

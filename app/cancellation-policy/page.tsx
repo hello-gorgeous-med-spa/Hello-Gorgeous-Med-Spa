@@ -16,7 +16,7 @@ const P = CANCELLATION_POLICY;
 export const metadata: Metadata = {
   title: "Cancellation, No-Show & Late Policy | Hello Gorgeous Med Spa",
   description:
-    "24-hour cancellation, no-show and late fees, card on file, deposits, and Hello Gorgeous RX prescription refund rules — Oswego, IL.",
+    "24–48 hour cancellation notice, late-cancel and no-show fees, card on file, deposits, and Hello Gorgeous RX prescription refund rules — Oswego, IL.",
   alternates: { canonical: `${SITE.url}${CANCELLATION_POLICY_PATH}` },
 };
 
@@ -76,13 +76,18 @@ export default function CancellationPolicyPage() {
             Notice required to cancel or reschedule
           </h2>
           <p>
-            We kindly ask for at least <strong>{P.noticeHoursStandard} hours</strong> notice to cancel or
-            reschedule any appointment. This gives us the opportunity to offer your spot to another client.
+            We kindly ask for advance notice to cancel or reschedule any appointment. This gives us the
+            opportunity to offer your spot to another client.
           </p>
           <ul>
             <li>
-              <strong>All treatments</strong> (injectables, facials, laser, body, advanced devices):{" "}
+              <strong>Standard treatments</strong> (injectables, facials, laser, body):{" "}
               <strong>{P.noticeHoursStandard} hours</strong> notice.
+            </li>
+            <li>
+              <strong>Extended or advanced services</strong> ({P.advancedServiceExamples}):{" "}
+              <strong>{P.noticeHoursAdvanced} hours</strong> notice, as these reserve significant provider
+              time.
             </li>
             <li>
               Cancel or reschedule by phone at{" "}
@@ -111,20 +116,23 @@ export default function CancellationPolicyPage() {
               </thead>
               <tbody className="divide-y divide-black/10 text-black/85">
                 <tr>
-                  <td className="px-4 py-3">
-                    Cancel/reschedule with less than {P.noticeHoursStandard} hours notice
+                  <td className="px-4 py-3">Cancel/reschedule with less than the required notice</td>
+                  <td className="px-4 py-3 font-semibold">
+                    ${P.lateCancelFeeUsd} or {P.lateCancelFeePercent}% of the service price, whichever is
+                    greater
                   </td>
-                  <td className="px-4 py-3 font-semibold">${P.lateCancelFeeUsd}</td>
                 </tr>
                 <tr>
                   <td className="px-4 py-3">No-show (missed appointment, no contact)</td>
-                  <td className="px-4 py-3 font-semibold">${P.noShowFeeUsd}</td>
+                  <td className="px-4 py-3 font-semibold">
+                    ${P.noShowFeeUsd} or {P.noShowFeePercent}% of the service price, whichever is greater
+                  </td>
                 </tr>
                 <tr>
                   <td className="px-4 py-3">
                     Arriving more than {P.lateGraceMinutes} minutes late (may require rescheduling)
                   </td>
-                  <td className="px-4 py-3">May be treated as a late cancellation (${P.lateCancelFeeUsd})</td>
+                  <td className="px-4 py-3">May be treated as a late cancellation</td>
                 </tr>
               </tbody>
             </table>
