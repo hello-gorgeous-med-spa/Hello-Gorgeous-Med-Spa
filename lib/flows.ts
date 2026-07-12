@@ -133,12 +133,21 @@ export function bookingProvider(): "square" | "fresha" {
 }
 
 /**
- * Square Customer Directory — offers & updates (email + SMS opt-in, Square-hosted).
+ * Square Customer Directory — full enroll page (email + SMS opt-in, Square-hosted).
+ * Prefer the on-site embed form (`SQUARE_MAILING_LIST_SUBSCRIBE_ACTION`) when collecting email only.
  * @see https://squareup.com/customer-programs/enroll/hg4NM8qZXwGm
  */
 export const SQUARE_MAILING_LIST_ENROLL_URL =
   process.env.NEXT_PUBLIC_SQUARE_MAILING_LIST_URL?.trim() ||
   "https://squareup.com/customer-programs/enroll/hg4NM8qZXwGm?utm_source=hellogorgeousmedspa.com&utm_medium=website&utm_campaign=mailing_list";
+
+/**
+ * Square Outreach — embedded email subscribe form action (POST `email_address` + `embed=true`).
+ * @see https://squareup.com/outreach/YRCeaX/subscribe
+ */
+export const SQUARE_MAILING_LIST_SUBSCRIBE_ACTION =
+  process.env.NEXT_PUBLIC_SQUARE_MAILING_LIST_SUBSCRIBE_URL?.trim() ||
+  "https://squareup.com/outreach/YRCeaX/subscribe";
 
 /** Per–staff booking URLs; unset falls back to org `BOOKING_URL`. */
 export const FRESHA_BOOKING_URL_DANIELLE = resolvePublicBookingUrl(

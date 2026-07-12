@@ -8,8 +8,8 @@ import { LocationsServed } from "@/components/LocationsServed";
 import { FOOTER_CREDENTIALS_HEADLINE, FOOTER_CREDENTIALS_LINE } from "@/lib/founder-credentials";
 import { FooterNavColumnBlock } from "@/components/FooterNavColumn";
 import { ReviewTrustStrip } from "@/components/ReviewTrustStrip";
+import { SquareMailingListForm } from "@/components/SquareMailingListForm";
 import { FOOTER_PRIMARY_COLUMNS, FOOTER_SEO_LINKS } from "@/lib/footer-nav";
-import { SQUARE_MAILING_LIST_ENROLL_URL } from "@/lib/flows";
 import { PRIMARY_BOOKING_CTA } from "@/lib/primary-cta";
 import { HG_TAGLINE } from "@/lib/brand-tagline";
 import { SITE } from "@/lib/seo";
@@ -72,6 +72,7 @@ export function Footer({
               <BestOfOswegoBadge variant="compact" className="!bg-[#FFD700]/10 !border-[#FFD700]/40" />
             </div>
             <BookingBadges />
+            <SquareMailingListForm id="footer-mailing-list" className="mt-5 max-w-sm scroll-mt-24" theme="dark" />
             <ReviewTrustStrip livePlace={livePlace} theme="dark" className="mt-4" />
             {(isOpenNow || isClosedNow) && (
               <div className="mt-3">
@@ -158,9 +159,7 @@ export function Footer({
             ))}
             <li>
               <a
-                href={SQUARE_MAILING_LIST_ENROLL_URL}
-                target="_blank"
-                rel="noopener noreferrer"
+                href="#footer-mailing-list"
                 className="text-white/75 hover:text-[#FF2D8E] transition-colors"
               >
                 Join mailing list
