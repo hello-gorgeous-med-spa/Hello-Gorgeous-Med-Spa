@@ -21,7 +21,12 @@ export type TeamMember = {
   title: string;
   bioParagraphs: readonly string[];
   specialties: readonly string[];
-  image: { src: string; alt: string };
+  image: {
+    src: string;
+    alt: string;
+    /** Tailwind object-fit/position override (default object-cover object-top) */
+    objectClassName?: string;
+  };
   /** Signature quote shown in the editorial profile card */
   quote?: string;
   /** New hire — show welcome callout */
@@ -96,6 +101,7 @@ export const TEAM_MEMBERS: TeamMember[] = [
     image: {
       src: "/images/team/laura-witt-2026.jpg",
       alt: "Laura C. Witt, Client Relations and Wellness Sales Specialist at Hello Gorgeous Med Spa in Oswego, IL",
+      objectClassName: "object-cover object-[center_22%]",
     },
     quote:
       "I love creating memorable experiences through genuine connections.",

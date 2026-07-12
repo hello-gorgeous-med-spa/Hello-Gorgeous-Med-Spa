@@ -101,12 +101,12 @@ function ArtistProfile({
           }`}
         >
           <div className="overflow-hidden rounded-3xl border border-[#FF2D8E]/35 shadow-[0_20px_60px_rgba(255,45,142,0.22)]">
-            <div className="relative aspect-[4/5] w-full">
+            <div className="relative aspect-[4/5] w-full bg-[#0a0206]">
               <Image
                 src={member.image.src}
                 alt={member.image.alt}
                 fill
-                className="object-cover object-top"
+                className={member.image.objectClassName ?? "object-cover object-top"}
                 sizes="(max-width: 1024px) 100vw, 420px"
               />
             </div>
@@ -277,12 +277,12 @@ export function MeetTheTeamPageContent() {
                   className="scroll-mt-28 h-full rounded-3xl border border-[#FF2D8E]/25 bg-white/[0.03] p-6 md:p-8"
                 >
                   <div className="grid gap-6 sm:grid-cols-[160px_1fr] sm:items-start">
-                    <div className="relative aspect-[4/5] w-full max-w-[200px] overflow-hidden rounded-2xl border border-[#FF2D8E]/35">
+                    <div className="relative aspect-[4/5] w-full max-w-[200px] overflow-hidden rounded-2xl border border-[#FF2D8E]/35 bg-[#0a0206]">
                       <Image
                         src={member.image.src}
                         alt={member.image.alt}
                         fill
-                        className="object-cover object-top"
+                        className={member.image.objectClassName ?? "object-cover object-top"}
                         sizes="200px"
                       />
                     </div>
