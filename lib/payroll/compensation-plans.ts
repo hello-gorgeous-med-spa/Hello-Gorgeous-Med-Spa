@@ -2,6 +2,7 @@ import type { StaffCompensationPlan } from "@/lib/payroll/types";
 
 /** Square Team member IDs (Hello Gorgeous Med Spa RX — production). */
 export const SQUARE_TEAM = {
+  danielle: "TMqnS9cNU-3s3lUR",
   ryan: "TM1IptWCrgxkY4p7",
   michelle: "TMqy8tRlmyMRkQ25",
   marissa: "TMjZzrkoSsBocyWm",

@@ -26,7 +26,7 @@ const TOKEN = process.env.SQUARE_ACCESS_TOKEN;
 const SQUARE_VERSION = "2025-04-16";
 
 /** Production Square Team member ID — lib/payroll/compensation-plans.ts SQUARE_TEAM.ryan */
-const RYAN_TEAM_MEMBER_ID = process.env.SQUARE_RYAN_TEAM_MEMBER_ID || "TMaXjwJEUCSGXteY";
+const RYAN_TEAM_MEMBER_ID = process.env.SQUARE_RYAN_TEAM_MEMBER_ID || "TM1IptWCrgxkY4p7";
 const JOB_TITLE = "NP Service Provider (1099)";
 
 if (!TOKEN || TOKEN.length < 10) {
