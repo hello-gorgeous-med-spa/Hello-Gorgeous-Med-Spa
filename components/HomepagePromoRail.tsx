@@ -15,10 +15,18 @@ type Slide = {
 
 const SLIDES: Slide[] = [
   {
+    id: "marissa-new-services",
+    badge: "Marissa’s new services",
+    line:
+      "Full-set lashes $89 from Aug 1 · laser any listed area $59 through July 31 · dermaplaning & Hydra Spa Infusion. Book with Marissa.",
+    primary: { label: "See flyer & specials", href: "/oswego-specials" },
+    secondary: { label: "Book Marissa", href: "/book?ref=marissa_new_services" },
+  },
+  {
     id: "oswego-specials-blast",
     badge: "Oswego specials",
     line:
-      "Hello Gorgeous Med Spa Oswego: HydraFacial $129 · lashes $89 · laser $59 (listed areas) · IPL $79 — locked through Dec 31, 2026. Book Marissa.",
+      "HydraFacial $129 · lashes $89 (from Aug 1) · laser $59 through July 31 · IPL $79. Book Marissa at Hello Gorgeous Oswego.",
     primary: { label: "See all specials", href: "/oswego-specials" },
     secondary: { label: "Book now", href: "/book?ref=oswego_specials_2026" },
   },

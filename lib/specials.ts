@@ -5,10 +5,10 @@ export const SPECIALS_PATH = "/specials";
 /** Top conversion picks — shown above the full menu. */
 export const SPECIALS_FEATURED = [
   {
-    title: "Oswego specials blast",
-    accentLine: "Lashes $89 · Laser $59 · IPL $79",
+    title: "Marissa’s new services",
+    accentLine: "Lashes $89 · Laser $59 · Hydra Spa",
     description:
-      "Plus Marissa’s HydraFacial $129. Prices locked through Dec 31, 2026 — get Marissa busy.",
+      "Full-set lashes $89 from Aug 1 · laser any listed area $59 through July 31 · dermaplaning & HydraFacial. Book with Marissa.",
     href: "/oswego-specials",
     badge: "Hot",
   },
@@ -46,7 +46,7 @@ export const MORE_SPECIALS_LINKS = [
   {
     label: "Oswego Specials Hub",
     href: "/oswego-specials",
-    sub: "HydraFacial $129 · Lashes $89 · Laser $59 · IPL $79 · thru Dec 2026",
+    sub: "Lashes $89 (Aug 1) · Laser $59 (thru July 31) · HydraFacial $129 · IPL $79",
     badge: "SEO",
   },
   {

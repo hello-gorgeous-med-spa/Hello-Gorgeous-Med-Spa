@@ -4,6 +4,7 @@
  */
 
 import { MEMBERSHIPS_SHOWCASE_GBP_MESSAGE } from "@/lib/monthly-memberships-marketing";
+import { MARISSA_NEW_SERVICES_GBP_MESSAGE } from "@/lib/oswego-specials";
 
 export type GbpPostPreset = {
   id: string;
@@ -15,6 +16,13 @@ export type GbpPostPreset = {
 };
 
 export const GBP_POST_PRESETS: GbpPostPreset[] = [
+  {
+    id: "marissa-new-services",
+    label: "Marissa’s New Services — lashes $89 · laser $59",
+    message: MARISSA_NEW_SERVICES_GBP_MESSAGE,
+    linkPath: "/oswego-specials?utm_source=google&utm_medium=gbp_post&utm_campaign=marissa_new_services",
+    imagePath: "/images/marketing/marissa-new-services-flyer.jpg",
+  },
   {
     id: "regen-launch",
     label: "RE GEN — Launch (telehealth Rx)",
