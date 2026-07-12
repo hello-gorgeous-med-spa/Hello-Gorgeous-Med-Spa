@@ -383,7 +383,7 @@ export function GLP1WeightLossLanding() {
             rel="noopener noreferrer"
             className="inline-flex items-center justify-center border-2 border-black text-black px-10 py-4 font-bold rounded-xl hover:bg-black hover:text-white transition-colors"
           >
-            Book on Fresha
+            Book online
           </a>
         </div>
         <p className="mt-10 text-sm text-black/50">

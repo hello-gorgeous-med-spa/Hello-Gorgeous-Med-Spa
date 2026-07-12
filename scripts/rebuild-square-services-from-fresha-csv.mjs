@@ -32,7 +32,7 @@ const DRY_RUN = has("--dry-run") || (!has("--apply") && !has("--replace"));
 const REPLACE = has("--replace");
 const APPLY = has("--apply") || REPLACE;
 const CSV_PATH = getArg("--csv");
-const LOCATION_ID = process.env.SQUARE_LOCATION_ID || "PYYB8NKD45N8P";
+const LOCATION_ID = process.env.SQUARE_LOCATION_ID || "L3QDRS4DX9ZE4";
 
 const envName = (process.env.SQUARE_ENVIRONMENT || process.env.SQUARE_ENV || "production").toLowerCase();
 const HOST =

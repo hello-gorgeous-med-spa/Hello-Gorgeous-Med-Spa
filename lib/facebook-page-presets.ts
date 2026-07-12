@@ -114,7 +114,7 @@ export const FACEBOOK_PAGE_PRESET_SIGNATURE_MENU: FacebookPagePreset = {
 
 Botox $10/unit (first-time) · Lip filler $450 · Morpheus8 Burst 3×$1,999 · Solaria CO₂ $899 · Quantum RF · Trifecta package with FREE CO₂.
 
-NP on site 7 days a week. Book on Fresha 👇`,
+NP on site 7 days a week. Book online 👇`,
   linkPath: withUtm("/specials"),
   imagePath: "/images/promo/signature-treatment-menu-poster.png",
   defaultChannels: ["facebook", "instagram", "google"],

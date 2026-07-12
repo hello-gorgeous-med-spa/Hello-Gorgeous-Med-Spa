@@ -156,7 +156,7 @@ export default function SpringSpecialLaserHairPage() {
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center px-10 py-4 bg-white text-[#FF2D8E] font-bold rounded-xl hover:bg-gray-100 transition text-lg"
             >
-              Book on Fresha →
+              Book online →
             </a>
             <p className="mt-6 text-white/80 text-sm">
               <Link href="/laser-hair-removal-oswego-il" className="underline">

@@ -344,7 +344,7 @@ export const REGEN_FOOTER = {
     getStarted: [
       { title: "Free intake", href: "/rx/start" },
       { title: "Call us", href: "tel:+16306366193" },
-      { title: "Book on Fresha", href: "/book" },
+      { title: "Book online", href: "/book" },
     ],
   },
 } as const;

@@ -121,7 +121,7 @@ export const SIGNATURE_MENU_SOCIAL = {
 Family-owned · NP on site 7 days a week.
 Beautifully you. Confidently gorgeous.
 
-Book on Fresha — link below.`,
+Book online — link below.`,
   link: `${SITE.url}${SIGNATURE_MENU_CANONICAL}`,
   imagePath: SIGNATURE_MENU_POSTER.src,
 };

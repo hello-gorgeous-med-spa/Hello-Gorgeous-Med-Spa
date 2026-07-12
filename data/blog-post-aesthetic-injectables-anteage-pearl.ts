@@ -225,7 +225,7 @@ Injectable and regenerative medicine should never be “just a menu.” At Hello
 
 📞 **(630) 636-6193**  
 📍 **74 W Washington St, Oswego, IL 60543**  
-🌐 **[Book on Fresha](/book)**
+🌐 **[Book online](/book)**
 
 ---
 

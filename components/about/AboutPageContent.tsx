@@ -381,7 +381,7 @@ export function AboutPageContent() {
           </p>
           <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
             <CTA href={BOOKING_URL} variant="white">
-              Book on Fresha
+              Book online
             </CTA>
             <CTA href={`tel:${SITE.phone.replace(/\D/g, "")}`} variant="outline">
               Call {SITE.phone}

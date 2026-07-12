@@ -347,7 +347,7 @@ export function RegenSiteLanding() {
                 <ul>
                   <li><Link href="/rx/start">Free intake</Link></li>
                   <li><Link href="tel:6306366193">Call us</Link></li>
-                  <li><Link href="/book">Book on Fresha</Link></li>
+                  <li><Link href="/book">Book online</Link></li>
                 </ul>
               </div>
             </div>

@@ -44,7 +44,7 @@ function CtaBar({ text }: { text: string }) {
           rel="noopener noreferrer"
           className="inline-flex items-center justify-center border-2 border-black text-black px-5 py-2.5 rounded-lg text-sm font-semibold hover:bg-black hover:text-white transition-colors"
         >
-          Book on Fresha
+          Book online
         </a>
       </div>
     </div>

@@ -48,7 +48,7 @@ export const SITE_TWO_DOORS: SiteDoor[] = [
     hubCta: "Explore treatments",
     description:
       "Botox, fillers, Morpheus8, Solaria CO₂, HydraFacial, and body contouring — NP-directed care in downtown Oswego.",
-    microLabel: "Free consult · Book on Fresha",
+    microLabel: "Free consult · Book online",
     microDetail: "Injectables, advanced skin tech, and facials under one roof.",
     accent: "blue",
     footerLinks: [

@@ -16,7 +16,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.join(__dirname, "..");
 
 const BOOKING_URL =
-  "https://app.squareup.com/appointments/book/c6d3183a-3e54-4f32-8923-61c56c170c64/PYYB8NKD45N8P/start";
+  "https://app.squareup.com/appointments/book/pf2o75yphk7vw6/L3QDRS4DX9ZE4/start";
 const BOOK_PAGE_URL =
   "https://www.hellogorgeousmedspa.com/book?utm_source=qr&utm_medium=print&utm_campaign=july_recovery_stack";
 

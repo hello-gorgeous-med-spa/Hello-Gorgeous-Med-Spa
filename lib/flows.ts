@@ -7,16 +7,26 @@
  * `/book` merges UTM params then redirects to Square Appointments (`BOOKING_URL`).
  */
 /**
- * Square Online Booking — Hello Gorgeous Med Spa RX (merchant MLK7PBDE336M4, location L3QDRS4DX9ZE4).
+ * Square Online Booking — Hello Gorgeous Med Spa RX
+ * Merchant MLK7PBDE336M4 · Location L3QDRS4DX9ZE4 · Booking site pf2o75yphk7vw6
  * @see https://square.site/book/L3QDRS4DX9ZE4/hello-gorgeous-med-spa-rx-oswego-il
  */
+export const SQUARE_RX_LOCATION_ID = "L3QDRS4DX9ZE4";
+export const SQUARE_RX_BOOKING_SITE_ID = "pf2o75yphk7vw6";
+
 export const SQUARE_ORG_BOOKING_URL =
   process.env.NEXT_PUBLIC_SQUARE_BOOKING_URL?.trim() ||
-  "https://square.site/book/L3QDRS4DX9ZE4/hello-gorgeous-med-spa-rx-oswego-il";
+  `https://square.site/book/${SQUARE_RX_LOCATION_ID}/hello-gorgeous-med-spa-rx-oswego-il`;
+
+/** Direct Appointments start URL (QR / print / deep links). */
+export const SQUARE_APPOINTMENTS_START_URL =
+  process.env.NEXT_PUBLIC_SQUARE_APPOINTMENTS_START_URL?.trim() ||
+  `https://app.squareup.com/appointments/book/${SQUARE_RX_BOOKING_SITE_ID}/${SQUARE_RX_LOCATION_ID}/start`;
 
 /** Square Appointments embed script (Dashboard → Online Booking → Embed). */
 export const SQUARE_APPOINTMENTS_EMBED_SCRIPT_URL =
-  "https://square.site/appointments/buyer/widget/c6d3183a-3e54-4f32-8923-61c56c170c64/PYYB8NKD45N8P.js";
+  process.env.NEXT_PUBLIC_SQUARE_APPOINTMENTS_EMBED_SCRIPT_URL?.trim() ||
+  `https://square.site/appointments/buyer/widget/${SQUARE_RX_BOOKING_SITE_ID}/${SQUARE_RX_LOCATION_ID}.js`;
 
 /** Fresha Link Builder org URL (legacy — kept for optional telehealth deep links). */
 export const FRESHA_ORG_BOOKING_URL =

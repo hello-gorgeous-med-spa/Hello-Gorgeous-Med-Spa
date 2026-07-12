@@ -142,7 +142,7 @@ export function InjectionMenuContent() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <CTA href={INJECTION_MENU_BOOK_HREF} variant="white">
-              Book on Fresha
+              Book online
             </CTA>
             <CTA href={INJECTION_MENU_PEPTIDES_HREF} variant="outline">
               Peptides hub

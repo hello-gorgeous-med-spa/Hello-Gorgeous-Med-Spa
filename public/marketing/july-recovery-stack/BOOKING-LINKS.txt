@@ -1,11 +1,14 @@
 Hello Gorgeous - July Recovery Stack booking links
 
-SQUARE DIRECT BOOKING (use on flyers):
-https://app.squareup.com/appointments/book/c6d3183a-3e54-4f32-8923-61c56c170c64/PYYB8NKD45N8P/start
+SQUARE DIRECT BOOKING (use on flyers) — Hello Gorgeous Med Spa RX:
+https://app.squareup.com/appointments/book/pf2o75yphk7vw6/L3QDRS4DX9ZE4/start
 
-WEBSITE /book WITH UTM (embed + brand page):
+SQUARE ORG BOOKING SITE:
+https://square.site/book/L3QDRS4DX9ZE4/hello-gorgeous-med-spa-rx-oswego-il
+
+WEBSITE /book WITH UTM (redirects to Square RX):
 https://www.hellogorgeousmedspa.com/book?utm_source=qr&utm_medium=print&utm_campaign=july_recovery_stack
 
 QR FILES:
-- square-booking-qr.png  -> Square start URL
+- square-booking-qr.png  -> Square RX start URL
 - book-page-qr.png       -> hellogorgeousmedspa.com/book

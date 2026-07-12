@@ -82,7 +82,7 @@ Book your lab panel — link below.`,
 Family-owned · NP on site 7 days a week.
 Beautifully you. Confidently gorgeous.
 
-Book on Fresha — link below.`,
+Book online — link below.`,
     link: `${base}/specials`,
     imagePath: "/images/promo/signature-treatment-menu-poster.png",
   },
