@@ -295,7 +295,7 @@ const nextConfig = {
     { source: "/semaglutide-yorkville-il", destination: "/glp1-weight-loss", permanent: true },
     { source: "/semaglutide-montgomery-il", destination: "/glp1-weight-loss", permanent: true },
     { source: "/hormone-therapy-naperville-il", destination: "/services/biote-hormone-therapy", permanent: true },
-    { source: "/hormone-therapy-aurora-il", destination: "/services/biote-hormone-therapy", permanent: true },
+    // hormone-therapy-aurora-il is a live Phase 9 GBP lander (SEO-001) — do not redirect
     { source: "/prp-oswego-il", destination: "/services/prp", permanent: true },
     { source: "/prp-naperville-il", destination: "/services/prp", permanent: true },
     { source: "/prp-aurora-il", destination: "/services/prp", permanent: true },
@@ -308,7 +308,7 @@ const nextConfig = {
     { source: "/botox%2C-dysport-%26-jeuveau", destination: "/botox-oswego", permanent: true },
     { source: "/botox-dysport", destination: "/botox-oswego", permanent: true },
     { source: "/botox-oswego-il", destination: "/botox-oswego", permanent: true },
-    { source: "/peptide-therapy-oswego-il", destination: "/peptide-therapy-oswego", permanent: true },
+    // peptide-therapy-oswego-il is a live Phase 9 GBP lander (SEO-001) — do not redirect
     { source: "/services/morpheus8-burst", destination: "/morpheus8-burst-oswego", permanent: true },
     { source: "/services/morpheus8", destination: "/morpheus8-burst-oswego", permanent: true },
     { source: "/services/solaria-co2", destination: "/solaria-co2-oswego", permanent: true },
