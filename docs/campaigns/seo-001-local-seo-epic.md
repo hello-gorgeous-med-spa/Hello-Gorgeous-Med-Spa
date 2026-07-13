@@ -16,11 +16,11 @@ Map pack (top 3) + page-1 organic for every service we offer across the Fox Vall
 |---|---|---|---|
 | 1 | GBP complete + NAP + map/reviews | **PARTIAL** | Site NAP/schema + contact map/reviews done. Live GBP categories/card-hold/fee amounts = Dashboard ops. See `gbp-optimization-checklist.md`. |
 | 2 | Technical SEO foundation | **PARTIAL** | Schema, sitemap, robots, depth CI done. CWV not CI-gated. |
-| 3 | Service × city landers | **PARTIAL → improved** | SEO-001 gap batch added 16 Phase 9 landers (lip Plainfield, peptides ×6, HRT ×4, IV ×5). Quantum/Solaria remain soft device routes / Oswego-first by design pending owner decision. |
+| 3 | Service × city landers | **PARTIAL → improved** | SEO-001 gap + Phase D: 16 RX/aesthetic landers + 10 QuantumRF/Solaria ring-city Phase 9 pages (soft templates upgrade when GBP content exists). |
 | 4 | On-page metadata | **DONE** | `pageMetadata` / `gbpLocationMetadata` |
 | 5 | Review funnel | **DONE** | Square → queue → SMS/email → Google review |
 | 6 | RE GEN /rx SEO | **DONE** | Hub + city weight-loss; peptides/HRT city graph expanded in this epic |
-| 7 | Content & internal linking | **DONE** | LocationsServed chips extended for peptides/hormones/IV |
+| 7 | Content & internal linking | **DONE** | LocationsServed chips: peptides/hormones/IV + QuantumRF/Solaria CO₂ |
 | 8 | Tracking / rank | **PARTIAL** | GSC/GA4/rank tooling present; monthly cadence is ops |
 
 ## Phased sequence (execute in order)
@@ -41,7 +41,7 @@ Map pack (top 3) + page-1 organic for every service we offer across the Fox Vall
 2. Link city peptide/HRT/IV pages into RX patient journey where compliant.
 
 ### Phase D — Ring devices + content hub (Sub-tasks 3 remainder, 7)
-1. Owner decision: promote Quantum RF / Solaria CO₂ to Phase 9 GBP for all 6 cities **or** keep Oswego-flagship + soft city-seo routes.
+1. ~~Owner decision: promote Quantum RF / Solaria CO₂~~ → **done** for 5 ring cities (Naperville–Montgomery); Oswego keeps dedicated flagship pages.
 2. Publish ≥6 cluster articles only if gaps remain after lander push.
 
 ## Gap closed in this batch
@@ -50,14 +50,17 @@ Map pack (top 3) + page-1 organic for every service we offer across the Fox Vall
 - `peptide-therapy-{oswego,naperville,aurora,plainfield,yorkville,montgomery}-il`
 - `hormone-therapy-{aurora,plainfield,yorkville,montgomery}-il`
 - `iv-therapy-{naperville,aurora,plainfield,yorkville,montgomery}-il`
+- `quantum-rf-{naperville,aurora,plainfield,yorkville,montgomery}-il`
+- `solaria-co2-{naperville,aurora,plainfield,yorkville,montgomery}-il`
 - Removed 301s that blocked aurora HRT and oswego peptide `-il` URLs
-- Footer chips: Peptides / Hormones / IV Therapy
+- Footer chips: Peptides / Hormones / IV Therapy / QuantumRF / Solaria CO₂
+- `[slug]` render order: Phase 9 GBP content beats soft city-device template when both exist
 
 ## Remaining (ops / decisions)
 
 - [ ] GBP Dashboard: categories, service areas, card-hold, fee, policy paste
-- [ ] Owner copy review of SEO-001 generated blocks
-- [ ] Quantum RF + Solaria city strategy
+- [ ] Owner copy review of SEO-001 generated blocks (peptides + devices)
+- [ ] GSC “Request indexing” in UI for new URLs (API inspect-only)
 - [ ] CWV measurement on flagship templates (mobile ≥90)
 - [ ] Monthly rank report cadence
 
@@ -65,6 +68,6 @@ Map pack (top 3) + page-1 organic for every service we offer across the Fox Vall
 
 - Pattern: `app/[slug]/page.tsx` → `GbpLocationPage` + `LOCATION_PAGE_CONTENT`
 - Registry: `lib/gbp-urls.ts`
-- Content: `lib/local-seo-content-seo001-gap.ts`
+- Content: `lib/local-seo-content-seo001-gap.ts`, `lib/local-seo-content-devices-gap.ts`
 - Depth gate: `scripts/check-seo-content-depth.ts` (prebuild)
 - NAP: `lib/seo.ts` `SITE`

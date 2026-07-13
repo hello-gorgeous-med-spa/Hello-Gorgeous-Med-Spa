@@ -575,6 +575,59 @@ export const SERVICES: readonly Service[] = [
     ],
   },
   {
+    slug: "quantum-rf",
+    name: "QuantumRF Subdermal Skin Tightening",
+    category: "Aesthetics",
+    short:
+      "Subdermal radiofrequency for surgical-level tightening and contouring without general anesthesia.",
+    heroTitle: "QuantumRF in Oswego, IL",
+    heroSubtitle:
+      "Tighten and contour face and body with exclusive western-suburbs QuantumRF technology.",
+    faqs: [
+      {
+        question: "How is QuantumRF different from surface RF?",
+        answer:
+          "QuantumRF delivers energy beneath the skin to target deeper laxity that topical or external RF cannot reach.",
+      },
+      {
+        question: "Is there downtime?",
+        answer:
+          "Recovery is typically shorter than surgery, but swelling and activity limits vary by area treated. Your consult covers expectations.",
+      },
+      {
+        question: "Who is a good candidate?",
+        answer:
+          "Adults with mild-to-moderate laxity seeking tightening without surgery. A consult screens medical history and goals.",
+      },
+    ],
+  },
+  {
+    slug: "solaria-co2",
+    name: "Solaria CO₂ Fractional Laser",
+    category: "Aesthetics",
+    short: "Gold-standard fractional CO₂ resurfacing for texture, scars, and sun damage.",
+    heroTitle: "Solaria CO₂ in Oswego, IL",
+    heroSubtitle:
+      "Medical-grade fractional laser resurfacing with NP oversight and honest downtime counseling.",
+    faqs: [
+      {
+        question: "How much downtime should I expect?",
+        answer:
+          "Downtime depends on depth and settings — often several days of redness and peeling. We map this before you book.",
+      },
+      {
+        question: "What does Solaria treat?",
+        answer:
+          "Common goals include wrinkles, acne scars, sun damage, uneven tone, and crepey texture — candidacy is individualized.",
+      },
+      {
+        question: "Is CO₂ safe for all skin types?",
+        answer:
+          "Not every skin type or concern is a candidate for every setting. We screen carefully and may recommend alternatives.",
+      },
+    ],
+  },
+  {
     slug: "chemical-peels",
     name: "Chemical Peels",
     category: "Aesthetics",

@@ -47,6 +47,8 @@ const SERVICE_CHIPS: Array<{ prefix: string; short: string }> = [
   { prefix: "iv-therapy", short: "IV Therapy" },
   { prefix: "laser-hair-removal", short: "Laser Hair" },
   { prefix: "morpheus8", short: "Morpheus8" },
+  { prefix: "quantum-rf", short: "QuantumRF" },
+  { prefix: "solaria-co2", short: "Solaria CO₂" },
   { prefix: "co2-laser", short: "CO2 Laser" },
   { prefix: "dermal-fillers", short: "Dermal Fillers" },
 ];

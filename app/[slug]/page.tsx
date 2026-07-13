@@ -97,6 +97,11 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     });
   }
 
+  // Prefer Phase 9 GBP metadata when long-form content exists (upgrades soft city-device URLs).
+  if (GBP_SLUG_TO_SERVICE[slug] && LOCATION_PAGE_CONTENT[slug]) {
+    return withRobots(gbpLocationMetadata(slug as GbpServiceSlug));
+  }
+
   const treatmentParsed = parseTreatmentCitySlug(slug);
   if (treatmentParsed) {
     const { city, device } = treatmentParsed;
@@ -151,6 +156,11 @@ export default async function SlugPage({ params }: { params: Promise<{ slug: str
   if (isServicePageOswegoSlug(slug)) {
     const page = getServicePageOswego(slug)!;
     return <ServiceOswegoLanding page={page} />;
+  }
+
+  // Prefer Phase 9 GBP long-form when content exists (upgrades soft city-device templates).
+  if (GBP_SLUG_TO_SERVICE[slug] && LOCATION_PAGE_CONTENT[slug]) {
+    return <GbpLocationPage slug={slug as GbpServiceSlug} />;
   }
 
   const treatmentParsed = parseTreatmentCitySlug(slug);

@@ -41,6 +41,20 @@ const PRIORITY_URLS = [
   `${SITE_URL.replace(/\/$/, "")}/rx?goal=recovery-and-performance`,
   `${SITE_URL.replace(/\/$/, "")}/rx?goal=hormones`,
   `${SITE_URL.replace(/\/$/, "")}/peptide-therapy-naperville-il`,
+  `${SITE_URL.replace(/\/$/, "")}/peptide-therapy-oswego-il`,
+  `${SITE_URL.replace(/\/$/, "")}/hormone-therapy-aurora-il`,
+  `${SITE_URL.replace(/\/$/, "")}/iv-therapy-naperville-il`,
+  `${SITE_URL.replace(/\/$/, "")}/lip-filler-plainfield-il`,
+  `${SITE_URL.replace(/\/$/, "")}/quantum-rf-naperville-il`,
+  `${SITE_URL.replace(/\/$/, "")}/quantum-rf-aurora-il`,
+  `${SITE_URL.replace(/\/$/, "")}/quantum-rf-plainfield-il`,
+  `${SITE_URL.replace(/\/$/, "")}/quantum-rf-yorkville-il`,
+  `${SITE_URL.replace(/\/$/, "")}/quantum-rf-montgomery-il`,
+  `${SITE_URL.replace(/\/$/, "")}/solaria-co2-naperville-il`,
+  `${SITE_URL.replace(/\/$/, "")}/solaria-co2-aurora-il`,
+  `${SITE_URL.replace(/\/$/, "")}/solaria-co2-plainfield-il`,
+  `${SITE_URL.replace(/\/$/, "")}/solaria-co2-yorkville-il`,
+  `${SITE_URL.replace(/\/$/, "")}/solaria-co2-montgomery-il`,
 ];
 
 function loadEnv() {
