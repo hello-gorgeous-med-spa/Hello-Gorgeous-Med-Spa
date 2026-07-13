@@ -178,7 +178,6 @@ export function HomepageShopRxFinder() {
                   fill
                   className={`${featuredImageClass} transition duration-300`}
                   sizes="(max-width:1024px) 100vw, 340px"
-                  priority
                 />
               </div>
               <div className="flex flex-col justify-center p-6 sm:p-8 lg:p-10">

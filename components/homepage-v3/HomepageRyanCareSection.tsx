@@ -23,7 +23,6 @@ export function HomepageRyanCareSection() {
                   src={image}
                   alt={imageAlt}
                   fill
-                  priority
                   className="object-cover object-center"
                   sizes="(max-width: 1024px) 100vw, 55vw"
                 />

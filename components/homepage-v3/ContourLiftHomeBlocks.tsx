@@ -20,7 +20,6 @@ export function ContourSignatureSection() {
             className="object-cover object-center sm:object-[50%_40%]"
             sizes="(max-width: 768px) 100vw, 50vw"
             loading="eager"
-            priority
           />
         </div>
         <div>

@@ -104,7 +104,6 @@ export function FlowWaveHomeBand() {
               width={1672}
               height={941}
               className="h-auto w-full object-cover"
-              priority
               sizes="(max-width: 1024px) 100vw, 560px"
             />
           </div>

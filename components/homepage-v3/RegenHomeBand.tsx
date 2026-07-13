@@ -25,7 +25,6 @@ export function RegenHomeBand() {
                 width={280}
                 height={157}
                 className="h-auto w-64 md:w-72 mx-auto lg:mx-0"
-                priority
               />
             </div>
 
@@ -97,7 +96,6 @@ export function RegenHomeBand() {
                 width={819}
                 height={1024}
                 className="h-[380px] w-auto max-w-full object-contain object-top sm:h-[440px] md:h-[520px]"
-                priority
               />
             </div>
             <div className="overflow-hidden rounded-xl shadow-xl ring-1 ring-pink-500/25 bg-black">

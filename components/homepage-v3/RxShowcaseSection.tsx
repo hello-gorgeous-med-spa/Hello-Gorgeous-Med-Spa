@@ -16,7 +16,6 @@ export function RxShowcaseSection() {
               alt="Ryan Kent, FNP-BC - Full Practice Authority prescriptions at Hello Gorgeous Med Spa"
               width={600}
               height={400}
-              priority
               sizes="(max-width: 1024px) 100vw, 50vw"
               className="rounded-2xl shadow-2xl w-full h-auto"
             />

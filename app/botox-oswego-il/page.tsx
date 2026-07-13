@@ -252,11 +252,12 @@ export default function BotoxOswegoPage() {
               <div className="relative">
                 <div className="aspect-square relative rounded-2xl overflow-hidden border-4 border-[#FF2D8E]/30">
                   <Image
-                    src="/images/services/hg-botox-syringes.png"
+                    src="/images/hg-botox-face-neck.png"
                     alt="Botox injections at Hello Gorgeous Med Spa in Oswego IL near Naperville Aurora Plainfield"
                     fill
                     className="object-cover"
                     priority
+                    sizes="(max-width: 1024px) 100vw, 50vw"
                   />
                 </div>
                 <div className="absolute -bottom-6 -left-6 bg-[#FF2D8E] text-white p-6 rounded-xl shadow-xl">

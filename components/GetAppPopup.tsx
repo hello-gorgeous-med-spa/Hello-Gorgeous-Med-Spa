@@ -122,7 +122,6 @@ export function GetAppPopup() {
             width={1024}
             height={576}
             className="block h-auto w-full"
-            priority
           />
         </Link>
 

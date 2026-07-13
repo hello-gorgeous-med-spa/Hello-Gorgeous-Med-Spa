@@ -1,8 +1,20 @@
 "use client";
 
 import Script from "next/script";
+import { useEffect } from "react";
+
+const MONTSERRAT_HREF =
+  "https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap";
 
 export function CherryWidget() {
+  useEffect(() => {
+    if (document.querySelector(`link[href="${MONTSERRAT_HREF}"]`)) return;
+    const link = document.createElement("link");
+    link.rel = "stylesheet";
+    link.href = MONTSERRAT_HREF;
+    document.head.appendChild(link);
+  }, []);
+
   const initScript = `
     (function (w, d, s, o, f, js, fjs) {
       w[o] = w[o] || function () { (w[o].q = w[o].q || []).push(arguments); };

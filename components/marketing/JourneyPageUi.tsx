@@ -134,37 +134,7 @@ export function JourneyTrustBar() {
   );
 }
 
-export function JourneyVideoFrame({
-  src,
-  label,
-  poster,
-  className = "",
-}: {
-  src: string;
-  label: string;
-  poster?: string;
-  className?: string;
-}) {
-  return (
-    <div
-      className={`mx-auto w-full overflow-hidden rounded-3xl border border-[#FF2D8E]/35 shadow-[0_20px_60px_rgba(255,45,142,0.22)] ${className}`}
-    >
-      <div className="relative aspect-video w-full bg-black">
-        <video
-          src={src}
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="auto"
-          poster={poster}
-          className="absolute inset-0 h-full w-full object-contain"
-          aria-label={label}
-        />
-      </div>
-    </div>
-  );
-}
+export { JourneyVideoFrame } from "./JourneyVideoFrame";
 
 export function JourneyChip({ children }: { children: React.ReactNode }) {
   return (

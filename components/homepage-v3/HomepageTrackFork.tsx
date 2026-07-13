@@ -61,7 +61,6 @@ function TrackColumn({
             fill
             className={`object-cover transition duration-700 group-hover:scale-[1.04] ${column.imagePosition ?? "object-center"}`}
             sizes="(max-width: 768px) 100vw, 50vw"
-            priority
           />
           <div
             className="pointer-events-none absolute inset-0"

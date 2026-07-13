@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { CLIENT_APP, type ClientAppTab } from "@/lib/client-app";
 import { PRIMARY_BOOKING_CTA } from "@/lib/primary-cta";
-import { SITE, SITE_HERO_IMAGE } from "@/lib/seo";
+import { SITE_HERO_IMAGE } from "@/lib/seo";
 import { TRIFECTA_GRADIENT_TITLE, trifectaButtonGradient, trifectaAccent } from "@/lib/trifecta-tokens";
 
 type BrandHeroProps = {
@@ -70,22 +70,18 @@ export function BrandHero({
           ) : null}
 
           <div
-            className={`relative ${imageHeight} w-full overflow-hidden rounded-2xl transition-all duration-[1400ms] ease-[cubic-bezier(0.16,1,0.3,1)] md:rounded-3xl ${
-              revealed ? "scale-100 opacity-100" : "scale-[0.94] opacity-0"
-            }`}
+            className={`relative ${imageHeight} w-full overflow-hidden rounded-2xl md:rounded-3xl`}
             style={{
               border: `1px solid ${trifectaAccent(0).border}`,
-              boxShadow: revealed
-                ? "0 28px 90px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(255,255,255,0.06)"
-                : "none",
+              boxShadow: "0 28px 90px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(255,255,255,0.06)",
             }}
           >
+            {/* LCP: always visible — do not gate hero media behind opacity/scale animation */}
             <Image
               src={SITE_HERO_IMAGE}
               alt="Danielle Alcala-Glazier and Ryan Kent, FNP-BC — Hello Gorgeous Med Spa founders, Oswego IL"
               fill
               priority
-              unoptimized
               className="object-cover object-[center_35%] sm:object-center"
               sizes={isApp ? "(max-width: 576px) 100vw, 576px" : "(max-width: 1400px) 100vw, 1400px"}
               onLoad={() => setRevealed(true)}

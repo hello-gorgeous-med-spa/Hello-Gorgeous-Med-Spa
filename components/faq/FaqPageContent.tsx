@@ -5,7 +5,7 @@ import type { ClipboardEvent, ReactNode } from "react";
 import { useCallback, useEffect } from "react";
 
 import { CTA } from "@/components/CTA";
-import { FadeUp, Section } from "@/components/Section";
+import { Section } from "@/components/Section";
 import { BOOKING_URL } from "@/lib/flows";
 import type { FAQPageSection } from "@/lib/med-spa-faq-data";
 import { MED_SPA_FAQ_SECTIONS } from "@/lib/med-spa-faq-data";
@@ -88,49 +88,48 @@ export function FaqPageContent({ seoIntro }: { seoIntro?: ReactNode }) {
           <div className="absolute inset-0 bg-[linear-gradient(to_bottom,transparent_0%,rgba(0,0,0,0.5)_100%)]" />
 
           <div className="relative z-10 max-w-4xl mx-auto text-center px-4 md:px-6">
-            <FadeUp>
-              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border-2 border-white/20 bg-white/10 backdrop-blur-sm text-white text-xs font-bold uppercase tracking-[0.2em] mb-6">
-                <span className="inline-block w-2 h-2 rounded-full bg-[#E6007E] animate-pulse" aria-hidden />
-                Hello Gorgeous
-              </div>
-              <p className="text-sm md:text-base text-[#FFB8DC] font-semibold mb-4 max-w-2xl mx-auto leading-relaxed">
-                {HG_TAGLINE}
-              </p>
-              <p className="text-xs md:text-sm uppercase tracking-widest text-white/70 font-medium mb-4">
-                Oswego · Naperville · Aurora · Plainfield
-              </p>
-              <h1 className="text-4xl md:text-6xl font-black leading-tight mb-6 text-white drop-shadow-lg">
-                Med Spa{" "}
-                <span
-                  className="bg-gradient-to-r from-[#FFB8DC] via-[#FF2D8E] to-[#E6007E] bg-clip-text text-transparent"
-                  style={{ WebkitBackgroundClip: "text" }}
-                >
-                  FAQ
-                </span>
-              </h1>
-              <p className="text-lg md:text-xl text-white/85 max-w-2xl mx-auto leading-relaxed mb-10">
-                Straight answers about treatments, safety, booking, and financing — the same vibe as our{" "}
-                <Link href="/best-med-spa-oswego-il" className="text-[#FFB8DC] font-semibold underline decoration-[#E6007E] underline-offset-4 hover:text-white">
-                  #1 Best Med Spa in Oswego
-                </Link>
-                . Book online or call{" "}
-                <a
-                  href={`tel:${SITE.phone}`}
-                  className="font-bold text-[#FFB8DC] hover:text-white underline decoration-[#E6007E]"
-                >
-                  {SITE.phone}
-                </a>
-                .
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <CTA href={BOOKING_URL} variant="gradient" className="shadow-[0_8px_32px_-4px_rgba(230,0,126,0.55)]">
-                  Book a free consultation
-                </CTA>
-                <CTA href="/services" variant="outline" className="border-2 border-white text-white hover:bg-white hover:text-black">
-                  View services
-                </CTA>
-              </div>
-            </FadeUp>
+            {/* No FadeUp on hero — opacity:0 delays LCP for text */}
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border-2 border-white/20 bg-white/10 backdrop-blur-sm text-white text-xs font-bold uppercase tracking-[0.2em] mb-6">
+              <span className="inline-block w-2 h-2 rounded-full bg-[#E6007E] animate-pulse" aria-hidden />
+              Hello Gorgeous
+            </div>
+            <p className="text-sm md:text-base text-[#FFB8DC] font-semibold mb-4 max-w-2xl mx-auto leading-relaxed">
+              {HG_TAGLINE}
+            </p>
+            <p className="text-xs md:text-sm uppercase tracking-widest text-white/70 font-medium mb-4">
+              Oswego · Naperville · Aurora · Plainfield
+            </p>
+            <h1 className="text-4xl md:text-6xl font-black leading-tight mb-6 text-white drop-shadow-lg">
+              Med Spa{" "}
+              <span
+                className="bg-gradient-to-r from-[#FFB8DC] via-[#FF2D8E] to-[#E6007E] bg-clip-text text-transparent"
+                style={{ WebkitBackgroundClip: "text" }}
+              >
+                FAQ
+              </span>
+            </h1>
+            <p className="text-lg md:text-xl text-white/85 max-w-2xl mx-auto leading-relaxed mb-10">
+              Straight answers about treatments, safety, booking, and financing — the same vibe as our{" "}
+              <Link href="/best-med-spa-oswego-il" className="text-[#FFB8DC] font-semibold underline decoration-[#E6007E] underline-offset-4 hover:text-white">
+                #1 Best Med Spa in Oswego
+              </Link>
+              . Book online or call{" "}
+              <a
+                href={`tel:${SITE.phone}`}
+                className="font-bold text-[#FFB8DC] hover:text-white underline decoration-[#E6007E]"
+              >
+                {SITE.phone}
+              </a>
+              .
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <CTA href={BOOKING_URL} variant="gradient" className="shadow-[0_8px_32px_-4px_rgba(230,0,126,0.55)]">
+                Book a free consultation
+              </CTA>
+              <CTA href="/services" variant="outline" className="border-2 border-white text-white hover:bg-white hover:text-black">
+                View services
+              </CTA>
+            </div>
           </div>
         </Section>
 

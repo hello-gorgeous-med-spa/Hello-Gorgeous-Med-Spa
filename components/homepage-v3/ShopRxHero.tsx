@@ -13,7 +13,6 @@ export function ShopRxHero() {
         src={SHOP_RX_HERO_IMAGE}
         alt=""
         fill
-        priority
         className="object-cover object-center opacity-50 saturate-[0.85]"
         sizes="100vw"
         aria-hidden
