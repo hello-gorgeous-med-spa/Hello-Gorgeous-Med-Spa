@@ -2,77 +2,39 @@
 
 **Ticket:** SEO-001 · P0 Epic  
 **Requested by:** Dani (Owner)  
-**Product:** hellogorgeousmedspa.com (Next.js)  
-**Surfaces:** Marketing site · GBP · RE GEN `/rx`  
+**Companion:** [SEO-002 AI Search](./seo-002-ai-search-epic.md)  
 **Canonical path:** work from main clone only
 
 ## Objective
 
-Map pack (top 3) + page-1 organic for every service we offer across the Fox Valley primary cities, with click-through to fast, conversion-optimized landers.
+Map pack (top 3) + page-1 organic for Fox Valley primary cities, with conversion-ready landers.
 
-## Scorecard (2026-07-12)
+## Scorecard (2026-07-13)
 
 | # | Sub-task | Status | Notes |
 |---|---|---|---|
-| 1 | GBP complete + NAP + map/reviews | **PARTIAL** | Site NAP/schema + contact map/reviews done. Live GBP categories/card-hold/fee amounts = Dashboard ops. See `gbp-optimization-checklist.md`. |
-| 2 | Technical SEO foundation | **PARTIAL** | CWV R3: mobile ~79–83 (was 68–76). CLS fixed. LCP wall remains — `docs/LIGHTHOUSE_BASELINE.md`. |
-| 3 | Service × city landers | **PARTIAL → improved** | SEO-001 gap + Phase D: 16 RX/aesthetic landers + 10 QuantumRF/Solaria ring-city Phase 9 pages (soft templates upgrade when GBP content exists). |
-| 4 | On-page metadata | **DONE** | `pageMetadata` / `gbpLocationMetadata` |
-| 5 | Review funnel | **DONE** | Square → queue → SMS/email → Google review |
-| 6 | RE GEN /rx SEO | **DONE** | Hub + city weight-loss; peptides/HRT city graph expanded in this epic |
-| 7 | Content & internal linking | **DONE** | LocationsServed chips: peptides/hormones/IV + QuantumRF/Solaria CO₂ |
-| 8 | Tracking / rank | **PARTIAL** | GSC/GA4 live. Monthly cadence: `/admin/local-dominance-sprint` City Rank Scoreboard (28-day GSC) + snapshot notes first Monday each month. |
+| 1 | GBP complete + NAP + map/reviews | **PARTIAL (ops)** | Site NAP/schema done. Dashboard categories/card-hold/fees = owner. `gbp-optimization-checklist.md` |
+| 2 | Technical SEO foundation | **IMPROVED** | CWV R1–R3: mobile ~79–83 (was 68–76). CLS fixed. ≥90 needs structural SSR hero/header — parked. |
+| 3 | Service × city landers | **DONE (code)** | SEO-001 gap + Quantum/Solaria Phase 9; soft templates lose to GBP content when present |
+| 4 | On-page metadata | **DONE** | |
+| 5 | Review funnel | **DONE** | |
+| 6 | RE GEN /rx SEO | **DONE** | + SEO-002 visible RX FAQ / MedicalWebPage |
+| 7 | Content & internal linking | **DONE** | LocationsServed chips extended |
+| 8 | Tracking / rank | **PARTIAL** | Monthly: first Monday → `/admin/local-dominance-sprint` + GSC |
 
-## Phased sequence (execute in order)
+## Remaining (owner / ops)
 
-### Phase A — Foundation (Sub-tasks 1, 2, 8)
-1. Complete GBP Dashboard checklist (`docs/campaigns/gbp-optimization-checklist.md`).
-2. Paste final cancellation policy into Square Appointments → Payments & cancellations (API cannot set policy text).
-3. Enable **Hold card for no-show** + fee model closest to site policy ($50/50% late; $100/100% no-show).
-4. Confirm GSC property + sitemap + baseline rank snapshot in admin local-dominance.
+- [ ] GBP Dashboard: categories, service areas, card-hold, fee, policy paste  
+- [ ] Owner copy review of generated peptide/device landers  
+- [ ] GSC UI “Request indexing” for new URLs  
+- [ ] Paste directory profile URLs into `SITE.directories` after claiming (feeds SEO-002 `sameAs`)
 
-### Phase B — Matrix landers (Sub-tasks 3, 4)
-1. Phase 9 only: `lib/gbp-urls.ts` + 850+ word `LOCATION_PAGE_CONTENT` — **no** thin `app/*-il/page.tsx`.
-2. Owner human-review pass on generated suburb copy (especially peptides).
-3. Request indexing for new URLs in GSC.
+## Engineering shipped this epic
 
-### Phase C — Reviews + RX (Sub-tasks 5, 6)
-1. Keep review cron enabled (`REVIEW_REQUESTS_ENABLED`).
-2. Link city peptide/HRT/IV pages into RX patient journey where compliant.
-
-### Phase D — Ring devices + content hub (Sub-tasks 3 remainder, 7)
-1. ~~Owner decision: promote Quantum RF / Solaria CO₂~~ → **done** for 5 ring cities (Naperville–Montgomery); Oswego keeps dedicated flagship pages.
-2. Publish ≥6 cluster articles only if gaps remain after lander push.
-
-## Gap closed in this batch
-
-- `lip-filler-plainfield-il`
-- `peptide-therapy-{oswego,naperville,aurora,plainfield,yorkville,montgomery}-il`
-- `hormone-therapy-{aurora,plainfield,yorkville,montgomery}-il`
-- `iv-therapy-{naperville,aurora,plainfield,yorkville,montgomery}-il`
-- `quantum-rf-{naperville,aurora,plainfield,yorkville,montgomery}-il`
-- `solaria-co2-{naperville,aurora,plainfield,yorkville,montgomery}-il`
-- Removed 301s that blocked aurora HRT and oswego peptide `-il` URLs
-- Footer chips: Peptides / Hormones / IV Therapy / QuantumRF / Solaria CO₂
-- `[slug]` render order: Phase 9 GBP content beats soft city-device template when both exist
-
-## Remaining (ops / decisions)
-
-- [ ] GBP Dashboard: categories, service areas, card-hold, fee, policy paste
-- [ ] Owner copy review of SEO-001 generated blocks (peptides + devices)
-- [ ] GSC “Request indexing” in UI for new URLs (API inspect-only)
-- [x] CWV measurement on flagship templates — baseline logged (`docs/LIGHTHOUSE_BASELINE.md`); **fix pass** still needed (mobile 68–76 vs ≥90)
-- [x] Monthly rank report cadence — defined: first Monday → `/admin/local-dominance-sprint` scoreboard + GSC CWV glance
-
-## Next engineering (perf)
-
-- Round 1–3 shipped (hero paint → WebP/CLS → analytics defer + mobile crops + single chat).
-- Further ≥90 work is structural (SSR hero shell / lighter header) — not another micro-pass.
+- Phase 9 landers (peptides/HRT/IV/lip + QuantumRF/Solaria ring cities)  
+- CWV R1–R3 (hero paint, WebP, defer chrome/analytics, CLS fix)  
+- SEO-002 foundation layered on the same pages (AEO FAQs, crawlers, schema)
 
 ## Implementation refs
 
-- Pattern: `app/[slug]/page.tsx` → `GbpLocationPage` + `LOCATION_PAGE_CONTENT`
-- Registry: `lib/gbp-urls.ts`
-- Content: `lib/local-seo-content-seo001-gap.ts`, `lib/local-seo-content-devices-gap.ts`
-- Depth gate: `scripts/check-seo-content-depth.ts` (prebuild)
-- NAP: `lib/seo.ts` `SITE`
+- `lib/gbp-urls.ts` · `LOCATION_PAGE_CONTENT*` · `docs/LIGHTHOUSE_BASELINE.md` · `lib/aeo-canonical.ts`

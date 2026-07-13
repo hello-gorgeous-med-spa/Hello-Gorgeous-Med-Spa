@@ -14,6 +14,8 @@ import {
   siteJsonLd,
   webPageJsonLd,
 } from "@/lib/seo";
+import { HG_ABOUT_EXTRACT, HG_CORE_AEO_FAQS } from "@/lib/aeo-canonical";
+import { medicalWebPageJsonLd } from "@/lib/founder-credentials";
 
 const RX_PATH = "/rx";
 const RX_TITLE =
@@ -59,10 +61,18 @@ export const metadata: Metadata = {
 };
 
 const REGEN_FAQS: readonly FAQ[] = [
+  ...HG_CORE_AEO_FAQS.filter((f) =>
+    /weight loss|GLP-1|medical practice|prescription/i.test(f.question),
+  ),
   {
     question: "What is RE GEN by Hello Gorgeous Med Spa?",
     answer:
       "RE GEN is the telehealth and prescription arm of Hello Gorgeous Med Spa in Oswego, Illinois. Shop by goal — GLP-1 weight loss, peptides, hormones, sexual health, and more — with plans reviewed by Ryan Kent, FNP-BC and eligible medications shipped to your home.",
+  },
+  {
+    question: "How does telehealth medical weight loss work in Illinois with Hello Gorgeous?",
+    answer:
+      "You start with goals and intake, then an Illinois NP reviews your history (telehealth when required). Prescriptions require provider approval before a US-licensed pharmacy ships eligible orders — consult-framed care, not drug sales without review.",
   },
   {
     question: "How does RE GEN work?",
@@ -72,7 +82,7 @@ const REGEN_FAQS: readonly FAQ[] = [
   {
     question: "Who oversees RE GEN treatment plans?",
     answer:
-      "Every RE GEN protocol is supervised in Illinois by Ryan Kent, FNP-BC, a board-certified family nurse practitioner — not an out-of-state medical director.",
+      "Every RE GEN protocol is supervised in Illinois by Ryan Kent, FNP-BC, a board-certified family nurse practitioner — not an out-of-state medical director. Provider review is required before fulfillment.",
   },
   {
     question: "Where is RE GEN available?",
@@ -82,7 +92,7 @@ const REGEN_FAQS: readonly FAQ[] = [
   {
     question: "What can I shop for on RE GEN?",
     answer:
-      "Medical weight loss (GLP-1), peptide protocols, hormone therapy, sexual health, hair & skin, energy & longevity, lab panels, and wellness injections — browse the full catalog online.",
+      "Medical weight loss (GLP-1), peptide protocols, hormone therapy, sexual health, hair & skin, energy & longevity, lab panels, and wellness injections — browse the full catalog online. Approval is never automatic.",
   },
   {
     question: "How much does RE GEN shipping cost?",
@@ -103,6 +113,12 @@ const webPage = webPageJsonLd({
 });
 
 const faqStructured = faqJsonLd(REGEN_FAQS, `${SITE.url}${RX_PATH}`);
+
+const medicalWebPage = medicalWebPageJsonLd({
+  url: `${SITE.url}${RX_PATH}`,
+  name: RX_TITLE,
+  lastReviewed: "2026-07-13",
+});
 
 const catalogJsonLd = {
   "@context": "https://schema.org",
@@ -139,6 +155,10 @@ export default function RxShopPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqStructured) }}
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(medicalWebPage) }}
+      />
 
       <Suspense
         fallback={
@@ -150,28 +170,48 @@ export default function RxShopPage() {
         <RegenCatalogClient />
       </Suspense>
 
-      {/* Crawlable copy — portal UI is client-heavy; keep indexable anchors */}
-      <section className="sr-only" aria-label="RE GEN shop categories">
-        <h1>RE GEN — Peptide & Medical Programs | Hello Gorgeous Oswego IL</h1>
-        <p>{RX_DESCRIPTION}</p>
-        <ul>
-          {SHOP_GOALS.map((goalId) => (
-            <li key={goalId}>
-              <Link href={`/rx?goal=${goalSlug(goalId)}`}>Shop {goalId}</Link>
+      {/* Crawlable SSR copy — portal UI is client-heavy; keep indexable answers visible */}
+      <section className="border-t border-black/10 bg-white px-6 py-16 text-black">
+        <div className="mx-auto max-w-3xl">
+          <h2 className="text-2xl font-bold text-[#E6007E]">About Hello Gorgeous RX / RE GEN</h2>
+          <p className="mt-4 leading-relaxed text-black/85">{HG_ABOUT_EXTRACT}</p>
+          <p className="mt-4 leading-relaxed text-black/85">{RX_DESCRIPTION}</p>
+          <h2 className="mt-12 text-2xl font-bold text-[#E6007E]">RE GEN FAQ</h2>
+          <dl className="mt-6 space-y-6">
+            {REGEN_FAQS.map((f) => (
+              <div key={f.question}>
+                <dt className="font-semibold text-black">{f.question}</dt>
+                <dd className="mt-2 leading-relaxed text-black/80">{f.answer}</dd>
+              </div>
+            ))}
+          </dl>
+          <ul className="mt-10 list-disc space-y-2 pl-5 text-sm text-black/70">
+            {SHOP_GOALS.map((goalId) => (
+              <li key={goalId}>
+                <Link href={`/rx?goal=${goalSlug(goalId)}`} className="underline hover:text-[#E6007E]">
+                  Shop {goalId}
+                </Link>
+              </li>
+            ))}
+            {REGEN_CATEGORY_HUBS.map((hub) => (
+              <li key={hub.id}>
+                <Link href={hub.hubPath} className="underline hover:text-[#E6007E]">
+                  {hub.navLabel}
+                </Link>
+              </li>
+            ))}
+            <li>
+              <Link href="/rx/request" className="underline hover:text-[#E6007E]">
+                Start RE GEN intake
+              </Link>
             </li>
-          ))}
-          {REGEN_CATEGORY_HUBS.map((hub) => (
-            <li key={hub.id}>
-              <Link href={hub.hubPath}>{hub.navLabel}</Link>
+            <li>
+              <Link href="/book" className="underline hover:text-[#E6007E]">
+                Book an in-person consult
+              </Link>
             </li>
-          ))}
-          <li>
-            <Link href="/rx/request">Start RE GEN intake</Link>
-          </li>
-          <li>
-            <Link href="/book">Book an in-person consult</Link>
-          </li>
-        </ul>
+          </ul>
+        </div>
       </section>
     </>
   );

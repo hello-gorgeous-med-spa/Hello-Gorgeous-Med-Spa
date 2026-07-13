@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { BOOK_PAGE_URL, HOME_FAQS, SERVICES, SITE, servicePublicPath } from "@/lib/seo";
+import { HG_ABOUT_BLOCK, HG_ABOUT_EXTRACT, HG_CORE_AEO_FAQS } from "@/lib/aeo-canonical";
 import { getLiveAggregateRating } from "@/lib/seo/google-places";
 import { SERVICE_PAGE_OSWEGO_SLUGS } from "@/lib/service-pages-oswego";
 import { BOOKING_URL, bookingProvider, FRESHA_ORG_BOOKING_URL } from "@/lib/flows";
@@ -23,6 +24,8 @@ export async function GET() {
       clinicalModel: "NP-directed care with licensed medical provider oversight.",
       website: SITE.url,
       description: SITE.description,
+      aboutExtract: HG_ABOUT_EXTRACT,
+      aboutBlock: HG_ABOUT_BLOCK,
       phone: SITE.phone,
       email: SITE.email,
       address: SITE.address,
@@ -83,6 +86,7 @@ export async function GET() {
       faqs: service.faqs.slice(0, 3),
     })),
     homepageFaqs: HOME_FAQS,
+    aeoCoreFaqs: HG_CORE_AEO_FAQS,
     identitySignals: {
       primaryEntityType: ["MedicalBusiness", "MedicalClinic"],
       careModel:

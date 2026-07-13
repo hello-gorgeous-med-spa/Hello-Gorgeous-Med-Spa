@@ -94,7 +94,36 @@ export const SITE = {
     facebook: "https://www.facebook.com/HelloGorgeousOswego",
     tiktok: "https://www.tiktok.com/@daniellealcala12",
   },
+  /**
+   * Directory profile URLs for schema `sameAs` (SEO-002).
+   * Paste claimed URLs when ready — empty strings are omitted from JSON-LD.
+   * Tracking checklist: docs/TIER-1-CITATIONS.md + docs/campaigns/seo-002-ai-search-epic.md
+   */
+  directories: {
+    yelp: "",
+    healthgrades: "",
+    realself: "",
+    appleMaps: "",
+    bingPlaces: "",
+  },
 } as const;
+
+/** Schema `sameAs` — owned profiles + claimed directories (SEO-002). Empty strings omitted. */
+export function hgSameAsProfiles(): string[] {
+  const d = SITE.directories;
+  return [
+    SITE.googleBusinessUrl,
+    SITE.freshaProfileUrl,
+    SITE.social.facebook,
+    SITE.social.instagram,
+    SITE.social.tiktok,
+    d.yelp,
+    d.healthgrades,
+    d.realself,
+    d.appleMaps,
+    d.bingPlaces,
+  ].filter((u) => typeof u === "string" && u.startsWith("http"));
+}
 
 /** First-party booking entry for ReserveAction schema — `/book` redirects to Square Appointments. */
 export const BOOK_PAGE_URL = `${SITE.url}${BOOK_PAGE_PATH}`;
@@ -1156,7 +1185,7 @@ export function siteJsonLd(opts?: { aggregateRating?: AggregateRatingOverride | 
   const aggregate = opts?.aggregateRating ?? null;
   return {
     "@context": "https://schema.org",
-    "@type": "MedicalBusiness",
+    "@type": ["MedicalBusiness", "MedicalClinic"],
     "@id": `${SITE.url}/#organization`,
     name: SITE.name,
     alternateName: ["Hello Gorgeous Medspa", "Hello Gorgeous RX", "Hello Gorgeous RX™"],
@@ -1222,13 +1251,7 @@ export function siteJsonLd(opts?: { aggregateRating?: AggregateRatingOverride | 
       opens: h.opens,
       closes: h.closes,
     })),
-    sameAs: [
-      SITE.googleBusinessUrl,
-      SITE.freshaProfileUrl,
-      SITE.social.facebook,
-      SITE.social.instagram,
-      SITE.social.tiktok,
-    ],
+    sameAs: hgSameAsProfiles(),
     ...(aggregate
       ? {
           aggregateRating: {
@@ -1298,13 +1321,7 @@ export function mainLocalBusinessJsonLd(opts?: { aggregateRating?: AggregateRati
       opens: h.opens,
       closes: h.closes,
     })),
-    sameAs: [
-      SITE.googleBusinessUrl,
-      SITE.freshaProfileUrl,
-      SITE.social.facebook,
-      SITE.social.instagram,
-      SITE.social.tiktok,
-    ],
+    sameAs: hgSameAsProfiles(),
     ...(aggregate
       ? {
           aggregateRating: {
@@ -1349,13 +1366,7 @@ export function organizationJsonLd() {
       postalCode: SITE.address.postalCode,
       addressCountry: "US",
     },
-    sameAs: [
-      SITE.googleBusinessUrl,
-      SITE.freshaProfileUrl,
-      SITE.social.facebook,
-      SITE.social.instagram,
-      SITE.social.tiktok,
-    ],
+    sameAs: hgSameAsProfiles(),
   };
 }
 

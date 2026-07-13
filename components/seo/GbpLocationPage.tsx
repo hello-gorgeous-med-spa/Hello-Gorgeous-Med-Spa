@@ -7,6 +7,7 @@ import { GeoContextBlock } from "@/components/GeoContextBlock";
 import { FadeUp, Section } from "@/components/Section";
 import { ServiceExpertWidget } from "@/components/ServiceExpertWidget";
 import { LocalSeoConversionStrip } from "@/components/seo/LocalSeoConversionStrip";
+import { HG_ABOUT_BLOCK } from "@/lib/aeo-canonical";
 import {
   GBP_CONTEXTUAL_LINKS,
   geoContextCityForGbpSlug,
@@ -16,6 +17,7 @@ import {
 import { GBP_SLUG_TO_SERVICE } from "@/lib/gbp-urls";
 import { LOCATION_PAGE_CONTENT } from "@/lib/local-seo-content";
 import { PRIMARY_BOOKING_CTA } from "@/lib/primary-cta";
+import { aboutPageGraphJsonLd } from "@/lib/founder-credentials";
 import {
   SERVICES,
   breadcrumbJsonLd,
@@ -49,12 +51,13 @@ export function GbpLocationPage({ slug }: Props) {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(siteJsonLd()) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(aboutPageGraphJsonLd()) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceJsonLd(s)) }} />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceLocationJsonLd(s.name, cityLabel)) }}
       />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd(faqs)) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd(faqs, `${SITE.url}/${slug}`)) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd(breadcrumbs)) }} />
       <Section className="relative bg-white">
         <div className="absolute inset-0 bg-white" />
@@ -66,6 +69,10 @@ export function GbpLocationPage({ slug }: Props) {
               {cityShort}, IL
             </h1>
             <p className="mt-6 text-xl text-black max-w-3xl leading-relaxed">{content?.intro ?? s.heroSubtitle}</p>
+            <p className="mt-6 max-w-3xl text-base leading-relaxed text-black/85 border-l-4 border-[#E6007E] pl-4">
+              <span className="font-bold text-[#E6007E]">About Hello Gorgeous: </span>
+              {HG_ABOUT_BLOCK}
+            </p>
             <div className="mt-10 flex flex-col sm:flex-row gap-4">
               <CTA href={PRIMARY_BOOKING_CTA.href} variant="gradient">
                 {PRIMARY_BOOKING_CTA.label}
@@ -210,25 +217,19 @@ export function GbpLocationPage({ slug }: Props) {
         </div>
       </Section>
       <Section>
-        <FadeUp>
-          <h2 className="text-3xl md:text-4xl font-bold text-[#FF2D8E]">Frequently asked questions</h2>
-          <p className="mt-4 text-black max-w-2xl">
-            Common questions about {s.name} in {cityLabel}.
-          </p>
-        </FadeUp>
-        <div className="mt-10 grid gap-4">
-          {faqs.map((f, idx) => (
-            <FadeUp key={f.question} delayMs={40 * idx}>
-              <details className="group rounded-2xl border-2 border-black bg-white p-6">
-                <summary className="cursor-pointer list-none text-lg font-semibold text-black flex items-center justify-between">
-                  <span>{f.question}</span>
-                  <span className="text-black/60 group-open:rotate-45 transition-transform">+</span>
-                </summary>
-                <p className="mt-4 text-black">{f.answer}</p>
-              </details>
-            </FadeUp>
+        <h2 className="text-3xl md:text-4xl font-bold text-[#FF2D8E]">Frequently asked questions</h2>
+        <p className="mt-4 text-black max-w-2xl">
+          Common questions about {s.name} in {cityLabel}.
+        </p>
+        {/* Always-visible Q&A so AI crawlers can extract answers without JS. */}
+        <dl className="mt-10 grid gap-6">
+          {faqs.map((f) => (
+            <div key={f.question} className="rounded-2xl border-2 border-black bg-white p-6">
+              <dt className="text-lg font-semibold text-[#E6007E]">{f.question}</dt>
+              <dd className="mt-3 text-black leading-relaxed">{f.answer}</dd>
+            </div>
           ))}
-        </div>
+        </dl>
         <div className="mt-12 text-center">
           <GeoContextBlock city={geoContextCityForGbpSlug(slug)} className="mb-8" />
           <CTA href={PRIMARY_BOOKING_CTA.href} variant="white" className="group inline-flex">
