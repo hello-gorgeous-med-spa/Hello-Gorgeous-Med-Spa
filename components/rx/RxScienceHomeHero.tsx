@@ -65,6 +65,7 @@ export function RxScienceHomeHero({ onExploreGoals }: RxScienceHomeHeroProps) {
             src={PEPTIDE_SCIENCE_VIDEOS.rxHero}
             label="Peptide and cellular science animation — Hello Gorgeous RX"
             poster="/images/education/peptides-101-not-all-created-equal.webp"
+            posterSm="/images/education/peptides-101-not-all-created-equal-sm.webp"
             className="lg:max-w-lg"
           />
         </div>

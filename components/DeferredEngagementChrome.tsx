@@ -15,13 +15,10 @@ const VoiceConcierge = dynamic(
   () => import("@/components/VoiceConcierge").then((m) => m.VoiceConcierge),
   { ssr: false }
 );
-const HelloGorgeousAssistant = dynamic(
-  () => import("@/components/HelloGorgeousAssistant").then((m) => m.HelloGorgeousAssistant),
-  { ssr: false }
-);
 
 /**
  * Chat / PWA / voice widgets — load after idle so they don't compete with LCP.
+ * Sitewide chat = MascotChat only (HelloGorgeousAssistant is a duplicate floater).
  */
 export function DeferredEngagementChrome() {
   const [ready, setReady] = useState(false);
@@ -54,7 +51,6 @@ export function DeferredEngagementChrome() {
       <InstallAppPrompt />
       <MascotChat />
       <VoiceConcierge />
-      <HelloGorgeousAssistant />
     </>
   );
 }

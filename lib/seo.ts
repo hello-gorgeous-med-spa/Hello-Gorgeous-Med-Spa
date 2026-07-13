@@ -113,6 +113,8 @@ function reserveActionJsonLd(reservationName = "Appointment at Hello Gorgeous Me
 
 /** Homepage hero art. Bump `v` after replacing the file to bust CDN + Next/Image cache. */
 export const SITE_HERO_IMAGE = "/images/hero-brand.webp" as const;
+/** Mobile LCP crop (~768w) — prefer for phones; desktop uses SITE_HERO_IMAGE. */
+export const SITE_HERO_IMAGE_SM = "/images/hero-brand-sm.webp" as const;
 export const SITE_OG_IMAGE = `${SITE.url}/images/hero-banner.png?v=2026-06-us-hero` as const;
 export const SITE_OG_IMAGE_ALT =
   "Danielle Alcala-Glazier and Ryan Kent, FNP-BC — Hello Gorgeous Med Spa, Oswego IL";

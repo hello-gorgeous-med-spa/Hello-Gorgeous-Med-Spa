@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { CLIENT_APP, type ClientAppTab } from "@/lib/client-app";
 import { PRIMARY_BOOKING_CTA } from "@/lib/primary-cta";
-import { SITE_HERO_IMAGE } from "@/lib/seo";
+import { SITE_HERO_IMAGE, SITE_HERO_IMAGE_SM } from "@/lib/seo";
 import { TRIFECTA_GRADIENT_TITLE, trifectaButtonGradient, trifectaAccent } from "@/lib/trifecta-tokens";
 
 type BrandHeroProps = {
@@ -76,16 +76,26 @@ export function BrandHero({
               boxShadow: "0 28px 90px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(255,255,255,0.06)",
             }}
           >
-            {/* LCP: always visible — do not gate hero media behind opacity/scale animation */}
+            {/* LCP: always visible — mobile uses smaller crop; desktop full hero without competing priority */}
             <Image
-              src={SITE_HERO_IMAGE}
+              src={SITE_HERO_IMAGE_SM}
               alt="Danielle Alcala-Glazier and Ryan Kent, FNP-BC — Hello Gorgeous Med Spa founders, Oswego IL"
               fill
               priority
-              className="object-cover object-[center_35%] sm:object-center"
-              sizes={isApp ? "(max-width: 576px) 100vw, 576px" : "(max-width: 1400px) 100vw, 1400px"}
+              className={`object-cover object-[center_35%] sm:object-center ${isApp ? "" : "md:hidden"}`}
+              sizes={isApp ? "(max-width: 576px) 100vw, 576px" : "100vw"}
               onLoad={() => setRevealed(true)}
             />
+            {!isApp ? (
+              <Image
+                src={SITE_HERO_IMAGE}
+                alt=""
+                fill
+                aria-hidden
+                className="hidden object-cover object-center md:block"
+                sizes="(max-width: 1400px) 100vw, 1400px"
+              />
+            ) : null}
 
             <div
               className={`absolute left-3 top-3 transition-all duration-700 ease-out sm:left-4 sm:top-4 ${

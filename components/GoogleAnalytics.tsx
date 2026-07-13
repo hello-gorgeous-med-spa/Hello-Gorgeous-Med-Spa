@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Script from "next/script";
 import { pushContourLiftEvent } from "@/lib/contour-lift-analytics";
 
@@ -74,21 +74,59 @@ function useTrackConversions(disabled: boolean) {
   }, [disabled]);
 }
 
+/** Wait for idle or first user gesture so tags don't compete with LCP. */
+function useDeferredAnalyticsReady(disabled: boolean) {
+  const [ready, setReady] = useState(false);
+
+  useEffect(() => {
+    if (disabled) return;
+    let cancelled = false;
+    const enable = () => {
+      if (!cancelled) setReady(true);
+    };
+
+    const onInteract = () => enable();
+    window.addEventListener("pointerdown", onInteract, { once: true, passive: true });
+    window.addEventListener("keydown", onInteract, { once: true });
+    window.addEventListener("scroll", onInteract, { once: true, passive: true });
+
+    let idleId: number | undefined;
+    let timeoutId: number | undefined;
+    if ("requestIdleCallback" in window) {
+      idleId = window.requestIdleCallback(enable, { timeout: 5500 });
+    } else {
+      timeoutId = window.setTimeout(enable, 3500);
+    }
+
+    return () => {
+      cancelled = true;
+      window.removeEventListener("pointerdown", onInteract);
+      window.removeEventListener("keydown", onInteract);
+      window.removeEventListener("scroll", onInteract);
+      if (idleId !== undefined) window.cancelIdleCallback(idleId);
+      if (timeoutId !== undefined) window.clearTimeout(timeoutId);
+    };
+  }, [disabled]);
+
+  return ready;
+}
+
 export function GoogleAnalytics() {
   const pathname = usePathname();
   const noTrack = isNoTrackPath(pathname ?? null);
   useTrackConversions(noTrack);
+  const tagsReady = useDeferredAnalyticsReady(noTrack);
 
   if (noTrack || (!GTM_ID && !GA4_MEASUREMENT_ID && !META_PIXEL_ID)) return null;
+  if (!tagsReady) return null;
 
   return (
     <>
-      {/* Meta Pixel */}
       {META_PIXEL_ID && (
         <>
           <Script
             id="meta-pixel"
-            strategy="afterInteractive"
+            strategy="lazyOnload"
             dangerouslySetInnerHTML={{
               __html: `
 !function(f,b,e,v,n,t,s)
@@ -105,10 +143,10 @@ fbq('track', 'PageView');
             }}
           />
           <noscript>
-            <img 
-              height="1" 
-              width="1" 
-              style={{ display: 'none' }}
+            <img
+              height="1"
+              width="1"
+              style={{ display: "none" }}
               src={`https://www.facebook.com/tr?id=${META_PIXEL_ID}&ev=PageView&noscript=1`}
               alt=""
             />
@@ -119,7 +157,7 @@ fbq('track', 'PageView');
         <>
           <Script
             id="gtm-script"
-            strategy="afterInteractive"
+            strategy="lazyOnload"
             dangerouslySetInnerHTML={{
               __html: `
 (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -145,11 +183,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <>
           <Script
             src={`https://www.googletagmanager.com/gtag/js?id=${GA4_MEASUREMENT_ID}`}
-            strategy="afterInteractive"
+            strategy="lazyOnload"
           />
           <Script
             id="ga4-config"
-            strategy="afterInteractive"
+            strategy="lazyOnload"
             dangerouslySetInnerHTML={{
               __html: `
 window.dataLayer = window.dataLayer || [];

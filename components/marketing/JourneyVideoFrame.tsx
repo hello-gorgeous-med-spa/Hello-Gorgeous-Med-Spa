@@ -11,16 +11,20 @@ export function JourneyVideoFrame({
   src,
   label,
   poster,
+  posterSm,
   className = "",
 }: {
   src: string;
   label: string;
   poster?: string;
+  /** Optional smaller poster for phones (LCP). */
+  posterSm?: string;
   className?: string;
 }) {
   const rootRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const [loadVideo, setLoadVideo] = useState(false);
+  const lcpPoster = posterSm || poster;
 
   useEffect(() => {
     const el = rootRef.current;
@@ -53,14 +57,26 @@ export function JourneyVideoFrame({
       className={`mx-auto w-full overflow-hidden rounded-3xl border border-[#FF2D8E]/35 shadow-[0_20px_60px_rgba(255,45,142,0.22)] ${className}`}
     >
       <div className="relative aspect-video w-full bg-black">
-        {poster ? (
+        {lcpPoster ? (
           <Image
-            src={poster}
+            src={lcpPoster}
             alt=""
             fill
             priority
             sizes="(max-width: 1024px) 100vw, 512px"
-            className="object-contain"
+            className={
+              poster && posterSm ? "object-contain lg:hidden" : "object-contain"
+            }
+            aria-hidden
+          />
+        ) : null}
+        {poster && posterSm ? (
+          <Image
+            src={poster}
+            alt=""
+            fill
+            sizes="512px"
+            className="hidden object-contain lg:block"
             aria-hidden
           />
         ) : null}
@@ -73,7 +89,7 @@ export function JourneyVideoFrame({
             loop
             playsInline
             preload="metadata"
-            poster={poster}
+            poster={lcpPoster}
             className="absolute inset-0 h-full w-full object-contain"
             aria-label={label}
           />
