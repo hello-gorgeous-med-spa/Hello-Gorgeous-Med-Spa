@@ -68,6 +68,15 @@ const CATEGORY_IMAGES = {
   FlowWave: "public/images/square-appointments/stemwave-shockwave-banner.png",
 };
 
+/** Per-service image overrides (matched against item name). Applied before category heroes. */
+const SERVICE_IMAGE_OVERRIDES = [
+  {
+    re: /hylenex|hylanex|lip dissolver|hyaluronidase/i,
+    path: "public/images/square-appointments/hylenex-4-pack-carton.jpg",
+    label: "Hylenex",
+  },
+];
+
 const CATEGORY_KEYWORDS = [
   { cat: "FlowWave", re: /flowwave|shockwave|recovery stack/i },
   { cat: "Botox", re: /botox|jeuveau|dysport|lip flip|neuromodulator|glowtox|baby tox|babytox/i },
@@ -270,18 +279,20 @@ async function main() {
 
     if (!META_ONLY) {
       const needsImage = FORCE_IMAGES || !(data.image_ids?.length);
-      if (needsImage && categoryName) {
-        const rel = CATEGORY_IMAGES[categoryName];
-        const abs = rel ? path.join(ROOT, rel) : null;
-        if (abs && fs.existsSync(abs)) {
-          try {
-            console.log(`  🖼  ${name} ← ${categoryName}${FORCE_IMAGES && data.image_ids?.length ? " (replace)" : ""}`);
-            await uploadImage(item.id, abs, name.slice(0, 80));
-            imagesUploaded++;
-            await sleep(150);
-          } catch (e) {
-            console.log(`  ⚠ image ${name}: ${e.message}`);
-          }
+      const override = SERVICE_IMAGE_OVERRIDES.find((o) => o.re.test(name));
+      const rel = override?.path || (categoryName ? CATEGORY_IMAGES[categoryName] : null);
+      const abs = rel ? path.join(ROOT, rel) : null;
+      if (needsImage && abs && fs.existsSync(abs)) {
+        try {
+          const label = override?.label || categoryName || name.slice(0, 80);
+          console.log(
+            `  🖼  ${name} ← ${label}${FORCE_IMAGES && data.image_ids?.length ? " (replace)" : ""}`,
+          );
+          await uploadImage(item.id, abs, (override?.label || name).slice(0, 80));
+          imagesUploaded++;
+          await sleep(150);
+        } catch (e) {
+          console.log(`  ⚠ image ${name}: ${e.message}`);
         }
       }
     }
