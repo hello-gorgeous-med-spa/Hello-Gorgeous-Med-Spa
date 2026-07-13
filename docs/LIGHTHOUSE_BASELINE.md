@@ -14,25 +14,36 @@ npx lighthouse https://www.hellogorgeousmedspa.com/ \
 # API quota is limited; prefer Lighthouse CLI for batch checks.
 ```
 
-## Baseline — 2026-07-13 (mobile, simulated throttling, live prod)
+## Baseline — 2026-07-13 (mobile, simulated throttling, **live prod**)
 
 | URL | Perf | LCP | CLS | TBT | Notes |
 |-----|------|-----|-----|-----|-------|
-| `/` | **68** | 6.6s | 0.001 | 29ms | Below target — LCP-bound |
-| `/faq` | **74** | 5.4s | 0 | 35ms | Premium template; LCP still slow |
-| `/botox-oswego-il` | **73** | 5.3s | 0 | 28ms | Flagship local lander |
-| `/rx` | **76** | 5.3s | 0 | 48ms | Best of the four |
+| `/` | **68** | 6.6s | 0.001 | 29ms | Pre-fix |
+| `/faq` | **74** | 5.4s | 0 | 35ms | Pre-fix |
+| `/botox-oswego-il` | **73** | 5.3s | 0 | 28ms | Pre-fix |
+| `/rx` | **76** | 5.3s | 0 | 48ms | Pre-fix |
 
-CLS is healthy. **LCP (~5–7s)** is the gap to ≥90.
+## After LCP pass — 2026-07-13 (mobile, simulated, **local `next start`** @ :3120)
 
-## Likely LCP levers (next engineering pass)
+| URL | Perf | LCP | CLS | TBT | Δ Perf |
+|-----|------|-----|-----|-----|--------|
+| `/` | **75** | 5.9s | 0.106 | 27ms | +7 |
+| `/faq` | **78** | 5.0s | 0.106 | 2ms | +4 |
+| `/botox-oswego-il` | **75** | 6.1s | 0.106 | 1ms | +2 |
+| `/rx` | **83** | 4.7s | 0 | 1ms | +7 |
 
-1. Hero / LCP image: `priority`, correct `sizes`, modern format, avoid oversized full-bleed.
-2. Reduce above-the-fold JS (third-party, chat, analytics boot).
-3. Fonts: `font-display: swap` / subset; avoid FOIT blocking paint.
-4. Avoid layout-shifting late CSS; keep critical CSS small.
+Shipped in `e558e38c`: hero opacity gate removed, FAQ FadeUp off ATF, below-fold `priority` stripped, RX video lazy behind poster, Montserrat off global `<head>`, botox hero image fixed + `sizes`.
+
+Still short of ≥90 — remaining gap is mainly **LCP ~5s** (hero bytes + main-thread / third-party) and a mild **CLS ~0.1** on marketing chrome pages.
+
+## Remaining levers
+
+1. Compress / resize hero assets (home founders, botox, RX poster) for mobile DPR.
+2. Defer chat / voice / assistant widgets until idle or open.
+3. Investigate CLS ~0.1 (sticky CTA / header / late chrome).
+4. Keep GTM/Meta afterInteractive; consider further delay on non-conversion pages.
 
 ## Cadence
 
 - Re-run this 4-URL set after any hero/template performance change.
-- Monthly: record scores in this table + glance at GSC Core Web Vitals report.
+- Monthly: record scores here + glance at GSC Core Web Vitals report.
