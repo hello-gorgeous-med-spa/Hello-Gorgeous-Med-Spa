@@ -9,7 +9,7 @@ export const MORPHEUS8_BURST_OSWEGO_MENU = buildOswegoMenu("morpheus8-burst-oswe
   secondaryCta: INMODE_SECONDARY,
   pricingTitle: "Morpheus8 Burst pricing",
   pricingHighlights: [
-    "Face sessions from $850 — larger areas priced higher",
+    "Face sessions from $799 — larger areas priced higher",
     "Series of 3 typical · 4–6 weeks apart",
     "Package pricing brings per-session cost down",
     "Customizable depth 0.5mm–7mm — face, neck & body",

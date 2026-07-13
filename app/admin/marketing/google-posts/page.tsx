@@ -63,10 +63,10 @@ Ryan Kent, FNP-BC · Oswego — Naperville, Aurora & Plainfield.`,
   },
   {
     id: 'botox-10-unit',
-    title: 'Botox — $10/unit (Oswego)',
+    title: 'Botox — as low as $9/unit (Oswego)',
     type: 'Offer',
-    headline: 'Botox in Oswego — $10/unit · #1 Best Med Spa',
-    description: `💉 Honest, published pricing — $10/unit, same for everyone, no membership required.
+    headline: 'Botox in Oswego — as low as $9/unit · #1 Best Med Spa',
+    description: `💉 Honest, published pricing — as low as $9/unit, same for everyone, no membership required.
 
 Ryan Kent, FNP-BC on site 7 days a week · 10+ years injecting · same-day appointments often available. Botox · Dysport · Jeuveau.
 
@@ -79,7 +79,7 @@ Free consultation, every time. Oswego, IL — serving Naperville, Aurora & Plain
     title: 'Botox — Even AI Picks Us (Social Proof)',
     type: 'Update',
     headline: 'Ask AI Where to Get Botox in Oswego — It Picks Hello Gorgeous',
-    description: 'Ask AI "where do I go for Botox in Oswego, IL?" and it points to Hello Gorgeous — licensed FNP-BC injector, authentic FDA-approved product, honest $10/unit pricing, natural results. When even the internet agrees, you know you\'re in good hands. Free consult. (Tip: attach a screenshot of the AI answer when posting.)',
+    description: 'Ask AI "where do I go for Botox in Oswego, IL?" and it points to Hello Gorgeous — licensed FNP-BC injector, authentic FDA-approved product, honest as low as $9/unit pricing, natural results. When even the internet agrees, you know you\'re in good hands. Free consult. (Tip: attach a screenshot of the AI answer when posting.)',
     ctaText: 'Book consult',
     ctaUrl: BOTOX_URL,
   },
@@ -88,7 +88,7 @@ Free consultation, every time. Oswego, IL — serving Naperville, Aurora & Plain
     title: 'Botox — Natural, Not Frozen',
     type: 'Update',
     headline: 'Botox in Oswego That Looks Like You — Just Refreshed',
-    description: 'We focus on facial balance, conservative dosing & customized plans — softening fine lines while keeping your expressions natural. Never frozen, never overdone. $10/unit, Ryan Kent FNP-BC, authentic FDA-approved product, free consult. Oswego, IL.',
+    description: 'We focus on facial balance, conservative dosing & customized plans — softening fine lines while keeping your expressions natural. Never frozen, never overdone. as low as $9/unit, Ryan Kent FNP-BC, authentic FDA-approved product, free consult. Oswego, IL.',
     ctaText: 'Book consult',
     ctaUrl: BOTOX_URL,
   },
@@ -97,7 +97,7 @@ Free consultation, every time. Oswego, IL — serving Naperville, Aurora & Plain
     title: 'Botox — Authentic Product, Real NP',
     type: 'Update',
     headline: 'Real Botox. Real Nurse Practitioner. Real Pricing.',
-    description: 'We use only authentic, FDA-approved product from licensed distributors — and Ryan Kent, FNP-BC oversees every protocol on site. No revolving door of providers, no mystery pricing, no upsell pressure. $10/unit Botox in downtown Oswego.',
+    description: 'We use only authentic, FDA-approved product from licensed distributors — and Ryan Kent, FNP-BC oversees every protocol on site. No revolving door of providers, no mystery pricing, no upsell pressure. as low as $9/unit Botox in downtown Oswego.',
     ctaText: 'Learn more',
     ctaUrl: BOTOX_URL,
   },
@@ -106,7 +106,7 @@ Free consultation, every time. Oswego, IL — serving Naperville, Aurora & Plain
     title: 'Botox vs Dysport vs Jeuveau',
     type: 'Update',
     headline: 'Botox, Dysport, or Jeuveau — Which Is Right for You?',
-    description: 'All three relax the muscles that cause expression lines — the difference is onset, spread & feel. We carry all three to match you to the best one. Botox $10/unit · Dysport $14/unit · Jeuveau $11/unit. Ryan Kent, FNP-BC, Oswego IL. Free consult.',
+    description: 'All three relax the muscles that cause expression lines — the difference is onset, spread & feel. We carry all three to match you to the best one. Botox as low as $9/unit · Dysport $14/unit · Jeuveau $11/unit. Ryan Kent, FNP-BC, Oswego IL. Free consult.',
     ctaText: 'Book consult',
     ctaUrl: BOTOX_URL,
   },
@@ -114,8 +114,8 @@ Free consultation, every time. Oswego, IL — serving Naperville, Aurora & Plain
     id: 'botox-naperville',
     title: 'Botox Near Naperville',
     type: 'Update',
-    headline: 'Botox Near Naperville — $10/unit, ~15 Min to Oswego',
-    description: 'Looking for Botox near Naperville? Hello Gorgeous is just 15 minutes away in downtown Oswego — $10/unit, licensed NP, free consultation. Botox, Dysport & Jeuveau. Same-day often available.',
+    headline: 'Botox Near Naperville — as low as $9/unit, ~15 Min to Oswego',
+    description: 'Looking for Botox near Naperville? Hello Gorgeous is just 15 minutes away in downtown Oswego — as low as $9/unit, licensed NP, free consultation. Botox, Dysport & Jeuveau. Same-day often available.',
     ctaText: 'Book consult',
     ctaUrl: 'https://www.hellogorgeousmedspa.com/botox-naperville-il',
   },
@@ -219,7 +219,7 @@ $49 peptide consultation · medication priced separately. Oswego, IL — serving
     type: 'Offer',
     headline: 'Glow-Up Event — Limited-Time Specials',
     description: `✨ FREE vitamin injection when you book your consultation
-✨ Botox $10/unit (40 units = 10 FREE)
+✨ Botox as low as $9/unit (40 units = 10 FREE)
 ✨ Lip filler $499/syringe
 ✨ Medical weight loss from $600 for 10 weeks
 
@@ -232,7 +232,7 @@ Mention "Glow Event" when you book. Oswego, IL — serving Naperville, Aurora, P
     title: 'Serving Aurora, IL — 10 Min Away',
     type: 'Update',
     headline: 'Med Spa Near Me? Hello Gorgeous Serves Aurora — 10 Min Away',
-    description: 'Botox $10/unit. Fillers, weight loss, Morpheus8 Burst, laser. Free consultation. 74 W Washington St, Oswego. Easy drive from Aurora, North Aurora, Montgomery. Book now.',
+    description: 'Botox as low as $9/unit. Fillers, weight loss, Morpheus8 Burst, laser. Free consultation. 74 W Washington St, Oswego. Easy drive from Aurora, North Aurora, Montgomery. Book now.',
     ctaText: 'Book now',
     ctaUrl: BOOKING_URL,
   },
@@ -241,15 +241,15 @@ Mention "Glow Event" when you book. Oswego, IL — serving Naperville, Aurora, P
     title: 'Botox vs Dysport vs Jeuveau — FAQ Blog',
     type: 'Update',
     headline: 'Botox vs Dysport vs Jeuveau: Which One Is Right for You?',
-    description: 'We offer all three in Oswego. Compare onset, longevity, spread & cost. $10/unit Botox. Your provider helps you decide at your free consultation. Read the full FAQ.',
+    description: 'We offer all three in Oswego. Compare onset, longevity, spread & cost. as low as $9/unit Botox. Your provider helps you decide at your free consultation. Read the full FAQ.',
     ctaText: 'Read FAQ',
     ctaUrl: 'https://www.hellogorgeousmedspa.com/blog/botox-vs-dysport-vs-jeuveau-faq-oswego',
   },
   {
     id: 'botox',
-    title: 'Botox $10/unit',
+    title: 'Botox as low as $9/unit',
     type: 'Offer',
-    headline: 'Botox $10/Unit — 40 Units = 10 FREE',
+    headline: 'Botox as low as $9/unit — 40 Units = 10 FREE',
     description: 'Natural-looking Botox, Dysport & Jeuveau in Oswego. Book 40 units, get 50 total. Limited-time offer. Book online or call (630) 636-6193.',
     ctaText: 'Book now',
     ctaUrl: BOOKING_URL,
@@ -349,7 +349,7 @@ Mention "Glow Event" when you book. Oswego, IL — serving Naperville, Aurora, P
     title: 'Glow-Up Event Flyer',
     type: 'Update',
     headline: 'Download Our Glow-Up Event Flyer',
-    description: 'Limited-time specials: FREE vitamin injection, Botox $10/unit, lip filler $499, weight loss from $600. Download the flyer and share with a friend. Mention "Glow Event" when you book.',
+    description: 'Limited-time specials: FREE vitamin injection, Botox as low as $9/unit, lip filler $499, weight loss from $600. Download the flyer and share with a friend. Mention "Glow Event" when you book.',
     ctaText: 'See event',
     ctaUrl: GLOW_EVENT_URL,
   },

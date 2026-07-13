@@ -18,15 +18,15 @@ export const SERVICE_PAGES_BASE: ServicePageData[] = [
     targetKeyword: "botox oswego",
     h1: "Botox in Oswego, IL",
     valueProp:
-      "$10/unit Botox with a full-authority nurse practitioner on site — natural results, free consultations, same-day appointments when available.",
+      "As low as $9/unit Botox (Allergan & US distributors only) with a full-authority nurse practitioner on site — natural results, free consultations, same-day appointments when available.",
     tier: "contested",
     procedureType: "Injection",
     bodyLocation: "Face",
     metaDescriptionExtra:
-      "From $10/unit. NP on site 7 days/week. Free consults. Dysport & Jeuveau too. Book online.",
+      "As low as $9/unit. Allergan & US distributors only. NP on site. Free consults. Dysport & Jeuveau too. Book online.",
     whyBullets: [
       "Full-authority FNP-BC on site — prescriptions and clinical decisions without waiting on a remote MD",
-      "Transparent $10/unit pricing for qualifying clients (see consult for your plan)",
+      "Transparent pricing as low as $9/unit — Allergan & US distributors only",
       "Complimentary touch-up window for true asymmetry at day 14 through day 21",
       "Allē rewards and experienced injectors focused on natural movement",
       "Serving Naperville, Aurora, Plainfield, and Kendall County from downtown Oswego",
@@ -35,7 +35,7 @@ export const SERVICE_PAGES_BASE: ServicePageData[] = [
       "Botox is a neuromodulator — it temporarily relaxes targeted facial muscles that create expression lines such as forehead lines, frown lines (11s), and crow's feet. Results typically begin in 3–7 days and peak around two weeks. Most clients enjoy results for about three to four months before a refresh.",
       "At Hello Gorgeous, dosing is customized. Our goal is not a frozen look; it is balanced, refreshed expression. We discuss your anatomy, prior treatments, and lifestyle (exercise, metabolism) because those factors influence how long your result lasts.",
       "We also offer Dysport and Jeuveau for clients who respond better to alternate neuromodulators. Your provider can recommend the best product for your goals during a free consultation.",
-      "Pricing is discussed upfront. Our published $10/unit rate applies to qualifying promotional plans; your exact unit count depends on treatment areas. Forehead, glabella, and crow's feet are the most common starting zones, but lip flip, masseter slimming, neck bands, and hyperhidrosis are available after evaluation.",
+      "Pricing is discussed upfront. Botox is as low as $9/unit (authentic Allergan from US distributors only). Your exact unit count depends on treatment areas. Forehead, glabella, and crow's feet are the most common starting zones, but lip flip, masseter slimming, neck bands, and hyperhidrosis are available after evaluation.",
       "Safety matters: Botox is FDA-approved for cosmetic and therapeutic uses when administered by trained medical professionals. We screen for pregnancy, certain neuromuscular conditions, and medications that may increase bruising. After treatment, avoid rubbing the area, strenuous exercise, and lying flat for several hours per your aftercare sheet.",
       "If you have been searching \"botox oswego\" and comparing med spas, ask who will inject you, who supervises complications, and how touch-ups are handled. Those answers separate a medical spa from a discount injector pop-up.",
     ]),
@@ -43,7 +43,7 @@ export const SERVICE_PAGES_BASE: ServicePageData[] = [
     faqs: standardFaqs("Botox", "botox oswego", [
       {
         q: "How much does Botox cost in Oswego?",
-        a: "We publish $10/unit for qualifying plans. Most forehead + glabella + crow's feet treatments use 20–50 total units. Your exact quote is provided at a free consultation.",
+        a: "Botox is as low as $9/unit. Most forehead + glabella + crow's feet treatments use 20–50 total units. Your exact quote is provided at a free consultation.",
       },
       {
         q: "Botox vs Dysport vs Jeuveau — which is best?",

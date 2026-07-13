@@ -32,11 +32,11 @@ export const SERVICE_CONVERSION_PROFILES: Record<PriorityConversionSlug, Service
       "Healthy adults who want a refreshed look — not a different face",
       "First-time neurotoxin clients who want honest unit counts",
       "Clients comparing Botox, Dysport, or Jeuveau options",
-      "Anyone who values NP oversight and published $10/unit pricing",
+      "Anyone who values NP oversight and published as-low-as $9/unit pricing",
     ],
     downtime: "None for most clients — tiny pinpoints may last a few hours. Avoid workout, lying flat, and rubbing for 4 hours.",
     treatmentPlan: "Single visit · results in 3–14 days · typically every 3–4 months (20–40 units for upper face is common).",
-    pricingNote: "$10/unit Botox — exact units quoted at your free consultation before we inject.",
+    pricingNote: "As low as $9/unit Botox — Allergan & US distributors only. Exact units quoted at your free consultation before we inject.",
   },
   "lip-filler-oswego": {
     helpsWith: [
@@ -70,7 +70,7 @@ export const SERVICE_CONVERSION_PROFILES: Record<PriorityConversionSlug, Service
     ],
     downtime: "2–3 days social downtime — redness and pinpoint dots fade in 24–48 hours for most.",
     treatmentPlan: "Series of 3 treatments · 4–6 weeks apart · collagen rebuilds for 3–6 months after.",
-    pricingNote: "Face from $850/session · packages quoted at your free consultation.",
+    pricingNote: "Treatments start at $799/session · packages quoted at your free consultation.",
   },
   "solaria-co2-oswego": {
     helpsWith: [
@@ -87,7 +87,7 @@ export const SERVICE_CONVERSION_PROFILES: Record<PriorityConversionSlug, Service
     ],
     downtime: "5–7 days — skin sloughs, then pink new skin emerges. Full post-care kit and day-14 check-in included.",
     treatmentPlan: "Often 1 session for strong results · aggressive cases may need 2–3 spaced 3–4 months apart.",
-    pricingNote: "From $899 per session — area and depth confirmed at consult.",
+    pricingNote: "$899 with buy-one-get-one-free area — depth confirmed at consult.",
   },
   "quantum-rf-oswego": {
     helpsWith: [
@@ -121,7 +121,7 @@ export const SERVICE_CONVERSION_PROFILES: Record<PriorityConversionSlug, Service
     ],
     downtime: "No downtime — mild nausea possible early as dose titrates (we manage it).",
     treatmentPlan: "Weekly self-injection · monthly NP visits · typical programs run 6–12+ months with maintenance planning.",
-    pricingNote: "From $299/month semaglutide · from $399/month tirzepatide — intake & labs quoted separately.",
+    pricingNote: "Programs from $195/month (lowest injectable GLP-1 dose) — intake & labs quoted separately.",
   },
   "biote-hormone-therapy-oswego": {
     helpsWith: [

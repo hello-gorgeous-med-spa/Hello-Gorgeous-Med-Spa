@@ -113,7 +113,7 @@ export function OffersSection() {
                   </div>
                   <div className="flex items-center justify-between px-4 py-3 rounded-xl border-2 border-black">
                     <span>💉 Botox</span>
-                    <span className="text-[#FF2D8E] font-bold">$10/unit</span>
+                    <span className="text-[#FF2D8E] font-bold">As low as $9/unit</span>
                   </div>
                   <div className="flex items-center justify-between px-4 py-3 rounded-xl border-2 border-black">
                     <span>⚖️ Weight Loss</span>

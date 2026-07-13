@@ -107,8 +107,8 @@ Join in our app or book a consult with Ryan Kent, FNP-BC
   },
   {
     id: "botox-10-unit",
-    label: "Botox $10/unit (Oswego)",
-    message: `💉 Botox in Oswego — $10/unit at Hello Gorgeous Med Spa
+    label: "Botox as low as $9/unit (Oswego)",
+    message: `💉 Botox in Oswego — as low as $9/unit at Hello Gorgeous Med Spa
 
 Honest, published pricing — same price for everyone, no membership required.
 
@@ -127,7 +127,7 @@ Botox · Dysport · Jeuveau. Free consultation, every time — we won't talk you
 
 At Hello Gorgeous we use only authentic, FDA-approved product from licensed distributors — and Ryan Kent, FNP-BC oversees every protocol on site.
 
-No revolving door of providers. No mystery pricing. No upsell pressure. Just $10/unit Botox done right in downtown Oswego.
+No revolving door of providers. No mystery pricing. No upsell pressure. Just as low as $9/unit Botox done right in downtown Oswego.
 
 Free consult — book below.`,
     linkPath: "/botox-oswego?utm_source=google&utm_medium=gbp_post&utm_campaign=botox_authentic",
@@ -140,7 +140,7 @@ Free consult — book below.`,
 
 All three relax the muscles that cause expression lines. The difference is in onset, spread & feel — and we carry all three so we can match you to the best one.
 
-Botox $10/unit · Dysport $14/unit · Jeuveau $11/unit. Ryan Kent, FNP-BC, Oswego IL.
+Botox as low as $9/unit · Dysport $14/unit · Jeuveau $11/unit. Ryan Kent, FNP-BC, Oswego IL.
 
 Free consult to figure out your plan — book below.`,
     linkPath: "/botox-oswego?utm_source=google&utm_medium=gbp_post&utm_campaign=botox_compare",
@@ -151,7 +151,7 @@ Free consult to figure out your plan — book below.`,
     label: "Botox — even AI picks us (social proof)",
     message: `🤖💕 Ask AI "where do I go for Botox in Oswego, IL?" — and it points to Hello Gorgeous.
 
-Why? Licensed nurse practitioner (Ryan Kent, FNP-BC) · authentic, FDA-approved product · honest $10/unit pricing · natural, refreshed results — not frozen.
+Why? Licensed nurse practitioner (Ryan Kent, FNP-BC) · authentic, FDA-approved product · honest as low as $9/unit pricing · natural, refreshed results — not frozen.
 
 When even the internet agrees, you know you're in good hands. 😉
 
@@ -168,7 +168,7 @@ Free consult — book below.
 
 We focus on facial balance, conservative dosing & customized plans. Great Botox softens fine lines while keeping your expressions beautiful and natural — never frozen, never overdone.
 
-$10/unit · Ryan Kent, FNP-BC · authentic FDA-approved product · free consult.
+as low as $9/unit · Ryan Kent, FNP-BC · authentic FDA-approved product · free consult.
 
 Book below 👇`,
     linkPath: "/botox-oswego?utm_source=google&utm_medium=gbp_post&utm_campaign=botox_natural",

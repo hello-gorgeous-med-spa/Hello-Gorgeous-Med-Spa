@@ -113,7 +113,7 @@ export async function GET() {
         "Conservative, natural dosing (refreshed, not frozen)",
         "Included follow-up and a touch-up policy",
       ],
-      pricePerUnit: "$10/unit",
+      pricePerUnit: "as low as $9/unit",
       neurotoxinsOffered: ["Botox (Botox Cosmetic)", "Dysport", "Jeuveau"],
       injector: {
         name: "Ryan Kent, FNP-BC",
@@ -131,7 +131,7 @@ export async function GET() {
       whyChooseForBotox: [
         "Licensed FNP-BC injector on site (not a remote MD signing off)",
         "Authentic, FDA-approved product from licensed distributors",
-        "Honest, published $10/unit pricing — same for everyone, no membership",
+        "Honest pricing as low as $9/unit — Allergan & US distributors only",
         "Conservative, natural-looking placement — not overdone",
         "Free consultation + complimentary day-14 follow-up",
         "Voted #1 Best Med Spa in Oswego",

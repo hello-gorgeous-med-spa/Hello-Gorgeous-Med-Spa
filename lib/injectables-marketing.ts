@@ -12,7 +12,7 @@ export const INJECTABLES_PATH = INJECTABLES_MENU_PATH;
 export const INJECTABLES_NAV = {
   label: "Botox & Fillers",
   href: INJECTABLES_PATH,
-  sub: "Botox $10/unit · lip filler · dermal fillers · all 5 neurotoxins",
+  sub: "Botox as low as $9/unit · lip filler · dermal fillers · all 5 neurotoxins",
 } as const;
 
 export const INJECTABLES_MARKETING = {
@@ -22,7 +22,7 @@ export const INJECTABLES_MARKETING = {
   eyebrow: "All 5 neurotoxin brands · NP on site",
   headline: "Natural injectables, medical oversight",
   subhead:
-    "Botox from $10/unit, lip filler $450, dermal fillers from $650 — all five FDA-approved neurotoxins with nurse practitioner oversight and honest dosing at Hello Gorgeous in Oswego.",
+    "Botox as low as $9/unit (Allergan & US distributors only), lip filler $450, dermal fillers from $650 — all five FDA-approved neurotoxins with nurse practitioner oversight and honest dosing at Hello Gorgeous in Oswego.",
   trustLine:
     "Only Fox Valley med spa with Botox, Dysport, Jeuveau, Xeomin & Daxxify on one menu — plus Lip Studio AI preview and full-face filler mapping.",
   phoneDisplay: "(630) 636-6193",
@@ -45,7 +45,7 @@ export const INJECTABLES_MARKETING = {
 } as const;
 
 export const INJECTABLES_INTRO_SPECIAL = {
-  badge: "First-time Botox $10/unit",
+  badge: "Botox as low as $9/unit",
   title: "Neurotoxins — all 5 brands",
   priceLabel: "$10",
   priceNote: "per unit · Botox · free consult",
@@ -226,6 +226,6 @@ export function isInjectablesNavActive(pathname: string | null): boolean {
 export const INJECTABLES_SEO = {
   title: "Botox & Fillers | All 5 Neurotoxins · Lip Filler $450 | Hello Gorgeous Oswego",
   description:
-    "Botox $10/unit, lip filler $450, dermal fillers from $650 at Hello Gorgeous Med Spa Oswego IL — all 5 neurotoxins, NP-led injectors, Lip Studio preview. Free consult.",
+    "Botox as low as $9/unit (Allergan & US distributors only), lip filler $450, dermal fillers from $650 at Hello Gorgeous Med Spa Oswego IL — all 5 neurotoxins, NP-led injectors, Lip Studio preview. Free consult.",
   ogAlt: "Botox and dermal fillers — Hello Gorgeous Med Spa Oswego IL",
 } as const;

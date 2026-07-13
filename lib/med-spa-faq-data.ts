@@ -395,7 +395,7 @@ export const MED_SPA_FAQ_SECTIONS: readonly FAQPageSection[] = [
       {
         question: "Have you won any awards?",
         answer:
-          "Yes! Hello Gorgeous has been voted #1 Best Med Spa in Oswego, Best Skincare Clinic, Best Medical Weight Loss, and Best Facial Treatments. We also have 4.9 stars on Google!",
+          "Yes! Hello Gorgeous has been voted #1 Best Med Spa in Oswego, Best Skincare Clinic, Best Medical Weight Loss, and Best Facial Treatments. We also have 4.6 stars on Google (145+ reviews) and 5.0 on Fresha from 1,900+ clients!",
       },
       {
         question: "Why does having all three InMode devices matter?",

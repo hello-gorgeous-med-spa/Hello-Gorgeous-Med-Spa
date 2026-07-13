@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 };
 const FAQS = [
   { question: 'Where can I get a lip flip near Naperville, IL?', answer: 'Hello Gorgeous Med Spa in Oswego is 15 minutes from Naperville via Route 34. We offer Botox lip flips starting at $40 — just 4–6 units that subtly reveal a fuller, more lifted upper lip. Zero downtime.' },
-  { question: 'How much does a lip flip cost near Naperville?', answer: 'A lip flip at Hello Gorgeous starts at $40–$80 (4–6 units at $10/unit). It\'s one of the most affordable enhancements we offer. 15 minutes from Naperville via Route 34.' },
+  { question: 'How much does a lip flip cost near Naperville?', answer: 'A lip flip at Hello Gorgeous starts at about $36–$54 (4–6 units at as low as $9/unit). It\'s one of the most affordable enhancements we offer. 15 minutes from Naperville via Route 34.' },
   { question: 'Is the lip flip different from lip filler near Naperville?', answer: 'Yes — a lip flip uses Botox to relax the upper lip muscle and reveal more of your natural lip (no volume added). Filler adds actual volume. Many clients near Naperville combine both for a comprehensive result.' },
 ];
 export default function LipFlipNapervillePage() {

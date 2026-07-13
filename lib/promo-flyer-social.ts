@@ -72,7 +72,7 @@ Book your lab panel — link below.`,
     label: "Signature Treatment Menu poster",
     message: `✨ Signature Treatment Menu at Hello Gorgeous Med Spa — Oswego, IL
 
-💉 First-time Botox $10/unit
+💉 Botox as low as $9/unit (Allergan · US distributors only)
 💋 Lip filler $450 (2 syringes $399 each)
 ⚡ Quantum RF — neck $2,499 · abdomen $3,999 · FREE Morpheus8 Burst
 🔥 Morpheus8 Burst — 3 for $1,999

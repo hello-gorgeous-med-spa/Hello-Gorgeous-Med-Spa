@@ -66,13 +66,10 @@ export const SITE = {
     { dayOfWeek: ["Sunday"], opens: "10:00", closes: "17:00" },
   ] as const,
   priceRange: "$$$" as const,
-  /** Static fallback for AggregateRating — synced from live Google Places API
-   *  on 2026-06-10 (4.4 / 117). The site head schema in `app/layout.tsx` pulls
-   *  live data via `getLiveAggregateRating()` and stays accurate daily; this
-   *  static value is only used if the Places API is unreachable. Visible UI
-   *  surfaces (Footer, Hero, RealPatientReviews) read these values directly. */
-  reviewRating: "4.4",
-  reviewCount: "117",
+  /** Static fallback for AggregateRating — synced from live Google Places
+   *  on 2026-07-13 (4.6 / 145+). Layout prefers live Places when available. */
+  reviewRating: "4.6",
+  reviewCount: "145",
   /** Fresha (booking platform) lifetime social proof — a perfect 5.0★ across
    *  1,931 verified post-appointment reviews. Used for on-site trust badges
    *  and marketing copy. NOT emitted as Google review-snippet schema, because

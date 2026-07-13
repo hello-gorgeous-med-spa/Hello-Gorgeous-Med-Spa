@@ -13,7 +13,7 @@ export const BOTOX_OSWEGO_MENU: ServiceMenuConfig = {
   hero: {
     eyebrow: "Oswego, IL · Kendall County · All 5 neurotoxin brands",
     titleBefore: "Botox in Oswego, IL —",
-    titleAccent: "From $10/unit",
+    titleAccent: "As low as $9/unit",
     subtitle: page.valueProp,
     primaryCta: { label: "Book Free Consultation", href: page.bookingUrl ?? BOOKING_URL },
     secondaryCta: { label: "Full injectables menu", href: "/services/injectables" },
@@ -25,16 +25,16 @@ export const BOTOX_OSWEGO_MENU: ServiceMenuConfig = {
       title: "Botox & neurotoxin pricing",
       description:
         page.pricing ??
-        "Botox is $10 per unit at Hello Gorgeous. You approve units before we inject — no surprises at checkout.",
+        "Botox is as low as $9 per unit at Hello Gorgeous — authentic Allergan product from US distributors only. You approve units before we inject — no surprises at checkout.",
       highlights: [
-        "Botox $10/unit — published openly, no membership required",
+        "Botox as low as $9/unit — Allergan & US distributors only",
         "Dysport $14/unit · Jeuveau $11/unit · Xeomin & Daxxify at consult",
         "Typical upper face: 20–40 units total",
         "Forehead · 11s · crow's feet · lip flip · masseter & more",
         "Men often need more units — we assess in motion at consult",
       ],
       pricing: [
-        { label: "Botox", price: "$10/unit", href: BOTOX_OSWEGO_PATH },
+        { label: "Botox", price: "As low as $9/unit", href: BOTOX_OSWEGO_PATH },
         { label: "Jeuveau", price: "$11/unit", href: "/jeuveau-oswego" },
         { label: "Dysport", price: "$14/unit", href: "/dysport-oswego", note: "Often 2–3× Botox units" },
         { label: "Xeomin", price: "Consult", href: "/xeomin-oswego-il" },
@@ -42,7 +42,7 @@ export const BOTOX_OSWEGO_MENU: ServiceMenuConfig = {
         { label: "Lip flip", price: "From $99", href: "/lip-flip-oswego-il", note: "~4 units" },
       ],
       learnMoreHref: "/services/injectables",
-      badge: "$10/UNIT",
+      badge: "FROM $9/UNIT",
     },
     {
       id: "why",

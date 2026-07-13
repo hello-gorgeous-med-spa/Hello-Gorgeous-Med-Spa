@@ -34,7 +34,7 @@ export const REGENERATIVE_NAV: {
         {
           label: "Microneedling Menu",
           href: "/services/microneedling",
-          sub: "Classic $249 · Baby Tox · exosomes · Morpheus8 from $850",
+          sub: "Classic $249 · Baby Tox · exosomes · Morpheus8 from $799",
           badge: "MENU",
         },
         {

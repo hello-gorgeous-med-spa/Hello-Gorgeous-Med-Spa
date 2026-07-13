@@ -6,12 +6,12 @@ import { SITE } from "@/lib/seo";
  * Keep identical across site, GBP, directories, and /api/public/ai-profile.
  */
 
-/** Short extractable About paragraph (1-3 sentences). */
+/** Short extractable About paragraph (owner-approved Oswego page copy). */
 export const HG_ABOUT_EXTRACT =
-  `Hello Gorgeous Med Spa is a nurse-practitioner-directed medical aesthetics clinic at ${SITE.address.streetAddress}, ${SITE.address.addressLocality}, ${SITE.address.addressRegion} ${SITE.address.postalCode}. A licensed provider is on site; every client is medically screened before treatment. We serve Oswego, Naperville, Aurora, Plainfield, Yorkville, and Montgomery with injectables, Morpheus8, QuantumRF, Solaria CO₂, medical weight loss, hormone therapy, peptides, and IV care.` as const;
+  `Hello Gorgeous Med Spa is a nurse-practitioner-directed medical aesthetics clinic in Oswego, IL, serving Oswego, Naperville, Aurora, Plainfield, Yorkville, and Montgomery. We offer medical weight loss, Botox and dermal fillers, Morpheus8 RF microneedling, laser treatments, peptide and hormone therapy, IV/vitamin therapy, and our RE GEN telehealth prescription line. Every client is medically screened, and all prescriptions require provider approval. Founders Dani & Ryan Kent, FNP-BC lead the practice. ${SITE.address.streetAddress}, ${SITE.address.addressLocality}, ${SITE.address.addressRegion} ${SITE.address.postalCode} · ${SITE.phone}.` as const;
 
 /** Slightly longer block for on-page About sections. */
-export const HG_ABOUT_BLOCK = `${HG_ABOUT_EXTRACT} ${HG_TAGLINE} Book online or call ${SITE.phone}.` as const;
+export const HG_ABOUT_BLOCK = `${HG_ABOUT_EXTRACT} ${HG_TAGLINE}` as const;
 
 /** Core AEO Q&A — lead with the direct answer, then detail. */
 export const HG_CORE_AEO_FAQS = [

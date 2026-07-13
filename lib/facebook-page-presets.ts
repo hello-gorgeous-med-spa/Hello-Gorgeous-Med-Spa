@@ -112,7 +112,7 @@ export const FACEBOOK_PAGE_PRESET_SIGNATURE_MENU: FacebookPagePreset = {
   blurb: "Full menu poster — Botox, filler, InMode Trifecta.",
   message: `✨ Our Signature Treatment Menu is live at Hello Gorgeous Oswego.
 
-Botox $10/unit (first-time) · Lip filler $450 · Morpheus8 Burst 3×$1,999 · Solaria CO₂ $899 · Quantum RF · Trifecta package with FREE CO₂.
+Botox as low as $9/unit (first-time) · Lip filler $450 · Morpheus8 Burst 3×$1,999 · Solaria CO₂ $899 · Quantum RF · Trifecta package with FREE CO₂.
 
 NP on site 7 days a week. Book online 👇`,
   linkPath: withUtm("/specials"),
@@ -294,7 +294,7 @@ export const FACEBOOK_PAGE_PRESET_AURORA: FacebookPagePreset = {
   blurb: "Local geo post for Aurora clients.",
   message: `📍 Aurora — your med spa is closer than you think.
 
-Just ~20 minutes west on Route 30 (minutes from North Aurora & Montgomery), Hello Gorgeous brings medical-grade care to the Fox Valley: Botox $10/unit, fillers, medical weight loss, Morpheus8 Burst & laser — with a full-authority NP on site.
+Just ~20 minutes west on Route 30 (minutes from North Aurora & Montgomery), Hello Gorgeous brings medical-grade care to the Fox Valley: Botox as low as $9/unit, fillers, medical weight loss, Morpheus8 Burst & laser — with a full-authority NP on site.
 
 We screen you like a medical practice, because we are one. Free consult — book below 👇`,
   linkPath: withUtm("/aurora-il"),
@@ -308,7 +308,7 @@ export const FACEBOOK_PAGE_PRESET_NAPERVILLE: FacebookPagePreset = {
   blurb: "Local geo post for Naperville clients.",
   message: `📍 Naperville — your med spa is just a short drive away.
 
-About 15 minutes south on Route 59, Hello Gorgeous brings medical-grade care to the western suburbs: Botox $10/unit, fillers, medical weight loss, Morpheus8 Burst & laser — with a full-authority NP on site.
+About 15 minutes south on Route 59, Hello Gorgeous brings medical-grade care to the western suburbs: Botox as low as $9/unit, fillers, medical weight loss, Morpheus8 Burst & laser — with a full-authority NP on site.
 
 We screen you like a medical practice, because we are one. Free consult — book below 👇`,
   linkPath: withUtm("/naperville-il"),
@@ -322,7 +322,7 @@ export const FACEBOOK_PAGE_PRESET_OSWEGO: FacebookPagePreset = {
   blurb: "Hometown post for Oswego clients.",
   message: `📍 Oswego — your hometown med spa.
 
-Voted #1 Best Med Spa in Oswego. Right in downtown at 74 W. Washington St., we offer Botox $10/unit, fillers, medical weight loss, Morpheus8 Burst, Quantum RF & Solaria CO₂ — all under one roof, with a full-authority NP on site.
+Voted #1 Best Med Spa in Oswego. Right in downtown at 74 W. Washington St., we offer Botox as low as $9/unit, fillers, medical weight loss, Morpheus8 Burst, Quantum RF & Solaria CO₂ — all under one roof, with a full-authority NP on site.
 
 Free consult — book below 👇`,
   linkPath: withUtm("/best-med-spa-oswego-il"),
@@ -336,7 +336,7 @@ export const FACEBOOK_PAGE_PRESET_MONTGOMERY: FacebookPagePreset = {
   blurb: "Local geo post for Montgomery clients.",
   message: `📍 Montgomery — your med spa is right next door.
 
-Less than 10 minutes away in downtown Oswego, Hello Gorgeous brings medical-grade care to the Fox Valley: Botox $10/unit, fillers, medical weight loss, Morpheus8 Burst & laser — with a full-authority NP on site.
+Less than 10 minutes away in downtown Oswego, Hello Gorgeous brings medical-grade care to the Fox Valley: Botox as low as $9/unit, fillers, medical weight loss, Morpheus8 Burst & laser — with a full-authority NP on site.
 
 We screen you like a medical practice, because we are one. Free consult — book below 👇`,
   linkPath: withUtm("/montgomery-il"),
@@ -350,7 +350,7 @@ export const FACEBOOK_PAGE_PRESET_PLAINFIELD: FacebookPagePreset = {
   blurb: "Local geo post for Plainfield clients.",
   message: `📍 Plainfield — your med spa is just a short drive away.
 
-About 15 minutes north on Route 126, Hello Gorgeous brings medical-grade care to Will County: Botox $10/unit, fillers, medical weight loss, Morpheus8 Burst & laser — with a full-authority NP on site.
+About 15 minutes north on Route 126, Hello Gorgeous brings medical-grade care to Will County: Botox as low as $9/unit, fillers, medical weight loss, Morpheus8 Burst & laser — with a full-authority NP on site.
 
 We screen you like a medical practice, because we are one. Free consult — book below 👇`,
   linkPath: withUtm("/plainfield-il"),
@@ -364,7 +364,7 @@ export const FACEBOOK_PAGE_PRESET_YORKVILLE: FacebookPagePreset = {
   blurb: "Local geo post for Yorkville clients.",
   message: `📍 Yorkville — your med spa is just up Route 34.
 
-About 10 minutes east in downtown Oswego, Hello Gorgeous brings medical-grade care to Kendall County: Botox $10/unit, fillers, medical weight loss, Morpheus8 Burst & laser — with a full-authority NP on site.
+About 10 minutes east in downtown Oswego, Hello Gorgeous brings medical-grade care to Kendall County: Botox as low as $9/unit, fillers, medical weight loss, Morpheus8 Burst & laser — with a full-authority NP on site.
 
 We screen you like a medical practice, because we are one. Free consult — book below 👇`,
   linkPath: withUtm("/yorkville-il"),
@@ -390,9 +390,9 @@ Read why this matters for YOUR safety — and how to spot a provider who cuts co
 
 export const FACEBOOK_PAGE_PRESET_BOTOX_49: FacebookPagePreset = {
   id: "botox-10-unit",
-  label: "Botox — $10/unit (Oswego)",
+  label: "Botox — as low as $9/unit (Oswego)",
   blurb: "Honest pricing · NP on site · #1 Best Med Spa.",
-  message: `💉 Botox in Oswego — $10/unit at Hello Gorgeous.
+  message: `💉 Botox in Oswego — as low as $9/unit at Hello Gorgeous.
 
 Honest, published pricing — the same for everyone, no membership required. Botox · Dysport · Jeuveau.
 
@@ -414,7 +414,7 @@ export const FACEBOOK_PAGE_PRESET_BOTOX_AUTHENTIC: FacebookPagePreset = {
 
 We use only authentic, FDA-approved product from licensed distributors — and Ryan Kent, FNP-BC oversees every protocol on site.
 
-No revolving door of providers. No mystery pricing. No upsell pressure. Just $10/unit Botox done right in downtown Oswego.
+No revolving door of providers. No mystery pricing. No upsell pressure. Just as low as $9/unit Botox done right in downtown Oswego.
 
 Free consult — book below 👇`,
   linkPath: withUtm("/botox-oswego"),
@@ -430,7 +430,7 @@ export const FACEBOOK_PAGE_PRESET_BOTOX_COMPARE: FacebookPagePreset = {
 
 All three relax the muscles that cause expression lines. The difference is onset, spread & feel — and we carry all three so we can match you to the best one.
 
-Botox $10/unit · Dysport $14/unit · Jeuveau $11/unit. Ryan Kent, FNP-BC, Oswego IL.
+Botox as low as $9/unit · Dysport $14/unit · Jeuveau $11/unit. Ryan Kent, FNP-BC, Oswego IL.
 
 Free consult to figure out your plan 👇`,
   linkPath: withUtm("/botox-oswego"),
@@ -441,10 +441,10 @@ Free consult to figure out your plan 👇`,
 export const FACEBOOK_PAGE_PRESET_BOTOX_NAPERVILLE: FacebookPagePreset = {
   id: "botox-naperville",
   label: "Botox near Naperville",
-  blurb: "Geo post — $10/unit, ~15 min from Naperville.",
+  blurb: "Geo post — as low as $9/unit, ~15 min from Naperville.",
   message: `📍 Naperville — Botox is closer (and more honest) than you think.
 
-Hello Gorgeous in downtown Oswego (~15 min) does Botox at $10/unit with a licensed NP on site — Botox, Dysport & Jeuveau, free consultation, same-day often available.
+Hello Gorgeous in downtown Oswego (~15 min) does Botox at as low as $9/unit with a licensed NP on site — Botox, Dysport & Jeuveau, free consultation, same-day often available.
 
 No mystery pricing. No upsell. Book below 👇`,
   linkPath: withUtm("/botox-naperville-il"),
@@ -458,7 +458,7 @@ export const FACEBOOK_PAGE_PRESET_BOTOX_AI: FacebookPagePreset = {
   blurb: "Screenshot-style social proof — swap in your AI answer.",
   message: `🤖💕 We asked AI "where do I go for Botox in Oswego, IL?" — and it picked Hello Gorgeous.
 
-Why? Licensed nurse practitioner (Ryan Kent, FNP-BC) · authentic, FDA-approved product · honest $10/unit pricing · natural, refreshed results — not frozen.
+Why? Licensed nurse practitioner (Ryan Kent, FNP-BC) · authentic, FDA-approved product · honest as low as $9/unit pricing · natural, refreshed results — not frozen.
 
 When even the internet agrees, you know you're in good hands. 😉
 
@@ -478,7 +478,7 @@ export const FACEBOOK_PAGE_PRESET_BOTOX_NATURAL: FacebookPagePreset = {
 
 Looking for Botox in Oswego, IL? At Hello Gorgeous we focus on facial balance, conservative dosing & customized plans — softening fine lines while keeping your expressions beautiful and natural. Never frozen, never overdone.
 
-$10/unit · Ryan Kent, FNP-BC · authentic FDA-approved product · free consult.
+as low as $9/unit · Ryan Kent, FNP-BC · authentic FDA-approved product · free consult.
 
 Book below 👇`,
   linkPath: withUtm("/botox-oswego"),

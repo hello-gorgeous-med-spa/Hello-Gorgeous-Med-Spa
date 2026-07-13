@@ -16,8 +16,8 @@ const serviceDatabase: Record<string, ServiceRecommendation & { upsells: string[
   botox: {
     id: "botox",
     name: "Botox",
-    price: "$10/unit",
-    description: "Smooth wrinkles and prevent new ones. Results in 3-7 days.",
+    price: "As low as $9/unit",
+    description: "Smooth wrinkles and prevent new ones. Allergan & US distributors only. Results in 3-7 days.",
     bookingUrl: BOOKING_URL,
     upsells: ["lip-flip", "vitamin-b12"],
   },

@@ -4,7 +4,7 @@ import { SITE } from "@/lib/seo";
 
 export const SIGNATURE_MENU_POSTER = {
   src: "/images/promo/signature-treatment-menu-poster.png",
-  alt: "Hello Gorgeous Med Spa Signature Treatment Menu — Botox $10/unit, lip filler, Morpheus8 Burst, Quantum RF, Solaria CO2, Trifecta package — Oswego IL",
+  alt: "Hello Gorgeous Med Spa Signature Treatment Menu — Botox as low as $9/unit, lip filler, Morpheus8 Burst from $799, Quantum RF, Solaria CO2 $899 BOGO, Trifecta package — Oswego IL",
 } as const;
 
 import { SPECIALS_PATH } from "@/lib/specials";
@@ -31,8 +31,9 @@ export const SIGNATURE_MENU_SECTIONS: {
     heading: "Injectable specials",
     items: [
       {
-        title: "First-time client Botox",
-        price: "$10 per unit",
+        title: "Botox",
+        price: "As low as $9 per unit",
+        details: ["Allergan & US distributors only"],
         href: "/botox-oswego",
       },
       {
@@ -67,6 +68,15 @@ export const SIGNATURE_MENU_SECTIONS: {
     heading: "Morpheus8 Burst",
     items: [
       {
+        title: "Morpheus8 treatments",
+        price: "From $799",
+        details: [
+          "Fine lines · acne scars · skin laxity",
+          "Texture · collagen stimulation",
+        ],
+        href: "/morpheus8-burst-oswego",
+      },
+      {
         title: "3-treatment package",
         price: "$1,999",
         details: [
@@ -86,6 +96,7 @@ export const SIGNATURE_MENU_SECTIONS: {
         title: "Solaria CO₂ resurfacing",
         price: "$899",
         details: [
+          "Buy one get one free area",
           "Texture · wrinkles · sun damage",
           "Pores · tone · radiance",
         ],
@@ -111,11 +122,11 @@ export const SIGNATURE_MENU_SECTIONS: {
 export const SIGNATURE_MENU_SOCIAL = {
   message: `✨ Signature Treatment Menu at Hello Gorgeous Med Spa — Oswego, IL
 
-💉 First-time Botox $10/unit
+💉 Botox as low as $9/unit (Allergan · US distributors only)
 💋 Lip filler $450 (2 syringes $399 each)
 ⚡ Quantum RF — neck $2,499 · abdomen $3,999 · FREE Morpheus8 Burst
-🔥 Morpheus8 Burst — 3 for $1,999
-✨ Solaria CO₂ full resurfacing — $899
+🔥 Morpheus8 Burst — from $799 · 3 for $1,999
+✨ Solaria CO₂ — $899 with buy-one-get-one-free area
 👑 Trifecta: Morpheus8 + Quantum RF + FREE Solaria CO₂
 
 Family-owned · NP on site 7 days a week.

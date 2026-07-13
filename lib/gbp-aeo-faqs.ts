@@ -8,7 +8,7 @@ const TREATMENT_FAQ_TEMPLATES: Record<
   "botox-dysport-jeuveau": {
     howLong:
       "Most clients see neuromodulator results for about 3–4 months. Hello Gorgeous Med Spa in Oswego, IL uses NP-directed dosing for natural results.",
-    cost: "Botox starts at $10/unit for new clients at Hello Gorgeous in Oswego. Exact units and cost are confirmed at your NP-directed consult.",
+    cost: "Botox is as low as $9/unit at Hello Gorgeous in Oswego — authentic Allergan product from US distributors only. Exact units and cost are confirmed at your NP-directed consult.",
     isSafe:
       "Yes — Botox is FDA-approved. At Hello Gorgeous Med Spa, injectors use precise NP-supervised dosing after medical screening.",
     candidacy:
@@ -17,7 +17,7 @@ const TREATMENT_FAQ_TEMPLATES: Record<
   "weight-loss-therapy": {
     howLong:
       "Many clients notice changes within the first few months on an NP-directed plan. Timelines vary; Hello Gorgeous does not guarantee outcomes.",
-    cost: "Pricing depends on your medically approved plan. Hello Gorgeous outlines costs during consult — prescriptions require provider approval.",
+    cost: "Medical weight loss programs start at $195/month (lowest injectable GLP-1 dose tier). Hello Gorgeous outlines your plan cost at consult — prescriptions require provider approval.",
     isSafe:
       "Yes when medically appropriate — programs are NP-directed with screening and monitoring. Prescriptions are not dispensed without provider review.",
     candidacy:
@@ -68,7 +68,7 @@ const TREATMENT_FAQ_TEMPLATES: Record<
   "solaria-co2": {
     howLong:
       "Solaria CO₂ downtime and remodeling timelines vary by depth. Hello Gorgeous maps expectations honestly before you book.",
-    cost: "CO₂ resurfacing pricing depends on settings and areas treated; confirmed at your Oswego consult.",
+    cost: "Solaria CO₂ fractional laser is $899, with a buy-one-get-one-free area special. Settings and areas are confirmed at your Oswego consult.",
     isSafe:
       "Fractional CO₂ is medical-grade. Not every skin type is a candidate for every setting — Hello Gorgeous screens carefully.",
   },
@@ -79,7 +79,7 @@ const TREATMENT_FAQ_TEMPLATES: Record<
   },
   "rf-microneedling": {
     howLong: "Many protocols use a series; collagen changes build over weeks. Plans are personalized in Oswego.",
-    cost: "RF microneedling pricing depends on device and areas; confirmed at consultation.",
+    cost: "Morpheus8 RF microneedling treatments start at $799. Area and series plans are confirmed at consultation.",
     isSafe: "RF microneedling is performed under medical protocols after screening at Hello Gorgeous.",
   },
 };

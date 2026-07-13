@@ -27,7 +27,7 @@ export const metadata: Metadata = {
 
 const FAQS = [
   { question: 'What is a Botox lip flip?', answer: 'A lip flip uses 4–6 units of Botox injected into the orbicularis oris muscle along the upper lip border. This relaxes the muscle and causes the upper lip to subtly "flip" upward and outward, creating the appearance of a fuller, more defined lip — without filler.' },
-  { question: 'How much does a lip flip cost in Oswego, IL?', answer: 'A lip flip at Hello Gorgeous starts at $40–$80 depending on the number of units needed (typically 4–6 units at $10/unit). It\'s one of the most affordable cosmetic treatments we offer.' },
+  { question: 'How much does a lip flip cost in Oswego, IL?', answer: 'A lip flip at Hello Gorgeous starts at about $36–$54 depending on units needed (typically 4–6 units at as low as $9/unit). It\'s one of the most affordable cosmetic treatments we offer.' },
   { question: 'What\'s the difference between a lip flip and lip filler?', answer: 'A lip flip relaxes the upper lip muscle to reveal more of your existing lip — it doesn\'t add volume. Lip filler (hyaluronic acid) adds actual volume and definition. Many clients do both for a comprehensive lip enhancement.' },
   { question: 'How long does a Botox lip flip last?', answer: 'A lip flip typically lasts 6–8 weeks — shorter than other Botox areas because the lips move frequently with eating, talking, and expression. Many clients repeat every 2 months to maintain the look.' },
   { question: 'Is a lip flip painful?', answer: 'Most clients describe it as a tiny pinch — the needle is very fine and only 4–6 injection points are made. Numbing cream is available upon request. Downtime is essentially zero.' },

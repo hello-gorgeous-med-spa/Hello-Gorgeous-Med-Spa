@@ -607,7 +607,7 @@ function ServiceDetailPage({ serviceSlug }: { serviceSlug: string }) {
                 Estimate Your Treatment Cost
               </h2>
               <p className="mt-3 text-xl text-black/80 max-w-2xl mx-auto">
-                Select your areas below to see a personalized unit range and price estimate. We charge $10/unit at Hello Gorgeous.
+                Select your areas below to see a personalized unit range and price estimate. We charge as low as $9/unit at Hello Gorgeous.
               </p>
             </div>
             <BotoxCalculator embedded={true} />

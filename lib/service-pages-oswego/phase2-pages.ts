@@ -13,106 +13,75 @@ export const PHASE2_PAGES: ServicePageData[] = [
     serviceName: "Botox",
     fullServiceName: "Botox Cosmetic",
     targetKeyword: "botox oswego",
-    metaTitle: "Botox in Oswego, IL — $10/unit",
-    metaDescription: "Botox in Oswego from $10/unit. NP-supervised. Same-day appointments. 10+ year family-owned med spa. Free consultations. Voted Best of Oswego.",
-    h1: "Botox in Oswego, IL — From $10/unit",
-    valueProp: "Honest pricing. A real nurse practitioner on site every day. The same hands that have been doing this for 10 years.",
+    metaTitle: "Botox in Oswego, IL — from $9/unit",
+    metaDescription: "Expert Botox in Oswego, IL by our medical injector team. Natural results, honest pricing as low as $9/unit (Allergan & US distributors only). Free consult — serving Oswego, Naperville & Aurora.",
+    h1: "Botox in Oswego. Natural-Looking. Expertly Placed.",
+    valueProp: "Great Botox looks like you, refreshed — never frozen. Medical injectors, Allergan-branded product from US distributors only, as low as $9/unit.",
     bookingUrl: bookingUrlFor(),
     procedureType: "Injection",
     bodyLocation: "Face, neck",
     tier: "contested",
-    heroContent: "Botox is the treatment most people start with — and we want yours to be a great experience. At Hello Gorgeous, Botox is $10 per unit, performed by a medical team that has been working in this practice for 10+ years, and supervised by Ryan Kent, FNP-BC with full medical authority on site. No revolving door of providers. No mystery pricing. No upsell pressure. Just real medical aesthetics from a family-owned practice that has been here longer than most of our competitors have been open.",
+    heroContent: "Great Botox looks like you, refreshed — never frozen. At Hello Gorgeous in Oswego, your treatment is placed by skilled medical injectors who tailor every unit to your face and goals. Smooth lines, keep your expressions, and do it in a real medical setting you can trust. We use authentic Allergan Botox Cosmetic (and other FDA-approved neurotoxins from US distributors only) — never gray-market product.",
     whyBullets: [
-      "$10 per unit — published openly, the same price for everyone, no membership required",
-      "Ryan Kent, FNP-BC on site 7 days a week — not a remote MD signing off from another state",
-      "Same-day appointments available — call us before noon and we'll usually fit you in",
-      "10+ years of injecting experience — our hands know what they're doing",
-      "Free consultation, every time — we won't talk you into units you don't need",
-      "Voted #1 Best Med Spa in Oswego and Best Skincare in Oswego — multiple years running"
+      "Medical injector team in an NP-directed setting",
+      "Natural, tailored results — not frozen",
+      "Honest per-unit pricing as low as $9/unit",
+      "Authentic Allergan Botox & US-distributor product only",
+      "5.0★ from 1,900+ Fresha clients · Google 4.6★ (145+ reviews)",
+      "Free consult — serving Oswego, Naperville & Aurora",
     ],
     howItWorksParagraphs: [
-      "Botox is a neuromodulator — a precisely placed medication that temporarily relaxes specific muscles in the face. When a small amount of Botox is injected into the muscles that cause expression lines (like the 11s between your brows or the lines across your forehead), those muscles relax, and the skin above them smooths out. Results begin to appear in 3–5 days, with full effect at 10–14 days. Botox is FDA-approved, has been used cosmetically since 2002, and has one of the strongest long-term safety records in medicine. It is not surgery, it is not permanent, and it does not 'change your face' — it softens the movements that create the lines, while leaving you looking like yourself, only more rested."
+      "Botox is a neuromodulator — a precisely placed medication that temporarily relaxes specific muscles in the face. When a small amount is injected into the muscles that cause expression lines (like the 11s between your brows or the lines across your forehead), those muscles relax, and the skin above them smooths out. Results begin to appear in 3–5 days, with full effect at 10–14 days. It is not surgery, it is not permanent, and it does not change your face — it softens the movements that create the lines, while leaving you looking like yourself, only more rested.",
     ],
     whatToExpectSteps: [
-      "Free consultation — Ryan or a senior member of our team sits with you, looks at your face in motion, listens to what bothers you, and tells you honestly how many units would address it. No pressure to commit.",
-      "Pre-treatment: we wipe the injection sites with alcohol and use a fine needle. Topical numbing is available if you prefer, but most clients don't need it for Botox — the needle is very small and the injections are quick.",
-      "Treatment: the actual injection takes about 5–10 minutes for a full face. You'll feel a small pinch at each injection site. We provide ice packs immediately after to reduce any bruising risk.",
+      "Free consultation — we look at your face in motion, listen to what bothers you, and tell you honestly how many units would address it. No pressure to commit.",
+      "Pre-treatment: we wipe the injection sites with alcohol and use a fine needle. Topical numbing is available if you prefer.",
+      "Treatment: the actual injection takes about 5–10 minutes for a full face. You'll feel a small pinch at each injection site.",
       "Aftercare: stay upright for 4 hours. No working out, no heavy makeup, no lying flat. We send you home with a written aftercare card.",
-      "Follow-up: come back at day 14 for a free assessment. If anything is uneven or didn't take fully, we touch it up at no charge per our policy."
+      "Follow-up: come back at day 14 for a free assessment. If anything is uneven or didn't take fully, we touch it up per our policy.",
     ],
-    pricing: "Botox is $10 per unit at Hello Gorgeous. Most clients need 20–30 units for forehead and 11s combined, 8–12 units for crow's feet, and 4 units for a lip flip. We give you the exact unit recommendation at your free consultation, you approve before we inject, and you only pay for the units we use. We also offer Dysport ($14/unit) and Jeuveau ($11/unit) — same family of treatments, slightly different formulations. If you've never had any of them, we'll help you pick what's right for you.",
+    pricing: "Botox is as low as $9 per unit at Hello Gorgeous — authentic Allergan Botox Cosmetic and other FDA-approved neurotoxins from US distributors only. Most clients need 20–30 units for forehead and 11s combined, 8–12 units for crow's feet, and 4 units for a lip flip. We give you the exact unit recommendation at your free consultation, you approve before we inject, and you only pay for the units we use. We also offer Dysport and Jeuveau — same family of treatments, slightly different formulations.",
     faqs: [
       {
-        "q": "How much does Botox cost in Oswego?",
-        "a": "At Hello Gorgeous, Botox is $10 per unit. Most clients spend $200–$400 per visit depending on how many areas they treat. We give you a clear unit recommendation at your free consultation, you approve before we inject, and there are no surprises at checkout."
+        q: "How much is Botox in Oswego?",
+        a: "Our Botox starts as low as $9 per unit. The total depends on the areas treated — we'll give you a clear quote at your free consult before anything begins. Product is authentic Allergan Botox Cosmetic (and other FDA-approved neurotoxins) from US distributors only.",
       },
       {
-        "q": "How long does Botox last?",
-        "a": "Botox typically lasts 3–4 months. Some clients metabolize it faster (closer to 3 months) and others get a bit longer. Most clients settle into a rhythm of 3 visits per year. With consistent treatment over 1–2 years, the muscles stay weaker between visits and you may find you need slightly less product over time."
+        q: "Will Botox make me look frozen?",
+        a: "No — our injectors aim for natural, refreshed results that keep your expressions. We tailor the dose and placement to your face and comfort level.",
       },
       {
-        "q": "Does Botox hurt?",
-        "a": "Most clients describe it as a quick pinch at each injection site. The needle is very fine and the injections are fast. Topical numbing is available if you'd prefer, but most clients don't need it. If you're nervous, tell us — we'll go slower and check in with you."
+        q: "Who performs the injections?",
+        a: "Treatments are performed by our trained medical injector team in a nurse-practitioner-directed medical setting — not a salon.",
       },
       {
-        "q": "Will Botox make me look 'frozen' or 'fake'?",
-        "a": "Not if it's dosed correctly. Frozen faces come from over-treatment — too many units, too often, in the wrong areas. Our philosophy is conservative dosing for natural movement, especially for first-time clients. You should still be able to express emotion. We'd rather under-treat and have you come back for more than over-treat and have you look like someone else for the next 3 months."
+        q: "Is your Botox authentic?",
+        a: "Yes. We use Allergan-branded Botox Cosmetic and other FDA-approved neurotoxins sourced from US distributors only — never gray-market or unverified product.",
       },
       {
-        "q": "What's the difference between Botox, Dysport, and Jeuveau?",
-        "a": "All three are neuromodulators in the same family. Botox is the original. Dysport tends to spread slightly more (better for larger areas like the forehead) and kicks in a day or two faster. Jeuveau is a newer formulation often called the 'millennial Botox' — same mechanism, sometimes a slightly different feel. We carry all three because some clients respond better to one than another. We'll help you figure out what's right for you."
+        q: "How long does Botox last?",
+        a: "Most clients see results for about 3–4 months. Timing varies by area, dose, and how expressive your face is. Most clients settle into a rhythm of about 3 visits per year.",
       },
       {
-        "q": "Can I get same-day Botox?",
-        "a": "Often yes. Call us before noon (630-636-6193) and we'll do our best to fit you in. Friday afternoons and weekends are usually our busiest times, but we keep some flexibility for clients who need to be event-ready."
+        q: "Does Botox hurt?",
+        a: "Most clients describe it as a quick pinch at each injection site. The needle is very fine and the injections are fast. Topical numbing is available if you'd prefer.",
       },
       {
-        "q": "Is Botox safe?",
-        "a": "Botox has been FDA-approved for cosmetic use since 2002 and has one of the strongest safety records in medicine. The risks come from inexperienced injectors using improper technique or counterfeit product. At Hello Gorgeous, only licensed medical professionals inject, and we use only authentic product from licensed distributors. Ryan Kent, FNP-BC oversees every protocol."
+        q: "What's the difference between Botox, Dysport, and Jeuveau?",
+        a: "All three are neuromodulators in the same family. Botox is the original Allergan brand. Dysport tends to spread slightly more; Jeuveau is a newer formulation. We carry authentic US-distributor product and help you pick what's right.",
       },
       {
-        "q": "Am I a good candidate for Botox?",
-        "a": "Most healthy adults are candidates. We screen carefully for pregnancy, neuromuscular conditions, certain medications, and history of bad reactions to neurotoxins. Your free consultation is where we confirm fit — and we'll be honest if you'd be better served by something else (like skincare, a different injectable, or simply waiting)."
+        q: "Is Botox safe?",
+        a: "Botox has been FDA-approved for cosmetic use since 2002. Risks rise with inexperienced injectors or counterfeit product. At Hello Gorgeous, licensed medical professionals inject authentic Allergan/US-distributor neurotoxins in an NP-directed setting.",
       },
-      {
-        "q": "Do you offer touch-ups if my Botox doesn't take fully?",
-        "a": "Yes. If at your day-14 follow-up there's true asymmetry or focal under-correction, we touch it up at no charge through day 21. This is part of our standard Service Policy — every Botox client is entitled to a complimentary touch-up within the published window."
-      },
-      {
-        "q": "Who will be injecting my Botox, and are they licensed?",
-        "a": "Your Botox is performed by licensed medical professionals, with Ryan Kent, FNP-BC — a board-certified Family Nurse Practitioner with full medical authority — on site as owner 7 days a week. You're not handed off to a remote MD signing off from another state. Our team has 10+ years of injecting experience in this practice."
-      },
-      {
-        "q": "Is your Botox genuine, FDA-approved product?",
-        "a": "Yes. We use only authentic, FDA-approved neuromodulators sourced from licensed US distributors — genuine Botox Cosmetic (Allergan/AbbVie), Dysport (Galderma), and Jeuveau (Evolus). No counterfeit, no gray-market product. Counterfeit Botox has caused serious adverse events, which is exactly why we verify every vial and only inject in a proper medical setting."
-      },
-      {
-        "q": "Will my Botox look natural, or frozen?",
-        "a": "Natural. Our philosophy is conservative dosing for a refreshed look — you should still be able to express emotion. Frozen results come from over-treatment; we'd rather under-treat and bring you back for a complimentary touch-up than overdo it. Great Botox should look like you, just more rested."
-      },
-      {
-        "q": "How many units of Botox do I need?",
-        "a": "It depends on your muscle strength and the areas you want treated. As a general guide: forehead lines run about 10–20 units, the 11s (between the brows) about 20–25 units, and crow's feet about 8–12 units per side; a lip flip is around 4 units. Most clients treating the upper face use 20–40 units total. Men often need more because of stronger muscles. We assess your face in motion at your free consultation, recommend an exact number, and you approve before we inject — you only pay for the units we use."
-      },
-      {
-        "q": "Who is Botox best for?",
-        "a": "Botox is best for softening dynamic lines — the wrinkles that appear when you move, like forehead lines, the 11s between your brows, and crow's feet. It's also used preventatively by younger clients to keep those lines from etching in, and for a lip flip, brow lift, jaw slimming, and underarm sweating. It is not a filler — it won't replace lost volume or fix deep static lines at rest on its own. At your free consultation we'll tell you honestly whether Botox, filler, skincare, or a combination is the right tool for your goal."
-      },
-      {
-        "q": "Why can cheap Botox be risky?",
-        "a": "Suspiciously cheap Botox is usually a sign of one of three things: counterfeit or gray-market product, over-dilution (so you get fewer real units than you think), or an inexperienced injector working without proper medical oversight. Counterfeit neurotoxin has caused serious adverse events, including hospitalizations. At Hello Gorgeous our $10/unit price is honest and published — we use only authentic, FDA-approved product from licensed US distributors, injected by licensed medical professionals under Ryan Kent, FNP-BC. Affordable should never mean cutting corners on safety."
-      },
-      {
-        "q": "What makes Hello Gorgeous different from a chain med spa?",
-        "a": "We're a family-owned, NP-directed practice that's been in downtown Oswego for 10+ years — not a franchise or a pop-up Botox room. You see the same experienced hands each visit instead of a revolving door of injectors, with Ryan Kent, FNP-BC, on site 7 days a week (not a remote medical director in another state). You get authentic product, honest published pricing with no membership required, conservative natural dosing, a free consultation every time, and a complimentary day-14 follow-up. Add advanced InMode technology and almost 2,000 verified reviews, and you get a level of care chains simply can't replicate."
-      }
     ],
     relatedServices: [
-      "dysport-oswego",
+      "dermal-fillers-oswego",
+      "lip-filler-oswego",
       "jeuveau-oswego",
-      "dermal-fillers-oswego"
     ],
-    closingCta: "Book a free Botox consultation in Oswego. We'll sit with you, look at your face, listen to what bothers you, and tell you honestly what would help. No upsell, no pressure, no mystery pricing.",
+    closingCta:
+      "Book a free Botox consult in Oswego. We'll map your goals, quote units clearly, and keep results natural — as low as $9/unit with authentic Allergan product.",
   },
   {
     slug: "dysport-oswego",
@@ -408,64 +377,56 @@ export const PHASE2_PAGES: ServicePageData[] = [
     serviceName: "Morpheus8 Burst",
     fullServiceName: "Morpheus8 Burst RF Microneedling",
     targetKeyword: "morpheus8 burst oswego",
-    metaTitle: "Morpheus8 Burst in Oswego, IL",
-    metaDescription: "Morpheus8 Burst RF microneedling in Oswego — the deepest InMode platform available. Skin tightening, scar reduction, body contouring. Free consultations.",
-    h1: "Morpheus8 Burst in Oswego, IL",
-    valueProp: "The deepest, most powerful RF microneedling available — and the technology that put Hello Gorgeous on the map.",
+    metaTitle: "Morpheus8 in Oswego, IL — from $799",
+    metaDescription: "Morpheus8 RF microneedling in Oswego, IL — tighten skin, smooth texture, and boost collagen. Treatments from $799. NP-directed, medically supervised. Book your free consult today.",
+    h1: "Morpheus8 in Oswego. Tighten, Smooth, Renew.",
+    valueProp: "Want firmer, smoother skin without surgery? Morpheus8 RF microneedling — from $799 — in an NP-directed medical setting.",
     bookingUrl: bookingUrlFor(),
     procedureType: "RF",
     bodyLocation: "Face, neck, body",
     inModeBadge: "morpheus8",
     tier: "contested",
-    heroContent: "Morpheus8 Burst is InMode's most advanced radiofrequency microneedling platform — and we were one of the first practices in the western Chicago suburbs to invest in it. The 'Burst' version delivers more energy, faster, and deeper than standard Morpheus8, which means dramatic results in fewer sessions for skin tightening, scar reduction, body contouring, and texture remodeling. It's the technology behind why our clients drive in from Naperville, Aurora, Plainfield, and beyond — and the reason we're the InMode practice of choice in this region.",
+    heroContent: "Want firmer, smoother skin without surgery? Morpheus8 combines microneedling with radiofrequency energy to tighten and renew from within — on your face and body. At Hello Gorgeous in Oswego, it's performed in a medical setting by providers who customize every treatment to your skin. Treatments start at $799.",
     whyBullets: [
-      "Morpheus8 Burst — InMode's most advanced microneedling RF, not standard Morpheus8",
-      "Performed by our medical team with Ryan Kent, FNP-BC overseeing every protocol",
-      "Customizable depth: 0.5mm to 7mm — face, neck, body all addressable",
-      "Verified InMode Provider — backed by manufacturer training and clinical protocols",
-      "10+ years of practice, $500K+ invested in InMode equipment",
-      "Free consultation to assess if Morpheus8 Burst is the right fit for your goals"
+      "Advanced RF microneedling technology (Morpheus8 Burst)",
+      "NP-directed & medically supervised",
+      "Face & body — customized to your skin",
+      "Treatments from $799",
+      "5.0★ from 1,900+ Fresha clients · Google 4.6★ (145+ reviews)",
+      "Free consultation",
     ],
     howItWorksParagraphs: [
-      "Morpheus8 Burst combines microneedling with radiofrequency energy. Tiny gold-plated needles penetrate the skin to a controlled, customizable depth — anywhere from 0.5mm for fine texture work to 7mm for deep collagen remodeling and fat sculpting. As the needles penetrate, radiofrequency energy is delivered through them directly into the deep skin layers and underlying tissue. The combination triggers a dramatic collagen and elastin response — the body rebuilds the treated area with firmer, thicker, more youthful tissue over the following 3–6 months. The 'Burst' version delivers the RF energy in a pulsed pattern that allows higher energy delivery with less downtime than standard Morpheus8. It's especially effective for laxity (loose skin), acne scars and texture, stretch marks, body contouring of small areas (jowls, neck, under-eyes, abdomen), and overall skin remodeling."
+      "Morpheus8 Burst combines microneedling with radiofrequency energy. Tiny gold-plated needles penetrate the skin to a controlled, customizable depth. As the needles penetrate, radiofrequency energy is delivered into the deep skin layers, triggering a collagen and elastin response. The body rebuilds the treated area with firmer, thicker tissue over the following 3–6 months. It's especially effective for laxity, acne scars and texture, stretch marks, and overall skin remodeling.",
     ],
     whatToExpectSteps: [
-      "Free consultation — assessment of your skin condition, goals (laxity? scarring? texture? body contouring?), and whether Morpheus8 Burst is the right tool. Sometimes Solaria CO2 or a combination is the better answer; we'll be honest.",
-      "Pre-treatment: topical numbing cream applied for 45–60 minutes. The 'Burst' format allows higher energy with less discomfort, but we use generous numbing.",
-      "Treatment: 30–60 minutes depending on area. You'll feel heat and pressure with each pass. Most clients tolerate it well with the numbing.",
-      "Recovery: 2–3 days of social downtime with redness, mild swelling, and a 'sunburn' look. Tiny pinpoint dots from needles fade over 24–48 hours. We send you home with full post-care instructions and a recovery kit.",
-      "Follow-up: complimentary check-in at 2 weeks. Series sessions spaced 4–6 weeks apart. Results continue improving for 3–6 months after the final session as collagen rebuilds."
+      "Free consultation — assessment of your skin and goals, and whether Morpheus8 is the right tool (sometimes Solaria CO₂ or a combination is better; we'll be honest).",
+      "Pre-treatment: topical numbing cream applied for 45–60 minutes.",
+      "Treatment: 30–60 minutes depending on area. You'll feel heat and pressure with each pass.",
+      "Recovery: 2–3 days of social downtime with redness and a sunburn look. We send you home with full post-care instructions.",
+      "Follow-up: series sessions spaced 4–6 weeks apart. Results continue improving for 3–6 months as collagen rebuilds.",
     ],
-    pricing: "Morpheus8 Burst pricing starts from $850 per session for face. Larger areas (face + neck, body areas) are priced higher. Most clients see ideal results with a series of 3 sessions spaced 4–6 weeks apart. We offer package pricing for the full series that brings the per-session cost down meaningfully. Exact pricing at your free consultation.",
+    pricing: "Morpheus8 treatments start at $799 per session. Larger areas (face + neck, body) and series packages are priced at consult. Most clients see ideal results with a series of 3 sessions spaced 4–6 weeks apart. Exact quote at your free consultation.",
     faqs: [
       {
-        "q": "What's the difference between Morpheus8 and Morpheus8 Burst?",
-        "a": "Morpheus8 Burst is the upgraded version — delivers RF energy in a faster, pulsed pattern that allows higher energy depth with less heat dwell time. Result: deeper, more dramatic results with shorter sessions and less downtime than standard Morpheus8. If a practice still uses original Morpheus8, ask why they haven't upgraded."
+        q: "What does Morpheus8 treat?",
+        a: "It's used to tighten loose skin, smooth texture, soften fine lines, and improve tone on the face and body by stimulating your own collagen. Your provider will confirm what's right for you at your consult.",
       },
       {
-        "q": "What does Morpheus8 Burst treat?",
-        "a": "Skin laxity (loose skin on face, neck, jawline, body), acne scars and texture issues, stretch marks, mild jowls, neck banding, under-eye hollowing, abdominal skin laxity post-weight-loss or post-pregnancy. It's a remodeling treatment, so it works best for clients who want to rebuild and tighten rather than just resurface."
+        q: "Is there downtime?",
+        a: "Most clients have mild redness for a day or two. We'll review exactly what to expect and how to prepare during your consultation.",
       },
       {
-        "q": "How many treatments will I need?",
-        "a": "Most clients see ideal results from a series of 3 sessions spaced 4–6 weeks apart. Some clients with milder concerns see strong results from 1–2 sessions. Body areas typically need 3–4 sessions. We design your plan at the consultation based on goals."
+        q: "How much does Morpheus8 cost in Oswego?",
+        a: "Treatments start at $799 and depend on the areas treated and your plan. We'll give you clear pricing at your free consult.",
       },
       {
-        "q": "Is there downtime?",
-        "a": "Plan for 2–3 days of social downtime. Expect redness, mild swelling, and visible tiny pinpoint dots from the needles. The 'sunburn' look fades within 24–48 hours; most clients feel comfortable returning to work and social activities by day 3. Body areas heal faster than facial skin."
+        q: "How many treatments will I need?",
+        a: "Most clients see ideal results from a series of 3 sessions spaced 4–6 weeks apart. Milder concerns may need fewer; body areas often need 3–4. We design your plan at consultation.",
       },
       {
-        "q": "Does it hurt?",
-        "a": "We use generous topical numbing for 45–60 minutes before treatment. With the numbing, most clients describe Morpheus8 Burst as warm pressure with brief sharp moments — uncomfortable but not unbearable. We work in sections and give you breaks if you need them."
+        q: "How is Morpheus8 different from Solaria CO₂?",
+        a: "Morpheus8 uses RF through microneedles to remodel collagen deep in the skin — best for laxity and texture. Solaria CO₂ uses fractional laser energy to resurface tone, sun damage, and scars. Many clients combine both.",
       },
-      {
-        "q": "How is Morpheus8 Burst different from Solaria CO2?",
-        "a": "Different tools for different problems. Morpheus8 Burst uses RF energy through microneedles to remodel collagen deep in the skin — best for laxity, scarring, and texture. Solaria CO2 uses laser energy on the surface to resurface skin for tone, sun damage, and surface scars. Many clients combine the two for comprehensive results."
-      },
-      {
-        "q": "Am I a good candidate?",
-        "a": "Morpheus8 Burst works well on all skin tones (it's safer for darker skin tones than many lasers because the energy is delivered below the pigment-producing layer of skin). We screen for active skin infections, pregnancy, certain medications, and active cold sores. The free consultation confirms fit."
-      }
     ],
     relatedServices: [
       "solaria-co2-oswego",
@@ -499,71 +460,55 @@ export const PHASE2_PAGES: ServicePageData[] = [
     serviceName: "GLP-1 Weight Loss",
     fullServiceName: "Medical Weight Loss with Semaglutide & Tirzepatide",
     targetKeyword: "glp-1 weight loss oswego",
-    metaTitle: "Medical Weight Loss in Oswego, IL — Semaglutide & Tirzepatide",
-    metaDescription: "Medical weight loss in Oswego with semaglutide and tirzepatide. NP-supervised, monthly check-ins, no insurance required. Programs from $299/month.",
-    h1: "GLP-1 Medical Weight Loss in Oswego, IL",
-    valueProp: "Real medical weight loss, NP-supervised, with monthly check-ins and honest support — not a vending machine for medication.",
+    metaTitle: "Medical Weight Loss Oswego, IL | NP-Directed GLP-1 Program | Hello Gorgeous",
+    metaDescription: "NP-directed medical weight loss in Oswego, IL. Provider-supervised GLP-1 programs from $195/mo, real screening, real support. Book your free consult — serving Oswego, Naperville & Aurora.",
+    h1: "Medical Weight Loss in Oswego. Real Results, Real Providers.",
+    valueProp: "Losing weight is hard — doing it safely, with a real provider in your corner, shouldn't be. NP-directed programs from $195/month.",
     bookingUrl: bookingUrlFor(),
     procedureType: "Injection",
     bodyLocation: "Subcutaneous",
     tier: "contested",
-    heroContent: "Medical weight loss with GLP-1 medications (semaglutide and tirzepatide) is one of the most powerful tools in modern medicine. For clients who qualify, these medications can produce sustained, significant weight loss when combined with proper medical oversight. But they're medications — not magic — and they should be prescribed and monitored by a qualified medical provider, not bought from sketchy online compounders. At Hello Gorgeous, every weight loss program is overseen by Ryan Kent, FNP-BC, with proper medical intake, monthly check-ins, and pharmacy-sourced medication. We do this the right way.",
+    heroContent: "Losing weight is hard — doing it safely, with a real provider in your corner, shouldn't be. At Hello Gorgeous Med Spa in Oswego, weight loss is a medical program, not a gimmick. Our nurse-practitioner team screens you, builds a plan around your body and goals, and supports you the whole way. Because we screen you like a medical practice — we are one. Programs start at $195/month (admin GLP-1 injectable pricing).",
     whyBullets: [
-      "Every program prescribed and supervised by Ryan Kent, FNP-BC",
-      "Medications sourced exclusively from licensed US compounding pharmacies — never gray-market",
-      "Full medical intake before starting — labs and screening if indicated",
-      "Monthly check-ins included — dose adjustments, side-effect management, accountability",
-      "Both semaglutide and tirzepatide available — we help you choose what fits your case",
-      "No insurance required — we work directly with you on cash-pay pricing"
+      "NP-directed & medically supervised",
+      "Personalized GLP-1 & metabolic plans",
+      "Real screening — no one-size-fits-all",
+      "Programs from $195/month",
+      "5.0★ from 1,900+ Fresha clients · Google 4.6★ (145+ reviews)",
+      "Serving Oswego, Naperville, Aurora, Plainfield & Yorkville",
     ],
     howItWorksParagraphs: [
-      "GLP-1 medications (glucagon-like peptide-1 agonists) mimic a hormone your body produces naturally after eating. They slow gastric emptying (so you feel full longer), reduce appetite signals from the brain, and stabilize blood sugar. For most clients, this translates to eating less without feeling deprived, fewer food cravings, and gradual sustained weight loss over the course of months. Semaglutide is the older, more-studied option. Tirzepatide is a newer dual-action medication (GLP-1 + GIP receptor agonist) that produces somewhat stronger results in clinical trials for many patients. Both are administered as weekly subcutaneous injections (similar to insulin pens) — you self-inject at home after we teach you how. They are FDA-approved (under brand names Wegovy, Ozempic, Mounjaro, Zepbound) and have a strong safety record when used under medical supervision."
+      "GLP-1 medications mimic a hormone your body produces after eating. They slow gastric emptying, reduce appetite signals, and help many clients lose weight gradually under medical supervision. Semaglutide and tirzepatide options are available when clinically appropriate. Every plan at Hello Gorgeous is prescribed after screening — prescriptions require provider approval.",
     ],
     whatToExpectSteps: [
-      "Free consultation — we discuss your weight history, your goals, your medical conditions and medications, and whether GLP-1 therapy is appropriate for you. We're honest if it isn't.",
-      "Medical intake — if you decide to proceed, we do a comprehensive medical intake. Labs may be ordered to establish baseline and rule out conditions that would change our approach.",
-      "Prescription and education — Ryan prescribes your medication (semaglutide or tirzepatide), and we teach you exactly how to self-inject, store your medication, and recognize side effects to flag.",
-      "Monthly check-ins — every 4 weeks you come in (or telehealth if appropriate) for a weight check, side-effect review, dose adjustment, and questions. This is the part most weight loss programs skip. We don't.",
-      "Ongoing — you stay on the program as long as it's serving you. Many clients use GLP-1 for 6–12 months to reach their goal, then transition to maintenance dosing or off the medication entirely. We design the long-term plan with you."
+      "Free consult — we review your history and goals and screen you medically.",
+      "If it's a fit, we build a personalized plan (semaglutide, tirzepatide, or another approach).",
+      "Education on dosing, side effects, and follow-up.",
+      "Ongoing NP check-ins and dose adjustments as needed.",
+      "Long-term plan — maintenance or transition when you hit your goals.",
     ],
-    pricing: "Medical weight loss programs start from $299/month for semaglutide and $399/month for tirzepatide, all-inclusive of medication, monthly NP check-in, and ongoing support. Initial intake visit and labs (if indicated) are quoted separately at your consultation. We give you full pricing transparency before any commitment.",
+    pricing: "Medical weight loss programs start at $195/month for injectable GLP-1 plans (lowest published dose tier in our admin pricing). Tirzepatide and higher doses cost more. Intake labs, if indicated, are quoted separately. Full pricing transparency at consult — no surprises.",
     faqs: [
       {
-        "q": "How much does medical weight loss cost in Oswego?",
-        "a": "Semaglutide programs start from $299/month all-inclusive (medication, monthly check-in, support). Tirzepatide programs start from $399/month. Initial consultation is free; intake visit and any labs are quoted separately. Most clients budget $300–$500 monthly depending on medication and dose."
+        q: "Is medical weight loss at Hello Gorgeous safe?",
+        a: "Yes. It's directed by our nurse-practitioner team, who medically screen you before any treatment and supervise your progress throughout. Prescriptions are only provided after a provider consult and approval.",
       },
       {
-        "q": "What's the difference between semaglutide and tirzepatide?",
-        "a": "Semaglutide is a GLP-1 receptor agonist — the older, more-studied option (brand names Wegovy, Ozempic). Tirzepatide is a newer dual-action medication targeting both GLP-1 and GIP receptors (brand names Mounjaro, Zepbound). Clinical trials suggest tirzepatide produces somewhat greater weight loss on average, but individual response varies. We help you choose based on your medical history, goals, and budget."
+        q: "How do I get started with weight loss in Oswego?",
+        a: "Start with a free consult. We review your history and goals, screen you medically, and — if it's a fit — build a personalized plan. Book online or call (630) 636-6193.",
       },
       {
-        "q": "Will I have to take the medication forever?",
-        "a": "Not necessarily, but it's an important conversation. Many clients use GLP-1 medications for 6–12 months to reach their target weight, then transition to maintenance dosing (lower frequency or dose) or come off entirely. Some clients stay on long-term. There's also a real risk of weight regain after stopping if eating patterns and behaviors haven't changed. We talk about this at intake and design a long-term plan together."
+        q: "Do you offer GLP-1 medications like semaglutide or tirzepatide?",
+        a: "Our providers offer medically appropriate weight-loss options as part of a supervised program. What's right for you is determined during your consult — all prescriptions require provider approval.",
       },
       {
-        "q": "What are the side effects?",
-        "a": "Most common: nausea, mild GI upset, constipation or diarrhea, fatigue, especially in the first few weeks as your body adjusts. Less common: more significant GI symptoms, fatigue, or food aversion. Rare but serious: pancreatitis, gallbladder issues, severe vomiting. We dose conservatively to start, ramp up slowly, and adjust based on how you tolerate it. Monthly check-ins exist precisely so we can catch issues early."
+        q: "What does a weight-loss program cost?",
+        a: "Programs start at $195/month and are tailored to your plan and dose. We'll walk you through pricing at your consult — no surprises.",
       },
       {
-        "q": "Do I qualify for GLP-1 therapy?",
-        "a": "Generally: clients with a BMI of 27+ (with at least one weight-related condition like prediabetes, high blood pressure, sleep apnea) or BMI of 30+ are good candidates. We evaluate each case individually — your medical history, current medications, and goals all factor in. The free consultation is where we determine fit."
+        q: "Where does your medication come from?",
+        a: "Licensed US compounding pharmacies / pharmacy partners under NP prescription — never gray-market sources.",
       },
-      {
-        "q": "Where does your medication come from?",
-        "a": "Exclusively from licensed US compounding pharmacies. We do not source from international or gray-market suppliers, ever. Compounded semaglutide and tirzepatide are legal when prescribed by a licensed provider and sourced from FDA-regulated 503A or 503B compounding pharmacies, which is what we use."
-      },
-      {
-        "q": "Can I get GLP-1 without seeing a doctor?",
-        "a": "You shouldn't. These are real medications with real side effects and real medical considerations. Buying from online sources without medical supervision is risky — both clinically (no one is monitoring you) and legally (counterfeit or contaminated product is a documented problem). At Hello Gorgeous, every prescription comes with medical oversight, monthly check-ins, and pharmacy-sourced medication. That's the standard of care."
-      },
-      {
-        "q": "What happens if it doesn't work for me?",
-        "a": "Some clients respond less to GLP-1 medications — about 10–15% of patients are 'non-responders.' If at 3 months on a therapeutic dose you're not seeing meaningful progress, we'll evaluate whether to switch medications, adjust the approach, or stop the program. We don't keep clients on medications that aren't working for them."
-      },
-      {
-        "q": "Is weight loss the only benefit?",
-        "a": "No. GLP-1 medications have demonstrated benefits beyond weight loss — improved blood sugar control, reduced cardiovascular event risk, reduced food noise and cravings, sometimes improvements in fatty liver disease, and emerging research suggests benefits for addiction, inflammation, and longevity. The weight loss is the most visible outcome, but it's not the only one."
-      }
     ],
     relatedServices: [
       "semaglutide-oswego",
@@ -578,7 +523,7 @@ export const PHASE2_PAGES: ServicePageData[] = [
     fullServiceName: "Semaglutide Weight Loss Therapy",
     targetKeyword: "semaglutide oswego",
     metaTitle: "Semaglutide in Oswego, IL",
-    metaDescription: "Semaglutide in Oswego — NP-supervised medical weight loss with monthly check-ins. Pharmacy-sourced, full medical oversight. Programs from $299/month.",
+    metaDescription: "Semaglutide in Oswego — NP-supervised medical weight loss with monthly check-ins. Pharmacy-sourced, full medical oversight. Programs from $195/month.",
     h1: "Semaglutide in Oswego, IL",
     valueProp: "The original GLP-1 weight loss medication, prescribed and monitored the right way.",
     bookingUrl: bookingUrlFor(),
@@ -604,11 +549,11 @@ export const PHASE2_PAGES: ServicePageData[] = [
       "Monthly check-ins — every 4 weeks: weight, side effects, dose adjustment, questions.",
       "Long-term planning — most clients use semaglutide 6–12 months to reach goal weight, then transition to maintenance or off entirely. We design the plan with you."
     ],
-    pricing: "Semaglutide programs at Hello Gorgeous start from $299/month all-inclusive — covering medication, monthly NP check-in, and ongoing support. Initial intake visit and any labs (if indicated) are quoted separately. We provide full pricing transparency at your free consultation.",
+    pricing: "Semaglutide programs at Hello Gorgeous start from $195/month for the lowest injectable dose tier — covering medication with NP-supervised care. Higher doses and tirzepatide cost more. Initial intake visit and any labs (if indicated) are quoted separately. Full pricing transparency at your free consultation.",
     faqs: [
       {
         "q": "How much does semaglutide cost in Oswego?",
-        "a": "Programs start from $299/month all-inclusive (medication, check-in, support). Initial intake and labs are quoted separately."
+        "a": "Programs start from $195/month at the lowest injectable dose tier (medication with NP-supervised care). Higher doses and tirzepatide cost more. Initial intake and labs are quoted separately."
       },
       {
         "q": "How much weight will I lose on semaglutide?",

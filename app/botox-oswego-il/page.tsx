@@ -16,9 +16,9 @@ import { LocalSeoConversionStrip } from '@/components/seo/LocalSeoConversionStri
 export const revalidate = 3600;
 
 export const metadata: Metadata = {
-  title: 'Botox in Oswego, IL | $10/unit | Hello Gorgeous Med Spa',
+  title: 'Botox in Oswego, IL | As Low as $9/unit | Hello Gorgeous Med Spa',
   description:
-    'Botox, Dysport, & Jeuveau in Oswego from $10/unit. Full-authority NP on site 7 days/week. #1 Best Med Spa. Free consultations. Same-day appointments available.',
+    'Botox as low as $9/unit in Oswego — authentic Allergan from US distributors only. Dysport & Jeuveau available. Full-authority NP on site. Free consultations. Same-day appointments available.',
   keywords: [
     'botox near me',
     'botox oswego',
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     'affordable botox near me',
     'best botox near me',
     'botox injections near me',
-    'botox $10 per unit',
+    'botox as low as $9 per unit',
     'dysport near me',
     'wrinkle treatment near me',
     'forehead botox near me',
@@ -48,9 +48,9 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     url: `${SITE.url}/botox-oswego-il`,
-    title: 'Botox in Oswego, IL | $10/unit | Hello Gorgeous Med Spa',
+    title: 'Botox in Oswego, IL | As Low as $9/unit | Hello Gorgeous Med Spa',
     description:
-      'Botox, Dysport, & Jeuveau in Oswego from $10/unit. Full-authority NP on site. Free consultations. Same-day appointments.',
+      'Botox as low as $9/unit — Allergan & US distributors only. Dysport & Jeuveau available. Full-authority NP on site. Free consultations.',
     siteName: SITE.name,
     locale: 'en_US',
     images: [
@@ -64,8 +64,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Botox in Oswego, IL — $10/Unit | Hello Gorgeous',
-    description: '$10/unit Botox by licensed nurse practitioners in Oswego, IL.',
+    title: 'Botox in Oswego, IL — As Low as $9/Unit | Hello Gorgeous',
+    description: 'As low as $9/unit Botox by licensed nurse practitioners in Oswego, IL — Allergan & US distributors only.',
     images: [`${SITE.url}/images/services/hg-botox-syringes.png`],
   },
   robots: {
@@ -84,11 +84,11 @@ export const metadata: Metadata = {
 const BOTOX_FAQS = [
   {
     question: 'Where can I get Botox near me in the Oswego area?',
-    answer: 'Hello Gorgeous Med Spa is located at 74 W. Washington Street in Oswego, IL. We serve clients from Naperville, Aurora, Plainfield, Yorkville, Montgomery, and throughout Kendall County. We offer Botox at just $10/unit with licensed nurse practitioners.',
+    answer: 'Hello Gorgeous Med Spa is located at 74 W. Washington Street in Oswego, IL. We serve clients from Naperville, Aurora, Plainfield, Yorkville, Montgomery, and throughout Kendall County. We offer Botox as low as $9/unit (Allergan & US distributors only) with licensed nurse practitioners.',
   },
   {
     question: 'How much does Botox cost near Oswego, IL?',
-    answer: 'At Hello Gorgeous Med Spa, Botox is priced at $10/unit. Most forehead treatments require 20-30 units, and crow\'s feet typically need 10-15 units per side. We offer free consultations to determine exactly how many units you\'ll need.',
+    answer: 'At Hello Gorgeous Med Spa, Botox is as low as $9/unit — authentic Allergan from US distributors only. Most forehead treatments require 20-30 units, and crow\'s feet typically need 10-15 units per side. We offer free consultations to determine exactly how many units you\'ll need.',
   },
   {
     question: 'Do you offer Botox in Naperville, IL?',
@@ -129,7 +129,7 @@ export default function BotoxOswegoPage() {
     '@type': 'MedicalProcedure',
     name: 'Botox Injections',
     alternateName: ['Botox Near Me', 'Botox Oswego', 'Botox Naperville', 'Botox Aurora'],
-    description: 'Professional Botox injections at $10/unit by licensed nurse practitioners in Oswego, IL. Serving Naperville, Aurora, Plainfield, and Kendall County.',
+    description: 'Professional Botox injections as low as $9/unit (Allergan & US distributors only) by licensed nurse practitioners in Oswego, IL. Serving Naperville, Aurora, Plainfield, and Kendall County.',
     procedureType: 'Cosmetic',
     bodyLocation: 'Face',
     preparation: 'Free consultation to discuss goals and treatment plan',
@@ -217,7 +217,7 @@ export default function BotoxOswegoPage() {
                   <span className="text-[#FF2D8E]">Botox in Oswego</span> — Med Spa With an NP On Site
                 </h1>
                 <p className="text-xl md:text-2xl text-gray-300 mb-8">
-                  <strong className="text-white">$10/unit Botox, Dysport &amp; Jeuveau</strong> — full-authority nurse practitioner on site, natural results, free consultations
+                  <strong className="text-white">As low as $9/unit Botox, Dysport &amp; Jeuveau</strong> — full-authority nurse practitioner on site, natural results, free consultations
                 </p>
                 
                 <div className="flex flex-col sm:flex-row gap-4 mb-8">
@@ -269,8 +269,8 @@ export default function BotoxOswegoPage() {
                   />
                 </div>
                 <div className="absolute -bottom-6 -left-6 bg-[#FF2D8E] text-white p-6 rounded-xl shadow-xl">
-                  <p className="text-3xl font-bold">$10</p>
-                  <p className="text-sm">per unit</p>
+                  <p className="text-3xl font-bold">$9</p>
+                  <p className="text-sm">as low as / unit</p>
                 </div>
               </div>
             </div>
@@ -313,8 +313,8 @@ export default function BotoxOswegoPage() {
                 <div className="w-16 h-16 bg-[#FF2D8E]/10 rounded-full flex items-center justify-center mx-auto mb-4">
                   <span className="text-3xl">💉</span>
                 </div>
-                <h3 className="font-semibold text-lg mb-2">$10/Unit Pricing</h3>
-                <p className="text-gray-600 text-sm">Competitive pricing without sacrificing quality. Authentic Botox from Allergan.</p>
+                <h3 className="font-semibold text-lg mb-2">As Low as $9/Unit</h3>
+                <p className="text-gray-600 text-sm">Authentic Allergan Botox from US distributors only — never gray-market.</p>
               </div>
               <div className="text-center p-6">
                 <div className="w-16 h-16 bg-[#FF2D8E]/10 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -335,7 +335,7 @@ export default function BotoxOswegoPage() {
                   <span className="text-3xl">⭐</span>
                 </div>
                 <h3 className="font-semibold text-lg mb-2">5-Star Rated</h3>
-                <p className="text-gray-600 text-sm">4.9 stars on Google with 47+ verified reviews from real clients.</p>
+                <p className="text-gray-600 text-sm">4.6 stars on Google with 145+ verified reviews · 5.0★ on Fresha from 1,900+ clients.</p>
               </div>
             </div>
           </div>
@@ -403,7 +403,7 @@ export default function BotoxOswegoPage() {
               Ready to Book Your Botox Appointment?
             </h2>
             <p className="text-xl text-gray-300 mb-8">
-              Stop searching "Botox near me" — you found us! Free consultations, $10/unit, same-week appointments available.
+              Stop searching "Botox near me" — you found us! Free consultations, as low as $9/unit, same-week appointments available.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link

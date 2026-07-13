@@ -33,10 +33,10 @@ export const SOLARIA_MARKETING = {
 } as const;
 
 export const SOLARIA_LAUNCH_SPECIAL = {
-  badge: "Launch special",
+  badge: "$899 · BOGO area",
   title: "Full face Solaria CO₂",
   priceLabel: "$899",
-  priceNote: "limited launch · regularly $1,500+",
+  priceNote: "buy one get one free area · gold-standard fractional",
   description:
     "One powerful fractional resurfacing treatment — deep lines, acne scars, sun damage & tone. Free consult to confirm candidacy.",
   ctaLabel: "Claim launch pricing",
@@ -199,7 +199,7 @@ export const SOLARIA_FAQS = [
   },
   {
     q: "How much does Solaria cost?",
-    a: "Launch special: $899 full face (limited). Sessions from $899 depending on area and depth. Exact quote at your free consultation.",
+    a: "Solaria CO₂ — the gold-standard fractional laser — is $899, with a buy-one-get-one-free area special. Exact areas and depth at your free consultation.",
   },
 ] as const;
 
@@ -218,8 +218,8 @@ export function isSolariaNavActive(pathname: string | null): boolean {
 }
 
 export const SOLARIA_SEO = {
-  title: "Solaria CO₂ Laser Resurfacing | $899 Full Face Launch | Oswego IL",
+  title: "Solaria CO₂ Laser Resurfacing | $899 + BOGO Area | Oswego IL",
   description:
-    "InMode Solaria CO₂ fractional laser at Hello Gorgeous Med Spa, Oswego IL — wrinkles, acne scars & sun damage. $899 full face launch special. Free consult. Naperville, Aurora & Fox Valley.",
+    "InMode Solaria CO₂ fractional laser at Hello Gorgeous Med Spa, Oswego IL — wrinkles, acne scars & sun damage. Gold-standard resurfacing $899 with buy-one-get-one-free area. Free consult. Naperville, Aurora & Fox Valley.",
   ogAlt: "Solaria CO₂ laser skin resurfacing — Hello Gorgeous Med Spa Oswego IL",
 } as const;

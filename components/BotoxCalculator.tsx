@@ -13,7 +13,7 @@ type TreatmentArea = {
   description: string;
 };
 
-const PRICE_PER_UNIT = 10;
+const PRICE_PER_UNIT = 9;
 
 const treatmentAreas: TreatmentArea[] = [
   { id: "forehead", name: "Forehead Lines", units: { min: 10, max: 20 }, position: { top: "12%", left: "50%" }, description: "Smooth horizontal forehead lines" },

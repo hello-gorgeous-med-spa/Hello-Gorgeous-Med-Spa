@@ -38,10 +38,10 @@ export const MORPHEUS8_MARKETING = {
 } as const;
 
 export const MORPHEUS8_INTRO_SPECIAL = {
-  badge: "From $850 / session",
+  badge: "From $799 / session",
   title: "Morpheus8 Burst — face & body",
-  priceLabel: "$850+",
-  priceNote: "face · packages available · free consult",
+  priceLabel: "$799+",
+  priceNote: "starts at $799 · packages available · free consult",
   description:
     "Series of 3 typical · collagen rebuilds 3–6 months · customizable depth for laxity, scars & texture.",
   ctaLabel: "Book free consult",
@@ -126,7 +126,7 @@ export const MORPHEUS8_PACKAGES = [
   {
     id: "face",
     name: "Face session",
-    price: "From $850",
+    price: "From $799",
     detail: "per session",
     bullets: ["Custom depth mapping", "Burst + Deep RF", "NP oversight"],
     highlight: false,
@@ -209,7 +209,7 @@ export const MORPHEUS8_FAQS = [
   },
   {
     q: "How much does Morpheus8 cost?",
-    a: "Face sessions start from $850. Face + neck and body areas are quoted at your free consultation. Series packages reduce per-session cost — we'll map honest pricing with no upsell pressure.",
+    a: "Morpheus8 treatments start at $799. Face + neck and body areas are quoted at your free consultation. Series packages reduce per-session cost — we'll map honest pricing with no upsell pressure.",
   },
 ] as const;
 

@@ -6,7 +6,7 @@ export const MICRONEEDLING_MENU: ServiceMenuConfig = {
   path: MICRONEEDLING_MENU_PATH,
   metaTitle: "Microneedling Menu | Classic, Baby Tox, Exosomes & Morpheus8 | Hello Gorgeous Oswego",
   metaDescription:
-    "Hello Gorgeous Med Spa microneedling menu in Oswego, IL — classic AnteAGE microneedling from $249, Baby Tox Luxe & exosomes $499, Morpheus8 Burst RF from $850.",
+    "Hello Gorgeous Med Spa microneedling menu in Oswego, IL — classic AnteAGE microneedling from $249, Baby Tox Luxe & exosomes $499, Morpheus8 Burst RF from $799.",
   hero: {
     eyebrow: "Oswego, IL · NP on site 7 days",
     titleAccent: "Microneedling Menu",
