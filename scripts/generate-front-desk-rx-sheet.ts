@@ -146,11 +146,11 @@ function main() {
     <section class="talk">
       <h2>Front desk talking points</h2>
       <ul>
-        <li><strong>New protocols:</strong> $49 NP consult → Start Here or peptide request → Square prepay → Charm telehealth with Ryan Kent, FNP-BC.</li>
-        <li><strong>Refills:</strong> existing RX patients skip $49 gate.</li>
+        <li><strong>New protocols:</strong> $${PEPTIDE_CONSULT_FEE_USD} NP consult → RX request / Start Here → pay invoice → telehealth with Ryan Kent, FNP-BC (Fresha) → pharmacy ships.</li>
+        <li><strong>Refills:</strong> existing RX patients skip $${PEPTIDE_CONSULT_FEE_USD} new-patient gate (check-in every 90 days / dose changes).</li>
         <li>Say <strong>&ldquo;from $X per month&rdquo;</strong> — final price after NP evaluation.</li>
         <li><strong>Never quote</strong> pharmacy wholesale or supplier names.</li>
-        <li><strong>Recovery Blend from $229/mo</strong> · <strong>Sermorelin from $149/mo</strong> · <strong>BPC-157 from $169/mo</strong>.</li>
+        <li><strong>Order Q&amp;A sheet:</strong> run <code>npm run generate-front-desk-order-qa</code> for full desk scripts.</li>
       </ul>
     </section>
     <section class="links">

@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="robots" content="noindex,nofollow" />
+  <title>Hello Gorgeous RX — Front Desk Order Q&amp;A (Internal)</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: system-ui, -apple-system, sans-serif; color: #111; background: #f3f4f6; }
+    .toolbar { position: sticky; top: 0; z-index: 10; background: #fff; border-bottom: 3px solid #000; padding: 12px 20px; display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+    .toolbar p { margin: 0; font-size: 14px; font-weight: 600; }
+    .toolbar button { background: #E6007E; color: #fff; border: 2px solid #000; border-radius: 999px; padding: 10px 20px; font-weight: 700; cursor: pointer; font-size: 14px; }
+    .toolbar button:hover { background: #000; }
+    .sheet { max-width: 8.5in; margin: 24px auto; background: #fff; box-shadow: 0 4px 24px rgba(0,0,0,.12); }
+    .header { background: linear-gradient(125deg, #FF2D8E 0%, #E6007E 55%, #9b0a4d 100%); color: #fff; padding: 20px 24px; border: 4px solid #000; border-bottom: none; }
+    .header .eyebrow { font-size: 10px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; opacity: 0.85; margin: 0; }
+    .header h1 { margin: 8px 0 0; font-size: 22px; font-weight: 900; line-height: 1.2; }
+    .header .sub { margin: 8px 0 0; font-size: 13px; opacity: 0.92; }
+    .header .date { margin: 4px 0 0; font-size: 11px; opacity: 0.75; }
+    .quick { display: grid; grid-template-columns: repeat(3, 1fr); border: 4px solid #000; border-top: none; }
+    .quick div { padding: 10px 8px; text-align: center; background: #FFF0F7; border-right: 1px solid rgba(0,0,0,.12); border-bottom: 1px solid rgba(0,0,0,.08); }
+    .quick div:nth-child(3n) { border-right: none; }
+    .quick .lbl { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: rgba(0,0,0,.5); margin: 0; }
+    .quick .val { font-size: 15px; font-weight: 900; color: #E6007E; margin: 4px 0 0; }
+    .block { border-left: 4px solid #000; border-right: 4px solid #000; border-bottom: 4px solid #000; }
+    .cat { margin: 0; padding: 8px 16px; font-size: 11px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.08em; color: #fff; background: #E6007E; border-bottom: 2px solid #000; }
+    .qa { padding: 12px 16px; border-bottom: 1px solid rgba(0,0,0,.08); }
+    .qa.alt { background: rgba(255,240,247,.4); }
+    .qa:last-child { border-bottom: none; }
+    .q { margin: 0 0 6px; font-size: 13px; font-weight: 800; color: #E6007E; line-height: 1.35; }
+    .a { margin: 0; font-size: 12.5px; line-height: 1.5; color: rgba(0,0,0,.88); }
+    .say { margin: 8px 0 0; padding: 8px 10px; background: #fff; border: 2px solid #000; border-radius: 8px; font-size: 12px; line-height: 1.4; color: #111; }
+    .qmark, .amark { font-weight: 900; margin-right: 4px; }
+    .escalate, .links, .footer { border-left: 4px solid #000; border-right: 4px solid #000; border-bottom: 4px solid #000; padding: 14px 18px; }
+    .escalate { background: #FFF0F7; font-size: 12.5px; line-height: 1.5; font-weight: 600; }
+    .escalate h2, .links h2 { margin: 0 0 8px; font-size: 11px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.08em; }
+    .links { border-left: 4px solid #000; border-right: 4px solid #000; border-bottom: 4px solid #000; padding: 14px 18px; }
+    .links h2 { margin: 0 0 8px; font-size: 11px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.08em; }
+    .link-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 16px; font-size: 11.5px; }
+    .link-grid p { margin: 2px 0; word-break: break-all; }
+    .footer { text-align: center; font-size: 10px; color: rgba(0,0,0,.45); border-bottom: 4px solid #000; }
+    @media print {
+      body { background: #fff; }
+      .toolbar { display: none !important; }
+      .sheet { margin: 0; box-shadow: none; max-width: 100%; }
+      @page { size: letter; margin: 0.3in; }
+      .header, .cat { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .qa { break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+  <div class="toolbar">
+    <p>Internal only — open this file locally · not on the public website</p>
+    <button type="button" onclick="window.print()">Print / Save as PDF</button>
+  </div>
+  <article class="sheet">
+    <header class="header">
+      <p class="eyebrow">Confidential · Front desk · Most popular order Q&amp;A</p>
+      <h1>Hello Gorgeous RX™ — Order Desk Q&amp;A</h1>
+      <p class="sub">74 W. Washington Street, Oswego, IL 60543 · 630-636-6193</p>
+      <p class="date">Updated July 13, 2026 · Numbers pull from live admin pricing libs</p>
+    </header>
+    <div class="quick">
+      <div><p class="lbl">NP consult (new)</p><p class="val">$49</p></div>
+      <div><p class="lbl">GLP-1 from</p><p class="val">$195/mo</p></div>
+      <div><p class="lbl">Peptides from</p><p class="val">$149/mo</p></div>
+      <div><p class="lbl">Shipping (typical)</p><p class="val">$35</p></div>
+      <div><p class="lbl">Telehealth cadence</p><p class="val">Every 90 days</p></div>
+      <div><p class="lbl">3-mo prepay</p><p class="val">10% off meds</p></div>
+    </div>
+    
+    <section class="block">
+      <h2 class="cat">Starting an order (new vs returning)</h2>
+      
+      <div class="qa ">
+        <p class="q"><span class="qmark">Q.</span> How do I place an order / get started?</p>
+        <p class="a"><span class="amark">A.</span> New patients: go to hellogorgeousmedspa.com/rx/request (or Start Here for peptides), complete intake, pay the $49 NP consult when prompted, then book telehealth with Ryan Kent, FNP-BC. Returning RX patients: use Care Hub (/rx/care) or their refill link — they usually skip the $49 new-patient gate.</p>
+        <p class="say"><strong>Say:</strong> “Start online at /rx/request — or if you’re already an RX patient, use Care Hub or your refill link.”</p>
+      </div>
+      <div class="qa alt">
+        <p class="q"><span class="qmark">Q.</span> Do I have to pay $49 every time?</p>
+        <p class="a"><span class="amark">A.</span> No. $49 is the new-protocol / new-patient consult (and the telehealth check-in after a 90-day cycle when required). Stable refills on a paid 90-day or 3-month cycle usually do not need a new visit for that order. Dose changes always need provider review.</p>
+        <p class="say"><strong>Say:</strong> “New plans and check-ins are $49. Steady refills on your cycle usually don’t need another visit.”</p>
+      </div>
+      <div class="qa ">
+        <p class="q"><span class="qmark">Q.</span> Is the $49 consult applied to my medication?</p>
+        <p class="a"><span class="amark">A.</span> The $49 consultation fee is applied to your first month of injectable medication if you decide to move forward with the plan.</p>
+        <p class="say"><strong>Say:</strong> “If you move forward with injectable medication, that $49 is applied to your first month.”</p>
+      </div>
+      <div class="qa alt">
+        <p class="q"><span class="qmark">Q.</span> Can I order without seeing a provider?</p>
+        <p class="a"><span class="amark">A.</span> No. This is a medical practice. Every prescription requires provider approval after screening. We never dispense without clinical review.</p>
+        <p class="say"><strong>Say:</strong> “Everything is NP-directed — Ryan reviews and approves before anything ships.”</p>
+      </div>
+    </section>
+    <section class="block">
+      <h2 class="cat">Pricing &amp; what to say</h2>
+      
+      <div class="qa ">
+        <p class="q"><span class="qmark">Q.</span> How much does weight loss / GLP-1 cost?</p>
+        <p class="a"><span class="amark">A.</span> Injectable programs start at $195/month (lowest published dose tier). Semaglutide from $195/mo · tirzepatide from $235/mo. Higher doses cost more. Labs and shipping may be separate.</p>
+        <p class="say"><strong>Say:</strong> “Programs start at $195 a month — your exact dose is set at consult.”</p>
+      </div>
+      <div class="qa alt">
+        <p class="q"><span class="qmark">Q.</span> How much do peptides cost?</p>
+        <p class="a"><span class="amark">A.</span> Protocols start from $149/month after NP evaluation. Always say “from $X per month” — final price depends on the approved protocol.</p>
+        <p class="say"><strong>Say:</strong> “From $149 a month — Ryan confirms the exact plan.”</p>
+      </div>
+      <div class="qa ">
+        <p class="q"><span class="qmark">Q.</span> What's the 90-day / 3-month option?</p>
+        <p class="a"><span class="amark">A.</span> 3-month prepay is our most popular: medication for three months, typically one cold-chain shipping fee (about $35), and 10% off meds vs paying month-to-month.</p>
+        <p class="say"><strong>Say:</strong> “Most people choose 90-day — one ship fee (~$35) and 10% off.”</p>
+      </div>
+      <div class="qa alt">
+        <p class="q"><span class="qmark">Q.</span> What's included in the price?</p>
+        <p class="a"><span class="amark">A.</span> Medication for the approved dose tier, NP-directed care, and program support as described at checkout. Cold-chain shipping, labs, supplies, and add-on stacks may be quoted separately.</p>
+        <p class="say"><strong>Say:</strong> “Meds + medical oversight — shipping and labs can be separate lines.”</p>
+      </div>
+      <div class="qa ">
+        <p class="q"><span class="qmark">Q.</span> Do you take insurance for compounded meds?</p>
+        <p class="a"><span class="amark">A.</span> Compounded GLP-1 / peptide programs are typically cash-pay. If insurance covers brand GLP-1 at a retail pharmacy, we offer a separate medical-oversight path — that does not include the pharmacy medication cost.</p>
+        <p class="say"><strong>Say:</strong> “Most compounded programs are cash-pay — ask Ryan about insurance-oversight options if you have a pharmacy Rx.”</p>
+      </div>
+    </section>
+    <section class="block">
+      <h2 class="cat">Payment, shipping &amp; timelines</h2>
+      
+      <div class="qa ">
+        <p class="q"><span class="qmark">Q.</span> How do I pay?</p>
+        <p class="a"><span class="amark">A.</span> We send a secure payment link by text and/or email. Clients tap the link and pay on their phone. Front desk can confirm the invoice was sent; do not take card numbers verbally into personal notes.</p>
+        <p class="say"><strong>Say:</strong> “Watch for a text/email pay link — tap and pay on your phone.”</p>
+      </div>
+      <div class="qa alt">
+        <p class="q"><span class="qmark">Q.</span> When will I get my medication?</p>
+        <p class="a"><span class="amark">A.</span> After payment clears and Ryan approves the protocol, the pharmacy prepares and ships cold-chain to the address on file. Timing varies by pharmacy queue and shipping; clients track status at /rx/status. Clinical team aims to review new intakes within one business day.</p>
+        <p class="say"><strong>Say:</strong> “Once paid and approved, pharmacy ships cold-chain — track at /rx/status.”</p>
+      </div>
+      <div class="qa ">
+        <p class="q"><span class="qmark">Q.</span> How much is shipping?</p>
+        <p class="a"><span class="amark">A.</span> Typical cold-chain / pharmacy shipping is about $35 per ship cycle (one fee on a 90-day prepay cycle). Exact amount is on the invoice.</p>
+        <p class="say"><strong>Say:</strong> “Shipping is usually about $35 — it’s on your invoice.”</p>
+      </div>
+      <div class="qa alt">
+        <p class="q"><span class="qmark">Q.</span> Can I pick up in the spa instead of shipping?</p>
+        <p class="a"><span class="amark">A.</span> Most RX fulfillment is ship-to-home from the compounding pharmacy. In-clinic sales or pickup only when the clinical/ops team has arranged that path — don’t promise walk-up pickup unless Ryan/ops confirmed it.</p>
+        <p class="say"><strong>Say:</strong> “Most orders ship to your door — I’ll check with the clinical team if pickup was arranged.”</p>
+      </div>
+      <div class="qa ">
+        <p class="q"><span class="qmark">Q.</span> Where do you ship? / Out of state?</p>
+        <p class="a"><span class="amark">A.</span> Hello Gorgeous RX ships eligible Illinois prescriptions after NP approval. Out-of-state requests need clinical/ops review — do not promise shipment outside Illinois.</p>
+        <p class="say"><strong>Say:</strong> “We fulfill Illinois RX after provider approval — I’ll confirm if you’re outside IL.”</p>
+      </div>
+    </section>
+    <section class="block">
+      <h2 class="cat">Telehealth &amp; visits</h2>
+      
+      <div class="qa ">
+        <p class="q"><span class="qmark">Q.</span> Do I need a video visit every month?</p>
+        <p class="a"><span class="amark">A.</span> Usually no. Telehealth is typically every 90 days when the dose is stable — not every month. 90-day supply / 3-month auto-pay: no telehealth required for that order cycle; after the cycle, a $49 check-in is required before the next reorder. Dose or strength changes need a visit sooner.</p>
+        <p class="say"><strong>Say:</strong> “Stable plans — about every 90 days, not monthly.”</p>
+      </div>
+      <div class="qa alt">
+        <p class="q"><span class="qmark">Q.</span> How do I book the consult / telehealth?</p>
+        <p class="a"><span class="amark">A.</span> Book the NP video visit on Fresha ($49 consult for new protocols). Spa appointments (Botox, facials, etc.) book on Square at /book. Send clients hellogorgeousmedspa.com/telehealth or /book as appropriate.</p>
+        <p class="say"><strong>Say:</strong> “RX video visit → Fresha/telehealth link. Spa services → /book on Square.”</p>
+      </div>
+      <div class="qa ">
+        <p class="q"><span class="qmark">Q.</span> Can I do this in person instead of video?</p>
+        <p class="a"><span class="amark">A.</span> Yes when Ryan has in-person availability in Oswego — same medical team and screening. Offer to help book; don’t invent open slots.</p>
+        <p class="say"><strong>Say:</strong> “In-person with Ryan in Oswego works too when the schedule allows.”</p>
+      </div>
+    </section>
+    <section class="block">
+      <h2 class="cat">Status, problems &amp; handoffs</h2>
+      
+      <div class="qa ">
+        <p class="q"><span class="qmark">Q.</span> How do I track my order?</p>
+        <p class="a"><span class="amark">A.</span> Confirmation email has a personal status link (no password). Or hellogorgeousmedspa.com/rx/status and Care Hub /rx/care. App: /app?rx=1.</p>
+        <p class="say"><strong>Say:</strong> “Use the link in your confirmation email or /rx/status.”</p>
+      </div>
+      <div class="qa alt">
+        <p class="q"><span class="qmark">Q.</span> I paid but nothing shipped / I’m stuck.</p>
+        <p class="a"><span class="amark">A.</span> Check: (1) intake complete, (2) telehealth done if required, (3) invoice paid, (4) Ryan approval pending vs pharmacy. Escalate to clinical/ops with name + phone + order/intake number. Never invent tracking numbers.</p>
+        <p class="say"><strong>Say:</strong> “Let me pull your status and loop in the clinical team with your order number.”</p>
+      </div>
+      <div class="qa ">
+        <p class="q"><span class="qmark">Q.</span> Can I change my dose / add a peptide?</p>
+        <p class="a"><span class="amark">A.</span> Dose changes and new protocols need provider approval — point them to Care Hub, peptide request, or message /rx/messages. Don’t change dosing advice at the desk.</p>
+        <p class="say"><strong>Say:</strong> “Ryan has to approve dose changes — I’ll get you into Care Hub or messaging.”</p>
+      </div>
+      <div class="qa alt">
+        <p class="q"><span class="qmark">Q.</span> I want a refund / to cancel.</p>
+        <p class="a"><span class="amark">A.</span> Do not process RX refunds from the front desk alone. Collect the request, note what was paid, and escalate to owner/ops. Medication that has shipped or been dispensed follows pharmacy and practice policy.</p>
+        <p class="say"><strong>Say:</strong> “I’ll take your details and escalate to ownership — I can’t refund RX from the desk.”</p>
+      </div>
+    </section>
+    <section class="block">
+      <h2 class="cat">Compliance — never say these</h2>
+      
+      <div class="qa ">
+        <p class="q"><span class="qmark">Q.</span> What pharmacy / brand / wholesale do you use?</p>
+        <p class="a"><span class="amark">A.</span> Licensed US compounding / pharmacy partners under NP prescription. Never name suppliers, wholesale costs, or gray-market sources. Never guarantee outcomes or diagnose at the desk.</p>
+        <p class="say"><strong>Say:</strong> “Licensed US pharmacy partners under Ryan’s prescription — I don’t quote supplier names.”</p>
+      </div>
+      <div class="qa alt">
+        <p class="q"><span class="qmark">Q.</span> Is this the same as Ozempic / Wegovy / Mounjaro?</p>
+        <p class="a"><span class="amark">A.</span> We discuss compounded vs brand options clinically. Brand names are for identification only. Don’t claim bioequivalence or “same as” brand — offer the consult.</p>
+        <p class="say"><strong>Say:</strong> “Ryan will explain compounded vs brand options at your consult.”</p>
+      </div>
+    </section>
+    <section class="escalate">
+      <h2>When to escalate</h2>
+      <p style="margin:0">Escalate to Ryan / clinical ops when: dose advice is needed, out-of-state shipping, refund/cancel, payment disputes, or status is stuck after paid + visit. Desk phone: 630-636-6193.</p>
+    </section>
+    <section class="links">
+      <h2>Send these links</h2>
+      <div class="link-grid">
+        <p><strong>RX Request Portal:</strong> https://www.hellogorgeousmedspa.com/rx/request</p>
+        <p><strong>Care Hub (refills):</strong> https://www.hellogorgeousmedspa.com/rx/care</p>
+        <p><strong>Track status:</strong> https://www.hellogorgeousmedspa.com/rx/status</p>
+        <p><strong>Message team:</strong> https://www.hellogorgeousmedspa.com/rx/messages</p>
+        <p><strong>Telehealth book:</strong> https://www.hellogorgeousmedspa.com/telehealth</p>
+        <p><strong>Spa book (Square):</strong> https://www.hellogorgeousmedspa.com/book</p>
+        <p><strong>Client RX guide:</strong> https://www.hellogorgeousmedspa.com/rx/guide</p>
+        <p><strong>GLP-1 refill:</strong> https://www.hellogorgeousmedspa.com/glp1-refill</p>
+        <p><strong>Peptide request:</strong> https://www.hellogorgeousmedspa.com/peptide-request</p>
+        <p><strong>App (RX):</strong> https://www.hellogorgeousmedspa.com/app?rx=1</p>
+      </div>
+    </section>
+    <footer class="footer">
+      Hello Gorgeous Med Spa · Hello Gorgeous RX™ · Staff use only · Pair with front-desk-rx-pricing-sheet.html · © 2026
+    </footer>
+  </article>
+</body>
+</html>

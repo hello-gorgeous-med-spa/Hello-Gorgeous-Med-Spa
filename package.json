@@ -35,6 +35,8 @@
     "generate-peptide-picker-images": "node scripts/generate-peptide-picker-images.mjs",
     "generate-rx-care-thumbs": "npx tsx scripts/generate-rx-care-square-thumbs.ts",
     "generate-client-rx-protocol": "npx tsx scripts/generate-client-rx-protocol-sheet.ts",
+    "generate-front-desk-order-qa": "npx tsx scripts/generate-front-desk-order-qa.ts",
+    "generate-front-desk-sheet": "npx tsx scripts/generate-front-desk-rx-sheet.ts",
     "import:formulation-catalog": "node scripts/import-formulation-catalog.mjs",
     "sync:olympia": "node scripts/sync-olympia-pricelist.mjs",
     "sync:boomrx-catalog": "node scripts/import-boomrx-catalog.mjs",
