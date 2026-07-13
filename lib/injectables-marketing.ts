@@ -40,6 +40,7 @@ export const INJECTABLES_MARKETING = {
     menuPoster: "/images/promo/injection-menu-poster.png",
     buyerPath: "/images/homepage-buyer-paths/injectables.png",
     depthRef: "/images/skin-layers-injection-depth-reference.png",
+    hylenex: "/images/square-appointments/hylenex-4-pack-carton.jpg",
   },
 } as const;
 
