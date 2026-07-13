@@ -15,13 +15,13 @@ Map pack (top 3) + page-1 organic for every service we offer across the Fox Vall
 | # | Sub-task | Status | Notes |
 |---|---|---|---|
 | 1 | GBP complete + NAP + map/reviews | **PARTIAL** | Site NAP/schema + contact map/reviews done. Live GBP categories/card-hold/fee amounts = Dashboard ops. See `gbp-optimization-checklist.md`. |
-| 2 | Technical SEO foundation | **PARTIAL** | Schema, sitemap, robots, depth CI done. CWV not CI-gated. |
+| 2 | Technical SEO foundation | **PARTIAL** | Schema, sitemap, robots, depth CI done. CWV baseline 2026-07-13: mobile 68–76 (LCP-bound); target ≥90 — see `docs/LIGHTHOUSE_BASELINE.md`. |
 | 3 | Service × city landers | **PARTIAL → improved** | SEO-001 gap + Phase D: 16 RX/aesthetic landers + 10 QuantumRF/Solaria ring-city Phase 9 pages (soft templates upgrade when GBP content exists). |
 | 4 | On-page metadata | **DONE** | `pageMetadata` / `gbpLocationMetadata` |
 | 5 | Review funnel | **DONE** | Square → queue → SMS/email → Google review |
 | 6 | RE GEN /rx SEO | **DONE** | Hub + city weight-loss; peptides/HRT city graph expanded in this epic |
 | 7 | Content & internal linking | **DONE** | LocationsServed chips: peptides/hormones/IV + QuantumRF/Solaria CO₂ |
-| 8 | Tracking / rank | **PARTIAL** | GSC/GA4/rank tooling present; monthly cadence is ops |
+| 8 | Tracking / rank | **PARTIAL** | GSC/GA4 live. Monthly cadence: `/admin/local-dominance-sprint` City Rank Scoreboard (28-day GSC) + snapshot notes first Monday each month. |
 
 ## Phased sequence (execute in order)
 
@@ -61,8 +61,12 @@ Map pack (top 3) + page-1 organic for every service we offer across the Fox Vall
 - [ ] GBP Dashboard: categories, service areas, card-hold, fee, policy paste
 - [ ] Owner copy review of SEO-001 generated blocks (peptides + devices)
 - [ ] GSC “Request indexing” in UI for new URLs (API inspect-only)
-- [ ] CWV measurement on flagship templates (mobile ≥90)
-- [ ] Monthly rank report cadence
+- [x] CWV measurement on flagship templates — baseline logged (`docs/LIGHTHOUSE_BASELINE.md`); **fix pass** still needed (mobile 68–76 vs ≥90)
+- [x] Monthly rank report cadence — defined: first Monday → `/admin/local-dominance-sprint` scoreboard + GSC CWV glance
+
+## Next engineering (perf)
+
+- Hero/LCP pass on `/`, `/faq`, flagship `-il` landers, `/rx` to close CWV gap (see Lighthouse levers doc).
 
 ## Implementation refs
 
