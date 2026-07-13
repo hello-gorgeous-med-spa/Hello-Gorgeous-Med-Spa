@@ -82,7 +82,7 @@ export function PeptideTopicTemplate({ topic }: { topic: PeptideTopic }) {
             <JourneyVideoFrame
               src={videos.hero}
               label={`${topic.name} science animation`}
-              poster="/images/education/peptides-101-not-all-created-equal.png"
+              poster="/images/education/peptides-101-not-all-created-equal.webp"
               className="lg:max-w-lg"
             />
           ) : null}

@@ -15,17 +15,14 @@ function XIcon({ size = 18 }: { size?: number }) {
 
 export default function BookingTransitionBanner() {
   const [dismissed, setDismissed] = useState(false);
-  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
+    // Prefer painting the banner on first paint (avoids CLS) then hide if previously dismissed.
     const dismissedUntil = localStorage.getItem("hg_banner_dismissed_until");
     if (dismissedUntil && new Date(dismissedUntil) > new Date()) {
       setDismissed(true);
     }
   }, []);
-
-  if (!mounted) return null;
 
   const isActive = process.env.NEXT_PUBLIC_BOOKING_BANNER_ACTIVE !== "false";
   if (!isActive) return null;

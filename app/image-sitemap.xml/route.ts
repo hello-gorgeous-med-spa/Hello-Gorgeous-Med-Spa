@@ -9,7 +9,7 @@ import { buildInModePageImageMap } from "@/lib/inmode-image-sitemap";
 
 const additionalImages = [
   // Hero & Brand Images
-  { src: "/images/hero-brand.png", title: "Hello Gorgeous Med Spa — Dani & Ryan", caption: "Danielle Alcala-Glazier and Ryan Kent, FNP-BC — NP-directed injectables and medical aesthetics in Oswego, IL" },
+  { src: "/images/hero-brand.webp", title: "Hello Gorgeous Med Spa — Dani & Ryan", caption: "Danielle Alcala-Glazier and Ryan Kent, FNP-BC — NP-directed injectables and medical aesthetics in Oswego, IL" },
   { src: "/images/hero-banner.png", title: "Hello Gorgeous Med Spa Hero", caption: "Danielle and Ryan — Botox, Morpheus8, GLP-1 weight loss in Oswego IL" },
   { src: "/images/logo-full.png", title: "Hello Gorgeous Med Spa Logo", caption: "Hello Gorgeous Med Spa official logo" },
   
@@ -22,7 +22,7 @@ const additionalImages = [
   
   // Treatment Images
   { src: "/images/botox-lip-flip-hero.png", title: "Botox Lip Flip Treatment", caption: "Botox lip flip procedure at Hello Gorgeous Med Spa" },
-  { src: "/images/hg-botox-face-neck.png", title: "Botox Face and Neck", caption: "Botox treatment areas face and neck" },
+  { src: "/images/hg-botox-face-neck.webp", title: "Botox Face and Neck", caption: "Botox treatment areas face and neck" },
   
   // Microneedling
   { src: "/images/microneedling/microneedling-before-after-1.png", title: "Microneedling Results", caption: "RF Microneedling before and after results" },

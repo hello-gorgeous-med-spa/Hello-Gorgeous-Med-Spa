@@ -15,7 +15,7 @@ Map pack (top 3) + page-1 organic for every service we offer across the Fox Vall
 | # | Sub-task | Status | Notes |
 |---|---|---|---|
 | 1 | GBP complete + NAP + map/reviews | **PARTIAL** | Site NAP/schema + contact map/reviews done. Live GBP categories/card-hold/fee amounts = Dashboard ops. See `gbp-optimization-checklist.md`. |
-| 2 | Technical SEO foundation | **PARTIAL** | Schema/sitemap/depth CI done. CWV: post-LCP-pass mobile ~75–83 (was 68–76); still under ≥90 — see `docs/LIGHTHOUSE_BASELINE.md`. |
+| 2 | Technical SEO foundation | **PARTIAL** | CWV Round 2: mobile ~78–84 (was 68–76). CLS fixed. Still under ≥90 on LCP — `docs/LIGHTHOUSE_BASELINE.md`. |
 | 3 | Service × city landers | **PARTIAL → improved** | SEO-001 gap + Phase D: 16 RX/aesthetic landers + 10 QuantumRF/Solaria ring-city Phase 9 pages (soft templates upgrade when GBP content exists). |
 | 4 | On-page metadata | **DONE** | `pageMetadata` / `gbpLocationMetadata` |
 | 5 | Review funnel | **DONE** | Square → queue → SMS/email → Google review |
@@ -66,8 +66,9 @@ Map pack (top 3) + page-1 organic for every service we offer across the Fox Vall
 
 ## Next engineering (perf)
 
-- Round 1 shipped (`e558e38c`): hero paint, FAQ FadeUp, RX video lazy, Montserrat scoped, priority cleanup.
-- Round 2: compress heroes, defer chat widgets, chase CLS ~0.1 on marketing chrome.
+- Round 1 shipped: hero paint, FAQ FadeUp, RX video lazy, Montserrat scoped, priority cleanup.
+- Round 2 shipped: deferred engagement chrome, booking-banner CLS fix, WebP heroes.
+- Round 3 (if needed for ≥90): mobile hero crops + analytics/chat consolidation.
 
 ## Implementation refs
 

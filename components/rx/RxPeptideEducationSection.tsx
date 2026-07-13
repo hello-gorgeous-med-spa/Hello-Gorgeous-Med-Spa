@@ -86,7 +86,7 @@ export function RxPeptideEducationSection() {
           <JourneyVideoFrame
             src={PEPTIDE_SCIENCE_VIDEOS.rxEducation}
             label="Peptide signaling animation"
-            poster="/images/education/peptides-101-not-all-created-equal.png"
+            poster="/images/education/peptides-101-not-all-created-equal.webp"
           />
           <div className="overflow-hidden rounded-3xl border border-[#FF2D8E]/35 shadow-[0_20px_60px_rgba(255,45,142,0.22)]">
             <Image
