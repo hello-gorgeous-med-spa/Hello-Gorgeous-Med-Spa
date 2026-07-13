@@ -120,7 +120,7 @@ export const TOP_SERVICES: ServiceConfig[] = [
     slug: 'morpheus8',
     name: 'Morpheus8 RF Microneedling',
     shortName: 'Morpheus8',
-    priceDisplay: 'From $800',
+    priceDisplay: 'From $799',
     description: 'The deepest RF microneedling available. Morpheus8 with Burst + Quantum technology for face & body contouring, skin tightening, fat reduction, and acne scar treatment.',
     heroImage: '/images/services/hg-microneedling.png',
     keywords: ['morpheus8', 'rf microneedling', 'radiofrequency microneedling', 'morpheus8 burst', 'morpheus8 quantum', 'skin tightening', 'body contouring', 'fat reduction', 'acne scars', 'inmode morpheus8', 'deep rf microneedling', 'collagen induction'],

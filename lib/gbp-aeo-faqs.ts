@@ -1,4 +1,5 @@
 import { HG_CORE_AEO_FAQS } from "@/lib/aeo-canonical";
+import { getCityFivePageCopy } from "@/lib/city-five-page-copy";
 import { SITE } from "@/lib/seo";
 
 const TREATMENT_FAQ_TEMPLATES: Record<
@@ -87,44 +88,53 @@ const TREATMENT_FAQ_TEMPLATES: Record<
 /**
  * ≥5 extractable Q&As for GBP service×city pages (SEO-001 + SEO-002).
  * Answers lead with the direct fact, then detail (city, NP-directed, compliance).
+ * Pass `gbpSlug` (e.g. botox-naperville-il) to prepend owner-approved 5-city PDF FAQs.
  */
 export function gbpLocalFaqs(
   serviceName: string,
   cityLabel: string,
   serviceSlug: string,
+  gbpSlug?: string,
 ): Array<{ question: string; answer: string }> {
   const t = TREATMENT_FAQ_TEMPLATES[serviceSlug] || {};
   const cityShort = cityLabel.replace(", IL", "");
-  const items: Array<{ question: string; answer: string }> = [
-    {
-      question: `Do you offer ${serviceName} near ${cityShort}?`,
-      answer: `Yes — Hello Gorgeous Med Spa in Oswego, IL offers ${serviceName} for clients from ${cityLabel} and the Fox Valley. Care is NP-directed with medical screening before treatment; call ${SITE.phone} or book online.`,
-    },
-    {
-      question: `Is ${serviceName} at Hello Gorgeous medically supervised?`,
-      answer: `Yes — ${serviceName} at Hello Gorgeous is part of an NP-directed medical aesthetics practice in Oswego, IL, not a day spa. A licensed provider model screens clients before treatment.`,
-    },
-  ];
-  if (t.howLong) items.push({ question: `How long does ${serviceName} last?`, answer: t.howLong });
-  if (t.cost) items.push({ question: `How much does ${serviceName} cost near ${cityShort}?`, answer: t.cost });
-  if (t.isSafe) items.push({ question: `Is ${serviceName} safe?`, answer: t.isSafe });
-  if (t.candidacy) {
-    items.push({ question: `Who is a good candidate for ${serviceName}?`, answer: t.candidacy });
-  }
-  items.push(
-    {
-      question: "Do I need a consultation first?",
-      answer: `Yes — Hello Gorgeous recommends a consult so we can confirm candidacy, set expectations, and build a safe NP-directed plan for clients from ${cityLabel}.`,
-    },
-    {
-      question: "How do I book Hello Gorgeous from " + cityShort + "?",
-      answer: `Book online at hellogorgeousmedspa.com/book or call ${SITE.phone}. Our clinic is at ${SITE.address.streetAddress}, Oswego, IL — a short drive from ${cityShort}.`,
-    },
+  const cityCopyFaqs = gbpSlug ? getCityFivePageCopy(gbpSlug)?.faqs ?? [] : [];
+  const items: Array<{ question: string; answer: string }> = [...cityCopyFaqs];
+
+  const seen = new Set(items.map((f) => f.question.toLowerCase()));
+  const pushUnique = (question: string, answer: string) => {
+    const key = question.toLowerCase();
+    if (seen.has(key)) return;
+    seen.add(key);
+    items.push({ question, answer });
+  };
+
+  pushUnique(
+    `Do you offer ${serviceName} near ${cityShort}?`,
+    `Yes — Hello Gorgeous Med Spa in Oswego, IL offers ${serviceName} for clients from ${cityLabel} and the Fox Valley. Care is NP-directed with medical screening before treatment; call ${SITE.phone} or book online.`,
+  );
+  pushUnique(
+    `Is ${serviceName} at Hello Gorgeous medically supervised?`,
+    `Yes — ${serviceName} at Hello Gorgeous is part of an NP-directed medical aesthetics practice in Oswego, IL, not a day spa. A licensed provider model screens clients before treatment.`,
+  );
+  if (t.howLong) pushUnique(`How long does ${serviceName} last?`, t.howLong);
+  if (t.cost) pushUnique(`How much does ${serviceName} cost near ${cityShort}?`, t.cost);
+  if (t.isSafe) pushUnique(`Is ${serviceName} safe?`, t.isSafe);
+  if (t.candidacy) pushUnique(`Who is a good candidate for ${serviceName}?`, t.candidacy);
+  pushUnique(
+    "Do I need a consultation first?",
+    `Yes — Hello Gorgeous recommends a consult so we can confirm candidacy, set expectations, and build a safe NP-directed plan for clients from ${cityLabel}.`,
+  );
+  pushUnique(
+    "How do I book Hello Gorgeous from " + cityShort + "?",
+    `Book online at hellogorgeousmedspa.com/book or call ${SITE.phone}. Our clinic is at ${SITE.address.streetAddress}, Oswego, IL — a short drive from ${cityShort}.`,
   );
 
-  // Ensure ≥5; fold in a core AEO FAQ if still short
   if (items.length < 5) {
-    items.push(...HG_CORE_AEO_FAQS.slice(0, 5 - items.length));
+    for (const faq of HG_CORE_AEO_FAQS) {
+      if (items.length >= 5) break;
+      pushUnique(faq.question, faq.answer);
+    }
   }
   return items.slice(0, 8);
 }

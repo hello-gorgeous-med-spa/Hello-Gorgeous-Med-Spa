@@ -1,26 +1,39 @@
-import { Metadata } from 'next';
-import { LocationServicePage } from '@/components/LocationServicePage';
-import { TOP_SERVICES, SERVICE_AREAS, generateLocationKeywords } from '@/lib/location-seo';
-import { SITE } from '@/lib/seo';
+import { Metadata } from "next";
+import { LocationServicePage } from "@/components/LocationServicePage";
+import { cityFiveFaqsMerged, getCityFivePageCopy } from "@/lib/city-five-page-copy";
+import { TOP_SERVICES, SERVICE_AREAS, generateLocationKeywords } from "@/lib/location-seo";
+import { formatPageTitle, SITE } from "@/lib/seo";
 
-const service = TOP_SERVICES.find(s => s.slug === 'morpheus8')!;
-const area = SERVICE_AREAS.find(a => a.slug === 'naperville')!;
-const nearbyAreas = SERVICE_AREAS.filter(a => a.slug !== 'naperville');
+const SLUG = "morpheus8-naperville-il" as const;
+const copy = getCityFivePageCopy(SLUG)!;
+const service = TOP_SERVICES.find((s) => s.slug === "morpheus8")!;
+const area = SERVICE_AREAS.find((a) => a.slug === "naperville")!;
+const nearbyAreas = SERVICE_AREAS.filter((a) => a.slug !== "naperville");
+const pageTitle = formatPageTitle(copy.title);
 
 export const metadata: Metadata = {
-  title: `Morpheus8 RF Microneedling Naperville IL | ${service.priceDisplay} | Hello Gorgeous Med Spa`,
-  description: `Morpheus8 RF Microneedling near Naperville, IL. Deepest RF technology with Burst + Quantum probes. Face & body contouring, skin tightening, fat reduction. 15 min from Naperville. Book now!`,
-  keywords: generateLocationKeywords(service, 'Naperville'),
-  alternates: { canonical: `${SITE.url}/morpheus8-naperville-il` },
+  title: { absolute: pageTitle },
+  description: copy.metaDescription,
+  keywords: generateLocationKeywords(service, "Naperville"),
+  alternates: { canonical: `${SITE.url}/${SLUG}` },
   openGraph: {
-    type: 'website',
-    url: `${SITE.url}/morpheus8-naperville-il`,
-    title: `Morpheus8 Near Naperville IL | Hello Gorgeous Med Spa`,
-    description: 'Morpheus8 RF Microneedling near Naperville, IL. Face & body contouring with Burst + Quantum technology.',
+    type: "website",
+    url: `${SITE.url}/${SLUG}`,
+    title: pageTitle,
+    description: copy.metaDescription,
     images: [{ url: `${SITE.url}${service.heroImage}`, width: 1200, height: 630 }],
   },
 };
 
 export default function Morpheus8NapervillePage() {
-  return <LocationServicePage service={service} area={area} nearbyAreas={nearbyAreas} />;
+  return (
+    <LocationServicePage
+      service={service}
+      area={area}
+      nearbyAreas={nearbyAreas}
+      headline={copy.h1}
+      localIntro={copy.intro}
+      faqs={cityFiveFaqsMerged(SLUG, service.faqs)}
+    />
+  );
 }

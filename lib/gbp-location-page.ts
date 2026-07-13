@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 
+import { getCityFivePageCopy } from "@/lib/city-five-page-copy";
 import { isDeindexedLocalSlug } from "@/lib/city-seo-tier";
 import { GBP_SLUG_TO_SERVICE, type GbpServiceSlug } from "@/lib/gbp-urls";
 import { pageMetadata, SERVICES, SITE } from "@/lib/seo";
@@ -37,9 +38,12 @@ export function gbpLocationMetadata(slug: GbpServiceSlug): Metadata {
     return pageMetadata({ title: "Service", description: "Service.", path: `/${slug}` });
   }
 
+  const cityCopy = getCityFivePageCopy(slug);
   const base = pageMetadata({
-    title: `${s.name} in ${cityLabel} — ${SITE.name}`,
-    description: `${s.name} in ${cityLabel} with licensed nurse practitioners at Hello Gorgeous Med Spa. ${s.short} Free consultations. Call ${SITE.phone}.`,
+    title: cityCopy?.title ?? `${s.name} in ${cityLabel} — ${SITE.name}`,
+    description:
+      cityCopy?.metaDescription ??
+      `${s.name} in ${cityLabel} with licensed nurse practitioners at Hello Gorgeous Med Spa. ${s.short} Free consultations. Call ${SITE.phone}.`,
     path: `/${slug}`,
   });
 

@@ -40,10 +40,22 @@ interface LocationServicePageProps {
   nearbyAreas: ServiceArea[];
   /** City-specific paragraph — helps Google distinguish geo pages from template duplicates. */
   localIntro?: string;
+  /** Override default "{service} in {city}, IL" H1 (5-city PDF copy). */
+  headline?: string;
+  /** Override shared service FAQs when city-specific Q&As are provided. */
+  faqs?: Array<{ question: string; answer: string }>;
 }
 
-export function LocationServicePage({ service, area, nearbyAreas, localIntro }: LocationServicePageProps) {
+export function LocationServicePage({
+  service,
+  area,
+  nearbyAreas,
+  localIntro,
+  headline,
+  faqs: faqsOverride,
+}: LocationServicePageProps) {
   const reviewCategory = REVIEW_CATEGORY_BY_SERVICE[service.slug] ?? 'general';
+  const faqs = faqsOverride ?? service.faqs;
   const breadcrumbs = [
     { name: 'Home', url: SITE.url },
     { name: 'Services', url: `${SITE.url}/services` },
@@ -56,7 +68,7 @@ export function LocationServicePage({ service, area, nearbyAreas, localIntro }: 
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(siteJsonLd()) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd(breadcrumbs)) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(generateServiceSchema(service, area.city)) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd(service.faqs)) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd(faqs)) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessJsonLd(`${area.city}, IL`)) }} />
 
       <main className="bg-white">
@@ -104,7 +116,11 @@ export function LocationServicePage({ service, area, nearbyAreas, localIntro }: 
                   {area.city === 'Oswego' ? 'Located in Downtown Oswego' : `${area.distance} from ${area.city}`}
                 </p>
                 <h1 className="text-4xl md:text-5xl font-bold mb-6 leading-tight">
-                  <span className="text-[#FF2D8E]">{service.name}</span> in {area.city}, IL
+                  {headline ?? (
+                    <>
+                      <span className="text-[#FF2D8E]">{service.name}</span> in {area.city}, IL
+                    </>
+                  )}
                 </h1>
                 <p className="text-xl text-gray-300 mb-4">
                   {service.description} Hello Gorgeous Med Spa serves {area.city} and surrounding areas with licensed nurse practitioners.
@@ -264,7 +280,7 @@ export function LocationServicePage({ service, area, nearbyAreas, localIntro }: 
               {service.name} in {area.city} — FAQs
             </h2>
             <div className="space-y-6">
-              {service.faqs.map((faq, index) => (
+              {faqs.map((faq, index) => (
                 <div key={index} className="bg-white border border-gray-200 rounded-xl p-6">
                   <h3 className="font-semibold text-lg mb-3">{faq.question}</h3>
                   <p className="text-gray-600">{faq.answer}</p>

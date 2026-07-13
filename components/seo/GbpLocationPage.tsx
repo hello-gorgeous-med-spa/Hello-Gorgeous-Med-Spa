@@ -8,6 +8,7 @@ import { FadeUp, Section } from "@/components/Section";
 import { ServiceExpertWidget } from "@/components/ServiceExpertWidget";
 import { LocalSeoConversionStrip } from "@/components/seo/LocalSeoConversionStrip";
 import { HG_ABOUT_BLOCK } from "@/lib/aeo-canonical";
+import { getCityFivePageCopy } from "@/lib/city-five-page-copy";
 import {
   GBP_CONTEXTUAL_LINKS,
   geoContextCityForGbpSlug,
@@ -42,7 +43,8 @@ export function GbpLocationPage({ slug }: Props) {
   const s = SERVICES.find((x) => x.slug === serviceSlug);
   if (!s) notFound();
 
-  const faqs = gbpLocalFaqs(s.name, cityLabel, serviceSlug);
+  const cityCopy = getCityFivePageCopy(slug);
+  const faqs = gbpLocalFaqs(s.name, cityLabel, serviceSlug, slug);
   const cityShort = cityLabel.replace(", IL", "");
   const breadcrumbs = [{ name: "Home", url: SITE.url }, { name: s.name, url: `${SITE.url}/${slug}` }];
   const content = LOCATION_PAGE_CONTENT[slug];
@@ -63,10 +65,18 @@ export function GbpLocationPage({ slug }: Props) {
         <div className="absolute inset-0 bg-white" />
         <div className="relative z-10">
           <FadeUp>
-            <p className="text-[#FF2D8E] text-lg md:text-xl font-medium mb-6 tracking-wide">{cityLabel.toUpperCase()}</p>
+            <p className="text-[#FF2D8E] text-lg md:text-xl font-medium mb-6 tracking-wide">
+              {(cityCopy?.servingLine ?? cityLabel).toUpperCase()}
+            </p>
             <h1 className="text-4xl md:text-6xl font-bold leading-tight">
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-pink-400">{s.name}</span> in{" "}
-              {cityShort}, IL
+              {cityCopy?.h1 ? (
+                cityCopy.h1
+              ) : (
+                <>
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-pink-400">{s.name}</span>{" "}
+                  in {cityShort}, IL
+                </>
+              )}
             </h1>
             <p className="mt-6 text-xl text-black max-w-3xl leading-relaxed">{content?.intro ?? s.heroSubtitle}</p>
             <p className="mt-6 max-w-3xl text-base leading-relaxed text-black/85 border-l-4 border-[#E6007E] pl-4">
