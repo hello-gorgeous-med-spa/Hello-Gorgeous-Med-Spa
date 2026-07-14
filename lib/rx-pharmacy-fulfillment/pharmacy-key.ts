@@ -11,12 +11,28 @@ export function pharmacyLabelToVendorKey(pharmacyLabel: string | null | undefine
 export function vendorKeyToDisplayName(key: PharmacyVendorKey): string {
   if (key === "boomrx") return "BoomRx";
   if (key === "olympia") return "Olympia";
-  return "Formulation Rx";
+  return "FormuConnect";
 }
 
+/** Staff login / place-order deep-links for each compounding pharmacy. */
 export function vendorPortalUrl(key: PharmacyVendorKey): string | null {
-  if (key === "formulation") return "https://formulationrx.com";
-  if (key === "boomrx") return "https://wellsync.boomrx.com";
-  if (key === "olympia") return "https://olympiapharmacy.drscriptportal.com";
+  if (key === "formulation") {
+    return (
+      process.env.NEXT_PUBLIC_FORMULATION_PORTAL_URL?.trim() ||
+      "https://portal.formuconnect.com/login"
+    );
+  }
+  if (key === "boomrx") {
+    return (
+      process.env.NEXT_PUBLIC_BOOMRX_PORTAL_URL?.trim() ||
+      "https://hub.wellsync.com/en-US/boomrx/auth/login?redirect_url=https%3A%2F%2Fportal.boomrx.com%2Fen-US%2Fboomrx&mode=login"
+    );
+  }
+  if (key === "olympia") {
+    return (
+      process.env.NEXT_PUBLIC_OLYMPIA_PORTAL_URL?.trim() ||
+      "https://olympiapharmacy.drscriptportal.com"
+    );
+  }
   return null;
 }

@@ -89,7 +89,23 @@ export function portalHomeForSkin(skin: RxPortalRoleSkin): string {
   return RX_PORTAL_BASE;
 }
 
-/** Formulation / FormuConnect vendor portal (manual Place Order until API live). */
-export const RX_PORTAL_PHARMACY_PLACE_ORDER_URL =
-  process.env.NEXT_PUBLIC_FORMULATION_PORTAL_URL?.trim() ||
-  "https://formulationrx.com";
+/** Pharmacy portals for manual Place Order (until Phase 6 API). */
+export const RX_PORTAL_PHARMACY_OPTIONS = [
+  {
+    id: "formulation",
+    label: "FormuConnect (Formulation)",
+    url:
+      process.env.NEXT_PUBLIC_FORMULATION_PORTAL_URL?.trim() ||
+      "https://portal.formuconnect.com/login",
+  },
+  {
+    id: "boomrx",
+    label: "BoomRx (WellSync)",
+    url:
+      process.env.NEXT_PUBLIC_BOOMRX_PORTAL_URL?.trim() ||
+      "https://hub.wellsync.com/en-US/boomrx/auth/login?redirect_url=https%3A%2F%2Fportal.boomrx.com%2Fen-US%2Fboomrx&mode=login",
+  },
+] as const;
+
+/** Default pharmacy portal (FormuConnect). */
+export const RX_PORTAL_PHARMACY_PLACE_ORDER_URL = RX_PORTAL_PHARMACY_OPTIONS[0].url;

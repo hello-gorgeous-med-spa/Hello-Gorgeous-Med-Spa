@@ -1,15 +1,21 @@
 "use client";
 
 import Link from "next/link";
-import { Suspense } from "react";
+import { Suspense, useMemo, useState } from "react";
 
 import { RegenCatalogPortal } from "@/components/regen/catalog/RegenCatalogPortal";
 import { RxPortalShell } from "@/components/rx-portal/RxPortalShell";
-import { RX_PORTAL_PHARMACY_PLACE_ORDER_URL } from "@/lib/rx-portal/nav";
+import { RX_PORTAL_PHARMACY_OPTIONS } from "@/lib/rx-portal/nav";
 
 const PLACE_ORDER_BASE = "/rx-portal/place-order";
 
 export function RxPortalPlaceOrder() {
+  const [pharmacyId, setPharmacyId] = useState<string>(RX_PORTAL_PHARMACY_OPTIONS[0].id);
+  const selected = useMemo(
+    () => RX_PORTAL_PHARMACY_OPTIONS.find((o) => o.id === pharmacyId) ?? RX_PORTAL_PHARMACY_OPTIONS[0],
+    [pharmacyId],
+  );
+
   return (
     <RxPortalShell title="Place Order">
       <div className="grid gap-4 lg:grid-cols-2 mb-6">
@@ -36,20 +42,35 @@ export function RxPortalPlaceOrder() {
           </p>
           <h3 className="mt-1 text-lg font-black text-[#0B1F33]">Order from Pharmacy</h3>
           <p className="mt-2 text-sm text-sky-950/80 leading-relaxed">
-            Compounded RX for inventory or patient pickup still uses the pharmacy vendor portal
-            until live API credentials are enabled (
-            <code className="text-xs">RX_PHARMACY_API_ENABLED</code>).
+            Choose FormuConnect or BoomRx, then open the vendor portal to place the compounded order
+            (manual until live API is enabled).
           </p>
+
+          <label className="mt-4 block text-[11px] font-bold uppercase tracking-wider text-sky-800">
+            Pharmacy portal
+            <select
+              value={pharmacyId}
+              onChange={(e) => setPharmacyId(e.target.value)}
+              className="mt-1.5 w-full rounded-lg border border-sky-200 bg-white px-3 py-2.5 text-sm font-semibold text-[#0B1F33] outline-none focus:border-teal-500 focus:ring-2 focus:ring-teal-500/20"
+            >
+              {RX_PORTAL_PHARMACY_OPTIONS.map((o) => (
+                <option key={o.id} value={o.id}>
+                  {o.label}
+                </option>
+              ))}
+            </select>
+          </label>
+
           <a
-            href={RX_PORTAL_PHARMACY_PLACE_ORDER_URL}
+            href={selected.url}
             target="_blank"
             rel="noreferrer"
             className="inline-flex mt-4 rounded-lg bg-[#0B1F33] px-4 py-2 text-sm font-bold text-white hover:bg-slate-800"
           >
-            Open Formulation / FormuConnect portal ↗
+            Open {selected.label} ↗
           </a>
           <p className="mt-2 text-[11px] text-slate-500">
-            Manual until Phase 6 API sync · Chrome recommended
+            Chrome recommended · Manual until Phase 6 API sync
           </p>
         </div>
       </div>

@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 
 import { RxPortalShell } from "@/components/rx-portal/RxPortalShell";
-import { RX_PORTAL_PHARMACY_PLACE_ORDER_URL } from "@/lib/rx-portal/nav";
+import { RX_PORTAL_PHARMACY_OPTIONS } from "@/lib/rx-portal/nav";
 
 type Counts = {
   needsReview: number;
@@ -93,17 +93,22 @@ export function RxPortalDashboard() {
             </li>
             <li>
               <strong>Processing:</strong> sterile compounding often 3–4 business days; non-sterile
-              faster — confirm in FormuConnect / vendor portal.
+              faster — confirm in FormuConnect / BoomRx.
             </li>
           </ul>
-          <a
-            href={RX_PORTAL_PHARMACY_PLACE_ORDER_URL}
-            target="_blank"
-            rel="noreferrer"
-            className="inline-flex mt-3 text-sm font-bold text-teal-700 hover:underline"
-          >
-            Open pharmacy Place Order portal →
-          </a>
+          <div className="mt-3 flex flex-wrap gap-3">
+            {RX_PORTAL_PHARMACY_OPTIONS.map((o) => (
+              <a
+                key={o.id}
+                href={o.url}
+                target="_blank"
+                rel="noreferrer"
+                className="text-sm font-bold text-teal-700 hover:underline"
+              >
+                {o.label} →
+              </a>
+            ))}
+          </div>
         </div>
       </div>
 
