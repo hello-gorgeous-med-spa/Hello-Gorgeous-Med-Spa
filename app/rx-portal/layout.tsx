@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 
+import { CartProvider } from "@/lib/regen/cart-context";
+import { RegenCartDrawer } from "@/components/regen/RegenCartDrawer";
+
 export const metadata: Metadata = {
   title: "Hello Gorgeous RX Provider Portal",
   description:
@@ -8,5 +11,10 @@ export const metadata: Metadata = {
 };
 
 export default function RxPortalLayout({ children }: { children: React.ReactNode }) {
-  return children;
+  return (
+    <CartProvider>
+      {children}
+      <RegenCartDrawer />
+    </CartProvider>
+  );
 }

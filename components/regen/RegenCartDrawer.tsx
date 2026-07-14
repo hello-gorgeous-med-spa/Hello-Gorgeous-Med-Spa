@@ -31,13 +31,16 @@ export function RegenCartDrawer() {
   const [error, setError] = useState<string | null>(null);
   const [soldByUserId, setSoldByUserId] = useState("");
 
+  const path = pathname ?? "";
   const catalogMode =
     hasCatalogItems ||
-    pathname === "/rx" ||
-    (pathname?.startsWith("/rx/catalog") ?? false) ||
-    (pathname?.startsWith("/admin/rx/portal") ?? false);
+    path === "/rx" ||
+    path.startsWith("/rx/catalog") ||
+    path.startsWith("/admin/rx/portal") ||
+    path.startsWith("/rx-portal/place-order");
 
-  const staffPortalMode = pathname?.startsWith("/admin/rx/portal") ?? false;
+  const staffPortalMode =
+    path.startsWith("/admin/rx/portal") || path.startsWith("/rx-portal/place-order");
 
   const handleCheckout = async () => {
     if (items.length === 0) return;
