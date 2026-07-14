@@ -1,9 +1,8 @@
-// POST /api/webhooks/square — HG Rewards auto-credit (see lib/hg-rewards/credit-from-square-payment.ts)
-
 import { NextRequest, NextResponse } from "next/server";
 
 import { creditHgRewardsFromSquarePayment, type SquarePaymentLike } from "@/lib/hg-rewards/credit-from-square-payment";
 import { reconcileRxLedgerFromSquarePayment } from "@/lib/rx-payment-ledger";
+import { syncRegenOrderFromSquarePayment } from "@/lib/regen/sync-from-square-payment";
 import { createAdminSupabaseClient } from "@/lib/hgos/supabase";
 import { verifySquareWebhookSignature } from "@/lib/square/webhook";
 
@@ -17,6 +16,7 @@ export async function GET() {
     dashboardUrl: "https://www.hellogorgeousmedspa.com/api/webhooks/square",
     events: ["payment.completed", "payment.updated"],
     rewards: "HG Rewards auto-credit on COMPLETED payments",
+    regen: "RE GEN orders marked paid for Provider Portal on COMPLETED payments",
   });
 }
 
@@ -57,21 +57,41 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Database not configured" }, { status: 503 });
   }
 
+  const paymentExtra = payment as SquarePaymentLike & {
+    order_id?: string | null;
+    updated_at?: string | null;
+    created_at?: string | null;
+  };
+
+  const regen = await syncRegenOrderFromSquarePayment(supabase, {
+    id: payment.id,
+    status: payment.status,
+    order_id: paymentExtra.order_id,
+    updated_at: paymentExtra.updated_at,
+    created_at: paymentExtra.created_at,
+  });
+
   const result = await creditHgRewardsFromSquarePayment(supabase, payment);
 
   void reconcileRxLedgerFromSquarePayment(
     {
       id: payment.id,
       status: payment.status,
-      order_id: (payment as { order_id?: string | null }).order_id,
-      updated_at: (payment as { updated_at?: string | null }).updated_at,
-      created_at: (payment as { created_at?: string | null }).created_at,
+      order_id: paymentExtra.order_id,
+      updated_at: paymentExtra.updated_at,
+      created_at: paymentExtra.created_at,
     },
     supabase,
   );
 
-  if (result.credited) {
-    return NextResponse.json({ success: true, ...result });
+  if (result.credited || regen.matched) {
+    return NextResponse.json({
+      success: true,
+      ...result,
+      regen: regen.matched
+        ? { orderRef: regen.orderRef, markedPaid: regen.markedPaid, notified: regen.notified }
+        : undefined,
+    });
   }
 
   return NextResponse.json({ skipped: true, ...result });

@@ -39,7 +39,7 @@ export function RxPortalSpend() {
 
   return (
     <RxPortalShell
-      title="Spend Reports"
+      title="RE GEN Spend"
       actions={
         <div className="flex flex-wrap gap-2 text-sm">
           <Link href="/admin/rx-ledger" className="font-semibold text-teal-700 hover:underline">

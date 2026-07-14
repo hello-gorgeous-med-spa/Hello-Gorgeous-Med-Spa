@@ -18,20 +18,20 @@ export const RX_PORTAL_BASE = "/rx-portal" as const;
 export const RX_PORTAL_NAV: RxPortalNavItem[] = [
   {
     id: "dashboard",
-    label: "Dashboard",
+    label: "RE GEN Dashboard",
     href: `${RX_PORTAL_BASE}`,
     roles: ["provider", "staff", "admin"],
   },
   {
     id: "place-order",
-    label: "Place Order",
+    label: "Place RE GEN Order",
     href: `${RX_PORTAL_BASE}/place-order`,
     badge: "NEW",
     roles: ["provider", "staff", "admin"],
   },
   {
     id: "orders",
-    label: "Order History",
+    label: "RE GEN Orders",
     href: `${RX_PORTAL_BASE}/orders`,
     roles: ["provider", "staff", "admin"],
   },
@@ -43,19 +43,19 @@ export const RX_PORTAL_NAV: RxPortalNavItem[] = [
   },
   {
     id: "products",
-    label: "Products",
+    label: "RE GEN Formulary",
     href: `${RX_PORTAL_BASE}/products`,
     roles: ["provider", "staff", "admin"],
   },
   {
     id: "spend",
-    label: "Spend Reports",
+    label: "RE GEN Spend",
     href: `${RX_PORTAL_BASE}/spend`,
     roles: ["admin", "staff"],
   },
   {
     id: "invoices",
-    label: "Invoices",
+    label: "Send Invoice",
     href: `${RX_PORTAL_BASE}/invoices`,
     roles: ["provider", "staff", "admin"],
   },

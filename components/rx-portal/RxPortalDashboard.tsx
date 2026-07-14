@@ -34,16 +34,20 @@ export function RxPortalDashboard() {
 
   return (
     <RxPortalShell
-      title="Dashboard"
+      title="RE GEN Dashboard"
       actions={
         <Link
           href="/rx-portal/place-order"
           className="inline-flex items-center rounded-lg bg-teal-500 px-4 py-2 text-sm font-bold text-[#0B1F33] hover:bg-teal-400"
         >
-          + New Order
+          + New RE GEN Order
         </Link>
       }
     >
+      <p className="mb-4 text-sm text-slate-600">
+        Live queue from <strong>regen_orders</strong> — Square payments mark paid automatically so
+        Ryan + desk see every paid RE GEN checkout without waiting on the success page.
+      </p>
       <div className="mb-6">
         <form
           onSubmit={(e) => {
@@ -58,7 +62,7 @@ export function RxPortalDashboard() {
             type="search"
             value={q}
             onChange={(e) => setQ(e.target.value)}
-            placeholder="Search orders by patient name, order #, batch #, tracking #..."
+            placeholder="Search RE GEN orders by patient, order #, tracking #..."
             className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3.5 text-sm shadow-sm outline-none focus:border-teal-500 focus:ring-2 focus:ring-teal-500/20"
           />
         </form>

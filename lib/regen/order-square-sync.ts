@@ -184,13 +184,19 @@ export async function syncRegenShippingForSquarePayment(
   if (!order?.reference) {
     const linked = await linkRegenOrderBySquareOrderId(admin, orderId);
     if (linked) {
-      order = { reference: linked, shipping_address: null };
+      const { data: linkedRow } = await admin
+        .from("regen_orders")
+        .select("reference, shipping_address, status, payment_id")
+        .eq("reference", linked)
+        .maybeSingle();
+      order = linkedRow;
     }
   }
 
   if (!order?.reference) return { synced: false };
 
-  const paymentCompleted = payment.status === "COMPLETED";
+  // Callers must pass status when payment is COMPLETED (see syncRegenOrderFromSquarePayment).
+  const paymentCompleted = String(payment.status || "").toUpperCase() === "COMPLETED";
   let markedPaid = false;
 
   if (paymentCompleted && payment.id) {

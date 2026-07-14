@@ -44,7 +44,7 @@ export function RxPortalShell({ children, title, actions }: Props) {
       <aside className="w-64 shrink-0 bg-[#0B1F33] text-white flex flex-col">
         <div className="px-5 pt-6 pb-4 border-b border-white/10">
           <p className="text-[11px] font-bold tracking-[0.2em] uppercase text-teal-300/90">
-            Hello Gorgeous RX
+            Hello Gorgeous RX · RE GEN
           </p>
           <h1 className="mt-1 text-lg font-black leading-tight">
             Provider <span className="text-teal-300">Portal</span>
@@ -57,7 +57,7 @@ export function RxPortalShell({ children, title, actions }: Props) {
 
         <nav className="flex-1 px-3 py-4 space-y-1 overflow-y-auto">
           <p className="px-2 mb-2 text-[10px] font-bold uppercase tracking-wider text-white/40">
-            Main
+            RE GEN ops
           </p>
           {nav.map((item) => {
             const active =
@@ -115,8 +115,8 @@ export function RxPortalShell({ children, title, actions }: Props) {
         </header>
         <main className="flex-1 p-6">{children}</main>
         <footer className="px-6 py-3 text-[11px] text-slate-400 border-t border-slate-200 bg-white">
-          256-bit encrypted connection · HIPAA-ready architecture · Use Google Chrome for best
-          experience
+          256-bit encrypted · HIPAA-ready · Square payments auto-sync to RE GEN Orders · Chrome
+          recommended
         </footer>
       </div>
     </div>

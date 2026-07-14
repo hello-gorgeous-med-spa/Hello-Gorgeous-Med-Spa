@@ -17,7 +17,7 @@ export function RxPortalPlaceOrder() {
   );
 
   return (
-    <RxPortalShell title="Place Order">
+    <RxPortalShell title="Place RE GEN Order">
       <div className="grid gap-4 lg:grid-cols-2 mb-6">
         <div className="rounded-2xl border border-teal-200 bg-gradient-to-br from-teal-50 to-white p-5 shadow-sm">
           <p className="text-[11px] font-black uppercase tracking-wider text-teal-700">

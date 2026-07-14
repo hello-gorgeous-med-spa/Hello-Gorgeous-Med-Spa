@@ -29,7 +29,7 @@ import { enqueueReviewRequest } from '@/lib/reviews/enqueue';
 import { creditHgRewardsFromSquarePayment } from '@/lib/hg-rewards/credit-from-square-payment';
 import { reconcileRxLedgerFromSquarePayment } from '@/lib/rx-payment-ledger';
 import { processRxAutopayRenewalFromSquarePayment } from '@/lib/rx-autopay-renewal';
-import { syncRegenShippingForSquarePayment } from '@/lib/regen/order-square-sync';
+import { syncRegenOrderFromSquarePayment } from '@/lib/regen/sync-from-square-payment';
 
 // Helper to get access token for webhook processing
 async function getAccessTokenForWebhook(): Promise<string | null> {
@@ -422,13 +422,35 @@ export async function POST(request: NextRequest) {
       const payment = event.data.object.payment;
       
       console.log('Payment event:', event.type, payment.id, 'Status:', payment.status);
+
+      // RE GEN online checkout — run even when payment is already in sale_payments
+      // (POS idempotency must not block marking RG-* orders paid for the Provider Portal).
+      if (payment.status === 'COMPLETED') {
+        try {
+          const regen = await syncRegenOrderFromSquarePayment(supabase, {
+            id: payment.id,
+            status: payment.status,
+            order_id: payment.order_id,
+            updated_at: payment.updated_at,
+            created_at: payment.created_at,
+          });
+          if (regen.matched) {
+            console.log('[Webhook] RE GEN order synced:', regen.orderRef, {
+              markedPaid: regen.markedPaid,
+              notified: regen.notified,
+            });
+          }
+        } catch (regenErr) {
+          console.error('[Webhook] RE GEN sync error:', regenErr);
+        }
+      }
       
-      // Secondary idempotency check
+      // Secondary idempotency check (register / terminal sale_payments)
       const alreadyProcessed = await checkPaymentProcessed(payment.id);
       if (alreadyProcessed) {
-        console.log('Payment already processed, skipping:', payment.id);
-        await updateWebhookEventStatus(eventId, 'skipped', 'Already processed');
-        return NextResponse.json({ received: true, skipped: true });
+        console.log('Payment already processed, skipping POS path:', payment.id);
+        await updateWebhookEventStatus(eventId, 'processed', 'RE GEN checked; POS already processed');
+        return NextResponse.json({ received: true, skipped: true, regenChecked: true });
       }
       
       // Only process completed payments
@@ -526,14 +548,6 @@ export async function POST(request: NextRequest) {
         );
         if (reconcileResult.updated > 0) {
           console.log('[Webhook] RX ledger reconciled:', reconcileResult.ledgerIds);
-        }
-
-        const regenShip = await syncRegenShippingForSquarePayment(supabase, {
-          id: payment.id,
-          order_id: payment.order_id,
-        });
-        if (regenShip.synced) {
-          console.log('[Webhook] RE GEN shipping synced:', regenShip.orderRef);
         }
 
         const renewal = await processRxAutopayRenewalFromSquarePayment(

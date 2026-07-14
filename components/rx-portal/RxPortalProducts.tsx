@@ -5,7 +5,7 @@ import { RxPortalShell } from "@/components/rx-portal/RxPortalShell";
 
 export function RxPortalProducts() {
   return (
-    <RxPortalShell title="Products">
+    <RxPortalShell title="RE GEN Formulary">
       <div className="rounded-2xl border border-slate-200 bg-white overflow-hidden">
         <AdminRxCatalogContent />
       </div>
