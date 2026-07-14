@@ -40,12 +40,45 @@ export const RX_PORTAL_DOCUMENTS = [
   },
 ] as const;
 
-export function rxPortalTutorials() {
-  return CLINICAL_CHEAT_SHEETS.slice(0, 24).map((s) => ({
+export type RxPortalTutorial = {
+  id: string;
+  title: string;
+  description: string;
+  href: string;
+  category: string;
+  /** When set, Tutorials page embeds this video (mp4 under /public). */
+  videoSrc?: string;
+};
+
+/** FormuConnect pharmacy portal how-tos (vendor training for staff). */
+export const RX_PORTAL_FORMUCONNECT_VIDEOS: RxPortalTutorial[] = [
+  {
+    id: "formuconnect-place-submit",
+    title: "Place & Submit Orders in FormuConnect",
+    description:
+      "How to place and submit compounding orders in the FormuConnect (Formulation) provider portal.",
+    href: "/rx-portal/tutorials/formuconnect-place-and-submit-orders.mp4",
+    videoSrc: "/rx-portal/tutorials/formuconnect-place-and-submit-orders.mp4",
+    category: "FormuConnect",
+  },
+  {
+    id: "formuconnect-navigate-dashboard",
+    title: "Navigate Provider Dashboard in FormuConnect",
+    description:
+      "Tour of the FormuConnect provider dashboard — where to find orders, status, and account tools.",
+    href: "/rx-portal/tutorials/formuconnect-navigate-provider-dashboard.mp4",
+    videoSrc: "/rx-portal/tutorials/formuconnect-navigate-provider-dashboard.mp4",
+    category: "FormuConnect",
+  },
+];
+
+export function rxPortalTutorials(): RxPortalTutorial[] {
+  const sheets = CLINICAL_CHEAT_SHEETS.slice(0, 24).map((s) => ({
     id: s.id,
     title: s.title,
     description: s.description,
     href: s.href,
     category: s.category,
   }));
+  return [...RX_PORTAL_FORMUCONNECT_VIDEOS, ...sheets];
 }
