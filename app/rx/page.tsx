@@ -170,43 +170,43 @@ export default function RxShopPage() {
         <RegenCatalogClient />
       </Suspense>
 
-      {/* Crawlable SSR copy — portal UI is client-heavy; keep indexable answers visible */}
-      <section className="border-t border-black/10 bg-white px-6 py-16 text-black">
-        <div className="mx-auto max-w-3xl">
-          <h2 className="text-2xl font-bold text-[#E6007E]">About Hello Gorgeous RX / RE GEN</h2>
-          <p className="mt-4 leading-relaxed text-black/85">{HG_ABOUT_EXTRACT}</p>
-          <p className="mt-4 leading-relaxed text-black/85">{RX_DESCRIPTION}</p>
-          <h2 className="mt-12 text-2xl font-bold text-[#E6007E]">RE GEN FAQ</h2>
-          <dl className="mt-6 space-y-6">
+      {/* Crawlable SSR copy for bots — visually tucked so the client shop stays the presentation surface */}
+      <section className="border-t border-white/10 bg-[#0a0a0a] px-6 py-10 text-white/55">
+        <div className="mx-auto max-w-3xl text-sm leading-relaxed">
+          <h2 className="text-base font-semibold text-white/70">About Hello Gorgeous RX / RE GEN</h2>
+          <p className="mt-3">{HG_ABOUT_EXTRACT}</p>
+          <p className="mt-3">{RX_DESCRIPTION}</p>
+          <h2 className="mt-8 text-base font-semibold text-white/70">RE GEN FAQ</h2>
+          <dl className="mt-4 space-y-4">
             {REGEN_FAQS.map((f) => (
               <div key={f.question}>
-                <dt className="font-semibold text-black">{f.question}</dt>
-                <dd className="mt-2 leading-relaxed text-black/80">{f.answer}</dd>
+                <dt className="font-medium text-white/80">{f.question}</dt>
+                <dd className="mt-1">{f.answer}</dd>
               </div>
             ))}
           </dl>
-          <ul className="mt-10 list-disc space-y-2 pl-5 text-sm text-black/70">
+          <ul className="mt-8 flex flex-wrap gap-x-4 gap-y-2 text-xs text-white/45">
             {SHOP_GOALS.map((goalId) => (
               <li key={goalId}>
-                <Link href={`/rx?goal=${goalSlug(goalId)}`} className="underline hover:text-[#E6007E]">
+                <Link href={`/rx?goal=${goalSlug(goalId)}`} className="underline hover:text-[#FF2D8E]">
                   Shop {goalId}
                 </Link>
               </li>
             ))}
             {REGEN_CATEGORY_HUBS.map((hub) => (
               <li key={hub.id}>
-                <Link href={hub.hubPath} className="underline hover:text-[#E6007E]">
+                <Link href={hub.hubPath} className="underline hover:text-[#FF2D8E]">
                   {hub.navLabel}
                 </Link>
               </li>
             ))}
             <li>
-              <Link href="/rx/request" className="underline hover:text-[#E6007E]">
+              <Link href="/rx/request" className="underline hover:text-[#FF2D8E]">
                 Start RE GEN intake
               </Link>
             </li>
             <li>
-              <Link href="/book" className="underline hover:text-[#E6007E]">
+              <Link href="/book" className="underline hover:text-[#FF2D8E]">
                 Book an in-person consult
               </Link>
             </li>

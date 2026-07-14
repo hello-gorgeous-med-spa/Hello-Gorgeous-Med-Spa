@@ -26,19 +26,20 @@ import {
 } from "@/lib/regen/catalog";
 import { catalogLineId } from "@/lib/regen/catalog/pricing";
 import {
-  CatalogBrandLockup,
-  CatalogCartButton,
   ProductCard,
   formatCatalogMoney,
 } from "@/components/regen/catalog/CatalogProductCard";
 import { ProductDetailDrawer } from "@/components/regen/catalog/ProductDetailDrawer";
+import { RegenShopStickyNav } from "@/components/regen/catalog/RegenShopStickyNav";
 import { RxPeptideEducationSection } from "@/components/rx/RxPeptideEducationSection";
 import { RxScienceHomeHero } from "@/components/rx/RxScienceHomeHero";
 import {
-  JourneyEyebrow,
   JourneySectionHead,
   JOURNEY_SECTION_BG_B,
 } from "@/components/marketing/JourneyPageUi";
+import { REGEN_SHOP_FAQS } from "@/lib/regen-shop-nav";
+
+const SECTION_SCROLL = "scroll-mt-[148px]";
 
 type View = "home" | "goal" | "all" | "search";
 
@@ -232,61 +233,31 @@ export function RegenCatalogPortal({
 
   return (
     <div className="min-h-screen bg-black font-sans text-white">
-      {/* Header */}
-      <header className="sticky top-0 z-40 border-b border-white/10 bg-black/82 backdrop-blur-md">
-        <div className="mx-auto flex h-[66px] max-w-[1200px] items-center gap-4 px-6">
-          <CatalogBrandLockup onClickHome={() => navigate({})} />
-          <div className="relative mx-auto hidden max-w-md flex-1 md:block">
-            <svg
-              className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-white/35"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-              />
-            </svg>
-            <input
-              type="search"
-              value={query}
-              onChange={(e) => onSearchChange(e.target.value)}
-              placeholder="Search treatments, goals, ingredients…"
-              className="h-[42px] w-full rounded-full border border-white/15 bg-[#0a0206] pl-11 pr-4 text-sm text-white outline-none ring-[#FF2D8E] placeholder:text-white/40 focus:ring-2"
-            />
-          </div>
-          <div className="ml-auto flex items-center gap-3">
-            <button
-              type="button"
-              onClick={() => navigate({})}
-              className="hidden text-sm font-semibold text-white/70 hover:text-[#FF2D8E] sm:block"
-            >
-              Home
-            </button>
-            <CatalogCartButton />
-          </div>
-        </div>
-        <div className="border-t border-white/10 px-6 py-3 md:hidden">
-          <input
-            type="search"
-            value={query}
-            onChange={(e) => onSearchChange(e.target.value)}
-            placeholder="Search treatments…"
-            className="h-[42px] w-full rounded-full border border-white/15 bg-[#0a0206] px-4 text-sm text-white outline-none ring-[#FF2D8E] placeholder:text-white/40 focus:ring-2"
-          />
-        </div>
-      </header>
+      <RegenShopStickyNav
+        basePath={basePath}
+        onGoHome={() => {
+          if (view === "home") {
+            window.scrollTo({ top: 0, behavior: "smooth" });
+            return;
+          }
+          navigate({});
+        }}
+        searchValue={query}
+        onSearchChange={onSearchChange}
+      />
 
       {view === "home" ? (
         <>
-          <RxScienceHomeHero onExploreGoals={scrollToShopByGoal} />
-          <RxPeptideEducationSection />
+          <div id="science" className={SECTION_SCROLL}>
+            <RxScienceHomeHero onExploreGoals={scrollToShopByGoal} />
+            <RxPeptideEducationSection />
+          </div>
 
           {/* Shop by goal */}
-          <section id="shop-by-goal" className={`scroll-mt-20 ${JOURNEY_SECTION_BG_B} px-6 py-16 lg:py-24`}>
+          <section
+            id="shop-by-goal"
+            className={`${SECTION_SCROLL} ${JOURNEY_SECTION_BG_B} px-6 py-16 lg:py-24`}
+          >
             <div className="mx-auto max-w-[1200px]">
               <JourneySectionHead
                 eyebrow="Your protocol, matched to your goal"
@@ -334,7 +305,7 @@ export function RegenCatalogPortal({
           </section>
 
           {/* Best sellers */}
-          <section className="px-6 py-16 lg:py-24">
+          <section id="popular" className={`${SECTION_SCROLL} px-6 py-16 lg:py-24`}>
             <div className="mx-auto max-w-[1200px]">
               <div className="flex items-end justify-between gap-4">
                 <JourneySectionHead eyebrow="Client favorites" title="Popular" titleAccent="protocols" />
@@ -355,7 +326,7 @@ export function RegenCatalogPortal({
           </section>
 
           {/* Bundles */}
-          <section className={`${JOURNEY_SECTION_BG_B} px-6 py-16 lg:py-24`}>
+          <section id="stacks" className={`${SECTION_SCROLL} ${JOURNEY_SECTION_BG_B} px-6 py-16 lg:py-24`}>
             <div className="mx-auto max-w-[1200px]">
               <JourneySectionHead
                 eyebrow="Curated stacks"
@@ -408,7 +379,7 @@ export function RegenCatalogPortal({
           </section>
 
           {/* How it works */}
-          <section className="px-6 pb-16">
+          <section id="how-it-works" className={`${SECTION_SCROLL} px-6 pb-16 pt-4`}>
             <div className="mx-auto max-w-[1200px] rounded-3xl border border-[#FF2D8E]/35 bg-[#0a0206] px-8 py-12 md:px-12">
               <JourneySectionHead eyebrow="How RE GEN works" title="Three steps to" titleAccent="your protocol" />
               <ol className="mt-8 grid gap-8 md:grid-cols-3">
@@ -438,6 +409,38 @@ export function RegenCatalogPortal({
                   </li>
                 ))}
               </ol>
+            </div>
+          </section>
+
+          {/* FAQ — same dropdown pattern as Brow Journey */}
+          <section
+            id="faq"
+            className={`${SECTION_SCROLL} bg-[radial-gradient(80%_90%_at_80%_0%,#12030c,#000_60%)] px-6 py-16 lg:py-24`}
+          >
+            <div className="mx-auto max-w-[1200px]">
+              <JourneySectionHead
+                eyebrow="Common Q & A"
+                title="Your questions,"
+                titleAccent="answered"
+                description="Clear answers before you start intake. Still unsure? Book a free consult with our NP-led team."
+              />
+              <div className="mx-auto mt-11 flex max-w-[860px] flex-col gap-3">
+                {REGEN_SHOP_FAQS.map((faq) => (
+                  <details
+                    key={faq.q}
+                    className="group overflow-hidden rounded-[14px] border border-white/14 bg-[#0a0206]"
+                  >
+                    <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-6 py-5 font-serif text-lg font-bold text-white marker:content-none group-open:text-[#FF2D8E]">
+                      {faq.q}
+                      <span className="text-2xl font-normal text-[#FF2D8E] group-open:hidden">+</span>
+                      <span className="hidden text-2xl font-normal text-[#FF2D8E] group-open:inline">
+                        –
+                      </span>
+                    </summary>
+                    <p className="px-6 pb-5 text-[15px] leading-relaxed text-white/72">{faq.a}</p>
+                  </details>
+                ))}
+              </div>
             </div>
           </section>
         </>
