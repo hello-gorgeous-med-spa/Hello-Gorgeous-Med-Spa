@@ -126,6 +126,9 @@ export default function AdminRxCommandCenterPage() {
             </p>
           </div>
           <div className="flex flex-wrap gap-3 text-xs">
+            <Link href="/rx-portal" className="text-teal-300 font-semibold hover:text-white">
+              Provider Portal →
+            </Link>
             <Link href="/admin/rx-dispatch" className="text-[#FFB8DC] hover:text-white">
               Dispatch →
             </Link>

@@ -3,7 +3,7 @@
 // Handle subdomain routing and authentication
 // ============================================================
 // CLIENT LOGIN: /login is client-only (magic link). Never apply admin auth to /login.
-// Admin auth guard applies ONLY to /admin and /admin/* (and /provider, /portal, /pos).
+// Admin auth guard applies ONLY to /admin and /admin/* (and /provider, /portal, /pos, /rx-portal).
 // Staff training hub (/staff/*) uses STAFF_PORTAL_PIN when set — see lib/staff-session.ts.
 // ============================================================
 
@@ -24,7 +24,7 @@ import {
 } from '@/lib/staff-session';
 
 // Routes that require authentication (admin guard applies only to these)
-const PROTECTED_ROUTES = ['/admin', '/provider', '/portal', '/pos'];
+const PROTECTED_ROUTES = ['/admin', '/provider', '/portal', '/pos', '/rx-portal'];
 
 /**
  * Intake is canonically on hub.hellogorgeousmedspa.com in production (DNS).
@@ -259,7 +259,12 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(loginUrl);
   }
 
-  // Check if this is a protected route (admin, provider, portal, pos only)
+  // RX Provider Portal login is public (role-tab skins → /login)
+  if (pathname === '/rx-portal/login' || pathname.startsWith('/rx-portal/login/')) {
+    return NextResponse.next();
+  }
+
+  // Check if this is a protected route (admin, provider, portal, pos, rx-portal)
   const isProtectedRoute = PROTECTED_ROUTES.some(route =>
     url.pathname === route || url.pathname.startsWith(`${route}/`)
   );
@@ -267,9 +272,18 @@ export async function middleware(request: NextRequest) {
   // Redirect to login if accessing protected route without authentication
   if (isProtectedRoute && !isAuthenticated) {
     const isPortalRoute = pathname === '/portal' || pathname.startsWith('/portal/');
-    const loginPath = isPortalRoute ? '/portal/login' : '/login';
+    const isRxPortalRoute = pathname === '/rx-portal' || pathname.startsWith('/rx-portal/');
+    const loginPath = isPortalRoute
+      ? '/portal/login'
+      : isRxPortalRoute
+        ? '/rx-portal/login'
+        : '/login';
     const loginUrl = new URL(loginPath, request.url);
-    loginUrl.searchParams.set('returnTo', url.pathname);
+    if (!isRxPortalRoute) {
+      loginUrl.searchParams.set('returnTo', url.pathname);
+    } else {
+      loginUrl.searchParams.set('returnTo', url.pathname);
+    }
     return NextResponse.redirect(loginUrl);
   }
 
@@ -293,14 +307,29 @@ export async function middleware(request: NextRequest) {
       }
 
       // /admin/* — owner, admin, staff, readonly (readonly can view but not modify)
+      // Providers: RX clinical surfaces only (ops, orders, invoices, catalog) — full portal is /rx-portal
       if (pathname === '/admin' || pathname.startsWith('/admin/')) {
-        if (!viewOnlyAdminRoles.includes(role)) {
-          return NextResponse.redirect(new URL('/', request.url));
+        const providerRxPaths =
+          pathname.startsWith('/admin/rx/') ||
+          pathname === '/admin/rx' ||
+          pathname.startsWith('/admin/rx-invoices') ||
+          pathname.startsWith('/admin/rx-ledger');
+        if (role === 'provider' && providerRxPaths) {
+          // allowed
+        } else if (!viewOnlyAdminRoles.includes(role)) {
+          return NextResponse.redirect(new URL('/rx-portal', request.url));
         }
       }
 
       // /pos/* — owner, admin, staff, provider (providers can checkout their own patients)
       if (pathname === '/pos' || pathname.startsWith('/pos/')) {
+        if (!posRoles.includes(role)) {
+          return NextResponse.redirect(new URL('/', request.url));
+        }
+      }
+
+      // /rx-portal/* — owner, admin, staff, provider (Hello Gorgeous RX Provider Portal)
+      if (pathname === '/rx-portal' || pathname.startsWith('/rx-portal/')) {
         if (!posRoles.includes(role)) {
           return NextResponse.redirect(new URL('/', request.url));
         }
