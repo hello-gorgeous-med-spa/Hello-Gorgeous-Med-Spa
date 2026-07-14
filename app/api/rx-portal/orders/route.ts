@@ -2,12 +2,14 @@ import { NextRequest, NextResponse } from "next/server";
 
 import { requireProviderAreaAccess } from "@/lib/api-auth";
 import { getSupabaseAdminClient } from "@/lib/hgos/supabase-admin";
-import {
-  listRegenFulfillmentOrders,
-  regenOrderNeedsReview,
-  regenOrderReadyToShip,
-} from "@/lib/regen/order-fulfillment";
+import { listRegenFulfillmentOrders } from "@/lib/regen/order-fulfillment";
 import { regenOrderTotalUsd } from "@/lib/regen/order-patient-status";
+import {
+  buildRxPortalDashboardStats,
+  formatSlaAge,
+  rxPortalOrderAgeHours,
+  rxPortalQueueFlags,
+} from "@/lib/rx-portal/dashboard-queues";
 import {
   rxPortalShipDestination,
   rxPortalShipSpeed,
@@ -33,7 +35,7 @@ function parseLineItems(raw: unknown): Array<{ name: string; qty: number; price?
   });
 }
 
-/** GET /api/rx-portal/orders — Provider Portal order history */
+/** GET /api/rx-portal/orders — Provider Portal order history + dashboard rollups */
 export async function GET(req: NextRequest) {
   const auth = requireProviderAreaAccess(req);
   if ("error" in auth) return auth.error;
@@ -49,16 +51,20 @@ export async function GET(req: NextRequest) {
   );
 
   const orders = await listRegenFulfillmentOrders(admin, { limit, filter: "all" });
+  const now = Date.now();
+  const stats = buildRxPortalDashboardStats(orders);
 
   return NextResponse.json({
     counts: {
-      needsReview: orders.filter(regenOrderNeedsReview).length,
-      readyToShip: orders.filter(regenOrderReadyToShip).length,
-      shipped: orders.filter(
-        (o) => Boolean(o.shipped_at) || o.status === "shipped" || o.status === "delivered",
-      ).length,
-      total: orders.length,
+      needsReview: stats.needsReview,
+      readyToShip: stats.readyToShip,
+      shipped: stats.shipped,
+      intakeMissing: stats.intakeMissing,
+      telehealthPending: stats.telehealthPending,
+      awaitingTracking: stats.awaitingTracking,
+      total: stats.total,
     },
+    stats,
     orders: orders.map((o) => {
       const intake = (o.intake_data ?? null) as Record<string, unknown> | null;
       const dob =
@@ -80,6 +86,8 @@ export async function GET(req: NextRequest) {
         deliveredAt: o.delivered_at,
         trackingNumber: o.tracking_number,
       };
+      const flags = rxPortalQueueFlags(o);
+      const ageHours = rxPortalOrderAgeHours(o, now);
       return {
         reference: o.reference,
         createdAt: o.created_at,
@@ -89,6 +97,9 @@ export async function GET(req: NextRequest) {
         dob: dob ? String(dob).slice(0, 10) : null,
         totalUsd: regenOrderTotalUsd(o),
         paidAt: o.paid_at,
+        intakeCompletedAt: o.intake_completed_at ?? null,
+        telehealthRequired: o.telehealth_required ?? null,
+        telehealthCompletedAt: o.telehealth_completed_at ?? null,
         npApprovedAt: o.np_approved_at,
         pharmacyOrderedAt: o.pharmacy_ordered_at,
         pharmacySource: o.pharmacy_source ?? null,
@@ -100,6 +111,9 @@ export async function GET(req: NextRequest) {
         shipDestination,
         shipLabel: shipDestination,
         statusAt: rxPortalStatusStamp(signals),
+        ageHours,
+        ageLabel: formatSlaAge(ageHours),
+        queue: flags,
         items,
         itemCount: items.length,
         detailHref: `/admin/rx/regen-orders/${encodeURIComponent(o.reference)}`,
