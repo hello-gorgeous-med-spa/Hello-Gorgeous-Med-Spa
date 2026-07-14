@@ -40,6 +40,74 @@ export const RX_PORTAL_DOCUMENTS = [
   },
 ] as const;
 
+/** FormuConnect / Formulation Compounding Center agreements (signed copies). */
+export const RX_PORTAL_COMPLIANCE_DOCS = [
+  {
+    id: "formuconnect-msa",
+    title: "FormuConnect Master Service Agreement",
+    description:
+      "MSA with Formulation Compounding Center, LLC — electronic prescribing portal services, HIPAA/security, LegitScript, term & liability. Signed by Ryan Kent (May 7, 2026).",
+    href: "/rx-portal/compliance/formuconnect-msa.pdf",
+    signedBy: "Ryan Kent",
+    signedAt: "May 7, 2026",
+  },
+  {
+    id: "formuconnect-privacy",
+    title: "FormuConnect Privacy Policy",
+    description:
+      "Consumer privacy policy for FormuConnect / Formulation Compounding Center — data types, retention, security, CCPA notice. Signed by Ryan Kent (May 7, 2026).",
+    href: "/rx-portal/compliance/formuconnect-privacy.pdf",
+    signedBy: "Ryan Kent",
+    signedAt: "May 7, 2026",
+  },
+  {
+    id: "formuconnect-terms",
+    title: "FormuConnect Terms & Conditions",
+    description:
+      "Website / portal terms of use — license, disclaimers, liability limits, Texas governing law. Signed by Ryan Kent (May 7, 2026).",
+    href: "/rx-portal/compliance/formuconnect-terms.pdf",
+    signedBy: "Ryan Kent",
+    signedAt: "May 7, 2026",
+  },
+] as const;
+
+/**
+ * Ops safety checklist distilled from signed FormuConnect agreements.
+ * Not legal advice — practice risk control for Hello Gorgeous / RE GEN.
+ */
+export const RX_PORTAL_FORMUCONNECT_SAFETY = {
+  vendor: "Formulation Compounding Center, LLC (FormuConnect)",
+  vendorContact: "info@formulationrx.com · 1511 Justin Rd, STE 106A, Lewisville, TX 75077",
+  signedBy: "Ryan Kent",
+  signedAt: "May 7, 2026",
+  bullets: [
+    {
+      title: "Patient consents are on you",
+      body: "MSA §II — Hello Gorgeous must obtain patient consents/authorizations before using/disclosing PHI through FormuConnect. Keep Charm + RE GEN consents current; never upload/enter PHI without a signed treatment + privacy path.",
+    },
+    {
+      title: "HIPAA + HITECH both apply",
+      body: "MSA §V–VII claim AES-256 at rest, TLS in transit, MFA, 6-year audit logs, LegitScript. Still treat FormuConnect as a BAA/vendor: least-privilege logins, no shared passwords, log who placed each compound order.",
+    },
+    {
+      title: "They disclaim warranties & limit liability",
+      body: "MSA §XI–XII — formulations/portal are largely “as is”; they exclude consequential damages. Clinical accountability for what you prescribe stays with Ryan / HG. Document NP approval in RE GEN before pharmacy submit.",
+    },
+    {
+      title: "Renewal trap",
+      body: "MSA auto-renews annually unless you give 60 days’ written notice before renewal. Calendar a 75-day-out review (contract + LegitScript status + IL shipping).",
+    },
+    {
+      title: "Illinois practice gate",
+      body: "Portal does not replace IL NP practice rules. Only eligible Illinois patients; telehealth cadence + chart stay in Charm/Fresha (or Square telehealth once migrated).",
+    },
+    {
+      title: "Terms ≠ clinical SOP",
+      body: "Terms are website license (TX law). Do not rely on them for compounding QA, recalls, or ADE reporting — keep FormuConnect + BoomRx pharmacy SOPs printed for desk.",
+    },
+  ],
+} as const;
+
 export type RxPortalTutorial = {
   id: string;
   title: string;
