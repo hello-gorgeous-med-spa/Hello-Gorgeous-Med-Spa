@@ -25,6 +25,9 @@ export type RxPortalOrderSignals = {
   pharmacyShipmentStatus?: string | null;
 };
 
+export type RxPortalShipSpeed = "NEXTDAY" | "TWODAY" | "GROUND";
+export type RxPortalShipDestination = "PATIENT" | "OFFICE";
+
 /** Highest completed step index (0–4). -1 = not started / pending payment. */
 export function rxPortalPipelineIndex(signals: RxPortalOrderSignals): number {
   const status = (signals.status || "").toLowerCase();
@@ -42,9 +45,6 @@ export function rxPortalPipelineIndex(signals: RxPortalOrderSignals): number {
   }
 
   const pharmacy = (signals.pharmacyShipmentStatus || "").toLowerCase();
-  if (pharmacy === "processing" || pharmacy === "compounding") {
-    // Compounding done when verified progresses further
-  }
 
   if (
     signals.pharmacyOrderedAt ||
@@ -52,7 +52,6 @@ export function rxPortalPipelineIndex(signals: RxPortalOrderSignals): number {
     pharmacy === "submitted" ||
     pharmacy === "queued"
   ) {
-    // Ready for ship / pharmacy completed line → Completed (index 3) if approved
     if (signals.npApprovedAt || status === "approved" || status === "ordered") {
       return 3; // Completed (ready)
     }
@@ -79,12 +78,74 @@ export function rxPortalPipelineStepsReached(signals: RxPortalOrderSignals): boo
   return RX_PORTAL_PIPELINE_STEPS.map((_, i) => idx >= i);
 }
 
-export function rxPortalShipLabel(signals: {
+export function rxPortalShipDestination(signals: {
   shippingAddress?: Record<string, unknown> | null;
   salesChannel?: string | null;
-}): string {
+}): RxPortalShipDestination {
   const channel = (signals.salesChannel || "").toLowerCase();
   if (channel.includes("clinic") || channel.includes("office")) return "OFFICE";
   if (signals.shippingAddress) return "PATIENT";
   return "PATIENT";
+}
+
+/** @deprecated Use rxPortalShipDestination — kept for older call sites */
+export function rxPortalShipLabel(signals: {
+  shippingAddress?: Record<string, unknown> | null;
+  salesChannel?: string | null;
+}): string {
+  return rxPortalShipDestination(signals);
+}
+
+/** Flat $30 default → TWODAY; rush / higher ship fee → NEXTDAY. */
+export function rxPortalShipSpeed(shippingUsd?: number | string | null): RxPortalShipSpeed {
+  const fee = Number(shippingUsd ?? 30);
+  if (Number.isFinite(fee) && fee >= 45) return "NEXTDAY";
+  if (Number.isFinite(fee) && fee <= 15) return "GROUND";
+  return "TWODAY";
+}
+
+/** Most recent pipeline timestamp for the footnote under the stepper. */
+export function rxPortalStatusStamp(signals: RxPortalOrderSignals): string | null {
+  const candidates = [
+    signals.deliveredAt,
+    signals.shippedAt,
+    signals.pharmacyOrderedAt,
+    signals.npApprovedAt,
+    signals.paidAt,
+  ].filter(Boolean) as string[];
+  return candidates[0] ?? null;
+}
+
+export function formatRxPortalStatusTime(iso: string | null | undefined): string {
+  if (!iso) return "";
+  try {
+    return new Date(iso).toLocaleTimeString("en-US", {
+      hour: "numeric",
+      minute: "2-digit",
+      hour12: true,
+    });
+  } catch {
+    return "";
+  }
+}
+
+export function rxPortalTrackingUrl(trackingNumber: string | null | undefined): string | null {
+  const tn = (trackingNumber || "").trim();
+  if (!tn) return null;
+  if (/^1Z/i.test(tn)) {
+    return `https://www.ups.com/track?tracknum=${encodeURIComponent(tn)}`;
+  }
+  if (/^\d{12,22}$/.test(tn)) {
+    return `https://www.fedex.com/fedextrack/?trknbr=${encodeURIComponent(tn)}`;
+  }
+  return `https://www.google.com/search?q=${encodeURIComponent(`${tn} tracking`)}`;
+}
+
+export function rxPortalSourceLabel(pharmacySource?: string | null): string {
+  const raw = (pharmacySource || "").trim();
+  if (!raw) return "RE GEN";
+  if (/formu|completerx|complete.?rx/i.test(raw)) return "CompleteRx";
+  if (/boom/i.test(raw)) return "BoomRx";
+  if (/olympia/i.test(raw)) return "Olympia";
+  return raw.length > 24 ? `${raw.slice(0, 22)}…` : raw;
 }

@@ -31,7 +31,7 @@ export const RX_PORTAL_NAV: RxPortalNavItem[] = [
   },
   {
     id: "orders",
-    label: "RE GEN Orders",
+    label: "Order History",
     href: `${RX_PORTAL_BASE}/orders`,
     roles: ["provider", "staff", "admin"],
   },
