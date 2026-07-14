@@ -30,6 +30,7 @@ export function RxPortalShell({ children, title, actions }: Props) {
     });
   }, []);
 
+  const path = pathname ?? "";
   const nav = portalNavForSkin(skin);
   const displayName =
     [session?.user.firstName, session?.user.lastName].filter(Boolean).join(" ") ||
@@ -61,8 +62,8 @@ export function RxPortalShell({ children, title, actions }: Props) {
           {nav.map((item) => {
             const active =
               item.href === RX_PORTAL_BASE
-                ? pathname === RX_PORTAL_BASE
-                : pathname === item.href || pathname.startsWith(`${item.href}/`);
+                ? path === RX_PORTAL_BASE
+                : path === item.href || path.startsWith(`${item.href}/`);
             return (
               <Link
                 key={item.id}

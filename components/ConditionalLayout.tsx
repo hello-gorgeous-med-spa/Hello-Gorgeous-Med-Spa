@@ -25,6 +25,8 @@ const ADMIN_ROUTES = [
   '/charting',
   '/kiosk',
   '/portal',
+  '/rx-portal',
+  '/provider',
   '/login',
   '/auth',
   '/consents/wizard',
