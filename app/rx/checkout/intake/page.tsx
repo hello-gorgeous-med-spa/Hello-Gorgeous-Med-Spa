@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
+import { ClearCartOnPaidOrder } from "@/components/regen/ClearCartOnPaidOrder";
+import { PaymentPendingRefresh } from "@/components/regen/PaymentPendingRefresh";
 import { RegenPostPaymentIntakeForm } from "@/components/regen/RegenPostPaymentIntakeForm";
 import { completeRegenOrderAndNotify } from "@/lib/regen/order-complete";
 import { regenOrderSquareSettled } from "@/lib/regen/order-patient-status";
@@ -70,16 +72,7 @@ export default async function RegenCheckoutIntakePage({ searchParams }: PageProp
   if (!order || !regenOrderSquareSettled(order)) {
     return (
       <main className="min-h-screen bg-black text-white flex items-center justify-center px-4">
-        <div className="text-center max-w-md">
-          <h1 className="text-2xl font-bold mb-4">Payment not found</h1>
-          <p className="text-white/60 mb-6">
-            We couldn&apos;t locate a paid order for <span className="font-mono text-[#FF2D8E]">{orderRef}</span>.
-            If you just paid, wait a moment and refresh — or call {SITE.phone}.
-          </p>
-          <Link href="/rx" className="text-[#FF2D8E] font-semibold underline">
-            Return to RE GEN
-          </Link>
-        </div>
+        <PaymentPendingRefresh orderRef={orderRef} />
       </main>
     );
   }
@@ -100,12 +93,14 @@ export default async function RegenCheckoutIntakePage({ searchParams }: PageProp
 
   return (
     <main className="min-h-screen bg-black text-white">
+      <ClearCartOnPaidOrder orderRef={orderRef} />
       <div className="border-b border-white/10">
         <div className="mx-auto max-w-3xl px-4 py-4 flex items-center justify-between">
           <Link href="/rx" className="flex items-center gap-2">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/images/regen/regen-logo-white.png" alt="RE GEN" className="h-8" />
           </Link>
-          <span className="text-xs text-white/50">Step 2 of 3 · Health intake</span>
+          <span className="text-xs text-white/50">Step 2 of 4 · Health intake</span>
         </div>
       </div>
 
