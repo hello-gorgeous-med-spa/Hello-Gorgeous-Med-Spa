@@ -11,10 +11,13 @@ import {
 } from "@/lib/regen/catalog/checkout-resolve";
 import { validateCartPricing } from "@/lib/regen/pricing-sync";
 import { getSupabaseAdminClient } from "@/lib/hgos/supabase-admin";
+import { normalizeToE164 } from "@/lib/phone-e164";
 import { SITE } from "@/lib/seo";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
+
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 type CheckoutRequestBody = {
   items?: RegenCartItem[];
@@ -34,6 +37,35 @@ type CheckoutRequestBody = {
   soldByUserId?: string;
   salesChannel?: RegenSalesChannel;
 };
+
+function normalizeContact(body: CheckoutRequestBody): {
+  name: string | null;
+  email: string | null;
+  phone: string | null;
+  error?: string;
+} {
+  const name = body.customerName?.trim() || null;
+  const emailRaw = body.customerEmail?.trim().toLowerCase() || null;
+  const phoneRaw = body.customerPhone?.trim() || null;
+  const phone = phoneRaw ? normalizeToE164(phoneRaw) : null;
+
+  if (!name || name.length < 2) {
+    return { name: null, email: null, phone: null, error: "Enter your full name" };
+  }
+  if (!emailRaw || !EMAIL_RE.test(emailRaw)) {
+    return { name: null, email: null, phone: null, error: "Enter a valid email" };
+  }
+  if (!phone) {
+    return {
+      name: null,
+      email: null,
+      phone: null,
+      error: "Enter a valid US mobile phone (10 digits)",
+    };
+  }
+
+  return { name, email: emailRaw, phone };
+}
 
 export async function POST(req: NextRequest) {
   try {
@@ -70,6 +102,11 @@ export async function POST(req: NextRequest) {
         { success: false, error: "Cart is empty" },
         { status: 400 },
       );
+    }
+
+    const contact = normalizeContact(body);
+    if (contact.error) {
+      return NextResponse.json({ success: false, error: contact.error }, { status: 400 });
     }
 
     const isCatalogCheckout = catalogCartHasOnlyCatalogLines(body.items);
@@ -130,9 +167,9 @@ export async function POST(req: NextRequest) {
     if (admin) {
       const { error: dbError } = await admin.from("regen_orders").insert({
         reference: orderRef,
-        customer_name: body.customerName || null,
-        customer_email: body.customerEmail || null,
-        customer_phone: body.customerPhone || null,
+        customer_name: contact.name,
+        customer_email: contact.email,
+        customer_phone: contact.phone,
         goal: body.goal || validatedItems[0]?.category || null,
         allergies: body.allergies || "None",
         supply_cycle: supplyLabel,
@@ -154,7 +191,9 @@ export async function POST(req: NextRequest) {
 
     const result = await createRegenCheckout({
       items: validatedItems,
-      customerEmail: body.customerEmail,
+      customerName: contact.name || undefined,
+      customerEmail: contact.email || undefined,
+      customerPhone: contact.phone || undefined,
       redirectUrl: `${redirectUrl}?ref=${orderRef}`,
       orderReference: orderRef,
       shippingSquareVariationId,

@@ -2,12 +2,44 @@
 
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 
 import { RegenSoldByPicker } from "@/components/admin/RegenSoldByPicker";
 import { useCart } from "@/lib/regen/cart-context";
 import { formatCatalogMoney } from "@/components/regen/catalog/CatalogProductCard";
+
+const CONTACT_STORAGE_KEY = "hgrx_checkout_contact";
+
+type SavedContact = {
+  name: string;
+  email: string;
+  phone: string;
+};
+
+function loadSavedContact(): SavedContact {
+  if (typeof window === "undefined") return { name: "", email: "", phone: "" };
+  try {
+    const raw = localStorage.getItem(CONTACT_STORAGE_KEY);
+    if (!raw) return { name: "", email: "", phone: "" };
+    const parsed = JSON.parse(raw) as Partial<SavedContact>;
+    return {
+      name: typeof parsed.name === "string" ? parsed.name : "",
+      email: typeof parsed.email === "string" ? parsed.email : "",
+      phone: typeof parsed.phone === "string" ? parsed.phone : "",
+    };
+  } catch {
+    return { name: "", email: "", phone: "" };
+  }
+}
+
+function saveContact(contact: SavedContact) {
+  try {
+    localStorage.setItem(CONTACT_STORAGE_KEY, JSON.stringify(contact));
+  } catch {
+    /* ignore */
+  }
+}
 
 export function RegenCartDrawer() {
   const pathname = usePathname();
@@ -31,6 +63,18 @@ export function RegenCartDrawer() {
   const [isCheckingOut, setIsCheckingOut] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [soldByUserId, setSoldByUserId] = useState("");
+  const [customerName, setCustomerName] = useState("");
+  const [customerEmail, setCustomerEmail] = useState("");
+  const [customerPhone, setCustomerPhone] = useState("");
+  const [contactHydrated, setContactHydrated] = useState(false);
+
+  useEffect(() => {
+    const saved = loadSavedContact();
+    setCustomerName(saved.name);
+    setCustomerEmail(saved.email);
+    setCustomerPhone(saved.phone);
+    setContactHydrated(true);
+  }, []);
 
   const path = pathname ?? "";
   const catalogMode =
@@ -43,8 +87,35 @@ export function RegenCartDrawer() {
   const staffPortalMode =
     path.startsWith("/admin/rx/portal") || path.startsWith("/rx-portal/place-order");
 
+  const validateContact = (): string | null => {
+    if (!customerName.trim() || customerName.trim().length < 2) {
+      return "Enter your full name";
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(customerEmail.trim())) {
+      return "Enter a valid email";
+    }
+    const digits = customerPhone.replace(/\D/g, "");
+    if (digits.length < 10) {
+      return "Enter a valid US mobile phone";
+    }
+    return null;
+  };
+
   const handleCheckout = async () => {
     if (items.length === 0) return;
+
+    const contactError = validateContact();
+    if (contactError) {
+      setError(contactError);
+      return;
+    }
+
+    const contact = {
+      name: customerName.trim(),
+      email: customerEmail.trim().toLowerCase(),
+      phone: customerPhone.trim(),
+    };
+    saveContact(contact);
 
     if (catalogMode) {
       setIsCheckingOut(true);
@@ -65,6 +136,9 @@ export function RegenCartDrawer() {
               variantLabel: i.variantLabel,
               supplyDays: i.supplyDays,
             })),
+            customerName: contact.name,
+            customerEmail: contact.email,
+            customerPhone: contact.phone,
             subscribe,
             refillWeeks,
             goal: items[0]?.category,
@@ -104,6 +178,9 @@ export function RegenCartDrawer() {
             category: i.category,
             rx: i.rx,
           })),
+          customerName: contact.name,
+          customerEmail: contact.email,
+          customerPhone: contact.phone,
         }),
       });
 
@@ -306,6 +383,48 @@ export function RegenCartDrawer() {
                   {catalogMode ? formatCatalogMoney(total) : `$${total.toFixed(2)}`}
                 </span>
               </div>
+            </div>
+
+            <div className="mt-4 space-y-2.5 rounded-2xl border-2 border-black/10 bg-[#FFF9FB] p-3.5">
+              <p className="text-xs font-bold uppercase tracking-wide text-[#E6007E]">
+                Contact for intake &amp; shipping updates
+              </p>
+              <label className="block">
+                <span className="sr-only">Full name</span>
+                <input
+                  type="text"
+                  autoComplete="name"
+                  placeholder="Full name"
+                  value={contactHydrated ? customerName : ""}
+                  onChange={(e) => setCustomerName(e.target.value)}
+                  className="w-full rounded-xl border-2 border-black/15 bg-white px-3 py-2.5 text-sm font-medium text-black outline-none focus:border-[#E6007E]"
+                />
+              </label>
+              <label className="block">
+                <span className="sr-only">Email</span>
+                <input
+                  type="email"
+                  autoComplete="email"
+                  placeholder="Email"
+                  value={contactHydrated ? customerEmail : ""}
+                  onChange={(e) => setCustomerEmail(e.target.value)}
+                  className="w-full rounded-xl border-2 border-black/15 bg-white px-3 py-2.5 text-sm font-medium text-black outline-none focus:border-[#E6007E]"
+                />
+              </label>
+              <label className="block">
+                <span className="sr-only">Mobile phone</span>
+                <input
+                  type="tel"
+                  autoComplete="tel"
+                  placeholder="Mobile phone"
+                  value={contactHydrated ? customerPhone : ""}
+                  onChange={(e) => setCustomerPhone(e.target.value)}
+                  className="w-full rounded-xl border-2 border-black/15 bg-white px-3 py-2.5 text-sm font-medium text-black outline-none focus:border-[#E6007E]"
+                />
+              </label>
+              <p className="text-[11px] leading-relaxed text-black/50">
+                We text your intake link after payment and use this for NP follow-up. Not shared for spam.
+              </p>
             </div>
 
             {error && <p className="mt-3 text-sm text-red-600">{error}</p>}

@@ -99,6 +99,8 @@ export type RegenCheckoutResult = {
 export async function createRegenCheckout(opts: {
   items: RegenCartItem[];
   customerEmail?: string;
+  customerPhone?: string;
+  customerName?: string;
   redirectUrl: string;
   orderReference?: string;
   /** When set, shipping uses Square catalog variation (RE GEN flat ship SKU). */
@@ -178,16 +180,17 @@ export async function createRegenCheckout(opts: {
     line_items: lineItems,
   };
 
-  const linkData = await squareFetch<{
-    payment_link?: {
-      id?: string;
-      order_id?: string;
-      url?: string;
-      long_url?: string;
-    };
-  }>("/v2/online-checkout/payment-links", {
-    method: "POST",
-    body: {
+  const email = opts.customerEmail?.trim().toLowerCase() || undefined;
+  const phoneE164 = opts.customerPhone
+    ? (await import("@/lib/phone-e164")).normalizeToE164(opts.customerPhone)
+    : null;
+
+  const buildBody = (includePhone: boolean) => {
+    const prePopulated: Record<string, string> = {};
+    if (email) prePopulated.buyer_email = email;
+    if (includePhone && phoneE164) prePopulated.buyer_phone_number = phoneE164;
+
+    return {
       idempotency_key: idempotencyKey("regen-link"),
       order: orderPayload,
       checkout_options: {
@@ -195,10 +198,40 @@ export async function createRegenCheckout(opts: {
         ask_for_shipping_address: true,
         merchant_support_email: "hello@hellogorgeousmedspa.com",
       },
+      ...(Object.keys(prePopulated).length
+        ? { pre_populated_data: prePopulated }
+        : {}),
       description:
         "RE GEN by Hello Gorgeous Med Spa — Prescription order (provider review required)",
-    },
-  });
+    };
+  };
+
+  let linkData: {
+    payment_link?: {
+      id?: string;
+      order_id?: string;
+      url?: string;
+      long_url?: string;
+    };
+  };
+
+  try {
+    linkData = await squareFetch("/v2/online-checkout/payment-links", {
+      method: "POST",
+      body: buildBody(true),
+    });
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : String(err);
+    if (phoneE164 && /INVALID_PHONE_NUMBER|phone/i.test(msg)) {
+      console.warn("[regen/checkout] Square rejected phone; retrying without prefill");
+      linkData = await squareFetch("/v2/online-checkout/payment-links", {
+        method: "POST",
+        body: buildBody(false),
+      });
+    } else {
+      throw err;
+    }
+  }
 
   const url = linkData.payment_link?.url || linkData.payment_link?.long_url;
   if (!url) {

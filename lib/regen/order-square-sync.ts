@@ -145,13 +145,29 @@ export async function syncRegenOrderShippingFromSquare(
     return { ok: false, shippingAddress: null };
   }
 
+  const { data: existing } = await admin
+    .from("regen_orders")
+    .select("customer_name")
+    .eq("reference", ref)
+    .maybeSingle();
+
+  const updates: Record<string, unknown> = {
+    shipping_address: shippingAddress,
+    square_order_id: squareOrderId,
+    updated_at: new Date().toISOString(),
+  };
+
+  // Backfill name from Square ship-to if cart checkout somehow missed it
+  if (
+    !existing?.customer_name?.trim() &&
+    shippingAddress.recipientName?.trim()
+  ) {
+    updates.customer_name = shippingAddress.recipientName.trim();
+  }
+
   const { error } = await admin
     .from("regen_orders")
-    .update({
-      shipping_address: shippingAddress,
-      square_order_id: squareOrderId,
-      updated_at: new Date().toISOString(),
-    })
+    .update(updates)
     .eq("reference", ref);
 
   if (error) {
