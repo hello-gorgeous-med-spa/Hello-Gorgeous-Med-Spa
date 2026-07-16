@@ -246,7 +246,7 @@ async function retrieveCatalogObject(objectId) {
 
 async function upsertRow(row, categoryId, prior) {
   let itemVersion;
-  const itemId = prior?.square_item_id || `#regen-item-${slugKey(row.id)}`;
+  let itemId = prior?.square_item_id || `#regen-item-${slugKey(row.id)}`;
   const varMeta = [];
 
   if (prior?.square_item_id) {
@@ -262,6 +262,7 @@ async function upsertRow(row, categoryId, prior) {
         });
       });
     } catch {
+      itemId = `#regen-item-${slugKey(row.id)}`;
       row.variations.forEach((v) => {
         varMeta.push({ square_variation_id: `#regen-var-${slugKey(row.id)}-${v.key}` });
       });

@@ -46,10 +46,11 @@ function matchRegenSku(catalogProduct, variant, regenProducts) {
   const strengthN = norm(variant.strength);
   const formN = norm(catalogProduct.form);
 
-  const hits = regenProducts.filter((p) => {
+  const matches = (p, { ignoreForm = false } = {}) => {
     const compoundN = norm(p.compound || p.name);
     const concN = norm(p.concentration || p.size || "");
     const formMatch =
+      ignoreForm ||
       !formN ||
       norm(p.form).includes(formN) ||
       formN.includes(norm(p.form)) ||
@@ -64,7 +65,9 @@ function matchRegenSku(catalogProduct, variant, regenProducts) {
       concN.includes(strengthN) ||
       strengthN.includes(concN);
     return nameMatch && strengthMatch && formMatch;
-  });
+  };
+
+  const hits = regenProducts.filter((p) => matches(p));
 
   if (hits.length === 1) return hits[0];
   if (hits.length > 1) {
@@ -74,6 +77,18 @@ function matchRegenSku(catalogProduct, variant, regenProducts) {
       hits[0]
     );
   }
+
+  const relaxedHits = regenProducts.filter((p) => matches(p, { ignoreForm: true }));
+  if (relaxedHits.length === 1) return relaxedHits[0];
+  if (relaxedHits.length > 1) {
+    return (
+      relaxedHits.find((p) => norm(p.concentration || p.size) === strengthN) ||
+      relaxedHits.find((p) => norm(p.name) === nameN) ||
+      relaxedHits.find((p) => p.pharmacy === "BoomRx") ||
+      relaxedHits[0]
+    );
+  }
+
   return null;
 }
 
