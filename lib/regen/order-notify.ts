@@ -16,8 +16,8 @@ import { sendPortalMagicLinkForEmail } from "@/lib/portal-magic-link-server";
 import { regenCheckoutIntakeUrl } from "@/lib/flows";
 import { SITE } from "@/lib/seo";
 import { REGEN_SHIPPING_USD } from "@/lib/regen/pricing-sync";
-import type { SquareShippingAddress } from "@/lib/square/order-shipping";
-import { formatSquareShippingAddress } from "@/lib/square/order-shipping";
+import type { SquareShippingAddress } from "@/lib/square/order-shipping-format";
+import { formatSquareShippingAddress } from "@/lib/square/order-shipping-format";
 
 const REGEN_BRAND = "RE GEN by Hello Gorgeous";
 const REGEN_SUPPORT_PHONE = SITE.phone;

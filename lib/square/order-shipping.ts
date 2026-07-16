@@ -5,6 +5,14 @@
 import "server-only";
 
 import { getAccessToken } from "@/lib/square/oauth";
+import {
+  type SquareShippingAddress,
+  formatSquareShippingAddress,
+  formatSquareShippingAddressOneLine,
+} from "@/lib/square/order-shipping-format";
+
+export type { SquareShippingAddress };
+export { formatSquareShippingAddress, formatSquareShippingAddressOneLine };
 
 const SQUARE_API_HOST =
   process.env.SQUARE_ENVIRONMENT === "production" || process.env.SQUARE_ENV === "production"
@@ -12,16 +20,6 @@ const SQUARE_API_HOST =
     : "https://connect.squareupsandbox.com";
 
 const SQUARE_API_VERSION = "2024-12-18";
-
-export type SquareShippingAddress = {
-  line1: string;
-  line2?: string;
-  city: string;
-  state: string;
-  postalCode: string;
-  country?: string;
-  recipientName?: string;
-};
 
 type SquareAddressLike = {
   address_line_1?: string;
@@ -46,22 +44,6 @@ function parseSquareAddress(
     country: raw.country?.trim() || undefined,
     recipientName: recipientName?.trim() || undefined,
   };
-}
-
-export function formatSquareShippingAddress(addr: SquareShippingAddress | null | undefined): string {
-  if (!addr?.line1) return "";
-  const lines = [
-    addr.recipientName,
-    addr.line1,
-    addr.line2,
-    [addr.city, addr.state, addr.postalCode].filter(Boolean).join(", "),
-    addr.country && addr.country !== "US" ? addr.country : null,
-  ].filter(Boolean);
-  return lines.join("\n");
-}
-
-export function formatSquareShippingAddressOneLine(addr: SquareShippingAddress | null | undefined): string {
-  return formatSquareShippingAddress(addr).replace(/\n+/g, ", ");
 }
 
 async function squareFetch<T>(path: string): Promise<T | null> {

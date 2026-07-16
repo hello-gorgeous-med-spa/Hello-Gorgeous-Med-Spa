@@ -2,11 +2,11 @@
  * Provider Portal dashboard queues, SLA age, and today rollups.
  */
 
-import type { RegenFulfillmentOrder } from "@/lib/regen/order-fulfillment";
+import type { RegenFulfillmentOrder } from "@/lib/regen/order-fulfillment-predicates";
 import {
   regenOrderNeedsReview,
   regenOrderReadyToShip,
-} from "@/lib/regen/order-fulfillment";
+} from "@/lib/regen/order-fulfillment-predicates";
 import { regenOrderTotalUsd } from "@/lib/regen/order-patient-status";
 import type { RxPortalRoleSkin } from "@/lib/rx-portal/nav";
 
