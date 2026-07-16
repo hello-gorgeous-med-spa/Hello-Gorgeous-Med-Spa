@@ -39,7 +39,7 @@ export function ProductDetailPanel({ product, pageMode = false }: ProductDetailP
   const p30 = price30(product, variant);
   const p90 = price90(product, variant);
   const current = supply === 90 ? p90 : p30;
-  const img = productImage(product.drugKey, product.goal);
+  const img = productImage(product.drugKey, product.form);
   const accent = goalAccent(product.goal);
   const educationSlug = peptideHubSlugFromCatalog(product.drugKey, product.name);
   const educationHref = educationSlug ? peptideTopicHref(educationSlug) : null;

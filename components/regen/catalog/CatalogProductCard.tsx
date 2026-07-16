@@ -29,7 +29,7 @@ const STAMP =
 export function ProductCard({ product, href, onOpen }: ProductCardProps) {
   const { addItem } = useCart();
   const mono = getMonograph(product.drugKey);
-  const img = productImage(product.drugKey, product.goal);
+  const img = productImage(product.drugKey, product.form);
   const accent = goalAccent(product.goal);
   const variant = product.variants[0];
   const p30 = price30(product, variant);

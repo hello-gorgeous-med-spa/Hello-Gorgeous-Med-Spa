@@ -10,58 +10,47 @@ const GOAL_ACCENTS: Record<string, string> = {
   Supplies: "#18181b",
 };
 
-/** Explicit catalog art (regen folder + marketing vials + peptide education thumbs). */
-const DRUG_IMAGES: Record<string, string> = {
-  // Regen catalog PNGs
-  ghkcu: "/images/regen/catalog/ghk-cu.png",
-  bpc157: "/images/regen/catalog/bpc-157.png",
-  nad: "/images/regen/catalog/nad.png",
-  sermorelin: "/images/regen/catalog/sermorelin.png",
-  "cjc-ipamorelin": "/images/regen/catalog/cjc-ipamorelin.png",
-  tesamorelin: "/images/regen/catalog/tesamorelin.png",
-  // Peptide education thumbs / pickers
-  tb500: "/images/peptides/tb-500-thumbnail.webp",
-  pt141: "/images/peptides/pt-141-picker.webp",
-  glutathione: "/images/peptides/glutathione-picker.webp",
-  epithalon: "/images/peptides/epithalon-thumbnail.webp",
-  motsc: "/images/peptides/mots-c-thumbnail.webp",
-  "semax-selank": "/images/peptides/semax-thumbnail.webp",
-  thymosin: "/images/peptides/heal-blend-thumbnail.webp",
-  // GLP-1 / NAD marketing vials
-  tirzepatide: "/images/marketing/tirzepatide-vial-hello-gorgeous.svg",
-  semaglutide: "/images/marketing/semaglutide-vial-hello-gorgeous.svg",
-  // Closest branded stand-ins for common wellness SKUs
-  b12: "/images/peptides/biotin-picker.webp",
-  lipotropic: "/images/peptides/amino-blend-thumbnail.webp",
-  "methylene-blue": "/images/peptides/aod-9604-thumbnail.webp",
-  pentadeca: "/images/peptides/bpc-157-picker.webp",
-  ll37: "/images/peptides/heal-blend-thumbnail.webp",
-  igflr3: "/images/peptides/cjc-1295-picker.webp",
-  ss31: "/images/peptides/mots-c-thumbnail.webp",
-  hgh: "/images/peptides/sermorelin-picker.webp",
-  kisspeptin: "/images/peptides/pt-141-picker.webp",
-  melanotan: "/images/peptides/ghk-cu-injectable-picker.webp",
-  oxytocin: "/images/peptides/pt-141-thumbnail.webp",
-  coq10: "/images/peptides/amino-blend-thumbnail.webp",
-  vitamind: "/images/peptides/biotin-thumbnail.webp",
+const CATALOG_ART = "/images/regen/catalog";
+
+/** RE GEN vial renders — only shown on injectable forms (labels say "For Injection"). */
+const INJECTABLE_ART: Record<string, string> = {
+  bpc157: `${CATALOG_ART}/bpc-157.png`,
+  ghkcu: `${CATALOG_ART}/ghk-cu.png`,
+  nad: `${CATALOG_ART}/nad.png`,
+  sermorelin: `${CATALOG_ART}/sermorelin.png`,
+  "cjc-ipamorelin": `${CATALOG_ART}/cjc-ipamorelin.png`,
+  tesamorelin: `${CATALOG_ART}/tesamorelin.png`,
+  semaglutide: `${CATALOG_ART}/regen-semaglutide.jpg`,
+  tirzepatide: `${CATALOG_ART}/regen-tirzepatide.jpg`,
+  testosterone: `${CATALOG_ART}/regen-testosterone.jpg`,
+  b12: `${CATALOG_ART}/regen-b12.jpg`,
+  lipotropic: `${CATALOG_ART}/regen-lipotropic.jpg`,
+  glutathione: `${CATALOG_ART}/regen-glutathione.jpg`,
+  pt141: `${CATALOG_ART}/regen-pt141.jpg`,
 };
 
-/** drugKey → peptide education slug when names differ */
-const DRUG_KEY_TO_PEPTIDE_SLUG: Record<string, string> = {
-  bpc157: "bpc-157",
-  ghkcu: "ghk-cu-injectable",
-  nad: "nad-plus",
-  tb500: "tb-500",
-  pt141: "pt-141",
-  motsc: "mots-c",
-  "cjc-ipamorelin": "cjc-1295",
-  "semax-selank": "semax",
-  tirzepatide: "tirzepatide",
-  semaglutide: "semaglutide",
-  sermorelin: "sermorelin",
-  tesamorelin: "tesamorelin",
-  glutathione: "glutathione",
-  epithalon: "epithalon",
+/** RE GEN bottle renders — only shown on oral forms. */
+const ORAL_ART: Record<string, string> = {
+  pde5: `${CATALOG_ART}/regen-pde5.jpg`,
+  estradiol: `${CATALOG_ART}/regen-estradiol.jpg`,
+  progesterone: `${CATALOG_ART}/regen-progesterone.jpg`,
+  finasteride: `${CATALOG_ART}/regen-finasteride.jpg`,
+  thyroid: `${CATALOG_ART}/regen-thyroid.jpg`,
+};
+
+/** RE GEN pump renders — only shown on topical forms. */
+const TOPICAL_ART: Record<string, string> = {
+  biest: `${CATALOG_ART}/regen-biest.jpg`,
+  tretinoin: `${CATALOG_ART}/regen-tretinoin.jpg`,
+};
+
+/** Brand-consistent generic packaging per form factor. */
+const FORM_FALLBACK_ART: Record<string, string> = {
+  Injectable: `${CATALOG_ART}/regen-generic-injectable.jpg`,
+  "Oral / SL": `${CATALOG_ART}/regen-generic-oral.jpg`,
+  "Topical / Liquid": `${CATALOG_ART}/regen-generic-topical.jpg`,
+  Supplies: `${CATALOG_ART}/regen-supplies.jpg`,
+  Other: `${CATALOG_ART}/regen-generic-injectable.jpg`,
 };
 
 export const REGEN_CATALOG_LOGO = "/images/regen/catalog/regen-logo.png";
@@ -70,64 +59,29 @@ export function goalAccent(goal: string): string {
   return GOAL_ACCENTS[goal] ?? "#FF2D8E";
 }
 
-export function productImage(drugKey: string, goal?: string): string | undefined {
-  if (DRUG_IMAGES[drugKey]) return DRUG_IMAGES[drugKey];
+/**
+ * RE GEN product art. Every product gets branded packaging photography:
+ * drug-specific renders where we have them, otherwise a generic RE GEN
+ * package matching the product's form factor (vial / bottle / pump / kit).
+ */
+export function productImage(drugKey: string, form?: string): string {
+  const group = formGroup(form ?? "");
 
-  const peptideSlug = DRUG_KEY_TO_PEPTIDE_SLUG[drugKey] ?? drugKey;
-  const picker = `/images/peptides/${peptideSlug}-picker.webp`;
-  const thumb = `/images/peptides/${peptideSlug}-thumbnail.webp`;
+  if (group === "Injectable" && INJECTABLE_ART[drugKey]) return INJECTABLE_ART[drugKey];
+  if (group === "Oral / SL" && ORAL_ART[drugKey]) return ORAL_ART[drugKey];
+  if (group === "Topical / Liquid" && TOPICAL_ART[drugKey]) return TOPICAL_ART[drugKey];
 
-  if (
-    [
-      "bpc-157",
-      "tb-500",
-      "ghk-cu-injectable",
-      "sermorelin",
-      "tesamorelin",
-      "nad-plus",
-      "cjc-1295",
-      "ipamorelin",
-      "biotin",
-      "glutathione",
-      "pt-141",
-      "tirzepatide",
-      "semaglutide",
-    ].includes(peptideSlug)
-  ) {
-    return picker;
+  // No form context: still prefer a drug-specific render if one exists
+  if (!form) {
+    return (
+      INJECTABLE_ART[drugKey] ??
+      ORAL_ART[drugKey] ??
+      TOPICAL_ART[drugKey] ??
+      FORM_FALLBACK_ART.Injectable
+    );
   }
 
-  if (
-    [
-      "aod-9604",
-      "mots-c",
-      "retatrutide",
-      "selank",
-      "semax",
-      "epithalon",
-      "amino-blend",
-      "k-glow",
-      "heal-blend",
-      "recovery-blend",
-      "ghk-cu",
-    ].includes(peptideSlug)
-  ) {
-    return thumb;
-  }
-
-  // Goal-based branded fallback so every card has store photography
-  const byGoal: Record<string, string> = {
-    "Lose Weight": "/images/marketing/tirzepatide-vial-hello-gorgeous.svg",
-    "Recovery & Performance": "/images/regen/catalog/bpc-157.png",
-    Intimacy: "/images/peptides/pt-141-picker.webp",
-    Hormones: "/images/regen/catalog/sermorelin.png",
-    "Skin & Hair": "/images/regen/catalog/ghk-cu.png",
-    "Energy & Longevity": "/images/regen/catalog/nad.png",
-    Supplies: "/images/peptides/amino-blend-thumbnail.webp",
-  };
-  if (goal && byGoal[goal]) return byGoal[goal];
-
-  return "/images/regen/catalog/regen-logo.png";
+  return FORM_FALLBACK_ART[group] ?? FORM_FALLBACK_ART.Other;
 }
 
 export function productInitials(name: string): string {
