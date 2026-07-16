@@ -44,8 +44,8 @@ export function RxScienceHomeHero({ onExploreGoals }: RxScienceHomeHeroProps) {
               Flat <strong className="text-white">$30 shipping</strong> on approved orders.
             </p>
             <div className="mt-8 flex flex-wrap gap-4">
-              <JourneyPinkBtn href={BOOKING_URL}>Book free consult</JourneyPinkBtn>
-              <JourneyGhostBtn onClick={onExploreGoals}>Explore by goal ↓</JourneyGhostBtn>
+              <JourneyPinkBtn onClick={onExploreGoals}>Shop the catalog ↓</JourneyPinkBtn>
+              <JourneyGhostBtn href={BOOKING_URL}>Book free consult</JourneyGhostBtn>
             </div>
             <div className="mt-6 flex flex-wrap gap-2.5">
               {["NP-directed", "Licensed compounding", "Science-first education"].map((chip) => (

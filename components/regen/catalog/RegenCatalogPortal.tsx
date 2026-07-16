@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
 import { useCart } from "@/lib/regen/cart-context";
 import {
@@ -37,9 +37,19 @@ import {
   JourneySectionHead,
   JOURNEY_SECTION_BG_B,
 } from "@/components/marketing/JourneyPageUi";
+import { goalFromStorefrontCat } from "@/lib/regen/storefront-deep-link";
 import { REGEN_SHOP_FAQS } from "@/lib/regen-shop-nav";
 
 const SECTION_SCROLL = "scroll-mt-[148px]";
+
+const GOAL_ICONS: Record<string, string> = {
+  "Lose Weight": "⚖",
+  "Recovery & Performance": "💪",
+  Intimacy: "♥",
+  Hormones: "⚡",
+  "Skin & Hair": "✨",
+  "Energy & Longevity": "☀",
+};
 
 type View = "home" | "goal" | "all" | "search";
 
@@ -47,13 +57,16 @@ function resolveView(params: {
   goal: string | null;
   browse: string | null;
   q: string | null;
+  cat: string | null;
 }): { view: View; activeGoal: string | null } {
   if (params.q?.trim()) return { view: "search", activeGoal: null };
   if (params.browse === "all") return { view: "all", activeGoal: null };
-  if (params.goal) {
-    const fromSlug = goalFromSlug(params.goal);
-    const fromName = CATALOG_GOALS.find((g) => g.id === params.goal)?.id;
-    const activeGoal = fromSlug ?? fromName ?? null;
+  const fromCat = goalFromStorefrontCat(params.cat);
+  const goalKey = params.goal || (fromCat ? goalSlug(fromCat) : null);
+  if (goalKey) {
+    const fromSlug = goalFromSlug(goalKey);
+    const fromName = CATALOG_GOALS.find((g) => g.id === goalKey)?.id;
+    const activeGoal = fromSlug ?? fromName ?? fromCat ?? null;
     if (activeGoal) return { view: "goal", activeGoal };
   }
   return { view: "home", activeGoal: null };
@@ -74,11 +87,14 @@ export function RegenCatalogPortal({
   const goalParam = initialGoalSlug ?? searchParams.get("goal");
   const browseParam = searchParams.get("browse");
   const queryParam = searchParams.get("q") ?? "";
+  const catParam = searchParams.get("cat");
+  const productParam = searchParams.get("product");
 
   const { view, activeGoal } = resolveView({
     goal: goalParam,
     browse: browseParam,
     q: queryParam,
+    cat: catParam,
   });
 
   const [query, setQuery] = useState(queryParam);
@@ -112,11 +128,19 @@ export function RegenCatalogPortal({
     document.getElementById("shop-by-goal")?.scrollIntoView({ behavior: "smooth", block: "start" });
   }, []);
 
-  const openProduct = (id: string) => {
+  const openProduct = useCallback((id: string) => {
     setSelectedId(id);
     setSelVar(0);
     setSupply(30);
-  };
+  }, []);
+
+  useEffect(() => {
+    if (!productParam) return;
+    const byId = getCatalogProduct(productParam);
+    const byDrug = findProductByDrugKey(productParam);
+    const hit = byId ?? byDrug;
+    if (hit) openProduct(hit.id);
+  }, [productParam, openProduct]);
 
   const selectedProduct = selectedId ? getCatalogProduct(selectedId) : undefined;
 
@@ -129,6 +153,9 @@ export function RegenCatalogPortal({
       }
     } else if (view === "all") {
       list = [...CATALOG_PRODUCTS];
+      if (formFilter !== "All") {
+        list = list.filter((p) => formGroup(p.form) === formFilter);
+      }
     } else if (view === "search") {
       const q = query.trim().toLowerCase();
       list = CATALOG_PRODUCTS.filter((p) => {
@@ -142,14 +169,14 @@ export function RegenCatalogPortal({
   }, [view, activeGoal, formFilter, query]);
 
   const formChips = useMemo(() => {
-    if (view !== "goal" || !activeGoal) return [];
-    const groups = [
-      ...new Set(
-        CATALOG_PRODUCTS.filter((p) => p.goal === activeGoal).map((p) =>
-          formGroup(p.form),
-        ),
-      ),
-    ];
+    const pool =
+      view === "goal" && activeGoal
+        ? CATALOG_PRODUCTS.filter((p) => p.goal === activeGoal)
+        : view === "all"
+          ? CATALOG_PRODUCTS
+          : [];
+    if (!pool.length) return [];
+    const groups = Array.from(new Set(pool.map((p) => formGroup(p.form))));
     return ["All", ...groups];
   }, [view, activeGoal]);
 
@@ -250,22 +277,25 @@ export function RegenCatalogPortal({
         <>
           <div id="science" className={SECTION_SCROLL}>
             <RxScienceHomeHero onExploreGoals={scrollToShopByGoal} />
-            <RxPeptideEducationSection />
           </div>
 
-          {/* Shop by goal */}
+          {/* Shop by goal — first commerce section */}
           <section
             id="shop-by-goal"
-            className={`${SECTION_SCROLL} ${JOURNEY_SECTION_BG_B} px-6 py-16 lg:py-24`}
+            className={`${SECTION_SCROLL} bg-gradient-to-b from-[#FFF0F7] via-white to-[#f5f5f5] px-6 py-16 lg:py-20`}
           >
             <div className="mx-auto max-w-[1200px]">
-              <JourneySectionHead
-                eyebrow="Your protocol, matched to your goal"
-                title="Shop by"
-                titleAccent="goal"
-                description="Once you understand the science, browse RE GEN by what you want to work on — weight, recovery, hormones, intimacy, skin, or longevity. Every order is NP-reviewed before it ships."
-              />
-              <div className="mt-8 grid gap-[18px] sm:grid-cols-2 lg:grid-cols-3">
+              <div className="mb-2 inline-flex items-center gap-2 rounded-full border-2 border-black bg-white px-3 py-1 text-[11px] font-bold uppercase tracking-widest text-[#E6007E] shadow-[3px_3px_0_0_rgba(230,0,126,0.35)]">
+                RE GEN shop
+              </div>
+              <h2 className="mt-3 font-serif text-4xl font-black text-black lg:text-5xl">
+                Shop by <span className="text-[#E6007E]">goal</span>
+              </h2>
+              <p className="mt-3 max-w-2xl text-base font-medium text-black/70">
+                Browse like a store — weight, recovery, hormones, intimacy, skin, or longevity.
+                Every order is NP-reviewed before it ships.
+              </p>
+              <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                 {SHOP_GOALS.map((goal) => {
                   const accent = goalAccent(goal);
                   const meta = CATALOG_GOALS.find((g) => g.id === goal);
@@ -274,28 +304,18 @@ export function RegenCatalogPortal({
                       key={goal}
                       type="button"
                       onClick={() => navigate({ goal })}
-                      className="group rounded-[20px] border border-white/14 bg-[#0a0206] p-6 text-left shadow-[0_4px_24px_rgba(0,0,0,0.35)] transition hover:-translate-y-1 hover:border-[#FF2D8E] hover:shadow-[0_20px_40px_rgba(255,45,142,0.18)] motion-reduce:hover:translate-y-0"
+                      className="group rounded-2xl border-2 border-black bg-white p-5 text-left shadow-[6px_6px_0_0_rgba(230,0,126,0.4)] transition hover:-translate-y-0.5 hover:shadow-[8px_8px_0_0_rgba(230,0,126,0.5)] motion-reduce:hover:translate-y-0"
                     >
                       <div
-                        className="mb-4 inline-flex h-11 w-11 items-center justify-center rounded-xl text-lg text-white"
+                        className="mb-3 inline-flex h-12 w-12 items-center justify-center rounded-xl border-2 border-black text-lg text-white"
                         style={{ backgroundColor: accent }}
                       >
-                        {goal === "Lose Weight"
-                          ? "⚖"
-                          : goal === "Recovery & Performance"
-                            ? "💪"
-                            : goal === "Intimacy"
-                              ? "♥"
-                              : goal === "Hormones"
-                                ? "⚡"
-                                : goal === "Skin & Hair"
-                                  ? "✨"
-                                  : "☀"}
+                        {GOAL_ICONS[goal] ?? "✦"}
                       </div>
-                      <h3 className="text-lg font-bold text-white">{goal}</h3>
-                      <p className="mt-2 text-sm text-white/60">{meta?.blurb}</p>
-                      <p className="mt-4 text-sm font-bold" style={{ color: accent }}>
-                        {counts[goal] ?? 0} options →
+                      <h3 className="text-lg font-black text-black">{goal}</h3>
+                      <p className="mt-2 text-sm font-medium text-black/60">{meta?.blurb}</p>
+                      <p className="mt-4 text-sm font-black" style={{ color: accent }}>
+                        Shop {counts[goal] ?? 0} options →
                       </p>
                     </button>
                   );
@@ -305,19 +325,26 @@ export function RegenCatalogPortal({
           </section>
 
           {/* Best sellers */}
-          <section id="popular" className={`${SECTION_SCROLL} px-6 py-16 lg:py-24`}>
+          <section id="popular" className={`${SECTION_SCROLL} bg-[#0a0a0a] px-6 py-16 lg:py-20`}>
             <div className="mx-auto max-w-[1200px]">
-              <div className="flex items-end justify-between gap-4">
-                <JourneySectionHead eyebrow="Client favorites" title="Popular" titleAccent="protocols" />
+              <div className="flex flex-wrap items-end justify-between gap-4">
+                <div>
+                  <p className="text-xs font-bold uppercase tracking-widest text-[#FFB8DC]">
+                    Client favorites
+                  </p>
+                  <h2 className="mt-1 font-serif text-3xl font-black text-white lg:text-4xl">
+                    Popular <span className="text-[#FF2D8E]">protocols</span>
+                  </h2>
+                </div>
                 <button
                   type="button"
                   onClick={() => navigate({ browse: "all" })}
-                  className="text-sm font-bold text-[#FF2D8E] hover:underline"
+                  className="rounded-full border-2 border-[#FF2D8E] px-4 py-2 text-sm font-bold text-[#FF2D8E] transition hover:bg-[#FF2D8E] hover:text-black"
                 >
-                  View all →
+                  View full catalog →
                 </button>
               </div>
-              <div className="mt-8 grid gap-[18px] sm:grid-cols-2 lg:grid-cols-3">
+              <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                 {bestSellers.map((p) => (
                   <ProductCard key={p.id} product={p} onOpen={openProduct} />
                 ))}
@@ -334,41 +361,41 @@ export function RegenCatalogPortal({
                 titleAccent="bundles"
                 description="Curated combinations — save 10% when you add a stack to cart."
               />
-              <div className="mt-10 grid gap-[18px] md:grid-cols-2">
+              <div className="mt-10 grid gap-4 md:grid-cols-2">
                 {bundles.map((b) => (
                   <div
                     key={b.id}
-                    className="rounded-[20px] border border-white/14 bg-[#0a0206] p-6 shadow-[0_4px_24px_rgba(0,0,0,0.35)]"
+                    className="rounded-2xl border-2 border-black bg-white p-6 text-black shadow-[6px_6px_0_0_rgba(230,0,126,0.4)]"
                   >
                     <span
-                      className="inline-block rounded-full px-3 py-1 text-xs font-bold text-black"
+                      className="inline-block rounded-full border border-black px-3 py-1 text-xs font-bold text-white"
                       style={{ backgroundColor: b.accent }}
                     >
                       {b.tagline}
                     </span>
-                    <h3 className="mt-3 font-serif text-2xl font-extrabold text-white">{b.name}</h3>
-                    <p className="mt-2 text-sm text-white/65">{b.blurb}</p>
-                    <ul className="mt-4 space-y-1 text-sm text-white/70">
+                    <h3 className="mt-3 font-serif text-2xl font-extrabold">{b.name}</h3>
+                    <p className="mt-2 text-sm text-black/65">{b.blurb}</p>
+                    <ul className="mt-4 space-y-1 text-sm text-black/70">
                       {b.items.map((item) => (
                         <li key={item.name} className="flex justify-between gap-2">
                           <span>{item.name}</span>
-                          <span>{item.price}</span>
+                          <span className="font-semibold">{item.price}</span>
                         </li>
                       ))}
                     </ul>
                     <div className="mt-4 flex flex-wrap items-center gap-3">
-                      <span className="font-serif text-2xl font-extrabold text-[#FF2D8E]">
+                      <span className="font-serif text-2xl font-extrabold text-[#E6007E]">
                         {b.price}
                       </span>
-                      <span className="text-sm text-white/40 line-through">{b.total}</span>
-                      <span className="rounded-full bg-[#16a34a]/15 px-2 py-0.5 text-xs font-bold text-[#16a34a]">
+                      <span className="text-sm text-black/40 line-through">{b.total}</span>
+                      <span className="rounded-full border border-black bg-[#16a34a]/15 px-2 py-0.5 text-xs font-bold text-[#16a34a]">
                         Save {b.save}
                       </span>
                     </div>
                     <button
                       type="button"
                       onClick={b.add}
-                      className="mt-5 w-full rounded-full border-2 border-[#FF2D8E] py-3 text-sm font-bold text-[#FF2D8E] transition hover:bg-[#FF2D8E] hover:text-black"
+                      className="mt-5 w-full rounded-xl border-2 border-black bg-gradient-to-r from-[#FF2D8E] to-[#E6007E] py-3 text-sm font-black text-white shadow-[3px_3px_0_0_#000] transition hover:brightness-110"
                     >
                       Add stack to cart
                     </button>
@@ -378,16 +405,23 @@ export function RegenCatalogPortal({
             </div>
           </section>
 
+          <div className={SECTION_SCROLL}>
+            <RxPeptideEducationSection />
+          </div>
+
           {/* How it works */}
-          <section id="how-it-works" className={`${SECTION_SCROLL} px-6 pb-16 pt-4`}>
-            <div className="mx-auto max-w-[1200px] rounded-3xl border border-[#FF2D8E]/35 bg-[#0a0206] px-8 py-12 md:px-12">
-              <JourneySectionHead eyebrow="How RE GEN works" title="Three steps to" titleAccent="your protocol" />
+          <section id="how-it-works" className={`${SECTION_SCROLL} bg-[#FFF0F7] px-6 pb-16 pt-12`}>
+            <div className="mx-auto max-w-[1200px] rounded-3xl border-2 border-black bg-white px-8 py-12 shadow-[8px_8px_0_0_rgba(230,0,126,0.35)] md:px-12">
+              <p className="text-xs font-bold uppercase tracking-widest text-[#E6007E]">How RE GEN works</p>
+              <h2 className="mt-2 font-serif text-3xl font-black text-black">
+                Three steps to <span className="text-[#E6007E]">your protocol</span>
+              </h2>
               <ol className="mt-8 grid gap-8 md:grid-cols-3">
                 {[
                   {
                     n: "1",
-                    title: "Shop & start intake",
-                    body: "Add treatments to your cart and begin the secure RE GEN intake.",
+                    title: "Shop & checkout",
+                    body: "Add treatments to your cart and pay securely with Square.",
                   },
                   {
                     n: "2",
@@ -401,18 +435,18 @@ export function RegenCatalogPortal({
                   },
                 ].map((step) => (
                   <li key={step.n}>
-                    <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[#FF2D8E] text-sm font-extrabold text-black">
+                    <span className="flex h-10 w-10 items-center justify-center rounded-xl border-2 border-black bg-gradient-to-r from-[#FF2D8E] to-[#E6007E] text-sm font-extrabold text-white">
                       {step.n}
                     </span>
-                    <h3 className="mt-4 text-lg font-bold text-white">{step.title}</h3>
-                    <p className="mt-2 text-sm text-white/75">{step.body}</p>
+                    <h3 className="mt-4 text-lg font-black text-black">{step.title}</h3>
+                    <p className="mt-2 text-sm font-medium text-black/70">{step.body}</p>
                   </li>
                 ))}
               </ol>
             </div>
           </section>
 
-          {/* FAQ — same dropdown pattern as Brow Journey */}
+          {/* FAQ */}
           <section
             id="faq"
             className={`${SECTION_SCROLL} bg-[radial-gradient(80%_90%_at_80%_0%,#12030c,#000_60%)] px-6 py-16 lg:py-24`}
@@ -428,16 +462,16 @@ export function RegenCatalogPortal({
                 {REGEN_SHOP_FAQS.map((faq) => (
                   <details
                     key={faq.q}
-                    className="group overflow-hidden rounded-[14px] border border-white/14 bg-[#0a0206]"
+                    className="group overflow-hidden rounded-2xl border-2 border-black bg-white shadow-[4px_4px_0_0_rgba(230,0,126,0.35)]"
                   >
-                    <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-6 py-5 font-serif text-lg font-bold text-white marker:content-none group-open:text-[#FF2D8E]">
+                    <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-6 py-5 font-serif text-lg font-bold text-black marker:content-none group-open:text-[#E6007E]">
                       {faq.q}
-                      <span className="text-2xl font-normal text-[#FF2D8E] group-open:hidden">+</span>
-                      <span className="hidden text-2xl font-normal text-[#FF2D8E] group-open:inline">
+                      <span className="text-2xl font-normal text-[#E6007E] group-open:hidden">+</span>
+                      <span className="hidden text-2xl font-normal text-[#E6007E] group-open:inline">
                         –
                       </span>
                     </summary>
-                    <p className="px-6 pb-5 text-[15px] leading-relaxed text-white/72">{faq.a}</p>
+                    <p className="px-6 pb-5 text-[15px] font-medium leading-relaxed text-black/75">{faq.a}</p>
                   </details>
                 ))}
               </div>
@@ -445,14 +479,14 @@ export function RegenCatalogPortal({
           </section>
         </>
       ) : (
-        <section className="px-6 py-10">
+        <section className="bg-gradient-to-b from-[#0a0a0a] to-[#1a0a12] px-6 py-10">
           <div className="mx-auto max-w-[1200px]">
             <button
               type="button"
               onClick={() => navigate({})}
               className="text-sm font-semibold text-[#FF2D8E] hover:underline"
             >
-              ← All goals
+              ← Back to shop
             </button>
             <h1 className="mt-4 font-serif text-4xl font-extrabold text-white">{browseTitle}</h1>
             <p className="mt-2 max-w-2xl text-white/65">{browseSub}</p>
@@ -461,7 +495,7 @@ export function RegenCatalogPortal({
             </p>
 
             {formChips.length > 2 && (
-              <div className="mt-6 flex flex-wrap gap-2">
+              <div className="sticky top-[120px] z-20 mt-6 -mx-1 flex flex-wrap gap-2 bg-black/80 px-1 py-3 backdrop-blur">
                 {formChips.map((f) => (
                   <button
                     key={f}
@@ -469,8 +503,8 @@ export function RegenCatalogPortal({
                     onClick={() => setFormFilter(f)}
                     className={`rounded-full px-4 py-2 text-sm font-semibold transition ${
                       f === formFilter
-                        ? "border-2 border-[#FF2D8E] bg-[#FF2D8E]/15 text-[#FF2D8E]"
-                        : "border border-white/20 bg-[#0a0206] text-white/65 hover:border-[#FF2D8E]/50"
+                        ? "border-2 border-black bg-[#FF2D8E] text-black shadow-[3px_3px_0_0_#000]"
+                        : "border-2 border-white/25 bg-white/5 text-white/75 hover:border-[#FF2D8E]"
                     }`}
                   >
                     {f}
@@ -482,7 +516,7 @@ export function RegenCatalogPortal({
             {filteredProducts.length === 0 ? (
               <p className="mt-12 text-center text-white/50">No products match your filters.</p>
             ) : (
-              <div className="mt-8 grid gap-[18px] sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+              <div className="mt-8 grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
                 {filteredProducts.map((p) => (
                   <ProductCard key={p.id} product={p} onOpen={openProduct} />
                 ))}

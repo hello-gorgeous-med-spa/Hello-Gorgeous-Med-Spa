@@ -185,9 +185,9 @@ export function ProductDetailDrawer({
           <button
             type="button"
             onClick={handleAdd}
-            className="w-full rounded-[22px] bg-[#FF2D8E] py-4 text-base font-extrabold text-black shadow-[0_8px_24px_rgba(255,45,142,0.28)] transition hover:bg-white"
+            className="w-full rounded-xl border-2 border-black bg-gradient-to-r from-[#FF2D8E] to-[#E6007E] py-4 text-base font-black text-white shadow-[4px_4px_0_0_#000] transition hover:brightness-110"
           >
-            Add to cart
+            Add {supply === 90 ? "90-day" : "30-day"} · {formatCatalogMoney(current)}
           </button>
 
           {educationHref ? (

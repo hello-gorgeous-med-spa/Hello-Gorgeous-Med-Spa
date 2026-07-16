@@ -128,18 +128,19 @@ export function RegenCartDrawer() {
       />
 
       <div
-        className={`fixed right-0 top-0 z-50 flex h-full w-full flex-col bg-white shadow-xl ${
+        className={`fixed right-0 top-0 z-50 flex h-full w-full flex-col border-l-4 border-black bg-white shadow-[-12px_0_40px_rgba(230,0,126,0.2)] ${
           catalogMode ? "max-w-[460px]" : "max-w-md"
         }`}
       >
-        <div className="flex items-center justify-between border-b border-black/10 px-6 py-4">
-          <h2 className="font-serif text-lg font-extrabold text-[#0a0a0a]">
-            {catalogMode ? "Your order" : "Your cart"}
+        <div className="flex items-center justify-between border-b-4 border-black bg-gradient-to-r from-[#FF2D8E] to-[#E6007E] px-6 py-4">
+          <h2 className="font-serif text-lg font-extrabold text-white">
+            {catalogMode ? "Your bag" : "Your cart"}
+            {itemCount > 0 ? ` (${itemCount})` : ""}
           </h2>
           <button
             type="button"
             onClick={closeCart}
-            className="rounded-lg p-2 text-black/50 hover:bg-black/5"
+            className="rounded-lg border-2 border-black bg-white p-2 text-black hover:bg-black hover:text-white"
             aria-label="Close cart"
           >
             <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -164,7 +165,7 @@ export function RegenCartDrawer() {
               {items.map((item) => (
                 <li
                   key={item.id}
-                  className="flex gap-4 rounded-xl border border-black/10 bg-[#FFF9FB] p-4"
+                  className="flex gap-4 rounded-xl border-2 border-black bg-[#FFF9FB] p-4 shadow-[3px_3px_0_0_rgba(230,0,126,0.25)]"
                 >
                   {item.image && (
                     <div className="relative h-16 w-16 shrink-0 rounded-lg bg-[#0a0a0a]">
@@ -312,11 +313,7 @@ export function RegenCartDrawer() {
               type="button"
               onClick={handleCheckout}
               disabled={isCheckingOut}
-              className={`mt-4 w-full rounded-full py-3.5 text-sm font-bold text-white transition disabled:cursor-not-allowed disabled:opacity-50 ${
-                catalogMode
-                  ? "bg-[#0a0a0a] hover:bg-[#FF2D8E]"
-                  : "bg-[#E6007E] hover:bg-[#FF2D8E]"
-              }`}
+              className="mt-4 w-full rounded-xl border-2 border-black bg-gradient-to-r from-[#FF2D8E] to-[#E6007E] py-3.5 text-sm font-black text-white shadow-[4px_4px_0_0_#000] transition hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-50"
             >
               {isCheckingOut
                 ? "Redirecting to Square…"
