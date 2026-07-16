@@ -29,6 +29,23 @@ export default function StaffPage() {
 
         {/* Resource Cards */}
         <div className="space-y-4">
+          {/* Front desk phone assistant */}
+          <Link
+            href="/staff/assistant"
+            className="block bg-gradient-to-r from-[#E6007E]/30 to-[#FF2D8E]/20 backdrop-blur rounded-2xl p-5 border-2 border-[#E6007E] hover:border-[#FF2D8E] hover:from-[#E6007E]/40 transition-all"
+          >
+            <div className="flex items-center gap-4">
+              <div className="text-4xl">📞</div>
+              <div className="flex-1">
+                <h2 className="font-bold text-white text-lg">Front Desk Assistant</h2>
+                <p className="text-pink-100/90 text-sm">
+                  On a call? Instant answers — menu, pricing, booking &amp; RX scripts
+                </p>
+              </div>
+              <div className="text-pink-300 text-2xl">→</div>
+            </div>
+          </Link>
+
           {/* Protocols Hub — guides, social, invoices */}
           <Link
             href="/staff/protocols"
