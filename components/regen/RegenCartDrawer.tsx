@@ -1,6 +1,7 @@
 "use client";
 
 import { usePathname } from "next/navigation";
+import Link from "next/link";
 import { useState } from "react";
 import Image from "next/image";
 
@@ -159,6 +160,13 @@ export function RegenCartDrawer() {
               <p className="mt-1 text-sm text-black/50">
                 {catalogMode ? "Browse treatments to get started." : "Add a treatment to get started."}
               </p>
+              <Link
+                href="/rx#shop-by-goal"
+                onClick={closeCart}
+                className="mt-6 inline-flex rounded-xl border-2 border-black bg-gradient-to-r from-[#FF2D8E] to-[#E6007E] px-5 py-2.5 text-sm font-black text-white shadow-[3px_3px_0_0_#000]"
+              >
+                Browse treatments
+              </Link>
             </div>
           ) : (
             <ul className="space-y-4">
@@ -233,8 +241,10 @@ export function RegenCartDrawer() {
             <div className="mt-6 rounded-2xl bg-[#FFF0F7] p-4">
               <div className="flex items-center justify-between gap-3">
                 <div>
-                  <p className="text-sm font-bold text-[#0a0a0a]">Auto-refill & save 10%</p>
-                  <p className="text-xs text-black/55">Provider confirms eligibility at review.</p>
+                  <p className="text-sm font-bold text-[#0a0a0a]">Remind me to refill</p>
+                  <p className="text-xs text-black/55">
+                    Optional preference — your provider confirms timing at review. No auto-charge yet.
+                  </p>
                 </div>
                 <button
                   type="button"
@@ -318,13 +328,13 @@ export function RegenCartDrawer() {
               {isCheckingOut
                 ? "Redirecting to Square…"
                 : catalogMode
-                  ? "Pay with Square & start intake →"
+                  ? "Pay securely with Square →"
                   : "Checkout"}
             </button>
 
             <p className="mt-3 text-center text-xs text-black/50">
               {catalogMode
-                ? "Pay securely via Square. Ryan Kent, FNP-BC reviews every order before anything ships."
+                ? "After payment you’ll complete health intake, then book NP telehealth. Nothing ships without clinical approval."
                 : "A provider must review your intake before any prescription ships."}
             </p>
           </div>

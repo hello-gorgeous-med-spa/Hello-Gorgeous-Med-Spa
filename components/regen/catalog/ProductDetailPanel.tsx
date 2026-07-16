@@ -19,7 +19,7 @@ import {
   type SupplyDays,
 } from "@/lib/regen/catalog";
 import { catalogLineId, price30, price90, supplyPrice } from "@/lib/regen/catalog/pricing";
-import { formatCatalogMoney } from "@/components/regen/catalog/CatalogProductCard";
+import { formatCatalogMoney, CatalogCartButton } from "@/components/regen/catalog/CatalogProductCard";
 
 type ProductDetailPanelProps = {
   product: CatalogProduct;
@@ -68,9 +68,12 @@ export function ProductDetailPanel({ product, pageMode = false }: ProductDetailP
             >
               ← Back to {product.goal}
             </Link>
-            <Link href="/rx" className="font-serif text-sm font-extrabold tracking-[0.14em] text-white">
-              RE GEN
-            </Link>
+            <div className="flex items-center gap-3">
+              <Link href="/rx" className="font-serif text-sm font-extrabold tracking-[0.14em] text-white">
+                RE GEN
+              </Link>
+              <CatalogCartButton />
+            </div>
           </div>
         </div>
       ) : null}

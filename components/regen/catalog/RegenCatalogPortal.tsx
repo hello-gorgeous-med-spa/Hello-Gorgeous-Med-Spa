@@ -413,9 +413,8 @@ export function RegenCatalogPortal({
                       <span className="font-serif text-2xl font-extrabold text-[#E6007E]">
                         {b.price}
                       </span>
-                      <span className="text-sm text-black/40 line-through">{b.total}</span>
-                      <span className="rounded-full border border-black bg-[#16a34a]/15 px-2 py-0.5 text-xs font-bold text-[#16a34a]">
-                        Save {b.save}
+                      <span className="rounded-full border border-black bg-black/5 px-2 py-0.5 text-xs font-bold text-black/60">
+                        Stack · list price
                       </span>
                     </div>
                     <button
@@ -440,24 +439,29 @@ export function RegenCatalogPortal({
             <div className="mx-auto max-w-[1200px] rounded-3xl border-2 border-black bg-white px-8 py-12 shadow-[8px_8px_0_0_rgba(230,0,126,0.35)] md:px-12">
               <p className="text-xs font-bold uppercase tracking-widest text-[#E6007E]">How RE GEN works</p>
               <h2 className="mt-2 font-serif text-3xl font-black text-black">
-                Three steps to <span className="text-[#E6007E]">your protocol</span>
+                Four steps to <span className="text-[#E6007E]">your protocol</span>
               </h2>
-              <ol className="mt-8 grid gap-8 md:grid-cols-3">
+              <ol className="mt-8 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
                 {[
                   {
                     n: "1",
-                    title: "Shop & checkout",
-                    body: "Add treatments to your cart and pay securely with Square.",
+                    title: "Shop & pay",
+                    body: "Add treatments to your bag and pay securely with Square.",
                   },
                   {
                     n: "2",
-                    title: "NP reviews your plan",
-                    body: "Ryan Kent, FNP-BC reviews your health history and order before approval.",
+                    title: "Health intake",
+                    body: "Complete your clinical questionnaire right after payment.",
                   },
                   {
                     n: "3",
+                    title: "NP telehealth",
+                    body: "Book a short video visit with Ryan Kent, FNP-BC for approval.",
+                  },
+                  {
+                    n: "4",
                     title: "Shipped to your door",
-                    body: "Approved orders ship with flat $30 Illinois shipping. Auto-refill available.",
+                    body: "Approved orders ship with flat $30 Illinois shipping.",
                   },
                 ].map((step) => (
                   <li key={step.n}>

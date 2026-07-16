@@ -4,10 +4,10 @@ import { HG_RX_TELEHEALTH_BOOKING_LABEL, HG_RX_TELEHEALTH_BOOKING_URL } from "@/
 import { HELLO_GORGEOUS_RX } from "@/lib/hello-gorgeous-rx";
 
 type RxTelehealthHandoffProps = {
-  /** Show Fresha booking CTA (after consult pre-pay for new protocols). */
+  /** Show Square booking CTA (after consult pre-pay for new protocols). */
   showBooking?: boolean;
   statusHref?: string;
-  /** RE GEN order ref — shown so staff/patient can match Fresha booking. */
+  /** RE GEN order ref — shown so staff/patient can match Square booking. */
   orderRef?: string;
 };
 
@@ -16,7 +16,7 @@ export function RxTelehealthHandoff({
   statusHref,
   orderRef,
 }: RxTelehealthHandoffProps) {
-  const freshaUrl = orderRef
+  const bookingUrl = orderRef
     ? `${HG_RX_TELEHEALTH_BOOKING_URL}${HG_RX_TELEHEALTH_BOOKING_URL.includes("?") ? "&" : "?"}notes=${encodeURIComponent(`RE GEN order ${orderRef}`)}`
     : HG_RX_TELEHEALTH_BOOKING_URL;
 
@@ -28,7 +28,7 @@ export function RxTelehealthHandoff({
       <p className="mt-2 text-lg font-black text-black">{HELLO_GORGEOUS_RX.providerName}</p>
       {orderRef ? (
         <p className="mt-2 rounded-lg bg-black/5 px-3 py-2 text-xs font-mono text-black/70">
-          Order ref: <strong className="text-black">{orderRef}</strong> — add this in Fresha booking notes if prompted
+          Order ref: <strong className="text-black">{orderRef}</strong> — add this in Square booking notes if prompted
         </p>
       ) : null}
       <p className="mt-2 text-sm text-black/70 leading-relaxed">
@@ -42,13 +42,13 @@ export function RxTelehealthHandoff({
         <li>
           ▸{" "}
           {showBooking
-            ? "Book on Fresha — confirmation email includes your video link (no Charm account needed)"
-            : "Fresha booking unlocks right after your consult payment above"}
+            ? "Book on Square — confirmation includes your video visit details (no Charm account needed)"
+            : "Square booking unlocks right after your consult payment above"}
         </li>
       </ul>
       {showBooking ? (
         <a
-          href={freshaUrl}
+          href={bookingUrl}
           target="_blank"
           rel="noopener noreferrer"
           className="mt-5 inline-flex w-full items-center justify-center rounded-xl bg-[#E6007E] px-6 py-3.5 text-sm font-bold text-white hover:bg-black transition-colors"

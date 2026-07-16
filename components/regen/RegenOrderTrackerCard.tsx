@@ -111,13 +111,13 @@ export function RegenOrderTrackerCard({ orderRef, variant = "app", pollMs = 0 }:
             {visit.providerName ? ` · ${visit.providerName}` : ""}
           </p>
           <p className={`mt-2 text-xs leading-relaxed ${isApp ? "text-white/55" : "text-black/55"}`}>
-            Your video link is in your <strong>Fresha confirmation email</strong> — no Charm account needed.
+            Your video visit details are in your <strong>Square confirmation</strong> — no Charm account needed.
             Add this visit to your calendar from that email.
           </p>
         </div>
       ) : order.telehealthRequired && order.intakeComplete && !order.telehealthCompletedAt ? (
         <div className={`mt-4 text-sm ${isApp ? "text-white/65" : "text-black/65"}`}>
-          Book NP telehealth on Fresha to finish your order. Mention order ref{" "}
+          Book NP telehealth on Square to finish your order. Mention order ref{" "}
           <span className="font-mono font-bold">{order.reference}</span> in the notes.
         </div>
       ) : null}

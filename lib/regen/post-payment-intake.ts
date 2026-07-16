@@ -5,6 +5,8 @@
 import type { IntakeFormField } from "@/lib/hgos/intake-forms";
 import type { RegenCategory } from "@/lib/regen/intake-router";
 import { getProductIntakeRoute } from "@/lib/regen/intake-router";
+import { getCatalogProduct } from "@/lib/regen/catalog";
+import { parseCatalogLineId } from "@/lib/regen/catalog/pricing";
 import { computeBmi, evaluateGlp1Eligibility, parseGlp1Numbers } from "@/lib/glp1-intake";
 
 export const REGEN_POST_PAYMENT_INTAKE_SLUG = "regen-post-payment-intake";
@@ -366,39 +368,124 @@ const CATEGORY_STEPS: Record<RegenCategory, RegenIntakeStep | null> = {
   labs: WELLNESS_STEP,
 };
 
-/** Map storefront quiz goal slugs to intake categories. */
+/**
+ * Map storefront goals (catalog labels + legacy quiz slugs) to intake categories.
+ * Catalog carts store human labels like "Lose Weight" / "Intimacy".
+ */
 export function normalizeRegenGoal(goal: string | null | undefined): RegenCategory {
   const g = (goal || "").toLowerCase().trim();
   const map: Record<string, RegenCategory> = {
+    // Catalog goal labels (current shop)
+    "lose weight": "weight-loss",
+    intimacy: "sexual-health",
+    hormones: "hormones",
+    "skin & hair": "hair-skin",
+    "skin and hair": "hair-skin",
+    "recovery & performance": "daily-wellness",
+    "recovery and performance": "daily-wellness",
+    "energy & longevity": "daily-wellness",
+    "energy and longevity": "daily-wellness",
+    supplies: "daily-wellness",
+    // Legacy quiz / portal slugs
     "weight-loss": "weight-loss",
     "peptide-therapy": "daily-wellness",
     "vitamin-injections": "daily-wellness",
     "sexual-health": "sexual-health",
-    hormones: "hormones",
     "hair-skin": "hair-skin",
     labs: "labs",
   };
   return map[g] || "daily-wellness";
 }
 
+/** Catalog drugKey → clinical intake category (used when goal is missing/ambiguous). */
+const DRUG_KEY_INTAKE: Record<string, RegenCategory> = {
+  tirzepatide: "weight-loss",
+  semaglutide: "weight-loss",
+  lipotropic: "weight-loss",
+  phentermine: "weight-loss",
+  metformin: "weight-loss",
+  topiramate: "weight-loss",
+  pde5: "sexual-health",
+  pt141: "sexual-health",
+  trimix: "sexual-health",
+  "arousal-cream": "sexual-health",
+  oxytocin: "sexual-health",
+  testosterone: "hormones",
+  "oral-testosterone": "hormones",
+  estradiol: "hormones",
+  estriol: "hormones",
+  biest: "hormones",
+  progesterone: "hormones",
+  enclomiphene: "hormones",
+  clomiphene: "hormones",
+  anastrozole: "hormones",
+  exemestane: "hormones",
+  tamoxifen: "hormones",
+  hcg: "hormones",
+  gonadorelin: "hormones",
+  dhea: "hormones",
+  pregnenolone: "hormones",
+  thyroid: "hormones",
+  nandrolone: "hormones",
+  oxandrolone: "hormones",
+  stanozolol: "hormones",
+  finasteride: "hair-skin",
+  dutasteride: "hair-skin",
+  minoxidil: "hair-skin",
+  tretinoin: "hair-skin",
+  hydroquinone: "hair-skin",
+  niacinamide: "hair-skin",
+  spironolactone: "hair-skin",
+};
+
+function categoryFromDrugKey(drugKey: string): RegenCategory | null {
+  return DRUG_KEY_INTAKE[drugKey] ?? null;
+}
+
+function categoryFromCatalogItemId(id: string): RegenCategory | null {
+  const parsed = parseCatalogLineId(id);
+  if (parsed) {
+    const product = getCatalogProduct(parsed.productId);
+    if (product) {
+      return categoryFromDrugKey(product.drugKey) ?? normalizeRegenGoal(product.goal);
+    }
+  }
+  const route = getProductIntakeRoute(id);
+  if (route.intakeType === "glp1") return "weight-loss";
+  if (route.intakeType === "hrt") return "hormones";
+  if (route.intakeType === "lab") return "labs";
+  return null;
+}
+
+const CATEGORY_PRIORITY: RegenCategory[] = [
+  "weight-loss",
+  "sexual-health",
+  "hormones",
+  "hair-skin",
+  "labs",
+  "daily-wellness",
+];
+
 export function resolveOrderCategory(order: {
   goal?: string | null;
-  items?: Array<{ id?: string; name?: string }> | null;
+  items?: Array<{ id?: string; name?: string; category?: string }> | null;
 }): RegenCategory {
+  const found = new Set<RegenCategory>();
+
   if (order.goal) {
-    return normalizeRegenGoal(order.goal);
+    found.add(normalizeRegenGoal(order.goal));
   }
-  const firstId = order.items?.[0]?.id;
-  if (firstId) {
-    return getProductIntakeRoute(firstId).intakeType === "glp1"
-      ? "weight-loss"
-      : getProductIntakeRoute(firstId).intakeType === "hrt"
-        ? "hormones"
-        : getProductIntakeRoute(firstId).intakeType === "lab"
-          ? "labs"
-          : getProductIntakeRoute(firstId).intakeType === "peptide"
-            ? "daily-wellness"
-            : "daily-wellness";
+
+  for (const item of order.items ?? []) {
+    if (item.category) found.add(normalizeRegenGoal(item.category));
+    if (item.id) {
+      const fromId = categoryFromCatalogItemId(item.id);
+      if (fromId) found.add(fromId);
+    }
+  }
+
+  for (const cat of CATEGORY_PRIORITY) {
+    if (found.has(cat)) return cat;
   }
   return "daily-wellness";
 }

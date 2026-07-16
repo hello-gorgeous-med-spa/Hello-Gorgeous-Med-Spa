@@ -20,14 +20,14 @@ export function RegenCheckoutCompleteClient({ orderRef, telehealthRequired = tru
         <>
           <RxTelehealthHandoff orderRef={orderRef} statusHref={`${CLIENT_APP.path}?tab=home`} />
           <div className="rounded-xl border border-white/15 bg-white/5 p-4 text-sm text-white/70 leading-relaxed">
-            <p className="font-semibold text-white">Book on Fresha — not Charm</p>
+            <p className="font-semibold text-white">Book on Square — not Charm</p>
             <p className="mt-2">
-              New RE GEN patients should book telehealth on <strong className="text-white">Fresha</strong>.
-              Your video link arrives in the Fresha confirmation email. You do <strong className="text-white">not</strong>{" "}
+              New RE GEN patients should book telehealth on <strong className="text-white">Square</strong>.
+              Your confirmation includes the video visit details. You do <strong className="text-white">not</strong>{" "}
               need a Charm patient portal account for this visit.
             </p>
             <p className="mt-2 text-xs text-white/50">
-              Charm is our clinical chart behind the scenes — Ryan documents your visit there after your Fresha call.
+              Charm is our clinical chart behind the scenes — Ryan documents your visit there after your call.
             </p>
           </div>
         </>

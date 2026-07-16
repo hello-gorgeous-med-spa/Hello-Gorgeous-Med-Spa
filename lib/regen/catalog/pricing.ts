@@ -41,9 +41,9 @@ export function bundlePrice(memberPrices: number[]): {
   price: number;
   save: number;
 } {
+  // Stacks are convenience packs at list price — no automatic discount at checkout.
   const total = memberPrices.reduce((a, n) => a + n, 0);
-  const price = Math.round((total * 0.9) / 5) * 5;
-  return { total, price, save: total - price };
+  return { total, price: total, save: 0 };
 }
 
 export function formatMoney(n: number): string {
