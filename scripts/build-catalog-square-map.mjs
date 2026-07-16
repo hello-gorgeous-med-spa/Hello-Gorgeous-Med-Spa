@@ -43,6 +43,7 @@ function price90(product, variant) {
 
 function matchRegenSku(catalogProduct, variant, regenProducts) {
   const nameN = norm(catalogProduct.name);
+  const drugKeyN = norm(catalogProduct.drugKey);
   const strengthN = norm(variant.strength);
   const formN = norm(catalogProduct.form);
 
@@ -59,7 +60,9 @@ function matchRegenSku(catalogProduct, variant, regenProducts) {
       compoundN === nameN ||
       compoundN.includes(nameN) ||
       nameN.includes(compoundN) ||
-      norm(p.name) === nameN;
+      norm(p.name) === nameN ||
+      norm(p.name).includes(nameN) ||
+      (drugKeyN && compoundN === drugKeyN);
     const strengthMatch =
       concN === strengthN ||
       concN.includes(strengthN) ||

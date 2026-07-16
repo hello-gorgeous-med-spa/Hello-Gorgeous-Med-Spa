@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-07-16T09:02:54.260Z",
-  "lineCount": 902,
-  "unmappedCount": 1,
+  "generatedAt": "2026-07-16T09:30:16.132Z",
+  "lineCount": 904,
+  "unmappedCount": 0,
   "shipping": {
     "squareVariationId": "V7XJ5OZKHYOMUMU6WKOWOYEW",
     "priceUsd": 30
@@ -37,27 +37,27 @@
       "productId": "p179",
       "variantIndex": 0,
       "supply": 30,
-      "regenCatalogId": "brx-std-410",
-      "squareVariationId": "D5XOM2ULGTTX3DBNEQ57IRSD",
-      "squareItemId": "E72AOKYHEPBYMCCXOHAD2V57",
+      "regenCatalogId": "brx-std-416",
+      "squareVariationId": "A6QCH7CDM6MRLLTGVGADIJ4L",
+      "squareItemId": "R5NM6ELB3Q7X3BT7LOZP3KAJ",
       "name": "Cyanocobalamin",
       "strength": "1mg/10ml",
       "displayPriceUsd": 50,
-      "squarePriceUsd": 50,
-      "priceDeltaUsd": 0
+      "squarePriceUsd": 62.5,
+      "priceDeltaUsd": -12.5
     },
     "p179:0:90": {
       "productId": "p179",
       "variantIndex": 0,
       "supply": 90,
-      "regenCatalogId": "brx-std-410",
-      "squareVariationId": "QS7G3FKCJ74MHSSWKNQZ4G7S",
-      "squareItemId": "E72AOKYHEPBYMCCXOHAD2V57",
+      "regenCatalogId": "brx-std-416",
+      "squareVariationId": "OZKCQW2URXFYVMREOWUX2USB",
+      "squareItemId": "R5NM6ELB3Q7X3BT7LOZP3KAJ",
       "name": "Cyanocobalamin",
       "strength": "1mg/10ml",
       "displayPriceUsd": 135,
-      "squarePriceUsd": 135,
-      "priceDeltaUsd": 0
+      "squarePriceUsd": 168.75,
+      "priceDeltaUsd": -33.75
     },
     "p29:0:30": {
       "productId": "p29",
@@ -474,6 +474,32 @@
       "displayPriceUsd": 160,
       "squarePriceUsd": 155.25,
       "priceDeltaUsd": 4.75
+    },
+    "p175:1:30": {
+      "productId": "p175",
+      "variantIndex": 1,
+      "supply": 30,
+      "regenCatalogId": "brx-std-416",
+      "squareVariationId": "A6QCH7CDM6MRLLTGVGADIJ4L",
+      "squareItemId": "R5NM6ELB3Q7X3BT7LOZP3KAJ",
+      "name": "Methylcobalamin",
+      "strength": "1mg/10ml",
+      "displayPriceUsd": 65,
+      "squarePriceUsd": 62.5,
+      "priceDeltaUsd": 2.5
+    },
+    "p175:1:90": {
+      "productId": "p175",
+      "variantIndex": 1,
+      "supply": 90,
+      "regenCatalogId": "brx-std-416",
+      "squareVariationId": "OZKCQW2URXFYVMREOWUX2USB",
+      "squareItemId": "R5NM6ELB3Q7X3BT7LOZP3KAJ",
+      "name": "Methylcobalamin",
+      "strength": "1mg/10ml",
+      "displayPriceUsd": 175,
+      "squarePriceUsd": 168.75,
+      "priceDeltaUsd": 6.25
     },
     "p175:2:30": {
       "productId": "p175",
@@ -6745,79 +6771,79 @@
       "productId": "p2",
       "variantIndex": 0,
       "supply": 30,
-      "regenCatalogId": "brx-std-260",
-      "squareVariationId": "T5P5TBHE6RAWPXOIAWFIWKE5",
-      "squareItemId": "ORRTUM4DMGLI36HRXCZLGOQC",
+      "regenCatalogId": "brx-std-3",
+      "squareVariationId": "D2NEYZU2RXPCSOPCOI4QYW37",
+      "squareItemId": "SNLJGZMCSNDE6RXSBGARPEKB",
       "name": "Sildenafil-Tadalafil-Vardenafil",
       "strength": "25mg-5.0mg-7.5mg per ampule",
       "displayPriceUsd": 190,
-      "squarePriceUsd": 4.38,
-      "priceDeltaUsd": 185.62
+      "squarePriceUsd": 187.5,
+      "priceDeltaUsd": 2.5
     },
     "p2:0:90": {
       "productId": "p2",
       "variantIndex": 0,
       "supply": 90,
-      "regenCatalogId": "brx-std-260",
-      "squareVariationId": "52HQWMCKLVWBIVYB5MFHD3II",
-      "squareItemId": "ORRTUM4DMGLI36HRXCZLGOQC",
+      "regenCatalogId": "brx-std-3",
+      "squareVariationId": "XLMOPWUQZBJTAEZHFNDNEXD5",
+      "squareItemId": "SNLJGZMCSNDE6RXSBGARPEKB",
       "name": "Sildenafil-Tadalafil-Vardenafil",
       "strength": "25mg-5.0mg-7.5mg per ampule",
       "displayPriceUsd": 515,
-      "squarePriceUsd": 11.83,
-      "priceDeltaUsd": 503.17
+      "squarePriceUsd": 506.25,
+      "priceDeltaUsd": 8.75
     },
     "p2:1:30": {
       "productId": "p2",
       "variantIndex": 1,
       "supply": 30,
-      "regenCatalogId": "brx-std-233",
-      "squareVariationId": "DA7XVT3G7A2LA2MLJ3KDPWMQ",
-      "squareItemId": "TJKWZ226CQLDLBB4PT4Y3SLE",
+      "regenCatalogId": "brx-std-4",
+      "squareVariationId": "M5EUBNAWUBJ43TLJRLEBN3BD",
+      "squareItemId": "W6LGY23ZJM2NCA6OWS7VQVBF",
       "name": "Sildenafil-Tadalafil-Vardenafil",
       "strength": "75mg-5mg-20mg per ampule",
       "displayPriceUsd": 190,
-      "squarePriceUsd": 1.75,
-      "priceDeltaUsd": 188.25
+      "squarePriceUsd": 187.5,
+      "priceDeltaUsd": 2.5
     },
     "p2:1:90": {
       "productId": "p2",
       "variantIndex": 1,
       "supply": 90,
-      "regenCatalogId": "brx-std-233",
-      "squareVariationId": "J3G5KX5B46ONVFL37G4KBNY3",
-      "squareItemId": "TJKWZ226CQLDLBB4PT4Y3SLE",
+      "regenCatalogId": "brx-std-4",
+      "squareVariationId": "ZNV4GLNT2XRQIVESS66MXGZI",
+      "squareItemId": "W6LGY23ZJM2NCA6OWS7VQVBF",
       "name": "Sildenafil-Tadalafil-Vardenafil",
       "strength": "75mg-5mg-20mg per ampule",
       "displayPriceUsd": 515,
-      "squarePriceUsd": 4.73,
-      "priceDeltaUsd": 510.27
+      "squarePriceUsd": 506.25,
+      "priceDeltaUsd": 8.75
     },
     "p2:2:30": {
       "productId": "p2",
       "variantIndex": 2,
       "supply": 30,
-      "regenCatalogId": "brx-std-232",
-      "squareVariationId": "H6RB7WBED7QQSMENT4WS6AHT",
-      "squareItemId": "FTELX5YIHCTWSR2ZHWV7VSEI",
+      "regenCatalogId": "brx-std-5",
+      "squareVariationId": "CQ2MWBTEAAMRKAR5FMNDEUOS",
+      "squareItemId": "DLZZL2QTU3A3ISGW6NIHY4YI",
       "name": "Sildenafil-Tadalafil-Vardenafil",
       "strength": "50mg-5mg-10mg per ampule",
       "displayPriceUsd": 190,
-      "squarePriceUsd": 5,
-      "priceDeltaUsd": 185
+      "squarePriceUsd": 187.5,
+      "priceDeltaUsd": 2.5
     },
     "p2:2:90": {
       "productId": "p2",
       "variantIndex": 2,
       "supply": 90,
-      "regenCatalogId": "brx-std-232",
-      "squareVariationId": "Q4G5H4O7OHYKJIZSYY7NHH7T",
-      "squareItemId": "FTELX5YIHCTWSR2ZHWV7VSEI",
+      "regenCatalogId": "brx-std-5",
+      "squareVariationId": "VC7PZIORYO2N3RF3GC3EHYFA",
+      "squareItemId": "DLZZL2QTU3A3ISGW6NIHY4YI",
       "name": "Sildenafil-Tadalafil-Vardenafil",
       "strength": "50mg-5mg-10mg per ampule",
       "displayPriceUsd": 515,
-      "squarePriceUsd": 13.5,
-      "priceDeltaUsd": 501.5
+      "squarePriceUsd": 506.25,
+      "priceDeltaUsd": 8.75
     },
     "p109:0:30": {
       "productId": "p109",
@@ -11734,11 +11760,5 @@
       "priceDeltaUsd": -2
     }
   },
-  "unmapped": [
-    {
-      "key": "p175:1:30",
-      "name": "Methylcobalamin",
-      "strength": "1mg/10ml"
-    }
-  ]
+  "unmapped": []
 }
