@@ -17,22 +17,27 @@ import { getMonograph } from "@/lib/regen/catalog/index";
 
 type ProductCardProps = {
   product: CatalogProduct;
-  onOpen: (id: string) => void;
+  /** Optional override — defaults to `/rx/product/[id]` */
+  href?: string;
+  /** When set (e.g. admin portal), opens drawer instead of navigating */
+  onOpen?: (id: string) => void;
 };
 
 const STAMP =
   "border-2 border-black shadow-[6px_6px_0_0_rgba(230,0,126,0.45)] transition duration-200 hover:-translate-y-0.5 hover:shadow-[8px_8px_0_0_rgba(230,0,126,0.55)] motion-reduce:transition-none motion-reduce:hover:translate-y-0";
 
-export function ProductCard({ product, onOpen }: ProductCardProps) {
+export function ProductCard({ product, href, onOpen }: ProductCardProps) {
   const { addItem } = useCart();
   const mono = getMonograph(product.drugKey);
-  const img = productImage(product.drugKey);
+  const img = productImage(product.drugKey, product.goal);
   const accent = goalAccent(product.goal);
   const variant = product.variants[0];
   const p30 = price30(product, variant);
+  const productHref = href ?? `/rx/product/${product.id}`;
 
   const quickAdd = useCallback(
     (e: MouseEvent) => {
+      e.preventDefault();
       e.stopPropagation();
       addItem({
         id: catalogLineId(product.id, 0, 30),
@@ -48,66 +53,70 @@ export function ProductCard({ product, onOpen }: ProductCardProps) {
     [addItem, product, p30, img, variant.strength],
   );
 
-  return (
-    <article
-      className={`group flex h-full flex-col overflow-hidden rounded-2xl bg-white ${STAMP}`}
-    >
-      <button
-        type="button"
-        onClick={() => onOpen(product.id)}
-        className="flex flex-1 flex-col text-left"
+  const media = (
+    <div className="relative aspect-[4/3] w-full overflow-hidden bg-gradient-to-br from-[#2d1020] to-[#0a0a0a]">
+      {img ? (
+        <Image
+          src={img}
+          alt=""
+          fill
+          className="object-cover transition duration-300 group-hover:scale-105"
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+        />
+      ) : (
+        <div
+          className="flex h-full w-full flex-col items-center justify-center gap-2"
+          style={{
+            background: `radial-gradient(circle at 30% 20%, ${accent}55, transparent 55%), linear-gradient(145deg, #1a0a12, #0a0a0a)`,
+          }}
+        >
+          <span className="flex h-16 w-16 items-center justify-center rounded-2xl border-2 border-white/20 bg-black/40 text-xl font-black text-white backdrop-blur">
+            {productInitials(product.name)}
+          </span>
+        </div>
+      )}
+      <span className="absolute left-2.5 top-2.5 rounded-md border border-black bg-white px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-black">
+        {product.form}
+      </span>
+      <span
+        className="absolute bottom-2.5 left-2.5 rounded-md border border-black px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-white"
+        style={{ backgroundColor: accent }}
       >
-        <div className="relative aspect-[4/3] w-full overflow-hidden bg-gradient-to-br from-[#2d1020] to-[#0a0a0a]">
-          {img ? (
-            <Image
-              src={img}
-              alt=""
-              fill
-              className="object-cover transition duration-300 group-hover:scale-105"
-              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-            />
-          ) : (
-            <div
-              className="flex h-full w-full flex-col items-center justify-center gap-2"
-              style={{
-                background: `radial-gradient(circle at 30% 20%, ${accent}55, transparent 55%), linear-gradient(145deg, #1a0a12, #0a0a0a)`,
-              }}
-            >
-              <span className="flex h-16 w-16 items-center justify-center rounded-2xl border-2 border-white/20 bg-black/40 text-xl font-black text-white backdrop-blur">
-                {productInitials(product.name)}
-              </span>
-            </div>
-          )}
-          <span className="absolute left-2.5 top-2.5 rounded-md border border-black bg-white px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-black">
-            {product.form}
-          </span>
-          <span
-            className="absolute bottom-2.5 left-2.5 rounded-md border border-black px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-white"
-            style={{ backgroundColor: accent }}
-          >
-            Rx
-          </span>
-        </div>
+        Rx
+      </span>
+    </div>
+  );
 
-        <div className="flex flex-1 flex-col p-4">
-          <p className="text-[10px] font-bold uppercase tracking-widest text-[#E6007E]">
-            {product.goal}
-          </p>
-          <h3 className="mt-1 text-[15px] font-black leading-snug text-black">{product.name}</h3>
-          <p className="mt-1.5 line-clamp-2 flex-1 text-[12.5px] leading-relaxed text-black/60">
-            {mono.tagline || "Compounded prescription · NP-reviewed"}
-          </p>
-          <div className="mt-3 flex items-end justify-between gap-2">
-            <div>
-              <p className="text-xl font-black text-[#E6007E]">{listingPriceText(product)}</p>
-              <p className="text-[11px] font-medium text-black/45">30-day supply</p>
-            </div>
-            <span className="text-xs font-bold text-black/50 group-hover:text-[#E6007E]">
-              Details →
-            </span>
-          </div>
+  const body = (
+    <div className="flex flex-1 flex-col p-4">
+      <p className="text-[10px] font-bold uppercase tracking-widest text-[#E6007E]">{product.goal}</p>
+      <h3 className="mt-1 text-[15px] font-black leading-snug text-black">{product.name}</h3>
+      <p className="mt-1.5 line-clamp-2 flex-1 text-[12.5px] leading-relaxed text-black/60">
+        {mono.tagline || "Compounded prescription · NP-reviewed"}
+      </p>
+      <div className="mt-3 flex items-end justify-between gap-2">
+        <div>
+          <p className="text-xl font-black text-[#E6007E]">{listingPriceText(product)}</p>
+          <p className="text-[11px] font-medium text-black/45">30-day supply</p>
         </div>
-      </button>
+        <span className="text-xs font-bold text-black/50 group-hover:text-[#E6007E]">View →</span>
+      </div>
+    </div>
+  );
+
+  return (
+    <article className={`group flex h-full flex-col overflow-hidden rounded-2xl bg-white ${STAMP}`}>
+      {onOpen ? (
+        <button type="button" onClick={() => onOpen(product.id)} className="flex flex-1 flex-col text-left">
+          {media}
+          {body}
+        </button>
+      ) : (
+        <Link href={productHref} className="flex flex-1 flex-col text-left">
+          {media}
+          {body}
+        </Link>
+      )}
 
       <div className="border-t-2 border-black p-3">
         <button
@@ -125,12 +134,8 @@ export function ProductCard({ product, onOpen }: ProductCardProps) {
 export function CatalogBrandLockup({ onClickHome }: { onClickHome?: () => void }) {
   const inner = (
     <>
-      <span className="font-serif text-[22px] font-extrabold tracking-[0.14em] text-white">
-        RE GEN
-      </span>
-      <span className="text-[9px] font-bold tracking-[0.2em] text-[#FF2D8E]">
-        BY HELLO GORGEOUS
-      </span>
+      <span className="font-serif text-[22px] font-extrabold tracking-[0.14em] text-white">RE GEN</span>
+      <span className="text-[9px] font-bold tracking-[0.2em] text-[#FF2D8E]">BY HELLO GORGEOUS</span>
     </>
   );
 

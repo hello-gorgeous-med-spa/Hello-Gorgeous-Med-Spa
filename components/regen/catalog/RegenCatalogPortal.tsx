@@ -12,6 +12,7 @@ import {
   HERO_DRUG_KEYS,
   SHOP_GOALS,
   bundlePrice,
+  filterCatalogByPrice,
   findProductByDrugKey,
   formGroup,
   getCatalogProduct,
@@ -21,7 +22,10 @@ import {
   goalFromSlug,
   goalSlug,
   price30,
+  sortCatalogProducts,
+  type CatalogPriceFilter,
   type CatalogProduct,
+  type CatalogSort,
   type SupplyDays,
 } from "@/lib/regen/catalog";
 import { catalogLineId } from "@/lib/regen/catalog/pricing";
@@ -99,10 +103,13 @@ export function RegenCatalogPortal({
 
   const [query, setQuery] = useState(queryParam);
   const [formFilter, setFormFilter] = useState("All");
+  const [sort, setSort] = useState<CatalogSort>("featured");
+  const [priceFilter, setPriceFilter] = useState<CatalogPriceFilter>("all");
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [selVar, setSelVar] = useState(0);
   const [supply, setSupply] = useState<SupplyDays>(30);
 
+  const isPublicShop = basePath === "/rx";
   const counts = useMemo(() => goalCounts(CATALOG_PRODUCTS), []);
 
   const navigate = useCallback(
@@ -128,21 +135,35 @@ export function RegenCatalogPortal({
     document.getElementById("shop-by-goal")?.scrollIntoView({ behavior: "smooth", block: "start" });
   }, []);
 
-  const openProduct = useCallback((id: string) => {
-    setSelectedId(id);
-    setSelVar(0);
-    setSupply(30);
-  }, []);
+  const openProduct = useCallback(
+    (id: string) => {
+      if (isPublicShop) {
+        router.push(`/rx/product/${id}`);
+        return;
+      }
+      setSelectedId(id);
+      setSelVar(0);
+      setSupply(30);
+    },
+    [isPublicShop, router],
+  );
 
   useEffect(() => {
     if (!productParam) return;
     const byId = getCatalogProduct(productParam);
     const byDrug = findProductByDrugKey(productParam);
     const hit = byId ?? byDrug;
-    if (hit) openProduct(hit.id);
-  }, [productParam, openProduct]);
+    if (!hit) return;
+    if (isPublicShop) {
+      router.replace(`/rx/product/${hit.id}`);
+      return;
+    }
+    openProduct(hit.id);
+  }, [productParam, openProduct, isPublicShop, router]);
 
   const selectedProduct = selectedId ? getCatalogProduct(selectedId) : undefined;
+
+  const priceOf = useCallback((p: CatalogProduct) => price30(p, p.variants[0]), []);
 
   const filteredProducts = useMemo(() => {
     let list: CatalogProduct[] = [];
@@ -165,8 +186,9 @@ export function RegenCatalogPortal({
           .includes(q);
       });
     }
-    return list;
-  }, [view, activeGoal, formFilter, query]);
+    list = filterCatalogByPrice(list, priceFilter, priceOf);
+    return sortCatalogProducts(list, sort, priceOf);
+  }, [view, activeGoal, formFilter, query, priceFilter, sort, priceOf]);
 
   const formChips = useMemo(() => {
     const pool =
@@ -346,7 +368,11 @@ export function RegenCatalogPortal({
               </div>
               <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                 {bestSellers.map((p) => (
-                  <ProductCard key={p.id} product={p} onOpen={openProduct} />
+                  <ProductCard
+                    key={p.id}
+                    product={p}
+                    onOpen={isPublicShop ? undefined : openProduct}
+                  />
                 ))}
               </div>
             </div>
@@ -494,6 +520,46 @@ export function RegenCatalogPortal({
               {filteredProducts.length} products
             </p>
 
+            <div className="mt-5 flex flex-wrap items-center gap-3">
+              <label className="flex items-center gap-2 text-xs font-bold uppercase tracking-wide text-white/50">
+                Sort
+                <select
+                  value={sort}
+                  onChange={(e) => setSort(e.target.value as CatalogSort)}
+                  className="rounded-lg border-2 border-white/20 bg-black px-3 py-2 text-sm font-semibold normal-case tracking-normal text-white"
+                >
+                  <option value="featured">Featured</option>
+                  <option value="price-asc">Price: low → high</option>
+                  <option value="price-desc">Price: high → low</option>
+                  <option value="name">Name A–Z</option>
+                </select>
+              </label>
+              <div className="flex flex-wrap gap-2">
+                {(
+                  [
+                    ["all", "Any price"],
+                    ["under-100", "Under $100"],
+                    ["100-250", "$100–250"],
+                    ["250-500", "$250–500"],
+                    ["over-500", "$500+"],
+                  ] as const
+                ).map(([id, label]) => (
+                  <button
+                    key={id}
+                    type="button"
+                    onClick={() => setPriceFilter(id)}
+                    className={`rounded-full px-3 py-1.5 text-xs font-bold transition ${
+                      priceFilter === id
+                        ? "border-2 border-black bg-[#FF2D8E] text-black"
+                        : "border border-white/25 text-white/70 hover:border-[#FF2D8E]"
+                    }`}
+                  >
+                    {label}
+                  </button>
+                ))}
+              </div>
+            </div>
+
             {formChips.length > 2 && (
               <div className="sticky top-[120px] z-20 mt-6 -mx-1 flex flex-wrap gap-2 bg-black/80 px-1 py-3 backdrop-blur">
                 {formChips.map((f) => (
@@ -518,7 +584,11 @@ export function RegenCatalogPortal({
             ) : (
               <div className="mt-8 grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
                 {filteredProducts.map((p) => (
-                  <ProductCard key={p.id} product={p} onOpen={openProduct} />
+                  <ProductCard
+                    key={p.id}
+                    product={p}
+                    onOpen={isPublicShop ? undefined : openProduct}
+                  />
                 ))}
               </div>
             )}
@@ -552,7 +622,7 @@ export function RegenCatalogPortal({
         </div>
       </footer>
 
-      {selectedProduct && (
+      {selectedProduct && !isPublicShop && (
         <ProductDetailDrawer
           product={selectedProduct}
           variantIndex={selVar}
