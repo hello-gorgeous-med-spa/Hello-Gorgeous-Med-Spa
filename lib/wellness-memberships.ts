@@ -194,7 +194,7 @@ export const WELLNESS_PROGRAM_PLANS: WellnessMembershipPlan[] = [
       `Semaglutide injectable from $${GLP1_PROGRAM.injectable.semaglutideFromUsd}/mo`,
       `Tirzepatide starter $${GLP1_PROGRAM.injectable.tirzepatideStarterUsd}/mo · standard $${GLP1_PROGRAM.injectable.tirzepatideStandardUsd}/mo · advanced $${GLP1_PROGRAM.injectable.tirzepatideAdvancedUsd}/mo`,
       `$${GLP1_PROGRAM_CONSULT_USD} consult credited to month 1 injectables if you enroll`,
-      "Included monthly check-ins (in-person or Fresha telehealth)",
+      "Included monthly check-ins (in-person or Square telehealth)",
       "3-month prepay from $" + GLP1_PROGRAM.injectable.threeMonthFromUsd,
       "Oral GLP-1 from $" + GLP1_PROGRAM.oral.monthlyFromUsd + "/mo",
     ],

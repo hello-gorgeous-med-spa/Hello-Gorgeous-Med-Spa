@@ -75,7 +75,7 @@ const PROGRAMS = [
         `Semaglutide injectable from $${GLP1_SEMA}/month`,
         `Tirzepatide starter $${GLP1_START}/mo · standard $${GLP1_STD}/mo · advanced $${GLP1_ADV}/mo`,
         `$${GLP1_PROGRAM_CONSULT_USD} consult credited to month 1 injectables if you enroll`,
-        "Included monthly check-ins (in-person or Fresha telehealth)",
+        "Included monthly check-ins (in-person or Square telehealth)",
         "3-month prepay from $" + GLP1_PROGRAM.injectable.threeMonthFromUsd,
         "Same-day visit availability",
         "Next-day lab results for monitoring",

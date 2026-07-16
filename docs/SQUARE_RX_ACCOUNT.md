@@ -21,8 +21,13 @@
 
 ## Still on Fresha (intentional until migrated)
 
-- NP telehealth / $49 RX consult deep links (`FRESHA_49_CONSULT_BOOKING_URL`, `HG_RX_TELEHEALTH_*`)
-- VIP Model deposit paid plan
+- VIP Model deposit paid plan (`VIP_MODEL_SQUARE_URL` still points at Fresha paid plans)
+
+## Telehealth (migrated to Square)
+
+- NP telehealth / $49 program consult → Square **Medical Visit with Ryan Kent, FNP-BC**
+  (`SQUARE_RX_TELEHEALTH_BOOKING_URL` / `HG_RX_TELEHEALTH_*` / `PROGRAM_CONSULT_BOOKING_URL`)
+- Deep link: https://book.squareup.com/appointments/pf2o75yphk7vw6/location/L3QDRS4DX9ZE4/services/ZLCRRG4BM6W2DCLWDWIDVBPA
 
 ## Cancel-old-account checklist (when ready)
 

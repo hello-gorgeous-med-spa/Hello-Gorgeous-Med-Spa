@@ -1,6 +1,7 @@
 /**
  * Charm EHR — clinical chart, e-prescribe, and staff workflows.
- * Patient-facing Hello Gorgeous RX™ telehealth booking uses Fresha (see lib/flows.ts).
+ * Patient-facing Hello Gorgeous RX™ telehealth booking uses Square Appointments
+ * (see {@link HG_RX_TELEHEALTH_BOOKING_URL} in lib/flows.ts).
  *
  * Env (Vercel / .env.local):
  *   NEXT_PUBLIC_CHARM_TELEHEALTH_BOOKING_URL — staff / legacy PHR embed (not public RX CTAs)
@@ -29,7 +30,7 @@ export const CHARM_PHR_PORTAL_URL =
 
 /**
  * Legacy Charm telehealth booking — staff tools & PHR deep links only.
- * Public RX funnels use {@link HG_RX_TELEHEALTH_BOOKING_URL} from lib/flows.ts (Fresha).
+ * Public RX funnels use {@link HG_RX_TELEHEALTH_BOOKING_URL} from lib/flows.ts (Square).
  */
 export const CHARM_TELEHEALTH_BOOKING_URL =
   readCharmUrl(
@@ -40,4 +41,4 @@ export const CHARM_TELEHEALTH_BOOKING_URL =
 export const CHARM_TELEHEALTH_BOOKING_LABEL = "Open Charm patient portal";
 
 export const CHARM_RX_TELEHEALTH_INSTRUCTIONS =
-  "Clinical charting and e-prescribe remain in Charm EHR. Patients book NP telehealth on Fresha — see Hello Gorgeous RX™ patient hub.";
+  "Clinical charting and e-prescribe remain in Charm EHR. Patients book NP telehealth on Square — see Hello Gorgeous RX™ patient hub.";

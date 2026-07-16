@@ -51,7 +51,7 @@ export function SignatureTreatmentMenuContent() {
               />
             </div>
             <p className="mt-4 text-center text-sm text-black/60 font-medium">
-              Scan the QR on the poster to book on Fresha, or use the button below.
+              Scan the QR on the poster to book on Square, or use the button below.
             </p>
           </FadeUp>
         </div>

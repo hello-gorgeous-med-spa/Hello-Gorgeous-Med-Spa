@@ -216,7 +216,7 @@ async function run() {
           <li>Visit our RX home page &amp; pick a program</li>
           <li>Complete your intake form</li>
           <li>Pay your NP consult when prompted</li>
-          <li>Book your Fresha telehealth visit</li>
+          <li>Book your Square telehealth visit</li>
           <li>Save your confirmation email — it has your personal status link</li>
         </ol>
       </div>

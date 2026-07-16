@@ -55,8 +55,8 @@ export function removePeptideRxRecord(recordToken: string): void {
 
 export function statusLabelForRecord(r: StoredRxRecord): string {
   if (!r.qualified) return "Needs clinical review";
-  if (r.requestType === "refill") return "Refill submitted — book Fresha telehealth";
-  if (isConsultPaid(r.reference)) return "Consult paid — book Fresha telehealth";
+  if (r.requestType === "refill") return "Refill submitted — book Square telehealth";
+  if (isConsultPaid(r.reference)) return "Consult paid — book Square telehealth";
   return "Submitted — pre-pay $49 consult to book telehealth";
 }
 

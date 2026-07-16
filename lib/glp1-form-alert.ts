@@ -76,7 +76,7 @@ export function formatGlp1StaffAlert(opts: {
     line("Disqualification reasons", disqual),
     "",
     isRefill
-      ? "ACTION: Ryan to review → Fresha telehealth (every 90d) → RX Dispatch (ship) → BoomRx. Secure messages: /admin/rx-messages"
+      ? "ACTION: Ryan to review → Square telehealth (every 90d) → RX Dispatch (ship) → BoomRx. Secure messages: /admin/rx-messages"
       : "ACTION: Review intake → book consult if qualified.",
     "Hub: https://www.hellogorgeousmedspa.com/admin/rx",
   ].filter(Boolean);

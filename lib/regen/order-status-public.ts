@@ -110,7 +110,7 @@ function resolveNextAction(
       };
     }
     return {
-      label: "Book telehealth on Fresha",
+      label: "Book telehealth on Square",
       href: HG_RX_TELEHEALTH_BOOKING_URL,
       external: true,
     };

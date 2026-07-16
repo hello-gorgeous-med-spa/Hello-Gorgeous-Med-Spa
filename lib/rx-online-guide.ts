@@ -43,7 +43,7 @@ export const RX_GUIDE_PATHS = [
       "Visit our RX home page & pick a program",
       "Complete your intake form",
       "Pay your NP consult when prompted",
-      "Book your Fresha telehealth visit",
+      "Book your Square telehealth visit",
       "Save your confirmation email — it has your personal status link",
     ],
     highlight: false,

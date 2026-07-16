@@ -74,7 +74,7 @@ export const GLP1_WEIGHT_LOSS_OSWEGO_MENU = buildOswegoMenu("glp-1-weight-loss-o
       price: `$${GLP1_PROGRAM_CONSULT_USD}`,
       note: "Credited to first month injectables if you enroll",
     },
-    { label: "Monthly check-ins", price: "Included", note: "In-person or Fresha telehealth" },
+    { label: "Monthly check-ins", price: "Included", note: "In-person or Square telehealth" },
     { label: "Medication source", price: "US pharmacies", note: "Licensed 503A/503B — never gray-market" },
   ],
   whatToExpectDescription:

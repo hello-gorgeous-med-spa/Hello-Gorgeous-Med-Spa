@@ -161,7 +161,7 @@ async function loadIntakeDetail(
 
   if (dispatch?.telehealth_required) {
     if (!dispatch.telehealth_completed_at) {
-      screening.push({ icon: "!", ok: false, text: "NP telehealth visit pending — book on Fresha" });
+      screening.push({ icon: "!", ok: false, text: "NP telehealth visit pending — book on Square" });
     } else {
       screening.push({ icon: "✓", ok: true, text: "Telehealth complete" });
     }

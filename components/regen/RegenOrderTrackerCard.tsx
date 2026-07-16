@@ -151,7 +151,7 @@ export function RegenOrderTrackerCard({ orderRef, variant = "app", pollMs = 0 }:
           rel="noopener noreferrer"
           className={`mt-3 block text-center text-xs font-semibold underline ${isApp ? "text-[#FFB8DC]" : "text-[#E6007E]"}`}
         >
-          Open Fresha telehealth booking
+          Open Square telehealth booking
         </a>
       ) : null}
     </div>

@@ -14,6 +14,12 @@
 export const SQUARE_RX_LOCATION_ID = "L3QDRS4DX9ZE4";
 export const SQUARE_RX_BOOKING_SITE_ID = "pf2o75yphk7vw6";
 
+/**
+ * Square Appointments — Medical Visit with Ryan Kent, FNP-BC ($49).
+ * Canonical NP telehealth / program consult deep link (replaces Fresha $49 consult).
+ */
+export const SQUARE_RX_TELEHEALTH_SERVICE_VARIATION_ID = "ZLCRRG4BM6W2DCLWDWIDVBPA";
+
 export const SQUARE_ORG_BOOKING_URL =
   process.env.NEXT_PUBLIC_SQUARE_BOOKING_URL?.trim() ||
   `https://square.site/book/${SQUARE_RX_LOCATION_ID}/hello-gorgeous-med-spa-rx-oswego-il`;
@@ -28,26 +34,33 @@ export const SQUARE_APPOINTMENTS_EMBED_SCRIPT_URL =
   process.env.NEXT_PUBLIC_SQUARE_APPOINTMENTS_EMBED_SCRIPT_URL?.trim() ||
   `https://square.site/appointments/buyer/widget/${SQUARE_RX_BOOKING_SITE_ID}/${SQUARE_RX_LOCATION_ID}.js`;
 
-/** Fresha Link Builder org URL (legacy — kept for optional telehealth deep links). */
+/**
+ * NP telehealth / $49 program consult — Square Appointments deep link
+ * (Medical Visit with Ryan Kent, FNP-BC). Override with
+ * `NEXT_PUBLIC_SQUARE_RX_TELEHEALTH_URL` if the service variation changes.
+ */
+export const SQUARE_RX_TELEHEALTH_BOOKING_URL =
+  process.env.NEXT_PUBLIC_SQUARE_RX_TELEHEALTH_URL?.trim() ||
+  `https://book.squareup.com/appointments/${SQUARE_RX_BOOKING_SITE_ID}/location/${SQUARE_RX_LOCATION_ID}/services/${SQUARE_RX_TELEHEALTH_SERVICE_VARIATION_ID}`;
+
+/** Fresha Link Builder org URL (legacy — do not use for public CTAs). */
 export const FRESHA_ORG_BOOKING_URL =
   "https://www.fresha.com/a/hello-gorgeous-med-spa-oswego-74-west-washington-street-y6oakkwf/booking?menu=true&share=true&pId=95245&dppub=true";
 
-/** @deprecated Old book-now slug; Fresha 307-redirects but prefer {@link FRESHA_ORG_BOOKING_URL}. */
+/** @deprecated Old book-now slug; prefer Square {@link BOOKING_URL}. */
 export const LEGACY_FRESHA_ORG_BOOKING_URL =
   "https://www.fresha.com/book-now/hello-gorgeous-tallrfb5/services?lid=102610&share=true&pId=95245";
 
 /**
- * Fresha deep link — $49 NP consult for wellness & RX programs
- * (Ladies' / Gentlemen's Club, hormones, GLP-1, peptides, TRT).
- * TODO: replace with Square service deep link when RX telehealth exists in Square.
+ * @deprecated Use {@link SQUARE_RX_TELEHEALTH_BOOKING_URL} / {@link PROGRAM_CONSULT_BOOKING_URL}.
+ * Kept as alias so older imports keep pointing at Square.
  */
-export const FRESHA_49_CONSULT_BOOKING_URL =
-  "https://www.fresha.com/book-now/hello-gorgeous-tallrfb5/services?lid=102610&eid=4566698&oiid=sv%3A22845867&share=true&pId=95245";
+export const FRESHA_49_CONSULT_BOOKING_URL = SQUARE_RX_TELEHEALTH_BOOKING_URL;
 
 export const PROGRAM_CONSULT_FEE_USD = 49;
 
-/** Alias for club & program funnels — same as {@link FRESHA_49_CONSULT_BOOKING_URL}. */
-export const PROGRAM_CONSULT_BOOKING_URL = FRESHA_49_CONSULT_BOOKING_URL;
+/** Club & program funnels — $49 NP consult on Square (Ryan). */
+export const PROGRAM_CONSULT_BOOKING_URL = SQUARE_RX_TELEHEALTH_BOOKING_URL;
 
 /** @deprecated Use `BOOKING_URL` / `SQUARE_ORG_BOOKING_URL`. */
 export const FRESHA_BOOKING_URL = FRESHA_ORG_BOOKING_URL;
@@ -256,15 +269,17 @@ export function regenCheckoutCompleteUrl(orderRef: string): string {
 }
 
 /**
- * Hello Gorgeous RX™ NP telehealth — **Fresha schedule** (not Charm).
- * Override with `NEXT_PUBLIC_FRESHA_RX_TELEHEALTH_URL` for a dedicated service link.
+ * Hello Gorgeous RX™ NP telehealth — **Square Appointments** (Ryan Medical Visit).
+ * Override with `NEXT_PUBLIC_SQUARE_RX_TELEHEALTH_URL` (preferred) or legacy
+ * `NEXT_PUBLIC_FRESHA_RX_TELEHEALTH_URL` if still set to a Square URL.
  */
 export const HG_RX_TELEHEALTH_BOOKING_URL = resolvePublicBookingUrl(
-  process.env.NEXT_PUBLIC_FRESHA_RX_TELEHEALTH_URL,
-  FRESHA_49_CONSULT_BOOKING_URL,
+  process.env.NEXT_PUBLIC_SQUARE_RX_TELEHEALTH_URL ||
+    process.env.NEXT_PUBLIC_FRESHA_RX_TELEHEALTH_URL,
+  SQUARE_RX_TELEHEALTH_BOOKING_URL,
 );
 
-export const HG_RX_TELEHEALTH_BOOKING_LABEL = "Book telehealth on Fresha";
+export const HG_RX_TELEHEALTH_BOOKING_LABEL = "Book telehealth on Square";
 
 export {
   CHARM_EHR_STAFF_URL,

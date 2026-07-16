@@ -145,8 +145,8 @@ export const FRONT_DESK_ORDER_QA_SECTIONS: FrontDeskQaSection[] = [
       },
       {
         q: "How do I book the consult / telehealth?",
-        a: `Book the NP video visit on Fresha ($${CONSULT} consult for new protocols). Spa appointments (Botox, facials, etc.) book on Square at /book. Send clients hellogorgeousmedspa.com/telehealth or /book as appropriate.`,
-        say: "“RX video visit → Fresha/telehealth link. Spa services → /book on Square.”",
+        a: `Book the NP video visit on Square ($${CONSULT} Medical Visit with Ryan for new protocols). Spa appointments (Botox, facials, etc.) also book on Square at /book. Send clients hellogorgeousmedspa.com/book/consultation or /book as appropriate.`,
+        say: "“RX video visit → Square telehealth with Ryan. Spa services → /book on Square.”",
       },
       {
         q: "Can I do this in person instead of video?",
