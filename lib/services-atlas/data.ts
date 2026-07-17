@@ -84,9 +84,9 @@ export const ATLAS_CLUSTERS: readonly ServiceAtlasCluster[] = [
     id: "hair-restoration",
     title: "Hair Restoration",
     description:
-      "Education-first support for hair goals. If you’re not sure where to start, we’ll guide you to the safest next step in person.",
+      "AnteAGE MDX® Biosome / exosome scalp protocols, PRF hair restoration, and Rx-aware plans — education first, then a clear next step in person.",
     personaDefault: "ryan",
-    serviceSlugs: [],
+    serviceSlugs: ["hair-restoration-exosomes", "prp"],
   },
   {
     id: "pain-recovery",

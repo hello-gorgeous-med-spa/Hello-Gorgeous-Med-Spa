@@ -43,7 +43,7 @@ export const RX_CARE_IMAGES = {
   peptide: "/images/rx-care/square/peptide.jpg",
   telehealth: "/images/rx-care/square/telehealth.jpg",
   team: "/images/rx-care/square/team.jpg",
-  glp1Hero: "/images/homepage-services/compounded-tirzepatide-weight-loss.png",
+  glp1Hero: "/images/marketing/semaglutide-regen-vial.jpg",
   nadPlus: "/images/rx-care/square/nad-plus.jpg",
   sermorelin: "/images/rx-care/square/sermorelin.jpg",
   bpc157: "/images/rx-care/square/bpc-157.jpg",

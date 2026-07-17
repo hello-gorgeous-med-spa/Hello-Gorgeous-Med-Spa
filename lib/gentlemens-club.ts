@@ -196,8 +196,9 @@ export const GENTLEMENS_CLUB_SERVICES: GentlemensClubService[] = [
     cta: "Hair protocols →",
     badge: "NEW",
     anchor: true,
-    image: "/images/anteage/hair/mdx-hair-exosome-vials.png",
-    imageAlt: "AnteAGE MDX hair exosome restoration for men — Hello Gorgeous Med Spa Oswego IL",
+    image: "/images/anteage/hair/mdx-biosome-hair-solution-ba.png",
+    imageAlt:
+      "AnteAGE MDX Biosome Hair Solution with before and after scalp density — Hello Gorgeous Med Spa Oswego IL",
     imageContain: true,
   },
   {
@@ -354,10 +355,10 @@ export const GENTLEMENS_CLUB_HAIR_OPTIONS: GentlemensClubHairOption[] = [
     id: "anteage-scalp-gf",
     name: "AnteAGE MD Scalp Treatment",
     description:
-      "Targeted AnteAGE MD growth-factor scalp protocol — stimulates follicles and supports scalp health between MDX series or as an entry regenerative tier.",
+      "Targeted AnteAGE MD® growth-factor scalp protocol — stimulates follicles and supports scalp health between MDX Biosome/Exosome series or as an entry regenerative tier.",
     priceLabel: "From $350/session",
     priceSub: "60 min · series of 3–6 recommended",
-    learnMoreHref: "/services/microneedling",
+    learnMoreHref: "/services/hair-restoration-exosomes",
     badge: "ANTEAGE",
   },
   {
@@ -447,7 +448,8 @@ export const GENTLEMENS_CLUB_SCREENERS = [
   },
 ] as const;
 
-export const GENTLEMENS_CLUB_ANTEAGE_HAIR_IMAGE = "/images/anteage/hair/mdx-hair-exosome-vials.png";
+export const GENTLEMENS_CLUB_ANTEAGE_HAIR_IMAGE =
+  "/images/anteage/hair/mdx-biosome-hair-solution-ba.png";
 
 export type GentlemensClubAnteageHairResult = {
   id: string;
@@ -458,6 +460,12 @@ export type GentlemensClubAnteageHairResult = {
 
 /** AnteAGE MDX partner before/after assets — individual results vary. */
 export const GENTLEMENS_CLUB_ANTEAGE_HAIR_RESULTS: GentlemensClubAnteageHairResult[] = [
+  {
+    id: "biosome-kit-ba",
+    src: "/images/anteage/hair/mdx-biosome-hair-solution-ba.png",
+    alt: "AnteAGE MDX Biosome Hair Solution product with scalp before and after density results",
+    caption: "MDX Biosome Hair Solution · before & after",
+  },
   {
     id: "2-weeks",
     src: "/images/anteage/hair/before-after-2-weeks.png",

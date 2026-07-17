@@ -27,7 +27,7 @@ const JOBS: CropJob[] = [
   { out: "team.jpg", src: "team/dani-ryan-founders-portrait.png", position: "top" },
   {
     out: "glp1-hero.jpg",
-    src: "homepage-services/compounded-tirzepatide-weight-loss.png",
+    src: "marketing/semaglutide-regen-vial.jpg",
     position: "centre",
   },
   { out: "nad-plus.jpg", src: "rx-care/nad-plus.png", position: "top" },

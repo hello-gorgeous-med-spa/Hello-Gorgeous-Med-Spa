@@ -79,7 +79,7 @@ export const SERVICE_CONTENT = {
     d: "Cutting-edge exosome therapy that delivers signaling proteins for cellular regeneration. Reduces inflammation, accelerates healing, anti-ages from the inside out.",
   },
   "Hair Restoration with Exosome Injections": {
-    d: "Direct scalp injections of exosomes to wake dormant follicles and reduce shedding. 3-session protocol; results visible by month 3.",
+    d: "AnteAGE MDX® Biosome Hair Solution — professional regenerative scalp treatment at Hello Gorgeous Med Spa in Oswego, IL. Our AnteAGE MDX® protocol uses growth factors and biosomes/exosomes formulated to support follicle signaling pathways involved in hair development (including WNT upregulation), combined with caffeine for follicle stimulation and azelaic acid for DHT-aware support. Delivered via scalp micro-injections or microneedling under NP supervision — not a retail OTC serum. Treatment packages include an at-home aftercare kit. From $499 per session; series of 3+ sessions recommended for density goals at the crown, temples, or part line. Results develop gradually and vary by pattern of thinning, hormones, and adherence. Medical evaluation required. Convenient for Naperville, Aurora, Plainfield, Yorkville & Montgomery. Book online or call (630) 636-6193.",
   },
   "ANTEAGE Microneedling with Exosomes & Biosomes( Best Results)": {
     n: "AnteAGE Microneedling — Exosomes + Biosomes (Best Results)",
@@ -93,7 +93,7 @@ export const SERVICE_CONTENT = {
     d: "Microneedling enhanced with bone marrow-derived stem cell growth factors. Mid-tier AnteAGE option — more potent than HA, gentler than exosomes.",
   },
   "AnteAGE MD Scalp Treatment": {
-    d: "Targeted scalp treatment using AnteAGE MD growth factors to stimulate hair follicles and reduce thinning. Series of 3–6 sessions recommended.",
+    d: "AnteAGE MD® scalp treatment in Oswego — targeted growth-factor protocol for thinning hair and scalp health. Entry regenerative tier (or bridge between MDX Biosome/Exosome series). Stimulates follicles, supports density goals, minimal social downtime. From $350 · series of 3–6 sessions typical. Book at Hello Gorgeous Med Spa for Naperville, Aurora & Plainfield clients. Not a cure for all hair loss — candidacy confirmed at consult.",
   },
   "AnteAGE MD Facial": {
     d: "60-minute facial featuring AnteAGE MD stem cell growth factors. Calms inflammation, brightens complexion, accelerates skin renewal. Zero downtime.",

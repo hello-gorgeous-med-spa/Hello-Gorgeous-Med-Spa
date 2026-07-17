@@ -1054,6 +1054,34 @@ export const SERVICES: readonly Service[] = [
     ],
   },
   {
+    slug: "hair-restoration-exosomes",
+    publicPath: "/services/hair-restoration-exosomes",
+    name: "AnteAGE MDX Biosome Hair & Scalp",
+    category: "Regenerative",
+    short:
+      "AnteAGE MDX® Biosome Hair Solution scalp treatments — growth factors & exosomes for thinning hair in Oswego.",
+    heroTitle: "AnteAGE MDX Biosome Hair Restoration in Oswego, IL",
+    heroSubtitle:
+      "Professional Biosome™ / exosome scalp protocols for density and follicle support — NP-supervised.",
+    faqs: [
+      {
+        question: "What is AnteAGE MDX Biosome Hair Solution?",
+        answer:
+          "A professional AnteAGE MDX® hair serum system (lyophilized Biosomes™ + diluent) used with scalp microneedling or micro-injections to support follicle signaling. For professional use only.",
+      },
+      {
+        question: "How much does AnteAGE scalp treatment cost?",
+        answer:
+          "AnteAGE MD Scalp Treatment from $350; Hair Restoration with Exosome/Biosome injections from $499. Series recommended; stacks with PRF or Rx quoted at consult.",
+      },
+      {
+        question: "Is this the same as PRF hair restoration?",
+        answer:
+          "No. PRF uses your own blood-derived growth factors; AnteAGE MDX adds laboratory-grade biosome/exosome signaling. Many clients use one or both when appropriate.",
+      },
+    ],
+  },
+  {
     slug: "anteage-microneedling-exosomes",
     name: "AnteAGE Microneedling + Exosomes",
     category: "Regenerative",

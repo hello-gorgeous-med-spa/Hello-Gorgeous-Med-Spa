@@ -85,6 +85,18 @@ export const LASER_HAIR_MENU: ServiceMenuConfig = {
       badge: "SAVE 30%",
     },
   ],
+  gallery: [
+    {
+      src: "/images/laser-hair-removal/duocratus-pro-device.png",
+      alt: "Zemits DuoCratus Pro laser hair removal system at Hello Gorgeous Med Spa",
+      caption: "Zemits DuoCratus Pro — medical-grade laser platform",
+    },
+    {
+      src: "/images/laser-hair-removal/diode-laser-underarm-treatment.png",
+      alt: "Diode laser hair removal underarm treatment at Hello Gorgeous Med Spa",
+      caption: "In-treatment diode laser session",
+    },
+  ],
   faqs: [
     {
       question: `Which areas are $59 through ${LASER_59_VALID_THROUGH}?`,

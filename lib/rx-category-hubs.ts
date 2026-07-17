@@ -60,24 +60,24 @@ export type RxCategoryHub = {
 
 const WEIGHT_LOSS_PRODUCTS: RxCategoryProduct[] = [
   {
-    id: "tirzepatide",
-    name: "Compounded Tirzepatide",
-    description: "Dual GLP-1 + GIP pathway · medical weight loss program",
-    priceLabel: `From $${GLP1_PROGRAM.injectable.tirzepatideFromUsd}/mo`,
-    href: GLP1_INTAKE_PATH,
-    image: "/regen-site/assets/prod-tirzepatide-regen.png",
-    imageAlt: "Compounded tirzepatide — REGEN medical weight loss",
-    badge: "POPULAR",
-    rx: true,
-  },
-  {
     id: "semaglutide",
     name: "Compounded Semaglutide",
     description: "GLP-1 injection · NP-supervised weight loss",
     priceLabel: `From $${GLP1_PROGRAM.injectable.semaglutideFromUsd}/mo`,
     href: GLP1_INTAKE_PATH,
-    image: "/regen-site/assets/prod-semaglutide-regen.png",
-    imageAlt: "Compounded semaglutide — REGEN medical weight loss",
+    image: "/images/regen/catalog/regen-semaglutide.jpg",
+    imageAlt: "Compounded semaglutide — RE GEN medical weight loss",
+    badge: "POPULAR",
+    rx: true,
+  },
+  {
+    id: "tirzepatide",
+    name: "Compounded Tirzepatide",
+    description: "Dual GLP-1 + GIP pathway · medical weight loss program",
+    priceLabel: `From $${GLP1_PROGRAM.injectable.tirzepatideFromUsd}/mo`,
+    href: GLP1_INTAKE_PATH,
+    image: "/images/regen/catalog/regen-tirzepatide.jpg",
+    imageAlt: "Compounded tirzepatide — RE GEN medical weight loss",
     rx: true,
   },
   {

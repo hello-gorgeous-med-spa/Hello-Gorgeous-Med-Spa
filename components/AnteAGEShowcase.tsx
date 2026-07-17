@@ -5,23 +5,41 @@ import Image from "next/image";
 import { FadeUp } from "./Section";
 import { BOOKING_URL } from "@/lib/flows";
 
-// Add more AnteAGE images here as you get them
 const anteageImages = [
   {
-    src: "/images/anteage/brightening-exosomes.png",
-    title: "Brightening Exosomes",
-    description: "Improves unwanted pigmentation, safe for all Fitzpatrick types",
-  },
-  // Placeholder slides - replace with real images when available
-  {
-    src: "/images/anteage/brightening-exosomes.png",
-    title: "Before & After Results",
-    description: "Real patient transformations with AnteAGE MD treatments",
+    src: "/images/anteage/hair/mdx-biosome-hair-solution-ba.png",
+    title: "AnteAGE MDX® Biosome Hair Solution",
+    description: "Scalp biosomes + before/after density — professional hair restoration",
   },
   {
-    src: "/images/anteage/brightening-exosomes.png",
-    title: "Regenerative Science",
-    description: "Stem cell technology for natural skin rejuvenation",
+    src: "/images/anteage/mdx-brightening-exosome-vials.png",
+    title: "AnteAGE MDX® Brightening Exosomes",
+    description: "10 billion exosomes + HA/TXA diluent — professional brightening protocol",
+  },
+  {
+    src: "/images/anteage/mdx-brightening-before-after-spots.png",
+    title: "Brightening results — 1 treatment",
+    description: "Sun spots & texture improvement in about one month",
+  },
+  {
+    src: "/images/anteage/mdx-brightening-before-after-eyes.png",
+    title: "Smoother, brighter skin",
+    description: "Crow’s feet and cheek tone after AnteAGE MDX brightening",
+  },
+  {
+    src: "/images/anteage/growth-factor-before-after.png",
+    title: "Growth Factor + microneedling",
+    description: "Scar texture and tone with AnteAGE MD Growth Factor Solution",
+  },
+  {
+    src: "/images/anteage/people-growth-factor-feature.png",
+    title: "As featured in People en Español",
+    description: "Stem cell microneedling for luminous, even skin",
+  },
+  {
+    src: "/images/anteage/md-microneedling-kit.png",
+    title: "AnteAGE MD® professional kit",
+    description: "Growth factor microneedling for face & hair — clinical grade",
   },
 ];
 
@@ -30,7 +48,7 @@ const benefits = [
   "Promotes healthy glow",
   "Reduces pigmentation",
   "Regenerative science",
-  "Versatile for any treatment",
+  "Pairs with microneedling",
   "Clinically proven results",
 ];
 
@@ -38,7 +56,6 @@ export function AnteAGEShowcase() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // Auto-advance slideshow
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % anteageImages.length);
@@ -60,23 +77,52 @@ export function AnteAGEShowcase() {
         <FadeUp>
           <div className="text-center mb-10">
             <p className="text-[#FF2D8E] text-lg font-medium tracking-wide">FEATURED TREATMENT</p>
-            <h2 className="mt-4 text-3xl md:text-5xl font-bold text-white">
+            <h2 className="mt-4 text-3xl md:text-5xl font-bold text-black">
               AnteAGE MD®{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-pink-500">
-                Brightening Exosomes
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-[#E6007E]">
+                Regenerative Skin
               </span>
             </h2>
-            <p className="mt-4 text-black max-w-2xl mx-auto">
-              Revolutionary regenerative science for radiant, even-toned skin.
+            <p className="mt-4 text-black/70 max-w-2xl mx-auto">
+              Growth factors, exosomes, and brightening protocols — booked under AnteAGE Skin Regeneration
+              at Hello Gorgeous Med Spa in Oswego.
             </p>
           </div>
         </FadeUp>
 
+        {/* Vertical treatment reel */}
+        <FadeUp delayMs={40}>
+          <div className="mx-auto mb-12 grid max-w-4xl gap-6 md:grid-cols-2">
+            <div className="overflow-hidden rounded-3xl border-4 border-black bg-black shadow-[8px_8px_0_0_rgba(230,0,126,0.35)]">
+              <video
+                className="aspect-[9/16] w-full object-cover"
+                controls
+                playsInline
+                preload="metadata"
+                poster="/images/anteage/video-poster-reel.jpg"
+                aria-label="AnteAGE treatment reel"
+              >
+                <source src="/videos/anteage/anteage-treatment-reel.mp4" type="video/mp4" />
+              </video>
+            </div>
+            <div className="overflow-hidden rounded-3xl border-4 border-black bg-black shadow-[8px_8px_0_0_rgba(230,0,126,0.35)]">
+              <video
+                className="aspect-[9/16] w-full object-cover"
+                controls
+                playsInline
+                preload="metadata"
+                poster="/images/anteage/video-poster-hero.jpg"
+                aria-label="AnteAGE treatment video"
+              >
+                <source src="/videos/anteage/anteage-treatment-hero.mp4" type="video/mp4" />
+              </video>
+            </div>
+          </div>
+        </FadeUp>
+
         <div className="grid lg:grid-cols-2 gap-8 items-center">
-          {/* Slideshow */}
           <FadeUp delayMs={60}>
             <div className="relative">
-              {/* Main Image */}
               <div
                 className="relative aspect-[4/5] rounded-3xl overflow-hidden border-2 border-[#FF2D8E]/30 cursor-pointer group"
                 onClick={() => setIsModalOpen(true)}
@@ -88,46 +134,45 @@ export function AnteAGEShowcase() {
                   className="object-cover transition-transform duration-500 group-hover:scale-105"
                   sizes="(max-width: 1024px) 100vw, 50vw"
                 />
-                {/* Overlay */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
-                
-                {/* Caption */}
                 <div className="absolute bottom-0 left-0 right-0 p-6">
                   <h3 className="text-xl font-bold text-white">{anteageImages[currentSlide].title}</h3>
-                  <p className="text-black text-sm mt-1">{anteageImages[currentSlide].description}</p>
+                  <p className="text-white/80 text-sm mt-1">{anteageImages[currentSlide].description}</p>
                 </div>
-
-                {/* Click to expand hint */}
-                <div className="absolute top-4 right-4 px-3 py-1.5 rounded-full bg-white text-white text-xs font-medium opacity-0 group-hover:opacity-100 transition">
+                <div className="absolute top-4 right-4 px-3 py-1.5 rounded-full bg-white text-black text-xs font-medium opacity-0 group-hover:opacity-100 transition">
                   Click to expand
                 </div>
               </div>
 
-              {/* Navigation Arrows */}
               <button
                 type="button"
-                onClick={(e) => { e.stopPropagation(); prevSlide(); }}
-                className="absolute left-2 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white text-white flex items-center justify-center hover:bg-[#FF2D8E] transition"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  prevSlide();
+                }}
+                className="absolute left-2 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white text-black flex items-center justify-center hover:bg-[#FF2D8E] hover:text-white transition border-2 border-black"
               >
                 ←
               </button>
               <button
                 type="button"
-                onClick={(e) => { e.stopPropagation(); nextSlide(); }}
-                className="absolute right-2 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white text-white flex items-center justify-center hover:bg-[#FF2D8E] transition"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  nextSlide();
+                }}
+                className="absolute right-2 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white text-black flex items-center justify-center hover:bg-[#FF2D8E] hover:text-white transition border-2 border-black"
               >
                 →
               </button>
 
-              {/* Dots */}
               <div className="flex justify-center gap-2 mt-4">
                 {anteageImages.map((_, idx) => (
                   <button
                     key={idx}
                     type="button"
                     onClick={() => setCurrentSlide(idx)}
-                    className={`w-2.5 h-2.5 rounded-full transition ${
-                      idx === currentSlide ? "bg-[#FF2D8E] w-8" : "bg-white hover:bg-white0"
+                    className={`h-2.5 rounded-full transition ${
+                      idx === currentSlide ? "bg-[#FF2D8E] w-8" : "bg-black/20 w-2.5 hover:bg-black/40"
                     }`}
                   />
                 ))}
@@ -135,15 +180,14 @@ export function AnteAGEShowcase() {
             </div>
           </FadeUp>
 
-          {/* Info Panel */}
           <FadeUp delayMs={120}>
             <div className="space-y-6">
               <div>
                 <p className="text-[#FF2D8E] font-semibold text-sm tracking-wide mb-2">WHAT IS IT?</p>
                 <p className="text-black leading-relaxed">
-                  AnteAGE MD® Brightening Exosomes use cutting-edge stem cell technology to target 
-                  unwanted pigmentation and promote a healthy, radiant glow. This regenerative treatment 
-                  is safe for all Fitzpatrick skin types and delivers visible results.
+                  AnteAGE MD® and MDX® use bone-marrow stem cell growth factors and exosomes to support
+                  brighter tone, smoother texture, and healthier recovery after microneedling — safe for
+                  all Fitzpatrick skin types when used by our NP-led team.
                 </p>
               </div>
 
@@ -162,8 +206,8 @@ export function AnteAGEShowcase() {
               <div>
                 <p className="text-[#FF2D8E] font-semibold text-sm tracking-wide mb-2">IDEAL FOR</p>
                 <p className="text-black">
-                  Hyperpigmentation, sun damage, melasma, uneven skin tone, dull complexion, 
-                  and anyone seeking a brighter, more youthful appearance.
+                  Hyperpigmentation, sun damage, melasma, uneven tone, dull complexion, acne texture, and
+                  anyone wanting regenerative brightening with microneedling.
                 </p>
               </div>
 
@@ -178,9 +222,9 @@ export function AnteAGEShowcase() {
                 </a>
                 <a
                   href="tel:630-636-6193"
-                  className="py-4 px-6 border border-black text-white font-semibold text-center rounded-full hover:bg-white transition"
+                  className="py-4 px-6 border-2 border-black text-black font-semibold text-center rounded-full hover:bg-[#FFF0F7] transition"
                 >
-                  📞 Ask Questions
+                  Call (630) 636-6193
                 </a>
               </div>
             </div>
@@ -188,7 +232,6 @@ export function AnteAGEShowcase() {
         </div>
       </div>
 
-      {/* Fullscreen Modal */}
       {isModalOpen && (
         <div
           className="fixed inset-0 z-50 bg-black/95 flex items-center justify-center p-4"
@@ -197,15 +240,18 @@ export function AnteAGEShowcase() {
           <button
             type="button"
             onClick={() => setIsModalOpen(false)}
-            className="absolute top-4 right-4 w-12 h-12 rounded-full bg-white text-white text-2xl flex items-center justify-center hover:bg-white/20 transition"
+            className="absolute top-4 right-4 w-12 h-12 rounded-full bg-white/10 text-white text-2xl flex items-center justify-center hover:bg-white/20 transition"
           >
             ✕
           </button>
 
           <button
             type="button"
-            onClick={(e) => { e.stopPropagation(); prevSlide(); }}
-            className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white text-white text-xl flex items-center justify-center hover:bg-[#FF2D8E] transition"
+            onClick={(e) => {
+              e.stopPropagation();
+              prevSlide();
+            }}
+            className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/10 text-white text-xl flex items-center justify-center hover:bg-[#FF2D8E] transition"
           >
             ←
           </button>
@@ -220,31 +266,20 @@ export function AnteAGEShowcase() {
             />
             <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black to-transparent rounded-b-xl">
               <h3 className="text-2xl font-bold text-white">{anteageImages[currentSlide].title}</h3>
-              <p className="text-black mt-1">{anteageImages[currentSlide].description}</p>
+              <p className="text-white/80 mt-1">{anteageImages[currentSlide].description}</p>
             </div>
           </div>
 
           <button
             type="button"
-            onClick={(e) => { e.stopPropagation(); nextSlide(); }}
-            className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white text-white text-xl flex items-center justify-center hover:bg-[#FF2D8E] transition"
+            onClick={(e) => {
+              e.stopPropagation();
+              nextSlide();
+            }}
+            className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/10 text-white text-xl flex items-center justify-center hover:bg-[#FF2D8E] transition"
           >
             →
           </button>
-
-          {/* Dots in modal */}
-          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
-            {anteageImages.map((_, idx) => (
-              <button
-                key={idx}
-                type="button"
-                onClick={(e) => { e.stopPropagation(); setCurrentSlide(idx); }}
-                className={`w-3 h-3 rounded-full transition ${
-                  idx === currentSlide ? "bg-[#FF2D8E]" : "bg-white/30 hover:bg-white0"
-                }`}
-              />
-            ))}
-          </div>
         </div>
       )}
     </section>

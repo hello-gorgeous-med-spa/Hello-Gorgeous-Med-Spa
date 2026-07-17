@@ -43,6 +43,12 @@ export const REGENERATIVE_NAV: {
           sub: "PDRN + exosomes/biosomes · pairs with RF microneedling",
           badge: "NEW",
         },
+        {
+          label: "AnteAGE MDX Hair Biosomes",
+          href: "/services/hair-restoration-exosomes",
+          sub: "Scalp biosomes/exosomes from $350–$499 · thinning & density",
+          badge: "HAIR",
+        },
       ],
     },
     {

@@ -90,7 +90,7 @@ Fade sun spots, redness, and broken capillaries — often visible improvement wi
 
 Oswego · Naperville · Aurora · Plainfield.`,
   linkPath: withUtm("/services/ipl-photofacial"),
-  imagePath: "/images/ipl-photofacial/ipl-photofacial-zemits-treatment-hero.png",
+  imagePath: "/images/ipl-photofacial/ipl-photofacial-treatment-cheek.png",
   defaultChannels: ["facebook", "instagram"],
 };
 
@@ -102,7 +102,7 @@ export const FACEBOOK_PAGE_PRESET_WEIGHT: FacebookPagePreset = {
 
 Book a consult: we'll tell you honestly if you're a candidate.`,
   linkPath: withUtm("/services/weight-loss-therapy"),
-  imagePath: "/images/homepage-services/compounded-tirzepatide-weight-loss.png",
+  imagePath: "/images/marketing/semaglutide-regen-vial.jpg",
   defaultChannels: ["facebook", "instagram"],
 };
 
@@ -551,7 +551,7 @@ Take the screener: hellogorgeousmedspa.com/quiz/glp-1-readiness
 
 *Compounded GLP-1 requires medical evaluation. Not all candidates qualify. Individual results vary.`,
   linkPath: "/glp-1-weight-loss-oswego?utm_source=facebook&utm_medium=organic&utm_campaign=glp1_blast",
-  imagePath: "/images/marketing/hello-gorgeous-app-scan-flyer.jpg",
+  imagePath: "/images/marketing/semaglutide-regen-vial.jpg",
   defaultChannels: ["facebook"],
 };
 
@@ -601,6 +601,94 @@ Free consult · Ryan Kent, FNP-BC · downtown Oswego. Book below 👇`,
   defaultChannels: ["facebook", "instagram", "google"],
 };
 
+export const FACEBOOK_PAGE_PRESET_ANTEAGE_HAIR: FacebookPagePreset = {
+  id: "anteage-mdx-biosome-hair",
+  label: "AnteAGE MDX Biosome Hair / scalp",
+  blurb: "Biosome Hair Solution box + before/after crown density.",
+  message: `🧬 Thinning at the crown? AnteAGE MDX® Biosome Hair Solution is now booking in Oswego.
+
+Professional growth factors & biosomes for scalp restoration — not a retail serum.
+
+• From $350 (MD Scalp) · from $499 (Exosome / Biosome injections)
+• Series recommended · NP-supervised
+• Stack with PRF or Rx when appropriate
+
+Serving Naperville · Aurora · Plainfield · Yorkville
+
+Learn more & book 👇`,
+  linkPath: withUtm("/services/hair-restoration-exosomes"),
+  imagePath: "/images/anteage/hair/mdx-biosome-hair-solution-ba.png",
+  defaultChannels: ["facebook", "instagram", "google"],
+};
+
+export const FACEBOOK_PAGE_PRESET_ANTEAGE_BRIGHTENING: FacebookPagePreset = {
+  id: "anteage-brightening-exosomes",
+  label: "AnteAGE MDX Brightening Exosomes",
+  blurb: "Before/after + exosome vials — regenerative brightening.",
+  message: `✨ AnteAGE MDX® Brightening Exosomes — now booking in Oswego
+
+Stem-cell growth factors + exosomes for clearer, more even tone — safe for all skin types when paired with microneedling.
+
+• Brightening protocol (HA + TXA)
+• Visible glow after treatment series
+• NP-directed care at Hello Gorgeous Med Spa
+
+Book under AnteAGE Skin Regeneration 👇`,
+  linkPath: withUtm("/book"),
+  imagePath: "/images/anteage/mdx-brightening-before-after-spots.png",
+  defaultChannels: ["facebook", "instagram", "google"],
+};
+
+export const FACEBOOK_PAGE_PRESET_ANTEAGE_FEATURED: FacebookPagePreset = {
+  id: "anteage-people-feature",
+  label: "AnteAGE — People en Español feature",
+  blurb: "Social proof + growth factor microneedling CTA.",
+  message: `🌟 “Left my skin as smooth and luminous as a teenager’s.”
+
+AnteAGE® Stem Cell Microneedling — growth factors that support real glow, not filters.
+
+Hello Gorgeous Med Spa · Oswego, IL · NP on site.
+
+Book your AnteAGE treatment 👇`,
+  linkPath: withUtm("/book"),
+  imagePath: "/images/anteage/people-growth-factor-feature.png",
+  defaultChannels: ["facebook", "instagram"],
+};
+
+export const FACEBOOK_PAGE_PRESET_ANTEAGE_REEL: FacebookPagePreset = {
+  id: "anteage-treatment-reel",
+  label: "AnteAGE treatment reel (upload video)",
+  blurb: "Use reel MP4 from /videos/anteage — still image for link preview.",
+  message: `💉 AnteAGE regenerative microneedling — in treatment at Hello Gorgeous
+
+Growth factors. Exosomes. Real skin science.
+
+Watch the reel, then book AnteAGE Skin Regeneration online 👇
+
+Oswego · Naperville · Aurora · Plainfield`,
+  linkPath: withUtm("/book"),
+  imagePath: "/images/anteage/video-poster-reel.jpg",
+  defaultChannels: ["facebook", "instagram"],
+};
+
+export const FACEBOOK_PAGE_PRESET_CHEMICAL_PEELS: FacebookPagePreset = {
+  id: "chemical-peels-dermalogica",
+  label: "Chemical peels — Dermalogica PRO",
+  blurb: "Professional peels for tone, texture, and glow.",
+  message: `✨ Medical-grade chemical peels — now booking in Oswego
+
+Dermalogica PRO peels for fine lines, pigment, breakouts, and dull skin — matched to your goals (not a one-size peel).
+
+• Light refresh → deeper correction options
+• VI Peel protocols available
+• Licensed providers · NP oversight
+
+Book Facials & Peels 👇`,
+  linkPath: withUtm("/services/facials-and-peels"),
+  imagePath: "/images/chemical-peels/dermalogica-renewal-peel-treatment.png",
+  defaultChannels: ["facebook", "instagram"],
+};
+
 export const FACEBOOK_PAGE_PRESET_SKIN_101: FacebookPagePreset = {
   id: "skin-101-education",
   label: "Skin 101 — client education hub",
@@ -645,6 +733,11 @@ export const FACEBOOK_PAGE_PRESETS: FacebookPagePreset[] = [
   FACEBOOK_PAGE_PRESET_BLAST_MEMBERSHIPS,
   FACEBOOK_PAGE_PRESET_BLAST_GLP1,
   FACEBOOK_PAGE_PRESET_BLAST_RX_APP,
+  FACEBOOK_PAGE_PRESET_ANTEAGE_HAIR,
+  FACEBOOK_PAGE_PRESET_ANTEAGE_BRIGHTENING,
+  FACEBOOK_PAGE_PRESET_ANTEAGE_FEATURED,
+  FACEBOOK_PAGE_PRESET_ANTEAGE_REEL,
+  FACEBOOK_PAGE_PRESET_CHEMICAL_PEELS,
   FACEBOOK_PAGE_PRESET_BOTOX_49,
   FACEBOOK_PAGE_PRESET_MONTHLY_MEMBERSHIPS,
   FACEBOOK_PAGE_PRESET_NON_SURGICAL_FACELIFT,

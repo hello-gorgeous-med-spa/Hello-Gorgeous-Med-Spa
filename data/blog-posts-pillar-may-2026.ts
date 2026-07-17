@@ -28,7 +28,7 @@ export const pillarMay2026Posts: BlogPost[] = [
       "Ozempic alternative Oswego",
       "med spa weight loss Kendall County",
     ],
-    featuredImage: "/images/homepage-services/compounded-tirzepatide-weight-loss.png",
+    featuredImage: "/images/marketing/semaglutide-regen-vial.jpg",
     structuredDataFaqs: [
       {
         question: "How often do I come in for GLP-1 weight loss visits at Hello Gorgeous?",

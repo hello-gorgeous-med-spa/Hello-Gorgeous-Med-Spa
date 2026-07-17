@@ -12,7 +12,7 @@ import {
 
 const PAGE_PATH = "/services/ipl-photofacial";
 const PAGE_URL = `${SITE.url}${PAGE_PATH}`;
-const HERO_IMAGE = "/images/ipl-photofacial/ipl-photofacial-zemits-treatment-hero.png";
+const HERO_IMAGE = "/images/ipl-photofacial/ipl-photofacial-treatment-cheek.png";
 
 const IPL_FAQS = [
   {

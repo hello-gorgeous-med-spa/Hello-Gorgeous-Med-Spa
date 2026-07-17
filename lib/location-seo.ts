@@ -151,7 +151,7 @@ export const TOP_SERVICES: ServiceConfig[] = [
     shortName: 'Laser Hair',
     priceDisplay: 'From $75',
     description: 'Say goodbye to shaving and waxing with professional laser hair removal for smooth, hair-free skin.',
-    heroImage: '/images/services/hg-laser-device.png',
+    heroImage: '/images/laser-hair-removal/duocratus-pro-device.png',
     keywords: ['laser hair removal', 'permanent hair removal', 'hair removal', 'laser hair', 'bikini laser', 'underarm laser', 'leg laser', 'facial hair removal'],
     treatmentAreas: [
       { area: 'Underarms', detail: 'Quick and effective' },
@@ -220,7 +220,7 @@ export const TOP_SERVICES: ServiceConfig[] = [
     shortName: 'IPL',
     priceDisplay: 'From $250',
     description: 'InMode Lumecca IPL photofacial in Oswego, IL — target sun damage, redness, and pigmentation with intense pulsed light.',
-    heroImage: '/images/ipl-photofacial/ipl-photofacial-zemits-treatment-hero.png',
+    heroImage: '/images/ipl-photofacial/ipl-photofacial-treatment-cheek.png',
     keywords: ['lumecca ipl oswego', 'ipl photofacial oswego il', 'ipl treatment', 'photofacial', 'lumecca photofacial', 'sun damage treatment', 'brown spots', 'rosacea treatment', 'skin rejuvenation', 'age spots'],
     treatmentAreas: [
       { area: 'Sun Spots', detail: 'Fade brown spots' },

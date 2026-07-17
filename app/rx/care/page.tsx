@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     url: PAGE_URL,
     images: [
       {
-        url: `${SITE.url}/images/homepage-services/compounded-tirzepatide-weight-loss.png`,
+        url: `${SITE.url}/images/marketing/semaglutide-regen-vial.jpg`,
         width: 1024,
         height: 682,
         alt: "Hello Gorgeous RX Patient Care Hub",
@@ -48,7 +48,7 @@ export const metadata: Metadata = {
   twitter: {
     ...baseMeta.twitter,
     card: "summary_large_image",
-    images: [`${SITE.url}/images/homepage-services/compounded-tirzepatide-weight-loss.png`],
+    images: [`${SITE.url}/images/marketing/semaglutide-regen-vial.jpg`],
   },
 };
 

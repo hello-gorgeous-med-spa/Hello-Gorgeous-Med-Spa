@@ -94,10 +94,10 @@ export const FACIALS_PEELS_MENU: ServiceMenuConfig = {
         "Medical-grade peels for pigment, texture, acne, and anti-aging — from light refresh peels to full VI Peel protocols.",
       highlights: [
         "Light · medium · advanced peel depths",
+        "Dermalogica PRO peels (AGEreversal · PowerClear · Renewal)",
         "VI Peel Precision · Advanced · Purify",
         "SkinCeuticals professional peels",
         "Pre/post care guidance included",
-        "Series recommended for pigment",
       ],
       pricing: [
         { label: "Light chemical peel", price: "From $99", href: "/chemical-peel-oswego" },
@@ -127,6 +127,32 @@ export const FACIALS_PEELS_MENU: ServiceMenuConfig = {
         { label: "IPL facial (Fresha menu)", price: "$169", href: "/services/ipl-photofacial", note: "Area & protocol dependent" },
       ],
       learnMoreHref: "/services/ipl-photofacial",
+    },
+  ],
+  gallery: [
+    {
+      src: "/images/chemical-peels/dermalogica-peel-treatment-overhead.png",
+      alt: "Dermalogica professional chemical peel treatment at Hello Gorgeous Med Spa",
+      caption: "Professional peel application — Dermalogica PRO",
+      frame: "landscape",
+    },
+    {
+      src: "/images/chemical-peels/dermalogica-renewal-peel-treatment.png",
+      alt: "Dermalogica Renewal peel dropper during facial treatment",
+      caption: "Renewal peel protocol in treatment",
+      frame: "portrait",
+    },
+    {
+      src: "/images/chemical-peels/dermalogica-agereversal-peel-ba.png",
+      alt: "AGEreversal peel before and after crow's feet results",
+      caption: "AGEreversal peel — fine lines before & after",
+      frame: "landscape",
+    },
+    {
+      src: "/images/chemical-peels/dermalogica-powerclear-peel-ba.png",
+      alt: "PowerClear peel before and after acne and pigmentation results",
+      caption: "PowerClear peel — breakouts & PIH before & after",
+      frame: "landscape",
     },
   ],
   faqs: [

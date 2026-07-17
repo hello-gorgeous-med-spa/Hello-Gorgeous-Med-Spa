@@ -41,7 +41,7 @@ export const homepageServicesRow1: HomepageServiceCard[] = [
       "Physician-supervised GLP-1 therapies including Semaglutide and Tirzepatide for lasting results.",
     link: "/rx/metabolic",
     items: ["Semaglutide", "Tirzepatide", "B12 Injections", "Lipo-C"],
-    image: "/images/homepage-services/compounded-tirzepatide-weight-loss.png",
+    image: "/images/marketing/semaglutide-regen-vial.jpg",
     imageAlt:
       "Compounded Tirzepatide for medical weight loss — Hello Gorgeous Med Spa Oswego IL",
     badge: "RX",
@@ -135,9 +135,9 @@ export const homepageServicesRow2: HomepageServiceCard[] = [
       "Professional laser hair removal for face and body — safe for more skin types with personalized settings and membership savings.",
     link: "/services/laser-hair-removal",
     items: ["Face & body", "Brazilian", "Packages", "Memberships"],
-    image: "/images/homepage-services/laser-hair-removal-zemits-quidion-lite.png",
+    image: "/images/laser-hair-removal/duocratus-pro-device.png",
     imageAlt:
-      "Zemits QuiDion Lite laser hair removal treatment — underarm session at Hello Gorgeous Med Spa Oswego IL",
+      "Zemits DuoCratus Pro laser hair removal system — Hello Gorgeous Med Spa Oswego IL",
   },
   {
     title: "IPL Photofacials",
@@ -145,7 +145,7 @@ export const homepageServicesRow2: HomepageServiceCard[] = [
       "Intense Pulsed Light for sun spots, redness, rosacea, and overall photorejuvenation — brighter, more even skin in Oswego.",
     link: "/services/ipl-photofacial",
     items: ["Brown spots", "Redness", "Rosacea", "Photo rejuvenation"],
-    image: "/images/homepage-services/ipl-photofacial-zemits-treatment.png",
+    image: "/images/ipl-photofacial/ipl-photofacial-treatment-cheek.png",
     imageAlt:
       "IPL photofacial treatment with professional light handpiece for skin rejuvenation — Hello Gorgeous Med Spa Oswego IL",
   },

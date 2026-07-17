@@ -605,7 +605,7 @@ export function GentlemensClubPageContent() {
                 <div className="relative aspect-[4/3] min-h-[220px] bg-black lg:aspect-auto lg:min-h-[280px]">
                   <Image
                     src={GENTLEMENS_CLUB_ANTEAGE_HAIR_IMAGE}
-                    alt="AnteAGE MDX hair biosomes and exosomes — regenerative scalp protocol at Hello Gorgeous Med Spa Oswego"
+                    alt="AnteAGE MDX Biosome Hair Solution with before and after scalp density — regenerative protocol at Hello Gorgeous Med Spa Oswego"
                     fill
                     className="object-contain object-center p-6"
                     sizes="(max-width: 1024px) 100vw, 480px"

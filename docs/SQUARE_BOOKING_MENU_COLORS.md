@@ -9,7 +9,7 @@ Calendar colors **cannot** be set by API — only in the Dashboard. POS label co
 | Category | Calendar color to pick | Example services |
 |---|---|---|
 | **Vitamin Injections** | Hot pink / magenta | B12, B-Complex, Glutathione, MIC/Lipo |
-| **Weight Loss Injections** | Red | Tirzepatide, Semaglutide, Retatrutide |
+| **Weight Loss Injections** | Red | Semaglutide hero vial · Tirzepatide keeps its own vial |
 | **FlowWave** | Purple | Shockwave sessions & packages |
 | **Botox** | Teal | Botox / Jeuveau / Dysport, Lip Flip |
 | **Dermal Fillers** | Orange | Lip filler, Hylenex |

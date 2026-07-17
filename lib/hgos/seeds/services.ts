@@ -906,16 +906,12 @@ Reduces:
     categorySlug: 'anteage',
     name: 'Hair Restoration with Exosome Injections',
     slug: 'hair-restoration-exosomes',
-    description: `AnteAGE MDX Hair Exosomes
+    description: `AnteAGE MDX® Biosome Hair Solution — professional scalp restoration in Oswego, IL.
 
-Our groundbreaking AnteAGE MDX® Exosome Hair Solution takes hair health to the next level.
+Growth factors & biosomes/exosomes support follicle signaling (including WNT pathways), with caffeine for stimulation and azelaic acid for DHT-aware support. Delivered via micro-injection or microneedling protocols under NP supervision.
 
-Our unique approach results in exosomes specifically targeted to upregulate WNT signaling – a crucial signaling pathway involved with hair follicle development.
-
-Combined with caffeine for follicle stimulation and azelaic acid to counteract DHT.
-
-Treatment includes at-home Aftercare Kit.`,
-    shortDescription: 'Advanced hair restoration with exosomes + aftercare kit',
+Includes at-home Aftercare Kit with package protocols. Series of 3+ sessions recommended. Results vary; medical evaluation required. Serving Naperville, Aurora, Plainfield & the Fox Valley.`,
+    shortDescription: 'AnteAGE MDX Biosome Hair Solution — scalp exosome/biosome restoration + aftercare kit',
     priceCents: 49900,
     priceDisplay: '$499',
     priceType: 'fixed',
@@ -937,7 +933,7 @@ Treatment includes at-home Aftercare Kit.`,
     allowOnlineBooking: true,
     addonServiceIds: [],
     relatedServiceIds: [],
-    imageUrl: null,
+    imageUrl: '/images/anteage/hair/mdx-biosome-hair-solution-ba.png',
     displayOrder: 5,
     isFeatured: true,
     isActive: true,
