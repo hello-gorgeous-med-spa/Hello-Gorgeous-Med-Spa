@@ -103,65 +103,65 @@ export function RegenScienceTheater({ onShopGoals }: Props) {
           </p>
         </div>
 
-        <div className="grid gap-4 md:grid-cols-2 lg:gap-5">
-          <article className="group overflow-hidden rounded-[1.5rem] border border-[#B88173]/40 bg-[#0a0610] shadow-[0_20px_40px_-16px_rgba(184,129,115,0.35)]">
-            <div className="relative aspect-[16/10] w-full">
+        <div className="mx-auto grid max-w-3xl gap-3 sm:grid-cols-2 lg:gap-4">
+          <article className="group overflow-hidden rounded-2xl border border-[#B88173]/40 bg-[#0a0610] shadow-[0_14px_28px_-12px_rgba(184,129,115,0.35)]">
+            <div className="relative aspect-[2/1] w-full">
               <Image
                 src="/images/regen/science/hcg-mens.jpg"
                 alt="HCG — supports natural hormone production and reproductive health"
                 fill
-                className="object-cover transition duration-500 group-hover:scale-105"
-                sizes="(max-width: 768px) 100vw, 50vw"
+                className="object-cover object-top transition duration-500 group-hover:scale-105"
+                sizes="(max-width: 768px) 100vw, 360px"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-              <div className="absolute inset-x-0 bottom-0 p-5">
-                <p className="text-[11px] font-black uppercase tracking-[0.18em] text-[#E8C4B8]">
+              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent" />
+              <div className="absolute inset-x-0 bottom-0 p-3.5">
+                <p className="text-[10px] font-black uppercase tracking-[0.16em] text-[#E8C4B8]">
                   Men&apos;s hormone science
                 </p>
-                <h3 className="mt-1 font-serif text-2xl font-black text-white">HCG</h3>
-                <p className="mt-1 text-sm font-medium text-white/75">
-                  Fertility support · testosterone support · preserves testicular function
+                <h3 className="mt-0.5 font-serif text-lg font-black text-white">HCG</h3>
+                <p className="mt-0.5 text-xs font-medium leading-snug text-white/70">
+                  Fertility · testosterone · testicular function
                 </p>
               </div>
             </div>
-            <div className="flex items-center justify-between gap-3 border-t border-white/10 px-5 py-4">
-              <p className="text-xs font-medium text-white/55">NP-reviewed · compounded when appropriate</p>
+            <div className="flex items-center justify-between gap-2 border-t border-white/10 px-3.5 py-2.5">
+              <p className="text-[10px] font-medium text-white/50">NP-reviewed</p>
               <Link
                 href="/rx?goal=hormones"
-                className="text-sm font-black text-[#FF2D8E] hover:text-white"
+                className="text-xs font-black text-[#FF2D8E] hover:text-white"
               >
-                Shop hormones →
+                Shop →
               </Link>
             </div>
           </article>
 
-          <article className="group overflow-hidden rounded-[1.5rem] border border-[#B88173]/40 bg-[#0a0610] shadow-[0_20px_40px_-16px_rgba(184,129,115,0.35)]">
-            <div className="relative aspect-[16/10] w-full">
+          <article className="group overflow-hidden rounded-2xl border border-[#B88173]/40 bg-[#0a0610] shadow-[0_14px_28px_-12px_rgba(184,129,115,0.35)]">
+            <div className="relative aspect-[2/1] w-full">
               <Image
                 src="/images/regen/science/enclomiphene-mens.jpg"
                 alt="Enclomiphene — stimulates natural testosterone production"
                 fill
-                className="object-cover transition duration-500 group-hover:scale-105"
-                sizes="(max-width: 768px) 100vw, 50vw"
+                className="object-cover object-top transition duration-500 group-hover:scale-105"
+                sizes="(max-width: 768px) 100vw, 360px"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-              <div className="absolute inset-x-0 bottom-0 p-5">
-                <p className="text-[11px] font-black uppercase tracking-[0.18em] text-[#E8C4B8]">
+              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent" />
+              <div className="absolute inset-x-0 bottom-0 p-3.5">
+                <p className="text-[10px] font-black uppercase tracking-[0.16em] text-[#E8C4B8]">
                   Men&apos;s hormone science
                 </p>
-                <h3 className="mt-1 font-serif text-2xl font-black text-white">Enclomiphene</h3>
-                <p className="mt-1 text-sm font-medium text-white/75">
-                  Testosterone support · fertility preservation · energy &amp; libido
+                <h3 className="mt-0.5 font-serif text-lg font-black text-white">Enclomiphene</h3>
+                <p className="mt-0.5 text-xs font-medium leading-snug text-white/70">
+                  Testosterone · fertility · energy &amp; libido
                 </p>
               </div>
             </div>
-            <div className="flex items-center justify-between gap-3 border-t border-white/10 px-5 py-4">
-              <p className="text-xs font-medium text-white/55">Not DIY — clinical matching required</p>
+            <div className="flex items-center justify-between gap-2 border-t border-white/10 px-3.5 py-2.5">
+              <p className="text-[10px] font-medium text-white/50">Clinical match required</p>
               <Link
                 href="/rx?goal=hormones"
-                className="text-sm font-black text-[#FF2D8E] hover:text-white"
+                className="text-xs font-black text-[#FF2D8E] hover:text-white"
               >
-                Shop hormones →
+                Shop →
               </Link>
             </div>
           </article>
