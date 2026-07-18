@@ -12,8 +12,9 @@ export const JEUVEAU_TREATMENT_LANDING: InModeTreatmentLandingContent = {
   productName: "Jeuveau",
   heroSubhead:
     "The modern neuromodulator option — natural smoothing at our most accessible per-unit price, placed by medical injectors.",
-  heroImage: "/images/hg-botox-face-neck.webp",
-  heroImageAlt: "Natural-looking Jeuveau results — Hello Gorgeous Med Spa Oswego IL",
+  heroImage: "/images/botox/botox-hero-glow.jpg",
+  heroImageAlt:
+    "Glowing, smooth skin — natural Jeuveau results aesthetic at Hello Gorgeous Med Spa Oswego IL",
   priceLine: "$11/unit",
   priceNote:
     "Dosing roughly 1:1 with Botox — often a lower total per visit at our pricing. You approve units before we inject.",

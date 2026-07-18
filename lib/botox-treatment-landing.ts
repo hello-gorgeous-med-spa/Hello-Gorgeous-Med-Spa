@@ -13,8 +13,9 @@ export const BOTOX_TREATMENT_LANDING: InModeTreatmentLandingContent = {
   productName: "Botox Cosmetic",
   heroSubhead:
     "Smooth fine lines and wrinkles while keeping your natural expressions — placed by medical injectors in an NP-directed clinic you can trust.",
-  heroImage: "/images/hg-botox-face-neck.webp",
-  heroImageAlt: "Natural-looking Botox Cosmetic results — Hello Gorgeous Med Spa Oswego IL",
+  heroImage: "/images/botox/botox-hero-glow.jpg",
+  heroImageAlt:
+    "Glowing, smooth skin — natural Botox Cosmetic results aesthetic at Hello Gorgeous Med Spa Oswego IL",
   priceLine: "As low as $9/unit",
   priceNote: "Authentic Allergan Botox · US distributors only · you approve units before we inject",
   trustItems: [...NEUROTOXIN_TRUST],

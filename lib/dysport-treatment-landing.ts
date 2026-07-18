@@ -12,8 +12,9 @@ export const DYSPORT_TREATMENT_LANDING: InModeTreatmentLandingContent = {
   productName: "Dysport",
   heroSubhead:
     "Botox’s faster cousin — often the right call for forehead and larger zones, with published per-unit pricing and natural results.",
-  heroImage: "/images/hg-botox-face-neck.webp",
-  heroImageAlt: "Natural-looking Dysport results — Hello Gorgeous Med Spa Oswego IL",
+  heroImage: "/images/botox/botox-hero-glow.jpg",
+  heroImageAlt:
+    "Glowing, smooth skin — natural Dysport results aesthetic at Hello Gorgeous Med Spa Oswego IL",
   priceLine: "$14/unit",
   priceNote:
     "Typically 2–3 Dysport units ≈ 1 Botox unit — total area cost often similar. You approve units before we inject.",
