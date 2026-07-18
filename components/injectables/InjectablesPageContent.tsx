@@ -56,13 +56,13 @@ export function InjectablesPageContent() {
                   Medical aesthetics
                 </span>
                 <h1 className="mt-4 font-serif text-4xl font-black leading-[1.05] text-white sm:text-5xl">
-                  Your First Botox Treatment
+                  Botox & Fillers
                 </h1>
                 <p className="mt-3 text-lg font-bold text-white">
-                  Starting at $10 Per Unit
+                  Botox from $10/unit · Half syringe $300 · Filler $599
                 </p>
                 <p className="mt-1 text-sm font-medium text-white/80">
-                  Custom plan set at your free consultation.
+                  Buy 2 syringes, save $100 · custom plan at your free consult.
                 </p>
                 <div className="mt-6 flex flex-wrap gap-3">
                   <CTA href="#pricing" variant="gradient">
