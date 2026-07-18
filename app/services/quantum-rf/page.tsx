@@ -687,6 +687,20 @@ export default function QuantumRFPage() {
             <p className="mt-4 text-center text-xs text-black/50">
               Not all patients are candidates for every handpiece. Medical evaluation required.
             </p>
+            <p className="mt-4 text-center text-sm text-black/70">
+              <a
+                href="https://www.inmodemd.com/technologies/quantumrf/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-semibold text-[#E6007E] underline decoration-[#E6007E]/40 underline-offset-2 hover:decoration-[#E6007E]"
+              >
+                Learn more
+              </a>
+              <span>
+                {" "}
+                — official InMode QuantumRF technology details (manufacturer site, opens in a new tab)
+              </span>
+            </p>
           </div>
         </section>
 
@@ -770,27 +784,40 @@ export default function QuantumRFPage() {
         </section>
 
         <section className="border-b-2 border-black bg-black py-10 text-white md:py-12" aria-label="InMode technology overview">
-          <div className="mx-auto max-w-3xl px-4">
+          <div className="mx-auto max-w-4xl px-4">
             <h2 className="text-center text-2xl font-bold md:text-3xl">What is QuantumRF?</h2>
-            <p className="mx-auto mt-2 text-center text-sm text-white/85">
-              InMode technology overview — how QuantumRF 10 and QuantumRF 25 are used in practice.
+            <p className="mx-auto mt-2 max-w-2xl text-center text-sm text-white/85">
+              InMode QuantumRF uses lightweight cannulas (10, 17, and 25) to deliver fractionated bipolar RF
+              beneath the skin for soft tissue contraction — with representative clinical results.
             </p>
             <figure className="mt-6 border-2 border-white/80 bg-white p-1">
-              <div className="relative aspect-[4/3] w-full sm:aspect-[16/9]">
+              <div className="relative aspect-[1024/395] w-full">
                 <Image
-                  src={QUANTUM_OG_IMAGE}
-                  alt="InMode QuantumRF overview: innovative minimally invasive technology for soft tissue contraction using subdermal fractionated bipolar radiofrequency, QuantumRF 10 for face and small body areas, QuantumRF 25 for abdomen, thighs, hips, and buttocks, polymer-coated handpieces, up to 60mm depth, Hello Gorgeous Med Spa offers Quantum RF in Oswego and Fox Valley, Illinois"
+                  src="/images/quantum-rf/quantum-rf-inmode-handpieces-ba.jpg"
+                  alt="InMode QuantumRF handpieces 10, 17, and 25 with representative abdomen before and after — QuantumRF 25 plus Morpheus8 Burst Deep clinical education image for patients at Hello Gorgeous Med Spa, Oswego IL"
                   fill
                   className="object-contain"
-                  sizes="(max-width: 768px) 100vw, 720px"
+                  sizes="(max-width: 768px) 100vw, 896px"
                   loading="lazy"
                 />
               </div>
               <figcaption className="px-2 py-3 text-center text-xs leading-relaxed text-white/80 sm:text-sm">
-                Educational use; device labeling and your candidacy are confirmed in consultation. QuantumRF
-                and InMode are trademarks of InMode Ltd.
+                Manufacturer education graphic. Individual results vary; candidacy confirmed in consultation.
+                QuantumRF and InMode are trademarks of InMode Ltd. Clinical photo credit as shown (Dr. P.
+                Rovatti).
               </figcaption>
             </figure>
+            <p className="mt-5 text-center text-sm text-white/85">
+              <a
+                href="https://www.inmodemd.com/technologies/quantumrf/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-semibold text-[#FFB8DC] underline decoration-[#E6007E] underline-offset-2 hover:text-white"
+              >
+                Learn more on InMode.com
+              </a>
+              <span> — official QuantumRF technology page (opens in a new tab)</span>
+            </p>
           </div>
         </section>
 
