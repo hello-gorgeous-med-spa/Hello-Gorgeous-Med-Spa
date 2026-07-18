@@ -101,6 +101,49 @@ export function SolariaCo2PageContent() {
           </div>
         </Section>
 
+        <Section
+          id="technology"
+          className="scroll-mt-24 border-b-4 border-black bg-black py-14 text-white"
+          aria-label="InMode Solaria technology overview"
+        >
+          <FadeUp>
+            <p className="text-center text-xs font-bold uppercase tracking-widest text-[#FFB8DC]">
+              InMode manufacturer
+            </p>
+            <h2 className="mt-2 text-center text-3xl font-black md:text-4xl">What is Solaria?</h2>
+            <p className="mx-auto mt-3 max-w-2xl text-center text-sm text-white/80 sm:text-base">
+              Solaria by InMode fractional CO₂ is indicated for ablative skin resurfacing — precise
+              microbeam treatments with faster healing than traditional full-field resurfacing.
+            </p>
+            <figure className="mx-auto mt-8 max-w-4xl overflow-hidden rounded-3xl border-4 border-white/80 bg-white">
+              <div className="relative aspect-[1024/477] w-full">
+                <Image
+                  src={images.inmodeOverview}
+                  alt="InMode Solaria CO₂ workstation with key benefits — fractional ablative skin resurfacing at Hello Gorgeous Med Spa, Oswego IL"
+                  fill
+                  className="object-contain"
+                  sizes="(max-width: 768px) 100vw, 896px"
+                  loading="lazy"
+                />
+              </div>
+              <figcaption className="border-t border-black/10 bg-white px-4 py-3 text-center text-xs text-black/60 sm:text-sm">
+                Manufacturer education graphic. Solaria and InMode are trademarks of InMode Ltd.
+              </figcaption>
+            </figure>
+            <p className="mt-6 text-center text-sm text-white/85">
+              <a
+                href={SOLARIA_MARKETING.inmodeUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-semibold text-[#FFB8DC] underline decoration-[#E6007E] underline-offset-2 hover:text-white"
+              >
+                Learn more on InMode.com
+              </a>
+              <span> — official Solaria workstation page (opens in a new tab)</span>
+            </p>
+          </FadeUp>
+        </Section>
+
         <Section id="results" className="scroll-mt-24 border-b-4 border-black bg-white py-14">
           <h2 className="text-3xl font-black">Real Solaria CO₂ results</h2>
           <div className="mt-8 grid gap-4 sm:grid-cols-2">

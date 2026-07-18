@@ -29,7 +29,10 @@ export const SOLARIA_MARKETING = {
     acneBa: "/images/solaria/solaria-co2-acne-scars-before-after.png",
     michelleBa: "/images/solaria/michelle-solaria-co2-one-treatment-facial-before-after.jpg",
     pigmentBa: "/images/solaria/solaria-co2-pigmentation-before-after-right.png",
+    /** Official InMode Solaria workstation education graphic */
+    inmodeOverview: "/images/solaria/solaria-inmode-manufacturer-overview.jpg",
   },
+  inmodeUrl: "https://www.inmodemd.com/workstation/solaria/",
 } as const;
 
 export const SOLARIA_LAUNCH_SPECIAL = {
@@ -45,6 +48,7 @@ export const SOLARIA_LAUNCH_SPECIAL = {
 
 export const SOLARIA_NAV = [
   { href: "#why", label: "Why Solaria" },
+  { href: "#technology", label: "What is Solaria" },
   { href: "#results", label: "Results" },
   { href: "#treats", label: "What it treats" },
   { href: "#how", label: "How it works" },

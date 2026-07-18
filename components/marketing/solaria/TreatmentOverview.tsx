@@ -1,3 +1,7 @@
+import Image from "next/image";
+
+const INMODE_SOLARIA_URL = "https://www.inmodemd.com/workstation/solaria/";
+
 export function TreatmentOverview() {
   return (
     <section className="py-16 md:py-20 bg-white">
@@ -20,21 +24,39 @@ export function TreatmentOverview() {
             skin while leaving surrounding tissue intact — promoting faster healing and more
             natural results.
           </p>
-          <p className="not-prose pt-2">
-            <a
-              href="https://www.inmodemd.com/workstation/solaria/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="font-semibold text-[#E91E8C] hover:underline"
-            >
-              More info
-            </a>
-            <span className="text-black/70">
-              {" "}
-              — official InMode Solaria workstation details (manufacturer site, opens in a new tab)
-            </span>
-          </p>
         </div>
+
+        <figure className="mt-10 overflow-hidden rounded-2xl border-2 border-black bg-white shadow-lg">
+          <div className="relative aspect-[1024/477] w-full bg-white">
+            <Image
+              src="/images/solaria/solaria-inmode-manufacturer-overview.jpg"
+              alt="InMode Solaria CO₂ workstation with key benefits — fractional ablative skin resurfacing technology education for patients at Hello Gorgeous Med Spa, Oswego IL"
+              fill
+              className="object-contain"
+              sizes="(max-width: 768px) 100vw, 896px"
+              loading="lazy"
+            />
+          </div>
+          <figcaption className="border-t border-black/10 px-4 py-3 text-center text-xs text-black/60 sm:text-sm">
+            Manufacturer education graphic. Solaria and InMode are trademarks of InMode Ltd.
+            Candidacy confirmed in consultation.
+          </figcaption>
+        </figure>
+
+        <p className="mt-5 text-center text-sm text-black/70">
+          <a
+            href={INMODE_SOLARIA_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-semibold text-[#E91E8C] underline decoration-[#E91E8C]/40 underline-offset-2 hover:decoration-[#E91E8C]"
+          >
+            Learn more
+          </a>
+          <span>
+            {" "}
+            — official InMode Solaria workstation details (manufacturer site, opens in a new tab)
+          </span>
+        </p>
 
         <div className="mt-12 mb-12">
           <div className="relative aspect-video rounded-2xl overflow-hidden bg-black shadow-2xl border border-black/10">

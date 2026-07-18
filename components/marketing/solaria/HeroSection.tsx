@@ -37,9 +37,9 @@ export function HeroSection() {
             rel="noopener noreferrer"
             className="font-semibold text-[#E91E8C] hover:text-pink-300 underline underline-offset-2"
           >
-            More info
+            Learn more
           </a>
-          <span className="text-white/60"> from InMode (official Solaria workstation)</span>
+          <span className="text-white/60"> on InMode.com (official Solaria workstation)</span>
         </p>
       </div>
     </section>
