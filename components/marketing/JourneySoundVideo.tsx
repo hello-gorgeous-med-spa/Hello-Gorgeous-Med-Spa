@@ -3,11 +3,8 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 
 /**
- * Autoplay Journey video (muted by browser policy) with a one-tap Unmute control.
+ * Autoplay Journey video (muted by browser policy) with Tap to play / Tap for sound.
  * Sound requires a user gesture — we never force audio without a click.
- *
- * Important: `muted` must be bound to React state. A hard-coded `muted` attribute
- * remutes the element on every re-render and blocks audio after tap.
  */
 export function JourneySoundVideo({
   src,
@@ -29,45 +26,101 @@ export function JourneySoundVideo({
   preload?: "none" | "metadata" | "auto";
   hasAudio?: boolean;
 }) {
+  const rootRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const [muted, setMuted] = useState(true);
+  const [playing, setPlaying] = useState(false);
   const [ready, setReady] = useState(false);
+
+  const tryPlay = useCallback(async (withSound: boolean) => {
+    const v = videoRef.current;
+    if (!v) return false;
+    v.muted = !withSound;
+    v.defaultMuted = !withSound;
+    if (withSound) v.volume = 1;
+    try {
+      await v.play();
+      setMuted(!withSound);
+      setPlaying(true);
+      return true;
+    } catch {
+      setPlaying(false);
+      return false;
+    }
+  }, []);
 
   useEffect(() => {
     const v = videoRef.current;
     if (!v) return;
     setMuted(true);
     setReady(false);
+    setPlaying(false);
     v.muted = true;
     v.defaultMuted = true;
     v.volume = 1;
-    void v.play().catch(() => {
-      /* autoplay blocked — unmute tap also plays */
-    });
-  }, [src]);
+    void tryPlay(false);
+  }, [src, tryPlay]);
+
+  // Retry muted autoplay when the clip scrolls into view (mobile Safari often blocks early play).
+  useEffect(() => {
+    const root = rootRef.current;
+    if (!root) return;
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry?.isIntersecting) return;
+        const v = videoRef.current;
+        if (!v || !v.paused) return;
+        void tryPlay(false);
+      },
+      { threshold: 0.35 },
+    );
+    io.observe(root);
+    return () => io.disconnect();
+  }, [src, tryPlay]);
+
+  const onPrimaryTap = useCallback(async () => {
+    const v = videoRef.current;
+    if (!v) return;
+    if (v.paused) {
+      // First tap: start playback (muted). Second tap via sound button unmutes.
+      await tryPlay(false);
+      return;
+    }
+    if (hasAudio && muted) {
+      await tryPlay(true);
+    }
+  }, [hasAudio, muted, tryPlay]);
 
   const toggleSound = useCallback(async () => {
     const v = videoRef.current;
     if (!v) return;
     if (muted) {
-      v.muted = false;
-      v.defaultMuted = false;
-      v.volume = 1;
-      try {
-        await v.play();
-        setMuted(false);
-      } catch {
-        /* keep muted if play with sound fails */
+      const ok = await tryPlay(true);
+      if (!ok) {
+        // Some browsers require play() from the same gesture after unmute fails once.
+        v.muted = false;
+        v.defaultMuted = false;
+        v.volume = 1;
+        try {
+          await v.play();
+          setMuted(false);
+          setPlaying(true);
+        } catch {
+          /* still blocked */
+        }
       }
     } else {
       v.muted = true;
       v.defaultMuted = true;
       setMuted(true);
     }
-  }, [muted]);
+  }, [muted, tryPlay]);
 
   return (
-    <div className={`relative w-full overflow-hidden bg-black ${aspectClassName} ${className}`}>
+    <div
+      ref={rootRef}
+      className={`relative w-full overflow-hidden bg-black ${aspectClassName} ${className}`}
+    >
       <video
         ref={videoRef}
         src={src}
@@ -77,16 +130,42 @@ export function JourneySoundVideo({
         loop
         playsInline
         preload={preload}
-        onLoadedData={() => setReady(true)}
-        className={`absolute inset-0 h-full w-full ${objectClassName}`}
+        onLoadedData={() => {
+          setReady(true);
+          void tryPlay(false);
+        }}
+        onCanPlay={() => {
+          setReady(true);
+          if (videoRef.current?.paused) void tryPlay(false);
+        }}
+        onPlaying={() => setPlaying(true)}
+        onPause={() => setPlaying(false)}
+        onClick={() => void onPrimaryTap()}
+        className={`absolute inset-0 h-full w-full cursor-pointer ${objectClassName}`}
         aria-label={label}
       />
 
-      {hasAudio ? (
+      {!playing ? (
+        <button
+          type="button"
+          onClick={() => void onPrimaryTap()}
+          className="absolute inset-0 z-10 flex items-center justify-center bg-black/35"
+          aria-label="Play video"
+        >
+          <span className="inline-flex items-center gap-2 rounded-full border border-white/35 bg-black/75 px-5 py-3 text-sm font-extrabold uppercase tracking-wide text-white backdrop-blur">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+              <path d="M8 5v14l11-7L8 5z" />
+            </svg>
+            Tap to play
+          </span>
+        </button>
+      ) : null}
+
+      {hasAudio && playing ? (
         <button
           type="button"
           onClick={() => void toggleSound()}
-          className="absolute bottom-3 right-3 z-10 inline-flex items-center gap-2 rounded-full border border-white/30 bg-black/70 px-3.5 py-2 text-xs font-extrabold uppercase tracking-wide text-white backdrop-blur transition hover:border-[#FF2D8E] hover:text-[#FF2D8E] sm:bottom-4 sm:right-4 sm:px-4 sm:text-sm"
+          className="absolute bottom-3 right-3 z-20 inline-flex items-center gap-2 rounded-full border border-white/30 bg-black/70 px-3.5 py-2 text-xs font-extrabold uppercase tracking-wide text-white backdrop-blur transition hover:border-[#FF2D8E] hover:text-[#FF2D8E] sm:bottom-4 sm:right-4 sm:px-4 sm:text-sm"
           aria-pressed={!muted}
           aria-label={muted ? "Unmute video" : "Mute video"}
         >

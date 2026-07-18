@@ -186,7 +186,7 @@ export function SolariaCo2PageContent() {
           </div>
           <div className="mx-auto w-full max-w-md overflow-hidden rounded-3xl border border-[#FF2D8E]/35 shadow-[0_20px_60px_rgba(255,45,142,0.22)] lg:max-w-lg">
             <JourneySoundVideo
-              src={SOLARIA_MARKETING.heroVideo}
+              src={`${SOLARIA_MARKETING.heroVideo}?v=2`}
               poster={images.hero}
               label="Solaria CO2 laser resurfacing at Hello Gorgeous Med Spa — InMode verified provider"
               preload="auto"
@@ -228,11 +228,12 @@ export function SolariaCo2PageContent() {
         <div className="mx-auto grid max-w-[1200px] items-center gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:gap-14">
           <div className="mx-auto w-full max-w-sm overflow-hidden rounded-3xl border border-[#FF2D8E]/35 shadow-[0_20px_60px_rgba(255,45,142,0.22)]">
             <JourneySoundVideo
-              src={SOLARIA_MARKETING.treatmentsSocialVideo}
+              src={`${SOLARIA_MARKETING.treatmentsSocialVideo}?v=2`}
               poster={SOLARIA_MARKETING.treatmentsSocialPoster}
               label="Official InMode Solaria treatments social video"
               aspectClassName="aspect-[9/16]"
               objectClassName="object-cover"
+              preload="auto"
             />
           </div>
           <div>
