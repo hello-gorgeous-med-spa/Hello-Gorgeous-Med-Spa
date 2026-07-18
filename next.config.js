@@ -311,8 +311,8 @@ const nextConfig = {
     { source: "/xeomin-oswego-il", destination: "/xeomin-oswego", permanent: true },
     { source: "/daxxify-oswego-il", destination: "/daxxify-oswego", permanent: true },
     // peptide-therapy-oswego-il is a live Phase 9 GBP lander (SEO-001) — do not redirect
+    // Flagship Journey lives at /services/morpheus8 (do not redirect — Header + MORPHEUS8_PATH)
     { source: "/services/morpheus8-burst", destination: "/morpheus8-burst-oswego", permanent: true },
-    { source: "/services/morpheus8", destination: "/morpheus8-burst-oswego", permanent: true },
     { source: "/services/morpheus8-body", destination: "/morpheus8-body-oswego", permanent: true },
     { source: "/services/solaria-co2", destination: "/solaria-co2-oswego", permanent: true },
     { source: "/co2-laser-oswego-il", destination: "/solaria-co2-oswego", permanent: true },

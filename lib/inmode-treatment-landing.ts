@@ -83,6 +83,12 @@ export type InModeTreatmentLandingContent = {
 };
 
 const SHARED_RELATED = {
+  journey: {
+    href: "/services/morpheus8",
+    eyebrow: "Flagship",
+    title: "Morpheus8 Journey",
+    blurb: "Full InMode story, before/afters, pricing & how it works — start here.",
+  },
   solaria: {
     href: "/solaria-co2-oswego",
     eyebrow: "Resurfacing",
@@ -355,7 +361,7 @@ export const MORPHEUS8_BURST_TREATMENT_LANDING: InModeTreatmentLandingContent = 
   consultTitle: "Is Morpheus8 Burst right for you?",
   consultBody:
     "Book a free consult. We’ll assess your skin, be honest if Solaria or Quantum is a better first step, and build a clear series plan with pricing.",
-  related: [SHARED_RELATED.body, SHARED_RELATED.solaria, SHARED_RELATED.quantum],
+  related: [SHARED_RELATED.journey, SHARED_RELATED.body, SHARED_RELATED.solaria, SHARED_RELATED.quantum],
 };
 
 export const MORPHEUS8_BODY_TREATMENT_LANDING: InModeTreatmentLandingContent = {
@@ -424,7 +430,7 @@ export const MORPHEUS8_BODY_TREATMENT_LANDING: InModeTreatmentLandingContent = {
   consultTitle: "Ready to tighten body skin?",
   consultBody:
     "Book a free consult. We’ll show real body cases, map your areas, and build a Morpheus8 Body (or Quantum + Morpheus) plan with clear pricing.",
-  related: [SHARED_RELATED.burst, SHARED_RELATED.quantum, SHARED_RELATED.solaria],
+  related: [SHARED_RELATED.journey, SHARED_RELATED.burst, SHARED_RELATED.quantum, SHARED_RELATED.solaria],
   clinicVideos: [
     {
       src: MORPHEUS8_TREATMENT_VIDEO,
