@@ -142,6 +142,8 @@ export function InjectablesPageContent() {
           </div>
         </Section>
 
+        <InjectablesEducationGallery audience="both" />
+
         {/* Brand subpages — matches All 5 brands PDF */}
         <Section id="brands" className="scroll-mt-24 border-b-4 border-black bg-white py-14">
           <FadeUp>
@@ -298,8 +300,6 @@ export function InjectablesPageContent() {
             </FadeUp>
           </div>
         </Section>
-
-        <InjectablesEducationGallery audience="both" />
 
         <Section id="how" className="scroll-mt-24 border-b-4 border-black bg-white py-14">
           <FadeUp>
