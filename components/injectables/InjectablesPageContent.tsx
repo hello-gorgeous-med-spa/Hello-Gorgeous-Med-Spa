@@ -11,12 +11,10 @@ import { FadeUp, Section } from "@/components/Section";
 import {
   INJECTABLES_FAQS,
   INJECTABLES_FILLER_PACKAGES,
-  INJECTABLES_INTRO_SPECIAL,
   INJECTABLES_MARKETING,
   INJECTABLES_PAGE_NAV,
   INJECTABLES_STEPS,
   INJECTABLES_TREATMENT_AREAS,
-  INJECTABLES_WHAT_IT_DOES,
 } from "@/lib/injectables-marketing";
 import { INJECTABLES_BRAND_CARDS } from "@/lib/injectables-treat-goals";
 
@@ -141,50 +139,6 @@ export function InjectablesPageContent() {
                 NP-directed · authentic product · you approve every unit and syringe.
               </p>
             </FadeUp>
-          </div>
-        </Section>
-
-        <Section id="why" className="scroll-mt-24 border-b-4 border-black bg-gradient-to-b from-[#FFF0F7] to-white py-14">
-          <FadeUp>
-            <div className="mx-auto max-w-4xl rounded-3xl border-4 border-black bg-white p-6 shadow-[8px_8px_0_0_rgba(230,0,126,0.35)] sm:p-8">
-              <div className="flex flex-wrap items-start justify-between gap-4">
-                <div>
-                  <span className="inline-flex rounded-xl border-2 border-black bg-gradient-to-r from-[#FF2D8E] to-[#E6007E] px-3 py-1 text-[11px] font-bold uppercase tracking-wide text-white">
-                    {INJECTABLES_INTRO_SPECIAL.badge}
-                  </span>
-                  <h2 className="mt-3 text-2xl font-black sm:text-3xl">{INJECTABLES_INTRO_SPECIAL.title}</h2>
-                  <p className="mt-2 max-w-xl font-medium text-black/80">{INJECTABLES_INTRO_SPECIAL.description}</p>
-                </div>
-                <div className="text-right">
-                  <p className="text-4xl font-black text-[#E6007E]">{INJECTABLES_INTRO_SPECIAL.priceLabel}</p>
-                  <p className="text-sm font-semibold text-black/55">{INJECTABLES_INTRO_SPECIAL.priceNote}</p>
-                </div>
-              </div>
-              <div className="mt-6 flex flex-wrap gap-3">
-                <CTA href={INJECTABLES_MARKETING.bookHref} variant="gradient">
-                  {INJECTABLES_INTRO_SPECIAL.ctaLabel}
-                </CTA>
-                <Link
-                  href={INJECTABLES_MARKETING.compareNeurotoxinsHref}
-                  className="inline-flex items-center rounded-full border-2 border-black px-5 py-2.5 text-sm font-bold hover:border-[#E6007E] hover:text-[#E6007E]"
-                >
-                  Compare all 5 brands →
-                </Link>
-              </div>
-            </div>
-          </FadeUp>
-
-          <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {INJECTABLES_WHAT_IT_DOES.map((item, i) => (
-              <FadeUp key={item.id} delayMs={i * 50}>
-                <article className="flex h-full flex-col rounded-3xl border-4 border-black bg-white p-5 shadow-[8px_8px_0_0_rgba(230,0,126,0.28)]">
-                  <p className="text-3xl font-black text-[#E6007E]">{item.stat}</p>
-                  <p className="text-[11px] font-bold uppercase tracking-wider text-black/45">{item.statLabel}</p>
-                  <h3 className="mt-3 text-lg font-bold text-[#E6007E]">▸ {item.title}</h3>
-                  <p className="mt-2 text-sm font-medium leading-relaxed text-black/80">{item.body}</p>
-                </article>
-              </FadeUp>
-            ))}
           </div>
         </Section>
 

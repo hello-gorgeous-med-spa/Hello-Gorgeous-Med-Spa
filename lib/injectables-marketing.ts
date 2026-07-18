@@ -59,7 +59,6 @@ export const INJECTABLES_INTRO_SPECIAL = {
 
 export const INJECTABLES_PAGE_NAV = [
   { href: "#clinic", label: "Clinic video" },
-  { href: "#why", label: "Why HG" },
   { href: "#brands", label: "Brands" },
   { href: "#fillers", label: "Fillers" },
   { href: "#learn", label: "Learn" },
