@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 
+import { JourneyResultsCinema } from "@/components/marketing/JourneyResultsCinema";
 import {
   MORPHEUS8_BODY_BENEFITS,
   MORPHEUS8_CONTACT,
@@ -21,8 +22,6 @@ import {
   MORPHEUS8_WHAT_IT_DOES,
 } from "@/lib/morpheus8-marketing";
 import { SITE } from "@/lib/seo";
-
-type ResultsFilter = "all" | "face" | "body";
 
 function PinkBtn({
   href,
@@ -103,13 +102,8 @@ function SectionHead({
 
 export function Morpheus8PageContent() {
   const [navOpen, setNavOpen] = useState(false);
-  const [resultsFilter, setResultsFilter] = useState<ResultsFilter>("all");
   const { bookHref, phoneTel, phoneDisplay, textTel, textDisplay } = MORPHEUS8_CONTACT;
   const { images } = MORPHEUS8_MARKETING;
-  const filteredResults =
-    resultsFilter === "all"
-      ? MORPHEUS8_RESULTS
-      : MORPHEUS8_RESULTS.filter((r) => r.area === resultsFilter);
 
   return (
     <div className="min-h-[100dvh] bg-black font-sans text-white">
@@ -370,45 +364,31 @@ export function Morpheus8PageContent() {
             titleAccent="body goals"
             description="Official InMode education — the same platform technology we run in Oswego."
           />
-          <div className="mt-10 grid gap-6 lg:grid-cols-2">
-            <figure className="overflow-hidden rounded-[20px] border border-[#FF2D8E]/35 bg-white">
-              <Image
-                src={images.faceTreats}
-                alt="Morpheus8 treats dull texture, fine lines, acne scars, and collagen loss"
-                width={1024}
-                height={1018}
-                className="h-auto w-full"
-              />
-              <figcaption className="bg-[#0a0206] px-5 py-4">
-                <p className="text-xs font-extrabold uppercase tracking-wider text-[#FF2D8E]">Morpheus8 Face</p>
-                <ul className="mt-2 flex flex-wrap gap-2">
-                  {MORPHEUS8_FACE_TREATS.map((t) => (
-                    <li key={t} className="rounded-full border border-white/25 px-3 py-1 text-xs font-semibold text-white/85">
-                      {t}
-                    </li>
-                  ))}
-                </ul>
-              </figcaption>
-            </figure>
-            <figure className="overflow-hidden rounded-[20px] border border-[#FF2D8E]/35 bg-white">
-              <Image
-                src={images.bodyBenefits}
-                alt="Morpheus8 Body — improve skin, remodel fat, treat irregularities, build collagen"
-                width={1015}
-                height={1024}
-                className="h-auto w-full"
-              />
-              <figcaption className="bg-[#0a0206] px-5 py-4">
-                <p className="text-xs font-extrabold uppercase tracking-wider text-[#FF2D8E]">Morpheus8 Body</p>
-                <ul className="mt-2 flex flex-wrap gap-2">
-                  {MORPHEUS8_BODY_BENEFITS.map((t) => (
-                    <li key={t} className="rounded-full border border-white/25 px-3 py-1 text-xs font-semibold text-white/85">
-                      {t}
-                    </li>
-                  ))}
-                </ul>
-              </figcaption>
-            </figure>
+          <div className="mt-8 flex flex-wrap gap-2">
+            {[...MORPHEUS8_FACE_TREATS, ...MORPHEUS8_BODY_BENEFITS].map((t) => (
+              <span key={t} className="rounded-full border border-white/25 px-3 py-1 text-xs font-semibold text-white/85">
+                {t}
+              </span>
+            ))}
+          </div>
+          <div className="mt-10">
+            <JourneyResultsCinema
+              productName="Morpheus8 treats"
+              slides={[
+                {
+                  src: images.faceTreats,
+                  alt: "Morpheus8 treats dull texture, fine lines, acne scars, and collagen loss",
+                  label: "Face concerns",
+                  source: "inmode",
+                },
+                {
+                  src: images.bodyBenefits,
+                  alt: "Morpheus8 Body — improve skin, remodel fat, treat irregularities, build collagen",
+                  label: "Body goals",
+                  source: "inmode",
+                },
+              ]}
+            />
           </div>
         </div>
       </section>
@@ -419,47 +399,12 @@ export function Morpheus8PageContent() {
           <SectionHead
             eyebrow="Real results"
             title="Before & after —"
-            titleAccent="Morpheus8 Burst + Deep"
-            description="Hello Gorgeous clinic cases plus curated InMode clinical results. Individual results vary."
+            titleAccent="cinematic gallery"
+            description="HD slideshow of Hello Gorgeous clinic cases and curated InMode clinical photography. Individual results vary."
           />
-          <div className="mt-6 flex flex-wrap gap-2">
-            {(
-              [
-                ["all", "All"],
-                ["face", "Face"],
-                ["body", "Body"],
-              ] as const
-            ).map(([id, label]) => (
-              <button
-                key={id}
-                type="button"
-                onClick={() => setResultsFilter(id)}
-                className={`rounded-full border px-4 py-2 text-sm font-bold transition ${
-                  resultsFilter === id
-                    ? "border-[#FF2D8E] bg-[#FF2D8E] text-black"
-                    : "border-white/25 text-white/80 hover:border-[#FF2D8E] hover:text-[#FF2D8E]"
-                }`}
-              >
-                {label}
-              </button>
-            ))}
+          <div className="mt-10">
+            <JourneyResultsCinema productName="Morpheus8" slides={MORPHEUS8_RESULTS} showAreaFilter />
           </div>
-          <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {filteredResults.map((item) => (
-              <figure key={item.src} className="overflow-hidden rounded-[20px] border border-[#FF2D8E]/35 bg-[#0a0206]">
-                <Image src={item.src} alt={item.alt} width={700} height={700} className="h-auto w-full" />
-                <figcaption className="flex items-center justify-between gap-2 border-t border-white/10 px-4 py-3">
-                  <span className="text-sm font-bold text-[#FF2D8E]">{item.label}</span>
-                  <span className="text-[10px] font-extrabold uppercase tracking-wider text-white/40">
-                    {item.source === "clinic" ? "HG clinic" : "InMode"}
-                  </span>
-                </figcaption>
-              </figure>
-            ))}
-          </div>
-          <p className="mt-6 text-center text-xs text-white/45">
-            Photos labeled InMode are manufacturer clinical results. Hello Gorgeous cases are from our Oswego clinic.
-          </p>
         </div>
       </section>
 

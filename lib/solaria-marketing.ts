@@ -329,12 +329,6 @@ export const SOLARIA_RESULTS: SolariaResult[] = [
     label: "Full face",
     source: "inmode",
   },
-  {
-    src: SOLARIA_MARKETING.images.inmodeResults,
-    alt: "Solaria InMode before and after results collage",
-    label: "InMode results",
-    source: "inmode",
-  },
 ];
 
 export const SOLARIA_FAQS = [

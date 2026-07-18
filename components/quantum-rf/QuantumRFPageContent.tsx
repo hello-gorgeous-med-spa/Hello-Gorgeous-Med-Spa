@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 
+import { JourneyResultsCinema } from "@/components/marketing/JourneyResultsCinema";
 import {
   QUANTUM_RF_AREAS_10,
   QUANTUM_RF_CONTACT,
@@ -20,8 +21,6 @@ import {
   QUANTUM_RF_WHAT_IT_DOES,
 } from "@/lib/quantum-rf-marketing";
 import { SITE } from "@/lib/seo";
-
-type ResultsFilter = "all" | "face" | "body";
 
 function PinkBtn({
   href,
@@ -102,13 +101,8 @@ function SectionHead({
 
 export function QuantumRFPageContent() {
   const [navOpen, setNavOpen] = useState(false);
-  const [resultsFilter, setResultsFilter] = useState<ResultsFilter>("all");
   const { bookHref, phoneTel, phoneDisplay, textTel, textDisplay, financingHref } = QUANTUM_RF_CONTACT;
   const { images } = QUANTUM_RF_MARKETING;
-  const filteredResults =
-    resultsFilter === "all"
-      ? QUANTUM_RF_RESULTS
-      : QUANTUM_RF_RESULTS.filter((r) => r.area === resultsFilter);
 
   return (
     <div className="min-h-[100dvh] bg-black font-sans text-white">
@@ -382,43 +376,11 @@ export function QuantumRFPageContent() {
           <SectionHead
             eyebrow="Real results"
             title="Before & after —"
-            titleAccent="Quantum RF"
-            description="Hello Gorgeous clinic cases plus curated InMode QuantumRF 10 clinical results. Individual results vary."
+            titleAccent="cinematic gallery"
+            description="HD slideshow of Hello Gorgeous clinic cases and curated InMode QuantumRF clinical photography. Individual results vary."
           />
-          <div className="mt-6 flex flex-wrap gap-2">
-            {(
-              [
-                ["all", "All"],
-                ["face", "Face"],
-                ["body", "Body"],
-              ] as const
-            ).map(([id, label]) => (
-              <button
-                key={id}
-                type="button"
-                onClick={() => setResultsFilter(id)}
-                className={`rounded-full border px-4 py-2 text-sm font-bold transition ${
-                  resultsFilter === id
-                    ? "border-[#FF2D8E] bg-[#FF2D8E] text-black"
-                    : "border-white/25 text-white/80 hover:border-[#FF2D8E] hover:text-[#FF2D8E]"
-                }`}
-              >
-                {label}
-              </button>
-            ))}
-          </div>
-          <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {filteredResults.map((item) => (
-              <figure key={item.src} className="overflow-hidden rounded-[20px] border border-[#FF2D8E]/35 bg-[#0a0206]">
-                <Image src={item.src} alt={item.alt} width={700} height={700} className="h-auto w-full" />
-                <figcaption className="flex items-center justify-between gap-2 border-t border-white/10 px-4 py-3">
-                  <span className="text-sm font-bold text-[#FF2D8E]">{item.label}</span>
-                  <span className="text-[10px] font-extrabold uppercase tracking-wider text-white/40">
-                    {item.source === "clinic" ? "HG clinic" : "InMode"}
-                  </span>
-                </figcaption>
-              </figure>
-            ))}
+          <div className="mt-10">
+            <JourneyResultsCinema productName="Quantum RF" slides={QUANTUM_RF_RESULTS} showAreaFilter />
           </div>
         </div>
       </section>

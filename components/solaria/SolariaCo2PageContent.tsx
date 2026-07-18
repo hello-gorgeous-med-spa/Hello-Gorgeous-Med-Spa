@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 
+import { JourneyResultsCinema } from "@/components/marketing/JourneyResultsCinema";
 import {
   SOLARIA_CONTACT,
   SOLARIA_DEPTH_GUIDE,
@@ -358,25 +359,22 @@ export function SolariaCo2PageContent() {
               </span>
             ))}
           </div>
-          <div className="mt-10 grid gap-4 sm:grid-cols-3">
-            {[images.edu1, images.edu2, images.edu3].map((src, i) => (
-              <figure key={src} className="overflow-hidden rounded-[20px] border border-[#FF2D8E]/35 bg-white">
-                <Image
-                  src={src}
-                  alt={`Solaria by InMode educational graphic ${i + 1}`}
-                  width={1080}
-                  height={1350}
-                  className="h-auto w-full"
-                />
-              </figure>
-            ))}
-          </div>
           <div className="mt-8 flex flex-wrap gap-3">
             {SOLARIA_TREATMENT_AREAS.map((area) => (
               <span key={area} className="rounded-full border border-[#FF2D8E]/40 px-4 py-1.5 text-[13px] font-semibold text-[#FFB8DC]">
                 {area}
               </span>
             ))}
+          </div>
+          <div className="mt-10">
+            <JourneyResultsCinema
+              productName="Solaria education"
+              slides={[
+                { src: images.edu1, alt: "Solaria by InMode educational graphic 1", label: "Trusted CO₂ technology", source: "inmode" },
+                { src: images.edu2, alt: "Solaria by InMode educational graphic 2", label: "Precision microbeam treatments", source: "inmode" },
+                { src: images.edu3, alt: "Solaria by InMode educational graphic 3", label: "Versatile scan modes", source: "inmode" },
+              ]}
+            />
           </div>
         </div>
       </section>
@@ -386,25 +384,12 @@ export function SolariaCo2PageContent() {
           <SectionHead
             eyebrow="Real results"
             title="Before & after —"
-            titleAccent="Solaria CO₂"
-            description="Hello Gorgeous clinic cases plus curated InMode clinical results. Individual results vary."
+            titleAccent="cinematic gallery"
+            description="HD slideshow of Hello Gorgeous clinic cases and curated InMode clinical photography. Individual results vary."
           />
-          <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {SOLARIA_RESULTS.map((item) => (
-              <figure key={item.src} className="overflow-hidden rounded-[20px] border border-[#FF2D8E]/35 bg-[#0a0206]">
-                <Image src={item.src} alt={item.alt} width={700} height={700} className="h-auto w-full" />
-                <figcaption className="flex items-center justify-between gap-2 border-t border-white/10 px-4 py-3">
-                  <span className="text-sm font-bold text-[#FF2D8E]">{item.label}</span>
-                  <span className="text-[10px] font-extrabold uppercase tracking-wider text-white/40">
-                    {item.source === "clinic" ? "HG clinic" : "InMode"}
-                  </span>
-                </figcaption>
-              </figure>
-            ))}
+          <div className="mt-10">
+            <JourneyResultsCinema productName="Solaria CO₂" slides={SOLARIA_RESULTS} />
           </div>
-          <p className="mt-6 text-center text-xs text-white/45">
-            Photos labeled InMode are manufacturer clinical results. Hello Gorgeous cases are from our Oswego clinic.
-          </p>
         </div>
       </section>
 
