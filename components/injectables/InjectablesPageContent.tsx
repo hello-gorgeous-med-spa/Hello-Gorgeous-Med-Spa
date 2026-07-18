@@ -188,34 +188,108 @@ export function InjectablesPageContent() {
           </div>
         </Section>
 
-        {/* Brand subpages */}
+        {/* Brand subpages — matches All 5 brands PDF */}
         <Section id="brands" className="scroll-mt-24 border-b-4 border-black bg-white py-14">
           <FadeUp>
             <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#E6007E]">Neurotoxin brands</p>
-            <h2 className="mt-2 font-serif text-3xl font-black sm:text-4xl">All 5 brands we offer</h2>
+            <h2 className="mt-2 font-serif text-3xl font-black sm:text-4xl">
+              All 5 brands{" "}
+              <span className="bg-gradient-to-r from-[#FFB8DC] via-[#FF2D8E] to-[#E6007E] bg-clip-text italic text-transparent">
+                we offer
+              </span>
+            </h2>
             <p className="mt-3 max-w-2xl font-medium text-black/70">
-              Pick a brand to learn more — or start with your treatment goals above and we’ll recommend the best fit at consult.
+              Every wrinkle-relaxer under one roof. Pick a brand to learn more — or share your goals and our NP will
+              recommend the best fit at your free consult.
             </p>
           </FadeUp>
-          <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {INJECTABLES_BRAND_CARDS.map((brand, i) => (
-              <FadeUp key={brand.id} delayMs={i * 40}>
-                <Link
-                  href={brand.href}
-                  className="flex h-full flex-col rounded-3xl border-4 border-black bg-gradient-to-br from-white to-rose-50 p-5 shadow-[8px_8px_0_0_rgba(230,0,126,0.28)] transition hover:-translate-y-0.5"
-                >
-                  <p className="text-xs font-bold uppercase tracking-widest text-[#E6007E]">Neurotoxin</p>
-                  <h3 className="mt-1 font-serif text-2xl font-black text-black">{brand.name}</h3>
-                  <p className="mt-2 text-2xl font-black text-[#E6007E]">{brand.price}</p>
-                  {"note" in brand && brand.note ? (
-                    <p className="text-xs font-semibold text-black/50">{brand.note}</p>
-                  ) : null}
-                  <p className="mt-3 flex-1 text-sm font-medium text-black/75">{brand.blurb}</p>
-                  <span className="mt-4 text-sm font-extrabold text-[#E6007E]">Learn more →</span>
-                </Link>
-              </FadeUp>
-            ))}
+          <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {INJECTABLES_BRAND_CARDS.map((brand, i) => {
+              const onsetFilled = brand.onset;
+              const durFilled = Math.round(brand.durMonths);
+              return (
+                <FadeUp key={brand.id} delayMs={i * 40}>
+                  <Link
+                    href={brand.href}
+                    className="group flex h-full flex-col overflow-hidden rounded-[22px] border-2 border-black bg-white shadow-[6px_6px_0_0_rgba(255,45,142,0.35)] transition hover:-translate-y-0.5"
+                  >
+                    <div className="relative h-44 overflow-hidden bg-[#f0ebe8] sm:h-[184px]">
+                      <Image
+                        src={brand.image}
+                        alt={brand.imageAlt}
+                        fill
+                        className="object-cover object-center transition duration-500 group-hover:scale-[1.03]"
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 360px"
+                      />
+                      <span className="absolute left-3.5 top-3.5 rounded-full bg-[#111] px-3.5 py-1.5 text-[11px] font-bold tracking-[0.12em] text-white">
+                        {brand.chip}
+                      </span>
+                      <span className="absolute right-3.5 top-3.5 rounded-full bg-[#FF2D8E]/95 px-3 py-1.5 text-[11px] font-bold tracking-[0.1em] text-white">
+                        {brand.priceTag}
+                      </span>
+                    </div>
+                    <div className="flex flex-1 flex-col px-6 pb-6 pt-5">
+                      <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#FF2D8E]">Neurotoxin</p>
+                      <h3 className="mt-1.5 font-serif text-[26px] font-bold leading-tight text-black">{brand.name}</h3>
+                      <p className="mt-2.5 flex items-baseline gap-2">
+                        <span className="font-serif text-[30px] font-extrabold text-[#FF2D8E]">{brand.price}</span>
+                        {brand.unit ? <span className="text-sm font-semibold text-black/55">{brand.unit}</span> : null}
+                      </p>
+                      <p className="mt-1 min-h-[18px] text-[13px] text-black/50">{brand.note}</p>
+
+                      <div className="mt-4 flex gap-6">
+                        <div>
+                          <p className="mb-1.5 text-[10px] font-bold tracking-[0.14em] text-black/45">ONSET</p>
+                          <div className="flex gap-1">
+                            {[0, 1, 2].map((pip) => (
+                              <span
+                                key={`onset-${pip}`}
+                                className={`h-1.5 w-4 rounded-full ${
+                                  pip < onsetFilled ? "bg-[#FF2D8E]" : "bg-black/12"
+                                }`}
+                              />
+                            ))}
+                          </div>
+                        </div>
+                        <div>
+                          <p className="mb-1.5 text-[10px] font-bold tracking-[0.14em] text-black/45">
+                            LASTS · {brand.durLabel}
+                          </p>
+                          <div className="flex gap-1">
+                            {[0, 1, 2, 3, 4, 5].map((pip) => (
+                              <span
+                                key={`dur-${pip}`}
+                                className={`h-1.5 w-[11px] rounded-full ${
+                                  pip < durFilled ? "bg-black/55" : "bg-black/12"
+                                }`}
+                              />
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+
+                      <p className="mt-4 flex-1 text-[15px] leading-relaxed text-[#222]">{brand.blurb}</p>
+                      <span className="mt-5 text-[15px] font-bold text-[#E6007E]">Learn more →</span>
+                    </div>
+                  </Link>
+                </FadeUp>
+              );
+            })}
           </div>
+          <FadeUp delayMs={120}>
+            <div className="mt-10 rounded-[22px] border-2 border-black bg-[#FFF0F7] px-6 py-6 shadow-[6px_6px_0_0_rgba(230,0,126,0.22)] sm:px-8">
+              <p className="font-serif text-2xl font-bold text-black">Not sure which is right for you?</p>
+              <p className="mt-2 max-w-2xl text-sm font-medium text-black/70 sm:text-base">
+                We screen you like a medical practice, because we are one. Your NP will match the brand to your goals.
+              </p>
+              <Link
+                href={INJECTABLES_MARKETING.bookHref}
+                className="mt-4 inline-flex rounded-full bg-gradient-to-r from-[#FF2D8E] to-[#E6007E] px-6 py-3 text-sm font-extrabold text-white"
+              >
+                Book free consult →
+              </Link>
+            </div>
+          </FadeUp>
         </Section>
 
         <Section id="fillers" className="scroll-mt-24 border-b-4 border-black bg-gradient-to-b from-[#FFF0F7] to-white py-14">
