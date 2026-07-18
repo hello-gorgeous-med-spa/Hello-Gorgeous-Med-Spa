@@ -15,6 +15,8 @@ import {
 import { catalogLineId, listingPriceText, price30 } from "@/lib/regen/catalog/pricing";
 import { getMonograph } from "@/lib/regen/catalog/index";
 
+const STAGE_BG = "/images/regen/brand/regen-stage-cinematic-plum.jpg";
+
 type ProductCardProps = {
   product: CatalogProduct;
   /** Optional override — defaults to `/rx/product/[id]` */
@@ -22,9 +24,6 @@ type ProductCardProps = {
   /** When set (e.g. admin portal), opens drawer instead of navigating */
   onOpen?: (id: string) => void;
 };
-
-const STAMP =
-  "border-2 border-black shadow-[6px_6px_0_0_rgba(230,0,126,0.45)] transition duration-200 hover:-translate-y-0.5 hover:shadow-[8px_8px_0_0_rgba(230,0,126,0.55)] motion-reduce:transition-none motion-reduce:hover:translate-y-0";
 
 export function ProductCard({ product, href, onOpen }: ProductCardProps) {
   const { addItem } = useCart();
@@ -34,6 +33,7 @@ export function ProductCard({ product, href, onOpen }: ProductCardProps) {
   const variant = product.variants[0];
   const p30 = price30(product, variant);
   const productHref = href ?? `/rx/product/${product.id}`;
+  const priceLabel = listingPriceText(product);
 
   const quickAdd = useCallback(
     (e: MouseEvent) => {
@@ -54,75 +54,110 @@ export function ProductCard({ product, href, onOpen }: ProductCardProps) {
   );
 
   const media = (
-    <div className="relative aspect-[4/3] w-full overflow-hidden bg-gradient-to-br from-[#2d1020] to-[#0a0a0a]">
-      {img ? (
-        <Image
-          src={img}
-          alt=""
-          fill
-          className="object-cover transition duration-300 group-hover:scale-105"
-          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-        />
-      ) : (
+    <div className="relative aspect-[3/4] w-full overflow-hidden">
+      <Image src={STAGE_BG} alt="" fill className="object-cover" sizes="(max-width: 640px) 100vw, 25vw" />
+      <div
+        className="absolute inset-0"
+        style={{
+          background: `
+            linear-gradient(125deg, transparent 28%, rgba(255,220,180,0.2) 48%, rgba(255,45,142,0.16) 54%, transparent 74%),
+            linear-gradient(180deg, ${accent}55 0%, transparent 42%, rgba(0,0,0,0.8) 100%)
+          `,
+        }}
+      />
+
+      <span
+        className="absolute right-3 top-3 z-10 rounded-full px-2.5 py-1 text-[10px] font-black uppercase tracking-wider text-white"
+        style={{
+          background: "linear-gradient(135deg, #FF5FB1 0%, #E6007E 55%, #9b0a4d 100%)",
+          boxShadow: "0 0 14px rgba(255,45,142,0.5), inset 0 1px 0 rgba(255,255,255,0.3)",
+        }}
+      >
+        NP reviewed
+      </span>
+
+      <div className="absolute inset-0 flex items-center justify-center px-1 pb-24 pt-6">
         <div
-          className="flex h-full w-full flex-col items-center justify-center gap-2"
+          className="pointer-events-none absolute bottom-[26%] left-1/2 h-7 w-[65%] -translate-x-1/2 rounded-[100%] bg-black/55 blur-lg"
+          aria-hidden
+        />
+        <div
+          className="pointer-events-none absolute left-1/2 top-[30%] h-36 w-36 -translate-x-1/2 rounded-full blur-3xl"
+          style={{ background: `${accent}66` }}
+          aria-hidden
+        />
+        {img ? (
+          <div className="relative h-[88%] w-[98%] transition duration-500 group-hover:scale-110 group-hover:-translate-y-2">
+            <Image
+              src={img}
+              alt=""
+              fill
+              className="object-contain drop-shadow-[0_28px_40px_rgba(0,0,0,0.7)]"
+              sizes="(max-width: 640px) 100vw, 320px"
+            />
+          </div>
+        ) : (
+          <div
+            className="flex h-24 w-24 items-center justify-center rounded-2xl border border-white/25 bg-black/30 text-2xl font-black text-white backdrop-blur"
+            style={{ boxShadow: `0 0 48px ${accent}66` }}
+          >
+            {productInitials(product.name)}
+          </div>
+        )}
+      </div>
+
+      <div className="absolute inset-x-0 bottom-0 z-10 px-4 pb-4 pt-20">
+        <p
+          className="text-[10px] font-black uppercase tracking-[0.18em]"
           style={{
-            background: `radial-gradient(circle at 30% 20%, ${accent}55, transparent 55%), linear-gradient(145deg, #1a0a12, #0a0a0a)`,
+            background: "linear-gradient(90deg, #F5D76E, #FFD700)",
+            WebkitBackgroundClip: "text",
+            backgroundClip: "text",
+            color: "transparent",
           }}
         >
-          <span className="flex h-16 w-16 items-center justify-center rounded-2xl border-2 border-white/20 bg-black/40 text-xl font-black text-white backdrop-blur">
-            {productInitials(product.name)}
+          {product.form}
+        </p>
+        <h3 className="mt-0.5 font-serif text-xl font-black leading-tight text-white drop-shadow-md">
+          {product.name}
+        </h3>
+        <p className="mt-1 text-sm font-black">
+          <span
+            style={{
+              background: "linear-gradient(90deg, #FFB8DC, #FF2D8E, #E6007E)",
+              WebkitBackgroundClip: "text",
+              backgroundClip: "text",
+              color: "transparent",
+            }}
+          >
+            {priceLabel.charAt(0).toUpperCase() + priceLabel.slice(1)}
           </span>
-        </div>
-      )}
-      <span className="absolute left-2.5 top-2.5 rounded-md border border-black bg-white px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-black">
-        {product.form}
-      </span>
-      <span
-        className="absolute bottom-2.5 left-2.5 rounded-md border border-black px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-white"
-        style={{ backgroundColor: accent }}
-      >
-        Rx
-      </span>
-    </div>
-  );
-
-  const body = (
-    <div className="flex flex-1 flex-col p-4">
-      <p className="text-[10px] font-bold uppercase tracking-widest text-[#E6007E]">{product.goal}</p>
-      <h3 className="mt-1 text-[15px] font-black leading-snug text-black">{product.name}</h3>
-      <p className="mt-1.5 line-clamp-2 flex-1 text-[12.5px] leading-relaxed text-black/60">
-        {mono.tagline || "Compounded prescription · NP-reviewed"}
-      </p>
-      <div className="mt-3 flex items-end justify-between gap-2">
-        <div>
-          <p className="text-xl font-black text-[#E6007E]">{listingPriceText(product)}</p>
-          <p className="text-[11px] font-medium text-black/45">30-day supply</p>
-        </div>
-        <span className="text-xs font-bold text-black/50 group-hover:text-[#E6007E]">View →</span>
+          <span className="font-semibold text-white/55"> · 30-day</span>
+        </p>
+        <p className="mt-1 line-clamp-1 text-[12px] font-medium text-white/65">
+          {mono.tagline || product.goal}
+        </p>
       </div>
     </div>
   );
 
   return (
-    <article className={`group flex h-full flex-col overflow-hidden rounded-2xl bg-white ${STAMP}`}>
+    <article className="group flex h-full flex-col overflow-hidden rounded-[1.5rem] border border-[#FF2D8E]/25 bg-[#0a0610] shadow-[0_22px_44px_-16px_rgba(230,0,126,0.45)] transition duration-300 hover:-translate-y-1.5 motion-reduce:transition-none motion-reduce:hover:translate-y-0">
       {onOpen ? (
         <button type="button" onClick={() => onOpen(product.id)} className="flex flex-1 flex-col text-left">
           {media}
-          {body}
         </button>
       ) : (
         <Link href={productHref} className="flex flex-1 flex-col text-left">
           {media}
-          {body}
         </Link>
       )}
 
-      <div className="border-t-2 border-black p-3">
+      <div className="border-t border-white/10 p-3">
         <button
           type="button"
           onClick={quickAdd}
-          className="w-full rounded-xl border-2 border-black bg-gradient-to-r from-[#FF2D8E] to-[#E6007E] py-2.5 text-sm font-black text-white shadow-[3px_3px_0_0_#000] transition hover:brightness-110 active:translate-y-px active:shadow-none"
+          className="w-full rounded-xl bg-gradient-to-r from-[#FF2D8E] to-[#E6007E] py-2.5 text-sm font-black text-white shadow-[0_0_20px_rgba(255,45,142,0.35)] transition hover:brightness-110 active:translate-y-px"
         >
           Add 30-day · ${formatMoney(p30)}
         </button>

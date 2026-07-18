@@ -90,15 +90,15 @@ export function RxPeptideEducationSection() {
           />
           <div className="overflow-hidden rounded-3xl border border-[#FF2D8E]/35 shadow-[0_20px_60px_rgba(255,45,142,0.22)]">
             <Image
-              src="/images/rx/peptide-vial-lineup-hello-gorgeous.png"
-              alt="Hello Gorgeous Med Spa RE GEN peptide and wellness vials"
+              src="/images/rx/peptide-vial-lineup-hello-gorgeous.jpg"
+              alt="RE GEN stacks and bundles — cinematic peptide vial lineup by Hello Gorgeous"
               width={1200}
               height={675}
               className="h-auto w-full object-cover"
               sizes="(max-width: 1024px) 100vw, 540px"
             />
             <p className="border-t border-[#FF2D8E]/35 bg-black px-4 py-3 text-center text-xs font-semibold uppercase tracking-wider text-white/55">
-              NP-supervised · Hello Gorgeous RX™ · Oswego, IL
+              RE GEN · Stacks & bundles · NP-supervised · Oswego, IL
             </p>
           </div>
         </div>

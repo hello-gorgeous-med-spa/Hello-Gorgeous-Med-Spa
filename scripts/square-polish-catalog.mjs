@@ -52,8 +52,9 @@ const CATEGORY_IMAGES = {
   "Body Spa": "public/images/square-appointments/quantum-rf-10-before-after.jpg",
   "Body Contouring & Devices": "public/images/square-appointments/morpheus8-burst-results-flyer.jpg",
   "Laser Hair Removal": "public/images/square-appointments/duocratus-pro-device.jpg",
-  "Lash Spa": "public/images/square-appointments/keratin-lash-lift-before-after.jpg",
+  "Lash Spa": "public/images/square-appointments/hybrid-lash-extensions.jpg",
   "Brow Spa": "public/images/square-appointments/brow-styles-guide.png",
+  Microblading: "public/images/square-appointments/jen-microblading-regular.jpg",
   "AnteAGE Skin Regeneration": "public/images/square-appointments/anteage-mdx-brightening-vials.jpg",
   "IV Drip Package Deals": "public/images/square-appointments/nad-plus-drip-flyer.png",
   "PRP Injections": "public/images/homepage-services/vamp-skin-revitalization.png",
@@ -66,7 +67,7 @@ const CATEGORY_IMAGES = {
   "Hello Gorgeous RX™ — Skin & Aesthetics": "public/images/square-appointments/ghk-cu-regen-vial.jpg",
   "Hello Gorgeous RX™ — Weight & Metabolic": "public/images/square-appointments/semaglutide-regen-vial.jpg",
   "Hello Gorgeous RX™ — Hormones & Vitality": "public/images/square-appointments/biote-certified-provider-seal.jpg",
-  "Hello Gorgeous RX™ — Peptides": "public/images/square-appointments/peptide-vial-lineup.png",
+  "Hello Gorgeous RX™ — Peptides": "public/images/square-appointments/peptide-vial-lineup.jpg",
   FlowWave: "public/images/square-appointments/stemwave-shockwave-banner.png",
 };
 
@@ -76,6 +77,71 @@ const SERVICE_IMAGE_OVERRIDES = [
     re: /hylenex|hylanex|lip dissolver|hyaluronidase/i,
     path: "public/images/square-appointments/hylenex-4-pack-carton.jpg",
     label: "Hylenex",
+  },
+  {
+    re: /microneedling with prp|prp topical \+ microneedling|prp.*microneedl|microneedl.*prp/i,
+    path: "public/images/square-appointments/prp-microneedling.jpg",
+    label: "PRP Microneedling",
+  },
+  {
+    re: /^microneedling$/i,
+    path: "public/images/square-appointments/microneedling-treatment.jpg",
+    label: "Microneedling",
+  },
+  {
+    re: /^microdermabrasion$/i,
+    path: "public/images/square-appointments/microdermabrasion-treatment.jpg",
+    label: "Microdermabrasion",
+  },
+  {
+    re: /^nano[- ]?needling$/i,
+    path: "public/images/square-appointments/nano-needling-treatment.jpg",
+    label: "Nano Needling",
+  },
+  {
+    re: /^oxygen facial$/i,
+    path: "public/images/square-appointments/oxygen-facial-treatment.jpg",
+    label: "Oxygen Facial",
+  },
+  {
+    re: /salmon dna|glass skin facial|vamp.*salmon|pdrn/i,
+    path: "public/images/square-appointments/salmon-dna-glass-facial.jpg",
+    label: "Salmon DNA Glass Facial",
+  },
+  {
+    re: /carbon laser|solaria|co₂|co2/i,
+    path: "public/images/square-appointments/solaria-inmode-machine.jpg",
+    label: "Solaria CO₂",
+  },
+  {
+    re: /peptide therapy consultation|peptide consult/i,
+    path: "public/images/square-appointments/bpc-157-regen-vial.jpg",
+    label: "BPC-157 Peptide",
+  },
+  {
+    re: /quantum/i,
+    path: "public/images/square-appointments/quantum-rf-10-before-after.jpg",
+    label: "QuantumRF10",
+  },
+  {
+    re: /high.?frequency.*acne|acne.*high.?frequency/i,
+    path: "public/images/square-appointments/high-frequency-acne-facial.jpg",
+    label: "High Frequency Acne Facial",
+  },
+  {
+    re: /korean lash lift/i,
+    path: "public/images/square-appointments/korean-lash-lift-tint.jpg",
+    label: "Korean Lash Lift & Tint",
+  },
+  {
+    re: /lash lift/i,
+    path: "public/images/square-appointments/lash-lift-tint.jpg",
+    label: "Lash Lift & Tint",
+  },
+  {
+    re: /lash|hybrid extension|classic extension|volume extension/i,
+    path: "public/images/square-appointments/hybrid-lash-extensions.jpg",
+    label: "Hybrid Lash Extensions",
   },
   {
     re: /laser hair/i,
@@ -159,6 +225,10 @@ const CATEGORY_KEYWORDS = [
   { cat: "PRP Injections", re: /prp|prf|vampire|vamp|platelet/i },
   { cat: "Trigger Point Injections", re: /trigger point|multi-site session|intro offer/i },
   { cat: "Lash Spa", re: /lash|volume extension|classic extension|hybrid extension/i },
+  {
+    cat: "Microblading",
+    re: /microblad|hybrid\s*\/?\s*combo brows|combo brows|color refresher|meet jen|brow pmu/i,
+  },
   { cat: "Brow Spa", re: /brow|lamination|henna|brow tint|brow wax/i },
   { cat: "Laser Hair Removal", re: /laser hair/i },
   { cat: "Body Contouring & Devices", re: /body contour|quantum rf|morpheus8|solaria|co₂|co2|mommy makeover|trifecta|dani,? fix me/i },

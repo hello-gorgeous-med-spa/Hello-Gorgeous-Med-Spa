@@ -195,7 +195,7 @@ export function RxRequestPortal() {
           <JourneyVideoFrame
             src={PEPTIDE_SCIENCE_VIDEOS.rxRequestHero}
             label="Hello Gorgeous RX request portal — peptide science animation"
-            poster="/images/rx/peptide-vial-lineup-hello-gorgeous.png"
+            poster="/images/rx/peptide-vial-lineup-hello-gorgeous.jpg"
             className="lg:max-w-lg lg:justify-self-end"
           />
         </div>

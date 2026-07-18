@@ -10,7 +10,6 @@ import {
   CATALOG_GOALS,
   CATALOG_PRODUCTS,
   HERO_DRUG_KEYS,
-  SHOP_GOALS,
   bundlePrice,
   filterCatalogByPrice,
   findProductByDrugKey,
@@ -18,7 +17,6 @@ import {
   getCatalogProduct,
   getMonograph,
   goalAccent,
-  goalCounts,
   goalFromSlug,
   goalSlug,
   price30,
@@ -34,26 +32,17 @@ import {
   formatCatalogMoney,
 } from "@/components/regen/catalog/CatalogProductCard";
 import { ProductDetailDrawer } from "@/components/regen/catalog/ProductDetailDrawer";
+import { RegenGoalTheater } from "@/components/regen/catalog/RegenGoalTheater";
+import { RegenHowItWorksTheater } from "@/components/regen/catalog/RegenHowItWorksTheater";
+import { RegenStacksTheater } from "@/components/regen/catalog/RegenStacksTheater";
 import { RegenShopStickyNav } from "@/components/regen/catalog/RegenShopStickyNav";
 import { RxPeptideEducationSection } from "@/components/rx/RxPeptideEducationSection";
 import { RxScienceHomeHero } from "@/components/rx/RxScienceHomeHero";
-import {
-  JourneySectionHead,
-  JOURNEY_SECTION_BG_B,
-} from "@/components/marketing/JourneyPageUi";
+import { JourneySectionHead } from "@/components/marketing/JourneyPageUi";
 import { goalFromStorefrontCat } from "@/lib/regen/storefront-deep-link";
 import { REGEN_SHOP_FAQS } from "@/lib/regen-shop-nav";
 
 const SECTION_SCROLL = "scroll-mt-[148px]";
-
-const GOAL_ICONS: Record<string, string> = {
-  "Lose Weight": "⚖",
-  "Recovery & Performance": "💪",
-  Intimacy: "♥",
-  Hormones: "⚡",
-  "Skin & Hair": "✨",
-  "Energy & Longevity": "☀",
-};
 
 type View = "home" | "goal" | "all" | "search";
 
@@ -110,7 +99,6 @@ export function RegenCatalogPortal({
   const [supply, setSupply] = useState<SupplyDays>(30);
 
   const isPublicShop = basePath === "/rx";
-  const counts = useMemo(() => goalCounts(CATALOG_PRODUCTS), []);
 
   const navigate = useCallback(
     (next: { goal?: string | null; browse?: string | null; q?: string | null }) => {
@@ -301,50 +289,7 @@ export function RegenCatalogPortal({
             <RxScienceHomeHero onExploreGoals={scrollToShopByGoal} />
           </div>
 
-          {/* Shop by goal — first commerce section */}
-          <section
-            id="shop-by-goal"
-            className={`${SECTION_SCROLL} bg-gradient-to-b from-[#FFF0F7] via-white to-[#f5f5f5] px-6 py-16 lg:py-20`}
-          >
-            <div className="mx-auto max-w-[1200px]">
-              <div className="mb-2 inline-flex items-center gap-2 rounded-full border-2 border-black bg-white px-3 py-1 text-[11px] font-bold uppercase tracking-widest text-[#E6007E] shadow-[3px_3px_0_0_rgba(230,0,126,0.35)]">
-                RE GEN shop
-              </div>
-              <h2 className="mt-3 font-serif text-4xl font-black text-black lg:text-5xl">
-                Shop by <span className="text-[#E6007E]">goal</span>
-              </h2>
-              <p className="mt-3 max-w-2xl text-base font-medium text-black/70">
-                Browse like a store — weight, recovery, hormones, intimacy, skin, or longevity.
-                Every order is NP-reviewed before it ships.
-              </p>
-              <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                {SHOP_GOALS.map((goal) => {
-                  const accent = goalAccent(goal);
-                  const meta = CATALOG_GOALS.find((g) => g.id === goal);
-                  return (
-                    <button
-                      key={goal}
-                      type="button"
-                      onClick={() => navigate({ goal })}
-                      className="group rounded-2xl border-2 border-black bg-white p-5 text-left shadow-[6px_6px_0_0_rgba(230,0,126,0.4)] transition hover:-translate-y-0.5 hover:shadow-[8px_8px_0_0_rgba(230,0,126,0.5)] motion-reduce:hover:translate-y-0"
-                    >
-                      <div
-                        className="mb-3 inline-flex h-12 w-12 items-center justify-center rounded-xl border-2 border-black text-lg text-white"
-                        style={{ backgroundColor: accent }}
-                      >
-                        {GOAL_ICONS[goal] ?? "✦"}
-                      </div>
-                      <h3 className="text-lg font-black text-black">{goal}</h3>
-                      <p className="mt-2 text-sm font-medium text-black/60">{meta?.blurb}</p>
-                      <p className="mt-4 text-sm font-black" style={{ color: accent }}>
-                        Shop {counts[goal] ?? 0} options →
-                      </p>
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-          </section>
+          <RegenGoalTheater onSelectGoal={(goal) => navigate({ goal })} />
 
           {/* Best sellers */}
           <section id="popular" className={`${SECTION_SCROLL} bg-[#0a0a0a] px-6 py-16 lg:py-20`}>
@@ -378,103 +323,16 @@ export function RegenCatalogPortal({
             </div>
           </section>
 
-          {/* Bundles */}
-          <section id="stacks" className={`${SECTION_SCROLL} ${JOURNEY_SECTION_BG_B} px-6 py-16 lg:py-24`}>
-            <div className="mx-auto max-w-[1200px]">
-              <JourneySectionHead
-                eyebrow="Curated stacks"
-                title="Stacks &"
-                titleAccent="bundles"
-                description="Curated combinations — save 10% when you add a stack to cart."
-              />
-              <div className="mt-10 grid gap-4 md:grid-cols-2">
-                {bundles.map((b) => (
-                  <div
-                    key={b.id}
-                    className="rounded-2xl border-2 border-black bg-white p-6 text-black shadow-[6px_6px_0_0_rgba(230,0,126,0.4)]"
-                  >
-                    <span
-                      className="inline-block rounded-full border border-black px-3 py-1 text-xs font-bold text-white"
-                      style={{ backgroundColor: b.accent }}
-                    >
-                      {b.tagline}
-                    </span>
-                    <h3 className="mt-3 font-serif text-2xl font-extrabold">{b.name}</h3>
-                    <p className="mt-2 text-sm text-black/65">{b.blurb}</p>
-                    <ul className="mt-4 space-y-1 text-sm text-black/70">
-                      {b.items.map((item) => (
-                        <li key={item.name} className="flex justify-between gap-2">
-                          <span>{item.name}</span>
-                          <span className="font-semibold">{item.price}</span>
-                        </li>
-                      ))}
-                    </ul>
-                    <div className="mt-4 flex flex-wrap items-center gap-3">
-                      <span className="font-serif text-2xl font-extrabold text-[#E6007E]">
-                        {b.price}
-                      </span>
-                      <span className="rounded-full border border-black bg-black/5 px-2 py-0.5 text-xs font-bold text-black/60">
-                        Stack · list price
-                      </span>
-                    </div>
-                    <button
-                      type="button"
-                      onClick={b.add}
-                      className="mt-5 w-full rounded-xl border-2 border-black bg-gradient-to-r from-[#FF2D8E] to-[#E6007E] py-3 text-sm font-black text-white shadow-[3px_3px_0_0_#000] transition hover:brightness-110"
-                    >
-                      Add stack to cart
-                    </button>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </section>
+          <RegenStacksTheater bundles={bundles} />
 
           <div className={SECTION_SCROLL}>
             <RxPeptideEducationSection />
           </div>
 
-          {/* How it works */}
-          <section id="how-it-works" className={`${SECTION_SCROLL} bg-[#FFF0F7] px-6 pb-16 pt-12`}>
-            <div className="mx-auto max-w-[1200px] rounded-3xl border-2 border-black bg-white px-8 py-12 shadow-[8px_8px_0_0_rgba(230,0,126,0.35)] md:px-12">
-              <p className="text-xs font-bold uppercase tracking-widest text-[#E6007E]">How RE GEN works</p>
-              <h2 className="mt-2 font-serif text-3xl font-black text-black">
-                Four steps to <span className="text-[#E6007E]">your protocol</span>
-              </h2>
-              <ol className="mt-8 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-                {[
-                  {
-                    n: "1",
-                    title: "Shop & pay",
-                    body: "Add treatments to your bag and pay securely with Square.",
-                  },
-                  {
-                    n: "2",
-                    title: "Health intake",
-                    body: "Complete your clinical questionnaire right after payment.",
-                  },
-                  {
-                    n: "3",
-                    title: "NP telehealth",
-                    body: "Book a short video visit with Ryan Kent, FNP-BC for approval.",
-                  },
-                  {
-                    n: "4",
-                    title: "Shipped to your door",
-                    body: "Approved orders ship with flat $30 Illinois shipping.",
-                  },
-                ].map((step) => (
-                  <li key={step.n}>
-                    <span className="flex h-10 w-10 items-center justify-center rounded-xl border-2 border-black bg-gradient-to-r from-[#FF2D8E] to-[#E6007E] text-sm font-extrabold text-white">
-                      {step.n}
-                    </span>
-                    <h3 className="mt-4 text-lg font-black text-black">{step.title}</h3>
-                    <p className="mt-2 text-sm font-medium text-black/70">{step.body}</p>
-                  </li>
-                ))}
-              </ol>
-            </div>
-          </section>
+          <RegenHowItWorksTheater
+            onStartShopping={scrollToShopByGoal}
+            onShopWeightLoss={() => navigate({ goal: "Lose Weight" })}
+          />
 
           {/* FAQ */}
           <section

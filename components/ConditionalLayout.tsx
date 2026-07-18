@@ -45,6 +45,8 @@ const STANDALONE_APP_ROUTES = [
   "/rx",
   "/services/flowwave",
   "/microblading-brow-pmu-oswego-il",
+  /** Ageless-style ad LP — sticky mini-nav only */
+  "/see-your-results",
 ];
 
 export function ConditionalLayout({

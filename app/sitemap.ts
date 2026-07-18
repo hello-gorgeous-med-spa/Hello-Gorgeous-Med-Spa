@@ -723,6 +723,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // Premium SEO landing pages (FaqPageContent template — botox, microneedling-rf, weight-loss-therapy)
   const premiumLandingPages: MetadataRoute.Sitemap = [
     {
+      url: `${baseUrl}/see-your-results`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/face-blueprint`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.88,
+    },
+    {
       url: `${baseUrl}/services/botox`,
       lastModified: currentDate,
       changeFrequency: 'weekly',
