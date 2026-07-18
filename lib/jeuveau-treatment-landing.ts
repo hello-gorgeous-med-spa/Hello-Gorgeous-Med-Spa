@@ -89,7 +89,7 @@ export const JEUVEAU_TREATMENT_LANDING: InModeTreatmentLandingContent = {
       href: "/botox-oswego",
       eyebrow: "Neurotoxin",
       title: "Botox Cosmetic",
-      blurb: "As low as $9/unit — authentic Allergan, natural placement.",
+      blurb: "From $10/unit — authentic Allergan, natural placement.",
     },
     {
       href: "/dysport-oswego",

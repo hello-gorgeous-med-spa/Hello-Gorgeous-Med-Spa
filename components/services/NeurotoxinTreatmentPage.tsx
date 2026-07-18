@@ -41,7 +41,7 @@ export function NeurotoxinTreatmentPage({
 
   const breadcrumbs = [
     { name: "Home", url: SITE.url },
-    { name: "Services", url: `${SITE.url}/services` },
+    { name: "Botox & Fillers", url: `${SITE.url}/services/injectables` },
     { name: content.breadcrumbName, url: pageUrl },
   ];
 

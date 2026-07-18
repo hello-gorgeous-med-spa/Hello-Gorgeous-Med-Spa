@@ -89,7 +89,7 @@ export const DYSPORT_TREATMENT_LANDING: InModeTreatmentLandingContent = {
       href: "/botox-oswego",
       eyebrow: "Neurotoxin",
       title: "Botox Cosmetic",
-      blurb: "The original — as low as $9/unit. Precise placement for natural results.",
+      blurb: "The original — from $10/unit. Precise placement for natural results.",
     },
     {
       href: "/jeuveau-oswego",

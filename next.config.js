@@ -304,10 +304,12 @@ const nextConfig = {
     { source: "/about-1", destination: "/about", permanent: true },
     { source: "/privacy-policy", destination: "/privacy", permanent: true },
     // HG_DEV_011 — individual service SEO URLs (canonical Oswego slugs)
-    { source: "/services/botox-dysport-jeuveau", destination: "/botox-oswego", permanent: true },
-    { source: "/botox%2C-dysport-%26-jeuveau", destination: "/botox-oswego", permanent: true },
-    { source: "/botox-dysport", destination: "/botox-oswego", permanent: true },
+    { source: "/services/botox-dysport-jeuveau", destination: "/services/injectables", permanent: true },
+    { source: "/botox%2C-dysport-%26-jeuveau", destination: "/services/injectables", permanent: true },
+    { source: "/botox-dysport", destination: "/services/injectables", permanent: true },
     { source: "/botox-oswego-il", destination: "/botox-oswego", permanent: true },
+    { source: "/xeomin-oswego-il", destination: "/xeomin-oswego", permanent: true },
+    { source: "/daxxify-oswego-il", destination: "/daxxify-oswego", permanent: true },
     // peptide-therapy-oswego-il is a live Phase 9 GBP lander (SEO-001) — do not redirect
     { source: "/services/morpheus8-burst", destination: "/morpheus8-burst-oswego", permanent: true },
     { source: "/services/morpheus8", destination: "/morpheus8-burst-oswego", permanent: true },
@@ -381,7 +383,7 @@ const nextConfig = {
     { source: "/3-in-1-elite-trio-1", destination: "/solaria-packages", permanent: true },
     { source: "/menopause-therapy", destination: "/rx/hormones", permanent: true },
     { source: "/o-shot-rejuvenation", destination: "/rx", permanent: true },
-    { source: "/botox-fillers", destination: "/botox-oswego", permanent: true },
+    { source: "/botox-fillers", destination: "/services/injectables", permanent: true },
     // Phase 4 — thin far-flung city pages → nearest primary Fox Valley hub
     ...buildDeindexedCityRedirects(),
   ],

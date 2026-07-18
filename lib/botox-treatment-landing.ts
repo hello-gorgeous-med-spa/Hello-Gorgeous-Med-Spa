@@ -5,9 +5,9 @@ import { NEUROTOXIN_AREA_CARDS, NEUROTOXIN_TRUST } from "@/lib/neurotoxin-treatm
 export const BOTOX_TREATMENT_LANDING: InModeTreatmentLandingContent = {
   slug: "botox-oswego",
   path: "/botox-oswego",
-  metaTitle: "Botox in Oswego, IL — from $9/unit",
+  metaTitle: "Botox in Oswego, IL — from $10/unit",
   metaDescription:
-    "Expert Botox in Oswego, IL by our medical injector team. Natural results, honest pricing as low as $9/unit (Allergan & US distributors only). Free consult — Naperville & Aurora.",
+    "Expert Botox in Oswego, IL by our medical injector team. Natural results, honest pricing from $10/unit (Allergan & US distributors only). Free consult — Naperville & Aurora.",
   breadcrumbName: "Botox Oswego",
   locality: "Botox Cosmetic in Oswego, Illinois",
   productName: "Botox Cosmetic",
@@ -18,7 +18,7 @@ export const BOTOX_TREATMENT_LANDING: InModeTreatmentLandingContent = {
     "Glowing, smooth skin — natural Botox Cosmetic results aesthetic at Hello Gorgeous Med Spa Oswego IL",
   heroObjectPosition: "object-[center_42%]",
   heroPortraitFocus: true,
-  priceLine: "As low as $9/unit",
+  priceLine: "From $10/unit",
   priceNote: "Authentic Allergan Botox · US distributors only · you approve units before we inject",
   trustItems: [...NEUROTOXIN_TRUST],
   whatTitle: "About Botox at Hello Gorgeous",
@@ -95,7 +95,7 @@ export const BOTOX_TREATMENT_LANDING: InModeTreatmentLandingContent = {
   ],
   consultTitle: "Ready for your first (or next) Botox visit?",
   consultBody:
-    "Book a free consultation in Oswego. We’ll map your goals, quote units clearly, and keep results natural — as low as $9/unit with authentic Allergan product.",
+    "Book a free consultation in Oswego. We’ll map your goals, quote units clearly, and keep results natural — from $10/unit with authentic Allergan product.",
   related: [
     {
       href: "/dysport-oswego",
@@ -110,10 +110,10 @@ export const BOTOX_TREATMENT_LANDING: InModeTreatmentLandingContent = {
       blurb: "Modern neuromodulator option at $11/unit.",
     },
     {
-      href: "/dermal-fillers-oswego",
-      eyebrow: "Volume",
-      title: "Dermal fillers",
-      blurb: "Restore volume and contour when lines need more than muscle relaxation.",
+      href: "/services/injectables",
+      eyebrow: "Hub",
+      title: "Botox & Fillers",
+      blurb: "Full injectables menu, clinic video, treatment goals, and all 5 brands.",
     },
   ],
   clinicVideos: [

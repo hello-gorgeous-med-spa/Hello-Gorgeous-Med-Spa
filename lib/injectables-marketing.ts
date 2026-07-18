@@ -11,9 +11,8 @@ export const INJECTABLES_PATH = INJECTABLES_MENU_PATH;
 
 export const INJECTABLES_NAV = {
   label: "Botox & Fillers",
-  /** Flagship neurotoxin landing — full injectables menu stays at INJECTABLES_PATH */
-  href: "/botox-oswego",
-  sub: "Botox as low as $9/unit · lip filler · dermal fillers · all 5 neurotoxins",
+  href: INJECTABLES_PATH,
+  sub: "Botox $10/unit · lip filler · dermal fillers · all 5 neurotoxins",
 } as const;
 
 export const INJECTABLES_MARKETING = {
@@ -23,7 +22,7 @@ export const INJECTABLES_MARKETING = {
   eyebrow: "All 5 neurotoxin brands · NP on site",
   headline: "Natural injectables, medical oversight",
   subhead:
-    "Botox as low as $9/unit (Allergan & US distributors only), lip filler $450, dermal fillers from $650 — all five FDA-approved neurotoxins with nurse practitioner oversight and honest dosing at Hello Gorgeous in Oswego.",
+    "Botox from $10/unit (Allergan & US distributors only), lip filler $450, dermal fillers from $650 — all five FDA-approved neurotoxins with nurse practitioner oversight and honest dosing at Hello Gorgeous in Oswego.",
   trustLine:
     "Only Fox Valley med spa with Botox, Dysport, Jeuveau, Xeomin & Daxxify on one menu — plus Lip Studio AI preview and full-face filler mapping.",
   phoneDisplay: "(630) 636-6193",
@@ -36,8 +35,10 @@ export const INJECTABLES_MARKETING = {
   dermalFillersHref: "/dermal-fillers-oswego",
   morpheus8Href: "/services/morpheus8",
   images: {
-    hero: "/images/homepage-services/botox-cosmetic-authentic-vial.png",
-    lipPromo: "/images/promo/lip-filler-promo-flyer.png",
+    hero: "/images/injectables/hero-lip-injection.png",
+    lipPromo: "/images/injectables/promo-half-syringe.png",
+    glamPortrait: "/images/injectables/hero-glam-portrait.png",
+    chinGlove: "/images/injectables/hero-chin-glove.png",
     menuPoster: "/images/promo/injection-menu-poster.png",
     buyerPath: "/images/homepage-buyer-paths/injectables.png",
     depthRef: "/images/skin-layers-injection-depth-reference.png",
@@ -46,7 +47,7 @@ export const INJECTABLES_MARKETING = {
 } as const;
 
 export const INJECTABLES_INTRO_SPECIAL = {
-  badge: "Botox as low as $9/unit",
+  badge: "Botox from $10/unit",
   title: "Neurotoxins — all 5 brands",
   priceLabel: "$10",
   priceNote: "per unit · Botox · free consult",
@@ -57,8 +58,9 @@ export const INJECTABLES_INTRO_SPECIAL = {
 } as const;
 
 export const INJECTABLES_PAGE_NAV = [
+  { href: "#clinic", label: "Clinic video" },
   { href: "#why", label: "Why HG" },
-  { href: "#neurotoxins", label: "Neurotoxins" },
+  { href: "#brands", label: "Brands" },
   { href: "#fillers", label: "Fillers" },
   { href: "#how", label: "How it works" },
   { href: "#pricing", label: "Pricing" },
@@ -227,6 +229,6 @@ export function isInjectablesNavActive(pathname: string | null): boolean {
 export const INJECTABLES_SEO = {
   title: "Botox & Fillers | All 5 Neurotoxins · Lip Filler $450 | Hello Gorgeous Oswego",
   description:
-    "Botox as low as $9/unit (Allergan & US distributors only), lip filler $450, dermal fillers from $650 at Hello Gorgeous Med Spa Oswego IL — all 5 neurotoxins, NP-led injectors, Lip Studio preview. Free consult.",
+    "Botox from $10/unit (Allergan & US distributors only), lip filler $450, dermal fillers from $650 at Hello Gorgeous Med Spa Oswego IL — all 5 neurotoxins, NP-led injectors, Lip Studio preview. Free consult.",
   ogAlt: "Botox and dermal fillers — Hello Gorgeous Med Spa Oswego IL",
 } as const;
