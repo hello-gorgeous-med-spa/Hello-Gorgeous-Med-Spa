@@ -26,7 +26,7 @@ type ProductCardProps = {
 };
 
 export function ProductCard({ product, href, onOpen }: ProductCardProps) {
-  const { addItem } = useCart();
+  const { addItem, openCart } = useCart();
   const mono = getMonograph(product.drugKey);
   const img = productImage(product.drugKey, product.form);
   const accent = goalAccent(product.goal);
@@ -49,8 +49,9 @@ export function ProductCard({ product, href, onOpen }: ProductCardProps) {
         variantLabel: variant.strength,
         supplyDays: 30,
       });
+      openCart();
     },
-    [addItem, product, p30, img, variant.strength],
+    [addItem, openCart, product, p30, img, variant.strength],
   );
 
   const media = (

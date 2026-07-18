@@ -289,16 +289,9 @@ export function RegenCatalogPortal({
             <RxScienceHomeHero onExploreGoals={scrollToShopByGoal} />
           </div>
 
-          <RegenHowItWorksTheater
-            onStartShopping={scrollToShopByGoal}
-            onShopWeightLoss={() => navigate({ goal: "Lose Weight" })}
-          />
-
-          <RegenScienceTheater onShopGoals={scrollToShopByGoal} />
-
+          {/* Shop first — goals, popular, stacks — then educate */}
           <RegenGoalTheater onSelectGoal={(goal) => navigate({ goal })} />
 
-          {/* Best sellers */}
           <section id="popular" className={`${SECTION_SCROLL} bg-[#0a0a0a] px-6 py-16 lg:py-20`}>
             <div className="mx-auto max-w-[1200px]">
               <div className="flex flex-wrap items-end justify-between gap-4">
@@ -331,6 +324,13 @@ export function RegenCatalogPortal({
           </section>
 
           <RegenStacksTheater bundles={bundles} />
+
+          <RegenHowItWorksTheater
+            onStartShopping={scrollToShopByGoal}
+            onShopWeightLoss={() => navigate({ goal: "Lose Weight" })}
+          />
+
+          <RegenScienceTheater onShopGoals={scrollToShopByGoal} />
 
           {/* FAQ */}
           <section

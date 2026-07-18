@@ -5,11 +5,11 @@
 import { BOOKING_URL } from "@/lib/flows";
 
 export const REGEN_SHOP_NAV = [
-  { href: "#science", label: "Science" },
   { href: "#shop-by-goal", label: "Goals" },
   { href: "#popular", label: "Popular" },
   { href: "#stacks", label: "Stacks" },
   { href: "#how-it-works", label: "How it works" },
+  { href: "#science", label: "Science" },
   { href: "#faq", label: "FAQ" },
   { href: "/rx/request", label: "Start intake" },
 ] as const;
