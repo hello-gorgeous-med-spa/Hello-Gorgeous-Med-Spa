@@ -93,14 +93,14 @@ export function InModeTreatmentLanding({
           alt={content.heroImageAlt}
           fill
           priority
-          className="object-cover object-center"
+          className="object-cover object-[center_30%]"
           sizes="100vw"
         />
         <div
           className="absolute inset-0"
           style={{
             background:
-              "linear-gradient(115deg, rgba(10,6,16,0.92) 0%, rgba(20,8,18,0.78) 45%, rgba(10,6,16,0.55) 100%), radial-gradient(ellipse 60% 50% at 80% 20%, rgba(230,0,126,0.35), transparent 60%)",
+              "linear-gradient(115deg, rgba(10,6,16,0.78) 0%, rgba(20,8,18,0.55) 42%, rgba(10,6,16,0.35) 100%), radial-gradient(ellipse 55% 45% at 75% 25%, rgba(230,0,126,0.28), transparent 60%)",
           }}
         />
         <div className="relative mx-auto flex max-w-5xl flex-col items-center px-6 py-20 text-center md:py-28">
