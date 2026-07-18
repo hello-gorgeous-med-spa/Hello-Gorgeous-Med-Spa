@@ -10,13 +10,23 @@ import { HarmonyAI } from "@/components/HarmonyAI";
 import { BotoxCalculator } from "@/components/BotoxCalculator";
 import { InjectablesBlogPromo } from "@/components/InjectablesBlogPromo";
 import { AlleEmbedSection } from "@/components/AlleEmbedSection";
+import { InjectablesPageContent } from "@/components/injectables/InjectablesPageContent";
 import { ProofConversionSection } from "@/components/services/ProofConversionSection";
 import { IvTherapyServicePage } from "@/components/services/IvTherapyServicePage";
 import { ServiceTestimonialsPlaceholder } from "@/components/services/ServiceTestimonialsPlaceholder";
 import { BOOKING_URL, FRESHA_BOOKING_URL_DANIELLE, FRESHA_BOOKING_URL_RYAN } from "@/lib/flows";
 import {
+  INJECTABLES_FAQS,
+  INJECTABLES_MARKETING,
+  INJECTABLES_PATH,
+  INJECTABLES_SEO,
+} from "@/lib/injectables-marketing";
+import {
   SERVICES,
+  SITE,
+  breadcrumbJsonLd,
   faqJsonLd,
+  localBusinessJsonLd,
   pageMetadata,
   serviceHrefBySlug,
   siteJsonLd,
@@ -24,6 +34,7 @@ import {
   dermalFillersJsonLd,
   lipFillerVideoJsonLd,
   dermalFillersBreadcrumbJsonLd,
+  webPageJsonLd,
   type Service,
 } from "@/lib/seo";
 import {
@@ -36,17 +47,106 @@ import {
 
 type Params = { slug: string[] };
 
+/** Dedicated App Router pages under app/services/<slug>/ — exclude from catch-all SSG. */
+const DEDICATED_SERVICE_SEGMENT_PAGES = new Set([
+  "injectables",
+  "botox",
+  "morpheus8",
+  "solaria-co2",
+  "quantum-rf",
+  "facials-and-peels",
+  "laser-hair-removal",
+  "microneedling",
+  "microneedling-rf",
+  "wellness",
+  "prp",
+  "prp-facial",
+  "prp-joint-injections",
+  "prf-prp",
+  "ez-prf-gel",
+  "peptides",
+  "weight-loss",
+  "weight-loss-therapy",
+  "biote-hormone-therapy",
+  "sculptra-biostimulator",
+  "salmon-dna-glass-facial",
+  "ipl-photofacial",
+  "hair-restoration-exosomes",
+  "nad-plus-injections-oswego-il",
+  "flowwave",
+]);
+
 export function generateStaticParams() {
-  const categoryParams = ATLAS_CLUSTERS.map((c) => ({ slug: [c.id] }));
-  const serviceParams = SERVICES.filter((s) => !s.publicPath).map((s) => ({ slug: [s.slug] }));
+  const categoryParams = ATLAS_CLUSTERS.filter((c) => !DEDICATED_SERVICE_SEGMENT_PAGES.has(c.id)).map(
+    (c) => ({ slug: [c.id] }),
+  );
+  const serviceParams = SERVICES.filter(
+    (s) => !s.publicPath && !DEDICATED_SERVICE_SEGMENT_PAGES.has(s.slug),
+  ).map((s) => ({ slug: [s.slug] }));
   return [...categoryParams, ...serviceParams];
+}
+
+function InjectablesHubFromCatchAll() {
+  const breadcrumbs = [
+    { name: "Home", url: SITE.url },
+    { name: "Services", url: `${SITE.url}/services` },
+    { name: "Botox & Fillers", url: `${SITE.url}${INJECTABLES_PATH}` },
+  ];
+
+  return (
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(siteJsonLd()) }} />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessJsonLd("Oswego")) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd(breadcrumbs)) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            webPageJsonLd({
+              title: INJECTABLES_SEO.title,
+              description: INJECTABLES_SEO.description,
+              path: INJECTABLES_PATH,
+              image: INJECTABLES_MARKETING.images.hero,
+            }),
+          ),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            faqJsonLd(
+              INJECTABLES_FAQS.map((f) => ({ question: f.q, answer: f.a })),
+              `${SITE.url}${INJECTABLES_PATH}`,
+            ),
+          ),
+        }}
+      />
+      <InjectablesPageContent />
+    </>
+  );
 }
 
 export function generateMetadata({ params }: { params: Params }): Metadata {
   const [one] = params.slug;
   if (!one) return pageMetadata({ title: "Services", description: "Services.", path: "/services" });
 
-  if (maybeCategorySlug(one)) {
+  // Catch-all was winning over app/services/injectables/page.tsx in production builds.
+  if (one === "injectables") {
+    return pageMetadata({
+      title: INJECTABLES_SEO.title,
+      description: INJECTABLES_SEO.description,
+      path: INJECTABLES_PATH,
+    });
+  }
+
+  if (maybeCategorySlug(one) && !DEDICATED_SERVICE_SEGMENT_PAGES.has(one)) {
     const cluster = ATLAS_CLUSTERS.find((c) => c.id === one);
     return pageMetadata({
       title: cluster?.title ?? "Services",
@@ -2074,7 +2174,12 @@ export default function ServicesCatchAllPage({ params }: { params: Params }) {
   const [one] = params.slug;
   if (!one) notFound();
 
-  if (maybeCategorySlug(one)) return <CategoryPage categoryId={one} />;
+  // Dedicated hub — catch-all SSG previously overwrote app/services/injectables/page.tsx
+  if (one === "injectables") return <InjectablesHubFromCatchAll />;
+
+  if (maybeCategorySlug(one) && !DEDICATED_SERVICE_SEGMENT_PAGES.has(one)) {
+    return <CategoryPage categoryId={one} />;
+  }
   if (one === "iv-therapy") return <IvTherapyServicePage />;
   return <ServiceDetailPage serviceSlug={one} />;
 }
