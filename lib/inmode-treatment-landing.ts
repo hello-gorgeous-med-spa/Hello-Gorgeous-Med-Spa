@@ -37,6 +37,10 @@ export type InModeTreatmentLandingContent = {
   heroSubhead: string;
   heroImage: string;
   heroImageAlt: string;
+  /** Tailwind object-position for hero (default center 30% — clinical/action crops) */
+  heroObjectPosition?: string;
+  /** Lighter wash so portrait faces stay visible */
+  heroPortraitFocus?: boolean;
   /** Soft pricing line under hero CTAs */
   priceLine: string;
   priceNote?: string;

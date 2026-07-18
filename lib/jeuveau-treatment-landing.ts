@@ -15,6 +15,8 @@ export const JEUVEAU_TREATMENT_LANDING: InModeTreatmentLandingContent = {
   heroImage: "/images/botox/botox-hero-glow.jpg",
   heroImageAlt:
     "Glowing, smooth skin — natural Jeuveau results aesthetic at Hello Gorgeous Med Spa Oswego IL",
+  heroObjectPosition: "object-[center_42%]",
+  heroPortraitFocus: true,
   priceLine: "$11/unit",
   priceNote:
     "Dosing roughly 1:1 with Botox — often a lower total per visit at our pricing. You approve units before we inject.",

@@ -16,6 +16,8 @@ export const BOTOX_TREATMENT_LANDING: InModeTreatmentLandingContent = {
   heroImage: "/images/botox/botox-hero-glow.jpg",
   heroImageAlt:
     "Glowing, smooth skin — natural Botox Cosmetic results aesthetic at Hello Gorgeous Med Spa Oswego IL",
+  heroObjectPosition: "object-[center_42%]",
+  heroPortraitFocus: true,
   priceLine: "As low as $9/unit",
   priceNote: "Authentic Allergan Botox · US distributors only · you approve units before we inject",
   trustItems: [...NEUROTOXIN_TRUST],

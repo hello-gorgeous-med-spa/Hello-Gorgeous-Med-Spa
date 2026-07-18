@@ -11,7 +11,8 @@ export const INJECTABLES_PATH = INJECTABLES_MENU_PATH;
 
 export const INJECTABLES_NAV = {
   label: "Botox & Fillers",
-  href: INJECTABLES_PATH,
+  /** Flagship neurotoxin landing — full injectables menu stays at INJECTABLES_PATH */
+  href: "/botox-oswego",
   sub: "Botox as low as $9/unit · lip filler · dermal fillers · all 5 neurotoxins",
 } as const;
 

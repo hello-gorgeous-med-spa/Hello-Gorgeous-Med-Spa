@@ -15,6 +15,8 @@ export const DYSPORT_TREATMENT_LANDING: InModeTreatmentLandingContent = {
   heroImage: "/images/botox/botox-hero-glow.jpg",
   heroImageAlt:
     "Glowing, smooth skin — natural Dysport results aesthetic at Hello Gorgeous Med Spa Oswego IL",
+  heroObjectPosition: "object-[center_42%]",
+  heroPortraitFocus: true,
   priceLine: "$14/unit",
   priceNote:
     "Typically 2–3 Dysport units ≈ 1 Botox unit — total area cost often similar. You approve units before we inject.",
