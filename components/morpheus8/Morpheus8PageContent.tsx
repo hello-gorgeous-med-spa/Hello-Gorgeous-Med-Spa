@@ -328,6 +328,7 @@ export function Morpheus8PageContent() {
             <JourneySoundVideo
               src={MORPHEUS8_MARKETING.scienceVideo}
               label="Morpheus8 RF microneedling science animation"
+              hasAudio={false}
             />
           </div>
         </div>

@@ -49,6 +49,8 @@ export function JourneyVideoFrame({
     const v = videoRef.current;
     if (!v) return;
     v.muted = true;
+    v.defaultMuted = true;
+    v.volume = 1;
     void v.play().catch(() => {
       /* autoplay may be blocked — poster remains visible */
     });
@@ -59,6 +61,8 @@ export function JourneyVideoFrame({
     if (!v) return;
     if (muted) {
       v.muted = false;
+      v.defaultMuted = false;
+      v.volume = 1;
       try {
         await v.play();
         setMuted(false);
@@ -67,6 +71,7 @@ export function JourneyVideoFrame({
       }
     } else {
       v.muted = true;
+      v.defaultMuted = true;
       setMuted(true);
     }
   }, [muted]);
@@ -105,7 +110,7 @@ export function JourneyVideoFrame({
             ref={videoRef}
             src={src}
             autoPlay
-            muted
+            muted={muted}
             loop
             playsInline
             preload="metadata"
