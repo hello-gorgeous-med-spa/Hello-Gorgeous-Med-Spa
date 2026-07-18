@@ -38,51 +38,47 @@ export function InjectablesPageContent() {
       />
 
       <main className="min-w-0">
-        {/* Mockup-style conversion hero: image story + treat picker */}
+        {/* Mockup-style conversion hero — no FadeUp (opacity:0 hides LCP hero) */}
         <Section className="border-b-4 border-black !bg-transparent py-10 lg:py-14">
           <div className="mx-auto grid max-w-6xl gap-5 px-4 sm:px-6 lg:grid-cols-2 lg:gap-6 lg:px-8">
-            <FadeUp>
-              <div className="relative min-h-[420px] overflow-hidden rounded-[1.75rem] border-4 border-black shadow-[8px_8px_0_0_rgba(230,0,126,0.28)] sm:min-h-[520px]">
-                <Image
-                  src={images.hero}
-                  alt="Botox and fillers — medical aesthetics at Hello Gorgeous Med Spa Oswego"
-                  fill
-                  priority
-                  className="object-cover object-[center_28%]"
-                  sizes="(max-width: 1024px) 100vw, 50vw"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/25 to-black/10" />
-                <div className="absolute inset-0 flex flex-col justify-end p-6 sm:p-8">
-                  <span className="inline-flex w-fit rounded-full bg-[#E6007E] px-3 py-1 text-[10px] font-bold uppercase tracking-[0.16em] text-white">
-                    Medical aesthetics
-                  </span>
-                  <h1 className="mt-4 font-serif text-4xl font-black leading-[1.05] text-white sm:text-5xl">
-                    Your First Botox Treatment
-                  </h1>
-                  <p className="mt-3 text-lg font-bold text-white">
-                    Starting at $10 Per Unit
-                  </p>
-                  <p className="mt-1 text-sm font-medium text-white/80">
-                    Custom plan set at your free consultation.
-                  </p>
-                  <div className="mt-6 flex flex-wrap gap-3">
-                    <CTA href="#pricing" variant="gradient">
-                      Get pricing →
-                    </CTA>
-                    <CTA
-                      href={INJECTABLES_MARKETING.bookHref}
-                      variant="outline"
-                      className="!border-white !text-white hover:!bg-white/10"
-                    >
-                      Book free consult
-                    </CTA>
-                  </div>
+            <div className="relative min-h-[420px] overflow-hidden rounded-[1.75rem] border-4 border-black shadow-[8px_8px_0_0_rgba(230,0,126,0.28)] sm:min-h-[520px]">
+              <Image
+                src={images.hero}
+                alt="Botox and fillers — medical aesthetics at Hello Gorgeous Med Spa Oswego"
+                fill
+                priority
+                className="object-cover object-[center_28%]"
+                sizes="(max-width: 1024px) 100vw, 50vw"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/25 to-black/10" />
+              <div className="absolute inset-0 flex flex-col justify-end p-6 sm:p-8">
+                <span className="inline-flex w-fit rounded-full bg-[#E6007E] px-3 py-1 text-[10px] font-bold uppercase tracking-[0.16em] text-white">
+                  Medical aesthetics
+                </span>
+                <h1 className="mt-4 font-serif text-4xl font-black leading-[1.05] text-white sm:text-5xl">
+                  Your First Botox Treatment
+                </h1>
+                <p className="mt-3 text-lg font-bold text-white">
+                  Starting at $10 Per Unit
+                </p>
+                <p className="mt-1 text-sm font-medium text-white/80">
+                  Custom plan set at your free consultation.
+                </p>
+                <div className="mt-6 flex flex-wrap gap-3">
+                  <CTA href="#pricing" variant="gradient">
+                    Get pricing →
+                  </CTA>
+                  <CTA
+                    href={INJECTABLES_MARKETING.bookHref}
+                    variant="outline"
+                    className="!border-white !text-white hover:!bg-white/10"
+                  >
+                    Book free consult
+                  </CTA>
                 </div>
               </div>
-            </FadeUp>
-            <FadeUp delayMs={70}>
-              <InjectablesTreatPicker />
-            </FadeUp>
+            </div>
+            <InjectablesTreatPicker />
           </div>
         </Section>
 

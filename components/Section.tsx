@@ -21,6 +21,13 @@ export function FadeUp({
   React.useEffect(() => {
     if (!ref.current) return;
     const el = ref.current;
+    // Paint immediately when already in view (avoids stuck opacity:0 on first paint).
+    const rect = el.getBoundingClientRect();
+    const inView = rect.top < window.innerHeight * 0.9 && rect.bottom > 0;
+    if (inView) {
+      setVisible(true);
+      return;
+    }
     const io = new IntersectionObserver(
       ([entry]) => {
         if (entry?.isIntersecting) setVisible(true);
