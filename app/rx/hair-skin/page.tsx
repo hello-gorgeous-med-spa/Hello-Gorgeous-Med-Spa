@@ -11,17 +11,17 @@ const PAGE_URL = `${SITE.url}${PAGE_PATH}`;
 const hub = getRegenCategoryHub("hair-skin")!;
 
 const baseMeta = pageMetadata({
-  title: `${REGEN_SITE.name} Hair & Skin Rx | ManeTain, GHK-Cu & Dermatology | Oswego, IL`,
+  title: `${REGEN_SITE.name} Hair & Skin | GHK-Cu Copper Peptide + Biotin | Oswego, IL`,
   description:
-    "Prescription hair regrowth and dermatology creams — ManeTain, minoxidil, Glow, Miracle & Erase. NP-supervised RE GEN by Hello Gorgeous Med Spa. Pay first, intake, telehealth, then ship.",
+    "GHK-Cu copper peptide cream for collagen and skin repair, plus injectable biotin for hair, skin, and nails. NP-supervised RE GEN by Hello Gorgeous Med Spa — telehealth, then ship.",
   path: PAGE_PATH,
   keywords: [
-    "RE GEN hair loss",
-    "ManeTain minoxidil",
-    "prescription skin cream Illinois",
-    "GHK-Cu Oswego",
-    "hair regrowth telehealth",
-    "Rx dermatology Naperville",
+    "GHK-Cu cream Illinois",
+    "copper peptide Oswego",
+    "biotin injection hair skin nails",
+    "RE GEN hair and skin",
+    "prescription dermatology Naperville",
+    "hair regrowth telehealth Illinois",
   ],
 });
 
@@ -32,10 +32,10 @@ export const metadata: Metadata = {
     url: PAGE_URL,
     images: [
       {
-        url: `${SITE.url}/images/regen/prod-manetain.png`,
+        url: `${SITE.url}/images/regen/catalog/ghk-cu.png`,
         width: 1200,
         height: 900,
-        alt: "RE GEN hair and skin prescription care — ManeTain and dermatology creams",
+        alt: "RE GEN GHK-Cu copper peptide cream — hair and skin care",
       },
     ],
   },

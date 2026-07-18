@@ -92,16 +92,40 @@ const WEIGHT_LOSS_PRODUCTS: RxCategoryProduct[] = [
   },
 ];
 
+const HAIR_SKIN_GOAL_HREF = "/rx?goal=skin-and-hair";
+
 const HAIR_SKIN_PRODUCTS: RxCategoryProduct[] = [
+  {
+    id: "p58",
+    name: "GHK-Cu Cream",
+    description:
+      "Copper peptide topical — collagen support, skin repair & firmness across cream strengths",
+    priceLabel: "from $125/tube",
+    href: `${HAIR_SKIN_GOAL_HREF}&product=p58`,
+    image: "/images/regen/catalog/ghk-cu.png",
+    imageAlt: "GHK-Cu copper peptide cream — RE GEN hair and skin",
+    badge: "POPULAR",
+    rx: false,
+  },
+  {
+    id: "biotin",
+    name: "Biotin Injection",
+    description: "Injectable biotin for hair, skin & nail support — NP-reviewed before ship",
+    priceLabel: "from $82.65/vial",
+    href: HAIR_SKIN_GOAL_HREF,
+    image: "/regen-site/assets/prod-biotin-regen.png",
+    imageAlt: "Biotin injection — RE GEN hair, skin and nails",
+    badge: "NEW",
+    rx: false,
+  },
   {
     id: "manetain",
     name: "ManeTain Hair Spray",
     description: "Minoxidil 5% leave-in with fluocinolone & retinoic — defend thinning hair",
     priceLabel: "$172.50",
-    href: "#faq",
+    href: HAIR_SKIN_GOAL_HREF,
     image: "/images/regen/prod-manetain.png",
     imageAlt: "ManeTain prescription hair spray — RE GEN",
-    badge: "POPULAR",
     rx: true,
   },
   {
@@ -109,27 +133,17 @@ const HAIR_SKIN_PRODUCTS: RxCategoryProduct[] = [
     name: "Oral Minoxidil",
     description: "Low-dose systemic hair regrowth support when topicals aren’t enough",
     priceLabel: "from $95/30ct",
-    href: "#faq",
+    href: HAIR_SKIN_GOAL_HREF,
     image: "/images/regen/prod-manetain.png",
     imageAlt: "Oral minoxidil — RE GEN hair regrowth",
     rx: true,
-  },
-  {
-    id: "ghk-cu",
-    name: "GHK-Cu Cream",
-    description: "Copper peptide topical — skin repair, tightening & collagen support",
-    priceLabel: "from $125/tube",
-    href: "#faq",
-    image: "/regen-site/assets/prod-ghkcu-regen.png",
-    imageAlt: "GHK-Cu copper peptide cream — RE GEN",
-    rx: false,
   },
   {
     id: "glow",
     name: "Glow Cream",
     description: "Even skin tone — kojic acid, ascorbic acid & hyaluronic acid",
     priceLabel: "$125/30g",
-    href: "#faq",
+    href: HAIR_SKIN_GOAL_HREF,
     image: "/images/regen/prod-glow.jpg",
     imageAlt: "Glow brightening cream — RE GEN dermatology",
     rx: true,
@@ -139,7 +153,7 @@ const HAIR_SKIN_PRODUCTS: RxCategoryProduct[] = [
     name: "Miracle Cream",
     description: "Extreme repair & brightening — hydroquinone + retinoic blend",
     priceLabel: "$125/30g",
-    href: "#faq",
+    href: HAIR_SKIN_GOAL_HREF,
     image: "/images/regen/prod-miracle.jpg",
     imageAlt: "Miracle repair cream — RE GEN",
     rx: true,
@@ -149,7 +163,7 @@ const HAIR_SKIN_PRODUCTS: RxCategoryProduct[] = [
     name: "Erase Cream",
     description: "Acne-focused Rx — retinoic acid with clindamycin",
     priceLabel: "$125/30g",
-    href: "#faq",
+    href: HAIR_SKIN_GOAL_HREF,
     image: "/images/regen/prod-erase.jpg",
     imageAlt: "Erase acne cream — RE GEN",
     rx: true,
@@ -483,20 +497,24 @@ const WEIGHT_LOSS_FAQ = [
 
 const HAIR_SKIN_FAQ = [
   {
-    q: "Are RE GEN hair and skin products prescription?",
-    a: "Yes — these are compounded prescription-strength formulas, not OTC cosmeceuticals. Ryan Kent, FNP-BC reviews your goals, health history, and contraindications before prescribing.",
+    q: "What is GHK-Cu?",
+    a: "GHK-Cu is a copper peptide used topically for collagen support, skin repair, and firmness. RE GEN offers cream strengths so your NP can match intensity to your goals — not an OTC cosmeceutical guess.",
+  },
+  {
+    q: "What does injectable biotin do for hair and nails?",
+    a: "Biotin (vitamin B7) supports keratin pathways tied to hair, skin, and nails. Injectable supply is NP-reviewed for appropriateness; results vary and we set realistic timelines — often months for visible hair change.",
+  },
+  {
+    q: "Can I use GHK-Cu and biotin together?",
+    a: "Often, yes — copper peptide cream for skin repair plus biotin for hair/nail support is a common pairing. Your intake and NP review confirm layering, dosing, and any contraindications before anything ships.",
   },
   {
     q: "How long until I see results?",
-    a: "Skin actives often show visible change in 6–12 weeks with consistent use. Hair treatments typically need 3–6 months — hair growth cycles are slow; we set realistic expectations up front.",
-  },
-  {
-    q: "Can I combine hair and skin products?",
-    a: "Often, yes — your provider builds a simple AM/PM routine and tells you how to layer actives safely. We avoid stacking conflicting retinoids or irritants without guidance.",
+    a: "Skin actives like GHK-Cu often show visible change in 6–12 weeks with consistent use. Hair and nail support (including biotin and minoxidil protocols) typically needs 3–6 months — growth cycles are slow.",
   },
   {
     q: "What is ManeTain?",
-    a: "ManeTain is our prescription leave-in hair spray with minoxidil 5% plus supportive actives — designed for thinning hair defense and regrowth support under NP supervision.",
+    a: "ManeTain is our prescription leave-in hair spray with minoxidil 5% plus supportive actives — available when you want a topical hair-loss protocol alongside or instead of peptide and biotin options.",
   },
   {
     q: "Do I need telehealth before my order ships?",
@@ -505,10 +523,6 @@ const HAIR_SKIN_FAQ = [
   {
     q: "Who compounds these medications?",
     a: "Licensed US compounding pharmacies partner with Hello Gorgeous Med Spa — 503A/503B facilities, not gray-market research chemicals.",
-  },
-  {
-    q: "Can women use these hair treatments?",
-    a: "Many protocols are appropriate for women with thinning hair — pregnancy and breastfeeding are important screens. Your intake captures this before prescribing.",
   },
 ] as const;
 
@@ -668,20 +682,20 @@ export const REGEN_CATEGORY_HUBS: RxCategoryHub[] = [
     navLabel: "Hair & Skin",
     hubPath: "/rx/hair-skin",
     previewImage: REGEN_PREVIEW_FALLBACKS["hair-skin"],
-    previewAlt: "RE GEN hair and skin Rx",
+    previewAlt: "RE GEN GHK-Cu copper peptide and biotin for hair and skin",
     heroImage: "/images/regen/hero-hair-skin.jpg",
-    heroImageAlt: "RE GEN prescription hair regrowth and dermatology care",
+    heroImageAlt: "RE GEN GHK-Cu copper peptide cream and biotin for hair, skin, and nails",
     hero: {
       eyebrow: "RE GEN · Hair + Skin",
-      title: "Keep your hair.",
-      titleAccent: "Love your skin.",
+      title: "Glow from the",
+      titleAccent: "copper peptide.",
       subtitle:
-        "Prescription-strength dermatology creams for brightening, acne, and anti-aging — plus ManeTain and minoxidil protocols for thinning hair. NP-reviewed before anything ships.",
+        "GHK-Cu cream for collagen and skin repair, plus injectable biotin for hair, skin, and nails — NP-reviewed before anything ships. ManeTain, minoxidil, and derm creams still available below.",
     },
     steps: PAY_FIRST_STEPS,
     products: HAIR_SKIN_PRODUCTS,
-    trustLine: "Compounded Rx · Ryan Kent, FNP-BC · Shipped after approval",
-    getStartedPath: "/rx",
+    trustLine: "GHK-Cu + biotin · Ryan Kent, FNP-BC · Shipped after approval",
+    getStartedPath: HAIR_SKIN_GOAL_HREF,
     faq: [...HAIR_SKIN_FAQ],
   },
   {
