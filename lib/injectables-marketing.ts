@@ -153,6 +153,9 @@ export const INJECTABLES_FILLER_PACKAGES = [
     bullets: ["Half-syringe at consult", "Lip Studio AI preview", "2-week touch-up in plan"],
     href: "/lip-filler-oswego",
     highlight: true,
+    image: "/images/injectables/promo-half-syringe.png",
+    imageAlt: "½ syringe lip filler — Hello Gorgeous Med Spa Oswego",
+    imagePosition: "object-[center_35%]",
   },
   {
     id: "lip-2",
@@ -161,6 +164,9 @@ export const INJECTABLES_FILLER_PACKAGES = [
     detail: "$798 total",
     bullets: ["Volume + definition", "Natural facial balance", "Swelling typically 24–48 hr"],
     href: "/lip-filler-oswego",
+    image: "/images/injectables/hero-lip-injection.png",
+    imageAlt: "Lip filler treatment with medical injector — Hello Gorgeous Oswego",
+    imagePosition: "object-[center_30%]",
   },
   {
     id: "dermal-1",
@@ -169,6 +175,9 @@ export const INJECTABLES_FILLER_PACKAGES = [
     detail: "per syringe",
     bullets: ["Cheeks · jaw · chin · temples", "Hyaluronidase available", "Cherry financing"],
     href: "/dermal-fillers-oswego",
+    image: "/images/injectables/hero-chin-glove.png",
+    imageAlt: "Dermal filler consult — medical aesthetics at Hello Gorgeous",
+    imagePosition: "object-[center_40%]",
   },
   {
     id: "dermal-2",
@@ -177,6 +186,9 @@ export const INJECTABLES_FILLER_PACKAGES = [
     detail: "save vs two singles",
     bullets: ["Full-face mapping", "Juvederm · Restylane · RHA", "Quoted at consult"],
     href: "/dermal-fillers-oswego",
+    image: "/images/injectables/hero-glam-portrait.png",
+    imageAlt: "Glowing skin after dermal filler mapping — Hello Gorgeous Med Spa",
+    imagePosition: "object-[center_25%]",
   },
 ] as const;
 

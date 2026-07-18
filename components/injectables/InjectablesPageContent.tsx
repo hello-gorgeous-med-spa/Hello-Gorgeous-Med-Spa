@@ -299,27 +299,82 @@ export function InjectablesPageContent() {
           <FadeUp>
             <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#E6007E]">Pricing</p>
             <h2 className="mt-2 font-serif text-3xl font-black sm:text-4xl">Honest menu · free consult first</h2>
+            <p className="mt-3 max-w-2xl font-medium text-black/65">
+              Lip & dermal filler packages — see the look, then book a free consult for your custom map.
+            </p>
           </FadeUp>
-          <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+
+          {/* Visual strip — art from your injectables shoot */}
+          <div className="mt-8 grid gap-3 sm:grid-cols-3">
+            {[
+              {
+                src: images.glamPortrait,
+                alt: "Glowing skin — injectables aesthetic at Hello Gorgeous",
+                label: "Natural glow",
+                pos: "object-[center_28%]",
+              },
+              {
+                src: images.lipPromo,
+                alt: "½ syringe lip filler art — Hello Gorgeous Med Spa",
+                label: "½ syringe available",
+                pos: "object-cover",
+              },
+              {
+                src: images.chinGlove,
+                alt: "Medical injector consult — Hello Gorgeous Oswego",
+                label: "NP-directed care",
+                pos: "object-[center_42%]",
+              },
+            ].map((shot) => (
+              <div
+                key={shot.src}
+                className="relative aspect-[5/3] overflow-hidden rounded-2xl border-4 border-black shadow-[6px_6px_0_0_rgba(230,0,126,0.28)]"
+              >
+                <Image src={shot.src} alt={shot.alt} fill className={`object-cover ${shot.pos}`} sizes="33vw" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
+                <p className="absolute bottom-3 left-3 rounded-full border border-white/30 bg-black/40 px-3 py-1 text-[11px] font-bold uppercase tracking-wide text-white backdrop-blur">
+                  {shot.label}
+                </p>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {INJECTABLES_FILLER_PACKAGES.map((pkg) => (
               <article
                 key={pkg.id}
-                className={`flex h-full flex-col rounded-3xl border-4 border-black bg-white p-5 shadow-[8px_8px_0_0_rgba(230,0,126,0.28)] ${pkg.highlight ? "ring-4 ring-[#E6007E]/30" : ""}`}
+                className={`group flex h-full flex-col overflow-hidden rounded-3xl border-4 border-black bg-white shadow-[8px_8px_0_0_rgba(230,0,126,0.28)] transition hover:-translate-y-0.5 ${
+                  "highlight" in pkg && pkg.highlight ? "ring-4 ring-[#E6007E]/30" : ""
+                }`}
               >
-                <h3 className="text-lg font-bold text-[#E6007E]">▸ {pkg.name}</h3>
-                <p className="mt-2 text-3xl font-black">{pkg.price}</p>
-                <p className="text-xs font-semibold text-black/55">{pkg.detail}</p>
-                <ul className="mt-4 flex-1 space-y-2 text-sm font-medium text-black/80">
-                  {pkg.bullets.map((b) => (
-                    <li key={b}>• {b}</li>
-                  ))}
-                </ul>
-                <Link
-                  href={pkg.href}
-                  className="mt-5 inline-flex items-center justify-center rounded-full bg-gradient-to-r from-[#FF2D8E] to-[#E6007E] px-4 py-2.5 text-sm font-bold text-white"
-                >
-                  Learn more
-                </Link>
+                <div className="relative aspect-[4/3] overflow-hidden border-b-4 border-black">
+                  <Image
+                    src={pkg.image}
+                    alt={pkg.imageAlt}
+                    fill
+                    className={`object-cover transition duration-500 group-hover:scale-[1.04] ${pkg.imagePosition}`}
+                    sizes="(max-width: 1024px) 50vw, 25vw"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-transparent" />
+                  <p className="absolute bottom-3 left-3 font-serif text-2xl font-black text-white drop-shadow">
+                    {pkg.price}
+                  </p>
+                </div>
+                <div className="flex flex-1 flex-col p-5">
+                  <h3 className="text-lg font-bold text-[#E6007E]">▸ {pkg.name}</h3>
+                  <p className="mt-1 text-xs font-semibold text-black/55">{pkg.detail}</p>
+                  <ul className="mt-4 flex-1 space-y-2 text-sm font-medium text-black/80">
+                    {pkg.bullets.map((b) => (
+                      <li key={b}>• {b}</li>
+                    ))}
+                  </ul>
+                  <Link
+                    href={pkg.href}
+                    className="mt-5 inline-flex items-center justify-center rounded-full bg-gradient-to-r from-[#FF2D8E] to-[#E6007E] px-4 py-2.5 text-sm font-bold text-white"
+                  >
+                    Learn more
+                  </Link>
+                </div>
               </article>
             ))}
           </div>
