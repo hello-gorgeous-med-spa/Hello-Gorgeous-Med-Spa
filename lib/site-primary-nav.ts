@@ -6,6 +6,7 @@
 import { BOOKING_URL, RX_PATIENT_CARE_PATH } from "@/lib/flows";
 import { LABS_NAV } from "@/lib/labs-nav";
 import { BROW_MICROBLADING_NAV } from "@/lib/brow-journey-marketing";
+import { FACIALS_PEELS_NAV, FACIALS_PEELS_PATH } from "@/lib/facials-peels-marketing";
 import { MORPHEUS8_PATH } from "@/lib/morpheus8-marketing";
 import { SOLARIA_CO2_PATH } from "@/lib/solaria-marketing";
 import { QUANTUM_RF_PATH } from "@/lib/quantum-rf-marketing";
@@ -17,10 +18,12 @@ import { QUIZ_NAV } from "@/lib/quiz-nav";
 import { SKIN_101_NAV } from "@/lib/skin-101-nav";
 import { SPECIALS_PATH } from "@/lib/specials";
 import { SHOP_RX_NAV } from "@/lib/medical-mega-menu";
+import { FLOWWAVE_PATH } from "@/lib/flowwave-marketing";
 
 export const PRIMARY_NAV_HUBS = [
   { id: "services", label: "Services", href: "/services", hasDropdown: true },
-  { id: "flowwave", label: "FlowWave", href: "/services/flowwave", hasDropdown: false },
+  { id: "facials", label: FACIALS_PEELS_NAV.label, href: FACIALS_PEELS_PATH, hasDropdown: false },
+  { id: "injectables", label: INJECTABLES_NAV.label, href: INJECTABLES_PATH, hasDropdown: false },
   {
     id: "microblading",
     label: BROW_MICROBLADING_NAV.label,
@@ -30,9 +33,7 @@ export const PRIMARY_NAV_HUBS = [
   { id: "morpheus8", label: "Morpheus8", href: MORPHEUS8_PATH, hasDropdown: false },
   { id: "solaria", label: "Solaria CO₂", href: SOLARIA_CO2_PATH, hasDropdown: false },
   { id: "quantum", label: "Quantum RF", href: QUANTUM_RF_PATH, hasDropdown: false },
-  { id: "injectables", label: INJECTABLES_NAV.label, href: INJECTABLES_PATH, hasDropdown: false },
   { id: "shop-rx", label: SHOP_RX_NAV.label, href: SHOP_RX_NAV.href, hasDropdown: true },
-  { id: "labs", label: LABS_NAV.label, href: LABS_NAV.href, hasDropdown: true },
   { id: "specials", label: "Specials", href: SPECIALS_PATH, hasDropdown: true },
   { id: "about", label: "About", href: "/about", hasDropdown: true },
   {
@@ -42,6 +43,13 @@ export const PRIMARY_NAV_HUBS = [
     hasDropdown: false,
   },
 ] as const;
+
+/** Folded out of top-level pills — still reachable via Services / Specials / Shop RX. */
+export const CONDENSED_NAV_LINKS = {
+  flowwave: { label: "FlowWave Shockwave", href: FLOWWAVE_PATH, sub: "Deep-tissue pain & recovery — intro $49" },
+  supplements: { label: "Supplements", href: "/shop", sub: "Fullscript professional dispensary" },
+  labs: { label: LABS_NAV.label, href: LABS_NAV.href, sub: "Cash-pay panels · in-house draws Oswego" },
+} as const;
 
 export type PrimaryNavHubId = (typeof PRIMARY_NAV_HUBS)[number]["id"];
 
@@ -86,6 +94,11 @@ export const SPECIALS_NAV_EXTRA_LINKS = [
   { label: "0% Financing", href: "/financing", sub: "Cherry & CareCredit options" },
   { label: "Gentlemen's Club", href: GENTLEMENS_CLUB_PATH, sub: "Men's TRT, Brotox & peptides" },
   { label: "Ladies' Club", href: LADIES_CLUB_PATH, sub: "Women's BHRT, GLP-1 & peptides" },
+  {
+    label: CONDENSED_NAV_LINKS.supplements.label,
+    href: CONDENSED_NAV_LINKS.supplements.href,
+    sub: CONDENSED_NAV_LINKS.supplements.sub,
+  },
 ] as const;
 
 /** In-office Services — prescription programs live under Shop RX only. */

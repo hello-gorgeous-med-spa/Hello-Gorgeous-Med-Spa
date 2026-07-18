@@ -24,6 +24,11 @@ import { SOLARIA_CO2_PATH, isSolariaNavActive } from "@/lib/solaria-marketing";
 import { QUANTUM_RF_PATH, isQuantumRfNavActive } from "@/lib/quantum-rf-marketing";
 import { INJECTABLES_NAV, INJECTABLES_PATH, isInjectablesNavActive } from "@/lib/injectables-marketing";
 import {
+  FACIALS_PEELS_NAV,
+  FACIALS_PEELS_PATH,
+  isFacialsPeelsNavActive,
+} from "@/lib/facials-peels-marketing";
+import {
   ABOUT_NAV_EXTRA_LINKS,
   isAboutNavActive,
   SERVICES_EXPLORE_LINKS,
@@ -33,7 +38,6 @@ import {
 import { isMedicalNavActive } from "@/lib/medical-nav";
 import { labsNavSection } from "@/lib/labs-nav";
 import { medicalMegaMenuMobileGroups, SHOP_RX_NAV } from "@/lib/medical-mega-menu";
-import { FlowWaveNavLogo } from "@/components/flowwave/FlowWaveLogo";
 import { RegenNavLogo } from "@/components/regen/RegenLogo";
 import { QUIZ_NAV } from "@/lib/quiz-nav";
 import { HG_TAGLINE } from "@/lib/brand-tagline";
@@ -64,10 +68,10 @@ const NAV = {
             badge: "NEW",
           },
           {
-            label: "Facials & Peels Menu",
-            href: "/services/facials-and-peels",
-            sub: "HydraFacial · dermaplaning · VI Peel · IPL",
-            badge: "NEW",
+            label: "Facials & Peels Journey",
+            href: FACIALS_PEELS_PATH,
+            sub: "Square protocols · HydraFacial · peels · IPL",
+            badge: "JOURNEY",
           },
           {
             label: "Laser Hair Removal Menu",
@@ -497,6 +501,7 @@ export function Header() {
   const isSolariaNavActiveState = isSolariaNavActive(pathname ?? null);
   const isQuantumRfNavActiveState = isQuantumRfNavActive(pathname ?? null);
   const isInjectablesNavActiveState = isInjectablesNavActive(pathname ?? null);
+  const isFacialsNavActiveState = isFacialsPeelsNavActive(pathname ?? null);
 
   const isServicesNavActive =
     !isFlowWaveNavActive &&
@@ -505,6 +510,7 @@ export function Header() {
     !isSolariaNavActiveState &&
     !isQuantumRfNavActiveState &&
     !isInjectablesNavActiveState &&
+    !isFacialsNavActiveState &&
     (isActive("/services") ||
     pathname === "/gallery" ||
     pathname === REGENERATIVE_MEDICINE_PATH ||
@@ -611,21 +617,27 @@ export function Header() {
               />
             </div>
 
-            {/* FlowWave — focused shockwave therapy launch */}
-            <div
-              className="relative flex items-center"
-              onMouseEnter={closeDropdown}
-            >
+            {/* Facials — esthetic flagship Journey */}
+            <div className="relative flex items-center" onMouseEnter={closeDropdown}>
               <Link
-                href={FLOWWAVE_PATH}
-                className={cx(NAV_LINK_BASE, "h-9 gap-1.5")}
-                style={navPillStyle(0, isFlowWaveNavActive)}
-                aria-label="FlowWave shockwave therapy"
+                href={FACIALS_PEELS_PATH}
+                className={NAV_LINK_BASE}
+                style={navPillStyle(0, isFacialsNavActiveState)}
+                aria-label="Facials and peels Journey"
               >
-                <FlowWaveNavLogo />
-                <span className="rounded-full bg-gradient-to-r from-[#FF2D8E] to-[#E6007E] px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wide text-white">
-                  New
-                </span>
+                {FACIALS_PEELS_NAV.label}
+              </Link>
+            </div>
+
+            {/* Botox & Fillers — injectables flagship */}
+            <div className="relative flex items-center" onMouseEnter={closeDropdown}>
+              <Link
+                href={INJECTABLES_PATH}
+                className={NAV_LINK_BASE}
+                style={navPillStyle(0, isInjectablesNavActiveState)}
+                aria-label="Botox and dermal fillers — injectables menu"
+              >
+                {INJECTABLES_NAV.label}
               </Link>
             </div>
 
@@ -662,18 +674,6 @@ export function Header() {
               </Link>
             </div>
 
-            {/* Botox & Fillers — injectables flagship */}
-            <div className="relative flex items-center" onMouseEnter={closeDropdown}>
-              <Link
-                href={INJECTABLES_PATH}
-                className={NAV_LINK_BASE}
-                style={navPillStyle(0, isInjectablesNavActiveState)}
-                aria-label="Botox and dermal fillers — injectables menu"
-              >
-                {INJECTABLES_NAV.label}
-              </Link>
-            </div>
-
             {/* REGEN STORE — direct link to the RE GEN site (no hover mega menu) */}
             <div
               className="relative flex items-center"
@@ -692,21 +692,7 @@ export function Header() {
               </Link>
             </div>
 
-            {/* Supplements — Fullscript dispensary */}
-            <div
-              className="relative flex items-center"
-              onMouseEnter={closeDropdown}
-            >
-              <Link
-                href="/shop"
-                className={NAV_LINK_BASE}
-                style={navPillStyle(0, pathname === "/shop")}
-              >
-                Supplements
-              </Link>
-            </div>
-
-            {/* Specials */}
+            {/* Specials — includes Gift Cards, Clubs, Supplements */}
             <div
               className={cx("relative flex items-center", activeDropdown === "specials" && "z-[110]")}
               onMouseEnter={() => openDropdown("specials")}
@@ -815,18 +801,24 @@ export function Header() {
             </Link>
 
             <Link
-              href={FLOWWAVE_PATH}
+              href={FACIALS_PEELS_PATH}
               onClick={() => setMobileOpen(false)}
-              className="mb-4 flex w-full items-center justify-between gap-2 rounded-xl border border-[#E6007E]/40 bg-gradient-to-r from-[#2d1020] to-black px-4 py-3.5 text-sm font-bold text-white"
+              className="mb-3 flex w-full items-center justify-between gap-2 rounded-xl border border-[#E6007E]/40 bg-gradient-to-r from-[#2d1020] to-black px-4 py-3.5 text-sm font-bold text-white"
             >
-              <span className="flex items-center gap-2">
-                <FlowWaveNavLogo />
-                <span className="text-xs font-bold uppercase tracking-wide text-[#FFB8DC]">
-                  Shockwave
-                </span>
+              <span className="flex flex-col items-start gap-0.5">
+                <span>Facials & Peels</span>
+                <span className="text-xs font-semibold text-[#FFB8DC]">Square protocols · HydraFacial · from $75</span>
               </span>
-              <span className="rounded-full bg-gradient-to-r from-[#FF2D8E] to-[#E6007E] px-2 py-0.5 text-[9px] font-bold uppercase text-white">
-                New
+            </Link>
+
+            <Link
+              href={INJECTABLES_PATH}
+              onClick={() => setMobileOpen(false)}
+              className="mb-3 flex w-full items-center justify-between gap-2 rounded-xl border border-[#E6007E]/40 bg-gradient-to-r from-[#2d1020] to-black px-4 py-3.5 text-sm font-bold text-white"
+            >
+              <span className="flex flex-col items-start gap-0.5">
+                <span>{INJECTABLES_NAV.label}</span>
+                <span className="text-xs font-semibold text-[#FFB8DC]">Botox $10/unit · lip filler $450</span>
               </span>
             </Link>
 
@@ -874,18 +866,7 @@ export function Header() {
               </span>
             </Link>
 
-            <Link
-              href={INJECTABLES_PATH}
-              onClick={() => setMobileOpen(false)}
-              className="mb-4 flex w-full items-center justify-between gap-2 rounded-xl border border-[#E6007E]/40 bg-gradient-to-r from-[#2d1020] to-black px-4 py-3.5 text-sm font-bold text-white"
-            >
-              <span className="flex flex-col items-start gap-0.5">
-                <span>{INJECTABLES_NAV.label}</span>
-                <span className="text-xs font-semibold text-[#FFB8DC]">Botox $10/unit · lip filler $450</span>
-              </span>
-            </Link>
-
-            {/* Services accordion */}
+            {/* Services accordion — FlowWave & remaining services live here */}
             {[
               { key: "services", label: "Services", links: NAV.services.sections.flatMap((s) => s.links) },
               {
@@ -894,7 +875,6 @@ export function Header() {
                 groups: medicalMegaMenuMobileGroups(),
                 highlight: true,
               },
-              { key: "supplements", label: "Supplements", links: [{ label: "Fullscript Dispensary", href: "/shop", sub: "Professional-grade supplements shipped to your door" }] },
               { key: "specials", label: "Specials", links: NAV.specials.links, highlight: true },
               { key: "about", label: "About", links: NAV.about.links },
             ].map(({ key, label, links, groups, highlight }) => (
