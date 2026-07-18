@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 
 import { CTA } from "@/components/CTA";
@@ -74,12 +75,23 @@ function MenuSectionRow({ section, index }: { section: ServiceMenuSection; index
               ))}
             </ul>
             <PricingAccordion rows={section.pricing} />
-            <Link
-              href={section.learnMoreHref}
-              className="mt-5 inline-block text-sm font-bold text-[#FF2D8E] hover:underline"
-            >
-              Full treatment details →
-            </Link>
+            {section.learnMoreHref.startsWith("http") ? (
+              <a
+                href={section.learnMoreHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-5 inline-block text-sm font-bold text-[#FF2D8E] hover:underline"
+              >
+                Learn more on InMode.com →
+              </a>
+            ) : (
+              <Link
+                href={section.learnMoreHref}
+                className="mt-5 inline-block text-sm font-bold text-[#FF2D8E] hover:underline"
+              >
+                Full treatment details →
+              </Link>
+            )}
           </div>
         </div>
       </article>
@@ -88,7 +100,7 @@ function MenuSectionRow({ section, index }: { section: ServiceMenuSection; index
 }
 
 export function ServiceMenuPageLayout({ config }: { config: ServiceMenuConfig }) {
-  const { hero, sections, faqs, gallery, heroVideo, videos, results } = config;
+  const { hero, sections, faqs, gallery, heroVideo, videos, results, manufacturerOverview } = config;
   const slug = slugFromMenuPath(config.path);
   const pageData = getServicePageOswego(slug);
   const conversionProfile = getServiceConversionProfile(slug);
@@ -144,6 +156,56 @@ export function ServiceMenuPageLayout({ config }: { config: ServiceMenuConfig })
           </FadeUp>
         </div>
       </Section>
+
+      {manufacturerOverview ? (
+        <Section
+          id="technology"
+          className="scroll-mt-24 border-b-4 border-black !px-0 py-10 md:py-14"
+          aria-label="Manufacturer technology overview"
+        >
+          <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+            <FadeUp>
+              <p className="text-center text-xs font-bold uppercase tracking-widest text-[#FFB8DC]">
+                InMode manufacturer
+              </p>
+              <h2 className="mt-2 text-center text-2xl font-black md:text-3xl">
+                {manufacturerOverview.title}
+              </h2>
+              {manufacturerOverview.description ? (
+                <p className="mx-auto mt-3 max-w-2xl text-center text-sm text-white/70">
+                  {manufacturerOverview.description}
+                </p>
+              ) : null}
+              <figure className="mx-auto mt-8 overflow-hidden rounded-2xl border-2 border-white/20 bg-white">
+                <Image
+                  src={manufacturerOverview.imageSrc}
+                  alt={manufacturerOverview.imageAlt}
+                  width={1024}
+                  height={480}
+                  className="h-auto w-full object-contain"
+                  sizes="(max-width: 768px) 100vw, 896px"
+                  loading="lazy"
+                />
+                <figcaption className="border-t border-black/10 bg-white px-4 py-2 text-center text-xs text-black/55">
+                  Manufacturer education graphic. Device trademarks belong to their owners.
+                  Candidacy confirmed in consultation.
+                </figcaption>
+              </figure>
+              <p className="mt-5 text-center text-sm text-white/80">
+                <a
+                  href={manufacturerOverview.learnMoreHref}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-semibold text-[#FFB8DC] underline decoration-[#E6007E] underline-offset-2 hover:text-white"
+                >
+                  {manufacturerOverview.learnMoreLabel ?? "Learn more on InMode.com"}
+                </a>
+                <span> — official manufacturer page (opens in a new tab)</span>
+              </p>
+            </FadeUp>
+          </div>
+        </Section>
+      ) : null}
 
       {hasClinicMedia ? (
         <Section className="border-b-4 border-black !px-0 py-8 md:py-12">

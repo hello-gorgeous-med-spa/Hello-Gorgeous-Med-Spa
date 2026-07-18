@@ -83,7 +83,7 @@ export const SOLARIA_CO2_OSWEGO_MENU = buildOswegoMenu("solaria-co2-oswego", {
     { label: "Morpheus8 Burst — deep remodeling partner", price: "Compare →", href: "/morpheus8-burst-oswego" },
     { label: "Chemical peels for lighter resurfacing", price: "Menu →", href: "/services/facials-and-peels" },
   ],
-  howItWorksLearnMore: "/services/facials-and-peels",
+  howItWorksLearnMore: "https://www.inmodemd.com/workstation/solaria/",
   careGuideHref: "/pre-post-care/solaria-co2",
   treatmentTime: "20–45 min",
   whatToExpectDescription:
@@ -102,6 +102,16 @@ export const SOLARIA_CO2_OSWEGO_MENU = buildOswegoMenu("solaria-co2-oswego", {
     "Chemical peels for maintenance after resurfacing",
     "Fitzpatrick I–IV skin tones typically best suited",
   ],
+  manufacturerOverview: {
+    title: "What is Solaria?",
+    description:
+      "Solaria by InMode fractional CO₂ is indicated for ablative skin resurfacing — precise microbeam treatments with faster healing than traditional full-field CO₂.",
+    imageSrc: "/images/solaria/solaria-inmode-manufacturer-overview.jpg",
+    imageAlt:
+      "InMode Solaria CO₂ workstation with key benefits — fractional ablative skin resurfacing at Hello Gorgeous Med Spa, Oswego IL",
+    learnMoreHref: "https://www.inmodemd.com/workstation/solaria/",
+    learnMoreLabel: "Learn more on InMode.com",
+  },
 });
 
 export const QUANTUM_RF_OSWEGO_MENU = buildOswegoMenu("quantum-rf-oswego", {
@@ -134,7 +144,7 @@ export const QUANTUM_RF_OSWEGO_MENU = buildOswegoMenu("quantum-rf-oswego", {
     { label: "Morpheus8 Burst — skin-layer remodeling", price: "Compare →", href: "/morpheus8-burst-oswego" },
     { label: "GLP-1 weight loss when volume is the issue", price: "Learn →", href: "/glp-1-weight-loss-oswego" },
   ],
-  howItWorksLearnMore: "/morpheus8-burst-oswego",
+  howItWorksLearnMore: "https://www.inmodemd.com/technologies/quantumrf/",
   careGuideHref: "/pre-post-care/quantum-rf",
   treatmentTime: "30–45 min/area",
   whatToExpectDescription:
@@ -152,4 +162,14 @@ export const QUANTUM_RF_OSWEGO_MENU = buildOswegoMenu("quantum-rf-oswego", {
     "Solaria CO₂ for facial resurfacing",
     "CoolSculpting alternative — tightens as it slims",
   ],
+  manufacturerOverview: {
+    title: "What is QuantumRF?",
+    description:
+      "InMode QuantumRF uses lightweight cannulas (10, 17, and 25) to deliver fractionated bipolar RF beneath the skin for soft tissue contraction.",
+    imageSrc: "/images/quantum-rf/quantum-rf-inmode-handpieces-ba.jpg",
+    imageAlt:
+      "InMode QuantumRF handpieces 10, 17, and 25 with representative abdomen before and after — Hello Gorgeous Med Spa, Oswego IL",
+    learnMoreHref: "https://www.inmodemd.com/technologies/quantumrf/",
+    learnMoreLabel: "Learn more on InMode.com",
+  },
 });

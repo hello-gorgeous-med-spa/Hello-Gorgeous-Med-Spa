@@ -1,4 +1,8 @@
-import type { ServiceMenuConfig, ServiceMenuPriceRow } from "@/lib/service-menu-types";
+import type {
+  ServiceMenuConfig,
+  ServiceMenuManufacturerOverview,
+  ServiceMenuPriceRow,
+} from "@/lib/service-menu-types";
 import { BOOKING_URL } from "@/lib/flows";
 import { getServicePageOswego } from "@/lib/service-pages-oswego";
 
@@ -29,6 +33,8 @@ export type OswegoMenuCustom = {
   primaryCta?: { label: string; href: string };
   /** Overrides section 05 title (default: Related treatments in Oswego). */
   relatedSectionTitle?: string;
+  /** Official manufacturer education graphic + learn-more (shown on live Oswego landings). */
+  manufacturerOverview?: ServiceMenuManufacturerOverview;
 };
 
 /** Builds the standard 5-section dark menu config from Oswego landing copy. */
@@ -113,6 +119,9 @@ export function buildOswegoMenu(slug: string, custom: OswegoMenuCustom): Service
       },
     ],
     faqs: page.faqs.map((f) => ({ question: f.q, answer: f.a })),
+    ...(custom.manufacturerOverview
+      ? { manufacturerOverview: custom.manufacturerOverview }
+      : {}),
   };
 }
 

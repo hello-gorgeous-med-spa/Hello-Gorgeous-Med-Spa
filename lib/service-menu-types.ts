@@ -63,6 +63,15 @@ export type ServiceMenuResultSlide = {
   tagline?: string;
 };
 
+export type ServiceMenuManufacturerOverview = {
+  title: string;
+  description?: string;
+  imageSrc: string;
+  imageAlt: string;
+  learnMoreHref: string;
+  learnMoreLabel?: string;
+};
+
 export type ServiceMenuConfig = {
   path: string;
   metaTitle: string;
@@ -76,6 +85,8 @@ export type ServiceMenuConfig = {
   videos?: ServiceMenuVideo[];
   /** Before/after result carousel (InMode trifecta landings). */
   results?: ServiceMenuResultSlide[];
+  /** Official manufacturer education graphic + learn-more link (InMode, etc.). */
+  manufacturerOverview?: ServiceMenuManufacturerOverview;
   sections: ServiceMenuSection[];
   faqs: ServiceMenuFaq[];
 };
