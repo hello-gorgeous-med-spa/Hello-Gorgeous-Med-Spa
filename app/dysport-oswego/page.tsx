@@ -1,15 +1,17 @@
 import type { Metadata } from "next";
 
-import { OswegoMenuLanding } from "@/components/services/OswegoMenuLanding";
-import { DYSPORT_OSWEGO_MENU } from "@/lib/oswego-injectable-menus";
+import { NeurotoxinTreatmentPage } from "@/components/services/NeurotoxinTreatmentPage";
+import { DYSPORT_TREATMENT_LANDING } from "@/lib/dysport-treatment-landing";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
-  title: DYSPORT_OSWEGO_MENU.metaTitle,
-  description: DYSPORT_OSWEGO_MENU.metaDescription,
-  path: DYSPORT_OSWEGO_MENU.path,
+  title: DYSPORT_TREATMENT_LANDING.metaTitle,
+  description: DYSPORT_TREATMENT_LANDING.metaDescription,
+  path: DYSPORT_TREATMENT_LANDING.path,
 });
 
 export default function DysportOswegoPage() {
-  return <OswegoMenuLanding slug="dysport-oswego" config={DYSPORT_OSWEGO_MENU} breadcrumbName="Dysport Oswego" />;
+  return (
+    <NeurotoxinTreatmentPage content={DYSPORT_TREATMENT_LANDING} procedureName="Dysport" />
+  );
 }

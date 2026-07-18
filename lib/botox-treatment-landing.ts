@@ -1,4 +1,5 @@
 import type { InModeTreatmentLandingContent } from "@/lib/inmode-treatment-landing";
+import { NEUROTOXIN_AREA_CARDS, NEUROTOXIN_TRUST } from "@/lib/neurotoxin-treatment-areas";
 
 /** LaserAway-style educational Botox landing — Hello Gorgeous, Oswego. */
 export const BOTOX_TREATMENT_LANDING: InModeTreatmentLandingContent = {
@@ -16,12 +17,7 @@ export const BOTOX_TREATMENT_LANDING: InModeTreatmentLandingContent = {
   heroImageAlt: "Natural-looking Botox Cosmetic results — Hello Gorgeous Med Spa Oswego IL",
   priceLine: "As low as $9/unit",
   priceNote: "Authentic Allergan Botox · US distributors only · you approve units before we inject",
-  trustItems: [
-    "NP-directed medical clinic",
-    "Natural, never frozen",
-    "Day-14 touch-up window",
-    "Same-day often available",
-  ],
+  trustItems: [...NEUROTOXIN_TRUST],
   whatTitle: "About Botox at Hello Gorgeous",
   whatBody: [
     "Botox® is a trusted, FDA-approved neuromodulator that smooths fine lines by relaxing the facial muscles that cause expression wrinkles. It softens existing lines and helps slow new ones — without changing who you are.",
@@ -41,45 +37,7 @@ export const BOTOX_TREATMENT_LANDING: InModeTreatmentLandingContent = {
   areaCardsIntro:
     "Botox is versatile. Every session is customized to your goals — targeting the muscles that create the lines you want softened.",
   areaCards: [
-    {
-      title: "Forehead lines",
-      blurb: "Gently soften horizontal forehead lines for a calmer, smoother look.",
-    },
-    {
-      title: "Frown lines (11s)",
-      blurb: "Relax the lines between the brows for a more rested expression.",
-    },
-    {
-      title: "Crow’s feet",
-      blurb: "Soften fine lines at the outer corners of the eyes.",
-    },
-    {
-      title: "Bunny lines",
-      blurb: "Soften nose lines from smiling or scrunching.",
-    },
-    {
-      title: "Lip flip & smoker’s lines",
-      blurb: "Subtle upper-lip show or smoother vertical lip lines — from ~$99 / ~4 units for a lip flip.",
-      href: "/lip-flip-oswego-il",
-    },
-    {
-      title: "Masseter & jawline",
-      blurb: "Slim and contour a bulky jaw when clinically appropriate.",
-      href: "/masseter-botox-oswego-il",
-    },
-    {
-      title: "Chin & DAO",
-      blurb: "Smooth chin dimpling and soften downturned mouth corners.",
-    },
-    {
-      title: "Neck bands",
-      blurb: "Soften platysmal bands for a firmer-looking neck.",
-    },
-    {
-      title: "Men’s Botox (Brotox)",
-      blurb: "Subtle smoothing tailored to male facial structure and stronger muscles.",
-      href: "/brotox",
-    },
+    ...NEUROTOXIN_AREA_CARDS,
     {
       title: "Underarms (hyperhidrosis)",
       blurb: "Reduce excessive sweating with mapped underarm injections.",

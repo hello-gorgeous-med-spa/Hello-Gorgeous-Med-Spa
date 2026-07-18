@@ -1,15 +1,17 @@
 import type { Metadata } from "next";
 
-import { OswegoMenuLanding } from "@/components/services/OswegoMenuLanding";
-import { JEUVEAU_OSWEGO_MENU } from "@/lib/oswego-injectable-menus";
+import { NeurotoxinTreatmentPage } from "@/components/services/NeurotoxinTreatmentPage";
+import { JEUVEAU_TREATMENT_LANDING } from "@/lib/jeuveau-treatment-landing";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
-  title: JEUVEAU_OSWEGO_MENU.metaTitle,
-  description: JEUVEAU_OSWEGO_MENU.metaDescription,
-  path: JEUVEAU_OSWEGO_MENU.path,
+  title: JEUVEAU_TREATMENT_LANDING.metaTitle,
+  description: JEUVEAU_TREATMENT_LANDING.metaDescription,
+  path: JEUVEAU_TREATMENT_LANDING.path,
 });
 
 export default function JeuveauOswegoPage() {
-  return <OswegoMenuLanding slug="jeuveau-oswego" config={JEUVEAU_OSWEGO_MENU} breadcrumbName="Jeuveau Oswego" />;
+  return (
+    <NeurotoxinTreatmentPage content={JEUVEAU_TREATMENT_LANDING} procedureName="Jeuveau" />
+  );
 }
