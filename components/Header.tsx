@@ -21,6 +21,7 @@ import { FLOWWAVE_PATH } from "@/lib/flowwave-marketing";
 import { BROW_MICROBLADING_NAV, isBrowMicrobladingNavActive } from "@/lib/brow-journey-marketing";
 import { MORPHEUS8_PATH, isMorpheus8NavActive } from "@/lib/morpheus8-marketing";
 import { SOLARIA_CO2_PATH, isSolariaNavActive } from "@/lib/solaria-marketing";
+import { QUANTUM_RF_PATH, isQuantumRfNavActive } from "@/lib/quantum-rf-marketing";
 import { INJECTABLES_NAV, INJECTABLES_PATH, isInjectablesNavActive } from "@/lib/injectables-marketing";
 import {
   ABOUT_NAV_EXTRA_LINKS,
@@ -85,7 +86,7 @@ const NAV = {
             sub: "Deep-tissue pain & recovery — intro $49",
             badge: "NEW",
           },
-          { label: "Quantum RF", href: "/quantum-rf-oswego", sub: "Subdermal body contouring without surgery" },
+          { label: "Quantum RF", href: QUANTUM_RF_PATH, sub: "Luxora Contour · neck $2,499 · abdomen $3,999" },
           { label: "InMode Trifecta", href: "/specials", sub: "Morpheus8 + Quantum RF + Solaria CO₂ packages" },
         ],
       },
@@ -494,6 +495,7 @@ export function Header() {
   const isMicrobladingNavActive = isBrowMicrobladingNavActive(pathname ?? null);
   const isMorpheus8NavActiveState = isMorpheus8NavActive(pathname ?? null);
   const isSolariaNavActiveState = isSolariaNavActive(pathname ?? null);
+  const isQuantumRfNavActiveState = isQuantumRfNavActive(pathname ?? null);
   const isInjectablesNavActiveState = isInjectablesNavActive(pathname ?? null);
 
   const isServicesNavActive =
@@ -501,6 +503,7 @@ export function Header() {
     !isMicrobladingNavActive &&
     !isMorpheus8NavActiveState &&
     !isSolariaNavActiveState &&
+    !isQuantumRfNavActiveState &&
     !isInjectablesNavActiveState &&
     (isActive("/services") ||
     pathname === "/gallery" ||
@@ -649,6 +652,13 @@ export function Header() {
             <div className="relative flex items-center" onMouseEnter={closeDropdown}>
               <Link href={SOLARIA_CO2_PATH} className={NAV_LINK_BASE} style={navPillStyle(0, isSolariaNavActiveState)} aria-label="Solaria CO2 laser resurfacing">
                 Solaria CO₂
+              </Link>
+            </div>
+
+            {/* Quantum RF — Luxora Contour flagship */}
+            <div className="relative flex items-center" onMouseEnter={closeDropdown}>
+              <Link href={QUANTUM_RF_PATH} className={NAV_LINK_BASE} style={navPillStyle(0, isQuantumRfNavActiveState)} aria-label="Quantum RF Contour Journey">
+                Quantum RF
               </Link>
             </div>
 
@@ -850,6 +860,17 @@ export function Header() {
               <span className="flex flex-col items-start gap-0.5">
                 <span>Solaria Journey</span>
                 <span className="text-xs font-semibold text-[#FFB8DC]">InMode CO₂ · $899 + BOGO area</span>
+              </span>
+            </Link>
+
+            <Link
+              href={QUANTUM_RF_PATH}
+              onClick={() => setMobileOpen(false)}
+              className="mb-3 flex w-full items-center justify-between gap-2 rounded-xl border border-[#E6007E]/40 bg-gradient-to-r from-[#2d1020] to-black px-4 py-3.5 text-sm font-bold text-white"
+            >
+              <span className="flex flex-col items-start gap-0.5">
+                <span>Quantum RF Journey</span>
+                <span className="text-xs font-semibold text-[#FFB8DC]">Luxora Contour · from $2,499</span>
               </span>
             </Link>
 

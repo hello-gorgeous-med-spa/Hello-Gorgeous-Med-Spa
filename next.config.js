@@ -318,7 +318,7 @@ const nextConfig = {
     { source: "/co2-laser-oswego-il", destination: "/solaria-co2-oswego", permanent: true },
     { source: "/solaria-co2-laser-oswego-il", destination: "/solaria-co2-oswego", permanent: true },
     { source: "/stretch-mark-treatment-oswego-il", destination: "/solaria-co2-oswego", permanent: true },
-    { source: "/services/quantum-rf", destination: "/quantum-rf-oswego", permanent: true },
+    // Flagship Journey lives at /services/quantum-rf (do not redirect — Header + QUANTUM_RF_PATH)
     { source: "/services/weight-loss", destination: "/glp-1-weight-loss-oswego", permanent: true },
     { source: "/services/weight-loss-therapy", destination: "/glp-1-weight-loss-oswego", permanent: true },
     { source: "/services/hormone-therapy", destination: "/biote-hormone-therapy-oswego", permanent: true },

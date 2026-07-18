@@ -114,9 +114,15 @@ const SHARED_RELATED = {
     blurb: "Abdomen, arms, thighs, stretch marks — body-depth RF remodeling.",
   },
   quantum: {
+    href: "/services/quantum-rf",
+    eyebrow: "Flagship",
+    title: "Quantum RF Journey",
+    blurb: "Luxora Contour — neck $2,499 · abdomen $3,999 · FREE Morpheus8 Burst. Start here.",
+  },
+  quantumLander: {
     href: "/quantum-rf-oswego",
     eyebrow: "Contour",
-    title: "Quantum RF",
+    title: "Quantum RF Oswego",
     blurb: "Subdermal fat + skin tightening without surgery.",
   },
 } as const;
