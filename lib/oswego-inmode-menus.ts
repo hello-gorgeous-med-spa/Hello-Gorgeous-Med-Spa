@@ -60,14 +60,14 @@ export const SOLARIA_CO2_OSWEGO_MENU = buildOswegoMenu("solaria-co2-oswego", {
   secondaryCta: INMODE_SECONDARY,
   pricingTitle: "Solaria CO₂ pricing",
   pricingHighlights: [
-    "From $899 per session — varies by area & depth",
+    "$899 per session — buy one area, get a second area half off",
     "Most clients see ideal results from a single session",
     "Deeper resurfacing may benefit from 2–3 sessions",
     "Face, neck, décolleté & hands addressable",
-    "Exact pricing at your free consultation — no upsells",
+    "Exact areas & depth at your free consultation — no upsells",
   ],
   pricingRows: [
-    { label: "Solaria CO₂ — single session", price: "From $899", note: "Area & depth dependent" },
+    { label: "Solaria CO₂ — single session", price: "$899", note: "Buy one area, get one half off" },
     { label: "Series of 2–3 (aggressive resurfacing)", price: "Consult", note: "Spaced 3–4 months apart" },
     { label: "InMode Trifecta packages", price: "Specials →", href: "/specials" },
   ],

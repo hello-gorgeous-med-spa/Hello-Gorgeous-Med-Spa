@@ -6,6 +6,7 @@ import type { ServiceMenuResultSlide } from "@/lib/service-menu-types";
 const INMODE_SLUG_HREF: Record<string, RegExp> = {
   "solaria-co2-oswego": /solaria-co2/i,
   "morpheus8-burst-oswego": /morpheus8/i,
+  "morpheus8-body-oswego": /morpheus8|body|arm|thigh|abdomen/i,
   "quantum-rf-oswego": /quantum/i,
 };
 

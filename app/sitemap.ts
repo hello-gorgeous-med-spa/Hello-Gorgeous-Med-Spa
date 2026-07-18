@@ -1255,6 +1255,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/dermal-fillers-oswego',
     '/lip-filler-oswego',
     '/morpheus8-burst-oswego',
+    '/morpheus8-body-oswego',
     '/quantum-rf-oswego',
     '/solaria-co2-oswego',
     '/glp-1-weight-loss-oswego',

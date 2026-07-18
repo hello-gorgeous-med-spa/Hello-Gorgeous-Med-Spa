@@ -20,20 +20,20 @@ export const PHASE1_UNCONTESTED_PAGES: ServicePageData[] = [
     serviceName: "Solaria CO2",
     fullServiceName: "Solaria CO2 Laser Resurfacing",
     targetKeyword: "solaria co2 oswego",
-    metaTitle: "Solaria CO₂ in Oswego, IL — $899 + BOGO Area",
+    metaTitle: "Solaria CO₂ in Oswego, IL — $899 + Half-Off Second Area",
     metaDescription:
-      "Solaria CO₂ fractional laser in Oswego, IL — gold-standard resurfacing for $899 with buy-one-get-one-free area. NP-directed. Free consult — serving Naperville, Aurora & Fox Valley.",
+      "Solaria CO₂ fractional laser in Oswego, IL — gold-standard resurfacing for $899 with buy-one-area-get-one-half-off. NP-directed. Free consult — serving Naperville, Aurora & Fox Valley.",
     h1: "Solaria CO₂ in Oswego. Gold-Standard Resurfacing.",
-    valueProp: "The ultimate gold-standard Solaria CO₂ fractional laser — $899 with buy-one-get-one-free area.",
+    valueProp: "The ultimate gold-standard Solaria CO₂ fractional laser — $899 with buy one area, get one half off.",
     bookingUrl: bookingUrlFor(),
     procedureType: "Laser",
     bodyLocation: "Face, neck, décolleté, hands",
     inModeBadge: "solaria",
     tier: "uncontested",
     heroContent:
-      "Solaria CO₂ is InMode's flagship fractional CO₂ laser — the gold standard for resurfacing sun damage, deep lines, scars, and tone. At Hello Gorgeous in Oswego it's $899, and we're running a buy-one-get-one-free area special. We're the practice between Aurora, Naperville, and Plainfield offering it.",
+      "Solaria CO₂ is InMode's flagship fractional CO₂ laser — the gold standard for resurfacing sun damage, deep lines, scars, and tone. At Hello Gorgeous in Oswego it's $899, and we're running buy-one-area-get-one-half-off. We're the practice between Aurora, Naperville, and Plainfield offering it.",
     whyBullets: [
-      "Gold-standard Solaria CO₂ fractional laser — $899 + BOGO free area",
+      "Gold-standard Solaria CO₂ fractional laser — $899 + half-off second area",
       "The only Solaria CO₂ in Oswego, Naperville, Aurora, or Plainfield",
       "Performed in-office by our medical team with Ryan Kent, FNP-BC overseeing every protocol",
       "Customizable from gentle glow settings to deep resurfacing",
@@ -51,7 +51,7 @@ export const PHASE1_UNCONTESTED_PAGES: ServicePageData[] = [
       "Follow-up: a complimentary check-in around day 14, with continued improvement visible for 3–6 months as collagen rebuilds.",
     ],
     pricing:
-      "Solaria CO₂ — the gold-standard fractional laser — is $899, with a buy-one-get-one-free area special. Exact areas and depth are confirmed at your free consultation. Most clients see strong results from a single session; more aggressive plans may use a series.",
+      "Solaria CO₂ — the gold-standard fractional laser — is $899, with buy one area, get a second area half off. Exact areas and depth are confirmed at your free consultation. Most clients see strong results from a single session; more aggressive plans may use a series.",
     faqs: [
       {
         q: "What does Solaria CO2 actually treat?",
@@ -59,7 +59,7 @@ export const PHASE1_UNCONTESTED_PAGES: ServicePageData[] = [
       },
       {
         q: "How much does Solaria CO₂ cost in Oswego?",
-        a: "Solaria CO₂ fractional laser treatments are $899, and we're running a buy-one-get-one-free area special. Your provider confirms candidacy, areas, and depth at consult.",
+        a: "Solaria CO₂ fractional laser treatments are $899, and we're running buy one area, get a second area half off. Your provider confirms candidacy, areas, and depth at consult.",
       },
       {
         q: "How is Solaria CO2 different from Morpheus8 Burst?",

@@ -9,6 +9,7 @@ import { SITE } from "@/lib/seo";
 export const INMODE_LANDING_SLUGS = new Set([
   "solaria-co2-oswego",
   "morpheus8-burst-oswego",
+  "morpheus8-body-oswego",
   "quantum-rf-oswego",
 ]);
 

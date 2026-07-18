@@ -75,7 +75,7 @@ export const HELP_ME_CHOOSE_OPTIONS: HelpMeChooseOption[] = [
     href: "/body-contouring-oswego-il",
     related: [
       { label: "Quantum RF", href: "/quantum-rf-oswego" },
-      { label: "Morpheus8 Body", href: "/morpheus8-burst-oswego" },
+      { label: "Morpheus8 Body", href: "/morpheus8-body-oswego" },
     ],
   },
   {
