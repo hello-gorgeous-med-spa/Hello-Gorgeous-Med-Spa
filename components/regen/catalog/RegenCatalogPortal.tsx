@@ -289,6 +289,11 @@ export function RegenCatalogPortal({
             <RxScienceHomeHero onExploreGoals={scrollToShopByGoal} />
           </div>
 
+          <RegenHowItWorksTheater
+            onStartShopping={scrollToShopByGoal}
+            onShopWeightLoss={() => navigate({ goal: "Lose Weight" })}
+          />
+
           <RegenGoalTheater onSelectGoal={(goal) => navigate({ goal })} />
 
           {/* Best sellers */}
@@ -328,11 +333,6 @@ export function RegenCatalogPortal({
           <div className={SECTION_SCROLL}>
             <RxPeptideEducationSection />
           </div>
-
-          <RegenHowItWorksTheater
-            onStartShopping={scrollToShopByGoal}
-            onShopWeightLoss={() => navigate({ goal: "Lose Weight" })}
-          />
 
           {/* FAQ */}
           <section
