@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useMemo } from "react";
 
 import { findProductByDrugKey, listingPriceText } from "@/lib/regen/catalog";
+import { REGEN_SHOP_SECTION_WASH } from "@/lib/regen/shop-surface";
 import { SITE } from "@/lib/seo";
 
 type Props = {
@@ -69,26 +70,14 @@ export function RegenHowItWorksTheater({ onStartShopping, onShopWeightLoss }: Pr
     <section
       id="how-it-works"
       className="scroll-mt-[148px] relative overflow-hidden px-4 py-16 sm:px-6 lg:py-24"
-      style={{
-        background:
-          "radial-gradient(ellipse 65% 45% at 50% 0%, rgba(255,45,142,0.22) 0%, transparent 55%), radial-gradient(ellipse 45% 40% at 10% 90%, rgba(212,175,55,0.12) 0%, transparent 50%), linear-gradient(180deg, #140a12 0%, #0a0610 50%, #1a0e14 100%)",
-      }}
+      style={{ background: REGEN_SHOP_SECTION_WASH }}
     >
-      <div
-        className="pointer-events-none absolute inset-0 opacity-45"
-        aria-hidden
-        style={{
-          background:
-            "linear-gradient(125deg, transparent 22%, rgba(255,200,160,0.16) 48%, rgba(255,45,142,0.14) 54%, transparent 78%)",
-        }}
-      />
-
       <div className="relative mx-auto max-w-[1200px]">
         <div className="mb-12 max-w-2xl">
-          <p className="inline-flex items-center gap-2 rounded-full border border-[#FF2D8E]/35 bg-[#FF2D8E]/10 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.2em] text-[#FFB8DC] backdrop-blur">
+          <p className="inline-flex items-center gap-2 rounded-full border border-[#E6007E]/30 bg-[#FFF0F7] px-3 py-1 text-[11px] font-bold uppercase tracking-[0.2em] text-[#E6007E]">
             How RE GEN works
           </p>
-          <h2 className="mt-4 font-serif text-4xl font-black tracking-tight text-white lg:text-5xl">
+          <h2 className="mt-4 font-serif text-4xl font-black tracking-tight text-black lg:text-5xl">
             Four steps to{" "}
             <span
               className="bg-gradient-to-r from-[#FFB8DC] via-[#FF2D8E] to-[#E6007E] bg-clip-text text-transparent"
@@ -108,11 +97,11 @@ export function RegenHowItWorksTheater({ onStartShopping, onShopWeightLoss }: Pr
           >
             Shop → Intake → Approve → Ship
           </p>
-          <p className="mt-3 text-sm font-semibold text-white/75">
+          <p className="mt-3 text-sm font-semibold text-black/70">
             {SITE.freshaReviewRating}★ from {SITE.freshaReviewCount}+ verified visits · NP on site
             daily
           </p>
-          <p className="mt-2 text-base font-medium leading-relaxed text-white/65">
+          <p className="mt-2 text-base font-medium leading-relaxed text-black/65">
             Desire first. Clinical review always. No mystery about what happens after you tap
             checkout.
           </p>
@@ -199,7 +188,7 @@ export function RegenHowItWorksTheater({ onStartShopping, onShopWeightLoss }: Pr
             <button
               type="button"
               onClick={onStartShopping}
-              className="inline-flex items-center justify-center rounded-xl border border-white/30 bg-white/5 px-8 py-3.5 text-sm font-black text-white backdrop-blur transition hover:border-[#FF2D8E] hover:bg-[#FF2D8E]/15"
+              className="inline-flex items-center justify-center rounded-xl border-2 border-black/20 bg-white px-8 py-3.5 text-sm font-black text-black transition hover:border-[#FF2D8E] hover:text-[#E6007E]"
             >
               Browse all goals →
             </button>

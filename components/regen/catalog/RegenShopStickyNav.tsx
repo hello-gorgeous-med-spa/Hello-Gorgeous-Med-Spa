@@ -30,7 +30,7 @@ export function RegenShopStickyNav({
   const [navOpen, setNavOpen] = useState(false);
 
   return (
-    <nav className="sticky top-0 z-40 border-b border-white/10 bg-black/82 backdrop-blur-md">
+    <nav className="sticky top-0 z-40 border-b border-black/10 bg-white/90 backdrop-blur-md">
       <div className="mx-auto flex max-w-[1200px] items-center justify-between gap-3 px-6 py-3.5">
         <button
           type="button"
@@ -42,8 +42,8 @@ export function RegenShopStickyNav({
             HG
           </span>
           <span className="hidden leading-tight sm:block">
-            <span className="block text-base text-white">Hello Gorgeous</span>
-            <span className="block text-[10px] font-extrabold uppercase tracking-[0.18em] text-[#FF2D8E]">
+            <span className="block text-base text-black">Hello Gorgeous</span>
+            <span className="block text-[10px] font-extrabold uppercase tracking-[0.18em] text-[#E6007E]">
               RE GEN
             </span>
           </span>
@@ -51,7 +51,7 @@ export function RegenShopStickyNav({
 
         <button
           type="button"
-          className="rounded-lg border border-white/20 px-3 py-1.5 text-sm font-bold text-white lg:hidden"
+          className="rounded-lg border border-black/15 px-3 py-1.5 text-sm font-bold text-black lg:hidden"
           onClick={() => setNavOpen((o) => !o)}
           aria-expanded={navOpen}
           aria-label="Toggle menu"
@@ -66,7 +66,7 @@ export function RegenShopStickyNav({
               <a
                 key={item.href}
                 href={href}
-                className="text-white/75 transition hover:text-white"
+                className="font-medium text-black/70 transition hover:text-[#E6007E]"
               >
                 {item.label}
               </a>
@@ -74,7 +74,7 @@ export function RegenShopStickyNav({
               <Link
                 key={item.href}
                 href={href}
-                className="text-white/75 transition hover:text-white"
+                className="font-medium text-black/70 transition hover:text-[#E6007E]"
               >
                 {item.label}
               </Link>
@@ -82,7 +82,7 @@ export function RegenShopStickyNav({
           })}
           <Link
             href={REGEN_SHOP_BOOK_HREF}
-            className="inline-flex items-center justify-center rounded-full bg-[#FF2D8E] px-5 py-2.5 text-[14px] font-extrabold text-black transition hover:-translate-y-0.5 hover:bg-white"
+            className="inline-flex items-center justify-center rounded-full bg-[#FF2D8E] px-5 py-2.5 text-[14px] font-extrabold text-black transition hover:-translate-y-0.5 hover:bg-[#E6007E] hover:text-white"
           >
             Book Now
           </Link>
@@ -95,10 +95,10 @@ export function RegenShopStickyNav({
       </div>
 
       {showSearch ? (
-        <div className="border-t border-white/10 px-6 py-3">
+        <div className="border-t border-black/8 px-6 py-3">
           <div className="relative mx-auto max-w-[1200px]">
             <svg
-              className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-white/35"
+              className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-black/35"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -116,14 +116,14 @@ export function RegenShopStickyNav({
               value={searchValue}
               onChange={(e) => onSearchChange?.(e.target.value)}
               placeholder="Search treatments, goals, ingredients…"
-              className="h-[42px] w-full rounded-full border border-white/15 bg-[#0a0206] pl-11 pr-4 text-sm text-white outline-none ring-[#FF2D8E] placeholder:text-white/40 focus:ring-2"
+              className="h-[42px] w-full rounded-full border border-black/15 bg-white pl-11 pr-4 text-sm text-black outline-none ring-[#FF2D8E] placeholder:text-black/40 focus:ring-2"
             />
           </div>
         </div>
       ) : null}
 
       {navOpen ? (
-        <div className="border-t border-white/10 px-6 py-4 lg:hidden">
+        <div className="border-t border-black/10 px-6 py-4 lg:hidden">
           <div className="flex flex-col gap-3">
             {REGEN_SHOP_NAV.map((item) => {
               const href = navHref(item.href, basePath);
@@ -131,7 +131,7 @@ export function RegenShopStickyNav({
                 <a
                   key={item.href}
                   href={href}
-                  className="text-white/85"
+                  className="font-medium text-black/85"
                   onClick={() => setNavOpen(false)}
                 >
                   {item.label}
@@ -140,7 +140,7 @@ export function RegenShopStickyNav({
                 <Link
                   key={item.href}
                   href={href}
-                  className="text-white/85"
+                  className="font-medium text-black/85"
                   onClick={() => setNavOpen(false)}
                 >
                   {item.label}

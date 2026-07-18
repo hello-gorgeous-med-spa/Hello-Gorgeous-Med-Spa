@@ -13,6 +13,7 @@ import { RegenMetabolicShiftVisual } from "@/components/regen/RegenMetabolicShif
 import { getCatalogProduct } from "@/lib/regen/catalog";
 import { getCategoryMascot } from "@/lib/regen/category-mascots";
 import { useCart } from "@/lib/regen/cart-context";
+import { REGEN_SHOP_PAGE_WASH } from "@/lib/regen/shop-surface";
 import { regenStorefrontUrl } from "@/lib/regen/storefront-deep-link";
 import type { RxCategoryHub, RxCategoryHubId, RxCategoryProduct } from "@/lib/rx-category-hubs";
 import { REGEN_SITE, REGEN_TRUST_BAR } from "@/lib/regen-site";
@@ -82,9 +83,9 @@ function CategoryMascotAside({ hubId }: { hubId: RxCategoryHubId }) {
   if (!mascot) return null;
 
   return (
-    <aside className="rounded-xl border border-white/10 bg-white/5 p-4 lg:sticky lg:top-24">
+    <aside className="rounded-xl border border-black/10 bg-white p-4 shadow-[4px_4px_0_0_rgba(230,0,126,0.2)] lg:sticky lg:top-24">
       <div className="flex items-center gap-3">
-        <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-lg bg-black/40">
+        <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-lg bg-[#FFF0F7]">
           <Image
             src={mascot.avatar}
             alt={mascot.name}
@@ -94,14 +95,14 @@ function CategoryMascotAside({ hubId }: { hubId: RxCategoryHubId }) {
           />
         </div>
         <div className="min-w-0">
-          <p className="text-[10px] font-semibold uppercase tracking-widest text-[#FFB8DC]">
+          <p className="text-[10px] font-semibold uppercase tracking-widest text-[#E6007E]">
             Clinical educator
           </p>
-          <p className="font-semibold text-white">{mascot.name}</p>
-          <p className="text-xs text-white/55">{mascot.role}</p>
+          <p className="font-semibold text-black">{mascot.name}</p>
+          <p className="text-xs text-black/55">{mascot.role}</p>
         </div>
       </div>
-      <p className="mt-3 text-sm leading-relaxed text-white/65">{mascot.blurb}</p>
+      <p className="mt-3 text-sm leading-relaxed text-black/65">{mascot.blurb}</p>
     </aside>
   );
 }
@@ -113,11 +114,11 @@ function CategoryFaq({ faq, hubId }: { faq?: RxCategoryHub["faq"]; hubId: RxCate
   if (!faq || faq.length === 0) return null;
 
   return (
-    <section id="faq" className="border-y border-white/10 bg-[#0a0a0a] py-14 scroll-mt-24">
+    <section id="faq" className="border-y border-black/10 bg-transparent py-14 scroll-mt-24">
       <div className="mx-auto max-w-6xl px-4">
         <div className="max-w-3xl">
-          <p className="text-xs font-semibold uppercase tracking-widest text-[#FFB8DC]">Questions</p>
-          <h2 className="mt-2 font-serif text-2xl font-black tracking-tight text-white sm:text-3xl">
+          <p className="text-xs font-semibold uppercase tracking-widest text-[#E6007E]">Questions</p>
+          <h2 className="mt-2 font-serif text-2xl font-black tracking-tight text-black sm:text-3xl">
             Frequently asked
           </h2>
         </div>
@@ -131,9 +132,7 @@ function CategoryFaq({ faq, hubId }: { faq?: RxCategoryHub["faq"]; hubId: RxCate
             </div>
           ) : null}
 
-          <div
-            className={`order-1 divide-y divide-white/10 border-y border-white/10 ${mascot ? "" : ""}`}
-          >
+          <div className="order-1 divide-y divide-black/10 border-y border-black/10">
             {faq.map((item, index) => (
               <div key={item.q}>
                 <button
@@ -141,9 +140,9 @@ function CategoryFaq({ faq, hubId }: { faq?: RxCategoryHub["faq"]; hubId: RxCate
                   onClick={() => setOpenIndex(openIndex === index ? null : index)}
                   className="flex w-full items-center justify-between gap-4 py-4 text-left"
                 >
-                  <span className="text-sm font-semibold text-white sm:text-base">{item.q}</span>
+                  <span className="text-sm font-semibold text-black sm:text-base">{item.q}</span>
                   <svg
-                    className={`h-4 w-4 shrink-0 text-white/40 transition ${openIndex === index ? "rotate-180" : ""}`}
+                    className={`h-4 w-4 shrink-0 text-black/40 transition ${openIndex === index ? "rotate-180" : ""}`}
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -152,7 +151,7 @@ function CategoryFaq({ faq, hubId }: { faq?: RxCategoryHub["faq"]; hubId: RxCate
                   </svg>
                 </button>
                 {openIndex === index ? (
-                  <p className="pb-4 text-sm leading-relaxed text-white/65">{item.a}</p>
+                  <p className="pb-4 text-sm leading-relaxed text-black/65">{item.a}</p>
                 ) : null}
               </div>
             ))}
@@ -208,9 +207,12 @@ export function RxCategoryLanding({ hub }: { hub: RxCategoryHub }) {
   const alsoAvailable = useMemo(() => products.slice(2), [products]);
 
   return (
-    <div className="min-h-[100dvh] bg-black font-sans text-white">
-      <div className="bg-neutral-950 py-2">
-        <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-center gap-x-6 gap-y-1 px-4 text-[11px] font-medium tracking-wide text-white/80">
+    <div
+      className="min-h-[100dvh] font-sans text-black"
+      style={{ background: REGEN_SHOP_PAGE_WASH }}
+    >
+      <div className="border-b border-black/5 bg-white/80 py-2">
+        <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-center gap-x-6 gap-y-1 px-4 text-[11px] font-medium tracking-wide text-black/70">
           {REGEN_TRUST_BAR.map((item) => (
             <span key={item.id} className="flex items-center gap-1.5">
               <span className="text-[#E6007E]">✦</span>
@@ -220,13 +222,13 @@ export function RxCategoryLanding({ hub }: { hub: RxCategoryHub }) {
         </div>
       </div>
 
-      <header className="sticky top-0 z-40 border-b border-white/10 bg-black/85 backdrop-blur-md">
+      <header className="sticky top-0 z-40 border-b border-black/10 bg-white/90 backdrop-blur-md">
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3">
           <CatalogBrandLockup />
           <div className="flex items-center gap-3">
             <Link
               href="/rx"
-              className="hidden text-sm font-semibold text-white/70 transition hover:text-white sm:inline"
+              className="hidden text-sm font-semibold text-black/65 transition hover:text-[#E6007E] sm:inline"
             >
               Full shop
             </Link>
@@ -237,22 +239,15 @@ export function RxCategoryLanding({ hub }: { hub: RxCategoryHub }) {
 
       {/* Hero — sell, then shop */}
       <section className="relative overflow-hidden px-4 py-12 lg:py-16">
-        <div
-          className="pointer-events-none absolute inset-0"
-          style={{
-            background:
-              "radial-gradient(60% 50% at 20% 0%, rgba(230,0,126,0.35), transparent 60%), radial-gradient(50% 40% at 90% 20%, rgba(255,45,142,0.2), transparent 55%)",
-          }}
-        />
         <div className="relative mx-auto max-w-6xl">
-          <p className="text-xs font-bold uppercase tracking-widest text-[#FFB8DC]">{hero.eyebrow}</p>
-          <h1 className="mt-3 max-w-3xl font-serif text-4xl font-black leading-tight tracking-tight text-white sm:text-5xl">
+          <p className="text-xs font-bold uppercase tracking-widest text-[#E6007E]">{hero.eyebrow}</p>
+          <h1 className="mt-3 max-w-3xl font-serif text-4xl font-black leading-tight tracking-tight text-black sm:text-5xl">
             {hero.title}{" "}
             {hero.titleAccent ? <span className="text-[#FF2D8E]">{hero.titleAccent}</span> : null}
           </h1>
-          <p className="mt-4 max-w-2xl text-lg text-white/70">{hero.subtitle}</p>
+          <p className="mt-4 max-w-2xl text-lg text-black/65">{hero.subtitle}</p>
           {trustLine ? (
-            <p className="mt-3 text-sm font-medium text-white/45">
+            <p className="mt-3 text-sm font-medium text-black/45">
               {trustLine} · Flat {REGEN_SITE.shipping} shipping
             </p>
           ) : null}
@@ -266,14 +261,14 @@ export function RxCategoryLanding({ hub }: { hub: RxCategoryHub }) {
             </a>
             <Link
               href={shopHref}
-              className="text-sm font-semibold text-[#FFB8DC] underline decoration-[#E6007E] underline-offset-4 transition hover:text-white"
+              className="text-sm font-semibold text-[#E6007E] underline decoration-[#E6007E] underline-offset-4 transition hover:text-black"
             >
               Open full catalog
             </Link>
             {faq && faq.length > 0 ? (
               <Link
                 href="#faq"
-                className="text-sm font-medium text-white/50 transition hover:text-white/80"
+                className="text-sm font-medium text-black/45 transition hover:text-black/70"
               >
                 FAQ
               </Link>
@@ -284,13 +279,13 @@ export function RxCategoryLanding({ hub }: { hub: RxCategoryHub }) {
 
       {/* Featured products first */}
       {products.length > 0 ? (
-        <section id="featured" className="scroll-mt-24 bg-[#0a0a0a] px-4 py-14">
+        <section id="featured" className="scroll-mt-24 bg-transparent px-4 py-14">
           <div className="mx-auto max-w-6xl">
-            <p className="text-xs font-bold uppercase tracking-widest text-[#FFB8DC]">Featured</p>
-            <h2 className="mt-1 font-serif text-3xl font-black text-white">
+            <p className="text-xs font-bold uppercase tracking-widest text-[#E6007E]">Featured</p>
+            <h2 className="mt-1 font-serif text-3xl font-black text-black">
               Add to bag <span className="text-[#FF2D8E]">now</span>
             </h2>
-            <p className="mt-2 text-white/55">Patient pricing · NP-reviewed before ship</p>
+            <p className="mt-2 text-black/55">Patient pricing · NP-reviewed before ship</p>
 
             <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {featured.map((product) => (
@@ -300,10 +295,10 @@ export function RxCategoryLanding({ hub }: { hub: RxCategoryHub }) {
 
             {alsoAvailable.length > 0 ? (
               <div className="mt-14">
-                <p className="text-xs font-bold uppercase tracking-widest text-white/40">
+                <p className="text-xs font-bold uppercase tracking-widest text-black/40">
                   Also available
                 </p>
-                <h3 className="mt-1 font-serif text-2xl font-black text-white">More options</h3>
+                <h3 className="mt-1 font-serif text-2xl font-black text-black">More options</h3>
                 <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                   {alsoAvailable.map((product) => (
                     <HubProductSlot key={product.id} product={product} hubId={hubId} />
@@ -318,18 +313,18 @@ export function RxCategoryLanding({ hub }: { hub: RxCategoryHub }) {
       {hub.id === "weight-loss" ? <RegenMetabolicShiftVisual variant="landing" /> : null}
 
       {steps.length > 0 ? (
-        <section className="border-y border-white/10 bg-black px-4 py-12">
+        <section className="border-y border-black/10 bg-transparent px-4 py-12">
           <div className="mx-auto max-w-6xl">
-            <p className="text-xs font-bold uppercase tracking-widest text-white/40">How it works</p>
-            <h2 className="mt-1 font-serif text-2xl font-black text-white">Pay → intake → ship</h2>
+            <p className="text-xs font-bold uppercase tracking-widest text-black/40">How it works</p>
+            <h2 className="mt-1 font-serif text-2xl font-black text-black">Pay → intake → ship</h2>
             <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
               {steps.map((step, index) => (
                 <div key={step.title}>
                   <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[#E6007E] text-sm font-black text-white">
                     {index + 1}
                   </div>
-                  <h3 className="mt-3 text-base font-semibold text-white">{step.title}</h3>
-                  <p className="mt-1.5 text-sm leading-relaxed text-white/55">{step.body}</p>
+                  <h3 className="mt-3 text-base font-semibold text-black">{step.title}</h3>
+                  <p className="mt-1.5 text-sm leading-relaxed text-black/55">{step.body}</p>
                 </div>
               ))}
             </div>
@@ -341,22 +336,22 @@ export function RxCategoryLanding({ hub }: { hub: RxCategoryHub }) {
 
       <ClosingCta shopHref={shopHref} />
 
-      <footer className="border-t border-white/10 bg-black py-8">
+      <footer className="border-t border-black/10 bg-white py-8">
         <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4 px-4">
           <CatalogBrandLockup />
-          <nav className="flex flex-wrap gap-6 text-sm text-white/55">
-            <Link href="/rx" className="hover:text-white">
+          <nav className="flex flex-wrap gap-6 text-sm text-black/55">
+            <Link href="/rx" className="hover:text-[#E6007E]">
               RE GEN Home
             </Link>
-            <Link href="/rx/request" className="hover:text-white">
+            <Link href="/rx/request" className="hover:text-[#E6007E]">
               Request intake
             </Link>
-            <Link href="/" className="hover:text-white">
+            <Link href="/" className="hover:text-[#E6007E]">
               Hello Gorgeous
             </Link>
           </nav>
         </div>
-        <p className="mx-auto mt-6 max-w-6xl px-4 text-xs text-white/35">
+        <p className="mx-auto mt-6 max-w-6xl px-4 text-xs text-black/40">
           © 2026 Hello Gorgeous Med Spa. Prescription products require evaluation by a licensed
           provider.
         </p>

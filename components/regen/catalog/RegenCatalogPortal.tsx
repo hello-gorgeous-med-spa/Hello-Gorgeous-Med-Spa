@@ -39,6 +39,7 @@ import { RegenStacksTheater } from "@/components/regen/catalog/RegenStacksTheate
 import { RegenShopStickyNav } from "@/components/regen/catalog/RegenShopStickyNav";
 import { RxScienceHomeHero } from "@/components/rx/RxScienceHomeHero";
 import { JourneySectionHead } from "@/components/marketing/JourneyPageUi";
+import { REGEN_SHOP_PAGE_WASH } from "@/lib/regen/shop-surface";
 import { goalFromStorefrontCat } from "@/lib/regen/storefront-deep-link";
 import { REGEN_SHOP_FAQS } from "@/lib/regen-shop-nav";
 
@@ -269,7 +270,10 @@ export function RegenCatalogPortal({
           : "";
 
   return (
-    <div className="min-h-screen bg-black font-sans text-white">
+    <div
+      className="relative min-h-screen font-sans text-black"
+      style={{ background: REGEN_SHOP_PAGE_WASH }}
+    >
       <RegenShopStickyNav
         basePath={basePath}
         onGoHome={() => {
@@ -292,21 +296,21 @@ export function RegenCatalogPortal({
           {/* Shop first — goals, popular, stacks — then educate */}
           <RegenGoalTheater onSelectGoal={(goal) => navigate({ goal })} />
 
-          <section id="popular" className={`${SECTION_SCROLL} bg-[#0a0a0a] px-6 py-16 lg:py-20`}>
+          <section id="popular" className={`${SECTION_SCROLL} bg-transparent px-6 py-16 lg:py-20`}>
             <div className="mx-auto max-w-[1200px]">
               <div className="flex flex-wrap items-end justify-between gap-4">
                 <div>
-                  <p className="text-xs font-bold uppercase tracking-widest text-[#FFB8DC]">
+                  <p className="text-xs font-bold uppercase tracking-widest text-[#E6007E]">
                     Client favorites
                   </p>
-                  <h2 className="mt-1 font-serif text-3xl font-black text-white lg:text-4xl">
+                  <h2 className="mt-1 font-serif text-3xl font-black text-black lg:text-4xl">
                     Popular <span className="text-[#FF2D8E]">protocols</span>
                   </h2>
                 </div>
                 <button
                   type="button"
                   onClick={() => navigate({ browse: "all" })}
-                  className="rounded-full border-2 border-[#FF2D8E] px-4 py-2 text-sm font-bold text-[#FF2D8E] transition hover:bg-[#FF2D8E] hover:text-black"
+                  className="rounded-full border-2 border-[#FF2D8E] px-4 py-2 text-sm font-bold text-[#E6007E] transition hover:bg-[#FF2D8E] hover:text-black"
                 >
                   View full catalog →
                 </button>
@@ -333,12 +337,10 @@ export function RegenCatalogPortal({
           <RegenScienceTheater onShopGoals={scrollToShopByGoal} />
 
           {/* FAQ */}
-          <section
-            id="faq"
-            className={`${SECTION_SCROLL} bg-[radial-gradient(80%_90%_at_80%_0%,#12030c,#000_60%)] px-6 py-16 lg:py-24`}
-          >
+          <section id="faq" className={`${SECTION_SCROLL} bg-transparent px-6 py-16 lg:py-24`}>
             <div className="mx-auto max-w-[1200px]">
               <JourneySectionHead
+                light
                 eyebrow="Common Q & A"
                 title="Your questions,"
                 titleAccent="answered"
@@ -365,28 +367,28 @@ export function RegenCatalogPortal({
           </section>
         </>
       ) : (
-        <section className="bg-gradient-to-b from-[#0a0a0a] to-[#1a0a12] px-6 py-10">
+        <section className="bg-transparent px-6 py-10">
           <div className="mx-auto max-w-[1200px]">
             <button
               type="button"
               onClick={() => navigate({})}
-              className="text-sm font-semibold text-[#FF2D8E] hover:underline"
+              className="text-sm font-semibold text-[#E6007E] hover:underline"
             >
               ← Back to shop
             </button>
-            <h1 className="mt-4 font-serif text-4xl font-extrabold text-white">{browseTitle}</h1>
-            <p className="mt-2 max-w-2xl text-white/65">{browseSub}</p>
-            <p className="mt-3 text-sm font-semibold text-white/50">
+            <h1 className="mt-4 font-serif text-4xl font-extrabold text-black">{browseTitle}</h1>
+            <p className="mt-2 max-w-2xl text-black/65">{browseSub}</p>
+            <p className="mt-3 text-sm font-semibold text-black/45">
               {filteredProducts.length} products
             </p>
 
             <div className="mt-5 flex flex-wrap items-center gap-3">
-              <label className="flex items-center gap-2 text-xs font-bold uppercase tracking-wide text-white/50">
+              <label className="flex items-center gap-2 text-xs font-bold uppercase tracking-wide text-black/45">
                 Sort
                 <select
                   value={sort}
                   onChange={(e) => setSort(e.target.value as CatalogSort)}
-                  className="rounded-lg border-2 border-white/20 bg-black px-3 py-2 text-sm font-semibold normal-case tracking-normal text-white"
+                  className="rounded-lg border-2 border-black/15 bg-white px-3 py-2 text-sm font-semibold normal-case tracking-normal text-black"
                 >
                   <option value="featured">Featured</option>
                   <option value="price-asc">Price: low → high</option>
@@ -411,7 +413,7 @@ export function RegenCatalogPortal({
                     className={`rounded-full px-3 py-1.5 text-xs font-bold transition ${
                       priceFilter === id
                         ? "border-2 border-black bg-[#FF2D8E] text-black"
-                        : "border border-white/25 text-white/70 hover:border-[#FF2D8E]"
+                        : "border border-black/20 text-black/65 hover:border-[#FF2D8E]"
                     }`}
                   >
                     {label}
@@ -421,7 +423,7 @@ export function RegenCatalogPortal({
             </div>
 
             {formChips.length > 2 && (
-              <div className="sticky top-[120px] z-20 mt-6 -mx-1 flex flex-wrap gap-2 bg-black/80 px-1 py-3 backdrop-blur">
+              <div className="sticky top-[120px] z-20 mt-6 -mx-1 flex flex-wrap gap-2 bg-white/90 px-1 py-3 backdrop-blur">
                 {formChips.map((f) => (
                   <button
                     key={f}
@@ -430,7 +432,7 @@ export function RegenCatalogPortal({
                     className={`rounded-full px-4 py-2 text-sm font-semibold transition ${
                       f === formFilter
                         ? "border-2 border-black bg-[#FF2D8E] text-black shadow-[3px_3px_0_0_#000]"
-                        : "border-2 border-white/25 bg-white/5 text-white/75 hover:border-[#FF2D8E]"
+                        : "border-2 border-black/15 bg-white text-black/70 hover:border-[#FF2D8E]"
                     }`}
                   >
                     {f}
@@ -440,7 +442,7 @@ export function RegenCatalogPortal({
             )}
 
             {filteredProducts.length === 0 ? (
-              <p className="mt-12 text-center text-white/50">No products match your filters.</p>
+              <p className="mt-12 text-center text-black/45">No products match your filters.</p>
             ) : (
               <div className="mt-8 grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
                 {filteredProducts.map((p) => (
@@ -457,10 +459,10 @@ export function RegenCatalogPortal({
       )}
 
       {/* Footer */}
-      <footer className="border-t-4 border-black bg-[#0a0a0a] px-6 py-12 text-white">
+      <footer className="border-t-4 border-black bg-white px-6 py-12 text-black">
         <div className="mx-auto max-w-[1200px]">
-          <p className="font-serif text-xl font-extrabold tracking-[0.14em]">RE GEN</p>
-          <p className="mt-4 max-w-3xl text-sm leading-relaxed text-white/75">
+          <p className="font-serif text-xl font-extrabold tracking-[0.14em] text-[#E6007E]">RE GEN</p>
+          <p className="mt-4 max-w-3xl text-sm leading-relaxed text-black/70">
             RE GEN is the telehealth prescription arm of Hello Gorgeous Med Spa, NP-directed
             by Ryan Kent, FNP-BC. Compounded medications require a prescription and completed
             intake. Information on this site is educational, not medical advice. Member retail
@@ -469,13 +471,13 @@ export function RegenCatalogPortal({
             <strong>74 W. Washington St, Oswego, IL 60543 · (630) 636-6193</strong>
           </p>
           <div className="mt-6 flex flex-wrap gap-4 text-sm">
-            <Link href="/rx" className="text-[#FFB8DC] hover:underline">
+            <Link href="/rx" className="font-semibold text-[#E6007E] hover:underline">
               RE GEN home
             </Link>
-            <Link href="/rx/request" className="text-[#FFB8DC] hover:underline">
+            <Link href="/rx/request" className="font-semibold text-[#E6007E] hover:underline">
               Start intake
             </Link>
-            <Link href="/book" className="text-[#FFB8DC] hover:underline">
+            <Link href="/book" className="font-semibold text-[#E6007E] hover:underline">
               Book in-spa
             </Link>
           </div>

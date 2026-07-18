@@ -170,8 +170,10 @@ export function ProductCard({ product, href, onOpen }: ProductCardProps) {
 export function CatalogBrandLockup({ onClickHome }: { onClickHome?: () => void }) {
   const inner = (
     <>
-      <span className="font-serif text-[22px] font-extrabold tracking-[0.14em] text-white">RE GEN</span>
-      <span className="text-[9px] font-bold tracking-[0.2em] text-[#FF2D8E]">BY HELLO GORGEOUS</span>
+      <span className="font-serif text-[22px] font-extrabold tracking-[0.14em] text-black">
+        RE GEN
+      </span>
+      <span className="text-[9px] font-bold tracking-[0.2em] text-[#E6007E]">BY HELLO GORGEOUS</span>
     </>
   );
 

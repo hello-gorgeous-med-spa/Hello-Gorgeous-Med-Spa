@@ -4,6 +4,7 @@ import Image from "next/image";
 
 import { productImage } from "@/lib/regen/catalog";
 import { CATALOG_BUNDLES } from "@/lib/regen/catalog/bundles";
+import { REGEN_SHOP_SECTION_WASH } from "@/lib/regen/shop-surface";
 
 const STAGE_BG = "/images/regen/brand/regen-stage-cinematic-plum.jpg";
 const LINEUP_HERO = "/images/regen/brand/regen-stacks-bundles-lineup-cinematic.jpg";
@@ -37,26 +38,14 @@ export function RegenStacksTheater({ bundles }: Props) {
     <section
       id="stacks"
       className="scroll-mt-[148px] relative overflow-hidden px-4 py-16 sm:px-6 lg:py-24"
-      style={{
-        background:
-          "radial-gradient(ellipse 70% 50% at 20% 0%, rgba(212,175,55,0.14) 0%, transparent 50%), radial-gradient(ellipse 60% 45% at 90% 30%, rgba(255,45,142,0.22) 0%, transparent 50%), linear-gradient(180deg, #0a0610 0%, #050308 50%, #14081c 100%)",
-      }}
+      style={{ background: REGEN_SHOP_SECTION_WASH }}
     >
-      <div
-        className="pointer-events-none absolute inset-0 opacity-35"
-        aria-hidden
-        style={{
-          background:
-            "linear-gradient(125deg, transparent 26%, rgba(255,220,180,0.16) 48%, rgba(255,45,142,0.12) 54%, transparent 76%)",
-        }}
-      />
-
       <div className="relative mx-auto max-w-[1200px]">
         <div className="mb-10 max-w-2xl">
-          <p className="inline-flex items-center gap-2 rounded-full border border-[#F5D76E]/35 bg-[#F5D76E]/10 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.2em] text-[#F5D76E] backdrop-blur">
+          <p className="inline-flex items-center gap-2 rounded-full border border-[#E6007E]/30 bg-[#FFF0F7] px-3 py-1 text-[11px] font-bold uppercase tracking-[0.2em] text-[#E6007E]">
             Curated stacks
           </p>
-          <h2 className="mt-4 font-serif text-4xl font-black tracking-tight text-white lg:text-5xl">
+          <h2 className="mt-4 font-serif text-4xl font-black tracking-tight text-black lg:text-5xl">
             Stacks &{" "}
             <span
               className="bg-gradient-to-r from-[#FFB8DC] via-[#FF2D8E] to-[#E6007E] bg-clip-text text-transparent"
@@ -76,7 +65,7 @@ export function RegenStacksTheater({ bundles }: Props) {
           >
             Protocol packs · One-tap cart
           </p>
-          <p className="mt-3 text-base font-medium leading-relaxed text-white/65">
+          <p className="mt-3 text-base font-medium leading-relaxed text-black/65">
             Curated combinations providers love — add the full stack in one tap. List pricing shown;
             NP review applies to every item.
           </p>

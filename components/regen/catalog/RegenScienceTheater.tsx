@@ -3,6 +3,8 @@
 import Image from "next/image";
 import Link from "next/link";
 
+import { REGEN_SHOP_SECTION_WASH } from "@/lib/regen/shop-surface";
+
 const PILLARS = [
   { label: "Tissue repair", detail: "BPC-157 · TB-500" },
   { label: "GH axis", detail: "Sermorelin · CJC / Ipamorelin" },
@@ -19,26 +21,14 @@ export function RegenScienceTheater({ onShopGoals }: Props) {
     <section
       id="science"
       className="scroll-mt-[148px] relative overflow-hidden px-4 py-16 sm:px-6 lg:py-24"
-      style={{
-        background:
-          "radial-gradient(ellipse 70% 50% at 80% 0%, rgba(255,45,142,0.2) 0%, transparent 55%), radial-gradient(ellipse 40% 40% at 0% 70%, rgba(184,129,115,0.12) 0%, transparent 50%), linear-gradient(180deg, #0a0610 0%, #050308 50%, #12081a 100%)",
-      }}
+      style={{ background: REGEN_SHOP_SECTION_WASH }}
     >
-      <div
-        className="pointer-events-none absolute inset-0 opacity-35"
-        aria-hidden
-        style={{
-          background:
-            "linear-gradient(125deg, transparent 26%, rgba(255,220,180,0.12) 48%, rgba(255,45,142,0.1) 55%, transparent 76%)",
-        }}
-      />
-
       <div className="relative mx-auto max-w-[1200px]">
         <div className="mb-10 max-w-2xl">
-          <p className="inline-flex items-center gap-2 rounded-full border border-[#FF2D8E]/35 bg-[#FF2D8E]/10 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.2em] text-[#FFB8DC] backdrop-blur">
+          <p className="inline-flex items-center gap-2 rounded-full border border-[#E6007E]/30 bg-[#FFF0F7] px-3 py-1 text-[11px] font-bold uppercase tracking-[0.2em] text-[#E6007E]">
             The science
           </p>
-          <h2 className="mt-4 font-serif text-4xl font-black tracking-tight text-white lg:text-5xl">
+          <h2 className="mt-4 font-serif text-4xl font-black tracking-tight text-black lg:text-5xl">
             What peptides are —{" "}
             <span
               className="bg-gradient-to-r from-[#FFB8DC] via-[#FF2D8E] to-[#E6007E] bg-clip-text text-transparent"
@@ -58,7 +48,7 @@ export function RegenScienceTheater({ onShopGoals }: Props) {
           >
             Learn · Then choose your goal
           </p>
-          <p className="mt-3 text-base font-medium leading-relaxed text-white/65">
+          <p className="mt-3 text-base font-medium leading-relaxed text-black/65">
             Peptides are short chains of amino acids — precision messengers that tell cells to
             repair tissue, support metabolism, balance hormones, or boost cellular energy. Not one
             drug. A toolkit matched to your goals after NP review.
@@ -69,7 +59,7 @@ export function RegenScienceTheater({ onShopGoals }: Props) {
           {PILLARS.map((p) => (
             <div
               key={p.label}
-              className="rounded-2xl border border-[#FF2D8E]/25 bg-white/5 px-4 py-4 backdrop-blur"
+              className="rounded-2xl border border-[#FF2D8E]/25 bg-[#0a0610] px-4 py-4 shadow-[0_14px_28px_-12px_rgba(230,0,126,0.35)]"
             >
               <p
                 className="text-[11px] font-black uppercase tracking-[0.16em]"
@@ -179,7 +169,7 @@ export function RegenScienceTheater({ onShopGoals }: Props) {
           ) : null}
           <Link
             href="/peptides"
-            className="inline-flex items-center justify-center rounded-xl border border-white/30 bg-white/5 px-8 py-3.5 text-sm font-black text-white backdrop-blur transition hover:border-[#FF2D8E] hover:bg-[#FF2D8E]/15"
+            className="inline-flex items-center justify-center rounded-xl border-2 border-black/20 bg-white px-8 py-3.5 text-sm font-black text-black transition hover:border-[#FF2D8E] hover:text-[#E6007E]"
           >
             Full peptide hub →
           </Link>
