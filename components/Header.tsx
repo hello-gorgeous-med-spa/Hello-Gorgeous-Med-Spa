@@ -24,10 +24,10 @@ import { SOLARIA_CO2_PATH, isSolariaNavActive } from "@/lib/solaria-marketing";
 import { QUANTUM_RF_PATH, isQuantumRfNavActive } from "@/lib/quantum-rf-marketing";
 import { INJECTABLES_NAV, INJECTABLES_PATH, isInjectablesNavActive } from "@/lib/injectables-marketing";
 import {
+  FACIALS_PEELS_MENU_PATH,
   FACIALS_PEELS_NAV,
-  FACIALS_PEELS_PATH,
   isFacialsPeelsNavActive,
-} from "@/lib/facials-peels-marketing";
+} from "@/lib/facials-peels-menu";
 import {
   ABOUT_NAV_EXTRA_LINKS,
   isAboutNavActive,
@@ -69,9 +69,9 @@ const NAV = {
           },
           {
             label: "Facials & Peels Journey",
-            href: FACIALS_PEELS_PATH,
-            sub: "Square protocols · HydraFacial · peels · IPL",
-            badge: "JOURNEY",
+            href: FACIALS_PEELS_MENU_PATH,
+            sub: "HydraFacial · dermaplaning · VI Peel · IPL",
+            badge: "NEW",
           },
           {
             label: "Laser Hair Removal Menu",
@@ -620,10 +620,10 @@ export function Header() {
             {/* Facials — esthetic flagship Journey */}
             <div className="relative flex items-center" onMouseEnter={closeDropdown}>
               <Link
-                href={FACIALS_PEELS_PATH}
+                href={FACIALS_PEELS_MENU_PATH}
                 className={NAV_LINK_BASE}
                 style={navPillStyle(0, isFacialsNavActiveState)}
-                aria-label="Facials and peels Journey"
+                aria-label="Facials and peels menu"
               >
                 {FACIALS_PEELS_NAV.label}
               </Link>
@@ -801,13 +801,13 @@ export function Header() {
             </Link>
 
             <Link
-              href={FACIALS_PEELS_PATH}
+              href={FACIALS_PEELS_MENU_PATH}
               onClick={() => setMobileOpen(false)}
               className="mb-3 flex w-full items-center justify-between gap-2 rounded-xl border border-[#E6007E]/40 bg-gradient-to-r from-[#2d1020] to-black px-4 py-3.5 text-sm font-bold text-white"
             >
               <span className="flex flex-col items-start gap-0.5">
                 <span>Facials & Peels</span>
-                <span className="text-xs font-semibold text-[#FFB8DC]">Square protocols · HydraFacial · from $75</span>
+                <span className="text-xs font-semibold text-[#FFB8DC]">HydraFacial · peels · dermaplaning</span>
               </span>
             </Link>
 

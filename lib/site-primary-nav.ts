@@ -6,7 +6,7 @@
 import { BOOKING_URL, RX_PATIENT_CARE_PATH } from "@/lib/flows";
 import { LABS_NAV } from "@/lib/labs-nav";
 import { BROW_MICROBLADING_NAV } from "@/lib/brow-journey-marketing";
-import { FACIALS_PEELS_NAV, FACIALS_PEELS_PATH } from "@/lib/facials-peels-marketing";
+import { FACIALS_PEELS_MENU_PATH, FACIALS_PEELS_NAV } from "@/lib/facials-peels-menu";
 import { MORPHEUS8_PATH } from "@/lib/morpheus8-marketing";
 import { SOLARIA_CO2_PATH } from "@/lib/solaria-marketing";
 import { QUANTUM_RF_PATH } from "@/lib/quantum-rf-marketing";
@@ -22,7 +22,7 @@ import { FLOWWAVE_PATH } from "@/lib/flowwave-marketing";
 
 export const PRIMARY_NAV_HUBS = [
   { id: "services", label: "Services", href: "/services", hasDropdown: true },
-  { id: "facials", label: FACIALS_PEELS_NAV.label, href: FACIALS_PEELS_PATH, hasDropdown: false },
+  { id: "facials", label: FACIALS_PEELS_NAV.label, href: FACIALS_PEELS_MENU_PATH, hasDropdown: false },
   { id: "injectables", label: INJECTABLES_NAV.label, href: INJECTABLES_PATH, hasDropdown: false },
   {
     id: "microblading",
