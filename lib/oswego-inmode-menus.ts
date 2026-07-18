@@ -106,9 +106,19 @@ export const SOLARIA_CO2_OSWEGO_MENU = buildOswegoMenu("solaria-co2-oswego", {
     title: "What is Solaria?",
     description:
       "Solaria by InMode fractional CO₂ is indicated for ablative skin resurfacing — precise microbeam treatments with faster healing than traditional full-field CO₂.",
-    imageSrc: "/images/solaria/solaria-inmode-manufacturer-overview.jpg",
+    imageSrc: "/images/solaria/solaria-inmode-introducing-best-version.jpg",
     imageAlt:
-      "InMode Solaria CO₂ workstation with key benefits — fractional ablative skin resurfacing at Hello Gorgeous Med Spa, Oswego IL",
+      "InMode Solaria introducing the best version of you — fractional CO₂ resurfacing education graphic",
+    additionalImages: [
+      {
+        src: "/images/solaria/solaria-inmode-before-after-results.jpg",
+        alt: "InMode Solaria fractional skin resurfacing before and after results — face, neck, and hands",
+      },
+      {
+        src: "/images/solaria/solaria-inmode-manufacturer-overview.jpg",
+        alt: "InMode Solaria CO₂ workstation with key benefits — fractional ablative skin resurfacing at Hello Gorgeous Med Spa, Oswego IL",
+      },
+    ],
     learnMoreHref: "https://www.inmodemd.com/workstation/solaria/",
     learnMoreLabel: "Learn more on InMode.com",
   },

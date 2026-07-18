@@ -63,11 +63,19 @@ export type ServiceMenuResultSlide = {
   tagline?: string;
 };
 
+export type ServiceMenuManufacturerImage = {
+  src: string;
+  alt: string;
+};
+
 export type ServiceMenuManufacturerOverview = {
   title: string;
   description?: string;
+  /** Primary manufacturer graphic (always shown first). */
   imageSrc: string;
   imageAlt: string;
+  /** Optional extra InMode / manufacturer education graphics. */
+  additionalImages?: ServiceMenuManufacturerImage[];
   learnMoreHref: string;
   learnMoreLabel?: string;
 };

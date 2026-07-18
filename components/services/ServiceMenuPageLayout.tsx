@@ -176,21 +176,34 @@ export function ServiceMenuPageLayout({ config }: { config: ServiceMenuConfig })
                   {manufacturerOverview.description}
                 </p>
               ) : null}
-              <figure className="mx-auto mt-8 overflow-hidden rounded-2xl border-2 border-white/20 bg-white">
-                <Image
-                  src={manufacturerOverview.imageSrc}
-                  alt={manufacturerOverview.imageAlt}
-                  width={1024}
-                  height={480}
-                  className="h-auto w-full object-contain"
-                  sizes="(max-width: 768px) 100vw, 896px"
-                  loading="lazy"
-                />
-                <figcaption className="border-t border-black/10 bg-white px-4 py-2 text-center text-xs text-black/55">
-                  Manufacturer education graphic. Device trademarks belong to their owners.
-                  Candidacy confirmed in consultation.
-                </figcaption>
-              </figure>
+              <div className="mx-auto mt-8 flex max-w-4xl flex-col gap-6">
+                {[
+                  {
+                    src: manufacturerOverview.imageSrc,
+                    alt: manufacturerOverview.imageAlt,
+                  },
+                  ...(manufacturerOverview.additionalImages ?? []),
+                ].map((img) => (
+                  <figure
+                    key={img.src}
+                    className="overflow-hidden rounded-2xl border-2 border-white/20 bg-white"
+                  >
+                    <Image
+                      src={img.src}
+                      alt={img.alt}
+                      width={1024}
+                      height={780}
+                      className="h-auto w-full object-contain"
+                      sizes="(max-width: 768px) 100vw, 896px"
+                      loading="lazy"
+                    />
+                    <figcaption className="border-t border-black/10 bg-white px-4 py-2 text-center text-xs text-black/55">
+                      Manufacturer education graphic. Device trademarks belong to their owners.
+                      Candidacy confirmed in consultation. Individual results vary.
+                    </figcaption>
+                  </figure>
+                ))}
+              </div>
               <p className="mt-5 text-center text-sm text-white/80">
                 <a
                   href={manufacturerOverview.learnMoreHref}
