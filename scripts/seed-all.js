@@ -67,8 +67,9 @@ const SERVICES = [
   { category_slug: 'botox', name: 'Lip Flip', slug: 'lip-flip', price_cents: 9900, price_display: '$99', duration_minutes: 30, requires_intake: true, primary_persona_id: 'beau-tox' },
   
   // Fillers
+  { category_slug: 'fillers', name: 'Filler - Half Syringe', slug: 'filler-half-syringe', price_cents: 30000, price_display: '$300', duration_minutes: 45, deposit_required: true, deposit_amount_cents: 5000, requires_intake: true, requires_consent: true, is_featured: true, minimum_age: 22, primary_persona_id: 'filla-grace' },
   { category_slug: 'fillers', name: 'Dermal Filler - Per Syringe', slug: 'filler-syringe', price_cents: 59900, price_display: '$599', duration_minutes: 60, deposit_required: true, deposit_amount_cents: 10000, requires_intake: true, requires_consent: true, is_featured: true, minimum_age: 22, primary_persona_id: 'filla-grace' },
-  { category_slug: 'fillers', name: 'Filler - 2 Syringe Special', slug: 'filler-2-syringe', price_cents: 89800, price_display: '$898', duration_minutes: 60, deposit_required: true, deposit_amount_cents: 15000, requires_intake: true, requires_consent: true, minimum_age: 22, primary_persona_id: 'filla-grace' },
+  { category_slug: 'fillers', name: 'Filler - 2 Syringe Special', slug: 'filler-2-syringe', price_cents: 109800, price_display: '$1,098', duration_minutes: 60, deposit_required: true, deposit_amount_cents: 15000, requires_intake: true, requires_consent: true, minimum_age: 22, primary_persona_id: 'filla-grace' },
   
   // AnteAGE
   { category_slug: 'anteage', name: 'Microneedling with Exosomes', slug: 'microneedling-exosomes', price_cents: 49900, price_display: '$499', duration_minutes: 45, deposit_required: true, deposit_amount_cents: 10000, requires_intake: true, is_featured: true, primary_persona_id: 'peppi' },

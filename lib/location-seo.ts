@@ -70,7 +70,7 @@ export const TOP_SERVICES: ServiceConfig[] = [
     slug: 'lip-filler',
     name: 'Lip Filler',
     shortName: 'Lip Filler',
-    priceDisplay: 'From $450',
+    priceDisplay: 'From $300',
     description: 'Enhance your lips with natural-looking volume, definition, and hydration using premium lip fillers.',
     heroImage: '/images/services/hg-lips-filler.png',
     keywords: ['lip filler', 'lip injections', 'lip augmentation', 'lip enhancement', 'juvederm lips', 'natural lip filler'],

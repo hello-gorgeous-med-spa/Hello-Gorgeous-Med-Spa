@@ -415,7 +415,7 @@ export function InjectablesPageContent() {
         <Section className="border-t-4 border-black bg-gradient-to-r from-[#FF2D8E] via-[#E6007E] to-[#9b0a4d] py-14 text-center text-white">
           <h2 className="font-serif text-3xl font-black">Ready for your consult?</h2>
           <p className="mx-auto mt-3 max-w-lg text-white/90">
-            Botox $10/unit · lip filler $450 · NP-led · Oswego IL
+            Botox $10/unit · half syringe $300 · filler $599 · NP-led · Oswego IL
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-3">
             <CTA

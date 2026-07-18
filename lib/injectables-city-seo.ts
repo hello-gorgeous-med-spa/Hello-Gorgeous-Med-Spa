@@ -33,8 +33,9 @@ const SERVICE_AREAS =
 
 const neuroPricing = INJECTABLES_MENU.sections[0].pricing;
 const botoxPrice = neuroPricing.find((p) => p.label === "Botox")?.price ?? "$10/unit";
-const lipPrice = INJECTABLES_MENU.sections[1].pricing[0]?.price ?? "$450";
-const dermalPrice = INJECTABLES_MENU.sections[2].pricing[0]?.price ?? "From $650";
+const lipPrice = INJECTABLES_MENU.sections[1].pricing.find((p) => p.label === "1 syringe")?.price ?? "$599";
+const dermalPrice =
+  INJECTABLES_MENU.sections[2].pricing.find((p) => p.label.includes("per syringe"))?.price ?? "$599";
 
 export const INJECTABLES_CITY_SLUGS = PRIMARY_CITY_SLUGS.filter(
   (s): s is InjectablesCitySlug => s !== "oswego",
@@ -56,7 +57,7 @@ function baseFaqs(city: string, localAngle: string): InjectablesCitySeoContent["
     },
     {
       question: `How much is lip filler near ${city}?`,
-      answer: `Lip filler starts at ${lipPrice} for one syringe at Hello Gorgeous Oswego. Two-syringe packages are available at consult. Lip Studio AI preview helps you visualize shape before treatment.`,
+      answer: `Half syringe is $300 and full syringe filler is ${lipPrice} at Hello Gorgeous Oswego — buy 2 and save $100 ($1,098). Lip Studio AI preview helps you visualize shape before treatment.`,
     },
     {
       question: "Which neurotoxin brands do you carry?",
@@ -75,7 +76,7 @@ const CITY_CONTENT: Record<
     cityLabel: "Naperville",
     metaTitle: "Botox & Fillers Near Naperville IL | $10/unit Botox | Hello Gorgeous Oswego",
     metaDescription:
-      "Botox $10/unit, lip filler $450, dermal fillers from $650 — 15 minutes from Naperville, IL at Hello Gorgeous Med Spa in Oswego. All 5 neurotoxins · NP-led · free consult.",
+      "Botox $10/unit, half syringe $300, filler $599 (buy 2 save $100) — 15 minutes from Naperville, IL at Hello Gorgeous Med Spa in Oswego. All 5 neurotoxins · NP-led · free consult.",
     keywords: [
       "Botox Naperville IL",
       "Botox near Naperville",
@@ -98,7 +99,7 @@ const CITY_CONTENT: Record<
   },
   aurora: {
     cityLabel: "Aurora",
-    metaTitle: "Botox & Fillers Near Aurora IL | Lip Filler $450 | Hello Gorgeous Oswego",
+    metaTitle: "Botox & Fillers Near Aurora IL | Filler $599 | Hello Gorgeous Oswego",
     metaDescription:
       "Botox, lip filler & dermal fillers near Aurora, IL — all 5 neurotoxins at Hello Gorgeous Med Spa in Oswego. NP-led injectors · natural results · free consult.",
     keywords: [
@@ -122,7 +123,7 @@ const CITY_CONTENT: Record<
     cityLabel: "Plainfield",
     metaTitle: "Botox & Fillers Near Plainfield IL | Hello Gorgeous Oswego",
     metaDescription:
-      "Botox $10/unit, lip filler $450 near Plainfield, IL at Hello Gorgeous Med Spa in Oswego. Dermal fillers, all 5 neurotoxins · NP on site · Cherry financing.",
+      "Botox $10/unit, filler $599 near Plainfield, IL at Hello Gorgeous Med Spa in Oswego. Dermal fillers, all 5 neurotoxins · NP on site · Cherry financing.",
     keywords: [
       "Botox Plainfield IL",
       "Botox near Plainfield",
@@ -144,7 +145,7 @@ const CITY_CONTENT: Record<
     cityLabel: "Yorkville",
     metaTitle: "Botox & Fillers Near Yorkville IL | Hello Gorgeous Oswego",
     metaDescription:
-      "Botox & dermal fillers near Yorkville, IL — Hello Gorgeous Med Spa in Oswego. Lip filler $450 · all 5 neurotoxins · NP-directed · free consult.",
+      "Botox & dermal fillers near Yorkville, IL — Hello Gorgeous Med Spa in Oswego. Filler $599 · half $300 · all 5 neurotoxins · NP-directed · free consult.",
     keywords: [
       "Botox Yorkville IL",
       "Botox near Yorkville",

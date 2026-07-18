@@ -6,7 +6,7 @@ export const INJECTABLES_MENU: ServiceMenuConfig = {
   path: INJECTABLES_MENU_PATH,
   metaTitle: "Injectables Menu | Botox, Fillers & Lip Studio | Hello Gorgeous Oswego",
   metaDescription:
-    "Hello Gorgeous injectables menu — Botox $10/unit, Dysport $14, Jeuveau $11, lip filler $450, dermal fillers from $650, Sculptra & biostimulators. NP-led Oswego, IL.",
+    "Hello Gorgeous injectables menu — Botox $10/unit, Dysport $14, Jeuveau $11, half syringe $300, filler $599 (buy 2 save $100), Sculptra & biostimulators. NP-led Oswego, IL.",
   hero: {
     eyebrow: "Oswego, IL · All 5 neurotoxin brands",
     titleAccent: "Injectables Menu",
@@ -47,14 +47,15 @@ export const INJECTABLES_MENU: ServiceMenuConfig = {
         "Natural lip enhancement with premium HA fillers — volume, definition, and hydration tailored to your facial balance.",
       highlights: [
         "Juvederm & Restylane lip protocols",
-        "Half-syringe options at consult",
+        "Half syringe $300 · full syringe $599",
         "Lip Studio AI preview available",
         "Swelling typically 24–48 hours",
         "Touch-up at 2 weeks included in plan",
       ],
       pricing: [
-        { label: "1 syringe", price: "$450", href: "/lip-filler-oswego" },
-        { label: "2 syringes", price: "$399 each", href: "/lip-filler-oswego", note: "$798 total" },
+        { label: "Half syringe", price: "$300", href: "/lip-filler-oswego" },
+        { label: "1 syringe", price: "$599", href: "/lip-filler-oswego" },
+        { label: "2 syringes", price: "$1,098", href: "/lip-filler-oswego", note: "Save $100 vs two singles" },
         { label: "Lip Studio consultation", price: "Free", href: "/lip-studio" },
       ],
       learnMoreHref: "/lip-filler-oswego",
@@ -73,8 +74,9 @@ export const INJECTABLES_MENU: ServiceMenuConfig = {
         "Cherry financing available",
       ],
       pricing: [
-        { label: "Dermal filler (per syringe)", price: "From $650", href: "/dermal-fillers-oswego" },
-        { label: "2-syringe package", price: "$898", href: "/dermal-fillers-oswego", note: "Save vs two single syringes" },
+        { label: "Half syringe", price: "$300", href: "/dermal-fillers-oswego" },
+        { label: "Dermal filler (per syringe)", price: "$599", href: "/dermal-fillers-oswego" },
+        { label: "2-syringe package", price: "$1,098", href: "/dermal-fillers-oswego", note: "Save $100 vs two singles" },
         { label: "Hyaluronidase (dissolver)", price: "From $250", note: "When medically appropriate" },
         { label: "Montgomery IL", price: "~10 min", href: "/dermal-fillers-montgomery-il" },
         { label: "Plainfield IL", price: "~12 min", href: "/dermal-fillers-plainfield-il" },

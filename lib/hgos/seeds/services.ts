@@ -671,9 +671,9 @@ Revanesse utilizes only high-molecular weight HA which has been shown to be anti
     description: `Special promotion: 2 syringes of premium Revanesse filler.
 
 Save when you purchase 2 syringes together!`,
-    shortDescription: '2 syringes special - Save $300',
-    priceCents: 89800,
-    priceDisplay: '$898',
+    shortDescription: '2 syringes special — save $100',
+    priceCents: 109800,
+    priceDisplay: '$1,098',
     priceType: 'fixed',
     durationMinutes: 60,
     bufferBeforeMinutes: 0,

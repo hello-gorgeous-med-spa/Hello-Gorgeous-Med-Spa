@@ -38,8 +38,8 @@ export const SIGNATURE_MENU_SECTIONS: {
       },
       {
         title: "Lip filler",
-        price: "$450 · 1 syringe",
-        details: ["$399 each when you book 2 syringes"],
+        price: "$599 · 1 syringe",
+        details: ["Half syringe $300 · buy 2 save $100"],
         href: "/lip-filler-oswego",
       },
     ],
@@ -124,7 +124,7 @@ export const SIGNATURE_MENU_SOCIAL = {
   message: `✨ Signature Treatment Menu at Hello Gorgeous Med Spa — Oswego, IL
 
 💉 Botox as low as $9/unit (Allergan · US distributors only)
-💋 Lip filler $450 (2 syringes $399 each)
+💋 Half syringe $300 · filler $599 (buy 2 save $100)
 ⚡ Quantum RF — neck $2,499 · abdomen $3,999 · FREE Morpheus8 Burst
 🔥 Morpheus8 Burst — from $799 · 3 for $1,999
 ✨ Solaria CO₂ — $899 with buy-one-get-one-free area

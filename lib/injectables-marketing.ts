@@ -22,7 +22,7 @@ export const INJECTABLES_MARKETING = {
   eyebrow: "All 5 neurotoxin brands · NP on site",
   headline: "Natural injectables, medical oversight",
   subhead:
-    "Botox from $10/unit (Allergan & US distributors only), lip filler $450, dermal fillers from $650 — all five FDA-approved neurotoxins with nurse practitioner oversight and honest dosing at Hello Gorgeous in Oswego.",
+    "Botox from $10/unit (Allergan & US distributors only), half syringe $300, filler $599 (buy 2 save $100) — all five FDA-approved neurotoxins with nurse practitioner oversight and honest dosing at Hello Gorgeous in Oswego.",
   trustLine:
     "Only Fox Valley med spa with Botox, Dysport, Jeuveau, Xeomin & Daxxify on one menu — plus Lip Studio AI preview and full-face filler mapping.",
   phoneDisplay: "(630) 636-6193",
@@ -93,8 +93,8 @@ export const INJECTABLES_WHAT_IT_DOES = [
     id: "full-menu",
     title: "Full filler menu",
     body: "Lips, cheeks, jawline, temples & biostimulators — Juvederm, Restylane, RHA & Sculptra protocols.",
-    stat: "$450+",
-    statLabel: "lip filler",
+    stat: "$300+",
+    statLabel: "half syringe",
   },
 ] as const;
 
@@ -146,11 +146,11 @@ export const INJECTABLES_NEUROTOXIN_PACKAGES = INJECTABLES_MENU.sections[0].pric
 
 export const INJECTABLES_FILLER_PACKAGES = [
   {
-    id: "lip-1",
-    name: "Lip filler — 1 syringe",
-    price: "$450",
-    detail: "Juvederm & Restylane protocols",
-    bullets: ["Half-syringe at consult", "Lip Studio AI preview", "2-week touch-up in plan"],
+    id: "half",
+    name: "Half syringe",
+    price: "$300",
+    detail: "Lips or targeted touch-ups",
+    bullets: ["Perfect for first-timers", "Lip Studio AI preview", "2-week touch-up in plan"],
     href: "/lip-filler-oswego",
     highlight: true,
     image: "/images/injectables/promo-half-syringe.png",
@@ -158,37 +158,37 @@ export const INJECTABLES_FILLER_PACKAGES = [
     imagePosition: "object-[center_35%]",
   },
   {
-    id: "lip-2",
-    name: "Lip filler — 2 syringes",
-    price: "$399 ea",
-    detail: "$798 total",
+    id: "filler-1",
+    name: "Filler — 1 syringe",
+    price: "$599",
+    detail: "Lip or dermal · Juvederm & Restylane",
     bullets: ["Volume + definition", "Natural facial balance", "Swelling typically 24–48 hr"],
     href: "/lip-filler-oswego",
     image: "/images/injectables/hero-lip-injection.png",
-    imageAlt: "Lip filler treatment with medical injector — Hello Gorgeous Oswego",
+    imageAlt: "Filler treatment with medical injector — Hello Gorgeous Oswego",
     imagePosition: "object-[center_30%]",
   },
   {
-    id: "dermal-1",
-    name: "Dermal filler",
-    price: "From $650",
-    detail: "per syringe",
-    bullets: ["Cheeks · jaw · chin · temples", "Hyaluronidase available", "Cherry financing"],
-    href: "/dermal-fillers-oswego",
-    image: "/images/injectables/hero-chin-glove.png",
-    imageAlt: "Dermal filler consult — medical aesthetics at Hello Gorgeous",
-    imagePosition: "object-[center_40%]",
-  },
-  {
-    id: "dermal-2",
-    name: "2-syringe package",
-    price: "$898",
-    detail: "save vs two singles",
+    id: "filler-2",
+    name: "Filler — 2 syringes",
+    price: "$1,098",
+    detail: "Save $100 vs two singles",
     bullets: ["Full-face mapping", "Juvederm · Restylane · RHA", "Quoted at consult"],
     href: "/dermal-fillers-oswego",
     image: "/images/injectables/hero-glam-portrait.png",
     imageAlt: "Glowing skin after dermal filler mapping — Hello Gorgeous Med Spa",
     imagePosition: "object-[center_25%]",
+  },
+  {
+    id: "dermal-areas",
+    name: "Dermal filler areas",
+    price: "$599",
+    detail: "per syringe · cheeks · jaw · chin",
+    bullets: ["Cheeks · jaw · chin · temples", "Hyaluronidase available", "Cherry financing"],
+    href: "/dermal-fillers-oswego",
+    image: "/images/injectables/hero-chin-glove.png",
+    imageAlt: "Dermal filler consult — medical aesthetics at Hello Gorgeous",
+    imagePosition: "object-[center_40%]",
   },
 ] as const;
 
@@ -239,8 +239,8 @@ export function isInjectablesNavActive(pathname: string | null): boolean {
 }
 
 export const INJECTABLES_SEO = {
-  title: "Botox & Fillers | All 5 Neurotoxins · Lip Filler $450 | Hello Gorgeous Oswego",
+  title: "Botox & Fillers | Half Syringe $300 · Filler $599 | Hello Gorgeous Oswego",
   description:
-    "Botox from $10/unit (Allergan & US distributors only), lip filler $450, dermal fillers from $650 at Hello Gorgeous Med Spa Oswego IL — all 5 neurotoxins, NP-led injectors, Lip Studio preview. Free consult.",
+    "Botox from $10/unit, half syringe $300, filler $599 (buy 2 save $100) at Hello Gorgeous Med Spa Oswego IL — all 5 neurotoxins, NP-led injectors, Lip Studio preview. Free consult.",
   ogAlt: "Botox and dermal fillers — Hello Gorgeous Med Spa Oswego IL",
 } as const;
