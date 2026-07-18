@@ -314,7 +314,7 @@ const nextConfig = {
     // Flagship Journey lives at /services/morpheus8 (do not redirect — Header + MORPHEUS8_PATH)
     { source: "/services/morpheus8-burst", destination: "/morpheus8-burst-oswego", permanent: true },
     { source: "/services/morpheus8-body", destination: "/morpheus8-body-oswego", permanent: true },
-    { source: "/services/solaria-co2", destination: "/solaria-co2-oswego", permanent: true },
+    // Flagship Journey lives at /services/solaria-co2 (do not redirect — Header + SOLARIA_CO2_PATH)
     { source: "/co2-laser-oswego-il", destination: "/solaria-co2-oswego", permanent: true },
     { source: "/solaria-co2-laser-oswego-il", destination: "/solaria-co2-oswego", permanent: true },
     { source: "/stretch-mark-treatment-oswego-il", destination: "/solaria-co2-oswego", permanent: true },

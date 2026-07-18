@@ -37,9 +37,9 @@ export const metadata: Metadata = {
   alternates: { canonical: `${SITE.url}${SOLARIA_CO2_PATH}` },
   openGraph: {
     ...baseMeta.openGraph,
-    images: [{ url: `${SITE.url}${SOLARIA_MARKETING.images.device}`, width: 1200, height: 630, alt: SOLARIA_SEO.ogAlt }],
+    images: [{ url: `${SITE.url}${SOLARIA_MARKETING.images.hero}`, width: 1200, height: 630, alt: SOLARIA_SEO.ogAlt }],
   },
-  twitter: { ...baseMeta.twitter, images: [`${SITE.url}${SOLARIA_MARKETING.images.device}`] },
+  twitter: { ...baseMeta.twitter, images: [`${SITE.url}${SOLARIA_MARKETING.images.hero}`] },
 };
 
 export default function SolariaCo2ServicePage() {
@@ -58,7 +58,7 @@ export default function SolariaCo2ServicePage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(
-            webPageJsonLd({ title: SOLARIA_SEO.title, description: SOLARIA_SEO.description, path: SOLARIA_CO2_PATH, image: SOLARIA_MARKETING.images.device }),
+            webPageJsonLd({ title: SOLARIA_SEO.title, description: SOLARIA_SEO.description, path: SOLARIA_CO2_PATH, image: SOLARIA_MARKETING.images.hero }),
           ),
         }}
       />

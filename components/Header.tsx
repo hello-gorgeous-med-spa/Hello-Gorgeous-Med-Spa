@@ -848,8 +848,8 @@ export function Header() {
               className="mb-3 flex w-full items-center justify-between gap-2 rounded-xl border border-[#E6007E]/40 bg-gradient-to-r from-[#2d1020] to-black px-4 py-3.5 text-sm font-bold text-white"
             >
               <span className="flex flex-col items-start gap-0.5">
-                <span>Solaria CO₂</span>
-                <span className="text-xs font-semibold text-[#FFB8DC]">Laser resurfacing · $899 launch</span>
+                <span>Solaria Journey</span>
+                <span className="text-xs font-semibold text-[#FFB8DC]">InMode CO₂ · $899 + BOGO area</span>
               </span>
             </Link>
 
