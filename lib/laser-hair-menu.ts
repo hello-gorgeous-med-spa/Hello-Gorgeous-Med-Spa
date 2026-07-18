@@ -53,10 +53,10 @@ export const LASER_HAIR_MENU: ServiceMenuConfig = {
       pricing: [
         { label: "Listed areas — July special", price: "$59", href: "/oswego-specials#laser" },
         {
-          label: "Brazilian 3-month package",
+          label: "Laser Brazilian — 3-Month Package",
           price: "$499",
           href: "/spring-special-laser-hair",
-          note: "Seasonal package",
+          note: "Book in Square · follow-ups as Prepaid Package Visit $0",
         },
         { label: "Full legs or arms (standard)", price: "$149", href: "/laser-hair-removal-oswego-il" },
       ],

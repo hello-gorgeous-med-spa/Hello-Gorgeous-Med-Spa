@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Hello Gorgeous — Live Product Demo (MD Pitch)</title>
+  <style>
+    :root {
+      --navy: #0B1F33;
+      --ink: #071018;
+      --pink: #E6007E;
+      --hot: #FF2D8E;
+      --soft: #FFB8DC;
+      --gold: #F5C518;
+      --bg: #f4f6f8;
+      --card: #ffffff;
+      --line: rgba(11,31,51,0.12);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: "Avenir Next", "Segoe UI", system-ui, -apple-system, sans-serif;
+      color: var(--navy);
+      background: #fff;
+    }
+    a { color: inherit; }
+
+    /* —— top nav —— */
+    .nav {
+      position: sticky; top: 0; z-index: 40;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 28px;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--line);
+    }
+    .brand { display: flex; align-items: center; gap: 10px; font-weight: 900; letter-spacing: -0.02em; }
+    .brand .mark {
+      width: 34px; height: 34px; border-radius: 999px;
+      background: linear-gradient(135deg, var(--hot), var(--pink));
+      color: #fff; display: grid; place-items: center; font-size: 12px; border: 2px solid #000;
+    }
+    .nav-cta {
+      background: var(--pink); color: #fff; text-decoration: none;
+      padding: 10px 16px; border-radius: 999px; font-weight: 800; font-size: 14px;
+      border: 2px solid #000; box-shadow: 3px 3px 0 #000;
+    }
+
+    /* —— hero —— */
+    .hero {
+      padding: 64px 28px 40px;
+      background:
+        radial-gradient(80% 60% at 90% 0%, rgba(230,0,126,0.18), transparent 55%),
+        linear-gradient(180deg, #fff, #fff7fb 70%, #ffe6f3);
+    }
+    .pill {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 6px 12px; border-radius: 999px;
+      background: #fff; border: 1px solid var(--line);
+      font-size: 12px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--pink);
+    }
+    .pill i { width: 8px; height: 8px; border-radius: 999px; background: #22c55e; box-shadow: 0 0 0 4px rgba(34,197,94,0.2); }
+    .hero h1 {
+      margin: 18px 0 14px; max-width: 16ch;
+      font-size: clamp(2.4rem, 5.5vw, 4.2rem); line-height: 1.02; letter-spacing: -0.04em;
+    }
+    .hero h1 .strike { color: #9aa3ad; text-decoration: line-through; text-decoration-color: #ef4444; }
+    .hero h1 .accent { color: var(--pink); }
+    .hero p.lead {
+      max-width: 46rem; font-size: 1.15rem; line-height: 1.5; color: rgba(11,31,51,0.78); margin: 0 0 22px;
+    }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 14px 18px; border-radius: 14px; font-weight: 800; text-decoration: none;
+      border: 2px solid #000; cursor: pointer; font-size: 15px;
+    }
+    .btn-primary { background: var(--pink); color: #fff; box-shadow: 4px 4px 0 #000; }
+    .btn-ghost { background: #fff; color: var(--navy); }
+
+    /* —— DEMO BAND (Boots pattern) —— */
+    #demo {
+      background: var(--ink);
+      color: #fff;
+      padding: 72px 28px 88px;
+    }
+    #demo .wrap { max-width: 1180px; margin: 0 auto; }
+    #demo .eyebrow {
+      color: var(--soft); font-size: 12px; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase;
+    }
+    #demo h2 {
+      margin: 12px 0 10px; font-size: clamp(1.8rem, 4vw, 2.8rem); letter-spacing: -0.03em; max-width: 22ch;
+    }
+    #demo .sub { color: rgba(255,255,255,0.72); max-width: 42rem; font-size: 1.05rem; line-height: 1.45; margin-bottom: 28px; }
+
+    .stage {
+      display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 18px; align-items: stretch;
+    }
+    @media (max-width: 980px) {
+      .stage { grid-template-columns: 1fr; }
+    }
+
+    .orch {
+      background: #fff; color: var(--navy);
+      border-radius: 18px; border: 2px solid #000;
+      box-shadow: 10px 10px 0 rgba(230,0,126,0.45);
+      overflow: hidden; min-height: 460px; display: flex; flex-direction: column;
+    }
+    .orch-top {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 12px 14px; background: #f3f5f7; border-bottom: 1px solid var(--line);
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; font-weight: 700;
+    }
+    .dots { display: flex; gap: 6px; }
+    .dots span { width: 10px; height: 10px; border-radius: 999px; }
+    .dots .r { background: #ff5f57; } .dots .y { background: #febc2e; } .dots .g { background: #28c840; }
+    .agents {
+      display: flex; flex-wrap: wrap; gap: 8px; padding: 12px 14px; border-bottom: 1px solid var(--line);
+    }
+    .agent {
+      padding: 6px 10px; border-radius: 999px; font-size: 11px; font-weight: 800; letter-spacing: 0.04em;
+      background: #eef2f6; color: #445;
+    }
+    .agent.on { background: var(--navy); color: #fff; }
+    .agent.a { background: #dbeafe; color: #1d4ed8; }
+    .agent.b { background: #f3e8ff; color: #7e22ce; }
+    .agent.c { background: #dcfce7; color: #15803d; }
+    .agent.d { background: #ffe4e6; color: #be123c; }
+    .agent.e { background: #fef3c7; color: #b45309; }
+
+    .frame {
+      position: relative; flex: 1; background: #0a0a0a; overflow: hidden; min-height: 320px;
+    }
+    .frame img {
+      position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top center;
+      opacity: 0; transform: scale(1.04); transition: opacity 0.45s ease, transform 1.2s ease;
+    }
+    .frame img.show { opacity: 1; transform: scale(1); }
+    .frame .empty {
+      position: absolute; inset: 0; display: grid; place-items: center; color: rgba(255,255,255,0.55);
+      font-size: 14px; padding: 24px; text-align: center;
+    }
+    .log {
+      max-height: 150px; overflow: auto; padding: 12px 14px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px;
+      background: #0b1220; color: #c7d2fe; border-top: 1px solid #1e293b;
+    }
+    .log div { margin: 4px 0; opacity: 0; animation: fadein 0.35s forwards; }
+    .log .t-a { color: #60a5fa; }
+    .log .t-b { color: #c084fc; }
+    .log .t-c { color: #4ade80; }
+    .log .t-d { color: #fb7185; }
+    .log .t-e { color: #fbbf24; }
+    @keyframes fadein { to { opacity: 1; } }
+
+    .chat {
+      background: var(--navy);
+      border-radius: 18px; border: 2px solid rgba(255,255,255,0.18);
+      display: flex; flex-direction: column; min-height: 460px; overflow: hidden;
+    }
+    .chat-head {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 16px; border-bottom: 1px solid rgba(255,255,255,0.1);
+      font-weight: 800;
+    }
+    .on-duty {
+      font-size: 11px; font-weight: 900; letter-spacing: 0.08em; text-transform: uppercase;
+      background: var(--gold); color: #111; padding: 5px 9px; border-radius: 999px;
+    }
+    .chat-body { padding: 16px; display: flex; flex-direction: column; gap: 12px; flex: 1; }
+    .bubble {
+      max-width: 95%; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 16px; padding: 12px 14px; font-size: 14px; line-height: 1.4; color: rgba(255,255,255,0.92);
+    }
+    .bubble.me { align-self: flex-end; background: var(--pink); border-color: transparent; }
+    .demos {
+      display: grid; gap: 10px; padding: 0 16px 16px;
+    }
+    .demo-btn {
+      display: flex; align-items: center; gap: 12px; text-align: left;
+      width: 100%; padding: 12px 14px; border-radius: 14px; cursor: pointer;
+      background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.14);
+      color: #fff; font-weight: 800; font-size: 14px;
+      transition: transform 0.15s, border-color 0.15s, background 0.15s;
+    }
+    .demo-btn:hover:not(:disabled) { transform: translateY(-1px); border-color: var(--soft); background: rgba(255,255,255,0.1); }
+    .demo-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+    .demo-btn.active { border-color: var(--hot); box-shadow: 0 0 0 2px rgba(255,45,142,0.35); }
+    .demo-btn .ico {
+      width: 36px; height: 36px; border-radius: 10px; display: grid; place-items: center; font-size: 18px; flex-shrink: 0;
+    }
+    .demo-btn small { display: block; font-weight: 600; opacity: 0.7; margin-top: 2px; font-size: 12px; }
+    .i1 { background: #064e3b; } .i2 { background: #1e3a8a; } .i3 { background: #4a044e; } .i4 { background: #7f1d1d; }
+
+    /* —— proof strip —— */
+    .proof {
+      padding: 56px 28px; background: #fff;
+    }
+    .proof .wrap { max-width: 1100px; margin: 0 auto; }
+    .proof h3 { font-size: 1.6rem; margin: 0 0 8px; letter-spacing: -0.02em; }
+    .proof p { color: rgba(11,31,51,0.7); margin: 0 0 22px; }
+    .grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    @media (max-width: 860px) { .grid3 { grid-template-columns: 1fr; } }
+    .card {
+      border: 2px solid #000; border-radius: 18px; padding: 18px; background: #fff;
+      box-shadow: 6px 6px 0 rgba(230,0,126,0.28);
+    }
+    .card strong { display: block; margin-bottom: 6px; }
+    .card span { color: rgba(11,31,51,0.7); font-size: 14px; line-height: 1.4; }
+    .links {
+      margin-top: 22px; display: flex; flex-wrap: wrap; gap: 10px;
+    }
+    .chip {
+      display: inline-flex; padding: 8px 12px; border-radius: 999px; border: 2px solid #000;
+      background: #fff7fb; text-decoration: none; font-weight: 800; font-size: 13px;
+    }
+    .chip:hover { background: var(--soft); }
+
+    footer {
+      padding: 28px; background: var(--ink); color: rgba(255,255,255,0.65); font-size: 13px;
+      display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+    }
+  </style>
+</head>
+<body>
+  <header class="nav">
+    <div class="brand"><span class="mark">HG</span> Hello Gorgeous · RE GEN</div>
+    <a class="nav-cta" href="#demo">Run live demo ↓</a>
+  </header>
+
+  <section class="hero">
+    <div class="pill"><i></i> Live product · not a mockup</div>
+    <h1>Stop <span class="strike">imagining</span> the stack.<br>Watch the <span class="accent">rails run.</span></h1>
+    <p class="lead">
+      Dr. Arora — this is the machine you’d oversight: patient site → Square booking → RE GEN shop &amp; intake →
+      <strong>your clinical gate</strong> → pharmacy → ship. Pick a demo. It runs on the real UI.
+    </p>
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="#demo">▶ Watch it work</a>
+      <a class="btn btn-ghost" href="https://www.hellogorgeousmedspa.com/rx" target="_blank" rel="noopener">Open /rx live ↗</a>
+      <a class="btn btn-ghost" href="https://www.hellogorgeousmedspa.com/rx-portal/login" target="_blank" rel="noopener">Provider portal ↗</a>
+    </div>
+  </section>
+
+  <section id="demo">
+    <div class="wrap">
+      <div class="eyebrow">Interactive demo</div>
+      <h2>Watch your clinical + ops rails come to life</h2>
+      <p class="sub">Same pattern as a serious SaaS product pitch: you click a flow, the system streams what happens, and you see the real screens — not a film of AI slides.</p>
+
+      <!-- Boots-style: real product recording first -->
+      <div style="margin:0 0 28px;border-radius:18px;overflow:hidden;border:2px solid rgba(255,255,255,0.18);background:#000;box-shadow:0 20px 60px rgba(0,0,0,0.45)">
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:#111;border-bottom:1px solid rgba(255,255,255,0.08);font-size:12px;font-weight:800;letter-spacing:0.06em;text-transform:uppercase;color:rgba(255,255,255,0.7)">
+          <span>Real product walkthrough · cursor through live UI</span>
+          <span style="color:#FFB8DC">no script · no fake slides</span>
+        </div>
+        <video
+          controls
+          playsinline
+          preload="metadata"
+          poster="product/v-dash.png"
+          style="display:block;width:100%;max-height:620px;background:#000"
+          src="HG-Real-Product-Walkthrough.mp4"
+        ></video>
+      </div>
+
+      <div class="stage">
+        <div class="orch" aria-live="polite">
+          <div class="orch-top">
+            <div class="dots"><span class="r"></span><span class="y"></span><span class="g"></span></div>
+            <div id="orchTitle">hg-orchestrator · idle</div>
+            <div id="orchStatus">ready</div>
+          </div>
+          <div class="agents" id="agents">
+            <span class="agent a" data-k="patient">Patient</span>
+            <span class="agent b" data-k="pay">Pay</span>
+            <span class="agent c" data-k="intake">Intake</span>
+            <span class="agent d" data-k="md">MD gate</span>
+            <span class="agent e" data-k="rx">Pharmacy</span>
+            <span class="agent" data-k="ship">Ship</span>
+          </div>
+          <div class="frame" id="frame">
+            <div class="empty" id="emptyHint">Pick a demo on the right → the real product UI plays here.</div>
+            <img id="shot" alt="Product screen" />
+          </div>
+          <div class="log" id="log"></div>
+        </div>
+
+        <aside class="chat">
+          <div class="chat-head">
+            <div>HG · Clinical Ops</div>
+            <div class="on-duty">On duty</div>
+          </div>
+          <div class="chat-body" id="chatBody">
+            <div class="bubble">
+              Hey — I’m the Hello Gorgeous rails. I don’t guess for an MD. Patients book and buy.
+              <strong>You approve the medicine.</strong> Pick a demo and I’ll run it live on the product screens.
+            </div>
+          </div>
+          <div class="demos">
+            <button class="demo-btn" data-demo="patient" type="button">
+              <span class="ico i1">①</span>
+              <span>Patient journey<small>Site → book → RE GEN shop</small></span>
+            </button>
+            <button class="demo-btn" data-demo="clinical" type="button">
+              <span class="ico i2">②</span>
+              <span>Your MD queue<small>Dashboard · orders · approve path</small></span>
+            </button>
+            <button class="demo-btn" data-demo="fulfill" type="button">
+              <span class="ico i3">③</span>
+              <span>Pay → ship pipeline<small>Intake · pharmacy · tracking</small></span>
+            </button>
+            <button class="demo-btn" data-demo="network" type="button">
+              <span class="ico i4">④</span>
+              <span>White-label your spas<small>Same rails · their brand</small></span>
+            </button>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <section class="proof">
+    <div class="wrap">
+      <h3>Click the live links (same stack)</h3>
+      <p>This demo uses captures of production + local. The URLs below are the real product.</p>
+      <div class="grid3">
+        <div class="card"><strong>Patient storefront</strong><span>RE GEN catalog, goals, checkout, intake — cash-pay telehealth rails.</span></div>
+        <div class="card"><strong>Clinical gate</strong><span>Provider portal with My Day, SLA queues, order history pipeline, documents.</span></div>
+        <div class="card"><strong>Practice OS</strong><span>Square booking, admin, charting, consents — one system, not six tools taped together.</span></div>
+      </div>
+      <div class="links">
+        <a class="chip" href="https://www.hellogorgeousmedspa.com/" target="_blank" rel="noopener">hellogorgeousmedspa.com</a>
+        <a class="chip" href="https://www.hellogorgeousmedspa.com/book" target="_blank" rel="noopener">/book · Square</a>
+        <a class="chip" href="https://www.hellogorgeousmedspa.com/rx" target="_blank" rel="noopener">/rx · RE GEN</a>
+        <a class="chip" href="https://www.hellogorgeousmedspa.com/rx/request" target="_blank" rel="noopener">/rx/request</a>
+        <a class="chip" href="https://www.hellogorgeousmedspa.com/rx-portal/login" target="_blank" rel="noopener">/rx-portal</a>
+        <a class="chip" href="https://www.hellogorgeousmedspa.com/meet-the-team" target="_blank" rel="noopener">/meet-the-team</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div>Confidential · MD partnership pitch · Hello Gorgeous Med Spa</div>
+    <div>Open this file anytime — no login required for the demo theater.</div>
+  </footer>
+
+<script>
+const PRODUCT = "product/";
+const demos = {
+  patient: {
+    title: "patient-journey",
+    chat: "Running patient journey — homepage trust → Square booking → RE GEN shop → RX request funnel.",
+    agents: ["patient", "pay"],
+    steps: [
+      { t: "a", text: "[Patient] Lands on hellogorgeousmedspa.com — medical-practice framing." },
+      { t: "a", text: "[Patient] Opens /book — Square Appointments packages + instant confirm." },
+      { t: "b", text: "[Pay] Discovers RE GEN shop /rx — GLP-1 / peptides / hormones." },
+      { t: "b", text: "[Pay] Browse goals · stacks · science FAQ without leaving the brand." },
+      { t: "c", text: "[Intake] /rx/request — Hims-style goal funnel into clinical intake." },
+      { t: "c", text: "[Intake] Payment + forms create an order ready for MD oversight." },
+    ],
+    shots: [
+      "v-live-home.png",
+      "v-live-book.png",
+      "v-live-rx.png",
+      "v-rx-mid.png",
+      "v-live-request.png",
+      "03-rx.png",
+    ],
+  },
+  clinical: {
+    title: "md-clinical-gate",
+    chat: "This is your lane — provider portal. HIPAA-ready chrome. Queues tell you what needs a physician eye.",
+    agents: ["intake", "md"],
+    steps: [
+      { t: "d", text: "[MD gate] Provider / Staff / Admin role skins — one login, right desk." },
+      { t: "d", text: "[MD gate] RE GEN Dashboard — My Day checklist + SLA ages." },
+      { t: "d", text: "[MD gate] Action needed chip: paid orders waiting on clinical path." },
+      { t: "c", text: "[Intake] Order history pipeline — paid → review → pharmacy → ship." },
+      { t: "d", text: "[MD gate] Patients pane + formulary: what you sign, you see." },
+      { t: "d", text: "[MD gate] Documents + charting sit in the same OS — audit without scavenger hunts." },
+    ],
+    shots: [
+      "v-live-portal-login.png",
+      "v-dash.png",
+      "v-dash-queues.png",
+      "v-orders.png",
+      "v-patients.png",
+      "v-products.png",
+      "v-docs.png",
+      "v-chart.png",
+    ],
+  },
+  fulfill: {
+    title: "pay-to-ship",
+    chat: "End-to-end fulfillment rails — money clears, intake completes, you approve, pharmacy submits, tracking sticks.",
+    agents: ["pay", "intake", "md", "rx", "ship"],
+    steps: [
+      { t: "b", text: "[Pay] Square checkout posts paid order into RE GEN." },
+      { t: "c", text: "[Intake] Desk chases missing intake — queue never lies." },
+      { t: "d", text: "[MD gate] Awaiting your approve — clinical gate, not text threads." },
+      { t: "e", text: "[Pharmacy] Staff place / sync via FormuConnect · BoomRx links." },
+      { t: "e", text: "[Pharmacy] Ready-to-ship queue only after NP/MD path clears." },
+      { t: "a", text: "[Ship] Tracking pasted → patient status updates on the rails." },
+    ],
+    shots: [
+      "v-live-rx.png",
+      "v-place.png",
+      "v-dash-queues.png",
+      "v-orders-pipe.png",
+      "v-docs.png",
+      "v-admin.png",
+    ],
+  },
+  network: {
+    title: "white-label-network",
+    chat: "Lane 3 — after HG proves volume: clone the rails for your other spas. Their brand. Shared clinical protocol. Recurring software upside.",
+    agents: ["patient", "md", "ship"],
+    steps: [
+      { t: "a", text: "[Network] Reference clinic = Hello Gorgeous (live product, not a deck)." },
+      { t: "d", text: "[MD gate] Your protocols + chart fees across locations." },
+      { t: "b", text: "[Platform] Setup + SaaS per spa · optional GMV share." },
+      { t: "a", text: "[Patient] Their domain / colors / logo — same catalog→pay→intake→approve→ship." },
+      { t: "e", text: "[Ops] Single-tenant first (clean). Multi-tenant later if the network asks." },
+      { t: "d", text: "[Ask] Oversight here → prove → put your name on the rails that scale." },
+    ],
+    shots: [
+      "v-live-home.png",
+      "v-live-team.png",
+      "v-dash.png",
+      "v-live-rx.png",
+      "v-admin.png",
+      "15-faq.png",
+    ],
+  },
+};
+
+const logEl = document.getElementById("log");
+const shotEl = document.getElementById("shot");
+const emptyHint = document.getElementById("emptyHint");
+const orchTitle = document.getElementById("orchTitle");
+const orchStatus = document.getElementById("orchStatus");
+const chatBody = document.getElementById("chatBody");
+const buttons = [...document.querySelectorAll(".demo-btn")];
+let running = false;
+let timers = [];
+
+function clearTimers() {
+  timers.forEach(clearTimeout);
+  timers = [];
+}
+
+function setAgents(keys) {
+  document.querySelectorAll("#agents .agent").forEach((el) => {
+    const on = keys.includes(el.dataset.k);
+    el.classList.toggle("on", on);
+  });
+}
+
+function pushChat(text, me = false) {
+  const b = document.createElement("div");
+  b.className = "bubble" + (me ? " me" : "");
+  b.textContent = text;
+  chatBody.appendChild(b);
+  chatBody.scrollTop = chatBody.scrollHeight;
+}
+
+function runDemo(key) {
+  if (running) return;
+  const demo = demos[key];
+  if (!demo) return;
+  running = true;
+  clearTimers();
+  logEl.innerHTML = "";
+  emptyHint.style.display = "none";
+  shotEl.classList.remove("show");
+  orchTitle.textContent = `hg-orchestrator · ${demo.title}`;
+  orchStatus.textContent = "running";
+  setAgents(demo.agents);
+  buttons.forEach((btn) => {
+    btn.disabled = true;
+    btn.classList.toggle("active", btn.dataset.demo === key);
+  });
+  pushChat(demo.chat.replace(/^[A-Z].*?— /, "") ? demo.chat : demo.chat, false);
+
+  const stepMs = 1600;
+  demo.steps.forEach((step, i) => {
+    timers.push(setTimeout(() => {
+      const line = document.createElement("div");
+      line.className = `t-${step.t}`;
+      line.textContent = step.text;
+      logEl.appendChild(line);
+      logEl.scrollTop = logEl.scrollHeight;
+
+      const shot = demo.shots[i] || demo.shots[demo.shots.length - 1];
+      shotEl.onload = () => {
+        shotEl.classList.add("show");
+      };
+      shotEl.classList.remove("show");
+      // force reflow for transition
+      void shotEl.offsetWidth;
+      shotEl.src = PRODUCT + shot;
+      requestAnimationFrame(() => shotEl.classList.add("show"));
+    }, i * stepMs));
+  });
+
+  timers.push(setTimeout(() => {
+    orchStatus.textContent = "complete";
+    pushChat("Demo complete. Open a live link below — or run another flow.");
+    running = false;
+    buttons.forEach((btn) => { btn.disabled = false; });
+  }, demo.steps.length * stepMs + 400));
+}
+
+buttons.forEach((btn) => {
+  btn.addEventListener("click", () => {
+    const label = btn.querySelector("span:last-child").childNodes[0].textContent.trim();
+    pushChat(label, true);
+    runDemo(btn.dataset.demo);
+  });
+});
+</script>
+</body>
+</html>

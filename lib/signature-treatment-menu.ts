@@ -77,11 +77,12 @@ export const SIGNATURE_MENU_SECTIONS: {
         href: "/morpheus8-burst-oswego",
       },
       {
-        title: "3-treatment package",
+        title: "Morpheus8 Burst — 3 Session Package",
         price: "$1,999",
         details: [
           "Fine lines · acne scars · skin laxity",
           "Texture · collagen stimulation",
+          "Book in Square · visits 2–3 as Prepaid Package Visit $0",
         ],
         href: "/morpheus8-burst-oswego",
       },

@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Hello Gorgeous × Dr. Arora — Medical Oversight Pitch</title>
+  <style>
+    :root {
+      --bg: #0a0a0a;
+      --card: #141014;
+      --pink: #E6007E;
+      --hot: #FF2D8E;
+      --soft: #FFB8DC;
+      --text: #fafafa;
+      --muted: rgba(255,255,255,0.72);
+      --line: rgba(255,255,255,0.14);
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; height: 100%; background: var(--bg); color: var(--text);
+      font-family: "Segoe UI", system-ui, -apple-system, sans-serif; }
+    .deck { height: 100%; overflow: hidden; }
+    .slide {
+      display: none; height: 100%; padding: 4.5vh 6vw;
+      flex-direction: column; justify-content: center;
+      background:
+        radial-gradient(90% 70% at 85% 10%, rgba(230,0,126,0.22), transparent 55%),
+        radial-gradient(70% 50% at 10% 90%, rgba(255,45,142,0.12), transparent 50%),
+        var(--bg);
+    }
+    .slide.active { display: flex; }
+    .eyebrow { font-size: 0.78rem; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--soft); font-weight: 700; margin-bottom: 1rem; }
+    h1 { font-size: clamp(2rem, 4.8vw, 3.4rem); line-height: 1.05; margin: 0 0 1rem;
+      font-weight: 800; max-width: 18ch; }
+    h1 span { color: var(--hot); }
+    h2 { font-size: clamp(1.6rem, 3.4vw, 2.4rem); margin: 0 0 1.25rem; font-weight: 800; }
+    h2 span { color: var(--hot); }
+    p, li { font-size: clamp(1rem, 1.6vw, 1.25rem); line-height: 1.45; color: var(--muted); }
+    .lead { font-size: clamp(1.1rem, 2vw, 1.4rem); max-width: 42rem; color: rgba(255,255,255,0.88); }
+    .grid { display: grid; gap: 1rem; margin-top: 1.25rem; }
+    .grid.two { grid-template-columns: repeat(2, minmax(0,1fr)); }
+    .grid.three { grid-template-columns: repeat(3, minmax(0,1fr)); }
+    .card {
+      border: 1px solid var(--line); background: rgba(20,16,20,0.88);
+      border-radius: 18px; padding: 1.15rem 1.25rem;
+    }
+    .card h3 { margin: 0 0 0.5rem; font-size: 1.05rem; color: #fff; }
+    .card ul { margin: 0; padding-left: 1.1rem; }
+    .card li { font-size: 0.98rem; margin: 0.35rem 0; }
+    .yes { border-color: rgba(45,212,191,0.45); }
+    .no { border-color: rgba(251,113,133,0.4); }
+    .ask {
+      display: inline-block; margin-top: 1.25rem; padding: 0.75rem 1.2rem;
+      border-radius: 999px; background: linear-gradient(125deg, var(--hot), var(--pink));
+      color: #fff; font-weight: 800; font-size: 1rem;
+    }
+    .footer {
+      position: fixed; left: 0; right: 0; bottom: 0; padding: 0.75rem 6vw;
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 0.75rem; color: rgba(255,255,255,0.45); border-top: 1px solid var(--line);
+      background: rgba(0,0,0,0.55); backdrop-filter: blur(8px);
+    }
+    .nav-hint { color: rgba(255,255,255,0.55); }
+    .big-number { font-size: 2.4rem; font-weight: 900; color: var(--hot); margin: 0; }
+    .disclaimer { font-size: 0.85rem; color: rgba(255,255,255,0.5); max-width: 46rem; }
+    @media (max-width: 900px) {
+      .grid.two, .grid.three { grid-template-columns: 1fr; }
+      h1 { max-width: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="deck" id="deck">
+
+    <section class="slide active">
+      <div class="eyebrow">Confidential · Physician + platform partnership</div>
+      <h1>Three lanes: aesthetics · <span>RE GEN</span> · white-label</h1>
+      <p class="lead">Pitch for <strong style="color:#fff">Dr. Arora</strong>: Medical Director at Hello Gorgeous, clinical oversight for RE GEN telehealth, and a path to <strong style="color:#fff">license this software</strong> across your other spas — their brand, their patients, shared upside.</p>
+      <p class="ask">You practice medicine. Dani runs ops. Your network scales the platform.</p>
+    </section>
+
+    <section class="slide">
+      <div class="eyebrow">The ask</div>
+      <h2>What we’re inviting you <span>to join</span></h2>
+      <div class="grid three">
+        <div class="card yes">
+          <h3>Lane 1 — Aesthetics</h3>
+          <ul>
+            <li>MD oversight at Hello Gorgeous (Oswego)</li>
+            <li>Protocols + coverage model you set</li>
+            <li>Licensed clinicians perform medical procedures</li>
+          </ul>
+        </div>
+        <div class="card yes">
+          <h3>Lane 2 — RE GEN</h3>
+          <ul>
+            <li>GLP‑1 &amp; peptide telehealth oversight</li>
+            <li>Intake → your review → pharmacy ships to patient</li>
+            <li>Dani manages ops — not injecting</li>
+          </ul>
+        </div>
+        <div class="card yes">
+          <h3>Lane 3 — White-label</h3>
+          <ul>
+            <li>Brand this stack for <strong>your other spas</strong></li>
+            <li>Their domain, logo, Square, pharmacy path</li>
+            <li>Income: setup + SaaS + optional rev share</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="eyebrow">Who we are</div>
+      <h2>Hello Gorgeous Med Spa · <span>Oswego, IL</span></h2>
+      <div class="grid three">
+        <div class="card">
+          <h3>Practice</h3>
+          <ul>
+            <li>Family-owned med spa — Fox Valley</li>
+            <li>Injectables, devices, wellness, spa aesthetics</li>
+            <li>Square Appointments booking live</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Danielle (Dani)</h3>
+          <ul>
+            <li>Owner / operator</li>
+            <li>Licensed Esthetician · CCMA · Phlebotomy trained</li>
+            <li>Ops lead — not the prescribing clinician</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Why now</h3>
+          <ul>
+            <li>Prior NP relationship ended</li>
+            <li>Rebuilding clinical foundation correctly</li>
+            <li>Want MD-led medical + telehealth architecture</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="eyebrow">Lane 1</div>
+      <h2>Medical aesthetics <span>oversight</span></h2>
+      <p class="lead">You become the physician of record for the medical aesthetic program — protocols, patient eligibility, supervision model, and charting standards.</p>
+      <div class="grid two">
+        <div class="card yes">
+          <h3>You own clinically</h3>
+          <ul>
+            <li>Good-faith physician–patient relationship</li>
+            <li>Standing orders / protocols you author or approve</li>
+            <li>Who may perform which medical procedures (MD / RN / NP)</li>
+            <li>Emergency readiness &amp; quality review</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Dani / spa team own operationally</h3>
+          <ul>
+            <li>Scheduling, consents, rooming, inventory</li>
+            <li>Esthetician-scope spa services</li>
+            <li>CCMA assist under your written protocols when you are present / model agreed</li>
+            <li>No unsupervised medical injecting by Dani</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="eyebrow">Lane 1 — role clarity</div>
+      <h2>In-spa: who does <span>what</span></h2>
+      <div class="grid two">
+        <div class="card yes">
+          <h3>✓ Under your model</h3>
+          <ul>
+            <li>You (or RN/NP you authorize) perform medical aesthetic procedures</li>
+            <li>Dani assists (intake, vitals, consents, room setup) under protocol</li>
+            <li>IM/SQ vitamins only if you specifically delegate and supervise on-site</li>
+            <li>Marketing matches real coverage (no “MD on paper” claims)</li>
+          </ul>
+        </div>
+        <div class="card no">
+          <h3>✗ Not the ask</h3>
+          <ul>
+            <li>You don’t leave your license while Dani runs unsupervised medical days</li>
+            <li>She is not seeking to independently inject toxin/filler under your name</li>
+            <li>Esthetics stays esthetics — medical stays medical</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="eyebrow">Lane 2</div>
+      <h2>RE GEN — online <span>GLP‑1 &amp; peptides</span></h2>
+      <p class="lead">RE GEN is Hello Gorgeous’s telehealth prescription arm: Illinois patients shop by goal, complete intake, get clinician review, then eligible meds ship to their door (flat shipping model already live).</p>
+      <div class="grid three">
+        <div class="card"><p class="big-number">1</p><h3>Patient starts</h3><p>Website / RE GEN shop · goals · cart · intake</p></div>
+        <div class="card"><p class="big-number">2</p><h3>You review</h3><p>Charts, eligibility, telehealth when required · approve / deny / modify</p></div>
+        <div class="card"><p class="big-number">3</p><h3>Pharmacy ships</h3><p>Compounding / fulfillment to patient address · not clinic injection by Dani</p></div>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="eyebrow">Lane 2 — critical honesty</div>
+      <h2>This is medical practice — <span>not “just shipping”</span></h2>
+      <p class="lead">Dani manages operations. <strong style="color:#fff">You own clinical judgment</strong> for every RE GEN protocol under your oversight.</p>
+      <div class="grid two">
+        <div class="card yes">
+          <h3>Dani / ops (non-clinical)</h3>
+          <ul>
+            <li>Platform, intake flow, patient communication</li>
+            <li>Order staging, pharmacy portal logistics</li>
+            <li>Payments (Square), shipping status, support tickets</li>
+            <li>Does <strong>not</strong> diagnose, prescribe, or inject RE GEN meds</li>
+          </ul>
+        </div>
+        <div class="card yes">
+          <h3>Dr. Arora (clinical)</h3>
+          <ul>
+            <li>Protocols for GLP‑1 / peptides you’re willing to oversee</li>
+            <li>Review &amp; approve patient plans (telehealth cadence as required)</li>
+            <li>Prescriptive / supervisory authority as structured with counsel</li>
+            <li>Malpractice alignment for telehealth + compounding workflows</li>
+          </ul>
+        </div>
+      </div>
+      <p class="disclaimer" style="margin-top:1rem">Not legal advice. Illinois telehealth, compounding, and med-spa rules require attorney + carrier sign-off on the final agreement.</p>
+    </section>
+
+    <section class="slide">
+      <div class="eyebrow">Why this works for you</div>
+      <h2>What’s in it for <span>Dr. Arora</span></h2>
+      <div class="grid three">
+        <div class="card">
+          <h3>Defined scope</h3>
+          <p>Start with aesthetics oversight. Expand to RE GEN only on protocols you’re comfortable signing.</p>
+        </div>
+        <div class="card">
+          <h3>Infrastructure already built</h3>
+          <p>Website shop, intake, order pipeline, pharmacy portals, provider ops dashboard — you don’t rebuild from scratch.</p>
+        </div>
+        <div class="card">
+          <h3>Clear firebreak</h3>
+          <p>Ops vs clinical is written. You aren’t being asked to rubber-stamp unsupervised injecting.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="eyebrow">Compliance stance we bring to the table</div>
+      <h2>Foundation we will <span>recalibrate</span></h2>
+      <div class="grid two">
+        <div class="card">
+          <h3>Non-negotiables we accept</h3>
+          <ul>
+            <li>Real physician–patient relationship for medical services</li>
+            <li>Written protocols + competency docs</li>
+            <li>On-site / coverage model you require</li>
+            <li>Entity / advertising review with healthcare counsel</li>
+            <li>Pause anything you won’t oversee until staffed correctly</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>RE GEN guardrails</h3>
+          <ul>
+            <li>Illinois-eligible patients first</li>
+            <li>No fulfillment without your (or designated clinician) approval path</li>
+            <li>Ship-to-patient model — not Dani administering</li>
+            <li>Chart + consent retained for audits</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="eyebrow">Lane 3 — the growth thesis</div>
+      <h2>White-label this OS to <span>your other spas</span></h2>
+      <p class="lead">You’ve already seen RE GEN live. The bet: each of your locations (or partner spas) gets their <strong style="color:#fff">own branded instance</strong> of the same telehealth + ops stack — without building software from scratch.</p>
+      <div class="grid three">
+        <div class="card">
+          <p class="big-number">01</p>
+          <h3>Prove it at HG</h3>
+          <p>You oversee Hello Gorgeous aesthetics + RE GEN. We pressure-test workflows, compliance, pharmacy, turnaround.</p>
+        </div>
+        <div class="card">
+          <p class="big-number">02</p>
+          <h3>Clone for your network</h3>
+          <p>Next spa: their name, logo, domain, Square account, formulary you approve — same product chassis.</p>
+        </div>
+        <div class="card">
+          <p class="big-number">03</p>
+          <h3>Share the upside</h3>
+          <p>Setup fee + monthly SaaS per site · optional revenue share on RE GEN GMV · you keep clinical control.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="eyebrow">Lane 3 — product surface</div>
+      <h2>What each spa <span>gets</span></h2>
+      <div class="grid two">
+        <div class="card yes">
+          <h3>White-labeled stack</h3>
+          <ul>
+            <li>Branded patient shop / intake (RE GEN–style)</li>
+            <li>Provider portal: orders, pipeline, formulary, pharmacy links</li>
+            <li>Consents / check-in hooks · Square payments· their env</li>
+            <li>Their data (separate instance / tenant) — not mixed with HG PHI</li>
+            <li>Their domain (e.g. app.theirspa.com)</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>What stays true everywhere</h3>
+          <ul>
+            <li>Physician / authorized clinician still owns approvals</li>
+            <li>No “ops staff injects” model baked into software</li>
+            <li>Ship-to-patient pharmacy path</li>
+            <li>Audit-ready order history &amp; status pipeline</li>
+            <li>You decide which spas you’re willing to oversee clinically</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="eyebrow">Lane 3 — money</div>
+      <h2>How revenue is made — <span>real mechanics</span></h2>
+      <div class="grid three">
+        <div class="card">
+          <h3>1 · Software (SaaS)</h3>
+          <p><strong style="color:#fff">Setup</strong> $5,000–$15,000 / spa<br/>brand, domain, Square, pharmacy wiring, training</p>
+          <p style="margin-top:0.6rem"><strong style="color:#fff">Monthly</strong> $997–$2,500 / spa<br/>portal + shop + hosting + updates</p>
+        </div>
+        <div class="card">
+          <h3>2 · Platform fee (optional)</h3>
+          <p><strong style="color:#fff">8–15%</strong> of RE GEN net program GMV<br/><em>or</em> $15–$40 per approved order</p>
+          <p style="margin-top:0.6rem">Pays for the rails. Separate from his clinical fee.</p>
+        </div>
+        <div class="card">
+          <h3>3 · Clinical (his)</h3>
+          <p><strong style="color:#fff">Retainer</strong> $3,000–$8,000 / mo (HG aesthetics + availability)</p>
+          <p style="margin-top:0.6rem"><strong style="color:#fff">Per chart</strong> $35–$75 review / telehealth visit he (or his designee) documents</p>
+        </div>
+      </div>
+      <p class="disclaimer" style="margin-top:1rem">Market-shaped ranges for discussion (specialty med-spa / telehealth software + MD oversight). Not a quote. Fill blanks to your comfort.</p>
+    </section>
+
+    <section class="slide">
+      <div class="eyebrow">Worked examples · illustrative</div>
+      <h2>Three real-world <span>math stories</span></h2>
+      <div class="grid three">
+        <div class="card yes">
+          <h3>A · HG flagship only</h3>
+          <ul>
+            <li>MD retainer: <strong style="color:#fff">$5,000</strong>/mo</li>
+            <li>80 RE GEN reviews @ $50 = <strong style="color:#fff">$4,000</strong></li>
+            <li><strong style="color:#fff">Dr. Arora ≈ $9,000/mo</strong></li>
+            <li>HG keeps retail – pharmacy COGS – his fees</li>
+          </ul>
+          <p style="margin-top:0.6rem;font-size:0.9rem">No white-label yet — prove the machine.</p>
+        </div>
+        <div class="card yes">
+          <h3>B · + 1 white-label spa</h3>
+          <ul>
+            <li>Setup (year 1): <strong style="color:#fff">$10,000</strong> → split or HG</li>
+            <li>SaaS: <strong style="color:#fff">$1,500</strong>/mo → mostly HG software</li>
+            <li>Spa: 60 patients × $349 = <strong style="color:#fff">~$21k</strong> GMV</li>
+            <li>Platform 10%: <strong style="color:#fff">~$2,100</strong>/mo</li>
+            <li>His reviews 60 × $50: <strong style="color:#fff">$3,000</strong></li>
+          </ul>
+          <p style="margin-top:0.6rem;font-size:0.9rem">Spa earns program margin; he earns clinical; HG earns SaaS + %.</p>
+        </div>
+        <div class="card yes">
+          <h3>C · 5-spa network</h3>
+          <ul>
+            <li>SaaS 5 × $1,500 = <strong style="color:#fff">$7,500</strong>/mo platform</li>
+            <li>Avg 50 pts/spa × $349 ≈ <strong style="color:#fff">$87k</strong> GMV</li>
+            <li>Platform 10% ≈ <strong style="color:#fff">$8,700</strong>/mo</li>
+            <li>His clinical if he covers all: 250 × $50 = <strong style="color:#fff">$12,500</strong></li>
+            <li>Or hire local NP per site; he QAs</li>
+          </ul>
+          <p style="margin-top:0.6rem;font-size:0.9rem"><strong style="color:#fff">Platform stack alone ≈ $16k/mo</strong> before his time mix.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="eyebrow">Where the patient dollar goes</div>
+      <h2>Example: one GLP‑1 patient @ <span>$349 / month</span></h2>
+      <div class="grid two">
+        <div class="card">
+          <h3>Cash-pay patient receipt (example)</h3>
+          <ul>
+            <li>Program / membership: <strong style="color:#fff">$349</strong></li>
+            <li>(Med cost varies — branded vs compound; disclose truthfully)</li>
+            <li>Flat ship if applicable (e.g. HG $30 model elsewhere)</li>
+          </ul>
+          <p style="margin-top:0.75rem;font-size:0.95rem">Industry cash programs often land ~$150–$500/mo all-in depending on supply path — use numbers you can defend.</p>
+        </div>
+        <div class="card">
+          <h3>Split of the $349 (illustration)</h3>
+          <ul>
+            <li>Pharmacy / med COGS: <strong style="color:#fff">$120–$180</strong></li>
+            <li>Clinical review pool: <strong style="color:#fff">$40–$75</strong> → Dr. Arora</li>
+            <li>Platform / software: <strong style="color:#fff">$25–$45</strong> → HG rails</li>
+            <li>Spa ops &amp; marketing: <strong style="color:#fff">remainder</strong> → that location</li>
+          </ul>
+          <p style="margin-top:0.75rem;font-size:0.95rem">White-label = every spa runs this calculator with <em>their</em> brand. You don’t invent a new EHR each time.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="eyebrow">Lane 3 — why this is attractive to you</div>
+      <h2>You’re not just a medical director — <span>you’re the network edge</span></h2>
+      <div class="grid two">
+        <div class="card yes">
+          <h3>For Dr. Arora</h3>
+          <ul>
+            <li>Standardize GLP‑1 / peptide ops across sites you already trust</li>
+            <li>Earn clinical fees <em>and</em> optional equity in network SaaS economics</li>
+            <li>One playbook: same portal, same pipeline, their brand on each spa</li>
+            <li>Prove with HG first — no multi-site deploy until Day 90 works</li>
+          </ul>
+        </div>
+        <div class="card yes">
+          <h3>For Hello Gorgeous</h3>
+          <ul>
+            <li>Productize what we already built</li>
+            <li>Your clinics = design partners after HG flagship</li>
+            <li>We deploy &amp; maintain software; you own clinical relationships</li>
+            <li>Shared incentive to keep the rails excellent</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="eyebrow">Lane 3 — how deployment works</div>
+      <h2>Single-tenant white-label <span>(cleanest isolation)</span></h2>
+      <div class="grid three">
+        <div class="card"><p class="big-number">1</p><h3>New instance</h3><p>Each spa: own deploy + database + Square / SMS / email keys.</p></div>
+        <div class="card"><p class="big-number">2</p><h3>Brand pack</h3><p>Name, logo, colors, domain, support phone — no Hello Gorgeous leakage.</p></div>
+        <div class="card"><p class="big-number">3</p><h3>Go live</h3><p>Staff logins, formulary you approve, pharmacy portals, first test order.</p></div>
+      </div>
+      <p class="lead" style="margin-top:1.25rem">We already document this as a product handoff path (brand settings, env per buyer, their data, their payments). Pilot = HG. Scale = your network.</p>
+    </section>
+
+    <section class="slide">
+      <div class="eyebrow">90-day partnership sketch</div>
+      <h2>Proposed ramp <span>(flexible)</span></h2>
+      <div class="grid three">
+        <div class="card"><h3>Days 1–30</h3><ul><li>LOI: aesthetics MD + RE GEN oversight</li><li>Protocol + malpractice + entity counsel</li><li>Map your other spa list (confidential)</li><li>Draft white-label term sheet (no deploy yet)</li></ul></div>
+        <div class="card"><h3>Days 31–60</h3><ul><li>HG aesthetics live under your model</li><li>RE GEN formulary you approve</li><li>Review workflow dry-run at HG</li><li>Pick spa #2 as design-partner candidate</li></ul></div>
+        <div class="card"><h3>Days 61–90</h3><ul><li>RE GEN pilot live at HG</li><li>Quality metrics + carrier comfort</li><li><strong>Only then:</strong> greenlight spa #2 white-label pilot</li></ul></div>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="eyebrow">Open items for discussion</div>
+      <h2>Terms we want <span>your input on</span></h2>
+      <div class="grid two">
+        <div class="card">
+          <h3>Structure</h3>
+          <ul>
+            <li>Title: Medical Director (aesthetics) ± RE GEN Medical Director</li>
+            <li>Hours / on-site days vs remote chart review</li>
+            <li>Comp: retainer + per-review options</li>
+            <li>White-label: setup $ · SaaS $ · your % · who sells to spas</li>
+            <li>Malpractice: who carries what; telehealth riders</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Clinical + network boundaries</h3>
+          <ul>
+            <li>Which aesthetic procedures in phase 1</li>
+            <li>RE GEN v1 formulary (GLP‑1 first?)</li>
+            <li>Which of your spas are candidates for year 1</li>
+            <li>States / licenses you’re willing to cover</li>
+            <li>Absolute no-list (IV, controls, etc.)</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="eyebrow">The close</div>
+      <h2>Rebuild HG the right way — then <span>scale your network</span></h2>
+      <p class="lead"><strong style="color:#fff">Lane 1:</strong> medical aesthetics oversight. <strong style="color:#fff">Lane 2:</strong> RE GEN clinical gate (ship-to-patient; Dani ops only). <strong style="color:#fff">Lane 3:</strong> white-label the same stack for your other spas once HG is proof.</p>
+      <p class="ask">Next step: LOI + counsel call · whiteboard your spa list</p>
+      <p class="disclaimer" style="margin-top:1.5rem">Hello Gorgeous Med Spa · Oswego, IL · Discussion only — not a binding offer. White-label = software + ops product; clinical responsibility stays with licensed clinicians at each site. Final terms subject to contracts, licensing, and malpractice.</p>
+    </section>
+
+  </div>
+
+  <div class="footer">
+    <span>Hello Gorgeous × Dr. Arora</span>
+    <span class="nav-hint">← → or click · <span id="pg">1</span> / <span id="total">0</span></span>
+    <span>Confidential</span>
+  </div>
+
+  <script>
+    const slides = [...document.querySelectorAll(".slide")];
+    const total = document.getElementById("total");
+    const pg = document.getElementById("pg");
+    total.textContent = String(slides.length);
+    let i = 0;
+    function show(n) {
+      i = (n + slides.length) % slides.length;
+      slides.forEach((s, idx) => s.classList.toggle("active", idx === i));
+      pg.textContent = String(i + 1);
+    }
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowRight" || e.key === " " || e.key === "PageDown") { e.preventDefault(); show(i + 1); }
+      if (e.key === "ArrowLeft" || e.key === "PageUp") { e.preventDefault(); show(i - 1); }
+      if (e.key === "Home") show(0);
+      if (e.key === "End") show(slides.length - 1);
+    });
+    document.getElementById("deck").addEventListener("click", (e) => {
+      if (e.target.closest("a")) return;
+      show(e.clientX > window.innerWidth / 2 ? i + 1 : i - 1);
+    });
+  </script>
+</body>
+</html>

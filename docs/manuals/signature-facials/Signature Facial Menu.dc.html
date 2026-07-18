@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/hello-gorgeous-design-system-e2c42b49-2a75-4fd9-8346-7cd2672ec52b/tokens/fonts.css">
+<link rel="stylesheet" href="_ds/hello-gorgeous-design-system-e2c42b49-2a75-4fd9-8346-7cd2672ec52b/tokens/colors.css">
+<link rel="stylesheet" href="_ds/hello-gorgeous-design-system-e2c42b49-2a75-4fd9-8346-7cd2672ec52b/tokens/typography.css">
+<link rel="stylesheet" href="_ds/hello-gorgeous-design-system-e2c42b49-2a75-4fd9-8346-7cd2672ec52b/tokens/spacing.css">
+<link rel="stylesheet" href="_ds/hello-gorgeous-design-system-e2c42b49-2a75-4fd9-8346-7cd2672ec52b/tokens/base.css">
+<link rel="stylesheet" href="_ds/hello-gorgeous-design-system-e2c42b49-2a75-4fd9-8346-7cd2672ec52b/styles.css">
+<script src="_ds/hello-gorgeous-design-system-e2c42b49-2a75-4fd9-8346-7cd2672ec52b/_ds_bundle.js"></script>
+<script src="./image-slot.js"></script>
+<style>
+  .menu { font-family: var(--font-body); color:#000; background:#fff; }
+  .wrap { max-width:1200px; margin:0 auto; padding:0 24px; }
+  a { color: var(--hg-pink); text-decoration: none; }
+  a:hover { color:#E6007E; }
+  .m-nav { position:sticky; top:0; z-index:20; background:#000; color:#fff; border-bottom:1px solid rgba(255,255,255,0.12); }
+  .m-nav .inner { max-width:1200px; margin:0 auto; padding:14px 24px; display:flex; align-items:center; justify-content:space-between; gap:16px; }
+  .m-nav .brand { display:flex; align-items:center; gap:12px; }
+  .m-nav .brand img { height:34px; width:auto; display:block; }
+  .m-nav .brand .n { font-family:var(--font-serif); font-weight:700; font-size:17px; letter-spacing:.2px; }
+  .m-nav .links { display:flex; gap:26px; align-items:center; font-size:13px; letter-spacing:.12em; text-transform:uppercase; }
+  .m-nav .links a { color:rgba(255,255,255,.78); }
+  .m-nav .links a:hover { color:#fff; }
+  .hero-grid { display:grid; grid-template-columns:1.05fr .95fr; gap:56px; align-items:center; }
+  .tagline-flag { display:inline-flex; align-items:center; gap:12px; margin-top:26px; padding:14px 20px; border-left:3px solid var(--hg-pink); background:#FFF5F9; border-radius:0 12px 12px 0; }
+  .tagline-flag span { font-family:var(--font-serif); font-style:italic; font-size:17px; line-height:1.4; }
+  .tech-strip { display:grid; grid-template-columns:repeat(7,1fr); gap:14px; }
+  .tech-pill { border:1px solid rgba(255,255,255,.16); border-radius:12px; padding:14px 12px; text-align:center; }
+  .tech-pill .t { font-size:13px; font-weight:600; line-height:1.35; }
+  .tech-pill .k { font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--hg-pink); margin-top:6px; display:block; }
+  .fac-list { display:flex; flex-direction:column; gap:28px; margin-top:44px; }
+  .fac-card { display:grid; grid-template-columns:250px 1fr; gap:36px; align-items:start; padding:32px; }
+  .fac-photo { width:250px; }
+  .fac-photo .slot { width:250px; height:250px; border:2px solid #000; border-radius:16px; overflow:hidden; }
+  .meta-row { display:flex; align-items:baseline; gap:16px; flex-wrap:wrap; margin-top:16px; }
+  .price { font-family:var(--font-serif); font-weight:700; font-size:34px; color:var(--hg-pink); line-height:1; }
+  .meta-sub { font-size:13px; letter-spacing:.12em; text-transform:uppercase; color:rgba(0,0,0,.55); }
+  .fac-head { display:flex; align-items:center; gap:14px; flex-wrap:wrap; }
+  .fac-num { font-family:var(--font-serif); font-weight:700; font-size:15px; color:var(--hg-pink); letter-spacing:.1em; }
+  .bestfor { font-size:11px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:#000; background:#FFF5F9; border:1px solid var(--hg-pink); border-radius:999px; padding:6px 13px; }
+  .fac-name { font-family:var(--font-serif); font-weight:700; font-size:30px; letter-spacing:-.02em; margin:12px 0 4px; }
+  .fac-sub { font-size:14px; letter-spacing:.06em; text-transform:uppercase; color:rgba(0,0,0,.5); }
+  .fac-desc { font-size:16px; line-height:1.65; color:rgba(0,0,0,.8); margin:16px 0 0; max-width:60ch; }
+  .proto { margin-top:22px; border-top:1px solid var(--border-hairline); padding-top:18px; }
+  .proto-label { font-size:12px; letter-spacing:.16em; text-transform:uppercase; color:rgba(0,0,0,.5); margin-bottom:14px; }
+  .steps { display:flex; flex-direction:column; gap:11px; margin:0; padding:0; list-style:none; }
+  .step { display:grid; grid-template-columns:58px 1fr; gap:14px; align-items:baseline; }
+  .step .time { font-family:var(--font-serif); font-weight:700; font-size:13px; color:var(--hg-pink); text-align:right; }
+  .step .mod { font-size:15px; line-height:1.5; }
+  .step .mod b { color:#000; }
+  .benefits { display:flex; flex-wrap:wrap; gap:8px; margin-top:20px; }
+  .bchip { font-size:12px; color:rgba(0,0,0,.72); border:1px solid var(--border-hairline); border-radius:999px; padding:6px 12px; }
+  .boost-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; margin-top:44px; }
+  .boost-card { padding:26px; display:flex; flex-direction:column; gap:10px; }
+  .boost-top { display:flex; align-items:baseline; justify-content:space-between; gap:12px; }
+  .boost-name { font-family:var(--font-serif); font-weight:700; font-size:21px; letter-spacing:-.01em; }
+  .boost-price { font-family:var(--font-serif); font-weight:700; font-size:22px; color:var(--hg-pink); white-space:nowrap; }
+  .boost-desc { font-size:14px; line-height:1.6; color:rgba(0,0,0,.72); }
+  .rx-tag { align-self:flex-start; font-size:10px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:#fff; background:#000; border-radius:999px; padding:5px 11px; }
+  .esth-grid { display:grid; grid-template-columns:300px 1fr; gap:56px; align-items:center; }
+  .esth-photo { width:300px; height:360px; border:2px solid var(--hg-pink); border-radius:20px; overflow:hidden; }
+  .offer { display:inline-block; margin-top:22px; background:#000; color:#fff; border-radius:14px; padding:18px 24px; }
+  .offer .k { font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:var(--hg-pink); }
+  .offer .v { font-family:var(--font-serif); font-weight:700; font-size:22px; margin-top:4px; }
+  .foot { background:#000; color:rgba(255,255,255,.75); }
+  .foot .inner { max-width:1200px; margin:0 auto; padding:52px 24px; display:grid; grid-template-columns:1.3fr 1fr 1fr; gap:40px; }
+  .foot h4 { color:#fff; font-family:var(--font-serif); font-size:16px; margin:0 0 14px; }
+  .foot a { color:rgba(255,255,255,.75); }
+  .foot a:hover { color:var(--hg-pink); }
+  @media (max-width:900px){
+    .hero-grid,.fac-card,.esth-grid{ grid-template-columns:1fr; gap:28px; }
+    .tech-strip{ grid-template-columns:repeat(3,1fr); }
+    .boost-grid{ grid-template-columns:1fr; }
+    .foot .inner{ grid-template-columns:1fr; }
+    .fac-photo,.fac-photo .slot{ width:100%; }
+    .esth-photo{ width:100%; }
+  }
+</style>
+</helmet>
+<div class="menu">
+  <nav class="m-nav">
+    <div class="inner">
+      <span class="brand"><img src="assets/logo.png" alt="Hello Gorgeous Med Spa"><span class="n">Hello Gorgeous <span class="accent">Med Spa</span></span></span>
+      <span class="links">
+        <a href="#facials">Signature Facials</a>
+        <a href="#boosters">Boosters</a>
+        <a href="#esthetician">Your Esthetician</a>
+      </span>
+      <a href="#book" class="btn btn-primary" style="min-height:auto;padding:10px 20px;">Book on Square</a>
+    </div>
+  </nav>
+
+  <section class="section-white" style="padding:72px 0 64px;">
+    <div class="wrap hero-grid">
+      <div>
+        <p class="hg-eyebrow">HYDRA Perfection MD · 14-in-1 Facial System</p>
+        <h1 style="margin:14px 0 0;font-size:52px;line-height:1.05;">Custom facials, engineered for <span class="accent">your skin</span>.</h1>
+        <p style="font-size:20px;line-height:1.6;margin-top:20px;color:rgba(0,0,0,.8);max-width:52ch;">Six results-first protocols powered by hydro-dermabrasion, radiofrequency, ultrasound, and 7-wavelength light — sequenced by your esthetician to target exactly what your skin needs.</p>
+        <div class="tagline-flag"><span>&ldquo;We screen you like a medical practice, because we are one.&rdquo;</span></div>
+        <div style="display:flex;gap:14px;margin-top:28px;flex-wrap:wrap;">
+          <a href="#facials" class="btn btn-primary btn-cta">Explore the Menu</a>
+          <a href="#boosters" class="btn btn-outline">Add-On Boosters</a>
+        </div>
+      </div>
+      <div style="border-radius:22px;overflow:hidden;aspect-ratio:4/5;background:#000;box-shadow:var(--shadow-card);">
+        <img src="assets/hero-brand.png" alt="Hello Gorgeous" style="width:100%;height:100%;object-fit:cover;">
+      </div>
+    </div>
+  </section>
+
+  <section class="section-black" style="padding:56px 0;">
+    <div class="wrap">
+      <div style="text-align:center;max-width:640px;margin:0 auto 34px;">
+        <p class="hg-eyebrow">One Machine. Fourteen Modalities.</p>
+        <h2 style="color:#fff;margin:12px 0 0;font-size:32px;">Every facial draws from the same medical-grade arsenal</h2>
+      </div>
+      <div class="tech-strip">
+        <div class="tech-pill"><div class="t">Hydro Dermabrasion</div><span class="k">Resurface</span></div>
+        <div class="tech-pill"><div class="t">Detox Bubble Pen</div><span class="k">Decongest</span></div>
+        <div class="tech-pill"><div class="t">3-Pole Radio Frequency</div><span class="k">Tighten</span></div>
+        <div class="tech-pill"><div class="t">Facial Ultrasound</div><span class="k">Infuse</span></div>
+        <div class="tech-pill"><div class="t">Microneedling Pen</div><span class="k">Collagen</span></div>
+        <div class="tech-pill"><div class="t">Photodynamic · 7&times; LED</div><span class="k">Light</span></div>
+        <div class="tech-pill"><div class="t">Oxygen Infusion Spray</div><span class="k">Nourish</span></div>
+        <div class="tech-pill"><div class="t">Bio-Electric Current</div><span class="k">Lift</span></div>
+        <div class="tech-pill"><div class="t">High Frequency</div><span class="k">Clarify</span></div>
+        <div class="tech-pill"><div class="t">Ultrasonic Scrubber</div><span class="k">Exfoliate</span></div>
+        <div class="tech-pill"><div class="t">Diamond Microderm</div><span class="k">Polish</span></div>
+        <div class="tech-pill"><div class="t">Vacuum Massager</div><span class="k">Extract</span></div>
+        <div class="tech-pill"><div class="t">Ultrasound for Eyes</div><span class="k">Brighten</span></div>
+        <div class="tech-pill"><div class="t">Ice Skin Cooling</div><span class="k">Seal</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="facials" class="section-white" style="padding:80px 0 40px;">
+    <div class="wrap">
+      <div style="text-align:center;max-width:680px;margin:0 auto;">
+        <p class="hg-eyebrow">The Signature Menu</p>
+        <h2 style="margin:12px 0 0;font-size:40px;">Six protocols. <span class="accent">Zero guesswork.</span></h2>
+        <p style="font-size:18px;line-height:1.65;margin-top:16px;color:rgba(0,0,0,.72);">Every facial is completely non-invasive and painless. Book the one that matches your goal — your esthetician customizes intensity on the day.</p>
+      </div>
+      <div class="fac-list">
+
+        <article class="hg-card fac-card">
+          <div class="fac-photo">
+            <div class="slot"><image-slot id="fac-clarity" shape="rect" placeholder="Drop 'Clarity' photo for Square"></image-slot></div>
+            <div class="meta-row"><div class="price">$99</div><div class="meta-sub">50 min · 6 modalities</div></div>
+          </div>
+          <div>
+            <div class="fac-head"><span class="fac-num">01</span><span class="bestfor">Best for · Acne &amp; Congestion</span></div>
+            <h3 class="fac-name">The Clarity Protocol</h3>
+            <div class="fac-sub">Clarifying Deep-Detox</div>
+            <p class="fac-desc">A medical-grade deep clean that lifts congestion, calms active breakouts, and resets oily, reactive skin — no harsh peel, no downtime. You leave clear, matte, and genuinely lighter.</p>
+            <div class="proto">
+              <div class="proto-label">The Protocol</div>
+              <ol class="steps">
+                <li class="step"><span class="time">5 min</span><span class="mod"><b>Ultrasonic Scrubber</b> — loosen debris &amp; dead cells</span></li>
+                <li class="step"><span class="time">8 min</span><span class="mod"><b>Detox Bubble Pen</b> — decongest pores, lift impurities</span></li>
+                <li class="step"><span class="time">6 min</span><span class="mod"><b>Vacuum Massager</b> — assisted extraction</span></li>
+                <li class="step"><span class="time">5 min</span><span class="mod"><b>High Frequency</b> — antibacterial spot-calm</span></li>
+                <li class="step"><span class="time">12 min</span><span class="mod"><b>Photodynamic Therapy · blue</b> — target acneic bacteria</span></li>
+                <li class="step"><span class="time">7 min</span><span class="mod"><b>Oxygen Infusion Spray</b> — clarifying essence &amp; hydration</span></li>
+              </ol>
+            </div>
+            <div class="benefits">
+              <span class="bchip">Unclogs pores</span><span class="bchip">Reduces congestion &amp; acne</span><span class="bchip">Shrinks pore size</span><span class="bchip">Improves acne scarring</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="hg-card fac-card">
+          <div class="fac-photo">
+            <div class="slot"><image-slot id="fac-collagen" shape="rect" placeholder="Drop 'Collagen Reset' photo for Square"></image-slot></div>
+            <div class="meta-row"><div class="price">$189</div><div class="meta-sub">75 min · 6 modalities</div></div>
+          </div>
+          <div>
+            <div class="fac-head"><span class="fac-num">02</span><span class="bestfor">Best for · Fine Lines &amp; Firmness</span></div>
+            <h3 class="fac-name">The Collagen Reset</h3>
+            <div class="fac-sub">Firming RF &amp; Micro-Collagen</div>
+            <p class="fac-desc">Our firming flagship. Radiofrequency heat and ultrasound rebuild collagen from within while microchannels drive age-defying peptides deep — visibly lifted, plumped, and tighter in a single visit.</p>
+            <div class="proto">
+              <div class="proto-label">The Protocol</div>
+              <ol class="steps">
+                <li class="step"><span class="time">8 min</span><span class="mod"><b>Hydro Dermabrasion</b> — resurface &amp; prep the canvas</span></li>
+                <li class="step"><span class="time">15 min</span><span class="mod"><b>3-Pole Radio Frequency</b> — collagen contraction &amp; lift</span></li>
+                <li class="step"><span class="time">10 min</span><span class="mod"><b>Facial Ultrasound</b> — deep active penetration</span></li>
+                <li class="step"><span class="time">15 min</span><span class="mod"><b>Microneedling Pen</b> — collagen induction + peptide infusion</span></li>
+                <li class="step"><span class="time">8 min</span><span class="mod"><b>Bio-Electric Current</b> — sculpt &amp; tone facial muscles</span></li>
+                <li class="step"><span class="time">5 min</span><span class="mod"><b>Ice Skin Cooling</b> — seal &amp; soothe</span></li>
+              </ol>
+            </div>
+            <div class="benefits">
+              <span class="bchip">Reduces fine lines &amp; wrinkles</span><span class="bchip">Plumping effect</span><span class="bchip">Boosts collagen</span><span class="bchip">Improves elasticity</span><span class="bchip">Reduces double chin</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="hg-card fac-card">
+          <div class="fac-photo">
+            <div class="slot"><image-slot id="fac-glow" shape="rect" placeholder="Drop 'Gorgeous Glow' photo for Square"></image-slot></div>
+            <div class="meta-row"><div class="price">$129</div><div class="meta-sub">60 min · 6 modalities</div></div>
+          </div>
+          <div>
+            <div class="fac-head"><span class="fac-num">03</span><span class="bestfor">Best for · Hydration &amp; Radiance</span><span class="badge badge-pink" style="font-size:10px;letter-spacing:.12em;">Most Booked</span></div>
+            <h3 class="fac-name">The Gorgeous Glow</h3>
+            <div class="fac-sub">Hydra-Infusion Radiance</div>
+            <p class="fac-desc">The one everyone books before an event. A luminous flood of oxygen, essence, and hydro-infusion resurfaces and re-hydrates in one sitting — lit-from-within skin the moment you sit up.</p>
+            <div class="proto">
+              <div class="proto-label">The Protocol</div>
+              <ol class="steps">
+                <li class="step"><span class="time">12 min</span><span class="mod"><b>Hydro Dermabrasion</b> — cleanse, exfoliate &amp; infuse</span></li>
+                <li class="step"><span class="time">6 min</span><span class="mod"><b>Detox Bubble Pen</b> — light decongestion</span></li>
+                <li class="step"><span class="time">10 min</span><span class="mod"><b>Oxygen Infusion Spray</b> — hyaluronic + vitamin flood</span></li>
+                <li class="step"><span class="time">8 min</span><span class="mod"><b>3-Pole Radio Frequency</b> — gentle tightening</span></li>
+                <li class="step"><span class="time">10 min</span><span class="mod"><b>Photodynamic Therapy · red + amber</b> — glow &amp; recovery</span></li>
+                <li class="step"><span class="time">5 min</span><span class="mod"><b>Ice Skin Cooling</b> — pore-tightening glow finish</span></li>
+              </ol>
+            </div>
+            <div class="benefits">
+              <span class="bchip">Instantly clear &amp; radiant</span><span class="bchip">Deep hydration</span><span class="bchip">Nourishes &amp; revitalizes</span><span class="bchip">Tightens pores</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="hg-card fac-card">
+          <div class="fac-photo">
+            <div class="slot"><image-slot id="fac-pore" shape="rect" placeholder="Drop 'Poreless Polish' photo for Square"></image-slot></div>
+            <div class="meta-row"><div class="price">$119</div><div class="meta-sub">55 min · 5 modalities</div></div>
+          </div>
+          <div>
+            <div class="fac-head"><span class="fac-num">04</span><span class="bestfor">Best for · Pores &amp; Texture</span></div>
+            <h3 class="fac-name">The Poreless Polish</h3>
+            <div class="fac-sub">Diamond Resurfacing &amp; Refine</div>
+            <p class="fac-desc">Diamond-tip resurfacing meets radiofrequency to refine texture, tighten pores, and turn rough, thickened skin baby-smooth and photo-ready — the makeup-optional finish.</p>
+            <div class="proto">
+              <div class="proto-label">The Protocol</div>
+              <ol class="steps">
+                <li class="step"><span class="time">12 min</span><span class="mod"><b>Diamond Microdermabrasion</b> — resurface &amp; refine texture</span></li>
+                <li class="step"><span class="time">8 min</span><span class="mod"><b>Hydro Dermabrasion</b> — deep clean &amp; hydrate</span></li>
+                <li class="step"><span class="time">6 min</span><span class="mod"><b>Vacuum Massager</b> — lymphatic + pore vacuum</span></li>
+                <li class="step"><span class="time">12 min</span><span class="mod"><b>3-Pole Radio Frequency</b> — tighten &amp; shrink pores</span></li>
+                <li class="step"><span class="time">7 min</span><span class="mod"><b>Oxygen Infusion Spray</b> — pore-refining serum</span></li>
+              </ol>
+            </div>
+            <div class="benefits">
+              <span class="bchip">Refines thickened skin</span><span class="bchip">Shrinks apparent pores</span><span class="bchip">Tightens &amp; firms</span><span class="bchip">Increases clarity</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="hg-card fac-card">
+          <div class="fac-photo">
+            <div class="slot"><image-slot id="fac-calm" shape="rect" placeholder="Drop 'Calm Restore' photo for Square"></image-slot></div>
+            <div class="meta-row"><div class="price">$89</div><div class="meta-sub">45 min · 5 modalities</div></div>
+          </div>
+          <div>
+            <div class="fac-head"><span class="fac-num">05</span><span class="bestfor">Best for · Sensitive &amp; Redness</span></div>
+            <h3 class="fac-name">The Calm Restore</h3>
+            <div class="fac-sub">Barrier-Repair &amp; De-Flush</div>
+            <p class="fac-desc">Gentle enough for the most reactive skin, powerful enough to visibly quiet redness. No abrasion, no downtime — just soothed, balanced, resilient skin that stops flaring.</p>
+            <div class="proto">
+              <div class="proto-label">The Protocol</div>
+              <ol class="steps">
+                <li class="step"><span class="time">6 min</span><span class="mod"><b>Ultrasonic Scrubber</b> — non-abrasive gentle cleanse</span></li>
+                <li class="step"><span class="time">10 min</span><span class="mod"><b>Oxygen Infusion Spray</b> — barrier-repair essence</span></li>
+                <li class="step"><span class="time">12 min</span><span class="mod"><b>Photodynamic Therapy · green + yellow</b> — reduce redness</span></li>
+                <li class="step"><span class="time">7 min</span><span class="mod"><b>Bio-Electric Current</b> — lymphatic soothe &amp; drain</span></li>
+                <li class="step"><span class="time">6 min</span><span class="mod"><b>Ice Skin Cooling</b> — de-flush &amp; calm</span></li>
+              </ol>
+            </div>
+            <div class="benefits">
+              <span class="bchip">Safe for sensitive skin</span><span class="bchip">Non-invasive &amp; painless</span><span class="bchip">Nourishes &amp; repairs</span><span class="bchip">Calms redness</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="hg-card fac-card">
+          <div class="fac-photo">
+            <div class="slot"><image-slot id="fac-lumin" shape="rect" placeholder="Drop 'Luminous Reveal' photo for Square"></image-slot></div>
+            <div class="meta-row"><div class="price">$139</div><div class="meta-sub">60 min · 6 modalities</div></div>
+          </div>
+          <div>
+            <div class="fac-head"><span class="fac-num">06</span><span class="bestfor">Best for · Dullness &amp; Uneven Tone</span></div>
+            <h3 class="fac-name">The Luminous Reveal</h3>
+            <div class="fac-sub">Brightening Tone-Correct</div>
+            <p class="fac-desc">A brightening reset for tired, uneven skin. Layered exfoliation and multi-wavelength light melt dullness and even tone — so skin reads brighter, clearer, and far less sallow.</p>
+            <div class="proto">
+              <div class="proto-label">The Protocol</div>
+              <ol class="steps">
+                <li class="step"><span class="time">8 min</span><span class="mod"><b>Diamond Microdermabrasion</b> — brighten &amp; resurface</span></li>
+                <li class="step"><span class="time">8 min</span><span class="mod"><b>Hydro Dermabrasion</b> — clarifying cleanse</span></li>
+                <li class="step"><span class="time">5 min</span><span class="mod"><b>Detox Bubble Pen</b> — lift dull surface buildup</span></li>
+                <li class="step"><span class="time">12 min</span><span class="mod"><b>Photodynamic Therapy · full spectrum</b> — even tone</span></li>
+                <li class="step"><span class="time">10 min</span><span class="mod"><b>Oxygen Infusion Spray</b> — vitamin-C brightening essence</span></li>
+                <li class="step"><span class="time">7 min</span><span class="mod"><b>Bio-Electric Current</b> — circulation &amp; radiance</span></li>
+              </ol>
+            </div>
+            <div class="benefits">
+              <span class="bchip">Brightens &amp; evens tone</span><span class="bchip">Less yellow &amp; dull</span><span class="bchip">Improves scarring</span><span class="bchip">Radiant finish</span>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <section id="boosters" class="section-white" style="padding:60px 0 84px;">
+    <div class="wrap">
+      <div style="text-align:center;max-width:680px;margin:0 auto;">
+        <p class="hg-eyebrow">Add-On Boosters</p>
+        <h2 style="margin:12px 0 0;font-size:38px;">Level up <span class="accent">any facial</span></h2>
+        <p style="font-size:18px;line-height:1.65;margin-top:16px;color:rgba(0,0,0,.72);">Added to your booked facial at check-in. Regenerative and injectable boosters are prescribed and performed under our full-authority nurse practitioner.</p>
+      </div>
+      <div class="boost-grid">
+        <div class="hg-card boost-card">
+          <div class="boost-top"><span class="boost-name">Ante-Age Biosome Infusion</span><span class="boost-price">+$79</span></div>
+          <p class="boost-desc">Growth-factor biosomes driven deep with microneedling &amp; ultrasound to accelerate repair, firmness, and glow.</p>
+        </div>
+        <div class="hg-card boost-card">
+          <div class="boost-top"><span class="boost-name">Exosome Regeneration</span><span class="boost-price">+$149</span></div>
+          <p class="boost-desc">Next-generation exosomes to supercharge collagen, calm inflammation, and dramatically extend your results.</p>
+        </div>
+        <div class="hg-card boost-card">
+          <div class="boost-top"><span class="boost-name">PDRN Salmon-DNA Repair</span><span class="boost-price">+$99</span></div>
+          <p class="boost-desc">Polynucleotide (PDRN) booster for deep barrier repair, hydration, and rejuvenation of stressed skin.</p>
+        </div>
+        <div class="hg-card boost-card">
+          <span class="rx-tag">NP-Directed · RX</span>
+          <div class="boost-top"><span class="boost-name">Baby Botox Finish</span><span class="boost-price">+$149</span></div>
+          <p class="boost-desc">Micro-dose neurotoxin for a soft, natural line-smoothing finish. Screened &amp; administered by our nurse practitioner.</p>
+        </div>
+        <div class="hg-card boost-card">
+          <div class="boost-top"><span class="boost-name">Bright-Eyes Ultrasound</span><span class="boost-price">+$49</span></div>
+          <p class="boost-desc">Ultrasound for Eyes + Vacuum Massager to de-puff, drain, and brighten the under-eye and orbital area.</p>
+        </div>
+        <div class="hg-card boost-card">
+          <div class="boost-top"><span class="boost-name">LED Light Extension</span><span class="boost-price">+$39</span></div>
+          <p class="boost-desc">Ten extra minutes of Photodynamic Therapy in the wavelength that best targets your concern.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="esthetician" class="section-pink" style="padding:76px 0;">
+    <div class="wrap esth-grid">
+      <div class="esth-photo"><image-slot id="esth-portrait" shape="rect" placeholder="Drop esthetician portrait"></image-slot></div>
+      <div>
+        <p class="hg-eyebrow" style="color:#fff;">Now Booking</p>
+        <h2 style="color:#fff;margin:12px 0 0;font-size:40px;">Meet your new esthetician</h2>
+        <p style="color:rgba(255,255,255,.92);font-size:19px;line-height:1.6;margin-top:16px;max-width:52ch;">Hello Gorgeous&rsquo;s newest medical esthetician is building her book &mdash; which means you get her undivided time, personalized skin mapping, and a custom protocol on the HYDRA Perfection MD every visit.</p>
+        <div class="offer">
+          <div class="k">New-Client Offer</div>
+          <div class="v">20% off your first signature facial</div>
+        </div>
+        <div style="margin-top:26px;">
+          <a href="#book" class="btn btn-white btn-cta">Book with her on Square</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="book" class="section-black" style="padding:76px 0;text-align:center;">
+    <div class="wrap" style="max-width:720px;">
+      <p class="hg-eyebrow">Ready When You Are</p>
+      <h2 style="color:#fff;margin:12px 0 0;font-size:38px;">Book your signature facial</h2>
+      <p style="color:rgba(255,255,255,.85);font-size:18px;line-height:1.6;margin-top:14px;">Same-day appointments often available in Oswego, IL. Choose your protocol, add a booster, and let us do the rest.</p>
+      <div style="display:flex;gap:14px;justify-content:center;margin-top:28px;flex-wrap:wrap;">
+        <a href="#" class="btn btn-primary btn-cta">Book on Square</a>
+        <a href="tel:6306366193" class="btn btn-outline" style="color:#fff;border-color:rgba(255,255,255,.4);">Call (630) 636-6193</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <div class="inner">
+      <div>
+        <h4>Hello Gorgeous Med Spa</h4>
+        <p style="line-height:1.7;margin:0;">Nurse-practitioner-directed medical aesthetics.<br>We screen you like a medical practice, because we are one.</p>
+      </div>
+      <div>
+        <h4>Visit</h4>
+        <p style="line-height:1.7;margin:0;">74 W. Washington Street<br>Oswego, IL 60543<br><a href="tel:6306366193">(630) 636-6193</a></p>
+      </div>
+      <div>
+        <h4>Serving</h4>
+        <p style="line-height:1.7;margin:0;">Oswego · Naperville · Aurora<br>Plainfield · Yorkville · Montgomery</p>
+      </div>
+    </div>
+  </footer>
+</div>
+</x-dc>
+</body>
+</html>

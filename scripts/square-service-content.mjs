@@ -365,82 +365,41 @@ export const SERVICE_CONTENT = {
     d: "Free consultation to map a custom laser hair removal plan based on your skin tone, hair density, and goals. 30 minutes, no obligation.",
   },
 
-  // ===== LASH SPA =====
-  "Mega Volume — Full Set": {
-    d: "Maximum-density lash extensions: 8–16 ultra-fine lashes per natural lash for dramatic, glamorous volume. 2.5–3 hour application.",
-  },
-  "Volume Lash Extensions — Full Set": {
-    d: "Volume lash extensions — multiple ultra-light lashes per natural lash for a soft, fluffy fullness. 2.5-hour application; lasts 4–6 weeks with fills.",
-  },
-  "Full Set Eyelash Extensions - Volume Full Set": {
-    n: "Volume Lash Extensions — Full Set (alt)",
-    d: "Volume lash extensions full set — fluffy, voluminous look. Note: alternate listing of our standard volume full set.",
-  },
-  "Full Set Eyelash Extensions - Hybrid Full Set": {
-    n: "Hybrid Lash Extensions — Full Set",
-    d: "Hybrid lash extensions: half classic, half volume. The most popular full-set style — natural-with-drama. 90-minute application.",
+  // ===== LASH SPA (lean menu — Jul 2026) =====
+  "Hybrid Lash Extensions — Full Set": {
+    d: "Hybrid lash extensions full set — mix of classic + volume for natural-with-drama fullness. Most popular style. $150 · 90 minutes. Hello Gorgeous Med Spa · Oswego.",
   },
   "Classic Lash Extensions — Full Set": {
-    d: "One-to-one classic lash extensions: natural, mascara-look fullness. Perfect for first-timers. 2-hour application; lasts 4–6 weeks with fills.",
+    d: "Classic one-to-one lash extensions — natural, mascara-look fullness. Perfect for first-timers. $120 · 90 minutes.",
   },
-  "Full Set Eyelash Extensions - Classic Full Set": {
-    n: "Classic Lash Extensions — Full Set (alt)",
-    d: "Classic lash extensions full set — natural, one-to-one style. Note: alternate listing.",
+  "Volume Lash Extensions — Full Set": {
+    d: "Volume lash extensions full set — multiple ultra-light lashes per natural lash for soft, fluffy fullness. $200 · 2-hour application.",
   },
-  "Lash Extensions - Lash & Grow Fill W/ Biotin Injection Shot": {
-    n: "Lash Fill + Biotin Shot",
-    d: "Lash fill paired with a biotin injection to support natural lash growth. Lashes look fuller; your real lashes get stronger.",
+  "Lash Fill": {
+    d: "Lash extension fill (classic, hybrid, or volume). Restores fall-out and refreshes your look. $75 · 60 minutes. Book every 2–3 weeks.",
   },
-  "Lash Lift & Tint": {
-    d: "Lash lift curls your natural lashes upward; tint adds dark color. No mascara needed for 6–8 weeks. 60-minute appointment.",
+  "Hybrid Lash Fill": {
+    n: "Lash Fill",
+    d: "Lash extension fill (classic, hybrid, or volume). Restores fall-out and refreshes your look. $75 · 60 minutes.",
   },
-  "Volume Lash Extensions — 3-Week Fill": {
-    d: "Three-week fill for volume lash extensions. Restores any fall-out and refreshes the look. 75-minute appointment.",
+  "Lash Mini Fill": {
+    d: "Quick mini fill for small gaps (typically within 7 days of your set). $40 · 30 minutes.",
   },
-  "Lash Extensions - Volume Lash Fill": {
-    n: "Volume Lash Fill — Standard",
-    d: "Standard volume lash fill (typically 2 weeks). Restores fall-out and keeps your set looking fresh. 75 minutes.",
-  },
-  "Lash Extensions - New Client Fill": {
-    n: "Lash Fill — New Client (Transfer)",
-    d: "Lash fill for clients transferring from another salon. We assess existing extensions and refresh any style — classic, hybrid, or volume.",
-  },
-  "Volume Lash Extensions — 2-Week Fill": {
-    d: "Two-week volume lash fill — the standard maintenance interval to keep your set full. 60-minute appointment.",
-  },
-  "Classic Lash Extensions — 3-Week Fill": {
-    d: "Three-week fill for classic lash extensions. Restores fall-out and keeps your natural-looking set fresh. 60-minute appointment.",
-  },
-  "Classic Lash Extensions — 2-Week Fill": {
-    d: "Two-week classic lash fill — standard maintenance to keep your set full and fluffy. 45-minute appointment.",
-  },
-  "Lash Extensions - Hybrid Lash Fill": {
-    n: "Hybrid Lash Fill",
-    d: "Fill for hybrid lash extensions (mix of classic + volume). 60-minute appointment, ideal every 2–3 weeks.",
-  },
-  "Lash Lift  - Lash Lift - With Tint": {
-    n: "Lash Lift + Tint",
-    d: "Lash lift with tint for upturned, darker lashes. Lasts 6–8 weeks; no extensions, no mascara required.",
-  },
-  "Lash Lift  - Lash Lift - No Tint": {
-    n: "Lash Lift — No Tint",
-    d: "Lash lift only (no tint) — curls your natural lashes upward for a wide-eyed look. Lasts 6–8 weeks.",
-  },
-  "Lash Tint Only": {
-    d: "Lash tint only — darkens your natural lashes for a mascara-look without the makeup. 20-minute appointment, lasts 4–6 weeks.",
-  },
-  "Lash Extensions - Mini Fill( w/ in 7 days )": {
-    n: "Lash Mini Fill (within 7 days)",
-    d: "Mini fill for clients returning within 7 days of a full set. Quick top-up for special events; only available within the 7-day window.",
+  "Lash Mini Fill (within 7 days)": {
+    n: "Lash Mini Fill",
+    d: "Quick mini fill for small gaps (typically within 7 days of your set). $40 · 30 minutes.",
   },
   "Lash Removal": {
-    d: "Safe, gentle lash extension removal using professional remover (no pulling). Healthy for natural lashes. 20 minutes.",
+    d: "Professional removal of eyelash extensions with professional remover (no pulling). Protects natural lashes. $40 · 30 minutes.",
+  },
+  "Lash Lift & Tint": {
+    d: "Classic lash lift + tint — curls and darkens your natural lashes for a mascara-look that lasts 6–8 weeks. No extensions. $89 · 60 minutes. Hello Gorgeous Med Spa · Oswego.",
+  },
+  "Korean Lash Lift & Tint": {
+    d: "Korean lash lift + tint — premium lift technique for a softer, lifted natural-lash look with tint. Longer-lasting curl than a standard lift. $129 · 75 minutes. Hello Gorgeous Med Spa · Oswego.",
   },
 
   // ===== BROW SPA =====
-  "Lash Brow Combo": {
-    d: "Lash lift + tint paired with brow shaping + tint or henna. The full eye-area glow-up in 80 minutes.",
-  },
   "Brow Lamination & Tint": {
     d: "Brow lamination for fluffy, lifted brows + tint for color and definition. The trendy look that lasts 6–8 weeks.",
   },

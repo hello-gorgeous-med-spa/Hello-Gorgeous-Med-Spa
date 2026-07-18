@@ -63,9 +63,9 @@ export const homepageServicesRow1: HomepageServiceCard[] = [
       "Fractional CO₂ laser resurfacing for wrinkles, scars, sun damage, and body stretch marks — gold-standard skin renewal.",
     link: "/solaria-co2-oswego",
     items: ["Face & Neck", "Body Resurfacing", "Stretch Marks", "Texture & Tone"],
-    image: "/images/solaria/solaria-co2-home-treatment.jpg",
+    image: "/images/solaria/solaria-inmode-machine.jpg",
     imageAlt:
-      "Solaria by InMode CO₂ fractional laser treatment in session at Hello Gorgeous Med Spa Oswego IL",
+      "Solaria by InMode CO₂ fractional laser platform at Hello Gorgeous Med Spa Oswego IL",
     badge: "NEW",
   },
   {
@@ -100,9 +100,9 @@ export const homepageServicesRow2: HomepageServiceCard[] = [
       "Clinician-guided BPC-157, Sermorelin, NAD+, Recovery Blend, and more — for recovery, metabolism, skin, and vitality. Same-day peptide consults often available; we prioritize timely care for Oswego, Naperville, Aurora & Plainfield.",
     link: "/peptides",
     items: ["Recovery Blend", "BPC-157", "Sermorelin", "NAD+"],
-    image: "/images/homepage-services/recovery-blend-rx.jpg",
+    image: "/images/regen/catalog/bpc-157.png",
     imageAlt:
-      "Hello Gorgeous RX Recovery Blend — BPC-157, GHK-Cu, KPV, TB-500 advanced recovery and repair peptide blend",
+      "RE GEN BPC-157 peptide vial — peptide therapy consult at Hello Gorgeous Med Spa Oswego IL",
     badge: "RX",
     imageContain: true,
   },
@@ -119,14 +119,14 @@ export const homepageServicesRow2: HomepageServiceCard[] = [
     imageContain: true,
   },
   {
-    title: "VAMP™",
+    title: "Salmon DNA Glass Facial",
     description:
-      "Advanced skin revitalization with PDRN and nutrient-rich complexes — hydration, anti-aging support, and barrier care tailored to your plan.",
-    link: "/services/morpheus8",
-    items: ["Hydration", "Skin revitalization", "Anti-aging nutrients", "Barrier support"],
-    image: "/images/homepage-services/vamp-skin-revitalization.png",
+      "VAMP™ PDRN salmon DNA red-carpet glass skin facial — hydration, repair signaling, and glow. Optional microneedling, IPL, or peel add-ons.",
+    link: "/services/salmon-dna-glass-facial",
+    items: ["PDRN / Salmon DNA", "Glass skin glow", "Microneedling add-on", "Red carpet ready"],
+    image: "/images/salmon-dna/salmon-dna-vamp-facial.jpg",
     imageAlt:
-      "VAMP skin revitalization treatment nutrients — Hello Gorgeous Med Spa Oswego IL",
+      "Salmon DNA Glass Skin Facial with VAMP by Prollenium — Hello Gorgeous Med Spa Oswego IL",
     imageContain: true,
   },
   {

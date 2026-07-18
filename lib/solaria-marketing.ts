@@ -23,7 +23,7 @@ export const SOLARIA_MARKETING = {
   compareMorpheusHref: "/services/morpheus8",
   trifectaHref: "/specials",
   images: {
-    device: "/images/solaria/solaria-device.png",
+    device: "/images/solaria/solaria-inmode-machine.jpg",
     workstation: "/images/solaria/solaria-workstation.png",
     faceBa: "/images/solaria/solaria-co2-full-face-before-after.png",
     acneBa: "/images/solaria/solaria-co2-acne-scars-before-after.png",

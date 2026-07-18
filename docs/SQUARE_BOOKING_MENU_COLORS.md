@@ -27,15 +27,42 @@ Calendar colors **cannot** be set by API — only in the Dashboard. POS label co
 | **Exclusive Model Specials** | Bright pink | Keep only true promo specials |
 | **GlowTox Facial** | Pink | GlowTox signature |
 
-### How to set calendar colors (≈10 min)
+### How to set calendar colors (≈10–20 min) — owner / Dashboard only
+
+Calendar **Color** is Dashboard-only (API cannot set it). POS `label_color` is already set by script.
 
 1. Open [Square Dashboard](https://app.squareup.com/) → **Items** → **Service library**
 2. Open a service → **Color** → pick the color for that category → **Save**
-3. Repeat for one service per category first (then batch the rest)
+3. Repeat for **one service per category** first, then batch the rest in that category to the **same** color
 4. Go to **Appointments** → **Calendar** → gear ⚙
-5. Turn on **Color code → By Service** → Save
+5. Turn on **Color code by Service** (not by team member) → Save
+6. Spot-check the live calendar against the table below
 
-Tip: edit every service in a category to the **same** color so the calendar reads cleanly.
+### Owner spot-check (after Color code by Service)
+
+| Should read as | Example SKU on calendar |
+|---|---|
+| Hot pink / magenta | B12 / Glutathione (Vitamin Injections) |
+| Red | Semaglutide / Tirzepatide |
+| Purple | FlowWave single or package |
+| Deep orange | Morpheus8 Burst — 3 Session Package |
+| Sky blue | Laser Brazilian / underarms |
+| Lavender | Hybrid Full Set / Lash Lift |
+| Charcoal | Ryan Medical Visit / Consultation |
+
+If vitamins and weight loss look the same color, the service Color field was not set per category — fix in Service library, not calendar settings.
+
+### Packages should appear near the top of browse
+
+After `scripts/square-upsert-packages.mjs --apply` + `scripts/square-catalog-hygiene.mjs --apply`:
+
+- **Body Contouring & Devices:** Morpheus8 Burst — 3 Session Package, Quantum RF packages, Solaria, Trifecta
+- **Laser Hair Removal:** Laser Brazilian — 3-Month Package
+- **FlowWave:** session packages + Recovery Stack
+
+### Front-desk checkout (separate from colors)
+
+See `docs/manuals/front-desk-square-checkout-sop.md` — appointment → **Review and Check Out** → Terminal.
 
 ## Scripts
 
@@ -43,8 +70,20 @@ Tip: edit every service in a category to the **same** color so the calendar read
 # Preview category moves
 node --env-file=.env.local scripts/square-reorganize-booking-menu.mjs --dry-run
 
-# Apply category + POS label_color
+# Apply category moves (items matching move rules)
 node --env-file=.env.local scripts/square-reorganize-booking-menu.mjs --apply
+
+# Fix POS label_color for every service from its CURRENT category
+node --env-file=.env.local scripts/square-fix-pos-label-colors.mjs --apply
+
+# Verify POS labels + print Dashboard calendar punch-list
+node --env-file=.env.local scripts/square-verify-calendar-color-prep.mjs
+
+# Upsert packages (Morpheus8 Burst ×3, Quantum, Solaria, Laser Brazilian, $0 visit)
+node --env-file=.env.local scripts/square-upsert-packages.mjs --apply
+
+# Pin packages to top of categories + hide superseded SKUs from online booking
+node --env-file=.env.local scripts/square-catalog-hygiene.mjs --apply
 
 # Refresh booking images from category heroes
 node --env-file=.env.local scripts/square-polish-catalog.mjs --apply --images-only --force-images

@@ -3,11 +3,12 @@
  * Assign Square appointment staff by Hello Gorgeous provider rules.
  *
  * Routing (owner-defined):
- *   Marissa  — spa (lash, brow, skin, IV, vitamins) — NOT medical / botox / fillers / laser / FlowWave
+ *   Marissa  — spa (lash, brow, skin, IV, vitamins) — NOT medical / botox / fillers / laser / FlowWave / microblading
  *   Ryan     — medical, botox, fillers, weight loss, BHRT, peptides, laser, microneedling,
  *              InMode, PRP, trigger point, FlowWave
  *   Danielle — everything EXCEPT botox & fillers
- *   Michelle + Laura — FlowWave / Recovery Stack only
+ *   Michelle — FlowWave / Shockwave / Recovery Stack only (sole bookable provider)
+ *   Jen      — Microblading only (regular, hybrid/combo, color refresher, Meet Jen specials)
  *
  * USAGE:
  *   node --env-file=.env.local scripts/assign-square-staff-by-rules.mjs --dry-run
@@ -30,6 +31,7 @@ export const TEAM = {
   marissa: "TMjZzrkoSsBocyWm",
   michelle: "TMqy8tRlmyMRkQ25",
   laura: "TMxkWb1md-cZHvkq",
+  jen: "TMTwajwlTLQgz8mI",
 };
 
 const NAMES = {
@@ -38,6 +40,7 @@ const NAMES = {
   [TEAM.marissa]: "Marissa",
   [TEAM.michelle]: "Michelle",
   [TEAM.laura]: "Laura",
+  [TEAM.jen]: "Jen",
 };
 
 if (!TOKEN || TOKEN.length < 10) {
@@ -79,14 +82,14 @@ function resolveStaff(serviceName, categoryNames) {
   const cats = categoryNames.map(norm).join(" | ");
   const hay = `${n} ${cats}`;
 
-  // ── FlowWave / Recovery Stack → Michelle, Laura, Ryan (+ Danielle for coverage) ──
+  // ── FlowWave / Shockwave / Recovery Stack → Michelle only ──
   if (
     /flowwave|shockwave|recovery stack/.test(hay) ||
     cats.includes("flowwave")
   ) {
     return {
-      ids: [TEAM.michelle, TEAM.laura, TEAM.ryan, TEAM.danielle],
-      rule: "FlowWave / Recovery Stack → Michelle, Laura, Ryan, Danielle",
+      ids: [TEAM.michelle],
+      rule: "FlowWave / Shockwave → Michelle only",
     };
   }
 
@@ -210,14 +213,22 @@ function resolveStaff(serviceName, categoryNames) {
     };
   }
 
-  // ── Brow Spa / microblading → Marissa + Danielle ──
+  // ── Microblading (Jen only) — before Brow Spa so PMU doesn't route to Marissa ──
   if (
-    /brow|microblad|wax.?lip|henna/.test(hay) ||
-    cats.includes("brow spa")
+    /microblad|hybrid\s*\/?\s*combo|combo\s*brows|color refresher|meet jen|pmu/.test(hay) ||
+    cats.includes("microblading")
   ) {
     return {
+      ids: [TEAM.jen],
+      rule: "Microblading → Jen only",
+    };
+  }
+
+  // ── Brow Spa (wax / tint / henna — not PMU) → Marissa + Danielle ──
+  if (/brow|wax.?lip|henna/.test(hay) || cats.includes("brow spa")) {
+    return {
       ids: [TEAM.marissa, TEAM.danielle],
-      rule: "Brow Spa / microblading → Marissa + Danielle",
+      rule: "Brow Spa → Marissa + Danielle",
     };
   }
 
@@ -229,9 +240,17 @@ function resolveStaff(serviceName, categoryNames) {
     };
   }
 
+  // ── Signature Facial protocols (HYDRA Perfection MD) → Marissa only ──
+  if (/signature facial/.test(hay)) {
+    return {
+      ids: [TEAM.marissa],
+      rule: "Signature Facials → Marissa",
+    };
+  }
+
   // ── Skin Spa / facials → Marissa + Danielle ──
   if (
-    /facial|hydra|geneo|chemical peel|photofacial|ipl|dermaplan|high frequency|salmon dna|vi peel|oxygen|diamond|signature facial|microderm/.test(
+    /facial|hydra|geneo|chemical peel|photofacial|ipl|dermaplan|high frequency|salmon dna|vi peel|oxygen|diamond|microderm/.test(
       hay,
     ) ||
     cats.includes("skin spa")
@@ -439,11 +458,11 @@ async function main() {
   }
 
   console.log(`\n✅ Done — updated ${ok}, failed ${failed}`);
-  if (!bookable.has(TEAM.laura)) {
+  if (!bookable.has(TEAM.michelle)) {
     console.log(
-      "\n⚠ Laura is assigned to FlowWave but is NOT enabled for online booking yet.",
+      "\n⚠ Michelle is assigned to FlowWave/Shockwave but is NOT enabled for online booking yet.",
     );
-    console.log("  Square Dashboard → Team → Laura Witt → enable Appointments / Bookable.");
+    console.log("  Square Dashboard → Team → Michelle Colby → enable Appointments / Bookable.");
   }
 }
 

@@ -200,7 +200,7 @@ export const TOP_SERVICES: ServiceConfig[] = [
     shortName: 'Salmon DNA',
     priceDisplay: 'Consult for protocol',
     description: 'PDRN salmon DNA red carpet glass skin facial in Oswego, IL — optional microneedling, IPL, or peel add-ons.',
-    heroImage: '/images/homepage-services/anteage-md-brightening.png',
+    heroImage: '/images/salmon-dna/salmon-dna-vamp-facial.jpg',
     keywords: ['salmon dna facial oswego', 'PDRN facial oswego il', 'glass skin facial', 'red carpet facial', 'salmon dna naperville', 'PDRN treatment illinois'],
     benefits: [
       { icon: '🧬', title: 'PDRN Science', desc: 'Regenerative repair signaling' },
@@ -249,7 +249,7 @@ export const TOP_SERVICES: ServiceConfig[] = [
     shortName: 'CO₂ Laser',
     priceDisplay: '$899 Full Face — Launch Special',
     description: 'InMode Solaria CO₂ fractional laser in Oswego, IL — full face for $899 (launch special, regularly $1,500+). Dramatically improve wrinkles, acne scars, sun damage, and skin texture in one treatment.',
-    heroImage: '/images/services/hg-laser-device.png',
+    heroImage: '/images/solaria/solaria-inmode-machine.jpg',
     keywords: ['co2 laser', 'fractional co2', 'co2 laser resurfacing', 'skin resurfacing', 'laser skin treatment', 'wrinkle treatment', 'scar treatment', 'solaria laser', 'inmode solaria'],
     treatmentAreas: [
       { area: 'Deep Wrinkles', detail: 'Dramatic improvement' },

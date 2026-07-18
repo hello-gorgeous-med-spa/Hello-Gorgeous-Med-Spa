@@ -134,7 +134,7 @@ $49 peptide consultation (medication priced separately). Oswego · Naperville ·
 
 Book below 👇`,
   linkPath: withUtm("/peptide-therapy-oswego"),
-  imagePath: "/images/homepage-services/peptide-therapy-active-lifestyle.png",
+  imagePath: "/images/regen/catalog/bpc-157.png",
   defaultChannels: ["facebook", "instagram", "google"],
 };
 

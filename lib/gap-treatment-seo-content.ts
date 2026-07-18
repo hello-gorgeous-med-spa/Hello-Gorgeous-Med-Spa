@@ -110,9 +110,9 @@ export const salmonDnaGlassFacialSeo: TreatmentSeoConfig = {
   heroBody:
     "Our VAMP Salmon DNA / Red Carpet Glass Skin protocol at Hello Gorgeous Med Spa in Oswego, IL pairs polydeoxyribonucleotide (PDRN) science with your choice of microneedling, IPL photofacial, or chemical peel — for tone, hydration, and event-ready glow.",
   priceFrom: "Consult for protocol pricing",
-  heroImage: "/images/homepage-services/anteage-md-brightening.png",
+  heroImage: "/images/salmon-dna/salmon-dna-vamp-facial.jpg",
   heroImageAlt:
-    "Salmon DNA glass skin facial regenerative treatment Hello Gorgeous Med Spa Oswego IL PDRN",
+    "Salmon DNA glass skin facial with VAMP by Prollenium — Hello Gorgeous Med Spa Oswego IL",
   metaTitle:
     "Salmon DNA Glass Facial & PDRN in Oswego, IL | Red Carpet Facial | Hello Gorgeous",
   metaDescription:

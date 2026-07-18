@@ -10,6 +10,17 @@ type Note = { id: number; client_id: string; client_name: string | null; note: s
 type Expense = { id: number; date: string; desc: string; amount: number; category: string; method: string };
 type Bill = { id: number; name: string; amount: number; dueDay: number; category: string; freq: string };
 
+type SquareAppt = {
+  id?: string;
+  status?: string;
+  startAt?: string;
+  customerName?: string;
+  serviceName?: string;
+  priceCents?: number;
+  likelyUnpaid?: boolean;
+  hasPaymentToday?: boolean;
+};
+
 const SQUARE_APPOINTMENTS_CALENDAR = "https://app.squareup.com/dashboard/appointments/calendar";
 
 function openSquareAppointmentsCalendar() {
@@ -34,6 +45,15 @@ export default function HubPageClient() {
     squareOAuthActive: boolean;
     supabaseConfigured: boolean;
   } | null>(null);
+  const [todaysAppts, setTodaysAppts] = useState<SquareAppt[]>([]);
+  const [apptMeta, setApptMeta] = useState<{
+    unpaidCount: number;
+    totalCount: number;
+    date?: string;
+    error?: string;
+    checkoutHint?: string;
+  } | null>(null);
+  const [apptsLoading, setApptsLoading] = useState(false);
 
   useEffect(() => {
     fetch("/api/hub/session", { credentials: "include" })
@@ -163,6 +183,33 @@ export default function HubPageClient() {
     }
   }
 
+  async function loadTodaysAppointments() {
+    setApptsLoading(true);
+    try {
+      const res = await fetch("/api/hub/square-todays-appointments", { credentials: "include" });
+      const json = await res.json();
+      setTodaysAppts(Array.isArray(json.appointments) ? json.appointments : []);
+      setApptMeta({
+        unpaidCount: Number(json.unpaidCount || 0),
+        totalCount: Number(json.totalCount || 0),
+        date: json.date,
+        error: json.error,
+        checkoutHint: json.checkoutHint,
+      });
+    } catch {
+      setTodaysAppts([]);
+      setApptMeta({ unpaidCount: 0, totalCount: 0, error: "Could not load appointments" });
+    } finally {
+      setApptsLoading(false);
+    }
+  }
+
+  useEffect(() => {
+    loadTodaysAppointments();
+    const id = setInterval(loadTodaysAppointments, 60_000);
+    return () => clearInterval(id);
+  }, []);
+
   return (
     <main className="max-w-6xl mx-auto p-6 md:p-10 space-y-6">
       <header className="flex flex-wrap items-center justify-between gap-3">
@@ -275,6 +322,85 @@ export default function HubPageClient() {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      <section className="border rounded-xl p-4 space-y-3">
+        <div className="flex flex-wrap items-center justify-between gap-2">
+          <h2 className="font-semibold">Today&apos;s Square appointments</h2>
+          <div className="flex gap-2">
+            <button
+              type="button"
+              className="border rounded px-3 py-1.5 text-sm"
+              onClick={loadTodaysAppointments}
+              disabled={apptsLoading}
+            >
+              {apptsLoading ? "Loading…" : "Refresh"}
+            </button>
+            <button
+              type="button"
+              className="border rounded px-3 py-1.5 text-sm text-pink-700"
+              onClick={openSquareAppointmentsCalendar}
+            >
+              Open calendar ↗
+            </button>
+          </div>
+        </div>
+        <p className="text-xs text-black/55">
+          {apptMeta?.date ? `${apptMeta.date} · ` : ""}
+          {apptMeta?.totalCount ?? 0} on books
+          {apptMeta ? ` · ${apptMeta.unpaidCount} likely unpaid` : ""}
+          {apptMeta?.error ? ` · ${apptMeta.error}` : ""}
+        </p>
+        <p className="text-xs text-black/60 max-w-3xl">
+          {apptMeta?.checkoutHint ||
+            "Check out from the appointment (Review and Check Out → Terminal), not a blank POS sale."}
+        </p>
+        <div className="space-y-2 max-h-80 overflow-auto">
+          {todaysAppts.length === 0 && !apptsLoading ? (
+            <p className="text-sm text-black/50">No appointments loaded for today.</p>
+          ) : null}
+          {todaysAppts.map((a) => {
+            const time = a.startAt
+              ? new Date(a.startAt).toLocaleTimeString("en-US", {
+                  timeZone: "America/Chicago",
+                  hour: "numeric",
+                  minute: "2-digit",
+                })
+              : "—";
+            const price =
+              typeof a.priceCents === "number" ? `$${(a.priceCents / 100).toFixed(0)}` : "";
+            return (
+              <div
+                key={a.id || `${a.startAt}-${a.customerName}`}
+                className={`flex flex-wrap items-center justify-between gap-2 border rounded-lg px-3 py-2 text-sm ${
+                  a.likelyUnpaid ? "border-amber-400 bg-amber-50" : "border-black/10"
+                }`}
+              >
+                <div>
+                  <div className="font-medium">
+                    {time} · {a.customerName}
+                  </div>
+                  <div className="text-black/60 text-xs">
+                    {a.serviceName}
+                    {price ? ` · ${price}` : ""}
+                    {a.status ? ` · ${a.status}` : ""}
+                  </div>
+                </div>
+                <div className="text-xs font-semibold">
+                  {a.likelyUnpaid ? (
+                    <span className="text-amber-800">Likely unpaid — check out from appt</span>
+                  ) : a.hasPaymentToday ? (
+                    <span className="text-green-700">Payment today</span>
+                  ) : a.priceCents === 0 ? (
+                    <span className="text-black/50">$0 / prepaid visit</span>
+                  ) : (
+                    <span className="text-black/45">Upcoming</span>
+                  )}
+                </div>
+              </div>
+            );
+          })}
         </div>
       </section>
 

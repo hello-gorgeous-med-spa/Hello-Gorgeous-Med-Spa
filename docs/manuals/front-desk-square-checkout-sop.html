@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Hello Gorgeous — Square Checkout SOP (Front Desk)</title>
+<style>
+  @page { size: Letter; margin: 0.5in 0.6in; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: "Avenir Next", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: #111; font-size: 10.5pt; line-height: 1.35;
+  }
+  h1 { font-size: 18pt; margin: 0 0 4px; letter-spacing: -0.03em; }
+  h2 {
+    font-size: 11.5pt; margin: 14px 0 6px; padding-bottom: 3px;
+    border-bottom: 3px solid #E6007E; color: #E6007E;
+  }
+  p { margin: 0 0 6px; }
+  .pill {
+    display: inline-block; font-size: 8.5pt; font-weight: 800; letter-spacing: 0.12em;
+    text-transform: uppercase; color: #E6007E; margin-bottom: 6px;
+  }
+  .cover {
+    border: 4px solid #111; padding: 16px 18px; margin-bottom: 12px;
+    background: linear-gradient(160deg, #fff, #fff0f7 70%);
+  }
+  .rule {
+    border: 3px solid #111; border-radius: 10px; padding: 10px 12px; margin: 8px 0;
+    background: #fff0f7; font-weight: 700; font-size: 11.5pt;
+  }
+  .steps { margin: 6px 0 0; padding-left: 1.2em; }
+  .steps li { margin: 4px 0; }
+  .warn {
+    border: 2px solid #b45309; background: #fffbeb; border-radius: 10px;
+    padding: 8px 10px; margin: 8px 0;
+  }
+  .ok {
+    border: 2px solid #15803d; background: #f0fdf4; border-radius: 10px;
+    padding: 8px 10px; margin: 8px 0;
+  }
+  table { width: 100%; border-collapse: collapse; margin: 6px 0; font-size: 9.5pt; }
+  th, td { border: 1.5px solid #111; padding: 5px 7px; text-align: left; vertical-align: top; }
+  th { background: #111; color: #fff; }
+  .check { list-style: none; padding: 0; margin: 4px 0; }
+  .check li { margin: 3px 0; }
+  .check li::before { content: "☐ "; font-weight: 700; }
+  .muted { color: #555; font-size: 9pt; }
+  .path {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 9pt; background: #111; color: #fff; padding: 8px 10px;
+    border-radius: 8px; margin: 8px 0; word-break: break-word;
+  }
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <div class="pill">Front desk · laminate</div>
+  <h1>Square checkout: Calendar → Terminal</h1>
+  <p class="muted">Hello Gorgeous Med Spa · Oswego · Same location as Terminal (L3QDRS4DX9ZE4)</p>
+</div>
+
+<div class="rule">
+  Golden rule: Check out from the appointment. Never open a blank “New sale” for a booked visit.
+</div>
+
+<div class="path">Appointment → Review and Check Out → Cart → Charge → Terminal → Mark Completed</div>
+
+<h2>Staff path (every guest)</h2>
+<ol class="steps">
+  <li>Open <strong>Square Appointments</strong> (or POS with Bookings mode) — same location as Terminal.</li>
+  <li>Tap <strong>today’s appointment</strong> (not + New sale).</li>
+  <li>Tap <strong>Review and Check Out</strong>.</li>
+  <li>Cart should prefill booked service(s). Add tip / retail if needed.</li>
+  <li><strong>Charge</strong> → Terminal lights up → then mark appointment <strong>Completed</strong>.</li>
+</ol>
+<p class="muted">Backup: Dashboard → Calendar → appointment → <strong>Take Payment</strong>.</p>
+
+<div class="warn">
+  <strong>If cart is empty or Terminal silent:</strong> wrong location pairing · $0/ghost SKU · blank POS cart instead of appointment checkout · wrong Square account · Terminal offline.
+</div>
+
+<h2>Packages</h2>
+<table>
+  <tr><th>Situation</th><th>Do this</th></tr>
+  <tr><td>Buy package (e.g. Morpheus8 Burst ×3)</td><td>Charge the <strong>package SKU</strong> once from that appointment.</td></tr>
+  <tr><td>Prepaid return visit</td><td>Book <strong>Prepaid Package Visit — $0</strong>; note “visit 2 of 3”. Do not re-charge the package.</td></tr>
+</table>
+
+<div class="ok">
+  <strong>Daily:</strong> Before first guest — Terminal paired. End of day — audit unpaid completed appointments (Hub → Today’s appointments).
+</div>
+
+<h2>10-minute huddle</h2>
+<ul class="check">
+  <li>Demo one appointment → Review and Check Out → Terminal (cancel if practice)</li>
+  <li>Show wrong path once (blank New Sale) and why it breaks sync</li>
+  <li>Point to package SKUs at top of Body Contouring / Laser / FlowWave</li>
+  <li>Confirm calendar Color code by Service (vitamins pink · WL red · FlowWave purple · devices orange · laser blue · lashes lavender)</li>
+  <li>Name who closes unpaid appointments at end of day</li>
+</ul>
+
+<p class="muted" style="margin-top:12px">Full SOP: docs/manuals/front-desk-square-checkout-sop.md · Colors: docs/SQUARE_BOOKING_MENU_COLORS.md</p>
+
+</body>
+</html>

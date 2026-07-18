@@ -119,6 +119,14 @@ export const PRP_FACIAL_MENU: ServiceMenuConfig = {
       learnMoreHref: "/pre-post-care/prp-prf",
     },
   ],
+  gallery: [
+    {
+      src: "/images/prp/prp-microneedling.jpg",
+      alt: "PRP microneedling treatment — pen device and golden platelet-rich plasma syringe",
+      caption: "Microneedling + PRP — collagen channels meet your own growth factors",
+      frame: "landscape",
+    },
+  ],
   faqs: [
     {
       question: "What's the difference between the full Vampire Facial and PRP Express?",

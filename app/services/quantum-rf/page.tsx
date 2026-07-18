@@ -118,6 +118,12 @@ export const revalidate = 3600;
 
 const CLINICAL_RESULT_SLIDES: QuantumSlide[] = [
   {
+    src: "/images/quantum-rf/quantum-rf10-jawline-before-after.jpg",
+    label: "QuantumRF10 — jawline",
+    alt: "QuantumRF10 before and after jawline and submental tightening — sharper contour, reduced double chin, Hello Gorgeous Med Spa Oswego",
+    caption: "Sharper jawline and submental contour with QuantumRF10. Representative outcome — not a guarantee of your result.",
+  },
+  {
     src: "/images/quantum-rf/clinical-ba-upper-arm-tightening.png",
     label: "Upper arms",
     alt: "Clinical before and after: Quantum RF non-surgical upper arm skin tightening and contouring, reduced laxity in triceps area, Oswego med spa",

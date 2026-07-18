@@ -89,7 +89,7 @@ export const MICRONEEDLING_MENU: ServiceMenuConfig = {
       ],
       pricing: [
         { label: "Single area session", price: "From $850", href: "/morpheus8-burst-oswego" },
-        { label: "3-treatment Morpheus8 Burst package", price: "$1,999", href: "/morpheus8-burst-oswego" },
+        { label: "Morpheus8 Burst — 3 Session Package", price: "$1,999", href: "/morpheus8-burst-oswego" },
         { label: "Full-face RF series (3 sessions)", price: "$1,800–$2,800", href: "/services/microneedling-rf", note: "Quoted at consult" },
         { label: "FREE Morpheus8 with Quantum RF packages", price: "Included", href: "/quantum-rf-oswego-il#packages", note: "Neck & abdomen bundles" },
       ],

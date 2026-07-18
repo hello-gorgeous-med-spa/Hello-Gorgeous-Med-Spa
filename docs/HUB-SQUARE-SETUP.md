@@ -34,6 +34,14 @@ If **no OAuth row** exists, the route uses **`SQUARE_ACCESS_TOKEN`** from Vercel
 | Hub returns `401` | Hub password gate: sign in at `/hub/login`. |
 | Supabase errors | `SUPABASE_SERVICE_ROLE_KEY` and DB migrations for `square_connections`. |
 
+## Today’s appointments / unpaid helper
+
+Hub also calls **`GET /api/hub/square-todays-appointments`** (same Square token). It lists today’s bookings (America/Chicago) and best-effort **likely unpaid** rows: priced service, start time already passed, and no COMPLETED payment for that customer today.
+
+- UI: Hub Command Center → **Today’s Square appointments**
+- Deep link: Square Dashboard calendar
+- Desk SOP: `docs/manuals/front-desk-square-checkout-sop.md`
+
 ## After you move booking to Square
 
-Optional next steps: webhook or scheduled job to **cache** appointment counts, or deep links from Hub to **Square Dashboard → Appointments**. The payments sync above is the first “all in one place” slice.
+Checkout path is always **appointment → Review and Check Out → Terminal** (not a blank POS sale). Use Hub’s unpaid list at close of day to catch Fresha-style missed checkouts.
