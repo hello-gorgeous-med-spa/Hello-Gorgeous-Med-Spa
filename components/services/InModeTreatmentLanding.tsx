@@ -136,6 +136,18 @@ export function InModeTreatmentLanding({
               Learn more ↓
             </a>
           </div>
+          {content.trustItems && content.trustItems.length > 0 ? (
+            <ul className="mt-10 flex max-w-3xl flex-wrap items-center justify-center gap-2">
+              {content.trustItems.map((item) => (
+                <li
+                  key={item}
+                  className="rounded-full border border-white/25 bg-white/10 px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-wide text-white/90 backdrop-blur"
+                >
+                  {item}
+                </li>
+              ))}
+            </ul>
+          ) : null}
         </div>
       </header>
 
@@ -180,6 +192,49 @@ export function InModeTreatmentLanding({
           <BookBtn />
         </div>
       </section>
+
+      {/* Areas we treat */}
+      {content.areaCards && content.areaCards.length > 0 ? (
+        <Section id="areas" className="scroll-mt-24 !bg-transparent py-14 md:py-16">
+          <div className="mx-auto max-w-5xl px-4 sm:px-6">
+            <FadeUp>
+              <SectionTitle
+                eyebrow="Treatment areas"
+                title={content.areaCardsTitle ?? "Areas we treat"}
+              />
+              {content.areaCardsIntro ? (
+                <p className="mt-4 max-w-2xl text-sm leading-relaxed text-black/65 md:text-base">
+                  {content.areaCardsIntro}
+                </p>
+              ) : null}
+              <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                {content.areaCards.map((area) => {
+                  const inner = (
+                    <>
+                      <h3 className="font-serif text-lg font-black text-black group-hover:text-[#E6007E]">
+                        {area.title}
+                      </h3>
+                      <p className="mt-2 text-sm leading-relaxed text-black/65">{area.blurb}</p>
+                    </>
+                  );
+                  const cardClass =
+                    "group rounded-2xl border-2 border-black bg-white p-5 shadow-[4px_4px_0_0_rgba(230,0,126,0.18)] transition hover:-translate-y-0.5";
+                  return area.href ? (
+                    <Link key={area.title} href={area.href} className={cardClass}>
+                      {inner}
+                      <p className="mt-3 text-xs font-bold text-[#E6007E]">Learn more →</p>
+                    </Link>
+                  ) : (
+                    <div key={area.title} className={cardClass}>
+                      {inner}
+                    </div>
+                  );
+                })}
+              </div>
+            </FadeUp>
+          </div>
+        </Section>
+      ) : null}
 
       {/* Manufacturer */}
       {content.manufacturerOverview && manufacturerImages.length > 0 ? (

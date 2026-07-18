@@ -16,6 +16,12 @@ export type InModeTreatmentRelated = {
   blurb: string;
 };
 
+export type InModeTreatmentAreaCard = {
+  title: string;
+  blurb: string;
+  href?: string;
+};
+
 export type InModeTreatmentLandingContent = {
   slug: string;
   path: string;
@@ -34,10 +40,16 @@ export type InModeTreatmentLandingContent = {
   /** Soft pricing line under hero CTAs */
   priceLine: string;
   priceNote?: string;
+  /** LaserAway-style trust chips under the hero */
+  trustItems?: string[];
   whatTitle: string;
   whatBody: string[];
   treats: string[];
   treatsIntro?: string;
+  /** Optional treatment-area cards (Botox-style “Areas we treat”) */
+  areaCards?: InModeTreatmentAreaCard[];
+  areaCardsTitle?: string;
+  areaCardsIntro?: string;
   howTitle: string;
   howBody: string;
   howBullets: string[];
