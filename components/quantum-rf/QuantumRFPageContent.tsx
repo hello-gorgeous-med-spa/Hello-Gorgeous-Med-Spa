@@ -4,7 +4,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 
+import { JourneyFitImage } from "@/components/marketing/JourneyFitImage";
 import { JourneyResultsCinema } from "@/components/marketing/JourneyResultsCinema";
+import { JourneySoundVideo } from "@/components/marketing/JourneySoundVideo";
 import {
   QUANTUM_RF_AREAS_10,
   QUANTUM_RF_CONTACT,
@@ -181,19 +183,12 @@ export function QuantumRFPageContent() {
             </div>
           </div>
           <div className="mx-auto w-full max-w-md overflow-hidden rounded-3xl border border-[#FF2D8E]/35 shadow-[0_20px_60px_rgba(255,45,142,0.22)] lg:max-w-lg">
-            <div className="relative aspect-video w-full bg-black">
-              <video
-                src={QUANTUM_RF_MARKETING.heroVideo}
-                poster={images.hero}
-                autoPlay
-                muted
-                loop
-                playsInline
-                preload="auto"
-                className="absolute inset-0 h-full w-full object-contain"
-                aria-label="InMode Luxora Quantum RF platform — Hello Gorgeous Med Spa"
-              />
-            </div>
+            <JourneySoundVideo
+              src={QUANTUM_RF_MARKETING.heroVideo}
+              poster={images.hero}
+              label="InMode Luxora Quantum RF platform — Hello Gorgeous Med Spa"
+              preload="auto"
+            />
           </div>
         </div>
       </header>
@@ -233,19 +228,12 @@ export function QuantumRFPageContent() {
       <section id="inmode" className="scroll-mt-24 bg-[radial-gradient(85%_95%_at_78%_20%,#12030c,#000_62%)] px-6 py-16 lg:py-24">
         <div className="mx-auto grid max-w-[1200px] items-center gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-14">
           <div className="overflow-hidden rounded-3xl border border-[#FF2D8E]/35 shadow-[0_20px_60px_rgba(255,45,142,0.22)]">
-            <div className="relative aspect-video w-full bg-black">
-              <video
-                src={QUANTUM_RF_MARKETING.ryanVideo}
-                poster={images.ryanPoster}
-                autoPlay
-                muted
-                loop
-                playsInline
-                preload="metadata"
-                className="absolute inset-0 h-full w-full object-cover"
-                aria-label="Ryan Kent performing Quantum RF at Hello Gorgeous Med Spa"
-              />
-            </div>
+            <JourneySoundVideo
+              src={QUANTUM_RF_MARKETING.ryanVideo}
+              poster={images.ryanPoster}
+              label="Ryan Kent performing Quantum RF at Hello Gorgeous Med Spa"
+              objectClassName="object-cover"
+            />
           </div>
           <div>
             <Eyebrow>{QUANTUM_RF_INMODE_STORY.eyebrow}</Eyebrow>
@@ -274,26 +262,30 @@ export function QuantumRFPageContent() {
             </div>
           </div>
         </div>
-        <div className="mx-auto mt-10 grid max-w-[1200px] gap-4 sm:grid-cols-2">
-          <div className="overflow-hidden rounded-3xl border border-white/14">
-            <Image src={images.overview} alt="InMode Quantum RF technology overview" width={1200} height={800} className="h-auto w-full" />
-          </div>
-          <div className="overflow-hidden rounded-3xl border border-white/14">
-            <Image src={images.handpieces} alt="InMode QuantumRF handpieces and before/after education" width={1200} height={800} className="h-auto w-full" />
-          </div>
+        <div className="mx-auto mt-10 grid max-w-[1200px] gap-3 sm:grid-cols-2 sm:gap-4">
+          <JourneyFitImage
+            src={images.overview}
+            alt="InMode Quantum RF technology overview"
+            aspectClassName="aspect-[16/10]"
+          />
+          <JourneyFitImage
+            src={images.handpieces}
+            alt="InMode QuantumRF handpieces and before/after education"
+            aspectClassName="aspect-[16/10]"
+          />
         </div>
       </section>
 
       <section className="bg-[radial-gradient(85%_95%_at_20%_30%,#1a0510,#000_62%)] px-6 py-16 lg:py-24">
-        <div className="mx-auto grid max-w-[1200px] items-center gap-10 lg:grid-cols-[0.7fr_1.3fr] lg:gap-14">
-          <div className="overflow-hidden rounded-3xl border border-[#FF2D8E]/35 shadow-[0_20px_60px_rgba(255,45,142,0.22)]">
+        <div className="mx-auto grid max-w-[1200px] items-center gap-10 lg:grid-cols-[0.55fr_1.45fr] lg:gap-12">
+          <div className="mx-auto w-full max-w-[280px] overflow-hidden rounded-2xl border border-[#FF2D8E]/35 shadow-[0_16px_40px_rgba(255,45,142,0.18)] lg:max-w-[300px]">
             <div className="relative aspect-[4/5] w-full">
               <Image
                 src={images.founder}
                 alt="Danielle Alcala-Glazier and Ryan Kent, FNP-BC — Founders, Hello Gorgeous Med Spa"
                 fill
                 className="object-cover object-[center_22%]"
-                sizes="(max-width: 1024px) 100vw, 380px"
+                sizes="300px"
               />
             </div>
           </div>
@@ -359,15 +351,6 @@ export function QuantumRFPageContent() {
               ))}
             </div>
           </div>
-          <div className="mt-10 overflow-hidden rounded-3xl border border-[#FF2D8E]/35 bg-white">
-            <Image
-              src={images.flyer}
-              alt="Hello Gorgeous Quantum RF launch packages flyer — neck and abdomen pricing"
-              width={1200}
-              height={1600}
-              className="h-auto w-full"
-            />
-          </div>
         </div>
       </section>
 
@@ -411,14 +394,14 @@ export function QuantumRFPageContent() {
               Pre & post care guide →
             </Link>
           </div>
-          <div className="overflow-hidden rounded-3xl border border-[#FF2D8E]/35 shadow-[0_20px_60px_rgba(255,45,142,0.22)]">
+          <div className="mx-auto w-full max-w-[320px] overflow-hidden rounded-2xl border border-[#FF2D8E]/35 shadow-[0_16px_40px_rgba(255,45,142,0.18)] lg:max-w-[360px]">
             <div className="relative aspect-[4/5] w-full">
               <Image
                 src={images.procedure}
                 alt="Quantum RF procedure at Hello Gorgeous Med Spa Oswego"
                 fill
                 className="object-cover object-center"
-                sizes="(max-width: 1024px) 100vw, 520px"
+                sizes="360px"
               />
             </div>
           </div>

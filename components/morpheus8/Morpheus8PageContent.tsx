@@ -4,7 +4,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 
+import { JourneyFitImage } from "@/components/marketing/JourneyFitImage";
 import { JourneyResultsCinema } from "@/components/marketing/JourneyResultsCinema";
+import { JourneySoundVideo } from "@/components/marketing/JourneySoundVideo";
 import {
   MORPHEUS8_BODY_BENEFITS,
   MORPHEUS8_CONTACT,
@@ -184,19 +186,12 @@ export function Morpheus8PageContent() {
             </div>
           </div>
           <div className="mx-auto w-full max-w-md overflow-hidden rounded-3xl border border-[#FF2D8E]/35 shadow-[0_20px_60px_rgba(255,45,142,0.22)] lg:max-w-lg">
-            <div className="relative aspect-video w-full bg-black">
-              <video
-                src={MORPHEUS8_MARKETING.heroVideo}
-                poster={images.hero}
-                autoPlay
-                muted
-                loop
-                playsInline
-                preload="auto"
-                className="absolute inset-0 h-full w-full object-contain"
-                aria-label="Morpheus8 Burst RF microneedling at Hello Gorgeous Med Spa — InMode verified provider"
-              />
-            </div>
+            <JourneySoundVideo
+              src={MORPHEUS8_MARKETING.heroVideo}
+              poster={images.hero}
+              label="Morpheus8 Burst RF microneedling at Hello Gorgeous Med Spa — InMode verified provider"
+              preload="auto"
+            />
           </div>
         </div>
       </header>
@@ -236,19 +231,11 @@ export function Morpheus8PageContent() {
       <section id="inmode" className="scroll-mt-24 bg-[radial-gradient(85%_95%_at_78%_20%,#12030c,#000_62%)] px-6 py-16 lg:py-24">
         <div className="mx-auto grid max-w-[1200px] items-center gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-14">
           <div className="overflow-hidden rounded-3xl border border-[#FF2D8E]/35 shadow-[0_20px_60px_rgba(255,45,142,0.22)]">
-            <div className="relative aspect-video w-full bg-black">
-              <video
-                src={MORPHEUS8_MARKETING.workstationVideo}
-                poster={MORPHEUS8_MARKETING.workstationPoster}
-                autoPlay
-                muted
-                loop
-                playsInline
-                preload="metadata"
-                className="absolute inset-0 h-full w-full object-contain"
-                aria-label="Official InMode Morpheus8 workstation animation"
-              />
-            </div>
+            <JourneySoundVideo
+              src={MORPHEUS8_MARKETING.workstationVideo}
+              poster={MORPHEUS8_MARKETING.workstationPoster}
+              label="Official InMode Morpheus8 workstation animation"
+            />
           </div>
           <div>
             <Eyebrow>{MORPHEUS8_INMODE_STORY.eyebrow}</Eyebrow>
@@ -277,30 +264,29 @@ export function Morpheus8PageContent() {
             </div>
           </div>
         </div>
-        <div className="mx-auto mt-10 max-w-[1200px] overflow-hidden rounded-3xl border border-white/14">
-          <div className="relative aspect-[21/9] w-full sm:aspect-[2.4/1]">
-            <Image
-              src={images.verified}
-              alt="Hello Gorgeous Med Spa — Morpheus8 Burst verified InMode provider"
-              fill
-              className="object-cover object-center"
-              sizes="100vw"
-            />
-          </div>
+        <div className="mx-auto mt-10 max-w-4xl">
+          <JourneyFitImage
+            src={images.verified}
+            alt="Hello Gorgeous Med Spa — Morpheus8 Burst verified InMode provider"
+            aspectClassName="aspect-[21/9] sm:aspect-[2.4/1]"
+            objectClassName="object-cover object-center"
+            padded={false}
+            sizes="(max-width: 1024px) 100vw, 896px"
+          />
         </div>
       </section>
 
       {/* Founders */}
       <section className="bg-[radial-gradient(85%_95%_at_20%_30%,#1a0510,#000_62%)] px-6 py-16 lg:py-24">
-        <div className="mx-auto grid max-w-[1200px] items-center gap-10 lg:grid-cols-[0.7fr_1.3fr] lg:gap-14">
-          <div className="overflow-hidden rounded-3xl border border-[#FF2D8E]/35 shadow-[0_20px_60px_rgba(255,45,142,0.22)]">
+        <div className="mx-auto grid max-w-[1200px] items-center gap-10 lg:grid-cols-[0.55fr_1.45fr] lg:gap-12">
+          <div className="mx-auto w-full max-w-[280px] overflow-hidden rounded-2xl border border-[#FF2D8E]/35 shadow-[0_16px_40px_rgba(255,45,142,0.18)] lg:max-w-[300px]">
             <div className="relative aspect-[4/5] w-full">
               <Image
                 src={images.founder}
                 alt="Danielle Alcala-Glazier and Ryan Kent, FNP-BC — Founders, Hello Gorgeous Med Spa"
                 fill
                 className="object-cover object-[center_22%]"
-                sizes="(max-width: 1024px) 100vw, 380px"
+                sizes="300px"
               />
             </div>
           </div>
@@ -339,18 +325,10 @@ export function Morpheus8PageContent() {
             ))}
           </div>
           <div className="mt-10 overflow-hidden rounded-3xl border border-[#FF2D8E]/35">
-            <div className="relative aspect-video w-full bg-black">
-              <video
-                src={MORPHEUS8_MARKETING.scienceVideo}
-                muted
-                loop
-                playsInline
-                autoPlay
-                preload="metadata"
-                className="absolute inset-0 h-full w-full object-contain"
-                aria-label="Morpheus8 RF microneedling science animation"
-              />
-            </div>
+            <JourneySoundVideo
+              src={MORPHEUS8_MARKETING.scienceVideo}
+              label="Morpheus8 RF microneedling science animation"
+            />
           </div>
         </div>
       </section>
@@ -371,23 +349,18 @@ export function Morpheus8PageContent() {
               </span>
             ))}
           </div>
-          <div className="mt-10">
-            <JourneyResultsCinema
-              productName="Morpheus8 treats"
-              slides={[
-                {
-                  src: images.faceTreats,
-                  alt: "Morpheus8 treats dull texture, fine lines, acne scars, and collagen loss",
-                  label: "Face concerns",
-                  source: "inmode",
-                },
-                {
-                  src: images.bodyBenefits,
-                  alt: "Morpheus8 Body — improve skin, remodel fat, treat irregularities, build collagen",
-                  label: "Body goals",
-                  source: "inmode",
-                },
-              ]}
+          <div className="mx-auto mt-10 grid max-w-4xl gap-3 sm:grid-cols-2 sm:gap-4">
+            <JourneyFitImage
+              src={images.faceTreats}
+              alt="Morpheus8 treats dull texture, fine lines, acne scars, and collagen loss"
+              aspectClassName="aspect-square"
+              sizes="(max-width: 640px) 100vw, 50vw"
+            />
+            <JourneyFitImage
+              src={images.bodyBenefits}
+              alt="Morpheus8 Body — improve skin, remodel fat, treat irregularities, build collagen"
+              aspectClassName="aspect-square"
+              sizes="(max-width: 640px) 100vw, 50vw"
             />
           </div>
         </div>
@@ -440,19 +413,11 @@ export function Morpheus8PageContent() {
             </Link>
           </div>
           <div className="mt-10 overflow-hidden rounded-3xl border border-[#FF2D8E]/35">
-            <div className="relative aspect-video w-full bg-black">
-              <video
-                src={MORPHEUS8_MARKETING.body3dVideo}
-                poster={MORPHEUS8_MARKETING.body3dPoster}
-                muted
-                loop
-                playsInline
-                autoPlay
-                preload="metadata"
-                className="absolute inset-0 h-full w-full object-contain"
-                aria-label="Official InMode Morpheus8 Body 3D animation"
-              />
-            </div>
+            <JourneySoundVideo
+              src={MORPHEUS8_MARKETING.body3dVideo}
+              poster={MORPHEUS8_MARKETING.body3dPoster}
+              label="Official InMode Morpheus8 Body 3D animation"
+            />
           </div>
         </div>
       </section>
@@ -485,19 +450,12 @@ export function Morpheus8PageContent() {
             </Link>
           </div>
           <div className="overflow-hidden rounded-3xl border border-[#FF2D8E]/35 shadow-[0_20px_60px_rgba(255,45,142,0.22)]">
-            <div className="relative aspect-video w-full bg-black">
-              <video
-                src={MORPHEUS8_MARKETING.introVideo}
-                poster={images.verified}
-                muted
-                loop
-                playsInline
-                autoPlay
-                preload="metadata"
-                className="absolute inset-0 h-full w-full object-cover"
-                aria-label="Morpheus8 Burst clinical treatment highlight — Hello Gorgeous Med Spa"
-              />
-            </div>
+            <JourneySoundVideo
+              src={MORPHEUS8_MARKETING.introVideo}
+              poster={images.verified}
+              label="Morpheus8 Burst clinical treatment highlight — Hello Gorgeous Med Spa"
+              objectClassName="object-cover"
+            />
           </div>
         </div>
       </section>

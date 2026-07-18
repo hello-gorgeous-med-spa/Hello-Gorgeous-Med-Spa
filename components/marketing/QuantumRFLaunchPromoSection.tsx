@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 
 import { CTA } from "@/components/CTA";
@@ -6,7 +5,6 @@ import { FadeUp, Section } from "@/components/Section";
 import { BOOKING_URL } from "@/lib/flows";
 import {
   CHERRY_FINANCING_URL,
-  QUANTUM_RF_LAUNCH_FLYER,
   QUANTUM_RF_LAUNCH_PACKAGES,
   QUANTUM_RF_LAUNCH_PATH,
   QUANTUM_RF_LAUNCH_STATS,
@@ -44,19 +42,6 @@ export function QuantumRFLaunchPromoSection({ id = "quantum-rf-launch" }: { id?:
             </div>
           </FadeUp>
 
-          <FadeUp delayMs={80}>
-            <div className="mt-10 rounded-3xl border-4 border-white/20 overflow-hidden shadow-[8px_8px_0_0_rgba(230,0,126,0.45)]">
-              <Image
-                src={QUANTUM_RF_LAUNCH_FLYER.src}
-                alt={QUANTUM_RF_LAUNCH_FLYER.alt}
-                width={1200}
-                height={1550}
-                className="w-full h-auto"
-                sizes="(max-width: 768px) 100vw, 900px"
-                priority
-              />
-            </div>
-          </FadeUp>
         </div>
       </Section>
 

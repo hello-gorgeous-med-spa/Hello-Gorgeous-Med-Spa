@@ -132,11 +132,11 @@ export function JourneyResultsCinema({
         </div>
       ) : null}
 
-      <div className="overflow-hidden rounded-[28px] border border-[#FF2D8E]/40 bg-[#050205] shadow-[0_28px_80px_rgba(255,45,142,0.18)]">
-        <div className="relative aspect-[16/10] w-full bg-black sm:aspect-[21/11]">
+      <div className="mx-auto w-full max-w-4xl overflow-hidden rounded-2xl border border-[#FF2D8E]/35 bg-[#050205] shadow-[0_16px_48px_rgba(255,45,142,0.14)]">
+        <div className="relative mx-auto h-[min(48vw,360px)] w-full max-w-4xl bg-black sm:h-[380px]">
           {/* Ambient glow */}
           <div
-            className="pointer-events-none absolute inset-0 bg-[radial-gradient(55%_70%_at_50%_40%,rgba(255,45,142,0.14),transparent_70%)]"
+            className="pointer-events-none absolute inset-0 bg-[radial-gradient(55%_70%_at_50%_40%,rgba(255,45,142,0.12),transparent_70%)]"
             aria-hidden
           />
 
@@ -151,23 +151,23 @@ export function JourneyResultsCinema({
               alt={current.alt}
               fill
               priority={safeIndex === 0}
-              className="object-contain p-2 sm:p-4 motion-safe:animate-[journeyKenBurns_4.5s_ease-out_forwards]"
-              sizes="(max-width: 1024px) 100vw, 1120px"
+              className="object-contain p-3 sm:p-5 motion-safe:animate-[journeyKenBurns_4.5s_ease-out_forwards]"
+              sizes="(max-width: 1024px) 100vw, 896px"
             />
           </div>
 
           {/* Top meta */}
-          <div className="pointer-events-none absolute left-4 top-4 right-4 flex items-start justify-between gap-3 sm:left-6 sm:top-6 sm:right-6">
-            <span className="rounded-full border border-white/20 bg-black/55 px-3 py-1 text-[11px] font-extrabold uppercase tracking-[0.18em] text-white/90 backdrop-blur">
+          <div className="pointer-events-none absolute left-3 top-3 right-3 flex items-start justify-between gap-3 sm:left-4 sm:top-4 sm:right-4">
+            <span className="rounded-full border border-white/20 bg-black/55 px-2.5 py-1 text-[10px] font-extrabold uppercase tracking-[0.16em] text-white/90 backdrop-blur">
               {productName}
             </span>
-            <span className="rounded-full border border-white/15 bg-black/55 px-3 py-1 text-[11px] font-bold text-white/70 backdrop-blur">
+            <span className="rounded-full border border-white/15 bg-black/55 px-2.5 py-1 text-[10px] font-bold text-white/70 backdrop-blur">
               {safeIndex + 1} / {n}
             </span>
           </div>
 
           {/* Progress bar */}
-          <div className="absolute bottom-0 left-0 right-0 h-[3px] bg-white/10">
+          <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-white/10">
             <div
               key={`${current.src}-${paused}`}
               className="h-full bg-gradient-to-r from-[#FF2D8E] to-[#E6007E]"
@@ -179,10 +179,10 @@ export function JourneyResultsCinema({
           </div>
         </div>
 
-        <div className="flex flex-col gap-4 border-t border-white/10 px-4 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-6">
+        <div className="flex flex-col gap-3 border-t border-white/10 px-4 py-3 sm:flex-row sm:items-center sm:justify-between sm:px-5">
           <div>
-            <p className="font-serif text-xl font-bold text-[#FF2D8E] sm:text-2xl">{current.label}</p>
-            <p className="mt-1 text-xs font-semibold uppercase tracking-[0.16em] text-white/45">
+            <p className="font-serif text-lg font-bold text-[#FF2D8E] sm:text-xl">{current.label}</p>
+            <p className="mt-0.5 text-[11px] font-semibold uppercase tracking-[0.14em] text-white/45">
               {current.source === "inmode" ? "InMode clinical photography" : "Hello Gorgeous clinic"}
               {" · "}Individual results vary
             </p>
@@ -192,7 +192,7 @@ export function JourneyResultsCinema({
             <button
               type="button"
               onClick={() => go(-1)}
-              className="flex h-11 w-11 items-center justify-center rounded-full border border-white/25 text-xl font-bold text-white transition hover:border-[#FF2D8E] hover:text-[#FF2D8E]"
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-white/25 text-lg font-bold text-white transition hover:border-[#FF2D8E] hover:text-[#FF2D8E]"
               aria-label="Previous result"
             >
               ‹
@@ -200,7 +200,7 @@ export function JourneyResultsCinema({
             <button
               type="button"
               onClick={() => go(1)}
-              className="flex h-11 w-11 items-center justify-center rounded-full border border-white/25 text-xl font-bold text-white transition hover:border-[#FF2D8E] hover:text-[#FF2D8E]"
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-white/25 text-lg font-bold text-white transition hover:border-[#FF2D8E] hover:text-[#FF2D8E]"
               aria-label="Next result"
             >
               ›
@@ -210,7 +210,7 @@ export function JourneyResultsCinema({
       </div>
 
       {/* Thumbnail strip */}
-      <div className="mt-4 flex gap-2 overflow-x-auto pb-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+      <div className="mx-auto mt-3 flex max-w-4xl gap-2 overflow-x-auto pb-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
         {filtered.map((slide, i) => (
           <button
             key={slide.src}
@@ -218,11 +218,11 @@ export function JourneyResultsCinema({
             onClick={() => jump(i)}
             aria-label={`Show ${slide.label}`}
             aria-current={i === safeIndex}
-            className={`relative h-16 w-24 shrink-0 overflow-hidden rounded-xl border-2 transition sm:h-[72px] sm:w-28 ${
+            className={`relative h-12 w-[4.5rem] shrink-0 overflow-hidden rounded-lg border transition sm:h-14 sm:w-24 ${
               i === safeIndex ? "border-[#FF2D8E]" : "border-white/15 opacity-70 hover:opacity-100"
             }`}
           >
-            <Image src={slide.src} alt="" fill className="object-cover" sizes="112px" />
+            <Image src={slide.src} alt="" fill className="object-cover" sizes="96px" />
           </button>
         ))}
       </div>

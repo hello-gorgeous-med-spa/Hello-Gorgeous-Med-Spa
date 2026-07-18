@@ -49,7 +49,6 @@ export const QUANTUM_RF_MARKETING = {
     handpieces: "/images/quantum-rf/quantum-rf-inmode-handpieces-ba.jpg",
     procedure: "/images/quantum-rf/quantum-rf-procedure-may-4.jpg",
     room: "/images/quantum-rf/quantum-rf-treatment-room-may-4.jpg",
-    flyer: "/images/promo/quantum-rf-launch-flyer.png",
     founder: "/images/team/dani-ryan-founders-portrait.png",
     ryanPoster: "/images/quantum-rf/ryan-quantum-rf-action-poster.png",
     jawlineClinic: "/images/quantum-rf/quantum-rf10-jawline-before-after.jpg",

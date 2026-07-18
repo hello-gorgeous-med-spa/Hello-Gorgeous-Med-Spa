@@ -4,7 +4,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 
+import { JourneyFitImage } from "@/components/marketing/JourneyFitImage";
 import { JourneyResultsCinema } from "@/components/marketing/JourneyResultsCinema";
+import { JourneySoundVideo } from "@/components/marketing/JourneySoundVideo";
 import {
   SOLARIA_CONTACT,
   SOLARIA_DEPTH_GUIDE,
@@ -183,19 +185,12 @@ export function SolariaCo2PageContent() {
             </div>
           </div>
           <div className="mx-auto w-full max-w-md overflow-hidden rounded-3xl border border-[#FF2D8E]/35 shadow-[0_20px_60px_rgba(255,45,142,0.22)] lg:max-w-lg">
-            <div className="relative aspect-video w-full bg-black">
-              <video
-                src={SOLARIA_MARKETING.heroVideo}
-                poster={images.hero}
-                autoPlay
-                muted
-                loop
-                playsInline
-                preload="auto"
-                className="absolute inset-0 h-full w-full object-contain"
-                aria-label="Solaria CO2 laser resurfacing at Hello Gorgeous Med Spa — InMode verified provider"
-              />
-            </div>
+            <JourneySoundVideo
+              src={SOLARIA_MARKETING.heroVideo}
+              poster={images.hero}
+              label="Solaria CO2 laser resurfacing at Hello Gorgeous Med Spa — InMode verified provider"
+              preload="auto"
+            />
           </div>
         </div>
       </header>
@@ -232,19 +227,13 @@ export function SolariaCo2PageContent() {
       <section id="inmode" className="scroll-mt-24 bg-[radial-gradient(85%_95%_at_78%_20%,#12030c,#000_62%)] px-6 py-16 lg:py-24">
         <div className="mx-auto grid max-w-[1200px] items-center gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:gap-14">
           <div className="mx-auto w-full max-w-sm overflow-hidden rounded-3xl border border-[#FF2D8E]/35 shadow-[0_20px_60px_rgba(255,45,142,0.22)]">
-            <div className="relative aspect-[9/16] w-full bg-black">
-              <video
-                src={SOLARIA_MARKETING.treatmentsSocialVideo}
-                poster={SOLARIA_MARKETING.treatmentsSocialPoster}
-                autoPlay
-                muted
-                loop
-                playsInline
-                preload="metadata"
-                className="absolute inset-0 h-full w-full object-cover"
-                aria-label="Official InMode Solaria treatments social video"
-              />
-            </div>
+            <JourneySoundVideo
+              src={SOLARIA_MARKETING.treatmentsSocialVideo}
+              poster={SOLARIA_MARKETING.treatmentsSocialPoster}
+              label="Official InMode Solaria treatments social video"
+              aspectClassName="aspect-[9/16]"
+              objectClassName="object-cover"
+            />
           </div>
           <div>
             <Eyebrow>{SOLARIA_INMODE_STORY.eyebrow}</Eyebrow>
@@ -273,38 +262,30 @@ export function SolariaCo2PageContent() {
             </div>
           </div>
         </div>
-        <div className="mx-auto mt-10 grid max-w-[1200px] gap-4 sm:grid-cols-2">
-          <div className="overflow-hidden rounded-3xl border border-white/14">
-            <Image
-              src={images.overview}
-              alt="InMode Solaria manufacturer workstation overview"
-              width={1200}
-              height={800}
-              className="h-auto w-full"
-            />
-          </div>
-          <div className="overflow-hidden rounded-3xl border border-white/14">
-            <Image
-              src={images.workstation}
-              alt="Solaria CO2 workstation at Hello Gorgeous Med Spa"
-              width={1200}
-              height={800}
-              className="h-auto w-full"
-            />
-          </div>
+        <div className="mx-auto mt-10 grid max-w-[1200px] gap-3 sm:grid-cols-2 sm:gap-4">
+          <JourneyFitImage
+            src={images.overview}
+            alt="InMode Solaria manufacturer workstation overview"
+            aspectClassName="aspect-[16/10]"
+          />
+          <JourneyFitImage
+            src={images.workstation}
+            alt="Solaria CO2 workstation at Hello Gorgeous Med Spa"
+            aspectClassName="aspect-[16/10]"
+          />
         </div>
       </section>
 
       <section className="bg-[radial-gradient(85%_95%_at_20%_30%,#1a0510,#000_62%)] px-6 py-16 lg:py-24">
-        <div className="mx-auto grid max-w-[1200px] items-center gap-10 lg:grid-cols-[0.7fr_1.3fr] lg:gap-14">
-          <div className="overflow-hidden rounded-3xl border border-[#FF2D8E]/35 shadow-[0_20px_60px_rgba(255,45,142,0.22)]">
+        <div className="mx-auto grid max-w-[1200px] items-center gap-10 lg:grid-cols-[0.55fr_1.45fr] lg:gap-12">
+          <div className="mx-auto w-full max-w-[280px] overflow-hidden rounded-2xl border border-[#FF2D8E]/35 shadow-[0_16px_40px_rgba(255,45,142,0.18)] lg:max-w-[300px]">
             <div className="relative aspect-[4/5] w-full">
               <Image
                 src={images.founder}
                 alt="Danielle Alcala-Glazier and Ryan Kent, FNP-BC — Founders, Hello Gorgeous Med Spa"
                 fill
                 className="object-cover object-[center_22%]"
-                sizes="(max-width: 1024px) 100vw, 380px"
+                sizes="300px"
               />
             </div>
           </div>
@@ -366,14 +347,24 @@ export function SolariaCo2PageContent() {
               </span>
             ))}
           </div>
-          <div className="mt-10">
-            <JourneyResultsCinema
-              productName="Solaria education"
-              slides={[
-                { src: images.edu1, alt: "Solaria by InMode educational graphic 1", label: "Trusted CO₂ technology", source: "inmode" },
-                { src: images.edu2, alt: "Solaria by InMode educational graphic 2", label: "Precision microbeam treatments", source: "inmode" },
-                { src: images.edu3, alt: "Solaria by InMode educational graphic 3", label: "Versatile scan modes", source: "inmode" },
-              ]}
+          <div className="mx-auto mt-10 grid max-w-5xl gap-3 sm:grid-cols-3 sm:gap-4">
+            <JourneyFitImage
+              src={images.edu1}
+              alt="Solaria by InMode educational graphic 1"
+              aspectClassName="aspect-[4/5]"
+              sizes="(max-width: 640px) 100vw, 33vw"
+            />
+            <JourneyFitImage
+              src={images.edu2}
+              alt="Solaria by InMode educational graphic 2"
+              aspectClassName="aspect-[4/5]"
+              sizes="(max-width: 640px) 100vw, 33vw"
+            />
+            <JourneyFitImage
+              src={images.edu3}
+              alt="Solaria by InMode educational graphic 3"
+              aspectClassName="aspect-[4/5]"
+              sizes="(max-width: 640px) 100vw, 33vw"
             />
           </div>
         </div>
@@ -457,14 +448,14 @@ export function SolariaCo2PageContent() {
               Pre & post care guide →
             </Link>
           </div>
-          <div className="overflow-hidden rounded-3xl border border-[#FF2D8E]/35 shadow-[0_20px_60px_rgba(255,45,142,0.22)]">
+          <div className="mx-auto w-full max-w-[320px] overflow-hidden rounded-2xl border border-[#FF2D8E]/35 shadow-[0_16px_40px_rgba(255,45,142,0.18)] lg:max-w-[360px]">
             <div className="relative aspect-[4/5] w-full">
               <Image
                 src={images.clinicDanielle}
                 alt="Danielle with Solaria CO2 InMode at Hello Gorgeous Med Spa clinic"
                 fill
                 className="object-cover object-center"
-                sizes="(max-width: 1024px) 100vw, 520px"
+                sizes="360px"
               />
             </div>
           </div>
