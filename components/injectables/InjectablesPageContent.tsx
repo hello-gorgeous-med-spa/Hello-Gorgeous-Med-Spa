@@ -5,6 +5,7 @@ import Link from "next/link";
 
 import { FAQAccordion } from "@/components/FAQAccordion";
 import { CTA } from "@/components/CTA";
+import { InjectablesEducationGallery } from "@/components/injectables/InjectablesEducationGallery";
 import { InjectablesTreatPicker } from "@/components/injectables/InjectablesTreatPicker";
 import { FadeUp, Section } from "@/components/Section";
 import {
@@ -269,6 +270,8 @@ export function InjectablesPageContent() {
             </FadeUp>
           </div>
         </Section>
+
+        <InjectablesEducationGallery audience="both" />
 
         <Section id="how" className="scroll-mt-24 border-b-4 border-black bg-white py-14">
           <FadeUp>

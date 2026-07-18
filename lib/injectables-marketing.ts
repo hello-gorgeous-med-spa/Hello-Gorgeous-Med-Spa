@@ -62,6 +62,7 @@ export const INJECTABLES_PAGE_NAV = [
   { href: "#why", label: "Why HG" },
   { href: "#brands", label: "Brands" },
   { href: "#fillers", label: "Fillers" },
+  { href: "#learn", label: "Learn" },
   { href: "#how", label: "How it works" },
   { href: "#pricing", label: "Pricing" },
   { href: "#faq", label: "FAQ" },

@@ -1,3 +1,4 @@
+import { InjectablesEducationGallery } from "@/components/injectables/InjectablesEducationGallery";
 import { InModeTreatmentLanding } from "@/components/services/InModeTreatmentLanding";
 import type { InModeTreatmentLandingContent } from "@/lib/inmode-treatment-landing";
 import { breadcrumbJsonLd, faqJsonLd, SITE } from "@/lib/seo";
@@ -60,6 +61,12 @@ export function NeurotoxinTreatmentPage({
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd(content.faqs, pageUrl)) }}
       />
       <InModeTreatmentLanding content={content} videos={videos} gallery={gallery} />
+      <InjectablesEducationGallery
+        audience="botox"
+        eyebrow="Botox education"
+        title="What to know before your toxin visit"
+        intro="Masseter, hyperhidrosis, collagen, and the checklist every injector needs to hear."
+      />
     </>
   );
 }
