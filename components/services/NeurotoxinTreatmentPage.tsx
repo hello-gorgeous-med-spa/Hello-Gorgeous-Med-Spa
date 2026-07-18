@@ -12,6 +12,23 @@ export function NeurotoxinTreatmentPage({
 }) {
   const pageUrl = `${SITE.url}${content.path}`;
 
+  const videos =
+    content.clinicVideos?.map((v) => ({
+      src: v.src,
+      label: v.label,
+      title: v.title,
+      description: v.description,
+      poster: v.poster,
+      aspect: v.aspect,
+    })) ?? [];
+
+  const gallery =
+    content.clinicPhotos?.map((photo) => ({
+      src: photo.src,
+      alt: photo.alt,
+      frame: photo.frame,
+    })) ?? [];
+
   const medicalProcedure = {
     "@context": "https://schema.org",
     "@type": "MedicalProcedure",
@@ -42,7 +59,7 @@ export function NeurotoxinTreatmentPage({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd(content.faqs, pageUrl)) }}
       />
-      <InModeTreatmentLanding content={content} />
+      <InModeTreatmentLanding content={content} videos={videos} gallery={gallery} />
     </>
   );
 }

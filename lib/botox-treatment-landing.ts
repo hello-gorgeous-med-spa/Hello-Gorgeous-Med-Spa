@@ -113,4 +113,47 @@ export const BOTOX_TREATMENT_LANDING: InModeTreatmentLandingContent = {
       blurb: "Restore volume and contour when lines need more than muscle relaxation.",
     },
   ],
+  clinicVideos: [
+    {
+      src: "/videos/botox/botox-clinic-slideshow.mp4",
+      label: "Clinic",
+      title: "Botox at Hello Gorgeous — clinic slideshow",
+      description:
+        "Silent HD clinic slideshow of Botox Cosmetic treatments at Hello Gorgeous Med Spa in Oswego, IL — natural placement by our medical injector team.",
+      poster: "/videos/botox/botox-clinic-slideshow-poster.jpg",
+      aspect: "portrait",
+    },
+  ],
+  clinicPhotos: [
+    {
+      src: "/images/botox/slideshow/01.jpg",
+      alt: "Botox Cosmetic injection in progress at Hello Gorgeous Med Spa Oswego",
+      frame: "portrait",
+    },
+    {
+      src: "/images/botox/slideshow/02.jpg",
+      alt: "Medical injector placing Botox at Hello Gorgeous Oswego",
+      frame: "portrait",
+    },
+    {
+      src: "/images/botox/slideshow/03.jpg",
+      alt: "Botox treatment close-up — Hello Gorgeous Med Spa",
+      frame: "portrait",
+    },
+    {
+      src: "/images/botox/slideshow/04.jpg",
+      alt: "Precision Botox placement at Hello Gorgeous Oswego IL",
+      frame: "portrait",
+    },
+    {
+      src: "/images/botox/slideshow/05.jpg",
+      alt: "Botox Cosmetic session — NP-directed clinic Oswego",
+      frame: "portrait",
+    },
+    {
+      src: "/images/botox/slideshow/06.jpg",
+      alt: "Hello Gorgeous Botox clinic care — Oswego IL",
+      frame: "portrait",
+    },
+  ],
 };
