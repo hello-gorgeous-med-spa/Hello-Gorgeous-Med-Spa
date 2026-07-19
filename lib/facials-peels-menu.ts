@@ -22,16 +22,30 @@ export function isFacialsPeelsNavActive(pathname: string | null): boolean {
   );
 }
 
+/** Square Skin Spa — named signature protocols (square-upsert-signature-facials.mjs). */
+const SQUARE_SIGNATURE_PRICING = [
+  { label: "The Calm Restore", price: "$89", note: "45 min · reactive / stressed skin" },
+  { label: "The Clarity Protocol", price: "$99", note: "50 min · breakout-prone" },
+  { label: "The Poreless Polish", price: "$119", note: "55 min · texture & pores" },
+  { label: "The Gorgeous Glow", price: "$129", note: "60 min · Hydra-infusion radiance" },
+  { label: "The Luminous Reveal", price: "$139", note: "60 min · dull tone / pigment" },
+  { label: "The Collagen Reset", price: "$189", note: "75 min · firming multi-step" },
+  { label: "Glass Glow Facial", price: "$349", note: "HydraFacial + dermaplaning + BabyTox" },
+  { label: "Salmon DNA Glass Facial", price: "Consult", href: "/services/salmon-dna-glass-facial" },
+  { label: "GENEO Glow2Facial", price: "$99", href: "/facials-oswego" },
+] as const;
+
 export const FACIALS_PEELS_MENU: ServiceMenuConfig = {
   path: FACIALS_PEELS_MENU_PATH,
-  metaTitle: "Facials & Peels Menu | HydraFacial, VI Peel & More | Hello Gorgeous Oswego",
+  metaTitle: "Facials & Peels Menu | Square Protocols, HydraFacial & VI Peel | Hello Gorgeous Oswego",
   metaDescription:
-    "Medical-grade facials and peels in Oswego — Marissa’s HydraFacial special $129, Glass Glow $349, dermaplaning, chemical peels, VI Peel, IPL. Hello Gorgeous Med Spa.",
+    "Facials & peels in Oswego — Square signature protocols $89–$189, Trifecta $199, Marissa’s HydraFacial $129, Glass Glow $349, peels, VI Peel & IPL. Hello Gorgeous Med Spa.",
   hero: {
     eyebrow: "Oswego, IL · Medical-grade skin care",
     titleAccent: "Facials & Peels",
     subtitle:
-      "Not your spa-day facial — clinical-strength HydraFacials, dermaplaning, chemical peels, VI Peel, and IPL photofacials. Zero fluff, real results.",
+      "Not your spa-day facial — six Square signature protocols from $89, HydraFacial specials, dermaplaning, chemical peels, VI Peel, and IPL. Zero fluff, real results.",
+    primaryCta: { label: "Book a facial", href: "/book" },
     secondaryCta: { label: "Glow Facial membership", href: "/monthly-memberships" },
   },
   sections: [
@@ -40,21 +54,24 @@ export const FACIALS_PEELS_MENU: ServiceMenuConfig = {
       number: "01",
       title: "Signature Facials",
       description:
-        "Our hero protocols combine multiple modalities in one visit — maximum glow with medical oversight.",
+        "Six named Square Skin Spa protocols — each customized to your skin by our esthetic team. From a soothing express to a firming Collagen Reset, plus hero stacks like Glass Glow and The Trifecta.",
       highlights: [
-        "Glass Glow — Hydra + dermaplaning + BabyTox",
-        "Salmon DNA glass facial protocols",
-        "GENEO Glow2Facial oxygen infusion",
-        "Customized to Fitzpatrick & skin goals",
-        "Zero-downtime options available",
+        "Book any Square protocol instantly",
+        "Calm Restore $89 → Collagen Reset $189",
+        "The Trifecta $199 — Hydra + derma + O₂ + microneedling",
+        "Glass Glow — Hydra + dermaplaning + BabyTox ($349)",
+        "No downtime — glow the same day",
       ],
       pricing: [
-        { label: "Glass Glow Facial", price: "$349", note: "HydraFacial + dermaplaning + BabyTox" },
-        { label: "Salmon DNA Glass Facial", price: "Consult", href: "/services/salmon-dna-glass-facial" },
-        { label: "GENEO Glow2Facial", price: "$99", href: "/facials-oswego" },
+        {
+          label: "The Trifecta",
+          price: "$199",
+          note: "HydraFacial + dermaplaning + O₂ + microneedling · one visit",
+        },
+        ...SQUARE_SIGNATURE_PRICING,
       ],
       learnMoreHref: "/facials-oswego",
-      badge: "SIGNATURE",
+      badge: "SQUARE PROTOCOLS",
     },
     {
       id: "hydra",
@@ -151,27 +168,39 @@ export const FACIALS_PEELS_MENU: ServiceMenuConfig = {
   ],
   gallery: [
     {
-      src: "/images/chemical-peels/dermalogica-peel-treatment-overhead.png",
-      alt: "Dermalogica professional chemical peel treatment at Hello Gorgeous Med Spa",
-      caption: "Professional peel application — Dermalogica PRO",
-      frame: "landscape",
-    },
-    {
-      src: "/images/chemical-peels/dermalogica-renewal-peel-treatment.png",
-      alt: "Dermalogica Renewal peel dropper during facial treatment",
-      caption: "Renewal peel protocol in treatment",
+      src: "/images/square-appointments/signature-facials/fac-calm.webp",
+      alt: "The Calm Restore signature facial protocol",
+      caption: "The Calm Restore — $89",
       frame: "portrait",
     },
     {
-      src: "/images/chemical-peels/dermalogica-agereversal-peel-ba.png",
-      alt: "AGEreversal peel before and after crow's feet results",
-      caption: "AGEreversal peel — fine lines before & after",
+      src: "/images/square-appointments/signature-facials/fac-clarity.webp",
+      alt: "The Clarity Protocol signature facial",
+      caption: "The Clarity Protocol — $99",
+      frame: "portrait",
+    },
+    {
+      src: "/images/square-appointments/signature-facials/fac-glow.webp",
+      alt: "The Gorgeous Glow signature facial",
+      caption: "The Gorgeous Glow — $129",
+      frame: "portrait",
+    },
+    {
+      src: "/images/square-appointments/signature-facials/fac-collagen.webp",
+      alt: "The Collagen Reset signature facial",
+      caption: "The Collagen Reset — $189",
+      frame: "portrait",
+    },
+    {
+      src: "/images/facials-peels/facial-hydra.jpg",
+      alt: "HydraFacial treatment at Hello Gorgeous Med Spa",
+      caption: "HydraFacial & Hydra Glow",
       frame: "landscape",
     },
     {
-      src: "/images/chemical-peels/dermalogica-powerclear-peel-ba.png",
-      alt: "PowerClear peel before and after acne and pigmentation results",
-      caption: "PowerClear peel — breakouts & PIH before & after",
+      src: "/images/chemical-peels/dermalogica-peel-treatment-overhead.png",
+      alt: "Dermalogica professional chemical peel treatment at Hello Gorgeous Med Spa",
+      caption: "Professional peel application — Dermalogica PRO",
       frame: "landscape",
     },
   ],
@@ -179,7 +208,12 @@ export const FACIALS_PEELS_MENU: ServiceMenuConfig = {
     {
       question: "What's the difference between HydraFacial and a regular facial?",
       answer:
-        "HydraFacial uses vortex technology to cleanse, extract, and infuse serums in one pass — it's medical-grade and consistent every time. Our classic facials are customized by your provider for extractions and relaxation.",
+        "HydraFacial uses vortex technology to cleanse, extract, and infuse serums in one pass — it's medical-grade and consistent every time. Our classic facials and Square signature protocols are customized by your provider for extractions and your skin goals.",
+    },
+    {
+      question: "What are the Square signature protocols?",
+      answer:
+        "Six named facials on our Square Skin Spa menu — Calm Restore ($89), Clarity Protocol ($99), Poreless Polish ($119), Gorgeous Glow ($129), Luminous Reveal ($139), and Collagen Reset ($189). Each is tailored in-room to your skin.",
     },
     {
       question: "Is there downtime with peels?",

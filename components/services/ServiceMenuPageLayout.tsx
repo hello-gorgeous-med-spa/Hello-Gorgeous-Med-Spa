@@ -232,6 +232,9 @@ export function ServiceMenuPageLayout({ config }: { config: ServiceMenuConfig })
                 videos={allVideos}
                 gallery={gallery ?? []}
                 results={results ?? []}
+                {...(config.path.includes("facials")
+                  ? { eyebrow: "Esthetics · Oswego" }
+                  : {})}
                 title={
                   config.path.includes("solaria")
                     ? "See Solaria CO₂ in our Oswego clinic"
@@ -239,7 +242,9 @@ export function ServiceMenuPageLayout({ config }: { config: ServiceMenuConfig })
                       ? "See Quantum RF in our Oswego clinic"
                       : config.path.includes("morpheus")
                         ? "See Morpheus8 Burst in our Oswego clinic"
-                        : "See it in our Oswego clinic"
+                        : config.path.includes("facials")
+                          ? "Signature protocols & clinic photos"
+                          : "See it in our Oswego clinic"
                 }
                 subtitle={
                   config.path.includes("solaria")
@@ -248,7 +253,9 @@ export function ServiceMenuPageLayout({ config }: { config: ServiceMenuConfig })
                       ? "Procedure video, clinic photography, and real client results — the only Quantum RF in the western suburbs."
                       : config.path.includes("morpheus")
                         ? "Treatment footage and real before & after results — Morpheus8 Burst at Hello Gorgeous."
-                        : "Real procedure footage — watch before your free consultation."
+                        : config.path.includes("facials")
+                          ? "Square signature protocol looks, HydraFacial energy, and peel results — see what we do in Oswego."
+                          : "Real procedure footage — watch before your free consultation."
                 }
               />
             </FadeUp>
