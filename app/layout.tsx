@@ -11,6 +11,7 @@ import { ConditionalLayout } from "@/components/ConditionalLayout";
 import { GoogleAnalytics } from "@/components/GoogleAnalytics";
 import { UtmSessionCapture } from "@/components/marketing/UtmSessionCapture";
 import { ContourLiftPageView } from "@/components/marketing/ContourLiftPageView";
+import { ConsultationRequestPopup } from "@/components/ConsultationRequestPopup";
 import { GetAppPopup } from "@/components/GetAppPopup";
 import { ClientErrorBoundary } from "@/components/ClientErrorBoundary";
 
@@ -165,6 +166,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             <UtmSessionCapture />
           </Suspense>
           <ContourLiftPageView />
+          <ConsultationRequestPopup />
           <GetAppPopup />
           <AuthWrapper>
             <ConditionalLayout siteSettings={siteSettings ?? undefined} livePlace={livePlace}>

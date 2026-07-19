@@ -13,10 +13,13 @@ const COOKIE_DAYS = 7;
 const AREA_OPTIONS = [
   { value: "", label: "What are you interested in?" },
   { value: "injectables", label: "Botox & Fillers" },
-  { value: "weight-loss", label: "Weight Loss" },
-  { value: "skin", label: "Skin & Facials" },
+  { value: "facials", label: "Facials & Peels" },
+  { value: "weight-loss", label: "Weight Loss (GLP-1)" },
+  { value: "peptides", label: "RE GEN Peptides" },
+  { value: "devices", label: "Morpheus8 / Solaria / Quantum" },
   { value: "hormones", label: "Hormones & Energy" },
   { value: "iv-therapy", label: "IV Therapy" },
+  { value: "flowwave", label: "FlowWave Shockwave" },
   { value: "exploring", label: "Just exploring" },
 ];
 
@@ -57,7 +60,14 @@ export function ConsultationRequestPopup() {
   useEffect(() => {
     if (!mounted || typeof window === "undefined") return;
     const path = window.location.pathname || "";
-    if (path.startsWith("/admin") || path.startsWith("/portal") || path.startsWith("/login")) {
+    if (
+      path.startsWith("/admin") ||
+      path.startsWith("/portal") ||
+      path.startsWith("/login") ||
+      path.startsWith("/auth") ||
+      path.startsWith("/charting") ||
+      path.startsWith("/app")
+    ) {
       return;
     }
     if (!shouldShow()) return;
@@ -67,6 +77,7 @@ export function ConsultationRequestPopup() {
       if (shown) return;
       shown = true;
       setVisible(true);
+      trackEvent("popup_view", { popup: "consult_lead" });
     };
 
     const t = setTimeout(tryShow, SHOW_AFTER_MS);
@@ -135,7 +146,7 @@ export function ConsultationRequestPopup() {
       aria-label="How can we help you?"
     >
       <div
-        className="absolute inset-0 bg-white"
+        className="absolute inset-0 bg-black/55 backdrop-blur-[2px]"
         onClick={handleClose}
         aria-hidden="true"
       />

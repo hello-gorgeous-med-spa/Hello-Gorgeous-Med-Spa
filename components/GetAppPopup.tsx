@@ -9,9 +9,11 @@ import { CLIENT_APP } from "@/lib/client-app";
 
 const PROMO_IMAGE = "/images/marketing/hello-gorgeous-app-popup-promo.png";
 const STORAGE_KEY = "hg_get_app_popup_dismissed";
-const SHOW_AFTER_MS = 3500;
-const SCROLL_THRESHOLD = 0.12;
-const DISMISS_DAYS = 3;
+/** Runs after consult lead popup so we don't stack two modals. */
+const SHOW_AFTER_MS = 14000;
+const SCROLL_THRESHOLD = 0.55;
+const DISMISS_DAYS = 7;
+const CONSULT_STORAGE_KEY = "hg_consult_popup_dismissed";
 
 const BLOCKED_PREFIXES = [
   "/admin",
@@ -62,12 +64,19 @@ export function GetAppPopup() {
     let shown = false;
     const tryShow = () => {
       if (shown) return;
+      // Wait until consult lead popup has been dismissed so we don't stack modals
+      try {
+        if (!localStorage.getItem(CONSULT_STORAGE_KEY)) return;
+      } catch {
+        /* ignore */
+      }
       shown = true;
       setVisible(true);
       trackEvent("popup_view", { popup: "get_app" });
     };
 
     const timer = setTimeout(tryShow, SHOW_AFTER_MS);
+    const poll = setInterval(tryShow, 2000);
     const onScroll = () => {
       const max = document.documentElement.scrollHeight - window.innerHeight || 1;
       if (window.scrollY / max >= SCROLL_THRESHOLD) tryShow();
@@ -76,6 +85,7 @@ export function GetAppPopup() {
 
     return () => {
       clearTimeout(timer);
+      clearInterval(poll);
       window.removeEventListener("scroll", onScroll);
     };
   }, [mounted]);
