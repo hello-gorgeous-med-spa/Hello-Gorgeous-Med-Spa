@@ -1,22 +1,5 @@
 import { Metadata } from "next";
-import {
-  HeroV3,
-  HomepageRyanCareSection,
-  HomepageTestimonials,
-  HomepageClosingCTARow,
-  FlowWaveHomeBand,
-  HydraFacialHomeBand,
-  BrowJourneyHomeBand,
-  Morpheus8HomeBand,
-  SolariaHomeBand,
-  InjectablesHomeBand,
-  RegenHomeBand,
-} from "@/components/homepage-v3";
-import { HomepageAestheticsLane } from "@/components/homepage-v3/HomepageAestheticsLane";
-import { HomepageMedicalLane } from "@/components/homepage-v3/HomepageMedicalLane";
-import { GetAppHomeBand } from "@/components/homepage-v3/GetAppHomeBand";
-import { IllinoisExcellenceBand } from "@/components/IllinoisExcellenceBand";
-import { MeetDaniRyanSection } from "@/components/marketing/MeetDaniRyanSection";
+import { HeroV3, HomepageLookbookPageContent } from "@/components/homepage-v3";
 import {
   SITE,
   SITE_HERO_IMAGE,
@@ -151,23 +134,11 @@ export default function HomePage() {
         }}
       />
 
-      <main className="bg-black">
-        <HeroV3 />
-        <HydraFacialHomeBand />
-        <FlowWaveHomeBand />
-        <BrowJourneyHomeBand />
-        <Morpheus8HomeBand />
-        <SolariaHomeBand />
-        <InjectablesHomeBand />
-        <HomepageRyanCareSection />
-        <HomepageAestheticsLane />
-        <HomepageTestimonials />
-        <MeetDaniRyanSection />
-        <HomepageMedicalLane />
-        <RegenHomeBand />
-        <IllinoisExcellenceBand />
-        <GetAppHomeBand />
-        <HomepageClosingCTARow />
+      <main>
+        <div className="bg-black">
+          <HeroV3 />
+        </div>
+        <HomepageLookbookPageContent />
       </main>
     </>
   );
