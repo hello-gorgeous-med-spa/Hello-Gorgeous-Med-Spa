@@ -135,14 +135,29 @@ function resolveStaff(serviceName, categoryNames) {
     };
   }
 
-  // ── BHRT / peptides / hormone labs → Ryan only ──
+  // ── RE GEN peptide therapy booking → Ryan + Danielle + Michelle ──
   if (
-    /pellet|hormone|peptide|bhrt|bioidentical/.test(hay) ||
+    /re gen peptide|peptide consult|peptide therapy|protocol — start/.test(hay) ||
+    cats.includes("re gen peptide therapy") ||
+    (/protocol/.test(hay) &&
+      /bpc-157|sermorelin|nad\+|ghk-cu|tb-500|pt-141|tesamorelin|cjc|ipamorelin|recovery blend/.test(
+        hay,
+      ))
+  ) {
+    return {
+      ids: [TEAM.ryan, TEAM.danielle, TEAM.michelle],
+      rule: "RE GEN peptide therapy → Ryan + Danielle + Michelle",
+    };
+  }
+
+  // ── BHRT / hormone labs → Ryan only ──
+  if (
+    /pellet|hormone|bhrt|bioidentical/.test(hay) ||
     cats.includes("bioidentical hormone therapy (bhrt)")
   ) {
     return {
       ids: [TEAM.ryan],
-      rule: "BHRT / peptides / hormones → Ryan only",
+      rule: "BHRT / hormones → Ryan only",
     };
   }
 

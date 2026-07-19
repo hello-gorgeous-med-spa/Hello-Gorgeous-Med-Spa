@@ -6,18 +6,44 @@
 
 import "server-only";
 
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
+
 import { getAccessToken } from "@/lib/square/oauth";
 import { getSquareLocationIdAsync, getLocationsApiAsync } from "@/lib/square/client";
+import type { PeptideSubscriptionPlanIds, PeptideSubscriptionPlanMap } from "@/lib/regen/peptide-subscription-plans";
 
 const SQUARE_API_HOST =
   process.env.SQUARE_ENVIRONMENT === "production" || process.env.SQUARE_ENV === "production"
     ? "https://connect.squareup.com"
     : "https://connect.squareupsandbox.com";
 
-const SQUARE_API_VERSION = "2024-12-18";
+const SQUARE_API_VERSION = "2025-04-16";
 
 function idempotencyKey(prefix: string): string {
   return `${prefix}-${Date.now()}-${Math.random().toString(36).slice(2, 11)}`;
+}
+
+/** Pre-created RE GEN peptide plans from scripts/square-upsert-peptide-subscription-plans.mjs */
+function loadPeptideSubscriptionPlanMap(): PeptideSubscriptionPlanMap {
+  try {
+    const raw = readFileSync(join(process.cwd(), "data/peptide-subscription-plans.json"), "utf8");
+    const parsed = JSON.parse(raw) as { plans?: PeptideSubscriptionPlanMap };
+    return parsed.plans && typeof parsed.plans === "object" ? parsed.plans : {};
+  } catch {
+    return {};
+  }
+}
+
+function lookupCachedPlan(
+  membershipId: string,
+  priceCents?: number,
+): PeptideSubscriptionPlanIds | null {
+  const map = loadPeptideSubscriptionPlanMap();
+  const hit = map[membershipId];
+  if (!hit?.planId || !hit?.variationId || hit.planId.startsWith("#")) return null;
+  if (priceCents != null && Math.abs(hit.priceCents - priceCents) > 100) return null;
+  return hit;
 }
 
 async function squareFetch<T>(
@@ -58,7 +84,7 @@ export async function resolveSquareLocationId(): Promise<string> {
   if (envLocationId) return envLocationId;
 
   try {
-    let locationId = await getSquareLocationIdAsync();
+    const locationId = await getSquareLocationIdAsync();
     if (locationId) return locationId;
 
     const locationsApi = await getLocationsApiAsync();
@@ -79,14 +105,22 @@ export async function resolveSquareLocationId(): Promise<string> {
 
 type PlanIds = { planId: string; variationId: string };
 
-/** Upsert a monthly subscription plan in Square Catalog. */
+/** Upsert a monthly subscription plan in Square Catalog (correct nested variation shape). */
 async function ensureSubscriptionPlan(
   membershipId: string,
   name: string,
   priceCents: number,
 ): Promise<PlanIds> {
-  const tempPlanId = `#hg-membership-${membershipId}`;
-  const tempVarId = `#hg-membership-${membershipId}-monthly`;
+  const cached = lookupCachedPlan(membershipId, priceCents);
+  if (cached) {
+    return { planId: cached.planId, variationId: cached.variationId };
+  }
+
+  const tempPlanId = `#hg-membership-${membershipId}`.slice(0, 46);
+  const tempVarId = `#hg-membership-${membershipId}-mo`.slice(0, 46);
+  const planName = name.startsWith("RE GEN") || name.startsWith("Hello Gorgeous")
+    ? name
+    : `Hello Gorgeous — ${name}`;
 
   const body = {
     idempotency_key: idempotencyKey(`plan-${membershipId}`),
@@ -94,21 +128,24 @@ async function ensureSubscriptionPlan(
       type: "SUBSCRIPTION_PLAN",
       id: tempPlanId,
       subscription_plan_data: {
-        name: `Hello Gorgeous — ${name}`,
+        name: planName,
         subscription_plan_variations: [
           {
+            type: "SUBSCRIPTION_PLAN_VARIATION",
             id: tempVarId,
-            name: "Monthly",
-            phases: [
-              {
-                cadence: "MONTHLY",
-                ordinal: 0,
-                pricing: {
-                  type: "STATIC",
-                  price_money: { amount: priceCents, currency: "USD" },
+            subscription_plan_variation_data: {
+              name: "Monthly",
+              phases: [
+                {
+                  cadence: "MONTHLY",
+                  ordinal: 0,
+                  pricing: {
+                    type: "STATIC",
+                    price_money: { amount: priceCents, currency: "USD" },
+                  },
                 },
-              },
-            ],
+              ],
+            },
           },
         ],
       },
@@ -193,15 +230,19 @@ export async function createMembershipCheckoutUrl(opts: {
   priceDollars: number;
   redirectUrl: string;
 }): Promise<MembershipCheckoutResult> {
+  const priceCents = Math.round(opts.priceDollars * 100);
   try {
-    const { planId, variationId } = await ensureSubscriptionPlan(
+    const { variationId } = await ensureSubscriptionPlan(
       opts.membershipId,
       opts.name,
-      Math.round(opts.priceDollars * 100),
+      priceCents,
     );
 
-    await resolveSquareLocationId();
+    const locationId = await resolveSquareLocationId();
 
+    // Square Checkout API: checkout_options.subscription_plan_id must be the
+    // SUBSCRIPTION_PLAN_VARIATION id (naming is confusing). quick_pay is required
+    // and should match the variation's phase price.
     const linkData = await squareFetch<{
       payment_link?: {
         id?: string;
@@ -213,13 +254,17 @@ export async function createMembershipCheckoutUrl(opts: {
       method: "POST",
       body: {
         idempotency_key: idempotencyKey(`mlink-${opts.membershipId}`),
+        quick_pay: {
+          name: opts.name,
+          price_money: { amount: priceCents, currency: "USD" },
+          location_id: locationId,
+        },
         checkout_options: {
-          subscription_plan_id: planId,
-          subscription_plan_variation_id: variationId,
+          subscription_plan_id: variationId,
           redirect_url: opts.redirectUrl,
           ask_for_shipping_address: false,
         },
-        description: `Hello Gorgeous membership — ${opts.name}`,
+        description: `Hello Gorgeous RX — ${opts.name} · recurring monthly after NP approval`,
       },
     });
 

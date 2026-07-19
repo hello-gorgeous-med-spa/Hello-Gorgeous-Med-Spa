@@ -181,13 +181,14 @@ export const RX_PATIENT_CARE_SECTIONS: RxCareSection[] = [
       {
         id: "peptide-refill",
         title: "Peptide protocol refill",
-        description: "Renew BPC-157, Sermorelin, NAD+, GHK-Cu, or other approved protocols.",
+        description:
+          "Renew BPC-157, Sermorelin, NAD+, GHK-Cu, and more — pay once or enroll in monthly auto-pay (Square subscription). Hub monitors every order.",
         href: PEPTIDE_REQUEST_PATH,
         cta: "Peptide request / refill",
         icon: "🧬",
         image: RX_CARE_IMAGES.peptide,
         imageAlt: "Peptide therapy — Hello Gorgeous RX",
-        iconTag: { emoji: "🔁", label: "Keep your protocol going" },
+        iconTag: { emoji: "🔁", label: "Monthly auto-pay available" },
       },
       {
         id: "rx-start-here",

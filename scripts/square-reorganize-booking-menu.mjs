@@ -1,8 +1,12 @@
 #!/usr/bin/env node
 /**
  * Reorganize Square Appointments booking menu into clean categories.
- * Also sets CatalogItem.label_color (POS label) and prints a Dashboard
- * checklist for calendar colors (calendar palette is Dashboard-only).
+ *
+ * Fixes the booking-site "Other" dump: categories without an `ordinal`
+ * (and items missing legacy `category_id`) often land in Other even when
+ * `categories[]` is set correctly.
+ *
+ * Also sets CatalogItem.label_color (POS label).
  *
  * Usage:
  *   node --env-file=.env.local scripts/square-reorganize-booking-menu.mjs --dry-run
@@ -23,67 +27,87 @@ if (!TOKEN || TOKEN.length < 10) {
 }
 
 /**
- * Target booking categories + calendar color guidance.
- * label_color = hex for Square POS item label (API-supported).
- * calendarHint = closest Square Appointments palette color to pick in Dashboard.
+ * Guest-facing booking categories.
+ * ordinal = display order on Square booking (lower = earlier).
+ * label_color = hex for Square POS item label.
  */
 const CATEGORY_META = {
-  "Vitamin Injections": { label_color: "E6007E", calendarHint: "Hot pink / magenta" },
-  "Weight Loss Injections": { label_color: "DC2626", calendarHint: "Red" },
-  FlowWave: { label_color: "7C3AED", calendarHint: "Purple" },
-  Botox: { label_color: "14B8A6", calendarHint: "Teal" },
-  "Dermal Fillers": { label_color: "F97316", calendarHint: "Orange" },
-  "Skin Spa": { label_color: "FB7185", calendarHint: "Soft rose / pink" },
-  "Body Contouring & Devices": { label_color: "EA580C", calendarHint: "Deep orange" },
-  "Laser Hair Removal": { label_color: "0EA5E9", calendarHint: "Sky blue" },
-  "Lash Spa": { label_color: "A78BFA", calendarHint: "Lavender" },
-  "Brow Spa": { label_color: "A16207", calendarHint: "Brown / gold" },
-  "Bioidentical Hormone Therapy (BHRT)": { label_color: "D4AF37", calendarHint: "Gold / amber" },
-  "IV Drip Package Deals": { label_color: "2563EB", calendarHint: "Blue" },
-  "PRP Injections": { label_color: "9F1239", calendarHint: "Burgundy" },
-  "AnteAGE Skin Regeneration": { label_color: "10B981", calendarHint: "Green" },
-  "Trigger Point Injections": { label_color: "64748B", calendarHint: "Slate gray" },
-  "Medical Consultations": { label_color: "111827", calendarHint: "Black / charcoal" },
-  "Exclusive Model Specials": { label_color: "FF2D8E", calendarHint: "Bright pink" },
-  "GlowTox Facial": { label_color: "EC4899", calendarHint: "Pink" },
+  "Skin Spa": { ordinal: 1, label_color: "FB7185", calendarHint: "Soft rose / pink" },
+  "AnteAGE Skin Regeneration": { ordinal: 2, label_color: "10B981", calendarHint: "Green" },
+  FlowWave: { ordinal: 3, label_color: "7C3AED", calendarHint: "Purple" },
+  "RE GEN Peptide Therapy": { ordinal: 4, label_color: "8B5CF6", calendarHint: "Violet" },
+  Botox: { ordinal: 5, label_color: "14B8A6", calendarHint: "Teal" },
+  "Dermal Fillers": { ordinal: 6, label_color: "F97316", calendarHint: "Orange" },
+  "Body Contouring & Devices": { ordinal: 7, label_color: "EA580C", calendarHint: "Deep orange" },
+  "Laser Hair Removal": { ordinal: 8, label_color: "0EA5E9", calendarHint: "Sky blue" },
+  Microblading: { ordinal: 9, label_color: "B45309", calendarHint: "Amber / brown" },
+  "Brow Spa": { ordinal: 10, label_color: "A16207", calendarHint: "Brown / gold" },
+  "Lash Spa": { ordinal: 11, label_color: "A78BFA", calendarHint: "Lavender" },
+  "GlowTox Facial": { ordinal: 12, label_color: "EC4899", calendarHint: "Pink" },
+  "PRP Injections": { ordinal: 13, label_color: "9F1239", calendarHint: "Burgundy" },
+  "Vitamin Injections": { ordinal: 14, label_color: "E6007E", calendarHint: "Hot pink / magenta" },
+  "IV Drip Package Deals": { ordinal: 15, label_color: "2563EB", calendarHint: "Blue" },
+  "Weight Loss Injections": { ordinal: 16, label_color: "DC2626", calendarHint: "Red" },
+  "Bioidentical Hormone Therapy (BHRT)": { ordinal: 17, label_color: "D4AF37", calendarHint: "Gold / amber" },
+  "Trigger Point Injections": { ordinal: 18, label_color: "64748B", calendarHint: "Slate gray" },
+  "Medical Consultations": { ordinal: 19, label_color: "111827", calendarHint: "Black / charcoal" },
+  "Exclusive Model Specials": { ordinal: 20, label_color: "FF2D8E", calendarHint: "Bright pink" },
 };
 
-/** Explicit moves (name match, case-insensitive substring or exact). */
+/** First match wins — keep specific rules above broad Skin Spa catch-alls. */
 const MOVE_RULES = [
-  // Vitamins wrongly sitting under Weight Loss
+  // Shockwave / recovery
+  { re: /flowwave|shockwave|recovery stack/i, cat: "FlowWave" },
+
+  // RE GEN peptides (before AnteAGE / medical catch-alls)
+  { re: /re gen peptide|peptide consult|peptide therapy|protocol — start|bpc-157 protocol|sermorelin protocol|nad\+ protocol|ghk-cu protocol|tb-500 protocol|pt-141 protocol|tesamorelin protocol|cjc\s*\/\s*ipamorelin protocol|recovery blend protocol/i, cat: "RE GEN Peptide Therapy" },
+  { re: /\bpeptide\b/i, cat: "RE GEN Peptide Therapy" },
+
+  // AnteAGE before devices (AnteAGE + CO₂ stays AnteAGE)
+  { re: /anteage|exosome|biosome|hair restoration with exosome/i, cat: "AnteAGE Skin Regeneration" },
+
+  // Devices / contouring
+  { re: /morpheus8|quantum rf|solaria|co₂|co2 laser|trifecta|dani,? fix me/i, cat: "Body Contouring & Devices" },
+
+  // Laser hair
+  { re: /laser hair|laser brazilian/i, cat: "Laser Hair Removal" },
+
+  // Microblading / Jen brows (before generic brow)
+  { re: /microblading|hybrid\s*\/\s*combo|meet jen/i, cat: "Microblading" },
+
+  // Injectables
+  { re: /botox|jeuveau|dysport|lip flip|xeomin|daxxify/i, cat: "Botox" },
+  { re: /filler|hylanex|hylenex|dissolver|revanesse|versa|restylane|juvederm/i, cat: "Dermal Fillers" },
+
+  // Vitamins (before weight-loss catch-alls)
   { re: /^b12 injection$/i, cat: "Vitamin Injections" },
   { re: /^b-complex injection$/i, cat: "Vitamin Injections" },
   { re: /^glutathione injection$/i, cat: "Vitamin Injections" },
   { re: /mic\/?lipo|lipo-b injection|lipo.?shot/i, cat: "Vitamin Injections" },
-  { re: /vitamin injection/i, cat: "Vitamin Injections" },
-  { re: /biotin shot|lash fill \+ biotin/i, cat: "Lash Spa" },
+  { re: /vitamin injection|biotin shot/i, cat: "Vitamin Injections" },
 
-  // Weight loss stays for GLP-1 / programs
+  // Weight loss
   { re: /tirzepatide|semaglutide|retatrutide|weight loss|body composition|medical weight/i, cat: "Weight Loss Injections" },
 
-  // Shockwave
-  { re: /flowwave|shockwave|recovery stack/i, cat: "FlowWave" },
-
-  // AnteAGE first (so “AnteAGE + CO₂” stays AnteAGE, not devices)
-  { re: /anteage|exosome|biosome|hair restoration with exosome/i, cat: "AnteAGE Skin Regeneration" },
-
-  // Devices / contouring (out of random specials + body spa mix)
-  { re: /morpheus8|quantum rf|solaria|co₂|co2 laser|trifecta|dani,? fix me/i, cat: "Body Contouring & Devices" },
-
-  // Laser hair — own category so booking menu isn't one giant Body Spa dump
-  { re: /laser hair/i, cat: "Laser Hair Removal" },
-
-  // Consults
-  { re: /^consultation$|medical visit with ryan|telehealth/i, cat: "Medical Consultations" },
-  { re: /peptide therapy consultation/i, cat: "Medical Consultations" },
-  { re: /weight loss consultation/i, cat: "Weight Loss Injections" },
-
-  // Injectables
-  { re: /botox|jeuveau|dysport|lip flip/i, cat: "Botox" },
-  { re: /filler|hylanex|dissolver/i, cat: "Dermal Fillers" },
-
-  // GlowTox
+  // Lashes / brows / glowtox
+  { re: /lash fill \+ biotin|lash extension|lash lift|lash tint|classic lash|hybrid lash|volume lash/i, cat: "Lash Spa" },
+  { re: /brow lamination|brow tint|brow wax|brow shape|henna brow/i, cat: "Brow Spa" },
   { re: /glowtox/i, cat: "GlowTox Facial" },
+
+  // PRP / IV / hormones / trigger / consults
+  { re: /\bprp\b|platelet.?rich|vampire/i, cat: "PRP Injections" },
+  { re: /\biv\b|nad\+|myers|drip package|hydration drip/i, cat: "IV Drip Package Deals" },
+  { re: /hormone lab|biote|bhrt|hormone therapy|pellet/i, cat: "Bioidentical Hormone Therapy (BHRT)" },
+  { re: /trigger point/i, cat: "Trigger Point Injections" },
+  { re: /^consultation$|medical visit with ryan|telehealth|peptide therapy consultation/i, cat: "Medical Consultations" },
+  { re: /weight loss consultation/i, cat: "Weight Loss Injections" },
+  { re: /model special|vip model/i, cat: "Exclusive Model Specials" },
+
+  // Skin Spa — facials, peels, Hydra, dermaplaning, IPL (not AnteAGE IPL — already matched)
+  {
+    re: /hydra|dermaplan|chemical peel|vi peel|facial|geneo|salmon dna|poreless|calm restore|clarity protocol|gorgeous glow|luminous reveal|collagen reset|signature facial|photofacial|ipl|microderm|nano.?needl|microneedl/i,
+    cat: "Skin Spa",
+  },
 ];
 
 async function squareGet(pathname) {
@@ -140,12 +164,17 @@ async function ensureCategory(name, categoryIds) {
     return fake;
   }
   const id = `#cat-${name.replace(/\W+/g, "-").toLowerCase()}`.slice(0, 46);
+  const meta = CATEGORY_META[name];
   const res = await squarePost("/v2/catalog/object", {
     idempotency_key: `hg-reorg-cat-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
     object: {
       type: "CATEGORY",
       id,
-      category_data: { name },
+      category_data: {
+        name,
+        online_visibility: true,
+        ...(meta?.ordinal != null ? { ordinal: meta.ordinal } : {}),
+      },
     },
   });
   const realId = res.catalog_object?.id;
@@ -154,6 +183,55 @@ async function ensureCategory(name, categoryIds) {
   console.log(`  ✓ created category: ${name}`);
   await new Promise((r) => setTimeout(r, 200));
   return realId;
+}
+
+async function syncCategoryOrdinals(categories, categoryIds) {
+  const updates = [];
+  for (const [name, meta] of Object.entries(CATEGORY_META)) {
+    const id = categoryIds.get(name);
+    if (!id || String(id).startsWith("#")) continue;
+    const existing = categories.find((c) => c.id === id);
+    if (!existing) continue;
+    const current = existing.category_data?.ordinal;
+    const needsOrdinal = current !== meta.ordinal;
+    const needsOnline = existing.category_data?.online_visibility !== true;
+    if (!needsOrdinal && !needsOnline) continue;
+    updates.push({ existing, name, meta, needsOrdinal, needsOnline });
+  }
+
+  console.log(`Category ordinal / visibility updates: ${updates.length}`);
+  for (const u of updates) {
+    console.log(
+      `  • ${u.name}: ordinal ${u.existing.category_data?.ordinal ?? "∅"} → ${u.meta.ordinal}` +
+        (u.needsOnline ? " · online_visibility=true" : ""),
+    );
+  }
+
+  if (DRY_RUN || updates.length === 0) return updates.length;
+
+  let ok = 0;
+  for (const u of updates) {
+    try {
+      const obj = structuredClone(u.existing);
+      obj.category_data = {
+        ...obj.category_data,
+        name: u.name,
+        ordinal: u.meta.ordinal,
+        online_visibility: true,
+        is_top_level: true,
+      };
+      await squarePost("/v2/catalog/object", {
+        idempotency_key: `hg-reorg-catord-${obj.id.slice(-8)}-${Date.now().toString(36).slice(-4)}`,
+        object: obj,
+      });
+      ok++;
+      console.log(`  ✓ category ${u.name}`);
+      await new Promise((r) => setTimeout(r, 200));
+    } catch (err) {
+      console.error(`  ✕ category ${u.name}:`, err instanceof Error ? err.message.slice(0, 280) : err);
+    }
+  }
+  return ok;
 }
 
 async function main() {
@@ -168,27 +246,37 @@ async function main() {
     (o) => o.type === "ITEM" && o.item_data?.product_type === "APPOINTMENTS_SERVICE" && !o.is_deleted,
   );
 
-  // Ensure all target categories exist
   for (const name of Object.keys(CATEGORY_META)) {
     await ensureCategory(name, categoryIds);
   }
 
+  await syncCategoryOrdinals(categories, categoryIds);
+
   const moves = [];
-  const colorUpdates = [];
+  const unmatched = [];
 
   for (const item of appointmentItems) {
     const name = item.item_data?.name || "";
-    const currentCatId = item.item_data?.category_id || item.item_data?.categories?.[0]?.id;
+    const arrCatId = item.item_data?.categories?.[0]?.id;
+    const legacyCatId = item.item_data?.category_id;
+    const currentCatId = legacyCatId || arrCatId;
     const currentCat = currentCatId ? catNameById.get(currentCatId) || "(unknown)" : "(none)";
-    const target = resolveTargetCategory(name);
-    if (!target) continue;
+    const target = resolveTargetCategory(name) || (CATEGORY_META[currentCat] ? currentCat : null);
+
+    if (!target) {
+      unmatched.push({ name, currentCat });
+      continue;
+    }
 
     const targetId = categoryIds.get(target);
     const meta = CATEGORY_META[target];
     const needsMove = currentCat !== target;
-    const needsColor = meta && item.item_data?.label_color?.toUpperCase() !== meta.label_color.toUpperCase();
+    const needsLegacyId = !legacyCatId || legacyCatId !== targetId;
+    const needsColor =
+      meta && (item.item_data?.label_color || "").toUpperCase() !== meta.label_color.toUpperCase();
 
-    if (!needsMove && !needsColor) continue;
+    // Always backfill category_id when missing — booking UI relies on it for some views
+    if (!needsMove && !needsLegacyId && !needsColor) continue;
 
     moves.push({
       id: item.id,
@@ -199,18 +287,28 @@ async function main() {
       targetId,
       label_color: meta?.label_color,
       needsMove,
+      needsLegacyId,
       needsColor,
       object: item,
     });
   }
 
-  console.log(`Services to update: ${moves.length}\n`);
+  console.log(`\nServices to update: ${moves.length}\n`);
   for (const m of moves) {
     const bits = [];
     if (m.needsMove) bits.push(`${m.from} → ${m.to}`);
+    if (m.needsLegacyId && !m.needsMove) bits.push(`backfill category_id → ${m.to}`);
     if (m.needsColor) bits.push(`label_color #${m.label_color}`);
     console.log(`  • ${m.name}`);
     console.log(`      ${bits.join(" · ")}`);
+  }
+
+  if (unmatched.length) {
+    console.log(`\n⚠ Unmatched appointment services (left as-is): ${unmatched.length}`);
+    for (const u of unmatched.slice(0, 40)) {
+      console.log(`  - [${u.currentCat}] ${u.name}`);
+    }
+    if (unmatched.length > 40) console.log(`  ... +${unmatched.length - 40} more`);
   }
 
   if (DRY_RUN) {
@@ -218,9 +316,11 @@ async function main() {
     console.log("Square Dashboard → Items → Service library → open each service → Color");
     console.log("Then Appointments → Calendar → ⚙ → Color code → By Service\n");
     for (const [cat, meta] of Object.entries(CATEGORY_META)) {
-      console.log(`  ${cat.padEnd(40)} → ${meta.calendarHint}  (POS label #${meta.label_color})`);
+      console.log(
+        `  ${String(meta.ordinal).padStart(2)}. ${cat.padEnd(40)} → ${meta.calendarHint}  (#${meta.label_color})`,
+      );
     }
-    console.log("\nRe-run with --apply to write categories + label colors.\n");
+    console.log("\nRe-run with --apply to write categories, ordinals, and label colors.\n");
     return;
   }
 
@@ -228,16 +328,16 @@ async function main() {
   let failed = 0;
   for (const m of moves) {
     try {
-      const obj = structuredClone(m.object);
-      obj.version = m.version;
-      if (m.needsMove && m.targetId) {
+      // Re-fetch version to avoid stale conflicts on long runs
+      const fresh = await squareGet(`/v2/catalog/object/${m.id}`);
+      const obj = fresh.object || structuredClone(m.object);
+      if (m.targetId) {
         obj.item_data.category_id = m.targetId;
         obj.item_data.categories = [{ id: m.targetId }];
       }
       if (m.label_color) {
         obj.item_data.label_color = m.label_color;
       }
-      // Remove read-only / problematic fields that cause upsert failures
       delete obj.item_data.reporting_category;
       await squarePost("/v2/catalog/object", {
         idempotency_key: `hg-reorg-${m.id.slice(-10)}-${Date.now().toString(36).slice(-5)}`,
@@ -245,7 +345,7 @@ async function main() {
       });
       updated++;
       console.log(`  ✓ ${m.name}`);
-      await new Promise((r) => setTimeout(r, 250));
+      await new Promise((r) => setTimeout(r, 200));
     } catch (err) {
       failed++;
       console.error(`  ✕ ${m.name}:`, err instanceof Error ? err.message.slice(0, 300) : err);
@@ -253,8 +353,7 @@ async function main() {
   }
 
   console.log(`\nDone. Updated ${updated}, failed ${failed}.`);
-  console.log("\nNext (you, ~10 min): set calendar colors in Square Dashboard Service library,");
-  console.log("then Calendar ⚙ → Color code by Service.\n");
+  console.log("Hard-refresh the Square booking page — FlowWave / devices / laser should leave Other.\n");
 }
 
 main().catch((e) => {
