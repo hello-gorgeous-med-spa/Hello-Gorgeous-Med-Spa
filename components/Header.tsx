@@ -68,7 +68,7 @@ const NAV = {
             badge: "NEW",
           },
           {
-            label: "Facials & Peels Menu",
+            label: "Facials & Peels",
             href: FACIALS_PEELS_MENU_PATH,
             sub: "HydraFacial · dermaplaning · VI Peel · IPL",
             badge: "NEW",
