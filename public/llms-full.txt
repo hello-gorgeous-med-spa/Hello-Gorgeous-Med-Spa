@@ -24,8 +24,10 @@
 - Clinic: Hello Gorgeous Med Spa, Oswego IL — same address as med spa
 
 ## Core services
+- IV Therapy & Vitamin Bar (flagship: /services/iv-therapy)
 - Botox, Dysport, Jeuveau
 - Dermal fillers and lip filler
+- Facials, peels, HydraFacial
 - Morpheus8 Burst and body RF microneedling
 - Quantum RF skin tightening/body contouring
 - Solaria CO2 and laser treatments
@@ -64,14 +66,29 @@
 - https://www.hellogorgeousmedspa.com/chemical-peel-oswego
 - https://www.hellogorgeousmedspa.com/prp-oswego
 - https://www.hellogorgeousmedspa.com/vitamin-injections-oswego
-- https://www.hellogorgeousmedspa.com/iv-therapy-oswego
+- IV Therapy (canonical flagship): https://www.hellogorgeousmedspa.com/services/iv-therapy
 - PRP joint injections: https://www.hellogorgeousmedspa.com/services/prp-joint-injections
 - Hub: https://www.hellogorgeousmedspa.com/services
 
+## City hubs (Fox Valley local SEO)
+- https://www.hellogorgeousmedspa.com/oswego-il
+- https://www.hellogorgeousmedspa.com/naperville-il
+- https://www.hellogorgeousmedspa.com/aurora-il
+- https://www.hellogorgeousmedspa.com/plainfield-il
+- https://www.hellogorgeousmedspa.com/yorkville-il
+- https://www.hellogorgeousmedspa.com/montgomery-il
+- City × IV Therapy examples:
+  - https://www.hellogorgeousmedspa.com/oswego-il/iv-therapy
+  - https://www.hellogorgeousmedspa.com/naperville-il/iv-therapy
+  - https://www.hellogorgeousmedspa.com/aurora-il/iv-therapy
+
 ## Priority service pages
-- https://www.hellogorgeousmedspa.com/services/morpheus8
-- https://www.hellogorgeousmedspa.com/services/quantum-rf
-- https://www.hellogorgeousmedspa.com/services/solaria-co2
+- https://www.hellogorgeousmedspa.com/services/iv-therapy
+- https://www.hellogorgeousmedspa.com/services/injectables
+- https://www.hellogorgeousmedspa.com/services/facials-and-peels
+- https://www.hellogorgeousmedspa.com/morpheus8-burst-oswego
+- https://www.hellogorgeousmedspa.com/quantum-rf-oswego
+- https://www.hellogorgeousmedspa.com/solaria-co2-oswego
 - https://www.hellogorgeousmedspa.com/services/weight-loss
 - https://www.hellogorgeousmedspa.com/services/botox
 - https://www.hellogorgeousmedspa.com/services/dermal-fillers

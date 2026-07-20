@@ -171,7 +171,7 @@ export function generateMetadata({ params }: { params: Params }): Metadata {
 
 function getServiceMetadata(s: Service, one: string): Metadata {
   const localCanonicalBySlug: Record<string, string> = {
-    "iv-therapy": "/iv-therapy-oswego-il",
+    "iv-therapy": "/services/iv-therapy",
     "laser-hair-removal": "/laser-hair-removal-oswego-il",
   };
 

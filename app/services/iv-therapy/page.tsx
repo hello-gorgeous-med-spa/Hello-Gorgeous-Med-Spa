@@ -26,10 +26,16 @@ const baseMeta = pageMetadata({
   path: IV_THERAPY_PATH,
   keywords: [
     "IV therapy Oswego IL",
+    "IV therapy Naperville IL",
+    "IV therapy Aurora IL",
+    "IV therapy Plainfield IL",
+    "IV therapy Yorkville IL",
+    "IV therapy Montgomery IL",
     "vitamin drip Naperville",
     "Myers Cocktail Aurora",
     "NAD IV Oswego",
     "vitamin shots Hello Gorgeous",
+    "best IV therapy Fox Valley",
   ],
 });
 

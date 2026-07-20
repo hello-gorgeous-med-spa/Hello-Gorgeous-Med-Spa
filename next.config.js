@@ -334,6 +334,9 @@ const nextConfig = {
     { source: "/sermorelin-growth-peptide", destination: "/peptides", permanent: true },
     { source: "/services/sermorelin-growth-peptide", destination: "/peptides", permanent: true },
     { source: "/iv-therapy", destination: "/services/iv-therapy", permanent: true },
+    // Consolidate duplicate IV SEO landers → flagship Design Canvas page
+    { source: "/iv-therapy-oswego", destination: "/services/iv-therapy", permanent: true },
+    { source: "/iv-therapy-oswego-il", destination: "/services/iv-therapy", permanent: true },
     { source: "/vitamin-injections", destination: "/services/vitamin-injections", permanent: true },
     { source: "/rf-microneedling", destination: "/services/rf-microneedling", permanent: true },
     { source: "/chemical-peels", destination: "/services/chemical-peels", permanent: true },

@@ -15,6 +15,7 @@ import { getPublishedPeptideTopics, PEPTIDES_HUB_PATH } from '@/lib/peptides-hub
 import { REGEN_CATEGORY_HUBS } from '@/lib/rx-category-hubs';
 import { SKIN_101_GUIDES, SKIN_101_PATH } from '@/lib/skin-101-nav';
 import { isDeindexedSeoPath } from '@/lib/city-seo-tier';
+import { AI_FLAGSHIP_PAGES } from '@/lib/ai-discoverable-flagships';
 
 // ============================================================
 // SITEMAP - Auto-generates for Google indexing
@@ -756,7 +757,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${baseUrl}/services/facials-and-peels`,
       lastModified: currentDate,
       changeFrequency: 'weekly',
-      priority: 0.92,
+      priority: 0.97,
+    },
+    {
+      url: `${baseUrl}/services/iv-therapy`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.98,
     },
     {
       url: `${baseUrl}/services/laser-hair-removal`,
@@ -776,6 +783,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'weekly',
       priority: 0.93,
     },
+    // AI / search flagship hubs (deduped later if already listed)
+    ...AI_FLAGSHIP_PAGES.map((page) => ({
+      url: `${baseUrl}${page.path}`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly' as const,
+      priority: page.priority,
+    })),
     {
       url: `${baseUrl}/services/microneedling-rf`,
       lastModified: currentDate,
@@ -1244,6 +1258,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/solaria-co2-laser-oswego-il',    // → /solaria-co2-oswego
     '/services/weight-loss',           // → /glp-1-weight-loss-oswego
     '/services/biote-hormone-therapy', // → /biote-hormone-therapy-oswego
+    '/iv-therapy',                     // → /services/iv-therapy
+    '/iv-therapy-oswego',              // → /services/iv-therapy
+    '/iv-therapy-oswego-il',           // → /services/iv-therapy
   ]);
 
   const canonicalDestinations: MetadataRoute.Sitemap = [
@@ -1265,6 +1282,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/testosterone-replacement-oswego',
     '/peptide-therapy-oswego',
     '/services/prp-joint-injections',
+    '/services/iv-therapy',
+    '/services/injectables',
+    '/services/facials-and-peels',
   ].map((path) => ({
     url: `${baseUrl}${path}`,
     lastModified: currentDate,

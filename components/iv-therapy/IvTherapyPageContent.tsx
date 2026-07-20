@@ -30,7 +30,7 @@ import {
   IV_TESTIMONIALS,
   IV_THERAPY_GOALS,
   IV_THERAPY_MARKETING,
-  IV_THERAPY_NAV,
+  IV_THERAPY_JUMP_NAV,
   IV_VITAMIN_DRIPS,
   IV_VITAMIN_SHOTS,
   buildIvBagSquareNote,
@@ -169,7 +169,7 @@ export function IvTherapyPageContent() {
             <span className="mt-0.5 text-[10px] font-bold tracking-[0.32em] text-[#FF2D8E]">MED SPA</span>
           </a>
           <div className="hidden items-center gap-7 text-[15px] font-medium md:flex">
-            {IV_THERAPY_NAV.map((item) => (
+            {IV_THERAPY_JUMP_NAV.map((item) => (
               <a key={item.href} href={item.href} className="text-[#111] hover:text-[#E6007E]">
                 {item.label}
               </a>
@@ -185,7 +185,7 @@ export function IvTherapyPageContent() {
           </div>
         </div>
         <div className="flex gap-2 overflow-x-auto border-t border-black/5 px-4 py-2 md:hidden">
-          {IV_THERAPY_NAV.map((item) => (
+          {IV_THERAPY_JUMP_NAV.map((item) => (
             <a
               key={item.href}
               href={item.href}

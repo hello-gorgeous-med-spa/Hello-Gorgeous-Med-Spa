@@ -10,7 +10,7 @@ export const SERVICE_SLUG_TO_OSWEGO_PATH: Record<string, string> = {
   "biote-hormone-therapy": "/biote-hormone-therapy-oswego",
   "trt-replacement-therapy": "/testosterone-replacement-oswego",
   "sermorelin-growth-peptide": "/peptide-therapy-oswego",
-  "iv-therapy": "/iv-therapy-oswego",
+  "iv-therapy": "/services/iv-therapy",
   "vitamin-injections": "/vitamin-injections-oswego",
   "rf-microneedling": "/morpheus8-burst-oswego",
   "laser-hair-removal": "/laser-hair-removal-oswego",

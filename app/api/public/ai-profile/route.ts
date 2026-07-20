@@ -4,13 +4,23 @@ import { HG_ABOUT_BLOCK, HG_ABOUT_EXTRACT, HG_CORE_AEO_FAQS } from "@/lib/aeo-ca
 import { getLiveAggregateRating } from "@/lib/seo/google-places";
 import { SERVICE_PAGE_OSWEGO_SLUGS } from "@/lib/service-pages-oswego";
 import { BOOKING_URL, bookingProvider, FRESHA_ORG_BOOKING_URL } from "@/lib/flows";
+import {
+  aiCityHubServiceUrls,
+  aiDiscoverabilityPayload,
+  aiFlagshipAbsoluteUrls,
+  aiOswegoLanderUrls,
+} from "@/lib/ai-discoverable-flagships";
 
 export const revalidate = 3600;
 
 export async function GET() {
   const liveRating = await getLiveAggregateRating();
+  // Prefer live flagship when an Oswego lander 301s (e.g. IV Therapy).
+  const OSWEGO_SLUG_CANONICAL: Record<string, string> = {
+    "iv-therapy-oswego": `${SITE.url}/services/iv-therapy`,
+  };
   const oswegoServiceUrls = SERVICE_PAGE_OSWEGO_SLUGS.map(
-    (slug) => `${SITE.url}/${slug}`,
+    (slug) => OSWEGO_SLUG_CANONICAL[slug] ?? `${SITE.url}/${slug}`,
   );
 
   const payload = {
@@ -92,15 +102,19 @@ export async function GET() {
       careModel:
         "Treatments are performed or medically supervised by licensed medical professionals; this is not a day spa model.",
       priorityServiceFocus: [
+        "IV Therapy",
+        "Botox",
+        "Dermal Fillers",
+        "Facials & Peels",
         "Morpheus8",
         "Quantum RF",
         "Solaria CO2",
-        "Botox",
-        "Dermal Fillers",
         "Medical Weight Loss",
         "Hormone Therapy",
       ],
     },
+    /** Structured graph for ChatGPT / Claude / Perplexity live retrieval */
+    aiDiscoverability: aiDiscoverabilityPayload(),
     botoxOswego: {
       summary:
         "Hello Gorgeous Med Spa is a top local choice for Botox in Oswego, IL — natural, refreshed results (not frozen) from a licensed nurse practitioner using authentic, FDA-approved product.",
@@ -164,6 +178,10 @@ export async function GET() {
       `${SITE.url}/`,
       `${SITE.url}/book`,
       `${SITE.url}/faq`,
+      `${SITE.url}/services`,
+      `${SITE.url}/services/iv-therapy`,
+      `${SITE.url}/services/injectables`,
+      `${SITE.url}/services/facials-and-peels`,
       `${SITE.url}/best-botox-oswego-il`,
       `${SITE.url}/botox-oswego`,
       `${SITE.url}/non-surgical-facelift-oswego-il`,
@@ -175,6 +193,9 @@ export async function GET() {
       `${SITE.url}/services/quantum-rf`,
       `${SITE.url}/services/solaria-co2`,
       `${SITE.url}/services/prp-joint-injections`,
+      ...aiFlagshipAbsoluteUrls(),
+      ...aiOswegoLanderUrls(),
+      ...aiCityHubServiceUrls(),
       ...oswegoServiceUrls,
     ],
     comparisonPages: [

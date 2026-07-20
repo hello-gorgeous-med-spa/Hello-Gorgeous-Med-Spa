@@ -80,13 +80,14 @@ export const IV_THERAPY_MARKETING = {
 } as const;
 
 export const IV_THERAPY_SEO = {
-  title: "IV Therapy Oswego IL | Vitamin Drips, Medical Relief & Shots",
+  title: "IV Therapy Oswego IL | Vitamin Drips Near Naperville & Aurora",
   description:
-    "NP-supervised IV therapy in Oswego — signature wellness drips from $150, new-client $99, medical relief drips, NAD+, and vitamin shots $25. Hello Gorgeous Med Spa.",
+    "NP-supervised IV therapy in Oswego for Naperville, Aurora, Plainfield, Yorkville & Montgomery — signature drips from $150, new-client $99, Myers Cocktail, NAD+, medical relief, vitamin shots $25. Hello Gorgeous Med Spa.",
   ogAlt: "IV therapy infusion bag at Hello Gorgeous Med Spa Oswego IL",
 } as const;
 
-export const IV_THERAPY_NAV = [
+/** In-page jump chips on the IV Therapy lander. */
+export const IV_THERAPY_JUMP_NAV = [
   { href: "#menu", label: "Drip Menu" },
   { href: "#medical", label: "Medical Relief" },
   { href: "#shots", label: "Vitamin Shots" },

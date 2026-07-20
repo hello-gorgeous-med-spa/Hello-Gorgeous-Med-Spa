@@ -528,6 +528,7 @@ export const SERVICES: readonly Service[] = [
     slug: "iv-therapy",
     name: "IV Therapy",
     category: "Wellness",
+    publicPath: "/services/iv-therapy",
     short: "Hydration and wellness support with clinician-guided IV options.",
     heroTitle: "IV Therapy in Oswego, IL",
     heroSubtitle:
