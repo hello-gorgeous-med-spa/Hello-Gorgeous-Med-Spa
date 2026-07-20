@@ -28,6 +28,7 @@ import {
   FACIALS_PEELS_NAV,
   isFacialsPeelsNavActive,
 } from "@/lib/facials-peels-menu";
+import { IV_THERAPY_NAV, IV_THERAPY_PATH, isIvTherapyNavActive } from "@/lib/iv-therapy-marketing";
 import {
   ABOUT_NAV_EXTRA_LINKS,
   isAboutNavActive,
@@ -502,6 +503,7 @@ export function Header() {
   const isQuantumRfNavActiveState = isQuantumRfNavActive(pathname ?? null);
   const isInjectablesNavActiveState = isInjectablesNavActive(pathname ?? null);
   const isFacialsNavActiveState = isFacialsPeelsNavActive(pathname ?? null);
+  const isIvTherapyNavActiveState = isIvTherapyNavActive(pathname ?? null);
 
   const isServicesNavActive =
     !isFlowWaveNavActive &&
@@ -511,6 +513,7 @@ export function Header() {
     !isQuantumRfNavActiveState &&
     !isInjectablesNavActiveState &&
     !isFacialsNavActiveState &&
+    !isIvTherapyNavActiveState &&
     (isActive("/services") ||
     pathname === "/gallery" ||
     pathname === REGENERATIVE_MEDICINE_PATH ||
@@ -638,6 +641,18 @@ export function Header() {
                 aria-label="Botox and dermal fillers — injectables menu"
               >
                 {INJECTABLES_NAV.label}
+              </Link>
+            </div>
+
+            {/* IV Therapy — vitamin drips & shots flagship */}
+            <div className="relative flex items-center" onMouseEnter={closeDropdown}>
+              <Link
+                href={IV_THERAPY_PATH}
+                className={NAV_LINK_BASE}
+                style={navPillStyle(0, isIvTherapyNavActiveState)}
+                aria-label="IV Therapy — vitamin drips, medical relief, and shots"
+              >
+                {IV_THERAPY_NAV.label}
               </Link>
             </div>
 
@@ -819,6 +834,17 @@ export function Header() {
               <span className="flex flex-col items-start gap-0.5">
                 <span>{INJECTABLES_NAV.label}</span>
                 <span className="text-xs font-semibold text-[#FFB8DC]">Botox $10/unit · lip filler $450</span>
+              </span>
+            </Link>
+
+            <Link
+              href={IV_THERAPY_PATH}
+              onClick={() => setMobileOpen(false)}
+              className="mb-3 flex w-full items-center justify-between gap-2 rounded-xl border border-[#E6007E]/40 bg-gradient-to-r from-[#2d1020] to-black px-4 py-3.5 text-sm font-bold text-white"
+            >
+              <span className="flex flex-col items-start gap-0.5">
+                <span>{IV_THERAPY_NAV.label}</span>
+                <span className="text-xs font-semibold text-[#FFB8DC]">Drips from $150 · new client $99</span>
               </span>
             </Link>
 

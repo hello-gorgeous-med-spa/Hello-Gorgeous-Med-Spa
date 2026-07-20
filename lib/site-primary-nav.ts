@@ -19,11 +19,13 @@ import { SKIN_101_NAV } from "@/lib/skin-101-nav";
 import { SPECIALS_PATH } from "@/lib/specials";
 import { SHOP_RX_NAV } from "@/lib/medical-mega-menu";
 import { FLOWWAVE_PATH } from "@/lib/flowwave-marketing";
+import { IV_THERAPY_NAV, IV_THERAPY_PATH } from "@/lib/iv-therapy-marketing";
 
 export const PRIMARY_NAV_HUBS = [
   { id: "services", label: "Services", href: "/services", hasDropdown: true },
   { id: "facials", label: FACIALS_PEELS_NAV.label, href: FACIALS_PEELS_MENU_PATH, hasDropdown: false },
   { id: "injectables", label: INJECTABLES_NAV.label, href: INJECTABLES_PATH, hasDropdown: false },
+  { id: "iv-therapy", label: IV_THERAPY_NAV.label, href: IV_THERAPY_PATH, hasDropdown: false },
   {
     id: "microblading",
     label: BROW_MICROBLADING_NAV.label,

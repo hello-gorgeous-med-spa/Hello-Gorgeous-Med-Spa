@@ -9,6 +9,22 @@ import { SITE } from "@/lib/seo";
 
 export const IV_THERAPY_PATH = "/services/iv-therapy" as const;
 
+/** Top-level primary nav tab (matches Facials / Injectables pattern). */
+export const IV_THERAPY_NAV = {
+  label: "IV Therapy",
+  href: IV_THERAPY_PATH,
+} as const;
+
+export function isIvTherapyNavActive(pathname: string | null): boolean {
+  if (!pathname) return false;
+  if (pathname === IV_THERAPY_PATH || pathname.startsWith(`${IV_THERAPY_PATH}/`)) return true;
+  return (
+    pathname === "/iv-therapy" ||
+    pathname.startsWith("/iv-therapy/") ||
+    pathname.startsWith("/iv-shots")
+  );
+}
+
 const IMG = "/images/iv-therapy" as const;
 const OLYMPIA = "https://www.olympiapharmacy.com/wp-content/uploads/" as const;
 

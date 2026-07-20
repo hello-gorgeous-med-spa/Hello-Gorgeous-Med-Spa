@@ -61,7 +61,7 @@ export const FOOTER_PRIMARY_COLUMNS: FooterNavColumn[] = [
 /** Secondary links — collapsed in footer; keep high-value hubs only. */
 export const FOOTER_SEO_LINKS: FooterNavLink[] = [
   { label: "Medical optimization overview", href: "/medical" },
-  { label: "IV Therapy", href: "/iv-therapy" },
+  { label: "IV Therapy", href: "/services/iv-therapy" },
   { label: "Peptide education", href: "/peptides" },
   { label: "Telehealth", href: "/telehealth" },
   { label: "Products we offer (Rx)", href: "/products-we-offer" },
