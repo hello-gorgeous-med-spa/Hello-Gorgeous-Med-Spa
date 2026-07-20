@@ -461,7 +461,7 @@ export const WELLNESS_BROCHURE_FEATURED: WellnessPriceListItem[] = [
   buildVitaminItems().find((i) => i.id === "b12")!,
   buildVitaminItems().find((i) => i.id === "skinny-shot")!,
   buildVitaminItems().find((i) => i.id === "glutathione")!,
-  buildIvItems().find((i) => i.id === "glow")!,
+  buildIvItems().find((i) => i.id === "beauty")!,
   GLP1_ITEMS[0]!,
   GLP1_ITEMS[1]!,
   HORMONE_ITEMS[0]!,
