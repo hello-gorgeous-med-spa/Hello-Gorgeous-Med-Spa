@@ -55,6 +55,7 @@ const DEDICATED_SERVICE_SEGMENT_PAGES = new Set([
   "solaria-co2",
   "quantum-rf",
   "facials-and-peels",
+  "iv-therapy",
   "laser-hair-removal",
   "microneedling",
   "microneedling-rf",

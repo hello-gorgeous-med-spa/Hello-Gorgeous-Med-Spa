@@ -61,6 +61,7 @@ const nextConfig = {
       { protocol: "https", hostname: "images.unsplash.com" },
       { protocol: "https", hostname: "*.supabase.co" },
       { protocol: "https", hostname: "i.ytimg.com" },
+      { protocol: "https", hostname: "www.olympiapharmacy.com" },
     ],
     // Mitigate GHSA-3x4c-7xq6-9pq8 (unbounded image cache): reduce variant cardinality
     formats: ["image/webp"],

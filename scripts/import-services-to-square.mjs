@@ -128,13 +128,21 @@ export const SERVICES = [
   { name: 'AnteAGE Home Care Consultation', price: 0, duration: 30, category: 'AnteAGE Skin Regeneration', description: 'Complimentary consultation for AnteAGE home care protocol.' },
   { name: 'AnteAGE MD + CO₂ Combo', price: 119900, duration: 90, category: 'AnteAGE Skin Regeneration', description: 'AnteAGE MD growth factors combined with Solaria CO₂ laser for maximum skin regeneration.' },
 
-  // IV DRIP
-  { name: 'IV Drip — Myers Cocktail', price: 17500, duration: 45, category: 'IV Drip Package Deals', description: 'The classic Myers Cocktail IV drip with magnesium, B vitamins, vitamin C, and calcium.' },
-  { name: 'IV Drip — Immunity Boost', price: 19500, duration: 45, category: 'IV Drip Package Deals', description: 'High-dose vitamin C, zinc, and immune-boosting nutrients to strengthen your immune system.' },
-  { name: 'IV Drip — Beauty Glow', price: 19500, duration: 45, category: 'IV Drip Package Deals', description: 'Biotin, glutathione, and collagen-boosting nutrients for skin, hair, and nails.' },
-  { name: 'IV Drip — Energy & Performance', price: 19500, duration: 45, category: 'IV Drip Package Deals', description: 'B12, amino acids, and energy-boosting nutrients for peak performance and recovery.' },
-  { name: 'IV Drip — Hangover Recovery', price: 17500, duration: 45, category: 'IV Drip Package Deals', description: 'Anti-nausea, anti-inflammatory, and hydration IV drip for rapid hangover relief.' },
-  { name: 'IV Drip — NAD+', price: 35000, duration: 180, category: 'IV Drip Package Deals', description: 'NAD+ IV infusion for cellular energy, anti-aging, and cognitive clarity.' },
+  // IV DRIP — keep in sync with scripts/square-upsert-iv-therapy-menu.mjs + /services/iv-therapy
+  { name: 'IV Drip — New Client Intro ($99)', price: 9900, duration: 45, category: 'IV Drip Package Deals', description: 'New clients: any signature wellness drip for $99 including NP consult.' },
+  { name: 'IV Drip — Build Your Own Bag', price: 15000, duration: 45, category: 'IV Drip Package Deals', description: 'Custom IV bag — pick your base and boosts. Estimate confirmed by our NP at check-in.' },
+  { name: 'IV Drip — Dehydration', price: 15000, duration: 45, category: 'IV Drip Package Deals', description: 'Olympia Quench — rehydrate and combat fatigue from dehydration.' },
+  { name: 'IV Drip — Energy Boost', price: 15000, duration: 45, category: 'IV Drip Package Deals', description: 'Olympia Get Up & Go — Vita Complex and Amino Blend for energy and metabolism.' },
+  { name: 'IV Drip — Immunity Boost', price: 15000, duration: 45, category: 'IV Drip Package Deals', description: 'Olympia Immunity — Vitamin C, Vita Complex, and Zinc for immune support.' },
+  { name: 'IV Drip — Recovery', price: 17500, duration: 45, category: 'IV Drip Package Deals', description: 'Olympia Recovery & Performance — vitamins, aminos, and minerals for athletic recovery.' },
+  { name: 'IV Drip — Beauty Glow', price: 17500, duration: 45, category: 'IV Drip Package Deals', description: 'Olympia Snow Bright — Alpha Lipoic Acid, Glutathione, and Vitamin C for glowing skin.' },
+  { name: 'IV Drip — Inner Beauty', price: 17500, duration: 45, category: 'IV Drip Package Deals', description: 'Vitamin C, Biotin, and B-Complex for hair, skin, and nails from within.' },
+  { name: "IV Drip — Myers' Cocktail (45min)", price: 15000, duration: 45, category: 'IV Drip Package Deals', description: 'Classic Myers Cocktail — Vitamin C, B-complex, magnesium, calcium, hydroxocobalamin.' },
+  { name: 'IV Drip — Hangover Recovery', price: 16500, duration: 45, category: 'IV Drip Package Deals', description: 'Olympia Reboot — anti-nausea plus vitamins and minerals to bounce back fast.' },
+  { name: 'IV Drip — Headache Relief', price: 15000, duration: 45, category: 'IV Drip Package Deals', description: 'Olympia Alleviate — calcium, magnesium, Vita Complex for headache and PMS discomfort.' },
+  { name: 'IV Drip — Mental Clarity', price: 16500, duration: 45, category: 'IV Drip Package Deals', description: 'Olympia Brainstorm — Alpha Lipoic Acid, L-Taurine, Pyridoxine for focus and clarity.' },
+  { name: 'IV Drip — Tri-Immune Boost', price: 15000, duration: 45, category: 'IV Drip Package Deals', description: 'Triple antioxidant immune boost — Ascorbic Acid, Glutathione, Zinc.' },
+  { name: 'IV Drip — NAD+', price: 35000, duration: 180, category: 'IV Drip Package Deals', description: 'NAD+ 500mg IV for cellular energy, focus, and recovery. NP-screened. 2–3 hour infusion.' },
 
   // PRP INJECTIONS
   { name: 'PRP — Facial (Vampire Facial)', price: 60000, duration: 75, category: 'PRP Injections', description: 'Platelet Rich Plasma facial with microneedling for natural collagen stimulation and skin rejuvenation.' },

@@ -36,7 +36,7 @@ export const WELLNESS_MENU: ServiceMenuConfig = {
       highlights: [
         ...IV_DRIP_MENU.slice(0, 4).map((d) => d.name),
         "Build Your IV Bag custom option",
-        "Book with Danielle or Ryan on Fresha",
+        "Book online via Square Appointments",
         "Member discounts on select plans",
       ],
       pricing: [

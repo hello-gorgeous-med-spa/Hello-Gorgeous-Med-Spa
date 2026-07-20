@@ -7,6 +7,7 @@ import { BROW_JOURNEY_PATH } from "@/lib/brow-journey-marketing";
 import { FACIALS_PEELS_PATH } from "@/lib/facials-peels-marketing";
 import { FLOWWAVE_PATH } from "@/lib/flowwave-marketing";
 import { INJECTABLES_PATH } from "@/lib/injectables-marketing";
+import { IV_THERAPY_PATH } from "@/lib/iv-therapy-marketing";
 import { MORPHEUS8_PATH } from "@/lib/morpheus8-marketing";
 import { PRIMARY_BOOKING_CTA } from "@/lib/primary-cta";
 import { QUANTUM_RF_PATH } from "@/lib/quantum-rf-marketing";
@@ -145,7 +146,7 @@ export const SERVICES_HUB_MORE = [
   { label: "Quantum RF", href: QUANTUM_RF_PATH },
   { label: "Microblading", href: BROW_JOURNEY_PATH },
   { label: "Weight loss", href: "/services/weight-loss-therapy" },
-  { label: "IV & Vitamin Bar", href: "/services/wellness" },
+  { label: "IV & Vitamin Bar", href: IV_THERAPY_PATH },
   { label: "FlowWave", href: FLOWWAVE_PATH },
 ] as const;
 

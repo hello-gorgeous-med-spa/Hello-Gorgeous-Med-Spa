@@ -263,53 +263,84 @@ export const SERVICE_CONTENT = {
     d: "Pressurized oxygen + serum infusion for instant plumping, glow, and lift. No downtime, perfect 'red-carpet' treatment before an event.",
   },
 
-  // ===== IV DRIPS =====
+  // ===== IV DRIPS (synced with square-upsert-iv-therapy-menu.mjs + /services/iv-therapy) =====
   "IV Drip — NAD+": {
-    d: "NAD+ infusion for cellular energy, mental clarity, and anti-aging at the mitochondrial level. 3-hour drip; benefits felt within 24–48 hours.",
+    d: "NAD+ 500mg IV for cellular energy, focus, and recovery. NP-screened. 2–3 hour infusion at Hello Gorgeous Med Spa, Oswego.",
   },
-  "MYER'S COCKTAIL": {
-    n: "IV Drip — Myers' Cocktail (60min)",
-    d: "Classic Myers' Cocktail: B-vitamins, magnesium, calcium, and vitamin C. The original wellness IV — supports immunity, energy, and recovery.",
+  "IV Drip — New Client Intro ($99)": {
+    d: "New clients: any signature wellness drip for $99 including NP consult. Book online via Square Appointments.",
+  },
+  "IV Drip — Build Your Own Bag": {
+    d: "Custom IV bag — pick your base and boosts on the website, then book here. Estimate confirmed by our NP at check-in.",
+  },
+  "IV Drip — Dehydration": {
+    d: "Olympia Quench — rehydrate and combat fatigue from dehydration. Ascorbic Acid, Vita Complex, Mineral Blend.",
+  },
+  "IV Drip — Energy Boost": {
+    d: "Olympia Get Up & Go — Vita Complex and Amino Blend for energy and metabolism support.",
   },
   "IV Drip — Immunity Boost": {
-    d: "High-dose vitamin C, zinc, and B-complex IV for immune support. Ideal at the first sign of a cold or for travel prep.",
+    d: "Olympia Immunity — Vitamin C, Vita Complex, and Zinc for immune support. Ideal at the first sign of a cold or for travel prep.",
+  },
+  "IV Drip — Recovery": {
+    d: "Olympia Recovery & Performance — vitamins, aminos, and minerals for athletic recovery.",
   },
   "IV Drip — Beauty Glow": {
-    d: "Beauty IV with biotin, glutathione, and B-vitamins for skin, hair, and nail support. Antioxidant-rich; clients often book before events.",
+    d: "Olympia Snow Bright — Alpha Lipoic Acid, Glutathione, and Vitamin C for bright, glowing skin.",
   },
-  "IV Drip — Energy & Performance": {
-    d: "Athletic-recovery IV with B-vitamins, amino acids, and electrolytes for energy and performance. Great for athletes and busy professionals.",
+  "IV Drip — Inner Beauty": {
+    d: "Client favorite — Vitamin C, Biotin, and B-Complex for hair, skin, and nails from within.",
   },
-  "IV BEAUTY": {
-    n: "IV Drip — Beauty (60min)",
-    d: "Beauty-focused IV with antioxidants, biotin, and B-vitamins. 60-minute session for inside-out skin support.",
+  "MYER'S COCKTAIL": {
+    n: "IV Drip — Myers' Cocktail (45min)",
+    d: "Classic Myers Cocktail — Vitamin C, B-complex, magnesium, calcium, hydroxocobalamin.",
   },
   "IV Drip — Myers Cocktail": {
     n: "IV Drip — Myers' Cocktail (45min)",
-    d: "Express version of the classic Myers' Cocktail: B-vitamins, magnesium, vitamin C in a 45-minute drip. Wellness staple.",
+    d: "Classic Myers Cocktail — Vitamin C, B-complex, magnesium, calcium, hydroxocobalamin.",
+  },
+  "IV Drip — Myers' Cocktail (45min)": {
+    d: "Classic Myers Cocktail — Vitamin C, B-complex, magnesium, calcium, hydroxocobalamin.",
   },
   "IV Drip — Hangover Recovery": {
-    d: "Hangover relief IV: hydration, electrolytes, anti-nausea, vitamin B-complex. Feel functional in 30–45 minutes.",
+    d: "Olympia Reboot — anti-nausea plus vitamins and minerals to bounce back fast.",
+  },
+  "IV Drip — Headache Relief": {
+    d: "Olympia Alleviate — calcium, magnesium, Vita Complex for headache and PMS discomfort.",
+  },
+  "IV Drip — Mental Clarity": {
+    d: "Olympia Brainstorm — Alpha Lipoic Acid, L-Taurine, Pyridoxine for focus and clarity.",
+  },
+  "IV Drip — Tri-Immune Boost": {
+    d: "Triple antioxidant immune boost — Ascorbic Acid, Glutathione, Zinc.",
   },
   "IV MIGRANE": {
     n: "IV Drip — Migraine Relief",
-    d: "Migraine relief IV with magnesium, B-vitamins, and anti-nausea support. Often resolves migraine symptoms within an hour.",
+    d: "Migraine relief IV with magnesium, B-vitamins, and anti-nausea support. NP-directed when clinically appropriate.",
   },
   "Intro Offer": {
-    n: "IV Drip — Intro Offer",
-    d: "First-time IV client? Try any standard wellness drip at intro pricing. Hydration + B-vitamins + your choice of one booster shot.",
+    n: "IV Drip — New Client Intro ($99)",
+    d: "First-time IV client? Any signature wellness drip for $99 including NP consult.",
   },
   "B-Lean IV Kit": {
     n: "IV Drip — B-Lean (Weight Loss Support)",
     d: "Weight-loss-support IV with B-vitamins, MIC, and L-carnitine to boost metabolism and energy. Pairs well with our GLP-1 program.",
   },
   "REBOOT (HANGOVER)  IV THERAPY": {
-    n: "IV Drip — Reboot (Hangover Recovery)",
-    d: "Premium hangover IV: full hydration, B-complex, anti-nausea, anti-inflammatory, and electrolytes. The 'reboot' option after a long night.",
+    n: "IV Drip — Hangover Recovery",
+    d: "Olympia Reboot — anti-nausea plus vitamins and minerals to bounce back fast.",
   },
   "IV JET LAG": {
     n: "IV Drip — Jet Lag Recovery",
     d: "Jet lag recovery IV with hydration, B-vitamins, and amino acids. Resets your system quickly after long travel.",
+  },
+  "IV BEAUTY": {
+    n: "IV Drip — Beauty Glow",
+    d: "Olympia Snow Bright — Alpha Lipoic Acid, Glutathione, and Vitamin C for glowing skin.",
+  },
+  "IV Drip — Energy & Performance": {
+    n: "IV Drip — Energy Boost",
+    d: "Olympia Get Up & Go — Vita Complex and Amino Blend for energy and metabolism support.",
   },
 
   // ===== VITAMIN INJECTIONS =====
