@@ -2,7 +2,8 @@
 // https://www.twilio.com/docs/voice/twiml
 //
 // Pattern B (ring-first) when voice enabled: Dial staff, then Sarah on no-answer.
-// Voice disabled (default Jul 2026): Comcast handles main line + voicemail — hang up if Twilio still receives a stray call.
+// Voice disabled (default): Xfinity/Comcast + staff mobiles own the phone tree.
+// If Twilio still receives a stray call, bridge to the published Xfinity main line — never hang up.
 
 import { NextRequest, NextResponse } from "next/server";
 
