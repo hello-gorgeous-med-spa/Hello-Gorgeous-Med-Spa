@@ -66,7 +66,7 @@ export const ADMIN_NAV_GROUPS: AdminNavGroup[] = [
   {
     section: "Marketing",
     items: [
-      { href: "/admin/sms", label: "SMS Marketing", icon: "📱" },
+      { href: "/admin/sms", label: "Text Studio", icon: "📱" },
       { href: "/admin/marketing/post-social", label: "Post to Social", icon: "📲" },
       { href: "/admin/promos/bestie", label: "Bestie $100 Off", icon: "💕" },
       { href: "/admin/email-campaigns", label: "Email Campaigns", icon: "📧" },
@@ -146,7 +146,7 @@ export const ADMIN_DASHBOARD_QUICK_LINKS = {
     { href: "/pos", label: "Open POS", desc: "In-spa checkout" },
   ],
   marketing: [
-    { href: "/admin/sms", label: "SMS Marketing", desc: "Text campaigns & blasts" },
+    { href: "/admin/sms", label: "Text Studio", desc: "Send-and-go SMS campaigns (Twilio A2P)" },
     { href: "/admin/marketing/post-social", label: "Post to Social", desc: "Instagram, Facebook & more" },
     { href: "/admin/email-campaigns", label: "Email Campaigns", desc: "Newsletter & promos" },
   ],

@@ -9,6 +9,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { sendSMS } from '@/lib/hgos/sms-marketing';
 import { createServerSupabaseClient, createAdminSupabaseClient } from '@/lib/hgos/supabase';
+import { getTwilioSmsConfig } from '@/lib/hgos/twilio-config';
 import { SITE } from '@/lib/seo';
 
 export const dynamic = 'force-dynamic';
@@ -107,17 +108,17 @@ export async function POST(request: NextRequest) {
           .limit(1)
           .maybeSingle();
         const clientId = clientRow?.id ?? null;
-        await admin
-          .from('unsubscribes')
-          .insert({
+        try {
+          await admin.from('unsubscribes').insert({
             client_id: clientId,
             phone: phoneNorm,
             channel: 'sms',
             source: 'twilio_stop',
             unsubscribed_at: new Date().toISOString(),
-          })
-          .then(() => {})
-          .catch(() => {});
+          });
+        } catch {
+          /* ignore duplicate unsubscribe */
+        }
         await admin
           .from('clients')
           .update({ consent_sms: false, accepts_sms_marketing: false })
@@ -148,42 +149,79 @@ export async function POST(request: NextRequest) {
       console.log(`[sms/webhook] Opt-out recorded for: ${phoneNorm}`);
     }
 
-    const optInKeywords = ['START', 'YES', 'SUBSCRIBE', 'UNSTOP'];
-    const isOptIn = optInKeywords.some((keyword) => text === keyword);
+    const optInKeywords = ['START', 'YES', 'SUBSCRIBE', 'UNSTOP', 'JOIN', 'GORGEOUS'];
+    const isOptIn = optInKeywords.some(
+      (keyword) => text === keyword || text.startsWith(keyword + ' '),
+    );
 
     if (isOptIn && from) {
-      await supabase
-        ?.from('sms_opt_outs')
-        .update({ resubscribed_at: new Date().toISOString() })
-        .eq('phone', from);
-      await supabase?.from('clients').update({ accepts_sms_marketing: true }).eq('phone', from);
-      console.log(`[sms/webhook] Resubscribe recorded for: ${from}`);
+      const admin = createAdminSupabaseClient();
+      const now = new Date().toISOString();
+      if (admin) {
+        await admin
+          .from('sms_opt_outs')
+          .update({ resubscribed_at: now })
+          .eq('phone', from);
+        // Match E.164 or last-10 digits stored formats
+        const last10 = from.replace(/\D/g, '').slice(-10);
+        const { data: byExact } = await admin
+          .from('clients')
+          .select('id')
+          .eq('phone', from)
+          .limit(5);
+        const { data: byTail } = await admin
+          .from('clients')
+          .select('id')
+          .ilike('phone', `%${last10}`)
+          .limit(5);
+        const matchedIds = new Set([
+          ...(byExact || []).map((c) => c.id as string),
+          ...(byTail || []).map((c) => c.id as string),
+        ]);
+        if (matchedIds.size) {
+          for (const id of Array.from(matchedIds)) {
+            await admin
+              .from('clients')
+              .update({ accepts_sms_marketing: true, consent_sms: true })
+              .eq('id', id);
+          }
+        } else {
+          await admin.from('clients').insert({
+            phone: from,
+            first_name: 'Text',
+            last_name: 'Subscriber',
+            accepts_sms_marketing: true,
+            consent_sms: true,
+            referral_source: 'sms_join',
+          });
+        }
+      } else {
+        await supabase
+          ?.from('sms_opt_outs')
+          .update({ resubscribed_at: now })
+          .eq('phone', from);
+        await supabase?.from('clients').update({ accepts_sms_marketing: true }).eq('phone', from);
+      }
+
+      const joinConfirm =
+        'You are subscribed to Hello Gorgeous Med Spa texts (offers & reminders). Msg&data rates may apply. Reply STOP to unsubscribe anytime.';
+      const cfg = getTwilioSmsConfig();
+      const joinResult = await sendSMS({ to: from, body: joinConfirm }, cfg);
+      if (!joinResult.success) {
+        console.error('[sms/webhook] JOIN confirm failed:', joinResult.error);
+      }
+      console.log(`[sms/webhook] Opt-in/JOIN recorded for: ${from}`);
     }
 
     if (text === 'HELP' && from) {
       const helpMessage =
-        `Hello Gorgeous Med Spa: For assistance call 630-636-6193 or visit ${SITE.url}/contact`;
-      // Outbound "From" must always be the active Twilio number — never a legacy hardcoded SID.
-      const twilioFrom = process.env.TWILIO_PHONE_NUMBER?.trim();
-      const accountSid = process.env.TWILIO_ACCOUNT_SID;
-      const authToken = process.env.TWILIO_AUTH_TOKEN;
-      if (!twilioFrom || !accountSid || !authToken) {
-        console.error('[sms/webhook] HELP: missing TWILIO_PHONE_NUMBER / SID / token — cannot reply');
+        `Hello Gorgeous Med Spa: For assistance call 630-636-6193 or visit ${SITE.url}/contact. Text JOIN for offers. Reply STOP to unsubscribe.`;
+      const cfg = getTwilioSmsConfig();
+      const result = await sendSMS({ to: from, body: helpMessage }, cfg);
+      if (!result.success) {
+        console.error('[sms/webhook] HELP Twilio send failed:', result.error);
       } else {
-        const result = await sendSMS(
-          { to: from, body: helpMessage },
-          {
-            provider: 'twilio',
-            twilioAccountSid: accountSid,
-            twilioAuthToken: authToken,
-            twilioPhoneNumber: twilioFrom,
-          },
-        );
-        if (!result.success) {
-          console.error('[sms/webhook] HELP Twilio send failed:', result.error);
-        } else {
-          console.log(`[sms/webhook] Help response sent to: ${from} (From ${twilioFrom})`);
-        }
+        console.log(`[sms/webhook] Help response sent to: ${from}`);
       }
     }
 

@@ -4,6 +4,11 @@ import { isDeliverableMarketingEmail } from "@/lib/email-eligibility";
 import { getResendFromAddress } from "@/lib/resend-config";
 import { sendSMS } from "@/lib/hgos/sms-marketing";
 import { getTwilioSmsConfig } from "@/lib/hgos/twilio-config";
+import {
+  SMS_STUDIO_BATCH_SIZE,
+  SMS_STUDIO_THROTTLE_MS,
+  type SmsStudioRecipient,
+} from "@/lib/sms-studio";
 
 const RESEND_API_KEY = process.env.RESEND_API_KEY;
 const RESEND_FROM = getResendFromAddress();
@@ -29,7 +34,9 @@ export type CampaignRow = {
   email_bounced: number;
   sms_sent: number;
   sms_failed: number;
-  audience_filters: { sendCursor?: number } | null;
+  audience_filters: { sendCursor?: number; failureReason?: string } | null;
+  started_at?: string | null;
+  updated_at?: string | null;
 };
 
 function formatPhone(phone: string): string | null {
@@ -44,6 +51,7 @@ function personalize(text: string, data: Record<string, string>): string {
   let out = text;
   for (const [key, val] of Object.entries(data)) {
     out = out.replace(new RegExp(`\\{${key}\\}`, "g"), val || "");
+    out = out.replace(new RegExp(`\\{\\{${key}\\}\\}`, "g"), val || "");
   }
   return out;
 }
@@ -111,6 +119,144 @@ export async function fetchCampaignRecipients(
   return out;
 }
 
+export async function seedSmsCampaignRecipients(
+  supabase: SupabaseClient,
+  campaignId: string,
+  recipients: SmsStudioRecipient[],
+): Promise<void> {
+  if (!recipients.length) return;
+  const rows = recipients.map((r) => ({
+    campaign_id: campaignId,
+    client_id: r.clientId,
+    phone_e164: r.phoneE164,
+    first_name: r.firstName || null,
+    last_name: r.lastName || null,
+    status: "pending" as const,
+  }));
+  // Chunk inserts
+  for (let i = 0; i < rows.length; i += 500) {
+    const chunk = rows.slice(i, i + 500);
+    const { error } = await supabase.from("sms_campaign_recipients").insert(chunk);
+    if (error) {
+      console.error("[campaign-processor] seed recipients:", error.message);
+      throw error;
+    }
+  }
+}
+
+async function processSmsLedgerBatch(
+  supabase: SupabaseClient,
+  campaign: CampaignRow,
+  opts: { smsBatchSize: number; throttleMs: number },
+): Promise<{
+  smsSent: number;
+  smsFailed: number;
+  done: boolean;
+  errors: string[];
+  cancelled: boolean;
+}> {
+  const errors: string[] = [];
+  let smsSent = 0;
+  let smsFailed = 0;
+
+  // Refresh status — honour cancel
+  const { data: fresh } = await supabase
+    .from("campaigns")
+    .select("status")
+    .eq("id", campaign.id)
+    .maybeSingle();
+  if (fresh?.status === "cancelled") {
+    await supabase
+      .from("sms_campaign_recipients")
+      .update({ status: "cancelled" })
+      .eq("campaign_id", campaign.id)
+      .eq("status", "pending");
+    return { smsSent: 0, smsFailed: 0, done: true, errors, cancelled: true };
+  }
+
+  const { data: pending } = await supabase
+    .from("sms_campaign_recipients")
+    .select("id, phone_e164, first_name, last_name")
+    .eq("campaign_id", campaign.id)
+    .eq("status", "pending")
+    .order("created_at", { ascending: true })
+    .limit(opts.smsBatchSize);
+
+  if (!pending?.length) {
+    const { count } = await supabase
+      .from("sms_campaign_recipients")
+      .select("id", { count: "exact", head: true })
+      .eq("campaign_id", campaign.id)
+      .eq("status", "pending");
+    return { smsSent: 0, smsFailed: 0, done: (count ?? 0) === 0, errors, cancelled: false };
+  }
+
+  const ids = pending.map((p) => p.id);
+  await supabase.from("sms_campaign_recipients").update({ status: "sending" }).in("id", ids);
+
+  const finalSms = ensureOptOut(campaign.sms_content || "");
+  const config = getTwilioSmsConfig();
+
+  for (const row of pending) {
+    const { data: campCheck } = await supabase
+      .from("campaigns")
+      .select("status")
+      .eq("id", campaign.id)
+      .maybeSingle();
+    if (campCheck?.status === "cancelled") {
+      await supabase
+        .from("sms_campaign_recipients")
+        .update({ status: "cancelled" })
+        .eq("campaign_id", campaign.id)
+        .in("status", ["pending", "sending"]);
+      return { smsSent, smsFailed, done: true, errors, cancelled: true };
+    }
+
+    const msg = personalize(finalSms, {
+      firstName: row.first_name || "",
+      lastName: row.last_name || "",
+    });
+    const result = await sendSMS({ to: row.phone_e164, body: msg }, config);
+    if (result.success) {
+      smsSent++;
+      await supabase
+        .from("sms_campaign_recipients")
+        .update({
+          status: "sent",
+          twilio_sid: result.messageId ?? null,
+          sent_at: new Date().toISOString(),
+          error: null,
+        })
+        .eq("id", row.id);
+    } else {
+      smsFailed++;
+      if (errors.length < 5) errors.push(`${row.phone_e164}: ${result.error}`);
+      await supabase
+        .from("sms_campaign_recipients")
+        .update({
+          status: "failed",
+          error: (result.error || "send failed").slice(0, 500),
+        })
+        .eq("id", row.id);
+    }
+    await new Promise((res) => setTimeout(res, opts.throttleMs));
+  }
+
+  const { count: stillPending } = await supabase
+    .from("sms_campaign_recipients")
+    .select("id", { count: "exact", head: true })
+    .eq("campaign_id", campaign.id)
+    .eq("status", "pending");
+
+  return {
+    smsSent,
+    smsFailed,
+    done: (stillPending ?? 0) === 0,
+    errors,
+    cancelled: false,
+  };
+}
+
 export async function processCampaignBatch(
   supabase: SupabaseClient,
   campaign: CampaignRow,
@@ -123,12 +269,14 @@ export async function processCampaignBatch(
   done: boolean;
   errors: string[];
 }> {
-  const emailBatchSize = opts.emailBatchSize ?? 40;
-  const smsBatchSize = opts.smsBatchSize ?? 2;
-  const throttleMs = opts.throttleMs ?? 450;
+  if (campaign.status === "cancelled") {
+    return { emailSent: 0, emailFailed: 0, smsSent: 0, smsFailed: 0, done: true, errors: [] };
+  }
 
-  const recipients = await fetchCampaignRecipients(supabase);
-  const cursor = campaign.audience_filters?.sendCursor ?? campaign.email_sent ?? 0;
+  const emailBatchSize = opts.emailBatchSize ?? 40;
+  const smsBatchSize = opts.smsBatchSize ?? SMS_STUDIO_BATCH_SIZE;
+  const throttleMs = opts.throttleMs ?? (campaign.channel === "sms" ? SMS_STUDIO_THROTTLE_MS : 450);
+
   const errors: string[] = [];
   let emailSent = 0;
   let emailFailed = 0;
@@ -140,6 +288,51 @@ export async function processCampaignBatch(
   }
 
   const channel = campaign.channel;
+
+  // SMS Text Studio path — recipient ledger
+  if (channel === "sms") {
+    const { count: ledgerCount } = await supabase
+      .from("sms_campaign_recipients")
+      .select("id", { count: "exact", head: true })
+      .eq("campaign_id", campaign.id);
+
+    if ((ledgerCount ?? 0) > 0) {
+      const batch = await processSmsLedgerBatch(supabase, campaign, { smsBatchSize, throttleMs });
+      smsSent = batch.smsSent;
+      smsFailed = batch.smsFailed;
+      errors.push(...batch.errors);
+
+      const newSmsSent = (campaign.sms_sent ?? 0) + smsSent;
+      const newSmsFailed = (campaign.sms_failed ?? 0) + smsFailed;
+      const status = batch.cancelled
+        ? "cancelled"
+        : batch.done
+          ? "sent"
+          : "sending";
+
+      await supabase
+        .from("campaigns")
+        .update({
+          sms_sent: newSmsSent,
+          sms_failed: newSmsFailed,
+          status,
+          completed_at: batch.done || batch.cancelled ? new Date().toISOString() : null,
+        })
+        .eq("id", campaign.id);
+
+      return {
+        emailSent: 0,
+        emailFailed: 0,
+        smsSent,
+        smsFailed,
+        done: batch.done || batch.cancelled,
+        errors,
+      };
+    }
+  }
+
+  const recipients = await fetchCampaignRecipients(supabase);
+  const cursor = campaign.audience_filters?.sendCursor ?? campaign.email_sent ?? 0;
 
   if (channel === "email" || channel === "multichannel") {
     const slice = recipients.slice(cursor, cursor + emailBatchSize);
@@ -163,9 +356,11 @@ export async function processCampaignBatch(
   }
 
   if (channel === "sms" || channel === "multichannel") {
-    const smsSlice = recipients
-      .filter((r) => r.acceptsSms && formatPhone(r.phone || ""))
-      .slice(campaign.sms_sent ?? 0, (campaign.sms_sent ?? 0) + smsBatchSize);
+    const smsRecipients = recipients.filter((r) => r.acceptsSms && formatPhone(r.phone || ""));
+    const smsSlice = smsRecipients.slice(
+      campaign.sms_sent ?? 0,
+      (campaign.sms_sent ?? 0) + smsBatchSize,
+    );
 
     const finalSms = ensureOptOut(campaign.sms_content || "");
     const config = getTwilioSmsConfig();
@@ -180,7 +375,9 @@ export async function processCampaignBatch(
         smsFailed++;
         if (errors.length < 5) errors.push(`${phone}: ${result.error}`);
       }
-      await new Promise((res) => setTimeout(res, 30_000));
+      await new Promise((res) =>
+        setTimeout(res, channel === "sms" ? SMS_STUDIO_THROTTLE_MS : 30_000),
+      );
     }
   }
 
@@ -188,7 +385,7 @@ export async function processCampaignBatch(
   const totalEmail = channel === "sms" ? 0 : recipients.length;
   const emailDone = channel === "sms" || newCursor >= totalEmail;
   const smsRecipients = recipients.filter((r) => r.acceptsSms && formatPhone(r.phone || ""));
-  const newSmsTotal = (campaign.sms_sent ?? 0) + smsSent;
+  const newSmsTotal = (campaign.sms_sent ?? 0) + smsSent + smsFailed;
   const smsDone = channel === "email" || newSmsTotal >= smsRecipients.length;
   const done = emailDone && smsDone;
 
@@ -206,4 +403,30 @@ export async function processCampaignBatch(
     .eq("id", campaign.id);
 
   return { emailSent, emailFailed, smsSent, smsFailed, done, errors };
+}
+
+/** Mark campaigns stuck in sending with zero progress for >2h as failed. */
+export async function failStuckCampaigns(supabase: SupabaseClient): Promise<number> {
+  const cutoff = new Date(Date.now() - 2 * 60 * 60 * 1000).toISOString();
+  const { data: stuck } = await supabase
+    .from("campaigns")
+    .select("id, sms_sent, email_sent, started_at")
+    .eq("status", "sending")
+    .lt("started_at", cutoff)
+    .limit(20);
+
+  let n = 0;
+  for (const c of stuck || []) {
+    if ((c.sms_sent ?? 0) > 0 || (c.email_sent ?? 0) > 0) continue;
+    await supabase
+      .from("campaigns")
+      .update({
+        status: "failed",
+        completed_at: new Date().toISOString(),
+        audience_filters: { failureReason: "Stuck with zero progress >2h" },
+      })
+      .eq("id", c.id);
+    n++;
+  }
+  return n;
 }

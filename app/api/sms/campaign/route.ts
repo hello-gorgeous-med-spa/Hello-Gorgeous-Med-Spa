@@ -1,42 +1,15 @@
 // ============================================================
-// API: SMS Campaign – bulk send via Twilio (marketing)
-// POST body: { message: string, mediaUrl?: string, sendToAll?: boolean, recipients?: string[] }
-// Falls back to Square customers when DB has no clients with phones
+// API: SMS Campaign — enqueue only (Text Studio / legacy clients)
+// Delegates to /api/campaigns/send durable queue. No sync blast.
 // ============================================================
 
-import { NextRequest, NextResponse } from 'next/server';
-import { createClient } from '@supabase/supabase-js';
-import { requireMarketingAccess } from '@/lib/api-auth';
-import { sendCampaign } from '@/lib/hgos/sms-marketing';
-import type { SMSCampaign } from '@/lib/hgos/sms-marketing';
-import { getTwilioSmsConfig, isTwilioConfigured } from '@/lib/hgos/twilio-config';
-import { fetchAllSquareCustomers, isSquareConfigured } from '@/lib/square-clients';
+import { NextRequest, NextResponse } from "next/server";
 
-export const dynamic = 'force-dynamic';
-export const maxDuration = 120;
+import { requireMarketingAccess } from "@/lib/api-auth";
+import { isTwilioConfigured } from "@/lib/hgos/twilio-config";
 
-function getSupabaseServiceRole() {
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  // Use service role key to bypass RLS
-  const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
-  if (!url || !key || url.includes('placeholder') || key.includes('placeholder')) return null;
-  return createClient(url, key, { auth: { autoRefreshToken: false, persistSession: false } });
-}
-
-/** Normalize phone numbers and deduplicate */
-function normalizePhones(rawPhones: string[]): string[] {
-  const seen = new Set<string>();
-  const result: string[] = [];
-  for (const p of rawPhones) {
-    const normalized = p.replace(/\D/g, '');
-    const key = normalized.length === 10 ? `1${normalized}` : normalized;
-    if (key.length >= 10 && !seen.has(key)) {
-      seen.add(key);
-      result.push(p);
-    }
-  }
-  return result;
-}
+export const dynamic = "force-dynamic";
+export const maxDuration = 60;
 
 export async function POST(request: NextRequest) {
   const auth = requireMarketingAccess(request);
@@ -44,144 +17,66 @@ export async function POST(request: NextRequest) {
 
   if (!isTwilioConfigured()) {
     return NextResponse.json(
-      { error: 'Twilio not configured. Set TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN, TWILIO_PHONE_NUMBER.' },
-      { status: 503 }
+      {
+        error:
+          "Twilio not configured. Set TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN, and TWILIO_MESSAGING_SERVICE_SID.",
+      },
+      { status: 503 },
     );
   }
 
   try {
     const body = await request.json();
     const message = body?.message?.trim();
-    const mediaUrl = body?.mediaUrl?.trim() || undefined;
     const sendToAll = !!body?.sendToAll;
     const recipientsInput = Array.isArray(body?.recipients) ? body.recipients : [];
+    const name = (body?.name as string)?.trim() || "Text Studio campaign";
 
     if (!message) {
       return NextResponse.json({ error: 'Missing "message".' }, { status: 400 });
     }
 
-    let phones: string[] = [];
-    let source = 'custom';
+    const origin = request.nextUrl.origin;
+    const cookie = request.headers.get("cookie") || "";
 
-    if (sendToAll) {
-      const supabase = getSupabaseServiceRole();
-      let dbPhones: string[] = [];
-      
-      // Phone numbers can be in 'clients' table OR 'users' table
-      // Most phones are in the users table (linked via clients.user_id)
-      if (supabase) {
-        console.log('[sms/campaign] Fetching phones from DB with service role...');
-        
-        // 1. Get phones from clients table
-        const { data: clientRows, error: clientsError } = await supabase
-          .from('clients')
-          .select('phone')
-          .not('phone', 'is', null)
-          .neq('phone', '');
-
-        const clientPhones = (clientRows || [])
-          .map((r: { phone?: string | null }) => (r.phone || '').trim())
-          .filter(Boolean);
-        console.log(`[sms/campaign] Found ${clientPhones.length} phones from clients table`);
-
-        // 2. Get phones from users table (this is where most phones are stored!)
-        const { data: userRows, error: usersError } = await supabase
-          .from('users')
-          .select('phone')
-          .not('phone', 'is', null)
-          .neq('phone', '');
-
-        const userPhones = (userRows || [])
-          .map((r: { phone?: string | null }) => (r.phone || '').trim())
-          .filter(Boolean);
-        console.log(`[sms/campaign] Found ${userPhones.length} phones from users table`);
-
-        // Combine both sources
-        const allPhones = [...clientPhones, ...userPhones];
-        dbPhones = allPhones;
-        source = userPhones.length > clientPhones.length ? 'users_table' : 'clients_table';
-        console.log(`[sms/campaign] Combined ${allPhones.length} phones (before dedup), source: ${source}`);
-
-        if (clientsError) console.error('[sms/campaign] clients query error:', clientsError);
-        if (usersError) console.error('[sms/campaign] users query error:', usersError);
-      } else {
-        console.log('[sms/campaign] No service role key available');
-      }
-
-      // If still low, try Square
-      if (dbPhones.length < 10 && isSquareConfigured()) {
-        try {
-          console.log('[sms/campaign] Checking Square for more clients...');
-          const squareClients = await fetchAllSquareCustomers(5000);
-          const squarePhones = squareClients
-            .map(c => (c.phone || '').trim())
-            .filter(Boolean);
-          console.log(`[sms/campaign] Found ${squarePhones.length} phones from Square`);
-          if (squarePhones.length > dbPhones.length) {
-            dbPhones = squarePhones;
-            source = 'square';
-          }
-        } catch (e) {
-          console.error('[sms/campaign] Square fetch error:', e);
-        }
-      }
-
-      // If still no phones, return error
-      if (dbPhones.length === 0) {
-        const hint = isSquareConfigured() 
-          ? 'No clients found in database or Square.' 
-          : 'No clients found. Connect Square or import clients first.';
-        return NextResponse.json({ 
-          error: hint,
-          sent: 0,
-          failed: 0,
-          total: 0,
-          squareConfigured: isSquareConfigured(),
-        }, { status: 400 });
-      }
-
-      phones = normalizePhones(dbPhones);
-    } else {
-      phones = normalizePhones(recipientsInput.map((r: string) => (r || '').trim()).filter(Boolean));
-    }
-
-    if (phones.length === 0) {
-      return NextResponse.json({
-        error: sendToAll ? 'No clients with valid phone numbers found.' : 'No valid recipients provided.',
-        sent: 0,
-        failed: 0,
-        total: 0,
-      }, { status: 400 });
-    }
-
-    const campaign: SMSCampaign = {
-      id: `camp-${Date.now()}`,
-      name: 'Marketing campaign',
-      type: 'promotional',
-      message,
-      mediaUrl,
-      status: 'sending',
+    const enqueueBody: Record<string, unknown> = {
+      name,
+      channel: "sms",
+      smsContent: message,
+      audienceSegment: sendToAll ? "sms-opt-in" : "custom",
+      allowQuietHoursOverride: !!body?.allowQuietHoursOverride,
     };
+    if (!sendToAll) {
+      enqueueBody.customPhones = recipientsInput.map((r: string) => String(r || "").trim()).filter(Boolean);
+    }
 
-    const config = getTwilioSmsConfig();
-    const result = await sendCampaign(
-      campaign,
-      phones.map(phone => ({ phone })),
-      config
-    );
+    const res = await fetch(`${origin}/api/campaigns/send`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        cookie,
+      },
+      body: JSON.stringify(enqueueBody),
+    });
+
+    const data = await res.json();
+    if (!res.ok) {
+      return NextResponse.json(data, { status: res.status });
+    }
 
     return NextResponse.json({
-      sent: result.sent,
-      failed: result.failed,
-      total: result.total,
-      source,
-      totalRecipients: phones.length,
-      estimatedMinutes: Math.ceil(phones.length / 2),
-      estimatedCost: `$${(phones.length * 0.0079).toFixed(2)}`,
-      errors: result.errors?.slice(0, 20) || [],
+      ...data,
+      sent: data.firstBatch?.smsSent ?? 0,
+      failed: data.firstBatch?.smsFailed ?? 0,
+      total: data.totalRecipients ?? 0,
+      totalRecipients: data.totalRecipients ?? 0,
+      queued: true,
     });
   } catch (e) {
-    console.error('[sms/campaign]', e);
-    return NextResponse.json({ error: 'Campaign send failed', sent: 0, failed: 0, total: 0 }, { status: 500 });
+    console.error("[sms/campaign]", e);
+    return NextResponse.json(
+      { error: "Campaign enqueue failed", sent: 0, failed: 0, total: 0 },
+      { status: 500 },
+    );
   }
 }

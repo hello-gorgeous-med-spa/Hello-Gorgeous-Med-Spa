@@ -14,6 +14,8 @@ export interface SMSConfig {
   twilioAccountSid?: string;
   twilioAuthToken?: string;
   twilioPhoneNumber?: string;
+  /** Preferred for A2P — when set, used instead of From */
+  twilioMessagingServiceSid?: string;
 }
 
 export interface SMSMessage {
@@ -297,34 +299,44 @@ export async function sendViaTwilio(
   message: SMSMessage,
   config: SMSConfig
 ): Promise<{ success: boolean; messageId?: string; error?: string }> {
-  if (!config.twilioAccountSid || !config.twilioAuthToken || !config.twilioPhoneNumber) {
-    return { success: false, error: 'Twilio credentials not configured' };
+  const msid = config.twilioMessagingServiceSid?.trim();
+  const from = config.twilioPhoneNumber?.trim();
+  if (!config.twilioAccountSid || !config.twilioAuthToken || (!msid && !from)) {
+    return { success: false, error: "Twilio credentials not configured" };
   }
-  
+
   try {
-    const auth = Buffer.from(`${config.twilioAccountSid}:${config.twilioAuthToken}`).toString('base64');
-    
-    const body = new URLSearchParams({
+    const auth = Buffer.from(`${config.twilioAccountSid}:${config.twilioAuthToken}`).toString(
+      "base64",
+    );
+
+    const params = new URLSearchParams({
       To: message.to,
-      From: config.twilioPhoneNumber,
       Body: message.body,
-      ...(message.mediaUrl && { MediaUrl: message.mediaUrl }),
     });
-    
+    if (msid) {
+      params.set("MessagingServiceSid", msid);
+    } else if (from) {
+      params.set("From", from);
+    }
+    if (message.mediaUrl) {
+      params.set("MediaUrl", message.mediaUrl);
+    }
+
     const response = await fetch(
       `https://api.twilio.com/2010-04-01/Accounts/${config.twilioAccountSid}/Messages.json`,
       {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Authorization': `Basic ${auth}`,
-          'Content-Type': 'application/x-www-form-urlencoded',
+          Authorization: `Basic ${auth}`,
+          "Content-Type": "application/x-www-form-urlencoded",
         },
-        body: body.toString(),
-      }
+        body: params.toString(),
+      },
     );
-    
+
     const data = await response.json();
-    
+
     if (response.ok) {
       return { success: true, messageId: data.sid };
     } else {
