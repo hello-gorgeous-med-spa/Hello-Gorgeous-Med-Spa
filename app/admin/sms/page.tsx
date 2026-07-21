@@ -273,7 +273,6 @@ export default function TextStudioPage() {
               <span className={segments > 1 ? "text-amber-700" : "text-black/60"}>
                 {message.length} chars · {segments} segment{segments === 1 ? "" : "s"}
               </span>
-              <span className="text-black/50">Quiet hours: 9pm–9am Chicago</span>
             </div>
           </div>
 
@@ -502,7 +501,7 @@ export default function TextStudioPage() {
               </li>
             </ul>
             <p className="mt-3 text-xs text-black/50">
-              Marketing texts are blocked 9pm–9am Chicago. You can cancel while it is still sending.
+              You can cancel while it is still sending.
             </p>
             <div className="mt-6 flex gap-3">
               <button

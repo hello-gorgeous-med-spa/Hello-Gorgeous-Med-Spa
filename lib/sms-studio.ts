@@ -22,18 +22,6 @@ function phoneDigits(phone: string): string {
   return phone.replace(/\D/g, "").replace(/^1(\d{10})$/, "$1");
 }
 
-/** True 9pm–9am America/Chicago (marketing enqueue blocked). */
-export function isSmsQuietHours(now = new Date()): boolean {
-  const hourStr = new Intl.DateTimeFormat("en-US", {
-    timeZone: "America/Chicago",
-    hour: "numeric",
-    hour12: false,
-  }).format(now);
-  const hour = Number.parseInt(hourStr, 10);
-  if (!Number.isFinite(hour)) return false;
-  return hour >= 21 || hour < 9;
-}
-
 async function loadOptOutPhoneSet(supabase: SupabaseClient): Promise<Set<string>> {
   const opted = new Set<string>();
   try {

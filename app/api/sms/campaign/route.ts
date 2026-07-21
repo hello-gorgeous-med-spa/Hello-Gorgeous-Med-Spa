@@ -44,7 +44,6 @@ export async function POST(request: NextRequest) {
       channel: "sms",
       smsContent: message,
       audienceSegment: sendToAll ? "sms-opt-in" : "custom",
-      allowQuietHoursOverride: !!body?.allowQuietHoursOverride,
     };
     if (!sendToAll) {
       enqueueBody.customPhones = recipientsInput.map((r: string) => String(r || "").trim()).filter(Boolean);

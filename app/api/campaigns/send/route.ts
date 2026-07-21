@@ -15,7 +15,6 @@ import { createAdminSupabaseClient } from "@/lib/hgos/supabase";
 import { isTwilioConfigured } from "@/lib/hgos/twilio-config";
 import {
   fetchSmsStudioRecipients,
-  isSmsQuietHours,
   resolveCustomSmsRecipients,
   SMS_STUDIO_BATCH_SIZE,
   SMS_STUDIO_THROTTLE_MS,
@@ -35,8 +34,6 @@ interface SendBody {
   schedule?: string;
   /** Custom phone list (SMS only) — must already be opted in */
   customPhones?: string[];
-  /** Bypass quiet hours (owner emergency) */
-  allowQuietHoursOverride?: boolean;
 }
 
 export async function POST(request: NextRequest) {
@@ -55,7 +52,6 @@ export async function POST(request: NextRequest) {
       audienceSegment,
       schedule,
       customPhones,
-      allowQuietHoursOverride,
     } = body;
 
     if (!name || !channel) {
@@ -77,17 +73,6 @@ export async function POST(request: NextRequest) {
             "Twilio not configured. Set TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN, and TWILIO_MESSAGING_SERVICE_SID (or TWILIO_PHONE_NUMBER).",
         },
         { status: 500 },
-      );
-    }
-
-    if (channel === "sms" && isSmsQuietHours() && !allowQuietHoursOverride) {
-      return NextResponse.json(
-        {
-          error:
-            "Quiet hours (9pm–9am Chicago). Marketing texts are blocked until morning — try again after 9am.",
-          quietHours: true,
-        },
-        { status: 423 },
       );
     }
 
