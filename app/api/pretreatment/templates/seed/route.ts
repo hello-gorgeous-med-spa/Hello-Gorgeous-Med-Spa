@@ -295,6 +295,41 @@ Hi {client_name}! Your {service_name} is on {appointment_date} at {appointment_t
     is_active: true,
   },
   {
+    name: 'Lash Perm & Tint Prep',
+    service_id: null,
+    category_match: 'lash',
+    content: `# Pre-Appointment Instructions: Lash Perm & Tint
+
+Hi {client_name}! Your {service_name} is on {appointment_date} at {appointment_time}.
+
+## Before Your Appointment
+- **Clean lashes** — no mascara, eyeliner, or eye cream
+- Remove contact lenses (glasses ok)
+- Skip lash growth serums for 48 hours before
+- Avoid oil cleansers the morning of your visit
+
+## Day Of
+- Arrive makeup-free around the eyes
+- Tell us about eye infections, allergies to dye/peroxide, or recent eye procedures
+
+## What to Expect
+- About 45–75 minutes
+- Eyes closed while we lift and/or tint your natural lashes
+- Results typically last 6–8 weeks
+
+## Aftercare Preview
+- Keep lashes **completely dry** for 24–48 hours
+- No makeup or mascara on the lash line during that window
+- Full guide: hellogorgeousmedspa.com/pre-post-care/lash-perm-tint
+
+📞 Questions? Call: (630) 636-6193
+
+💗 Hello Gorgeous Med Spa`,
+    send_via: 'sms',
+    send_delay_hours: 24,
+    is_active: true,
+  },
+  {
     name: 'BioTE / Hormone Consultation Prep',
     service_id: null,
     category_match: 'bhrt',

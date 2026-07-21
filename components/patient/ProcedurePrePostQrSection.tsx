@@ -22,6 +22,16 @@ const PRE_POST_LINKS: { title: string; subtitle: string; path: string }[] = [
     subtitle: "Pre & post subdermal RF",
     path: "/pre-post-care/quantum-rf",
   },
+  {
+    title: "Eyelash Extensions",
+    subtitle: "Pre & post classic / hybrid / volume",
+    path: "/pre-post-care/eyelash-extensions",
+  },
+  {
+    title: "Lash Perm & Tint",
+    subtitle: "Pre & post lift / perm + tint",
+    path: "/pre-post-care/lash-perm-tint",
+  },
 ];
 
 function absoluteUrl(path: string): string {
@@ -57,7 +67,7 @@ export default async function ProcedurePrePostQrSection() {
           in the waiting room, after booking, or from a printed tent card.
         </p>
 
-        <ul className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4 print:grid-cols-4">
+        <ul className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 print:grid-cols-3">
           {items.map((item) => (
             <li
               key={item.path}

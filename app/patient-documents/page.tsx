@@ -37,6 +37,26 @@ const WEB_GUIDES: DocGroup[] = [
     ],
   },
   {
+    title: "Lashes",
+    procedure: "Extensions, lash perm & tint",
+    items: [
+      {
+        label: "Eyelash extensions pre & post care",
+        href: "/pre-post-care/eyelash-extensions",
+        note: "Classic, hybrid, volume & fills",
+      },
+      {
+        label: "Lash perm & tint pre & post care",
+        href: "/pre-post-care/lash-perm-tint",
+        note: "Lash lift / perm + tint",
+      },
+      {
+        label: "Lash services (book / learn)",
+        href: "/lash-extensions-oswego-il",
+      },
+    ],
+  },
+  {
     title: "Morpheus8",
     procedure: "RF microneedling",
     items: [

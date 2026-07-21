@@ -327,6 +327,38 @@ Book your fill before you leave! 💕
     is_active: true,
   },
   {
+    name: 'Lash Perm & Tint Aftercare',
+    service_id: null,
+    content: `# Aftercare: Lash Perm & Tint
+
+Hi {client_name}! Your lashes are lifted and looking gorgeous. Follow this carefully:
+
+## First 24–48 Hours — CRITICAL
+- **Keep lashes completely dry** (no water, steam, sauna, sweat on eyes)
+- **No makeup or mascara** on the lash line
+- Do not rub or sleep face-down
+- No swimming or hot yoga
+
+## After 48 Hours
+- Gentle cleanse; pat dry — don't rub
+- Oil-free / water-based products only near eyes
+- Skip heavy oils (they fade tint faster)
+- Hold lash serums 48–72 hours, then use sparingly if desired
+
+## Maintenance
+- Rebook every 6–8 weeks as lashes grow out
+- Tint-only refresh available sooner
+
+Full guide: hellogorgeousmedspa.com/pre-post-care/lash-perm-tint
+
+📞 Questions? Call: (630) 636-6193
+
+💗 Hello Gorgeous Med Spa`,
+    send_via: 'both',
+    send_delay_minutes: 15,
+    is_active: true,
+  },
+  {
     name: 'General Visit Follow-Up',
     service_id: null,
     content: `# Thank You for Your Visit!

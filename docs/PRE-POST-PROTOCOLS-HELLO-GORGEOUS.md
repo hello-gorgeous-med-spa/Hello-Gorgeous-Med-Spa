@@ -218,6 +218,34 @@ All pre- and post-treatment protocols currently in your system. Pre protocols li
 
 **Contact:** (630) 636-6193
 
+**Patient web guide:** `/pre-post-care/eyelash-extensions`
+
+---
+
+### 7b. Lash Perm & Tint Prep
+**Category match:** lash  
+**Send:** SMS, 24 hours before
+
+**Before**
+- Clean lashes — no mascara/eyeliner/eye cream
+- Remove contacts
+- Skip lash serums 48 hours before; avoid oil cleansers morning of
+
+**Day Of**
+- Makeup-free around eyes
+- Disclose eye infections, dye/peroxide allergies, recent eye procedures
+
+**What to Expect**
+- 45–75 minutes; eyes closed; results ~6–8 weeks
+
+**Aftercare Preview**
+- Keep lashes completely dry 24–48 hours
+- No makeup on lash line during that window
+
+**Contact:** (630) 636-6193
+
+**Patient web guide:** `/pre-post-care/lash-perm-tint`
+
 ---
 
 ### 8. BioTE / Hormone Consultation Prep
@@ -278,7 +306,8 @@ All pre- and post-treatment protocols currently in your system. Pre protocols li
 | **Microneedling/PRP**| No makeup 24 hrs; no sweating/exercise 24–48 hrs; sun avoidance + SPF; redness 24–72 hrs normal. |
 | **HydraFacial**      | Sunscreen; avoid heavy makeup few hours. |
 | **IV Therapy**       | Hydrate; normal activities. |
-| **Lash extensions**  | No water on lashes 24 hrs; no oil near eyes; brush with spoolie; fills 2–3 weeks. |
+| **Lash extensions**  | No water on lashes 24 hrs; no oil near eyes; brush with spoolie; fills 2–3 weeks. Guide: `/pre-post-care/eyelash-extensions` |
+| **Lash perm & tint** | Keep dry 24–48 hrs; no makeup on lash line; oil-free products after; rebook 6–8 weeks. Guide: `/pre-post-care/lash-perm-tint` |
 
 ---
 

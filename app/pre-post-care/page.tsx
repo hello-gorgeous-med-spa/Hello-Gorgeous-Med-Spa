@@ -8,7 +8,7 @@ import { pageMetadata, SITE, siteJsonLd } from "@/lib/seo";
 export const metadata: Metadata = pageMetadata({
   title: "Pre & Post Care Instructions | Patient Care",
   description:
-    "Download official pre and post care guides for Botox, fillers, laser hair removal, microneedling, and more at Hello Gorgeous Med Spa in Oswego, IL.",
+    "Official pre and post care guides for Botox, fillers, lashes, laser, microneedling, and more at Hello Gorgeous Med Spa in Oswego, IL.",
   path: "/pre-post-care",
 });
 
@@ -76,6 +76,22 @@ const careGuides = [
     viewOnline: "/pre-post-care/microblading",
     serviceLink: "/services",
     icon: "✏️",
+  },
+  {
+    id: "eyelash-extensions",
+    title: "Eyelash Extensions",
+    description: "Pre-care and aftercare for classic, hybrid & volume sets and fills.",
+    viewOnline: "/pre-post-care/eyelash-extensions",
+    serviceLink: "/lash-extensions-oswego-il",
+    icon: "👁️",
+  },
+  {
+    id: "lash-perm-tint",
+    title: "Lash Perm & Tint",
+    description: "Pre-care and aftercare for lash lift/perm and tint.",
+    viewOnline: "/pre-post-care/lash-perm-tint",
+    serviceLink: "/lash-extensions-oswego-il",
+    icon: "💫",
   },
   {
     id: "microneedling",
