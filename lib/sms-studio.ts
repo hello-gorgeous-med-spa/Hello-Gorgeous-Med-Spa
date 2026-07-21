@@ -1,5 +1,5 @@
 /**
- * Hello Gorgeous Text Studio — opt-in audience, quiet hours, cost helpers.
+ * Hello Gorgeous Text Studio — opt-in audience and cost helpers.
  */
 
 import type { SupabaseClient } from "@supabase/supabase-js";
@@ -97,6 +97,76 @@ export async function fetchSmsStudioRecipients(
 
 export async function countSmsStudioOptIns(supabase: SupabaseClient): Promise<number> {
   return (await fetchSmsStudioRecipients(supabase)).length;
+}
+
+/**
+ * Staff-confirmed consent: mark pasted numbers as SMS marketing opt-ins
+ * (match existing clients by phone, else create a Text Studio subscriber row).
+ */
+export async function ensureCustomSmsOptIns(
+  supabase: SupabaseClient,
+  rawPhones: string[],
+): Promise<{ optedIn: number; invalid: number }> {
+  const now = new Date().toISOString();
+  let optedIn = 0;
+  let invalid = 0;
+
+  for (const raw of rawPhones) {
+    const e164 = normalizeToE164(raw.trim());
+    if (!e164) {
+      invalid++;
+      continue;
+    }
+    const last10 = phoneDigits(e164);
+    if (last10.length !== 10) {
+      invalid++;
+      continue;
+    }
+
+    try {
+      await supabase.from("sms_opt_outs").update({ resubscribed_at: now }).eq("phone", e164);
+      await supabase.from("sms_opt_outs").update({ resubscribed_at: now }).eq("phone", last10);
+    } catch {
+      /* optional table */
+    }
+
+    const { data: byExact } = await supabase
+      .from("clients")
+      .select("id")
+      .eq("phone", e164)
+      .limit(5);
+    const { data: byTail } = await supabase
+      .from("clients")
+      .select("id")
+      .ilike("phone", `%${last10}`)
+      .limit(5);
+    const matchedIds = new Set([
+      ...(byExact || []).map((c) => c.id as string),
+      ...(byTail || []).map((c) => c.id as string),
+    ]);
+
+    if (matchedIds.size) {
+      for (const id of Array.from(matchedIds)) {
+        await supabase
+          .from("clients")
+          .update({ accepts_sms_marketing: true, consent_sms: true })
+          .eq("id", id);
+      }
+      optedIn++;
+    } else {
+      const { error } = await supabase.from("clients").insert({
+        phone: e164,
+        first_name: "Text",
+        last_name: "Subscriber",
+        accepts_sms_marketing: true,
+        consent_sms: true,
+        referral_source: "sms_studio_staff_opt_in",
+      });
+      if (!error) optedIn++;
+    }
+  }
+
+  return { optedIn, invalid };
 }
 
 /**

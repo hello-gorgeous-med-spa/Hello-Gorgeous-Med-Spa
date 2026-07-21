@@ -13,7 +13,9 @@ import {
 } from "@/lib/campaign-processor";
 import { createAdminSupabaseClient } from "@/lib/hgos/supabase";
 import { isTwilioConfigured } from "@/lib/hgos/twilio-config";
+import { normalizeToE164 } from "@/lib/phone-e164";
 import {
+  ensureCustomSmsOptIns,
   fetchSmsStudioRecipients,
   resolveCustomSmsRecipients,
   SMS_STUDIO_BATCH_SIZE,
@@ -32,8 +34,10 @@ interface SendBody {
   smsContent?: string;
   audienceSegment?: string;
   schedule?: string;
-  /** Custom phone list (SMS only) — must already be opted in */
+  /** Custom phone list (SMS only) — must already be opted in unless confirmConsentAndOptIn */
   customPhones?: string[];
+  /** Staff asserts prior SMS marketing consent; opt-in these custom numbers before send */
+  confirmConsentAndOptIn?: boolean;
 }
 
 export async function POST(request: NextRequest) {
@@ -52,6 +56,7 @@ export async function POST(request: NextRequest) {
       audienceSegment,
       schedule,
       customPhones,
+      confirmConsentAndOptIn,
     } = body;
 
     if (!name || !channel) {
@@ -90,10 +95,30 @@ export async function POST(request: NextRequest) {
 
     if (channel === "sms") {
       if (customPhones?.length) {
+        if (confirmConsentAndOptIn) {
+          await ensureCustomSmsOptIns(supabase, customPhones);
+        }
         const resolved = await resolveCustomSmsRecipients(supabase, customPhones);
         smsAudience = resolved.recipients;
         skippedNotOptedIn = resolved.skippedNotOptedIn;
         skippedInvalid = resolved.skippedInvalid;
+
+        // After staff opt-in, include any still-unmatched valid E.164s as ad-hoc recipients
+        if (confirmConsentAndOptIn && skippedNotOptedIn > 0) {
+          const have = new Set(smsAudience.map((r) => r.phoneE164));
+          for (const raw of customPhones) {
+            const e164 = normalizeToE164(String(raw || "").trim());
+            if (!e164 || have.has(e164)) continue;
+            have.add(e164);
+            smsAudience.push({
+              clientId: null,
+              phoneE164: e164,
+              firstName: "",
+              lastName: "",
+            });
+            skippedNotOptedIn = Math.max(0, skippedNotOptedIn - 1);
+          }
+        }
       } else {
         smsAudience = await fetchSmsStudioRecipients(supabase);
       }
@@ -104,7 +129,7 @@ export async function POST(request: NextRequest) {
           {
             error:
               skippedNotOptedIn > 0
-                ? `None of those numbers are SMS opt-ins (${skippedNotOptedIn} skipped). Clients must text JOIN or check the SMS box at booking.`
+                ? `None of those numbers are SMS opt-ins (${skippedNotOptedIn} skipped). Have them text JOIN to (630) 864-5231, or check “Confirm consent & opt in” for numbers that already agreed.`
                 : "No SMS opt-in recipients found.",
             skippedNotOptedIn,
             skippedInvalid,

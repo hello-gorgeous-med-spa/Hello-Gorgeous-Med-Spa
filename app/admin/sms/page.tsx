@@ -23,6 +23,7 @@ export default function TextStudioPage() {
   const [selectedTemplate, setSelectedTemplate] = useState("");
   const [recipients, setRecipients] = useState<"all" | "custom">("all");
   const [customNumbers, setCustomNumbers] = useState("");
+  const [confirmConsentAndOptIn, setConfirmConsentAndOptIn] = useState(false);
   const [sending, setSending] = useState(false);
   const [testPhone, setTestPhone] = useState("");
   const [confirmOpen, setConfirmOpen] = useState(false);
@@ -138,6 +139,9 @@ export default function TextStudioPage() {
           .split("\n")
           .map((n) => n.trim())
           .filter(Boolean);
+        if (confirmConsentAndOptIn) {
+          payload.confirmConsentAndOptIn = true;
+        }
       }
 
       const res = await fetch("/api/campaigns/send", {
@@ -301,16 +305,32 @@ export default function TextStudioPage() {
               </button>
             </div>
             {recipients === "custom" && (
-              <textarea
-                value={customNumbers}
-                onChange={(e) => setCustomNumbers(e.target.value)}
-                placeholder={"6301234567\n3125559999"}
-                className="h-32 w-full resize-none rounded-lg border border-black/30 px-4 py-3"
-              />
+              <div className="space-y-3">
+                <textarea
+                  value={customNumbers}
+                  onChange={(e) => setCustomNumbers(e.target.value)}
+                  placeholder={"6301234567\n3125559999"}
+                  className="h-32 w-full resize-none rounded-lg border border-black/30 px-4 py-3"
+                />
+                <label className="flex cursor-pointer items-start gap-3 rounded-lg border border-black/15 bg-[#FFF0F7] p-3 text-sm">
+                  <input
+                    type="checkbox"
+                    checked={confirmConsentAndOptIn}
+                    onChange={(e) => setConfirmConsentAndOptIn(e.target.checked)}
+                    className="mt-1"
+                  />
+                  <span>
+                    <strong>Confirm consent &amp; opt in</strong> — these people already agreed to SMS
+                    (JOIN, booking checkbox, or written consent). Check this to include numbers that
+                    aren&apos;t in the opt-in list yet.
+                  </span>
+                </label>
+              </div>
             )}
             <p className="mt-3 text-xs text-black/55">
-              Only clients with <strong>accepts SMS marketing</strong> are texted. Numbers not opted in
-              are skipped.{" "}
+              Default: only opted-in numbers. For a quick check on your own phone, use{" "}
+              <strong>Test</strong> (no opt-in needed). Or have them text{" "}
+              <strong>JOIN</strong> to {displayPhone}.{" "}
               <Link href="/forms/sms-consent" className="text-[#E6007E] underline">
                 Paper consent form
               </Link>
