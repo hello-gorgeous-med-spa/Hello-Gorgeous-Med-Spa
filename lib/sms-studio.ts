@@ -24,28 +24,40 @@ function phoneDigits(phone: string): string {
 
 async function loadOptOutPhoneSet(supabase: SupabaseClient): Promise<Set<string>> {
   const opted = new Set<string>();
+  const pageSize = 1000;
   try {
-    const { data: outs } = await supabase
-      .from("sms_opt_outs")
-      .select("phone, resubscribed_at")
-      .limit(20000);
-    for (const row of outs || []) {
-      if (row.resubscribed_at) continue;
-      const e164 = normalizeToE164(row.phone);
-      if (e164) opted.add(e164);
-      const d = phoneDigits(row.phone || "");
-      if (d.length === 10) opted.add(d);
+    for (let from = 0; from < 50000; from += pageSize) {
+      const { data: outs } = await supabase
+        .from("sms_opt_outs")
+        .select("phone, resubscribed_at")
+        .range(from, from + pageSize - 1);
+      if (!outs?.length) break;
+      for (const row of outs) {
+        if (row.resubscribed_at) continue;
+        const e164 = normalizeToE164(row.phone);
+        if (e164) opted.add(e164);
+        const d = phoneDigits(row.phone || "");
+        if (d.length === 10) opted.add(d);
+      }
+      if (outs.length < pageSize) break;
     }
   } catch {
     /* table optional */
   }
   try {
-    const { data: unsubs } = await supabase.from("unsubscribes").select("phone").limit(20000);
-    for (const row of unsubs || []) {
-      const e164 = normalizeToE164(row.phone);
-      if (e164) opted.add(e164);
-      const d = phoneDigits(row.phone || "");
-      if (d.length === 10) opted.add(d);
+    for (let from = 0; from < 50000; from += pageSize) {
+      const { data: unsubs } = await supabase
+        .from("unsubscribes")
+        .select("phone")
+        .range(from, from + pageSize - 1);
+      if (!unsubs?.length) break;
+      for (const row of unsubs) {
+        const e164 = normalizeToE164(row.phone);
+        if (e164) opted.add(e164);
+        const d = phoneDigits(row.phone || "");
+        if (d.length === 10) opted.add(d);
+      }
+      if (unsubs.length < pageSize) break;
     }
   } catch {
     /* table optional */
@@ -66,16 +78,31 @@ export async function fetchSmsStudioRecipients(
   supabase: SupabaseClient,
 ): Promise<SmsStudioRecipient[]> {
   const optOuts = await loadOptOutPhoneSet(supabase);
-  const { data: clients, error } = await supabase
-    .from("clients")
-    .select("id, first_name, last_name, phone, accepts_sms_marketing")
-    .eq("accepts_sms_marketing", true)
-    .not("phone", "is", null)
-    .neq("phone", "")
-    .order("id", { ascending: true })
-    .limit(20000);
+  const clients: Array<{
+    id: string;
+    first_name: string | null;
+    last_name: string | null;
+    phone: string | null;
+  }> = [];
 
-  if (error || !clients?.length) return [];
+  // PostgREST caps pages (~1000); page until exhausted so we don't under-count.
+  const pageSize = 1000;
+  for (let from = 0; from < 50000; from += pageSize) {
+    const { data, error } = await supabase
+      .from("clients")
+      .select("id, first_name, last_name, phone, accepts_sms_marketing")
+      .eq("accepts_sms_marketing", true)
+      .not("phone", "is", null)
+      .neq("phone", "")
+      .order("id", { ascending: true })
+      .range(from, from + pageSize - 1);
+    if (error) break;
+    if (!data?.length) break;
+    clients.push(...(data as typeof clients));
+    if (data.length < pageSize) break;
+  }
+
+  if (!clients.length) return [];
 
   const seen = new Set<string>();
   const out: SmsStudioRecipient[] = [];
