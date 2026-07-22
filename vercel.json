@@ -40,6 +40,10 @@
       "schedule": "0 10,16 * * *"
     },
     {
+      "path": "/api/cron/regen-abandoned-cart",
+      "schedule": "15 * * * *"
+    },
+    {
       "path": "/api/cron/rx-refill-reminder",
       "schedule": "0 9 * * *"
     },

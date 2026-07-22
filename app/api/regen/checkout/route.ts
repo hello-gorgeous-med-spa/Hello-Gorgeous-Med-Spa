@@ -200,12 +200,13 @@ export async function POST(req: NextRequest) {
       shippingUsd,
     });
 
-    if (admin && result.orderId) {
+    if (admin && (result.orderId || result.url)) {
       const { error: linkErr } = await admin
         .from("regen_orders")
         .update({
-          square_order_id: result.orderId,
+          square_order_id: result.orderId ?? null,
           square_payment_link_id: result.paymentLinkId ?? null,
+          checkout_url: result.url ?? null,
           updated_at: new Date().toISOString(),
         })
         .eq("reference", orderRef);

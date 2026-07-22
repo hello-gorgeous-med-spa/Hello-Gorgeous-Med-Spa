@@ -436,3 +436,156 @@ export async function notifyCustomerRegenIntakeComplete(
 
   return { ok: true, notified: true };
 }
+
+/**
+ * Abandoned-cart nudge — email + SMS with the open Square pay link.
+ */
+export async function emailRegenAbandonedCart(opts: {
+  to: string;
+  customerName: string;
+  orderRef: string;
+  itemSummary: string;
+  amountUsd: number;
+  checkoutUrl: string;
+}): Promise<{ ok: boolean; error?: string }> {
+  const apiKey = process.env.RESEND_API_KEY;
+  if (!apiKey) return { ok: false, error: "Email not configured" };
+
+  const to = opts.to.trim();
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(to)) {
+    return { ok: false, error: "Invalid email address" };
+  }
+
+  const firstName = opts.customerName.split(/\s+/)[0] || "there";
+  const amount = `$${opts.amountUsd.toFixed(2)}`;
+
+  const text = [
+    `Hi ${firstName},`,
+    "",
+    `You left a ${REGEN_BRAND} cart open (${opts.orderRef}).`,
+    opts.itemSummary ? `Items: ${opts.itemSummary}` : "",
+    `Total: ${amount} (includes shipping when you check out).`,
+    "",
+    "Finish secure checkout anytime:",
+    opts.checkoutUrl,
+    "",
+    `Questions? Call ${REGEN_SUPPORT_PHONE}.`,
+    "",
+    REGEN_BRAND,
+    SITE.url,
+  ]
+    .filter(Boolean)
+    .join("\n");
+
+  const html = `
+    <div style="font-family: system-ui, sans-serif; max-width: 560px; margin: 0 auto;">
+      <p>Hi ${firstName},</p>
+      <p>You left a <strong>${REGEN_BRAND}</strong> cart open (<code>${opts.orderRef}</code>).</p>
+      ${opts.itemSummary ? `<p><strong>Items:</strong> ${opts.itemSummary}</p>` : ""}
+      <p><strong>Total:</strong> ${amount}</p>
+      <p style="margin: 24px 0;">
+        <a href="${opts.checkoutUrl}" style="background:#E6007E;color:#fff;padding:12px 20px;border-radius:8px;text-decoration:none;font-weight:700;">
+          Complete checkout
+        </a>
+      </p>
+      <p style="font-size:13px;color:#666;">Questions? Call ${REGEN_SUPPORT_PHONE}.</p>
+    </div>
+  `;
+
+  const payload: Record<string, unknown> = {
+    from: getResendFromAddress(),
+    to: [to],
+    subject: `Still want your RE GEN order? (${amount})`,
+    text,
+    html,
+  };
+  if (!isResendBlockedAddressDomain(to)) {
+    payload.reply_to = "hello@hellogorgeousmedspa.com";
+  }
+
+  const res = await fetch("https://api.resend.com/emails", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${apiKey}`,
+    },
+    body: JSON.stringify(payload),
+  });
+
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    console.error("[regen/order-notify] abandoned email failed:", res.status, err);
+    return { ok: false, error: "Failed to send email" };
+  }
+  return { ok: true };
+}
+
+export async function smsRegenAbandonedCart(opts: {
+  phone: string;
+  customerName: string;
+  orderRef: string;
+  amountUsd: number;
+  checkoutUrl: string;
+}): Promise<{ ok: boolean; error?: string }> {
+  const firstName = opts.customerName.split(/\s+/)[0] || "there";
+  const amount = `$${opts.amountUsd.toFixed(2)}`;
+  const message = [
+    `Hi ${firstName}! ${REGEN_BRAND} — your cart (${opts.orderRef}) is still open (${amount}).`,
+    `Finish checkout: ${opts.checkoutUrl}`,
+    `Questions? ${REGEN_SUPPORT_PHONE}. Reply STOP to opt out.`,
+  ].join(" ");
+
+  const result = await sendSms(opts.phone, message);
+  return result.success ? { ok: true } : { ok: false, error: result.error };
+}
+
+/** Staff SMS/email when a high-dollar RE GEN cart is abandoned. */
+export function notifyOwnerRegenAbandonedCart(opts: {
+  orderRef: string;
+  customerName?: string | null;
+  customerEmail?: string | null;
+  customerPhone?: string | null;
+  itemSummary: string;
+  amountUsd: number;
+  checkoutUrl?: string | null;
+  hoursOpen: number;
+}): void {
+  const adminUrl = `${SITE.url}/admin/rx/ops`;
+  const amount = `$${opts.amountUsd.toFixed(2)}`;
+
+  notifyOwnerFormSubmission({
+    formName: "RE GEN CART ABANDONED",
+    lines: [
+      `Ref ${opts.orderRef}`,
+      opts.customerName ? `Name: ${opts.customerName}` : "",
+      opts.customerPhone ? `Phone: ${opts.customerPhone}` : "",
+      opts.customerEmail ? `Email: ${opts.customerEmail}` : "",
+      `Open ~${opts.hoursOpen}h · ${amount}`,
+      opts.itemSummary ? `Items: ${opts.itemSummary}` : "",
+      opts.checkoutUrl ? `Pay link: ${opts.checkoutUrl}` : "",
+      adminUrl,
+    ].filter(Boolean),
+  });
+
+  void emailStaffFormSubmission({
+    subject: `RE GEN abandoned cart — ${opts.orderRef} (${amount})`,
+    text: [
+      "High-dollar RE GEN cart still unpaid",
+      "",
+      `Reference: ${opts.orderRef}`,
+      opts.customerName ? `Name: ${opts.customerName}` : "",
+      opts.customerPhone ? `Phone: ${opts.customerPhone}` : "",
+      opts.customerEmail ? `Email: ${opts.customerEmail}` : "",
+      `Open ~${opts.hoursOpen} hours`,
+      `Amount: ${amount}`,
+      opts.itemSummary ? `Items: ${opts.itemSummary}` : "",
+      opts.checkoutUrl ? `Checkout: ${opts.checkoutUrl}` : "",
+      "",
+      `Ops: ${adminUrl}`,
+      "Reach out to recover the sale.",
+    ]
+      .filter(Boolean)
+      .join("\n"),
+    replyTo: opts.customerEmail || undefined,
+  }).catch((e) => console.error("[regen/order-notify] abandoned staff email:", e));
+}

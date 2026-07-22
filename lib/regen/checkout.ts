@@ -298,3 +298,22 @@ export async function createRegenQuickPay(opts: {
     orderId: linkData.payment_link?.order_id,
   };
 }
+
+/** Resolve a previously created Square payment-link URL (for abandoned-cart recovery). */
+export async function fetchRegenPaymentLinkUrl(
+  paymentLinkId: string,
+): Promise<string | null> {
+  const id = paymentLinkId.trim();
+  if (!id) return null;
+  try {
+    const data = await squareFetch<{
+      payment_link?: { url?: string; long_url?: string };
+    }>(`/v2/online-checkout/payment-links/${encodeURIComponent(id)}`, {
+      method: "GET",
+    });
+    return data.payment_link?.url || data.payment_link?.long_url || null;
+  } catch (err) {
+    console.warn("[regen/checkout] fetch payment link failed:", err);
+    return null;
+  }
+}
