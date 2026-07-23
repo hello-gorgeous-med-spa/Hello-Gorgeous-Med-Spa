@@ -11,6 +11,7 @@ import {
   CC_STAFF,
   CC_TIME_OFF_TYPES,
   formatCcDateRange,
+  type CcNotification,
   type CcRemindAt,
   type CcStaffMessage,
   type CcTask,
@@ -21,6 +22,7 @@ import {
   type CcTimeOffType,
 } from "@/lib/command-center";
 import { getSession } from "@/lib/hgos/auth";
+import CommandCenterMarketing from "@/components/admin/CommandCenterMarketing";
 import CommandCenterOverview from "@/components/admin/CommandCenterOverview";
 import CommandCenterShell from "@/components/admin/CommandCenterShell";
 
@@ -84,6 +86,10 @@ export default function CommandCenterClient() {
   const [toStart, setToStart] = useState("");
   const [toEnd, setToEnd] = useState("");
   const [toNote, setToNote] = useState("");
+  const [notifications, setNotifications] = useState<CcNotification[]>([]);
+  const [notifChannel, setNotifChannel] = useState<"email" | "text" | "both">("both");
+  const [notifEmail, setNotifEmail] = useState("danielle@hellogorgeousmedspa.com");
+  const [notifPhone, setNotifPhone] = useState("(630) 636-6193");
   const ownerLanded = useRef(false);
 
   const isOwner = role === "owner" || role === "admin";
@@ -111,11 +117,12 @@ export default function CommandCenterClient() {
         setView((v) => (v === "overview" ? "team" : v));
       }
 
-      const [tRes, cRes, mRes, oRes] = await Promise.all([
+      const [tRes, cRes, mRes, oRes, nRes] = await Promise.all([
         fetch("/api/admin/command-center/tasks"),
         fetch("/api/admin/command-center/checklist"),
         fetch("/api/admin/command-center/messages"),
         fetch("/api/admin/command-center/time-off"),
+        fetch("/api/admin/command-center/notifications"),
       ]);
       if (!tRes.ok) {
         const j = await tRes.json().catch(() => ({}));
@@ -134,6 +141,10 @@ export default function CommandCenterClient() {
       if (oRes.ok) {
         const oJson = await oRes.json();
         setTimeOff(oJson.requests || []);
+      }
+      if (nRes.ok) {
+        const nJson = await nRes.json();
+        setNotifications(nJson.notifications || []);
       }
       if (name) {
         const match = CC_MSG_FROM.find(
@@ -324,6 +335,17 @@ export default function CommandCenterClient() {
       isOwner={isOwner}
       role={role}
       displayName={displayName}
+      notifications={notifications}
+      notifChannel={notifChannel}
+      notifEmail={notifEmail}
+      notifPhone={notifPhone}
+      onNotifChannel={setNotifChannel}
+      onNotifEmail={setNotifEmail}
+      onNotifPhone={setNotifPhone}
+      onOpenNotifications={() => {
+        setNotifications((prev) => prev.map((n) => ({ ...n, unread: false })));
+        void fetch("/api/admin/command-center/notifications", { method: "PATCH" });
+      }}
     >
       {error && (
         <div className="mb-4 rounded-xl border border-amber-300 bg-amber-50 px-4 py-3 text-sm text-amber-900">
@@ -341,29 +363,8 @@ export default function CommandCenterClient() {
           </div>
         )}
 
-        {/* MARKETING stub */}
         {view === "marketing" && (
-          <div>
-            <div className="text-[11px] font-bold uppercase tracking-[0.2em]" style={{ color: PINK }}>
-              Sales &amp; marketing
-            </div>
-            <h1
-              className="text-[32px] font-extrabold tracking-tight mt-1"
-              style={{ fontFamily: "var(--font-display), Georgia, serif" }}
-            >
-              The marketing hub
-            </h1>
-            <p className="text-[#666] text-sm mt-1 mb-6">
-              Campaigns, templates, and Laura&apos;s Desk come next — managed by{" "}
-              <strong style={{ color: PINK }}>Laura Witt</strong>.
-            </p>
-            <div className="bg-white border-2 border-black rounded-2xl p-8 text-center shadow-[0_10px_30px_rgba(255,45,142,0.12)]">
-              <div className="text-lg font-bold">Coming in the next slice</div>
-              <div className="text-sm text-[#888] mt-2">
-                Use Text Studio and Post to Social for live sends today.
-              </div>
-            </div>
-          </div>
+          <CommandCenterMarketing isOwner={isOwner} onToast={showToast} />
         )}
 
         {/* TEAM HUB */}

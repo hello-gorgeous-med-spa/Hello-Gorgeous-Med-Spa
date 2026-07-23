@@ -91,9 +91,18 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 
-  return NextResponse.json({
-    request: mapTimeOffRow(data as Record<string, unknown>),
+  const requestRow = mapTimeOffRow(data as Record<string, unknown>);
+  const range =
+    requestRow.end && requestRow.end !== requestRow.start
+      ? `${requestRow.start} → ${requestRow.end}`
+      : requestRow.start;
+  await db.from("hg_cc_notifications").insert({
+    body: `${requestRow.who} requested ${requestRow.type.toLowerCase()} time off (${range}) — needs your approval.`,
+    delivery: "Logged in Command Center",
+    unread: true,
   });
+
+  return NextResponse.json({ request: requestRow });
 }
 
 export async function PATCH(request: NextRequest) {

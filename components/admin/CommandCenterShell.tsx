@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState, type ReactNode } from "react";
+import type { CcNotification } from "@/lib/command-center";
 
 export type CcShellView = "overview" | "team" | "marketing";
 
@@ -15,6 +16,14 @@ type Props = {
   isOwner: boolean;
   role: string | null;
   displayName?: string;
+  notifications?: CcNotification[];
+  onOpenNotifications?: () => void;
+  notifEmail?: string;
+  notifPhone?: string;
+  notifChannel?: "email" | "text" | "both";
+  onNotifEmail?: (v: string) => void;
+  onNotifPhone?: (v: string) => void;
+  onNotifChannel?: (v: "email" | "text" | "both") => void;
 };
 
 const VIEW_NAV: { id: CcShellView; label: string; ownerOnly?: boolean }[] = [
@@ -38,8 +47,17 @@ export default function CommandCenterShell({
   isOwner,
   role,
   displayName,
+  notifications = [],
+  onOpenNotifications,
+  notifEmail = "danielle@hellogorgeousmedspa.com",
+  notifPhone = "(630) 636-6193",
+  notifChannel = "both",
+  onNotifEmail,
+  onNotifPhone,
+  onNotifChannel,
 }: Props) {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [notifOpen, setNotifOpen] = useState(false);
 
   useEffect(() => {
     const theme = document.querySelector('meta[name="theme-color"]') as HTMLMetaElement | null;
@@ -54,6 +72,97 @@ export default function CommandCenterShell({
     role === "owner" ? "Owner" : role === "admin" ? "Admin" : role === "staff" ? "Staff" : "Team";
 
   const navItems = VIEW_NAV.filter((item) => !item.ownerOnly || isOwner);
+  const unreadCount = notifications.filter((n) => n.unread).length;
+
+  function toggleNotif() {
+    const open = !notifOpen;
+    setNotifOpen(open);
+    if (open) onOpenNotifications?.();
+  }
+
+  const NotifBell = () =>
+    isOwner ? (
+      <div className="relative">
+        <button
+          type="button"
+          onClick={toggleNotif}
+          className="relative bg-white/10 border-none rounded-full w-[38px] h-[38px] cursor-pointer text-base text-white"
+          aria-label="Notifications"
+        >
+          🔔
+          {unreadCount > 0 ? (
+            <span className="absolute -top-1 -right-1 bg-[#FF2D8E] text-white text-[10px] font-extrabold min-w-[18px] h-[18px] rounded-full flex items-center justify-center px-1">
+              {unreadCount}
+            </span>
+          ) : null}
+        </button>
+        {notifOpen && (
+          <div className="absolute right-0 top-[46px] w-[300px] bg-white text-[#111] rounded-[14px] shadow-[0_20px_50px_rgba(0,0,0,0.35)] p-3.5 z-[80] text-left">
+            <div
+              className="text-base font-extrabold mb-2"
+              style={{ fontFamily: "var(--font-display), Georgia, serif" }}
+            >
+              Notifications
+            </div>
+            {notifications.length === 0 ? (
+              <div className="text-[12.5px] text-[#999] py-2">No notifications yet.</div>
+            ) : (
+              <div className="flex flex-col gap-2 max-h-[280px] overflow-y-auto">
+                {notifications.map((n) => (
+                  <div key={n.id} className="border border-black/10 rounded-[10px] px-3 py-2.5">
+                    <div className="text-[13px] text-[#222] leading-snug">{n.text}</div>
+                    {n.delivery ? (
+                      <div className="text-[11px] text-[#C90A68] font-semibold mt-1">{n.delivery}</div>
+                    ) : null}
+                    <div className="text-[11px] text-[#aaa] mt-0.5">{n.time}</div>
+                  </div>
+                ))}
+              </div>
+            )}
+            <div className="border-t border-black/10 mt-3 pt-3">
+              <div className="text-[11px] tracking-widest uppercase text-[#aaa] font-bold mb-2">
+                Deliver to me by
+              </div>
+              <div className="flex gap-1.5 mb-2.5">
+                {(
+                  [
+                    ["email", "Email"],
+                    ["text", "Text"],
+                    ["both", "Both"],
+                  ] as const
+                ).map(([id, label]) => (
+                  <button
+                    key={id}
+                    type="button"
+                    onClick={() => onNotifChannel?.(id)}
+                    className="flex-1 text-xs font-bold px-3 py-1.5 rounded-full border cursor-pointer"
+                    style={{
+                      background: notifChannel === id ? "#000" : "#fff",
+                      color: notifChannel === id ? "#fff" : "#666",
+                      borderColor: notifChannel === id ? "#000" : "rgba(0,0,0,0.14)",
+                    }}
+                  >
+                    {label}
+                  </button>
+                ))}
+              </div>
+              <input
+                value={notifEmail}
+                onChange={(e) => onNotifEmail?.(e.target.value)}
+                placeholder="Email"
+                className="w-full border border-black/15 rounded-lg px-2.5 py-2 text-[12.5px] mb-1.5"
+              />
+              <input
+                value={notifPhone}
+                onChange={(e) => onNotifPhone?.(e.target.value)}
+                placeholder="Mobile number"
+                className="w-full border border-black/15 rounded-lg px-2.5 py-2 text-[12.5px]"
+              />
+            </div>
+          </div>
+        )}
+      </div>
+    ) : null;
 
   const NavButtons = ({ onNavigate }: { onNavigate?: () => void }) => (
     <>
@@ -115,6 +224,11 @@ export default function CommandCenterShell({
             </p>
             <p className="text-[11px] text-white/55 mt-0.5">{roleLabel} view</p>
           </div>
+          {isOwner ? (
+            <div className="mt-3 flex justify-end">
+              <NotifBell />
+            </div>
+          ) : null}
         </div>
 
         <nav className="flex-1 px-3 py-4 space-y-1 overflow-y-auto">
@@ -216,12 +330,15 @@ export default function CommandCenterShell({
             </div>
             <div className="text-sm font-bold truncate">{roleLabel}</div>
           </div>
-          <Link
-            href="/admin"
-            className="rounded-lg bg-white/10 px-3 py-2 text-xs font-bold"
-          >
-            Admin
-          </Link>
+          <div className="flex items-center gap-2">
+            <NotifBell />
+            <Link
+              href="/admin"
+              className="rounded-lg bg-white/10 px-3 py-2 text-xs font-bold"
+            >
+              Admin
+            </Link>
+          </div>
         </header>
 
         {/* Mobile view pills */}

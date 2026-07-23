@@ -318,3 +318,51 @@ export function formatCcDateRange(start: string, end: string): string {
   if (!end || end === start) return a;
   return `${a} → ${fmt(end)}`;
 }
+
+/** Chicago Monday YMD for the week containing `today`. */
+export function chicagoWeekStartYmd(today = chicagoTodayYmd()): string {
+  const [y, m, d] = today.split("-").map(Number);
+  const utc = new Date(Date.UTC(y, m - 1, d, 12, 0, 0));
+  const dow = utc.getUTCDay(); // 0 Sun … 6 Sat
+  const toMon = dow === 0 ? -6 : 1 - dow;
+  return shiftYmd(today, toMon);
+}
+
+export const CC_LAURA_WEEK_CHECKS = [
+  { id: "w0", label: "Weekly plan submitted (Monday)" },
+  { id: "w1", label: "Content calendar updated" },
+  { id: "w2", label: "5 posts scheduled" },
+  { id: "w3", label: "Monthly report to Danielle" },
+  { id: "w4", label: "Invoice sent" },
+] as const;
+
+export const CC_LAURA_HOURS_GOAL = 10;
+export const CC_LAURA_WEEKLY_RATE = 250;
+
+export type CcNotification = {
+  id: string;
+  text: string;
+  delivery: string;
+  time: string;
+  unread: boolean;
+  createdAt: string;
+};
+
+export type CcLauraHour = {
+  id: string;
+  task: string;
+  hrs: number;
+  date: string;
+};
+
+export function mapNotificationRow(row: Record<string, unknown>): CcNotification {
+  const createdAt = String(row.created_at || "");
+  return {
+    id: String(row.id),
+    text: String(row.body || ""),
+    delivery: String(row.delivery || ""),
+    time: formatCcRelativeTime(createdAt),
+    unread: !!row.unread,
+    createdAt,
+  };
+}
