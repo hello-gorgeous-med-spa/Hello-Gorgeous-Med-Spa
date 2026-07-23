@@ -23,7 +23,10 @@ export const ADMIN_PORTAL_TAGLINE = "RX · patients · payments";
 export const ADMIN_NAV_GROUPS: AdminNavGroup[] = [
   {
     section: "Home",
-    items: [{ href: "/admin", label: "Dashboard", icon: "📊" }],
+    items: [
+      { href: "/admin", label: "Dashboard", icon: "📊" },
+      { href: "/admin/command-center", label: "Command Center", icon: "🎛️" },
+    ],
   },
   {
     section: "Prescriptions & RX",
@@ -151,6 +154,7 @@ export const ADMIN_DASHBOARD_QUICK_LINKS = {
     { href: "/admin/email-campaigns", label: "Email Campaigns", desc: "Newsletter & promos" },
   ],
   resources: [
+    { href: "/admin/command-center", label: "Command Center", desc: "Team Hub · checklist · ops board" },
     { href: "/admin/cheat-sheets", label: "Clinical Cheat Sheets", desc: "36 printable treatment & ops PDFs" },
     { href: "/staff/protocols", label: "Protocols & Quick Tools", desc: "Guides, social kit & invoice quick-send" },
     { href: "/admin/vendors", label: "Vendor Portals", desc: "BoomRx, Allergan, Square…" },
