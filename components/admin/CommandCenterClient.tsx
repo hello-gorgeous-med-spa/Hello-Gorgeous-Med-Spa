@@ -11,6 +11,8 @@ import {
   CC_STAFF,
   CC_TIME_OFF_TYPES,
   formatCcDateRange,
+  type CcConsentItem,
+  type CcConsentStatus,
   type CcNotification,
   type CcRemindAt,
   type CcStaffMessage,
@@ -86,6 +88,8 @@ export default function CommandCenterClient() {
   const [toStart, setToStart] = useState("");
   const [toEnd, setToEnd] = useState("");
   const [toNote, setToNote] = useState("");
+  const [consents, setConsents] = useState<CcConsentItem[]>([]);
+  const [consentBusy, setConsentBusy] = useState<string | null>(null);
   const [notifications, setNotifications] = useState<CcNotification[]>([]);
   const [notifChannel, setNotifChannel] = useState<"email" | "text" | "both">("both");
   const [notifEmail, setNotifEmail] = useState("danielle@hellogorgeousmedspa.com");
@@ -117,12 +121,13 @@ export default function CommandCenterClient() {
         setView((v) => (v === "overview" ? "team" : v));
       }
 
-      const [tRes, cRes, mRes, oRes, nRes] = await Promise.all([
+      const [tRes, cRes, mRes, oRes, nRes, consRes] = await Promise.all([
         fetch("/api/admin/command-center/tasks"),
         fetch("/api/admin/command-center/checklist"),
         fetch("/api/admin/command-center/messages"),
         fetch("/api/admin/command-center/time-off"),
         fetch("/api/admin/command-center/notifications"),
+        fetch("/api/admin/command-center/consents"),
       ]);
       if (!tRes.ok) {
         const j = await tRes.json().catch(() => ({}));
@@ -145,6 +150,10 @@ export default function CommandCenterClient() {
       if (nRes.ok) {
         const nJson = await nRes.json();
         setNotifications(nJson.notifications || []);
+      }
+      if (consRes.ok) {
+        const consJson = await consRes.json();
+        setConsents(consJson.items || []);
       }
       if (name) {
         const match = CC_MSG_FROM.find(
@@ -318,6 +327,38 @@ export default function CommandCenterClient() {
     }
     setTimeOff((prev) => prev.map((r) => (r.id === id ? j.request : r)));
   }
+
+  async function updateConsent(
+    appointmentId: string,
+    action: "prepare" | "mark_signed",
+  ) {
+    setConsentBusy(appointmentId);
+    const nextStatus: CcConsentStatus =
+      action === "prepare" ? "sent" : "signed";
+    const prev = consents;
+    setConsents((list) =>
+      list.map((c) => (c.id === appointmentId ? { ...c, status: nextStatus } : c)),
+    );
+    const res = await fetch("/api/admin/command-center/consents", {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ appointmentId, action }),
+    });
+    const j = await res.json().catch(() => ({}));
+    setConsentBusy(null);
+    if (!res.ok) {
+      setConsents(prev);
+      showToast(j.error || "Consent update failed");
+      return;
+    }
+    showToast(action === "prepare" ? "Form prepared — awaiting signature" : "Marked signed");
+  }
+
+  const consentSigned = consents.filter((c) => c.status === "signed").length;
+  const consentTotal = consents.length;
+  const consentPct = consentTotal
+    ? Math.round((consentSigned / consentTotal) * 100)
+    : 0;
 
   const toPendingCount = timeOff.filter((r) => r.status === "pending").length;
 
@@ -663,7 +704,7 @@ export default function CommandCenterClient() {
               </div>
             </div>
 
-            {/* Consent forms — today (shell; Square schedule wires next) */}
+            {/* Consent forms — today */}
             <div className="bg-white border-2 border-black rounded-2xl p-5 sm:p-6 shadow-[0_8px_26px_rgba(0,0,0,0.06)] mt-[18px]">
               <div className="flex items-baseline justify-between flex-wrap gap-2">
                 <h2
@@ -672,18 +713,87 @@ export default function CommandCenterClient() {
                 >
                   Consent forms — today
                 </h2>
-                <span className="text-[12.5px] font-bold text-[#C90A68]">0/0 signed &amp; ready</span>
+                <span className="text-[12.5px] font-bold text-[#C90A68]">
+                  {consentSigned}/{consentTotal} signed &amp; ready
+                </span>
               </div>
               <p className="mt-1 mb-3 text-[12.5px] text-[#999]">
                 Every client needs a signed consent before treatment — we screen like a medical
                 practice.
               </p>
               <div className="h-2 rounded-full bg-[#FFE0F0] overflow-hidden mb-[18px]">
-                <div className="h-full rounded-full w-0" style={{ background: PINK }} />
+                <div
+                  className="h-full rounded-full transition-[width] duration-300"
+                  style={{ background: PINK, width: `${consentPct}%` }}
+                />
               </div>
-              <div className="border border-dashed border-black/20 rounded-xl px-4 py-[26px] text-center text-[13px] text-[#aaa]">
-                No clients on today&apos;s schedule yet.
-              </div>
+              {consents.length === 0 ? (
+                <div className="border border-dashed border-black/20 rounded-xl px-4 py-[26px] text-center text-[13px] text-[#aaa]">
+                  No clients on today&apos;s schedule yet.
+                </div>
+              ) : (
+                <div className="flex flex-col gap-2.5">
+                  {consents.map((row) => {
+                    const statusLabel =
+                      row.status === "signed"
+                        ? "Signed ✓"
+                        : row.status === "sent"
+                          ? "Awaiting signature"
+                          : "Not started";
+                    const statusClass =
+                      row.status === "signed"
+                        ? "bg-green-600/10 text-[#16a34a]"
+                        : row.status === "sent"
+                          ? "bg-[#FFE0F0] text-[#C90A68]"
+                          : "bg-[#111] text-white";
+                    const busy = consentBusy === row.id;
+                    return (
+                      <div
+                        key={row.id}
+                        className="flex items-center justify-between gap-3 flex-wrap border border-black/10 rounded-xl px-4 py-3"
+                      >
+                        <div className="min-w-0">
+                          <div className="text-sm font-bold">
+                            {row.client}
+                            {row.time ? (
+                              <span className="text-[#666] font-semibold"> · {row.time}</span>
+                            ) : null}
+                          </div>
+                          <div className="text-[12.5px] text-[#666] mt-0.5">{row.form}</div>
+                        </div>
+                        <div className="flex items-center gap-2.5 shrink-0">
+                          <span
+                            className={`text-xs font-bold rounded-full px-3 py-1 whitespace-nowrap ${statusClass}`}
+                          >
+                            {statusLabel}
+                          </span>
+                          {row.status === "missing" && (
+                            <button
+                              type="button"
+                              disabled={busy}
+                              onClick={() => void updateConsent(row.id, "prepare")}
+                              className="text-white border-none rounded-lg px-3.5 py-2 text-[12.5px] font-bold cursor-pointer disabled:opacity-60"
+                              style={{ background: PINK }}
+                            >
+                              Prepare form
+                            </button>
+                          )}
+                          {row.status === "sent" && (
+                            <button
+                              type="button"
+                              disabled={busy}
+                              onClick={() => void updateConsent(row.id, "mark_signed")}
+                              className="bg-[#16a34a] text-white border-none rounded-lg px-3.5 py-2 text-[12.5px] font-bold cursor-pointer disabled:opacity-60"
+                            >
+                              Mark signed
+                            </button>
+                          )}
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
             </div>
 
             {/* Staff messages */}

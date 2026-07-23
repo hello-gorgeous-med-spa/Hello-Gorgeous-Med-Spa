@@ -75,6 +75,17 @@ export type CcTimeOff = {
   createdAt: string;
 };
 
+/** Front-desk consent board for today's appointments */
+export type CcConsentStatus = "missing" | "sent" | "signed";
+
+export type CcConsentItem = {
+  id: string;
+  client: string;
+  time: string;
+  form: string;
+  status: CcConsentStatus;
+};
+
 export type CcTaskCat = "call" | "order" | "rx" | "fax" | "task";
 export type CcTaskDue = "today" | "tomorrow" | "week";
 export type CcTaskStatus = "open" | "on_it" | "done";
