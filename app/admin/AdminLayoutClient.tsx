@@ -72,9 +72,11 @@ function useAdminManifest() {
     const originalHref = manifestLink?.href;
     if (manifestLink) manifestLink.href = '/admin-manifest.json';
     const themeColor = document.querySelector('meta[name="theme-color"]') as HTMLMetaElement;
-    if (themeColor) themeColor.content = '#0f172a';
+    const prevTheme = themeColor?.content;
+    if (themeColor) themeColor.content = '#FF2D8E';
     return () => {
       if (manifestLink && originalHref) manifestLink.href = originalHref;
+      if (themeColor && prevTheme) themeColor.content = prevTheme;
     };
   }, []);
 }
@@ -103,8 +105,8 @@ function SidebarGroup({
           type="button"
           onClick={onToggleCollapsed}
           className={`w-full flex items-center justify-between px-3 pt-3 pb-1 text-[10px] font-bold uppercase tracking-widest ${
-            anyActive ? 'text-[#E6007E]' : 'text-black/40'
-          } hover:text-black/60`}
+            anyActive ? 'text-[#FF2D8E]' : 'text-white/40'
+          } hover:text-white/70`}
         >
           <span>{group.section}</span>
           <span className="text-[11px]">{collapsedOpen ? '−' : '+'}</span>
@@ -116,8 +118,8 @@ function SidebarGroup({
               href={item.href}
               className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-all ${
                 isActive(item.href)
-                  ? 'bg-[#2D63A4] text-white font-medium'
-                  : 'text-black hover:bg-black/5'
+                  ? 'bg-[#FF2D8E] text-white font-semibold'
+                  : 'text-white/80 hover:bg-white/10 hover:text-white'
               }`}
             >
               <span className="text-base">{item.icon}</span>
@@ -130,7 +132,7 @@ function SidebarGroup({
 
   return (
     <div className="mb-1">
-      <p className="px-3 pt-3 pb-1 text-[10px] font-bold uppercase tracking-widest text-black/40">
+      <p className="px-3 pt-3 pb-1 text-[10px] font-bold uppercase tracking-widest text-white/40">
         {group.section}
       </p>
       {groupItems.map((item) => (
@@ -139,8 +141,8 @@ function SidebarGroup({
           href={item.href}
           className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-all ${
             isActive(item.href)
-              ? 'bg-[#2D63A4] text-white font-medium'
-              : 'text-black hover:bg-black/5'
+              ? 'bg-[#FF2D8E] text-white font-semibold'
+              : 'text-white/80 hover:bg-white/10 hover:text-white'
           }`}
         >
           <span className="text-base">{item.icon}</span>
@@ -215,18 +217,46 @@ export default function AdminLayoutClient({ children }: { children: React.ReactN
   return (
     <ToastProvider>
       <KeyboardShortcutsProvider>
-        <div className="min-h-screen bg-[#F3F7F8] admin-panel">
+        <div className="min-h-screen bg-[#FFF5F9] admin-panel text-[#111]">
           <AdminHeader />
+          <div
+            className="h-1.5 w-full"
+            style={{
+              background: 'linear-gradient(90deg, #FF2D8E 0%, #E6007E 55%, #9b0a4d 100%)',
+            }}
+          />
           <div className="flex">
-            <aside className="w-56 bg-white min-h-[calc(100vh-56px)] sticky top-14 hidden lg:flex lg:flex-col overflow-y-auto shadow-sm border-r border-black/10">
-              <div className="p-3 border-b border-black/10 space-y-0.5">
+            <aside className="w-60 bg-[#0a0a0a] text-white min-h-[calc(100vh-62px)] sticky top-[62px] hidden lg:flex lg:flex-col overflow-y-auto border-r border-white/10">
+              <div className="px-4 pt-5 pb-3 border-b border-white/10">
+                <p className="text-[10px] font-bold tracking-[0.22em] uppercase text-[#FF2D8E]">
+                  Hello Gorgeous
+                </p>
+                <p
+                  className="mt-0.5 text-base font-black tracking-tight"
+                  style={{ fontFamily: "var(--font-display), Georgia, serif" }}
+                >
+                  Admin <span className="text-[#FF2D8E]">Hub</span>
+                </p>
+              </div>
+              <div className="p-3 border-b border-white/10 space-y-0.5">
+                <Link
+                  href="/admin/command-center"
+                  className={`flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all text-sm font-semibold ${
+                    pathname.startsWith('/admin/command-center')
+                      ? 'bg-[#FF2D8E] text-white'
+                      : 'text-white/80 hover:bg-white/10 hover:text-white'
+                  }`}
+                >
+                  <span className="text-lg">🎛️</span>
+                  <span>Command Center</span>
+                </Link>
                 {showOwnerLink(role) && (
                   <Link
                     href="/admin/owner"
                     className={`flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all text-sm ${
                       pathname.startsWith('/admin/owner') && pathname !== '/admin/owner/manual'
-                        ? 'bg-black text-white font-medium'
-                        : 'text-black hover:bg-black/5'
+                        ? 'bg-[#FF2D8E] text-white font-semibold'
+                        : 'text-white/80 hover:bg-white/10 hover:text-white'
                     }`}
                   >
                     <span className="text-lg">👑</span>
@@ -237,12 +267,19 @@ export default function AdminLayoutClient({ children }: { children: React.ReactN
                   href="/pos"
                   className={`flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all text-sm ${
                     pathname.startsWith('/pos')
-                      ? 'bg-[#FF2D8E] text-white font-medium'
-                      : 'text-black hover:bg-black/5'
+                      ? 'bg-[#FF2D8E] text-white font-semibold'
+                      : 'text-white/80 hover:bg-white/10 hover:text-white'
                   }`}
                 >
                   <span className="text-lg">💳</span>
                   <span>POS</span>
+                </Link>
+                <Link
+                  href="/rx-portal"
+                  className="flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all text-sm text-white/80 hover:bg-white/10 hover:text-white"
+                >
+                  <span className="text-lg">💉</span>
+                  <span>RX Portal</span>
                 </Link>
               </div>
               <nav className="flex-1 py-2 px-2">
@@ -257,30 +294,30 @@ export default function AdminLayoutClient({ children }: { children: React.ReactN
                   />
                 ))}
               </nav>
-              <div className="p-3 border-t border-black/10">
+              <div className="p-3 border-t border-white/10">
                 <Link
                   href="/admin/owner/manual"
-                  className="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-black/70 hover:bg-black/5"
+                  className="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-white/60 hover:bg-white/10 hover:text-white"
                 >
                   <span className="text-base">📖</span>
                   <span>Manual</span>
                 </Link>
               </div>
-              <div className="p-3 border-t border-black/10 flex items-center gap-2">
+              <div className="p-3 border-t border-white/10 flex items-center gap-2">
                 <span className="text-[#FF2D8E] text-sm">💗</span>
-                <span className="text-xs text-black/70 font-medium truncate" title={businessName}>
+                <span className="text-xs text-white/55 font-medium truncate" title={businessName}>
                   {businessName}
                 </span>
               </div>
             </aside>
-            <nav className="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-black/10 z-40 safe-area-pb shadow-[0_-1px_0_rgba(0,0,0,.06)]">
+            <nav className="lg:hidden fixed bottom-0 left-0 right-0 bg-[#0a0a0a] border-t border-white/10 z-40 safe-area-pb">
               <div className="flex justify-around items-center h-14 min-h-[56px] px-1">
                 {ADMIN_MOBILE_BOTTOM_NAV.map((item) => (
                   <Link
                     key={item.href}
                     href={item.href}
                     className={`flex flex-col items-center justify-center gap-0.5 min-w-[56px] py-2 rounded-xl transition-all ${
-                      isActive(item.href) ? 'text-[#E6007E] bg-[#FFF0F7]' : 'text-black/70'
+                      isActive(item.href) ? 'text-[#FF2D8E] bg-white/10' : 'text-white/55'
                     }`}
                   >
                     <span className="text-lg">{item.icon}</span>
@@ -290,14 +327,14 @@ export default function AdminLayoutClient({ children }: { children: React.ReactN
               </div>
             </nav>
             <main
-              className={`flex-1 w-full min-w-0 min-h-[calc(100vh-56px)] safe-area-pb ${
+              className={`flex-1 w-full min-w-0 min-h-[calc(100vh-62px)] safe-area-pb ${
                 pathname.startsWith('/admin/rx/ops') || pathname.startsWith('/admin/rx/portal')
-                  ? 'bg-[#faf7f8] p-0 pb-20 sm:pb-0 lg:pb-0'
+                  ? 'bg-[#FFF5F9] p-0 pb-20 sm:pb-0 lg:pb-0'
                   : ['/admin/video-generator', '/admin/campaign-studio', '/admin/campaign-analytics'].some(
                       (p) => pathname.startsWith(p),
                     )
                     ? 'bg-black'
-                    : 'bg-[#F3F7F8] p-4 sm:p-6 pb-20 sm:pb-6 lg:pb-6'
+                    : 'bg-[#FFF5F9] p-4 sm:p-6 pb-20 sm:pb-6 lg:pb-6'
               }`}
             >
               {children}

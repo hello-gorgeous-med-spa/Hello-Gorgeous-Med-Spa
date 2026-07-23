@@ -114,9 +114,9 @@ export const ADMIN_NAV_GROUPS: AdminNavGroup[] = [
 export const ADMIN_NAV_FLAT: AdminNavItem[] = ADMIN_NAV_GROUPS.flatMap((g) => g.items);
 
 export const ADMIN_MOBILE_BOTTOM_NAV = [
+  { href: "/admin/command-center", icon: "🎛️", label: "Command" },
   { href: "/admin", icon: "📊", label: "Home" },
   { href: "/admin/rx", icon: "💊", label: "RX" },
-  { href: "/admin/flowwave", icon: "🌊", label: "Flow" },
   { href: "/admin/clients", icon: "👥", label: "Clients" },
   { href: "/pos", icon: "💳", label: "POS" },
 ] as const;

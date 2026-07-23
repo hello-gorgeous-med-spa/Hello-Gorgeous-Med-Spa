@@ -9,6 +9,72 @@ export const CC_STAFF = [
   "Jen",
 ] as const;
 
+/** Prototype staff list order for message From dropdown */
+export const CC_MSG_FROM = ["Ryan", "Marissa", "Danielle", "Michelle", "Laura", "Jen"] as const;
+
+export const CC_MSG_TO = ["Everyone", ...CC_MSG_FROM] as const;
+
+export const CC_MSG_TEMPLATES: { label: string; text: string }[] = [
+  { label: "— Choose a template —", text: "" },
+  {
+    label: "Relay to a provider",
+    text: "Relay: [client] asked about [topic]. Can you follow up with them today?",
+  },
+  {
+    label: "Client running late",
+    text: "Heads up — [client] is running ~15 min late for their [time] appointment.",
+  },
+  {
+    label: "Please call a client back",
+    text: "Can you please call [client] at [phone] about [reason]?",
+  },
+  {
+    label: "Shift coverage needed",
+    text: "Need coverage for [day/time]. Please let me know if you can take it.",
+  },
+  {
+    label: "Supply / restock",
+    text: "We're low on [item] — please reorder or restock today.",
+  },
+  {
+    label: "Team announcement",
+    text: "Team — [announcement]. Thank you!",
+  },
+  {
+    label: "Kudos / great job",
+    text: "Amazing work today, team — [note]. You're the best! 💕",
+  },
+  {
+    label: "Meeting reminder",
+    text: "Reminder: team huddle [day] at [time]. See you there!",
+  },
+];
+
+export const CC_TIME_OFF_TYPES = ["Vacation", "Sick", "Personal", "Other"] as const;
+export type CcTimeOffType = (typeof CC_TIME_OFF_TYPES)[number];
+export type CcTimeOffStatus = "pending" | "approved" | "denied";
+
+export type CcStaffMessage = {
+  id: string;
+  from: string;
+  to: string;
+  text: string;
+  time: string;
+  createdAt: string;
+};
+
+export type CcTimeOff = {
+  id: string;
+  who: string;
+  type: CcTimeOffType;
+  start: string;
+  end: string;
+  note: string;
+  status: CcTimeOffStatus;
+  decidedBy: string | null;
+  createdAt: string;
+};
+
 export type CcTaskCat = "call" | "order" | "rx" | "fax" | "task";
 export type CcTaskDue = "today" | "tomorrow" | "week";
 export type CcTaskStatus = "open" | "on_it" | "done";
@@ -195,4 +261,60 @@ export function mapTaskRow(row: Record<string, unknown>, messages: Record<string
     updatedAt: String(row.updated_at || ""),
     createdAt: String(row.created_at || ""),
   };
+}
+
+export function formatCcRelativeTime(iso: string): string {
+  const t = new Date(iso).getTime();
+  if (Number.isNaN(t)) return "";
+  const mins = Math.round((Date.now() - t) / 60000);
+  if (mins < 1) return "now";
+  if (mins < 60) return `${mins}m ago`;
+  const hrs = Math.round(mins / 60);
+  if (hrs < 24) return `${hrs}h ago`;
+  return new Date(iso).toLocaleString("en-US", {
+    timeZone: "America/Chicago",
+    month: "short",
+    day: "numeric",
+    hour: "numeric",
+    minute: "2-digit",
+  });
+}
+
+export function mapStaffMessageRow(row: Record<string, unknown>): CcStaffMessage {
+  const createdAt = String(row.created_at || "");
+  return {
+    id: String(row.id),
+    from: String(row.from_name || ""),
+    to: String(row.to_name || ""),
+    text: String(row.body || ""),
+    time: formatCcRelativeTime(createdAt),
+    createdAt,
+  };
+}
+
+export function mapTimeOffRow(row: Record<string, unknown>): CcTimeOff {
+  return {
+    id: String(row.id),
+    who: String(row.who || ""),
+    type: (row.type as CcTimeOffType) || "Vacation",
+    start: String(row.start_date || "").slice(0, 10),
+    end: String(row.end_date || row.start_date || "").slice(0, 10),
+    note: String(row.note || ""),
+    status: (row.status as CcTimeOffStatus) || "pending",
+    decidedBy: row.decided_by ? String(row.decided_by) : null,
+    createdAt: String(row.created_at || ""),
+  };
+}
+
+const CC_MO = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+export function formatCcDateRange(start: string, end: string): string {
+  const fmt = (s: string) => {
+    if (!s) return "";
+    const p = s.split("-");
+    return `${CC_MO[(+p[1]) - 1] || ""} ${+p[2]}`;
+  };
+  const a = fmt(start);
+  if (!end || end === start) return a;
+  return `${a} → ${fmt(end)}`;
 }

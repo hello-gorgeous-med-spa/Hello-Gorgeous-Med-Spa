@@ -5,12 +5,20 @@ import {
   CC_CAT_LABEL,
   CC_CHECKLIST,
   CC_DUE_LABEL,
+  CC_MSG_FROM,
+  CC_MSG_TEMPLATES,
+  CC_MSG_TO,
   CC_STAFF,
+  CC_TIME_OFF_TYPES,
+  formatCcDateRange,
   type CcRemindAt,
+  type CcStaffMessage,
   type CcTask,
   type CcTaskCat,
   type CcTaskDue,
   type CcTaskStatus,
+  type CcTimeOff,
+  type CcTimeOffType,
 } from "@/lib/command-center";
 import { getSession } from "@/lib/hgos/auth";
 import CommandCenterOverview from "@/components/admin/CommandCenterOverview";
@@ -65,6 +73,17 @@ export default function CommandCenterClient() {
   const [remindAt, setRemindAt] = useState<CcRemindAt>("none");
   const [reply, setReply] = useState("");
   const [toast, setToast] = useState("");
+  const [staffMessages, setStaffMessages] = useState<CcStaffMessage[]>([]);
+  const [msgFrom, setMsgFrom] = useState<string>("Danielle");
+  const [msgTo, setMsgTo] = useState<string>("Everyone");
+  const [msgTemplate, setMsgTemplate] = useState(CC_MSG_TEMPLATES[0].label);
+  const [msgText, setMsgText] = useState("");
+  const [timeOff, setTimeOff] = useState<CcTimeOff[]>([]);
+  const [toWho, setToWho] = useState("Michelle");
+  const [toType, setToType] = useState<CcTimeOffType>("Vacation");
+  const [toStart, setToStart] = useState("");
+  const [toEnd, setToEnd] = useState("");
+  const [toNote, setToNote] = useState("");
   const ownerLanded = useRef(false);
 
   const isOwner = role === "owner" || role === "admin";
@@ -92,9 +111,11 @@ export default function CommandCenterClient() {
         setView((v) => (v === "overview" ? "team" : v));
       }
 
-      const [tRes, cRes] = await Promise.all([
+      const [tRes, cRes, mRes, oRes] = await Promise.all([
         fetch("/api/admin/command-center/tasks"),
         fetch("/api/admin/command-center/checklist"),
+        fetch("/api/admin/command-center/messages"),
+        fetch("/api/admin/command-center/time-off"),
       ]);
       if (!tRes.ok) {
         const j = await tRes.json().catch(() => ({}));
@@ -105,6 +126,20 @@ export default function CommandCenterClient() {
       if (cRes.ok) {
         const cJson = await cRes.json();
         setChecks(cJson.checks || {});
+      }
+      if (mRes.ok) {
+        const mJson = await mRes.json();
+        setStaffMessages(mJson.messages || []);
+      }
+      if (oRes.ok) {
+        const oJson = await oRes.json();
+        setTimeOff(oJson.requests || []);
+      }
+      if (name) {
+        const match = CC_MSG_FROM.find(
+          (n) => name.toLowerCase().includes(n.toLowerCase()),
+        );
+        if (match) setMsgFrom(match);
       }
     } catch (e) {
       setError(e instanceof Error ? e.message : "Load failed");
@@ -210,6 +245,76 @@ export default function CommandCenterClient() {
     setTitle(preset.title);
     setCat(preset.cat);
     setComposer(true);
+  };
+
+  async function sendStaffMessage() {
+    const text = msgText.trim();
+    if (!text) return;
+    const res = await fetch("/api/admin/command-center/messages", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ from: msgFrom, to: msgTo, text }),
+    });
+    const j = await res.json().catch(() => ({}));
+    if (!res.ok) {
+      showToast(j.error || "Send failed");
+      return;
+    }
+    setStaffMessages((prev) => [j.message, ...prev]);
+    setMsgText("");
+    setMsgTemplate(CC_MSG_TEMPLATES[0].label);
+    showToast(`Sent to ${msgTo}`);
+  }
+
+  async function submitTimeOff() {
+    if (!toWho || !toStart) {
+      showToast("Pick who + start date");
+      return;
+    }
+    const res = await fetch("/api/admin/command-center/time-off", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        who: toWho,
+        type: toType,
+        start: toStart,
+        end: toEnd,
+        note: toNote,
+      }),
+    });
+    const j = await res.json().catch(() => ({}));
+    if (!res.ok) {
+      showToast(j.error || "Request failed");
+      return;
+    }
+    setTimeOff((prev) => [j.request, ...prev]);
+    setToStart("");
+    setToEnd("");
+    setToNote("");
+    showToast("Time-off requested");
+  }
+
+  async function decideTimeOff(id: string, status: "approved" | "denied") {
+    const res = await fetch("/api/admin/command-center/time-off", {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id, status }),
+    });
+    const j = await res.json().catch(() => ({}));
+    if (!res.ok) {
+      showToast(j.error || "Update failed");
+      return;
+    }
+    setTimeOff((prev) => prev.map((r) => (r.id === id ? j.request : r)));
+  }
+
+  const toPendingCount = timeOff.filter((r) => r.status === "pending").length;
+
+  const typePill: Record<CcTimeOffType, string> = {
+    Vacation: "bg-[#FFE0F0] text-[#C90A68]",
+    Sick: "bg-[#e7efff] text-[#2D63A4]",
+    Personal: "bg-[#fef3c7] text-[#b45309]",
+    Other: "bg-[#f2f2f2] text-[#666]",
   };
 
   return (
@@ -554,6 +659,309 @@ export default function CommandCenterClient() {
                     </div>
                   </div>
                 ))}
+              </div>
+            </div>
+
+            {/* Consent forms — today (shell; Square schedule wires next) */}
+            <div className="bg-white border-2 border-black rounded-2xl p-5 sm:p-6 shadow-[0_8px_26px_rgba(0,0,0,0.06)] mt-[18px]">
+              <div className="flex items-baseline justify-between flex-wrap gap-2">
+                <h2
+                  className="text-[19px] font-bold m-0"
+                  style={{ fontFamily: "var(--font-display), Georgia, serif" }}
+                >
+                  Consent forms — today
+                </h2>
+                <span className="text-[12.5px] font-bold text-[#C90A68]">0/0 signed &amp; ready</span>
+              </div>
+              <p className="mt-1 mb-3 text-[12.5px] text-[#999]">
+                Every client needs a signed consent before treatment — we screen like a medical
+                practice.
+              </p>
+              <div className="h-2 rounded-full bg-[#FFE0F0] overflow-hidden mb-[18px]">
+                <div className="h-full rounded-full w-0" style={{ background: PINK }} />
+              </div>
+              <div className="border border-dashed border-black/20 rounded-xl px-4 py-[26px] text-center text-[13px] text-[#aaa]">
+                No clients on today&apos;s schedule yet.
+              </div>
+            </div>
+
+            {/* Staff messages */}
+            <div className="bg-white border border-black/10 rounded-[18px] p-5 sm:p-6 shadow-[0_4px_24px_rgba(0,0,0,0.05)] mt-[18px]">
+              <h2
+                className="text-[19px] font-bold m-0 mb-1"
+                style={{ fontFamily: "var(--font-display), Georgia, serif" }}
+              >
+                Staff messages
+              </h2>
+              <p className="m-0 mb-4 text-[12.5px] text-[#999]">
+                Send a quick note to one teammate or the whole team — pick a template or write your
+                own.
+              </p>
+
+              <div className="flex gap-3 flex-wrap mb-3">
+                <label className="flex-1 min-w-[140px]">
+                  <div className="text-[11px] tracking-wider uppercase text-[#999] font-bold mb-1.5">
+                    From
+                  </div>
+                  <select
+                    value={msgFrom}
+                    onChange={(e) => setMsgFrom(e.target.value)}
+                    className="w-full border border-black/15 rounded-[10px] px-3 py-2.5 text-sm bg-white cursor-pointer"
+                  >
+                    {CC_MSG_FROM.map((o) => (
+                      <option key={o} value={o}>
+                        {o}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+                <label className="flex-1 min-w-[140px]">
+                  <div className="text-[11px] tracking-wider uppercase text-[#999] font-bold mb-1.5">
+                    To
+                  </div>
+                  <select
+                    value={msgTo}
+                    onChange={(e) => setMsgTo(e.target.value)}
+                    className="w-full border border-black/15 rounded-[10px] px-3 py-2.5 text-sm bg-white cursor-pointer"
+                  >
+                    {CC_MSG_TO.map((o) => (
+                      <option key={o} value={o}>
+                        {o}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+                <label className="flex-[1.4] min-w-[190px]">
+                  <div className="text-[11px] tracking-wider uppercase text-[#999] font-bold mb-1.5">
+                    Template
+                  </div>
+                  <select
+                    value={msgTemplate}
+                    onChange={(e) => {
+                      const label = e.target.value;
+                      setMsgTemplate(label);
+                      const t = CC_MSG_TEMPLATES.find((x) => x.label === label);
+                      setMsgText(t?.text || "");
+                    }}
+                    className="w-full border border-black/15 rounded-[10px] px-3 py-2.5 text-sm bg-white cursor-pointer"
+                  >
+                    {CC_MSG_TEMPLATES.map((o) => (
+                      <option key={o.label} value={o.label}>
+                        {o.label}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+              </div>
+
+              <textarea
+                value={msgText}
+                onChange={(e) => setMsgText(e.target.value)}
+                rows={3}
+                placeholder="Write your message..."
+                className="w-full border border-black/15 rounded-[10px] px-3.5 py-3 text-sm leading-relaxed resize-y"
+              />
+              <div className="flex justify-end mt-2.5">
+                <button
+                  type="button"
+                  onClick={() => void sendStaffMessage()}
+                  className="text-white border-none rounded-[10px] px-6 py-2.5 text-sm font-bold cursor-pointer"
+                  style={{ background: PINK }}
+                >
+                  Send to {msgTo}
+                </button>
+              </div>
+
+              <div className="border-t border-black/10 mt-[18px] pt-4">
+                <div className="text-[11px] tracking-widest uppercase text-[#aaa] font-bold mb-3">
+                  Recent messages
+                </div>
+                <div className="flex flex-col gap-3">
+                  {staffMessages.length === 0 && (
+                    <div className="border border-dashed border-black/20 rounded-xl px-4 py-[22px] text-center text-[13px] text-[#aaa]">
+                      No messages yet.
+                    </div>
+                  )}
+                  {staffMessages.map((m) => (
+                    <div key={m.id} className="flex gap-2.5 items-start">
+                      <div className="w-[34px] h-[34px] rounded-full bg-black text-white flex items-center justify-center text-[13px] font-bold shrink-0">
+                        {(m.from || "?").slice(0, 1)}
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <div className="text-[12.5px]">
+                          <strong>{m.from}</strong>{" "}
+                          <span className="font-bold" style={{ color: PINK }}>
+                            →
+                          </span>{" "}
+                          <strong>{m.to}</strong>{" "}
+                          <span className="text-[#bbb]">· {m.time}</span>
+                        </div>
+                        <div className="text-[13.5px] text-[#333] mt-1 bg-[#faf7f8] rounded-[10px] px-3.5 py-2.5">
+                          {m.text}
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Time-off requests */}
+            <div className="bg-white border border-black/10 rounded-[18px] p-5 sm:p-6 shadow-[0_4px_24px_rgba(0,0,0,0.05)] mt-[18px]">
+              <div className="flex items-baseline justify-between flex-wrap gap-2">
+                <h2
+                  className="text-[19px] font-bold m-0"
+                  style={{ fontFamily: "var(--font-display), Georgia, serif" }}
+                >
+                  Time-off requests
+                </h2>
+                <span className="text-xs text-[#999]">
+                  {toPendingCount} pending owner approval
+                </span>
+              </div>
+              <p className="mt-1 mb-3.5 text-[12.5px] text-[#999]">
+                Everyone can see requests — the owner approves or denies.
+              </p>
+
+              <div className="flex gap-3 flex-wrap items-end border border-black/10 rounded-xl p-3.5 mb-4 bg-[#fafafa]">
+                <div>
+                  <div className="text-[10.5px] tracking-wider uppercase text-[#999] font-bold mb-1.5">
+                    Who
+                  </div>
+                  <select
+                    value={toWho}
+                    onChange={(e) => setToWho(e.target.value)}
+                    className="border border-black/15 rounded-[9px] px-3 py-2 text-[13px] bg-white cursor-pointer"
+                  >
+                    {CC_STAFF.map((a) => (
+                      <option key={a} value={a}>
+                        {a}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <div className="text-[10.5px] tracking-wider uppercase text-[#999] font-bold mb-1.5">
+                    Type
+                  </div>
+                  <select
+                    value={toType}
+                    onChange={(e) => setToType(e.target.value as CcTimeOffType)}
+                    className="border border-black/15 rounded-[9px] px-3 py-2 text-[13px] bg-white cursor-pointer"
+                  >
+                    {CC_TIME_OFF_TYPES.map((o) => (
+                      <option key={o} value={o}>
+                        {o}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <div className="text-[10.5px] tracking-wider uppercase text-[#999] font-bold mb-1.5">
+                    From
+                  </div>
+                  <input
+                    type="date"
+                    value={toStart}
+                    onChange={(e) => setToStart(e.target.value)}
+                    className="border border-black/15 rounded-[9px] px-2.5 py-2 text-[13px]"
+                  />
+                </div>
+                <div>
+                  <div className="text-[10.5px] tracking-wider uppercase text-[#999] font-bold mb-1.5">
+                    To
+                  </div>
+                  <input
+                    type="date"
+                    value={toEnd}
+                    onChange={(e) => setToEnd(e.target.value)}
+                    className="border border-black/15 rounded-[9px] px-2.5 py-2 text-[13px]"
+                  />
+                </div>
+                <input
+                  value={toNote}
+                  onChange={(e) => setToNote(e.target.value)}
+                  placeholder="Reason (optional)"
+                  className="flex-1 min-w-[150px] border border-black/15 rounded-[9px] px-3 py-2 text-[13px]"
+                />
+                <button
+                  type="button"
+                  onClick={() => void submitTimeOff()}
+                  className="text-white border-none rounded-[9px] px-5 py-2.5 text-[13px] font-bold cursor-pointer"
+                  style={{ background: PINK }}
+                >
+                  Request
+                </button>
+              </div>
+
+              {timeOff.length === 0 && (
+                <div className="border border-dashed border-black/20 rounded-xl px-4 py-[26px] text-center text-[13px] text-[#aaa]">
+                  No time-off requests yet.
+                </div>
+              )}
+              <div className="flex flex-col gap-2.5">
+                {timeOff.map((r) => {
+                  const statusLabel =
+                    r.status === "approved"
+                      ? "Approved ✓"
+                      : r.status === "denied"
+                        ? "Denied"
+                        : "Pending";
+                  const statusClass =
+                    r.status === "approved"
+                      ? "bg-green-600/10 text-[#16a34a]"
+                      : r.status === "denied"
+                        ? "bg-[#fde8ef] text-[#9b0b52]"
+                        : "bg-[#111] text-white";
+                  return (
+                    <div
+                      key={r.id}
+                      className="flex items-center justify-between gap-3 flex-wrap border border-black/10 rounded-xl px-4 py-3"
+                    >
+                      <div className="min-w-0">
+                        <div className="text-sm font-bold">
+                          {r.who}{" "}
+                          <span
+                            className={`text-[10.5px] font-bold rounded-full px-2 py-0.5 ml-1.5 ${typePill[r.type]}`}
+                          >
+                            {r.type}
+                          </span>
+                        </div>
+                        <div className="text-[12.5px] text-[#666] mt-0.5">
+                          {formatCcDateRange(r.start, r.end)}
+                        </div>
+                        {r.note ? (
+                          <div className="text-xs text-[#aaa] mt-0.5">{r.note}</div>
+                        ) : null}
+                      </div>
+                      <div className="flex items-center gap-2.5 shrink-0">
+                        <span
+                          className={`text-xs font-bold rounded-full px-3 py-1 whitespace-nowrap ${statusClass}`}
+                        >
+                          {statusLabel}
+                        </span>
+                        {isOwner && r.status === "pending" && (
+                          <>
+                            <button
+                              type="button"
+                              onClick={() => void decideTimeOff(r.id, "approved")}
+                              className="bg-[#16a34a] text-white border-none rounded-lg px-3.5 py-2 text-[12.5px] font-bold cursor-pointer"
+                            >
+                              Approve
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => void decideTimeOff(r.id, "denied")}
+                              className="bg-white text-[#111] border-2 border-black rounded-lg px-3 py-1.5 text-[12.5px] font-bold cursor-pointer"
+                            >
+                              Deny
+                            </button>
+                          </>
+                        )}
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
             </div>
           </div>
