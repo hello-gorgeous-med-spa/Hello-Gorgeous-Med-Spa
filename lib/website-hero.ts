@@ -42,12 +42,12 @@ export const WEBSITE_HERO_SEGMENTS: WebsiteHeroSegment[] = [
   },
   {
     type: "video",
-    src: "/videos/website-hero/quantum-rf-action.mp4",
-    poster: "/images/website-hero/quantum-poster.jpg",
-    eyebrow: "Quantum RF · Live",
+    src: "/videos/website-hero/jen-lips.mp4",
+    poster: "/images/website-hero/jen-poster.jpg",
+    eyebrow: "Lip Filler",
     title: "In expert",
     titleEm: "hands.",
-    sub: "Watch how we treat jawline, neck, and body with Quantum RF in Oswego.",
+    sub: "Natural, balanced lips — placed with care at Hello Gorgeous.",
   },
   {
     type: "video",
@@ -77,16 +77,6 @@ export const WEBSITE_HERO_SEGMENTS: WebsiteHeroSegment[] = [
     sub: "",
     durationMs: 4500,
     objectPosition: "right center",
-  },
-  {
-    type: "image",
-    src: "/images/website-hero/lips.jpg",
-    eyebrow: "Lip Filler",
-    title: "Naturally",
-    titleEm: "fuller lips.",
-    sub: "",
-    durationMs: 4500,
-    objectPosition: "center 42%",
   },
   {
     type: "image",
