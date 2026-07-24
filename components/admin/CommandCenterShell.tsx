@@ -2,7 +2,11 @@
 
 import Link from "next/link";
 import { useEffect, useState, type ReactNode } from "react";
-import { CC_GOOGLE_CHAT_URL, type CcNotification } from "@/lib/command-center";
+import {
+  CC_GOOGLE_CALENDAR_URL,
+  CC_GOOGLE_CHAT_URL,
+  type CcNotification,
+} from "@/lib/command-center";
 
 export type CcShellView = "overview" | "team" | "marketing";
 
@@ -245,15 +249,25 @@ export default function CommandCenterShell({
               {link.label}
             </Link>
           ))}
-          <a
-            href={CC_GOOGLE_CHAT_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-3 flex items-center justify-center gap-2 rounded-lg px-3 py-2.5 text-sm font-bold text-white"
-            style={{ background: PINK }}
-          >
-            Open team chat
-          </a>
+          <div className="mt-3 space-y-2">
+            <a
+              href={CC_GOOGLE_CHAT_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-center gap-2 rounded-lg px-3 py-2.5 text-sm font-bold text-white"
+              style={{ background: PINK }}
+            >
+              Open team chat
+            </a>
+            <a
+              href={CC_GOOGLE_CALENDAR_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-center gap-2 rounded-lg px-3 py-2.5 text-sm font-bold text-white border border-white/25 bg-white/10 hover:bg-white/15"
+            >
+              Open calendar
+            </a>
+          </div>
         </nav>
 
         <div className="px-3 py-4 border-t border-white/10 space-y-1">
@@ -318,16 +332,27 @@ export default function CommandCenterShell({
                   {link.label}
                 </Link>
               ))}
-              <a
-                href={CC_GOOGLE_CHAT_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => setMobileOpen(false)}
-                className="mt-3 flex items-center justify-center gap-2 rounded-lg px-3 py-2.5 text-sm font-bold text-white"
-                style={{ background: PINK }}
-              >
-                Open team chat
-              </a>
+              <div className="mt-3 space-y-2">
+                <a
+                  href={CC_GOOGLE_CHAT_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => setMobileOpen(false)}
+                  className="flex items-center justify-center gap-2 rounded-lg px-3 py-2.5 text-sm font-bold text-white"
+                  style={{ background: PINK }}
+                >
+                  Open team chat
+                </a>
+                <a
+                  href={CC_GOOGLE_CALENDAR_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => setMobileOpen(false)}
+                  className="flex items-center justify-center gap-2 rounded-lg px-3 py-2.5 text-sm font-bold text-white border border-white/25 bg-white/10"
+                >
+                  Open calendar
+                </a>
+              </div>
             </nav>
           </aside>
         </div>

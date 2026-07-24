@@ -10,6 +10,15 @@ export const CC_GOOGLE_CHAT_URL =
     process.env.NEXT_PUBLIC_GOOGLE_CHAT_SPACE_URL?.trim()) ||
   "https://chat.google.com/app/chat/9pasyKAAAAE";
 
+/**
+ * Google Calendar (Workspace) — opens in a new tab.
+ * Override with NEXT_PUBLIC_GOOGLE_CALENDAR_URL if needed.
+ */
+export const CC_GOOGLE_CALENDAR_URL =
+  (typeof process !== "undefined" &&
+    process.env.NEXT_PUBLIC_GOOGLE_CALENDAR_URL?.trim()) ||
+  "https://calendar.google.com/calendar/u/0/r";
+
 export const CC_STAFF = [
   "Danielle",
   "Ryan",

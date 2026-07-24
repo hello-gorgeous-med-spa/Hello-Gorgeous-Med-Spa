@@ -5,6 +5,7 @@ import {
   CC_CAT_LABEL,
   CC_CHECKLIST,
   CC_DUE_LABEL,
+  CC_GOOGLE_CALENDAR_URL,
   CC_GOOGLE_CHAT_URL,
   CC_MSG_FROM,
   CC_MSG_TEMPLATES,
@@ -448,6 +449,14 @@ export default function CommandCenterClient() {
                   style={{ background: PINK }}
                 >
                   Open team chat
+                </a>
+                <a
+                  href={CC_GOOGLE_CALENDAR_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center rounded-full px-4 py-2.5 text-[13px] font-bold no-underline border-2 border-black bg-white text-[#111]"
+                >
+                  Open calendar
                 </a>
               </div>
             </div>
