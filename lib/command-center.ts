@@ -8,7 +8,7 @@
 export const CC_GOOGLE_CHAT_URL =
   (typeof process !== "undefined" &&
     process.env.NEXT_PUBLIC_GOOGLE_CHAT_SPACE_URL?.trim()) ||
-  "https://chat.google.com/app/chat/AAQAeQYnI54";
+  "https://chat.google.com/app/chat/9pasyKAAAAE";
 
 export const CC_STAFF = [
   "Danielle",
