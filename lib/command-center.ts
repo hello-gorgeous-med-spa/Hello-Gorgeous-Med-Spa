@@ -19,6 +19,15 @@ export const CC_GOOGLE_CALENDAR_URL =
     process.env.NEXT_PUBLIC_GOOGLE_CALENDAR_URL?.trim()) ||
   "https://calendar.google.com/calendar/u/0/r";
 
+/**
+ * Google Meet (Workspace) — opens in a new tab.
+ * Override with NEXT_PUBLIC_GOOGLE_MEET_URL if needed.
+ */
+export const CC_GOOGLE_MEET_URL =
+  (typeof process !== "undefined" &&
+    process.env.NEXT_PUBLIC_GOOGLE_MEET_URL?.trim()) ||
+  "https://meet.google.com/landing?hs=197&authuser=0";
+
 export const CC_STAFF = [
   "Danielle",
   "Ryan",

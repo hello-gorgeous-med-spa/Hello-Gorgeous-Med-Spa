@@ -7,6 +7,7 @@ import {
   CC_DUE_LABEL,
   CC_GOOGLE_CALENDAR_URL,
   CC_GOOGLE_CHAT_URL,
+  CC_GOOGLE_MEET_URL,
   CC_MSG_FROM,
   CC_MSG_TEMPLATES,
   CC_MSG_TO,
@@ -457,6 +458,14 @@ export default function CommandCenterClient() {
                   className="inline-flex items-center rounded-full px-4 py-2.5 text-[13px] font-bold no-underline border-2 border-black bg-white text-[#111]"
                 >
                   Open calendar
+                </a>
+                <a
+                  href={CC_GOOGLE_MEET_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center rounded-full px-4 py-2.5 text-[13px] font-bold no-underline border-2 border-black/20 bg-[#f5f5f5] text-[#111]"
+                >
+                  Open Meet
                 </a>
               </div>
             </div>

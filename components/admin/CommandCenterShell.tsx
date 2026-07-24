@@ -5,6 +5,7 @@ import { useEffect, useState, type ReactNode } from "react";
 import {
   CC_GOOGLE_CALENDAR_URL,
   CC_GOOGLE_CHAT_URL,
+  CC_GOOGLE_MEET_URL,
   type CcNotification,
 } from "@/lib/command-center";
 
@@ -267,6 +268,14 @@ export default function CommandCenterShell({
             >
               Open calendar
             </a>
+            <a
+              href={CC_GOOGLE_MEET_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-center gap-2 rounded-lg px-3 py-2.5 text-sm font-bold text-white border border-white/25 bg-white/10 hover:bg-white/15"
+            >
+              Open Meet
+            </a>
           </div>
         </nav>
 
@@ -351,6 +360,15 @@ export default function CommandCenterShell({
                   className="flex items-center justify-center gap-2 rounded-lg px-3 py-2.5 text-sm font-bold text-white border border-white/25 bg-white/10"
                 >
                   Open calendar
+                </a>
+                <a
+                  href={CC_GOOGLE_MEET_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => setMobileOpen(false)}
+                  className="flex items-center justify-center gap-2 rounded-lg px-3 py-2.5 text-sm font-bold text-white border border-white/25 bg-white/10"
+                >
+                  Open Meet
                 </a>
               </div>
             </nav>
