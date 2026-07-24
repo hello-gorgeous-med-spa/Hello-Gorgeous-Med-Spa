@@ -1,5 +1,15 @@
 /** Command Center — shared types + Team Hub checklist template */
 
+/**
+ * Google Chat (Workspace) — opens in a new tab.
+ * Set NEXT_PUBLIC_GOOGLE_CHAT_SPACE_URL to your HG Ops Space link
+ * (Chat → Space → copy link). Falls back to Chat home.
+ */
+export const CC_GOOGLE_CHAT_URL =
+  (typeof process !== "undefined" &&
+    process.env.NEXT_PUBLIC_GOOGLE_CHAT_SPACE_URL?.trim()) ||
+  "https://chat.google.com/";
+
 export const CC_STAFF = [
   "Danielle",
   "Ryan",

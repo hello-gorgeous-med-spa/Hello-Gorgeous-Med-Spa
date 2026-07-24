@@ -5,6 +5,7 @@ import {
   CC_CAT_LABEL,
   CC_CHECKLIST,
   CC_DUE_LABEL,
+  CC_GOOGLE_CHAT_URL,
   CC_MSG_FROM,
   CC_MSG_TEMPLATES,
   CC_MSG_TO,
@@ -424,19 +425,30 @@ export default function CommandCenterClient() {
                   <span style={{ color: PINK }}>gorgeous</span>.
                 </h1>
               </div>
-              <div className="flex gap-4 text-sm">
-                <div>
-                  <span className="text-[#888]">Open </span>
-                  <strong>{openCount}</strong>
+              <div className="flex flex-wrap items-center gap-4">
+                <div className="flex gap-4 text-sm">
+                  <div>
+                    <span className="text-[#888]">Open </span>
+                    <strong>{openCount}</strong>
+                  </div>
+                  <div>
+                    <span className="text-[#888]">Done </span>
+                    <strong>{doneCount}</strong>
+                  </div>
+                  <div>
+                    <span className="text-[#888]">Checklist </span>
+                    <strong>{checkPct}%</strong>
+                  </div>
                 </div>
-                <div>
-                  <span className="text-[#888]">Done </span>
-                  <strong>{doneCount}</strong>
-                </div>
-                <div>
-                  <span className="text-[#888]">Checklist </span>
-                  <strong>{checkPct}%</strong>
-                </div>
+                <a
+                  href={CC_GOOGLE_CHAT_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center rounded-full px-4 py-2.5 text-[13px] font-bold text-white no-underline"
+                  style={{ background: PINK }}
+                >
+                  Open team chat
+                </a>
               </div>
             </div>
 
@@ -805,8 +817,18 @@ export default function CommandCenterClient() {
                 Staff messages
               </h2>
               <p className="m-0 mb-4 text-[12.5px] text-[#999]">
-                Send a quick note to one teammate or the whole team — pick a template or write your
-                own.
+                Board notes for the day — pick a template or write your own. For live back-and-forth,
+                use{" "}
+                <a
+                  href={CC_GOOGLE_CHAT_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-bold underline decoration-2 underline-offset-2"
+                  style={{ color: PINK }}
+                >
+                  Google Chat
+                </a>
+                .
               </p>
 
               <div className="flex gap-3 flex-wrap mb-3">
