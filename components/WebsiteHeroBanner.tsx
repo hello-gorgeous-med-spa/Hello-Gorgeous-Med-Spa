@@ -126,18 +126,19 @@ export default function WebsiteHeroBanner({ variant = "home", className = "" }: 
   return (
     <section
       className={`relative w-full overflow-hidden bg-black text-white ${
-        isApp
-          ? "rounded-2xl md:rounded-3xl"
-          : "min-h-[min(92vh,920px)] h-[min(92vh,920px)]"
+        isApp ? "rounded-2xl md:rounded-3xl" : ""
       } ${className}`}
       style={
         isApp
           ? {
-              height: "clamp(240px, 68vw, 380px)",
+              height: "clamp(200px, 52vw, 300px)",
               border: "1px solid rgba(255,45,142,0.35)",
               boxShadow: "0 28px 90px rgba(0,0,0,0.55)",
             }
-          : undefined
+          : {
+              /* Match prior homepage hero scale — not full-viewport */
+              height: "clamp(260px, 42vw, 480px)",
+            }
       }
       aria-label="Hello Gorgeous featured treatments"
     >
@@ -177,13 +178,13 @@ export default function WebsiteHeroBanner({ variant = "home", className = "" }: 
 
       <div
         className={`absolute z-10 flex items-start justify-between gap-3 ${
-          isApp ? "left-3 right-3 top-3" : "left-5 right-5 top-6 sm:left-10 sm:right-10 sm:top-10"
+          isApp ? "left-3 right-3 top-3" : "left-4 right-4 top-3 sm:left-6 sm:right-6 sm:top-4"
         }`}
       >
-        <div className="flex items-center gap-3 min-w-0">
+        <div className="flex items-center gap-2.5 min-w-0">
           <div
-            className={`shrink-0 flex items-center justify-center rounded-xl bg-[#FF2D8E] font-bold text-white ${
-              isApp ? "h-9 w-9 text-sm" : "h-12 w-12 text-lg sm:h-14 sm:w-14 sm:text-xl"
+            className={`shrink-0 flex items-center justify-center rounded-lg bg-[#FF2D8E] font-bold text-white ${
+              isApp ? "h-8 w-8 text-xs" : "h-9 w-9 text-sm sm:h-10 sm:w-10"
             }`}
             style={{ fontFamily: "var(--font-display), Georgia, serif" }}
           >
@@ -192,15 +193,15 @@ export default function WebsiteHeroBanner({ variant = "home", className = "" }: 
           <div className="min-w-0">
             <div
               className={`font-bold leading-tight text-white truncate ${
-                isApp ? "text-sm" : "text-lg sm:text-2xl"
+                isApp ? "text-sm" : "text-base sm:text-lg"
               }`}
               style={{ fontFamily: "var(--font-display), Georgia, serif" }}
             >
               Hello Gorgeous
             </div>
             <div
-              className={`font-semibold uppercase tracking-[0.28em] text-white/70 ${
-                isApp ? "text-[8px]" : "text-[10px] sm:text-xs"
+              className={`font-semibold uppercase tracking-[0.22em] text-white/70 ${
+                isApp ? "text-[8px]" : "text-[9px] sm:text-[10px]"
               }`}
             >
               Med Spa · Oswego, IL
@@ -209,7 +210,7 @@ export default function WebsiteHeroBanner({ variant = "home", className = "" }: 
         </div>
         <div
           className={`shrink-0 inline-flex items-center rounded-full border border-white/25 bg-black/40 font-bold uppercase tracking-[0.14em] text-white backdrop-blur-md ${
-            isApp ? "px-2.5 py-1 text-[8px]" : "px-4 py-2.5 text-[11px] sm:text-xs"
+            isApp ? "px-2.5 py-1 text-[8px]" : "px-3 py-1.5 text-[9px] sm:text-[10px]"
           }`}
         >
           Best of Oswego
@@ -222,13 +223,13 @@ export default function WebsiteHeroBanner({ variant = "home", className = "" }: 
         } ${
           isApp
             ? "left-3 right-3 bottom-3 max-w-[90%]"
-            : "left-5 right-5 bottom-28 sm:left-10 sm:bottom-32 sm:max-w-3xl lg:bottom-36"
+            : "left-4 right-4 bottom-14 max-w-xl sm:left-6 sm:bottom-16 sm:max-w-2xl"
         }`}
       >
-        <div className={`rounded-full bg-[#FF2D8E] ${isApp ? "mb-2 h-0.5 w-8" : "mb-4 h-[3px] w-16"}`} />
+        <div className={`rounded-full bg-[#FF2D8E] ${isApp ? "mb-2 h-0.5 w-8" : "mb-2 h-0.5 w-10"}`} />
         <p
-          className={`font-bold uppercase tracking-[0.32em] ${
-            isApp ? "text-[9px] mb-1" : "text-xs sm:text-sm mb-3"
+          className={`font-bold uppercase tracking-[0.28em] ${
+            isApp ? "text-[9px] mb-1" : "text-[10px] sm:text-xs mb-1.5"
           }`}
           style={{ color: PINK }}
         >
@@ -236,7 +237,7 @@ export default function WebsiteHeroBanner({ variant = "home", className = "" }: 
         </p>
         <h1
           className={`font-bold leading-[1.05] tracking-tight text-white ${
-            isApp ? "text-xl sm:text-2xl" : "text-4xl sm:text-5xl md:text-6xl lg:text-7xl"
+            isApp ? "text-xl sm:text-2xl" : "text-2xl sm:text-3xl md:text-4xl"
           }`}
           style={{ fontFamily: "var(--font-display), Georgia, serif" }}
         >
@@ -251,24 +252,24 @@ export default function WebsiteHeroBanner({ variant = "home", className = "" }: 
           ) : null}
         </h1>
         {seg.sub && !isApp ? (
-          <p className="mt-3 max-w-xl text-base font-medium leading-relaxed text-white/85 sm:text-lg">
+          <p className="mt-1.5 max-w-lg text-sm font-medium leading-snug text-white/80 sm:text-[15px] line-clamp-2">
             {seg.sub}
           </p>
         ) : null}
       </div>
 
       {!isApp ? (
-        <div className="absolute z-10 right-5 bottom-8 flex flex-col items-end gap-3 sm:right-10 sm:bottom-12 sm:flex-row sm:items-center sm:gap-6">
+        <div className="absolute z-10 right-4 bottom-3 flex flex-col items-end gap-2 sm:right-6 sm:bottom-4 sm:flex-row sm:items-center sm:gap-4">
           <Link
             href={PRIMARY_BOOKING_CTA.href}
-            className="inline-flex items-center rounded-full px-7 py-3.5 text-sm font-bold uppercase tracking-[0.14em] text-white shadow-[0_14px_44px_rgba(255,45,142,0.45)] transition hover:brightness-110"
+            className="inline-flex items-center rounded-full px-4 py-2 text-[11px] font-bold uppercase tracking-[0.12em] text-white shadow-[0_10px_28px_rgba(255,45,142,0.4)] transition hover:brightness-110 sm:px-5 sm:py-2.5 sm:text-xs"
             style={{ background: PINK }}
           >
-            Book Your Free Consult
+            Book Free Consult
           </Link>
           <a
             href={WEBSITE_HERO_PHONE_HREF}
-            className="text-lg font-semibold text-white sm:text-xl"
+            className="text-sm font-semibold text-white sm:text-base"
           >
             {WEBSITE_HERO_PHONE_DISPLAY}
           </a>
@@ -297,13 +298,13 @@ export default function WebsiteHeroBanner({ variant = "home", className = "" }: 
           aria-hidden
         >
           <p
-            className="mb-5 text-xs font-bold uppercase tracking-[0.4em] sm:text-sm"
+            className="mb-2 text-[10px] font-bold uppercase tracking-[0.32em] sm:text-xs"
             style={{ color: PINK }}
           >
             Medical Aesthetics · Oswego, IL
           </p>
           <p
-            className="text-5xl font-semibold italic tracking-tight text-white sm:text-6xl md:text-7xl lg:text-8xl"
+            className="text-3xl font-semibold italic tracking-tight text-white sm:text-4xl md:text-5xl"
             style={{ fontFamily: "var(--font-display), Georgia, serif" }}
           >
             Hello, <span style={{ color: PINK }}>gorgeous.</span>
