@@ -117,6 +117,13 @@ const VITAMIN_SERVICES = [
     description:
       "Every shot $25 — B12, Biotin, Vitamin D3, Glutathione, Vitamin C, Lipo-Mino, Amino Blend, Tri-Immune. Walk-in friendly.",
   },
+  {
+    name: "Biotin Injection",
+    price: 2500,
+    duration: 10,
+    description:
+      "IM biotin shot for hair, skin, and nail support. $25 · 10-minute walk-in at Hello Gorgeous Med Spa, Oswego. Pair with facials, lashes, or your Vitamin Bar visit.",
+  },
 ];
 
 async function square(method, path, body) {
@@ -210,6 +217,10 @@ function findItem(items, desiredName) {
   }
   if (n.includes("vitamin injection bar")) {
     hit = items.find((o) => /vitamin injection bar/i.test(o.item_data?.name || ""));
+    if (hit) return hit;
+  }
+  if (n === "biotin injection" || n === "biotin shot") {
+    hit = items.find((o) => /^(biotin injection|biotin shot)$/i.test(o.item_data?.name || ""));
     if (hit) return hit;
   }
   return null;
