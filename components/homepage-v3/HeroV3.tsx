@@ -1,5 +1,5 @@
-import { BrandHero } from "@/components/BrandHero";
+import WebsiteHeroBanner from "@/components/WebsiteHeroBanner";
 
 export function HeroV3() {
-  return <BrandHero variant="home" />;
+  return <WebsiteHeroBanner variant="home" />;
 }

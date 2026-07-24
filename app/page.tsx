@@ -135,9 +135,7 @@ export default function HomePage() {
       />
 
       <main>
-        <div className="bg-black">
-          <HeroV3 />
-        </div>
+        <HeroV3 />
         <HomepageLookbookPageContent />
       </main>
     </>
