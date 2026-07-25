@@ -88,16 +88,6 @@ export const WEBSITE_HERO_SEGMENTS: WebsiteHeroSegment[] = [
     durationMs: 4500,
     objectPosition: "center 10%",
   },
-  {
-    type: "image",
-    src: "/images/website-hero/lips.jpg",
-    eyebrow: "Lip Filler",
-    title: "Naturally",
-    titleEm: "fuller lips.",
-    sub: "",
-    durationMs: 4500,
-    objectPosition: "center 42%",
-  },
 ];
 
 export const WEBSITE_HERO_PHONE_DISPLAY = "(630) 636-6193";
