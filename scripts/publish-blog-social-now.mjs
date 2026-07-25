@@ -8,6 +8,28 @@
 const SITE_URL = (process.env.SITE_URL || "https://www.hellogorgeousmedspa.com").replace(/\/$/, "");
 
 const POSTS = {
+  "retatrutide-fda-filing-early-2027-oswego-il": {
+    label: "Retatrutide FDA filing 2027 — Facebook + Google",
+    channels: ["facebook", "google"],
+    message: `📰 WEIGHT LOSS NEWS — Retatrutide & the early 2027 FDA filing
+
+Eli Lilly says it plans to file retatrutide (the investigational “triple” weight-loss medicine) for FDA approval in early 2027.
+
+What that means for Fox Valley patients:
+✓ Filing ≠ available at the pharmacy yet
+✓ Approval, if it comes, would likely be later
+✓ Don’t chase gray-market “research” products
+
+What you CAN do now at Hello Gorgeous Med Spa, Oswego IL:
+💉 Medically supervised semaglutide & tirzepatide programs when appropriate
+👩‍⚕️ Ryan Kent, FNP-BC on site 7 days a week
+📍 Serving Naperville · Aurora · Plainfield · Yorkville · Montgomery
+
+Read our clear local guide 👇
+Individual results vary. Not medical advice.`,
+    link: `${SITE_URL}/blog/retatrutide-fda-filing-early-2027-oswego-il`,
+    imagePath: "/images/homepage-buyer-paths/weight-loss-hormones.png",
+  },
   "quantum-rf-launch-google": {
     label: "Quantum RF launch — Google Business",
     channels: ["google"],
