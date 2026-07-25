@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import { HeroV3, HomepageLookbookPageContent } from "@/components/homepage-v3";
+import { HeroV3, HelloGorgeousLandingPageContent } from "@/components/homepage-v3";
 import {
   SITE,
   SITE_HERO_IMAGE,
@@ -136,7 +136,7 @@ export default function HomePage() {
 
       <main>
         <HeroV3 />
-        <HomepageLookbookPageContent />
+        <HelloGorgeousLandingPageContent />
       </main>
     </>
   );

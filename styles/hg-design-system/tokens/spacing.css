@@ -1,0 +1,51 @@
+/* ============================================================
+   HELLO GORGEOUS — SPACING, RADII, SHADOWS, LAYOUT
+   Generous "luxury" spacing: 100px major sections.
+   ============================================================ */
+
+:root {
+  /* ---- Spacing scale ---- */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 40px;
+  --space-8: 60px;
+  --space-9: 80px;
+  --space-10: 100px;
+  --space-11: 120px;
+
+  /* ---- Semantic spacing ---- */
+  --section-y: 100px;        /* major vertical section padding */
+  --section-y-lg: 120px;
+  --section-y-sm: 60px;
+  --section-x: 24px;         /* page gutter */
+  --card-gap: 40px;          /* grid gap between cards */
+  --card-pad: 32px;          /* inner card padding */
+
+  /* ---- Radii ---- */
+  --radius-sm: 8px;          /* buttons, inputs */
+  --radius-md: 12px;         /* small cards, dropdowns */
+  --radius-lg: 16px;         /* cards (xl) */
+  --radius-xl: 22px;         /* large feature cards (2xl) */
+  --radius-pill: 999px;      /* badges, nav pills */
+
+  /* ---- Shadows ---- */
+  --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.08);
+  --shadow-card-hover: 0 20px 40px rgba(0, 0, 0, 0.1);
+  --shadow-glow: 0 0 0 1px rgba(255, 45, 142, 0.2), 0 18px 55px rgba(255, 45, 142, 0.18);
+  --shadow-clinical: 0 1px 3px rgba(0, 0, 0, 0.06), 0 4px 12px rgba(0, 0, 0, 0.04);
+  --shadow-pink: 0 10px 30px rgba(255, 45, 142, 0.25);
+
+  /* ---- Layout ---- */
+  --container-max: 1280px;
+  --container-wide: 1440px;
+
+  /* ---- Motion ---- */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);  /* @kind other */
+  --dur-fast: 0.2s;   /* @kind other */
+  --dur-base: 0.3s;   /* @kind other */
+  --dur-slow: 0.6s;   /* @kind other */
+}

@@ -1,0 +1,11 @@
+/* ============================================================
+   HELLO GORGEOUS MED SPA — DESIGN SYSTEM
+   Global entry point. Consumers link this one file.
+   Brand law: White · Black · Hot Pink (#FF2D8E). No gray on public.
+   ============================================================ */
+
+@import url("tokens/fonts.css");
+@import url("tokens/colors.css");
+@import url("tokens/typography.css");
+@import url("tokens/spacing.css");
+@import url("tokens/base.css");

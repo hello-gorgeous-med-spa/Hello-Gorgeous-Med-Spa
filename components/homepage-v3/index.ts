@@ -1,5 +1,6 @@
 export { HeroV3 } from "./HeroV3";
 export { HomepageLookbookPageContent } from "./HomepageLookbookPageContent";
+export { HelloGorgeousLandingPageContent } from "./HelloGorgeousLandingPageContent";
 export { HomepageMedicalLane } from "./HomepageMedicalLane";
 export { HomepageAestheticsLane } from "./HomepageAestheticsLane";
 export { HomepageMedicalStickyBar } from "./HomepageMedicalStickyBar";

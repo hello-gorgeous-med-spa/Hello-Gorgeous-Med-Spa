@@ -1,0 +1,190 @@
+/* ============================================================
+   HELLO GORGEOUS — BASE & HELPER STYLES
+   Brand-law contrast system, typography defaults, and the
+   button / card / section helpers used across the marketing site.
+   ============================================================ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--surface-page);
+  color: var(--text-body);
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: rgba(255, 45, 142, 0.3);
+  color: var(--hg-black);
+}
+
+/* ---- Headings: Playfair serif ---- */
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: var(--fw-bold);
+  line-height: var(--lh-heading);
+  margin: 0 0 0.5em;
+  color: var(--text-strong);
+}
+
+h1 { font-size: clamp(2.5rem, 6vw, 3.5rem); line-height: var(--lh-display); letter-spacing: var(--ls-display); }
+h2 { font-size: clamp(1.75rem, 4vw, 2.5rem); }
+h3 { font-size: clamp(1.25rem, 3vw, 1.75rem); font-weight: var(--fw-semibold); }
+h4 { font-size: var(--fs-h4); font-weight: var(--fw-semibold); }
+
+p { margin: 0 0 1em; }
+
+a { color: inherit; }
+
+/* ---- Eyebrow / kicker ---- */
+.hg-eyebrow {
+  font-family: var(--font-body);
+  font-size: var(--fs-eyebrow);
+  font-weight: var(--fw-bold);
+  text-transform: uppercase;
+  letter-spacing: var(--ls-widest);
+  color: var(--text-accent);
+}
+
+/* ============================================================
+   SECTION COLOR CONTROL
+   ============================================================ */
+.section-white { background: var(--hg-white); color: var(--hg-black); }
+.section-black { background: var(--hg-black); color: var(--hg-white); }
+.section-pink  { background: var(--hg-pink);  color: var(--hg-white); }
+.section-white *, .section-black *, .section-pink * { color: inherit; }
+.section-white .accent, .section-black .accent { color: var(--hg-pink); }
+
+/* ============================================================
+   LAYOUT HELPERS
+   ============================================================ */
+.hg-container {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding-left: var(--section-x);
+  padding-right: var(--section-x);
+}
+.section-padding    { padding: var(--section-y) var(--section-x); }
+.section-padding-lg { padding: var(--section-y-lg) var(--section-x); }
+.section-padding-sm { padding: var(--section-y-sm) var(--section-x); }
+
+/* ============================================================
+   BUTTON SYSTEM
+   ============================================================ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 48px;
+  padding: 16px 36px;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-body);
+  font-weight: var(--fw-semibold);
+  font-size: var(--fs-sm);
+  cursor: pointer;
+  transition: all var(--dur-base) var(--ease-out);
+  text-decoration: none;
+}
+.btn:hover { transform: translateY(-2px); }
+
+.btn-primary { background: var(--hg-pink); color: #fff; }
+.btn-primary:hover { background: var(--hg-black); color: var(--hg-pink); box-shadow: var(--shadow-card-hover); }
+
+.btn-secondary { background: var(--hg-black); color: #fff; border: 2px solid var(--hg-black); }
+.btn-secondary:hover { background: #fff; color: var(--hg-black); box-shadow: var(--shadow-card-hover); }
+
+.btn-outline { background: transparent; color: var(--hg-black); border: 2px solid var(--hg-black); }
+.btn-outline:hover { background: var(--hg-pink); color: #fff; border-color: var(--hg-pink); }
+
+.btn-white { background: #fff; color: var(--hg-black); }
+.btn-white:hover { background: var(--hg-black); color: #fff; }
+
+/* Premium "CTA" variant: uppercase, wide tracking */
+.btn-cta {
+  text-transform: uppercase;
+  letter-spacing: var(--ls-widest);
+  font-size: var(--fs-xs);
+}
+
+/* Trifecta gradient button */
+.btn-gradient {
+  background: linear-gradient(to right, var(--tri-pink), var(--tri-pink-deep));
+  color: #fff;
+}
+.btn-gradient:hover { filter: brightness(1.1); }
+
+/* ============================================================
+   CARD SYSTEM
+   ============================================================ */
+.hg-card {
+  background: var(--surface-card);
+  color: var(--hg-black);
+  border: 2px solid var(--hg-black);
+  border-radius: var(--radius-lg);
+  padding: var(--card-pad);
+  transition: all var(--dur-base) var(--ease-out);
+}
+.hg-card:hover {
+  border-color: var(--hg-pink);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-card-hover);
+}
+.hg-card .accent { color: var(--hg-pink); }
+
+/* Soft card (shadow instead of hard border) */
+.hg-card-soft {
+  background: #fff;
+  border: 1px solid var(--border-hairline);
+  border-radius: var(--radius-lg);
+  padding: var(--card-pad);
+  box-shadow: var(--shadow-card);
+}
+
+/* ============================================================
+   BADGE / PILL
+   ============================================================ */
+.hg-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+  background: var(--hg-pink-deep);
+  color: #fff;
+  font-size: 9px;
+  font-weight: var(--fw-bold);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* ============================================================
+   DIVIDERS
+   ============================================================ */
+.divider-gradient {
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, transparent, var(--hg-pink), transparent);
+}
+
+/* ============================================================
+   MOTION
+   ============================================================ */
+.fade-up { opacity: 0; transform: translateY(24px); }
+.fade-up.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity var(--dur-slow) var(--ease-out), transform var(--dur-slow) var(--ease-out);
+}
+@media (prefers-reduced-motion: reduce) {
+  .fade-up { opacity: 1; transform: none; }
+}

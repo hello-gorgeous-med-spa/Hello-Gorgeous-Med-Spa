@@ -1,0 +1,97 @@
+/* ============================================================
+   HELLO GORGEOUS — COLOR TOKENS
+   Brand law: White, Black, Hot Pink. No gray on the public site.
+   ============================================================ */
+
+:root {
+  /* ---- Core brand ---- */
+  --hg-white: #FFFFFF;
+  --hg-black: #000000;
+  --hg-pink: #FF2D8E;        /* primary hot pink (UI, accents, CTAs) */
+  --hg-pink-deep: #E6007E;   /* deeper pink (hover, gradients, logo) */
+  --hg-pink-wine: #C90A68;   /* darkest pink (pressed, deep accents) */
+
+  /* ---- Brand pink scale ---- */
+  --hg-pink-50:  #FFF0F7;
+  --hg-pink-100: #FFE0F0;
+  --hg-pink-200: #FFC1E2;
+  --hg-pink-300: #FF92CC;
+  --hg-pink-400: #FF5FB1;
+  --hg-pink-500: #FF2D8E;
+  --hg-pink-600: #E6007E;
+  --hg-pink-700: #C90A68;
+  --hg-pink-800: #9B0B52;
+  --hg-pink-900: #730A3F;
+  --hg-pink-950: #4B062A;
+
+  /* Soft pink tints for backgrounds / surfaces */
+  --hg-pink-soft: #FFF5F9;   /* near-white pink wash */
+  --hg-pink-mid:  #FCE7F3;   /* light pink panel */
+  --hg-pink-light: #FFB8DC;  /* light pink text on black (footer credential) */
+
+  /* ---- Accent metals ---- */
+  --hg-gold: #FFD700;        /* award / "Best of Oswego" */
+  --hg-gold-soft: #FFD86B;
+
+  /* ---- Trifecta accent set (homepage showcase, nav pills, app) ----
+     A three-way accent system layered on the brand. Use for tech
+     showcases (Morpheus8 + Quantum RF + Solaria CO2) and nav rhythm. */
+  --tri-pink: #ec4899;
+  --tri-pink-deep: #db2777;
+  --tri-pink-subtitle: #f472b6;
+  --tri-blue: #3b82f6;
+  --tri-blue-deep: #6366f1;
+  --tri-blue-subtitle: #60a5fa;
+  --tri-amber: #f59e0b;
+  --tri-amber-deep: #f97316;
+  --tri-amber-subtitle: #fbbf24;
+  --tri-gradient-title: linear-gradient(to right, #ec4899, #60a5fa, #f59e0b);  /* @kind color */
+  --tri-glass: rgba(24, 24, 27, 0.85);
+  --tri-glass-soft: rgba(24, 24, 27, 0.6);
+  --tri-panel: #18181b;
+
+  /* ---- Clinical palette (admin / charting only — NOT public) ---- */
+  --clinical-navy: #002168;
+  --clinical-navy-light: #1e3a5f;
+  --clinical-blue: #2D63A4;
+  --clinical-blue-light: #5E94C2;
+  --clinical-ink: #111827;
+  --clinical-ink-soft: #374151;
+
+  /* ---- Semantic status ---- */
+  --hg-success: #16a34a;
+  --hg-warning: #f59e0b;
+  --hg-error: #dc2626;
+
+  /* ============================================================
+     SEMANTIC ALIASES — prefer these in components
+     ============================================================ */
+
+  /* Surfaces */
+  --surface-page: var(--hg-white);
+  --surface-card: var(--hg-white);
+  --surface-inverse: var(--hg-black);     /* black header / footer */
+  --surface-pink: var(--hg-pink);
+  --surface-pink-wash: var(--hg-pink-soft);
+  --surface-glass: var(--tri-glass);
+
+  /* Text */
+  --text-strong: var(--hg-black);
+  --text-body: var(--hg-black);
+  --text-on-dark: var(--hg-white);
+  --text-on-pink: var(--hg-white);
+  --text-accent: var(--hg-pink);
+  --text-muted-on-dark: rgba(255, 255, 255, 0.55);
+
+  /* Borders */
+  --border-strong: var(--hg-black);       /* 2px black card outline */
+  --border-accent: var(--hg-pink);
+  --border-hairline: rgba(0, 0, 0, 0.1);
+  --border-on-dark: rgba(255, 255, 255, 0.12);
+
+  /* Interactive */
+  --action-primary: var(--hg-pink);
+  --action-primary-hover: var(--hg-pink-deep);
+  --action-primary-text: var(--hg-white);
+  --focus-ring: var(--hg-pink);
+}
