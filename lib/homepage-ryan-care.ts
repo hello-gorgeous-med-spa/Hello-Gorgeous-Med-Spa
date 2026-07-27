@@ -10,7 +10,7 @@ export const HOMEPAGE_RYAN_CARE = {
   image: RYAN_PATIENT_CARE_IMAGE,
   imageAlt:
     "Ryan Kent, FNP-BC examining a young patient at Hello Gorgeous Med Spa in Oswego, Illinois",
-  eyebrow: "Medical Director · On site 7 days a week",
+  eyebrow: "MD Oversight · FNP-BC On Site",
   headline: RYAN_FULL_NAME,
   body:
     "Board-certified Family Nurse Practitioner with full prescriptive authority in Illinois. GLP-1, hormones, peptides, injectables, and telehealth — supervised in person, not from a remote letterhead.",

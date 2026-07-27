@@ -59,7 +59,7 @@ export function MedicalTrustBand({
           <div className="grid gap-8 p-6 md:grid-cols-2 md:items-center md:gap-10 md:p-10">
             <FadeUp>
               <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-[#E6007E]">
-                Real providers · Real medical oversight
+                MD Oversight · FNP-BC On Site · Come in — we&apos;re friendly
               </p>
               <h2 className={`mt-3 text-2xl font-black md:text-3xl ${s.title}`}>
                 {MEDICAL_TRUST_PROVIDERS[0].name} leads every prescription

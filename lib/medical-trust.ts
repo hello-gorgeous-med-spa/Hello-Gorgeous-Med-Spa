@@ -19,10 +19,21 @@ export const MEDICAL_TRUST_PROVIDERS = [
 ] as const;
 
 export const MEDICAL_TRUST_BADGES = [
+  "MD oversight",
+  "FNP-BC on site",
   "NP reviews every RX order",
   "Illinois telehealth licensed",
   "Labs before hormones",
   "No separate RX membership fee",
 ] as const;
+
+/** Storefront plaque copy + asset — keep site and door sign aligned. */
+export const STOREFRONT_TRUST_SIGN = {
+  image: "/images/storefront/md-oversight-sign.png",
+  line1: "MD OVERSIGHT",
+  line2: "Nurse Practitioner On Site (FNP-BC)",
+  line3: "Come in — we're friendly",
+  alt: "Hello Gorgeous Med Spa: MD Oversight, Nurse Practitioner On Site (FNP-BC). Come in — we're friendly.",
+} as const;
 
 export { MEDICAL_TEAM_QUOTE };

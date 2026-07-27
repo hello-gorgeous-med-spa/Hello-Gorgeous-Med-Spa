@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import { MdOversightWelcomeBand } from "@/components/MdOversightWelcomeBand";
 import { HeroV3, HomepageLookbookPageContent } from "@/components/homepage-v3";
 import {
   SITE,
@@ -136,6 +137,7 @@ export default function HomePage() {
 
       <main>
         <HeroV3 />
+        <MdOversightWelcomeBand />
         <HomepageLookbookPageContent />
       </main>
     </>

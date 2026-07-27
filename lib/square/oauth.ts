@@ -46,6 +46,12 @@ const REQUIRED_SCOPES = [
   'ITEMS_WRITE',
   'SUBSCRIPTIONS_READ',
   'SUBSCRIPTIONS_WRITE',
+  // Seller-level appointments — required for Hub "today's Square appointments"
+  'APPOINTMENTS_READ',
+  'APPOINTMENTS_WRITE',
+  'APPOINTMENTS_ALL_READ',
+  'APPOINTMENTS_ALL_WRITE',
+  'APPOINTMENTS_BUSINESS_SETTINGS_READ',
 ].join(' ');
 
 export interface SquareOAuthConfig {

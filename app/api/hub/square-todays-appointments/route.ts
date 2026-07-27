@@ -1,9 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 import { requireHubSessionOrOpen } from "@/lib/hub-api-auth";
 import {
-  resolveHubSquareToken,
+  resolveHubSquareBookingsToken,
+  resolveHubSquareBookingsTokenFallback,
   hubSquareApiBase,
   HUB_SQUARE_API_VERSION,
+  type HubSquareTokenOk,
 } from "@/lib/hub/square-hub-token";
 
 type SquareBooking = {
@@ -110,7 +112,7 @@ async function listPaymentsToday(token: string, start: Date): Promise<SquarePaym
 
 async function resolveServiceNames(token: string, variationIds: string[]): Promise<CatalogMap> {
   const map: CatalogMap = new Map();
-  const unique = [...new Set(variationIds.filter(Boolean))];
+  const unique = Array.from(new Set(variationIds.filter(Boolean)));
   if (!unique.length) return map;
 
   for (let i = 0; i < unique.length; i += 100) {
@@ -151,7 +153,7 @@ async function resolveServiceNames(token: string, variationIds: string[]): Promi
 
 async function customerNames(token: string, ids: string[]): Promise<Map<string, string>> {
   const map = new Map<string, string>();
-  const unique = [...new Set(ids.filter(Boolean))];
+  const unique = Array.from(new Set(ids.filter(Boolean)));
   for (const id of unique.slice(0, 40)) {
     const { res, json } = await squareGet(`/v2/customers/${id}`, token);
     if (!res.ok) continue;
@@ -171,7 +173,7 @@ export async function GET(req: NextRequest) {
   const auth = await requireHubSessionOrOpen(req);
   if (auth instanceof NextResponse) return auth;
 
-  const resolved = await resolveHubSquareToken();
+  const resolved = await resolveHubSquareBookingsToken();
   if ("error" in resolved) {
     return NextResponse.json({
       appointments: [],
@@ -183,8 +185,22 @@ export async function GET(req: NextRequest) {
 
   try {
     const { start, end, label } = chicagoDayBounds();
-    const bookings = await listBookings(resolved.token, start, end);
-    const payments = await listPaymentsToday(resolved.token, start);
+    let tokenInfo: HubSquareTokenOk = resolved;
+    let bookings = await listBookings(tokenInfo.token, start, end);
+
+    // OAuth without APPOINTMENTS_ALL_READ often returns [] with HTTP 200 — retry other token
+    if (bookings.length === 0) {
+      const fallback = await resolveHubSquareBookingsTokenFallback(tokenInfo);
+      if (fallback) {
+        const alt = await listBookings(fallback.token, start, end);
+        if (alt.length > 0) {
+          bookings = alt;
+          tokenInfo = fallback;
+        }
+      }
+    }
+
+    const payments = await listPaymentsToday(tokenInfo.token, start);
     const paidCustomers = new Set(
       payments
         .filter((p) => p.status === "COMPLETED" && p.customer_id)
@@ -194,9 +210,9 @@ export async function GET(req: NextRequest) {
     const variationIds = bookings
       .map((b) => b.appointment_segments?.[0]?.service_variation_id)
       .filter(Boolean) as string[];
-    const services = await resolveServiceNames(resolved.token, variationIds);
+    const services = await resolveServiceNames(tokenInfo.token, variationIds);
     const names = await customerNames(
-      resolved.token,
+      tokenInfo.token,
       bookings.map((b) => b.customer_id || "").filter(Boolean),
     );
 
@@ -242,7 +258,7 @@ export async function GET(req: NextRequest) {
       calendarUrl: SQUARE_CALENDAR,
       checkoutHint:
         "Check out from the appointment (Review and Check Out → Terminal). Do not open a blank POS sale.",
-      connection: resolved.connection,
+      connection: tokenInfo.connection,
       note: "Unpaid is best-effort: no COMPLETED payment for that customer today + priced service. Prepaid $0 package visits are excluded.",
     });
   } catch (error) {

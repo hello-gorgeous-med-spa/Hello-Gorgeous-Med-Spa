@@ -14,6 +14,7 @@ type SquareAppt = {
   id?: string;
   status?: string;
   startAt?: string;
+  customerId?: string | null;
   customerName?: string;
   serviceName?: string;
   priceCents?: number;
@@ -54,6 +55,7 @@ export default function HubPageClient() {
     checkoutHint?: string;
   } | null>(null);
   const [apptsLoading, setApptsLoading] = useState(false);
+  const [consentBusyId, setConsentBusyId] = useState<string | null>(null);
 
   useEffect(() => {
     fetch("/api/hub/session", { credentials: "include" })
@@ -210,6 +212,51 @@ export default function HubPageClient() {
     return () => clearInterval(id);
   }, []);
 
+  async function startConsentsForBooking(bookingId: string | undefined, name?: string) {
+    if (!bookingId) {
+      alert("Missing Square booking id — refresh appointments and try again.");
+      return;
+    }
+    setConsentBusyId(bookingId);
+    try {
+      const res = await fetch("/api/hub/square-start-consents", {
+        method: "POST",
+        credentials: "include",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ bookingId }),
+      });
+      const json = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        alert(json.error || "Could not start consents.");
+        return;
+      }
+      if (json.kioskUrl) {
+        const open = window.confirm(
+          `${json.message || "Consents ready."}\n\nOpen kiosk signing now for ${name || "client"}?`,
+        );
+        if (open) {
+          window.open(json.kioskUrl, "_blank", "noopener,noreferrer");
+        } else if (navigator.clipboard?.writeText) {
+          await navigator.clipboard.writeText(json.kioskUrl);
+          alert("Kiosk link copied. Paste on the iPad or open /kiosk after check-in.");
+        }
+        return;
+      }
+      if (json.wizardUrl) {
+        const open = window.confirm(
+          `${json.message || "Consents ready."}\n\nOpen phone/wizard link instead?`,
+        );
+        if (open) window.open(json.wizardUrl, "_blank", "noopener,noreferrer");
+        return;
+      }
+      alert(json.message || "No outstanding consent forms for this client.");
+    } catch {
+      alert("Network error starting consents.");
+    } finally {
+      setConsentBusyId(null);
+    }
+  }
+
   return (
     <main className="max-w-6xl mx-auto p-6 md:p-10 space-y-6">
       <header className="flex flex-wrap items-center justify-between gap-3">
@@ -356,9 +403,17 @@ export default function HubPageClient() {
           {apptMeta?.checkoutHint ||
             "Check out from the appointment (Review and Check Out → Terminal), not a blank POS sale."}
         </p>
+        <p className="text-xs text-pink-800/80 max-w-3xl">
+          <strong>Start consents</strong> creates the HG visit + HIPAA / arbitration / liability / general
+          consent pack from this Square booking, then opens the iPad kiosk link (15 min).
+        </p>
         <div className="space-y-2 max-h-80 overflow-auto">
           {todaysAppts.length === 0 && !apptsLoading ? (
-            <p className="text-sm text-black/50">No appointments loaded for today.</p>
+            <p className="text-sm text-black/50">
+              {apptMeta?.error
+                ? `Could not load: ${apptMeta.error}`
+                : "No Square appointments for today (Chicago time). Tap Refresh, or confirm SQUARE_ACCESS_TOKEN is set in Vercel."}
+            </p>
           ) : null}
           {todaysAppts.map((a) => {
             const time = a.startAt
@@ -370,6 +425,7 @@ export default function HubPageClient() {
               : "—";
             const price =
               typeof a.priceCents === "number" ? `$${(a.priceCents / 100).toFixed(0)}` : "";
+            const busy = consentBusyId === a.id;
             return (
               <div
                 key={a.id || `${a.startAt}-${a.customerName}`}
@@ -387,16 +443,26 @@ export default function HubPageClient() {
                     {a.status ? ` · ${a.status}` : ""}
                   </div>
                 </div>
-                <div className="text-xs font-semibold">
-                  {a.likelyUnpaid ? (
-                    <span className="text-amber-800">Likely unpaid — check out from appt</span>
-                  ) : a.hasPaymentToday ? (
-                    <span className="text-green-700">Payment today</span>
-                  ) : a.priceCents === 0 ? (
-                    <span className="text-black/50">$0 / prepaid visit</span>
-                  ) : (
-                    <span className="text-black/45">Upcoming</span>
-                  )}
+                <div className="flex flex-wrap items-center gap-2">
+                  <div className="text-xs font-semibold">
+                    {a.likelyUnpaid ? (
+                      <span className="text-amber-800">Likely unpaid — check out from appt</span>
+                    ) : a.hasPaymentToday ? (
+                      <span className="text-green-700">Payment today</span>
+                    ) : a.priceCents === 0 ? (
+                      <span className="text-black/50">$0 / prepaid visit</span>
+                    ) : (
+                      <span className="text-black/45">Upcoming</span>
+                    )}
+                  </div>
+                  <button
+                    type="button"
+                    className="rounded border border-pink-600 bg-pink-600 px-2.5 py-1 text-xs font-semibold text-white disabled:opacity-50"
+                    disabled={busy || !a.id}
+                    onClick={() => startConsentsForBooking(a.id, a.customerName)}
+                  >
+                    {busy ? "Starting…" : "Start consents"}
+                  </button>
                 </div>
               </div>
             );

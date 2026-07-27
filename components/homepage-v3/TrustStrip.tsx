@@ -4,7 +4,7 @@ import { BEST_OF_OSWEGO } from "@/lib/best-of-oswego";
 
 const trustItems = [
   { title: BEST_OF_OSWEGO.primary, accent: "#ec4899" },
-  { title: "NP on site · 7 days a week", accent: "#60a5fa" },
+  { title: "MD oversight · FNP-BC on site", accent: "#60a5fa" },
   { title: "InMode Trifecta provider", accent: "#f59e0b" },
   { title: "Oswego, IL · family-owned", accent: "#f472b6" },
 ];
