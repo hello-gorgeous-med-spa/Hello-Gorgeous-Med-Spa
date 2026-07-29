@@ -17,7 +17,7 @@ export async function GET(_: NextRequest, context: RouteContext) {
   const { data, error } = await supabase
     .from("treatment_proposals")
     .select(
-      "id,public_id,client_name,created_at,expires_at,status,concerns,options,pdf_url,view_count,viewed_at,client_instructions,media"
+      "id,public_id,client_name,created_at,expires_at,status,concerns,options,pdf_url,view_count,viewed_at,client_instructions,media,payment_status,payment_kind,payment_amount_usd,payment_url,payment_option_name,paid_at"
     )
     .eq("public_id", publicId)
     .single();
@@ -46,6 +46,12 @@ export async function GET(_: NextRequest, context: RouteContext) {
       pdf_url: data.pdf_url || null,
       client_instructions: data.client_instructions || null,
       media: Array.isArray(data.media) ? data.media : [],
+      payment_status: data.payment_status || "unpaid",
+      payment_kind: data.payment_kind || null,
+      payment_amount_usd: data.payment_amount_usd ?? null,
+      payment_url: data.payment_url || null,
+      payment_option_name: data.payment_option_name || null,
+      paid_at: data.paid_at || null,
       view_count: updatedViewCount,
     },
   });

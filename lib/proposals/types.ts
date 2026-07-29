@@ -2,6 +2,10 @@ import type { ProposalOption } from "@/lib/proposals/utils";
 
 export type ProposalStatus = "draft" | "sent" | "viewed" | "accepted" | "expired";
 
+export type ProposalPaymentStatus = "unpaid" | "pending" | "deposit_paid" | "paid" | "refunded";
+
+export type ProposalPaymentKind = "deposit" | "full";
+
 export type ProposalMediaKind = "before" | "after" | "pair";
 
 export type ProposalMediaItem = {
@@ -28,4 +32,14 @@ export type TreatmentProposalRecord = {
   internal_notes: string | null;
   client_instructions: string | null;
   media: ProposalMediaItem[];
+  payment_status?: ProposalPaymentStatus;
+  payment_kind?: ProposalPaymentKind | null;
+  payment_option_name?: string | null;
+  payment_amount_usd?: number | null;
+  payment_url?: string | null;
+  square_payment_link_id?: string | null;
+  square_order_id?: string | null;
+  square_payment_id?: string | null;
+  paid_at?: string | null;
+  ledger_id?: string | null;
 };

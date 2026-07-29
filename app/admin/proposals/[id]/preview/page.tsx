@@ -20,29 +20,42 @@ export default function ProposalPreviewPage() {
   const [phone, setPhone] = useState("");
   const [sendingEmail, setSendingEmail] = useState(false);
   const [sendingSms, setSendingSms] = useState(false);
+  const [creatingPay, setCreatingPay] = useState<"deposit" | "full" | null>(null);
+  const [optionIndex, setOptionIndex] = useState(1);
+  const [customAmount, setCustomAmount] = useState("");
   const [notice, setNotice] = useState<string | null>(null);
+
+  const reload = async () => {
+    const response = await fetch(`/api/proposals/${params.id}`);
+    const data = await response.json();
+    if (!response.ok) throw new Error(data.error || "Failed to load proposal.");
+    setProposal(data.proposal);
+    setEmail(data.proposal?.client_email || "");
+    setPhone(data.proposal?.client_phone || "");
+    if (Array.isArray(data.proposal?.options) && data.proposal.options.length) {
+      setOptionIndex(Math.min(1, data.proposal.options.length - 1));
+    }
+  };
 
   useEffect(() => {
     const load = async () => {
       try {
-        const response = await fetch(`/api/proposals/${params.id}`);
-        const data = await response.json();
-        if (!response.ok) throw new Error(data.error || "Failed to load proposal.");
-        setProposal(data.proposal);
-        setEmail(data.proposal?.client_email || "");
-        setPhone(data.proposal?.client_phone || "");
+        await reload();
       } catch (loadError) {
         setError(loadError instanceof Error ? loadError.message : "Failed to load proposal.");
       } finally {
         setLoading(false);
       }
     };
-    if (params.id) load();
+    if (params.id) void load();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [params.id]);
 
   const options = useMemo<ProposalOption[]>(() => proposal?.options || [], [proposal?.options]);
   const pdfHref = `/api/proposals/${params.id}/pdf`;
   const publicShareHref = proposal?.public_id ? `/proposals/${proposal.public_id}` : "";
+  const selectedTotal = options[optionIndex] ? calculateTotal(options[optionIndex]) : 0;
+  const depositPreview = Math.round(selectedTotal * 0.5 * 100) / 100;
 
   const copyShareLink = async () => {
     if (!publicShareHref) return;
@@ -93,8 +106,45 @@ export default function ProposalPreviewPage() {
     }
   };
 
+  const createPayment = async (kind: "deposit" | "full") => {
+    setNotice(null);
+    setCreatingPay(kind);
+    try {
+      const body: Record<string, unknown> = { kind, optionIndex };
+      const custom = Number(customAmount);
+      if (customAmount.trim() && Number.isFinite(custom) && custom > 0) {
+        body.amountUsd = custom;
+      }
+      const response = await fetch(`/api/proposals/${params.id}/create-payment`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      });
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.error || "Failed to create payment link.");
+      await reload();
+      setNotice(
+        `${kind === "deposit" ? "Deposit" : "Pay in full"} link ready ($${Number(data.amountUsd).toFixed(2)}). Copied + opened.`
+      );
+      if (data.url) {
+        try {
+          await navigator.clipboard.writeText(data.url);
+        } catch {
+          /* ignore */
+        }
+        window.open(data.url, "_blank", "noopener,noreferrer");
+      }
+    } catch (payError) {
+      setNotice(payError instanceof Error ? payError.message : "Failed to create payment link.");
+    } finally {
+      setCreatingPay(null);
+    }
+  };
+
   if (loading) return <div className="p-8 text-sm text-black/70">Loading proposal...</div>;
   if (error || !proposal) return <div className="p-8 text-sm font-semibold text-red-600">{error || "Not found."}</div>;
+
+  const paymentStatus = proposal.payment_status || "unpaid";
 
   return (
     <main className="min-h-screen bg-white print:bg-white">
@@ -124,6 +174,11 @@ export default function ProposalPreviewPage() {
             <p><span className="font-semibold">Created:</span> {new Date(proposal.created_at).toLocaleDateString()}</p>
             <p><span className="font-semibold">Email:</span> {proposal.client_email || "N/A"}</p>
             <p><span className="font-semibold">Phone:</span> {proposal.client_phone || "N/A"}</p>
+            <p>
+              <span className="font-semibold">Payment:</span>{" "}
+              <span className="uppercase tracking-wide text-[#E6007E]">{paymentStatus.replace("_", " ")}</span>
+              {proposal.payment_amount_usd != null ? ` · $${Number(proposal.payment_amount_usd).toFixed(2)}` : ""}
+            </p>
           </div>
           {proposal.concerns?.length ? (
             <div className="mt-4">
@@ -180,6 +235,69 @@ export default function ProposalPreviewPage() {
               </article>
             );
           })}
+        </section>
+
+        <section className="print:hidden mt-6 rounded-2xl border-2 border-black bg-[#FFF0F7] p-5">
+          <h2 className="text-lg font-bold text-black">Square payment</h2>
+          <p className="mt-1 text-sm text-black/70">
+            Creates a Square Payment Link, logs it in the RX payment ledger, and marks this proposal paid when Square webhooks fire.
+          </p>
+          <div className="mt-3 grid gap-3 md:grid-cols-3">
+            <div>
+              <label className="text-xs font-semibold uppercase tracking-wide text-black/70">Plan to charge</label>
+              <select
+                value={optionIndex}
+                onChange={(event) => setOptionIndex(Number(event.target.value))}
+                className="mt-1 w-full rounded-lg border border-black/20 bg-white px-3 py-2 text-sm"
+              >
+                {options.map((option, index) => (
+                  <option key={option.name} value={index}>
+                    {option.name} · ${calculateTotal(option).toFixed(2)}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div>
+              <label className="text-xs font-semibold uppercase tracking-wide text-black/70">Custom amount (optional)</label>
+              <input
+                type="number"
+                min={0}
+                step={1}
+                value={customAmount}
+                onChange={(event) => setCustomAmount(event.target.value)}
+                placeholder={`Deposit default $${depositPreview.toFixed(0)}`}
+                className="mt-1 w-full rounded-lg border border-black/20 bg-white px-3 py-2 text-sm"
+              />
+            </div>
+            <div className="flex flex-wrap items-end gap-2">
+              <button
+                type="button"
+                disabled={Boolean(creatingPay) || paymentStatus === "paid"}
+                onClick={() => void createPayment("deposit")}
+                className="rounded-full border-2 border-black bg-white px-4 py-2 text-xs font-bold text-black disabled:opacity-50"
+              >
+                {creatingPay === "deposit" ? "Creating…" : `Pay deposit (50% · $${depositPreview.toFixed(0)})`}
+              </button>
+              <button
+                type="button"
+                disabled={Boolean(creatingPay) || paymentStatus === "paid"}
+                onClick={() => void createPayment("full")}
+                className="rounded-full bg-[#E6007E] px-4 py-2 text-xs font-bold text-white disabled:opacity-50"
+              >
+                {creatingPay === "full" ? "Creating…" : `Pay in full · $${selectedTotal.toFixed(0)}`}
+              </button>
+            </div>
+          </div>
+          {proposal.payment_url ? (
+            <p className="mt-3 text-sm">
+              Active link:{" "}
+              <a href={proposal.payment_url} target="_blank" rel="noreferrer" className="font-semibold text-[#E6007E] underline">
+                Open Square checkout
+              </a>
+              {proposal.payment_kind ? ` · ${proposal.payment_kind}` : ""}
+              {proposal.payment_option_name ? ` · ${proposal.payment_option_name}` : ""}
+            </p>
+          ) : null}
         </section>
 
         <section className="print:hidden mt-6 rounded-2xl border-2 border-black bg-white p-5">

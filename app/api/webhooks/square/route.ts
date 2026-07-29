@@ -3,6 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { creditHgRewardsFromSquarePayment, type SquarePaymentLike } from "@/lib/hg-rewards/credit-from-square-payment";
 import { reconcileRxLedgerFromSquarePayment } from "@/lib/rx-payment-ledger";
 import { syncRegenOrderFromSquarePayment } from "@/lib/regen/sync-from-square-payment";
+import { reconcileProposalFromSquarePayment } from "@/lib/proposals/payment";
 import { createAdminSupabaseClient } from "@/lib/hgos/supabase";
 import { verifySquareWebhookSignature } from "@/lib/square/webhook";
 
@@ -71,6 +72,17 @@ export async function POST(request: NextRequest) {
     created_at: paymentExtra.created_at,
   });
 
+  const proposalPay = await reconcileProposalFromSquarePayment(
+    {
+      id: payment.id,
+      status: payment.status,
+      order_id: paymentExtra.order_id,
+      updated_at: paymentExtra.updated_at,
+      created_at: paymentExtra.created_at,
+    },
+    supabase,
+  );
+
   const result = await creditHgRewardsFromSquarePayment(supabase, payment);
 
   void reconcileRxLedgerFromSquarePayment(
@@ -84,13 +96,14 @@ export async function POST(request: NextRequest) {
     supabase,
   );
 
-  if (result.credited || regen.matched) {
+  if (result.credited || regen.matched || proposalPay.updated > 0) {
     return NextResponse.json({
       success: true,
       ...result,
       regen: regen.matched
         ? { orderRef: regen.orderRef, markedPaid: regen.markedPaid, notified: regen.notified }
         : undefined,
+      proposals: proposalPay.updated > 0 ? { ids: proposalPay.proposalIds } : undefined,
     });
   }
 

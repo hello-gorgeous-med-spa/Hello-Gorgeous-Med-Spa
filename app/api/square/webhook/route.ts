@@ -30,6 +30,7 @@ import { creditHgRewardsFromSquarePayment } from '@/lib/hg-rewards/credit-from-s
 import { reconcileRxLedgerFromSquarePayment } from '@/lib/rx-payment-ledger';
 import { processRxAutopayRenewalFromSquarePayment } from '@/lib/rx-autopay-renewal';
 import { syncRegenOrderFromSquarePayment } from '@/lib/regen/sync-from-square-payment';
+import { reconcileProposalFromSquarePayment } from '@/lib/proposals/payment';
 
 // Helper to get access token for webhook processing
 async function getAccessTokenForWebhook(): Promise<string | null> {
@@ -442,6 +443,24 @@ export async function POST(request: NextRequest) {
           }
         } catch (regenErr) {
           console.error('[Webhook] RE GEN sync error:', regenErr);
+        }
+
+        try {
+          const proposalPay = await reconcileProposalFromSquarePayment(
+            {
+              id: payment.id,
+              status: payment.status,
+              order_id: payment.order_id,
+              updated_at: payment.updated_at,
+              created_at: payment.created_at,
+            },
+            supabase,
+          );
+          if (proposalPay.updated > 0) {
+            console.log('[Webhook] Treatment proposal paid:', proposalPay.proposalIds);
+          }
+        } catch (proposalErr) {
+          console.error('[Webhook] Proposal payment sync error:', proposalErr);
         }
       }
       

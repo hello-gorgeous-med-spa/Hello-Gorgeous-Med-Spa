@@ -22,6 +22,12 @@ type PublicProposal = {
   options: ProposalOption[];
   client_instructions: string | null;
   media: ProposalMediaItem[];
+  payment_status?: string;
+  payment_kind?: string | null;
+  payment_amount_usd?: number | null;
+  payment_url?: string | null;
+  payment_option_name?: string | null;
+  paid_at?: string | null;
   view_count: number;
 };
 
@@ -140,17 +146,49 @@ export default function PublicProposalPage() {
         </section>
 
         <section className="mt-6 rounded-2xl border-2 border-black p-5">
-          <p className="text-sm text-black/80">
-            Ready to move forward? Book your first visit or call us and we will help you choose the best option.
-          </p>
-          <div className="mt-3 flex flex-wrap gap-2">
-            <a href="/book" className="rounded-full bg-[#E6007E] px-4 py-2 text-sm font-bold text-white">
-              Book now
-            </a>
-            <a href="tel:16306366193" className="rounded-full border border-black px-4 py-2 text-sm font-bold text-black">
-              Call 630-636-6193
-            </a>
-          </div>
+          {proposal.payment_status === "paid" || proposal.payment_status === "deposit_paid" ? (
+            <p className="text-sm font-semibold text-[#E6007E]">
+              {proposal.payment_status === "paid"
+                ? "Payment received — thank you! We’ll confirm your first appointment next."
+                : "Deposit received — thank you! We’ll confirm your first appointment and remaining balance next."}
+            </p>
+          ) : proposal.payment_url ? (
+            <>
+              <p className="text-sm text-black/80">
+                Ready to secure your plan
+                {proposal.payment_option_name ? ` (${proposal.payment_option_name})` : ""}
+                {proposal.payment_amount_usd != null
+                  ? ` — $${Number(proposal.payment_amount_usd).toFixed(2)}`
+                  : ""}
+                ?
+              </p>
+              <div className="mt-3 flex flex-wrap gap-2">
+                <a
+                  href={proposal.payment_url}
+                  className="rounded-full bg-[#E6007E] px-4 py-2 text-sm font-bold text-white"
+                >
+                  {proposal.payment_kind === "deposit" ? "Pay deposit securely" : "Pay securely"}
+                </a>
+                <a href="/book" className="rounded-full border border-black px-4 py-2 text-sm font-bold text-black">
+                  Book now
+                </a>
+              </div>
+            </>
+          ) : (
+            <>
+              <p className="text-sm text-black/80">
+                Ready to move forward? Book your first visit or call us and we will help you choose the best option.
+              </p>
+              <div className="mt-3 flex flex-wrap gap-2">
+                <a href="/book" className="rounded-full bg-[#E6007E] px-4 py-2 text-sm font-bold text-white">
+                  Book now
+                </a>
+                <a href="tel:16306366193" className="rounded-full border border-black px-4 py-2 text-sm font-bold text-black">
+                  Call 630-636-6193
+                </a>
+              </div>
+            </>
+          )}
         </section>
 
         <p className="mt-5 text-xs text-black/55">
