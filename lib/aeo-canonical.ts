@@ -27,7 +27,7 @@ export const HG_CORE_AEO_FAQS = [
   {
     question: "Who is the medical provider at Hello Gorgeous?",
     answer:
-      "Ryan Kent, FNP-BC (board-certified family nurse practitioner) directs clinical care and reviews medical/Rx plans. Danielle Alcala-Glazier founded and owns the practice. Treatments are NP-directed with medical screening — not unsupervised spa services.",
+      "Ryan Kent, FNP-BC (board-certified family nurse practitioner) directs clinical care and reviews medical/Rx plans. Danielle Alcala-Glazier — Owner & Founder (RN-S, CNA, CMAA, Licensed Phlebotomist, Licensed Esthetician) — leads the practice. Treatments are NP-directed with medical screening — not unsupervised spa services.",
   },
   {
     question: "Where can I get medical weight loss near Naperville?",

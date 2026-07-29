@@ -62,12 +62,14 @@ export function MedicalTrustBand({
                 MD Oversight · FNP-BC On Site · Come in — we&apos;re friendly
               </p>
               <h2 className={`mt-3 text-2xl font-black md:text-3xl ${s.title}`}>
-                {MEDICAL_TRUST_PROVIDERS[0].name} leads every prescription
+                Owner-led · NP-directed · MD oversight
               </h2>
               <p className={`mt-4 text-base leading-relaxed ${s.body}`}>
-                Illinois patients deserve more than a checkout flow. Our NP is on site 7 days a week —
-                reviewing intakes, labs, and refills while {MEDICAL_TRUST_PROVIDERS[1].name.split(",")[0]}{" "}
-                leads in-clinic aesthetics and client experience.
+                Illinois patients deserve more than a checkout flow.{" "}
+                {MEDICAL_TRUST_PROVIDERS[0].name.split(",")[0]} — owner, RN-S, CNA, CMAA, licensed
+                phlebotomist, and licensed esthetician — leads the practice every day.{" "}
+                {MEDICAL_TRUST_PROVIDERS[1].name} is on site reviewing intakes, labs, and refills.{" "}
+                {MEDICAL_TRUST_PROVIDERS[2].name} provides collaborating physician oversight.
               </p>
               <blockquote
                 className={`mt-5 border-l-4 border-[#E6007E] pl-4 text-lg font-medium italic ${surface === "dark" ? "text-white/90" : "text-black/85"}`}
@@ -112,7 +114,7 @@ export function MedicalTrustBand({
             </FadeUp>
 
             <FadeUp delayMs={80}>
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-3 gap-2 sm:gap-3">
                 {MEDICAL_TRUST_PROVIDERS.map((provider) => (
                   <div
                     key={provider.name}
@@ -124,13 +126,19 @@ export function MedicalTrustBand({
                         alt={provider.imageAlt}
                         fill
                         className="object-cover object-center"
-                        sizes="(max-width: 768px) 45vw, 220px"
+                        sizes="(max-width: 768px) 30vw, 180px"
                       />
                     </div>
-                    <div className="border-t-2 border-black bg-white p-3">
-                      <p className="text-sm font-bold text-black">{provider.name}</p>
-                      <p className="text-[11px] font-semibold text-[#E6007E]">{provider.role}</p>
-                      <p className="mt-1 text-[11px] text-black/60">{provider.detail}</p>
+                    <div className="border-t-2 border-black bg-white p-2 sm:p-3">
+                      <p className="text-[11px] font-bold leading-snug text-black sm:text-sm">
+                        {provider.name}
+                      </p>
+                      <p className="text-[10px] font-semibold text-[#E6007E] sm:text-[11px]">
+                        {provider.role}
+                      </p>
+                      <p className="mt-1 hidden text-[11px] text-black/60 sm:block">
+                        {provider.detail}
+                      </p>
                     </div>
                   </div>
                 ))}

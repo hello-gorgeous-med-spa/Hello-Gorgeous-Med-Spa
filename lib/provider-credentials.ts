@@ -3,6 +3,6 @@
 // ============================================================
 
 export const DANIELLE_CREDENTIALS =
-  "Licensed Esthetician · Phlebotomist · CMAA · CNA · Owner & Founder (RN in progress)";
+  "Owner & Founder · RN-S · CNA · CMAA · Licensed Phlebotomist · Licensed Esthetician";
 
 export const RYAN_CREDENTIALS = "FNP-BC · Medical Director · Full prescriptive authority";

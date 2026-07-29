@@ -21,18 +21,18 @@ export const PRESCRIPTION_SERVICE_SLUGS = new Set([
 export const FOOTER_CREDENTIALS_HEADLINE = "Hello Gorgeous Med Spa — Family-owned. NP-directed.";
 
 export const FOOTER_CREDENTIALS_LINE =
-  "Founder: Danielle Alcala-Glazier (Licensed Esthetician, Phlebotomist, CMAA, CNA) · Medical Director: Ryan Kent, FNP-BC (full prescriptive authority, on site 7 days a week)";
+  "Founder: Danielle Alcala-Glazier (RN-S, CNA, CMAA, Licensed Phlebotomist, Licensed Esthetician) · Medical Director: Ryan Kent, FNP-BC (full prescriptive authority, on site 7 days a week)";
 
 export const CREDENTIAL_STRIP_STANDARD = `Performed by our team. Medical oversight by Ryan Kent, FNP-BC (Board-Certified Family Nurse Practitioner, on site 7 days a week).
 
-Owner & Founder: Danielle Alcala-Glazier — Licensed Esthetician, Phlebotomist, CMAA, CNA (RN in progress). 10+ years at this practice.`;
+Owner & Founder: Danielle Alcala-Glazier — RN-S, CNA, CMAA, Licensed Phlebotomist, Licensed Esthetician. 10+ years at this practice.`;
 
-export const CREDENTIAL_STRIP_PRESCRIPTION = `Every prescription at Hello Gorgeous is written and supervised by Ryan Kent, FNP-BC — a Board-Certified Family Nurse Practitioner with full prescriptive authority in Illinois, on site 7 days a week. Owner & Founder: Danielle Alcala-Glazier — Licensed Esthetician, Phlebotomist, CMAA, CNA.`;
+export const CREDENTIAL_STRIP_PRESCRIPTION = `Every prescription at Hello Gorgeous is written and supervised by Ryan Kent, FNP-BC — a Board-Certified Family Nurse Practitioner with full prescriptive authority in Illinois, on site 7 days a week. Owner & Founder: Danielle Alcala-Glazier — RN-S, CNA, CMAA, Licensed Phlebotomist, Licensed Esthetician.`;
 
 export const DANI_SHORT_BIO =
-  "Danielle Alcala-Glazier — Licensed Esthetician, Phlebotomist, CMAA, CNA. Owner & Founder, Hello Gorgeous Med Spa.";
+  "Danielle Alcala-Glazier — RN-S, CNA, CMAA, Licensed Phlebotomist, Licensed Esthetician. Owner & Founder, Hello Gorgeous Med Spa.";
 
-export const DANI_MEDIUM_BIO = `Danielle Alcala-Glazier is a Licensed Esthetician, Phlebotomist, Certified Medical Administrative Assistant (CMAA), and Certified Nursing Assistant (CNA), and is currently pursuing her RN degree. She is the Owner and Founder of Hello Gorgeous Med Spa in Oswego, Illinois.
+export const DANI_MEDIUM_BIO = `Danielle Alcala-Glazier is a Licensed Esthetician, Licensed Phlebotomist, Certified Medical Administrative Assistant (CMAA), and Certified Nursing Assistant (CNA), and is an RN student (RN-S). She is the Owner and Founder of Hello Gorgeous Med Spa in Oswego, Illinois.
 
 Danielle's path into medical aesthetics began at age twelve, when severe acne led her down a years-long journey through every product, peel, and treatment she could find — including Accutane at eighteen. That struggle did not end with clearer skin; it became a lifelong obsession with how skin actually heals, what ingredients and devices truly change outcomes, and why so many people waste money on treatments that never deliver.`;
 
@@ -64,7 +64,7 @@ Ryan partners with Danielle Alcala-Glazier to deliver continuity of care — the
 export const RYAN_PROVIDER_BIO = `${RYAN_MEDIUM_BIO}\n\n${RYAN_LONG_BIO}`;
 
 export const ABOUT_PAGE_SEO_DESCRIPTION =
-  "Meet Danielle Alcala-Glazier — Licensed Esthetician and founder of Hello Gorgeous Med Spa in Oswego, IL. 10+ years serving Naperville, Aurora & Plainfield. Morpheus8, Solaria, Botox, brows & more. Ryan Kent, FNP-BC on site 7 days.";
+  "Meet Danielle Alcala-Glazier — Owner & Founder (RN-S, CNA, CMAA, Licensed Phlebotomist, Licensed Esthetician) of Hello Gorgeous Med Spa in Oswego, IL. 10+ years serving Naperville, Aurora & Plainfield. Morpheus8, Solaria, Botox, brows & more. Ryan Kent, FNP-BC on site 7 days.";
 
 export const DANI_IMAGE = "/images/team/danielle-alcala-glazier-portrait.png";
 /** Primary Dani portrait on /about — clinic setting with InMode equipment visible */
