@@ -87,7 +87,7 @@ export const PROVIDER_FALLBACKS: Record<string, ProviderFallback> = {
     credentials: RYAN_CREDENTIALS,
     tagline: "Full-practice authority NP | metabolic & regenerative care",
     short_bio:
-      "Board-certified Family Nurse Practitioner and Medical Director at Hello Gorgeous Med Spa — on site 7 days a week with full prescriptive authority in Illinois.",
+      "Board-certified Family Nurse Practitioner at Hello Gorgeous Med Spa — on site 7 days a week with full Illinois prescriptive authority under Medical Director Dr. Mukesh Arora, MD.",
     philosophy:
       "Medical weight loss and hormone therapy built around safety, labs, and data. Every clinical decision at Hello Gorgeous goes through me — on site seven days a week.",
     headshot_url: "/images/providers/ryan-kent-clinic.jpg",

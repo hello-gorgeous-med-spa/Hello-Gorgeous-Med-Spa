@@ -25,12 +25,12 @@ export const SITE = {
   url: "https://www.hellogorgeousmedspa.com",
   tagline: HG_TAGLINE,
   description:
-    `${HG_TAGLINE} Best of Oswego — #1 Best Med Spa. NP-directed medical spa and medical aesthetics clinic in Oswego, IL. Same-day appointments often available for med spa, Rx care, and urgent needs. Morpheus8 Burst, Quantum RF, Solaria CO2. Full-authority NP on site. Botox, fillers, weight loss. Serving Oswego, Naperville, Aurora, Plainfield, IL.`,
+    `${HG_TAGLINE} Best of Oswego — #1 Best Med Spa. NP-directed medical spa and medical aesthetics clinic in Oswego, IL. Medical Director: Dr. Mukesh Arora, MD. Same-day appointments often available for med spa, Rx care, and urgent needs. Morpheus8 Burst, Quantum RF, Solaria CO2. Full-authority NP on site. Botox, fillers, weight loss. Serving Oswego, Naperville, Aurora, Plainfield, IL.`,
   /** Short (<=160 char) version for SERP meta descriptions. The long `description`
    *  above stays as the schema/Org description; this one is for `<meta name="description">`
    *  so Google shows the full snippet (incl. locality + CTA) without truncation. */
   metaDescription:
-    "NP-directed med spa in Oswego, IL — Botox, fillers, medical weight loss, Morpheus8 & laser. Same-day visits. Serving Naperville, Aurora & Plainfield.",
+    "Med spa in Oswego, IL — Medical Director Dr. Mukesh Arora, MD · FNP on site. Botox, fillers, weight loss, Morpheus8 & laser. Naperville, Aurora & Plainfield.",
   phone: "630-636-6193",
   /** Toll-free via Square - replace with your number when ready */
   tollFree: "833-474-3998",
@@ -155,7 +155,12 @@ export const HOME_FAQS: readonly FAQ[] = [
   {
     question: "Is Hello Gorgeous a day spa or a medical spa?",
     answer:
-      "Hello Gorgeous is a medical spa, not a day spa. Treatments are performed or supervised by licensed medical professionals under NP-led clinical oversight, including injectables, RF technologies, medical weight loss, and hormone-based care.",
+      "Hello Gorgeous is a medical spa, not a day spa. Treatments are performed or supervised by licensed medical professionals under NP-led clinical care with physician Medical Director leadership, including injectables, RF technologies, medical weight loss, and hormone-based care. Medical Director: Dr. Mukesh Arora, MD (Internal Medicine).",
+  },
+  {
+    question: "Who provides medical oversight at Hello Gorgeous?",
+    answer:
+      "Dr. Mukesh Arora, MD (Internal Medicine, 30+ years) is Medical Director of Hello Gorgeous Med Spa. Ryan Kent, FNP-BC is the on-site board-certified nurse practitioner with full Illinois prescriptive authority. Owner & Founder Danielle Alcala-Glazier (RN-S, CNA, CMAA, Licensed Phlebotomist, Licensed Esthetician) leads the practice daily in downtown Oswego.",
   },
   {
     question: "Who performs treatments at your med spa?",
@@ -285,7 +290,7 @@ export const SERVICES: readonly Service[] = [
       {
         question: "Who performs biostimulator treatments?",
         answer:
-          "Licensed injectors under Ryan Kent, FNP-BC, Medical Director, on site seven days a week.",
+          "Licensed injectors under Ryan Kent, FNP-BC, on-site nurse practitioner, seven days a week — with Medical Director Dr. Mukesh Arora, MD.",
       },
     ],
   },
@@ -1306,7 +1311,21 @@ export function siteJsonLd(opts?: { aggregateRating?: AggregateRatingOverride | 
     ],
     medicalSpecialty: ["Aesthetic Medicine", "Weight Management", "Hormone Therapy", "Dermatology"],
     founder: daniPersonJsonLd(),
-    employee: [ryanPersonJsonLd()],
+    employee: [
+      {
+        "@type": "Person",
+        "@id": `${SITE.url}/#dr-mukesh-arora`,
+        name: "Mukesh Arora, MD",
+        honorificPrefix: "Dr.",
+        jobTitle: "Medical Director",
+        url: `${SITE.url}/#dr-mukesh-arora`,
+        image: `${SITE.url}/images/providers/dr-mukesh-arora.jpg`,
+        description:
+          "Medical Director (Internal Medicine) of Hello Gorgeous Med Spa in Oswego, IL. 30+ years of experience; affiliated with Advocate Good Shepherd Hospital and Northwestern Medicine McHenry Hospital.",
+        worksFor: { "@id": `${SITE.url}/#organization` },
+      },
+      ryanPersonJsonLd(),
+    ],
   };
 }
 

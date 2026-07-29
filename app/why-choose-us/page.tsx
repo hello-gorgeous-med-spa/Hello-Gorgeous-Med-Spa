@@ -20,7 +20,7 @@ const WHY_CHOOSE_FAQS = [
   {
     question: "Does Hello Gorgeous have a nurse practitioner on site?",
     answer:
-      "Yes. Ryan Kent, FNP-BC, our Medical Director, is a full-authority nurse practitioner on site as owner. He provides full prescriptive authority for weight loss, hormone therapy, and medical treatments. You receive care from licensed medical professionals, not aestheticians or technicians.",
+      "Yes. Dr. Mukesh Arora, MD is our Medical Director. Ryan Kent, FNP-BC is our on-site full-authority nurse practitioner. He provides full Illinois prescriptive authority for weight loss, hormone therapy, and medical treatments. You receive care from licensed medical professionals, not unsupervised spa technicians.",
   },
   {
     question: "What advanced technology does Hello Gorgeous offer?",

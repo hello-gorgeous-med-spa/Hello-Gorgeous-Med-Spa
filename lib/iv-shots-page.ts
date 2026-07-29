@@ -40,7 +40,7 @@ export const IV_SHOTS_FAQS = [
   {
     question: "Who supervises IV therapy and shots?",
     answer:
-      "Ryan Kent, FNP-BC is Medical Director with full prescriptive authority and is on site seven days a week. IV and wellness protocols are NP-supervised; Olympia Pharmacy–sourced products.",
+      "Ryan Kent, FNP-BC is the on-site nurse practitioner with full Illinois prescriptive authority and is on site seven days a week under Medical Director Dr. Mukesh Arora, MD. IV and wellness protocols are NP-supervised; Olympia Pharmacy–sourced products.",
   },
 ] as const;
 

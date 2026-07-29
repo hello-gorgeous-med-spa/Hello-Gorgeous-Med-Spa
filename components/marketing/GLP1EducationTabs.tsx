@@ -330,7 +330,7 @@ export function GLP1EducationTabs() {
                 <div className="bg-white border border-black/10 rounded-lg p-4">
                   <p className="text-sm font-semibold text-black">Ryan Kent, FNP-BC</p>
                   <p className="text-xs text-black/60 mt-1 leading-relaxed">
-                    Medical Director — clinical oversight, weight management &amp; wellness.
+                    On-site NP — clinical care, weight management &amp; wellness under Medical Director Dr. Mukesh Arora, MD.
                   </p>
                   <Link href="/providers/ryan" className="text-xs text-[#E6007E] font-semibold mt-2 inline-block hover:underline">
                     View profile →

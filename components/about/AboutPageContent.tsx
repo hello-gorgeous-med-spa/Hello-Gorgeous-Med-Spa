@@ -126,7 +126,7 @@ const SECTIONS: AboutSection[] = [
     ],
     image: {
       src: RYAN_IMAGE,
-      alt: "Ryan Kent, FNP-BC, Medical Director at Hello Gorgeous Med Spa",
+      alt: "Ryan Kent, FNP-BC, On-Site Nurse Practitioner at Hello Gorgeous Med Spa",
     },
     extraLinks: [
       { label: "Ryan's full provider profile →", href: "/providers/ryan" },

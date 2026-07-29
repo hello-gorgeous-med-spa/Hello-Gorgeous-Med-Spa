@@ -52,11 +52,11 @@ const FALLBACK_PROVIDERS: Record<string, Provider> = {
     first_name: 'Ryan',
     last_name: 'Kent',
     slug: 'ryan',
-    title: 'Medical Director',
+    title: 'On-Site Nurse Practitioner · FNP-BC',
     credentials: RYAN_CREDENTIALS,
     bio: RYAN_PROVIDER_BIO,
     philosophy:
-      "Medical weight loss and hormone therapy built around safety, labs, and data. Every clinical decision at Hello Gorgeous goes through me — on site seven days a week.",
+      "Medical weight loss and hormone therapy built around safety, labs, and data. I'm on site seven days a week under Medical Director Dr. Mukesh Arora, MD — every clinical decision goes through our medical team.",
     headshot_url: '/images/providers/ryan-kent-clinic.jpg',
     booking_url: FRESHA_BOOKING_URL_RYAN,
     is_active: true,

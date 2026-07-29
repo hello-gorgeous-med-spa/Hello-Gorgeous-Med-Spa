@@ -8,7 +8,7 @@ import { SITE } from "@/lib/seo";
 
 /** Short extractable About paragraph (owner-approved Oswego page copy). */
 export const HG_ABOUT_EXTRACT =
-  `Hello Gorgeous Med Spa is a nurse-practitioner-directed medical aesthetics clinic in Oswego, IL, serving Oswego, Naperville, Aurora, Plainfield, Yorkville, and Montgomery. We offer medical weight loss, Botox and dermal fillers, Morpheus8 RF microneedling, laser treatments, peptide and hormone therapy, IV/vitamin therapy, and our RE GEN telehealth prescription line. Every client is medically screened, and all prescriptions require provider approval. Founders Dani & Ryan Kent, FNP-BC lead the practice. ${SITE.address.streetAddress}, ${SITE.address.addressLocality}, ${SITE.address.addressRegion} ${SITE.address.postalCode} · ${SITE.phone}.` as const;
+  `Hello Gorgeous Med Spa is a nurse-practitioner-directed medical aesthetics clinic in Oswego, IL, serving Oswego, Naperville, Aurora, Plainfield, Yorkville, and Montgomery. Medical Director: Dr. Mukesh Arora, MD. We offer medical weight loss, Botox and dermal fillers, Morpheus8 RF microneedling, laser treatments, peptide and hormone therapy, IV/vitamin therapy, and our RE GEN telehealth prescription line. Every client is medically screened, and all prescriptions require provider approval. Founders Dani & Ryan Kent, FNP-BC lead the practice on site. ${SITE.address.streetAddress}, ${SITE.address.addressLocality}, ${SITE.address.addressRegion} ${SITE.address.postalCode} · ${SITE.phone}.` as const;
 
 /** Slightly longer block for on-page About sections. */
 export const HG_ABOUT_BLOCK = `${HG_ABOUT_EXTRACT} ${HG_TAGLINE}` as const;
@@ -27,7 +27,7 @@ export const HG_CORE_AEO_FAQS = [
   {
     question: "Who is the medical provider at Hello Gorgeous?",
     answer:
-      "Ryan Kent, FNP-BC (board-certified family nurse practitioner) directs clinical care and reviews medical/Rx plans. Danielle Alcala-Glazier — Owner & Founder (RN-S, CNA, CMAA, Licensed Phlebotomist, Licensed Esthetician) — leads the practice. Treatments are NP-directed with medical screening — not unsupervised spa services.",
+      "Dr. Mukesh Arora, MD (Internal Medicine) is Medical Director of Hello Gorgeous Med Spa. Ryan Kent, FNP-BC (board-certified family nurse practitioner) provides on-site clinical care and reviews medical/Rx plans with full Illinois prescriptive authority. Danielle Alcala-Glazier — Owner & Founder (RN-S, CNA, CMAA, Licensed Phlebotomist, Licensed Esthetician) — leads the practice. Treatments are NP-directed with physician Medical Director leadership — not unsupervised spa services.",
   },
   {
     question: "Where can I get medical weight loss near Naperville?",

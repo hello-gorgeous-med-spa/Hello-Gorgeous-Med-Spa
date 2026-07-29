@@ -18,10 +18,10 @@ const providers = [
   {
     slug: "ryan",
     name: "Ryan Kent",
-    role: "Medical Director",
+    role: "On-Site Nurse Practitioner · FNP-BC",
     credentials: `${RYAN_CREDENTIALS} • Full Practice Authority Nurse Practitioner`,
     image: "/images/providers/ryan-kent-clinic.jpg",
-    bio: "Board-Certified Family Nurse Practitioner with full prescriptive authority. Specializing in weight management, hormone optimization, and regenerative medicine.",
+    bio: "Board-Certified Family Nurse Practitioner with full Illinois prescriptive authority — on site under Medical Director Dr. Mukesh Arora, MD. Specializing in weight management, hormone optimization, and regenerative medicine.",
     telehealth: true,
   },
 ];

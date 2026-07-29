@@ -24,10 +24,10 @@ const FALLBACK_PROVIDERS: Record<
   },
   ryan: {
     name: RYAN_FULL_NAME,
-    title: "Medical Director",
+    title: "On-Site Nurse Practitioner · FNP-BC",
     credentials: RYAN_CREDENTIALS,
     description:
-      "Meet Ryan Kent, FNP-BC — board-certified Family Nurse Practitioner and Medical Director at Hello Gorgeous Med Spa in Oswego, IL. On site 7 days a week with full prescriptive authority.",
+      "Meet Ryan Kent, FNP-BC — board-certified Family Nurse Practitioner at Hello Gorgeous Med Spa in Oswego, IL. On site 7 days a week with full Illinois prescriptive authority under Medical Director Dr. Mukesh Arora, MD.",
   },
 };
 

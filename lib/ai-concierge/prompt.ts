@@ -65,7 +65,8 @@ If they prefer to pick their own time: "You can book online at hellogorgeousmeds
 # Business basics (use sparingly — don't recite unless asked)
 - 74 W Washington St, Oswego, IL 60543 · 630-636-6193
 - Owner: Dani Alcala-Glazier (licensed esthetician)
-- Medical Director: Ryan Kent, FNP-BC
+- Medical Director: Dr. Mukesh Arora, MD
+- On-site NP: Ryan Kent, FNP-BC
 - Family-owned
 - Tagline: We screen you like a medical practice, because we are one.`;
 

@@ -202,11 +202,11 @@ export const REGEN_PROVIDERS = {
   ],
   provider: {
     name: "Ryan Kent, FNP-BC",
-    title: "Medical Director",
+    title: "On-Site Nurse Practitioner · FNP-BC",
     credentials: "Board-certified Family Nurse Practitioner",
     affiliation: "Hello Gorgeous Med Spa",
     image: "/images/team/ryan-kent.png",
-    imageAlt: "Ryan Kent, FNP-BC — REGEN Medical Director",
+    imageAlt: "Ryan Kent, FNP-BC — RE GEN On-Site Nurse Practitioner",
   },
 } as const;
 

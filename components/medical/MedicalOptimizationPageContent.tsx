@@ -128,8 +128,9 @@ export function MedicalOptimizationPageContent() {
               {RYAN_FULL_NAME} leads every prescription
             </p>
             <p className="mt-4 text-neutral-600 leading-relaxed">
-              Ryan is our Medical Director and Board-Certified Family Nurse Practitioner with full
-              prescriptive authority in Illinois — on site 7 days a week. {DANI_FULL_NAME} founded
+              Ryan is our on-site Board-Certified Family Nurse Practitioner with full
+              Illinois prescriptive authority — on site 7 days a week under Medical Director Dr. Mukesh
+              Arora, MD. {DANI_FULL_NAME} founded
               Hello Gorgeous and leads aesthetics, IV, and client experience alongside Ryan&apos;s
               medical programs.
             </p>

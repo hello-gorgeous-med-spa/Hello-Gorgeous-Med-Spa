@@ -179,9 +179,9 @@ export function MeetDaniRyanSection() {
         />
         <FounderTrifectaCard
           image={RYAN_IMAGE}
-          imageAlt="Ryan Kent, FNP-BC, Medical Director at Hello Gorgeous Med Spa"
+          imageAlt="Ryan Kent, FNP-BC, On-Site Nurse Practitioner at Hello Gorgeous Med Spa"
           heading="Meet Ryan"
-          role="Medical Director"
+          role="On-Site Nurse Practitioner · FNP-BC"
           credentials="Ryan Kent, FNP-BC — Family Nurse Practitioner, Board-Certified"
           body="Full prescriptive authority in Illinois. On site 7 days a week. Every clinical protocol at Hello Gorgeous — from Botox dosing to GLP-1 weight loss to hormone therapy — goes through me."
           ctaLabel="Meet Ryan"

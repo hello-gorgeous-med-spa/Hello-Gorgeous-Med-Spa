@@ -21,13 +21,13 @@ export const PRESCRIPTION_SERVICE_SLUGS = new Set([
 export const FOOTER_CREDENTIALS_HEADLINE = "Hello Gorgeous Med Spa — Family-owned. NP-directed.";
 
 export const FOOTER_CREDENTIALS_LINE =
-  "Founder: Danielle Alcala-Glazier (RN-S, CNA, CMAA, Licensed Phlebotomist, Licensed Esthetician) · Medical Director: Ryan Kent, FNP-BC (full prescriptive authority, on site 7 days a week)";
+  "Founder: Danielle Alcala-Glazier (RN-S, CNA, CMAA, Licensed Phlebotomist, Licensed Esthetician) · Medical Director: Dr. Mukesh Arora, MD · On-site NP: Ryan Kent, FNP-BC (full prescriptive authority, on site 7 days a week)";
 
-export const CREDENTIAL_STRIP_STANDARD = `Performed by our team. Medical oversight by Ryan Kent, FNP-BC (Board-Certified Family Nurse Practitioner, on site 7 days a week).
+export const CREDENTIAL_STRIP_STANDARD = `Performed by our team. Medical Director: Dr. Mukesh Arora, MD. On-site nurse practitioner: Ryan Kent, FNP-BC (Board-Certified Family Nurse Practitioner, full Illinois prescriptive authority, on site 7 days a week).
 
 Owner & Founder: Danielle Alcala-Glazier — RN-S, CNA, CMAA, Licensed Phlebotomist, Licensed Esthetician. 10+ years at this practice.`;
 
-export const CREDENTIAL_STRIP_PRESCRIPTION = `Every prescription at Hello Gorgeous is written and supervised by Ryan Kent, FNP-BC — a Board-Certified Family Nurse Practitioner with full prescriptive authority in Illinois, on site 7 days a week. Owner & Founder: Danielle Alcala-Glazier — RN-S, CNA, CMAA, Licensed Phlebotomist, Licensed Esthetician.`;
+export const CREDENTIAL_STRIP_PRESCRIPTION = `Every prescription at Hello Gorgeous is written and supervised by Ryan Kent, FNP-BC — a Board-Certified Family Nurse Practitioner with full prescriptive authority in Illinois, on site 7 days a week — under Medical Director Dr. Mukesh Arora, MD. Owner & Founder: Danielle Alcala-Glazier — RN-S, CNA, CMAA, Licensed Phlebotomist, Licensed Esthetician.`;
 
 export const DANI_SHORT_BIO =
   "Danielle Alcala-Glazier — RN-S, CNA, CMAA, Licensed Phlebotomist, Licensed Esthetician. Owner & Founder, Hello Gorgeous Med Spa.";
@@ -50,15 +50,15 @@ Dani is still in the office every day. She still answers texts. She still orders
 export const DANI_PROVIDER_BIO = `${DANI_MEDIUM_BIO}\n\n${DANI_LONG_BIO}`;
 
 export const RYAN_SHORT_BIO =
-  "Ryan Kent, FNP-BC — Medical Director, Hello Gorgeous Med Spa. Board-certified Family Nurse Practitioner with full prescriptive authority. On site 7 days a week.";
+  "Ryan Kent, FNP-BC — Board-Certified Family Nurse Practitioner at Hello Gorgeous Med Spa. Full prescriptive authority. On site 7 days a week under Medical Director Dr. Mukesh Arora, MD.";
 
-export const RYAN_MEDIUM_BIO = `Ryan Kent, FNP-BC, is a board-certified Family Nurse Practitioner and the Medical Director of Hello Gorgeous Med Spa in Oswego, Illinois.
+export const RYAN_MEDIUM_BIO = `Ryan Kent, FNP-BC, is a board-certified Family Nurse Practitioner at Hello Gorgeous Med Spa in Oswego, Illinois. He provides on-site clinical care under Medical Director Dr. Mukesh Arora, MD.
 
 Ryan holds full prescriptive authority in Illinois, allowing him to independently prescribe medications, direct medical aesthetic protocols, and oversee clinical care across injectables, GLP-1 medical weight loss (Semaglutide and Tirzepatide), hormone optimization, peptides, IV therapy, and advanced energy-based treatments including Morpheus8 Burst, Quantum RF, and Solaria CO₂.`;
 
-export const RYAN_LONG_BIO = `Unlike many med spas that rely on a remote physician signing charts from another state, Ryan is on site seven days a week at Hello Gorgeous's downtown Oswego location. Every clinical decision — from Botox dosing to weight-loss protocols to laser settings — goes through him personally. His approach is data-driven and safety-first: labs, medical history, informed consent, and follow-up built into every plan.
+export const RYAN_LONG_BIO = `Unlike many med spas that rely on a remote physician signing charts from another state, Ryan is on site seven days a week at Hello Gorgeous's downtown Oswego location — working under Medical Director Dr. Mukesh Arora, MD. Day-to-day clinical decisions — from Botox dosing to weight-loss protocols to laser settings — go through him personally. His approach is data-driven and safety-first: labs, medical history, informed consent, and follow-up built into every plan.
 
-Ryan partners with Danielle Alcala-Glazier to deliver continuity of care — the same providers, the same chart, the same honest conversation visit after visit. For patients across Oswego and the western Chicago suburbs, that means medical aesthetics with a real nurse practitioner in the building, not just on a letterhead.`;
+Ryan partners with Danielle Alcala-Glazier to deliver continuity of care — the same providers, the same chart, the same honest conversation visit after visit. For patients across Oswego and the western Chicago suburbs, that means medical aesthetics with a real nurse practitioner in the building and a physician Medical Director behind the practice.`;
 
 /** Full bio for Ryan's provider profile page. */
 export const RYAN_PROVIDER_BIO = `${RYAN_MEDIUM_BIO}\n\n${RYAN_LONG_BIO}`;
@@ -145,7 +145,7 @@ export function ryanPersonJsonLd(opts?: { profileUrl?: string }) {
     "@type": "Person",
     "@id": profileUrl,
     name: "Ryan Kent",
-    jobTitle: "Medical Director",
+    jobTitle: "Board-Certified Family Nurse Practitioner",
     url: profileUrl,
     image: `${SITE.url}${RYAN_IMAGE}`,
     description: RYAN_MEDIUM_BIO.replace(/\n\n/g, " "),

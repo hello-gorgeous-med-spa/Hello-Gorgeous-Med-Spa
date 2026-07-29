@@ -62,14 +62,14 @@ export function MedicalTrustBand({
                 MD Oversight · FNP-BC On Site · Come in — we&apos;re friendly
               </p>
               <h2 className={`mt-3 text-2xl font-black md:text-3xl ${s.title}`}>
-                Owner-led · NP-directed · MD oversight
+                Owner-led · Medical Director · FNP on site
               </h2>
               <p className={`mt-4 text-base leading-relaxed ${s.body}`}>
                 Illinois patients deserve more than a checkout flow.{" "}
                 {MEDICAL_TRUST_PROVIDERS[0].name.split(",")[0]} — owner, RN-S, CNA, CMAA, licensed
                 phlebotomist, and licensed esthetician — leads the practice every day.{" "}
-                {MEDICAL_TRUST_PROVIDERS[1].name} is on site reviewing intakes, labs, and refills.{" "}
-                {MEDICAL_TRUST_PROVIDERS[2].name} provides collaborating physician oversight.
+                {MEDICAL_TRUST_PROVIDERS[1].name} is Medical Director.{" "}
+                {MEDICAL_TRUST_PROVIDERS[2].name} is on site reviewing intakes, labs, and refills.
               </p>
               <blockquote
                 className={`mt-5 border-l-4 border-[#E6007E] pl-4 text-lg font-medium italic ${surface === "dark" ? "text-white/90" : "text-black/85"}`}
