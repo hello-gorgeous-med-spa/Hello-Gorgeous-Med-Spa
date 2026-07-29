@@ -131,7 +131,30 @@ export default function ProposalPreviewPage() {
               <p className="text-sm text-black/80">{proposal.concerns.join(", ")}</p>
             </div>
           ) : null}
+          {proposal.client_instructions ? (
+            <div className="mt-4 rounded-xl border-2 border-black/10 bg-[#FFF0F7] p-4">
+              <p className="text-sm font-semibold text-[#E6007E]">Client instructions</p>
+              <p className="mt-1 whitespace-pre-wrap text-sm text-black/85">{proposal.client_instructions}</p>
+            </div>
+          ) : null}
         </section>
+
+        {proposal.media?.length ? (
+          <section className="mt-5">
+            <h2 className="mb-3 text-lg font-bold text-black">Before & after</h2>
+            <div className="grid gap-3 sm:grid-cols-2 md:grid-cols-3">
+              {proposal.media.map((item) => (
+                <figure key={item.id} className="overflow-hidden rounded-xl border-2 border-black">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={item.url} alt={item.label || item.kind} className="h-48 w-full object-cover" />
+                  <figcaption className="px-3 py-2 text-xs font-bold uppercase tracking-wide text-[#E6007E]">
+                    {item.label || item.kind}
+                  </figcaption>
+                </figure>
+              ))}
+            </div>
+          </section>
+        ) : null}
 
         <section className="mt-5 grid gap-4 md:grid-cols-3">
           {options.map((option, index) => {

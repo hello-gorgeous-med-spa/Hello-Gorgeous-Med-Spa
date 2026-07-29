@@ -1,6 +1,6 @@
 import { HELLO_GORGEOUS_SERVICES, type SeedService } from "@/lib/proposals/seed-services";
 
-export type DiscountType = "percentage" | "dollar" | "package" | "membership";
+export type DiscountType = "percentage" | "dollar" | "package" | "membership" | "custom" | "none";
 
 export type ProposalService = SeedService & { quantity: number };
 
@@ -13,6 +13,7 @@ export type ProposalOption = {
   name: string;
   services: ProposalService[];
   discountType: DiscountType;
+  /** % value, $ off, or custom final price when discountType is "custom" */
   discountValue: number;
   timeline: ProposalTimelineItem[];
 };
@@ -22,14 +23,21 @@ export function calculateSubtotal(services: ProposalService[]): number {
 }
 
 export function calculateDiscount(subtotal: number, discountType: DiscountType, discountValue: number): number {
-  if (discountType === "percentage") return subtotal * (discountValue / 100);
-  if (discountType === "dollar") return Math.min(discountValue, subtotal);
+  if (discountType === "percentage") return subtotal * (Math.max(0, discountValue) / 100);
+  if (discountType === "dollar") return Math.min(Math.max(0, discountValue), subtotal);
   if (discountType === "membership") return subtotal * 0.1;
+  if (discountType === "custom") {
+    const customTotal = Math.max(0, discountValue);
+    return Math.max(0, subtotal - customTotal);
+  }
   return 0;
 }
 
 export function calculateTotal(option: ProposalOption): number {
   const subtotal = calculateSubtotal(option.services);
+  if (option.discountType === "custom") {
+    return Math.max(0, option.discountValue);
+  }
   const discount = calculateDiscount(subtotal, option.discountType, option.discountValue);
   return Math.max(0, subtotal - discount);
 }
@@ -37,6 +45,23 @@ export function calculateTotal(option: ProposalOption): number {
 export function calculateMonthlyPayment(total: number, months = 24): number {
   if (months <= 0) return total;
   return total / months;
+}
+
+export function discountLabel(option: ProposalOption): string {
+  switch (option.discountType) {
+    case "percentage":
+      return `${option.discountValue}% off`;
+    case "dollar":
+      return `$${option.discountValue.toFixed(0)} off`;
+    case "custom":
+      return "Custom price";
+    case "membership":
+      return "Membership 10%";
+    case "package":
+      return "Package pricing";
+    default:
+      return "No discount";
+  }
 }
 
 export function generateTimeline(services: ProposalService[]): ProposalTimelineItem[] {
@@ -55,9 +80,14 @@ export function generateTimeline(services: ProposalService[]): ProposalTimelineI
 
 export function autoGenerateOptions(selectedServices: ProposalService[]): ProposalOption[] {
   const essentialServices = selectedServices.map((service) => ({ ...service }));
+  const hasFixedPackage = essentialServices.some((service) => service.id.startsWith("pkg-"));
 
   const recommendedServices = essentialServices.map((service) => ({ ...service }));
-  if (recommendedServices.some((service) => service.id.startsWith("morpheus8"))) {
+  if (
+    recommendedServices.some(
+      (service) => service.id.startsWith("morpheus8") || service.id.startsWith("pkg-")
+    )
+  ) {
     const prpService = HELLO_GORGEOUS_SERVICES.find((service) => service.id === "prp-facial");
     if (prpService && !recommendedServices.some((service) => service.id === prpService.id)) {
       recommendedServices.push({ ...prpService, quantity: 1 });
@@ -74,6 +104,33 @@ export function autoGenerateOptions(selectedServices: ProposalService[]): Propos
     quantity: 1,
     description: "Home care support bundle.",
   });
+
+  // Fixed packages already include the deal — start at list/package price (staff can still override).
+  if (hasFixedPackage) {
+    return [
+      {
+        name: "Essential Plan",
+        services: essentialServices,
+        discountType: "package",
+        discountValue: 0,
+        timeline: generateTimeline(essentialServices),
+      },
+      {
+        name: "Recommended Plan",
+        services: recommendedServices,
+        discountType: "package",
+        discountValue: 0,
+        timeline: generateTimeline(recommendedServices),
+      },
+      {
+        name: "VIP Transformation",
+        services: vipServices,
+        discountType: "package",
+        discountValue: 0,
+        timeline: generateTimeline(vipServices),
+      },
+    ];
+  }
 
   return [
     {

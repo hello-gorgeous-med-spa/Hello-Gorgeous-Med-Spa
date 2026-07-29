@@ -9,6 +9,7 @@ import {
   calculateTotal,
   type ProposalOption,
 } from "@/lib/proposals/utils";
+import type { ProposalMediaItem } from "@/lib/proposals/types";
 
 type PublicProposal = {
   id: string;
@@ -19,6 +20,8 @@ type PublicProposal = {
   status: string;
   concerns: string[];
   options: ProposalOption[];
+  client_instructions: string | null;
+  media: ProposalMediaItem[];
   view_count: number;
 };
 
@@ -80,7 +83,30 @@ export default function PublicProposalPage() {
               <span className="font-semibold">Concerns:</span> {proposal.concerns.join(", ")}
             </p>
           ) : null}
+          {proposal.client_instructions ? (
+            <div className="mt-4 rounded-xl border border-black/10 bg-[#FFF0F7] p-4">
+              <p className="text-sm font-bold text-[#E6007E]">Your instructions</p>
+              <p className="mt-1 whitespace-pre-wrap text-sm text-black/85">{proposal.client_instructions}</p>
+            </div>
+          ) : null}
         </section>
+
+        {proposal.media?.length ? (
+          <section className="mt-6">
+            <h2 className="mb-3 text-lg font-bold text-black">Before & after</h2>
+            <div className="grid gap-3 sm:grid-cols-2 md:grid-cols-3">
+              {proposal.media.map((item) => (
+                <figure key={item.id} className="overflow-hidden rounded-2xl border-4 border-black bg-white">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={item.url} alt={item.label || item.kind} className="h-56 w-full object-cover" />
+                  <figcaption className="px-3 py-2 text-xs font-bold uppercase tracking-wide text-[#E6007E]">
+                    {item.label || item.kind}
+                  </figcaption>
+                </figure>
+              ))}
+            </div>
+          </section>
+        ) : null}
 
         <section className="mt-6 grid gap-4 md:grid-cols-3">
           {options.map((option, index) => {

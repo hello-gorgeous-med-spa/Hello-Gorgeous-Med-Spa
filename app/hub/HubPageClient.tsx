@@ -286,7 +286,19 @@ export default function HubPageClient() {
             ) : null}
           </p>
         </div>
-        <div className="flex gap-2">
+        <div className="flex flex-wrap gap-2">
+          <a
+            href="/admin/proposals/new"
+            className="rounded bg-pink-600 px-3 py-2 text-sm font-semibold text-white hover:bg-pink-700"
+          >
+            + New proposal
+          </a>
+          <a
+            href="/admin/proposals"
+            className="rounded border border-pink-600 px-3 py-2 text-sm font-semibold text-pink-700 hover:bg-pink-50"
+          >
+            Proposals
+          </a>
           <button className={`px-3 py-2 rounded ${user === "dani" ? "bg-pink-600 text-white" : "bg-black/5"}`} onClick={() => setUser("dani")}>Dani view</button>
           <button className={`px-3 py-2 rounded ${user === "ryan" ? "bg-pink-600 text-white" : "bg-black/5"}`} onClick={() => setUser("ryan")}>Ryan view</button>
         </div>

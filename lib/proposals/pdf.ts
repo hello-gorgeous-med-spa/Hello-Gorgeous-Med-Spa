@@ -60,6 +60,33 @@ export function buildProposalPdf(proposal: TreatmentProposalRecord): Uint8Array 
     sectionGap();
   }
 
+  if (proposal.client_instructions?.trim()) {
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(12);
+    doc.setTextColor("#E6007E");
+    doc.text("Your instructions", marginX, y);
+    y += 16;
+    write(proposal.client_instructions.trim(), 11, "#000000");
+    sectionGap();
+  }
+
+  if (proposal.media?.length) {
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(12);
+    doc.setTextColor("#E6007E");
+    doc.text("Before & after references", marginX, y);
+    y += 16;
+    write(
+      `${proposal.media.length} photo(s) attached to your digital proposal link (view online for images).`,
+      10,
+      "#444444"
+    );
+    proposal.media.forEach((item) => {
+      write(`- ${item.label || item.kind}: ${item.url}`, 9, "#666666", 12);
+    });
+    sectionGap();
+  }
+
   proposal.options.forEach((option: ProposalOption, index) => {
     if (index > 0) doc.addPage();
     y = 56;

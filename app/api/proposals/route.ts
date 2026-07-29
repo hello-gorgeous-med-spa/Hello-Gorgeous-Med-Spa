@@ -44,6 +44,13 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Proposal options are required." }, { status: 400 });
   }
 
+  const media = Array.isArray(body.media)
+    ? body.media.filter(
+        (item: { id?: string; kind?: string; url?: string }) =>
+          item && typeof item.url === "string" && item.url.startsWith("http")
+      )
+    : [];
+
   const { data, error } = await supabase
     .from("treatment_proposals")
     .insert({
@@ -54,6 +61,8 @@ export async function POST(request: NextRequest) {
       concerns: Array.isArray(body.concerns) ? body.concerns : [],
       options,
       internal_notes: body.internalNotes || null,
+      client_instructions: typeof body.clientInstructions === "string" ? body.clientInstructions.trim() || null : null,
+      media,
       created_by: session.email || "owner",
       status: "draft",
     })

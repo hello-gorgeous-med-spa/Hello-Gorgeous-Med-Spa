@@ -54,6 +54,7 @@ export const ADMIN_NAV_GROUPS: AdminNavGroup[] = [
       { href: "/admin/clients", label: "Clients", icon: "👥" },
       { href: "/admin/calendar", label: "Calendar", icon: "🗓" },
       { href: "/admin/appointments", label: "Appointments", icon: "📅" },
+      { href: "/admin/proposals", label: "Proposals", icon: "📝" },
       { href: "/admin/scan", label: "Scan Client", icon: "📷" },
     ],
   },
@@ -138,6 +139,7 @@ export const ADMIN_DASHBOARD_QUICK_LINKS = {
     { href: "/admin/clients", label: "Clients", desc: "Profiles & RX history" },
     { href: "/admin/calendar", label: "Calendar", desc: "Today’s schedule" },
     { href: "/admin/appointments/new", label: "New Booking", desc: "Schedule visit" },
+    { href: "/admin/proposals/new", label: "New Proposal", desc: "Packages · weight loss · peptides" },
     { href: "/admin/consents", label: "Consents", desc: "Pending signatures" },
   ],
   payments: [
@@ -176,7 +178,6 @@ export const ADMIN_NAV_HIDDEN_PATHS = [
   "/admin/marketing",
   "/admin/ai-concierge",
   "/admin/video-generator",
-  "/admin/proposals",
   "/admin/packages",
   "/admin/flowwave/intake",
 ];

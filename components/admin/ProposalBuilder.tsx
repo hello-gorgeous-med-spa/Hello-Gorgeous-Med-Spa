@@ -2,13 +2,17 @@
 
 import { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
+import { packageToProposalService, PROPOSAL_PACKAGES } from "@/lib/proposals/packages";
 import { HELLO_GORGEOUS_SERVICES } from "@/lib/proposals/seed-services";
+import type { ProposalMediaItem, ProposalMediaKind } from "@/lib/proposals/types";
 import {
   autoGenerateOptions,
   calculateDiscount,
   calculateMonthlyPayment,
   calculateSubtotal,
   calculateTotal,
+  discountLabel,
+  type DiscountType,
   type ProposalOption,
   type ProposalService,
 } from "@/lib/proposals/utils";
@@ -23,24 +27,64 @@ const CONCERN_OPTIONS = [
   "Hair restoration",
 ];
 
+const CATEGORY_ORDER = [
+  "Packages",
+  "Weight Loss Programs",
+  "Peptides",
+  "InMode Trifecta",
+  "Injectables",
+  "Body & Wellness",
+  "Regenerative",
+  "Skin & Face",
+  "Retail",
+];
+
+const DISCOUNT_MODES: Array<{ value: DiscountType; label: string }> = [
+  { value: "none", label: "No extra discount" },
+  { value: "package", label: "Package pricing (as listed)" },
+  { value: "percentage", label: "Percentage off" },
+  { value: "dollar", label: "Dollar amount off" },
+  { value: "custom", label: "Custom total price" },
+];
+
+function newDraftId() {
+  if (typeof crypto !== "undefined" && crypto.randomUUID) {
+    return crypto.randomUUID().replace(/-/g, "").slice(0, 16);
+  }
+  return `draft-${Date.now().toString(36)}`;
+}
+
 export function ProposalBuilder() {
   const router = useRouter();
+  const [draftId] = useState(newDraftId);
   const [clientName, setClientName] = useState("");
   const [clientEmail, setClientEmail] = useState("");
   const [clientPhone, setClientPhone] = useState("");
   const [concerns, setConcerns] = useState<string[]>([]);
   const [internalNotes, setInternalNotes] = useState("");
+  const [clientInstructions, setClientInstructions] = useState("");
+  const [media, setMedia] = useState<ProposalMediaItem[]>([]);
+  const [uploadingKind, setUploadingKind] = useState<ProposalMediaKind | null>(null);
   const [selectedServices, setSelectedServices] = useState<ProposalService[]>([]);
   const [options, setOptions] = useState<ProposalOption[]>([]);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const groupedServices = useMemo(() => {
-    return HELLO_GORGEOUS_SERVICES.reduce<Record<string, typeof HELLO_GORGEOUS_SERVICES>>((acc, service) => {
-      if (!acc[service.category]) acc[service.category] = [];
-      acc[service.category].push(service);
-      return acc;
-    }, {});
+    const grouped = HELLO_GORGEOUS_SERVICES.reduce<Record<string, typeof HELLO_GORGEOUS_SERVICES>>(
+      (acc, service) => {
+        if (!acc[service.category]) acc[service.category] = [];
+        acc[service.category].push(service);
+        return acc;
+      },
+      {}
+    );
+
+    return Object.entries(grouped).sort(([a], [b]) => {
+      const ai = CATEGORY_ORDER.indexOf(a);
+      const bi = CATEGORY_ORDER.indexOf(b);
+      return (ai === -1 ? 99 : ai) - (bi === -1 ? 99 : bi);
+    });
   }, []);
 
   const toggleService = (serviceId: string) => {
@@ -52,20 +96,85 @@ export function ProposalBuilder() {
       if (exists) return prev.filter((item) => item.id !== serviceId);
       return [...prev, { ...service, quantity: 1 }];
     });
+    setOptions([]);
+  };
+
+  const addPackage = (packageId: string) => {
+    const pkg = PROPOSAL_PACKAGES.find((item) => item.id === packageId);
+    if (!pkg) return;
+
+    setSelectedServices((prev) => {
+      if (prev.some((item) => item.id === pkg.id)) return prev;
+      return [...prev, packageToProposalService(pkg)];
+    });
+    setOptions([]);
   };
 
   const updateQuantity = (serviceId: string, quantity: number) => {
     setSelectedServices((prev) =>
       prev.map((item) => (item.id === serviceId ? { ...item, quantity: Math.max(1, quantity || 1) } : item))
     );
+    setOptions([]);
   };
 
   const toggleConcern = (concern: string) => {
     setConcerns((prev) => (prev.includes(concern) ? prev.filter((item) => item !== concern) : [...prev, concern]));
   };
 
+  const updateOptionPricing = (optionName: string, patch: Partial<Pick<ProposalOption, "discountType" | "discountValue">>) => {
+    setOptions((prev) =>
+      prev.map((option) => {
+        if (option.name !== optionName) return option;
+        const nextType = patch.discountType ?? option.discountType;
+        let nextValue = patch.discountValue ?? option.discountValue;
+        if (patch.discountType === "custom" && option.discountType !== "custom") {
+          nextValue = calculateTotal(option);
+        }
+        if (patch.discountType && patch.discountType !== "custom" && option.discountType === "custom") {
+          nextValue = patch.discountType === "percentage" ? 10 : 0;
+        }
+        return { ...option, discountType: nextType, discountValue: nextValue };
+      })
+    );
+  };
+
   const handleGenerate = () => {
     setOptions(autoGenerateOptions(selectedServices));
+  };
+
+  const uploadMedia = async (file: File, kind: ProposalMediaKind) => {
+    setError(null);
+    setUploadingKind(kind);
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("kind", kind);
+      formData.append("draftId", draftId);
+
+      const response = await fetch("/api/proposals/upload-media", {
+        method: "POST",
+        body: formData,
+      });
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.error || "Upload failed.");
+
+      const item: ProposalMediaItem = {
+        id: `${kind}-${Date.now()}`,
+        kind,
+        url: data.url,
+        label: kind === "before" ? "Before" : kind === "after" ? "After" : "Before & after",
+        createdAt: new Date().toISOString(),
+      };
+      setMedia((prev) => [...prev, item]);
+    } catch (uploadError) {
+      setError(uploadError instanceof Error ? uploadError.message : "Upload failed.");
+    } finally {
+      setUploadingKind(null);
+    }
+  };
+
+  const removeMedia = (id: string) => {
+    setMedia((prev) => prev.filter((item) => item.id !== id));
   };
 
   const handleSave = async () => {
@@ -91,6 +200,8 @@ export function ProposalBuilder() {
           concerns,
           options,
           internalNotes: internalNotes.trim() || null,
+          clientInstructions: clientInstructions.trim() || null,
+          media,
         }),
       });
 
@@ -110,7 +221,7 @@ export function ProposalBuilder() {
       <div>
         <h1 className="text-3xl font-black text-black">Treatment Proposal Builder</h1>
         <p className="mt-2 text-sm text-black/70">
-          Build Good / Better / Best treatment plans with pricing and timeline in one consult flow.
+          Packages, discounts, instructions, and before/after photos — all synced to the shareable client link.
         </p>
       </div>
 
@@ -151,7 +262,18 @@ export function ProposalBuilder() {
         </div>
 
         <div className="mt-4">
-          <p className="text-sm font-semibold text-black">Internal notes</p>
+          <p className="text-sm font-semibold text-black">Client instructions (shown on share link)</p>
+          <textarea
+            rows={4}
+            value={clientInstructions}
+            onChange={(event) => setClientInstructions(event.target.value)}
+            className="mt-2 w-full rounded-lg border-2 border-black/20 px-3 py-2 text-sm text-black"
+            placeholder="Example: Arrive 15 min early. No retinoids 5 days before Solaria. Text us to book your first Morpheus8."
+          />
+        </div>
+
+        <div className="mt-4">
+          <p className="text-sm font-semibold text-black">Internal notes (staff only)</p>
           <textarea
             rows={3}
             value={internalNotes}
@@ -163,7 +285,94 @@ export function ProposalBuilder() {
       </section>
 
       <section className="rounded-2xl border-4 border-black bg-white p-6 shadow-[8px_8px_0_0_#FF2D8E]">
-        <div className="flex items-center justify-between">
+        <h2 className="text-xl font-bold text-black">Before & after photos</h2>
+        <p className="mt-1 text-sm text-black/70">
+          Upload reference photos so the proposal, share link, and PDF stay in sync.
+        </p>
+        <div className="mt-4 flex flex-wrap gap-3">
+          {(["before", "after", "pair"] as ProposalMediaKind[]).map((kind) => (
+            <label
+              key={kind}
+              className="cursor-pointer rounded-full border-2 border-black bg-[#FFF0F7] px-4 py-2 text-sm font-bold text-black hover:border-[#E6007E]"
+            >
+              {uploadingKind === kind
+                ? "Uploading…"
+                : kind === "before"
+                  ? "+ Before"
+                  : kind === "after"
+                    ? "+ After"
+                    : "+ Before & after pair"}
+              <input
+                type="file"
+                accept="image/*"
+                className="hidden"
+                disabled={Boolean(uploadingKind)}
+                onChange={(event) => {
+                  const file = event.target.files?.[0];
+                  if (file) void uploadMedia(file, kind);
+                  event.target.value = "";
+                }}
+              />
+            </label>
+          ))}
+        </div>
+        {media.length ? (
+          <div className="mt-4 grid gap-3 sm:grid-cols-2 md:grid-cols-3">
+            {media.map((item) => (
+              <figure key={item.id} className="overflow-hidden rounded-xl border-2 border-black bg-white">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={item.url} alt={item.label || item.kind} className="h-40 w-full object-cover" />
+                <figcaption className="flex items-center justify-between gap-2 px-3 py-2 text-xs">
+                  <span className="font-semibold uppercase tracking-wide text-[#E6007E]">{item.label || item.kind}</span>
+                  <button type="button" onClick={() => removeMedia(item.id)} className="font-bold text-black/60 hover:text-red-600">
+                    Remove
+                  </button>
+                </figcaption>
+              </figure>
+            ))}
+          </div>
+        ) : (
+          <p className="mt-3 text-xs text-black/55">No photos yet — optional, but great for consult follow-up.</p>
+        )}
+      </section>
+
+      <section className="rounded-2xl border-4 border-black bg-[#FFF0F7] p-6 shadow-[8px_8px_0_0_#FF2D8E]">
+        <h2 className="text-xl font-bold text-black">Quick-add packages</h2>
+        <p className="mt-1 text-sm text-black/70">One tap adds the fixed package price — then discount or set a custom total below.</p>
+        <div className="mt-4 grid gap-3 md:grid-cols-2">
+          {PROPOSAL_PACKAGES.map((pkg) => {
+            const selected = selectedServices.some((item) => item.id === pkg.id);
+            return (
+              <article key={pkg.id} className="rounded-xl border-2 border-black bg-white p-4">
+                <div className="flex items-start justify-between gap-3">
+                  <div>
+                    <h3 className="text-lg font-bold text-black">{pkg.name}</h3>
+                    <p className="mt-1 text-2xl font-black text-[#E6007E]">${pkg.price.toLocaleString()}</p>
+                    <p className="mt-1 text-xs text-black/70">{pkg.description}</p>
+                    <ul className="mt-2 space-y-0.5 text-xs text-black/80">
+                      {pkg.bullets.map((bullet) => (
+                        <li key={bullet}>• {bullet}</li>
+                      ))}
+                    </ul>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => (selected ? toggleService(pkg.id) : addPackage(pkg.id))}
+                    className={`shrink-0 rounded-full px-4 py-2 text-sm font-bold ${
+                      selected ? "border-2 border-black bg-white text-black" : "bg-[#E6007E] text-white"
+                    }`}
+                  >
+                    {selected ? "Remove" : "Add"}
+                  </button>
+                </div>
+              </article>
+            );
+          })}
+        </div>
+      </section>
+
+      <section className="rounded-2xl border-4 border-black bg-white p-6 shadow-[8px_8px_0_0_#FF2D8E]">
+        <div className="flex flex-wrap items-center justify-between gap-3">
           <h2 className="text-xl font-bold text-black">Service selection</h2>
           <button
             type="button"
@@ -174,8 +383,13 @@ export function ProposalBuilder() {
             Auto-generate options
           </button>
         </div>
+        {selectedServices.length ? (
+          <p className="mt-2 text-xs font-semibold text-[#E6007E]">
+            {selectedServices.length} selected · ${calculateSubtotal(selectedServices).toLocaleString()} before plan discounts
+          </p>
+        ) : null}
         <div className="mt-4 space-y-5">
-          {Object.entries(groupedServices).map(([category, services]) => (
+          {groupedServices.map(([category, services]) => (
             <div key={category}>
               <h3 className="text-sm font-bold uppercase tracking-wide text-[#E6007E]">{category}</h3>
               <div className="mt-2 space-y-2">
@@ -188,15 +402,17 @@ export function ProposalBuilder() {
                         <p className="text-sm font-semibold text-black">{service.name}</p>
                         <p className="text-xs text-black/70">
                           ${service.price} {service.unit}
+                          {service.description ? ` · ${service.description}` : ""}
                         </p>
                       </div>
-                      {selected ? (
+                      {selected && !service.id.startsWith("pkg-") ? (
                         <input
                           type="number"
                           min={1}
                           value={selected.quantity}
                           onChange={(event) => updateQuantity(service.id, Number(event.target.value))}
                           className="w-20 rounded-md border border-black/20 px-2 py-1 text-sm"
+                          aria-label={`${service.name} quantity`}
                         />
                       ) : null}
                     </div>
@@ -209,10 +425,10 @@ export function ProposalBuilder() {
       </section>
 
       <section className="space-y-4">
-        <h2 className="text-2xl font-black text-black">Proposal options</h2>
+        <h2 className="text-2xl font-black text-black">Proposal options & pricing</h2>
         {!options.length ? (
           <div className="rounded-xl border border-dashed border-black/30 bg-white p-8 text-center text-sm text-black/70">
-            Select services and click auto-generate to build Good / Better / Best plans.
+            Select a package and/or services, then click auto-generate. You can set % off, $ off, or a custom total on each plan.
           </div>
         ) : (
           <div className="grid gap-4 lg:grid-cols-3">
@@ -221,6 +437,7 @@ export function ProposalBuilder() {
               const discount = calculateDiscount(subtotal, option.discountType, option.discountValue);
               const total = calculateTotal(option);
               const monthly = calculateMonthlyPayment(total, 24);
+              const showValueInput = option.discountType === "percentage" || option.discountType === "dollar" || option.discountType === "custom";
 
               return (
                 <article
@@ -235,9 +452,54 @@ export function ProposalBuilder() {
                   ) : null}
                   <ul className="mt-4 space-y-1 text-sm text-black/80">
                     {option.services.map((service) => (
-                      <li key={`${option.name}-${service.id}`}>- {service.name}{service.quantity > 1 ? ` (${service.quantity})` : ""}</li>
+                      <li key={`${option.name}-${service.id}`}>
+                        - {service.name}
+                        {service.quantity > 1 ? ` (${service.quantity})` : ""}
+                      </li>
                     ))}
                   </ul>
+
+                  <div className="mt-4 space-y-2 rounded-lg border border-black/15 bg-[#FFF0F7] p-3">
+                    <label className="block text-[11px] font-bold uppercase tracking-wide text-black/60">
+                      Discount / price
+                    </label>
+                    <select
+                      value={option.discountType}
+                      onChange={(event) =>
+                        updateOptionPricing(option.name, { discountType: event.target.value as DiscountType })
+                      }
+                      className="w-full rounded-md border border-black/20 bg-white px-2 py-1.5 text-sm"
+                    >
+                      {DISCOUNT_MODES.map((mode) => (
+                        <option key={mode.value} value={mode.value}>
+                          {mode.label}
+                        </option>
+                      ))}
+                    </select>
+                    {showValueInput ? (
+                      <div>
+                        <label className="block text-[11px] font-bold uppercase tracking-wide text-black/60">
+                          {option.discountType === "percentage"
+                            ? "Percent"
+                            : option.discountType === "dollar"
+                              ? "Dollars off"
+                              : "Custom total ($)"}
+                        </label>
+                        <input
+                          type="number"
+                          min={0}
+                          step={option.discountType === "percentage" ? 1 : 1}
+                          value={option.discountValue}
+                          onChange={(event) =>
+                            updateOptionPricing(option.name, { discountValue: Number(event.target.value) || 0 })
+                          }
+                          className="mt-1 w-full rounded-md border border-black/20 bg-white px-2 py-1.5 text-sm"
+                        />
+                      </div>
+                    ) : null}
+                    <p className="text-[11px] text-black/55">{discountLabel(option)}</p>
+                  </div>
+
                   <div className="mt-4 border-t border-black/15 pt-3 text-sm">
                     <div className="flex justify-between">
                       <span>Subtotal</span>

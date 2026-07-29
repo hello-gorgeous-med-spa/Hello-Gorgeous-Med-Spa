@@ -16,7 +16,9 @@ export async function GET(_: NextRequest, context: RouteContext) {
 
   const { data, error } = await supabase
     .from("treatment_proposals")
-    .select("id,public_id,client_name,created_at,expires_at,status,concerns,options,pdf_url,view_count,viewed_at")
+    .select(
+      "id,public_id,client_name,created_at,expires_at,status,concerns,options,pdf_url,view_count,viewed_at,client_instructions,media"
+    )
     .eq("public_id", publicId)
     .single();
 
@@ -42,6 +44,8 @@ export async function GET(_: NextRequest, context: RouteContext) {
       concerns: data.concerns || [],
       options: data.options || [],
       pdf_url: data.pdf_url || null,
+      client_instructions: data.client_instructions || null,
+      media: Array.isArray(data.media) ? data.media : [],
       view_count: updatedViewCount,
     },
   });
