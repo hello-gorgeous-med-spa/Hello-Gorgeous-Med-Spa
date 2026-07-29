@@ -22,8 +22,13 @@ export const PROPOSAL_PACKAGES: ProposalPackage[] = [
     category: "Packages",
     price: 2400,
     unit: "per package",
-    description: "3× Morpheus8 treatments + 1× Solaria CO2 Full Face.",
-    bullets: ["3 Morpheus8 sessions", "1 Solaria CO2 full face", "Package price $2,400"],
+    description:
+      "3× Morpheus8 Burst (deep RF microneedling up to 8mm for tightening & collagen) + 1× Solaria CO₂ full-face resurfacing.",
+    bullets: [
+      "3 Morpheus8 Burst sessions — multi-depth RF for laxity, scars & texture",
+      "1 Solaria CO₂ full face — fractional laser for tone & surface renewal",
+      "InMode verified · NP-directed · package $2,400",
+    ],
   },
   {
     id: "pkg-ultimate",
@@ -31,8 +36,13 @@ export const PROPOSAL_PACKAGES: ProposalPackage[] = [
     category: "Packages",
     price: 3000,
     unit: "per package",
-    description: "3× Morpheus8 treatments on 2 body parts (series for two areas).",
-    bullets: ["3 Morpheus8 × body area 1", "3 Morpheus8 × body area 2", "Package price $3,000"],
+    description:
+      "3× Morpheus8 Burst on 2 body areas — Burst + Deep RF remodeling for tightening and contour under NP oversight.",
+    bullets: [
+      "3 Morpheus8 × body area 1 (abdomen, arms, thighs, etc.)",
+      "3 Morpheus8 × body area 2",
+      "Deepest RF microneedling (to 8mm) · package $3,000",
+    ],
   },
 ];
 

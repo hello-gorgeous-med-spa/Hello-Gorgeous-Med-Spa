@@ -10,6 +10,9 @@ import {
   type ProposalOption,
 } from "@/lib/proposals/utils";
 import type { TreatmentProposalRecord } from "@/lib/proposals/types";
+import { ProposalCredibilityBand } from "@/components/proposals/ProposalCredibilityBand";
+import { careGuidesForProposalOptions } from "@/lib/proposals/care-guides";
+import { SITE } from "@/lib/seo";
 
 export default function ProposalPreviewPage() {
   const params = useParams<{ id: string }>();
@@ -20,6 +23,7 @@ export default function ProposalPreviewPage() {
   const [phone, setPhone] = useState("");
   const [sendingEmail, setSendingEmail] = useState(false);
   const [sendingSms, setSendingSms] = useState(false);
+  const [sendingCare, setSendingCare] = useState<"email" | "sms" | "both" | null>(null);
   const [creatingPay, setCreatingPay] = useState<"deposit" | "full" | null>(null);
   const [optionIndex, setOptionIndex] = useState(1);
   const [customAmount, setCustomAmount] = useState("");
@@ -52,6 +56,7 @@ export default function ProposalPreviewPage() {
   }, [params.id]);
 
   const options = useMemo<ProposalOption[]>(() => proposal?.options || [], [proposal?.options]);
+  const careGuides = useMemo(() => careGuidesForProposalOptions(options), [options]);
   const pdfHref = `/api/proposals/${params.id}/pdf`;
   const publicShareHref = proposal?.public_id ? `/proposals/${proposal.public_id}` : "";
   const selectedTotal = options[optionIndex] ? calculateTotal(options[optionIndex]) : 0;
@@ -103,6 +108,35 @@ export default function ProposalPreviewPage() {
       setNotice(sendError instanceof Error ? sendError.message : "Failed to send SMS.");
     } finally {
       setSendingSms(false);
+    }
+  };
+
+  const sendCare = async (mode: "email" | "sms" | "both") => {
+    setNotice(null);
+    setSendingCare(mode);
+    try {
+      const channels =
+        mode === "both" ? ["email", "sms"] : mode === "email" ? ["email"] : ["sms"];
+      const response = await fetch("/api/proposals/send-care", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          proposalId: params.id,
+          email,
+          phone,
+          channels,
+        }),
+      });
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.error || "Failed to send care guides.");
+      const guideNames = Array.isArray(data.guides)
+        ? data.guides.map((g: { title: string }) => g.title).join(", ")
+        : "guides";
+      setNotice(`Pre & post care sent (${guideNames}).`);
+    } catch (careError) {
+      setNotice(careError instanceof Error ? careError.message : "Failed to send care guides.");
+    } finally {
+      setSendingCare(null);
     }
   };
 
@@ -211,6 +245,8 @@ export default function ProposalPreviewPage() {
           </section>
         ) : null}
 
+        <ProposalCredibilityBand options={options} className="mt-5" />
+
         <section className="mt-5 grid gap-4 md:grid-cols-3">
           {options.map((option, index) => {
             const subtotal = calculateSubtotal(option.services);
@@ -222,9 +258,17 @@ export default function ProposalPreviewPage() {
                 {index === 1 ? (
                   <span className="mt-1 inline-block rounded-full bg-[#E6007E] px-2 py-1 text-[11px] font-bold text-white">Best value</span>
                 ) : null}
-                <ul className="mt-3 space-y-1 text-sm text-black/80">
+                <ul className="mt-3 space-y-2 text-sm text-black/80">
                   {option.services.map((service) => (
-                    <li key={`${option.name}-${service.id}`}>- {service.name}{service.quantity > 1 ? ` (${service.quantity})` : ""}</li>
+                    <li key={`${option.name}-${service.id}`}>
+                      <span className="font-semibold text-black">
+                        - {service.name}
+                        {service.quantity > 1 ? ` (${service.quantity})` : ""}
+                      </span>
+                      {service.description ? (
+                        <p className="mt-0.5 pl-3 text-xs leading-relaxed text-black/65">{service.description}</p>
+                      ) : null}
+                    </li>
                   ))}
                 </ul>
                 <div className="mt-3 border-t border-black/15 pt-2 text-sm">
@@ -298,6 +342,59 @@ export default function ProposalPreviewPage() {
               {proposal.payment_option_name ? ` · ${proposal.payment_option_name}` : ""}
             </p>
           ) : null}
+        </section>
+
+        <section className="print:hidden mt-6 rounded-2xl border-2 border-black bg-white p-5">
+          <h2 className="text-lg font-bold text-black">Send pre & post care</h2>
+          <p className="mt-1 text-sm text-black/70">
+            Email or text the official before-and-after care guides that match treatments on this proposal.
+          </p>
+          {careGuides.length ? (
+            <ul className="mt-3 space-y-1 text-sm text-black/80">
+              {careGuides.map((guide) => (
+                <li key={guide.id}>
+                  •{" "}
+                  <a
+                    href={`${SITE.url}${guide.path}`}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="font-semibold text-[#E6007E] underline"
+                  >
+                    {guide.title}
+                  </a>
+                  <span className="text-black/60"> — {guide.description}</span>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p className="mt-3 text-sm text-black/55">No mapped care guides for the services on this proposal yet.</p>
+          )}
+          <div className="mt-4 flex flex-wrap gap-2">
+            <button
+              type="button"
+              disabled={!careGuides.length || Boolean(sendingCare)}
+              onClick={() => void sendCare("email")}
+              className="rounded-full bg-[#E6007E] px-4 py-2 text-xs font-bold text-white disabled:opacity-50"
+            >
+              {sendingCare === "email" ? "Sending…" : "Email care guides"}
+            </button>
+            <button
+              type="button"
+              disabled={!careGuides.length || Boolean(sendingCare)}
+              onClick={() => void sendCare("sms")}
+              className="rounded-full border-2 border-black bg-white px-4 py-2 text-xs font-bold text-black disabled:opacity-50"
+            >
+              {sendingCare === "sms" ? "Sending…" : "Text care guides"}
+            </button>
+            <button
+              type="button"
+              disabled={!careGuides.length || Boolean(sendingCare)}
+              onClick={() => void sendCare("both")}
+              className="rounded-full border-2 border-black bg-[#FFF0F7] px-4 py-2 text-xs font-bold text-black disabled:opacity-50"
+            >
+              {sendingCare === "both" ? "Sending…" : "Email + text"}
+            </button>
+          </div>
         </section>
 
         <section className="print:hidden mt-6 rounded-2xl border-2 border-black bg-white p-5">

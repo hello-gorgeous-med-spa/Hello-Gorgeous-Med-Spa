@@ -10,6 +10,9 @@ import {
   type ProposalOption,
 } from "@/lib/proposals/utils";
 import type { ProposalMediaItem } from "@/lib/proposals/types";
+import { ProposalCredibilityBand } from "@/components/proposals/ProposalCredibilityBand";
+import { careGuidesForProposalOptions } from "@/lib/proposals/care-guides";
+import { SITE } from "@/lib/seo";
 
 type PublicProposal = {
   id: string;
@@ -54,6 +57,10 @@ export default function PublicProposalPage() {
   }, [params.publicId]);
 
   const options = useMemo(() => proposal?.options || [], [proposal?.options]);
+  const careGuides = useMemo(
+    () => (proposal ? careGuidesForProposalOptions(proposal.options || []) : []),
+    [proposal]
+  );
 
   if (loading) return <div className="p-8 text-sm text-black/70">Loading your treatment plan...</div>;
   if (error || !proposal) return <div className="p-8 text-sm font-semibold text-red-600">{error || "Not found."}</div>;
@@ -114,6 +121,31 @@ export default function PublicProposalPage() {
           </section>
         ) : null}
 
+        <ProposalCredibilityBand options={options} className="mt-6" />
+
+        {careGuides.length ? (
+          <section className="mt-6 rounded-2xl border-4 border-black bg-[#FFF0F7] p-5 shadow-[8px_8px_0_0_#FF2D8E]">
+            <p className="text-xs font-bold uppercase tracking-[0.22em] text-[#E6007E]">Before &amp; after care</p>
+            <h2 className="mt-1 text-xl font-black text-black">Your pre &amp; post care guides</h2>
+            <p className="mt-2 text-sm text-black/75">
+              Review these official instructions before your visits — they protect your results and keep healing on track.
+            </p>
+            <ul className="mt-4 space-y-3">
+              {careGuides.map((guide) => (
+                <li key={guide.id}>
+                  <a
+                    href={`${SITE.url}${guide.path}`}
+                    className="inline-flex flex-col rounded-xl border-2 border-black bg-white px-4 py-3 hover:border-[#E6007E]"
+                  >
+                    <span className="text-sm font-bold text-[#E6007E]">{guide.title}</span>
+                    <span className="text-xs text-black/70">{guide.description}</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </section>
+        ) : null}
+
         <section className="mt-6 grid gap-4 md:grid-cols-3">
           {options.map((option, index) => {
             const subtotal = calculateSubtotal(option.services);
@@ -127,11 +159,16 @@ export default function PublicProposalPage() {
                     Most popular
                   </span>
                 ) : null}
-                <ul className="mt-3 space-y-1 text-sm text-black/80">
+                <ul className="mt-3 space-y-2 text-sm text-black/80">
                   {option.services.map((service) => (
                     <li key={`${option.name}-${service.id}`}>
-                      - {service.name}
-                      {service.quantity > 1 ? ` (${service.quantity})` : ""}
+                      <span className="font-semibold text-black">
+                        - {service.name}
+                        {service.quantity > 1 ? ` (${service.quantity})` : ""}
+                      </span>
+                      {service.description ? (
+                        <p className="mt-0.5 pl-3 text-xs leading-relaxed text-black/65">{service.description}</p>
+                      ) : null}
                     </li>
                   ))}
                 </ul>

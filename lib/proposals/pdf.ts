@@ -1,5 +1,6 @@
 import { jsPDF } from "jspdf";
 import { SITE } from "@/lib/seo";
+import { proposalCredibilityPdfLines } from "@/lib/proposals/credibility";
 import {
   calculateDiscount,
   calculateSubtotal,
@@ -87,6 +88,31 @@ export function buildProposalPdf(proposal: TreatmentProposalRecord): Uint8Array 
     sectionGap();
   }
 
+  const credibilityLines = proposalCredibilityPdfLines(proposal.options || []);
+  if (credibilityLines.length) {
+    if (y > 640) {
+      doc.addPage();
+      y = 56;
+    }
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(14);
+    doc.setTextColor("#E6007E");
+    doc.text("Why this plan — technology & credibility", marginX, y);
+    y += 20;
+    credibilityLines.forEach((line) => {
+      if (!line.trim()) {
+        y += 8;
+        return;
+      }
+      if (y > 720) {
+        doc.addPage();
+        y = 56;
+      }
+      write(line, 10, "#222222", 13);
+    });
+    sectionGap();
+  }
+
   proposal.options.forEach((option: ProposalOption, index) => {
     if (index > 0) doc.addPage();
     y = 56;
@@ -107,6 +133,9 @@ export function buildProposalPdf(proposal: TreatmentProposalRecord): Uint8Array 
         service.price * service.quantity
       )}`;
       write(line, 10, "#111111", 14);
+      if (service.description) {
+        write(service.description, 9, "#555555", 12);
+      }
     });
 
     sectionGap();

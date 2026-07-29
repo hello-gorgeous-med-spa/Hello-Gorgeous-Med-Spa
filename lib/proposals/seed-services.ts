@@ -100,12 +100,12 @@ const PEPTIDE_SERVICES: SeedService[] = [
 
 export const HELLO_GORGEOUS_SERVICES: SeedService[] = [
   ...PROPOSAL_PACKAGES.map(({ bullets: _bullets, ...pkg }) => pkg),
-  { id: "morpheus8-face", name: "Morpheus8 Burst - Face", category: "InMode Trifecta", price: 800, unit: "per session", description: "RF microneedling for face rejuvenation." },
-  { id: "morpheus8-neck", name: "Morpheus8 Burst - Neck", category: "InMode Trifecta", price: 600, unit: "per session" },
-  { id: "morpheus8-body", name: "Morpheus8 Burst - Body", category: "InMode Trifecta", price: 1200, unit: "per session" },
+  { id: "morpheus8-face", name: "Morpheus8 Burst - Face", category: "InMode Trifecta", price: 800, unit: "per session", description: "Deep RF microneedling (Burst + Deep, up to 8mm) to tighten, smooth texture, and rebuild collagen on the face." },
+  { id: "morpheus8-neck", name: "Morpheus8 Burst - Neck", category: "InMode Trifecta", price: 600, unit: "per session", description: "Morpheus8 Burst for neck laxity and crepey skin — multi-depth RF remodeling under NP oversight." },
+  { id: "morpheus8-body", name: "Morpheus8 Burst - Body", category: "InMode Trifecta", price: 1200, unit: "per session", description: "Body-area Burst + Deep RF for abdomen, arms, thighs & more — tightening and collagen rebuild." },
   { id: "quantum-rf", name: "Quantum RF Lipo", category: "InMode Trifecta", price: 900, unit: "per session", description: "Body contouring and skin tightening." },
-  { id: "solaria-co2-full", name: "Solaria CO2 - Full Face", category: "InMode Trifecta", price: 1200, unit: "per session", description: "Laser resurfacing and rejuvenation." },
-  { id: "solaria-co2-partial", name: "Solaria CO2 - Partial Face", category: "InMode Trifecta", price: 800, unit: "per session" },
+  { id: "solaria-co2-full", name: "Solaria CO2 - Full Face", category: "InMode Trifecta", price: 1200, unit: "per session", description: "Fractional ablative CO₂ resurfacing for fine lines, sun damage, acne scars, and texture." },
+  { id: "solaria-co2-partial", name: "Solaria CO2 - Partial Face", category: "InMode Trifecta", price: 800, unit: "per session", description: "Targeted Solaria CO₂ fractional resurfacing for a mapped facial zone." },
   { id: "botox", name: "Botox", category: "Injectables", price: 12, unit: "per unit" },
   { id: "dysport", name: "Dysport", category: "Injectables", price: 10, unit: "per unit" },
   { id: "dermal-filler", name: "Dermal Filler", category: "Injectables", price: 650, unit: "per syringe" },
