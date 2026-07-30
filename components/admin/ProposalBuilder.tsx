@@ -1,10 +1,11 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { packageToProposalService, PROPOSAL_PACKAGES } from "@/lib/proposals/packages";
 import { HELLO_GORGEOUS_SERVICES } from "@/lib/proposals/seed-services";
-import type { ProposalMediaItem, ProposalMediaKind } from "@/lib/proposals/types";
+import type { ProposalMediaItem, ProposalMediaKind, TreatmentProposalRecord } from "@/lib/proposals/types";
 import {
   autoGenerateOptions,
   calculateDiscount,
@@ -54,9 +55,25 @@ function newDraftId() {
   return `draft-${Date.now().toString(36)}`;
 }
 
-export function ProposalBuilder() {
+function servicesFromOptions(options: ProposalOption[]): ProposalService[] {
+  const map = new Map<string, ProposalService>();
+  for (const option of options) {
+    for (const service of option.services || []) {
+      if (!map.has(service.id)) map.set(service.id, { ...service });
+    }
+  }
+  return [...map.values()];
+}
+
+type ProposalBuilderProps = {
+  proposalId?: string;
+};
+
+export function ProposalBuilder({ proposalId }: ProposalBuilderProps) {
   const router = useRouter();
-  const [draftId] = useState(newDraftId);
+  const isEditing = Boolean(proposalId);
+  const [draftId] = useState(() => proposalId?.replace(/[^a-zA-Z0-9_-]/g, "").slice(0, 40) || newDraftId());
+  const [loadingExisting, setLoadingExisting] = useState(isEditing);
   const [clientName, setClientName] = useState("");
   const [clientEmail, setClientEmail] = useState("");
   const [clientPhone, setClientPhone] = useState("");
@@ -69,6 +86,45 @@ export function ProposalBuilder() {
   const [options, setOptions] = useState<ProposalOption[]>([]);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!proposalId) return;
+    let cancelled = false;
+
+    const load = async () => {
+      setLoadingExisting(true);
+      setError(null);
+      try {
+        const response = await fetch(`/api/proposals/${proposalId}`);
+        const data = await response.json();
+        if (!response.ok) throw new Error(data.error || "Failed to load proposal.");
+        if (cancelled) return;
+
+        const proposal = data.proposal as TreatmentProposalRecord;
+        const loadedOptions = Array.isArray(proposal.options) ? proposal.options : [];
+        setClientName(proposal.client_name || "");
+        setClientEmail(proposal.client_email || "");
+        setClientPhone(proposal.client_phone || "");
+        setConcerns(Array.isArray(proposal.concerns) ? proposal.concerns : []);
+        setInternalNotes(proposal.internal_notes || "");
+        setClientInstructions(proposal.client_instructions || "");
+        setMedia(Array.isArray(proposal.media) ? proposal.media : []);
+        setOptions(loadedOptions);
+        setSelectedServices(servicesFromOptions(loadedOptions));
+      } catch (loadError) {
+        if (!cancelled) {
+          setError(loadError instanceof Error ? loadError.message : "Failed to load proposal.");
+        }
+      } finally {
+        if (!cancelled) setLoadingExisting(false);
+      }
+    };
+
+    void load();
+    return () => {
+      cancelled = true;
+    };
+  }, [proposalId]);
 
   const groupedServices = useMemo(() => {
     const grouped = HELLO_GORGEOUS_SERVICES.reduce<Record<string, typeof HELLO_GORGEOUS_SERVICES>>(
@@ -190,19 +246,21 @@ export function ProposalBuilder() {
 
     setSaving(true);
     try {
-      const response = await fetch("/api/proposals", {
-        method: "POST",
+      const payload = {
+        clientName: clientName.trim(),
+        clientEmail: clientEmail.trim() || null,
+        clientPhone: clientPhone.trim() || null,
+        concerns,
+        options,
+        internalNotes: internalNotes.trim() || null,
+        clientInstructions: clientInstructions.trim() || null,
+        media,
+      };
+
+      const response = await fetch(isEditing ? `/api/proposals/${proposalId}` : "/api/proposals", {
+        method: isEditing ? "PATCH" : "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          clientName: clientName.trim(),
-          clientEmail: clientEmail.trim() || null,
-          clientPhone: clientPhone.trim() || null,
-          concerns,
-          options,
-          internalNotes: internalNotes.trim() || null,
-          clientInstructions: clientInstructions.trim() || null,
-          media,
-        }),
+        body: JSON.stringify(payload),
       });
 
       const data = await response.json();
@@ -216,13 +274,34 @@ export function ProposalBuilder() {
     }
   };
 
+  if (loadingExisting) {
+    return <div className="p-8 text-sm text-black/70">Loading proposal…</div>;
+  }
+
   return (
     <div className="mx-auto max-w-7xl space-y-6 p-6">
-      <div>
-        <h1 className="text-3xl font-black text-black">Treatment Proposal Builder</h1>
-        <p className="mt-2 text-sm text-black/70">
-          Packages, discounts, instructions, and before/after photos — all synced to the shareable client link.
-        </p>
+      <div className="flex flex-wrap items-start justify-between gap-3">
+        <div>
+          <h1 className="text-3xl font-black text-black">
+            {isEditing ? "Edit treatment proposal" : "Treatment Proposal Builder"}
+          </h1>
+          <p className="mt-2 text-sm text-black/70">
+            Packages, discounts, instructions, and before/after photos — all synced to the shareable client link.
+          </p>
+        </div>
+        {isEditing && proposalId ? (
+          <div className="flex flex-wrap gap-2">
+            <Link
+              href={`/admin/proposals/${proposalId}/preview`}
+              className="rounded-full border border-black px-4 py-2 text-sm font-bold text-black hover:border-[#E6007E] hover:text-[#E6007E]"
+            >
+              Preview
+            </Link>
+            <Link href="/admin/proposals" className="rounded-full border border-black/30 px-4 py-2 text-sm font-bold text-black/70">
+              All proposals
+            </Link>
+          </div>
+        ) : null}
       </div>
 
       <section className="rounded-2xl border-4 border-black bg-white p-6 shadow-[8px_8px_0_0_#FF2D8E]">
@@ -531,7 +610,7 @@ export function ProposalBuilder() {
           disabled={saving || !options.length}
           className="rounded-full bg-[#E6007E] px-6 py-3 text-sm font-bold text-white disabled:opacity-50"
         >
-          {saving ? "Saving..." : "Save proposal and open preview"}
+          {saving ? "Saving..." : isEditing ? "Save changes and open preview" : "Save proposal and open preview"}
         </button>
       </div>
     </div>

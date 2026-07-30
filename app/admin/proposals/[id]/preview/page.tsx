@@ -204,6 +204,12 @@ export default function ProposalPreviewPage() {
             ← Back to proposals
           </Link>
           <div className="flex gap-2">
+            <Link
+              href={`/admin/proposals/${params.id}/edit`}
+              className="rounded-full border border-black px-4 py-2 text-sm font-bold text-black hover:border-[#E6007E] hover:text-[#E6007E]"
+            >
+              Edit
+            </Link>
             <a href={pdfHref} className="rounded-full border border-black px-4 py-2 text-sm font-bold text-black">
               Download PDF
             </a>

@@ -78,12 +78,20 @@ export default function ProposalsListPage() {
                   <td className="px-4 py-3 text-sm text-black/70">{new Date(proposal.created_at).toLocaleDateString()}</td>
                   <td className="px-4 py-3 text-sm text-black/70">{new Date(proposal.expires_at).toLocaleDateString()}</td>
                   <td className="px-4 py-3 text-right">
-                    <Link
-                      href={`/admin/proposals/${proposal.id}/preview`}
-                      className="rounded-full border border-black px-3 py-1.5 text-xs font-bold text-black hover:border-[#E6007E] hover:text-[#E6007E]"
-                    >
-                      Preview
-                    </Link>
+                    <div className="flex flex-wrap items-center justify-end gap-2">
+                      <Link
+                        href={`/admin/proposals/${proposal.id}/edit`}
+                        className="rounded-full border border-black px-3 py-1.5 text-xs font-bold text-black hover:border-[#E6007E] hover:text-[#E6007E]"
+                      >
+                        Edit
+                      </Link>
+                      <Link
+                        href={`/admin/proposals/${proposal.id}/preview`}
+                        className="rounded-full bg-[#E6007E] px-3 py-1.5 text-xs font-bold text-white"
+                      >
+                        Preview
+                      </Link>
+                    </div>
                   </td>
                 </tr>
               ))
