@@ -47,6 +47,7 @@ export default function PublicProposalPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [responding, setResponding] = useState<"accept" | "decline" | null>(null);
+  const [payingIndex, setPayingIndex] = useState<number | null>(null);
   const [respondNotice, setRespondNotice] = useState<string | null>(null);
 
   useEffect(() => {
@@ -115,6 +116,51 @@ export default function PublicProposalPage() {
     }
   };
 
+  const payNow = async (optionIndex: number, kind: "full" | "deposit" = "full") => {
+    if (!proposal) return;
+    setRespondNotice(null);
+    setPayingIndex(optionIndex);
+    try {
+      const response = await fetch(`/api/proposals/public/${proposal.public_id}/pay`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ optionIndex, kind }),
+      });
+      const data = await response.json().catch(() => ({}));
+      if (!response.ok) {
+        throw new Error(typeof data.error === "string" ? data.error : "Could not create Square invoice.");
+      }
+      const url = typeof data.url === "string" ? data.url : "";
+      if (!url) throw new Error("Square checkout URL missing.");
+
+      setProposal((prev) =>
+        prev
+          ? {
+              ...prev,
+              status: "accepted",
+              accepted_option: String(data.optionName || prev.options[optionIndex]?.name || ""),
+              accepted_at: new Date().toISOString(),
+              payment_status: "pending",
+              payment_kind: kind,
+              payment_amount_usd: Number(data.amountUsd) || null,
+              payment_url: url,
+              payment_option_name: String(data.optionName || ""),
+            }
+          : prev
+      );
+      setRespondNotice(
+        `Square invoice ready — $${Number(data.amountUsd).toFixed(2)}. Opening secure checkout…`,
+      );
+      window.location.href = url;
+    } catch (payError) {
+      setRespondNotice(
+        payError instanceof Error ? payError.message : "Could not create Square invoice.",
+      );
+    } finally {
+      setPayingIndex(null);
+    }
+  };
+
   if (loading) return <div className="p-8 text-sm text-black/70">Loading your treatment plan...</div>;
   if (error || !proposal) return <div className="p-8 text-sm font-semibold text-red-600">{error || "Not found."}</div>;
 
@@ -124,6 +170,7 @@ export default function PublicProposalPage() {
   const hasPayment =
     proposal.payment_status === "paid" || proposal.payment_status === "deposit_paid";
   const canRespond = !isAccepted && !isDeclined && !hasPayment;
+  const canPay = !isDeclined && !hasPayment && proposal.payment_status !== "paid";
 
   return (
     <main className="min-h-screen bg-white">
@@ -263,15 +310,39 @@ export default function PublicProposalPage() {
                   <div className="flex justify-between text-[#E6007E]"><span>Discount</span><span>-${discount.toFixed(2)}</span></div>
                   <div className="mt-1 flex justify-between text-base font-bold"><span>Total</span><span>${total.toFixed(2)}</span></div>
                 </div>
-                {canRespond ? (
-                  <button
-                    type="button"
-                    disabled={Boolean(responding)}
-                    onClick={() => void respond("accept", option.name)}
-                    className="mt-4 w-full rounded-full bg-[#E6007E] px-4 py-2.5 text-sm font-bold text-white disabled:opacity-50"
-                  >
-                    {responding === "accept" ? "Saving…" : `Choose ${option.name}`}
-                  </button>
+                {canPay ? (
+                  <div className="mt-4 space-y-2">
+                    <button
+                      type="button"
+                      disabled={payingIndex !== null || Boolean(responding)}
+                      onClick={() => void payNow(index, "full")}
+                      className="w-full rounded-full bg-[#E6007E] px-4 py-2.5 text-sm font-bold text-white disabled:opacity-50"
+                    >
+                      {payingIndex === index
+                        ? "Opening Square…"
+                        : `Pay Now · $${total.toFixed(0)}`}
+                    </button>
+                    <button
+                      type="button"
+                      disabled={payingIndex !== null || Boolean(responding)}
+                      onClick={() => void payNow(index, "deposit")}
+                      className="w-full rounded-full border-2 border-black bg-white px-4 py-2 text-xs font-bold text-black disabled:opacity-50"
+                    >
+                      {payingIndex === index
+                        ? "Opening Square…"
+                        : `Pay 50% deposit · $${(total * 0.5).toFixed(0)}`}
+                    </button>
+                    {canRespond ? (
+                      <button
+                        type="button"
+                        disabled={Boolean(responding) || payingIndex !== null}
+                        onClick={() => void respond("accept", option.name)}
+                        className="w-full rounded-full border border-black/25 px-4 py-2 text-xs font-semibold text-black/70 disabled:opacity-50"
+                      >
+                        {responding === "accept" ? "Saving…" : "Choose without paying"}
+                      </button>
+                    ) : null}
+                  </div>
                 ) : null}
               </article>
             );
@@ -315,7 +386,9 @@ export default function PublicProposalPage() {
                   href={proposal.payment_url}
                   className="rounded-full bg-[#E6007E] px-4 py-2 text-sm font-bold text-white"
                 >
-                  {proposal.payment_kind === "deposit" ? "Pay deposit securely" : "Pay securely"}
+                  {proposal.payment_kind === "deposit"
+                    ? "Pay deposit securely"
+                    : "Pay Now — Square checkout"}
                 </a>
                 <a href="/book" className="rounded-full border border-black px-4 py-2 text-sm font-bold text-black">
                   Book now
@@ -326,8 +399,8 @@ export default function PublicProposalPage() {
             <>
               <p className="text-sm text-black/80">
                 {isAccepted
-                  ? "Next: book your first visit or pay a deposit when we send your secure link."
-                  : "Ready to move forward? Book your first visit or call us and we will help you choose the best option."}
+                  ? "Next: use Pay Now on your chosen plan above to create a Square invoice, or book your first visit."
+                  : "Ready to move forward? Tap Pay Now on a plan above — it creates your Square invoice and opens secure checkout."}
               </p>
               <div className="mt-3 flex flex-wrap gap-2">
                 <a href="/book" className="rounded-full bg-[#E6007E] px-4 py-2 text-sm font-bold text-white">

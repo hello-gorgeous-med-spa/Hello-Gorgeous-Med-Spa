@@ -321,9 +321,9 @@ export default function ProposalPreviewPage() {
         </section>
 
         <section className="print:hidden mt-6 rounded-2xl border-2 border-black bg-[#FFF0F7] p-5">
-          <h2 className="text-lg font-bold text-black">Square payment</h2>
+          <h2 className="text-lg font-bold text-black">Square Pay Now</h2>
           <p className="mt-1 text-sm text-black/70">
-            Creates a Square Payment Link, logs it in the RX payment ledger, and marks this proposal paid when Square webhooks fire.
+            Creates a Square Payment Link (payment type: Proposal), logs it in the RX ledger, and marks this proposal paid when Square webhooks fire. Clients can also tap Pay Now on the public proposal link.
           </p>
           <div className="mt-3 grid gap-3 md:grid-cols-4">
             <div>
@@ -380,7 +380,7 @@ export default function ProposalPreviewPage() {
                 onClick={() => void createPayment("full")}
                 className="rounded-full bg-[#E6007E] px-4 py-2 text-xs font-bold text-white disabled:opacity-50"
               >
-                {creatingPay === "full" ? "Creating…" : `Pay in full · $${selectedTotal.toFixed(0)}`}
+                {creatingPay === "full" ? "Creating…" : `Pay Now · $${selectedTotal.toFixed(0)}`}
               </button>
             </div>
           </div>
