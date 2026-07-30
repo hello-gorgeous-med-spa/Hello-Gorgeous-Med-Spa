@@ -37,6 +37,7 @@ const CATEGORY_ORDER = [
   "Body & Wellness",
   "Regenerative",
   "Skin & Face",
+  "Laser",
   "Retail",
 ];
 

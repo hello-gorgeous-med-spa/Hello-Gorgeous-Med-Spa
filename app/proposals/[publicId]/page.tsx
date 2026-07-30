@@ -32,6 +32,9 @@ type PublicProposal = {
   payment_url?: string | null;
   payment_option_name?: string | null;
   paid_at?: string | null;
+  accepted_option?: string | null;
+  accepted_at?: string | null;
+  declined_at?: string | null;
   view_count: number;
 };
 
@@ -40,6 +43,8 @@ export default function PublicProposalPage() {
   const [proposal, setProposal] = useState<PublicProposal | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [responding, setResponding] = useState<"accept" | "decline" | null>(null);
+  const [respondNotice, setRespondNotice] = useState<string | null>(null);
 
   useEffect(() => {
     const load = async () => {
@@ -63,10 +68,49 @@ export default function PublicProposalPage() {
     [proposal]
   );
 
+  const respond = async (action: "accept" | "decline", optionName?: string) => {
+    if (!proposal) return;
+    setRespondNotice(null);
+    setResponding(action);
+    try {
+      const response = await fetch(`/api/proposals/public/${proposal.public_id}/respond`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ action, optionName }),
+      });
+      const text = await response.text();
+      const data = text.trim() ? (JSON.parse(text) as Record<string, unknown>) : {};
+      if (!response.ok) throw new Error(String(data.error || "Could not save your response."));
+
+      setProposal((prev) =>
+        prev
+          ? {
+              ...prev,
+              status: String(data.status || (action === "accept" ? "accepted" : "declined")),
+              accepted_option:
+                action === "accept" ? String(data.accepted_option || optionName || "") : null,
+              accepted_at: action === "accept" ? new Date().toISOString() : null,
+              declined_at: action === "decline" ? new Date().toISOString() : null,
+            }
+          : prev
+      );
+      setRespondNotice(String(data.message || (action === "accept" ? "Plan accepted." : "Marked declined.")));
+    } catch (respondError) {
+      setRespondNotice(respondError instanceof Error ? respondError.message : "Could not save your response.");
+    } finally {
+      setResponding(null);
+    }
+  };
+
   if (loading) return <div className="p-8 text-sm text-black/70">Loading your treatment plan...</div>;
   if (error || !proposal) return <div className="p-8 text-sm font-semibold text-red-600">{error || "Not found."}</div>;
 
   const publicPdfUrl = `/api/proposals/public/${proposal.public_id}/pdf`;
+  const isAccepted = proposal.status === "accepted";
+  const isDeclined = proposal.status === "declined";
+  const hasPayment =
+    proposal.payment_status === "paid" || proposal.payment_status === "deposit_paid";
+  const canRespond = !isAccepted && !isDeclined && !hasPayment;
 
   return (
     <main className="min-h-screen bg-white">
@@ -101,6 +145,20 @@ export default function PublicProposalPage() {
             <div className="mt-4 rounded-xl border border-black/10 bg-[#FFF0F7] p-4">
               <p className="text-sm font-bold text-[#E6007E]">Your instructions</p>
               <p className="mt-1 whitespace-pre-wrap text-sm text-black/85">{proposal.client_instructions}</p>
+            </div>
+          ) : null}
+          {isAccepted ? (
+            <div className="mt-4 rounded-xl border-2 border-[#E6007E] bg-[#FFF0F7] p-4">
+              <p className="text-sm font-bold text-[#E6007E]">
+                You selected {proposal.accepted_option || "your plan"} — we&apos;ll confirm next steps soon.
+              </p>
+            </div>
+          ) : null}
+          {isDeclined ? (
+            <div className="mt-4 rounded-xl border border-black/20 bg-black/[0.03] p-4">
+              <p className="text-sm font-semibold text-black/80">
+                You marked this proposal as not moving forward. Call or text anytime if you want to revisit.
+              </p>
             </div>
           ) : null}
         </section>
@@ -152,12 +210,23 @@ export default function PublicProposalPage() {
             const subtotal = calculateSubtotal(option.services);
             const discount = calculateDiscount(subtotal, option.discountType, option.discountValue);
             const total = calculateTotal(option);
+            const isChosen = isAccepted && proposal.accepted_option === option.name;
             return (
-              <article key={option.name} className="rounded-2xl border-4 border-black bg-white p-5">
+              <article
+                key={option.name}
+                className={`rounded-2xl border-4 bg-white p-5 ${
+                  isChosen ? "border-[#E6007E] shadow-[8px_8px_0_0_#FF2D8E]" : "border-black"
+                }`}
+              >
                 <h2 className="text-lg font-bold text-black">{option.name}</h2>
                 {index === 1 ? (
                   <span className="mt-2 inline-block rounded-full bg-[#E6007E] px-2.5 py-1 text-[11px] font-bold text-white">
                     Most popular
+                  </span>
+                ) : null}
+                {isChosen ? (
+                  <span className="mt-2 ml-2 inline-block rounded-full border border-[#E6007E] px-2.5 py-1 text-[11px] font-bold text-[#E6007E]">
+                    Your choice
                   </span>
                 ) : null}
                 <ul className="mt-3 space-y-2 text-sm text-black/80">
@@ -178,10 +247,35 @@ export default function PublicProposalPage() {
                   <div className="flex justify-between text-[#E6007E]"><span>Discount</span><span>-${discount.toFixed(2)}</span></div>
                   <div className="mt-1 flex justify-between text-base font-bold"><span>Total</span><span>${total.toFixed(2)}</span></div>
                 </div>
+                {canRespond ? (
+                  <button
+                    type="button"
+                    disabled={Boolean(responding)}
+                    onClick={() => void respond("accept", option.name)}
+                    className="mt-4 w-full rounded-full bg-[#E6007E] px-4 py-2.5 text-sm font-bold text-white disabled:opacity-50"
+                  >
+                    {responding === "accept" ? "Saving…" : `Choose ${option.name}`}
+                  </button>
+                ) : null}
               </article>
             );
           })}
         </section>
+
+        {canRespond ? (
+          <div className="mt-4 flex flex-wrap items-center gap-3">
+            <button
+              type="button"
+              disabled={Boolean(responding)}
+              onClick={() => void respond("decline")}
+              className="rounded-full border border-black/30 px-4 py-2 text-xs font-bold text-black/70 disabled:opacity-50"
+            >
+              {responding === "decline" ? "Saving…" : "Not right now"}
+            </button>
+            <p className="text-xs text-black/55">Choosing a plan notifies our team so we can book your first visit.</p>
+          </div>
+        ) : null}
+        {respondNotice ? <p className="mt-3 text-sm font-semibold text-[#E6007E]">{respondNotice}</p> : null}
 
         <section className="mt-6 rounded-2xl border-2 border-black p-5">
           {proposal.payment_status === "paid" || proposal.payment_status === "deposit_paid" ? (
@@ -215,7 +309,9 @@ export default function PublicProposalPage() {
           ) : (
             <>
               <p className="text-sm text-black/80">
-                Ready to move forward? Book your first visit or call us and we will help you choose the best option.
+                {isAccepted
+                  ? "Next: book your first visit or pay a deposit when we send your secure link."
+                  : "Ready to move forward? Book your first visit or call us and we will help you choose the best option."}
               </p>
               <div className="mt-3 flex flex-wrap gap-2">
                 <a href="/book" className="rounded-full bg-[#E6007E] px-4 py-2 text-sm font-bold text-white">

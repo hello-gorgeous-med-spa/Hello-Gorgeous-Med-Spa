@@ -1,6 +1,6 @@
 import type { ProposalOption } from "@/lib/proposals/utils";
 
-export type ProposalStatus = "draft" | "sent" | "viewed" | "accepted" | "expired";
+export type ProposalStatus = "draft" | "sent" | "viewed" | "accepted" | "declined" | "expired";
 
 export type ProposalPaymentStatus = "unpaid" | "pending" | "deposit_paid" | "paid" | "refunded";
 
@@ -42,4 +42,7 @@ export type TreatmentProposalRecord = {
   square_payment_id?: string | null;
   paid_at?: string | null;
   ledger_id?: string | null;
+  accepted_option?: string | null;
+  accepted_at?: string | null;
+  declined_at?: string | null;
 };

@@ -55,6 +55,9 @@ export function proposalIncludesMorpheus8(options: ProposalOption[]): boolean {
   return (
     ids.has("pkg-transformation") ||
     ids.has("pkg-ultimate") ||
+    ids.has("morpheus8-3pack") ||
+    ids.has("quantum-rf-neck-pkg") ||
+    ids.has("quantum-rf-abdomen-pkg") ||
     [...ids].some((id) => id.startsWith("morpheus8"))
   );
 }
@@ -68,12 +71,27 @@ export function proposalIncludesSolaria(options: ProposalOption[]): boolean {
 }
 
 export function proposalIncludesQuantum(options: ProposalOption[]): boolean {
-  return serviceIdsFromOptions(options).has("quantum-rf");
+  const ids = serviceIdsFromOptions(options);
+  return ids.has("quantum-rf") || ids.has("quantum-rf-neck-pkg") || ids.has("quantum-rf-abdomen-pkg");
 }
 
 export function proposalIncludesInjectables(options: ProposalOption[]): boolean {
   const ids = serviceIdsFromOptions(options);
-  return ["botox", "dysport", "dermal-filler", "lip-filler"].some((id) => ids.has(id));
+  return [
+    "botox",
+    "dysport",
+    "jeuveau",
+    "xeomin",
+    "daxxify",
+    "lip-flip",
+    "dermal-filler",
+    "lip-filler",
+    "filler-half-syringe",
+    "filler-2-syringe",
+    "hyaluronidase",
+    "sculptra",
+    "kybella",
+  ].some((id) => ids.has(id));
 }
 
 export function proposalIncludesWeightLoss(options: ProposalOption[]): boolean {
