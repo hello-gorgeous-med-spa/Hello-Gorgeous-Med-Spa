@@ -80,14 +80,20 @@ function CredibilityCard({ block }: { block: ProposalCredibilityBlock }) {
         </div>
 
         {block.imageSrc ? (
-          <div className="relative min-h-[220px] border-t-4 border-black bg-[#0a0a0a] md:border-l-4 md:border-t-0">
-            <Image
-              src={block.imageSrc}
-              alt={block.imageAlt || block.title}
-              fill
-              className="object-cover"
-              sizes="(max-width: 768px) 100vw, 40vw"
-            />
+          <div
+            className="flex items-center justify-center border-t-4 border-black p-3 md:border-l-4 md:border-t-0 md:p-5"
+            style={{ background: block.imageBg || "#0a0a0a" }}
+          >
+            {/* Square frame so InMode text graphics (FASTER / BIGGER / burst) are not cropped */}
+            <div className="relative aspect-square w-full max-w-md overflow-hidden rounded-xl">
+              <Image
+                src={block.imageSrc}
+                alt={block.imageAlt || block.title}
+                fill
+                className={block.imageFit === "contain" ? "object-contain" : "object-cover"}
+                sizes="(max-width: 768px) 100vw, 40vw"
+              />
+            </div>
           </div>
         ) : null}
       </div>

@@ -38,6 +38,10 @@ export type ProposalCredibilityBlock = {
   learnMoreHref: string;
   imageSrc?: string;
   imageAlt?: string;
+  /** How the image fills its panel — use contain for InMode text graphics. */
+  imageFit?: "cover" | "contain";
+  /** Panel background behind contain / letterboxing */
+  imageBg?: string;
 };
 
 function serviceIdsFromOptions(options: ProposalOption[]): Set<string> {
@@ -120,6 +124,8 @@ export function getProposalCredibilityBlocks(options: ProposalOption[]): Proposa
       learnMoreHref: hasM8 ? MORPHEUS8_PATH : hasSolaria ? SOLARIA_CO2_PATH : QUANTUM_RF_PATH,
       imageSrc: MORPHEUS8_MARKETING.images.verified,
       imageAlt: "InMode Verified Provider — Morpheus8 Burst at Hello Gorgeous Med Spa",
+      imageFit: "contain",
+      imageBg: "#111111",
     });
   }
 
@@ -142,7 +148,9 @@ export function getProposalCredibilityBlocks(options: ProposalOption[]): Proposa
       steps: MORPHEUS8_STEPS.map((s) => ({ step: s.step, title: s.title, body: s.body })),
       learnMoreHref: MORPHEUS8_PATH,
       imageSrc: MORPHEUS8_MARKETING.images.bodyTech,
-      imageAlt: "Morpheus8 Burst technology — InMode RF microneedling",
+      imageAlt: "Morpheus8 Body — Faster Bigger Burst technology by InMode",
+      imageFit: "contain",
+      imageBg: "#0097A8",
     });
   }
 
