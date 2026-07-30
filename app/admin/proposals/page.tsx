@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import type { TreatmentProposalRecord } from "@/lib/proposals/types";
+import { proposalStatusBadges } from "@/lib/proposals/status-badges";
 
 export default function ProposalsListPage() {
   const [loading, setLoading] = useState(true);
@@ -68,33 +69,61 @@ export default function ProposalsListPage() {
                 </td>
               </tr>
             ) : (
-              proposals.map((proposal) => (
-                <tr key={proposal.id} className="border-t border-black/10">
-                  <td className="px-4 py-3">
-                    <p className="font-semibold text-black">{proposal.client_name}</p>
-                    <p className="text-xs text-black/60">{proposal.client_email || proposal.client_phone || "No contact"}</p>
-                  </td>
-                  <td className="px-4 py-3 text-sm font-semibold text-[#E6007E] capitalize">{proposal.status}</td>
-                  <td className="px-4 py-3 text-sm text-black/70">{new Date(proposal.created_at).toLocaleDateString()}</td>
-                  <td className="px-4 py-3 text-sm text-black/70">{new Date(proposal.expires_at).toLocaleDateString()}</td>
-                  <td className="px-4 py-3 text-right">
-                    <div className="flex flex-wrap items-center justify-end gap-2">
-                      <Link
-                        href={`/admin/proposals/${proposal.id}/edit`}
-                        className="rounded-full border border-black px-3 py-1.5 text-xs font-bold text-black hover:border-[#E6007E] hover:text-[#E6007E]"
-                      >
-                        Edit
-                      </Link>
-                      <Link
-                        href={`/admin/proposals/${proposal.id}/preview`}
-                        className="rounded-full bg-[#E6007E] px-3 py-1.5 text-xs font-bold text-white"
-                      >
-                        Preview
-                      </Link>
-                    </div>
-                  </td>
-                </tr>
-              ))
+              proposals.map((proposal) => {
+                const badges = proposalStatusBadges(proposal);
+                return (
+                  <tr key={proposal.id} className="border-t border-black/10">
+                    <td className="px-4 py-3">
+                      <p className="font-semibold text-black">{proposal.client_name}</p>
+                      <p className="text-xs text-black/60">
+                        {proposal.client_email || proposal.client_phone || "No contact"}
+                      </p>
+                    </td>
+                    <td className="px-4 py-3">
+                      <div className="flex flex-wrap gap-1.5">
+                        {badges.map((badge) => (
+                          <span
+                            key={badge.key}
+                            className={`inline-flex rounded-full border px-2.5 py-1 text-[11px] font-bold ${badge.className}`}
+                          >
+                            {badge.label}
+                          </span>
+                        ))}
+                      </div>
+                    </td>
+                    <td className="px-4 py-3 text-sm text-black/70">
+                      {new Date(proposal.created_at).toLocaleDateString()}
+                    </td>
+                    <td className="px-4 py-3 text-sm text-black/70">
+                      {new Date(proposal.expires_at).toLocaleDateString()}
+                    </td>
+                    <td className="px-4 py-3 text-right">
+                      <div className="flex flex-wrap items-center justify-end gap-2">
+                        {badges.map((badge) => (
+                          <span
+                            key={`action-${badge.key}`}
+                            className={`inline-flex rounded-full border px-2.5 py-1.5 text-[11px] font-bold ${badge.className}`}
+                          >
+                            {badge.label}
+                          </span>
+                        ))}
+                        <Link
+                          href={`/admin/proposals/${proposal.id}/edit`}
+                          className="rounded-full border border-black px-3 py-1.5 text-xs font-bold text-black hover:border-[#E6007E] hover:text-[#E6007E]"
+                        >
+                          Edit
+                        </Link>
+                        <Link
+                          href={`/admin/proposals/${proposal.id}/preview`}
+                          className="rounded-full bg-[#E6007E] px-3 py-1.5 text-xs font-bold text-white"
+                        >
+                          Preview
+                        </Link>
+                      </div>
+                    </td>
+                  </tr>
+                );
+              })
             )}
           </tbody>
         </table>
