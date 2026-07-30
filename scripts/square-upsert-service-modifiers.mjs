@@ -293,7 +293,20 @@ async function attachModifiersToServices(setsWithIds, appointmentItems) {
         min_selected_modifiers: info.min_selected_modifiers ?? 0,
         max_selected_modifiers: info.max_selected_modifiers ?? 4,
       }));
-      delete obj.item_data.reporting_category;
+      const reportId =
+        obj.item_data.reporting_category?.id ||
+        obj.item_data.categories?.[0]?.id ||
+        obj.item_data.category_id;
+      if (reportId) {
+        const ord =
+          typeof obj.item_data.categories?.[0]?.ordinal === "number"
+            ? obj.item_data.categories[0].ordinal
+            : typeof obj.item_data.reporting_category?.ordinal === "number"
+              ? obj.item_data.reporting_category.ordinal
+              : -1;
+        obj.item_data.reporting_category = { id: reportId, ordinal: ord };
+      }
+      delete obj.item_data.category_id;
       await square("/v2/catalog/object", {
         method: "POST",
         body: {

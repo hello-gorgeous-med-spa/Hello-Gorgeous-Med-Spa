@@ -10,6 +10,7 @@ import { insertRxPaymentLedger } from "@/lib/rx-payment-ledger";
 import {
   getRxInvoiceTemplate,
   resolveTemplateAmountUsd,
+  squarePaymentTypeForTemplate,
   templateRequiresShippingAddress,
 } from "@/lib/rx-invoice-templates";
 
@@ -90,7 +91,9 @@ export async function POST(req: NextRequest) {
   }
 
   const clientLabel = clientName || email || phone || "Client";
+  const paymentType = squarePaymentTypeForTemplate(template);
   const descriptionParts = [
+    `Payment type: ${paymentType}`,
     template.lineLabel,
     clientLabel !== "Client" ? clientLabel : null,
     staffNote || null,
@@ -98,6 +101,7 @@ export async function POST(req: NextRequest) {
   ].filter(Boolean);
 
   const linkResult = await createRxPaymentLink({
+    paymentType,
     squareName: template.squareName,
     amountUsd,
     clientLabel,
@@ -144,7 +148,7 @@ export async function POST(req: NextRequest) {
     clientPhone: phone || null,
     submissionId: body.submissionId?.trim() || null,
     intakeRef: body.intakeRef?.trim() || null,
-    source: "staff_invoice",
+    source: template.track === "proposals" ? "treatment_proposal" : "staff_invoice",
     templateId: template.id,
     templateName: template.name,
     track: template.track,
@@ -156,6 +160,10 @@ export async function POST(req: NextRequest) {
     deliveryMethod: delivery,
     sentBy: auth.user.email,
     staffNote: staffNote || null,
+    metadata: {
+      payment_type: paymentType,
+      square_payment_type: paymentType,
+    },
   });
 
   return NextResponse.json({

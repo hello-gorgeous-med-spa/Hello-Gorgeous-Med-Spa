@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
 
-type RxTrack = "weight-loss" | "peptides" | "fees";
+type RxTrack = "weight-loss" | "peptides" | "fees" | "proposals";
 
 type RxTemplate = {
   id: string;
@@ -42,6 +42,7 @@ const TRACKS: { id: RxTrack | "all"; label: string }[] = [
   { id: "weight-loss", label: "Weight loss" },
   { id: "peptides", label: "Peptides" },
   { id: "fees", label: "Fees" },
+  { id: "proposals", label: "Proposals" },
 ];
 
 function formatUsd(amount: number): string {

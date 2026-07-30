@@ -13,6 +13,12 @@ import {
   type PeptideRetailCategory,
 } from "@/lib/peptide-retail-pricing";
 import { CHERRY_PAY_URL } from "@/lib/flows";
+import { VitaminInjectionCheatSheet } from "@/components/proposals/VitaminInjectionCheatSheet";
+import {
+  EXOSOME_HEALING_ADDON,
+  VITAMIN_B4G2_OFFER_BLURB,
+  VITAMIN_TREATMENT_PLANS,
+} from "@/lib/proposals/vitamin-injections";
 import {
   autoGenerateOptions,
   calculateDiscount,
@@ -44,6 +50,8 @@ const CATEGORY_ORDER = [
   "Packages",
   "InMode Trifecta",
   "Injectables",
+  "Advanced Healing",
+  "Vitamin Injections",
   "Body & Wellness",
   "Regenerative",
   "Skin & Face",
@@ -51,7 +59,12 @@ const CATEGORY_ORDER = [
   "Retail",
 ];
 
-const COMPACT_CATEGORIES = new Set(["Weight Loss Programs", "Peptides"]);
+const COMPACT_CATEGORIES = new Set([
+  "Weight Loss Programs",
+  "Peptides",
+  "Vitamin Injections",
+  "Advanced Healing",
+]);
 
 const PEPTIDE_CATEGORY_ORDER: PeptideRetailCategory[] = [
   "Recovery & Healing",
@@ -163,6 +176,20 @@ export function ProposalBuilder({ proposalId }: ProposalBuilderProps) {
     []
   );
 
+  const vitaminPlanServices = useMemo(
+    () => HELLO_GORGEOUS_SERVICES.filter((service) => service.id.startsWith("vitamin-plan-")),
+    []
+  );
+
+  const vitaminRetailServices = useMemo(
+    () =>
+      HELLO_GORGEOUS_SERVICES.filter(
+        (service) =>
+          service.category === "Vitamin Injections" && !service.id.startsWith("vitamin-plan-")
+      ),
+    []
+  );
+
   const peptideByRetailCategory = useMemo(() => {
     const specials = peptideServices.filter(
       (service) =>
@@ -203,6 +230,11 @@ export function ProposalBuilder({ proposalId }: ProposalBuilderProps) {
 
   const selectedWeightLoss = selectedServices.filter((service) =>
     weightLossServices.some((item) => item.id === service.id)
+  );
+
+  const selectedVitaminServices = selectedServices.filter(
+    (service) =>
+      service.category === "Vitamin Injections" || service.id === EXOSOME_HEALING_ADDON.id
   );
 
   const addWeightLossFromDropdown = (serviceId: string) => {
@@ -636,7 +668,7 @@ export function ProposalBuilder({ proposalId }: ProposalBuilderProps) {
                         className={`rounded-xl border-2 p-3 text-left transition ${
                           selected
                             ? "border-[#E6007E] bg-[#FFF0F7] shadow-[4px_4px_0_0_rgba(230,0,126,0.25)]"
-                            : "border-black/10 bg-white hover:border-[#E6007E]/
+                            : "border-black/10 bg-white hover:border-[#E6007E]/40"
                         }`}
                       >
                         <div className="flex items-start justify-between gap-2">
@@ -663,6 +695,121 @@ export function ProposalBuilder({ proposalId }: ProposalBuilderProps) {
               </div>
             ))}
           </div>
+        </div>
+
+        {/* Vitamin injections + exosome healing add-on */}
+        <div className="mt-5 rounded-xl border-2 border-black/10 bg-[#FFF0F7] p-4">
+          <h3 className="text-sm font-bold uppercase tracking-wide text-[#E6007E]">
+            Vitamin injections · while treating
+          </h3>
+          <p className="mt-1 text-xs text-black/65">{VITAMIN_B4G2_OFFER_BLURB}</p>
+
+          <p className="mt-3 text-[11px] font-bold uppercase tracking-wide text-black/45">
+            Plan length (1 / 2 / 3 months)
+          </p>
+          <div className="mt-2 grid gap-2 sm:grid-cols-3">
+            {vitaminPlanServices.map((service) => {
+              const plan = VITAMIN_TREATMENT_PLANS.find((item) => item.id === service.id);
+              const selected = selectedServices.some((item) => item.id === service.id);
+              return (
+                <button
+                  key={service.id}
+                  type="button"
+                  onClick={() => toggleService(service.id)}
+                  className={`rounded-xl border-2 p-3 text-left transition ${
+                    selected
+                      ? "border-[#E6007E] bg-white shadow-[4px_4px_0_0_rgba(230,0,126,0.25)]"
+                      : "border-black/10 bg-white hover:border-[#E6007E]/40"
+                  }`}
+                >
+                  <p className="text-sm font-bold text-black">
+                    {plan ? `${plan.months}-month plan` : service.name}
+                  </p>
+                  <p className="mt-1 text-2xl font-black text-[#E6007E]">${service.price}</p>
+                  {plan ? (
+                    <p className="text-[11px] font-medium text-black/65">
+                      {plan.shots} shots · list ${plan.retailUsd}
+                    </p>
+                  ) : null}
+                  <p className="mt-2 text-[11px] font-bold text-[#E6007E]">
+                    {selected ? "Added ✓" : "Add plan"}
+                  </p>
+                </button>
+              );
+            })}
+          </div>
+
+          <div className="mt-4">
+            <button
+              type="button"
+              onClick={() => toggleService(EXOSOME_HEALING_ADDON.id)}
+              className={`w-full rounded-xl border-2 p-3 text-left transition ${
+                selectedServices.some((item) => item.id === EXOSOME_HEALING_ADDON.id)
+                  ? "border-[#E6007E] bg-white shadow-[4px_4px_0_0_rgba(230,0,126,0.25)]"
+                  : "border-black bg-white hover:border-[#E6007E]"
+              }`}
+            >
+              <div className="flex flex-wrap items-start justify-between gap-2">
+                <div>
+                  <p className="text-[10px] font-bold uppercase tracking-wide text-[#E6007E]">
+                    Advanced healing add-on
+                  </p>
+                  <p className="text-sm font-bold text-black">{EXOSOME_HEALING_ADDON.name}</p>
+                  <p className="mt-1 text-xs text-black/70">{EXOSOME_HEALING_ADDON.description}</p>
+                </div>
+                <p className="text-xl font-black text-[#E6007E]">
+                  +${EXOSOME_HEALING_ADDON.price}
+                </p>
+              </div>
+            </button>
+          </div>
+
+          <p className="mt-4 text-[11px] font-bold uppercase tracking-wide text-black/45">
+            À la carte retail shots
+          </p>
+          <div className="mt-2 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+            {vitaminRetailServices.map((service) => {
+              const selected = selectedServices.find((item) => item.id === service.id);
+              return (
+                <button
+                  key={service.id}
+                  type="button"
+                  onClick={() => toggleService(service.id)}
+                  className={`rounded-xl border-2 p-3 text-left transition ${
+                    selected
+                      ? "border-[#E6007E] bg-white shadow-[4px_4px_0_0_rgba(230,0,126,0.25)]"
+                      : "border-black/10 bg-white hover:border-[#E6007E]/40"
+                  }`}
+                >
+                  <div className="flex items-start justify-between gap-2">
+                    <p className="text-sm font-bold text-black">{service.name}</p>
+                    <span className="shrink-0 text-sm font-black text-[#E6007E]">
+                      ${service.price}
+                    </span>
+                  </div>
+                  {service.description ? (
+                    <p className="mt-1 text-xs leading-snug text-black/70">{service.description}</p>
+                  ) : null}
+                </button>
+              );
+            })}
+          </div>
+
+          {selectedVitaminServices.length ? (
+            <p className="mt-3 text-xs font-semibold text-[#E6007E]">
+              {selectedVitaminServices.length} vitamin / healing item
+              {selectedVitaminServices.length === 1 ? "" : "s"} on this proposal
+            </p>
+          ) : null}
+
+          <details className="mt-4 rounded-xl border border-black/10 bg-white p-3">
+            <summary className="cursor-pointer text-sm font-bold text-black">
+              Quick cheat sheet — what to offer the client
+            </summary>
+            <div className="mt-3">
+              <VitaminInjectionCheatSheet variant="staff" />
+            </div>
+          </details>
         </div>
 
         <div className="mt-4 space-y-5">

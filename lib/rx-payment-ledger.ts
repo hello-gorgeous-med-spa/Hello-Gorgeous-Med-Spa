@@ -536,4 +536,5 @@ export const RX_LEDGER_TRACKS: { id: RxInvoiceTrack; label: string }[] = [
   { id: "weight-loss", label: "Weight loss" },
   { id: "peptides", label: "Peptides" },
   { id: "fees", label: "Fees" },
+  { id: "proposals", label: "Treatment proposals" },
 ];

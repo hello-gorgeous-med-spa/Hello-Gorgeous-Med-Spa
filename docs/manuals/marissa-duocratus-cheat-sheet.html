@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Zemits DuoCratus — Marissa Clinical Cheat Sheet | Hello Gorgeous</title>
+  <style>
+    @page { size: letter; margin: 0.4in; }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      color: #111;
+      font-size: 9.5px;
+      line-height: 1.25;
+      background: #fff;
+    }
+    .sheet {
+      border: 3px solid #000;
+      padding: 10px 12px 8px;
+      min-height: 10.2in;
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      border-bottom: 3px solid #000;
+      padding-bottom: 6px;
+      margin-bottom: 8px;
+      gap: 12px;
+    }
+    .brand { font-size: 10px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: #E6007E; }
+    h1 { margin: 2px 0 0; font-size: 18px; font-weight: 900; letter-spacing: -0.02em; }
+    .sub { margin: 2px 0 0; color: #333; font-size: 9px; max-width: 38rem; }
+    .badge {
+      flex-shrink: 0;
+      border: 2px solid #000;
+      background: linear-gradient(125deg, #FF2D8E, #E6007E);
+      color: #fff;
+      font-weight: 800;
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 6px 8px;
+      text-align: center;
+      line-height: 1.2;
+    }
+    h2 {
+      margin: 8px 0 4px;
+      font-size: 10px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #E6007E;
+      border-left: 4px solid #E6007E;
+      padding-left: 6px;
+    }
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 0 0 4px;
+    }
+    th, td {
+      border: 1.5px solid #000;
+      padding: 3px 5px;
+      text-align: left;
+      vertical-align: top;
+    }
+    th {
+      background: #FFF0F7;
+      font-size: 8.5px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    td.safe { background: #f0fdf4; font-weight: 700; }
+    td.agg { background: #fff7ed; font-weight: 700; }
+    .note {
+      background: #FFF0F7;
+      border: 2px solid #000;
+      padding: 5px 7px;
+      margin: 4px 0;
+      font-size: 8.5px;
+    }
+    .warn {
+      background: #fff1f2;
+      border: 2px solid #000;
+      padding: 5px 7px;
+      margin: 4px 0;
+      font-size: 8.5px;
+    }
+    ul { margin: 2px 0 0; padding-left: 14px; }
+    li { margin: 0 0 1px; }
+    .cols { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 8px; }
+    footer {
+      margin-top: 6px;
+      border-top: 2px solid #000;
+      padding-top: 4px;
+      font-size: 7.5px;
+      color: #444;
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+    }
+    strong.pink { color: #E6007E; }
+    .tiny { font-size: 8px; color: #444; }
+  </style>
+</head>
+<body>
+  <div class="sheet">
+    <header>
+      <div>
+        <div class="brand">Hello Gorgeous Med Spa · Staff clinical quick ref</div>
+        <h1>Zemits DuoCratus — Marissa Cheat Sheet</h1>
+        <p class="sub">
+          808 nm diode hair removal + IPL filters. Starting guidance only — confirm with Medical Director
+          (Dr. Mukesh Arora, MD). Always test-spot. Device presets win if they differ.
+        </p>
+      </div>
+      <div class="badge">For Marissa<br/>Operator sheet<br/>Jul 2026</div>
+    </header>
+
+    <div class="note">
+      <strong>Golden rules:</strong> Start low → test spot → wait → treat. Endpoint = mild perifollicular redness / slight edema / warmth.
+      No change → raise fluence <strong>1–2 J/cm²</strong> and reassess. Pain / whitening / blister → <strong>STOP</strong>, lower energy, max cooling, escalate.
+      Darker skin / thicker hair = lower energy, longer pulse, max cooling. Never treat over tattoos, moles, or pigmented lesions (stay ≥ 1.5 cm away).
+      White / gray / very light hair = poor diode response — do not force high energy.
+    </div>
+
+    <h2>1 · 808 nm Diode — Laser hair removal (SAFE vs AGGRESSIVE)</h2>
+    <p class="tiny">Device range: fluence 1–120 J/cm² · pulse 5–400 ms · freq 1–10 Hz · cooling HIGH (head ~4°C before Ready). Area + Fitzpatrick on screen auto-presets — use table to sanity-check.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Fitzpatrick</th>
+          <th>Menu cue</th>
+          <th class="safe">SAFE start (first visit / test)</th>
+          <th class="agg">AGGRESSIVE* (after proven tolerance)</th>
+          <th>Pulse / cooling</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>I–II</strong></td>
+          <td>White / fair</td>
+          <td class="safe">~16–22 J/cm²</td>
+          <td class="agg">~24–30 J/cm²</td>
+          <td>10–30 ms · Cooling HIGH</td>
+        </tr>
+        <tr>
+          <td><strong>III–IV</strong></td>
+          <td>Medium</td>
+          <td class="safe">~12–18 J/cm²</td>
+          <td class="agg">~20–24 J/cm²</td>
+          <td>20–40 ms · Cooling HIGH</td>
+        </tr>
+        <tr>
+          <td><strong>V</strong> (VI = MD only)</td>
+          <td>Dark</td>
+          <td class="safe">~10–12 J/cm²</td>
+          <td class="agg">~14–16 J/cm²</td>
+          <td>30–100 ms · Cooling MAX</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="tiny">*Aggressive = high end of HG conservative band for coarse/dense dark hair after safe response — not a max-out. Coarse back/legs tolerate higher; face/neck stay lower. Overall diode working band often 10–60 J/cm² clinically; never jump >2 J/cm² between passes.</p>
+
+    <div class="cols">
+      <div>
+        <h2>2 · Diode treatment flow (every visit)</h2>
+        <ol style="margin:2px 0 0; padding-left:16px;">
+          <li>Consent + screen + Fitzpatrick + hair color/type + photos</li>
+          <li>Shave only (no wax/pluck 4 wks). Clean dry skin. Gel 2–3 mm for test/treat</li>
+          <li>Goggles on everyone · room warning · standby when paused</li>
+          <li>Select <strong>Laser HR</strong> → area → skin type → cooling HIGH</li>
+          <li><strong>Test spot</strong> discreet area · wait 5–10 min · observe</li>
+          <li>Treat: tip flush, mild pressure, with hair growth · grid · ≤30% overlap · 1 pass unless MD says</li>
+          <li>Wipe tip with 70% ethanol every 30–40 pulses</li>
+          <li>Chart: area, Fitz, fluence, pulse, Hz, passes, response</li>
+          <li>Cold gauze + soothing gel · aftercare · standby → wait 5 min → power down</li>
+        </ol>
+      </div>
+      <div>
+        <h2>3 · Shot count targets</h2>
+        <table>
+          <thead><tr><th>Area</th><th>Shots</th></tr></thead>
+          <tbody>
+            <tr><td>Armpits</td><td>200–300 (100–150 each)</td></tr>
+            <tr><td>Bikini</td><td>450–650</td></tr>
+            <tr><td>Full bikini</td><td>600–800</td></tr>
+            <tr><td>Upper lip</td><td>60–100</td></tr>
+            <tr><td>Chin</td><td>50–250</td></tr>
+            <tr><td>Forearms</td><td>900–1,400</td></tr>
+            <tr><td>Full arms</td><td>1,200–2,000</td></tr>
+            <tr><td>Calves</td><td>~3,000</td></tr>
+            <tr><td>Full legs</td><td>5,000–6,000</td></tr>
+          </tbody>
+        </table>
+        <p class="tiny">Intervals: ~4 weeks diode HR. Series usually 6–8 (sometimes 10). Treat only when hair is growing.</p>
+      </div>
+    </div>
+
+    <h2>4 · IPL filters — pick the right cut-off (DuoCratus)</h2>
+    <p class="tiny">IPL energy density typically 1–50 J/cm². Filters: 480 · 530 · 590 · 640 · 690. Use cooling gel. Test spot every new filter / new area.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Filter</th>
+          <th>Use for</th>
+          <th class="safe">SAFE start</th>
+          <th class="agg">AGGRESSIVE*</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>480 nm</strong></td>
+          <td>Acne / active pustules</td>
+          <td class="safe">10–12 J/cm²</td>
+          <td class="agg">13–15 J/cm²</td>
+          <td>Porphyrins · Fitz I–III preferred</td>
+        </tr>
+        <tr>
+          <td><strong>530 nm</strong></td>
+          <td>Sun spots, freckles, facial redness / small vessels</td>
+          <td class="safe">12–15 J/cm²</td>
+          <td class="agg">16–20 J/cm²</td>
+          <td>Superficial pigment + hemoglobin · not melasma / not leg veins</td>
+        </tr>
+        <tr>
+          <td><strong>590 nm</strong></td>
+          <td><strong>Hyperpigmentation + photorejuvenation</strong> · rosacea / telangiectasia</td>
+          <td class="safe">14–18 J/cm²</td>
+          <td class="agg">19–24 J/cm²</td>
+          <td>Hemoglobin &amp; pigment · Fitz I–IV · pulse ~20–50 ms</td>
+        </tr>
+        <tr>
+          <td><strong>640 nm</strong></td>
+          <td>Hair removal (light–medium skin) · some vascular</td>
+          <td class="safe">18–22 J/cm²</td>
+          <td class="agg">23–28 J/cm²</td>
+          <td>Deeper melanin · Fitz I–IV</td>
+        </tr>
+        <tr>
+          <td><strong>690 nm</strong></td>
+          <td><strong>Rejuvenation depth / coarse dark hair</strong> · dense body hair</td>
+          <td class="safe">20–26 J/cm²</td>
+          <td class="agg">27–35 J/cm²</td>
+          <td>Deep melanin · pulse often longer (~30–60 ms)</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="tiny">
+      Marissa quick map: <strong class="pink">590 = pigment / rejuvenation tone</strong> · <strong class="pink">690 = deeper / coarse hair &amp; deeper rejuvenation work</strong>.
+      Prefer diode 808 for primary laser hair packages; use IPL 640/690 when protocol / MD directs.
+    </p>
+
+    <div class="grid-2">
+      <div>
+        <h2>5 · Pre-care (tell client)</h2>
+        <ul>
+          <li>No sun / tanning / self-tanner 4–8 weeks (longer if Fitz IV+)</li>
+          <li>Shave 12–24 hrs before — <strong>no wax/pluck</strong> 4 weeks</li>
+          <li>Stop retinoids / acids / bleaching agents on area ~14 days (screen)</li>
+          <li>No Roaccutane / oral retinoids prior 6 months without MD clearance</li>
+          <li>Clean skin — no lotion, makeup, deodorant</li>
+        </ul>
+      </div>
+      <div>
+        <h2>6 · After-care</h2>
+        <ul>
+          <li>Cool compress + soothing gel for redness/warmth</li>
+          <li>SPF 50+ · avoid sun on area ~1 month · no tanning</li>
+          <li>No hot showers, sauna, pool, heavy sweat 24–48 hrs</li>
+          <li>Don’t pick — shed hairs fall out over 1–2 weeks</li>
+          <li>Makeup only when skin is intact / not fragile</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="warn">
+      <strong>Hard stops / call Medical Director or Ryan FNP before treating:</strong>
+      pregnancy / breastfeeding · pacemaker · metal/implants in area · active cancer · active herpes in area · open wounds · recent Accutane · fresh tan · tattoo in field ·
+      Fitz VI without written MD parameters · blistering on test spot · any concern outside training.
+      Absolute vs relative contraindication list lives in the full Zemits diode manual — when in doubt, don’t treat.
+    </div>
+
+    <footer>
+      <span>Sources: Zemits DuoCratus 808 Diode Clinical Manual · HG DuoCratus Protocol · IPL Wavelength Treatment Guide · HG Safe LHR Protocol (Jul 2026)</span>
+      <span>Hello Gorgeous Med Spa · Oswego · Staff only — not for clients</span>
+    </footer>
+  </div>
+</body>
+</html>

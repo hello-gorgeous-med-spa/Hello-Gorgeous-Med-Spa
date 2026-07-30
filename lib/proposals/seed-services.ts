@@ -11,6 +11,11 @@ import {
   FORMULATION_GHK_CU_TOTAL_USD,
   PROPOSAL_PACKAGES,
 } from "@/lib/proposals/packages";
+import {
+  EXOSOME_HEALING_ADDON,
+  vitaminRetailSeedServices,
+  vitaminTreatmentPlanSeedServices,
+} from "@/lib/proposals/vitamin-injections";
 
 export type SeedService = {
   id: string;
@@ -255,8 +260,14 @@ const WELLNESS_SERVICES: SeedService[] = [
   { id: "iv-recovery", name: "Recovery IV Drip", category: "Body & Wellness", price: 175, unit: "per session" },
   { id: "iv-beauty", name: "Beauty / Inner Beauty IV", category: "Body & Wellness", price: 175, unit: "per session" },
   { id: "iv-nad", name: "NAD+ IV", category: "Body & Wellness", price: 350, unit: "per session" },
-  { id: "vitamin-bar-shot", name: "Vitamin Bar IM Shot", category: "Body & Wellness", price: 25, unit: "per shot" },
 ];
+
+const VITAMIN_INJECTION_SERVICES: SeedService[] = [
+  ...vitaminTreatmentPlanSeedServices(),
+  ...vitaminRetailSeedServices(),
+];
+
+const ADVANCED_HEALING_SERVICES: SeedService[] = [EXOSOME_HEALING_ADDON];
 
 export const HELLO_GORGEOUS_SERVICES: SeedService[] = [
   ...PROPOSAL_PACKAGES.map(({ bullets: _bullets, ...pkg }) => pkg),
@@ -264,6 +275,8 @@ export const HELLO_GORGEOUS_SERVICES: SeedService[] = [
   ...INJECTABLE_SERVICES,
   ...WEIGHT_LOSS_SERVICES,
   ...PEPTIDE_SERVICES,
+  ...VITAMIN_INJECTION_SERVICES,
+  ...ADVANCED_HEALING_SERVICES,
   ...WELLNESS_SERVICES,
   ...REGENERATIVE_SERVICES,
   ...SKIN_SERVICES,

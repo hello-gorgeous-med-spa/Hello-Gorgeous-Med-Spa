@@ -90,11 +90,12 @@ export async function createProposalPaymentLink(input: {
 
   const label =
     input.kind === "deposit"
-      ? `Proposal deposit · ${charged.optionName}`
-      : `Proposal balance · ${charged.optionName}`;
+      ? `Deposit · ${charged.optionName}`
+      : `Pay in full · ${charged.optionName}`;
 
   const link = await createRxPaymentLink({
-    squareName: `HG Proposal · ${input.clientName} · ${label}`.slice(0, 120),
+    paymentType: "Proposal",
+    squareName: label.slice(0, 100),
     amountUsd: charged.amountUsd,
     description: `Hello Gorgeous treatment proposal (${input.kind}) for ${input.clientName}`,
     clientLabel: input.clientName,
@@ -113,7 +114,8 @@ export async function createProposalPaymentLink(input: {
       clientPhone: input.clientPhone,
       source: "treatment_proposal",
       templateName: charged.optionName,
-      lineLabel: label,
+      track: "proposals",
+      lineLabel: label.startsWith("Proposal") ? label : `Proposal · ${label}`,
       amountUsd: charged.amountUsd,
       paymentStatus: "pending",
       paymentUrl: link.url,
@@ -128,6 +130,8 @@ export async function createProposalPaymentLink(input: {
         payment_kind: input.kind,
         option_name: charged.optionName,
         plan_total_usd: charged.planTotalUsd,
+        payment_type: "Proposal",
+        square_payment_type: "Proposal",
       },
     },
     input.supabase,

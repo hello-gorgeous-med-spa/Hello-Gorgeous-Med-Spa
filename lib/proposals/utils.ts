@@ -1,4 +1,9 @@
 import { HELLO_GORGEOUS_SERVICES, type SeedService } from "@/lib/proposals/seed-services";
+import {
+  EXOSOME_HEALING_ADDON,
+  isExosomeHealingAddonId,
+  serviceSuggestsExosomeAddon,
+} from "@/lib/proposals/vitamin-injections";
 
 export type DiscountType = "percentage" | "dollar" | "package" | "membership" | "custom" | "none";
 
@@ -125,6 +130,9 @@ export function generateTimeline(services: ProposalService[]): ProposalTimelineI
 export function autoGenerateOptions(selectedServices: ProposalService[]): ProposalOption[] {
   const essentialServices = selectedServices.map((service) => ({ ...service }));
   const hasFixedPackage = essentialServices.some((service) => service.id.startsWith("pkg-"));
+  const wantsExosomes = essentialServices.some((service) => serviceSuggestsExosomeAddon(service.id));
+  const hasExosomes = essentialServices.some((service) => isExosomeHealingAddonId(service.id));
+  const hasVitaminPlan = essentialServices.some((service) => service.id.startsWith("vitamin-plan-"));
 
   const recommendedServices = essentialServices.map((service) => ({ ...service }));
   if (
@@ -137,8 +145,28 @@ export function autoGenerateOptions(selectedServices: ProposalService[]): Propos
       recommendedServices.push({ ...prpService, quantity: 1 });
     }
   }
+  if (wantsExosomes && !hasExosomes) {
+    recommendedServices.push({ ...EXOSOME_HEALING_ADDON, quantity: 1 });
+  }
+  if (!hasVitaminPlan && wantsExosomes) {
+    const plan1 = HELLO_GORGEOUS_SERVICES.find((service) => service.id === "vitamin-plan-1mo");
+    if (plan1 && !recommendedServices.some((service) => service.id === plan1.id)) {
+      recommendedServices.push({ ...plan1, quantity: 1 });
+    }
+  }
 
   const vipServices = recommendedServices.map((service) => ({ ...service }));
+  if (!vipServices.some((service) => isExosomeHealingAddonId(service.id)) && wantsExosomes) {
+    vipServices.push({ ...EXOSOME_HEALING_ADDON, quantity: 1 });
+  }
+  const plan2 = HELLO_GORGEOUS_SERVICES.find((service) => service.id === "vitamin-plan-2mo");
+  if (plan2 && !vipServices.some((service) => service.id.startsWith("vitamin-plan-"))) {
+    vipServices.push({ ...plan2, quantity: 1 });
+  } else if (plan2) {
+    // Upgrade 1-mo → 2-mo on VIP when a vitamin plan is already present
+    const idx = vipServices.findIndex((service) => service.id === "vitamin-plan-1mo");
+    if (idx >= 0) vipServices[idx] = { ...plan2, quantity: 1 };
+  }
   vipServices.push({
     id: "skincare-kit",
     name: "Medical-Grade Skincare Kit",

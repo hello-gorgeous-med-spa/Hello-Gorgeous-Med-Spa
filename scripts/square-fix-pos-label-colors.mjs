@@ -97,7 +97,20 @@ async function main() {
     try {
       const obj = structuredClone(t.item);
       obj.item_data.label_color = t.want;
-      delete obj.item_data.reporting_category;
+      const reportId =
+        obj.item_data.reporting_category?.id ||
+        obj.item_data.categories?.[0]?.id ||
+        obj.item_data.category_id;
+      if (reportId) {
+        const ord =
+          typeof obj.item_data.categories?.[0]?.ordinal === "number"
+            ? obj.item_data.categories[0].ordinal
+            : typeof obj.item_data.reporting_category?.ordinal === "number"
+              ? obj.item_data.reporting_category.ordinal
+              : -1;
+        obj.item_data.reporting_category = { id: reportId, ordinal: ord };
+      }
+      delete obj.item_data.category_id;
       const res = await fetch(`${HOST}/v2/catalog/object`, {
         method: "POST",
         headers: {

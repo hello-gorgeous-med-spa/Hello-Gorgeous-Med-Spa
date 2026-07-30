@@ -191,6 +191,12 @@ export const CLINICAL_CHEAT_SHEETS: ClinicalCheatSheet[] = [
     "skin-laser",
   ),
   sheet(
+    "duocratus-laser-ipl-marissa-cheat-sheet.pdf",
+    "DuoCratus — Marissa Operator Sheet",
+    "808 diode SAFE vs AGGRESSIVE + IPL filters 480–690 (590 pigment / 690 deep).",
+    "skin-laser",
+  ),
+  sheet(
     "laser-wavelength-reference-cheat-sheet.pdf",
     "Laser Wavelength Reference",
     "Wavelength → indication quick lookup.",

@@ -24,6 +24,12 @@ import {
   type ProposalService,
 } from "@/lib/proposals/utils";
 import { CHERRY_PAY_URL } from "@/lib/flows";
+import { VitaminInjectionCheatSheet } from "@/components/proposals/VitaminInjectionCheatSheet";
+import {
+  EXOSOME_HEALING_ADDON,
+  VITAMIN_B4G2_OFFER_BLURB,
+  VITAMIN_TREATMENT_PLANS,
+} from "@/lib/proposals/vitamin-injections";
 
 const CONCERN_OPTIONS = [
   "Fine lines / Wrinkles",
@@ -55,6 +61,8 @@ const POPULAR_SERVICE_IDS = [
   "prp-facial",
   "laser-hair-listed-area",
   "iv-new-client-intro",
+  "vitamin-plan-1mo",
+  "exosomes-healing-addon",
   "flowwave-intro",
 ];
 
@@ -89,6 +97,17 @@ export function PublicProposalBuilder() {
   );
   const peptideServices = useMemo(
     () => HELLO_GORGEOUS_SERVICES.filter((s) => s.category === "Peptides"),
+    []
+  );
+  const vitaminPlanServices = useMemo(
+    () => HELLO_GORGEOUS_SERVICES.filter((s) => s.id.startsWith("vitamin-plan-")),
+    []
+  );
+  const vitaminRetailServices = useMemo(
+    () =>
+      HELLO_GORGEOUS_SERVICES.filter(
+        (s) => s.category === "Vitamin Injections" && !s.id.startsWith("vitamin-plan-")
+      ),
     []
   );
   const popularServices = useMemo(
@@ -420,6 +439,88 @@ export function PublicProposalBuilder() {
             </div>
           ))}
         </div>
+      </section>
+
+      {/* Vitamin injections + exosomes */}
+      <section className="rounded-3xl border-4 border-black bg-[#FFF0F7] p-6 shadow-[8px_8px_0_0_rgba(230,0,126,0.35)]">
+        <h2 className="text-xl font-black text-black">Vitamin injections while treating</h2>
+        <p className="mt-1 text-sm text-black/70">{VITAMIN_B4G2_OFFER_BLURB}</p>
+        <div className="mt-4 grid gap-2 sm:grid-cols-3">
+          {vitaminPlanServices.map((service) => {
+            const plan = VITAMIN_TREATMENT_PLANS.find((p) => p.id === service.id);
+            const selected = selectedServices.some((s) => s.id === service.id);
+            return (
+              <button
+                key={service.id}
+                type="button"
+                onClick={() => upsertService(service)}
+                className={`rounded-xl border-2 p-3 text-left ${
+                  selected ? "border-[#E6007E] bg-white" : "border-black/10 bg-white hover:border-[#E6007E]"
+                }`}
+              >
+                <p className="text-sm font-bold text-black">
+                  {plan ? `${plan.months}-month plan` : service.name}
+                </p>
+                <p className="mt-1 text-2xl font-black text-[#E6007E]">${service.price}</p>
+                {plan ? (
+                  <p className="text-[11px] text-black/65">
+                    {plan.shots} shots · save ${plan.retailUsd - plan.priceUsd}
+                  </p>
+                ) : null}
+              </button>
+            );
+          })}
+        </div>
+        <button
+          type="button"
+          onClick={() => upsertService(EXOSOME_HEALING_ADDON)}
+          className={`mt-4 w-full rounded-xl border-2 p-3 text-left ${
+            selectedServices.some((s) => s.id === EXOSOME_HEALING_ADDON.id)
+              ? "border-[#E6007E] bg-white"
+              : "border-black bg-white hover:border-[#E6007E]"
+          }`}
+        >
+          <p className="text-[10px] font-bold uppercase tracking-wide text-[#E6007E]">
+            Advanced healing add-on
+          </p>
+          <div className="mt-1 flex flex-wrap items-start justify-between gap-2">
+            <p className="text-sm font-bold text-black">{EXOSOME_HEALING_ADDON.name}</p>
+            <span className="text-lg font-black text-[#E6007E]">+${EXOSOME_HEALING_ADDON.price}</span>
+          </div>
+          <p className="mt-1 text-xs text-black/70">{EXOSOME_HEALING_ADDON.description}</p>
+        </button>
+        <p className="mt-4 text-[11px] font-bold uppercase tracking-wide text-black/45">À la carte shots</p>
+        <div className="mt-2 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+          {vitaminRetailServices.map((service) => {
+            const selected = selectedServices.some((s) => s.id === service.id);
+            return (
+              <button
+                key={service.id}
+                type="button"
+                onClick={() => upsertService(service)}
+                className={`rounded-xl border-2 p-3 text-left ${
+                  selected ? "border-[#E6007E] bg-white" : "border-black/10 bg-white hover:border-[#E6007E]"
+                }`}
+              >
+                <div className="flex items-start justify-between gap-2">
+                  <p className="text-sm font-bold text-black">{service.name}</p>
+                  <span className="font-black text-[#E6007E]">${service.price}</span>
+                </div>
+                {service.description ? (
+                  <p className="mt-1 text-xs text-black/70">{service.description}</p>
+                ) : null}
+              </button>
+            );
+          })}
+        </div>
+        <details className="mt-4">
+          <summary className="cursor-pointer text-sm font-bold text-black">
+            Cheat sheet — what each injection does
+          </summary>
+          <div className="mt-3">
+            <VitaminInjectionCheatSheet variant="client" />
+          </div>
+        </details>
       </section>
 
       {/* Live estimate */}

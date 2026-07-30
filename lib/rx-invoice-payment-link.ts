@@ -42,11 +42,29 @@ export type CreateRxPaymentLinkInput = {
   redirectUrl?: string;
   /** When true, Square checkout collects shipping address (required for ship-to-home RX). */
   askForShippingAddress?: boolean;
+  /**
+   * Business payment type shown on Square checkout / order line (e.g. "Proposal").
+   * Prefixed into quickPay.name and description so it appears on receipts/invoices.
+   */
+  paymentType?: string;
 };
 
 export type CreateRxPaymentLinkResult =
   | { ok: true; url: string; paymentLinkId?: string; orderId?: string }
   | { ok: false; error: string; status: number };
+
+/** Format Square line-item title so payment type is visible on invoices/receipts. */
+export function formatSquarePaymentLineName(opts: {
+  paymentType?: string | null;
+  name: string;
+  maxLen?: number;
+}): string {
+  const maxLen = opts.maxLen ?? 120;
+  const type = opts.paymentType?.trim();
+  const name = opts.name.trim();
+  const full = type ? `${type} · ${name}` : name;
+  return full.slice(0, maxLen);
+}
 
 export async function createRxPaymentLink(
   input: CreateRxPaymentLinkInput,
@@ -70,18 +88,26 @@ export async function createRxPaymentLink(
   }
 
   const redirectUrl = input.redirectUrl?.trim() || `${SITE.url}/admin/rx-invoices?paid=1`;
-  const description =
+  const paymentType = input.paymentType?.trim() || "";
+  const squareName = formatSquarePaymentLineName({
+    paymentType,
+    name: input.squareName,
+  });
+  const baseDescription =
     input.description?.trim() ||
     (input.clientLabel
       ? `Hello Gorgeous RX · ${input.clientLabel}`
       : "Hello Gorgeous RX payment");
+  const description = paymentType
+    ? `Payment type: ${paymentType} · ${baseDescription}`
+    : baseDescription;
   const askForShippingAddress = input.askForShippingAddress ?? true;
 
   try {
     const res = await checkoutApi.createPaymentLink({
       idempotencyKey: idempotencyKey("rx-inv"),
       quickPay: {
-        name: input.squareName,
+        name: squareName,
         priceMoney: { amount: dollarsToCents(input.amountUsd), currency: "USD" },
         locationId,
       },

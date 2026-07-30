@@ -32,6 +32,7 @@ if (!TOKEN || TOKEN.length < 10) {
  * label_color = hex for Square POS item label.
  */
 const CATEGORY_META = {
+  "End of July Specials": { ordinal: 0, label_color: "FF2D8E", calendarHint: "Hot pink / promo" },
   "Skin Spa": { ordinal: 1, label_color: "FB7185", calendarHint: "Soft rose / pink" },
   "AnteAGE Skin Regeneration": { ordinal: 2, label_color: "10B981", calendarHint: "Green" },
   FlowWave: { ordinal: 3, label_color: "7C3AED", calendarHint: "Purple" },
@@ -56,6 +57,9 @@ const CATEGORY_META = {
 
 /** First match wins — keep specific rules above broad Skin Spa catch-alls. */
 const MOVE_RULES = [
+  // Promo / limited-time (keep first)
+  { re: /july special|end of july|40 units \+ 20|hydrafacial bogo/i, cat: "End of July Specials" },
+
   // Shockwave / recovery
   { re: /flowwave|shockwave|recovery stack/i, cat: "FlowWave" },
 
@@ -338,7 +342,22 @@ async function main() {
       if (m.label_color) {
         obj.item_data.label_color = m.label_color;
       }
-      delete obj.item_data.reporting_category;
+      // Keep / sync reporting category with the service category (never strip it)
+      const reportId =
+        m.targetId ||
+        obj.item_data.categories?.[0]?.id ||
+        obj.item_data.category_id ||
+        obj.item_data.reporting_category?.id;
+      if (reportId) {
+        const ord =
+          typeof obj.item_data.categories?.[0]?.ordinal === "number"
+            ? obj.item_data.categories[0].ordinal
+            : typeof obj.item_data.reporting_category?.ordinal === "number"
+              ? obj.item_data.reporting_category.ordinal
+              : -1;
+        obj.item_data.reporting_category = { id: reportId, ordinal: ord };
+      }
+      delete obj.item_data.category_id;
       await squarePost("/v2/catalog/object", {
         idempotency_key: `hg-reorg-${m.id.slice(-10)}-${Date.now().toString(36).slice(-5)}`,
         object: obj,

@@ -12,7 +12,9 @@ import {
 } from "@/lib/proposals/utils";
 import type { ProposalMediaItem } from "@/lib/proposals/types";
 import { ProposalCredibilityBand } from "@/components/proposals/ProposalCredibilityBand";
+import { VitaminInjectionCheatSheet } from "@/components/proposals/VitaminInjectionCheatSheet";
 import { careGuidesForProposalOptions } from "@/lib/proposals/care-guides";
+import { isVitaminProposalServiceId } from "@/lib/proposals/vitamin-injections";
 import { SITE } from "@/lib/seo";
 import { CARECREDIT_URL, CHERRY_PAY_URL } from "@/lib/flows";
 
@@ -68,6 +70,16 @@ export default function PublicProposalPage() {
     () => (proposal ? careGuidesForProposalOptions(proposal.options || []) : []),
     [proposal]
   );
+
+  const showsVitaminCheatSheet = useMemo(() => {
+    if (!proposal?.options?.length) return false;
+    return proposal.options.some((option) =>
+      option.services.some(
+        (service) =>
+          isVitaminProposalServiceId(service.id) || service.id.startsWith("vitamin-plan-")
+      )
+    );
+  }, [proposal]);
 
   const respond = async (action: "accept" | "decline", optionName?: string) => {
     if (!proposal) return;
@@ -182,6 +194,12 @@ export default function PublicProposalPage() {
         ) : null}
 
         <ProposalCredibilityBand options={options} className="mt-6" />
+
+        {showsVitaminCheatSheet ? (
+          <section className="mt-6">
+            <VitaminInjectionCheatSheet variant="client" />
+          </section>
+        ) : null}
 
         {careGuides.length ? (
           <section className="mt-6 rounded-2xl border-4 border-black bg-[#FFF0F7] p-5 shadow-[8px_8px_0_0_#FF2D8E]">

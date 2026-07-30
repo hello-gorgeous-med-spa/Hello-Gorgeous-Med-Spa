@@ -19,7 +19,7 @@ import {
 } from "@/lib/peptide-retail-pricing";
 import { computeRxSupplyQuote } from "@/lib/rx-supply-cycle";
 
-export type RxInvoiceTrack = "weight-loss" | "peptides" | "fees";
+export type RxInvoiceTrack = "weight-loss" | "peptides" | "fees" | "proposals";
 
 export type RxInvoiceTemplate = {
   id: string;
@@ -233,10 +233,61 @@ function feeTemplates(): RxInvoiceTemplate[] {
   ];
 }
 
+/** Treatment proposal deposits / balances — payment type “Proposal” on Square. */
+function proposalTemplates(): RxInvoiceTemplate[] {
+  return [
+    {
+      id: "proposal-deposit",
+      track: "proposals",
+      group: "Treatment proposals",
+      name: "Proposal deposit",
+      lineLabel: "Treatment proposal — deposit",
+      amountUsd: 0,
+      squareName: "Deposit",
+      allowCustomAmount: true,
+      note: "Custom deposit toward a treatment proposal / package plan",
+    },
+    {
+      id: "proposal-balance",
+      track: "proposals",
+      group: "Treatment proposals",
+      name: "Proposal remaining balance",
+      lineLabel: "Treatment proposal — remaining balance",
+      amountUsd: 0,
+      squareName: "Balance",
+      allowCustomAmount: true,
+      note: "Remaining balance after deposit on a proposal",
+    },
+    {
+      id: "proposal-pay-in-full",
+      track: "proposals",
+      group: "Treatment proposals",
+      name: "Proposal pay in full",
+      lineLabel: "Treatment proposal — pay in full",
+      amountUsd: 0,
+      squareName: "Pay in full",
+      allowCustomAmount: true,
+      note: "Full proposal / package payment",
+    },
+    {
+      id: "proposal-custom",
+      track: "proposals",
+      group: "Treatment proposals",
+      name: "Proposal — custom amount",
+      lineLabel: "Treatment proposal — custom",
+      amountUsd: 0,
+      squareName: "Custom",
+      allowCustomAmount: true,
+      note: "Any custom proposal-related charge",
+    },
+  ];
+}
+
 const ALL_TEMPLATES: RxInvoiceTemplate[] = [
   ...glp1Templates(),
   ...peptideTemplates(),
   ...feeTemplates(),
+  ...proposalTemplates(),
 ];
 
 const BY_ID = new Map(ALL_TEMPLATES.map((t) => [t.id, t]));
@@ -255,6 +306,7 @@ export function rxInvoiceTracks(): { id: RxInvoiceTrack; label: string; count: n
     { id: "weight-loss", label: "Weight loss (GLP-1)", count: listRxInvoiceTemplates("weight-loss").length },
     { id: "peptides", label: "Peptides", count: listRxInvoiceTemplates("peptides").length },
     { id: "fees", label: "Fees & shipping", count: listRxInvoiceTemplates("fees").length },
+    { id: "proposals", label: "Treatment proposals", count: listRxInvoiceTemplates("proposals").length },
   ];
 }
 
@@ -277,11 +329,19 @@ export function formatUsd(amount: number): string {
   return `$${amount.toFixed(2)}`;
 }
 
-/** Consult / fee templates — no ship-to-home on Square checkout. Meds & peptides require address. */
+/** Consult / fee / proposal templates — no ship-to-home on Square checkout. Meds & peptides require address. */
 export function templateRequiresShippingAddress(template: RxInvoiceTemplate): boolean {
-  if (template.track === "fees") return false;
+  if (template.track === "fees" || template.track === "proposals") return false;
   if (template.id === "glp1-consult") return false;
   return true;
+}
+
+/** Square Payment Link payment-type label (shows on checkout / receipt). */
+export function squarePaymentTypeForTemplate(template: RxInvoiceTemplate): string {
+  if (template.track === "proposals") return "Proposal";
+  if (template.track === "weight-loss") return "RX Weight Loss";
+  if (template.track === "peptides") return "RX Peptides";
+  return "RX Invoice";
 }
 
 /** Default premade invoice when staff resend from command center / dispatch. */

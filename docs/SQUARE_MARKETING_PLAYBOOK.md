@@ -86,7 +86,7 @@ It's your birthday month! Pick something gorgeous on us:
   · Or 20% off any single treatment booked + paid by month end
 
 → Book your birthday treat: https://www.hellogorgeousmedspa.com/book?ref=birthday
-→ Mention "BDAY2025" if booking by phone
+→ Mention "BDAY2026" if booking by phone
 
 Cheers to another beautiful year.
 
@@ -153,3 +153,103 @@ Hello Gorgeous tip: Retinol burns? Try a sandwich — moisturizer first, retinol
 - Open rates < 18% for two months running on the same campaign → new subject line.
 - SMS opt-out rate > 0.5% per send → reduce frequency, more value content vs offers.
 - Booking conversion from welcome flow < 25% → stronger first-visit offer (e.g. free brow wax with any service).
+
+---
+
+## Square Automations setup checklist (all 4)
+
+Dashboard: https://app.squareup.com/dashboard/customers/marketing/automations
+
+### Before you start (5 min)
+
+1. Open https://www.hellogorgeousmedspa.com/admin/marketing/square-segments → **Run sync now**
+2. Confirm these Customer Groups exist in Square Directory:
+   - `HG First-Time Clients`
+   - `HG Lapsed (90+ Days)`
+   - `HG Birthday Month`
+   - `HG All Opt-In`
+3. In Square Marketing settings, turn on **max sends / frequency caps** if available (target: ≤2 emails + ≤5 SMS per client per 30 days).
+
+### Automation A — Welcome (new clients)
+
+| Field | Value |
+|-------|--------|
+| Name | `HG Welcome — First Visit` |
+| Type | Automated email (+ optional SMS) |
+| Audience | `HG First-Time Clients` |
+| Trigger | New customer / first visit complete · wait **24 hours** |
+| Cap | 1× per customer forever |
+
+**Subject:** ✨ Welcome to the Hello Gorgeous family
+
+**Body:** use Campaign 1 email body above.
+
+Optional SMS: Campaign 1 SMS variant.
+
+### Automation B — Win-back (90+ days)
+
+| Field | Value |
+|-------|--------|
+| Name | `HG Win-back — 90 Days` |
+| Type | Automated or recurring email |
+| Audience | `HG Lapsed (90+ Days)` |
+| Trigger / schedule | Weekly batch · **Tuesdays 10:00 AM America/Chicago** |
+| Cap | Max **1 per 30 days** per customer |
+
+**Subject:** {{first_name}}, we miss you 💕
+
+**Body:** use Campaign 2 body above. Code: `GORGEOUS15`.
+
+### Automation C — Birthday month
+
+| Field | Value |
+|-------|--------|
+| Name | `HG Birthday Month` |
+| Type | Automated / monthly recurring |
+| Audience | `HG Birthday Month` |
+| Schedule | **1st of month · 9:00 AM America/Chicago** |
+| Cap | 1× per customer per year |
+
+**Subject:** Happy birthday {{first_name}} 🎂 Treat yourself.
+
+**Body:** use Campaign 3 email (mention **BDAY2026**). Optional SMS: Campaign 3 SMS.
+
+> Re-run segment sync on the 1st (or keep nightly cron) so `HG Birthday Month` refreshes each month.
+
+### Automation D — Monthly newsletter
+
+| Field | Value |
+|-------|--------|
+| Name | `HG Monthly Glow Notes` |
+| Type | Recurring email blast (automation or scheduled campaign) |
+| Audience | `HG All Opt-In` |
+| Schedule | **1st Wednesday · 11:00 AM America/Chicago** |
+| Cap | 1× per month |
+
+**Subject (rotate):**
+- Your skin changes by season — here's this month's playlist
+- What I'm doing on my own face this month — Danielle
+- Three Botox myths I bust at every consult
+
+**Body skeleton:**
+```
+Hi {{first_name}},
+
+[2–3 short education paragraphs — no hard sell]
+
+This month at Hello Gorgeous:
+· Book online: https://www.hellogorgeousmedspa.com/book?ref=newsletter
+· MD oversight · FNP-BC on site · Come in — we're friendly
+· Oswego · (630) 636-6193
+
+xo, Danielle & team
+```
+
+Optional: add a separate **weekly tip SMS** later (value-only, Tuesdays 10 AM) — not required for day-one.
+
+### After activate
+
+- [ ] Send yourself a test for A, B, C, D
+- [ ] Confirm unsubscribe / STOP language present on SMS
+- [ ] Spot-check that coupon codes work at desk (`GORGEOUS15`, birthday offer)
+- [ ] Leave automations **Active** — don't re-create duplicates next month

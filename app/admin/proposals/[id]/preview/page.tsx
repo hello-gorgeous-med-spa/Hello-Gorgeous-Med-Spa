@@ -12,6 +12,8 @@ import {
 } from "@/lib/proposals/utils";
 import type { TreatmentProposalRecord } from "@/lib/proposals/types";
 import { ProposalCredibilityBand } from "@/components/proposals/ProposalCredibilityBand";
+import { VitaminInjectionCheatSheet } from "@/components/proposals/VitaminInjectionCheatSheet";
+import { isVitaminProposalServiceId } from "@/lib/proposals/vitamin-injections";
 import { careGuidesForProposalOptions } from "@/lib/proposals/care-guides";
 import { SITE } from "@/lib/seo";
 import { CARECREDIT_URL, CHERRY_PAY_URL } from "@/lib/flows";
@@ -59,6 +61,16 @@ export default function ProposalPreviewPage() {
   }, [params.id]);
 
   const options = useMemo<ProposalOption[]>(() => proposal?.options || [], [proposal?.options]);
+  const showsVitaminCheatSheet = useMemo(
+    () =>
+      options.some((option) =>
+        option.services.some(
+          (service) =>
+            isVitaminProposalServiceId(service.id) || service.id.startsWith("vitamin-plan-")
+        )
+      ),
+    [options]
+  );
   const careGuides = useMemo(() => careGuidesForProposalOptions(options), [options]);
   const pdfHref = `/api/proposals/${params.id}/pdf`;
   const publicShareHref = proposal?.public_id ? `/proposals/${proposal.public_id}` : "";
@@ -270,6 +282,12 @@ export default function ProposalPreviewPage() {
         ) : null}
 
         <ProposalCredibilityBand options={options} className="mt-5" />
+
+        {showsVitaminCheatSheet ? (
+          <section className="mt-5">
+            <VitaminInjectionCheatSheet variant="staff" />
+          </section>
+        ) : null}
 
         <section className="mt-5 grid gap-4 md:grid-cols-3">
           {options.map((option, index) => {

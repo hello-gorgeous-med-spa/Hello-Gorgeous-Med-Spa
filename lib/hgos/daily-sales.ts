@@ -67,6 +67,8 @@ export type PaymentType =
   | 'alle_cashback'
   | 'afterpay'
   | 'cherry'
+  | 'square_invoice'
+  | 'proposal'
   | 'client_credit'
   | 'comp_service'
   | 'other';
@@ -116,6 +118,8 @@ export const PAYMENT_TYPES: { type: PaymentType; label: string }[] = [
   { type: 'alle_cashback', label: 'Allē Cash Back Coupon' },
   { type: 'afterpay', label: 'Afterpay' },
   { type: 'cherry', label: 'Cherry Financing' },
+  { type: 'square_invoice', label: 'Square Invoice' },
+  { type: 'proposal', label: 'Treatment Proposal' },
   { type: 'client_credit', label: 'Client Account Credit' },
   { type: 'comp_service', label: 'Complimentary' },
 ];
@@ -284,6 +288,9 @@ function mapPaymentType(method: string): PaymentType {
     'alle_cashback': 'alle_cashback',
     'afterpay': 'afterpay',
     'cherry': 'cherry',
+    'square_invoice': 'square_invoice',
+    'proposal': 'proposal',
+    'treatment_proposal': 'proposal',
     'client_credit': 'client_credit',
     'comp': 'comp_service',
   };
