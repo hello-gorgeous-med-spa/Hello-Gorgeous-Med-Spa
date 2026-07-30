@@ -31,11 +31,31 @@ export default function ProposalsListPage() {
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <h1 className="text-3xl font-black text-black">Treatment proposals</h1>
-          <p className="mt-1 text-sm text-black/70">Create, review, and print consult plans.</p>
+          <p className="mt-1 text-sm text-black/70">
+            Create, review, and print consult plans.{" "}
+            <a
+              href="/staff/protocols/guides/Treatment-Proposals-Staff-How-To.html"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-semibold text-[#E6007E] underline"
+            >
+              Staff how-to
+            </a>
+          </p>
         </div>
-        <Link href="/admin/proposals/new" className="rounded-full bg-[#E6007E] px-5 py-2.5 text-sm font-bold text-white">
-          + New proposal
-        </Link>
+        <div className="flex flex-wrap items-center gap-2">
+          <a
+            href="/staff/protocols/guides/Treatment-Proposals-Staff-How-To.html"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="rounded-full border-2 border-black bg-white px-4 py-2.5 text-sm font-bold text-black"
+          >
+            How to use
+          </a>
+          <Link href="/admin/proposals/new" className="rounded-full bg-[#E6007E] px-5 py-2.5 text-sm font-bold text-white">
+            + New proposal
+          </Link>
+        </div>
       </div>
 
       <div className="overflow-hidden rounded-2xl border-2 border-black bg-white">

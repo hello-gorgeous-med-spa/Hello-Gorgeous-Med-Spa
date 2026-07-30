@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Treatment Proposals — Staff How-To | Hello Gorgeous</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: system-ui, -apple-system, sans-serif; color: #111; background: #fafafa; line-height: 1.45; }
+    .toolbar { position: sticky; top: 0; z-index: 10; background: #fff; border-bottom: 3px solid #000; padding: 12px 20px; display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+    .toolbar p { margin: 0; font-size: 13px; font-weight: 600; }
+    .toolbar button, .toolbar a.btn { background: #E6007E; color: #fff; border: 2px solid #000; border-radius: 999px; padding: 10px 18px; font-weight: 700; cursor: pointer; font-size: 14px; text-decoration: none; display: inline-block; }
+    .toolbar a.ghost { background: #fff; color: #000; }
+    .sheet { max-width: 8.5in; margin: 20px auto 40px; background: #fff; border: 4px solid #000; box-shadow: 8px 8px 0 rgba(230,0,126,.28); }
+    .header { padding: 22px 24px; background: linear-gradient(125deg, #FF2D8E 0%, #E6007E 45%, #9b0a4d 100%); color: #fff; border-bottom: 4px solid #000; }
+    .header .eyebrow { margin: 0; font-size: 10px; font-weight: 800; letter-spacing: .2em; text-transform: uppercase; opacity: .92; }
+    .header h1 { margin: 8px 0 0; font-size: 26px; font-weight: 900; line-height: 1.15; }
+    .header .sub { margin: 8px 0 0; font-size: 14px; opacity: .95; }
+    .intro { padding: 16px 24px; background: #FFF0F7; border-bottom: 4px solid #000; font-size: 14px; }
+    .intro p { margin: 0; }
+    .flow { display: grid; grid-template-columns: repeat(4, 1fr); border-bottom: 4px solid #000; }
+    .step { padding: 14px 12px; border-right: 1px solid rgba(0,0,0,.1); min-height: 118px; }
+    .step:last-child { border-right: none; }
+    .step:nth-child(even) { background: #FFF0F7; }
+    .step .num { display: inline-flex; width: 26px; height: 26px; align-items: center; justify-content: center; border-radius: 50%; background: #E6007E; color: #fff; font-weight: 900; font-size: 12px; border: 2px solid #000; margin-bottom: 6px; }
+    .step h3 { margin: 0 0 4px; font-size: 13px; font-weight: 900; }
+    .step p { margin: 0; font-size: 11px; color: rgba(0,0,0,.68); }
+    section.block { padding: 18px 24px; border-bottom: 4px solid #000; }
+    section.block:last-child { border-bottom: none; }
+    section.block h2 { margin: 0 0 10px; font-size: 16px; font-weight: 900; color: #E6007E; text-transform: uppercase; letter-spacing: .06em; }
+    section.block h3 { margin: 14px 0 6px; font-size: 14px; font-weight: 800; }
+    section.block p, section.block li { font-size: 13px; }
+    section.block ul, section.block ol { margin: 6px 0 0; padding-left: 18px; }
+    section.block li { margin-bottom: 4px; }
+    table { width: 100%; border-collapse: collapse; font-size: 12px; margin-top: 8px; }
+    th, td { border: 2px solid #000; padding: 8px 10px; text-align: left; vertical-align: top; }
+    th { background: #FFF0F7; font-weight: 800; }
+    .say { margin-top: 10px; padding: 12px 14px; border: 2px solid #000; background: #fff; border-radius: 12px; box-shadow: 4px 4px 0 rgba(230,0,126,.25); }
+    .say strong { color: #E6007E; }
+    .pill-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 10px; }
+    .pill { border: 2px solid #000; border-radius: 12px; padding: 10px; background: #FFF0F7; text-align: center; }
+    .pill .lbl { font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: .08em; color: rgba(0,0,0,.5); }
+    .pill .price { font-size: 22px; font-weight: 900; color: #E6007E; margin: 2px 0; }
+    .pill .meta { font-size: 11px; color: rgba(0,0,0,.7); }
+    .links a { color: #E6007E; font-weight: 700; }
+    .footer { padding: 12px 24px; font-size: 11px; color: rgba(0,0,0,.55); background: #fff; }
+    @media print {
+      .toolbar { display: none; }
+      body { background: #fff; }
+      .sheet { margin: 0; box-shadow: none; }
+    }
+    @media (max-width: 700px) {
+      .flow, .pill-row { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="toolbar">
+    <p>Hello Gorgeous · Staff how-to · Treatment proposals</p>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;">
+      <a class="btn ghost" href="/admin/proposals">Open proposals</a>
+      <button type="button" onclick="window.print()">Print</button>
+    </div>
+  </div>
+
+  <article class="sheet">
+    <header class="header">
+      <p class="eyebrow">Front desk · injectors · providers</p>
+      <h1>Treatment Proposals — How to Use</h1>
+      <p class="sub">Build → share → collect deposit · Vitamins B4G2 · Exosome healing add-on · Square “Proposal” pay type</p>
+    </header>
+
+    <div class="intro">
+      <p>
+        Use <strong>Admin → Proposals</strong> to build a consult plan, send a live link, take a Square deposit or pay-in-full,
+        and send care guides. Clients can also start at <strong>/build-your-proposal</strong> — you polish and close.
+      </p>
+    </div>
+
+    <div class="flow">
+      <div class="step">
+        <div class="num">1</div>
+        <h3>New proposal</h3>
+        <p>Client name, email/phone, concerns. Optional before/after photos.</p>
+      </div>
+      <div class="step">
+        <div class="num">2</div>
+        <h3>Add treatments</h3>
+        <p>Packages, services, vitamin plans, exosomes. Auto-generate Essential / Recommended / VIP.</p>
+      </div>
+      <div class="step">
+        <div class="num">3</div>
+        <h3>Save → Preview</h3>
+        <p>Tune discounts or custom totals. Save lands on Preview.</p>
+      </div>
+      <div class="step">
+        <div class="num">4</div>
+        <h3>Send &amp; get paid</h3>
+        <p>Email/SMS link · Square deposit or full · Cherry · care guides.</p>
+      </div>
+    </div>
+
+    <section class="block">
+      <h2>Where to click</h2>
+      <table>
+        <tr><th>Goal</th><th>Path</th></tr>
+        <tr><td>List / status chips</td><td class="links"><a href="/admin/proposals">/admin/proposals</a></td></tr>
+        <tr><td>New proposal</td><td class="links"><a href="/admin/proposals/new">/admin/proposals/new</a></td></tr>
+        <tr><td>Edit / Preview</td><td>Row → Edit or Preview</td></tr>
+        <tr><td>Quick Square invoice only</td><td class="links"><a href="/admin/rx-invoices">/admin/rx-invoices</a> → track <strong>Proposals</strong></td></tr>
+        <tr><td>Client self-serve builder</td><td class="links"><a href="/build-your-proposal">/build-your-proposal</a></td></tr>
+      </table>
+    </section>
+
+    <section class="block">
+      <h2>Building the plan</h2>
+      <ol>
+        <li>Tap a <strong>quick-add package</strong> if it fits (fixed package price).</li>
+        <li>Add services: weight-loss dropdown, peptides grid, injectables (unit presets for toxin), InMode, skin, laser.</li>
+        <li>Add <strong>Vitamin injections while treating</strong> — 1 / 2 / 3-month B4G2 plans and/or à la carte shots.</li>
+        <li>Toggle <strong>AnteAGE Exosomes — Advanced Healing Add-on ($250)</strong> for procedure days.</li>
+        <li>Click <strong>Auto-generate options</strong>, then adjust % off, $ off, or custom totals.</li>
+        <li><strong>Save</strong>.</li>
+      </ol>
+      <p style="margin-top:10px;font-size:12px;color:rgba(0,0,0,.65);">
+        Auto-generate often suggests exosomes + a vitamin plan on Recommended/VIP when Morpheus8, microneedling, Solaria, Quantum RF, or packages are selected. Remove anything you don’t want.
+      </p>
+    </section>
+
+    <section class="block">
+      <h2>Vitamin injections — while treating</h2>
+      <p>Procedures are typically ~<strong>6 weeks</strong> apart. Draw up weekly Vitamin Bar shots between visits.</p>
+      <p><strong>Buy 4 Get 2 Free</strong> on $25 injections → pay for 4, get 6 (one 6-week cycle).</p>
+      <div class="pill-row">
+        <div class="pill">
+          <div class="lbl">1-month plan</div>
+          <div class="price">$100</div>
+          <div class="meta">6 shots · list $150</div>
+        </div>
+        <div class="pill">
+          <div class="lbl">2-month plan</div>
+          <div class="price">$200</div>
+          <div class="meta">12 shots · list $300</div>
+        </div>
+        <div class="pill">
+          <div class="lbl">3-month plan</div>
+          <div class="price">$300</div>
+          <div class="meta">18 shots · list $450</div>
+        </div>
+      </div>
+      <div class="say">
+        <strong>Say this:</strong>
+        “While you’re healing between visits, we draw up 6 weeks of vitamin injections at $25 each.
+        Buy 4, get 2 free — so one cycle is $100 instead of $150. Most people on a series pick the 2- or 3-month plan.”
+      </div>
+      <p style="margin-top:10px;font-size:12px;">Use the <strong>Quick cheat sheet</strong> in the builder (or on the client link) to explain what B12, Biotin, Glutathione, NAD+, etc. do.</p>
+    </section>
+
+    <section class="block">
+      <h2>Exosomes — advanced healing add-on</h2>
+      <p><strong>AnteAGE Exosomes · $250 per session</strong> — layer on Morpheus8, microneedling, Solaria CO₂, Quantum RF, PRP/PRF.</p>
+      <div class="say">
+        <strong>Say this:</strong>
+        “We can layer AnteAGE exosomes on treatment day for advanced healing — $250 add-on.
+        It’s the upgrade a lot of clients choose on Recommended and VIP.”
+      </div>
+    </section>
+
+    <section class="block">
+      <h2>Preview: send &amp; collect payment</h2>
+      <table>
+        <tr><th>Action</th><th>Notes</th></tr>
+        <tr><td>Copy public link</td><td>Client opens <code>/proposals/…</code> — can accept or decline</td></tr>
+        <tr><td>Email / SMS</td><td>Needs email or phone on the proposal</td></tr>
+        <tr><td>Square deposit / pay in full</td><td>Pick plan · deposit % (default 50%) or custom $ · creates Payment Link</td></tr>
+        <tr><td>Square label</td><td>Shows <strong>Payment type: Proposal</strong> on checkout / receipt</td></tr>
+        <tr><td>Cherry / CareCredit</td><td>Share apply links for monthly payments</td></tr>
+        <tr><td>Care guides</td><td>Email/SMS pre &amp; post care mapped to treatments on the plan</td></tr>
+      </table>
+      <p style="margin-top:10px;font-size:12px;color:rgba(0,0,0,.65);">
+        When Square marks the payment complete, the proposal moves to deposit paid / paid automatically.
+      </p>
+    </section>
+
+    <section class="block">
+      <h2>Status chips</h2>
+      <table>
+        <tr><th>Status</th><th>Meaning</th></tr>
+        <tr><td>Draft</td><td>Saved, not shared</td></tr>
+        <tr><td>Sent / Viewed</td><td>You sent it · client opened it</td></tr>
+        <tr><td>Accepted / Declined</td><td>Client chose or passed (staff alerted)</td></tr>
+        <tr><td>Deposit paid / Paid</td><td>Square reconciled</td></tr>
+        <tr><td>Expired</td><td>Past expiration — edit &amp; re-send if still active</td></tr>
+      </table>
+    </section>
+
+    <section class="block">
+      <h2>Do / don’t</h2>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+        <div>
+          <h3 style="color:#E6007E;margin-top:0;">Do</h3>
+          <ul>
+            <li>Get phone + email before send</li>
+            <li>Confirm which plan you’re charging</li>
+            <li>Offer Cherry on larger totals</li>
+            <li>Stack vitamins + exosomes on series</li>
+            <li>Edit &amp; re-send if the consult changes</li>
+          </ul>
+        </div>
+        <div>
+          <h3 style="color:#E6007E;margin-top:0;">Don’t</h3>
+          <ul>
+            <li>Promise outcomes or guarantees</li>
+            <li>Invent prices — use catalog plans</li>
+            <li>Create duplicate Square links blindly</li>
+            <li>Skip care guides on lasers / M8 / needling</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="block">
+      <h2>Quick alternate — RX Invoices</h2>
+      <p>
+        Need only a payment link (deposit / balance / custom) without a full 3-option proposal?
+        Open <a class="links" href="/admin/rx-invoices"><strong>/admin/rx-invoices</strong></a> → track <strong>Proposals</strong> → send.
+        Still labeled <strong>Proposal</strong> in Square.
+      </p>
+    </section>
+
+    <div class="footer">
+      Hello Gorgeous Med Spa · Oswego · Updated Jul 30, 2026 · Source: docs/manuals/treatment-proposals-staff-howto.md
+    </div>
+  </article>
+</body>
+</html>

@@ -399,19 +399,29 @@ export function ProposalBuilder({ proposalId }: ProposalBuilderProps) {
             Packages, discounts, instructions, and before/after photos — all synced to the shareable client link.
           </p>
         </div>
-        {isEditing && proposalId ? (
-          <div className="flex flex-wrap gap-2">
-            <Link
-              href={`/admin/proposals/${proposalId}/preview`}
-              className="rounded-full border border-black px-4 py-2 text-sm font-bold text-black hover:border-[#E6007E] hover:text-[#E6007E]"
-            >
-              Preview
-            </Link>
-            <Link href="/admin/proposals" className="rounded-full border border-black/30 px-4 py-2 text-sm font-bold text-black/70">
-              All proposals
-            </Link>
-          </div>
-        ) : null}
+        <div className="flex flex-wrap gap-2">
+          <a
+            href="/staff/protocols/guides/Treatment-Proposals-Staff-How-To.html"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="rounded-full border-2 border-black bg-white px-4 py-2 text-sm font-bold text-black"
+          >
+            How to use
+          </a>
+          {isEditing && proposalId ? (
+            <>
+              <Link
+                href={`/admin/proposals/${proposalId}/preview`}
+                className="rounded-full border border-black px-4 py-2 text-sm font-bold text-black hover:border-[#E6007E] hover:text-[#E6007E]"
+              >
+                Preview
+              </Link>
+              <Link href="/admin/proposals" className="rounded-full border border-black/30 px-4 py-2 text-sm font-bold text-black/70">
+                All proposals
+              </Link>
+            </>
+          ) : null}
+        </div>
       </div>
 
       <section className="rounded-2xl border-4 border-black bg-white p-6 shadow-[8px_8px_0_0_#FF2D8E]">
