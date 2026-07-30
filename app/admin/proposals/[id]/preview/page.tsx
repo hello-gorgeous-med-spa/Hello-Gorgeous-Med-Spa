@@ -7,12 +7,14 @@ import {
   calculateDiscount,
   calculateSubtotal,
   calculateTotal,
+  formatProposalServiceLine,
   type ProposalOption,
 } from "@/lib/proposals/utils";
 import type { TreatmentProposalRecord } from "@/lib/proposals/types";
 import { ProposalCredibilityBand } from "@/components/proposals/ProposalCredibilityBand";
 import { careGuidesForProposalOptions } from "@/lib/proposals/care-guides";
 import { SITE } from "@/lib/seo";
+import { CARECREDIT_URL, CHERRY_PAY_URL } from "@/lib/flows";
 
 export default function ProposalPreviewPage() {
   const params = useParams<{ id: string }>();
@@ -283,10 +285,7 @@ export default function ProposalPreviewPage() {
                 <ul className="mt-3 space-y-2 text-sm text-black/80">
                   {option.services.map((service) => (
                     <li key={`${option.name}-${service.id}`}>
-                      <span className="font-semibold text-black">
-                        - {service.name}
-                        {service.quantity > 1 ? ` (${service.quantity})` : ""}
-                      </span>
+                      <span className="font-semibold text-black">{formatProposalServiceLine(service)}</span>
                       {service.description ? (
                         <p className="mt-0.5 pl-3 text-xs leading-relaxed text-black/65">{service.description}</p>
                       ) : null}
@@ -377,6 +376,45 @@ export default function ProposalPreviewPage() {
               {proposal.payment_option_name ? ` · ${proposal.payment_option_name}` : ""}
             </p>
           ) : null}
+
+          <div className="mt-5 rounded-xl border border-black/15 bg-white p-4">
+            <p className="text-xs font-bold uppercase tracking-wide text-[#E6007E]">Client financing</p>
+            <p className="mt-1 text-sm text-black/75">
+              Share Cherry so they can apply for monthly payments (often soft credit check to see options).
+            </p>
+            <div className="mt-3 flex flex-wrap gap-2">
+              <a
+                href={CHERRY_PAY_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="rounded-full bg-black px-4 py-2 text-sm font-bold text-white"
+              >
+                Apply now with Cherry
+              </a>
+              <a
+                href={CARECREDIT_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="rounded-full border-2 border-black px-4 py-2 text-sm font-bold text-black"
+              >
+                Apply with CareCredit
+              </a>
+              <button
+                type="button"
+                onClick={async () => {
+                  try {
+                    await navigator.clipboard.writeText(CHERRY_PAY_URL);
+                    setNotice("Cherry apply link copied.");
+                  } catch {
+                    setNotice("Could not copy Cherry link — open Apply now instead.");
+                  }
+                }}
+                className="rounded-full border border-black/30 px-4 py-2 text-xs font-bold text-black/70"
+              >
+                Copy Cherry link
+              </button>
+            </div>
+          </div>
         </section>
 
         <section className="print:hidden mt-6 rounded-2xl border-2 border-black bg-white p-5">

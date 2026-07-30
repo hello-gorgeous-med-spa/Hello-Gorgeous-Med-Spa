@@ -4,15 +4,27 @@ import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { packageToProposalService, PROPOSAL_PACKAGES } from "@/lib/proposals/packages";
-import { HELLO_GORGEOUS_SERVICES } from "@/lib/proposals/seed-services";
+import { HELLO_GORGEOUS_SERVICES, type SeedService } from "@/lib/proposals/seed-services";
 import type { ProposalMediaItem, ProposalMediaKind, TreatmentProposalRecord } from "@/lib/proposals/types";
+import {
+  PEPTIDE_PHARMACY_SHIPPING_USD,
+  PEPTIDE_PRICING_DISCLAIMER,
+  PEPTIDE_RETAIL_MENU,
+  type PeptideRetailCategory,
+} from "@/lib/peptide-retail-pricing";
+import { CHERRY_PAY_URL } from "@/lib/flows";
 import {
   autoGenerateOptions,
   calculateDiscount,
   calculateMonthlyPayment,
   calculateSubtotal,
   calculateTotal,
+  defaultQuantityForService,
   discountLabel,
+  formatProposalServiceLine,
+  isPerUnitService,
+  NEUROTOXIN_UNIT_PRESETS,
+  serviceLineTotal,
   type DiscountType,
   type ProposalOption,
   type ProposalService,
@@ -30,8 +42,6 @@ const CONCERN_OPTIONS = [
 
 const CATEGORY_ORDER = [
   "Packages",
-  "Weight Loss Programs",
-  "Peptides",
   "InMode Trifecta",
   "Injectables",
   "Body & Wellness",
@@ -39,6 +49,17 @@ const CATEGORY_ORDER = [
   "Skin & Face",
   "Laser",
   "Retail",
+];
+
+const COMPACT_CATEGORIES = new Set(["Weight Loss Programs", "Peptides"]);
+
+const PEPTIDE_CATEGORY_ORDER: PeptideRetailCategory[] = [
+  "Recovery & Healing",
+  "Hormone & GH Support",
+  "Energy & Longevity",
+  "Skin & Aesthetics",
+  "Intimacy & Vitality",
+  "Blends & Support",
 ];
 
 const DISCOUNT_MODES: Array<{ value: DiscountType; label: string }> = [
@@ -66,6 +87,10 @@ function servicesFromOptions(options: ProposalOption[]): ProposalService[] {
   return [...map.values()];
 }
 
+function weightLossLabel(service: SeedService): string {
+  return `${service.name} — $${service.price} ${service.unit}`;
+}
+
 type ProposalBuilderProps = {
   proposalId?: string;
 };
@@ -87,6 +112,7 @@ export function ProposalBuilder({ proposalId }: ProposalBuilderProps) {
   const [options, setOptions] = useState<ProposalOption[]>([]);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [weightLossPick, setWeightLossPick] = useState("");
 
   useEffect(() => {
     if (!proposalId) return;
@@ -127,9 +153,40 @@ export function ProposalBuilder({ proposalId }: ProposalBuilderProps) {
     };
   }, [proposalId]);
 
+  const weightLossServices = useMemo(
+    () => HELLO_GORGEOUS_SERVICES.filter((service) => service.category === "Weight Loss Programs"),
+    []
+  );
+
+  const peptideServices = useMemo(
+    () => HELLO_GORGEOUS_SERVICES.filter((service) => service.category === "Peptides"),
+    []
+  );
+
+  const peptideByRetailCategory = useMemo(() => {
+    const specials = peptideServices.filter(
+      (service) =>
+        service.id === "peptide-consult" ||
+        service.id.startsWith("ghk-cu-formulation") ||
+        service.id === "peptide-shipping"
+    );
+    const groups: Array<{ label: string; services: SeedService[] }> = [
+      { label: "Consult & Formulation", services: specials },
+    ];
+    for (const category of PEPTIDE_CATEGORY_ORDER) {
+      const retailIds = new Set(
+        PEPTIDE_RETAIL_MENU.filter((row) => row.category === category).map((row) => `peptide-${row.id}`)
+      );
+      const services = peptideServices.filter((service) => retailIds.has(service.id));
+      if (services.length) groups.push({ label: category, services });
+    }
+    return groups;
+  }, [peptideServices]);
+
   const groupedServices = useMemo(() => {
     const grouped = HELLO_GORGEOUS_SERVICES.reduce<Record<string, typeof HELLO_GORGEOUS_SERVICES>>(
       (acc, service) => {
+        if (COMPACT_CATEGORIES.has(service.category)) return acc;
         if (!acc[service.category]) acc[service.category] = [];
         acc[service.category].push(service);
         return acc;
@@ -144,6 +201,22 @@ export function ProposalBuilder({ proposalId }: ProposalBuilderProps) {
     });
   }, []);
 
+  const selectedWeightLoss = selectedServices.filter((service) =>
+    weightLossServices.some((item) => item.id === service.id)
+  );
+
+  const addWeightLossFromDropdown = (serviceId: string) => {
+    if (!serviceId) return;
+    const service = weightLossServices.find((item) => item.id === serviceId);
+    if (!service) return;
+    setSelectedServices((prev) => {
+      if (prev.some((item) => item.id === serviceId)) return prev;
+      return [...prev, { ...service, quantity: defaultQuantityForService(service) }];
+    });
+    setOptions([]);
+    setWeightLossPick("");
+  };
+
   const toggleService = (serviceId: string) => {
     const service = HELLO_GORGEOUS_SERVICES.find((item) => item.id === serviceId);
     if (!service) return;
@@ -151,7 +224,7 @@ export function ProposalBuilder({ proposalId }: ProposalBuilderProps) {
     setSelectedServices((prev) => {
       const exists = prev.find((item) => item.id === serviceId);
       if (exists) return prev.filter((item) => item.id !== serviceId);
-      return [...prev, { ...service, quantity: 1 }];
+      return [...prev, { ...service, quantity: defaultQuantityForService(service) }];
     });
     setOptions([]);
   };
@@ -168,8 +241,12 @@ export function ProposalBuilder({ proposalId }: ProposalBuilderProps) {
   };
 
   const updateQuantity = (serviceId: string, quantity: number) => {
+    const service = selectedServices.find((item) => item.id === serviceId)
+      || HELLO_GORGEOUS_SERVICES.find((item) => item.id === serviceId);
+    const min = service && isPerUnitService(service) ? 1 : 1;
+    const nextQty = Math.max(min, Math.round(Number(quantity) || min));
     setSelectedServices((prev) =>
-      prev.map((item) => (item.id === serviceId ? { ...item, quantity: Math.max(1, quantity || 1) } : item))
+      prev.map((item) => (item.id === serviceId ? { ...item, quantity: nextQty } : item))
     );
     setOptions([]);
   };
@@ -468,6 +545,126 @@ export function ProposalBuilder({ proposalId }: ProposalBuilderProps) {
             {selectedServices.length} selected · ${calculateSubtotal(selectedServices).toLocaleString()} before plan discounts
           </p>
         ) : null}
+
+        {/* Weight loss — condensed dropdown */}
+        <div className="mt-5 rounded-xl border-2 border-black/10 bg-[#FFF0F7] p-4">
+          <h3 className="text-sm font-bold uppercase tracking-wide text-[#E6007E]">Weight loss programs</h3>
+          <p className="mt-1 text-xs text-black/65">
+            Pick consult, dose tier, 3-month supply, oral, or insurance oversight — one dropdown instead of a long list.
+          </p>
+          <div className="mt-3 flex flex-wrap items-end gap-2">
+            <div className="min-w-[16rem] flex-1">
+              <label className="text-[10px] font-bold uppercase tracking-wide text-black/50">Add item</label>
+              <select
+                value={weightLossPick}
+                onChange={(event) => addWeightLossFromDropdown(event.target.value)}
+                className="mt-1 w-full rounded-lg border-2 border-black/15 bg-white px-3 py-2 text-sm text-black"
+              >
+                <option value="">Choose weight loss option…</option>
+                {weightLossServices.map((service) => (
+                  <option
+                    key={service.id}
+                    value={service.id}
+                    disabled={selectedServices.some((item) => item.id === service.id)}
+                  >
+                    {weightLossLabel(service)}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+          {selectedWeightLoss.length ? (
+            <ul className="mt-3 space-y-2">
+              {selectedWeightLoss.map((service) => (
+                <li
+                  key={service.id}
+                  className="flex flex-wrap items-center justify-between gap-2 rounded-lg border border-black/10 bg-white px-3 py-2"
+                >
+                  <div className="min-w-0 flex-1">
+                    <p className="text-sm font-semibold text-black">{service.name}</p>
+                    <p className="text-xs text-black/65">
+                      ${service.price} {service.unit}
+                      {service.description ? ` · ${service.description}` : ""}
+                    </p>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <input
+                      type="number"
+                      min={1}
+                      value={service.quantity}
+                      onChange={(event) => updateQuantity(service.id, Number(event.target.value))}
+                      className="w-16 rounded-md border border-black/20 px-2 py-1 text-sm"
+                      aria-label={`${service.name} quantity`}
+                    />
+                    <button
+                      type="button"
+                      onClick={() => toggleService(service.id)}
+                      className="text-xs font-bold text-black/60 hover:text-red-600"
+                    >
+                      Remove
+                    </button>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p className="mt-3 text-xs text-black/50">No weight loss items selected yet.</p>
+          )}
+        </div>
+
+        {/* Peptides — full retail picker */}
+        <div className="mt-5 rounded-xl border-2 border-black/10 bg-white p-4">
+          <h3 className="text-sm font-bold uppercase tracking-wide text-[#E6007E]">Peptides · Hello Gorgeous RX</h3>
+          <p className="mt-1 text-xs text-black/65">
+            Tap peptides to add. Prices are published retail “from” monthly protocol rates
+            {PEPTIDE_PHARMACY_SHIPPING_USD ? ` · shipping often ~$${PEPTIDE_PHARMACY_SHIPPING_USD}` : ""}.
+          </p>
+          <p className="mt-1 text-[11px] leading-relaxed text-black/50">{PEPTIDE_PRICING_DISCLAIMER}</p>
+
+          <div className="mt-4 space-y-5">
+            {peptideByRetailCategory.map((group) => (
+              <div key={group.label}>
+                <p className="text-[11px] font-bold uppercase tracking-wide text-black/45">{group.label}</p>
+                <div className="mt-2 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+                  {group.services.map((service) => {
+                    const selected = selectedServices.find((item) => item.id === service.id);
+                    return (
+                      <button
+                        key={service.id}
+                        type="button"
+                        onClick={() => toggleService(service.id)}
+                        className={`rounded-xl border-2 p-3 text-left transition ${
+                          selected
+                            ? "border-[#E6007E] bg-[#FFF0F7] shadow-[4px_4px_0_0_rgba(230,0,126,0.25)]"
+                            : "border-black/10 bg-white hover:border-[#E6007E]/
+                        }`}
+                      >
+                        <div className="flex items-start justify-between gap-2">
+                          <p className="text-sm font-bold text-black">{service.name}</p>
+                          <span className="shrink-0 text-sm font-black text-[#E6007E]">
+                            {service.unit.includes("month") || service.unit.includes("days")
+                              ? `$${service.price}`
+                              : `$${service.price}`}
+                          </span>
+                        </div>
+                        <p className="mt-0.5 text-[10px] font-semibold uppercase tracking-wide text-black/45">
+                          {service.unit}
+                        </p>
+                        {service.description ? (
+                          <p className="mt-1 text-xs leading-snug text-black/70">{service.description}</p>
+                        ) : null}
+                        <p className="mt-2 text-[11px] font-bold text-[#E6007E]">
+                          {selected ? "Added ✓" : "Tap to add"}
+                        </p>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
         <div className="mt-4 space-y-5">
           {groupedServices.map(([category, services]) => (
             <div key={category}>
@@ -475,25 +672,66 @@ export function ProposalBuilder({ proposalId }: ProposalBuilderProps) {
               <div className="mt-2 space-y-2">
                 {services.map((service) => {
                   const selected = selectedServices.find((item) => item.id === service.id);
+                  const perUnit = isPerUnitService(service);
                   return (
-                    <div key={service.id} className="flex items-center gap-3 rounded-lg border border-black/10 bg-white p-3">
+                    <div key={service.id} className="flex flex-wrap items-center gap-3 rounded-lg border border-black/10 bg-white p-3">
                       <input type="checkbox" checked={Boolean(selected)} onChange={() => toggleService(service.id)} />
-                      <div className="flex-1">
+                      <div className="min-w-[12rem] flex-1">
                         <p className="text-sm font-semibold text-black">{service.name}</p>
                         <p className="text-xs text-black/70">
                           ${service.price} {service.unit}
                           {service.description ? ` · ${service.description}` : ""}
                         </p>
+                        {selected && perUnit ? (
+                          <p className="mt-1 text-xs font-bold text-[#E6007E]">
+                            {selected.quantity} units × ${service.price} = ${serviceLineTotal(selected).toFixed(0)}
+                          </p>
+                        ) : null}
                       </div>
                       {selected && !service.id.startsWith("pkg-") ? (
-                        <input
-                          type="number"
-                          min={1}
-                          value={selected.quantity}
-                          onChange={(event) => updateQuantity(service.id, Number(event.target.value))}
-                          className="w-20 rounded-md border border-black/20 px-2 py-1 text-sm"
-                          aria-label={`${service.name} quantity`}
-                        />
+                        perUnit ? (
+                          <div className="flex flex-col items-end gap-1">
+                            <label className="text-[10px] font-bold uppercase tracking-wide text-black/50">Units</label>
+                            <div className="flex flex-wrap justify-end gap-1">
+                              {NEUROTOXIN_UNIT_PRESETS.map((preset) => (
+                                <button
+                                  key={preset}
+                                  type="button"
+                                  onClick={() => updateQuantity(service.id, preset)}
+                                  className={`rounded-full px-2.5 py-1 text-[11px] font-bold ${
+                                    selected.quantity === preset
+                                      ? "bg-[#E6007E] text-white"
+                                      : "border border-black/20 text-black hover:border-[#E6007E]"
+                                  }`}
+                                >
+                                  {preset}
+                                </button>
+                              ))}
+                            </div>
+                            <input
+                              type="number"
+                              min={1}
+                              step={1}
+                              value={selected.quantity}
+                              onChange={(event) => updateQuantity(service.id, Number(event.target.value))}
+                              className="w-24 rounded-md border border-black/20 px-2 py-1 text-sm"
+                              aria-label={`${service.name} units`}
+                              placeholder="Custom"
+                            />
+                          </div>
+                        ) : (
+                          <div className="flex flex-col items-end gap-1">
+                            <label className="text-[10px] font-bold uppercase tracking-wide text-black/50">Qty</label>
+                            <input
+                              type="number"
+                              min={1}
+                              value={selected.quantity}
+                              onChange={(event) => updateQuantity(service.id, Number(event.target.value))}
+                              className="w-20 rounded-md border border-black/20 px-2 py-1 text-sm"
+                              aria-label={`${service.name} quantity`}
+                            />
+                          </div>
+                        )
                       ) : null}
                     </div>
                   );
@@ -532,10 +770,7 @@ export function ProposalBuilder({ proposalId }: ProposalBuilderProps) {
                   ) : null}
                   <ul className="mt-4 space-y-1 text-sm text-black/80">
                     {option.services.map((service) => (
-                      <li key={`${option.name}-${service.id}`}>
-                        - {service.name}
-                        {service.quantity > 1 ? ` (${service.quantity})` : ""}
-                      </li>
+                      <li key={`${option.name}-${service.id}`}>{formatProposalServiceLine(service)}</li>
                     ))}
                   </ul>
 
@@ -603,6 +838,21 @@ export function ProposalBuilder({ proposalId }: ProposalBuilderProps) {
       </section>
 
       {error ? <p className="text-sm font-semibold text-red-600">{error}</p> : null}
+
+      <div className="rounded-2xl border-2 border-black bg-[#FFF0F7] p-4">
+        <p className="text-xs font-bold uppercase tracking-wide text-[#E6007E]">Financing for this quote</p>
+        <p className="mt-1 text-sm text-black/75">
+          Clients can pay monthly with Cherry — apply in minutes, often with a soft credit check first.
+        </p>
+        <a
+          href={CHERRY_PAY_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-3 inline-flex rounded-full bg-black px-5 py-2.5 text-sm font-bold text-white"
+        >
+          Apply now with Cherry
+        </a>
+      </div>
 
       <div className="flex flex-wrap gap-3">
         <button

@@ -3,6 +3,7 @@ import { getAiConciergeStaffSession } from "@/lib/ai-concierge/admin-auth";
 import { createAdminSupabaseClient } from "@/lib/hgos/supabase";
 import { sendSms } from "@/lib/notifications/sms-outbound";
 import { SITE } from "@/lib/seo";
+import { CHERRY_PAY_URL } from "@/lib/flows";
 import type { TreatmentProposalRecord } from "@/lib/proposals/types";
 
 export const dynamic = "force-dynamic";
@@ -31,7 +32,7 @@ export async function POST(request: NextRequest) {
     const baseUrl = process.env.NEXT_PUBLIC_APP_URL || SITE.url;
     const proposalUrl = `${baseUrl}/proposals/${publicId}`;
     const publicPdfUrl = `${baseUrl}/api/proposals/public/${publicId}/pdf`;
-    const smsText = `Hello ${proposal.client_name}, your personalized treatment plan from ${SITE.name} is ready: ${proposalUrl} Questions? ${SITE.phone}`;
+    const smsText = `Hello ${proposal.client_name}, your personalized treatment plan from ${SITE.name} is ready: ${proposalUrl} Prefer monthly payments? Apply now with Cherry: ${CHERRY_PAY_URL} Questions? ${SITE.phone}`;
     const result = await sendSms(to, smsText);
 
     if (!result.success) {

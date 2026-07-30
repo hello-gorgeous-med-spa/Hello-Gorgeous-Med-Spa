@@ -18,8 +18,37 @@ export type ProposalOption = {
   timeline: ProposalTimelineItem[];
 };
 
+/** Neurotoxin / unit-priced injectables — quantity means units, not sessions. */
+export function isPerUnitService(service: Pick<SeedService, "unit">): boolean {
+  return /per\s*unit/i.test(service.unit || "");
+}
+
+export function defaultQuantityForService(service: Pick<SeedService, "unit" | "id">): number {
+  if (isPerUnitService(service)) return 20;
+  return 1;
+}
+
+export function serviceLineTotal(service: Pick<ProposalService, "price" | "quantity">): number {
+  return service.price * service.quantity;
+}
+
+/** Client/staff-facing line: "Botox — 20 units × $10 = $200" */
+export function formatProposalServiceLine(service: ProposalService): string {
+  const lineTotal = serviceLineTotal(service);
+  if (isPerUnitService(service)) {
+    const units = service.quantity;
+    return `${service.name} — ${units} unit${units === 1 ? "" : "s"} × $${service.price} = $${lineTotal.toFixed(2)}`;
+  }
+  if (service.quantity > 1) {
+    return `${service.name} (${service.quantity}) — $${lineTotal.toFixed(2)}`;
+  }
+  return `${service.name} — $${lineTotal.toFixed(2)}`;
+}
+
+export const NEUROTOXIN_UNIT_PRESETS = [20, 24, 30, 40, 50, 60] as const;
+
 export function calculateSubtotal(services: ProposalService[]): number {
-  return services.reduce((sum, service) => sum + service.price * service.quantity, 0);
+  return services.reduce((sum, service) => sum + serviceLineTotal(service), 0);
 }
 
 export function calculateDiscount(subtotal: number, discountType: DiscountType, discountValue: number): number {
@@ -67,11 +96,26 @@ export function discountLabel(option: ProposalOption): string {
 export function generateTimeline(services: ProposalService[]): ProposalTimelineItem[] {
   if (!services.length) return [];
 
-  const maxSessions = Math.max(...services.map((service) => service.quantity));
+  // Unit-priced injectables (e.g. 40 units of Botox) are not multi-month session counts.
+  const sessionServices = services.filter((service) => !isPerUnitService(service));
+  if (!sessionServices.length) {
+    return [{ month: 1, services: services.map((service) => service.id) }];
+  }
+
+  const maxSessions = Math.max(...sessionServices.map((service) => service.quantity));
   const timeline: ProposalTimelineItem[] = [];
 
   for (let month = 1; month <= maxSessions; month += 1) {
-    const monthServices = services.filter((service) => service.quantity >= month).map((service) => service.id);
+    const monthServices = sessionServices
+      .filter((service) => service.quantity >= month)
+      .map((service) => service.id);
+    if (month === 1) {
+      for (const service of services) {
+        if (isPerUnitService(service) && !monthServices.includes(service.id)) {
+          monthServices.push(service.id);
+        }
+      }
+    }
     if (monthServices.length) timeline.push({ month, services: monthServices });
   }
 

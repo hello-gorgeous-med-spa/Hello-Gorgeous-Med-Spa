@@ -80,16 +80,6 @@ const WEIGHT_LOSS_SERVICES: SeedService[] = [
   },
 ];
 
-const PEPTIDE_HIGHLIGHT_IDS = new Set([
-  "sermorelin",
-  "bpc-157",
-  "tb-500",
-  "recovery-blend",
-  "nad-plus",
-  "pt-141",
-  "tesamorelin",
-]);
-
 const PEPTIDE_SERVICES: SeedService[] = [
   {
     id: "peptide-consult",
@@ -115,13 +105,24 @@ const PEPTIDE_SERVICES: SeedService[] = [
     unit: "per 90 days",
     description: `Formulation Rx — $${FORMULATION_GHK_CU_MED_USD} medication + $${FORMULATION_COLD_SHIP_USD} cold ship.`,
   },
-  ...PEPTIDE_RETAIL_MENU.filter((row) => PEPTIDE_HIGHLIGHT_IDS.has(row.id)).map((row) => ({
+  {
+    id: "peptide-shipping",
+    name: "Peptide cold-chain shipping",
+    category: "Peptides",
+    price: 35,
+    unit: "per shipment",
+    description: "Typical pharmacy cold-chain / shipping line when meds ship to patient.",
+  },
+  // Full retail menu (exclude GLP-1 rows — those live under Weight Loss Programs).
+  ...PEPTIDE_RETAIL_MENU.filter((row) => row.category !== "Medical Weight Loss").map((row) => ({
     id: `peptide-${row.id}`,
-    name: `${row.name} — from`,
+    name: row.name,
     category: "Peptides",
     price: row.fromMonthlyUsd,
     unit: "per month",
-    description: row.note || "From pricing after NP evaluation — shipping/labs may be separate.",
+    description: row.note
+      ? `${row.note} · From $${row.fromMonthlyUsd}/mo after NP evaluation (labs/shipping may be separate).`
+      : `From $${row.fromMonthlyUsd}/mo after NP evaluation — shipping/labs may be separate.`,
   })),
 ];
 

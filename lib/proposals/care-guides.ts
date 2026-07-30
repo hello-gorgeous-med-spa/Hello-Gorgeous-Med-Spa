@@ -279,6 +279,10 @@ function isGlp1ServiceId(id: string): boolean {
   return id.startsWith("glp1-");
 }
 
+function isPeptideServiceId(id: string): boolean {
+  return id.startsWith("peptide-") || id.startsWith("ghk-cu-");
+}
+
 export function careGuidesForProposalOptions(options: ProposalOption[]): ProposalCareGuide[] {
   const byId = new Map<string, ProposalCareGuide>();
 
@@ -288,6 +292,16 @@ export function careGuidesForProposalOptions(options: ProposalOption[]): Proposa
       if (mapped) byId.set(mapped.id, mapped);
       else if (isGlp1ServiceId(service.id)) {
         byId.set("weight-loss", CARE_BY_SERVICE_ID["glp1-consult"]);
+      } else if (isPeptideServiceId(service.id)) {
+        byId.set(
+          "prp-prf",
+          CARE_BY_SERVICE_ID["ghk-cu-formulation-30"] || {
+            id: "prp-prf",
+            title: "Peptide / Regenerative Care",
+            path: "/pre-post-care/prp-prf",
+            description: "Supportive care notes for regenerative protocols.",
+          }
+        );
       }
 
       if (service.id === "pkg-transformation") {

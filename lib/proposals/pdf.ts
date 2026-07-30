@@ -5,6 +5,7 @@ import {
   calculateDiscount,
   calculateSubtotal,
   calculateTotal,
+  formatProposalServiceLine,
   type ProposalOption,
 } from "@/lib/proposals/utils";
 import type { TreatmentProposalRecord } from "@/lib/proposals/types";
@@ -129,10 +130,7 @@ export function buildProposalPdf(proposal: TreatmentProposalRecord): Uint8Array 
     y += 16;
 
     option.services.forEach((service) => {
-      const line = `- ${service.name}${service.quantity > 1 ? ` (${service.quantity})` : ""} — ${money(
-        service.price * service.quantity
-      )}`;
-      write(line, 10, "#111111", 14);
+      write(`- ${formatProposalServiceLine(service)}`, 10, "#111111", 14);
       if (service.description) {
         write(service.description, 9, "#555555", 12);
       }

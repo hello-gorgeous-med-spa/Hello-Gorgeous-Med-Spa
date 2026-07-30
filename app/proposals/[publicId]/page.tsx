@@ -7,6 +7,7 @@ import {
   calculateDiscount,
   calculateSubtotal,
   calculateTotal,
+  formatProposalServiceLine,
   type ProposalOption,
 } from "@/lib/proposals/utils";
 import type { ProposalMediaItem } from "@/lib/proposals/types";
@@ -232,10 +233,7 @@ export default function PublicProposalPage() {
                 <ul className="mt-3 space-y-2 text-sm text-black/80">
                   {option.services.map((service) => (
                     <li key={`${option.name}-${service.id}`}>
-                      <span className="font-semibold text-black">
-                        - {service.name}
-                        {service.quantity > 1 ? ` (${service.quantity})` : ""}
-                      </span>
+                      <span className="font-semibold text-black">{formatProposalServiceLine(service)}</span>
                       {service.description ? (
                         <p className="mt-0.5 pl-3 text-xs leading-relaxed text-black/65">{service.description}</p>
                       ) : null}
@@ -334,9 +332,9 @@ export default function PublicProposalPage() {
                 href={CHERRY_PAY_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="rounded-full bg-black px-4 py-2 text-xs font-bold text-white"
+                className="rounded-full bg-black px-4 py-2.5 text-sm font-bold text-white"
               >
-                Apply with Cherry
+                Apply now with Cherry
               </a>
               <a
                 href={CARECREDIT_URL}

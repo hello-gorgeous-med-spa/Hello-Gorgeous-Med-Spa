@@ -4,6 +4,7 @@ import { getAiConciergeStaffSession } from "@/lib/ai-concierge/admin-auth";
 import { createAdminSupabaseClient } from "@/lib/hgos/supabase";
 import { buildProposalPdf } from "@/lib/proposals/pdf";
 import { SITE } from "@/lib/seo";
+import { CHERRY_PAY_URL } from "@/lib/flows";
 import type { TreatmentProposalRecord } from "@/lib/proposals/types";
 
 export const dynamic = "force-dynamic";
@@ -70,6 +71,14 @@ export async function POST(request: NextRequest) {
           <a href="${SITE.url}/book" style="background:#E6007E;color:white;padding:12px 20px;border-radius:30px;text-decoration:none;font-weight:700;">
             Book your first treatment
           </a>
+        </p>
+        <p style="margin: 10px 0 22px;">
+          <a href="${CHERRY_PAY_URL}" style="background:#111;color:white;padding:12px 20px;border-radius:30px;text-decoration:none;font-weight:700;">
+            Apply now with Cherry
+          </a>
+        </p>
+        <p style="font-size: 13px; color: #666; line-height: 1.5;">
+          Prefer monthly payments? Apply for Cherry financing in minutes — many clients use it for packages and series plans.
         </p>
         <p style="font-size: 13px; color: #666;">
           ${SITE.name} · ${SITE.address.streetAddress}, ${SITE.address.addressLocality}, ${SITE.address.addressRegion}
