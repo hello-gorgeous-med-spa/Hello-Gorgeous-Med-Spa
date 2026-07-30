@@ -20,6 +20,7 @@ import { SPECIALS_PATH } from "@/lib/specials";
 import { SHOP_RX_NAV } from "@/lib/medical-mega-menu";
 import { FLOWWAVE_PATH } from "@/lib/flowwave-marketing";
 import { IV_THERAPY_NAV, IV_THERAPY_PATH } from "@/lib/iv-therapy-marketing";
+import { BUILD_YOUR_PROPOSAL_NAV } from "@/lib/build-your-proposal-marketing";
 
 export const PRIMARY_NAV_HUBS = [
   { id: "services", label: "Services", href: "/services", hasDropdown: true },
@@ -68,6 +69,7 @@ export const ABOUT_NAV_ACTIVE_PREFIXES = [
   "/patient-documents",
   "/app",
   "/get-app",
+  "/build-your-proposal",
   SKIN_101_NAV.href,
   QUIZ_NAV.href,
   "/help-me-choose",
@@ -82,6 +84,11 @@ export function isAboutNavActive(pathname: string | null): boolean {
 
 /** Folded into About dropdown — patient, education, quizzes. */
 export const ABOUT_NAV_EXTRA_LINKS = [
+  {
+    label: BUILD_YOUR_PROPOSAL_NAV.label,
+    href: BUILD_YOUR_PROPOSAL_NAV.href,
+    sub: BUILD_YOUR_PROPOSAL_NAV.sub,
+  },
   { label: "Skin 101 Education", href: SKIN_101_NAV.href, sub: "Peptides, skin science & treatment guides" },
   { label: "Quizzes & Screeners", href: QUIZ_NAV.href, sub: "GLP-1, TRT, perimenopause & treatment finders" },
   { label: "Pre & Post Care", href: "/pre-post-care", sub: "Treatment care guides" },
@@ -94,6 +101,11 @@ export const ABOUT_NAV_EXTRA_LINKS = [
 export const SPECIALS_NAV_EXTRA_LINKS = [
   { label: "Gift Cards", href: "/gift-cards", sub: "Give the gift of gorgeous" },
   { label: "0% Financing", href: "/financing", sub: "Cherry & CareCredit options" },
+  {
+    label: BUILD_YOUR_PROPOSAL_NAV.label,
+    href: BUILD_YOUR_PROPOSAL_NAV.href,
+    sub: "Plan packages & get a live estimate",
+  },
   { label: "Gentlemen's Club", href: GENTLEMENS_CLUB_PATH, sub: "Men's TRT, Brotox & peptides" },
   { label: "Ladies' Club", href: LADIES_CLUB_PATH, sub: "Women's BHRT, GLP-1 & peptides" },
   {
@@ -127,6 +139,11 @@ export const SERVICES_RX_BRIDGE_LINKS = [
 export const SERVICES_EXPLORE_LINKS = [
   { label: "Before & After Gallery", href: "/gallery", sub: "Real client results" },
   { label: "Help Me Choose", href: "/help-me-choose", sub: "Goal-based treatment finder" },
+  {
+    label: BUILD_YOUR_PROPOSAL_NAV.label,
+    href: BUILD_YOUR_PROPOSAL_NAV.href,
+    sub: BUILD_YOUR_PROPOSAL_NAV.sub,
+  },
 ] as const;
 
 /** Mobile accordion — matches desktop hubs (no duplicate top-level items). */

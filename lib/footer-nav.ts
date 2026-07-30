@@ -37,6 +37,7 @@ export const FOOTER_PRIMARY_COLUMNS: FooterNavColumn[] = [
     title: "Book & Support",
     links: [
       { label: "Book a free consult", href: "/book" },
+      { label: "Build your proposal", href: "/build-your-proposal" },
       { label: "Specials", href: "/specials" },
       { label: "Get the app", href: "/get-app" },
       { label: "FAQs", href: "/faq" },
@@ -66,6 +67,7 @@ export const FOOTER_SEO_LINKS: FooterNavLink[] = [
   { label: "Telehealth", href: "/telehealth" },
   { label: "Products we offer (Rx)", href: "/products-we-offer" },
   { label: "Help me choose", href: "/help-me-choose" },
+  { label: "Build your proposal", href: "/build-your-proposal" },
   { label: "Skin 101", href: "/skin-101" },
   { label: "Financing", href: "/financing" },
   { label: "Blog", href: "/blog" },
