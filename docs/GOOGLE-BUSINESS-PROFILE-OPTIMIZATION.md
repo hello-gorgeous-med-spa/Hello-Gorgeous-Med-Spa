@@ -10,7 +10,30 @@ Use this checklist to optimize your Google Business Profile (GBP) for local SEO 
 >
 > We offer Botox ($10/unit), dermal fillers, medical weight loss (Semaglutide & Tirzepatide), hormone therapy (BioTE), peptide therapy, PRP/PRF, Morpheus8, Quantum RF, Solaria CO2 laser, laser hair removal, facials, IV therapy, and more. All under one roof with licensed medical oversight.
 >
-> Serving Oswego, Naperville, Aurora, Plainfield, Yorkville, and surrounding areas. Free consultations. Financing available (CareCredit, Cherry, Affirm).
+> Serving Oswego, Naperville, Aurora, Plainfield, Yorkville, and surrounding areas. Free consultations. Financing available (CareCredit, Cherry, Affirm). Contact: provider@hellogorgeousmedspa.com · (630) 636-6193.
+
+## NAP (Name · Address · Phone · Email)
+
+Keep Google Business Profile, website schema, and Maps listings identical:
+
+| Field | Value |
+|-------|--------|
+| Name | Hello Gorgeous Med Spa |
+| Address | 74 W. Washington St, Oswego, IL 60543 |
+| Phone | (630) 636-6193 |
+| **Email** | **provider@hellogorgeousmedspa.com** (not info@) |
+| Website | https://www.hellogorgeousmedspa.com |
+
+### Update email in Google Business Profile (Maps)
+
+Google’s Location API does **not** expose a dedicated public email field. Update the owner-facing contact email in the GBP UI:
+
+1. Open [business.google.com](https://business.google.com) → Hello Gorgeous Med Spa  
+2. **Edit profile** → **Contact** (or Business information → Email)  
+3. Set email to `provider@hellogorgeousmedspa.com` and save  
+4. Confirm the Maps listing / knowledge panel no longer shows `info@` anywhere (description, Q&A, posts)
+
+The website NAP/schema already uses `provider@hellogorgeousmedspa.com` via `lib/business-contact.ts` / `SITE.email`.
 
 ## Services to Add/Verify
 

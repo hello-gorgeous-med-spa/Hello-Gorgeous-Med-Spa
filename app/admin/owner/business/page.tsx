@@ -50,7 +50,7 @@ export default function BusinessSettingsPage() {
       state: 'IL',
       zip: '60601',
       phone: '(312) 555-0100',
-      email: 'info@hellogorgeousmedspa.com',
+      email: 'provider@hellogorgeousmedspa.com',
       is_primary: true,
       is_active: true,
     },
