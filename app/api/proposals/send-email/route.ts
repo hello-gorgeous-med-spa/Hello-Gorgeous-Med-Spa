@@ -17,42 +17,43 @@ function escapeHtml(value: string): string {
 }
 
 export async function POST(request: NextRequest) {
-  const session = await getAiConciergeStaffSession();
-  if (!session) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  try {
+    const session = await getAiConciergeStaffSession();
+    if (!session) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
-  const body = await request.json();
-  const proposalId = String(body?.proposalId || "");
-  const recipientEmail = String(body?.email || "").trim().toLowerCase();
-  if (!proposalId) return NextResponse.json({ error: "proposalId is required." }, { status: 400 });
+    const body = await request.json().catch(() => ({}));
+    const proposalId = String(body?.proposalId || "");
+    const recipientEmail = String(body?.email || "").trim().toLowerCase();
+    if (!proposalId) return NextResponse.json({ error: "proposalId is required." }, { status: 400 });
 
-  const supabase = createAdminSupabaseClient();
-  if (!supabase) return NextResponse.json({ error: "Database not configured" }, { status: 503 });
+    const supabase = createAdminSupabaseClient();
+    if (!supabase) return NextResponse.json({ error: "Database not configured" }, { status: 503 });
 
-  const { data, error } = await supabase.from("treatment_proposals").select("*").eq("id", proposalId).single();
-  if (error || !data) return NextResponse.json({ error: "Proposal not found." }, { status: 404 });
-  const proposal = data as TreatmentProposalRecord;
-  const publicId = proposal.public_id || crypto.randomUUID().replace(/-/g, "").slice(0, 20);
+    const { data, error } = await supabase.from("treatment_proposals").select("*").eq("id", proposalId).single();
+    if (error || !data) return NextResponse.json({ error: "Proposal not found." }, { status: 404 });
+    const proposal = data as TreatmentProposalRecord;
+    const publicId = proposal.public_id || crypto.randomUUID().replace(/-/g, "").slice(0, 20);
 
-  const to = recipientEmail || proposal.client_email || "";
-  if (!to) return NextResponse.json({ error: "Recipient email is required." }, { status: 400 });
+    const to = recipientEmail || proposal.client_email || "";
+    if (!to) return NextResponse.json({ error: "Recipient email is required." }, { status: 400 });
 
-  const apiKey = process.env.RESEND_API_KEY;
-  if (!apiKey) return NextResponse.json({ error: "RESEND_API_KEY is not configured." }, { status: 503 });
+    const apiKey = process.env.RESEND_API_KEY;
+    if (!apiKey) return NextResponse.json({ error: "RESEND_API_KEY is not configured." }, { status: 503 });
 
-  const resend = new Resend(apiKey);
-  const from = process.env.RESEND_FROM || `${SITE.name} <onboarding@resend.dev>`;
-  const pdfBytes = buildProposalPdf(proposal);
-  const base64Pdf = Buffer.from(pdfBytes).toString("base64");
-  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || SITE.url;
-  const proposalUrl = `${baseUrl}/proposals/${publicId}`;
-  const publicPdfUrl = `${baseUrl}/api/proposals/public/${publicId}/pdf`;
+    const resend = new Resend(apiKey);
+    const from = process.env.RESEND_FROM || `${SITE.name} <onboarding@resend.dev>`;
+    const pdfBytes = buildProposalPdf(proposal);
+    const base64Pdf = Buffer.from(pdfBytes).toString("base64");
+    const baseUrl = process.env.NEXT_PUBLIC_APP_URL || SITE.url;
+    const proposalUrl = `${baseUrl}/proposals/${publicId}`;
+    const publicPdfUrl = `${baseUrl}/api/proposals/public/${publicId}/pdf`;
 
-  const { error: sendError, data: sendData } = await resend.emails.send({
-    from,
-    to,
-    bcc: [SITE.email],
-    subject: "Your Personalized Treatment Plan | Hello Gorgeous Med Spa",
-    html: `
+    const { error: sendError, data: sendData } = await resend.emails.send({
+      from,
+      to,
+      bcc: [SITE.email],
+      subject: "Your Personalized Treatment Plan | Hello Gorgeous Med Spa",
+      html: `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
         <h1 style="color: #E6007E; margin-bottom: 10px;">Your treatment plan is ready</h1>
         <p style="font-size: 15px; color: #222;">
@@ -75,29 +76,34 @@ export async function POST(request: NextRequest) {
         </p>
       </div>
     `,
-    attachments: [
-      {
-        filename: `hello-gorgeous-treatment-plan-${proposal.client_name.toLowerCase().replace(/[^a-z0-9]+/g, "-")}.pdf`,
-        content: base64Pdf,
-      },
-    ],
-  });
+      attachments: [
+        {
+          filename: `hello-gorgeous-treatment-plan-${proposal.client_name.toLowerCase().replace(/[^a-z0-9]+/g, "-")}.pdf`,
+          content: base64Pdf,
+        },
+      ],
+    });
 
-  if (sendError) {
-    return NextResponse.json({ error: sendError.message || "Failed to send email." }, { status: 502 });
+    if (sendError) {
+      return NextResponse.json({ error: sendError.message || "Failed to send email." }, { status: 502 });
+    }
+
+    const pdfUrl = `${process.env.NEXT_PUBLIC_APP_URL || SITE.url}/api/proposals/${proposal.id}/pdf`;
+    await supabase
+      .from("treatment_proposals")
+      .update({
+        public_id: publicId,
+        status: "sent",
+        sent_at: new Date().toISOString(),
+        pdf_url: publicPdfUrl,
+        client_email: to,
+      })
+      .eq("id", proposal.id);
+
+    return NextResponse.json({ success: true, messageId: sendData?.id, pdfUrl, proposalUrl });
+  } catch (err) {
+    const message = err instanceof Error ? err.message : "Failed to send proposal email.";
+    console.error("[proposals/send-email]", err);
+    return NextResponse.json({ error: message }, { status: 500 });
   }
-
-  const pdfUrl = `${process.env.NEXT_PUBLIC_APP_URL || SITE.url}/api/proposals/${proposal.id}/pdf`;
-  await supabase
-    .from("treatment_proposals")
-    .update({
-      public_id: publicId,
-      status: "sent",
-      sent_at: new Date().toISOString(),
-      pdf_url: publicPdfUrl,
-      client_email: to,
-    })
-    .eq("id", proposal.id);
-
-  return NextResponse.json({ success: true, messageId: sendData?.id, pdfUrl, proposalUrl });
 }

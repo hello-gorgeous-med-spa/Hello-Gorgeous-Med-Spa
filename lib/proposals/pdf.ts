@@ -174,5 +174,6 @@ export function buildProposalPdf(proposal: TreatmentProposalRecord): Uint8Array 
   write(`Questions? Call ${SITE.phone}`, 12, "#000000");
   write(`Book online: ${SITE.url}/book`, 12, "#000000");
 
-  return doc.output("array");
+  // jsPDF 4.x: "array" returns null in Node — use arraybuffer (same as brow-mapping export).
+  return new Uint8Array(doc.output("arraybuffer"));
 }

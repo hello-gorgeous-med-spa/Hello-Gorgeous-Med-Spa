@@ -109,6 +109,30 @@ const CARE_BY_SERVICE_ID: Record<string, ProposalCareGuide> = {
     path: "/pre-post-care/weight-loss",
     description: "GLP-1 / medical weight loss care guide.",
   },
+  hydrafacial: {
+    id: "microneedling",
+    title: "Facial / Skin Treatments",
+    path: "/pre-post-care/microneedling",
+    description: "Skin treatment prep and aftercare guidance.",
+  },
+  "ipl-photofacial": {
+    id: "laser",
+    title: "Laser / Light Treatments",
+    path: "/pre-post-care/laser",
+    description: "Light-based treatment prep and aftercare.",
+  },
+  "ghk-cu-formulation-30": {
+    id: "prp-prf",
+    title: "Peptide / Regenerative Care",
+    path: "/pre-post-care/prp-prf",
+    description: "Supportive care notes for regenerative protocols.",
+  },
+  "ghk-cu-formulation-90": {
+    id: "prp-prf",
+    title: "Peptide / Regenerative Care",
+    path: "/pre-post-care/prp-prf",
+    description: "Supportive care notes for regenerative protocols.",
+  },
 };
 
 /** Extra Solaria guide when Transformation package is present. */

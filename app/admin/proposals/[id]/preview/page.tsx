@@ -27,6 +27,7 @@ export default function ProposalPreviewPage() {
   const [creatingPay, setCreatingPay] = useState<"deposit" | "full" | null>(null);
   const [optionIndex, setOptionIndex] = useState(1);
   const [customAmount, setCustomAmount] = useState("");
+  const [depositPercent, setDepositPercent] = useState(50);
   const [notice, setNotice] = useState<string | null>(null);
 
   const reload = async () => {
@@ -60,7 +61,8 @@ export default function ProposalPreviewPage() {
   const pdfHref = `/api/proposals/${params.id}/pdf`;
   const publicShareHref = proposal?.public_id ? `/proposals/${proposal.public_id}` : "";
   const selectedTotal = options[optionIndex] ? calculateTotal(options[optionIndex]) : 0;
-  const depositPreview = Math.round(selectedTotal * 0.5 * 100) / 100;
+  const safeDepositPercent = Math.min(100, Math.max(1, depositPercent || 50));
+  const depositPreview = Math.round(selectedTotal * (safeDepositPercent / 100) * 100) / 100;
 
   const copyShareLink = async () => {
     if (!publicShareHref) return;
@@ -73,6 +75,16 @@ export default function ProposalPreviewPage() {
     }
   };
 
+  const readJson = async (response: Response) => {
+    const text = await response.text();
+    if (!text.trim()) return {};
+    try {
+      return JSON.parse(text) as Record<string, unknown>;
+    } catch {
+      return { error: text.slice(0, 200) || "Invalid server response." };
+    }
+  };
+
   const sendEmail = async () => {
     setNotice(null);
     setSendingEmail(true);
@@ -82,8 +94,8 @@ export default function ProposalPreviewPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ proposalId: params.id, email }),
       });
-      const data = await response.json();
-      if (!response.ok) throw new Error(data.error || "Failed to send email.");
+      const data = await readJson(response);
+      if (!response.ok) throw new Error(String(data.error || "Failed to send email."));
       setNotice("Proposal email sent successfully.");
     } catch (sendError) {
       setNotice(sendError instanceof Error ? sendError.message : "Failed to send email.");
@@ -101,8 +113,8 @@ export default function ProposalPreviewPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ proposalId: params.id, phone }),
       });
-      const data = await response.json();
-      if (!response.ok) throw new Error(data.error || "Failed to send SMS.");
+      const data = await readJson(response);
+      if (!response.ok) throw new Error(String(data.error || "Failed to send SMS."));
       setNotice("Proposal SMS sent successfully.");
     } catch (sendError) {
       setNotice(sendError instanceof Error ? sendError.message : "Failed to send SMS.");
@@ -144,7 +156,11 @@ export default function ProposalPreviewPage() {
     setNotice(null);
     setCreatingPay(kind);
     try {
-      const body: Record<string, unknown> = { kind, optionIndex };
+      const body: Record<string, unknown> = {
+        kind,
+        optionIndex,
+        depositPercent: safeDepositPercent,
+      };
       const custom = Number(customAmount);
       if (customAmount.trim() && Number.isFinite(custom) && custom > 0) {
         body.amountUsd = custom;
@@ -286,7 +302,7 @@ export default function ProposalPreviewPage() {
           <p className="mt-1 text-sm text-black/70">
             Creates a Square Payment Link, logs it in the RX payment ledger, and marks this proposal paid when Square webhooks fire.
           </p>
-          <div className="mt-3 grid gap-3 md:grid-cols-3">
+          <div className="mt-3 grid gap-3 md:grid-cols-4">
             <div>
               <label className="text-xs font-semibold uppercase tracking-wide text-black/70">Plan to charge</label>
               <select
@@ -302,6 +318,17 @@ export default function ProposalPreviewPage() {
               </select>
             </div>
             <div>
+              <label className="text-xs font-semibold uppercase tracking-wide text-black/70">Deposit %</label>
+              <input
+                type="number"
+                min={1}
+                max={100}
+                value={depositPercent}
+                onChange={(event) => setDepositPercent(Number(event.target.value) || 50)}
+                className="mt-1 w-full rounded-lg border border-black/20 bg-white px-3 py-2 text-sm"
+              />
+            </div>
+            <div>
               <label className="text-xs font-semibold uppercase tracking-wide text-black/70">Custom amount (optional)</label>
               <input
                 type="number"
@@ -309,7 +336,7 @@ export default function ProposalPreviewPage() {
                 step={1}
                 value={customAmount}
                 onChange={(event) => setCustomAmount(event.target.value)}
-                placeholder={`Deposit default $${depositPreview.toFixed(0)}`}
+                placeholder={`Deposit $${depositPreview.toFixed(0)}`}
                 className="mt-1 w-full rounded-lg border border-black/20 bg-white px-3 py-2 text-sm"
               />
             </div>
@@ -320,7 +347,9 @@ export default function ProposalPreviewPage() {
                 onClick={() => void createPayment("deposit")}
                 className="rounded-full border-2 border-black bg-white px-4 py-2 text-xs font-bold text-black disabled:opacity-50"
               >
-                {creatingPay === "deposit" ? "Creating…" : `Pay deposit (50% · $${depositPreview.toFixed(0)})`}
+                {creatingPay === "deposit"
+                  ? "Creating…"
+                  : `Pay deposit (${safeDepositPercent}% · $${depositPreview.toFixed(0)})`}
               </button>
               <button
                 type="button"

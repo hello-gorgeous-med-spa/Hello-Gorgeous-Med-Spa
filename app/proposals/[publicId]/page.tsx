@@ -13,6 +13,7 @@ import type { ProposalMediaItem } from "@/lib/proposals/types";
 import { ProposalCredibilityBand } from "@/components/proposals/ProposalCredibilityBand";
 import { careGuidesForProposalOptions } from "@/lib/proposals/care-guides";
 import { SITE } from "@/lib/seo";
+import { CARECREDIT_URL, CHERRY_PAY_URL } from "@/lib/flows";
 
 type PublicProposal = {
   id: string;
@@ -226,6 +227,34 @@ export default function PublicProposalPage() {
               </div>
             </>
           )}
+
+          <div className="mt-5 rounded-xl border border-black/15 bg-[#FFF0F7] p-4">
+            <p className="text-xs font-bold uppercase tracking-wide text-[#E6007E]">Flexible financing</p>
+            <p className="mt-1 text-sm text-black/80">
+              Prefer monthly payments? Apply for Cherry or CareCredit — many clients use financing for packages and series plans.
+            </p>
+            <div className="mt-3 flex flex-wrap gap-2">
+              <a
+                href={CHERRY_PAY_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="rounded-full bg-black px-4 py-2 text-xs font-bold text-white"
+              >
+                Apply with Cherry
+              </a>
+              <a
+                href={CARECREDIT_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="rounded-full border-2 border-black bg-white px-4 py-2 text-xs font-bold text-black"
+              >
+                Apply with CareCredit
+              </a>
+              <a href="/financing" className="rounded-full border border-black/30 px-4 py-2 text-xs font-bold text-black/80">
+                Financing details
+              </a>
+            </div>
+          </div>
         </section>
 
         <p className="mt-5 text-xs text-black/55">

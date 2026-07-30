@@ -1,8 +1,3 @@
-/**
- * Client-facing credibility / education blocks for treatment proposals.
- * Pulled from flagship Journey marketing so proposals explain *why*, not only price.
- */
-
 import {
   MORPHEUS8_INMODE_STORY,
   MORPHEUS8_MARKETING,
@@ -16,6 +11,11 @@ import {
   SOLARIA_MARKETING,
   SOLARIA_WHAT_IT_DOES,
 } from "@/lib/solaria-marketing";
+import {
+  QUANTUM_RF_MARKETING,
+  QUANTUM_RF_PATH,
+  QUANTUM_RF_WHAT_IT_DOES,
+} from "@/lib/quantum-rf-marketing";
 import type { ProposalOption } from "@/lib/proposals/utils";
 
 export type ProposalCredibilityPillar = {
@@ -26,7 +26,7 @@ export type ProposalCredibilityPillar = {
 };
 
 export type ProposalCredibilityBlock = {
-  id: "morpheus8" | "solaria" | "clinic";
+  id: "morpheus8" | "solaria" | "quantum" | "clinic" | "injectables" | "weight-loss";
   eyebrow: string;
   title: string;
   summary: string;
@@ -67,12 +67,29 @@ export function proposalIncludesSolaria(options: ProposalOption[]): boolean {
   );
 }
 
+export function proposalIncludesQuantum(options: ProposalOption[]): boolean {
+  return serviceIdsFromOptions(options).has("quantum-rf");
+}
+
+export function proposalIncludesInjectables(options: ProposalOption[]): boolean {
+  const ids = serviceIdsFromOptions(options);
+  return ["botox", "dysport", "dermal-filler", "lip-filler"].some((id) => ids.has(id));
+}
+
+export function proposalIncludesWeightLoss(options: ProposalOption[]): boolean {
+  const ids = serviceIdsFromOptions(options);
+  return [...ids].some((id) => id.startsWith("glp1-") || id === "hormone-therapy");
+}
+
 export function getProposalCredibilityBlocks(options: ProposalOption[]): ProposalCredibilityBlock[] {
   const blocks: ProposalCredibilityBlock[] = [];
   const hasM8 = proposalIncludesMorpheus8(options);
   const hasSolaria = proposalIncludesSolaria(options);
+  const hasQuantum = proposalIncludesQuantum(options);
+  const hasInjectables = proposalIncludesInjectables(options);
+  const hasWeightLoss = proposalIncludesWeightLoss(options);
 
-  if (hasM8 || hasSolaria) {
+  if (hasM8 || hasSolaria || hasQuantum) {
     blocks.push({
       id: "clinic",
       eyebrow: "Why Hello Gorgeous",
@@ -82,7 +99,7 @@ export function getProposalCredibilityBlocks(options: ProposalOption[]): Proposa
       trustLine: MORPHEUS8_MARKETING.trustLine,
       pillars: [],
       chips: [...MORPHEUS8_INMODE_STORY.chips],
-      learnMoreHref: hasM8 ? MORPHEUS8_PATH : SOLARIA_CO2_PATH,
+      learnMoreHref: hasM8 ? MORPHEUS8_PATH : hasSolaria ? SOLARIA_CO2_PATH : QUANTUM_RF_PATH,
       imageSrc: MORPHEUS8_MARKETING.images.verified,
       imageAlt: "InMode Verified Provider — Morpheus8 Burst at Hello Gorgeous Med Spa",
     });
@@ -128,6 +145,78 @@ export function getProposalCredibilityBlocks(options: ProposalOption[]): Proposa
       learnMoreHref: SOLARIA_CO2_PATH,
       imageSrc: SOLARIA_MARKETING.images.device,
       imageAlt: "InMode Solaria CO₂ laser at Hello Gorgeous",
+    });
+  }
+
+  if (hasQuantum) {
+    blocks.push({
+      id: "quantum",
+      eyebrow: QUANTUM_RF_MARKETING.eyebrow,
+      title: "What Quantum RF does",
+      summary: QUANTUM_RF_MARKETING.subhead,
+      trustLine: QUANTUM_RF_MARKETING.trustLine,
+      pillars: QUANTUM_RF_WHAT_IT_DOES.map((item) => ({
+        title: item.title,
+        body: item.body,
+        stat: item.stat,
+        statLabel: item.statLabel,
+      })),
+      chips: ["Body contour", "Skin tighten", "In-office", "Trifecta-ready"],
+      learnMoreHref: QUANTUM_RF_PATH,
+    });
+  }
+
+  if (hasInjectables) {
+    blocks.push({
+      id: "injectables",
+      eyebrow: "Injectables · NP on site",
+      title: "Neurotoxins & fillers, medically directed",
+      summary:
+        "Botox, Dysport, and hyaluronic acid fillers are planned around your goals — with candid dosing, facial balance, and follow-up built into the Hello Gorgeous process.",
+      trustLine: "On-site nurse practitioner oversight — not remote chart sign-off alone.",
+      pillars: [
+        {
+          title: "Custom mapping",
+          body: "Units and syringe plans are individualized — never a one-size menu push.",
+          stat: "1:1",
+          statLabel: "consult",
+        },
+        {
+          title: "Safety first",
+          body: "Medical history, contraindications, and aftercare are reviewed before we inject.",
+          stat: "MD/NP",
+          statLabel: "oversight",
+        },
+      ],
+      chips: ["Botox / Dysport", "Lips & contour", "Natural balance"],
+      learnMoreHref: "/services/injectables",
+    });
+  }
+
+  if (hasWeightLoss) {
+    blocks.push({
+      id: "weight-loss",
+      eyebrow: "Medical weight loss",
+      title: "GLP-1 programs with clinical follow-through",
+      summary:
+        "Semaglutide and tirzepatide plans include medication at published dose tiers, labs, and ongoing oversight — not a vial-and-hope approach.",
+      trustLine: "NP evaluation first. Dose and pricing follow your clinical plan.",
+      pillars: [
+        {
+          title: "Dose-based pricing",
+          body: "Monthly cost scales with weekly dose — transparent tiers after evaluation.",
+          stat: "Tiered",
+          statLabel: "pricing",
+        },
+        {
+          title: "Ongoing support",
+          body: "Labs, coaching touchpoints, and reorder check-ins keep your plan safe and on track.",
+          stat: "Care",
+          statLabel: "included",
+        },
+      ],
+      chips: ["Semaglutide", "Tirzepatide", "NP-led"],
+      learnMoreHref: "/glp1-weight-loss",
     });
   }
 
