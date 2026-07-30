@@ -73,7 +73,14 @@ export function HomepageLookbookPageContent() {
                   What are you looking for?
                 </h2>
                 <p className="mt-3 text-base leading-relaxed text-black/65 sm:text-lg">
-                  Same lookbook as our Services page — tap a piece, or browse the full atlas.
+                  Same lookbook as our Services page — tap a piece, or{" "}
+                  <Link
+                    href="/build-your-proposal"
+                    className="font-semibold text-[#E6007E] underline decoration-[#E6007E]/35 underline-offset-4 hover:decoration-[#E6007E]"
+                  >
+                    build a treatment proposal
+                  </Link>{" "}
+                  for a live estimate.
                 </p>
               </div>
               <CTA href={SERVICES_HUB_PATH} variant="gradient">

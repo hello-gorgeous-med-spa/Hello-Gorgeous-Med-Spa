@@ -22,6 +22,7 @@ export type TreatmentProposalRecord = {
   client_name: string;
   client_email: string | null;
   client_phone: string | null;
+  client_id?: string | null;
   created_by: string;
   created_at: string;
   updated_at: string;

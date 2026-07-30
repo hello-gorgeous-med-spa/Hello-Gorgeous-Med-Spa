@@ -1,5 +1,7 @@
 export { HeroV3 } from "./HeroV3";
 export { HomepageLookbookPageContent } from "./HomepageLookbookPageContent";
+export { BuildYourProposalHomeInvite } from "./BuildYourProposalHomeInvite";
+export { BuildYourProposalScrollCue } from "./BuildYourProposalScrollCue";
 export { HomepageMedicalLane } from "./HomepageMedicalLane";
 export { HomepageAestheticsLane } from "./HomepageAestheticsLane";
 export { HomepageMedicalStickyBar } from "./HomepageMedicalStickyBar";

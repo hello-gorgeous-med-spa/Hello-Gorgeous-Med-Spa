@@ -75,3 +75,19 @@ export async function PATCH(request: NextRequest, context: RouteContext) {
 
   return NextResponse.json({ proposal: data });
 }
+
+export async function DELETE(_: NextRequest, context: RouteContext) {
+  const session = await getAiConciergeStaffSession();
+  if (!session) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+
+  const { id } = await context.params;
+  if (!id) return NextResponse.json({ error: "Proposal id is required." }, { status: 400 });
+
+  const supabase = createAdminSupabaseClient();
+  if (!supabase) return NextResponse.json({ error: "Database not configured" }, { status: 503 });
+
+  const { error } = await supabase.from("treatment_proposals").delete().eq("id", id);
+  if (error) return NextResponse.json({ error: error.message }, { status: 500 });
+
+  return NextResponse.json({ ok: true });
+}

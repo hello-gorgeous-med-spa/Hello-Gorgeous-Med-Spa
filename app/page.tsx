@@ -1,6 +1,11 @@
 import { Metadata } from "next";
 import { MdOversightWelcomeBand } from "@/components/MdOversightWelcomeBand";
-import { HeroV3, HomepageLookbookPageContent } from "@/components/homepage-v3";
+import {
+  BuildYourProposalHomeInvite,
+  BuildYourProposalScrollCue,
+  HeroV3,
+  HomepageLookbookPageContent,
+} from "@/components/homepage-v3";
 import { aroraPersonJsonLd } from "@/lib/medical-trust";
 import {
   SITE,
@@ -145,7 +150,9 @@ export default function HomePage() {
       <main>
         <HeroV3 />
         <MdOversightWelcomeBand />
+        <BuildYourProposalHomeInvite />
         <HomepageLookbookPageContent />
+        <BuildYourProposalScrollCue />
       </main>
     </>
   );

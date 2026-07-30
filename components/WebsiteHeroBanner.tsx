@@ -9,6 +9,7 @@ import {
   WEBSITE_HERO_SEGMENTS,
   type WebsiteHeroSegment,
 } from "@/lib/website-hero";
+import { BUILD_YOUR_PROPOSAL_PATH } from "@/lib/build-your-proposal-marketing";
 
 const PINK = "#FF2D8E";
 
@@ -259,20 +260,28 @@ export default function WebsiteHeroBanner({ variant = "home", className = "" }: 
       </div>
 
       {!isApp ? (
-        <div className="absolute z-10 right-4 bottom-3 flex flex-col items-end gap-2 sm:right-6 sm:bottom-4 sm:flex-row sm:items-center sm:gap-4">
+        <div className="absolute z-10 right-4 bottom-3 flex flex-col items-end gap-1.5 sm:right-6 sm:bottom-4 sm:gap-2">
+          <div className="flex flex-col items-end gap-2 sm:flex-row sm:items-center sm:gap-4">
+            <Link
+              href={PRIMARY_BOOKING_CTA.href}
+              className="inline-flex items-center rounded-full px-4 py-2 text-[11px] font-bold uppercase tracking-[0.12em] text-white shadow-[0_10px_28px_rgba(255,45,142,0.4)] transition hover:brightness-110 sm:px-5 sm:py-2.5 sm:text-xs"
+              style={{ background: PINK }}
+            >
+              Book Free Consult
+            </Link>
+            <a
+              href={WEBSITE_HERO_PHONE_HREF}
+              className="text-sm font-semibold text-white sm:text-base"
+            >
+              {WEBSITE_HERO_PHONE_DISPLAY}
+            </a>
+          </div>
           <Link
-            href={PRIMARY_BOOKING_CTA.href}
-            className="inline-flex items-center rounded-full px-4 py-2 text-[11px] font-bold uppercase tracking-[0.12em] text-white shadow-[0_10px_28px_rgba(255,45,142,0.4)] transition hover:brightness-110 sm:px-5 sm:py-2.5 sm:text-xs"
-            style={{ background: PINK }}
+            href={BUILD_YOUR_PROPOSAL_PATH}
+            className="text-[10px] font-semibold uppercase tracking-[0.16em] text-white/65 transition hover:text-[#FFB8DC] sm:text-[11px]"
           >
-            Book Free Consult
+            Or build your proposal →
           </Link>
-          <a
-            href={WEBSITE_HERO_PHONE_HREF}
-            className="text-sm font-semibold text-white sm:text-base"
-          >
-            {WEBSITE_HERO_PHONE_DISPLAY}
-          </a>
         </div>
       ) : null}
 
