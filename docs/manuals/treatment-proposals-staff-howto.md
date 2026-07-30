@@ -206,4 +206,5 @@ Square still labels these **Payment type: Proposal**.
 | Public self-serve builder | `/build-your-proposal` |
 | RX invoice (Proposals track) | `/admin/rx-invoices` |
 | This how-to (HTML) | `/staff/protocols/guides/Treatment-Proposals-Staff-How-To.html` |
+| How to sell packages | `/staff/protocols/guides/InMode-Packages-How-To-Sell.html` |
 | Vitamin Bar (client) | `/vitamin-bar` |
