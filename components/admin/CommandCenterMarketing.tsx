@@ -37,6 +37,7 @@ export default function CommandCenterMarketing({ isOwner, onToast }: Props) {
   const [lauraModal, setLauraModal] = useState(false);
   const [lauraCode, setLauraCode] = useState("");
   const [lauraErr, setLauraErr] = useState(false);
+  const [lauraErrMsg, setLauraErrMsg] = useState("");
   const [lauraUnlocked, setLauraUnlocked] = useState(isOwner);
   const [hours, setHours] = useState<CcLauraHour[]>([]);
   const [weekChecks, setWeekChecks] = useState<Record<string, boolean>>({});
@@ -79,13 +80,24 @@ export default function CommandCenterMarketing({ isOwner, onToast }: Props) {
 
   async function unlockLaura() {
     setLauraErr(false);
+    setLauraErrMsg("");
     const res = await fetch("/api/admin/command-center/laura", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ action: "unlock", code: lauraCode.trim() }),
+      credentials: "same-origin",
     });
     if (!res.ok) {
-      setLauraErr(true);
+      if (res.status === 401) {
+        setLauraErrMsg("Session expired — sign in again at /login, then retry.");
+      } else if (res.status === 403) {
+        setLauraErr(true);
+      } else {
+        const j = await res.json().catch(() => ({}));
+        setLauraErrMsg(
+          typeof j.error === "string" ? j.error : "Could not unlock — try again.",
+        );
+      }
       return;
     }
     setLauraModal(false);
@@ -314,6 +326,7 @@ export default function CommandCenterMarketing({ isOwner, onToast }: Props) {
             onClick={() => {
               setLauraModal(true);
               setLauraErr(false);
+              setLauraErrMsg("");
               setLauraCode("");
             }}
             className="text-white border-none rounded-[10px] px-6 py-3 text-sm font-bold cursor-pointer"
@@ -517,15 +530,24 @@ export default function CommandCenterMarketing({ isOwner, onToast }: Props) {
               onChange={(e) => {
                 setLauraCode(e.target.value);
                 setLauraErr(false);
+                setLauraErrMsg("");
+              }}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  e.preventDefault();
+                  void unlockLaura();
+                }
               }}
               type="password"
               inputMode="numeric"
+              autoComplete="one-time-code"
               placeholder="Access code"
               className="w-full text-center tracking-[0.3em] text-lg border-2 border-black rounded-xl px-3 py-3 mb-2.5"
+              autoFocus
             />
-            {lauraErr && (
+            {(lauraErr || lauraErrMsg) && (
               <div className="text-[#dc2626] text-[12.5px] font-bold mb-2.5">
-                Incorrect code — try again.
+                {lauraErrMsg || "Incorrect code — try again."}
               </div>
             )}
             <div className="flex gap-2.5 mt-1.5">
