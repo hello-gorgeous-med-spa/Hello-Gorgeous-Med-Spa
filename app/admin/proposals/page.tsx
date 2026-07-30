@@ -45,6 +45,14 @@ export default function ProposalsListPage() {
         </div>
         <div className="flex flex-wrap items-center gap-2">
           <a
+            href="/staff/protocols/guides/InMode-Packages-How-To-Sell.html"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="rounded-full border-2 border-black bg-[#FFF0F7] px-4 py-2.5 text-sm font-bold text-black"
+          >
+            How to sell packages
+          </a>
+          <a
             href="/staff/protocols/guides/Treatment-Proposals-Staff-How-To.html"
             target="_blank"
             rel="noopener noreferrer"

@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>How to Sell InMode Packages | Hello Gorgeous Staff</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: system-ui, -apple-system, sans-serif; color: #111; background: #fafafa; line-height: 1.45; }
+    .toolbar { position: sticky; top: 0; z-index: 10; background: #fff; border-bottom: 3px solid #000; padding: 12px 20px; display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+    .toolbar p { margin: 0; font-size: 13px; font-weight: 600; }
+    .toolbar a, .toolbar button { background: #E6007E; color: #fff; border: 2px solid #000; border-radius: 999px; padding: 10px 16px; font-weight: 700; cursor: pointer; font-size: 13px; text-decoration: none; display: inline-block; }
+    .toolbar a.ghost { background: #fff; color: #000; }
+    .sheet { max-width: 8.5in; margin: 20px auto 40px; background: #fff; border: 4px solid #000; box-shadow: 8px 8px 0 rgba(230,0,126,.28); }
+    .header { padding: 22px 24px; background: linear-gradient(125deg, #FF2D8E 0%, #E6007E 45%, #9b0a4d 100%); color: #fff; border-bottom: 4px solid #000; }
+    .header .eyebrow { margin: 0; font-size: 10px; font-weight: 800; letter-spacing: .2em; text-transform: uppercase; opacity: .92; }
+    .header h1 { margin: 8px 0 0; font-size: 24px; font-weight: 900; line-height: 1.15; }
+    .header .sub { margin: 8px 0 0; font-size: 13px; opacity: .95; }
+    .intro { padding: 14px 24px; background: #FFF0F7; border-bottom: 4px solid #000; font-size: 13px; }
+    .intro p { margin: 0; }
+    .pkgs { display: grid; grid-template-columns: 1fr 1fr; border-bottom: 4px solid #000; }
+    .pkg { padding: 16px 18px; border-right: 1px solid rgba(0,0,0,.12); }
+    .pkg:last-child { border-right: none; background: #FFF0F7; }
+    .pkg .tag { font-size: 10px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: #E6007E; margin: 0; }
+    .pkg h2 { margin: 4px 0 0; font-size: 18px; font-weight: 900; }
+    .pkg .price { margin: 6px 0 0; font-size: 28px; font-weight: 900; color: #E6007E; }
+    .pkg ul { margin: 10px 0 0; padding-left: 18px; font-size: 12px; }
+    .pkg li { margin-bottom: 4px; }
+    .pkg .math { margin-top: 10px; padding: 8px 10px; border: 2px solid #000; border-radius: 10px; background: #fff; font-size: 11px; }
+    section.block { padding: 16px 24px; border-bottom: 4px solid #000; }
+    section.block:last-of-type { border-bottom: none; }
+    section.block h2 { margin: 0 0 8px; font-size: 14px; font-weight: 900; color: #E6007E; text-transform: uppercase; letter-spacing: .06em; }
+    section.block h3 { margin: 12px 0 4px; font-size: 13px; font-weight: 800; }
+    section.block p, section.block li { font-size: 12.5px; }
+    section.block ul, section.block ol { margin: 6px 0 0; padding-left: 18px; }
+    section.block li { margin-bottom: 3px; }
+    table { width: 100%; border-collapse: collapse; font-size: 11.5px; margin-top: 8px; }
+    th, td { border: 2px solid #000; padding: 7px 9px; text-align: left; vertical-align: top; }
+    th { background: #FFF0F7; font-weight: 800; }
+    .say { margin-top: 8px; padding: 10px 12px; border: 2px solid #000; background: #FFF0F7; border-radius: 12px; box-shadow: 3px 3px 0 rgba(230,0,126,.22); font-size: 12px; }
+    .say strong { color: #E6007E; }
+    .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .card { border: 2px solid #000; border-radius: 12px; padding: 10px 12px; background: #fff; }
+    .card h3 { margin: 0 0 4px; font-size: 12px; color: #E6007E; }
+    .card p { margin: 0; font-size: 11.5px; }
+    .oneliner { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 8px; }
+    .chip { border: 2px solid #000; border-radius: 12px; padding: 8px; text-align: center; background: #FFF0F7; }
+    .chip .lbl { font-size: 9px; font-weight: 800; text-transform: uppercase; letter-spacing: .08em; color: rgba(0,0,0,.5); }
+    .chip .val { font-size: 15px; font-weight: 900; color: #E6007E; margin-top: 2px; }
+    .chip .meta { font-size: 10px; color: rgba(0,0,0,.65); margin-top: 2px; }
+    .footer { padding: 12px 24px; font-size: 11px; color: rgba(0,0,0,.55); }
+    a { color: #E6007E; font-weight: 700; }
+    @media print {
+      .toolbar { display: none; }
+      body { background: #fff; }
+      .sheet { margin: 0; box-shadow: none; }
+    }
+    @media (max-width: 700px) {
+      .pkgs, .grid2, .oneliner { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="toolbar">
+    <p>Hello Gorgeous · How to sell Morpheus8 + Solaria packages</p>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;">
+      <a class="ghost" href="/admin/proposals">Open proposals</a>
+      <a class="ghost" href="/staff/protocols/guides/Treatment-Proposals-Staff-How-To.html">Tool how-to</a>
+      <button type="button" onclick="window.print()">Print</button>
+    </div>
+  </div>
+
+  <article class="sheet">
+    <header class="header">
+      <p class="eyebrow">Staff sell sheet · InMode Trifecta</p>
+      <h1>How to Sell the Packages</h1>
+      <p class="sub">Transformation $2,400 · Ultimate $3,000 · Morpheus8 3-pack · Solaria $899 — scripts, math, objections, close</p>
+    </header>
+
+    <div class="intro">
+      <p>
+        Sell <strong>technology + series + care</strong> — never promise a specific outcome.
+        Put every quote on a <strong>treatment proposal</strong>, take a deposit or Cherry, send care guides.
+      </p>
+    </div>
+
+    <div class="pkgs">
+      <div class="pkg">
+        <p class="tag">Face hero</p>
+        <h2>Transformation</h2>
+        <div class="price">$2,400</div>
+        <ul>
+          <li><strong>3× Morpheus8 Burst</strong> — deep RF for laxity, scars, texture</li>
+          <li><strong>1× Solaria CO₂</strong> full face — surface renewal &amp; tone</li>
+        </ul>
+        <div class="math">
+          <strong>À la carte math:</strong> 3× M8 face (~$800–850) + Solaria $899 ≈ <strong>$3,300–$3,450+</strong>.
+          Package saves roughly <strong>$900–$1,000+</strong>.
+        </div>
+      </div>
+      <div class="pkg">
+        <p class="tag">Body hero</p>
+        <h2>Ultimate</h2>
+        <div class="price">$3,000</div>
+        <ul>
+          <li><strong>3× Morpheus8</strong> on body area 1 (abdomen, arms, thighs…)</li>
+          <li><strong>3× Morpheus8</strong> on body area 2</li>
+        </ul>
+        <div class="math">
+          <strong>À la carte math:</strong> body sessions ~$1,200 × 6 ≈ <strong>$7,200</strong>.
+          Package locks the full two-area series at <strong>$3,000</strong>.
+        </div>
+      </div>
+    </div>
+
+    <section class="block">
+      <h2>Also know</h2>
+      <div class="oneliner">
+        <div class="chip"><div class="lbl">M8 3-pack</div><div class="val">$1,999</div><div class="meta">Series, no laser</div></div>
+        <div class="chip"><div class="lbl">M8 face single</div><div class="val">$799+</div><div class="meta">Step-in / trial</div></div>
+        <div class="chip"><div class="lbl">Solaria face</div><div class="val">$899</div><div class="meta">+ BOGO area when on</div></div>
+        <div class="chip"><div class="lbl">Exosomes</div><div class="val">+$250</div><div class="meta">Healing add-on</div></div>
+      </div>
+    </section>
+
+    <section class="block">
+      <h2>90-second framework</h2>
+      <ol>
+        <li><strong>Mirror</strong> their goal (jowls, scars, post-GLP skin, tone).</li>
+        <li><strong>Name the tech</strong> — InMode verified · Burst + Deep · Solaria · NP-directed.</li>
+        <li><strong>Why a series</strong> — collagen builds over months; one visit rarely finishes it.</li>
+        <li><strong>Put the package</strong> — Transformation (face) or Ultimate (body).</li>
+        <li><strong>Show the math</strong> once — then proposal + deposit or Cherry.</li>
+      </ol>
+    </section>
+
+    <section class="block">
+      <h2>Scripts — say this</h2>
+
+      <h3>Face → Transformation</h3>
+      <div class="say">
+        <strong>Say:</strong>
+        “For face tightening and texture we use <strong>Morpheus8 Burst</strong> — real InMode RF, usually a series of three about six weeks apart.
+        If you also want the surface renewed — tone, sun damage, that new-skin look — we add one <strong>Solaria CO₂</strong> full face.
+        That’s our <strong>Transformation Package at $2,400</strong> — instead of roughly thirty-three hundred booking them separate.”
+      </div>
+
+      <h3>Body → Ultimate</h3>
+      <div class="say">
+        <strong>Say:</strong>
+        “Body skin is different than face. The <strong>Ultimate Package is $3,000</strong> for a Morpheus8 series on <strong>two body areas</strong>.
+        Doing those one-off is thousands more — the package is how we finish the series.”
+      </div>
+
+      <h3>Morpheus8 3-pack only</h3>
+      <div class="say">
+        <strong>Say:</strong>
+        “If we’re focused on one zone and don’t need laser yet, the <strong>three-session Morpheus8 package at $1,999</strong> is the cleanest way to commit to remodeling.”
+      </div>
+
+      <h3>Solaria alone</h3>
+      <div class="say">
+        <strong>Say:</strong>
+        “Solaria is our fractional CO₂ — resurfacing for wrinkles, acne scars, sun damage, tone. Full face is <strong>$899</strong>
+        (BOGO area when the special is on). Downtime is real — we map your calendar.
+        If you also have laxity, we usually put <strong>Morpheus8 underneath</strong> and Solaria on top — that’s Transformation.”
+      </div>
+
+      <h3>Why both (Trifecta line)</h3>
+      <div class="say">
+        <strong>Say:</strong>
+        “Morpheus8 remodels <em>under</em> the skin. Solaria refreshes the <em>surface</em>.
+        Doing only one leaves half the story unfinished for a lot of clients who want that full renewed look.”
+      </div>
+
+      <h3>Close</h3>
+      <div class="say">
+        <strong>Say:</strong>
+        “I’ll put this on a treatment proposal you can open on your phone.
+        We can take a <strong>deposit today</strong> on Square — or apply with <strong>Cherry</strong> if monthly feels better.”
+      </div>
+    </section>
+
+    <section class="block">
+      <h2>Match client → offer</h2>
+      <table>
+        <tr><th>They care about…</th><th>Lead with</th></tr>
+        <tr><td>Jowls, jawline, face laxity, pores, acne scars</td><td>Transformation or M8 3-pack</td></tr>
+        <tr><td>Sun damage, deep lines, “new skin,” surface texture</td><td>Solaria (± Transformation if also lax)</td></tr>
+        <tr><td>Face + “I want the full plan”</td><td>Transformation + exosomes + vitamin plan</td></tr>
+        <tr><td>Abdomen / arms / thighs after weight loss</td><td>Ultimate</td></tr>
+        <tr><td>Budget / first energy treatment</td><td>Single M8 face → convert to 3-pack</td></tr>
+      </table>
+    </section>
+
+    <section class="block">
+      <h2>Objection handlers</h2>
+      <table>
+        <tr><th>They say</th><th>You say</th></tr>
+        <tr><td>“That’s expensive.”</td><td>“Vs session-by-session, Transformation saves about <strong>$900+</strong>. Want the breakdown on a proposal?”</td></tr>
+        <tr><td>“Can I just do one?”</td><td>“Yes — from about $799 face. Collagen is a <strong>series sport</strong>; most people who love the result finished three.”</td></tr>
+        <tr><td>“Downtime?”</td><td>“Morpheus8 is usually days. <strong>Solaria</strong> needs a planned week — we map it honestly at consult.”</td></tr>
+        <tr><td>“Cheaper online.”</td><td>“Ask what device. We’re <strong>InMode verified</strong> with Burst + Deep and the full Trifecta under an NP.”</td></tr>
+        <tr><td>“I’ll think about it.”</td><td>“I’ll send the proposal link. A deposit holds package pricing if you want it locked.”</td></tr>
+        <tr><td>“Same as microneedling?”</td><td>“Classic needling is surface. Morpheus8 adds <strong>RF through the needles</strong> — deeper remodeling lane.”</td></tr>
+      </table>
+    </section>
+
+    <section class="block">
+      <h2>Upsells after they say yes</h2>
+      <div class="grid2">
+        <div class="card">
+          <h3>Exosomes · +$250 / session</h3>
+          <p>AnteAGE advanced healing on treatment day — especially with M8 or Solaria.</p>
+        </div>
+        <div class="card">
+          <h3>Vitamins while treating</h3>
+          <p>Visits ~6 weeks apart. Buy 4 get 2 free → <strong>$100 / $200 / $300</strong> for 1 / 2 / 3-month plans.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="block">
+      <h2>Close in the proposal tool</h2>
+      <ol>
+        <li>Admin → Proposals → <strong>+ New</strong></li>
+        <li>Quick-add <strong>Transformation</strong> or <strong>Ultimate</strong></li>
+        <li>Optional: exosomes, vitamin plan</li>
+        <li><strong>Auto-generate</strong> → save → Preview</li>
+        <li>Email/SMS link · Square deposit · Cherry · care guides</li>
+      </ol>
+      <p style="margin-top:8px;font-size:12px;">
+        Tool walkthrough:
+        <a href="/staff/protocols/guides/Treatment-Proposals-Staff-How-To.html">Treatment Proposals Staff How-To</a>
+      </p>
+    </section>
+
+    <section class="block">
+      <h2>Timeline (process — not results)</h2>
+      <ul>
+        <li>Morpheus8 series: typically <strong>3 visits · ~4–6 weeks apart</strong></li>
+        <li>Collagen remodeling continues for <strong>months</strong></li>
+        <li>Solaria: plan social downtime at consult (often ~1 week light; longer if deeper)</li>
+      </ul>
+    </section>
+
+    <section class="block">
+      <h2>Do / don’t</h2>
+      <div class="grid2">
+        <div class="card">
+          <h3>Do</h3>
+          <p>Use package names · show math once · always send a proposal · be honest about Solaria downtime · upsell exosomes + vitamins after yes.</p>
+        </div>
+        <div class="card">
+          <h3>Don’t</h3>
+          <p>Guarantee outcomes · bash competitors by name · leave only a verbal quote · undersell downtime · forget InMode verified + NP trust line.</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="footer">
+      Hello Gorgeous Med Spa · Oswego · Updated Jul 30, 2026 ·
+      Source: docs/manuals/inmode-packages-staff-sell-sheet.md
+    </div>
+  </article>
+</body>
+</html>

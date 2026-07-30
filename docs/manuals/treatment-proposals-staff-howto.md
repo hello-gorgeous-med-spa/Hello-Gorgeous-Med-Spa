@@ -5,7 +5,8 @@
 **Updated:** July 30, 2026
 
 **Live tool:** [hellogorgeousmedspa.com/admin/proposals](https://www.hellogorgeousmedspa.com/admin/proposals)  
-**Printable guide:** [/staff/protocols/guides/Treatment-Proposals-Staff-How-To.html](/staff/protocols/guides/Treatment-Proposals-Staff-How-To.html)
+**Printable guide:** [/staff/protocols/guides/Treatment-Proposals-Staff-How-To.html](/staff/protocols/guides/Treatment-Proposals-Staff-How-To.html)  
+**How to sell packages (Morpheus8 + Solaria):** [/staff/protocols/guides/InMode-Packages-How-To-Sell.html](/staff/protocols/guides/InMode-Packages-How-To-Sell.html)
 
 ---
 
