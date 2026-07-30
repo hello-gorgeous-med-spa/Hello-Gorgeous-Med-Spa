@@ -167,15 +167,7 @@ export function autoGenerateOptions(selectedServices: ProposalService[]): Propos
     const idx = vipServices.findIndex((service) => service.id === "vitamin-plan-1mo");
     if (idx >= 0) vipServices[idx] = { ...plan2, quantity: 1 };
   }
-  vipServices.push({
-    id: "skincare-kit",
-    name: "Medical-Grade Skincare Kit",
-    category: "Retail",
-    price: 200,
-    unit: "per kit",
-    quantity: 1,
-    description: "Home care support bundle.",
-  });
+  // Skincare kit is optional retail — do not auto-inject (staff add from Retail if wanted).
 
   // Fixed packages already include the deal — start at list/package price (staff can still override).
   if (hasFixedPackage) {

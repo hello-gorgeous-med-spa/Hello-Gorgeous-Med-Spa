@@ -28,6 +28,7 @@ import {
   defaultQuantityForService,
   discountLabel,
   formatProposalServiceLine,
+  generateTimeline,
   isPerUnitService,
   NEUROTOXIN_UNIT_PRESETS,
   serviceLineTotal,
@@ -300,6 +301,20 @@ export function ProposalBuilder({ proposalId }: ProposalBuilderProps) {
           nextValue = patch.discountType === "percentage" ? 10 : 0;
         }
         return { ...option, discountType: nextType, discountValue: nextValue };
+      })
+    );
+  };
+
+  const removeServiceFromOption = (optionName: string, serviceId: string) => {
+    setOptions((prev) =>
+      prev.map((option) => {
+        if (option.name !== optionName) return option;
+        const services = option.services.filter((service) => service.id !== serviceId);
+        return {
+          ...option,
+          services,
+          timeline: generateTimeline(services),
+        };
       })
     );
   };
@@ -933,11 +948,27 @@ export function ProposalBuilder({ proposalId }: ProposalBuilderProps) {
                       BEST VALUE
                     </span>
                   ) : null}
-                  <ul className="mt-4 space-y-1 text-sm text-black/80">
+                  <ul className="mt-4 space-y-2 text-sm text-black/80">
                     {option.services.map((service) => (
-                      <li key={`${option.name}-${service.id}`}>{formatProposalServiceLine(service)}</li>
+                      <li
+                        key={`${option.name}-${service.id}-${service.name}`}
+                        className="flex items-start justify-between gap-2"
+                      >
+                        <span className="min-w-0 flex-1">{formatProposalServiceLine(service)}</span>
+                        <button
+                          type="button"
+                          onClick={() => removeServiceFromOption(option.name, service.id)}
+                          className="shrink-0 text-[11px] font-bold uppercase tracking-wide text-black/45 hover:text-red-600"
+                          aria-label={`Remove ${service.name} from ${option.name}`}
+                        >
+                          Remove
+                        </button>
+                      </li>
                     ))}
                   </ul>
+                  {!option.services.length ? (
+                    <p className="mt-3 text-xs text-red-600">This plan has no services — add some or delete the plan.</p>
+                  ) : null}
 
                   <div className="mt-4 space-y-2 rounded-lg border border-black/15 bg-[#FFF0F7] p-3">
                     <label className="block text-[11px] font-bold uppercase tracking-wide text-black/60">

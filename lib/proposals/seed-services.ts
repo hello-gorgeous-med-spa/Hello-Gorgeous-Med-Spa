@@ -269,6 +269,17 @@ const VITAMIN_INJECTION_SERVICES: SeedService[] = [
 
 const ADVANCED_HEALING_SERVICES: SeedService[] = [EXOSOME_HEALING_ADDON];
 
+const RETAIL_SERVICES: SeedService[] = [
+  {
+    id: "skincare-kit",
+    name: "Medical-Grade Skincare Kit",
+    category: "Retail",
+    price: 200,
+    unit: "per kit",
+    description: "Home care support bundle — optional add-on (not auto-included).",
+  },
+];
+
 export const HELLO_GORGEOUS_SERVICES: SeedService[] = [
   ...PROPOSAL_PACKAGES.map(({ bullets: _bullets, ...pkg }) => pkg),
   ...INMODE_SERVICES,
@@ -281,4 +292,5 @@ export const HELLO_GORGEOUS_SERVICES: SeedService[] = [
   ...REGENERATIVE_SERVICES,
   ...SKIN_SERVICES,
   ...LASER_SERVICES,
+  ...RETAIL_SERVICES,
 ];
