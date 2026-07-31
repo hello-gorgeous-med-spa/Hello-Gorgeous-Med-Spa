@@ -7,6 +7,7 @@ import {
   absoluteCareGuideUrl,
   careGuidesForProposalOptions,
 } from "@/lib/proposals/care-guides";
+import { getResendFromAddress } from "@/lib/resend-config";
 import { SITE } from "@/lib/seo";
 import type { TreatmentProposalRecord } from "@/lib/proposals/types";
 import type { ProposalOption } from "@/lib/proposals/utils";
@@ -75,7 +76,7 @@ export async function POST(request: NextRequest) {
         results.emailError = "RESEND_API_KEY is not configured.";
       } else {
         const resend = new Resend(apiKey);
-        const from = process.env.RESEND_FROM || `${SITE.name} <onboarding@resend.dev>`;
+        const from = getResendFromAddress();
         const listHtml = guideLinks
           .map(
             (g) =>

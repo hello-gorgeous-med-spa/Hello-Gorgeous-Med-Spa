@@ -3,6 +3,7 @@ import { Resend } from "resend";
 import { getAiConciergeStaffSession } from "@/lib/ai-concierge/admin-auth";
 import { createAdminSupabaseClient } from "@/lib/hgos/supabase";
 import { buildProposalPdf } from "@/lib/proposals/pdf";
+import { getResendFromAddress } from "@/lib/resend-config";
 import { SITE } from "@/lib/seo";
 import { CHERRY_PAY_URL } from "@/lib/flows";
 import type { TreatmentProposalRecord } from "@/lib/proposals/types";
@@ -42,7 +43,7 @@ export async function POST(request: NextRequest) {
     if (!apiKey) return NextResponse.json({ error: "RESEND_API_KEY is not configured." }, { status: 503 });
 
     const resend = new Resend(apiKey);
-    const from = process.env.RESEND_FROM || `${SITE.name} <onboarding@resend.dev>`;
+    const from = getResendFromAddress();
     const pdfBytes = buildProposalPdf(proposal);
     const base64Pdf = Buffer.from(pdfBytes).toString("base64");
     const baseUrl = process.env.NEXT_PUBLIC_APP_URL || SITE.url;
