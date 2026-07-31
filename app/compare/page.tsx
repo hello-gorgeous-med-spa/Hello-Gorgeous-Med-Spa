@@ -13,6 +13,7 @@ const COMPARISONS = [
   { href: "/compare/morpheus8-vs-rf-microneedling", title: "Morpheus8 vs RF Microneedling" },
   { href: "/compare/quantum-rf-vs-facelift", title: "Quantum RF vs Facelift" },
   { href: "/compare/solaria-co2-vs-traditional-co2", title: "Solaria CO2 vs Traditional CO2" },
+  { href: "/compare/semaglutide-vs-tirzepatide", title: "Semaglutide vs Tirzepatide" },
   { href: "/compare/glp1-vs-traditional-weight-loss", title: "GLP-1 vs Traditional Weight Loss" },
 ];
 

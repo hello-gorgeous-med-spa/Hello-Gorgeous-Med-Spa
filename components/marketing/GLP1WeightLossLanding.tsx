@@ -337,10 +337,17 @@ export function GLP1WeightLossLanding() {
               </div>
             ))}
           </div>
+          <p className="mt-8 text-center text-sm text-black/60">
+            Deciding between molecules?{" "}
+            <Link
+              href="/compare/semaglutide-vs-tirzepatide"
+              className="font-semibold text-[#E6007E] underline hover:no-underline"
+            >
+              Semaglutide vs tirzepatide comparison
+            </Link>
+          </p>
         </div>
       </section>
-
-      {/* Disclaimer */}
       <section className="px-4 py-10 bg-neutral-100 border-t border-black/10">
         <div className="max-w-3xl mx-auto">
           <h3 className="text-xs font-bold uppercase tracking-widest text-black/50 mb-3">Important medical disclaimer</h3>

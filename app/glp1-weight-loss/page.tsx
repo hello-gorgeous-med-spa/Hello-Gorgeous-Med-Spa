@@ -1,9 +1,18 @@
 import type { Metadata } from "next";
 import { GLP1WeightLossLanding } from "@/components/marketing/GLP1WeightLossLanding";
 import { GLP1_WEIGHT_LOSS_FAQS } from "@/lib/glp1-weight-loss-faqs";
-import { breadcrumbJsonLd, faqJsonLd, pageMetadata, SITE } from "@/lib/seo";
+import {
+  breadcrumbJsonLd,
+  faqJsonLd,
+  localBusinessJsonLd,
+  pageMetadata,
+  SITE,
+  siteJsonLd,
+  webPageJsonLd,
+} from "@/lib/seo";
 
 const GLP1_PATH = "/glp1-weight-loss";
+const GLP1_URL = `${SITE.url}${GLP1_PATH}`;
 
 const base = pageMetadata({
   title: "Medical Weight Loss Oswego IL | GLP-1 Semaglutide & Tirzepatide | Hello Gorgeous Med Spa",
@@ -87,12 +96,33 @@ const breadcrumbLd = breadcrumbJsonLd([
   { name: "Medical Weight Loss (GLP-1)", url: `${SITE.url}${GLP1_PATH}` },
 ]);
 
+const webPageLd = webPageJsonLd({
+  title: String(base.title ?? "Medical Weight Loss Oswego IL | GLP-1"),
+  description: String(base.description ?? ""),
+  path: GLP1_PATH,
+  image: "/images/services/hg-weight-loss.png",
+});
+
 export default function GLP1WeightLossPage() {
   return (
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd([...GLP1_WEIGHT_LOSS_FAQS])) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(siteJsonLd()) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessJsonLd("Oswego")) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(faqJsonLd([...GLP1_WEIGHT_LOSS_FAQS], GLP1_URL)),
+        }}
       />
       <script
         type="application/ld+json"

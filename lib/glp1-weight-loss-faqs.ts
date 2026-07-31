@@ -52,4 +52,19 @@ export const GLP1_WEIGHT_LOSS_FAQS: readonly FAQ[] = [
     question: "How much does the program cost?",
     answer: `New patient consult is $${GLP1_PROGRAM_CONSULT_USD} (credited toward your first month of injectable medication if you enroll). Injectable programs start at $${GLP1_PROGRAM.injectable.monthlyFromUsd}/month including medication and supplies — final price depends on semaglutide vs tirzepatide and dose. Three-month prepay from $${GLP1_PROGRAM.injectable.threeMonthFromUsd}. Oral options $${GLP1_PROGRAM.oral.monthlyFromUsd}–$${GLP1_PROGRAM.oral.monthlyToUsd}/month. Active members receive included monthly check-ins.`,
   },
+  {
+    question: "Where can I get semaglutide or tirzepatide near Oswego, IL?",
+    answer:
+      "Hello Gorgeous Med Spa offers medically supervised compounded semaglutide and tirzepatide at our Oswego clinic (serving Naperville, Aurora, Plainfield, Yorkville, and Montgomery). Care is NP-directed with in-person evaluation — not a mail-order prescription alone.",
+  },
+  {
+    question: "Is compounded semaglutide the same as Ozempic or Wegovy?",
+    answer:
+      "Brand-name Ozempic® and Wegovy® contain semaglutide; Mounjaro® and Zepbound® contain tirzepatide. Our program uses compounded formulations from a licensed compounding pharmacy when clinically appropriate. Your provider explains differences, monitoring, and whether a brand or compounded option fits your plan.",
+  },
+  {
+    question: "Who supervises GLP-1 weight loss at Hello Gorgeous?",
+    answer:
+      "GLP-1 medical weight loss is nurse practitioner–directed at our Oswego, IL clinic, with Ryan Kent, FNP-BC on the clinical team. Every patient is screened before medication is prescribed.",
+  },
 ];

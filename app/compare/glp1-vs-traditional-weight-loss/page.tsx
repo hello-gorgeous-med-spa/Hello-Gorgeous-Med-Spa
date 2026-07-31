@@ -72,7 +72,8 @@ export default function Glp1ComparePage() {
             </article>
           </div>
           <div className="mt-10 flex flex-wrap gap-3">
-            <Link href="/services/weight-loss" className="rounded-lg bg-[#E6007E] px-6 py-3 font-semibold text-white">Explore Weight Loss Program</Link>
+            <Link href="/glp1-weight-loss" className="rounded-lg bg-[#E6007E] px-6 py-3 font-semibold text-white">Explore Weight Loss Program</Link>
+            <Link href="/compare/semaglutide-vs-tirzepatide" className="rounded-lg border-2 border-[#E6007E] px-6 py-3 font-semibold text-[#E6007E]">Semaglutide vs Tirzepatide</Link>
             <Link href="/book?service=weight-loss-therapy" className="rounded-lg border-2 border-black px-6 py-3 font-semibold text-black">Book consultation</Link>
           </div>
         </div>

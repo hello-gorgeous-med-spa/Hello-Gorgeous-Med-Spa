@@ -1,5 +1,6 @@
 import { HG_CORE_AEO_FAQS } from "@/lib/aeo-canonical";
 import { getCityFivePageCopy } from "@/lib/city-five-page-copy";
+import { GLP1_PROGRAM, GLP1_PROGRAM_CONSULT_USD } from "@/lib/glp1-program-pricing";
 import { SITE } from "@/lib/seo";
 
 const TREATMENT_FAQ_TEMPLATES: Record<
@@ -17,12 +18,12 @@ const TREATMENT_FAQ_TEMPLATES: Record<
   },
   "weight-loss-therapy": {
     howLong:
-      "Many clients notice changes within the first few months on an NP-directed plan. Timelines vary; Hello Gorgeous does not guarantee outcomes.",
-    cost: "Medical weight loss programs start at $195/month (lowest injectable GLP-1 dose tier). Hello Gorgeous outlines your plan cost at consult — prescriptions require provider approval.",
+      "Many clients notice appetite and weight changes within the first few months on NP-directed semaglutide or tirzepatide. Timelines vary; Hello Gorgeous does not guarantee outcomes.",
+    cost: `Medical weight loss (compounded GLP-1) starts at $${GLP1_PROGRAM.injectable.monthlyFromUsd}/month for the lowest injectable dose tier. New-patient consult is $${GLP1_PROGRAM_CONSULT_USD} (credited toward first month if you enroll). Semaglutide $${GLP1_PROGRAM.injectable.semaglutideFromUsd}–$${GLP1_PROGRAM.injectable.semaglutideToUsd}/mo; tirzepatide $${GLP1_PROGRAM.injectable.tirzepatideFromUsd}–$${GLP1_PROGRAM.injectable.tirzepatideToUsd}/mo. Final plan cost is confirmed at consult.`,
     isSafe:
-      "Yes when medically appropriate — programs are NP-directed with screening and monitoring. Prescriptions are not dispensed without provider review.",
+      "Yes when medically appropriate — Hello Gorgeous GLP-1 programs are NP-directed with screening and monitoring in Oswego, IL. Prescriptions are not dispensed without provider review.",
     candidacy:
-      "Adults seeking medically supervised weight loss after history review. Not everyone is a candidate; labs or telehealth may be required.",
+      "Adults seeking medically supervised weight loss with semaglutide or tirzepatide after history review. Not everyone is a candidate; labs may be required.",
   },
   "prf-prp": {
     howLong:
@@ -121,6 +122,22 @@ export function gbpLocalFaqs(
   if (t.cost) pushUnique(`How much does ${serviceName} cost near ${cityShort}?`, t.cost);
   if (t.isSafe) pushUnique(`Is ${serviceName} safe?`, t.isSafe);
   if (t.candidacy) pushUnique(`Who is a good candidate for ${serviceName}?`, t.candidacy);
+
+  if (serviceSlug === "weight-loss-therapy") {
+    pushUnique(
+      `Do you offer semaglutide near ${cityShort}?`,
+      `Yes — Hello Gorgeous Med Spa in Oswego offers medically supervised compounded semaglutide (similar to Ozempic®/Wegovy®) for clients from ${cityLabel}. NP-directed screening comes before any prescription.`,
+    );
+    pushUnique(
+      `Do you offer tirzepatide near ${cityShort}?`,
+      `Yes — Hello Gorgeous offers medically supervised compounded tirzepatide (similar to Mounjaro®/Zepbound®) at our Oswego clinic for ${cityShort} and Fox Valley patients.`,
+    );
+    pushUnique(
+      "What's the difference between semaglutide and tirzepatide?",
+      "Semaglutide is a GLP-1 receptor agonist; tirzepatide targets both GIP and GLP-1 pathways. Both are typically weekly injections. Your Hello Gorgeous provider recommends the better fit after reviewing your history and goals.",
+    );
+  }
+
   pushUnique(
     "Do I need a consultation first?",
     `Yes — Hello Gorgeous recommends a consult so we can confirm candidacy, set expectations, and build a safe NP-directed plan for clients from ${cityLabel}.`,
@@ -136,5 +153,5 @@ export function gbpLocalFaqs(
       pushUnique(faq.question, faq.answer);
     }
   }
-  return items.slice(0, 8);
+  return items.slice(0, serviceSlug === "weight-loss-therapy" ? 10 : 8);
 }
