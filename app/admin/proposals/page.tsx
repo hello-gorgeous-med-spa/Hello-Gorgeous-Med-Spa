@@ -128,6 +128,18 @@ export default function ProposalsListPage() {
           >
             How to use
           </a>
+          <Link
+            href="/admin/proposals/consults"
+            className="rounded-full border-2 border-black bg-[#FFF0F7] px-4 py-2.5 text-sm font-bold text-black"
+          >
+            Consults
+          </Link>
+          <Link
+            href="/admin/proposals/consults/new"
+            className="rounded-full border-2 border-black bg-white px-4 py-2.5 text-sm font-bold text-black"
+          >
+            + New consult
+          </Link>
           <Link href="/admin/proposals/new" className="rounded-full bg-[#E6007E] px-5 py-2.5 text-sm font-bold text-white">
             + New proposal
           </Link>

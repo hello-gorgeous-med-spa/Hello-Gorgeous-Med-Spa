@@ -288,7 +288,7 @@ export default function PublicProposalPage() {
               secure your plan or tell us you&apos;re ready to book.
             </p>
             {proposal.concerns?.length ? (
-              <p className="mt-4 text-sm text-[#FFB8DC]/proposal.concerns.join(" · ")}</p>
+              <p className="mt-4 text-sm text-[#FFB8DC]">{proposal.concerns.join(" · ")}</p>
             ) : null}
           </div>
         </section>
