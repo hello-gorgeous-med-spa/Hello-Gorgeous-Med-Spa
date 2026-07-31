@@ -30,6 +30,24 @@ export default function StaffPage() {
 
         {/* Resource Cards */}
         <div className="space-y-4">
+          <a
+            href="/staff/HG-Staff-Ops-Desk-Guide.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block bg-gradient-to-r from-teal-700/40 to-[#0B1F33]/80 backdrop-blur rounded-2xl p-5 border-2 border-teal-300/50 hover:border-teal-200 transition-all"
+          >
+            <div className="flex items-center gap-4">
+              <div className="text-4xl">📄</div>
+              <div className="flex-1">
+                <h2 className="font-bold text-white text-lg">Staff Ops Desk Guide (PDF)</h2>
+                <p className="text-teal-100/90 text-sm">
+                  Admin · Command Center · Proposals · Consents — download &amp; keep handy
+                </p>
+              </div>
+              <div className="text-teal-200 text-2xl">↓</div>
+            </div>
+          </a>
+
           {/* Square seller calendar — book for clients (not public /book) */}
           <a
             href={SQUARE_STAFF_APPOINTMENTS_URL}

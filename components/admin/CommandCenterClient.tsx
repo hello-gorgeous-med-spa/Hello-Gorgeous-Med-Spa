@@ -835,8 +835,16 @@ export default function CommandCenterClient() {
                 Staff messages
               </h2>
               <p className="m-0 mb-4 text-[12.5px] text-[#999]">
-                Board notes for the day — pick a template or write your own. For live back-and-forth,
-                use{" "}
+                Board notes for the day — pick a template or write your own. Full ops desk guide:{" "}
+                <a
+                  href="/staff/HG-Staff-Ops-Desk-Guide.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-bold text-[#C90A68] hover:underline"
+                >
+                  Download PDF →
+                </a>
+                . For live back-and-forth, use{" "}
                 <a
                   href={CC_GOOGLE_CHAT_URL}
                   target="_blank"
