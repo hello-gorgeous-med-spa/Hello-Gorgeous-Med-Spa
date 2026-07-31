@@ -19,7 +19,12 @@ interface UpcomingAppointment {
   status: string;
   client_name: string;
   service: string;
+  /** Square booking — open seller calendar instead of local appointment detail */
+  source?: 'square' | 'local';
+  likelyUnpaid?: boolean;
 }
+
+const SQUARE_CALENDAR_FALLBACK = 'https://app.squareup.com/dashboard/appointments/calendar';
 
 interface RxQueueItem {
   submissionId: string;
@@ -109,6 +114,8 @@ export default function AdminDashboard() {
   const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
   const [squareSyncing, setSquareSyncing] = useState(false);
   const [squareSyncMsg, setSquareSyncMsg] = useState<string | null>(null);
+  const [squareCalendarUrl, setSquareCalendarUrl] = useState(SQUARE_CALENDAR_FALLBACK);
+  const [scheduleSource, setScheduleSource] = useState<'square' | 'local' | null>(null);
   const [businessName, setBusinessName] = useState('Hello Gorgeous');
 
   const today = new Date().toLocaleDateString('en-US', {
@@ -124,13 +131,22 @@ export default function AdminDashboard() {
     setLoading(true);
     setError(null);
     try {
-      const [dashRes, aptsRes, rxRes] = await Promise.all([
+      const chicagoToday = new Intl.DateTimeFormat('en-CA', {
+        timeZone: 'America/Chicago',
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+      }).format(new Date());
+
+      const [dashRes, squareRes, aptsRes, rxRes] = await Promise.all([
         fetchWithTimeout('/api/dashboard'),
-        fetchWithTimeout(`/api/appointments?date=${new Date().toISOString().split('T')[0]}`),
+        fetchWithTimeout(`/api/admin/square/appointments?date=${chicagoToday}`),
+        fetchWithTimeout(`/api/appointments?date=${chicagoToday}`),
         fetchWithTimeout('/api/admin/rx?limit=8'),
       ]);
 
       const dashData = await dashRes.json().catch(() => ({}));
+      const squareData = await squareRes.json().catch(() => ({}));
       const aptsData = await aptsRes.json().catch(() => ({}));
       const rxData = await rxRes.json().catch(() => ({}));
 
@@ -138,33 +154,85 @@ export default function AdminDashboard() {
         setError('Database not connected — check Supabase env vars.');
       }
 
-      const appointments = aptsData.appointments || [];
-      const todayAppts = appointments.filter((a: { status: string }) => a.status !== 'cancelled');
-      const completedToday = appointments.filter((a: { status: string }) => a.status === 'completed').length;
+      if (squareData.calendarUrl) {
+        setSquareCalendarUrl(squareData.calendarUrl);
+      }
+
+      const localAppointments = aptsData.appointments || [];
+      const squareAppointments = squareData.ok ? squareData.appointments || [] : [];
+      const useSquare = squareData.ok === true;
+
+      setScheduleSource(useSquare ? 'square' : squareData.error ? 'local' : 'local');
+
+      const scheduleRows: UpcomingAppointment[] = useSquare
+        ? squareAppointments
+            .filter((a: { status: string }) => !['cancelled', 'no_show'].includes(a.status))
+            .sort((a: { starts_at?: string }, b: { starts_at?: string }) =>
+              String(a.starts_at || '').localeCompare(String(b.starts_at || '')),
+            )
+            .map(
+              (a: {
+                id: string;
+                starts_at?: string;
+                status: string;
+                client_name?: string;
+                service_name?: string;
+                likely_unpaid?: boolean;
+              }) => ({
+                id: a.id,
+                time: a.starts_at || '',
+                status: a.status,
+                client_name: a.client_name || 'Guest',
+                service: a.service_name || 'Service',
+                source: 'square' as const,
+                likelyUnpaid: !!a.likely_unpaid,
+              }),
+            )
+        : localAppointments
+            .filter((a: { status: string }) => !['cancelled', 'completed', 'no_show'].includes(a.status))
+            .sort((a: { starts_at: string }, b: { starts_at: string }) =>
+              new Date(a.starts_at).getTime() - new Date(b.starts_at).getTime(),
+            )
+            .map(
+              (a: {
+                id: string;
+                starts_at: string;
+                status: string;
+                client_name?: string;
+                service_name?: string;
+              }) => ({
+                id: a.id,
+                time: a.starts_at,
+                status: a.status,
+                client_name: a.client_name || 'Client',
+                service: a.service_name || 'Service',
+                source: 'local' as const,
+              }),
+            );
+
+      if (!useSquare && squareData.error) {
+        setError(
+          `Square calendar: ${squareData.error}${
+            squareData.setupPath ? ` — connect at ${squareData.setupPath}` : ''
+          }`,
+        );
+      }
+
+      const completedToday = localAppointments.filter(
+        (a: { status: string }) => a.status === 'completed',
+      ).length;
 
       setStats({
         todayRevenue: dashData.stats?.todayRevenue || 0,
         monthRevenue: dashData.stats?.monthRevenue || 0,
-        todayAppointments: todayAppts.length,
+        todayAppointments: useSquare
+          ? squareData.totalCount ?? scheduleRows.length
+          : localAppointments.filter((a: { status: string }) => a.status !== 'cancelled').length,
         completedToday,
         totalClients: dashData.stats?.totalClients || 0,
       });
 
-      setUpcoming(
-        appointments
-          .filter((a: { status: string }) => !['cancelled', 'completed', 'no_show'].includes(a.status))
-          .sort((a: { starts_at: string }, b: { starts_at: string }) =>
-            new Date(a.starts_at).getTime() - new Date(b.starts_at).getTime(),
-          )
-          .slice(0, 8)
-          .map((a: { id: string; starts_at: string; status: string; client_name?: string; service_name?: string }) => ({
-            id: a.id,
-            time: a.starts_at,
-            status: a.status,
-            client_name: a.client_name || 'Client',
-            service: a.service_name || 'Service',
-          })),
-      );
+      setUpcoming(scheduleRows.slice(0, 12));
 
       const pendingRx = (rxData.items || []).filter(
         (i: RxQueueItem) =>
@@ -173,7 +241,7 @@ export default function AdminDashboard() {
       setRxItems(pendingRx.slice(0, 6));
       setRxDue(rxData.dueCounts || { overdue: 0, dueSoon: 0 });
 
-      const pendingIds = appointments
+      const pendingIds = localAppointments
         .filter((a: { status: string }) => ['pending', 'confirmed', 'checked_in'].includes(a.status))
         .map((a: { id: string }) => a.id)
         .filter(Boolean);
@@ -186,7 +254,7 @@ export default function AdminDashboard() {
           const consentData = await consentRes.json().catch(() => ({}));
           if (consentData.statuses) {
             setUnsignedConsents(
-              appointments
+              localAppointments
                 .filter((a: { id: string; client_name?: string; starts_at: string }) => {
                   const cs = consentData.statuses[a.id];
                   return cs && cs.total > 0 && cs.status !== 'complete';
@@ -234,18 +302,39 @@ export default function AdminDashboard() {
     setSquareSyncing(true);
     setSquareSyncMsg(null);
     try {
-      const res = await fetch('/api/admin/square/sync', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ type: 'payments', days }),
-      });
-      const data = await res.json();
-      if (data.ok) {
-        setSquareSyncMsg(`Synced ${data.fetched} payments (${data.upserted} saved)`);
-        setTimeout(() => void fetchDashboard(), 1000);
-      } else {
-        setSquareSyncMsg(data.error || 'Sync failed — connect Square in Settings → Payments');
+      const chicagoToday = new Intl.DateTimeFormat('en-CA', {
+        timeZone: 'America/Chicago',
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+      }).format(new Date());
+
+      const [payRes, calRes] = await Promise.all([
+        fetch('/api/admin/square/sync', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ type: 'payments', days }),
+        }),
+        fetch(`/api/admin/square/appointments?date=${chicagoToday}`),
+      ]);
+      const payData = await payRes.json().catch(() => ({}));
+      const calData = await calRes.json().catch(() => ({}));
+
+      const parts: string[] = [];
+      if (payData.ok) {
+        parts.push(`${payData.fetched} payments (${payData.upserted} saved)`);
+      } else if (payData.error) {
+        parts.push(`payments: ${payData.error}`);
       }
+      if (calData.ok) {
+        parts.push(`${calData.totalCount ?? 0} on Square calendar today`);
+        if (calData.calendarUrl) setSquareCalendarUrl(calData.calendarUrl);
+      } else if (calData.error) {
+        parts.push(`calendar: ${calData.error}`);
+      }
+
+      setSquareSyncMsg(parts.length ? parts.join(' · ') : 'Sync finished');
+      setTimeout(() => void fetchDashboard(), 400);
     } catch {
       setSquareSyncMsg('Sync failed — check Square connection');
     } finally {
@@ -279,12 +368,14 @@ export default function AdminDashboard() {
           >
             {squareSyncing ? 'Syncing Square…' : 'Sync Square'}
           </button>
-          <Link
-            href="/admin/appointments/new"
+          <a
+            href={squareCalendarUrl}
+            target="_blank"
+            rel="noopener noreferrer"
             className="px-4 py-2.5 rounded-lg bg-[#E6007E] text-white text-sm font-semibold hover:bg-[#c90a68]"
           >
-            New booking
-          </Link>
+            Book in Square
+          </a>
           <Link
             href="/pos"
             className="px-4 py-2.5 rounded-lg bg-black text-white text-sm font-semibold hover:bg-black/85"
@@ -341,7 +432,11 @@ export default function AdminDashboard() {
         <StatCard
           label="Today's schedule"
           value={String(stats?.todayAppointments ?? 0)}
-          sub={`${stats?.completedToday || 0} done`}
+          sub={
+            scheduleSource === 'square'
+              ? 'Live from Square'
+              : `${stats?.completedToday || 0} done · local`
+          }
           loading={loading}
         />
         <StatCard
@@ -361,11 +456,23 @@ export default function AdminDashboard() {
       {/* Schedule + RX */}
       <div className="grid lg:grid-cols-5 gap-6">
         <div className="lg:col-span-3 rounded-xl border border-black/10 bg-white shadow-sm overflow-hidden">
-          <div className="flex items-center justify-between px-5 py-4 border-b border-black/10">
-            <h2 className="font-semibold text-black">Today&apos;s schedule</h2>
-            <Link href="/admin/calendar" className="text-sm font-medium text-[#E6007E] hover:underline">
-              Full calendar →
-            </Link>
+          <div className="flex items-center justify-between gap-3 px-5 py-4 border-b border-black/10">
+            <div>
+              <h2 className="font-semibold text-black">Today&apos;s schedule</h2>
+              <p className="text-xs text-black/45 mt-0.5">
+                {scheduleSource === 'square'
+                  ? 'Synced from Square Appointments'
+                  : 'Local calendar (Square unavailable)'}
+              </p>
+            </div>
+            <a
+              href={squareCalendarUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm font-medium text-[#E6007E] hover:underline shrink-0"
+            >
+              Open Square →
+            </a>
           </div>
           <div className="divide-y divide-black/5 max-h-[420px] overflow-y-auto">
             {loading ? (
@@ -375,26 +482,47 @@ export default function AdminDashboard() {
                 </div>
               ))
             ) : upcoming.length === 0 ? (
-              <p className="px-5 py-10 text-center text-sm text-black/45">No upcoming appointments today</p>
+              <p className="px-5 py-10 text-center text-sm text-black/45">No appointments on Square today</p>
             ) : (
-              upcoming.map((apt) => (
-                <Link
-                  key={apt.id}
-                  href={`/admin/appointments/${apt.id}`}
-                  className="flex items-center justify-between gap-3 px-5 py-3.5 hover:bg-[#FFF0F7]/50 transition-colors"
-                >
-                  <div className="flex items-center gap-4 min-w-0">
-                    <span className="text-sm font-semibold text-black/70 w-16 shrink-0">
-                      {formatTime(apt.time)}
-                    </span>
-                    <div className="min-w-0">
-                      <p className="font-medium text-black truncate">{apt.client_name}</p>
-                      <p className="text-sm text-black/50 truncate">{apt.service}</p>
+              upcoming.map((apt) => {
+                const rowClass =
+                  'flex items-center justify-between gap-3 px-5 py-3.5 hover:bg-[#FFF0F7]/50 transition-colors';
+                const body = (
+                  <>
+                    <div className="flex items-center gap-4 min-w-0">
+                      <span className="text-sm font-semibold text-black/70 w-16 shrink-0">
+                        {apt.time ? formatTime(apt.time) : '—'}
+                      </span>
+                      <div className="min-w-0">
+                        <p className="font-medium text-black truncate">{apt.client_name}</p>
+                        <p className="text-sm text-black/50 truncate">
+                          {apt.service}
+                          {apt.likelyUnpaid ? ' · likely unpaid' : ''}
+                        </p>
+                      </div>
                     </div>
-                  </div>
-                  <StatusBadge status={apt.status} />
-                </Link>
-              ))
+                    <StatusBadge status={apt.status} />
+                  </>
+                );
+                if (apt.source === 'square') {
+                  return (
+                    <a
+                      key={apt.id}
+                      href={squareCalendarUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={rowClass}
+                    >
+                      {body}
+                    </a>
+                  );
+                }
+                return (
+                  <Link key={apt.id} href={`/admin/appointments/${apt.id}`} className={rowClass}>
+                    {body}
+                  </Link>
+                );
+              })
             )}
           </div>
         </div>
