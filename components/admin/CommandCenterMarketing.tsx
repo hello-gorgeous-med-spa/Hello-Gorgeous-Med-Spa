@@ -15,7 +15,7 @@ import Link from "next/link";
 
 const PINK = "#FF2D8E";
 
-type MktSub = "campaigns" | "templates" | "resources" | "laura";
+type MktSub = "campaigns" | "templates" | "sms" | "resources" | "laura";
 
 type UploadRow = {
   id: string;
@@ -82,9 +82,72 @@ export default function CommandCenterMarketing({ isOwner, onToast }: Props) {
   const nav: { id: MktSub; label: string }[] = [
     { id: "campaigns", label: "Campaigns" },
     { id: "templates", label: "Templates" },
+    { id: "sms", label: "Text Studio" },
     { id: "resources", label: "Resources" },
     { id: "laura", label: "🔒 Laura’s Desk" },
   ];
+
+  const campaignTools = [
+    {
+      href: "/admin/sms",
+      label: "Text Studio",
+      desc: "SMS blasts to opt-in clients (Twilio A2P)",
+      tag: "Live",
+    },
+    {
+      href: "/admin/email-campaigns",
+      label: "Email Campaigns",
+      desc: "Newsletter & promo email sends",
+      tag: "Live",
+    },
+    {
+      href: "/admin/marketing/post-social",
+      label: "Post to Social",
+      desc: "Instagram, Facebook & connected channels",
+      tag: "Live",
+    },
+    {
+      href: "/admin/marketing/google-posts",
+      label: "Google Business Posts",
+      desc: "Local GBP posts from ready presets",
+      tag: "Live",
+    },
+    {
+      href: "/admin/marketing/blog-social",
+      label: "Blog → Social",
+      desc: "Turn blog posts into social content",
+      tag: "Live",
+    },
+    {
+      href: "/admin/marketing/reviews",
+      label: "Reviews Hub",
+      desc: "Review asks & reputation follow-up",
+      tag: "Live",
+    },
+  ] as const;
+
+  const templateTools = [
+    {
+      href: "/admin/templates",
+      label: "Message Templates",
+      desc: "Approved SMS & email copy library",
+    },
+    {
+      href: "/admin/sms",
+      label: "SMS templates in Text Studio",
+      desc: "Pick a built-in SMS template before you send",
+    },
+    {
+      href: "/staff/protocols",
+      label: "Social / Protocols Kit",
+      desc: "Captions, July social assets, cheat sheets",
+    },
+    {
+      href: "/admin/marketing/google-posts",
+      label: "GBP post presets",
+      desc: "Ready-made Google Business post copy + images",
+    },
+  ] as const;
 
   const hoursTotal = useMemo(
     () => hours.reduce((a, h) => a + Number(h.hrs || 0), 0),
@@ -328,17 +391,111 @@ export default function CommandCenterMarketing({ isOwner, onToast }: Props) {
       </div>
 
       {mktSub === "campaigns" && (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div className="md:col-span-2 border border-dashed border-black/20 rounded-xl px-4 py-[30px] text-center text-[13px] text-[#aaa]">
-            No campaigns yet.
+        <div className="space-y-4">
+          <div className="rounded-2xl border border-teal-200 bg-gradient-to-r from-teal-50 to-white px-5 py-4">
+            <p className="text-[11px] font-black uppercase tracking-wider text-teal-800">
+              How Campaigns works
+            </p>
+            <p className="mt-1.5 text-sm text-slate-700 leading-relaxed">
+              These are <strong>live send tools</strong> — not an empty folder. Run the campaign in
+              Text Studio / Email / Social / Google, then log the work on{" "}
+              <strong>Laura&apos;s Desk</strong> (hours + meetings) and upload finished creatives
+              under <strong>Resources</strong> so Danielle can see what shipped.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            {campaignTools.map((t) => (
+              <Link
+                key={t.href}
+                href={t.href}
+                className="group rounded-2xl border border-black/10 bg-white px-4 py-4 hover:border-[#FF2D8E]/40 shadow-sm transition-all"
+              >
+                <div className="flex items-start justify-between gap-2">
+                  <p className="font-bold text-[#111] group-hover:text-[#C90A68]">{t.label} →</p>
+                  <span className="text-[10px] font-bold uppercase rounded-full bg-emerald-50 text-emerald-700 px-2 py-0.5">
+                    {t.tag}
+                  </span>
+                </div>
+                <p className="text-[12.5px] text-[#777] mt-1">{t.desc}</p>
+              </Link>
+            ))}
           </div>
         </div>
       )}
 
       {mktSub === "templates" && (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5">
-          <div className="md:col-span-2 border border-dashed border-black/20 rounded-xl px-4 py-[30px] text-center text-[13px] text-[#aaa]">
-            No templates yet.
+        <div className="space-y-4">
+          <div className="rounded-2xl border border-black/10 bg-white px-5 py-4">
+            <p className="text-[11px] font-bold uppercase tracking-wider text-[#888]">
+              Templates vs Resources
+            </p>
+            <p className="mt-1.5 text-sm text-[#555] leading-relaxed">
+              <strong>Templates</strong> = approved copy banks (message templates, SMS presets, GBP
+              presets, social kit captions).{" "}
+              <strong>Resources</strong> = upload the finished graphics / PDFs / decks Laura
+              completed so the team can reuse them.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            {templateTools.map((t) => (
+              <Link
+                key={t.href + t.label}
+                href={t.href}
+                className="rounded-2xl border border-black/10 bg-white px-4 py-4 hover:border-[#FF2D8E]/40 shadow-sm transition-all"
+              >
+                <p className="font-bold text-[#111]">{t.label} →</p>
+                <p className="text-[12.5px] text-[#777] mt-1">{t.desc}</p>
+              </Link>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {mktSub === "sms" && (
+        <div className="space-y-4">
+          <div
+            className="rounded-2xl px-5 py-6 text-white"
+            style={{ background: "linear-gradient(150deg,#000,#3a0a24)" }}
+          >
+            <p className="text-[11px] font-bold uppercase tracking-widest" style={{ color: PINK }}>
+              Marketing · SMS
+            </p>
+            <h2
+              className="text-2xl font-extrabold mt-1.5 mb-2"
+              style={{ fontFamily: "var(--font-display), Georgia, serif" }}
+            >
+              Text Studio
+            </h2>
+            <p className="text-sm text-white/70 max-w-xl leading-relaxed">
+              Send compliant SMS campaigns to opt-in clients. Confirm consent, pick a template or
+              write copy, then send. After each blast, log hours on Laura&apos;s Desk and note the
+              campaign name in your Monday plan.
+            </p>
+            <Link
+              href="/admin/sms"
+              className="inline-flex mt-5 rounded-[10px] px-5 py-3 text-sm font-bold text-white"
+              style={{ background: PINK }}
+            >
+              Open Text Studio →
+            </Link>
+          </div>
+          <div className="grid sm:grid-cols-3 gap-3">
+            {[
+              { n: "1", t: "Open Text Studio", d: "Confirm Twilio is ready + opt-in audience" },
+              { n: "2", t: "Write or pick template", d: "Keep under segment limits; proof read" },
+              { n: "3", t: "Send + log", d: "Log hours on Laura's Desk; upload creatives if any" },
+            ].map((s) => (
+              <div key={s.n} className="rounded-xl border border-black/10 bg-white px-4 py-3">
+                <div
+                  className="w-6 h-6 rounded-full text-white text-xs font-black flex items-center justify-center"
+                  style={{ background: PINK }}
+                >
+                  {s.n}
+                </div>
+                <p className="mt-2 text-sm font-bold">{s.t}</p>
+                <p className="text-[12px] text-[#777]">{s.d}</p>
+              </div>
+            ))}
           </div>
         </div>
       )}
@@ -366,7 +523,9 @@ export default function CommandCenterMarketing({ isOwner, onToast }: Props) {
             </label>
           </div>
           <p className="m-0 mb-3.5 text-[12.5px] text-[#999]">
-            Download and use across your own social pages — keep it on-brand.
+            Upload finished creatives Laura completed (graphics, PDFs, captions packs) so the whole
+            team can reuse them. Browser uploads here stay on this device until cloud storage is
+            connected — also drop finals in shared Drive if Danielle asks.
           </p>
           <div className="flex flex-col gap-2.5">
             {uploads.length === 0 && (
@@ -445,16 +604,28 @@ export default function CommandCenterMarketing({ isOwner, onToast }: Props) {
         <div className="flex flex-col gap-4">
           {/* Productivity toolkit — existing HG tools */}
           <div className="bg-white border-2 border-black rounded-2xl px-5 py-5">
-            <h2
-              className="text-[18px] font-bold m-0"
-              style={{ fontFamily: "var(--font-display), Georgia, serif" }}
-            >
-              Productivity toolkit
-            </h2>
-            <p className="m-0 mt-1 mb-4 text-[12.5px] text-[#888]">
-              Use these every week — then log the work as hours + meetings above so Danielle can see
-              the pipeline.
-            </p>
+            <div className="flex flex-wrap items-start justify-between gap-3 mb-4">
+              <div>
+                <h2
+                  className="text-[18px] font-bold m-0"
+                  style={{ fontFamily: "var(--font-display), Georgia, serif" }}
+                >
+                  Productivity toolkit
+                </h2>
+                <p className="m-0 mt-1 text-[12.5px] text-[#888]">
+                  Use these every week — then log the work as hours + meetings so Danielle can see
+                  the pipeline.
+                </p>
+              </div>
+              <a
+                href="/staff/HG-Laura-Desk-How-To.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[12px] font-bold text-[#C90A68] hover:underline shrink-0"
+              >
+                Download Laura how-to PDF →
+              </a>
+            </div>
             <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
               {CC_LAURA_PRODUCTIVITY_LINKS.map((tool) => (
                 <Link

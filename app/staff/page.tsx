@@ -48,6 +48,24 @@ export default function StaffPage() {
             </div>
           </a>
 
+          <a
+            href="/staff/HG-Laura-Desk-How-To.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block bg-gradient-to-r from-[#E6007E]/35 to-[#2d1020] backdrop-blur rounded-2xl p-5 border-2 border-[#FF2D8E]/50 hover:border-[#FF2D8E] transition-all"
+          >
+            <div className="flex items-center gap-4">
+              <div className="text-4xl">💗</div>
+              <div className="flex-1">
+                <h2 className="font-bold text-white text-lg">Laura&apos;s Desk How-To (PDF)</h2>
+                <p className="text-pink-100/90 text-sm">
+                  Marketing hub · hours · meetings · Text Studio · August expectations
+                </p>
+              </div>
+              <div className="text-pink-300 text-2xl">↓</div>
+            </div>
+          </a>
+
           {/* Square seller calendar — book for clients (not public /book) */}
           <a
             href={SQUARE_STAFF_APPOINTMENTS_URL}
