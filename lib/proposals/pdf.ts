@@ -1,3 +1,5 @@
+import { readFileSync } from "fs";
+import path from "path";
 import { jsPDF } from "jspdf";
 import { SITE } from "@/lib/seo";
 import { proposalCredibilityPdfLines } from "@/lib/proposals/credibility";
@@ -10,6 +12,10 @@ import {
   type ProposalService,
 } from "@/lib/proposals/utils";
 import type { TreatmentProposalRecord } from "@/lib/proposals/types";
+
+const PINK = "#E6007E";
+const INK = "#111111";
+const MUTED = "#555555";
 
 function money(value: number): string {
   return `$${value.toFixed(2)}`;
@@ -37,163 +43,270 @@ function preparedByLabel(raw: string | null | undefined): string {
   return v;
 }
 
-function timelineServiceLabel(
-  serviceId: string,
-  services: ProposalService[],
-): string {
+function timelineServiceLabel(serviceId: string, services: ProposalService[]): string {
   const hit = services.find((s) => s.id === serviceId);
   return hit?.name || serviceId;
+}
+
+function loadInterBoldBase64(): string | null {
+  try {
+    const fontPath = path.join(process.cwd(), "public/fonts/Inter-700-latin.ttf");
+    return readFileSync(fontPath).toString("base64");
+  } catch {
+    return null;
+  }
+}
+
+function loadLogoDataUrl(): string | null {
+  try {
+    const logoPath = path.join(process.cwd(), "public/images/hello-gorgeous-logo.png");
+    const buf = readFileSync(logoPath);
+    return `data:image/png;base64,${buf.toString("base64")}`;
+  } catch {
+    return null;
+  }
 }
 
 export function buildProposalPdf(proposal: TreatmentProposalRecord): Uint8Array {
   const doc = new jsPDF({ format: "letter", unit: "pt" });
   const pageWidth = doc.internal.pageSize.getWidth();
-  const marginX = 48;
+  const pageHeight = doc.internal.pageSize.getHeight();
+  const marginX = 44;
   const maxWidth = pageWidth - marginX * 2;
-  let y = 56;
+  let y = 48;
+
+  const interBold = loadInterBoldBase64();
+  if (interBold) {
+    doc.addFileToVFS("Inter-Bold.ttf", interBold);
+    doc.addFont("Inter-Bold.ttf", "Inter", "bold");
+  }
+  const displayFont = interBold ? "Inter" : "helvetica";
+  const bodyFont = "helvetica";
 
   const ensureSpace = (needed: number) => {
-    if (y + needed <= 740) return;
+    if (y + needed <= pageHeight - 48) return;
     doc.addPage();
-    y = 56;
+    y = 48;
   };
 
-  const write = (text: string, size = 11, color = "#000000", spacing = 16) => {
-    doc.setFont("helvetica", "normal");
+  const setBody = (size = 10, color = INK) => {
+    doc.setFont(bodyFont, "normal");
     doc.setFontSize(size);
     doc.setTextColor(color);
+  };
+
+  const setDisplay = (size = 16, color = INK) => {
+    doc.setFont(displayFont, "bold");
+    doc.setFontSize(size);
+    doc.setTextColor(color);
+  };
+
+  const write = (text: string, size = 10, color = INK, spacing = 14) => {
+    setBody(size, color);
     const lines = doc.splitTextToSize(pdfSafe(text), maxWidth);
-    ensureSpace(lines.length * spacing);
+    ensureSpace(lines.length * spacing + 4);
     doc.text(lines, marginX, y);
     y += lines.length * spacing;
   };
 
-  const writeHeading = (text: string, size = 12) => {
-    ensureSpace(size + 20);
-    doc.setFont("helvetica", "bold");
-    doc.setFontSize(size);
-    doc.setTextColor("#E6007E");
+  const writeHeading = (text: string, size = 14) => {
+    ensureSpace(size + 22);
+    setDisplay(size, PINK);
     doc.text(pdfSafe(text), marginX, y);
-    y += size + 6;
+    y += size + 8;
   };
 
-  const sectionGap = () => {
-    y += 8;
-    ensureSpace(24);
-    doc.setDrawColor("#E6007E");
-    doc.line(marginX, y, pageWidth - marginX, y);
-    y += 20;
-  };
+  // —— Cover header band ——
+  doc.setFillColor(10, 10, 10);
+  doc.rect(0, 0, pageWidth, 118, "F");
+  doc.setFillColor(230, 0, 126);
+  doc.rect(0, 118, pageWidth, 4, "F");
 
-  doc.setFont("helvetica", "bold");
-  doc.setFontSize(22);
-  doc.setTextColor("#E6007E");
-  doc.text(pdfSafe(SITE.name.toUpperCase()), marginX, y);
-  y += 28;
+  const logo = loadLogoDataUrl();
+  if (logo) {
+    try {
+      doc.addImage(logo, "PNG", marginX, 22, 42, 45);
+    } catch {
+      /* ignore logo failure */
+    }
+  }
 
-  doc.setFontSize(14);
-  doc.setTextColor("#000000");
-  doc.text("Personalized Treatment Proposal", marginX, y);
-  y += 20;
-  write(`Client: ${proposal.client_name}`, 11, "#000000");
-  write(`Created: ${new Date(proposal.created_at).toLocaleDateString()}`, 11, "#444444");
-  write(`Prepared by: ${preparedByLabel(proposal.created_by)}`, 11, "#444444");
-  sectionGap();
+  setDisplay(11, "#FFB8DC");
+  doc.text("HELLO GORGEOUS MED SPA", logo ? marginX + 52 : marginX, 38);
+  setDisplay(22, "#FFFFFF");
+  doc.text("Personalized Treatment Plan", logo ? marginX + 52 : marginX, 64);
+  setBody(10, "#FFB8DC");
+  doc.text(
+    pdfSafe(
+      `Prepared for ${proposal.client_name}  ·  ${new Date(proposal.created_at).toLocaleDateString()}  ·  ${SITE.phone}`,
+    ),
+    logo ? marginX + 52 : marginX,
+    86,
+  );
+  setBody(9, "#FFFFFF");
+  doc.text(pdfSafe(`Prepared by ${preparedByLabel(proposal.created_by)}`), logo ? marginX + 52 : marginX, 102);
+
+  y = 148;
 
   if (proposal.concerns?.length) {
-    writeHeading("Consult concerns");
-    write(proposal.concerns.join(", "), 11, "#000000");
-    sectionGap();
+    setBody(9, MUTED);
+    doc.text("CONSULT FOCUS", marginX, y);
+    y += 14;
+    write(proposal.concerns.join("  ·  "), 11, INK, 15);
+    y += 6;
   }
 
   if (proposal.client_instructions?.trim()) {
-    writeHeading("Welcome — a note from Hello Gorgeous", 14);
-    write(proposal.client_instructions.trim(), 11, "#000000", 14);
-    sectionGap();
+    ensureSpace(100);
+    doc.setFillColor(255, 240, 247);
+    doc.setDrawColor(0, 0, 0);
+    doc.setLineWidth(2);
+    const noteStart = y;
+    y += 18;
+    setDisplay(11, PINK);
+    doc.text("A NOTE FROM HELLO GORGEOUS", marginX + 14, y);
+    y += 18;
+    setDisplay(16, INK);
+    doc.text("Welcome", marginX + 14, y);
+    y += 16;
+    setBody(10, "#222222");
+    const noteLines = doc.splitTextToSize(pdfSafe(proposal.client_instructions.trim()), maxWidth - 28);
+    doc.text(noteLines, marginX + 14, y);
+    y += noteLines.length * 13 + 16;
+    doc.roundedRect(marginX, noteStart, maxWidth, y - noteStart, 8, 8, "S");
+    y += 18;
   }
 
-  if (proposal.media?.length) {
-    writeHeading("Before & after references");
-    write(
-      `${proposal.media.length} photo(s) attached to your digital proposal link (view online for images).`,
-      10,
-      "#444444",
-    );
-    proposal.media.forEach((item) => {
-      write(`- ${item.label || item.kind}: ${item.url}`, 9, "#666666", 12);
-    });
-    sectionGap();
-  }
-
+  // Credibility (compact on cover if short)
   const credibilityLines = proposalCredibilityPdfLines(proposal.options || []);
   if (credibilityLines.length) {
-    writeHeading("Why this plan - technology & credibility", 14);
-    credibilityLines.forEach((line) => {
+    writeHeading("Why this plan", 13);
+    credibilityLines.slice(0, 12).forEach((line) => {
       if (!line.trim()) {
-        y += 8;
+        y += 6;
         return;
       }
-      write(line, 10, "#222222", 13);
+      write(line, 9, "#333333", 12);
     });
+    if (credibilityLines.length > 12) {
+      write("(Full technology details continue with each plan and on your online proposal.)", 8, MUTED, 11);
+    }
+    y += 8;
   }
 
-  // Always start each option on its own page so Option 1 never paints over the cover.
+  // —— One page per option ——
   proposal.options.forEach((option: ProposalOption, index) => {
     doc.addPage();
-    y = 56;
+    y = 48;
 
-    writeHeading(`Option ${index + 1}: ${option.name}`, 16);
+    // Option header bar
+    doc.setFillColor(index === 1 ? 230 : 255, index === 1 ? 0 : 255, index === 1 ? 126 : 255);
+    doc.setDrawColor(0, 0, 0);
+    doc.setLineWidth(2.5);
+    doc.roundedRect(marginX, y, maxWidth, 56, 10, 10, index === 1 ? "FD" : "S");
+    if (index === 1) {
+      setDisplay(10, "#FFFFFF");
+      doc.text("MOST POPULAR", marginX + 16, y + 18);
+      setDisplay(18, "#FFFFFF");
+      doc.text(pdfSafe(`Option ${index + 1}: ${option.name}`), marginX + 16, y + 40);
+    } else {
+      setDisplay(10, PINK);
+      doc.text(`OPTION ${index + 1}`, marginX + 16, y + 18);
+      setDisplay(18, INK);
+      doc.text(pdfSafe(option.name), marginX + 16, y + 40);
+    }
+    y += 72;
 
-    doc.setFont("helvetica", "bold");
-    doc.setFontSize(12);
-    doc.setTextColor("#000000");
-    doc.text("Services", marginX, y);
+    setDisplay(11, INK);
+    doc.text("What's included", marginX, y);
     y += 16;
 
     option.services.forEach((service) => {
-      write(`- ${formatProposalServiceLine(service)}`, 10, "#111111", 14);
+      ensureSpace(36);
+      setBody(10, INK);
+      const line = pdfSafe(`•  ${formatProposalServiceLine(service)}`);
+      const lines = doc.splitTextToSize(line, maxWidth);
+      doc.text(lines, marginX, y);
+      y += lines.length * 13;
       if (service.description) {
-        write(service.description, 9, "#555555", 12);
+        setBody(8, MUTED);
+        const desc = doc.splitTextToSize(pdfSafe(service.description), maxWidth - 12);
+        doc.text(desc, marginX + 12, y);
+        y += desc.length * 11 + 4;
+      } else {
+        y += 4;
       }
     });
 
-    sectionGap();
+    y += 10;
+    ensureSpace(90);
+    doc.setFillColor(255, 240, 247);
+    doc.setDrawColor(230, 0, 126);
+    doc.setLineWidth(1.5);
+    const boxTop = y;
+    y += 18;
     const subtotal = calculateSubtotal(option.services);
     const discount = calculateDiscount(subtotal, option.discountType, option.discountValue);
     const total = calculateTotal(option);
 
-    write(`Subtotal: ${money(subtotal)}`, 11, "#000000");
+    setBody(10, MUTED);
+    doc.text(`Subtotal  ${money(subtotal)}`, marginX + 16, y);
+    y += 14;
     if (discount > 0) {
-      write(`Discount: -${money(discount)}`, 11, "#E6007E");
+      setBody(10, PINK);
+      doc.text(`Savings  -${money(discount)}`, marginX + 16, y);
+      y += 14;
     }
-    write(`Total: ${money(total)}`, 13, "#000000");
+    setDisplay(16, INK);
+    doc.text(`Total  ${money(total)}`, marginX + 16, y);
+    y += 20;
+    doc.roundedRect(marginX, boxTop, maxWidth, y - boxTop, 8, 8, "FD");
+    y += 16;
 
     if (option.timeline?.length) {
-      sectionGap();
-      doc.setFont("helvetica", "bold");
-      doc.setFontSize(12);
-      doc.setTextColor("#000000");
+      setDisplay(11, INK);
       doc.text("Suggested timeline", marginX, y);
-      y += 16;
+      y += 14;
       option.timeline.forEach((monthRow) => {
         const labels = monthRow.services
           .map((id) => timelineServiceLabel(id, option.services))
           .join(", ");
-        write(`Month ${monthRow.month}: ${labels}`, 10, "#222222", 14);
+        write(`Month ${monthRow.month}: ${labels}`, 9, "#222222", 12);
       });
     }
+
+    y += 8;
+    setBody(8, MUTED);
+    doc.text(
+      pdfSafe(`Reserve online at ${SITE.url}/proposals/${proposal.public_id}  ·  Questions? ${SITE.phone}`),
+      marginX,
+      y,
+    );
   });
 
+  // —— Next steps ——
   doc.addPage();
-  y = 72;
-  writeHeading("Next Steps", 18);
-  write("1) Choose your preferred option.", 12);
-  write("2) Confirm your timeline with your provider.", 12);
-  write("3) Book your first treatment to lock in your plan.", 12);
-  y += 12;
-  write(`Questions? Call ${SITE.phone}`, 12, "#000000");
-  write(`Book online: ${SITE.url}/book`, 12, "#000000");
+  y = 64;
+  writeHeading("Next steps", 20);
+  y += 4;
+  write("1) Choose your preferred option on your digital proposal link.", 12, INK, 18);
+  write("2) Reserve with a 50% deposit or pay in full via secure Square checkout.", 12, INK, 18);
+  write("3) We confirm your first treatment date and send pre-care guides.", 12, INK, 18);
+  y += 16;
+  doc.setFillColor(230, 0, 126);
+  doc.roundedRect(marginX, y, maxWidth, 72, 10, 10, "F");
+  setDisplay(14, "#FFFFFF");
+  doc.text("Questions? We're here.", marginX + 18, y + 28);
+  setBody(11, "#FFFFFF");
+  doc.text(pdfSafe(`Call ${SITE.phone}  ·  ${SITE.url}/book`), marginX + 18, y + 50);
+  y += 96;
+  setBody(9, MUTED);
+  write(
+    "Educational proposal only. Final treatment plan and medical eligibility are confirmed during your in-person consultation with our medical team.",
+    8,
+    MUTED,
+    11,
+  );
 
-  // jsPDF 4.x: "array" returns null in Node — use arraybuffer (same as brow-mapping export).
   return new Uint8Array(doc.output("arraybuffer"));
 }

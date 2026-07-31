@@ -276,7 +276,12 @@ export default function ProposalPreviewPage() {
 
         <section className="rounded-2xl border-4 border-black p-6 shadow-[8px_8px_0_0_#FF2D8E] print:shadow-none">
           <p className="text-xs font-bold uppercase tracking-[0.25em] text-[#E6007E]">Hello Gorgeous Med Spa</p>
-          <h1 className="mt-2 text-3xl font-black text-black">Personalized Treatment Plan</h1>
+          <h1
+            className="mt-2 text-3xl font-medium text-black md:text-4xl"
+            style={{ fontFamily: "var(--font-playfair), Georgia, serif" }}
+          >
+            Personalized Treatment Plan
+          </h1>
           <div className="mt-4 grid gap-3 text-sm md:grid-cols-2">
             <p><span className="font-semibold">Client:</span> {proposal.client_name}</p>
             <p><span className="font-semibold">Created:</span> {new Date(proposal.created_at).toLocaleDateString()}</p>
@@ -299,7 +304,12 @@ export default function ProposalPreviewPage() {
               <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-[#E6007E]">
                 A note from Hello Gorgeous
               </p>
-              <h2 className="mt-1 text-xl font-black text-black">Welcome</h2>
+              <h2
+                className="mt-1 text-2xl font-medium text-black md:text-3xl"
+                style={{ fontFamily: "var(--font-playfair), Georgia, serif" }}
+              >
+                Welcome
+              </h2>
               <p className="mt-3 whitespace-pre-wrap text-sm leading-relaxed text-black/85">
                 {proposal.client_instructions}
               </p>

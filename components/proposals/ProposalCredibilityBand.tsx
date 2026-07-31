@@ -14,7 +14,12 @@ function CredibilityCard({ block }: { block: ProposalCredibilityBlock }) {
       <div className="grid gap-0 md:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)]">
         <div className="p-5 md:p-6">
           <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-[#E6007E]">{block.eyebrow}</p>
-          <h3 className="mt-2 text-2xl font-black text-black">{block.title}</h3>
+          <h3
+            className="mt-2 text-2xl font-medium text-black md:text-3xl"
+            style={{ fontFamily: "var(--font-playfair), Georgia, serif" }}
+          >
+            {block.title}
+          </h3>
           <p className="mt-3 text-sm font-medium leading-relaxed text-black/80">{block.summary}</p>
           <p className="mt-3 text-sm font-semibold text-black/90">{block.trustLine}</p>
 
@@ -115,7 +120,12 @@ export function ProposalCredibilityBand({
     <section className={`space-y-4 ${className}`}>
       <div>
         <p className="text-xs font-bold uppercase tracking-[0.24em] text-[#E6007E]">Why this plan</p>
-        <h2 className="mt-1 text-2xl font-black text-black">Technology & credibility</h2>
+        <h2
+          className="mt-1 text-2xl font-medium text-black md:text-3xl"
+          style={{ fontFamily: "var(--font-playfair), Georgia, serif" }}
+        >
+          Technology &amp; credibility
+        </h2>
         <p className="mt-1 text-sm text-black/70">
           Educational overview of what&apos;s in your proposal — so you know exactly what you&apos;re investing in.
         </p>
