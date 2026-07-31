@@ -213,7 +213,7 @@ export function ConsultRoom({ consultId }: Props) {
                   <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-60" />
                   <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-400" />
                 </span>
-                <span className="text-[9px] font-bold uppercase tracking-[0.16em] text-white/75">
+                <span className="text-[9px] font-bold uppercase tracking-[0.16em] text-white">
                   {canPropose ? "Ready to propose" : "NP judgment active"}
                 </span>
               </span>
@@ -221,7 +221,7 @@ export function ConsultRoom({ consultId }: Props) {
             <h1 className="mt-3 text-3xl font-medium md:text-4xl" style={{ fontFamily: SERIF }}>
               {consult.client_name}
             </h1>
-            <p className="mt-2 text-sm text-white/55">
+            <p className="mt-2 text-sm text-white/90">
               Status: {consult.status}
               {consult.proposal_id ? (
                 <>
@@ -525,7 +525,7 @@ export function ConsultRoom({ consultId }: Props) {
           title={slide.title}
         >
           <div className="mb-4 flex justify-end">
-            <label className="flex items-center gap-2 text-sm font-semibold text-white/80">
+            <label className="flex items-center gap-2 text-sm font-semibold text-white">
               <input
                 type="checkbox"
                 checked={covered.has(slide.id)}
@@ -546,9 +546,9 @@ export function ConsultRoom({ consultId }: Props) {
               Covered with client
             </label>
           </div>
-          <p className="text-base leading-relaxed text-white/80 md:text-lg">{slide.body}</p>
+          <p className="text-base leading-relaxed text-white md:text-lg">{slide.body}</p>
           {slide.bullets?.length ? (
-            <ul className="mt-4 list-disc space-y-2 pl-5 text-sm text-white/75 md:text-base">
+            <ul className="mt-4 list-disc space-y-2 pl-5 text-sm text-white/95 md:text-base">
               {slide.bullets.map((b) => (
                 <li key={b}>{b}</li>
               ))}
@@ -571,7 +571,7 @@ export function ConsultRoom({ consultId }: Props) {
               <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#FFB8DC]">
                 Staff talking points
               </p>
-              <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-white/85">
+              <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-white">
                 {slide.talkingPoints.map((t) => (
                   <li key={t}>{t}</li>
                 ))}
@@ -734,7 +734,7 @@ export function ConsultRoom({ consultId }: Props) {
 
       <div className="fixed bottom-0 left-0 right-0 z-40 border-t-4 border-black bg-[#0a0a0a]/95 px-4 py-3 text-white backdrop-blur md:left-[var(--admin-sidebar-width,0px)]">
         <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-2">
-          <p className="text-xs font-semibold text-white/55">
+          <p className="text-xs font-semibold text-white">
             Covered slides: {covered.size}/{pack.slides.length}
             {canPropose ? " · Ready to propose" : " · Screening locked"}
           </p>
