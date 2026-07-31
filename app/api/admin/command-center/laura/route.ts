@@ -145,7 +145,6 @@ export async function GET(request: NextRequest) {
   return NextResponse.json({
     unlocked: true,
     weekStart,
-    today,
     hours: (hours || []).map((h) => ({
       id: h.id,
       task: h.task,
