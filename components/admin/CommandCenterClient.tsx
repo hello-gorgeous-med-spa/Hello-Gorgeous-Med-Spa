@@ -947,7 +947,7 @@ export default function CommandCenterClient() {
                           <strong>{m.to}</strong>{" "}
                           <span className="text-[#bbb]">· {m.time}</span>
                         </div>
-                        <div className="text-[13.5px] text-[#333] mt-1 bg-[#faf7f8] rounded-[10px] px-3.5 py-2.5">
+                        <div className="text-[13.5px] text-[#333] mt-1 bg-[#faf7f8] rounded-[10px] px-3.5 py-2.5 whitespace-pre-wrap break-words max-h-[420px] overflow-y-auto">
                           {m.text}
                         </div>
                       </div>
