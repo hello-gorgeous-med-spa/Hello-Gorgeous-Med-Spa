@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import {
   CC_LAURA_HOURS_GOAL,
+  CC_LAURA_PRODUCTIVITY_LINKS,
   CC_LAURA_TASK_CATEGORIES,
   CC_LAURA_WEEK_CHECKS,
   CC_LAURA_WEEKLY_RATE,
@@ -10,6 +11,7 @@ import {
   type CcLauraTask,
   type CcLauraTaskCategory,
 } from "@/lib/command-center";
+import Link from "next/link";
 
 const PINK = "#FF2D8E";
 
@@ -441,6 +443,32 @@ export default function CommandCenterMarketing({ isOwner, onToast }: Props) {
 
       {mktSub === "laura" && lauraUnlocked && (
         <div className="flex flex-col gap-4">
+          {/* Productivity toolkit — existing HG tools */}
+          <div className="bg-white border-2 border-black rounded-2xl px-5 py-5">
+            <h2
+              className="text-[18px] font-bold m-0"
+              style={{ fontFamily: "var(--font-display), Georgia, serif" }}
+            >
+              Productivity toolkit
+            </h2>
+            <p className="m-0 mt-1 mb-4 text-[12.5px] text-[#888]">
+              Use these every week — then log the work as hours + meetings above so Danielle can see
+              the pipeline.
+            </p>
+            <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
+              {CC_LAURA_PRODUCTIVITY_LINKS.map((tool) => (
+                <Link
+                  key={tool.href}
+                  href={tool.href}
+                  className="rounded-[12px] border border-black/10 bg-[#FFF5F9]/50 px-3.5 py-3 hover:border-[#FF2D8E]/50 transition-colors"
+                >
+                  <div className="text-[13px] font-bold text-[#111]">{tool.label} →</div>
+                  <div className="text-[11px] text-[#888] mt-0.5 leading-snug">{tool.desc}</div>
+                </Link>
+              ))}
+            </div>
+          </div>
+
           {/* Meetings & outreach calendar */}
           <div className="bg-white border-2 border-black rounded-2xl px-5 py-5">
             <div className="flex flex-wrap items-start justify-between gap-3 mb-4">

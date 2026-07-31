@@ -380,6 +380,50 @@ export const CC_LAURA_WEEK_CHECKS = [
 export const CC_LAURA_HOURS_GOAL = 10;
 export const CC_LAURA_WEEKLY_RATE = 250;
 
+/** Tools Laura should use weekly — surfaced on Laura's Desk */
+export const CC_LAURA_PRODUCTIVITY_LINKS = [
+  {
+    href: "/admin/marketing/post-social",
+    label: "Post to Social",
+    desc: "Instagram, Facebook & connected channels",
+  },
+  {
+    href: "/admin/marketing/google-posts",
+    label: "Google Business Posts",
+    desc: "Local GBP posts from ready-made presets",
+  },
+  {
+    href: "/admin/sms",
+    label: "Text Studio",
+    desc: "SMS campaigns (Twilio A2P)",
+  },
+  {
+    href: "/admin/email-campaigns",
+    label: "Email Campaigns",
+    desc: "Newsletter & promo emails",
+  },
+  {
+    href: "/admin/templates",
+    label: "Message Templates",
+    desc: "Approved SMS & email copy",
+  },
+  {
+    href: "/admin/marketing/reviews",
+    label: "Reviews Hub",
+    desc: "Review asks & reputation follow-up",
+  },
+  {
+    href: "/staff/protocols",
+    label: "Social / Protocols Kit",
+    desc: "Captions, July social assets, cheat sheets",
+  },
+  {
+    href: "/admin/marketing/blog-social",
+    label: "Blog → Social",
+    desc: "Turn blog posts into social content",
+  },
+] as const;
+
 export const CC_LAURA_TASK_CATEGORIES = [
   { id: "chamber", label: "Chamber / civic" },
   { id: "meeting", label: "Business meeting" },
