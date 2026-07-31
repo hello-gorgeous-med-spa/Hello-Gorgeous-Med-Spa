@@ -19,9 +19,57 @@ export type AdminNavGroup = {
   collapsed?: boolean;
 };
 
-export const ADMIN_PORTAL_TAGLINE = "Command · Consult · close";
+export const ADMIN_PORTAL_TAGLINE = "Today’s desk";
 
-/** The two doors — also surfaced in Command Center + Consult hub */
+/** Lean dashboard destinations — Boots-style directory, not a card wall */
+export const ADMIN_DASHBOARD_PRIMARY = [
+  { href: "/admin/command-center", label: "Command Center" },
+  { href: "/admin/proposals/consults", label: "Consult Desk" },
+  { href: "/admin/rx/ops", label: "RX Ops" },
+  { href: "/admin/clients", label: "Clients" },
+  { href: "/pos", label: "POS" },
+] as const;
+
+export const ADMIN_DASHBOARD_DIRECTORY = [
+  {
+    title: "Care & sales",
+    links: [
+      { href: "/admin/proposals/consults/new", label: "New consult" },
+      { href: "/admin/proposals/new", label: "New proposal" },
+      { href: "/admin/consents", label: "Consents" },
+      { href: "/admin/calendar", label: "HG calendar" },
+    ],
+  },
+  {
+    title: "RX",
+    links: [
+      { href: "/admin/rx/portal", label: "RE GEN Portal" },
+      { href: "/admin/rx-dispatch", label: "Dispatch" },
+      { href: "/admin/rx/pharmacy-orders", label: "Pharmacy orders" },
+      { href: "/admin/rx-invoices", label: "RX invoices" },
+      { href: "/staff/protocols", label: "Protocols" },
+    ],
+  },
+  {
+    title: "Money",
+    links: [
+      { href: "/admin/sales/daily-summary", label: "Daily summary" },
+      { href: "/admin/sales/payments", label: "Square payments" },
+      { href: "/admin/rx-ledger", label: "RX ledger" },
+      { href: "/admin/settings/payments", label: "Square connect" },
+    ],
+  },
+  {
+    title: "Marketing & docs",
+    links: [
+      { href: "/admin/sms", label: "Text Studio" },
+      { href: "/admin/marketing/post-social", label: "Post to social" },
+      { href: "/admin/cheat-sheets", label: "Cheat sheets" },
+      { href: "/admin/vendors", label: "Vendors" },
+    ],
+  },
+] as const;
+
 export const ADMIN_FRONT_DOORS = [
   {
     href: "/admin/command-center",
@@ -152,52 +200,6 @@ export const ADMIN_MOBILE_BOTTOM_NAV = [
   { href: "/admin/clients", icon: "👥", label: "Clients" },
   { href: "/pos", icon: "💳", label: "POS" },
 ] as const;
-
-export const ADMIN_DASHBOARD_QUICK_LINKS = {
-  rx: [
-    { href: "/admin/rx/ops", label: "RX Ops Console", desc: "Unified requests, formulary & review" },
-    { href: "/admin/rx/portal", label: "RE GEN Portal", desc: "Shoppable catalog for staff-assisted orders" },
-    { href: "/staff/protocols", label: "Protocols & Quick Tools", desc: "Guides, social posts & invoice quick-send" },
-    { href: "/admin/rx", label: "RX Command", desc: "Intake queue, refills & approvals" },
-    { href: "/admin/flowwave", label: "FlowWave", desc: "RX workflow & patient flow" },
-    { href: "/admin/rx-dispatch", label: "Dispatch", desc: "Ship GLP-1 & peptides" },
-    { href: "/admin/rx/pharmacy-orders", label: "Pharmacy Orders", desc: "BoomRx order sheets" },
-    { href: "/admin/rx-invoices", label: "RX Invoices", desc: "Send pay links" },
-    { href: "/admin/rx/glp1-pricing", label: "RX Pricing", desc: "GLP-1 & peptide margins" },
-    { href: "/admin/rx/catalog", label: "RE GEN Catalog", desc: "All peptides + vendors" },
-  ],
-  patients: [
-    { href: "/admin/clients", label: "Clients", desc: "Profiles & RX history" },
-    { href: "/admin/calendar", label: "Calendar", desc: "Today’s schedule" },
-    { href: "/admin/appointments/new", label: "New Booking", desc: "Schedule visit" },
-    { href: "/admin/proposals/consults/new", label: "New Consult", desc: "Screen · educate · propose" },
-    { href: "/admin/proposals/new", label: "New Proposal", desc: "Packages · weight loss · peptides" },
-    { href: "/admin/consents", label: "Consents", desc: "Pending signatures" },
-  ],
-  payments: [
-    { href: "/admin/promos/bestie", label: "Bestie $100 Off", desc: "Square checkout code BESTIE100" },
-    { href: "/admin/settings/payments", label: "Square Connect", desc: "Link account & download data" },
-    { href: "/admin/sales/payments", label: "Square Payments", desc: "Synced transactions" },
-    { href: "/admin/sales/daily-summary", label: "Daily Summary", desc: "End-of-day totals" },
-    { href: "/admin/rx-ledger", label: "RX Ledger", desc: "Online RX payments" },
-    { href: "/pos", label: "Open POS", desc: "In-spa checkout" },
-  ],
-  marketing: [
-    { href: "/admin/sms", label: "Text Studio", desc: "Send-and-go SMS campaigns (Twilio A2P)" },
-    { href: "/admin/marketing/post-social", label: "Post to Social", desc: "Instagram, Facebook & more" },
-    { href: "/admin/email-campaigns", label: "Email Campaigns", desc: "Newsletter & promos" },
-  ],
-  resources: [
-    { href: "/admin/command-center", label: "Command Center", desc: "Team Hub · checklist · ops board" },
-    { href: "/admin/proposals/consults", label: "Consult Desk", desc: "Sales pipeline front door" },
-    { href: "/admin/cheat-sheets", label: "Clinical Cheat Sheets", desc: "36 printable treatment & ops PDFs" },
-    { href: "/staff/protocols", label: "Protocols & Quick Tools", desc: "Guides, social kit & invoice quick-send" },
-    { href: "/admin/vendors", label: "Vendor Portals", desc: "BoomRx, Allergan, Square…" },
-    { href: "/admin/settings/aftercare", label: "Aftercare Docs", desc: "Client-facing care guides" },
-    { href: "/admin/pmu-brows", label: "Client Handouts", desc: "PMU forms & PDFs" },
-    { href: "/admin/templates", label: "Message Templates", desc: "SMS & email copy" },
-  ],
-} as const;
 
 /** Paths still reachable via URL but omitted from nav to reduce noise */
 export const ADMIN_NAV_HIDDEN_PATHS = [
