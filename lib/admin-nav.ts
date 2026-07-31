@@ -1,7 +1,6 @@
 /**
- * Admin portal navigation — RX-first medical portal layout.
- * Primary: prescriptions, patients, payments, marketing (SMS + social).
- * Collapsed: spa ops extras. Hidden from nav: AI experiments, lead sprints, etc.
+ * Admin portal navigation — two front doors, lean daily strip, everything else collapsed.
+ * Front doors: Command Center (ops) · Consult Desk (sales)
  */
 
 export type AdminNavItem = {
@@ -18,49 +17,77 @@ export type AdminNavGroup = {
   collapsed?: boolean;
 };
 
-export const ADMIN_PORTAL_TAGLINE = "RX · patients · payments";
+export const ADMIN_PORTAL_TAGLINE = "Command · Consult · close";
+
+/** The two doors — also surfaced in Command Center + Consult hub */
+export const ADMIN_FRONT_DOORS = [
+  {
+    href: "/admin/command-center",
+    label: "Command Center",
+    desc: "Team hub · checklist · daily ops",
+    icon: "🎛️",
+  },
+  {
+    href: "/admin/proposals/consults",
+    label: "Consult Desk",
+    desc: "Screen · educate · propose · book",
+    icon: "🩺",
+  },
+] as const;
 
 export const ADMIN_NAV_GROUPS: AdminNavGroup[] = [
   {
-    section: "Home",
+    section: "Front doors",
     items: [
-      { href: "/admin", label: "Dashboard", icon: "📊" },
       { href: "/admin/command-center", label: "Command Center", icon: "🎛️" },
+      { href: "/admin/proposals/consults", label: "Consult Desk", icon: "🩺" },
+      { href: "/admin", label: "Dashboard", icon: "📊" },
     ],
   },
   {
-    section: "Prescriptions & RX",
+    section: "Today",
+    items: [
+      { href: "/admin/clients", label: "Clients", icon: "👥" },
+      { href: "/admin/calendar", label: "Calendar", icon: "🗓" },
+      { href: "/admin/proposals", label: "Proposals", icon: "📝" },
+      { href: "/admin/rx/ops", label: "RX Ops", icon: "🖥️" },
+      { href: "/admin/sms", label: "Text Studio", icon: "📱" },
+      { href: "/pos", label: "POS", icon: "💳" },
+    ],
+  },
+  {
+    section: "RX tools",
+    collapsed: true,
     items: [
       { href: "/admin/rx", label: "RX Command", icon: "🎯" },
-      { href: "/admin/rx/ops", label: "RX Ops Console", icon: "🖥️" },
       { href: "/admin/rx/portal", label: "RE GEN Portal", icon: "💗" },
-      { href: "/staff/protocols", label: "Protocols & Quick Tools", icon: "🧰" },
-      { href: "/admin/flowwave", label: "FlowWave", icon: "🌊" },
       { href: "/admin/rx-dispatch", label: "Dispatch", icon: "📤" },
       { href: "/admin/rx/pharmacy-orders", label: "Pharmacy Orders", icon: "🧪" },
       { href: "/admin/rx-invoices", label: "RX Invoices", icon: "💊" },
       { href: "/admin/rx/glp1-pricing", label: "RX Pricing", icon: "💲" },
       { href: "/admin/rx/catalog", label: "RE GEN Catalog", icon: "📋" },
-      { href: "/admin/rx/e2e-checklist", label: "E2E Checklist", icon: "✅" },
       { href: "/admin/rx-ledger", label: "Payment Ledger", icon: "📒" },
       { href: "/admin/rx-messages", label: "Patient Messages", icon: "💬" },
       { href: "/admin/rx/clinic-sale", label: "Clinic Sale", icon: "🏥" },
       { href: "/admin/rx/clinic-reports", label: "Clinic Reports", icon: "📋" },
+      { href: "/admin/rx/go-live", label: "Go-live / Compliance", icon: "✅" },
+      { href: "/admin/flowwave", label: "FlowWave", icon: "🌊" },
+      { href: "/staff/protocols", label: "Protocols", icon: "🧰" },
     ],
   },
   {
-    section: "Patients & Schedule",
+    section: "Schedule & sales",
+    collapsed: true,
     items: [
-      { href: "/admin/clients", label: "Clients", icon: "👥" },
-      { href: "/admin/calendar", label: "Calendar", icon: "🗓" },
       { href: "/admin/appointments", label: "Appointments", icon: "📅" },
-      { href: "/admin/proposals", label: "Proposals", icon: "📝" },
-      { href: "/admin/proposals/consults", label: "Consults", icon: "🩺" },
-      { href: "/admin/scan", label: "Scan Client", icon: "📷" },
+      { href: "/admin/appointments/new", label: "New booking", icon: "➕" },
+      { href: "/admin/proposals/new", label: "New proposal", icon: "✨" },
+      { href: "/admin/scan", label: "Scan client", icon: "📷" },
     ],
   },
   {
-    section: "Payments & Square",
+    section: "Money",
+    collapsed: true,
     items: [
       { href: "/admin/settings/payments", label: "Square Connect", icon: "🔗" },
       { href: "/admin/sales/payments", label: "Square Payments", icon: "💳" },
@@ -70,33 +97,32 @@ export const ADMIN_NAV_GROUPS: AdminNavGroup[] = [
   },
   {
     section: "Marketing",
+    collapsed: true,
     items: [
-      { href: "/admin/sms", label: "Text Studio", icon: "📱" },
       { href: "/admin/marketing/post-social", label: "Post to Social", icon: "📲" },
       { href: "/admin/promos/bestie", label: "Bestie $100 Off", icon: "💕" },
       { href: "/admin/email-campaigns", label: "Email Campaigns", icon: "📧" },
     ],
   },
   {
-    section: "Forms & Documents",
+    section: "Documents",
+    collapsed: true,
     items: [
       { href: "/admin/consents", label: "Consents", icon: "✅" },
       { href: "/admin/settings/consent-forms", label: "Consent Forms", icon: "📝" },
       { href: "/admin/settings/pretreatment", label: "Pre-Treatment", icon: "📋" },
       { href: "/admin/settings/aftercare", label: "Aftercare", icon: "📄" },
+      { href: "/pre-post-care", label: "Pre & Post Care", icon: "💗" },
       { href: "/admin/templates", label: "Message Templates", icon: "💬" },
-      { href: "/admin/cheat-sheets", label: "Clinical Cheat Sheets", icon: "📑" },
-      { href: "/admin/pmu-brows", label: "PMU & Client Handouts", icon: "💗" },
+      { href: "/admin/cheat-sheets", label: "Cheat Sheets", icon: "📑" },
+      { href: "/admin/pmu-brows", label: "PMU & Handouts", icon: "💗" },
     ],
   },
   {
-    section: "Vendors",
-    items: [{ href: "/admin/vendors", label: "Vendor Portals", icon: "🏢" }],
-  },
-  {
-    section: "Spa operations",
+    section: "Spa & vendors",
     collapsed: true,
     items: [
+      { href: "/admin/vendors", label: "Vendor Portals", icon: "🏢" },
       { href: "/admin/services", label: "Services", icon: "✨" },
       { href: "/admin/memberships", label: "Memberships", icon: "💎" },
       { href: "/admin/gift-cards", label: "Gift Cards", icon: "🎁" },
@@ -109,6 +135,7 @@ export const ADMIN_NAV_GROUPS: AdminNavGroup[] = [
   },
   {
     section: "System",
+    collapsed: true,
     items: [{ href: "/admin/settings", label: "Settings", icon: "⚙️" }],
   },
 ];
@@ -117,8 +144,8 @@ export const ADMIN_NAV_FLAT: AdminNavItem[] = ADMIN_NAV_GROUPS.flatMap((g) => g.
 
 export const ADMIN_MOBILE_BOTTOM_NAV = [
   { href: "/admin/command-center", icon: "🎛️", label: "Command" },
-  { href: "/admin", icon: "📊", label: "Home" },
-  { href: "/admin/rx", icon: "💊", label: "RX" },
+  { href: "/admin/proposals/consults", icon: "🩺", label: "Consult" },
+  { href: "/admin/rx/ops", icon: "💊", label: "RX" },
   { href: "/admin/clients", icon: "👥", label: "Clients" },
   { href: "/pos", icon: "💳", label: "POS" },
 ] as const;
@@ -159,6 +186,7 @@ export const ADMIN_DASHBOARD_QUICK_LINKS = {
   ],
   resources: [
     { href: "/admin/command-center", label: "Command Center", desc: "Team Hub · checklist · ops board" },
+    { href: "/admin/proposals/consults", label: "Consult Desk", desc: "Sales pipeline front door" },
     { href: "/admin/cheat-sheets", label: "Clinical Cheat Sheets", desc: "36 printable treatment & ops PDFs" },
     { href: "/staff/protocols", label: "Protocols & Quick Tools", desc: "Guides, social kit & invoice quick-send" },
     { href: "/admin/vendors", label: "Vendor Portals", desc: "BoomRx, Allergan, Square…" },
@@ -182,4 +210,5 @@ export const ADMIN_NAV_HIDDEN_PATHS = [
   "/admin/video-generator",
   "/admin/packages",
   "/admin/flowwave/intake",
+  "/admin/rx/e2e-checklist",
 ];

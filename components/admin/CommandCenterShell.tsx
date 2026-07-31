@@ -38,11 +38,12 @@ const VIEW_NAV: { id: CcShellView; label: string; ownerOnly?: boolean }[] = [
 ];
 
 const QUICK_LINKS = [
-  { href: "/admin", label: "Admin home" },
+  { href: "/admin/proposals/consults", label: "Consult Desk" },
   { href: "/admin/calendar", label: "Calendar" },
   { href: "/admin/sms", label: "SMS Studio" },
   { href: "/admin/clients", label: "Clients" },
-  { href: "/rx-portal", label: "RX Portal" },
+  { href: "/admin/rx/ops", label: "RX Ops" },
+  { href: "/admin/proposals", label: "Proposals" },
 ];
 
 export default function CommandCenterShell({
@@ -432,6 +433,38 @@ export default function CommandCenterShell({
         />
 
         <main className="flex-1 px-4 sm:px-6 lg:px-8 py-6 pb-16 max-w-[1280px] w-full mx-auto">
+          <div className="mb-6 grid gap-3 sm:grid-cols-2">
+            <Link
+              href="/admin/proposals/consults"
+              className="rounded-2xl border-4 border-black bg-white p-4 shadow-[6px_6px_0_0_rgba(230,0,126,0.3)] transition hover:-translate-y-0.5"
+            >
+              <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-[#E6007E]">
+                Front door · Sales
+              </p>
+              <p
+                className="mt-1 text-xl font-medium text-black"
+                style={{ fontFamily: "var(--font-playfair), Georgia, serif" }}
+              >
+                Consult Desk →
+              </p>
+              <p className="mt-1 text-sm text-black/60">Screen · educate · propose · book</p>
+            </Link>
+            <Link
+              href="/admin/command-center"
+              className="rounded-2xl border-4 border-black bg-[#0a0a0a] p-4 text-white shadow-[6px_6px_0_0_rgba(230,0,126,0.3)] transition hover:-translate-y-0.5"
+            >
+              <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-[#FFB8DC]">
+                Front door · Ops
+              </p>
+              <p
+                className="mt-1 text-xl font-medium text-white"
+                style={{ fontFamily: "var(--font-playfair), Georgia, serif" }}
+              >
+                You are here
+              </p>
+              <p className="mt-1 text-sm text-white/85">Team hub · checklist · daily ops</p>
+            </Link>
+          </div>
           {children}
         </main>
 

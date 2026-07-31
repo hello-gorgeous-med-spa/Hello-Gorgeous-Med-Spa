@@ -198,6 +198,22 @@ export default function AdminLayoutClient({ children }: { children: React.ReactN
 
   const isActive = (href: string) => {
     if (href === '/admin') return pathname === '/admin';
+    // Consult Desk owns /admin/proposals/consults* — don't light up Proposals too
+    if (href === '/admin/proposals') {
+      return (
+        pathname.startsWith('/admin/proposals') &&
+        !pathname.startsWith('/admin/proposals/consults')
+      );
+    }
+    if (href === '/admin/rx') {
+      return (
+        pathname === '/admin/rx' ||
+        (pathname.startsWith('/admin/rx/') && !pathname.startsWith('/admin/rx/ops'))
+      );
+    }
+    if (href === '/admin/rx/ops') {
+      return pathname.startsWith('/admin/rx/ops');
+    }
     return pathname.startsWith(href);
   };
 
