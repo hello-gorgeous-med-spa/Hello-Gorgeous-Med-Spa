@@ -202,9 +202,14 @@ export default function PublicProposalPage() {
             </p>
           ) : null}
           {proposal.client_instructions ? (
-            <div className="mt-4 rounded-xl border border-black/10 bg-[#FFF0F7] p-4">
-              <p className="text-sm font-bold text-[#E6007E]">Your instructions</p>
-              <p className="mt-1 whitespace-pre-wrap text-sm text-black/85">{proposal.client_instructions}</p>
+            <div className="mt-5 rounded-2xl border-4 border-black bg-[#FFF0F7] p-5 shadow-[6px_6px_0_0_rgba(230,0,126,0.3)]">
+              <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-[#E6007E]">
+                A note from Hello Gorgeous
+              </p>
+              <h2 className="mt-1 text-xl font-black text-black">Welcome</h2>
+              <p className="mt-3 whitespace-pre-wrap text-sm leading-relaxed text-black/85">
+                {proposal.client_instructions}
+              </p>
             </div>
           ) : null}
           {isAccepted ? (

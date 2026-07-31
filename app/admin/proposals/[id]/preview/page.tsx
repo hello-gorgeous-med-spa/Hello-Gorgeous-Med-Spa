@@ -17,6 +17,10 @@ import { isVitaminProposalServiceId } from "@/lib/proposals/vitamin-injections";
 import { careGuidesForProposalOptions } from "@/lib/proposals/care-guides";
 import { SITE } from "@/lib/seo";
 import { CARECREDIT_URL, CHERRY_PAY_URL } from "@/lib/flows";
+import {
+  fillProposalWelcomeTemplate,
+  PROPOSAL_WELCOME_TEMPLATES,
+} from "@/lib/proposals/welcome-templates";
 
 export default function ProposalPreviewPage() {
   const params = useParams<{ id: string }>();
@@ -25,6 +29,8 @@ export default function ProposalPreviewPage() {
   const [error, setError] = useState<string | null>(null);
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
+  const [clientNote, setClientNote] = useState("");
+  const [savingNote, setSavingNote] = useState(false);
   const [sendingEmail, setSendingEmail] = useState(false);
   const [sendingSms, setSendingSms] = useState(false);
   const [sendingCare, setSendingCare] = useState<"email" | "sms" | "both" | null>(null);
@@ -41,6 +47,7 @@ export default function ProposalPreviewPage() {
     setProposal(data.proposal);
     setEmail(data.proposal?.client_email || "");
     setPhone(data.proposal?.client_phone || "");
+    setClientNote(data.proposal?.client_instructions || "");
     if (Array.isArray(data.proposal?.options) && data.proposal.options.length) {
       setOptionIndex(Math.min(1, data.proposal.options.length - 1));
     }
@@ -86,6 +93,37 @@ export default function ProposalPreviewPage() {
       setNotice("Public share link copied.");
     } catch {
       setNotice("Could not copy automatically. Please copy the link manually.");
+    }
+  };
+
+  const saveClientNote = async () => {
+    if (!proposal) return;
+    setNotice(null);
+    setSavingNote(true);
+    try {
+      const response = await fetch(`/api/proposals/${params.id}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          clientName: proposal.client_name,
+          clientEmail: email || proposal.client_email,
+          clientPhone: phone || proposal.client_phone,
+          concerns: proposal.concerns || [],
+          options: proposal.options || [],
+          internalNotes: proposal.internal_notes,
+          clientInstructions: clientNote,
+          media: proposal.media || [],
+        }),
+      });
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.error || "Failed to save note.");
+      setProposal(data.proposal);
+      setClientNote(data.proposal?.client_instructions || "");
+      setNotice("Welcome note saved — clients see it on their plan link & PDF.");
+    } catch (saveError) {
+      setNotice(saveError instanceof Error ? saveError.message : "Failed to save note.");
+    } finally {
+      setSavingNote(false);
     }
   };
 
@@ -257,11 +295,54 @@ export default function ProposalPreviewPage() {
             </div>
           ) : null}
           {proposal.client_instructions ? (
-            <div className="mt-4 rounded-xl border-2 border-black/10 bg-[#FFF0F7] p-4">
-              <p className="text-sm font-semibold text-[#E6007E]">Client instructions</p>
-              <p className="mt-1 whitespace-pre-wrap text-sm text-black/85">{proposal.client_instructions}</p>
+            <div className="mt-5 rounded-2xl border-4 border-black bg-[#FFF0F7] p-5 print:border-2">
+              <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-[#E6007E]">
+                A note from Hello Gorgeous
+              </p>
+              <h2 className="mt-1 text-xl font-black text-black">Welcome</h2>
+              <p className="mt-3 whitespace-pre-wrap text-sm leading-relaxed text-black/85">
+                {proposal.client_instructions}
+              </p>
             </div>
           ) : null}
+        </section>
+
+        <section className="print:hidden mt-5 rounded-2xl border-4 border-black bg-white p-5 shadow-[8px_8px_0_0_#FF2D8E]">
+          <h2 className="text-lg font-black text-black">Welcome message &amp; note to client</h2>
+          <p className="mt-1 text-sm text-black/65">
+            This shows on their personalized treatment plan, PDF, and share link. Insert a template, edit, then save.
+          </p>
+          <div className="mt-3 flex flex-wrap gap-2">
+            {PROPOSAL_WELCOME_TEMPLATES.map((template) => (
+              <button
+                key={template.id}
+                type="button"
+                onClick={() =>
+                  setClientNote(
+                    fillProposalWelcomeTemplate(template.body, proposal.client_name || ""),
+                  )
+                }
+                className="rounded-full border-2 border-black bg-[#FFF0F7] px-3 py-1.5 text-[11px] font-bold text-black hover:border-[#E6007E] hover:text-[#E6007E]"
+              >
+                {template.label}
+              </button>
+            ))}
+          </div>
+          <textarea
+            rows={10}
+            value={clientNote}
+            onChange={(event) => setClientNote(event.target.value)}
+            className="mt-3 w-full rounded-xl border-2 border-black/20 px-3 py-2 text-sm text-black"
+            placeholder="Hi … Welcome. Your proposal includes…"
+          />
+          <button
+            type="button"
+            disabled={savingNote}
+            onClick={() => void saveClientNote()}
+            className="mt-3 rounded-full bg-[#E6007E] px-5 py-2.5 text-sm font-bold text-white disabled:opacity-50"
+          >
+            {savingNote ? "Saving…" : "Save note to client plan"}
+          </button>
         </section>
 
         {proposal.media?.length ? (

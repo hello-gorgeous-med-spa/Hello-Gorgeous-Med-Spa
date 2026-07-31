@@ -20,6 +20,10 @@ import {
   VITAMIN_TREATMENT_PLANS,
 } from "@/lib/proposals/vitamin-injections";
 import {
+  fillProposalWelcomeTemplate,
+  PROPOSAL_WELCOME_TEMPLATES,
+} from "@/lib/proposals/welcome-templates";
+import {
   autoGenerateOptions,
   calculateDiscount,
   calculateMonthlyPayment,
@@ -483,14 +487,33 @@ export function ProposalBuilder({ proposalId }: ProposalBuilderProps) {
           </div>
         </div>
 
-        <div className="mt-4">
-          <p className="text-sm font-semibold text-black">Client instructions (shown on share link)</p>
+        <div className="mt-4 rounded-2xl border-4 border-black bg-[#FFF0F7] p-4 shadow-[6px_6px_0_0_rgba(230,0,126,0.25)]">
+          <p className="text-sm font-black uppercase tracking-wide text-[#E6007E]">
+            Welcome message &amp; note to client
+          </p>
+          <p className="mt-1 text-xs text-black/65">
+            Shows on their personalized treatment plan link, PDF, and preview. Use a template or write your own.
+          </p>
+          <div className="mt-3 flex flex-wrap gap-2">
+            {PROPOSAL_WELCOME_TEMPLATES.map((template) => (
+              <button
+                key={template.id}
+                type="button"
+                onClick={() =>
+                  setClientInstructions(fillProposalWelcomeTemplate(template.body, clientName))
+                }
+                className="rounded-full border-2 border-black bg-white px-3 py-1.5 text-[11px] font-bold text-black hover:border-[#E6007E] hover:text-[#E6007E]"
+              >
+                {template.label}
+              </button>
+            ))}
+          </div>
           <textarea
-            rows={4}
+            rows={10}
             value={clientInstructions}
             onChange={(event) => setClientInstructions(event.target.value)}
-            className="mt-2 w-full rounded-lg border-2 border-black/20 px-3 py-2 text-sm text-black"
-            placeholder="Example: Arrive 15 min early. No retinoids 5 days before Solaria. Text us to book your first Morpheus8."
+            className="mt-3 w-full rounded-xl border-2 border-black/20 bg-white px-3 py-2 text-sm text-black"
+            placeholder="Hi Xochitl — Welcome… Your proposal includes…"
           />
         </div>
 

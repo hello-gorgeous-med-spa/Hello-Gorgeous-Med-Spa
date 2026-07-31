@@ -107,8 +107,8 @@ export function buildProposalPdf(proposal: TreatmentProposalRecord): Uint8Array 
   }
 
   if (proposal.client_instructions?.trim()) {
-    writeHeading("Your instructions");
-    write(proposal.client_instructions.trim(), 11, "#000000");
+    writeHeading("Welcome — a note from Hello Gorgeous", 14);
+    write(proposal.client_instructions.trim(), 11, "#000000", 14);
     sectionGap();
   }
 
