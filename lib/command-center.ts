@@ -371,12 +371,46 @@ export const CC_LAURA_WEEK_CHECKS = [
   { id: "w0", label: "Weekly plan submitted (Monday)" },
   { id: "w1", label: "Content calendar updated" },
   { id: "w2", label: "5 posts scheduled" },
+  { id: "w5", label: "Meetings / outreach logged on calendar" },
+  { id: "w6", label: "Follow-ups from last meetings done" },
   { id: "w3", label: "Monthly report to Danielle" },
   { id: "w4", label: "Invoice sent" },
 ] as const;
 
 export const CC_LAURA_HOURS_GOAL = 10;
 export const CC_LAURA_WEEKLY_RATE = 250;
+
+export const CC_LAURA_TASK_CATEGORIES = [
+  { id: "chamber", label: "Chamber / civic" },
+  { id: "meeting", label: "Business meeting" },
+  { id: "outreach", label: "Outreach / prospecting" },
+  { id: "follow_up", label: "Follow-up" },
+  { id: "content", label: "Content / marketing" },
+  { id: "other", label: "Other" },
+] as const;
+
+export type CcLauraTaskCategory = (typeof CC_LAURA_TASK_CATEGORIES)[number]["id"];
+export type CcLauraTaskStatus = "scheduled" | "completed" | "cancelled" | "no_show";
+
+export type CcLauraHour = {
+  id: string;
+  task: string;
+  hrs: number;
+  date: string;
+};
+
+export type CcLauraTask = {
+  id: string;
+  title: string;
+  orgName: string;
+  category: CcLauraTaskCategory;
+  scheduledAt: string | null;
+  locationOrLink: string;
+  notes: string;
+  status: CcLauraTaskStatus;
+  outcome: string;
+  weekStart: string | null;
+};
 
 export type CcNotification = {
   id: string;
@@ -387,12 +421,26 @@ export type CcNotification = {
   createdAt: string;
 };
 
-export type CcLauraHour = {
-  id: string;
-  task: string;
-  hrs: number;
-  date: string;
-};
+export function mapLauraTaskRow(row: Record<string, unknown>): CcLauraTask {
+  const cat = String(row.category || "meeting");
+  const status = String(row.status || "scheduled");
+  return {
+    id: String(row.id),
+    title: String(row.title || ""),
+    orgName: String(row.org_name || ""),
+    category: (CC_LAURA_TASK_CATEGORIES.some((c) => c.id === cat)
+      ? cat
+      : "other") as CcLauraTaskCategory,
+    scheduledAt: row.scheduled_at ? String(row.scheduled_at) : null,
+    locationOrLink: String(row.location_or_link || ""),
+    notes: String(row.notes || ""),
+    status: (["scheduled", "completed", "cancelled", "no_show"].includes(status)
+      ? status
+      : "scheduled") as CcLauraTaskStatus,
+    outcome: String(row.outcome || ""),
+    weekStart: row.week_start ? String(row.week_start) : null,
+  };
+}
 
 export function mapNotificationRow(row: Record<string, unknown>): CcNotification {
   const createdAt = String(row.created_at || "");

@@ -3,9 +3,12 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import {
   CC_LAURA_HOURS_GOAL,
+  CC_LAURA_TASK_CATEGORIES,
   CC_LAURA_WEEK_CHECKS,
   CC_LAURA_WEEKLY_RATE,
   type CcLauraHour,
+  type CcLauraTask,
+  type CcLauraTaskCategory,
 } from "@/lib/command-center";
 
 const PINK = "#FF2D8E";
@@ -44,6 +47,14 @@ export default function CommandCenterMarketing({ isOwner, onToast }: Props) {
   const [invoiceSubmitted, setInvoiceSubmitted] = useState(false);
   const [newHrTask, setNewHrTask] = useState("");
   const [newHrHrs, setNewHrHrs] = useState("");
+  const [tasks, setTasks] = useState<CcLauraTask[]>([]);
+  const [taskTitle, setTaskTitle] = useState("");
+  const [taskOrg, setTaskOrg] = useState("");
+  const [taskCategory, setTaskCategory] = useState<CcLauraTaskCategory>("meeting");
+  const [taskWhen, setTaskWhen] = useState("");
+  const [taskWhere, setTaskWhere] = useState("");
+  const [taskNotes, setTaskNotes] = useState("");
+  const [outcomeDraft, setOutcomeDraft] = useState<Record<string, string>>({});
 
   const loadLaura = useCallback(async () => {
     const res = await fetch("/api/admin/command-center/laura");
@@ -54,6 +65,7 @@ export default function CommandCenterMarketing({ isOwner, onToast }: Props) {
       setHours(j.hours || []);
       setWeekChecks(j.checks || {});
       setInvoiceSubmitted(!!j.invoiceSubmitted);
+      setTasks(j.tasks || []);
     }
   }, []);
 
@@ -148,8 +160,98 @@ export default function CommandCenterMarketing({ isOwner, onToast }: Props) {
       return;
     }
     setInvoiceSubmitted(true);
-    onToast("Invoice submitted — owner notified");
+    onToast("Weekly plan + invoice submitted");
   }
+
+  async function createTask() {
+    const title = taskTitle.trim();
+    if (!title) return;
+    const res = await fetch("/api/admin/command-center/laura", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        action: "task_create",
+        title,
+        orgName: taskOrg.trim(),
+        category: taskCategory,
+        scheduledLocal: taskWhen || undefined,
+        locationOrLink: taskWhere.trim(),
+        notes: taskNotes.trim(),
+      }),
+    });
+    const j = await res.json().catch(() => ({}));
+    if (!res.ok) {
+      onToast(j.error || "Could not schedule meeting");
+      return;
+    }
+    setTasks((prev) => [...prev, j.task]);
+    setTaskTitle("");
+    setTaskOrg("");
+    setTaskWhen("");
+    setTaskWhere("");
+    setTaskNotes("");
+    onToast("Meeting / task scheduled");
+  }
+
+  async function updateTaskStatus(id: string, status: CcLauraTask["status"], outcome?: string) {
+    const res = await fetch("/api/admin/command-center/laura", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        action: "task_update",
+        id,
+        status,
+        outcome: outcome ?? outcomeDraft[id] ?? "",
+      }),
+    });
+    const j = await res.json().catch(() => ({}));
+    if (!res.ok) {
+      onToast(j.error || "Update failed");
+      return;
+    }
+    setTasks((prev) => prev.map((t) => (t.id === id ? j.task : t)));
+  }
+
+  async function deleteTask(id: string) {
+    const res = await fetch("/api/admin/command-center/laura", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ action: "task_delete", id }),
+    });
+    if (!res.ok) {
+      onToast("Could not delete");
+      return;
+    }
+    setTasks((prev) => prev.filter((t) => t.id !== id));
+  }
+
+  function formatTaskWhen(iso: string | null) {
+    if (!iso) return "No date set";
+    try {
+      return new Date(iso).toLocaleString("en-US", {
+        timeZone: "America/Chicago",
+        weekday: "short",
+        month: "short",
+        day: "numeric",
+        hour: "numeric",
+        minute: "2-digit",
+      });
+    } catch {
+      return iso;
+    }
+  }
+
+  const categoryLabel = (id: string) =>
+    CC_LAURA_TASK_CATEGORIES.find((c) => c.id === id)?.label || id;
+
+  const upcomingTasks = useMemo(
+    () => tasks.filter((t) => t.status === "scheduled"),
+    [tasks],
+  );
+  const completedTasks = useMemo(
+    () => tasks.filter((t) => t.status === "completed").slice(-12).reverse(),
+    [tasks],
+  );
 
   function onFilePick(files: FileList | null) {
     if (!files?.length) return;
@@ -338,7 +440,187 @@ export default function CommandCenterMarketing({ isOwner, onToast }: Props) {
       )}
 
       {mktSub === "laura" && lauraUnlocked && (
-        <div className="grid grid-cols-1 lg:grid-cols-[1.4fr_1fr] gap-4 items-start">
+        <div className="flex flex-col gap-4">
+          {/* Meetings & outreach calendar */}
+          <div className="bg-white border-2 border-black rounded-2xl px-5 py-5">
+            <div className="flex flex-wrap items-start justify-between gap-3 mb-4">
+              <div>
+                <h2
+                  className="text-[18px] font-bold m-0"
+                  style={{ fontFamily: "var(--font-display), Georgia, serif" }}
+                >
+                  Meetings &amp; outreach
+                </h2>
+                <p className="m-0 mt-1 text-[12.5px] text-[#888]">
+                  Schedule Chamber, business meetings, and follow-ups — Danielle sees what&apos;s on
+                  the book and what got done.
+                </p>
+              </div>
+              <div className="text-[12px] font-bold text-[#C90A68]">
+                {upcomingTasks.length} upcoming · {completedTasks.length} completed recently
+              </div>
+            </div>
+
+            <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3 mb-3">
+              <input
+                value={taskTitle}
+                onChange={(e) => setTaskTitle(e.target.value)}
+                placeholder="Meeting title *"
+                className="border border-black/15 rounded-[9px] px-3 py-2 text-[13px]"
+              />
+              <input
+                value={taskOrg}
+                onChange={(e) => setTaskOrg(e.target.value)}
+                placeholder="Org / business (e.g. Oswego Chamber)"
+                className="border border-black/15 rounded-[9px] px-3 py-2 text-[13px]"
+              />
+              <select
+                value={taskCategory}
+                onChange={(e) => setTaskCategory(e.target.value as CcLauraTaskCategory)}
+                className="border border-black/15 rounded-[9px] px-3 py-2 text-[13px] bg-white"
+              >
+                {CC_LAURA_TASK_CATEGORIES.map((c) => (
+                  <option key={c.id} value={c.id}>
+                    {c.label}
+                  </option>
+                ))}
+              </select>
+              <input
+                type="datetime-local"
+                value={taskWhen}
+                onChange={(e) => setTaskWhen(e.target.value)}
+                className="border border-black/15 rounded-[9px] px-3 py-2 text-[13px]"
+              />
+              <input
+                value={taskWhere}
+                onChange={(e) => setTaskWhere(e.target.value)}
+                placeholder="Location or Zoom link"
+                className="border border-black/15 rounded-[9px] px-3 py-2 text-[13px]"
+              />
+              <input
+                value={taskNotes}
+                onChange={(e) => setTaskNotes(e.target.value)}
+                placeholder="Notes / goal"
+                className="border border-black/15 rounded-[9px] px-3 py-2 text-[13px]"
+              />
+            </div>
+            <button
+              type="button"
+              onClick={() => void createTask()}
+              className="text-white border-none rounded-[9px] px-4 py-2.5 text-[13px] font-bold"
+              style={{ background: PINK }}
+            >
+              + Schedule meeting / task
+            </button>
+
+            <div className="mt-5 grid gap-4 lg:grid-cols-2">
+              <div>
+                <p className="text-[11px] font-bold uppercase tracking-wider text-[#888] mb-2">
+                  Upcoming
+                </p>
+                {upcomingTasks.length === 0 ? (
+                  <div className="border border-dashed border-black/20 rounded-[10px] px-3.5 py-6 text-center text-[12.5px] text-[#aaa]">
+                    Nothing scheduled — add Chamber or business meetings above.
+                  </div>
+                ) : (
+                  <ul className="flex flex-col gap-2">
+                    {upcomingTasks.map((t) => (
+                      <li
+                        key={t.id}
+                        className="border border-black/10 rounded-[10px] px-3 py-3 bg-[#FFF5F9]/40"
+                      >
+                        <div className="flex justify-between gap-2 items-start">
+                          <div className="min-w-0">
+                            <div className="text-[13px] font-bold">{t.title}</div>
+                            <div className="text-[11px] text-[#888]">
+                              {categoryLabel(t.category)}
+                              {t.orgName ? ` · ${t.orgName}` : ""}
+                            </div>
+                            <div className="text-[12px] font-semibold text-[#C90A68] mt-0.5">
+                              {formatTaskWhen(t.scheduledAt)}
+                            </div>
+                            {t.locationOrLink ? (
+                              <div className="text-[11px] text-[#666] mt-0.5 truncate">
+                                {t.locationOrLink}
+                              </div>
+                            ) : null}
+                          </div>
+                          <button
+                            type="button"
+                            onClick={() => void deleteTask(t.id)}
+                            className="text-[11px] text-[#999] hover:text-red-600 shrink-0"
+                          >
+                            Remove
+                          </button>
+                        </div>
+                        <input
+                          value={outcomeDraft[t.id] || ""}
+                          onChange={(e) =>
+                            setOutcomeDraft((prev) => ({ ...prev, [t.id]: e.target.value }))
+                          }
+                          placeholder="Outcome / next step after meeting"
+                          className="mt-2 w-full border border-black/10 rounded-lg px-2.5 py-1.5 text-[12px]"
+                        />
+                        <div className="mt-2 flex flex-wrap gap-2">
+                          <button
+                            type="button"
+                            onClick={() => void updateTaskStatus(t.id, "completed")}
+                            className="rounded-lg bg-black text-white text-[11px] font-bold px-3 py-1.5"
+                          >
+                            Mark done
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => void updateTaskStatus(t.id, "cancelled")}
+                            className="rounded-lg border border-black/15 text-[11px] font-bold px-3 py-1.5"
+                          >
+                            Cancelled
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => void updateTaskStatus(t.id, "no_show")}
+                            className="rounded-lg border border-black/15 text-[11px] font-bold px-3 py-1.5"
+                          >
+                            No-show
+                          </button>
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+
+              <div>
+                <p className="text-[11px] font-bold uppercase tracking-wider text-[#888] mb-2">
+                  Completed (accountability)
+                </p>
+                {completedTasks.length === 0 ? (
+                  <div className="border border-dashed border-black/20 rounded-[10px] px-3.5 py-6 text-center text-[12.5px] text-[#aaa]">
+                    Completed meetings show here with outcomes.
+                  </div>
+                ) : (
+                  <ul className="flex flex-col gap-2">
+                    {completedTasks.map((t) => (
+                      <li key={t.id} className="border border-black/10 rounded-[10px] px-3 py-2.5">
+                        <div className="text-[13px] font-semibold">{t.title}</div>
+                        <div className="text-[11px] text-[#888]">
+                          {categoryLabel(t.category)}
+                          {t.orgName ? ` · ${t.orgName}` : ""} · {formatTaskWhen(t.scheduledAt)}
+                        </div>
+                        {t.outcome ? (
+                          <p className="m-0 mt-1.5 text-[12px] text-[#333]">{t.outcome}</p>
+                        ) : (
+                          <p className="m-0 mt-1.5 text-[11px] text-[#aaa] italic">No outcome noted</p>
+                        )}
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-[1.4fr_1fr] gap-4 items-start">
           <div className="flex flex-col gap-4">
             <div
               className="text-white rounded-2xl px-5 py-5"
@@ -354,7 +636,7 @@ export default function CommandCenterMarketing({ isOwner, onToast }: Props) {
                 $25/hr × 10 hrs/week = ${CC_LAURA_WEEKLY_RATE}
               </div>
               <div className="text-[12.5px] text-white/65">
-                Tracked weekly — accountability, not just word of mouth.
+                Tracked weekly — hours, meetings, and checklist — not just word of mouth.
               </div>
             </div>
 
@@ -509,6 +791,7 @@ export default function CommandCenterMarketing({ isOwner, onToast }: Props) {
               </div>
             </div>
           </div>
+        </div>
         </div>
       )}
 
