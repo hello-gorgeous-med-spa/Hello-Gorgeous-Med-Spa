@@ -837,7 +837,7 @@ export default function CommandCenterClient() {
               <p className="m-0 mb-4 text-[12.5px] text-[#999]">
                 Board notes for the day — pick a template or write your own. Full ops desk guide:{" "}
                 <a
-                  href="/staff/HG-Staff-Ops-Desk-Guide.pdf"
+                  href="/docs/HG-Staff-Ops-Desk-Guide.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="font-bold text-[#C90A68] hover:underline"

@@ -31,7 +31,7 @@ export default function StaffPage() {
         {/* Resource Cards */}
         <div className="space-y-4">
           <a
-            href="/staff/HG-Staff-Ops-Desk-Guide.pdf"
+            href="/docs/HG-Staff-Ops-Desk-Guide.pdf"
             target="_blank"
             rel="noopener noreferrer"
             className="block bg-gradient-to-r from-teal-700/40 to-[#0B1F33]/80 backdrop-blur rounded-2xl p-5 border-2 border-teal-300/50 hover:border-teal-200 transition-all"
@@ -49,7 +49,7 @@ export default function StaffPage() {
           </a>
 
           <a
-            href="/staff/HG-Laura-Desk-How-To.pdf"
+            href="/docs/HG-Laura-Desk-How-To.pdf"
             target="_blank"
             rel="noopener noreferrer"
             className="block bg-gradient-to-r from-[#E6007E]/35 to-[#2d1020] backdrop-blur rounded-2xl p-5 border-2 border-[#FF2D8E]/50 hover:border-[#FF2D8E] transition-all"

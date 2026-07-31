@@ -101,6 +101,6 @@ Danielle
 
 ---
 
-**PDF:** /staff/HG-Laura-Desk-How-To.pdf
+**PDF:** /docs/HG-Laura-Desk-How-To.pdf
 
 *Internal · Hello Gorgeous Med Spa · Oswego, IL*

@@ -238,6 +238,27 @@ const nextConfig = {
   ],
   rewrites: async () => [],
   redirects: async () => [
+    // Ops how-to PDFs live under /docs (public, no staff PIN). Keep old URLs working.
+    {
+      source: "/staff/HG-Laura-Desk-How-To.pdf",
+      destination: "/docs/HG-Laura-Desk-How-To.pdf",
+      permanent: false,
+    },
+    {
+      source: "/staff/HG-Staff-Ops-Desk-Guide.pdf",
+      destination: "/docs/HG-Staff-Ops-Desk-Guide.pdf",
+      permanent: false,
+    },
+    {
+      source: "/guides/HG-Laura-Desk-How-To.pdf",
+      destination: "/docs/HG-Laura-Desk-How-To.pdf",
+      permanent: false,
+    },
+    {
+      source: "/guides/HG-Staff-Ops-Desk-Guide.pdf",
+      destination: "/docs/HG-Staff-Ops-Desk-Guide.pdf",
+      permanent: false,
+    },
     { source: "/staff/pharmacy-selector.html", destination: "/staff/pharmacy-catalog", permanent: false },
     { source: "/rx/dermatology", destination: "/rx/hair-skin", permanent: true },
     { source: "/sitemap.website.xml", destination: "/sitemap.xml", permanent: true },

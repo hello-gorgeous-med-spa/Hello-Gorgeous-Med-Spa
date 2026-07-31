@@ -174,4 +174,4 @@ Welcome aboard the new desk.
 
 *Internal staff guide · Hello Gorgeous Med Spa · Oswego, IL*
 
-**PDF download:** [/staff/HG-Staff-Ops-Desk-Guide.pdf](/staff/HG-Staff-Ops-Desk-Guide.pdf)
+**PDF download:** [/docs/HG-Staff-Ops-Desk-Guide.pdf](/docs/HG-Staff-Ops-Desk-Guide.pdf)

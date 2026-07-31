@@ -618,7 +618,7 @@ export default function CommandCenterMarketing({ isOwner, onToast }: Props) {
                 </p>
               </div>
               <a
-                href="/staff/HG-Laura-Desk-How-To.pdf"
+                href="/docs/HG-Laura-Desk-How-To.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-[12px] font-bold text-[#C90A68] hover:underline shrink-0"
