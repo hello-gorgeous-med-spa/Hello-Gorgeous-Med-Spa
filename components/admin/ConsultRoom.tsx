@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState, type PropsWithChildren } from "react";
 import { getConsultPack } from "@/lib/consults/packs";
 import {
   WEIGHT_LOSS_SCREEN_FIELDS,
@@ -17,6 +17,50 @@ import {
 } from "@/lib/consults/types";
 
 const PINK = "#E6007E";
+const HOT = "#FF2D8E";
+const SERIF = "var(--font-playfair), Georgia, serif";
+
+function StepCard({
+  eyebrow,
+  title,
+  children,
+  dark = false,
+}: PropsWithChildren<{
+  eyebrow: string;
+  title: string;
+  dark?: boolean;
+}>) {
+  if (dark) {
+    return (
+      <section className="overflow-hidden rounded-[1.75rem] border-4 border-black bg-[#0a0a0a] text-white shadow-[10px_10px_0_0_rgba(230,0,126,0.4)]">
+        <div
+          className="border-b border-white/10 px-6 py-5 md:px-8"
+          style={{
+            background:
+              "radial-gradient(ellipse 70% 120% at 100% 0%, rgba(230,0,126,0.35), transparent 55%)",
+          }}
+        >
+          <p className="text-[10px] font-bold uppercase tracking-[0.28em] text-[#FFB8DC]">{eyebrow}</p>
+          <h2 className="mt-2 text-2xl font-medium md:text-3xl" style={{ fontFamily: SERIF }}>
+            {title}
+          </h2>
+        </div>
+        <div className="px-6 py-6 md:px-8 md:py-7">{children}</div>
+      </section>
+    );
+  }
+  return (
+    <section className="rounded-[1.75rem] border-4 border-black bg-white p-6 shadow-[8px_8px_0_0_rgba(230,0,126,0.35)] md:p-8">
+      <p className="text-[11px] font-bold uppercase tracking-[0.24em]" style={{ color: PINK }}>
+        {eyebrow}
+      </p>
+      <h2 className="mt-2 text-2xl font-medium text-black md:text-3xl" style={{ fontFamily: SERIF }}>
+        {title}
+      </h2>
+      <div className="mt-5">{children}</div>
+    </section>
+  );
+}
 
 type Props = {
   consultId: string;
@@ -138,35 +182,68 @@ export function ConsultRoom({ consultId }: Props) {
     consult.vertical === "weight_loss" ? weightLossBmiPreview(answers) : consult.screening?.result?.bmi;
 
   return (
-    <div className="mx-auto max-w-5xl space-y-6 p-6 pb-28">
-      <div className="flex flex-wrap items-start justify-between gap-3">
-        <div>
-          <p className="text-[11px] font-bold uppercase tracking-[0.24em]" style={{ color: PINK }}>
-            Consult room · {CONSULT_VERTICAL_LABELS[consult.vertical]}
-          </p>
-          <h1 className="mt-1 text-3xl font-black text-black">{consult.client_name}</h1>
-          <p className="mt-1 text-sm text-black/60">
-            Status: {consult.status}
-            {consult.proposal_id ? (
-              <>
-                {" · "}
-                <Link
-                  href={`/admin/proposals/${consult.proposal_id}/edit`}
-                  className="font-semibold text-[#E6007E] underline"
-                >
-                  Open proposal
-                </Link>
-              </>
-            ) : null}
-          </p>
-        </div>
-        <Link
-          href="/admin/proposals/consults"
-          className="rounded-full border-2 border-black bg-white px-4 py-2 text-sm font-bold"
+    <div className="relative mx-auto max-w-5xl space-y-6 p-6 pb-28">
+      <div
+        className="pointer-events-none absolute inset-0 -z-10"
+        style={{
+          background: `
+            radial-gradient(ellipse 55% 40% at 0% 0%, rgba(230,0,126,0.1), transparent 55%),
+            linear-gradient(180deg, #FFF0F7 0%, #ffffff 40%, #f7f7f7 100%)
+          `,
+        }}
+      />
+
+      <header className="overflow-hidden rounded-[1.75rem] border-4 border-black bg-[#0a0a0a] text-white shadow-[10px_10px_0_0_rgba(230,0,126,0.4)]">
+        <div
+          className="flex flex-wrap items-start justify-between gap-4 px-6 py-6 md:px-8 md:py-7"
+          style={{
+            background: `
+              linear-gradient(125deg, #1a0a12 0%, #2d1020 45%, #0a0a0a 100%),
+              radial-gradient(ellipse 70% 80% at 90% 10%, rgba(230,0,126,0.4), transparent 55%)
+            `,
+          }}
         >
-          All consults
-        </Link>
-      </div>
+          <div>
+            <div className="flex flex-wrap items-center gap-2">
+              <p className="text-[10px] font-bold uppercase tracking-[0.28em] text-[#FFB8DC]">
+                Consult room · {CONSULT_VERTICAL_LABELS[consult.vertical]}
+              </p>
+              <span className="inline-flex items-center gap-1.5 rounded-full border border-white/20 bg-white/5 px-2.5 py-1">
+                <span className="relative flex h-1.5 w-1.5">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-60" />
+                  <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-400" />
+                </span>
+                <span className="text-[9px] font-bold uppercase tracking-[0.16em] text-white/75">
+                  {canPropose ? "Ready to propose" : "NP judgment active"}
+                </span>
+              </span>
+            </div>
+            <h1 className="mt-3 text-3xl font-medium md:text-4xl" style={{ fontFamily: SERIF }}>
+              {consult.client_name}
+            </h1>
+            <p className="mt-2 text-sm text-white/55">
+              Status: {consult.status}
+              {consult.proposal_id ? (
+                <>
+                  {" · "}
+                  <Link
+                    href={`/admin/proposals/${consult.proposal_id}/edit`}
+                    className="font-semibold text-[#FFB8DC] underline"
+                  >
+                    Open proposal
+                  </Link>
+                </>
+              ) : null}
+            </p>
+          </div>
+          <Link
+            href="/admin/proposals/consults"
+            className="rounded-full border border-white/25 bg-white/10 px-4 py-2 text-xs font-bold uppercase tracking-widest text-white backdrop-blur hover:bg-white/20"
+          >
+            All consults
+          </Link>
+        </div>
+      </header>
 
       {error ? (
         <div className="rounded-2xl border-2 border-red-300 bg-red-50 px-4 py-3 text-sm text-red-800">
@@ -180,27 +257,30 @@ export function ConsultRoom({ consultId }: Props) {
       ) : null}
 
       <nav className="flex flex-wrap gap-2">
-        {CONSULT_STEPS.map((item) => (
+        {CONSULT_STEPS.map((item, index) => (
           <button
             key={item.id}
             type="button"
             onClick={() => setStep(item.id)}
-            className={`rounded-full border-2 px-4 py-2 text-xs font-bold uppercase tracking-wide ${
+            className={`rounded-full border-2 px-4 py-2 text-[10px] font-black uppercase tracking-[0.14em] ${
               step === item.id
-                ? "border-black text-white"
-                : "border-black/20 bg-white text-black/70"
+                ? "border-black text-white shadow-[3px_3px_0_0_#000]"
+                : "border-black/15 bg-white text-black/55"
             }`}
-            style={step === item.id ? { background: PINK } : undefined}
+            style={
+              step === item.id
+                ? { background: `linear-gradient(125deg, ${HOT}, ${PINK})` }
+                : undefined
+            }
           >
-            {item.label}
+            <span className="opacity-50">{String(index + 1).padStart(2, "0")}</span> {item.label}
           </button>
         ))}
       </nav>
 
       {step === "intake" ? (
-        <section className="rounded-[1.5rem] border-4 border-black bg-white p-6 shadow-[8px_8px_0_0_rgba(230,0,126,0.35)]">
-          <h2 className="text-xl font-black">Intake snapshot</h2>
-          <div className="mt-4 grid gap-4 md:grid-cols-2">
+        <StepCard eyebrow="01 · Capture" title="Intake snapshot">
+          <div className="grid gap-4 md:grid-cols-2">
             <label className="text-sm font-semibold">
               Name
               <input
@@ -251,7 +331,7 @@ export function ConsultRoom({ consultId }: Props) {
               />
             </label>
           </div>
-          <div className="mt-4 flex flex-wrap gap-2">
+          <div className="mt-5 flex flex-wrap gap-2">
             <button
               type="button"
               disabled={saving}
@@ -265,21 +345,20 @@ export function ConsultRoom({ consultId }: Props) {
                 });
                 if (saved) setStep("screen");
               }}
-              className="rounded-full px-5 py-2.5 text-sm font-bold text-white"
-              style={{ background: PINK }}
+              className="rounded-full border-2 border-black px-5 py-2.5 text-xs font-black uppercase tracking-widest text-white shadow-[3px_3px_0_0_#000]"
+              style={{ background: `linear-gradient(125deg, ${HOT}, ${PINK})` }}
             >
               {saving ? "Saving…" : "Save & continue to screen"}
             </button>
           </div>
-        </section>
+        </StepCard>
       ) : null}
 
       {step === "screen" ? (
-        <section className="rounded-[1.5rem] border-4 border-black bg-white p-6 shadow-[8px_8px_0_0_rgba(230,0,126,0.35)]">
-          <h2 className="text-xl font-black">Screening</h2>
+        <StepCard eyebrow="02 · Safety" title="Screening">
           {consult.vertical === "weight_loss" ? (
             <>
-              <p className="mt-1 text-sm text-black/65">
+              <p className="text-sm text-black/65">
                 Mirrors GLP-1 intake hard stops. BMI preview updates as you type.
                 {bmi != null ? (
                   <span className="ml-2 font-bold" style={{ color: PINK }}>
@@ -338,7 +417,7 @@ export function ConsultRoom({ consultId }: Props) {
               </div>
             </>
           ) : (
-            <p className="mt-2 text-sm text-black/65">
+            <p className="text-sm text-black/65">
               No hard clinical gate for this vertical in v1. Confirm concerns above, then continue.
               You can still document notes and create a proposal.
             </p>
@@ -408,7 +487,7 @@ export function ConsultRoom({ consultId }: Props) {
             ) : null}
           </div>
 
-          <div className="mt-4 flex flex-wrap gap-2">
+          <div className="mt-5 flex flex-wrap gap-2">
             <button
               type="button"
               disabled={saving}
@@ -430,22 +509,23 @@ export function ConsultRoom({ consultId }: Props) {
                   }
                 }
               }}
-              className="rounded-full px-5 py-2.5 text-sm font-bold text-white"
-              style={{ background: PINK }}
+              className="rounded-full border-2 border-black px-5 py-2.5 text-xs font-black uppercase tracking-widest text-white shadow-[3px_3px_0_0_#000]"
+              style={{ background: `linear-gradient(125deg, ${HOT}, ${PINK})` }}
             >
               {saving ? "Saving…" : "Run screen & continue"}
             </button>
           </div>
-        </section>
+        </StepCard>
       ) : null}
 
       {step === "educate" && slide ? (
-        <section className="rounded-[1.5rem] border-4 border-black bg-white p-6 shadow-[8px_8px_0_0_rgba(230,0,126,0.35)] md:p-8">
-          <div className="flex flex-wrap items-center justify-between gap-2">
-            <p className="text-[11px] font-bold uppercase tracking-[0.24em]" style={{ color: PINK }}>
-              {slide.eyebrow || "Education"} · {slideIndex + 1}/{pack.slides.length}
-            </p>
-            <label className="flex items-center gap-2 text-sm font-semibold">
+        <StepCard
+          dark
+          eyebrow={`${slide.eyebrow || "Education"} · ${slideIndex + 1}/${pack.slides.length}`}
+          title={slide.title}
+        >
+          <div className="mb-4 flex justify-end">
+            <label className="flex items-center gap-2 text-sm font-semibold text-white/80">
               <input
                 type="checkbox"
                 checked={covered.has(slide.id)}
@@ -466,10 +546,9 @@ export function ConsultRoom({ consultId }: Props) {
               Covered with client
             </label>
           </div>
-          <h2 className="mt-3 text-3xl font-black leading-tight md:text-4xl">{slide.title}</h2>
-          <p className="mt-4 text-base leading-relaxed text-black/80 md:text-lg">{slide.body}</p>
+          <p className="text-base leading-relaxed text-white/80 md:text-lg">{slide.body}</p>
           {slide.bullets?.length ? (
-            <ul className="mt-4 list-disc space-y-2 pl-5 text-sm text-black/80 md:text-base">
+            <ul className="mt-4 list-disc space-y-2 pl-5 text-sm text-white/75 md:text-base">
               {slide.bullets.map((b) => (
                 <li key={b}>{b}</li>
               ))}
@@ -480,7 +559,7 @@ export function ConsultRoom({ consultId }: Props) {
               {slide.chips.map((c) => (
                 <span
                   key={c}
-                  className="rounded-full border-2 border-black/10 bg-[#FFF0F7] px-3 py-1 text-xs font-bold"
+                  className="rounded-full border border-white/20 bg-white/10 px-3 py-1 text-xs font-bold text-[#FFB8DC]"
                 >
                   {c}
                 </span>
@@ -488,7 +567,7 @@ export function ConsultRoom({ consultId }: Props) {
             </div>
           ) : null}
           {slide.talkingPoints?.length ? (
-            <div className="mt-6 rounded-2xl border-2 border-black bg-[#0a0a0a] p-4 text-white">
+            <div className="mt-6 rounded-2xl border border-[#FFB8DC]/30 bg-white/5 p-4">
               <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#FFB8DC]">
                 Staff talking points
               </p>
@@ -504,7 +583,7 @@ export function ConsultRoom({ consultId }: Props) {
               type="button"
               disabled={slideIndex <= 0}
               onClick={() => setSlideIndex((i) => Math.max(0, i - 1))}
-              className="rounded-full border-2 border-black bg-white px-4 py-2 text-sm font-bold disabled:opacity-40"
+              className="rounded-full border border-white/25 bg-white/10 px-4 py-2 text-sm font-bold text-white disabled:opacity-40"
             >
               Previous
             </button>
@@ -522,26 +601,25 @@ export function ConsultRoom({ consultId }: Props) {
                 });
                 setSlideIndex((i) => Math.min(pack.slides.length - 1, i + 1));
               }}
-              className="rounded-full border-2 border-black bg-white px-4 py-2 text-sm font-bold disabled:opacity-40"
+              className="rounded-full border border-white/25 bg-white/10 px-4 py-2 text-sm font-bold text-white disabled:opacity-40"
             >
               Next slide
             </button>
             <button
               type="button"
               onClick={() => setStep("recommend")}
-              className="rounded-full px-5 py-2 text-sm font-bold text-white"
-              style={{ background: PINK }}
+              className="rounded-full border-2 border-black px-5 py-2 text-xs font-black uppercase tracking-widest text-white"
+              style={{ background: `linear-gradient(125deg, ${HOT}, ${PINK})` }}
             >
               Go to recommend
             </button>
           </div>
-        </section>
+        </StepCard>
       ) : null}
 
       {step === "recommend" ? (
-        <section className="rounded-[1.5rem] border-4 border-black bg-white p-6 shadow-[8px_8px_0_0_rgba(230,0,126,0.35)]">
-          <h2 className="text-xl font-black">Recommend a path</h2>
-          <p className="mt-1 text-sm text-black/65">
+        <StepCard eyebrow="04 · Clinical" title="Recommend a path">
+          <p className="text-sm text-black/65">
             Choosing a path seeds the proposal line items. You can still edit in the proposal builder.
           </p>
           <div className="mt-4 grid gap-3 md:grid-cols-2">
@@ -562,8 +640,10 @@ export function ConsultRoom({ consultId }: Props) {
                       },
                     })
                   }
-                  className={`rounded-2xl border-4 p-4 text-left ${
-                    selected ? "border-black bg-[#FFF0F7]" : "border-black/15 bg-white"
+                  className={`rounded-2xl border-4 p-4 text-left transition ${
+                    selected
+                      ? "border-black bg-[#FFF0F7] shadow-[4px_4px_0_0_rgba(230,0,126,0.35)]"
+                      : "border-black/15 bg-white hover:border-black/40"
                   }`}
                 >
                   <p className="font-black">{path.label}</p>
@@ -608,18 +688,17 @@ export function ConsultRoom({ consultId }: Props) {
               });
               if (saved) setStep("propose");
             }}
-            className="mt-4 rounded-full px-5 py-2.5 text-sm font-bold text-white disabled:opacity-40"
-            style={{ background: PINK }}
+            className="mt-4 rounded-full border-2 border-black px-5 py-2.5 text-xs font-black uppercase tracking-widest text-white shadow-[3px_3px_0_0_#000] disabled:opacity-40"
+            style={{ background: `linear-gradient(125deg, ${HOT}, ${PINK})` }}
           >
             {saving ? "Saving…" : "Save recommendation"}
           </button>
-        </section>
+        </StepCard>
       ) : null}
 
       {step === "propose" ? (
-        <section className="rounded-[1.5rem] border-4 border-black bg-white p-6 shadow-[8px_8px_0_0_rgba(230,0,126,0.35)]">
-          <h2 className="text-xl font-black">Create proposal</h2>
-          <p className="mt-2 text-sm text-black/70">
+        <StepCard eyebrow="05 · Decision" title="Create proposal">
+          <p className="text-sm text-black/70">
             Path: <strong>{consult.recommendation?.pathLabel || "Not selected"}</strong>
             {(consult.recommendation?.serviceIds || []).length
               ? ` · ${(consult.recommendation?.serviceIds || []).join(", ")}`
@@ -634,8 +713,8 @@ export function ConsultRoom({ consultId }: Props) {
           {consult.proposal_id ? (
             <Link
               href={`/admin/proposals/${consult.proposal_id}/edit`}
-              className="mt-4 inline-flex rounded-full px-5 py-2.5 text-sm font-bold text-white"
-              style={{ background: PINK }}
+              className="mt-4 inline-flex rounded-full border-2 border-black px-5 py-2.5 text-xs font-black uppercase tracking-widest text-white shadow-[3px_3px_0_0_#000]"
+              style={{ background: `linear-gradient(125deg, ${HOT}, ${PINK})` }}
             >
               Open linked proposal
             </Link>
@@ -644,18 +723,18 @@ export function ConsultRoom({ consultId }: Props) {
               type="button"
               disabled={proposing || (!canPropose && !consult.screening?.staffOverride)}
               onClick={() => void createProposal(Boolean(consult.screening?.staffOverride))}
-              className="mt-4 rounded-full px-5 py-2.5 text-sm font-bold text-white disabled:opacity-40"
-              style={{ background: PINK }}
+              className="mt-4 rounded-full border-2 border-black px-5 py-2.5 text-xs font-black uppercase tracking-widest text-white shadow-[3px_3px_0_0_#000] disabled:opacity-40"
+              style={{ background: `linear-gradient(125deg, ${HOT}, ${PINK})` }}
             >
               {proposing ? "Creating…" : "Create proposal from consult"}
             </button>
           )}
-        </section>
+        </StepCard>
       ) : null}
 
-      <div className="fixed bottom-0 left-0 right-0 z-40 border-t-4 border-black bg-white/95 px-4 py-3 backdrop-blur md:left-[var(--admin-sidebar-width,0px)]">
+      <div className="fixed bottom-0 left-0 right-0 z-40 border-t-4 border-black bg-[#0a0a0a]/95 px-4 py-3 text-white backdrop-blur md:left-[var(--admin-sidebar-width,0px)]">
         <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-2">
-          <p className="text-xs font-semibold text-black/55">
+          <p className="text-xs font-semibold text-white/55">
             Covered slides: {covered.size}/{pack.slides.length}
             {canPropose ? " · Ready to propose" : " · Screening locked"}
           </p>
@@ -663,8 +742,8 @@ export function ConsultRoom({ consultId }: Props) {
             type="button"
             disabled={proposing || Boolean(consult.proposal_id) || !canPropose}
             onClick={() => void createProposal()}
-            className="rounded-full px-5 py-2.5 text-sm font-bold text-white disabled:opacity-40"
-            style={{ background: PINK }}
+            className="rounded-full border-2 border-black px-5 py-2.5 text-xs font-black uppercase tracking-widest text-white shadow-[3px_3px_0_0_#FFB8DC] disabled:opacity-40"
+            style={{ background: `linear-gradient(125deg, ${HOT}, ${PINK})` }}
           >
             {consult.proposal_id ? "Proposal linked" : proposing ? "Creating…" : "Create proposal"}
           </button>
