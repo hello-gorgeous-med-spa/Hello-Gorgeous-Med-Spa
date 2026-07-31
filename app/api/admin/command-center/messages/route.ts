@@ -9,7 +9,7 @@ export const dynamic = "force-dynamic";
 const postSchema = z.object({
   from: z.string().trim().min(1).max(80),
   to: z.string().trim().min(1).max(80),
-  text: z.string().trim().min(1).max(2000),
+  text: z.string().trim().min(1).max(10000),
 });
 
 function noDb() {
