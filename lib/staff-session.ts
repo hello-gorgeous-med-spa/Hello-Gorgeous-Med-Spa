@@ -104,7 +104,14 @@ export function pinMatches(input: string, expected: string): boolean {
   return diff === 0;
 }
 
+/** How-to PDFs Danielle shares with the team — downloadable without staff PIN. */
+const STAFF_PUBLIC_GUIDE_PDFS = new Set([
+  "/staff/HG-Laura-Desk-How-To.pdf",
+  "/staff/HG-Staff-Ops-Desk-Guide.pdf",
+]);
+
 export function isStaffProtectedPath(pathname: string): boolean {
+  if (STAFF_PUBLIC_GUIDE_PDFS.has(pathname)) return false;
   return pathname === "/staff" || pathname.startsWith("/staff/");
 }
 
