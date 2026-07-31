@@ -103,12 +103,11 @@ export function ConsultProductShell({ hideCta = false, compact = false }: Props)
         </div>
 
         <ul className="grid gap-3 p-4 sm:grid-cols-2 md:gap-4 md:p-6">
-          {CONSULT_OPS_ACTIONS.map((action, i) => (
-            <li key={action.id}>
-              <Link
-                href={action.href}
-                className="group flex h-full flex-col justify-between gap-3 rounded-2xl border border-white/25 bg-white/5 px-5 py-5 transition hover:border-[#FFB8DC] hover:bg-white/10 md:px-6 md:py-6"
-              >
+          {CONSULT_OPS_ACTIONS.map((action, i) => {
+            const className =
+              "group flex h-full flex-col justify-between gap-3 rounded-2xl border border-white/25 bg-white/5 px-5 py-5 transition hover:border-[#FFB8DC] hover:bg-white/10 md:px-6 md:py-6";
+            const inner = (
+              <>
                 <div>
                   <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#FFB8DC]">
                     {String(i + 1).padStart(2, "0")}
@@ -122,11 +121,29 @@ export function ConsultProductShell({ hideCta = false, compact = false }: Props)
                   <p className="mt-1 text-sm font-medium text-white/90">{action.detail}</p>
                 </div>
                 <span className="text-xs font-black uppercase tracking-widest text-white">
-                  Open →
+                  {action.external ? "Open Square →" : "Open →"}
                 </span>
-              </Link>
-            </li>
-          ))}
+              </>
+            );
+            return (
+              <li key={action.id}>
+                {action.external ? (
+                  <a
+                    href={action.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={className}
+                  >
+                    {inner}
+                  </a>
+                ) : (
+                  <Link href={action.href} className={className}>
+                    {inner}
+                  </Link>
+                )}
+              </li>
+            );
+          })}
         </ul>
       </section>
 
@@ -139,12 +156,11 @@ export function ConsultProductShell({ hideCta = false, compact = false }: Props)
             Fewer tabs. Same system — in order.
           </h2>
           <ol className="mt-6 grid gap-3 md:grid-cols-5">
-            {CONSULT_PIPELINE.map((s) => (
-              <li key={s.step}>
-                <Link
-                  href={s.href}
-                  className="block h-full rounded-2xl border-2 border-black/10 bg-gradient-to-b from-white to-rose-50/80 p-4 transition hover:border-[#E6007E] hover:shadow-[4px_4px_0_0_rgba(230,0,126,0.25)]"
-                >
+            {CONSULT_PIPELINE.map((s) => {
+              const className =
+                "block h-full rounded-2xl border-2 border-black/10 bg-gradient-to-b from-white to-rose-50/80 p-4 transition hover:border-[#E6007E] hover:shadow-[4px_4px_0_0_rgba(230,0,126,0.25)]";
+              const body = (
+                <>
                   <div className="flex items-center justify-between gap-2">
                     <span
                       className="flex h-8 w-8 items-center justify-center rounded-xl border-2 border-black text-xs font-black text-white"
@@ -158,9 +174,22 @@ export function ConsultProductShell({ hideCta = false, compact = false }: Props)
                   </div>
                   <p className="mt-3 text-sm font-black text-black">{s.label}</p>
                   <p className="mt-1 text-xs leading-relaxed text-black/60">{s.detail}</p>
-                </Link>
-              </li>
-            ))}
+                </>
+              );
+              return (
+                <li key={s.step}>
+                  {"external" in s && s.external ? (
+                    <a href={s.href} target="_blank" rel="noopener noreferrer" className={className}>
+                      {body}
+                    </a>
+                  ) : (
+                    <Link href={s.href} className={className}>
+                      {body}
+                    </Link>
+                  )}
+                </li>
+              );
+            })}
           </ol>
         </section>
       ) : null}

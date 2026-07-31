@@ -1,3 +1,5 @@
+import { SQUARE_STAFF_APPOINTMENTS_URL } from "@/lib/flows";
+
 /**
  * Consult hub copy + operational shortcuts for company management.
  */
@@ -21,7 +23,7 @@ export type ConsultOpsAction = {
   external?: boolean;
 };
 
-/** Practical links — replaces marketing outcome chart */
+/** Practical links for the company desk */
 export const CONSULT_OPS_ACTIONS: ConsultOpsAction[] = [
   {
     id: "consult",
@@ -43,9 +45,10 @@ export const CONSULT_OPS_ACTIONS: ConsultOpsAction[] = [
   },
   {
     id: "book",
-    label: "Book an appointment",
-    detail: "Schedule the visit in admin",
-    href: "/admin/appointments/new",
+    label: "Book in Square (staff)",
+    detail: "Seller calendar — book for the client, not the public site",
+    href: SQUARE_STAFF_APPOINTMENTS_URL,
+    external: true,
   },
   {
     id: "care",
@@ -77,6 +80,13 @@ export const CONSULT_PIPELINE = [
   { step: "1", label: "Consult", detail: "Screen & educate", tag: "Room", href: "/admin/proposals/consults/new" },
   { step: "2", label: "Propose", detail: "Build the plan", tag: "Commerce", href: "/admin/proposals/new" },
   { step: "3", label: "Send", detail: "SMS / email / PDF", tag: "Client", href: "/admin/proposals" },
-  { step: "4", label: "Book", detail: "Lock the visit", tag: "Calendar", href: "/admin/appointments/new" },
+  {
+    step: "4",
+    label: "Book",
+    detail: "Square seller calendar",
+    tag: "Calendar",
+    href: SQUARE_STAFF_APPOINTMENTS_URL,
+    external: true as const,
+  },
   { step: "5", label: "Care", detail: "Pre / post guides", tag: "Safety", href: "/pre-post-care" },
 ] as const;

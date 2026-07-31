@@ -29,6 +29,14 @@ export const SQUARE_APPOINTMENTS_START_URL =
   process.env.NEXT_PUBLIC_SQUARE_APPOINTMENTS_START_URL?.trim() ||
   `https://app.squareup.com/appointments/book/${SQUARE_RX_BOOKING_SITE_ID}/${SQUARE_RX_LOCATION_ID}/start`;
 
+/**
+ * Square Appointments **seller** calendar — staff books for clients (not the public buyer widget).
+ * Requires Square login. Override with `NEXT_PUBLIC_SQUARE_STAFF_APPOINTMENTS_URL` if needed.
+ */
+export const SQUARE_STAFF_APPOINTMENTS_URL =
+  process.env.NEXT_PUBLIC_SQUARE_STAFF_APPOINTMENTS_URL?.trim() ||
+  "https://app.squareup.com/dashboard/appointments/calendar";
+
 /** Square Appointments embed script (Dashboard → Online Booking → Embed). */
 export const SQUARE_APPOINTMENTS_EMBED_SCRIPT_URL =
   process.env.NEXT_PUBLIC_SQUARE_APPOINTMENTS_EMBED_SCRIPT_URL?.trim() ||

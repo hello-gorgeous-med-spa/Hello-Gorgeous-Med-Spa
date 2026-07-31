@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { Metadata } from 'next';
 
+import { SQUARE_STAFF_APPOINTMENTS_URL } from '@/lib/flows';
 import { BESTIE_SQUARE_DISCOUNT } from '@/lib/square/bestie-discount';
 
 export const metadata: Metadata = {
@@ -29,6 +30,25 @@ export default function StaffPage() {
 
         {/* Resource Cards */}
         <div className="space-y-4">
+          {/* Square seller calendar — book for clients (not public /book) */}
+          <a
+            href={SQUARE_STAFF_APPOINTMENTS_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block bg-gradient-to-r from-[#111] to-[#2d1020] backdrop-blur rounded-2xl p-5 border-2 border-white/25 hover:border-[#FF2D8E] transition-all"
+          >
+            <div className="flex items-center gap-4">
+              <div className="text-4xl">⬛</div>
+              <div className="flex-1">
+                <h2 className="font-bold text-white text-lg">Book in Square</h2>
+                <p className="text-pink-100/90 text-sm">
+                  Seller calendar — schedule clients from your Square login (not the public book site)
+                </p>
+              </div>
+              <div className="text-pink-300 text-2xl">↗</div>
+            </div>
+          </a>
+
           {/* Front desk phone assistant */}
           <Link
             href="/staff/assistant"

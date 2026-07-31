@@ -3,6 +3,8 @@
  * Front doors: Command Center (ops) · Consult Desk (sales)
  */
 
+import { SQUARE_STAFF_APPOINTMENTS_URL } from "@/lib/flows";
+
 export type AdminNavItem = {
   href: string;
   label: string;
@@ -80,7 +82,8 @@ export const ADMIN_NAV_GROUPS: AdminNavGroup[] = [
     collapsed: true,
     items: [
       { href: "/admin/appointments", label: "Appointments", icon: "📅" },
-      { href: "/admin/appointments/new", label: "New booking", icon: "➕" },
+      { href: SQUARE_STAFF_APPOINTMENTS_URL, label: "Book in Square", icon: "⬛", external: true },
+      { href: "/admin/appointments/new", label: "HG calendar book", icon: "➕" },
       { href: "/admin/proposals/new", label: "New proposal", icon: "✨" },
       { href: "/admin/scan", label: "Scan client", icon: "📷" },
     ],

@@ -112,20 +112,33 @@ function SidebarGroup({
           <span className="text-[11px]">{collapsedOpen ? '−' : '+'}</span>
         </button>
         {collapsedOpen &&
-          groupItems.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-all ${
-                isActive(item.href)
-                  ? 'bg-[#FF2D8E] text-white font-semibold'
-                  : 'text-white/80 hover:bg-white/10 hover:text-white'
-              }`}
-            >
-              <span className="text-base">{item.icon}</span>
-              <span>{item.label}</span>
-            </Link>
-          ))}
+          groupItems.map((item) =>
+            item.external ? (
+              <a
+                key={item.href}
+                href={item.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-all text-white/80 hover:bg-white/10 hover:text-white"
+              >
+                <span className="text-base">{item.icon}</span>
+                <span>{item.label}</span>
+              </a>
+            ) : (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-all ${
+                  isActive(item.href)
+                    ? 'bg-[#FF2D8E] text-white font-semibold'
+                    : 'text-white/80 hover:bg-white/10 hover:text-white'
+                }`}
+              >
+                <span className="text-base">{item.icon}</span>
+                <span>{item.label}</span>
+              </Link>
+            ),
+          )}
       </div>
     );
   }
@@ -135,20 +148,33 @@ function SidebarGroup({
       <p className="px-3 pt-3 pb-1 text-[10px] font-bold uppercase tracking-widest text-white/40">
         {group.section}
       </p>
-      {groupItems.map((item) => (
-        <Link
-          key={item.href}
-          href={item.href}
-          className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-all ${
-            isActive(item.href)
-              ? 'bg-[#FF2D8E] text-white font-semibold'
-              : 'text-white/80 hover:bg-white/10 hover:text-white'
-          }`}
-        >
-          <span className="text-base">{item.icon}</span>
-          <span>{item.label}</span>
-        </Link>
-      ))}
+      {groupItems.map((item) =>
+        item.external ? (
+          <a
+            key={item.href}
+            href={item.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-all text-white/80 hover:bg-white/10 hover:text-white"
+          >
+            <span className="text-base">{item.icon}</span>
+            <span>{item.label}</span>
+          </a>
+        ) : (
+          <Link
+            key={item.href}
+            href={item.href}
+            className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-all ${
+              isActive(item.href)
+                ? 'bg-[#FF2D8E] text-white font-semibold'
+                : 'text-white/80 hover:bg-white/10 hover:text-white'
+            }`}
+          >
+            <span className="text-base">{item.icon}</span>
+            <span>{item.label}</span>
+          </Link>
+        ),
+      )}
     </div>
   );
 }

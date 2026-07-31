@@ -132,21 +132,35 @@ export function MobileNav({ variant = 'light' }: MobileNavProps) {
                     <span>{open ? '−' : '+'}</span>
                   </button>
                   {open &&
-                    items.map((item) => (
-                      <Link
-                        key={item.href}
-                        href={item.href}
-                        onClick={() => setIsOpen(false)}
-                        className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm ${
-                          isActive(item.href)
-                            ? 'bg-[#FFF0F7] text-[#E6007E] font-semibold'
-                            : 'text-black hover:bg-black/5'
-                        }`}
-                      >
-                        <span>{item.icon}</span>
-                        <span>{item.label}</span>
-                      </Link>
-                    ))}
+                    items.map((item) =>
+                      item.external ? (
+                        <a
+                          key={item.href}
+                          href={item.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={() => setIsOpen(false)}
+                          className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-black hover:bg-black/5"
+                        >
+                          <span>{item.icon}</span>
+                          <span>{item.label}</span>
+                        </a>
+                      ) : (
+                        <Link
+                          key={item.href}
+                          href={item.href}
+                          onClick={() => setIsOpen(false)}
+                          className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm ${
+                            isActive(item.href)
+                              ? 'bg-[#FFF0F7] text-[#E6007E] font-semibold'
+                              : 'text-black hover:bg-black/5'
+                          }`}
+                        >
+                          <span>{item.icon}</span>
+                          <span>{item.label}</span>
+                        </Link>
+                      ),
+                    )}
                 </div>
               );
             }
@@ -159,18 +173,31 @@ export function MobileNav({ variant = 'light' }: MobileNavProps) {
                 <ul className="space-y-0.5">
                   {items.map((item) => (
                     <li key={item.href}>
-                      <Link
-                        href={item.href}
-                        onClick={() => setIsOpen(false)}
-                        className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm ${
-                          isActive(item.href)
-                            ? 'bg-[#FFF0F7] text-[#E6007E] font-semibold'
-                            : 'text-black hover:bg-black/5'
-                        }`}
-                      >
-                        <span>{item.icon}</span>
-                        <span>{item.label}</span>
-                      </Link>
+                      {item.external ? (
+                        <a
+                          href={item.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={() => setIsOpen(false)}
+                          className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-black hover:bg-black/5"
+                        >
+                          <span>{item.icon}</span>
+                          <span>{item.label}</span>
+                        </a>
+                      ) : (
+                        <Link
+                          href={item.href}
+                          onClick={() => setIsOpen(false)}
+                          className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm ${
+                            isActive(item.href)
+                              ? 'bg-[#FFF0F7] text-[#E6007E] font-semibold'
+                              : 'text-black hover:bg-black/5'
+                          }`}
+                        >
+                          <span>{item.icon}</span>
+                          <span>{item.label}</span>
+                        </Link>
+                      )}
                     </li>
                   ))}
                 </ul>
