@@ -4,6 +4,7 @@
 // ============================================================
 
 import { cookies } from 'next/headers';
+import { parseHgosSessionCookie, resolveSessionRole } from '@/lib/hgos-session';
 
 export interface OwnerSession {
   userId: string;
@@ -17,19 +18,16 @@ export interface OwnerSession {
  */
 export async function getOwnerSession(): Promise<OwnerSession | null> {
   const cookieStore = await cookies();
-  const sessionCookie = cookieStore.get('hgos_session');
-  if (!sessionCookie?.value) return null;
-  try {
-    const sessionData = JSON.parse(decodeURIComponent(sessionCookie.value));
-    if (sessionData.role === 'owner' && sessionData.userId && sessionData.email) {
-      return {
-        userId: sessionData.userId,
-        role: 'owner',
-        email: sessionData.email,
-      };
-    }
-  } catch {
-    // ignore
+  const parsed = parseHgosSessionCookie(cookieStore.get('hgos_session')?.value);
+  if (!parsed?.userId) return null;
+  const email = typeof parsed.email === 'string' ? parsed.email : '';
+  const role = resolveSessionRole(parsed.role, email);
+  if (role === 'owner' && parsed.userId) {
+    return {
+      userId: parsed.userId,
+      role: 'owner',
+      email,
+    };
   }
   return null;
 }

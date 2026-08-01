@@ -6,26 +6,28 @@
 
 import { NextRequest, NextResponse } from "next/server";
 
-import type { AuthUser } from "@/lib/hgos/auth";
+import { normalizeAuthUser, type AuthUser } from "@/lib/hgos/auth";
 import { auditAuthLogin } from "@/lib/audit/middleware";
 import {
   authenticateEnvCredentials,
   authenticateStaffWithSupabase,
 } from "@/lib/staff-auth";
+import { buildHgosSessionCookieValue } from "@/lib/hgos-session";
 
 export const maxDuration = 15;
 
 function createAuthResponse(user: AuthUser, session: { access_token?: string; expires_at: number }) {
+  const normalized = normalizeAuthUser(user);
   const response = NextResponse.json({
     success: true,
-    user,
+    user: normalized,
     session,
   });
 
-  const cookieValue = JSON.stringify({
-    userId: user.id,
-    role: user.role,
-    email: user.email,
+  const cookieValue = buildHgosSessionCookieValue({
+    id: normalized.id,
+    role: normalized.role,
+    email: normalized.email,
   });
 
   const expiresAt = new Date(session.expires_at * 1000);

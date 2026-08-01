@@ -4,6 +4,8 @@
 // ============================================================
 
 import { createBrowserSupabaseClient, createServerSupabaseClient } from './supabase';
+import { isProtectedOwner } from '@/lib/permissions';
+import { buildHgosSessionCookieValue, resolveSessionRole } from '@/lib/hgos-session';
 
 // ============================================================
 // TYPES
@@ -351,68 +353,159 @@ function mockLogin(credentials: LoginCredentials): { user: AuthUser; session: an
  */
 export async function logout(): Promise<void> {
   const supabase = createBrowserSupabaseClient();
-  
+
   if (supabase) {
     await supabase.auth.signOut();
   }
-  
-  // Clear local storage and cookie
+
   if (typeof window !== 'undefined') {
     localStorage.removeItem('hgos_session');
     localStorage.removeItem('hgos_user');
-    // Clear the session cookie (for middleware auth checks)
     document.cookie = 'hgos_session=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT; SameSite=Lax';
+    // Staff PIN session is separate — clear so owner logout doesn't leave training hub unlocked
+    fetch('/api/staff/auth', { method: 'DELETE', credentials: 'include' }).catch(() => {});
+    fetch('/api/auth/logout', { method: 'POST', credentials: 'include' }).catch(() => {});
   }
 }
 
 /**
- * Get current session
+ * Normalize role for protected owner accounts (client + cookie sync).
+ */
+export function normalizeAuthUser(user: AuthUser): AuthUser {
+  if (!isProtectedOwner(user.email)) return user;
+  if (user.role === 'owner') return user;
+  return {
+    ...user,
+    role: 'owner',
+    permissions: ROLE_PERMISSIONS.owner,
+    isProtected: true,
+  };
+}
+
+/**
+ * Server-backed session — preferred over localStorage for admin/owner role.
+ */
+export async function fetchServerSession(): Promise<{
+  role: UserRole | null;
+  userId: string | null;
+  email: string | null;
+  isOwner: boolean;
+} | null> {
+  if (typeof window === 'undefined') return null;
+  try {
+    const res = await fetch('/api/auth/session', { credentials: 'include', cache: 'no-store' });
+    if (!res.ok) return null;
+    return await res.json();
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Get current session — cookie (/api/auth/session) wins over stale localStorage.
  */
 export async function getSession(): Promise<AuthSession | null> {
-  // Check local storage first
   if (typeof window !== 'undefined') {
+    const server = await fetchServerSession();
+    if (server?.role && server.userId) {
+      const stored = getStoredUser();
+      const role = server.role;
+      const user = normalizeAuthUser(
+        stored && stored.id === server.userId
+          ? { ...stored, role, email: server.email || stored.email }
+          : {
+              id: server.userId,
+              email: server.email || '',
+              role,
+              firstName: stored?.firstName || '',
+              lastName: stored?.lastName || '',
+              permissions: ROLE_PERMISSIONS[role] || [],
+              createdAt: stored?.createdAt || new Date().toISOString(),
+            },
+      );
+
+      let expiresAt = Date.now() + 7 * 24 * 60 * 60 * 1000;
+      let accessToken = '';
+      let refreshToken: string | undefined;
+      const storedRaw = localStorage.getItem('hgos_session');
+      if (storedRaw) {
+        try {
+          const parsed = JSON.parse(storedRaw) as AuthSession;
+          if (parsed.expiresAt > Date.now()) {
+            expiresAt = parsed.expiresAt;
+            accessToken = parsed.accessToken || '';
+            refreshToken = parsed.refreshToken;
+          }
+        } catch {
+          /* ignore */
+        }
+      }
+
+      const authSession: AuthSession = {
+        user,
+        accessToken,
+        refreshToken,
+        expiresAt,
+      };
+      localStorage.setItem('hgos_session', JSON.stringify(authSession));
+      localStorage.setItem('hgos_user', JSON.stringify(user));
+      return authSession;
+    }
+
     const stored = localStorage.getItem('hgos_session');
     if (stored) {
       try {
         const session = JSON.parse(stored) as AuthSession;
         if (session.expiresAt > Date.now()) {
+          const normalized = normalizeAuthUser(session.user);
+          if (normalized.role !== session.user.role) {
+            const fixed = { ...session, user: normalized };
+            localStorage.setItem('hgos_session', JSON.stringify(fixed));
+            localStorage.setItem('hgos_user', JSON.stringify(normalized));
+            return fixed;
+          }
           return session;
         }
       } catch {
-        // Invalid session
+        /* invalid */
       }
     }
   }
 
   const supabase = createBrowserSupabaseClient();
-  
+
   if (!supabase) {
     return null;
   }
 
   try {
-    const { data: { session } } = await supabase.auth.getSession();
-    
+    const {
+      data: { session },
+    } = await supabase.auth.getSession();
+
     if (!session) {
       return null;
     }
 
-    // Get user profile
     const { data: profile } = await supabase
       .from('user_profiles')
       .select('*')
       .eq('user_id', session.user.id)
       .single();
 
-    const user: AuthUser = {
+    const email = session.user.email || '';
+    const rawRole = (profile?.role || 'client') as UserRole;
+    const role = resolveSessionRole(rawRole, email) || rawRole;
+
+    const user = normalizeAuthUser({
       id: session.user.id,
-      email: session.user.email || '',
-      role: profile?.role || 'client',
+      email,
+      role,
       firstName: profile?.first_name || '',
       lastName: profile?.last_name || '',
-      permissions: ROLE_PERMISSIONS[profile?.role || 'client'],
+      permissions: ROLE_PERMISSIONS[role] || [],
       createdAt: session.user.created_at,
-    };
+    });
 
     return {
       user,
@@ -468,21 +561,25 @@ export function canAccessRoute(user: AuthUser | null, path: string): boolean {
 export function saveSession(user: AuthUser, session: any): void {
   if (typeof window === 'undefined') return;
 
+  const normalized = normalizeAuthUser(user);
   const expiresAt = session.expires_at ? session.expires_at * 1000 : Date.now() + 7 * 24 * 60 * 60 * 1000;
-  
+
   const authSession: AuthSession = {
-    user,
+    user: normalized,
     accessToken: session.access_token,
     refreshToken: session.refresh_token,
     expiresAt,
   };
 
   localStorage.setItem('hgos_session', JSON.stringify(authSession));
-  localStorage.setItem('hgos_user', JSON.stringify(user));
-  
-  // Also set a cookie for middleware auth checks (stores minimal info)
+  localStorage.setItem('hgos_user', JSON.stringify(normalized));
+
   const cookieExpires = new Date(expiresAt).toUTCString();
-  const cookieValue = JSON.stringify({ userId: user.id, role: user.role });
+  const cookieValue = buildHgosSessionCookieValue({
+    id: normalized.id,
+    role: normalized.role,
+    email: normalized.email,
+  });
   document.cookie = `hgos_session=${encodeURIComponent(cookieValue)}; path=/; expires=${cookieExpires}; SameSite=Lax`;
 }
 

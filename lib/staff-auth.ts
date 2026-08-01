@@ -169,13 +169,19 @@ async function loadStaffProfile(
   if (profile) {
     const row = profile as ProfileRow;
     if (row.is_active === false) return null;
-    if (!isStaffRole(row.role)) return null;
+    const profileEmail = (row.email || email).toLowerCase();
+    let effectiveRole: UserRole | null = isProtectedOwner(profileEmail)
+      ? "owner"
+      : isStaffRole(row.role)
+        ? (row.role as UserRole)
+        : null;
+    if (!effectiveRole) return null;
     return {
       profileFound: true,
       user: buildAuthUser({
         id: authUserId,
-        email: row.email || email,
-        role: row.role as UserRole,
+        email: profileEmail,
+        role: effectiveRole,
         firstName: row.first_name,
         lastName: row.last_name,
         avatarUrl: row.avatar_url,
@@ -196,13 +202,19 @@ async function loadStaffProfile(
   if (dbUser) {
     const row = dbUser as UsersRow;
     if (row.is_active === false) return null;
-    if (!isStaffRole(row.role)) return null;
+    const dbEmail = row.email.toLowerCase();
+    const effectiveRole: UserRole | null = isProtectedOwner(dbEmail)
+      ? "owner"
+      : isStaffRole(row.role)
+        ? (row.role as UserRole)
+        : null;
+    if (!effectiveRole) return null;
     return {
       profileFound: false,
       user: buildAuthUser({
         id: authUserId,
-        email: row.email,
-        role: row.role as UserRole,
+        email: dbEmail,
+        role: effectiveRole,
         firstName: row.first_name,
         lastName: row.last_name,
         avatarUrl: row.avatar_url,

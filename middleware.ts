@@ -22,6 +22,10 @@ import {
   STAFF_ADMIN_BYPASS_ROLES,
   verifyStaffSessionToken,
 } from '@/lib/staff-session';
+import {
+  parseHgosSessionCookie,
+  resolveSessionRole,
+} from '@/lib/hgos-session';
 
 // Routes that require authentication (admin guard applies only to these)
 const PROTECTED_ROUTES = ['/admin', '/provider', '/portal', '/pos', '/rx-portal'];
@@ -65,15 +69,9 @@ function staffPinRedirect(request: NextRequest, nextPathWithSearch: string) {
 }
 
 function hgosStaffRoleFromCookie(request: NextRequest): string | null {
-  const sessionCookie = request.cookies.get('hgos_session');
-  if (!sessionCookie?.value) return null;
-  try {
-    const sessionData = JSON.parse(decodeURIComponent(sessionCookie.value));
-    const role = sessionData.role;
-    return typeof role === 'string' ? role : null;
-  } catch {
-    return null;
-  }
+  const parsed = parseHgosSessionCookie(request.cookies.get('hgos_session')?.value);
+  if (!parsed?.userId) return null;
+  return resolveSessionRole(parsed.role, parsed.email ?? null);
 }
 
 export async function middleware(request: NextRequest) {
@@ -182,47 +180,24 @@ export async function middleware(request: NextRequest) {
 
   // /login is always publicly accessible — never redirect unauthenticated users away
   if (pathname === '/login' || pathname.startsWith('/login/')) {
-  const sessionCookie = request.cookies.get('hgos_session');
-  const portalSessionCookie = request.cookies.get('portal_session');
-  let isAuthenticated = false;
-  if (sessionCookie?.value) {
-    try {
-      const sessionData = JSON.parse(decodeURIComponent(sessionCookie.value));
-      const validRoles = ['owner', 'admin', 'staff', 'provider', 'client', 'readonly'];
-      isAuthenticated = !!(sessionData.userId && sessionData.role && validRoles.includes(sessionData.role));
-    } catch {
-      isAuthenticated = false;
-    }
-  }
+    const loginParsed = parseHgosSessionCookie(request.cookies.get('hgos_session')?.value);
+    const loginRole = loginParsed
+      ? resolveSessionRole(loginParsed.role, loginParsed.email ?? null)
+      : null;
     // Only redirect clients to portal; allow staff/admin to reach /login so they can use "Staff sign in" or see client form
-    if (isAuthenticated && sessionCookie?.value) {
-      try {
-        const sessionData = JSON.parse(decodeURIComponent(sessionCookie.value));
-        if (sessionData.role === 'client') {
-          return NextResponse.redirect(new URL('/portal', request.url));
-        }
-      } catch {
-        // ignore
-      }
-      // Staff/admin/provider: allow through to /login (page will redirect only if returnTo indicates admin)
+    if (loginRole === 'client') {
+      return NextResponse.redirect(new URL('/portal', request.url));
     }
     return NextResponse.next();
   }
 
   // Check for auth session cookie and validate it has required data
-  const sessionCookie = request.cookies.get('hgos_session');
   const portalSessionCookie = request.cookies.get('portal_session');
-  let isAuthenticated = false;
-
-  if (sessionCookie?.value) {
-    try {
-      const sessionData = JSON.parse(decodeURIComponent(sessionCookie.value));
-      const validRoles = ['owner', 'admin', 'staff', 'provider', 'client', 'readonly'];
-      isAuthenticated = !!(sessionData.userId && sessionData.role && validRoles.includes(sessionData.role));
-    } catch {
-      isAuthenticated = false;
-    }
-  }
+  const sessionParsed = parseHgosSessionCookie(request.cookies.get('hgos_session')?.value);
+  const sessionRole = sessionParsed
+    ? resolveSessionRole(sessionParsed.role, sessionParsed.email ?? null)
+    : null;
+  let isAuthenticated = sessionRole != null;
 
   // For /portal/* (excluding login/verify), portal_session counts as authenticated
   const isPortalRoute = pathname === '/portal' || (pathname.startsWith('/portal/') && pathname !== '/portal/login' && pathname !== '/portal/verify');
@@ -288,10 +263,9 @@ export async function middleware(request: NextRequest) {
   }
 
   // Role-based access control with enhanced permission checks
-  if (isProtectedRoute && isAuthenticated && sessionCookie?.value) {
+  if (isProtectedRoute && isAuthenticated && sessionRole) {
     try {
-      const sessionData = JSON.parse(decodeURIComponent(sessionCookie.value));
-      const role = sessionData.role;
+      const role = sessionRole;
       
       // Define role access levels
       const adminRoles = ['owner', 'admin', 'staff'];

@@ -70,7 +70,12 @@ function LoginForm() {
       const result = await login(email, password);
       if (!result.success) throw new Error(result.error || 'Invalid email or password');
       await new Promise((r) => setTimeout(r, 100));
-      const returnTo = searchParams.get('returnTo') || searchParams.get('redirect') || '/admin';
+      let returnTo = searchParams.get('returnTo') || searchParams.get('redirect') || '/admin';
+      // Owners landing on generic /admin go to owner dashboard by default
+      const sess = await fetch('/api/auth/session', { credentials: 'include' }).then((r) => r.json()).catch(() => null);
+      if (sess?.role === 'owner' && (returnTo === '/admin' || returnTo === '/admin/')) {
+        returnTo = '/admin/owner';
+      }
       window.location.href = returnTo;
     } catch (err: any) {
       setError(err.message || 'Invalid email or password');

@@ -10,16 +10,8 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { UserMenu } from './UserMenu';
 import { MobileNav } from '@/components/ui/MobileNav';
+import ModeSwitcher, { PORTAL_MODES } from '@/components/ModeSwitcher';
 import { useAuth } from '@/lib/hgos/AuthContext';
-
-// Dashboard view tabs
-const DASHBOARD_VIEWS = [
-  { id: 'command', label: 'Command', href: '/admin/command-center', icon: '🎛️', description: 'Team Hub & ops board' },
-  { id: 'staff', label: 'Admin', href: '/admin', icon: '🩺', description: 'RX & daily operations' },
-  { id: 'owner', label: 'Owner', href: '/admin/owner', icon: '👑', description: 'Business control center' },
-  { id: 'pos', label: 'POS', href: '/pos', icon: '💳', description: 'Point of sale' },
-  { id: 'portal', label: 'Client', href: '/portal', icon: '🌐', description: 'Client-facing portal' },
-];
 
 // Quick access vendor links — full list (Manage All → /admin/vendors)
 const QUICK_VENDORS = [
@@ -39,23 +31,21 @@ const QUICK_VENDORS = [
 ];
 
 export function AdminHeader() {
-  const { isLoading } = useAuth();
+  const { isLoading, user } = useAuth();
   const pathname = usePathname();
   const [showVendors, setShowVendors] = useState(false);
   const [showViewMenu, setShowViewMenu] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const viewMenuRef = useRef<HTMLDivElement>(null);
 
-  // Determine current view
-  const getCurrentView = () => {
-    if (pathname.startsWith('/admin/command-center')) return 'command';
-    if (pathname.startsWith('/admin/owner')) return 'owner';
-    if (pathname.startsWith('/pos')) return 'pos';
-    if (pathname.startsWith('/portal')) return 'portal';
-    return 'staff';
-  };
-  const currentView = getCurrentView();
-  const currentViewData = DASHBOARD_VIEWS.find(v => v.id === currentView) || DASHBOARD_VIEWS[0];
+  const portalModes =
+    user?.role === 'owner' || user?.role === 'admin'
+      ? PORTAL_MODES
+      : PORTAL_MODES.filter((m) => m.id !== 'owner');
+
+  const activeMode =
+    portalModes.find((mode) => mode.match(pathname))?.id || 'admin';
+  const currentViewData = portalModes.find((v) => v.id === activeMode) || portalModes[0];
 
   // Close dropdowns when clicking outside
   useEffect(() => {
@@ -90,22 +80,7 @@ export function AdminHeader() {
             </span>
           </Link>
           
-          <div className="hidden md:flex items-center bg-white/10 rounded-full p-1">
-            {DASHBOARD_VIEWS.map((view) => (
-              <Link
-                key={view.id}
-                href={view.href}
-                className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold transition-all ${
-                  currentView === view.id
-                    ? 'bg-[#FF2D8E] text-white shadow-sm'
-                    : 'text-white/70 hover:text-white hover:bg-white/10'
-                }`}
-              >
-                <span aria-hidden>{view.icon}</span>
-                <span>{view.label}</span>
-              </Link>
-            ))}
-          </div>
+          <ModeSwitcher variant="header" visibleModeIds={portalModes.map((m) => m.id)} />
 
           <div className="relative md:hidden" ref={viewMenuRef}>
             <button
@@ -120,13 +95,13 @@ export function AdminHeader() {
             {showViewMenu && (
               <div className="absolute left-0 mt-2 w-56 bg-[#0a0a0a] border border-white/15 rounded-xl shadow-xl overflow-hidden z-50">
                 <div className="p-1">
-                  {DASHBOARD_VIEWS.map((view) => (
+                  {portalModes.map((view) => (
                     <Link
                       key={view.id}
                       href={view.href}
                       onClick={() => setShowViewMenu(false)}
                       className={`flex items-center gap-2 px-3 py-2.5 rounded-lg transition-colors ${
-                        currentView === view.id
+                        activeMode === view.id
                           ? 'bg-[#FF2D8E]/25 text-[#FFB8DC]'
                           : 'hover:bg-white/10 text-white/85'
                       }`}

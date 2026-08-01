@@ -104,6 +104,47 @@ export function UserMenu() {
             </div>
           </div>
 
+          {/* Portal views */}
+          <div className="py-2 border-b border-black/10">
+            <p className="px-4 py-1 text-[10px] font-bold uppercase tracking-wider text-black/40">
+              Switch portal
+            </p>
+            {(user.role === 'owner' || user.role === 'admin') && (
+              <Link
+                href="/admin/owner"
+                className="flex items-center gap-3 px-4 py-2 text-black hover:bg-black/5 transition-colors"
+                onClick={() => setIsOpen(false)}
+              >
+                <span>👑</span>
+                <span>Owner dashboard</span>
+              </Link>
+            )}
+            <Link
+              href="/admin"
+              className="flex items-center gap-3 px-4 py-2 text-black hover:bg-black/5 transition-colors"
+              onClick={() => setIsOpen(false)}
+            >
+              <span>📊</span>
+              <span>Admin ops</span>
+            </Link>
+            <Link
+              href="/admin/command-center"
+              className="flex items-center gap-3 px-4 py-2 text-black hover:bg-black/5 transition-colors"
+              onClick={() => setIsOpen(false)}
+            >
+              <span>🎛️</span>
+              <span>Command Center</span>
+            </Link>
+            <Link
+              href="/staff"
+              className="flex items-center gap-3 px-4 py-2 text-black hover:bg-black/5 transition-colors"
+              onClick={() => setIsOpen(false)}
+            >
+              <span>📋</span>
+              <span>Staff training hub</span>
+            </Link>
+          </div>
+
           {/* Menu Items */}
           <div className="py-2">
             {(user.role === 'owner' || user.role === 'admin') && (

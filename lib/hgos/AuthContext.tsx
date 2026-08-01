@@ -77,20 +77,16 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         return;
       }
 
-      // First check local storage for quick restore
-      const storedUser = getStoredUser();
-      if (storedUser) {
-        setUser(storedUser);
-      }
-
-      // Then verify with server/Supabase
+      // First check server cookie (authoritative role), then local storage
       const existingSession = await getSession();
       if (existingSession) {
         setUser(existingSession.user);
         setSession(existingSession);
-      } else if (storedUser) {
-        // Session expired, clear stored user
-        setUser(null);
+      } else {
+        const storedUser = getStoredUser();
+        if (storedUser) {
+          setUser(null);
+        }
       }
 
       setIsLoading(false);

@@ -281,6 +281,29 @@ export default function CommandCenterShell({
         </nav>
 
         <div className="px-3 py-4 border-t border-white/10 space-y-1">
+          <p className="px-3 pb-1 text-[10px] font-bold uppercase tracking-wider text-white/40">
+            Switch portal
+          </p>
+          {isOwner ? (
+            <Link
+              href="/admin/owner"
+              className="block rounded-lg px-3 py-2 text-sm text-white/70 hover:bg-white/10 hover:text-white"
+            >
+              👑 Owner dashboard
+            </Link>
+          ) : null}
+          <Link
+            href="/admin"
+            className="block rounded-lg px-3 py-2 text-sm text-white/70 hover:bg-white/10 hover:text-white"
+          >
+            📊 Admin ops
+          </Link>
+          <Link
+            href="/staff"
+            className="block rounded-lg px-3 py-2 text-sm text-white/70 hover:bg-white/10 hover:text-white"
+          >
+            📋 Staff training hub
+          </Link>
           <Link
             href="/admin"
             className="block rounded-lg px-3 py-2 text-sm text-white/70 hover:bg-white/10"

@@ -233,7 +233,20 @@ export default function StaffPage() {
         </div>
 
         {/* Footer */}
-        <div className="mt-10 text-center">
+        <div className="mt-10 text-center space-y-3">
+          <div className="flex flex-wrap justify-center gap-2 text-sm">
+            <Link href="/login?returnTo=/admin&staff=1" className="text-pink-300 hover:text-white font-medium">
+              Owner / admin sign in
+            </Link>
+            <span className="text-white/30">·</span>
+            <Link href="/admin/owner" className="text-pink-300 hover:text-white font-medium">
+              Owner dashboard
+            </Link>
+            <span className="text-white/30">·</span>
+            <Link href="/admin/command-center" className="text-pink-300 hover:text-white font-medium">
+              Command Center
+            </Link>
+          </div>
           <p className="text-gray-400 text-sm">
             Questions? Text Dani 💕
           </p>
