@@ -2,6 +2,7 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": "nextjs",
   "regions": ["iad1"],
+  "buildCommand": "NEXT_CPU_COUNT=1 NODE_OPTIONS=--max-old-space-size=6144 next build",
   "crons": [
     {
       "path": "/api/gift-cards/sync?full=true",
