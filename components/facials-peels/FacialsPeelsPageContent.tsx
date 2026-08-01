@@ -6,7 +6,7 @@ import { useState } from "react";
 
 import {
   FACIALS_FAQS,
-  FACIALS_MARISSA_SPECIAL,
+  FACIALS_GLOW_SPECIAL,
   FACIALS_PEELS_MARKETING,
   FACIALS_TREATMENTS,
   FACIALS_TRIFECTA,
@@ -109,24 +109,24 @@ export function FacialsPeelsPageContent() {
                 aria-hidden
               />
               <span className="text-xs font-bold tracking-[0.22em] text-[#FF2D8E]">
-                {FACIALS_MARISSA_SPECIAL.eyebrow}
+                {FACIALS_GLOW_SPECIAL.eyebrow}
               </span>
             </div>
             <h2 className="font-serif text-2xl font-bold leading-tight sm:text-[30px]">
-              {FACIALS_MARISSA_SPECIAL.title}
+              {FACIALS_GLOW_SPECIAL.title}
             </h2>
             <div className="flex items-baseline gap-2.5">
               <span className="font-serif text-5xl font-extrabold text-[#FF2D8E]">
-                {FACIALS_MARISSA_SPECIAL.price}
+                {FACIALS_GLOW_SPECIAL.price}
               </span>
-              <span className="text-base font-semibold text-black/55">{FACIALS_MARISSA_SPECIAL.priceNote}</span>
+              <span className="text-base font-semibold text-black/55">{FACIALS_GLOW_SPECIAL.priceNote}</span>
             </div>
-            <p className="text-[15px] leading-relaxed text-black/60">{FACIALS_MARISSA_SPECIAL.body}</p>
-            <PinkPillLink href={FACIALS_MARISSA_SPECIAL.href} className="mt-1 w-full !py-3.5">
-              {FACIALS_MARISSA_SPECIAL.ctaLabel}
+            <p className="text-[15px] leading-relaxed text-black/60">{FACIALS_GLOW_SPECIAL.body}</p>
+            <PinkPillLink href={FACIALS_GLOW_SPECIAL.href} className="mt-1 w-full !py-3.5">
+              {FACIALS_GLOW_SPECIAL.ctaLabel}
             </PinkPillLink>
             <div className="flex flex-wrap gap-x-4 gap-y-2 border-t border-black/8 pt-4 text-[13px] text-black/55">
-              {FACIALS_MARISSA_SPECIAL.proof.map((item) => (
+              {FACIALS_GLOW_SPECIAL.proof.map((item) => (
                 <span key={item}>{item}</span>
               ))}
             </div>

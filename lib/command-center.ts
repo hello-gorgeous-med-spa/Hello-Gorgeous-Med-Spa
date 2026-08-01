@@ -31,14 +31,13 @@ export const CC_GOOGLE_MEET_URL =
 export const CC_STAFF = [
   "Danielle",
   "Ryan",
-  "Marissa",
   "Michelle",
   "Laura",
   "Jen",
 ] as const;
 
 /** Prototype staff list order for message From dropdown */
-export const CC_MSG_FROM = ["Ryan", "Marissa", "Danielle", "Michelle", "Laura", "Jen"] as const;
+export const CC_MSG_FROM = ["Ryan", "Danielle", "Michelle", "Laura", "Jen"] as const;
 
 export const CC_MSG_TO = ["Everyone", ...CC_MSG_FROM] as const;
 

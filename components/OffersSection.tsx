@@ -14,7 +14,7 @@ export function OffersSection() {
         </div>
 
         <div className="grid md:grid-cols-3 gap-10 max-w-5xl mx-auto">
-          {/* Marissa HydraFacial $129 + Oswego specials */}
+          {/* Oswego specials */}
           <Link href="/oswego-specials" className="group block h-full">
             <div className="hg-card h-full border-2 border-[#FF2D8E]">
               <div className="flex flex-col items-center text-center h-full">
@@ -31,7 +31,7 @@ export function OffersSection() {
                   OSWEGO SPECIALS · THRU 2026
                 </p>
                 <h3 className="text-2xl font-bold mb-3">
-                  Get Marissa Busy
+                  Clinic specials
                 </h3>
                 <div className="space-y-2 mb-6 flex-1 w-full text-left">
                   <div className="flex justify-between px-3 py-2 rounded-lg border border-black/10 text-sm">

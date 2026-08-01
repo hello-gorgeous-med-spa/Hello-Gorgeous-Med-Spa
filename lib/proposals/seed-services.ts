@@ -223,7 +223,7 @@ const INJECTABLE_SERVICES: SeedService[] = [
 ];
 
 const SKIN_SERVICES: SeedService[] = [
-  { id: "hydrafacial-glow-special", name: "Marissa's Glow Special (Hydra + dermaplaning)", category: "Skin & Face", price: 129, unit: "per session", description: "HydraFacial + dermaplaning + O2 + 2 add-ons with Marissa." },
+  { id: "hydrafacial-glow-special", name: "HydraFacial Glow Special (Hydra + dermaplaning)", category: "Skin & Face", price: 129, unit: "per session", description: "HydraFacial + dermaplaning + O2 + 2 premium add-ons." },
   { id: "hydrafacial", name: "Standard HydraFacial", category: "Skin & Face", price: 199, unit: "per session" },
   { id: "glass-glow-facial", name: "Glass Glow Facial", category: "Skin & Face", price: 349, unit: "per session", description: "HydraFacial + dermaplaning + BabyTox." },
   { id: "microneedling-ha", name: "Microneedling + HA", category: "Skin & Face", price: 249, unit: "per session" },

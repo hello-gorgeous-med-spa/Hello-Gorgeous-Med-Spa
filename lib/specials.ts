@@ -5,20 +5,20 @@ export const SPECIALS_PATH = "/specials";
 /** Top conversion picks — shown above the full menu. */
 export const SPECIALS_FEATURED = [
   {
-    title: "Marissa’s new services",
-    accentLine: "Lashes $89 · Laser $59 · Hydra Spa",
+    title: "HydraFacial Glow Special",
+    accentLine: "$129 · Hydra + dermaplaning",
     description:
-      "Full-set lashes $89 from Aug 1 · laser any listed area $59 through July 31 · dermaplaning & HydraFacial. Book with Marissa.",
-    href: "/oswego-specials",
-    badge: "Hot",
-  },
-  {
-    title: "HydraFacial + Dermaplaning",
-    accentLine: "$129 with Marissa",
-    description:
-      "Rejuva Fresh HydraFacial, dermaplaning, oxygen spray, and 2 premium machine add-ons — book with Marissa.",
+      "Rejuva Fresh HydraFacial, dermaplaning, oxygen spray, and 2 premium machine add-ons — limited-time clinic special.",
     href: "/hydrafacial-oswego-il#special",
     badge: "New",
+  },
+  {
+    title: "Oswego specials",
+    accentLine: "Lashes $89 · Laser $59 · IPL $79",
+    description:
+      "Full-set lashes $89 from Aug 1 · laser any listed area $59 through July 31 · dermaplaning & HydraFacial.",
+    href: "/oswego-specials",
+    badge: "Hot",
   },
   {
     title: "First-time Botox",
@@ -50,7 +50,7 @@ export const MORE_SPECIALS_LINKS = [
     badge: "SEO",
   },
   {
-    label: "Marissa’s HydraFacial Glow Special",
+    label: "HydraFacial Glow Special",
     href: "/hydrafacial-oswego-il#special",
     sub: "$129 · HydraFacial + dermaplaning + O₂ + 2 add-ons",
     badge: "NEW",

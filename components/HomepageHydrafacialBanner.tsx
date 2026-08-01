@@ -3,13 +3,13 @@ import Link from "next/link";
 
 import {
   HYDRAFACIAL_IMAGES,
-  HYDRAFACIAL_MARISSA_SPECIAL,
+  HYDRAFACIAL_GLOW_SPECIAL,
   HYDRAFACIAL_PATH,
 } from "@/lib/hydrafacial-marketing";
 
-/** Compact homepage promo — Marissa’s HydraFacial $129 Glow Special */
+/** Compact homepage promo — HydraFacial $129 Glow Special */
 export function HomepageHydrafacialBanner() {
-  const special = HYDRAFACIAL_MARISSA_SPECIAL;
+  const special = HYDRAFACIAL_GLOW_SPECIAL;
 
   return (
     <section
@@ -33,7 +33,7 @@ export function HomepageHydrafacialBanner() {
         >
           <Image
             src={HYDRAFACIAL_IMAGES.device}
-            alt="Rejuva Fresh HydraFacial $129 special with Marissa — Hello Gorgeous Med Spa"
+            alt="Rejuva Fresh HydraFacial $129 glow special — Hello Gorgeous Med Spa"
             width={120}
             height={155}
             className="h-auto w-[72px] object-cover md:w-[84px]"
@@ -42,7 +42,7 @@ export function HomepageHydrafacialBanner() {
 
         <div className="min-w-0 flex-1">
           <p className="text-[10px] font-bold uppercase tracking-[0.22em]" style={{ color: "#f472b6" }}>
-            Limited-time · Book with Marissa
+            Limited-time glow special
           </p>
           <p className="mt-0.5 text-sm font-bold leading-snug text-white sm:text-base">
             HydraFacial + Dermaplaning{" "}

@@ -31,17 +31,17 @@ export const FACIALS_PEELS_MARKETING = {
 export const FACIALS_PEELS_SEO = {
   title: "Facials & Peels Oswego IL | HydraFacial, Signature Protocols & VI Peel",
   description:
-    "Medical-grade facials & peels in Oswego — Marissa’s Glow $129, The Trifecta $199, signature protocols from $89, peels, VI Peel & IPL. Hello Gorgeous Med Spa.",
+    "Medical-grade facials & peels in Oswego — Glow Special $129, The Trifecta $199, signature protocols from $89, peels, VI Peel & IPL. Hello Gorgeous Med Spa.",
   ogAlt: "Facials and peels at Hello Gorgeous Med Spa Oswego IL",
 } as const;
 
-export const FACIALS_MARISSA_SPECIAL = {
-  eyebrow: "MARISSA'S SPECIAL",
+export const FACIALS_GLOW_SPECIAL = {
+  eyebrow: "GLOW SPECIAL",
   title: "HydraFacial + dermaplaning + O₂ + 2 add-ons",
   price: "$129",
   priceNote: "limited time",
   body: "Our most-loved glow protocol — deep cleanse, extract, hydrate, and finish with a flawless dermaplane. No downtime.",
-  ctaLabel: "Book Marissa's Glow ›",
+  ctaLabel: "Book Glow Special ›",
   href: "/hydrafacial-oswego-il#special",
   proof: ["★ 5.0 Fresha (1,931)", "★ 4.5 Google (147)", "🏆 Best of Oswego"],
 } as const;
@@ -126,7 +126,7 @@ export const FACIALS_TREATMENTS: FacialsTreatment[] = [
     ],
     prices: [
       {
-        label: "Marissa's Glow Special",
+        label: "HydraFacial Glow Special",
         sub: "HydraFacial + dermaplaning + O₂ + 2 add-ons",
         price: "$129",
       },

@@ -18,7 +18,7 @@ import {
   HYDRAFACIAL_ARTIST,
   HYDRAFACIAL_FAQS,
   HYDRAFACIAL_IMAGES,
-  HYDRAFACIAL_MARISSA_SPECIAL,
+  HYDRAFACIAL_GLOW_SPECIAL,
   HYDRAFACIAL_MARKETING,
   HYDRAFACIAL_MEMBERSHIP,
   HYDRAFACIAL_NAV,
@@ -32,7 +32,7 @@ import { SITE } from "@/lib/seo";
 
 export function HydraFacialOswegoPageContent() {
   const [navOpen, setNavOpen] = useState(false);
-  const special = HYDRAFACIAL_MARISSA_SPECIAL;
+  const special = HYDRAFACIAL_GLOW_SPECIAL;
 
   return (
     <div className="min-h-[100dvh] bg-black font-sans text-white">
@@ -77,7 +77,7 @@ export function HydraFacialOswegoPageContent() {
                   {item.label}
                 </a>
               ))}
-              <JourneyPinkBtn href={special.bookHref}>Book Marissa’s $129 special</JourneyPinkBtn>
+              <JourneyPinkBtn href={special.bookHref}>Book $129 glow special</JourneyPinkBtn>
             </div>
           </div>
         ) : null}
@@ -111,7 +111,7 @@ export function HydraFacialOswegoPageContent() {
             </div>
             <div className="mt-6 flex flex-wrap gap-2.5">
               <JourneyChip>Rejuva Fresh platform</JourneyChip>
-              <JourneyChip>$129 with Marissa</JourneyChip>
+              <JourneyChip>$129 glow special</JourneyChip>
               <JourneyChip>Zero downtime</JourneyChip>
             </div>
           </div>
@@ -213,7 +213,7 @@ export function HydraFacialOswegoPageContent() {
             eyebrow="Customize your glow"
             title="Pick 2 premium"
             titleAccent="add-ons"
-            description="Included with Marissa’s $129 special — choose any two modalities from the Rejuva Fresh platform."
+            description="Included with our $129 glow special — choose any two modalities from the Rejuva Fresh platform."
             center
           />
           <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -230,13 +230,13 @@ export function HydraFacialOswegoPageContent() {
         </div>
       </section>
 
-      {/* Marissa */}
+      {/* Esthetics team */}
       <section id="artist" className="scroll-mt-24 px-6 py-16 lg:py-20">
         <div className="mx-auto grid max-w-[1200px] gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
           <div className="relative mx-auto aspect-[4/5] w-full max-w-md overflow-hidden rounded-3xl border border-[#FF2D8E]/35">
             <Image
               src={HYDRAFACIAL_ARTIST.image}
-              alt={HYDRAFACIAL_ARTIST.name}
+              alt={`${HYDRAFACIAL_ARTIST.name} — Hello Gorgeous Med Spa`}
               fill
               className="object-cover object-top"
               sizes="400px"
@@ -244,7 +244,7 @@ export function HydraFacialOswegoPageContent() {
           </div>
           <div>
             <JourneySectionHead
-              eyebrow="Your esthetician"
+              eyebrow="Our esthetics team"
               title={HYDRAFACIAL_ARTIST.name}
               titleAccent="· glow artist"
               description={HYDRAFACIAL_ARTIST.bio}
@@ -256,7 +256,7 @@ export function HydraFacialOswegoPageContent() {
               “{HYDRAFACIAL_ARTIST.quote}”
             </blockquote>
             <div className="mt-8">
-              <JourneyPinkBtn href={special.bookHref}>Book with Marissa — $129</JourneyPinkBtn>
+              <JourneyPinkBtn href={special.bookHref}>Book $129 glow special</JourneyPinkBtn>
             </div>
           </div>
         </div>
@@ -290,7 +290,7 @@ export function HydraFacialOswegoPageContent() {
             eyebrow="Pricing"
             title="Glow now,"
             titleAccent="or monthly"
-            description="Start with Marissa’s $129 special — or lock in monthly glow with membership."
+            description="Start with our $129 glow special — or lock in monthly glow with membership."
             center
           />
           <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -390,7 +390,7 @@ export function HydraFacialOswegoPageContent() {
       <section className="border-t-4 border-black bg-gradient-to-br from-[#FF2D8E] via-[#E6007E] to-[#9b0a4d] px-6 py-16 text-center">
         <h2 className="font-serif text-3xl font-bold text-white sm:text-4xl">Ready for your glow?</h2>
         <p className="mx-auto mt-3 max-w-xl text-white/90">
-          Book Marissa’s $129 HydraFacial + Dermaplaning special — oxygen spray and two premium add-ons included.
+          Book our $129 HydraFacial + Dermaplaning special — oxygen spray and two premium add-ons included.
         </p>
         <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
           <JourneyPinkBtn href={special.bookHref} className="!bg-white !text-black hover:!bg-black hover:!text-white">

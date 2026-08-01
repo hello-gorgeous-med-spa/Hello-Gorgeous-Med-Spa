@@ -17,7 +17,6 @@ export default function AdminPayrollPage() {
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState<PayrollPreviewResult | null>(null);
   const [ryanReviews, setRyanReviews] = useState(0);
-  const [marissaReviews, setMarissaReviews] = useState(0);
   const [error, setError] = useState<string | null>(null);
 
   const load = useCallback(async () => {
@@ -26,7 +25,6 @@ export default function AdminPayrollPage() {
     try {
       const q = new URLSearchParams({
         ryanReviews: String(ryanReviews),
-        marissaReviews: String(marissaReviews),
       });
       const res = await fetch(`/api/admin/payroll/preview?${q}`, { cache: "no-store" });
       const json = (await res.json()) as PayrollPreviewResult & { error?: string };
@@ -37,7 +35,7 @@ export default function AdminPayrollPage() {
     } finally {
       setLoading(false);
     }
-  }, [ryanReviews, marissaReviews]);
+  }, [ryanReviews]);
 
   useEffect(() => {
     load();
@@ -61,7 +59,7 @@ export default function AdminPayrollPage() {
         </p>
       </div>
 
-      <section className="grid sm:grid-cols-2 gap-3 mb-6">
+      <section className="grid sm:grid-cols-1 gap-3 mb-6 max-w-md">
         <label className="block text-sm border-2 border-black rounded-xl p-3 bg-white">
           <span className="font-semibold">Ryan — Google reviews this week</span>
           <input
@@ -69,16 +67,6 @@ export default function AdminPayrollPage() {
             min={0}
             value={ryanReviews}
             onChange={(e) => setRyanReviews(parseInt(e.target.value, 10) || 0)}
-            className="mt-1 w-full border border-black/20 rounded px-2 py-1"
-          />
-        </label>
-        <label className="block text-sm border-2 border-black rounded-xl p-3 bg-white">
-          <span className="font-semibold">Marissa — Google reviews this week</span>
-          <input
-            type="number"
-            min={0}
-            value={marissaReviews}
-            onChange={(e) => setMarissaReviews(parseInt(e.target.value, 10) || 0)}
             className="mt-1 w-full border border-black/20 rounded px-2 py-1"
           />
         </label>

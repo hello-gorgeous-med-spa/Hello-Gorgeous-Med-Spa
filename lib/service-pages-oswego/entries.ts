@@ -343,15 +343,15 @@ export const SERVICE_PAGES_BASE: ServicePageData[] = [
     targetKeyword: "facials oswego",
     h1: "Facials in Oswego, IL",
     valueProp:
-      "Rejuva Fresh HydraFacial, Geneo, and medical-grade facials — including Marissa’s $129 Glow Special with dermaplaning, oxygen spray, and 2 premium add-ons.",
+      "Rejuva Fresh HydraFacial, Geneo, and medical-grade facials — including our $129 Glow Special with dermaplaning, oxygen spray, and 2 premium add-ons.",
     tier: "contested",
     procedureType: "Topical",
     bodyLocation: "Face",
     metaDescriptionExtra:
-      "HydraFacial & medical facials in Oswego. Marissa’s $129 Glow Special — book at /hydrafacial-oswego-il.",
+      "HydraFacial & medical facials in Oswego. $129 Glow Special — book at /hydrafacial-oswego-il.",
     howItWorksParagraphs: educationBlock("Facials", "facials oswego", [
       "Medical facials combine professional exfoliation, extraction, hydration, and targeted serums. Our HydraFacial-style treatments use the Rejuva Fresh Hydra Spa Infusion platform — vortex cleanse, hydrogen-oxygen spray, and premium handpieces for a customized glow.",
-      "Facials complement injectables and laser work — they do not replace medical treatments for deep laxity or scars, but they keep skin healthy between visits. Ask about Marissa’s $129 HydraFacial + Dermaplaning special.",
+      "Facials complement injectables and laser work — they do not replace medical treatments for deep laxity or scars, but they keep skin healthy between visits. Ask about our $129 HydraFacial + Dermaplaning special.",
     ]),
     whatToExpectSteps: expectSteps("your facial"),
     faqs: standardFaqs("facials", "facials oswego", [
@@ -361,7 +361,7 @@ export const SERVICE_PAGES_BASE: ServicePageData[] = [
       },
       {
         q: "What’s the $129 special?",
-        a: "Marissa’s Glow Special includes HydraFacial, dermaplaning, oxygen spray, and any 2 premium machine add-ons. Book at hellogorgeousmedspa.com/hydrafacial-oswego-il.",
+        a: "Our Glow Special includes HydraFacial, dermaplaning, oxygen spray, and any 2 premium machine add-ons. Book at hellogorgeousmedspa.com/hydrafacial-oswego-il.",
       },
     ]),
     relatedServices: ["dermaplaning-oswego", "chemical-peel-oswego", "botox-oswego"],

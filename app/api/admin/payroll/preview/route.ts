@@ -21,7 +21,6 @@ export async function GET(req: Request) {
   const url = new URL(req.url);
   const weekStart = url.searchParams.get("weekStart");
   const ryanReviews = parseInt(url.searchParams.get("ryanReviews") ?? "0", 10) || 0;
-  const marissaReviews = parseInt(url.searchParams.get("marissaReviews") ?? "0", 10) || 0;
 
   const period = weekStart
     ? getWeekContaining(new Date(`${weekStart}T12:00:00Z`))
@@ -32,7 +31,6 @@ export async function GET(req: Request) {
       period,
       googleReviews: {
         "ryan-kent": ryanReviews,
-        "marissa-murray": marissaReviews,
       },
     });
     return NextResponse.json(result);

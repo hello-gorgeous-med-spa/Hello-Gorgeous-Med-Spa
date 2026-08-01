@@ -3,7 +3,7 @@ import Link from "next/link";
 
 import {
   HYDRAFACIAL_IMAGES,
-  HYDRAFACIAL_MARISSA_SPECIAL,
+  HYDRAFACIAL_GLOW_SPECIAL,
 } from "@/lib/hydrafacial-marketing";
 
 const BRAND = {
@@ -13,7 +13,7 @@ const BRAND = {
 };
 
 export function HydraFacialHomeBand() {
-  const special = HYDRAFACIAL_MARISSA_SPECIAL;
+  const special = HYDRAFACIAL_GLOW_SPECIAL;
 
   return (
     <section className="relative overflow-hidden border-y-4 border-black bg-[#0a0a0a] text-white">
@@ -33,7 +33,7 @@ export function HydraFacialHomeBand() {
         <div>
           <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.16em] text-[#FFB8DC] backdrop-blur">
             <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[#E6007E]" />
-            Limited-time · Book with Marissa
+            Limited-time glow special
           </span>
 
           <p className="mt-5 text-xs font-bold uppercase tracking-[0.2em] text-[#FFB8DC]">
@@ -52,7 +52,7 @@ export function HydraFacialHomeBand() {
 
           <p className="mt-5 max-w-xl text-base leading-relaxed text-white/80 sm:text-lg">
             Full Rejuva Fresh HydraFacial, dermaplaning, hydrogen-oxygen spray, and your choice of any
-            2 premium machine add-ons — with Marissa Murray. Also: lashes $89 · laser $59 · IPL $79.
+            2 premium machine add-ons — with our esthetics team. Also: lashes $89 · laser $59 · IPL $79.
           </p>
 
           <div className="mt-8 rounded-3xl border-4 border-black bg-white p-5 text-black shadow-[8px_8px_0_0_rgba(230,0,126,0.35)] sm:p-6">
@@ -100,7 +100,7 @@ export function HydraFacialHomeBand() {
           <div className="relative aspect-[4/5] w-full bg-black sm:aspect-square">
             <Image
               src={HYDRAFACIAL_IMAGES.treatment}
-              alt="Rejuva Fresh HydraFacial treatment — Marissa’s $129 special at Hello Gorgeous Med Spa"
+              alt="Rejuva Fresh HydraFacial treatment — $129 glow special at Hello Gorgeous Med Spa"
               fill
               className="object-cover object-center"
               sizes="(max-width: 1024px) 100vw, 520px"

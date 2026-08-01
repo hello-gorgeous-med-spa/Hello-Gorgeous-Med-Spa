@@ -36,7 +36,7 @@ export type TeamMember = {
 };
 
 export const MEET_THE_TEAM_SEO_DESCRIPTION =
-  "Meet the Hello Gorgeous Med Spa team in Oswego, IL — Michelle Colby (client care & front desk), Marissa Murray (licensed esthetician & lash artist), Laura Witt (client relations & wellness sales), Jen Vokoun (permanent makeup & brow artist), plus founders Danielle Alcala-Glazier and Ryan Kent, FNP-BC.";
+  "Meet the Hello Gorgeous Med Spa team in Oswego, IL — Michelle Colby (client care & front desk), Laura Witt (client relations & wellness sales), Jen Vokoun (permanent makeup & brow artist), plus founders Danielle Alcala-Glazier and Ryan Kent, FNP-BC.";
 
 export const TEAM_MEMBERS: TeamMember[] = [
   {
@@ -62,33 +62,6 @@ export const TEAM_MEMBERS: TeamMember[] = [
       "Hormone optimization",
       "Wellness & longevity",
       "Client care",
-    ],
-  },
-  {
-    id: "marissa-murray",
-    slug: "marissa-murray",
-    fullName: "Marissa Murray",
-    badge: "Licensed Esthetician",
-    title: "Certified Lash Artist",
-    isNewHire: true,
-    image: {
-      src: "/images/team/marissa-murray-2026.jpg",
-      alt: "Marissa Murray, Licensed Esthetician and Certified Lash Artist at Hello Gorgeous Med Spa in Oswego, IL",
-    },
-    quote:
-      "Every client deserves to feel heard — never rushed, and never pressured.",
-    bioParagraphs: [
-      "Marissa is a licensed esthetician with over 8 years of experience and a true passion for helping clients feel confident, comfortable, and cared for. Her favorite part of esthetics is listening closely to each client's needs, understanding their goals, and creating a personalized experience that feels genuine, thoughtful, and results-driven.",
-      "What sets Marissa apart is her heart for exceptional customer service. She believes every client deserves to feel heard, never rushed, and never pressured. Her approach is centered around education, trust, and customized treatment plans rather than heavy selling.",
-      "After meeting with Danielle, the owner of Hello Gorgeous Med Spa, Marissa knew immediately that this was the perfect place for her. She felt aligned with the culture, the standards, and the freedom to customize protocols based on what each client truly needs — Hello Gorgeous lets her practice esthetics in a way that feels authentic: caring, honest, and personalized.",
-      "She is extremely excited to join the Hello Gorgeous family and cannot wait to build lasting relationships with clients while helping them look and feel their absolute best.",
-    ],
-    specialties: [
-      "HydraFacial & Rejuva Fresh facials",
-      "Dermaplaning",
-      "Lash extensions",
-      "Lash lifts & tints",
-      "Brow services",
     ],
   },
   {

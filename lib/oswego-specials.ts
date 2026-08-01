@@ -1,12 +1,12 @@
 /**
- * Hello Gorgeous Med Spa Oswego — Marissa’s new services (flyer-aligned).
+ * Hello Gorgeous Med Spa Oswego — clinic specials (flyer-aligned).
  */
 
 import { PRIMARY_BOOKING_CTA } from "@/lib/primary-cta";
-import { HYDRAFACIAL_PATH, HYDRAFACIAL_MARISSA_SPECIAL } from "@/lib/hydrafacial-marketing";
+import { HYDRAFACIAL_PATH, HYDRAFACIAL_GLOW_SPECIAL } from "@/lib/hydrafacial-marketing";
 
 export const OSWEGO_SPECIALS_PATH = "/oswego-specials" as const;
-export const MARISSA_FLYER_IMAGE = "/images/marketing/marissa-new-services-flyer.jpg" as const;
+export const OSWEGO_SPECIALS_FLYER_IMAGE = "/images/marketing/marissa-new-services-flyer.jpg" as const;
 
 /** Laser $59 promo window per flyer: now through end of this month */
 export const LASER_59_VALID_THROUGH = "July 31, 2026" as const;
@@ -30,22 +30,22 @@ export const OSWEGO_SPECIALS_NAV = [
   { href: "#faq", label: "FAQ" },
 ] as const;
 
-/** Full set eyelash extensions — Marissa · begins Aug 1 */
+/** Full set eyelash extensions — begins Aug 1 */
 export const LASH_FULL_SET_SPECIAL = {
   id: "lashes-89",
   badge: "Beginning August 1st",
   title: "Full Set Eyelash Extensions",
   price: "$89",
-  priceNote: "full set · book with Marissa",
+  priceNote: "full set · book online",
   duration: "90–120 min",
   starts: LASH_89_STARTS,
   includes: [
-    "Full set of eyelash extensions with Marissa Murray",
+    "Full set of eyelash extensions with our lash artist",
     "Custom mapping · soft, natural glam",
     "Aftercare tips for longer wear",
   ],
-  note: `Beginning ${LASH_89_STARTS}. Book ahead with Marissa — licensed esthetician & certified lash artist.`,
-  bookHref: `${PRIMARY_BOOKING_CTA.href}?ref=lash_full_set_89_marissa`,
+  note: `Beginning ${LASH_89_STARTS}. Book ahead — licensed esthetician & certified lash artist.`,
+  bookHref: `${PRIMARY_BOOKING_CTA.href}?ref=lash_full_set_89`,
   detailsHref: `${OSWEGO_SPECIALS_PATH}#lashes`,
 } as const;
 
@@ -70,8 +70,8 @@ export const LASER_59_SPECIAL = {
   validThrough: LASER_59_VALID_THROUGH,
   device: "Zemits DuoCratus medical-grade platform",
   includes: LASER_59_AREAS.map((a) => a.label),
-  note: `Any listed area only $59 through ${LASER_59_VALID_THROUGH}. Book with Marissa at Hello Gorgeous Med Spa, Oswego.`,
-  bookHref: `${PRIMARY_BOOKING_CTA.href}?ref=laser_59_marissa`,
+  note: `Any listed area only $59 through ${LASER_59_VALID_THROUGH}. Book at Hello Gorgeous Med Spa, Oswego.`,
+  bookHref: `${PRIMARY_BOOKING_CTA.href}?ref=laser_59`,
   detailsHref: `${OSWEGO_SPECIALS_PATH}#laser`,
 } as const;
 
@@ -109,11 +109,11 @@ export const IPL_79_SPECIAL = {
 
 export const OSWEGO_SPECIALS_FEATURED = [
   {
-    ...HYDRAFACIAL_MARISSA_SPECIAL,
+    ...HYDRAFACIAL_GLOW_SPECIAL,
     id: "hydrafacial-129",
     sectionId: "hydrafacial",
     href: HYDRAFACIAL_PATH,
-    seoLabel: "HydraFacial + Dermaplaning with Marissa Oswego",
+    seoLabel: "HydraFacial + Dermaplaning Glow Special Oswego",
   },
   {
     ...LASH_FULL_SET_SPECIAL,
@@ -137,21 +137,21 @@ export const OSWEGO_SPECIALS_FEATURED = [
 
 export const OSWEGO_SPECIALS_FAQS = [
   {
-    question: "What are Marissa’s new services at Hello Gorgeous Med Spa Oswego?",
-    answer: `Marissa Murray (licensed esthetician & certified lash artist) offers full-set eyelash extensions $89 beginning ${LASH_89_STARTS}, laser hair removal any listed area $59 through ${LASER_59_VALID_THROUGH}, plus dermaplaning and Hydra Spa Infusion / HydraFacial. Book at hellogorgeousmedspa.com/oswego-specials.`,
+    question: "What Oswego specials does Hello Gorgeous Med Spa offer?",
+    answer: `Full-set eyelash extensions $89 beginning ${LASH_89_STARTS}, laser hair removal any listed area $59 through ${LASER_59_VALID_THROUGH}, plus dermaplaning and Hydra Spa Infusion / HydraFacial. Book at hellogorgeousmedspa.com/oswego-specials.`,
   },
   {
     question: "When does the $89 full-set lash special start?",
-    answer: `Beginning ${LASH_89_STARTS}. You can book ahead with Marissa now.`,
+    answer: `Beginning ${LASH_89_STARTS}. You can book ahead now.`,
   },
   {
     question: "Which laser hair areas are $59?",
     answer: `Face, neck/chin, underarm, upper legs, lower legs, back, bikini, and Brazilian — $59 per session through ${LASER_59_VALID_THROUGH}.`,
   },
   {
-    question: "Does Marissa do HydraFacial and dermaplaning?",
+    question: "Do you offer HydraFacial and dermaplaning?",
     answer:
-      "Yes — Marissa’s menu also features dermaplaning and Hydra Spa Infusion (HydraFacial), including the $129 glow special with oxygen spray and 2 premium add-ons.",
+      "Yes — our menu features dermaplaning and Hydra Spa Infusion (HydraFacial), including the $129 glow special with oxygen spray and 2 premium add-ons.",
   },
   {
     question: "Where is Hello Gorgeous Med Spa?",
@@ -161,26 +161,24 @@ export const OSWEGO_SPECIALS_FAQS = [
 ] as const;
 
 export const OSWEGO_SPECIALS_SEO = {
-  title: "Marissa’s New Services — Lashes $89, Laser $59 | Hello Gorgeous Med Spa Oswego",
-  description: `Book Marissa Murray at Hello Gorgeous Med Spa Oswego: full-set lashes $89 from ${LASH_89_STARTS}, laser hair any listed area $59 through ${LASER_59_VALID_THROUGH}, plus dermaplaning & Hydra Spa Infusion.`,
+  title: "Oswego Specials — Lashes $89, Laser $59 | Hello Gorgeous Med Spa",
+  description: `Hello Gorgeous Med Spa Oswego: full-set lashes $89 from ${LASH_89_STARTS}, laser hair any listed area $59 through ${LASER_59_VALID_THROUGH}, plus dermaplaning & Hydra Spa Infusion.`,
   keywords: [
-    "Marissa Murray Hello Gorgeous",
+    "Hello Gorgeous Oswego specials",
     "eyelash extensions Oswego $89",
     "laser hair removal Oswego $59",
     "Hello Gorgeous Med Spa Oswego",
     "Hydra Spa Infusion Oswego",
     "dermaplaning Oswego",
-    "book with Marissa Oswego",
+    "med spa specials Oswego",
   ],
 } as const;
 
-/** GBP / social post copy for Marissa flyer */
-export const MARISSA_NEW_SERVICES_GBP_MESSAGE = `✨ Marissa’s New Services — Hello Gorgeous Med Spa, Oswego IL
-
-Marissa Murray · Licensed Esthetician · Certified Lash Artist
+/** GBP / social post copy for Oswego specials flyer */
+export const OSWEGO_SPECIALS_GBP_MESSAGE = `✨ Oswego Specials — Hello Gorgeous Med Spa, Oswego IL
 
 👁 Full set eyelash extensions — ONLY $89
-Beginning August 1st — book ahead with Marissa
+Beginning August 1st — book ahead now
 
 ⚡ Laser hair removal — ANY listed area ONLY $59
 Now through the end of the month
@@ -188,6 +186,6 @@ Face · Neck/Chin · Underarm · Upper legs · Lower legs · Back · Bikini · B
 
 Also featuring dermaplaning & Hydra Spa Infusion
 
-BOOK NOW WITH MARISSA
+BOOK NOW
 74 W Washington St, Oswego
 (630) 636-6193` as const;

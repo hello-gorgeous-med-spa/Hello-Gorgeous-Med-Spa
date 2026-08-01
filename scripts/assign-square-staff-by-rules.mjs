@@ -3,10 +3,9 @@
  * Assign Square appointment staff by Hello Gorgeous provider rules.
  *
  * Routing (owner-defined):
- *   Marissa  — spa (lash, brow, skin, IV, vitamins) — NOT medical / botox / fillers / laser / FlowWave / microblading
  *   Ryan     — medical, botox, fillers, weight loss, BHRT, peptides, laser, microneedling,
  *              InMode, PRP, trigger point, FlowWave
- *   Danielle — everything EXCEPT botox & fillers
+ *   Danielle — spa (lash, brow, skin, IV, vitamins, body contouring) — everything EXCEPT botox & fillers
  *   Michelle — FlowWave / Shockwave / Recovery Stack only (sole bookable provider)
  *   Jen      — Microblading only (regular, hybrid/combo, color refresher, Meet Jen specials)
  *
@@ -28,7 +27,6 @@ const SQUARE_VERSION = "2025-04-16";
 export const TEAM = {
   ryan: "TM1IptWCrgxkY4p7",
   danielle: "TMqnS9cNU-3s3lUR",
-  marissa: "TMjZzrkoSsBocyWm",
   michelle: "TMqy8tRlmyMRkQ25",
   laura: "TMxkWb1md-cZHvkq",
   jen: "TMTwajwlTLQgz8mI",
@@ -37,7 +35,6 @@ export const TEAM = {
 const NAMES = {
   [TEAM.ryan]: "Ryan",
   [TEAM.danielle]: "Danielle",
-  [TEAM.marissa]: "Marissa",
   [TEAM.michelle]: "Michelle",
   [TEAM.laura]: "Laura",
   [TEAM.jen]: "Jen",
@@ -212,23 +209,23 @@ function resolveStaff(serviceName, categoryNames) {
     };
   }
 
-  // ── Body contouring (non-laser spa) → Danielle + Marissa ──
+  // ── Body contouring (non-laser spa) → Danielle ──
   if (/body contouring/.test(hay) || (cats.includes("body spa") && !/laser/.test(hay))) {
     return {
-      ids: [TEAM.danielle, TEAM.marissa],
-      rule: "Body Spa (non-laser) → Danielle + Marissa",
+      ids: [TEAM.danielle],
+      rule: "Body Spa (non-laser) → Danielle",
     };
   }
 
-  // ── Lash Spa → Marissa (+ Danielle for coverage) ──
+  // ── Lash Spa → Danielle ──
   if (/lash|eyelash|korean lash/.test(hay) || cats.includes("lash spa")) {
     return {
-      ids: [TEAM.marissa, TEAM.danielle],
-      rule: "Lash Spa → Marissa + Danielle",
+      ids: [TEAM.danielle],
+      rule: "Lash Spa → Danielle",
     };
   }
 
-  // ── Microblading (Jen only) — before Brow Spa so PMU doesn't route to Marissa ──
+  // ── Microblading (Jen only) — before Brow Spa so PMU doesn't route to spa team ──
   if (
     /microblad|hybrid\s*\/?\s*combo|combo\s*brows|color refresher|meet jen|pmu/.test(hay) ||
     cats.includes("microblading")
@@ -239,31 +236,31 @@ function resolveStaff(serviceName, categoryNames) {
     };
   }
 
-  // ── Brow Spa (wax / tint / henna — not PMU) → Marissa + Danielle ──
+  // ── Brow Spa (wax / tint / henna — not PMU) → Danielle ──
   if (/brow|wax.?lip|henna/.test(hay) || cats.includes("brow spa")) {
     return {
-      ids: [TEAM.marissa, TEAM.danielle],
-      rule: "Brow Spa → Marissa + Danielle",
+      ids: [TEAM.danielle],
+      rule: "Brow Spa → Danielle",
     };
   }
 
-  // ── GlowTox signature → Danielle + Marissa ──
+  // ── GlowTox signature → Danielle ──
   if (/glowtox|glass glow/.test(hay) || cats.includes("glowtox facial")) {
     return {
-      ids: [TEAM.danielle, TEAM.marissa],
-      rule: "GlowTox → Danielle + Marissa",
+      ids: [TEAM.danielle],
+      rule: "GlowTox → Danielle",
     };
   }
 
-  // ── Signature Facial protocols (HYDRA Perfection MD) → Marissa only ──
+  // ── Signature Facial protocols (HYDRA Perfection MD) → Danielle ──
   if (/signature facial/.test(hay)) {
     return {
-      ids: [TEAM.marissa],
-      rule: "Signature Facials → Marissa",
+      ids: [TEAM.danielle],
+      rule: "Signature Facials → Danielle",
     };
   }
 
-  // ── Skin Spa / facials → Marissa + Danielle ──
+  // ── Skin Spa / facials → Danielle ──
   if (
     /facial|hydra|geneo|chemical peel|photofacial|ipl|dermaplan|high frequency|salmon dna|vi peel|oxygen|diamond|microderm/.test(
       hay,
@@ -271,27 +268,27 @@ function resolveStaff(serviceName, categoryNames) {
     cats.includes("skin spa")
   ) {
     return {
-      ids: [TEAM.marissa, TEAM.danielle],
-      rule: "Skin Spa / facials → Marissa + Danielle",
+      ids: [TEAM.danielle],
+      rule: "Skin Spa / facials → Danielle",
     };
   }
 
-  // ── IV drips → Marissa + Danielle ──
+  // ── IV drips → Danielle ──
   if (/iv drip|myers|hangover|jet lag|b lean|nad\+/.test(hay) || cats.includes("iv drip package deals")) {
     return {
-      ids: [TEAM.marissa, TEAM.danielle],
-      rule: "IV drips → Marissa + Danielle",
+      ids: [TEAM.danielle],
+      rule: "IV drips → Danielle",
     };
   }
 
-  // ── Vitamin injections → Marissa + Danielle ──
+  // ── Vitamin injections → Danielle ──
   if (
     /vitamin|b12|b complex|glutathione|mic.?lipo|injection bar/.test(hay) ||
     cats.includes("vitamin injections")
   ) {
     return {
-      ids: [TEAM.marissa, TEAM.danielle],
-      rule: "Vitamin injections → Marissa + Danielle",
+      ids: [TEAM.danielle],
+      rule: "Vitamin injections → Danielle",
     };
   }
 
@@ -303,10 +300,10 @@ function resolveStaff(serviceName, categoryNames) {
     };
   }
 
-  // ── Default spa coverage (Danielle + Marissa) — never Michelle/Laura outside FlowWave ──
+  // ── Default spa coverage (Danielle) — never Michelle/Laura outside FlowWave ──
   return {
-    ids: [TEAM.danielle, TEAM.marissa],
-    rule: "Default spa coverage → Danielle + Marissa",
+    ids: [TEAM.danielle],
+    rule: "Default spa coverage → Danielle",
   };
 }
 

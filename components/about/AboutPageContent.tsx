@@ -148,7 +148,7 @@ const SECTIONS: AboutSection[] = [
     learnMoreHref: "/faq",
     learnMoreLabel: "Read the full FAQ →",
     extraLinks: [
-      { label: "Meet the full team — Michelle, Marissa & Jen →", href: "/meet-the-team" },
+      { label: "Meet the full team — Michelle, Laura & Jen →", href: "/meet-the-team" },
     ],
   },
 ];

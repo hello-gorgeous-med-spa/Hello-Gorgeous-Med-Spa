@@ -20,7 +20,6 @@ const TEXT_DISPLAY = "(630) 201-6867";
 
 const JUMP_LINKS = [
   { label: "Michelle Colby", href: "#michelle-colby" },
-  { label: "Marissa Murray", href: "#marissa-murray" },
   { label: "Laura Witt", href: "#laura-witt" },
   { label: "Jen Vokoun", href: "#jen-vokoun" },
   { label: "Dani & Ryan", href: "#leadership" },

@@ -7,9 +7,9 @@ import { SITE, siteJsonLd, localBusinessJsonLd, faqJsonLd, breadcrumbJsonLd } fr
 export const revalidate = 3600;
 
 export const metadata: Metadata = {
-  title: "HydraFacial in Oswego, IL | Rejuva Fresh + $129 Marissa Special | Hello Gorgeous",
+  title: "HydraFacial in Oswego, IL | Rejuva Fresh + $129 Glow Special | Hello Gorgeous",
   description:
-    "Rejuva Fresh HydraFacial in Oswego with Marissa — $129 includes dermaplaning, oxygen spray, and 2 premium add-ons. Cleanse, extract, hydrate, glow. Zero downtime.",
+    "Rejuva Fresh HydraFacial in Oswego — $129 includes dermaplaning, oxygen spray, and 2 premium add-ons. Cleanse, extract, hydrate, glow. Zero downtime.",
   keywords: [
     "hydrafacial oswego il",
     "hydrafacial near me oswego",
@@ -19,16 +19,16 @@ export const metadata: Metadata = {
     "best facial oswego il",
     "glow facial oswego",
     "hydrafacial membership oswego",
-    "hydrafacial marissa oswego",
+    "hydrafacial glow special oswego",
     "medical grade facial oswego il",
   ],
   alternates: { canonical: `${SITE.url}/hydrafacial-oswego-il` },
   openGraph: {
     type: "website",
     url: `${SITE.url}/hydrafacial-oswego-il`,
-    title: "HydraFacial in Oswego — $129 with Marissa | Hello Gorgeous",
+    title: "HydraFacial in Oswego — $129 Glow Special | Hello Gorgeous",
     description:
-      "Rejuva Fresh HydraFacial + dermaplaning + oxygen spray + 2 premium add-ons for $129 with Marissa.",
+      "Rejuva Fresh HydraFacial + dermaplaning + oxygen spray + 2 premium add-ons for $129.",
     siteName: SITE.name,
     images: [{ url: `${SITE.url}/images/hydrafacial/rejuva-fresh-treatment-chair.jpg` }],
   },

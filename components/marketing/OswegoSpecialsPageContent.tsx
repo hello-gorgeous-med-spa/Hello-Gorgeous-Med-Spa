@@ -12,7 +12,7 @@ import {
 } from "@/components/marketing/JourneyPageUi";
 import {
   HYDRAFACIAL_IMAGES,
-  HYDRAFACIAL_MARISSA_SPECIAL,
+  HYDRAFACIAL_GLOW_SPECIAL,
   HYDRAFACIAL_PATH,
 } from "@/lib/hydrafacial-marketing";
 import {
@@ -22,7 +22,7 @@ import {
   LASER_59_VALID_THROUGH,
   LASH_89_STARTS,
   LASH_FULL_SET_SPECIAL,
-  MARISSA_FLYER_IMAGE,
+  OSWEGO_SPECIALS_FLYER_IMAGE,
   OSWEGO_SPECIALS_BOOK_HREF,
   OSWEGO_SPECIALS_FAQS,
   OSWEGO_SPECIALS_NAV,
@@ -31,7 +31,7 @@ import {
 
 export function OswegoSpecialsPageContent() {
   const [navOpen, setNavOpen] = useState(false);
-  const hydra = HYDRAFACIAL_MARISSA_SPECIAL;
+  const hydra = HYDRAFACIAL_GLOW_SPECIAL;
   const lashes = LASH_FULL_SET_SPECIAL;
   const laser = LASER_59_SPECIAL;
   const ipl = IPL_79_SPECIAL;
@@ -62,7 +62,7 @@ export function OswegoSpecialsPageContent() {
               </a>
             ))}
             <JourneyPinkBtn href={OSWEGO_SPECIALS_BOOK_HREF} className="!px-5 !py-2.5 !text-sm">
-              Book with Marissa
+              Book now
             </JourneyPinkBtn>
           </div>
         </div>
@@ -74,7 +74,7 @@ export function OswegoSpecialsPageContent() {
                   {item.label}
                 </a>
               ))}
-              <JourneyPinkBtn href={OSWEGO_SPECIALS_BOOK_HREF}>Book with Marissa</JourneyPinkBtn>
+              <JourneyPinkBtn href={OSWEGO_SPECIALS_BOOK_HREF}>Book now</JourneyPinkBtn>
             </div>
           </div>
         ) : null}
@@ -90,15 +90,15 @@ export function OswegoSpecialsPageContent() {
             Hello Gorgeous Med Spa · Oswego, IL
           </p>
           <h1 className="mt-4 font-serif text-[40px] font-bold leading-[1.05] text-white lg:text-[56px]">
-            Marissa’s{" "}
-            <span className="text-[#FF2D8E]">new services</span>
+            Oswego{" "}
+            <span className="text-[#FF2D8E]">specials</span>
           </h1>
           <p className="mx-auto mt-5 max-w-2xl text-lg leading-relaxed text-white/80">
             Full-set lashes $89 beginning {LASH_89_STARTS} · laser hair any listed area $59 through{" "}
-            {LASER_59_VALID_THROUGH} · plus dermaplaning &amp; Hydra Spa Infusion. Book with Marissa Murray.
+            {LASER_59_VALID_THROUGH} · plus dermaplaning &amp; Hydra Spa Infusion. Book at Hello Gorgeous Med Spa.
           </p>
           <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
-            <JourneyPinkBtn href={OSWEGO_SPECIALS_BOOK_HREF}>Book now with Marissa</JourneyPinkBtn>
+            <JourneyPinkBtn href={OSWEGO_SPECIALS_BOOK_HREF}>Book now</JourneyPinkBtn>
             <JourneyGhostBtn href="tel:6306366193">Call (630) 636-6193</JourneyGhostBtn>
           </div>
           <p className="mt-6 text-sm text-white/55">74 W Washington St · Oswego · Naperville · Aurora · Fox Valley</p>
@@ -110,16 +110,16 @@ export function OswegoSpecialsPageContent() {
       <section id="flyer" className="scroll-mt-24 border-b border-white/10 px-6 py-12 lg:py-16">
         <div className="mx-auto max-w-[720px]">
           <JourneySectionHead
-            eyebrow="Marissa Murray · Licensed Esthetician"
+            eyebrow="Hello Gorgeous · Licensed esthetics team"
             title="The flyer"
             titleAccent="you’re seeing"
-            description="Lashes $89 · laser $59 · dermaplaning & Hydra Spa Infusion — book with Marissa at Hello Gorgeous Med Spa Oswego."
+            description="Lashes $89 · laser $59 · dermaplaning & Hydra Spa Infusion — book at Hello Gorgeous Med Spa Oswego."
             center
           />
           <div className="relative mt-8 aspect-[4/5] overflow-hidden rounded-3xl border-2 border-[#FF2D8E] shadow-[8px_8px_0_0_rgba(230,0,126,0.35)]">
             <Image
-              src={MARISSA_FLYER_IMAGE}
-              alt="Marissa’s New Services flyer — eyelash extensions $89, laser hair $59, dermaplaning & Hydra Spa Infusion at Hello Gorgeous Med Spa Oswego"
+              src={OSWEGO_SPECIALS_FLYER_IMAGE}
+              alt="Oswego specials flyer — eyelash extensions $89, laser hair $59, dermaplaning & Hydra Spa Infusion at Hello Gorgeous Med Spa Oswego"
               fill
               className="object-cover object-top"
               sizes="(max-width: 720px) 100vw, 720px"
@@ -127,7 +127,7 @@ export function OswegoSpecialsPageContent() {
             />
           </div>
           <div className="mt-6 flex justify-center">
-            <JourneyPinkBtn href={OSWEGO_SPECIALS_BOOK_HREF}>Book now with Marissa</JourneyPinkBtn>
+            <JourneyPinkBtn href={OSWEGO_SPECIALS_BOOK_HREF}>Book now</JourneyPinkBtn>
           </div>
         </div>
       </section>
@@ -136,7 +136,7 @@ export function OswegoSpecialsPageContent() {
       <section className="border-b border-white/10 px-6 py-10">
         <div className="mx-auto grid max-w-[1200px] gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {[
-            { href: "#hydrafacial", price: "$129", label: "HydraFacial + Dermaplaning", sub: "Marissa" },
+            { href: "#hydrafacial", price: "$129", label: "HydraFacial + Dermaplaning", sub: "Glow special" },
             { href: "#lashes", price: "$89", label: "Full-set lashes", sub: `From ${LASH_89_STARTS}` },
             { href: "#laser", price: "$59", label: "Laser hair (listed areas)", sub: `Thru ${LASER_59_VALID_THROUGH}` },
             { href: "#ipl", price: "$79", label: "IPL photofacial", sub: "Zemits DuoCratus" },
@@ -160,7 +160,7 @@ export function OswegoSpecialsPageContent() {
           <div className="relative aspect-[4/5] overflow-hidden rounded-3xl border border-[#FF2D8E]/35 sm:aspect-square">
             <Image
               src={HYDRAFACIAL_IMAGES.treatment}
-              alt="HydraFacial $129 special with Marissa at Hello Gorgeous Med Spa Oswego"
+              alt="HydraFacial $129 glow special at Hello Gorgeous Med Spa Oswego"
               fill
               className="object-cover"
               sizes="560px"
@@ -192,7 +192,7 @@ export function OswegoSpecialsPageContent() {
             eyebrow={lashes.badge}
             title="Full-set eyelash"
             titleAccent="extensions $89"
-            description={`Get Marissa busy — classic or hybrid full set, customized mapping, soft glam. Beginning ${LASH_89_STARTS} — book ahead now.`}
+            description={`Classic or hybrid full set, customized mapping, soft glam. Beginning ${LASH_89_STARTS} — book ahead now.`}
             center
           />
           <div className="mt-10 rounded-[20px] border-2 border-[#FF2D8E] bg-[#0a0206] p-6 shadow-[8px_8px_0_0_rgba(230,0,126,0.35)] sm:p-8">
@@ -323,7 +323,7 @@ export function OswegoSpecialsPageContent() {
           Book Hello Gorgeous Med Spa — Oswego
         </h2>
         <p className="mx-auto mt-3 max-w-xl text-white/90">
-          Book now with Marissa — lashes $89 from Aug 1 · laser $59 through end of month · Hydra Spa Infusion & dermaplaning.
+          Lashes $89 from Aug 1 · laser $59 through end of month · Hydra Spa Infusion & dermaplaning.
         </p>
         <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
           <JourneyPinkBtn

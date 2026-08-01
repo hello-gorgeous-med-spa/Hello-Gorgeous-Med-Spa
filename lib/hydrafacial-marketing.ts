@@ -2,6 +2,7 @@
  * HydraFacial / Rejuva Fresh — shared marketing content (Journey flagship).
  */
 
+import { ABOUT_DANI_IMAGE, DANI_FULL_NAME } from "@/lib/founder-credentials";
 import { PRIMARY_BOOKING_CTA } from "@/lib/primary-cta";
 
 export const HYDRAFACIAL_PATH = "/hydrafacial-oswego-il" as const;
@@ -18,7 +19,7 @@ export const HYDRAFACIAL_MARKETING = {
   tagline: "Cleanse. Extract. Infuse. Glow.",
   subhead:
     "Medical-grade hydro-dermabrasion on our Rejuva Fresh Hydra Spa Infusion platform — vortex cleanse, oxygen infusion, and customizable premium modalities in one glow session.",
-  trustLine: `${PRIMARY_BOOKING_CTA.label} · Marissa’s Glow Special $129`,
+  trustLine: `${PRIMARY_BOOKING_CTA.label} · Glow Special $129`,
   phoneDisplay: "(630) 636-6193",
   phoneHref: "tel:6306366193",
   bookHref: PRIMARY_BOOKING_CTA.href,
@@ -31,15 +32,15 @@ export const HYDRAFACIAL_NAV = [
   { href: "#technology", label: "Technology" },
   { href: "#special", label: "$129 Special" },
   { href: "#add-ons", label: "Add-ons" },
-  { href: "#artist", label: "Marissa" },
+  { href: "#artist", label: "Our team" },
   { href: "#treats", label: "Results" },
   { href: "#pricing", label: "Pricing" },
   { href: "#faq", label: "FAQ" },
 ] as const;
 
-/** Marissa Murray Glow Special — HydraFacial + dermaplaning + O2 + 2 add-ons */
-export const HYDRAFACIAL_MARISSA_SPECIAL = {
-  badge: "Book with Marissa",
+/** HydraFacial + dermaplaning + O2 + 2 add-ons — clinic glow special */
+export const HYDRAFACIAL_GLOW_SPECIAL = {
+  badge: "Limited-time glow special",
   title: "HydraFacial + Dermaplaning Glow Special",
   price: "$129",
   priceNote: "limited-time",
@@ -50,9 +51,9 @@ export const HYDRAFACIAL_MARISSA_SPECIAL = {
     "Hydrogen-oxygen spray included",
     "Choose any 2 premium machine add-ons (see list below)",
   ],
-  note: "Performed by Marissa Murray, licensed esthetician. Mention the $129 Glow Special when you book.",
-  ctaLabel: "Book Marissa’s $129 special",
-  bookHref: `${PRIMARY_BOOKING_CTA.href}${PRIMARY_BOOKING_CTA.href.includes("?") ? "&" : "?"}ref=hydrafacial_129_marissa`,
+  note: "Performed by our licensed esthetics team. Mention the $129 Glow Special when you book.",
+  ctaLabel: "Book $129 glow special",
+  bookHref: `${PRIMARY_BOOKING_CTA.href}${PRIMARY_BOOKING_CTA.href.includes("?") ? "&" : "?"}ref=hydrafacial_129`,
 } as const;
 
 export const HYDRAFACIAL_MEMBERSHIP = {
@@ -131,7 +132,7 @@ export const HYDRAFACIAL_PLATFORM = {
   brand: "Rejuva Fresh",
   product: "Hydra Spa Infusion",
   headline: "Not a basic spa facial — a multi-modality glow platform",
-  body: "Our HydraFacial-style treatments run on the Rejuva Fresh Hydra Spa Infusion system: vortex hydro-dermabrasion for cleanse and extract, hydrogen-oxygen spray for radiance, plus a full suite of premium handpieces so Marissa can customize every visit — not a one-size-fits-all protocol.",
+  body: "Our HydraFacial-style treatments run on the Rejuva Fresh Hydra Spa Infusion system: vortex hydro-dermabrasion for cleanse and extract, hydrogen-oxygen spray for radiance, plus a full suite of premium handpieces so our esthetics team can customize every visit — not a one-size-fits-all protocol.",
   highlights: [
     "Vortex aqua hydro-dermabrasion",
     "Hydrogen-oxygen spray",
@@ -142,11 +143,11 @@ export const HYDRAFACIAL_PLATFORM = {
 } as const;
 
 export const HYDRAFACIAL_ARTIST = {
-  name: "Marissa Murray",
-  role: "Licensed Esthetician · Facial & Lash Artist",
-  image: "/images/team/marissa-murray-2026.jpg",
-  quote: "Every client deserves to feel heard — never rushed, and never pressured.",
-  bio: "Marissa customizes your Rejuva Fresh HydraFacial around your skin goals — dermaplaning, oxygen spray, and the two premium add-ons that make the most sense for you that day. Thoughtful, results-driven, and never a cookie-cutter facial.",
+  name: DANI_FULL_NAME,
+  role: "Owner · Licensed Esthetician",
+  image: ABOUT_DANI_IMAGE,
+  quote: "Family-owned, hands-on every day — customized facials that fit your skin, not a cookie-cutter menu.",
+  bio: "Hello Gorgeous’s esthetics team customizes your Rejuva Fresh HydraFacial around your skin goals — dermaplaning, oxygen spray, and the two premium add-ons that make the most sense for you that day. Thoughtful, results-driven, and never rushed.",
 } as const;
 
 export const HYDRAFACIAL_TREATS = [
@@ -162,10 +163,10 @@ export const HYDRAFACIAL_TREATS = [
 
 export const HYDRAFACIAL_PRICING = [
   {
-    name: "Marissa’s Glow Special",
+    name: "HydraFacial Glow Special",
     price: "$129",
     note: "HydraFacial + dermaplaning + O₂ + 2 add-ons",
-    href: HYDRAFACIAL_MARISSA_SPECIAL.bookHref,
+    href: HYDRAFACIAL_GLOW_SPECIAL.bookHref,
     featured: true,
   },
   {
@@ -192,7 +193,7 @@ export const HYDRAFACIAL_FAQS = [
   {
     question: "Where can I get a HydraFacial in Oswego, IL?",
     answer:
-      "Hello Gorgeous Med Spa at 74 W. Washington Street in Oswego. Book Marissa’s $129 Glow Special (HydraFacial + dermaplaning + oxygen spray + 2 premium add-ons) or join the Glow Facial Membership at $99/month.",
+      "Hello Gorgeous Med Spa at 74 W. Washington Street in Oswego. Book our $129 Glow Special (HydraFacial + dermaplaning + oxygen spray + 2 premium add-ons) or join the Glow Facial Membership at $99/month.",
   },
   {
     question: "What machine do you use for HydraFacial?",
@@ -200,14 +201,14 @@ export const HYDRAFACIAL_FAQS = [
       "We use the Rejuva Fresh Hydra Spa Infusion platform — vortex hydro-dermabrasion, hydrogen-oxygen spray, multi-serum infusion, and premium handpieces (high frequency, cold hammer, RF, LED, ultrasonic, microcurrent, and more) so every facial can be customized.",
   },
   {
-    question: "What’s included in the $129 special with Marissa?",
+    question: "What’s included in the $129 glow special?",
     answer:
-      "A full HydraFacial, dermaplaning, hydrogen-oxygen spray, and your choice of any two premium machine add-ons. Book with Marissa Murray and mention the Glow Special.",
+      "A full HydraFacial, dermaplaning, hydrogen-oxygen spray, and your choice of any two premium machine add-ons. Book online and mention the Glow Special.",
   },
   {
     question: "What premium add-ons can I choose?",
     answer:
-      "High frequency, cold hammer, ultrasonic scrubber, bipolar RF, LED therapy mask, microcurrent / V-lift, facial ultrasound, or oxygen bubble pen. Marissa helps you pick the two that best match your skin goals.",
+      "High frequency, cold hammer, ultrasonic scrubber, bipolar RF, LED therapy mask, microcurrent / V-lift, facial ultrasound, or oxygen bubble pen. Our esthetics team helps you pick the two that best match your skin goals.",
   },
   {
     question: "What is dermaplaning and why pair it with HydraFacial?",

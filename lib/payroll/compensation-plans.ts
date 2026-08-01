@@ -102,6 +102,7 @@ export const COMPENSATION_PLANS: StaffCompensationPlan[] = [
     squareTeamMemberId: SQUARE_TEAM.marissa,
     payoutChannel: "square_payroll_w2",
     payFrequency: "weekly",
+    excludeFromPayroll: true,
     components: [
       { type: "hourly", hourlyRateCents: 2_000 },
       {

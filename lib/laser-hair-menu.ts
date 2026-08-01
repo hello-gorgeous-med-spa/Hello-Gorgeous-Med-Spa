@@ -19,7 +19,7 @@ export const LASER_HAIR_MENU: ServiceMenuConfig = {
       id: "pay-per-session",
       number: "01",
       title: "$59 Any Listed Area",
-      description: `Now through ${LASER_59_VALID_THROUGH} — $59 per session on every listed area. No package required. Book with Marissa.`,
+      description: `Now through ${LASER_59_VALID_THROUGH} — $59 per session on every listed area. No package required. Book online.`,
       highlights: [
         "Face · neck / chin · underarm",
         "Upper legs · lower legs · back",

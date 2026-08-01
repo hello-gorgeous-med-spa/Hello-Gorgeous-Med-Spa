@@ -4,7 +4,7 @@ import { OswegoSpecialsPageContent } from "@/components/marketing/OswegoSpecials
 import {
   LASER_59_VALID_UNTIL_ISO,
   LASH_89_STARTS,
-  MARISSA_FLYER_IMAGE,
+  OSWEGO_SPECIALS_FLYER_IMAGE,
   OSWEGO_SPECIALS_FAQS,
   OSWEGO_SPECIALS_PATH,
   OSWEGO_SPECIALS_SEO,
@@ -28,10 +28,10 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     url: `${SITE.url}${OSWEGO_SPECIALS_PATH}`,
-    title: "Marissa’s New Services | Hello Gorgeous Med Spa Oswego",
+    title: "Oswego Specials | Hello Gorgeous Med Spa",
     description: OSWEGO_SPECIALS_SEO.description,
     siteName: SITE.name,
-    images: [{ url: `${SITE.url}${MARISSA_FLYER_IMAGE}` }],
+    images: [{ url: `${SITE.url}${OSWEGO_SPECIALS_FLYER_IMAGE}` }],
   },
   robots: { index: true, follow: true },
 };
@@ -46,12 +46,12 @@ export default function OswegoSpecialsPage() {
   const offersSchema = {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    name: `Marissa’s new services at Hello Gorgeous Med Spa Oswego — laser through ${OSWEGO_SPECIALS_VALID_THROUGH}`,
+    name: `Oswego specials at Hello Gorgeous Med Spa — laser through ${OSWEGO_SPECIALS_VALID_THROUGH}`,
     itemListElement: [
       {
         "@type": "Offer",
         position: 1,
-        name: "HydraFacial + Dermaplaning with Marissa",
+        name: "HydraFacial + Dermaplaning Glow Special",
         price: "129",
         priceCurrency: "USD",
         description: "HydraFacial, dermaplaning, oxygen spray, and 2 premium add-ons",
@@ -65,7 +65,7 @@ export default function OswegoSpecialsPage() {
         name: "Full Set Eyelash Extensions",
         price: "89",
         priceCurrency: "USD",
-        description: `Full set with Marissa Murray — beginning ${LASH_89_STARTS}`,
+        description: `Full set with our lash artist — beginning ${LASH_89_STARTS}`,
         url: `${SITE.url}${OSWEGO_SPECIALS_PATH}#lashes`,
         availability: "https://schema.org/PreOrder",
         priceValidUntil: "2026-12-31",

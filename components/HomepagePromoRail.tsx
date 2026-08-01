@@ -15,27 +15,19 @@ type Slide = {
 
 const SLIDES: Slide[] = [
   {
-    id: "marissa-new-services",
-    badge: "Marissa’s new services",
-    line:
-      "Full-set lashes $89 from Aug 1 · laser any listed area $59 through July 31 · dermaplaning & Hydra Spa Infusion. Book with Marissa.",
-    primary: { label: "See flyer & specials", href: "/oswego-specials" },
-    secondary: { label: "Book Marissa", href: "/book?ref=marissa_new_services" },
-  },
-  {
-    id: "oswego-specials-blast",
+    id: "oswego-specials",
     badge: "Oswego specials",
     line:
-      "HydraFacial $129 · lashes $89 (from Aug 1) · laser $59 through July 31 · IPL $79. Book Marissa at Hello Gorgeous Oswego.",
+      "HydraFacial $129 · lashes $89 (from Aug 1) · laser $59 through July 31 · IPL $79. Book at Hello Gorgeous Oswego.",
     primary: { label: "See all specials", href: "/oswego-specials" },
     secondary: { label: "Book now", href: "/book?ref=oswego_specials_2026" },
   },
   {
     id: "hydrafacial-129",
-    badge: "New · Marissa",
+    badge: "Glow special",
     line:
-      "HydraFacial + Dermaplaning $129 — oxygen spray + 2 premium Rejuva Fresh add-ons. Book with Marissa.",
-    primary: { label: "Book $129 special", href: "/book?ref=hydrafacial_129_marissa" },
+      "HydraFacial + Dermaplaning $129 — oxygen spray + 2 premium Rejuva Fresh add-ons. Book now.",
+    primary: { label: "Book $129 special", href: "/book?ref=hydrafacial_129" },
     secondary: { label: "See details", href: "/hydrafacial-oswego-il#special" },
   },
   {
