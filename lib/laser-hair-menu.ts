@@ -11,7 +11,7 @@ export const LASER_HAIR_MENU: ServiceMenuConfig = {
   hero: {
     eyebrow: "Oswego, IL · All skin types",
     titleAccent: "Laser Hair Removal",
-    subtitle: `Medical-grade Zemits DuoCratus laser. Any listed area only $59 — through ${LASER_59_VALID_THROUGH}.`,
+    subtitle: `Medical-grade Zemits DuoCratus laser with Michelle Colby, laser hair tech. Any listed area only $59 — through ${LASER_59_VALID_THROUGH}.`,
     secondaryCta: { label: "$59 laser specials", href: "/oswego-specials#laser" },
   },
   sections: [

@@ -4,9 +4,11 @@
  *
  * Routing (owner-defined):
  *   Ryan     — medical, botox, fillers, weight loss, BHRT, peptides, laser, microneedling,
- *              InMode, PRP, trigger point, FlowWave
- *   Danielle — spa (lash, brow, skin, IV, vitamins, body contouring) — everything EXCEPT botox & fillers
- *   Michelle — FlowWave / Shockwave / Recovery Stack only (sole bookable provider)
+ *              InMode, PRP, trigger point
+ *   Danielle — spa (lash, brow, skin, IV, vitamins, body contouring) — everything EXCEPT botox & fillers;
+ *              also InMode coverage with Ryan + Michelle
+ *   Michelle — laser hair tech; certified InMode instructor (Morpheus8 / Solaria / Quantum / Luxora);
+ *              FlowWave / Shockwave / Recovery Stack (sole bookable for FlowWave)
  *   Jen      — Microblading only (regular, hybrid/combo, color refresher, Meet Jen specials)
  *
  * USAGE:
@@ -185,27 +187,35 @@ function resolveStaff(serviceName, categoryNames) {
     };
   }
 
-  // ── Laser hair → Ryan only ──
-  if (/laser hair|brazilian laser/.test(hay)) {
+  // ── Laser hair / DuoCratus LHR → Michelle (laser tech) + Ryan ──
+  if (/laser hair|brazilian laser|duocratus/.test(hay) && !/ipl|photofacial|solaria|morpheus|quantum/.test(hay)) {
     return {
-      ids: [TEAM.ryan],
-      rule: "Laser hair removal → Ryan only",
+      ids: [TEAM.michelle, TEAM.ryan],
+      rule: "Laser hair removal → Michelle + Ryan",
     };
   }
 
-  // ── InMode / Morpheus8 / Solaria / Quantum RF / microneedling → Ryan + Danielle ──
+  // ── InMode / Morpheus8 / Solaria / Quantum RF / Luxora → Michelle (instructor) + Ryan + Danielle ──
+  // Microneedling / AnteAGE (non-Morpheus) stay Ryan + Danielle unless InMode-named.
   if (
-    /morpheus|solaria|quantum rf|microneedl|nano needl|anteage|carbon laser|the trifecta|dani.?fix me|inmode/.test(
-      hay,
-    ) ||
+    /morpheus|solaria|quantum rf|luxora|carbon laser|the trifecta|dani.?fix me|\binmode\b/.test(hay) ||
     cats.includes("exclusive model specials") ||
-    cats.includes("inmode advanced face & body resurfacing") ||
+    cats.includes("inmode advanced face & body resurfacing")
+  ) {
+    return {
+      ids: [TEAM.michelle, TEAM.ryan, TEAM.danielle],
+      rule: "InMode platforms → Michelle + Ryan + Danielle",
+    };
+  }
+
+  if (
+    /microneedl|nano needl|anteage/.test(hay) ||
     cats.includes("anteage skin regeneration") ||
     cats.includes("anteage  the future of skin regeneration is here")
   ) {
     return {
       ids: [TEAM.ryan, TEAM.danielle],
-      rule: "InMode / microneedling / AnteAGE → Ryan + Danielle",
+      rule: "Microneedling / AnteAGE → Ryan + Danielle",
     };
   }
 

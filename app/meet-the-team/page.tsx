@@ -10,12 +10,13 @@ export const metadata: Metadata = pageMetadata({
   path: "/meet-the-team",
   keywords: [
     "Hello Gorgeous Med Spa team",
-    "Michelle Colby Hello Gorgeous",
+    "Michelle Colby laser hair Oswego",
+    "InMode instructor Hello Gorgeous",
     "Laura Witt Hello Gorgeous",
     "Jen Vokoun permanent makeup Oswego",
     "med spa staff Oswego IL",
     "microblading artist Oswego",
-    "front desk Hello Gorgeous",
+    "laser hair tech Oswego IL",
   ],
 });
 

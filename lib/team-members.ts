@@ -36,32 +36,34 @@ export type TeamMember = {
 };
 
 export const MEET_THE_TEAM_SEO_DESCRIPTION =
-  "Meet the Hello Gorgeous Med Spa team in Oswego, IL — Michelle Colby (client care & front desk), Laura Witt (client relations & wellness sales), Jen Vokoun (permanent makeup & brow artist), plus founders Danielle Alcala-Glazier and Ryan Kent, FNP-BC.";
+  "Meet the Hello Gorgeous Med Spa team in Oswego, IL — Michelle Colby (laser hair tech & certified InMode instructor), Laura Witt (client relations & wellness sales), Jen Vokoun (permanent makeup & brow artist), plus founders Danielle Alcala-Glazier and Ryan Kent, FNP-BC.";
 
 export const TEAM_MEMBERS: TeamMember[] = [
   {
     id: "michelle-colby",
     slug: "michelle-colby",
     fullName: "Michelle Colby",
-    badge: "RE GEN Specialist",
-    title: "Client Care Specialist & Front Desk Manager",
-    isNewHire: true,
+    badge: "Laser & InMode",
+    title: "Laser Hair Tech & Certified InMode Instructor",
     image: {
       src: "/images/team/michelle-colby-2026.jpg",
-      alt: "Michelle Colby, Client Care Specialist and Front Desk Manager at Hello Gorgeous Med Spa in Oswego, IL",
+      alt: "Michelle Colby, Laser Hair Tech and Certified InMode Instructor at Hello Gorgeous Med Spa in Oswego, IL",
     },
     quote:
-      "Confidence starts with feeling healthy — I want to help you look and feel your best from the inside out.",
+      "Great results start with the right technology — and a tech who takes the time to do it right.",
     bioParagraphs: [
-      "Michelle is passionate about helping people look and feel their very best from the inside out. She believes that confidence starts with feeling healthy, and she loves educating patients about peptide therapy, hormone optimization, and wellness treatments that support long-term health and vitality.",
-      "Known for her friendly personality and genuine compassion, Michelle enjoys building meaningful relationships with her patients and creating a welcoming, comfortable experience for everyone who walks through the door. She is committed to continuing her education in regenerative medicine and staying current on the latest advancements so she can provide knowledgeable, personalized care.",
-      "When she's not at the med spa, you'll likely find Michelle working out at the gym, tending to her flower gardens, trying new recipes in the kitchen, or spending quality time with her family. She believes that living a healthy lifestyle should be enjoyable, balanced, and inspiring — and she loves helping others achieve the same.",
+      "Michelle Colby is Hello Gorgeous Med Spa’s laser hair technician and a certified InMode instructor. She brings a calm, detail-first approach to every appointment — whether you’re booking laser hair removal or an advanced InMode treatment on Morpheus8, Solaria CO₂, Quantum RF, or Luxora.",
+      "As a certified InMode instructor, Michelle trains to manufacturer standards and helps clients understand candidacy, comfort, downtime, and realistic timelines. Her background in client care and wellness means you get clear education without pressure — and a treatment plan tailored to your goals.",
+      "When she’s not in the treatment room, you’ll often find Michelle at the gym, in her flower gardens, trying a new recipe, or spending time with her family. She believes looking and feeling your best should feel supportive, balanced, and achievable.",
     ],
     specialties: [
-      "Peptide therapy",
-      "Hormone optimization",
-      "Wellness & longevity",
-      "Client care",
+      "Laser hair removal",
+      "InMode instructor (certified)",
+      "Morpheus8 Burst",
+      "Solaria CO₂",
+      "Quantum RF",
+      "Luxora",
+      "FlowWave / shockwave",
     ],
   },
   {
