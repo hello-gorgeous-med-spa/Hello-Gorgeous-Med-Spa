@@ -482,7 +482,7 @@ async function main() {
   console.log(`\n✅ Done — updated ${ok}, failed ${failed}`);
   if (!bookable.has(TEAM.michelle)) {
     console.log(
-      "\n⚠ Michelle is assigned to FlowWave/Shockwave but is NOT enabled for online booking yet.",
+      "\n⚠ Michelle is assigned to laser / InMode / FlowWave but is NOT enabled for online booking yet.",
     );
     console.log("  Square Dashboard → Team → Michelle Colby → enable Appointments / Bookable.");
   }
