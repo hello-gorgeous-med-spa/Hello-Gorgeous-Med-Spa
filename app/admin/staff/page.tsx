@@ -14,7 +14,7 @@ export default function AdminStaffPage() {
         <div>
           <p className="font-medium">Staff & payroll</p>
           <p className="text-sm mt-1 text-black/80">
-            Compensation rules for Ryan (1099), Michelle ($22/hr + 10%), and Laura (1099 commission).
+            Compensation rules for Ryan (1099), Michelle ($22/hr + 20% after consumables), and Laura (1099 commission).
             Weekly pay via Square Payroll.
           </p>
         </div>

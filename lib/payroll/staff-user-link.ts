@@ -62,6 +62,8 @@ export function regenCommissionRateForPlan(plan: StaffCompensationPlan): number 
   for (const c of plan.components) {
     if (c.type === "bucket_percent" && c.bucket === "regen") return c.rate;
     if (c.type === "flat_percent" && c.appliesTo.includes("regen_rx")) return c.rate;
+    // Michelle: 20% after COGS — rate is the headline %; payroll applies COGS separately.
+    if (c.type === "net_of_cogs_percent" && c.scope === "michelle_modalities") return c.rate;
   }
   return null;
 }

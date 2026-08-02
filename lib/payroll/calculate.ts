@@ -1,3 +1,6 @@
+import {
+  michelleNetCommissionCents,
+} from "@/lib/payroll/michelle-cogs";
 import type {
   CollectedSaleLine,
   PayLineItem,
@@ -123,6 +126,35 @@ export function buildStaffPayPreview(input: {
         label: `Sales commission (${(rate * 100).toFixed(0)}%)`,
         amountCents: Math.round(total * rate),
         detail: `$${(total / 100).toFixed(2)} eligible collected revenue`,
+      });
+    }
+
+    if (c.type === "net_of_cogs_percent" && c.scope === "michelle_modalities" && teamId) {
+      const attributed = periodSales.filter((l) => l.teamMemberId === teamId);
+      let commissionTotal = 0;
+      let grossTotal = 0;
+      let cogsTotal = 0;
+      let matchedLines = 0;
+      for (const line of attributed) {
+        const calc = michelleNetCommissionCents(line.description, line.amountCents, c.rate);
+        if (!calc.modality) continue;
+        matchedLines += 1;
+        grossTotal += line.amountCents;
+        cogsTotal += calc.cogsCents;
+        commissionTotal += calc.commissionCents;
+      }
+      if (matchedLines === 0 && attributed.length > 0) {
+        warnings.push(
+          "Sales attributed to Michelle but none matched her modalities (Morpheus, Solaria, shockwave, laser hair, WL/peptides).",
+        );
+      } else if (attributed.length === 0 && periodSales.length > 0) {
+        warnings.push("No sales attributed to Michelle — tag her at Square checkout for commission.");
+      }
+      lineItems.push({
+        code: "net_cogs_commission",
+        label: `Modality commission (${(c.rate * 100).toFixed(0)}% after consumables)`,
+        amountCents: commissionTotal,
+        detail: `${matchedLines} lines · $${(grossTotal / 100).toFixed(2)} gross − $${(cogsTotal / 100).toFixed(2)} COGS`,
       });
     }
 

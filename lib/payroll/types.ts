@@ -52,6 +52,14 @@ export interface SeparateBucketCommission {
   rate: number;
 }
 
+/** 20% of (collected − modality consumable COGS). Used for Michelle’s production modalities. */
+export interface NetOfCogsCommission {
+  type: "net_of_cogs_percent";
+  rate: number;
+  /** Only lines that match Michelle’s modality COGS table. */
+  scope: "michelle_modalities";
+}
+
 export interface StaffCompensationPlan {
   id: string;
   displayName: string;
@@ -67,6 +75,7 @@ export interface StaffCompensationPlan {
     | TieredCommission
     | FlatCommission
     | SeparateBucketCommission
+    | NetOfCogsCommission
     | GoogleReviewBonus
   )[];
   notes?: string[];
