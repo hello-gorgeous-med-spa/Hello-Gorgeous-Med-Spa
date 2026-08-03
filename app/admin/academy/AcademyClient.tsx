@@ -77,6 +77,9 @@ export function AcademyClient() {
   const [articleId, setArticleId] = useState<string | null>(null);
   const [blogCat, setBlogCat] = useState('All');
   const [resCat, setResCat] = useState('All');
+  
+  // Resource content viewer state
+  const [resourceViewId, setResourceViewId] = useState<string | null>(null);
 
   // Lesson viewer state
   const [lessonModule, setLessonModule] = useState<Module | null>(null);
@@ -280,6 +283,756 @@ export function AcademyClient() {
   // Article helpers
   const art = articleId ? ARTICLES.find((a) => a.id === articleId) : null;
   const artIdx = art ? ARTICLES.indexOf(art) : -1;
+
+  // Resource content definitions for in-app views
+  const RESOURCE_CONTENT: Record<string, { title: string; sections: { heading: string; content: string[]; callout?: string; list?: string[] }[] }> = {
+    'handout-peptides': {
+      title: "Peptides: what they are, what they're not",
+      sections: [
+        {
+          heading: 'What is a peptide?',
+          content: [
+            'Peptides are short chains of amino acids — the same building blocks your body uses to make proteins. Think of them like words spelled with letters from a 20-letter alphabet.',
+            'Your body already makes peptides naturally. Insulin is a peptide. Oxytocin is a peptide. GLP-1, the hormone that makes you feel satisfied after eating, is a peptide.',
+          ],
+        },
+        {
+          heading: 'How do they work?',
+          content: [
+            'Peptides work by binding to receptors on your cells — like a key fitting a lock. When the fit is right, the receptor activates and tells the cell to do something specific.',
+            'Different peptides fit different receptors, which is why they have specific effects. A peptide that signals growth won\'t accidentally trigger something unrelated.',
+          ],
+        },
+        {
+          heading: 'What peptides are NOT',
+          content: [
+            'Peptides are not steroids. Steroids are a completely different class of molecule with different mechanisms and different considerations.',
+            'Peptides are not magic bullets. They work best when the rest of your health picture — sleep, stress, nutrition — is also addressed.',
+          ],
+          callout: 'The peptides we offer are prescribed by our nurse practitioner after a full medical evaluation. This is not the same as buying something from a website.',
+        },
+        {
+          heading: 'The research question',
+          content: [
+            'Some peptides are FDA-approved for specific uses. Others are "research-use-only" — meaning they\'ve been studied in labs and trials, but aren\'t approved to treat conditions.',
+            'When we say something is "studied for" tissue repair or metabolism, that\'s accurate. When anyone says it "treats" or "cures" something, that\'s a claim we can\'t make.',
+          ],
+        },
+      ],
+    },
+    'handout-glp1': {
+      title: 'Your GLP-1 program: what to expect',
+      sections: [
+        {
+          heading: 'How GLP-1 medications work',
+          content: [
+            'GLP-1 (glucagon-like peptide-1) is a hormone your gut naturally releases after eating. It signals satiety, helps regulate insulin, and slows stomach emptying.',
+            'Semaglutide and tirzepatide mimic this signal — they\'re GLP-1 receptor agonists. They don\'t suppress appetite by willpower; they change the hunger signals themselves.',
+          ],
+        },
+        {
+          heading: 'The titration phase',
+          content: [
+            'Your program starts at a lower dose and gradually increases. This is called titration. It gives your body time to adjust and minimizes side effects.',
+            'Don\'t be discouraged if the first few weeks feel subtle. The titration phase is about tolerance, not maximum effect.',
+          ],
+        },
+        {
+          heading: 'What to expect: side effects',
+          content: [
+            'Nausea is common, especially early on. It usually improves as your body adjusts. Eating smaller meals and avoiding very fatty foods helps.',
+            'Constipation can happen. Stay hydrated and maintain fiber intake.',
+          ],
+          callout: 'If you experience persistent vomiting, severe abdominal pain, or any concerning symptoms, contact us immediately. Don\'t adjust your dose on your own.',
+        },
+        {
+          heading: 'Protecting your muscle',
+          content: [
+            'Weight loss includes muscle loss unless you actively work to preserve it. This is critical.',
+            'Protein intake needs to increase during weight loss. Resistance training (lifting, bands, bodyweight work) preserves lean mass.',
+            'We monitor body composition, not just scale weight. Losing 30 pounds of which 10 is muscle is not the goal.',
+          ],
+          list: [
+            'Aim for high protein at every meal',
+            'Include resistance training 2-3x per week',
+            'Don\'t skip meals — eat enough to fuel your training',
+            'Follow up appointments matter for tracking composition',
+          ],
+        },
+      ],
+    },
+    'handout-labs': {
+      title: 'Preparing for your hormone lab draw',
+      sections: [
+        {
+          heading: 'Timing matters',
+          content: [
+            'For most hormone panels, timing in your cycle matters. Day 3 estrogen and FSH tell us something different than day 21 progesterone.',
+            'If you\'re not cycling regularly or are postmenopausal, timing is less critical — but fasting still applies for some markers.',
+          ],
+        },
+        {
+          heading: 'Fasting guidelines',
+          content: [
+            'For comprehensive metabolic panels that include glucose and lipids, fast for 8-12 hours before your draw. Water is fine.',
+            'For hormone-only panels, fasting is usually not required — but confirm with us when you book.',
+          ],
+        },
+        {
+          heading: 'The biotin question',
+          content: [
+            'Biotin — found in nearly every hair, skin, and nail supplement — interferes with lab tests. It can make thyroid results look abnormal when they\'re not.',
+            'We ask about biotin at every booking. If you\'re taking it, we need to know before we schedule your draw.',
+          ],
+          callout: 'Tell us about any supplements you\'re taking, especially hair/skin/nail formulas. What seems harmless can distort your results.',
+        },
+        {
+          heading: 'Other considerations',
+          content: [
+            'Avoid intense exercise the morning of your draw — it can temporarily affect hormone levels.',
+            'If you\'re on hormone therapy already, we may want to draw at a specific time relative to your last dose. Ask when booking.',
+          ],
+        },
+      ],
+    },
+    'handout-recovery': {
+      title: 'Post-procedure recovery and skincare',
+      sections: [
+        {
+          heading: 'General principles',
+          content: [
+            'Your skin has just been treated. It\'s in repair mode. The goal now is to support that process, not pile on active ingredients.',
+            'Keep it simple: gentle cleanser, hydration, sun protection. That\'s it for the first several days.',
+          ],
+        },
+        {
+          heading: 'What to avoid',
+          content: [
+            'No retinoids, acids (glycolic, salicylic, etc.), or exfoliants until cleared.',
+            'No direct sun exposure. SPF is non-negotiable during recovery.',
+            'Avoid makeup on treated areas for at least 24-48 hours.',
+          ],
+        },
+        {
+          heading: 'Where peptide skincare fits',
+          content: [
+            'GHK-Cu (copper peptide) is studied for collagen support and wound healing. It\'s a topical peptide that acts locally on the skin.',
+            'Post-procedure, topical peptides can support the repair process. We\'ll tell you when to introduce them and which products to use.',
+          ],
+          callout: 'Don\'t start any new products without asking us first. Your skin is more sensitive during recovery and what\'s normally fine might cause irritation.',
+        },
+        {
+          heading: 'Timeline expectations',
+          content: [
+            'Redness and sensitivity are normal for several days after most procedures.',
+            'Full results take time — collagen remodeling continues for weeks to months after treatment.',
+            'Patience is part of the protocol.',
+          ],
+        },
+      ],
+    },
+    'sop-preinfusion': {
+      title: 'Pre-infusion screening checklist',
+      sections: [
+        {
+          heading: 'Run this every single visit',
+          content: [
+            'A client who was fine three weeks ago may have started a new medication. May have had a health event. May be pregnant now.',
+            'The screen catches what\'s changed — and it\'s why we run it every visit, not just the first one.',
+          ],
+        },
+        {
+          heading: 'The checklist',
+          content: [],
+          list: [
+            'Blood pressure and vitals check',
+            'Full health history review (or update from last visit)',
+            'Current medications — anything new or changed?',
+            'Allergies and prior reactions review',
+            'Pregnancy or breastfeeding status',
+            'Kidney, heart, and liver considerations',
+            'Hydration status and recent labs when relevant',
+          ],
+        },
+        {
+          heading: 'Automatic stops',
+          content: [
+            'If any of the following come up, stop and get Ryan before proceeding:',
+          ],
+          list: [
+            'New cardiac symptoms (chest pain, shortness of breath, palpitations)',
+            'New or worsening kidney/liver concerns',
+            'Possible pregnancy',
+            'New allergy to any ingredient in today\'s infusion',
+            'Currently on blood thinners and didn\'t disclose last time',
+          ],
+          callout: 'When in doubt, pause and ask. No infusion is worth a safety miss.',
+        },
+      ],
+    },
+    'sop-reaction': {
+      title: 'Infusion reaction response protocol',
+      sections: [
+        {
+          heading: 'If a client reports symptoms during infusion',
+          content: [
+            'This is the sequence we all rehearse. It\'s not optional and it\'s not judgment-call territory.',
+          ],
+        },
+        {
+          heading: 'Step 1: Stop the infusion',
+          content: [
+            'Immediately pause or slow the drip. Don\'t wait to assess first — stop, then assess.',
+          ],
+        },
+        {
+          heading: 'Step 2: Assess the client',
+          content: [
+            'Ask what they\'re feeling. Common symptoms: chest tightness, flushing, nausea, cramping, difficulty breathing.',
+            'Take vitals if trained to do so.',
+          ],
+        },
+        {
+          heading: 'Step 3: Notify Ryan',
+          content: [
+            'Get Ryan immediately. Not "in a few minutes" — now.',
+            'Describe what the client reported and what you observed.',
+          ],
+        },
+        {
+          heading: 'Step 4: Document',
+          content: [
+            'Time of symptom onset, what was reported, what was observed, what actions were taken.',
+            'Document in real time, not from memory later.',
+          ],
+          callout: 'Reporting a symptom is never something we smooth over. Every reaction gets documented and reviewed.',
+        },
+      ],
+    },
+    'sop-hormones': {
+      title: 'Hormone panel ordering and timing',
+      sections: [
+        {
+          heading: 'Standard female hormone panel',
+          content: [
+            'The core markers: Estradiol (E2), Progesterone, FSH, LH, Total and Free Testosterone, DHEA-S, TSH, Free T3, Free T4.',
+            'Add-ons based on presentation: Cortisol AM, Prolactin, SHBG, Vitamin D.',
+          ],
+        },
+        {
+          heading: 'Cycle timing for premenopausal women',
+          content: [
+            'Day 3 (±1): Estradiol, FSH, LH — tells us about ovarian reserve and baseline',
+            'Day 21 (or 7 days post-ovulation): Progesterone — confirms ovulation',
+            'Testosterone, DHEA-S, thyroid: any day is fine',
+          ],
+          callout: 'If she\'s not cycling regularly, document where she is and note it on the order. Irregular cycles don\'t prevent testing — they just change interpretation.',
+        },
+        {
+          heading: 'What distorts results',
+          content: [],
+          list: [
+            'Biotin: affects thyroid immunoassays — ask about hair/skin/nail supplements',
+            'Time of day: cortisol is highest in the morning',
+            'Recent intense exercise: temporarily affects multiple hormones',
+            'Oral contraceptives: dramatically change baseline hormones',
+            'HRT timing: draw at consistent time relative to last dose',
+          ],
+        },
+        {
+          heading: 'Men\'s testosterone panel',
+          content: [
+            'Total Testosterone, Free Testosterone, SHBG, Estradiol, PSA, CBC, CMP.',
+            'Draw in the morning (before 10am) when testosterone is highest.',
+            'If already on TRT, draw at trough (before next dose) for monitoring.',
+          ],
+        },
+      ],
+    },
+    'sop-redflags': {
+      title: 'Red flag routing matrix',
+      sections: [
+        {
+          heading: 'Universal stops — route to Ryan immediately',
+          content: [
+            'These apply across all programs. If any of these come up, the conversation stops and goes to Ryan before anything else happens.',
+          ],
+          list: [
+            'Pregnancy or trying to conceive',
+            'Breastfeeding',
+            'Personal history of breast, uterine, or ovarian cancer',
+            'Personal history of blood clots (DVT, PE)',
+            'Active liver disease',
+            'Uncontrolled hypertension',
+            'Type 1 diabetes or uncontrolled Type 2',
+            'Active eating disorder',
+          ],
+        },
+        {
+          heading: 'GLP-1 specific stops',
+          content: [],
+          list: [
+            'Personal or family history of medullary thyroid carcinoma',
+            'MEN2 syndrome',
+            'History of pancreatitis',
+            'Gallbladder disease or prior cholecystectomy',
+            'Already on a GLP-1 from another provider',
+            'Prior bariatric surgery',
+          ],
+        },
+        {
+          heading: 'Hormone therapy specific stops',
+          content: [],
+          list: [
+            'Unexplained vaginal bleeding',
+            'History of stroke',
+            'Migraine with aura (for estrogen)',
+            'Known thrombophilia',
+          ],
+        },
+        {
+          heading: 'IV therapy specific stops',
+          content: [],
+          list: [
+            'Kidney disease or on dialysis',
+            'Heart failure',
+            'G6PD deficiency (for high-dose vitamin C)',
+            'Known allergy to any ingredient',
+          ],
+          callout: 'When in doubt, route. It\'s never wrong to pause and ask Ryan.',
+        },
+      ],
+    },
+    'sop-sourcing': {
+      title: 'Peptide sourcing and storage',
+      sections: [
+        {
+          heading: 'Where our products come from',
+          content: [
+            'All compounded peptides come from licensed 503B compounding pharmacies. These facilities are FDA-inspected and follow cGMP (current Good Manufacturing Practice) standards.',
+            'Each batch comes with a certificate of analysis verifying purity and potency.',
+          ],
+        },
+        {
+          heading: 'Why this matters',
+          content: [
+            'Gray-market peptides have real quality issues: no third-party testing, no sterility guarantee, potential contamination, dosing inconsistency.',
+            'Our sourcing is the difference between "it might be what it says" and "it is what it says, tested and verified."',
+          ],
+        },
+        {
+          heading: 'Storage requirements',
+          content: [],
+          list: [
+            'Refrigerated (2-8°C) upon receipt',
+            'Protected from light',
+            'Never frozen — freezing damages molecular structure',
+            'Reconstituted products: refrigerated, use within labeled window',
+          ],
+        },
+        {
+          heading: 'Lot verification',
+          content: [
+            'Each lot is logged when received. The log includes: pharmacy source, lot number, expiration date, certificate of analysis reference, who received it.',
+            'If a client ever asks where their product came from, we can trace it.',
+          ],
+          callout: 'Never use a product past its expiration or reconstituted stability window. When in doubt, discard and reorder.',
+        },
+      ],
+    },
+    'sop-delegation': {
+      title: 'Standing orders and delegation',
+      sections: [
+        {
+          heading: 'Illinois NP authority',
+          content: [
+            'In Illinois, nurse practitioners with full practice authority can prescribe independently — including controlled substances and compounded medications.',
+            'Ryan holds this authority. He evaluates, prescribes, and monitors without requiring physician co-signature.',
+          ],
+        },
+        {
+          heading: 'What staff CAN do',
+          content: [],
+          list: [
+            'Provide educational information about what peptides are and what they\'re studied for',
+            'Quote pricing and explain program structure',
+            'Book consultations and follow-ups',
+            'Run pre-infusion screening checklists',
+            'Administer IV infusions under standing orders (trained staff only)',
+            'Document visit notes and observations',
+          ],
+        },
+        {
+          heading: 'What staff CANNOT do',
+          content: [],
+          list: [
+            'Recommend a specific treatment or peptide for a client',
+            'Interpret lab results',
+            'Adjust doses or timing',
+            'Advise on medication interactions',
+            'Make suitability determinations',
+            'Diagnose any condition',
+          ],
+          callout: 'The bright line: educate and route. Never diagnose, prescribe, or promise.',
+        },
+        {
+          heading: 'When to escalate',
+          content: [
+            'Any clinical question. Any safety concern. Any symptom report. Any request for medical advice.',
+            'If a client asks something you\'re not sure about, the answer is always: "Let me get Ryan to answer that."',
+          ],
+        },
+      ],
+    },
+    'scripts-phone': {
+      title: 'Front desk phone scripts',
+      sections: [
+        {
+          heading: 'The four questions you route, not answer',
+          content: [
+            'Some questions sound simple but are actually clinical. These four always go to Ryan:',
+          ],
+          list: [
+            '"Is this right for me?" — Suitability is a medical evaluation.',
+            '"What dose should I take?" — Dosing is prescribing.',
+            '"What do my labs mean?" — Lab interpretation is clinical.',
+            '"Will this help my [condition]?" — Treatment claims are medical.',
+          ],
+        },
+        {
+          heading: 'Pricing questions',
+          content: [
+            'You CAN quote pricing. That\'s not clinical.',
+          ],
+          callout: '"Our GLP-1 programs start at $299/month for semaglutide, which includes the medication, Ryan\'s oversight, and follow-up. Tirzepatide starts at $375/month. The initial consult is $150 and applies to your first month if you move forward."',
+        },
+        {
+          heading: 'Availability and booking',
+          content: [
+            'Standard booking script:',
+          ],
+          callout: '"I can get you scheduled for a consult with Ryan. He\'ll do a full evaluation and discuss what might make sense for your goals. Would [day/time] work for you?"',
+        },
+        {
+          heading: 'When they push for more',
+          content: [
+            'If they want clinical answers before booking:',
+          ],
+          callout: '"I can tell you about how the program works and what it costs, but whether it\'s right for you specifically is what Ryan evaluates in the consult. That\'s the whole point of the visit — to get you a real answer, not a guess."',
+        },
+      ],
+    },
+    'scripts-dm': {
+      title: 'DM and social reply library',
+      sections: [
+        {
+          heading: '"How much does it cost?"',
+          content: [
+            'Pricing is fair game. Be specific.',
+          ],
+          callout: '"Great question! Our GLP-1 programs start at $299/mo (semaglutide) or $375/mo (tirzepatide), medication included. IV drips start at $150, vitamin shots are $25. DM us to book or call 630-636-6193!"',
+        },
+        {
+          heading: '"Is this safe?"',
+          content: [
+            'Route to consult — but warmly.',
+          ],
+          callout: '"Safety depends on your individual health picture, which is why we do a full medical evaluation before any program. Ryan (our NP) screens everyone personally. Want me to help you book a consult?"',
+        },
+        {
+          heading: '"My friend got great results..."',
+          content: [
+            'Validate without endorsing.',
+          ],
+          callout: '"Love to hear that! Everyone responds a bit differently, which is why we build programs around your specific goals and health history. Want to see what Ryan recommends for you?"',
+        },
+        {
+          heading: '"Can you help me with [condition]?"',
+          content: [
+            'Never claim to treat conditions.',
+          ],
+          callout: '"I can\'t speak to treating specific conditions — that\'s a medical conversation. What I can tell you is that Ryan evaluates everyone individually and discusses what options might make sense. Worth a consult if you\'re curious!"',
+        },
+        {
+          heading: '"Where do your peptides come from?"',
+          content: [
+            'Sourcing is a strength — explain it.',
+          ],
+          callout: '"All our compounded medications come from licensed 503B pharmacies — FDA-inspected facilities that follow pharmaceutical manufacturing standards. Ryan prescribes, they compound, we dispense. It\'s not the same as buying from a website."',
+        },
+      ],
+    },
+    'scripts-objections': {
+      title: 'Objection and pushback responses',
+      sections: [
+        {
+          heading: '"I can get it cheaper online"',
+          content: [
+            'Don\'t disparage what they\'ve found. Explain the difference.',
+          ],
+          callout: '"I hear you — there are definitely cheaper options out there. The difference with us is sourcing and oversight. Our products come from licensed compounding pharmacies with testing and sterility standards, and Ryan screens everyone medically before prescribing. You\'re not just paying for a molecule — you\'re paying for the assurance it\'s what it says and someone qualified is watching your response."',
+        },
+        {
+          heading: '"My friend\'s doctor just prescribed it without all this"',
+          content: [
+            'Don\'t criticize other providers.',
+          ],
+          callout: '"Every provider has their own approach. Ours includes the full evaluation and ongoing monitoring because that\'s how we get the best outcomes — and honestly, it protects you. We\'re not here to be the fastest; we\'re here to do it right."',
+        },
+        {
+          heading: '"I\'ve done my research and I know what I want"',
+          content: [
+            'Respect their knowledge. Still route to Ryan.',
+          ],
+          callout: '"That\'s great — an informed client is the best kind. Ryan will appreciate that you\'ve done your homework. The consult lets him look at your specific situation and confirm whether what you\'re thinking makes sense for you, or if there\'s something that might work even better."',
+        },
+        {
+          heading: '"Can\'t you just tell me if it works?"',
+          content: [
+            'Be honest about why you can\'t.',
+          ],
+          callout: '"I can tell you what it\'s studied for and how our program works, but whether it\'ll work for you specifically — that\'s what Ryan evaluates. I wouldn\'t want to guess when he can give you a real answer."',
+        },
+      ],
+    },
+    'brand-compliance': {
+      title: 'Compliant copy guidelines',
+      sections: [
+        {
+          heading: 'The core rule',
+          content: [
+            'Every word we publish should work if a regulator reads it. "Studied for" is education. "Treats" or "cures" is a medical claim we can\'t make.',
+          ],
+        },
+        {
+          heading: 'Words to use',
+          content: [],
+          list: [
+            '"Studied for" — accurate for research compounds',
+            '"Supports" — general support language',
+            '"Many clients report" — anecdotal framing',
+            '"Under medical supervision" — positions oversight',
+            '"May help with" — possibility, not promise',
+          ],
+        },
+        {
+          heading: 'Words to avoid',
+          content: [],
+          list: [
+            '"Treats" / "cures" / "heals" — medical claims',
+            '"Guaranteed results" — outcome promises',
+            '"Safe" without context — safety is individual',
+            '"Better than [competitor]" — comparative claims',
+            '"Anti-aging" as a treatment claim',
+          ],
+        },
+        {
+          heading: 'Before-and-after rules',
+          content: [
+            'Only use images with signed photo releases.',
+            'Include disclaimers about individual results.',
+            'Never imply typical or guaranteed outcomes.',
+          ],
+          callout: 'When in doubt, run it by Laura before posting. A pulled post is better than a compliance letter.',
+        },
+      ],
+    },
+    'brand-kit': {
+      title: 'Brand kit — logos, colors, fonts',
+      sections: [
+        {
+          heading: 'Primary colors',
+          content: [
+            'Hot pink: #E6007E (primary accent)',
+            'Hot pink gradient: from #FF2D8E to #E6007E',
+            'Soft pink: #FFB8DC (text on dark)',
+            'Rose wash: #FFF0F7 (backgrounds)',
+            'Black: #000000 (borders, text)',
+            'Dark hero gradient: from #0a0a0a via #1a0510 to #2d1020',
+          ],
+        },
+        {
+          heading: 'Logo usage',
+          content: [
+            'Primary: White badge logo on dark backgrounds',
+            'Secondary: Black badge logo on light backgrounds',
+            'Never stretch, rotate, or alter proportions',
+            'Minimum clear space: height of the "H" on all sides',
+          ],
+        },
+        {
+          heading: 'Typography',
+          content: [
+            'Headlines: System font stack, font-black weight',
+            'Body: System font stack, normal weight',
+            'Accent text: Uppercase tracking-widest for labels',
+          ],
+        },
+        {
+          heading: 'The Hello Gorgeous stamp',
+          content: [
+            'Our signature visual: rounded-3xl cards with border-4 border-black and shadow-[8px_8px_0_0_rgba(230,0,126,0.35)]',
+            'This pink shadow "stamp" effect is brand-defining. Use it on feature cards and callouts.',
+          ],
+          callout: 'The bold black borders and hot pink accents define the HG look. Don\'t swap them for gray corporate minimal.',
+        },
+      ],
+    },
+    'ref-evidence': {
+      title: 'Peptide evidence tiers',
+      sections: [
+        {
+          heading: 'FDA-approved',
+          content: [
+            'Clinical trials with human safety and efficacy data.',
+            'Approved label specifies what it\'s approved for.',
+            'Examples: semaglutide (Ozempic/Wegovy), tirzepatide (Mounjaro/Zepbound), PT-141/bremelanotide (Vyleesi).',
+          ],
+          callout: 'We can reference FDA approval for the labeled indication. Off-label use is legal for prescribers but changes how we talk about it.',
+        },
+        {
+          heading: 'Compounded from licensed pharmacy',
+          content: [
+            '503A: patient-specific compounding, requires individual prescription.',
+            '503B: outsourcing facilities, can prepare batches, stricter FDA oversight.',
+            'Both use pharmaceutical-grade ingredients and follow quality standards.',
+          ],
+        },
+        {
+          heading: 'Research-use-only (RUO)',
+          content: [
+            'Not FDA-approved for human therapeutic use.',
+            'Studied in labs and trials, but no approved indication.',
+            'Examples: BPC-157, TB-500, Semax, Selank.',
+          ],
+          callout: 'RUO = educational discussion only. "Studied for" is compliant. "Treats" or "cures" is not.',
+        },
+        {
+          heading: 'Language that matches evidence',
+          content: [
+            'FDA-approved: "approved for" the labeled indication.',
+            'Compounded: "prescribed by Ryan, prepared by a licensed pharmacy."',
+            'RUO: "studied for" — never "proven," "treats," or "cures."',
+          ],
+        },
+      ],
+    },
+    'ref-glp1-sides': {
+      title: 'GLP-1 side effects and escalation',
+      sections: [
+        {
+          heading: 'Common side effects',
+          content: [],
+          list: [
+            'Nausea — especially early in titration, usually improves',
+            'Constipation — encourage hydration and fiber',
+            'Decreased appetite — expected effect, not a side effect',
+            'Fatigue — can happen during adjustment',
+            'Injection site reactions — mild redness, usually resolves',
+          ],
+        },
+        {
+          heading: 'When to route to Ryan immediately',
+          content: [],
+          list: [
+            'Persistent or severe vomiting',
+            'Severe abdominal pain',
+            'Signs of pancreatitis (severe pain radiating to back)',
+            'Signs of gallbladder issues (right upper quadrant pain)',
+            'Hypoglycemia symptoms in diabetics',
+            'Any symptom that concerns you',
+          ],
+        },
+        {
+          heading: 'The message template',
+          content: [
+            'When a client reports side effects:',
+          ],
+          callout: '"Thanks for letting us know — [acknowledge what they said]. I\'m going to loop in Ryan so he can advise you on next steps. Don\'t change anything until you hear from him. He\'ll get back to you [timeframe]."',
+        },
+        {
+          heading: 'What you don\'t do',
+          content: [],
+          list: [
+            'Don\'t advise them to lower their dose',
+            'Don\'t tell them it\'s "normal" and they should push through',
+            'Don\'t suggest OTC remedies for side effects',
+            'Don\'t reassure them without Ryan\'s input',
+          ],
+        },
+      ],
+    },
+    'ref-nad-prep': {
+      title: 'NAD+ appointment prep call',
+      sections: [
+        {
+          heading: 'Why this call matters',
+          content: [
+            'NAD+ is our longest and most uncomfortable appointment. Almost every complaint we\'ve ever gotten was about unmet expectations, not the product.',
+            'A 4-minute prep call turns "nobody told me" into "I was ready for this."',
+          ],
+        },
+        {
+          heading: 'The script',
+          content: [],
+          callout: '"Two things before Thursday: block out the afternoon rather than an hour, and eat a real meal beforehand. Some people feel tightness or cramping while it runs — that\'s normal and it\'s about the speed, so tell us the second you feel it and Ryan will adjust. Bring headphones."',
+        },
+        {
+          heading: 'Key points to hit',
+          content: [],
+          list: [
+            'It takes longer than other drips — plan for it',
+            'Eat beforehand — empty stomach makes everything worse',
+            'Chest tightness, cramping, flushing are common',
+            'Symptoms are usually about infusion speed',
+            'Tell us immediately if you feel anything — we adjust',
+            'Bring something to do',
+          ],
+        },
+        {
+          heading: 'After a previous reaction',
+          content: [
+            'If a client mentions they had symptoms at a previous appointment, that goes to Ryan before rebooking.',
+            'Don\'t reassure them it was nothing. Don\'t book and hope for the best. Route to Ryan.',
+          ],
+        },
+      ],
+    },
+    'ref-np-authority': {
+      title: 'Illinois NP prescriptive authority',
+      sections: [
+        {
+          heading: 'The legal basis',
+          content: [
+            'In Illinois, nurse practitioners with full practice authority can prescribe independently — including controlled substances and compounded medications.',
+            'This is state law, not a workaround. Ryan holds this authority.',
+          ],
+        },
+        {
+          heading: 'What this means',
+          content: [
+            'Ryan can evaluate, prescribe, and monitor without requiring physician co-signature.',
+            'He can prescribe compounded peptides from 503B pharmacies.',
+            'He can prescribe controlled substances (with DEA registration).',
+            'He functions as an independent medical provider.',
+          ],
+        },
+        {
+          heading: 'When clients ask',
+          content: [],
+          callout: '"Yes — in Illinois, nurse practitioners with full practice authority can prescribe independently, including compounded medications. Ryan does the full evaluation, writes the prescription, and monitors your progress. It\'s the same medical oversight you\'d get from any prescriber."',
+        },
+        {
+          heading: 'The oversight model',
+          content: [
+            'What makes us different from a website isn\'t just sourcing — it\'s oversight.',
+            'Ryan screens every patient, reviews history, evaluates contraindications, prescribes appropriately, and monitors response.',
+            '"Medically supervised" isn\'t marketing — it\'s the practice model.',
+          ],
+        },
+      ],
+    },
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-rose-50 via-white to-gray-50">
@@ -1202,6 +1955,11 @@ export function AcademyClient() {
                           if (!live) return;
                           if (item.href === '#tools') {
                             setSection('tools');
+                          } else if (item.href.startsWith('#')) {
+                            const contentId = item.href.slice(1);
+                            if (RESOURCE_CONTENT[contentId]) {
+                              setResourceViewId(contentId);
+                            }
                           } else {
                             window.open(item.href, '_blank');
                           }
@@ -1230,6 +1988,73 @@ export function AcademyClient() {
           <ReconstitutionCalculator />
         )}
       </main>
+
+      {/* Resource Content Viewer Modal */}
+      {resourceViewId && RESOURCE_CONTENT[resourceViewId] && (
+        <div className="fixed inset-0 z-[100] overflow-auto bg-black/60 backdrop-blur-sm">
+          <div className="min-h-screen py-8 px-4">
+            <div className="max-w-4xl mx-auto">
+              {/* Resource Header */}
+              <div className="rounded-t-3xl bg-gradient-to-br from-[#0a0a0a] via-[#1a0510] to-[#2d1020] p-8 border-4 border-black border-b-0">
+                <div className="flex items-start justify-between gap-4">
+                  <div>
+                    <div className="text-sm text-[#FFB8DC] uppercase tracking-widest mb-2">Resource</div>
+                    <h1 className="text-3xl font-black text-white" style={{ color: '#fff' }}>{RESOURCE_CONTENT[resourceViewId].title}</h1>
+                  </div>
+                  <button
+                    onClick={() => setResourceViewId(null)}
+                    className="flex-shrink-0 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-all"
+                  >
+                    ✕
+                  </button>
+                </div>
+              </div>
+
+              {/* Resource Content */}
+              <div className="bg-white rounded-b-3xl border-4 border-black border-t-0 p-8">
+                <div className="space-y-8">
+                  {RESOURCE_CONTENT[resourceViewId].sections.map((section, sIdx) => (
+                    <div key={sIdx}>
+                      <h2 className="text-xl font-bold text-[#E6007E] mb-4">{section.heading}</h2>
+                      
+                      {section.content.map((p, pIdx) => (
+                        <p key={pIdx} className="text-base leading-relaxed text-black/90 mb-4">{p}</p>
+                      ))}
+
+                      {section.list && section.list.length > 0 && (
+                        <div className="my-4 space-y-2">
+                          {section.list.map((item, iIdx) => (
+                            <div key={iIdx} className="flex gap-3">
+                              <span className="text-[#E6007E] mt-1">•</span>
+                              <span className="text-base text-black/90">{item}</span>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+
+                      {section.callout && (
+                        <div className="my-6 p-4 rounded-xl bg-rose-50 border-2 border-[#E6007E]">
+                          <p className="text-sm font-medium text-black/85">{section.callout}</p>
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+
+                {/* Footer */}
+                <div className="mt-10 pt-6 border-t-2 border-black/10 flex items-center justify-end">
+                  <button
+                    onClick={() => setResourceViewId(null)}
+                    className="px-6 py-3 rounded-xl border-2 border-black font-bold hover:bg-black hover:text-white transition-all"
+                  >
+                    Close
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Lesson Viewer Modal */}
       {lessonModule && lessonContent && (
