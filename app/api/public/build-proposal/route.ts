@@ -7,6 +7,7 @@ import {
   autoGenerateOptions,
   calculateTotal,
   defaultQuantityForService,
+  hasRxConsultServices,
   type ProposalService,
 } from "@/lib/proposals/utils";
 import { SITE } from "@/lib/seo";
@@ -107,6 +108,8 @@ export async function POST(request: NextRequest) {
       },
     });
 
+    const rxConsultRequired = hasRxConsultServices(selectedServices);
+
     const { data: proposal, error: proposalError } = await supabase
       .from("treatment_proposals")
       .insert({
@@ -117,10 +120,13 @@ export async function POST(request: NextRequest) {
         concerns,
         options,
         client_instructions: notes || null,
-        internal_notes: `Public builder submission from ${BUILD_YOUR_PROPOSAL_PATH}`,
+        internal_notes: rxConsultRequired
+          ? `[RX] Public builder submission from ${BUILD_YOUR_PROPOSAL_PATH} — consult required before payment`
+          : `Public builder submission from ${BUILD_YOUR_PROPOSAL_PATH}`,
         created_by: "public-builder",
         status: "sent",
         sent_at: new Date().toISOString(),
+        rx_requires_consult: rxConsultRequired,
       })
       .select("id,public_id")
       .single();
@@ -137,9 +143,14 @@ export async function POST(request: NextRequest) {
 
     void alertStaffOnFormSubmission({
       formName: "Build your treatment proposal",
-      emailSubject: `New website proposal — ${clientName} (~$${recommendedTotal.toFixed(0)})`,
+      emailSubject: rxConsultRequired
+        ? `🩺 [RX CONSULT] New proposal — ${clientName} (~$${recommendedTotal.toFixed(0)})`
+        : `New website proposal — ${clientName} (~$${recommendedTotal.toFixed(0)})`,
       emailBody: [
         `${clientName} built a treatment proposal on the website.`,
+        rxConsultRequired
+          ? "⚠️ RX ITEMS INCLUDED — CONSULT REQUIRED before payment link / checkout."
+          : "",
         `Recommended estimate: $${recommendedTotal.toFixed(2)}`,
         `Services: ${serviceSummary}`,
         `Phone: ${phone}`,
@@ -150,7 +161,13 @@ export async function POST(request: NextRequest) {
       ]
         .filter(Boolean)
         .join("\n"),
-      smsLines: [clientName, `~$${recommendedTotal.toFixed(0)}`, phone, serviceSummary.slice(0, 80)],
+      smsLines: [
+        rxConsultRequired ? "🩺 RX CONSULT" : "",
+        clientName,
+        `~$${recommendedTotal.toFixed(0)}`,
+        phone,
+        serviceSummary.slice(0, 80),
+      ].filter(Boolean),
       replyTo: email,
     });
 

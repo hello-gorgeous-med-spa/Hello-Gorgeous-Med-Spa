@@ -1,6 +1,10 @@
 /**
  * Treatment proposal → Square Payment Link (deposit or pay in full).
  * Reuses RX checkout helper; redirects back to the public share page.
+ *
+ * IMPORTANT: Proposals with rx_requires_consult=true must NOT generate
+ * open self-checkout links. Staff can still generate links manually after
+ * confirming medical eligibility via the admin panel.
  */
 
 import { createRxPaymentLink } from "@/lib/rx-invoice-payment-link";

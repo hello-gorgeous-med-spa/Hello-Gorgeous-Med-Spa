@@ -17,7 +17,9 @@ import {
   calculateSubtotal,
   calculateTotal,
   defaultQuantityForService,
+  filterRxOnly,
   formatProposalServiceLine,
+  hasRxConsultServices,
   isPerUnitService,
   NEUROTOXIN_UNIT_PRESETS,
   serviceLineTotal,
@@ -143,6 +145,10 @@ export function PublicProposalBuilder() {
     [selectedServices]
   );
 
+  const rxServices = useMemo(() => filterRxOnly(selectedServices), [selectedServices]);
+  const hasRxItems = rxServices.length > 0;
+  const isRxOnly = hasRxItems && rxServices.length === selectedServices.length;
+
   const toggleConcern = (concern: string) => {
     setConcerns((prev) =>
       prev.includes(concern) ? prev.filter((c) => c !== concern) : [...prev, concern]
@@ -204,6 +210,7 @@ export function PublicProposalBuilder() {
           consent,
           hp,
           services: selectedServices.map((s) => ({ id: s.id, quantity: s.quantity })),
+          hasRxItems,
         }),
       });
       const text = await response.text();
@@ -222,10 +229,27 @@ export function PublicProposalBuilder() {
       <section className="rounded-3xl border-4 border-black bg-white p-8 shadow-[8px_8px_0_0_rgba(230,0,126,0.35)]">
         <p className="text-xs font-bold uppercase tracking-[0.22em] text-[#E6007E]">You&apos;re all set</p>
         <h2 className="mt-2 text-3xl font-black text-black">Your proposal is ready</h2>
-        <p className="mt-3 text-sm text-black/75">
-          We saved your plan and notified our team. Review it anytime, choose a package on the share page, or apply for
-          Cherry financing.
-        </p>
+        {hasRxItems ? (
+          <>
+            <p className="mt-3 text-sm text-black/75">
+              We saved your plan and notified our team. Because your selection includes RX items
+              (weight loss, peptides, or hormone therapy), <strong>a consultation is required</strong>{" "}
+              before we can confirm eligibility and pricing.
+            </p>
+            <div className="mt-4 rounded-xl border-2 border-amber-400 bg-amber-50 p-4">
+              <p className="text-sm font-bold text-amber-800">Next step: book your consult</p>
+              <p className="mt-1 text-sm text-amber-700">
+                Our nurse practitioner will review your goals, confirm medical eligibility, and finalize
+                your treatment plan. No self-checkout is available for prescription items.
+              </p>
+            </div>
+          </>
+        ) : (
+          <p className="mt-3 text-sm text-black/75">
+            We saved your plan and notified our team. Review it anytime, choose a package on the share page, or apply for
+            Cherry financing.
+          </p>
+        )}
         <div className="mt-6 flex flex-wrap gap-3">
           <a
             href={successUrl}
@@ -233,16 +257,22 @@ export function PublicProposalBuilder() {
           >
             View my proposal
           </a>
-          <a
-            href={CHERRY_PAY_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="rounded-full bg-black px-6 py-3 text-sm font-bold text-white"
-          >
-            Apply now with Cherry
-          </a>
+          {hasRxItems ? (
+            <Link href="/book" className="rounded-full bg-black px-6 py-3 text-sm font-bold text-white">
+              Book consult now
+            </Link>
+          ) : (
+            <a
+              href={CHERRY_PAY_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="rounded-full bg-black px-6 py-3 text-sm font-bold text-white"
+            >
+              Apply now with Cherry
+            </a>
+          )}
           <Link href="/book" className="rounded-full border-2 border-black px-6 py-3 text-sm font-bold text-black">
-            Book consult
+            {hasRxItems ? "Call us" : "Book consult"}
           </Link>
         </div>
       </section>
@@ -543,6 +573,30 @@ export function PublicProposalBuilder() {
             Apply now with Cherry
           </a>
         </div>
+
+        {/* RX consult-required notice */}
+        {hasRxItems ? (
+          <div className="mt-4 rounded-xl border-2 border-amber-400 bg-amber-50 p-4">
+            <p className="text-sm font-bold text-amber-800">
+              ⚠️ Consultation required for RX items
+            </p>
+            <p className="mt-1 text-sm text-amber-700">
+              Your selection includes{" "}
+              <strong>
+                {rxServices.map((s) => s.name).join(", ")}
+              </strong>
+              . These require a medical consultation with our nurse practitioner before starting.
+              We&apos;ll confirm eligibility and pricing at your visit — no self-checkout for
+              prescription items.
+            </p>
+            <Link
+              href="/book"
+              className="mt-3 inline-flex items-center rounded-full bg-amber-600 px-4 py-2 text-sm font-bold text-white hover:bg-amber-700"
+            >
+              Book consult first
+            </Link>
+          </div>
+        ) : null}
         {options.length ? (
           <div className="mt-5 grid gap-4 md:grid-cols-3">
             {options.map((option, index) => (

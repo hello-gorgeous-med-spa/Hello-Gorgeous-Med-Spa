@@ -94,6 +94,14 @@ export const FLOWWAVE_PACKAGES = [
     highlight: false,
   },
   {
+    id: "five",
+    name: "5-Session",
+    price: "$749",
+    detail: "$150 / session · save 14%",
+    bullets: ["5 focused sessions", "Mix & match areas", "Save $126 vs. single"],
+    highlight: false,
+  },
+  {
     id: "six",
     name: "6-Session",
     price: "$870",
@@ -102,12 +110,20 @@ export const FLOWWAVE_PACKAGES = [
     highlight: false,
   },
   {
+    id: "ten",
+    name: "10-Session",
+    price: "$1,199",
+    detail: "$120 / session · save 31%",
+    bullets: ["10 focused sessions", "Mix & match areas", "Save $551 vs. single"],
+    highlight: true,
+  },
+  {
     id: "twelve",
     name: "12-Session",
     price: "$1,500",
     detail: "$125 / session · save 29%",
     bullets: ["12 focused sessions", "Priority booking", "Save $600 vs. single"],
-    highlight: true,
+    highlight: false,
   },
   {
     id: "twentyfour",

@@ -57,6 +57,18 @@ export async function POST(request: NextRequest, context: RouteContext) {
     );
   }
 
+  // Block self-checkout for proposals that require RX consultation
+  if (proposal.rx_requires_consult) {
+    return NextResponse.json(
+      {
+        error:
+          "This proposal includes prescription items (GLP-1, peptides, or hormone therapy) that require a medical consultation before checkout. Please call us or book a consult to proceed.",
+        code: "RX_CONSULT_REQUIRED",
+      },
+      { status: 403 },
+    );
+  }
+
   const options = (proposal.options || []) as ProposalOption[];
   if (!options.length || optionIndex >= options.length) {
     return NextResponse.json({ error: "Invalid plan option." }, { status: 400 });

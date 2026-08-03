@@ -220,3 +220,47 @@ export function autoGenerateOptions(selectedServices: ProposalService[]): Propos
     },
   ];
 }
+
+/**
+ * RX service categories that require medical consultation before self-checkout.
+ * GLP-1/weight loss, peptides, and hormone therapy cannot be sold via
+ * open self-checkout payment links — they require NP evaluation first.
+ */
+export const RX_CONSULT_REQUIRED_CATEGORIES = [
+  "Weight Loss Programs",
+  "Peptides",
+] as const;
+
+/** Service IDs that also require consult even if not in the RX categories above. */
+const RX_CONSULT_REQUIRED_IDS = [
+  "hormone-therapy",
+  "biote-women-pellet",
+  "biote-men-pellet",
+  "trt-injections",
+] as const;
+
+/** Check if a service requires medical consultation before purchase. */
+export function isRxConsultRequired(service: Pick<SeedService, "id" | "category">): boolean {
+  if (RX_CONSULT_REQUIRED_IDS.includes(service.id as (typeof RX_CONSULT_REQUIRED_IDS)[number])) {
+    return true;
+  }
+  if (RX_CONSULT_REQUIRED_CATEGORIES.includes(service.category as (typeof RX_CONSULT_REQUIRED_CATEGORIES)[number])) {
+    return true;
+  }
+  return false;
+}
+
+/** Check if any services in the list require medical consultation. */
+export function hasRxConsultServices(services: Pick<SeedService, "id" | "category">[]): boolean {
+  return services.some(isRxConsultRequired);
+}
+
+/** Filter out services that require medical consultation. */
+export function filterAestheticOnly(services: ProposalService[]): ProposalService[] {
+  return services.filter((s) => !isRxConsultRequired(s));
+}
+
+/** Get only the RX/consult-required services from a list. */
+export function filterRxOnly(services: ProposalService[]): ProposalService[] {
+  return services.filter(isRxConsultRequired);
+}
