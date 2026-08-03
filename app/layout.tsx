@@ -14,6 +14,7 @@ import { ContourLiftPageView } from "@/components/marketing/ContourLiftPageView"
 import { ConsultationRequestPopup } from "@/components/ConsultationRequestPopup";
 import { GetAppPopup } from "@/components/GetAppPopup";
 import { ClientErrorBoundary } from "@/components/ClientErrorBoundary";
+import { CookieConsentBanner } from "@/components/CookieConsentBanner";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -168,6 +169,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           <ContourLiftPageView />
           <ConsultationRequestPopup />
           <GetAppPopup />
+          <CookieConsentBanner />
           <AuthWrapper>
             <ConditionalLayout siteSettings={siteSettings ?? undefined} livePlace={livePlace}>
               {children}

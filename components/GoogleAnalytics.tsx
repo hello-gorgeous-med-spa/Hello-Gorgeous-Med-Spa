@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import Script from "next/script";
 import { pushContourLiftEvent } from "@/lib/contour-lift-analytics";
 import { isNoTrackPath } from "@/lib/no-track-paths";
+import { hasAcceptedAnalytics } from "@/lib/cookie-consent";
 
 const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID;
 const GA4_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA4_MEASUREMENT_ID;
@@ -18,7 +19,8 @@ export { isNoTrackPath } from "@/lib/no-track-paths";
  * Events: phone_click, email_click, sms_click, book_now_click, form_submit
  *
  * PRIVACY: This function gates itself — no events fire on medical/intake routes
- * (see NO_TRACK_PREFIXES). Caller doesn't need to check; event is silently dropped.
+ * (see NO_TRACK_PREFIXES) or if user hasn't accepted analytics cookies.
+ * Caller doesn't need to check; event is silently dropped.
  */
 export function trackEvent(
   eventName: string,
@@ -27,6 +29,8 @@ export function trackEvent(
   if (typeof window === "undefined") return;
   // Gate: don't fire events on medical/intake routes
   if (isNoTrackPath(window.location.pathname)) return;
+  // Gate: don't fire events if user hasn't consented to analytics
+  if (!hasAcceptedAnalytics()) return;
 
   (window as any).dataLayer = (window as any).dataLayer || [];
   (window as any).dataLayer.push({
@@ -74,12 +78,33 @@ function useTrackConversions(disabled: boolean) {
   }, [disabled]);
 }
 
-/** Wait for idle or first user gesture so tags don't compete with LCP. */
-function useDeferredAnalyticsReady(disabled: boolean) {
+/**
+ * Check consent and wait for idle or first user gesture so tags don't compete with LCP.
+ * Also listens for consent updates (from CookieConsentBanner) to enable immediately.
+ */
+function useDeferredAnalyticsReady(noTrackPath: boolean) {
   const [ready, setReady] = useState(false);
+  const [hasConsent, setHasConsent] = useState(false);
 
+  // Check consent on mount and listen for updates
   useEffect(() => {
-    if (disabled) return;
+    const checkConsent = () => {
+      setHasConsent(hasAcceptedAnalytics());
+    };
+    checkConsent();
+
+    // Listen for consent banner updates
+    const onConsentUpdate = () => {
+      checkConsent();
+    };
+    window.addEventListener("hg:consent-updated", onConsentUpdate);
+    return () => window.removeEventListener("hg:consent-updated", onConsentUpdate);
+  }, []);
+
+  // Wait for interaction/idle before enabling (performance optimization)
+  useEffect(() => {
+    // Disabled if no-track path or no consent
+    if (noTrackPath || !hasConsent) return;
     let cancelled = false;
     const enable = () => {
       if (!cancelled) setReady(true);
@@ -106,9 +131,9 @@ function useDeferredAnalyticsReady(disabled: boolean) {
       if (idleId !== undefined) window.cancelIdleCallback(idleId);
       if (timeoutId !== undefined) window.clearTimeout(timeoutId);
     };
-  }, [disabled]);
+  }, [noTrackPath, hasConsent]);
 
-  return ready;
+  return ready && hasConsent;
 }
 
 export function GoogleAnalytics() {
