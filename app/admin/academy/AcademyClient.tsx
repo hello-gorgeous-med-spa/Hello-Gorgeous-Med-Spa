@@ -294,10 +294,10 @@ export function AcademyClient() {
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-4">
               <Image src="/academy/logo-full.png" alt="RE GEN Academy" width={160} height={40} className="h-10 w-auto" />
-              <span className="text-white/60 text-sm">Hello Gorgeous · Staff Training</span>
+              <span className="text-white/90 text-sm">Hello Gorgeous · Staff Training</span>
             </div>
             <div className="flex items-center gap-3">
-              <span className="text-white/50 text-sm">Team progress</span>
+              <span className="text-white/85 text-sm">Team progress</span>
               <div className="w-32 h-2 bg-white/10 rounded-full overflow-hidden">
                 <div className="h-full bg-gradient-to-r from-[#FF2D8E] to-[#E6007E] transition-all" style={{ width: `${allTotal ? Math.round((allDone / allTotal) * 100) : 0}%` }} />
               </div>
@@ -317,11 +317,11 @@ export function AcademyClient() {
                 className="px-4 py-2 rounded-lg text-sm font-medium transition-all"
                 style={{
                   background: inCourse && courseId === id ? '#fff' : 'rgba(255,255,255,0.08)',
-                  color: inCourse && courseId === id ? '#000' : 'rgba(255,255,255,0.7)',
+                  color: inCourse && courseId === id ? '#000' : 'rgba(255,255,255,0.92)',
                 }}
               >
                 {COURSES[id].label}
-                <span className="ml-2 text-xs opacity-60">{COURSES[id].meta}</span>
+                <span className="ml-2 text-xs opacity-85">{COURSES[id].meta}</span>
               </button>
             ))}
             <div className="w-px h-6 bg-white/20 mx-2" />
@@ -333,20 +333,20 @@ export function AcademyClient() {
               className="px-4 py-2 rounded-lg text-sm font-medium transition-all"
               style={{
                 background: section === 'blog' ? '#fff' : 'rgba(255,255,255,0.08)',
-                color: section === 'blog' ? '#000' : 'rgba(255,255,255,0.7)',
+                color: section === 'blog' ? '#000' : 'rgba(255,255,255,0.92)',
               }}
             >
-              Journal<span className="ml-2 text-xs opacity-60">{ARTICLES.length}</span>
+              Journal<span className="ml-2 text-xs opacity-85">{ARTICLES.length}</span>
             </button>
             <button
               onClick={() => setSection('resources')}
               className="px-4 py-2 rounded-lg text-sm font-medium transition-all"
               style={{
                 background: section === 'resources' ? '#fff' : 'rgba(255,255,255,0.08)',
-                color: section === 'resources' ? '#000' : 'rgba(255,255,255,0.7)',
+                color: section === 'resources' ? '#000' : 'rgba(255,255,255,0.92)',
               }}
             >
-              Resources<span className="ml-2 text-xs opacity-60">{RESOURCES.reduce((n, g) => n + g.items.length, 0)}</span>
+              Resources<span className="ml-2 text-xs opacity-85">{RESOURCES.reduce((n, g) => n + g.items.length, 0)}</span>
             </button>
           </div>
         </div>
@@ -373,7 +373,7 @@ export function AcademyClient() {
                   className="px-4 py-2 rounded-lg text-sm font-medium flex items-center gap-2 transition-all border-b-2"
                   style={{
                     borderColor: mode === m ? '#FF2D8E' : 'transparent',
-                    color: mode === m ? '#000' : 'rgba(0,0,0,0.5)',
+                    color: mode === m ? '#000' : 'rgba(0,0,0,0.72)',
                   }}
                 >
                   {labels[m]}
@@ -381,7 +381,7 @@ export function AcademyClient() {
                     className="text-xs px-2 py-0.5 rounded-full"
                     style={{
                       background: mode === m ? '#FF2D8E' : 'rgba(0,0,0,0.07)',
-                      color: mode === m ? '#fff' : 'rgba(0,0,0,0.5)',
+                      color: mode === m ? '#fff' : 'rgba(0,0,0,0.72)',
                     }}
                   >
                     {counts[m]}
@@ -400,13 +400,13 @@ export function AcademyClient() {
             {/* Course hero */}
             <div className="rounded-3xl bg-gradient-to-br from-[#0a0a0a] via-[#1a0510] to-[#2d1020] p-8 border-4 border-black shadow-[8px_8px_0_0_rgba(230,0,126,0.35)]">
               <div className="text-[#FFB8DC] text-sm uppercase tracking-widest mb-2">{course.eyebrow}</div>
-              <h1 className="text-4xl font-black text-white mb-4">{course.headline}</h1>
-              <p className="text-white/70 max-w-3xl mb-6">{course.intro}</p>
+              <h1 className="text-4xl font-black text-white mb-4" style={{ color: '#fff' }}>{course.headline}</h1>
+              <p className="text-white/95 max-w-3xl mb-6">{course.intro}</p>
               <div className="flex gap-6">
                 {course.stats.map((s, i) => (
                   <div key={i} className="text-center">
                     <div className="text-3xl font-black text-[#FF2D8E]">{s.n}</div>
-                    <div className="text-white/50 text-sm">{s.label}</div>
+                    <div className="text-white/85 text-sm">{s.label}</div>
                   </div>
                 ))}
               </div>
@@ -421,7 +421,7 @@ export function AcademyClient() {
                     <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#FF2D8E] to-[#E6007E] text-white font-bold flex items-center justify-center">{g.num}</div>
                     <div>
                       <div className="font-bold">{g.title}</div>
-                      <div className="text-sm text-black/60">{g.body}</div>
+                      <div className="text-sm text-black/85">{g.body}</div>
                     </div>
                   </div>
                 ))}
@@ -446,7 +446,7 @@ export function AcademyClient() {
               <div className="flex items-center justify-between mb-6">
                 <div>
                   <h2 className="text-2xl font-bold">{isAll ? `All ${course.modules.length} modules` : person?.name}</h2>
-                  <p className="text-black/50 text-sm">{isAll ? 'Pick a name to check modules off' : `${person?.role} · all ${ps.total} modules assigned`}</p>
+                  <p className="text-black/80 text-sm">{isAll ? 'Pick a name to check modules off' : `${person?.role} · all ${ps.total} modules assigned`}</p>
                 </div>
                 <div className="flex items-center gap-2">
                   <div className="w-32 h-3 bg-black/10 rounded-full overflow-hidden">
@@ -503,10 +503,10 @@ export function AcademyClient() {
                         <div className="flex-1">
                           <div className="flex items-center gap-2 mb-1">
                             <span className="text-xs font-bold px-2 py-0.5 rounded bg-gradient-to-r from-[#FF2D8E] to-[#E6007E] text-white">{m.num}</span>
-                            <span className="text-xs text-black/50">{m.tag}</span>
+                            <span className="text-xs text-black/80">{m.tag}</span>
                           </div>
                           <h3 className="font-bold text-lg" style={{ color: checked ? 'rgba(0,0,0,0.45)' : '#000' }}>{m.title}</h3>
-                          <p className="text-sm text-black/60 mt-1">{m.blurb}</p>
+                          <p className="text-sm text-black/85 mt-1">{m.blurb}</p>
 
                           {isOpen && (
                             <div className="mt-4 pt-4 border-t border-black/10">
@@ -520,7 +520,7 @@ export function AcademyClient() {
                               </ul>
                               <div className="bg-rose-50 rounded-xl p-4 text-sm">
                                 <div className="font-bold text-[#E6007E] mb-1">Maps to: {m.mapsTo}</div>
-                                <div className="text-black/60">{m.mapsWhy}</div>
+                                <div className="text-black/85">{m.mapsWhy}</div>
                               </div>
                             </div>
                           )}
@@ -535,7 +535,7 @@ export function AcademyClient() {
                             >
                               Open lesson →
                             </button>
-                            <button onClick={() => setExpanded(isOpen ? null : m.id)} className="text-sm text-black/50 hover:underline">
+                            <button onClick={() => setExpanded(isOpen ? null : m.id)} className="text-sm text-black/80 hover:underline">
                               {isOpen ? 'Hide objectives −' : 'What you\'ll learn +'}
                             </button>
                           </div>
@@ -554,7 +554,7 @@ export function AcademyClient() {
           <div className="space-y-6">
             <div className="rounded-3xl bg-gradient-to-br from-[#0a0a0a] via-[#1a0510] to-[#2d1020] p-8 border-4 border-black shadow-[8px_8px_0_0_rgba(230,0,126,0.35)]">
               <h2 className="text-3xl font-black text-white mb-2">{course.deckHeadline}</h2>
-              <p className="text-white/60 mb-4">{course.deck.length} flashcards · {knownCount} marked as known</p>
+              <p className="text-white/90 mb-4">{course.deck.length} flashcards · {knownCount} marked as known</p>
 
               {/* Category filter */}
               <div className="flex gap-2 flex-wrap mb-6">
@@ -569,7 +569,7 @@ export function AcademyClient() {
                     className="px-3 py-1.5 rounded-full text-sm font-medium transition-all border-2"
                     style={{
                       background: deckCat === c ? '#FF2D8E' : 'transparent',
-                      color: deckCat === c ? '#fff' : 'rgba(255,255,255,0.75)',
+                      color: deckCat === c ? '#fff' : 'rgba(255,255,255,0.92)',
                       borderColor: deckCat === c ? '#FF2D8E' : 'rgba(255,255,255,0.25)',
                     }}
                   >
@@ -589,19 +589,19 @@ export function AcademyClient() {
               >
                 {!flipped ? (
                   <div className="h-full flex flex-col items-center justify-center text-center">
-                    <div className="text-xs uppercase tracking-wider text-black/40 mb-2">{currentCard.cat}</div>
+                    <div className="text-xs uppercase tracking-wider text-black/70 mb-2">{currentCard.cat}</div>
                     <h3 className="text-3xl font-black mb-2">{currentCard.name}</h3>
-                    <div className="text-black/50">{currentCard.alias}</div>
-                    <div className="mt-6 text-sm text-black/40">Click to flip</div>
+                    <div className="text-black/80">{currentCard.alias}</div>
+                    <div className="mt-6 text-sm text-black/70">Click to flip</div>
                   </div>
                 ) : (
                   <div className="space-y-4">
                     <div>
-                      <div className="text-xs uppercase tracking-wider text-black/40 mb-1">What it is</div>
+                      <div className="text-xs uppercase tracking-wider text-black/70 mb-1">What it is</div>
                       <p>{currentCard.what}</p>
                     </div>
                     <div>
-                      <div className="text-xs uppercase tracking-wider text-black/40 mb-1">What it&apos;s studied for</div>
+                      <div className="text-xs uppercase tracking-wider text-black/70 mb-1">What it&apos;s studied for</div>
                       <p>{currentCard.studied}</p>
                     </div>
                     <div
@@ -622,7 +622,7 @@ export function AcademyClient() {
 
               {/* Controls */}
               <div className="flex items-center justify-between mt-4">
-                <div className="text-white/50 text-sm">Card {Math.min(ci + 1, dlist.length)} of {dlist.length}</div>
+                <div className="text-white/85 text-sm">Card {Math.min(ci + 1, dlist.length)} of {dlist.length}</div>
                 <div className="flex gap-2">
                   <button onClick={() => moveCard(-1)} className="px-4 py-2 rounded-lg bg-white/10 text-white hover:bg-white/20 transition-all">← Previous</button>
                   <button
@@ -672,7 +672,7 @@ export function AcademyClient() {
             {!quizFinished && qTotal > 0 ? (
               <div className="space-y-6">
                 <div className="flex items-center justify-between">
-                  <span className="text-black/50">Question {qi + 1} of {qTotal}</span>
+                  <span className="text-black/80">Question {qi + 1} of {qTotal}</span>
                   <span className="font-bold text-[#FF2D8E]">Score: {correctCount}</span>
                 </div>
                 <div className="w-full h-2 bg-black/10 rounded-full overflow-hidden">
@@ -683,7 +683,7 @@ export function AcademyClient() {
                   const q = course.quiz[quizOrder[qi]];
                   return (
                     <div className="rounded-3xl bg-white p-8 border-4 border-black shadow-[8px_8px_0_0_rgba(230,0,126,0.35)]">
-                      <div className="text-xs uppercase tracking-wider text-black/40 mb-2">{q.cat}</div>
+                      <div className="text-xs uppercase tracking-wider text-black/70 mb-2">{q.cat}</div>
                       <h3 className="text-xl font-bold mb-6">{q.q}</h3>
 
                       <div className="space-y-3">
@@ -704,7 +704,7 @@ export function AcademyClient() {
                               border = '#dc2626';
                             } else {
                               border = 'rgba(0,0,0,0.1)';
-                              textColor = 'rgba(0,0,0,0.5)';
+                              textColor = 'rgba(0,0,0,0.65)';
                             }
                           }
 
@@ -730,7 +730,7 @@ export function AcademyClient() {
                                 <div className="flex-1">
                                   <div style={{ fontWeight: isCorrect && revealed ? 600 : 400 }}>{o.t}</div>
                                   {revealed && (
-                                    <div className="mt-2 text-sm" style={{ color: isCorrect ? '#16a34a' : isChosen ? '#dc2626' : 'rgba(0,0,0,0.35)' }}>
+                                    <div className="mt-2 text-sm" style={{ color: isCorrect ? '#16a34a' : isChosen ? '#dc2626' : 'rgba(0,0,0,0.55)' }}>
                                       <span className="font-bold">{isCorrect ? 'Correct' : 'Why not'}:</span> {o.w}
                                     </div>
                                   )}
@@ -756,7 +756,7 @@ export function AcademyClient() {
               <div className="rounded-3xl bg-white p-8 border-4 border-black shadow-[8px_8px_0_0_rgba(230,0,126,0.35)]">
                 <h2 className="text-3xl font-black mb-2">Quiz complete</h2>
                 <div className="text-6xl font-black text-[#FF2D8E] mb-4">{correctCount}/{answers.length}</div>
-                <p className="text-black/60 mb-6">
+                <p className="text-black/85 mb-6">
                   {Math.round((correctCount / answers.length) * 100) >= 90
                     ? "Sharp. You could take one of these questions cold at the front desk today."
                     : Math.round((correctCount / answers.length) * 100) >= 70
@@ -776,10 +776,10 @@ export function AcademyClient() {
                             <div key={a.qIdx} className="p-4 rounded-xl bg-red-50 border border-red-200">
                               <div className="text-xs text-red-600 mb-1">{q.cat}</div>
                               <div className="font-medium">{q.q}</div>
-                              <div className="text-sm text-black/60 mt-2">
+                              <div className="text-sm text-black/85 mt-2">
                                 <span className="text-red-600">You chose:</span> {q.options[a.chosen].t}
                               </div>
-                              <div className="text-sm text-black/60">
+                              <div className="text-sm text-black/85">
                                 <span className="text-green-600">Correct:</span> {q.options[q.correct].t}
                               </div>
                             </div>
@@ -814,11 +814,11 @@ export function AcademyClient() {
               <div className="flex items-center justify-between mb-6">
                 <div>
                   <h2 className="text-2xl font-bold">{course.matchHeadline}</h2>
-                  <p className="text-black/50">Match each item on the left with its description</p>
+                  <p className="text-black/80">Match each item on the left with its description</p>
                 </div>
                 <div className="flex items-center gap-4">
-                  <span className="text-black/50">Solved: {solvedCount}/{course.pairs.length}</span>
-                  <span className="text-black/50">Attempts: {tries}</span>
+                  <span className="text-black/80">Solved: {solvedCount}/{course.pairs.length}</span>
+                  <span className="text-black/80">Attempts: {tries}</span>
                 </div>
               </div>
 
@@ -875,7 +875,7 @@ export function AcademyClient() {
               ) : (
                 <div className="text-center py-8">
                   <div className="text-4xl font-black text-[#FF2D8E] mb-4">All matched!</div>
-                  <p className="text-black/60 mb-6">
+                  <p className="text-black/85 mb-6">
                     {tries === course.pairs.length
                       ? `Perfect round — ${tries} attempts, zero misses. That's mastery.`
                       : `All ${course.pairs.length} matched in ${tries} attempts. A clean round is ${course.pairs.length}.`}
@@ -895,10 +895,10 @@ export function AcademyClient() {
             {!triFinished && triTotal > 0 ? (
               <div className="space-y-6">
                 <div className="flex items-center justify-between">
-                  <span className="text-black/50">Situation {ti + 1} of {triTotal}</span>
+                  <span className="text-black/80">Situation {ti + 1} of {triTotal}</span>
                   <div className="flex items-center gap-4">
                     <span className="font-bold">Score: {triHits}/{ti + (triPick !== null ? 1 : 0)}</span>
-                    <span className="text-black/50">Streak: {triStreak}</span>
+                    <span className="text-black/80">Streak: {triStreak}</span>
                   </div>
                 </div>
 
@@ -918,7 +918,7 @@ export function AcademyClient() {
                           >
                             <div className="text-3xl mb-2">💬</div>
                             <div className="font-bold">I can answer this</div>
-                            <div className="text-sm text-black/50">Education, logistics, or policy</div>
+                            <div className="text-sm text-black/80">Education, logistics, or policy</div>
                           </button>
                           <button
                             onClick={() => triAnswer(true)}
@@ -926,7 +926,7 @@ export function AcademyClient() {
                           >
                             <div className="text-3xl mb-2">🏥</div>
                             <div className="font-bold">Route to Ryan</div>
-                            <div className="text-sm text-black/50">Clinical, safety, or suitability</div>
+                            <div className="text-sm text-black/80">Clinical, safety, or suitability</div>
                           </button>
                         </div>
                       ) : (
@@ -939,7 +939,7 @@ export function AcademyClient() {
                           </div>
                           <div className="p-4 rounded-xl bg-black/5">
                             <div className="font-bold mb-1">Correct answer: {item.route ? 'Route to Ryan' : "You've got this"}</div>
-                            <p className="text-black/60">{item.why}</p>
+                            <p className="text-black/85">{item.why}</p>
                           </div>
                           <button onClick={triNext} className="w-full px-6 py-3 rounded-xl bg-gradient-to-r from-[#FF2D8E] to-[#E6007E] text-white font-bold hover:opacity-90 transition-all">
                             {ti + 1 >= triTotal ? 'See my score' : 'Next situation'}
@@ -954,7 +954,7 @@ export function AcademyClient() {
               <div className="rounded-3xl bg-white p-8 border-4 border-black shadow-[8px_8px_0_0_rgba(230,0,126,0.35)] text-center">
                 <h2 className="text-3xl font-black mb-2">Triage complete</h2>
                 <div className="text-6xl font-black text-[#FF2D8E] mb-4">{triHits}/{triTotal}</div>
-                <p className="text-black/60 mb-6">
+                <p className="text-black/85 mb-6">
                   {triHits === triTotal
                     ? `Flawless. Best streak ${triBest}. You can run the front desk on this alone.`
                     : triHits >= triTotal - 2
@@ -1003,7 +1003,7 @@ export function AcademyClient() {
                   <div key={i} className="p-4 rounded-xl bg-rose-50 border border-rose-200">
                     <div className="text-sm font-bold text-[#E6007E] mb-2">When: {s.when}</div>
                     <blockquote className="text-lg italic mb-2">&ldquo;{s.say}&rdquo;</blockquote>
-                    <div className="text-sm text-black/60">Why it works: {s.why}</div>
+                    <div className="text-sm text-black/85">Why it works: {s.why}</div>
                   </div>
                 ))}
               </div>
@@ -1028,7 +1028,7 @@ export function AcademyClient() {
           <div className="space-y-6">
             <div className="flex items-center justify-between">
               <h1 className="text-3xl font-black">Journal</h1>
-              <span className="text-black/50">{Object.keys(readSet).length} / {ARTICLES.length} read</span>
+              <span className="text-black/80">{Object.keys(readSet).length} / {ARTICLES.length} read</span>
             </div>
 
             <div className="flex gap-2 flex-wrap">
@@ -1062,8 +1062,8 @@ export function AcademyClient() {
                     {readSet[a.id] && <span className="text-xs text-green-600">✓ Read</span>}
                   </div>
                   <h3 className="font-bold text-lg mb-1" style={{ color: readSet[a.id] ? 'rgba(0,0,0,0.5)' : '#000' }}>{a.title}</h3>
-                  <p className="text-sm text-black/60 mb-3">{a.dek}</p>
-                  <div className="text-xs text-black/40">{a.author} · {a.date} · {a.read} read</div>
+                  <p className="text-sm text-black/85 mb-3">{a.dek}</p>
+                  <div className="text-xs text-black/70">{a.author} · {a.date} · {a.read} read</div>
                 </button>
               ))}
             </div>
@@ -1082,8 +1082,8 @@ export function AcademyClient() {
               </div>
 
               <h1 className="text-3xl font-black mb-2">{art.title}</h1>
-              <p className="text-xl text-black/60 mb-4">{art.dek}</p>
-              <div className="text-sm text-black/40 mb-8">{art.author} · {art.date} · {art.read} read</div>
+              <p className="text-xl text-black/85 mb-4">{art.dek}</p>
+              <div className="text-sm text-black/70 mb-8">{art.author} · {art.date} · {art.read} read</div>
 
               <div className="prose max-w-none">
                 {art.body.map((block, i) => {
@@ -1137,7 +1137,7 @@ export function AcademyClient() {
           <div className="space-y-6">
             <div className="flex items-center justify-between">
               <h1 className="text-3xl font-black">Resources</h1>
-              <div className="text-black/50">
+              <div className="text-black/80">
                 {RESOURCES.reduce((n, g) => n + g.items.filter((i) => i.href).length, 0)} live ·{' '}
                 {RESOURCES.reduce((n, g) => n + g.items.filter((i) => !i.href).length, 0)} pending
               </div>
@@ -1163,7 +1163,7 @@ export function AcademyClient() {
             {RESOURCES.filter((g) => resCat === 'All' || g.name === resCat).map((group) => (
               <div key={group.name} className="rounded-3xl bg-white p-8 border-4 border-black shadow-[8px_8px_0_0_rgba(230,0,126,0.35)]">
                 <h2 className="text-xl font-bold mb-1">{group.name}</h2>
-                <p className="text-sm text-black/50 mb-6">{group.note}</p>
+                <p className="text-sm text-black/80 mb-6">{group.note}</p>
 
                 <div className="grid md:grid-cols-2 gap-4">
                   {group.items.map((item, i) => {
@@ -1193,10 +1193,10 @@ export function AcademyClient() {
                           <h3 className="font-bold">{item.title}</h3>
                           <span className="text-xs font-bold px-2 py-0.5 rounded" style={{ background: bg, color: fg }}>{item.type}</span>
                         </div>
-                        <p className="text-sm text-black/60 mb-2">{item.desc}</p>
+                        <p className="text-sm text-black/85 mb-2">{item.desc}</p>
                         <div className="flex items-center justify-between text-xs">
-                          <span className="text-black/40">{item.owner} · {live ? item.updated : 'Awaiting file'}</span>
-                          <span style={{ color: live ? '#FF2D8E' : 'rgba(0,0,0,0.35)' }}>{live ? 'Open →' : 'Placeholder'}</span>
+                          <span className="text-black/70">{item.owner} · {live ? item.updated : 'Awaiting file'}</span>
+                          <span style={{ color: live ? '#FF2D8E' : 'rgba(0,0,0,0.55)' }}>{live ? 'Open →' : 'Placeholder'}</span>
                         </div>
                       </div>
                     );
@@ -1221,8 +1221,8 @@ export function AcademyClient() {
                       <span className="text-sm font-bold px-3 py-1 rounded-full bg-gradient-to-r from-[#FF2D8E] to-[#E6007E] text-white">{lessonModule.num}</span>
                       <span className="text-sm text-[#FFB8DC]">{lessonModule.tag}</span>
                     </div>
-                    <h1 className="text-3xl font-black text-white mb-2">{lessonModule.title}</h1>
-                    <p className="text-white/70">{lessonModule.blurb}</p>
+                    <h1 className="text-3xl font-black text-white mb-2" style={{ color: '#fff' }}>{lessonModule.title}</h1>
+                    <p className="text-white/95">{lessonModule.blurb}</p>
                   </div>
                   <button
                     onClick={() => setLessonModule(null)}
@@ -1236,7 +1236,7 @@ export function AcademyClient() {
               {/* Lesson Content */}
               <div className="bg-white rounded-b-3xl border-4 border-black border-t-0 p-8">
                 {/* Intro */}
-                <p className="text-lg leading-relaxed text-black/80 mb-8 pb-8 border-b-2 border-black/10">{lessonContent.intro}</p>
+                <p className="text-lg leading-relaxed text-black/90 mb-8 pb-8 border-b-2 border-black/10">{lessonContent.intro}</p>
 
                 {/* Sections */}
                 <div className="space-y-10">
@@ -1247,7 +1247,7 @@ export function AcademyClient() {
                       {/* Paragraphs */}
                       <div className="space-y-4 mb-4">
                         {section.paragraphs.map((p, pIdx) => (
-                          <p key={pIdx} className="text-base leading-relaxed text-black/80">{p}</p>
+                          <p key={pIdx} className="text-base leading-relaxed text-black/90">{p}</p>
                         ))}
                       </div>
 
@@ -1264,7 +1264,7 @@ export function AcademyClient() {
                           {section.bullets.map((b, bIdx) => (
                             <div key={bIdx} className="flex gap-3">
                               <span className="text-[#E6007E] mt-1.5">•</span>
-                              <span className="text-base text-black/80">{b}</span>
+                              <span className="text-base text-black/90">{b}</span>
                             </div>
                           ))}
                         </div>
@@ -1273,9 +1273,15 @@ export function AcademyClient() {
                       {/* Script */}
                       {section.script && (
                         <div className="my-6 rounded-xl bg-gradient-to-br from-[#0a0a0a] to-[#1a0510] p-5 border-2 border-black">
-                          <div className="text-xs uppercase tracking-wider text-[#FFB8DC] mb-2">When: {section.script.situation}</div>
+                          <div className="text-xs uppercase tracking-wider mb-2">
+                            <span className="text-[#FFB8DC]">When:</span>{' '}
+                            <span className="text-white/90">{section.script.situation}</span>
+                          </div>
                           <div className="text-white text-base italic mb-3">&ldquo;{section.script.say}&rdquo;</div>
-                          <div className="text-sm text-[#FFB8DC]">Why it works: {section.script.why}</div>
+                          <div className="text-sm">
+                            <span className="text-[#FFB8DC]">Why it works:</span>{' '}
+                            <span className="text-white/95">{section.script.why}</span>
+                          </div>
                         </div>
                       )}
 
@@ -1304,7 +1310,7 @@ export function AcademyClient() {
                     {lessonContent.keyTakeaways.map((t, tIdx) => (
                       <div key={tIdx} className="flex gap-3 p-3 rounded-lg bg-rose-50">
                         <span className="text-[#E6007E] font-bold">✓</span>
-                        <span className="text-sm text-black/80">{t}</span>
+                        <span className="text-sm text-black/90">{t}</span>
                       </div>
                     ))}
                   </div>
@@ -1317,9 +1323,9 @@ export function AcademyClient() {
                     <p className="text-base font-medium text-black mb-4">{lessonContent.practiceScenario.question}</p>
                     <div className="p-4 rounded-lg bg-white border border-black/10 mb-3">
                       <div className="text-xs uppercase tracking-wider text-green-600 font-bold mb-2">Best Answer</div>
-                      <p className="text-sm text-black/80">{lessonContent.practiceScenario.bestAnswer}</p>
+                      <p className="text-sm text-black/90">{lessonContent.practiceScenario.bestAnswer}</p>
                     </div>
-                    <p className="text-xs text-black/60"><span className="font-bold">Why:</span> {lessonContent.practiceScenario.why}</p>
+                    <p className="text-xs text-black/85"><span className="font-bold">Why:</span> {lessonContent.practiceScenario.why}</p>
                   </div>
                 )}
 
