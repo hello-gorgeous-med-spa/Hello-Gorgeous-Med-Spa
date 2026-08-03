@@ -11,6 +11,22 @@ export type Person = {
   initials: string;
 };
 
+export type LessonSection = {
+  heading: string;
+  paragraphs: string[];
+  callout?: string;
+  script?: { situation: string; say: string; why: string };
+  bullets?: string[];
+  escalate?: string[];
+};
+
+export type Lesson = {
+  intro: string;
+  sections: LessonSection[];
+  keyTakeaways: string[];
+  practiceScenario?: { question: string; bestAnswer: string; why: string };
+};
+
 export type Module = {
   id: string;
   num: string;
@@ -20,6 +36,7 @@ export type Module = {
   bullets: string[];
   mapsTo: string;
   mapsWhy: string;
+  lesson?: Lesson;
 };
 
 export type Card = {

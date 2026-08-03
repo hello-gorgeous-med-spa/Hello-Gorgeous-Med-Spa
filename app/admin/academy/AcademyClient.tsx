@@ -12,12 +12,15 @@ import {
   ARTICLES,
   RESOURCES,
   STORAGE_KEY,
+  getLessonForModule,
   type AcademyMode,
   type AcademySection,
   type AcademyProgress,
   type AcademyKnown,
   type AcademyReadSet,
   type Course,
+  type Module,
+  type Lesson,
 } from '@/lib/academy';
 
 type ViewId = 'all' | 'danielle' | 'ryan' | 'michelle' | 'laura';
@@ -73,6 +76,10 @@ export function AcademyClient() {
   const [articleId, setArticleId] = useState<string | null>(null);
   const [blogCat, setBlogCat] = useState('All');
   const [resCat, setResCat] = useState('All');
+
+  // Lesson viewer state
+  const [lessonModule, setLessonModule] = useState<Module | null>(null);
+  const lessonContent = lessonModule ? getLessonForModule(lessonModule.id) : null;
 
   const course = COURSES[courseId];
 
@@ -518,9 +525,20 @@ export function AcademyClient() {
                             </div>
                           )}
 
-                          <button onClick={() => setExpanded(isOpen ? null : m.id)} className="text-sm text-[#E6007E] mt-3 hover:underline">
-                            {isOpen ? 'Hide details −' : 'What\'s inside +'}
-                          </button>
+                          <div className="flex items-center gap-4 mt-3">
+                            <button 
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                setLessonModule(m);
+                              }} 
+                              className="text-sm font-bold text-[#E6007E] hover:underline"
+                            >
+                              Open lesson →
+                            </button>
+                            <button onClick={() => setExpanded(isOpen ? null : m.id)} className="text-sm text-black/50 hover:underline">
+                              {isOpen ? 'Hide objectives −' : 'What you\'ll learn +'}
+                            </button>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -1189,6 +1207,150 @@ export function AcademyClient() {
           </div>
         )}
       </main>
+
+      {/* Lesson Viewer Modal */}
+      {lessonModule && lessonContent && (
+        <div className="fixed inset-0 z-[100] overflow-auto bg-black/60 backdrop-blur-sm">
+          <div className="min-h-screen py-8 px-4">
+            <div className="max-w-4xl mx-auto">
+              {/* Lesson Header */}
+              <div className="rounded-t-3xl bg-gradient-to-br from-[#0a0a0a] via-[#1a0510] to-[#2d1020] p-8 border-4 border-black border-b-0">
+                <div className="flex items-start justify-between gap-4">
+                  <div>
+                    <div className="flex items-center gap-3 mb-4">
+                      <span className="text-sm font-bold px-3 py-1 rounded-full bg-gradient-to-r from-[#FF2D8E] to-[#E6007E] text-white">{lessonModule.num}</span>
+                      <span className="text-sm text-[#FFB8DC]">{lessonModule.tag}</span>
+                    </div>
+                    <h1 className="text-3xl font-black text-white mb-2">{lessonModule.title}</h1>
+                    <p className="text-white/70">{lessonModule.blurb}</p>
+                  </div>
+                  <button
+                    onClick={() => setLessonModule(null)}
+                    className="flex-shrink-0 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-all"
+                  >
+                    ✕
+                  </button>
+                </div>
+              </div>
+
+              {/* Lesson Content */}
+              <div className="bg-white rounded-b-3xl border-4 border-black border-t-0 p-8">
+                {/* Intro */}
+                <p className="text-lg leading-relaxed text-black/80 mb-8 pb-8 border-b-2 border-black/10">{lessonContent.intro}</p>
+
+                {/* Sections */}
+                <div className="space-y-10">
+                  {lessonContent.sections.map((section, sIdx) => (
+                    <div key={sIdx}>
+                      <h2 className="text-xl font-bold text-[#E6007E] mb-4">{section.heading}</h2>
+                      
+                      {/* Paragraphs */}
+                      <div className="space-y-4 mb-4">
+                        {section.paragraphs.map((p, pIdx) => (
+                          <p key={pIdx} className="text-base leading-relaxed text-black/80">{p}</p>
+                        ))}
+                      </div>
+
+                      {/* Callout */}
+                      {section.callout && (
+                        <div className="my-6 p-4 rounded-xl bg-rose-50 border-2 border-[#E6007E]">
+                          <p className="text-sm font-medium text-black/85">{section.callout}</p>
+                        </div>
+                      )}
+
+                      {/* Bullets */}
+                      {section.bullets && section.bullets.length > 0 && (
+                        <div className="my-4 space-y-2">
+                          {section.bullets.map((b, bIdx) => (
+                            <div key={bIdx} className="flex gap-3">
+                              <span className="text-[#E6007E] mt-1.5">•</span>
+                              <span className="text-base text-black/80">{b}</span>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+
+                      {/* Script */}
+                      {section.script && (
+                        <div className="my-6 rounded-xl bg-gradient-to-br from-[#0a0a0a] to-[#1a0510] p-5 border-2 border-black">
+                          <div className="text-xs uppercase tracking-wider text-[#FFB8DC] mb-2">When: {section.script.situation}</div>
+                          <div className="text-white text-base italic mb-3">&ldquo;{section.script.say}&rdquo;</div>
+                          <div className="text-sm text-[#FFB8DC]">Why it works: {section.script.why}</div>
+                        </div>
+                      )}
+
+                      {/* Escalate */}
+                      {section.escalate && section.escalate.length > 0 && (
+                        <div className="my-6 p-4 rounded-xl bg-amber-50 border-2 border-amber-400">
+                          <div className="text-xs uppercase tracking-wider text-amber-700 font-bold mb-2">Route to Ryan immediately</div>
+                          <div className="space-y-1">
+                            {section.escalate.map((e, eIdx) => (
+                              <div key={eIdx} className="flex gap-2 text-sm text-amber-900">
+                                <span>▸</span>
+                                <span>{e}</span>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+
+                {/* Key Takeaways */}
+                <div className="mt-10 pt-8 border-t-2 border-black/10">
+                  <h2 className="text-lg font-bold mb-4">Key Takeaways</h2>
+                  <div className="grid md:grid-cols-2 gap-3">
+                    {lessonContent.keyTakeaways.map((t, tIdx) => (
+                      <div key={tIdx} className="flex gap-3 p-3 rounded-lg bg-rose-50">
+                        <span className="text-[#E6007E] font-bold">✓</span>
+                        <span className="text-sm text-black/80">{t}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Practice Scenario */}
+                {lessonContent.practiceScenario && (
+                  <div className="mt-8 rounded-xl border-2 border-black p-6 bg-gradient-to-br from-white to-rose-50">
+                    <div className="text-xs uppercase tracking-wider text-[#E6007E] font-bold mb-3">Practice Scenario</div>
+                    <p className="text-base font-medium text-black mb-4">{lessonContent.practiceScenario.question}</p>
+                    <div className="p-4 rounded-lg bg-white border border-black/10 mb-3">
+                      <div className="text-xs uppercase tracking-wider text-green-600 font-bold mb-2">Best Answer</div>
+                      <p className="text-sm text-black/80">{lessonContent.practiceScenario.bestAnswer}</p>
+                    </div>
+                    <p className="text-xs text-black/60"><span className="font-bold">Why:</span> {lessonContent.practiceScenario.why}</p>
+                  </div>
+                )}
+
+                {/* Footer Actions */}
+                <div className="mt-10 pt-6 border-t-2 border-black/10 flex items-center justify-between gap-4 flex-wrap">
+                  {!isAll && (
+                    <button
+                      onClick={() => {
+                        toggleModule(view, lessonModule.id);
+                      }}
+                      className="px-6 py-3 rounded-xl font-bold transition-all"
+                      style={{
+                        background: isDone(view, lessonModule.id) ? '#FF2D8E' : '#000',
+                        color: '#fff',
+                      }}
+                    >
+                      {isDone(view, lessonModule.id) ? '✓ Completed' : 'Mark as Complete'}
+                    </button>
+                  )}
+                  <button
+                    onClick={() => setLessonModule(null)}
+                    className="px-6 py-3 rounded-xl border-2 border-black font-bold hover:bg-black hover:text-white transition-all"
+                  >
+                    Close Lesson
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

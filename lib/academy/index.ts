@@ -8,3 +8,4 @@ export * from './people';
 export * from './articles';
 export * from './resources';
 export * from './courses';
+export * from './lessons';
