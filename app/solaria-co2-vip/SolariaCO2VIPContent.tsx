@@ -92,22 +92,9 @@ export function SolariaCO2VIPContent() {
         throw new Error(data.error || "Submission failed");
       }
 
-      // Track conversion event
-      if (typeof window !== "undefined") {
-        // Google Analytics
-        if ((window as any).gtag) {
-          (window as any).gtag("event", "CO2_VIP_SUBMISSION", {
-            event_category: "Lead",
-            event_label: "Solaria CO2 VIP Waitlist",
-          });
-        }
-        // Meta Pixel
-        if ((window as any).fbq) {
-          (window as any).fbq("track", "Lead", {
-            content_name: "Solaria CO2 VIP Waitlist",
-          });
-        }
-      }
+      // NOTE: Tracking removed — this is a medical intake form collecting
+      // health concerns (skin conditions). Pixel events would expose sensitive
+      // health interest data to Google/Meta. See GoogleAnalytics.tsx NO_TRACK_PREFIXES.
 
       setSubmitted(true);
     } catch (err) {

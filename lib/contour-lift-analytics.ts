@@ -3,6 +3,8 @@
  * Event names are stable for GTM triggers and Meta custom conversions.
  */
 
+import { isNoTrackPath } from "@/lib/no-track-paths";
+
 export const CONTOUR_LIFT_EVENTS = {
   pageView: "contour_lift_page_view",
   homeCta: "contour_lift_home_cta_click",
@@ -24,6 +26,9 @@ export function pushContourLiftEvent(
   params?: Record<string, string | number | boolean | undefined>
 ) {
   if (typeof window === "undefined") return;
+  // Gate: don't fire events on medical/intake routes
+  if (isNoTrackPath(window.location.pathname)) return;
+
   const flat: Record<string, string | number | boolean> = { procedure: "contour_lift" };
   if (params) {
     for (const [k, v] of Object.entries(params)) {
@@ -49,6 +54,9 @@ export function pushContourLiftEvent(
 /** Meta standard Lead — use on thank-you page only to avoid duplicates. */
 export function trackMetaLead(params?: Record<string, string>) {
   if (typeof window === "undefined") return;
+  // Gate: don't fire events on medical/intake routes
+  if (isNoTrackPath(window.location.pathname)) return;
+
   const w = window as unknown as { fbq?: (action: string, name: string, p?: Record<string, unknown>) => void };
   if (!w.fbq) return;
   w.fbq("track", "Lead", {

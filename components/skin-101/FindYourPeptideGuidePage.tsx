@@ -74,7 +74,10 @@ export function FindYourPeptideGuidePage({
 
   const selectGoal = (goal: PeptideGoalCard) => {
     setSelectedGoal(goal);
-    trackEvent("peptide_finder_goal", { goal: goal.name });
+    // NOTE: Removed sensitive goal name from event params. This route is also
+    // excluded from tracking (see GoogleAnalytics.tsx NO_TRACK_PREFIXES), but
+    // we keep the event call generic as defense-in-depth.
+    trackEvent("peptide_finder_goal", {});
     document.getElementById("finder-results")?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 

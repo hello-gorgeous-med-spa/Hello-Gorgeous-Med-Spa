@@ -4,30 +4,30 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import Script from "next/script";
 import { pushContourLiftEvent } from "@/lib/contour-lift-analytics";
+import { isNoTrackPath } from "@/lib/no-track-paths";
 
 const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID;
 const GA4_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA4_MEASUREMENT_ID;
 const META_PIXEL_ID = process.env.NEXT_PUBLIC_META_PIXEL_ID;
 
-/** Paths where we must not load GTM/GA4 or fire conversion events */
-function isNoTrackPath(pathname: string | null): boolean {
-  if (!pathname) return false;
-  return (
-    pathname.startsWith("/admin") ||
-    pathname.startsWith("/portal") ||
-    pathname.startsWith("/login")
-  );
-}
+// Re-export for backward compatibility (other files may import from here)
+export { isNoTrackPath } from "@/lib/no-track-paths";
 
 /**
  * Pushes a conversion event to dataLayer (for GTM) and gtag (for GA4).
  * Events: phone_click, email_click, sms_click, book_now_click, form_submit
+ *
+ * PRIVACY: This function gates itself — no events fire on medical/intake routes
+ * (see NO_TRACK_PREFIXES). Caller doesn't need to check; event is silently dropped.
  */
 export function trackEvent(
   eventName: string,
   params?: Record<string, string | number | boolean>
 ) {
   if (typeof window === "undefined") return;
+  // Gate: don't fire events on medical/intake routes
+  if (isNoTrackPath(window.location.pathname)) return;
+
   (window as any).dataLayer = (window as any).dataLayer || [];
   (window as any).dataLayer.push({
     event: eventName,

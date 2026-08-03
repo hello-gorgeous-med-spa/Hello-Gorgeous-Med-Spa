@@ -3,6 +3,8 @@
 // Google Reserve, Facebook/Instagram, Meta Pixel, Analytics
 // ============================================================
 
+import { isNoTrackPath } from "@/lib/no-track-paths";
+
 export type IntegrationStatus = 'active' | 'inactive' | 'pending' | 'error';
 
 export interface Integration {
@@ -529,11 +531,16 @@ export interface TrackingEvent {
 }
 
 /**
- * Track an event across all configured analytics platforms
+ * Track an event across all configured analytics platforms.
+ * Gated: does not fire on medical/intake routes (see lib/no-track-paths.ts).
  */
 export function trackEvent(event: TrackingEvent, config: Record<string, IntegrationConfig>): void {
+  if (typeof window === "undefined") return;
+  // Gate: don't fire events on medical/intake routes
+  if (isNoTrackPath(window.location.pathname)) return;
+
   // Google Analytics
-  if (config['google-analytics']?.values?.measurement_id && typeof window !== 'undefined') {
+  if (config['google-analytics']?.values?.measurement_id) {
     (window as any).gtag?.('event', event.name, {
       event_category: event.category,
       ...event.properties,
@@ -541,12 +548,12 @@ export function trackEvent(event: TrackingEvent, config: Record<string, Integrat
   }
 
   // Meta Pixel
-  if (config['meta-pixel']?.values?.pixel_id && typeof window !== 'undefined') {
+  if (config['meta-pixel']?.values?.pixel_id) {
     (window as any).fbq?.('track', event.name, event.properties);
   }
 
   // TikTok
-  if (config['tiktok-pixel']?.values?.pixel_id && typeof window !== 'undefined') {
+  if (config['tiktok-pixel']?.values?.pixel_id) {
     (window as any).ttq?.track(event.name, event.properties);
   }
 }
