@@ -91,6 +91,7 @@ export const ADMIN_NAV_GROUPS: AdminNavGroup[] = [
     items: [
       { href: "/admin/command-center", label: "Command Center", icon: "🎛️" },
       { href: "/admin/proposals/consults", label: "Consult Desk", icon: "🩺" },
+      { href: "/admin/academy", label: "RE GEN Academy", icon: "🎓" },
       { href: "/admin", label: "Dashboard", icon: "📊" },
     ],
   },
