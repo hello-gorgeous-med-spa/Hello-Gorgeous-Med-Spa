@@ -44,9 +44,9 @@ export const RESOURCES: ResourceGroup[] = [
     name: 'Consents & forms',
     note: 'Blank templates only — completed forms live in the chart',
     items: [
-      { title: 'IV therapy informed consent', desc: 'Blank consent template for infusion and injection services. Covers risks, benefits, alternatives, and the right to refuse.', type: 'LINK', owner: 'Ryan', updated: 'Aug 2026', href: '/consents/iv-therapy' },
-      { title: 'Hormone therapy informed consent', desc: 'Includes the risk discussion and monitoring schedule acknowledgment. Covers bioidentical vs synthetic, lab monitoring, and duration expectations.', type: 'LINK', owner: 'Ryan', updated: 'Aug 2026', href: '/consents/hormone-therapy' },
-      { title: 'Photo and testimonial release', desc: 'Required before any client image or story appears anywhere. Before-and-after, video testimonial, social media.', type: 'LINK', owner: 'Laura', updated: 'Aug 2026', href: '/consents/photo-release' },
+      { title: 'IV therapy informed consent', desc: 'Blank consent template for infusion and injection services. Covers risks, benefits, alternatives, and the right to refuse.', type: 'LINK', owner: 'Ryan', updated: 'Aug 2026', href: '/admin/owner/consents' },
+      { title: 'Hormone therapy informed consent', desc: 'Includes the risk discussion and monitoring schedule acknowledgment. Covers bioidentical vs synthetic, lab monitoring, and duration expectations.', type: 'LINK', owner: 'Ryan', updated: 'Aug 2026', href: '/admin/owner/consents' },
+      { title: 'Photo and testimonial release', desc: 'Required before any client image or story appears anywhere. Before-and-after, video testimonial, social media.', type: 'LINK', owner: 'Laura', updated: 'Aug 2026', href: '/admin/owner/consents' },
       { title: 'New client intake and health history', desc: 'The full intake form that feeds the medical screen. Medical history, medications, allergies, goals.', type: 'LINK', owner: 'Michelle', updated: 'Aug 2026', href: '/intake' },
     ],
   },
