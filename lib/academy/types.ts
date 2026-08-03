@@ -158,7 +158,7 @@ export type DevField = {
 };
 
 export type AcademyMode = 'curriculum' | 'cards' | 'quiz' | 'match' | 'triage' | 'guardrails';
-export type AcademySection = 'course' | 'blog' | 'resources';
+export type AcademySection = 'course' | 'blog' | 'resources' | 'tools';
 
 export type AcademyProgress = Record<string, Record<string, boolean>>;
 export type AcademyKnown = Record<string, boolean>;

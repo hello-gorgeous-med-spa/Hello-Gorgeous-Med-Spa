@@ -2,6 +2,13 @@ import type { ResourceGroup } from './types';
 
 export const RESOURCES: ResourceGroup[] = [
   {
+    name: 'Staff tools',
+    note: 'Interactive calculators and reference tools for operations',
+    items: [
+      { title: 'Reconstitution Calculator', desc: 'Unit conversion tool for peptide reconstitution math. Shows arithmetic step by step — powder, solvent, concentration, syringe units.', type: 'LINK', owner: 'Ryan', updated: 'Aug 2026', href: '#tools' },
+    ],
+  },
+  {
     name: 'Client handouts',
     note: 'Printed or emailed to clients — plain language, no clinical claims',
     items: [

@@ -22,6 +22,7 @@ import {
   type Module,
   type Lesson,
 } from '@/lib/academy';
+import { ReconstitutionCalculator } from '@/components/admin/academy/ReconstitutionCalculator';
 
 type ViewId = 'all' | 'danielle' | 'ryan' | 'michelle' | 'laura';
 
@@ -347,6 +348,16 @@ export function AcademyClient() {
               }}
             >
               Resources<span className="ml-2 text-xs opacity-85">{RESOURCES.reduce((n, g) => n + g.items.length, 0)}</span>
+            </button>
+            <button
+              onClick={() => setSection('tools')}
+              className="px-4 py-2 rounded-lg text-sm font-medium transition-all"
+              style={{
+                background: section === 'tools' ? '#fff' : 'rgba(255,255,255,0.08)',
+                color: section === 'tools' ? '#000' : 'rgba(255,255,255,0.92)',
+              }}
+            >
+              Tools<span className="ml-2 text-xs opacity-85">1</span>
             </button>
           </div>
         </div>
@@ -1187,7 +1198,14 @@ export function AcademyClient() {
                           background: live ? '#fff' : 'rgba(255,255,255,0.55)',
                           cursor: live ? 'pointer' : 'default',
                         }}
-                        onClick={() => live && window.open(item.href, '_blank')}
+                        onClick={() => {
+                          if (!live) return;
+                          if (item.href === '#tools') {
+                            setSection('tools');
+                          } else {
+                            window.open(item.href, '_blank');
+                          }
+                        }}
                       >
                         <div className="flex items-start justify-between mb-2">
                           <h3 className="font-bold">{item.title}</h3>
@@ -1205,6 +1223,11 @@ export function AcademyClient() {
               </div>
             ))}
           </div>
+        )}
+
+        {/* Tools section */}
+        {section === 'tools' && (
+          <ReconstitutionCalculator />
         )}
       </main>
 
