@@ -261,6 +261,14 @@ export function RxCategoryLanding({ hub }: { hub: RxCategoryHub }) {
             >
               Shop now
             </a>
+            {hubId === "peptides" ? (
+              <Link
+                href={FIND_YOUR_PEPTIDE_PATH}
+                className="inline-flex items-center gap-2 rounded-xl border-2 border-[#E6007E] bg-white px-5 py-3 text-sm font-black text-[#E6007E] transition hover:bg-[#FFF0F7]"
+              >
+                Which peptide is right for you?
+              </Link>
+            ) : null}
             <Link
               href={shopHref}
               className="text-sm font-semibold text-[#E6007E] underline decoration-[#E6007E] underline-offset-4 transition hover:text-black"
@@ -279,6 +287,7 @@ export function RxCategoryLanding({ hub }: { hub: RxCategoryHub }) {
         </div>
       </section>
 
+      {hubId === "peptides" ? <RxFindYourPeptideCta /> : null}
       {/* Featured products first */}
       {products.length > 0 ? (
         <section id="featured" className="scroll-mt-24 bg-transparent px-4 py-14">
