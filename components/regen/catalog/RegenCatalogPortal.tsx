@@ -37,11 +37,13 @@ import { RegenHowItWorksTheater } from "@/components/regen/catalog/RegenHowItWor
 import { RegenScienceTheater } from "@/components/regen/catalog/RegenScienceTheater";
 import { RegenStacksTheater } from "@/components/regen/catalog/RegenStacksTheater";
 import { RegenShopStickyNav } from "@/components/regen/catalog/RegenShopStickyNav";
+import { RxFindYourPeptideCta } from "@/components/rx/RxFindYourPeptideCta";
 import { RxScienceHomeHero } from "@/components/rx/RxScienceHomeHero";
 import { JourneySectionHead } from "@/components/marketing/JourneyPageUi";
 import { REGEN_SHOP_PAGE_WASH } from "@/lib/regen/shop-surface";
 import { goalFromStorefrontCat } from "@/lib/regen/storefront-deep-link";
 import { REGEN_SHOP_FAQS } from "@/lib/regen-shop-nav";
+import { RxPatientJourneyBand } from "@/components/rx/RxPatientJourneyBand";
 
 const SECTION_SCROLL = "scroll-mt-[148px]";
 
@@ -293,6 +295,8 @@ export function RegenCatalogPortal({
             <RxScienceHomeHero onExploreGoals={scrollToShopByGoal} />
           </div>
 
+          <RxFindYourPeptideCta />
+
           {/* Shop first — goals, popular, stacks — then educate */}
           <RegenGoalTheater onSelectGoal={(goal) => navigate({ goal })} />
 
@@ -333,6 +337,10 @@ export function RegenCatalogPortal({
             onStartShopping={scrollToShopByGoal}
             onShopWeightLoss={() => navigate({ goal: "Lose Weight" })}
           />
+
+          <div className={SECTION_SCROLL}>
+            <RxPatientJourneyBand surface="rose" />
+          </div>
 
           <RegenScienceTheater onShopGoals={scrollToShopByGoal} />
 

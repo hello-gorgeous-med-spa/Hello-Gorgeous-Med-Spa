@@ -33,7 +33,7 @@ export function RxPatientJourneyBand({ surface = "light", className = "" }: Prop
           </p>
         </FadeUp>
 
-        <ol className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <ol className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
           {RX_PATIENT_JOURNEY_STEPS.map((item, i) => (
             <FadeUp key={item.step} delayMs={i * 50}>
               <li className="flex h-full flex-col rounded-2xl border-4 border-black bg-white p-5 shadow-[6px_6px_0_0_rgba(230,0,126,0.25)]">

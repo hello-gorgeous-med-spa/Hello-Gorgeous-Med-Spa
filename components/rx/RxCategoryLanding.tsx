@@ -10,12 +10,14 @@ import {
   ProductCard,
 } from "@/components/regen/catalog/CatalogProductCard";
 import { RegenMetabolicShiftVisual } from "@/components/regen/RegenMetabolicShiftVisual";
+import { RxFindYourPeptideCta } from "@/components/rx/RxFindYourPeptideCta";
 import { getCatalogProduct } from "@/lib/regen/catalog";
 import { getCategoryMascot } from "@/lib/regen/category-mascots";
 import { useCart } from "@/lib/regen/cart-context";
 import { REGEN_SHOP_PAGE_WASH } from "@/lib/regen/shop-surface";
 import { regenStorefrontUrl } from "@/lib/regen/storefront-deep-link";
 import type { RxCategoryHub, RxCategoryHubId, RxCategoryProduct } from "@/lib/rx-category-hubs";
+import { FIND_YOUR_PEPTIDE_PATH } from "@/lib/rx-patient-journey";
 import { REGEN_SITE, REGEN_TRUST_BAR } from "@/lib/regen-site";
 
 function HubFallbackCard({

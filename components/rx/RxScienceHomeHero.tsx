@@ -45,6 +45,9 @@ export function RxScienceHomeHero({ onExploreGoals }: RxScienceHomeHeroProps) {
             </p>
             <div className="mt-8 flex flex-wrap gap-4">
               <JourneyPinkBtn onClick={onExploreGoals}>Shop the catalog ↓</JourneyPinkBtn>
+              <JourneyGhostBtn href="/skin-101/find-your-peptide">
+                Which peptide is right for you?
+              </JourneyGhostBtn>
               <JourneyGhostBtn href={BOOKING_URL}>Book free consult</JourneyGhostBtn>
             </div>
             <div className="mt-6 flex flex-wrap gap-2.5">
