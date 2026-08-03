@@ -33,6 +33,32 @@ export const NO_TRACK_PREFIXES = [
   "/proposals",
   // VIP campaign with direct health intake
   "/solaria-co2-vip",
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // FTC/HIPAA-adjacent: Health-revealing medication/condition SEO/marketing routes
+  // These pages reveal health interest (weight loss meds, HRT, peptides) just by URL.
+  // ═══════════════════════════════════════════════════════════════════════════
+
+  // GLP-1 weight loss medications (semaglutide = Ozempic/Wegovy, tirzepatide = Mounjaro)
+  "/semaglutide",
+  "/tirzepatide",
+  "/glp1",
+  "/glp-1",
+
+  // Weight loss program pages (medical intent, not cosmetic)
+  "/weight-loss",
+
+  // Hormone therapy / testosterone (reveals HRT interest)
+  "/hormone-therapy",
+  "/testosterone",
+  "/hrt-request",
+
+  // Peptide therapy (BPC-157, etc.) and request flows
+  "/peptide",
+
+  // IV therapy (medical treatment, not cosmetic)
+  "/iv-therapy",
+  "/iv-shots",
 ] as const;
 
 /**
