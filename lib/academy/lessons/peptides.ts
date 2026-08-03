@@ -1,11 +1,478 @@
 /**
  * RE GEN Academy — Peptide Course Lessons
- * Full training content for modules p1-p9
+ * Full training content for foundation modules (p0a-p0g) and core modules (p1-p9)
  */
 
 import type { Lesson } from '../types';
 
 export const peptideLessons: Record<string, Lesson> = {
+  // Foundation modules
+  p0a: {
+    intro: "Before you learn about specific peptides, you need to understand what a peptide actually is. This is the 15-minute foundation that makes every other conversation click. By the end of this module, you'll be able to explain peptides to a client in plain English — and that confidence shows.",
+    sections: [
+      {
+        heading: "Amino acids: the building blocks",
+        paragraphs: [
+          "Your body uses 20 different amino acids to build proteins and peptides. Think of them like letters in an alphabet — each one is distinct, and the order they appear in determines what word you spell.",
+          "When amino acids link together in a chain, the length of that chain determines what we call it. A few amino acids (2-50 or so) make a peptide. Longer chains become proteins. The distinction is size, not magic."
+        ],
+        bullets: [
+          "20 standard amino acids exist in human biology",
+          "Short chains (2-50 amino acids) = peptides",
+          "Long chains (50+ amino acids) = proteins",
+          "The sequence — which amino acids in which order — determines function"
+        ]
+      },
+      {
+        heading: "Peptides as chemical messengers",
+        paragraphs: [
+          "Here's the key insight: peptides aren't just building materials — they're signals. Your body uses peptides to send messages between cells, organs, and systems. Insulin tells cells to absorb glucose. Oxytocin signals bonding and trust. GLP-1 tells your brain you're full.",
+          "When we talk about therapeutic peptides, we're talking about either mimicking these natural signals or providing signals that support specific biological processes. The body already speaks this language — we're just adding to the conversation."
+        ],
+        callout: "The simplest way to explain it to a client: \"Peptides are chemical messengers your body already makes. The ones we offer support specific processes — like recovery, metabolism, or hormonal balance — under medical supervision.\""
+      },
+      {
+        heading: "Lock and key: receptor binding",
+        paragraphs: [
+          "Peptides work by binding to receptors on cell surfaces. The shape of the peptide has to match the shape of the receptor — like a key fitting a lock. When the fit is right, the receptor activates and the cell does something: releases a hormone, starts a repair process, changes its metabolism.",
+          "This is why peptides are so specific. A peptide that fits GLP-1 receptors won't accidentally activate growth hormone receptors. The shape determines the function. It's also why we can't make claims about peptides doing things they weren't designed to do — the biology limits it."
+        ],
+        script: {
+          situation: "Client asks: \"How does a peptide actually work in my body?\"",
+          say: "It's like a key and a lock. The peptide has a specific shape that fits receptors on your cells. When it binds, it triggers a response — depending on which receptor it fits. That's why different peptides do different things, and why Ryan matches the right one to your goals.",
+          why: "Simple, visual, accurate. Positions the consult as where the matching happens."
+        }
+      },
+      {
+        heading: "Why this matters for what you say",
+        paragraphs: [
+          "Understanding lock-and-key biology keeps you from overclaiming. A peptide studied for one receptor system isn't going to magically affect another system. If a client asks whether BPC-157 will help their mood, you can honestly say: \"It's studied for tissue repair pathways — mood is a different system. Ryan can look at what might actually address what you're experiencing.\"",
+          "This knowledge makes you credible. You're not just repeating marketing copy — you understand why the claims we make are limited to what they are."
+        ]
+      }
+    ],
+    keyTakeaways: [
+      "Peptides are short chains of amino acids (2-50 amino acids typically)",
+      "They act as chemical messengers between cells and systems",
+      "Lock-and-key receptor binding determines what each peptide does",
+      "Specificity is built into the biology — that's why we don't overclaim"
+    ],
+    practiceScenario: {
+      question: "A client asks: \"What even is a peptide? Is it like a steroid?\"",
+      bestAnswer: "No — peptides are short chains of amino acids that act as messengers in your body. Steroids are a completely different class of molecule. Your body already makes peptides naturally — insulin is one, for example. The peptides we work with support specific processes like recovery or metabolism, and they're prescribed by Ryan after a full evaluation.",
+      why: "Clear distinction from steroids (common confusion), uses a familiar example, routes to proper evaluation."
+    }
+  },
+
+  p0b: {
+    intro: "\"Why can't I just take a pill?\" is one of the most common questions we get. This module explains why most peptides require injection, why oral GLP-1 is the exception, and how topical peptides like GHK-Cu work differently. Understanding delivery routes makes you sound like an expert — because you are one.",
+    sections: [
+      {
+        heading: "The digestive system problem",
+        paragraphs: [
+          "Your digestive system is designed to break down proteins and peptides into individual amino acids for absorption. That's how you get nutrition from food. But it's terrible news for therapeutic peptides — the stomach and intestines destroy the chain before it can do its job.",
+          "This isn't a design flaw in the peptide; it's just biology. Enzymes called proteases chop up peptide bonds. Stomach acid denatures the structure. By the time an oral peptide reaches your bloodstream — if any survives — it's usually fragments, not the functional molecule."
+        ],
+        bullets: [
+          "Stomach acid (pH ~2) denatures peptide structures",
+          "Proteases in the stomach and small intestine break peptide bonds",
+          "Most peptides have <1% oral bioavailability — almost nothing makes it through",
+          "This is why injection bypasses the GI tract entirely"
+        ]
+      },
+      {
+        heading: "Why injection works",
+        paragraphs: [
+          "Subcutaneous injection — the shallow, under-the-skin injection we use — delivers the peptide directly into tissue where it can absorb into the bloodstream intact. No stomach acid. No digestive enzymes. The molecule stays whole.",
+          "Clients sometimes worry about injection complexity or pain. The reality: these are tiny insulin-style needles, the injection is shallow, and most people barely notice after the first time. We can walk them through it."
+        ],
+        script: {
+          situation: "Client asks: \"Why can't I just take a pill?\"",
+          say: "Great question — your digestive system would break down the peptide before it could work. The injection goes just under the skin, skips the stomach entirely, and delivers the molecule intact. It's a tiny needle, same type diabetics use for insulin, and most people say they barely feel it after the first time.",
+          why: "Explains the biology simply, normalizes injection, addresses the fear."
+        }
+      },
+      {
+        heading: "Oral GLP-1: the exception",
+        paragraphs: [
+          "Oral semaglutide (Rybelsus) exists — so how does that work? It uses a special absorption enhancer called SNAC that protects the peptide and helps it cross the stomach lining before enzymes destroy it. It's taken on an empty stomach with minimal water and you can't eat for 30 minutes.",
+          "It's also less efficient than injectable — lower bioavailability, stricter dosing requirements. We offer injectable GLP-1 programs because the delivery is more reliable. But knowing oral exists helps you answer the question."
+        ],
+        callout: "The oral GLP-1 exception proves the rule: it requires special formulation, specific timing, and still has lower bioavailability. Injectable remains the standard for therapeutic peptides."
+      },
+      {
+        heading: "Topical peptides: GHK-Cu and skincare",
+        paragraphs: [
+          "Topical peptides work differently. GHK-Cu (copper peptide) is small enough to penetrate skin and acts locally on the tissue where it's applied. It's studied for collagen support, skin remodeling, and wound healing.",
+          "This connects our peptide menu to our skincare shelf. Post-procedure, after Morpheus8 or CO2 laser, topical peptides support recovery where it matters — at the skin surface. Different delivery, different purpose, different conversation."
+        ],
+        bullets: [
+          "Topical peptides act locally, not systemically",
+          "GHK-Cu is small enough (3 amino acids) to penetrate skin",
+          "Used for collagen support, skin remodeling, wound healing",
+          "Bridges our RX menu and our retail skincare"
+        ]
+      },
+      {
+        heading: "Matching route to purpose",
+        paragraphs: [
+          "The delivery route isn't arbitrary — it's matched to what the peptide needs to do. Systemic effects (metabolism, growth signaling, tissue repair throughout the body) need injection. Local effects (skin surface) can use topical. This is part of what Ryan evaluates.",
+          "Understanding this helps you explain why our programs are structured the way they are — it's not just preference, it's science."
+        ]
+      }
+    ],
+    keyTakeaways: [
+      "Digestive enzymes destroy most peptides — that's why oral doesn't work for most",
+      "Subcutaneous injection bypasses the GI tract and delivers the molecule intact",
+      "Oral GLP-1 uses special formulation but has lower bioavailability",
+      "Topical peptides like GHK-Cu work locally on skin — different purpose"
+    ],
+    practiceScenario: {
+      question: "A client says: \"I hate needles. Is there any other way?\"",
+      bestAnswer: "I understand — a lot of people feel that way at first. The needles we use are really small, same type as insulin pens, and most people say they barely notice after the first one. For some peptides there are alternatives — like topical GHK-Cu for skin — but for systemic effects, injection is what works. Ryan can talk through the options and even show you how simple it is.",
+      why: "Validates the concern, normalizes the fear, offers alternatives where they exist, routes to Ryan for demonstration."
+    }
+  },
+
+  p0c: {
+    intro: "The words \"FDA-approved,\" \"compounded,\" \"research-use-only,\" and \"my friend said\" all mean different things — and the difference shapes every sentence you write and every answer you give. This module makes you fluent in evidence tiers so you never accidentally overclaim.",
+    sections: [
+      {
+        heading: "FDA-approved: the gold standard",
+        paragraphs: [
+          "FDA approval means the molecule went through clinical trials, demonstrated safety and efficacy for a specific indication, and has an approved label. Semaglutide is FDA-approved for type 2 diabetes and obesity. PT-141 (as Vyleesi) is FDA-approved for HSDD in premenopausal women.",
+          "When something is FDA-approved, we can reference that approval. But approval is for specific conditions — using it for something else is \"off-label,\" which is legal for prescribers but changes how we talk about it."
+        ],
+        bullets: [
+          "Clinical trials with human safety and efficacy data",
+          "Approved label specifies what it's approved for",
+          "Off-label use: legal for prescribers, but we don't market it for unapproved uses",
+          "Examples: semaglutide, tirzepatide, PT-141/Vyleesi"
+        ]
+      },
+      {
+        heading: "Compounded from a licensed pharmacy",
+        paragraphs: [
+          "Compounded medications are prepared by licensed pharmacies (503A for patient-specific, 503B for larger batches) according to a prescription. They use pharmaceutical-grade ingredients, follow quality standards, and are dispensed legally.",
+          "Many peptides we use are compounded — not because they're unregulated, but because they're not manufactured by big pharma for mass retail. Compounded is not the same as gray-market. Quality control exists. Oversight exists."
+        ],
+        callout: "Key distinction for clients: \"Compounded means it's made by a licensed pharmacy to Ryan's prescription, using pharmaceutical-grade ingredients. It's not the same as buying something off a website.\""
+      },
+      {
+        heading: "Research-use-only (RUO)",
+        paragraphs: [
+          "RUO means the compound has not been FDA-approved for human therapeutic use. It's sold for research purposes. This applies to many peptides clients ask about — BPC-157, Semax, Selank, and others.",
+          "Our role with RUO compounds is educational only. We can explain what something is and what it's studied for. We cannot recommend it for a condition, promise an outcome, or imply it treats anything. This is a compliance bright line."
+        ],
+        script: {
+          situation: "Client asks: \"Is BPC-157 FDA-approved?\"",
+          say: "No — it's what's called research-use-only, which means it hasn't gone through FDA approval for therapeutic use. I can tell you what it's studied for, but whether it's appropriate for you is a conversation for Ryan's consult.",
+          why: "Honest about the status, educational about what that means, routes appropriately."
+        }
+      },
+      {
+        heading: "Anecdote is not evidence",
+        paragraphs: [
+          "\"My friend said...\" and \"I read on Reddit...\" are not evidence tiers. They're stories. Anecdotes can be true for that person without being generalizable, reliable, or safe for someone else.",
+          "When clients bring anecdotes, don't dismiss them — redirect. \"That's interesting — everyone responds differently. Ryan can look at whether that approach makes sense for your situation.\" You validate without endorsing."
+        ],
+        bullets: [
+          "Stories aren't studies — individual experience doesn't prove safety or efficacy",
+          "People share successes more than failures (survivorship bias)",
+          "What worked for someone else might not work or might not be safe for this client",
+          "Redirect warmly: \"Ryan can evaluate whether that makes sense for you\""
+        ]
+      },
+      {
+        heading: "Language that matches evidence",
+        paragraphs: [
+          "Match your words to the evidence tier. FDA-approved: \"approved for\" the labeled indication. Compounded: \"prescribed by Ryan, prepared by a licensed pharmacy.\" RUO: \"studied for\" — never \"proven,\" \"treats,\" or \"cures.\" Anecdote: \"some people report\" — never \"it works.\"",
+          "This precision isn't being picky — it's being professional. It's also what keeps us compliant with regulators who do read our content."
+        ]
+      }
+    ],
+    keyTakeaways: [
+      "FDA-approved = clinical trials, labeled indication, legal to reference that approval",
+      "Compounded = licensed pharmacy, prescription-based, quality-controlled",
+      "RUO = not approved for treatment — educational discussion only",
+      "\"Studied for\" is compliant; \"proven\" or \"cures\" is not"
+    ],
+    practiceScenario: {
+      question: "A client asks: \"But my friend cured her gut issues with BPC-157 — why can't you just say it works?\"",
+      bestAnswer: "I'm glad your friend had a good experience — that's genuinely great to hear. What I can tell you is that BPC-157 is studied for gut lining support, but it's not FDA-approved, so I can't make claims about what it treats or cures. Ryan can look at your specific situation and discuss whether it might be worth exploring for you.",
+      why: "Validates the friend's experience, explains the constraint honestly, routes to proper evaluation."
+    }
+  },
+
+  p0d: {
+    intro: "Clients who've bought peptides online are not bad people — they're curious people who went looking for answers. This module teaches you to have that conversation without judgment, get the safety information Ryan needs, and redirect them to proper oversight.",
+    sections: [
+      {
+        heading: "The gray-market reality",
+        paragraphs: [
+          "Peptides are available online from dozens of unregulated vendors. Some are research chemical suppliers, some are overseas pharmacies, some are straight-up counterfeits. Clients buy them because they're cheaper, more accessible, or because they don't know the difference.",
+          "Our job isn't to shame them. It's to explain why sourcing matters and to route any concerns to Ryan. They came to us, which means they're open to doing this properly."
+        ],
+        callout: "Never make the client feel stupid for buying online. They were trying to solve a problem. Now they're here, which means they want to do it right. Meet them where they are."
+      },
+      {
+        heading: "Quality control concerns",
+        paragraphs: [
+          "Unregulated peptides have real quality issues. No third-party testing. No sterility guarantee. Potential contamination. Dosing inconsistency — what's on the label may not match what's in the vial. Mislabeling — the vial may contain something else entirely.",
+          "These aren't scare tactics; they're documented problems. Clients deserve to know why our sourcing from licensed 503B compounding pharmacies is different."
+        ],
+        bullets: [
+          "No third-party purity testing on gray-market products",
+          "Sterility not guaranteed — bacterial contamination is possible",
+          "Dose inconsistency: actual content may differ from label",
+          "Mislabeling: some vials contain different compounds entirely"
+        ]
+      },
+      {
+        heading: "How to have the conversation",
+        paragraphs: [
+          "When a client mentions they've been getting peptides elsewhere, stay neutral and curious. \"Tell me more about what you've been taking\" gets information. \"That's dangerous\" shuts them down.",
+          "Your goal is to gather enough information for Ryan to evaluate safety and to open the door to doing this properly. Most clients switch once they understand the difference."
+        ],
+        script: {
+          situation: "Client says: \"I've been getting BPC-157 from a website. Is that the same as what you have?\"",
+          say: "I can't speak to what's in products from other sources — there's a lot of variability in quality out there. What we use comes from licensed compounding pharmacies with testing and sterility standards. Ryan can look at what you've been taking and help you transition to something with proper oversight if that makes sense.",
+          why: "Doesn't disparage. Highlights the quality difference. Routes to Ryan for evaluation."
+        }
+      },
+      {
+        heading: "Escalation triggers",
+        paragraphs: [
+          "Some situations require immediate escalation to Ryan. If the client reports unexpected effects from something they're taking, that's clinical. If they're combining multiple substances from unknown sources, that's a safety concern. If they ask you to advise on dosing for their current product, that's outside your scope.",
+          "The bright line: any safety concern, any unexpected symptom, any request for clinical guidance on gray-market products goes to Ryan immediately."
+        ],
+        escalate: [
+          "Client reports unusual symptoms from gray-market peptides",
+          "Client is stacking multiple compounds from unknown sources",
+          "Client asks for dosing advice on products they purchased elsewhere",
+          "Any sign of contamination or adverse reaction"
+        ]
+      },
+      {
+        heading: "The quality difference",
+        paragraphs: [
+          "Licensed 503B compounding pharmacies are inspected, follow cGMP standards, test for purity and potency, and guarantee sterility. That's not marketing — it's the regulatory reality.",
+          "When clients understand what they're paying for with us, the price difference makes sense. They're not paying for the molecule — they're paying for the assurance that it is what it says, does what it should, and is safe to use."
+        ]
+      }
+    ],
+    keyTakeaways: [
+      "Gray-market peptides have real quality control problems — this isn't fear-mongering",
+      "Meet clients without judgment — they came to us because they want to do this right",
+      "Gather information, don't lecture — Ryan needs to know what they've been taking",
+      "Any safety concern, unexpected effect, or clinical question goes straight to Ryan"
+    ],
+    practiceScenario: {
+      question: "A client says: \"I've been using peptides from overseas for six months. I feel fine. Why should I switch?\"",
+      bestAnswer: "I'm glad you've felt okay — that's a good sign. The concern with unregulated sources isn't that something will definitely go wrong, it's that you can't verify what's actually in the vial — purity, dose, sterility. With us, you're getting tested, pharmaceutical-grade products with proper oversight. Ryan can look at what you've been doing and help you continue with better peace of mind.",
+      why: "Validates their experience, explains the risk without catastrophizing, offers a clear value proposition."
+    }
+  },
+
+  p0e: {
+    intro: "When a client feels like peptides are foreign or intimidating, remind them: they already know peptides. Insulin, oxytocin, GLP-1 — these are household names. This module teaches you to use familiar examples as a bridge from curiosity to confidence.",
+    sections: [
+      {
+        heading: "Insulin: the peptide everyone knows",
+        paragraphs: [
+          "Insulin is a 51-amino-acid peptide hormone made by the pancreas. It's been used therapeutically for over a century — one of the first peptides ever isolated and synthesized. When clients hear \"peptide,\" they often think of something new and experimental. Insulin reminds them this is established science.",
+          "Diabetics use peptide therapy every day. That context normalizes what we do and removes the \"weird science\" stigma."
+        ],
+        script: {
+          situation: "Client seems intimidated by the word \"peptide\"",
+          say: "You know what? You already know peptides. Insulin is a peptide — it's been used for over 100 years. Peptides are just short chains of amino acids that signal your body to do things. The ones we work with target specific processes like metabolism or recovery.",
+          why: "Makes the unfamiliar familiar. Removes intimidation. Builds trust."
+        }
+      },
+      {
+        heading: "Oxytocin: the bonding peptide",
+        paragraphs: [
+          "Oxytocin is a 9-amino-acid peptide released during bonding, intimacy, and childbirth. It's called the \"love hormone\" or \"bonding hormone\" in popular media. Clients have heard of it.",
+          "Mentioning oxytocin helps clients understand that peptides aren't just for athletes or biohackers — they're fundamental to human connection and emotion. It also naturally connects to our sexual health offerings."
+        ],
+        bullets: [
+          "9 amino acids — one of the smallest peptide hormones",
+          "Released during bonding, touch, intimacy, childbirth, breastfeeding",
+          "Widely known from popular media as the \"love hormone\"",
+          "Compounded oxytocin is prescription — it's not just a supplement"
+        ]
+      },
+      {
+        heading: "GLP-1: from gut hormone to menu item",
+        paragraphs: [
+          "GLP-1 (glucagon-like peptide-1) is a natural hormone your gut releases after eating. It signals satiety, helps regulate insulin, and slows stomach emptying. Semaglutide and tirzepatide mimic this signal — they're GLP-1 receptor agonists.",
+          "This is probably the most important bridge for our weight-loss clients. They're not taking something foreign — they're amplifying a signal their body already makes. That framing changes the conversation."
+        ],
+        callout: "\"Semaglutide mimics a hormone your gut already makes — GLP-1. It just sends that 'I'm satisfied' signal more strongly and for longer. That's why it changes hunger instead of fighting it.\""
+      },
+      {
+        heading: "Using familiarity to build trust",
+        paragraphs: [
+          "When you connect what we offer to what clients already know, they feel smarter, not dumber. That's the goal. Nobody wants to feel like they're starting from zero. Showing them they already understand the basics builds confidence and trust.",
+          "This also helps with social content. Instead of leading with technical terms, lead with recognition: \"You already know more about peptides than you think...\""
+        ]
+      },
+      {
+        heading: "The TikTok to menu bridge",
+        paragraphs: [
+          "Clients often arrive with fragments they've heard on TikTok or podcasts — half-understood, sometimes wrong. Your job isn't to correct them harshly; it's to bridge from what they've heard to what we actually know.",
+          "\"You might have heard about [X] on TikTok — here's what that actually is...\" validates their curiosity while grounding it in accuracy."
+        ]
+      }
+    ],
+    keyTakeaways: [
+      "Insulin is a peptide — over 100 years of therapeutic use",
+      "Oxytocin is a peptide — familiar as the \"bonding hormone\"",
+      "GLP-1 is a natural gut hormone — semaglutide mimics it",
+      "Familiar examples remove intimidation and build trust"
+    ],
+    practiceScenario: {
+      question: "A client says: \"I don't know anything about peptides. This all seems very experimental.\"",
+      bestAnswer: "Actually, you know more than you think. Insulin is a peptide — it's been used for over a century. Oxytocin, the bonding hormone — that's a peptide too. Even the GLP-1 that semaglutide mimics is a hormone your gut makes naturally. Peptides aren't new or experimental — they're how your body already communicates. We're just supporting those signals under medical supervision.",
+      why: "Reframes from experimental to familiar. Uses examples they know. Normalizes the category."
+    }
+  },
+
+  p0f: {
+    intro: "Clients sometimes wonder: \"How can you offer this?\" This module covers how compounding pharmacies work, what NP prescriptive authority means in Illinois, and why our model is both legal and rigorous. This knowledge strengthens everything in Module 8.",
+    sections: [
+      {
+        heading: "Compounding pharmacies: 503A vs 503B",
+        paragraphs: [
+          "Compounding pharmacies prepare medications that aren't commercially available or need to be customized. There are two types under federal law: 503A pharmacies compound patient-specific prescriptions (one patient, one prescription). 503B pharmacies can prepare larger batches of sterile compounds without individual prescriptions, under stricter FDA oversight.",
+          "Our peptide sourcing comes from licensed 503B pharmacies — facilities that follow cGMP (current Good Manufacturing Practice), undergo FDA inspections, and provide certificates of analysis for purity and potency."
+        ],
+        bullets: [
+          "503A: patient-specific compounding, requires individual prescription",
+          "503B: outsourcing facilities, can prepare batches, stricter FDA oversight",
+          "cGMP compliance: quality systems, testing, sterility standards",
+          "Certificates of analysis verify purity, potency, and sterility"
+        ]
+      },
+      {
+        heading: "Illinois NP prescriptive authority",
+        paragraphs: [
+          "In Illinois, nurse practitioners with full practice authority can prescribe independently — including controlled substances and compounded medications. This is the legal basis for Ryan's practice. He evaluates, prescribes, and monitors without requiring physician co-signature.",
+          "This isn't a workaround; it's Illinois law. Full practice authority means NPs function as independent providers with the education, certification, and licensing to do so."
+        ],
+        callout: "When clients ask \"who prescribes this,\" the answer is simple: Ryan, our nurse practitioner. He has independent prescriptive authority under Illinois law, including for compounded medications."
+      },
+      {
+        heading: "Ryan's oversight model",
+        paragraphs: [
+          "What makes us different from a website isn't just the sourcing — it's the oversight. Ryan screens every patient, reviews their history, evaluates contraindications, prescribes appropriately, and monitors response. There's a follow-up structure. There's accountability.",
+          "This is what \"medically supervised\" actually means. It's not a marketing phrase — it's a practice model with real clinical responsibility."
+        ],
+        script: {
+          situation: "Client asks: \"Can a nurse practitioner really prescribe this?\"",
+          say: "Yes — in Illinois, nurse practitioners with full practice authority can prescribe independently, including compounded medications. Ryan does the full evaluation, writes the prescription, and monitors your progress. It's the same medical oversight you'd get from any prescriber.",
+          why: "Clear, factual, builds confidence in the legal and clinical framework."
+        }
+      },
+      {
+        heading: "Compounded ≠ unregulated",
+        paragraphs: [
+          "A common misconception is that compounded means unregulated or lesser quality. The opposite is true for legitimate 503B compounding. These facilities are inspected, follow manufacturing standards, and test their products. The compound may not be FDA-approved for that specific use, but the production process is regulated.",
+          "This distinction matters when clients ask about quality. Our sourcing is from facilities that meet federal standards — not from gray-market vendors."
+        ]
+      },
+      {
+        heading: "When to reference this",
+        paragraphs: [
+          "You don't need to recite regulatory details unprompted. But when clients ask about legality, safety, or \"how this is different,\" having these facts ready builds credibility. You know the structure. You can explain it.",
+          "This module supplements Module 8 (Compliance) with the specific Illinois and compounding context that makes our model work."
+        ]
+      }
+    ],
+    keyTakeaways: [
+      "503B compounding pharmacies follow FDA oversight and cGMP standards",
+      "Illinois NPs have independent prescriptive authority — this is state law",
+      "Ryan screens, prescribes, and monitors — that's what medically supervised means",
+      "Compounded is not unregulated — quality standards absolutely apply"
+    ],
+    practiceScenario: {
+      question: "A client asks: \"Is what you're doing even legal? My doctor said compounded peptides are sketchy.\"",
+      bestAnswer: "I understand the concern — there's a lot of gray-market stuff out there that deserves skepticism. What we do is different: our peptides come from licensed 503B compounding pharmacies that are FDA-inspected and follow pharmaceutical manufacturing standards. Ryan is a nurse practitioner with full prescriptive authority under Illinois law. It's legal, it's regulated, and it's medically supervised. Happy to have Ryan explain the details in your consult.",
+      why: "Acknowledges the concern, distinguishes from gray market, explains the legal basis, offers deeper conversation."
+    }
+  },
+
+  p0g: {
+    intro: "Clients lump a lot of things together under \"peptides\" that aren't peptides at all. NAD+, MK-677, creatine — knowing what's actually what makes you the expert in the room. This quick module clears up the common mix-ups.",
+    sections: [
+      {
+        heading: "NAD+: a coenzyme, not a peptide",
+        paragraphs: [
+          "NAD+ (nicotinamide adenine dinucleotide) shows up constantly in longevity and wellness conversations. It's central to cellular energy production, DNA repair, and mitochondrial function. It's marketed alongside peptides. But it's not a peptide — it's a coenzyme, a completely different class of molecule.",
+          "Why does this matter? Because knowing the difference makes you credible. When a client says \"I want the NAD+ peptide,\" you can gently correct: \"NAD+ is actually a coenzyme, not a peptide — but we do offer it in our IV services. Let me tell you about that.\""
+        ],
+        bullets: [
+          "NAD+ is a coenzyme (nicotinamide adenine dinucleotide)",
+          "Central to cellular energy, mitochondrial function, longevity pathways",
+          "We offer NAD+ via IV — covered in the Vitamins & IV course",
+          "Gets marketed with peptides but is structurally different"
+        ]
+      },
+      {
+        heading: "MK-677 (Ibutamoren): a non-peptide secretagogue",
+        paragraphs: [
+          "MK-677 is an oral, non-peptide growth hormone secretagogue. It mimics ghrelin and stimulates GH release — the same end goal as some peptides — but it's a small molecule, not a peptide chain. That's why it can be taken orally without getting destroyed by digestion.",
+          "It gets lumped with peptides because of what it does, not what it is. Technically, it's research-use-only in most contexts. When clients ask, you can explain the distinction and route clinical questions to Ryan."
+        ],
+        script: {
+          situation: "Client asks: \"Is MK-677 a peptide?\"",
+          say: "Good question — it's actually not a peptide, even though it shows up in the same conversations. It's a non-peptide growth hormone secretagogue, which means it triggers GH release like some peptides do, but it's a small molecule you can take orally. If you're interested in GH support, Ryan can discuss what options might fit your goals.",
+          why: "Accurate distinction, acknowledges the overlap in function, routes to appropriate conversation."
+        }
+      },
+      {
+        heading: "Creatine: an amino acid derivative",
+        paragraphs: [
+          "Creatine is one of the most studied supplements in sports nutrition. It's an amino acid derivative — made from arginine, glycine, and methionine — but it's not a peptide. It's not a chain of amino acids; it's a single small molecule.",
+          "Clients sometimes mention creatine in peptide conversations because both are popular in fitness circles. The categories don't overlap. Creatine is a supplement available everywhere; peptides are a different conversation entirely."
+        ],
+        bullets: [
+          "Creatine is an amino acid derivative, not a peptide",
+          "Made from arginine, glycine, and methionine — but not a chain",
+          "Widely available as a supplement — no prescription needed",
+          "Different category from therapeutic peptides"
+        ]
+      },
+      {
+        heading: "Why precision matters",
+        paragraphs: [
+          "When you correctly identify what is and isn't a peptide, clients trust you more. You're not just repeating marketing — you understand the categories. That confidence shows.",
+          "It also helps when clients have half-formed ideas from podcasts and TikTok. You can gently clarify without being condescending: \"That's actually a coenzyme, but here's what we offer that addresses the same goal...\""
+        ]
+      },
+      {
+        heading: "Quick reference",
+        paragraphs: [
+          "Peptide: a chain of amino acids (2-50+). Examples: BPC-157, semaglutide, PT-141, insulin, oxytocin.",
+          "Coenzyme: a non-protein molecule that helps enzymes work. Example: NAD+.",
+          "Small molecule secretagogue: a non-peptide compound that triggers hormone release. Example: MK-677.",
+          "Amino acid derivative: a molecule made from amino acids but not a chain. Example: creatine."
+        ]
+      }
+    ],
+    keyTakeaways: [
+      "NAD+ is a coenzyme, not a peptide — important for IV conversations",
+      "MK-677 is a non-peptide secretagogue — oral because it's a small molecule",
+      "Creatine is an amino acid derivative, not a chain — different category",
+      "Precision makes you credible — know what's actually what"
+    ],
+    practiceScenario: {
+      question: "A client asks: \"I want to add NAD+ to my peptide stack. How does that peptide work?\"",
+      bestAnswer: "NAD+ is actually a coenzyme, not a peptide — though it's often marketed alongside them. It's central to cellular energy and mitochondrial function. We offer it via IV, which gets it into your system directly. If you want to add NAD+ to what you're doing, I can tell you about our IV options, and Ryan can discuss how it fits with your current program.",
+      why: "Gently corrects the misunderstanding, shows expertise, offers a path forward."
+    }
+  },
+
   p1: {
     intro: "Before we talk about any specific peptide, we need to talk about the body's readiness to respond. A protocol only works as well as the nervous system allows. This module builds the foundation for everything that follows.",
     sections: [
