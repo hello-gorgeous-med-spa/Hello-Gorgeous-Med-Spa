@@ -245,10 +245,12 @@ export default function AdminLayoutClient({ children }: { children: React.ReactN
 
   const visible = visibleHrefs(role);
 
-  // Command Center = dedicated portal shell (hide Admin chrome — like /rx-portal)
+  // Dedicated portal shells (hide Admin chrome — Boots-style)
   const isCommandCenter =
     pathname === '/admin/command-center' || pathname.startsWith('/admin/command-center/');
-  if (isCommandCenter) {
+  const isOwnerHome = pathname === '/admin/owner' || pathname === '/admin/owner/';
+  
+  if (isCommandCenter || isOwnerHome) {
     return (
       <ToastProvider>
         <KeyboardShortcutsProvider>{children}</KeyboardShortcutsProvider>
