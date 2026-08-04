@@ -20,7 +20,9 @@ import { SITE } from "@/lib/seo";
 import { CARECREDIT_URL, CHERRY_PAY_URL } from "@/lib/flows";
 
 const PINK = "#E6007E";
-const PINK_HOT = "#FF2D8E";
+const HOT = "#FF2D8E";
+const PINK_HOT = HOT;
+const SERIF = "var(--font-playfair), Georgia, serif";
 
 type PublicProposal = {
   id: string;
@@ -186,15 +188,28 @@ export default function PublicProposalPage() {
 
   if (loading) {
     return (
-      <main className="min-h-screen bg-[#FFF0F7] px-4 py-16 text-center text-sm text-black/60">
-        Loading your treatment plan…
+      <main className="flex min-h-screen items-center justify-center bg-[#FFF0F7]">
+        <div className="text-center">
+          <div className="inline-flex items-center gap-2 rounded-full border border-black/15 bg-white px-4 py-2">
+            <span className="relative flex h-2 w-2">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#E6007E] opacity-70" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-[#E6007E]" />
+            </span>
+            <span className="text-sm font-medium text-black/70">Loading your treatment plan…</span>
+          </div>
+        </div>
       </main>
     );
   }
   if (error || !proposal) {
     return (
-      <main className="min-h-screen bg-white px-4 py-16 text-center text-sm font-semibold text-red-600">
-        {error || "Not found."}
+      <main className="flex min-h-screen items-center justify-center bg-white px-4">
+        <div className="rounded-2xl border-2 border-red-200 bg-red-50 px-6 py-5 text-center">
+          <p className="text-sm font-semibold text-red-600">{error || "Proposal not found."}</p>
+          <Link href="/build-your-proposal" className="mt-3 inline-block text-sm font-bold text-[#E6007E] underline">
+            Build a new proposal →
+          </Link>
+        </div>
       </main>
     );
   }
@@ -208,123 +223,162 @@ export default function PublicProposalPage() {
   const canPay = !isDeclined && !hasPayment && proposal.payment_status !== "paid";
 
   return (
-    <main className="relative min-h-screen overflow-x-hidden bg-white">
+    <main className="relative min-h-screen overflow-x-hidden">
       <div
         aria-hidden
         className="pointer-events-none fixed inset-0 -z-10"
         style={{
           background: `
-            radial-gradient(ellipse 80% 50% at 10% -10%, rgba(230,0,126,0.18), transparent 55%),
-            radial-gradient(ellipse 60% 40% at 90% 0%, rgba(255,45,142,0.14), transparent 50%),
-            linear-gradient(180deg, #FFF0F7 0%, #ffffff 42%, #f5f5f5 100%)
+            radial-gradient(ellipse 60% 50% at 10% 0%, rgba(230,0,126,0.12), transparent 55%),
+            radial-gradient(ellipse 50% 40% at 90% 10%, rgba(255,45,142,0.1), transparent 50%),
+            linear-gradient(180deg, #FFF0F7 0%, #ffffff 45%, #f5f5f5 100%)
           `,
         }}
       />
 
-      <div className="mx-auto max-w-6xl px-4 py-8 md:py-12">
-        <header className="mb-8 flex flex-wrap items-center justify-between gap-4 border-b-4 border-black pb-5">
+      <div className="mx-auto max-w-5xl px-4 pb-16 pt-8 md:px-6 md:pt-12">
+        {/* Compact header */}
+        <header className="mb-8 flex flex-wrap items-center justify-between gap-4">
           <div className="flex items-center gap-3">
             <Image
               src="/images/hello-gorgeous-logo.png"
               alt="Hello Gorgeous Med Spa"
-              width={56}
-              height={60}
-              className="h-14 w-auto"
+              width={48}
+              height={52}
+              className="h-12 w-auto"
               priority
             />
             <div>
-              <p className="text-[11px] font-bold uppercase tracking-[0.28em]" style={{ color: PINK }}>
+              <p className="text-[10px] font-bold uppercase tracking-[0.24em]" style={{ color: PINK }}>
                 Hello Gorgeous Med Spa
               </p>
-              <p className="text-xs text-black/55">Oswego · Fox Valley · NP-directed care</p>
+              <p className="text-[11px] text-black/55">Oswego · NP-directed care</p>
             </div>
           </div>
           <div className="flex gap-2 print:hidden">
             <a
               href={publicPdfUrl}
-              className="rounded-full border-2 border-black bg-white px-4 py-2 text-xs font-bold text-black hover:border-[#E6007E]"
+              className="rounded-full border border-black/20 bg-white px-3 py-1.5 text-[11px] font-bold text-black hover:border-black"
             >
-              Download PDF
+              PDF
             </a>
             <button
               type="button"
               onClick={() => window.print()}
-              className="rounded-full px-4 py-2 text-xs font-bold text-white"
-              style={{ background: `linear-gradient(125deg, ${PINK_HOT}, ${PINK})` }}
+              className="rounded-full border border-black/20 bg-white px-3 py-1.5 text-[11px] font-bold text-black hover:border-black"
             >
               Print
             </button>
           </div>
         </header>
 
-        <section className="overflow-hidden rounded-[1.75rem] border-4 border-black bg-[#0a0a0a] text-white shadow-[10px_10px_0_0_rgba(230,0,126,0.45)]">
-          <div
-            className="relative px-6 py-10 md:px-10 md:py-12"
-            style={{
-              background: `
-                linear-gradient(125deg, #1a0a12 0%, #2d1020 45%, #0a0a0a 100%),
-                radial-gradient(ellipse 70% 80% at 85% 20%, rgba(230,0,126,0.35), transparent 55%)
-              `,
-            }}
-          >
-            <p className="text-[11px] font-bold uppercase tracking-[0.28em]" style={{ color: "#FFB8DC" }}>
+        {/* Editorial hero (Boots-inspired) */}
+        <div className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr] lg:items-end mb-8">
+          <div>
+            <p className="text-[11px] font-bold uppercase tracking-[0.28em]" style={{ color: PINK }}>
               Personalized for you
             </p>
             <h1
-              className="mt-3 max-w-3xl text-4xl font-medium leading-[1.1] md:text-5xl"
-              style={{ fontFamily: "var(--font-playfair), Georgia, serif" }}
+              className="mt-3 max-w-xl text-4xl font-medium leading-[1.08] text-black md:text-5xl"
+              style={{ fontFamily: SERIF }}
             >
               Your treatment plan,{" "}
               <span
-                className="bg-gradient-to-r from-[#FFB8DC] via-[#FF2D8E] to-[#E6007E] bg-clip-text text-transparent"
+                className="bg-gradient-to-r from-[#9b0a4d] via-[#E6007E] to-[#FF2D8E] bg-clip-text italic text-transparent"
                 style={{ WebkitBackgroundClip: "text" }}
               >
                 {proposal.client_name}
               </span>
             </h1>
-            <p className="mt-4 max-w-2xl text-sm leading-relaxed text-white/75 md:text-base">
+          </div>
+          <div className="lg:pb-1">
+            <p className="text-sm leading-relaxed text-black/70">
               Built {new Date(proposal.created_at).toLocaleDateString()} · Valid through{" "}
-              {new Date(proposal.expires_at).toLocaleDateString()}. Review your options below — then
-              secure your plan or tell us you&apos;re ready to book.
+              {new Date(proposal.expires_at).toLocaleDateString()}
             </p>
             {proposal.concerns?.length ? (
-              <p className="mt-4 text-sm text-[#FFB8DC]">{proposal.concerns.join(" · ")}</p>
+              <div className="mt-3 flex flex-wrap gap-2">
+                {proposal.concerns.map((c) => (
+                  <span key={c} className="rounded-full border border-black/15 bg-white px-3 py-1 text-xs font-medium text-black/70">
+                    {c}
+                  </span>
+                ))}
+              </div>
             ) : null}
+          </div>
+        </div>
+
+        {/* Status bar */}
+        <section className="overflow-hidden rounded-[1.75rem] border-4 border-black bg-[#0a0a0a] shadow-[10px_10px_0_0_rgba(230,0,126,0.4)]">
+          <div
+            className="flex flex-wrap items-center justify-between gap-4 px-6 py-5 md:px-8"
+            style={{ background: "radial-gradient(ellipse 70% 120% at 100% 0%, rgba(230,0,126,0.4), transparent 55%)" }}
+          >
+            <div className="flex items-center gap-3">
+              <div className="inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/10 px-3 py-1.5 backdrop-blur">
+                <span className="relative flex h-2 w-2">
+                  <span className={`absolute inline-flex h-full w-full animate-ping rounded-full opacity-70 ${isAccepted ? "bg-emerald-400" : isDeclined ? "bg-red-400" : "bg-[#FFB8DC]"}`} />
+                  <span className={`relative inline-flex h-2 w-2 rounded-full ${isAccepted ? "bg-emerald-400" : isDeclined ? "bg-red-400" : "bg-[#FFB8DC]"}`} />
+                </span>
+                <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-white">
+                  {isAccepted ? "Plan accepted" : isDeclined ? "Declined" : hasPayment ? "Payment received" : "Review your options"}
+                </span>
+              </div>
+            </div>
+            <div className="flex gap-2">
+              {canPay && (
+                <Link
+                  href="/book"
+                  className="rounded-full bg-white px-4 py-2 text-xs font-bold text-black"
+                >
+                  Book consult
+                </Link>
+              )}
+              <a
+                href={`tel:${SITE.phone.replace(/\D/g, "")}`}
+                className="rounded-full border border-white/30 px-4 py-2 text-xs font-bold text-white"
+              >
+                {SITE.phone}
+              </a>
+            </div>
           </div>
         </section>
 
         {proposal.client_instructions ? (
-          <section className="mt-8 rounded-[1.75rem] border-4 border-black bg-white p-6 shadow-[8px_8px_0_0_rgba(230,0,126,0.35)] md:p-8">
-            <p className="text-[11px] font-bold uppercase tracking-[0.24em]" style={{ color: PINK }}>
+          <section className="mt-8 rounded-2xl border-2 border-black/15 bg-white p-5 md:p-6">
+            <p className="text-[10px] font-bold uppercase tracking-[0.24em]" style={{ color: PINK }}>
               A note from Hello Gorgeous
             </p>
-            <h2
-              className="mt-2 text-3xl font-medium text-black md:text-4xl"
-              style={{ fontFamily: "var(--font-playfair), Georgia, serif" }}
-            >
-              Welcome
-            </h2>
-            <div className="mt-4 whitespace-pre-wrap text-[15px] leading-relaxed text-black/80">
+            <div className="mt-3 whitespace-pre-wrap text-sm leading-relaxed text-black/80">
               {proposal.client_instructions}
             </div>
           </section>
         ) : null}
 
-        {isAccepted ? (
-          <div className="mt-6 rounded-2xl border-4 border-black bg-[#FFF0F7] p-5 shadow-[6px_6px_0_0_rgba(230,0,126,0.3)]">
-            <p className="text-sm font-bold" style={{ color: PINK }}>
-              You selected {proposal.accepted_option || "your plan"}.
+        {isAccepted && !hasPayment ? (
+          <div className="mt-6 rounded-2xl border-2 border-emerald-300 bg-emerald-50 px-5 py-4">
+            <p className="text-sm font-bold text-emerald-800">
+              ✓ You selected {proposal.accepted_option || "your plan"}
             </p>
-            <p className="mt-1 text-sm text-black/70">
-              Next: pay a deposit to lock it in, or we&apos;ll call to book your first visit.
+            <p className="mt-1 text-sm text-emerald-700">
+              Pay a deposit to lock it in, or we&apos;ll call to book your first visit.
+            </p>
+          </div>
+        ) : null}
+        {hasPayment ? (
+          <div className="mt-6 rounded-2xl border-2 border-emerald-400 bg-emerald-50 px-5 py-4">
+            <p className="text-sm font-bold text-emerald-800">
+              ✓ {proposal.payment_status === "paid" ? "Payment received" : "Deposit received"} — thank you!
+            </p>
+            <p className="mt-1 text-sm text-emerald-700">
+              We&apos;ll confirm your first appointment next.
             </p>
           </div>
         ) : null}
         {isDeclined ? (
-          <div className="mt-6 rounded-2xl border border-black/20 bg-black/[0.03] p-5">
-            <p className="text-sm font-semibold text-black/80">
-              You marked this proposal as not moving forward. Call or text anytime if you want to
-              revisit.
+          <div className="mt-6 rounded-2xl border border-black/15 bg-black/[0.02] px-5 py-4">
+            <p className="text-sm text-black/70">
+              You marked this proposal as not moving forward. Call or text anytime to revisit.
             </p>
           </div>
         ) : null}
