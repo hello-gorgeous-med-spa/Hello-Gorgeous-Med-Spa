@@ -1,264 +1,462 @@
-import Link from 'next/link';
-import { Metadata } from 'next';
+"use client";
 
-import { SQUARE_STAFF_APPOINTMENTS_URL } from '@/lib/flows';
-import { BESTIE_SQUARE_DISCOUNT } from '@/lib/square/bestie-discount';
+import Link from "next/link";
+import { useState } from "react";
+import { SQUARE_STAFF_APPOINTMENTS_URL } from "@/lib/flows";
+import { BESTIE_SQUARE_DISCOUNT } from "@/lib/square/bestie-discount";
 
-export const metadata: Metadata = {
-  title: 'Staff Resources | Hello Gorgeous Med Spa',
-  robots: 'noindex, nofollow',
-};
+const PINK = "#E6007E";
+const HOT = "#FF2D8E";
+const SOFT_PINK = "#FFB8DC";
+const BG_COOL = "#E8ECF4";
 
-export default function StaffPage() {
+const NAV_LINKS = [
+  { label: "Home", href: "/staff", active: true },
+  { label: "Academy", href: "/staff/protocols" },
+  { label: "Science", href: "/regen-science" },
+  { label: "Proposals", href: "/admin/proposals" },
+];
+
+export default function StaffHubPage() {
+  const [showBanner, setShowBanner] = useState(true);
+
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-900 via-purple-950 to-black">
-      <div className="max-w-md mx-auto px-4 py-12">
-        {/* Header with new RE GEN logo */}
-        <div className="text-center mb-10">
-          <img 
-            src="/images/regen/regen-logo.png" 
-            alt="RE GEN - Renew. Rebalance. Regenerate." 
-            className="h-24 mx-auto mb-6 rounded-lg"
-          />
-          <h1 className="text-2xl font-bold text-white mb-2">
-            Staff Training Hub
-          </h1>
-          <p className="text-pink-300">
-            Your tools & training resources
-          </p>
-        </div>
-
-        {/* Resource Cards */}
-        <div className="space-y-4">
-          <a
-            href="/docs/HG-Staff-Ops-Desk-Guide.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="block bg-gradient-to-r from-teal-700/40 to-[#0B1F33]/80 backdrop-blur rounded-2xl p-5 border-2 border-teal-300/50 hover:border-teal-200 transition-all"
-          >
-            <div className="flex items-center gap-4">
-              <div className="text-4xl">📄</div>
-              <div className="flex-1">
-                <h2 className="font-bold text-white text-lg">Staff Ops Desk Guide (PDF)</h2>
-                <p className="text-teal-100/90 text-sm">
-                  Admin · Command Center · Proposals · Consents — download &amp; keep handy
-                </p>
-              </div>
-              <div className="text-teal-200 text-2xl">↓</div>
+    <div className="min-h-screen" style={{ background: BG_COOL }}>
+      {/* Dark portal nav bar */}
+      <header className="sticky top-0 z-20 border-b border-white/10 bg-[#0f172a]">
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6">
+          {/* Logo / brand */}
+          <div className="flex items-center gap-3">
+            <div
+              className="flex h-9 w-9 items-center justify-center rounded-xl text-lg font-black text-white"
+              style={{ background: `linear-gradient(135deg, ${HOT}, ${PINK})` }}
+            >
+              HG
             </div>
-          </a>
-
-          <a
-            href="/docs/HG-Laura-Desk-How-To.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="block bg-gradient-to-r from-[#E6007E]/35 to-[#2d1020] backdrop-blur rounded-2xl p-5 border-2 border-[#FF2D8E]/50 hover:border-[#FF2D8E] transition-all"
-          >
-            <div className="flex items-center gap-4">
-              <div className="text-4xl">💗</div>
-              <div className="flex-1">
-                <h2 className="font-bold text-white text-lg">Laura&apos;s Desk How-To (PDF)</h2>
-                <p className="text-pink-100/90 text-sm">
-                  Marketing hub · hours · meetings · Text Studio · August expectations
-                </p>
-              </div>
-              <div className="text-pink-300 text-2xl">↓</div>
-            </div>
-          </a>
-
-          {/* Square seller calendar — book for clients (not public /book) */}
-          <a
-            href={SQUARE_STAFF_APPOINTMENTS_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="block bg-gradient-to-r from-[#111] to-[#2d1020] backdrop-blur rounded-2xl p-5 border-2 border-white/25 hover:border-[#FF2D8E] transition-all"
-          >
-            <div className="flex items-center gap-4">
-              <div className="text-4xl">⬛</div>
-              <div className="flex-1">
-                <h2 className="font-bold text-white text-lg">Book in Square</h2>
-                <p className="text-pink-100/90 text-sm">
-                  Seller calendar — schedule clients from your Square login (not the public book site)
-                </p>
-              </div>
-              <div className="text-pink-300 text-2xl">↗</div>
-            </div>
-          </a>
-
-          {/* Front desk phone assistant */}
-          <Link
-            href="/staff/assistant"
-            className="block bg-gradient-to-r from-[#E6007E]/30 to-[#FF2D8E]/20 backdrop-blur rounded-2xl p-5 border-2 border-[#E6007E] hover:border-[#FF2D8E] hover:from-[#E6007E]/40 transition-all"
-          >
-            <div className="flex items-center gap-4">
-              <div className="text-4xl">📞</div>
-              <div className="flex-1">
-                <h2 className="font-bold text-white text-lg">Front Desk Assistant</h2>
-                <p className="text-pink-100/90 text-sm">
-                  On a call? Instant answers — menu, pricing, booking &amp; RX scripts
-                </p>
-              </div>
-              <div className="text-pink-300 text-2xl">→</div>
-            </div>
-          </Link>
-
-          {/* Protocols Hub — guides, social, invoices */}
-          <Link
-            href="/staff/protocols"
-            className="block bg-gradient-to-r from-emerald-600/25 to-pink-600/25 backdrop-blur rounded-2xl p-5 border-2 border-emerald-400/60 hover:border-emerald-400 hover:from-emerald-600/35 hover:to-pink-600/35 transition-all"
-          >
-            <div className="flex items-center gap-4">
-              <div className="text-4xl">📋</div>
-              <div className="flex-1">
-                <h2 className="font-bold text-white text-lg">Protocols &amp; Quick Tools</h2>
-                <p className="text-emerald-200/80 text-sm">
-                  Dosing guides · cheat sheets · July social · RX invoices
-                </p>
-              </div>
-              <div className="text-emerald-400 text-2xl">→</div>
-            </div>
-          </Link>
-
-          {/* Bestie $100 Square discount */}
-          <Link
-            href="/admin/promos/bestie"
-            className="block bg-gradient-to-r from-amber-600/25 to-pink-600/25 backdrop-blur rounded-2xl p-5 border-2 border-amber-400/60 hover:border-amber-400 transition-all"
-          >
-            <div className="flex items-center gap-4">
-              <div className="text-4xl">💕</div>
-              <div className="flex-1">
-                <h2 className="font-bold text-white text-lg">Bestie — ${BESTIE_SQUARE_DISCOUNT.amountUsd} Off</h2>
-                <p className="text-amber-200/80 text-sm">
-                  Square checkout &amp; POS — code {BESTIE_SQUARE_DISCOUNT.code}
-                </p>
-              </div>
-              <div className="text-amber-400 text-2xl">→</div>
-            </div>
-          </Link>
-
-          {/* Pharmacy Selector */}
-          <a
-            href="/staff/pharmacy-catalog"
-            className="block bg-white/10 backdrop-blur rounded-2xl p-5 border-2 border-pink-500/30 hover:border-pink-500 hover:bg-white/15 transition-all"
-          >
-            <div className="flex items-center gap-4">
-              <div className="text-4xl">💊</div>
-              <div className="flex-1">
-                <h2 className="font-bold text-white text-lg">Pharmacy Selector</h2>
-                <p className="text-pink-200/70 text-sm">Compare prices across pharmacies</p>
-              </div>
-              <div className="text-pink-500 text-2xl">→</div>
-            </div>
-          </a>
-
-          {/* Install Instructions */}
-          <a
-            href="/staff/pharmacy-install-card.pdf"
-            target="_blank"
-            className="block bg-white/10 backdrop-blur rounded-2xl p-5 border-2 border-purple-500/30 hover:border-purple-500 hover:bg-white/15 transition-all"
-          >
-            <div className="flex items-center gap-4">
-              <div className="text-4xl">📲</div>
-              <div className="flex-1">
-                <h2 className="font-bold text-white text-lg">Install Instructions</h2>
-                <p className="text-purple-200/70 text-sm">Add Pharmacy Selector to home screen</p>
-              </div>
-              <div className="text-purple-400 text-2xl">→</div>
-            </div>
-          </a>
-
-          {/* REGEN Study Guide */}
-          <a
-            href="/staff/regen-study-guide.pdf"
-            target="_blank"
-            className="block bg-white/10 backdrop-blur rounded-2xl p-5 border-2 border-cyan-500/30 hover:border-cyan-500 hover:bg-white/15 transition-all"
-          >
-            <div className="flex items-center gap-4">
-              <div className="text-4xl">📚</div>
-              <div className="flex-1">
-                <h2 className="font-bold text-white text-lg">RE GEN Study Guide</h2>
-                <p className="text-cyan-200/70 text-sm">Product knowledge & training</p>
-              </div>
-              <div className="text-cyan-400 text-2xl">→</div>
-            </div>
-          </a>
-
-          {/* Promo Kit - NEW */}
-          <a
-            href="/promo-kit/"
-            target="_blank"
-            className="block bg-gradient-to-r from-pink-600/20 to-purple-600/20 backdrop-blur rounded-2xl p-5 border-2 border-pink-400/50 hover:border-pink-400 hover:from-pink-600/30 hover:to-purple-600/30 transition-all"
-          >
-            <div className="flex items-center gap-4">
-              <div className="text-4xl">🎨</div>
-              <div className="flex-1">
-                <h2 className="font-bold text-white text-lg">Promo Kit</h2>
-                <p className="text-pink-200/70 text-sm">Social graphics & marketing assets</p>
-              </div>
-              <div className="text-pink-400 text-2xl">→</div>
-            </div>
-          </a>
-
-          {/* Print Brochure */}
-          <a
-            href="/rx/brochure"
-            target="_blank"
-            className="block bg-gradient-to-r from-cyan-600/20 to-blue-600/20 backdrop-blur rounded-2xl p-5 border-2 border-cyan-400/50 hover:border-cyan-400 hover:from-cyan-600/30 hover:to-blue-600/30 transition-all"
-          >
-            <div className="flex items-center gap-4">
-              <div className="text-4xl">📄</div>
-              <div className="flex-1">
-                <h2 className="font-bold text-white text-lg">RE GEN Brochure</h2>
-                <p className="text-cyan-200/70 text-sm">Print-ready handout — 2 pages, double-sided</p>
-              </div>
-              <div className="text-cyan-400 text-2xl">→</div>
-            </div>
-          </a>
-
-          {/* In-Spa TV Loop */}
-          <a
-            href="/regen-tv"
-            target="_blank"
-            className="block bg-gradient-to-r from-fuchsia-600/20 to-pink-600/20 backdrop-blur rounded-2xl p-5 border-2 border-fuchsia-400/50 hover:border-fuchsia-400 hover:from-fuchsia-600/30 hover:to-pink-600/30 transition-all"
-          >
-            <div className="flex items-center gap-4">
-              <div className="text-4xl">📺</div>
-              <div className="flex-1">
-                <h2 className="font-bold text-white text-lg">In-Spa TV Loop</h2>
-                <p className="text-fuchsia-200/70 text-sm">Logo reveal + RE GEN promos — waiting room &amp; TVs</p>
-              </div>
-              <div className="text-fuchsia-400 text-2xl">→</div>
-            </div>
-          </a>
-        </div>
-
-        {/* Footer */}
-        <div className="mt-10 text-center space-y-3">
-          <div className="flex flex-wrap justify-center gap-2 text-sm">
-            <Link href="/login?returnTo=/admin&staff=1" className="text-pink-300 hover:text-white font-medium">
-              Owner / admin sign in
-            </Link>
-            <span className="text-white/30">·</span>
-            <Link href="/admin/owner" className="text-pink-300 hover:text-white font-medium">
-              Owner dashboard
-            </Link>
-            <span className="text-white/30">·</span>
-            <Link href="/admin/command-center" className="text-pink-300 hover:text-white font-medium">
-              Command Center
-            </Link>
+            <span className="text-sm font-bold tracking-wide text-white">STAFF HUB</span>
           </div>
-          <p className="text-gray-400 text-sm">
-            Questions? Text Dani 💕
-          </p>
+
+          {/* Center nav links */}
+          <nav className="hidden items-center gap-1 sm:flex">
+            {NAV_LINKS.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={`relative flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold transition ${
+                  link.active
+                    ? "text-white"
+                    : "text-white/70 hover:bg-white/10 hover:text-white"
+                }`}
+                style={link.active ? { background: `linear-gradient(135deg, ${HOT}, ${PINK})` } : undefined}
+              >
+                {link.label}
+              </Link>
+            ))}
+          </nav>
+
+          {/* Right side */}
+          <div className="flex items-center gap-3">
+            <Link
+              href="/admin"
+              className="rounded-full border border-white/20 bg-white/5 px-3 py-1.5 text-xs font-semibold text-white/80 hover:bg-white/10"
+            >
+              Admin Hub
+            </Link>
+            <div
+              className="flex h-8 w-8 items-center justify-center rounded-full text-sm font-bold text-white"
+              style={{ background: `linear-gradient(135deg, ${SOFT_PINK}, ${HOT})` }}
+              title="Staff"
+            >
+              ✦
+            </div>
+          </div>
         </div>
 
-        {/* Quick tip */}
-        <div className="mt-6 bg-gradient-to-r from-pink-500/20 to-purple-500/20 rounded-xl p-4 text-center border border-pink-500/20">
-          <p className="text-sm text-pink-100">
-            <strong>Pro tip:</strong> Bookmark this page or add to your home screen for quick access!
-          </p>
+        {/* Mobile nav */}
+        <div className="flex gap-1 overflow-x-auto px-4 pb-3 sm:hidden">
+          {NAV_LINKS.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              className={`shrink-0 rounded-full px-3 py-1.5 text-xs font-semibold transition ${
+                link.active ? "bg-white/20 text-white" : "text-white/60"
+              }`}
+            >
+              {link.label}
+            </Link>
+          ))}
         </div>
-      </div>
+      </header>
+
+      {/* Main content */}
+      <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6">
+        {/* Greeting section */}
+        <div className="mb-8 flex flex-wrap items-start justify-between gap-4">
+          <div className="flex items-center gap-4">
+            <div
+              className="flex h-14 w-14 items-center justify-center rounded-2xl text-2xl font-black text-white shadow-lg"
+              style={{ background: `linear-gradient(135deg, ${HOT}, ${PINK})` }}
+            >
+              HG
+            </div>
+            <div>
+              <h1 className="text-2xl font-bold text-slate-900 sm:text-3xl">
+                Hey gorgeous. <span className="text-slate-500">Welcome to Staff Hub.</span>
+              </h1>
+              <p className="mt-1 text-sm text-slate-500">Your training, tools &amp; resources in one place.</p>
+            </div>
+          </div>
+        </div>
+
+        {/* Dismissible info banner */}
+        {showBanner && (
+          <div className="mb-6 flex items-start gap-3 rounded-2xl border border-amber-200/60 bg-amber-50/80 px-5 py-4 backdrop-blur">
+            <div className="flex-1">
+              <p className="text-sm text-slate-700">
+                <span className="mr-2 rounded bg-amber-200 px-1.5 py-0.5 text-xs font-bold text-amber-800">TIP</span>
+                Bookmark this page or add to your home screen for quick access.{" "}
+                <a
+                  href="/docs/HG-Staff-Ops-Desk-Guide.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-semibold text-slate-900 underline decoration-amber-400 hover:text-amber-700"
+                >
+                  Download the Ops Desk Guide
+                </a>
+              </p>
+            </div>
+            <button
+              type="button"
+              onClick={() => setShowBanner(false)}
+              className="shrink-0 text-sm text-slate-400 hover:text-slate-600"
+            >
+              Dismiss
+            </button>
+          </div>
+        )}
+
+        {/* Two-column layout */}
+        <div className="grid gap-6 lg:grid-cols-[1fr_340px]">
+          {/* Left column */}
+          <div className="space-y-6">
+            {/* Quick actions card */}
+            <div className="rounded-2xl border border-slate-200/80 bg-white p-5 shadow-sm">
+              <div className="mb-4 flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <span className="text-lg">⚡</span>
+                  <h2 className="text-xs font-bold uppercase tracking-widest text-slate-500">Quick Actions</h2>
+                </div>
+                <Link
+                  href="/staff/assistant"
+                  className="text-sm font-semibold hover:underline"
+                  style={{ color: PINK }}
+                >
+                  Front desk help →
+                </Link>
+              </div>
+
+              <div className="space-y-2">
+                <a
+                  href={SQUARE_STAFF_APPOINTMENTS_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-3 rounded-xl border border-slate-200 bg-slate-50/50 px-4 py-3 transition hover:border-slate-300 hover:bg-slate-100"
+                >
+                  <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-slate-900 text-sm">⬛</span>
+                  <span className="text-sm font-medium text-slate-700">
+                    Book in Square — seller calendar for scheduling clients
+                  </span>
+                </a>
+                <Link
+                  href="/staff/assistant"
+                  className="flex items-center gap-3 rounded-xl border border-slate-200 bg-slate-50/50 px-4 py-3 transition hover:border-slate-300 hover:bg-slate-100"
+                >
+                  <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-slate-200 text-sm">📞</span>
+                  <span className="text-sm font-medium text-slate-700">
+                    Front Desk Assistant — instant answers while on calls
+                  </span>
+                </Link>
+                <Link
+                  href="/admin/promos/bestie"
+                  className="flex items-center gap-3 rounded-xl border border-slate-200 bg-slate-50/50 px-4 py-3 transition hover:border-slate-300 hover:bg-slate-100"
+                >
+                  <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-amber-100 text-sm">💕</span>
+                  <span className="text-sm font-medium text-slate-700">
+                    Bestie ${BESTIE_SQUARE_DISCOUNT.amountUsd} Off — code {BESTIE_SQUARE_DISCOUNT.code}
+                  </span>
+                </Link>
+              </div>
+            </div>
+
+            {/* Feature cards row */}
+            <div className="grid gap-4 sm:grid-cols-2">
+              {/* Academy Card */}
+              <Link
+                href="/staff/protocols"
+                className="group rounded-2xl border border-slate-200/80 bg-white p-6 shadow-sm transition hover:border-pink-200 hover:shadow-md"
+              >
+                <div
+                  className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl text-xl"
+                  style={{ background: `linear-gradient(135deg, ${HOT}20, ${PINK}15)` }}
+                >
+                  🎓
+                </div>
+                <h3 className="mb-2 font-bold text-slate-900">HG Academy</h3>
+                <p className="mb-3 text-sm text-slate-500">
+                  Protocol guides, dosing cheat sheets, social templates &amp; RX invoice tools.
+                </p>
+                <span className="text-sm font-semibold group-hover:underline" style={{ color: PINK }}>
+                  Open Academy →
+                </span>
+              </Link>
+
+              {/* Front Desk Assistant Card */}
+              <Link
+                href="/staff/assistant"
+                className="group rounded-2xl border border-slate-200/80 bg-white p-6 shadow-sm transition hover:border-pink-200 hover:shadow-md"
+              >
+                <div
+                  className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl text-xl"
+                  style={{ background: `linear-gradient(135deg, ${HOT}20, ${PINK}15)` }}
+                >
+                  📞
+                </div>
+                <h3 className="mb-2 font-bold text-slate-900">Front Desk Assistant</h3>
+                <p className="mb-3 text-sm text-slate-500">
+                  On a call? Get instant answers for menu, pricing, booking &amp; RX scripts.
+                </p>
+                <span className="text-sm font-semibold group-hover:underline" style={{ color: PINK }}>
+                  Get help →
+                </span>
+              </Link>
+
+              {/* Pharmacy Catalog Card */}
+              <Link
+                href="/staff/pharmacy-catalog"
+                className="group rounded-2xl border border-slate-200/80 bg-white p-6 shadow-sm transition hover:border-pink-200 hover:shadow-md"
+              >
+                <div
+                  className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl text-xl"
+                  style={{ background: `linear-gradient(135deg, ${HOT}20, ${PINK}15)` }}
+                >
+                  💊
+                </div>
+                <h3 className="mb-2 font-bold text-slate-900">Pharmacy Catalog</h3>
+                <p className="mb-3 text-sm text-slate-500">
+                  Compare prices across pharmacies, check stock, and reference product info.
+                </p>
+                <span className="text-sm font-semibold group-hover:underline" style={{ color: PINK }}>
+                  Open catalog →
+                </span>
+              </Link>
+
+              {/* Promo Kit Card */}
+              <a
+                href="/promo-kit/"
+                target="_blank"
+                className="group rounded-2xl border border-slate-200/80 bg-white p-6 shadow-sm transition hover:border-pink-200 hover:shadow-md"
+              >
+                <div
+                  className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl text-xl"
+                  style={{ background: `linear-gradient(135deg, ${HOT}20, ${PINK}15)` }}
+                >
+                  🎨
+                </div>
+                <h3 className="mb-2 font-bold text-slate-900">Promo Kit</h3>
+                <p className="mb-3 text-sm text-slate-500">
+                  Social graphics, marketing assets, and branded templates ready to share.
+                </p>
+                <span className="text-sm font-semibold group-hover:underline" style={{ color: PINK }}>
+                  Browse assets →
+                </span>
+              </a>
+            </div>
+
+            {/* Staff Guides Section */}
+            <div className="rounded-2xl border border-slate-200/80 bg-white shadow-sm">
+              <div className="flex items-center justify-between border-b border-slate-100 px-5 py-4">
+                <h2 className="font-bold text-slate-900">Staff Guides &amp; PDFs</h2>
+              </div>
+              <div className="divide-y divide-slate-100 p-4">
+                <a
+                  href="/docs/HG-Staff-Ops-Desk-Guide.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-4 py-3 first:pt-0 last:pb-0"
+                >
+                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-teal-100 text-lg">📄</span>
+                  <div className="min-w-0 flex-1">
+                    <p className="truncate font-semibold text-slate-900">Staff Ops Desk Guide</p>
+                    <p className="text-xs text-slate-500">Admin · Command Center · Proposals · Consents</p>
+                  </div>
+                  <span className="text-slate-400">↓</span>
+                </a>
+                <a
+                  href="/docs/HG-Laura-Desk-How-To.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-4 py-3"
+                >
+                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg text-lg" style={{ background: `${PINK}15` }}>💗</span>
+                  <div className="min-w-0 flex-1">
+                    <p className="truncate font-semibold text-slate-900">Laura&apos;s Desk How-To</p>
+                    <p className="text-xs text-slate-500">Marketing hub · hours · meetings · Text Studio</p>
+                  </div>
+                  <span className="text-slate-400">↓</span>
+                </a>
+                <a
+                  href="/staff/regen-study-guide.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-4 py-3"
+                >
+                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-cyan-100 text-lg">📚</span>
+                  <div className="min-w-0 flex-1">
+                    <p className="truncate font-semibold text-slate-900">RE GEN Study Guide</p>
+                    <p className="text-xs text-slate-500">Product knowledge &amp; training</p>
+                  </div>
+                  <span className="text-slate-400">↓</span>
+                </a>
+                <a
+                  href="/staff/pharmacy-install-card.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-4 py-3"
+                >
+                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-purple-100 text-lg">📲</span>
+                  <div className="min-w-0 flex-1">
+                    <p className="truncate font-semibold text-slate-900">Install Instructions</p>
+                    <p className="text-xs text-slate-500">Add Pharmacy Selector to home screen</p>
+                  </div>
+                  <span className="text-slate-400">↓</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          {/* Right sidebar */}
+          <div className="space-y-5">
+            {/* Science Hub Card */}
+            <div className="rounded-2xl border border-slate-200/80 bg-white p-5 shadow-sm">
+              <div className="mb-3 flex items-center gap-2">
+                <span className="text-lg">🧬</span>
+                <h3 className="text-sm font-bold text-slate-700">Science Hub</h3>
+              </div>
+              <p className="mb-4 text-sm text-slate-500">
+                See what clients see — explore regenerative science, peptides &amp; treatment info.
+              </p>
+              <div className="space-y-2">
+                <Link
+                  href="/regen-science"
+                  className="block rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-medium text-slate-700 transition hover:bg-slate-100"
+                >
+                  🔬 Regen Science Hub
+                </Link>
+                <Link
+                  href="/peptides"
+                  className="block rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-medium text-slate-700 transition hover:bg-slate-100"
+                >
+                  💉 Peptides Library
+                </Link>
+                <a
+                  href="/rx/brochure"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-medium text-slate-700 transition hover:bg-slate-100"
+                >
+                  📄 RE GEN Brochure (print)
+                </a>
+              </div>
+            </div>
+
+            {/* Marketing & Media Card */}
+            <div className="rounded-2xl border border-slate-200/80 bg-white p-5 shadow-sm">
+              <div className="mb-3 flex items-center gap-2">
+                <span className="text-lg">📺</span>
+                <h3 className="text-sm font-bold text-slate-700">Marketing &amp; Media</h3>
+              </div>
+              <p className="mb-4 text-sm text-slate-500">
+                In-spa displays, social assets &amp; brand materials.
+              </p>
+              <div className="space-y-2">
+                <a
+                  href="/regen-tv"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-medium text-slate-700 transition hover:bg-slate-100"
+                >
+                  📺 In-Spa TV Loop
+                </a>
+                <a
+                  href="/promo-kit/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-medium text-slate-700 transition hover:bg-slate-100"
+                >
+                  🎨 Promo Kit
+                </a>
+                <Link
+                  href="/staff/protocols"
+                  className="block rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-medium text-slate-700 transition hover:bg-slate-100"
+                >
+                  📱 Social Templates
+                </Link>
+              </div>
+            </div>
+
+            {/* Admin Tools Card */}
+            <div className="rounded-2xl border border-slate-200/80 bg-white p-5 shadow-sm">
+              <div className="mb-3 flex items-center gap-2">
+                <span className="text-lg">⚙️</span>
+                <h3 className="text-sm font-bold text-slate-700">Admin Tools</h3>
+              </div>
+              <div className="space-y-2">
+                <Link
+                  href="/admin"
+                  className="block rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-medium text-slate-700 transition hover:bg-slate-100"
+                >
+                  🏠 Admin Hub
+                </Link>
+                <Link
+                  href="/admin/command-center"
+                  className="block rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-medium text-slate-700 transition hover:bg-slate-100"
+                >
+                  🎛️ Command Center
+                </Link>
+                <Link
+                  href="/admin/owner"
+                  className="block rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-medium text-slate-700 transition hover:bg-slate-100"
+                >
+                  👑 Owner Dashboard
+                </Link>
+                <Link
+                  href="/admin/proposals"
+                  className="block rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-medium text-slate-700 transition hover:bg-slate-100"
+                >
+                  📋 Proposals Portal
+                </Link>
+              </div>
+            </div>
+
+            {/* Team CTA Card */}
+            <div
+              className="rounded-2xl p-5 text-white shadow-lg"
+              style={{ background: `linear-gradient(135deg, ${HOT}, ${PINK})` }}
+            >
+              <p className="text-xs font-bold uppercase tracking-widest text-white/70">Team resources</p>
+              <p className="mt-2 text-lg font-bold">Questions? Text Dani 💕</p>
+              <div className="mt-3 border-t border-white/20 pt-3">
+                <p className="text-sm text-white/80">
+                  Admin login:{" "}
+                  <Link href="/login?returnTo=/admin&staff=1" className="font-bold text-white hover:underline">
+                    Sign in here
+                  </Link>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
     </div>
   );
 }
