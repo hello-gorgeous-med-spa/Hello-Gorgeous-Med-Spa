@@ -5,16 +5,28 @@
 import { BOOKING_URL } from "@/lib/flows";
 import { FIND_YOUR_PEPTIDE_PATH } from "@/lib/rx-patient-journey";
 
-export const REGEN_SHOP_NAV = [
+export interface RegenNavItem {
+  href: string;
+  label: string;
+  dropdown?: { href: string; label: string; sub?: string }[];
+}
+
+export const REGEN_SCIENCE_DROPDOWN: RegenNavItem["dropdown"] = [
+  { href: "/regen-science", label: "Science Hub", sub: "Peptide briefs & evidence library" },
+  { href: "/regen-science/education", label: "Peptide Education", sub: "Free learning modules" },
+  { href: FIND_YOUR_PEPTIDE_PATH, label: "Find your peptide", sub: "Goal-based peptide quiz" },
+];
+
+export const REGEN_SHOP_NAV: RegenNavItem[] = [
   { href: "#shop-by-goal", label: "Goals" },
   { href: FIND_YOUR_PEPTIDE_PATH, label: "Peptide finder" },
   { href: "#popular", label: "Popular" },
   { href: "#stacks", label: "Stacks" },
   { href: "#how-it-works", label: "How it works" },
-  { href: "#science", label: "Science" },
+  { href: "#science", label: "Science", dropdown: REGEN_SCIENCE_DROPDOWN },
   { href: "#faq", label: "FAQ" },
   { href: "/rx/request", label: "Start intake" },
-] as const;
+];
 
 export const REGEN_SHOP_BOOK_HREF = BOOKING_URL;
 

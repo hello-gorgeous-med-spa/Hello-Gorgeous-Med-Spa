@@ -1,10 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 import { CatalogCartButton } from "@/components/regen/catalog/CatalogProductCard";
-import { REGEN_SHOP_BOOK_HREF, REGEN_SHOP_NAV } from "@/lib/regen-shop-nav";
+import { REGEN_SHOP_BOOK_HREF, REGEN_SHOP_NAV, type RegenNavItem } from "@/lib/regen-shop-nav";
 
 type Props = {
   basePath?: string;
@@ -18,6 +18,74 @@ type Props = {
 function navHref(href: string, basePath: string) {
   if (href.startsWith("#")) return `${basePath}${href}`;
   return href;
+}
+
+function NavDropdown({
+  item,
+  basePath,
+}: {
+  item: RegenNavItem;
+  basePath: string;
+}) {
+  const [open, setOpen] = useState(false);
+  const timeout = useRef<ReturnType<typeof setTimeout>>();
+
+  const show = () => {
+    clearTimeout(timeout.current);
+    setOpen(true);
+  };
+  const hide = () => {
+    timeout.current = setTimeout(() => setOpen(false), 120);
+  };
+
+  return (
+    <div
+      className="relative"
+      onMouseEnter={show}
+      onMouseLeave={hide}
+      onFocus={show}
+      onBlur={hide}
+    >
+      <button
+        type="button"
+        className="flex items-center gap-1 font-medium text-black/70 transition hover:text-[#E6007E]"
+        aria-expanded={open}
+        aria-haspopup="true"
+      >
+        {item.label}
+        <svg
+          className={`h-3.5 w-3.5 transition-transform ${open ? "rotate-180" : ""}`}
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+          aria-hidden
+        >
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
+        </svg>
+      </button>
+
+      {open && item.dropdown && (
+        <div className="absolute left-1/2 top-full z-50 min-w-[240px] -translate-x-1/2 pt-2">
+          <div className="overflow-hidden rounded-xl border-2 border-black bg-white shadow-[4px_4px_0_0_rgba(230,0,126,0.35)]">
+            {item.dropdown.map((sub) => (
+              <Link
+                key={sub.href}
+                href={sub.href}
+                className="group flex flex-col gap-0.5 border-b border-black/8 px-4 py-3 transition last:border-0 hover:bg-[#FFF0F7]"
+              >
+                <span className="font-semibold text-black group-hover:text-[#E6007E]">
+                  {sub.label}
+                </span>
+                {sub.sub && (
+                  <span className="text-xs text-black/55">{sub.sub}</span>
+                )}
+              </Link>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  );
 }
 
 export function RegenShopStickyNav({
@@ -61,6 +129,11 @@ export function RegenShopStickyNav({
 
         <div className="hidden items-center gap-6 text-[14px] lg:flex">
           {REGEN_SHOP_NAV.map((item) => {
+            if (item.dropdown) {
+              return (
+                <NavDropdown key={item.label} item={item} basePath={basePath} />
+              );
+            }
             const href = navHref(item.href, basePath);
             return item.href.startsWith("#") ? (
               <a
@@ -126,6 +199,25 @@ export function RegenShopStickyNav({
         <div className="border-t border-black/10 px-6 py-4 lg:hidden">
           <div className="flex flex-col gap-3">
             {REGEN_SHOP_NAV.map((item) => {
+              if (item.dropdown) {
+                return (
+                  <div key={item.label} className="flex flex-col gap-1">
+                    <span className="font-semibold text-[#E6007E]">{item.label}</span>
+                    <div className="ml-3 flex flex-col gap-2 border-l-2 border-[#E6007E]/30 pl-3">
+                      {item.dropdown.map((sub) => (
+                        <Link
+                          key={sub.href}
+                          href={sub.href}
+                          className="text-sm font-medium text-black/85"
+                          onClick={() => setNavOpen(false)}
+                        >
+                          {sub.label}
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                );
+              }
               const href = navHref(item.href, basePath);
               return item.href.startsWith("#") ? (
                 <a
