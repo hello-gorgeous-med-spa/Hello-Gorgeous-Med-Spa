@@ -17,30 +17,35 @@ export const EDUCATION_MODULES: EducationModule[] = [
     time: "6 min",
     title: "Peptide basics",
     body: "What a peptide is, how it differs from a protein, and why the order of amino acids changes everything.",
+    href: "/regen-science/education/peptide-basics",
   },
   {
     n: "02",
     time: "7 min",
     title: "Peptides & your body",
     body: "The peptides you already make and what they regulate — sleep, hunger, growth, repair, arousal.",
+    href: "/regen-science/education/peptides-and-your-body",
   },
   {
     n: "03",
     time: "8 min",
     title: "How peptides work",
     body: "Receptor binding, signal cascades, half-life, and why some need injection while others work topically.",
+    href: "/regen-science/education/how-peptides-work",
   },
   {
     n: "04",
     time: "9 min",
     title: "Reading the evidence",
     body: "Trials without the headline: effect size, controls, dropouts, and what statistical significance is not.",
+    href: "/regen-science/education/reading-the-evidence",
   },
   {
     n: "05",
     time: "6 min",
     title: "From reading to a plan",
     body: "How our NPs turn labs, history, and goals into a protocol — and the reasons we say no.",
+    href: "/regen-science/education/from-reading-to-a-plan",
   },
 ];
 
