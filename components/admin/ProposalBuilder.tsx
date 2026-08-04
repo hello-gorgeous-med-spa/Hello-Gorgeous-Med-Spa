@@ -41,6 +41,19 @@ import {
   type ProposalService,
 } from "@/lib/proposals/utils";
 
+const PINK = "#E6007E";
+const HOT = "#FF2D8E";
+const SERIF = "var(--font-playfair), Georgia, serif";
+
+const STEPS = [
+  { id: "client", label: "Client Info", short: "Client" },
+  { id: "services", label: "Services", short: "Services" },
+  { id: "options", label: "Options & Pricing", short: "Pricing" },
+  { id: "review", label: "Review & Save", short: "Save" },
+] as const;
+
+type StepId = (typeof STEPS)[number]["id"];
+
 const CONCERN_OPTIONS = [
   "Fine lines / Wrinkles",
   "Skin laxity",
@@ -88,6 +101,16 @@ const DISCOUNT_MODES: Array<{ value: DiscountType; label: string }> = [
   { value: "custom", label: "Custom total price" },
 ];
 
+const SERVICE_TABS = [
+  { id: "packages", label: "Packages" },
+  { id: "weight", label: "Weight Loss" },
+  { id: "peptides", label: "Peptides" },
+  { id: "vitamins", label: "Vitamins" },
+  { id: "all", label: "All Services" },
+] as const;
+
+type ServiceTabId = (typeof SERVICE_TABS)[number]["id"];
+
 function newDraftId() {
   if (typeof crypto !== "undefined" && crypto.randomUUID) {
     return crypto.randomUUID().replace(/-/g, "").slice(0, 16);
@@ -105,8 +128,13 @@ function servicesFromOptions(options: ProposalOption[]): ProposalService[] {
   return [...map.values()];
 }
 
-function weightLossLabel(service: SeedService): string {
-  return `${service.name} — $${service.price} ${service.unit}`;
+function formatCurrency(amount: number): string {
+  return new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0,
+  }).format(amount);
 }
 
 type ProposalBuilderProps = {
@@ -118,6 +146,8 @@ export function ProposalBuilder({ proposalId }: ProposalBuilderProps) {
   const isEditing = Boolean(proposalId);
   const [draftId] = useState(() => proposalId?.replace(/[^a-zA-Z0-9_-]/g, "").slice(0, 40) || newDraftId());
   const [loadingExisting, setLoadingExisting] = useState(isEditing);
+  const [step, setStep] = useState<StepId>("client");
+  const [serviceTab, setServiceTab] = useState<ServiceTabId>("packages");
   const [clientName, setClientName] = useState("");
   const [clientEmail, setClientEmail] = useState("");
   const [clientPhone, setClientPhone] = useState("");
@@ -130,7 +160,9 @@ export function ProposalBuilder({ proposalId }: ProposalBuilderProps) {
   const [options, setOptions] = useState<ProposalOption[]>([]);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [weightLossPick, setWeightLossPick] = useState("");
+
+  const stepIndex = STEPS.findIndex((s) => s.id === step);
+  const progress = Math.round(((stepIndex + 1) / STEPS.length) * 100);
 
   useEffect(() => {
     if (!proposalId) return;
@@ -233,26 +265,11 @@ export function ProposalBuilder({ proposalId }: ProposalBuilderProps) {
     });
   }, []);
 
-  const selectedWeightLoss = selectedServices.filter((service) =>
-    weightLossServices.some((item) => item.id === service.id)
+  const subtotal = useMemo(() => calculateSubtotal(selectedServices), [selectedServices]);
+  const recommendedTotal = useMemo(
+    () => (options.length ? calculateTotal(options[1] || options[0]) : subtotal),
+    [options, subtotal]
   );
-
-  const selectedVitaminServices = selectedServices.filter(
-    (service) =>
-      service.category === "Vitamin Injections" || service.id === EXOSOME_HEALING_ADDON.id
-  );
-
-  const addWeightLossFromDropdown = (serviceId: string) => {
-    if (!serviceId) return;
-    const service = weightLossServices.find((item) => item.id === serviceId);
-    if (!service) return;
-    setSelectedServices((prev) => {
-      if (prev.some((item) => item.id === serviceId)) return prev;
-      return [...prev, { ...service, quantity: defaultQuantityForService(service) }];
-    });
-    setOptions([]);
-    setWeightLossPick("");
-  };
 
   const toggleService = (serviceId: string) => {
     const service = HELLO_GORGEOUS_SERVICES.find((item) => item.id === serviceId);
@@ -278,8 +295,9 @@ export function ProposalBuilder({ proposalId }: ProposalBuilderProps) {
   };
 
   const updateQuantity = (serviceId: string, quantity: number) => {
-    const service = selectedServices.find((item) => item.id === serviceId)
-      || HELLO_GORGEOUS_SERVICES.find((item) => item.id === serviceId);
+    const service =
+      selectedServices.find((item) => item.id === serviceId) ||
+      HELLO_GORGEOUS_SERVICES.find((item) => item.id === serviceId);
     const min = service && isPerUnitService(service) ? 1 : 1;
     const nextQty = Math.max(min, Math.round(Number(quantity) || min));
     setSelectedServices((prev) =>
@@ -289,10 +307,15 @@ export function ProposalBuilder({ proposalId }: ProposalBuilderProps) {
   };
 
   const toggleConcern = (concern: string) => {
-    setConcerns((prev) => (prev.includes(concern) ? prev.filter((item) => item !== concern) : [...prev, concern]));
+    setConcerns((prev) =>
+      prev.includes(concern) ? prev.filter((item) => item !== concern) : [...prev, concern]
+    );
   };
 
-  const updateOptionPricing = (optionName: string, patch: Partial<Pick<ProposalOption, "discountType" | "discountValue">>) => {
+  const updateOptionPricing = (
+    optionName: string,
+    patch: Partial<Pick<ProposalOption, "discountType" | "discountValue">>
+  ) => {
     setOptions((prev) =>
       prev.map((option) => {
         if (option.name !== optionName) return option;
@@ -403,685 +426,931 @@ export function ProposalBuilder({ proposalId }: ProposalBuilderProps) {
     }
   };
 
+  const nextStep = () => {
+    const idx = STEPS.findIndex((s) => s.id === step);
+    if (idx < STEPS.length - 1) setStep(STEPS[idx + 1].id);
+  };
+
+  const prevStep = () => {
+    const idx = STEPS.findIndex((s) => s.id === step);
+    if (idx > 0) setStep(STEPS[idx - 1].id);
+  };
+
   if (loadingExisting) {
-    return <div className="p-8 text-sm text-black/70">Loading proposal…</div>;
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-gradient-to-b from-gray-50 to-white">
+        <div className="text-center">
+          <div className="mx-auto h-8 w-8 animate-spin rounded-full border-4 border-[#E6007E] border-t-transparent" />
+          <p className="mt-3 text-sm text-black/60">Loading proposal…</p>
+        </div>
+      </div>
+    );
   }
 
   return (
-    <div className="mx-auto max-w-7xl space-y-6 p-6">
-      <div className="flex flex-wrap items-start justify-between gap-3">
-        <div>
-          <h1 className="text-3xl font-black text-black">
-            {isEditing ? "Edit treatment proposal" : "Treatment Proposal Builder"}
-          </h1>
-          <p className="mt-2 text-sm text-black/70">
-            Packages, discounts, instructions, and before/after photos — all synced to the shareable client link.
-          </p>
-        </div>
-        <div className="flex flex-wrap gap-2">
-          <a
-            href="/staff/protocols/guides/InMode-Packages-How-To-Sell.html"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="rounded-full border-2 border-black bg-[#FFF0F7] px-4 py-2 text-sm font-bold text-black"
-          >
-            How to sell packages
-          </a>
-          <a
-            href="/staff/protocols/guides/Treatment-Proposals-Staff-How-To.html"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="rounded-full border-2 border-black bg-white px-4 py-2 text-sm font-bold text-black"
-          >
-            How to use
-          </a>
-          {isEditing && proposalId ? (
-            <>
+    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
+      {/* Header */}
+      <header
+        className="border-b-4 border-black"
+        style={{
+          background: `radial-gradient(ellipse 80% 100% at 100% 0%, rgba(230,0,126,0.25), transparent 60%), linear-gradient(125deg, #1a0a12 0%, #2d1020 45%, #0a0a0a 100%)`,
+        }}
+      >
+        <div className="mx-auto max-w-7xl px-6 py-6">
+          <div className="flex flex-wrap items-center justify-between gap-4">
+            <div>
               <Link
-                href={`/admin/proposals/${proposalId}/preview`}
-                className="rounded-full border border-black px-4 py-2 text-sm font-bold text-black hover:border-[#E6007E] hover:text-[#E6007E]"
+                href="/admin/proposals"
+                className="text-sm font-semibold text-[#FFB8DC] hover:text-white"
               >
-                Preview
+                ← Back to proposals
               </Link>
-              <Link href="/admin/proposals" className="rounded-full border border-black/30 px-4 py-2 text-sm font-bold text-black/70">
-                All proposals
-              </Link>
-            </>
-          ) : null}
-        </div>
-      </div>
-
-      <section className="rounded-2xl border-4 border-black bg-white p-6 shadow-[8px_8px_0_0_#FF2D8E]">
-        <h2 className="text-xl font-bold text-black">Client information</h2>
-        <div className="mt-4 grid gap-3 md:grid-cols-3">
-          <input
-            className="rounded-lg border-2 border-black/20 px-3 py-2 text-sm text-black"
-            placeholder="Client name"
-            value={clientName}
-            onChange={(event) => setClientName(event.target.value)}
-          />
-          <input
-            className="rounded-lg border-2 border-black/20 px-3 py-2 text-sm text-black"
-            placeholder="Email"
-            type="email"
-            value={clientEmail}
-            onChange={(event) => setClientEmail(event.target.value)}
-          />
-          <input
-            className="rounded-lg border-2 border-black/20 px-3 py-2 text-sm text-black"
-            placeholder="Phone"
-            value={clientPhone}
-            onChange={(event) => setClientPhone(event.target.value)}
-          />
-        </div>
-
-        <div className="mt-4">
-          <p className="text-sm font-semibold text-black">Consult concerns</p>
-          <div className="mt-2 grid gap-2 sm:grid-cols-2 md:grid-cols-3">
-            {CONCERN_OPTIONS.map((concern) => (
-              <label key={concern} className="flex items-center gap-2 rounded-lg border border-black/15 px-3 py-2 text-sm">
-                <input type="checkbox" checked={concerns.includes(concern)} onChange={() => toggleConcern(concern)} />
-                {concern}
-              </label>
-            ))}
-          </div>
-        </div>
-
-        <div className="mt-4 rounded-2xl border-4 border-black bg-[#FFF0F7] p-4 shadow-[6px_6px_0_0_rgba(230,0,126,0.25)]">
-          <p className="text-sm font-black uppercase tracking-wide text-[#E6007E]">
-            Welcome message &amp; note to client
-          </p>
-          <p className="mt-1 text-xs text-black/65">
-            Shows on their personalized treatment plan link, PDF, and preview. Use a template or write your own.
-          </p>
-          <div className="mt-3 flex flex-wrap gap-2">
-            {PROPOSAL_WELCOME_TEMPLATES.map((template) => (
-              <button
-                key={template.id}
-                type="button"
-                onClick={() =>
-                  setClientInstructions(fillProposalWelcomeTemplate(template.body, clientName))
-                }
-                className="rounded-full border-2 border-black bg-white px-3 py-1.5 text-[11px] font-bold text-black hover:border-[#E6007E] hover:text-[#E6007E]"
+              <h1 className="mt-2 text-2xl font-medium text-white md:text-3xl" style={{ fontFamily: SERIF }}>
+                {isEditing ? "Edit" : "Build"}{" "}
+                <span
+                  className="bg-gradient-to-r from-[#FFB8DC] via-[#FF2D8E] to-[#E6007E] bg-clip-text text-transparent"
+                  style={{ WebkitBackgroundClip: "text" }}
+                >
+                  Proposal
+                </span>
+              </h1>
+            </div>
+            <div className="flex flex-wrap items-center gap-2">
+              <a
+                href="/staff/protocols/guides/InMode-Packages-How-To-Sell.html"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="rounded-full border border-white/25 bg-white/10 px-4 py-2 text-sm font-bold text-white backdrop-blur hover:bg-white/20"
               >
-                {template.label}
-              </button>
-            ))}
-          </div>
-          <textarea
-            rows={10}
-            value={clientInstructions}
-            onChange={(event) => setClientInstructions(event.target.value)}
-            className="mt-3 w-full rounded-xl border-2 border-black/20 bg-white px-3 py-2 text-sm text-black"
-            placeholder="Hi Xochitl — Welcome… Your proposal includes…"
-          />
-        </div>
-
-        <div className="mt-4">
-          <p className="text-sm font-semibold text-black">Internal notes (staff only)</p>
-          <textarea
-            rows={3}
-            value={internalNotes}
-            onChange={(event) => setInternalNotes(event.target.value)}
-            className="mt-2 w-full rounded-lg border-2 border-black/20 px-3 py-2 text-sm text-black"
-            placeholder="Provider notes, objections, follow-up context."
-          />
-        </div>
-      </section>
-
-      <section className="rounded-2xl border-4 border-black bg-white p-6 shadow-[8px_8px_0_0_#FF2D8E]">
-        <h2 className="text-xl font-bold text-black">Before & after photos</h2>
-        <p className="mt-1 text-sm text-black/70">
-          Upload reference photos so the proposal, share link, and PDF stay in sync.
-        </p>
-        <div className="mt-4 flex flex-wrap gap-3">
-          {(["before", "after", "pair"] as ProposalMediaKind[]).map((kind) => (
-            <label
-              key={kind}
-              className="cursor-pointer rounded-full border-2 border-black bg-[#FFF0F7] px-4 py-2 text-sm font-bold text-black hover:border-[#E6007E]"
-            >
-              {uploadingKind === kind
-                ? "Uploading…"
-                : kind === "before"
-                  ? "+ Before"
-                  : kind === "after"
-                    ? "+ After"
-                    : "+ Before & after pair"}
-              <input
-                type="file"
-                accept="image/*"
-                className="hidden"
-                disabled={Boolean(uploadingKind)}
-                onChange={(event) => {
-                  const file = event.target.files?.[0];
-                  if (file) void uploadMedia(file, kind);
-                  event.target.value = "";
-                }}
-              />
-            </label>
-          ))}
-        </div>
-        {media.length ? (
-          <div className="mt-4 grid gap-3 sm:grid-cols-2 md:grid-cols-3">
-            {media.map((item) => (
-              <figure key={item.id} className="overflow-hidden rounded-xl border-2 border-black bg-white">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={item.url} alt={item.label || item.kind} className="h-40 w-full object-cover" />
-                <figcaption className="flex items-center justify-between gap-2 px-3 py-2 text-xs">
-                  <span className="font-semibold uppercase tracking-wide text-[#E6007E]">{item.label || item.kind}</span>
-                  <button type="button" onClick={() => removeMedia(item.id)} className="font-bold text-black/60 hover:text-red-600">
-                    Remove
-                  </button>
-                </figcaption>
-              </figure>
-            ))}
-          </div>
-        ) : (
-          <p className="mt-3 text-xs text-black/55">No photos yet — optional, but great for consult follow-up.</p>
-        )}
-      </section>
-
-      <section className="rounded-2xl border-4 border-black bg-[#FFF0F7] p-6 shadow-[8px_8px_0_0_#FF2D8E]">
-        <h2 className="text-xl font-bold text-black">Quick-add packages</h2>
-        <p className="mt-1 text-sm text-black/70">One tap adds the fixed package price — then discount or set a custom total below.</p>
-        <div className="mt-4 grid gap-3 md:grid-cols-2">
-          {PROPOSAL_PACKAGES.map((pkg) => {
-            const selected = selectedServices.some((item) => item.id === pkg.id);
-            return (
-              <article key={pkg.id} className="rounded-xl border-2 border-black bg-white p-4">
-                <div className="flex items-start justify-between gap-3">
-                  <div>
-                    <h3 className="text-lg font-bold text-black">{pkg.name}</h3>
-                    <p className="mt-1 text-2xl font-black text-[#E6007E]">${pkg.price.toLocaleString()}</p>
-                    <p className="mt-1 text-xs text-black/70">{pkg.description}</p>
-                    <ul className="mt-2 space-y-0.5 text-xs text-black/80">
-                      {pkg.bullets.map((bullet) => (
-                        <li key={bullet}>• {bullet}</li>
-                      ))}
-                    </ul>
-                  </div>
-                  <button
-                    type="button"
-                    onClick={() => (selected ? toggleService(pkg.id) : addPackage(pkg.id))}
-                    className={`shrink-0 rounded-full px-4 py-2 text-sm font-bold ${
-                      selected ? "border-2 border-black bg-white text-black" : "bg-[#E6007E] text-white"
-                    }`}
-                  >
-                    {selected ? "Remove" : "Add"}
-                  </button>
-                </div>
-              </article>
-            );
-          })}
-        </div>
-      </section>
-
-      <section className="rounded-2xl border-4 border-black bg-white p-6 shadow-[8px_8px_0_0_#FF2D8E]">
-        <div className="flex flex-wrap items-center justify-between gap-3">
-          <h2 className="text-xl font-bold text-black">Service selection</h2>
-          <button
-            type="button"
-            onClick={handleGenerate}
-            disabled={!selectedServices.length}
-            className="rounded-full bg-[#E6007E] px-5 py-2 text-sm font-bold text-white disabled:opacity-50"
-          >
-            Auto-generate options
-          </button>
-        </div>
-        {selectedServices.length ? (
-          <p className="mt-2 text-xs font-semibold text-[#E6007E]">
-            {selectedServices.length} selected · ${calculateSubtotal(selectedServices).toLocaleString()} before plan discounts
-          </p>
-        ) : null}
-
-        {/* Weight loss — condensed dropdown */}
-        <div className="mt-5 rounded-xl border-2 border-black/10 bg-[#FFF0F7] p-4">
-          <h3 className="text-sm font-bold uppercase tracking-wide text-[#E6007E]">Weight loss programs</h3>
-          <p className="mt-1 text-xs text-black/65">
-            Pick consult, dose tier, 3-month supply, oral, or insurance oversight — one dropdown instead of a long list.
-          </p>
-          <div className="mt-3 flex flex-wrap items-end gap-2">
-            <div className="min-w-[16rem] flex-1">
-              <label className="text-[10px] font-bold uppercase tracking-wide text-black/50">Add item</label>
-              <select
-                value={weightLossPick}
-                onChange={(event) => addWeightLossFromDropdown(event.target.value)}
-                className="mt-1 w-full rounded-lg border-2 border-black/15 bg-white px-3 py-2 text-sm text-black"
-              >
-                <option value="">Choose weight loss option…</option>
-                {weightLossServices.map((service) => (
-                  <option
-                    key={service.id}
-                    value={service.id}
-                    disabled={selectedServices.some((item) => item.id === service.id)}
-                  >
-                    {weightLossLabel(service)}
-                  </option>
-                ))}
-              </select>
+                Selling guide
+              </a>
+              {isEditing && proposalId && (
+                <Link
+                  href={`/admin/proposals/${proposalId}/preview`}
+                  className="rounded-full border border-white/25 bg-white/10 px-4 py-2 text-sm font-bold text-white backdrop-blur hover:bg-white/20"
+                >
+                  Preview
+                </Link>
+              )}
             </div>
           </div>
-          {selectedWeightLoss.length ? (
-            <ul className="mt-3 space-y-2">
-              {selectedWeightLoss.map((service) => (
-                <li
-                  key={service.id}
-                  className="flex flex-wrap items-center justify-between gap-2 rounded-lg border border-black/10 bg-white px-3 py-2"
-                >
-                  <div className="min-w-0 flex-1">
-                    <p className="text-sm font-semibold text-black">{service.name}</p>
-                    <p className="text-xs text-black/65">
-                      ${service.price} {service.unit}
-                      {service.description ? ` · ${service.description}` : ""}
-                    </p>
+
+          {/* Step progress */}
+          <div className="mt-6">
+            <div className="flex items-center justify-between text-xs">
+              <div className="flex gap-1">
+                {STEPS.map((s, i) => (
+                  <button
+                    key={s.id}
+                    type="button"
+                    onClick={() => setStep(s.id)}
+                    className={`rounded-full px-3 py-1.5 text-[11px] font-bold transition ${
+                      i <= stepIndex
+                        ? "bg-gradient-to-r from-[#FF2D8E] to-[#E6007E] text-white"
+                        : "bg-white/10 text-white/60 hover:bg-white/20 hover:text-white"
+                    }`}
+                  >
+                    {s.short}
+                  </button>
+                ))}
+              </div>
+              <span className="text-white/60">{progress}%</span>
+            </div>
+            <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-white/15">
+              <div
+                className="h-full rounded-full transition-all duration-500"
+                style={{ width: `${progress}%`, background: `linear-gradient(90deg, ${HOT}, ${PINK})` }}
+              />
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <div className="mx-auto max-w-7xl p-6">
+        <div className="grid gap-6 lg:grid-cols-[1fr_340px] lg:items-start">
+          {/* Main wizard panel */}
+          <div className="overflow-hidden rounded-2xl border-4 border-black bg-white shadow-[8px_8px_0_0_rgba(230,0,126,0.25)]">
+            {/* Step header */}
+            <div className="flex items-center justify-between gap-3 border-b-2 border-black bg-gradient-to-r from-[#FF2D8E] to-[#E6007E] px-5 py-4">
+              <div>
+                <p className="text-[10px] font-bold uppercase tracking-[0.24em] text-white/90">
+                  Step {stepIndex + 1} of {STEPS.length}
+                </p>
+                <h2 className="mt-1 text-xl font-medium text-white" style={{ fontFamily: SERIF }}>
+                  {STEPS[stepIndex].label}
+                </h2>
+              </div>
+              <div className="inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/10 px-3 py-1.5 backdrop-blur">
+                <span className="relative flex h-2 w-2">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-70" />
+                  <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
+                </span>
+                <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-white">Live estimate</span>
+              </div>
+            </div>
+
+            {/* Step content */}
+            <div className="p-5 md:p-6">
+              {/* STEP 1: Client Info */}
+              {step === "client" && (
+                <div className="space-y-6">
+                  <div>
+                    <h3 className="text-sm font-bold uppercase tracking-wide text-[#E6007E]">Client details</h3>
+                    <div className="mt-3 grid gap-3 md:grid-cols-3">
+                      <input
+                        className="rounded-lg border-2 border-black/15 px-3 py-2.5 text-sm text-black focus:border-[#E6007E] focus:outline-none"
+                        placeholder="Client name *"
+                        value={clientName}
+                        onChange={(e) => setClientName(e.target.value)}
+                      />
+                      <input
+                        className="rounded-lg border-2 border-black/15 px-3 py-2.5 text-sm text-black focus:border-[#E6007E] focus:outline-none"
+                        placeholder="Email"
+                        type="email"
+                        value={clientEmail}
+                        onChange={(e) => setClientEmail(e.target.value)}
+                      />
+                      <input
+                        className="rounded-lg border-2 border-black/15 px-3 py-2.5 text-sm text-black focus:border-[#E6007E] focus:outline-none"
+                        placeholder="Phone"
+                        value={clientPhone}
+                        onChange={(e) => setClientPhone(e.target.value)}
+                      />
+                    </div>
                   </div>
-                  <div className="flex items-center gap-2">
-                    <input
-                      type="number"
-                      min={1}
-                      value={service.quantity}
-                      onChange={(event) => updateQuantity(service.id, Number(event.target.value))}
-                      className="w-16 rounded-md border border-black/20 px-2 py-1 text-sm"
-                      aria-label={`${service.name} quantity`}
+
+                  <div>
+                    <h3 className="text-sm font-bold uppercase tracking-wide text-[#E6007E]">Consult concerns</h3>
+                    <div className="mt-3 grid gap-2 sm:grid-cols-2 md:grid-cols-3">
+                      {CONCERN_OPTIONS.map((concern) => {
+                        const active = concerns.includes(concern);
+                        return (
+                          <button
+                            key={concern}
+                            type="button"
+                            onClick={() => toggleConcern(concern)}
+                            className={`flex items-center gap-2 rounded-xl border-2 px-3 py-2.5 text-left text-sm transition ${
+                              active
+                                ? "border-[#E6007E] bg-[#FFF0F7] shadow-[3px_3px_0_0_rgba(230,0,126,0.2)]"
+                                : "border-black/10 hover:border-[#E6007E]"
+                            }`}
+                          >
+                            <span className={`font-semibold ${active ? "text-[#E6007E]" : "text-black"}`}>
+                              {concern}
+                            </span>
+                            {active && <span className="ml-auto text-[#E6007E]">✓</span>}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+
+                  <div className="rounded-xl border-2 border-black bg-[#FFF0F7] p-4">
+                    <h3 className="text-sm font-bold uppercase tracking-wide text-[#E6007E]">
+                      Welcome message to client
+                    </h3>
+                    <p className="mt-1 text-xs text-black/60">
+                      Shows on their plan link, PDF, and preview. Use a template or write your own.
+                    </p>
+                    <div className="mt-3 flex flex-wrap gap-2">
+                      {PROPOSAL_WELCOME_TEMPLATES.map((template) => (
+                        <button
+                          key={template.id}
+                          type="button"
+                          onClick={() => setClientInstructions(fillProposalWelcomeTemplate(template.body, clientName))}
+                          className="rounded-full border-2 border-black bg-white px-3 py-1.5 text-[11px] font-bold text-black hover:border-[#E6007E] hover:text-[#E6007E]"
+                        >
+                          {template.label}
+                        </button>
+                      ))}
+                    </div>
+                    <textarea
+                      rows={6}
+                      value={clientInstructions}
+                      onChange={(e) => setClientInstructions(e.target.value)}
+                      className="mt-3 w-full rounded-lg border-2 border-black/15 bg-white px-3 py-2 text-sm text-black focus:border-[#E6007E] focus:outline-none"
+                      placeholder="Hi — Welcome to Hello Gorgeous…"
                     />
+                  </div>
+
+                  <div>
+                    <h3 className="text-sm font-bold uppercase tracking-wide text-[#E6007E]">
+                      Internal notes (staff only)
+                    </h3>
+                    <textarea
+                      rows={3}
+                      value={internalNotes}
+                      onChange={(e) => setInternalNotes(e.target.value)}
+                      className="mt-2 w-full rounded-lg border-2 border-black/15 px-3 py-2 text-sm text-black focus:border-[#E6007E] focus:outline-none"
+                      placeholder="Provider notes, objections, follow-up context."
+                    />
+                  </div>
+
+                  <div className="flex justify-end pt-2">
                     <button
                       type="button"
-                      onClick={() => toggleService(service.id)}
-                      className="text-xs font-bold text-black/60 hover:text-red-600"
+                      onClick={nextStep}
+                      disabled={!clientName.trim()}
+                      className="rounded-full px-6 py-3 text-sm font-bold text-white disabled:opacity-50"
+                      style={{ background: `linear-gradient(125deg, ${HOT}, ${PINK})` }}
                     >
-                      Remove
+                      Continue to services →
                     </button>
                   </div>
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <p className="mt-3 text-xs text-black/50">No weight loss items selected yet.</p>
-          )}
-        </div>
+                </div>
+              )}
 
-        {/* Peptides — full retail picker */}
-        <div className="mt-5 rounded-xl border-2 border-black/10 bg-white p-4">
-          <h3 className="text-sm font-bold uppercase tracking-wide text-[#E6007E]">Peptides · Hello Gorgeous RX</h3>
-          <p className="mt-1 text-xs text-black/65">
-            Tap peptides to add. Prices are published retail “from” monthly protocol rates
-            {PEPTIDE_PHARMACY_SHIPPING_USD ? ` · shipping often ~$${PEPTIDE_PHARMACY_SHIPPING_USD}` : ""}.
-          </p>
-          <p className="mt-1 text-[11px] leading-relaxed text-black/50">{PEPTIDE_PRICING_DISCLAIMER}</p>
-
-          <div className="mt-4 space-y-5">
-            {peptideByRetailCategory.map((group) => (
-              <div key={group.label}>
-                <p className="text-[11px] font-bold uppercase tracking-wide text-black/45">{group.label}</p>
-                <div className="mt-2 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
-                  {group.services.map((service) => {
-                    const selected = selectedServices.find((item) => item.id === service.id);
-                    return (
+              {/* STEP 2: Services */}
+              {step === "services" && (
+                <div className="space-y-5">
+                  {/* Category tabs */}
+                  <div className="flex flex-wrap gap-2 border-b border-black/10 pb-4">
+                    {SERVICE_TABS.map((tab) => (
                       <button
-                        key={service.id}
+                        key={tab.id}
                         type="button"
-                        onClick={() => toggleService(service.id)}
-                        className={`rounded-xl border-2 p-3 text-left transition ${
-                          selected
-                            ? "border-[#E6007E] bg-[#FFF0F7] shadow-[4px_4px_0_0_rgba(230,0,126,0.25)]"
-                            : "border-black/10 bg-white hover:border-[#E6007E]/40"
+                        onClick={() => setServiceTab(tab.id)}
+                        className={`rounded-full px-4 py-2 text-xs font-bold transition ${
+                          serviceTab === tab.id
+                            ? "bg-black text-white"
+                            : "border border-black/20 text-black hover:border-black"
+                        }`}
+                      >
+                        {tab.label}
+                      </button>
+                    ))}
+                  </div>
+
+                  {/* Packages */}
+                  {serviceTab === "packages" && (
+                    <div className="grid gap-3 md:grid-cols-2">
+                      {PROPOSAL_PACKAGES.map((pkg) => {
+                        const selected = selectedServices.some((item) => item.id === pkg.id);
+                        return (
+                          <article
+                            key={pkg.id}
+                            className={`rounded-xl border-2 p-4 transition ${
+                              selected
+                                ? "border-[#E6007E] bg-[#FFF0F7] shadow-[4px_4px_0_0_rgba(230,0,126,0.25)]"
+                                : "border-black/10 hover:border-[#E6007E]"
+                            }`}
+                          >
+                            <div className="flex items-start justify-between gap-3">
+                              <div className="min-w-0 flex-1">
+                                <h3 className="font-bold text-black">{pkg.name}</h3>
+                                <p className="mt-1 text-xl font-black text-[#E6007E]">${pkg.price.toLocaleString()}</p>
+                                <p className="mt-1 text-xs text-black/60">{pkg.description}</p>
+                              </div>
+                              <button
+                                type="button"
+                                onClick={() => (selected ? toggleService(pkg.id) : addPackage(pkg.id))}
+                                className={`shrink-0 rounded-full px-4 py-2 text-xs font-bold ${
+                                  selected
+                                    ? "border-2 border-black bg-white text-black"
+                                    : "bg-[#E6007E] text-white"
+                                }`}
+                              >
+                                {selected ? "Remove" : "Add"}
+                              </button>
+                            </div>
+                          </article>
+                        );
+                      })}
+                    </div>
+                  )}
+
+                  {/* Weight Loss */}
+                  {serviceTab === "weight" && (
+                    <div className="grid gap-2 sm:grid-cols-2">
+                      {weightLossServices.map((service) => {
+                        const selected = selectedServices.find((s) => s.id === service.id);
+                        return (
+                          <button
+                            key={service.id}
+                            type="button"
+                            onClick={() => toggleService(service.id)}
+                            className={`rounded-xl border-2 p-3 text-left transition ${
+                              selected
+                                ? "border-[#E6007E] bg-[#FFF0F7] shadow-[3px_3px_0_0_rgba(230,0,126,0.2)]"
+                                : "border-black/10 hover:border-[#E6007E]"
+                            }`}
+                          >
+                            <div className="flex items-start justify-between gap-2">
+                              <p className="text-sm font-bold text-black">{service.name}</p>
+                              <span className="shrink-0 text-sm font-black text-[#E6007E]">${service.price}</span>
+                            </div>
+                            <p className="mt-0.5 text-[10px] font-semibold uppercase text-black/45">{service.unit}</p>
+                            {selected && <p className="mt-2 text-[11px] font-bold text-[#E6007E]">Added ✓</p>}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  )}
+
+                  {/* Peptides */}
+                  {serviceTab === "peptides" && (
+                    <div className="space-y-5">
+                      <p className="text-xs text-black/50">{PEPTIDE_PRICING_DISCLAIMER}</p>
+                      {peptideByRetailCategory.map((group) => (
+                        <div key={group.label}>
+                          <p className="text-[11px] font-bold uppercase tracking-wide text-black/45 mb-2">
+                            {group.label}
+                          </p>
+                          <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+                            {group.services.map((service) => {
+                              const selected = selectedServices.some((s) => s.id === service.id);
+                              return (
+                                <button
+                                  key={service.id}
+                                  type="button"
+                                  onClick={() => toggleService(service.id)}
+                                  className={`rounded-xl border-2 p-3 text-left transition ${
+                                    selected
+                                      ? "border-[#E6007E] bg-[#FFF0F7]"
+                                      : "border-black/10 hover:border-[#E6007E]"
+                                  }`}
+                                >
+                                  <div className="flex items-start justify-between gap-2">
+                                    <p className="text-sm font-bold text-black">{service.name}</p>
+                                    <span className="shrink-0 text-sm font-black text-[#E6007E]">${service.price}</span>
+                                  </div>
+                                  <p className="mt-0.5 text-[10px] font-semibold uppercase text-black/45">
+                                    {service.unit}
+                                  </p>
+                                  {selected && <p className="mt-2 text-[11px] font-bold text-[#E6007E]">Added ✓</p>}
+                                </button>
+                              );
+                            })}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+
+                  {/* Vitamins */}
+                  {serviceTab === "vitamins" && (
+                    <div className="space-y-5">
+                      <p className="text-xs text-black/60">{VITAMIN_B4G2_OFFER_BLURB}</p>
+
+                      <div>
+                        <p className="text-[11px] font-bold uppercase tracking-wide text-black/45 mb-2">
+                          Plan length
+                        </p>
+                        <div className="grid gap-2 sm:grid-cols-3">
+                          {vitaminPlanServices.map((service) => {
+                            const plan = VITAMIN_TREATMENT_PLANS.find((p) => p.id === service.id);
+                            const selected = selectedServices.some((s) => s.id === service.id);
+                            return (
+                              <button
+                                key={service.id}
+                                type="button"
+                                onClick={() => toggleService(service.id)}
+                                className={`rounded-xl border-2 p-3 text-left transition ${
+                                  selected
+                                    ? "border-[#E6007E] bg-[#FFF0F7] shadow-[3px_3px_0_0_rgba(230,0,126,0.2)]"
+                                    : "border-black/10 hover:border-[#E6007E]"
+                                }`}
+                              >
+                                <p className="text-sm font-bold text-black">
+                                  {plan ? `${plan.months}-month plan` : service.name}
+                                </p>
+                                <p className="mt-1 text-xl font-black text-[#E6007E]">${service.price}</p>
+                                {plan && (
+                                  <p className="text-[11px] text-black/60">{plan.shots} shots · list ${plan.retailUsd}</p>
+                                )}
+                              </button>
+                            );
+                          })}
+                        </div>
+                      </div>
+
+                      <button
+                        type="button"
+                        onClick={() => toggleService(EXOSOME_HEALING_ADDON.id)}
+                        className={`w-full rounded-xl border-2 p-3 text-left transition ${
+                          selectedServices.some((s) => s.id === EXOSOME_HEALING_ADDON.id)
+                            ? "border-[#E6007E] bg-[#FFF0F7] shadow-[3px_3px_0_0_rgba(230,0,126,0.2)]"
+                            : "border-black hover:border-[#E6007E]"
                         }`}
                       >
                         <div className="flex items-start justify-between gap-2">
-                          <p className="text-sm font-bold text-black">{service.name}</p>
-                          <span className="shrink-0 text-sm font-black text-[#E6007E]">
-                            {service.unit.includes("month") || service.unit.includes("days")
-                              ? `$${service.price}`
-                              : `$${service.price}`}
-                          </span>
+                          <div>
+                            <p className="text-[10px] font-bold uppercase tracking-wide text-[#E6007E]">
+                              Advanced healing
+                            </p>
+                            <p className="text-sm font-bold text-black">{EXOSOME_HEALING_ADDON.name}</p>
+                          </div>
+                          <p className="text-xl font-black text-[#E6007E]">+${EXOSOME_HEALING_ADDON.price}</p>
                         </div>
-                        <p className="mt-0.5 text-[10px] font-semibold uppercase tracking-wide text-black/45">
-                          {service.unit}
-                        </p>
-                        {service.description ? (
-                          <p className="mt-1 text-xs leading-snug text-black/70">{service.description}</p>
-                        ) : null}
-                        <p className="mt-2 text-[11px] font-bold text-[#E6007E]">
-                          {selected ? "Added ✓" : "Tap to add"}
-                        </p>
                       </button>
-                    );
-                  })}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
 
-        {/* Vitamin injections + exosome healing add-on */}
-        <div className="mt-5 rounded-xl border-2 border-black/10 bg-[#FFF0F7] p-4">
-          <h3 className="text-sm font-bold uppercase tracking-wide text-[#E6007E]">
-            Vitamin injections · while treating
-          </h3>
-          <p className="mt-1 text-xs text-black/65">{VITAMIN_B4G2_OFFER_BLURB}</p>
-
-          <p className="mt-3 text-[11px] font-bold uppercase tracking-wide text-black/45">
-            Plan length (1 / 2 / 3 months)
-          </p>
-          <div className="mt-2 grid gap-2 sm:grid-cols-3">
-            {vitaminPlanServices.map((service) => {
-              const plan = VITAMIN_TREATMENT_PLANS.find((item) => item.id === service.id);
-              const selected = selectedServices.some((item) => item.id === service.id);
-              return (
-                <button
-                  key={service.id}
-                  type="button"
-                  onClick={() => toggleService(service.id)}
-                  className={`rounded-xl border-2 p-3 text-left transition ${
-                    selected
-                      ? "border-[#E6007E] bg-white shadow-[4px_4px_0_0_rgba(230,0,126,0.25)]"
-                      : "border-black/10 bg-white hover:border-[#E6007E]/40"
-                  }`}
-                >
-                  <p className="text-sm font-bold text-black">
-                    {plan ? `${plan.months}-month plan` : service.name}
-                  </p>
-                  <p className="mt-1 text-2xl font-black text-[#E6007E]">${service.price}</p>
-                  {plan ? (
-                    <p className="text-[11px] font-medium text-black/65">
-                      {plan.shots} shots · list ${plan.retailUsd}
-                    </p>
-                  ) : null}
-                  <p className="mt-2 text-[11px] font-bold text-[#E6007E]">
-                    {selected ? "Added ✓" : "Add plan"}
-                  </p>
-                </button>
-              );
-            })}
-          </div>
-
-          <div className="mt-4">
-            <button
-              type="button"
-              onClick={() => toggleService(EXOSOME_HEALING_ADDON.id)}
-              className={`w-full rounded-xl border-2 p-3 text-left transition ${
-                selectedServices.some((item) => item.id === EXOSOME_HEALING_ADDON.id)
-                  ? "border-[#E6007E] bg-white shadow-[4px_4px_0_0_rgba(230,0,126,0.25)]"
-                  : "border-black bg-white hover:border-[#E6007E]"
-              }`}
-            >
-              <div className="flex flex-wrap items-start justify-between gap-2">
-                <div>
-                  <p className="text-[10px] font-bold uppercase tracking-wide text-[#E6007E]">
-                    Advanced healing add-on
-                  </p>
-                  <p className="text-sm font-bold text-black">{EXOSOME_HEALING_ADDON.name}</p>
-                  <p className="mt-1 text-xs text-black/70">{EXOSOME_HEALING_ADDON.description}</p>
-                </div>
-                <p className="text-xl font-black text-[#E6007E]">
-                  +${EXOSOME_HEALING_ADDON.price}
-                </p>
-              </div>
-            </button>
-          </div>
-
-          <p className="mt-4 text-[11px] font-bold uppercase tracking-wide text-black/45">
-            À la carte retail shots
-          </p>
-          <div className="mt-2 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
-            {vitaminRetailServices.map((service) => {
-              const selected = selectedServices.find((item) => item.id === service.id);
-              return (
-                <button
-                  key={service.id}
-                  type="button"
-                  onClick={() => toggleService(service.id)}
-                  className={`rounded-xl border-2 p-3 text-left transition ${
-                    selected
-                      ? "border-[#E6007E] bg-white shadow-[4px_4px_0_0_rgba(230,0,126,0.25)]"
-                      : "border-black/10 bg-white hover:border-[#E6007E]/40"
-                  }`}
-                >
-                  <div className="flex items-start justify-between gap-2">
-                    <p className="text-sm font-bold text-black">{service.name}</p>
-                    <span className="shrink-0 text-sm font-black text-[#E6007E]">
-                      ${service.price}
-                    </span>
-                  </div>
-                  {service.description ? (
-                    <p className="mt-1 text-xs leading-snug text-black/70">{service.description}</p>
-                  ) : null}
-                </button>
-              );
-            })}
-          </div>
-
-          {selectedVitaminServices.length ? (
-            <p className="mt-3 text-xs font-semibold text-[#E6007E]">
-              {selectedVitaminServices.length} vitamin / healing item
-              {selectedVitaminServices.length === 1 ? "" : "s"} on this proposal
-            </p>
-          ) : null}
-
-          <details className="mt-4 rounded-xl border border-black/10 bg-white p-3">
-            <summary className="cursor-pointer text-sm font-bold text-black">
-              Quick cheat sheet — what to offer the client
-            </summary>
-            <div className="mt-3">
-              <VitaminInjectionCheatSheet variant="staff" />
-            </div>
-          </details>
-        </div>
-
-        <div className="mt-4 space-y-5">
-          {groupedServices.map(([category, services]) => (
-            <div key={category}>
-              <h3 className="text-sm font-bold uppercase tracking-wide text-[#E6007E]">{category}</h3>
-              <div className="mt-2 space-y-2">
-                {services.map((service) => {
-                  const selected = selectedServices.find((item) => item.id === service.id);
-                  const perUnit = isPerUnitService(service);
-                  return (
-                    <div key={service.id} className="flex flex-wrap items-center gap-3 rounded-lg border border-black/10 bg-white p-3">
-                      <input type="checkbox" checked={Boolean(selected)} onChange={() => toggleService(service.id)} />
-                      <div className="min-w-[12rem] flex-1">
-                        <p className="text-sm font-semibold text-black">{service.name}</p>
-                        <p className="text-xs text-black/70">
-                          ${service.price} {service.unit}
-                          {service.description ? ` · ${service.description}` : ""}
+                      <div>
+                        <p className="text-[11px] font-bold uppercase tracking-wide text-black/45 mb-2">
+                          À la carte shots
                         </p>
-                        {selected && perUnit ? (
-                          <p className="mt-1 text-xs font-bold text-[#E6007E]">
-                            {selected.quantity} units × ${service.price} = ${serviceLineTotal(selected).toFixed(0)}
-                          </p>
-                        ) : null}
+                        <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+                          {vitaminRetailServices.map((service) => {
+                            const selected = selectedServices.some((s) => s.id === service.id);
+                            return (
+                              <button
+                                key={service.id}
+                                type="button"
+                                onClick={() => toggleService(service.id)}
+                                className={`rounded-xl border-2 p-3 text-left transition ${
+                                  selected
+                                    ? "border-[#E6007E] bg-[#FFF0F7]"
+                                    : "border-black/10 hover:border-[#E6007E]"
+                                }`}
+                              >
+                                <div className="flex items-start justify-between gap-2">
+                                  <p className="text-sm font-bold text-black">{service.name}</p>
+                                  <span className="shrink-0 text-sm font-black text-[#E6007E]">${service.price}</span>
+                                </div>
+                              </button>
+                            );
+                          })}
+                        </div>
                       </div>
-                      {selected && !service.id.startsWith("pkg-") ? (
-                        perUnit ? (
-                          <div className="flex flex-col items-end gap-1">
-                            <label className="text-[10px] font-bold uppercase tracking-wide text-black/50">Units</label>
-                            <div className="flex flex-wrap justify-end gap-1">
-                              {NEUROTOXIN_UNIT_PRESETS.map((preset) => (
-                                <button
-                                  key={preset}
-                                  type="button"
-                                  onClick={() => updateQuantity(service.id, preset)}
-                                  className={`rounded-full px-2.5 py-1 text-[11px] font-bold ${
-                                    selected.quantity === preset
-                                      ? "bg-[#E6007E] text-white"
-                                      : "border border-black/20 text-black hover:border-[#E6007E]"
+
+                      <details className="rounded-xl border border-black/10 bg-white p-3">
+                        <summary className="cursor-pointer text-sm font-bold text-black">
+                          Quick cheat sheet — what to offer the client
+                        </summary>
+                        <div className="mt-3">
+                          <VitaminInjectionCheatSheet variant="staff" />
+                        </div>
+                      </details>
+                    </div>
+                  )}
+
+                  {/* All Services */}
+                  {serviceTab === "all" && (
+                    <div className="space-y-5">
+                      {groupedServices.map(([category, services]) => (
+                        <div key={category}>
+                          <h3 className="text-sm font-bold uppercase tracking-wide text-[#E6007E] mb-2">{category}</h3>
+                          <div className="grid gap-2 sm:grid-cols-2">
+                            {services.map((service) => {
+                              const selected = selectedServices.find((s) => s.id === service.id);
+                              const perUnit = isPerUnitService(service);
+                              return (
+                                <div
+                                  key={service.id}
+                                  className={`rounded-xl border-2 p-3 transition ${
+                                    selected
+                                      ? "border-[#E6007E] bg-[#FFF0F7]"
+                                      : "border-black/10 hover:border-[#E6007E]"
                                   }`}
                                 >
-                                  {preset}
-                                </button>
-                              ))}
-                            </div>
-                            <input
-                              type="number"
-                              min={1}
-                              step={1}
-                              value={selected.quantity}
-                              onChange={(event) => updateQuantity(service.id, Number(event.target.value))}
-                              className="w-24 rounded-md border border-black/20 px-2 py-1 text-sm"
-                              aria-label={`${service.name} units`}
-                              placeholder="Custom"
-                            />
+                                  <div className="flex items-start gap-3">
+                                    <input
+                                      type="checkbox"
+                                      checked={Boolean(selected)}
+                                      onChange={() => toggleService(service.id)}
+                                      className="mt-1"
+                                    />
+                                    <div className="min-w-0 flex-1">
+                                      <p className="text-sm font-semibold text-black">{service.name}</p>
+                                      <p className="text-xs text-black/60">
+                                        ${service.price} {service.unit}
+                                      </p>
+                                    </div>
+                                  </div>
+                                  {selected && perUnit && (
+                                    <div className="mt-2 flex flex-wrap items-center gap-2 border-t border-black/10 pt-2">
+                                      <span className="text-xs text-black/60">Units:</span>
+                                      {NEUROTOXIN_UNIT_PRESETS.map((preset) => (
+                                        <button
+                                          key={preset}
+                                          type="button"
+                                          onClick={() => updateQuantity(service.id, preset)}
+                                          className={`rounded-full px-2.5 py-1 text-[11px] font-bold ${
+                                            selected.quantity === preset
+                                              ? "bg-[#E6007E] text-white"
+                                              : "border border-black/20 text-black"
+                                          }`}
+                                        >
+                                          {preset}
+                                        </button>
+                                      ))}
+                                      <input
+                                        type="number"
+                                        min={1}
+                                        value={selected.quantity}
+                                        onChange={(e) => updateQuantity(service.id, Number(e.target.value))}
+                                        className="w-16 rounded-md border border-black/20 px-2 py-1 text-sm"
+                                        aria-label={`${service.name} units`}
+                                      />
+                                    </div>
+                                  )}
+                                </div>
+                              );
+                            })}
                           </div>
-                        ) : (
-                          <div className="flex flex-col items-end gap-1">
-                            <label className="text-[10px] font-bold uppercase tracking-wide text-black/50">Qty</label>
-                            <input
-                              type="number"
-                              min={1}
-                              value={selected.quantity}
-                              onChange={(event) => updateQuantity(service.id, Number(event.target.value))}
-                              className="w-20 rounded-md border border-black/20 px-2 py-1 text-sm"
-                              aria-label={`${service.name} quantity`}
-                            />
-                          </div>
-                        )
-                      ) : null}
+                        </div>
+                      ))}
                     </div>
-                  );
-                })}
+                  )}
+
+                  {/* Before/after photos */}
+                  <div className="rounded-xl border-2 border-black/10 bg-white p-4">
+                    <h3 className="text-sm font-bold uppercase tracking-wide text-[#E6007E]">
+                      Before & after photos (optional)
+                    </h3>
+                    <div className="mt-3 flex flex-wrap gap-2">
+                      {(["before", "after", "pair"] as ProposalMediaKind[]).map((kind) => (
+                        <label
+                          key={kind}
+                          className="cursor-pointer rounded-full border-2 border-black bg-[#FFF0F7] px-4 py-2 text-sm font-bold text-black hover:border-[#E6007E]"
+                        >
+                          {uploadingKind === kind
+                            ? "Uploading…"
+                            : kind === "before"
+                            ? "+ Before"
+                            : kind === "after"
+                            ? "+ After"
+                            : "+ Pair"}
+                          <input
+                            type="file"
+                            accept="image/*"
+                            className="hidden"
+                            disabled={Boolean(uploadingKind)}
+                            onChange={(e) => {
+                              const file = e.target.files?.[0];
+                              if (file) void uploadMedia(file, kind);
+                              e.target.value = "";
+                            }}
+                          />
+                        </label>
+                      ))}
+                    </div>
+                    {media.length > 0 && (
+                      <div className="mt-3 flex flex-wrap gap-2">
+                        {media.map((item) => (
+                          <div key={item.id} className="relative h-16 w-16 overflow-hidden rounded-lg border border-black/20">
+                            {/* eslint-disable-next-line @next/next/no-img-element */}
+                            <img src={item.url} alt={item.label || item.kind} className="h-full w-full object-cover" />
+                            <button
+                              type="button"
+                              onClick={() => removeMedia(item.id)}
+                              className="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-[10px] font-bold text-white"
+                            >
+                              ×
+                            </button>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+
+                  <div className="flex flex-wrap justify-between gap-3 pt-2">
+                    <button
+                      type="button"
+                      onClick={prevStep}
+                      className="text-sm font-medium text-black/55 hover:text-black"
+                    >
+                      ← Back to client
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        handleGenerate();
+                        nextStep();
+                      }}
+                      disabled={!selectedServices.length}
+                      className="rounded-full px-6 py-3 text-sm font-bold text-white disabled:opacity-50"
+                      style={{ background: `linear-gradient(125deg, ${HOT}, ${PINK})` }}
+                    >
+                      Generate options →
+                    </button>
+                  </div>
+                </div>
+              )}
+
+              {/* STEP 3: Options & Pricing */}
+              {step === "options" && (
+                <div className="space-y-5">
+                  {!options.length ? (
+                    <div className="rounded-xl border-2 border-dashed border-black/20 bg-white p-8 text-center">
+                      <p className="font-semibold text-black/70">No options generated yet</p>
+                      <button
+                        type="button"
+                        onClick={handleGenerate}
+                        disabled={!selectedServices.length}
+                        className="mt-3 rounded-full px-5 py-2 text-sm font-bold text-white disabled:opacity-50"
+                        style={{ background: `linear-gradient(125deg, ${HOT}, ${PINK})` }}
+                      >
+                        Auto-generate options
+                      </button>
+                    </div>
+                  ) : (
+                    <div className="grid gap-4 md:grid-cols-3">
+                      {options.map((option, index) => {
+                        const optSubtotal = calculateSubtotal(option.services);
+                        const discount = calculateDiscount(optSubtotal, option.discountType, option.discountValue);
+                        const total = calculateTotal(option);
+                        const monthly = calculateMonthlyPayment(total, 24);
+                        const showValueInput =
+                          option.discountType === "percentage" ||
+                          option.discountType === "dollar" ||
+                          option.discountType === "custom";
+
+                        return (
+                          <article
+                            key={option.name}
+                            className={`rounded-xl border-2 p-4 ${
+                              index === 1
+                                ? "border-[#E6007E] bg-[#FFF0F7] shadow-[4px_4px_0_0_rgba(230,0,126,0.25)]"
+                                : "border-black"
+                            }`}
+                          >
+                            <div className="flex items-start justify-between">
+                              <h3 className="font-bold text-black">{option.name}</h3>
+                              {index === 1 && (
+                                <span className="rounded-full bg-[#E6007E] px-2 py-0.5 text-[10px] font-bold text-white">
+                                  Best value
+                                </span>
+                              )}
+                            </div>
+
+                            <ul className="mt-3 space-y-1 text-xs text-black/75">
+                              {option.services.slice(0, 4).map((service) => (
+                                <li key={`${option.name}-${service.id}`} className="flex justify-between gap-2">
+                                  <span className="truncate">{formatProposalServiceLine(service)}</span>
+                                  <button
+                                    type="button"
+                                    onClick={() => removeServiceFromOption(option.name, service.id)}
+                                    className="shrink-0 text-[10px] text-black/40 hover:text-red-600"
+                                  >
+                                    ×
+                                  </button>
+                                </li>
+                              ))}
+                              {option.services.length > 4 && (
+                                <li className="text-black/50">+{option.services.length - 4} more</li>
+                              )}
+                            </ul>
+
+                            <div className="mt-3 space-y-2 rounded-lg border border-black/10 bg-white p-2">
+                              <select
+                                value={option.discountType}
+                                onChange={(e) =>
+                                  updateOptionPricing(option.name, { discountType: e.target.value as DiscountType })
+                                }
+                                className="w-full rounded-md border border-black/15 bg-white px-2 py-1 text-xs"
+                              >
+                                {DISCOUNT_MODES.map((mode) => (
+                                  <option key={mode.value} value={mode.value}>
+                                    {mode.label}
+                                  </option>
+                                ))}
+                              </select>
+                              {showValueInput && (
+                                <input
+                                  type="number"
+                                  min={0}
+                                  value={option.discountValue}
+                                  onChange={(e) =>
+                                    updateOptionPricing(option.name, { discountValue: Number(e.target.value) || 0 })
+                                  }
+                                  className="w-full rounded-md border border-black/15 bg-white px-2 py-1 text-xs"
+                                  placeholder={
+                                    option.discountType === "percentage"
+                                      ? "Percent"
+                                      : option.discountType === "custom"
+                                      ? "Custom total"
+                                      : "$ off"
+                                  }
+                                />
+                              )}
+                              <p className="text-[10px] text-black/50">{discountLabel(option)}</p>
+                            </div>
+
+                            <div className="mt-3 border-t border-black/10 pt-2 text-xs">
+                              <div className="flex justify-between">
+                                <span>Subtotal</span>
+                                <span>${optSubtotal.toFixed(0)}</span>
+                              </div>
+                              <div className="flex justify-between text-[#E6007E]">
+                                <span>Discount</span>
+                                <span>-${discount.toFixed(0)}</span>
+                              </div>
+                              <div className="mt-1 flex justify-between text-base font-bold">
+                                <span>Total</span>
+                                <span>${total.toFixed(0)}</span>
+                              </div>
+                              <p className="mt-1 text-[10px] text-black/50">~${monthly.toFixed(0)}/mo at 24mo</p>
+                            </div>
+                          </article>
+                        );
+                      })}
+                    </div>
+                  )}
+
+                  <div className="rounded-xl border border-black/10 bg-[#FFF0F7] p-4">
+                    <p className="text-xs font-bold uppercase tracking-wide text-[#E6007E]">Financing</p>
+                    <p className="mt-1 text-sm text-black/70">
+                      Clients can pay monthly with Cherry — apply in minutes, often with a soft credit check.
+                    </p>
+                    <a
+                      href={CHERRY_PAY_URL}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mt-3 inline-flex rounded-full bg-black px-4 py-2 text-sm font-bold text-white"
+                    >
+                      Apply with Cherry
+                    </a>
+                  </div>
+
+                  <div className="flex flex-wrap justify-between gap-3 pt-2">
+                    <button
+                      type="button"
+                      onClick={prevStep}
+                      className="text-sm font-medium text-black/55 hover:text-black"
+                    >
+                      ← Back to services
+                    </button>
+                    <button
+                      type="button"
+                      onClick={nextStep}
+                      disabled={!options.length}
+                      className="rounded-full px-6 py-3 text-sm font-bold text-white disabled:opacity-50"
+                      style={{ background: `linear-gradient(125deg, ${HOT}, ${PINK})` }}
+                    >
+                      Review & save →
+                    </button>
+                  </div>
+                </div>
+              )}
+
+              {/* STEP 4: Review & Save */}
+              {step === "review" && (
+                <div className="space-y-5">
+                  <div className="rounded-xl border-2 border-black bg-[#FFF0F7] p-4">
+                    <h3 className="font-bold text-black">Proposal Summary</h3>
+                    <div className="mt-3 grid gap-2 text-sm md:grid-cols-2">
+                      <p>
+                        <span className="text-black/60">Client:</span>{" "}
+                        <span className="font-semibold">{clientName || "—"}</span>
+                      </p>
+                      <p>
+                        <span className="text-black/60">Email:</span>{" "}
+                        <span className="font-semibold">{clientEmail || "—"}</span>
+                      </p>
+                      <p>
+                        <span className="text-black/60">Phone:</span>{" "}
+                        <span className="font-semibold">{clientPhone || "—"}</span>
+                      </p>
+                      <p>
+                        <span className="text-black/60">Services:</span>{" "}
+                        <span className="font-semibold">{selectedServices.length} items</span>
+                      </p>
+                      <p>
+                        <span className="text-black/60">Options:</span>{" "}
+                        <span className="font-semibold">{options.length} plans</span>
+                      </p>
+                      <p>
+                        <span className="text-black/60">Photos:</span>{" "}
+                        <span className="font-semibold">{media.length}</span>
+                      </p>
+                    </div>
+                    {concerns.length > 0 && (
+                      <p className="mt-2 text-sm">
+                        <span className="text-black/60">Concerns:</span>{" "}
+                        <span className="font-semibold">{concerns.join(", ")}</span>
+                      </p>
+                    )}
+                  </div>
+
+                  {options.length > 0 && (
+                    <div className="grid gap-3 md:grid-cols-3">
+                      {options.map((option, index) => {
+                        const total = calculateTotal(option);
+                        return (
+                          <div
+                            key={option.name}
+                            className={`rounded-xl border-2 p-3 ${
+                              index === 1 ? "border-[#E6007E] bg-[#FFF0F7]" : "border-black/20"
+                            }`}
+                          >
+                            <p className="font-bold text-black">{option.name}</p>
+                            <p className="mt-1 text-xl font-black text-[#E6007E]">{formatCurrency(total)}</p>
+                            <p className="text-xs text-black/60">{option.services.length} services</p>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  )}
+
+                  {error && (
+                    <div className="rounded-xl border-2 border-red-200 bg-red-50 p-3">
+                      <p className="text-sm font-semibold text-red-700">{error}</p>
+                    </div>
+                  )}
+
+                  <div className="flex flex-wrap justify-between gap-3 pt-2">
+                    <button
+                      type="button"
+                      onClick={prevStep}
+                      className="text-sm font-medium text-black/55 hover:text-black"
+                    >
+                      ← Back to pricing
+                    </button>
+                    <button
+                      type="button"
+                      onClick={handleSave}
+                      disabled={saving || !options.length || !clientName.trim()}
+                      className="rounded-full px-6 py-3 text-sm font-bold text-white disabled:opacity-50"
+                      style={{ background: `linear-gradient(125deg, ${HOT}, ${PINK})` }}
+                    >
+                      {saving
+                        ? "Saving…"
+                        : isEditing
+                        ? "Save changes & preview"
+                        : "Save proposal & preview"}
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Live estimate sidebar (dark instrument panel) */}
+          <aside className="overflow-hidden rounded-2xl border-4 border-black bg-[#0a0a0a] shadow-[8px_8px_0_0_rgba(230,0,126,0.35)] lg:sticky lg:top-6">
+            <div
+              className="border-b border-white/15 px-5 py-5"
+              style={{
+                background:
+                  "radial-gradient(ellipse 70% 120% at 100% 0%, rgba(230,0,126,0.4), transparent 55%)",
+              }}
+            >
+              <p className="text-[10px] font-bold uppercase tracking-[0.28em] text-[#FFB8DC]">Live estimate</p>
+              <h3 className="mt-2 text-2xl font-medium text-white" style={{ fontFamily: SERIF }}>
+                {clientName || "New client"}
+              </h3>
+            </div>
+
+            <div className="space-y-4 p-5">
+              {selectedServices.length === 0 ? (
+                <p className="text-sm text-white/50">Add services to see your estimate.</p>
+              ) : (
+                <>
+                  <div className="max-h-48 space-y-2 overflow-y-auto">
+                    {selectedServices.map((s) => (
+                      <div
+                        key={s.id}
+                        className="flex items-center justify-between gap-2 rounded-lg bg-white/5 px-3 py-2"
+                      >
+                        <span className="truncate text-sm text-white">{s.name}</span>
+                        <div className="flex items-center gap-2">
+                          <span className="text-sm font-bold text-[#FFB8DC]">${serviceLineTotal(s).toFixed(0)}</span>
+                          <button
+                            type="button"
+                            onClick={() => toggleService(s.id)}
+                            className="text-[10px] font-bold text-white/50 hover:text-white"
+                          >
+                            ×
+                          </button>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="border-t border-white/15 pt-4">
+                    <div className="flex items-baseline justify-between">
+                      <span className="text-xs font-bold uppercase tracking-wide text-white/50">Subtotal</span>
+                      <span className="text-2xl font-medium text-white" style={{ fontFamily: SERIF }}>
+                        {formatCurrency(subtotal)}
+                      </span>
+                    </div>
+                    {options.length > 0 && (
+                      <p className="mt-2 text-xs text-[#FFB8DC]">
+                        Recommended: {formatCurrency(recommendedTotal)}
+                      </p>
+                    )}
+                  </div>
+                </>
+              )}
+
+              <div className="space-y-2 pt-2">
+                <a
+                  href={CHERRY_PAY_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex w-full items-center justify-center rounded-full bg-white px-4 py-2.5 text-sm font-bold text-black"
+                >
+                  Apply with Cherry
+                </a>
+                <a
+                  href="tel:+16303839918"
+                  className="flex w-full items-center justify-center rounded-full border border-white/25 px-4 py-2 text-xs font-bold text-white"
+                >
+                  Call (630) 383-9918
+                </a>
               </div>
             </div>
-          ))}
+          </aside>
         </div>
-      </section>
-
-      <section className="space-y-4">
-        <h2 className="text-2xl font-black text-black">Proposal options & pricing</h2>
-        {!options.length ? (
-          <div className="rounded-xl border border-dashed border-black/30 bg-white p-8 text-center text-sm text-black/70">
-            Select a package and/or services, then click auto-generate. You can set % off, $ off, or a custom total on each plan.
-          </div>
-        ) : (
-          <div className="grid gap-4 lg:grid-cols-3">
-            {options.map((option, index) => {
-              const subtotal = calculateSubtotal(option.services);
-              const discount = calculateDiscount(subtotal, option.discountType, option.discountValue);
-              const total = calculateTotal(option);
-              const monthly = calculateMonthlyPayment(total, 24);
-              const showValueInput = option.discountType === "percentage" || option.discountType === "dollar" || option.discountType === "custom";
-
-              return (
-                <article
-                  key={option.name}
-                  className="rounded-2xl border-4 border-black bg-white p-5 shadow-[8px_8px_0_0_#FF2D8E]"
-                >
-                  <h3 className="text-xl font-bold text-black">{option.name}</h3>
-                  {index === 1 ? (
-                    <span className="mt-2 inline-block rounded-full bg-[#E6007E] px-3 py-1 text-xs font-bold text-white">
-                      BEST VALUE
-                    </span>
-                  ) : null}
-                  <ul className="mt-4 space-y-2 text-sm text-black/80">
-                    {option.services.map((service) => (
-                      <li
-                        key={`${option.name}-${service.id}-${service.name}`}
-                        className="flex items-start justify-between gap-2"
-                      >
-                        <span className="min-w-0 flex-1">{formatProposalServiceLine(service)}</span>
-                        <button
-                          type="button"
-                          onClick={() => removeServiceFromOption(option.name, service.id)}
-                          className="shrink-0 text-[11px] font-bold uppercase tracking-wide text-black/45 hover:text-red-600"
-                          aria-label={`Remove ${service.name} from ${option.name}`}
-                        >
-                          Remove
-                        </button>
-                      </li>
-                    ))}
-                  </ul>
-                  {!option.services.length ? (
-                    <p className="mt-3 text-xs text-red-600">This plan has no services — add some or delete the plan.</p>
-                  ) : null}
-
-                  <div className="mt-4 space-y-2 rounded-lg border border-black/15 bg-[#FFF0F7] p-3">
-                    <label className="block text-[11px] font-bold uppercase tracking-wide text-black/60">
-                      Discount / price
-                    </label>
-                    <select
-                      value={option.discountType}
-                      onChange={(event) =>
-                        updateOptionPricing(option.name, { discountType: event.target.value as DiscountType })
-                      }
-                      className="w-full rounded-md border border-black/20 bg-white px-2 py-1.5 text-sm"
-                    >
-                      {DISCOUNT_MODES.map((mode) => (
-                        <option key={mode.value} value={mode.value}>
-                          {mode.label}
-                        </option>
-                      ))}
-                    </select>
-                    {showValueInput ? (
-                      <div>
-                        <label className="block text-[11px] font-bold uppercase tracking-wide text-black/60">
-                          {option.discountType === "percentage"
-                            ? "Percent"
-                            : option.discountType === "dollar"
-                              ? "Dollars off"
-                              : "Custom total ($)"}
-                        </label>
-                        <input
-                          type="number"
-                          min={0}
-                          step={option.discountType === "percentage" ? 1 : 1}
-                          value={option.discountValue}
-                          onChange={(event) =>
-                            updateOptionPricing(option.name, { discountValue: Number(event.target.value) || 0 })
-                          }
-                          className="mt-1 w-full rounded-md border border-black/20 bg-white px-2 py-1.5 text-sm"
-                        />
-                      </div>
-                    ) : null}
-                    <p className="text-[11px] text-black/55">{discountLabel(option)}</p>
-                  </div>
-
-                  <div className="mt-4 border-t border-black/15 pt-3 text-sm">
-                    <div className="flex justify-between">
-                      <span>Subtotal</span>
-                      <span>${subtotal.toFixed(2)}</span>
-                    </div>
-                    <div className="flex justify-between text-[#E6007E]">
-                      <span>Discount</span>
-                      <span>-${discount.toFixed(2)}</span>
-                    </div>
-                    <div className="mt-1 flex justify-between text-base font-bold">
-                      <span>Total</span>
-                      <span>${total.toFixed(2)}</span>
-                    </div>
-                    <p className="mt-1 text-xs text-black/60">${monthly.toFixed(2)}/mo at 24 months (0% APR example)</p>
-                  </div>
-                </article>
-              );
-            })}
-          </div>
-        )}
-      </section>
-
-      {error ? <p className="text-sm font-semibold text-red-600">{error}</p> : null}
-
-      <div className="rounded-2xl border-2 border-black bg-[#FFF0F7] p-4">
-        <p className="text-xs font-bold uppercase tracking-wide text-[#E6007E]">Financing for this quote</p>
-        <p className="mt-1 text-sm text-black/75">
-          Clients can pay monthly with Cherry — apply in minutes, often with a soft credit check first.
-        </p>
-        <a
-          href={CHERRY_PAY_URL}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="mt-3 inline-flex rounded-full bg-black px-5 py-2.5 text-sm font-bold text-white"
-        >
-          Apply now with Cherry
-        </a>
-      </div>
-
-      <div className="flex flex-wrap gap-3">
-        <button
-          type="button"
-          onClick={handleSave}
-          disabled={saving || !options.length}
-          className="rounded-full bg-[#E6007E] px-6 py-3 text-sm font-bold text-white disabled:opacity-50"
-        >
-          {saving ? "Saving..." : isEditing ? "Save changes and open preview" : "Save proposal and open preview"}
-        </button>
       </div>
     </div>
   );
