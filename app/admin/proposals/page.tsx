@@ -8,7 +8,8 @@ import { calculateTotal, type ProposalOption } from "@/lib/proposals/utils";
 
 const PINK = "#E6007E";
 const HOT = "#FF2D8E";
-const SERIF = "var(--font-playfair), Georgia, serif";
+const SOFT_PINK = "#FFB8DC";
+const BG_COOL = "#E8ECF4";
 
 type FilterStatus = "all" | "draft" | "sent" | "accepted" | "paid" | "expired";
 
@@ -27,17 +28,30 @@ function getProposalTotal(proposal: TreatmentProposalRecord): number {
   return calculateTotal(options[1] || options[0]);
 }
 
-export default function ProposalsListPage() {
+function timeAgo(date: string): string {
+  const now = Date.now();
+  const then = new Date(date).getTime();
+  const hours = Math.floor((now - then) / 3600000);
+  if (hours < 1) return "Just now";
+  if (hours < 24) return `${hours}h ago`;
+  const days = Math.floor(hours / 24);
+  if (days === 1) return "Yesterday";
+  if (days < 7) return `${days}d ago`;
+  return new Date(date).toLocaleDateString("en-US", { month: "short", day: "numeric" });
+}
+
+export default function ProposalsPortalPage() {
   const [loading, setLoading] = useState(true);
   const [proposals, setProposals] = useState<TreatmentProposalRecord[]>([]);
   const [error, setError] = useState<string | null>(null);
+  const [filter, setFilter] = useState<FilterStatus>("all");
+  const [search, setSearch] = useState("");
+  const [showBanner, setShowBanner] = useState(true);
   const [deletingId, setDeletingId] = useState<string | null>(null);
   const [chartProposal, setChartProposal] = useState<TreatmentProposalRecord | null>(null);
   const [chartNote, setChartNote] = useState("");
   const [chartSaving, setChartSaving] = useState(false);
   const [chartNotice, setChartNotice] = useState<string | null>(null);
-  const [filter, setFilter] = useState<FilterStatus>("all");
-  const [search, setSearch] = useState("");
 
   const load = useCallback(async () => {
     try {
@@ -67,7 +81,17 @@ export default function ProposalsListPage() {
     const paidValue = proposals
       .filter((p) => p.payment_status === "paid" || p.payment_status === "deposit_paid")
       .reduce((sum, p) => sum + (p.payment_amount_usd || getProposalTotal(p)), 0);
-    return { total, draft, sent, accepted, paid, totalValue, paidValue };
+
+    // Pipeline readiness: % of proposals that have moved past draft
+    const readiness = total > 0 ? Math.round(((sent + accepted + paid) / total) * 100) : 0;
+
+    return { total, draft, sent, accepted, paid, totalValue, paidValue, readiness };
+  }, [proposals]);
+
+  const recentProposals = useMemo(() => {
+    return [...proposals]
+      .sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime())
+      .slice(0, 5);
   }, [proposals]);
 
   const filteredProposals = useMemo(() => {
@@ -152,257 +176,489 @@ export default function ProposalsListPage() {
     { value: "expired", label: "Expired" },
   ];
 
+  const NAV_LINKS = [
+    { label: "Home", href: "/admin/proposals", active: true },
+    { label: "Pipeline", href: "/admin/proposals?filter=sent", badge: stats.sent || undefined },
+    { label: "Consults", href: "/admin/proposals/consults" },
+    { label: "Templates", href: "/admin/proposals/templates", disabled: true },
+  ];
+
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
-      {/* Dark header bar with stats */}
-      <header
-        className="border-b-4 border-black"
-        style={{
-          background: `radial-gradient(ellipse 80% 100% at 100% 0%, rgba(230,0,126,0.25), transparent 60%), linear-gradient(125deg, #1a0a12 0%, #2d1020 45%, #0a0a0a 100%)`,
-        }}
-      >
-        <div className="mx-auto max-w-7xl px-6 py-8">
-          <div className="flex flex-wrap items-start justify-between gap-4">
-            <div>
-              <div className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-1.5 backdrop-blur">
-                <span className="relative flex h-2 w-2">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-70" />
-                  <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
-                </span>
-                <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-white">Staff portal</span>
-              </div>
-              <h1 className="mt-3 text-3xl font-medium text-white md:text-4xl" style={{ fontFamily: SERIF }}>
-                Treatment{" "}
-                <span
-                  className="bg-gradient-to-r from-[#FFB8DC] via-[#FF2D8E] to-[#E6007E] bg-clip-text text-transparent"
-                  style={{ WebkitBackgroundClip: "text" }}
-                >
-                  Proposals
-                </span>
-              </h1>
-              <p className="mt-2 text-sm text-white/70">
-                Create, review, and manage client treatment plans.{" "}
-                <a
-                  href="/staff/protocols/guides/Treatment-Proposals-Staff-How-To.html"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="font-semibold text-[#FFB8DC] underline decoration-[#E6007E] hover:text-white"
-                >
-                  Staff how-to
-                </a>
-              </p>
+    <div className="min-h-screen" style={{ background: BG_COOL }}>
+      {/* Dark portal nav bar */}
+      <header className="sticky top-0 z-20 border-b border-white/10 bg-[#0f172a]">
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6">
+          {/* Logo / brand */}
+          <div className="flex items-center gap-3">
+            <div
+              className="flex h-9 w-9 items-center justify-center rounded-xl text-lg font-black text-white"
+              style={{ background: `linear-gradient(135deg, ${HOT}, ${PINK})` }}
+            >
+              HG
             </div>
-            <div className="flex flex-wrap items-center gap-2">
-              <a
-                href="/staff/protocols/guides/InMode-Packages-How-To-Sell.html"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="rounded-full border border-white/25 bg-white/10 px-4 py-2.5 text-sm font-bold text-white backdrop-blur hover:bg-white/20"
-              >
-                Selling packages
-              </a>
-              <Link
-                href="/admin/proposals/consults"
-                className="rounded-full border border-white/25 bg-white/10 px-4 py-2.5 text-sm font-bold text-white backdrop-blur hover:bg-white/20"
-              >
-                Consults
-              </Link>
-              <Link
-                href="/admin/proposals/new"
-                className="rounded-full border-2 border-black px-5 py-2.5 text-sm font-black text-white shadow-[4px_4px_0_0_#000]"
-                style={{ background: `linear-gradient(125deg, ${HOT}, ${PINK})` }}
-              >
-                + New proposal
-              </Link>
-            </div>
+            <span className="text-sm font-bold tracking-wide text-white">PROPOSALS</span>
           </div>
 
-          {/* Stats row */}
-          <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
-            {[
-              { label: "Total", value: stats.total, accent: false },
-              { label: "Draft", value: stats.draft, accent: false },
-              { label: "Sent", value: stats.sent, accent: false },
-              { label: "Accepted", value: stats.accepted, accent: true },
-              { label: "Paid", value: stats.paid, accent: true },
-            ].map((stat) => (
-              <div
-                key={stat.label}
-                className={`rounded-xl border px-4 py-3 ${
-                  stat.accent ? "border-[#E6007E]/40 bg-[#E6007E]/10" : "border-white/15 bg-white/5"
+          {/* Center nav links */}
+          <nav className="hidden items-center gap-1 sm:flex">
+            {NAV_LINKS.map((link) => (
+              <Link
+                key={link.href}
+                href={link.disabled ? "#" : link.href}
+                className={`relative flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold transition ${
+                  link.active
+                    ? "text-white"
+                    : link.disabled
+                    ? "cursor-not-allowed text-white/30"
+                    : "text-white/70 hover:bg-white/10 hover:text-white"
                 }`}
+                style={link.active ? { background: `linear-gradient(135deg, ${HOT}, ${PINK})` } : undefined}
               >
-                <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/60">{stat.label}</p>
-                <p className={`mt-1 text-2xl font-medium ${stat.accent ? "text-[#FFB8DC]" : "text-white"}`}>{stat.value}</p>
-              </div>
+                {link.label}
+                {link.badge !== undefined && (
+                  <span className="flex h-5 min-w-5 items-center justify-center rounded-full bg-white/20 px-1.5 text-[10px] font-bold">
+                    {link.badge}
+                  </span>
+                )}
+              </Link>
             ))}
-          </div>
-          <div className="mt-3 flex flex-wrap gap-4 text-sm text-white/70">
-            <span>Pipeline: {formatCurrency(stats.totalValue)}</span>
-            <span>Collected: {formatCurrency(stats.paidValue)}</span>
+          </nav>
+
+          {/* Right side: user */}
+          <div className="flex items-center gap-3">
+            <Link
+              href="/admin"
+              className="rounded-full border border-white/20 bg-white/5 px-3 py-1.5 text-xs font-semibold text-white/80 hover:bg-white/10"
+            >
+              Admin Hub
+            </Link>
+            <div
+              className="flex h-8 w-8 items-center justify-center rounded-full text-sm font-bold text-white"
+              style={{ background: `linear-gradient(135deg, ${SOFT_PINK}, ${HOT})` }}
+              title="Danielle"
+            >
+              D
+            </div>
           </div>
         </div>
       </header>
 
-      {/* Filter bar */}
-      <div className="border-b border-black/10 bg-white/80 backdrop-blur sticky top-0 z-10">
-        <div className="mx-auto flex max-w-7xl flex-wrap items-center gap-3 px-6 py-3">
-          <div className="flex flex-wrap gap-1">
-            {FILTER_OPTIONS.map((opt) => (
-              <button
-                key={opt.value}
-                type="button"
-                onClick={() => setFilter(opt.value)}
-                className={`rounded-full px-3 py-1.5 text-xs font-bold transition ${
-                  filter === opt.value
-                    ? "bg-black text-white"
-                    : "border border-black/15 text-black/70 hover:border-black hover:text-black"
-                }`}
-              >
-                {opt.label}
-              </button>
-            ))}
-          </div>
-          <div className="flex-1" />
-          <input
-            type="search"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            placeholder="Search by name, email, phone…"
-            className="w-full max-w-xs rounded-lg border border-black/15 bg-white px-3 py-2 text-sm placeholder:text-black/40 focus:border-[#E6007E] focus:outline-none"
-          />
-        </div>
-      </div>
-
-      {/* Proposals grid */}
-      <main className="mx-auto max-w-7xl p-6">
-        {loading ? (
-          <div className="flex items-center justify-center py-20">
-            <div className="text-center">
-              <div className="mx-auto h-8 w-8 animate-spin rounded-full border-4 border-[#E6007E] border-t-transparent" />
-              <p className="mt-3 text-sm text-black/60">Loading proposals…</p>
+      {/* Main content */}
+      <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6">
+        {/* Greeting section */}
+        <div className="mb-8 flex flex-wrap items-start justify-between gap-4">
+          <div className="flex items-center gap-4">
+            <div
+              className="flex h-14 w-14 items-center justify-center rounded-2xl text-2xl font-black text-white shadow-lg"
+              style={{ background: `linear-gradient(135deg, ${HOT}, ${PINK})` }}
+            >
+              HG
+            </div>
+            <div>
+              <h1 className="text-2xl font-bold text-slate-900 sm:text-3xl">
+                Hey gorgeous. <span className="text-slate-500">Welcome to Proposals.</span>
+              </h1>
             </div>
           </div>
-        ) : error ? (
-          <div className="rounded-2xl border-2 border-red-200 bg-red-50 p-6 text-center">
-            <p className="font-semibold text-red-700">{error}</p>
+        </div>
+
+        {/* Dismissible info banner */}
+        {showBanner && (
+          <div className="mb-6 flex items-start gap-3 rounded-2xl border border-amber-200/60 bg-amber-50/80 px-5 py-4 backdrop-blur">
+            <div className="flex-1">
+              <p className="text-sm text-slate-700">
+                <span className="mr-2 rounded bg-amber-200 px-1.5 py-0.5 text-xs font-bold text-amber-800">TIP</span>
+                Build proposals with packages for higher close rates.{" "}
+                <a
+                  href="/staff/protocols/guides/InMode-Packages-How-To-Sell.html"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-semibold text-slate-900 underline decoration-amber-400 hover:text-amber-700"
+                >
+                  Read the selling guide
+                </a>
+              </p>
+            </div>
             <button
               type="button"
-              onClick={() => void load()}
-              className="mt-3 rounded-full bg-red-600 px-4 py-2 text-sm font-bold text-white"
+              onClick={() => setShowBanner(false)}
+              className="shrink-0 text-sm text-slate-400 hover:text-slate-600"
             >
-              Retry
+              Dismiss
             </button>
           </div>
-        ) : filteredProposals.length === 0 ? (
-          <div className="rounded-2xl border-2 border-dashed border-black/20 bg-white p-12 text-center">
-            <p className="text-lg font-bold text-black/70">No proposals found</p>
-            <p className="mt-1 text-sm text-black/50">
-              {filter !== "all" || search ? "Try adjusting your filters." : "Create your first proposal to get started."}
-            </p>
-            <Link
-              href="/admin/proposals/new"
-              className="mt-4 inline-flex rounded-full px-5 py-2.5 text-sm font-bold text-white"
-              style={{ background: `linear-gradient(125deg, ${HOT}, ${PINK})` }}
-            >
-              + New proposal
-            </Link>
-          </div>
-        ) : (
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {filteredProposals.map((proposal) => {
-              const badges = proposalStatusBadges(proposal);
-              const total = getProposalTotal(proposal);
-              const isExpired = new Date(proposal.expires_at) < new Date();
-              const daysSinceCreated = Math.floor((Date.now() - new Date(proposal.created_at).getTime()) / 86400000);
-
-              return (
-                <article
-                  key={proposal.id}
-                  className="group relative overflow-hidden rounded-2xl border-2 border-black bg-white shadow-[4px_4px_0_0_rgba(230,0,126,0.2)] transition-shadow hover:shadow-[6px_6px_0_0_rgba(230,0,126,0.3)]"
-                >
-                  {/* Card header */}
-                  <div className="border-b border-black/10 bg-gradient-to-r from-[#FFF0F7] to-white px-4 py-3">
-                    <div className="flex items-start justify-between gap-2">
-                      <div className="min-w-0 flex-1">
-                        <h3 className="truncate text-lg font-bold text-black">{proposal.client_name}</h3>
-                        <p className="truncate text-xs text-black/60">
-                          {proposal.client_email || proposal.client_phone || "No contact info"}
-                        </p>
-                      </div>
-                      <p className="shrink-0 text-xl font-black text-[#E6007E]">{formatCurrency(total)}</p>
-                    </div>
-                  </div>
-
-                  {/* Card body */}
-                  <div className="space-y-3 p-4">
-                    {/* Status badges */}
-                    <div className="flex flex-wrap gap-1.5">
-                      {badges.map((badge) => (
-                        <span
-                          key={badge.key}
-                          className={`inline-flex rounded-full border px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide ${badge.className}`}
-                        >
-                          {badge.label}
-                        </span>
-                      ))}
-                      {isExpired && proposal.status !== "expired" && (
-                        <span className="inline-flex rounded-full border border-red-200 bg-red-50 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide text-red-700">
-                          Expired
-                        </span>
-                      )}
-                    </div>
-
-                    {/* Meta info */}
-                    <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-black/60">
-                      <span>Created {daysSinceCreated === 0 ? "today" : `${daysSinceCreated}d ago`}</span>
-                      <span>Expires {new Date(proposal.expires_at).toLocaleDateString()}</span>
-                    </div>
-
-                    {proposal.internal_notes && (
-                      <p className="rounded-lg bg-[#FFF0F7] px-2 py-1.5 text-[11px] font-medium text-[#E6007E]">
-                        Has staff notes
-                      </p>
-                    )}
-
-                    {/* Actions */}
-                    <div className="flex flex-wrap gap-2 pt-2">
-                      <Link
-                        href={`/admin/proposals/${proposal.id}/preview`}
-                        className="flex-1 rounded-full px-3 py-2 text-center text-xs font-bold text-white"
-                        style={{ background: `linear-gradient(125deg, ${HOT}, ${PINK})` }}
-                      >
-                        Preview
-                      </Link>
-                      <Link
-                        href={`/admin/proposals/${proposal.id}/edit`}
-                        className="rounded-full border-2 border-black px-3 py-2 text-xs font-bold text-black hover:bg-black hover:text-white"
-                      >
-                        Edit
-                      </Link>
-                      <button
-                        type="button"
-                        onClick={() => openChart(proposal)}
-                        className="rounded-full border border-black/30 px-3 py-2 text-xs font-bold text-black/70 hover:border-[#E6007E] hover:text-[#E6007E]"
-                      >
-                        Notes
-                      </button>
-                      <button
-                        type="button"
-                        disabled={deletingId === proposal.id}
-                        onClick={() => void deleteProposal(proposal)}
-                        className="rounded-full border border-red-200 px-3 py-2 text-xs font-bold text-red-600 hover:bg-red-50 disabled:opacity-50"
-                        aria-label="Delete proposal"
-                      >
-                        {deletingId === proposal.id ? "…" : "×"}
-                      </button>
-                    </div>
-                  </div>
-                </article>
-              );
-            })}
-          </div>
         )}
+
+        {/* Two-column layout */}
+        <div className="grid gap-6 lg:grid-cols-[1fr_340px]">
+          {/* Left column */}
+          <div className="space-y-6">
+            {/* Quick actions card */}
+            <div className="rounded-2xl border border-slate-200/80 bg-white p-5 shadow-sm">
+              <div className="mb-4 flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <span className="text-lg">✨</span>
+                  <h2 className="text-xs font-bold uppercase tracking-widest text-slate-500">Quick Actions</h2>
+                </div>
+                <Link
+                  href="/admin/proposals/new"
+                  className="text-sm font-semibold hover:underline"
+                  style={{ color: PINK }}
+                >
+                  + New proposal
+                </Link>
+              </div>
+
+              {/* Suggested starters */}
+              <div className="space-y-2">
+                <Link
+                  href="/admin/proposals/new"
+                  className="flex items-center gap-3 rounded-xl border border-slate-200 bg-slate-50/50 px-4 py-3 transition hover:border-slate-300 hover:bg-slate-100"
+                >
+                  <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-slate-200 text-sm">📝</span>
+                  <span className="text-sm font-medium text-slate-700">
+                    Start fresh proposal — add services, build pricing options
+                  </span>
+                </Link>
+                <Link
+                  href="/admin/proposals/consults"
+                  className="flex items-center gap-3 rounded-xl border border-slate-200 bg-slate-50/50 px-4 py-3 transition hover:border-slate-300 hover:bg-slate-100"
+                >
+                  <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-slate-200 text-sm">📋</span>
+                  <span className="text-sm font-medium text-slate-700">Build from consult notes — turn consults into proposals</span>
+                </Link>
+                <Link
+                  href="/build-your-proposal"
+                  target="_blank"
+                  className="flex items-center gap-3 rounded-xl border border-slate-200 bg-slate-50/50 px-4 py-3 transition hover:border-slate-300 hover:bg-slate-100"
+                >
+                  <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-slate-200 text-sm">🔗</span>
+                  <span className="text-sm font-medium text-slate-700">Public builder link — share with clients to self-build</span>
+                </Link>
+              </div>
+            </div>
+
+            {/* Feature cards row */}
+            <div className="grid gap-4 sm:grid-cols-2">
+              {/* New Proposal Card */}
+              <Link
+                href="/admin/proposals/new"
+                className="group rounded-2xl border border-slate-200/80 bg-white p-6 shadow-sm transition hover:border-pink-200 hover:shadow-md"
+              >
+                <div
+                  className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl text-xl"
+                  style={{ background: `linear-gradient(135deg, ${HOT}20, ${PINK}15)` }}
+                >
+                  💬
+                </div>
+                <h3 className="mb-2 font-bold text-slate-900">New Proposal</h3>
+                <p className="mb-3 text-sm text-slate-500">
+                  Walk through services, build Good/Better/Best options, and send a beautiful proposal.
+                </p>
+                <span className="text-sm font-semibold group-hover:underline" style={{ color: PINK }}>
+                  Get started →
+                </span>
+              </Link>
+
+              {/* Build from Consult Card */}
+              <Link
+                href="/admin/proposals/consults"
+                className="group rounded-2xl border border-slate-200/80 bg-white p-6 shadow-sm transition hover:border-pink-200 hover:shadow-md"
+              >
+                <div
+                  className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl text-xl"
+                  style={{ background: `linear-gradient(135deg, ${HOT}20, ${PINK}15)` }}
+                >
+                  📄
+                </div>
+                <h3 className="mb-2 font-bold text-slate-900">Consult Desk</h3>
+                <p className="mb-3 text-sm text-slate-500">
+                  Review past consults, flag follow-ups, and convert discussions into treatment plans.
+                </p>
+                <span className="text-sm font-semibold group-hover:underline" style={{ color: PINK }}>
+                  Open desk →
+                </span>
+              </Link>
+            </div>
+
+            {/* All Proposals Section */}
+            <div className="rounded-2xl border border-slate-200/80 bg-white shadow-sm">
+              <div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-100 px-5 py-4">
+                <h2 className="font-bold text-slate-900">All Proposals</h2>
+                <div className="flex flex-wrap items-center gap-2">
+                  <div className="flex gap-1">
+                    {FILTER_OPTIONS.map((opt) => (
+                      <button
+                        key={opt.value}
+                        type="button"
+                        onClick={() => setFilter(opt.value)}
+                        className={`rounded-full px-3 py-1.5 text-xs font-semibold transition ${
+                          filter === opt.value
+                            ? "bg-slate-900 text-white"
+                            : "text-slate-500 hover:bg-slate-100 hover:text-slate-700"
+                        }`}
+                      >
+                        {opt.label}
+                      </button>
+                    ))}
+                  </div>
+                  <input
+                    type="search"
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                    placeholder="Search..."
+                    className="w-40 rounded-lg border border-slate-200 bg-slate-50 px-3 py-1.5 text-sm placeholder:text-slate-400 focus:border-pink-300 focus:outline-none focus:ring-2 focus:ring-pink-100"
+                  />
+                </div>
+              </div>
+
+              <div className="p-4">
+                {loading ? (
+                  <div className="flex items-center justify-center py-12">
+                    <div className="text-center">
+                      <div
+                        className="mx-auto h-8 w-8 animate-spin rounded-full border-4 border-t-transparent"
+                        style={{ borderColor: `${PINK} transparent ${PINK} ${PINK}` }}
+                      />
+                      <p className="mt-3 text-sm text-slate-500">Loading proposals…</p>
+                    </div>
+                  </div>
+                ) : error ? (
+                  <div className="rounded-xl border border-red-200 bg-red-50 p-6 text-center">
+                    <p className="font-semibold text-red-700">{error}</p>
+                    <button
+                      type="button"
+                      onClick={() => void load()}
+                      className="mt-3 rounded-full bg-red-600 px-4 py-2 text-sm font-bold text-white"
+                    >
+                      Retry
+                    </button>
+                  </div>
+                ) : filteredProposals.length === 0 ? (
+                  <div className="rounded-xl border-2 border-dashed border-slate-200 bg-slate-50 p-8 text-center">
+                    <p className="font-semibold text-slate-600">No proposals found</p>
+                    <p className="mt-1 text-sm text-slate-400">
+                      {filter !== "all" || search ? "Try adjusting your filters." : "Create your first proposal to get started."}
+                    </p>
+                    <Link
+                      href="/admin/proposals/new"
+                      className="mt-4 inline-flex rounded-full px-5 py-2.5 text-sm font-bold text-white"
+                      style={{ background: `linear-gradient(135deg, ${HOT}, ${PINK})` }}
+                    >
+                      + New proposal
+                    </Link>
+                  </div>
+                ) : (
+                  <div className="divide-y divide-slate-100">
+                    {filteredProposals.map((proposal) => {
+                      const badges = proposalStatusBadges(proposal);
+                      const total = getProposalTotal(proposal);
+                      const isExpired = new Date(proposal.expires_at) < new Date();
+
+                      return (
+                        <div
+                          key={proposal.id}
+                          className="flex flex-wrap items-center gap-4 py-4 first:pt-0 last:pb-0"
+                        >
+                          <div className="min-w-0 flex-1">
+                            <div className="flex items-center gap-2">
+                              <h3 className="truncate font-semibold text-slate-900">{proposal.client_name}</h3>
+                              <span className="text-lg font-bold" style={{ color: PINK }}>
+                                {formatCurrency(total)}
+                              </span>
+                            </div>
+                            <div className="mt-1 flex flex-wrap items-center gap-2 text-xs text-slate-500">
+                              <span>{proposal.client_email || proposal.client_phone || "No contact"}</span>
+                              <span>·</span>
+                              <span>{timeAgo(proposal.created_at)}</span>
+                            </div>
+                          </div>
+
+                          <div className="flex flex-wrap items-center gap-2">
+                            {badges.map((badge) => (
+                              <span
+                                key={badge.key}
+                                className={`rounded-full border px-2 py-0.5 text-[10px] font-bold uppercase ${badge.className}`}
+                              >
+                                {badge.label}
+                              </span>
+                            ))}
+                            {isExpired && proposal.status !== "expired" && (
+                              <span className="rounded-full border border-red-200 bg-red-50 px-2 py-0.5 text-[10px] font-bold uppercase text-red-700">
+                                Expired
+                              </span>
+                            )}
+                          </div>
+
+                          <div className="flex items-center gap-1">
+                            <Link
+                              href={`/admin/proposals/${proposal.id}/preview`}
+                              className="rounded-full px-3 py-1.5 text-xs font-semibold text-white"
+                              style={{ background: `linear-gradient(135deg, ${HOT}, ${PINK})` }}
+                            >
+                              Preview
+                            </Link>
+                            <Link
+                              href={`/admin/proposals/${proposal.id}/edit`}
+                              className="rounded-full border border-slate-200 px-3 py-1.5 text-xs font-semibold text-slate-600 hover:bg-slate-50"
+                            >
+                              Edit
+                            </Link>
+                            <button
+                              type="button"
+                              onClick={() => openChart(proposal)}
+                              className="rounded-full border border-slate-200 px-3 py-1.5 text-xs font-semibold text-slate-600 hover:bg-slate-50"
+                            >
+                              Notes
+                            </button>
+                            <button
+                              type="button"
+                              disabled={deletingId === proposal.id}
+                              onClick={() => void deleteProposal(proposal)}
+                              className="rounded-full border border-red-100 px-2 py-1.5 text-xs font-semibold text-red-500 hover:bg-red-50 disabled:opacity-50"
+                            >
+                              {deletingId === proposal.id ? "…" : "×"}
+                            </button>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+
+          {/* Right sidebar */}
+          <div className="space-y-5">
+            {/* Pipeline Readiness Card */}
+            <div className="rounded-2xl border border-slate-200/80 bg-white p-5 shadow-sm">
+              <div className="mb-3 flex items-center gap-2">
+                <span className="text-lg">✨</span>
+                <h3 className="text-sm font-bold text-slate-700">Pipeline readiness</h3>
+              </div>
+              <div className="mb-3 flex items-baseline gap-1">
+                <span className="text-4xl font-bold" style={{ color: PINK }}>
+                  {stats.readiness}%
+                </span>
+                <span className="text-sm text-slate-500">of proposals active</span>
+              </div>
+              <p className="text-sm text-slate-500">
+                Track how many proposals have moved past draft. Higher readiness means more potential revenue in play.
+              </p>
+              <div className="mt-4 grid grid-cols-3 gap-2 border-t border-slate-100 pt-4">
+                <div className="text-center">
+                  <p className="text-xl font-bold text-slate-900">{stats.sent}</p>
+                  <p className="text-[10px] font-semibold uppercase text-slate-400">Sent</p>
+                </div>
+                <div className="text-center">
+                  <p className="text-xl font-bold text-slate-900">{stats.accepted}</p>
+                  <p className="text-[10px] font-semibold uppercase text-slate-400">Accepted</p>
+                </div>
+                <div className="text-center">
+                  <p className="text-xl font-bold" style={{ color: PINK }}>{stats.paid}</p>
+                  <p className="text-[10px] font-semibold uppercase text-slate-400">Paid</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Academy / Learning Card */}
+            <div className="rounded-2xl border border-slate-200/80 bg-white p-5 shadow-sm">
+              <div className="mb-3 flex items-center gap-2">
+                <span className="text-lg">🎓</span>
+                <h3 className="text-sm font-bold text-slate-700">HG Academy</h3>
+              </div>
+              <p className="mb-4 text-sm text-slate-500">
+                Sharpen your skills with protocols, selling guides, and treatment science.
+              </p>
+              <div className="space-y-2">
+                <a
+                  href="/staff/protocols/guides/InMode-Packages-How-To-Sell.html"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-medium text-slate-700 transition hover:bg-slate-100"
+                >
+                  📦 Selling InMode packages
+                </a>
+                <a
+                  href="/staff/protocols/guides/Treatment-Proposals-Staff-How-To.html"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-medium text-slate-700 transition hover:bg-slate-100"
+                >
+                  📝 Proposals staff how-to
+                </a>
+                <Link
+                  href="/regen-science"
+                  className="block rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-medium text-slate-700 transition hover:bg-slate-100"
+                >
+                  🧬 Regen science hub
+                </Link>
+              </div>
+            </div>
+
+            {/* Recent Proposals Card */}
+            <div className="rounded-2xl border border-slate-200/80 bg-white p-5 shadow-sm">
+              <div className="mb-3 flex items-center gap-2">
+                <span className="text-lg">📋</span>
+                <h3 className="text-sm font-bold text-slate-700">Recent proposals</h3>
+              </div>
+              {loading ? (
+                <p className="text-sm text-slate-400">Loading…</p>
+              ) : recentProposals.length === 0 ? (
+                <p className="text-sm text-slate-400">No proposals yet.</p>
+              ) : (
+                <div className="space-y-3">
+                  {recentProposals.map((proposal) => (
+                    <Link
+                      key={proposal.id}
+                      href={`/admin/proposals/${proposal.id}/preview`}
+                      className="block rounded-xl border border-slate-100 bg-slate-50/50 px-3 py-2.5 transition hover:bg-slate-100"
+                    >
+                      <p className="truncate font-semibold text-slate-900">{proposal.client_name}</p>
+                      <div className="mt-0.5 flex items-center gap-2 text-xs text-slate-500">
+                        <span
+                          className={`capitalize ${
+                            proposal.status === "accepted" || proposal.payment_status === "paid"
+                              ? "text-emerald-600"
+                              : proposal.status === "sent" || proposal.status === "viewed"
+                              ? "text-blue-600"
+                              : ""
+                          }`}
+                        >
+                          {proposal.payment_status === "paid" ? "Paid" : proposal.status}
+                        </span>
+                        <span>·</span>
+                        <span>{timeAgo(proposal.created_at)}</span>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              )}
+              <Link
+                href="/admin/proposals?filter=all"
+                className="mt-4 block text-sm font-semibold hover:underline"
+                style={{ color: PINK }}
+              >
+                View all proposals →
+              </Link>
+            </div>
+
+            {/* Pipeline Value Card */}
+            <div
+              className="rounded-2xl p-5 text-white shadow-lg"
+              style={{ background: `linear-gradient(135deg, ${HOT}, ${PINK})` }}
+            >
+              <p className="text-xs font-bold uppercase tracking-widest text-white/70">Pipeline value</p>
+              <p className="mt-1 text-3xl font-bold">{formatCurrency(stats.totalValue)}</p>
+              <div className="mt-3 border-t border-white/20 pt-3">
+                <p className="text-sm text-white/80">
+                  Collected: <span className="font-bold text-white">{formatCurrency(stats.paidValue)}</span>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
       </main>
 
       {/* Chart notes modal */}
@@ -413,67 +669,68 @@ export default function ProposalsListPage() {
           aria-modal="true"
           aria-labelledby="proposal-chart-title"
         >
-          <div className="w-full max-w-lg overflow-hidden rounded-2xl border-4 border-black bg-white shadow-[8px_8px_0_0_rgba(230,0,126,0.35)]">
-            <div
-              className="flex items-start justify-between gap-3 border-b-2 border-black px-5 py-4"
-              style={{
-                background: `radial-gradient(ellipse 60% 100% at 100% 0%, rgba(230,0,126,0.15), transparent 60%), linear-gradient(to right, #FFF0F7, white)`,
-              }}
-            >
+          <div className="w-full max-w-lg overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-2xl">
+            <div className="flex items-start justify-between gap-3 border-b border-slate-100 px-5 py-4">
               <div>
-                <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#E6007E]">Reference notes</p>
-                <h2 id="proposal-chart-title" className="text-lg font-black text-black">
+                <p className="text-[10px] font-bold uppercase tracking-widest" style={{ color: PINK }}>
+                  Reference notes
+                </p>
+                <h2 id="proposal-chart-title" className="text-lg font-bold text-slate-900">
                   {chartProposal.client_name}
                 </h2>
               </div>
               <button
                 type="button"
                 onClick={() => setChartProposal(null)}
-                className="rounded-full border border-black/20 px-3 py-1 text-xs font-bold text-black/60 hover:border-black hover:text-black"
+                className="rounded-full border border-slate-200 px-3 py-1 text-xs font-semibold text-slate-500 hover:bg-slate-50"
               >
                 Close
               </button>
             </div>
             <div className="space-y-4 p-5">
               {chartProposal.internal_notes ? (
-                <div className="max-h-40 overflow-y-auto rounded-xl border border-black/10 bg-[#FFF0F7] p-3 text-sm whitespace-pre-wrap text-black/80">
+                <div className="max-h-40 overflow-y-auto rounded-xl border border-slate-100 bg-slate-50 p-3 text-sm whitespace-pre-wrap text-slate-700">
                   {chartProposal.internal_notes}
                 </div>
               ) : (
-                <p className="text-sm text-black/55">No notes yet on this proposal.</p>
+                <p className="text-sm text-slate-400">No notes yet on this proposal.</p>
               )}
               <label className="block">
-                <span className="text-[10px] font-bold uppercase tracking-wide text-black/50">Add note</span>
+                <span className="text-[10px] font-bold uppercase tracking-wide text-slate-400">Add note</span>
                 <textarea
                   value={chartNote}
                   onChange={(event) => setChartNote(event.target.value)}
                   rows={4}
                   placeholder="Consult goals, package discussed, follow-up reminders…"
-                  className="mt-1 w-full rounded-xl border-2 border-black/15 px-3 py-2 text-sm text-black focus:border-[#E6007E] focus:outline-none"
+                  className="mt-1 w-full rounded-xl border border-slate-200 px-3 py-2 text-sm text-slate-700 focus:border-pink-300 focus:outline-none focus:ring-2 focus:ring-pink-100"
                 />
               </label>
-              {chartNotice && <p className="text-sm font-medium text-[#E6007E]">{chartNotice}</p>}
+              {chartNotice && (
+                <p className="text-sm font-medium" style={{ color: PINK }}>
+                  {chartNotice}
+                </p>
+              )}
               <div className="flex flex-wrap items-center gap-2">
                 <button
                   type="button"
                   disabled={chartSaving || !chartNote.trim()}
                   onClick={() => void saveChartNote()}
                   className="rounded-full px-4 py-2 text-sm font-bold text-white disabled:opacity-50"
-                  style={{ background: `linear-gradient(125deg, ${HOT}, ${PINK})` }}
+                  style={{ background: `linear-gradient(135deg, ${HOT}, ${PINK})` }}
                 >
                   {chartSaving ? "Saving…" : "Save note"}
                 </button>
                 {chartProposal.client_id ? (
                   <Link
                     href={`/admin/charting/new?template=general&client_id=${encodeURIComponent(chartProposal.client_id)}`}
-                    className="rounded-full border-2 border-black px-4 py-2 text-sm font-bold text-black"
+                    className="rounded-full border border-slate-200 px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50"
                   >
                     Open full charting
                   </Link>
                 ) : (
                   <Link
                     href="/admin/charting"
-                    className="rounded-full border border-black/30 px-4 py-2 text-sm font-bold text-black/70"
+                    className="rounded-full border border-slate-200 px-4 py-2 text-sm font-semibold text-slate-500"
                   >
                     Charting hub
                   </Link>

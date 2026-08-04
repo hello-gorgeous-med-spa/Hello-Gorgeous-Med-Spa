@@ -7,7 +7,6 @@ import { packageToProposalService, PROPOSAL_PACKAGES } from "@/lib/proposals/pac
 import { HELLO_GORGEOUS_SERVICES, type SeedService } from "@/lib/proposals/seed-services";
 import type { ProposalMediaItem, ProposalMediaKind, TreatmentProposalRecord } from "@/lib/proposals/types";
 import {
-  PEPTIDE_PHARMACY_SHIPPING_USD,
   PEPTIDE_PRICING_DISCLAIMER,
   PEPTIDE_RETAIL_MENU,
   type PeptideRetailCategory,
@@ -43,7 +42,7 @@ import {
 
 const PINK = "#E6007E";
 const HOT = "#FF2D8E";
-const SERIF = "var(--font-playfair), Georgia, serif";
+const BG_COOL = "#E8ECF4";
 
 const STEPS = [
   { id: "client", label: "Client Info", short: "Client" },
@@ -438,114 +437,116 @@ export function ProposalBuilder({ proposalId }: ProposalBuilderProps) {
 
   if (loadingExisting) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-gradient-to-b from-gray-50 to-white">
+      <div className="flex min-h-screen items-center justify-center" style={{ background: BG_COOL }}>
         <div className="text-center">
           <div className="mx-auto h-8 w-8 animate-spin rounded-full border-4 border-[#E6007E] border-t-transparent" />
-          <p className="mt-3 text-sm text-black/60">Loading proposal…</p>
+          <p className="mt-3 text-sm text-slate-500">Loading proposal…</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
+    <div className="min-h-screen" style={{ background: BG_COOL }}>
       {/* Header */}
-      <header
-        className="border-b-4 border-black"
-        style={{
-          background: `radial-gradient(ellipse 80% 100% at 100% 0%, rgba(230,0,126,0.25), transparent 60%), linear-gradient(125deg, #1a0a12 0%, #2d1020 45%, #0a0a0a 100%)`,
-        }}
-      >
-        <div className="mx-auto max-w-7xl px-6 py-6">
-          <div className="flex flex-wrap items-center justify-between gap-4">
+      <header className="sticky top-0 z-20 border-b border-white/10 bg-[#0f172a]">
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6">
+          <div className="flex items-center gap-4">
+            <Link
+              href="/admin/proposals"
+              className="flex h-9 w-9 items-center justify-center rounded-xl text-lg font-black text-white"
+              style={{ background: `linear-gradient(135deg, ${HOT}, ${PINK})` }}
+            >
+              HG
+            </Link>
             <div>
-              <Link
-                href="/admin/proposals"
-                className="text-sm font-semibold text-[#FFB8DC] hover:text-white"
-              >
-                ← Back to proposals
-              </Link>
-              <h1 className="mt-2 text-2xl font-medium text-white md:text-3xl" style={{ fontFamily: SERIF }}>
-                {isEditing ? "Edit" : "Build"}{" "}
-                <span
-                  className="bg-gradient-to-r from-[#FFB8DC] via-[#FF2D8E] to-[#E6007E] bg-clip-text text-transparent"
-                  style={{ WebkitBackgroundClip: "text" }}
-                >
-                  Proposal
-                </span>
-              </h1>
-            </div>
-            <div className="flex flex-wrap items-center gap-2">
-              <a
-                href="/staff/protocols/guides/InMode-Packages-How-To-Sell.html"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="rounded-full border border-white/25 bg-white/10 px-4 py-2 text-sm font-bold text-white backdrop-blur hover:bg-white/20"
-              >
-                Selling guide
-              </a>
-              {isEditing && proposalId && (
-                <Link
-                  href={`/admin/proposals/${proposalId}/preview`}
-                  className="rounded-full border border-white/25 bg-white/10 px-4 py-2 text-sm font-bold text-white backdrop-blur hover:bg-white/20"
-                >
-                  Preview
-                </Link>
-              )}
+              <p className="text-[10px] font-bold uppercase tracking-widest text-white/50">
+                {isEditing ? "Edit" : "Build"} Proposal
+              </p>
+              <p className="text-sm font-semibold text-white">{clientName || "New client"}</p>
             </div>
           </div>
-
-          {/* Step progress */}
-          <div className="mt-6">
-            <div className="flex items-center justify-between text-xs">
-              <div className="flex gap-1">
-                {STEPS.map((s, i) => (
-                  <button
-                    key={s.id}
-                    type="button"
-                    onClick={() => setStep(s.id)}
-                    className={`rounded-full px-3 py-1.5 text-[11px] font-bold transition ${
-                      i <= stepIndex
-                        ? "bg-gradient-to-r from-[#FF2D8E] to-[#E6007E] text-white"
-                        : "bg-white/10 text-white/60 hover:bg-white/20 hover:text-white"
-                    }`}
-                  >
-                    {s.short}
-                  </button>
-                ))}
-              </div>
-              <span className="text-white/60">{progress}%</span>
+          <div className="flex items-center gap-2">
+            <a
+              href="/staff/protocols/guides/InMode-Packages-How-To-Sell.html"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hidden rounded-full border border-white/20 bg-white/5 px-3 py-1.5 text-xs font-semibold text-white/80 hover:bg-white/10 sm:inline-flex"
+            >
+              Selling guide
+            </a>
+            {isEditing && proposalId && (
+              <Link
+                href={`/admin/proposals/${proposalId}/preview`}
+                className="rounded-full border border-white/20 bg-white/5 px-3 py-1.5 text-xs font-semibold text-white/80 hover:bg-white/10"
+              >
+                Preview
+              </Link>
+            )}
+            <Link
+              href="/admin/proposals"
+              className="rounded-full border border-white/20 bg-white/5 px-3 py-1.5 text-xs font-semibold text-white/80 hover:bg-white/10"
+            >
+              ← Back
+            </Link>
+          </div>
+        </div>
+        {/* Step progress bar */}
+        <div className="border-t border-white/10 bg-[#0f172a]/80 px-4 py-2.5 sm:px-6">
+          <div className="mx-auto flex max-w-7xl items-center justify-between gap-3">
+            <div className="flex gap-1">
+              {STEPS.map((s, i) => (
+                <button
+                  key={s.id}
+                  type="button"
+                  onClick={() => setStep(s.id)}
+                  className={`rounded-full px-3 py-1.5 text-[11px] font-bold transition ${
+                    i <= stepIndex
+                      ? "text-white"
+                      : "text-white/40 hover:text-white/70"
+                  }`}
+                  style={i <= stepIndex ? { background: `linear-gradient(135deg, ${HOT}, ${PINK})` } : undefined}
+                >
+                  {s.short}
+                </button>
+              ))}
             </div>
-            <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-white/15">
-              <div
-                className="h-full rounded-full transition-all duration-500"
-                style={{ width: `${progress}%`, background: `linear-gradient(90deg, ${HOT}, ${PINK})` }}
-              />
+            <div className="flex items-center gap-3">
+              <div className="hidden h-1.5 w-24 overflow-hidden rounded-full bg-white/15 sm:block">
+                <div
+                  className="h-full rounded-full transition-all duration-500"
+                  style={{ width: `${progress}%`, background: `linear-gradient(90deg, ${HOT}, ${PINK})` }}
+                />
+              </div>
+              <span className="text-xs font-semibold text-white/60">{progress}%</span>
             </div>
           </div>
         </div>
       </header>
 
-      <div className="mx-auto max-w-7xl p-6">
+      <div className="mx-auto max-w-7xl p-4 sm:p-6">
         <div className="grid gap-6 lg:grid-cols-[1fr_340px] lg:items-start">
           {/* Main wizard panel */}
-          <div className="overflow-hidden rounded-2xl border-4 border-black bg-white shadow-[8px_8px_0_0_rgba(230,0,126,0.25)]">
+          <div className="overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-sm">
             {/* Step header */}
-            <div className="flex items-center justify-between gap-3 border-b-2 border-black bg-gradient-to-r from-[#FF2D8E] to-[#E6007E] px-5 py-4">
+            <div
+              className="flex items-center justify-between gap-3 border-b border-slate-100 px-5 py-4"
+              style={{ background: `linear-gradient(135deg, ${HOT}, ${PINK})` }}
+            >
               <div>
-                <p className="text-[10px] font-bold uppercase tracking-[0.24em] text-white/90">
+                <p className="text-[10px] font-bold uppercase tracking-widest text-white/80">
                   Step {stepIndex + 1} of {STEPS.length}
                 </p>
-                <h2 className="mt-1 text-xl font-medium text-white" style={{ fontFamily: SERIF }}>
+                <h2 className="mt-1 text-xl font-semibold text-white">
                   {STEPS[stepIndex].label}
                 </h2>
               </div>
-              <div className="inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/10 px-3 py-1.5 backdrop-blur">
+              <div className="inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/15 px-3 py-1.5 backdrop-blur">
                 <span className="relative flex h-2 w-2">
                   <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-70" />
                   <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
                 </span>
-                <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-white">Live estimate</span>
+                <span className="text-[10px] font-bold uppercase tracking-widest text-white">Live</span>
               </div>
             </div>
 
@@ -1275,39 +1276,36 @@ export function ProposalBuilder({ proposalId }: ProposalBuilderProps) {
             </div>
           </div>
 
-          {/* Live estimate sidebar (dark instrument panel) */}
-          <aside className="overflow-hidden rounded-2xl border-4 border-black bg-[#0a0a0a] shadow-[8px_8px_0_0_rgba(230,0,126,0.35)] lg:sticky lg:top-6">
+          {/* Live estimate sidebar */}
+          <aside className="overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-sm lg:sticky lg:top-24">
             <div
               className="border-b border-white/15 px-5 py-5"
-              style={{
-                background:
-                  "radial-gradient(ellipse 70% 120% at 100% 0%, rgba(230,0,126,0.4), transparent 55%)",
-              }}
+              style={{ background: `linear-gradient(135deg, ${HOT}, ${PINK})` }}
             >
-              <p className="text-[10px] font-bold uppercase tracking-[0.28em] text-[#FFB8DC]">Live estimate</p>
-              <h3 className="mt-2 text-2xl font-medium text-white" style={{ fontFamily: SERIF }}>
+              <p className="text-[10px] font-bold uppercase tracking-widest text-white/80">Live estimate</p>
+              <h3 className="mt-2 text-xl font-bold text-white">
                 {clientName || "New client"}
               </h3>
             </div>
 
             <div className="space-y-4 p-5">
               {selectedServices.length === 0 ? (
-                <p className="text-sm text-white/50">Add services to see your estimate.</p>
+                <p className="text-sm text-slate-400">Add services to see your estimate.</p>
               ) : (
                 <>
                   <div className="max-h-48 space-y-2 overflow-y-auto">
                     {selectedServices.map((s) => (
                       <div
                         key={s.id}
-                        className="flex items-center justify-between gap-2 rounded-lg bg-white/5 px-3 py-2"
+                        className="flex items-center justify-between gap-2 rounded-lg border border-slate-100 bg-slate-50 px-3 py-2"
                       >
-                        <span className="truncate text-sm text-white">{s.name}</span>
+                        <span className="truncate text-sm text-slate-700">{s.name}</span>
                         <div className="flex items-center gap-2">
-                          <span className="text-sm font-bold text-[#FFB8DC]">${serviceLineTotal(s).toFixed(0)}</span>
+                          <span className="text-sm font-bold" style={{ color: PINK }}>${serviceLineTotal(s).toFixed(0)}</span>
                           <button
                             type="button"
                             onClick={() => toggleService(s.id)}
-                            className="text-[10px] font-bold text-white/50 hover:text-white"
+                            className="text-[10px] font-bold text-slate-400 hover:text-red-500"
                           >
                             ×
                           </button>
@@ -1316,15 +1314,15 @@ export function ProposalBuilder({ proposalId }: ProposalBuilderProps) {
                     ))}
                   </div>
 
-                  <div className="border-t border-white/15 pt-4">
+                  <div className="border-t border-slate-100 pt-4">
                     <div className="flex items-baseline justify-between">
-                      <span className="text-xs font-bold uppercase tracking-wide text-white/50">Subtotal</span>
-                      <span className="text-2xl font-medium text-white" style={{ fontFamily: SERIF }}>
+                      <span className="text-xs font-bold uppercase tracking-wide text-slate-400">Subtotal</span>
+                      <span className="text-2xl font-bold text-slate-900">
                         {formatCurrency(subtotal)}
                       </span>
                     </div>
                     {options.length > 0 && (
-                      <p className="mt-2 text-xs text-[#FFB8DC]">
+                      <p className="mt-2 text-xs" style={{ color: PINK }}>
                         Recommended: {formatCurrency(recommendedTotal)}
                       </p>
                     )}
@@ -1337,13 +1335,14 @@ export function ProposalBuilder({ proposalId }: ProposalBuilderProps) {
                   href={CHERRY_PAY_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex w-full items-center justify-center rounded-full bg-white px-4 py-2.5 text-sm font-bold text-black"
+                  className="flex w-full items-center justify-center rounded-full px-4 py-2.5 text-sm font-bold text-white"
+                  style={{ background: `linear-gradient(135deg, ${HOT}, ${PINK})` }}
                 >
                   Apply with Cherry
                 </a>
                 <a
                   href="tel:+16303839918"
-                  className="flex w-full items-center justify-center rounded-full border border-white/25 px-4 py-2 text-xs font-bold text-white"
+                  className="flex w-full items-center justify-center rounded-full border border-slate-200 px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-slate-50"
                 >
                   Call (630) 383-9918
                 </a>
