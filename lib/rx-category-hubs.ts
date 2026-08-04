@@ -777,6 +777,7 @@ export function isRegenHubActive(pathname: string | null, hub: RxCategoryHub): b
 
 export const REGEN_EXPLORE_FOOTER = [
   { label: "REGEN home", href: "/rx" },
+  { label: "Regen Science Library", href: "/regen-science" },
   { label: "Patient care hub", href: RX_PATIENT_CARE_PATH },
   { label: "Peptide request", href: PEPTIDE_REQUEST_PATH },
   { label: "My RX portal", href: "/portal/rx" },

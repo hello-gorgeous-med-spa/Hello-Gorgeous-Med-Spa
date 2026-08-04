@@ -382,6 +382,7 @@ export const MEDICAL_MEGA_MENU_COLUMNS: MedicalMegaMenuColumn[] =
 export const MEDICAL_MEGA_MENU_FOOTER = [
   { label: "RX Request Portal", href: "/rx/request" },
   { label: "Hello Gorgeous RX hub", href: "/rx" },
+  { label: "Regen Science Library", href: "/regen-science" },
   { label: "Online refill guide", href: "/rx/guide" },
   { label: "Medical overview", href: MEDICAL_OPTIMIZATION_PATH },
   { label: "Ladies' Club", href: "/ladies-club" },
