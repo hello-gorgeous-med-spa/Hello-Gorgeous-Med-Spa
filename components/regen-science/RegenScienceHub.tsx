@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useCallback, useState } from "react";
 
@@ -75,6 +76,30 @@ function ChevronUpIcon({ className }: { className?: string }) {
       strokeLinejoin="round"
     >
       <path d="m18 15-6-6-6 6" />
+    </svg>
+  );
+}
+
+function InstagramIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M12 2.2c3.2 0 3.6 0 4.9.07 1.2.05 1.8.25 2.2.42.6.23 1 .5 1.4.9.4.4.7.8.9 1.4.17.4.37 1 .42 2.2.07 1.3.07 1.7.07 4.9s0 3.6-.07 4.9c-.05 1.2-.25 1.8-.42 2.2-.23.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.17-1 .37-2.2.42-1.3.07-1.7.07-4.9.07s-3.6 0-4.9-.07c-1.2-.05-1.8-.25-2.2-.42-.6-.23-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.17-.4-.37-1-.42-2.2C2.2 15.6 2.2 15.2 2.2 12s0-3.6.07-4.9c.05-1.2.25-1.8.42-2.2.23-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.17 1-.37 2.2-.42C8.4 2.2 8.8 2.2 12 2.2zm0 3.4a6.4 6.4 0 1 0 0 12.8 6.4 6.4 0 0 0 0-12.8zm0 2.2a4.2 4.2 0 1 1 0 8.4 4.2 4.2 0 0 1 0-8.4zm6.7-2.6a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z" />
+    </svg>
+  );
+}
+
+function FacebookIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M13.5 22v-8h2.8l.4-3.2h-3.2V8.7c0-.9.3-1.6 1.6-1.6h1.7V4.2c-.3 0-1.3-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.3v2.4H7.3V14h2.8v8h3.4z" />
+    </svg>
+  );
+}
+
+function TikTokIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M16.6 2h-3v13.1a2.6 2.6 0 1 1-2.1-2.5V9.5a5.7 5.7 0 1 0 5.1 5.6V8.5a6.4 6.4 0 0 0 3.6 1.1V6.5a3.6 3.6 0 0 1-3.6-3.6V2z" />
     </svg>
   );
 }
@@ -363,6 +388,223 @@ function FaqAccordion({ items }: { items: typeof REGEN_SCIENCE_FAQS }) {
   );
 }
 
+function RegenHeader() {
+  const navItems = [
+    { label: "Services", href: "/services", colorClass: "border-pink-500/35 text-pink-400" },
+    { label: "Shop RX", href: "/rx", colorClass: "border-blue-500/35 text-blue-400", badge: "NEW" },
+    { label: "Regen Science", href: "/regen-science", colorClass: "bg-gradient-to-r from-pink-500 to-pink-600 text-white", active: true },
+    { label: "Peptide Education", href: "/regen-science/education", colorClass: "border-pink-500/35 text-pink-400" },
+    { label: "Memberships", href: "/memberships", colorClass: "border-amber-500/35 text-amber-400", emoji: "⭐" },
+    { label: "Before & After", href: "/gallery", colorClass: "border-blue-500/35 text-blue-400" },
+    { label: "FAQ", href: "#faq", colorClass: "border-pink-500/35 text-pink-400" },
+  ];
+
+  return (
+    <header className="bg-black border-b border-white/10 sticky top-0 z-50">
+      {/* Announcement bar */}
+      <div className="border-b border-white/10 py-1.5 px-4 text-center text-xs text-white/70">
+        <span className="font-semibold bg-gradient-to-r from-pink-500 via-blue-400 to-amber-500 bg-clip-text text-transparent">
+          #1 Best Med Spa in Oswego
+        </span>
+        <span className="mx-2 text-white/30">·</span>
+        <span className="text-white/90">We screen you like a medical practice, because we are one.</span>
+        <span className="mx-2 text-white/30">·</span>
+        <a href={`tel:${SITE.phone.replace(/[^0-9]/g, "")}`} className="text-white hover:text-pink-400">
+          {SITE.phone}
+        </a>
+      </div>
+
+      {/* Logo + CTA row */}
+      <div className="max-w-[1280px] mx-auto px-6 py-3 flex items-center justify-between flex-wrap gap-3.5">
+        <Link href="/regen-science" className="flex items-center gap-3 text-white">
+          <Image
+            src="/images/rx-care/regen-logo-full.png"
+            alt="Hello Gorgeous Med Spa"
+            width={160}
+            height={40}
+            className="h-10 w-auto"
+          />
+          <span className="flex flex-col leading-tight">
+            <span className="font-serif text-base font-bold tracking-wide text-white">HELLO GORGEOUS</span>
+            <span className="text-[9px] font-bold tracking-[0.22em]" style={{ color: BRAND.pink }}>RX · REGEN SCIENCE</span>
+          </span>
+        </Link>
+        <CTA href={BOOKING_URL} variant="gradient" className="shrink-0 whitespace-nowrap text-sm">
+          Book free consult
+        </CTA>
+      </div>
+
+      {/* Nav pills */}
+      <div className="border-t border-white/5 bg-[#09090b]/90">
+        <nav className="max-w-[1280px] mx-auto flex justify-center flex-wrap gap-1.5 px-3 py-2">
+          {navItems.map((item) => (
+            <Link
+              key={item.label}
+              href={item.href}
+              className={`inline-flex items-center gap-1.5 h-8 px-3.5 rounded-lg text-[13px] font-semibold whitespace-nowrap transition-colors ${
+                item.active
+                  ? item.colorClass
+                  : `bg-white/5 border ${item.colorClass} hover:bg-white/10 hover:text-white`
+              }`}
+            >
+              {item.label}
+              {item.emoji && <span>{item.emoji}</span>}
+              {item.badge && (
+                <span className="bg-pink-500 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full">
+                  {item.badge}
+                </span>
+              )}
+            </Link>
+          ))}
+        </nav>
+      </div>
+    </header>
+  );
+}
+
+function RegenFooter() {
+  const footerLinks = {
+    "Regen Science": [
+      { label: "GLP-1 guides", href: "#library" },
+      { label: "Peptide briefs", href: "#library" },
+      { label: "Hormone therapy", href: "#library" },
+      { label: "Safety & sourcing", href: "#library" },
+    ],
+    Serving: [
+      { label: "Oswego, IL", href: "/oswego-il" },
+      { label: "Naperville, IL", href: "/botox-naperville-il" },
+      { label: "Aurora, IL", href: "/botox-aurora-il" },
+      { label: "Plainfield, IL", href: "/botox-plainfield-il" },
+    ],
+    Practice: [
+      { label: "Our providers", href: "/about" },
+      { label: "Book a consult", href: BOOKING_URL },
+      { label: "Shop RX", href: "/rx" },
+      { label: "Memberships", href: "/memberships" },
+    ],
+  };
+
+  return (
+    <footer className="bg-black text-white">
+      {/* Trust banner */}
+      <div className="border-b border-white/15 bg-[#09090b] py-4 text-center">
+        <p className="m-0 text-[13px] font-bold text-[#FFB8DC]">
+          Founder-led · Full-authority Nurse Practitioner on site
+        </p>
+        <p className="m-0 mt-1.5 text-[13px] font-semibold" style={{ color: BRAND.pink }}>
+          We screen you like a medical practice, because we are one.
+        </p>
+      </div>
+
+      <div className="max-w-[1280px] mx-auto px-6 pt-14 pb-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 pb-12 border-b border-white/10">
+          {/* Brand column */}
+          <div>
+            <Image
+              src="/images/rx-care/regen-logo-full.png"
+              alt="Hello Gorgeous Med Spa"
+              width={200}
+              height={52}
+              className="h-13 w-auto mb-5"
+            />
+            <p className="m-0 mb-2 text-[15px] leading-relaxed text-white/85">
+              {SITE.address.street}
+              <br />
+              {SITE.address.city}, {SITE.address.state} {SITE.address.zip}
+            </p>
+            <p className="m-0 mb-4 text-[15px] font-bold" style={{ color: BRAND.pink }}>
+              {SITE.phone}
+            </p>
+
+            {/* Star rating */}
+            <div className="flex items-center gap-1.5 mb-5">
+              {[...Array(5)].map((_, i) => (
+                <svg
+                  key={i}
+                  className={i < 4 ? "text-amber-400" : "text-amber-400/50"}
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                >
+                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg>
+              ))}
+              <span className="text-xs text-white/60 ml-1">4.4 · 117 Google reviews</span>
+            </div>
+
+            {/* Social icons */}
+            <div className="flex gap-2.5">
+              <a
+                href="https://instagram.com/hellogorgeousmedspa"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Instagram"
+                className="inline-flex items-center justify-center w-9 h-9 rounded-full bg-white text-black hover:bg-pink-500 hover:text-white transition-colors"
+              >
+                <InstagramIcon />
+              </a>
+              <a
+                href="https://facebook.com/hellogorgeousmedspa"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Facebook"
+                className="inline-flex items-center justify-center w-9 h-9 rounded-full bg-white text-black hover:bg-pink-500 hover:text-white transition-colors"
+              >
+                <FacebookIcon />
+              </a>
+              <a
+                href="https://tiktok.com/@hellogorgeousmedspa"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="TikTok"
+                className="inline-flex items-center justify-center w-9 h-9 rounded-full bg-white text-black hover:bg-pink-500 hover:text-white transition-colors"
+              >
+                <TikTokIcon />
+              </a>
+            </div>
+          </div>
+
+          {/* Link columns */}
+          {Object.entries(footerLinks).map(([title, links]) => (
+            <div key={title}>
+              <p
+                className="m-0 mb-4 text-[11px] font-bold tracking-wider uppercase"
+                style={{ color: BRAND.pink }}
+              >
+                {title}
+              </p>
+              <div className="flex flex-col gap-3">
+                {links.map((link) => (
+                  <Link
+                    key={link.label}
+                    href={link.href}
+                    className="text-[15px] text-white/70 hover:text-pink-400 transition-colors"
+                  >
+                    {link.label}
+                  </Link>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Disclaimer */}
+        <p className="mt-8 mx-auto text-[13px] leading-relaxed text-white/60 max-w-[900px] text-center">
+          Content on this page is educational and is not medical advice, diagnosis, or treatment.
+          Prescription products, including compounded peptides and GLP-1 medications, are dispensed
+          only after a medical evaluation by a licensed provider. Individual results vary.
+        </p>
+      </div>
+
+      {/* Copyright */}
+      <div className="border-t border-white/10 py-5 px-6 text-center text-[13px] text-white/60">
+        © 2026 Hello Gorgeous Med Spa · Hello Gorgeous RX. All rights reserved. · HIPAA Notice · Privacy Policy
+      </div>
+    </footer>
+  );
+}
+
 export function RegenScienceHub() {
   const [query, setQuery] = useState("");
   const [filter, setFilter] = useState<ArticleCategory | "All">("All");
@@ -394,7 +636,7 @@ export function RegenScienceHub() {
   }, []);
 
   return (
-    <div className="relative min-h-[100dvh]">
+    <div className="relative min-h-[100dvh] flex flex-col">
       <style jsx global>{`
         @keyframes hgFadeUp {
           from {
@@ -414,6 +656,8 @@ export function RegenScienceHub() {
         }
       `}</style>
 
+      <RegenHeader />
+
       {/* Ambient brand wash */}
       <div
         className="pointer-events-none fixed inset-0 -z-10"
@@ -426,10 +670,10 @@ export function RegenScienceHub() {
         }}
       />
 
-      <main className="min-w-0">
+      <main className="min-w-0 flex-1">
         {/* Hero Section */}
         <Section className="relative pt-20 pb-16 lg:pt-24 lg:pb-20">
-          <div className="max-w-[1280px] mx-auto px-6 grid lg:grid-cols-[1.15fr_0.85fr] gap-16 items-start">
+          <div className="max-w-[1280px] mx-auto px-6 grid gap-16 items-start" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(430px, 1fr))" }}>
             {/* Left column: Search */}
             <div style={{ animation: "hgFadeUp 0.6s ease-out both" }}>
               <p
@@ -439,8 +683,8 @@ export function RegenScienceHub() {
                 Hello Gorgeous RX · Regen science library
               </p>
               <h1
-                className="m-0 mb-6 font-serif text-5xl lg:text-[68px] leading-none font-bold"
-                style={{ letterSpacing: "-0.02em" }}
+                className="m-0 mb-6 font-serif font-bold leading-none"
+                style={{ fontSize: "clamp(42px, 5vw, 68px)", letterSpacing: "-0.02em" }}
               >
                 Peptide answers,
                 <br />
@@ -451,6 +695,15 @@ export function RegenScienceHub() {
                 plain-language brief: what it is, how strong the evidence
                 actually is, and what our providers screen before anyone starts.
                 Written by the team in Oswego — not a supplement catalog.
+                New to peptides? Start with our{" "}
+                <Link
+                  href="/regen-science/education"
+                  className="font-semibold"
+                  style={{ borderBottom: `2px solid ${BRAND.pink}`, color: BRAND.pink }}
+                >
+                  peptide education
+                </Link>{" "}
+                path.
               </p>
 
               {/* Search card */}
@@ -562,8 +815,8 @@ export function RegenScienceHub() {
                   The library
                 </p>
                 <h2
-                  className="m-0 mb-4 font-serif text-4xl lg:text-[46px] leading-tight font-bold"
-                  style={{ letterSpacing: "-0.02em" }}
+                  className="m-0 mb-4 font-serif leading-tight font-bold"
+                  style={{ fontSize: "clamp(34px, 3.6vw, 46px)", letterSpacing: "-0.02em" }}
                 >
                   Evidence checks, protocols,{" "}
                   <span style={{ color: BRAND.pink }}>and honest limits</span>
@@ -705,6 +958,8 @@ export function RegenScienceHub() {
           </div>
         </Section>
       </main>
+
+      <RegenFooter />
     </div>
   );
 }
