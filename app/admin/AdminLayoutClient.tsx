@@ -277,10 +277,17 @@ export default function AdminLayoutClient({ children }: { children: React.ReactN
                   className="mt-0.5 text-base font-black tracking-tight"
                   style={{ fontFamily: "var(--font-display), Georgia, serif" }}
                 >
-                  Admin <span className="text-[#FF2D8E]">Hub</span>
+                  Deep <span className="text-[#FF2D8E]">tools</span>
                 </p>
               </div>
               <div className="p-3 border-b border-white/10 space-y-0.5">
+                <Link
+                  href="/desk"
+                  className="flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all text-sm font-semibold text-white/80 hover:bg-white/10 hover:text-white"
+                >
+                  <span className="text-lg">🏠</span>
+                  <span>Desk (home)</span>
+                </Link>
                 <Link
                   href="/admin/command-center"
                   className={`flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all text-sm font-semibold ${
@@ -290,7 +297,7 @@ export default function AdminLayoutClient({ children }: { children: React.ReactN
                   }`}
                 >
                   <span className="text-lg">🎛️</span>
-                  <span>Command Center</span>
+                  <span>Team</span>
                 </Link>
                 {showOwnerLink(role) && (
                   <Link
@@ -313,11 +320,18 @@ export default function AdminLayoutClient({ children }: { children: React.ReactN
                   <span>Staff Hub</span>
                 </Link>
                 <Link
+                  href="/admin/rx/portal"
+                  className="flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all text-sm text-white/80 hover:bg-white/10 hover:text-white"
+                >
+                  <span className="text-lg">💗</span>
+                  <span>RE GEN Shop</span>
+                </Link>
+                <Link
                   href="/rx-portal"
                   className="flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all text-sm text-white/80 hover:bg-white/10 hover:text-white"
                 >
-                  <span className="text-lg">💉</span>
-                  <span>RX Portal</span>
+                  <span className="text-lg">📦</span>
+                  <span>RE GEN Orders</span>
                 </Link>
               </div>
               <nav className="flex-1 py-2 px-2">

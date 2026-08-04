@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
+import { useSearchParams } from "next/navigation";
 import {
   CC_CAT_LABEL,
   CC_CHECKLIST,
@@ -62,6 +63,7 @@ function statusLabel(s: CcTaskStatus) {
 }
 
 export default function CommandCenterClient() {
+  const searchParams = useSearchParams();
   const [role, setRole] = useState<string | null>(null);
   const [displayName, setDisplayName] = useState("");
   const [view, setView] = useState<View>("team");
@@ -98,6 +100,7 @@ export default function CommandCenterClient() {
   const [notifEmail, setNotifEmail] = useState("danielle@hellogorgeousmedspa.com");
   const [notifPhone, setNotifPhone] = useState("(630) 636-6193");
   const ownerLanded = useRef(false);
+  const queryViewApplied = useRef(false);
 
   const isOwner = role === "owner" || role === "admin";
 
@@ -117,7 +120,19 @@ export default function CommandCenterClient() {
         sess?.user.email ||
         "";
       setDisplayName(name);
-      if ((r === "owner" || r === "admin") && !ownerLanded.current) {
+      const qView = searchParams.get("view");
+      if (
+        !queryViewApplied.current &&
+        (qView === "marketing" || qView === "overview" || qView === "team")
+      ) {
+        queryViewApplied.current = true;
+        ownerLanded.current = true;
+        if (qView === "overview" && r !== "owner" && r !== "admin") {
+          setView("team");
+        } else {
+          setView(qView);
+        }
+      } else if ((r === "owner" || r === "admin") && !ownerLanded.current) {
         ownerLanded.current = true;
         setView("overview");
       } else if (r !== "owner" && r !== "admin") {
@@ -169,7 +184,7 @@ export default function CommandCenterClient() {
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [searchParams]);
 
   useEffect(() => {
     void load();

@@ -146,6 +146,8 @@ export const ROLE_PERMISSIONS: Record<UserRole, string[]> = {
 // ============================================================
 
 export const ROUTE_PERMISSIONS: Record<string, UserRole[]> = {
+  // Desk — canonical team front door
+  '/desk': ['owner', 'admin', 'staff', 'provider', 'readonly'],
   // Admin routes
   '/admin': ['owner', 'admin', 'staff', 'readonly'],
   '/admin/reports': ['owner', 'admin', 'readonly'],

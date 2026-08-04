@@ -33,7 +33,14 @@ function LoginForm() {
       }
       // Admin/staff/provider/owner: redirect to dashboard when returnTo indicates admin intent
       if (['owner', 'admin', 'staff', 'provider', 'readonly'].includes(user.role)) {
-        if (returnTo && !returnTo.includes('://') && (returnTo.startsWith('/admin') || returnTo.startsWith('/provider') || returnTo.startsWith('/pos'))) {
+        if (
+          returnTo &&
+          !returnTo.includes('://') &&
+          (returnTo.startsWith('/desk') ||
+            returnTo.startsWith('/admin') ||
+            returnTo.startsWith('/provider') ||
+            returnTo.startsWith('/pos'))
+        ) {
           window.location.href = returnTo;
           return;
         }
@@ -70,11 +77,16 @@ function LoginForm() {
       const result = await login(email, password);
       if (!result.success) throw new Error(result.error || 'Invalid email or password');
       await new Promise((r) => setTimeout(r, 100));
-      let returnTo = searchParams.get('returnTo') || searchParams.get('redirect') || '/admin';
-      // Owners landing on generic /admin go to owner dashboard by default
+      let returnTo = searchParams.get('returnTo') || searchParams.get('redirect') || '/desk';
+      // Canonical staff front door is /desk (Hello Gorgeous Desk)
       const sess = await fetch('/api/auth/session', { credentials: 'include' }).then((r) => r.json()).catch(() => null);
-      if (sess?.role === 'owner' && (returnTo === '/admin' || returnTo === '/admin/')) {
-        returnTo = '/admin/owner';
+      const staffRoles = ['owner', 'admin', 'staff', 'provider', 'readonly'];
+      if (
+        sess?.role &&
+        staffRoles.includes(sess.role) &&
+        (returnTo === '/admin' || returnTo === '/admin/' || returnTo === '/admin/owner')
+      ) {
+        returnTo = '/desk';
       }
       window.location.href = returnTo;
     } catch (err: any) {

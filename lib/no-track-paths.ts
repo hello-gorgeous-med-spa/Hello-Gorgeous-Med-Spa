@@ -12,7 +12,9 @@
 
 export const NO_TRACK_PREFIXES = [
   // Auth / admin — always excluded
+  "/desk",
   "/admin",
+  "/staff",
   "/portal",
   "/login",
   // Medical / RX portal (telehealth, prescriptions, health goals)

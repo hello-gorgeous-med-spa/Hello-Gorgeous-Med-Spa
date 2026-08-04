@@ -104,11 +104,45 @@ export function UserMenu() {
             </div>
           </div>
 
-          {/* Portal views */}
+          {/* Portal views — Desk first */}
           <div className="py-2 border-b border-black/10">
             <p className="px-4 py-1 text-[10px] font-bold uppercase tracking-wider text-black/40">
-              Switch portal
+              Switch desk
             </p>
+            <Link
+              href="/desk"
+              className="flex items-center gap-3 px-4 py-2 text-black hover:bg-black/5 transition-colors"
+              onClick={() => setIsOpen(false)}
+            >
+              <span>🏠</span>
+              <span>Desk (home)</span>
+            </Link>
+            <Link
+              href="/admin/proposals"
+              className="flex items-center gap-3 px-4 py-2 text-black hover:bg-black/5 transition-colors"
+              onClick={() => setIsOpen(false)}
+            >
+              <span>📝</span>
+              <span>Sell — Proposals</span>
+            </Link>
+            <Link
+              href="/admin/rx/portal"
+              className="flex items-center gap-3 px-4 py-2 text-black hover:bg-black/5 transition-colors"
+              onClick={() => setIsOpen(false)}
+            >
+              <span>💗</span>
+              <span>RE GEN Shop</span>
+            </Link>
+            {(user.role === 'owner' || user.role === 'admin' || user.role === 'provider') && (
+              <Link
+                href="/provider"
+                className="flex items-center gap-3 px-4 py-2 text-black hover:bg-black/5 transition-colors"
+                onClick={() => setIsOpen(false)}
+              >
+                <span>🩺</span>
+                <span>Spa Provider</span>
+              </Link>
+            )}
             {(user.role === 'owner' || user.role === 'admin') && (
               <Link
                 href="/admin/owner"
@@ -116,64 +150,28 @@ export function UserMenu() {
                 onClick={() => setIsOpen(false)}
               >
                 <span>👑</span>
-                <span>Owner dashboard</span>
+                <span>Owner</span>
               </Link>
             )}
-            <Link
-              href="/admin"
-              className="flex items-center gap-3 px-4 py-2 text-black hover:bg-black/5 transition-colors"
-              onClick={() => setIsOpen(false)}
-            >
-              <span>📊</span>
-              <span>Admin ops</span>
-            </Link>
-            <Link
-              href="/admin/command-center"
-              className="flex items-center gap-3 px-4 py-2 text-black hover:bg-black/5 transition-colors"
-              onClick={() => setIsOpen(false)}
-            >
-              <span>🎛️</span>
-              <span>Command Center</span>
-            </Link>
             <Link
               href="/staff"
               className="flex items-center gap-3 px-4 py-2 text-black hover:bg-black/5 transition-colors"
               onClick={() => setIsOpen(false)}
             >
               <span>📋</span>
-              <span>Staff training hub</span>
+              <span>Staff Hub</span>
             </Link>
           </div>
 
           {/* Menu Items */}
           <div className="py-2">
-            {(user.role === 'owner' || user.role === 'admin') && (
-              <Link
-                href="/admin"
-                className="flex items-center gap-3 px-4 py-2 text-black hover:bg-white transition-colors"
-                onClick={() => setIsOpen(false)}
-              >
-                <span>📊</span>
-                <span>Admin Dashboard</span>
-              </Link>
-            )}
-            {(user.role === 'owner' || user.role === 'admin' || user.role === 'provider') && (
-              <Link
-                href="/provider"
-                className="flex items-center gap-3 px-4 py-2 text-black hover:bg-white transition-colors"
-                onClick={() => setIsOpen(false)}
-              >
-                <span>🩺</span>
-                <span>Provider Dashboard</span>
-              </Link>
-            )}
             <Link
-              href="/portal"
+              href="/admin"
               className="flex items-center gap-3 px-4 py-2 text-black hover:bg-white transition-colors"
               onClick={() => setIsOpen(false)}
             >
-              <span>👤</span>
-              <span>My Portal</span>
+              <span>📊</span>
+              <span>Admin ops (deep tools)</span>
             </Link>
             <Link
               href="/admin/settings"

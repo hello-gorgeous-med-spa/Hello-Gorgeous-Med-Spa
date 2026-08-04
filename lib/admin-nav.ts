@@ -1,6 +1,6 @@
 /**
- * Admin portal navigation — two front doors, lean daily strip, everything else collapsed.
- * Front doors: Command Center (ops) · Consult Desk (sales)
+ * Admin portal navigation — Desk-first, lean daily strip, everything else collapsed.
+ * Canonical front door: /desk (Hello Gorgeous Desk)
  */
 
 import { SQUARE_STAFF_APPOINTMENTS_URL } from "@/lib/flows";
@@ -19,13 +19,13 @@ export type AdminNavGroup = {
   collapsed?: boolean;
 };
 
-export const ADMIN_PORTAL_TAGLINE = "Today’s desk";
+export const ADMIN_PORTAL_TAGLINE = "Deep tools · start at Desk";
 
 /** Lean dashboard destinations — Boots-style directory, not a card wall */
 export const ADMIN_DASHBOARD_PRIMARY = [
-  { href: "/admin/command-center", label: "Command Center" },
+  { href: "/desk", label: "Desk (home)" },
   { href: "/admin/proposals/consults", label: "Consult Desk" },
-  { href: "/admin/rx/ops", label: "RX Ops" },
+  { href: "/admin/rx/ops", label: "RX Pipeline" },
   { href: "/admin/clients", label: "Clients" },
 ] as const;
 
@@ -40,13 +40,14 @@ export const ADMIN_DASHBOARD_DIRECTORY = [
     ],
   },
   {
-    title: "RX",
+    title: "RE GEN",
     links: [
-      { href: "/admin/rx/portal", label: "RE GEN Portal" },
+      { href: "/admin/rx/portal", label: "RE GEN Shop" },
+      { href: "/rx-portal", label: "RE GEN Orders" },
       { href: "/admin/rx-dispatch", label: "Dispatch" },
       { href: "/admin/rx/pharmacy-orders", label: "Pharmacy orders" },
       { href: "/admin/rx-invoices", label: "RX invoices" },
-      { href: "/staff/protocols", label: "Protocols" },
+      { href: "/admin/academy", label: "Academy" },
     ],
   },
   {
@@ -71,10 +72,10 @@ export const ADMIN_DASHBOARD_DIRECTORY = [
 
 export const ADMIN_FRONT_DOORS = [
   {
-    href: "/admin/command-center",
-    label: "Command Center",
-    desc: "Team hub · checklist · daily ops",
-    icon: "🎛️",
+    href: "/desk",
+    label: "Desk",
+    desc: "Your business bible — one front door",
+    icon: "🏠",
   },
   {
     href: "/admin/proposals/consults",
@@ -88,7 +89,8 @@ export const ADMIN_NAV_GROUPS: AdminNavGroup[] = [
   {
     section: "Front doors",
     items: [
-      { href: "/admin/command-center", label: "Command Center", icon: "🎛️" },
+      { href: "/desk", label: "Desk (home)", icon: "🏠" },
+      { href: "/admin/command-center", label: "Team", icon: "🎛️" },
       { href: "/admin/proposals/consults", label: "Consult Desk", icon: "🩺" },
       { href: "/admin/academy", label: "RE GEN Academy", icon: "🎓" },
       { href: "/admin", label: "Dashboard", icon: "📊" },
@@ -100,16 +102,17 @@ export const ADMIN_NAV_GROUPS: AdminNavGroup[] = [
       { href: "/admin/clients", label: "Clients", icon: "👥" },
       { href: "/admin/calendar", label: "Calendar", icon: "🗓" },
       { href: "/admin/proposals", label: "Proposals", icon: "📝" },
-      { href: "/admin/rx/ops", label: "RX Ops", icon: "🖥️" },
+      { href: "/admin/rx/ops", label: "RX Pipeline", icon: "🖥️" },
       { href: "/admin/sms", label: "Text Studio", icon: "📱" },
     ],
   },
   {
-    section: "RX tools",
+    section: "RE GEN",
     collapsed: true,
     items: [
+      { href: "/admin/rx/portal", label: "RE GEN Shop", icon: "💗" },
+      { href: "/rx-portal", label: "RE GEN Orders", icon: "📦" },
       { href: "/admin/rx", label: "RX Command", icon: "🎯" },
-      { href: "/admin/rx/portal", label: "RE GEN Portal", icon: "💗" },
       { href: "/admin/rx-dispatch", label: "Dispatch", icon: "📤" },
       { href: "/admin/rx/pharmacy-orders", label: "Pharmacy Orders", icon: "🧪" },
       { href: "/admin/rx-invoices", label: "RX Invoices", icon: "💊" },
@@ -193,7 +196,7 @@ export const ADMIN_NAV_GROUPS: AdminNavGroup[] = [
 export const ADMIN_NAV_FLAT: AdminNavItem[] = ADMIN_NAV_GROUPS.flatMap((g) => g.items);
 
 export const ADMIN_MOBILE_BOTTOM_NAV = [
-  { href: "/admin/command-center", icon: "🎛️", label: "Command" },
+  { href: "/desk", icon: "🏠", label: "Desk" },
   { href: "/admin/proposals/consults", icon: "🩺", label: "Consult" },
   { href: "/admin/rx/ops", icon: "💊", label: "RX" },
   { href: "/admin/clients", icon: "👥", label: "Clients" },

@@ -177,6 +177,7 @@ export default function ProposalsPortalPage() {
   ];
 
   const NAV_LINKS = [
+    { label: "Desk", href: "/desk", active: false },
     { label: "Home", href: "/admin/proposals", active: true },
     { label: "Pipeline", href: "/admin/proposals?filter=sent", badge: stats.sent || undefined },
     { label: "Consults", href: "/admin/proposals/consults" },

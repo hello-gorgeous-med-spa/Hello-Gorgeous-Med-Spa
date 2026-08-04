@@ -20,7 +20,9 @@ import type { GooglePlace } from "@/lib/seo/google-places";
 
 // Routes that should NOT show website navigation (minimal layout: no header/footer/chat/CTA)
 const ADMIN_ROUTES = [
+  '/desk',
   '/admin',
+  '/staff',
   '/pos',
   '/charting',
   '/kiosk',

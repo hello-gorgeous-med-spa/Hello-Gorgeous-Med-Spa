@@ -18,12 +18,14 @@ function AdminLoginRedirect() {
       user &&
       ["owner", "admin", "staff", "provider", "readonly"].includes(user.role)
     ) {
-      const returnTo = searchParams.get("returnTo") || "/admin";
-      router.replace(returnTo.startsWith("/admin") ? returnTo : "/admin");
+      const returnTo = searchParams.get("returnTo") || "/desk";
+      router.replace(
+        returnTo.startsWith("/admin") || returnTo.startsWith("/desk") ? returnTo : "/desk",
+      );
       return;
     }
 
-    const returnTo = searchParams.get("returnTo") || "/admin";
+    const returnTo = searchParams.get("returnTo") || "/desk";
     router.replace(`/login?returnTo=${encodeURIComponent(returnTo)}&staff=1`);
   }, [isLoading, isAuthenticated, user, router, searchParams]);
 
@@ -32,7 +34,7 @@ function AdminLoginRedirect() {
       <div className="text-center">
         <div className="mx-auto mb-4 h-10 w-10 animate-spin rounded-full border-4 border-[#FF2D8E] border-t-transparent" />
         <p className="text-sm text-white/70">Opening team sign-in…</p>
-        <Link href="/login?staff=1&returnTo=/admin" className="mt-4 inline-block text-sm text-[#FFB8DC] hover:underline">
+        <Link href="/login?staff=1&returnTo=/desk" className="mt-4 inline-block text-sm text-[#FFB8DC] hover:underline">
           Continue manually
         </Link>
       </div>

@@ -11,6 +11,7 @@ const SOFT_PINK = "#FFB8DC";
 const BG_COOL = "#E8ECF4";
 
 const NAV_LINKS = [
+  { label: "Desk", href: "/desk", active: false },
   { label: "Home", href: "/staff", active: true },
   { label: "Academy", href: "/staff/protocols" },
   { label: "Science", href: "/regen-science" },
@@ -57,10 +58,10 @@ export default function StaffHubPage() {
           {/* Right side */}
           <div className="flex items-center gap-3">
             <Link
-              href="/admin"
+              href="/desk"
               className="rounded-full border border-white/20 bg-white/5 px-3 py-1.5 text-xs font-semibold text-white/80 hover:bg-white/10"
             >
-              Admin Hub
+              Desk
             </Link>
             <div
               className="flex h-8 w-8 items-center justify-center rounded-full text-sm font-bold text-white"
@@ -412,28 +413,28 @@ export default function StaffHubPage() {
               </div>
               <div className="space-y-2">
                 <Link
-                  href="/admin"
+                  href="/desk"
                   className="block rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-medium text-slate-700 transition hover:bg-slate-100"
                 >
-                  🏠 Admin Hub
+                  🏠 Desk (home)
                 </Link>
                 <Link
                   href="/admin/command-center"
                   className="block rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-medium text-slate-700 transition hover:bg-slate-100"
                 >
-                  🎛️ Command Center
+                  🎛️ Team
                 </Link>
                 <Link
                   href="/admin/owner"
                   className="block rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-medium text-slate-700 transition hover:bg-slate-100"
                 >
-                  👑 Owner Dashboard
+                  👑 Owner
                 </Link>
                 <Link
                   href="/admin/proposals"
                   className="block rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-medium text-slate-700 transition hover:bg-slate-100"
                 >
-                  📋 Proposals Portal
+                  📋 Sell — Proposals
                 </Link>
               </div>
             </div>
@@ -447,9 +448,9 @@ export default function StaffHubPage() {
               <p className="mt-2 text-lg font-bold">Questions? Text Dani 💕</p>
               <div className="mt-3 border-t border-white/20 pt-3">
                 <p className="text-sm text-white/80">
-                  Admin login:{" "}
-                  <Link href="/login?returnTo=/admin&staff=1" className="font-bold text-white hover:underline">
-                    Sign in here
+                  Sign in:{" "}
+                  <Link href="/login?returnTo=/desk&staff=1" className="font-bold text-white hover:underline">
+                    Open Desk
                   </Link>
                 </p>
               </div>

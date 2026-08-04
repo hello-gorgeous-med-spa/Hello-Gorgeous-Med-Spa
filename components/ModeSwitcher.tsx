@@ -9,6 +9,15 @@ import { usePathname } from 'next/navigation';
 
 export const PORTAL_MODES = [
   {
+    id: 'desk',
+    label: 'Desk',
+    href: '/desk',
+    icon: '🏠',
+    description: 'Business bible',
+    color: 'pink',
+    match: (path: string) => path === '/desk' || path.startsWith('/desk/'),
+  },
+  {
     id: 'owner',
     label: 'Owner',
     href: '/admin/owner',
@@ -31,7 +40,7 @@ export const PORTAL_MODES = [
   },
   {
     id: 'command',
-    label: 'Command',
+    label: 'Team',
     href: '/admin/command-center',
     icon: '🎛️',
     description: 'Team hub & ops board',
@@ -49,7 +58,7 @@ export const PORTAL_MODES = [
   },
   {
     id: 'provider',
-    label: 'Provider',
+    label: 'Spa Provider',
     href: '/provider',
     icon: '🩺',
     description: 'Clinical portal',
@@ -66,7 +75,7 @@ interface ModeSwitcherProps {
 }
 
 function activeModeId(pathname: string): string {
-  return PORTAL_MODES.find((mode) => mode.match(pathname))?.id || 'admin';
+  return PORTAL_MODES.find((mode) => mode.match(pathname))?.id || 'desk';
 }
 
 function pillClass(color: string, isActive: boolean): string {

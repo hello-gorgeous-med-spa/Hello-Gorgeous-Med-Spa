@@ -3,7 +3,7 @@
 // Handle subdomain routing and authentication
 // ============================================================
 // CLIENT LOGIN: /login is client-only (magic link). Never apply admin auth to /login.
-// Admin auth guard applies ONLY to /admin and /admin/* (and /provider, /portal, /pos, /rx-portal).
+// Admin auth guard applies ONLY to /admin, /desk, /provider, /portal, /pos, /rx-portal.
 // Staff training hub (/staff/*) uses STAFF_PORTAL_PIN when set — see lib/staff-session.ts.
 // ============================================================
 
@@ -28,7 +28,8 @@ import {
 } from '@/lib/hgos-session';
 
 // Routes that require authentication (admin guard applies only to these)
-const PROTECTED_ROUTES = ['/admin', '/provider', '/portal', '/pos', '/rx-portal'];
+const PROTECTED_ROUTES = ['/desk', '/admin', '/provider', '/portal', '/pos', '/rx-portal'];
+const DESK_ROLES = ['owner', 'admin', 'staff', 'provider', 'readonly'];
 
 /**
  * Intake is canonically on hub.hellogorgeousmedspa.com in production (DNS).
@@ -111,6 +112,21 @@ export async function middleware(request: NextRequest) {
       (pathForHubGate.startsWith('/hub/') && !isHubLogin) ||
       (pathForHubGate.startsWith('/api/hub/') && !isHubApiPublic);
     if (needsHubAuth) {
+      // HGOS-authenticated team → Desk (bible), unless ?legacy=1
+      const wantLegacy = url.searchParams.get('legacy') === '1';
+      const hgosRole = hgosStaffRoleFromCookie(request);
+      if (
+        !wantLegacy &&
+        hgosRole &&
+        DESK_ROLES.includes(hgosRole) &&
+        (pathForHubGate === '/hub' || pathForHubGate === '/hub/classic' || pathForHubGate.startsWith('/hub/classic/'))
+      ) {
+        if (isHubHost) {
+          const apex = hostname.replace(/^hub\./i, '').replace(/^www\./i, '');
+          return NextResponse.redirect(new URL(`https://www.${apex}/desk`, request.url));
+        }
+        return NextResponse.redirect(new URL('/desk', request.url));
+      }
       const token = request.cookies.get(HUB_SESSION_COOKIE_NAME)?.value;
       const sessionUser = await verifyHubSessionToken(token);
       if (!sessionUser) {
@@ -229,7 +245,7 @@ export async function middleware(request: NextRequest) {
   // Public admin entry — redirect to staff login (not a protected page)
   if (pathname === '/admin/login' || pathname.startsWith('/admin/login/')) {
     const loginUrl = new URL('/login', request.url);
-    loginUrl.searchParams.set('returnTo', '/admin');
+    loginUrl.searchParams.set('returnTo', '/desk');
     loginUrl.searchParams.set('staff', '1');
     return NextResponse.redirect(loginUrl);
   }
@@ -277,6 +293,13 @@ export async function middleware(request: NextRequest) {
       if (ownerOnlyPaths.some(p => pathname.startsWith(p))) {
         if (role !== 'owner') {
           return NextResponse.redirect(new URL('/admin', request.url));
+        }
+      }
+
+      // /desk — canonical team front door
+      if (pathname === '/desk' || pathname.startsWith('/desk/')) {
+        if (!DESK_ROLES.includes(role)) {
+          return NextResponse.redirect(new URL('/portal', request.url));
         }
       }
 
