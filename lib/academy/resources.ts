@@ -7,6 +7,19 @@ import type { ResourceGroup } from './types';
 
 export const RESOURCES: ResourceGroup[] = [
   {
+    name: 'What clients see online',
+    note: 'Public Regen Science pages — know what clients read before they call',
+    items: [
+      { title: 'Regen Science Hub', desc: 'The main science library clients can browse — peptide briefs, evidence guides, and protocol explainers. Opens in new tab.', type: 'LINK', owner: 'Ryan', updated: 'Aug 2026', href: '/regen-science', external: true },
+      { title: 'Peptide Education (all modules)', desc: 'Free 5-module learning path: basics → evidence literacy → a real conversation with a provider. Same content we reference in consults.', type: 'LINK', owner: 'Ryan', updated: 'Aug 2026', href: '/regen-science/education', external: true },
+      { title: 'Module 1: Peptide Basics', desc: 'What a peptide is, how it differs from a protein, and why the order of amino acids changes everything.', type: 'LINK', owner: 'Ryan', updated: 'Aug 2026', href: '/regen-science/education/peptide-basics', external: true },
+      { title: 'Module 2: Peptides & Your Body', desc: 'The peptides you already make and what they regulate — sleep, hunger, growth, repair, arousal.', type: 'LINK', owner: 'Ryan', updated: 'Aug 2026', href: '/regen-science/education/peptides-and-your-body', external: true },
+      { title: 'Module 3: How Peptides Work', desc: 'Receptor binding, signal cascades, half-life, and why some need injection while others work topically.', type: 'LINK', owner: 'Ryan', updated: 'Aug 2026', href: '/regen-science/education/how-peptides-work', external: true },
+      { title: 'Module 4: Reading the Evidence', desc: 'Trials without the headline: effect size, controls, dropouts, and what statistical significance is not.', type: 'LINK', owner: 'Ryan', updated: 'Aug 2026', href: '/regen-science/education/reading-the-evidence', external: true },
+      { title: 'Module 5: From Reading to a Plan', desc: 'How our NPs turn labs, history, and goals into a protocol — and the reasons we say no.', type: 'LINK', owner: 'Ryan', updated: 'Aug 2026', href: '/regen-science/education/from-reading-to-a-plan', external: true },
+    ],
+  },
+  {
     name: 'Staff tools',
     note: 'Interactive calculators and reference tools for operations',
     items: [

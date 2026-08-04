@@ -134,6 +134,8 @@ export type ResourceItem = {
   owner: string;
   updated: string;
   href: string;
+  /** Opens in new tab when true — use for public client-facing pages */
+  external?: boolean;
 };
 
 export type ResourceGroup = {

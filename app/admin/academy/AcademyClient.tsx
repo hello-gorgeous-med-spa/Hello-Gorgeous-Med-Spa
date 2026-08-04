@@ -1972,7 +1972,9 @@ export function AcademyClient() {
                         <p className="text-sm text-black/85 mb-2">{item.desc}</p>
                         <div className="flex items-center justify-between text-xs">
                           <span className="text-black/70">{item.owner} · {live ? item.updated : 'Awaiting file'}</span>
-                          <span style={{ color: live ? '#FF2D8E' : 'rgba(0,0,0,0.55)' }}>{live ? 'Open →' : 'Placeholder'}</span>
+                          <span style={{ color: live ? '#FF2D8E' : 'rgba(0,0,0,0.55)' }}>
+                            {live ? (item.external ? 'Public site ↗' : 'Open →') : 'Placeholder'}
+                          </span>
                         </div>
                       </div>
                     );
