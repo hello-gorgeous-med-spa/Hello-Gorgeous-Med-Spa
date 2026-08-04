@@ -388,6 +388,32 @@ export const hormoneLessons: Record<string, Lesson> = {
         ]
       },
       {
+        heading: "Why prescription quality matters to clients",
+        paragraphs: [
+          "Women's HRT isn't just a clinical decision — it's an ongoing process. After Ryan writes the prescription, there's pharmacy coordination, fulfillment, and follow-up. Clients experience all of it, and they ask questions at every step.",
+          "A lot of practices treat the prescription as the end of the conversation. We treat it as the start of a relationship. How confidently you can explain the process — without overstepping — is what makes clients trust us."
+        ],
+        bullets: [
+          "Compounding pharmacies are licensed and regulated (503A for individual scripts, 503B for larger batches under stricter FDA oversight)",
+          "They test for purity and sterility — this isn't a gray-market operation",
+          "Customization means Ryan can adjust dose and delivery form precisely",
+          "Consistency matters — clients should get the same quality refill to refill"
+        ]
+      },
+      {
+        heading: "What you can and cannot say about pharmacy quality",
+        paragraphs: [
+          "You can explain what compounding is and why we use it. You can tell a client that our pharmacies are licensed and regulated. You can describe the delivery forms available.",
+          "You cannot compare quality to commercial products, make claims about absorption or bioavailability, or say that compounded is \"safer\" or \"better.\" Those are either clinical claims or competitive claims — neither is yours to make."
+        ],
+        script: {
+          situation: "Client asks why we use a compounding pharmacy instead of CVS",
+          say: "Regular pharmacies carry manufactured doses — which work for some people. Ryan prescribes compounded because he can customize the exact dose and delivery form for your situation. It's about fit, not better or worse.",
+          why: "Explains the reason without making quality comparisons. Positions customization as the benefit."
+        },
+        callout: "Never disparage commercial pharmacies or brand-name medications. And never make absorption or safety claims — those are clinical."
+      },
+      {
         heading: "NP full practice authority in Illinois",
         paragraphs: [
           "In Illinois, nurse practitioners with full practice authority can evaluate, diagnose, and prescribe independently. Ryan operates under this authority. This is what allows us to run a hormone therapy practice.",
@@ -413,13 +439,33 @@ export const hormoneLessons: Record<string, Lesson> = {
           "Hormone programs typically involve an initial consultation, labs, follow-up to review results, the therapy itself, and ongoing monitoring. Costs vary by delivery method and monitoring frequency.",
           "You can quote program pricing. You can explain what's included. Specific clinical recommendations based on a client's situation — that's for the consult."
         ]
+      },
+      {
+        heading: "Fielding prescription questions",
+        paragraphs: [
+          "Clients will ask about their prescription at every stage — when it will arrive, whether it's the same as before, why their dose differs from a friend's. Most of this is coordination, which is yours. Some crosses into clinical, which isn't.",
+          "Coordination: fulfillment timelines, verifying what was ordered, confirming delivery form. Clinical: why the dose changed, whether they should switch methods, anything about response or symptoms."
+        ],
+        bullets: [
+          "\"When will it arrive?\" — Coordination. Check the timeline and answer directly.",
+          "\"Why is my dose different from last time?\" — If it changed, Ryan made that call. Route them to ask him about it.",
+          "\"Why is my dose different from my friend's?\" — \"Dosing is individualized based on your labs and response.\"",
+          "\"Can I switch to pellets?\" — Route to Ryan for the clinical conversation."
+        ],
+        escalate: [
+          "Client reports symptoms they attribute to the medication",
+          "Client asks whether to change their dose or stop therapy",
+          "Client questions whether their medication is safe",
+          "Any adverse reaction, unexpected bleeding, or new symptoms — same day to Ryan"
+        ]
       }
     ],
     keyTakeaways: [
       "Delivery methods have trade-offs — pellets vs creams vs injections",
-      "Compounded = custom-prepared, not less legitimate",
-      "Ryan operates under NP full practice authority in Illinois",
-      "Know your scope — education and support, not clinical decisions"
+      "Compounded = custom-prepared by licensed pharmacies, not less legitimate",
+      "Explain what compounding is without comparing quality to commercial products",
+      "Coordination is yours — clinical questions about dose, safety, or switching go to Ryan",
+      "Ryan operates under NP full practice authority in Illinois"
     ],
     practiceScenario: {
       question: "A client asks: \"My friend does pellets and loves them. Can I just start with that?\"",
