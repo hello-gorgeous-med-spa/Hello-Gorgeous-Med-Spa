@@ -332,12 +332,6 @@ export default function AdminDashboard() {
           >
             + Book in Square
           </a>
-          <Link
-            href="/pos"
-            className="rounded-lg bg-[#0B1F33] px-4 py-2 text-sm font-bold text-white hover:bg-slate-800"
-          >
-            Open POS
-          </Link>
         </div>
       </header>
 
@@ -351,7 +345,7 @@ export default function AdminDashboard() {
               'Run consults / proposals for walk-ins',
               'Clear RX queue & unpaid invoices',
               'Check consents before next arrivals',
-              'End of day: daily summary + POS close',
+              'End of day: daily summary',
             ].map((step, i) => (
               <li key={step} className="flex gap-2">
                 <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-teal-500 text-[11px] font-black text-[#0B1F33]">

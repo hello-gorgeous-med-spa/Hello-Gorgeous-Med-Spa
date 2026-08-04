@@ -52,7 +52,6 @@ export function KeyboardShortcutsProvider({ children }: { children: ReactNode })
       { key: 'a', altKey: true, description: 'Appointments', action: () => router.push('/admin/appointments') },
       { key: 'k', altKey: true, description: 'Clients', action: () => router.push('/admin/clients') },
       { key: 'd', altKey: true, description: 'Dashboard', action: () => router.push('/admin') },
-      { key: 'p', altKey: true, description: 'POS', action: () => router.push('/pos') },
       { key: '/', metaKey: true, description: 'Show Shortcuts', action: () => setShowHelp(true) },
       { key: '/', ctrlKey: true, description: 'Show Shortcuts', action: () => setShowHelp(true) },
       { key: 'Escape', description: 'Close / Cancel', action: () => setShowHelp(false) },

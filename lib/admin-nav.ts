@@ -27,7 +27,6 @@ export const ADMIN_DASHBOARD_PRIMARY = [
   { href: "/admin/proposals/consults", label: "Consult Desk" },
   { href: "/admin/rx/ops", label: "RX Ops" },
   { href: "/admin/clients", label: "Clients" },
-  { href: "/pos", label: "POS" },
 ] as const;
 
 export const ADMIN_DASHBOARD_DIRECTORY = [
@@ -103,7 +102,6 @@ export const ADMIN_NAV_GROUPS: AdminNavGroup[] = [
       { href: "/admin/proposals", label: "Proposals", icon: "📝" },
       { href: "/admin/rx/ops", label: "RX Ops", icon: "🖥️" },
       { href: "/admin/sms", label: "Text Studio", icon: "📱" },
-      { href: "/pos", label: "POS", icon: "💳" },
     ],
   },
   {
@@ -199,7 +197,6 @@ export const ADMIN_MOBILE_BOTTOM_NAV = [
   { href: "/admin/proposals/consults", icon: "🩺", label: "Consult" },
   { href: "/admin/rx/ops", icon: "💊", label: "RX" },
   { href: "/admin/clients", icon: "👥", label: "Clients" },
-  { href: "/pos", icon: "💳", label: "POS" },
 ] as const;
 
 /** Paths still reachable via URL but omitted from nav to reduce noise */

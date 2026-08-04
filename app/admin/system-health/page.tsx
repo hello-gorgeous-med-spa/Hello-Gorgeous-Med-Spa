@@ -313,12 +313,6 @@ export default function SystemHealthPage() {
             SMS Marketing
           </Link>
           <Link
-            href="/pos"
-            className="px-4 py-2 bg-white border border-black rounded-lg hover:bg-white text-sm font-medium"
-          >
-            Test POS
-          </Link>
-          <Link
             href="/book"
             className="px-4 py-2 bg-white border border-black rounded-lg hover:bg-white text-sm font-medium"
           >

@@ -108,13 +108,6 @@ export function MobileNav({ variant = 'light' }: MobileNavProps) {
             >
               FlowWave
             </Link>
-            <Link
-              href="/pos"
-              onClick={() => setIsOpen(false)}
-              className="rounded-lg bg-black text-white text-center py-2 text-xs font-semibold"
-            >
-              POS
-            </Link>
           </div>
 
           {ADMIN_NAV_GROUPS.map((group) => {

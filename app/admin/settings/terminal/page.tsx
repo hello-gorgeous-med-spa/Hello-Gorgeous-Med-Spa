@@ -351,19 +351,6 @@ export default function TerminalSetupPage() {
 
           {/* Quick Links */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <Link
-              href="/pos"
-              className="bg-white rounded-xl border p-5 hover:border-pink-300 hover:shadow-sm transition-all group"
-            >
-              <div className="flex items-center gap-3">
-                <span className="text-2xl">💳</span>
-                <div>
-                  <h3 className="font-semibold group-hover:text-pink-600">Open POS</h3>
-                  <p className="text-sm text-gray-500">Process payments with your terminal</p>
-                </div>
-              </div>
-            </Link>
-
             <a
               href="https://squareup.com/dashboard/devices"
               target="_blank"

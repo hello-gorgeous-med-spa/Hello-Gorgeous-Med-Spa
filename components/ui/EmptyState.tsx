@@ -110,8 +110,8 @@ export function NoSalesEmptyState() {
       icon="💰"
       title="No sales found"
       description="Sales will appear here once transactions are completed."
-      actionLabel="Go to POS"
-      actionHref="/pos"
+      actionLabel="View sales"
+      actionHref="/admin/sales"
     />
   );
 }

@@ -115,12 +115,6 @@ export default function AdminPaymentsPage() {
           <h1 className="text-2xl font-bold text-black">Payments</h1>
           <p className="text-black">View and manage payment history</p>
         </div>
-        <Link
-          href="/pos"
-          className="px-4 py-2 bg-[#FF2D8E] text-white font-medium rounded-lg hover:bg-black transition-colors"
-        >
-          Open POS Terminal
-        </Link>
       </div>
 
 

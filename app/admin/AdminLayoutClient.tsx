@@ -313,17 +313,6 @@ export default function AdminLayoutClient({ children }: { children: React.ReactN
                   <span>Staff Hub</span>
                 </Link>
                 <Link
-                  href="/pos"
-                  className={`flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all text-sm ${
-                    pathname.startsWith('/pos')
-                      ? 'bg-[#FF2D8E] text-white font-semibold'
-                      : 'text-white/80 hover:bg-white/10 hover:text-white'
-                  }`}
-                >
-                  <span className="text-lg">💳</span>
-                  <span>POS</span>
-                </Link>
-                <Link
                   href="/rx-portal"
                   className="flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all text-sm text-white/80 hover:bg-white/10 hover:text-white"
                 >

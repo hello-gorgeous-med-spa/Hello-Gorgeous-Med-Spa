@@ -192,9 +192,9 @@ export default function AdminGetAppPage() {
               <span className="text-2xl block mb-1">📅</span>
               <span className="text-sm text-black">Calendar</span>
             </Link>
-            <Link href="/pos" className="p-4 bg-white rounded-xl text-center hover:bg-black transition-colors">
-              <span className="text-2xl block mb-1">💳</span>
-              <span className="text-sm text-black">POS Terminal</span>
+            <Link href="/admin/command-center" className="p-4 bg-white rounded-xl text-center hover:bg-black transition-colors">
+              <span className="text-2xl block mb-1">🎛️</span>
+              <span className="text-sm text-black">Command Center</span>
             </Link>
             <Link href="/admin/clients" className="p-4 bg-white rounded-xl text-center hover:bg-black transition-colors">
               <span className="text-2xl block mb-1">👥</span>
