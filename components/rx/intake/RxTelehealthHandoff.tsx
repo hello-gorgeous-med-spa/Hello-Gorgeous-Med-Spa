@@ -9,16 +9,19 @@ type RxTelehealthHandoffProps = {
   statusHref?: string;
   /** RE GEN order ref — shown so staff/patient can match Square booking. */
   orderRef?: string;
+  /** Square service deep link; defaults to the generic NP telehealth visit. */
+  bookingHref?: string;
 };
 
 export function RxTelehealthHandoff({
   showBooking = true,
   statusHref,
   orderRef,
+  bookingHref = HG_RX_TELEHEALTH_BOOKING_URL,
 }: RxTelehealthHandoffProps) {
   const bookingUrl = orderRef
-    ? `${HG_RX_TELEHEALTH_BOOKING_URL}${HG_RX_TELEHEALTH_BOOKING_URL.includes("?") ? "&" : "?"}notes=${encodeURIComponent(`RE GEN order ${orderRef}`)}`
-    : HG_RX_TELEHEALTH_BOOKING_URL;
+    ? `${bookingHref}${bookingHref.includes("?") ? "&" : "?"}notes=${encodeURIComponent(`RE GEN order ${orderRef}`)}`
+    : bookingHref;
 
   return (
     <div className="mt-5 mx-auto max-w-md rounded-2xl border-2 border-black bg-[#FFF0F7] p-5 text-left shadow-[4px_4px_0_0_rgba(230,0,126,0.2)]">

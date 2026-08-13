@@ -2,11 +2,20 @@
 /**
  * Expose RE GEN on Square Appointments booking:
  * - Category: "RE GEN Peptide Therapy" (guest-facing)
- * - $49 consult + popular protocol "Start" visits (medication billed separately after NP review)
- * - Bookable by Ryan, Danielle, Michelle
+ * - A single $49 / 15 min consult (medication billed separately after NP review)
+ * - Bookable by Ryan Kent, FNP-BC only — prescribing visit
  *
  * Purchase / manage therapy stays on the website Care Hub + RE GEN checkout
  * (orders monitored in /admin/rx). These bookings are the front door.
+ *
+ * Deliberately only one service: the nine "<Peptide> Protocol — Start" visits
+ * this script used to create (BPC-157, Sermorelin, NAD+, GHK-Cu, TB-500, PT-141,
+ * Tesamorelin, CJC / Ipamorelin, Recovery Blend) were archived as redundant —
+ * once every consult became $49 / 15 min / Ryan-only they differed only by the
+ * peptide in the title, which the intake form already captures. Do not re-add
+ * them here; that would resurrect nine near-identical calendar options and the
+ * mis-booking risk that came with them. Archive record:
+ * scripts/square-archive-redundant-peptide-protocols.mjs
  *
  * Usage:
  *   node --env-file=.env.local scripts/square-upsert-peptide-therapy-booking.mjs --dry-run
@@ -33,7 +42,12 @@ const TEAM = {
   danielle: "TMqnS9cNU-3s3lUR",
   michelle: "TMqy8tRlmyMRkQ25",
 };
-const BOOKABLE_BY = [TEAM.ryan, TEAM.danielle, TEAM.michelle];
+/**
+ * These are prescribing visits — Ryan Kent, FNP-BC is the only prescriber, so he
+ * is the only bookable provider. Danielle and Michelle are non-prescribers and
+ * must not appear as options on a peptide consult calendar.
+ */
+const BOOKABLE_BY = [TEAM.ryan];
 
 const CATEGORY_NAME = "RE GEN Peptide Therapy";
 const CATEGORY_ORDINAL = 4; // after Skin Spa, AnteAGE, FlowWave
@@ -45,88 +59,19 @@ const MIN = (n) => n * 60 * 1000;
 const CARE_HUB_NOTE =
   "Medication is prescribed only after medical review — priced separately (often from the published monthly rate). Start or manage therapy anytime at hellogorgeousmedspa.com/rx/care · shop RE GEN at hellogorgeousmedspa.com/rx. Orders are fulfilled through Hello Gorgeous RX.";
 
-/** Popular protocols — booking = start / consult visit, not OTC vial purchase. */
+/**
+ * One front door. Per-peptide "Protocol — Start" entries were removed here after
+ * being archived in Square — see the file header before adding any back.
+ */
 const PROTOCOL_SERVICES = [
   {
     key: "consult",
     name: "RE GEN Peptide Consult",
     price: 49,
-    durationMin: 30,
+    durationMin: 15,
     description: `NP-directed peptide consultation — goals, history, and protocol design. $${49} consult. ${CARE_HUB_NOTE}`,
     /** Also sync the legacy name */
     aliases: ["Peptide Therapy Consultation"],
-  },
-  {
-    key: "bpc",
-    name: "BPC-157 Protocol — Start",
-    price: 49,
-    durationMin: 30,
-    fromMo: 169,
-    description: `Start a BPC-157 recovery protocol consult (tissue, gut & repair support). From $169/mo after approval. ${CARE_HUB_NOTE}`,
-  },
-  {
-    key: "sermorelin",
-    name: "Sermorelin Protocol — Start",
-    price: 49,
-    durationMin: 30,
-    fromMo: 149,
-    description: `Start a Sermorelin GH-support protocol consult (sleep, energy, lean mass). From $149/mo after approval. ${CARE_HUB_NOTE}`,
-  },
-  {
-    key: "nad",
-    name: "NAD+ Protocol — Start",
-    price: 49,
-    durationMin: 30,
-    fromMo: 169,
-    description: `Start an NAD+ cellular energy protocol consult. From $169/mo after approval. ${CARE_HUB_NOTE}`,
-  },
-  {
-    key: "ghk",
-    name: "GHK-Cu Protocol — Start",
-    price: 49,
-    durationMin: 30,
-    fromMo: 169,
-    description: `Start a GHK-Cu skin / collagen / hair protocol consult. From $169/mo after approval. ${CARE_HUB_NOTE}`,
-  },
-  {
-    key: "tb500",
-    name: "TB-500 Protocol — Start",
-    price: 49,
-    durationMin: 30,
-    fromMo: 169,
-    description: `Start a TB-500 mobility & systemic repair protocol consult. From $169/mo after approval. ${CARE_HUB_NOTE}`,
-  },
-  {
-    key: "pt141",
-    name: "PT-141 Protocol — Start",
-    price: 49,
-    durationMin: 30,
-    fromMo: 209,
-    description: `Start a PT-141 intimacy / libido protocol consult (men & women). From $209/mo after approval. ${CARE_HUB_NOTE}`,
-  },
-  {
-    key: "tesamorelin",
-    name: "Tesamorelin Protocol — Start",
-    price: 49,
-    durationMin: 30,
-    fromMo: 229,
-    description: `Start a Tesamorelin body-composition / GH-axis protocol consult. From $229/mo after approval. ${CARE_HUB_NOTE}`,
-  },
-  {
-    key: "cjc-ipa",
-    name: "CJC / Ipamorelin Protocol — Start",
-    price: 49,
-    durationMin: 30,
-    fromMo: 249,
-    description: `Start a CJC-1295 / Ipamorelin GH-stack protocol consult. From $249/mo after approval. ${CARE_HUB_NOTE}`,
-  },
-  {
-    key: "recovery-blend",
-    name: "Recovery Blend Protocol — Start",
-    price: 49,
-    durationMin: 30,
-    fromMo: 229,
-    description: `Start a Recovery Blend protocol consult (BPC-157, GHK-Cu, KPV & TB-500). From $229/mo after approval. ${CARE_HUB_NOTE}`,
   },
 ];
 
@@ -296,7 +241,7 @@ async function upsertService(service, categoryId, itemsByName) {
 
 async function main() {
   console.log(`\n🧬 RE GEN Peptide Therapy booking ${DRY_RUN ? "(DRY RUN)" : "(APPLY)"}\n`);
-  console.log(`Bookable by: Ryan, Danielle, Michelle\n`);
+  console.log(`Bookable by: Ryan Kent, FNP-BC (prescriber only)\n`);
 
   const [categories, items] = await Promise.all([listCatalog("CATEGORY"), listCatalog("ITEM")]);
   const apptItems = items.filter(

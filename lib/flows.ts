@@ -20,6 +20,13 @@ export const SQUARE_RX_BOOKING_SITE_ID = "pf2o75yphk7vw6";
  */
 export const SQUARE_RX_TELEHEALTH_SERVICE_VARIATION_ID = "ZLCRRG4BM6W2DCLWDWIDVBPA";
 
+/**
+ * Square Appointments — RE GEN Peptide Consult ($49, 15 min, Ryan only).
+ * Peptide-specific sibling of the generic "Medical Visit" service so peptide
+ * bookings land on the peptide calendar instead of the general telehealth one.
+ */
+export const SQUARE_RX_PEPTIDE_CONSULT_SERVICE_VARIATION_ID = "7QOZ5JWUYXB2622D5XZWJ6FR";
+
 export const SQUARE_ORG_BOOKING_URL =
   process.env.NEXT_PUBLIC_SQUARE_BOOKING_URL?.trim() ||
   `https://square.site/book/${SQUARE_RX_LOCATION_ID}/hello-gorgeous-med-spa-rx-oswego-il`;
@@ -50,6 +57,14 @@ export const SQUARE_APPOINTMENTS_EMBED_SCRIPT_URL =
 export const SQUARE_RX_TELEHEALTH_BOOKING_URL =
   process.env.NEXT_PUBLIC_SQUARE_RX_TELEHEALTH_URL?.trim() ||
   `https://book.squareup.com/appointments/${SQUARE_RX_BOOKING_SITE_ID}/location/${SQUARE_RX_LOCATION_ID}/services/${SQUARE_RX_TELEHEALTH_SERVICE_VARIATION_ID}`;
+
+/**
+ * RE GEN peptide consult — Square Appointments deep link. Override with
+ * `NEXT_PUBLIC_SQUARE_RX_PEPTIDE_CONSULT_URL` if the service variation changes.
+ */
+export const SQUARE_RX_PEPTIDE_CONSULT_BOOKING_URL =
+  process.env.NEXT_PUBLIC_SQUARE_RX_PEPTIDE_CONSULT_URL?.trim() ||
+  `https://book.squareup.com/appointments/${SQUARE_RX_BOOKING_SITE_ID}/location/${SQUARE_RX_LOCATION_ID}/services/${SQUARE_RX_PEPTIDE_CONSULT_SERVICE_VARIATION_ID}`;
 
 export const PROGRAM_CONSULT_FEE_USD = 49;
 
@@ -265,6 +280,16 @@ export const HG_RX_TELEHEALTH_BOOKING_URL = resolvePublicBookingUrl(
 );
 
 export const HG_RX_TELEHEALTH_BOOKING_LABEL = "Book telehealth on Square";
+
+/**
+ * Peptide intake booking handoff — RE GEN Peptide Consult on Square.
+ * Only the peptide funnel uses this; hormone, lab, care-hub, and general
+ * telehealth surfaces stay on {@link HG_RX_TELEHEALTH_BOOKING_URL}.
+ */
+export const HG_RX_PEPTIDE_CONSULT_BOOKING_URL = resolvePublicBookingUrl(
+  process.env.NEXT_PUBLIC_SQUARE_RX_PEPTIDE_CONSULT_URL,
+  SQUARE_RX_PEPTIDE_CONSULT_BOOKING_URL,
+);
 
 export {
   CHARM_EHR_STAFF_URL,
