@@ -303,9 +303,11 @@ export function RxCategoryLanding({ hub }: { hub: RxCategoryHub }) {
           <div className="mx-auto max-w-6xl">
             <p className="text-xs font-bold uppercase tracking-widest text-[#E6007E]">Featured</p>
             <h2 className="mt-1 font-serif text-3xl font-black text-black">
-              Add to bag <span className="text-[#FF2D8E]">now</span>
+              Start your <span className="text-[#FF2D8E]">protocol</span>
             </h2>
-            <p className="mt-2 text-black/55">Patient pricing · NP-reviewed before ship</p>
+            <p className="mt-2 text-black/55">
+              Starting price · your dose is set at your consult with Ryan Kent, FNP-BC
+            </p>
 
             <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {featured.map((product) => (

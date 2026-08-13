@@ -40,7 +40,7 @@ const NEVER_CLIENT_VISIBLE = /retatrutide/i;
  * advertising something a client cannot reach. Injectables only — the oral forms of the
  * same molecule remain staff-only, since the shop sells the shot, not the capsule.
  */
-const CLIENT_VISIBLE_WELLNESS_DRUG_KEYS = new Set(["b12"]);
+const CLIENT_VISIBLE_WELLNESS_DRUG_KEYS = new Set(["b12", "vitamind"]);
 
 function isMarketedWellnessInjectable(product: CatalogProduct): boolean {
   return (
