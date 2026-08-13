@@ -37,11 +37,19 @@ const BOOMRX_ROWS: BoomRxRow[] = BOOMRX_PEPTIDE_PDF_PRODUCTS.map((row) => ({
 /**
  * BoomRx wholesale for one vial of a catalog SKU, or null when the SKU has no
  * BoomRx equivalent (tablets, creams, supplies, commercial vials).
+ *
+ * The BoomRx sheet is priced **per vial**, and a vial is roughly a 30-day supply.
+ * Per-unit SKUs (capsules, tablets, troches) are priced per dose and get multiplied
+ * by `unitsPer` downstream, so matching them against a vial row would quote 30 vials
+ * for one month — Gonadorelin tablets read $3,750/mo instead of $195. Those SKUs keep
+ * their own compounded retail instead.
  */
 export function boomrxWholesaleForCatalogProduct(
   product: CatalogProduct,
   variant?: CatalogVariant,
 ): number | null {
+  if (product.perUnit) return null;
+
   const name = normalize(product.name);
   if (!name) return null;
 

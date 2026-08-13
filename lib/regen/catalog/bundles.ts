@@ -3,11 +3,12 @@ import type { CatalogBundle } from "./types";
 /**
  * Stacks shown on the client storefront, in display order (cheapest first).
  *
- * Picked as one stack per goal at its lowest entry price, so the row reads as a
- * deliberate $165 -> $435 ladder instead of an unexplained jump to $3,925. Peak
- * Performance is omitted because it duplicates The Recovery Stack's goal; The
- * Radiance Drip and Men's Vitality are omitted as high-ticket comprehensive
- * programs. All seven stay reachable behind "see all stacks" on the client shop,
+ * Four stacks, cheapest first, one per goal — the owner asked for a short ladder
+ * rather than the full set. Peak Performance and The Radiance Drip duplicate goals
+ * already covered here, and Men's Vitality is held back only to keep the row to
+ * four. (An earlier note justified those omissions on price; that was a pricing
+ * bug quoting vial cost x30, fixed in client-price.ts — the real spread is
+ * $165-$565.) All seven stay reachable behind "see all stacks" on the client shop,
  * and staff portals always show every stack in CATALOG_BUNDLES.
  *
  * To change what clients see, reorder or swap ids here — no JSX changes needed.
