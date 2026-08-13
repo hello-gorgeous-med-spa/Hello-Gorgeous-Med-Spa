@@ -28,7 +28,7 @@ const PRODUCTS_OFFER_ABSOLUTE_TITLE =
   "Hello Gorgeous RX™ | Compounded Rx — Semaglutide, Tirzepatide, Peptides, Hormones | Oswego, IL";
 
 const PRODUCTS_OFFER_DESCRIPTION =
-  "Hello Gorgeous RX™ in Oswego, IL: compounded prescriptions we may offer after consultation — GLP-1 weight loss (semaglutide, tirzepatide, retatrutide), peptides (sermorelin, tesamorelin, PT-141), bioidentical hormones, NAD+, hair loss, sexual wellness, and vitamin injections. Prescription-only catalog; book a consult.";
+  "Hello Gorgeous RX™ in Oswego, IL: compounded prescriptions we may offer after consultation — GLP-1 weight loss (semaglutide, tirzepatide), peptides (sermorelin, tesamorelin, PT-141), bioidentical hormones, NAD+, hair loss, sexual wellness, and vitamin injections. Compounded by licensed US pharmacies; book a consult.";
 
 const productsOfferCanonical = new URL(PRODUCTS_OFFER_PAGE_PATH, SITE.url).toString();
 

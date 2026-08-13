@@ -45,7 +45,6 @@ export const PRODUCT_CATEGORIES: ProductCategoryBlock[] = [
     inClinic: [
       "Semaglutide + B6 — sterile injection (vial packs / MDVs)",
       "Tirzepatide + B6 — sterile injection (vial packs / MDVs)",
-      "Retatrutide + B6 — sterile injection (investigational; not FDA-approved — provider-evaluated case by case)",
       "Injectable weight protocols — teaching, supplies, and monitoring in-office",
     ],
   },

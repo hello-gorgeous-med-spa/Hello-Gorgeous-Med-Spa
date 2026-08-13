@@ -79,7 +79,7 @@ export const COMPARISONS: readonly Comparison[] = [
         values: [
           "Medication class used for metabolic/weight goals",
           "Medication class used for metabolic/weight goals",
-          "Investigational in some contexts; consult required",
+          "Investigational — not FDA-approved and not offered here",
         ],
       },
       {

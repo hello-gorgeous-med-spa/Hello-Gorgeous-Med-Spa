@@ -200,17 +200,6 @@ export const PEPTIDE_REQUEST_ITEMS: PeptideRequestItem[] = [
     rxRequired: true,
   },
   {
-    id: "retatrutide",
-    name: "Retatrutide",
-    thumbnailSlug: "retatrutide",
-    category: "Metabolic & Weight",
-    benefit: "Investigational — not FDA-approved",
-    hubSlug: "retatrutide",
-    screeningSet: "metabolic",
-    rxRequired: true,
-    investigational: true,
-  },
-  {
     id: "tirzepatide",
     name: "Tirzepatide",
     thumbnailSlug: "tirzepatide",

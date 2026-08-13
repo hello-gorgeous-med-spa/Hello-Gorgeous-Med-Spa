@@ -102,27 +102,6 @@ const PEPTIDES: Peptide[] = [
     highlight: "Tirzepatide offers next-level weight loss support by targeting two key hormones — helping you curb cravings, support healthy insulin function, and achieve lasting results.",
   },
   {
-    name: "Retatrutide",
-    tagline: "Triple-action peptide delivering dramatic fat loss, appetite control, and metabolic health by targeting GLP-1, GIP, and glucagon.",
-    category: "Fat Loss",
-    overview:
-      "Retatrutide is a cutting-edge triple agonist peptide that targets GLP-1, GIP, and glucagon receptors — three key hormones involved in appetite, metabolism, and fat burning. This unique mechanism delivers unmatched results in weight loss, blood sugar control, and metabolic function. Early clinical studies have shown greater fat loss than semaglutide or tirzepatide, making Retatrutide a promising next-generation solution for patients seeking powerful, multi-pathway support.",
-    benefits: [
-      { icon: "🔥", title: "Unmatched Fat Loss Potential", desc: "Triple-pathway activation leads to superior body fat reduction vs. GLP-1 alone." },
-      { icon: "🥢", title: "Crushes Cravings & Increases Satiety", desc: "Dramatically reduces appetite and helps eliminate food noise." },
-      { icon: "💉", title: "Improves Insulin Sensitivity & Blood Sugar", desc: "Helps reverse insulin resistance and improve glycemic control." },
-      { icon: "⚡", title: "Enhances Metabolic Rate & Energy Output", desc: "Glucagon receptor activation may increase calorie burn — a unique edge over other peptides." },
-      { icon: "🧠", title: "Supports Focus, Mood, and Motivation", desc: "Patients often report better clarity, energy, and emotional stability while on protocol." },
-    ],
-    faqs: [
-      { q: "How is Retatrutide different from Tirzepatide?", a: "While Tirzepatide activates GLP-1 and GIP, Retatrutide adds a third target — the glucagon receptor, which may help increase fat burning and energy expenditure for even greater weight loss and metabolic benefits." },
-      { q: "Is it safe and FDA-approved?", a: "Retatrutide is currently in advanced clinical trials and may not yet be widely available. Early data shows a strong safety profile, but it should only be used under medical supervision in clinical or research-based protocols." },
-      { q: "Can I switch from another peptide?", a: "Yes. Many patients transition from GLP-1 or dual agonist therapies to Retatrutide if they need stronger appetite control, better metabolic improvements, or have hit a fat loss plateau." },
-      { q: "What kind of results can I expect?", a: "Clinical trials have reported 15–24% total body weight loss over time, often with improved energy, focus, and metabolic labs — when combined with professional guidance and lifestyle support." },
-    ],
-    highlight: "Retatrutide surpasses Tirzepatide and Semaglutide with next-level weight loss support by targeting three key hormones — delivering superior craving control, enhanced insulin function, and transformative, lasting results.",
-  },
-  {
     name: "CJC-1295 / Ipamorelin",
     tagline: "Stimulates natural growth hormone release to support muscle recovery, deeper sleep, improved energy, and healthy aging.",
     category: "Recovery",

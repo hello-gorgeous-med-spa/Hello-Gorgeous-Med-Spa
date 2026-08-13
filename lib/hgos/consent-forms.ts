@@ -676,7 +676,7 @@ export const CONSENT_FORMS: ConsentForm[] = [
       <p class="clinic-name"><strong>Hello Gorgeous Med Spa</strong><br>74 W. Washington St, Oswego, IL 60543<br>(630) 636-6193</p>
       
       <h3>MEDICATIONS COVERED</h3>
-      <p>This consent applies to: Semaglutide (Ozempic®, Wegovy®), Tirzepatide (Mounjaro®, Zepbound®), Retatrutide, and other GLP-1 receptor agonist medications.</p>
+      <p>This consent applies to: Semaglutide (Ozempic®, Wegovy®), Tirzepatide (Mounjaro®, Zepbound®), and other GLP-1 receptor agonist medications.</p>
       
       <h3>1. NATURE OF TREATMENT</h3>
       <p>I understand that GLP-1 receptor agonist medications are injectable medications that help with weight loss by:</p>

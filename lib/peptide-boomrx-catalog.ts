@@ -48,7 +48,6 @@ export const PEPTIDE_BOOMRX_CATALOG: PeptideBoomRxCatalogEntry[] = [
   { peptideMenuId: "biotin", productName: "Biotin", concentration: "Compounded · 5 mL", wholesalePerVialUsd: 70, inPdf: false },
   { peptideMenuId: "amino-blend", productName: "Amino Blend", concentration: "Compounded blend · 5 mL", wholesalePerVialUsd: 80, inPdf: false },
   { peptideMenuId: "k-glow", productName: "K-Glow", concentration: "Compounded blend · 5 mL", wholesalePerVialUsd: 80, inPdf: false },
-  { peptideMenuId: "retatrutide", productName: "Retatrutide", concentration: "Research peptide · confirm with NP", wholesalePerVialUsd: 80, inPdf: false },
 ];
 
 const CATALOG_BY_MENU_ID = new Map(PEPTIDE_BOOMRX_CATALOG.map((e) => [e.peptideMenuId, e]));

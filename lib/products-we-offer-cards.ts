@@ -61,13 +61,6 @@ export const PRODUCT_OFFER_CATEGORIES: ProductOfferCategory[] = [
         label: "Rx",
       },
       {
-        name: "Retatrutide injection",
-        form: "Injectable · Weekly",
-        desc: "Triple hormone agonist — the newest generation of GLP-1 therapy with exceptional early results.",
-        badge: "rx",
-        label: "Rx",
-      },
-      {
         name: "Semaglutide sublingual tablets",
         form: "Tablet · Daily",
         desc: "Dissolving tablets for those who prefer to avoid injections. Convenient and discreet.",
