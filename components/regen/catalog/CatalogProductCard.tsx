@@ -142,7 +142,7 @@ export function ProductCard({ product, href, onOpen, consultMode }: ProductCardP
             {priceLabel.charAt(0).toUpperCase() + priceLabel.slice(1)}
           </span>
           <span className="font-semibold text-white/55">
-            {consultMode ? " · 30-day supply" : " · 30-day"}
+            {consultMode ? " · dose set at consult" : " · 30-day"}
           </span>
         </p>
         <p className="mt-1 line-clamp-1 text-[12px] font-medium text-white/65">

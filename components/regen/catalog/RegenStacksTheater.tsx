@@ -198,7 +198,7 @@ export function RegenStacksTheater({ bundles }: Props) {
                         {b.price}
                       </p>
                       <p className="text-[11px] font-semibold uppercase tracking-wider text-white/45">
-                        {b.consultHref ? "Stack · starting price · 30-day" : "Stack · list price · 30-day"}
+                        {b.consultHref ? "Stack · starting price · dose set at consult" : "Stack · list price · 30-day"}
                       </p>
                     </div>
                     {b.consultHref ? (

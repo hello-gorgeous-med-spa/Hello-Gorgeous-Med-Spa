@@ -24,7 +24,8 @@ export function RxIntakePricingAccordion({
           <p className="text-[10px] font-bold uppercase tracking-widest text-[#E6007E]">Transparent pricing</p>
           <p className="mt-1 text-lg font-bold text-black">{title}</p>
           <p className="mt-1 text-sm text-black/55">
-            Your total calculates inside the form when you pick dose &amp; supply cycle.
+            Medication is quoted after your protocol is approved — the consult fee is all you pay
+            up front.
           </p>
         </div>
         <span

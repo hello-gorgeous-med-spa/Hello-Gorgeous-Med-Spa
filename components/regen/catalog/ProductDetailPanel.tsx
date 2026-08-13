@@ -203,7 +203,8 @@ export function ProductDetailPanel({
               </p>
             </div>
 
-            {product.variants.length > 1 && (
+            {/* Strength is a staff-only choice — the NP sets dose at the consult. */}
+            {!consultMode && product.variants.length > 1 && (
               <div>
                 <p className={`mb-2 text-xs font-bold uppercase tracking-wide ${pageMode ? "text-black/50" : "text-white/50"}`}>
                   Strength
@@ -229,37 +230,58 @@ export function ProductDetailPanel({
               </div>
             )}
 
-            <div>
-              <p className={`mb-2 text-xs font-bold uppercase tracking-wide ${pageMode ? "text-black/50" : "text-white/50"}`}>
-                Supply
-              </p>
-              <div className="grid grid-cols-2 gap-2">
-                {([30, 90] as const).map((s) => {
-                  const price = s === 90 ? p90 : p30;
-                  return (
-                    <button
-                      key={s}
-                      type="button"
-                      onClick={() => setSupply(s)}
-                      className={`rounded-2xl border-2 p-3 text-left transition ${
-                        supply === s
-                          ? "border-black bg-[#FFF0F7] shadow-[3px_3px_0_0_rgba(230,0,126,0.45)]"
-                          : pageMode
-                            ? "border-black/15 bg-white hover:border-[#E6007E]"
-                            : "border-white/15 bg-[#0a0206] hover:border-[#FF2D8E]"
-                      }`}
-                    >
-                      <p className={`text-xs font-bold ${pageMode ? "text-black/50" : "text-white/50"}`}>
-                        {s}-day{s === 90 ? " · save ~10%" : ""}
-                      </p>
-                      <p className={`mt-1 font-serif text-xl font-extrabold ${pageMode ? "text-[#E6007E]" : "text-[#FF2D8E]"}`}>
-                        {consultMode ? `from ${formatCatalogMoney(price)}` : formatCatalogMoney(price)}
-                      </p>
-                    </button>
-                  );
-                })}
+            {consultMode ? (
+              <div
+                className={`rounded-2xl border-2 p-4 ${
+                  pageMode
+                    ? "border-black bg-[#FFF0F7] shadow-[3px_3px_0_0_rgba(230,0,126,0.45)]"
+                    : "border-white/15 bg-[#0a0206]"
+                }`}
+              >
+                <p className={`text-xs font-bold uppercase tracking-wide ${pageMode ? "text-black/50" : "text-white/50"}`}>
+                  Starting price
+                </p>
+                <p className={`mt-1 font-serif text-3xl font-extrabold ${pageMode ? "text-[#E6007E]" : "text-[#FF2D8E]"}`}>
+                  from {formatCatalogMoney(p30)}
+                </p>
+                <p className={`mt-1.5 text-xs font-semibold leading-relaxed ${pageMode ? "text-black/60" : "text-white/60"}`}>
+                  Ryan Kent, FNP-BC chooses your strength and dose at your consult. You are
+                  invoiced for the vial only after he approves it.
+                </p>
               </div>
-            </div>
+            ) : (
+              <div>
+                <p className={`mb-2 text-xs font-bold uppercase tracking-wide ${pageMode ? "text-black/50" : "text-white/50"}`}>
+                  Supply
+                </p>
+                <div className="grid grid-cols-2 gap-2">
+                  {([30, 90] as const).map((s) => {
+                    const price = s === 90 ? p90 : p30;
+                    return (
+                      <button
+                        key={s}
+                        type="button"
+                        onClick={() => setSupply(s)}
+                        className={`rounded-2xl border-2 p-3 text-left transition ${
+                          supply === s
+                            ? "border-black bg-[#FFF0F7] shadow-[3px_3px_0_0_rgba(230,0,126,0.45)]"
+                            : pageMode
+                              ? "border-black/15 bg-white hover:border-[#E6007E]"
+                              : "border-white/15 bg-[#0a0206] hover:border-[#FF2D8E]"
+                        }`}
+                      >
+                        <p className={`text-xs font-bold ${pageMode ? "text-black/50" : "text-white/50"}`}>
+                          {s}-day{s === 90 ? " · save ~10%" : ""}
+                        </p>
+                        <p className={`mt-1 font-serif text-xl font-extrabold ${pageMode ? "text-[#E6007E]" : "text-[#FF2D8E]"}`}>
+                          {formatCatalogMoney(price)}
+                        </p>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
 
             {consultMode ? (
               <Link
@@ -282,7 +304,7 @@ export function ProductDetailPanel({
               className={`text-center text-xs font-semibold ${pageMode ? "text-black/50" : "text-white/50"}`}
             >
               {consultMode
-                ? `Starting price for a ${supply}-day supply · your NP confirms the protocol and final price at your consult`
+                ? `Free to submit · $${PROGRAM_CONSULT_FEE_USD} consult reserves your visit · pick up in Oswego or ship flat ${SHIPPING_LABEL}`
                 : `${supply === 90 ? "90-day supply" : "30-day supply"} · flat ${SHIPPING_LABEL} shipping · health intake after checkout`}
             </p>
 
@@ -411,7 +433,7 @@ export function ProductDetailPanel({
               <p className="truncate text-sm font-bold text-black">{product.name}</p>
               <p className="truncate text-xs font-semibold text-black/55">
                 {consultMode
-                  ? `${variant.strength} · ${supply}-day · from ${formatCatalogMoney(current)}`
+                  ? `from ${formatCatalogMoney(p30)} · dose set at your consult`
                   : `${variant.strength} · ${supply}-day · flat ${SHIPPING_LABEL} shipping`}
               </p>
             </div>
