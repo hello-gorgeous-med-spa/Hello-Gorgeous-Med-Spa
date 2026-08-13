@@ -37,7 +37,7 @@ export const PHASE1_UNCONTESTED_PAGES: ServicePageData[] = [
       "The only Solaria CO₂ in Oswego, Naperville, Aurora, or Plainfield",
       "Performed in-office by our medical team with Ryan Kent, FNP-BC overseeing every protocol",
       "Customizable from gentle glow settings to deep resurfacing",
-      "5.0★ from 1,900+ Fresha clients · Google 4.6★ (145+ reviews)",
+      "5.0★ from 1,900+ verified visits · Google 4.6★ (145+ reviews)",
       "Verified InMode Provider — free consultation",
     ],
     howItWorksParagraphs: [

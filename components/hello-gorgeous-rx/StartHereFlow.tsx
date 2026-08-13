@@ -386,7 +386,7 @@ export function StartHereFlow({ initialPeptideId }: { initialPeptideId?: string 
                   <p className="mt-2 text-sm text-white/60">
                     {requestType === "refill"
                       ? "Refill requests still require a telehealth visit with our NP — most patients complete this virtually."
-                      : `New protocols: complete your screening form, pre-pay the $${PEPTIDE_CONSULT_FEE_USD} consult via Square (like our Vitamin Bar), then book telehealth on Fresha.`}
+                      : `New protocols: complete your screening form, pre-pay the $${PEPTIDE_CONSULT_FEE_USD} consult via Square (like our Vitamin Bar), then book telehealth on Square.`}
                   </p>
 
                   <ol className="mt-10 space-y-6">

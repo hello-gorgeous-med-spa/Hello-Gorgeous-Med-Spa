@@ -342,7 +342,7 @@ function HomeTab({ onNavigate, onOpenIntake, onOpenIvBuilder, onOpenRxHub, intak
               <p className="text-sm" style={{ color: "rgba(255,255,255,0.55)" }}>{formatApptDate(next.startsAt)}</p>
               {next.isTelehealth ? (
                 <p className="mt-2 text-xs" style={{ color: "rgba(255,255,255,0.45)" }}>
-                  Video link is in your Fresha confirmation email — no Charm account needed.
+                  Video link is in your Square confirmation email — no Charm account needed.
                 </p>
               ) : null}
             </div>

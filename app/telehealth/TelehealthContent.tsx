@@ -93,7 +93,7 @@ const benefits = [
 const faqs = [
   {
     q: "How do I join my telehealth appointment?",
-    a: "Book NP telehealth on Fresha. Fresha confirms your visit and sends appointment details by email and text. Join from the link at your scheduled time—no separate app required.",
+    a: "Book NP telehealth on Square. Square confirms your visit and sends appointment details by email and text. Join from the link at your scheduled time—no separate app required.",
   },
   {
     q: "What do I need for a telehealth visit?",
@@ -288,7 +288,7 @@ export function TelehealthContent() {
                   <div className="flex items-center justify-between mt-auto">
                     <span className="text-[#E6007E] font-bold">{service.price}</span>
                     <CTA href={HG_RX_TELEHEALTH_BOOKING_URL} variant="outline" className="!px-4 !py-2 !text-sm">
-                      Book on Fresha
+                      Book on Square
                     </CTA>
                   </div>
                 </div>
@@ -308,9 +308,9 @@ export function TelehealthContent() {
           </FadeUp>
           <div className="grid md:grid-cols-4 gap-8">
             {[
-              { step: "1", title: "Book on Fresha", desc: "Schedule NP telehealth with Ryan Kent, FNP-BC on Fresha", icon: "📅" },
-              { step: "2", title: "Get Confirmation", desc: "Fresha confirms your visit and sends your appointment details", icon: "📧" },
-              { step: "3", title: "Join Visit", desc: "Open your Fresha appointment link at your scheduled time", icon: "🖥️" },
+              { step: "1", title: "Book on Square", desc: "Schedule NP telehealth with Ryan Kent, FNP-BC on Square", icon: "📅" },
+              { step: "2", title: "Get Confirmation", desc: "Square confirms your visit and sends your appointment details", icon: "📧" },
+              { step: "3", title: "Join Visit", desc: "Open your Square appointment link at your scheduled time", icon: "🖥️" },
               { step: "4", title: "Get Care", desc: "Meet with Ryan, get your treatment plan & prescriptions", icon: "✅" },
             ].map((item, i) => (
               <FadeUp key={item.step} delayMs={i * 60}>
@@ -415,10 +415,10 @@ export function TelehealthContent() {
           <FadeUp>
             <div className="inline-flex items-center gap-3 px-5 py-2 rounded-full bg-white/10 border border-white/20 mb-6">
               <span className="text-2xl">🔒</span>
-              <span className="text-white font-semibold">HIPAA-compliant care — Fresha booking + Charm EHR chart</span>
+              <span className="text-white font-semibold">HIPAA-compliant care — Square booking + Charm EHR chart</span>
             </div>
             <p className="text-white/70 text-sm mb-6">
-              Patients book NP telehealth on Fresha. Clinical charting, e-prescribe, and your medical record stay in Charm EHR — the same secure system our care team uses daily.
+              Patients book NP telehealth on Square. Clinical charting, e-prescribe, and your medical record stay in Charm EHR — the same secure system our care team uses daily.
             </p>
             <CTA href={HG_RX_TELEHEALTH_BOOKING_URL} variant="gradient" className="inline-flex">
               {HG_RX_TELEHEALTH_BOOKING_LABEL}

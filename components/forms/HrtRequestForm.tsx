@@ -228,7 +228,7 @@ export function HrtRequestForm({
     return (
       <RxPostSubmitCard
         headline="Payment received — book telehealth next"
-        intro="Thank you! Schedule your NP video visit on Fresha. Medication ships after Ryan Kent, FNP-BC approves your protocol."
+        intro="Thank you! Schedule your NP video visit on Square. Medication ships after Ryan Kent, FNP-BC approves your protocol."
       >
         <RxTelehealthHandoff showBooking />
         <p className="mt-4 text-center text-xs text-black/50">{HRT_REQUEST_DISCLAIMER}</p>

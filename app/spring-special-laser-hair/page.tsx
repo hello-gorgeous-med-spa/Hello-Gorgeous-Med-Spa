@@ -103,7 +103,7 @@ export default function SpringSpecialLaserHairPage() {
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center px-10 py-4 bg-[#FF2D8E] text-white font-bold rounded-xl hover:bg-[#e0267d] transition text-lg"
               >
-                Book now — Fresha
+                Book now
               </a>
               <a
                 href={`tel:${SITE.phone.replace(/-/g, "")}`}

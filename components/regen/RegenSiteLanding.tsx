@@ -200,7 +200,7 @@ export function RegenSiteLanding() {
         <section className="rgx-trust">
           <div className="rgx-trust-in">
             <div className="item"><span className="n">4.4★</span> 117 Google reviews</div>
-            <div className="item"><span className="n">5.0★</span> 1,931 Fresha reviews</div>
+            <div className="item"><span className="n">5.0★</span> 1,931 client reviews</div>
             <div className="item"><span className="n">#1</span> Best Med Spa in Oswego</div>
             <div className="item"><span className="n">NP</span> Nurse-practitioner directed</div>
           </div>

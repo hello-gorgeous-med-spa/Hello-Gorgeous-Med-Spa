@@ -29,7 +29,7 @@ export const PRP_FACIAL_MENU: ServiceMenuConfig = {
         "Series of 3–4 recommended, then maintenance",
       ],
       pricing: [
-        { label: "PRP Facial — Full (Vampire Facial)", price: "$400", note: "60 min · book online for current Fresha rate" },
+        { label: "PRP Facial — Full (Vampire Facial)", price: "$400", note: "60 min · book online for current rate" },
         { label: "Microneedling + PRP (combined protocol)", price: "$500", note: "75 min · collagen + PRP in one visit" },
       ],
       learnMoreHref: "/pre-post-care/prp-prf",

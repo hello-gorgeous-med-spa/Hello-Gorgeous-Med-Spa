@@ -122,7 +122,7 @@ export const RX_PATIENT_CARE_JOURNEY = [
     id: "approve",
     step: 2,
     title: "Telehealth check-in",
-    detail: `Book NP telehealth on Fresha every ${RX_TELEHEALTH_CADENCE_DAYS} days when stable on dose — sooner if you need a dose change.`,
+    detail: `Book NP telehealth on Square every ${RX_TELEHEALTH_CADENCE_DAYS} days when stable on dose — sooner if you need a dose change.`,
     href: HG_RX_TELEHEALTH_BOOKING_URL,
     cta: HG_RX_TELEHEALTH_BOOKING_LABEL,
     external: true,
@@ -204,7 +204,7 @@ export const RX_PATIENT_CARE_SECTIONS: RxCareSection[] = [
       {
         id: "telehealth-checkin",
         title: "Telehealth check-in",
-        description: `Required every ${RX_TELEHEALTH_CADENCE_DAYS} days before shipping. Book on Fresha — not monthly unless your dose changes.`,
+        description: `Required every ${RX_TELEHEALTH_CADENCE_DAYS} days before shipping. Book on Square — not monthly unless your dose changes.`,
         href: HG_RX_TELEHEALTH_BOOKING_URL,
         cta: HG_RX_TELEHEALTH_BOOKING_LABEL,
         badge: "Required",

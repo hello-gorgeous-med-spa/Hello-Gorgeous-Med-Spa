@@ -939,7 +939,7 @@ export function IvTherapyPageContent() {
             What our clients <span className="italic text-[#FF2D8E]">say</span>
           </h2>
           <p className="mx-auto mt-3.5 mb-11 max-w-[640px] text-lg leading-relaxed text-black/60 sm:text-[19px]">
-            Real reviews from real clients — 5.0★ on Fresha across 1,900+ visits.
+            Real reviews from real clients — 5.0★ across 1,900+ verified visits.
           </p>
         </div>
         <div className="mx-auto grid max-w-[1240px] gap-5 sm:grid-cols-2 xl:grid-cols-3">

@@ -95,7 +95,7 @@ export function GLP1WeightLossLanding() {
               </Link>
             </div>
             <p className="mt-4 text-xs text-black/45 max-w-md mx-auto lg:mx-0">
-              HIPAA-compliant screening first; eligible patients schedule on Fresha after submission.
+              HIPAA-compliant screening first; eligible patients schedule on Square after submission.
             </p>
             <p className="mt-3 text-sm text-black/70 max-w-md mx-auto lg:mx-0">
               Prefer a set plan?{" "}

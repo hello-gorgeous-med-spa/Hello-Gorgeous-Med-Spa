@@ -756,7 +756,7 @@ export function RxOpsConsole() {
                   <div className="grid gap-2.5">
                     {[
                       ["1", "Request submitted", "Patient refill or new-protocol form"],
-                      ["2", "Telehealth visit", "Fresha $49 consult when required"],
+                      ["2", "Telehealth visit", "Square $49 consult when required"],
                       ["3", "Invoice paid", "Square link by text or email"],
                       ["4", "Clinical review", "NP approves & routes to pharmacy"],
                       ["5", "Delivered", "FCC · BoomRx · Olympia"],
@@ -1790,7 +1790,7 @@ export function RxOpsConsole() {
                   {detail.request.telehealthRequired && detail.request.telehealthStatus !== "not_required" ? (
                     <div className="rounded-2xl border-2 border-[#2563eb] bg-[#eff6ff] p-4">
                       <p className="text-[11px] font-bold uppercase tracking-wide text-[#2563eb] m-0">
-                        NP telehealth (Fresha)
+                        NP telehealth (Square)
                       </p>
                       <p className="text-sm text-black/70 mt-2 mb-3">
                         {detail.request.telehealthStatus === "complete"
@@ -1807,7 +1807,7 @@ export function RxOpsConsole() {
                             rel="noopener noreferrer"
                             className="rounded-lg bg-[#2563eb] px-4 py-2 text-xs font-bold text-white"
                           >
-                            Open Fresha booking
+                            Open Square booking
                           </a>
                           {canCompleteTelehealth ? (
                             <button

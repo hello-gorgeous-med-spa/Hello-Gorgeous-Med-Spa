@@ -17,7 +17,7 @@ export function SignatureTreatmentMenuContent() {
         <div className="max-w-4xl mx-auto px-6 text-center">
           <FadeUp>
             <p className="text-[#FFB8DC] text-sm font-bold uppercase tracking-[0.2em] mb-3">
-              Oswego, IL · Fresha booking
+              Oswego, IL · Square booking
             </p>
             <h1 className="text-4xl md:text-5xl font-black leading-tight">
               Signature{" "}

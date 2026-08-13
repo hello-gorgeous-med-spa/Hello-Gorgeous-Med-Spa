@@ -144,8 +144,8 @@ export function buildRegenPatientStatus(order: RegenOrderRecord): RxPatientStatu
       detail: teleDone
         ? "Telehealth visit completed."
         : teleScheduled
-          ? `Telehealth booked for ${teleScheduled}. Check your Fresha confirmation email for the video link.`
-          : "Book your NP visit on Fresha — no Charm account needed.",
+          ? `Telehealth booked for ${teleScheduled}. Check your Square confirmation email for the video link.`
+          : "Book your NP visit on Square — no Charm account needed.",
       href:
         intakeDone && !teleDone
           ? teleScheduled

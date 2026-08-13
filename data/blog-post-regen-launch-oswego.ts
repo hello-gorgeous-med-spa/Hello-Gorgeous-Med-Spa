@@ -53,7 +53,7 @@ export const regenLaunchOswegoPost: BlogPost = {
 
 **RE GEN** stands for *Renew. Rebalance. Regenerate.* It is not a separate company or a pop-up telehealth mill. It is **Hello Gorgeous RX™**, supervised by **Ryan Kent, FNP-BC**, with the same Oswego team, the same licensed compounding pharmacy partners, and the same refusal to ship anything without clinical approval.
 
-> Patients trust Hello Gorgeous with a **5.0★ Fresha rating** across nearly 2,000 reviews and **4.4★ on Google** — because we combine medical credibility with relationship-based care, not anonymous apps.
+> Patients trust Hello Gorgeous with a **5.0★ rating** across nearly 2,000 post-appointment reviews and **4.4★ on Google** — because we combine medical credibility with relationship-based care, not anonymous apps.
 
 ## Why we built RE GEN
 

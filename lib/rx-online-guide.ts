@@ -9,7 +9,7 @@ export const RX_GUIDE_PILLS = [
   { emoji: "📍", label: "Track your order" },
   { emoji: "💬", label: "Message us 24/7" },
   { emoji: "💳", label: "Pay by text or email" },
-  { emoji: "📅", label: "Book on Fresha" },
+  { emoji: "📅", label: "Book on Square" },
 ] as const;
 
 export const RX_GUIDE_STEPS = [
@@ -19,7 +19,7 @@ export const RX_GUIDE_STEPS = [
   },
   {
     title: "Video visit",
-    description: `Book Ryan on Fresha ($${PROGRAM_CONSULT_FEE_USD} consult for new protocols)`,
+    description: `Book Ryan on Square ($${PROGRAM_CONSULT_FEE_USD} consult for new protocols)`,
   },
   {
     title: "Pay your invoice",
@@ -55,7 +55,7 @@ export const RX_GUIDE_PATHS = [
       "Open your care hub & submit your refill",
       "Choose 90-day supply (most popular) or 30-day",
       "Pay the invoice we text or email you",
-      `Book Fresha only if your dose changed or it's been ${RX_TELEHEALTH_CADENCE_DAYS}+ days`,
+      `Book a visit only if your dose changed or it's been ${RX_TELEHEALTH_CADENCE_DAYS}+ days`,
       "Check your status page anytime for shipping updates",
     ],
     highlight: true,
@@ -92,7 +92,7 @@ export const RX_GUIDE_LINKS: RxGuideLink[] = [
   },
   {
     title: "Book telehealth",
-    description: "Schedule your NP video visit on Fresha",
+    description: "Schedule your NP video visit on Square",
     href: "/telehealth",
   },
   {

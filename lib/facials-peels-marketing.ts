@@ -43,7 +43,7 @@ export const FACIALS_GLOW_SPECIAL = {
   body: "Our most-loved glow protocol — deep cleanse, extract, hydrate, and finish with a flawless dermaplane. No downtime.",
   ctaLabel: "Book Glow Special ›",
   href: "/hydrafacial-oswego-il#special",
-  proof: ["★ 5.0 Fresha (1,931)", "★ 4.5 Google (147)", "🏆 Best of Oswego"],
+  proof: ["★ 5.0 from 1,931 visits", "★ 4.5 Google (147)", "🏆 Best of Oswego"],
 } as const;
 
 export const FACIALS_TRIFECTA = {

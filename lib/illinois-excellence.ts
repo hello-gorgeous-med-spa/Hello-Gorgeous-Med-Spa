@@ -13,7 +13,7 @@ export const ILLINOIS_EXCELLENCE = {
   proofChips: [
     "MD oversight · FNP-BC on site",
     "NP-supervised prescriptions",
-    "4.4★ Google · 5.0★ Fresha",
+    "4.4★ Google · 5.0★ from 1,931 visits",
     "Ship-to-home RX · In-clinic aesthetics",
   ] as const,
 } as const;

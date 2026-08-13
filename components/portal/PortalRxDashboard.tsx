@@ -260,7 +260,7 @@ export function PortalRxDashboard() {
           className="rounded-xl border-2 border-black bg-white p-4 hover:border-[#E6007E] transition-colors"
         >
           <p className="font-bold text-black">Book telehealth</p>
-          <p className="text-xs text-black/55 mt-1">NP check-in on Fresha</p>
+          <p className="text-xs text-black/55 mt-1">NP check-in on Square</p>
         </a>
         <Link
           href={links?.careHub || "/rx/care"}

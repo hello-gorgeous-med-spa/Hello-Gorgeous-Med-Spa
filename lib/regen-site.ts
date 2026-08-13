@@ -40,7 +40,7 @@ export const REGEN_TRUST_BAR = [
 
 export const REGEN_SOCIAL_PROOF = [
   { id: "google", rating: "4.4", count: "117", source: "Google reviews", icon: "star" },
-  { id: "fresha", rating: "5.0", count: "1,931", source: "Fresha reviews", icon: "star" },
+  { id: "visits", rating: "5.0", count: "1,931", source: "verified visits", icon: "star" },
   { id: "best", text: "#1 Best Med Spa in Oswego", icon: "trophy" },
   { id: "np", text: "NP Nurse-practitioner directed", icon: "medical" },
 ] as const;

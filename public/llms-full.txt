@@ -182,7 +182,7 @@
 - Client intake: https://www.hellogorgeousmedspa.com/forms/client-intake
 
 ## Hours of operation
-Open 7 days a week (keep in sync with GBP and Fresha):
+Open 7 days a week (keep in sync with GBP and Square):
 - Monday–Friday: 10:00 AM – 8:00 PM
 - Saturday: 10:00 AM – 5:00 PM
 - Sunday: 10:00 AM – 5:00 PM (by appointment)

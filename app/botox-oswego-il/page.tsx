@@ -335,7 +335,7 @@ export default function BotoxOswegoPage() {
                   <span className="text-3xl">⭐</span>
                 </div>
                 <h3 className="font-semibold text-lg mb-2">5-Star Rated</h3>
-                <p className="text-gray-600 text-sm">4.6 stars on Google with 145+ verified reviews · 5.0★ on Fresha from 1,900+ clients.</p>
+                <p className="text-gray-600 text-sm">4.6 stars on Google with 145+ verified reviews · 5.0★ from 1,900+ verified visits.</p>
               </div>
             </div>
           </div>

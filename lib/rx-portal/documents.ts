@@ -99,7 +99,7 @@ export const RX_PORTAL_FORMUCONNECT_SAFETY = {
     },
     {
       title: "Illinois practice gate",
-      body: "Portal does not replace IL NP practice rules. Only eligible Illinois patients; telehealth cadence + chart stay in Charm/Fresha (or Square telehealth once migrated).",
+      body: "Portal does not replace IL NP practice rules. Only eligible Illinois patients; telehealth cadence + chart stay in Charm; telehealth is booked on Square.",
     },
     {
       title: "Terms ≠ clinical SOP",

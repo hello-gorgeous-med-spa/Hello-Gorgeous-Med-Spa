@@ -27,7 +27,7 @@ export const PHASE2_PAGES: ServicePageData[] = [
       "Natural, tailored results — not frozen",
       "Honest per-unit pricing as low as $9/unit",
       "Authentic Allergan Botox & US-distributor product only",
-      "5.0★ from 1,900+ Fresha clients · Google 4.6★ (145+ reviews)",
+      "5.0★ from 1,900+ verified visits · Google 4.6★ (145+ reviews)",
       "Free consult — serving Oswego, Naperville & Aurora",
     ],
     howItWorksParagraphs: [
@@ -392,7 +392,7 @@ export const PHASE2_PAGES: ServicePageData[] = [
       "NP-directed & medically supervised",
       "Face & body — customized to your skin",
       "Treatments from $799",
-      "5.0★ from 1,900+ Fresha clients · Google 4.6★ (145+ reviews)",
+      "5.0★ from 1,900+ verified visits · Google 4.6★ (145+ reviews)",
       "Free consultation",
     ],
     howItWorksParagraphs: [
@@ -474,7 +474,7 @@ export const PHASE2_PAGES: ServicePageData[] = [
       "Personalized GLP-1 & metabolic plans",
       "Real screening — no one-size-fits-all",
       "Programs from $195/month",
-      "5.0★ from 1,900+ Fresha clients · Google 4.6★ (145+ reviews)",
+      "5.0★ from 1,900+ verified visits · Google 4.6★ (145+ reviews)",
       "Serving Oswego, Naperville, Aurora, Plainfield & Yorkville",
     ],
     howItWorksParagraphs: [

@@ -3,7 +3,7 @@
  * Services · Shop RX · Specials · About · Book
  */
 
-import { BOOKING_URL, RX_PATIENT_CARE_PATH } from "@/lib/flows";
+import { RX_PATIENT_CARE_PATH } from "@/lib/flows";
 import { LABS_NAV } from "@/lib/labs-nav";
 import { BROW_MICROBLADING_NAV } from "@/lib/brow-journey-marketing";
 import { FACIALS_PEELS_MENU_PATH, FACIALS_PEELS_NAV } from "@/lib/facials-peels-menu";
@@ -154,11 +154,3 @@ export const MOBILE_PRIMARY_NAV_SECTIONS = [
   { id: "specials", label: "Specials", highlight: true },
   { id: "about", label: "About" },
 ] as const;
-
-/** @deprecated Booking uses Fresha externally from patient dropdown legacy */
-export const LEGACY_BOOK_ONLINE_LINK = {
-  label: "Book Online (Fresha)",
-  href: BOOKING_URL,
-  sub: "Opens Fresha scheduler",
-  external: true as const,
-};

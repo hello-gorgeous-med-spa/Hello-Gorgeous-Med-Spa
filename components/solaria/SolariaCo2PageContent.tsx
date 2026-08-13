@@ -196,7 +196,7 @@ export function SolariaCo2PageContent() {
       </header>
 
       <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 bg-[#FF2D8E] px-6 py-4 text-center text-[15px] font-extrabold tracking-wide text-black">
-        <span>★★★★★ 5.0 on Fresha · 1,931 reviews</span>
+        <span>★★★★★ 5.0 from 1,931 verified visits</span>
         <span className="hidden sm:inline">·</span>
         <span>Only Solaria in the western suburbs</span>
         <span className="hidden sm:inline">·</span>

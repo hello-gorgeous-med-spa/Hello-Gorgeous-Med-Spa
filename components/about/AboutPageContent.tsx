@@ -143,7 +143,7 @@ const SECTIONS: AboutSection[] = [
       `${SITE.reviewRating}★ on Google · ${SITE.reviewCount} reviews`,
       "Best of Oswego #1 Med Spa",
       "Best Skincare · Best Weight Loss",
-      "Fresha Best in Class awards",
+      "Best in Class awards 2023, 2025, 2026",
     ],
     learnMoreHref: "/faq",
     learnMoreLabel: "Read the full FAQ →",
