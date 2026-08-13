@@ -21,6 +21,38 @@ export type RegenLearnSection = {
   bullets?: string[];
 };
 
+/** Compact "what this class of peptide does" grid, relocated from the /rx shop. */
+export type RegenLearnPillar = {
+  label: string;
+  detail: string;
+};
+
+/**
+ * An explanatory graphic. `caption` carries the compliance qualifier and is rendered
+ * with the image, so the disclaimer can never be separated from what it qualifies.
+ */
+export type RegenLearnFigure = {
+  src: string;
+  alt: string;
+  caption: string;
+};
+
+/**
+ * A named treatment card. `qualifier` is required — these cards make clinical
+ * claims and must always render their "NP-reviewed" / "Clinical match required"
+ * wording alongside the name.
+ */
+export type RegenLearnSpotlightCard = {
+  eyebrow: string;
+  title: string;
+  detail: string;
+  qualifier: string;
+  image: string;
+  imageAlt: string;
+  href: string;
+  hrefLabel: string;
+};
+
 export type RegenLearnArticle = {
   slug: string;
   path: string;
@@ -37,6 +69,9 @@ export type RegenLearnArticle = {
   heroImage: string;
   heroImageAlt: string;
   intro: string[];
+  pillars?: RegenLearnPillar[];
+  figure?: RegenLearnFigure;
+  spotlightCards?: RegenLearnSpotlightCard[];
   toc: RegenLearnTocItem[];
   sections: RegenLearnSection[];
   keyTakeaways: string[];
@@ -335,6 +370,18 @@ export const WHAT_ARE_PEPTIDES_ARTICLE: RegenLearnArticle = {
     "Peptides are short chains of amino acids — the building blocks of proteins. In the body, they act as signaling molecules that help coordinate repair, metabolism, hormone release, and other cellular processes.",
     "In medical and wellness settings, certain peptides are compounded into injectable or other prescription forms when a provider determines they may support specific goals — such as recovery, energy, body composition, or sexual health. This guide explains the basics so you can have an informed conversation before starting a RE GEN intake.",
   ],
+  // Relocated from the /rx storefront so the shop can stay a shop.
+  pillars: [
+    { label: "Tissue repair", detail: "BPC-157 · TB-500" },
+    { label: "GH axis", detail: "Sermorelin · CJC / Ipamorelin" },
+    { label: "Metabolic", detail: "GLP-1 · peptide support" },
+    { label: "Cellular energy", detail: "NAD+ · MOTS-c" },
+  ],
+  figure: {
+    src: "/images/regen/science/metabolic-shift.jpg",
+    alt: "Peptide-supported metabolic shift — glucose-burning versus fat-burning",
+    caption: "For educational purposes. Individual results vary. Consultation required.",
+  },
   toc: [
     { id: "basics", label: "Peptide basics" },
     { id: "how-they-work", label: "How peptide therapy works" },
@@ -528,6 +575,29 @@ export const WHAT_IS_HORMONE_THERAPY_ARTICLE: RegenLearnArticle = {
   intro: [
     "Hormone therapy uses prescription medications to restore or optimize hormone levels when labs and symptoms suggest a deficiency or imbalance. For men, that often means testosterone replacement therapy (TRT). For women, bioidentical hormone replacement (HRT) may support perimenopause and menopause symptoms.",
     "Hormone care is medical — not a one-size-fits-all supplement stack. RE GEN programs at Hello Gorgeous Med Spa pair Illinois telehealth convenience with nurse-practitioner oversight, US compounding pharmacies, and lab-guided titration when appropriate.",
+  ],
+  // Relocated from the /rx storefront. Each card keeps the qualifier it shipped with.
+  spotlightCards: [
+    {
+      eyebrow: "Men's hormone science",
+      title: "HCG",
+      detail: "Fertility · testosterone · testicular function",
+      qualifier: "NP-reviewed",
+      image: "/images/regen/science/hcg-mens.jpg",
+      imageAlt: "HCG — supports natural hormone production and reproductive health",
+      href: "/rx?goal=hormones",
+      hrefLabel: "Shop →",
+    },
+    {
+      eyebrow: "Men's hormone science",
+      title: "Enclomiphene",
+      detail: "Testosterone · fertility · energy & libido",
+      qualifier: "Clinical match required",
+      image: "/images/regen/science/enclomiphene-mens.jpg",
+      imageAlt: "Enclomiphene — stimulates natural testosterone production",
+      href: "/rx?goal=hormones",
+      hrefLabel: "Shop →",
+    },
   ],
   toc: [
     { id: "basics", label: "Hormone therapy basics" },

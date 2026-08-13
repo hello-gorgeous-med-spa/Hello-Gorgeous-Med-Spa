@@ -98,6 +98,82 @@ export function RegenLearnArticlePage({ article }: { article: RegenLearnArticle 
           ))}
         </div>
 
+        {article.pillars && article.pillars.length > 0 ? (
+          <div className="mt-10 grid grid-cols-2 gap-3 lg:grid-cols-4">
+            {article.pillars.map((pillar) => (
+              <div
+                key={pillar.label}
+                className="rounded-2xl border border-[#FF2D8E]/25 bg-[#0a0610] px-4 py-4"
+              >
+                <p className="text-[11px] font-black uppercase tracking-[0.16em] text-[#F5D76E]">
+                  {pillar.label}
+                </p>
+                <p className="mt-1 text-sm font-semibold text-white/80">{pillar.detail}</p>
+              </div>
+            ))}
+          </div>
+        ) : null}
+
+        {/* Caption is the compliance qualifier — it renders with the graphic, always. */}
+        {article.figure ? (
+          <figure className="mt-10 overflow-hidden rounded-2xl border border-[#FF2D8E]/30">
+            <div className="relative aspect-[16/9] w-full bg-black sm:aspect-[21/9]">
+              <Image
+                src={article.figure.src}
+                alt={article.figure.alt}
+                fill
+                className="object-contain object-center sm:object-cover"
+                sizes="(max-width: 768px) 100vw, 768px"
+              />
+            </div>
+            <figcaption className="border-t border-white/10 bg-black/80 px-4 py-3 text-center text-[11px] font-medium text-white/60">
+              {article.figure.caption}
+            </figcaption>
+          </figure>
+        ) : null}
+
+        {article.spotlightCards && article.spotlightCards.length > 0 ? (
+          <div className="mt-10 grid gap-3 sm:grid-cols-2">
+            {article.spotlightCards.map((card) => (
+              <article
+                key={card.title}
+                className="overflow-hidden rounded-2xl border border-[#B88173]/40 bg-[#0a0610]"
+              >
+                <div className="relative aspect-[2/1] w-full">
+                  <Image
+                    src={card.image}
+                    alt={card.imageAlt}
+                    fill
+                    className="object-cover object-top"
+                    sizes="(max-width: 768px) 100vw, 360px"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent" />
+                  <div className="absolute inset-x-0 bottom-0 p-3.5">
+                    <p className="text-[10px] font-black uppercase tracking-[0.16em] text-[#E8C4B8]">
+                      {card.eyebrow}
+                    </p>
+                    <h3 className="mt-0.5 font-serif text-lg font-black text-white">
+                      {card.title}
+                    </h3>
+                    <p className="mt-0.5 text-xs font-medium leading-snug text-white/70">
+                      {card.detail}
+                    </p>
+                  </div>
+                </div>
+                <div className="flex items-center justify-between gap-2 border-t border-white/10 px-3.5 py-2.5">
+                  <p className="text-[10px] font-medium text-white/60">{card.qualifier}</p>
+                  <Link
+                    href={card.href}
+                    className="text-xs font-black text-[#FF2D8E] hover:text-white"
+                  >
+                    {card.hrefLabel}
+                  </Link>
+                </div>
+              </article>
+            ))}
+          </div>
+        ) : null}
+
         <aside className="mt-10 rounded-2xl border-2 border-black/10 bg-[#FFF0F7] p-6">
           <h2 className="text-sm font-bold uppercase tracking-widest text-[#E6007E]">
             In this article

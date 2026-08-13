@@ -1,5 +1,19 @@
 import type { CatalogBundle } from "./types";
 
+/**
+ * Stacks shown on the client storefront, in display order (cheapest first).
+ *
+ * Picked as one stack per goal at its lowest entry price, so the row reads as a
+ * deliberate $165 -> $435 ladder instead of an unexplained jump to $3,925. Peak
+ * Performance is omitted because it duplicates The Recovery Stack's goal; The
+ * Radiance Drip and Men's Vitality are omitted as high-ticket comprehensive
+ * programs. All seven stay reachable behind "see all stacks" on the client shop,
+ * and staff portals always show every stack in CATALOG_BUNDLES.
+ *
+ * To change what clients see, reorder or swap ids here — no JSX changes needed.
+ */
+export const CLIENT_STACK_IDS = ["womens", "intimacy", "recovery", "glp1"] as const;
+
 export const CATALOG_BUNDLES: CatalogBundle[] = [
   {
     id: "glp1",

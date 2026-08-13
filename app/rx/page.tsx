@@ -212,6 +212,25 @@ export default function RxShopPage() {
               </Link>
             </li>
           ))}
+          {/* The peptide/hormone primers moved off this page — keep them linked from it. */}
+          <li>
+            <Link href="/rx/learn/what-are-peptides" className="hover:text-[#E6007E] hover:underline">
+              What are peptides?
+            </Link>
+          </li>
+          <li>
+            <Link
+              href="/rx/learn/what-is-hormone-therapy"
+              className="hover:text-[#E6007E] hover:underline"
+            >
+              What is hormone therapy?
+            </Link>
+          </li>
+          <li>
+            <Link href="/rx/learn" className="hover:text-[#E6007E] hover:underline">
+              RE GEN Learn
+            </Link>
+          </li>
           <li>
             <Link href="/rx/request" className="hover:text-[#E6007E] hover:underline">
               Start RE GEN intake

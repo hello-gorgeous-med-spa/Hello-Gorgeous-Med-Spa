@@ -26,6 +26,7 @@ import {
   type CatalogSort,
   type SupplyDays,
 } from "@/lib/regen/catalog";
+import { CLIENT_STACK_IDS } from "@/lib/regen/catalog/bundles";
 import { catalogLineId } from "@/lib/regen/catalog/pricing";
 import { catalogClientMonthlyUsd } from "@/lib/regen/catalog/client-price";
 import { catalogConsultRoute } from "@/lib/regen/catalog/consult-route";
@@ -106,6 +107,7 @@ export function RegenCatalogPortal({
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [selVar, setSelVar] = useState(0);
   const [supply, setSupply] = useState<SupplyDays>(30);
+  const [showAllStacks, setShowAllStacks] = useState(false);
 
   const isPublicShop = basePath === "/rx";
 
@@ -274,6 +276,18 @@ export function RegenCatalogPortal({
     [addItem, openCart, isPublicShop],
   );
 
+  /**
+   * Clients see the CLIENT_STACK_IDS ladder (cheapest first) until they ask for the
+   * rest; staff always see every stack in authored order.
+   */
+  const visibleStacks = useMemo(() => {
+    if (!isPublicShop || showAllStacks) return bundles;
+    const byId = new Map(bundles.map((b) => [b.id, b]));
+    return CLIENT_STACK_IDS.map((id) => byId.get(id)).filter(
+      (b): b is (typeof bundles)[number] => !!b,
+    );
+  }, [bundles, isPublicShop, showAllStacks]);
+
   const goalBlurb =
     CATALOG_GOALS.find((g) => g.id === activeGoal)?.blurb ?? "";
 
@@ -363,7 +377,11 @@ export function RegenCatalogPortal({
             </div>
           </section>
 
-          <RegenStacksTheater bundles={bundles} />
+          <RegenStacksTheater
+            bundles={visibleStacks}
+            hiddenCount={bundles.length - visibleStacks.length}
+            onShowAll={isPublicShop ? () => setShowAllStacks(true) : undefined}
+          />
 
           <RegenHowItWorksTheater
             onStartShopping={scrollToShopByGoal}
@@ -381,7 +399,23 @@ export function RegenCatalogPortal({
             </div>
           )}
 
-          <RegenScienceTheater onShopGoals={scrollToShopByGoal} compact={isPublicShop} />
+          {/*
+            The peptide primer now lives on /rx/learn, where the full article, the
+            metabolic graphic, and the men's hormone cards are indexable. The shop
+            keeps one text link so "new to peptides?" still has an entry point.
+          */}
+          {isPublicShop ? (
+            <div className="bg-transparent px-6 pb-4 pt-2 text-center">
+              <Link
+                href="/rx/learn/what-are-peptides"
+                className="text-sm font-bold text-[#E6007E] underline decoration-[#E6007E]/40 underline-offset-4 transition hover:text-[#FF2D8E]"
+              >
+                New to peptides? Read the plain-language guide →
+              </Link>
+            </div>
+          ) : (
+            <RegenScienceTheater onShopGoals={scrollToShopByGoal} />
+          )}
 
           {/* FAQ */}
           <section id="faq" className={`${SECTION_SCROLL} bg-transparent px-6 py-16 lg:py-24`}>

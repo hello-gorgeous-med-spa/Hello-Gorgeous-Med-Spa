@@ -12,23 +12,11 @@ const PILLARS = [
   { label: "Cellular energy", detail: "NAD+ · MOTS-c" },
 ] as const;
 
-/** Full education lives on /rx/learn — the shop keeps a pointer, not the whole library. */
-const LEARN_LINKS = [
-  { href: "/rx/learn/what-are-peptides", label: "What are peptides?" },
-  { href: "/rx/learn/what-is-glp-1", label: "What is GLP-1?" },
-  { href: "/rx/learn/what-is-hormone-therapy", label: "What is hormone therapy?" },
-] as const;
-
 type Props = {
   onShopGoals?: () => void;
-  /**
-   * Client shop keeps a short primer and links out to /rx/learn. Staff portals keep
-   * the full theater, including the metabolic graphic and men's hormone cards.
-   */
-  compact?: boolean;
 };
 
-export function RegenScienceTheater({ onShopGoals, compact = false }: Props) {
+export function RegenScienceTheater({ onShopGoals }: Props) {
   return (
     <section
       id="science"
@@ -89,24 +77,7 @@ export function RegenScienceTheater({ onShopGoals, compact = false }: Props) {
           ))}
         </div>
 
-        {compact ? (
-          <div className="flex flex-wrap gap-3">
-            {LEARN_LINKS.map((l) => (
-              <Link
-                key={l.href}
-                href={l.href}
-                className="inline-flex items-center rounded-full border-2 border-black/15 bg-white px-4 py-2 text-sm font-bold text-black transition hover:border-[#FF2D8E] hover:text-[#E6007E]"
-              >
-                {l.label} →
-              </Link>
-            ))}
-          </div>
-        ) : null}
-
-        {/* Disclaimer stays attached to the graphic it qualifies — they render or hide together. */}
-        <div
-          className={`mb-8 overflow-hidden rounded-[1.75rem] border border-[#FF2D8E]/30 shadow-[0_28px_60px_-20px_rgba(230,0,126,0.45)]${compact ? " hidden" : ""}`}
-        >
+        <div className="mb-8 overflow-hidden rounded-[1.75rem] border border-[#FF2D8E]/30 shadow-[0_28px_60px_-20px_rgba(230,0,126,0.45)]">
           <div className="relative aspect-[16/9] w-full bg-black sm:aspect-[21/9]">
             <Image
               src="/images/regen/science/metabolic-shift.jpg"
@@ -114,7 +85,7 @@ export function RegenScienceTheater({ onShopGoals, compact = false }: Props) {
               fill
               className="object-contain object-center sm:object-cover"
               sizes="(max-width: 1200px) 100vw, 1200px"
-              priority={!compact}
+              priority
             />
           </div>
           <p className="border-t border-white/10 bg-black/80 px-4 py-3 text-center text-[11px] font-medium text-white/50">
@@ -122,10 +93,7 @@ export function RegenScienceTheater({ onShopGoals, compact = false }: Props) {
           </p>
         </div>
 
-        {/* Each card keeps its own NP-review / clinical-match qualifier. */}
-        <div
-          className={`mx-auto grid max-w-3xl gap-3 sm:grid-cols-2 lg:gap-4${compact ? " hidden" : ""}`}
-        >
+        <div className="mx-auto grid max-w-3xl gap-3 sm:grid-cols-2 lg:gap-4">
           <article className="group overflow-hidden rounded-2xl border border-[#B88173]/40 bg-[#0a0610] shadow-[0_14px_28px_-12px_rgba(184,129,115,0.35)]">
             <div className="relative aspect-[2/1] w-full">
               <Image
@@ -201,7 +169,7 @@ export function RegenScienceTheater({ onShopGoals, compact = false }: Props) {
           ) : null}
           <Link
             href="/peptides"
-            className={`inline-flex items-center justify-center rounded-xl border-2 border-black/20 bg-white px-8 py-3.5 text-sm font-black text-black transition hover:border-[#FF2D8E] hover:text-[#E6007E]${compact ? " hidden" : ""}`}
+            className="inline-flex items-center justify-center rounded-xl border-2 border-black/20 bg-white px-8 py-3.5 text-sm font-black text-black transition hover:border-[#FF2D8E] hover:text-[#E6007E]"
           >
             Full peptide hub →
           </Link>

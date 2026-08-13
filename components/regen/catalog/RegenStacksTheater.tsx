@@ -27,6 +27,12 @@ export type RegenStackCard = {
 
 type Props = {
   bundles: RegenStackCard[];
+  /**
+   * Client shop shows a short ladder of stacks. When more exist, this reveals the
+   * rest in place so nothing becomes unreachable. Staff pass nothing and see all.
+   */
+  hiddenCount?: number;
+  onShowAll?: () => void;
 };
 
 /** Hero drug art per bundle id (from CATALOG_BUNDLES pick order) */
@@ -36,7 +42,7 @@ function stackArtKeys(bundleId: string): string[] {
   return def.pick.map((pk) => pk[0]).filter(Boolean).slice(0, 3);
 }
 
-export function RegenStacksTheater({ bundles }: Props) {
+export function RegenStacksTheater({ bundles, hiddenCount = 0, onShowAll }: Props) {
   return (
     <section
       id="stacks"
@@ -162,7 +168,12 @@ export function RegenStacksTheater({ bundles }: Props) {
                       color: "transparent",
                     }}
                   >
-                    Stack protocol
+                    {/*
+                      Clients get the goal this stack belongs to — the same wording as
+                      the "Shop by goal" cards — so a $165 card next to a $435 card
+                      reads as a deliberate range. Staff keep the generic eyebrow.
+                    */}
+                    {b.consultHref ? b.tagline : "Stack protocol"}
                   </p>
                   <h3 className="mt-1 font-serif text-2xl font-black leading-tight text-white">
                     {b.name}
@@ -230,6 +241,18 @@ export function RegenStacksTheater({ bundles }: Props) {
             );
           })}
         </div>
+
+        {hiddenCount > 0 && onShowAll ? (
+          <div className="mt-8 text-center">
+            <button
+              type="button"
+              onClick={onShowAll}
+              className="text-sm font-black text-[#E6007E] underline decoration-[#E6007E]/40 underline-offset-4 transition hover:text-[#FF2D8E]"
+            >
+              See all {bundles.length + hiddenCount} stacks →
+            </button>
+          </div>
+        ) : null}
       </div>
     </section>
   );
