@@ -19,6 +19,7 @@ import { formatFromMonthly, getPeptideRetailMonthlyUsd } from "@/lib/peptide-ret
 import {
   PEPTIDE_CATEGORY_FILTER_LABEL,
   PEPTIDE_CONSULT_FEE_USD,
+  PEPTIDE_INVESTIGATIONAL_NOTE,
   PEPTIDE_REQUEST_DISCLAIMER,
   PEPTIDE_REQUEST_ITEMS,
   peptideRequestItemsByCategory,
@@ -231,6 +232,11 @@ export function StartHereFlow({ initialPeptideId }: { initialPeptideId?: string 
                           )}
                           <div className="flex min-h-[5rem] flex-1 flex-col p-4">
                             <p className="font-bold leading-tight">{item.name}</p>
+                            {item.investigational && (
+                              <p className="mt-1 inline-flex w-fit rounded-full border border-amber-300/40 bg-amber-300/10 px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider text-amber-200">
+                                Investigational
+                              </p>
+                            )}
                             <p className="mt-1 text-xs leading-snug text-white/50">{item.benefit}</p>
                             {(() => {
                               const usd = getPeptideRetailMonthlyUsd(item.id);
@@ -275,6 +281,15 @@ export function StartHereFlow({ initialPeptideId }: { initialPeptideId?: string 
                   </span>
                   <span className="text-sm text-white/50">Quick verification — under 1 minute</span>
                 </div>
+
+                {selectedItem.investigational && (
+                  <div className="mb-6 rounded-2xl border border-amber-300/40 bg-amber-300/10 p-4 text-sm leading-relaxed text-amber-100">
+                    <p className="font-bold uppercase tracking-wider text-amber-200">
+                      Investigational compound
+                    </p>
+                    <p className="mt-1">{PEPTIDE_INVESTIGATIONAL_NOTE}</p>
+                  </div>
+                )}
 
                 <div className="space-y-8">
                   <RadioGroup

@@ -155,6 +155,6 @@ export const GLP1_CATALOG: PeptideCatalogEntry[] = [
 ];
 
 export const PEPTIDE_CATALOG_DISCLAIMER =
-  "Educational information only. Peptides discussed here are prescribed only under NP supervision after evaluation — not research-grade or gray-market products. This is not medical advice; consult a qualified healthcare provider.";
+  "Educational information only. Peptides discussed here are prescribed only under NP supervision after evaluation and are compounded by licensed US pharmacies; some are investigational and not FDA-approved. This is not medical advice; consult a qualified healthcare provider.";
 
 export { formatPrepayLine };

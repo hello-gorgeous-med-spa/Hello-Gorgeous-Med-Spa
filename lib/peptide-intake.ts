@@ -278,7 +278,8 @@ export const PEPTIDE_INTAKE_STEPS: PeptideIntakeStep[] = [
   {
     id: "peptide-select",
     title: "Select peptide(s)",
-    description: "Choose what you'd like reviewed. Ryan will confirm the right protocol at your telehealth visit.",
+    description:
+      "Choose what you'd like reviewed. Ryan will confirm the right protocol at your telehealth visit. Some compounds are investigational and not FDA-approved — he'll tell you which and review approved alternatives with you.",
     fields: [
       {
         id: "selected_peptides",

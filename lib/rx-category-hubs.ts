@@ -443,7 +443,7 @@ const WELLNESS_PRODUCTS: RxCategoryProduct[] = [
 const PEPTIDE_FAQ = [
   {
     q: "Are RE GEN peptides prescription?",
-    a: "Most injectable peptide protocols are prescription-only. Ryan Kent, FNP-BC reviews your health history before approving any protocol. We do not sell research-grade or gray-market peptides.",
+    a: "Yes — every protocol is dispensed on a prescription after Ryan Kent, FNP-BC reviews your health history, and nothing is filled without that review. Most are compounded for you by licensed US pharmacies rather than sold as FDA-approved brand products, and some compounds clients ask about are still investigational and not FDA-approved. Ryan tells you which category yours falls into before you start.",
   },
   {
     q: "What peptides are most popular at Hello Gorgeous?",
@@ -650,7 +650,7 @@ export const REGEN_CATEGORY_HUBS: RxCategoryHub[] = [
     },
     steps: CONSULT_FIRST_STEPS,
     products: PEPTIDE_PRODUCTS,
-    trustLine: "Licensed pharmacy · Ryan Kent, FNP-BC · No gray-market peptides",
+    trustLine: "Licensed US pharmacies · Ryan Kent, FNP-BC · NP review before every fill",
     getStartedPath: "/rx",
     faq: [...PEPTIDE_FAQ],
   },

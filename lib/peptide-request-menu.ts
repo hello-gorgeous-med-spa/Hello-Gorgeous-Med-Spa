@@ -36,12 +36,20 @@ export type PeptideRequestItem = {
   screeningSet: "recovery" | "gh" | "metabolic" | "cognitive" | "intimacy" | "general";
   /** Rx oversight always required */
   rxRequired: true;
+  /**
+   * Not an FDA-approved drug and not on FDA's 503A/503B bulk lists, so it must be
+   * disclosed as investigational wherever a client can select it.
+   */
+  investigational?: true;
 };
 
 export const PEPTIDE_CONSULT_FEE_USD = 49;
 
 export const PEPTIDE_CONSULT_PAY_NOTE =
   "New peptide protocols require a $49 NP consult pre-pay via Square before booking telehealth — same secure checkout as our Vitamin Bar.";
+
+export const PEPTIDE_INVESTIGATIONAL_NOTE =
+  "Investigational compound — not FDA-approved for any use and still in clinical trials. Ryan Kent, FNP-BC will review whether an approved alternative fits your goals before anything is dispensed.";
 
 export const PEPTIDE_REQUEST_DISCLAIMER =
   "Requesting a peptide does not create a prescription. All Hello Gorgeous RX™ protocols require NP telehealth review, medical evaluation, and pharmacy fulfillment after approval. Medication is priced separately.";
@@ -196,10 +204,11 @@ export const PEPTIDE_REQUEST_ITEMS: PeptideRequestItem[] = [
     name: "Retatrutide",
     thumbnailSlug: "retatrutide",
     category: "Metabolic & Weight",
-    benefit: "Research-stage metabolic peptide",
+    benefit: "Investigational — not FDA-approved",
     hubSlug: "retatrutide",
     screeningSet: "metabolic",
     rxRequired: true,
+    investigational: true,
   },
   {
     id: "tirzepatide",

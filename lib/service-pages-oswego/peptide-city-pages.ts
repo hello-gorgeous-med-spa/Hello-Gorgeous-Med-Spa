@@ -115,7 +115,7 @@ function peptideCityPage(
       },
       {
         q: "Is peptide therapy safe?",
-        a: "When prescribed by an NP and sourced from licensed US compounding pharmacies, peptide therapy has a strong safety profile. We do not sell or recommend gray-market research peptides.",
+        a: "Peptide therapy is prescribed only after an NP evaluation, and we order through licensed US compounding pharmacies. Safety depends on your health history, the specific compound, and follow-up monitoring — some peptides are investigational and not FDA-approved, and Ryan reviews that with you before you start.",
       },
       {
         q: "Do I need a consultation first?",
