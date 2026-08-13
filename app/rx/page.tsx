@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Suspense } from "react";
 
 import { RegenCatalogClient } from "@/components/regen/catalog/RegenCatalogClient";
-import { SHOP_GOALS, goalSlug } from "@/lib/regen/catalog";
+import { CLIENT_SHOP_GOALS, goalSlug } from "@/lib/regen/catalog";
 import { REGEN_CATEGORY_HUBS } from "@/lib/rx-category-hubs";
 import {
   type FAQ,
@@ -92,7 +92,7 @@ const REGEN_FAQS: readonly FAQ[] = [
   {
     question: "What can I shop for on RE GEN?",
     answer:
-      "Medical weight loss (GLP-1), peptide protocols, hormone therapy, sexual health, hair & skin, energy & longevity, lab panels, and wellness injections — browse the full catalog online. Approval is never automatic.",
+      "The shop lists our peptide protocols, medical weight loss (GLP-1), and hormone therapy — the programs Ryan Kent, FNP-BC prescribes most. Other compounded options, including sexual health, hair and skin, and wellness injections, are still available; ask about them at your consult or start at the RX request portal. Approval is never automatic.",
   },
   {
     question: "How much does RE GEN shipping cost?",
@@ -124,7 +124,7 @@ const catalogJsonLd = {
   "@context": "https://schema.org",
   "@type": "ItemList",
   name: "RE GEN shop by goal",
-  itemListElement: SHOP_GOALS.map((goalId, index) => ({
+  itemListElement: CLIENT_SHOP_GOALS.map((goalId, index) => ({
     "@type": "ListItem",
     position: index + 1,
     name: goalId,
@@ -198,7 +198,7 @@ export default function RxShopPage() {
         className="border-t border-black/10 bg-white px-6 py-8"
       >
         <ul className="mx-auto flex max-w-[1200px] flex-wrap gap-x-4 gap-y-2 text-xs font-medium text-black/50">
-          {SHOP_GOALS.map((goalId) => (
+          {CLIENT_SHOP_GOALS.map((goalId) => (
             <li key={goalId}>
               <Link href={`/rx?goal=${goalSlug(goalId)}`} className="hover:text-[#E6007E] hover:underline">
                 Shop {goalId}

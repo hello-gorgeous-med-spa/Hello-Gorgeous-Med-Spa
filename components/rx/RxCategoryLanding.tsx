@@ -10,7 +10,7 @@ import {
 } from "@/components/regen/catalog/CatalogProductCard";
 import { RegenMetabolicShiftVisual } from "@/components/regen/RegenMetabolicShiftVisual";
 import { RxFindYourPeptideCta } from "@/components/rx/RxFindYourPeptideCta";
-import { getCatalogProduct } from "@/lib/regen/catalog";
+import { getCatalogProduct, isClientVisibleProductId } from "@/lib/regen/catalog";
 import { getCategoryMascot } from "@/lib/regen/category-mascots";
 import { getCategoryIntakeRoute } from "@/lib/regen/intake-router";
 import { REGEN_SHOP_PAGE_WASH } from "@/lib/regen/shop-surface";
@@ -24,6 +24,11 @@ import {
 import { FIND_YOUR_PEPTIDE_PATH } from "@/lib/rx-patient-journey";
 import { REGEN_SITE, REGEN_TRUST_BAR } from "@/lib/regen-site";
 
+/** A hub card links to its SKU only while the shop lists it; the rest open intake. */
+function hubProductIsListed(product: RxCategoryProduct): boolean {
+  return !product.catalogProductId || isClientVisibleProductId(product.catalogProductId);
+}
+
 function HubFallbackCard({
   product,
   hubId,
@@ -31,7 +36,9 @@ function HubFallbackCard({
   product: RxCategoryProduct;
   hubId: RxCategoryHubId;
 }) {
-  const hubHref = rxCategoryProductHref(product);
+  const hubHref = hubProductIsListed(product)
+    ? rxCategoryProductHref(product)
+    : getCategoryIntakeRoute(hubId).intakePath;
   const shopHref = hubHref?.startsWith("/")
     ? hubHref
     : regenStorefrontUrl(hubId, product.catalogProductId ?? product.id);
@@ -74,9 +81,10 @@ function HubProductSlot({
   product: RxCategoryProduct;
   hubId: RxCategoryHubId;
 }) {
-  const catalog = product.catalogProductId
-    ? getCatalogProduct(product.catalogProductId)
-    : undefined;
+  const catalog =
+    product.catalogProductId && hubProductIsListed(product)
+      ? getCatalogProduct(product.catalogProductId)
+      : undefined;
 
   if (catalog) {
     return <ProductCard product={catalog} consultMode />;

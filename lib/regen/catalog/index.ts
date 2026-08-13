@@ -11,6 +11,7 @@ import type {
 
 export { GOALS, MARKUP, PRODUCTS, MONOGRAPHS, PROTOCOLS };
 export { CATALOG_BUNDLES } from "./bundles";
+export * from "./client-visibility";
 export * from "./helpers";
 export * from "./pricing";
 export type * from "./types";

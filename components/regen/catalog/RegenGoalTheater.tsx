@@ -6,14 +6,17 @@ import { useMemo } from "react";
 import {
   CATALOG_GOALS,
   CATALOG_PRODUCTS,
+  CLIENT_SHOP_GOALS,
   goalCounts,
   listingPriceText,
   price30,
   productImage,
   SHOP_GOALS,
+  SHOP_GOAL_HERO_DRUG_KEYS,
   type CatalogGoalId,
   type CatalogProduct,
 } from "@/lib/regen/catalog";
+import { catalogClientPriceText } from "@/lib/regen/catalog/client-price";
 import { REGEN_SHOP_SECTION_WASH } from "@/lib/regen/shop-surface";
 
 const STAGE_BG = "/images/regen/brand/regen-stage-cinematic-plum.jpg";
@@ -24,7 +27,6 @@ const GOAL_STAGE: Record<
   {
     wash: string;
     glow: string;
-    drugKey: string;
     heroName: string;
     badge: string;
   }
@@ -32,49 +34,46 @@ const GOAL_STAGE: Record<
   "Lose Weight": {
     wash: "rgba(230,0,126,0.45)",
     glow: "rgba(255,45,142,0.55)",
-    drugKey: "tirzepatide",
     heroName: "Tirzepatide",
     badge: "Top seller",
   },
   "Recovery & Performance": {
     wash: "rgba(40,80,180,0.4)",
     glow: "rgba(96,165,250,0.45)",
-    drugKey: "bpc157",
     heroName: "BPC-157",
     badge: "Repair",
   },
   Intimacy: {
     wash: "rgba(180,20,90,0.5)",
     glow: "rgba(255,45,142,0.5)",
-    drugKey: "pt141",
     heroName: "PT-141",
     badge: "Discreet",
   },
   Hormones: {
     wash: "rgba(120,30,90,0.45)",
     glow: "rgba(236,72,153,0.45)",
-    drugKey: "testosterone",
     heroName: "Testosterone",
     badge: "Balance",
   },
   "Skin & Hair": {
     wash: "rgba(200,60,140,0.4)",
     glow: "rgba(255,95,177,0.45)",
-    drugKey: "ghkcu",
     heroName: "GHK-Cu",
     badge: "Glow",
   },
   "Energy & Longevity": {
     wash: "rgba(160,90,20,0.4)",
     glow: "rgba(251,191,36,0.4)",
-    drugKey: "nad",
     heroName: "NAD+",
     badge: "Cellular",
   },
 };
 
-function lowestPricedInGoal(goal: string): CatalogProduct | null {
-  const items = CATALOG_PRODUCTS.filter((p) => p.goal === goal && p.variants?.[0]);
+function lowestPricedInGoal(
+  products: CatalogProduct[],
+  goal: string,
+): CatalogProduct | null {
+  const items = products.filter((p) => p.goal === goal && p.variants?.[0]);
   if (!items.length) return null;
   return items.reduce((best, p) => {
     const a = price30(p, p.variants[0]);
@@ -83,10 +82,14 @@ function lowestPricedInGoal(goal: string): CatalogProduct | null {
   });
 }
 
-function heroProduct(goal: CatalogGoalId, drugKey: string): CatalogProduct | null {
+function heroProduct(
+  products: CatalogProduct[],
+  goal: CatalogGoalId,
+  drugKey: string,
+): CatalogProduct | null {
   return (
-    CATALOG_PRODUCTS.find((p) => p.goal === goal && p.drugKey === drugKey) ??
-    lowestPricedInGoal(goal)
+    products.find((p) => p.goal === goal && p.drugKey === drugKey) ??
+    lowestPricedInGoal(products, goal)
   );
 }
 
@@ -98,10 +101,20 @@ type Props = {
    * makes the storefront feel like a warehouse.
    */
   showCounts?: boolean;
+  /** Defaults to the whole catalog; the client shop passes its allowlist. */
+  products?: CatalogProduct[];
+  /** Client shop: only goals whose hero protocol is still listed get a card. */
+  clientOnly?: boolean;
 };
 
-export function RegenGoalTheater({ onSelectGoal, showCounts = true }: Props) {
-  const counts = useMemo(() => goalCounts(CATALOG_PRODUCTS), []);
+export function RegenGoalTheater({
+  onSelectGoal,
+  showCounts = true,
+  products = CATALOG_PRODUCTS,
+  clientOnly = false,
+}: Props) {
+  const counts = useMemo(() => goalCounts(products), [products]);
+  const goals = clientOnly ? CLIENT_SHOP_GOALS : SHOP_GOALS;
 
   return (
     <section
@@ -142,12 +155,17 @@ export function RegenGoalTheater({ onSelectGoal, showCounts = true }: Props) {
         </div>
 
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 lg:gap-5">
-          {SHOP_GOALS.map((goal) => {
+          {goals.map((goal) => {
             const stage = GOAL_STAGE[goal];
+            const heroDrugKey = SHOP_GOAL_HERO_DRUG_KEYS[goal];
             const meta = CATALOG_GOALS.find((g) => g.id === goal);
-            const product = heroProduct(goal, stage.drugKey);
-            const img = productImage(stage.drugKey, product?.form);
-            const fromPrice = product ? listingPriceText(product) : null;
+            const product = heroProduct(products, goal, heroDrugKey);
+            const img = productImage(heroDrugKey, product?.form);
+            const fromPrice = product
+              ? clientOnly
+                ? catalogClientPriceText(product)
+                : listingPriceText(product)
+              : null;
             const count = counts[goal] ?? 0;
 
             return (
@@ -242,7 +260,9 @@ export function RegenGoalTheater({ onSelectGoal, showCounts = true }: Props) {
                       >
                         {fromPrice.charAt(0).toUpperCase() + fromPrice.slice(1)}
                       </span>
-                      <span className="font-semibold text-white/55"> · 30-day</span>
+                      <span className="font-semibold text-white/55">
+                        {clientOnly ? " · dose set at consult" : " · 30-day"}
+                      </span>
                     </p>
                   ) : null}
                   <p className="mt-2 line-clamp-2 text-[13px] font-medium leading-snug text-white/75">

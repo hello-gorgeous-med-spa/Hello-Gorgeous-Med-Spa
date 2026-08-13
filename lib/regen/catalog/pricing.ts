@@ -1,15 +1,22 @@
 import type { CatalogProduct, CatalogVariant, SupplyDays } from "./types";
 
-/** Units counted toward a 30-day supply price. */
+/**
+ * Units counted toward a 30-day supply price.
+ *
+ * Per-unit SKUs are priced per dose, so a month costs 30 of them — unless the SKU is
+ * already dispensed as a pack. The pack can be named in either the product name or the
+ * variant ("0.5mg (8 count bottle)"), and missing the variant priced a bottle of
+ * cabergoline as 30 bottles.
+ */
+const PACK_IS_ONE_SUPPLY = /30 day|bottle|insert/i;
+
 export function unitsPer(product: CatalogProduct): number {
-  const n = (product.name || "").toLowerCase();
-  if (
-    /30 day|bottle|insert/.test(n) ||
-    product.form === "Vag. Insert"
-  ) {
+  if (!product.perUnit) return 1;
+  const label = `${product.name || ""} ${product.variants[0]?.strength ?? ""}`;
+  if (PACK_IS_ONE_SUPPLY.test(label) || product.form === "Vag. Insert") {
     return 1;
   }
-  return product.perUnit ? 30 : 1;
+  return 30;
 }
 
 export function price30(product: CatalogProduct, variant: CatalogVariant): number {

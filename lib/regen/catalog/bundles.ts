@@ -3,17 +3,18 @@ import type { CatalogBundle } from "./types";
 /**
  * Stacks shown on the client storefront, in display order (cheapest first).
  *
- * Four stacks, cheapest first, one per goal — the owner asked for a short ladder
- * rather than the full set. Peak Performance and The Radiance Drip duplicate goals
- * already covered here, and Men's Vitality is held back only to keep the row to
- * four. (An earlier note justified those omissions on price; that was a pricing
- * bug quoting vial cost x30, fixed in client-price.ts — the real spread is
- * $165-$565.) All seven stay reachable behind "see all stacks" on the client shop,
- * and staff portals always show every stack in CATALOG_BUNDLES.
+ * Four stacks, one per group the client shop now sells: hormones (women's and men's),
+ * BoomRx sheet peptides, and weight loss. The Intimacy Duo and The Radiance Drip are
+ * staff-only because each pairs one listed product with one the client shop no longer
+ * lists — a fast-dissolve PDE-5 troche and the glutathione capsule — and the portal
+ * drops any stack whose products are not all client-visible, so they cannot resurface
+ * behind "see all stacks" either. Peak Performance stays reachable there.
+ *
+ * Staff portals always show every stack in CATALOG_BUNDLES.
  *
  * To change what clients see, reorder or swap ids here — no JSX changes needed.
  */
-export const CLIENT_STACK_IDS = ["womens", "intimacy", "recovery", "glp1"] as const;
+export const CLIENT_STACK_IDS = ["womens", "recovery", "mens", "glp1"] as const;
 
 export const CATALOG_BUNDLES: CatalogBundle[] = [
   {

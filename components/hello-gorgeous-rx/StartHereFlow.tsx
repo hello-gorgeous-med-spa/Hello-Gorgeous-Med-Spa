@@ -17,12 +17,14 @@ import {
 import { saveRxStartPrefill } from "@/lib/peptide-rx-prefill";
 import { formatFromMonthly, getPeptideRetailMonthlyUsd } from "@/lib/peptide-retail-pricing";
 import {
+  CLIENT_PEPTIDE_REQUEST_ITEMS,
+  clientPeptideRequestItemsByCategory,
+} from "@/lib/peptide-request-availability";
+import {
   PEPTIDE_CATEGORY_FILTER_LABEL,
   PEPTIDE_CONSULT_FEE_USD,
   PEPTIDE_INVESTIGATIONAL_NOTE,
   PEPTIDE_REQUEST_DISCLAIMER,
-  PEPTIDE_REQUEST_ITEMS,
-  peptideRequestItemsByCategory,
   type PeptideRequestCategory,
 } from "@/lib/peptide-request-menu";
 import { getPeptidePickerThumbnail } from "@/lib/peptide-thumbnails";
@@ -41,12 +43,16 @@ export function StartHereFlow({ initialPeptideId }: { initialPeptideId?: string 
   const [lastVisit, setLastVisit] = useState<string>("");
   const [errors, setErrors] = useState<Record<string, string>>({});
 
+  /**
+   * Only peptides the shop still carries can be requested, so a deep link to one we
+   * dropped opens the picker with nothing chosen rather than starting an intake for it.
+   */
   const selectedItem = useMemo(
-    () => PEPTIDE_REQUEST_ITEMS.find((p) => p.id === selectedId),
+    () => CLIENT_PEPTIDE_REQUEST_ITEMS.find((p) => p.id === selectedId),
     [selectedId],
   );
 
-  const grouped = peptideRequestItemsByCategory();
+  const grouped = clientPeptideRequestItemsByCategory();
   const visibleGroups =
     categoryFilter === "all"
       ? grouped

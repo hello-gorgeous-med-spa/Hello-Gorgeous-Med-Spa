@@ -353,7 +353,9 @@ export function regenShopHrefForPeptide(peptideHubOrId: string): string {
   return goal ? `/rx?goal=${goal}` : "/rx";
 }
 
-export function peptideRequestItemsByCategory(): Array<{
+export function peptideRequestItemsByCategory(
+  items: PeptideRequestItem[] = PEPTIDE_REQUEST_ITEMS,
+): Array<{
   category: PeptideRequestCategory;
   items: PeptideRequestItem[];
 }> {
@@ -370,7 +372,7 @@ export function peptideRequestItemsByCategory(): Array<{
   return order
     .map((category) => ({
       category,
-      items: PEPTIDE_REQUEST_ITEMS.filter((p) => p.category === category),
+      items: items.filter((p) => p.category === category),
     }))
     .filter((g) => g.items.length > 0);
 }

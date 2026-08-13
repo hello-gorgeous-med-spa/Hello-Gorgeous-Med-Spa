@@ -366,7 +366,8 @@ const PEPTIDE_PRODUCTS: RxCategoryProduct[] = [
     image: "/regen-site/assets/prod-glutathione-regen.png",
     imageAlt: "Glutathione — RE GEN wellness",
     rx: false,
-    catalogProductId: "p59",
+    /** The injectable vial on the BoomRx sheet — p59 is the capsule. */
+    catalogProductId: "p60",
   },
 ];
 
@@ -425,7 +426,8 @@ const WELLNESS_PRODUCTS: RxCategoryProduct[] = [
     image: "/regen-site/assets/prod-glutathione-regen.png",
     imageAlt: "Glutathione — RE GEN",
     rx: false,
-    catalogProductId: "p59",
+    /** The injectable vial on the BoomRx sheet — p59 is the capsule. */
+    catalogProductId: "p60",
   },
   {
     id: "ldn",

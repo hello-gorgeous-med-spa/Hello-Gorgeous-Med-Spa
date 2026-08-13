@@ -9,6 +9,7 @@ import {
   CATALOG_BUNDLES,
   CATALOG_GOALS,
   CATALOG_PRODUCTS,
+  CLIENT_VISIBLE_PRODUCTS,
   HERO_DRUG_KEYS,
   bundlePrice,
   filterCatalogByPrice,
@@ -19,6 +20,7 @@ import {
   goalAccent,
   goalFromSlug,
   goalSlug,
+  isClientVisibleProduct,
   price30,
   sortCatalogProducts,
   type CatalogPriceFilter,
@@ -111,6 +113,12 @@ export function RegenCatalogPortal({
 
   const isPublicShop = basePath === "/rx";
 
+  /**
+   * The public shop lists the BoomRx sheet peptides, weight loss, and hormones; staff
+   * portals keep every SKU so they can still ring up a derm cream or an ED tablet.
+   */
+  const catalogPool = isPublicShop ? CLIENT_VISIBLE_PRODUCTS : CATALOG_PRODUCTS;
+
   const navigate = useCallback(
     (next: { goal?: string | null; browse?: string | null; q?: string | null }) => {
       const params = new URLSearchParams();
@@ -173,18 +181,18 @@ export function RegenCatalogPortal({
   const filteredProducts = useMemo(() => {
     let list: CatalogProduct[] = [];
     if (view === "goal" && activeGoal) {
-      list = CATALOG_PRODUCTS.filter((p) => p.goal === activeGoal);
+      list = catalogPool.filter((p) => p.goal === activeGoal);
       if (formFilter !== "All") {
         list = list.filter((p) => formGroup(p.form) === formFilter);
       }
     } else if (view === "all") {
-      list = [...CATALOG_PRODUCTS];
+      list = [...catalogPool];
       if (formFilter !== "All") {
         list = list.filter((p) => formGroup(p.form) === formFilter);
       }
     } else if (view === "search") {
       const q = query.trim().toLowerCase();
-      list = CATALOG_PRODUCTS.filter((p) => {
+      list = catalogPool.filter((p) => {
         const mono = getMonograph(p.drugKey);
         return `${p.name} ${p.category} ${p.goal} ${mono.name ?? ""}`
           .toLowerCase()
@@ -193,26 +201,26 @@ export function RegenCatalogPortal({
     }
     list = filterCatalogByPrice(list, priceFilter, priceOf);
     return sortCatalogProducts(list, sort, priceOf);
-  }, [view, activeGoal, formFilter, query, priceFilter, sort, priceOf]);
+  }, [view, activeGoal, formFilter, query, priceFilter, sort, priceOf, catalogPool]);
 
   const formChips = useMemo(() => {
     const pool =
       view === "goal" && activeGoal
-        ? CATALOG_PRODUCTS.filter((p) => p.goal === activeGoal)
+        ? catalogPool.filter((p) => p.goal === activeGoal)
         : view === "all"
-          ? CATALOG_PRODUCTS
+          ? catalogPool
           : [];
     if (!pool.length) return [];
     const groups = Array.from(new Set(pool.map((p) => formGroup(p.form))));
     return ["All", ...groups];
-  }, [view, activeGoal]);
+  }, [view, activeGoal, catalogPool]);
 
   const bestSellers = useMemo(
     () =>
       HERO_DRUG_KEYS.map((k) => findProductByDrugKey(k)).filter(
-        (p): p is CatalogProduct => !!p,
+        (p): p is CatalogProduct => !!p && (!isPublicShop || isClientVisibleProduct(p)),
       ),
-    [],
+    [isPublicShop],
   );
 
   /** Clients see a short "here's something to click" row; staff keep the full set. */
@@ -244,10 +252,21 @@ export function RegenCatalogPortal({
 
         const { total, price, save } = bundlePrice(resolved.map((r) => r.retail));
 
+        /**
+         * A stack is only offered to clients when every product in it is still on the
+         * client shop — otherwise the card would quote a protocol the shopper cannot
+         * open. Staff keep all seven.
+         */
+        const clientVisible = b.pick.every((pk) => {
+          const p = findProductByDrugKey(pk[0]);
+          return !!p && isClientVisibleProduct(p);
+        });
+
         return {
           ...b,
           accent: goalAccent(b.tagline),
           consultHref,
+          clientVisible,
           items: resolved.map((r) => ({
             name: r.name,
             price: formatCatalogMoney(r.retail),
@@ -280,13 +299,18 @@ export function RegenCatalogPortal({
    * Clients see the CLIENT_STACK_IDS ladder (cheapest first) until they ask for the
    * rest; staff always see every stack in authored order.
    */
+  const stackPool = useMemo(
+    () => (isPublicShop ? bundles.filter((b) => b.clientVisible) : bundles),
+    [bundles, isPublicShop],
+  );
+
   const visibleStacks = useMemo(() => {
-    if (!isPublicShop || showAllStacks) return bundles;
-    const byId = new Map(bundles.map((b) => [b.id, b]));
+    if (!isPublicShop || showAllStacks) return stackPool;
+    const byId = new Map(stackPool.map((b) => [b.id, b]));
     return CLIENT_STACK_IDS.map((id) => byId.get(id)).filter(
       (b): b is (typeof bundles)[number] => !!b,
     );
-  }, [bundles, isPublicShop, showAllStacks]);
+  }, [stackPool, isPublicShop, showAllStacks]);
 
   const goalBlurb =
     CATALOG_GOALS.find((g) => g.id === activeGoal)?.blurb ?? "";
@@ -343,6 +367,8 @@ export function RegenCatalogPortal({
           <RegenGoalTheater
             onSelectGoal={(goal) => navigate({ goal })}
             showCounts={!isPublicShop}
+            products={catalogPool}
+            clientOnly={isPublicShop}
           />
 
           <section id="popular" className={`${SECTION_SCROLL} bg-transparent px-6 py-16 lg:py-20`}>
@@ -379,7 +405,7 @@ export function RegenCatalogPortal({
 
           <RegenStacksTheater
             bundles={visibleStacks}
-            hiddenCount={bundles.length - visibleStacks.length}
+            hiddenCount={stackPool.length - visibleStacks.length}
             onShowAll={isPublicShop ? () => setShowAllStacks(true) : undefined}
           />
 

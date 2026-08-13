@@ -9,6 +9,7 @@ import { peptideHubSlugFromCatalog } from "@/lib/peptide-hub-from-catalog";
 import { peptideTopicHref } from "@/lib/peptides-hub";
 import {
   CATALOG_PRODUCTS,
+  CLIENT_VISIBLE_PRODUCTS,
   REGEN_CATALOG_LOGO,
   getMonograph,
   getProtocol,
@@ -99,9 +100,9 @@ export function ProductDetailPanel({
   const educationSlug = peptideHubSlugFromCatalog(product.drugKey, product.name);
   const educationHref = educationSlug ? peptideTopicHref(educationSlug) : null;
   const goalHref = `/rx?goal=${goalSlug(product.goal)}`;
-  const related = CATALOG_PRODUCTS.filter(
-    (p) => p.goal === product.goal && p.id !== product.id,
-  ).slice(0, 4);
+  const related = (consultMode ? CLIENT_VISIBLE_PRODUCTS : CATALOG_PRODUCTS)
+    .filter((p) => p.goal === product.goal && p.id !== product.id)
+    .slice(0, 4);
 
   const handleAdd = () => {
     addItem({

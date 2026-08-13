@@ -120,6 +120,16 @@ export const SHOP_GOALS: CatalogGoalId[] = [
   "Energy & Longevity",
 ];
 
+/** The protocol each "Shop by goal" card fronts — its vial art, name, and "from $X". */
+export const SHOP_GOAL_HERO_DRUG_KEYS: Record<string, string> = {
+  "Lose Weight": "tirzepatide",
+  "Recovery & Performance": "bpc157",
+  Intimacy: "pt141",
+  Hormones: "testosterone",
+  "Skin & Hair": "ghkcu",
+  "Energy & Longevity": "nad",
+};
+
 export const HERO_DRUG_KEYS = [
   "tirzepatide",
   "semaglutide",

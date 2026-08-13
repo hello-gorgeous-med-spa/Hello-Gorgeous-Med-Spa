@@ -104,6 +104,85 @@ export function getPeptideBoomRxCatalogEntry(menuId: string): PeptideBoomRxCatal
   return CATALOG_BY_MENU_ID.get(menuId);
 }
 
+/* ---------------------------------------------------------------------------
+ * Sheet name matching
+ *
+ * The sheet, the storefront catalog, and the request menu all spell the same peptide
+ * differently — case ("MOTS-C" vs "MOTS-c"), marketing prefix ("GLOW (BPC-157 / TB-500
+ * / GHK-Cu)"), dosage-form words ("NAD+ Injectable"), and fill size ("Sermorelin
+ * 15mg/6mL"). Every name is reduced to a sorted set of ingredient tokens so anything
+ * that needs to ask "is this on the sheet?" gets the same answer.
+ * ------------------------------------------------------------------------- */
+
+/** Fill size belongs to the variant, not the molecule. */
+const FILL_SIZE = /\d+(?:[.,]\d+)*\s*(?:mcg|mg|ml|iu|g)\b/gi;
+
+/** Marketing names and dosage-form words only one of the lists carries. */
+const NAME_NOISE = new Set(["injectable", "injection", "glow"]);
+
+export function boomrxIngredientTokens(name: string): string[] {
+  const tokens = name
+    .toLowerCase()
+    .replace(/[()]/g, " ")
+    .replace(FILL_SIZE, " ")
+    .split(/[\s/,+]+/)
+    .map((part) => part.replace(/[^a-z0-9]/g, ""))
+    .filter((part) => part.length > 0 && !NAME_NOISE.has(part));
+  return Array.from(new Set(tokens));
+}
+
+export function boomrxIngredientKey(name: string): string {
+  return boomrxIngredientTokens(name).sort().join("|");
+}
+
+export type BoomRxSheetRow = {
+  productName: string;
+  key: string;
+  tokens: string[];
+  /**
+   * Priced per dose rather than per mL of a vial — the acetate capsule and the
+   * sublingual ampuls. Per-unit SKUs may only match these: pricing a capsule off a
+   * vial row is what once quoted Gonadorelin tablets at vial cost x 30.
+   */
+  perDose: boolean;
+};
+
+export const BOOMRX_SHEET_ROWS: BoomRxSheetRow[] = BOOMRX_PEPTIDE_PDF_PRODUCTS.map(
+  (row) => {
+    const concentration = row.concentration.toLowerCase();
+    return {
+      productName: row.productName,
+      key: boomrxIngredientKey(row.productName),
+      tokens: boomrxIngredientTokens(row.productName),
+      perDose: /ampul|dose/.test(concentration) || !/ml/.test(concentration),
+    };
+  },
+);
+
+/** True when the sheet carries this exact product (same ingredient set). */
+export function isOnBoomRxSheet(
+  name: string,
+  options: { perDoseOnly?: boolean } = {},
+): boolean {
+  const key = boomrxIngredientKey(name);
+  if (!key) return false;
+  return BOOMRX_SHEET_ROWS.some(
+    (row) => row.key === key && (!options.perDoseOnly || row.perDose),
+  );
+}
+
+/**
+ * True when the sheet carries this peptide on its own or inside a blend — Selank only
+ * ships as Semax / Selank and Pinealon / PE22-28 / Selank, but it is still available.
+ */
+export function isCarriedOnBoomRxSheet(name: string): boolean {
+  const tokens = boomrxIngredientTokens(name);
+  if (!tokens.length) return false;
+  return BOOMRX_SHEET_ROWS.some((row) =>
+    tokens.every((token) => row.tokens.includes(token)),
+  );
+}
+
 export function peptideMenuIdFromName(name: string): string | null {
   const item = PEPTIDE_REQUEST_ITEMS.find(
     (p) => p.name.toLowerCase() === name.trim().toLowerCase() || p.id === name.trim(),

@@ -12,8 +12,8 @@ import {
 } from "@/components/rx/intake/RxPostSubmitHeader";
 import { RxTelehealthHandoff } from "@/components/rx/intake/RxTelehealthHandoff";
 import {
+  HG_RX_PEPTIDE_CONSULT_BOOKING_URL,
   HG_RX_TELEHEALTH_BOOKING_LABEL,
-  HG_RX_TELEHEALTH_BOOKING_URL,
 } from "@/lib/flows";
 import type { IntakeFormField } from "@/lib/hgos/intake-forms";
 import {
@@ -63,11 +63,11 @@ import {
   glp1TelehealthWaivedForOrder,
 } from "@/lib/glp1-telehealth-policy";
 import { RX_SUPPLY_CYCLES } from "@/lib/rx-supply-cycle";
+import { CLIENT_PEPTIDE_REQUEST_ITEMS } from "@/lib/peptide-request-availability";
 import {
   PEPTIDE_CONSULT_FEE_USD,
   PEPTIDE_CONSULT_PAY_NOTE,
   PEPTIDE_REQUEST_DISCLAIMER,
-  PEPTIDE_REQUEST_ITEMS,
   PEPTIDE_TELEHEALTH_NOTE,
 } from "@/lib/peptide-request-menu";
 
@@ -186,9 +186,10 @@ function fieldsForStep(stepId: string, data: Record<string, unknown>): IntakeFor
 
   return step.fields.map((field) => {
     if (field.id === "selected_peptides") {
+      // Only what the shop still carries — see lib/peptide-request-availability.
       return {
         ...field,
-        options: PEPTIDE_REQUEST_ITEMS.map((p) => p.name),
+        options: CLIENT_PEPTIDE_REQUEST_ITEMS.map((p) => p.name),
       };
     }
     return field;
@@ -251,7 +252,7 @@ export function PeptideRequestForm({
 }) {
   const preselectedName = useMemo(() => {
     if (!preselectedPeptideId) return undefined;
-    return PEPTIDE_REQUEST_ITEMS.find((p) => p.id === preselectedPeptideId)?.name;
+    return CLIENT_PEPTIDE_REQUEST_ITEMS.find((p) => p.id === preselectedPeptideId)?.name;
   }, [preselectedPeptideId]);
 
   const [step, setStep] = useState(0);
@@ -684,7 +685,7 @@ export function PeptideRequestForm({
             )}
             {telehealthBeforeShip && (
               <a
-                href={HG_RX_TELEHEALTH_BOOKING_URL}
+                href={HG_RX_PEPTIDE_CONSULT_BOOKING_URL}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex w-full items-center justify-center rounded-xl border-2 border-green-800 bg-green-800 px-8 py-3.5 text-sm font-bold text-white hover:bg-black transition-colors"
@@ -764,12 +765,14 @@ export function PeptideRequestForm({
               <RxTelehealthHandoff
                 showBooking={false}
                 statusHref={rxStatusHref(result.recordToken)}
+                bookingHref={HG_RX_PEPTIDE_CONSULT_BOOKING_URL}
               />
             </>
           ) : (
             <RxTelehealthHandoff
               showBooking
               statusHref={rxStatusHref(result.recordToken)}
+              bookingHref={HG_RX_PEPTIDE_CONSULT_BOOKING_URL}
             />
           )}
         </div>
