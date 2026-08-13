@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hello Gorgeous — Peptides / RE GEN Patient Packet</title>
+<style>
+  :root { --pink:#E6007E; --hot:#FF2D8E; --ink:#111; --mute:#555; --line:#ddd; --rose:#FFF0F7; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: system-ui, -apple-system, sans-serif; background: #e8e8e8; color: var(--ink); padding: 16px; }
+  .toolbar { max-width: 8.5in; margin: 0 auto 16px; background: #fff; border: 3px solid #000; padding: 12px 16px; display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; position: sticky; top: 0; z-index: 20; }
+  .toolbar p { font-size: 13px; font-weight: 600; }
+  .toolbar button { background: var(--pink); color: #fff; border: 2px solid #000; border-radius: 999px; padding: 10px 18px; font-weight: 800; cursor: pointer; }
+  .page { width: 8.5in; min-height: 11in; margin: 0 auto 18px; background: #fff; border: 4px solid #000; padding: 0.4in 0.45in; page-break-after: always; position: relative; }
+  .brand { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; border-bottom: 4px solid #000; padding-bottom: 10px; margin-bottom: 12px; }
+  .brand h1 { font-size: 20px; font-weight: 900; color: var(--pink); line-height: 1.1; }
+  .brand .sub { font-size: 10px; font-weight: 700; color: var(--mute); text-transform: uppercase; letter-spacing: 0.08em; margin-top: 3px; }
+  .brand .meta { font-size: 10px; text-align: right; line-height: 1.4; font-weight: 600; }
+  .badge { border: 2px solid #000; background: var(--rose); padding: 5px 8px; font-size: 10px; font-weight: 900; text-align: center; white-space: nowrap; }
+  h2 { font-size: 12px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.08em; color: var(--pink); margin: 10px 0 6px; border-bottom: 2px solid #000; padding-bottom: 3px; }
+  h3 { font-size: 11px; font-weight: 800; margin: 8px 0 4px; }
+  p, li, td, label { font-size: 11px; line-height: 1.4; }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 14px; }
+  .grid3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+  .field { margin-bottom: 6px; }
+  .field label { display: block; font-size: 9px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: var(--mute); margin-bottom: 2px; }
+  .line { border-bottom: 1px solid #999; min-height: 18px; padding: 2px 0; }
+  .area { border: 1.5px solid #bbb; min-height: 48px; border-radius: 4px; padding: 4px; }
+  .area.tall { min-height: 72px; }
+  .checks { display: flex; flex-wrap: wrap; gap: 6px 12px; font-size: 11px; }
+  .checks label { font-weight: 600; text-transform: none; letter-spacing: 0; color: var(--ink); font-size: 11px; display: inline-flex; gap: 4px; align-items: center; }
+  .box { border: 2px solid #000; padding: 8px 10px; margin: 8px 0; background: #fafafa; }
+  .box.warn { background: #fff5f5; border-color: #000; }
+  .box.rose { background: var(--rose); }
+  .tiny { font-size: 9.5px; color: var(--mute); line-height: 1.35; }
+  table.form { width: 100%; border-collapse: collapse; margin: 6px 0; }
+  table.form th, table.form td { border: 1.5px solid #000; padding: 5px 6px; vertical-align: top; font-size: 10.5px; }
+  table.form th { background: #111; color: #fff; font-size: 9px; text-transform: uppercase; letter-spacing: 0.04em; text-align: left; }
+  .sig { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 10px; }
+  .sig .s { border: 2px dashed #999; min-height: 58px; padding: 6px 8px; }
+  .sig label { display: block; font-size: 9px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: var(--mute); margin-bottom: 24px; }
+  .sig .date { border-top: 1px solid #999; padding-top: 3px; font-size: 9px; color: var(--mute); }
+  .foot { margin-top: 10px; padding-top: 6px; border-top: 2px solid #000; font-size: 9px; color: var(--mute); display: flex; justify-content: space-between; gap: 8px; }
+  .keep { background: linear-gradient(125deg, #FF2D8E, #E6007E 50%, #9b0a4d); color: #fff; padding: 10px 12px; border: 2px solid #000; margin-bottom: 10px; }
+  .keep h1 { color: #fff; font-size: 18px; }
+  .keep .sub { color: #FFB8DC; }
+  ul.compact { margin: 4px 0 4px 16px; }
+  ul.compact li { margin-bottom: 2px; }
+  .ba-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 8px 0; }
+  .ba-card { border: 2px solid #000; min-height: 140px; padding: 8px; }
+  .ba-card h3 { color: var(--pink); margin-top: 0; }
+  .photo-box { border: 2px dashed #999; height: 90px; margin-top: 6px; display: flex; align-items: center; justify-content: center; color: #999; font-size: 10px; font-weight: 700; }
+  @media print {
+    body { background: #fff; padding: 0; }
+    .toolbar { display: none !important; }
+    .page { border: none; margin: 0; width: 100%; min-height: auto; page-break-after: always; }
+    @page { size: letter; margin: 0.35in; }
+    th, .badge, .keep, .box.rose { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+</style>
+</head>
+<body>
+  <div class="toolbar">
+    <p>PEPTIDES / RE GEN packet — print all 6 · patient completes 1–4 · provider page 5 · patient keeps page 6</p>
+    <button type="button" onclick="window.print()">Print / Save as PDF</button>
+  </div>
+
+  <article class="page">
+    
+    <div class="brand">
+      <div>
+        <h1>Peptides / RE GEN Packet</h1>
+        <div class="sub">Consultation · History · Consents · Treatment</div>
+      </div>
+      <div class="meta">
+        <strong>Hello Gorgeous Med Spa</strong><br>
+        74 W Washington St, Oswego, IL 60543<br>
+        (630) 636-6193 · hellogorgeousmedspa.com<br>
+        Ryan Kent, FNP-BC · Medical oversight
+      </div>
+      <div class="badge">Page 1<br>Consult</div>
+    </div>
+    <div class="box rose tiny">For peptide / RE GEN wellness visits (non–weight-loss primary). GLP-1 weight-loss patients use the Weight Loss packet instead. Patient completes pages 1–4 before the provider.</div>
+    <h2>1. Patient information</h2>
+    <div class="grid2">
+      <div class="field"><label>Legal first name</label><div class="line"></div></div>
+      <div class="field"><label>Legal last name</label><div class="line"></div></div>
+      <div class="field"><label>Preferred name</label><div class="line"></div></div>
+      <div class="field"><label>Date of birth</label><div class="line"></div></div>
+      <div class="field"><label>Mobile phone</label><div class="line"></div></div>
+      <div class="field"><label>Email</label><div class="line"></div></div>
+      <div class="field"><label>Address</label><div class="line"></div></div>
+      <div class="field"><label>City / State / ZIP</label><div class="line"></div></div>
+      <div class="field"><label>Emergency contact name</label><div class="line"></div></div>
+      <div class="field"><label>Emergency contact phone</label><div class="line"></div></div>
+    </div>
+    <h2>2. Peptide consultation goals</h2>
+    <div class="field"><label>Primary goals (check all that apply)</label>
+      <div class="checks">
+        <label>☐ Recovery / repair</label><label>☐ Energy / mitochondria</label><label>☐ Sleep / GH support</label>
+        <label>☐ Body composition</label><label>☐ Skin / collagen</label><label>☐ Sexual wellness</label>
+        <label>☐ Cognitive / focus</label><label>☐ Immune support</label><label>☐ Other: __________</label>
+      </div>
+    </div>
+    <div class="field"><label>Peptides of interest (if known)</label>
+      <div class="checks">
+        <label>☐ BPC-157</label><label>☐ TB-500</label><label>☐ Sermorelin</label><label>☐ Tesamorelin</label>
+        <label>☐ GHK-Cu</label><label>☐ NAD+</label><label>☐ PT-141</label><label>☐ CJC / Ipamorelin</label>
+        <label>☐ Not sure — discuss with Ryan</label>
+      </div>
+    </div>
+    <div class="field"><label>What does success look like in 90 days?</label><div class="area"></div></div>
+    <div class="field"><label>Prior peptide use? Source?</label>
+      <div class="checks"><label>☐ Never</label><label>☐ Yes — clinic/pharmacy</label><label>☐ Yes — other / online</label></div>
+      <div class="line" style="margin-top:4px;"></div>
+    </div>
+    <div class="foot"><span>Hello Gorgeous Med Spa · Peptides Packet · Consult</span><span>Page 1 of 6</span></div>
+  </article>
+
+  <article class="page">
+    
+    <div class="brand">
+      <div>
+        <h1>Medical History — Peptides / RE GEN</h1>
+        <div class="sub">Safety screen · allergies · medications</div>
+      </div>
+      <div class="meta">
+        <strong>Hello Gorgeous Med Spa</strong><br>
+        74 W Washington St, Oswego, IL 60543<br>
+        (630) 636-6193 · hellogorgeousmedspa.com<br>
+        Ryan Kent, FNP-BC · Medical oversight
+      </div>
+      <div class="badge">Page 2<br>History</div>
+    </div>
+    <h2>3. Allergies (critical)</h2>
+    <div class="box warn">
+      <div class="checks" style="margin-bottom:6px;"><label>☐ No known allergies</label><label>☐ Yes — listed below</label></div>
+      <div class="field"><label>Allergies + reaction</label><div class="area"></div></div>
+    </div>
+    <h2>4. Current medications &amp; supplements</h2>
+    <div class="field"><label>List all (hormones, blood thinners, steroids, research compounds, etc.)</label><div class="area tall"></div></div>
+    <h2>5. Conditions relevant to peptide therapy</h2>
+    <div class="checks">
+      <label>☐ Active cancer / history of cancer</label><label>☐ Pregnant / breastfeeding / trying</label>
+      <label>☐ Uncontrolled diabetes</label><label>☐ Heart disease / arrhythmia</label>
+      <label>☐ Kidney or liver disease</label><label>☐ Autoimmune disease</label>
+      <label>☐ Bleeding disorder</label><label>☐ Pituitary / endocrine disorder</label>
+      <label>☐ Hormone-sensitive condition</label><label>☐ Recent surgery / open wounds</label>
+      <label>☐ None of the above</label>
+    </div>
+    <div class="field" style="margin-top:8px;"><label>Surgeries / hospitalizations / other conditions</label><div class="area"></div></div>
+    <h2>6. For patients who can become pregnant</h2>
+    <div class="grid3">
+      <div class="field"><label>Pregnant?</label><div class="checks"><label>☐ Yes</label><label>☐ No</label><label>☐ N/A</label></div></div>
+      <div class="field"><label>Breastfeeding?</label><div class="checks"><label>☐ Yes</label><label>☐ No</label><label>☐ N/A</label></div></div>
+      <div class="field"><label>Trying to conceive?</label><div class="checks"><label>☐ Yes</label><label>☐ No</label><label>☐ N/A</label></div></div>
+    </div>
+    <div class="box"><label style="font-weight:800;">☐ I certify this history is accurate to the best of my knowledge.</label></div>
+    
+    <div class="sig">
+      <div class="s"><label>Patient signature</label><div class="date">Date _______________</div></div>
+      <div class="s"><label>Printed name</label><div class="date">Date _______________</div></div>
+    </div>
+    <div class="foot"><span>Hello Gorgeous Med Spa · Peptides Packet · History</span><span>Page 2 of 6</span></div>
+  </article>
+
+  <article class="page">
+    
+    <div class="brand">
+      <div>
+        <h1>Pharmacy &amp; Fulfillment — Peptides</h1>
+        <div class="sub">Ship · pickup · clinic dispense</div>
+      </div>
+      <div class="meta">
+        <strong>Hello Gorgeous Med Spa</strong><br>
+        74 W Washington St, Oswego, IL 60543<br>
+        (630) 636-6193 · hellogorgeousmedspa.com<br>
+        Ryan Kent, FNP-BC · Medical oversight
+      </div>
+      <div class="badge">Page 3<br>Pharmacy</div>
+    </div>
+    <div class="box rose tiny">Peptides are prescribed only after NP evaluation. Consultation / telehealth fees are separate from medication and pharmacy costs. Not for research-use gray-market self-sourcing through our practice.</div>
+    <h2>7. Fulfillment choice</h2>
+    <div class="checks" style="flex-direction:column;align-items:flex-start;gap:8px;">
+      <label>☐ <b>Ship to home</b> from licensed compounding pharmacy</label>
+      <label>☐ <b>Pick up at Hello Gorgeous</b></label>
+      <label>☐ <b>In-clinic administration</b> (when offered)</label>
+      <label>☐ Undecided — discuss today</label>
+    </div>
+    <h2>8. Ship-to details (if shipping)</h2>
+    <div class="grid2">
+      <div class="field"><label>Same as patient address?</label><div class="checks"><label>☐ Yes</label><label>☐ No</label></div></div>
+      <div class="field"><label>Delivery phone</label><div class="line"></div></div>
+    </div>
+    <div class="field"><label>Ship-to address</label><div class="area"></div></div>
+    <h2>9. Form factor preference</h2>
+    <div class="checks">
+      <label>☐ Injectable</label><label>☐ Capsule / oral</label><label>☐ Troche</label>
+      <label>☐ Topical / cream</label><label>☐ Nasal</label><label>☐ Provider to recommend</label>
+    </div>
+    <h2>10. Acknowledgments</h2>
+    <div class="checks" style="flex-direction:column;align-items:flex-start;gap:5px;">
+      <label>☐ I understand NP approval is required before any Rx or refill</label>
+      <label>☐ Medication / pharmacy costs are separate from consult fees</label>
+      <label>☐ I will not use research-only / unlabeled products from unverified sources while under our care without disclosure</label>
+      <label>☐ I will not share or resell medication</label>
+      <label>☐ I will follow reconstitution / injection / storage instructions exactly</label>
+    </div>
+    
+    <div class="sig">
+      <div class="s"><label>Patient signature</label><div class="date">Date _______________</div></div>
+      <div class="s"><label>Staff initials / pharmacy path noted</label><div class="date">Date _______________</div></div>
+    </div>
+    <div class="foot"><span>Hello Gorgeous Med Spa · Peptides Packet · Pharmacy</span><span>Page 3 of 6</span></div>
+  </article>
+
+  <article class="page">
+    
+    <div class="brand">
+      <div>
+        <h1>Peptide / RE GEN Consents</h1>
+        <div class="sub">Protects you and our practice</div>
+      </div>
+      <div class="meta">
+        <strong>Hello Gorgeous Med Spa</strong><br>
+        74 W Washington St, Oswego, IL 60543<br>
+        (630) 636-6193 · hellogorgeousmedspa.com<br>
+        Ryan Kent, FNP-BC · Medical oversight
+      </div>
+      <div class="badge">Page 4<br>Consent</div>
+    </div>
+    <h2>A. General treatment consent</h2>
+    <p>I authorize Hello Gorgeous Med Spa / Hello Gorgeous RX™ and Ryan Kent, FNP-BC to evaluate me for peptide therapy and related wellness treatments. <b>No specific outcome is guaranteed.</b></p>
+    <h2>B. HIPAA</h2>
+    <p>I acknowledge use/disclosure of my health information for treatment, payment, and operations as allowed by HIPAA.</p>
+    <h2>C. Peptide therapy informed consent</h2>
+    <div class="box warn">
+      <ul class="compact">
+        <li>Peptide protocols are individualized and may include compounded medications.</li>
+        <li>Many compounded peptides are <b>not FDA-approved</b> for the wellness uses discussed; some uses may be off-label.</li>
+        <li>Risks may include injection-site reactions, flushing, headache, nausea, water retention, mood/libido changes (protocol-dependent), allergic reaction, and unknown long-term risks for some compounds.</li>
+        <li>This is <b>not</b> a substitute for primary care, oncology care, or emergency care.</li>
+        <li>A telehealth or in-person NP visit is required before prescription or refill approval.</li>
+        <li>I will disclose all supplements, hormones, and prior gray-market peptide use.</li>
+        <li>I will stop and call for concerning symptoms; I will not adjust dosing on my own.</li>
+      </ul>
+    </div>
+    <h2>D. Photos</h2>
+    <div class="checks" style="flex-direction:column;align-items:flex-start;gap:4px;">
+      <label>☐ Chart photos only</label><label>☐ Anonymous marketing OK</label><label>☐ Decline all photos</label>
+    </div>
+    <h2>E. Financial</h2>
+    <p>I understand consult fees, medication, shipping, and follow-ups may be billed separately. Charges must match what is dispensed or ordered.</p>
+    <div class="checks" style="flex-direction:column;align-items:flex-start;gap:4px;margin-top:8px;">
+      <label>☐ I read and understand this consent</label>
+      <label>☐ I had a chance to ask questions</label>
+      <label>☐ I sign voluntarily</label>
+    </div>
+    
+    <div class="sig">
+      <div class="s"><label>Patient signature</label><div class="date">Date _______________</div></div>
+      <div class="s"><label>Provider / staff witness</label><div class="date">Date _______________</div></div>
+    </div>
+    <div class="foot"><span>Hello Gorgeous Med Spa · Peptides Packet · Consents</span><span>Page 4 of 6</span></div>
+  </article>
+
+  <article class="page">
+    
+    <div class="brand">
+      <div>
+        <h1>Peptide Treatment / Visit Sheet</h1>
+        <div class="sub">Provider completes · file in chart</div>
+      </div>
+      <div class="meta">
+        <strong>Hello Gorgeous Med Spa</strong><br>
+        74 W Washington St, Oswego, IL 60543<br>
+        (630) 636-6193 · hellogorgeousmedspa.com<br>
+        Ryan Kent, FNP-BC · Medical oversight
+      </div>
+      <div class="badge">Page 5<br>Clinical</div>
+    </div>
+    <div class="grid3">
+      <div class="field"><label>Date</label><div class="line"></div></div>
+      <div class="field"><label>Patient</label><div class="line"></div></div>
+      <div class="field"><label>Visit</label><div class="checks"><label>☐ New</label><label>☐ Refill</label><label>☐ Follow-up</label></div></div>
+    </div>
+    <div class="checks" style="margin:6px 0;">
+      <label>☐ History reviewed</label><label>☐ Allergies reviewed</label><label>☐ Consents signed</label>
+      <label>☐ Cancer / pregnancy screened</label><label>☐ Prior sourcing reviewed</label>
+    </div>
+    <h2>Subjective / goals</h2><div class="area"></div>
+    <h2>Assessment / protocol plan</h2><div class="area tall"></div>
+    <h2>Ordered / dispensed today</h2>
+    <table class="form">
+      <thead><tr><th>Peptide / product</th><th>Dose / sig</th><th>Form</th><th>Qty</th><th>Pharmacy / charge</th></tr></thead>
+      <tbody>
+        <tr><td style="height:28px;"></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td style="height:28px;"></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td style="height:28px;"></td><td></td><td></td><td></td><td></td></tr>
+      </tbody>
+    </table>
+    <div class="box warn">
+      <div class="checks">
+        <label>☐ Charge matches order</label>
+        <label>☐ Labels complete</label>
+        <label>☐ Reconstitution / injection teaching done (or already trained)</label>
+      </div>
+    </div>
+    <div class="grid2">
+      <div class="field"><label>Pharmacy path</label><div class="checks"><label>☐ Ship</label><label>☐ Pickup</label><label>☐ In-clinic</label></div></div>
+      <div class="field"><label>Next telehealth / follow-up</label><div class="line"></div></div>
+    </div>
+    
+    <div class="sig">
+      <div class="s"><label>Provider signature</label><div class="date">Date _______________</div></div>
+      <div class="s"><label>Front desk charge confirmed</label><div class="date">Date _______________</div></div>
+    </div>
+    <div class="foot"><span>Hello Gorgeous Med Spa · Peptides Packet · Treatment</span><span>Page 5 of 6</span></div>
+  </article>
+
+  <article class="page">
+    <div class="keep">
+      <h1>Your Peptide Before &amp; After Guide</h1>
+      <div class="sub">Keep this page · Hello Gorgeous RX™ · (630) 636-6193</div>
+    </div>
+    <div class="ba-grid">
+      <div class="ba-card">
+        <h3>Before you start / refill</h3>
+        <ul class="compact">
+          <li>Complete history honestly (including prior online peptides)</li>
+          <li>Know your protocol: name, dose, frequency</li>
+          <li>Have alcohol swabs / sharps plan if injectable</li>
+          <li>Ask about reconstitution before you leave</li>
+        </ul>
+        <div class="photo-box">Baseline photo (optional)</div>
+      </div>
+      <div class="ba-card">
+        <h3>After you start</h3>
+        <ul class="compact">
+          <li>Follow the written sig exactly</li>
+          <li>Store as instructed (often refrigerated)</li>
+          <li>Track sleep, energy, recovery, side effects</li>
+          <li>Refills need NP approval — don’t run out silent</li>
+        </ul>
+        <div class="photo-box">Progress photo (optional)</div>
+      </div>
+    </div>
+    <div class="box warn">
+      <b>Call now for:</b> allergic reaction · severe injection-site infection signs · chest pain · fainting · anything that scares you.
+    </div>
+    <table class="form">
+      <tr><th style="width:32%">Protocol</th><td></td></tr>
+      <tr><th>Dose / frequency</th><td></td></tr>
+      <tr><th>Next refill / visit</th><td></td></tr>
+      <tr><th>Pharmacy path</th><td>☐ Ship &nbsp; ☐ Pickup &nbsp; ☐ In-clinic</td></tr>
+    </table>
+    <div class="box rose"><b>Honest expectations:</b> Peptides are tools inside a plan — not magic. Results vary. We do not promise cures, and we do not support unlabeled research vials as a substitute for prescribed care.</div>
+    <div class="foot"><span>Hello Gorgeous Med Spa · Peptides Packet · Patient keep</span><span>Page 6 of 6</span></div>
+  </article>
+  
+</body>
+</html>

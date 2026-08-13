@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hello Gorgeous — New Patient Packet</title>
+<style>
+  :root { --pink:#E6007E; --hot:#FF2D8E; --ink:#111; --mute:#555; --line:#ddd; --rose:#FFF0F7; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: system-ui, -apple-system, sans-serif; background: #e8e8e8; color: var(--ink); padding: 16px; }
+  .toolbar { max-width: 8.5in; margin: 0 auto 16px; background: #fff; border: 3px solid #000; padding: 12px 16px; display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; position: sticky; top: 0; z-index: 20; }
+  .toolbar p { font-size: 13px; font-weight: 600; }
+  .toolbar button { background: var(--pink); color: #fff; border: 2px solid #000; border-radius: 999px; padding: 10px 18px; font-weight: 800; cursor: pointer; }
+  .page { width: 8.5in; min-height: 11in; margin: 0 auto 18px; background: #fff; border: 4px solid #000; padding: 0.4in 0.45in; page-break-after: always; position: relative; }
+  .brand { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; border-bottom: 4px solid #000; padding-bottom: 10px; margin-bottom: 12px; }
+  .brand h1 { font-size: 20px; font-weight: 900; color: var(--pink); line-height: 1.1; }
+  .brand .sub { font-size: 10px; font-weight: 700; color: var(--mute); text-transform: uppercase; letter-spacing: 0.08em; margin-top: 3px; }
+  .brand .meta { font-size: 10px; text-align: right; line-height: 1.4; font-weight: 600; }
+  .badge { border: 2px solid #000; background: var(--rose); padding: 5px 8px; font-size: 10px; font-weight: 900; text-align: center; white-space: nowrap; }
+  h2 { font-size: 12px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.08em; color: var(--pink); margin: 10px 0 6px; border-bottom: 2px solid #000; padding-bottom: 3px; }
+  h3 { font-size: 11px; font-weight: 800; margin: 8px 0 4px; }
+  p, li, td, label { font-size: 11px; line-height: 1.4; }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 14px; }
+  .grid3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+  .field { margin-bottom: 6px; }
+  .field label { display: block; font-size: 9px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: var(--mute); margin-bottom: 2px; }
+  .line { border-bottom: 1px solid #999; min-height: 18px; padding: 2px 0; }
+  .area { border: 1.5px solid #bbb; min-height: 48px; border-radius: 4px; padding: 4px; }
+  .area.tall { min-height: 72px; }
+  .checks { display: flex; flex-wrap: wrap; gap: 6px 12px; font-size: 11px; }
+  .checks label { font-weight: 600; text-transform: none; letter-spacing: 0; color: var(--ink); font-size: 11px; display: inline-flex; gap: 4px; align-items: center; }
+  .box { border: 2px solid #000; padding: 8px 10px; margin: 8px 0; background: #fafafa; }
+  .box.warn { background: #fff5f5; border-color: #000; }
+  .box.rose { background: var(--rose); }
+  .tiny { font-size: 9.5px; color: var(--mute); line-height: 1.35; }
+  table.form { width: 100%; border-collapse: collapse; margin: 6px 0; }
+  table.form th, table.form td { border: 1.5px solid #000; padding: 5px 6px; vertical-align: top; font-size: 10.5px; }
+  table.form th { background: #111; color: #fff; font-size: 9px; text-transform: uppercase; letter-spacing: 0.04em; text-align: left; }
+  .sig { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 10px; }
+  .sig .s { border: 2px dashed #999; min-height: 58px; padding: 6px 8px; }
+  .sig label { display: block; font-size: 9px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: var(--mute); margin-bottom: 24px; }
+  .sig .date { border-top: 1px solid #999; padding-top: 3px; font-size: 9px; color: var(--mute); }
+  .foot { margin-top: 10px; padding-top: 6px; border-top: 2px solid #000; font-size: 9px; color: var(--mute); display: flex; justify-content: space-between; gap: 8px; }
+  .keep { background: linear-gradient(125deg, #FF2D8E, #E6007E 50%, #9b0a4d); color: #fff; padding: 10px 12px; border: 2px solid #000; margin-bottom: 10px; }
+  .keep h1 { color: #fff; font-size: 18px; }
+  .keep .sub { color: #FFB8DC; }
+  ul.compact { margin: 4px 0 4px 16px; }
+  ul.compact li { margin-bottom: 2px; }
+  .ba-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 8px 0; }
+  .ba-card { border: 2px solid #000; min-height: 140px; padding: 8px; }
+  .ba-card h3 { color: var(--pink); margin-top: 0; }
+  .photo-box { border: 2px dashed #999; height: 90px; margin-top: 6px; display: flex; align-items: center; justify-content: center; color: #999; font-size: 10px; font-weight: 700; }
+  @media print {
+    body { background: #fff; padding: 0; }
+    .toolbar { display: none !important; }
+    .page { border: none; margin: 0; width: 100%; min-height: auto; page-break-after: always; }
+    @page { size: letter; margin: 0.35in; }
+    th, .badge, .keep, .box.rose { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+</style>
+</head>
+<body>
+  <div class="toolbar">
+    <p>New Patient Packet — print all pages · patient completes 1–4 · provider completes treatment sheet · patient keeps before/after page</p>
+    <button type="button" onclick="window.print()">Print / Save as PDF</button>
+  </div>
+
+  <!-- ===================== PAGE 1: COVER + CONSULT ===================== -->
+  <article class="page">
+    <div class="brand">
+      <div>
+        <h1>New Patient Packet</h1>
+        <div class="sub">Consultation · History · Consents · Treatment</div>
+      </div>
+      <div class="meta">
+        <strong>Hello Gorgeous Med Spa</strong><br>
+        74 W Washington St, Oswego, IL 60543<br>
+        (630) 636-6193 · hellogorgeousmedspa.com<br>
+        Ryan Kent, FNP-BC · Medical oversight
+      </div>
+      <div class="badge">Page 1<br>Consult</div>
+    </div>
+
+    <div class="box rose tiny">Staff: give this packet at check-in. Patient completes pages 1–4 before seeing the provider. Treatment sheet (page 5) is provider-only. Page 6 goes home with the patient.</div>
+
+    <h2>1. Patient information</h2>
+    <div class="grid2">
+      <div class="field"><label>Legal first name</label><div class="line"></div></div>
+      <div class="field"><label>Legal last name</label><div class="line"></div></div>
+      <div class="field"><label>Preferred name</label><div class="line"></div></div>
+      <div class="field"><label>Date of birth</label><div class="line"></div></div>
+      <div class="field"><label>Mobile phone</label><div class="line"></div></div>
+      <div class="field"><label>Email</label><div class="line"></div></div>
+      <div class="field"><label>Address</label><div class="line"></div></div>
+      <div class="field"><label>City / State / ZIP</label><div class="line"></div></div>
+      <div class="field"><label>Emergency contact name</label><div class="line"></div></div>
+      <div class="field"><label>Emergency contact phone</label><div class="line"></div></div>
+    </div>
+    <div class="field" style="margin-top:6px;">
+      <label>Gender</label>
+      <div class="checks">
+        <label>☐ Female</label><label>☐ Male</label><label>☐ Non-binary</label><label>☐ Prefer not to say</label>
+      </div>
+    </div>
+
+    <h2>2. Today’s consultation</h2>
+    <div class="field">
+      <label>What brings you in today? (check all that apply)</label>
+      <div class="checks">
+        <label>☐ Weight loss / GLP-1</label>
+        <label>☐ Peptides / RE GEN</label>
+        <label>☐ Hormone therapy</label>
+        <label>☐ Botox / Dysport</label>
+        <label>☐ Dermal fillers</label>
+        <label>☐ Morpheus8 / devices</label>
+        <label>☐ Laser hair</label>
+        <label>☐ IV / vitamins</label>
+        <label>☐ FlowWave</label>
+        <label>☐ Other: _______________</label>
+      </div>
+    </div>
+    <div class="field"><label>Primary goals / concerns (be specific)</label><div class="area tall"></div></div>
+    <div class="grid2">
+      <div class="field"><label>Have you had similar treatments before?</label>
+        <div class="checks"><label>☐ Yes</label><label>☐ No</label></div>
+        <div class="line" style="margin-top:4px;"></div>
+      </div>
+      <div class="field"><label>How did you hear about us?</label><div class="line"></div></div>
+    </div>
+    <div class="field"><label>What does success look like for you in 90 days?</label><div class="area"></div></div>
+
+    <h2>3. Visit logistics</h2>
+    <div class="grid2">
+      <div class="field"><label>Preferred contact</label>
+        <div class="checks"><label>☐ Text</label><label>☐ Call</label><label>☐ Email</label></div>
+      </div>
+      <div class="field"><label>OK to leave voicemail?</label>
+        <div class="checks"><label>☐ Yes</label><label>☐ No</label></div>
+      </div>
+    </div>
+
+    <div class="foot"><span>Hello Gorgeous Med Spa · Patient Packet · Consult</span><span>Page 1 of 6</span></div>
+  </article>
+
+  <!-- ===================== PAGE 2: HISTORY + ALLERGIES ===================== -->
+  <article class="page">
+    <div class="brand">
+      <div>
+        <h1>Medical History &amp; Allergies</h1>
+        <div class="sub">Complete accurately — this protects your safety</div>
+      </div>
+      <div class="badge">Page 2<br>History</div>
+    </div>
+
+    <h2>4. Allergies (critical)</h2>
+    <div class="box warn">
+      <div class="checks" style="margin-bottom:6px;">
+        <label>☐ No known allergies</label>
+        <label>☐ Yes — listed below</label>
+      </div>
+      <div class="field"><label>Medication / latex / food / other allergies + reaction</label><div class="area"></div></div>
+    </div>
+
+    <h2>5. Current medications &amp; supplements</h2>
+    <div class="field"><label>List all medications, vitamins, peptides, GLP-1s, hormones (name + dose if known)</label><div class="area tall"></div></div>
+    <div class="field">
+      <label>Are you currently on a GLP-1 (Ozempic, Wegovy, Mounjaro, Zepbound, compounded sema/tirz)?</label>
+      <div class="checks"><label>☐ Yes</label><label>☐ No</label><label>☐ Not sure</label></div>
+      <div class="line" style="margin-top:4px;"></div>
+    </div>
+
+    <h2>6. Medical conditions</h2>
+    <div class="checks">
+      <label>☐ Diabetes (Type 1)</label>
+      <label>☐ Diabetes (Type 2)</label>
+      <label>☐ High blood pressure</label>
+      <label>☐ Heart disease</label>
+      <label>☐ Kidney disease</label>
+      <label>☐ Liver disease</label>
+      <label>☐ Gallbladder disease / gallstones</label>
+      <label>☐ Pancreatitis (history)</label>
+      <label>☐ Thyroid disease</label>
+      <label>☐ Medullary thyroid cancer (personal/family)</label>
+      <label>☐ MEN 2 (personal/family)</label>
+      <label>☐ Autoimmune disease</label>
+      <label>☐ Bleeding disorder</label>
+      <label>☐ Cancer (current or history)</label>
+      <label>☐ Depression / anxiety</label>
+      <label>☐ History of suicidal thoughts</label>
+      <label>☐ Eating disorder (current or history)</label>
+      <label>☐ Severe GI disease (gastroparesis, etc.)</label>
+      <label>☐ Diabetic retinopathy</label>
+      <label>☐ Keloid scarring</label>
+      <label>☐ Skin conditions (eczema, psoriasis)</label>
+      <label>☐ Hepatitis</label>
+      <label>☐ HIV/AIDS</label>
+      <label>☐ None of the above</label>
+    </div>
+    <div class="field" style="margin-top:8px;"><label>Other conditions / details</label><div class="area"></div></div>
+
+    <h2>7. Surgical &amp; procedure history</h2>
+    <div class="field"><label>Surgeries, hospitalizations, cosmetic procedures (what + when)</label><div class="area"></div></div>
+
+    <h2>8. For patients who can become pregnant</h2>
+    <div class="grid3">
+      <div class="field"><label>Pregnant?</label><div class="checks"><label>☐ Yes</label><label>☐ No</label><label>☐ N/A</label></div></div>
+      <div class="field"><label>Breastfeeding?</label><div class="checks"><label>☐ Yes</label><label>☐ No</label><label>☐ N/A</label></div></div>
+      <div class="field"><label>Trying to conceive?</label><div class="checks"><label>☐ Yes</label><label>☐ No</label><label>☐ N/A</label></div></div>
+    </div>
+
+    <h2>9. Lifestyle</h2>
+    <div class="grid2">
+      <div class="field"><label>Smoking</label><div class="checks"><label>☐ Yes</label><label>☐ No</label><label>☐ Former</label></div></div>
+      <div class="field"><label>Alcohol</label><div class="checks"><label>☐ Yes regularly</label><label>☐ Occasionally</label><label>☐ No</label></div></div>
+    </div>
+
+    <div class="box" style="margin-top:10px;">
+      <label style="font-weight:800;">☐ I certify this history is accurate to the best of my knowledge.</label>
+    </div>
+    <div class="sig">
+      <div class="s"><label>Patient signature</label><div class="date">Date _______________</div></div>
+      <div class="s"><label>Printed name</label><div class="date">&nbsp;</div></div>
+    </div>
+    <div class="foot"><span>Hello Gorgeous Med Spa · Medical History</span><span>Page 2 of 6</span></div>
+  </article>
+
+  <!-- ===================== PAGE 3: PHARMACY ===================== -->
+  <article class="page">
+    <div class="brand">
+      <div>
+        <h1>Pharmacy &amp; Fulfillment Choice</h1>
+        <div class="sub">How you receive medication (when prescribed)</div>
+      </div>
+      <div class="badge">Page 3<br>Pharmacy</div>
+    </div>
+
+    <div class="box rose tiny">Medication is dispensed only after NP evaluation and approval. Pricing depends on medication, dose/volume tier, and supply cycle. Compounded medications are not FDA-approved drug products for all uses described.</div>
+
+    <h2>10. How do you want medication fulfilled?</h2>
+    <div class="checks" style="flex-direction:column; align-items:flex-start; gap:8px;">
+      <label>☐ <b>Ship to my home</b> (cold-chain when required · shipping fee may apply)</label>
+      <label>☐ <b>Pick up at Hello Gorgeous</b> (74 W Washington St, Oswego)</label>
+      <label>☐ <b>Retail pharmacy of my choice</b> (brand-name / insurance path when applicable · oversight fees may apply)</label>
+      <label>☐ <b>Undecided — discuss with provider today</b></label>
+    </div>
+
+    <h2>11. Shipping address (if ship-to-home)</h2>
+    <div class="grid2">
+      <div class="field"><label>Same as patient address above?</label><div class="checks"><label>☐ Yes</label><label>☐ No — use below</label></div></div>
+      <div class="field"><label>Best phone for delivery issues</label><div class="line"></div></div>
+    </div>
+    <div class="field"><label>Ship-to name / address / City / State / ZIP</label><div class="area"></div></div>
+    <div class="field">
+      <label>Someone 18+ available to receive cold package?</label>
+      <div class="checks"><label>☐ Yes</label><label>☐ No — I understand delays/reships may apply</label></div>
+    </div>
+
+    <h2>12. Retail pharmacy (if using your own pharmacy / insurance)</h2>
+    <div class="grid2">
+      <div class="field"><label>Pharmacy name</label><div class="line"></div></div>
+      <div class="field"><label>Pharmacy phone</label><div class="line"></div></div>
+      <div class="field"><label>Pharmacy address / city</label><div class="line"></div></div>
+      <div class="field"><label>Rx insurance / PBM (if known)</label><div class="line"></div></div>
+    </div>
+
+    <h2>13. Preferred compounding / clinic pharmacy path</h2>
+    <p class="tiny" style="margin-bottom:6px;">Staff/provider will confirm clinically appropriate pharmacy. Patient preference noted:</p>
+    <div class="checks">
+      <label>☐ Clinic-arranged compounding pharmacy (provider selects)</label>
+      <label>☐ BoomRx (when offered for online refill path)</label>
+      <label>☐ Formulation (when offered for clinic path)</label>
+      <label>☐ No preference</label>
+    </div>
+
+    <h2>14. Acknowledgments</h2>
+    <div class="checks" style="flex-direction:column; align-items:flex-start; gap:6px;">
+      <label>☐ I understand medication is only dispensed after medical approval</label>
+      <label>☐ I understand payment / program pricing may be collected before ship or pickup</label>
+      <label>☐ I will store medication as instructed (refrigerate when required)</label>
+      <label>☐ I will not share, sell, or redistribute prescribed medication</label>
+      <label>☐ I will not change my dose without provider guidance</label>
+    </div>
+
+    <div class="sig">
+      <div class="s"><label>Patient signature</label><div class="date">Date _______________</div></div>
+      <div class="s"><label>Staff noted pharmacy path</label><div class="date">Initials _______________</div></div>
+    </div>
+    <div class="foot"><span>Hello Gorgeous Med Spa · Pharmacy Choice</span><span>Page 3 of 6</span></div>
+  </article>
+
+  <!-- ===================== PAGE 4: CONSENTS ===================== -->
+  <article class="page">
+    <div class="brand">
+      <div>
+        <h1>Consents — Protecting You &amp; Our Practice</h1>
+        <div class="sub">Read carefully · ask questions · sign voluntarily</div>
+      </div>
+      <div class="badge">Page 4<br>Consent</div>
+    </div>
+
+    <h2>A. General consent for treatment</h2>
+    <p>I authorize Hello Gorgeous Med Spa and its licensed providers to perform medical aesthetic and wellness treatments discussed in my consultation. I understand medicine is not exact science and <b>no results are guaranteed</b>. Risks may include pain, swelling, bruising, infection, allergic reaction, scarring, asymmetry, unsatisfactory results, and need for additional treatment. Alternatives (including no treatment) have been discussed. I may withdraw consent before treatment.</p>
+
+    <h2>B. HIPAA / privacy</h2>
+    <p>I acknowledge Hello Gorgeous may use and disclose my protected health information for treatment, payment, and healthcare operations as allowed by HIPAA. I may request a copy of the Notice of Privacy Practices. I will not photograph other patients or discuss others’ care.</p>
+
+    <h2>C. Medical weight loss / GLP-1 / peptide consent (if applicable)</h2>
+    <div class="box warn">
+      <p style="margin-bottom:4px;"><b>Medications may include:</b> Semaglutide, Tirzepatide, Retatrutide, and related compounded or brand products when prescribed.</p>
+      <ul class="compact">
+        <li>These medications affect appetite, gastric emptying, and blood sugar; weekly subcutaneous injection is typical.</li>
+        <li><b>Common effects:</b> nausea, vomiting, diarrhea, constipation, stomach pain, decreased appetite.</li>
+        <li><b>Serious risks (less common):</b> pancreatitis, gallbladder issues, kidney problems, allergic reaction, thyroid tumors (boxed warning in animal studies).</li>
+        <li><b>Do not use</b> with personal/family MTC or MEN 2, or if pregnant / breastfeeding / trying to conceive without provider clearance.</li>
+        <li>Compounded versions are <b>not FDA-approved</b> drug products for all described uses; off-label use may apply.</li>
+        <li>I will report severe abdominal pain, persistent vomiting, or concerning symptoms immediately and attend follow-ups.</li>
+        <li>Dose changes are provider-directed only. Weight may return if medication is stopped.</li>
+      </ul>
+      <div class="checks" style="margin-top:6px;"><label>☐ This section applies to me today</label><label>☐ Not applicable today</label></div>
+    </div>
+
+    <h2>D. Photo / before &amp; after (optional but recommended)</h2>
+    <div class="checks" style="flex-direction:column; align-items:flex-start; gap:4px;">
+      <label>☐ I consent to clinical photos for my chart only (progress tracking)</label>
+      <label>☐ I consent to anonymous / de-identified use for education or marketing</label>
+      <label>☐ I decline marketing use (chart photos only if needed for care)</label>
+      <label>☐ I decline all photos</label>
+    </div>
+
+    <h2>E. Financial / charging accuracy</h2>
+    <p>I understand charges are based on the service booked and the medication volume/dose dispensed. If volume increases, the visit may be rebooked/recharged to the correct tier before I leave. I am responsible for amounts not covered by any third party.</p>
+
+    <h2>F. Final acknowledgment</h2>
+    <div class="checks" style="flex-direction:column; align-items:flex-start; gap:4px;">
+      <label>☐ I have read and understand this consent packet</label>
+      <label>☐ I had a chance to ask questions</label>
+      <label>☐ I am signing voluntarily and am not impaired</label>
+      <label>☐ I understand I may refuse treatment</label>
+    </div>
+
+    <div class="sig">
+      <div class="s"><label>Patient signature</label><div class="date">Date _______________</div></div>
+      <div class="s"><label>Provider / staff witness</label><div class="date">Date _______________</div></div>
+    </div>
+    <p class="tiny" style="margin-top:8px;">Digital consents in portal/Academy remain the long-form legal versions when signed electronically. This paper packet is for same-day clinic use and chart filing.</p>
+    <div class="foot"><span>Hello Gorgeous Med Spa · Consents</span><span>Page 4 of 6</span></div>
+  </article>
+
+  <!-- ===================== PAGE 5: TREATMENT SHEET ===================== -->
+  <article class="page">
+    <div class="brand">
+      <div>
+        <h1>Treatment / Visit Sheet</h1>
+        <div class="sub">Provider completes · file in chart</div>
+      </div>
+      <div class="badge">Page 5<br>Clinical</div>
+    </div>
+
+    <div class="grid3">
+      <div class="field"><label>Date</label><div class="line"></div></div>
+      <div class="field"><label>Patient name</label><div class="line"></div></div>
+      <div class="field"><label>DOB</label><div class="line"></div></div>
+      <div class="field"><label>Provider</label><div class="line"></div></div>
+      <div class="field"><label>Visit type</label>
+        <div class="checks"><label>☐ New</label><label>☐ Follow-up</label><label>☐ Refill</label></div>
+      </div>
+      <div class="field"><label>Weight / BP / vitals (if taken)</label><div class="line"></div></div>
+    </div>
+
+    <h2>Pre-check</h2>
+    <div class="checks">
+      <label>☐ History reviewed</label>
+      <label>☐ Allergies reviewed</label>
+      <label>☐ Meds reviewed</label>
+      <label>☐ Consents signed</label>
+      <label>☐ Pregnancy screen addressed</label>
+      <label>☐ Contraindications screened</label>
+    </div>
+
+    <h2>Subjective (patient report)</h2>
+    <div class="area tall"></div>
+
+    <h2>Objective / exam</h2>
+    <div class="area"></div>
+
+    <h2>Assessment / plan</h2>
+    <div class="area tall"></div>
+
+    <h2>Medication / treatment dispensed today</h2>
+    <table class="form">
+      <thead>
+        <tr><th>Product</th><th>Dose / sig</th><th>Volume / qty</th><th>Lot / BUD</th><th>Square service charged</th></tr>
+      </thead>
+      <tbody>
+        <tr><td style="height:28px;"></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td style="height:28px;"></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td style="height:28px;"></td><td></td><td></td><td></td><td></td></tr>
+      </tbody>
+    </table>
+    <div class="box warn">
+      <b>Charge = dispense check</b>
+      <div class="checks" style="margin-top:4px;">
+        <label>☐ Volume matches booked/charged service</label>
+        <label>☐ If upgraded mid-visit — desk recharged before leave</label>
+        <label>☐ Fridge items labeled (name/stock, med, date, dose)</label>
+      </div>
+    </div>
+
+    <div class="grid2">
+      <div class="field"><label>Pharmacy path used</label>
+        <div class="checks"><label>☐ Ship</label><label>☐ Pickup</label><label>☐ Retail Rx</label><label>☐ In-clinic dispense</label></div>
+      </div>
+      <div class="field"><label>Next follow-up</label><div class="line"></div></div>
+    </div>
+    <div class="field"><label>Patient education given</label>
+      <div class="checks">
+        <label>☐ Injection guide</label>
+        <label>☐ Tirzepatide program handout</label>
+        <label>☐ Before/after page (page 6)</label>
+        <label>☐ Side effects / when to call</label>
+      </div>
+    </div>
+
+    <div class="sig">
+      <div class="s"><label>Provider signature (Ryan Kent, FNP-BC / covering)</label><div class="date">Date / time _______________</div></div>
+      <div class="s"><label>Front desk charge confirmed</label><div class="date">Initials _______________</div></div>
+    </div>
+    <div class="foot"><span>Hello Gorgeous Med Spa · Treatment Sheet · Chart copy</span><span>Page 5 of 6</span></div>
+  </article>
+
+  <!-- ===================== PAGE 6: BEFORE & AFTER / KEEP ===================== -->
+  <article class="page">
+    <div class="keep">
+      <h1>Your Before &amp; After Guide</h1>
+      <div class="sub">Keep this page · Hello Gorgeous Med Spa · (630) 636-6193</div>
+    </div>
+
+    <div class="ba-grid">
+      <div class="ba-card">
+        <h3>Before your visit / dose</h3>
+        <ul class="compact">
+          <li>Eat a lighter meal if injections make you nauseated</li>
+          <li>Bring a list of current meds &amp; allergies</li>
+          <li>Wear clothes that allow injection-site access</li>
+          <li>Arrive with intake/consents complete</li>
+          <li>Ask every question — no guessing on dose</li>
+        </ul>
+        <div class="photo-box">Optional: tape baseline photo here</div>
+      </div>
+      <div class="ba-card">
+        <h3>After your visit / dose</h3>
+        <ul class="compact">
+          <li>Inject only the prescribed dose</li>
+          <li>Rotate sites (belly, thigh, upper arm)</li>
+          <li>Refrigerate medication as instructed</li>
+          <li>Prioritize protein + water + strength training</li>
+          <li>Track how you feel for your follow-up</li>
+        </ul>
+        <div class="photo-box">Optional: tape progress photo here</div>
+      </div>
+    </div>
+
+    <h2>What “progress” looks like (honest expectations)</h2>
+    <div class="grid2">
+      <div class="box">
+        <h3 style="color:var(--pink);margin-top:0;">Often improves</h3>
+        <ul class="compact">
+          <li>Food noise / portion control</li>
+          <li>Steady weekly routine</li>
+          <li>Provider-guided titration</li>
+        </ul>
+      </div>
+      <div class="box">
+        <h3 style="color:var(--pink);margin-top:0;">Not guaranteed</h3>
+        <ul class="compact">
+          <li>A specific number on the scale</li>
+          <li>Zero side effects</li>
+          <li>Results without nutrition &amp; muscle work</li>
+        </ul>
+      </div>
+    </div>
+
+    <h2>Call us right away (630) 636-6193</h2>
+    <div class="box warn">
+      <ul class="compact">
+        <li>Severe or persistent abdominal pain</li>
+        <li>Vomiting that won’t stop / can’t keep fluids down</li>
+        <li>Signs of allergic reaction or severe dehydration</li>
+        <li>Symptoms that worry you — don’t wait for your next visit</li>
+      </ul>
+    </div>
+
+    <h2>Your plan snapshot</h2>
+    <table class="form">
+      <tr><th style="width:30%">Medication / program</th><td></td></tr>
+      <tr><th>Weekly dose</th><td></td></tr>
+      <tr><th>Next refill / follow-up</th><td></td></tr>
+      <tr><th>Pharmacy path</th><td>☐ Ship &nbsp; ☐ Pickup &nbsp; ☐ Retail</td></tr>
+    </table>
+
+    <div class="box rose" style="margin-top:10px;">
+      <b>Remember:</b> Hello Gorgeous is a medical practice. Your dose, volume, and charge must match. Never adjust medication on your own. Questions? Text or call — we’re at 74 W Washington St, Oswego, IL.
+    </div>
+
+    <div class="foot"><span>Patient keep page · hellogorgeousmedspa.com</span><span>Page 6 of 6</span></div>
+  </article>
+</body>
+</html>

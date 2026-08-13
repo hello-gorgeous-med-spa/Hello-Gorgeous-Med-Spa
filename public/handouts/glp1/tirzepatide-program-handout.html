@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tirzepatide Program Handout | Hello Gorgeous Med Spa</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0a1628; --pink:#E6007E; --hot:#FF2D8E; --soft:#FFB8DC;
+    --acc:#1f8fa8; --gold:#c77b2a; --red:#c1121f;
+    --paper:#fff; --ink:#1c2430; --mute:#5b6675; --line:#e4e8ee; --rose:#FFF0F7;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:#dfe4ea;}
+  body{font-family:'DM Sans',sans-serif;color:var(--ink);padding:24px 0;-webkit-font-smoothing:antialiased;}
+  .toolbar{position:sticky;top:0;z-index:20;background:#fff;border-bottom:3px solid #000;padding:12px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:-24px 0 24px;}
+  .toolbar p{margin:0;font-size:13px;font-weight:600;}
+  .toolbar button{background:var(--pink);color:#fff;border:2px solid #000;border-radius:999px;padding:10px 20px;font-weight:700;cursor:pointer;font-size:14px;}
+  .toolbar button:hover{background:#000;}
+  .page{width:8.5in;margin:0 auto 28px;background:var(--paper);box-shadow:0 8px 40px rgba(10,22,40,.18);overflow:hidden;position:relative;border:4px solid #000;}
+  .page::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:5;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='420' height='260' viewBox='0 0 420 260'><text x='210' y='140' font-family='Arial, sans-serif' font-size='20' font-weight='700' letter-spacing='3' fill='%230a1628' fill-opacity='0.05' text-anchor='middle' transform='rotate(-30 210 130)'>HELLO GORGEOUS MED SPA</text></svg>");background-repeat:repeat;}
+  .head,.body,.foot{position:relative;z-index:10;}
+  .head{background:linear-gradient(135deg,#0a0a0a 0%,#2d1020 55%,#0a0a0a 100%);color:#fff;padding:26px 30px 22px;overflow:hidden;}
+  .head .glow{position:absolute;right:-50px;top:-50px;width:240px;height:240px;border-radius:50%;background:radial-gradient(circle,rgba(230,0,126,.45),transparent 70%);z-index:1;}
+  .head .glow2{position:absolute;left:20%;bottom:-80px;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(255,45,142,.28),transparent 70%);z-index:1;}
+  .head .rule{position:absolute;left:0;bottom:0;width:100%;height:5px;background:linear-gradient(90deg,var(--hot),var(--pink) 55%,#9b0a4d);z-index:2;}
+  .kicker{font-weight:700;letter-spacing:.22em;font-size:10px;text-transform:uppercase;color:var(--soft);margin-bottom:8px;position:relative;z-index:2;}
+  .head h1{font-family:'Bebas Neue';font-size:46px;line-height:.92;letter-spacing:.5px;margin-bottom:8px;position:relative;z-index:2;}
+  .head h1 span{background:linear-gradient(90deg,var(--soft),var(--hot),var(--pink));-webkit-background-clip:text;background-clip:text;color:transparent;}
+  .subhead{font-size:13px;color:#c3cdda;max-width:92%;line-height:1.5;position:relative;z-index:2;}
+  .body{padding:22px 28px 14px;}
+  .section-label{font-family:'Bebas Neue';font-size:14px;letter-spacing:.16em;color:var(--mute);text-transform:uppercase;margin:4px 0 12px;display:flex;align-items:center;gap:10px;}
+  .section-label::after{content:"";flex:1;height:1px;background:var(--line);}
+  .banner{background:#fdf1f2;border:2px solid #000;border-left:6px solid var(--red);border-radius:10px;padding:12px 14px;margin-bottom:16px;}
+  .banner b{color:var(--red);text-transform:uppercase;letter-spacing:.06em;font-size:11px;display:block;margin-bottom:4px;}
+  .banner p{font-size:12px;line-height:1.5;color:var(--ink);}
+  .banner p strong{color:var(--pink);}
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px;}
+  .card{border:2px solid #000;border-radius:10px;overflow:hidden;background:#fff;box-shadow:4px 4px 0 0 rgba(230,0,126,.28);}
+  .ch{padding:8px 11px 7px;color:#fff;background:linear-gradient(125deg,var(--hot),var(--pink));border-bottom:2px solid #000;}
+  .ch .cat{font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;opacity:.9;}
+  .ch .nm{font-family:'Bebas Neue';font-size:18px;letter-spacing:.4px;line-height:1;margin-top:2px;}
+  .cb{padding:10px 11px 11px;font-size:11.5px;line-height:1.45;}
+  .cb ul{list-style:none;}
+  .cb li{position:relative;padding-left:11px;margin-bottom:4px;}
+  .cb li::before{content:"";position:absolute;left:0;top:6px;width:4px;height:4px;border-radius:50%;background:var(--pink);}
+  table{width:100%;border-collapse:collapse;font-size:11px;border:2px solid #000;border-radius:8px;overflow:hidden;margin-bottom:14px;}
+  thead th{background:var(--navy);color:#fff;text-align:left;padding:8px 10px;font-weight:700;font-size:10px;letter-spacing:.06em;text-transform:uppercase;}
+  tbody td{padding:8px 10px;border-top:1px solid var(--line);vertical-align:top;line-height:1.4;}
+  tbody tr:nth-child(even){background:var(--rose);}
+  tbody td b{color:var(--navy);}
+  .price{font-weight:800;color:var(--pink);white-space:nowrap;}
+  .tag{display:inline-block;font-size:9px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;padding:2px 7px;border-radius:999px;border:1.5px solid #000;background:#fff;}
+  .tag.ok{background:#e8f8ef;color:#1b7a45;}
+  .tag.warn{background:#fff3cd;color:#8a6d00;}
+  .tag.hot{background:#fde7f1;color:var(--pink);}
+  .al{border-left:5px solid var(--pink);background:var(--rose);border:1px solid #f3c4c8;border-left-width:5px;border-radius:8px;padding:11px 13px;font-size:11.5px;line-height:1.5;margin-bottom:14px;}
+  .al b{color:var(--pink);text-transform:uppercase;letter-spacing:.06em;font-size:10.5px;display:block;margin-bottom:3px;}
+  .duo{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px;}
+  .box{border:2px solid #000;border-radius:10px;padding:12px 13px;background:#fff;}
+  .box h3{font-family:'Bebas Neue';font-size:18px;letter-spacing:.4px;color:var(--navy);margin-bottom:6px;}
+  .box p,.box li{font-size:11.5px;line-height:1.45;}
+  .box ul{list-style:none;margin-top:6px;}
+  .box li{position:relative;padding-left:12px;margin-bottom:4px;}
+  .box li::before{content:"▸";position:absolute;left:0;color:var(--pink);font-weight:700;}
+  .sig-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:8px;}
+  .sig{border:2px dashed #bbb;border-radius:8px;padding:10px 12px;min-height:72px;background:#fafbfd;}
+  .sig label{display:block;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--mute);margin-bottom:28px;}
+  .sig .line{border-top:1px solid #999;padding-top:4px;font-size:10px;color:var(--mute);}
+  .check{display:grid;gap:6px;margin:8px 0 12px;}
+  .check label{display:flex;gap:8px;align-items:flex-start;font-size:11.5px;line-height:1.4;}
+  .check input{margin-top:2px;accent-color:var(--pink);width:14px;height:14px;flex-shrink:0;}
+  .foot{background:var(--navy);color:#9aa7b8;padding:12px 28px;font-size:10px;}
+  .foot .frow{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;}
+  .foot b{color:#fff;}
+  .foot .brand{font-family:'Bebas Neue';font-size:15px;letter-spacing:.6px;color:var(--pink);}
+  .foot .copyright{margin-top:6px;padding-top:6px;border-top:1px solid rgba(255,255,255,.12);font-size:9px;color:#7c8a9c;}
+  .tiny{font-size:10px;color:var(--mute);line-height:1.4;margin-top:6px;}
+  @media print{
+    body{background:#fff;padding:0;}
+    .toolbar{display:none!important;}
+    .page{box-shadow:none;page-break-after:always;margin:0;border:none;width:100%;}
+    .head,.ch,thead th,.foot,.banner,.tag{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+    @page{size:letter;margin:0.35in;}
+  }
+</style>
+</head>
+<body>
+
+<div class="toolbar">
+  <p>Client + staff handout — print or save as PDF. Give at every tirzepatide visit.</p>
+  <button type="button" onclick="window.print()">Print / Save as PDF</button>
+</div>
+
+<!-- ===================== PAGE 1 ===================== -->
+<div class="page">
+  <div class="head">
+    <div class="glow"></div><div class="glow2"></div><div class="rule"></div>
+    <div class="kicker">Hello Gorgeous Med Spa · Oswego, IL · Patient program guide</div>
+    <h1>Your <span>Tirzepatide</span> Program</h1>
+    <div class="subhead">Medically supervised weight-loss care with Ryan Kent, FNP-BC. This sheet explains what you booked, what you receive, and how pricing works — so every visit matches the right service.</div>
+  </div>
+  <div class="body">
+
+    <div class="banner">
+      <b>Important — please read before medication is dispensed</b>
+      <p>
+        The service you book online is the service you are charged for — and it sets the
+        <strong>maximum medication volume</strong> you can receive that visit.
+        <strong>Monthly Maintenance ($299) is not a high-volume fill.</strong>
+        If your prescribed supply is 5–10&nbsp;ml per injection (or higher), staff must switch the visit
+        to the matching volume service and charge that price <em>before</em> medication leaves the room.
+      </p>
+    </div>
+
+    <div class="section-label">How the program works</div>
+    <div class="grid3">
+      <div class="card">
+        <div class="ch"><div class="cat">Step 1</div><div class="nm">Consult</div></div>
+        <div class="cb"><ul>
+          <li>Health history &amp; goals review</li>
+          <li>Eligibility screening</li>
+          <li>Custom weekly dose plan</li>
+        </ul></div>
+      </div>
+      <div class="card">
+        <div class="ch"><div class="cat">Step 2</div><div class="nm">Start</div></div>
+        <div class="cb"><ul>
+          <li>First injection or take-home supply</li>
+          <li>Injection training if needed</li>
+          <li>Titration schedule explained</li>
+        </ul></div>
+      </div>
+      <div class="card">
+        <div class="ch"><div class="cat">Step 3</div><div class="nm">Maintain</div></div>
+        <div class="cb"><ul>
+          <li>Monthly follow-up &amp; refill</li>
+          <li>Dose adjusted only by provider</li>
+          <li>Price follows your volume tier</li>
+        </ul></div>
+      </div>
+    </div>
+
+    <div class="section-label">Booking menu — what each price includes</div>
+    <table>
+      <thead>
+        <tr>
+          <th style="width:34%">Service (book this)</th>
+          <th style="width:38%">What you receive</th>
+          <th style="width:14%">Price</th>
+          <th>Use when</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><b>Tirzepatide — Initial Consult + First Injection</b></td>
+          <td>New-patient visit, medical review, and first injection / starter supply as prescribed.</td>
+          <td class="price">$349</td>
+          <td><span class="tag ok">New start</span></td>
+        </tr>
+        <tr>
+          <td><b>4-Week Tirzepatide Program</b></td>
+          <td>Structured 4-week program visit with medication for that cycle as prescribed.</td>
+          <td class="price">$349</td>
+          <td><span class="tag ok">Program</span></td>
+        </tr>
+        <tr>
+          <td><b>Tirzepatide — Monthly Maintenance</b></td>
+          <td>
+            Established-patient maintenance refill only.
+            <strong>Does not include mid- or high-volume fills</strong>
+            (not 5–10&nbsp;ml or 12–15&nbsp;ml per injection; not 10&nbsp;ml × 4 syringes).
+          </td>
+          <td class="price">$299</td>
+          <td><span class="tag warn">Low / maint. volume only</span></td>
+        </tr>
+        <tr>
+          <td><b>Tirzepatide — up to 5&nbsp;ml per injection</b></td>
+          <td>Volume-priced visit when each injection / weekly draw is <strong>up to 5&nbsp;ml</strong>.</td>
+          <td class="price">From $349</td>
+          <td><span class="tag hot">Volume tier</span></td>
+        </tr>
+        <tr>
+          <td><b>Tirzepatide — 5&nbsp;ml–10&nbsp;ml per injection</b></td>
+          <td>Volume-priced visit when each injection / weekly draw is <strong>5–10&nbsp;ml</strong> (includes a 10&nbsp;ml × 4-syringe month).</td>
+          <td class="price">$500</td>
+          <td><span class="tag hot">Volume tier</span></td>
+        </tr>
+        <tr>
+          <td><b>Tirzepatide — 12&nbsp;ml–15&nbsp;ml</b></td>
+          <td>Volume-priced visit for <strong>12–15&nbsp;ml</strong> supplies as prescribed.</td>
+          <td class="price">$550</td>
+          <td><span class="tag hot">Volume tier</span></td>
+        </tr>
+        <tr>
+          <td><b>Weight Loss Package — 3 Months</b></td>
+          <td>Prepaid 3-month package visit. Supply and dose still set by your provider; package terms apply.</td>
+          <td class="price">$749</td>
+          <td><span class="tag ok">Package</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="al">
+      <b>Golden rule for every visit</b>
+      Booked service name ↔ volume dispensed ↔ price charged must all match.
+      If the provider increases your volume mid-visit, front desk rebooks / recharges to the correct tier before you leave.
+    </div>
+
+    <div class="duo">
+      <div class="box">
+        <h3>What’s included in the program</h3>
+        <ul>
+          <li>Provider-guided dosing &amp; adjustments</li>
+          <li>Medication for the tier you paid for</li>
+          <li>Injection education when needed</li>
+          <li>Ongoing check-ins &amp; support</li>
+        </ul>
+      </div>
+      <div class="box">
+        <h3>What this is not</h3>
+        <ul>
+          <li>Not a guarantee of a specific weight result</li>
+          <li>Not permission to change your own dose</li>
+          <li>Not a “grab any volume for $299” refill</li>
+          <li>Not a substitute for nutrition &amp; strength work</li>
+        </ul>
+      </div>
+    </div>
+
+    <p class="tiny">Brand names Zepbound® / Mounjaro® may appear on menus for recognition. Your plan may use a compounded tirzepatide product when clinically appropriate. Compounded medications are not FDA-approved drug products for all uses described. Pricing reflects current clinic menu and may update.</p>
+  </div>
+  <div class="foot">
+    <div class="frow">
+      <div><span class="brand">Hello Gorgeous</span> &nbsp;·&nbsp; Tirzepatide Program · Page 1 of 2</div>
+      <div>74 W Washington St, Oswego, IL · <b>630-636-6193</b></div>
+    </div>
+    <div class="copyright">© 2026 Hello Gorgeous Med Spa · hellogorgeousmedspa.com · Give this sheet with every tirzepatide dispense.</div>
+  </div>
+</div>
+
+<!-- ===================== PAGE 2 ===================== -->
+<div class="page">
+  <div class="head">
+    <div class="glow"></div><div class="glow2"></div><div class="rule"></div>
+    <div class="kicker">Hello Gorgeous Med Spa · Visit confirmation</div>
+    <h1>Today’s Visit <span>Checklist</span></h1>
+    <div class="subhead">Complete before medication leaves the room. Keeps clients protected and charges accurate.</div>
+  </div>
+  <div class="body">
+
+    <div class="section-label">Client info</div>
+    <table>
+      <tbody>
+        <tr>
+          <td style="width:22%"><b>Client name</b></td>
+          <td style="width:38%">&nbsp;</td>
+          <td style="width:18%"><b>Date</b></td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td><b>Provider</b></td>
+          <td>&nbsp;</td>
+          <td><b>Staff</b></td>
+          <td>&nbsp;</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="section-label">Match the booking to the dispense</div>
+    <table>
+      <thead>
+        <tr>
+          <th style="width:40%">Check one — service charged today</th>
+          <th>Volume / supply dispensed today</th>
+          <th style="width:16%">Price</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>☐ Monthly Maintenance</td>
+          <td>Maintenance / low-volume only (not 5–10&nbsp;ml or higher)</td>
+          <td class="price">$299</td>
+        </tr>
+        <tr>
+          <td>☐ Initial Consult + First Injection</td>
+          <td>Starter visit supply as prescribed</td>
+          <td class="price">$349</td>
+        </tr>
+        <tr>
+          <td>☐ 4-Week Program</td>
+          <td>4-week program supply as prescribed</td>
+          <td class="price">$349</td>
+        </tr>
+        <tr>
+          <td>☐ Up to 5&nbsp;ml per injection</td>
+          <td>Each injection / weekly draw ≤ 5&nbsp;ml</td>
+          <td class="price">From $349</td>
+        </tr>
+        <tr>
+          <td>☐ 5&nbsp;ml–10&nbsp;ml per injection</td>
+          <td>Each injection / weekly draw 5–10&nbsp;ml (incl. 10&nbsp;ml × 4)</td>
+          <td class="price">$500</td>
+        </tr>
+        <tr>
+          <td>☐ 12&nbsp;ml–15&nbsp;ml</td>
+          <td>12–15&nbsp;ml supply as prescribed</td>
+          <td class="price">$550</td>
+        </tr>
+        <tr>
+          <td>☐ 3-Month Weight Loss Package</td>
+          <td>Package supply for this cycle</td>
+          <td class="price">$749</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="duo">
+      <div class="box">
+        <h3>Dispense details</h3>
+        <p style="margin-bottom:8px;"><b>Prescribed weekly dose:</b> __________ mg / week</p>
+        <p style="margin-bottom:8px;"><b>Volume per injection / syringe:</b> __________ ml</p>
+        <p style="margin-bottom:8px;"><b># of syringes / vials today:</b> __________</p>
+        <p><b>Total volume this visit:</b> __________ ml</p>
+      </div>
+      <div class="box">
+        <h3>Staff must confirm</h3>
+        <div class="check">
+          <label><input type="checkbox"> Booked Square service matches volume dispensed</label>
+          <label><input type="checkbox"> If volume is above maintenance, visit was upgraded &amp; recharged</label>
+          <label><input type="checkbox"> Client understands next refill will be priced by volume tier</label>
+          <label><input type="checkbox"> Injection instructions reviewed (or already trained)</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="banner">
+      <b>Stop — do not dispense on $299 if any of these are true</b>
+      <p>
+        • Any single syringe / injection is <strong>5&nbsp;ml or more</strong><br>
+        • Client is receiving <strong>10&nbsp;ml × 4 syringes</strong> (or similar mid/high-volume month)<br>
+        • Total supply is in the <strong>5–10&nbsp;ml</strong> or <strong>12–15&nbsp;ml</strong> menu bands<br>
+        → Switch to the matching volume service and collect the correct price first.
+      </p>
+    </div>
+
+    <div class="section-label">What to expect between visits</div>
+    <div class="duo">
+      <div class="box">
+        <h3>At home</h3>
+        <ul>
+          <li>Inject only the dose your provider prescribed</li>
+          <li>Rotate sites (belly, thigh, upper arm)</li>
+          <li>Store medication as instructed</li>
+          <li>Prioritize protein + strength training</li>
+        </ul>
+      </div>
+      <div class="box">
+        <h3>Call us right away for</h3>
+        <ul>
+          <li>Persistent vomiting or can’t keep fluids down</li>
+          <li>Severe abdominal pain</li>
+          <li>Signs of dehydration or allergic reaction</li>
+          <li>Questions before changing anything yourself</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="section-label">Signatures</div>
+    <p style="font-size:11.5px;line-height:1.45;margin-bottom:8px;">
+      I understand that today’s charge is based on the service checked above and the medication volume dispensed.
+      A higher volume requires a higher menu price. I will not adjust my dose without provider guidance.
+    </p>
+    <div class="sig-grid">
+      <div class="sig">
+        <label>Client signature</label>
+        <div class="line">Date _______________</div>
+      </div>
+      <div class="sig">
+        <label>Provider / staff signature</label>
+        <div class="line">Date _______________</div>
+      </div>
+    </div>
+
+    <p class="tiny" style="margin-top:12px;">
+      Questions or to rebook the correct volume tier: <strong>630-636-6193</strong> · hellogorgeousmedspa.com ·
+      Injection guide: hellogorgeousmedspa.com/handouts/glp1/subcutaneous-injection-guide.html
+    </p>
+  </div>
+  <div class="foot">
+    <div class="frow">
+      <div><span class="brand">Hello Gorgeous</span> &nbsp;·&nbsp; Tirzepatide Program · Page 2 of 2</div>
+      <div>File in chart after signatures · Keep a copy for the client</div>
+    </div>
+    <div class="copyright">© 2026 Hello Gorgeous Med Spa · Internal + client use. Not a substitute for medical advice or consent forms.</div>
+  </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Staff-Only Patient Visit Record — Hello Gorgeous</title>
+<style>
+  :root { --pink:#E6007E; --ink:#111; --mute:#555; --rose:#FFF0F7; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: system-ui, -apple-system, sans-serif; background: #e8e8e8; color: var(--ink); padding: 16px; }
+  .toolbar { max-width: 8.5in; margin: 0 auto 16px; background: #fff; border: 3px solid #000; padding: 12px 16px; display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; position: sticky; top: 0; z-index: 20; }
+  .toolbar p { font-size: 13px; font-weight: 600; }
+  .toolbar button { background: var(--pink); color: #fff; border: 2px solid #000; border-radius: 999px; padding: 10px 18px; font-weight: 800; cursor: pointer; }
+  .page { width: 8.5in; margin: 0 auto 18px; background: #fff; border: 4px solid #000; padding: 0.35in 0.4in; page-break-after: always; }
+  .stamp { background: #111; color: #fff; text-align: center; font-size: 11px; font-weight: 900; letter-spacing: 0.14em; text-transform: uppercase; padding: 6px; border: 2px solid #000; margin: -0.35in -0.4in 10px; }
+  .stamp span { color: #FFB8DC; }
+  .brand { display: flex; justify-content: space-between; gap: 10px; align-items: flex-start; border-bottom: 4px solid #000; padding-bottom: 8px; margin-bottom: 8px; }
+  .brand h1 { font-size: 18px; font-weight: 900; color: var(--pink); line-height: 1.1; }
+  .brand .sub { font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: var(--mute); margin-top: 2px; }
+  .brand .meta { font-size: 10px; text-align: right; font-weight: 600; line-height: 1.35; }
+  .badge { border: 2px solid #000; background: #ffe8a3; padding: 5px 8px; font-size: 10px; font-weight: 900; text-align: center; }
+  h2 { font-size: 11px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.08em; color: var(--pink); margin: 8px 0 5px; border-bottom: 2px solid #000; padding-bottom: 2px; }
+  h3 { font-size: 11px; font-weight: 800; margin: 0 0 4px; }
+  p, li, td, label { font-size: 10.5px; line-height: 1.35; }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 12px; }
+  .grid3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px 10px; }
+  .grid4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 6px 8px; }
+  .field { margin-bottom: 4px; }
+  .field label { display: block; font-size: 8.5px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: var(--mute); margin-bottom: 1px; }
+  .line { border-bottom: 1px solid #999; min-height: 16px; }
+  .area { border: 1.5px solid #bbb; min-height: 36px; border-radius: 3px; padding: 3px; }
+  .area.med { min-height: 52px; }
+  .checks { display: flex; flex-wrap: wrap; gap: 4px 10px; }
+  .checks label { font-weight: 600; text-transform: none; letter-spacing: 0; color: var(--ink); font-size: 10.5px; display: inline-flex; gap: 3px; align-items: center; }
+  .box { border: 2px solid #000; padding: 6px 8px; margin: 6px 0; background: #fafafa; }
+  .box.warn { background: #fff5f5; }
+  .box.rose { background: var(--rose); }
+  .box.yellow { background: #fff8e1; }
+  .tiny { font-size: 9px; color: var(--mute); line-height: 1.3; }
+  table.form { width: 100%; border-collapse: collapse; margin: 4px 0 6px; }
+  table.form th, table.form td { border: 1.5px solid #000; padding: 4px 5px; vertical-align: top; font-size: 10px; }
+  table.form th { background: #111; color: #fff; font-size: 8.5px; text-transform: uppercase; letter-spacing: 0.04em; text-align: left; }
+  table.form td { height: 22px; }
+  .sig { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-top: 8px; }
+  .sig .s { border: 2px dashed #999; min-height: 52px; padding: 5px 6px; }
+  .sig label { display: block; font-size: 8.5px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: var(--mute); margin-bottom: 20px; }
+  .sig .date { border-top: 1px solid #999; padding-top: 2px; font-size: 8.5px; color: var(--mute); }
+  .foot { margin-top: 8px; padding-top: 5px; border-top: 2px solid #000; font-size: 8.5px; color: var(--mute); display: flex; justify-content: space-between; }
+  .section-tag { display: inline-block; background: var(--pink); color: #fff; font-size: 8px; font-weight: 900; letter-spacing: 0.08em; text-transform: uppercase; padding: 2px 6px; border: 1.5px solid #000; margin-bottom: 4px; }
+  @media print {
+    body { background: #fff; padding: 0; }
+    .toolbar { display: none !important; }
+    .page { border: none; margin: 0; width: 100%; page-break-after: always; }
+    @page { size: letter; margin: 0.3in; }
+    th, .stamp, .badge, .box.rose, .box.yellow, .section-tag { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+</style>
+</head>
+<body>
+  <div class="toolbar">
+    <p><b>STAFF ONLY</b> — Michelle pulls chart folder → complete during visit → provider signs before patient leaves</p>
+    <button type="button" onclick="window.print()">Print / Save as PDF</button>
+  </div>
+
+  <!-- ===================== PAGE 1 ===================== -->
+  <article class="page">
+    <div class="stamp">Staff Only · Not for patient · Chart copy · <span>Hello Gorgeous Med Spa</span></div>
+    <div class="brand">
+      <div>
+        <h1>Patient Visit Record</h1>
+        <div class="sub">Pull folder → treat → record → charge match → sign off</div>
+      </div>
+      <div class="meta">
+        74 W Washington St, Oswego, IL<br>
+        (630) 636-6193<br>
+        File in patient chart same day
+      </div>
+      <div class="badge">STAFF<br>ONLY</div>
+    </div>
+
+    <div class="box yellow">
+      <b>Michelle — before patient enters</b>
+      <div class="checks" style="margin-top:4px;">
+        <label>☐ Chart / folder pulled</label>
+        <label>☐ Consents current</label>
+        <label>☐ Allergies reviewed on face sheet</label>
+        <label>☐ Today’s Square booking open</label>
+        <label>☐ Prior visit settings / dose checked (if return)</label>
+        <label>☐ Payment / package status noted</label>
+      </div>
+    </div>
+
+    <h2>1. Patient &amp; visit</h2>
+    <div class="grid3">
+      <div class="field"><label>Patient name</label><div class="line"></div></div>
+      <div class="field"><label>DOB</label><div class="line"></div></div>
+      <div class="field"><label>Date of visit</label><div class="line"></div></div>
+      <div class="field"><label>Time in / out</label><div class="line"></div></div>
+      <div class="field"><label>Provider</label><div class="line"></div></div>
+      <div class="field"><label>Front desk / tech</label><div class="line"></div></div>
+    </div>
+    <div class="field" style="margin-top:4px;">
+      <label>Visit type</label>
+      <div class="checks">
+        <label>☐ New</label><label>☐ Follow-up</label><label>☐ Series / package visit</label>
+        <label>☐ Refill only</label><label>☐ Same-day add-on</label>
+      </div>
+    </div>
+    <div class="field">
+      <label>Service category today (check all done)</label>
+      <div class="checks">
+        <label>☐ Laser / light</label><label>☐ Morpheus8 / RF / CO₂ / device</label>
+        <label>☐ Tirzepatide / GLP-1</label><label>☐ Peptides</label>
+        <label>☐ Toxin / filler</label><label>☐ IV / vitamin</label>
+        <label>☐ FlowWave</label><label>☐ Other: __________</label>
+      </div>
+    </div>
+    <div class="grid2">
+      <div class="field"><label>Known allergies (copy from chart)</label><div class="area"></div></div>
+      <div class="field"><label>Pre-visit notes / flags</label><div class="area"></div></div>
+    </div>
+
+    <h2>2. Laser / device record</h2>
+    <span class="section-tag">Complete if laser or energy device used</span>
+    <div class="field">
+      <label>Device / modality</label>
+      <div class="checks">
+        <label>☐ Laser hair (Zemits DuoCratus)</label>
+        <label>☐ Morpheus8 / Burst</label>
+        <label>☐ Solaria CO₂</label>
+        <label>☐ Quantum RF</label>
+        <label>☐ Luxora</label>
+        <label>☐ IPL / other: __________</label>
+      </div>
+    </div>
+    <div class="grid3">
+      <div class="field"><label>Treatment area(s)</label><div class="line"></div></div>
+      <div class="field"><label>Fitzpatrick / skin type</label><div class="line"></div></div>
+      <div class="field"><label>Session # in series</label><div class="line"></div></div>
+    </div>
+    <table class="form">
+      <thead>
+        <tr>
+          <th style="width:16%">Pass / zone</th>
+          <th>Wavelength / tip / handpiece</th>
+          <th>Energy / fluence / %</th>
+          <th>Pulse / width</th>
+          <th>Hz / depth / stack</th>
+          <th>Cooling / other</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+      </tbody>
+    </table>
+    <div class="grid2">
+      <div class="field"><label>Numbing used?</label>
+        <div class="checks"><label>☐ None</label><label>☐ Topical</label><label>☐ Other: ______</label></div>
+      </div>
+      <div class="field"><label>Eye protection / safety confirmed</label>
+        <div class="checks"><label>☐ Yes</label><label>☐ N/A</label></div>
+      </div>
+    </div>
+    <div class="field"><label>Immediate skin response (expected erythema, frost, grid marks, etc.)</label><div class="area"></div></div>
+
+    <h2>3. Reaction / adverse event</h2>
+    <div class="box warn">
+      <div class="checks">
+        <label>☐ No unexpected reaction</label>
+        <label>☐ Mild expected response only</label>
+        <label>☐ Unexpected reaction — document below + notify provider</label>
+      </div>
+      <div class="field" style="margin-top:5px;"><label>Describe reaction (onset, location, severity) + action taken</label><div class="area med"></div></div>
+      <div class="grid2">
+        <div class="field"><label>Provider notified?</label><div class="checks"><label>☐ Yes — time ______</label><label>☐ N/A</label></div></div>
+        <div class="field"><label>Follow-up required?</label><div class="checks"><label>☐ Call tomorrow</label><label>☐ Return visit</label><label>☐ ER / urgent</label><label>☐ None</label></div></div>
+      </div>
+    </div>
+
+    <div class="foot"><span>STAFF ONLY · Patient Visit Record · Hello Gorgeous Med Spa</span><span>Page 1 of 2</span></div>
+  </article>
+
+  <!-- ===================== PAGE 2 ===================== -->
+  <article class="page">
+    <div class="stamp">Staff Only · Not for patient · Chart copy · <span>Hello Gorgeous Med Spa</span></div>
+    <div class="brand">
+      <div>
+        <h1>Dispense · Charge · Sign-Off</h1>
+        <div class="sub">Same patient · continue from page 1</div>
+      </div>
+      <div class="meta">
+        Patient: _________________________<br>
+        Date: ___________________________
+      </div>
+      <div class="badge">STAFF<br>ONLY</div>
+    </div>
+
+    <h2>4. Tirzepatide / GLP-1 / injectable dispense</h2>
+    <span class="section-tag">Complete if medication dispensed or injected</span>
+    <div class="field">
+      <label>Medication</label>
+      <div class="checks">
+        <label>☐ Tirzepatide</label><label>☐ Semaglutide</label><label>☐ Peptide: __________</label>
+        <label>☐ Toxin / filler</label><label>☐ Vitamin / other: __________</label>
+      </div>
+    </div>
+    <table class="form">
+      <thead>
+        <tr>
+          <th>Product / concentration</th>
+          <th>Prescribed weekly dose</th>
+          <th>Volume per inj / syringe</th>
+          <th># syringes / vials</th>
+          <th>Total volume today</th>
+          <th>Lot / BUD</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+      </tbody>
+    </table>
+    <div class="grid2">
+      <div class="field"><label>Administration</label>
+        <div class="checks"><label>☐ In-clinic injection</label><label>☐ Take-home supply</label><label>☐ Both</label></div>
+      </div>
+      <div class="field"><label>Fridge labeled before leave?</label>
+        <div class="checks"><label>☐ Yes (name/stock, med, date, dose)</label><label>☐ N/A</label></div>
+      </div>
+    </div>
+
+    <h2>5. Client charge (Michelle — required)</h2>
+    <div class="box warn">
+      <b>Charge must match what was dispensed / performed. Do not leave on wrong SKU.</b>
+      <table class="form" style="margin-top:6px;">
+        <thead>
+          <tr>
+            <th>Square service / SKU charged</th>
+            <th style="width:18%">Amount $</th>
+            <th style="width:22%">Paid how?</th>
+            <th style="width:18%">Tip $</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td></td><td></td><td></td><td></td></tr>
+          <tr><td></td><td></td><td></td><td></td></tr>
+        </tbody>
+      </table>
+      <div class="checks" style="margin-top:4px;">
+        <label>☐ Checkout from appointment (not blank POS)</label>
+        <label>☐ Package / prepaid visit noted correctly</label>
+      </div>
+      <div class="field" style="margin-top:6px;">
+        <label>GLP-1 volume tier check (if applicable)</label>
+        <div class="checks">
+          <label>☐ Monthly Maintenance $299 — low/maint volume only</label>
+          <label>☐ Up to 5 ml — from $349</label>
+          <label>☐ 5–10 ml — $500 (incl. 10 ml × 4)</label>
+          <label>☐ 12–15 ml — $550</label>
+          <label>☐ 4-week / initial / 3-mo package — as booked</label>
+          <label>☐ N/A</label>
+        </div>
+      </div>
+      <div class="checks" style="margin-top:4px;">
+        <label>☐ Volume matches charged service</label>
+        <label>☐ Mid-visit upgrade → rebooked / recharged before leave</label>
+      </div>
+    </div>
+
+    <h2>6. Other services / retail today</h2>
+    <div class="field"><label>Additional treatments, retail, membership notes</label><div class="area"></div></div>
+
+    <h2>7. Aftercare &amp; next step</h2>
+    <div class="grid2">
+      <div class="field"><label>Aftercare given</label>
+        <div class="checks">
+          <label>☐ Verbal</label><label>☐ Handout</label><label>☐ Tirz program sheet</label>
+          <label>☐ Laser aftercare</label><label>☐ Injection guide</label>
+        </div>
+      </div>
+      <div class="field"><label>Next appointment / refill due</label><div class="line"></div></div>
+    </div>
+    <div class="field"><label>Follow-up owner</label>
+      <div class="checks">
+        <label>☐ Michelle (desk call)</label><label>☐ Ryan (clinical)</label>
+        <label>☐ Laura (lead / marketing N/A)</label><label>☐ Danielle</label>
+      </div>
+    </div>
+    <div class="field"><label>Staff notes for next visit</label><div class="area med"></div></div>
+
+    <h2>8. Sign-off (required before patient leaves)</h2>
+    <div class="box rose tiny" style="margin-bottom:6px;">Provider signs clinical accuracy. Michelle / desk signs charge + folder return. Incomplete = patient does not leave with unlabeled meds or wrong charge.</div>
+    <div class="sig">
+      <div class="s">
+        <label>Treating tech / nurse</label>
+        <div class="date">Print + sign · time ______</div>
+      </div>
+      <div class="s">
+        <label>Provider sign-off (Ryan / covering)</label>
+        <div class="date">Print + sign · time ______</div>
+      </div>
+      <div class="s">
+        <label>Michelle / desk — charge + folder</label>
+        <div class="date">☐ Charged · ☐ Filed · time ______</div>
+      </div>
+    </div>
+
+    <div class="foot"><span>STAFF ONLY · File in chart same day · Do not give to patient</span><span>Page 2 of 2</span></div>
+  </article>
+</body>
+</html>

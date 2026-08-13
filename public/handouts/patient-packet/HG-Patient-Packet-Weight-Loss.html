@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hello Gorgeous — Weight Loss / GLP-1 Patient Packet</title>
+<style>
+  :root { --pink:#E6007E; --hot:#FF2D8E; --ink:#111; --mute:#555; --line:#ddd; --rose:#FFF0F7; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: system-ui, -apple-system, sans-serif; background: #e8e8e8; color: var(--ink); padding: 16px; }
+  .toolbar { max-width: 8.5in; margin: 0 auto 16px; background: #fff; border: 3px solid #000; padding: 12px 16px; display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; position: sticky; top: 0; z-index: 20; }
+  .toolbar p { font-size: 13px; font-weight: 600; }
+  .toolbar button { background: var(--pink); color: #fff; border: 2px solid #000; border-radius: 999px; padding: 10px 18px; font-weight: 800; cursor: pointer; }
+  .page { width: 8.5in; min-height: 11in; margin: 0 auto 18px; background: #fff; border: 4px solid #000; padding: 0.4in 0.45in; page-break-after: always; position: relative; }
+  .brand { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; border-bottom: 4px solid #000; padding-bottom: 10px; margin-bottom: 12px; }
+  .brand h1 { font-size: 20px; font-weight: 900; color: var(--pink); line-height: 1.1; }
+  .brand .sub { font-size: 10px; font-weight: 700; color: var(--mute); text-transform: uppercase; letter-spacing: 0.08em; margin-top: 3px; }
+  .brand .meta { font-size: 10px; text-align: right; line-height: 1.4; font-weight: 600; }
+  .badge { border: 2px solid #000; background: var(--rose); padding: 5px 8px; font-size: 10px; font-weight: 900; text-align: center; white-space: nowrap; }
+  h2 { font-size: 12px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.08em; color: var(--pink); margin: 10px 0 6px; border-bottom: 2px solid #000; padding-bottom: 3px; }
+  h3 { font-size: 11px; font-weight: 800; margin: 8px 0 4px; }
+  p, li, td, label { font-size: 11px; line-height: 1.4; }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 14px; }
+  .grid3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+  .field { margin-bottom: 6px; }
+  .field label { display: block; font-size: 9px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: var(--mute); margin-bottom: 2px; }
+  .line { border-bottom: 1px solid #999; min-height: 18px; padding: 2px 0; }
+  .area { border: 1.5px solid #bbb; min-height: 48px; border-radius: 4px; padding: 4px; }
+  .area.tall { min-height: 72px; }
+  .checks { display: flex; flex-wrap: wrap; gap: 6px 12px; font-size: 11px; }
+  .checks label { font-weight: 600; text-transform: none; letter-spacing: 0; color: var(--ink); font-size: 11px; display: inline-flex; gap: 4px; align-items: center; }
+  .box { border: 2px solid #000; padding: 8px 10px; margin: 8px 0; background: #fafafa; }
+  .box.warn { background: #fff5f5; border-color: #000; }
+  .box.rose { background: var(--rose); }
+  .tiny { font-size: 9.5px; color: var(--mute); line-height: 1.35; }
+  table.form { width: 100%; border-collapse: collapse; margin: 6px 0; }
+  table.form th, table.form td { border: 1.5px solid #000; padding: 5px 6px; vertical-align: top; font-size: 10.5px; }
+  table.form th { background: #111; color: #fff; font-size: 9px; text-transform: uppercase; letter-spacing: 0.04em; text-align: left; }
+  .sig { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 10px; }
+  .sig .s { border: 2px dashed #999; min-height: 58px; padding: 6px 8px; }
+  .sig label { display: block; font-size: 9px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: var(--mute); margin-bottom: 24px; }
+  .sig .date { border-top: 1px solid #999; padding-top: 3px; font-size: 9px; color: var(--mute); }
+  .foot { margin-top: 10px; padding-top: 6px; border-top: 2px solid #000; font-size: 9px; color: var(--mute); display: flex; justify-content: space-between; gap: 8px; }
+  .keep { background: linear-gradient(125deg, #FF2D8E, #E6007E 50%, #9b0a4d); color: #fff; padding: 10px 12px; border: 2px solid #000; margin-bottom: 10px; }
+  .keep h1 { color: #fff; font-size: 18px; }
+  .keep .sub { color: #FFB8DC; }
+  ul.compact { margin: 4px 0 4px 16px; }
+  ul.compact li { margin-bottom: 2px; }
+  .ba-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 8px 0; }
+  .ba-card { border: 2px solid #000; min-height: 140px; padding: 8px; }
+  .ba-card h3 { color: var(--pink); margin-top: 0; }
+  .photo-box { border: 2px dashed #999; height: 90px; margin-top: 6px; display: flex; align-items: center; justify-content: center; color: #999; font-size: 10px; font-weight: 700; }
+  @media print {
+    body { background: #fff; padding: 0; }
+    .toolbar { display: none !important; }
+    .page { border: none; margin: 0; width: 100%; min-height: auto; page-break-after: always; }
+    @page { size: letter; margin: 0.35in; }
+    th, .badge, .keep, .box.rose { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+</style>
+</head>
+<body>
+  <div class="toolbar">
+    <p>WEIGHT LOSS / GLP-1 packet — print all 6 · patient completes 1–4 · provider page 5 · patient keeps page 6</p>
+    <button type="button" onclick="window.print()">Print / Save as PDF</button>
+  </div>
+
+  <article class="page">
+    
+    <div class="brand">
+      <div>
+        <h1>Weight Loss / GLP-1 Packet</h1>
+        <div class="sub">Consultation · History · Consents · Treatment</div>
+      </div>
+      <div class="meta">
+        <strong>Hello Gorgeous Med Spa</strong><br>
+        74 W Washington St, Oswego, IL 60543<br>
+        (630) 636-6193 · hellogorgeousmedspa.com<br>
+        Ryan Kent, FNP-BC · Medical oversight
+      </div>
+      <div class="badge">Page 1<br>Consult</div>
+    </div>
+    <div class="box rose tiny">For medical weight-loss visits only (semaglutide, tirzepatide, related GLP-1 programs). Patient completes pages 1–4 before the provider. Page 6 goes home.</div>
+    <h2>1. Patient information</h2>
+    <div class="grid2">
+      <div class="field"><label>Legal first name</label><div class="line"></div></div>
+      <div class="field"><label>Legal last name</label><div class="line"></div></div>
+      <div class="field"><label>Preferred name</label><div class="line"></div></div>
+      <div class="field"><label>Date of birth</label><div class="line"></div></div>
+      <div class="field"><label>Mobile phone</label><div class="line"></div></div>
+      <div class="field"><label>Email</label><div class="line"></div></div>
+      <div class="field"><label>Address</label><div class="line"></div></div>
+      <div class="field"><label>City / State / ZIP</label><div class="line"></div></div>
+      <div class="field"><label>Emergency contact name</label><div class="line"></div></div>
+      <div class="field"><label>Emergency contact phone</label><div class="line"></div></div>
+    </div>
+    <h2>2. Weight-loss consultation</h2>
+    <div class="field"><label>Program interest</label>
+      <div class="checks">
+        <label>☐ Semaglutide</label><label>☐ Tirzepatide</label><label>☐ Not sure — provider to recommend</label>
+        <label>☐ Insurance / pharmacy brand (Zepbound / Wegovy path)</label><label>☐ Compounded clinic program</label>
+      </div>
+    </div>
+    <div class="grid2">
+      <div class="field"><label>Current weight (approx)</label><div class="line"></div></div>
+      <div class="field"><label>Goal weight (approx)</label><div class="line"></div></div>
+      <div class="field"><label>Height</label><div class="line"></div></div>
+      <div class="field"><label>Prior GLP-1 use?</label><div class="checks"><label>☐ Yes</label><label>☐ No</label></div></div>
+    </div>
+    <div class="field"><label>If prior GLP-1: which med, dose, and when last taken?</label><div class="area"></div></div>
+    <div class="field"><label>What is the #1 outcome you want in the next 90 days?</label><div class="area"></div></div>
+    <div class="field"><label>Biggest struggle right now</label>
+      <div class="checks">
+        <label>☐ Food noise / cravings</label><label>☐ Portion control</label><label>☐ Energy</label>
+        <label>☐ Plateau</label><label>☐ Side effects on prior med</label><label>☐ Cost / access</label>
+      </div>
+    </div>
+    <div class="foot"><span>Hello Gorgeous Med Spa · Weight Loss Packet · Consult</span><span>Page 1 of 6</span></div>
+  </article>
+
+  <article class="page">
+    
+    <div class="brand">
+      <div>
+        <h1>Medical History — Weight Loss / GLP-1</h1>
+        <div class="sub">Safety screen · allergies · medications</div>
+      </div>
+      <div class="meta">
+        <strong>Hello Gorgeous Med Spa</strong><br>
+        74 W Washington St, Oswego, IL 60543<br>
+        (630) 636-6193 · hellogorgeousmedspa.com<br>
+        Ryan Kent, FNP-BC · Medical oversight
+      </div>
+      <div class="badge">Page 2<br>History</div>
+    </div>
+    <h2>3. Allergies (critical)</h2>
+    <div class="box warn">
+      <div class="checks" style="margin-bottom:6px;"><label>☐ No known allergies</label><label>☐ Yes — listed below</label></div>
+      <div class="field"><label>Allergies + reaction (meds, latex, foods)</label><div class="area"></div></div>
+    </div>
+    <h2>4. Current medications &amp; supplements</h2>
+    <div class="field"><label>List all (include diabetes meds, thyroid, antidepressants, other weight-loss agents)</label><div class="area tall"></div></div>
+    <h2>5. GLP-1 safety screen (check any that apply)</h2>
+    <div class="checks">
+      <label>☐ Type 1 diabetes</label><label>☐ Type 2 diabetes</label><label>☐ Pancreatitis (history)</label>
+      <label>☐ Gallbladder disease / gallstones</label><label>☐ Severe GI disease / gastroparesis</label>
+      <label>☐ Personal or family medullary thyroid cancer (MTC)</label><label>☐ MEN 2</label>
+      <label>☐ Diabetic retinopathy</label><label>☐ Kidney disease</label><label>☐ History of suicidal thoughts</label>
+      <label>☐ Eating disorder (current or history)</label><label>☐ Pregnant / breastfeeding / trying to conceive</label>
+      <label>☐ None of the above</label>
+    </div>
+    <div class="field" style="margin-top:8px;"><label>Other medical conditions / surgeries</label><div class="area"></div></div>
+    <h2>6. For patients who can become pregnant</h2>
+    <div class="grid3">
+      <div class="field"><label>Pregnant?</label><div class="checks"><label>☐ Yes</label><label>☐ No</label><label>☐ N/A</label></div></div>
+      <div class="field"><label>Breastfeeding?</label><div class="checks"><label>☐ Yes</label><label>☐ No</label><label>☐ N/A</label></div></div>
+      <div class="field"><label>Trying to conceive?</label><div class="checks"><label>☐ Yes</label><label>☐ No</label><label>☐ N/A</label></div></div>
+    </div>
+    <div class="box"><label style="font-weight:800;">☐ I certify this history is accurate to the best of my knowledge.</label></div>
+    
+    <div class="sig">
+      <div class="s"><label>Patient signature</label><div class="date">Date _______________</div></div>
+      <div class="s"><label>Printed name</label><div class="date">Date _______________</div></div>
+    </div>
+    <div class="foot"><span>Hello Gorgeous Med Spa · Weight Loss Packet · History</span><span>Page 2 of 6</span></div>
+  </article>
+
+  <article class="page">
+    
+    <div class="brand">
+      <div>
+        <h1>Pharmacy &amp; Fulfillment — GLP-1</h1>
+        <div class="sub">Ship · pickup · retail / insurance</div>
+      </div>
+      <div class="meta">
+        <strong>Hello Gorgeous Med Spa</strong><br>
+        74 W Washington St, Oswego, IL 60543<br>
+        (630) 636-6193 · hellogorgeousmedspa.com<br>
+        Ryan Kent, FNP-BC · Medical oversight
+      </div>
+      <div class="badge">Page 3<br>Pharmacy</div>
+    </div>
+    <div class="box rose tiny">Medication only after NP approval. Price follows dose/volume tier (Monthly Maintenance $299 is not a mid/high-volume fill). Compounded GLP-1s are not FDA-approved drug products for all uses described.</div>
+    <h2>7. Fulfillment choice</h2>
+    <div class="checks" style="flex-direction:column;align-items:flex-start;gap:8px;">
+      <label>☐ <b>Ship to home</b> (cold-chain when required)</label>
+      <label>☐ <b>Pick up at Hello Gorgeous</b> (Oswego)</label>
+      <label>☐ <b>Retail pharmacy / insurance brand</b> (oversight fee may apply; medication billed via pharmacy)</label>
+      <label>☐ Undecided — discuss today</label>
+    </div>
+    <h2>8. Ship-to details (if shipping)</h2>
+    <div class="grid2">
+      <div class="field"><label>Same as patient address?</label><div class="checks"><label>☐ Yes</label><label>☐ No</label></div></div>
+      <div class="field"><label>Delivery phone</label><div class="line"></div></div>
+    </div>
+    <div class="field"><label>Ship-to address</label><div class="area"></div></div>
+    <h2>9. Retail pharmacy (insurance / brand path)</h2>
+    <div class="grid2">
+      <div class="field"><label>Pharmacy name</label><div class="line"></div></div>
+      <div class="field"><label>Pharmacy phone</label><div class="line"></div></div>
+      <div class="field"><label>Address / city</label><div class="line"></div></div>
+      <div class="field"><label>Rx insurance / PBM</label><div class="line"></div></div>
+    </div>
+    <h2>10. Acknowledgments</h2>
+    <div class="checks" style="flex-direction:column;align-items:flex-start;gap:5px;">
+      <label>☐ I will not change my dose without provider guidance</label>
+      <label>☐ I understand charge must match volume dispensed</label>
+      <label>☐ I will refrigerate / store as instructed</label>
+      <label>☐ I will not share or resell medication</label>
+    </div>
+    
+    <div class="sig">
+      <div class="s"><label>Patient signature</label><div class="date">Date _______________</div></div>
+      <div class="s"><label>Staff initials / pharmacy path noted</label><div class="date">Date _______________</div></div>
+    </div>
+    <div class="foot"><span>Hello Gorgeous Med Spa · Weight Loss Packet · Pharmacy</span><span>Page 3 of 6</span></div>
+  </article>
+
+  <article class="page">
+    
+    <div class="brand">
+      <div>
+        <h1>Weight Loss / GLP-1 Consents</h1>
+        <div class="sub">Protects you and our practice</div>
+      </div>
+      <div class="meta">
+        <strong>Hello Gorgeous Med Spa</strong><br>
+        74 W Washington St, Oswego, IL 60543<br>
+        (630) 636-6193 · hellogorgeousmedspa.com<br>
+        Ryan Kent, FNP-BC · Medical oversight
+      </div>
+      <div class="badge">Page 4<br>Consent</div>
+    </div>
+    <h2>A. General treatment consent</h2>
+    <p>I authorize Hello Gorgeous Med Spa and Ryan Kent, FNP-BC (and covering licensed providers) to evaluate me for medical weight loss and to prescribe/dispense medication when appropriate. <b>No specific weight-loss result is guaranteed.</b></p>
+    <h2>B. HIPAA</h2>
+    <p>I acknowledge use/disclosure of my health information for treatment, payment, and operations as allowed by HIPAA.</p>
+    <h2>C. Medical weight loss / GLP-1 informed consent</h2>
+    <div class="box warn">
+      <p style="margin-bottom:4px;"><b>May include:</b> Semaglutide (Ozempic®/Wegovy®), Tirzepatide (Mounjaro®/Zepbound®), Retatrutide, compounded equivalents when prescribed.</p>
+      <ul class="compact">
+        <li>Works by reducing appetite, slowing stomach emptying, and affecting blood sugar.</li>
+        <li><b>Common:</b> nausea, vomiting, diarrhea, constipation, stomach pain, decreased appetite.</li>
+        <li><b>Serious (less common):</b> pancreatitis, gallbladder problems, kidney issues, allergic reaction, thyroid tumors (boxed warning — animal studies).</li>
+        <li><b>Do not use</b> with personal/family MTC or MEN 2; or if pregnant, breastfeeding, or trying to conceive without clearance.</li>
+        <li>Compounded products are <b>not FDA-approved</b> for all described uses; off-label use may apply.</li>
+        <li>Weekly injection · titration · follow-ups required · report severe symptoms immediately.</li>
+        <li>Weight may return if medication is stopped.</li>
+      </ul>
+    </div>
+    <h2>D. Photos</h2>
+    <div class="checks" style="flex-direction:column;align-items:flex-start;gap:4px;">
+      <label>☐ Chart photos only</label><label>☐ Anonymous marketing OK</label><label>☐ Decline all photos</label>
+    </div>
+    <h2>E. Charge = volume</h2>
+    <p>I understand today’s charge must match the service and medication volume dispensed. Mid-visit upgrades are recharged before I leave.</p>
+    <div class="checks" style="flex-direction:column;align-items:flex-start;gap:4px;margin-top:8px;">
+      <label>☐ I read and understand this consent</label>
+      <label>☐ I had a chance to ask questions</label>
+      <label>☐ I sign voluntarily</label>
+    </div>
+    
+    <div class="sig">
+      <div class="s"><label>Patient signature</label><div class="date">Date _______________</div></div>
+      <div class="s"><label>Provider / staff witness</label><div class="date">Date _______________</div></div>
+    </div>
+    <div class="foot"><span>Hello Gorgeous Med Spa · Weight Loss Packet · Consents</span><span>Page 4 of 6</span></div>
+  </article>
+
+  <article class="page">
+    
+    <div class="brand">
+      <div>
+        <h1>GLP-1 Treatment / Visit Sheet</h1>
+        <div class="sub">Provider completes · file in chart</div>
+      </div>
+      <div class="meta">
+        <strong>Hello Gorgeous Med Spa</strong><br>
+        74 W Washington St, Oswego, IL 60543<br>
+        (630) 636-6193 · hellogorgeousmedspa.com<br>
+        Ryan Kent, FNP-BC · Medical oversight
+      </div>
+      <div class="badge">Page 5<br>Clinical</div>
+    </div>
+    <div class="grid3">
+      <div class="field"><label>Date</label><div class="line"></div></div>
+      <div class="field"><label>Patient</label><div class="line"></div></div>
+      <div class="field"><label>DOB / weight / BP</label><div class="line"></div></div>
+    </div>
+    <div class="checks" style="margin:6px 0;">
+      <label>☐ History reviewed</label><label>☐ Allergies reviewed</label><label>☐ Consents signed</label>
+      <label>☐ MTC/MEN2 screened</label><label>☐ Pregnancy addressed</label><label>☐ Pancreatitis/gallbladder screened</label>
+    </div>
+    <h2>Subjective</h2><div class="area"></div>
+    <h2>Assessment / plan (med, start dose, titration)</h2><div class="area tall"></div>
+    <h2>Dispensed today</h2>
+    <table class="form">
+      <thead><tr><th>Med</th><th>Dose / week</th><th>Volume / qty</th><th>Lot / BUD</th><th>Square service charged</th></tr></thead>
+      <tbody>
+        <tr><td style="height:28px;"></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td style="height:28px;"></td><td></td><td></td><td></td><td></td></tr>
+      </tbody>
+    </table>
+    <div class="box warn">
+      <b>Charge = dispense</b>
+      <div class="checks" style="margin-top:4px;">
+        <label>☐ Matches booked service</label>
+        <label>☐ Not $299 maintenance if 5–10 ml / high volume</label>
+        <label>☐ Syringes/vials labeled before leave</label>
+      </div>
+    </div>
+    <div class="grid2">
+      <div class="field"><label>Pharmacy path</label><div class="checks"><label>☐ Ship</label><label>☐ Pickup</label><label>☐ Retail</label><label>☐ In-clinic</label></div></div>
+      <div class="field"><label>Next follow-up / refill</label><div class="line"></div></div>
+    </div>
+    
+    <div class="sig">
+      <div class="s"><label>Provider signature</label><div class="date">Date _______________</div></div>
+      <div class="s"><label>Front desk charge confirmed</label><div class="date">Date _______________</div></div>
+    </div>
+    <div class="foot"><span>Hello Gorgeous Med Spa · Weight Loss Packet · Treatment</span><span>Page 5 of 6</span></div>
+  </article>
+
+  <article class="page">
+    <div class="keep">
+      <h1>Your GLP-1 Before &amp; After Guide</h1>
+      <div class="sub">Keep this page · (630) 636-6193 · Oswego, IL</div>
+    </div>
+    <div class="ba-grid">
+      <div class="ba-card">
+        <h3>Before each weekly dose</h3>
+        <ul class="compact">
+          <li>Confirm the exact dose on your plan</li>
+          <li>Lighter meal if nausea-prone</li>
+          <li>Alcohol swab · clean hands</li>
+          <li>Rotate sites (belly / thigh / arm)</li>
+        </ul>
+        <div class="photo-box">Baseline photo (optional)</div>
+      </div>
+      <div class="ba-card">
+        <h3>After each weekly dose</h3>
+        <ul class="compact">
+          <li>Protein + water + strength work</li>
+          <li>Refrigerate medication as instructed</li>
+          <li>Note side effects for follow-up</li>
+          <li>Never increase dose on your own</li>
+        </ul>
+        <div class="photo-box">Progress photo (optional)</div>
+      </div>
+    </div>
+    <div class="box warn">
+      <b>Call now for:</b> severe abdominal pain · persistent vomiting · can’t keep fluids down · allergic reaction · anything that scares you.
+    </div>
+    <table class="form">
+      <tr><th style="width:32%">Medication</th><td></td></tr>
+      <tr><th>Weekly dose</th><td></td></tr>
+      <tr><th>Next refill / visit</th><td></td></tr>
+      <tr><th>Pharmacy path</th><td>☐ Ship &nbsp; ☐ Pickup &nbsp; ☐ Retail</td></tr>
+    </table>
+    <div class="box rose"><b>Honest expectations:</b> GLP-1s can quiet food noise and support steady progress. They do not guarantee a number on the scale and work best with nutrition + muscle preservation.</div>
+    <div class="foot"><span>Hello Gorgeous Med Spa · Weight Loss Packet · Patient keep</span><span>Page 6 of 6</span></div>
+  </article>
+  
+</body>
+</html>
