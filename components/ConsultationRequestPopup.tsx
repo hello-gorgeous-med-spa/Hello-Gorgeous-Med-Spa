@@ -23,6 +23,16 @@ const AREA_OPTIONS = [
   { value: "exploring", label: "Just exploring" },
 ];
 
+/**
+ * The RE GEN store's own primary action is "Start intake" — a modal asking for a
+ * booking instead competes with it, so this popup stays off the shop hub only.
+ */
+const BLOCKED_PATHS = ["/rx"];
+
+function normalizePath(path: string) {
+  return path.length > 1 ? path.replace(/\/+$/, "") : path;
+}
+
 function shouldShow(): boolean {
   if (typeof window === "undefined") return false;
   try {
@@ -59,7 +69,7 @@ export function ConsultationRequestPopup() {
 
   useEffect(() => {
     if (!mounted || typeof window === "undefined") return;
-    const path = window.location.pathname || "";
+    const path = normalizePath(window.location.pathname || "");
     if (
       path.startsWith("/admin") ||
       path.startsWith("/portal") ||
@@ -70,6 +80,7 @@ export function ConsultationRequestPopup() {
     ) {
       return;
     }
+    if (BLOCKED_PATHS.includes(path)) return;
     if (!shouldShow()) return;
 
     let shown = false;

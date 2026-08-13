@@ -170,49 +170,60 @@ export default function RxShopPage() {
         <RegenCatalogClient />
       </Suspense>
 
-      {/* Crawlable SSR copy for bots — visually tucked so the client shop stays the presentation surface */}
-      <section className="border-t border-white/10 bg-[#0a0a0a] px-6 py-10 text-white/55">
-        <div className="mx-auto max-w-3xl text-sm leading-relaxed">
-          <h2 className="text-base font-semibold text-white/70">About Hello Gorgeous RX / RE GEN</h2>
-          <p className="mt-3">{HG_ABOUT_EXTRACT}</p>
-          <p className="mt-3">{RX_DESCRIPTION}</p>
-          <h2 className="mt-8 text-base font-semibold text-white/70">RE GEN FAQ</h2>
-          <dl className="mt-4 space-y-4">
+      {/*
+        Crawlable copy for bots and screen readers. This repeats the on-page FAQ
+        accordion, so it is sr-only rather than rendered — the text stays in the DOM
+        (no display:none) and the FAQPage JSON-LD above is unchanged.
+      */}
+      <section className="sr-only" aria-label="About Hello Gorgeous RX and frequently asked questions">
+        <div>
+          <h2>About Hello Gorgeous RX / RE GEN</h2>
+          <p>{HG_ABOUT_EXTRACT}</p>
+          <p>{RX_DESCRIPTION}</p>
+          <h2>RE GEN FAQ</h2>
+          <dl>
             {REGEN_FAQS.map((f) => (
               <div key={f.question}>
-                <dt className="font-medium text-white/80">{f.question}</dt>
-                <dd className="mt-1">{f.answer}</dd>
+                <dt>{f.question}</dt>
+                <dd>{f.answer}</dd>
               </div>
             ))}
           </dl>
-          <ul className="mt-8 flex flex-wrap gap-x-4 gap-y-2 text-xs text-white/45">
-            {SHOP_GOALS.map((goalId) => (
-              <li key={goalId}>
-                <Link href={`/rx?goal=${goalSlug(goalId)}`} className="underline hover:text-[#FF2D8E]">
-                  Shop {goalId}
-                </Link>
-              </li>
-            ))}
-            {REGEN_CATEGORY_HUBS.map((hub) => (
-              <li key={hub.id}>
-                <Link href={hub.hubPath} className="underline hover:text-[#FF2D8E]">
-                  {hub.navLabel}
-                </Link>
-              </li>
-            ))}
-            <li>
-              <Link href="/rx/request" className="underline hover:text-[#FF2D8E]">
-                Start RE GEN intake
-              </Link>
-            </li>
-            <li>
-              <Link href="/book" className="underline hover:text-[#FF2D8E]">
-                Book an in-person consult
-              </Link>
-            </li>
-          </ul>
         </div>
       </section>
+
+      {/* Goal and category links stay visible in the footer to keep internal crawl depth. */}
+      <nav
+        aria-label="RE GEN goals and categories"
+        className="border-t border-black/10 bg-white px-6 py-8"
+      >
+        <ul className="mx-auto flex max-w-[1200px] flex-wrap gap-x-4 gap-y-2 text-xs font-medium text-black/50">
+          {SHOP_GOALS.map((goalId) => (
+            <li key={goalId}>
+              <Link href={`/rx?goal=${goalSlug(goalId)}`} className="hover:text-[#E6007E] hover:underline">
+                Shop {goalId}
+              </Link>
+            </li>
+          ))}
+          {REGEN_CATEGORY_HUBS.map((hub) => (
+            <li key={hub.id}>
+              <Link href={hub.hubPath} className="hover:text-[#E6007E] hover:underline">
+                {hub.navLabel}
+              </Link>
+            </li>
+          ))}
+          <li>
+            <Link href="/rx/request" className="hover:text-[#E6007E] hover:underline">
+              Start RE GEN intake
+            </Link>
+          </li>
+          <li>
+            <Link href="/book" className="hover:text-[#E6007E] hover:underline">
+              Book an in-person consult
+            </Link>
+          </li>
+        </ul>
+      </nav>
     </>
   );
 }

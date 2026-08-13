@@ -92,9 +92,15 @@ function heroProduct(goal: CatalogGoalId, drugKey: string): CatalogProduct | nul
 
 type Props = {
   onSelectGoal: (goal: string) => void;
+  /**
+   * Staff portals list how many SKUs sit behind each goal so they can ring up in
+   * clinic. The client shop hides the number — "Shop 71 options" is the thing that
+   * makes the storefront feel like a warehouse.
+   */
+  showCounts?: boolean;
 };
 
-export function RegenGoalTheater({ onSelectGoal }: Props) {
+export function RegenGoalTheater({ onSelectGoal, showCounts = true }: Props) {
   const counts = useMemo(() => goalCounts(CATALOG_PRODUCTS), []);
 
   return (
@@ -243,7 +249,7 @@ export function RegenGoalTheater({ onSelectGoal }: Props) {
                     {meta?.blurb}
                   </p>
                   <p className="mt-3 text-sm font-black text-white">
-                    Shop {count} options{" "}
+                    {showCounts ? `Shop ${count} options` : "Shop"}{" "}
                     <span className="inline-block text-[#FF2D8E] transition group-hover:translate-x-1" aria-hidden>
                       →
                     </span>

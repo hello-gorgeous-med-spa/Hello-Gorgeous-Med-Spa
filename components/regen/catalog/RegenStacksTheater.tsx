@@ -169,20 +169,27 @@ export function RegenStacksTheater({ bundles }: Props) {
                   </h3>
                   <p className="mt-2 text-sm font-medium leading-relaxed text-white/70">{b.blurb}</p>
 
-                  <ul className="mt-4 space-y-1.5 border-t border-white/10 pt-3">
-                    {b.items.map((item) => (
-                      <li
-                        key={item.name}
-                        className="flex items-center justify-between gap-3 text-sm font-medium text-white/80"
-                      >
-                        <span className="truncate">
-                          <span className="mr-2 text-[#FF2D8E]">✦</span>
-                          {item.name}
-                        </span>
-                        <span className="shrink-0 font-semibold text-white/55">{item.price}</span>
-                      </li>
-                    ))}
-                  </ul>
+                  {/*
+                    Staff ring up stacks in clinic and need the per-item breakdown.
+                    Clients get one name, one starting price, one button — the itemized
+                    list re-introduced the per-ingredient pricing we removed elsewhere.
+                  */}
+                  {b.consultHref ? null : (
+                    <ul className="mt-4 space-y-1.5 border-t border-white/10 pt-3">
+                      {b.items.map((item) => (
+                        <li
+                          key={item.name}
+                          className="flex items-center justify-between gap-3 text-sm font-medium text-white/80"
+                        >
+                          <span className="truncate">
+                            <span className="mr-2 text-[#FF2D8E]">✦</span>
+                            {item.name}
+                          </span>
+                          <span className="shrink-0 font-semibold text-white/55">{item.price}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
 
                   <div className="mt-auto flex flex-wrap items-end justify-between gap-3 pt-5">
                     <div>
@@ -195,7 +202,7 @@ export function RegenStacksTheater({ bundles }: Props) {
                           color: "transparent",
                         }}
                       >
-                        {b.price}
+                        {b.consultHref ? `From ${b.price}` : b.price}
                       </p>
                       <p className="text-[11px] font-semibold uppercase tracking-wider text-white/45">
                         {b.consultHref ? "Stack · starting price · dose set at consult" : "Stack · list price · 30-day"}

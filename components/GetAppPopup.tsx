@@ -27,6 +27,13 @@ const BLOCKED_PREFIXES = [
   "/app",
 ];
 
+/** The RE GEN store already drives one action (Start intake) — don't stack a modal on it. */
+const BLOCKED_PATHS = ["/rx"];
+
+function normalizePath(path: string) {
+  return path.length > 1 ? path.replace(/\/+$/, "") : path;
+}
+
 function shouldShow(): boolean {
   if (typeof window === "undefined") return false;
   try {
@@ -57,8 +64,9 @@ export function GetAppPopup() {
 
   useEffect(() => {
     if (!mounted || typeof window === "undefined") return;
-    const path = window.location.pathname || "";
+    const path = normalizePath(window.location.pathname || "");
     if (BLOCKED_PREFIXES.some((p) => path.startsWith(p))) return;
+    if (BLOCKED_PATHS.includes(path)) return;
     if (!shouldShow()) return;
 
     let shown = false;

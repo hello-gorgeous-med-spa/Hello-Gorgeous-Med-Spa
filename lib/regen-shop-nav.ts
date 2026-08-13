@@ -28,6 +28,18 @@ export const REGEN_SHOP_NAV: RegenNavItem[] = [
   { href: "/rx?browse=all", label: "All products" },
 ];
 
+/**
+ * Client storefront nav. The long version above is a symptom of a 15-screen page —
+ * the shop only needs the goal grid, the process, the FAQ, and the full catalog.
+ * Every href here must resolve to a section the client shop still renders.
+ */
+export const REGEN_SHOP_NAV_CLIENT: RegenNavItem[] = [
+  { href: "#shop-by-goal", label: "Goals" },
+  { href: "#how-it-works", label: "How it works" },
+  { href: "#faq", label: "FAQ" },
+  { href: "/rx?browse=all", label: "All products" },
+];
+
 export const REGEN_SHOP_BOOK_HREF = BOOKING_URL;
 
 export const REGEN_SHOP_FAQS = [

@@ -44,7 +44,11 @@ import { RxScienceHomeHero } from "@/components/rx/RxScienceHomeHero";
 import { JourneySectionHead } from "@/components/marketing/JourneyPageUi";
 import { REGEN_SHOP_PAGE_WASH } from "@/lib/regen/shop-surface";
 import { goalFromStorefrontCat } from "@/lib/regen/storefront-deep-link";
-import { REGEN_SHOP_FAQS } from "@/lib/regen-shop-nav";
+import {
+  REGEN_SHOP_FAQS,
+  REGEN_SHOP_NAV,
+  REGEN_SHOP_NAV_CLIENT,
+} from "@/lib/regen-shop-nav";
 import { RxPatientJourneyBand } from "@/components/rx/RxPatientJourneyBand";
 
 const SECTION_SCROLL = "scroll-mt-[148px]";
@@ -209,6 +213,9 @@ export function RegenCatalogPortal({
     [],
   );
 
+  /** Clients see a short "here's something to click" row; staff keep the full set. */
+  const popularProducts = isPublicShop ? bestSellers.slice(0, 3) : bestSellers;
+
   const bundles = useMemo(
     () =>
       CATALOG_BUNDLES.map((b) => {
@@ -295,6 +302,7 @@ export function RegenCatalogPortal({
     >
       <RegenShopStickyNav
         basePath={basePath}
+        items={isPublicShop ? REGEN_SHOP_NAV_CLIENT : REGEN_SHOP_NAV}
         onGoHome={() => {
           if (view === "home") {
             window.scrollTo({ top: 0, behavior: "smooth" });
@@ -309,13 +317,19 @@ export function RegenCatalogPortal({
       {view === "home" ? (
         <>
           <div id="top" className={SECTION_SCROLL}>
-            <RxScienceHomeHero onExploreGoals={scrollToShopByGoal} />
+            <RxScienceHomeHero
+              onExploreGoals={scrollToShopByGoal}
+              showExtraEntryPoints={!isPublicShop}
+            />
           </div>
 
           <RxFindYourPeptideCta />
 
           {/* Shop first — goals, popular, stacks — then educate */}
-          <RegenGoalTheater onSelectGoal={(goal) => navigate({ goal })} />
+          <RegenGoalTheater
+            onSelectGoal={(goal) => navigate({ goal })}
+            showCounts={!isPublicShop}
+          />
 
           <section id="popular" className={`${SECTION_SCROLL} bg-transparent px-6 py-16 lg:py-20`}>
             <div className="mx-auto max-w-[1200px]">
@@ -337,7 +351,7 @@ export function RegenCatalogPortal({
                 </button>
               </div>
               <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                {bestSellers.map((p) => (
+                {popularProducts.map((p) => (
                   <ProductCard
                     key={p.id}
                     product={p}
@@ -354,13 +368,20 @@ export function RegenCatalogPortal({
           <RegenHowItWorksTheater
             onStartShopping={scrollToShopByGoal}
             onShopWeightLoss={() => navigate({ goal: "Lose Weight" })}
+            consultFlow={isPublicShop}
           />
 
-          <div className={SECTION_SCROLL}>
-            <RxPatientJourneyBand surface="rose" />
-          </div>
+          {/*
+            The journey band restates the four steps above it as five. Clients get one
+            explanation; staff keep both until the lean staff view is signed off.
+          */}
+          {isPublicShop ? null : (
+            <div className={SECTION_SCROLL}>
+              <RxPatientJourneyBand surface="rose" />
+            </div>
+          )}
 
-          <RegenScienceTheater onShopGoals={scrollToShopByGoal} />
+          <RegenScienceTheater onShopGoals={scrollToShopByGoal} compact={isPublicShop} />
 
           {/* FAQ */}
           <section id="faq" className={`${SECTION_SCROLL} bg-transparent px-6 py-16 lg:py-24`}>
@@ -508,6 +529,12 @@ export function RegenCatalogPortal({
             <Link href="/book" className="font-semibold text-[#E6007E] hover:underline">
               Book in-spa
             </Link>
+            {/* Carried over from the journey band so returning patients keep a refill path. */}
+            {isPublicShop ? (
+              <Link href="/rx/care" className="font-semibold text-[#E6007E] hover:underline">
+                Returning patient? Refills
+              </Link>
+            ) : null}
           </div>
         </div>
       </footer>

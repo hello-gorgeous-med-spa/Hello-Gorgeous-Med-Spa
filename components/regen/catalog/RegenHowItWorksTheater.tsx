@@ -12,9 +12,18 @@ type Props = {
   onStartShopping?: () => void;
   /** Deep-link to Lose Weight / tirzepatide goal */
   onShopWeightLoss?: () => void;
+  /**
+   * Clients never reach a checkout and are pointed at one entry point, not three.
+   * Staff portals still ring up in clinic, so their copy is unchanged.
+   */
+  consultFlow?: boolean;
 };
 
-export function RegenHowItWorksTheater({ onStartShopping, onShopWeightLoss }: Props) {
+export function RegenHowItWorksTheater({
+  onStartShopping,
+  onShopWeightLoss,
+  consultFlow = false,
+}: Props) {
   const fromPrice = useMemo(() => {
     const p = findProductByDrugKey("tirzepatide");
     if (!p) return null;
@@ -26,9 +35,13 @@ export function RegenHowItWorksTheater({ onStartShopping, onShopWeightLoss }: Pr
     {
       n: "01",
       title: "Choose your protocol",
-      sell: fromPrice
-        ? `Browse goals, protocols, or curated bundles. Weight-loss protocols start ${fromPrice} / 30 days.`
-        : "Browse goals, protocols, or curated bundles, then start intake on the one you want.",
+      sell: consultFlow
+        ? fromPrice
+          ? `Pick the protocol you want, then start intake. Weight-loss protocols start ${fromPrice} / 30 days.`
+          : "Pick the protocol you want, then start intake."
+        : fromPrice
+          ? `Browse goals, protocols, or curated bundles. Weight-loss protocols start ${fromPrice} / 30 days.`
+          : "Browse goals, protocols, or curated bundles, then start intake on the one you want.",
       trust: "No purchase before your consult",
       image: "/images/regen/brand/steps/01-shop.jpg",
       imageAlt: "Hands holding a RE GEN peptide vial — choose your protocol",
@@ -103,8 +116,9 @@ export function RegenHowItWorksTheater({ onStartShopping, onShopWeightLoss }: Pr
             daily
           </p>
           <p className="mt-2 text-base font-medium leading-relaxed text-black/65">
-            Desire first. Clinical review always. No mystery about what happens after you tap
-            checkout.
+            {consultFlow
+              ? "Desire first. Clinical review always. No mystery about what happens after you start intake."
+              : "Desire first. Clinical review always. No mystery about what happens after you tap checkout."}
           </p>
         </div>
 

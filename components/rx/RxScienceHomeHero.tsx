@@ -17,9 +17,18 @@ import { PEPTIDE_SCIENCE_VIDEOS } from "@/lib/peptide-topic-media";
 
 type RxScienceHomeHeroProps = {
   onExploreGoals: () => void;
+  /**
+   * The client shop keeps one primary action plus one secondary. The peptide finder
+   * and peptides-101 guide already have their own placements further down, so the
+   * hero does not repeat them.
+   */
+  showExtraEntryPoints?: boolean;
 };
 
-export function RxScienceHomeHero({ onExploreGoals }: RxScienceHomeHeroProps) {
+export function RxScienceHomeHero({
+  onExploreGoals,
+  showExtraEntryPoints = true,
+}: RxScienceHomeHeroProps) {
   return (
     <>
       <header className={JOURNEY_HERO_BG}>
@@ -45,9 +54,11 @@ export function RxScienceHomeHero({ onExploreGoals }: RxScienceHomeHeroProps) {
             </p>
             <div className="mt-8 flex flex-wrap gap-4">
               <JourneyPinkBtn onClick={onExploreGoals}>Shop the catalog ↓</JourneyPinkBtn>
-              <JourneyGhostBtn href="/skin-101/find-your-peptide">
-                Which peptide is right for you?
-              </JourneyGhostBtn>
+              {showExtraEntryPoints ? (
+                <JourneyGhostBtn href="/skin-101/find-your-peptide">
+                  Which peptide is right for you?
+                </JourneyGhostBtn>
+              ) : null}
               <JourneyGhostBtn href={BOOKING_URL}>Book free consult</JourneyGhostBtn>
             </div>
             <div className="mt-6 flex flex-wrap gap-2.5">
@@ -55,14 +66,16 @@ export function RxScienceHomeHero({ onExploreGoals }: RxScienceHomeHeroProps) {
                 <JourneyChip key={chip}>{chip}</JourneyChip>
               ))}
             </div>
-            <p className="mt-6">
-              <Link
-                href="/peptides/peptides-101"
-                className="text-sm font-bold text-[#FF2D8E] underline decoration-[#FF2D8E]/40 underline-offset-4 hover:text-white"
-              >
-                What are peptides? Read the guide →
-              </Link>
-            </p>
+            {showExtraEntryPoints ? (
+              <p className="mt-6">
+                <Link
+                  href="/peptides/peptides-101"
+                  className="text-sm font-bold text-[#FF2D8E] underline decoration-[#FF2D8E]/40 underline-offset-4 hover:text-white"
+                >
+                  What are peptides? Read the guide →
+                </Link>
+              </p>
+            ) : null}
           </div>
           <JourneyVideoFrame
             src={PEPTIDE_SCIENCE_VIDEOS.rxHero}

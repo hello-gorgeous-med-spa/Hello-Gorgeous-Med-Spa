@@ -13,6 +13,8 @@ type Props = {
   showSearch?: boolean;
   searchValue?: string;
   onSearchChange?: (value: string) => void;
+  /** Defaults to the full staff nav; the client shop passes a trimmed list. */
+  items?: RegenNavItem[];
 };
 
 function navHref(href: string, basePath: string) {
@@ -94,6 +96,7 @@ export function RegenShopStickyNav({
   showSearch = true,
   searchValue = "",
   onSearchChange,
+  items = REGEN_SHOP_NAV,
 }: Props) {
   const [navOpen, setNavOpen] = useState(false);
   // Clients request a consult instead of checking out; only staff portals ring up sales.
@@ -130,7 +133,7 @@ export function RegenShopStickyNav({
         </button>
 
         <div className="hidden items-center gap-6 text-[14px] lg:flex">
-          {REGEN_SHOP_NAV.map((item) => {
+          {items.map((item) => {
             if (item.dropdown) {
               return (
                 <NavDropdown key={item.label} item={item} basePath={basePath} />
@@ -200,7 +203,7 @@ export function RegenShopStickyNav({
       {navOpen ? (
         <div className="border-t border-black/10 px-6 py-4 lg:hidden">
           <div className="flex flex-col gap-3">
-            {REGEN_SHOP_NAV.map((item) => {
+            {items.map((item) => {
               if (item.dropdown) {
                 return (
                   <div key={item.label} className="flex flex-col gap-1">
