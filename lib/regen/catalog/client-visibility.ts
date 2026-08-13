@@ -21,12 +21,24 @@ import { PRODUCTS } from "./catalog-data";
 import { SHOP_GOALS, SHOP_GOAL_HERO_DRUG_KEYS } from "./helpers";
 import type { CatalogProduct } from "./types";
 
+/** Goals kept whole for clients. */
+const CLIENT_VISIBLE_GOALS = new Set(["Lose Weight", "Hormones"]);
+
 /**
- * Goals kept whole for clients. Supplies rides along because syringes, needles, and
- * bacteriostatic water are consumables for the injectables above — they are not a goal
- * card, they only surface in search, the full-catalog browse, and the GLP-1 stack.
+ * Consumables that ride along with an injectable — syringes, needles, luer locks,
+ * bacteriostatic water, Topi-Click. They belong to a protocol rather than to a
+ * shopper: a product card reading "Bacteriostatic Water · dose set at consult" is
+ * nonsense, and a $1 needle tip next to a $235 GLP-1 makes the shop look like a
+ * supply closet. Hidden from the client shop, still allowed inside a stack (the
+ * GLP-1 Kickstart kit legitimately includes a month of supplies) and still fully
+ * sellable by staff.
  */
-const CLIENT_VISIBLE_GOALS = new Set(["Lose Weight", "Hormones", "Supplies"]);
+const KIT_COMPONENT_GOALS = new Set(["Supplies"]);
+
+/** True for a consumable that ships with a protocol instead of being shopped for. */
+export function isKitComponentProduct(product: CatalogProduct): boolean {
+  return KIT_COMPONENT_GOALS.has(product.goal);
+}
 
 /**
  * Removed from every client surface earlier: investigational and not FDA-approved.

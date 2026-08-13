@@ -21,6 +21,7 @@ import {
   goalFromSlug,
   goalSlug,
   isClientVisibleProduct,
+  isKitComponentProduct,
   price30,
   sortCatalogProducts,
   type CatalogPriceFilter,
@@ -255,11 +256,14 @@ export function RegenCatalogPortal({
         /**
          * A stack is only offered to clients when every product in it is still on the
          * client shop — otherwise the card would quote a protocol the shopper cannot
-         * open. Staff keep all seven.
+         * open. Kit consumables are exempt: they are part of the protocol rather than
+         * something the shopper browses to, so the GLP-1 Kickstart still offers its
+         * month of supplies. Staff keep all seven.
          */
         const clientVisible = b.pick.every((pk) => {
           const p = findProductByDrugKey(pk[0]);
-          return !!p && isClientVisibleProduct(p);
+          if (!p) return false;
+          return isKitComponentProduct(p) || isClientVisibleProduct(p);
         });
 
         return {
