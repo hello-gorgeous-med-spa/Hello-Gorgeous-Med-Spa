@@ -34,6 +34,20 @@ const CLIENT_VISIBLE_GOALS = new Set(["Lose Weight", "Hormones", "Supplies"]);
  */
 const NEVER_CLIENT_VISIBLE = /retatrutide/i;
 
+/**
+ * Injectable wellness vitamins that stay listed even though they are not on the peptide
+ * sheet: `/rx/wellness` markets them by name, so hiding them would leave the hub
+ * advertising something a client cannot reach. Injectables only — the oral forms of the
+ * same molecule remain staff-only, since the shop sells the shot, not the capsule.
+ */
+const CLIENT_VISIBLE_WELLNESS_DRUG_KEYS = new Set(["b12"]);
+
+function isMarketedWellnessInjectable(product: CatalogProduct): boolean {
+  return (
+    product.form === "Injectable" && CLIENT_VISIBLE_WELLNESS_DRUG_KEYS.has(product.drugKey)
+  );
+}
+
 /** True when this SKU is one of the peptides on the BoomRx sheet. */
 export function isBoomRxSheetProduct(product: CatalogProduct): boolean {
   return isOnBoomRxSheet(product.name, { perDoseOnly: product.perUnit });
@@ -42,6 +56,7 @@ export function isBoomRxSheetProduct(product: CatalogProduct): boolean {
 export function isClientVisibleProduct(product: CatalogProduct): boolean {
   if (NEVER_CLIENT_VISIBLE.test(product.name)) return false;
   if (CLIENT_VISIBLE_GOALS.has(product.goal)) return true;
+  if (isMarketedWellnessInjectable(product)) return true;
   return isBoomRxSheetProduct(product);
 }
 
