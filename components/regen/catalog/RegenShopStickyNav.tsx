@@ -96,6 +96,8 @@ export function RegenShopStickyNav({
   onSearchChange,
 }: Props) {
   const [navOpen, setNavOpen] = useState(false);
+  // Clients request a consult instead of checking out; only staff portals ring up sales.
+  const showCart = basePath !== "/rx";
 
   return (
     <nav className="sticky top-0 z-40 border-b border-black/10 bg-white/90 backdrop-blur-md">
@@ -159,11 +161,11 @@ export function RegenShopStickyNav({
           >
             Book Now
           </Link>
-          <CatalogCartButton />
+          {showCart ? <CatalogCartButton /> : null}
         </div>
 
         <div className="flex items-center gap-2 lg:hidden">
-          <CatalogCartButton />
+          {showCart ? <CatalogCartButton /> : null}
         </div>
       </div>
 

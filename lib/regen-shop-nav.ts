@@ -25,7 +25,7 @@ export const REGEN_SHOP_NAV: RegenNavItem[] = [
   { href: "#how-it-works", label: "How it works" },
   { href: "#science", label: "Science", dropdown: REGEN_SCIENCE_DROPDOWN },
   { href: "#faq", label: "FAQ" },
-  { href: "/rx/request", label: "Start intake" },
+  { href: "/rx?browse=all", label: "All products" },
 ];
 
 export const REGEN_SHOP_BOOK_HREF = BOOKING_URL;
@@ -33,7 +33,7 @@ export const REGEN_SHOP_BOOK_HREF = BOOKING_URL;
 export const REGEN_SHOP_FAQS = [
   {
     q: "What is RE GEN by Hello Gorgeous Med Spa?",
-    a: "RE GEN is the telehealth and prescription arm of Hello Gorgeous Med Spa in Oswego, Illinois. Shop by goal — GLP-1 weight loss, peptides, hormones, sexual health, and more — with plans reviewed by Ryan Kent, FNP-BC and eligible medications shipped to your home.",
+    a: "RE GEN is the telehealth and prescription arm of Hello Gorgeous Med Spa in Oswego, Illinois. Browse by goal — GLP-1 weight loss, peptides, hormones, sexual health, and more — then request a consult. Every plan is set by Ryan Kent, FNP-BC before anything is dispensed; nothing here is sold over the counter.",
   },
   {
     q: "Which peptide is right for me?",
@@ -45,7 +45,7 @@ export const REGEN_SHOP_FAQS = [
   },
   {
     q: "How does RE GEN work?",
-    a: "Browse by goal (or take the peptide finder first), add items to cart, complete checkout, then finish your health intake. An NP reviews your information (with telehealth when required) before pharmacy fulfillment. Shipping is a flat $30 per order.",
+    a: "Browse by goal (or take the peptide finder first), then start intake on the protocol you want — free to submit. A $49 consult fee reserves your visit with Ryan Kent, FNP-BC. He reviews your history, sets your protocol, and only then are you invoiced for the medication — which you can pick up in Oswego or have shipped for a flat $30.",
   },
   {
     q: "Where is RE GEN available?",

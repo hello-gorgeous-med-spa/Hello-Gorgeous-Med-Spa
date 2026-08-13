@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 
 import { productImage } from "@/lib/regen/catalog";
 import { CATALOG_BUNDLES } from "@/lib/regen/catalog/bundles";
@@ -20,6 +21,8 @@ export type RegenStackCard = {
   total: string;
   save: string;
   add: () => void;
+  /** Client storefront: request the stack at consult instead of adding it to a cart. */
+  consultHref?: string;
 };
 
 type Props = {
@@ -63,11 +66,11 @@ export function RegenStacksTheater({ bundles }: Props) {
               color: "transparent",
             }}
           >
-            Protocol packs · One-tap cart
+            Protocol packs · NP reviewed
           </p>
           <p className="mt-3 text-base font-medium leading-relaxed text-black/65">
-            Curated combinations providers love — add the full stack in one tap. List pricing shown;
-            NP review applies to every item.
+            Curated combinations providers love. Starting pricing shown — your NP confirms the
+            stack and the final price at your consult.
           </p>
         </div>
 
@@ -195,16 +198,25 @@ export function RegenStacksTheater({ bundles }: Props) {
                         {b.price}
                       </p>
                       <p className="text-[11px] font-semibold uppercase tracking-wider text-white/45">
-                        Stack · list price · 30-day
+                        {b.consultHref ? "Stack · starting price · 30-day" : "Stack · list price · 30-day"}
                       </p>
                     </div>
-                    <button
-                      type="button"
-                      onClick={b.add}
-                      className="rounded-xl bg-gradient-to-r from-[#FF2D8E] to-[#E6007E] px-5 py-3 text-sm font-black text-white shadow-[0_0_24px_rgba(255,45,142,0.4)] transition hover:brightness-110 active:translate-y-px"
-                    >
-                      Add stack to cart
-                    </button>
+                    {b.consultHref ? (
+                      <Link
+                        href={b.consultHref}
+                        className="rounded-xl bg-gradient-to-r from-[#FF2D8E] to-[#E6007E] px-5 py-3 text-sm font-black text-white shadow-[0_0_24px_rgba(255,45,142,0.4)] transition hover:brightness-110 active:translate-y-px"
+                      >
+                        Start intake →
+                      </Link>
+                    ) : (
+                      <button
+                        type="button"
+                        onClick={b.add}
+                        className="rounded-xl bg-gradient-to-r from-[#FF2D8E] to-[#E6007E] px-5 py-3 text-sm font-black text-white shadow-[0_0_24px_rgba(255,45,142,0.4)] transition hover:brightness-110 active:translate-y-px"
+                      >
+                        Add stack to cart
+                      </button>
+                    )}
                   </div>
                 </div>
               </article>

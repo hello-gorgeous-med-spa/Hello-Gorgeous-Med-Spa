@@ -7,9 +7,9 @@ export const regenLaunchOswegoPost: BlogPost = {
   metaTitle:
     "RE GEN Online Rx | GLP-1, Peptides, Hormones & Hair Rx | Oswego IL",
   metaDescription:
-    "RE GEN is Hello Gorgeous Med Spa's NP-directed telehealth Rx arm in Oswego, IL — pay first, complete your health intake, book telehealth when needed, and get prescriptions shipped across Illinois.",
+    "RE GEN is Hello Gorgeous Med Spa's NP-directed telehealth Rx arm in Oswego, IL — start a health intake, meet your provider, and pick up or get prescriptions shipped across Illinois after approval.",
   excerpt:
-    "RE GEN brings medical weight loss, peptides, hormones, sexual health, and prescription hair & skin care online — still supervised by Ryan Kent, FNP-BC, still Hello Gorgeous. Here's how pay-first ordering works and where to start.",
+    "RE GEN brings medical weight loss, peptides, hormones, sexual health, and prescription hair & skin care online — still supervised by Ryan Kent, FNP-BC, still Hello Gorgeous. Here's how the consult-first process works and where to start.",
   category: "Hello Gorgeous RX",
   date: "2026-07-02",
   readTime: "8 min",
@@ -29,12 +29,12 @@ export const regenLaunchOswegoPost: BlogPost = {
     {
       question: "What is RE GEN by Hello Gorgeous?",
       answer:
-        "RE GEN is the prescription and telehealth arm of Hello Gorgeous Med Spa in Oswego, Illinois. It offers NP-directed medical weight loss, peptides, hormone therapy, sexual health support, and prescription hair and skin protocols — with online ordering, health intake, telehealth when required, and flat $30 shipping.",
+        "RE GEN is the prescription and telehealth arm of Hello Gorgeous Med Spa in Oswego, Illinois. It offers NP-directed medical weight loss, peptides, hormone therapy, sexual health support, and prescription hair and skin protocols — with online intake, a provider consult, clinic pickup or flat $30 shipping.",
     },
     {
       question: "How does RE GEN ordering work?",
       answer:
-        "You pay first to secure your order, complete a post-payment health intake, book a telehealth visit with Ryan Kent, FNP-BC when required, and your prescription ships only after clinical approval. Nothing is dispensed without NP review.",
+        "You browse protocols and complete a health intake — free to submit. A $49 fee reserves your consult with Ryan Kent, FNP-BC, who reviews your history and sets your protocol. You are invoiced for the medication only after he approves it, then you pick it up in Oswego or have it shipped. Nothing prescription is sold without a consult.",
     },
     {
       question: "Who supervises RE GEN prescriptions?",
@@ -59,18 +59,18 @@ export const regenLaunchOswegoPost: BlogPost = {
 
 For years, clients asked us the same question: *"Can I get my peptide / GLP-1 / hormone refill without driving in every time?"* At the same time, national telehealth brands flooded Illinois with fast prescriptions and little follow-through.
 
-We believed there was a better path — **local NP oversight** with **modern online ordering**. RE GEN is that path: pay-first convenience without giving up the provider relationship that makes Hello Gorgeous different.
+We believed there was a better path — **local NP oversight** with **modern online intake**. RE GEN is that path: online convenience without giving up the provider relationship that makes Hello Gorgeous different.
 
-## How RE GEN works (pay → intake → telehealth → ship)
+## How RE GEN works (intake → consult → approval → filled)
 
 We designed the flow to be clear and medical-grade:
 
-1. **Shop & pay** — Browse categories at **[hellogorgeousmedspa.com/rx](/rx)** and secure your order through our checkout.
-2. **Complete health intake** — After payment, you finish a category-aware health history (allergies, medications, goals, consent).
-3. **Book telehealth when required** — Ryan Kent, FNP-BC reviews your chart and meets you by secure video when your protocol needs it.
-4. **NP approves → pharmacy ships** — Nothing dispatches without sign-off. **Flat $30 shipping** · tracking via email/SMS.
+1. **Browse & start intake** — Read about each protocol at **[hellogorgeousmedspa.com/rx](/rx)** and complete a category-aware health history (allergies, medications, goals, consent). Free to submit.
+2. **Reserve your consult** — A **$49** fee holds your visit with the NP. Medication cost is quoted separately.
+3. **Meet your provider** — Ryan Kent, FNP-BC reviews your chart and meets you by secure video or in Oswego, then sets your protocol and dose.
+4. **Approved → filled** — You're invoiced for the medication only after sign-off. Pick it up in clinic or ship **flat $30** with tracking via email/SMS.
 
-This is intentional. Payment reserves your place in the queue; **clinical approval** is what actually releases your prescription.
+This is intentional. You are never charged for a prescription you haven't been approved for — **clinical approval comes first**.
 
 ## Explore by goal — with Q&A on every category
 

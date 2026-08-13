@@ -16,6 +16,7 @@ import {
 } from "@/lib/hrt-mens-program-pricing";
 import { computeHrtSupplyQuote, type HrtSupplyQuote } from "@/lib/hrt-supply-pricing";
 import { parseRxSupplyCycle, RX_SUPPLY_CYCLES, type RxSupplyCycleId } from "@/lib/rx-supply-cycle";
+import { rxFulfillmentFields } from "@/lib/rx-fulfillment";
 
 export const HRT_REQUEST_INTAKE_SLUG = "hormone-therapy-request";
 
@@ -91,9 +92,10 @@ export const HRT_REQUEST_FIELDS: IntakeFormField[] = [
     type: "select",
     label: "Supply cycle",
     required: true,
-    options: [...RX_SUPPLY_CYCLES["90-day"].label, RX_SUPPLY_CYCLES["30-day"].label],
+    options: [RX_SUPPLY_CYCLES["90-day"].label, RX_SUPPLY_CYCLES["30-day"].label],
     helpText: "90-day supply includes 10% off product and one shipping fee for three months.",
   },
+  ...rxFulfillmentFields({ omitZip: true }),
   {
     id: "consent_payment_telehealth",
     type: "checkbox",

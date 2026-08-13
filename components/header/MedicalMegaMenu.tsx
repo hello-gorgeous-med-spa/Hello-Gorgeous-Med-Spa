@@ -10,6 +10,7 @@ import { SHOP_RX_NAV } from "@/lib/medical-mega-menu";
 import {
   REGEN_CATEGORY_HUBS,
   REGEN_EXPLORE_FOOTER,
+  rxCategoryProductHref,
   type RxCategoryHub,
   type RxCategoryHubId,
 } from "@/lib/rx-category-hubs";
@@ -68,7 +69,7 @@ function PreviewProduct({
 }) {
   return (
     <Link
-      href={product.href}
+      href={rxCategoryProductHref(product)}
       onClick={onClose}
       className="group flex items-center gap-3 rounded-lg border border-neutral-200 bg-white p-3 transition hover:border-neutral-300 hover:shadow-sm"
     >

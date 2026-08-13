@@ -189,7 +189,7 @@ export function notifyStaffRxRefillOverdue(opts: {
   patientPhone: string | null;
   medication: string;
   doseLabel?: string | null;
-  track: "glp1" | "peptide" | "unknown";
+  track: "glp1" | "peptide" | "hrt" | "unknown";
   daysOverdue: number;
   reorderHref: string;
 }): void {

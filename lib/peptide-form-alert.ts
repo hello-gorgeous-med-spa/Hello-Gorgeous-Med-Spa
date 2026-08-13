@@ -62,6 +62,14 @@ export function formatPeptideStaffAlert(opts: {
     line("Medications", responses.medications),
     line("Allergies", responses.allergies),
     "",
+    line("Fulfillment", responses.ship_to_home),
+    line(
+      "Consult fee",
+      responses.consult_fee_paid_usd
+        ? `PAID $${responses.consult_fee_paid_usd} · ref ${responses.consult_payment_ref || "—"}`
+        : "",
+    ),
+    "",
     line("Provider flags", flags),
     line("Disqualification reasons", disqual),
     "",

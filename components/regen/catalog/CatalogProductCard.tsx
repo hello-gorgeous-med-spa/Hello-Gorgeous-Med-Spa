@@ -13,6 +13,8 @@ import {
   type CatalogProduct,
 } from "@/lib/regen/catalog";
 import { catalogLineId, listingPriceText, price30 } from "@/lib/regen/catalog/pricing";
+import { catalogClientPriceText } from "@/lib/regen/catalog/client-price";
+import { catalogConsultRoute } from "@/lib/regen/catalog/consult-route";
 import { getMonograph } from "@/lib/regen/catalog/index";
 
 const STAGE_BG = "/images/regen/brand/regen-stage-cinematic-plum.jpg";
@@ -23,9 +25,14 @@ type ProductCardProps = {
   href?: string;
   /** When set (e.g. admin portal), opens drawer instead of navigating */
   onOpen?: (id: string) => void;
+  /**
+   * Client storefront: quote "from $X" and send the shopper to intake instead of
+   * a cart. Staff portals leave this off so they can still ring up a sale.
+   */
+  consultMode?: boolean;
 };
 
-export function ProductCard({ product, href, onOpen }: ProductCardProps) {
+export function ProductCard({ product, href, onOpen, consultMode }: ProductCardProps) {
   const { addItem, openCart } = useCart();
   const mono = getMonograph(product.drugKey);
   const img = productImage(product.drugKey, product.form);
@@ -33,7 +40,8 @@ export function ProductCard({ product, href, onOpen }: ProductCardProps) {
   const variant = product.variants[0];
   const p30 = price30(product, variant);
   const productHref = href ?? `/rx/product/${product.id}`;
-  const priceLabel = listingPriceText(product);
+  const consult = catalogConsultRoute(product);
+  const priceLabel = consultMode ? catalogClientPriceText(product) : listingPriceText(product);
 
   const quickAdd = useCallback(
     (e: MouseEvent) => {
@@ -133,7 +141,9 @@ export function ProductCard({ product, href, onOpen }: ProductCardProps) {
           >
             {priceLabel.charAt(0).toUpperCase() + priceLabel.slice(1)}
           </span>
-          <span className="font-semibold text-white/55"> · 30-day</span>
+          <span className="font-semibold text-white/55">
+            {consultMode ? " · 30-day supply" : " · 30-day"}
+          </span>
         </p>
         <p className="mt-1 line-clamp-1 text-[12px] font-medium text-white/65">
           {mono.tagline || product.goal}
@@ -155,13 +165,22 @@ export function ProductCard({ product, href, onOpen }: ProductCardProps) {
       )}
 
       <div className="border-t border-white/10 p-3">
-        <button
-          type="button"
-          onClick={quickAdd}
-          className="w-full rounded-xl bg-gradient-to-r from-[#FF2D8E] to-[#E6007E] py-2.5 text-sm font-black text-white shadow-[0_0_20px_rgba(255,45,142,0.35)] transition hover:brightness-110 active:translate-y-px"
-        >
-          Add 30-day · ${formatMoney(p30)}
-        </button>
+        {consultMode ? (
+          <Link
+            href={consult.href}
+            className="block w-full rounded-xl bg-gradient-to-r from-[#FF2D8E] to-[#E6007E] py-2.5 text-center text-sm font-black text-white shadow-[0_0_20px_rgba(255,45,142,0.35)] transition hover:brightness-110 active:translate-y-px"
+          >
+            {consult.cta} →
+          </Link>
+        ) : (
+          <button
+            type="button"
+            onClick={quickAdd}
+            className="w-full rounded-xl bg-gradient-to-r from-[#FF2D8E] to-[#E6007E] py-2.5 text-sm font-black text-white shadow-[0_0_20px_rgba(255,45,142,0.35)] transition hover:brightness-110 active:translate-y-px"
+          >
+            Add 30-day · ${formatMoney(p30)}
+          </button>
+        )}
       </div>
     </article>
   );

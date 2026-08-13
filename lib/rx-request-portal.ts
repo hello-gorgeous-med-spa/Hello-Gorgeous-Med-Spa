@@ -19,13 +19,14 @@ import {
 } from "@/lib/hrt-mens-program-pricing";
 import { hrtFromMonthlyUsd, hrtProductUsd } from "@/lib/hrt-supply-pricing";
 import { IV_SIGNATURE_DRIP_FROM_USD } from "@/lib/iv-drip-menu";
-import { helloGorgeousRxStartUrl } from "@/lib/peptide-request-menu";
+import { helloGorgeousRxStartUrl, regenShopHrefForPeptide } from "@/lib/peptide-request-menu";
 import {
   formatFromMonthly,
   PEPTIDE_RETAIL_MENU,
   PEPTIDE_PRICING_DISCLAIMER,
   type PeptideRetailRow,
 } from "@/lib/peptide-retail-pricing";
+import { REGEN_SHOP_SHIPPING_USD } from "@/lib/regen/shop-surface";
 import { resolveShopRxProductImage } from "@/lib/shop-rx-product-images";
 import { hrtBannerImageForIngredient } from "@/lib/hrt-banner-images";
 
@@ -49,6 +50,15 @@ export type RxRequestProduct = {
   fromMonthlyUsd?: number;
   tagline: string;
   href: string;
+  /**
+   * RE GEN store link (product page or goal browse) when the item is shoppable.
+   * Present = card sells "Shop this" first; absent = the protocol starts with a form.
+   */
+  /**
+   * Educational product page for this protocol, when RE GEN stocks it. The card CTA
+   * always starts intake — nothing here is purchasable without a consult.
+   */
+  shopHref?: string;
   imageSrc?: `/${string}`;
   imageAlt?: string;
   badge?: "POPULAR";
@@ -62,10 +72,10 @@ export const RX_REQUEST_HERO = {
   title: "Medical care, prescribed",
   titleAccent: "for you.",
   body:
-    "Choose what you're here for, complete a quick intake, and our NP reviews every request. Shipped to your door — no separate membership fee.",
+    "Choose what you're here for and start a quick health intake. Ryan Kent, FNP-BC reviews it at your consult and decides your protocol — you're only billed for medication after he approves it. No membership fee.",
   trust: [
-    "NP-supervised, every order",
-    "Ships to your door · Illinois",
+    "NP-supervised, every protocol",
+    `Clinic pickup or flat $${REGEN_SHOP_SHIPPING_USD} Illinois shipping`,
     "Telehealth built in",
   ] as const,
 };
@@ -207,11 +217,23 @@ function weightLossProducts(): RxRequestProduct[] {
   ];
 }
 
+/** Goal browse in the RE GEN cart shop, for peptides without a 1:1 catalog product. */
+const GOAL_SHOP_BROWSE: Record<RxRequestGoalId, string> = {
+  "weight-loss": "/rx?goal=lose-weight",
+  hormones: "/rx?goal=hormones",
+  peptides: "/rx?goal=recovery-and-performance",
+  "sexual-health": "/rx?goal=intimacy",
+  "hair-skin": "/rx?goal=skin-and-hair",
+  "vitamins-iv": "/rx?goal=energy-and-longevity",
+  labs: "/labs",
+};
+
 function peptideCatalogProducts(): RxRequestProduct[] {
   return PEPTIDE_RETAIL_MENU.filter((row) => row.category !== "Medical Weight Loss").map((row) => {
     const goal = peptideGoal(row);
     const categoryId =
       goal === "sexual-health" ? "intimacy" : goal === "hair-skin" ? "peptides" : goal === "vitamins-iv" ? "wellness" : "peptides";
+    const shopHref = regenShopHrefForPeptide(row.id);
     return {
       id: `peptide-${row.id}`,
       name: row.name,
@@ -221,6 +243,7 @@ function peptideCatalogProducts(): RxRequestProduct[] {
       priceLabel: formatFromMonthly(row.fromMonthlyUsd),
       tagline: row.note ?? row.category,
       href: helloGorgeousRxStartUrl(row.id),
+      shopHref: shopHref === "/rx" ? GOAL_SHOP_BROWSE[goal] : shopHref,
       rx: true as const,
       badge: row.id === "bpc-157" || row.id === "pt-141" ? "POPULAR" : undefined,
       ...productImage(row.id, row.name, categoryId),

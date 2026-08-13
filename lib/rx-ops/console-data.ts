@@ -65,16 +65,22 @@ function productLabelFromItem(item: {
   }
   if (item.slug.includes("refill")) {
     return {
-      compound: item.track === "glp1" ? "GLP-1" : "Peptide",
+      compound: compoundLabelForTrack(item.track),
       product: item.templateTitle,
       reason: "Refill request",
     };
   }
   return {
-    compound: item.track === "glp1" ? "GLP-1" : "Peptide",
+    compound: compoundLabelForTrack(item.track),
     product: item.templateTitle,
-    reason: "New protocol intake",
+    reason: item.track === "hrt" ? "Hormone therapy request" : "New protocol intake",
   };
+}
+
+function compoundLabelForTrack(track: string): string {
+  if (track === "glp1") return "GLP-1";
+  if (track === "hrt") return "Hormone therapy";
+  return "Peptide";
 }
 
 function deriveTelehealthStatus(input: {

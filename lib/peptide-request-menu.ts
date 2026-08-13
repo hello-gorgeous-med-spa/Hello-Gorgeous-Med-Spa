@@ -303,6 +303,58 @@ export function helloGorgeousRxStartUrl(peptideHubOrId?: string): string {
   return `${HELLO_GORGEOUS_RX_START_PATH}?peptide=${encodeURIComponent(id)}`;
 }
 
+/**
+ * Shoppable RE GEN catalog product (`p##` in `lib/regen/catalog/catalog-data`) for a
+ * request-menu peptide. Ids only — importing the catalog here would pull the full
+ * price book into every bundle that renders the Shop RX menu.
+ * GLP-1s are intentionally absent: those stay intake-first (dose-tier pricing).
+ */
+const PEPTIDE_CATALOG_PRODUCT_ID: Record<string, string> = {
+  "bpc-157": "p156",
+  "tb-500": "p195",
+  "ghk-cu": "p161",
+  sermorelin: "p105",
+  tesamorelin: "p121",
+  "nad-plus": "p82",
+  glutathione: "p60",
+  "mots-c": "p163",
+  epithalon: "p186",
+  "pt-141": "p165",
+  /** Closest shoppable GH stack — catalog carries the CJC/Ipamorelin combo vial */
+  "cjc-1295": "p23",
+  ipamorelin: "p23",
+  "cjc-ipamorelin": "p23",
+  /** Catalog stocks the Semax/Selank combo vial */
+  semax: "p194",
+  selank: "p194",
+  "heal-blend": "p158",
+  "recovery-blend": "p157",
+};
+
+const CATEGORY_GOAL_SLUG: Record<PeptideRequestCategory, string> = {
+  "Recovery & Healing": "recovery-and-performance",
+  "Hormone & GH Support": "recovery-and-performance",
+  "Energy & Longevity": "energy-and-longevity",
+  "Metabolic & Weight": "lose-weight",
+  "Skin & Aesthetics": "skin-and-hair",
+  "Cognitive & Mood": "energy-and-longevity",
+  "Intimacy & Vitality": "intimacy",
+  "Blends & Support": "recovery-and-performance",
+};
+
+/**
+ * Where a peptide should send a shopper: its RE GEN product page when we stock it,
+ * otherwise the goal browse it belongs to. Intake stays available as a secondary path.
+ */
+export function regenShopHrefForPeptide(peptideHubOrId: string): string {
+  const id = peptideRequestIdFromHubSlug(peptideHubOrId.trim());
+  const productId = PEPTIDE_CATALOG_PRODUCT_ID[id];
+  if (productId) return `/rx/product/${productId}`;
+  const category = getPeptideRequestItem(id)?.category;
+  const goal = category ? CATEGORY_GOAL_SLUG[category] : undefined;
+  return goal ? `/rx?goal=${goal}` : "/rx";
+}
+
 export function peptideRequestItemsByCategory(): Array<{
   category: PeptideRequestCategory;
   items: PeptideRequestItem[];

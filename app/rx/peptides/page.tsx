@@ -13,7 +13,7 @@ const hub = getRegenCategoryHub("peptides")!;
 const baseMeta = pageMetadata({
   title: `${REGEN_SITE.name} Peptide Therapy | BPC-157, NAD+ & Sermorelin | Oswego, IL`,
   description:
-    "Prescription peptide protocols — BPC-157, NAD+, sermorelin, CJC/ipamorelin & more. NP-supervised RE GEN by Hello Gorgeous Med Spa. Pay first, intake, telehealth, then ship across Illinois.",
+    "Prescription peptide protocols — BPC-157, NAD+, sermorelin, CJC/ipamorelin & more. NP-supervised RE GEN by Hello Gorgeous Med Spa. Start intake, meet your NP, then pick up in Oswego or ship across Illinois.",
   path: PAGE_PATH,
   keywords: [
     "RE GEN peptides",

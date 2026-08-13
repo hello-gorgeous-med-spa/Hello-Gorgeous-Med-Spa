@@ -32,10 +32,14 @@ import {
 } from "@/lib/peptide-rx-prefill";
 import { savePeptideRxRecord } from "@/lib/peptide-rx-records";
 import {
+  clearPendingScreener,
   isConsultPaid,
   markConsultPaid,
+  newConsultReference,
   readPendingRxSuccess,
+  readPendingScreener,
   savePendingRxSuccess,
+  savePendingScreener,
   startConsultCheckout,
 } from "@/lib/peptide-rx-consult-pay";
 import {
@@ -164,6 +168,12 @@ function rxStatusHref(recordToken?: string): string | undefined {
   return `/rx/status?token=${encodeURIComponent(recordToken)}`;
 }
 
+/** Last free step of a new-protocol request — the $49 consult is collected after it. */
+const SCREENER_LAST_STEP_ID = "medical";
+const NEW_PROTOCOL_STEPS = stepsForRequestType("new");
+const STEP_AFTER_SCREENER =
+  NEW_PROTOCOL_STEPS.findIndex((s) => s.id === SCREENER_LAST_STEP_ID) + 1;
+
 function fieldVisible(field: IntakeFormField, data: Record<string, unknown>): boolean {
   if (!field.conditionalOn) return true;
   return data[field.conditionalOn.field] === field.conditionalOn.value;
@@ -250,14 +260,18 @@ export function PeptideRequestForm({
       supply_cycle: RX_SUPPLY_CYCLES["90-day"].label,
     };
     if (preselectedName) initial.selected_peptides = [preselectedName];
-    if (initialRequestType === "refill") {
-      initial.request_type = requestTypeLabel("refill");
+    if (initialRequestType) {
+      initial.request_type = requestTypeLabel(initialRequestType);
     }
     return initial;
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [busy, setBusy] = useState(false);
   const [payBusy, setPayBusy] = useState(false);
+  /** Screener outcome for new protocols: pay the consult fee or stop here. */
+  const [gate, setGate] = useState<"none" | "pay" | "blocked">("none");
+  const [blockReasons, setBlockReasons] = useState<string[]>([]);
+  const [prepaidRef, setPrepaidRef] = useState<string | null>(null);
   const [autopayBusy, setAutopayBusy] = useState(false);
   const [err, setErr] = useState<string | null>(null);
   const [result, setResult] = useState<SubmitResult | null>(null);
@@ -304,7 +318,24 @@ export function PeptideRequestForm({
       const ref = params.get("ref")?.trim();
       if (ref) markConsultPaid(ref);
       const pending = readPendingRxSuccess();
-      if (pending) setResult(pending as SubmitResult);
+      if (pending) {
+        setResult(pending as SubmitResult);
+      } else {
+        // Paid the consult from the screener — resume the rest of the intake.
+        const screener = readPendingScreener();
+        if (screener && (!ref || screener.reference === ref)) {
+          setFormData((prev) => ({
+            ...prev,
+            ...screener.data,
+            consult_payment_ref: screener.reference,
+            consult_fee_paid_usd: PEPTIDE_CONSULT_FEE_USD,
+          }));
+          setPrepaidRef(screener.reference);
+          setGate("none");
+          setStep(STEP_AFTER_SCREENER);
+          clearPendingScreener();
+        }
+      }
       const url = new URL(window.location.href);
       url.searchParams.delete("paid");
       url.searchParams.delete("ref");
@@ -360,6 +391,20 @@ export function PeptideRequestForm({
     const nextErrors = validateStep(step, formData, activeSteps);
     setErrors(nextErrors);
     if (Object.keys(nextErrors).length > 0) return;
+
+    // New protocols: screen for free, then collect the consult fee before the
+    // rest of the intake. Refills stay on the existing pay-after-submit flow.
+    if (requestType === "new" && currentStep.id === SCREENER_LAST_STEP_ID && !prepaidRef) {
+      const eligibility = evaluatePeptideEligibility(formData);
+      if (!eligibility.qualified) {
+        setBlockReasons(eligibility.disqualificationReasons);
+        setGate("blocked");
+        return;
+      }
+      setGate("pay");
+      return;
+    }
+
     setStep((s) => Math.min(s + 1, activeSteps.length - 1));
   }
 
@@ -367,6 +412,16 @@ export function PeptideRequestForm({
     setErr(null);
     setErrors({});
     setStep((s) => Math.max(s - 1, 0));
+  }
+
+  async function payScreenerConsult() {
+    const ref = prepaidRef ?? newConsultReference();
+    savePendingScreener({ reference: ref, data: formData });
+    setPayBusy(true);
+    setErr(null);
+    const outcome = await startConsultCheckout(ref);
+    if (outcome.error) setErr(outcome.error);
+    setPayBusy(false);
   }
 
   async function payConsult(reference: string) {
@@ -410,6 +465,10 @@ export function PeptideRequestForm({
         provider_flags: eligibility.providerFlags,
         submitted_at: new Date().toISOString(),
       };
+      if (prepaidRef) {
+        responses.consult_payment_ref = prepaidRef;
+        responses.consult_fee_paid_usd = PEPTIDE_CONSULT_FEE_USD;
+      }
       if (quote) {
         responses.refill_price_usd = quote.totalUsd;
         responses.refill_price_label = quote.priceLabel;
@@ -536,7 +595,8 @@ export function PeptideRequestForm({
 
   if (result?.kind === "qualified") {
     const isNew = result.requestType === "new";
-    const consultPaid = isConsultPaid(result.reference);
+    const consultPaid =
+      isConsultPaid(result.reference) || Boolean(prepaidRef && isConsultPaid(prepaidRef));
     const refillPaid = !isNew && isPeptideRefillPaid(result.reference);
     const needsPrepay = isNew && !consultPaid;
     const canPayRefill =
@@ -736,6 +796,118 @@ export function PeptideRequestForm({
         ctaHref="/peptides"
         ctaLabel="← Back to peptide therapy"
       />
+    );
+  }
+
+  if (gate === "blocked") {
+    return (
+      <div className="rounded-3xl border-4 border-black bg-white p-8 shadow-[8px_8px_0_0_rgba(230,0,126,0.25)] md:p-10">
+        <h2 className="font-serif text-2xl font-black text-black">Let&apos;s talk before you pay</h2>
+        <p className="mt-4 text-sm leading-relaxed text-black/75">
+          Based on your answers, we can&apos;t take this request online. <strong>You have not been
+          charged and nothing was submitted.</strong> Ryan may still be able to help you — it just
+          needs a conversation first.
+        </p>
+        {blockReasons.length > 0 && (
+          <ul className="mt-4 space-y-1 rounded-xl border border-[#E6007E]/25 bg-[#FFF0F7] px-4 py-3 text-sm text-black/75">
+            {blockReasons.map((reason) => (
+              <li key={reason}>· {reason}</li>
+            ))}
+          </ul>
+        )}
+        <a
+          href="tel:+16306366193"
+          className="mt-6 inline-flex items-center justify-center rounded-xl bg-[#E6007E] px-8 py-4 font-bold text-white hover:bg-black transition-colors"
+        >
+          Call 630-636-6193
+        </a>
+        <div className="mt-6 flex flex-col gap-2">
+          <button
+            type="button"
+            onClick={() => {
+              setGate("none");
+              setBlockReasons([]);
+            }}
+            className="text-left text-sm font-semibold text-black/55"
+          >
+            ← Change my answers
+          </button>
+          <Link href="/peptides" className="text-sm font-bold text-[#E6007E] underline">
+            Back to peptide therapy
+          </Link>
+        </div>
+      </div>
+    );
+  }
+
+  if (gate === "pay") {
+    return (
+      <RxIntakeFormCard
+        stepIndex={STEP_AFTER_SCREENER}
+        stepCount={activeSteps.length}
+        stepTitle="Reserve your consult"
+        stepLabels={activeSteps.map((s) => s.title.split(" ")[0])}
+      >
+        <div className="p-5 md:p-8">
+          <p className="inline-flex items-center gap-2 rounded-full border border-green-600 bg-green-50 px-4 py-1.5 text-xs font-bold text-green-800">
+            ✓ Screening complete — no red flags
+          </p>
+          <h3 className="mt-4 text-2xl font-black text-black">
+            Reserve your consult with Ryan Kent, FNP-BC
+          </h3>
+          <p className="mt-2 text-sm text-black/70 leading-relaxed">
+            Your ${PEPTIDE_CONSULT_FEE_USD} consult fee holds your telehealth visit. After you pay,
+            you&apos;ll finish the rest of your intake — goals, delivery preference, and consent.
+            Medication is quoted and invoiced separately, only after Ryan approves your protocol.
+          </p>
+
+          <div className="mt-5 rounded-2xl border-2 border-[#E6007E]/30 bg-[#FFF0F7] px-5 py-4">
+            <p className="text-[10px] font-bold uppercase tracking-widest text-[#E6007E]">
+              Due now
+            </p>
+            <p className="mt-1 text-4xl font-black text-black">${PEPTIDE_CONSULT_FEE_USD}</p>
+            <p className="mt-1 text-xs text-black/60">
+              Consult fee only — not medication. {selectedPeptideNames.length > 0 && (
+                <>Requested: {selectedPeptideNames.join(", ")}.</>
+              )}
+            </p>
+          </div>
+
+          {err && <p className="mt-4 rounded-xl bg-red-50 px-3 py-2 text-sm text-red-700">{err}</p>}
+
+          <div className="mt-6 flex flex-col gap-3">
+            <button
+              type="button"
+              disabled={payBusy}
+              onClick={payScreenerConsult}
+              className="inline-flex items-center justify-center rounded-xl bg-[#E6007E] px-8 py-4 font-bold text-white hover:bg-black transition-colors disabled:opacity-60"
+            >
+              {payBusy
+                ? "Starting Square checkout…"
+                : `Pay $${PEPTIDE_CONSULT_FEE_USD} & continue intake →`}
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                setGate("none");
+                setErr(null);
+              }}
+              className="text-sm font-semibold text-black/55"
+            >
+              ← Back to my answers
+            </button>
+          </div>
+
+          <p className="mt-5 text-[11px] text-black/50 leading-relaxed">
+            Secure Square checkout. Your answers are saved in this browser while you pay. Prefer to
+            pay by phone? Call{" "}
+            <a href="tel:+16306366193" className="font-semibold text-[#E6007E] underline">
+              630-636-6193
+            </a>
+            .
+          </p>
+        </div>
+      </RxIntakeFormCard>
     );
   }
 

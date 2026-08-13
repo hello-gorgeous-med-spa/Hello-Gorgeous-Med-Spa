@@ -21,7 +21,7 @@ import {
   hrtIngredientPriceTagline,
 } from "@/lib/hrt-formulation-catalog";
 import { hrtBannerAltForIngredient, hrtBannerImageForIngredient } from "@/lib/hrt-banner-images";
-import { helloGorgeousRxStartUrl } from "@/lib/peptide-request-menu";
+import { helloGorgeousRxStartUrl, regenShopHrefForPeptide } from "@/lib/peptide-request-menu";
 import { LAB_PANELS } from "@/lib/lab-panel-catalog";
 import { getPeptidePickerThumbnail } from "@/lib/peptide-thumbnails";
 import { resolveShopRxProductImage } from "@/lib/shop-rx-product-images";
@@ -79,7 +79,7 @@ function peptideItem(
   return {
     id,
     label,
-    href: helloGorgeousRxStartUrl(id),
+    href: regenShopHrefForPeptide(id),
     rx: true,
     tagline,
     imageSrc: thumb?.src,
@@ -196,6 +196,29 @@ export const SHOP_RX_CATEGORIES: ShopRxCategory[] = [
           peptideItem("mots-c", "MOTS-c", "Mitochondrial & metabolic signaling"),
         ],
       },
+      {
+        heading: "Need help starting?",
+        items: [
+          {
+            id: "peptide-finder",
+            label: "Which peptide is right for you?",
+            href: "/skin-101/find-your-peptide",
+            tagline: "Free goal-based finder · 2 minutes",
+          },
+          {
+            id: "peptide-full-catalog",
+            label: "Browse all products",
+            href: "/rx?browse=all",
+            tagline: "Full RE GEN catalog · published pricing",
+          },
+          {
+            id: "peptide-intake",
+            label: "Talk to us first",
+            href: "/rx/request",
+            tagline: "Request a protocol · NP reviews before anything ships",
+          },
+        ],
+      },
     ],
   },
   {
@@ -285,7 +308,7 @@ export const SHOP_RX_CATEGORIES: ShopRxCategory[] = [
           },
           {
             id: "start-peptide-intimacy",
-            label: "Request PT-141 protocol",
+            label: "Need help starting? Request PT-141",
             href: helloGorgeousRxStartUrl("pt-141"),
             rx: true,
             tagline: "Start Here · $49 consult · telehealth required",
@@ -363,7 +386,7 @@ export const SHOP_RX_CATEGORIES: ShopRxCategory[] = [
           {
             id: "recovery-blend-wellness",
             label: "Recovery Blend Rx",
-            href: "/hello-gorgeous-rx/start-here?peptide=recovery-blend",
+            href: regenShopHrefForPeptide("recovery-blend"),
             rx: true,
             tagline: "Peptide recovery protocol · ship to home",
             imageSrc: "/images/homepage-services/recovery-blend-rx.jpg",

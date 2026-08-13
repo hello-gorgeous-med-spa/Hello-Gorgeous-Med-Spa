@@ -455,7 +455,7 @@ const PEPTIDE_FAQ = [
   },
   {
     q: "How does ordering work?",
-    a: "Pay first at RE GEN, complete your post-payment health intake, book telehealth when required, and your vials ship after NP approval — flat $30 shipping.",
+    a: "Start your intake at RE GEN, reserve your $49 consult, and meet Ryan Kent, FNP-BC. After he approves your protocol you're invoiced for the vials — pick them up in Oswego or ship flat $30.",
   },
   {
     q: "Can I read more before I buy?",
@@ -486,22 +486,22 @@ const WELLNESS_FAQ = [
   },
 ] as const;
 
-const PAY_FIRST_STEPS = [
+const CONSULT_FIRST_STEPS = [
   {
-    title: "Pay to secure your order",
-    body: "Checkout online — your medication is reserved while we review your chart.",
+    title: "Start your intake",
+    body: "Free — your goals, health history, and consent. Nothing is charged to submit it.",
   },
   {
-    title: "Complete health intake",
-    body: "Medical history, allergies, and goals so Ryan Kent, FNP-BC can review safely.",
+    title: "Reserve your consult · $49",
+    body: "Holds your visit with Ryan Kent, FNP-BC. Medication cost is quoted separately.",
   },
   {
-    title: "Telehealth if required",
-    body: "Book a quick video visit when your protocol needs NP clearance before ship.",
+    title: "Meet your provider",
+    body: "Ryan reviews everything and sets your protocol and dose — by telehealth or in Oswego.",
   },
   {
-    title: "Ships after approval",
-    body: "Nothing dispensed without clinical sign-off. Flat $30 shipping · tracking included.",
+    title: "Approved, then filled",
+    body: "You're invoiced after approval. Pick up in clinic or ship flat $30 with tracking.",
   },
 ];
 
@@ -512,7 +512,7 @@ const WEIGHT_LOSS_FAQ = [
   },
   {
     q: "How does RE GEN weight loss work?",
-    a: "Pay first to secure your order, complete your health intake, book telehealth when required, and your NP approves your protocol before pharmacy dispatch. Ryan Kent, FNP-BC supervises every Illinois plan.",
+    a: "Start with a short intake, reserve your $49 consult, and your NP sets the protocol before anything is filled. You're billed for medication only after approval. Ryan Kent, FNP-BC supervises every Illinois plan.",
   },
   {
     q: "Semaglutide vs tirzepatide — which is right for me?",
@@ -551,7 +551,7 @@ const HAIR_SKIN_FAQ = [
   },
   {
     q: "Do I need telehealth before my order ships?",
-    a: "Yes for new protocols. RE GEN is pay-first: you secure your order, complete intake, then book a telehealth visit when required. Nothing ships without NP approval.",
+    a: "Yes for new protocols. RE GEN is consult-first: you complete an intake, reserve a $49 visit, and meet your provider. Nothing is filled or invoiced without NP approval.",
   },
   {
     q: "Who compounds these medications?",
@@ -573,7 +573,7 @@ export const REGEN_CATEGORY_HUBS: RxCategoryHub[] = [
       subtitle:
         "Compounded GLP-1 programs supervised by Ryan Kent, FNP-BC — intake online, telehealth when needed, medication shipped to your door in Illinois.",
     },
-    steps: PAY_FIRST_STEPS,
+    steps: CONSULT_FIRST_STEPS,
     products: WEIGHT_LOSS_PRODUCTS,
     trustLine: "NP-supervised · Illinois patients · No surprise pharmacy runaround",
     faq: [...WEIGHT_LOSS_FAQ],
@@ -608,7 +608,7 @@ export const REGEN_CATEGORY_HUBS: RxCategoryHub[] = [
       subtitle:
         "TRT, women's bioidentical HRT, and fertility-friendly options — compounded, lab-guided, and supervised by Ryan Kent, FNP-BC in Oswego.",
     },
-    steps: PAY_FIRST_STEPS,
+    steps: CONSULT_FIRST_STEPS,
     products: HORMONE_PRODUCTS,
     trustLine: "Lab-guided · Ryan Kent, FNP-BC · Illinois telehealth",
     getStartedPath: "/rx",
@@ -627,7 +627,7 @@ export const REGEN_CATEGORY_HUBS: RxCategoryHub[] = [
       },
       {
         q: "How does RE GEN hormone ordering work?",
-        a: "Pay first to secure your protocol, complete your health intake, book telehealth when required, and your medication ships after NP approval — flat $30 shipping.",
+        a: "Start your intake, reserve your $49 consult, and meet your NP. Medication is invoiced after approval — pick up in clinic or ship flat $30.",
       },
       {
         q: "Is testosterone a controlled substance?",
@@ -646,9 +646,9 @@ export const REGEN_CATEGORY_HUBS: RxCategoryHub[] = [
       title: "Peptide protocols",
       titleAccent: "built for you.",
       subtitle:
-        "BPC-157, sermorelin, NAD+, and 22+ injectable protocols — pay first, NP review, telehealth when required, then ship across Illinois.",
+        "BPC-157, sermorelin, NAD+, and 22+ injectable protocols — start intake, meet your NP, then pick up in Oswego or ship across Illinois.",
     },
-    steps: PAY_FIRST_STEPS,
+    steps: CONSULT_FIRST_STEPS,
     products: PEPTIDE_PRODUCTS,
     trustLine: "Licensed pharmacy · Ryan Kent, FNP-BC · No gray-market peptides",
     getStartedPath: "/rx",
@@ -667,7 +667,7 @@ export const REGEN_CATEGORY_HUBS: RxCategoryHub[] = [
       subtitle:
         "ED tablets, women's arousal creams, and peptide libido support — discreet, hormone-aware prescribing by Ryan Kent, FNP-BC.",
     },
-    steps: PAY_FIRST_STEPS,
+    steps: CONSULT_FIRST_STEPS,
     products: SEXUAL_HEALTH_PRODUCTS,
     trustLine: "Discreet shipping · NP-supervised · Illinois patients",
     getStartedPath: "/rx",
@@ -725,7 +725,7 @@ export const REGEN_CATEGORY_HUBS: RxCategoryHub[] = [
       subtitle:
         "GHK-Cu cream for collagen and skin repair, plus injectable biotin for hair, skin, and nails — NP-reviewed before anything ships. ManeTain, minoxidil, and derm creams still available below.",
     },
-    steps: PAY_FIRST_STEPS,
+    steps: CONSULT_FIRST_STEPS,
     products: HAIR_SKIN_PRODUCTS,
     trustLine: "GHK-Cu + biotin · Ryan Kent, FNP-BC · Shipped after approval",
     getStartedPath: HAIR_SKIN_GOAL_HREF,
@@ -744,7 +744,7 @@ export const REGEN_CATEGORY_HUBS: RxCategoryHub[] = [
       subtitle:
         "Injectable B12, NAD+, vitamin D3, biotin, glutathione & more — NP-reviewed RE GEN supplies shipped to your door. In-clinic Vitamin Bar still available in Oswego.",
     },
-    steps: PAY_FIRST_STEPS,
+    steps: CONSULT_FIRST_STEPS,
     products: WELLNESS_PRODUCTS,
     trustLine: "Injectable wellness · Ryan Kent, FNP-BC · Illinois patients",
     getStartedPath: "/rx",
@@ -754,6 +754,19 @@ export const REGEN_CATEGORY_HUBS: RxCategoryHub[] = [
 
 export function getRegenCategoryHub(id: RxCategoryHubId): RxCategoryHub | undefined {
   return REGEN_CATEGORY_HUBS.find((c) => c.id === id);
+}
+
+/**
+ * Store link for a hub product: its RE GEN product page when we stock it, so shoppers
+ * land on the protocol they picked instead of a goal grid. Programs that must start
+ * with a form (GLP-1 intake, refills) keep their own href.
+ */
+export function rxCategoryProductHref(product: RxCategoryProduct): string {
+  const shopBrowse = !product.href || product.href.startsWith("/rx?");
+  if (product.catalogProductId && shopBrowse) {
+    return `/rx/product/${product.catalogProductId}`;
+  }
+  return product.href;
 }
 
 /** Next.js landing pages for storefront "Learn more" deep links */

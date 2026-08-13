@@ -46,7 +46,7 @@ Start now — link below`,
     label: "RE GEN — Blog launch (Google post)",
     message: `NEW on our blog — Introducing RE GEN: prescription care online from Hello Gorgeous Med Spa, Oswego IL.
 
-Pay first · health intake · telehealth when needed · ship across Illinois:
+Health intake · NP consult · pickup in Oswego or ship across Illinois:
 • GLP-1 medical weight loss
 • Peptides — BPC-157, NAD+, sermorelin & more
 • Hormones, hair & skin Rx, sexual wellness

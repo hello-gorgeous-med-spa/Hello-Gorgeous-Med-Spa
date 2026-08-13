@@ -72,7 +72,7 @@ export const SHARED_KNOWLEDGE: KnowledgeEntry[] = [
     keywords: ["how does it work", "how it works", "process", "steps", "what happens", "after i pay", "order flow"],
     topics: ["regen"],
     priority: 5,
-    answer: `RE GEN flow: (1) Pay to secure your order on ${SITE.url}/rx (2) Complete post-payment health intake (3) Book telehealth when required (4) ${HG_REGEN_CORE.np} reviews and approves (5) Pharmacy ships — ${HG_REGEN_CORE.shipping} flat. Track in ${PORTAL}.`,
+    answer: `RE GEN flow: (1) Browse protocols at ${SITE.url}/rx and start intake — free to submit (2) A $49 fee reserves your consult (3) ${HG_REGEN_CORE.np} reviews and sets your protocol (4) After approval you're invoiced for the medication (5) Pick up in Oswego or ship — ${HG_REGEN_CORE.shipping} flat. Track in ${PORTAL}. Nothing prescription is sold without a consult.`,
   },
   {
     id: "shipping",
@@ -107,7 +107,7 @@ export const SHARED_KNOWLEDGE: KnowledgeEntry[] = [
     keywords: ["book", "appointment", "schedule", "consult", "come in", "visit"],
     topics: ["hg", "booking"],
     priority: 5,
-    answer: `${BOOK}. For RE GEN prescriptions shipped home, start at ${SITE.url}/rx — most paths are pay-first online.`,
+    answer: `${BOOK}. For RE GEN prescriptions, start at ${SITE.url}/rx — every prescription path begins with an intake and a provider consult.`,
   },
   {
     id: "portal",
@@ -293,7 +293,7 @@ export const MASCOT_KNOWLEDGE: Record<RegenMascotId, KnowledgeEntry[]> = {
       topics: ["peptides"],
       mascots: ["peppy"],
       priority: 4,
-      answer: `Peptides are Rx-only short amino-acid chains for recovery, GH support, longevity, and more. RE GEN has 20+ protocols. Pay → intake → NP review → ship. Start at ${SITE.url}/rx/peptides`,
+      answer: `Peptides are Rx-only short amino-acid chains for recovery, GH support, longevity, and more. RE GEN has 20+ protocols. Intake → $49 consult → NP sets your protocol → invoiced → pickup or ship. Start at ${SITE.url}/rx/peptides`,
     },
     {
       id: "what-are-peptides",
@@ -353,13 +353,13 @@ export const MASCOT_QUICK_ANSWERS: Record<RegenMascotId, Record<string, string>>
     "semaglutide vs tirzepatide?": `Semaglutide is GLP-1 only; tirzepatide adds GIP — many see more weight loss. Your NP helps you choose based on history and goals. Compare at ${SITE.url}/rx/weight-loss`,
     "how fast can i lose weight?": `Most GLP-1 patients see meaningful progress over months, not days — typically 15–25% body weight over 12–18 months with lifestyle support. Your NP sets realistic expectations.`,
     "what are glp-1 side effects?": `Nausea and constipation are common early; dose titration helps. Always report symptoms to your NP — never adjust dose alone.`,
-    "how do i get started?": `Shop ${SITE.url}/rx → pick GLP-1 → pay → intake → telehealth → NP approves → ships! ${CALL} if you want help.`,
+    "how do i get started?": `Start at ${SITE.url}/rx → pick GLP-1 → intake → consult with the NP → approved → invoiced → pickup or ship! ${CALL} if you want help.`,
   },
   peppy: {
     "what's the wolverine stack?": `BPC-157 + TB-500 — our recovery power duo for tissue repair and mobility. Premium option: KLOW (4-in-1). ${SITE.url}/rx/peptides`,
     "best peptide for recovery?": `BPC-157 and Wolverine Stack are top picks for injury recovery. TB-500 pairs well. Your NP tailors protocol to your history.`,
     "what is nad+?": `NAD+ fuels mitochondria — energy, focus, longevity. Injectable protocols on RE GEN; NP determines concentration and schedule.`,
-    "how do i get started?": `Browse ${SITE.url}/rx/peptides → add to cart → pay → complete intake → NP review → delivery!`,
+    "how do i get started?": `Browse ${SITE.url}/rx/peptides → start intake → $49 consult → NP sets your protocol → invoiced after approval → pickup or delivery!`,
   },
   harmony: {
     "what is trt?": `Testosterone replacement therapy restores levels when clinically low — injections, cream, or stimulating meds. Requires labs and ongoing monitoring with ${HG_REGEN_CORE.np}.`,

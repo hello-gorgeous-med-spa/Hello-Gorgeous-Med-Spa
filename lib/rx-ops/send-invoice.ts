@@ -50,7 +50,7 @@ type InvoiceContext = {
   clientId: string | null;
   submissionId: string | null;
   intakeRef: string | null;
-  track: "glp1" | "peptide" | "unknown";
+  track: "glp1" | "peptide" | "hrt" | "unknown";
   lineLabel: string;
   squareName: string;
   amountUsd: number;

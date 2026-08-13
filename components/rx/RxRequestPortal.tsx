@@ -62,6 +62,9 @@ function ProductCard({ product }: { product: RxRequestProduct }) {
             Start intake →
           </span>
         </div>
+        <p className="mt-3 text-[11px] leading-relaxed text-white/40">
+          Starting price · your NP confirms the protocol and final cost at your consult.
+        </p>
       </div>
     </Link>
   );
@@ -174,24 +177,24 @@ export function RxRequestPortal() {
               ))}
             </ul>
             <div className="mt-8 flex flex-wrap gap-4">
-              <a
-                href="#catalog"
+              <Link
+                href="/rx"
                 className="inline-flex items-center gap-2 rounded-full bg-[#FF2D8E] px-8 py-4 text-base font-extrabold text-black transition hover:bg-white"
               >
-                Find your treatment
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
+                Browse RE GEN protocols
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </Link>
+              <a
+                href="#catalog"
+                className="inline-flex items-center gap-2 rounded-full border border-[#FF2D8E] px-6 py-4 text-base font-bold text-[#FF2D8E] transition hover:bg-[#FF2D8E] hover:text-black"
+              >
+                Browse by goal
               </a>
               <Link
                 href="/skin-101/find-your-peptide"
-                className="inline-flex items-center gap-2 rounded-full border border-[#FF2D8E] px-6 py-4 text-base font-bold text-[#FF2D8E] transition hover:bg-[#FF2D8E] hover:text-black"
-              >
-                Which peptide is right for you?
-              </Link>
-              <Link
-                href="/rx"
                 className="inline-flex items-center gap-2 rounded-full border border-white/45 px-6 py-4 text-base font-bold text-white transition hover:border-[#FF2D8E] hover:text-[#FF2D8E]"
               >
-                Back to Store
+                Which peptide is right for you?
               </Link>
             </div>
             <p className="mt-6 text-xs text-white/45">

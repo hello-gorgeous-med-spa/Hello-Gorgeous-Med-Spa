@@ -28,6 +28,7 @@ import {
   startHrtRequestCheckout,
 } from "@/lib/hrt-request-pay";
 import { RX_SUPPLY_CYCLES, type RxSupplyCycleId } from "@/lib/rx-supply-cycle";
+import type { IntakeFormField } from "@/lib/hgos/intake-forms";
 
 const PINK = "#E6007E";
 
@@ -84,10 +85,16 @@ export function HrtRequestForm({
     }
   }, [paid, paidRef]);
 
+  function fieldVisible(field: IntakeFormField): boolean {
+    if (!field.conditionalOn) return true;
+    return formData[field.conditionalOn.field] === field.conditionalOn.value;
+  }
+
   function validate(): Record<string, string> {
     const next: Record<string, string> = {};
     for (const field of HRT_REQUEST_FIELDS) {
       if (!field.required) continue;
+      if (!fieldVisible(field)) continue;
       const value = formData[field.id];
       if (field.type === "checkbox") {
         if (!value) next[field.id] = "Required";
@@ -174,7 +181,7 @@ export function HrtRequestForm({
 
   if (!selection || !quote) {
     return (
-      <RxIntakeFormCard title="Select a hormone first">
+      <RxIntakeFormCard stepTitle="Select a hormone first">
         <p className="text-sm text-black/65">
           Choose an ingredient and delivery form on the{" "}
           <Link href="/rx/hormones" className="font-semibold text-[#E6007E] underline">
@@ -194,7 +201,7 @@ export function HrtRequestForm({
 
   if (quote.ingredient.id === "testosterone-trt" || quote.ingredient.id === "enclomiphene") {
     return (
-      <RxIntakeFormCard title="Men's TRT program">
+      <RxIntakeFormCard stepTitle="Men's TRT program">
         <p className="text-sm text-black/65">
           {quote.ingredient.name} uses Gentlemen&apos;s Club all-inclusive program pricing — book your consult to
           get started.
@@ -231,7 +238,7 @@ export function HrtRequestForm({
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
-      <RxIntakeFormCard title="Your hormone selection">
+      <RxIntakeFormCard stepTitle="Your hormone selection">
         {banner ? (
           <div className="relative mb-4 aspect-[16/9] overflow-hidden rounded-2xl border border-black/10 bg-[#0A0C10] sm:aspect-[2/1]">
             <Image
@@ -294,13 +301,22 @@ export function HrtRequestForm({
       </RxIntakeFormCard>
 
       {!submitted ? (
-        <RxIntakeFormCard title="About you">
+        <RxIntakeFormCard stepTitle="About you">
           <div className="grid gap-4 sm:grid-cols-2">
-            {HRT_REQUEST_FIELDS.filter((f) => f.id !== "supply_cycle" && f.id !== "consent_payment_telehealth").map(
+            {HRT_REQUEST_FIELDS.filter(
+              (f) =>
+                f.id !== "supply_cycle" &&
+                f.id !== "consent_payment_telehealth" &&
+                fieldVisible(f),
+            ).map(
               (field) => (
                 <div
                   key={field.id}
-                  className={field.type === "textarea" ? "sm:col-span-2" : undefined}
+                  className={
+                    field.type === "textarea" || field.type === "radio"
+                      ? "sm:col-span-2"
+                      : undefined
+                  }
                 >
                   <label htmlFor={field.id} className="block text-sm font-semibold text-black">
                     {field.label}
@@ -336,6 +352,33 @@ export function HrtRequestForm({
                         </option>
                       ))}
                     </select>
+                  ) : field.type === "radio" ? (
+                    <div className="mt-1.5 grid gap-2">
+                      {field.options?.map((opt) => {
+                        const active = String(formData[field.id] ?? "") === opt;
+                        return (
+                          <label
+                            key={opt}
+                            className={`flex cursor-pointer items-center gap-3 rounded-xl border px-3 py-2 text-sm ${
+                              active
+                                ? "border-[#E6007E] bg-[#FFF0F7] font-semibold text-black"
+                                : "border-black/15 text-black/70 hover:border-black/30"
+                            }`}
+                          >
+                            <input
+                              type="radio"
+                              name={field.id}
+                              value={opt}
+                              checked={active}
+                              onChange={() =>
+                                setFormData((prev) => ({ ...prev, [field.id]: opt }))
+                              }
+                            />
+                            <span>{opt}</span>
+                          </label>
+                        );
+                      })}
+                    </div>
                   ) : (
                     <input
                       id={field.id}
@@ -388,7 +431,7 @@ export function HrtRequestForm({
           </button>
         </RxIntakeFormCard>
       ) : (
-        <RxIntakeFormCard title="Pay for your supply">
+        <RxIntakeFormCard stepTitle="Pay for your supply">
           <p className="text-sm text-black/65">
             Total due now:{" "}
             <strong className="text-black text-lg">${quote.totalUsd}</strong>{" "}

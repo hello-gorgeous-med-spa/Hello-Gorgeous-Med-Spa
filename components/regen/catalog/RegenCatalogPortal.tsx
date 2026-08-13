@@ -27,6 +27,8 @@ import {
   type SupplyDays,
 } from "@/lib/regen/catalog";
 import { catalogLineId } from "@/lib/regen/catalog/pricing";
+import { catalogClientMonthlyUsd } from "@/lib/regen/catalog/client-price";
+import { catalogConsultRoute } from "@/lib/regen/catalog/consult-route";
 import {
   ProductCard,
   formatCatalogMoney,
@@ -154,7 +156,13 @@ export function RegenCatalogPortal({
 
   const selectedProduct = selectedId ? getCatalogProduct(selectedId) : undefined;
 
-  const priceOf = useCallback((p: CatalogProduct) => price30(p, p.variants[0]), []);
+  const priceOf = useCallback(
+    (p: CatalogProduct) =>
+      isPublicShop
+        ? (catalogClientMonthlyUsd(p) ?? price30(p, p.variants[0]))
+        : price30(p, p.variants[0]),
+    [isPublicShop],
+  );
 
   const filteredProducts = useMemo(() => {
     let list: CatalogProduct[] = [];
@@ -212,16 +220,25 @@ export function RegenCatalogPortal({
               id: p.id,
               v: 0,
               name: p.name,
-              retail: price30(p, p.variants[0]),
+              retail: isPublicShop
+                ? (catalogClientMonthlyUsd(p) ?? price30(p, p.variants[0]))
+                : price30(p, p.variants[0]),
             };
           })
           .filter(Boolean) as { id: string; v: number; name: string; retail: number }[];
+
+        const leadProduct = resolved[0] ? getCatalogProduct(resolved[0].id) : undefined;
+        const consultHref =
+          isPublicShop && leadProduct
+            ? `${catalogConsultRoute(leadProduct).href}&stack=${b.id}`
+            : undefined;
 
         const { total, price, save } = bundlePrice(resolved.map((r) => r.retail));
 
         return {
           ...b,
           accent: goalAccent(b.tagline),
+          consultHref,
           items: resolved.map((r) => ({
             name: r.name,
             price: formatCatalogMoney(r.retail),
@@ -247,7 +264,7 @@ export function RegenCatalogPortal({
           },
         };
       }),
-    [addItem, openCart],
+    [addItem, openCart, isPublicShop],
   );
 
   const goalBlurb =
@@ -325,6 +342,7 @@ export function RegenCatalogPortal({
                     key={p.id}
                     product={p}
                     onOpen={isPublicShop ? undefined : openProduct}
+                    consultMode={isPublicShop}
                   />
                 ))}
               </div>
@@ -458,6 +476,7 @@ export function RegenCatalogPortal({
                     key={p.id}
                     product={p}
                     onOpen={isPublicShop ? undefined : openProduct}
+                    consultMode={isPublicShop}
                   />
                 ))}
               </div>
@@ -472,10 +491,11 @@ export function RegenCatalogPortal({
           <p className="font-serif text-xl font-extrabold tracking-[0.14em] text-[#E6007E]">RE GEN</p>
           <p className="mt-4 max-w-3xl text-sm leading-relaxed text-black/70">
             RE GEN is the telehealth prescription arm of Hello Gorgeous Med Spa, NP-directed
-            by Ryan Kent, FNP-BC. Compounded medications require a prescription and completed
-            intake. Information on this site is educational, not medical advice. Member retail
-            pricing plus flat $30 Illinois shipping. Research peptides are used under provider
-            supervision and are not FDA-approved to treat, cure, or prevent disease.{" "}
+            by Ryan Kent, FNP-BC. Nothing here is sold over the counter — every request starts
+            with an intake and a consult, and your NP sets the final protocol and price.
+            Information on this site is educational, not medical advice. Prices shown are
+            starting points. Research peptides are used under provider supervision and are not
+            FDA-approved to treat, cure, or prevent disease.{" "}
             <strong>74 W. Washington St, Oswego, IL 60543 · (630) 636-6193</strong>
           </p>
           <div className="mt-6 flex flex-wrap gap-4 text-sm">
@@ -483,7 +503,7 @@ export function RegenCatalogPortal({
               RE GEN home
             </Link>
             <Link href="/rx/request" className="font-semibold text-[#E6007E] hover:underline">
-              Start intake
+              Need help starting?
             </Link>
             <Link href="/book" className="font-semibold text-[#E6007E] hover:underline">
               Book in-spa

@@ -56,7 +56,7 @@ type WarmLead = {
   patientName: string;
   phone: string | null;
   email: string | null;
-  track: "peptide" | "glp1" | "unknown";
+  track: "peptide" | "glp1" | "hrt" | "unknown";
   status: RxDispatchStatus;
   action: string;
 };

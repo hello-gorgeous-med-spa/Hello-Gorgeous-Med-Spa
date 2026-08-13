@@ -10,6 +10,8 @@ import { formatGlp1StaffAlert, isGlp1FormSlug } from "@/lib/glp1-form-alert";
 import { notifyPatientRxIntakeSubmitted } from "@/lib/rx-intake-patient-notify";
 import { ensureRxDispatchForSubmission } from "@/lib/rx-dispatch-auto";
 import { recordRxWeightFromSubmission } from "@/lib/rx-weight-log";
+import { HRT_REQUEST_INTAKE_SLUG } from "@/lib/hrt-intake";
+import { linkLedgerRefToSubmission } from "@/lib/rx-payment-ledger";
 
 export const dynamic = "force-dynamic";
 
@@ -80,7 +82,15 @@ export async function POST(req: NextRequest) {
 
   if (insErr) return NextResponse.json({ error: insErr.message }, { status: 500 });
 
-  if (isPeptideFormSlug(slug) || isGlp1FormSlug(slug)) {
+  const prepaidConsultRef =
+    typeof responses.consult_payment_ref === "string"
+      ? responses.consult_payment_ref.trim()
+      : "";
+  if (prepaidConsultRef) {
+    void linkLedgerRefToSubmission(prepaidConsultRef, row.id as string, admin);
+  }
+
+  if (isPeptideFormSlug(slug) || isGlp1FormSlug(slug) || slug === HRT_REQUEST_INTAKE_SLUG) {
     void ensureRxDispatchForSubmission(admin, row.id as string);
 
     const clientEmail =

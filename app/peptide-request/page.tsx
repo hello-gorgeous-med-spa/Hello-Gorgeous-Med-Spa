@@ -59,7 +59,8 @@ export default async function PeptideRequestPage({ searchParams }: PageProps) {
         <div className="rounded-2xl border-2 border-green-600 bg-green-50 px-5 py-4 text-center text-sm text-green-900">
           <p className="font-bold">Consult payment received — thank you!</p>
           <p className="mt-1 text-green-800">
-            Scroll down to book your Video Consult with Ryan Kent, FNP-BC on Fresha.
+            Finish the last few questions below, then you&apos;ll book your Video Consult with Ryan
+            Kent, FNP-BC.
           </p>
         </div>
       )}

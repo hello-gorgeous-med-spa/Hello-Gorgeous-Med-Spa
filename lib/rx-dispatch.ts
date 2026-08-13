@@ -8,12 +8,14 @@ import { glp1DoseTierById } from "@/lib/glp1-dose-tiers";
 import { fulfillmentFromIntakeResponses } from "@/lib/glp1-vial-fulfillment";
 import { fulfillmentFromPeptideIntakeResponses } from "@/lib/peptide-vial-fulfillment";
 import { suggestGlp1RefillDrug } from "@/lib/glp1-refill-intake";
+import { rxPrefersClinicPickup } from "@/lib/rx-fulfillment";
 
 export const RX_INTAKE_SLUGS = [
   "peptide-therapy-request",
   "peptide-refill-request",
   "glp1-weight-loss-intake",
   "glp1-refill-request",
+  "hormone-therapy-request",
 ] as const;
 
 export type RxIntakeSlug = (typeof RX_INTAKE_SLUGS)[number];
@@ -100,9 +102,10 @@ function formatDob(value: unknown): string {
   return s;
 }
 
-export function intakeTrackFromSlug(slug: string): "peptide" | "glp1" | "unknown" {
+export function intakeTrackFromSlug(slug: string): "peptide" | "glp1" | "hrt" | "unknown" {
   if (slug.startsWith("peptide-")) return "peptide";
   if (slug === "glp1-weight-loss-intake" || slug === "glp1-refill-request") return "glp1";
+  if (slug === "hormone-therapy-request") return "hrt";
   return "unknown";
 }
 
@@ -127,6 +130,13 @@ export function suggestDrugFromIntake(
   if (slug === "peptide-refill-request") {
     const current = String(responses.current_peptide || "").trim();
     if (current) return current;
+  }
+
+  if (slug === "hormone-therapy-request") {
+    const ingredient = String(responses.ingredient_name || "").trim();
+    const form = String(responses.form_label || "").trim();
+    if (ingredient) return [ingredient, form].filter(Boolean).join(" — ");
+    return "Compounded hormone therapy (NP to specify)";
   }
 
   const selected = responses.selected_peptides;
@@ -171,6 +181,15 @@ export function suggestSigFromIntake(slug: string, responses: Record<string, unk
   if (slug === "glp1-weight-loss-intake") {
     return "Titrate per Hello Gorgeous GLP-1 protocol — NP to finalize sig";
   }
+  if (slug === "hormone-therapy-request") {
+    const cycle = String(responses.supply_cycle || "").trim();
+    return [
+      "Per Hello Gorgeous HRT protocol — NP to finalize sig",
+      cycle ? `Supply: ${cycle}` : null,
+    ]
+      .filter(Boolean)
+      .join(" · ");
+  }
   return "";
 }
 
@@ -200,11 +219,6 @@ function glp1PharmacySlug(slug: string): RxPharmacy {
   return slug === "glp1-weight-loss-intake" || slug === "glp1-refill-request" ? "boomrx" : "formulation";
 }
 
-function shipToFromGlp1Refill(responses: Record<string, unknown>): RxShipTo {
-  const pref = String(responses.ship_to_home || "");
-  return pref.startsWith("No") ? "clinic" : "patient";
-}
-
 export function defaultDispatchFromIntake(opts: {
   slug: string;
   signerName: string | null;
@@ -212,11 +226,14 @@ export function defaultDispatchFromIntake(opts: {
 }): Omit<RxDispatchRecord, "submission_id" | "updated_at" | "updated_by"> {
   const { slug, responses } = opts;
   const zip = String(responses.zip || "").trim() || null;
-  const isGlp1Refill = slug === "glp1-refill-request";
-  const shipTo = isGlp1Refill ? shipToFromGlp1Refill(responses) : "patient";
+  // Any intake that asks the pickup-vs-ship question answers it with ship_to_home.
+  const askedFulfillment = Boolean(String(responses.ship_to_home || "").trim());
+  const shipTo: RxShipTo = rxPrefersClinicPickup(responses.ship_to_home)
+    ? "clinic"
+    : "patient";
 
   const addressFromIntake =
-    isGlp1Refill && shipTo === "patient"
+    askedFulfillment && shipTo === "patient"
       ? {
           address_line1: String(responses.address_line1 || "").trim() || "",
           address_line2: String(responses.address_line2 || "").trim() || "",
@@ -423,6 +440,17 @@ export function intakeSummaryLines(
         `Conditions: ${formatArray(responses.conditions) || formatArray(responses.medical_conditions) || "—"}`,
       );
     }
+  }
+
+  if (track === "hrt") {
+    lines.push(`Hormone: ${String(responses.ingredient_name || "—")}`);
+    lines.push(`Form: ${String(responses.form_label || "—")}`);
+    lines.push(`Supply: ${String(responses.supply_cycle || "—")}`);
+    lines.push(`Prior HRT: ${String(responses.prior_hormone_therapy || "—")}`);
+  }
+
+  if (track !== "glp1" && responses.ship_to_home) {
+    lines.push(`Ship: ${String(responses.ship_to_home)}`);
   }
 
   const flags = formatArray(responses.provider_flags);

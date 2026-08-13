@@ -1,5 +1,5 @@
 import { PROGRAM_CONSULT_FEE_USD } from "@/lib/flows";
-import { PEPTIDE_PHARMACY_SHIPPING_USD } from "@/lib/peptide-retail-pricing";
+import { REGEN_SHOP_SHIPPING_USD } from "@/lib/regen/shop-surface";
 import { RX_TELEHEALTH_CADENCE_DAYS } from "@/lib/rx-supply-cycle";
 import { SITE } from "@/lib/seo";
 
@@ -130,7 +130,7 @@ export const RX_GUIDE_LINKS: RxGuideLink[] = [
 export const RX_GUIDE_TIPS = [
   {
     strong: "90-day supply",
-    text: `is our most popular option — prepay three months and one shipping fee (typically $${PEPTIDE_PHARMACY_SHIPPING_USD}) per cycle.`,
+    text: `is our most popular option — prepay three months and one shipping fee per cycle (flat $${REGEN_SHOP_SHIPPING_USD} at RE GEN checkout).`,
   },
   {
     strong: "Telehealth",

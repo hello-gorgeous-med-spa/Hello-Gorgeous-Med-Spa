@@ -11,6 +11,7 @@ import {
 import {
   RX_SUPPLY_CYCLE_FIELD_OPTIONS,
 } from "@/lib/rx-supply-cycle";
+import { rxFulfillmentFields } from "@/lib/rx-fulfillment";
 
 export const PEPTIDE_REQUEST_INTAKE_SLUG = "peptide-therapy-request";
 export const PEPTIDE_REFILL_INTAKE_SLUG = "peptide-refill-request";
@@ -311,6 +312,12 @@ export const PEPTIDE_INTAKE_STEPS: PeptideIntakeStep[] = [
     title: "Your goals",
     requestTypes: ["new"],
     fields: NEW_PROTOCOL_FIELDS,
+  },
+  {
+    id: "fulfillment",
+    title: "Pickup or shipping",
+    description: "Tell us where your protocol should go once Ryan approves it.",
+    fields: rxFulfillmentFields({ omitZip: true }),
   },
   {
     id: "consent",

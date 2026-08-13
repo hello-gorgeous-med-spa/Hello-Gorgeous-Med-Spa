@@ -490,6 +490,32 @@ export async function getLatestLedgerForSubmission(
   return null;
 }
 
+/**
+ * Attach a consult fee that was paid before the intake existed to the
+ * submission it belongs to, so the dispatch queue shows it as paid.
+ */
+export async function linkLedgerRefToSubmission(
+  intakeRef: string,
+  submissionId: string,
+  client?: SupabaseClient | null,
+): Promise<boolean> {
+  const admin = client ?? getSupabaseAdminClient();
+  const ref = intakeRef.trim().toUpperCase();
+  if (!admin || !ref || !submissionId) return false;
+
+  const { error } = await admin
+    .from("hg_rx_payment_ledger")
+    .update({ submission_id: submissionId, updated_at: new Date().toISOString() })
+    .ilike("intake_ref", ref)
+    .is("submission_id", null);
+
+  if (error) {
+    console.error("[rx-payment-ledger] link ref to submission", error.message);
+    return false;
+  }
+  return true;
+}
+
 /** Latest ledger row matched by intake ref prefix. */
 export async function getLatestLedgerForIntakeRef(
   intakeRef: string,

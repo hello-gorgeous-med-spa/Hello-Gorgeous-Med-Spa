@@ -13,7 +13,7 @@ const hub = getRegenCategoryHub("hormones")!;
 const baseMeta = pageMetadata({
   title: `${REGEN_SITE.name} Hormone Therapy | TRT & HRT Illinois | Oswego, IL`,
   description:
-    "Testosterone, bioidentical HRT, and lab-guided hormone optimization — Ryan Kent, FNP-BC. RE GEN pay-first, intake, telehealth, ship to door.",
+    "Testosterone, bioidentical HRT, and lab-guided hormone optimization — Ryan Kent, FNP-BC. RE GEN intake, provider consult, clinic pickup or ship to door.",
   path: PAGE_PATH,
   keywords: [
     "RE GEN hormones",

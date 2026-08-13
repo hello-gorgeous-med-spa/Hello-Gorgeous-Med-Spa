@@ -8,6 +8,7 @@ import { useCart } from "@/lib/regen/cart-context";
 import { peptideHubSlugFromCatalog } from "@/lib/peptide-hub-from-catalog";
 import { peptideTopicHref } from "@/lib/peptides-hub";
 import {
+  CATALOG_PRODUCTS,
   REGEN_CATALOG_LOGO,
   getMonograph,
   getProtocol,
@@ -19,16 +20,68 @@ import {
   type SupplyDays,
 } from "@/lib/regen/catalog";
 import { catalogLineId, price30, price90, supplyPrice } from "@/lib/regen/catalog/pricing";
-import { formatCatalogMoney, CatalogCartButton } from "@/components/regen/catalog/CatalogProductCard";
+import { catalogClientSupplyUsd } from "@/lib/regen/catalog/client-price";
+import { catalogConsultRoute } from "@/lib/regen/catalog/consult-route";
+import {
+  formatCatalogMoney,
+  CatalogCartButton,
+  ProductCard,
+} from "@/components/regen/catalog/CatalogProductCard";
+import { PROGRAM_CONSULT_FEE_USD } from "@/lib/flows";
+import { REGEN_SHOP_SHIPPING_USD } from "@/lib/regen/shop-surface";
+
+const SHIPPING_LABEL = `$${REGEN_SHOP_SHIPPING_USD}`;
+
+/** Staff point-of-sale gate — mirrors app/api/regen/checkout + post-payment intake. */
+const CHECKOUT_STEPS = [
+  { title: "Add to cart", body: "Pick your strength and 30- or 90-day supply." },
+  { title: "Pay securely", body: "Checkout reserves your order — nothing is filled yet." },
+  { title: "Health intake", body: "History, meds and consent right after checkout." },
+  { title: "NP review", body: "Ryan Kent, FNP-BC approves, with telehealth when required." },
+  { title: "Ships to you", body: `Licensed pharmacy · flat ${SHIPPING_LABEL} shipping, tracked.` },
+] as const;
+
+/** Client consult gate — no medication is sold before a provider visit. */
+const CONSULT_STEPS = [
+  {
+    title: "Start your intake",
+    body: "Free — your goals, health history, medications and allergies. About 4 minutes.",
+  },
+  {
+    title: `Reserve your consult · $${PROGRAM_CONSULT_FEE_USD}`,
+    body: "Holds your visit with Ryan Kent, FNP-BC. Medication cost is separate.",
+  },
+  {
+    title: "Meet your provider",
+    body: "Ryan reviews your intake and decides your protocol and dose — telehealth or in Oswego.",
+  },
+  {
+    title: "Approved, then filled",
+    body: "You're invoiced for the medication only after approval.",
+  },
+  {
+    title: "Pick up or shipped",
+    body: `Collect it at our Oswego clinic or ship flat ${SHIPPING_LABEL}, tracked.`,
+  },
+] as const;
 
 type ProductDetailPanelProps = {
   product: CatalogProduct;
   /** When true, show back-to-shop link for full page mode */
   pageMode?: boolean;
+  /**
+   * Client storefront: quote a starting price and route to intake. Defaults to
+   * `pageMode` because only staff portals open this panel as a drawer.
+   */
+  consultMode?: boolean;
 };
 
-export function ProductDetailPanel({ product, pageMode = false }: ProductDetailPanelProps) {
-  const { addItem } = useCart();
+export function ProductDetailPanel({
+  product,
+  pageMode = false,
+  consultMode = pageMode,
+}: ProductDetailPanelProps) {
+  const { addItem, openCart } = useCart();
   const [variantIndex, setVariantIndex] = useState(0);
   const [supply, setSupply] = useState<SupplyDays>(30);
 
@@ -36,13 +89,19 @@ export function ProductDetailPanel({ product, pageMode = false }: ProductDetailP
   const proto = getProtocol(product.drugKey);
   const idx = Math.min(variantIndex, product.variants.length - 1);
   const variant = product.variants[idx];
-  const p30 = price30(product, variant);
-  const p90 = price90(product, variant);
+  const p30 = consultMode ? catalogClientSupplyUsd(product, 30) : price30(product, variant);
+  const p90 = consultMode ? catalogClientSupplyUsd(product, 90) : price90(product, variant);
   const current = supply === 90 ? p90 : p30;
+  const consult = catalogConsultRoute(product);
+  const steps = consultMode ? CONSULT_STEPS : CHECKOUT_STEPS;
   const img = productImage(product.drugKey, product.form);
   const accent = goalAccent(product.goal);
   const educationSlug = peptideHubSlugFromCatalog(product.drugKey, product.name);
   const educationHref = educationSlug ? peptideTopicHref(educationSlug) : null;
+  const goalHref = `/rx?goal=${goalSlug(product.goal)}`;
+  const related = CATALOG_PRODUCTS.filter(
+    (p) => p.goal === product.goal && p.id !== product.id,
+  ).slice(0, 4);
 
   const handleAdd = () => {
     addItem({
@@ -55,15 +114,22 @@ export function ProductDetailPanel({ product, pageMode = false }: ProductDetailP
       variantLabel: variant.strength,
       supplyDays: supply,
     });
+    openCart();
   };
 
+  const addLabel = `Add ${supply === 90 ? "90-day" : "30-day"} · ${formatCatalogMoney(current)}`;
+
   return (
-    <div className={pageMode ? "bg-gradient-to-b from-[#FFF0F7] via-white to-[#f5f5f5]" : ""}>
+    <div
+      className={
+        pageMode ? "bg-gradient-to-b from-[#FFF0F7] via-white to-[#f5f5f5] pb-24 lg:pb-28" : ""
+      }
+    >
       {pageMode ? (
         <div className="border-b-4 border-black bg-black px-6 py-4">
           <div className="mx-auto flex max-w-[1100px] items-center justify-between gap-4">
             <Link
-              href={`/rx?goal=${goalSlug(product.goal)}`}
+              href={goalHref}
               className="text-sm font-bold text-[#FFB8DC] hover:text-white"
             >
               ← Back to {product.goal}
@@ -72,7 +138,7 @@ export function ProductDetailPanel({ product, pageMode = false }: ProductDetailP
               <Link href="/rx" className="font-serif text-sm font-extrabold tracking-[0.14em] text-white">
                 RE GEN
               </Link>
-              <CatalogCartButton />
+              {consultMode ? null : <CatalogCartButton />}
             </div>
           </div>
         </div>
@@ -187,7 +253,7 @@ export function ProductDetailPanel({ product, pageMode = false }: ProductDetailP
                         {s}-day{s === 90 ? " · save ~10%" : ""}
                       </p>
                       <p className={`mt-1 font-serif text-xl font-extrabold ${pageMode ? "text-[#E6007E]" : "text-[#FF2D8E]"}`}>
-                        {formatCatalogMoney(price)}
+                        {consultMode ? `from ${formatCatalogMoney(price)}` : formatCatalogMoney(price)}
                       </p>
                     </button>
                   );
@@ -195,13 +261,30 @@ export function ProductDetailPanel({ product, pageMode = false }: ProductDetailP
               </div>
             </div>
 
-            <button
-              type="button"
-              onClick={handleAdd}
-              className="w-full rounded-xl border-2 border-black bg-gradient-to-r from-[#FF2D8E] to-[#E6007E] py-4 text-base font-black text-white shadow-[4px_4px_0_0_#000] transition hover:brightness-110"
+            {consultMode ? (
+              <Link
+                href={consult.href}
+                className="block w-full rounded-xl border-2 border-black bg-gradient-to-r from-[#FF2D8E] to-[#E6007E] py-4 text-center text-base font-black text-white shadow-[4px_4px_0_0_#000] transition hover:brightness-110"
+              >
+                {consult.cta} →
+              </Link>
+            ) : (
+              <button
+                type="button"
+                onClick={handleAdd}
+                className="w-full rounded-xl border-2 border-black bg-gradient-to-r from-[#FF2D8E] to-[#E6007E] py-4 text-base font-black text-white shadow-[4px_4px_0_0_#000] transition hover:brightness-110"
+              >
+                {addLabel}
+              </button>
+            )}
+
+            <p
+              className={`text-center text-xs font-semibold ${pageMode ? "text-black/50" : "text-white/50"}`}
             >
-              Add {supply === 90 ? "90-day" : "30-day"} · {formatCatalogMoney(current)}
-            </button>
+              {consultMode
+                ? `Starting price for a ${supply}-day supply · your NP confirms the protocol and final price at your consult`
+                : `${supply === 90 ? "90-day supply" : "30-day supply"} · flat ${SHIPPING_LABEL} shipping · health intake after checkout`}
+            </p>
 
             {educationHref ? (
               <Link
@@ -216,6 +299,36 @@ export function ProductDetailPanel({ product, pageMode = false }: ProductDetailP
               </Link>
             ) : null}
           </div>
+
+          {/* What happens next — the medical gate, spelled out */}
+          <section
+            className={`mt-8 rounded-3xl border-2 p-6 ${
+              pageMode
+                ? "border-black bg-[#FFF0F7] shadow-[6px_6px_0_0_rgba(230,0,126,0.3)]"
+                : "border-[#FF2D8E]/25 bg-[#140109]"
+            }`}
+          >
+            <h2 className={`text-sm font-bold ${pageMode ? "text-[#E6007E]" : "text-white"}`}>
+              What happens next
+            </h2>
+            <ol className="mt-4 space-y-3">
+              {steps.map((step, i) => (
+                <li key={step.title} className="flex gap-3">
+                  <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border-2 border-black bg-gradient-to-br from-[#FF2D8E] to-[#E6007E] text-xs font-black text-white">
+                    {i + 1}
+                  </span>
+                  <span>
+                    <span className={`text-sm font-bold ${pageMode ? "text-black" : "text-white"}`}>
+                      {step.title}
+                    </span>
+                    <span className={`block text-sm ${pageMode ? "text-black/65" : "text-white/65"}`}>
+                      {step.body}
+                    </span>
+                  </span>
+                </li>
+              ))}
+            </ol>
+          </section>
 
           {/* Clinical copy */}
           <div className={`mt-8 space-y-5 ${pageMode ? "rounded-3xl border-2 border-black bg-white p-6 shadow-[6px_6px_0_0_rgba(230,0,126,0.3)]" : ""}`}>
@@ -272,6 +385,55 @@ export function ProductDetailPanel({ product, pageMode = false }: ProductDetailP
           </div>
         </div>
       </div>
+
+      {pageMode && related.length > 0 ? (
+        <section className="mx-auto max-w-[1100px] px-6 pb-12">
+          <div className="flex flex-wrap items-end justify-between gap-3">
+            <h2 className="font-serif text-2xl font-black text-black lg:text-3xl">
+              More for <span className="text-[#FF2D8E]">{product.goal}</span>
+            </h2>
+            <Link href={goalHref} className="text-sm font-bold text-[#E6007E] hover:underline">
+              See all {product.goal} →
+            </Link>
+          </div>
+          <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {related.map((p) => (
+              <ProductCard key={p.id} product={p} consultMode={consultMode} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {pageMode ? (
+        <div className="fixed inset-x-0 bottom-0 z-30 border-t-4 border-black bg-white/95 backdrop-blur">
+          <div className="mx-auto flex max-w-[1100px] items-center gap-4 px-4 py-3 lg:px-6">
+            <div className="min-w-0 flex-1">
+              <p className="truncate text-sm font-bold text-black">{product.name}</p>
+              <p className="truncate text-xs font-semibold text-black/55">
+                {consultMode
+                  ? `${variant.strength} · ${supply}-day · from ${formatCatalogMoney(current)}`
+                  : `${variant.strength} · ${supply}-day · flat ${SHIPPING_LABEL} shipping`}
+              </p>
+            </div>
+            {consultMode ? (
+              <Link
+                href={consult.href}
+                className="shrink-0 rounded-xl border-2 border-black bg-gradient-to-r from-[#FF2D8E] to-[#E6007E] px-5 py-3 text-sm font-black text-white shadow-[3px_3px_0_0_#000] transition hover:brightness-110"
+              >
+                {consult.cta} →
+              </Link>
+            ) : (
+              <button
+                type="button"
+                onClick={handleAdd}
+                className="shrink-0 rounded-xl border-2 border-black bg-gradient-to-r from-[#FF2D8E] to-[#E6007E] px-5 py-3 text-sm font-black text-white shadow-[3px_3px_0_0_#000] transition hover:brightness-110"
+              >
+                {addLabel}
+              </button>
+            )}
+          </div>
+        </div>
+      ) : null}
     </div>
   );
 }

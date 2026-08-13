@@ -11,6 +11,7 @@ import {
 } from "react";
 
 import { parseCatalogLineId } from "@/lib/regen/catalog/pricing";
+import { REGEN_SHOP_SHIPPING_USD } from "@/lib/regen/shop-surface";
 
 export type CartItem = {
   id: string;
@@ -47,7 +48,7 @@ type CartContextType = {
   hasCatalogItems: boolean;
 };
 
-const SHIPPING_FLAT = 30;
+const SHIPPING_FLAT = REGEN_SHOP_SHIPPING_USD;
 const CART_STORAGE_KEY = "hgrx_cart";
 const REFILL_STORAGE_KEY = "hgrx_refill";
 

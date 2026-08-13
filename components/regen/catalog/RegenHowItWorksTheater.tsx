@@ -3,7 +3,8 @@
 import Image from "next/image";
 import { useMemo } from "react";
 
-import { findProductByDrugKey, listingPriceText } from "@/lib/regen/catalog";
+import { findProductByDrugKey } from "@/lib/regen/catalog";
+import { catalogClientPriceText } from "@/lib/regen/catalog/client-price";
 import { REGEN_SHOP_SECTION_WASH } from "@/lib/regen/shop-surface";
 import { SITE } from "@/lib/seo";
 
@@ -17,18 +18,18 @@ export function RegenHowItWorksTheater({ onStartShopping, onShopWeightLoss }: Pr
   const fromPrice = useMemo(() => {
     const p = findProductByDrugKey("tirzepatide");
     if (!p) return null;
-    const label = listingPriceText(p);
+    const label = catalogClientPriceText(p);
     return label.charAt(0).toUpperCase() + label.slice(1);
   }, []);
 
   const steps = [
     {
       n: "01",
-      title: "Choose your stack",
+      title: "Choose your protocol",
       sell: fromPrice
         ? `Browse goals, protocols, or curated bundles. Weight-loss protocols start ${fromPrice} / 30 days.`
-        : "Browse goals, protocols, or curated bundles — add what you want in one tap.",
-      trust: "Secure Square checkout",
+        : "Browse goals, protocols, or curated bundles, then start intake on the one you want.",
+      trust: "No purchase before your consult",
       image: "/images/regen/brand/steps/01-shop.jpg",
       imageAlt: "Hands holding a RE GEN peptide vial — choose your protocol",
       chip: fromPrice ? `Most popular: Tirzepatide · ${fromPrice}` : "Most popular: Tirzepatide",
@@ -37,7 +38,7 @@ export function RegenHowItWorksTheater({ onStartShopping, onShopWeightLoss }: Pr
     {
       n: "02",
       title: "Quick clinical intake",
-      sell: "Tell us your health story right after you pay — typically about 4 minutes.",
+      sell: "Tell us your health story — free to submit, about 4 minutes. A $49 fee then reserves your consult.",
       trust: "~4 min · Encrypted · NP-reviewed",
       image: "/images/regen/brand/steps/02-intake.jpg",
       imageAlt: "Client completing RE GEN health intake on a phone",
@@ -47,7 +48,7 @@ export function RegenHowItWorksTheater({ onStartShopping, onShopWeightLoss }: Pr
     {
       n: "03",
       title: "NP reviews & approves",
-      sell: "15-minute telehealth with Ryan Kent, FNP-BC. Medicine first — then we ship.",
+      sell: "15-minute telehealth with Ryan Kent, FNP-BC. He sets your protocol and price — then you're invoiced.",
       trust: "~15 min video · Licensed Illinois NP",
       image: "/images/regen/brand/steps/03-np.jpg",
       imageAlt: "RE GEN provider ready for NP telehealth review",
@@ -56,8 +57,8 @@ export function RegenHowItWorksTheater({ onStartShopping, onShopWeightLoss }: Pr
     },
     {
       n: "04",
-      title: "Arrives discreet · tracked",
-      sell: "Approved orders ship to your door in plain packaging — you get tracking the whole way.",
+      title: "Pick up or delivered",
+      sell: "Collect it at our Oswego clinic, or have it shipped in plain packaging with tracking the whole way.",
       trust: "Pharmacy-fulfilled · Flat $30 IL shipping",
       image: "/images/regen/brand/steps/04-arrive.jpg",
       imageAlt: "Happy client receiving a discreet RE GEN delivery",
@@ -95,7 +96,7 @@ export function RegenHowItWorksTheater({ onStartShopping, onShopWeightLoss }: Pr
               color: "transparent",
             }}
           >
-            Shop → Intake → Approve → Ship
+            Browse → Intake → Consult → Filled
           </p>
           <p className="mt-3 text-sm font-semibold text-black/70">
             {SITE.freshaReviewRating}★ from {SITE.freshaReviewCount}+ verified visits · NP on site

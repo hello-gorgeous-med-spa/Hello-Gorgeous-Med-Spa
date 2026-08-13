@@ -22,7 +22,7 @@ import {
   listClinicEncountersWithClient,
   type RxClinicEncounterRow,
 } from "@/lib/rx-clinic-encounter";
-import { GLP1_REFILL_PATH, PEPTIDE_REQUEST_PATH } from "@/lib/flows";
+import { GLP1_REFILL_PATH, HRT_REQUEST_PATH, PEPTIDE_REQUEST_PATH } from "@/lib/flows";
 import { getSupabaseAdminClient } from "@/lib/hgos/supabase-admin";
 import { parseRxSupplyCycle, type RxSupplyCycleId } from "@/lib/rx-supply-cycle";
 
@@ -38,7 +38,7 @@ export type RxRefillCadenceItem = {
   medication: string;
   doseLabel: string | null;
   supplyCycle: RxSupplyCycleId;
-  track: "glp1" | "peptide" | "unknown";
+  track: "glp1" | "peptide" | "hrt" | "unknown";
   anchorAt: string;
   dueAt: string;
   urgency: RefillUrgency;
@@ -53,8 +53,9 @@ export type RxRefillCadenceCounts = {
 
 const RX_SLUG_SET = new Set<string>(RX_INTAKE_SLUGS);
 
-function reorderHrefForTrack(track: "glp1" | "peptide" | "unknown"): string {
+function reorderHrefForTrack(track: "glp1" | "peptide" | "hrt" | "unknown"): string {
   if (track === "peptide") return PEPTIDE_REQUEST_PATH;
+  if (track === "hrt") return HRT_REQUEST_PATH;
   return GLP1_REFILL_PATH;
 }
 

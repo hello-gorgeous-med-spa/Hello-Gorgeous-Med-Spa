@@ -24,7 +24,7 @@ export type RxOpsRequest = {
   stage: RxOpsStage;
   submittedAt: string;
   submittedLabel: string;
-  track: "glp1" | "peptide" | "unknown";
+  track: "glp1" | "peptide" | "hrt" | "unknown";
   phone: string | null;
   email: string | null;
   paymentStatus: string | null;

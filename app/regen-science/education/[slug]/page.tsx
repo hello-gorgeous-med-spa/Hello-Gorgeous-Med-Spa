@@ -18,23 +18,23 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const module = getModuleBySlug(slug);
+  const educationModule = getModuleBySlug(slug);
 
-  if (!module) {
+  if (!educationModule) {
     return {
       title: "Module Not Found | Hello Gorgeous RX",
     };
   }
 
-  const title = `Module ${module.moduleNumber}: ${module.title} — Peptide Education | Hello Gorgeous RX`;
-  const description = module.heroDescription;
+  const title = `Module ${educationModule.moduleNumber}: ${educationModule.title} — Peptide Education | Hello Gorgeous RX`;
+  const description = educationModule.heroDescription;
 
   return {
     title,
     description,
     keywords: [
       "peptide education",
-      module.title.toLowerCase(),
+      educationModule.title.toLowerCase(),
       "peptide learning",
       "Hello Gorgeous RX",
       "peptide science",
@@ -44,7 +44,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       canonical: `${SITE.url}/regen-science/education/${slug}`,
     },
     openGraph: {
-      title: `Module ${module.moduleNumber}: ${module.title}`,
+      title: `Module ${educationModule.moduleNumber}: ${educationModule.title}`,
       description,
       url: `${SITE.url}/regen-science/education/${slug}`,
       siteName: SITE.name,
@@ -54,13 +54,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
           url: `${SITE.url}/images/rx-care/square/rx-overview.jpg`,
           width: 1200,
           height: 630,
-          alt: `Peptide Education Module ${module.moduleNumber}: ${module.title}`,
+          alt: `Peptide Education Module ${educationModule.moduleNumber}: ${educationModule.title}`,
         },
       ],
     },
     twitter: {
       card: "summary_large_image",
-      title: `Module ${module.moduleNumber}: ${module.title}`,
+      title: `Module ${educationModule.moduleNumber}: ${educationModule.title}`,
       description,
     },
   };
@@ -137,9 +137,9 @@ const articleJsonLd = (slug: string, module: NonNullable<ReturnType<typeof getMo
 
 export default async function EducationModulePageRoute({ params }: Props) {
   const { slug } = await params;
-  const module = getModuleBySlug(slug);
+  const educationModule = getModuleBySlug(slug);
 
-  if (!module) {
+  if (!educationModule) {
     notFound();
   }
 
@@ -148,16 +148,18 @@ export default async function EducationModulePageRoute({ params }: Props) {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(breadcrumbJsonLd(slug, module.title, module.moduleNumber)),
+          __html: JSON.stringify(
+            breadcrumbJsonLd(slug, educationModule.title, educationModule.moduleNumber),
+          ),
         }}
       />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(articleJsonLd(slug, module)),
+          __html: JSON.stringify(articleJsonLd(slug, educationModule)),
         }}
       />
-      <EducationModulePage module={module} />
+      <EducationModulePage module={educationModule} />
     </>
   );
 }

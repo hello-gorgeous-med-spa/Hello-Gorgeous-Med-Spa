@@ -6,17 +6,21 @@ import { useMemo, useState } from "react";
 
 import {
   CatalogBrandLockup,
-  CatalogCartButton,
   ProductCard,
 } from "@/components/regen/catalog/CatalogProductCard";
 import { RegenMetabolicShiftVisual } from "@/components/regen/RegenMetabolicShiftVisual";
 import { RxFindYourPeptideCta } from "@/components/rx/RxFindYourPeptideCta";
 import { getCatalogProduct } from "@/lib/regen/catalog";
 import { getCategoryMascot } from "@/lib/regen/category-mascots";
-import { useCart } from "@/lib/regen/cart-context";
+import { getCategoryIntakeRoute } from "@/lib/regen/intake-router";
 import { REGEN_SHOP_PAGE_WASH } from "@/lib/regen/shop-surface";
 import { regenStorefrontUrl } from "@/lib/regen/storefront-deep-link";
-import type { RxCategoryHub, RxCategoryHubId, RxCategoryProduct } from "@/lib/rx-category-hubs";
+import {
+  rxCategoryProductHref,
+  type RxCategoryHub,
+  type RxCategoryHubId,
+  type RxCategoryProduct,
+} from "@/lib/rx-category-hubs";
 import { FIND_YOUR_PEPTIDE_PATH } from "@/lib/rx-patient-journey";
 import { REGEN_SITE, REGEN_TRUST_BAR } from "@/lib/regen-site";
 
@@ -27,8 +31,9 @@ function HubFallbackCard({
   product: RxCategoryProduct;
   hubId: RxCategoryHubId;
 }) {
-  const shopHref = product.href?.startsWith("/")
-    ? product.href
+  const hubHref = rxCategoryProductHref(product);
+  const shopHref = hubHref?.startsWith("/")
+    ? hubHref
     : regenStorefrontUrl(hubId, product.catalogProductId ?? product.id);
 
   return (
@@ -55,7 +60,7 @@ function HubFallbackCard({
           href={shopHref}
           className="mt-4 block w-full rounded-xl bg-gradient-to-r from-[#FF2D8E] to-[#E6007E] py-2.5 text-center text-sm font-black text-white shadow-[0_0_20px_rgba(255,45,142,0.35)] transition hover:brightness-110"
         >
-          Shop now
+          See details &amp; start →
         </Link>
       </div>
     </article>
@@ -74,7 +79,7 @@ function HubProductSlot({
     : undefined;
 
   if (catalog) {
-    return <ProductCard product={catalog} />;
+    return <ProductCard product={catalog} consultMode />;
   }
 
   return <HubFallbackCard product={product} hubId={hubId} />;
@@ -164,25 +169,22 @@ function CategoryFaq({ faq, hubId }: { faq?: RxCategoryHub["faq"]; hubId: RxCate
   );
 }
 
-function ClosingCta({ shopHref }: { shopHref: string }) {
-  const { openCart, itemCount } = useCart();
-
+function ClosingCta({ shopHref, intakeHref }: { shopHref: string; intakeHref: string }) {
   return (
     <section className="bg-gradient-to-br from-[#E6007E] to-[#9b0a4d] py-16 text-white">
       <div className="mx-auto max-w-3xl px-4 text-center">
-        <h2 className="font-serif text-2xl font-black sm:text-3xl">Ready to check out?</h2>
+        <h2 className="font-serif text-2xl font-black sm:text-3xl">Ready to get started?</h2>
         <p className="mt-4 text-white/80">
-          Add your protocol, pay first, complete intake — NP reviews before anything ships. Flat{" "}
-          {REGEN_SITE.shipping} shipping.
+          Answer a few questions, then meet your provider. Ryan Kent, FNP-BC decides your protocol
+          before anything is filled — and you&apos;re only billed for medication after he approves it.
         </p>
         <div className="mt-8 flex flex-wrap justify-center gap-3">
-          <button
-            type="button"
-            onClick={() => openCart()}
+          <Link
+            href={intakeHref}
             className="inline-flex items-center gap-2 rounded-lg bg-white px-6 py-3.5 text-sm font-black text-[#E6007E] shadow-lg transition hover:bg-neutral-100"
           >
-            {itemCount > 0 ? `View cart (${itemCount})` : "View cart"}
-          </button>
+            Start intake →
+          </Link>
           <Link
             href={shopHref}
             className="inline-flex items-center gap-2 rounded-lg border border-white/30 px-6 py-3.5 text-sm font-semibold text-white transition hover:bg-white/10"
@@ -234,7 +236,6 @@ export function RxCategoryLanding({ hub }: { hub: RxCategoryHub }) {
             >
               Full shop
             </Link>
-            <CatalogCartButton />
           </div>
         </div>
       </header>
@@ -327,7 +328,9 @@ export function RxCategoryLanding({ hub }: { hub: RxCategoryHub }) {
         <section className="border-y border-black/10 bg-transparent px-4 py-12">
           <div className="mx-auto max-w-6xl">
             <p className="text-xs font-bold uppercase tracking-widest text-black/40">How it works</p>
-            <h2 className="mt-1 font-serif text-2xl font-black text-black">Pay → intake → ship</h2>
+            <h2 className="mt-1 font-serif text-2xl font-black text-black">
+              Intake → consult → filled
+            </h2>
             <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
               {steps.map((step, index) => (
                 <div key={step.title}>
@@ -345,7 +348,7 @@ export function RxCategoryLanding({ hub }: { hub: RxCategoryHub }) {
 
       <CategoryFaq faq={faq} hubId={hubId} />
 
-      <ClosingCta shopHref={shopHref} />
+      <ClosingCta shopHref={shopHref} intakeHref={getCategoryIntakeRoute(hubId).intakePath} />
 
       <footer className="border-t border-black/10 bg-white py-8">
         <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4 px-4">

@@ -22,7 +22,7 @@ type QueueItem = {
   intakeRef: string;
   slug: string;
   templateTitle: string;
-  track: "peptide" | "glp1" | "unknown";
+  track: "peptide" | "glp1" | "hrt" | "unknown";
   patientName: string;
   phone: string | null;
   email: string | null;
@@ -400,7 +400,8 @@ export default function RxDispatchPage() {
                   <div>
                     <p className="font-bold text-sm">{item.patientName}</p>
                     <p className="text-xs text-gray-400 mt-0.5">
-                      {item.track === "glp1" ? "GLP-1" : "Peptide"} · {item.templateTitle}
+                      {item.track === "glp1" ? "GLP-1" : item.track === "hrt" ? "Hormones" : "Peptide"} ·{" "}
+                      {item.templateTitle}
                       {item.intakeRef ? ` · ${item.intakeRef}` : ""}
                     </p>
                     <p className="text-[11px] text-gray-500 mt-1">

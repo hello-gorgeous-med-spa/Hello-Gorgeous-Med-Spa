@@ -10,7 +10,7 @@ export async function notifyPatientIntakeRxShipped(opts: {
   patientName: string;
   intakeRef?: string | null;
   staffNotes?: string | null;
-  track?: "glp1" | "peptide" | "unknown";
+  track?: "glp1" | "peptide" | "hrt" | "unknown";
 }): Promise<{ ok: boolean; error?: string }> {
   const phone = String(opts.phone || "").trim();
   if (!phone) return { ok: false, error: "No phone on file" };

@@ -77,7 +77,7 @@ const REGEN_FAQS: readonly FAQ[] = [
   {
     question: "How does RE GEN work?",
     answer:
-      "Browse the catalog by goal, add items to your cart, complete checkout, then finish your health intake. A nurse practitioner reviews your information (with telehealth when required) before pharmacy fulfillment. Shipping is a flat $30 per order.",
+      "Browse the catalog by goal, then start intake on the protocol you want — free to submit. A $49 fee reserves your consult with a nurse practitioner, who reviews your history and sets your protocol. You are invoiced for medication only after approval, then pick it up in Oswego or have it shipped for a flat $30.",
   },
   {
     question: "Who oversees RE GEN treatment plans?",

@@ -1,3 +1,9 @@
+/**
+ * Flat shipping charged by RE GEN cart checkout. Shop-facing copy must quote this —
+ * invoiced pharmacy orders use `PEPTIDE_PHARMACY_SHIPPING_USD` instead.
+ */
+export const REGEN_SHOP_SHIPPING_USD = 30;
+
 /** Shared light page wash for RE GEN shop — white canvas + soft pink speckles. */
 export const REGEN_SHOP_PAGE_WASH = `
   radial-gradient(ellipse 70% 45% at 85% 0%, rgba(230,0,126,0.09) 0%, transparent 55%),
