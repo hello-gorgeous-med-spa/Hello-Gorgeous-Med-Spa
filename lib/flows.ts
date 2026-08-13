@@ -27,6 +27,16 @@ export const SQUARE_RX_TELEHEALTH_SERVICE_VARIATION_ID = "ZLCRRG4BM6W2DCLWDWIDVB
  */
 export const SQUARE_RX_PEPTIDE_CONSULT_SERVICE_VARIATION_ID = "7QOZ5JWUYXB2622D5XZWJ6FR";
 
+/**
+ * Square Appointments — "Vitamin Injection Bar — Choose Your Shot" ($25, 10 min).
+ * The in-clinic shot a nurse gives, as opposed to the pharmacy-shipped vials on
+ * `/rx/wellness`. Every vitamin shot on the menu is this one flat price.
+ */
+export const SQUARE_VITAMIN_SHOT_SERVICE_VARIATION_ID = "UOLBQHORYETG7CFT2MX6TRYJ";
+
+/** Flat price for any in-clinic vitamin injection. */
+export const VITAMIN_SHOT_FEE_USD = 25;
+
 export const SQUARE_ORG_BOOKING_URL =
   process.env.NEXT_PUBLIC_SQUARE_BOOKING_URL?.trim() ||
   `https://square.site/book/${SQUARE_RX_LOCATION_ID}/hello-gorgeous-med-spa-rx-oswego-il`;
@@ -65,6 +75,14 @@ export const SQUARE_RX_TELEHEALTH_BOOKING_URL =
 export const SQUARE_RX_PEPTIDE_CONSULT_BOOKING_URL =
   process.env.NEXT_PUBLIC_SQUARE_RX_PEPTIDE_CONSULT_URL?.trim() ||
   `https://book.squareup.com/appointments/${SQUARE_RX_BOOKING_SITE_ID}/location/${SQUARE_RX_LOCATION_ID}/services/${SQUARE_RX_PEPTIDE_CONSULT_SERVICE_VARIATION_ID}`;
+
+/**
+ * In-clinic vitamin shot ($25) — Square Appointments deep link. Override with
+ * `NEXT_PUBLIC_SQUARE_VITAMIN_SHOT_URL` if the service variation changes.
+ */
+export const SQUARE_VITAMIN_SHOT_BOOKING_URL =
+  process.env.NEXT_PUBLIC_SQUARE_VITAMIN_SHOT_URL?.trim() ||
+  `https://book.squareup.com/appointments/${SQUARE_RX_BOOKING_SITE_ID}/location/${SQUARE_RX_LOCATION_ID}/services/${SQUARE_VITAMIN_SHOT_SERVICE_VARIATION_ID}`;
 
 export const PROGRAM_CONSULT_FEE_USD = 49;
 

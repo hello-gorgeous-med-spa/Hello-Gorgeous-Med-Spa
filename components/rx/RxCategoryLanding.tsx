@@ -93,6 +93,40 @@ function HubProductSlot({
   return <HubFallbackCard product={product} hubId={hubId} />;
 }
 
+/** The walk-in shot, priced flat — shown next to vials that need a consult first. */
+function InClinicOptionBand({ option }: { option: NonNullable<RxCategoryHub["inClinicOption"]> }) {
+  return (
+    <section className="bg-transparent px-4 pb-4">
+      <div className="mx-auto max-w-6xl">
+        <div className="rounded-[1.5rem] border-4 border-black bg-white p-6 shadow-[8px_8px_0_0_rgba(230,0,126,0.35)] sm:p-8">
+          <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
+            <div className="max-w-2xl">
+              <p className="text-xs font-bold uppercase tracking-widest text-[#E6007E]">
+                {option.eyebrow}
+              </p>
+              <h2 className="mt-1 font-serif text-2xl font-black text-black sm:text-3xl">
+                {option.title}
+              </h2>
+              <p className="mt-2 text-sm font-medium text-black/70">{option.body}</p>
+            </div>
+            <div className="flex shrink-0 flex-col items-start gap-3 sm:items-end">
+              <span className="font-serif text-4xl font-black text-black">{option.priceLabel}</span>
+              <a
+                href={option.bookHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center rounded-xl border-2 border-black bg-gradient-to-r from-[#FF2D8E] to-[#E6007E] px-6 py-3 text-sm font-black text-white transition hover:brightness-110"
+              >
+                {option.bookLabel}
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function CategoryMascotAside({ hubId }: { hubId: RxCategoryHubId }) {
   const mascot = getCategoryMascot(hubId);
   if (!mascot) return null;
@@ -331,6 +365,8 @@ export function RxCategoryLanding({ hub }: { hub: RxCategoryHub }) {
           </div>
         </section>
       ) : null}
+
+      {hub.inClinicOption ? <InClinicOptionBand option={hub.inClinicOption} /> : null}
 
       {hub.id === "weight-loss" ? <RegenMetabolicShiftVisual variant="landing" /> : null}
 

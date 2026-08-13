@@ -8,6 +8,8 @@ import {
   LABS_HUB_PATH,
   PEPTIDE_REQUEST_PATH,
   RX_PATIENT_CARE_PATH,
+  SQUARE_VITAMIN_SHOT_BOOKING_URL,
+  VITAMIN_SHOT_FEE_USD,
 } from "@/lib/flows";
 import { GLP1_PROGRAM } from "@/lib/glp1-program-pricing";
 import { GENTLEMENS_CLUB_PATH } from "@/lib/gentlemens-club";
@@ -58,6 +60,19 @@ export type RxCategoryHub = {
   faq?: Array<{ q: string; a: string }>;
   /** Storefront / checkout entry — defaults to /rx */
   getStartedPath?: string;
+  /**
+   * In-clinic alternative to a pharmacy-shipped vial — the $25 Vitamin Bar shot.
+   * Shown as its own band so the cheap, no-intake path is not buried under
+   * products that require a consult first.
+   */
+  inClinicOption?: {
+    eyebrow: string;
+    title: string;
+    body: string;
+    priceLabel: string;
+    bookHref: string;
+    bookLabel: string;
+  };
 };
 
 const WEIGHT_LOSS_PRODUCTS: RxCategoryProduct[] = [
@@ -111,19 +126,6 @@ const HAIR_SKIN_PRODUCTS: RxCategoryProduct[] = [
     badge: "POPULAR",
     rx: false,
     catalogProductId: "p58",
-  },
-  {
-    id: "biotin",
-    name: "Biotin Injection",
-    description: "Injectable biotin for hair, skin & nail support — NP-reviewed before ship",
-    priceLabel: "from $82.65/vial",
-    href: HAIR_SKIN_GOAL_HREF,
-    image: "/regen-site/assets/prod-biotin-regen.png",
-    imageAlt: "Biotin injection — RE GEN hair, skin and nails",
-    badge: "NEW",
-    rx: false,
-    /** Closest shoppable Skin & Hair biotin protocol in catalog */
-    catalogProductId: "p19",
   },
   {
     id: "manetain",
@@ -407,17 +409,6 @@ const WELLNESS_PRODUCTS: RxCategoryProduct[] = [
     catalogProductId: "p196",
   },
   {
-    id: "biotin",
-    name: "Biotin Injection",
-    description: "Hair, skin & nail support — injectable biotin protocols",
-    priceLabel: "from $82.65/vial",
-    href: "/rx?goal=skin-and-hair",
-    image: "/regen-site/assets/prod-biotin-regen.png",
-    imageAlt: "Biotin injection — RE GEN",
-    rx: false,
-    catalogProductId: "p19",
-  },
-  {
     id: "glutathione-wellness",
     name: "Glutathione Injection",
     description: "Antioxidant & skin-brightening wellness shot supply",
@@ -468,11 +459,15 @@ const PEPTIDE_FAQ = [
 const WELLNESS_FAQ = [
   {
     q: "What is RE GEN daily wellness?",
-    a: "Injectable B12, NAD+, vitamin D3, biotin, glutathione, and related wellness Rx — ordered online with NP review, shipped to your door across Illinois.",
+    a: "Injectable B12, NAD+, vitamin D3, glutathione, and related wellness Rx — ordered online with NP review, then shipped from the compounding pharmacy directly to your door across Illinois.",
+  },
+  {
+    q: "Should I order a vial or just come in for a shot?",
+    a: "Either. Any single vitamin injection at our Oswego Vitamin Bar is $25 and takes about 10 minutes — no intake needed. Ordering a vial online makes sense when you want a full supply to give yourself at home; the pharmacy ships it to you after NP review.",
   },
   {
     q: "Can I still visit the Vitamin Bar in Oswego?",
-    a: "Yes! In-clinic drive-thru wellness shots and IV therapy remain available at Hello Gorgeous Med Spa. RE GEN daily wellness is for at-home injectable supplies when that fits your life better.",
+    a: "Yes! In-clinic drive-thru wellness shots ($25 each) and IV therapy remain available at Hello Gorgeous Med Spa. RE GEN daily wellness is for at-home injectable supplies when that fits your life better.",
   },
   {
     q: "Are vitamin injections safe?",
@@ -536,12 +531,12 @@ const HAIR_SKIN_FAQ = [
     a: "GHK-Cu is a copper peptide used topically for collagen support, skin repair, and firmness. RE GEN offers cream strengths so your NP can match intensity to your goals — not an OTC cosmeceutical guess.",
   },
   {
-    q: "What does injectable biotin do for hair and nails?",
-    a: "Biotin (vitamin B7) supports keratin pathways tied to hair, skin, and nails. Injectable supply is NP-reviewed for appropriateness; results vary and we set realistic timelines — often months for visible hair change.",
+    q: "What does a biotin injection do for hair and nails?",
+    a: "Biotin (vitamin B7) supports keratin pathways tied to hair, skin, and nails. We give biotin as a $25 in-clinic shot at our Oswego Vitamin Bar rather than as a shipped vial. Results vary and timelines are realistic — often months for visible hair change.",
   },
   {
     q: "Can I use GHK-Cu and biotin together?",
-    a: "Often, yes — copper peptide cream for skin repair plus biotin for hair/nail support is a common pairing. Your intake and NP review confirm layering, dosing, and any contraindications before anything ships.",
+    a: "Often, yes — copper peptide cream for skin repair plus a biotin shot for hair and nail support is a common pairing. Your intake and NP review confirm layering and any contraindications before the cream ships; the biotin shot you can simply book.",
   },
   {
     q: "How long until I see results?",
@@ -549,7 +544,7 @@ const HAIR_SKIN_FAQ = [
   },
   {
     q: "What is ManeTain?",
-    a: "ManeTain is our prescription leave-in hair spray with minoxidil 5% plus supportive actives — available when you want a topical hair-loss protocol alongside or instead of peptide and biotin options.",
+    a: "ManeTain is our prescription leave-in hair spray with minoxidil 5% plus supportive actives — available when you want a topical hair-loss protocol alongside or instead of peptide options.",
   },
   {
     q: "Do I need telehealth before my order ships?",
@@ -725,13 +720,21 @@ export const REGEN_CATEGORY_HUBS: RxCategoryHub[] = [
       title: "Glow from the",
       titleAccent: "copper peptide.",
       subtitle:
-        "GHK-Cu cream for collagen and skin repair, plus injectable biotin for hair, skin, and nails — NP-reviewed before anything ships. ManeTain, minoxidil, and derm creams still available below.",
+        "GHK-Cu cream for collagen and skin repair — NP-reviewed before anything ships. Prefer a biotin shot for hair, skin, and nails? That is $25 in clinic, no intake needed.",
     },
     steps: CONSULT_FIRST_STEPS,
     products: HAIR_SKIN_PRODUCTS,
-    trustLine: "GHK-Cu + biotin · Ryan Kent, FNP-BC · Shipped after approval",
+    trustLine: "GHK-Cu · Ryan Kent, FNP-BC · Shipped after approval",
     getStartedPath: HAIR_SKIN_GOAL_HREF,
     faq: [...HAIR_SKIN_FAQ],
+    inClinicOption: {
+      eyebrow: "Or just walk in",
+      title: `Biotin shot, $${VITAMIN_SHOT_FEE_USD}`,
+      body: "Biotin for hair, skin, and nails is given as an in-clinic injection at our Oswego Vitamin Bar — about ten minutes, no intake and no consult fee.",
+      priceLabel: `$${VITAMIN_SHOT_FEE_USD}`,
+      bookHref: SQUARE_VITAMIN_SHOT_BOOKING_URL,
+      bookLabel: "Book a biotin shot →",
+    },
   },
   {
     id: "wellness",
@@ -744,13 +747,21 @@ export const REGEN_CATEGORY_HUBS: RxCategoryHub[] = [
       title: "Everyday",
       titleAccent: "wellness.",
       subtitle:
-        "Injectable B12, NAD+, vitamin D3, biotin, glutathione & more — NP-reviewed RE GEN supplies shipped to your door. In-clinic Vitamin Bar still available in Oswego.",
+        "Injectable B12, NAD+, vitamin D3, glutathione & more — NP-reviewed and shipped from the pharmacy to your door. Or stop into the Oswego Vitamin Bar for any single shot, $25.",
     },
     steps: CONSULT_FIRST_STEPS,
     products: WELLNESS_PRODUCTS,
     trustLine: "Injectable wellness · Ryan Kent, FNP-BC · Illinois patients",
     getStartedPath: "/rx",
     faq: [...WELLNESS_FAQ],
+    inClinicOption: {
+      eyebrow: "Or just walk in",
+      title: "Any vitamin shot, $25",
+      body: "Not ready for a full vial? Every single injection at our Oswego Vitamin Bar — B12, B-complex, vitamin D3, biotin, glutathione, MIC/Lipo-B — is one flat price and takes about ten minutes. No intake, no consult fee.",
+      priceLabel: `$${VITAMIN_SHOT_FEE_USD}`,
+      bookHref: SQUARE_VITAMIN_SHOT_BOOKING_URL,
+      bookLabel: "Book a vitamin shot →",
+    },
   },
 ];
 
