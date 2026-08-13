@@ -644,7 +644,7 @@ At Hello Gorgeous, VIP Model pricing applies: Morpheus8 Burst single from $799, 
     slug: "vip-model-program-complete-guide",
     title: "VIP Model Program at Hello Gorgeous: What's Included & How to Get VIP Pricing",
     metaTitle: "VIP Model Program | Morpheus8 & Solaria Pricing | Up to 50% Off | Hello Gorgeous",
-    metaDescription: "Only 20 spots. VIP Model Program: Morpheus8 $799, 3-pack $1,999, 2 areas $1,200. Solaria $899, Combo $1,499, Trifecta $1,999. $250 deposit secures your spot. Oswego, IL.",
+    metaDescription: "Only 20 spots. VIP Model Program: Morpheus8 $799, 3-pack $1,999, 2 areas $1,200. Solaria $899, Combo $1,499, Trifecta $1,999. Book a consultation to secure your spot. Oswego, IL.",
     excerpt: "Limited to 20 clients. Up to 50% off Morpheus8 Burst, Solaria CO₂, and the Trifecta. Here's what's included, the pricing for each tier, and exactly how to secure your VIP spot.",
     category: "Education",
     date: "2026-03-23",
@@ -694,38 +694,34 @@ Dual-layer transformation. Morpheus8 at depth for tightening and collagen stimul
 
 Morpheus8 + Solaria CO₂ + Quantum RF. Face, neck, and body. Tightening, resurfacing, and subdermal contouring in one protocol. The most comprehensive package we offer. Quantum RF is exclusive to Hello Gorgeous in the entire western Chicago suburbs.
 
-## How to Get VIP Pricing: The $250 Deposit
+## How to Get VIP Pricing
 
-To lock in your promotional price and secure your spot, a **non-refundable deposit of $250** is required. The deposit is **applied in full** toward your treatment at checkout — it's not an extra fee.
-
-**Example:** If you select Morpheus8 Burst at $799, your deposit reduces your balance to $549 due at treatment. If you select the Trifecta at $1,999, your balance becomes $1,749.
+To lock in your promotional price and secure your spot, book a consultation. There is no online deposit — you pay for your treatment at the spa.
 
 **How to secure your spot:**
-- Leave deposit online: [Fresha paid plans](https://www.fresha.com/book-now/hello-gorgeous-tallrfb5/paid-plans?id=3246933&share=true&pId=95245)
-- Or book a consultation: hellogorgeousmedspa.com/book
+- Book a consultation: [hellogorgeousmedspa.com/book](https://www.hellogorgeousmedspa.com/book)
 - Or call: (630) 636-6193
 
 ## Who Is the VIP Model Program For?
 
 - Anyone considering Morpheus8, Solaria CO₂, or the Trifecta
-- Clients who want to plan ahead — deposit now, schedule when ready
+- Clients who want to plan ahead — claim your spot now, schedule when ready
 - People who've lost weight and want to address loose skin (Morpheus8 for body)
 - Anyone tired of driving to Naperville or Chicago for advanced treatments
 
-## What Happens After You Deposit?
+## What Happens After You Book?
 
 1. **Consultation** — Our NP evaluates your goals and skin. We'll recommend the right tier.
 2. **Schedule** — Morpheus8, Solaria, and Quantum RF (Hello Gorgeous Contour Lift™) are now booking — see Model Days on our Quantum RF page.
-3. **Treatment** — Your deposit is applied. You pay the remaining balance at or before your appointment.
+3. **Treatment** — You pay for your service at or before your appointment.
 4. **Results** — Collagen remodeling continues for 3–6 months. Most clients see improvement within weeks.
 
 ## Terms to Know
 
 - **Limited to 20 clients** — Once filled, promotional pricing ends.
-- **Deposit is non-refundable** — It's applied to your service. See full terms at /vip-model/terms.
-- **Financing available** — Cherry and CareCredit for those who qualify.
+- **Financing available** — Cherry and CareCredit for those who qualify. See full terms at /vip-model/terms.
 
-## Book Your Free Consultation or Leave Deposit
+## Book Your Free Consultation
 
 See which tier is right for you. Meet our team. Lock in your VIP pricing.
 

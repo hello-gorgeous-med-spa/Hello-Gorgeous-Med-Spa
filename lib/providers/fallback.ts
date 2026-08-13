@@ -1,5 +1,5 @@
 import { DANIELLE_CREDENTIALS, RYAN_CREDENTIALS } from "@/lib/provider-credentials";
-import { FRESHA_BOOKING_URL_DANIELLE, FRESHA_BOOKING_URL_RYAN } from "@/lib/flows";
+import { PROVIDER_BOOKING_URL_DANIELLE, PROVIDER_BOOKING_URL_RYAN } from "@/lib/flows";
 import { SITE } from "@/lib/seo";
 
 /** Code-controlled provider images. Override DB values so you never need to run migrations for headshot changes. */
@@ -74,7 +74,7 @@ export const PROVIDER_FALLBACKS: Record<string, ProviderFallback> = {
     headshot_url: "/images/team/danielle.png",
     hero_image_url: `${SITE.url}/images/gallery/treatment-1.png`,
     intro_video_url: "/videos/providers/danielle/intro-clip.mp4",
-    booking_url: FRESHA_BOOKING_URL_DANIELLE,
+    booking_url: PROVIDER_BOOKING_URL_DANIELLE,
   },
   ryan: {
     id: "47ab9361-4a68-4ab8-a860-c9c9fd64d26c",
@@ -93,7 +93,7 @@ export const PROVIDER_FALLBACKS: Record<string, ProviderFallback> = {
     headshot_url: "/images/providers/ryan-kent-clinic.jpg",
     hero_image_url: `${SITE.url}/images/gallery/treatment-2.png`,
     intro_video_url: "",
-    booking_url: FRESHA_BOOKING_URL_RYAN,
+    booking_url: PROVIDER_BOOKING_URL_RYAN,
   },
 };
 

@@ -3,7 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { SITE } from "@/lib/seo";
 import { CTA } from "@/components/CTA";
-import { BOOKING_URL, VIP_MODEL_SQUARE_URL } from "@/lib/flows";
+import { BOOKING_URL } from "@/lib/flows";
 
 const BASE_URL = SITE.url;
 const PAGE_URL = `${BASE_URL}/vip-model`;
@@ -161,11 +161,11 @@ export default function VIPModelPage() {
               Book Now
             </CTA>
             <CTA
-              href={VIP_MODEL_SQUARE_URL}
+              href={`tel:${SITE.phone}`}
               variant="outline"
               className="px-10 py-4 text-lg font-semibold border-white text-white hover:bg-white hover:text-black"
             >
-              Leave Deposit to Secure Appointment
+              Call {SITE.phone}
             </CTA>
           </div>
           <p className="mt-6 text-sm text-white/60">
@@ -211,8 +211,8 @@ export default function VIPModelPage() {
             <CTA href={BOOKING_URL} variant="gradient" className="px-12 py-4 text-lg font-bold">
               Book Now
             </CTA>
-            <CTA href={VIP_MODEL_SQUARE_URL} variant="outline" className="px-12 py-4 text-lg font-semibold border-[#FF2D8E] text-[#FF2D8E] hover:bg-[#FF2D8E] hover:text-white">
-              Leave Deposit to Secure Appointment
+            <CTA href={`tel:${SITE.phone}`} variant="outline" className="px-12 py-4 text-lg font-semibold border-[#FF2D8E] text-[#FF2D8E] hover:bg-[#FF2D8E] hover:text-white">
+              Call {SITE.phone}
             </CTA>
           </div>
         </div>
@@ -280,13 +280,6 @@ export default function VIPModelPage() {
                   <CTA href={BOOKING_URL} variant="gradient" className="w-full justify-center py-4 font-bold">
                     Book Now
                   </CTA>
-                  <CTA
-                    href={VIP_MODEL_SQUARE_URL}
-                    variant="outline"
-                    className="w-full justify-center py-3 font-semibold border-[#FF2D8E] text-[#FF2D8E] hover:bg-[#FF2D8E] hover:text-white"
-                  >
-                    Leave Deposit — Secure Spot
-                  </CTA>
                 </div>
               </div>
             ))}
@@ -315,28 +308,28 @@ export default function VIPModelPage() {
                 href="/vip-model/terms"
                 className="text-[#FF2D8E] font-semibold hover:underline underline-offset-2"
               >
-                Terms and Conditions (deposit, schedule, policies) →
+                Terms and Conditions (schedule, policies) →
               </Link>
             </p>
           </div>
         </div>
       </section>
 
-      {/* Leave Deposit Section */}
+      {/* Secure your spot */}
       <section className="px-4 py-16 md:py-20 bg-[#FF2D8E]/10 border-y-2 border-[#FF2D8E]/40">
         <div className="max-w-2xl mx-auto text-center">
           <h2 className="text-2xl md:text-3xl font-bold mb-4">
-            Leave Deposit to Secure Your Appointment
+            Secure Your VIP Model Spot
           </h2>
           <p className="text-white/90 mb-6">
-            Pay a <strong className="text-[#FF2D8E]">$250 non-refundable deposit</strong> to lock in your VIP Model spot. The deposit is applied to your service at checkout. Limited to 20 clients—once filled, pricing returns to full retail.
+            Book your consultation to claim a spot. Limited to 20 clients—once filled, pricing returns to full retail.
           </p>
           <CTA
-            href={VIP_MODEL_SQUARE_URL}
+            href={BOOKING_URL}
             variant="gradient"
             className="px-12 py-4 text-lg font-bold"
           >
-            Leave $250 Deposit — Secure Spot
+            Book Your Consultation
           </CTA>
           <p className="mt-6 text-sm text-white/70">
             <Link href="/vip-model/terms" className="text-[#FF2D8E] font-semibold hover:underline">
@@ -367,11 +360,11 @@ export default function VIPModelPage() {
               Book Now
             </CTA>
             <CTA
-              href={VIP_MODEL_SQUARE_URL}
+              href={`tel:${SITE.phone}`}
               variant="outline"
               className="px-12 py-4 text-lg font-semibold border-white text-white hover:bg-white hover:text-black"
             >
-              Leave Deposit to Secure Appointment
+              Call {SITE.phone}
             </CTA>
           </div>
           <p className="mt-8 text-sm text-white/50">

@@ -5,7 +5,7 @@ import { join } from "path";
 import ReactMarkdown from "react-markdown";
 import { SITE } from "@/lib/seo";
 import { CTA } from "@/components/CTA";
-import { VIP_MODEL_SQUARE_URL } from "@/lib/flows";
+import { BOOKING_URL } from "@/lib/flows";
 
 const BASE_URL = SITE.url;
 const PAGE_URL = `${BASE_URL}/vip-model/terms`;
@@ -13,7 +13,7 @@ const PAGE_URL = `${BASE_URL}/vip-model/terms`;
 export const metadata: Metadata = {
   title: "VIP Model Program — Terms & Conditions | Hello Gorgeous Med Spa",
   description:
-    "Terms, conditions, and program description for the VIP Model Program. $250 deposit, treatment schedule, pricing tiers, and policies.",
+    "Terms, conditions, and program description for the VIP Model Program. Treatment schedule, pricing tiers, and policies.",
   openGraph: {
     title: "VIP Model Program — Terms & Conditions",
     description: "Full terms and conditions for the VIP Model Program at Hello Gorgeous Med Spa.",
@@ -51,8 +51,8 @@ export default function VIPModelTermsPage() {
             >
               ← Back to VIP Model
             </Link>
-            <CTA href={VIP_MODEL_SQUARE_URL} variant="gradient" className="px-6 py-2 text-sm">
-              Reserve Now
+            <CTA href={BOOKING_URL} variant="gradient" className="px-6 py-2 text-sm">
+              Book Now
             </CTA>
           </div>
         </div>
@@ -105,8 +105,8 @@ export default function VIPModelTermsPage() {
           <Link href="/vip-model" className="text-[#FF2D8E] font-semibold hover:underline">
             ← Back to VIP Model Program
           </Link>
-          <CTA href={VIP_MODEL_SQUARE_URL} variant="gradient" className="px-10 py-4">
-            Reserve Your Spot — $250 Deposit
+          <CTA href={BOOKING_URL} variant="gradient" className="px-10 py-4">
+            Book Your Consultation
           </CTA>
         </div>
       </article>

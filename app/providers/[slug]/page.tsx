@@ -10,7 +10,7 @@ import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 import { SITE } from '@/lib/seo';
-import { BOOKING_URL, FRESHA_BOOKING_URL_DANIELLE, FRESHA_BOOKING_URL_RYAN } from '@/lib/flows';
+import { BOOKING_URL, PROVIDER_BOOKING_URL_DANIELLE, PROVIDER_BOOKING_URL_RYAN } from '@/lib/flows';
 import {
   DANI_PROVIDER_BIO,
   RYAN_PROVIDER_BIO,
@@ -43,7 +43,7 @@ const FALLBACK_PROVIDERS: Record<string, Provider> = {
     philosophy:
       "Your money should buy results you can see in the mirror — honest recommendations, personalized plans, and providers who remember your name, your skin history, and what actually worked for you last time.",
     headshot_url: '/images/team/danielle.png',
-    booking_url: FRESHA_BOOKING_URL_DANIELLE,
+    booking_url: PROVIDER_BOOKING_URL_DANIELLE,
     is_active: true,
     display_order: 1,
   },
@@ -58,7 +58,7 @@ const FALLBACK_PROVIDERS: Record<string, Provider> = {
     philosophy:
       "Medical weight loss and hormone therapy built around safety, labs, and data. I'm on site seven days a week under Medical Director Dr. Mukesh Arora, MD — every clinical decision goes through our medical team.",
     headshot_url: '/images/providers/ryan-kent-clinic.jpg',
-    booking_url: FRESHA_BOOKING_URL_RYAN,
+    booking_url: PROVIDER_BOOKING_URL_RYAN,
     is_active: true,
     display_order: 2,
   },

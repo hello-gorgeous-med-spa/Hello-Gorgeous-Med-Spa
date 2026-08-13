@@ -14,7 +14,7 @@ import { InjectablesPageContent } from "@/components/injectables/InjectablesPage
 import { ProofConversionSection } from "@/components/services/ProofConversionSection";
 import { IvTherapyServicePage } from "@/components/services/IvTherapyServicePage";
 import { ServiceTestimonialsPlaceholder } from "@/components/services/ServiceTestimonialsPlaceholder";
-import { BOOKING_URL, FRESHA_BOOKING_URL_DANIELLE, FRESHA_BOOKING_URL_RYAN } from "@/lib/flows";
+import { BOOKING_URL, PROVIDER_BOOKING_URL_DANIELLE, PROVIDER_BOOKING_URL_RYAN } from "@/lib/flows";
 import {
   INJECTABLES_FAQS,
   INJECTABLES_MARKETING,
@@ -545,13 +545,13 @@ function ServiceDetailPage({ serviceSlug }: { serviceSlug: string }) {
             <div className="mt-6 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-black/80">
               <span>Or book with:</span>
               <Link
-                href={FRESHA_BOOKING_URL_DANIELLE}
+                href={PROVIDER_BOOKING_URL_DANIELLE}
                 className="text-[#FF2D8E] hover:text-[#FF2D8E] font-medium underline underline-offset-2"
               >
                 Danielle
               </Link>
               <Link
-                href={FRESHA_BOOKING_URL_RYAN}
+                href={PROVIDER_BOOKING_URL_RYAN}
                 className="text-[#FF2D8E] hover:text-[#FF2D8E] font-medium underline underline-offset-2"
               >
                 Ryan

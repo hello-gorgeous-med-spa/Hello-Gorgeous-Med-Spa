@@ -4,7 +4,7 @@ import { CTA } from "@/components/CTA";
 import { ServiceExpertWidget } from "@/components/ServiceExpertWidget";
 import { FadeUp, Section } from "@/components/Section";
 import { PRIMARY_BOOKING_CTA } from "@/lib/primary-cta";
-import { BOOKING_URL, FRESHA_BOOKING_URL_DANIELLE, FRESHA_BOOKING_URL_RYAN } from "@/lib/flows";
+import { BOOKING_URL, PROVIDER_BOOKING_URL_DANIELLE, PROVIDER_BOOKING_URL_RYAN } from "@/lib/flows";
 import {
   IV_DRIP_MENU,
   IV_THERAPY_SERVICE_PATH,
@@ -88,11 +88,11 @@ export function IvTherapyServicePage() {
               </div>
               <p className="mt-4 text-sm text-white/45">
                 Or book with{" "}
-                <Link href={FRESHA_BOOKING_URL_DANIELLE} className="text-[#FFB8DC] underline underline-offset-2 hover:text-white">
+                <Link href={PROVIDER_BOOKING_URL_DANIELLE} className="text-[#FFB8DC] underline underline-offset-2 hover:text-white">
                   Danielle
                 </Link>{" "}
                 ·{" "}
-                <Link href={FRESHA_BOOKING_URL_RYAN} className="text-[#FFB8DC] underline underline-offset-2 hover:text-white">
+                <Link href={PROVIDER_BOOKING_URL_RYAN} className="text-[#FFB8DC] underline underline-offset-2 hover:text-white">
                   Ryan
                 </Link>{" "}
                 · NP on site 7 days a week · Oswego, Naperville, Aurora &amp; Plainfield

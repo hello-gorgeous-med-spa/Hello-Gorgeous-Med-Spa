@@ -3,7 +3,7 @@
  */
 
 import {
-  FRESHA_49_CONSULT_BOOKING_URL,
+  PROGRAM_CONSULT_BOOKING_URL,
   GLP1_INTAKE_PATH,
   GLP1_REFILL_PATH,
   HELLO_GORGEOUS_RX_START_PATH,
@@ -274,7 +274,7 @@ export const RX_PATIENT_CARE_SECTIONS: RxCareSection[] = [
         id: "np-consult",
         title: `$${PROGRAM_CONSULT_FEE_USD} NP consult`,
         description: "Hormones, GLP-1, peptides, TRT, or club programs — fee applies to month one when you enroll.",
-        href: FRESHA_49_CONSULT_BOOKING_URL,
+        href: PROGRAM_CONSULT_BOOKING_URL,
         cta: "Book consult",
         priceHint: `$${PROGRAM_CONSULT_FEE_USD} consult fee`,
         icon: "🩺",

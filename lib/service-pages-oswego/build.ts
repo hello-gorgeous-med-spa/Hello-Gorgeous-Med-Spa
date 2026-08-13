@@ -1,4 +1,4 @@
-import { LEGACY_FRESHA_ORG_BOOKING_URL } from "@/lib/flows";
+import { BOOKING_URL } from "@/lib/flows";
 import type { ServicePageData, ServicePageFaq } from "./types";
 
 const NP_BULLETS = [
@@ -8,13 +8,12 @@ const NP_BULLETS = [
   "Best of Oswego recognition and 10+ years serving Kendall County",
 ];
 
-/** HG_DEV_011_FIX_001 — service SEO pages book via Fresha (generic org URL until per-service IDs). */
-export function bookingUrlFor(freshaServiceId?: string): string {
-  const u = new URL(LEGACY_FRESHA_ORG_BOOKING_URL);
-  if (freshaServiceId) {
-    u.searchParams.set("serviceId", freshaServiceId);
-  }
-  return u.toString();
+/**
+ * Service SEO pages book on Square. The legacy per-service id is ignored — Fresha
+ * was discontinued, and Square deep links use their own variation ids.
+ */
+export function bookingUrlFor(_legacyServiceId?: string): string {
+  return BOOKING_URL;
 }
 
 export function metaTitle(serviceName: string): string {

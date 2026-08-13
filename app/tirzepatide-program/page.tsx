@@ -18,9 +18,7 @@ export const revalidate = 3600;
 
 const PROGRAM_PATH = "/tirzepatide-program";
 
-// Direct Fresha service link for the program consultation.
-const PROGRAM_BOOKING_URL =
-  "https://www.fresha.com/book-now/hello-gorgeous-tallrfb5/services?lid=102610&share=true&pId=95245";
+const PROGRAM_BOOKING_URL = BOOKING_URL;
 
 export const metadata: Metadata = {
   ...pageMetadata({

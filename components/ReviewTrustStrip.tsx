@@ -1,8 +1,8 @@
 import Link from "next/link";
 
 import {
-  formatFreshaReviewBadge,
   formatGoogleReviewBadge,
+  formatVisitReviewBadge,
   resolveReviewTrust,
 } from "@/lib/review-trust";
 import { SITE } from "@/lib/seo";
@@ -26,7 +26,7 @@ function StarRow({ className }: { className: string }) {
   );
 }
 
-/** Labeled Google + Fresha proof — one source of truth, no blended scores. */
+/** Labeled Google + post-appointment proof — one source of truth, no blended scores. */
 export function ReviewTrustStrip({ livePlace, theme = "dark", className = "" }: Props) {
   const trust = resolveReviewTrust(livePlace);
   const isDark = theme === "dark";
@@ -48,8 +48,8 @@ export function ReviewTrustStrip({ livePlace, theme = "dark", className = "" }: 
       </a>
       <span className={`inline-flex items-center gap-2 ${chip}`}>
         <StarRow className={isDark ? "text-[#FFD86B]" : "text-[#E6007E]"} />
-        <span className="font-semibold">{formatFreshaReviewBadge(trust)}</span>
-        <span className={isDark ? "text-white/50" : "text-black/45"}>· booking platform</span>
+        <span className="font-semibold">{formatVisitReviewBadge(trust)}</span>
+        <span className={isDark ? "text-white/50" : "text-black/45"}>· after appointments</span>
       </span>
     </div>
   );

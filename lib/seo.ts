@@ -50,9 +50,6 @@ export const SITE = {
   placeId: "ChIJt2xHqd_vDogRhA5aZP8dzBA",
   cid: "1210375382593310340",
   googleBusinessUrl: "https://maps.google.com/maps?cid=1210375382593310340",
-  /** Fresha business profile — keep in sync with GBP booking link target. */
-  freshaProfileUrl:
-    "https://www.fresha.com/a/hello-gorgeous-med-spa-oswego-74-west-washington-street-y6oakkwf",
   /** Direct one-click link to leave a Google review (placeId-based). */
   googleReviewUrl: "https://search.google.com/local/writereview?placeid=ChIJt2xHqd_vDogRhA5aZP8dzBA",
   /**
@@ -70,13 +67,13 @@ export const SITE = {
    *  on 2026-07-13 (4.6 / 145+). Layout prefers live Places when available. */
   reviewRating: "4.6",
   reviewCount: "145",
-  /** Fresha (booking platform) lifetime social proof — a perfect 5.0★ across
-   *  1,931 verified post-appointment reviews. Used for on-site trust badges
-   *  and marketing copy. NOT emitted as Google review-snippet schema, because
-   *  Google blocks self-hosted third-party review markup for local businesses;
-   *  this is conversion/trust proof, not a Map Pack ranking signal. */
-  freshaReviewRating: "5.0",
-  freshaReviewCount: "1931",
+  /** Lifetime post-appointment social proof — a perfect 5.0★ across 1,931
+   *  verified visits, collected on our former booking platform. Cited unbranded
+   *  since we no longer use that platform. NOT emitted as Google review-snippet
+   *  schema, because Google blocks self-hosted third-party review markup for
+   *  local businesses; this is conversion/trust proof, not a ranking signal. */
+  visitReviewRating: "5.0",
+  visitReviewCount: "1931",
   /**
    * Google Search Console site verification meta tag value.
    * Issued by Site Verification API on 2026-05-01 for the canonical
@@ -110,7 +107,6 @@ export function hgSameAsProfiles(): string[] {
   const d = SITE.directories;
   return [
     SITE.googleBusinessUrl,
-    SITE.freshaProfileUrl,
     SITE.social.facebook,
     SITE.social.instagram,
     SITE.social.tiktok,

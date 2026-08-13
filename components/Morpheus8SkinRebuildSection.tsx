@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { CTA } from "@/components/CTA";
-import { BOOKING_URL, VIP_MODEL_SQUARE_URL } from "@/lib/flows";
+import { BOOKING_URL } from "@/lib/flows";
 
 const PINK = "#FF2D8E";
 
@@ -24,7 +24,6 @@ const skinRebuildCards = [
     description:
       "Your foundation treatment for tighter, smoother, younger-looking skin.",
     primaryCta: "Book Now",
-    secondaryCta: "Secure Your Spot",
     bestValue: false,
     mostPopular: false,
     limitedOffer: false,
@@ -43,7 +42,6 @@ const skinRebuildCards = [
     ],
     description: "Recommended for best results. This is where real transformation happens.",
     primaryCta: "Book Package",
-    secondaryCta: "Secure Your Spot",
     bestValue: true,
     mostPopular: false,
     limitedOffer: false,
@@ -63,7 +61,6 @@ const skinRebuildCards = [
     description:
       "Perfect for treating multiple areas in one session and maximizing results.",
     primaryCta: "Book Now",
-    secondaryCta: "Secure Your Spot",
     bestValue: false,
     mostPopular: false,
     limitedOffer: true,
@@ -93,7 +90,6 @@ const bestSkinCards = [
     description:
       "Deeply remodels collagen and tightens for firmer, youthful skin.",
     primaryCta: "Book Now",
-    secondaryCta: "Secure Your Spot",
     bestValue: false,
     mostPopular: false,
   },
@@ -112,7 +108,6 @@ const bestSkinCards = [
     description:
       "The ultimate skin-rejuvenation package for full tightening + resurfacing.",
     primaryCta: "Book Package",
-    secondaryCta: "Secure Your Spot",
     bestValue: true,
     mostPopular: true,
   },
@@ -274,13 +269,6 @@ export function Morpheus8SkinRebuildSection({ variant = "bestSkin" }: { variant?
                   className="w-full justify-center py-3.5 font-bold"
                 >
                   {card.primaryCta}
-                </CTA>
-                <CTA
-                  href={VIP_MODEL_SQUARE_URL}
-                  variant="outline"
-                  className="w-full justify-center py-3 font-semibold"
-                >
-                  {card.secondaryCta}
                 </CTA>
               </div>
             </div>

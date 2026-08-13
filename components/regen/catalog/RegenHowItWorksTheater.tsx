@@ -99,7 +99,7 @@ export function RegenHowItWorksTheater({ onStartShopping, onShopWeightLoss }: Pr
             Browse → Intake → Consult → Filled
           </p>
           <p className="mt-3 text-sm font-semibold text-black/70">
-            {SITE.freshaReviewRating}★ from {SITE.freshaReviewCount}+ verified visits · NP on site
+            {SITE.visitReviewRating}★ from {SITE.visitReviewCount}+ verified visits · NP on site
             daily
           </p>
           <p className="mt-2 text-base font-medium leading-relaxed text-black/65">

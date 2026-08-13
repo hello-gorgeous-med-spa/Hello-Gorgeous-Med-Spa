@@ -1,9 +1,9 @@
 /**
  * Public online booking — **Square Appointments** (org booking site).
- * Fresha URLs remain as legacy fallbacks for telehealth deep links until migrated.
+ * Square is the only scheduler; Fresha was discontinued and its URLs are gone.
  *
  * Vercel: `NEXT_PUBLIC_SQUARE_BOOKING_URL` (preferred) or `NEXT_PUBLIC_BOOKING_URL`.
- * Legacy: `NEXT_PUBLIC_FRESHA_BOOKING_URL` still accepted if Square URL unset.
+ * Non-Square URLs are rejected so a stale env var can never take over public CTAs.
  * `/book` merges UTM params then redirects to Square Appointments (`BOOKING_URL`).
  */
 /**
@@ -51,27 +51,10 @@ export const SQUARE_RX_TELEHEALTH_BOOKING_URL =
   process.env.NEXT_PUBLIC_SQUARE_RX_TELEHEALTH_URL?.trim() ||
   `https://book.squareup.com/appointments/${SQUARE_RX_BOOKING_SITE_ID}/location/${SQUARE_RX_LOCATION_ID}/services/${SQUARE_RX_TELEHEALTH_SERVICE_VARIATION_ID}`;
 
-/** Fresha Link Builder org URL (legacy — do not use for public CTAs). */
-export const FRESHA_ORG_BOOKING_URL =
-  "https://www.fresha.com/a/hello-gorgeous-med-spa-oswego-74-west-washington-street-y6oakkwf/booking?menu=true&share=true&pId=95245&dppub=true";
-
-/** @deprecated Old book-now slug; prefer Square {@link BOOKING_URL}. */
-export const LEGACY_FRESHA_ORG_BOOKING_URL =
-  "https://www.fresha.com/book-now/hello-gorgeous-tallrfb5/services?lid=102610&share=true&pId=95245";
-
-/**
- * @deprecated Use {@link SQUARE_RX_TELEHEALTH_BOOKING_URL} / {@link PROGRAM_CONSULT_BOOKING_URL}.
- * Kept as alias so older imports keep pointing at Square.
- */
-export const FRESHA_49_CONSULT_BOOKING_URL = SQUARE_RX_TELEHEALTH_BOOKING_URL;
-
 export const PROGRAM_CONSULT_FEE_USD = 49;
 
 /** Club & program funnels — $49 NP consult on Square (Ryan). */
 export const PROGRAM_CONSULT_BOOKING_URL = SQUARE_RX_TELEHEALTH_BOOKING_URL;
-
-/** @deprecated Use `BOOKING_URL` / `SQUARE_ORG_BOOKING_URL`. */
-export const FRESHA_BOOKING_URL = FRESHA_ORG_BOOKING_URL;
 
 /** Branded entry on our domain — redirects to {@link BOOKING_URL} with optional UTM merge. */
 export const BOOK_PAGE_PATH = "/book";
@@ -142,7 +125,7 @@ function readOrgBookingEnv(): string | undefined {
   for (const c of candidates) {
     if (isSquareAppointmentsBookingUrl(c)) return c;
   }
-  // Ignore leftover NEXT_PUBLIC_FRESHA_BOOKING_URL for primary CTAs — Square is SoT.
+  // Reject any non-Square scheduler URL for primary CTAs — Square is the source of truth.
   return undefined;
 }
 
@@ -171,22 +154,20 @@ export const SQUARE_MAILING_LIST_SUBSCRIBE_ACTION =
   "https://squareup.com/outreach/YRCeaX/subscribe";
 
 /** Per–staff booking URLs; unset falls back to org `BOOKING_URL`. */
-export const FRESHA_BOOKING_URL_DANIELLE = resolvePublicBookingUrl(
-  process.env.NEXT_PUBLIC_FRESHA_BOOKING_URL_DANIELLE ||
-    process.env.NEXT_PUBLIC_SQUARE_BOOKING_URL_DANIELLE,
+export const PROVIDER_BOOKING_URL_DANIELLE = resolvePublicBookingUrl(
+  process.env.NEXT_PUBLIC_SQUARE_BOOKING_URL_DANIELLE,
   BOOKING_URL,
 );
-export const FRESHA_BOOKING_URL_RYAN = resolvePublicBookingUrl(
-  process.env.NEXT_PUBLIC_FRESHA_BOOKING_URL_RYAN ||
-    process.env.NEXT_PUBLIC_SQUARE_BOOKING_URL_RYAN,
+export const PROVIDER_BOOKING_URL_RYAN = resolvePublicBookingUrl(
+  process.env.NEXT_PUBLIC_SQUARE_BOOKING_URL_RYAN,
   BOOKING_URL,
 );
 
 export function providerPublicBookingUrl(slug: string | null | undefined): string {
   if (!slug) return BOOKING_URL;
   const s = String(slug).toLowerCase();
-  if (s === "danielle") return FRESHA_BOOKING_URL_DANIELLE;
-  if (s === "ryan") return FRESHA_BOOKING_URL_RYAN;
+  if (s === "danielle") return PROVIDER_BOOKING_URL_DANIELLE;
+  if (s === "ryan") return PROVIDER_BOOKING_URL_RYAN;
   return BOOKING_URL;
 }
 
@@ -209,10 +190,6 @@ export function getProviderPublicBookingHref(
   }
   return providerPublicBookingUrl(slug);
 }
-
-/** Archive label if needed for historical banners. */
-export const FRESHA_BOOKING_END_LABEL =
-  process.env.NEXT_PUBLIC_FRESHA_BOOKING_END_LABEL?.trim() || "May 9, 2026";
 
 /** GLP-1 weight loss screening form at `/glp1-intake`. Booking follows after qualification. */
 export const GLP1_INTAKE_PATH = "/glp1-intake";
@@ -296,11 +273,6 @@ export {
   CHARM_TELEHEALTH_BOOKING_LABEL,
   CHARM_RX_TELEHEALTH_INSTRUCTIONS,
 } from "@/lib/charm-ehr";
-
-/** VIP Model Program — $250 deposit / Reserve (Fresha paid plans). */
-export const VIP_MODEL_SQUARE_URL =
-  process.env.NEXT_PUBLIC_VIP_MODEL_SQUARE_URL ||
-  "https://www.fresha.com/book-now/hello-gorgeous-tallrfb5/paid-plans?id=3246933&share=true&pId=95245";
 
 /** Fullscript dispensary (practitioner-grade supplements) */
 export const FULLSCRIPT_DISPENSARY_URL =

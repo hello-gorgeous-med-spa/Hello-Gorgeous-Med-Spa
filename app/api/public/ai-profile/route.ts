@@ -3,7 +3,7 @@ import { BOOK_PAGE_URL, HOME_FAQS, SERVICES, SITE, servicePublicPath } from "@/l
 import { HG_ABOUT_BLOCK, HG_ABOUT_EXTRACT, HG_CORE_AEO_FAQS } from "@/lib/aeo-canonical";
 import { getLiveAggregateRating } from "@/lib/seo/google-places";
 import { SERVICE_PAGE_OSWEGO_SLUGS } from "@/lib/service-pages-oswego";
-import { BOOKING_URL, bookingProvider, FRESHA_ORG_BOOKING_URL } from "@/lib/flows";
+import { BOOKING_URL, bookingProvider } from "@/lib/flows";
 import {
   aiCityHubServiceUrls,
   aiDiscoverabilityPayload,
@@ -43,7 +43,6 @@ export async function GET() {
       serviceAreas: SITE.serviceAreas,
       googleBusinessUrl: SITE.googleBusinessUrl,
       googleReviewUrl: SITE.googleReviewUrl,
-      freshaProfileUrl: SITE.freshaProfileUrl,
       social: SITE.social,
     },
     googleReviews: {
@@ -57,7 +56,6 @@ export async function GET() {
       bookUrl: BOOK_PAGE_URL,
       bookPath: BOOK_PAGE_URL,
       schedulerUrl: BOOKING_URL,
-      freshaOrgUrl: FRESHA_ORG_BOOKING_URL,
       contactUrl: `${SITE.url}/contact`,
       forms: {
         clientIntake: `${SITE.url}/forms/client-intake`,

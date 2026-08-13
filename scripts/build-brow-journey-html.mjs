@@ -11,7 +11,7 @@ const source =
   join(process.env.HOME || "", "Downloads", "files (27).zip");
 
 const FRESHA_BOOKING =
-  "https://www.fresha.com/a/hello-gorgeous-med-spa-oswego-74-west-washington-street-y6oakkwf/booking?menu=true&share=true&pId=95245&dppub=true";
+  "https://www.hellogorgeousmedspa.com/book";
 const SITE = "https://www.hellogorgeousmedspa.com";
 const ASSET_DIR = join(root, "public/handouts/education/brow-journey");
 const outHtml = join(root, "public/handouts/education/your-brow-journey.html");

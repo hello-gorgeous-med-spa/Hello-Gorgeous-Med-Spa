@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { BOOKING_URL } from "@/lib/flows";
 import { pageMetadata, SITE } from "@/lib/seo";
 
 const _base = pageMetadata({
@@ -90,7 +91,7 @@ export default function TransformPage() {
             </p>
             <div className="mt-7 flex flex-wrap gap-3">
               <a
-                href="https://www.fresha.com/book-now/hello-gorgeous-tallrfb5/services?lid=102610&share=true&pId=95245"
+                href={BOOKING_URL}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="rounded-full bg-[#E6007E] px-5 py-3 text-sm font-bold uppercase tracking-wide text-white"
@@ -159,7 +160,7 @@ export default function TransformPage() {
           </p>
           <div className="mt-7 flex flex-wrap justify-center gap-3">
             <a
-              href="https://www.fresha.com/book-now/hello-gorgeous-tallrfb5/services?lid=102610&share=true&pId=95245"
+              href={BOOKING_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="rounded-full bg-[#E6007E] px-6 py-3 text-sm font-bold uppercase tracking-wide text-white"
