@@ -1,11 +1,23 @@
 # Booking: Single Source of Truth
 
-## Operating models (pick one for *consumer* booking)
+## Current model (August 2026)
 
-- **A — Hello Gorgeous only:** The calendar and `appointments` table are the only place **new** online/AI/admin bookings are created. See below and [BOOKING_READY.md](./BOOKING_READY.md).  
-- **B — Fresha (hybrid):** **Public booking** uses **Fresha**; the site’s **`/book`** route (canonical branded entry) and org **`BOOKING_URL`** in `lib/flows.ts` point at the org Fresha URL; **Danielle** and **Ryan** use **staff-specific** Link Builder URLs in Vercel (see **live URL table** in the runbook). Hello Gorgeous is used for **charting, consents, imports, and ops**. CSV imports bring Fresha rows into `appointments` for kiosk/calendar *reference*—not live two-way sync. **Runbook (approved setup, no public `?provider=`):** [OPERATIONS_FRESHA_HG_HYBRID.md](./OPERATIONS_FRESHA_HG_HYBRID.md).
+**Public booking is Square Appointments.** `BOOKING_URL` in `lib/flows.ts` resolves to the
+Square org booking site, and `/book` is the canonical branded entry that merges attribution
+params before redirecting there. Hello Gorgeous (HGOS) remains the system for **charting,
+consents, imports, and ops**.
 
-If you use **A**, do not also run **B** for new online books without a cutover plan (double-book risk). If you use **B**, treat Fresha as the live schedule and HG as the clinical/ops layer plus batch import.
+`resolvePublicBookingUrl()` **rejects any non-Square scheduler URL**, so a stale env var
+cannot take over public CTAs. Per-provider overrides are `NEXT_PUBLIC_SQUARE_BOOKING_URL_DANIELLE`
+and `NEXT_PUBLIC_SQUARE_BOOKING_URL_RYAN`; unset falls back to the org URL.
+
+**Fresha was discontinued** and all of its URLs have been removed from the codebase. The old
+hybrid runbook is archived at [OPERATIONS_FRESHA_HG_HYBRID.md](./OPERATIONS_FRESHA_HG_HYBRID.md) —
+do not follow it.
+
+The first-party HG-only booking model (calendar + `appointments` table as the only place new
+bookings are created) is described below and in [BOOKING_READY.md](./BOOKING_READY.md). It is
+the target model for AI/voice booking; Square is the live consumer scheduler today.
 
 ## Canonical calendar (Model A — HG only)
 
@@ -15,22 +27,22 @@ If you use **A**, do not also run **B** for new online books without a cutover p
 - **Availability** is computed from our Supabase data (provider schedules, existing appointments). No external system is queried when checking availability or creating/cancelling/rescheduling appointments.
 - **AI receptionist** (chat and future voice) books, cancels, and reschedules via our APIs only. That prevents double booking and keeps one place to look.
 
-## Why Fresha is not live-integrated
+## Why external schedulers are not live-integrated
 
-- There is **no real-time two-way integration** with Fresha. Fresha cannot see our availability, and we do not push bookings to Fresha.
-- Using both systems for **new** bookings would allow double booking (same slot taken on Fresha and in our calendar).
+- There is **no real-time two-way integration** with an external scheduler. It cannot see our availability, and we do not push bookings to it.
+- Using two systems for **new** bookings would allow double booking (same slot taken in both calendars).
 - To support AI booking, voice booking, and owner-controlled operations with **zero double-book risk**, all new bookings must flow through this system only.
 
-## Fresha: legacy / historical only
+## Fresha: historical data only
 
-- Fresha may still be used **internally** for viewing historical appointments or staff familiarity during transition.
-- **Fresha is not advertised** as a booking entry point. All public “Book” / “Book Now” links point to our `/book` flow (or `NEXT_PUBLIC_BOOKING_URL` if set).
-- The **Fresha CSV import script** (`scripts/import-fresha-appointments.mjs`) is for **historical / reference only**. Imported rows are not used for availability enforcement; they are for history and reporting. New bookings are never taken on Fresha as the source of truth.
+- Fresha was **discontinued**. The partner portal is no longer accessible and no Fresha URL appears anywhere on the site.
+- The **CSV import scripts** (`scripts/import-fresha-appointments.mjs`, `scripts/import-fresha-clients.mjs`) only read **historical** exports already on disk, for history and reporting. They are not used for availability enforcement.
+- The 1,931 post-appointment reviews earned on Fresha are still cited on the site, but **unbranded** — see `lib/review-trust.ts`.
 
 ## How double books are prevented
 
-- **One system for new bookings:** Website `/book`, AI receptionist, and admin calendar all read and write only our Supabase `appointments` table (and provider schedules). No code path checks Fresha during booking.
-- **Optional:** If you ever point `NEXT_PUBLIC_BOOKING_URL` to an external URL, you would be opting out of this model; by default it is `/book` (first-party).
+- **One system for new bookings:** Website `/book`, AI receptionist, and admin calendar all read and write only our Supabase `appointments` table (and provider schedules). No code path checks an external scheduler during booking.
+- **Note:** `NEXT_PUBLIC_BOOKING_URL` currently points `/book` at Square Appointments. Only Square URLs are accepted.
 
 ## AI receptionist and voice
 
@@ -45,4 +57,4 @@ If you use **A**, do not also run **B** for new online books without a cutover p
 - [AI Receptionist Initiative](./AI_RECEPTIONIST_INITIATIVE.md) — booking/cancel/reschedule APIs and flows
 - [Pre-Deploy Audit](./PRE_DEPLOY_AUDIT.md) — first-party booking and reviews
 - [Appointment Booking Flows](./APPOINTMENT_BOOKING_FLOWS.md) — calendar vs new-appointment date behavior
-- [Fresha + HG hybrid (operations)](./OPERATIONS_FRESHA_HG_HYBRID.md) — CSV imports, weekly checklist, daily flow
+- [Fresha + HG hybrid (operations)](./OPERATIONS_FRESHA_HG_HYBRID.md) — **archived**, superseded by Square

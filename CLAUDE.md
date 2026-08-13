@@ -66,7 +66,8 @@ Three surfaces share this codebase:
 
 ## Integrations (all keyed via env vars; names in `.env.example`)
 
-Payments **Square** + **Stripe** · Booking **Fresha** (webhooks) + Square · SMS/voice
+Payments **Square** + **Stripe** · Booking **Square** (Fresha discontinued Aug 2026 — do
+not reintroduce its URLs; `resolvePublicBookingUrl()` rejects non-Square) · SMS/voice
 **Twilio** + **Telnyx** · Email **Resend** · Finance **Plaid** · AI **Anthropic** +
 **OpenAI** + **ElevenLabs** · Web **push** (VAPID) · **Google Business Profile** + Search
 Console · **Meta/Facebook** social posting. Cron jobs are defined in `vercel.json`.
