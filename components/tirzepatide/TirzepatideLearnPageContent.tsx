@@ -35,7 +35,6 @@ import {
   TIRZEPATIDE_NAV,
   TIRZEPATIDE_NOT_FOR,
   TIRZEPATIDE_PROGRAM_STEPS,
-  TIRZEPATIDE_REFERENCES,
   TIRZEPATIDE_RESEARCH,
   TIRZEPATIDE_SCIENCE,
   TIRZEPATIDE_SIDES,
@@ -225,7 +224,7 @@ export function TirzepatideLearnPageContent() {
             {TIRZEPATIDE_RESEARCH.map((card) => (
               <JourneyDarkCard key={card.id}>
                 <p className="text-[12px] font-extrabold uppercase tracking-[0.16em] text-[#FF2D8E]">
-                  [{card.cite}] {card.title}
+                  {card.title}
                 </p>
                 <p className="mt-4 text-[16px] leading-relaxed text-white/80">{card.body}</p>
               </JourneyDarkCard>
@@ -538,32 +537,12 @@ export function TirzepatideLearnPageContent() {
             </p>
             <p className="mt-2 font-serif italic text-white/80">&ldquo;{SITE.tagline}&rdquo;</p>
           </div>
-          <div className="max-w-xl">
-            <p className="text-[12px] font-extrabold uppercase tracking-[0.16em] text-[#FF2D8E]">
-              References
-            </p>
-            <ol className="mt-3 flex flex-col gap-2 text-[13px] leading-relaxed text-white/50">
-              {TIRZEPATIDE_REFERENCES.map((ref) => (
-                <li key={ref.id}>
-                  <span className="text-white/70">[{ref.id}]</span> {ref.text}{" "}
-                  <a
-                    href={ref.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="font-bold text-[#FF2D8E] hover:text-white"
-                  >
-                    View source →
-                  </a>
-                </li>
-              ))}
-            </ol>
-            <p className="mt-6 text-[13px] leading-relaxed text-white/45">
-              This page is educational and is not medical advice, a diagnosis, or a guarantee of
-              results. Tirzepatide is prescription-only. NP-directed by {PRESCRIBING_NP.displayName}{" "}
-              under Medical Director {MEDICAL_DIRECTOR.displayName}. {GLP1_PROGRAM_DISCLAIMER} Prices
-              shown are starting points. Individual plans vary.
-            </p>
-          </div>
+          <p className="max-w-xl text-[13px] leading-relaxed text-white/45">
+            This page is educational and is not medical advice, a diagnosis, or a guarantee of
+            results. Tirzepatide is prescription-only. NP-directed by {PRESCRIBING_NP.displayName}{" "}
+            under Medical Director {MEDICAL_DIRECTOR.displayName}. {GLP1_PROGRAM_DISCLAIMER} Prices
+            shown are starting points. Individual plans vary.
+          </p>
         </div>
       </footer>
     </div>

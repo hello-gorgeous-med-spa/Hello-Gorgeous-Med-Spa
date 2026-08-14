@@ -1,7 +1,7 @@
 /**
  * Flagship /tirzepatide Learn More page — educational, consult-first.
- * Clinical facts come from published monographs, GLP-1 program pricing, and
- * cited trials. Compounded product is never described as FDA-approved.
+ * Clinical facts come from published monographs and GLP-1 program pricing.
+ * Compounded product is never described as FDA-approved.
  */
 
 import { GLP1_INTAKE_PATH } from "@/lib/flows";
@@ -61,19 +61,16 @@ export const TIRZEPATIDE_FACTS = [
 export const TIRZEPATIDE_RESEARCH = [
   {
     id: "surmount-1",
-    cite: "1",
     title: "SURMOUNT-1 · NEJM 2022",
     body: "In a 72-week trial of adults with obesity, published average weight loss at the highest weekly dose was 22.5% of body weight. Lower studied doses produced lower averages. That is a trial mean — not a prediction for you.",
   },
   {
     id: "surmount-4",
-    cite: "3",
     title: "SURMOUNT-4 · JAMA 2024",
     body: "Follow-up data suggested continued treatment mattered for maintaining lost weight. People who stopped often regained a meaningful portion over the next year. Your NP talks through a long-term plan before you start.",
   },
   {
     id: "fda",
-    cite: "2",
     title: "FDA · November 2023",
     body: "The FDA approved a brand tirzepatide product (Zepbound®) for chronic weight management. Hello Gorgeous RX uses compounded tirzepatide when your NP determines it is appropriate. Compounded medications are not FDA-approved brand products.",
   },
@@ -181,24 +178,6 @@ export const TIRZEPATIDE_COMPARE = [
     label: "Published from-price",
     tirz: `From $${GLP1_RETAIL_PROGRAM.tirzepatideFromUsd}/mo`,
     sema: `From $${GLP1_RETAIL_PROGRAM.semaglutideFromUsd}/mo`,
-  },
-] as const;
-
-export const TIRZEPATIDE_REFERENCES = [
-  {
-    id: "1",
-    text: "Jastreboff AM, Aronne LJ, Ahmad NN, et al. Tirzepatide once weekly for the treatment of obesity. N Engl J Med. 2022;387(3):205-216.",
-    href: "https://www.nejm.org/doi/full/10.1056/NEJMoa2206038",
-  },
-  {
-    id: "2",
-    text: "U.S. Food and Drug Administration. FDA approves new medication for chronic weight management. November 8, 2023.",
-    href: "https://www.fda.gov/news-events/press-announcements/fda-approves-new-medication-chronic-weight-management",
-  },
-  {
-    id: "3",
-    text: "Aronne LJ, Sattar N, Horn DB, et al. Continued treatment with tirzepatide for maintenance of weight reduction in adults with obesity: The SURMOUNT-4 randomized clinical trial. JAMA. 2024;331(1):38-48.",
-    href: "https://jamanetwork.com/journals/jama/fullarticle/2812936",
   },
 ] as const;
 
