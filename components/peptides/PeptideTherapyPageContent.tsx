@@ -1,29 +1,65 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 
-import { CTA } from "@/components/CTA";
-import { FadeUp, Section } from "@/components/Section";
-import { GLP1_INTAKE_PATH, PEPTIDE_REQUEST_PATH } from "@/lib/flows";
+import {
+  JOURNEY_HERO_BG,
+  JourneyCheckItem,
+  JourneyChip,
+  JourneyEyebrow,
+  JourneyGhostBtn,
+  JourneyPinkBtn,
+  JourneySectionHead,
+  JourneyTrustBar,
+  JourneyVideoFrame,
+} from "@/components/marketing/JourneyPageUi";
+import { CHERRY_PAY_URL, GLP1_INTAKE_PATH, PEPTIDE_REQUEST_PATH } from "@/lib/flows";
 import { MEDICAL_DIRECTOR, PRESCRIBING_NP } from "@/lib/medical-authority";
 import { PEPTIDE_CONSULT_FEE_USD } from "@/lib/peptide-request-menu";
+import {
+  GLP1_RETAIL_PROGRAM,
+  PEPTIDE_RETAIL_FROM_MONTHLY_USD,
+  getPeptideRetailMonthlyUsd,
+} from "@/lib/peptide-retail-pricing";
 import { PEPTIDES_HUB_FAQS } from "@/lib/peptide-seo-faqs";
+import { PEPTIDE_SCIENCE_VIDEOS } from "@/lib/peptide-topic-media";
 import { PRIMARY_BOOKING_CTA } from "@/lib/primary-cta";
+import { REGEN_MARKETING } from "@/lib/regen-brand";
 import { protocolPath, isPublishedProtocolDrugKey } from "@/lib/regen/catalog/protocol-pages";
+import { REGEN_SHOP_SHIPPING_USD } from "@/lib/regen/shop-surface";
+import {
+  HOW_REGEN_WORKS_ARTICLE,
+  WHAT_ARE_PEPTIDES_ARTICLE,
+  WHAT_IS_GLP1_ARTICLE,
+} from "@/lib/regen-learn-articles";
+import { RX_CARE_TEXT_DISPLAY, RX_CARE_TEXT_SMS } from "@/lib/rx-contact";
+import { SITE } from "@/lib/seo";
 import { VITAMIN_SHOTS } from "@/lib/vitamin-bar";
 
-const BRAND = {
-  pink: "#E6007E",
-  pinkHot: "#FF2D8E",
-  rose: "#FFF0F7",
-  dark: "#0a0a0a",
-};
+const LEARN_HREF = "/rx/learn/what-are-peptides";
+const SHOP_HREF = "/rx?browse=all";
+const BOOK = PRIMARY_BOOKING_CTA.href;
+const CALL = `tel:${SITE.phone.replace(/\D/g, "")}`;
+const SERMORELIN_FROM = getPeptideRetailMonthlyUsd("sermorelin") ?? PEPTIDE_RETAIL_FROM_MONTHLY_USD;
+const BPC_FROM = getPeptideRetailMonthlyUsd("bpc-157") ?? PEPTIDE_RETAIL_FROM_MONTHLY_USD;
+const PT141_FROM = getPeptideRetailMonthlyUsd("pt-141") ?? PEPTIDE_RETAIL_FROM_MONTHLY_USD;
+
+const NAV = [
+  { href: "#peptides", label: "Protocols" },
+  { href: "#provider", label: "Your NP" },
+  { href: "#program", label: "How it works" },
+  { href: "#pricing", label: "Pricing" },
+  { href: "#faq", label: "FAQ" },
+  { href: SHOP_HREF, label: "Shop RE GEN" },
+] as const;
+
+const LEARN_GUIDES = [WHAT_IS_GLP1_ARTICLE, WHAT_ARE_PEPTIDES_ARTICLE, HOW_REGEN_WORKS_ARTICLE] as const;
 
 function learnHref(drugKey: string) {
   return isPublishedProtocolDrugKey(drugKey) ? protocolPath(drugKey) : undefined;
 }
-
-const LEARN_HREF = "/rx/learn/what-are-peptides";
-const SHOP_HREF = "/rx?browse=all";
 
 function peptideIntake(peptide: string) {
   const params = new URLSearchParams({
@@ -42,13 +78,6 @@ function glp1Intake(productName: string) {
   });
   return `${GLP1_INTAKE_PATH}?${params.toString()}`;
 }
-
-const JUMP = [
-  { href: "#peptides", label: "Peptides" },
-  { href: "#program", label: "Your program" },
-  { href: "#faq", label: "FAQ" },
-  { href: SHOP_HREF, label: "Shop RE GEN" },
-] as const;
 
 const TYPES = [
   {
@@ -83,13 +112,18 @@ const TYPES = [
   },
 ] as const;
 
-const WEIGHT_LOSS = [
+const PROTOCOLS = [
   {
     tag: "GLP-1",
     name: "Tirzepatide",
     body: "Dual GIP/GLP-1 agonist for appetite control, weight loss, and blood-sugar support. Weekly dosing, titrated by your provider.",
     href: glp1Intake("Tirzepatide"),
     learnHref: learnHref("tirzepatide"),
+    image: "/images/shop-rx/tirzepatide-glp1.png",
+    imageAlt: "Tirzepatide GLP-1 protocol — Hello Gorgeous RX",
+    fromUsd: GLP1_RETAIL_PROGRAM.tirzepatideFromUsd,
+    goal: "Weight & metabolic",
+    form: "Weekly injectable",
   },
   {
     tag: "GLP-1",
@@ -97,22 +131,23 @@ const WEIGHT_LOSS = [
     body: "GLP-1 receptor agonist for appetite control, weight management, and metabolic health. Weekly dosing.",
     href: glp1Intake("Semaglutide"),
     learnHref: learnHref("semaglutide"),
+    image: "/images/shop-rx/semaglutide-glp1.png",
+    imageAlt: "Semaglutide GLP-1 protocol — Hello Gorgeous RX",
+    fromUsd: GLP1_RETAIL_PROGRAM.semaglutideFromUsd,
+    goal: "Weight & metabolic",
+    form: "Weekly injectable",
   },
-  {
-    tag: "Provider-matched",
-    name: "Additional options",
-    body: "Other weight-loss and metabolic peptide protocols are available. Your provider matches the right option to your labs and goals.",
-    href: "/rx?goal=lose-weight",
-  },
-] as const;
-
-const RECOVERY = [
   {
     tag: "GH support",
     name: "Sermorelin",
     body: "Encourages your body’s own growth-hormone production — supports recovery, lean body composition, and sleep quality.",
     href: peptideIntake("sermorelin"),
     learnHref: learnHref("sermorelin"),
+    image: "/images/shop-rx/sermorelin.png",
+    imageAlt: "Sermorelin peptide protocol — Hello Gorgeous RX",
+    fromUsd: SERMORELIN_FROM,
+    goal: "Recovery & sleep",
+    form: "Nightly injectable",
   },
   {
     tag: "Repair",
@@ -120,6 +155,11 @@ const RECOVERY = [
     body: "Supports tissue healing, joint comfort, and recovery from inflammation or injury.",
     href: peptideIntake("bpc-157"),
     learnHref: learnHref("bpc157"),
+    image: "/images/shop-rx/bpc-157.png",
+    imageAlt: "BPC-157 recovery peptide — Hello Gorgeous RX",
+    fromUsd: BPC_FROM,
+    goal: "Repair & joints",
+    form: "Injectable",
   },
   {
     tag: "Vitality",
@@ -127,419 +167,806 @@ const RECOVERY = [
     body: "Supports sexual health and vitality as part of a broader wellness plan, for men and women.",
     href: peptideIntake("pt-141"),
     learnHref: learnHref("pt141"),
+    image: "/images/shop-rx/pt-141.png",
+    imageAlt: "PT-141 vitality peptide — Hello Gorgeous RX",
+    fromUsd: PT141_FROM,
+    goal: "Libido & vitality",
+    form: "As directed",
+  },
+  {
+    tag: "Provider-matched",
+    name: "Shop all protocols",
+    body: "Every protocol we review in Illinois — starting price on the shelf, dose at consult. Ryan sets the plan before anything ships.",
+    href: SHOP_HREF,
+    image: "/images/shop-rx/new-peptide-protocol.png",
+    imageAlt: "RE GEN peptide protocol catalog — Hello Gorgeous RX",
+    fromUsd: PEPTIDE_RETAIL_FROM_MONTHLY_USD,
+    goal: "Matched at consult",
+    form: "Pickup or ship",
   },
 ] as const;
-
-const WELLNESS_IDS = ["biotin", "glutathione", "vitamin-d", "tri-immune"] as const;
 
 const PROGRAM_STEPS = [
   {
     n: "01",
     title: "Medical screening & labs",
     body: "A full intake and bloodwork review before any protocol is recommended.",
+    tag: "Intake",
   },
   {
     n: "02",
     title: "Provider consult",
     body: `${MEDICAL_DIRECTOR.displayName} provides medical oversight; ${PRESCRIBING_NP.displayName} prescribes and manages your plan.`,
+    tag: "Your NP",
   },
   {
     n: "03",
     title: "Personalized protocol",
     body: "Peptides and dosing matched to your goals — recovery, fat loss, performance, or longevity.",
+    tag: "Your plan",
   },
   {
     n: "04",
     title: "Ongoing follow-up",
     body: "Regular check-ins and dose review to keep your protocol working for you.",
+    tag: "Stay on track",
   },
 ] as const;
 
-function ProtocolCard({
-  tag,
-  name,
-  body,
-  href,
-  learnHref,
-}: {
-  tag: string;
-  name: string;
-  body: string;
-  href: string;
-  learnHref?: string;
-}) {
-  return (
-    <article className="flex h-full flex-col rounded-3xl border-4 border-black bg-white p-6 shadow-[8px_8px_0_0_rgba(230,0,126,0.35)] transition hover:-translate-y-0.5">
-      <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-[#E6007E]">{tag}</p>
-      <h3 className="mt-2 font-serif text-xl font-black text-black">{name}</h3>
-      <p className="mt-2 flex-1 text-sm font-medium leading-relaxed text-black/70">{body}</p>
-      <Link
-        href={href}
-        className="mt-5 inline-flex min-h-[44px] items-center justify-center rounded-xl border-2 border-black bg-white px-4 text-sm font-black text-black transition hover:bg-[#FF2D8E]"
-      >
-        Start intake →
-      </Link>
-      {learnHref ? (
-        <Link
-          href={learnHref}
-          className="mt-2 text-center text-xs font-semibold text-black/50 hover:text-[#E6007E]"
-        >
-          How it works
-        </Link>
-      ) : null}
-    </article>
-  );
-}
+const PREP_BEFORE = [
+  "Complete the online intake — free to submit, no cart, no dose picker.",
+  "List current medications, supplements, and recent labs if you have them.",
+  "Write down your goal in one sentence: weight, recovery, sleep, vitality, or hormones.",
+  "Plan pickup in Oswego or Illinois shipping once Ryan approves the protocol.",
+] as const;
 
-function GroupHeading({ children }: { children: string }) {
-  return (
-    <h3 className="mb-5 border-l-4 border-[#FF2D8E] pl-3.5 font-serif text-xl font-black text-black">
-      {children}
-    </h3>
-  );
-}
+const PREP_DAY_OF = [
+  "Arrive (or join telehealth) ready to talk history, not to pick a product off a shelf.",
+  `${PRESCRIBING_NP.displayName} reviews your intake, asks follow-ups, and sets dose if you qualify.`,
+  `A $${PEPTIDE_CONSULT_FEE_USD} consult fee reserves the visit — medication is billed only after approval.`,
+  "You leave with a plan, a starting price, and a clear next step — not a guess.",
+] as const;
+
+const PREP_DONT = [
+  "Don’t start peptides from another source without telling your provider.",
+  "Don’t skip labs or follow-up visits once a protocol is underway.",
+  "Don’t treat starting prices as a final invoice — dose sets the number.",
+] as const;
+
+const WELLNESS_IDS = ["biotin", "glutathione", "vitamin-d", "tri-immune"] as const;
 
 /**
- * Public peptide-therapy landing at `/peptides`.
- * Structure follows the Hello Gorgeous RX peptide landing mock: hero, trust,
- * what-is, shop-by-goal, program, FAQ, CTA — not a catalog dump.
+ * Public /rx landing — same cinematic system as Your Brow Journey:
+ * black canvas, sticky in-page nav, video hero, pink trust bar, dark cards.
  */
 export function PeptideTherapyPageContent() {
+  const [navOpen, setNavOpen] = useState(false);
   const wellness = WELLNESS_IDS.map((id) => VITAMIN_SHOTS.find((s) => s.id === id)).filter(
     (s): s is (typeof VITAMIN_SHOTS)[number] => !!s,
   );
 
   return (
-    <div className="relative min-h-[100dvh]">
-      <div
-        className="pointer-events-none fixed inset-0 -z-10 opacity-90"
-        style={{
-          background: `
-            radial-gradient(ellipse 80% 50% at 50% -10%, ${BRAND.pink}33 0%, transparent 55%),
-            radial-gradient(ellipse 60% 40% at 100% 30%, ${BRAND.pinkHot}22 0%, transparent 50%),
-            radial-gradient(ellipse 50% 35% at 0% 70%, ${BRAND.pink}18 0%, transparent 45%),
-            linear-gradient(180deg, ${BRAND.rose} 0%, #ffffff 35%, #fafafa 100%)
-          `,
-        }}
-      />
-
-      <main className="min-w-0">
-        <section className="relative min-h-[560px] overflow-hidden border-b-4 border-black lg:min-h-[680px]">
-          <Image
-            src="/images/shop-rx/rx-hero-team.png"
-            alt="Ryan Kent, FNP-BC and Danielle Alcala-Glazier at Hello Gorgeous Med Spa"
-            fill
-            priority
-            className="object-cover object-[78%_18%]"
-            sizes="100vw"
-          />
-          <div
-            className="absolute inset-0"
-            style={{
-              background:
-                "linear-gradient(90deg, #0a0a0a 0%, rgba(10,10,10,0.88) 36%, rgba(45,16,32,0.28) 58%, rgba(0,0,0,0.08) 100%)",
-            }}
-          />
-          <div
-            className="pointer-events-none absolute inset-y-0 left-0 w-[55%] opacity-50"
-            style={{
-              background: `radial-gradient(ellipse 80% 70% at 20% 40%, ${BRAND.pink}55 0%, transparent 70%)`,
-            }}
-          />
-
-          <div className="relative z-10 mx-auto flex min-h-[560px] max-w-6xl items-center px-6 py-16 md:px-12 lg:min-h-[680px] lg:py-20">
-            <div className="max-w-xl">
-              <div className="mb-6 inline-flex items-center gap-2 rounded-full border-2 border-white/20 bg-white/10 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.2em] text-white backdrop-blur-sm">
-                <span className="inline-block h-2 w-2 animate-pulse rounded-full bg-[#E6007E]" aria-hidden />
-                Oswego, IL · Hello Gorgeous RX
-              </div>
-              <p className="mb-3 text-xs font-medium uppercase tracking-widest text-[#FFB8DC]">
-                Medically supervised peptide therapy
-              </p>
-              <h1 className="mb-6 font-serif text-4xl font-black leading-tight text-white drop-shadow-lg md:text-6xl">
-                Peptide Therapy,{" "}
-                <span
-                  className="bg-gradient-to-r from-[#FFB8DC] via-[#FF2D8E] to-[#E6007E] bg-clip-text text-transparent"
-                  style={{ WebkitBackgroundClip: "text" }}
-                >
-                  Medically Supervised
-                </span>
-              </h1>
-              <p className="mb-10 max-w-lg text-lg leading-relaxed text-white/85">
-                Custom peptide protocols for weight loss, recovery, growth-hormone support, and
-                vitality — built around your labs and goals, and overseen by our medical team.
-              </p>
-              <div className="flex flex-col gap-4 sm:flex-row">
-                <CTA
-                  href={PRIMARY_BOOKING_CTA.href}
-                  variant="gradient"
-                  className="shadow-[0_8px_32px_-4px_rgba(230,0,126,0.55)]"
-                >
-                  Book a free consult
-                </CTA>
-                <CTA
-                  href={LEARN_HREF}
-                  variant="outline"
-                  className="border-2 border-white text-white hover:bg-white hover:text-black"
-                >
-                  What are peptides?
-                </CTA>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section className="border-b-4 border-black bg-[#FFF5F9] px-6 py-8 md:px-12">
-          <div className="mx-auto grid max-w-6xl gap-6 text-center sm:grid-cols-2 lg:grid-cols-4">
-            {[
-              { title: "NP-directed care", sub: "Every client medically screened" },
-              { title: MEDICAL_DIRECTOR.displayName, sub: "Medical oversight" },
-              { title: PRESCRIBING_NP.displayName, sub: "Prescribing provider" },
-              { title: "Oswego, IL", sub: "Serving the western suburbs" },
-            ].map((item) => (
-              <div key={item.title}>
-                <p className="font-serif text-[15px] font-bold text-black">{item.title}</p>
-                <p className="mt-1 text-xs font-medium text-black/55">{item.sub}</p>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        <Section className="!py-12 border-b-4 border-black bg-white/70 backdrop-blur-sm">
-          <nav aria-label="Peptide therapy sections">
-            <p className="mb-4 flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-black">
-              <span className="text-[#E6007E]" aria-hidden>
-                ✦
+    <div className="min-h-[100dvh] bg-black font-sans text-white">
+      <nav className="sticky top-0 z-40 border-b border-white/10 bg-black/82 backdrop-blur-md">
+        <div className="mx-auto flex max-w-[1200px] items-center justify-between px-6 py-3.5">
+          <Link href="/rx" className="flex items-center gap-2.5 font-bold">
+            <span className="inline-flex h-[34px] w-[34px] items-center justify-center rounded-[9px] bg-gradient-to-br from-[#FF2D8E] to-[#E6007E] text-[13px] font-extrabold text-white">
+              HG
+            </span>
+            <span className="hidden leading-tight sm:block">
+              <span className="block text-base">Hello Gorgeous</span>
+              <span className="block text-[10px] font-extrabold uppercase tracking-[0.18em] text-[#FF2D8E]">
+                RX · RE GEN
               </span>
-              Jump to
-            </p>
-            <ul className="flex flex-wrap gap-2">
-              {JUMP.map((item) => (
-                <li key={item.href}>
-                  <Link
+            </span>
+          </Link>
+          <button
+            type="button"
+            className="rounded-lg border border-white/20 px-3 py-1.5 text-sm font-bold lg:hidden"
+            onClick={() => setNavOpen((o) => !o)}
+            aria-expanded={navOpen}
+            aria-label="Toggle menu"
+          >
+            Menu
+          </button>
+          <div className="hidden items-center gap-7 text-[15px] lg:flex">
+            {NAV.map((item) =>
+              item.href.startsWith("#") ? (
+                <a key={item.href} href={item.href} className="text-white/75 transition hover:text-white">
+                  {item.label}
+                </a>
+              ) : (
+                <Link key={item.href} href={item.href} className="text-white/75 transition hover:text-white">
+                  {item.label}
+                </Link>
+              ),
+            )}
+            <JourneyPinkBtn href={BOOK} className="!px-5 !py-2.5 !text-[15px]">
+              Book Now
+            </JourneyPinkBtn>
+          </div>
+        </div>
+        {navOpen ? (
+          <div className="border-t border-white/10 px-6 py-4 lg:hidden">
+            <div className="flex flex-col gap-3">
+              {NAV.map((item) =>
+                item.href.startsWith("#") ? (
+                  <a
+                    key={item.href}
                     href={item.href}
-                    className="inline-flex rounded-full border-2 border-black/10 bg-gradient-to-b from-white to-rose-50 px-4 py-2 text-sm font-bold text-black shadow-sm transition hover:border-[#E6007E] hover:text-[#E6007E]"
+                    className="text-white/85"
+                    onClick={() => setNavOpen(false)}
+                  >
+                    {item.label}
+                  </a>
+                ) : (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className="text-white/85"
+                    onClick={() => setNavOpen(false)}
                   >
                     {item.label}
                   </Link>
-                </li>
-              ))}
-            </ul>
-          </nav>
-        </Section>
-
-        <Section className="border-b-4 border-black bg-white">
-          <FadeUp>
-            <div className="grid items-center gap-12 lg:grid-cols-2">
-              <div>
-                <p className="mb-2 text-xs font-bold uppercase tracking-[0.16em] text-[#E6007E]">
-                  A smarter approach
-                </p>
-                <h2 className="font-serif text-3xl font-black tracking-tight text-black md:text-4xl">
-                  What is peptide therapy?
-                </h2>
-                <p className="mt-4 text-[15px] font-medium leading-relaxed text-black/80">
-                  Peptides are short chains of amino acids that signal your cells to perform
-                  specific functions — messengers that tell your body what to do, and when.
-                  Different peptides target different systems: tissue repair, fat metabolism, and
-                  growth hormone.
-                </p>
-                <p className="mt-4 text-[15px] font-medium leading-relaxed text-black/80">
-                  Every protocol at Hello Gorgeous RX starts with a provider consult and medical
-                  screening. From there, your peptides and dosing are tailored to your goal —
-                  recovery, fat loss, performance, or longevity.
-                </p>
-                <Link
-                  href={LEARN_HREF}
-                  className="mt-6 inline-block text-sm font-bold text-[#E6007E] underline decoration-[#E6007E]/40 underline-offset-4 hover:text-[#FF2D8E]"
-                >
-                  Read our full guide to peptide therapy →
-                </Link>
-              </div>
-              <div className="relative aspect-[4/5] overflow-hidden rounded-[20px] border-4 border-black shadow-[8px_8px_0_0_rgba(230,0,126,0.35)] lg:aspect-auto lg:min-h-[420px]">
-                <Image
-                  src="/images/team/dani-ryan-founders-portrait.png"
-                  alt="Danielle Alcala-Glazier and Ryan Kent, FNP-BC at Hello Gorgeous Med Spa"
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 1024px) 100vw, 50vw"
-                />
-              </div>
+                ),
+              )}
+              <JourneyPinkBtn href={BOOK} className="mt-2 w-full">
+                Book Now
+              </JourneyPinkBtn>
             </div>
-          </FadeUp>
-        </Section>
+          </div>
+        ) : null}
+      </nav>
 
-        <Section className="border-b-4 border-black bg-gradient-to-b from-[#FFF0F7] to-white">
-          <FadeUp>
-            <p className="text-center text-xs font-bold uppercase tracking-[0.16em] text-[#E6007E]">
-              Six types we offer
+      <header className={JOURNEY_HERO_BG}>
+        <div
+          className="pointer-events-none absolute -right-28 -top-40 h-[620px] w-[620px] rounded-full bg-[radial-gradient(circle,rgba(255,45,142,0.28),transparent_62%)]"
+          aria-hidden
+        />
+        <div className="relative mx-auto grid max-w-[1200px] gap-10 px-6 py-16 lg:grid-cols-2 lg:items-center lg:gap-14 lg:py-24">
+          <div>
+            <JourneyEyebrow>Hello Gorgeous RX · Oswego, IL</JourneyEyebrow>
+            <h1 className="mt-4 font-serif text-[44px] font-bold leading-[1.02] text-white lg:text-[66px]">
+              Peptide Therapy, <span className="text-[#FF2D8E]">Medically Supervised</span>
+            </h1>
+            <p className="mt-5 max-w-lg text-lg leading-relaxed text-white/80 lg:text-xl">
+              Custom peptide protocols for weight loss, recovery, growth-hormone support, and vitality —
+              built around your labs and goals, and overseen by our medical team. {SITE.tagline}
             </p>
-            <h2 className="mx-auto mt-2 max-w-2xl text-center font-serif text-3xl font-black text-black md:text-4xl">
-              Targeted. Science-informed. Built for you.
+            <div className="mt-8 flex flex-wrap gap-4">
+              <JourneyPinkBtn href={BOOK}>{PRIMARY_BOOKING_CTA.label}</JourneyPinkBtn>
+              <JourneyGhostBtn href={RX_CARE_TEXT_SMS}>Text {RX_CARE_TEXT_DISPLAY}</JourneyGhostBtn>
+            </div>
+            <div className="mt-6 flex flex-wrap gap-2.5">
+              {[
+                "NP-directed",
+                PRESCRIBING_NP.displayName,
+                `Pickup or $${REGEN_SHOP_SHIPPING_USD} IL ship`,
+              ].map((chip) => (
+                <JourneyChip key={chip}>{chip}</JourneyChip>
+              ))}
+            </div>
+          </div>
+          <JourneyVideoFrame
+            src={PEPTIDE_SCIENCE_VIDEOS.rxHero}
+            label="RE GEN peptide science animation — Hello Gorgeous RX"
+            poster={REGEN_MARKETING.ogImage}
+            className="lg:max-w-lg"
+          />
+        </div>
+      </header>
+
+      <JourneyTrustBar />
+
+      <section
+        id="provider"
+        className="scroll-mt-24 bg-[radial-gradient(85%_95%_at_20%_30%,#1a0510,#000_62%)] px-6 py-16 lg:py-24"
+      >
+        <div className="mx-auto grid max-w-[1200px] items-center gap-10 lg:grid-cols-[0.82fr_1.18fr] lg:gap-14">
+          <div className="overflow-hidden rounded-3xl border border-[#FF2D8E]/35 shadow-[0_20px_60px_rgba(255,45,142,0.22)]">
+            <div className="relative aspect-square w-full">
+              <Image
+                src={PRESCRIBING_NP.image}
+                alt={PRESCRIBING_NP.imageAlt}
+                fill
+                className="object-cover object-[center_22%]"
+                sizes="(max-width: 1024px) 100vw, 420px"
+              />
+            </div>
+          </div>
+          <div>
+            <JourneyEyebrow>Meet Your Provider</JourneyEyebrow>
+            <h2 className="mt-3 font-serif text-[38px] font-bold leading-tight text-white lg:text-[52px]">
+              Ryan <span className="text-[#FF2D8E]">Kent, FNP-BC</span>
             </h2>
-            <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {TYPES.map((item) => (
-                <div
-                  key={item.n}
-                  className="rounded-3xl border-4 border-black bg-white p-5 shadow-[6px_6px_0_0_rgba(230,0,126,0.25)]"
-                >
-                  <p className="text-[11px] font-black tracking-widest text-[#E6007E]">{item.n}</p>
-                  <h3 className="mt-1 font-serif text-lg font-black text-black">{item.title}</h3>
-                  <p className="mt-2 text-sm font-medium leading-relaxed text-black/70">{item.body}</p>
+            <p className="mt-2 text-[15px] font-bold uppercase tracking-[0.16em] text-white/60">
+              {PRESCRIBING_NP.roleLine}
+            </p>
+            <p className="mt-5 max-w-xl text-lg leading-relaxed text-white/85">
+              Every RE GEN protocol is prescribed and managed by {PRESCRIBING_NP.displayName} — a
+              board-certified family nurse practitioner with full Illinois prescriptive authority, on
+              site six days a week in Oswego.
+            </p>
+            <p className="mt-4 max-w-xl text-[17px] leading-relaxed text-white/70">
+              Medical oversight: {MEDICAL_DIRECTOR.displayName}. Nothing ships until Ryan reviews your
+              history, sets your dose, and approves the plan.
+            </p>
+            <div className="mt-6 flex flex-wrap gap-2.5">
+              {["Weight loss", "Peptides", "Hormones", "Labs first"].map((chip) => (
+                <JourneyChip key={chip}>{chip}</JourneyChip>
+              ))}
+            </div>
+            <blockquote className="mt-7 max-w-xl border-l-[3px] border-[#FF2D8E] pl-5 font-serif text-xl italic leading-snug text-white">
+              “Starting prices on the shelf. Your dose is set at consult — not by a cart.”
+            </blockquote>
+            <div className="mt-7 flex flex-wrap gap-3.5">
+              <JourneyPinkBtn href={BOOK}>Book with Ryan</JourneyPinkBtn>
+              <JourneyGhostBtn href={RX_CARE_TEXT_SMS}>Text {RX_CARE_TEXT_DISPLAY}</JourneyGhostBtn>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section
+        id="founder"
+        className="bg-[radial-gradient(85%_95%_at_78%_20%,#12030c,#000_62%)] px-6 py-16 lg:py-24"
+      >
+        <div className="mx-auto grid max-w-[1200px] items-center gap-10 lg:grid-cols-[0.7fr_1.3fr] lg:gap-14">
+          <div className="overflow-hidden rounded-3xl border border-[#FF2D8E]/35 shadow-[0_20px_60px_rgba(255,45,142,0.22)]">
+            <div className="relative aspect-[4/5] w-full">
+              <Image
+                src="/images/brow-journey/founder-dani.png"
+                alt="Danielle Alcala — Founder, Hello Gorgeous Med Spa"
+                fill
+                className="object-cover object-[center_22%]"
+                sizes="(max-width: 1024px) 100vw, 380px"
+              />
+            </div>
+          </div>
+          <div>
+            <JourneyEyebrow>A Note From Our Founder</JourneyEyebrow>
+            <h2 className="mt-3 font-serif text-[32px] font-bold leading-tight text-white lg:text-[44px]">
+              Why I built <span className="text-[#FF2D8E]">Hello Gorgeous RX</span>
+            </h2>
+            <div className="mt-6 flex max-w-xl flex-col gap-4 text-[17px] leading-relaxed text-white/85">
+              <p>
+                When I built Hello Gorgeous, I knew our clients would eventually need more than a
+                beautiful treatment room. They needed a provider who could sit with them, read their
+                labs, and write a plan that actually fits their life.
+              </p>
+              <p>
+                That&apos;s why Ryan is here — on site six days a week — and why Hello Gorgeous RX is
+                consult-first. Starting prices live on the shelf. Your dose is set at consult. Nothing
+                ships until he approves it.
+              </p>
+              <p>
+                I want the same standard for your protocol that we hold for every brow, every laser,
+                every visit: you leave feeling cared for, not sold to.
+              </p>
+            </div>
+            <blockquote className="mt-6 max-w-xl border-l-[3px] border-[#FF2D8E] pl-5 font-serif text-[22px] italic leading-snug text-white">
+              Real help, delivered by people who actually know you.
+            </blockquote>
+            <div className="mt-6 flex flex-wrap items-baseline gap-3.5">
+              <span className="font-serif text-[28px] font-bold text-[#FF2D8E]">xoxo, Danielle Alcala</span>
+              <span className="text-[13px] font-bold uppercase tracking-[0.16em] text-white/60">
+                Founder, Hello Gorgeous Med Spa
+              </span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-[radial-gradient(85%_95%_at_20%_30%,#1a0510,#000_62%)] px-6 py-16 lg:py-24">
+        <div className="mx-auto grid max-w-[1200px] items-center gap-10 lg:grid-cols-2 lg:gap-14">
+          <div>
+            <JourneySectionHead
+              eyebrow="A Smarter Approach"
+              title="What is"
+              titleAccent="peptide therapy?"
+              description="Peptides are short chains of amino acids that signal your cells to perform specific functions — messengers that tell your body what to do, and when. Different peptides target different systems: tissue repair, fat metabolism, and growth hormone."
+            />
+            <p className="mt-4 max-w-xl text-[17px] leading-relaxed text-white/70">
+              Every protocol at Hello Gorgeous RX starts with a provider consult and medical screening.
+              From there, your peptides and dosing are tailored to your goal — recovery, fat loss,
+              performance, or longevity.
+            </p>
+            <Link
+              href={LEARN_HREF}
+              className="mt-6 inline-block text-sm font-bold text-[#FF2D8E] underline decoration-[#FF2D8E]/40 underline-offset-4 hover:text-white"
+            >
+              Read our full guide to peptide therapy →
+            </Link>
+          </div>
+          <JourneyVideoFrame
+            src={PEPTIDE_SCIENCE_VIDEOS.rxEducation}
+            label="What are peptides — science animation, Hello Gorgeous RX"
+            poster={REGEN_MARKETING.brandBanner}
+          />
+        </div>
+      </section>
+
+      <section className="px-6 py-16 lg:py-24">
+        <div className="mx-auto max-w-[1200px]">
+          <JourneySectionHead
+            center
+            eyebrow="Six Types We Offer"
+            title="Targeted. Science-informed."
+            titleAccent="Built for you."
+          />
+          <div className="mt-11 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {TYPES.map((item) => (
+              <article
+                key={item.n}
+                className="rounded-[20px] border border-white/14 bg-gradient-to-b from-[#140109] to-[#0a0206] p-6 transition hover:-translate-y-1 hover:border-[#FF2D8E]"
+              >
+                <p className="text-[11px] font-extrabold uppercase tracking-[0.18em] text-[#FF2D8E]">
+                  {item.n}
+                </p>
+                <h3 className="mt-2 font-serif text-[22px] font-bold text-white">{item.title}</h3>
+                <p className="mt-3 text-[15px] leading-relaxed text-white/70">{item.body}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section
+        id="peptides"
+        className="scroll-mt-24 bg-[radial-gradient(80%_90%_at_15%_0%,#12030c,#000_60%)] px-6 py-16 lg:py-24"
+      >
+        <div className="mx-auto max-w-[1200px]">
+          <JourneySectionHead
+            eyebrow="Shop By Goal"
+            title="Peptide protocols"
+            titleAccent="we offer"
+            description="Start intake on the protocol you want — free to submit. Your NP sets the dose. Pickup in Oswego or ship across Illinois."
+          />
+          <div className="mt-11 grid gap-6 sm:grid-cols-2">
+            {PROTOCOLS.map((card) => (
+              <article
+                key={card.name}
+                className="flex flex-col overflow-hidden rounded-[20px] border border-white/14 bg-gradient-to-b from-[#140109] to-[#0a0206] transition hover:-translate-y-1 hover:border-[#FF2D8E]"
+              >
+                <div className="relative h-[210px] w-full bg-black">
+                  <Image
+                    src={card.image}
+                    alt={card.imageAlt}
+                    fill
+                    className="object-contain p-6"
+                    sizes="(max-width: 640px) 100vw, 50vw"
+                  />
+                </div>
+                <div className="flex flex-1 flex-col p-7">
+                  <p className="text-[11px] font-extrabold uppercase tracking-[0.18em] text-[#FF2D8E]">
+                    {card.tag}
+                  </p>
+                  <h3 className="mt-2 font-serif text-[27px] font-bold text-white">{card.name}</h3>
+                  <p className="mt-3 text-[15px] leading-relaxed text-white/70">{card.body}</p>
+                  <div className="mt-4 grid grid-cols-3 gap-2.5">
+                    <div className="rounded-xl border border-[#FF2D8E]/35 px-3 py-2.5 text-center">
+                      <div className="text-[10px] font-extrabold uppercase tracking-wider text-white/50">
+                        Goal
+                      </div>
+                      <div className="mt-0.5 text-sm font-bold">{card.goal}</div>
+                    </div>
+                    <div className="rounded-xl border border-[#FF2D8E]/35 px-3 py-2.5 text-center">
+                      <div className="text-[10px] font-extrabold uppercase tracking-wider text-white/50">
+                        Form
+                      </div>
+                      <div className="mt-0.5 text-sm font-bold">{card.form}</div>
+                    </div>
+                    <div className="rounded-xl border border-[#FF2D8E]/35 px-3 py-2.5 text-center">
+                      <div className="text-[10px] font-extrabold uppercase tracking-wider text-white/50">
+                        From
+                      </div>
+                      <div className="mt-0.5 text-sm font-bold">${card.fromUsd}/mo</div>
+                    </div>
+                  </div>
+                  <div className="mt-5 flex flex-wrap gap-3">
+                    <JourneyPinkBtn href={card.href} className="!px-5 !py-2.5 !text-[15px]">
+                      {card.name === "Shop all protocols" ? "Shop RE GEN" : "Start intake"}
+                    </JourneyPinkBtn>
+                    {"learnHref" in card && card.learnHref ? (
+                      <Link
+                        href={card.learnHref}
+                        className="inline-flex items-center text-sm font-bold text-[#FF2D8E] hover:text-white"
+                      >
+                        How it works →
+                      </Link>
+                    ) : null}
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+          <div className="mt-10 overflow-hidden rounded-[18px] border border-white/14">
+            <div className="hidden grid-cols-[1.4fr_1.4fr_1.2fr_0.9fr] gap-3 bg-[#140109] px-6 py-4 text-xs font-extrabold uppercase tracking-wider text-white/60 sm:grid">
+              <div>Protocol</div>
+              <div>Best for</div>
+              <div>How it&apos;s used</div>
+              <div>From</div>
+            </div>
+            {PROTOCOLS.filter((row) => row.name !== "Shop all protocols").map((row) => (
+              <div
+                key={row.name}
+                className="grid grid-cols-1 gap-1 border-t border-white/10 px-6 py-4 text-[15px] sm:grid-cols-[1.4fr_1.4fr_1.2fr_0.9fr] sm:items-center sm:gap-3"
+              >
+                <div className="font-serif text-lg font-bold text-[#FF2D8E]">{row.name}</div>
+                <div className="text-white/85">{row.goal}</div>
+                <div className="hidden text-white/85 sm:block">{row.form}</div>
+                <div className="text-white/85">${row.fromUsd}/mo</div>
+              </div>
+            ))}
+          </div>
+          <p className="mt-8 max-w-3xl border-l-[3px] border-[#FF2D8E] pl-5 text-base leading-relaxed text-white/85">
+            <strong className="text-white">How we choose your protocol:</strong> Ryan matches the
+            compound, format, and dose to your labs and goals — never a one-click cart. Bring questions;
+            leave with a plan.
+          </p>
+        </div>
+      </section>
+
+      <section className="px-6 py-16 lg:py-24">
+        <div className="mx-auto max-w-[1200px]">
+          <JourneySectionHead
+            eyebrow="Everyday Add-Ons"
+            title="Vitamin Bar"
+            titleAccent="shots"
+            description="In-clinic wellness shots you can stack with a protocol. Pricing is confirmed at your visit."
+          />
+          <div className="mt-11 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {wellness.map((shot) => (
+              <Link
+                key={shot.id}
+                href="/iv-shots"
+                className="rounded-[20px] border border-white/14 bg-[#0a0206] p-5 transition hover:-translate-y-1 hover:border-[#FF2D8E]"
+              >
+                <h3 className="font-serif text-xl font-bold text-white">{shot.name}</h3>
+                <p className="mt-2 text-sm leading-snug text-white/70">{shot.benefit}</p>
+                <p className="mt-3 text-sm font-extrabold text-[#FF2D8E]">From ${shot.price}</p>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section
+        id="program"
+        className="scroll-mt-24 bg-[radial-gradient(80%_90%_at_80%_0%,#12030c,#000_60%)] px-6 py-16 lg:py-24"
+      >
+        <div className="mx-auto max-w-[1200px]">
+          <JourneySectionHead
+            eyebrow="Your Program"
+            title="Built around your biology —"
+            titleAccent="not guesswork"
+            description={`Intake is free to submit. A $${PEPTIDE_CONSULT_FEE_USD} consult reserves your visit with ${PRESCRIBING_NP.displayName}.`}
+          />
+          <div className="relative mt-12">
+            <div
+              className="absolute bottom-2 left-[11px] top-2 hidden w-0.5 bg-gradient-to-b from-[#FF2D8E] to-[#FF2D8E]/15 lg:block"
+              aria-hidden
+            />
+            <div className="space-y-10 lg:pl-10">
+              {PROGRAM_STEPS.map((step) => (
+                <div key={step.n} className="relative lg:pl-6">
+                  <div
+                    className="absolute -left-[34px] top-1 hidden h-6 w-6 rounded-full border-[3px] border-[#FF2D8E] bg-black shadow-[0_0_0_5px_rgba(255,45,142,0.14)] lg:block"
+                    aria-hidden
+                  />
+                  <div className="font-serif text-2xl font-bold text-white">
+                    {step.n} {step.title}{" "}
+                    <span className="ml-3 inline-block rounded-full bg-[#FF2D8E] px-3 py-1 align-middle text-[11px] font-extrabold tracking-wider text-black">
+                      {step.tag}
+                    </span>
+                  </div>
+                  <p className="mt-2 max-w-2xl text-base leading-relaxed text-white/72">{step.body}</p>
                 </div>
               ))}
             </div>
-          </FadeUp>
-        </Section>
+          </div>
+          <div className="mt-10 flex justify-center">
+            <JourneyPinkBtn href={BOOK}>Book your consult</JourneyPinkBtn>
+          </div>
+        </div>
+      </section>
 
-        <Section id="peptides" className="scroll-mt-24 border-b-4 border-black bg-white">
-          <FadeUp>
-            <p className="text-center text-xs font-bold uppercase tracking-[0.16em] text-[#E6007E]">
-              Shop by goal
-            </p>
-            <h2 className="mx-auto mt-2 max-w-2xl text-center font-serif text-3xl font-black text-black md:text-4xl">
-              Peptide protocols we offer
-            </h2>
-
-            <div className="mt-12">
-              <GroupHeading>Weight loss & metabolic peptides</GroupHeading>
-              <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-                {WEIGHT_LOSS.map((card) => (
-                  <ProtocolCard key={card.name} {...card} />
-                ))}
-              </div>
-            </div>
-
-            <div className="mt-14">
-              <GroupHeading>Growth-hormone & recovery peptides</GroupHeading>
-              <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-                {RECOVERY.map((card) => (
-                  <ProtocolCard key={card.name} {...card} />
-                ))}
-              </div>
-            </div>
-
-            <div className="mt-14">
-              <GroupHeading>Everyday wellness add-ons</GroupHeading>
-              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-                {wellness.map((shot) => (
-                  <Link
-                    key={shot.id}
-                    href="/iv-shots"
-                    className="rounded-3xl border-4 border-black bg-white p-5 shadow-[6px_6px_0_0_rgba(230,0,126,0.25)] transition hover:-translate-y-0.5"
-                  >
-                    <p className="font-serif text-lg font-black text-black">{shot.name}</p>
-                    <p className="mt-1 text-sm font-medium text-black/60">{shot.benefit}</p>
-                    <p className="mt-3 text-sm font-black text-[#FF2D8E]">From ${shot.price}</p>
-                  </Link>
-                ))}
-              </div>
-              <p className="mt-5 text-center text-sm font-medium text-black/50">
-                In-clinic Vitamin Bar shots. Pricing is confirmed at your visit — ask about stacking
-                with a peptide protocol.
-              </p>
-            </div>
-          </FadeUp>
-        </Section>
-
-        <section
-          id="program"
-          className="relative scroll-mt-24 overflow-hidden border-b-4 border-black px-6 py-20 md:px-12 md:py-28"
-        >
-          <div
-            className="absolute inset-0"
-            style={{
-              background: `linear-gradient(135deg, ${BRAND.dark} 0%, #1a0a12 45%, #2d1020 100%)`,
-            }}
+      <section id="prep" className="px-6 py-16 lg:py-24">
+        <div className="mx-auto max-w-[1200px]">
+          <JourneySectionHead
+            eyebrow="Before Your Consult"
+            title="A little prep makes a"
+            titleAccent="big difference"
+            description="Come ready. Ryan can do his best work when your history, goals, and questions are already on the table."
           />
-          <div className="relative z-10 mx-auto max-w-6xl px-6 md:px-12">
-            <FadeUp>
-              <p className="text-center text-xs font-bold uppercase tracking-[0.16em] text-[#FF2D8E]">
-                Your program
+          <div className="mt-11 grid gap-6 lg:grid-cols-2">
+            <div className="rounded-[20px] border border-white/14 bg-[#0a0206] p-8">
+              <h3 className="font-serif text-[22px] font-bold">In the days before</h3>
+              <ul className="mt-4 space-y-3">
+                {PREP_BEFORE.map((item) => (
+                  <JourneyCheckItem key={item}>{item}</JourneyCheckItem>
+                ))}
+              </ul>
+            </div>
+            <div className="rounded-[20px] border border-white/14 bg-[#0a0206] p-8">
+              <h3 className="font-serif text-[22px] font-bold">Day of your consult</h3>
+              <ul className="mt-4 space-y-3">
+                {PREP_DAY_OF.map((item) => (
+                  <JourneyCheckItem key={item}>{item}</JourneyCheckItem>
+                ))}
+              </ul>
+            </div>
+          </div>
+          <div className="mt-6 grid gap-6 lg:grid-cols-2">
+            <div className="rounded-[20px] border border-[#FF2D8E]/40 bg-gradient-to-b from-[#1a0510] to-[#0a0206] p-8">
+              <h3 className="font-serif text-[22px] font-bold text-[#FF2D8E]">Please skip</h3>
+              <ul className="mt-4 space-y-3">
+                {PREP_DONT.map((item) => (
+                  <li key={item} className="flex gap-3 text-[15.5px] leading-snug text-white/85">
+                    <span className="shrink-0 font-black text-white/40">✕</span>
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="rounded-[18px] bg-[#FFF5F9] p-7 text-black">
+              <h4 className="font-serif text-xl font-bold">Trust the process</h4>
+              <p className="mt-2 text-[15px] leading-relaxed text-black/75">
+                Intake is free. The ${PEPTIDE_CONSULT_FEE_USD} consult reserves Ryan&apos;s time. Medication
+                is invoiced only after he approves your protocol — pickup in Oswego or ship across
+                Illinois for ${REGEN_SHOP_SHIPPING_USD}.
               </p>
-              <h2 className="mx-auto mt-2 max-w-2xl text-center font-serif text-3xl font-black text-white md:text-4xl">
-                Built around your biology — not guesswork
-              </h2>
-              <p className="mx-auto mt-4 max-w-xl text-center text-[15px] font-medium leading-relaxed text-white/70">
-                Every peptide protocol at Hello Gorgeous RX is medically supervised. Intake is free
-                to submit. A ${PEPTIDE_CONSULT_FEE_USD} consult reserves your visit with{" "}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section
+        id="faq"
+        className="scroll-mt-24 bg-[radial-gradient(80%_90%_at_22%_0%,#12030c,#000_60%)] px-6 py-16 lg:py-24"
+      >
+        <div className="mx-auto max-w-[1200px]">
+          <JourneySectionHead
+            center
+            eyebrow="Common Q & A"
+            title="Your questions,"
+            titleAccent="answered"
+            description="Clear answers before you start intake. Still unsure? Book a consult."
+          />
+          <div className="mx-auto mt-11 flex max-w-[860px] flex-col gap-3">
+            {PEPTIDES_HUB_FAQS.map((faq) => (
+              <details
+                key={faq.question}
+                className="group overflow-hidden rounded-[14px] border border-white/14 bg-[#0a0206]"
+              >
+                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-6 py-5 font-serif text-lg font-bold text-white marker:content-none group-open:text-[#FF2D8E]">
+                  {faq.question}
+                  <span className="text-2xl font-normal text-[#FF2D8E] group-open:hidden">+</span>
+                  <span className="hidden text-2xl font-normal text-[#FF2D8E] group-open:inline">
+                    –
+                  </span>
+                </summary>
+                <p className="px-6 pb-5 text-[15px] leading-relaxed text-white/72">{faq.answer}</p>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section
+        id="pricing"
+        className="scroll-mt-24 bg-[radial-gradient(80%_90%_at_80%_0%,#12030c,#000_60%)] px-6 py-16 lg:py-24"
+      >
+        <div className="mx-auto max-w-[1200px]">
+          <JourneySectionHead
+            eyebrow="Pricing"
+            title="Simple, honest"
+            titleAccent="pricing"
+            description="Start with intake — free to submit. Your NP sets dose and confirms the number. Starting prices below; your plan may differ."
+          />
+          <div className="mt-11 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            <article className="flex flex-col rounded-[20px] border border-[#FF2D8E]/50 bg-gradient-to-b from-[#140109] to-[#0a0206] p-7 transition hover:-translate-y-1 hover:border-[#FF2D8E]">
+              <span className="self-start rounded-full bg-[#FF2D8E] px-3 py-1 text-[11px] font-extrabold tracking-wider text-black">
+                INTAKE ALWAYS FREE
+              </span>
+              <h3 className="mt-4 font-serif text-2xl font-bold">NP consult</h3>
+              <p className="mt-2 font-serif text-[44px] font-bold leading-none text-[#FF2D8E]">
+                ${PEPTIDE_CONSULT_FEE_USD}
+              </p>
+              <p className="mt-1 text-[13px] text-white/55">reserves your visit · no cart</p>
+              <ul className="mt-4 space-y-2">
+                {[
+                  "History, labs & goal review",
+                  "Dose set by Ryan — not a dropdown",
+                  "Medication billed only after approval",
+                ].map((item) => (
+                  <JourneyCheckItem key={item}>{item}</JourneyCheckItem>
+                ))}
+              </ul>
+              <JourneyPinkBtn href={BOOK} className="mt-6 w-full">
+                Book your consult
+              </JourneyPinkBtn>
+            </article>
+            <article className="flex flex-col rounded-[20px] border border-white/14 bg-gradient-to-b from-[#140109] to-[#0a0206] p-7 transition hover:-translate-y-1 hover:border-[#FF2D8E]">
+              <p className="text-[11px] font-extrabold uppercase tracking-[0.16em] text-[#FF2D8E]">
+                Medical weight loss
+              </p>
+              <h3 className="mt-2 font-serif text-2xl font-bold">GLP-1 programs</h3>
+              <p className="mt-3 font-serif text-[44px] font-bold leading-none">
+                ${GLP1_RETAIL_PROGRAM.semaglutideFromUsd}
+                <span className="ml-1 text-lg font-semibold text-white/50">/mo</span>
+              </p>
+              <p className="mt-1 text-[13px] text-white/55">
+                Semaglutide from ${GLP1_RETAIL_PROGRAM.semaglutideFromUsd} · Tirzepatide from $
+                {GLP1_RETAIL_PROGRAM.tirzepatideFromUsd}
+              </p>
+              <ul className="mt-4 space-y-2">
+                {["Weekly dosing, titrated at consult", "Pickup in Oswego or IL ship"].map((item) => (
+                  <JourneyCheckItem key={item}>{item}</JourneyCheckItem>
+                ))}
+              </ul>
+            </article>
+            <article className="flex flex-col rounded-[20px] border border-white/14 bg-gradient-to-b from-[#140109] to-[#0a0206] p-7 transition hover:-translate-y-1 hover:border-[#FF2D8E]">
+              <p className="text-[11px] font-extrabold uppercase tracking-[0.16em] text-[#FF2D8E]">
+                Peptide protocols
+              </p>
+              <h3 className="mt-2 font-serif text-2xl font-bold">RE GEN peptides</h3>
+              <p className="mt-3 font-serif text-[44px] font-bold leading-none">
+                ${PEPTIDE_RETAIL_FROM_MONTHLY_USD}
+                <span className="ml-1 text-lg font-semibold text-white/50">/mo</span>
+              </p>
+              <p className="mt-1 text-[13px] text-white/55">
+                Sermorelin from ${SERMORELIN_FROM} · BPC-157 from ${BPC_FROM}
+              </p>
+              <ul className="mt-4 space-y-2">
+                {["Starting price on the shelf", `Flat $${REGEN_SHOP_SHIPPING_USD} Illinois shipping`].map(
+                  (item) => (
+                    <JourneyCheckItem key={item}>{item}</JourneyCheckItem>
+                  ),
+                )}
+              </ul>
+            </article>
+            <article className="flex flex-col justify-center rounded-[20px] border border-[#FF2D8E]/35 bg-gradient-to-b from-[#1a0510] to-[#0a0206] p-7 sm:col-span-2 lg:col-span-3">
+              <p className="font-serif text-[22px] italic leading-snug text-white">
+                Not sure which protocol is right for you?
+              </p>
+              <p className="mt-2.5 max-w-2xl text-[15px] leading-relaxed text-white/72">
+                That&apos;s exactly what your consult is for. No pressure — only guidance from{" "}
                 {PRESCRIBING_NP.displayName}.
               </p>
-              <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-                {PROGRAM_STEPS.map((step) => (
-                  <div key={step.n}>
-                    <p className="font-serif text-4xl font-black text-[#FF2D8E]">{step.n}</p>
-                    <h3 className="mt-2 font-serif text-lg font-black text-white">{step.title}</h3>
-                    <p className="mt-2 text-sm font-medium leading-relaxed text-white/60">{step.body}</p>
-                  </div>
+              <div className="mt-5 flex flex-wrap gap-3">
+                <JourneyPinkBtn href={BOOK}>Book a consult</JourneyPinkBtn>
+                <JourneyGhostBtn href={SHOP_HREF}>Shop all protocols</JourneyGhostBtn>
+              </div>
+            </article>
+          </div>
+
+          <div className="mt-6 grid gap-8 rounded-3xl border border-white/14 bg-[radial-gradient(90%_120%_at_85%_10%,#2a0820,#0a0206_70%)] p-8 lg:grid-cols-[1.35fr_0.65fr] lg:p-11">
+            <div>
+              <div className="mb-4 flex items-center gap-2">
+                <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#FF2D8E] text-base font-black text-black">
+                  %
+                </span>
+                <span className="font-serif text-[22px] font-bold">Cherry</span>
+                <span className="text-[11px] font-extrabold uppercase tracking-wider text-white/55">
+                  Financing Partner
+                </span>
+              </div>
+              <h3 className="font-serif text-[32px] font-bold leading-tight lg:text-[38px]">
+                Protocol set. <span className="text-[#FF2D8E] italic">Bills manageable.</span>
+              </h3>
+              <p className="mt-3 max-w-lg text-[17px] leading-relaxed text-white/80">
+                Pay over time with <strong className="text-white">0% APR options</strong> through Cherry.
+                Apply in seconds, see your options, and start the plan Ryan writes — no hard credit check
+                to preview.
+              </p>
+              <div className="mt-5 flex flex-wrap gap-5 text-sm font-semibold">
+                {["Apply in seconds", "High approval amounts", "True 0% APR options"].map((item) => (
+                  <span key={item} className="flex items-center gap-2">
+                    <span className="text-[#FF2D8E]">✓</span> {item}
+                  </span>
                 ))}
               </div>
-              <div className="mt-12 flex justify-center">
-                <CTA href={PRIMARY_BOOKING_CTA.href} variant="gradient">
-                  Book your consult
-                </CTA>
-              </div>
-            </FadeUp>
-          </div>
-        </section>
-
-        <Section id="faq" className="scroll-mt-24 border-b-4 border-black bg-white">
-          <FadeUp>
-            <p className="text-center text-xs font-bold uppercase tracking-[0.16em] text-[#E6007E]">
-              Questions
-            </p>
-            <h2 className="mt-2 text-center font-serif text-3xl font-black text-black md:text-4xl">
-              Frequently asked questions
-            </h2>
-            <div className="mx-auto mt-11 flex max-w-[860px] flex-col gap-3">
-              {PEPTIDES_HUB_FAQS.map((faq) => (
-                <details
-                  key={faq.question}
-                  className="group overflow-hidden rounded-2xl border-2 border-black bg-white shadow-[4px_4px_0_0_rgba(230,0,126,0.35)]"
-                >
-                  <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-6 py-5 font-serif text-lg font-bold text-black marker:content-none group-open:text-[#E6007E]">
-                    {faq.question}
-                    <span className="text-2xl font-normal text-[#E6007E] group-open:hidden">+</span>
-                    <span className="hidden text-2xl font-normal text-[#E6007E] group-open:inline">
-                      –
-                    </span>
-                  </summary>
-                  <p className="px-6 pb-5 text-[15px] font-medium leading-relaxed text-black/75">
-                    {faq.answer}
-                  </p>
-                </details>
-              ))}
+              <JourneyPinkBtn href={CHERRY_PAY_URL} external className="mt-6">
+                Apply with Cherry
+              </JourneyPinkBtn>
             </div>
-          </FadeUp>
-        </Section>
-
-        <section
-          className="relative overflow-hidden border-b-4 border-black px-6 py-16 text-center md:px-12"
-          style={{
-            background: "linear-gradient(125deg, #FF2D8E 0%, #E6007E 45%, #9b0a4d 100%)",
-          }}
-        >
-          <h2 className="font-serif text-3xl font-black text-white md:text-4xl">
-            Ready to build your protocol?
-          </h2>
-          <p className="mx-auto mt-3 max-w-lg text-sm font-medium text-white/85">
-            Free consult. {PRESCRIBING_NP.displayName} sets your plan. Nothing ships until he
-            approves it.
-          </p>
-          <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
-            <CTA href={PRIMARY_BOOKING_CTA.href} variant="white">
-              Book a free consult
-            </CTA>
-            <CTA
-              href={SHOP_HREF}
-              variant="outline"
-              className="border-2 border-white text-white hover:bg-white hover:text-black"
-            >
-              Shop RE GEN
-            </CTA>
+            <div className="flex flex-col items-center gap-3">
+              <div className="rounded-[18px] bg-white p-4">
+                <Image
+                  src="/images/brow-journey/cherry-qr.png"
+                  alt="Scan to apply for Cherry financing"
+                  width={170}
+                  height={170}
+                />
+              </div>
+              <p className="text-center text-[13px] font-bold tracking-wide text-white/70">
+                Scan to apply in seconds
+              </p>
+            </div>
           </div>
-        </section>
-      </main>
+          <p className="mt-3 max-w-3xl text-[11.5px] leading-relaxed text-white/42">
+            Payment options through Cherry are issued by Cherry financing partners. Term length, approval
+            amount, 0% APR and other promotional rates are subject to eligibility. Starting prices are
+            not a final invoice — dose is set at consult.
+          </p>
+        </div>
+      </section>
+
+      <section id="learn" className="bg-[radial-gradient(80%_90%_at_18%_0%,#12030c,#000_60%)] px-6 py-16 lg:py-24">
+        <div className="mx-auto max-w-[1200px]">
+          <JourneySectionHead
+            eyebrow="RE GEN Learn"
+            title="Guides &"
+            titleAccent="explainers"
+            description="Clear education before you start intake — reviewed by our NP, written for real questions."
+          />
+          <div className="mt-11 grid gap-6 lg:grid-cols-3">
+            {LEARN_GUIDES.map((post) => (
+              <Link
+                key={post.slug}
+                href={post.path}
+                className="flex flex-col overflow-hidden rounded-[20px] border border-white/14 bg-gradient-to-b from-[#140109] to-[#0a0206] transition hover:-translate-y-1 hover:border-[#FF2D8E]"
+              >
+                <div className="relative h-[190px] w-full bg-black">
+                  <Image
+                    src={post.heroImage}
+                    alt={post.heroImageAlt}
+                    fill
+                    className="object-contain p-6"
+                    sizes="33vw"
+                  />
+                </div>
+                <div className="flex flex-1 flex-col p-6">
+                  <p className="text-[11px] font-extrabold uppercase tracking-[0.16em] text-[#FF2D8E]">
+                    {post.category}
+                  </p>
+                  <h3 className="mt-2 font-serif text-[23px] font-bold leading-snug">{post.title}</h3>
+                  <p className="mt-3 text-[14.5px] leading-snug text-white/70">{post.subtitle}</p>
+                  <span className="mt-auto pt-4 text-sm font-bold text-[#FF2D8E]">Read the guide →</span>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-[radial-gradient(80%_120%_at_50%_0%,#2a0820,#000_70%)] px-6 py-20 text-center lg:py-24">
+        <JourneyEyebrow>Start Your Protocol</JourneyEyebrow>
+        <h2 className="mt-3 font-serif text-[36px] font-bold leading-tight lg:text-[52px]">
+          Ready to build <span className="text-[#FF2D8E]">your protocol?</span>
+        </h2>
+        <p className="mx-auto mt-4 max-w-xl text-lg leading-relaxed text-white/80">
+          Intake is free. {PRESCRIBING_NP.displayName} sets your plan. Nothing ships until he approves
+          it — serving Oswego, Naperville, Aurora, Plainfield, Yorkville & Montgomery, IL.
+        </p>
+        <div className="mt-8 flex flex-wrap justify-center gap-4">
+          <JourneyPinkBtn href={BOOK}>{PRIMARY_BOOKING_CTA.label}</JourneyPinkBtn>
+          <JourneyGhostBtn href={RX_CARE_TEXT_SMS}>Text {RX_CARE_TEXT_DISPLAY}</JourneyGhostBtn>
+          <JourneyGhostBtn href={CALL}>Call {SITE.phone}</JourneyGhostBtn>
+        </div>
+      </section>
+
+      <footer className="border-t border-white/10 px-6 py-12">
+        <div className="mx-auto flex max-w-[1200px] flex-wrap justify-between gap-8">
+          <div>
+            <p className="font-serif text-[22px] font-bold">Hello Gorgeous RX</p>
+            <p className="mt-2 text-[15px] leading-relaxed text-white/70">
+              74 W. Washington Street, Oswego, IL 60543
+              <br />
+              {SITE.phone} · hellogorgeousmedspa.com
+            </p>
+            <p className="mt-2 font-serif italic text-white/80">&ldquo;{SITE.tagline}&rdquo;</p>
+          </div>
+          <p className="max-w-md text-[13px] leading-relaxed text-white/45">
+            NP-directed by {PRESCRIBING_NP.displayName} under Medical Director{" "}
+            {MEDICAL_DIRECTOR.displayName}. Nothing here is sold over the counter — every request
+            starts with an intake and a consult. Research peptides are used under provider supervision
+            and are not FDA-approved to treat, cure, or prevent disease. Prices shown are starting
+            points. Individual plans vary.
+          </p>
+        </div>
+      </footer>
     </div>
   );
 }

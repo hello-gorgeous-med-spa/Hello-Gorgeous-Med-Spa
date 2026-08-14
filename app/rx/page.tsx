@@ -186,7 +186,9 @@ export default async function RxShopPage({
 
       <nav
         aria-label="RE GEN goals and categories"
-        className="border-t border-black/10 bg-white px-6 py-8"
+        className={
+          showShop ? "border-t border-black/10 bg-white px-6 py-8" : "sr-only"
+        }
       >
         <ul className="mx-auto flex max-w-[1200px] flex-wrap gap-x-4 gap-y-2 text-xs font-medium text-black/50">
           <li>
