@@ -55,8 +55,13 @@
     "components/rx/RxOnlineGuidePage.tsx",
     "components/rx/RxPatientJourneyBand.tsx",
     "components/rx/RxPeptideEducationSection.tsx",
+    "components/rx/RxProtocolIndexContent.tsx",
+    "components/rx/RxProtocolPageContent.tsx",
     "components/rx/RxRequestPortal.tsx",
     "components/rx/RxScienceHomeHero.tsx",
+    "components/header/MedicalMegaMenu.tsx",
+
+    "app/rx/protocols/**/*.tsx",
 
     "scripts/audit-rx-client-catalog.ts",
     "scripts/check-rx-catalog-invariants.ts"

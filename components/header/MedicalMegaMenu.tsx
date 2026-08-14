@@ -89,7 +89,12 @@ function PreviewProduct({
             <sup className="ml-0.5 text-[9px] font-medium text-neutral-400">Rx</sup>
           ) : null}
         </p>
-        <p className="truncate text-xs text-neutral-500">{product.priceLabel}</p>
+        {/*
+          Price is omitted on purpose. Resolving `hubCardFacts` here would pull the
+          full RE GEN catalog into the global header bundle. Name + description is
+          the preview; the hub page quotes the derived "from $X".
+        */}
+        <p className="truncate text-xs text-neutral-500">{product.description}</p>
       </div>
     </Link>
   );

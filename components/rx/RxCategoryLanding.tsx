@@ -11,7 +11,8 @@ import {
 } from "@/components/regen/catalog/CatalogProductCard";
 import { RegenMetabolicShiftVisual } from "@/components/regen/RegenMetabolicShiftVisual";
 import { RxFindYourPeptideCta } from "@/components/rx/RxFindYourPeptideCta";
-import { getCatalogProduct, isClientVisibleProductId } from "@/lib/regen/catalog";
+import { getCatalogProduct } from "@/lib/regen/catalog";
+import { hubCardFacts, hubProductIsListed } from "@/lib/regen/catalog/hub-card-facts";
 import { getCategoryMascot } from "@/lib/regen/category-mascots";
 import { getCategoryIntakeRoute } from "@/lib/regen/intake-router";
 import { REGEN_SHOP_PAGE_WASH } from "@/lib/regen/shop-surface";
@@ -25,11 +26,6 @@ import {
 import { FIND_YOUR_PEPTIDE_PATH } from "@/lib/rx-patient-journey";
 import { REGEN_SITE, REGEN_TRUST_BAR } from "@/lib/regen-site";
 
-/** A hub card links to its SKU only while the shop lists it; the rest open intake. */
-function hubProductIsListed(product: RxCategoryProduct): boolean {
-  return !product.catalogProductId || isClientVisibleProductId(product.catalogProductId);
-}
-
 function HubFallbackCard({
   product,
   hubId,
@@ -37,7 +33,8 @@ function HubFallbackCard({
   product: RxCategoryProduct;
   hubId: RxCategoryHubId;
 }) {
-  const hubHref = hubProductIsListed(product)
+  const facts = hubCardFacts(product);
+  const hubHref = facts.listed
     ? rxCategoryProductHref(product)
     : getCategoryIntakeRoute(hubId).intakePath;
   const shopHref = hubHref?.startsWith("/")
@@ -63,7 +60,7 @@ function HubFallbackCard({
       <div className="flex flex-1 flex-col border-t border-white/10 p-4">
         <h3 className="font-serif text-lg font-black text-white">{product.name}</h3>
         <p className="mt-1 line-clamp-2 text-sm text-white/60">{product.description}</p>
-        <p className="mt-3 text-base font-black text-[#FF2D8E]">{product.priceLabel}</p>
+        <p className="mt-3 text-base font-black text-[#FF2D8E]">{facts.priceText}</p>
         <Link
           href={shopHref}
           className="mt-4 block w-full rounded-xl bg-gradient-to-r from-[#FF2D8E] to-[#E6007E] py-2.5 text-center text-sm font-black text-white shadow-[0_0_20px_rgba(255,45,142,0.35)] transition hover:brightness-110"
@@ -409,6 +406,9 @@ export function RxCategoryLanding({ hub }: { hub: RxCategoryHub }) {
           <nav className="flex flex-wrap gap-6 text-sm text-black/55">
             <Link href="/rx" className="hover:text-[#E6007E]">
               RE GEN Home
+            </Link>
+            <Link href="/rx/protocols" className="hover:text-[#E6007E]">
+              Protocols
             </Link>
             <Link href="/rx/request" className="hover:text-[#E6007E]">
               Request intake

@@ -11,7 +11,6 @@ import {
   SQUARE_VITAMIN_SHOT_BOOKING_URL,
   VITAMIN_SHOT_FEE_USD,
 } from "@/lib/flows";
-import { GLP1_PROGRAM } from "@/lib/glp1-program-pricing";
 import { GENTLEMENS_CLUB_PATH } from "@/lib/gentlemens-club";
 import { REGEN_PREVIEW_FALLBACKS } from "@/lib/regen-brand";
 
@@ -25,11 +24,42 @@ export type RxCategoryHubId =
   | "hair-skin"
   | "wellness";
 
+/**
+ * Where a card's "from $X" comes from. A card declares a *source*, never a number.
+ *
+ * Hand-typed prices are how three phantom cards shipped: a "Vitamin D3 Injection ·
+ * $148.78/vial" tile pointing at a $1.25 oral capsule, plus Biotin and Glutathione
+ * injection cards pointing at capsules. Nothing forced the copy to agree with the
+ * product it resolved to. Resolution lives in
+ * `lib/regen/catalog/hub-card-facts.ts`.
+ */
+export type RxCardPriceSource =
+  /**
+   * Derive from `catalogProductId` via the client pricing helpers — the same numbers
+   * the storefront card and product page quote. Requires `catalogProductId`.
+   */
+  | { source: "catalog" }
+  /**
+   * Derive from the GLP-1 program dose tiers. The program is priced by tier, not by
+   * vial, so a single catalog SKU would badly undercut it.
+   */
+  | { source: "glp1-program"; compound: Glp1ProgramCompound }
+  /** No public starting price: the NP quotes this one at the consult. */
+  | { source: "consult" }
+  /** Established-patient flow (refills). An audience, not a price. */
+  | { source: "existing-patient" };
+
+export type Glp1ProgramCompound = "semaglutide" | "tirzepatide";
+
 export type RxCategoryProduct = {
   id: string;
   name: string;
+  /**
+   * The marketing angle only. Anything the catalog already knows — price, strength,
+   * fill volume — is derived, so it cannot drift out of sync with the SKU.
+   */
   description: string;
-  priceLabel: string;
+  price: RxCardPriceSource;
   href: string;
   image: string;
   imageAlt: string;
@@ -80,30 +110,32 @@ const WEIGHT_LOSS_PRODUCTS: RxCategoryProduct[] = [
     id: "semaglutide",
     name: "Compounded Semaglutide",
     description: "GLP-1 injection · NP-supervised weight loss",
-    priceLabel: `From $${GLP1_PROGRAM.injectable.semaglutideFromUsd}/mo`,
+    price: { source: "glp1-program", compound: "semaglutide" },
     href: GLP1_INTAKE_PATH,
     image: "/images/regen/catalog/regen-semaglutide.jpg",
     imageAlt: "Compounded semaglutide — RE GEN medical weight loss",
     badge: "POPULAR",
     rx: true,
-    catalogProductId: "p102",
+    /** Injectable SKU the shop lists. Oral ODT (p102) is staff-only. */
+    catalogProductId: "p151",
   },
   {
     id: "tirzepatide",
     name: "Compounded Tirzepatide",
     description: "Dual GLP-1 + GIP pathway · medical weight loss program",
-    priceLabel: `From $${GLP1_PROGRAM.injectable.tirzepatideFromUsd}/mo`,
+    price: { source: "glp1-program", compound: "tirzepatide" },
     href: GLP1_INTAKE_PATH,
     image: "/images/regen/catalog/regen-tirzepatide.jpg",
     imageAlt: "Compounded tirzepatide — RE GEN medical weight loss",
     rx: true,
-    catalogProductId: "p130",
+    /** Injectable SKU the shop lists. Oral ODT (p130) is staff-only. */
+    catalogProductId: "p153",
   },
   {
     id: "glp1-refill",
     name: "GLP-1 Refill",
     description: "Renew semaglutide or tirzepatide · ship to home",
-    priceLabel: "Existing patients",
+    price: { source: "existing-patient" },
     href: GLP1_REFILL_PATH,
     image: "/images/shop-rx/glp1-refill.png",
     imageAlt: "GLP-1 refill — REGEN home delivery",
@@ -113,13 +145,19 @@ const WEIGHT_LOSS_PRODUCTS: RxCategoryProduct[] = [
 
 const HAIR_SKIN_GOAL_HREF = "/rx?goal=skin-and-hair";
 
+/**
+ * Every hair & skin card resolves to a SKU the client shop deliberately hides (derm
+ * creams and hair-loss protocols stay staff-only), so each one routes to the category
+ * intake and quotes nothing. `{ source: "consult" }` is that decision written down:
+ * the invariant checker fails a `catalog`-sourced card whose SKU is hidden, so a
+ * product dropping out of the shop can no longer silently strand a price.
+ */
 const HAIR_SKIN_PRODUCTS: RxCategoryProduct[] = [
   {
     id: "p58",
     name: "GHK-Cu Cream",
-    description:
-      "Copper peptide topical — collagen support, skin repair & firmness across cream strengths",
-    priceLabel: "from $125/tube",
+    description: "Copper peptide topical — collagen support, skin repair, and firmness",
+    price: { source: "consult" },
     href: `${HAIR_SKIN_GOAL_HREF}&product=p58`,
     image: "/images/regen/catalog/ghk-cu.png",
     imageAlt: "GHK-Cu copper peptide cream — RE GEN hair and skin",
@@ -130,8 +168,8 @@ const HAIR_SKIN_PRODUCTS: RxCategoryProduct[] = [
   {
     id: "manetain",
     name: "ManeTain Hair Spray",
-    description: "Minoxidil 5% leave-in with fluocinolone & retinoic — defend thinning hair",
-    priceLabel: "$172.50",
+    description: "Prescription leave-in for thinning hair — minoxidil with supportive actives",
+    price: { source: "consult" },
     href: HAIR_SKIN_GOAL_HREF,
     image: "/images/regen/prod-manetain.png",
     imageAlt: "ManeTain prescription hair spray — RE GEN",
@@ -142,7 +180,7 @@ const HAIR_SKIN_PRODUCTS: RxCategoryProduct[] = [
     id: "minoxidil-oral",
     name: "Oral Minoxidil",
     description: "Low-dose systemic hair regrowth support when topicals aren’t enough",
-    priceLabel: "from $95/30ct",
+    price: { source: "consult" },
     href: HAIR_SKIN_GOAL_HREF,
     image: "/images/regen/prod-manetain.png",
     imageAlt: "Oral minoxidil — RE GEN hair regrowth",
@@ -153,7 +191,7 @@ const HAIR_SKIN_PRODUCTS: RxCategoryProduct[] = [
     id: "glow",
     name: "Glow Cream",
     description: "Even skin tone — kojic acid, ascorbic acid & hyaluronic acid",
-    priceLabel: "$125/30g",
+    price: { source: "consult" },
     href: HAIR_SKIN_GOAL_HREF,
     image: "/images/regen/prod-glow.jpg",
     imageAlt: "Glow brightening cream — RE GEN dermatology",
@@ -163,8 +201,8 @@ const HAIR_SKIN_PRODUCTS: RxCategoryProduct[] = [
   {
     id: "miracle",
     name: "Miracle Cream",
-    description: "Extreme repair & brightening — hydroquinone + retinoic blend",
-    priceLabel: "$125/30g",
+    description: "Repair & brightening — hydroquinone with a retinoic blend",
+    price: { source: "consult" },
     href: HAIR_SKIN_GOAL_HREF,
     image: "/images/regen/prod-miracle.jpg",
     imageAlt: "Miracle repair cream — RE GEN",
@@ -175,7 +213,7 @@ const HAIR_SKIN_PRODUCTS: RxCategoryProduct[] = [
     id: "erase",
     name: "Erase Cream",
     description: "Acne-focused Rx — retinoic acid with clindamycin",
-    priceLabel: "$125/30g",
+    price: { source: "consult" },
     href: HAIR_SKIN_GOAL_HREF,
     image: "/images/regen/prod-erase.jpg",
     imageAlt: "Erase acne cream — RE GEN",
@@ -187,8 +225,8 @@ const HORMONE_PRODUCTS: RxCategoryProduct[] = [
   {
     id: "test-cyp",
     name: "Testosterone Cypionate",
-    description: "Injectable TRT — grapeseed or MCT carrier · NP-guided dosing",
-    priceLabel: "from $75/vial",
+    description: "Injectable TRT — lab-guided, with your dose set by the NP",
+    price: { source: "catalog" },
     href: "/rx?goal=hormones",
     image: "/regen-site/assets/prod-testosterone-regen.png",
     imageAlt: "Testosterone cypionate — RE GEN hormones",
@@ -199,8 +237,8 @@ const HORMONE_PRODUCTS: RxCategoryProduct[] = [
   {
     id: "test-cream",
     name: "Testosterone Cream",
-    description: "Topical TRT — 10% or 20% strengths · daily application",
-    priceLabel: "$87.50/tube",
+    description: "Topical TRT applied daily — strength set at your consult",
+    price: { source: "catalog" },
     href: "/rx?goal=hormones",
     image: "/regen-site/assets/prod-testosterone-regen.png",
     imageAlt: "Testosterone cream — RE GEN",
@@ -211,7 +249,7 @@ const HORMONE_PRODUCTS: RxCategoryProduct[] = [
     id: "clomiphene",
     name: "Clomiphene",
     description: "Stimulate natural testosterone — fertility-friendly option for some men",
-    priceLabel: "$112.50/30ct",
+    price: { source: "catalog" },
     href: "/rx?goal=hormones",
     image: "/regen-site/assets/banner-enclomiphene.jpg",
     imageAlt: "Clomiphene — RE GEN hormone support",
@@ -222,7 +260,7 @@ const HORMONE_PRODUCTS: RxCategoryProduct[] = [
     id: "biest",
     name: "Bi-Est Cream",
     description: "Bioidentical estriol / estradiol blend for women’s HRT",
-    priceLabel: "$90/tube",
+    price: { source: "catalog" },
     href: "/rx?goal=hormones",
     image: "/regen-site/assets/prod-biest-regen.png",
     imageAlt: "Bi-Est cream — RE GEN women's hormones",
@@ -232,8 +270,8 @@ const HORMONE_PRODUCTS: RxCategoryProduct[] = [
   {
     id: "progesterone",
     name: "Progesterone",
-    description: "Capsules or cream — menopause & cycle support",
-    priceLabel: "from $63.75/30ct",
+    description: "Menopause and cycle support — bioidentical progesterone",
+    price: { source: "catalog" },
     href: "/rx?goal=hormones",
     image: "/regen-site/assets/prod-progesterone-regen.png",
     imageAlt: "Progesterone — RE GEN HRT",
@@ -246,8 +284,8 @@ const SEXUAL_HEALTH_PRODUCTS: RxCategoryProduct[] = [
   {
     id: "sildenafil",
     name: "Sildenafil RDT",
-    description: "Fast-dissolve ED tablet — discreet, NP-prescribed dosing",
-    priceLabel: "from $125/10ct",
+    description: "Fast-dissolve ED tablet — discreet, NP-prescribed",
+    price: { source: "consult" },
     href: "/rx?goal=intimacy",
     image: "/regen-site/assets/prod-sildenafil-regen.png",
     imageAlt: "Sildenafil — RE GEN sexual health",
@@ -259,7 +297,7 @@ const SEXUAL_HEALTH_PRODUCTS: RxCategoryProduct[] = [
     id: "tadalafil",
     name: "Tadalafil RDT",
     description: "Longer-window ED support — rapid-dissolve format",
-    priceLabel: "$125/10ct",
+    price: { source: "consult" },
     href: "/rx?goal=intimacy",
     image: "/regen-site/assets/prod-tadalafil.jpg",
     imageAlt: "Tadalafil — RE GEN",
@@ -269,8 +307,8 @@ const SEXUAL_HEALTH_PRODUCTS: RxCategoryProduct[] = [
   {
     id: "maxx-pe",
     name: "MAXX PE",
-    description: "Triple-combo performance tablet for men",
-    priceLabel: "$150/10ct",
+    description: "Combination performance formula for men",
+    price: { source: "consult" },
     href: "/rx?goal=intimacy",
     image: "/regen-site/assets/prod-maxxpe.jpg",
     imageAlt: "MAXX PE — RE GEN men's sexual health",
@@ -281,7 +319,7 @@ const SEXUAL_HEALTH_PRODUCTS: RxCategoryProduct[] = [
     id: "scream-cream",
     name: "Scream Cream",
     description: "Topical arousal cream for women — compounded Rx",
-    priceLabel: "$125/tube",
+    price: { source: "consult" },
     href: "/rx?goal=intimacy",
     image: "/regen-site/assets/prod-screamcream-regen.png",
     imageAlt: "Scream Cream — RE GEN women's wellness",
@@ -292,7 +330,7 @@ const SEXUAL_HEALTH_PRODUCTS: RxCategoryProduct[] = [
     id: "pt-141",
     name: "PT-141 Injection",
     description: "Peptide arousal support — libido pathway for men & women",
-    priceLabel: "$175/vial",
+    price: { source: "catalog" },
     href: "/rx?goal=intimacy",
     image: "/regen-site/assets/prod-oxytocin-regen.png",
     imageAlt: "PT-141 — RE GEN peptide intimacy",
@@ -306,7 +344,7 @@ const PEPTIDE_PRODUCTS: RxCategoryProduct[] = [
     id: "bpc-157",
     name: "BPC-157 Injection",
     description: "Tissue repair & gut support — popular recovery peptide protocol",
-    priceLabel: "$175/vial",
+    price: { source: "catalog" },
     href: "/rx?goal=recovery-and-performance",
     image: "/regen-site/assets/prod-bpc157-regen.png",
     imageAlt: "BPC-157 peptide — RE GEN",
@@ -317,8 +355,8 @@ const PEPTIDE_PRODUCTS: RxCategoryProduct[] = [
   {
     id: "nad-100",
     name: "NAD+ Injection",
-    description: "100 mg/mL · 10 mL — mitochondrial & cellular energy support",
-    priceLabel: "$150/vial",
+    description: "Mitochondrial & cellular energy support",
+    price: { source: "catalog" },
     href: "/rx?goal=energy-and-longevity",
     image: "/regen-site/assets/prod-nad-regen.png",
     imageAlt: "NAD+ injection — RE GEN peptides",
@@ -330,7 +368,7 @@ const PEPTIDE_PRODUCTS: RxCategoryProduct[] = [
     id: "sermorelin",
     name: "Sermorelin Injection",
     description: "Growth-hormone axis support — nightly injection protocol",
-    priceLabel: "from $95/vial",
+    price: { source: "catalog" },
     href: "/rx?goal=recovery-and-performance",
     image: "/regen-site/assets/prod-sermorelin-regen.png",
     imageAlt: "Sermorelin — RE GEN",
@@ -341,7 +379,7 @@ const PEPTIDE_PRODUCTS: RxCategoryProduct[] = [
     id: "cjc-ipamorelin",
     name: "CJC-1295 / Ipamorelin",
     description: "GH secretagogue combo — recovery & body composition",
-    priceLabel: "$200/vial",
+    price: { source: "catalog" },
     href: "/rx?goal=recovery-and-performance",
     image: "/regen-site/assets/prod-cjc-ipamorelin-regen.png",
     imageAlt: "CJC Ipamorelin — RE GEN",
@@ -352,18 +390,18 @@ const PEPTIDE_PRODUCTS: RxCategoryProduct[] = [
     id: "tb-500",
     name: "TB-500 Injection",
     description: "Mobility & tissue support — often paired with BPC-157",
-    priceLabel: "$212.50/vial",
+    price: { source: "catalog" },
     href: "/rx?goal=recovery-and-performance",
     image: "/regen-site/assets/prod-tb500-regen.png",
     imageAlt: "TB-500 peptide — RE GEN",
     rx: true,
-    catalogProductId: "p159",
+    catalogProductId: "p195",
   },
   {
     id: "glutathione",
     name: "Glutathione Injection",
     description: "Master antioxidant — glow & detox support",
-    priceLabel: "from $66/vial",
+    price: { source: "catalog" },
     href: "/rx?goal=energy-and-longevity",
     image: "/regen-site/assets/prod-glutathione-regen.png",
     imageAlt: "Glutathione — RE GEN wellness",
@@ -378,7 +416,7 @@ const WELLNESS_PRODUCTS: RxCategoryProduct[] = [
     id: "b12",
     name: "B12 Methylcobalamin",
     description: "Energy & metabolism — injectable wellness staple",
-    priceLabel: "from $60/vial",
+    price: { source: "catalog" },
     href: "/rx?goal=energy-and-longevity",
     image: "/regen-site/assets/prod-b12-regen.png",
     imageAlt: "B12 injection — RE GEN daily wellness",
@@ -390,7 +428,7 @@ const WELLNESS_PRODUCTS: RxCategoryProduct[] = [
     id: "nad-wellness",
     name: "NAD+ Injection",
     description: "10-week supply protocol — longevity & focus support",
-    priceLabel: "$150",
+    price: { source: "catalog" },
     href: "/rx?goal=energy-and-longevity",
     image: "/regen-site/assets/prod-nad-regen.png",
     imageAlt: "NAD+ — RE GEN daily wellness",
@@ -401,7 +439,7 @@ const WELLNESS_PRODUCTS: RxCategoryProduct[] = [
     id: "vitamin-d3",
     name: "Vitamin D3 Injection",
     description: "Immune & bone support — especially in Midwest winters",
-    priceLabel: "$150/vial",
+    price: { source: "catalog" },
     href: "/rx?goal=energy-and-longevity",
     image: "/regen-site/assets/prod-vitamind3-regen.png",
     imageAlt: "Vitamin D3 injection — RE GEN",
@@ -412,7 +450,7 @@ const WELLNESS_PRODUCTS: RxCategoryProduct[] = [
     id: "glutathione-wellness",
     name: "Glutathione Injection",
     description: "Antioxidant & skin-brightening wellness shot supply",
-    priceLabel: "from $66/vial",
+    price: { source: "catalog" },
     href: "/rx?goal=energy-and-longevity",
     image: "/regen-site/assets/prod-glutathione-regen.png",
     imageAlt: "Glutathione — RE GEN",
@@ -424,11 +462,12 @@ const WELLNESS_PRODUCTS: RxCategoryProduct[] = [
     id: "ldn",
     name: "Low-Dose Naltrexone",
     description: "LDN capsules — metabolic & inflammation support when appropriate",
-    priceLabel: "from $68.75/30ct",
+    price: { source: "consult" },
     href: "/rx?goal=energy-and-longevity",
     image: "/regen-site/assets/prod-ldn.png",
     imageAlt: "LDN — RE GEN wellness Rx",
     rx: true,
+    /** Oral capsule — not on the client shop, so this tile quotes nothing and opens intake. */
     catalogProductId: "p83",
   },
 ];
@@ -803,6 +842,7 @@ export function isRegenHubActive(pathname: string | null, hub: RxCategoryHub): b
 
 export const REGEN_EXPLORE_FOOTER = [
   { label: "REGEN home", href: "/rx" },
+  { label: "Protocols", href: "/rx/protocols" },
   { label: "Regen Science Library", href: "/regen-science" },
   { label: "Patient care hub", href: RX_PATIENT_CARE_PATH },
   { label: "Peptide request", href: PEPTIDE_REQUEST_PATH },

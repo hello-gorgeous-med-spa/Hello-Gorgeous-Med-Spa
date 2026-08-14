@@ -26,6 +26,12 @@ import {
   isKitComponentProduct,
 } from "../lib/regen/catalog/client-visibility";
 import { formGroup } from "../lib/regen/catalog/helpers";
+import { hubCardFacts } from "../lib/regen/catalog/hub-card-facts";
+import {
+  clientVisibleDrugKeys,
+  isPendingReviewMonograph,
+  publishedProtocolModels,
+} from "../lib/regen/catalog/protocol-pages";
 import { BOOMRX_PEPTIDE_PDF_PRODUCTS } from "../lib/peptide-boomrx-catalog";
 import { REGEN_CATEGORY_HUBS, type RxCategoryProduct } from "../lib/rx-category-hubs";
 import type { CatalogProduct } from "../lib/regen/catalog/types";
@@ -275,14 +281,15 @@ for (const entry of HUB_CARDS) {
   // on screen.
   if (!isClientVisibleProductId(product.id)) continue;
 
-  const claim = `${card.name} ${card.description} ${card.priceLabel}`;
+  const claim = `${card.name} ${card.description}`;
   if (!CARD_CLAIMS_INJECTION.test(claim)) continue;
 
   const group = formGroup(product.form);
   if (!ORAL_OR_TOPICAL_GROUPS.has(group)) continue;
 
   const key = `${entry.hubId}:${card.id}`;
-  const detail = `${describeCard(entry)} advertises an injection ("${card.name} · ${card.priceLabel}") but resolves to "${product.name}", form "${product.form}" (${group}) — point catalogProductId at the injectable SKU`;
+  const facts = hubCardFacts(card);
+  const detail = `${describeCard(entry)} advertises an injection ("${card.name} · ${facts.priceText}") but resolves to "${product.name}", form "${product.form}" (${group}) — point catalogProductId at the injectable SKU`;
 
   if (key in KNOWN_FORM_MISMATCH_CARDS) {
     trippedFormMismatchKeys.add(key);
@@ -298,6 +305,153 @@ for (const key of Object.keys(KNOWN_FORM_MISMATCH_CARDS)) {
     fail(
       "form-mismatch",
       `KNOWN_FORM_MISMATCH_CARDS still lists "${key}", which no longer mismatches — delete the entry so the next one fails loudly`,
+    );
+  }
+}
+
+/* ---------------------------------------------------------------------------- *
+ * 9. A `catalog`-sourced card must resolve to a listed SKU with a positive price.
+ *
+ * This is the check that stops a hub from quoting "from $X" for a product the
+ * shop hides or that has no real price. Hidden SKUs must use `{ source: "consult" }`.
+ * ---------------------------------------------------------------------------- */
+
+for (const entry of HUB_CARDS) {
+  const { card } = entry;
+  if (card.price.source !== "catalog") continue;
+
+  if (!card.catalogProductId) {
+    fail(
+      "hub-card-catalog-source",
+      `${describeCard(entry)} uses source "catalog" but has no catalogProductId`,
+    );
+    continue;
+  }
+
+  const product = PRODUCT_BY_ID.get(card.catalogProductId);
+  if (!product) continue; // already a hard failure above
+
+  if (!isClientVisibleProductId(product.id)) {
+    fail(
+      "hub-card-catalog-source",
+      `${describeCard(entry)} uses source "catalog" but "${product.name}" is hidden from clients — switch to source "consult" or list the SKU`,
+    );
+    continue;
+  }
+
+  const facts = hubCardFacts(card);
+  if (facts.priceUsd === null || facts.priceUsd <= 0) {
+    fail(
+      "hub-card-catalog-source",
+      `${describeCard(entry)} uses source "catalog" but derived price is ${JSON.stringify(facts.priceUsd)}`,
+    );
+  }
+}
+
+for (const entry of HUB_CARDS) {
+  const { card } = entry;
+  if (card.price.source !== "glp1-program") continue;
+  const facts = hubCardFacts(card);
+  if (facts.priceUsd === null || facts.priceUsd <= 0) {
+    fail(
+      "hub-card-glp1-source",
+      `${describeCard(entry)} uses source "glp1-program" but derived price is ${JSON.stringify(facts.priceUsd)}`,
+    );
+  }
+}
+
+/* ---------------------------------------------------------------------------- *
+ * 10. A `consult`-sourced card must not be a listed catalog product.
+ *
+ * Exception: an explicit no-SKU consult card (`catalogProductId` omitted) — the
+ * Erase Cream tile, for example, has no SKU to quote.
+ * ---------------------------------------------------------------------------- */
+
+for (const entry of HUB_CARDS) {
+  const { card } = entry;
+  if (card.price.source !== "consult") continue;
+  if (!card.catalogProductId) continue; // explicit no-SKU consult card
+
+  if (isClientVisibleProductId(card.catalogProductId)) {
+    const product = PRODUCT_BY_ID.get(card.catalogProductId);
+    fail(
+      "hub-card-consult-source",
+      `${describeCard(entry)} uses source "consult" but resolves to listed "${product?.name ?? card.catalogProductId}" — use source "catalog" so the price cannot drift`,
+    );
+  }
+}
+
+/* ---------------------------------------------------------------------------- *
+ * 11. No hub card name or description may contain a literal $ amount.
+ *
+ * The in-clinic vitamin-shot band is a different type (`inClinicOption.priceLabel`)
+ * and is allowed to name the $25 walk-in fee. FAQ copy may mention the $49 consult.
+ * Card tiles must not.
+ * ---------------------------------------------------------------------------- */
+
+const LITERAL_DOLLAR_AMOUNT = /\$\s*\d/;
+
+for (const entry of HUB_CARDS) {
+  const { card } = entry;
+  if (LITERAL_DOLLAR_AMOUNT.test(`${card.name} ${card.description}`)) {
+    fail(
+      "hub-card-hardcoded-price",
+      `${describeCard(entry)} has a literal $ amount in name or description — prices belong on the source, not in copy`,
+    );
+  }
+}
+
+/* ---------------------------------------------------------------------------- *
+ * 12. Every published protocol page is a client-visible compound with a real
+ * price, and no pendingReview monograph is published. GHK-Cu is the standing
+ * example: the injectable is in the shop, the monograph is drafted, the page
+ * must not exist until Ryan signs it off.
+ * ---------------------------------------------------------------------------- */
+
+const published = publishedProtocolModels();
+const publishedKeys = new Set(published.map((p) => p.drugKey));
+
+for (const protocol of published) {
+  if (isPendingReviewMonograph(protocol.drugKey)) {
+    fail(
+      "protocol-pending-review",
+      `published /rx/protocols/${protocol.slug} for "${protocol.drugKey}" but the monograph has pendingReview: true`,
+    );
+  }
+
+  const product = PRODUCT_BY_ID.get(protocol.productId);
+  if (!product || !isClientVisibleProductId(product.id)) {
+    fail(
+      "protocol-visibility",
+      `published /rx/protocols/${protocol.slug} resolves to ${protocol.productId} "${protocol.productName}", which is not client-visible`,
+    );
+    continue;
+  }
+
+  const usd = catalogClientSupplyUsd(product, 30);
+  if (!Number.isFinite(usd) || usd <= 0) {
+    fail(
+      "protocol-price",
+      `published /rx/protocols/${protocol.slug} quotes ${JSON.stringify(usd)} for "${product.name}"`,
+    );
+  }
+}
+
+for (const drugKey of clientVisibleDrugKeys()) {
+  if (isPendingReviewMonograph(drugKey)) {
+    if (publishedKeys.has(drugKey)) {
+      fail(
+        "protocol-pending-review",
+        `client-visible drugKey "${drugKey}" is pendingReview but still published at /rx/protocols/${drugKey}`,
+      );
+    }
+    continue;
+  }
+
+  if (!publishedKeys.has(drugKey)) {
+    fail(
+      "protocol-coverage",
+      `client-visible drugKey "${drugKey}" has no published protocol page — add a monograph or set pendingReview`,
     );
   }
 }
