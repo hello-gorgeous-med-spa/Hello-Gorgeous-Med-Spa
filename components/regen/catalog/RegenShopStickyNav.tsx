@@ -13,6 +13,7 @@ type Props = {
   showSearch?: boolean;
   searchValue?: string;
   onSearchChange?: (value: string) => void;
+  searchPlaceholder?: string;
   /** Defaults to the full staff nav; the client shop passes a trimmed list. */
   items?: RegenNavItem[];
 };
@@ -24,7 +25,6 @@ function navHref(href: string, basePath: string) {
 
 function NavDropdown({
   item,
-  basePath,
 }: {
   item: RegenNavItem;
   basePath: string;
@@ -96,6 +96,7 @@ export function RegenShopStickyNav({
   showSearch = true,
   searchValue = "",
   onSearchChange,
+  searchPlaceholder = "Search treatments, goals, ingredients…",
   items = REGEN_SHOP_NAV,
 }: Props) {
   const [navOpen, setNavOpen] = useState(false);
@@ -193,7 +194,7 @@ export function RegenShopStickyNav({
               type="search"
               value={searchValue}
               onChange={(e) => onSearchChange?.(e.target.value)}
-              placeholder="Search treatments, goals, ingredients…"
+              placeholder={searchPlaceholder}
               className="h-[42px] w-full rounded-full border border-black/15 bg-white pl-11 pr-4 text-sm text-black outline-none ring-[#FF2D8E] placeholder:text-black/40 focus:ring-2"
             />
           </div>

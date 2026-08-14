@@ -30,7 +30,6 @@ import {
   type CatalogSort,
   type SupplyDays,
 } from "@/lib/regen/catalog";
-import { CLIENT_STACK_IDS } from "@/lib/regen/catalog/bundles";
 import { catalogLineId } from "@/lib/regen/catalog/pricing";
 import { catalogClientMonthlyUsd } from "@/lib/regen/catalog/client-price";
 import { catalogConsultRoute } from "@/lib/regen/catalog/consult-route";
@@ -43,7 +42,9 @@ import { RegenGoalTheater } from "@/components/regen/catalog/RegenGoalTheater";
 import { RegenHowItWorksTheater } from "@/components/regen/catalog/RegenHowItWorksTheater";
 import { RegenScienceTheater } from "@/components/regen/catalog/RegenScienceTheater";
 import { RegenStacksTheater } from "@/components/regen/catalog/RegenStacksTheater";
+import { RegenStoreHome } from "@/components/regen/catalog/RegenStoreHome";
 import { RegenShopStickyNav } from "@/components/regen/catalog/RegenShopStickyNav";
+import { CLIENT_SHOP_GOALS } from "@/lib/regen/catalog/client-visibility";
 import { RxFindYourPeptideCta } from "@/components/rx/RxFindYourPeptideCta";
 import { RxScienceHomeHero } from "@/components/rx/RxScienceHomeHero";
 import { JourneySectionHead } from "@/components/marketing/JourneyPageUi";
@@ -52,7 +53,8 @@ import { goalFromStorefrontCat } from "@/lib/regen/storefront-deep-link";
 import {
   REGEN_SHOP_FAQS,
   REGEN_SHOP_NAV,
-  REGEN_SHOP_NAV_CLIENT,
+  STORE_AISLE_LABEL,
+  regenClientShopNav,
 } from "@/lib/regen-shop-nav";
 import { RxPatientJourneyBand } from "@/components/rx/RxPatientJourneyBand";
 
@@ -111,7 +113,6 @@ export function RegenCatalogPortal({
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [selVar, setSelVar] = useState(0);
   const [supply, setSupply] = useState<SupplyDays>(30);
-  const [showAllStacks, setShowAllStacks] = useState(false);
 
   const isPublicShop = basePath === "/rx";
 
@@ -202,8 +203,15 @@ export function RegenCatalogPortal({
       });
     }
     list = filterCatalogByPrice(list, priceFilter, priceOf);
-    return sortCatalogProducts(list, sort, priceOf);
-  }, [view, activeGoal, formFilter, query, priceFilter, sort, priceOf, catalogPool]);
+    const sorted = sortCatalogProducts(list, sort, priceOf);
+    if (!isPublicShop) return sorted;
+    const seen = new Set<string>();
+    return sorted.filter((p) => {
+      if (seen.has(p.drugKey)) return false;
+      seen.add(p.drugKey);
+      return true;
+    });
+  }, [view, activeGoal, formFilter, query, priceFilter, sort, priceOf, catalogPool, isPublicShop]);
 
   const formChips = useMemo(() => {
     const pool =
@@ -225,8 +233,20 @@ export function RegenCatalogPortal({
     [isPublicShop],
   );
 
-  /** Clients see a short "here's something to click" row; staff keep the full set. */
-  const popularProducts = isPublicShop ? bestSellers.slice(0, 3) : bestSellers;
+  /** One SKU per compound so the shelf is a store, not a duplicate catalog dump. */
+  const storeShelf = useMemo(() => {
+    const seen = new Set<string>();
+    const out: CatalogProduct[] = [];
+    for (const p of sortCatalogProducts([...catalogPool], "featured", priceOf)) {
+      if (seen.has(p.drugKey)) continue;
+      seen.add(p.drugKey);
+      out.push(p);
+      if (out.length >= 12) break;
+    }
+    return out;
+  }, [catalogPool, priceOf]);
+
+  const popularProducts = isPublicShop ? storeShelf : bestSellers;
 
   const bundles = useMemo(
     () => {
@@ -306,32 +326,24 @@ export function RegenCatalogPortal({
   );
 
   /**
-   * Clients see the CLIENT_STACK_IDS ladder (cheapest first) until they ask for the
-   * rest; staff always see every stack in authored order.
+   * Staff home still shows every stack. The public shop no longer merchandises
+   * stacks on the storefront — shoppers pick a protocol, then start intake.
    */
   const stackPool = useMemo(
     () => (isPublicShop ? bundles.filter((b) => b.clientVisible) : bundles),
     [bundles, isPublicShop],
   );
 
-  const visibleStacks = useMemo(() => {
-    if (!isPublicShop || showAllStacks) return stackPool;
-    const byId = new Map(stackPool.map((b) => [b.id, b]));
-    return CLIENT_STACK_IDS.map((id) => byId.get(id)).filter(
-      (b): b is (typeof bundles)[number] => !!b,
-    );
-  }, [stackPool, isPublicShop, showAllStacks]);
-
   const goalBlurb =
     CATALOG_GOALS.find((g) => g.id === activeGoal)?.blurb ?? "";
 
   const browseTitle =
     view === "goal"
-      ? activeGoal ?? "Browse"
+      ? STORE_AISLE_LABEL[activeGoal ?? ""] ?? activeGoal ?? "Browse"
       : view === "search"
         ? "Search results"
         : view === "all"
-          ? "Full catalog"
+          ? "Shop all"
           : "";
 
   const browseSub =
@@ -340,7 +352,7 @@ export function RegenCatalogPortal({
       : view === "search"
         ? `Showing matches for "${query}"`
         : view === "all"
-          ? "Everything your provider can prescribe."
+          ? "Every protocol we review in Illinois — starting price on the shelf, dose at consult."
           : "";
 
   return (
@@ -350,7 +362,7 @@ export function RegenCatalogPortal({
     >
       <RegenShopStickyNav
         basePath={basePath}
-        items={isPublicShop ? REGEN_SHOP_NAV_CLIENT : REGEN_SHOP_NAV}
+        items={isPublicShop ? regenClientShopNav(CLIENT_SHOP_GOALS) : REGEN_SHOP_NAV}
         onGoHome={() => {
           if (view === "home") {
             window.scrollTo({ top: 0, behavior: "smooth" });
@@ -360,25 +372,65 @@ export function RegenCatalogPortal({
         }}
         searchValue={query}
         onSearchChange={onSearchChange}
+        searchPlaceholder={isPublicShop ? "Search the shop…" : undefined}
       />
 
       {view === "home" ? (
+        isPublicShop ? (
+          <>
+            <RegenStoreHome
+              goals={CLIENT_SHOP_GOALS}
+              products={storeShelf}
+              onSelectGoal={(goal) => navigate({ goal })}
+              onShopAll={() => navigate({ browse: "all" })}
+            />
+            <section id="faq" className={`${SECTION_SCROLL} bg-transparent px-6 py-16 lg:py-20`}>
+              <div className="mx-auto max-w-[1200px]">
+                <JourneySectionHead
+                  light
+                  eyebrow="Before you start"
+                  title="Questions,"
+                  titleAccent="answered"
+                  description="Clear answers before intake. Still unsure? Book a free consult."
+                />
+                <div className="mx-auto mt-11 flex max-w-[860px] flex-col gap-3">
+                  {REGEN_SHOP_FAQS.map((faq) => (
+                    <details
+                      key={faq.q}
+                      className="group overflow-hidden rounded-2xl border-2 border-black bg-white shadow-[4px_4px_0_0_rgba(230,0,126,0.35)]"
+                    >
+                      <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-6 py-5 font-serif text-lg font-bold text-black marker:content-none group-open:text-[#E6007E]">
+                        {faq.q}
+                        <span className="text-2xl font-normal text-[#E6007E] group-open:hidden">+</span>
+                        <span className="hidden text-2xl font-normal text-[#E6007E] group-open:inline">
+                          –
+                        </span>
+                      </summary>
+                      <p className="px-6 pb-5 text-[15px] font-medium leading-relaxed text-black/75">
+                        {faq.a}
+                      </p>
+                    </details>
+                  ))}
+                </div>
+              </div>
+            </section>
+          </>
+        ) : (
         <>
           <div id="top" className={SECTION_SCROLL}>
             <RxScienceHomeHero
               onExploreGoals={scrollToShopByGoal}
-              showExtraEntryPoints={!isPublicShop}
+              showExtraEntryPoints
             />
           </div>
 
           <RxFindYourPeptideCta />
 
-          {/* Shop first — goals, popular, stacks — then educate */}
           <RegenGoalTheater
             onSelectGoal={(goal) => navigate({ goal })}
-            showCounts={!isPublicShop}
+            showCounts
             products={catalogPool}
-            clientOnly={isPublicShop}
+            clientOnly={false}
           />
 
           <section id="popular" className={`${SECTION_SCROLL} bg-transparent px-6 py-16 lg:py-20`}>
@@ -405,8 +457,7 @@ export function RegenCatalogPortal({
                   <ProductCard
                     key={p.id}
                     product={p}
-                    onOpen={isPublicShop ? undefined : openProduct}
-                    consultMode={isPublicShop}
+                    onOpen={openProduct}
                   />
                 ))}
               </div>
@@ -414,46 +465,22 @@ export function RegenCatalogPortal({
           </section>
 
           <RegenStacksTheater
-            bundles={visibleStacks}
-            hiddenCount={stackPool.length - visibleStacks.length}
-            onShowAll={isPublicShop ? () => setShowAllStacks(true) : undefined}
+            bundles={stackPool}
+            hiddenCount={0}
           />
 
           <RegenHowItWorksTheater
             onStartShopping={scrollToShopByGoal}
             onShopWeightLoss={() => navigate({ goal: "Lose Weight" })}
-            consultFlow={isPublicShop}
+            consultFlow={false}
           />
 
-          {/*
-            The journey band restates the four steps above it as five. Clients get one
-            explanation; staff keep both until the lean staff view is signed off.
-          */}
-          {isPublicShop ? null : (
-            <div className={SECTION_SCROLL}>
-              <RxPatientJourneyBand surface="rose" />
-            </div>
-          )}
+          <div className={SECTION_SCROLL}>
+            <RxPatientJourneyBand surface="rose" />
+          </div>
 
-          {/*
-            The peptide primer now lives on /rx/learn, where the full article, the
-            metabolic graphic, and the men's hormone cards are indexable. The shop
-            keeps one text link so "new to peptides?" still has an entry point.
-          */}
-          {isPublicShop ? (
-            <div className="bg-transparent px-6 pb-4 pt-2 text-center">
-              <Link
-                href="/rx/learn/what-are-peptides"
-                className="text-sm font-bold text-[#E6007E] underline decoration-[#E6007E]/40 underline-offset-4 transition hover:text-[#FF2D8E]"
-              >
-                New to peptides? Read the plain-language guide →
-              </Link>
-            </div>
-          ) : (
-            <RegenScienceTheater onShopGoals={scrollToShopByGoal} />
-          )}
+          <RegenScienceTheater onShopGoals={scrollToShopByGoal} />
 
-          {/* FAQ */}
           <section id="faq" className={`${SECTION_SCROLL} bg-transparent px-6 py-16 lg:py-24`}>
             <div className="mx-auto max-w-[1200px]">
               <JourneySectionHead
@@ -483,6 +510,7 @@ export function RegenCatalogPortal({
             </div>
           </section>
         </>
+        )
       ) : (
         <section className="bg-transparent px-6 py-10">
           <div className="mx-auto max-w-[1200px]">
@@ -495,8 +523,37 @@ export function RegenCatalogPortal({
             </button>
             <h1 className="mt-4 font-serif text-4xl font-extrabold text-black">{browseTitle}</h1>
             <p className="mt-2 max-w-2xl text-black/65">{browseSub}</p>
+            {isPublicShop ? (
+              <div className="mt-5 flex gap-2 overflow-x-auto pb-1">
+                {CLIENT_SHOP_GOALS.map((goal) => (
+                  <button
+                    key={goal}
+                    type="button"
+                    onClick={() => navigate({ goal })}
+                    className={`shrink-0 rounded-full border-2 px-4 py-2 text-sm font-bold shadow-[3px_3px_0_0_rgba(230,0,126,0.35)] transition ${
+                      activeGoal === goal
+                        ? "border-black bg-[#FF2D8E] text-black"
+                        : "border-black bg-white text-black hover:bg-[#FFF0F7] hover:text-[#E6007E]"
+                    }`}
+                  >
+                    {STORE_AISLE_LABEL[goal] ?? goal}
+                  </button>
+                ))}
+                <button
+                  type="button"
+                  onClick={() => navigate({ browse: "all" })}
+                  className={`shrink-0 rounded-full border-2 px-4 py-2 text-sm font-black shadow-[3px_3px_0_0_#000] ${
+                    view === "all"
+                      ? "border-black bg-[#FF2D8E] text-black"
+                      : "border-black bg-white text-black"
+                  }`}
+                >
+                  Shop all
+                </button>
+              </div>
+            ) : null}
             <p className="mt-3 text-sm font-semibold text-black/45">
-              {filteredProducts.length} products
+              {filteredProducts.length} {isPublicShop ? "on the shelf" : "products"}
             </p>
 
             <div className="mt-5 flex flex-wrap items-center gap-3">
@@ -539,7 +596,7 @@ export function RegenCatalogPortal({
               </div>
             </div>
 
-            {formChips.length > 2 && (
+            {!isPublicShop && formChips.length > 2 && (
               <div className="sticky top-[120px] z-20 mt-6 -mx-1 flex flex-wrap gap-2 bg-white/90 px-1 py-3 backdrop-blur">
                 {formChips.map((f) => (
                   <button

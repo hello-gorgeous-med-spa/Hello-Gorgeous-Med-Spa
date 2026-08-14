@@ -17,6 +17,7 @@ import { catalogClientPriceText } from "@/lib/regen/catalog/client-price";
 import { catalogConsultRoute } from "@/lib/regen/catalog/consult-route";
 import { getMonograph } from "@/lib/regen/catalog/index";
 import { isPublishedProtocolDrugKey, protocolPath } from "@/lib/regen/catalog/protocol-pages";
+import { STORE_AISLE_LABEL } from "@/lib/regen-shop-nav";
 
 const STAGE_BG = "/images/regen/brand/regen-stage-cinematic-plum.jpg";
 
@@ -43,6 +44,7 @@ export function ProductCard({ product, href, onOpen, consultMode }: ProductCardP
   const productHref = href ?? `/rx/product/${product.id}`;
   const consult = catalogConsultRoute(product);
   const priceLabel = consultMode ? catalogClientPriceText(product) : listingPriceText(product);
+  const displayName = (mono.name || product.name).replace(/\s*\(.*\)\s*$/, "");
 
   const quickAdd = useCallback(
     (e: MouseEvent) => {
@@ -62,6 +64,72 @@ export function ProductCard({ product, href, onOpen, consultMode }: ProductCardP
     },
     [addItem, openCart, product, p30, img, variant.strength],
   );
+
+  if (consultMode) {
+    const protocolHref = isPublishedProtocolDrugKey(product.drugKey)
+      ? protocolPath(product.drugKey)
+      : null;
+    const body = (
+      <>
+        <div className="relative aspect-square overflow-hidden bg-[#FFF0F7]">
+          {img ? (
+            <Image
+              src={img}
+              alt=""
+              fill
+              className="object-contain p-6 transition duration-300 group-hover:scale-105"
+              sizes="(max-width: 640px) 100vw, 25vw"
+            />
+          ) : (
+            <div className="flex h-full items-center justify-center font-serif text-3xl font-black text-[#E6007E]">
+              {productInitials(product.name)}
+            </div>
+          )}
+        </div>
+        <div className="flex flex-1 flex-col p-4">
+          <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#E6007E]">
+            {STORE_AISLE_LABEL[product.goal] ?? product.goal}
+          </p>
+          <h3 className="mt-1 font-serif text-xl font-black leading-tight text-black">{displayName}</h3>
+          {mono.tagline ? (
+            <p className="mt-1 line-clamp-2 text-sm font-medium text-black/55">{mono.tagline}</p>
+          ) : null}
+          <p className="mt-2 text-lg font-black text-[#FF2D8E]">
+            {priceLabel.charAt(0).toUpperCase() + priceLabel.slice(1)}
+          </p>
+        </div>
+      </>
+    );
+    return (
+      <article className="group flex h-full flex-col overflow-hidden rounded-3xl border-4 border-black bg-white shadow-[8px_8px_0_0_rgba(230,0,126,0.35)] transition hover:-translate-y-0.5">
+        {onOpen ? (
+          <button type="button" onClick={() => onOpen(product.id)} className="flex flex-1 flex-col text-left">
+            {body}
+          </button>
+        ) : (
+          <Link href={productHref} className="flex flex-1 flex-col text-left">
+            {body}
+          </Link>
+        )}
+        <div className="border-t-2 border-black p-3">
+          <Link
+            href={consult.href}
+            className="block w-full rounded-xl bg-gradient-to-r from-[#FF2D8E] to-[#E6007E] py-2.5 text-center text-sm font-black text-white"
+          >
+            Start intake →
+          </Link>
+          {protocolHref ? (
+            <Link
+              href={protocolHref}
+              className="mt-2 block text-center text-xs font-semibold text-black/50 hover:text-[#E6007E]"
+            >
+              How it works
+            </Link>
+          ) : null}
+        </div>
+      </article>
+    );
+  }
 
   const media = (
     <div className="relative aspect-[3/4] w-full overflow-hidden">

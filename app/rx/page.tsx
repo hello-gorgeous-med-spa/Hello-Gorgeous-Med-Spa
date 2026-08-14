@@ -29,7 +29,7 @@ const baseMetadata = pageMetadata({
   path: RX_PATH,
   keywords: [
     "RE GEN shop",
-    "RE GEN catalog",
+    "shop peptides Illinois",
     "online medical weight loss Illinois",
     "compounded semaglutide Oswego",
     "compounded tirzepatide Illinois",
@@ -77,7 +77,7 @@ const REGEN_FAQS: readonly FAQ[] = [
   {
     question: "How does RE GEN work?",
     answer:
-      "Browse the catalog by goal, then start intake on the protocol you want — free to submit. A $49 fee reserves your consult with a nurse practitioner, who reviews your history and sets your protocol. You are invoiced for medication only after approval, then pick it up in Oswego or have it shipped for a flat $30.",
+      "Pick a protocol, then start intake — free to submit. A $49 fee reserves your consult with a nurse practitioner, who reviews your history and sets your protocol. You are invoiced for medication only after approval, then pick it up in Oswego or have it shipped for a flat $30.",
   },
   {
     question: "Who oversees RE GEN treatment plans?",
@@ -97,7 +97,7 @@ const REGEN_FAQS: readonly FAQ[] = [
   {
     question: "How much does RE GEN shipping cost?",
     answer:
-      "Eligible prescriptions ship with a flat $30 shipping fee. Program pricing varies by treatment and is shown in the catalog before checkout.",
+      "Eligible prescriptions ship with a flat $30 shipping fee. Program pricing varies by treatment and is shown on each protocol before you start intake.",
   },
 ];
 
