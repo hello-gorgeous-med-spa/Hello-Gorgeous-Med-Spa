@@ -11,27 +11,37 @@ import {
 
 export const PEPTIDES_HUB_FAQS: FAQ[] = [
   {
+    question: "Is Hello Gorgeous a medical practice?",
+    answer:
+      "Yes — Hello Gorgeous is a nurse-practitioner-directed medical aesthetics clinic in Oswego, IL, with a licensed provider on site. Every client is medically screened before treatment.",
+  },
+  {
+    question: "Do I need a prescription for peptide therapy?",
+    answer:
+      "Yes. A licensed provider reviews your history and labs before any peptide protocol is prescribed — nothing is approved without a consult.",
+  },
+  {
+    question: "Who oversees my treatment plan?",
+    answer:
+      "Every protocol is reviewed under the medical oversight of Dr. Mukesh Arora, MD, and prescribed and managed by Ryan Kent, FNP-BC.",
+  },
+  {
+    question: "How does the peptide program work?",
+    answer: `Start with a consult and intake — free to submit. A $${PEPTIDE_CONSULT_FEE_USD} fee reserves your visit with Ryan Kent, FNP-BC. He reviews your history and labs and sets your protocol. You are only billed for medication after approval.`,
+  },
+  {
     question: "How much does peptide therapy cost at Hello Gorgeous in Oswego?",
     answer: `New peptide protocols start with a $${PEPTIDE_CONSULT_FEE_USD} NP consultation. Published monthly protocol rates begin at $${PEPTIDE_RETAIL_FROM_MONTHLY_USD}/mo (for example, Sermorelin injectable). BPC-157 from $169/mo, Recovery Blend from $229/mo, and GLP-1 programs from $${GLP1_RETAIL_PROGRAM.semaglutideFromUsd}/mo (semaglutide) or $${GLP1_RETAIL_PROGRAM.tirzepatideFromUsd}/mo (tirzepatide). Your final price is confirmed after NP evaluation based on dose, format, and cycle.`,
   },
   {
     question: "What peptides do you offer in Oswego, Naperville, and the Fox Valley?",
     answer:
-      "Hello Gorgeous RX™ offers BPC-157, TB-500, Sermorelin, GHK-Cu, Tesamorelin, CJC-1295/Ipamorelin, PT-141, NAD+, Recovery Blend, and GLP-1 weight loss options when clinically appropriate — plus additional peptides through our NP-led formulary. We serve Oswego, Naperville, Aurora, Plainfield, Yorkville, and surrounding areas.",
+      "Hello Gorgeous RX™ offers BPC-157, TB-500, Sermorelin, Tesamorelin, CJC-1295/Ipamorelin, PT-141, NAD+, Recovery Blend, and GLP-1 weight loss options when clinically appropriate — plus additional peptides through our NP-led formulary. We serve Oswego, Naperville, Aurora, Plainfield, Yorkville, and surrounding areas.",
   },
   {
-    question: "Do I need a consultation before starting peptide therapy?",
-    answer: `Yes. New peptide protocols require a $${PEPTIDE_CONSULT_FEE_USD} NP-led consultation and telehealth evaluation with Ryan Kent, FNP-BC before any prescription. Refills for existing Hello Gorgeous RX™ patients follow a separate refill review process.`,
-  },
-  {
-    question: "Is peptide therapy safe when prescribed by a nurse practitioner?",
+    question: "Where is peptide therapy available?",
     answer:
-      "When prescribed by a licensed NP and sourced from licensed US compounding pharmacies, peptide therapy has a strong safety profile for appropriate candidates. We do not sell research-grade or gray-market peptides. Your provider reviews health history, medications, and goals before recommending any protocol.",
-  },
-  {
-    question: "How quickly will I see results from peptide therapy?",
-    answer:
-      "Timelines vary by peptide and goal. Sleep and energy peptides may show effects in 1–2 weeks. Recovery protocols often take 4–6 weeks. Skin, hair, and longevity-focused peptides typically need 8–12 weeks for visible changes. Your NP sets honest expectations at consult.",
+      "In-person care is available at Hello Gorgeous Med Spa in Oswego, IL, serving Oswego, Naperville, Aurora, Plainfield, Yorkville, and Montgomery. Eligible prescriptions can ship across Illinois for a flat fee after approval.",
   },
   {
     question: "Can I combine peptides with GLP-1 weight loss or hormone therapy?",

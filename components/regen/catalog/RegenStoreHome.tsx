@@ -127,6 +127,10 @@ export function RegenStoreHome({ goals, products, onSelectGoal, onShopAll }: Pro
           ))}
         </div>
         <p className="mx-auto mt-6 max-w-[1200px] text-center text-sm font-medium text-black/55">
+          <Link href="/peptides" className="font-bold text-[#E6007E] hover:underline">
+            Peptide therapy
+          </Link>
+          {" · "}
           <Link href="/rx/learn/what-are-peptides" className="font-bold text-[#E6007E] hover:underline">
             New to peptides? Read the guide
           </Link>
