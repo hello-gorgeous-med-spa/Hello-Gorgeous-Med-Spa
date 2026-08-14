@@ -115,7 +115,7 @@ const SECTIONS: AboutSection[] = [
     id: "ryan",
     number: "04",
     title: "Ryan Kent, FNP-BC",
-    badge: "MEDICAL DIRECTOR",
+    badge: "ON-SITE NP",
     description: RYAN_MEDIUM_BIO,
     bodyExtra: RYAN_LONG_BIO,
     highlights: [
@@ -130,6 +130,7 @@ const SECTIONS: AboutSection[] = [
     },
     extraLinks: [
       { label: "Ryan's full provider profile →", href: "/providers/ryan" },
+      { label: "Medical Director Dr. Mukesh Arora, MD →", href: "/providers/dr-arora" },
       { label: "Book a telehealth visit with Ryan →", href: "/telehealth" },
     ],
   },

@@ -8,6 +8,7 @@ import { CTA } from "@/components/CTA";
 import { FadeUp } from "@/components/Section";
 import { CONVERSION_HIERARCHY } from "@/lib/illinois-excellence";
 import { DANI_FULL_NAME } from "@/lib/founder-credentials";
+import { MEDICAL_DIRECTOR, PRESCRIBING_NP } from "@/lib/medical-authority";
 import {
   DANI_CLINICAL_CREDENTIALS,
   DR_ARORA_FULL_NAME,
@@ -85,39 +86,32 @@ export function MdOversightWelcomeBand({ className = "" }: Props) {
             return (
               <FadeUp key={provider.name} delayMs={i * 50}>
                 <div className="flex h-full flex-col overflow-hidden rounded-3xl border-4 border-black bg-white shadow-[8px_8px_0_0_rgba(230,0,126,0.35)]">
-                  {isArora ? (
-                    <button
-                      type="button"
-                      onClick={() => setAroraOpen(true)}
-                      className="group relative aspect-[4/5] bg-[#f8f4f0] text-left focus:outline-none focus-visible:ring-4 focus-visible:ring-[#E6007E] focus-visible:ring-offset-2"
-                      aria-haspopup="dialog"
-                      aria-expanded={aroraOpen}
-                      aria-controls="arora-oversight-dialog"
-                    >
-                      <Image
-                        src={provider.image}
-                        alt={provider.imageAlt}
-                        fill
-                        className="object-cover object-center transition duration-300 group-hover:scale-[1.02]"
-                        sizes="(max-width: 640px) 100vw, 33vw"
-                      />
-                      <span className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent px-3 pb-3 pt-10">
-                        <span className="inline-flex items-center rounded-full border-2 border-white/40 bg-[#E6007E] px-3 py-1 text-[11px] font-bold uppercase tracking-wide text-white shadow-lg">
-                          Learn more →
+                  {(() => {
+                    const profileHref = isArora
+                      ? MEDICAL_DIRECTOR.profilePath
+                      : provider.name === DANI_FULL_NAME
+                        ? "/about"
+                        : PRESCRIBING_NP.profilePath;
+                    return (
+                      <Link
+                        href={profileHref}
+                        className="group relative aspect-[4/5] bg-[#f8f4f0] focus:outline-none focus-visible:ring-4 focus-visible:ring-[#E6007E] focus-visible:ring-offset-2"
+                      >
+                        <Image
+                          src={provider.image}
+                          alt={provider.imageAlt}
+                          fill
+                          className="object-cover object-center transition duration-300 group-hover:scale-[1.02]"
+                          sizes="(max-width: 640px) 100vw, 33vw"
+                        />
+                        <span className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent px-3 pb-3 pt-10">
+                          <span className="inline-flex items-center rounded-full border-2 border-white/40 bg-[#E6007E] px-3 py-1 text-[11px] font-bold uppercase tracking-wide text-white shadow-lg">
+                            View profile →
+                          </span>
                         </span>
-                      </span>
-                    </button>
-                  ) : (
-                    <div className="relative aspect-[4/5] bg-[#f8f4f0]">
-                      <Image
-                        src={provider.image}
-                        alt={provider.imageAlt}
-                        fill
-                        className="object-cover object-center"
-                        sizes="(max-width: 640px) 100vw, 33vw"
-                      />
-                    </div>
-                  )}
+                      </Link>
+                    );
+                  })()}
                   <div className="flex flex-1 flex-col border-t-4 border-black p-4 sm:p-5">
                     <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#E6007E]">
                       {provider.badge}
@@ -148,9 +142,9 @@ export function MdOversightWelcomeBand({ className = "" }: Props) {
                         >
                           Why we chose him as Medical Director →
                         </button>
-                        <a href="#dr-mukesh-arora" className="sr-only">
+                        <Link href={MEDICAL_DIRECTOR.profilePath} className="sr-only">
                           Read about Medical Director Dr. Mukesh Arora, MD at Hello Gorgeous
-                        </a>
+                        </Link>
                       </>
                     ) : null}
                   </div>
@@ -166,7 +160,7 @@ export function MdOversightWelcomeBand({ className = "" }: Props) {
               {CONVERSION_HIERARCHY.primary.label}
             </CTA>
             <Link
-              href="/providers"
+              href="/meet-the-team"
               className="inline-flex items-center justify-center rounded-full border-2 border-white/40 px-5 py-2.5 text-sm font-bold text-white transition hover:border-[#FF2D8E] hover:text-[#FFB8DC]"
             >
               Meet the full team →
