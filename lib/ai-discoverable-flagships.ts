@@ -98,6 +98,13 @@ export const AI_FLAGSHIP_PAGES = [
     intent: "GLP-1 peptides hormones prescription Oswego Illinois",
     priority: 0.95,
   },
+  {
+    id: "tirzepatide",
+    name: "Tirzepatide Weight Loss",
+    path: "/tirzepatide",
+    intent: "tirzepatide GLP-1 GIP medical weight loss Oswego IL",
+    priority: 0.96,
+  },
 ] as const;
 
 /** Canonical Oswego SEO landers (existing *-oswego routes). */

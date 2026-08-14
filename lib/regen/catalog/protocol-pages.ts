@@ -49,6 +49,7 @@ const GOAL_HUB: Record<string, { path: string; label: string }> = {
 const MONOGRAPH_BY_KEY = MONOGRAPHS as Record<string, Monograph>;
 
 export function protocolPath(drugKey: string): string {
+  if (drugKey === "tirzepatide") return "/tirzepatide";
   return `${RX_PROTOCOLS_PATH}/${drugKey}`;
 }
 

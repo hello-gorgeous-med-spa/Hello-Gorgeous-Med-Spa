@@ -22,12 +22,18 @@ function ShopCard({ card }: { card: PeptideShopCard }) {
       ) : null}
       <h3 className="mb-2 flex-1 font-serif text-[17px] font-bold text-black">{card.name}</h3>
       <p className="mb-3.5 text-[12.5px] text-black/60">{card.spec}</p>
-      <details className="mb-3">
-        <summary className="cursor-pointer list-none text-[11.5px] font-bold text-[#FF2D8E]">Learn More ›</summary>
-        <p className="mt-2 text-xs leading-relaxed text-black/70">
-          <strong>What to expect:</strong> {card.expect}
-        </p>
-      </details>
+      {card.learnHref ? (
+        <Link href={card.learnHref} className="mb-3 text-[11.5px] font-bold text-[#FF2D8E] hover:text-black">
+          Learn More ›
+        </Link>
+      ) : (
+        <details className="mb-3">
+          <summary className="cursor-pointer list-none text-[11.5px] font-bold text-[#FF2D8E]">Learn More ›</summary>
+          <p className="mt-2 text-xs leading-relaxed text-black/70">
+            <strong>What to expect:</strong> {card.expect}
+          </p>
+        </details>
+      )}
       <div className="mt-auto flex items-center justify-between gap-3">
         <span className="font-serif text-base font-bold text-black">
           {card.pricedAtConsult ? (
@@ -43,11 +49,6 @@ function ShopCard({ card }: { card: PeptideShopCard }) {
           Start intake
         </JourneyPinkBtn>
       </div>
-      {card.learnHref ? (
-        <Link href={card.learnHref} className="mt-2 text-xs font-bold text-[#FF2D8E] hover:text-black">
-          How it works →
-        </Link>
-      ) : null}
     </article>
   );
 }

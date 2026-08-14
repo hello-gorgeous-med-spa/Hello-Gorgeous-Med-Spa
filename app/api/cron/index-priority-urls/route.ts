@@ -60,6 +60,7 @@ const PRIORITY_SERVICE_URLS = [
   "/services/prp-joint-injections",
   "/services/prp",
   "/glp1-weight-loss",
+  "/tirzepatide",
   "/tirzepatide-program",
   "/body-contouring-oswego-il",
   "/non-surgical-facelift-oswego-il",

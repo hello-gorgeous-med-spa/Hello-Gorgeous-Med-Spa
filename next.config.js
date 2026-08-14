@@ -276,6 +276,7 @@ const nextConfig = {
     { source: "/peptide-therapy-men", destination: "/peptides", permanent: true },
     { source: "/peptides/cjc-1295", destination: "/peptides/cjc-1295-ipamorelin", permanent: true },
     { source: "/rx/catalog", destination: "/rx", permanent: true },
+    { source: "/rx/protocols/tirzepatide", destination: "/tirzepatide", permanent: true },
     { source: "/rx/catalog/goal/:slug", destination: "/rx?goal=:slug", permanent: true },
     { source: "/schedule", destination: "/book", permanent: true },
     { source: "/signature-treatment-menu", destination: "/specials", permanent: true },

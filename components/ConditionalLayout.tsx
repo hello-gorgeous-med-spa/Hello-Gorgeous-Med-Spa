@@ -45,6 +45,7 @@ const STANDALONE_APP_ROUTES = [
   "/peptide-request",
   "/hello-gorgeous-rx/start-here",
   "/rx",
+  "/tirzepatide",
   "/services/flowwave",
   "/microblading-brow-pmu-oswego-il",
   /** Ageless-style ad LP — sticky mini-nav only */
