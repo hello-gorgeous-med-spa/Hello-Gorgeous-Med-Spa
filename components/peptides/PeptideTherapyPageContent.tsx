@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 
+import { PeptideShopShelf } from "@/components/peptides/PeptideShopShelf";
 import {
   JOURNEY_HERO_BG,
   JourneyCheckItem,
@@ -15,7 +16,7 @@ import {
   JourneyTrustBar,
   JourneyVideoFrame,
 } from "@/components/marketing/JourneyPageUi";
-import { CHERRY_PAY_URL, GLP1_INTAKE_PATH, PEPTIDE_REQUEST_PATH } from "@/lib/flows";
+import { CHERRY_PAY_URL } from "@/lib/flows";
 import { MEDICAL_DIRECTOR, PRESCRIBING_NP } from "@/lib/medical-authority";
 import { PEPTIDE_CONSULT_FEE_USD } from "@/lib/peptide-request-menu";
 import {
@@ -27,7 +28,6 @@ import { PEPTIDES_HUB_FAQS } from "@/lib/peptide-seo-faqs";
 import { PEPTIDE_SCIENCE_VIDEOS } from "@/lib/peptide-topic-media";
 import { PRIMARY_BOOKING_CTA } from "@/lib/primary-cta";
 import { REGEN_MARKETING } from "@/lib/regen-brand";
-import { protocolPath, isPublishedProtocolDrugKey } from "@/lib/regen/catalog/protocol-pages";
 import { REGEN_SHOP_SHIPPING_USD } from "@/lib/regen/shop-surface";
 import {
   HOW_REGEN_WORKS_ARTICLE,
@@ -44,40 +44,16 @@ const BOOK = PRIMARY_BOOKING_CTA.href;
 const CALL = `tel:${SITE.phone.replace(/\D/g, "")}`;
 const SERMORELIN_FROM = getPeptideRetailMonthlyUsd("sermorelin") ?? PEPTIDE_RETAIL_FROM_MONTHLY_USD;
 const BPC_FROM = getPeptideRetailMonthlyUsd("bpc-157") ?? PEPTIDE_RETAIL_FROM_MONTHLY_USD;
-const PT141_FROM = getPeptideRetailMonthlyUsd("pt-141") ?? PEPTIDE_RETAIL_FROM_MONTHLY_USD;
 
 const NAV = [
-  { href: "#peptides", label: "Protocols" },
+  { href: "#shop", label: "The Shop" },
   { href: "#provider", label: "Your NP" },
   { href: "#program", label: "How it works" },
   { href: "#pricing", label: "Pricing" },
   { href: "#faq", label: "FAQ" },
-  { href: SHOP_HREF, label: "Shop peptides" },
 ] as const;
 
 const LEARN_GUIDES = [WHAT_IS_GLP1_ARTICLE, WHAT_ARE_PEPTIDES_ARTICLE, HOW_REGEN_WORKS_ARTICLE] as const;
-
-function learnHref(drugKey: string) {
-  return isPublishedProtocolDrugKey(drugKey) ? protocolPath(drugKey) : undefined;
-}
-
-function peptideIntake(peptide: string) {
-  const params = new URLSearchParams({
-    peptide,
-    type: "new",
-    source: "peptide-landing",
-  });
-  return `${PEPTIDE_REQUEST_PATH}?${params.toString()}`;
-}
-
-function glp1Intake(productName: string) {
-  const params = new URLSearchParams({
-    type: "new",
-    productName,
-    source: "peptide-landing",
-  });
-  return `${GLP1_INTAKE_PATH}?${params.toString()}`;
-}
 
 const TYPES = [
   {
@@ -109,80 +85,6 @@ const TYPES = [
     n: "06",
     title: "Anti-inflammatory peptides",
     body: "Calm inflammatory pathways and support healthier, longer-term recovery under NP supervision.",
-  },
-] as const;
-
-const PROTOCOLS = [
-  {
-    tag: "GLP-1",
-    name: "Tirzepatide",
-    body: "Dual GIP/GLP-1 agonist for appetite control, weight loss, and blood-sugar support. Weekly dosing, titrated by your provider.",
-    href: glp1Intake("Tirzepatide"),
-    learnHref: learnHref("tirzepatide"),
-    image: "/images/shop-rx/tirzepatide-glp1.png",
-    imageAlt: "Tirzepatide GLP-1 protocol — Hello Gorgeous RX",
-    fromUsd: GLP1_RETAIL_PROGRAM.tirzepatideFromUsd,
-    goal: "Weight & metabolic",
-    form: "Weekly injectable",
-  },
-  {
-    tag: "GLP-1",
-    name: "Semaglutide",
-    body: "GLP-1 receptor agonist for appetite control, weight management, and metabolic health. Weekly dosing.",
-    href: glp1Intake("Semaglutide"),
-    learnHref: learnHref("semaglutide"),
-    image: "/images/shop-rx/semaglutide-glp1.png",
-    imageAlt: "Semaglutide GLP-1 protocol — Hello Gorgeous RX",
-    fromUsd: GLP1_RETAIL_PROGRAM.semaglutideFromUsd,
-    goal: "Weight & metabolic",
-    form: "Weekly injectable",
-  },
-  {
-    tag: "GH support",
-    name: "Sermorelin",
-    body: "Encourages your body’s own growth-hormone production — supports recovery, lean body composition, and sleep quality.",
-    href: peptideIntake("sermorelin"),
-    learnHref: learnHref("sermorelin"),
-    image: "/images/shop-rx/sermorelin.png",
-    imageAlt: "Sermorelin peptide protocol — Hello Gorgeous RX",
-    fromUsd: SERMORELIN_FROM,
-    goal: "Recovery & sleep",
-    form: "Nightly injectable",
-  },
-  {
-    tag: "Repair",
-    name: "BPC-157",
-    body: "Supports tissue healing, joint comfort, and recovery from inflammation or injury.",
-    href: peptideIntake("bpc-157"),
-    learnHref: learnHref("bpc157"),
-    image: "/images/shop-rx/bpc-157.png",
-    imageAlt: "BPC-157 recovery peptide — Hello Gorgeous RX",
-    fromUsd: BPC_FROM,
-    goal: "Repair & joints",
-    form: "Injectable",
-  },
-  {
-    tag: "Vitality",
-    name: "PT-141",
-    body: "Supports sexual health and vitality as part of a broader wellness plan, for men and women.",
-    href: peptideIntake("pt-141"),
-    learnHref: learnHref("pt141"),
-    image: "/images/shop-rx/pt-141.png",
-    imageAlt: "PT-141 vitality peptide — Hello Gorgeous RX",
-    fromUsd: PT141_FROM,
-    goal: "Libido & vitality",
-    form: "As directed",
-  },
-  {
-    tag: "Provider-matched",
-    name: "Shop all protocols",
-    body: "Every protocol we review in Illinois — starting price on the shelf, dose at consult. Ryan sets the plan before anything ships.",
-    href: SHOP_HREF,
-    image: "/images/shop-rx/new-peptide-protocol.png",
-    imageAlt: "RE GEN peptide protocol catalog — Hello Gorgeous RX",
-    fromUsd: PEPTIDE_RETAIL_FROM_MONTHLY_USD,
-    goal: "Matched at consult",
-    form: "Pickup or ship",
   },
 ] as const;
 
@@ -511,101 +413,7 @@ export function PeptideTherapyPageContent() {
         </div>
       </section>
 
-      <section
-        id="peptides"
-        className="scroll-mt-24 bg-[radial-gradient(80%_90%_at_15%_0%,#12030c,#000_60%)] px-6 py-16 lg:py-24"
-      >
-        <div className="mx-auto max-w-[1200px]">
-          <JourneySectionHead
-            eyebrow="Shop By Goal"
-            title="Peptide protocols"
-            titleAccent="we offer"
-            description="Start intake on the protocol you want — free to submit. Your NP sets the dose. Pickup in Oswego or ship across Illinois."
-          />
-          <div className="mt-11 grid gap-6 sm:grid-cols-2">
-            {PROTOCOLS.map((card) => (
-              <article
-                key={card.name}
-                className="flex flex-col overflow-hidden rounded-[20px] border border-white/14 bg-gradient-to-b from-[#140109] to-[#0a0206] transition hover:-translate-y-1 hover:border-[#FF2D8E]"
-              >
-                <div className="relative h-[210px] w-full bg-black">
-                  <Image
-                    src={card.image}
-                    alt={card.imageAlt}
-                    fill
-                    className="object-contain p-6"
-                    sizes="(max-width: 640px) 100vw, 50vw"
-                  />
-                </div>
-                <div className="flex flex-1 flex-col p-7">
-                  <p className="text-[11px] font-extrabold uppercase tracking-[0.18em] text-[#FF2D8E]">
-                    {card.tag}
-                  </p>
-                  <h3 className="mt-2 font-serif text-[27px] font-bold text-white">{card.name}</h3>
-                  <p className="mt-3 text-[15px] leading-relaxed text-white/70">{card.body}</p>
-                  <div className="mt-4 grid grid-cols-3 gap-2.5">
-                    <div className="rounded-xl border border-[#FF2D8E]/35 px-3 py-2.5 text-center">
-                      <div className="text-[10px] font-extrabold uppercase tracking-wider text-white/50">
-                        Goal
-                      </div>
-                      <div className="mt-0.5 text-sm font-bold">{card.goal}</div>
-                    </div>
-                    <div className="rounded-xl border border-[#FF2D8E]/35 px-3 py-2.5 text-center">
-                      <div className="text-[10px] font-extrabold uppercase tracking-wider text-white/50">
-                        Form
-                      </div>
-                      <div className="mt-0.5 text-sm font-bold">{card.form}</div>
-                    </div>
-                    <div className="rounded-xl border border-[#FF2D8E]/35 px-3 py-2.5 text-center">
-                      <div className="text-[10px] font-extrabold uppercase tracking-wider text-white/50">
-                        From
-                      </div>
-                      <div className="mt-0.5 text-sm font-bold">${card.fromUsd}/mo</div>
-                    </div>
-                  </div>
-                  <div className="mt-5 flex flex-wrap gap-3">
-                    <JourneyPinkBtn href={card.href} className="!px-5 !py-2.5 !text-[15px]">
-                      {card.name === "Shop all protocols" ? "Shop peptides" : "Start intake"}
-                    </JourneyPinkBtn>
-                    {"learnHref" in card && card.learnHref ? (
-                      <Link
-                        href={card.learnHref}
-                        className="inline-flex items-center text-sm font-bold text-[#FF2D8E] hover:text-white"
-                      >
-                        How it works →
-                      </Link>
-                    ) : null}
-                  </div>
-                </div>
-              </article>
-            ))}
-          </div>
-          <div className="mt-10 overflow-hidden rounded-[18px] border border-white/14">
-            <div className="hidden grid-cols-[1.4fr_1.4fr_1.2fr_0.9fr] gap-3 bg-[#140109] px-6 py-4 text-xs font-extrabold uppercase tracking-wider text-white/60 sm:grid">
-              <div>Protocol</div>
-              <div>Best for</div>
-              <div>How it&apos;s used</div>
-              <div>From</div>
-            </div>
-            {PROTOCOLS.filter((row) => row.name !== "Shop all protocols").map((row) => (
-              <div
-                key={row.name}
-                className="grid grid-cols-1 gap-1 border-t border-white/10 px-6 py-4 text-[15px] sm:grid-cols-[1.4fr_1.4fr_1.2fr_0.9fr] sm:items-center sm:gap-3"
-              >
-                <div className="font-serif text-lg font-bold text-[#FF2D8E]">{row.name}</div>
-                <div className="text-white/85">{row.goal}</div>
-                <div className="hidden text-white/85 sm:block">{row.form}</div>
-                <div className="text-white/85">${row.fromUsd}/mo</div>
-              </div>
-            ))}
-          </div>
-          <p className="mt-8 max-w-3xl border-l-[3px] border-[#FF2D8E] pl-5 text-base leading-relaxed text-white/85">
-            <strong className="text-white">How we choose your protocol:</strong> Ryan matches the
-            compound, format, and dose to your labs and goals — never a one-click cart. Bring questions;
-            leave with a plan.
-          </p>
-        </div>
-      </section>
+      <PeptideShopShelf />
 
       <section className="px-6 py-16 lg:py-24">
         <div className="mx-auto max-w-[1200px]">
