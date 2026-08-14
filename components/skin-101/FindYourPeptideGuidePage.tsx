@@ -574,7 +574,7 @@ export function FindYourPeptideGuidePage({
               Ready to find your peptide protocol?
             </h2>
             <p className="mb-8 font-medium text-white/90">
-              $49 peptide consult · NP on site 7 days a week · {SITE.phone}
+              $49 peptide consult · NP on site 6 days a week · {SITE.phone}
             </p>
             <div className="flex flex-col justify-center gap-4 sm:flex-row">
               <CTA

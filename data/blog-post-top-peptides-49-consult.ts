@@ -200,7 +200,7 @@ ${PEPTIDE_SPECIAL_FAQ.map((f) => `### ${f.question}\n\n${f.answer}`).join("\n\n"
 
 The peptides above are **in demand for a reason** — each one solves a different problem. The mistake is buying before you know which problem is yours.
 
-**$49 peptide consultation** · **Medication priced after your plan** · **NP on site 7 days a week**
+**$49 peptide consultation** · **Medication priced after your plan** · **NP on site 6 days a week**
 
 📞 **(630) 636-6193**  
 🌐 **[Book your consult](/book)**  

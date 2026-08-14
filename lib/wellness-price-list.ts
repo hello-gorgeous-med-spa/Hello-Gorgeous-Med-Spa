@@ -402,7 +402,7 @@ export const WELLNESS_PRICE_LIST_SECTIONS: WellnessPriceListSection[] = [
     number: "05",
     title: "Hormone therapy",
     eyebrow: "BioTE · TRT · women's HRT",
-    intro: "Lab-guided hormone optimization with Ryan Kent, FNP-BC on site seven days a week. Free hormone consult — your quote is confirmed before you commit.",
+    intro: "Lab-guided hormone optimization with Ryan Kent, FNP-BC on site six days a week. Free hormone consult — your quote is confirmed before you commit.",
     items: HORMONE_ITEMS,
     footerNote:
       "BioTE pellet insertion fees and optimization-level monitoring are typically out-of-pocket. HSA/FSA eligible — itemized receipts available.",

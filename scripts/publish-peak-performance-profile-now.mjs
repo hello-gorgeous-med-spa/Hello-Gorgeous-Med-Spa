@@ -20,7 +20,7 @@ A wellness lab panel for energy, hormones, metabolism & heart health — results
 
 For women + men who want real data behind wellness, weight, hormones & performance.
 
-Ryan Kent, FNP-BC on site 7 days a week · serving Naperville, Aurora & Plainfield.
+Ryan Kent, FNP-BC on site 6 days a week · serving Naperville, Aurora & Plainfield.
 
 👉 Book your lab panel: hellogorgeousmedspa.com/app`;
 

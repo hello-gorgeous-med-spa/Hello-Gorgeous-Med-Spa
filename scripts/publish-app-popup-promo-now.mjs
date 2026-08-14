@@ -18,7 +18,7 @@ Scan the QR · add to your home screen in seconds. No App Store download.
 ✓ Vitamin Bar · deals · gift cards · rewards
 ✓ Add to home screen — one tap forever
 
-Ryan Kent, FNP-BC on site 7 days a week · serving Naperville, Aurora & Plainfield.
+Ryan Kent, FNP-BC on site 6 days a week · serving Naperville, Aurora & Plainfield.
 
 👉 Open the app: hellogorgeousmedspa.com/app`;
 

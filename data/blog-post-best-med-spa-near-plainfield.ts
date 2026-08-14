@@ -46,7 +46,7 @@ export const bestMedSpaNearPlainfieldPost: BlogPost = {
     {
       question: "What makes Hello Gorgeous different from other med spas near Plainfield?",
       answer:
-        "A full-authority nurse practitioner (Danielle Alcala-Glazier) on site as owner, a board-certified Family Nurse Practitioner medical director (Ryan Kent, FNP-BC), 100% authentic products, and FDA-cleared InMode Class IV lasers (Morpheus8 Burst, Quantum RF, Solaria CO2).",
+        "A full-authority nurse practitioner on site (Ryan Kent, FNP-BC), a physician Medical Director (Dr. Mukesh Arora, MD), 100% authentic products, and FDA-cleared InMode Class IV lasers (Morpheus8 Burst, Quantum RF, Solaria CO2).",
     },
     {
       question: "Is it worth driving from Plainfield to Oswego for a med spa?",
@@ -61,8 +61,8 @@ This guide covers what Plainfield-area clients ask most — Botox pricing, medic
 
 ## Why Plainfield clients choose Hello Gorgeous
 
-- **A full-authority nurse practitioner on site as owner** — Danielle Alcala-Glazier — so clinical decisions are made by a medical provider, not a salesperson.
-- **A board-certified medical director**, Ryan Kent, **FNP-BC**, overseeing advanced and prescription treatments.
+- **A full-authority nurse practitioner on site** — Ryan Kent, **FNP-BC** — so clinical decisions are made by a medical provider, not a salesperson.
+- **A physician Medical Director**, Dr. Mukesh Arora, **MD**, overseeing the medical program.
 - **100% authentic products.** Genuine Allergan and Galderma neurotoxins and fillers, pharmacy-grade medications — no gray-market shortcuts.
 - **FDA-cleared InMode Class IV lasers** — Morpheus8 Burst, Quantum RF, and Solaria CO2 — technology most Plainfield-area spas simply don't have.
 - **Consult-first, same-day when possible.** We confirm candidacy before we treat.

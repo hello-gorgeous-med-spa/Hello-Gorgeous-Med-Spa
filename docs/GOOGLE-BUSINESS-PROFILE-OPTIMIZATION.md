@@ -6,7 +6,7 @@ Use this checklist to optimize your Google Business Profile (GBP) for local SEO 
 
 **Recommended description:**
 
-> Hello Gorgeous Med Spa is the #1 Best Med Spa in Oswego, IL — recognized as Best of Oswego for Best Med Spa, Best Skincare Clinic, Best Medical Weight Loss, and Best Facial Treatments. We are the only Oswego-area med spa with a full-authority nurse practitioner on site as owner, plus Quantum RF, Morpheus8 Burst, and Solaria CO2 fractional laser — the latest Class 4 medical laser technology.
+> Hello Gorgeous Med Spa is the #1 Best Med Spa in Oswego, IL — recognized as Best of Oswego for Best Med Spa, Best Skincare Clinic, Best Medical Weight Loss, and Best Facial Treatments. We are the only Oswego-area med spa with a full-authority nurse practitioner on site, plus Quantum RF, Morpheus8 Burst, and Solaria CO2 fractional laser — the latest Class 4 medical laser technology.
 >
 > We offer Botox ($10/unit), dermal fillers, medical weight loss (Semaglutide & Tirzepatide), hormone therapy (BioTE), peptide therapy, PRP/PRF, Morpheus8, Quantum RF, Solaria CO2 laser, laser hair removal, facials, IV therapy, and more. All under one roof with licensed medical oversight.
 >

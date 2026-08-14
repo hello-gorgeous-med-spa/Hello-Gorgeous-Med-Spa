@@ -1,3 +1,5 @@
+import type { Metadata } from "next";
+
 import { MEDSPA_OPS_EMAIL } from "@/lib/business-contact";
 import { HG_TAGLINE } from "@/lib/brand-tagline";
 import { daniPersonJsonLd, ryanPersonJsonLd } from "@/lib/founder-credentials";
@@ -286,7 +288,7 @@ export const SERVICES: readonly Service[] = [
       {
         question: "Who performs biostimulator treatments?",
         answer:
-          "Licensed injectors under Ryan Kent, FNP-BC, on-site nurse practitioner, seven days a week — with Medical Director Dr. Mukesh Arora, MD.",
+          "Licensed injectors under Ryan Kent, FNP-BC, on-site nurse practitioner, six days a week — with Medical Director Dr. Mukesh Arora, MD.",
       },
     ],
   },
@@ -1268,7 +1270,7 @@ export function siteJsonLd(opts?: { aggregateRating?: AggregateRatingOverride | 
       "Best of Oswego — Best Skincare Clinic",
       "Best of Oswego — Best Medical Weight Loss",
       "Best of Oswego — Best Facial Treatments",
-      "Full-authority nurse practitioner on site as owner",
+      "Full-authority nurse practitioner on site",
       "Only Oswego-area med spa with Quantum RF, Morpheus8 Burst, and Solaria CO2",
       "Class 4 medical lasers",
     ],

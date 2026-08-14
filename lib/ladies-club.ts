@@ -217,7 +217,7 @@ export const LADIES_CLUB_BIOTE_QUICK_FACTS = [
   { label: "Pellet insertion", value: "$400–650", note: "Typical women's BioTE visit" },
   { label: "Baseline labs", value: "$250–450", note: "Before any pellet therapy" },
   { label: "Duration", value: "3–5 mo", note: "Steady hormone release per pellet" },
-  { label: "Provider", value: "FNP-BC", note: "Ryan Kent on site 7 days" },
+  { label: "Provider", value: "FNP-BC", note: "Ryan Kent on site 6 days" },
 ] as const;
 
 export const LADIES_CLUB_BIOTE_INCLUDED = {

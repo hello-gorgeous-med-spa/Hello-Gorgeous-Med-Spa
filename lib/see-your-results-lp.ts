@@ -34,7 +34,7 @@ export const SEE_YOUR_RESULTS_HERO = {
     "HG Face Blueprint™ — AI-assisted visualization that helps you preview treatments on your own face. Then book with our NP-directed team.",
   primaryCta: { label: "Try Face Blueprint™", href: FACE_BLUEPRINT_HREF },
   secondaryCta: { label: PRIMARY_BOOKING_CTA.label, href: PRIMARY_BOOKING_CTA.href },
-  proof: `${SITE.visitReviewRating}★ from ${SITE.visitReviewCount}+ verified visits · NP on site daily`,
+  proof: `${SITE.visitReviewRating}★ from ${SITE.visitReviewCount}+ verified visits · NP on site 6 days`,
 } as const;
 
 export type ResultsShowcaseCase = {

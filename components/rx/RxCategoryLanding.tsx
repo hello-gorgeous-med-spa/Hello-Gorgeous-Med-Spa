@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useMemo, useState } from "react";
 
+import { ClinicalReview } from "@/components/ClinicalReview";
 import {
   CatalogBrandLockup,
   ProductCard,
@@ -393,6 +394,12 @@ export function RxCategoryLanding({ hub }: { hub: RxCategoryHub }) {
       ) : null}
 
       <CategoryFaq faq={faq} hubId={hubId} />
+
+      <section className="bg-transparent px-4 py-10">
+        <div className="mx-auto max-w-3xl">
+          <ClinicalReview />
+        </div>
+      </section>
 
       <ClosingCta shopHref={shopHref} intakeHref={getCategoryIntakeRoute(hubId).intakePath} />
 

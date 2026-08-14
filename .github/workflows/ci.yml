@@ -49,6 +49,16 @@ jobs:
       - name: Run lint
         run: npm run lint
 
+      # next.config.js sets typescript.ignoreBuildErrors, so `npm run build` proves nothing
+      # about types. This is a scoped strict gate over the RX / RE GEN catalog surface only.
+      - name: Typecheck RX catalog surface
+        run: npm run typecheck:rx
+
+      # Asserts the client-facing catalog invariants (real prices, hub cards resolving to
+      # real products of the advertised form, BoomRx sheet coverage, buildable stacks).
+      - name: Check RX catalog invariants
+        run: npm run check:rx-catalog
+
       - name: Run build
         run: npm run build
 

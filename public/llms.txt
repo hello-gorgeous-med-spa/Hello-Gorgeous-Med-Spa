@@ -144,7 +144,7 @@
   - https://www.hellogorgeousmedspa.com/api/public/personalization/context
 
 ## About Us
-Hello Gorgeous Med Spa is a full-service medical spa located at 74 W. Washington Street in Oswego, Illinois (60543). Founded by Danielle Alcala, we specialize in aesthetic medicine and wellness treatments. Our Medical Director is Ryan Kent, FNP-BC, a full-authority nurse practitioner on site as owner. We have the NEWEST Morpheus8 Burst technology — deepest RF microneedling at 8mm for face AND body — and are the only med spa in Oswego, Naperville, Aurora, or Plainfield with Morpheus8 Burst, Quantum RF, and Solaria CO2.
+Hello Gorgeous Med Spa is a full-service medical spa located at 74 W. Washington Street in Oswego, Illinois (60543). Founded by Danielle Alcala, we specialize in aesthetic medicine and wellness treatments. Our on-site nurse practitioner and co-founder is Ryan Kent, FNP-BC, with full Illinois prescriptive authority; our Medical Director is Dr. Mukesh Arora, MD. We have the NEWEST Morpheus8 Burst technology — deepest RF microneedling at 8mm for face AND body — and are the only med spa in Oswego, Naperville, Aurora, or Plainfield with Morpheus8 Burst, Quantum RF, and Solaria CO2.
 
 We serve clients from Naperville, Aurora, Plainfield, Yorkville, Montgomery, Sugar Grove, and throughout Kendall and Kane Counties. We are approximately 15-20 minutes from most western Chicago suburbs.
 
@@ -197,7 +197,8 @@ Open 7 days a week (sync with Google Business Profile and Square):
 
 ## Team
 - **Danielle Alcala**: Business Owner, Licensed Esthetician, RN Student, Phlebotomist, CMAA, CNA. Owned and operated Hello Gorgeous since 2017. Practices with heart; believes in accessible self-care, not breaking the bank. Inspired by Steel Magnolias—family and friends making a difference. "You can't break me. I'm here for the long haul. I will do whatever it takes to take care of my clients and be the person that made the difference. I live for that."
-- **Ryan Kent, FNP-BC**: Medical Director with full prescriptive authority for weight loss, hormone therapy, and medical treatments.
+- **Ryan Kent, FNP-BC**: On-site nurse practitioner with full Illinois prescriptive authority for weight loss, hormone therapy, peptides, and medical treatments. On site six days a week in Oswego.
+- **Dr. Mukesh Arora, MD**: Medical Director (Internal Medicine) — physician medical oversight for the practice.
 
 ## Booking & Payment
 - Free consultations available for most services
@@ -228,7 +229,7 @@ Hello Gorgeous Med Spa is recognized as Best of Oswego: #1 Best Med Spa, Best Sk
 ## Unique Differentiators
 - **NEWEST Morpheus8 Burst for face AND body** — deepest RF at 8mm. Only med spa in Oswego, Naperville, Aurora, Plainfield with this technology. Picked first for skin tightening and body contouring.
 - **#1 Best Med Spa in Oswego** — Best of Oswego rankings
-- **Full-authority nurse practitioner on site as owner** — Ryan Kent, FNP-BC
+- **Full-authority nurse practitioner on site six days a week** — Ryan Kent, FNP-BC, under Medical Director Dr. Mukesh Arora, MD
 - **Only med spa with Morpheus8 Burst, Quantum RF, Solaria CO2** — latest InMode technology
 - **Class 4 medical lasers** — advanced skin resurfacing, body contouring, and RF microneedling
 - Botox at $10/unit (competitive pricing)

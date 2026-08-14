@@ -114,7 +114,7 @@ export const FACEBOOK_PAGE_PRESET_SIGNATURE_MENU: FacebookPagePreset = {
 
 Botox as low as $9/unit (first-time) · Lip filler $450 · Morpheus8 Burst 3×$1,999 · Solaria CO₂ $899 · Quantum RF · Trifecta package with FREE CO₂.
 
-NP on site 7 days a week. Book online 👇`,
+NP on site 6 days a week. Book online 👇`,
   linkPath: withUtm("/specials"),
   imagePath: "/images/promo/signature-treatment-menu-poster.png",
   defaultChannels: ["facebook", "instagram", "google"],
@@ -396,7 +396,7 @@ export const FACEBOOK_PAGE_PRESET_BOTOX_49: FacebookPagePreset = {
 
 Honest, published pricing — the same for everyone, no membership required. Botox · Dysport · Jeuveau.
 
-Ryan Kent, FNP-BC on site 7 days a week · 10+ years injecting · same-day often available.
+Ryan Kent, FNP-BC on site 6 days a week · 10+ years injecting · same-day often available.
 
 Free consultation, every time — we won't talk you into units you don't need. Serving Naperville, Aurora & Plainfield.
 
@@ -702,7 +702,7 @@ Two free guides in plain language:
 
 No jargon. No pressure. Just honest science from your Oswego med spa.
 
-Hello Gorgeous Med Spa · NP on site 7 days a week · Free consults 👇`,
+Hello Gorgeous Med Spa · NP on site 6 days a week · Free consults 👇`,
   linkPath: withUtm("/skin-101"),
   imagePath: "/images/homepage-services/anteage-md-brightening.png",
   defaultChannels: ["facebook", "google"],
@@ -721,7 +721,7 @@ Not sure what the difference is? You are not alone.
 • PDRN — salmon DNA repair signaling (glass skin)
 • PN — longer-chain polynucleotides (structural remodeling)
 
-Hello Gorgeous Med Spa · Oswego, IL · NP on site 7 days a week.
+Hello Gorgeous Med Spa · Oswego, IL · NP on site 6 days a week.
 
 Read the full guide (free consult link inside) 👇`,
   linkPath: withUtm("/blog/prp-vs-prf-vs-pdrn-vs-pn-skin-boosters-oswego-il"),

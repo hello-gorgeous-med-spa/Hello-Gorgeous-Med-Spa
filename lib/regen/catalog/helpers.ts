@@ -111,7 +111,10 @@ export function goalCounts(products: CatalogProduct[]): Record<string, number> {
   return counts;
 }
 
-export const SHOP_GOALS: CatalogGoalId[] = [
+/** A goal a shopper can browse. "Supplies" is a kit consumable, never its own card. */
+export type ShopGoalId = Exclude<CatalogGoalId, "Supplies">;
+
+export const SHOP_GOALS: ShopGoalId[] = [
   "Lose Weight",
   "Recovery & Performance",
   "Intimacy",

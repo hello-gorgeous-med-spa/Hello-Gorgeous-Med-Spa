@@ -24,7 +24,7 @@ export const GC_TRT_HERO = {
   headlineMid: "Your.",
   headlineAccent: "Testosterone.",
   subhead:
-    "Lab-guided TRT in Oswego — injections, BioTE pellets, or cream. Ryan Kent, FNP-BC on site 7 days a week. Not telehealth-only — real relationship, real monitoring.",
+    "Lab-guided TRT in Oswego — injections, BioTE pellets, or cream. Ryan Kent, FNP-BC on site 6 days a week. Not telehealth-only — real relationship, real monitoring.",
 } as const;
 
 export type SymptomTransform = {

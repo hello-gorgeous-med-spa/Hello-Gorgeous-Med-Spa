@@ -354,12 +354,12 @@ export const MED_SPA_FAQ_SECTIONS: readonly FAQPageSection[] = [
       {
         question: "Who is Ryan Kent?",
         answer:
-          "Ryan Kent is our medical director and a board-certified Family Nurse Practitioner (FNP-BC) with full prescriptive authority in Illinois. He oversees all medical treatments and he's on-site 7 days a week!",
+          "Ryan Kent is our on-site nurse practitioner — a board-certified Family Nurse Practitioner (FNP-BC) with full prescriptive authority in Illinois. He directs our medical treatments and is on site 6 days a week, under Medical Director Dr. Mukesh Arora, MD.",
       },
       {
         question: 'What does "full prescriptive authority" mean?',
         answer:
-          "It means Ryan can prescribe medications independently without needing a physician to oversee him. He's fully qualified to manage your medical weight loss, hormone therapy, and prescription treatments.",
+          "It means Ryan can prescribe medications independently under Illinois law. He manages your medical weight loss, hormone therapy, and prescription treatments, with Dr. Mukesh Arora, MD serving as the practice's Medical Director.",
       },
       {
         question: "Who is Danielle?",
@@ -388,9 +388,9 @@ export const MED_SPA_FAQ_SECTIONS: readonly FAQPageSection[] = [
           "We're family-owned and operated — Dani is still here every day. We're not a corporate chain. Plus, we're the ONLY med spa in the Oswego/Naperville/Aurora area with all THREE InMode devices (Morpheus8 Burst, Quantum RF, and Solaria CO₂)!",
       },
       {
-        question: "Do you have a medical director on-site?",
+        question: "Is there a medical provider on-site?",
         answer:
-          "Yes! Ryan Kent is on-site 7 days a week, which is rare for med spas. You have full medical oversight and safety for every treatment.",
+          "Yes! Ryan Kent, FNP-BC, our nurse practitioner, is on site 6 days a week — which is rare for med spas — with Dr. Mukesh Arora, MD as our Medical Director. You have medical oversight for every treatment.",
       },
       {
         question: "Have you won any awards?",
@@ -411,7 +411,7 @@ export const MED_SPA_FAQ_SECTIONS: readonly FAQPageSection[] = [
       {
         question: "Is this safe?",
         answer:
-          "Absolutely! All of our treatments are performed or overseen by licensed medical professionals. Ryan Kent, our medical director, is on-site 7 days a week. We use FDA-approved devices and products.",
+          "Absolutely! All of our treatments are performed or overseen by licensed medical professionals. Ryan Kent, FNP-BC, our on-site nurse practitioner, is here 6 days a week. We use FDA-approved devices and products.",
       },
       {
         question: "I've heard horror stories about Botox and fillers...",

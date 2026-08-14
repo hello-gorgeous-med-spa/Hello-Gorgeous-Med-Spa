@@ -286,7 +286,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
               Ready to Experience Hello Gorgeous?
             </h2>
             <p className="text-white/60 mb-8">
-              NP on site 7 days a week. Same-day consultations and prescriptions available.
+              NP on site 6 days a week. Same-day consultations and prescriptions available.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link

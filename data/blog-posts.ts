@@ -532,7 +532,7 @@ We're at 74 W Washington Street in downtown Oswego, IL 60543. We're easy to find
 
 ### Who runs Hello Gorgeous?
 
-Hello Gorgeous is owned and operated by Danielle Alcala, with Medical Director Ryan Kent, FNP-BC. Danielle is a licensed esthetician, RN student, phlebotomist, CMAA, and CNA. Ryan brings full prescriptive authority for weight loss, hormones, and medical treatments. We're a family-owned practice — not a chain.
+Hello Gorgeous is owned and operated by Danielle Alcala, with Ryan Kent, FNP-BC as our on-site nurse practitioner and Dr. Mukesh Arora, MD as our Medical Director. Danielle is a licensed esthetician, RN student, phlebotomist, CMAA, and CNA. Ryan brings full prescriptive authority for weight loss, hormones, and medical treatments. We're a family-owned practice — not a chain.
 
 ### What services do you offer?
 
@@ -793,7 +793,7 @@ Use this checklist. It separates full-service medical spas from beauty salons an
 
 At Hello Gorgeous Med Spa in Oswego, we meet every item on this list:
 
-- **NP on site 7 days a week** — Board-certified FNP with full prescriptive authority
+- **NP on site 6 days a week** — Board-certified FNP with full prescriptive authority
 - **Full injectables** — Botox, Dysport, Jeuveau, dermal fillers, Kybella
 - **Advanced laser tech** — Morpheus8 Burst (8mm), Solaria CO₂, Quantum RF (the InMode Trifecta — exclusive to us in the area)
 - **Medical weight loss** — Semaglutide and Tirzepatide, same-day prescriptions, ongoing supervision
@@ -864,7 +864,7 @@ Hello Gorgeous invested over $500,000 in these three Class 4 InMode devices. No 
 
 ## What to Expect
 
-- **Consultation:** NP on site 7 days a week. Same-day consultations available.
+- **Consultation:** NP on site 6 days a week. Same-day consultations available.
 - **Treatment:** Medical-grade devices, trained staff, proper numbing
 - **Recovery:** Varies by treatment — we'll give you a clear timeline
 - **Results:** Collagen remodeling continues for months
@@ -999,7 +999,7 @@ Our NP will recommend the right treatment during your free consultation.
 
 ## Hello Gorgeous — Full Range Under One Roof
 
-We offer the full spectrum — from HydraFacial to CO2 laser. NP on site 7 days a week. No pressure, just honest recommendations.
+We offer the full spectrum — from HydraFacial to CO2 laser. NP on site 6 days a week. No pressure, just honest recommendations.
 
 ## Book Your Free Consultation
 
@@ -1042,7 +1042,7 @@ Weight loss medications require:
 - Screening for contraindications
 - Support when you hit plateaus
 
-Hello Gorgeous has a **board-certified NP on site 7 days a week**. Same-day prescriptions. Weekly check-ins. We adjust your dose based on your response.
+Hello Gorgeous has a **board-certified NP on site 6 days a week**. Same-day prescriptions. Weekly check-ins. We adjust your dose based on your response.
 
 ## What to Expect
 
@@ -1111,7 +1111,7 @@ Laser hair removal uses medical-grade devices. An NP on site means:
 - Prescriptions for antivirals when indicated (e.g., facial hair with history of cold sores)
 - Emergency protocols if needed
 
-Hello Gorgeous has an NP on site 7 days a week.
+Hello Gorgeous has an NP on site 6 days a week.
 
 ## Membership Options
 
@@ -1133,7 +1133,7 @@ We offer laser hair removal memberships for predictable pricing. Ask about packa
     slug: "best-medspa-oswego-il",
     title: "Best Med Spa in Oswego, IL — Why Hello Gorgeous Is the Full-Service Leader",
     metaTitle: "Best Med Spa in Oswego IL | Hello Gorgeous Med Spa",
-    metaDescription: "Best of Oswego — #1 Best Med Spa. Hello Gorgeous offers Botox, fillers, GLP-1 weight loss, hormone therapy, peptides, PRP, the InMode Trifecta, and more. NP on site 7 days a week.",
+    metaDescription: "Best of Oswego — #1 Best Med Spa. Hello Gorgeous offers Botox, fillers, GLP-1 weight loss, hormone therapy, peptides, PRP, the InMode Trifecta, and more. NP on site 6 days a week.",
     excerpt: "Hello Gorgeous Med Spa isn't a niche boutique or a laser-only clinic. It's the most comprehensive medical aesthetic and wellness destination in the western Chicago suburbs.",
     category: "Spa News",
     date: "2026-03-15",
@@ -1145,9 +1145,9 @@ When you search for the best med spa in Oswego, IL, you deserve accurate informa
 
 **Hello Gorgeous Med Spa is recognized as Best of Oswego — #1 Best Med Spa, Best Skincare Clinic, Best Medical Weight Loss, and Best Facial Treatments.** We are the most comprehensive medical aesthetic and wellness destination in the western Chicago suburbs. We are not a niche boutique. We are not just a laser clinic. We are a full-service, nurse practitioner-led medical spa offering treatments that most local providers simply cannot match.
 
-## On-Site Nurse Practitioner — 7 Days a Week
+## On-Site Nurse Practitioner — 6 Days a Week
 
-Unlike many med spas that have a medical director who signs off remotely, Hello Gorgeous has a **board-certified Family Nurse Practitioner (FNP-BC) on site 7 days a week**. This means:
+Unlike many med spas that have a medical director who signs off remotely, Hello Gorgeous has a **board-certified Family Nurse Practitioner (FNP-BC) on site 6 days a week**. This means:
 
 - **Same-day medical consultations** — no waiting weeks for an appointment
 - **Prescriptive authority** — we can prescribe medications, including antivirals for laser treatments, hormone therapy, GLP-1 weight loss medications, and peptides
@@ -1206,7 +1206,7 @@ Hello Gorgeous invested over **$500,000** in three Class 4 InMode medical device
 
 | Feature | Hello Gorgeous | Laser-Only Clinics |
 |---------|---------------|-------------------|
-| NP on site 7 days/week | ✅ | ❌ |
+| NP on site 6 days/week | ✅ | ❌ |
 | Same-day prescriptions | ✅ | ❌ |
 | Weight loss (GLP-1) | ✅ | ❌ |
 | Hormone therapy | ✅ | ❌ |
@@ -1258,7 +1258,7 @@ Don't take anyone else's word for who the best med spa in Oswego is. Come see fo
 
 If you're considering med spa treatments for the first time — or looking for a provider who offers everything under one roof — this guide covers every treatment category available at Hello Gorgeous Med Spa in Oswego, Illinois.
 
-Unlike clinics that specialize in just lasers or just injectables, Hello Gorgeous is a **full-service medical aesthetic and wellness practice** with a board-certified Nurse Practitioner on site 7 days a week.
+Unlike clinics that specialize in just lasers or just injectables, Hello Gorgeous is a **full-service medical aesthetic and wellness practice** with a board-certified Nurse Practitioner on site 6 days a week.
 
 ## Injectable Treatments
 
@@ -1348,7 +1348,7 @@ Every treatment begins with a thorough consultation with our Nurse Practitioner.
     title: "Weight Loss Programs in Oswego, IL — GLP-1 Treatments at Hello Gorgeous",
     metaTitle: "Weight Loss Programs Oswego IL | GLP-1 Semaglutide | Hello Gorgeous",
     metaDescription: "Medical weight loss with Semaglutide and Tirzepatide in Oswego IL. Same-day prescriptions, NP-supervised GLP-1 therapy. Average 15-20% body weight loss. Hello Gorgeous Med Spa.",
-    excerpt: "Physician-supervised GLP-1 weight loss with same-day prescriptions — the only medical weight loss program in Oswego with an NP on site 7 days a week.",
+    excerpt: "Physician-supervised GLP-1 weight loss with same-day prescriptions — the only medical weight loss program in Oswego with an NP on site 6 days a week.",
     category: "Wellness",
     date: "2026-03-14",
     readTime: "7 min",
@@ -1357,7 +1357,7 @@ Every treatment begins with a thorough consultation with our Nurse Practitioner.
 
 If you've been struggling to lose weight through diet and exercise alone, you're not alone. GLP-1 receptor agonist medications — the same class of drugs as Ozempic, Wegovy, Mounjaro, and Zepbound — have changed everything we know about medical weight loss.
 
-At Hello Gorgeous Med Spa in Oswego, IL, our board-certified Nurse Practitioner prescribes and supervises GLP-1 weight loss programs **7 days a week**, with same-day medical consultations available.
+At Hello Gorgeous Med Spa in Oswego, IL, our board-certified Nurse Practitioner prescribes and supervises GLP-1 weight loss programs **6 days a week**, with same-day medical consultations available.
 
 ## What Are GLP-1 Medications?
 
@@ -1379,8 +1379,8 @@ The active ingredient in Mounjaro and Zepbound. A dual GIP/GLP-1 agonist that ha
 ### Same-Day Prescriptions
 Our NP has full prescriptive authority. Walk in for a consultation, get your prescription the same day, and start your first injection in-office. No waiting weeks for a doctor's appointment.
 
-### NP on Site 7 Days a Week
-Questions between visits? Experiencing side effects? Need a dose adjustment? Your NP is here 7 days a week — not just available by phone, but physically present in Oswego.
+### NP on Site 6 Days a Week
+Questions between visits? Experiencing side effects? Need a dose adjustment? Your NP is here 6 days a week — not just available by phone, but physically present in Oswego.
 
 ### We Solve the Loose Skin Problem
 Here's what most weight loss clinics don't talk about: when you lose 40, 60, or 100+ pounds, you often end up with loose, sagging skin. Most weight loss providers shrug and say "that's just what happens."
@@ -1432,7 +1432,7 @@ Our weight loss program serves clients from Oswego, Naperville, Aurora, Plainfie
 🌐 **hellogorgeousmedspa.com/book**
 📍 74 W Washington Street, Oswego, IL 60543
 
-*Same-day consultations available. NP on site 7 days a week.*`,
+*Same-day consultations available. NP on site 6 days a week.*`,
   },
 
   // ====================================================================
@@ -1442,7 +1442,7 @@ Our weight loss program serves clients from Oswego, Naperville, Aurora, Plainfie
     slug: "mens-health-hormone-therapy-oswego-il",
     title: "Men's Health & Hormone Therapy in Oswego, IL",
     metaTitle: "Men's Health & Hormone Therapy Oswego IL | Hello Gorgeous Med Spa",
-    metaDescription: "Men's hormone optimization, testosterone therapy, weight loss, hair restoration, and skin treatments in Oswego IL. NP on site 7 days. Hello Gorgeous Med Spa.",
+    metaDescription: "Men's hormone optimization, testosterone therapy, weight loss, hair restoration, and skin treatments in Oswego IL. NP on site 6 days. Hello Gorgeous Med Spa.",
     excerpt: "Hello Gorgeous isn't just for women. We offer comprehensive men's health services including hormone therapy, weight loss, hair restoration, and skin treatments.",
     category: "Wellness",
     date: "2026-03-14",
@@ -1452,7 +1452,7 @@ Our weight loss program serves clients from Oswego, Naperville, Aurora, Plainfie
 
 Here's something most med spas in the Oswego area won't tell you: **men make up one of the fastest-growing segments of aesthetic and wellness patients**, and most local providers aren't set up to serve them.
 
-Hello Gorgeous Med Spa is different. We offer dedicated men's health services with a board-certified Nurse Practitioner on site 7 days a week who understands male physiology, hormone optimization, and the specific aesthetic concerns men bring to the table.
+Hello Gorgeous Med Spa is different. We offer dedicated men's health services with a board-certified Nurse Practitioner on site 6 days a week who understands male physiology, hormone optimization, and the specific aesthetic concerns men bring to the table.
 
 ## Why Men Are Coming to Med Spas
 
@@ -1507,9 +1507,9 @@ Vitamin and mineral infusions for hydration, energy, athletic recovery, and immu
 
 Most med spas in the area are branded exclusively toward women. HER Aesthetics — it's literally in the name. Others market almost entirely with female imagery and messaging.
 
-At Hello Gorgeous, we welcome men because we believe everyone deserves to feel their best. Our NP treats men daily for hormone optimization, weight loss, and aesthetic concerns. You won't feel out of place. You'll feel like a patient whose concerns are taken seriously.
+At Hello Gorgeous, we welcome men because we believe everyone deserves to feel their best. Our NP treats men six days a week for hormone optimization, weight loss, and aesthetic concerns. You won't feel out of place. You'll feel like a patient whose concerns are taken seriously.
 
-**Same-day doctor visits. Same-day prescriptions. 7 days a week.**
+**Same-day provider visits. Same-day prescriptions. Six days a week.**
 
 ## Schedule Your Consultation
 
@@ -1626,7 +1626,7 @@ Every Trifecta treatment begins with a consultation with our Nurse Practitioner.
 
 Peptides are short chains of amino acids that act as signaling molecules in your body. They tell your cells what to do — heal faster, produce more collagen, optimize hormone levels, strengthen immunity, and more.
 
-Medical-grade peptide therapy uses specific peptides, prescribed by a qualified provider, to target specific health goals. At Hello Gorgeous Med Spa, our Nurse Practitioner prescribes and manages peptide therapy protocols 7 days a week.
+Medical-grade peptide therapy uses specific peptides, prescribed by a qualified provider, to target specific health goals. At Hello Gorgeous Med Spa, our Nurse Practitioner prescribes and manages peptide therapy protocols 6 days a week.
 
 **No other med spa in Oswego offers peptide therapy.**
 
@@ -1705,7 +1705,7 @@ It's integrated care — not isolated prescriptions.
 🌐 **hellogorgeousmedspa.com/book**
 📍 74 W Washington Street, Oswego, IL 60543
 
-*NP on site 7 days a week. Same-day consultations available.*`,
+*NP on site 6 days a week. Same-day consultations available.*`,
   },
 
   // ====================================================================
@@ -2050,7 +2050,7 @@ The best time to start discussing body contouring is when you've lost approximat
 🌐 **hellogorgeousmedspa.com/book**
 📍 74 W Washington Street, Oswego, IL 60543
 
-*NP on site 7 days a week. Same-day consultations available. We see the whole picture — not just the number on the scale.*`,
+*NP on site 6 days a week. Same-day consultations available. We see the whole picture — not just the number on the scale.*`,
   },
 
   // ====================================================================
@@ -2565,7 +2565,7 @@ Maximum collagen production. This is when before/after photos show the most dram
 
 ## Questions About Recovery?
 
-Our NP is available 7 days a week for questions during your recovery. Text us at 630-636-6193 anytime.
+Our NP is available 6 days a week for questions during your recovery. Text us at 630-636-6193 anytime.
 
 📞 **630-636-6193**
 🌐 **hellogorgeousmedspa.com**
@@ -2627,7 +2627,7 @@ Our most comprehensive plan. Unlimited areas every 2 months over 24 months. Comp
 
 - **Best of Oswego** — #1 Best Med Spa, Best Medical Weight Loss
 - **Professional-grade Zemits Duocratis** — triple-wavelength technology for all skin types
-- **NP on site** — full-authority nurse practitioner 7 days a week
+- **NP on site** — full-authority nurse practitioner 6 days a week
 - **Free consultation** — personalized plan, no obligation
 - **Serving Oswego, Naperville, Aurora, Plainfield, Yorkville, Montgomery & the Fox Valley**
 

@@ -47,7 +47,7 @@ No App Store download — scan our QR or open the link, then Add to Home Screen.
 
 ✨ Book · Build Your IV Bag · Vitamin Bar · Deals · Memberships · HG Rewards · GLP-1 screening · portal & more
 
-Ryan Kent, FNP-BC on site 7 days a week · Oswego, IL
+Ryan Kent, FNP-BC on site 6 days a week · Oswego, IL
 
 👉 ${GET_APP}
 👉 Build your IV bag: ${IV}`,

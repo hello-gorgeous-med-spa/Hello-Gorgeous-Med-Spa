@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
 
 import { ProductDetailPanel } from "@/components/regen/catalog/ProductDetailPanel";
+import { clinicalPageJsonLd } from "@/lib/medical-authority";
 import {
   CLIENT_VISIBLE_PRODUCTS,
   getCatalogProduct,
@@ -9,7 +10,7 @@ import {
   isClientVisibleProductId,
 } from "@/lib/regen/catalog";
 import { catalogClientPriceText } from "@/lib/regen/catalog/client-price";
-import { pageMetadata } from "@/lib/seo";
+import { pageMetadata, SITE } from "@/lib/seo";
 
 type Props = {
   params: Promise<{ id: string }>;
@@ -48,5 +49,21 @@ export default async function RegenProductPage({ params }: Props) {
    */
   if (!isClientVisibleProductId(product.id)) redirect("/rx/request");
 
-  return <ProductDetailPanel product={product} pageMode />;
+  const mono = getMonograph(product.drugKey);
+  const clinicalLd = clinicalPageJsonLd({
+    url: `${SITE.url}/rx/product/${product.id}`,
+    name: `${product.name} | RE GEN Shop`,
+    description: mono.tagline || `${product.name} — ${product.goal} · NP-reviewed Hello Gorgeous RX`,
+    siteUrl: SITE.url,
+  });
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(clinicalLd) }}
+      />
+      <ProductDetailPanel product={product} pageMode />
+    </>
+  );
 }

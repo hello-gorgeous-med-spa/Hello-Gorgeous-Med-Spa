@@ -13,6 +13,7 @@ import {
   HERO_DRUG_KEYS,
   bundlePrice,
   filterCatalogByPrice,
+  findClientProductByDrugKey,
   findProductByDrugKey,
   formGroup,
   getCatalogProduct,
@@ -218,9 +219,9 @@ export function RegenCatalogPortal({
 
   const bestSellers = useMemo(
     () =>
-      HERO_DRUG_KEYS.map((k) => findProductByDrugKey(k)).filter(
-        (p): p is CatalogProduct => !!p && (!isPublicShop || isClientVisibleProduct(p)),
-      ),
+      HERO_DRUG_KEYS.map((k) =>
+        isPublicShop ? findClientProductByDrugKey(k) : findProductByDrugKey(k),
+      ).filter((p): p is CatalogProduct => !!p && (!isPublicShop || isClientVisibleProduct(p))),
     [isPublicShop],
   );
 
@@ -228,11 +229,15 @@ export function RegenCatalogPortal({
   const popularProducts = isPublicShop ? bestSellers.slice(0, 3) : bestSellers;
 
   const bundles = useMemo(
-    () =>
-      CATALOG_BUNDLES.map((b) => {
+    () => {
+      /** Clients get the SKU they can open; staff keep plain catalog order. */
+      const pickProduct = (drugKey: string) =>
+        isPublicShop ? findClientProductByDrugKey(drugKey) : findProductByDrugKey(drugKey);
+
+      return CATALOG_BUNDLES.map((b) => {
         const resolved = b.pick
           .map((pk) => {
-            const p = findProductByDrugKey(pk[0]);
+            const p = pickProduct(pk[0]);
             if (!p) return null;
             return {
               id: p.id,
@@ -261,7 +266,7 @@ export function RegenCatalogPortal({
          * month of supplies. Staff keep all seven.
          */
         const clientVisible = b.pick.every((pk) => {
-          const p = findProductByDrugKey(pk[0]);
+          const p = pickProduct(pk[0]);
           if (!p) return false;
           return isKitComponentProduct(p) || isClientVisibleProduct(p);
         });
@@ -295,7 +300,8 @@ export function RegenCatalogPortal({
             openCart();
           },
         };
-      }),
+      });
+    },
     [addItem, openCart, isPublicShop],
   );
 

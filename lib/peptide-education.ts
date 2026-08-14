@@ -1381,6 +1381,7 @@ export const PEPTIDE_EDUCATION_GUIDES: PeptideEducationGuide[] = [
     series: "Hello Gorgeous · Peptide Therapy Series",
     headline: "BPC-157",
     subhead: "Body Protection Compound — widely discussed for gut lining, tissue repair, and recovery support.",
+    pills: [],
     available: false,
     teaser:
       "BPC-157 is covered in our Best use case guide (HEAL and WOLVERINE blends) and goal-matching table. Book a Hello Gorgeous RX™ consult to discuss whether it fits your goals.",
@@ -1392,6 +1393,7 @@ export const PEPTIDE_EDUCATION_GUIDES: PeptideEducationGuide[] = [
     series: "Hello Gorgeous · Peptide Therapy Series",
     headline: "Sermorelin",
     subhead: "Growth hormone–releasing peptide analog — sleep, recovery, and body composition when clinically appropriate.",
+    pills: [],
     available: false,
     teaser:
       "Sermorelin is discussed in hormone optimization and anti-aging protocols after labs and history review. Full guide coming soon — start with our goal-based peptide fit article or book a consult.",

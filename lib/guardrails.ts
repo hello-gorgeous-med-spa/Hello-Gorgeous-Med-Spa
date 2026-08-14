@@ -21,7 +21,7 @@ export function complianceFooter() {
 
 export function ryanSafetyOverrideReply(userText: string) {
   return [
-    "I’m Ryan Kent, FNP‑BC (Medical Director).",
+    "I’m Ryan Kent, FNP‑BC, the nurse practitioner at Hello Gorgeous.",
     "",
     "Based on what you described, this could be urgent. I can’t diagnose online.",
     "If symptoms are severe, rapidly worsening, or involve breathing, vision changes, chest pain, or signs of an allergic reaction: seek urgent/emergency care now.",

@@ -3,7 +3,7 @@ import type { PersonaConfig } from "./types";
 export const ryan: PersonaConfig = {
   id: "ryan",
   displayName: "Ryan Kent, FNP‑BC",
-  role: "Medical Director Authority (clinical oversight & safety)",
+  role: "On-site nurse practitioner — prescriber (clinical oversight & safety)",
   tone: "Professional, calm, authoritative. Conservative. Compliance-safe.",
   allowedTopics: [
     "safety principles",

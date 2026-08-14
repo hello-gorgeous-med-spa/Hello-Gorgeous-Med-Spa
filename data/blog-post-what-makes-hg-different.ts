@@ -6,9 +6,9 @@ export const whatMakesHgDifferentPost: BlogPost = {
   metaTitle:
     "What Makes Hello Gorgeous Different | InMode Trifecta & NP On Site | Oswego IL",
   metaDescription:
-    "Four things that set Hello Gorgeous apart in Oswego, IL: Morpheus8, Solaria CO₂ & Quantum RF under one roof, Ryan Kent FNP-BC on site 7 days a week, open daily, family-owned 10+ years.",
+    "Four things that set Hello Gorgeous apart in Oswego, IL: Morpheus8, Solaria CO₂ & Quantum RF under one roof, Ryan Kent FNP-BC on site 6 days a week, open daily, family-owned 10+ years.",
   excerpt:
-    "You would have to leave Oswego to find this elsewhere — the InMode Trifecta, a nurse practitioner in the building every day, seven-day scheduling, and a founder still in the chair after ten years.",
+    "You would have to leave Oswego to find this elsewhere — the InMode Trifecta, a nurse practitioner in the building six days a week, seven-day scheduling, and a founder still in the chair after ten years.",
   category: "Our Story",
   date: "2026-05-24",
   readTime: "9 min",
@@ -27,7 +27,7 @@ export const whatMakesHgDifferentPost: BlogPost = {
     {
       question: "What makes Hello Gorgeous different from other med spas?",
       answer:
-        "Hello Gorgeous is the only med spa in the western Chicago suburbs with all three InMode Trifecta devices (Morpheus8 Burst, Solaria CO₂, Quantum RF), a nurse practitioner on site seven days a week, open seven days with same-day appointments, and a founder-owned practice operating in Oswego for more than ten years.",
+        "Hello Gorgeous is the only med spa in the western Chicago suburbs with all three InMode Trifecta devices (Morpheus8 Burst, Solaria CO₂, Quantum RF), a nurse practitioner on site six days a week, open seven days with same-day appointments, and a founder-owned practice operating in Oswego for more than ten years.",
     },
     {
       question: "Does Hello Gorgeous have Morpheus8, CO₂ laser, and Quantum RF?",
@@ -37,7 +37,7 @@ export const whatMakesHgDifferentPost: BlogPost = {
     {
       question: "Is there a nurse practitioner on site at Hello Gorgeous?",
       answer:
-        "Yes. Ryan Kent, FNP-BC, is Medical Director with full practice authority in Illinois and is on site seven days a week — not a remote name on a wall.",
+        "Yes. Ryan Kent, FNP-BC, is our on-site nurse practitioner with full practice authority in Illinois and is on site six days a week — not a remote name on a wall. Dr. Mukesh Arora, MD is our Medical Director.",
     },
     {
       question: "Is Hello Gorgeous open on weekends?",
@@ -80,7 +80,7 @@ Most aesthetic clinics offer **one** of these devices — usually a basic Morphe
 
 Many med spas list a medical director who is rarely on-site. The director may live in another city, review charts in batches, and never meet a client face to face. That is a common industry arrangement. It is also one we never wanted to operate under.
 
-**Ryan Kent, FNP-BC**, holds full practice authority in Illinois and is on-site at Hello Gorgeous **seven days a week**. He prescribes, evaluates, treats, and oversees every medical service the practice offers — directly. Not in absentia.
+**Ryan Kent, FNP-BC**, holds full practice authority in Illinois and is on-site at Hello Gorgeous **six days a week**. He prescribes, evaluates, treats, and oversees every medical service the practice offers — directly. Not in absentia.
 
 What that enables at Hello Gorgeous in Oswego:
 
@@ -146,7 +146,7 @@ Consultations are free and unrushed. You will meet Ryan, you will see the equipm
 
 ### What makes Hello Gorgeous different from other Oswego med spas?
 
-The InMode Trifecta under one roof, an on-site nurse practitioner seven days a week, seven-day scheduling, and family-owned leadership for 10+ years.
+The InMode Trifecta under one roof, an on-site nurse practitioner six days a week, seven-day scheduling, and family-owned leadership for 10+ years.
 
 ### Is Hello Gorgeous the only med spa with all three InMode devices locally?
 

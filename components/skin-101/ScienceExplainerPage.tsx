@@ -561,7 +561,7 @@ export function ScienceExplainerPage({
           <div className="relative z-10 max-w-3xl mx-auto text-center px-4">
             <h2 className="text-3xl md:text-4xl font-black text-white mb-4">Ready to talk through your skin goals?</h2>
             <p className="text-white/90 mb-8 font-medium">
-              Same-day consults often available · NP on site 7 days a week · {SITE.phone}
+              Same-day consults often available · NP on site 6 days a week · {SITE.phone}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <CTA href={BOOKING_URL} variant="outline" className="border-2 border-white text-white hover:bg-white hover:text-[#E6007E]">

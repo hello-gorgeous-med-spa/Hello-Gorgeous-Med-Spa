@@ -71,7 +71,7 @@ Pair it with **FREE Morpheus8 Burst** (fractional RF microneedling) for full-dep
 ## Why clients in Oswego choose Hello Gorgeous
 
 - **Only western suburbs med spa** with the full **InMode Trifecta** — Morpheus8 Burst · Solaria CO₂ · Quantum RF
-- **Ryan Kent, FNP-BC on site 7 days a week** — medical director oversight, not a rotating inject-only model
+- **Ryan Kent, FNP-BC on site 6 days a week** — medical director oversight, not a rotating inject-only model
 - **Family-owned for 10+ years** — Dani still in the chair; real follow-through after your treatment
 - **Cherry financing** — as low as 0% APR · [Apply at pay.withcherry.com/hellogorgeous](https://pay.withcherry.com/hellogorgeous)
 

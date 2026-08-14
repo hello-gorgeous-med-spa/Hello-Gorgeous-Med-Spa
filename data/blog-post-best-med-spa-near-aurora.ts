@@ -46,7 +46,7 @@ export const bestMedSpaNearAuroraPost: BlogPost = {
     {
       question: "What makes Hello Gorgeous different from other Aurora-area med spas?",
       answer:
-        "A full-authority nurse practitioner (Danielle Alcala-Glazier) on site as owner, a board-certified Family Nurse Practitioner medical director (Ryan Kent, FNP-BC), 100% authentic products, and FDA-cleared InMode Class IV lasers (Morpheus8 Burst, Quantum RF, Solaria CO2). We screen you like a medical practice — because we are one.",
+        "A full-authority nurse practitioner on site (Ryan Kent, FNP-BC), a physician Medical Director (Dr. Mukesh Arora, MD), 100% authentic products, and FDA-cleared InMode Class IV lasers (Morpheus8 Burst, Quantum RF, Solaria CO2). We screen you like a medical practice — because we are one.",
     },
     {
       question: "Is it worth driving from Aurora to Oswego for a med spa?",
@@ -63,8 +63,8 @@ This guide covers what Aurora-area clients ask most — Botox pricing, medical w
 
 Aurora is the second-largest city in Illinois, spanning Kane, DuPage, Kendall and Will counties. There's no shortage of places offering injectables. What's rare is the combination we built:
 
-- **A full-authority nurse practitioner on site as owner** — Danielle Alcala-Glazier — so clinical decisions are made by a medical provider, not a salesperson.
-- **A board-certified medical director**, Ryan Kent, **FNP-BC**, overseeing advanced and prescription treatments.
+- **A full-authority nurse practitioner on site** — Ryan Kent, **FNP-BC** — so clinical decisions are made by a medical provider, not a salesperson.
+- **A physician Medical Director**, Dr. Mukesh Arora, **MD**, overseeing the medical program.
 - **100% authentic products.** Genuine Allergan and Galderma neurotoxins and fillers, pharmacy-grade medications — no gray-market shortcuts.
 - **FDA-cleared InMode Class IV lasers** — Morpheus8 Burst, Quantum RF, and Solaria CO2 — technology most Aurora-area spas simply don't have.
 - **Consult-first, same-day when possible.** We confirm candidacy before we treat, and same-day appointments are often available.

@@ -35,7 +35,7 @@ export const howToChooseMedSpaOswegoPost: BlogPost = {
     {
       question: "Who oversees treatments at Hello Gorgeous Med Spa?",
       answer:
-        "Hello Gorgeous is owned by a full-authority nurse practitioner, Danielle Alcala-Glazier, and overseen by a board-certified Family Nurse Practitioner medical director, Ryan Kent, FNP-BC. Advanced and prescription treatments are medically supervised.",
+        "Hello Gorgeous has a full-authority nurse practitioner on site, Ryan Kent, FNP-BC, and a physician Medical Director, Dr. Mukesh Arora, MD. Advanced and prescription treatments are medically supervised.",
     },
     {
       question: "How do I know a med spa's products are genuine?",
@@ -63,7 +63,7 @@ Botox, dermal fillers, GLP-1 weight loss, and laser resurfacing are **medical** 
 ## The 7 questions to ask any Oswego med spa
 
 ### 1. Who actually screens and treats me?
-You want a **nurse practitioner or physician with prescriptive authority on site** — not just an aesthetician. At **[Hello Gorgeous](/best-med-spa-oswego-il)**, the owner is a full-authority NP (Danielle Alcala-Glazier), with a board-certified FNP medical director (Ryan Kent, FNP-BC) overseeing advanced care.
+You want a **nurse practitioner or physician with prescriptive authority on site** — not just an aesthetician. At **[Hello Gorgeous](/best-med-spa-oswego-il)**, Ryan Kent, FNP-BC is our on-site nurse practitioner with full Illinois prescriptive authority, and Dr. Mukesh Arora, MD is our Medical Director. Owner Danielle Alcala-Glazier is a licensed esthetician and runs the practice and client experience.
 
 ### 2. Are your products 100% genuine?
 Ask whether neurotoxins and fillers come straight from **Allergan and Galderma**, and whether each vial is verified. Gray-market product is a real risk in this industry — and a hard no.

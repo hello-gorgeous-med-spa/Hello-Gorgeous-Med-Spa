@@ -202,7 +202,7 @@ export async function POST(request: NextRequest) {
             body: `<div style="font-family:sans-serif;max-width:600px;margin:0 auto;padding:20px">
               <h2 style="color:#E91E8C">Hi ${firstName},</h2>
               <p>You've been an amazing part of the Hello Gorgeous family. We'd love to keep supporting your wellness journey with our VIP membership program.</p>
-              <p>Members get priority booking, exclusive pricing on treatments, and ongoing wellness support from our NP — 7 days a week.</p>
+              <p>Members get priority booking, exclusive pricing on treatments, and ongoing wellness support from our NP — 6 days a week.</p>
               <p><a href="${SITE_URL}/memberships" style="display:inline-block;background:#E91E8C;color:white;padding:14px 28px;border-radius:8px;text-decoration:none;font-weight:bold">Explore Membership Options</a></p>
               <p>— Danielle & Ryan<br>Hello Gorgeous Med Spa</p>
             </div>`,

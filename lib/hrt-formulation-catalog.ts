@@ -43,7 +43,8 @@ export type HrtIngredient = {
   name: string;
   tagline: string;
   audience: HrtAudience | "both";
-  symptomTags: string[];
+  /** Absent on adjuncts (anastrozole, enclomiphene) that are prescribed alongside a protocol rather than picked from a symptom. */
+  symptomTags?: string[];
   forms: HrtIngredientForm[];
   learnHref?: string;
 };

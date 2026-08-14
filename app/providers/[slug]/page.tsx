@@ -30,6 +30,16 @@ const SERVICE_TAGS = [
   { id: 'laser', name: 'Laser' },
 ];
 
+/**
+ * Provider rows store headshots as absolute hellogorgeousmedspa.com URLs. `next/image`
+ * rejects hosts that aren't in `remotePatterns`, which crashed this page, so own-domain
+ * URLs are served as local paths instead.
+ */
+function localImageSrc(src: string | null): string | null {
+  if (!src) return src;
+  return src.replace(/^https?:\/\/(www\.)?hellogorgeousmedspa\.com/i, '');
+}
+
 // Fallback provider data
 const FALLBACK_PROVIDERS: Record<string, Provider> = {
   'danielle': {
@@ -56,7 +66,7 @@ const FALLBACK_PROVIDERS: Record<string, Provider> = {
     credentials: RYAN_CREDENTIALS,
     bio: RYAN_PROVIDER_BIO,
     philosophy:
-      "Medical weight loss and hormone therapy built around safety, labs, and data. I'm on site seven days a week under Medical Director Dr. Mukesh Arora, MD — every clinical decision goes through our medical team.",
+      "Medical weight loss and hormone therapy built around safety, labs, and data. I'm on site six days a week under Medical Director Dr. Mukesh Arora, MD — every clinical decision goes through our medical team.",
     headshot_url: '/images/providers/ryan-kent-clinic.jpg',
     booking_url: PROVIDER_BOOKING_URL_RYAN,
     is_active: true,
@@ -77,6 +87,24 @@ interface Provider {
   booking_url: string | null;
   is_active: boolean;
   display_order: number;
+}
+
+/**
+ * Provider rows carry scheduling data, not marketing copy — bios are often blank.
+ * Fill the gaps from the canonical credential copy so the profile still reads fully.
+ */
+function withCanonicalCopy(slug: string, provider: Provider | null): Provider | null {
+  const fallback = FALLBACK_PROVIDERS[slug];
+  if (!provider || !fallback) return provider;
+  return {
+    ...provider,
+    title: provider.title || fallback.title,
+    credentials: provider.credentials || fallback.credentials,
+    bio: provider.bio || fallback.bio,
+    philosophy: provider.philosophy || fallback.philosophy,
+    headshot_url: provider.headshot_url || fallback.headshot_url,
+    booking_url: provider.booking_url || fallback.booking_url,
+  };
 }
 
 interface ProviderMedia {
@@ -232,7 +260,7 @@ export default function ProviderProfilePage() {
         const res = await fetch(`/api/providers/${slug}`);
         if (res.ok) {
           const data = await res.json();
-          setProvider(data.provider);
+          setProvider(withCanonicalCopy(slug, data.provider));
           setMedia(data.media || []);
         } else {
           // Use fallback data
@@ -298,9 +326,9 @@ export default function ProviderProfilePage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             {/* Photo */}
             <div className="relative aspect-[3/4] rounded-3xl overflow-hidden bg-gray-800">
-              {provider.headshot_url ? (
+              {localImageSrc(provider.headshot_url) ? (
                 <Image
-                  src={provider.headshot_url}
+                  src={localImageSrc(provider.headshot_url) as string}
                   alt={`${provider.first_name} ${provider.last_name || ''}`}
                   fill
                   className="object-cover object-top"

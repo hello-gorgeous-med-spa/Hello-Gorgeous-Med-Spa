@@ -7,7 +7,7 @@ export const tirzepatideProgramLetterPost: BlogPost = {
   metaTitle:
     "Our 10-Week Tirzepatide Program — A Founder's Letter | Hello Gorgeous Med Spa Oswego IL",
   metaDescription:
-    "A personal letter from Danielle Alcala on Hello Gorgeous Med Spa's new 10-week tirzepatide program in Oswego, IL — what it is, what it isn't, and the honest $600 details. Provider on site 7 days a week.",
+    "A personal letter from Danielle Alcala on Hello Gorgeous Med Spa's new 10-week tirzepatide program in Oswego, IL — what it is, what it isn't, and the honest $600 details. Provider on site 6 days a week.",
   excerpt:
     "I added our 10-week tirzepatide program because the women I love deserve real help, delivered by people who actually know them. Here's the honest truth about what it is, what it isn't, and what's included for $600.",
   category: "Our Story",
@@ -29,7 +29,7 @@ export const tirzepatideProgramLetterPost: BlogPost = {
     {
       question: "What is Hello Gorgeous's 10-week tirzepatide program?",
       answer:
-        "It's a medically guided weight-loss program at Hello Gorgeous Med Spa in Oswego, IL. For $600 you get a private consultation and medical eligibility review, your full 10-week supply of tirzepatide, simple at-home injection training, and provider-guided dosing with check-ins throughout. One easy weekly dose, with Ryan Kent, FNP-BC on site seven days a week.",
+        "It's a medically guided weight-loss program at Hello Gorgeous Med Spa in Oswego, IL. For $600 you get a private consultation and medical eligibility review, your full 10-week supply of tirzepatide, simple at-home injection training, and provider-guided dosing with check-ins throughout. One easy weekly dose, with Ryan Kent, FNP-BC on site six days a week.",
     },
     {
       question: "How much does the tirzepatide program cost?",
@@ -64,7 +64,7 @@ It is not a magic shot, and I won't insult you by pretending it is. It's a tool 
 
 Here's the part that matters most to me, and the part that makes us different from the clinics popping up on every corner.
 
-We are not a revolving-door prescription mill. At Hello Gorgeous, our medical director, **Ryan Kent, FNP-BC**, is on-site seven days a week. That means before anything is ever prescribed, you sit down with a real provider who reviews your health, answers your questions, and decides — *with* you — whether this is the right fit. It means your dosing is guided and adjusted by someone who knows your story, not handed to you by an app you'll never hear from again. And it means when you have a question at week three, there's a person here who actually picks up.
+We are not a revolving-door prescription mill. At Hello Gorgeous, our nurse practitioner, **Ryan Kent, FNP-BC**, is on-site six days a week. That means before anything is ever prescribed, you sit down with a real provider who reviews your health, answers your questions, and decides — *with* you — whether this is the right fit. It means your dosing is guided and adjusted by someone who knows your story, not handed to you by an app you'll never hear from again. And it means when you have a question at week three, there's a person here who actually picks up.
 
 This is a family-owned practice. I've been doing this for over ten years in Oswego, and I'm still here — still learning, still investing, still showing up. You are a person to us, not a chart number.
 

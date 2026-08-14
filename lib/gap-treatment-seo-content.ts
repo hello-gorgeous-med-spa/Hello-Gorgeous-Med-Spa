@@ -33,7 +33,7 @@ export const sculptraBiostimulatorSeo: TreatmentSeoConfig = {
   h1Accent: "Collagen You Build — Not Just Fill",
   heroSub: "Gradual, natural volume from the inside out.",
   heroBody:
-    "At Hello Gorgeous Med Spa in Oswego, IL, we offer FDA-approved biostimulators including Sculptra® (PLLA) for clients who want long-lasting collagen support — cheeks, temples, jawline, and global facial harmony. Medical oversight by Ryan Kent, FNP-BC, seven days a week.",
+    "At Hello Gorgeous Med Spa in Oswego, IL, we offer FDA-approved biostimulators including Sculptra® (PLLA) for clients who want long-lasting collagen support — cheeks, temples, jawline, and global facial harmony. Medical oversight by Ryan Kent, FNP-BC, six days a week.",
   priceFrom: "Consult for personalized quote",
   heroImage: "/images/services/hg-dermal-fillers.png",
   heroImageAlt:
@@ -55,7 +55,7 @@ export const sculptraBiostimulatorSeo: TreatmentSeoConfig = {
     { icon: "🎯", title: "Jawline & Lower Face", desc: "Support a sharper contour when skin laxity is the real issue." },
     { icon: "💎", title: "Skin Quality Over Time", desc: "Biostimulators improve firmness and glow as collagen rebuilds." },
     { icon: "🔄", title: "HA + Biostimulator Plans", desc: "We often combine instant HA refinement with long-game collagen." },
-    { icon: "👩‍⚕️", title: "NP-Led Assessment", desc: "Ryan Kent, FNP-BC, on site daily — not a remote medical director." },
+    { icon: "👩‍⚕️", title: "NP-Led Assessment", desc: "Ryan Kent, FNP-BC, on site six days a week — not a remote signature." },
     { icon: "📍", title: "10+ Years in Oswego", desc: "Family-owned practice — not a revolving injector door." },
   ],
   whyUs: [

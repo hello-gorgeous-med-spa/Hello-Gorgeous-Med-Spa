@@ -149,7 +149,7 @@ export const GENTLEMENS_CLUB_SERVICES: GentlemensClubService[] = [
     eyebrow: "Men's Health",
     title: "Hormone Optimization & TRT",
     description: "Lab-guided testosterone — injections, BioTE pellets, or topical protocols.",
-    bullets: ["Baseline labs ~$250–450", "TRT from $200–350/mo", "Ryan Kent, FNP-BC on site 7 days"],
+    bullets: ["Baseline labs ~$250–450", "TRT from $200–350/mo", "Ryan Kent, FNP-BC on site 6 days"],
     href: "/gentlemens-club/testosterone",
     cta: "TRT program →",
     badge: "RX",

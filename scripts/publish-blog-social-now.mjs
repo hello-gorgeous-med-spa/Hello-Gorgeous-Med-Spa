@@ -22,7 +22,7 @@ What that means for Fox Valley patients:
 
 What you CAN do now at Hello Gorgeous Med Spa, Oswego IL:
 💉 Medically supervised semaglutide & tirzepatide programs when appropriate
-👩‍⚕️ Ryan Kent, FNP-BC on site 7 days a week
+👩‍⚕️ Ryan Kent, FNP-BC on site 6 days a week
 📍 Serving Naperville · Aurora · Plainfield · Yorkville · Montgomery
 
 Read our clear local guide 👇
@@ -81,7 +81,7 @@ Book your free consult 👇`,
 
 Subdermal RF contouring — tighter skin, smoother texture, less laxity above the knees. No surgery. No extended downtime.
 
-👩‍⚕️ Ryan Kent, FNP-BC on site 7 days a week
+👩‍⚕️ Ryan Kent, FNP-BC on site 6 days a week
 📍 Only western suburbs practice with Quantum RF + full InMode Trifecta
 
 Individual results vary. Free consultation — link below 👇`,
@@ -95,7 +95,7 @@ Individual results vary. Free consultation — link below 👇`,
 
 Recovery · skin & collagen · body composition · longevity · energy · focus — match your goal to what we actually discuss at Hello Gorgeous Med Spa, Oswego IL.
 
-NP-led Hello Gorgeous RX™ · Ryan Kent FNP-BC on site 7 days a week.
+NP-led Hello Gorgeous RX™ · Ryan Kent FNP-BC on site 6 days a week.
 
 Read the goal-based guide 👇`,
     link: `${SITE_URL}/blog/which-peptide-is-right-for-you-oswego-il`,
@@ -110,7 +110,7 @@ Why she invested $500K+ in Morpheus8 Burst & Solaria CO₂ (not the TikTok trend
 
 🧬 Morpheus8 — rebuild collagen from underneath (up to 8mm depth)
 ✨ Solaria CO₂ — gold-standard surface resurfacing
-👩‍⚕️ Ryan Kent FNP-BC on site 7 days · honest consults · no pressure
+👩‍⚕️ Ryan Kent FNP-BC on site 6 days · honest consults · no pressure
 
 Read the full founder's letter 👇`,
     link: `${SITE_URL}/blog/founder-letter-morpheus8-solaria-oswego-il`,
@@ -130,7 +130,7 @@ Read the full founder's letter 👇`,
     message: `What makes Hello Gorgeous different in Oswego?
 
 ✓ ONLY western suburbs med spa with ALL 3 InMode devices — Morpheus8 · Solaria CO₂ · Quantum RF
-✓ Ryan Kent FNP-BC on site 7 DAYS a week
+✓ Ryan Kent FNP-BC on site 6 DAYS a week
 ✓ Open 7 days · same-day appointments
 ✓ Family-owned 10+ years — Dani still in the chair
 
@@ -172,7 +172,7 @@ Read the full Oswego guide 👇`,
 Build collagen gradually — temples, cheeks, jawline & skin quality over time (not instant filler).
 
 ✓ Hello Gorgeous Med Spa — 10+ years downtown Oswego
-✓ Ryan Kent, FNP-BC on site 7 days a week
+✓ Ryan Kent, FNP-BC on site 6 days a week
 ✓ Free consultation
 
 📍 74 W Washington St, Oswego
@@ -218,7 +218,7 @@ We aren't just a Botox clinic.
 We specialize in YOUR health — not selling syringes.
 
 💗 We don't want your money. We want your smile.
-👩‍⚕️ Ryan Kent, FNP-BC on site 7 days a week
+👩‍⚕️ Ryan Kent, FNP-BC on site 6 days a week
 🔬 $500K+ in Morpheus8 · Solaria CO₂ · Quantum RF technology
 
 Give us 10 minutes. No pressure. Just a real conversation.
@@ -232,7 +232,7 @@ Read the full founder's letter 👇`,
     message: `At Hello Gorgeous Med Spa in Oswego, IL — you do not just get one perspective. You get a team.
 
 👩 Danielle Alcala-Glazier — aesthetics, skin, the client experience you can relate to
-👨 Ryan Kent, FNP-BC — medical director on site 7 days a week, structure, symmetry & clinical care
+👨 Ryan Kent, FNP-BC — medical director on site 6 days a week, structure, symmetry & clinical care
 
 More comfort. Smarter plans. Better balance for men & women.
 
@@ -249,7 +249,7 @@ Read why our male + female provider team is a real advantage 👇`,
 • Dysport — faster onset, softer spread for forehead & 11s
 • Jeuveau — modern aesthetic-first option
 
-First-time Botox $10/unit · NP on site 7 days a week · authentic Allergan & Galderma products.
+First-time Botox $10/unit · NP on site 6 days a week · authentic Allergan & Galderma products.
 
 Read the full comparison 👇`,
     link: `${SITE_URL}/blog/botox-vs-dysport-vs-jeuveau-faq-oswego`,
@@ -263,7 +263,7 @@ Read the full comparison 👇`,
 🧬 Why we built our regenerative menu around AnteAGE®
 💎 Now offering AnteAGE P.E.A.R.L. — PDRN + exosomes/biosomes in one fusion treatment (pairs beautifully with RF microneedling)
 
-NP on site 7 days a week · authentic products · medical oversight you can trust.
+NP on site 6 days a week · authentic products · medical oversight you can trust.
 
 Read the full article 👇`,
     link: `${SITE_URL}/blog/aesthetic-injectables-anteage-pearl-oswego-il`,
@@ -307,7 +307,7 @@ No App Store download — scan our QR or open the link, then Add to Home Screen.
 • 🧬 Wellness hub — peptides, hormone optimization, Fullscript supplements
 • 👤 Me tab — portal, appointments, documents, referrals & your personal QR at checkout
 
-Ryan Kent, FNP-BC on site 7 days a week · Oswego, IL
+Ryan Kent, FNP-BC on site 6 days a week · Oswego, IL
 
 👉 Scan QR / get the app: ${SITE_URL}/get-app
 👉 Build your IV bag: ${SITE_URL}/app?iv=build
@@ -362,7 +362,7 @@ The Gentleman $99 · The Distinguished Gentleman $149
 
 Join in the Hello Gorgeous app (Membership tab) or tap the link for full details + flyers 👇
 
-Ryan Kent, FNP-BC on site 7 days a week · Naperville · Aurora · Plainfield`,
+Ryan Kent, FNP-BC on site 6 days a week · Naperville · Aurora · Plainfield`,
     link: `${SITE_URL}/monthly-memberships`,
     imagePath: "/images/gentlemens-club/gentlemens-club-hero.png",
   },

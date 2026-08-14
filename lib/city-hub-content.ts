@@ -26,7 +26,7 @@ export const CITY_HUB_PROFILES: Record<`${PrimaryCitySlug}-il`, CityHubProfile> 
     driveTime: "Downtown — walkable from Washington Street",
     primaryRoute: "74 W. Washington St. at the Fox River bridge",
     heroSubline:
-      "Your hometown med spa on Washington Street — NP on site seven days with Morpheus8 Burst, Solaria CO₂, and Hello Gorgeous RX under one roof.",
+      "Your hometown med spa on Washington Street — NP on site six days with Morpheus8 Burst, Solaria CO₂, and Hello Gorgeous RX under one roof.",
     localContext:
       "Hello Gorgeous is rooted in downtown Oswego: steps from the Fox River, local shops, and the village center clients already know. Kendall County families, teachers, nurses, and remote workers book injectables between errands, grab Morpheus8 consults after school pickup, and start GLP-1 or hormone programs without driving to Naperville or Chicago. We are not a franchise — Dani and Ryan Kent built this clinic for Oswego first, then the Fox Valley.",
     landmarks: ["Fox River", "downtown Washington St.", "village center"],

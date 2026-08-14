@@ -169,7 +169,7 @@ export default function JolietHubPage() {
             <div className="grid md:grid-cols-3 gap-8">
               {[
                 { icon: '💉', title: '$10/Unit Botox', desc: 'Authentic Allergan Botox at $10/unit. Most Joliet-area spas charge $12–$16/unit for the same product.' },
-                { icon: '👩‍⚕️', title: 'Full-Authority NPs', desc: 'Danielle Glazier-Alcala, FNP-C & Ryan Kent, FNP-BC. Not RNs or aestheticians — actual nurse practitioners with full prescriptive authority.' },
+                { icon: '👩‍⚕️', title: 'Full-Authority NP On Site', desc: 'Ryan Kent, FNP-BC — a board-certified nurse practitioner with full Illinois prescriptive authority — with physician oversight from Medical Director Dr. Mukesh Arora, MD.' },
                 { icon: '⭐', title: '#1 Rated in the Area', desc: `${SITE.reviewRating} stars across ${SITE.reviewCount}+ verified Google reviews. Consistently ranked the best med spa in the western suburbs.` },
                 { icon: '🔥', title: 'Advanced Devices', desc: 'Morpheus8, Solaria CO2 laser, Quantum RF — devices you won\'t find at every spa in Will County.' },
                 { icon: '💊', title: 'Medical Weight Loss', desc: 'Clinician-supervised semaglutide & tirzepatide. Real prescriptions. Real results. Not a wellness coaching program.' },

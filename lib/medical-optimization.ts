@@ -51,7 +51,7 @@ export const MEDICAL_SERVICES: MedicalServiceCard[] = [
     bullets: [
       "TRT — injections, pellets, or cream",
       "Energy, libido, body composition & mood",
-      "Ryan Kent, FNP-BC on site 7 days",
+      "Ryan Kent, FNP-BC on site 6 days",
       "Ongoing lab monitoring",
     ],
     href: "/gentlemens-club#hormones",
@@ -246,7 +246,7 @@ export const MEDICAL_OPTIMIZATION_FAQS: FAQ[] = [
   {
     question: "How is Hello Gorgeous different from telehealth-only clinics?",
     answer:
-      "We're an NP-directed med spa in Oswego with in-person access 7 days a week — aesthetics, hormones, GLP-1, peptides, and IV under one roof. You get hands-on oversight from Ryan Kent, FNP-BC, not remote prescription mills.",
+      "We're an NP-directed med spa in Oswego with in-person access 6 days a week — aesthetics, hormones, GLP-1, peptides, and IV under one roof. You get hands-on oversight from Ryan Kent, FNP-BC, not remote prescription mills.",
   },
   {
     question: "Where are you located and what areas do you serve?",

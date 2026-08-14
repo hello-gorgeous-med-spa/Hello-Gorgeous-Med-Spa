@@ -1,6 +1,6 @@
 # Hello Gorgeous — "Dani & Ryan Everywhere" Visibility Playbook
 
-**Purpose:** Make Danielle Alcala-Glazier (Owner/Founder) and Ryan Kent, FNP-BC (Medical Director) visible everywhere a potential client might encounter Hello Gorgeous online. Founder-as-brand is HER Aesthetics' main moat. This playbook closes that gap and goes further — because you have a better story.
+**Purpose:** Make Danielle Alcala-Glazier (Owner/Founder) and Ryan Kent, FNP-BC (On-site Nurse Practitioner) visible everywhere a potential client might encounter Hello Gorgeous online. Founder-as-brand is HER Aesthetics' main moat. This playbook closes that gap and goes further — because you have a better story.
 
 **Three surfaces covered:**
 1. **Your own website** (Eric builds) — homepage, every service page, footer, blog
@@ -31,11 +31,11 @@ These are the source-of-truth phrases. Copy and paste — don't paraphrase.
 
 ### Ryan — short bio (for footers, service pages, micro-mentions)
 
-> **Ryan Kent, FNP-BC** — Medical Director, Hello Gorgeous Med Spa. Board-certified Family Nurse Practitioner with full prescriptive authority. On site 7 days a week.
+> **Ryan Kent, FNP-BC** — On-site Nurse Practitioner, Hello Gorgeous Med Spa. Board-certified Family Nurse Practitioner with full prescriptive authority. On site 6 days a week.
 
 ### Ryan — medium bio (for About page, third-party profiles)
 
-> Ryan Kent is a board-certified Family Nurse Practitioner (FNP-BC) and the Medical Director of Hello Gorgeous Med Spa. Ryan holds full prescriptive authority in Illinois, allowing him to independently prescribe medications, supervise medical aesthetic protocols, and direct all clinical care at the practice. Unlike many med spas that rely on a remote physician medical director signing off from another state, Ryan is on-site 7 days a week, personally overseeing every protocol — from Botox dosing to GLP-1 weight loss programs to hormone therapy to laser treatments. Every clinical decision at Hello Gorgeous goes through Ryan.
+> Ryan Kent is a board-certified Family Nurse Practitioner (FNP-BC) and the on-site nurse practitioner at Hello Gorgeous Med Spa, where Dr. Mukesh Arora, MD serves as Medical Director. Ryan holds full prescriptive authority in Illinois, allowing him to independently prescribe medications and supervise medical aesthetic protocols. He is on site 6 days a week, personally overseeing every protocol — from Botox dosing to GLP-1 weight loss programs to hormone therapy to laser treatments. Every clinical decision at Hello Gorgeous goes through Ryan.
 
 ---
 
@@ -80,7 +80,7 @@ Visual layout (mobile-first, two-card row):
 |  [DANI PHOTO 1:1]        |  [RYAN PHOTO 1:1]        |
 |                          |                          |
 |  Meet Dani               |  Meet Ryan               |
-|  Owner & Founder         |  Medical Director        |
+|  Owner & Founder         |  On-site Nurse Practitioner |
 |                          |                          |
 |  Licensed Esthetician,   |  Board-Certified Family  |
 |  Phlebotomist, CMAA      |  Nurse Practitioner      |
@@ -114,9 +114,9 @@ Copy to paste (exact):
 
 **Ryan card:**
 - Heading: `Meet Ryan`
-- Role: `Medical Director`
+- Role: `On-site Nurse Practitioner`
 - Credentials: `Ryan Kent, FNP-BC — Family Nurse Practitioner, Board-Certified`
-- Body: `Full prescriptive authority in Illinois. On site 7 days a week. Every clinical protocol at Hello Gorgeous — from Botox dosing to GLP-1 weight loss to hormone therapy — goes through me.`
+- Body: `Full prescriptive authority in Illinois. On site 6 days a week. Every clinical protocol at Hello Gorgeous — from Botox dosing to GLP-1 weight loss to hormone therapy — goes through me.`
 - CTA: `Meet Ryan →` → `/about#ryan`
 
 #### 2. Service page credentials strip
@@ -143,7 +143,7 @@ Implementation: a reusable `<CredentialStrip />` component dropped into the serv
 Copy to paste (exact, for the component):
 
 ```
-Performed by our team. Medical oversight by Ryan Kent, FNP-BC (Board-Certified Family Nurse Practitioner, on site 7 days a week).
+Performed by our team. Medical oversight by Ryan Kent, FNP-BC (Board-Certified Family Nurse Practitioner, on site 6 days a week).
 
 Owner & Founder: Danielle Alcala-Glazier — Licensed Esthetician, Phlebotomist, CMAA, CNA (RN in progress). 10+ years at this practice.
 ```
@@ -151,7 +151,7 @@ Owner & Founder: Danielle Alcala-Glazier — Licensed Esthetician, Phlebotomist,
 For the 3 medical/prescriptive pages (GLP-1, BioTE, TRT, Peptide Therapy, Semaglutide, Tirzepatide), use a stronger variant emphasizing prescription authority:
 
 ```
-Every prescription at Hello Gorgeous is written and supervised by Ryan Kent, FNP-BC — a Board-Certified Family Nurse Practitioner with full prescriptive authority in Illinois, on site 7 days a week. Owner & Founder: Danielle Alcala-Glazier — Licensed Esthetician, Phlebotomist, CMAA, CNA.
+Every prescription at Hello Gorgeous is written and supervised by Ryan Kent, FNP-BC — a Board-Certified Family Nurse Practitioner with full prescriptive authority in Illinois, on site 6 days a week. Owner & Founder: Danielle Alcala-Glazier — Licensed Esthetician, Phlebotomist, CMAA, CNA.
 ```
 
 #### 3. Site-wide footer
@@ -163,7 +163,7 @@ Copy to paste:
 ```
 Hello Gorgeous Med Spa — Family-owned. NP-directed.
 
-Founder: Danielle Alcala-Glazier (Licensed Esthetician, Phlebotomist, CMAA, CNA) · Medical Director: Ryan Kent, FNP-BC (full prescriptive authority, on site 7 days a week)
+Founder: Danielle Alcala-Glazier (Licensed Esthetician, Phlebotomist, CMAA, CNA, RN student) · On-site Nurse Practitioner: Ryan Kent, FNP-BC (full prescriptive authority, on site 6 days a week) · Medical Director: Dr. Mukesh Arora, MD
 ```
 
 This single line is the most-repeated credential mention on the entire site. Every page footer = credibility signal × every page.
@@ -192,7 +192,7 @@ Add a `MedicalBusiness` schema with `employee` references for both Dani and Ryan
     {
       "@type": "Person",
       "name": "Ryan Kent",
-      "jobTitle": "Medical Director",
+      "jobTitle": "Board-Certified Family Nurse Practitioner",
       "hasCredential": {
         "@type": "EducationalOccupationalCredential",
         "credentialCategory": "Family Nurse Practitioner, Board-Certified (FNP-BC)"
@@ -292,14 +292,14 @@ URL: business.google.com → log in → manage your Hello Gorgeous listing
 **Updates to make:**
 - [ ] **Business description** — paste this:
 
-> Hello Gorgeous Med Spa is a family-owned medical aesthetics practice in Oswego, IL, founded by Danielle Alcala-Glazier (Licensed Esthetician, Phlebotomist, CMAA, CNA) and medically directed by Ryan Kent, FNP-BC. We're the only practice in the western Chicago suburbs with the complete InMode Trifecta (Morpheus8 Burst, Solaria CO₂, Quantum RF), and we offer injectables, medical weight loss, hormone therapy, peptides, and full medical aesthetics. Voted Best of Oswego #1 Med Spa, Best Skincare, and Best Weight Loss. NP on site 7 days a week.
+> Hello Gorgeous Med Spa is a family-owned medical aesthetics practice in Oswego, IL, founded by Danielle Alcala-Glazier (Licensed Esthetician, Phlebotomist, CMAA, CNA) and medically directed by Ryan Kent, FNP-BC. We're the only practice in the western Chicago suburbs with the complete InMode Trifecta (Morpheus8 Burst, Solaria CO₂, Quantum RF), and we offer injectables, medical weight loss, hormone therapy, peptides, and full medical aesthetics. Voted Best of Oswego #1 Med Spa, Best Skincare, and Best Weight Loss. NP on site 6 days a week.
 
-- [ ] **Add team members:** GBP allows you to add team/staff. Add Ryan Kent, FNP-BC explicitly with his role as "Medical Director" so he appears in your knowledge panel.
+- [ ] **Add team members:** GBP allows you to add team/staff. Add Ryan Kent, FNP-BC explicitly with his role as "Nurse Practitioner" so he appears in your knowledge panel.
 - [ ] **Services list:** Confirm all 23 service categories are listed with descriptions.
 - [ ] **Photos:** Upload new headshots of you and Ryan as "team" photos.
 - [ ] **Q&A section:** Pre-answer the most common questions yourself (Google allows this). Suggested:
   - "Who owns Hello Gorgeous?" → "Hello Gorgeous is owned by Danielle Alcala-Glazier, a Licensed Esthetician with 10+ years in practice."
-  - "Does a doctor or NP work there?" → "Ryan Kent, FNP-BC is our full-time Medical Director with full prescriptive authority, on site 7 days a week."
+  - "Does a doctor or NP work there?" → "Ryan Kent, FNP-BC is our full-time nurse practitioner with full prescriptive authority, on site 6 days a week, and Dr. Mukesh Arora, MD is our Medical Director."
   - "How much is Botox?" → "Botox is $10 per unit. Most clients spend $200–$400 per visit. Free consultations available."
 
 ### 2. Yelp — second-highest local discovery surface
@@ -398,7 +398,7 @@ If you use Dysport, Sculptra, or Xeomin (Galderma + Merz brands), claim provider
 - [ ] Add Hello Gorgeous as your employer with role "Owner & Founder"
 
 **For Ryan:**
-- [ ] Headline: "Family Nurse Practitioner, Board-Certified (FNP-BC) | Medical Director, Hello Gorgeous Med Spa"
+- [ ] Headline: "Family Nurse Practitioner, Board-Certified (FNP-BC) | Hello Gorgeous Med Spa"
 - [ ] About section: paste Ryan's medium bio
 - [ ] Add Hello Gorgeous as current employer
 
@@ -472,7 +472,7 @@ Each post: 800–1,500 words, authored by Dani, reviewed by Ryan, properly bylin
 When this is done — across all three surfaces — every potential client encountering Hello Gorgeous anywhere online will see:
 
 - **A real founder with a real story and real credentials** (you)
-- **A real, board-certified NP with full prescriptive authority on site 7 days a week** (Ryan)
+- **A real, board-certified NP with full prescriptive authority on site 6 days a week** (Ryan)
 - **A 10-year-old family-owned practice with consistent leadership** (your moat vs. chains)
 - **Pricing transparency, honest care, conservative dosing** (the voice baked into your content)
 - **Specific awards and recognition** (Best of Oswego)

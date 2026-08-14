@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 
 import { RegenLearnArticlePage } from "@/components/rx/RegenLearnArticlePage";
+import { clinicalPageJsonLd } from "@/lib/medical-authority";
 import { WHAT_ARE_PEPTIDES_ARTICLE } from "@/lib/regen-learn-articles";
 import { REGEN_BRAND } from "@/lib/regen-brand";
 import {
@@ -82,6 +83,14 @@ export default function WhatArePeptidesPage() {
     mainEntityOfPage: PAGE_URL,
   };
 
+  const clinicalLd = clinicalPageJsonLd({
+    url: PAGE_URL,
+    name: article.title,
+    description: article.metaDescription,
+    lastReviewed: article.updated,
+    siteUrl: SITE.url,
+  });
+
   return (
     <>
       <script
@@ -103,6 +112,10 @@ export default function WhatArePeptidesPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(clinicalLd) }}
       />
       <RegenLearnArticlePage article={article} />
     </>

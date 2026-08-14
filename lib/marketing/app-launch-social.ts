@@ -103,7 +103,7 @@ Botox $11/unit when you book through the Hello Gorgeous app. Show your Deals tab
 
 No App Store — scan our QR or open the link · Add to Home Screen.
 
-Ryan Kent, FNP-BC on site 7 days a week · authentic Allergan & Galderma only.
+Ryan Kent, FNP-BC on site 6 days a week · authentic Allergan & Galderma only.
 
 👉 Get the app: ${APP_URL}`,
     linkPath: "/app?tab=deals",
@@ -150,7 +150,7 @@ Brotox · hormone optimization · peptides · recovery — curated for men who w
 
 Book consults, browse the For Him tab, and stack with Vitamin Bar drive-thru shots.
 
-Ryan Kent, FNP-BC on site 7 days · downtown Oswego, IL
+Ryan Kent, FNP-BC on site 6 days · downtown Oswego, IL
 
 👉 ${FOR_HIM_URL}`,
     linkPath: "/app?tab=forhim",

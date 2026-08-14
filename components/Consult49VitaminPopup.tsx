@@ -145,7 +145,7 @@ export function Consult49VitaminPopup() {
                 ✓
               </span>
               <span>
-                <strong className="text-black">Full-authority NP on site</strong> — 7 days a week in Oswego
+                <strong className="text-black">Full-authority NP on site</strong> — 6 days a week in Oswego
               </span>
             </li>
             <li className="flex gap-2">

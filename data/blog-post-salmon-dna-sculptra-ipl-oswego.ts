@@ -74,7 +74,7 @@ At Hello Gorgeous we use biostimulators when the goal is:
 - Jawline structure over time  
 - Skin quality and firmness — not same-day plump  
 
-Medical oversight: **Ryan Kent, FNP-BC**, on site **seven days a week**.
+Medical oversight: **Ryan Kent, FNP-BC**, on site **six days a week**.
 
 **Learn more:** [Sculptra & Biostimulator](/services/sculptra-biostimulator) · [Sculptra Oswego IL](/sculptra-oswego-il) · [Dermal fillers](/services/dermal-fillers)
 

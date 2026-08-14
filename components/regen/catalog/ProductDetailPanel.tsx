@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 
+import { ClinicalReview } from "@/components/ClinicalReview";
 import { useCart } from "@/lib/regen/cart-context";
 import { peptideHubSlugFromCatalog } from "@/lib/peptide-hub-from-catalog";
 import { peptideTopicHref } from "@/lib/peptides-hub";
@@ -406,6 +407,8 @@ export function ProductDetailPanel({
               and are not FDA-approved to treat, cure, or prevent disease.
             </p>
           </div>
+
+          {pageMode ? <ClinicalReview compact className="mt-6" /> : null}
         </div>
       </div>
 

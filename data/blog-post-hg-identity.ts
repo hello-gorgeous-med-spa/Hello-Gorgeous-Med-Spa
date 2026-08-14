@@ -33,7 +33,7 @@ export const hgIdentityBlogPost: BlogPost = {
     {
       question: "Who is the medical director at Hello Gorgeous?",
       answer:
-        "Ryan Kent, FNP-BC, is Medical Director with full prescriptive authority and is on site seven days a week — not a remote name on a wall.",
+        "Ryan Kent, FNP-BC, is our on-site nurse practitioner with full prescriptive authority and is on site six days a week — not a remote name on a wall. Dr. Mukesh Arora, MD is our Medical Director.",
     },
     {
       question: "Does Hello Gorgeous pressure clients to buy treatments?",
@@ -80,7 +80,7 @@ I've been doing this for over ten years. I've seen the industry from every angle
 
 It means I'm still here. Ten years in. Still learning, still investing — **over half a million dollars** into our technology so we can offer the most advanced, safest treatments available anywhere in the western Chicago suburbs.
 
-It means our medical director, **Ryan Kent, FNP-BC**, is on-site **seven days a week**. Not a name on a wall. A real person, here, with full practice authority, overseeing every treatment we offer.
+It means our medical director, **Ryan Kent, FNP-BC**, is on-site **six days a week**. Not a name on a wall. A real person, here, with full practice authority, overseeing every treatment we offer.
 
 It means when you book a consult with us, we ask first about **you**. Not which treatment you want. What you're hoping to feel when you look in the mirror. What you've tried before. What you've been afraid to ask. What hasn't worked. What you wish someone had told you.
 
@@ -140,11 +140,11 @@ That's the promise. That's the why. That's who Hello Gorgeous actually is.
 
 ### Is Hello Gorgeous just a Botox clinic?
 
-No. We are a full med spa with injectables, lasers, RF microneedling, weight loss, hormones, and wellness — with medical oversight on site seven days a week.
+No. We are a full med spa with injectables, lasers, RF microneedling, weight loss, hormones, and wellness — with medical oversight on site six days a week.
 
 ### Who founded Hello Gorgeous?
 
-Danielle Alcala-Glazier founded Hello Gorgeous Med Spa in Oswego after more than ten years building a patient-first practice. Ryan Kent, FNP-BC, serves as Medical Director.
+Danielle Alcala-Glazier founded Hello Gorgeous Med Spa in Oswego after more than ten years building a patient-first practice. Ryan Kent, FNP-BC, is our on-site nurse practitioner, and Dr. Mukesh Arora, MD serves as Medical Director.
 
 ### Do you offer free consultations?
 

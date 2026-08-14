@@ -122,7 +122,7 @@ You do not have to freeze your goals until 2028.
 
 > *“I didn’t want another online pharmacy texting me refills. Here they actually look at my labs and check in when I stalled.”* — Patient, **Kendall County** *(individual experiences vary)*
 
-**Ryan Kent, FNP-BC** is on site **seven days a week**. That is the difference between a trend and a care plan.
+**Ryan Kent, FNP-BC** is on site **six days a week**. That is the difference between a trend and a care plan.
 
 ## How we talk about “the next drug” at Hello Gorgeous
 

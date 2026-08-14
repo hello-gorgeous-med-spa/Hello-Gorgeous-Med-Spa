@@ -88,7 +88,7 @@ export const PRP_JOINT_INJECTIONS_MENU: ServiceMenuConfig = {
         "Ryan Kent, FNP-BC oversees every protocol",
       ],
       pricing: [
-        { label: "Medical oversight", price: "Included", note: "FNP-BC on site 7 days a week" },
+        { label: "Medical oversight", price: "Included", note: "FNP-BC on site 6 days a week" },
         { label: "Follow-up check-in", price: "Included", note: "Progress reviewed against plan" },
       ],
       learnMoreHref: "/why-choose-us",

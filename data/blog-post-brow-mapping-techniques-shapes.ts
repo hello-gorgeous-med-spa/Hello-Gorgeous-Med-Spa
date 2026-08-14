@@ -230,7 +230,7 @@ Read more in **[Your Brow Journey](/education/your-brow-journey)** — our step-
 
 Hello Gorgeous is a **med spa**, not a walk-in tattoo shop. **We screen you like a medical practice, because we are one.**
 
-**Ryan Kent, FNP-BC** — board-certified Nurse Practitioner and Medical Director — is on site **seven days a week** with full practice authority in Illinois. Brow PMU includes:
+**Ryan Kent, FNP-BC** — our board-certified Nurse Practitioner — is on site **six days a week** with full practice authority in Illinois, with physician oversight from Medical Director **Dr. Mukesh Arora, MD**. Brow PMU includes:
 
 - Health history and contraindication screening  
 - Clinical sanitation and single-use needles  

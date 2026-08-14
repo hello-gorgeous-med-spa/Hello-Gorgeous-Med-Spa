@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
+import { ClinicalReview } from "@/components/ClinicalReview";
 import { RegenLogo } from "@/components/regen/RegenLogo";
 import type { RegenLearnArticle } from "@/lib/regen-learn-articles";
 import { REGEN_BRAND } from "@/lib/regen-brand";
@@ -77,8 +78,6 @@ export function RegenLearnArticlePage({ article }: { article: RegenLearnArticle 
           <span>Updated {formatDate(article.updated)}</span>
           <span aria-hidden>·</span>
           <span>{article.readTime} read</span>
-          <span aria-hidden>·</span>
-          <span>Reviewed by {article.reviewedBy}</span>
         </div>
 
         <div className="mt-8 overflow-hidden rounded-2xl border border-neutral-200 bg-neutral-50">
@@ -324,6 +323,8 @@ export function RegenLearnArticlePage({ article }: { article: RegenLearnArticle 
             ) : null}
           </div>
         </section>
+
+        <ClinicalReview className="mt-14" reviewDate={article.updated} />
 
         <footer className="mt-12 space-y-4 border-t border-neutral-200 pt-8 text-sm leading-relaxed text-neutral-500">
           <p>

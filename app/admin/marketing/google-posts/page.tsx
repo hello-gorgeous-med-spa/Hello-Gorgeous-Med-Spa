@@ -68,7 +68,7 @@ Ryan Kent, FNP-BC · Oswego — Naperville, Aurora & Plainfield.`,
     headline: 'Botox in Oswego — as low as $9/unit · #1 Best Med Spa',
     description: `💉 Honest, published pricing — as low as $9/unit, same for everyone, no membership required.
 
-Ryan Kent, FNP-BC on site 7 days a week · 10+ years injecting · same-day appointments often available. Botox · Dysport · Jeuveau.
+Ryan Kent, FNP-BC on site 6 days a week · 10+ years injecting · same-day appointments often available. Botox · Dysport · Jeuveau.
 
 Free consultation, every time. Oswego, IL — serving Naperville, Aurora & Plainfield.`,
     ctaText: 'Book consult',

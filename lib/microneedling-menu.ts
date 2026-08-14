@@ -8,7 +8,7 @@ export const MICRONEEDLING_MENU: ServiceMenuConfig = {
   metaDescription:
     "Hello Gorgeous Med Spa microneedling menu in Oswego, IL — classic AnteAGE microneedling from $249, Baby Tox Luxe & exosomes $499, Morpheus8 Burst RF from $799.",
   hero: {
-    eyebrow: "Oswego, IL · NP on site 7 days",
+    eyebrow: "Oswego, IL · NP on site 6 days",
     titleAccent: "Microneedling Menu",
     subtitle:
       "Classic collagen induction, Baby Tox Luxe, AnteAGE exosomes, and Morpheus8 Burst RF — one clean menu. Serving Oswego, Naperville, Aurora & Plainfield.",

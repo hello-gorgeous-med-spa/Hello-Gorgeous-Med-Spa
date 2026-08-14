@@ -141,7 +141,7 @@ Walk-ins and first-time clients: tap **Sign in** in the app, then **New — get 
 
 IV therapy delivers fluids, vitamins, and antioxidants **directly into your bloodstream** for fast absorption — popular for **hydration**, **immune support**, **post-travel recovery**, **glow**, and **energy**.
 
-- **Medical oversight** — Ryan Kent, **FNP-BC**, on site **7 days a week**
+- **Medical oversight** — Ryan Kent, **FNP-BC**, on site **6 days a week**
 - **Pharmacy-grade sourcing** — Olympia & vetted partners, not random internet vials
 - **Same spa you trust** — #1 Best Med Spa in Oswego, authentic products, honest pricing
 

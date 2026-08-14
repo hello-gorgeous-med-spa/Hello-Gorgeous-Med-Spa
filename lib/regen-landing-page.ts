@@ -197,7 +197,7 @@ export const REGEN_PROVIDERS = {
     "REGEN prescriptions are supervised by Ryan Kent, FNP-BC — a board-certified Family Nurse Practitioner with prescriptive authority. Every treatment plan is reviewed, personalized, and monitored.",
   bullets: [
     { id: "board", text: "Board-certified NP" },
-    { id: "onsite", text: "On-site 7 days a week in Oswego" },
+    { id: "onsite", text: "On-site 6 days a week in Oswego" },
     { id: "telehealth", text: "Telehealth when required" },
   ],
   provider: {

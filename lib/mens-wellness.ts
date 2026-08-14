@@ -60,7 +60,7 @@ export const MENS_WELLNESS_SERVICES: MensWellnessService[] = [
       "Baseline panels ~$250–450",
       "TRT from $200–350/mo (protocol-dependent)",
       "Energy, libido, mood & body comp",
-      "Ryan Kent, FNP-BC on site 7 days",
+      "Ryan Kent, FNP-BC on site 6 days",
     ],
     href: "/mens-hormones",
     cta: "Men's hormone program →",

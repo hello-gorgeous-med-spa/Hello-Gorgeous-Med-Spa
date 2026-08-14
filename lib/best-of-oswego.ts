@@ -25,8 +25,12 @@ export const BEST_OF_OSWEGO = {
  * Used for SEO, schema, trust strips, and marketing. Focus on our strengths only.
  */
 export const DIFFERENTIATORS = {
-  /** Full authority nurse practitioner on site as owner */
-  npOnSite: "Full-authority nurse practitioner on site as owner",
+  /**
+   * Full-authority NP on site. Deliberately not "as owner": the owner is a licensed
+   * esthetician, and the NP is Ryan Kent, FNP-BC — advertising the owner as an NP is a
+   * licensure claim she does not hold.
+   */
+  npOnSite: "Full-authority nurse practitioner on site",
   /** Latest technology — Class 4 lasers */
   class4Lasers: "Class 4 medical lasers",
   /** Only Oswego-area med spa with this tech stack */

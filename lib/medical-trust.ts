@@ -1,7 +1,18 @@
 import { DANI_FULL_NAME, RYAN_FULL_NAME } from "@/lib/founder-credentials";
+import {
+  MEDICAL_DIRECTOR,
+  MEDICAL_DIRECTOR_AFFILIATIONS,
+  MEDICAL_DIRECTOR_GRADUATED,
+  MEDICAL_DIRECTOR_SPECIALTY,
+  NP_ON_SITE_PHRASE,
+  NP_ON_SITE_SHORT,
+  PRESCRIBING_NP,
+  medicalDirectorPersonJsonLd,
+} from "@/lib/medical-authority";
 import { MEDICAL_TEAM_QUOTE } from "@/lib/medical-optimization";
 
-export const DR_ARORA_FULL_NAME = "Dr. Mukesh Arora, MD";
+/** Canonical Medical Director name — owned by `lib/medical-authority`. */
+export const DR_ARORA_FULL_NAME = MEDICAL_DIRECTOR.displayName;
 
 /** Dani’s clinical + ownership credentials — listed on the medical trust surface. */
 export const DANI_CLINICAL_CREDENTIALS = [
@@ -16,7 +27,9 @@ export const DANI_CLINICAL_CREDENTIALS = [
 export const MEDICAL_TRUST_PROVIDERS = [
   {
     name: DANI_FULL_NAME,
-    role: "Owner & Founder · Clinical leadership",
+    // "Practice leadership", not "clinical": the owner is not a licensed clinician, and
+    // this band sits next to the prescriber and the physician Medical Director.
+    role: "Owner & Founder · Practice leadership",
     detail: "RN-S · CNA · CMAA · Licensed Phlebotomist · Licensed Esthetician",
     image: "/images/team/danielle.png",
     imageAlt: `${DANI_FULL_NAME}, Owner & Founder of Hello Gorgeous Med Spa`,
@@ -24,19 +37,19 @@ export const MEDICAL_TRUST_PROVIDERS = [
   },
   {
     name: DR_ARORA_FULL_NAME,
-    role: "Medical Director · Internal Medicine",
+    role: `Medical Director · ${MEDICAL_DIRECTOR_SPECIALTY}`,
     detail: "30+ years · physician Medical Director for Hello Gorgeous",
-    image: "/images/providers/dr-mukesh-arora.jpg",
+    image: MEDICAL_DIRECTOR.image,
     imageAlt: `${DR_ARORA_FULL_NAME}, Medical Director at Hello Gorgeous Med Spa`,
     badge: "Medical Director",
   },
   {
     name: RYAN_FULL_NAME,
     role: "On-Site Nurse Practitioner · FNP-BC",
-    detail: "Full prescriptive authority · on site daily",
-    image: "/images/providers/ryan-kent-clinic.jpg",
+    detail: `Full prescriptive authority · ${NP_ON_SITE_PHRASE}`,
+    image: PRESCRIBING_NP.image,
     imageAlt: `${RYAN_FULL_NAME}, Board-Certified Family Nurse Practitioner at Hello Gorgeous Med Spa`,
-    badge: "On site daily",
+    badge: NP_ON_SITE_SHORT,
   },
 ] as const;
 
@@ -48,12 +61,9 @@ export const MD_OVERSIGHT_PAIR = MEDICAL_TRUST_PROVIDERS;
 
 export const DR_ARORA_PROFILE = {
   name: DR_ARORA_FULL_NAME,
-  credentialsLine: "Medical Director · Internal Medicine · 30+ years of experience",
-  graduated: "Ggs Medical College, 1991",
-  affiliations: [
-    "Advocate Good Shepherd Hospital",
-    "Northwestern Medicine McHenry Hospital",
-  ] as const,
+  credentialsLine: `Medical Director · ${MEDICAL_DIRECTOR_SPECIALTY} · 30+ years of experience`,
+  graduated: MEDICAL_DIRECTOR_GRADUATED,
+  affiliations: MEDICAL_DIRECTOR_AFFILIATIONS,
   whyWeChoseHim: [
     "Patients describe him as a provider who takes time — never rushed.",
     "Strong listening and clear communication come up again and again.",
@@ -89,34 +99,16 @@ export const MEDICAL_TRUST_BADGES = [
 export const DR_ARORA_SEO_BLURB =
   "Dr. Mukesh Arora, MD is Medical Director of Hello Gorgeous Med Spa in Oswego, Illinois. Internal Medicine with 30+ years of experience. Graduated Ggs Medical College, 1991. Affiliated with Advocate Good Shepherd Hospital and Northwestern Medicine McHenry Hospital. Hello Gorgeous chose Dr. Arora as Medical Director for patient-first leadership: unhurried visits, clear communication, and long-term trust. On-site nurse practitioner care is provided by Ryan Kent, FNP-BC, with full Illinois prescriptive authority; the practice is owned by Danielle Alcala-Glazier.";
 
-/** Person schema for Google — URL inlined to avoid circular import with lib/seo. */
+/**
+ * Standalone `Person` schema for Google. Identity and credentials come from
+ * `lib/medical-authority`; the AEO blurb replaces the factual description because
+ * this node is emitted on marketing surfaces.
+ */
 export function aroraPersonJsonLd(siteUrl = "https://www.hellogorgeousmedspa.com") {
   return {
     "@context": "https://schema.org",
-    "@type": "Person",
-    "@id": `${siteUrl}/#dr-mukesh-arora`,
-    name: "Mukesh Arora, MD",
-    honorificPrefix: "Dr.",
-    jobTitle: "Medical Director",
-    url: `${siteUrl}/#dr-mukesh-arora`,
-    image: `${siteUrl}/images/providers/dr-mukesh-arora.jpg`,
+    ...medicalDirectorPersonJsonLd(siteUrl),
     description: DR_ARORA_SEO_BLURB,
-    knowsAbout: [
-      "Internal Medicine",
-      "Medical Director",
-      "Physician medical oversight",
-      "Medical aesthetics collaboration",
-      "Patient-centered care",
-    ],
-    alumniOf: {
-      "@type": "CollegeOrUniversity",
-      name: "Ggs Medical College",
-    },
-    worksFor: { "@id": `${siteUrl}/#organization` },
-    hasCredential: {
-      "@type": "EducationalOccupationalCredential",
-      credentialCategory: "Doctor of Medicine (MD) · Internal Medicine",
-    },
   };
 }
 

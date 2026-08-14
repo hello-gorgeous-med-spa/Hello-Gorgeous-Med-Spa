@@ -1,5 +1,7 @@
 import Link from "next/link";
 
+import { ClinicalReview } from "@/components/ClinicalReview";
+
 import {
   JOURNEY_HERO_BG,
   JOURNEY_SECTION_BG_A,
@@ -319,6 +321,12 @@ export function PeptideTopicTemplate({ topic }: { topic: PeptideTopic }) {
               ← All peptide topics
             </Link>
           </div>
+        </div>
+      </section>
+
+      <section className="bg-white px-6 pb-14">
+        <div className="mx-auto max-w-3xl">
+          <ClinicalReview />
         </div>
       </section>
 

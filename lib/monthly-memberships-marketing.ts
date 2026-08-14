@@ -133,4 +133,4 @@ Peptides. Hormones. NP-supervised programs. Vitamin Bar drive-thru.
 
 Join in the Hello Gorgeous app or book a free consult 👇
 
-Ryan Kent, FNP-BC on site 7 days a week · Naperville · Aurora · Plainfield`;
+Ryan Kent, FNP-BC on site 6 days a week · Naperville · Aurora · Plainfield`;

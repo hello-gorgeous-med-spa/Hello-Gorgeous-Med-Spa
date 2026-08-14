@@ -191,7 +191,7 @@ export const GALLERY_CASES: GalleryCase[] = [
     tagline: "On-site medical director performing a live aesthetic treatment at gift night.",
     image: "/gallery/event-winners/ryan-live-demo-1.png",
     imageAlt: "Ryan Kent FNP performing live treatment demo Hello Gorgeous Med Spa",
-    note: "Live demo with Ryan Kent, FNP-BC, Medical Director. Hello Gorgeous Med Spa community event, Oswego, IL.",
+    note: "Live demo with Ryan Kent, FNP-BC, our on-site nurse practitioner. Hello Gorgeous Med Spa community event, Oswego, IL.",
     serviceHref: "/about",
   },
   {

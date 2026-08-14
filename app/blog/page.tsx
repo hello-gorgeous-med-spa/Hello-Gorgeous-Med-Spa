@@ -204,7 +204,7 @@ export default async function BlogPage({
           <div className="max-w-3xl mx-auto px-6 text-center">
             <h2 className="text-2xl font-bold mb-4 font-serif">Have Questions?</h2>
             <p className="text-white/60 mb-8">
-              Our NP is on site 7 days a week for consultations. We&apos;d love to help you find the right treatment.
+              Our NP is on site 6 days a week for consultations. We&apos;d love to help you find the right treatment.
             </p>
             <Link
               href="/book"
@@ -296,7 +296,7 @@ export default async function BlogPage({
         <div className="max-w-3xl mx-auto px-6 text-center">
           <h2 className="text-2xl font-bold mb-4 font-serif">Have Questions?</h2>
           <p className="text-white/60 mb-8">
-            Our NP is on site 7 days a week for consultations. We&apos;d love to help you find the right treatment.
+            Our NP is on site 6 days a week for consultations. We&apos;d love to help you find the right treatment.
           </p>
           <Link
             href="/book"

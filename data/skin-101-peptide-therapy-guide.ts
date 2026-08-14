@@ -90,7 +90,7 @@ export const PEPTIDE_THERAPY_GUIDE: ScienceExplainerContent = {
       navLabel: "Why Hello Gorgeous",
       type: "callout",
       heading: "Every Protocol Prescribed By Ryan Kent, FNP-BC",
-      body: "Peptides at Hello Gorgeous are sourced exclusively from licensed US compounding pharmacies — never internet vials, never gray-market, never research-grade. Full prescriptive authority, on site 7 days a week. Family-owned, NP-directed, and here longer than most competitors have been open.",
+      body: "Peptides at Hello Gorgeous are sourced exclusively from licensed US compounding pharmacies — never internet vials, never gray-market, never research-grade. Full prescriptive authority, on site 6 days a week. Family-owned, NP-directed, and here longer than most competitors have been open.",
       variant: "info",
       stripe: "white",
     },

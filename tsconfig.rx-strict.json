@@ -1,0 +1,73 @@
+{
+  // Scoped strict typecheck for the client-facing RX / RE GEN catalog surface.
+  //
+  // `next.config.js` sets `typescript.ignoreBuildErrors: true` and the repo carries ~986
+  // pre-existing errors (mostly `remotion-videos/` and `scripts/`), so a green `npm run build`
+  // proves nothing about types. This config re-establishes a hard type gate over the one area
+  // the catalog re-architecture is about to rewrite: catalog data, pricing, client visibility,
+  // and the storefront/hub components that render them.
+  //
+  // Run with `npm run typecheck:rx`. It must stay at zero errors.
+  //
+  // Scope rule: catalog + pricing + client-facing storefront only. The RX *clinic/ops* backend
+  // (`lib/rx-clinic-*`, `lib/rx-refill-*`, `lib/rx-dispatch*`, `lib/rx-pharmacy-orders`,
+  // `lib/square/*`, `lib/regen/checkout`) is deliberately out of scope: its pre-existing errors
+  // are Supabase row-nullability and Square API plumbing issues whose fixes touch billing and
+  // dispatch code, which is not something a safety-rails phase should be editing. Widen this
+  // config once those are cleaned up on their own.
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "incremental": false,
+    // Only .ts/.tsx are gated; catalog-data.js / monographs.js / dosing.js are untyped data.
+    "checkJs": false,
+    // The base config targets es5 for the browser bundle. This config never emits, and es5
+    // would flag every `for (const x of set)` as TS2802 downlevel-iteration noise.
+    "target": "es2017",
+    "noImplicitOverride": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "allowUnreachableCode": false
+  },
+  "include": [
+    "next-env.d.ts",
+
+    "lib/regen/catalog/**/*.ts",
+    "lib/peptide-*.ts",
+    "lib/rx-category-hubs.ts",
+    "lib/rx-request-portal.ts",
+    "lib/rx-landing-page.ts",
+    "lib/rx-online-guide.ts",
+    "lib/rx-patient-journey.ts",
+    "lib/rx-intake-nav.ts",
+    "lib/rx-contact.ts",
+    "lib/rx-supply-cycle.ts",
+
+    "components/regen/catalog/**/*.ts",
+    "components/regen/catalog/**/*.tsx",
+    "components/regen/RegenSiteLanding.tsx",
+    "components/regen/RegenLandingPageContent.tsx",
+    "components/rx/RegenCategoryRoute.tsx",
+    "components/rx/RegenLearnArticlePage.tsx",
+    "components/rx/RxCategoryLanding.tsx",
+    "components/rx/RxFindYourPeptideCta.tsx",
+    "components/rx/RxLandingPageContent.tsx",
+    "components/rx/RxOnlineGuidePage.tsx",
+    "components/rx/RxPatientJourneyBand.tsx",
+    "components/rx/RxPeptideEducationSection.tsx",
+    "components/rx/RxRequestPortal.tsx",
+    "components/rx/RxScienceHomeHero.tsx",
+
+    "scripts/audit-rx-client-catalog.ts",
+    "scripts/check-rx-catalog-invariants.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    ".next",
+    // Server-side bridge from a catalog cart to a Square payment link. Only `app/api/regen/
+    // checkout/route.ts` imports it, and including it drags `lib/regen/checkout.ts` +
+    // `lib/square/*` into the program, which carry pre-existing Square request-body typing
+    // errors. Its catalog-side price validation is covered by the invariant checker instead.
+    "lib/regen/catalog/checkout-resolve.ts"
+  ]
+}

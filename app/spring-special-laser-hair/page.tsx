@@ -47,7 +47,7 @@ const SPRING_SPECIAL_FAQS = [
   {
     question: "Is this a spa laser or a medical laser?",
     answer:
-      "We use medical-grade laser technology with full clinical oversight — not a basic spa device. Our nurse practitioner is on site for medical leadership every day we’re treating patients.",
+      "We use medical-grade laser technology with full clinical oversight — not a basic spa device. Our nurse practitioner is on site for medical leadership six days a week.",
   },
   {
     question: "Where is Hello Gorgeous?",
@@ -92,7 +92,7 @@ export default function SpringSpecialLaserHairPage() {
               </p>
               <p className="text-gray-400 text-sm">
                 Medical-grade laser with full clinical oversight — Class 4 medical device, not a spa toy. Your results are backed by our{" "}
-                <strong className="text-white">NP on site</strong> every day we&apos;re treating.
+                <strong className="text-white">NP on site</strong> six days a week.
               </p>
             </div>
 

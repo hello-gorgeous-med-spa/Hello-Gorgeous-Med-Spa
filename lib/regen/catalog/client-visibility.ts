@@ -47,6 +47,19 @@ export function isKitComponentProduct(product: CatalogProduct): boolean {
 const NEVER_CLIENT_VISIBLE = /retatrutide/i;
 
 /**
+ * The weight-loss program is injection-only, so the shop lists injectable GLP-1 SKUs
+ * and nothing else. The oral disintegrating tablets and sublingual solutions stay in
+ * the catalog for staff but are hidden from clients: the hub cards, the program
+ * pricing, and the GLP-1 Kickstart's "month of injection supplies" all describe a
+ * shot, and an oral SKU underneath that copy sells a form we do not run.
+ */
+const GLP1_DRUG_KEYS = new Set(["semaglutide", "tirzepatide"]);
+
+function isNonInjectableGlp1(product: CatalogProduct): boolean {
+  return GLP1_DRUG_KEYS.has(product.drugKey) && !/inject/i.test(product.form ?? "");
+}
+
+/**
  * Injectable wellness vitamins that stay listed even though they are not on the peptide
  * sheet: `/rx/wellness` markets them by name, so hiding them would leave the hub
  * advertising something a client cannot reach. Injectables only — the oral forms of the
@@ -67,6 +80,7 @@ export function isBoomRxSheetProduct(product: CatalogProduct): boolean {
 
 export function isClientVisibleProduct(product: CatalogProduct): boolean {
   if (NEVER_CLIENT_VISIBLE.test(product.name)) return false;
+  if (isNonInjectableGlp1(product)) return false;
   if (CLIENT_VISIBLE_GOALS.has(product.goal)) return true;
   if (isMarketedWellnessInjectable(product)) return true;
   return isBoomRxSheetProduct(product);
@@ -85,6 +99,20 @@ const CLIENT_VISIBLE_IDS = new Set(CLIENT_VISIBLE_PRODUCTS.map((p) => p.id));
 
 export function isClientVisibleProductId(id: string): boolean {
   return CLIENT_VISIBLE_IDS.has(id);
+}
+
+/**
+ * Resolve a stack's compound to the SKU a shopper can actually open. Stacks pick by
+ * compound rather than by id, and the plain lookup returns the first match in catalog
+ * order — for tirzepatide that was the oral tablet, so the GLP-1 Kickstart quoted a
+ * tablet beside its month of injection supplies. Falls back to any match so kit
+ * consumables, which are hidden on purpose, still resolve.
+ */
+export function findClientProductByDrugKey(drugKey: string): CatalogProduct | undefined {
+  return (
+    CLIENT_VISIBLE_PRODUCTS.find((p) => p.drugKey === drugKey) ??
+    ALL_PRODUCTS.find((p) => p.drugKey === drugKey)
+  );
 }
 
 /**

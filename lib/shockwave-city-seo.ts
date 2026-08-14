@@ -82,7 +82,7 @@ const CITY_CONTENT: Record<PrimaryCitySlug, Omit<ShockwaveCitySeoContent, "slug"
     heroAccent: "Oswego & the Fox Valley",
     heroImageAlt: "FlowWave shockwave therapy for pain relief and recovery in Oswego IL",
     localLead:
-      "Our clinic is in downtown Oswego — focused shockwave with full-authority nurse practitioners on site every day.",
+      "Our clinic is in downtown Oswego — focused shockwave with a full-authority nurse practitioner on site six days a week.",
     pricingHeading: "FlowWave pricing in Oswego",
     faqs: baseFaqs(
       "Oswego",

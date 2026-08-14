@@ -1,5 +1,6 @@
 import { DANIELLE_CREDENTIALS, RYAN_CREDENTIALS } from "@/lib/provider-credentials";
 import { PROVIDER_BOOKING_URL_DANIELLE, PROVIDER_BOOKING_URL_RYAN } from "@/lib/flows";
+import { MEDICAL_DIRECTOR, NP_ON_SITE_PHRASE } from "@/lib/medical-authority";
 import { SITE } from "@/lib/seo";
 
 /** Code-controlled provider images. Override DB values so you never need to run migrations for headshot changes. */
@@ -86,10 +87,8 @@ export const PROVIDER_FALLBACKS: Record<string, ProviderFallback> = {
     color_hex: "#3b82f6",
     credentials: RYAN_CREDENTIALS,
     tagline: "Full-practice authority NP | metabolic & regenerative care",
-    short_bio:
-      "Board-certified Family Nurse Practitioner at Hello Gorgeous Med Spa — on site 7 days a week with full Illinois prescriptive authority under Medical Director Dr. Mukesh Arora, MD.",
-    philosophy:
-      "Medical weight loss and hormone therapy built around safety, labs, and data. Every clinical decision at Hello Gorgeous goes through me — on site seven days a week.",
+    short_bio: `Board-certified Family Nurse Practitioner at Hello Gorgeous Med Spa — ${NP_ON_SITE_PHRASE} with full Illinois prescriptive authority under Medical Director ${MEDICAL_DIRECTOR.displayName}.`,
+    philosophy: `Medical weight loss and hormone therapy built around safety, labs, and data. Every clinical decision at Hello Gorgeous goes through me — ${NP_ON_SITE_PHRASE}.`,
     headshot_url: "/images/providers/ryan-kent-clinic.jpg",
     hero_image_url: `${SITE.url}/images/gallery/treatment-2.png`,
     intro_video_url: "",

@@ -86,7 +86,7 @@ export function notifyStaffGlp1RefillPaymentEvent(opts: {
     opts.intakeRef ? `Ref ${opts.intakeRef}` : null,
     eventDetail(opts.event),
     dispatchLink ? `Open: ${dispatchLink}` : null,
-  ].filter(Boolean);
+  ].filter((line): line is string => Boolean(line));
 
   notifyOwnerFormSubmission({
     formName: eventHeadline(opts.event),

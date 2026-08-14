@@ -32,7 +32,7 @@ export const PROMO_FLYER_SOCIAL_POSTS: PromoFlyerSocialPost[] = [
 
 $450 for 1 syringe · $399 each when you book 2 syringes
 
-Family-owned med spa in Oswego · NP on site 7 days a week.
+Family-owned med spa in Oswego · NP on site 6 days a week.
 Beautifully you. Confidently gorgeous. Book your lip filler today!`,
     link: `${base}/lip-filler-oswego`,
     imagePath: "/images/promo/lip-filler-promo-flyer.png",
@@ -79,7 +79,7 @@ Book your lab panel — link below.`,
 ✨ Solaria CO₂ full resurfacing — $899
 👑 Trifecta: Morpheus8 + Quantum RF + FREE Solaria CO₂
 
-Family-owned · NP on site 7 days a week.
+Family-owned · NP on site 6 days a week.
 Beautifully you. Confidently gorgeous.
 
 Book online — link below.`,

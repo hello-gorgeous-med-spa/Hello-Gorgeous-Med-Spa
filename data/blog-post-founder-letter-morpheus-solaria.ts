@@ -44,7 +44,7 @@ export const founderLetterMorpheusSolariaPost: BlogPost = {
     {
       question: "Who oversees treatments at Hello Gorgeous Med Spa?",
       answer:
-        "Ryan Kent, FNP-BC, is Medical Director with full prescriptive authority in Illinois and is on site seven days a week. Danielle Alcala-Glazier is founder and leads aesthetics and the client experience.",
+        "Ryan Kent, FNP-BC, is our on-site nurse practitioner with full prescriptive authority in Illinois and is on site six days a week, and Dr. Mukesh Arora, MD is our Medical Director. Danielle Alcala-Glazier is founder and leads aesthetics and the client experience.",
     },
     {
       question: "How do I book a free consultation in Oswego?",
@@ -105,7 +105,7 @@ I won't promise you that any serum is a miracle. I won't tell you it "rebuilds c
 ## What you can expect from me
 
 - **I will not sell you a treatment you don't need.** If Morpheus8 is going to give you a better result than the trendy procedure you asked about, I'll explain why — and if it isn't, I'll tell you that too.
-- **You get Ryan Kent, FNP-BC, on site seven days a week** — not a tele-doctor in another state.
+- **You get Ryan Kent, FNP-BC, on site six days a week** — not a tele-doctor in another state.
 - **I will keep investing.** The day I stop learning is the day this practice stops being what I built it to be.
 - **I will tell you the truth**, even when it's not what you came in to hear.
 

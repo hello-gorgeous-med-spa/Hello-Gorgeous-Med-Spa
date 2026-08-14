@@ -125,7 +125,7 @@ export function LadiesClubPageContent() {
                 </h1>
                 <p className="mt-6 text-lg text-gray-300 leading-relaxed max-w-xl">
                   Hormones · GLP-1 · peptides · IV &amp; Vitamin Bar — one NP-led home for women&apos;s wellness at Hello Gorgeous.
-                  {` `}{RYAN_FULL_NAME} on site 7 days.
+                  {` `}{RYAN_FULL_NAME} on site 6 days.
                 </p>
                 <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
                   <CTA href="/quiz/perimenopause-readiness" variant="gradient">

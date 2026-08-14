@@ -66,7 +66,7 @@ export const peptideBestFitGuidePost: BlogPost = {
 
 ![Peptide therapy cheat sheet — Hello Gorgeous Med Spa Oswego IL](/images/peptides/peptide-cheat-sheet-full.png)
 
-**Hello Gorgeous Med Spa** in **Oswego, IL** offers **Hello Gorgeous RX™** peptide protocols prescribed and overseen by **Ryan Kent, FNP-BC** — on site **seven days a week**. We serve **Naperville, Aurora, Plainfield, Yorkville, Montgomery**, and the **Fox Valley**.
+**Hello Gorgeous Med Spa** in **Oswego, IL** offers **Hello Gorgeous RX™** peptide protocols prescribed and overseen by **Ryan Kent, FNP-BC** — on site **six days a week**. We serve **Naperville, Aurora, Plainfield, Yorkville, Montgomery**, and the **Fox Valley**.
 
 *Educational content only — not medical advice. Individual results vary. Peptides are prescribed only after in-person or telehealth evaluation when clinically appropriate.*
 

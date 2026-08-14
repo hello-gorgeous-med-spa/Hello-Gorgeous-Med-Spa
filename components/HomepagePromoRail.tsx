@@ -34,7 +34,7 @@ const SLIDES: Slide[] = [
     id: "what-makes-different",
     badge: "Why us",
     line:
-      "InMode Trifecta · NP on site 7 days · open 7 days · family-owned 10+ years — what makes Hello Gorgeous different in Oswego.",
+      "InMode Trifecta · NP on site 6 days · open 7 days · family-owned 10+ years — what makes Hello Gorgeous different in Oswego.",
     primary: { label: "See what sets us apart", href: "/blog/what-makes-hello-gorgeous-different-oswego-il" },
     secondary: { label: "Why choose us", href: "/why-choose-us" },
   },

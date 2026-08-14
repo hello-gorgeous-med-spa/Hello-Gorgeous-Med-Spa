@@ -207,7 +207,7 @@ We map timing so you heal predictably — not stack everything in one visit for 
 
 Skin boosters are only as safe as the **screening, technique, and product sourcing** behind them. At Hello Gorgeous:
 
-- **Ryan Kent, FNP-BC** on site **seven days a week** — full medical authority, not a remote MD signature  
+- **Ryan Kent, FNP-BC** on site **six days a week** — full medical authority, not a remote MD signature  
 - **Family-owned** for **10+ years** in downtown Oswego  
 - Separate menus for **[PRP facials](/services/prp-facial)**, **[PRF/PRP injectables](/services/prf-prp)**, **[salmon DNA](/services/salmon-dna-glass-facial)**, and **[AnteAGE regenerative tiers](/regenerative-medicine-oswego-il)**  
 - Honest consults — if filler, Morpheus8, or Solaria CO₂ fits better than a booster, we say so  

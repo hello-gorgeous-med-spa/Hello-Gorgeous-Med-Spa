@@ -9,6 +9,11 @@ import {
   RYAN_IMAGE,
   TEAM_FOUNDERS_IMAGE,
 } from "@/lib/founder-credentials";
+import {
+  MEDICAL_DIRECTOR,
+  NP_ON_SITE_PHRASE,
+  NP_ON_SITE_SHORT,
+} from "@/lib/medical-authority";
 import { SITE } from "@/lib/seo";
 
 export type TeamMember = {
@@ -155,9 +160,9 @@ export const LEADERSHIP_TEAM: TeamMember[] = [
       src: RYAN_IMAGE,
       alt: `${RYAN_FULL_NAME}, Board-Certified Family Nurse Practitioner at Hello Gorgeous Med Spa`,
     },
-    quote: "On site seven days a week — real NP care under our Medical Director, not a remote signature.",
+    quote: `${NP_ON_SITE_SHORT} a week — real NP care under our Medical Director, not a remote signature.`,
     bioParagraphs: [
-      "Ryan holds full Illinois prescriptive authority and is on site seven days a week — GLP-1, hormones, peptides, injectables, and advanced device care — under Medical Director Dr. Mukesh Arora, MD.",
+      `Ryan holds full Illinois prescriptive authority and is ${NP_ON_SITE_PHRASE} — GLP-1, hormones, peptides, injectables, and advanced device care — under Medical Director ${MEDICAL_DIRECTOR.displayName}.`,
     ],
     specialties: ["GLP-1 weight loss", "Hormone therapy", "Peptides", "Medical aesthetics"],
   },

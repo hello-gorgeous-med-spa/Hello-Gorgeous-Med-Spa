@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 
 import { PeptideTopicTemplate } from "@/components/peptides/PeptideTopicTemplate";
 import { PEPTIDE_TOPICS } from "@/data/peptides";
+import { clinicalPageJsonLd } from "@/lib/medical-authority";
 import { breadcrumbJsonLd, faqJsonLd, pageMetadata, SITE, siteJsonLd, webPageJsonLd } from "@/lib/seo";
 import { getPeptideTopicBySlug, PEPTIDES_HUB_PATH } from "@/lib/peptides-hub";
 
@@ -52,6 +53,19 @@ export default function PeptideTopicPage({ params }: { params: Params }) {
               title: topic.name,
               description: topic.intro,
               path: `${PEPTIDES_HUB_PATH}/${topic.slug}`,
+            }),
+          ),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            clinicalPageJsonLd({
+              url,
+              name: topic.name,
+              description: topic.intro,
+              siteUrl: SITE.url,
             }),
           ),
         }}

@@ -246,7 +246,7 @@ export function WellnessPriceListContent() {
                 <div className="rounded-xl border border-[#C9917A]/35 bg-gradient-to-br from-[#FFF8F5] to-[#FAF7F4] p-8">
                   <h3 className="font-serif text-2xl font-semibold text-[#2d1020]">Schedule your consultation</h3>
                   <p className="mt-3 text-sm leading-relaxed text-[#2d1020]/70">
-                    Ryan Kent, FNP-BC · full prescriptive authority · on site seven days a week. Your personalized quote
+                    Ryan Kent, FNP-BC · full prescriptive authority · on site six days a week. Your personalized quote
                     is confirmed before you commit.
                   </p>
                   <p className="mt-4 font-semibold text-[#E6007E] text-lg">{SITE.phone}</p>

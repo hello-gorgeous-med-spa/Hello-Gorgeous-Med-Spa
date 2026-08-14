@@ -112,7 +112,7 @@ Join in our app or book a consult with Ryan Kent, FNP-BC
 
 Honest, published pricing — same price for everyone, no membership required.
 
-Ryan Kent, FNP-BC on site 7 days a week · 10+ years of injecting experience · same-day appointments often available.
+Ryan Kent, FNP-BC on site 6 days a week · 10+ years of injecting experience · same-day appointments often available.
 
 Botox · Dysport · Jeuveau. Free consultation, every time — we won't talk you into units you don't need.
 
@@ -271,7 +271,7 @@ Your med spa in your pocket — built for Oswego, Naperville, Aurora, Plainfield
 ✓ App-only deals, gift cards & monthly memberships
 ✓ HG Rewards points · GLP-1 screening · peptides · hormones · client portal
 
-Ryan Kent, FNP-BC on site 7 days a week · downtown Oswego at 74 W Washington St.
+Ryan Kent, FNP-BC on site 6 days a week · downtown Oswego at 74 W Washington St.
 
 Get the app (scan QR): hellogorgeousmedspa.com/get-app
 Open the app: hellogorgeousmedspa.com/app`,

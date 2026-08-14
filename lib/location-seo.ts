@@ -185,7 +185,7 @@ export const TOP_SERVICES: ServiceConfig[] = [
     benefits: [
       { icon: '✨', title: 'Collagen Banking', desc: 'Results build over weeks' },
       { icon: '🎯', title: 'Structure', desc: 'Temples, cheeks, jawline support' },
-      { icon: '👩‍⚕️', title: 'NP On Site', desc: 'Ryan Kent, FNP-BC, 7 days a week' },
+      { icon: '👩‍⚕️', title: 'NP On Site', desc: 'Ryan Kent, FNP-BC, 6 days a week' },
       { icon: '📍', title: 'Oswego Since 2015', desc: '10+ years in the Fox Valley' },
     ],
     faqs: [

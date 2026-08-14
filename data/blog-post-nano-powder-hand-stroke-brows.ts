@@ -165,7 +165,7 @@ If you have seen our **[Your Brow Journey](/education/your-brow-journey)** guide
 
 Brow PMU at a tattoo shop can feel like: sit down, stencil, go. **That is not how we operate.**
 
-**We screen you like a medical practice, because we are one.** Our Medical Director, **Ryan Kent, FNP-BC** — a board-certified Nurse Practitioner with **full practice authority in Illinois** — is on site **seven days a week**. Brow services happen under **medical oversight**: health history review, contraindication screening, clinical-grade sanitation, and numbing managed to standards a non-medical studio cannot match.
+**We screen you like a medical practice, because we are one.** Our nurse practitioner, **Ryan Kent, FNP-BC** — board-certified with **full practice authority in Illinois** — is on site **six days a week**, with physician oversight from Medical Director **Dr. Mukesh Arora, MD**. Brow services happen under **medical oversight**: health history review, contraindication screening, clinical-grade sanitation, and numbing managed to standards a non-medical studio cannot match.
 
 Here is what **your brow consult with me** typically includes:
 
@@ -215,7 +215,7 @@ Still unsure? That is what consult is for. Bring inspiration photos — and trus
 
 Hello Gorgeous is **not** a revolving-door beauty bar. We are a **med spa** with clinical accountability:
 
-- **NP on site daily** — Ryan Kent, FNP-BC, Medical Director  
+- **NP on site six days a week** — Ryan Kent, FNP-BC, on-site nurse practitioner  
 - **Health screening before brow PMU** — your wellbeing comes first  
 - **Hospital-grade sanitation** and **single-use, sealed needles** every client  
 - **Professional numbing** managed under medical practice standards  

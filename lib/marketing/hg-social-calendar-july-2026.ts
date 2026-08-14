@@ -36,7 +36,7 @@ Full-service medical aesthetics & wellness under one roof:
 → Botox, fillers & advanced skin resurfacing
 → Morpheus8 Burst · Solaria CO₂ · Quantum RF
 → GLP-1 weight loss · hormones · IV therapy
-→ NP on site 7 days a week
+→ NP on site 6 days a week
 
 Book your free consult 👇
 
@@ -172,7 +172,7 @@ Explore Quantum RF 👇
     channels: ["google", "facebook", "instagram"],
     message: `Your med spa should feel like a real clinic 🩺
 
-At Hello Gorgeous Med Spa, Ryan Kent, FNP-BC screens patients, prescribes when appropriate, and is on site in Oswego 7 days a week.
+At Hello Gorgeous Med Spa, Ryan Kent, FNP-BC screens patients, prescribes when appropriate, and is on site in Oswego 6 days a week.
 
 ✓ 74 W. Washington, Oswego IL
 ✓ (630) 636-6193

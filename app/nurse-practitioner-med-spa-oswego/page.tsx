@@ -13,7 +13,7 @@ const NP_MED_SPA_FAQS = [
   {
     question: "Does Hello Gorgeous have a nurse practitioner on site?",
     answer:
-      "Yes. Ryan Kent, FNP-BC, our Medical Director, is a full-authority nurse practitioner on site as owner. He provides full prescriptive authority for weight loss, hormone therapy, and medical treatments. You receive care from licensed medical professionals.",
+      "Yes. Ryan Kent, FNP-BC, co-founder and our on-site nurse practitioner, has full Illinois prescriptive authority for weight loss, hormone therapy, and medical treatments, with physician oversight from our Medical Director, Dr. Mukesh Arora, MD. You receive care from licensed medical professionals.",
   },
   {
     question: "What is a nurse practitioner med spa?",

@@ -42,7 +42,7 @@
   "heroContent": "Botox is the treatment most people start with — and we want yours to be a great experience. At Hello Gorgeous, Botox is $10 per unit, performed by a medical team that has been working in this practice for 10+ years, and supervised by Ryan Kent, FNP-BC with full medical authority on site. No revolving door of providers. No mystery pricing. No upsell pressure. Just real medical aesthetics from a family-owned practice that has been here longer than most of our competitors have been open.",
   "whyBullets": [
     "$10 per unit — published openly, the same price for everyone, no membership required",
-    "Ryan Kent, FNP-BC on site 7 days a week — not a remote MD signing off from another state",
+    "Ryan Kent, FNP-BC on site 6 days a week — not a remote MD signing off from another state",
     "Same-day appointments available — call us before noon and we'll usually fit you in",
     "10+ years of injecting experience — our hands know what they're doing",
     "Free consultation, every time — we won't talk you into units you don't need",

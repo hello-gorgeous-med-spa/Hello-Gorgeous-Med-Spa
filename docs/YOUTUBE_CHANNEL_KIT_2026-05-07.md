@@ -197,7 +197,7 @@ serving Naperville, Aurora, Plainfield, and Yorkville. We're one of
 the only providers in the western Chicago suburbs offering all three
 InMode body technologies: Quantum RF, Morpheus8 Burst, and Solaria CO₂.
 
-Medical Director: Ryan Kent, FNP-BC
+Nurse Practitioner: Ryan Kent, FNP-BC · Medical Director: Dr. Mukesh Arora, MD
 Founder: Danielle Alcala
 Address: 74 W. Washington St., Oswego, IL 60543
 

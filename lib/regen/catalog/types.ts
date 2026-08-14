@@ -40,6 +40,12 @@ export type Monograph = {
   contra?: string[];
   side?: string[];
   note?: string;
+  /**
+   * Drafted but not yet signed off by the prescribing NP. The file header promises
+   * every entry is provider-reviewed before a client sees it, so a pending entry
+   * must not generate a published clinical page.
+   */
+  pendingReview?: boolean;
 };
 
 export type DosingPhase = {

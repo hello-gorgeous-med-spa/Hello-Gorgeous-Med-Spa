@@ -3,6 +3,9 @@
  *
  * Run after re-syncing the BoomRx sheet or editing `client-visibility.ts`:
  *   npx tsx scripts/audit-rx-client-catalog.ts
+ *
+ * This prints the full picture and always exits 0. `scripts/check-rx-catalog-invariants.ts`
+ * is the CI gate that turns the same data into pass/fail assertions.
  */
 
 import { PRODUCTS } from "../lib/regen/catalog/catalog-data";

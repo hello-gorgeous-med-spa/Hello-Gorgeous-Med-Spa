@@ -24,7 +24,7 @@ export const metadata: Metadata = {
   ...pageMetadata({
     title: "The 10-Week Tirzepatide Program — $600 | Oswego, IL | Hello Gorgeous",
     description:
-      "A medically guided 10-week tirzepatide weight-loss program in Oswego, IL — $600 all-in. One easy weekly dose, provider on site 7 days a week, at-home self-injection with simple training. Free consultation.",
+      "A medically guided 10-week tirzepatide weight-loss program in Oswego, IL — $600 all-in. One easy weekly dose, provider on site 6 days a week, at-home self-injection with simple training. Free consultation.",
     path: PROGRAM_PATH,
   }),
   keywords: [
@@ -129,7 +129,7 @@ const PROGRAM_FAQS = [
   {
     question: "What is the 10-week tirzepatide program?",
     answer:
-      "It's a medically guided weight-loss program at Hello Gorgeous Med Spa in Oswego, IL for a flat $600. You get a private consultation and eligibility review, a 10-week supply of tirzepatide, simple at-home injection training, and provider-guided dosing with check-ins throughout. One easy weekly dose, with Ryan Kent, FNP-BC on site 7 days a week.",
+      "It's a medically guided weight-loss program at Hello Gorgeous Med Spa in Oswego, IL for a flat $600. You get a private consultation and eligibility review, a 10-week supply of tirzepatide, simple at-home injection training, and provider-guided dosing with check-ins throughout. One easy weekly dose, with Ryan Kent, FNP-BC on site 6 days a week.",
   },
   {
     question: "How much does it cost?",
@@ -217,13 +217,13 @@ export default function TirzepatideProgramPage() {
               </h1>
               <p className="text-xl text-gray-300 max-w-2xl mx-auto leading-relaxed mb-8">
                 Ten weeks. One easy weekly dose. A medically guided path to feeling confident in your
-                body again — with a provider on site 7 days a week.
+                body again — with a provider on site 6 days a week.
               </p>
               <div className="flex flex-wrap justify-center gap-3 text-sm mb-10">
                 <span className="flex items-center gap-2 bg-white/10 px-4 py-2 rounded-full">✓ $600 all-in</span>
                 <span className="flex items-center gap-2 bg-white/10 px-4 py-2 rounded-full">✓ One dose a week</span>
                 <span className="flex items-center gap-2 bg-white/10 px-4 py-2 rounded-full">✓ Self-dose at home</span>
-                <span className="flex items-center gap-2 bg-white/10 px-4 py-2 rounded-full">✓ FNP-BC on site 7 days</span>
+                <span className="flex items-center gap-2 bg-white/10 px-4 py-2 rounded-full">✓ FNP-BC on site 6 days</span>
               </div>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <CTA href={PROGRAM_BOOKING_URL} variant="gradient">
@@ -423,7 +423,7 @@ export default function TirzepatideProgramPage() {
               Let&apos;s find out if it&apos;s right for you — gorgeous.
             </h2>
             <p className="text-white/90 text-lg mb-8 font-medium">
-              Free consultation with a provider on site 7 days a week. 74 W Washington St, Oswego, IL ·{" "}
+              Free consultation with a provider on site 6 days a week. 74 W Washington St, Oswego, IL ·{" "}
               {SITE.phone}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">

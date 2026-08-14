@@ -27,7 +27,7 @@ function pickHashtags(keywords: string[], count = 10): string[] {
 
 function generateInstagramCaption(post: typeof blogPosts[0]): string {
   const hashtags = pickHashtags(post.keywords, 12);
-  return `${post.title}\n\n${post.excerpt}\n\n📍 Hello Gorgeous Med Spa — Oswego, IL\n📞 630-636-6193\n🌐 Link in bio\n\nNP on site 7 days a week. Same-day consultations.\n\n${hashtags.join(" ")}`;
+  return `${post.title}\n\n${post.excerpt}\n\n📍 Hello Gorgeous Med Spa — Oswego, IL\n📞 630-636-6193\n🌐 Link in bio\n\nNP on site 6 days a week. Same-day consultations.\n\n${hashtags.join(" ")}`;
 }
 
 function generateFacebookCaption(post: typeof blogPosts[0]): string {

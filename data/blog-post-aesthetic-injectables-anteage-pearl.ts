@@ -210,7 +210,7 @@ Clients who want **radiance, texture, and recovery support** — especially when
 
 Injectable and regenerative medicine should never be “just a menu.” At Hello Gorgeous:
 
-- **Ryan Kent, FNP-BC** — Medical Director, on-site prescriptive authority  
+- **Ryan Kent, FNP-BC** — on-site nurse practitioner, full prescriptive authority  
 - **Danielle Alcala-Glazier** — Owner & Licensed Esthetician; treatment planning and client education  
 - **Authentic products** — Allergan, Galderma, Revance, AnteAGE, and device partners documented on our **[Our Promise](/our-promise)** page  
 

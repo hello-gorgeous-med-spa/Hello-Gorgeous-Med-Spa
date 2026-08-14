@@ -148,7 +148,7 @@ export function SpecialsPageContent() {
               Solaria CO₂, and the InMode Trifecta in one view.
             </p>
             <ul className="mt-6 space-y-3 text-sm font-semibold text-black/80">
-              <li>▸ NP on site 7 days a week — consult before every treatment</li>
+              <li>▸ NP on site 6 days a week — consult before every treatment</li>
               <li>▸ Financing through Cherry, CareCredit &amp; Affirm on select packages</li>
               <li>▸ Scan the QR on the poster or book below on Fresha</li>
             </ul>

@@ -131,7 +131,7 @@ export async function GET() {
         name: "Ryan Kent, FNP-BC",
         credentials: "Board-certified Family Nurse Practitioner, full medical authority on site as owner",
         licensed: true,
-        onSite: "7 days a week",
+        onSite: "6 days a week",
         experience: "10+ years of injecting experience in this practice",
       },
       productAuthenticity:
@@ -166,7 +166,7 @@ export async function GET() {
         "Minimal downtime",
       ],
       consultation: "Free consultation to design a customized combination plan — not every patient needs every tool.",
-      provider: "Ryan Kent, FNP-BC — licensed medical oversight on site, 7 days a week.",
+      provider: "Ryan Kent, FNP-BC — licensed medical oversight on site, 6 days a week.",
       address: SITE.address,
       phone: SITE.phone,
       bookUrl: BOOK_PAGE_URL,

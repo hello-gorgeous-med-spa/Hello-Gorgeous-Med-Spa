@@ -91,7 +91,7 @@ const WHY = [
     n: "3",
     title: "Medical oversight, not a rented machine",
     body:
-      "Every protocol is directed by Ryan Kent, FNP-BC, on site 7 days a week. Settings, candidacy, and safety are managed by a licensed medical provider \u2014 not a technician running a device on the highest preset.",
+      "Every protocol is directed by Ryan Kent, FNP-BC, on site 6 days a week. Settings, candidacy, and safety are managed by a licensed medical provider \u2014 not a technician running a device on the highest preset.",
   },
   {
     n: "4",
@@ -210,7 +210,7 @@ export default function BodyContouringOswegoPage() {
                 <span className="bg-white/10 px-4 py-2 rounded-full">✓ Abdomen · arms · thighs</span>
                 <span className="bg-white/10 px-4 py-2 rounded-full">✓ Post-weight-loss laxity</span>
                 <span className="bg-white/10 px-4 py-2 rounded-full">✓ InMode RF technology</span>
-                <span className="bg-white/10 px-4 py-2 rounded-full">✓ NP on site 7 days</span>
+                <span className="bg-white/10 px-4 py-2 rounded-full">✓ NP on site 6 days</span>
               </div>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <CTA href={BOOKING_URL} variant="gradient">
@@ -239,7 +239,7 @@ export default function BodyContouringOswegoPage() {
                   (deep RF microneedling, up to 8mm) for texture and tightening over larger areas, and{" "}
                   <Link href="/quantum-rf-oswego-il" className="text-[#E6007E] underline decoration-2 underline-offset-2">QuantumRF</Link>{" "}
                   (subdermal RF through tiny entry points) for a surgical-level tightening effect without
-                  surgery. Both are directed by Ryan Kent, FNP-BC, on site 7 days a week. Downtown Oswego
+                  surgery. Both are directed by Ryan Kent, FNP-BC, on site 6 days a week. Downtown Oswego
                   at 74 W Washington St, serving Naperville, Aurora, Plainfield &amp; the Fox Valley.
                 </p>
               </div>

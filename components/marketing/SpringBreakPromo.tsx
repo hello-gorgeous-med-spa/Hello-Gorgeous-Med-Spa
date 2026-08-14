@@ -111,7 +111,7 @@ export function SpringBreakPromo({ city }: SpringBreakPromoProps) {
               </h2>
               <p className="text-white/80 text-lg mb-6">
                 🏆 Best of Oswego — #1 Best Med Spa & Best Medical Weight Loss. Hello Gorgeous Med Spa offers physician-supervised Semaglutide (Ozempic) weight loss
-                programs. Our nurse practitioners are on-site 7 days a week. Same-day consultations
+                programs. Our nurse practitioners are on-site 6 days a week. Same-day consultations
                 available. Get beach-ready this spring — start your transformation today.
               </p>
               <div className="space-y-3 text-white/90">

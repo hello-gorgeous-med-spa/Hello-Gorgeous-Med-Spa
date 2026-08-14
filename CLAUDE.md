@@ -20,13 +20,22 @@ The parent folder is just a wrapper that pins the submodule.
 ```bash
 npm run dev            # local dev (localhost:3000)
 npm run lint           # eslint (CI gate; `npm test` is an alias)
+npm run typecheck:rx   # CI gate — strict tsc over the RX/RE GEN catalog surface only
+npm run check:rx-catalog  # CI gate — client catalog invariants (exits non-zero on violation)
+npm run audit:rx-catalog  # human-readable catalog report, always exits 0
 npm run build          # next build — prebuild runs mascot/mediapipe sync + SEO depth check
 ```
 
 CI (`.github/workflows/ci.yml`) on push to `main`: pushes Supabase migrations, then
-`npm ci → lint → build → test`. **A green build requires lint + build to pass** — run
-both before pushing. Build uses placeholder Supabase env vars, so build-time code must
-not require real secrets at module load.
+`npm ci → lint → typecheck:rx → check:rx-catalog → build → test`. **A green build requires
+all of them to pass** — run them before pushing. Build uses placeholder Supabase env vars,
+so build-time code must not require real secrets at module load.
+
+`next.config.js` sets `typescript.ignoreBuildErrors: true` and the repo carries ~986
+pre-existing type errors (mostly `remotion-videos/` and `scripts/`), so **a green build
+proves nothing about types**. `tsconfig.rx-strict.json` re-establishes a hard type gate over
+the catalog/pricing/storefront surface only; the RX clinic/ops backend is deliberately out of
+scope. Widen the config as those modules get cleaned up — never flip the global flag in one go.
 
 ## Architecture
 

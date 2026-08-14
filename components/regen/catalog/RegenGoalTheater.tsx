@@ -15,6 +15,7 @@ import {
   SHOP_GOAL_HERO_DRUG_KEYS,
   type CatalogGoalId,
   type CatalogProduct,
+  type ShopGoalId,
 } from "@/lib/regen/catalog";
 import { catalogClientPriceText } from "@/lib/regen/catalog/client-price";
 import { REGEN_SHOP_SECTION_WASH } from "@/lib/regen/shop-surface";
@@ -23,7 +24,7 @@ const STAGE_BG = "/images/regen/brand/regen-stage-cinematic-plum.jpg";
 
 /** Dark cinematic stages — different undertones per goal (not tan Hims) */
 const GOAL_STAGE: Record<
-  CatalogGoalId,
+  ShopGoalId,
   {
     wash: string;
     glow: string;

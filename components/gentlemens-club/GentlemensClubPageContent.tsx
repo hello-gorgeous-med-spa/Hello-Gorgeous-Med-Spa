@@ -964,7 +964,7 @@ export function GentlemensClubPageContent() {
           <p className="text-3xl mb-2" aria-hidden>👑</p>
           <h2 className="text-3xl md:text-4xl font-black text-white mb-4">Ready to join?</h2>
           <p className="text-white/90 text-lg mb-8">
-            Start with the TRT screener or book your $49 consult — {RYAN_FULL_NAME} on site 7 days a week.
+            Start with the TRT screener or book your $49 consult — {RYAN_FULL_NAME} on site 6 days a week.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <CTA href="/quiz/trt-readiness" variant="white">

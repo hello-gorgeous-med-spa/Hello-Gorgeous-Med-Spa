@@ -36,7 +36,7 @@ const ABOUT_FAQS = [
   {
     question: "Who performs treatments at Hello Gorgeous?",
     answer:
-      "Danielle Alcala-Glazier performs hands-on aesthetic treatments — brows, skin, and advanced device work she's trained on for 10+ years. Ryan Kent, FNP-BC, supervises all medical protocols, writes prescriptions, and is on site 7 days a week — not a remote physician from another state.",
+      "Danielle Alcala-Glazier performs hands-on aesthetic treatments — brows, skin, and advanced device work she's trained on for 10+ years. Ryan Kent, FNP-BC, supervises all medical protocols, writes prescriptions, and is on site 6 days a week — not a remote physician from another state.",
   },
   {
     question: "Is Hello Gorgeous a chain or franchise?",
@@ -71,7 +71,7 @@ const SECTIONS: AboutSection[] = [
     title: "On Site Every Week",
     badge: "FOUNDERS",
     description:
-      "Dani & Ryan at 74 W. Washington St., downtown Oswego — real founders with a real story, not a franchise. A board-certified NP on site 7 days a week.",
+      "Dani & Ryan at 74 W. Washington St., downtown Oswego — real founders with a real story, not a franchise. A board-certified NP on site 6 days a week.",
     highlights: [
       "Family-owned · not a chain",
       "Downtown Oswego studio",
@@ -120,7 +120,7 @@ const SECTIONS: AboutSection[] = [
     bodyExtra: RYAN_LONG_BIO,
     highlights: [
       "Full prescriptive authority in Illinois",
-      "On site 7 days a week — not remote",
+      "On site 6 days a week — not remote",
       "GLP-1 · hormones · peptides · injectables",
       "Morpheus8 · Quantum RF · Solaria oversight",
     ],
@@ -290,7 +290,7 @@ export function AboutPageContent() {
         <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center">
           <FadeUp>
             <p className="text-xs font-bold uppercase tracking-[0.25em] text-[#FFB8DC]">
-              Oswego, IL · NP on site 7 days
+              Oswego, IL · NP on site 6 days
             </p>
             <h1 className="mt-4 text-4xl md:text-6xl font-black leading-tight">
               Meet{" "}

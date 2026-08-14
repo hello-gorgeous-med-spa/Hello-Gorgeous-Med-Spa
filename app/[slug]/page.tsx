@@ -106,7 +106,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   if (treatmentParsed) {
     const { city, device } = treatmentParsed;
     const title = `${device.shortName} in ${city.name}, IL — Hello Gorgeous Med Spa`;
-    const description = `${device.shortName} ${device.tagline.toLowerCase()} now available near ${city.name}, IL. ${city.nearbyNote} from Hello Gorgeous Med Spa in Oswego. Licensed NP on site 7 days a week. Free consultations. Call 630-636-6193.`;
+    const description = `${device.shortName} ${device.tagline.toLowerCase()} now available near ${city.name}, IL. ${city.nearbyNote} from Hello Gorgeous Med Spa in Oswego. Licensed NP on site 6 days a week. Free consultations. Call 630-636-6193.`;
     return {
       title,
       description,
@@ -206,7 +206,7 @@ export default async function SlugPage({ params }: { params: Promise<{ slug: str
                 <span style={{ color: device.accentColor }}>Near {city.name}, IL</span>
               </h1>
               <p className="text-xl text-white/80 mb-4 max-w-2xl">{device.description}</p>
-              <p className="text-lg text-white/60 mb-8">{city.nearbyNote} from Hello Gorgeous Med Spa in Oswego. NP on site 7 days a week with same-day consultations.</p>
+              <p className="text-lg text-white/60 mb-8">{city.nearbyNote} from Hello Gorgeous Med Spa in Oswego. NP on site 6 days a week with same-day consultations.</p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <Link href="/book" style={{ backgroundColor: device.accentColor }} className="inline-flex items-center justify-center px-8 py-4 text-white font-bold rounded-lg text-lg transition-all hover:-translate-y-0.5 shadow-lg">Book Free Consultation</Link>
                 <a href="tel:6306366193" className="inline-flex items-center justify-center px-8 py-4 border-2 border-white/30 hover:border-white text-white font-bold rounded-lg text-lg transition-all">📞 630-636-6193</a>
@@ -252,9 +252,9 @@ export default async function SlugPage({ params }: { params: Promise<{ slug: str
           </section>
           <section className="py-16 md:py-20 bg-black text-white">
             <div className="max-w-4xl mx-auto px-6">
-              <h2 className="text-3xl md:text-4xl font-bold mb-6 font-serif">NP on Site <span style={{ color: device.accentColor }}>7 Days a Week</span></h2>
+              <h2 className="text-3xl md:text-4xl font-bold mb-6 font-serif">NP on Site <span style={{ color: device.accentColor }}>6 Days a Week</span></h2>
               <div className="prose prose-lg prose-invert max-w-none text-white/80 space-y-4">
-                <p>Hello Gorgeous has a board-certified Family Nurse Practitioner (FNP-BC) on site every day of the week. That means:</p>
+                <p>Hello Gorgeous has a board-certified Family Nurse Practitioner (FNP-BC) on site six days a week. That means:</p>
                 <ul className="space-y-2">
                   <li><strong>Same-day medical consultations</strong> — no waiting weeks</li>
                   <li><strong>Same-day prescriptions</strong> — antivirals for laser, hormones, weight loss medications</li>

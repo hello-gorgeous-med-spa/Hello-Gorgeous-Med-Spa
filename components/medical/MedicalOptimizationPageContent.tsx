@@ -129,7 +129,7 @@ export function MedicalOptimizationPageContent() {
             </p>
             <p className="mt-4 text-neutral-600 leading-relaxed">
               Ryan is our on-site Board-Certified Family Nurse Practitioner with full
-              Illinois prescriptive authority — on site 7 days a week under Medical Director Dr. Mukesh
+              Illinois prescriptive authority — on site 6 days a week under Medical Director Dr. Mukesh
               Arora, MD. {DANI_FULL_NAME} founded
               Hello Gorgeous and leads aesthetics, IV, and client experience alongside Ryan&apos;s
               medical programs.

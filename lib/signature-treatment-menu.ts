@@ -130,7 +130,7 @@ export const SIGNATURE_MENU_SOCIAL = {
 ✨ Solaria CO₂ — $899 with buy-one-get-one-free area
 👑 Trifecta: Morpheus8 + Quantum RF + FREE Solaria CO₂
 
-Family-owned · NP on site 7 days a week.
+Family-owned · NP on site 6 days a week.
 Beautifully you. Confidently gorgeous.
 
 Book online — link below.`,

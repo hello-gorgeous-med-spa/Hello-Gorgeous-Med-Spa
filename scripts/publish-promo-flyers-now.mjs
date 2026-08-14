@@ -17,7 +17,7 @@ const ALL_POSTS = [
 
 ✨ Natural shape & volume · $450 / 1 syringe · $399 each for 2
 
-Book on Fresha — Oswego · NP on site 7 days a week.`,
+Book on Fresha — Oswego · NP on site 6 days a week.`,
     link: `${SITE_URL}/lip-filler-oswego`,
     imagePath: "/images/promo/lip-filler-promo-flyer.png",
   },
@@ -59,7 +59,7 @@ Book your lab panel — link below.`,
 ✨ Solaria CO₂ full resurfacing — $899
 👑 Trifecta: Morpheus8 + Quantum RF + FREE Solaria CO₂
 
-Family-owned · NP on site 7 days a week.
+Family-owned · NP on site 6 days a week.
 Beautifully you. Confidently gorgeous.
 
 Book on Fresha — link below.`,

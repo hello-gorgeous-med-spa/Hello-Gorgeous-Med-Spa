@@ -95,7 +95,7 @@ export function IvTherapyServicePage() {
                 <Link href={PROVIDER_BOOKING_URL_RYAN} className="text-[#FFB8DC] underline underline-offset-2 hover:text-white">
                   Ryan
                 </Link>{" "}
-                · NP on site 7 days a week · Oswego, Naperville, Aurora &amp; Plainfield
+                · NP on site 6 days a week · Oswego, Naperville, Aurora &amp; Plainfield
               </p>
             </FadeUp>
           </div>
@@ -206,7 +206,7 @@ export function IvTherapyServicePage() {
           <div className="max-w-3xl mx-auto px-4 text-center">
             <h2 className="text-3xl md:text-4xl font-black text-white mb-4">Ready to drip?</h2>
             <p className="text-white/90 text-lg mb-8">
-              Book your IV session or build a custom bag in the Hello Gorgeous app — Ryan Kent, FNP-BC on site 7 days a week.
+              Book your IV session or build a custom bag in the Hello Gorgeous app — Ryan Kent, FNP-BC on site 6 days a week.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <CTA href={PRIMARY_BOOKING_CTA.href} variant="white">

@@ -112,7 +112,7 @@ export const BHRT_COST_COMPARISON: BhrtComparisonRow[] = [
     modelSub: "Pellets + NP oversight",
     annualCost: "~$1,200–2,500/yr",
     included:
-      "Certified BioTE insertion, lab-guided dosing, follow-ups, optional $99/mo membership perks, in-person NP on site 7 days",
+      "Certified BioTE insertion, lab-guided dosing, follow-ups, optional $99/mo membership perks, in-person NP on site 6 days",
     missing: "Medication not bundled into one flat monthly fee — costs disclosed per visit",
     highlight: true,
   },
@@ -331,7 +331,7 @@ export const BHRT_COST_FAQS: FAQ[] = [
   {
     question: "How does BioTE cost compare to telehealth HRT?",
     answer:
-      "Telehealth programs often run $100–250/month for medication shipped to your door, but typically exclude in-person exams, pellet therapy, testosterone for women, and hands-on lab monitoring. Hello Gorgeous's itemized model costs more upfront per insertion but includes certified BioTE placement and NP oversight on site seven days a week.",
+      "Telehealth programs often run $100–250/month for medication shipped to your door, but typically exclude in-person exams, pellet therapy, testosterone for women, and hands-on lab monitoring. Hello Gorgeous's itemized model costs more upfront per insertion but includes certified BioTE placement and NP oversight on site six days a week.",
   },
   {
     question: "Is hormone therapy a lifetime commitment?",

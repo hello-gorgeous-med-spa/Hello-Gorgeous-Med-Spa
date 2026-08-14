@@ -38,7 +38,7 @@ export const maleFemalePractitionersPost: BlogPost = {
     {
       question: "Who provides medical oversight at Hello Gorgeous?",
       answer:
-        "Ryan Kent, FNP-BC, serves as Medical Director with full prescriptive authority and is on site seven days a week. Danielle Alcala-Glazier is the founder and licensed esthetician leading aesthetics and client experience.",
+        "Ryan Kent, FNP-BC, is our on-site nurse practitioner with full prescriptive authority and is on site six days a week, with Dr. Mukesh Arora, MD as Medical Director. Danielle Alcala-Glazier is the founder and licensed esthetician leading aesthetics and client experience.",
     },
     {
       question: "Can I get a second opinion within the same med spa?",
@@ -204,7 +204,7 @@ Yes. We serve both with injectables, wellness, weight management, hormones, lase
 
 ### Who oversees medical care?
 
-Ryan Kent, FNP-BC, is Medical Director with on-site prescriptive authority seven days a week. Danielle Alcala-Glazier leads aesthetics, education, and the client experience as founder.
+Ryan Kent, FNP-BC, is our on-site nurse practitioner with prescriptive authority six days a week, and Dr. Mukesh Arora, MD is our Medical Director. Danielle Alcala-Glazier leads aesthetics, education, and the client experience as founder.
 
 ### Can I get a second opinion at the same med spa?
 

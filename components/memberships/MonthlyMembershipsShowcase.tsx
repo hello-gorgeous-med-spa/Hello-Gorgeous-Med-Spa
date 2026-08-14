@@ -181,7 +181,7 @@ export function MonthlyMembershipsShowcase() {
                   },
                   {
                     q: "Who oversees my care?",
-                    a: "Ryan Kent, FNP-BC, is on site seven days a week at our Oswego location — hormone, peptide, wellness, and Vitamin Bar memberships all run under NP supervision.",
+                    a: "Ryan Kent, FNP-BC, is on site six days a week at our Oswego location — hormone, peptide, wellness, and Vitamin Bar memberships all run under NP supervision.",
                   },
                 ].map((item) => (
                   <div key={item.q}>

@@ -20,7 +20,7 @@ export const revalidate = 3600;
 export const metadata: Metadata = pageMetadata({
   title: "Best Botox in Oswego, IL | How to Choose + Why Hello Gorgeous",
   description:
-    "How to choose the best Botox in Oswego, IL: licensed injector, authentic FDA-approved product, transparent pricing, and follow-up. Hello Gorgeous meets all five — $10/unit, NP on site 7 days/week. Free consult.",
+    "How to choose the best Botox in Oswego, IL: licensed injector, authentic FDA-approved product, transparent pricing, and follow-up. Hello Gorgeous meets all five — $10/unit, NP on site 6 days/week. Free consult.",
   path: "/best-botox-oswego-il",
 });
 
@@ -32,7 +32,7 @@ const CRITERIA = [
     title: "A licensed medical injector",
     what:
       "Botox is a prescription medication. Ask who is actually injecting you and whether a licensed medical provider is on site — not a remote medical director signing off from another state.",
-    hg: "Ryan Kent, FNP-BC — a board-certified Family Nurse Practitioner with full medical authority — is on site 7 days a week as owner. Our team has 10+ years of injecting experience in this practice.",
+    hg: "Ryan Kent, FNP-BC — a board-certified Family Nurse Practitioner with full Illinois prescriptive authority — is on site 6 days a week, with Dr. Mukesh Arora, MD as Medical Director. Our team has 10+ years of injecting experience in this practice.",
   },
   {
     n: "2",
@@ -68,7 +68,7 @@ const BEST_BOTOX_FAQS = [
   {
     question: "Where should I go for Botox in Oswego, IL?",
     answer:
-      "For Botox in Oswego, IL, look for a med spa with a licensed medical injector on site, authentic FDA-approved product, transparent per-unit pricing, conservative natural dosing, and an included follow-up. Hello Gorgeous Med Spa (74 W Washington St, downtown Oswego) meets all five: Ryan Kent, FNP-BC on site 7 days a week, genuine Allergan/AbbVie product, published $10/unit pricing, natural-looking results, and a complimentary day-14 follow-up. Free consultations; serving Naperville, Aurora, Plainfield, and the Fox Valley.",
+      "For Botox in Oswego, IL, look for a med spa with a licensed medical injector on site, authentic FDA-approved product, transparent per-unit pricing, conservative natural dosing, and an included follow-up. Hello Gorgeous Med Spa (74 W Washington St, downtown Oswego) meets all five: Ryan Kent, FNP-BC on site 6 days a week, genuine Allergan/AbbVie product, published $10/unit pricing, natural-looking results, and a complimentary day-14 follow-up. Free consultations; serving Naperville, Aurora, Plainfield, and the Fox Valley.",
   },
   {
     question: "How much does Botox cost in Oswego?",
@@ -130,7 +130,7 @@ export default function BestBotoxOswegoPage() {
                 follow-up.
               </p>
               <div className="flex flex-wrap justify-center gap-3 text-sm mb-10">
-                <span className="flex items-center gap-2 bg-white/10 px-4 py-2 rounded-full">✓ FNP-BC on site 7 days</span>
+                <span className="flex items-center gap-2 bg-white/10 px-4 py-2 rounded-full">✓ FNP-BC on site 6 days</span>
                 <span className="flex items-center gap-2 bg-white/10 px-4 py-2 rounded-full">✓ Authentic product</span>
                 <span className="flex items-center gap-2 bg-white/10 px-4 py-2 rounded-full">✓ $10/unit</span>
                 <span className="flex items-center gap-2 bg-white/10 px-4 py-2 rounded-full">✓ Natural, not frozen</span>
@@ -162,7 +162,7 @@ export default function BestBotoxOswegoPage() {
                   <strong>transparent per-unit pricing</strong>,{" "}
                   <strong>conservative natural dosing</strong>, and an{" "}
                   <strong>included follow-up</strong>. <Link href="/botox-oswego" className="text-[#E6007E] underline decoration-2 underline-offset-2">Hello Gorgeous Med Spa</Link>{" "}
-                  meets all five — Ryan Kent, FNP-BC on site 7 days a week, genuine Allergan/AbbVie product,
+                  meets all five — Ryan Kent, FNP-BC on site 6 days a week, genuine Allergan/AbbVie product,
                   published $10/unit pricing, natural-looking results, and a complimentary day-14 follow-up.
                   Downtown Oswego at 74 W Washington St, serving Naperville, Aurora &amp; Plainfield.
                 </p>

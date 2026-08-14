@@ -1,6 +1,11 @@
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 
+import { ClinicalReview } from "@/components/ClinicalReview";
+import {
+  NpScopePanel,
+  OversightModelPanel,
+} from "@/components/providers/ClinicalAuthorityPanels";
 import { createServerSupabaseClient } from "@/lib/hgos/supabase";
 import {
   DANI_FULL_NAME,
@@ -8,6 +13,10 @@ import {
   RYAN_PROVIDER_BIO,
   ryanPersonJsonLd,
 } from "@/lib/founder-credentials";
+import {
+  medicalDirectorPersonJsonLd,
+  NP_ON_SITE_DAYS_PER_WEEK,
+} from "@/lib/medical-authority";
 import { DANIELLE_CREDENTIALS, RYAN_CREDENTIALS } from "@/lib/provider-credentials";
 import { breadcrumbJsonLd, pageMetadata, SITE } from "@/lib/seo";
 
@@ -27,7 +36,7 @@ const FALLBACK_PROVIDERS: Record<
     title: "On-Site Nurse Practitioner · FNP-BC",
     credentials: RYAN_CREDENTIALS,
     description:
-      "Meet Ryan Kent, FNP-BC — board-certified Family Nurse Practitioner at Hello Gorgeous Med Spa in Oswego, IL. On site 7 days a week with full Illinois prescriptive authority under Medical Director Dr. Mukesh Arora, MD.",
+      "Meet Ryan Kent, FNP-BC — board-certified Family Nurse Practitioner at Hello Gorgeous Med Spa in Oswego, IL. On site 6 days a week with full Illinois prescriptive authority under Medical Director Dr. Mukesh Arora, MD.",
   },
 };
 
@@ -133,18 +142,22 @@ export default async function ProviderLayout({ children, params }: LayoutProps) 
     { name: RYAN_FULL_NAME, url: `${SITE.url}/providers/ryan` },
   ]);
 
+  const reviewer = ryanPersonJsonLd({ profileUrl: `${SITE.url}/providers/ryan` });
+
   const profileSchema = {
     "@context": "https://schema.org",
     "@graph": [
-      ryanPersonJsonLd({ profileUrl: `${SITE.url}/providers/ryan` }),
+      reviewer,
+      medicalDirectorPersonJsonLd(SITE.url),
       {
         "@type": "ProfilePage",
-        "@id": `${SITE.url}/providers/ryan`,
+        "@id": `${SITE.url}/providers/ryan#webpage`,
         url: `${SITE.url}/providers/ryan`,
         name: `${RYAN_FULL_NAME} | Hello Gorgeous Med Spa`,
         description: RYAN_PROVIDER_BIO.replace(/\n\n/g, " ").slice(0, 320),
-        mainEntity: { "@id": `${SITE.url}/providers/ryan` },
+        mainEntity: { "@id": reviewer["@id"] },
         isPartOf: { "@id": `${SITE.url}/#website` },
+        about: { "@id": `${SITE.url}/#organization` },
       },
       breadcrumb,
     ],
@@ -157,6 +170,26 @@ export default async function ProviderLayout({ children, params }: LayoutProps) 
         dangerouslySetInnerHTML={{ __html: JSON.stringify(profileSchema) }}
       />
       {children}
+      {/**
+       * Server-rendered so the credential story is in the initial HTML — the profile
+       * body above fetches from the providers API on the client.
+       */}
+      <section className="border-t-4 border-black bg-gradient-to-b from-[#FFF0F7] via-white to-white py-16">
+        <div className="mx-auto max-w-6xl space-y-6 px-4 sm:px-6 lg:px-8">
+          <div>
+            <p className="text-[11px] font-bold uppercase tracking-[0.25em] text-[#E6007E]">
+              Clinical authority
+            </p>
+            <h2 className="mt-2 text-3xl font-black leading-tight text-black sm:text-4xl">
+              {RYAN_FULL_NAME}, in the building{" "}
+              <span className="text-[#E6007E]">{NP_ON_SITE_DAYS_PER_WEEK} days a week</span>
+            </h2>
+          </div>
+          <NpScopePanel />
+          <OversightModelPanel activeProfile="np" />
+          <ClinicalReview />
+        </div>
+      </section>
     </>
   );
 }
