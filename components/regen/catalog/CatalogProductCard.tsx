@@ -16,6 +16,7 @@ import { catalogLineId, listingPriceText, price30 } from "@/lib/regen/catalog/pr
 import { catalogClientPriceText } from "@/lib/regen/catalog/client-price";
 import { catalogConsultRoute } from "@/lib/regen/catalog/consult-route";
 import { getMonograph } from "@/lib/regen/catalog/index";
+import { isPublishedProtocolDrugKey, protocolPath } from "@/lib/regen/catalog/protocol-pages";
 
 const STAGE_BG = "/images/regen/brand/regen-stage-cinematic-plum.jpg";
 
@@ -166,12 +167,22 @@ export function ProductCard({ product, href, onOpen, consultMode }: ProductCardP
 
       <div className="border-t border-white/10 p-3">
         {consultMode ? (
-          <Link
-            href={consult.href}
-            className="block w-full rounded-xl bg-gradient-to-r from-[#FF2D8E] to-[#E6007E] py-2.5 text-center text-sm font-black text-white shadow-[0_0_20px_rgba(255,45,142,0.35)] transition hover:brightness-110 active:translate-y-px"
-          >
-            {consult.cta} →
-          </Link>
+          <>
+            <Link
+              href={consult.href}
+              className="block w-full rounded-xl bg-gradient-to-r from-[#FF2D8E] to-[#E6007E] py-2.5 text-center text-sm font-black text-white shadow-[0_0_20px_rgba(255,45,142,0.35)] transition hover:brightness-110 active:translate-y-px"
+            >
+              {consult.cta} →
+            </Link>
+            {isPublishedProtocolDrugKey(product.drugKey) ? (
+              <Link
+                href={protocolPath(product.drugKey)}
+                className="mt-2 block text-center text-xs font-semibold text-white/55 transition hover:text-[#FFB8DC]"
+              >
+                How this protocol works
+              </Link>
+            ) : null}
+          </>
         ) : (
           <button
             type="button"

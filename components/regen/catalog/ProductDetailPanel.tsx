@@ -24,6 +24,7 @@ import {
 import { catalogLineId, price30, price90, supplyPrice } from "@/lib/regen/catalog/pricing";
 import { catalogClientSupplyUsd } from "@/lib/regen/catalog/client-price";
 import { catalogConsultRoute } from "@/lib/regen/catalog/consult-route";
+import { isPublishedProtocolDrugKey, protocolPath } from "@/lib/regen/catalog/protocol-pages";
 import {
   formatCatalogMoney,
   CatalogCartButton,
@@ -320,6 +321,18 @@ export function ProductDetailPanel({
                 }`}
               >
                 Full education page →
+              </Link>
+            ) : null}
+            {consultMode && isPublishedProtocolDrugKey(product.drugKey) ? (
+              <Link
+                href={protocolPath(product.drugKey)}
+                className={`flex w-full items-center justify-center gap-2 rounded-xl border-2 py-3.5 text-sm font-bold transition ${
+                  pageMode
+                    ? "border-black bg-white text-black hover:bg-[#FFF0F7]"
+                    : "border-white/25 text-white/80 hover:border-[#FF2D8E] hover:text-[#FF2D8E]"
+                }`}
+              >
+                Read the protocol →
               </Link>
             ) : null}
           </div>

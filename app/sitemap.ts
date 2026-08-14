@@ -13,6 +13,7 @@ import { MEDICAL_OPTIMIZATION_PATH } from '@/lib/medical-optimization';
 import { QUIZ_HUB_PATH } from '@/lib/quiz-nav';
 import { getPublishedPeptideTopics, PEPTIDES_HUB_PATH } from '@/lib/peptides-hub';
 import { REGEN_CATEGORY_HUBS } from '@/lib/rx-category-hubs';
+import { publishedProtocolModels, RX_PROTOCOLS_PATH } from '@/lib/regen/catalog/protocol-pages';
 import { SKIN_101_GUIDES, SKIN_101_PATH } from '@/lib/skin-101-nav';
 import { isDeindexedSeoPath } from '@/lib/city-seo-tier';
 import { AI_FLAGSHIP_PAGES } from '@/lib/ai-discoverable-flagships';
@@ -347,6 +348,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: currentDate,
       changeFrequency: 'monthly',
       priority: 0.92,
+    },
+    {
+      url: `${baseUrl}/rx/protocols`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.9,
     },
     {
       url: `${baseUrl}/rx/start`,
@@ -1190,6 +1197,21 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
   ];
 
+  const rxProtocolPages: MetadataRoute.Sitemap = [
+    {
+      url: `${baseUrl}${RX_PROTOCOLS_PATH}`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly' as const,
+      priority: 0.9,
+    },
+    ...publishedProtocolModels().map((protocol) => ({
+      url: `${baseUrl}${protocol.path}`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly' as const,
+      priority: 0.86,
+    })),
+  ];
+
   const TOPIC_PEPTIDE_SLUGS = new Set(['bpc-157', 'sermorelin', 'ghk-cu-injectable', 'pt-141', 'nad-plus']);
   const peptideHubPages: MetadataRoute.Sitemap = [
     {
@@ -1325,6 +1347,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...laserHairMembershipPages,
     ...springBreakPages,
     ...peptideHubPages,
+    ...rxProtocolPages,
     ...medicalHubPages,
     ...quizHubPages,
     ...skin101Pages,
