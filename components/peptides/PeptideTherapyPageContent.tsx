@@ -224,38 +224,30 @@ export function PeptideTherapyPageContent() {
       />
 
       <main className="min-w-0">
-        <section className="relative overflow-hidden border-b-4 border-black py-16 lg:py-24">
-          <div
-            className="absolute inset-0"
-            style={{
-              background: `linear-gradient(135deg, ${BRAND.dark} 0%, #1a0a12 40%, #2d1020 70%, ${BRAND.dark} 100%)`,
-            }}
-          />
+        <section className="relative min-h-[560px] overflow-hidden border-b-4 border-black lg:min-h-[680px]">
           <Image
             src="/images/shop-rx/rx-hero-team.png"
-            alt=""
+            alt="Ryan Kent, FNP-BC and Danielle Alcala-Glazier at Hello Gorgeous Med Spa"
             fill
             priority
-            className="object-cover object-center opacity-40"
+            className="object-cover object-[78%_18%]"
             sizes="100vw"
           />
           <div
             className="absolute inset-0"
             style={{
               background:
-                "linear-gradient(90deg, #000 28%, rgba(0,0,0,0.35) 70%, rgba(0,0,0,0.15) 100%)",
+                "linear-gradient(90deg, #0a0a0a 0%, rgba(10,10,10,0.88) 36%, rgba(45,16,32,0.28) 58%, rgba(0,0,0,0.08) 100%)",
             }}
           />
           <div
-            className="absolute inset-0 opacity-40"
+            className="pointer-events-none absolute inset-y-0 left-0 w-[55%] opacity-50"
             style={{
-              background: `radial-gradient(circle at 18% 30%, ${BRAND.pink} 0%, transparent 45%),
-                radial-gradient(circle at 88% 18%, ${BRAND.pinkHot} 0%, transparent 40%)`,
+              background: `radial-gradient(ellipse 80% 70% at 20% 40%, ${BRAND.pink}55 0%, transparent 70%)`,
             }}
           />
-          <div className="absolute inset-0 bg-[linear-gradient(to_bottom,transparent_0%,rgba(0,0,0,0.45)_100%)]" />
 
-          <div className="relative z-10 mx-auto max-w-6xl px-6 md:px-12">
+          <div className="relative z-10 mx-auto flex min-h-[560px] max-w-6xl items-center px-6 py-16 md:px-12 lg:min-h-[680px] lg:py-20">
             <div className="max-w-xl">
               <div className="mb-6 inline-flex items-center gap-2 rounded-full border-2 border-white/20 bg-white/10 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.2em] text-white backdrop-blur-sm">
                 <span className="inline-block h-2 w-2 animate-pulse rounded-full bg-[#E6007E]" aria-hidden />
