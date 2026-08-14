@@ -48,9 +48,16 @@ const GOAL_HUB: Record<string, { path: string; label: string }> = {
 
 const MONOGRAPH_BY_KEY = MONOGRAPHS as Record<string, Monograph>;
 
+/** Flagship Learn More URLs — shop cards and catalog protocol links use these. */
+export const FLAGSHIP_PROTOCOL_PATHS: Record<string, string> = {
+  tirzepatide: "/tirzepatide",
+  semaglutide: "/semaglutide",
+  bpc157: "/bpc-157",
+  sermorelin: "/sermorelin",
+};
+
 export function protocolPath(drugKey: string): string {
-  if (drugKey === "tirzepatide") return "/tirzepatide";
-  return `${RX_PROTOCOLS_PATH}/${drugKey}`;
+  return FLAGSHIP_PROTOCOL_PATHS[drugKey] ?? `${RX_PROTOCOLS_PATH}/${drugKey}`;
 }
 
 export function namedMonograph(drugKey: string): Monograph | undefined {

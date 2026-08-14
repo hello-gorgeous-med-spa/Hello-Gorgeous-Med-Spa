@@ -8,8 +8,7 @@ import { boomrxConsumerMonthlyUsd } from "@/lib/boomrx-consumer-pricing";
 import { GLP1_INTAKE_PATH, PEPTIDE_REQUEST_PATH } from "@/lib/flows";
 import { getPeptideBoomRxCatalogEntry } from "@/lib/peptide-boomrx-catalog";
 import { GLP1_RETAIL_PROGRAM, getPeptideRetailMonthlyUsd } from "@/lib/peptide-retail-pricing";
-import { protocolPath, isPublishedProtocolDrugKey } from "@/lib/regen/catalog/protocol-pages";
-import { TIRZEPATIDE_LEARN_PATH } from "@/lib/tirzepatide-learn";
+import { protocolPath, isPublishedProtocolDrugKey, FLAGSHIP_PROTOCOL_PATHS } from "@/lib/regen/catalog/protocol-pages";
 
 const IMG = "/images/peptide-shop";
 
@@ -37,7 +36,7 @@ function fromVial(menuId: string, fallbackWholesale: number) {
 }
 
 function learnHref(drugKey: string) {
-  if (drugKey === "tirzepatide") return TIRZEPATIDE_LEARN_PATH;
+  if (FLAGSHIP_PROTOCOL_PATHS[drugKey]) return FLAGSHIP_PROTOCOL_PATHS[drugKey];
   return isPublishedProtocolDrugKey(drugKey) ? protocolPath(drugKey) : undefined;
 }
 

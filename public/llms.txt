@@ -47,6 +47,9 @@
 - Patient brochure (share link): https://www.hellogorgeousmedspa.com/rx/brochure
 - Category hubs:
   - Tirzepatide (Learn More): https://www.hellogorgeousmedspa.com/tirzepatide
+  - Semaglutide (Learn More): https://www.hellogorgeousmedspa.com/semaglutide
+  - BPC-157 (Learn More): https://www.hellogorgeousmedspa.com/bpc-157
+  - Sermorelin (Learn More): https://www.hellogorgeousmedspa.com/sermorelin
   - Weight loss (GLP-1): https://www.hellogorgeousmedspa.com/rx/weight-loss
   - Hormones (TRT/HRT): https://www.hellogorgeousmedspa.com/rx/hormones
   - Peptides: https://www.hellogorgeousmedspa.com/peptides

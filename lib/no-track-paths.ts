@@ -44,6 +44,8 @@ export const NO_TRACK_PREFIXES = [
   // GLP-1 weight loss medications (semaglutide = Ozempic/Wegovy, tirzepatide = Mounjaro)
   "/semaglutide",
   "/tirzepatide",
+  "/bpc-157",
+  "/sermorelin",
   "/glp1",
   "/glp-1",
 

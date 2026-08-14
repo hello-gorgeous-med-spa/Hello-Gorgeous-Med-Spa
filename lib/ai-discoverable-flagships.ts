@@ -105,6 +105,27 @@ export const AI_FLAGSHIP_PAGES = [
     intent: "tirzepatide GLP-1 GIP medical weight loss Oswego IL",
     priority: 0.96,
   },
+  {
+    id: "semaglutide",
+    name: "Semaglutide Weight Loss",
+    path: "/semaglutide",
+    intent: "semaglutide GLP-1 medical weight loss Oswego IL",
+    priority: 0.95,
+  },
+  {
+    id: "bpc-157",
+    name: "BPC-157 Peptide Therapy",
+    path: "/bpc-157",
+    intent: "BPC-157 recovery peptide Oswego IL",
+    priority: 0.9,
+  },
+  {
+    id: "sermorelin",
+    name: "Sermorelin Peptide Therapy",
+    path: "/sermorelin",
+    intent: "sermorelin GHRH peptide Oswego IL",
+    priority: 0.9,
+  },
 ] as const;
 
 /** Canonical Oswego SEO landers (existing *-oswego routes). */

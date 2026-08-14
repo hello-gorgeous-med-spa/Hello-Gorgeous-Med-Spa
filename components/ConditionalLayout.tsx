@@ -46,6 +46,9 @@ const STANDALONE_APP_ROUTES = [
   "/hello-gorgeous-rx/start-here",
   "/rx",
   "/tirzepatide",
+  "/semaglutide",
+  "/bpc-157",
+  "/sermorelin",
   "/services/flowwave",
   "/microblading-brow-pmu-oswego-il",
   /** Ageless-style ad LP — sticky mini-nav only */
