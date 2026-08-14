@@ -110,22 +110,22 @@ export function PeptideShopShelf() {
         <div
           key={section.id}
           id={section.id}
-          className="mx-auto max-w-[1200px] scroll-mt-24 px-6 py-12 first:pt-8 last:pb-16"
+          className="scroll-mt-24 border-t border-black/8 bg-[#FFF7FA] px-6 py-14 even:bg-white"
         >
-          <h3 className="border-l-4 border-[#FF2D8E] pl-3.5 font-serif text-[22px] font-bold">{section.title}</h3>
-          <p className="mt-2.5 max-w-xl pl-3.5 text-[13.5px] leading-relaxed text-black/55">{section.intro}</p>
-          <div
-            className={`mt-7 grid gap-5 ${
-              section.cards.length === 1
-                ? "max-w-md sm:grid-cols-2"
-                : section.cards.length <= 3
-                  ? "sm:grid-cols-2 lg:grid-cols-3"
-                  : "sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
-            }`}
-          >
-            {section.cards.map((card) => (
-              <ShopCard key={card.name} card={card} />
-            ))}
+          <div className="mx-auto max-w-[1200px]">
+            <h3 className="text-center font-serif text-[26px] font-bold uppercase tracking-[0.14em] text-[#C90A68] lg:text-[32px]">
+              {section.title}
+            </h3>
+            {section.intro ? (
+              <p className="mx-auto mt-3 max-w-2xl text-center text-[14.5px] leading-relaxed text-black/55">
+                {section.intro}
+              </p>
+            ) : null}
+            <div className="mt-9 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+              {section.cards.map((card) => (
+                <ShopCard key={`${section.id}-${card.name}`} card={card} />
+              ))}
+            </div>
           </div>
         </div>
       ))}

@@ -30,6 +30,7 @@ const GLP1_MENU_IDS = new Set(["tirzepatide", "semaglutide"]);
 
 export function isClientRequestablePeptide(item: PeptideRequestItem): boolean {
   if (GLP1_MENU_IDS.has(item.id)) return true;
+  if (getPeptideBoomRxCatalogEntry(item.id)) return true;
   // Blends are listed by their trade name ("HEAL Blend"), so match on the sheet name.
   const sheetName = getPeptideBoomRxCatalogEntry(item.id)?.productName ?? item.name;
   return isCarriedOnBoomRxSheet(sheetName) || isCarriedOnBoomRxSheet(item.name);

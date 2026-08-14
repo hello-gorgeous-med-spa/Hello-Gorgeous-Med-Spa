@@ -48,6 +48,20 @@ export const PEPTIDE_BOOMRX_CATALOG: PeptideBoomRxCatalogEntry[] = [
   { peptideMenuId: "biotin", productName: "Biotin", concentration: "Compounded · 5 mL", wholesalePerVialUsd: 70, inPdf: false },
   { peptideMenuId: "amino-blend", productName: "Amino Blend", concentration: "Compounded blend · 5 mL", wholesalePerVialUsd: 80, inPdf: false },
   { peptideMenuId: "k-glow", productName: "K-Glow", concentration: "Compounded blend · 5 mL", wholesalePerVialUsd: 80, inPdf: false },
+  { peptideMenuId: "kpv", productName: "KPV", concentration: "Compounded · 5 mL", wholesalePerVialUsd: 70, inPdf: false },
+  { peptideMenuId: "bpc-157-caps", productName: "BPC-157 ACETATE", concentration: "500 mcg capsules", wholesalePerVialUsd: 46, inPdf: true },
+  { peptideMenuId: "dsip", productName: "DSIP / BPC-157 / CJC-1295", concentration: "1 / 2 / 2 mg/mL; 5 mL", wholesalePerVialUsd: 80, inPdf: true },
+  { peptideMenuId: "methylene-blue", productName: "Methylene Blue", concentration: "Compounded capsules", wholesalePerVialUsd: 70, inPdf: false },
+  { peptideMenuId: "ss-31", productName: "SS-31", concentration: "2 mg/mL; 5 mL Vial", wholesalePerVialUsd: 70, inPdf: true },
+  { peptideMenuId: "ll-37", productName: "LL-37", concentration: "2 mg/mL; 5 mL Vial", wholesalePerVialUsd: 70, inPdf: true },
+  { peptideMenuId: "thymosin-a1", productName: "Thymosin A-1", concentration: "5 mg/mL; 5 mL Vial", wholesalePerVialUsd: 70, inPdf: true },
+  { peptideMenuId: "gonadorelin", productName: "Gonadorelin", concentration: "1 mg/mL; 5 mL Vial", wholesalePerVialUsd: 50, inPdf: true },
+  { peptideMenuId: "hcg", productName: "HCG", concentration: "Compounded · vial", wholesalePerVialUsd: 70, inPdf: false },
+  { peptideMenuId: "kisspeptin", productName: "Kisspeptin", concentration: "1 mg/mL; 5 mL Vial", wholesalePerVialUsd: 70, inPdf: true },
+  { peptideMenuId: "oxytocin", productName: "Oxytocin", concentration: "Compounded · vial", wholesalePerVialUsd: 70, inPdf: false },
+  { peptideMenuId: "cardiogen", productName: "Cardiogen", concentration: "Compounded · 5 mL", wholesalePerVialUsd: 70, inPdf: false },
+  { peptideMenuId: "ara-290", productName: "ARA-290", concentration: "Compounded · 5 mL", wholesalePerVialUsd: 70, inPdf: false },
+  { peptideMenuId: "curcumin", productName: "Curcumin (Injectable)", concentration: "Compounded · vial", wholesalePerVialUsd: 70, inPdf: false },
 ];
 
 const CATALOG_BY_MENU_ID = new Map(PEPTIDE_BOOMRX_CATALOG.map((e) => [e.peptideMenuId, e]));
