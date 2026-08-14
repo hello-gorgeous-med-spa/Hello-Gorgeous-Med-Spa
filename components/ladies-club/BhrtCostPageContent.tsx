@@ -6,7 +6,6 @@ import Link from "next/link";
 import { CTA } from "@/components/CTA";
 import { FAQAccordion } from "@/components/FAQAccordion";
 import { FadeUp, Section } from "@/components/Section";
-import { BOOKING_URL } from "@/lib/flows";
 import { HG_TAGLINE } from "@/lib/brand-tagline";
 import {
   BHRT_COST_COMPARISON,
@@ -139,7 +138,7 @@ export function BhrtCostPageContent() {
                     {BHRT_COST_MEDICAL_REVIEW.updated}
                   </p>
                   <div className="mt-10 flex flex-col gap-3 sm:flex-row">
-                    <CTA href={BOOKING_URL} variant="gradient" className="px-8 py-4">
+                    <CTA href="/book?service=biote-hormone-therapy" variant="gradient" className="px-8 py-4">
                       Book Hormone Consult
                     </CTA>
                     <CTA
@@ -214,7 +213,7 @@ export function BhrtCostPageContent() {
         <Section id="whats-included" className="scroll-mt-24 border-b-4 border-black bg-white">
           <div className="mx-auto max-w-6xl px-4 md:px-6">
             <FadeUp>
-              <StampCard title="What's included in women's BioTE care">
+              <StampCard title="What's included in women's hormone care">
                 <div className="grid gap-5 md:grid-cols-2">
                   {BHRT_COST_INCLUDED.map((item) => (
                     <div key={item.title} className="rounded-2xl border-2 border-black/10 bg-[#FFF0F7]/60 p-5">
@@ -225,11 +224,11 @@ export function BhrtCostPageContent() {
                 </div>
                 <p className="mt-6 text-sm leading-relaxed text-black/70">{BHRT_COST_INCLUDED_CALLOUT}</p>
                 <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-                  <CTA href={BOOKING_URL} variant="gradient">
+                  <CTA href="/book?service=biote-hormone-therapy" variant="gradient">
                     Book free consult
                   </CTA>
                   <CTA href="/biote-hormone-therapy-oswego" variant="outline">
-                    BioTE menu →
+                    Hormone menu →
                   </CTA>
                 </div>
               </StampCard>
@@ -282,7 +281,7 @@ export function BhrtCostPageContent() {
         <Section id="why-biote" className="scroll-mt-24 border-b-4 border-black bg-white">
           <div className="mx-auto max-w-6xl px-4 md:px-6">
             <FadeUp>
-              <StampCard title="Why BioTE pellets at Hello Gorgeous">
+              <StampCard title="Why lab-guided HRT at Hello Gorgeous">
                 <div className="space-y-5">
                   {BHRT_COST_WHY_BIOTE.map((block) => (
                     <div key={block.title}>
@@ -424,7 +423,7 @@ export function BhrtCostPageContent() {
                 Start with a free consult and baseline labs — transparent pricing before you commit.
               </p>
               <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
-                <CTA href={BOOKING_URL} variant="outline" className="!border-white !bg-white !text-[#E6007E]">
+                <CTA href="/book?service=biote-hormone-therapy" variant="outline" className="!border-white !bg-white !text-[#E6007E]">
                   Book consult
                 </CTA>
                 <CTA

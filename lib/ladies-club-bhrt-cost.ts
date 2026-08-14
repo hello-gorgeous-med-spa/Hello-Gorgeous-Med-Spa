@@ -17,7 +17,7 @@ export const BHRT_COST_JUMP_LINKS = [
   { id: "quick-answer", label: "Quick answer" },
   { id: "whats-included", label: "What's included" },
   { id: "comparison", label: "Cost comparison" },
-  { id: "why-biote", label: "Why BioTE pellets" },
+  { id: "why-biote", label: "Why lab-guided HRT" },
   { id: "first-month", label: "Your first month" },
   { id: "insurance", label: "Insurance" },
   { id: "worth-it", label: "Is it worth it?" },
@@ -30,30 +30,30 @@ export const BHRT_COST_HERO = {
   titleBefore: "BHRT Cost:",
   titleAccent: "What Women Pay",
   subtitle:
-    "Transparent BioTE pellet pricing at Hello Gorgeous Med Spa — what's included, how it compares to telehealth and insurance-only HRT, and what your first months actually look like in Oswego, IL.",
+    "Transparent hormone therapy pricing at Hello Gorgeous Med Spa — what's included, how it compares to telehealth and insurance-only HRT, and what your first months actually look like in Oswego, IL. We no longer offer pellet insertion.",
   heroImage: LADIES_CLUB_WEIGHT_HORMONES_IMAGE,
   heroImageAlt:
-    "Women's BioTE hormone therapy and lab-guided BHRT — Hello Gorgeous Med Spa Oswego IL",
+    "Women's lab-guided hormone therapy — Hello Gorgeous Med Spa Oswego IL",
 } as const;
 
 export const BHRT_COST_QUICK_ANSWER = {
   headline: "Quick answer: what does women's BHRT cost?",
   bullets: [
     {
-      bold: "BioTE pellet insertion typically runs $400–650 per visit",
-      rest: "for women — estradiol ± testosterone dosing based on your labs, symptoms, and body weight. Most women re-dose every 3–5 months, not monthly.",
+      bold: "Hormone therapy is quoted after labs — not a one-price pellet visit",
+      rest: "We no longer offer pellet insertion. When HRT is appropriate, Ryan Kent, FNP-BC recommends compounded creams or injectables based on your labs, symptoms, and goals.",
     },
     {
       bold: "Baseline labs run approximately $250–450 (one-time)",
-      rest: "before any pellet therapy — we never dose blind. Follow-up labs at 6–8 weeks, then quarterly monitoring while you're on therapy.",
+      rest: "before starting therapy — we never dose blind. Follow-up labs are scheduled as indicated while you're on therapy.",
     },
     {
       bold: "Women's Hormone Member is $99/month (optional)",
-      rest: "for member pricing on BioTE insertions, priority hormone consults, quarterly NP lab review, and 10% off IV therapy & vitamin shots. Pellet and lab fees are quoted separately at consult.",
+      rest: "for member pricing on hormone visits, priority hormone consults, quarterly NP lab review, and 10% off IV therapy & vitamin shots. Medication and lab fees are quoted separately at consult.",
     },
   ],
   bottomLine:
-    "Bottom line: Hello Gorgeous uses a transparent, itemized model — not a hidden monthly bundle. Most women budget for an initial lab draw, one pellet insertion, and follow-up labs in year one, with optional membership for ongoing savings. HSA/FSA receipts available on request.",
+    "Bottom line: Hello Gorgeous uses a transparent, itemized model — not a hidden monthly bundle. Most women budget for an initial lab draw, then a quoted protocol after candidacy is confirmed, with optional membership for ongoing savings. HSA/FSA receipts available on request.",
 } as const;
 
 export type BhrtIncludedItem = {
@@ -63,29 +63,29 @@ export type BhrtIncludedItem = {
 
 export const BHRT_COST_INCLUDED: BhrtIncludedItem[] = [
   {
-    title: "Bio-identical hormone pellets",
+    title: "Bioidentical hormone therapy",
     body:
-      "Rice-grain-sized BioTE pellets placed during a ~15-minute in-office visit with local numbing. Steady estrogen ± testosterone release for 3–5 months — no daily creams or weekly injections to remember.",
+      "Olympia compounded options when clinically appropriate — estradiol, progesterone, testosterone cream, and Biest in various strengths. Your provider recommends the delivery method that fits your labs and lifestyle. We no longer offer pellet insertion.",
   },
   {
     title: "Lab-guided dosing",
     body:
-      "Dose is calculated from your baseline panel, symptoms, age, and weight — not a one-size-fits-all protocol. Ryan Kent, FNP-BC reviews every result before your first insertion and at every follow-up.",
+      "Dose is calculated from your baseline panel, symptoms, age, and weight — not a one-size-fits-all protocol. Ryan Kent, FNP-BC reviews every result before you start and at every follow-up.",
   },
   {
     title: "NP oversight & follow-ups",
     body:
-      "Free initial consult to review candidacy. Follow-up at 4–6 weeks after insertion, repeat labs at ~3 months, then ongoing monitoring while you're on therapy. Direct access between visits when questions come up.",
+      "Free initial consult to review candidacy. Follow-up after you start, repeat labs as indicated, then ongoing monitoring while you're on therapy. Direct access between visits when questions come up.",
   },
   {
-    title: "BioTE certified provider",
+    title: "NP-supervised compounding",
     body:
-      "Hello Gorgeous is a BioTE-certified clinic — pellets sourced through BioTE's pharmacy network, insertion technique and monitoring aligned with their training standards.",
+      "Hello Gorgeous uses licensed US compounding pharmacies for bioidentical hormones — not a one-size-fits-all protocol. We no longer offer pellet insertion.",
   },
   {
     title: "Women's Hormone Member perks",
     body:
-      "Optional $99/mo membership adds member pricing on pellet insertions, priority booking, quarterly lab review, and 10% off IV drips and Vitamin Bar shots — stack with GLP-1 or peptide plans when clinically appropriate.",
+      "Optional $99/mo membership adds member pricing on hormone visits, priority booking, quarterly lab review, and 10% off IV drips and Vitamin Bar shots — stack with GLP-1 or peptide plans when clinically appropriate.",
   },
   {
     title: "Stackable wellness hub",
@@ -95,7 +95,7 @@ export const BHRT_COST_INCLUDED: BhrtIncludedItem[] = [
 ];
 
 export const BHRT_COST_INCLUDED_CALLOUT =
-  "What many clinics bill separately: labs ($200–500 per panel), follow-up visits ($100–200 each), and insertion fees quoted only after you're committed. We disclose pellet, lab, and membership costs before you start — no surprise bills after your first visit.";
+  "What many clinics bill separately: labs ($200–500 per panel) and follow-up visits ($100–200 each), with protocol fees quoted only after you're committed. We disclose lab, medication, and membership costs before you start — no surprise bills after your first visit.";
 
 export type BhrtComparisonRow = {
   model: string;
@@ -108,11 +108,11 @@ export type BhrtComparisonRow = {
 
 export const BHRT_COST_COMPARISON: BhrtComparisonRow[] = [
   {
-    model: "Hello Gorgeous BioTE",
-    modelSub: "Pellets + NP oversight",
-    annualCost: "~$1,200–2,500/yr",
+    model: "Hello Gorgeous HRT",
+    modelSub: "Labs + NP oversight",
+    annualCost: "Quoted at consult",
     included:
-      "Certified BioTE insertion, lab-guided dosing, follow-ups, optional $99/mo membership perks, in-person NP on site 6 days",
+      "Lab-guided dosing, follow-ups, optional $99/mo membership perks, in-person NP on site 6 days. Creams or injectables when appropriate — we no longer offer pellets.",
     missing: "Medication not bundled into one flat monthly fee — costs disclosed per visit",
     highlight: true,
   },
@@ -122,7 +122,7 @@ export const BHRT_COST_COMPARISON: BhrtComparisonRow[] = [
     annualCost: "$1,200–3,000/yr",
     included: "Medication shipped, virtual consults",
     missing:
-      "No in-person exam, limited panels, often 1–2 hormones only, no pellet option, limited hands-on monitoring",
+      "No in-person exam, limited panels, often 1–2 hormones only, limited hands-on monitoring",
   },
   {
     model: "OB/GYN + insurance",
@@ -143,7 +143,7 @@ export const BHRT_COST_COMPARISON: BhrtComparisonRow[] = [
 ];
 
 export const BHRT_COST_COMPARISON_NOTE =
-  "The real cost isn't just the insertion fee. A telehealth service that only ships estrogen — without testosterone monitoring, thyroid context, or follow-up labs — isn't \"cheaper,\" it's incomplete. And pellet therapy only works when dosing and monitoring stay tight in the first 6–12 months.";
+  "The real cost isn't just the prescription. A telehealth service that only ships estrogen — without testosterone monitoring, thyroid context, or follow-up labs — isn't \"cheaper,\" it's incomplete. Hormone therapy only works when dosing and monitoring stay tight in the first 6–12 months.";
 
 export type BhrtWhyBioteBlock = {
   title: string;
@@ -152,29 +152,29 @@ export type BhrtWhyBioteBlock = {
 
 export const BHRT_COST_WHY_BIOTE: BhrtWhyBioteBlock[] = [
   {
-    title: "Steady release — no daily routine",
+    title: "Compounded options — not a daily guessing game",
     body:
-      "Pellets dissolve slowly over 3–5 months, delivering consistent hormone levels without remembering daily creams or weekly injections. For busy women, that convenience drives adherence.",
+      "When HRT is appropriate, we use licensed compounding pharmacies for creams and injectables. Your provider matches the delivery method to your labs and lifestyle. We no longer offer pellet insertion.",
   },
   {
     title: "Bioidentical & pharmacy-backed",
     body:
-      "BioTE pellets use hormones molecularly identical to your own — compounded through BioTE's licensed pharmacy network, not off-label guessing.",
+      "We use hormones molecularly identical to your own — compounded through licensed US pharmacies, not off-label guessing.",
   },
   {
     title: "Dose personalized to your labs",
     body:
-      "Insertion dose is calculated from your panel and symptom picture. Follow-up labs at 6–8 weeks and ~3 months confirm you're in the right range — adjustments happen at re-dose, not from a template.",
+      "Dose is calculated from your panel and symptom picture. Follow-up labs confirm you're in the right range — adjustments happen with your NP, not from a template.",
   },
   {
     title: "Honest about tradeoffs",
     body:
-      "Pellets lock in your dose until the next insertion — unlike daily creams, you can't micro-adjust mid-cycle. That's why lab monitoring and realistic expectations matter. BioTE isn't right for every woman; we'll tell you if another path fits better.",
+      "Creams can be adjusted more easily than a locked-in implant. That's why lab monitoring and realistic expectations matter. HRT isn't right for every woman; we'll tell you if another path fits better.",
   },
 ];
 
 export const BHRT_COST_WHY_BIOTE_DISCLAIMER =
-  "Pellets work well for many women who want steady levels and minimal daily maintenance. Others prefer creams or non-pellet protocols — we discuss all options at your free consult before you commit.";
+  "We no longer offer pellet insertion. Creams or injectables may fit better depending on your labs and lifestyle — we discuss options at your free consult before you commit.";
 
 export type BhrtFirstMonthStep = {
   step: string;
@@ -188,7 +188,7 @@ export const BHRT_COST_FIRST_MONTH: BhrtFirstMonthStep[] = [
     step: "Step 1",
     title: "Free consult & history",
     body:
-      "Review symptoms, cycle history, medications, and goals. We explain BioTE candidacy, risks, benefits, and alternatives — including when HRT isn't appropriate.",
+      "Review symptoms, cycle history, medications, and goals. We explain HRT candidacy, risks, benefits, and alternatives — including when HRT isn't appropriate.",
     cost: "$0",
   },
   {
@@ -200,21 +200,21 @@ export const BHRT_COST_FIRST_MONTH: BhrtFirstMonthStep[] = [
   },
   {
     step: "Step 3",
-    title: "Lab review & pellet insertion",
+    title: "Lab review & protocol",
     body:
-      "Ryan Kent, FNP-BC reviews your results, calculates your dose, and performs the ~15-minute insertion with local numbing. Post-insertion activity restrictions for ~5 days.",
-    cost: "$400–650",
+      "Ryan Kent, FNP-BC reviews your results and recommends compounded creams or injectables when appropriate. We no longer offer pellet insertion.",
+    cost: "Quoted",
   },
   {
     step: "Step 4",
     title: "Follow-up & re-dose planning",
     body:
-      "Check-in at 4–6 weeks, repeat labs around 3 months, then re-dose every 3–5 months based on symptoms and levels. Optional Women's Hormone Member ($99/mo) for member pricing ongoing.",
+      "Check-in at 4–6 weeks, repeat labs as indicated, then ongoing monitoring based on symptoms and levels. Optional Women's Hormone Member ($99/mo) for member pricing ongoing.",
   },
 ];
 
 export const BHRT_COST_FIRST_MONTH_TOTAL =
-  "Typical first-phase investment: ~$650–1,100 before membership — that's baseline labs plus your first pellet insertion after candidacy is confirmed. Follow-up labs and re-dose visits are quoted at each stage; nothing hidden.";
+  "Typical first-phase investment: baseline labs (~$250–450) plus a quoted protocol after candidacy is confirmed. Follow-up labs and medication are quoted at each stage; nothing hidden. We no longer offer pellet insertion.";
 
 export type BhrtInsuranceBlock = {
   title: string;
@@ -230,17 +230,17 @@ export const BHRT_COST_INSURANCE: BhrtInsuranceBlock[] = [
   {
     title: "What insurance usually doesn't cover",
     body:
-      "BioTE pellet insertion fees, bioidentical compounded formulations, testosterone for women (often considered off-label), comprehensive panels more than once a year, and optimization-level monitoring between annual visits.",
+      "Compounded bioidentical formulations, testosterone for women (often considered off-label), comprehensive panels more than once a year, and optimization-level monitoring between annual visits.",
   },
   {
     title: "Cash-pay vs insurance model",
     body:
-      "Insurance-based care often optimizes for \"not sick.\" NP-supervised BioTE optimizes for how you feel — energy, sleep, libido, mood, and body composition — with labs that actually guide dosing. If you've been on covered HRT and still feel off, the gap is often monitoring depth, not the hormone itself.",
+      "Insurance-based care often optimizes for \"not sick.\" NP-supervised HRT optimizes for how you feel — energy, sleep, libido, mood, and body composition — with labs that actually guide dosing. If you've been on covered HRT and still feel off, the gap is often monitoring depth, not the hormone itself.",
   },
   {
     title: "HSA / FSA",
     body:
-      "BioTE pellet therapy is a medical service prescribed by a licensed NP — eligible for HSA and FSA reimbursement. Hello Gorgeous provides itemized receipts on request. Using pre-tax dollars can effectively reduce out-of-pocket cost depending on your tax bracket.",
+      "Hormone therapy prescribed by a licensed NP is typically an eligible medical expense for HSA and FSA reimbursement. Hello Gorgeous provides itemized receipts on request. Using pre-tax dollars can effectively reduce out-of-pocket cost depending on your tax bracket.",
   },
 ];
 
@@ -273,7 +273,7 @@ export const BHRT_COST_WORTH_IT: BhrtWorthItItem[] = [
 ];
 
 export const BHRT_COST_WORTH_IT_MATH =
-  "Amortized over a year, many women spend less on properly managed BioTE than on overlapping telehealth subscriptions, urgent-care visits, and supplements that never fixed the root cause. The question isn't only what BHRT costs — it's what unmanaged hormonal decline is costing you now.";
+  "Amortized over a year, many women spend less on properly managed HRT than on overlapping telehealth subscriptions, urgent-care visits, and supplements that never fixed the root cause. The question isn't only what BHRT costs — it's what unmanaged hormonal decline is costing you now.";
 
 export type BhrtLifeStage = {
   age: string;
@@ -300,13 +300,13 @@ export const BHRT_COST_LIFE_STAGES: BhrtLifeStage[] = [
     age: "60s+",
     title: "Post-menopause",
     body:
-      "Women already on BHRT continue with monitoring and dose adjustments at re-dose. Initiation after 60 requires careful evaluation — risk-benefit changes. Focus: bone preservation, cognitive maintenance, and quality of life. Your provider reassesses whether to continue, adjust, or taper based on your data.",
+      "Women already on BHRT continue with monitoring and dose adjustments. Initiation after 60 requires careful evaluation — risk-benefit changes. Focus: bone preservation, cognitive maintenance, and quality of life. Your provider reassesses whether to continue, adjust, or taper based on your data.",
   },
 ];
 
 export const BHRT_COST_RELATED = [
   { label: "The Ladies' Club hub", href: LADIES_CLUB_PATH },
-  { label: "BioTE hormone therapy menu", href: "/biote-hormone-therapy-oswego" },
+  { label: "Hormone therapy menu", href: "/biote-hormone-therapy-oswego" },
   { label: "Blood work explained", href: "/blood-work" },
   { label: "GLP-1 weight loss", href: "/glp-1-weight-loss-oswego" },
   { label: "Perimenopause screener", href: "/quiz/perimenopause-readiness" },
@@ -314,24 +314,24 @@ export const BHRT_COST_RELATED = [
 
 export const BHRT_COST_FAQS: FAQ[] = [
   {
-    question: "How much does BioTE hormone therapy cost for women?",
+    question: "How much does hormone therapy cost for women?",
     answer:
-      "At Hello Gorgeous in Oswego, IL, women's BioTE pellet insertion typically runs $400–650 per visit, with re-dosing every 3–5 months. Baseline labs are approximately $250–450 before starting. Women's Hormone Member is $99/month for member pricing on insertions, priority consults, quarterly lab review, and 10% off IV and vitamin shots — pellet and lab fees are quoted separately at consult.",
+      "At Hello Gorgeous in Oswego, IL, baseline labs are approximately $250–450 before starting. Compounded creams and injectables are quoted at consult after labs. Women's Hormone Member is $99/month for member pricing on visits, priority consults, quarterly lab review, and 10% off IV and vitamin shots. We no longer offer pellet insertion.",
   },
   {
-    question: "Does insurance cover BioTE or BHRT?",
+    question: "Does insurance cover BHRT?",
     answer:
-      "Most insurance covers generic estrogen and progesterone prescriptions but not BioTE pellet insertion fees or optimization-level monitoring. Comprehensive hormone panels more than once a year are usually out-of-pocket. HSA and FSA accounts can be used for BioTE services; we provide itemized receipts on request.",
+      "Most insurance covers generic estrogen and progesterone prescriptions but not optimization-level monitoring or compounded formulations. Comprehensive hormone panels more than once a year are usually out-of-pocket. HSA and FSA accounts can be used for medically prescribed hormone therapy; we provide itemized receipts on request.",
   },
   {
-    question: "What's included in a BioTE pellet visit?",
+    question: "What's included in a hormone consult?",
     answer:
-      "Your insertion visit includes NP review of your labs, individualized dose calculation, local numbing, pellet placement (~15 minutes), and post-procedure instructions. Follow-up at 4–6 weeks and repeat labs around 3 months are part of the standard monitoring protocol — not optional add-ons hidden later.",
+      "Your visit includes NP review of your history and labs, individualized recommendations, and a quoted protocol before you commit. Follow-up and repeat labs are part of monitoring — not optional add-ons hidden later. We no longer offer pellet insertion.",
   },
   {
-    question: "How does BioTE cost compare to telehealth HRT?",
+    question: "How does Hello Gorgeous HRT compare to telehealth HRT?",
     answer:
-      "Telehealth programs often run $100–250/month for medication shipped to your door, but typically exclude in-person exams, pellet therapy, testosterone for women, and hands-on lab monitoring. Hello Gorgeous's itemized model costs more upfront per insertion but includes certified BioTE placement and NP oversight on site six days a week.",
+      "Telehealth programs often run $100–250/month for medication shipped to your door, but typically exclude in-person exams, testosterone for women, and hands-on lab monitoring. Hello Gorgeous's itemized model includes NP oversight on site six days a week.",
   },
   {
     question: "Is hormone therapy a lifetime commitment?",
@@ -339,14 +339,14 @@ export const BHRT_COST_FAQS: FAQ[] = [
       "No. There is no long-term contract at Hello Gorgeous. Many women use BHRT through the perimenopause transition and reassess later. Your provider reviews labs, symptoms, and goals at every follow-up — you can pause, adjust delivery method, or discontinue when clinically appropriate.",
   },
   {
-    question: "Can I combine BioTE with GLP-1 weight loss?",
+    question: "Can I combine hormone therapy with GLP-1 weight loss?",
     answer:
       "Yes — many women stack hormone optimization with tirzepatide when clinically appropriate. One NP team coordinates labs, dosing, and follow-ups across The Ladies' Club so hormones and weight loss aren't treated in silos.",
   },
   {
-    question: "Can I use HSA or FSA for BioTE?",
+    question: "Can I use HSA or FSA for hormone therapy?",
     answer:
-      "Yes. BioTE pellet therapy is prescribed and monitored by Ryan Kent, FNP-BC, making it an eligible medical expense for most HSA and FSA plans. Hello Gorgeous provides itemized receipts for reimbursement submission.",
+      "Yes. Hormone therapy prescribed and monitored by Ryan Kent, FNP-BC is typically an eligible medical expense for most HSA and FSA plans. Hello Gorgeous provides itemized receipts for reimbursement submission.",
   },
 ];
 

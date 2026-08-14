@@ -55,7 +55,7 @@ export const MENS_WELLNESS_SERVICES: MensWellnessService[] = [
     eyebrow: "Men's Health",
     title: "Hormone Optimization & TRT",
     description:
-      "Lab-guided testosterone replacement when clinically appropriate — injections, BioTE pellets, or topical protocols.",
+      "Lab-guided testosterone replacement when clinically appropriate — injections or topical protocols. We no longer offer pellet insertion.",
     bullets: [
       "Baseline panels ~$250–450",
       "TRT from $200–350/mo (protocol-dependent)",

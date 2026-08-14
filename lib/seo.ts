@@ -449,12 +449,12 @@ export const SERVICES: readonly Service[] = [
       {
         question: "What formulations do you offer?",
         answer:
-          "We offer BioTE bioidentical hormone pellets (sustained release), plus Olympia compounded options when appropriate—including testosterone (creams, injectables), estradiol, progesterone, and Biest in various strengths. Your provider will recommend the best delivery method for you.",
+          "We offer Olympia compounded options when appropriate—including testosterone (creams, injectables), estradiol, progesterone, and Biest in various strengths. Your provider will recommend the best delivery method for you. We no longer offer pellet insertion.",
       },
       {
         question: "What are the most common prescriptions?",
         answer:
-          "For women: Biest (estradiol/estriol blend), progesterone, testosterone pellets or cream. For men: testosterone pellets or testosterone cypionate. We also prescribe anastrozole when indicated to support hormone balance.",
+          "For women: Biest (estradiol/estriol blend), progesterone, and testosterone cream when indicated. For men: testosterone cypionate or topical testosterone. We also prescribe anastrozole when indicated to support hormone balance. We no longer offer pellet insertion.",
       },
       {
         question: "What are contraindications for hormone therapy?",
@@ -2216,7 +2216,7 @@ export const SERVICE_IMAGES: ServiceImage[] = [
   // Regenerative
   { src: "/images/services/hg-prp-prf.png", alt: "PRP PRF regenerative treatment at Hello Gorgeous Med Spa Oswego IL", title: "PRP PRF Treatment", service: "PRP/PRF", category: "regenerative" },
   { src: "/images/services/hg-prp-gold-tubes.png", alt: "PRP gold tubes for platelet-rich plasma therapy at Hello Gorgeous Med Spa", title: "PRP Gold Tubes", service: "PRP", category: "regenerative" },
-  { src: "/images/services/hg-biote-pellets.png", alt: "BioTE hormone pellet therapy at Hello Gorgeous Med Spa Oswego", title: "BioTE Pellets", service: "Hormone Therapy", category: "wellness" },
+  { src: "/images/services/hg-biote-pellets.png", alt: "Hormone optimization consult at Hello Gorgeous Med Spa Oswego", title: "Hormone Therapy", service: "Hormone Therapy", category: "wellness" },
   { src: "/images/services/hg-iv-drip-vitamins.png", alt: "IV vitamin drip therapy for wellness at Hello Gorgeous Med Spa", title: "IV Vitamin Drip", service: "IV Therapy", category: "wellness" },
   
   // Brand & Experience

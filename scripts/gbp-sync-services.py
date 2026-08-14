@@ -44,6 +44,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 import sys
 import urllib.error
 import urllib.parse
@@ -56,8 +57,10 @@ ENV_FILE = REPO_ROOT / ".env.local"
 GBP_INFO_V1 = "https://mybusinessbusinessinformation.googleapis.com/v1"
 SQUARE_API_VERSION = "2024-12-18"
 
-# GBP description hard cap is 250; leave headroom for trailing punctuation.
 DESCRIPTION_MAX = 240
+# GBP rejects many marketing/medical-claim descriptions with a generic 500.
+# Names still help Local Pack visibility; keep copy location-safe and bland.
+SAFE_DESCRIPTION = "Offered at Hello Gorgeous Med Spa in Oswego, IL. Consult required."
 # Service display names should be short. GBP doesn't publish a hard limit
 # but anything over 58 chars renders truncated in the GBP UI.
 DISPLAY_NAME_MAX = 80
@@ -87,6 +90,19 @@ EXCLUDE_PATTERNS = (
     "(note:",               # source-flagged duplicates
     "— alt",                # alternate-listing tag
     "model special",        # promo
+    "retatrutide",          # never client-visible
+    "pellet therapy",       # clinic no longer offers pellets
+    "protocol — start",     # consult-first peptide SKUs, not GBP services
+    "the dani",
+    "prepaid",
+    "hylanex",              # duplicate spelling; keep Hylenex
+    "bogo",
+    "most popular",
+    "vial",                 # pharmacy SKU, not a GBP service
+    "ampule",
+    "thights",              # garbled Morpheus8 SKU
+    "mg/ml",
+    "mg /",
 )
 
 # Exact-name excludes — items that ARE services but are already covered by
@@ -105,10 +121,11 @@ EXCLUDE_NAMES = {
     "Tirzepatide — Initial Consult + First Injection",
     "Tirzepatide — Monthly Maintenance",
     "Tirzepatide (Zepbound/Mounjaro) - 90 Day Program",
-    # Retatrutide variants — keep one canonical "Retatrutide"
+    # Retatrutide — never publish to GBP
     "Retatrutide GLP-1 Weight loss is here!!!  Power Triple action agonist - Month 3 - 4 ml for 4 weeks",
     "Retatrutide GLP-1 Weight loss is here!!!  Power Triple action agonist - (2 Month) 2 and 4 ml",
     "Retatrutide GLP-1 Weight loss is here!!!  Power Triple action agonist",
+    "Retatrutide GLP-1 Weight loss is here!!!  Power Triple action agonist  - From",
     # Generic items already covered by Google's structured serviceTypeIds:
     "Lip Filler — 0.5ml",   # covered by structured lip_fillers
     "Lip Filler — 1ml",     # covered by structured lip_fillers
@@ -124,12 +141,12 @@ EXCLUDE_NAMES = {
 # trade-offs. Matched case-insensitive against the Square service name.
 HEADLINER_TOKENS = (
     "solaria", "quantum rf", "morpheus8", "morpheous",
-    "tirzepatide", "semaglutide", "retatrutide", "glp-1",
-    "biote", "bhrt", "pellet therapy", "hormone",
-    "mommy makeover", "glowtox", "trifecta",
+    "tirzepatide", "semaglutide", "glp-1",
+    "bhrt", "hormone",
+    "mommy makeover", "glowtox",
     "anteage md", "anteage exosome", "exosome",
     "pdrn", "salmon dna",
-    "botox", "filler", "lip flip",
+    "botox", "filler", "lip flip", "kybella",
     "ipl photofacial", "photofacial",
     "weight loss", "peptide",
     "ryan kent", "medical director",
@@ -140,6 +157,7 @@ HEADLINER_TOKENS = (
 DEPRIORITIZE_TOKENS = (
     "mini fill", "express", "half ", "(within",
     "tint only", "tint-only", "wax only", "henna",
+    "per injection", "ml per",
 )
 
 
@@ -286,7 +304,16 @@ def truncate(s: str, n: int) -> str:
     s = (s.replace("‘", "'").replace("’", "'")
            .replace("“", '"').replace("”", '"')
            .replace("…", "")
-           .replace(" ", " "))
+           .replace(" ", " ")
+           .replace("™", "")
+           .replace("®", "")
+           .replace("—", "-")
+           .replace("–", "-")
+           .replace("₂", "2")
+           .replace("²", "2")
+           .replace("CO₂", "CO2")
+           .replace("CO2", "CO2"))
+    s = "".join(ch if ord(ch) < 128 else " " for ch in s)
     s = " ".join(s.split())
     if len(s) <= n:
         return s
@@ -305,6 +332,10 @@ def is_excluded(name: str) -> str | None:
     for pat in EXCLUDE_PATTERNS:
         if pat in low:
             return f"excluded pattern: '{pat}'"
+    if re.search(r"\d+\s*mg\b", low) or re.search(r"\d+\s*ml\b", low):
+        return "dose SKU"
+    if re.search(r"(tirzepatide|semaglutide)\s*-\s*\d", low):
+        return "dose SKU"
     return None
 
 
@@ -387,8 +418,8 @@ def build_planned_service_items(
                 "category": gcid,
                 "label": {
                     "displayName": truncate(name, DISPLAY_NAME_MAX),
-                    "description": truncate(desc, DESCRIPTION_MAX),
-                    "languageCode": "en-US",
+                    "description": SAFE_DESCRIPTION,
+                    "languageCode": "en",
                 },
             },
         }))

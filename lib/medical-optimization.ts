@@ -36,7 +36,7 @@ export const MEDICAL_SERVICES: MedicalServiceCard[] = [
     bullets: [
       "60+ biomarker wellness panels",
       "FullScript · Quest · LabCorp ordering",
-      "BioTE baseline & TRT monitoring",
+      "Hormone baseline & TRT monitoring",
       "Results reviewed at follow-up consult",
     ],
     href: "/blood-work",
@@ -47,9 +47,9 @@ export const MEDICAL_SERVICES: MedicalServiceCard[] = [
     eyebrow: "Men's Health",
     title: "Men's Hormone Optimization",
     description:
-      "Testosterone replacement and metabolic support guided by labs and NP oversight — injections, BioTE pellets, or topical protocols when clinically appropriate.",
+      "Testosterone replacement and metabolic support guided by labs and NP oversight — injections or topical protocols when clinically appropriate. We no longer offer pellet insertion.",
     bullets: [
-      "TRT — injections, pellets, or cream",
+      "TRT — injections or cream",
       "Energy, libido, body composition & mood",
       "Ryan Kent, FNP-BC on site 6 days",
       "Ongoing lab monitoring",
@@ -62,15 +62,15 @@ export const MEDICAL_SERVICES: MedicalServiceCard[] = [
     eyebrow: "Women's Health",
     title: "Women's Hormone Optimization",
     description:
-      "Bio-identical hormone therapy for perimenopause, menopause, and cycle-related symptoms — BioTE pellet therapy with personalized dosing.",
+      "Bio-identical hormone therapy for perimenopause, menopause, and cycle-related symptoms — lab-guided dosing. We no longer offer pellet insertion.",
     bullets: [
       "Estrogen & testosterone balance",
-      "BioTE® certified provider",
+      "Creams and injectables when appropriate",
       "Hot flashes, sleep, mood & libido",
       "Cycle-aware, lab-guided care",
     ],
     href: "/biote-hormone-therapy-oswego",
-    cta: "Women's BioTE therapy →",
+    cta: "Women's hormone therapy →",
   },
   {
     id: "glp1",
@@ -188,16 +188,16 @@ export const MEDICAL_PRICING_TIERS: MedicalPricingTier[] = [
     badge: "Medical weight loss",
   },
   {
-    label: "BioTE hormone pellets",
-    price: "From $400",
-    subtitle: "Women $400–650 · Men $750–1,200 per insertion",
+    label: "Hormone therapy",
+    price: "Quoted",
+    subtitle: "Labs first · creams or injectables — we no longer offer pellets",
     bullets: [
-      "Baseline labs $200–400",
-      "Re-dose every 3–5 months",
+      "Baseline labs $200–450",
+      "Quote confirmed at consult",
       "Free hormone consult",
     ],
     href: "/biote-hormone-therapy-oswego",
-    badge: "BioTE certified",
+    badge: "Labs first",
   },
   {
     label: "Vitamin & IV therapy",
@@ -227,11 +227,11 @@ export const MEDICAL_OPTIMIZATION_FAQS: FAQ[] = [
   {
     question: "What is medical optimization at Hello Gorgeous?",
     answer:
-      "Medical optimization is NP-led care focused on hormones, metabolism, recovery, and longevity — not just treating disease. We use lab work, clinical evaluation, and ongoing follow-up to personalize GLP-1 weight loss, BioTE hormone therapy, peptide protocols, and IV wellness.",
+      "Medical optimization is NP-led care focused on hormones, metabolism, recovery, and longevity — not just treating disease. We use lab work, clinical evaluation, and ongoing follow-up to personalize GLP-1 weight loss, hormone therapy, peptide protocols, and IV wellness.",
   },
   {
     question: "How much do medical services cost?",
-    answer: `Peptide consults are $${PEPTIDE_CONSULT_FEE_USD}; peptide protocols from $${PEPTIDE_RETAIL_FROM_MONTHLY_USD}/mo. GLP-1 programs from $${GLP1_RETAIL_PROGRAM.semaglutideFromUsd}/mo (semaglutide) or $${GLP1_RETAIL_PROGRAM.tirzepatideFromUsd}/mo (tirzepatide). BioTE pellets from $400 (women) or $750 (men) per insertion. Vitamin shots from $25. Full pricing is published on our peptide and Oswego service menus.`,
+    answer: `Peptide consults are $${PEPTIDE_CONSULT_FEE_USD}; peptide protocols from $${PEPTIDE_RETAIL_FROM_MONTHLY_USD}/mo. GLP-1 programs from $${GLP1_RETAIL_PROGRAM.semaglutideFromUsd}/mo (semaglutide) or $${GLP1_RETAIL_PROGRAM.tirzepatideFromUsd}/mo (tirzepatide). Hormone therapy is quoted after labs — we no longer offer pellet insertion. Vitamin shots from $25. Full pricing is published on our peptide and Oswego service menus.`,
   },
   {
     question: "Do I need a referral?",

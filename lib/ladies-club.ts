@@ -83,12 +83,12 @@ export const LADIES_CLUB_SERVICES: LadiesClubService[] = [
     id: "hormones",
     icon: "🌸",
     eyebrow: "Women's Health",
-    title: "BioTE & Hormone Optimization",
+    title: "Hormone Optimization",
     description:
-      "Bio-identical pellet therapy for perimenopause, menopause, and cycle-related symptoms — lab-guided dosing with Ryan Kent, FNP-BC.",
+      "Lab-guided bioidentical hormone therapy for perimenopause, menopause, and cycle-related symptoms with Ryan Kent, FNP-BC. We no longer offer pellet insertion.",
     bullets: [
-      "BioTE® certified provider",
-      "Pellet insertion $400–650 typical",
+      "Creams and injectables when appropriate",
+      "Quote confirmed before you start",
       "Baseline labs ~$250–450",
       "Hot flashes, sleep, mood & libido",
     ],
@@ -214,9 +214,9 @@ export const LADIES_CLUB_HORMONE_SYMPTOMS: LadiesClubSymptom[] = [
 ];
 
 export const LADIES_CLUB_BIOTE_QUICK_FACTS = [
-  { label: "Pellet insertion", value: "$400–650", note: "Typical women's BioTE visit" },
-  { label: "Baseline labs", value: "$250–450", note: "Before any pellet therapy" },
-  { label: "Duration", value: "3–5 mo", note: "Steady hormone release per pellet" },
+  { label: "Hormone consult", value: "Book", note: "Ryan Kent, FNP-BC — quote first" },
+  { label: "Baseline labs", value: "$250–450", note: "Required before starting therapy" },
+  { label: "Delivery", value: "Creams / Rx", note: "We no longer offer pellet insertion" },
   { label: "Provider", value: "FNP-BC", note: "Ryan Kent on site 6 days" },
 ] as const;
 
@@ -224,16 +224,16 @@ export const LADIES_CLUB_BIOTE_INCLUDED = {
   oversight: {
     title: "Clinical oversight",
     bullets: [
-      "Ryan Kent, FNP-BC — BioTE certified",
+      "Ryan Kent, FNP-BC — lab-guided HRT",
       "Comprehensive baseline hormone panel",
-      "Follow-up labs at 6–8 weeks, then quarterly",
+      "Follow-up labs as indicated",
       "Secure messaging between visits",
     ],
   },
   program: {
     title: "Program includes",
     bullets: [
-      "Personalized pellet dosing — not one-size-fits-all",
+      "Personalized dosing — not one-size-fits-all",
       "Estrogen, progesterone & testosterone balance",
       "FullScript supplement integration",
       "HSA/FSA-compatible receipts on request",
@@ -253,9 +253,9 @@ export const LADIES_CLUB_MEMBERSHIP_TIERS = [
     name: "Women's Hormone Member",
     pricePerMonth: 99,
     highlight: true,
-    summary: "Member pricing on BioTE, priority labs, and quarterly NP check-ins.",
+    summary: "Member pricing on hormone visits, priority labs, and quarterly NP check-ins.",
     perks: [
-      "Member pricing on BioTE pellet insertion",
+      "Member pricing on hormone visits",
       "Priority booking for hormone consults",
       "Quarterly lab review with Ryan Kent, FNP-BC",
       "10% off IV therapy & vitamin shots",
@@ -309,9 +309,9 @@ export const LADIES_CLUB_PILLARS = [
       "Hormones, weight loss, peptides, and aesthetics in one NP-led home — no dismissive \"it's just aging\" answers.",
   },
   {
-    title: "BioTE certified provider",
+    title: "Lab-guided hormone therapy",
     description:
-      "Lab-guided bioidentical hormone therapy with personalized pellet dosing and ongoing monitoring.",
+      "Bioidentical hormone therapy with personalized dosing and ongoing monitoring. We no longer offer pellet insertion.",
   },
   {
     title: "Science-backed protocols",
@@ -343,7 +343,7 @@ export const LADIES_CLUB_FAQS: FAQ[] = [
   {
     question: "How much does women's hormone therapy cost?",
     answer:
-      "BioTE pellet insertion typically runs $400–650 with baseline labs ~$250–450. Women's Hormone Member is $99/mo for member pricing and quarterly check-ins — pellet and lab fees are quoted at consult.",
+      "Baseline labs are approximately $250–450 before starting. Compounded creams and injectables are quoted at consult after labs. Women's Hormone Member is $99/mo for member pricing and quarterly check-ins. We no longer offer pellet insertion.",
   },
   {
     question: "How do I get started?",

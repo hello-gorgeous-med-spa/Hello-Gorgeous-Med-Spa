@@ -46,9 +46,13 @@ const ARCHIVE_EXACT = new Set(
 
 /** Hide from online booking (keep in library for history) — messy / superseded SKUs. */
 const HIDE_FROM_BOOKING = [
-  /morpheus8 burst \(full face\)\s*-/i, // garbled name leftover
+  /morpheus8 burst \(full face\)\s*-/i,
   /^the dani,? fix me trifecta$/i,
-  /^morpheus8 burst — buy one area/i, // promo noise; keep VIP + package + combo
+  /^morpheus8 burst — buy one area/i,
+  /^retatrutide/i,
+  /^\(hylanex\) lip dissolver/i,
+  /^tirzepatide \(zepbound\/mounjaro\)/i,
+  /^vitamin injections \(alt\)$/i,
 ];
 
 /** Report-only: zero-price services that are expected to stay. */

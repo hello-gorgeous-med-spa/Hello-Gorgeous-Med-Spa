@@ -148,13 +148,13 @@ export const GENTLEMENS_CLUB_SERVICES: GentlemensClubService[] = [
     icon: "🧬",
     eyebrow: "Men's Health",
     title: "Hormone Optimization & TRT",
-    description: "Lab-guided testosterone — injections, BioTE pellets, or topical protocols.",
+    description: "Lab-guided testosterone — injections or topical protocols. We no longer offer pellet insertion.",
     bullets: ["Baseline labs ~$250–450", "TRT from $200–350/mo", "Ryan Kent, FNP-BC on site 6 days"],
     href: "/gentlemens-club/testosterone",
     cta: "TRT program →",
     badge: "RX",
     image: GENTLEMENS_CLUB_HORMONES_IMAGE,
-    imageAlt: "TRT, BioTE and men's hormone optimization — Hello Gorgeous Med Spa Oswego IL",
+    imageAlt: "TRT and men's hormone optimization — Hello Gorgeous Med Spa Oswego IL",
   },
   {
     id: "peptides",
@@ -241,7 +241,7 @@ export const GENTLEMENS_CLUB_TRT_QUICK_FACTS = [
   { label: "Starting cost", value: "$200/mo", note: "Weekly injections, all-inclusive" },
   { label: "Baseline labs", value: "$250–450", note: "Before any TRT starts" },
   { label: "Lab monitoring", value: "Every 3–6 mo", note: "PSA, hematocrit & more" },
-  { label: "Delivery options", value: "3 methods", note: "Injections · BioTE pellets · cream" },
+  { label: "Delivery options", value: "2 methods", note: "Injections · cream" },
 ] as const;
 
 export const GENTLEMENS_CLUB_TRT_INCLUDED = {
@@ -540,7 +540,7 @@ export const GENTLEMENS_CLUB_FAQS: FAQ[] = [
   {
     question: "What does TRT cost?",
     answer:
-      "Weekly injections $200–350/mo all-inclusive. BioTE pellets $750–1,200 per insertion. Topical creams $150–300/mo. Add-ons like tadalafil ($70/mo) billed separately when prescribed. Baseline labs ~$250–450.",
+      "Weekly injections $200–350/mo all-inclusive. Topical creams $150–300/mo. Add-ons like tadalafil ($70/mo) billed separately when prescribed. Baseline labs ~$250–450. We no longer offer pellet insertion.",
   },
   {
     question: "What are peptides and what can they do for men?",

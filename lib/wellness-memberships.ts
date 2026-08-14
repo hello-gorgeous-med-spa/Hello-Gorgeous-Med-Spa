@@ -131,18 +131,18 @@ export const HORMONE_MEMBERSHIP_PLANS: WellnessMembershipPlan[] = [
     category: "hormones",
     name: "Women's Hormone Member",
     pricePerMonth: 99,
-    summary: "Member pricing on BioTE pellets, priority lab scheduling, and quarterly NP check-ins.",
+    summary: "Member pricing on hormone visits, priority lab scheduling, and quarterly NP check-ins.",
     perks: [
-      "Member pricing on BioTE pellet insertion",
+      "Member pricing on hormone visits",
       "Priority booking for hormone consults",
       "Quarterly lab review with Ryan Kent, FNP-BC",
       "10% off IV therapy & vitamin shots",
       "FullScript supplement integration",
     ],
     consultFirst: true,
-    bookHref: BOOKING_URL,
+    bookHref: "/book?service=biote-hormone-therapy",
     learnMoreHref: "/biote-hormone-therapy-oswego",
-    footnote: "Pellet insertion & labs quoted separately at consult.",
+    footnote: "Medication and labs quoted separately at consult. We no longer offer pellet insertion.",
   },
 ];
 

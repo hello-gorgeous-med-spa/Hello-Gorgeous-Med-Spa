@@ -3,7 +3,6 @@
 import { useState } from "react";
 import Image from "next/image";
 import { FadeUp } from "./Section";
-import { BOOKING_URL } from "@/lib/flows";
 
 const symptoms = [
   "Lack of energy and fatigue",
@@ -52,7 +51,7 @@ export function BioteSection() {
                 />
               </div>
             </div>
-            <p className="text-[#FF2D8E] text-lg font-bold tracking-wide">CERTIFIED BIOTE PROVIDER</p>
+            <p className="text-[#FF2D8E] text-lg font-bold tracking-wide">HORMONE OPTIMIZATION</p>
             <h2 className="mt-4 text-3xl md:text-5xl font-bold text-black">
               Hormone <span className="text-[#FF2D8E]">Optimization</span>
             </h2>
@@ -83,8 +82,8 @@ export function BioteSection() {
                   <div className="flex items-start gap-3 p-4 rounded-xl border-2 border-black">
                     <span className="text-2xl">💊</span>
                     <div>
-                      <p className="text-black font-semibold">Biote Pellet Therapy</p>
-                      <p className="text-black text-sm">Bio-identical hormone replacement</p>
+                      <p className="text-black font-semibold">Lab-guided hormone therapy</p>
+                      <p className="text-black text-sm">Compounded creams and injectables when clinically appropriate — we no longer offer pellet insertion</p>
                     </div>
                   </div>
                   <div className="flex items-start gap-3 p-4 rounded-xl border-2 border-black">
@@ -119,32 +118,25 @@ export function BioteSection() {
               {/* Pricing Card */}
               <div className="rounded-2xl border-2 border-[#FF2D8E] bg-white p-6">
                 <h3 className="text-xl font-bold text-black mb-4 flex items-center gap-2">
-                  <span className="text-[#FF2D8E]">💰</span> Affordable Pricing
+                  <span className="text-[#FF2D8E]">💰</span> Start with labs
                 </h3>
                 
                 <div className="space-y-4">
                   <div className="p-4 rounded-xl border-2 border-black">
-                    <p className="text-[#FF2D8E] font-bold text-sm mb-1">INITIAL PACKAGE</p>
-                    <p className="text-black text-xs mb-2">(Consultation, Labs, First Pellet)</p>
+                    <p className="text-[#FF2D8E] font-bold text-sm mb-1">HORMONE CONSULT</p>
+                    <p className="text-black text-xs mb-2">With Ryan Kent, FNP-BC — your quote is confirmed before you commit</p>
                     <div className="flex justify-between items-center">
-                      <span className="text-black">Male</span>
-                      <span className="text-2xl font-bold text-black">$900</span>
-                    </div>
-                    <div className="flex justify-between items-center mt-1">
-                      <span className="text-black">Female</span>
-                      <span className="text-2xl font-bold text-black">$650</span>
+                      <span className="text-black">Medical visit</span>
+                      <span className="text-2xl font-bold text-black">Book</span>
                     </div>
                   </div>
 
                   <div className="p-4 rounded-xl border-2 border-black">
-                    <p className="text-[#FF2D8E] font-bold text-sm mb-1">MAINTENANCE PELLET THERAPY</p>
+                    <p className="text-[#FF2D8E] font-bold text-sm mb-1">BASELINE LABS</p>
+                    <p className="text-black text-xs mb-2">Required before starting therapy — we never dose blind</p>
                     <div className="flex justify-between items-center">
-                      <span className="text-black">Male</span>
-                      <span className="text-2xl font-bold text-black">$700</span>
-                    </div>
-                    <div className="flex justify-between items-center mt-1">
-                      <span className="text-black">Female</span>
-                      <span className="text-2xl font-bold text-black">$400</span>
+                      <span className="text-black">Hormone panel</span>
+                      <span className="text-2xl font-bold text-black">Quoted</span>
                     </div>
                   </div>
                 </div>
@@ -197,9 +189,7 @@ export function BioteSection() {
         <FadeUp delayMs={240}>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <a
-              href={BOOKING_URL}
-              target="_blank"
-              rel="noopener noreferrer"
+              href="/book?service=biote-hormone-therapy"
               className="px-10 py-4 bg-[#FF2D8E] text-white font-bold rounded-lg hover:bg-black transition"
             >
               Schedule Hormone Consultation

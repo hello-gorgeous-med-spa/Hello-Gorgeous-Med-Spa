@@ -84,6 +84,11 @@ export const SQUARE_VITAMIN_SHOT_BOOKING_URL =
   process.env.NEXT_PUBLIC_SQUARE_VITAMIN_SHOT_URL?.trim() ||
   `https://book.squareup.com/appointments/${SQUARE_RX_BOOKING_SITE_ID}/location/${SQUARE_RX_LOCATION_ID}/services/${SQUARE_VITAMIN_SHOT_SERVICE_VARIATION_ID}`;
 
+/** Square Appointments buyer URL for a specific service variation. */
+export function squareAppointmentServiceUrl(variationId: string): string {
+  return `https://book.squareup.com/appointments/${SQUARE_RX_BOOKING_SITE_ID}/location/${SQUARE_RX_LOCATION_ID}/services/${variationId}`;
+}
+
 export const PROGRAM_CONSULT_FEE_USD = 49;
 
 /** Club & program funnels — $49 NP consult on Square (Ryan). */

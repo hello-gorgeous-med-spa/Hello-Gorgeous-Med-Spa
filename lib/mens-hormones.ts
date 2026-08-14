@@ -65,7 +65,7 @@ export const MENS_HORMONES_QUICK_FACTS = [
   { label: "Starting cost", value: "$200/mo", note: "Weekly injections, all-inclusive" },
   { label: "Baseline labs", value: "$250–450", note: "Before any TRT starts" },
   { label: "Lab monitoring", value: "Every 3–6 mo", note: "PSA, hematocrit & more" },
-  { label: "Delivery options", value: "3 methods", note: "Injections · BioTE pellets · cream" },
+  { label: "Delivery options", value: "2 methods", note: "Injections · cream" },
 ] as const;
 
 export const MENS_HORMONES_INCLUDED = {
@@ -172,7 +172,7 @@ export const MENS_HORMONES_FAQS: FAQ[] = [
   {
     question: "What does it cost?",
     answer:
-      "Weekly injection programs typically run $200–350/mo all-inclusive. BioTE pellets are $750–1,200 per insertion every 4–6 months. Topical creams $150–300/mo. Add-ons like HCG ($350/mo), enclomiphene ($275/mo), or tadalafil ($70/mo) are prescribed separately when clinically appropriate. Baseline labs ~$250–450.",
+      "Weekly injection programs typically run $200–350/mo all-inclusive. Topical creams $150–300/mo. Add-ons like HCG ($350/mo), enclomiphene ($275/mo), or tadalafil ($70/mo) are prescribed separately when clinically appropriate. Baseline labs ~$250–450. We no longer offer pellet insertion.",
   },
 ];
 

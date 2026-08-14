@@ -371,8 +371,8 @@ function getServiceContent(s: Service) {
       ],
       process: [
         { step: 1, title: "Consultation & Labs", description: "We review your symptoms, medical history, and run in-office labs (metabolic panel, thyroid, hormones, vitamins). Results in ~36 hours." },
-        { step: 2, title: "Lab Review & Plan", description: "We interpret your results and create a personalized protocol—pellets, compounded options, or a combination based on your needs." },
-        { step: 3, title: "Treatment", description: "BioTE pellet insertion or prescription for Olympia-compounded medications. Quick, in-office procedure for pellets." },
+        { step: 2, title: "Lab Review & Plan", description: "We interpret your results and create a personalized protocol—compounded creams or injectables when clinically appropriate. We no longer offer pellet insertion." },
+        { step: 3, title: "Treatment", description: "Olympia-compounded medications when prescribed after labs. Quote confirmed before you start." },
         { step: 4, title: "Follow-Up & Monitoring", description: "Regular check-ins and repeat labs ensure optimal levels and adjust dosing as needed." },
       ],
       testimonial: {
@@ -726,9 +726,9 @@ function ServiceDetailPage({ serviceSlug }: { serviceSlug: string }) {
         <div className="grid lg:grid-cols-3 gap-8">
           {(s.slug === "biote-hormone-therapy"
             ? [
-                { icon: "💡", title: "What It Is", body: "Bioidentical hormone optimization using BioTE pellets and, when appropriate, Olympia Pharmacy compounded formulations. We tailor delivery (pellets, creams, injectables) to your labs and goals." },
+                { icon: "💡", title: "What It Is", body: "Bioidentical hormone optimization using Olympia Pharmacy compounded formulations when appropriate. We tailor delivery (creams or injectables) to your labs and goals. We no longer offer pellet insertion." },
                 { icon: "👤", title: "Who It's For", body: "Adults experiencing fatigue, sleep issues, mood changes, weight gain, low libido, or other hormone-related symptoms. A full consultation and lab work determine candidacy." },
-                { icon: "📋", title: "What to Expect", body: "Consultation, in-office labs (results in ~36 hours), lab review, and personalized treatment—pellets, compounded prescriptions, or both—with ongoing monitoring." },
+                { icon: "📋", title: "What to Expect", body: "Consultation, in-office labs (results in ~36 hours), lab review, and a personalized compounded protocol with ongoing monitoring." },
               ]
             : [
                 { icon: "💡", title: "What It Is", body: s.short },

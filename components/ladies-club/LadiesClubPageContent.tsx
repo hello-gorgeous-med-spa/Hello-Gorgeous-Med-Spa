@@ -230,8 +230,8 @@ export function LadiesClubPageContent() {
             <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-[#FF2D8E]">Medical Services</p>
             <h2 className="mt-2 font-serif text-3xl md:text-4xl text-white">Weight Loss + Hormones</h2>
             <p className="mt-4 max-w-3xl text-gray-400">
-              GLP-1 weight loss · HRT · TRT · BioTE — lab-guided bioidentical hormone therapy for perimenopause,
-              menopause, and cycle-related symptoms.
+              GLP-1 weight loss · HRT · TRT — lab-guided bioidentical hormone therapy for perimenopause,
+              menopause, and cycle-related symptoms. We no longer offer pellet insertion.
             </p>
           </FadeUp>
 
@@ -268,7 +268,7 @@ export function LadiesClubPageContent() {
           </div>
 
           <FadeUp delayMs={80}>
-            <h3 className="mt-16 text-center text-xl font-black uppercase tracking-tight text-white">BioTE quick facts</h3>
+            <h3 className="mt-16 text-center text-xl font-black uppercase tracking-tight text-white">Hormone quick facts</h3>
           </FadeUp>
           <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {LADIES_CLUB_BIOTE_QUICK_FACTS.map((fact, i) => (
@@ -301,7 +301,7 @@ export function LadiesClubPageContent() {
           </div>
           <FadeUp delayMs={100}>
             <div className="mt-8 flex flex-wrap gap-3">
-              <CTA href="/biote-hormone-therapy-oswego" variant="gradient">BioTE program →</CTA>
+              <CTA href="/book?service=biote-hormone-therapy" variant="gradient">Hormone consult →</CTA>
               <CTA href="/ladies-club/bhrt-cost" variant="outline" className="!border-white/30 !text-white">
                 BHRT cost guide →
               </CTA>
@@ -320,7 +320,7 @@ export function LadiesClubPageContent() {
             <p className="mt-4 max-w-2xl text-gray-400">
               NP-supervised semaglutide from ${LADIES_CLUB_GLP1_STACK.semaglutideFrom}/mo · tirzepatide from $
               {LADIES_CLUB_GLP1_STACK.tirzepatideFrom}/mo — medication, supplies, and included check-ins. Stack with
-              BioTE when clinically appropriate.
+              hormone therapy when clinically appropriate.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <CTA href="/glp-1-weight-loss-oswego" variant="gradient">See GLP-1 program</CTA>

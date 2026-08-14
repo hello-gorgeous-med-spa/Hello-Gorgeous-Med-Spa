@@ -71,7 +71,6 @@ export const TRT_QUIZ_STEPS: ScreenerQuizStep[] = [
     subtitle: "We'll confirm what's best at consult — no wrong answer",
     options: [
       { id: "injections", label: "Weekly injections", icon: "💉" },
-      { id: "pellets", label: "BioTE pellets (every 4–6 months)", icon: "◆" },
       { id: "cream", label: "Topical cream", icon: "🧴" },
       { id: "unsure", label: "Not sure — help me decide", icon: "💬" },
     ],
@@ -103,7 +102,7 @@ export function scoreTrtReadiness(answers: ScreenerAnswers): ScreenerQuizResult 
       body:
         answers.symptomLoad === "none-few"
           ? "You may still benefit from a baseline hormone panel — many men feel 'normal' until they see their numbers. We never dose blind; Ryan reviews total & free testosterone, SHBG, and more before any TRT discussion."
-          : "Your answers suggest hormone optimization could be worth exploring, but we need labs and a full history first. Injections, BioTE pellets, and topical options start with a ~$250–450 baseline panel.",
+          : "Your answers suggest hormone optimization could be worth exploring, but we need labs and a full history first. Injections and topical options start with a ~$250–450 baseline panel. We no longer offer pellet insertion.",
       ctaLabel: "Book free hormone consult",
       ctaHref: "/book",
       secondaryHref: "/testosterone-replacement-oswego",
@@ -114,7 +113,7 @@ export function scoreTrtReadiness(answers: ScreenerAnswers): ScreenerQuizResult 
   return {
     tier: "strong",
     title: "You may be a strong TRT evaluation candidate",
-    body: "Based on your symptoms and history, a comprehensive hormone panel and NP consult is a smart next move. Our men's programs include injections from $200–350/mo, BioTE pellets, and ongoing lab monitoring with Ryan on site 6 days a week.",
+    body: "Based on your symptoms and history, a comprehensive hormone panel and NP consult is a smart next move. Our men's programs include injections from $200–350/mo, topical cream, and ongoing lab monitoring with Ryan on site 6 days a week. We no longer offer pellet insertion.",
     ctaLabel: "Book free hormone consult",
     ctaHref: "/book",
     secondaryHref: "/gentlemens-club#hormones",

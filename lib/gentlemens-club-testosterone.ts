@@ -24,7 +24,7 @@ export const GC_TRT_HERO = {
   headlineMid: "Your.",
   headlineAccent: "Testosterone.",
   subhead:
-    "Lab-guided TRT in Oswego — injections, BioTE pellets, or cream. Ryan Kent, FNP-BC on site 6 days a week. Not telehealth-only — real relationship, real monitoring.",
+    "Lab-guided TRT in Oswego — injections or cream. Ryan Kent, FNP-BC on site 6 days a week. Not telehealth-only — real relationship, real monitoring. We no longer offer pellet insertion.",
 } as const;
 
 export type SymptomTransform = {
@@ -95,7 +95,7 @@ export const GC_TRT_TREATMENT_OPTIONS: GcTrtTreatmentOption[] = [
 ];
 
 export const GC_TRT_BIOTE_NOTE =
-  "BioTE® pellet therapy: $750–1,200 per insertion every 4–6 months — in-office procedure with sustained release.";
+  "We no longer offer pellet insertion. TRT at Hello Gorgeous is injections or topical cream, lab-guided by Ryan Kent, FNP-BC.";
 
 export const GC_TRT_TRUST_PILLS = [
   "Transparent pricing at consult",
@@ -124,7 +124,7 @@ export const GC_TRT_JOURNEY_STEPS: GcTrtJourneyStep[] = [
   {
     when: "Visit",
     title: "Consult with Ryan Kent, FNP-BC",
-    body: "Review symptoms, labs, fertility goals, and delivery options — injections, cream, pellets, or enclomiphene when appropriate.",
+    body: "Review symptoms, labs, fertility goals, and delivery options — injections, cream, or enclomiphene when appropriate.",
   },
   {
     when: "Week 1+",

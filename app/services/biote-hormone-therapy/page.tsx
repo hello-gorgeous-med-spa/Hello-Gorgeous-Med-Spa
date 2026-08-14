@@ -26,7 +26,7 @@ const BENEFITS = [
   { icon: "⚡", title: "Energy & vitality", desc: "Support for fatigue and low energy so you can feel like yourself again." },
   { icon: "😴", title: "Sleep & mood", desc: "Better sleep and mood balance with personalized hormone optimization." },
   { icon: "📊", title: "Lab-guided", desc: "In-office labs guide safe, individualized dosing. Results in ~36 hours." },
-  { icon: "💊", title: "BioTE & compounded", desc: "BioTE pellets plus Olympia compounded options when appropriate." },
+  { icon: "💊", title: "Compounded options", desc: "Olympia compounded creams and injectables when clinically appropriate. We no longer offer pellet insertion." },
 ];
 
 export default function BioteHormoneTherapyPage() {

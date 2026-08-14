@@ -18,17 +18,16 @@ import {
 const PAGE_URL = `${SITE.url}${LADIES_CLUB_BHRT_COST_PATH}`;
 
 const baseMeta = pageMetadata({
-  title: "BHRT Cost for Women — BioTE Pricing Guide | Hello Gorgeous Oswego",
+  title: "BHRT Cost for Women — Hormone Therapy Pricing | Hello Gorgeous Oswego",
   description:
-    "What women pay for BioTE hormone therapy at Hello Gorgeous Med Spa — pellet insertion $400–650, baseline labs, membership perks, insurance, HSA/FSA, and cost comparison. Ryan Kent, FNP-BC. Oswego, IL.",
+    "What women pay for lab-guided hormone therapy at Hello Gorgeous Med Spa — baseline labs, compounded options, membership perks, insurance, HSA/FSA, and cost comparison. We no longer offer pellet insertion. Ryan Kent, FNP-BC. Oswego, IL.",
   path: LADIES_CLUB_BHRT_COST_PATH,
   keywords: [
     "BHRT cost Oswego IL",
-    "BioTE pellet cost women Naperville",
+    "women's hormone therapy cost Naperville",
     "bioidentical hormone therapy price Illinois",
     "women's hormone therapy cost Fox Valley",
     "perimenopause hormone therapy pricing",
-    "BioTE certified provider Oswego",
   ],
 });
 

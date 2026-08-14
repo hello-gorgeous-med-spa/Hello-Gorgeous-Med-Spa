@@ -4,6 +4,35 @@
 // `d` = description (120-220 chars, SEO-optimized, locally relevant).
 
 export const SERVICE_CONTENT = {
+  "Kybella": {
+    d: "FDA-approved Kybella for submental fullness (double chin) in Oswego, IL. Series often recommended. Swelling is expected — we plan around your calendar.",
+    cat: "Dermal Fillers",
+  },
+  "BOTOX SPECIAL $10/unit( New Clients Only) - From": {
+    n: "Botox — New Client Special ($10/unit)",
+    d: "First-time Botox client? $10/unit on your initial visit at Hello Gorgeous Med Spa, Oswego. Natural results, consult included. Same-week appointments.",
+    cat: "Botox",
+  },
+  "GlowTox Facial — Our Signature": {
+    d: "Glow + Smooth: dermaplaning facial with hydration and Baby Tox. Natural-looking results for tone, texture, and fine lines. 60 minutes at Hello Gorgeous Med Spa, Oswego.",
+    cat: "GlowTox Facial",
+  },
+  "RE GEN Peptide Consult": {
+    d: "NP peptide consult with Ryan Kent, FNP-BC in Oswego. Intake first; he sets the protocol. Pickup or Illinois shipping after approval.",
+    cat: "RE GEN Peptide Therapy",
+  },
+  "Medical Visit with Ryan Kent, FNP-BC": {
+    d: "NP medical visit with Ryan Kent, FNP-BC — GLP-1, hormones, and peptide consults. $49 visit; medication billed only after he approves a plan.",
+    cat: "Medical Consultations",
+  },
+  "HydraFacial": {
+    d: "HydraFacial in Oswego — cleanse, extract, hydrate. Add dermaplaning on the Glow Special. Hello Gorgeous Med Spa.",
+    cat: "Skin Spa",
+  },
+  "Chemical Peel": {
+    d: "Medical chemical peel in Oswego for tone, texture, and glow. Strength set at consult. Hello Gorgeous Med Spa.",
+    cat: "Skin Spa",
+  },
   // ===== BOTOX =====
   "Botox /Jeuveau/Dysport": {
     n: "Botox / Jeuveau / Dysport",
@@ -114,19 +143,14 @@ export const SERVICE_CONTENT = {
     d: "Complimentary consult to build your AnteAGE home regimen — products that match your in-spa treatment plan. 30 minutes, no obligation.",
   },
 
-  // ===== HORMONE THERAPY =====
-  "Pellet Therapy — Men": {
-    d: "Feeling tired, foggy, or like your body isn't responding the way it used to? You're not alone. Hello Gorgeous Med Spa's BioTE bioidentical pellet therapy gives men a personalized hormone optimization plan. Initial package includes consult, labs, and first pellet. Maintenance: $700 male / $400 female.",
-  },
-  "Pellet Therapy — Women": {
-    d: "Feeling tired, foggy, moody, or like your body isn't responding the way it used to? You're not alone — and you don't have to guess. Hello Gorgeous Med Spa's BioTE bioidentical pellet therapy personalizes hormone optimization based on your symptoms + lab results. Improvements often reported in energy, sleep, mood, libido.",
-  },
+  // ===== HORMONE THERAPY (no pellet SKUs — clinic no longer offers pellets) =====
   "Hormone Lab Panel — Women": {
-    d: "Comprehensive 17-marker female hormone lab panel — estrogen, progesterone, testosterone, thyroid (TSH, T3, T4, TPO), cortisol, vitamin D, CBC. Required before starting BioTE hormone therapy at Hello Gorgeous, Oswego.",
+    d: "Comprehensive 17-marker female hormone lab panel — estrogen, progesterone, testosterone, thyroid (TSH, T3, T4, TPO), cortisol, vitamin D, CBC. Required before starting hormone therapy at Hello Gorgeous, Oswego.",
+    cat: "Medical Consultations",
   },
   "17 Hormone panel -Results within 36 hours": {
     n: "Hormone Panel (17 Markers) — 36-Hour Results",
-    d: "Think of this hormone panel as your roadmap. 17 markers including key sex hormones, FSH (menopause transition), thyroid (TSH, T3, T4, TPO), and CBC. Results in 36 hours. Required for BioTE hormone therapy at Hello Gorgeous Med Spa.",
+    d: "Think of this hormone panel as your roadmap. 17 markers including key sex hormones, FSH (menopause transition), thyroid (TSH, T3, T4, TPO), and CBC. Results in 36 hours. Required before starting hormone therapy at Hello Gorgeous Med Spa.",
   },
 
   // ===== WEIGHT LOSS INJECTIONS =====

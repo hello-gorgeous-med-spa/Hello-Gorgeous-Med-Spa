@@ -220,7 +220,6 @@ const CATEGORY_KEYWORDS = [
   { cat: "GlowTox Facial", re: /glowtox/i },
   { cat: "Dermal Fillers", re: /filler|hylanex|dissolver|per syringe/i },
   { cat: "AnteAGE Skin Regeneration", re: /anteage|exosome|biosome|stem cell growth|scalp treatment/i },
-  { cat: "Bioidentical Hormone Therapy (BHRT)", re: /pellet|hormone|bhrt|biote|lab panel/i },
   { cat: "IV Drip Package Deals", re: /iv drip|iv therapy|immunity infusion|myers|nad drip/i },
   { cat: "PRP Injections", re: /prp|prf|vampire|vamp|platelet/i },
   { cat: "Trigger Point Injections", re: /trigger point|multi-site session|intro offer/i },
@@ -234,7 +233,7 @@ const CATEGORY_KEYWORDS = [
   { cat: "Body Contouring & Devices", re: /body contour|quantum rf|morpheus8|solaria|co₂|co2|mommy makeover|trifecta|dani,? fix me/i },
   { cat: "Body Spa", re: /body spa|spa package/i },
   { cat: "Skin Spa", re: /hydra|facial|peel|microneedling|nano needling|dermaplan|photofacial|ipl|carbon laser|diamond glow|signature facial|vi peel|oxygen facial|microderm|geneo|acne facial/i },
-  { cat: "Medical Consultations", re: /consultation|medical visit|telehealth|follow-up|intake|peptide therapy consultation/i },
+  { cat: "Medical Consultations", re: /hormone lab panel|consultation|medical visit|telehealth|follow-up|intake|peptide therapy consultation/i },
   { cat: "Hello Gorgeous RX™ — Peptides", re: /bpc-157|peptide|sermorelin|tesamorelin|ipamorelin|cjc|ghk|semax|selank|epithalon|mots-c|pt-141|heal blend/i },
   { cat: "Hello Gorgeous RX™ — Recovery & Healing", re: /recovery blend|healing|post-procedure/i },
   { cat: "Exclusive Model Specials", re: /vip model|model special|most popular combo|burst x3|buy one area/i },
@@ -283,6 +282,27 @@ async function listCatalog(type) {
   return out;
 }
 
+function normName(s) {
+  return String(s || "")
+    .toLowerCase()
+    .replace(/[–—]/g, "-")
+    .replace(/\s+/g, " ")
+    .replace(/!+/g, "")
+    .trim();
+}
+
+/** Match live Square names to SERVICE_CONTENT keys or rename targets. */
+function lookupContent(liveName) {
+  if (SERVICE_CONTENT[liveName]) return SERVICE_CONTENT[liveName];
+  const liveNorm = normName(liveName);
+  for (const [key, content] of Object.entries(SERVICE_CONTENT)) {
+    if (content.n === liveName) return content;
+    if (normName(key) === liveNorm) return content;
+    if (content.n && normName(content.n) === liveNorm) return content;
+  }
+  return null;
+}
+
 function buildNameCategoryMap() {
   const map = new Map();
   for (const svc of SERVICES) map.set(svc.name, svc.category);
@@ -294,7 +314,7 @@ function buildNameCategoryMap() {
 }
 
 function resolveCategory(name, categoryByName, categoryIds) {
-  const content = SERVICE_CONTENT[name];
+  const content = lookupContent(name);
   if (content?.cat && categoryIds.has(content.cat)) return content.cat;
 
   const fromImport = categoryByName.get(name);
@@ -411,7 +431,7 @@ async function main() {
 
   for (const item of appointmentItems) {
     const name = item.item_data?.name || "";
-    const content = SERVICE_CONTENT[name];
+    const content = lookupContent(name);
     const categoryName = resolveCategory(name, categoryByName, categoryIds);
     const categoryId = categoryName ? categoryIds.get(categoryName) : null;
 

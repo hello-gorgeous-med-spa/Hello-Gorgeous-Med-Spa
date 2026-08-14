@@ -651,64 +651,64 @@ export const PHASE2_PAGES: ServicePageData[] = [
   },
   {
     slug: "biote-hormone-therapy-oswego",
-    serviceName: "BioTE Hormone Therapy",
-    fullServiceName: "BioTE Bioidentical Hormone Pellet Therapy",
-    targetKeyword: "biote oswego",
-    metaTitle: "BioTE Hormone Therapy in Oswego, IL",
-    metaDescription: "BioTE pellet hormone therapy in Oswego for women and men. NP-supervised, full lab work, individualized dosing. Free consultations.",
-    h1: "BioTE Hormone Therapy in Oswego, IL",
-    valueProp: "Real hormone therapy with real lab work, real medical oversight, and dosing customized to your body — not a one-size-fits-all pellet.",
+    serviceName: "Hormone Therapy",
+    fullServiceName: "Lab-Guided Bioidentical Hormone Therapy",
+    targetKeyword: "hormone therapy oswego",
+    metaTitle: "Hormone Therapy in Oswego, IL",
+    metaDescription: "Lab-guided hormone therapy in Oswego for women and men. NP-supervised, full lab work, compounded creams or injectables. We no longer offer pellet insertion. Free consultations.",
+    h1: "Hormone Therapy in Oswego, IL",
+    valueProp: "Real hormone therapy with real lab work, real medical oversight, and dosing customized to your body — not a one-size-fits-all protocol.",
     bookingUrl: bookingUrlFor(),
     procedureType: "Wellness",
-    bodyLocation: "Subcutaneous (typically hip)",
+    bodyLocation: "Systemic",
     tier: "contested",
-    heroContent: "BioTE is a bioidentical hormone replacement therapy delivered as a small pellet implanted under the skin, typically in the upper hip area. The pellet releases hormones (estradiol for women, testosterone for women and men) steadily over 3–5 months, restoring levels that decline naturally with age. For the right patient, BioTE can improve energy, sleep, libido, mood, mental clarity, and body composition. But it's hormone therapy — not a supplement — and it requires real lab work, real medical oversight, and individualized dosing. At Hello Gorgeous, every BioTE patient goes through full baseline labs, ongoing monitoring, and Ryan Kent, FNP-BC's clinical oversight. This isn't a vending machine — it's medicine.",
+    heroContent: "Hormone optimization at Hello Gorgeous is bioidentical hormone replacement prescribed after full baseline labs — compounded creams or injectables when clinically appropriate. We no longer offer pellet insertion. For the right patient, restoring declining hormones can support energy, sleep, libido, mood, mental clarity, and body composition. But it's hormone therapy — not a supplement — and it requires real lab work, real medical oversight, and individualized dosing. Every patient goes through full baseline labs, ongoing monitoring, and Ryan Kent, FNP-BC's clinical oversight. This isn't a vending machine — it's medicine.",
     whyBullets: [
-      "BioTE Certified Provider — Ryan Kent, FNP-BC trained in BioTE protocols",
+      "Ryan Kent, FNP-BC on site six days a week",
       "Full baseline lab work before starting — we don't dose blind",
       "Bioidentical hormones — molecularly identical to what your body produces",
       "Ongoing monitoring — repeat labs and follow-ups built into every program",
       "Both women and men — different protocols, both supported",
-      "Free consultation to determine if BioTE is right for you"
+      "Free consultation to determine if HRT is right for you"
     ],
     howItWorksParagraphs: [
-      "BioTE pellets are small (rice-grain sized) cylinders of compounded bioidentical hormones — estradiol for women, testosterone for women and men. They're inserted under the skin in a quick in-office procedure, typically in the upper hip area, where they release hormones steadily over 3–5 months. Unlike oral or topical hormone therapy, which produces hormonal peaks and valleys throughout the day, pellets provide consistent levels around the clock — which most patients find produces more stable mood, energy, and sleep. The dose is calculated individually based on your baseline lab work, symptoms, age, weight, and goals. There is no 'standard pellet' — every dose is customized."
+      "We use licensed US compounding pharmacies for bioidentical hormones — estradiol, progesterone, testosterone, and Biest in various strengths. Your provider matches creams or injectables to your labs, symptoms, age, weight, and goals. We no longer offer pellet insertion. Unlike a one-size-fits-all protocol, dose is calculated individually. This isn't a vending machine — it's medicine."
     ],
     whatToExpectSteps: [
       "Free consultation — discuss symptoms, history, goals. We screen for whether hormone therapy is appropriate.",
       "Baseline lab work — comprehensive hormone panel and additional labs as needed (PSA for men, thyroid, vitamin D, etc.). We don't prescribe without baseline data.",
-      "Lab review and dose calculation — Ryan reviews your labs and calculates your individualized dose. We review results with you and discuss the plan.",
-      "Pellet insertion — in-office, ~15-minute procedure. Numbing injected at insertion site; small incision made; pellet(s) inserted; site closed with steri-strips. Mild restrictions on bathing and exercise for ~5 days.",
-      "Follow-up — first follow-up at 4–6 weeks to assess symptom response, repeat labs at 3 months to assess hormone levels. Re-dose every 3–5 months based on labs and symptoms."
+      "Lab review and protocol — Ryan reviews your labs and recommends compounded creams or injectables when appropriate. We no longer offer pellet insertion.",
+      "Start therapy — quote confirmed before you commit. Medication from licensed US compounding pharmacies.",
+      "Follow-up — first follow-up at 4–6 weeks to assess symptom response, then repeat labs as indicated."
     ],
-    pricing: "BioTE programs vary by gender and lab work needed. Women's pellet implantation typically runs $400–$650 per insertion; men's pellet implantation typically runs $750–$1,200 per insertion. Initial baseline lab panel is approximately $200–$400 depending on what's ordered. Most clients re-dose every 3–5 months. We provide full transparent pricing at your consultation, with all costs disclosed before you commit.",
+    pricing: "Hormone programs vary by labs and formulation. Baseline lab panel is approximately $200–$450 depending on what's ordered. Compounded creams and injectables are quoted at consult after labs. We no longer offer pellet insertion. We provide full transparent pricing at your consultation, with all costs disclosed before you commit.",
     faqs: [
       {
-        "q": "Is BioTE the same as bioidentical hormone replacement?",
-        "a": "Yes. BioTE is a specific brand-system of bioidentical pellet therapy — the hormones are molecularly identical to what your body naturally produces (vs. synthetic hormones like Premarin). The 'BioTE' part is the delivery system and provider network; the hormones themselves are FDA-recognized compounded bioidentical hormones."
+        "q": "Do you still offer BioTE pellets?",
+        "a": "No. Hello Gorgeous no longer offers pellet insertion. When hormone therapy is appropriate, Ryan Kent, FNP-BC recommends compounded creams or injectables from licensed US pharmacies after labs."
       },
       {
-        "q": "Who is a good candidate for BioTE?",
+        "q": "Who is a good candidate for hormone therapy?",
         "a": "Women with symptoms of perimenopause or menopause (hot flashes, sleep disruption, low libido, mood changes, weight gain, brain fog) and men with symptoms of low testosterone (fatigue, low libido, mood changes, loss of muscle mass) are typical candidates. We screen carefully with labs and history — hormone therapy isn't right for everyone, and we'll be honest if it's not for you."
       },
       {
-        "q": "How long do pellets last?",
-        "a": "Women's pellets typically last 3–4 months. Men's pellets typically last 4–6 months. Individual metabolism affects timing — some clients metabolize faster and re-dose sooner. We track labs and symptoms to time your re-dose precisely."
+        "q": "What delivery methods do you offer?",
+        "a": "Compounded creams and injectables when clinically appropriate. We no longer offer pellet insertion. Your provider matches the method to your labs and lifestyle."
       },
       {
-        "q": "What are the side effects of BioTE?",
-        "a": "Common: temporary soreness at insertion site, mild bruising. Some clients experience initial breast tenderness (women) or mild acne (men or women) as their body adjusts. Less common: more significant side effects from too-high dosing, which is why we use individualized lab-based dosing rather than one-size-fits-all. Rare: pellet extrusion (the pellet works its way out of the skin), infection at the insertion site."
+        "q": "What are the side effects of HRT?",
+        "a": "Side effects depend on the hormone, dose, and delivery method. Some clients notice breast tenderness, mild acne, or mood shifts as their body adjusts. That's why we use individualized lab-based dosing rather than one-size-fits-all, with follow-up labs as indicated."
       },
       {
-        "q": "Will BioTE help me lose weight?",
-        "a": "Sometimes, indirectly. Restored hormone levels can improve sleep, energy, mood, and body composition — all of which support weight management. But BioTE is not a weight loss treatment. Clients with significant weight loss goals often combine BioTE with GLP-1 therapy and behavioral support."
+        "q": "Will hormone therapy help me lose weight?",
+        "a": "Sometimes, indirectly. Restored hormone levels can improve sleep, energy, mood, and body composition — all of which support weight management. But HRT is not a weight loss treatment. Clients with significant weight loss goals often combine hormone optimization with GLP-1 therapy and behavioral support."
       },
       {
-        "q": "Is BioTE covered by insurance?",
-        "a": "BioTE is typically not covered by insurance and we don't bill insurance for this service. We work with you on cash-pay pricing and provide HSA/FSA-compatible receipts where applicable. Labs may be billable to insurance if your primary care orders them; we can also order them privately if you prefer."
+        "q": "Is hormone therapy covered by insurance?",
+        "a": "Compounded HRT is typically not covered by insurance and we don't bill insurance for this service. We work with you on cash-pay pricing and provide HSA/FSA-compatible receipts where applicable. Labs may be billable to insurance if your primary care orders them; we can also order them privately if you prefer."
       },
       {
-        "q": "Is BioTE safe long-term?",
+        "q": "Is hormone therapy safe long-term?",
         "a": "Bioidentical hormone therapy has been studied and used for decades. The risks and benefits depend on individual factors (age, medical history, family history) and proper dosing. We follow current clinical guidelines, monitor with labs, and discuss risk-benefit at every visit. Long-term hormone therapy is a conversation, not a permanent commitment."
       }
     ],
@@ -717,7 +717,7 @@ export const PHASE2_PAGES: ServicePageData[] = [
       "peptide-therapy-oswego",
       "glp-1-weight-loss-oswego"
     ],
-    closingCta: "Curious whether BioTE hormone therapy is right for you? Book a free consultation. We'll discuss your symptoms, your goals, and decide together whether it's time to look at hormones.",
+    closingCta: "Curious whether hormone therapy is right for you? Book a free consultation. We'll discuss your symptoms, your goals, and decide together whether it's time to look at hormones.",
   },
   {
     slug: "testosterone-replacement-oswego",
@@ -725,33 +725,33 @@ export const PHASE2_PAGES: ServicePageData[] = [
     fullServiceName: "Testosterone Replacement Therapy (TRT) for Men",
     targetKeyword: "trt oswego",
     metaTitle: "TRT (Testosterone Replacement) in Oswego, IL",
-    metaDescription: "Testosterone replacement therapy in Oswego for men. NP-supervised, full lab work, options for pellets, injections, or creams. Free consultations.",
+    metaDescription: "Testosterone replacement therapy in Oswego for men. NP-supervised, full lab work, injections or cream. We no longer offer pellet insertion. Free consultations.",
     h1: "Testosterone Replacement Therapy (TRT) in Oswego, IL",
     valueProp: "Real TRT with real labs, real medical oversight, and the right delivery method for your life — not a marketing funnel.",
     bookingUrl: bookingUrlFor(),
     procedureType: "Wellness",
     bodyLocation: "Systemic",
     tier: "contested",
-    heroContent: "Low testosterone affects energy, mood, libido, body composition, sleep, and cognitive function — and for many men over 35, it's a real medical issue that's worth addressing. At Hello Gorgeous, testosterone replacement therapy (TRT) is prescribed and supervised by Ryan Kent, FNP-BC after full baseline lab work, with multiple delivery options (pellets via BioTE, weekly injections, or topical creams) tailored to your life. This isn't a TRT clinic running on volume — it's medicine.",
+    heroContent: "Low testosterone affects energy, mood, libido, body composition, sleep, and cognitive function — and for many men over 35, it's a real medical issue that's worth addressing. At Hello Gorgeous, testosterone replacement therapy (TRT) is prescribed and supervised by Ryan Kent, FNP-BC after full baseline lab work, with injections or topical cream tailored to your life. We no longer offer pellet insertion. This isn't a TRT clinic running on volume — it's medicine.",
     whyBullets: [
       "Full baseline lab work before any prescribing — we don't dose blind",
-      "Multiple delivery options: BioTE pellets, weekly injections, or topical creams",
+      "Delivery options: weekly injections or topical cream",
       "Ryan Kent, FNP-BC supervising every program",
       "Ongoing monitoring with regular labs and follow-ups",
       "Honest conversations about benefits vs. risks vs. long-term fertility implications",
       "Free consultation to determine if TRT is appropriate for you"
     ],
     howItWorksParagraphs: [
-      "Testosterone replacement therapy restores testosterone to a level appropriate for your age and clinical picture. There are three main delivery methods we offer: (1) BioTE pellets — small implants inserted under the skin every 4–6 months that release testosterone steadily; (2) Weekly intramuscular or subcutaneous injections — self-administered or in-office, often the most cost-effective option with steady levels; (3) Topical creams — applied daily, easier to titrate but messier and require careful application. Each method has tradeoffs in convenience, cost, and how steady your testosterone levels are. We help you pick what fits your life. All methods are monitored with regular lab work to confirm appropriate dosing and screen for side effects."
+      "Testosterone replacement therapy restores testosterone to a level appropriate for your age and clinical picture. Delivery methods we offer: (1) Weekly intramuscular or subcutaneous injections — self-administered or in-office, often the most cost-effective option with steady levels; (2) Topical creams — applied daily, easier to titrate but require careful application. We no longer offer pellet insertion. Each method has tradeoffs in convenience, cost, and how steady your testosterone levels are. We help you pick what fits your life. All methods are monitored with regular lab work to confirm appropriate dosing and screen for side effects."
     ],
     whatToExpectSteps: [
       "Free consultation — discuss symptoms (fatigue, low libido, mood changes, weight gain, sleep issues), history, and goals.",
       "Baseline labs — comprehensive panel including total and free testosterone, estradiol, PSA, hematocrit, lipids, and other relevant markers.",
       "Lab review — Ryan reviews results, discusses findings, and recommends whether TRT is appropriate. If your testosterone is in normal range and other causes of your symptoms exist, we may recommend a different path.",
-      "Delivery method selection — based on your lifestyle, schedule, and preferences. We explain tradeoffs of pellets vs. injections vs. cream.",
+      "Delivery method selection — based on your lifestyle, schedule, and preferences. We explain tradeoffs of injections vs. cream. We no longer offer pellet insertion.",
       "Ongoing monitoring — repeat labs at 6–8 weeks after starting, then every 3–6 months to assess dosing, side effects, and downstream markers."
     ],
-    pricing: "TRT programs vary significantly by delivery method. BioTE pellets typically run $750–$1,200 per insertion every 4–6 months. Weekly injections typically run $200–$350/month all-inclusive. Topical cream programs run $150–$300/month. Initial lab work is approximately $250–$450. We provide full pricing transparency at your consultation.",
+    pricing: "TRT programs vary by delivery method. Weekly injections typically run $200–$350/month all-inclusive. Topical cream programs run $150–$300/month. Initial lab work is approximately $250–$450. We no longer offer pellet insertion. We provide full pricing transparency at your consultation.",
     faqs: [
       {
         "q": "Do I really need TRT or am I just getting older?",
@@ -759,7 +759,7 @@ export const PHASE2_PAGES: ServicePageData[] = [
       },
       {
         "q": "What's the best delivery method?",
-        "a": "Depends on your life. Injections (weekly) give steady levels and are the most cost-effective, but require you to inject yourself or come in regularly. BioTE pellets are 'set it and forget it' for 4–6 months but cost more. Creams are easiest to start and stop but require daily application and careful handling to avoid transferring to family members. We help you choose."
+        "a": "Depends on your life. Injections (weekly) give steady levels and are the most cost-effective, but require you to inject yourself or come in regularly. Creams are easiest to start and stop but require daily application and careful handling to avoid transferring to family members. We no longer offer pellet insertion. We help you choose."
       },
       {
         "q": "Will TRT affect my fertility?",
