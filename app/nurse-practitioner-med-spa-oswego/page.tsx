@@ -21,16 +21,16 @@ const NP_MED_SPA_FAQS = [
       "A nurse practitioner (NP) med spa is a medical spa where a licensed nurse practitioner with full prescriptive authority oversees and provides medical treatments. This means you can receive injectables, weight loss medications, hormone therapy, and other medical-grade treatments with proper screening, oversight, and follow-up — all in one place.",
   },
   {
-    question: "Why choose an NP-owned med spa?",
+    question: "Why choose a med spa with a nurse practitioner on site?",
     answer:
-      "NP-owned med spas offer medical oversight, full prescriptive authority, and a focus on safety and outcomes. At Hello Gorgeous, our NP is on site as owner — not just a supervising physician elsewhere. You get direct access to medical expertise for weight loss, hormones, injectables, and advanced treatments.",
+      "An NP on site means medical oversight, full prescriptive authority, and a focus on safety and outcomes. At Hello Gorgeous, Ryan Kent, FNP-BC is here six days a week, so you get direct access to medical expertise for weight loss, hormones, injectables, and advanced treatments — with physician oversight from our Medical Director, Dr. Mukesh Arora, MD.",
   },
 ];
 
 export const metadata: Metadata = pageMetadata({
   title: "Nurse Practitioner Med Spa Oswego IL | NP On Site | Hello Gorgeous",
   description:
-    "Full-authority nurse practitioner on site as owner. NP-owned med spa in Oswego, IL. Weight loss, hormone therapy, injectables with medical oversight. Book free consultation!",
+    "Full-authority nurse practitioner on site six days a week in Oswego, IL. Weight loss, hormone therapy, injectables with medical oversight. Book free consultation!",
   path: "/nurse-practitioner-med-spa-oswego",
 });
 
@@ -94,7 +94,7 @@ export default function NursePractitionerMedSpaPage() {
             <div className="grid md:grid-cols-3 gap-6">
               {[
                 { title: "Full Prescriptive Authority", body: "Weight loss (GLP-1), hormone therapy, and medical treatments — prescribed and monitored by your NP, not a remote physician." },
-                { title: "Direct Medical Oversight", body: "Your NP is on site as owner. No waiting for approvals or referrals — you get expert care when you need it." },
+                { title: "Direct Medical Oversight", body: "Your NP is on site six days a week. No waiting for approvals or referrals — you get expert care when you need it." },
                 { title: "Safety & Screening", body: "Proper medical screening, lab review, and follow-up for every treatment. Evidence-based protocols, not one-size-fits-all." },
               ].map((item, idx) => (
                 <FadeUp key={item.title} delayMs={60 * idx}>
