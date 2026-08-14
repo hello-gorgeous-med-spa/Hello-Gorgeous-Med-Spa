@@ -1,6 +1,6 @@
 /**
- * Phase 2 — primary site navigation (5 hubs).
- * Services · Shop RX · Specials · About · Book
+ * Phase 2 — primary site navigation.
+ * Services · Peptide Therapy · Specials · About · Book
  */
 
 import { RX_PATIENT_CARE_PATH } from "@/lib/flows";
@@ -118,7 +118,7 @@ export const SPECIALS_NAV_EXTRA_LINKS = [
 /** In-office Services — prescription programs live under Shop RX only. */
 export const SERVICES_RX_BRIDGE_LINKS = [
   {
-    label: "Shop RX — medical programs",
+    label: "Peptide Therapy",
     href: SHOP_RX_NAV.href,
     sub: "GLP-1 · peptides · hormones · ship to home",
     badge: "Rx" as const,
@@ -149,7 +149,7 @@ export const SERVICES_EXPLORE_LINKS = [
 /** Mobile accordion — matches desktop hubs (no duplicate top-level items). */
 export const MOBILE_PRIMARY_NAV_SECTIONS = [
   { id: "services", label: "Services" },
-  { id: "shop-rx", label: "Shop RX", highlight: true },
+  { id: "shop-rx", label: SHOP_RX_NAV.label, highlight: true },
   { id: "labs", label: "Labs", highlight: true },
   { id: "specials", label: "Specials", highlight: true },
   { id: "about", label: "About" },

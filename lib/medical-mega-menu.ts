@@ -423,7 +423,7 @@ export const MEDICAL_MEGA_MENU_DEFAULT_FEATURED_ID =
   SHOP_RX_CATEGORIES[0]?.defaultFeaturedId ?? "tirzepatide-glp1";
 
 export const SHOP_RX_NAV = {
-  label: "REGEN",
+  label: "Peptide Therapy",
   href: "/rx",
 } as const;
 

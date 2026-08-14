@@ -52,7 +52,7 @@ const NAV = [
   { href: "#program", label: "How it works" },
   { href: "#pricing", label: "Pricing" },
   { href: "#faq", label: "FAQ" },
-  { href: SHOP_HREF, label: "Shop RE GEN" },
+  { href: SHOP_HREF, label: "Shop peptides" },
 ] as const;
 
 const LEARN_GUIDES = [WHAT_IS_GLP1_ARTICLE, WHAT_ARE_PEPTIDES_ARTICLE, HOW_REGEN_WORKS_ARTICLE] as const;
@@ -256,7 +256,7 @@ export function PeptideTherapyPageContent() {
             <span className="hidden leading-tight sm:block">
               <span className="block text-base">Hello Gorgeous</span>
               <span className="block text-[10px] font-extrabold uppercase tracking-[0.18em] text-[#FF2D8E]">
-                RX · RE GEN
+                Peptide Therapy
               </span>
             </span>
           </Link>
@@ -565,7 +565,7 @@ export function PeptideTherapyPageContent() {
                   </div>
                   <div className="mt-5 flex flex-wrap gap-3">
                     <JourneyPinkBtn href={card.href} className="!px-5 !py-2.5 !text-[15px]">
-                      {card.name === "Shop all protocols" ? "Shop RE GEN" : "Start intake"}
+                      {card.name === "Shop all protocols" ? "Shop peptides" : "Start intake"}
                     </JourneyPinkBtn>
                     {"learnHref" in card && card.learnHref ? (
                       <Link

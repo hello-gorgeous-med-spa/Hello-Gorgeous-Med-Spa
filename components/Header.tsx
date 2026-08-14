@@ -39,7 +39,6 @@ import {
 import { isMedicalNavActive } from "@/lib/medical-nav";
 import { labsNavSection } from "@/lib/labs-nav";
 import { medicalMegaMenuMobileGroups, SHOP_RX_NAV } from "@/lib/medical-mega-menu";
-import { RegenNavLogo } from "@/components/regen/RegenLogo";
 import { QUIZ_NAV } from "@/lib/quiz-nav";
 import { HG_TAGLINE } from "@/lib/brand-tagline";
 import { SKIN_101_NAV } from "@/lib/skin-101-nav";
@@ -689,21 +688,18 @@ export function Header() {
               </Link>
             </div>
 
-            {/* REGEN STORE — direct link to the RE GEN site (no hover mega menu) */}
+            {/* Peptide Therapy — direct link to /rx (no hover mega menu) */}
             <div
               className="relative flex items-center"
               onMouseEnter={closeDropdown}
             >
               <Link
                 href={SHOP_RX_NAV.href}
-                className={cx(NAV_LINK_BASE, "h-9 shrink-0 gap-1.5")}
+                className={NAV_LINK_BASE}
                 style={navPillStyle(1, isMedicalNavActiveState)}
-                aria-label="RE GEN — prescription care by Hello Gorgeous Med Spa"
+                aria-label="Peptide Therapy — medically supervised protocols"
               >
-                <RegenNavLogo />
-                <span className="rounded-full bg-gradient-to-r from-[#FF2D8E] to-[#E6007E] px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wide text-white">
-                  New
-                </span>
+                {SHOP_RX_NAV.label}
               </Link>
             </div>
 
@@ -909,15 +905,12 @@ export function Header() {
                   <Link
                     href={SHOP_RX_NAV.href}
                     onClick={() => setMobileOpen(false)}
-                    className="flex w-full items-center gap-2 px-4 py-3.5 text-sm font-semibold"
-                    style={{ color: trifectaAccent(0).subtitle }}
-                    aria-label="REGEN Store — prescription care by Hello Gorgeous Med Spa"
+                    className="mb-3 flex w-full items-center justify-between gap-2 rounded-xl border border-[#E6007E]/40 bg-gradient-to-r from-[#2d1020] to-black px-4 py-3.5 text-sm font-bold text-white"
+                    aria-label="Peptide Therapy — medically supervised protocols"
                   >
-                    <span className="flex shrink-0 items-center gap-2">
-                      <RegenNavLogo />
-                    </span>
-                    <span className="flex-shrink-0 rounded-full px-2 py-0.5 text-[9px] font-bold uppercase text-white" style={{ background: trifectaAccent(0).badgeBg }}>
-                      NEW
+                    <span className="flex flex-col items-start gap-0.5">
+                      <span>{SHOP_RX_NAV.label}</span>
+                      <span className="text-xs font-semibold text-[#FFB8DC]">Hello Gorgeous RX</span>
                     </span>
                   </Link>
                 ) : (

@@ -110,7 +110,7 @@ export function RegenShopStickyNav({
           type="button"
           onClick={onGoHome}
           className="flex shrink-0 items-center gap-2.5 text-left font-bold"
-          aria-label="RE GEN home"
+          aria-label="Peptide Therapy home"
         >
           <span className="inline-flex h-[34px] w-[34px] items-center justify-center rounded-[9px] bg-gradient-to-br from-[#FF2D8E] to-[#E6007E] text-[13px] font-extrabold text-white">
             HG
@@ -118,7 +118,7 @@ export function RegenShopStickyNav({
           <span className="hidden leading-tight sm:block">
             <span className="block text-base text-black">Hello Gorgeous</span>
             <span className="block text-[10px] font-extrabold uppercase tracking-[0.18em] text-[#E6007E]">
-              RE GEN
+              Peptide Therapy
             </span>
           </span>
         </button>
