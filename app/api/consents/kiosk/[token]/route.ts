@@ -20,15 +20,15 @@ function getSupabase() {
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { token: string } }
+  { params }: { params: Promise<{ token: string }> },
 ) {
   const supabase = getSupabase();
   if (!supabase) {
-    return NextResponse.json({ error: 'Database not configured' }, { status: 503 });
+    return NextResponse.json({ error: "Database not configured" }, { status: 503 });
   }
 
   try {
-    const { token } = params;
+    const { token } = await params;
 
     // Get token record
     const { data: tokenRecord, error: tokenError } = await supabase
@@ -63,30 +63,28 @@ export async function GET(
       });
     }
 
-    // Get outstanding consent packets
     const { data: packets, error: packetsError } = await supabase
-      .from('consent_packets')
-      .select('id, template_name, template_content, status')
-      .eq('appointment_id', tokenRecord.appointment_id)
-      .not('status', 'in', '("signed","voided","expired")')
-      .order('created_at', { ascending: true });
+      .from("consent_packets")
+      .select("id, template_name, template_content, status")
+      .eq("appointment_id", tokenRecord.appointment_id)
+      .in("status", ["draft", "sent", "viewed"])
+      .order("created_at", { ascending: true });
 
     if (packetsError) {
-      return NextResponse.json({ error: 'Failed to load consents' }, { status: 500 });
+      return NextResponse.json({ error: "Failed to load consents" }, { status: 500 });
     }
 
-    // Get client name
     const { data: client } = await supabase
-      .from('clients')
-      .select('users(first_name, last_name)')
-      .eq('id', tokenRecord.client_id)
-      .single();
+      .from("clients")
+      .select("first_name, last_name")
+      .eq("id", tokenRecord.client_id)
+      .maybeSingle();
+
+    const clientName = [client?.first_name, client?.last_name].filter(Boolean).join(" ") || "Guest";
 
     return NextResponse.json({
       valid: true,
-      client_name: client?.users
-        ? `${client.users.first_name} ${client.users.last_name}`
-        : 'Patient',
+      client_name: clientName,
       packets: packets || [],
     });
 

@@ -35,6 +35,8 @@ function KioskSignaturePad({
     canvas.style.height = '200px';
     ctx.scale(dpr, dpr);
 
+    ctx.fillStyle = '#ffffff';
+    ctx.fillRect(0, 0, 600, 200);
     ctx.strokeStyle = '#1f2937';
     ctx.lineWidth = 3;
     ctx.lineCap = 'round';
@@ -93,17 +95,25 @@ function KioskSignaturePad({
     setIsDrawing(false);
 
     const canvas = canvasRef.current;
-    if (canvas && hasSignature) {
-      onSignature(canvas.toDataURL('image/png'));
-    }
-  }, [isDrawing, hasSignature, onSignature]);
+    if (!canvas) return;
+    setHasSignature(true);
+    onSignature(canvas.toDataURL('image/jpeg', 0.72));
+  }, [isDrawing, onSignature]);
 
   const handleClear = useCallback(() => {
     const canvas = canvasRef.current;
     const ctx = canvas?.getContext('2d');
     if (!ctx || !canvas) return;
 
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    ctx.fillStyle = '#ffffff';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    const dpr = window.devicePixelRatio || 1;
+    ctx.scale(dpr, dpr);
+    ctx.strokeStyle = '#1f2937';
+    ctx.lineWidth = 3;
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
     setHasSignature(false);
     onSignature('');
   }, [onSignature]);
