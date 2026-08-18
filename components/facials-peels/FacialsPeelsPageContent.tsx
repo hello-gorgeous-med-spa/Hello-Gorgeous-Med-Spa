@@ -11,6 +11,7 @@ import {
   FACIALS_TREATMENTS,
   FACIALS_TRIFECTA,
 } from "@/lib/facials-peels-marketing";
+import { FALL_FACIALS_WEBSITE_BLURB } from "@/lib/campaigns/fall-into-facials-2026";
 import { SITE } from "@/lib/seo";
 
 function PinkPillLink({
@@ -63,6 +64,24 @@ export function FacialsPeelsPageContent() {
           <span aria-hidden>›</span>
           <span className="font-semibold text-[#FF2D8E]">Facials &amp; Peels</span>
         </nav>
+      </div>
+
+      <div className="mx-auto max-w-[1240px] px-6 pt-5">
+        <div className="flex flex-col gap-3 rounded-[22px] border-4 border-black bg-gradient-to-r from-[#FF2D8E] to-[#E6007E] px-5 py-4 text-white shadow-[8px_8px_0_0_rgba(0,0,0,0.85)] sm:flex-row sm:items-center sm:justify-between sm:px-7">
+          <div>
+            <p className="text-[11px] font-bold tracking-[0.22em]">{FALL_FACIALS_WEBSITE_BLURB.eyebrow}</p>
+            <p className="mt-1 font-serif text-xl font-bold leading-tight sm:text-2xl">
+              {FALL_FACIALS_WEBSITE_BLURB.headline}
+            </p>
+            <p className="mt-1 text-sm text-white/90">{FALL_FACIALS_WEBSITE_BLURB.body}</p>
+          </div>
+          <Link
+            href={FACIALS_GLOW_SPECIAL.href}
+            className="inline-flex shrink-0 items-center justify-center rounded-full border-2 border-black bg-white px-6 py-3 text-sm font-bold text-black"
+          >
+            {FALL_FACIALS_WEBSITE_BLURB.cta}
+          </Link>
+        </div>
       </div>
 
       {/* Hero */}

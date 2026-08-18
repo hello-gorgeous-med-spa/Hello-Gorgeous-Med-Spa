@@ -4,6 +4,7 @@
  */
 
 import { MEMBERSHIPS_SHOWCASE_FACEBOOK_MESSAGE } from "@/lib/monthly-memberships-marketing";
+import { FALL_FACIALS_CAMPAIGN, FALL_FACIALS_FACEBOOK } from "@/lib/campaigns/fall-into-facials-2026";
 
 export type FacebookPagePreset = {
   id: string;
@@ -671,6 +672,16 @@ Oswego · Naperville · Aurora · Plainfield`,
   defaultChannels: ["facebook", "instagram"],
 };
 
+export const FACEBOOK_PAGE_PRESET_FALL_FACIALS: FacebookPagePreset = {
+  id: "fall-into-facials-2026",
+  label: "Fall into Facials — Glow $129 · Trifecta $199",
+  blurb: "Seasonal facial reset — Facebook, Instagram, Google.",
+  message: FALL_FACIALS_FACEBOOK,
+  linkPath: withUtm("/services/facials-and-peels"),
+  imagePath: FALL_FACIALS_CAMPAIGN.imagePath,
+  defaultChannels: ["facebook", "instagram", "google"],
+};
+
 export const FACEBOOK_PAGE_PRESET_CHEMICAL_PEELS: FacebookPagePreset = {
   id: "chemical-peels-dermalogica",
   label: "Chemical peels — Dermalogica PRO",
@@ -730,6 +741,7 @@ Read the full guide (free consult link inside) 👇`,
 };
 
 export const FACEBOOK_PAGE_PRESETS: FacebookPagePreset[] = [
+  FACEBOOK_PAGE_PRESET_FALL_FACIALS,
   FACEBOOK_PAGE_PRESET_BLAST_MEMBERSHIPS,
   FACEBOOK_PAGE_PRESET_BLAST_GLP1,
   FACEBOOK_PAGE_PRESET_BLAST_RX_APP,

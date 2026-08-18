@@ -247,6 +247,68 @@ xo, Danielle & team
 
 Optional: add a separate **weekly tip SMS** later (value-only, Tuesdays 10 AM) — not required for day-one.
 
+---
+
+## Campaign 5 — Fall into Facials (one-time blast, Aug/Sept 2026)
+
+Build this in Square Dashboard. Square does not expose a campaign-create API, so paste the blocks below into the editor.
+
+**Dashboard:** https://app.squareup.com/dashboard/customers/marketing
+
+| Field | Value |
+|-------|--------|
+| Name | `HG Fall into Facials — Aug 2026` |
+| Type | One-time **Email** (optional second campaign: SMS) |
+| Objective | Newsletter / promote a service |
+| Location | Hello Gorgeous Med Spa (Oswego) |
+| Audience | `HG All Opt-In` (fallback: Email subscribers) |
+| Brand color | `#E6007E` |
+| Button | **Book your fall facial** → `https://www.hellogorgeousmedspa.com/services/facials-and-peels?ref=fall_facials_2026` |
+| Schedule | **Wednesday 11:00 AM America/Chicago** |
+| Cap | 1× this campaign |
+
+**Subject:** `Fall into Facials, {{first_name}} 🍂 your glow reset is ready`
+
+**Preview text:** `HydraFacial Glow $129 · Trifecta $199 · book in Oswego this week`
+
+**Header:** `FALL INTO FACIALS`
+
+**Email body:**
+```
+Hi {{first_name}},
+
+Summer was a lot — sun, AC, late nights, leftover SPF. Fall is when skin looks dull, dry, and a little congested if we don't give it a real reset.
+
+This is the month to Fall into Facials at Hello Gorgeous.
+
+What to book:
+• HydraFacial Glow Special — $129
+  Cleanse, extract, hydrate, dermaplane, O₂, plus 2 add-ons. Same-day glow, no downtime.
+• The Trifecta — $199
+  HydraFacial + dermaplaning + O₂ infusion + microneedling in one visit.
+• Signature facials from $89
+  Calm Restore, Clarity, Gorgeous Glow, Collagen Reset — matched to your skin, not a menu script.
+
+Ryan Kent, FNP-BC is on site. We customize the protocol — we don't guess.
+
+Book online: https://www.hellogorgeousmedspa.com/services/facials-and-peels?ref=fall_facials_2026
+Or call (630) 636-6193 · 74 W Washington St, Oswego
+
+xo,
+Danielle & the Hello Gorgeous team
+```
+
+**Optional SMS:**
+```
+Hello Gorgeous: Fall into Facials. HydraFacial Glow $129 · Trifecta $199. Book: hellogorgeousmedspa.com/facials-oswego Reply STOP to opt out.
+```
+
+**Design notes in Square editor:**
+1. Campaign color: hot pink `#E6007E` (or closest Square pink).
+2. Header image: upload `public/images/marketing/fall-into-facials-2026.jpg` (Fall into Facials graphic).
+3. One pink button only — do not stack extra coupons. Prices above are live menu prices, not a new discount code.
+4. Send yourself a test, then Schedule. Do not Send now until the test looks right on mobile.
+
 ### After activate
 
 - [ ] Send yourself a test for A, B, C, D

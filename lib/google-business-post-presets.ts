@@ -5,6 +5,7 @@
 
 import { MEMBERSHIPS_SHOWCASE_GBP_MESSAGE } from "@/lib/monthly-memberships-marketing";
 import { OSWEGO_SPECIALS_GBP_MESSAGE } from "@/lib/oswego-specials";
+import { FALL_FACIALS_CAMPAIGN, FALL_FACIALS_GBP } from "@/lib/campaigns/fall-into-facials-2026";
 
 export type GbpPostPreset = {
   id: string;
@@ -16,6 +17,13 @@ export type GbpPostPreset = {
 };
 
 export const GBP_POST_PRESETS: GbpPostPreset[] = [
+  {
+    id: "fall-into-facials-2026",
+    label: "Fall into Facials — Glow $129 · Trifecta $199",
+    message: FALL_FACIALS_GBP,
+    linkPath: FALL_FACIALS_CAMPAIGN.gbpPath,
+    imagePath: FALL_FACIALS_CAMPAIGN.imagePath,
+  },
   {
     id: "oswego-specials",
     label: "Oswego Specials — lashes $89 · laser $59",
