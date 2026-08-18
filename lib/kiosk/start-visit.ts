@@ -37,8 +37,55 @@ export type KioskStartVisitErr = {
   ok: false;
   status: number;
   error: string;
-  matches?: { id: string; name: string }[];
 };
+
+type PhoneMatch = {
+  id: string;
+  first_name: string | null;
+  last_name: string | null;
+  phone: string | null;
+};
+
+function displayName(row: { first_name: string | null; last_name: string | null }, fallback = "Guest") {
+  return [row.first_name, row.last_name].filter(Boolean).join(" ") || fallback;
+}
+
+function nameKey(value: string | null | undefined) {
+  return (value || "").trim().toLowerCase();
+}
+
+/** Desk iPad: never stop to pick a chart. Prefer a typed name, else the last person seen. */
+async function pickClientForPhone(
+  admin: SupabaseClient,
+  matches: PhoneMatch[],
+  firstName?: string,
+  lastName?: string,
+): Promise<PhoneMatch> {
+  if (matches.length === 1) return matches[0];
+
+  const first = nameKey(firstName);
+  const last = nameKey(lastName);
+  const named = matches.filter((m) => {
+    if (first && nameKey(m.first_name) !== first) return false;
+    if (last && nameKey(m.last_name) !== last) return false;
+    return !!(first || last);
+  });
+  const pool = named.length ? named : matches;
+  if (pool.length === 1) return pool[0];
+
+  const { data: recentRows } = await admin
+    .from("appointments")
+    .select("client_id")
+    .in(
+      "client_id",
+      pool.map((m) => m.id),
+    )
+    .neq("status", "cancelled")
+    .order("starts_at", { ascending: false })
+    .limit(1);
+
+  return pool.find((m) => m.id === recentRows?.[0]?.client_id) || pool[0];
+}
 
 export async function startKioskVisit(
   admin: SupabaseClient,
@@ -76,24 +123,13 @@ export async function startKioskVisit(
       return { ok: false, status: 404, error: "Client not found." };
     }
     clientId = row.id;
-    clientName = [row.first_name, row.last_name].filter(Boolean).join(" ") || "Guest";
+    clientName = displayName(row);
   } else {
     const matches = await findClientsByPhoneLoose(admin, opts.phone);
-    if (matches.length > 1) {
-      return {
-        ok: false,
-        status: 409,
-        error: "More than one chart uses this number. Pick the right client.",
-        matches: matches.map((m) => ({
-          id: m.id,
-          name: [m.first_name, m.last_name].filter(Boolean).join(" ") || "Guest",
-        })),
-      };
-    }
-    if (matches.length === 1) {
-      clientId = matches[0].id;
-      clientName =
-        [matches[0].first_name, matches[0].last_name].filter(Boolean).join(" ") || "Guest";
+    if (matches.length >= 1) {
+      const picked = await pickClientForPhone(admin, matches, opts.firstName, opts.lastName);
+      clientId = picked.id;
+      clientName = displayName(picked);
     } else {
       const first = (opts.firstName || "").trim();
       const last = (opts.lastName || "").trim();

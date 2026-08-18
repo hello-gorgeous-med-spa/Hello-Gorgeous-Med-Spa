@@ -24,7 +24,6 @@ export default function KioskHubPage() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [needName, setNeedName] = useState(false);
-  const [matches, setMatches] = useState<{ id: string; name: string }[] | null>(null);
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState<string | null>(null);
   const [note, setNote] = useState<string | null>(null);
@@ -81,11 +80,10 @@ export default function KioskHubPage() {
     setUnlocked(true);
   }
 
-  async function startVisit(clientId?: string) {
+  async function startVisit() {
     setBusy(true);
     setErr(null);
     setNote(null);
-    setMatches(null);
     try {
       const res = await fetch("/api/kiosk/start-visit", {
         method: "POST",
@@ -96,7 +94,6 @@ export default function KioskHubPage() {
           formIds: [...selected],
           firstName: firstName.trim(),
           lastName: lastName.trim(),
-          clientId,
         }),
       });
       const data = await res.json().catch(() => ({}));
@@ -110,19 +107,14 @@ export default function KioskHubPage() {
         setErr(data.error);
         return;
       }
-      if (res.status === 409 && Array.isArray(data.matches)) {
-        setMatches(data.matches);
-        setErr(data.error);
-        return;
-      }
-      if (!res.ok || !data.url) {
+      if (!res.ok || !(data.path || data.url)) {
         setErr(data.error || "Could not start consents.");
         return;
       }
       if (Array.isArray(data.skipped_already_signed) && data.skipped_already_signed.length) {
         setNote(`Already on file: ${data.skipped_already_signed.join(", ")}`);
       }
-      window.location.href = data.url;
+      window.location.assign(data.path || data.url);
     } catch {
       setErr("Network error. Check Wi-Fi and try again.");
     } finally {
@@ -188,7 +180,6 @@ export default function KioskHubPage() {
             onChange={(e) => {
               setPhone(e.target.value);
               setNeedName(false);
-              setMatches(null);
             }}
             placeholder="(630) 555-0199"
             className="w-full rounded-lg border border-white/20 bg-black/30 px-4 py-3 text-white outline-none focus:border-[#FF1493]"
@@ -207,20 +198,6 @@ export default function KioskHubPage() {
                 placeholder="Last name"
                 className="rounded-lg border border-white/20 bg-black/30 px-4 py-3 text-white outline-none focus:border-[#FF1493]"
               />
-            </div>
-          )}
-          {matches && matches.length > 0 && (
-            <div className="space-y-2">
-              {matches.map((m) => (
-                <button
-                  key={m.id}
-                  type="button"
-                  onClick={() => startVisit(m.id)}
-                  className="w-full text-left rounded-lg border border-white/20 px-4 py-3 hover:border-[#FF1493]"
-                >
-                  {m.name}
-                </button>
-              ))}
             </div>
           )}
         </div>

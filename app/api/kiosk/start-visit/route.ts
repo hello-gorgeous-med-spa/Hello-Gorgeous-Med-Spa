@@ -41,15 +41,13 @@ export async function POST(request: NextRequest) {
   });
 
   if (!result.ok) {
-    return NextResponse.json(
-      { error: result.error, matches: result.matches },
-      { status: result.status },
-    );
+    return NextResponse.json({ error: result.error }, { status: result.status });
   }
 
   const origin = originFromRequest(request);
   return NextResponse.json({
     success: true,
+    path: result.path,
     url: `${origin}${result.path}`,
     token: result.token,
     expires_at: result.expiresAt,
