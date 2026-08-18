@@ -2,7 +2,6 @@
  * iPad desk hub: phone + picked forms → HG client + walk-in visit + packets + kiosk URL.
  * Does not use Hub / Square.
  */
-import crypto from "crypto";
 import type { SupabaseClient } from "@supabase/supabase-js";
 
 import { findClientsByPhoneLoose, phoneLast10 } from "@/lib/checkin-lookup";
@@ -217,8 +216,6 @@ export async function startKioskVisit(
     .gte("signed_at", oneYearAgo.toISOString());
   const signedNames = new Set((signed || []).map((s) => (s.template_name || "").toLowerCase()));
 
-  const wizardToken = crypto.randomBytes(32).toString("base64url");
-  const wizardExpiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
   const skippedAlreadySigned: string[] = [];
   const toCreate = [];
 
@@ -239,8 +236,6 @@ export async function startKioskVisit(
         name: form.name,
       },
       status: "draft",
-      wizard_token: wizardToken,
-      wizard_expires_at: wizardExpiresAt.toISOString(),
     });
   }
 
