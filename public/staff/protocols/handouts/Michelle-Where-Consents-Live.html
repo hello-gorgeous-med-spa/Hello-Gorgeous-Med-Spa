@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Michelle — Where Consents Live (Skip Kiosk)</title>
+<title>Front Desk — iPad Consents (Hello Gorgeous)</title>
 <style>
   :root { --pink:#E6007E; --ink:#111; --mute:#555; --rose:#FFF0F7; }
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -11,112 +11,145 @@
   .toolbar { max-width: 8.5in; margin: 0 auto 16px; background: #fff; border: 3px solid #000; padding: 12px 16px; display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
   .toolbar p { font-size: 13px; font-weight: 600; }
   .toolbar button { background: var(--pink); color: #fff; border: 2px solid #000; border-radius: 999px; padding: 10px 18px; font-weight: 800; cursor: pointer; }
-  .page { width: 8.5in; margin: 0 auto; background: #fff; border: 4px solid #000; padding: 0.45in; }
-  .head { border-bottom: 4px solid #000; padding-bottom: 10px; margin-bottom: 14px; }
+  .page { width: 8.5in; margin: 0 auto; background: #fff; border: 4px solid #000; padding: 0.4in 0.45in; }
+  .head { border-bottom: 4px solid #000; padding-bottom: 10px; margin-bottom: 12px; }
   .head h1 { font-size: 22px; font-weight: 900; color: var(--pink); line-height: 1.1; }
   .head .sub { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: var(--mute); margin-top: 4px; }
-  .badge { display: inline-block; background: #fff3cd; border: 2px solid #000; padding: 4px 8px; font-size: 11px; font-weight: 900; margin-top: 8px; }
-  h2 { font-size: 12px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.08em; color: var(--pink); margin: 14px 0 8px; border-bottom: 2px solid #000; padding-bottom: 3px; }
-  p, li { font-size: 12px; line-height: 1.45; }
-  .box { border: 2px solid #000; padding: 10px 12px; margin: 8px 0; background: var(--rose); }
+  .badge { display: inline-block; background: #111; color: #fff; border: 2px solid #000; padding: 4px 8px; font-size: 11px; font-weight: 900; margin-top: 8px; }
+  h2 { font-size: 12px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.08em; color: var(--pink); margin: 12px 0 6px; border-bottom: 2px solid #000; padding-bottom: 3px; }
+  p, li { font-size: 12px; line-height: 1.4; }
+  .box { border: 2px solid #000; padding: 9px 11px; margin: 8px 0; background: var(--rose); }
   .box.dark { background: #111; color: #fff; }
   .box.dark a { color: #FFB8DC; }
   .box.warn { background: #fff5f5; }
+  .box.ok { background: #f0fdf4; }
   a { color: var(--pink); font-weight: 700; word-break: break-all; }
-  table { width: 100%; border-collapse: collapse; font-size: 11.5px; margin: 8px 0; }
-  th, td { border: 2px solid #000; padding: 7px 8px; vertical-align: top; text-align: left; }
+  table { width: 100%; border-collapse: collapse; font-size: 11px; margin: 6px 0; }
+  th, td { border: 2px solid #000; padding: 6px 7px; vertical-align: top; text-align: left; }
   th { background: #111; color: #fff; font-size: 10px; text-transform: uppercase; }
-  ol { margin: 6px 0 6px 18px; }
-  ol li { margin-bottom: 4px; }
-  .foot { margin-top: 14px; padding-top: 8px; border-top: 2px solid #000; font-size: 9px; color: var(--mute); display: flex; justify-content: space-between; }
+  ol, ul { margin: 4px 0 4px 18px; }
+  ol li, ul li { margin-bottom: 3px; }
+  .say { font-style: italic; }
+  .steps { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin: 8px 0; }
+  .step { border: 2px solid #000; padding: 8px 9px; background: var(--rose); }
+  .step .n { display: block; font-size: 10px; font-weight: 900; letter-spacing: 0.1em; text-transform: uppercase; color: var(--pink); margin-bottom: 4px; }
+  .step b { display: block; font-size: 13px; margin-bottom: 4px; }
+  .foot { margin-top: 10px; padding-top: 8px; border-top: 2px solid #000; font-size: 9px; color: var(--mute); display: flex; justify-content: space-between; }
   @media print {
     body { background: #fff; padding: 0; }
     .toolbar { display: none !important; }
-    .page { border: none; width: 100%; }
+    .page { border: none; width: 100%; padding: 0; }
     th, .badge, .box.dark { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
   }
 </style>
 </head>
 <body>
   <div class="toolbar">
-    <p>Staff desk reference — put next to Michelle’s computer. Skip kiosk for now.</p>
+    <p>Print one copy for the iPad stand. This replaces the old “skip kiosk” card.</p>
     <button type="button" onclick="window.print()">Print / Save as PDF</button>
   </div>
 
   <article class="page">
     <div class="head">
-      <h1>Where Consent Forms Live</h1>
-      <div class="sub">For Michelle · Hello Gorgeous Med Spa · Desk reference</div>
-      <div class="badge">KIOSK HAS RESTRICTIONS — DO NOT RELY ON IT RIGHT NOW</div>
+      <h1>Front Desk iPad — Consent Signing</h1>
+      <div class="sub">Hello Gorgeous Med Spa · Michelle + desk · One-page card</div>
+      <div class="badge">IPAD = CONSENTS ONLY · NOT THE SQUARE REGISTER</div>
     </div>
 
     <div class="box dark">
-      <b style="display:block;margin-bottom:6px;color:#FFB8DC;">PRIMARY LINK (use this)</b>
-      Preview · Print · Download PDF · Send to client phone/email<br><br>
-      <a href="https://www.hellogorgeousmedspa.com/admin/owner/consents">https://www.hellogorgeousmedspa.com/admin/owner/consents</a><br><br>
-      Staff login:<br>
-      <a href="https://www.hellogorgeousmedspa.com/login?staff=1&returnTo=/admin/owner/consents">https://www.hellogorgeousmedspa.com/login?staff=1&returnTo=/admin/owner/consents</a>
+      <b style="display:block;margin-bottom:4px;color:#FFB8DC;">IPAD HOME SCREEN (clients use this)</b>
+      Open the pink <b>HG Consents</b> icon — or Safari:<br>
+      <a href="https://www.hellogorgeousmedspa.com/kiosk">https://www.hellogorgeousmedspa.com/kiosk</a>
     </div>
 
-    <h2>Michelle’s workflow (today)</h2>
-    <ol>
-      <li>Sign in with staff login (link above)</li>
-      <li>Open <b>Owner Consents</b> library</li>
-      <li>Pick the form for today’s service (weight loss, laser, injectable, etc.)</li>
-      <li><b>Print</b> for the chart folder — or <b>Send</b> link to client’s phone</li>
-      <li>Confirm signed before treatment · file in chart</li>
-    </ol>
+    <h2>Every visit — 3 steps</h2>
+    <div class="steps">
+      <div class="step">
+        <span class="n">1 · Computer first</span>
+        <b>Start consents</b>
+        Hub → today’s Square appointment → <b>Start consents</b>. Do this before you hand them the iPad.
+      </div>
+      <div class="step">
+        <span class="n">2 · Hand the iPad</span>
+        <b>They check in + sign</b>
+        Phone number on file → <b>Check in</b> → <b>Sign consent forms</b> → finger signature → hand it back.
+      </div>
+      <div class="step">
+        <span class="n">3 · You confirm</span>
+        <b>Chart must say Signed</b>
+        Admin → Clients → their name → <b>Consents</b>. Then room them. Reopen HG Consents for the next person.
+      </div>
+    </div>
 
-    <h2>All consent locations</h2>
+    <div class="box ok">
+      <b>What you say:</b>
+      <span class="say">“Type the cell number we have on file, tap Check in, then Sign consent forms. Sign with your finger. Hand it back when it says you’re done.”</span>
+    </div>
+
+    <h2>If they already signed at home</h2>
+    <p>Skip the iPad. Open the chart → Consents → confirm <b>Signed</b> (not expired). Check them in and room.</p>
+
+    <h2>If the iPad complains</h2>
     <table>
       <thead>
-        <tr><th style="width:28%">Where</th><th>Use for</th></tr>
+        <tr><th style="width:38%">What you see</th><th>Do this</th></tr>
       </thead>
       <tbody>
         <tr>
-          <td><b>Admin → Owner Consents</b><br><a href="https://www.hellogorgeousmedspa.com/admin/owner/consents">/admin/owner/consents</a></td>
-          <td>Full library · print · PDF · send link. <b>Best desk path.</b></td>
+          <td>Can’t find that phone / no appointment today</td>
+          <td>You skipped <b>Start consents</b>. Do it on Hub, then try the iPad again.</td>
         </tr>
         <tr>
-          <td><b>Admin → Consents</b><br><a href="https://www.hellogorgeousmedspa.com/admin/consents">/admin/consents</a></td>
-          <td>Templates + who already signed</td>
+          <td>Session ended / link expired</td>
+          <td>Calendar → that appointment → <b>Get kiosk consent link</b> → open it on the iPad. Links last ~15 minutes.</td>
         </tr>
         <tr>
-          <td><b>Admin → Clients</b> → open client<br><a href="https://www.hellogorgeousmedspa.com/admin/clients">/admin/clients</a></td>
-          <td>That patient’s consent history on their chart</td>
+          <td>Line is moving / iPad is busy</td>
+          <td>Owner Consents → <b>Send</b> the link to their phone. Same signature, same chart.</td>
         </tr>
         <tr>
-          <td><b>Client portal</b><br>/portal/consents</td>
-          <td>Client signs on their own phone (not kiosk)</td>
-        </tr>
-        <tr>
-          <td><b>Paper packets (this folder)</b></td>
-          <td>HG-Patient-Packet*.html — offline / backup when systems are slow</td>
-        </tr>
-        <tr>
-          <td><b>Kiosk</b><br>/kiosk/consents/…</td>
-          <td><b>Skip for now</b> — restrictions; unreliable for what we need today</td>
+          <td>Morpheus8, Solaria, Luxora, or a new service</td>
+          <td>Core HIPAA packet is on the iPad. Device-specific forms: Owner Consents library — send or open on the iPad.</td>
         </tr>
       </tbody>
     </table>
 
-    <h2>Paper backup in this folder</h2>
-    <div class="box">
-      <ul style="margin-left:16px;">
-        <li><b>HG-Patient-Packet.html</b> — general</li>
-        <li><b>HG-Patient-Packet-Weight-Loss.html</b> — GLP-1 / tirz</li>
-        <li><b>HG-Patient-Packet-Peptides.html</b> — peptides / RE GEN</li>
-        <li><b>HG-Staff-Only-Visit-Record.html</b> — staff chart sheet (not a consent)</li>
-      </ul>
-    </div>
+    <h2>Staff computer bookmarks</h2>
+    <table>
+      <thead>
+        <tr><th style="width:32%">Task</th><th>Open this</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Start consents for today’s Square bookings</td>
+          <td><a href="https://hub.hellogorgeousmedspa.com/hub">https://hub.hellogorgeousmedspa.com/hub</a></td>
+        </tr>
+        <tr>
+          <td>Calendar + kiosk link</td>
+          <td><a href="https://www.hellogorgeousmedspa.com/admin/calendar">/admin/calendar</a></td>
+        </tr>
+        <tr>
+          <td>Send / print extra forms (backup)</td>
+          <td><a href="https://www.hellogorgeousmedspa.com/admin/owner/consents">/admin/owner/consents</a></td>
+        </tr>
+        <tr>
+          <td>Prove they signed</td>
+          <td><a href="https://www.hellogorgeousmedspa.com/admin/clients">/admin/clients</a> → Consents tab</td>
+        </tr>
+        <tr>
+          <td>Staff login</td>
+          <td><a href="https://www.hellogorgeousmedspa.com/login?staff=1&amp;returnTo=/admin/calendar">/login?staff=1</a></td>
+        </tr>
+      </tbody>
+    </table>
 
     <div class="box warn">
-      <b>Rule:</b> No treatment without required consents signed (paper or digital). If unsure which form — ask Danielle or Ryan. Prefer Owner Consents print/send over kiosk.
+      <b>Rules:</b> No treatment without required consents Signed on the chart. This iPad is not Square POS — don’t log into email, Instagram, or Admin on it. Guided Access stays on while a client has it. Paper packets in this folder are backup only. If unsure which extra form — ask Danielle or Ryan.
     </div>
 
     <div class="foot">
-      <span>Hello Gorgeous · Staff desk · HG Patient Packet folder</span>
-      <span>Updated Aug 2026</span>
+      <span>Hello Gorgeous · Front desk iPad card · Replaces “skip kiosk”</span>
+      <span>Updated Aug 17, 2026</span>
     </div>
   </article>
 </body>

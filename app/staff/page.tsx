@@ -177,6 +177,17 @@ export default function StaffHubPage() {
                     Front Desk Assistant — instant answers while on calls
                   </span>
                 </Link>
+                <a
+                  href="/staff/protocols/handouts/Michelle-Where-Consents-Live.html"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-3 rounded-xl border border-slate-200 bg-slate-50/50 px-4 py-3 transition hover:border-slate-300 hover:bg-slate-100"
+                >
+                  <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-pink-100 text-sm">📱</span>
+                  <span className="text-sm font-medium text-slate-700">
+                    iPad consents — print the front-desk card
+                  </span>
+                </a>
                 <Link
                   href="/admin/promos/bestie"
                   className="flex items-center gap-3 rounded-xl border border-slate-200 bg-slate-50/50 px-4 py-3 transition hover:border-slate-300 hover:bg-slate-100"

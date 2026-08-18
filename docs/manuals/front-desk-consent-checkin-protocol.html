@@ -70,7 +70,7 @@
   <p style="max-width:42ch;margin-top:6px">
     How Square booking, Hello Gorgeous admin, the tablet kiosk, and signed consents fit together — and exactly what front desk does.
   </p>
-  <p class="muted" style="margin-top:10px"><strong>Print &amp; keep at front desk.</strong> · Hello Gorgeous Med Spa · Updated July 15, 2026</p>
+  <p class="muted" style="margin-top:10px"><strong>Print &amp; keep at front desk.</strong> · Hello Gorgeous Med Spa · Updated August 17, 2026</p>
 </div>
 
 <h2>1. The simple mental model</h2>
@@ -128,8 +128,9 @@
   <li><strong>Treat</strong> — Provider should not start until required consents show signed (admin may flag unsigned).</li>
 </ol>
 <div class="warn">
-  <strong>Important right now:</strong> If an appointment exists <em>only</em> in Square and has not been bridged into Hello Gorgeous, the phone kiosk may say it can’t find them.
-  Fix: open/create the client in HG admin, send consents from <span class="mono">/admin/owner/consents</span> or the appointment, or use a generated kiosk link from Calendar when available.
+  <strong>If the iPad can’t find them:</strong> the Square booking is not in Hello Gorgeous yet.
+  Fix: Hub → today’s appointment → <strong>Start consents</strong>, then try the kiosk again.
+  Or Calendar → <strong>Get kiosk consent link</strong> and open it on the iPad.
   Booking money lives in Square; <strong>legal signatures live in HG.</strong>
 </div>
 
@@ -144,6 +145,7 @@
     </ul>
   </li>
   <li>Optional: send consent links <strong>before</strong> they arrive (email/SMS from Consents or appointment) so they sign at home.</li>
+  <li>For each Square booking that still needs forms: Hub → <strong>Start consents</strong> so the iPad can find them.</li>
   <li>Wake the front-desk tablet → bookmark <span class="mono">https://www.hellogorgeousmedspa.com/kiosk</span> (Safari, full screen / Guided Access if you use it).</li>
 </ol>
 
@@ -205,7 +207,7 @@
     <tr><td>New client, on-site, phone works on kiosk</td><td>Kiosk → hand tablet → verify Consents tab</td></tr>
     <tr><td>Returning client, consents current</td><td>Check Consents → check in → room</td></tr>
     <tr><td>Consents expired / new service</td><td>Send packet or kiosk link → sign → verify</td></tr>
-    <tr><td>Kiosk “can’t find” phone</td><td>Find/create client in admin → send link → open on tablet</td></tr>
+    <tr><td>Kiosk “can’t find” phone</td><td>Hub → <strong>Start consents</strong> on that Square booking, then retry iPad. Or Calendar → Get kiosk consent link.</td></tr>
     <tr><td>Client at home before visit</td><td>Email/SMS from Consents → they sign → you verify next day</td></tr>
     <tr><td>Provider asks “are they cleared?”</td><td>Client chart → Consents → show Signed dates</td></tr>
   </tbody>
@@ -216,6 +218,7 @@
   <thead><tr><th>Task</th><th>URL</th></tr></thead>
   <tbody>
     <tr><td>Front desk tablet (kiosk)</td><td class="mono">https://www.hellogorgeousmedspa.com/kiosk</td></tr>
+    <tr><td>Hub — Start consents</td><td class="mono">https://hub.hellogorgeousmedspa.com/hub</td></tr>
     <tr><td>Calendar / day view</td><td class="mono">/admin/calendar</td></tr>
     <tr><td>Client search / charts</td><td class="mono">/admin/clients</td></tr>
     <tr><td>Send / preview consent forms</td><td class="mono">/admin/owner/consents</td></tr>
@@ -245,7 +248,7 @@
 </div>
 
 <footer>
-  Hello Gorgeous Med Spa · Front Desk Consent &amp; Check-In Protocol · Jul 15, 2026 ·
+  Hello Gorgeous Med Spa · Front Desk Consent &amp; Check-In Protocol · Aug 17, 2026 ·
   Companion to Intake &amp; Consent Forms Playbook · Not legal advice; follow owner / medical director policy.
 </footer>
 
