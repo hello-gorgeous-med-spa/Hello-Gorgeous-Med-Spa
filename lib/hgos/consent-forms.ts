@@ -2026,6 +2026,42 @@ export function getConsentForm(id: ConsentFormType): ConsentForm | undefined {
   return CONSENT_FORMS.find(f => f.id === id);
 }
 
+/** iPad / desk picker — names only, no HTML body. */
+export type ConsentFormCatalogItem = {
+  id: ConsentFormType;
+  name: string;
+  shortName: string;
+  description: string;
+  isRequired: boolean;
+  order: number;
+  category: string;
+};
+
+export function consentFormCategory(form: Pick<ConsentForm, "id" | "phase">): string {
+  if (form.id === "same_day_pre_treatment_confirmation" || form.phase === "pre") return "Pre-Visit";
+  if (form.id === "post_treatment_discharge_acknowledgment" || form.phase === "post") return "Post-Visit";
+  if (form.id.includes("hipaa") || form.id.includes("arbitration") || form.id.includes("liability") || form.id.includes("cancellation")) return "Compliance";
+  if (form.id.includes("injectable") || form.id.includes("botox") || form.id.includes("filler") || form.id.includes("kybella") || form.id.includes("pdo")) return "Injectable";
+  if (form.id.includes("laser") || form.id.includes("ipl") || form.id.includes("hair_removal")) return "Laser";
+  if (form.id.includes("morpheus") || form.id.includes("rf_") || form.id.includes("microneedling") || form.id.includes("chemical") || form.id.includes("hydra") || form.id.includes("derma")) return "Skin";
+  if (form.id.includes("body") || form.id.includes("contouring")) return "Body";
+  if (form.id.includes("iv_") || form.id.includes("bhrt") || form.id.includes("weight") || form.id.includes("prp")) return "Wellness";
+  if (form.id.includes("photo") || form.id.includes("sms")) return "Marketing";
+  return "Treatment";
+}
+
+export function getConsentFormCatalog(): ConsentFormCatalogItem[] {
+  return CONSENT_FORMS.map((f) => ({
+    id: f.id,
+    name: f.name,
+    shortName: f.shortName,
+    description: f.description,
+    isRequired: f.isRequired,
+    order: f.order,
+    category: consentFormCategory(f),
+  })).sort((a, b) => a.order - b.order);
+}
+
 /**
  * Get consent forms required for a specific service category
  */
