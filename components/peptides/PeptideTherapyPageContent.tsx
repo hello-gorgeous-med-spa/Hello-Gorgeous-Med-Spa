@@ -60,16 +60,22 @@ const TYPES = [
     n: "01",
     title: "Metabolic peptides",
     body: "Tirzepatide and semaglutide help regulate appetite and support metabolic health — the foundation of our weight-management programs.",
+    image: "/images/regen/categories/metabolic.webp",
+    imageAlt: "Metabolic peptides — Hello Gorgeous Med Spa RX",
   },
   {
     n: "02",
     title: "Growth-hormone support",
     body: "Peptides like sermorelin encourage your body’s own growth-hormone production for recovery and lean body composition.",
+    image: "/images/regen/categories/growth-hormone.webp",
+    imageAlt: "Growth hormone peptides — Hello Gorgeous Med Spa RX",
   },
   {
     n: "03",
     title: "Repair & recovery",
     body: "BPC-157 supports tissue healing, joint comfort, and cellular repair after inflammation or injury.",
+    image: "/images/regen/categories/repair-recovery.webp",
+    imageAlt: "Repair and recovery peptides — Hello Gorgeous Med Spa RX",
   },
   {
     n: "04",
@@ -89,6 +95,8 @@ const TYPES = [
     n: "06",
     title: "Anti-inflammatory peptides",
     body: "Calm inflammatory pathways and support healthier, longer-term recovery under NP supervision.",
+    image: "/images/regen/categories/anti-inflammatory.webp",
+    imageAlt: "Anti-inflammatory peptides — Hello Gorgeous Med Spa RX",
   },
   {
     n: "07",
