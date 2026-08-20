@@ -170,25 +170,6 @@
     "vial": "svg-placeholder"
   },
   {
-    "id": "regen-ss-31",
-    "storefrontFile": "prod-ss31-regen.png",
-    "name": "SS-31",
-    "chip": "Performance",
-    "what": "A mitochondria-targeting peptide (elamipretide) that binds cardiolipin on the inner mitochondrial membrane.",
-    "studiedFor": [
-      "Mitochondrial energy efficiency",
-      "Cellular performance and recovery",
-      "Support against age-related decline",
-      "Endurance and vitality research"
-    ],
-    "specs": [
-      "5 mL",
-      "Sterile",
-      "Subcutaneous"
-    ],
-    "vial": "svg-placeholder"
-  },
-  {
     "id": "regen-ghk-cu",
     "storefrontFile": "prod-ghkcu-regen.png",
     "name": "GHK-Cu",

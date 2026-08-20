@@ -187,6 +187,7 @@ for (const name of unmatchedSheetRows) {
  * ------------------------------------------------------------------------ */
 
 const RETATRUTIDE_GUARD = /retatrutide/i;
+const ELAMIPRETIDE_GUARD = /ss-?31|elamipretide|elamipiretide/i;
 
 for (const product of CLIENT_VISIBLE_PRODUCTS) {
   if (RETATRUTIDE_GUARD.test(product.name)) {
@@ -195,12 +196,21 @@ for (const product of CLIENT_VISIBLE_PRODUCTS) {
       `${product.id} ${product.name} is client-visible — retatrutide is investigational and was removed from every client surface`,
     );
   }
+  if (ELAMIPRETIDE_GUARD.test(`${product.id} ${product.name} ${product.drugKey}`)) {
+    fail(
+      "elamipretide",
+      `${product.id} ${product.name} is client-visible — compounded SS-31 / elamipretide must stay off every client surface`,
+    );
+  }
 }
 
 for (const entry of HUB_CARDS) {
   const { card } = entry;
   if (RETATRUTIDE_GUARD.test(`${card.name} ${card.description}`)) {
     fail("retatrutide", `${describeCard(entry)} advertises retatrutide`);
+  }
+  if (ELAMIPRETIDE_GUARD.test(`${card.name} ${card.description}`)) {
+    fail("elamipretide", `${describeCard(entry)} advertises SS-31 / elamipretide`);
   }
 }
 

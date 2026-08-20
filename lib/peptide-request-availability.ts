@@ -14,6 +14,7 @@ import {
   getPeptideBoomRxCatalogEntry,
   isCarriedOnBoomRxSheet,
 } from "@/lib/peptide-boomrx-catalog";
+import { isNeverClientVisibleText } from "@/lib/regen/catalog/client-visibility";
 import {
   PEPTIDE_REQUEST_ITEMS,
   peptideRequestItemsByCategory,
@@ -29,6 +30,7 @@ import {
 const GLP1_MENU_IDS = new Set(["tirzepatide", "semaglutide"]);
 
 export function isClientRequestablePeptide(item: PeptideRequestItem): boolean {
+  if (isNeverClientVisibleText(item.id, item.name)) return false;
   if (GLP1_MENU_IDS.has(item.id)) return true;
   if (getPeptideBoomRxCatalogEntry(item.id)) return true;
   // Blends are listed by their trade name ("HEAL Blend"), so match on the sheet name.

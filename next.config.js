@@ -276,6 +276,8 @@ const nextConfig = {
     { source: "/peptide-therapy-men", destination: "/peptides", permanent: true },
     { source: "/peptides/cjc-1295", destination: "/peptides/cjc-1295-ipamorelin", permanent: true },
     { source: "/rx/catalog", destination: "/rx", permanent: true },
+    { source: "/rx/product/p166", destination: "/rx", permanent: true },
+    { source: "/docs/dosing-guides/ss-31-elamipretide.pdf", destination: "/rx", permanent: true },
     { source: "/rx/protocols/tirzepatide", destination: "/tirzepatide", permanent: true },
     { source: "/rx/protocols/semaglutide", destination: "/semaglutide", permanent: true },
     { source: "/rx/protocols/bpc157", destination: "/bpc-157", permanent: true },

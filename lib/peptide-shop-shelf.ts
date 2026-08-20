@@ -408,14 +408,6 @@ export const PEPTIDE_SHOP_SECTIONS: PeptideShopSection[] = [
         menuId: "nad-plus",
         wholesale: NAD_WHOLESALE,
       }),
-      shopCard({
-        name: "SS-31",
-        spec: "2mg/mL · 5mL vial",
-        expect: "Mitochondrial-targeted peptide studied for cellular energy and recovery.",
-        image: GENERIC_VIAL,
-        href: peptideIntake("ss-31"),
-        menuId: "ss-31",
-      }),
     ],
   },
   {

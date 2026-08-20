@@ -78,7 +78,6 @@ export const REGEN_PEPTIDE_MENU_SECTIONS: PeptideMenuSection[] = [
       { id: "mots-tesa-blend", name: "MOTS-c / Tesamorelin", detail: "2 mg / 3 mg/mL · 5 mL vial", boomRxCost: 80 },
       { id: "tesamorelin", name: "Tesamorelin", detail: "3 mg/mL · 5 mL vial", boomRxCost: 70 },
       { id: "mots-c", name: "MOTS-c", detail: "2 mg/mL · 5 mL vial", boomRxCost: 70 },
-      { id: "ss-31", name: "SS-31 (Elamipretide)", detail: "2 mg/mL · 5 mL vial", boomRxCost: 70 },
       { id: "thymosin-a1", name: "Thymosin A-1", detail: "5 mg/mL · 5 mL vial", boomRxCost: 70 },
       { id: "igf-lr3", name: "IGF-LR3", detail: "200 mcg/mL · 5 mL vial", boomRxCost: 70 },
     ],

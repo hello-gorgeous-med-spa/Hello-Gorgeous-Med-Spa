@@ -8,6 +8,7 @@ import {
   getCatalogProduct,
   getMonograph,
   isClientVisibleProductId,
+  isNeverClientVisibleText,
 } from "@/lib/regen/catalog";
 import { catalogClientPriceText } from "@/lib/regen/catalog/client-price";
 import { pageMetadata, SITE } from "@/lib/seo";
@@ -47,7 +48,12 @@ export default async function RegenProductPage({ params }: Props) {
    * so an old link or bookmark lands on the request portal — where the NP picks the
    * protocol — instead of a page quoting something clients can no longer browse.
    */
-  if (!isClientVisibleProductId(product.id)) redirect("/rx/request");
+  if (!isClientVisibleProductId(product.id)) {
+    if (isNeverClientVisibleText(product.id, product.name, product.drugKey)) {
+      redirect("/rx");
+    }
+    redirect("/rx/request");
+  }
 
   const mono = getMonograph(product.drugKey);
   const clinicalLd = clinicalPageJsonLd({

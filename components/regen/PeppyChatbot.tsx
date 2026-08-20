@@ -25,7 +25,6 @@ Key peptides you know about:
 - Methylene Blue: Anti-aging, cognitive support
 - GHK-Cu: Skin, collagen, copper peptide
 - Glutathione: Master antioxidant, detox
-- SS-31: Mitochondrial support
 - Selank: Calm, anxiety, cognitive
 - Semax: Focus, mental energy
 - 5-Amino-1MQ: Metabolic support, fat loss

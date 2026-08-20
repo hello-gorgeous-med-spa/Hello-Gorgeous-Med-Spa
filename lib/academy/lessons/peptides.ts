@@ -811,7 +811,7 @@ export const peptideLessons: Record<string, Lesson> = {
       {
         heading: "Peptides in the longevity conversation",
         paragraphs: [
-          "Epitalon is studied for circadian rhythm and telomerase signaling — but the evidence is thin. SS-31 (elamipretide) targets mitochondrial function and is in clinical trials for specific conditions. MOTS-c is a mitochondrial-derived peptide studied for metabolic regulation.",
+          "Epitalon is studied for circadian rhythm and telomerase signaling — but the evidence is thin. MOTS-c is a mitochondrial-derived peptide studied for metabolic regulation. Hello Gorgeous does not offer compounded SS-31 / elamipretide.",
           "The honest framing: these are research areas, not proven anti-aging treatments. Clients who want to explore them need proper medical context, which is what Ryan provides."
         ],
         callout: "\"Studied for\" is not the same as \"extends life\" or \"reverses aging.\" The longevity peptide space is full of marketing claims that outrun the evidence. We stay on the factual side."

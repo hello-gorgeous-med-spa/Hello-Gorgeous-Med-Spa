@@ -56,7 +56,6 @@ export const REGEN_BROCHURE_PRICING_SECTIONS: BrochurePriceSection[] = [
       { name: "Tesamorelin / Ipamorelin", detail: "3 mg / 2 mg/mL · 5 mL", price: "$200/mo" },
       { name: "MOTS-c / Tesamorelin", detail: "4 mg / 3 mg/mL · 5 mL", price: "$200/mo" },
       { name: "Tesamorelin", detail: "3 mg/mL · 5 mL", price: "$175/mo" },
-      { name: "SS-31", detail: "4 mg/mL · 5 mL", price: "$175/mo" },
       { name: "Thymosin A-1", detail: "5 mg/mL · 5 mL", price: "$175/mo" },
     ],
   },

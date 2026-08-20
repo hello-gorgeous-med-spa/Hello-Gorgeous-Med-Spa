@@ -41,10 +41,19 @@ export function isKitComponentProduct(product: CatalogProduct): boolean {
 }
 
 /**
- * Removed from every client surface earlier: investigational and not FDA-approved.
- * Kept as a name guard so a future catalog sync cannot quietly put it back in the shop.
+ * Kept off every client surface. Name-guarded so a catalog or BoomRx re-sync cannot
+ * quietly put them back in the shop.
+ *
+ * - Retatrutide: investigational, never client-visible.
+ * - SS-31 / elamipretide: FDA-approved as FORZINITY (Stealth BioTherapeutics). We do
+ *   not market or offer compounded elamipretide. Counsel: Foley Hoag letter 19 Aug 2026.
  */
-const NEVER_CLIENT_VISIBLE = /retatrutide/i;
+export const NEVER_CLIENT_VISIBLE =
+  /retatrutide|ss-?31|elamipretide|elamipiretide/i;
+
+export function isNeverClientVisibleText(...parts: Array<string | undefined>): boolean {
+  return NEVER_CLIENT_VISIBLE.test(parts.filter(Boolean).join(" "));
+}
 
 /**
  * The weight-loss program is injection-only, so the shop lists injectable GLP-1 SKUs
@@ -79,7 +88,7 @@ export function isBoomRxSheetProduct(product: CatalogProduct): boolean {
 }
 
 export function isClientVisibleProduct(product: CatalogProduct): boolean {
-  if (NEVER_CLIENT_VISIBLE.test(product.name)) return false;
+  if (isNeverClientVisibleText(product.id, product.name, product.drugKey)) return false;
   if (isNonInjectableGlp1(product)) return false;
   if (CLIENT_VISIBLE_GOALS.has(product.goal)) return true;
   if (isMarketedWellnessInjectable(product)) return true;

@@ -91,7 +91,6 @@ export const REGEN_PEPTIDE_PRICING: RegenProductPrice[] = [
   { id: "epithalon", name: "Epithalon Injection", category: "peptide-therapy", wholesale: 70, ...calcRetailPricing(70), priceLabel: "$175/vial", isFromPrice: false, rx: true },
   // Performance + Metabolic
   { id: "mots-c", name: "MOTS-c Injection", category: "peptide-therapy", wholesale: 70, ...calcRetailPricing(70), priceLabel: "$175/vial", isFromPrice: false, rx: true },
-  { id: "ss-31", name: "SS-31 (Elamipretide) Injection", category: "peptide-therapy", wholesale: 70, ...calcRetailPricing(70), priceLabel: "$175/vial", isFromPrice: false, rx: true },
   { id: "aod-9604", name: "AOD-9604 Injection", category: "peptide-therapy", wholesale: 70, ...calcRetailPricing(70), priceLabel: "$175/vial", isFromPrice: false, rx: true },
   // Immune Support
   { id: "thymosin-a1", name: "Thymosin Alpha-1 Injection", category: "peptide-therapy", wholesale: 70, ...calcRetailPricing(70), priceLabel: "$175/vial", isFromPrice: false, rx: true },

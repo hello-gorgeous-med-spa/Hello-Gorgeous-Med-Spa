@@ -57,7 +57,6 @@ export const PRODUCT_CATEGORIES: ProductCategoryBlock[] = [
       "BPC-157 / TB-500 — injectable vials (often self-administered after training)",
       "Pentadeca arginate — capsules; sterile vial (use per protocol)",
       "PT-141 (bremelanotide) — sterile vial (protocol-dependent)",
-      "SS-31 (elamipretide) — sterile injectable",
       "Thymosin beta-4 acetate — sterile injectable",
       "Tesamorelin — sterile injection",
     ],
