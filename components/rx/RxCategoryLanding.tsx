@@ -244,7 +244,7 @@ function ClosingCta({ shopHref, intakeHref }: { shopHref: string; intakeHref: st
 }
 
 export function RxCategoryLanding({ hub }: { hub: RxCategoryHub }) {
-  const { hero, steps, products, trustLine, faq, id: hubId } = hub;
+  const { hero, heroImage, heroImageAlt, steps, products, trustLine, faq, id: hubId } = hub;
   const shopHref = hub.getStartedPath ?? regenStorefrontUrl(hubId);
 
   const featured = useMemo(() => products.slice(0, 2), [products]);
@@ -282,49 +282,67 @@ export function RxCategoryLanding({ hub }: { hub: RxCategoryHub }) {
 
       {/* Hero — sell, then shop */}
       <section className="relative overflow-hidden px-4 py-12 lg:py-16">
-        <div className="relative mx-auto max-w-6xl">
-          <p className="text-xs font-bold uppercase tracking-widest text-[#E6007E]">{hero.eyebrow}</p>
-          <h1 className="mt-3 max-w-3xl font-serif text-4xl font-black leading-tight tracking-tight text-black sm:text-5xl">
-            {hero.title}{" "}
-            {hero.titleAccent ? <span className="text-[#FF2D8E]">{hero.titleAccent}</span> : null}
-          </h1>
-          <p className="mt-4 max-w-2xl text-lg text-black/65">{hero.subtitle}</p>
-          {trustLine ? (
-            <p className="mt-3 text-sm font-medium text-black/45">
-              {trustLine} · Flat {REGEN_SITE.shipping} shipping
-            </p>
-          ) : null}
+        <div
+          className={`relative mx-auto max-w-6xl ${
+            heroImage ? "grid items-center gap-10 lg:grid-cols-2" : ""
+          }`}
+        >
+          <div>
+            <p className="text-xs font-bold uppercase tracking-widest text-[#E6007E]">{hero.eyebrow}</p>
+            <h1 className="mt-3 max-w-3xl font-serif text-4xl font-black leading-tight tracking-tight text-black sm:text-5xl">
+              {hero.title}{" "}
+              {hero.titleAccent ? <span className="text-[#FF2D8E]">{hero.titleAccent}</span> : null}
+            </h1>
+            <p className="mt-4 max-w-2xl text-lg text-black/65">{hero.subtitle}</p>
+            {trustLine ? (
+              <p className="mt-3 text-sm font-medium text-black/45">
+                {trustLine} · Flat {REGEN_SITE.shipping} shipping
+              </p>
+            ) : null}
 
-          <div className="mt-8 flex flex-wrap items-center gap-4">
-            <a
-              href="#featured"
-              className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-[#FF2D8E] to-[#E6007E] px-6 py-3.5 text-sm font-black text-white shadow-[0_0_24px_rgba(255,45,142,0.4)] transition hover:brightness-110"
-            >
-              Shop now
-            </a>
-            {hubId === "peptides" ? (
-              <Link
-                href={FIND_YOUR_PEPTIDE_PATH}
-                className="inline-flex items-center gap-2 rounded-xl border-2 border-[#E6007E] bg-white px-5 py-3 text-sm font-black text-[#E6007E] transition hover:bg-[#FFF0F7]"
+            <div className="mt-8 flex flex-wrap items-center gap-4">
+              <a
+                href="#featured"
+                className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-[#FF2D8E] to-[#E6007E] px-6 py-3.5 text-sm font-black text-white shadow-[0_0_24px_rgba(255,45,142,0.4)] transition hover:brightness-110"
               >
-                Which peptide is right for you?
-              </Link>
-            ) : null}
-            <Link
-              href={shopHref}
-              className="text-sm font-semibold text-[#E6007E] underline decoration-[#E6007E] underline-offset-4 transition hover:text-black"
-            >
-              Open full catalog
-            </Link>
-            {faq && faq.length > 0 ? (
+                Shop now
+              </a>
+              {hubId === "peptides" ? (
+                <Link
+                  href={FIND_YOUR_PEPTIDE_PATH}
+                  className="inline-flex items-center gap-2 rounded-xl border-2 border-[#E6007E] bg-white px-5 py-3 text-sm font-black text-[#E6007E] transition hover:bg-[#FFF0F7]"
+                >
+                  Which peptide is right for you?
+                </Link>
+              ) : null}
               <Link
-                href="#faq"
-                className="text-sm font-medium text-black/45 transition hover:text-black/70"
+                href={shopHref}
+                className="text-sm font-semibold text-[#E6007E] underline decoration-[#E6007E] underline-offset-4 transition hover:text-black"
               >
-                FAQ
+                Open full catalog
               </Link>
-            ) : null}
+              {faq && faq.length > 0 ? (
+                <Link
+                  href="#faq"
+                  className="text-sm font-medium text-black/45 transition hover:text-black/70"
+                >
+                  FAQ
+                </Link>
+              ) : null}
+            </div>
           </div>
+          {heroImage ? (
+            <div className="relative aspect-[16/9] overflow-hidden rounded-[1.5rem] border border-[#FF2D8E]/25 bg-black shadow-[0_22px_44px_-16px_rgba(230,0,126,0.45)]">
+              <Image
+                src={heroImage}
+                alt={heroImageAlt ?? hero.title}
+                fill
+                priority
+                className="object-cover"
+                sizes="(min-width: 1024px) 40vw, 100vw"
+              />
+            </div>
+          ) : null}
         </div>
       </section>
 

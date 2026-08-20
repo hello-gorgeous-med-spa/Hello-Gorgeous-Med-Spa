@@ -75,16 +75,34 @@ const TYPES = [
     n: "04",
     title: "Cognitive & sleep support",
     body: "Support for sleep cycles, mood, and mental clarity — matched at consult, not picked off a shelf.",
+    image: "/images/regen/categories/neurology.png",
+    imageAlt: "Neurology peptides — Hello Gorgeous Med Spa RX",
   },
   {
     n: "05",
     title: "Immune support",
     body: "Help balance immune function for clients dealing with frequent illness or chronic inflammation.",
+    image: "/images/regen/categories/immune-support.png",
+    imageAlt: "Immune support peptides — Hello Gorgeous Med Spa RX",
   },
   {
     n: "06",
     title: "Anti-inflammatory peptides",
     body: "Calm inflammatory pathways and support healthier, longer-term recovery under NP supervision.",
+  },
+  {
+    n: "07",
+    title: "Cardiovascular peptides",
+    body: "Circulation and heart-health adjacent protocols under NP supervision — never a substitute for cardiology care.",
+    image: "/images/regen/categories/cardiovascular.png",
+    imageAlt: "Cardiovascular peptides — Hello Gorgeous Med Spa RX",
+  },
+  {
+    n: "08",
+    title: "Oncology support peptides",
+    body: "Supportive protocols coordinated with your oncology team. Hello Gorgeous does not treat cancer — Ryan reviews safety and fit at consult.",
+    image: "/images/regen/categories/oncology-support.png",
+    imageAlt: "Oncology support peptides — Hello Gorgeous Med Spa RX",
   },
 ] as const;
 
@@ -392,21 +410,34 @@ export function PeptideTherapyPageContent() {
         <div className="mx-auto max-w-[1200px]">
           <JourneySectionHead
             center
-            eyebrow="Six Types We Offer"
+            eyebrow="Types We Offer"
             title="Targeted. Science-informed."
             titleAccent="Built for you."
           />
-          <div className="mt-11 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-11 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {TYPES.map((item) => (
               <article
                 key={item.n}
-                className="rounded-[20px] border border-white/14 bg-gradient-to-b from-[#140109] to-[#0a0206] p-6 transition hover:-translate-y-1 hover:border-[#FF2D8E]"
+                className="overflow-hidden rounded-[20px] border border-white/14 bg-gradient-to-b from-[#140109] to-[#0a0206] transition hover:-translate-y-1 hover:border-[#FF2D8E]"
               >
-                <p className="text-[11px] font-extrabold uppercase tracking-[0.18em] text-[#FF2D8E]">
-                  {item.n}
-                </p>
-                <h3 className="mt-2 font-serif text-[22px] font-bold text-white">{item.title}</h3>
-                <p className="mt-3 text-[15px] leading-relaxed text-white/70">{item.body}</p>
+                {"image" in item && item.image ? (
+                  <div className="relative aspect-[16/9] w-full bg-black">
+                    <Image
+                      src={item.image}
+                      alt={item.imageAlt}
+                      fill
+                      className="object-cover"
+                      sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
+                    />
+                  </div>
+                ) : null}
+                <div className="p-6">
+                  <p className="text-[11px] font-extrabold uppercase tracking-[0.18em] text-[#FF2D8E]">
+                    {item.n}
+                  </p>
+                  <h3 className="mt-2 font-serif text-[22px] font-bold text-white">{item.title}</h3>
+                  <p className="mt-3 text-[15px] leading-relaxed text-white/70">{item.body}</p>
+                </div>
               </article>
             ))}
           </div>

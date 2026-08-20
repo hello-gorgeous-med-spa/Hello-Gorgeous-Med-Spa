@@ -677,6 +677,8 @@ export const REGEN_CATEGORY_HUBS: RxCategoryHub[] = [
     hubPath: "/rx/peptides",
     previewImage: REGEN_PREVIEW_FALLBACKS.peptides,
     previewAlt: "REGEN peptide therapy",
+    heroImage: "/images/regen/categories/neurology.png",
+    heroImageAlt: "Neurology peptides — Hello Gorgeous Med Spa RX",
     hero: {
       eyebrow: "RE GEN · Peptides",
       title: "Peptide protocols",
@@ -781,6 +783,8 @@ export const REGEN_CATEGORY_HUBS: RxCategoryHub[] = [
     hubPath: "/rx/wellness",
     previewImage: REGEN_PREVIEW_FALLBACKS.wellness,
     previewAlt: "REGEN daily wellness injectables",
+    heroImage: "/images/regen/categories/immune-support.png",
+    heroImageAlt: "Immune support peptides — Hello Gorgeous Med Spa RX",
     hero: {
       eyebrow: "RE GEN · Daily wellness",
       title: "Everyday",
