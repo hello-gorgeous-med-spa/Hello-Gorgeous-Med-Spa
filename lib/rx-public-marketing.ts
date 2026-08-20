@@ -55,10 +55,34 @@ export const PAUSED_PUBLIC_PEPTIDE_SLUGS = new Set([
 
 export const RX_SERVICE_NAV = [
   { href: "#consults", label: "Consultations" },
-  { href: "#provider", label: "Your NP" },
-  { href: "#program", label: "How it works" },
+  { href: "#how", label: "How it works" },
+  { href: "#glp1", label: "GLP-1" },
+  { href: "#peptides", label: "Peptide consults" },
   { href: "#pricing", label: "Consult fee" },
   { href: "#faq", label: "FAQ" },
+] as const;
+
+export const RX_JOURNEY_STEPS = [
+  {
+    n: "01",
+    title: "Start intake",
+    body: "Free to submit. Tell us your goal and history — no cart, no dose picker, no public peptide menu.",
+  },
+  {
+    n: "02",
+    title: "Reserve your consult",
+    body: `$${PEPTIDE_CONSULT_FEE_USD} holds your visit with ${PRESCRIBING_NP.displayName}. Fees for routine professional services may be adjusted.`,
+  },
+  {
+    n: "03",
+    title: "Medical evaluation",
+    body: "Ryan reviews labs and history. Prescription therapy is offered only when clinically appropriate.",
+  },
+  {
+    n: "04",
+    title: "Fill only if approved",
+    body: "Medication is invoiced after approval. Pickup in Oswego or Illinois shipping. Follow-up stays with your NP.",
+  },
 ] as const;
 
 export const RX_PUBLIC_SERVICES = [
@@ -67,35 +91,47 @@ export const RX_PUBLIC_SERVICES = [
     title: "Medical weight-management consultation",
     body: "Evaluation for medically supervised weight management. If medication is appropriate, your NP discusses FDA-approved branded options and, when clinically justified, patient-specific compounded alternatives — without calling them generic or equivalent to a brand.",
     href: "/rx/weight-loss",
+    image: "/images/regen/categories/metabolic.webp",
+    imageAlt: "Medical weight-management consultation — Hello Gorgeous RX",
   },
   {
     n: "02",
     title: "Hormone evaluation",
     body: "Lab-guided hormone evaluation for men and women. Any prescription is individualized after review — not selected from a public menu.",
     href: "/rx/hormones",
+    image: "/images/regen/categories/growth-hormone.webp",
+    imageAlt: "Hormone evaluation — Hello Gorgeous RX",
   },
   {
     n: "03",
     title: "Sexual-wellness consultation",
     body: "Private evaluation for sexual-health concerns. Prescriptions, if any, follow a medical visit with Ryan Kent, FNP-BC.",
     href: "/rx/sexual-health",
+    image: "/images/regen/categories/cardiovascular.png",
+    imageAlt: "Sexual-wellness consultation — Hello Gorgeous RX",
   },
   {
     n: "04",
     title: "Hair-loss evaluation",
     body: "Medical evaluation for thinning hair. In-clinic biotin shots remain a Vitamin Bar service. Prescription topicals are considered only after consult.",
     href: "/rx/hair-skin",
+    image: "/images/regen/hero-hair-skin.jpg",
+    imageAlt: "Hair-loss evaluation — Hello Gorgeous RX",
   },
   {
     n: "05",
     title: "Skin and healthy-aging consultation",
     body: "Provider-led discussion of skin and healthy-aging goals. We do not advertise compounded actives as collagen, repair, or anti-aging drugs on this page.",
     href: "/rx/hair-skin",
+    image: "/images/regen/categories/anti-inflammatory.webp",
+    imageAlt: "Skin and healthy-aging consultation — Hello Gorgeous RX",
   },
   {
     n: "06",
     title: "Individualized wellness consultation",
     body: "A medical visit to review history, labs, and goals. Peptide or other prescription therapy is offered only when Ryan determines it is clinically appropriate — not from an online cart.",
     href: "/rx/request",
+    image: "/images/regen/categories/immune-support.png",
+    imageAlt: "Individualized wellness consultation — Hello Gorgeous RX",
   },
 ] as const;

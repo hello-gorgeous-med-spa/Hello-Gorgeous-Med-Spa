@@ -6,6 +6,7 @@ import { PeptideTherapyPageContent } from "@/components/peptides/PeptideTherapyP
 import { RegenCatalogClient } from "@/components/regen/catalog/RegenCatalogClient";
 import { CLIENT_SHOP_GOALS, goalSlug } from "@/lib/regen/catalog";
 import { REGEN_CATEGORY_HUBS } from "@/lib/rx-category-hubs";
+import { RX_PUBLIC_SERVICES } from "@/lib/rx-public-marketing";
 import {
   type FAQ,
   SITE,
@@ -20,24 +21,22 @@ import { medicalWebPageJsonLd } from "@/lib/founder-credentials";
 import { PEPTIDES_HUB_FAQS } from "@/lib/peptide-seo-faqs";
 
 const RX_PATH = "/rx";
-const RX_TITLE = "Hello Gorgeous RX | Medical Consultations | Oswego, IL";
+const RX_TITLE = "Hello Gorgeous RX | RE GEN Consultations | Oswego, IL";
 const RX_DESCRIPTION =
-  "Provider-led weight-management, hormone, sexual-wellness, hair, skin, and wellness consultations in Oswego, IL. Ryan Kent, FNP-BC prescribes only when clinically appropriate. Compounded medications are not FDA-approved.";
+  "RE GEN by Hello Gorgeous RX — $49 NP consults for weight management, hormones, sexual wellness, hair, skin, and individualized wellness. Ryan Kent, FNP-BC prescribes only when clinically appropriate. Compounded medications are not FDA-approved.";
 
 const baseMetadata = pageMetadata({
   title: RX_TITLE,
   description: RX_DESCRIPTION,
   path: RX_PATH,
   keywords: [
-    "peptide therapy Oswego",
     "Hello Gorgeous RX",
-    "RE GEN peptides",
-    "online medical weight loss Illinois",
-    "compounded semaglutide Oswego",
-    "compounded tirzepatide Illinois",
-    "GLP-1 telehealth Oswego IL",
-    "peptide therapy online Illinois",
-    "NP-directed weight loss Naperville Aurora",
+    "RE GEN Oswego",
+    "medical weight loss consult Illinois",
+    "NP peptide consultation Oswego",
+    "hormone evaluation Naperville",
+    "GLP-1 consult Oswego IL",
+    "Ryan Kent FNP-BC",
   ],
 });
 
@@ -94,12 +93,12 @@ const medicalWebPage = medicalWebPageJsonLd({
 const catalogJsonLd = {
   "@context": "https://schema.org",
   "@type": "ItemList",
-  name: "RE GEN shop by goal",
-  itemListElement: CLIENT_SHOP_GOALS.map((goalId, index) => ({
+  name: "Hello Gorgeous RX consultations",
+  itemListElement: RX_PUBLIC_SERVICES.map((service, index) => ({
     "@type": "ListItem",
     position: index + 1,
-    name: goalId,
-    url: `${SITE.url}/rx?goal=${goalSlug(goalId)}`,
+    name: service.title,
+    url: `${SITE.url}${service.href}`,
   })),
 };
 
@@ -199,7 +198,7 @@ export default async function RxShopPage({
           {CLIENT_SHOP_GOALS.map((goalId) => (
             <li key={goalId}>
               <Link href={`/rx?goal=${goalSlug(goalId)}`} className="hover:text-[#E6007E] hover:underline">
-                Shop {goalId}
+                {goalId}
               </Link>
             </li>
           ))}
