@@ -1,13 +1,11 @@
 import Link from "next/link";
 
-import { FIND_YOUR_PEPTIDE_PATH } from "@/lib/rx-patient-journey";
-
 export const FIND_YOUR_PEPTIDE_CTA = {
   eyebrow: "Not sure where to start?",
-  title: "Which peptide is right for you?",
-  body: "Match your goals — recovery, skin, energy, weight, sleep, hormones & more — to protocols we discuss at Hello Gorgeous RX™. Educational only; your NP confirms what’s medically appropriate.",
-  buttonLabel: "Take the peptide finder",
-  href: FIND_YOUR_PEPTIDE_PATH,
+  title: "Book a medical consultation",
+  body: "Provider-led weight-management, hormone, sexual-wellness, hair, skin, and wellness visits. Treatment recommendations are individualized after a medical evaluation. Prescription therapies are offered only when clinically appropriate.",
+  buttonLabel: "Start intake",
+  href: "/rx/request",
 } as const;
 
 type Props = {
@@ -22,10 +20,10 @@ export function RxFindYourPeptideCta({ variant = "band", className = "" }: Props
     return (
       <p className={className}>
         <Link
-          href={FIND_YOUR_PEPTIDE_PATH}
+          href={FIND_YOUR_PEPTIDE_CTA.href}
           className="text-sm font-bold text-[#FF2D8E] underline decoration-[#FF2D8E]/40 underline-offset-4 hover:text-white"
         >
-          Which peptide is right for you? Take the finder →
+          Start a medical intake →
         </Link>
       </p>
     );
@@ -52,7 +50,7 @@ export function RxFindYourPeptideCta({ variant = "band", className = "" }: Props
           </p>
         </div>
         <Link
-          href={FIND_YOUR_PEPTIDE_PATH}
+          href={FIND_YOUR_PEPTIDE_CTA.href}
           className="inline-flex shrink-0 items-center justify-center rounded-full border-2 border-black bg-gradient-to-r from-[#FF2D8E] to-[#E6007E] px-6 py-3.5 text-sm font-bold text-white shadow-[4px_4px_0_0_#000] transition hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none"
         >
           {FIND_YOUR_PEPTIDE_CTA.buttonLabel} →

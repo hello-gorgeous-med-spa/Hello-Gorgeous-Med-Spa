@@ -110,7 +110,7 @@ export const TOP_SERVICES: ServiceConfig[] = [
       { icon: '🎯', title: 'Sustainable Results', desc: 'Lifestyle support for long-term success' },
     ],
     faqs: [
-      { question: 'What is Semaglutide?', answer: 'Semaglutide is a GLP-1 medication that reduces appetite and helps regulate blood sugar. It\'s the same active ingredient in Ozempic and Wegovy, used for weight management.' },
+      { question: 'What is Semaglutide?', answer: 'Semaglutide is a GLP-1 medication used in medical weight management. Brand-name Ozempic® and Wegovy® contain semaglutide. Compounded semaglutide, when prescribed, is prepared for an individual patient by a licensed pharmacy — it is not FDA-approved and is not the same as those brands.' },
       { question: 'How much weight can I lose?', answer: 'Results vary, but many clients lose 15-20% of their body weight over 6-12 months. We\'ll set realistic goals based on your individual situation.' },
       { question: 'Do I need to come in for injections?', answer: 'We teach you to self-inject at home with easy-to-use pens. You\'ll have regular check-ins with our providers to monitor progress and adjust dosing.' },
       { question: 'What are the side effects?', answer: 'Common side effects include nausea, which usually improves over time. We start with low doses and gradually increase to minimize side effects.' },

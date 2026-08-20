@@ -4,7 +4,6 @@
 
 import { BOOKING_URL } from "@/lib/flows";
 import { goalSlug } from "@/lib/regen/catalog/helpers";
-import { FIND_YOUR_PEPTIDE_PATH } from "@/lib/rx-patient-journey";
 
 export interface RegenNavItem {
   href: string;
@@ -13,20 +12,20 @@ export interface RegenNavItem {
 }
 
 export const REGEN_SCIENCE_DROPDOWN: RegenNavItem["dropdown"] = [
-  { href: "/regen-science", label: "Science Hub", sub: "Peptide briefs & evidence library" },
-  { href: "/regen-science/education", label: "Peptide Education", sub: "Free learning modules" },
-  { href: FIND_YOUR_PEPTIDE_PATH, label: "Find your peptide", sub: "Goal-based peptide quiz" },
+  { href: "/regen-science", label: "Science Hub", sub: "Education library" },
+  { href: "/regen-science/education", label: "Peptide Education", sub: "What peptides are" },
+  { href: "/rx/request", label: "Medical intake", sub: "Consult first" },
 ];
 
 export const REGEN_SHOP_NAV: RegenNavItem[] = [
   { href: "#shop-by-goal", label: "Goals" },
-  { href: FIND_YOUR_PEPTIDE_PATH, label: "Peptide finder" },
+  { href: "/rx/request", label: "Intake" },
   { href: "#popular", label: "Popular" },
   { href: "#stacks", label: "Stacks" },
   { href: "#how-it-works", label: "How it works" },
   { href: "#science", label: "Science", dropdown: REGEN_SCIENCE_DROPDOWN },
   { href: "#faq", label: "FAQ" },
-  { href: "/rx?browse=all", label: "All products" },
+  { href: "/rx/request", label: "Start intake" },
 ];
 
 /** Short aisle names for the public shop — store departments, not catalog goals. */
@@ -46,7 +45,7 @@ export function regenClientShopNav(goals: readonly string[]): RegenNavItem[] {
       href: `/rx?goal=${goalSlug(goal)}`,
       label: STORE_AISLE_LABEL[goal] ?? goal,
     })),
-    { href: "/rx?browse=all", label: "Shop all" },
+    { href: "/rx/request", label: "Start intake" },
   ];
 }
 
@@ -56,9 +55,7 @@ export function regenClientShopNav(goals: readonly string[]): RegenNavItem[] {
  */
 export const REGEN_SHOP_NAV_CLIENT: RegenNavItem[] = regenClientShopNav([
   "Lose Weight",
-  "Recovery & Performance",
   "Hormones",
-  "Energy & Longevity",
 ]);
 
 export const REGEN_SHOP_BOOK_HREF = BOOKING_URL;
@@ -66,19 +63,19 @@ export const REGEN_SHOP_BOOK_HREF = BOOKING_URL;
 export const REGEN_SHOP_FAQS = [
   {
     q: "What is RE GEN by Hello Gorgeous Med Spa?",
-    a: "RE GEN is the telehealth and prescription arm of Hello Gorgeous Med Spa in Oswego, Illinois. Shop weight loss, peptides, and hormones, then start intake. Every plan is set by Ryan Kent, FNP-BC before anything is dispensed; nothing here is sold over the counter.",
+    a: "RE GEN is the telehealth and prescription arm of Hello Gorgeous Med Spa in Oswego, Illinois. We advertise medical consultations — not a public compounded-peptide catalog. Every plan is set by Ryan Kent, FNP-BC before anything is dispensed.",
   },
   {
-    q: "Which peptide is right for me?",
-    a: "Start with our free educational peptide finder at hellogorgeousmedspa.com/skin-101/find-your-peptide — match goals like recovery, skin, energy, or weight to protocols we discuss. Your NP confirms what’s medically appropriate before any prescription.",
+    q: "How do I know which treatment is right for me?",
+    a: "Start a medical intake. Ryan Kent, FNP-BC reviews your history and labs and decides whether a prescription is clinically appropriate. We do not publish a public peptide menu.",
   },
   {
     q: "Who oversees RE GEN treatment plans?",
-    a: "Every RE GEN protocol is supervised in Illinois by Ryan Kent, FNP-BC, a board-certified family nurse practitioner — not an out-of-state medical director. Provider review is required before fulfillment.",
+    a: "Every RE GEN protocol is supervised in Illinois by Ryan Kent, FNP-BC, a board-certified family nurse practitioner, with medical-director oversight. Provider review is required before fulfillment.",
   },
   {
     q: "How does RE GEN work?",
-    a: "Pick a protocol, then start intake — free to submit. A $49 consult fee reserves your visit with Ryan Kent, FNP-BC. He reviews your history, sets your protocol, and only then are you invoiced for the medication — which you can pick up in Oswego or have shipped for a flat $30.",
+    a: "Start intake — free to submit. A $49 consult fee reserves your visit with Ryan Kent, FNP-BC. Fees for routine professional services may be adjusted. He reviews your history and only then are you invoiced for medication, if prescribed — pickup in Oswego or Illinois shipping.",
   },
   {
     q: "Where is RE GEN available?",

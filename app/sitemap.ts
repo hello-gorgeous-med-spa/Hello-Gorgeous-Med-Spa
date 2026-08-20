@@ -181,12 +181,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.95,
     },
     {
-      url: `${baseUrl}/bpc-157`,
-      lastModified: currentDate,
-      changeFrequency: 'weekly',
-      priority: 0.9,
-    },
-    {
       url: `${baseUrl}/sermorelin`,
       lastModified: currentDate,
       changeFrequency: 'weekly',
@@ -1259,7 +1253,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'weekly' as const,
       priority: 0.9,
     },
-    ...SKIN_101_GUIDES.map((guide) => ({
+    ...SKIN_101_GUIDES.filter((guide) => guide.slug !== "find-your-peptide").map((guide) => ({
       url: `${baseUrl}${guide.path}`,
       lastModified: currentDate,
       changeFrequency: 'monthly' as const,

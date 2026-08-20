@@ -20,9 +20,9 @@ import { medicalWebPageJsonLd } from "@/lib/founder-credentials";
 import { PEPTIDES_HUB_FAQS } from "@/lib/peptide-seo-faqs";
 
 const RX_PATH = "/rx";
-const RX_TITLE = "Peptide Therapy | Hello Gorgeous RX | Oswego, IL";
+const RX_TITLE = "Hello Gorgeous RX | Medical Consultations | Oswego, IL";
 const RX_DESCRIPTION =
-  "Medically supervised peptide therapy from Hello Gorgeous RX in Oswego, IL — GLP-1 weight loss, recovery peptides, hormones, and vitality protocols. NP consult with Ryan Kent, FNP-BC. Pickup in Oswego or ship across Illinois.";
+  "Provider-led weight-management, hormone, sexual-wellness, hair, skin, and wellness consultations in Oswego, IL. Ryan Kent, FNP-BC prescribes only when clinically appropriate. Compounded medications are not FDA-approved.";
 
 const baseMetadata = pageMetadata({
   title: RX_TITLE,
@@ -50,7 +50,7 @@ export const metadata: Metadata = {
         url: "https://www.hellogorgeousmedspa.com/images/regen/regen-og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "Hello Gorgeous RX — Peptide Therapy, Medically Supervised | Oswego, IL",
+        alt: "Hello Gorgeous RX — provider-led medical consultations | Oswego, IL",
       },
     ],
   },
@@ -192,8 +192,8 @@ export default async function RxShopPage({
       >
         <ul className="mx-auto flex max-w-[1200px] flex-wrap gap-x-4 gap-y-2 text-xs font-medium text-black/50">
           <li>
-            <Link href="/rx?browse=all" className="hover:text-[#E6007E] hover:underline">
-              Shop all
+            <Link href="/rx/request" className="hover:text-[#E6007E] hover:underline">
+              Start intake
             </Link>
           </li>
           {CLIENT_SHOP_GOALS.map((goalId) => (

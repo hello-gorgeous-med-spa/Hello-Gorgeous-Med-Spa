@@ -52,7 +52,6 @@ const MONOGRAPH_BY_KEY = MONOGRAPHS as Record<string, Monograph>;
 export const FLAGSHIP_PROTOCOL_PATHS: Record<string, string> = {
   tirzepatide: "/tirzepatide",
   semaglutide: "/semaglutide",
-  bpc157: "/bpc-157",
   sermorelin: "/sermorelin",
 };
 

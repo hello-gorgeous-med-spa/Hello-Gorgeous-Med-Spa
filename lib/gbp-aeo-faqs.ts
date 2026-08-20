@@ -126,11 +126,11 @@ export function gbpLocalFaqs(
   if (serviceSlug === "weight-loss-therapy") {
     pushUnique(
       `Do you offer semaglutide near ${cityShort}?`,
-      `Yes — Hello Gorgeous Med Spa in Oswego offers medically supervised compounded semaglutide (similar to Ozempic®/Wegovy®) for clients from ${cityLabel}. NP-directed screening comes before any prescription.`,
+      `Yes — Hello Gorgeous Med Spa in Oswego offers medically supervised weight-management consultations for clients from ${cityLabel}. If a compounded GLP-1 is prescribed, it is not FDA-approved and is not the same as Ozempic® or Wegovy®. NP-directed screening comes before any prescription.`,
     );
     pushUnique(
       `Do you offer tirzepatide near ${cityShort}?`,
-      `Yes — Hello Gorgeous offers medically supervised compounded tirzepatide (similar to Mounjaro®/Zepbound®) at our Oswego clinic for ${cityShort} and Fox Valley patients.`,
+      `Yes — Hello Gorgeous offers medically supervised weight-management consultations at our Oswego clinic for ${cityShort} and Fox Valley patients. Compounded tirzepatide, if prescribed, is not FDA-approved and is not the same as Mounjaro® or Zepbound®.`,
     );
     pushUnique(
       "What's the difference between semaglutide and tirzepatide?",

@@ -11,7 +11,7 @@ export const GLP1_WEIGHT_LOSS_FAQS: readonly FAQ[] = [
   {
     question: "What's the difference between semaglutide and tirzepatide?",
     answer:
-      "Semaglutide (similar to Ozempic®/Wegovy®) is a GLP-1 receptor agonist. Tirzepatide (similar to Mounjaro®/Zepbound®) targets both GIP and GLP-1 pathways. Both are typically weekly injections. Your provider recommends the best option based on your history, goals, and tolerance.",
+      "Semaglutide is a GLP-1 receptor agonist. Tirzepatide targets both GIP and GLP-1 pathways. Compounded versions are not FDA-approved and are not the same as Ozempic®, Wegovy®, Mounjaro®, or Zepbound®. Both are typically weekly injections. Your provider recommends the best option based on your history, goals, and tolerance.",
   },
   {
     question: "Am I a good candidate for GLP-1 therapy?",
@@ -60,7 +60,7 @@ export const GLP1_WEIGHT_LOSS_FAQS: readonly FAQ[] = [
   {
     question: "Is compounded semaglutide the same as Ozempic or Wegovy?",
     answer:
-      "Brand-name Ozempic® and Wegovy® contain semaglutide; Mounjaro® and Zepbound® contain tirzepatide. Our program uses compounded formulations from a licensed compounding pharmacy when clinically appropriate. Your provider explains differences, monitoring, and whether a brand or compounded option fits your plan.",
+      "Brand-name Ozempic® and Wegovy® contain semaglutide; Mounjaro® and Zepbound® contain tirzepatide. Compounded formulations from a licensed compounding pharmacy, when clinically appropriate, are not FDA-approved, not generic, and not the same as those brands. Your provider explains differences, monitoring, and whether a brand or compounded option fits your plan.",
   },
   {
     question: "Who supervises GLP-1 weight loss at Hello Gorgeous?",

@@ -14,7 +14,7 @@ import type { CatalogBundle } from "./types";
  *
  * To change what clients see, reorder or swap ids here — no JSX changes needed.
  */
-export const CLIENT_STACK_IDS = ["womens", "recovery", "mens", "glp1"] as const;
+export const CLIENT_STACK_IDS = ["womens", "mens", "glp1"] as const;
 
 export const CATALOG_BUNDLES: CatalogBundle[] = [
   {

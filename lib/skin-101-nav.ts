@@ -93,14 +93,14 @@ export const SKIN_101_GUIDES: Skin101Guide[] = [
   },
   {
     slug: "find-your-peptide",
-    path: `${SKIN_101_PATH}/find-your-peptide`,
-    title: "Find Your Peptide",
-    shortTitle: "Find Your Peptide",
-    tagline: "Match your goals to the right compound",
+    path: "/rx/request",
+    title: "Medical Consult",
+    shortTitle: "Medical Consult",
+    tagline: "Individualized after evaluation",
     excerpt:
-      "Nine wellness goal categories — skin, recovery, energy, weight, sleep & more — mapped to BPC-157, Sermorelin, NAD+, GHK-Cu, PT-141 and others. Bring it to your $49 consult.",
+      "Start a provider-led intake. Treatment recommendations follow a medical evaluation. Prescription therapies are offered only when clinically appropriate.",
     thumbnailImage: "/images/peptides/peptide-cheat-sheet-full.png",
-    thumbnailAlt: "Find your peptide — goal-based guide from Hello Gorgeous Oswego",
+    thumbnailAlt: "Hello Gorgeous RX medical consultation — Oswego",
     badge: "NEW",
     relatedServiceLinks: [
       { label: "Peptide Therapy Hub", href: "/peptides" },
@@ -121,10 +121,9 @@ export const SKIN_101_GUIDES: Skin101Guide[] = [
     badge: "NEW",
     pdfPath: "/handouts/education/peptides-101-guide.pdf",
     relatedServiceLinks: [
-      { label: "Find Your Peptide", href: `${SKIN_101_PATH}/find-your-peptide` },
       { label: "Peptide Therapy Hub", href: "/peptides" },
       { label: "Peptide Therapy — Oswego", href: "/peptide-therapy-oswego" },
-      { label: "$49 Peptide Consult", href: "/book" },
+      { label: "$49 Medical Consult", href: "/book" },
     ],
   },
   {
@@ -134,7 +133,7 @@ export const SKIN_101_GUIDES: Skin101Guide[] = [
     shortTitle: "Peptide Therapy",
     tagline: "NP-supervised · licensed pharmacy only",
     excerpt:
-      "BPC-157, Sermorelin, GHK-Cu, PT-141, NAD+ & Tesamorelin — how Hello Gorgeous prescribes peptide protocols from licensed US pharmacies. Never gray-market.",
+      "How Hello Gorgeous offers provider-led peptide and wellness consultations. Prescriptions, if any, come from licensed US pharmacies after a medical evaluation — never gray-market.",
     thumbnailImage: "/images/homepage-services/peptide-therapy-active-lifestyle.png",
     thumbnailAlt: "Peptide therapy active lifestyle — Hello Gorgeous Oswego",
     badge: "NEW",

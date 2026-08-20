@@ -7,6 +7,7 @@ import {
   type PeptideTier,
   type PeptideTopic,
 } from "@/data/peptides";
+import { PAUSED_PUBLIC_PEPTIDE_SLUGS } from "@/lib/rx-public-marketing";
 
 export const PEPTIDES_HUB_PATH = "/peptides";
 
@@ -15,9 +16,9 @@ export function getPeptideTopicBySlug(slug: string): PeptideTopic | undefined {
 }
 
 export function getPublishedPeptideTopics(): PeptideTopic[] {
-  return PEPTIDE_TOPICS.filter((t) => t.published).sort(
-    (a, b) => a.category.localeCompare(b.category) || a.order - b.order,
-  );
+  return PEPTIDE_TOPICS.filter(
+    (t) => t.published && !PAUSED_PUBLIC_PEPTIDE_SLUGS.has(t.slug),
+  ).sort((a, b) => a.category.localeCompare(b.category) || a.order - b.order);
 }
 
 export function getPeptideTopicsByCategory(): Array<{

@@ -11,19 +11,19 @@ export const FIND_YOUR_PEPTIDE_PATH = "/skin-101/find-your-peptide" as const;
 export const RX_PATIENT_JOURNEY_STEPS = [
   {
     step: 1,
-    title: "Find your peptide fit",
+    title: "Tell us your goals",
     description:
-      "Not sure where to start? Match your goals to protocols with our peptide finder — then browse with confidence.",
-    href: FIND_YOUR_PEPTIDE_PATH,
-    cta: "Which peptide is right for you?",
+      "Start a medical intake for weight management, hormones, sexual wellness, hair, skin, or an individualized wellness visit.",
+    href: "/rx/request",
+    cta: "Start intake",
   },
   {
     step: 2,
-    title: "Browse and start intake",
+    title: "Medical evaluation",
     description:
-      "Read about each protocol, then start your intake on the one you want — free to submit. Prices shown are starting points.",
+      "Ryan Kent, FNP-BC reviews your history and labs. Prescription therapy is offered only when clinically appropriate — not from a public peptide menu.",
     href: "/rx",
-    cta: "Browse RE GEN",
+    cta: "Hello Gorgeous RX",
   },
   {
     step: 3,
@@ -51,6 +51,6 @@ export const RX_PATIENT_JOURNEY_STEPS = [
   },
 ] as const;
 
-export const RX_PATIENT_JOURNEY_HEADLINE = "From question to protocol — one clear path";
+export const RX_PATIENT_JOURNEY_HEADLINE = "From question to consult — one clear path";
 export const RX_PATIENT_JOURNEY_SUBLINE =
-  "Start with the peptide finder if you’re unsure, then start intake with Illinois telehealth and an NP who knows your chart.";
+  "Start with a medical intake, then meet an NP who knows your chart. Illinois telehealth or in-office in Oswego.";

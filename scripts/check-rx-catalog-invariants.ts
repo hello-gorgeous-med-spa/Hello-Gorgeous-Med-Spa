@@ -20,6 +20,7 @@ import { PRODUCTS } from "../lib/regen/catalog/catalog-data";
 import { catalogClientSupplyUsd } from "../lib/regen/catalog/client-price";
 import {
   CLIENT_VISIBLE_PRODUCTS,
+  NEVER_CLIENT_VISIBLE,
   boomRxSheetRowsWithoutCatalogMatch,
   findClientProductByDrugKey,
   isClientVisibleProductId,
@@ -179,38 +180,26 @@ for (const name of unmatchedSheetRows) {
 }
 
 /* ------------------------------------------------------------------------ *
- * 6. Retatrutide stays off every client surface.
+ * 6. Paused compounds stay off every client surface.
  *
- * Removed deliberately: investigational, not FDA-approved. `client-visibility`
- * enforces this with a name guard; this asserts the guard still bites after a
- * catalog re-sync renames something.
+ * Retatrutide, SS-31 / elamipretide, and the public-marketing pause list in
+ * `NEVER_CLIENT_VISIBLE`. The name guard in client-visibility is the enforcement;
+ * this asserts it still bites after a catalog re-sync.
  * ------------------------------------------------------------------------ */
 
-const RETATRUTIDE_GUARD = /retatrutide/i;
-const ELAMIPRETIDE_GUARD = /ss-?31|elamipretide|elamipiretide/i;
-
 for (const product of CLIENT_VISIBLE_PRODUCTS) {
-  if (RETATRUTIDE_GUARD.test(product.name)) {
+  if (NEVER_CLIENT_VISIBLE.test(`${product.id} ${product.name} ${product.drugKey}`)) {
     fail(
-      "retatrutide",
-      `${product.id} ${product.name} is client-visible — retatrutide is investigational and was removed from every client surface`,
-    );
-  }
-  if (ELAMIPRETIDE_GUARD.test(`${product.id} ${product.name} ${product.drugKey}`)) {
-    fail(
-      "elamipretide",
-      `${product.id} ${product.name} is client-visible — compounded SS-31 / elamipretide must stay off every client surface`,
+      "public-pause",
+      `${product.id} ${product.name} is client-visible — this compound is on the public-marketing pause list`,
     );
   }
 }
 
 for (const entry of HUB_CARDS) {
   const { card } = entry;
-  if (RETATRUTIDE_GUARD.test(`${card.name} ${card.description}`)) {
-    fail("retatrutide", `${describeCard(entry)} advertises retatrutide`);
-  }
-  if (ELAMIPRETIDE_GUARD.test(`${card.name} ${card.description}`)) {
-    fail("elamipretide", `${describeCard(entry)} advertises SS-31 / elamipretide`);
+  if (NEVER_CLIENT_VISIBLE.test(`${card.name} ${card.description} ${card.id}`)) {
+    fail("public-pause", `${describeCard(entry)} advertises a paused compound`);
   }
 }
 

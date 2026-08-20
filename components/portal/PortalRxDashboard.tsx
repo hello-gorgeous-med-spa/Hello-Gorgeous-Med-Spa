@@ -251,7 +251,7 @@ export function PortalRxDashboard() {
           className="rounded-xl border-2 border-black bg-white p-4 hover:border-[#E6007E] transition-colors"
         >
           <p className="font-bold text-black">Peptide refill</p>
-          <p className="text-xs text-black/55 mt-1">BPC-157 · blends · recovery</p>
+          <p className="text-xs text-black/55 mt-1">NP-directed refill after evaluation</p>
         </Link>
         <a
           href={links?.telehealth}

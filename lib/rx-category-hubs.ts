@@ -109,7 +109,7 @@ const WEIGHT_LOSS_PRODUCTS: RxCategoryProduct[] = [
   {
     id: "semaglutide",
     name: "Compounded Semaglutide",
-    description: "GLP-1 injection · NP-supervised weight loss",
+    description: "Compounded GLP-1 injection for an individual patient when medically appropriate — not FDA-approved, not a generic, not equivalent to Ozempic® or Wegovy®.",
     price: { source: "glp1-program", compound: "semaglutide" },
     href: GLP1_INTAKE_PATH,
     image: "/images/regen/catalog/regen-semaglutide.jpg",
@@ -122,7 +122,7 @@ const WEIGHT_LOSS_PRODUCTS: RxCategoryProduct[] = [
   {
     id: "tirzepatide",
     name: "Compounded Tirzepatide",
-    description: "Dual GLP-1 + GIP pathway · medical weight loss program",
+    description: "Compounded dual-pathway GLP-1/GIP injection when medically appropriate — not FDA-approved, not a generic, not equivalent to Mounjaro® or Zepbound®.",
     price: { source: "glp1-program", compound: "tirzepatide" },
     href: GLP1_INTAKE_PATH,
     image: "/images/regen/catalog/regen-tirzepatide.jpg",
@@ -153,18 +153,6 @@ const HAIR_SKIN_GOAL_HREF = "/rx?goal=skin-and-hair";
  * product dropping out of the shop can no longer silently strand a price.
  */
 const HAIR_SKIN_PRODUCTS: RxCategoryProduct[] = [
-  {
-    id: "p58",
-    name: "GHK-Cu Cream",
-    description: "Copper peptide topical — collagen support, skin repair, and firmness",
-    price: { source: "consult" },
-    href: `${HAIR_SKIN_GOAL_HREF}&product=p58`,
-    image: "/images/regen/catalog/ghk-cu.png",
-    imageAlt: "GHK-Cu copper peptide cream — RE GEN hair and skin",
-    badge: "POPULAR",
-    rx: false,
-    catalogProductId: "p58",
-  },
   {
     id: "manetain",
     name: "ManeTain Hair Spray",
@@ -328,88 +316,18 @@ const SEXUAL_HEALTH_PRODUCTS: RxCategoryProduct[] = [
   },
   {
     id: "pt-141",
-    name: "PT-141 Injection",
-    description: "Peptide arousal support — libido pathway for men & women",
-    price: { source: "catalog" },
-    href: "/rx?goal=intimacy",
+    name: "Sexual-wellness consultation",
+    description: "Private evaluation. Any prescription, including FDA-approved options when they fit, follows a medical visit — not an online peptide picker.",
+    price: { source: "consult" },
+    href: "/rx/request",
     image: "/regen-site/assets/prod-oxytocin-regen.png",
-    imageAlt: "PT-141 — RE GEN peptide intimacy",
+    imageAlt: "Sexual-wellness consultation — Hello Gorgeous RX",
     rx: true,
     catalogProductId: "p165",
   },
 ];
 
-const PEPTIDE_PRODUCTS: RxCategoryProduct[] = [
-  {
-    id: "bpc-157",
-    name: "BPC-157 Injection",
-    description: "Tissue repair & gut support — popular recovery peptide protocol",
-    price: { source: "catalog" },
-    href: "/rx?goal=recovery-and-performance",
-    image: "/regen-site/assets/prod-bpc157-regen.png",
-    imageAlt: "BPC-157 peptide — RE GEN",
-    badge: "POPULAR",
-    rx: true,
-    catalogProductId: "p156",
-  },
-  {
-    id: "nad-100",
-    name: "NAD+ Injection",
-    description: "Mitochondrial & cellular energy support",
-    price: { source: "catalog" },
-    href: "/rx?goal=energy-and-longevity",
-    image: "/regen-site/assets/prod-nad-regen.png",
-    imageAlt: "NAD+ injection — RE GEN peptides",
-    badge: "POPULAR",
-    rx: true,
-    catalogProductId: "p149",
-  },
-  {
-    id: "sermorelin",
-    name: "Sermorelin Injection",
-    description: "Growth-hormone axis support — nightly injection protocol",
-    price: { source: "catalog" },
-    href: "/rx?goal=recovery-and-performance",
-    image: "/regen-site/assets/prod-sermorelin-regen.png",
-    imageAlt: "Sermorelin — RE GEN",
-    rx: true,
-    catalogProductId: "p105",
-  },
-  {
-    id: "cjc-ipamorelin",
-    name: "CJC-1295 / Ipamorelin",
-    description: "GH secretagogue combo — recovery & body composition",
-    price: { source: "catalog" },
-    href: "/rx?goal=recovery-and-performance",
-    image: "/regen-site/assets/prod-cjc-ipamorelin-regen.png",
-    imageAlt: "CJC Ipamorelin — RE GEN",
-    rx: true,
-    catalogProductId: "p23",
-  },
-  {
-    id: "tb-500",
-    name: "TB-500 Injection",
-    description: "Mobility & tissue support — often paired with BPC-157",
-    price: { source: "catalog" },
-    href: "/rx?goal=recovery-and-performance",
-    image: "/regen-site/assets/prod-tb500-regen.png",
-    imageAlt: "TB-500 peptide — RE GEN",
-    rx: true,
-    catalogProductId: "p195",
-  },
-  {
-    id: "glutathione",
-    name: "Glutathione Injection",
-    description: "Master antioxidant — glow & detox support",
-    price: { source: "catalog" },
-    href: "/rx?goal=energy-and-longevity",
-    image: "/regen-site/assets/prod-glutathione-regen.png",
-    imageAlt: "Glutathione — RE GEN wellness",
-    rx: false,
-    /** The injectable vial on the BoomRx sheet — p59 is the capsule. */
-    catalogProductId: "p60",
-  },
-];
+const PEPTIDE_PRODUCTS: RxCategoryProduct[] = [];
 
 const WELLNESS_PRODUCTS: RxCategoryProduct[] = [
   {
@@ -427,9 +345,9 @@ const WELLNESS_PRODUCTS: RxCategoryProduct[] = [
   {
     id: "nad-wellness",
     name: "NAD+ Injection",
-    description: "10-week supply protocol — longevity & focus support",
-    price: { source: "catalog" },
-    href: "/rx?goal=energy-and-longevity",
+    description: "Discussed at consult when clinically appropriate — not selected from a public cart.",
+    price: { source: "consult" },
+    href: "/rx/request",
     image: "/regen-site/assets/prod-nad-regen.png",
     imageAlt: "NAD+ — RE GEN daily wellness",
     rx: true,
@@ -449,9 +367,9 @@ const WELLNESS_PRODUCTS: RxCategoryProduct[] = [
   {
     id: "glutathione-wellness",
     name: "Glutathione Injection",
-    description: "Antioxidant & skin-brightening wellness shot supply",
-    price: { source: "catalog" },
-    href: "/rx?goal=energy-and-longevity",
+    description: "In-clinic Vitamin Bar shot, or a prescription supply when Ryan determines it is appropriate.",
+    price: { source: "consult" },
+    href: "/rx/request",
     image: "/regen-site/assets/prod-glutathione-regen.png",
     imageAlt: "Glutathione — RE GEN",
     rx: false,
@@ -478,8 +396,8 @@ const PEPTIDE_FAQ = [
     a: "Yes — every protocol is dispensed on a prescription after Ryan Kent, FNP-BC reviews your health history, and nothing is filled without that review. Most are compounded for you by licensed US pharmacies rather than sold as FDA-approved brand products, and some compounds clients ask about are still investigational and not FDA-approved. Ryan tells you which category yours falls into before you start.",
   },
   {
-    q: "What peptides are most popular at Hello Gorgeous?",
-    a: "BPC-157 for recovery, NAD+ for energy, sermorelin and CJC/ipamorelin for GH-axis support, and glutathione for antioxidant wellness — your provider tailors dosing to your goals.",
+    q: "What peptides do you list online?",
+    a: "We do not publish a public compounded-peptide menu. After a medical evaluation, Ryan Kent, FNP-BC decides whether a prescription is appropriate. Compounded medications are not FDA-approved brand products.",
   },
   {
     q: "Do I need labs before starting peptides?",
@@ -552,7 +470,7 @@ const WEIGHT_LOSS_FAQ = [
   },
   {
     q: "Semaglutide vs tirzepatide — which is right for me?",
-    a: "Both are GLP-1-class therapies with different mechanisms and titration schedules. Your provider reviews your history, goals, tolerability, and access — not marketing hype — to recommend a fit.",
+    a: "Both are GLP-1-class therapies. Compounded versions are not FDA-approved and are not equivalent to Ozempic®, Wegovy®, Mounjaro®, or Zepbound®. Your provider reviews your history and access — including branded options — before recommending a fit.",
   },
   {
     q: "How much does shipping cost?",
@@ -566,24 +484,16 @@ const WEIGHT_LOSS_FAQ = [
 
 const HAIR_SKIN_FAQ = [
   {
-    q: "What is GHK-Cu?",
-    a: "GHK-Cu is a copper peptide used topically for collagen support, skin repair, and firmness. RE GEN offers cream strengths so your NP can match intensity to your goals — not an OTC cosmeceutical guess.",
+    q: "How does a hair-loss evaluation work?",
+    a: "You complete an intake and meet Ryan Kent, FNP-BC. He decides whether a prescription topical is appropriate. We do not advertise compounded copper-peptide creams as collagen or repair drugs.",
   },
   {
-    q: "What does a biotin injection do for hair and nails?",
-    a: "Biotin (vitamin B7) supports keratin pathways tied to hair, skin, and nails. We give biotin as a $25 in-clinic shot at our Oswego Vitamin Bar rather than as a shipped vial. Results vary and timelines are realistic — often months for visible hair change.",
-  },
-  {
-    q: "Can I use GHK-Cu and biotin together?",
-    a: "Often, yes — copper peptide cream for skin repair plus a biotin shot for hair and nail support is a common pairing. Your intake and NP review confirm layering and any contraindications before the cream ships; the biotin shot you can simply book.",
-  },
-  {
-    q: "How long until I see results?",
-    a: "Skin actives like GHK-Cu often show visible change in 6–12 weeks with consistent use. Hair and nail support (including biotin and minoxidil protocols) typically needs 3–6 months — growth cycles are slow.",
+    q: "What does a biotin shot cost?",
+    a: "Biotin is given as a $25 in-clinic injection at our Oswego Vitamin Bar — about ten minutes, no intake. Results vary; we do not guarantee hair or nail outcomes.",
   },
   {
     q: "What is ManeTain?",
-    a: "ManeTain is our prescription leave-in hair spray with minoxidil 5% plus supportive actives — available when you want a topical hair-loss protocol alongside or instead of peptide options.",
+    a: "ManeTain is a prescription leave-in hair spray with minoxidil plus supportive actives. It is considered only after a hair-loss evaluation — not as a compounded-peptide campaign.",
   },
   {
     q: "Do I need telehealth before my order ships?",
@@ -607,7 +517,7 @@ export const REGEN_CATEGORY_HUBS: RxCategoryHub[] = [
       title: "Weight loss that fits",
       titleAccent: "your life.",
       subtitle:
-        "Compounded GLP-1 programs supervised by Ryan Kent, FNP-BC — intake online, telehealth when needed, medication shipped to your door in Illinois.",
+        "Physician-overseen medical weight-management consultations with Ryan Kent, FNP-BC. Compounded GLP-1, when prescribed, is not FDA-approved and is not the same as branded Wegovy®, Zepbound®, Ozempic®, or Mounjaro®.",
     },
     steps: CONSULT_FIRST_STEPS,
     products: WEIGHT_LOSS_PRODUCTS,
@@ -676,15 +586,13 @@ export const REGEN_CATEGORY_HUBS: RxCategoryHub[] = [
     navLabel: "Peptides",
     hubPath: "/rx/peptides",
     previewImage: REGEN_PREVIEW_FALLBACKS.peptides,
-    previewAlt: "REGEN peptide therapy",
-    heroImage: "/images/regen/categories/neurology.png",
-    heroImageAlt: "Neurology peptides — Hello Gorgeous Med Spa RX",
+    previewAlt: "REGEN peptide consultation",
     hero: {
-      eyebrow: "RE GEN · Peptides",
-      title: "Peptide protocols",
-      titleAccent: "built for you.",
+      eyebrow: "RE GEN · Consultations",
+      title: "Peptide and wellness",
+      titleAccent: "consultations.",
       subtitle:
-        "BPC-157, sermorelin, NAD+, and 22+ injectable protocols — start intake, meet your NP, then pick up in Oswego or ship across Illinois.",
+        "A medical visit with Ryan Kent, FNP-BC. Prescription therapy is offered only when clinically appropriate — not from an online peptide menu.",
     },
     steps: CONSULT_FIRST_STEPS,
     products: PEPTIDE_PRODUCTS,
@@ -703,7 +611,7 @@ export const REGEN_CATEGORY_HUBS: RxCategoryHub[] = [
       title: "Sexual health",
       titleAccent: "in your control.",
       subtitle:
-        "ED tablets, women's arousal creams, and peptide libido support — discreet, hormone-aware prescribing by Ryan Kent, FNP-BC.",
+        "Prescription options for men and women when clinically appropriate — discreet, hormone-aware care with Ryan Kent, FNP-BC.",
     },
     steps: CONSULT_FIRST_STEPS,
     products: SEXUAL_HEALTH_PRODUCTS,
@@ -720,7 +628,7 @@ export const REGEN_CATEGORY_HUBS: RxCategoryHub[] = [
       },
       {
         q: "Do women have options too?",
-        a: "Yes — Scream Cream, hormone balancing, and PT-141 peptide protocols may support arousal and libido when medically appropriate.",
+        a: "Yes — a sexual-wellness consultation reviews history and, when appropriate, prescription options. We do not publish a public peptide menu for intimacy care.",
       },
       {
         q: "How fast can I get started?",
@@ -753,19 +661,19 @@ export const REGEN_CATEGORY_HUBS: RxCategoryHub[] = [
     navLabel: "Hair & Skin",
     hubPath: "/rx/hair-skin",
     previewImage: REGEN_PREVIEW_FALLBACKS["hair-skin"],
-    previewAlt: "RE GEN GHK-Cu copper peptide and biotin for hair and skin",
+    previewAlt: "RE GEN hair and skin consultation",
     heroImage: "/images/regen/hero-hair-skin.jpg",
-    heroImageAlt: "RE GEN GHK-Cu copper peptide cream and biotin for hair, skin, and nails",
+    heroImageAlt: "RE GEN hair-loss and skin evaluation — Hello Gorgeous RX",
     hero: {
       eyebrow: "RE GEN · Hair + Skin",
-      title: "Glow from the",
-      titleAccent: "copper peptide.",
+      title: "Hair-loss and skin",
+      titleAccent: "evaluation.",
       subtitle:
-        "GHK-Cu cream for collagen and skin repair — NP-reviewed before anything ships. Prefer a biotin shot for hair, skin, and nails? That is $25 in clinic, no intake needed.",
+        "A medical consult with Ryan Kent, FNP-BC. Prescription topicals are considered only after evaluation. Prefer a biotin shot? That is $25 in clinic, no intake needed.",
     },
     steps: CONSULT_FIRST_STEPS,
     products: HAIR_SKIN_PRODUCTS,
-    trustLine: "GHK-Cu · Ryan Kent, FNP-BC · Shipped after approval",
+    trustLine: "Ryan Kent, FNP-BC · Shipped after approval",
     getStartedPath: HAIR_SKIN_GOAL_HREF,
     faq: [...HAIR_SKIN_FAQ],
     inClinicOption: {
@@ -784,7 +692,7 @@ export const REGEN_CATEGORY_HUBS: RxCategoryHub[] = [
     previewImage: REGEN_PREVIEW_FALLBACKS.wellness,
     previewAlt: "REGEN daily wellness injectables",
     heroImage: "/images/regen/categories/immune-support.png",
-    heroImageAlt: "Immune support peptides — Hello Gorgeous Med Spa RX",
+    heroImageAlt: "Immune support wellness — Hello Gorgeous Med Spa RX",
     hero: {
       eyebrow: "RE GEN · Daily wellness",
       title: "Everyday",

@@ -59,7 +59,7 @@ const telehealthServices = [
   {
     id: "peptide-consult",
     name: "Peptide Therapy Consultation",
-    description: "Discuss peptide options like BPC-157, Sermorelin, and more for your wellness goals.",
+    description: "A medical visit to review history and goals. Prescription therapy is offered only when clinically appropriate.",
     duration: "20 min",
     price: "$75",
     icon: "🧪",

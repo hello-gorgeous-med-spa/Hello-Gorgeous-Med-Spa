@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 
-import { PeptideShopShelf } from "@/components/peptides/PeptideShopShelf";
+import { RxLegalDisclaimer } from "@/components/rx/RxLegalDisclaimer";
 import {
   JOURNEY_HERO_BG,
   JourneyCheckItem,
@@ -21,12 +21,16 @@ import { MEDICAL_DIRECTOR, PRESCRIBING_NP } from "@/lib/medical-authority";
 import { PEPTIDE_CONSULT_FEE_USD } from "@/lib/peptide-request-menu";
 import {
   GLP1_RETAIL_PROGRAM,
-  PEPTIDE_RETAIL_FROM_MONTHLY_USD,
-  getPeptideRetailMonthlyUsd,
 } from "@/lib/peptide-retail-pricing";
 import { PEPTIDES_HUB_FAQS } from "@/lib/peptide-seo-faqs";
 import { PEPTIDE_SCIENCE_VIDEOS } from "@/lib/peptide-topic-media";
 import { PRIMARY_BOOKING_CTA } from "@/lib/primary-cta";
+import {
+  RX_CONSULT_FEE_NOTE,
+  RX_GLP1_COMPOUNDED_NOTICE,
+  RX_PUBLIC_SERVICES,
+  RX_SERVICE_NAV,
+} from "@/lib/rx-public-marketing";
 import { REGEN_MARKETING } from "@/lib/regen-brand";
 import { REGEN_SHOP_SHIPPING_USD } from "@/lib/regen/shop-surface";
 import {
@@ -39,80 +43,13 @@ import { SITE } from "@/lib/seo";
 import { VITAMIN_SHOTS } from "@/lib/vitamin-bar";
 
 const LEARN_HREF = "/rx/learn/what-are-peptides";
-const SHOP_HREF = "/rx?browse=all";
+const CONSULT_HREF = "/rx/request";
 const BOOK = PRIMARY_BOOKING_CTA.href;
 const CALL = `tel:${SITE.phone.replace(/\D/g, "")}`;
-const SERMORELIN_FROM = getPeptideRetailMonthlyUsd("sermorelin") ?? PEPTIDE_RETAIL_FROM_MONTHLY_USD;
-const BPC_FROM = getPeptideRetailMonthlyUsd("bpc-157") ?? PEPTIDE_RETAIL_FROM_MONTHLY_USD;
 
-const NAV = [
-  { href: "#shop", label: "The Shop" },
-  { href: "#provider", label: "Your NP" },
-  { href: "#program", label: "How it works" },
-  { href: "#pricing", label: "Pricing" },
-  { href: "#faq", label: "FAQ" },
-] as const;
+const NAV = RX_SERVICE_NAV;
 
 const LEARN_GUIDES = [WHAT_IS_GLP1_ARTICLE, WHAT_ARE_PEPTIDES_ARTICLE, HOW_REGEN_WORKS_ARTICLE] as const;
-
-const TYPES = [
-  {
-    n: "01",
-    title: "Metabolic peptides",
-    body: "Tirzepatide and semaglutide help regulate appetite and support metabolic health — the foundation of our weight-management programs.",
-    image: "/images/regen/categories/metabolic.webp",
-    imageAlt: "Metabolic peptides — Hello Gorgeous Med Spa RX",
-  },
-  {
-    n: "02",
-    title: "Growth-hormone support",
-    body: "Peptides like sermorelin encourage your body’s own growth-hormone production for recovery and lean body composition.",
-    image: "/images/regen/categories/growth-hormone.webp",
-    imageAlt: "Growth hormone peptides — Hello Gorgeous Med Spa RX",
-  },
-  {
-    n: "03",
-    title: "Repair & recovery",
-    body: "BPC-157 supports tissue healing, joint comfort, and cellular repair after inflammation or injury.",
-    image: "/images/regen/categories/repair-recovery.webp",
-    imageAlt: "Repair and recovery peptides — Hello Gorgeous Med Spa RX",
-  },
-  {
-    n: "04",
-    title: "Cognitive & sleep support",
-    body: "Support for sleep cycles, mood, and mental clarity — matched at consult, not picked off a shelf.",
-    image: "/images/regen/categories/neurology.png",
-    imageAlt: "Neurology peptides — Hello Gorgeous Med Spa RX",
-  },
-  {
-    n: "05",
-    title: "Immune support",
-    body: "Help balance immune function for clients dealing with frequent illness or chronic inflammation.",
-    image: "/images/regen/categories/immune-support.png",
-    imageAlt: "Immune support peptides — Hello Gorgeous Med Spa RX",
-  },
-  {
-    n: "06",
-    title: "Anti-inflammatory peptides",
-    body: "Calm inflammatory pathways and support healthier, longer-term recovery under NP supervision.",
-    image: "/images/regen/categories/anti-inflammatory.webp",
-    imageAlt: "Anti-inflammatory peptides — Hello Gorgeous Med Spa RX",
-  },
-  {
-    n: "07",
-    title: "Cardiovascular peptides",
-    body: "Circulation and heart-health adjacent protocols under NP supervision — never a substitute for cardiology care.",
-    image: "/images/regen/categories/cardiovascular.png",
-    imageAlt: "Cardiovascular peptides — Hello Gorgeous Med Spa RX",
-  },
-  {
-    n: "08",
-    title: "Oncology support peptides",
-    body: "Supportive protocols coordinated with your oncology team. Hello Gorgeous does not treat cancer — Ryan reviews safety and fit at consult.",
-    image: "/images/regen/categories/oncology-support.png",
-    imageAlt: "Oncology support peptides — Hello Gorgeous Med Spa RX",
-  },
-] as const;
 
 const PROGRAM_STEPS = [
   {
@@ -130,7 +67,7 @@ const PROGRAM_STEPS = [
   {
     n: "03",
     title: "Personalized protocol",
-    body: "Peptides and dosing matched to your goals — recovery, fat loss, performance, or longevity.",
+    body: "If a prescription is appropriate, it is matched to your evaluation — not picked from a public menu.",
     tag: "Your plan",
   },
   {
@@ -184,7 +121,7 @@ export function PeptideTherapyPageContent() {
             <span className="hidden leading-tight sm:block">
               <span className="block text-base">Hello Gorgeous</span>
               <span className="block text-[10px] font-extrabold uppercase tracking-[0.18em] text-[#FF2D8E]">
-                Peptide Therapy
+                Hello Gorgeous RX
               </span>
             </span>
           </Link>
@@ -255,11 +192,12 @@ export function PeptideTherapyPageContent() {
           <div>
             <JourneyEyebrow>Hello Gorgeous RX · Oswego, IL</JourneyEyebrow>
             <h1 className="mt-4 font-serif text-[44px] font-bold leading-[1.02] text-white lg:text-[66px]">
-              Peptide Therapy, <span className="text-[#FF2D8E]">Medically Supervised</span>
+              Medical consultations, <span className="text-[#FF2D8E]">not a peptide catalog</span>
             </h1>
             <p className="mt-5 max-w-lg text-lg leading-relaxed text-white/80 lg:text-xl">
-              Custom peptide protocols for weight loss, recovery, growth-hormone support, and vitality —
-              built around your labs and goals, and overseen by our medical team. {SITE.tagline}
+              Provider-led weight-management, hormone, sexual-wellness, hair, skin, and wellness
+              consultations. Prescription therapy is offered only when {PRESCRIBING_NP.displayName}{" "}
+              determines it is clinically appropriate.
             </p>
             <div className="mt-8 flex flex-wrap gap-4">
               <JourneyPinkBtn href={BOOK}>{PRIMARY_BOOKING_CTA.label}</JourneyPinkBtn>
@@ -277,12 +215,14 @@ export function PeptideTherapyPageContent() {
           </div>
           <JourneyVideoFrame
             src={PEPTIDE_SCIENCE_VIDEOS.rxHero}
-            label="RE GEN peptide science animation — Hello Gorgeous RX"
+            label="Hello Gorgeous RX — provider-led medical consultations"
             poster={REGEN_MARKETING.ogImage}
             className="lg:max-w-lg"
           />
         </div>
       </header>
+
+      <RxLegalDisclaimer className="bg-[#1a0510] text-white/80 border-white/10" />
 
       <JourneyTrustBar />
 
@@ -320,12 +260,12 @@ export function PeptideTherapyPageContent() {
               history, sets your dose, and approves the plan.
             </p>
             <div className="mt-6 flex flex-wrap gap-2.5">
-              {["Weight loss", "Peptides", "Hormones", "Labs first"].map((chip) => (
+              {["Weight management", "Hormones", "Wellness consults", "Labs first"].map((chip) => (
                 <JourneyChip key={chip}>{chip}</JourneyChip>
               ))}
             </div>
             <blockquote className="mt-7 max-w-xl border-l-[3px] border-[#FF2D8E] pl-5 font-serif text-xl italic leading-snug text-white">
-              “Starting prices on the shelf. Your dose is set at consult — not by a cart.”
+              “Treatment is individualized after evaluation — not picked from a public menu.”
             </blockquote>
             <div className="mt-7 flex flex-wrap gap-3.5">
               <JourneyPinkBtn href={BOOK}>Book with Ryan</JourneyPinkBtn>
@@ -364,8 +304,8 @@ export function PeptideTherapyPageContent() {
               </p>
               <p>
                 That&apos;s why Ryan is here — on site six days a week — and why Hello Gorgeous RX is
-                consult-first. Starting prices live on the shelf. Your dose is set at consult. Nothing
-                ships until he approves it.
+                consult-first. We advertise medical consultations, not a compounded-drug catalog.
+                Nothing ships until he reviews your history and approves a plan.
               </p>
               <p>
                 I want the same standard for your protocol that we hold for every brow, every laser,
@@ -392,18 +332,17 @@ export function PeptideTherapyPageContent() {
               eyebrow="A Smarter Approach"
               title="What is"
               titleAccent="peptide therapy?"
-              description="Peptides are short chains of amino acids that signal your cells to perform specific functions — messengers that tell your body what to do, and when. Different peptides target different systems: tissue repair, fat metabolism, and growth hormone."
+              description="Peptides are short chains of amino acids your body already uses as messengers. This page is education about a medical consultation — not a catalog of compounded drugs, doses, or disease claims."
             />
             <p className="mt-4 max-w-xl text-[17px] leading-relaxed text-white/70">
-              Every protocol at Hello Gorgeous RX starts with a provider consult and medical screening.
-              From there, your peptides and dosing are tailored to your goal — recovery, fat loss,
-              performance, or longevity.
+              Every visit at Hello Gorgeous RX starts with a provider consult and medical screening.
+              Prescription therapy is offered only when clinically appropriate.
             </p>
             <Link
               href={LEARN_HREF}
               className="mt-6 inline-block text-sm font-bold text-[#FF2D8E] underline decoration-[#FF2D8E]/40 underline-offset-4 hover:text-white"
             >
-              Read our full guide to peptide therapy →
+              Read our education guide →
             </Link>
           </div>
           <JourneyVideoFrame
@@ -414,45 +353,31 @@ export function PeptideTherapyPageContent() {
         </div>
       </section>
 
-      <section className="px-6 py-16 lg:py-24">
+      <section id="consults" className="scroll-mt-24 px-6 py-16 lg:py-24">
         <div className="mx-auto max-w-[1200px]">
           <JourneySectionHead
             center
-            eyebrow="Types We Offer"
-            title="Targeted. Science-informed."
-            titleAccent="Built for you."
+            eyebrow="Consultations"
+            title="Medical services,"
+            titleAccent="not a product menu."
           />
-          <div className="mt-11 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {TYPES.map((item) => (
-              <article
+          <div className="mt-11 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {RX_PUBLIC_SERVICES.map((item) => (
+              <Link
                 key={item.n}
-                className="overflow-hidden rounded-[20px] border border-white/14 bg-gradient-to-b from-[#140109] to-[#0a0206] transition hover:-translate-y-1 hover:border-[#FF2D8E]"
+                href={item.href}
+                className="rounded-[20px] border border-white/14 bg-gradient-to-b from-[#140109] to-[#0a0206] p-6 transition hover:-translate-y-1 hover:border-[#FF2D8E]"
               >
-                {"image" in item && item.image ? (
-                  <div className="relative aspect-[16/9] w-full bg-black">
-                    <Image
-                      src={item.image}
-                      alt={item.imageAlt}
-                      fill
-                      className="object-cover"
-                      sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
-                    />
-                  </div>
-                ) : null}
-                <div className="p-6">
-                  <p className="text-[11px] font-extrabold uppercase tracking-[0.18em] text-[#FF2D8E]">
-                    {item.n}
-                  </p>
-                  <h3 className="mt-2 font-serif text-[22px] font-bold text-white">{item.title}</h3>
-                  <p className="mt-3 text-[15px] leading-relaxed text-white/70">{item.body}</p>
-                </div>
-              </article>
+                <p className="text-[11px] font-extrabold uppercase tracking-[0.18em] text-[#FF2D8E]">
+                  {item.n}
+                </p>
+                <h3 className="mt-2 font-serif text-[22px] font-bold text-white">{item.title}</h3>
+                <p className="mt-3 text-[15px] leading-relaxed text-white/70">{item.body}</p>
+              </Link>
             ))}
           </div>
         </div>
       </section>
-
-      <PeptideShopShelf />
 
       <section className="px-6 py-16 lg:py-24">
         <div className="mx-auto max-w-[1200px]">
@@ -609,7 +534,7 @@ export function PeptideTherapyPageContent() {
             eyebrow="Pricing"
             title="Simple, honest"
             titleAccent="pricing"
-            description="Start with intake — free to submit. Your NP sets dose and confirms the number. Starting prices below; your plan may differ."
+            description={`${RX_CONSULT_FEE_NOTE} ${RX_GLP1_COMPOUNDED_NOTICE}`}
           />
           <div className="mt-11 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             <article className="flex flex-col rounded-[20px] border border-[#FF2D8E]/50 bg-gradient-to-b from-[#140109] to-[#0a0206] p-7 transition hover:-translate-y-1 hover:border-[#FF2D8E]">
@@ -644,29 +569,25 @@ export function PeptideTherapyPageContent() {
                 <span className="ml-1 text-lg font-semibold text-white/50">/mo</span>
               </p>
               <p className="mt-1 text-[13px] text-white/55">
-                Semaglutide from ${GLP1_RETAIL_PROGRAM.semaglutideFromUsd} · Tirzepatide from $
-                {GLP1_RETAIL_PROGRAM.tirzepatideFromUsd}
+                Starting program fee · not a branded equivalent · confirmed at consult
               </p>
               <ul className="mt-4 space-y-2">
-                {["Weekly dosing, titrated at consult", "Pickup in Oswego or IL ship"].map((item) => (
+                {["Compounded GLP-1 is not FDA-approved", "Branded options discussed when they fit"].map((item) => (
                   <JourneyCheckItem key={item}>{item}</JourneyCheckItem>
                 ))}
               </ul>
             </article>
             <article className="flex flex-col rounded-[20px] border border-white/14 bg-gradient-to-b from-[#140109] to-[#0a0206] p-7 transition hover:-translate-y-1 hover:border-[#FF2D8E]">
               <p className="text-[11px] font-extrabold uppercase tracking-[0.16em] text-[#FF2D8E]">
-                Peptide protocols
+                Prescription therapy
               </p>
-              <h3 className="mt-2 font-serif text-2xl font-bold">RE GEN peptides</h3>
-              <p className="mt-3 font-serif text-[44px] font-bold leading-none">
-                ${PEPTIDE_RETAIL_FROM_MONTHLY_USD}
-                <span className="ml-1 text-lg font-semibold text-white/50">/mo</span>
-              </p>
+              <h3 className="mt-2 font-serif text-2xl font-bold">When appropriate</h3>
+              <p className="mt-3 font-serif text-[28px] font-bold leading-snug">Quoted at consult</p>
               <p className="mt-1 text-[13px] text-white/55">
-                Sermorelin from ${SERMORELIN_FROM} · BPC-157 from ${BPC_FROM}
+                We do not publish a public compounded-peptide menu or cart.
               </p>
               <ul className="mt-4 space-y-2">
-                {["Starting price on the shelf", `Flat $${REGEN_SHOP_SHIPPING_USD} Illinois shipping`].map(
+                {["Ryan decides if a prescription is appropriate", `Illinois shipping when medication ships`].map(
                   (item) => (
                     <JourneyCheckItem key={item}>{item}</JourneyCheckItem>
                   ),
@@ -683,7 +604,7 @@ export function PeptideTherapyPageContent() {
               </p>
               <div className="mt-5 flex flex-wrap gap-3">
                 <JourneyPinkBtn href={BOOK}>Book a consult</JourneyPinkBtn>
-                <JourneyGhostBtn href={SHOP_HREF}>Shop all protocols</JourneyGhostBtn>
+                <JourneyGhostBtn href={CONSULT_HREF}>Start intake</JourneyGhostBtn>
               </div>
             </article>
           </div>
@@ -807,10 +728,11 @@ export function PeptideTherapyPageContent() {
           </div>
           <p className="max-w-md text-[13px] leading-relaxed text-white/45">
             NP-directed by {PRESCRIBING_NP.displayName} under Medical Director{" "}
-            {MEDICAL_DIRECTOR.displayName}. Nothing here is sold over the counter — every request
-            starts with an intake and a consult. Research peptides are used under provider supervision
-            and are not FDA-approved to treat, cure, or prevent disease. Prices shown are starting
-            points. Individual plans vary.
+            {MEDICAL_DIRECTOR.displayName}. Provider-led peptide and wellness consultations are
+            available. Treatment recommendations are individualized after a medical evaluation.
+            Prescription therapies are offered only when clinically appropriate. Compounded
+            medications are not FDA-approved. Fees for routine professional services may be
+            adjusted. No outcome is guaranteed.
           </p>
         </div>
       </footer>

@@ -1,10 +1,6 @@
-import { PeptideLearnPageShell, peptideLearnMetadata } from "@/components/peptides/PeptideLearnPageShell";
-import { BPC157_LEARN_PAGE } from "@/lib/bpc-157-learn";
+import { permanentRedirect } from "next/navigation";
 
-export const metadata = peptideLearnMetadata(BPC157_LEARN_PAGE);
-
-export const revalidate = 3600;
-
+/** Public BPC-157 marketing is paused. Staff catalog still holds the SKU. */
 export default function Bpc157LearnPage() {
-  return <PeptideLearnPageShell page={BPC157_LEARN_PAGE} />;
+  permanentRedirect("/rx");
 }

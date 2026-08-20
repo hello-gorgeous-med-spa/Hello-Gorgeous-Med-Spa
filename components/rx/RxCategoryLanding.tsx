@@ -10,7 +10,7 @@ import {
   ProductCard,
 } from "@/components/regen/catalog/CatalogProductCard";
 import { RegenMetabolicShiftVisual } from "@/components/regen/RegenMetabolicShiftVisual";
-import { RxFindYourPeptideCta } from "@/components/rx/RxFindYourPeptideCta";
+import { RxLegalDisclaimer } from "@/components/rx/RxLegalDisclaimer";
 import { getCatalogProduct } from "@/lib/regen/catalog";
 import { hubCardFacts, hubProductIsListed } from "@/lib/regen/catalog/hub-card-facts";
 import { getCategoryMascot } from "@/lib/regen/category-mascots";
@@ -23,7 +23,6 @@ import {
   type RxCategoryHubId,
   type RxCategoryProduct,
 } from "@/lib/rx-category-hubs";
-import { FIND_YOUR_PEPTIDE_PATH } from "@/lib/rx-patient-journey";
 import { REGEN_SITE, REGEN_TRUST_BAR } from "@/lib/regen-site";
 
 function HubFallbackCard({
@@ -229,7 +228,7 @@ function ClosingCta({ shopHref, intakeHref }: { shopHref: string; intakeHref: st
             href={shopHref}
             className="inline-flex items-center gap-2 rounded-lg border border-white/30 px-6 py-3.5 text-sm font-semibold text-white transition hover:bg-white/10"
           >
-            Browse full shop
+            Browse programs
           </Link>
           <Link
             href={`tel:+16306366193`}
@@ -274,11 +273,13 @@ export function RxCategoryLanding({ hub }: { hub: RxCategoryHub }) {
               href="/rx"
               className="hidden text-sm font-semibold text-black/65 transition hover:text-[#E6007E] sm:inline"
             >
-              Full shop
+              Browse programs
             </Link>
           </div>
         </div>
       </header>
+
+      <RxLegalDisclaimer />
 
       {/* Hero — sell, then shop */}
       <section className="relative overflow-hidden px-4 py-12 lg:py-16">
@@ -301,25 +302,25 @@ export function RxCategoryLanding({ hub }: { hub: RxCategoryHub }) {
             ) : null}
 
             <div className="mt-8 flex flex-wrap items-center gap-4">
-              <a
-                href="#featured"
+              <Link
+                href={getCategoryIntakeRoute(hubId).intakePath}
                 className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-[#FF2D8E] to-[#E6007E] px-6 py-3.5 text-sm font-black text-white shadow-[0_0_24px_rgba(255,45,142,0.4)] transition hover:brightness-110"
               >
-                Shop now
-              </a>
+                Start consult
+              </Link>
               {hubId === "peptides" ? (
                 <Link
-                  href={FIND_YOUR_PEPTIDE_PATH}
+                  href="/rx/request"
                   className="inline-flex items-center gap-2 rounded-xl border-2 border-[#E6007E] bg-white px-5 py-3 text-sm font-black text-[#E6007E] transition hover:bg-[#FFF0F7]"
                 >
-                  Which peptide is right for you?
+                  Start a medical intake
                 </Link>
               ) : null}
               <Link
                 href={shopHref}
                 className="text-sm font-semibold text-[#E6007E] underline decoration-[#E6007E] underline-offset-4 transition hover:text-black"
               >
-                Open full catalog
+                Start intake
               </Link>
               {faq && faq.length > 0 ? (
                 <Link
@@ -346,7 +347,6 @@ export function RxCategoryLanding({ hub }: { hub: RxCategoryHub }) {
         </div>
       </section>
 
-      {hubId === "peptides" ? <RxFindYourPeptideCta /> : null}
       {/* Featured products first */}
       {products.length > 0 ? (
         <section id="featured" className="scroll-mt-24 bg-transparent px-4 py-14">
@@ -437,8 +437,10 @@ export function RxCategoryLanding({ hub }: { hub: RxCategoryHub }) {
           </nav>
         </div>
         <p className="mx-auto mt-6 max-w-6xl px-4 text-xs text-black/40">
-          © 2026 Hello Gorgeous Med Spa. Prescription products require evaluation by a licensed
-          provider.
+          © 2026 Hello Gorgeous Med Spa. Provider-led consultations are available. Treatment is
+          individualized after a medical evaluation. Prescription therapies are offered only when
+          clinically appropriate. Compounded medications are not FDA-approved. Fees for routine
+          professional services may be adjusted. No outcome is guaranteed.
         </p>
       </footer>
     </div>

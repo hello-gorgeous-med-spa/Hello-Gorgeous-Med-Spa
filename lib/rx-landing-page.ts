@@ -9,7 +9,6 @@ import {
   RX_PATIENT_CARE_PATH,
 } from "@/lib/flows";
 import { GLP1_PROGRAM } from "@/lib/glp1-program-pricing";
-import { NAD_SERMORELIN_BUNDLE_MONTHLY_USD } from "@/lib/peptide-monthly-addons";
 import { RX_CARE_IMAGES } from "@/lib/rx-patient-care-hub";
 
 export type RxLandingProgram = {
@@ -30,9 +29,9 @@ export const RX_LANDING_HERO = {
   eyebrow: "Medical Division · Oswego, IL",
   title: "Hello Gorgeous",
   titleAccent: "RX™",
-  subtitle: "Luxury longevity + hormone optimization",
+  subtitle: "Provider-led medical consultations",
   body:
-    "NP-supervised hormone therapy, GLP-1 weight loss, peptides, prescription dermatology, and sexual wellness — for qualified Illinois patients.",
+    "NP-supervised weight-management, hormone, sexual-wellness, hair, skin, and wellness consultations for qualified Illinois patients. Prescription therapy is offered only when clinically appropriate. Compounded medications are not FDA-approved.",
   primaryCta: { label: "Begin evaluation", href: BOOKING_URL },
   secondaryCta: { label: "Explore programs", href: "#programs" },
   heroImage: "/images/shop-rx/rx-hero-team.png",
@@ -60,20 +59,20 @@ export const RX_LANDING_PROGRAMS: RxLandingProgram[] = [
     id: "hormones",
     title: "Hormone optimization",
     description:
-      "Bio-identical hormones for men and women — testosterone, estrogen/progesterone, BioTE® pellets, and lab-guided monitoring.",
+      "Lab-guided hormone evaluation for men and women. Any prescription is individualized after review — not selected from a public menu.",
     href: "/rx/hormones",
-    cta: "Explore hormones",
-    priceHint: "TRT from $200/mo",
-    badge: "BioTE® partner",
+    cta: "Hormone evaluation",
+    priceHint: "Consult from $49",
+    badge: "NP-directed",
     image: RX_CARE_IMAGES.telehealth,
-    imageAlt: "Ryan Kent, FNP-BC — hormone optimization",
-    iconTag: { emoji: "🧬", label: "Hormone balance" },
+    imageAlt: "Ryan Kent, FNP-BC — hormone evaluation",
+    iconTag: { emoji: "🧬", label: "Hormone evaluation" },
   },
   {
     id: "metabolic",
     title: "Metabolic optimization",
     description:
-      "Medical weight loss with GLP-1 (tirzepatide & semaglutide), home delivery, dose-tier pricing, and monthly NP check-ins.",
+      "Physician-overseen medical weight-management consultations. If a compounded GLP-1 is prescribed, it is not FDA-approved and is not the same as Ozempic®, Wegovy®, Mounjaro®, or Zepbound®.",
     href: "/rx/metabolic",
     cta: "Weight loss programs",
     priceHint: `GLP-1 from $${GLP1_PROGRAM.injectable.monthlyFromUsd}/mo`,
@@ -85,15 +84,15 @@ export const RX_LANDING_PROGRAMS: RxLandingProgram[] = [
   },
   {
     id: "peptides",
-    title: "Peptides + longevity",
+    title: "Wellness consultation",
     description:
-      "Sermorelin, NAD+, BPC-157, recovery stacks, and monthly add-ons — personalized protocols after NP telehealth.",
+      "A medical visit to review history, labs, and goals. Peptide or other prescription therapy is offered only when Ryan Kent, FNP-BC determines it is clinically appropriate — not from an online cart.",
     href: "/peptides",
-    cta: "Peptide programs",
-    priceHint: "Bundles from $149/mo",
+    cta: "Book a consult",
+    priceHint: "Consult from $49",
     image: "/images/shop-rx/new-peptide-protocol.png",
-    imageAlt: "Hello Gorgeous RX peptide protocols — BPC-157, GHK-Cu, TB-500",
-    iconTag: { emoji: "🧪", label: "Cellular longevity" },
+    imageAlt: "Hello Gorgeous RX wellness consultation",
+    iconTag: { emoji: "🧪", label: "Individualized consult" },
   },
   {
     id: "sexual-health",
@@ -113,7 +112,7 @@ export const RX_LANDING_PROGRAMS: RxLandingProgram[] = [
       "Prescription tretinoin, acne protocols, rosacea care, and hair restoration topicals integrated with your aesthetic plan.",
     href: "/rx/dermatology",
     cta: "Rx dermatology",
-    image: RX_CARE_IMAGES.bpc157,
+    image: RX_CARE_IMAGES.glp1Refill,
     imageAlt: "Clinical dermatology Rx",
     iconTag: { emoji: "🧴", label: "Rx skin care" },
   },
@@ -138,7 +137,7 @@ export const RX_LANDING_JOURNEY = [
     id: "inquiry",
     step: 1,
     title: "Tell us your goals",
-    detail: "Submit an inquiry or book a consult — hormones, weight loss, peptides, or dermatology.",
+    detail: "Submit an inquiry or book a consult — weight management, hormones, wellness, or dermatology.",
     href: "#contact",
     cta: "Start inquiry",
   },
@@ -173,11 +172,11 @@ export const RX_LANDING_PATIENT_HUB = {
   eyebrow: "Already a patient?",
   title: "Refills, add-ons & guides — one hub",
   description:
-    "Renew GLP-1 or peptides, stack NAD+ & Sermorelin bundles, pay your invoice, and download injection guides.",
+    "Renew an approved plan, pay your invoice, and message your care team after NP follow-up.",
   bullets: [
-    "GLP-1 refill with home delivery & auto-pay",
-    "Peptide renewals & Start Here wizard",
-    `NAD+ & Sermorelin bundles $${NAD_SERMORELIN_BUNDLE_MONTHLY_USD}/mo`,
+    "Renew GLP-1 when clinically appropriate",
+    "Follow-up visits with your NP",
+    "Invoice pay and home delivery after approval",
   ],
   primaryHref: RX_PATIENT_CARE_PATH,
   primaryLabel: "Open Patient Care Hub",
@@ -187,7 +186,7 @@ export const RX_LANDING_PATIENT_HUB = {
 } as const;
 
 export const RX_LANDING_PARTNERS = [
-  { name: "BioTE®", description: "Hormone optimization" },
+  { name: "Licensed US pharmacies", description: "Patient-specific compounding when prescribed" },
   { name: "Access Labs", description: "Diagnostic testing" },
   { name: "Quest Diagnostics", description: "Laboratory services" },
 ] as const;

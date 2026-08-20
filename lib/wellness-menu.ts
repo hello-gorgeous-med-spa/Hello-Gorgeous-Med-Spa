@@ -99,15 +99,15 @@ export const WELLNESS_MENU: ServiceMenuConfig = {
     {
       id: "injection-menu",
       number: "04",
-      title: "Peptides & Injection Menu",
+      title: "Wellness Consultations & Injection Menu",
       description:
-        "Provider-guided peptides and wellness injections — PT-141, BPC-157, sermorelin, GLP-1 support, and our full injection menu poster.",
+        "Provider-led wellness consultations and in-clinic vitamin injections. Prescription therapy is offered only when clinically appropriate — not from a public peptide menu.",
       highlights: [
-        "Peptide therapy consult required",
-        "BPC-157 · sermorelin · tesamorelin",
-        "GLP-1 metabolic programs",
+        "Medical consult required for prescriptions",
+        "Vitamin Bar shots in clinic",
+        "GLP-1 medical weight-management programs",
         "Free vitamin shot for new clients",
-        "PDF menu in spa & online",
+        "PDF menu in spa for in-clinic shots",
       ],
       pricing: [
         { label: "Injection menu overview", price: "Consult", href: "/injection-menu" },

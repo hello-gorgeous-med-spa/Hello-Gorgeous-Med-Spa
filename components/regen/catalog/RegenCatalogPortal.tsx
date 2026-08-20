@@ -45,6 +45,7 @@ import { RegenStacksTheater } from "@/components/regen/catalog/RegenStacksTheate
 import { RegenStoreHome } from "@/components/regen/catalog/RegenStoreHome";
 import { RegenShopStickyNav } from "@/components/regen/catalog/RegenShopStickyNav";
 import { CLIENT_SHOP_GOALS } from "@/lib/regen/catalog/client-visibility";
+import { RxLegalDisclaimer } from "@/components/rx/RxLegalDisclaimer";
 import { RxFindYourPeptideCta } from "@/components/rx/RxFindYourPeptideCta";
 import { RxScienceHomeHero } from "@/components/rx/RxScienceHomeHero";
 import { JourneySectionHead } from "@/components/marketing/JourneyPageUi";
@@ -352,7 +353,7 @@ export function RegenCatalogPortal({
       : view === "search"
         ? `Showing matches for "${query}"`
         : view === "all"
-          ? "Every protocol we review in Illinois — starting price on the shelf, dose at consult."
+          ? "Prescription programs reviewed in Illinois — consult first, not a public peptide cart."
           : "";
 
   return (
@@ -374,6 +375,8 @@ export function RegenCatalogPortal({
         onSearchChange={onSearchChange}
         searchPlaceholder={isPublicShop ? "Search the shop…" : undefined}
       />
+
+      <RxLegalDisclaimer />
 
       {view === "home" ? (
         isPublicShop ? (

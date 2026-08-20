@@ -530,7 +530,7 @@ export const PHASE2_PAGES: ServicePageData[] = [
     procedureType: "Injection",
     bodyLocation: "Subcutaneous",
     tier: "contested",
-    heroContent: "Semaglutide is the original GLP-1 weight loss medication — the same active ingredient sold under brand names Wegovy and Ozempic. It works by mimicking a hormone your body produces naturally after eating, reducing appetite, slowing gastric emptying, and helping clients lose weight gradually and sustainably. At Hello Gorgeous, semaglutide is prescribed by Ryan Kent, FNP-BC after a full medical intake, sourced from licensed US compounding pharmacies, and supported with monthly check-ins. We do this as medicine, not as a transaction.",
+    heroContent: "Semaglutide is a GLP-1 medication used in medically supervised weight management. Brand-name Wegovy® and Ozempic® contain semaglutide. Compounded semaglutide, when prescribed, is prepared for an individual patient by a licensed US compounding pharmacy — it is not FDA-approved and is not the same as those brands. At Hello Gorgeous, it is prescribed by Ryan Kent, FNP-BC after a full medical intake and supported with monthly check-ins.",
     whyBullets: [
       "Prescribed and supervised by Ryan Kent, FNP-BC",
       "Pharmacy-sourced from licensed US compounding pharmacies — never gray-market",
@@ -596,7 +596,7 @@ export const PHASE2_PAGES: ServicePageData[] = [
     procedureType: "Injection",
     bodyLocation: "Subcutaneous",
     tier: "contested",
-    heroContent: "Tirzepatide is the newer generation of GLP-1 weight loss medication — the same active ingredient sold under brand names Mounjaro and Zepbound. Unlike semaglutide which targets only GLP-1 receptors, tirzepatide targets BOTH GLP-1 and GIP receptors, producing somewhat stronger weight loss outcomes for many clients in clinical trials. At Hello Gorgeous, tirzepatide is prescribed by Ryan Kent, FNP-BC, sourced from licensed US compounding pharmacies, and supported with monthly check-ins and full medical oversight.",
+    heroContent: "Tirzepatide is a dual-pathway GLP-1/GIP medication used in medically supervised weight management. Brand-name Zepbound® and Mounjaro® contain tirzepatide. Compounded tirzepatide, when prescribed, is not FDA-approved and is not the same as those brands. At Hello Gorgeous, it is prescribed by Ryan Kent, FNP-BC after a full medical intake, sourced from licensed US compounding pharmacies when appropriate, and supported with monthly check-ins.",
     whyBullets: [
       "Dual-action (GLP-1 + GIP) — often more effective than single-action GLP-1 medications",
       "Prescribed and supervised by Ryan Kent, FNP-BC",

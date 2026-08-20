@@ -85,24 +85,24 @@ export const homepageServicesRow2: HomepageServiceCard[] = [
   {
     title: "Rx Prescription Care",
     description:
-      "Hello Gorgeous RX™ — hormones, metabolic care, dermatology, and longevity meds with NP oversight. Same-day appointments often available; we prioritize timely access so you get care when you need it — in-office or telehealth.",
+      "Hello Gorgeous RX™ — provider-led weight-management, hormone, dermatology, and wellness consultations with NP oversight. Same-day appointments often available; we prioritize timely access in-office or telehealth.",
     link: "/rx",
     items: ["Same-day visits (when open)", "Dermatology & metabolic RX", "Telehealth + in-office", "Naperville & Fox Valley"],
     image: "/images/homepage-services/recovery-blend-rx.jpg",
     imageAlt:
-      "Hello Gorgeous RX Recovery Blend — BPC-157, GHK-Cu, KPV, TB-500 advanced recovery and repair peptide blend",
+      "Hello Gorgeous RX — provider-led prescription care at Hello Gorgeous Med Spa Oswego IL",
     badge: "RX",
     imageContain: true,
   },
   {
-    title: "Peptide Therapy",
+    title: "Hello Gorgeous RX",
     description:
-      "Clinician-guided BPC-157, Sermorelin, NAD+, Recovery Blend, and more — for recovery, metabolism, skin, and vitality. Same-day peptide consults often available; we prioritize timely care for Oswego, Naperville, Aurora & Plainfield.",
+      "Provider-led peptide and wellness consultations. Treatment recommendations are individualized after a medical evaluation. Prescription therapies are offered only when clinically appropriate.",
     link: "/peptides",
-    items: ["Recovery Blend", "BPC-157", "Sermorelin", "NAD+"],
-    image: "/images/regen/catalog/bpc-157.png",
+    items: ["NP consult", "Labs first", "Individualized plans", "Illinois patients"],
+    image: "/images/regen/catalog/regen-semaglutide.jpg",
     imageAlt:
-      "RE GEN BPC-157 peptide vial — peptide therapy consult at Hello Gorgeous Med Spa Oswego IL",
+      "Hello Gorgeous RX medical consultation at Hello Gorgeous Med Spa Oswego IL",
     badge: "RX",
     imageContain: true,
   },

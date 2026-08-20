@@ -6,7 +6,6 @@
 import {
   GLP1_INTAKE_PATH,
   GLP1_REFILL_PATH,
-  HELLO_GORGEOUS_RX_START_PATH,
   labRequestUrl,
   LABS_HUB_PATH,
   PEPTIDE_REQUEST_PATH,
@@ -21,9 +20,7 @@ import {
   hrtIngredientPriceTagline,
 } from "@/lib/hrt-formulation-catalog";
 import { hrtBannerAltForIngredient, hrtBannerImageForIngredient } from "@/lib/hrt-banner-images";
-import { helloGorgeousRxStartUrl, regenShopHrefForPeptide } from "@/lib/peptide-request-menu";
 import { LAB_PANELS } from "@/lib/lab-panel-catalog";
-import { getPeptidePickerThumbnail } from "@/lib/peptide-thumbnails";
 import { resolveShopRxProductImage } from "@/lib/shop-rx-product-images";
 import { REGEN_CATEGORY_HUBS, REGEN_EXPLORE_FOOTER } from "@/lib/rx-category-hubs";
 
@@ -68,24 +65,6 @@ export type ShopRxCategory = {
   columns: MedicalMegaMenuColumn[];
   defaultFeaturedId: string;
 };
-
-function peptideItem(
-  id: string,
-  label: string,
-  tagline: string,
-  thumbnailSlug?: string,
-): MedicalMegaMenuItem {
-  const thumb = getPeptidePickerThumbnail(thumbnailSlug ?? id);
-  return {
-    id,
-    label,
-    href: regenShopHrefForPeptide(id),
-    rx: true,
-    tagline,
-    imageSrc: thumb?.src,
-    imageAlt: thumb?.alt,
-  };
-}
 
 export const SHOP_RX_CATEGORIES: ShopRxCategory[] = [
   {
@@ -171,51 +150,61 @@ export const SHOP_RX_CATEGORIES: ShopRxCategory[] = [
   },
   {
     id: "peptides",
-    navLabel: "Peptides",
+    navLabel: "Consultations",
     hubHref: "/peptides",
-    exploreLabel: "Explore peptides",
-    homepageBlurb: "BPC-157, Sermorelin, NAD+ & 22+ protocols",
-    defaultFeaturedId: "bpc-157",
+    exploreLabel: "Explore consultations",
+    homepageBlurb: "Provider-led wellness consultations · not a peptide menu",
+    defaultFeaturedId: "peptide-intake",
     columns: [
       {
-        heading: "Recovery",
+        heading: "Medical services",
         items: [
-          peptideItem("bpc-157", "BPC-157", "Tissue repair, gut support & recovery"),
-          peptideItem("tb-500", "TB-500", "Soft tissue repair & mobility"),
-          peptideItem("recovery-blend", "Recovery Blend", "BPC-157, GHK-Cu, KPV & TB-500"),
-          peptideItem("heal-blend", "HEAL Blend", "Multi-peptide restorative support"),
+          {
+            id: "weight-mgmt-consult",
+            label: "Weight-management consultation",
+            href: "/rx/weight-loss",
+            tagline: "Evaluation first · prescription only if appropriate",
+          },
+          {
+            id: "hormone-consult",
+            label: "Hormone evaluation",
+            href: "/rx/hormones",
+            tagline: "Lab-guided · individualized after review",
+          },
+          {
+            id: "sexual-consult",
+            label: "Sexual-wellness consultation",
+            href: "/rx/sexual-health",
+            tagline: "Private visit with Ryan Kent, FNP-BC",
+          },
+          {
+            id: "hair-skin-consult",
+            label: "Hair-loss and skin evaluation",
+            href: "/rx/hair-skin",
+            tagline: "Prescription topicals considered after consult",
+          },
         ],
       },
       {
-        heading: "Longevity",
+        heading: "How to start",
         items: [
-          peptideItem("sermorelin", "Sermorelin", "Natural GH signaling, sleep & recovery"),
-          peptideItem("tesamorelin", "Tesamorelin", "GH axis & body composition"),
-          peptideItem("nad-plus", "NAD+ Injections", "Cellular energy & healthy aging"),
-          peptideItem("glutathione", "Glutathione", "Master antioxidant & detox support"),
-          peptideItem("mots-c", "MOTS-c", "Mitochondrial & metabolic signaling"),
-        ],
-      },
-      {
-        heading: "Need help starting?",
-        items: [
-          {
-            id: "peptide-finder",
-            label: "Which peptide is right for you?",
-            href: "/skin-101/find-your-peptide",
-            tagline: "Free goal-based finder · 2 minutes",
-          },
-          {
-            id: "peptide-full-catalog",
-            label: "Browse all products",
-            href: "/rx?browse=all",
-            tagline: "Full RE GEN catalog · published pricing",
-          },
           {
             id: "peptide-intake",
-            label: "Talk to us first",
+            label: "Start a medical intake",
             href: "/rx/request",
-            tagline: "Request a protocol · NP reviews before anything ships",
+            tagline: "Free to submit · NP reviews before anything ships",
+          },
+          {
+            id: "peptide-book",
+            label: "Book a consult",
+            href: "/book",
+            tagline: "$49 reserves the visit · fees may be adjusted",
+          },
+          {
+            id: "peptides-101",
+            label: "Peptides 101 (education)",
+            href: "/peptides/peptides-101",
+            tagline: "What peptides are — not a product catalog",
           },
         ],
       },
@@ -288,13 +277,18 @@ export const SHOP_RX_CATEGORIES: ShopRxCategory[] = [
     navLabel: "Intimacy",
     hubHref: "/rx/sexual-health",
     exploreLabel: "Explore sexual wellness",
-    homepageBlurb: "PT-141 · libido support for men & women",
-    defaultFeaturedId: "pt-141",
+    homepageBlurb: "Private sexual-wellness consultations",
+    defaultFeaturedId: "sexual-health",
     columns: [
       {
         heading: "For men & women",
         items: [
-          peptideItem("pt-141", "PT-141", "Libido & arousal support · central pathway"),
+          {
+            id: "sexual-consult",
+            label: "Sexual-wellness consultation",
+            href: "/rx/sexual-health",
+            tagline: "Evaluation first · prescription only if appropriate",
+          },
         ],
       },
       {
@@ -304,14 +298,14 @@ export const SHOP_RX_CATEGORIES: ShopRxCategory[] = [
             id: "sexual-health",
             label: "Sexual wellness hub",
             href: "/rx/sexual-health",
-            tagline: "ED, libido & hormone-supported care",
+            tagline: "Private visit with Ryan Kent, FNP-BC",
           },
           {
             id: "start-peptide-intimacy",
-            label: "Need help starting? Request PT-141",
-            href: helloGorgeousRxStartUrl("pt-141"),
+            label: "Start a medical intake",
+            href: "/rx/request",
             rx: true,
-            tagline: "Start Here · $49 consult · telehealth required",
+            tagline: "$49 consult · telehealth or in office",
           },
         ],
       },
@@ -384,13 +378,11 @@ export const SHOP_RX_CATEGORIES: ShopRxCategory[] = [
             tagline: "Pay online · in-house or Quest/LabCorp",
           },
           {
-            id: "recovery-blend-wellness",
-            label: "Recovery Blend Rx",
-            href: regenShopHrefForPeptide("recovery-blend"),
+            id: "wellness-consult",
+            label: "Wellness consultation",
+            href: "/rx/request",
             rx: true,
-            tagline: "Peptide recovery protocol · ship to home",
-            imageSrc: "/images/homepage-services/recovery-blend-rx.jpg",
-            imageAlt: "Recovery Blend peptide Rx — Hello Gorgeous RX",
+            tagline: "Individualized after evaluation · not a peptide cart",
           },
         ],
       },
@@ -411,7 +403,7 @@ export const MEDICAL_MEGA_MENU_FOOTER = [
   { label: "Ladies' Club", href: "/ladies-club" },
   { label: "Gentlemen's Club", href: "/gentlemens-club" },
   { label: "Quizzes & screeners", href: "/quiz" },
-  { label: "Start Here — pick a peptide", href: HELLO_GORGEOUS_RX_START_PATH },
+  { label: "Start a medical intake", href: "/rx/request" },
   { label: "Peptide request form", href: PEPTIDE_REQUEST_PATH },
   { label: "My RX portal", href: "/portal/rx" },
   { label: "Patient care hub", href: RX_PATIENT_CARE_PATH },

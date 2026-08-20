@@ -113,7 +113,7 @@ export function Skin101HubContent() {
                 <div className="p-6">
                   <p className="text-sm font-medium text-[#E6007E]">NP-supervised · licensed pharmacy only</p>
                   <p className="mt-2 text-sm text-black/75 leading-relaxed">
-                    BPC-157, Sermorelin, GHK-Cu, GLP-1 & more — pricing, protocols, and FAQs in one place.
+                    Provider-led consultations — not a public peptide catalog. Prescription therapy is offered only after a medical evaluation.
                   </p>
                   <p className="mt-4 text-sm font-bold text-black">View peptide hub →</p>
                 </div>

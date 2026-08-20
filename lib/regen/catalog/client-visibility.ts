@@ -47,9 +47,11 @@ export function isKitComponentProduct(product: CatalogProduct): boolean {
  * - Retatrutide: investigational, never client-visible.
  * - SS-31 / elamipretide: FDA-approved as FORZINITY (Stealth BioTherapeutics). We do
  *   not market or offer compounded elamipretide. Counsel: Foley Hoag letter 19 Aug 2026.
+ * - Named peptides below: do not publicly market (FDA compounding / advertising risk).
+ *   Staff portals still see the full catalog. Public shop + intake picker do not.
  */
 export const NEVER_CLIENT_VISIBLE =
-  /retatrutide|ss-?31|elamipretide|elamipiretide/i;
+  /retatrutide|ss-?31|elamipretide|elamipiretide|bpc-?157|pentadeca|aod-?9604|cjc-?1295|epithalon|epitalon|ghk-?cu|ipamorelin|kpv|ll-?37|mots-?c|selank|semax|thymosin|tb-?500|ibutamoren|mk-?677|ghrp-?[26]|melanotan|dsip|emideltide|wolverine|klow/i;
 
 export function isNeverClientVisibleText(...parts: Array<string | undefined>): boolean {
   return NEVER_CLIENT_VISIBLE.test(parts.filter(Boolean).join(" "));
@@ -92,7 +94,9 @@ export function isClientVisibleProduct(product: CatalogProduct): boolean {
   if (isNonInjectableGlp1(product)) return false;
   if (CLIENT_VISIBLE_GOALS.has(product.goal)) return true;
   if (isMarketedWellnessInjectable(product)) return true;
-  return isBoomRxSheetProduct(product);
+  // BoomRx peptides stay in the staff catalog. The public shop is not a
+  // prescription-peptide cart.
+  return false;
 }
 
 const ALL_PRODUCTS = PRODUCTS as CatalogProduct[];

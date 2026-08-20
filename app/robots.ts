@@ -20,7 +20,19 @@ const PUBLIC_API_ALLOW = [
 
 const DEFAULT_ALLOW = ['/', '/_next/static/', '/_next/image/', ...PUBLIC_API_ALLOW] as const;
 
-const DEFAULT_DISALLOW = ['/admin/', '/portal/', '/api/', '/pos/', '/private/'] as const;
+const DEFAULT_DISALLOW = [
+  '/admin/',
+  '/portal/',
+  '/api/',
+  '/pos/',
+  '/private/',
+  '/go/',
+  '/regen-site/',
+  '/brochure/',
+  '/handouts/peptide-therapy/',
+  '/docs/dosing-guides/',
+  '/docs/hello-gorgeous-products.html',
+] as const;
 
 /** Assistant / answer-engine crawlers — keep allowlist explicit. */
 const AI_LIVE_RETRIEVAL_AGENTS = [
@@ -52,7 +64,7 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: 'Googlebot',
         allow: [...DEFAULT_ALLOW],
-        disallow: ['/admin/', '/portal/', '/api/', '/pos/'],
+        disallow: ['/admin/', '/portal/', '/api/', '/pos/', '/go/'],
       },
       ...AI_LIVE_RETRIEVAL_AGENTS.map((userAgent) => ({
         userAgent,
