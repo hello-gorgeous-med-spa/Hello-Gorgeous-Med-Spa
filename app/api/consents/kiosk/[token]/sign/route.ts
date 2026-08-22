@@ -4,6 +4,7 @@
 
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
+import { touchKioskToken } from "@/lib/kiosk/create-kiosk-session";
 
 export const dynamic = "force-dynamic";
 
@@ -63,8 +64,16 @@ export async function POST(
     }
 
     if (new Date(tokenRecord.expires_at) < new Date()) {
-      return NextResponse.json({ error: "Kiosk session expired" }, { status: 410 });
+      return NextResponse.json(
+        {
+          error:
+            "This signing session timed out. Ask the desk to start the visit again — this form did not save.",
+        },
+        { status: 410 },
+      );
     }
+
+    await touchKioskToken(supabase, token);
 
     const { data: packet, error: packetError } = await supabase
       .from("consent_packets")

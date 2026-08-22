@@ -201,6 +201,14 @@ export default function KioskConsentPage() {
     if (token) fetchKiosk();
   }, [token]);
 
+  useEffect(() => {
+    if (!token || error || completed || loading) return;
+    const keepAlive = window.setInterval(() => {
+      fetch(`/api/consents/kiosk/${token}`).catch(() => {});
+    }, 2 * 60 * 1000);
+    return () => window.clearInterval(keepAlive);
+  }, [token, error, completed, loading]);
+
   const handleSignature = useCallback((packetId: string, data: string) => {
     setSignatures(prev => ({ ...prev, [packetId]: data }));
   }, []);
@@ -228,6 +236,13 @@ export default function KioskConsentPage() {
 
       if (!res.ok) {
         const data = await res.json();
+        if (res.status === 410 || /expir/i.test(String(data.error || ""))) {
+          setError(
+            data.error ||
+              "This signing session timed out. Ask the desk to start the visit again — this form did not save.",
+          );
+          return;
+        }
         alert(data.error || 'Failed to submit');
         return;
       }
@@ -270,7 +285,13 @@ export default function KioskConsentPage() {
           <div className="text-6xl mb-6">⚠️</div>
           <h1 className="text-3xl font-bold text-black mb-4">Session Error</h1>
           <p className="text-xl text-black mb-8">{error}</p>
-          <p className="text-black">Please ask staff for assistance.</p>
+          <p className="text-black mb-6">Ask the desk to start the visit again on this iPad.</p>
+          <a
+            href="/kiosk"
+            className="inline-block rounded-xl bg-[#FF2D8E] px-8 py-4 text-lg font-semibold text-white"
+          >
+            Return to desk
+          </a>
         </div>
       </div>
     );

@@ -4,6 +4,7 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
+import { touchKioskToken } from '@/lib/kiosk/create-kiosk-session';
 
 export const dynamic = 'force-dynamic';
 
@@ -52,8 +53,10 @@ export async function GET(
         valid: false,
         expired: true,
         error: 'This kiosk session has expired',
-      });
+      }, { status: 410 });
     }
+
+    await touchKioskToken(supabase, token);
 
     // Check if already used
     if (tokenRecord.used_at) {

@@ -417,7 +417,7 @@ export default function HubPageClient() {
         </p>
         <p className="text-xs text-pink-800/80 max-w-3xl">
           <strong>Start consents</strong> creates the HG visit + HIPAA / arbitration / liability / general
-          consent pack from this Square booking, then opens the iPad kiosk link (15 min).
+          consent pack from this Square booking, then opens the iPad kiosk link.
         </p>
         <div className="space-y-2 max-h-80 overflow-auto">
           {todaysAppts.length === 0 && !apptsLoading ? (

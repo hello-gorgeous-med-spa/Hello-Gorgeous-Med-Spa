@@ -127,7 +127,7 @@ Book **for** the client. Do **not** send them only to the public book page unles
 **On the iPad**
 - Go to [/kiosk](https://www.hellogorgeousmedspa.com/kiosk) **or** open the short link you generated
 - Client enters phone → check-in → **Sign consent forms**
-- Kiosk links expire in about **15 minutes** — generate a fresh one if needed
+- Kiosk signing sessions last the visit (hours, not minutes). If you still see expired, start the visit again from `/kiosk`.
 
 **If forms are still outstanding**
 - On the appointment: **Resend SMS**, **Sign on iPad**, or **Get kiosk consent link**

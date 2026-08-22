@@ -1,9 +1,29 @@
 /**
- * Create a short-lived kiosk token for consent signing at /kiosk/consents/[token].
+ * Create a kiosk token for consent signing at /kiosk/consents/[token].
  * Used by staff API and by public self check-in (after phone verification).
+ * Long enough to read a multi-form packet; sliding expiry on activity.
  */
 import type { SupabaseClient } from "@supabase/supabase-js";
 import crypto from "crypto";
+
+/** Desk visit: HIPAA + treatment + service forms take longer than 15 minutes. */
+export const KIOSK_SESSION_MS = 4 * 60 * 60 * 1000;
+
+export function kioskSessionExpiresAt(fromMs = Date.now()): string {
+  return new Date(fromMs + KIOSK_SESSION_MS).toISOString();
+}
+
+export async function touchKioskToken(
+  supabase: SupabaseClient,
+  token: string,
+): Promise<void> {
+  await supabase
+    .from("appointment_consent_tokens")
+    .update({ expires_at: kioskSessionExpiresAt() })
+    .eq("token", token)
+    .eq("token_type", "kiosk")
+    .eq("is_valid", true);
+}
 
 export function generateKioskToken(): string {
   return crypto.randomBytes(32).toString("base64url");
@@ -78,7 +98,7 @@ export async function createKioskConsentSession(
   }
 
   const kioskToken = generateKioskToken();
-  const expiresAt = new Date(Date.now() + 15 * 60 * 1000);
+  const expiresAt = kioskSessionExpiresAt();
 
   await supabase
     .from("appointment_consent_tokens")
@@ -91,7 +111,7 @@ export async function createKioskConsentSession(
     client_id: appointment.client_id,
     token: kioskToken,
     token_type: "kiosk",
-    expires_at: expiresAt.toISOString(),
+    expires_at: expiresAt,
     is_valid: true,
   });
 
@@ -122,7 +142,7 @@ export async function createKioskConsentSession(
     ok: true,
     token: kioskToken,
     path: `/kiosk/consents/${kioskToken}`,
-    expiresAt: expiresAt.toISOString(),
+    expiresAt,
     outstandingCount: packets.length,
     templateNames: packets.map((p) => p.template_name).filter(Boolean) as string[],
   };
