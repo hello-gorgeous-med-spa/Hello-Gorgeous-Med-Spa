@@ -320,11 +320,16 @@ export function ProposalBuilder({ proposalId }: ProposalBuilderProps) {
         if (option.name !== optionName) return option;
         const nextType = patch.discountType ?? option.discountType;
         let nextValue = patch.discountValue ?? option.discountValue;
-        if (patch.discountType === "custom" && option.discountType !== "custom") {
-          nextValue = calculateTotal(option);
-        }
-        if (patch.discountType && patch.discountType !== "custom" && option.discountType === "custom") {
-          nextValue = patch.discountType === "percentage" ? 10 : 0;
+        if (patch.discountType && patch.discountType !== option.discountType) {
+          if (patch.discountType === "custom") {
+            nextValue = calculateTotal(option);
+          } else if (patch.discountType === "percentage") {
+            nextValue = 10;
+          } else if (patch.discountType === "dollar") {
+            nextValue = 0;
+          } else {
+            nextValue = 0;
+          }
         }
         return { ...option, discountType: nextType, discountValue: nextValue };
       })
@@ -414,8 +419,15 @@ export function ProposalBuilder({ proposalId }: ProposalBuilderProps) {
         body: JSON.stringify(payload),
       });
 
-      const data = await response.json();
+      const text = await response.text();
+      let data: { error?: string; proposal?: { id: string } } = {};
+      try {
+        data = text.trim() ? (JSON.parse(text) as { error?: string; proposal?: { id: string } }) : {};
+      } catch {
+        throw new Error(response.ok ? "Could not read the save response." : `Save failed (${response.status}).`);
+      }
       if (!response.ok) throw new Error(data.error || "Failed to save proposal.");
+      if (!data.proposal?.id) throw new Error("Saved, but the proposal id was missing. Refresh and try again.");
 
       router.push(`/admin/proposals/${data.proposal.id}/preview`);
     } catch (saveError) {
@@ -1031,6 +1043,11 @@ export function ProposalBuilder({ proposalId }: ProposalBuilderProps) {
               {/* STEP 3: Options & Pricing */}
               {step === "options" && (
                 <div className="space-y-5">
+                  {error && (
+                    <div className="rounded-xl border-2 border-red-200 bg-red-50 p-3">
+                      <p className="text-sm font-semibold text-red-700">{error}</p>
+                    </div>
+                  )}
                   {!options.length ? (
                     <div className="rounded-xl border-2 border-dashed border-black/20 bg-white p-8 text-center">
                       <p className="font-semibold text-black/70">No options generated yet</p>
@@ -1055,6 +1072,12 @@ export function ProposalBuilder({ proposalId }: ProposalBuilderProps) {
                           option.discountType === "percentage" ||
                           option.discountType === "dollar" ||
                           option.discountType === "custom";
+                        const discountPlaceholder =
+                          option.discountType === "percentage"
+                            ? "Percent off (e.g. 10)"
+                            : option.discountType === "custom"
+                            ? "Custom total $"
+                            : "$ off (e.g. 50)";
 
                         return (
                           <article
@@ -1110,18 +1133,21 @@ export function ProposalBuilder({ proposalId }: ProposalBuilderProps) {
                                 <input
                                   type="number"
                                   min={0}
-                                  value={option.discountValue}
-                                  onChange={(e) =>
-                                    updateOptionPricing(option.name, { discountValue: Number(e.target.value) || 0 })
-                                  }
+                                  inputMode="decimal"
+                                  value={option.discountValue === 0 ? "" : option.discountValue}
+                                  onChange={(e) => {
+                                    const raw = e.target.value;
+                                    if (raw === "") {
+                                      updateOptionPricing(option.name, { discountValue: 0 });
+                                      return;
+                                    }
+                                    const next = Number(raw);
+                                    if (Number.isFinite(next) && next >= 0) {
+                                      updateOptionPricing(option.name, { discountValue: next });
+                                    }
+                                  }}
                                   className="w-full rounded-md border border-black/15 bg-white px-2 py-1 text-xs"
-                                  placeholder={
-                                    option.discountType === "percentage"
-                                      ? "Percent"
-                                      : option.discountType === "custom"
-                                      ? "Custom total"
-                                      : "$ off"
-                                  }
+                                  placeholder={discountPlaceholder}
                                 />
                               )}
                               <p className="text-[10px] text-black/50">{discountLabel(option)}</p>

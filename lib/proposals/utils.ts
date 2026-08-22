@@ -52,6 +52,13 @@ export function formatProposalServiceLine(service: ProposalService): string {
 
 export const NEUROTOXIN_UNIT_PRESETS = [20, 24, 30, 40, 50, 60] as const;
 
+/** InMode series already priced as a deal — do not auto-stack PRP or lock extra discounts. */
+const AESTHETIC_FIXED_PACKAGE_IDS = new Set(["pkg-transformation", "pkg-ultimate"]);
+
+export function isAestheticFixedPackageId(id: string): boolean {
+  return AESTHETIC_FIXED_PACKAGE_IDS.has(id);
+}
+
 export function calculateSubtotal(services: ProposalService[]): number {
   return services.reduce((sum, service) => sum + serviceLineTotal(service), 0);
 }
@@ -129,7 +136,7 @@ export function generateTimeline(services: ProposalService[]): ProposalTimelineI
 
 export function autoGenerateOptions(selectedServices: ProposalService[]): ProposalOption[] {
   const essentialServices = selectedServices.map((service) => ({ ...service }));
-  const hasFixedPackage = essentialServices.some((service) => service.id.startsWith("pkg-"));
+  const hasFixedPackage = essentialServices.some((service) => isAestheticFixedPackageId(service.id));
   const wantsExosomes = essentialServices.some((service) => serviceSuggestsExosomeAddon(service.id));
   const hasExosomes = essentialServices.some((service) => isExosomeHealingAddonId(service.id));
   const hasVitaminPlan = essentialServices.some((service) => service.id.startsWith("vitamin-plan-"));
@@ -137,7 +144,7 @@ export function autoGenerateOptions(selectedServices: ProposalService[]): Propos
   const recommendedServices = essentialServices.map((service) => ({ ...service }));
   if (
     recommendedServices.some(
-      (service) => service.id.startsWith("morpheus8") || service.id.startsWith("pkg-")
+      (service) => service.id.startsWith("morpheus8") || isAestheticFixedPackageId(service.id)
     )
   ) {
     const prpService = HELLO_GORGEOUS_SERVICES.find((service) => service.id === "prp-facial");
@@ -237,6 +244,7 @@ const RX_CONSULT_REQUIRED_IDS = [
   "biote-women-pellet",
   "biote-men-pellet",
   "trt-injections",
+  "pkg-tirz-10week",
 ] as const;
 
 /** Check if a service requires medical consultation before purchase. */
