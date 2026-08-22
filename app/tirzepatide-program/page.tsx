@@ -44,9 +44,10 @@ export const metadata: Metadata = {
 // What's included in the flat $600 program.
 const INCLUDED = [
   "Private consultation & medical eligibility review",
-  "Your 10-week supply of tirzepatide",
+  "Your 10-week supply of tirzepatide (starts at 2.5)",
   "Simple at-home injection training",
   "Provider-guided dosing & check-ins throughout",
+  "Optional +$100 to upgrade to 5 mL at week 5 if your provider steps the dose up",
 ];
 
 // "Why women love it" — mirrors the program email.
@@ -134,7 +135,7 @@ const PROGRAM_FAQS = [
   {
     question: "How much does it cost?",
     answer:
-      "$600 for the full ten weeks — that includes your consultation and medical eligibility review, your 10-week supply of tirzepatide, at-home injection training, and provider-guided dosing and check-ins. No insurance required.",
+      "$600 for the full ten weeks — that includes your consultation and medical eligibility review, your 10-week supply of tirzepatide starting at 2.5, at-home injection training, and provider-guided dosing and check-ins. If your provider steps you up to 5 mL at week 5, that upgrade is $100. No insurance required.",
   },
   {
     question: "How often do I take it, and do I inject myself?",

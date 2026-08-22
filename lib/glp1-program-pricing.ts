@@ -18,6 +18,22 @@ import {
 
 export const GLP1_PROGRAM_CONSULT_USD = PROGRAM_CONSULT_FEE_USD;
 
+/**
+ * In-clinic Square Appointments prices (Weight Loss Injections + 10-week SKU).
+ * Pulled from live Square catalog — keep the proposal menu in lockstep.
+ */
+export const GLP1_SQUARE_CLINIC = {
+  tenWeekProgramUsd: 600,
+  /** Square copy: "starting at 2.5, option to go up to 5.0 at week 5 (extra $100)" */
+  tenWeekUpgradeTo5mlUsd: 100,
+  tirzConsultFirstUsd: 349,
+  tirzMonthlyMaintenanceUsd: 299,
+  fourWeekTirzUsd: 349,
+  semaConsultFirstUsd: 299,
+  semaMonthlyMaintenanceUsd: 249,
+  medicalWeightManagementUsd: 295,
+} as const;
+
 const semaLow = glp1LowestSemaglutideUsd();
 const semaHigh = glp1HighestSemaglutideUsd();
 const tirzLow = glp1LowestTirzepatideUsd();
@@ -94,6 +110,7 @@ export const GLP1_PROGRAM_DISCLAIMER =
 
 export const GLP1_PROGRAM_PRICING_BULLETS = [
   `${GLP1_PROGRAM.injectable.heading}: ${GLP1_PROGRAM.injectable.includes}`,
+  `10-week tirzepatide program: $${GLP1_SQUARE_CLINIC.tenWeekProgramUsd} (starts at 2.5; +$${GLP1_SQUARE_CLINIC.tenWeekUpgradeTo5mlUsd} to upgrade to 5 mL at week 5)`,
   `GLP-1 weight loss from $${GLP1_PROGRAM.injectable.monthlyFromUsd}/month — price scales with weekly dose`,
   ...GLP1_SEMAGLUTIDE_DOSE_TIERS.map(
     (t) => `Semaglutide ${t.doseLabel}: $${t.priceUsd}/mo`,

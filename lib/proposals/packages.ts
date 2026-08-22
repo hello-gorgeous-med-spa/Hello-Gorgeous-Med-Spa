@@ -3,6 +3,7 @@
  * Fixed package price is what the client sees; includes describe the clinical series.
  */
 
+import { GLP1_SQUARE_CLINIC } from "@/lib/glp1-program-pricing";
 import type { SeedService } from "@/lib/proposals/seed-services";
 
 export type ProposalPackage = SeedService & {
@@ -16,6 +17,20 @@ export const FORMULATION_COLD_SHIP_USD = 30;
 export const FORMULATION_GHK_CU_TOTAL_USD = FORMULATION_GHK_CU_MED_USD + FORMULATION_COLD_SHIP_USD;
 
 export const PROPOSAL_PACKAGES: ProposalPackage[] = [
+  {
+    id: "pkg-tirz-10week",
+    name: "Tirzepatide 10-Week Program",
+    category: "Packages",
+    price: GLP1_SQUARE_CLINIC.tenWeekProgramUsd,
+    unit: "per 10 weeks",
+    description:
+      "Square clinic program — starts at 2.5. Optional step-up to 5 mL at week 5 is +$100.",
+    bullets: [
+      `$${GLP1_SQUARE_CLINIC.tenWeekProgramUsd} all-in for 10 weeks — consult, supply, training, and check-ins`,
+      "Starts at 2.5 · add Upgrade to 5 mL (+$100) at week 5 if the provider steps the dose up",
+      "Matches the Square “Tirzepatide 10 week program” SKU",
+    ],
+  },
   {
     id: "pkg-transformation",
     name: "Transformation Package",

@@ -4,7 +4,7 @@
  */
 
 import { PEPTIDE_FLYER_IMAGES, VITAMIN_BAR_FLYER_IMAGES } from "@/lib/club-flyer-images";
-import { GLP1_PROGRAM, GLP1_PROGRAM_DISCLAIMER } from "@/lib/glp1-program-pricing";
+import { GLP1_PROGRAM, GLP1_PROGRAM_DISCLAIMER, GLP1_SQUARE_CLINIC } from "@/lib/glp1-program-pricing";
 import {
   GLP1_ALL_DOSE_TIERS,
   GLP1_INSURANCE_OVERSIGHT,
@@ -315,6 +315,23 @@ const GLP1_DOSE_ITEMS: WellnessPriceListItem[] = GLP1_ALL_DOSE_TIERS.map((tier) 
 }));
 
 const GLP1_ITEMS: WellnessPriceListItem[] = [
+  {
+    id: "glp1-tirz-10week",
+    name: "Tirzepatide 10-Week Program",
+    priceLabel: `$${GLP1_SQUARE_CLINIC.tenWeekProgramUsd}`,
+    tagline: "Square clinic program · starts at 2.5",
+    note: `Optional +$${GLP1_SQUARE_CLINIC.tenWeekUpgradeTo5mlUsd} to upgrade to 5 mL at week 5`,
+    benefits: [
+      "Consult + 10-week tirzepatide supply",
+      "At-home injection training",
+      "Provider-guided dosing & check-ins",
+      `Upgrade to 5 mL at week 5: +$${GLP1_SQUARE_CLINIC.tenWeekUpgradeTo5mlUsd}`,
+    ],
+    image: PEPTIDE_FLYER_IMAGES.tirzepatide,
+    imageAlt: "10-week tirzepatide program — Hello Gorgeous Oswego IL",
+    href: "/tirzepatide-program",
+    consultFirst: true,
+  },
   {
     id: "glp1-program",
     name: "GLP-1 Weight Loss Program",

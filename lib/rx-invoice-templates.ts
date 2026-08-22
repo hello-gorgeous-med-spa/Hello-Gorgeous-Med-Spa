@@ -3,7 +3,7 @@
  * for staff to send GLP-1 weight loss & peptide protocol fees quickly.
  */
 
-import { GLP1_PROGRAM } from "@/lib/glp1-program-pricing";
+import { GLP1_PROGRAM, GLP1_SQUARE_CLINIC } from "@/lib/glp1-program-pricing";
 import {
   GLP1_ALL_DOSE_TIERS,
   GLP1_INSURANCE_OVERSIGHT,
@@ -52,7 +52,82 @@ function glp1DoseTierTemplates(): RxInvoiceTemplate[] {
 
 function glp1Templates(): RxInvoiceTemplate[] {
   const p = GLP1_PROGRAM;
+  const square = GLP1_SQUARE_CLINIC;
   return [
+    {
+      id: "glp1-tirz-10week",
+      track: "weight-loss",
+      group: "Square clinic programs",
+      name: "Tirzepatide 10-week program",
+      lineLabel: "Tirzepatide 10-week program",
+      amountUsd: square.tenWeekProgramUsd,
+      squareName: "Tirzepitide 10 week program",
+      note: "Starts at 2.5. Add the $100 5 mL upgrade at week 5 if the dose steps up.",
+    },
+    {
+      id: "glp1-tirz-10week-5ml",
+      track: "weight-loss",
+      group: "Square clinic programs",
+      name: "10-week program — upgrade to 5 mL",
+      lineLabel: "Upgrade to 5 mL (week 5+)",
+      amountUsd: square.tenWeekUpgradeTo5mlUsd,
+      squareName: "Tirzepatide 10-week — upgrade to 5 mL",
+      note: "Add-on when stepping from 2.5 to 5.0 / 5 mL at week 5.",
+    },
+    {
+      id: "glp1-tirz-consult-first",
+      track: "weight-loss",
+      group: "Square clinic programs",
+      name: "Tirzepatide consult + first injection",
+      lineLabel: "Tirzepatide — Initial Consult + First Injection",
+      amountUsd: square.tirzConsultFirstUsd,
+      squareName: "Tirzepatide — Initial Consult + First Injection",
+    },
+    {
+      id: "glp1-tirz-monthly",
+      track: "weight-loss",
+      group: "Square clinic programs",
+      name: "Tirzepatide monthly maintenance",
+      lineLabel: "Tirzepatide — Monthly Maintenance",
+      amountUsd: square.tirzMonthlyMaintenanceUsd,
+      squareName: "Tirzepatide — Monthly Maintenance",
+    },
+    {
+      id: "glp1-tirz-4week",
+      track: "weight-loss",
+      group: "Square clinic programs",
+      name: "4-week tirzepatide program",
+      lineLabel: "4-Week Tirzepatide Program",
+      amountUsd: square.fourWeekTirzUsd,
+      squareName: "4-Week Tirzepatide Program",
+    },
+    {
+      id: "glp1-sema-consult-first",
+      track: "weight-loss",
+      group: "Square clinic programs",
+      name: "Semaglutide consult + first injection",
+      lineLabel: "Semaglutide — Initial Consult + First Injection",
+      amountUsd: square.semaConsultFirstUsd,
+      squareName: "Semaglutide — Initial Consult + First Injection",
+    },
+    {
+      id: "glp1-sema-monthly",
+      track: "weight-loss",
+      group: "Square clinic programs",
+      name: "Semaglutide monthly maintenance",
+      lineLabel: "Semaglutide — Monthly Maintenance",
+      amountUsd: square.semaMonthlyMaintenanceUsd,
+      squareName: "Semaglutide — Monthly Maintenance",
+    },
+    {
+      id: "glp1-medical-weight-mgmt",
+      track: "weight-loss",
+      group: "Square clinic programs",
+      name: "Medical Weight Management Program",
+      lineLabel: "Medical Weight Management Program",
+      amountUsd: square.medicalWeightManagementUsd,
+      squareName: "Medical Weight Management Program",
+    },
     {
       id: "glp1-consult",
       track: "weight-loss",
@@ -333,6 +408,7 @@ export function formatUsd(amount: number): string {
 export function templateRequiresShippingAddress(template: RxInvoiceTemplate): boolean {
   if (template.track === "fees" || template.track === "proposals") return false;
   if (template.id === "glp1-consult") return false;
+  if (template.group === "Square clinic programs") return false;
   return true;
 }
 

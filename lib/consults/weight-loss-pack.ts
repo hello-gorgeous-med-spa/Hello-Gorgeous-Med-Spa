@@ -11,7 +11,7 @@ import {
   GLP1_SEMAGLUTIDE_DOSE_TIERS,
   GLP1_TIRZEPATIDE_DOSE_TIERS,
 } from "@/lib/glp1-dose-tiers";
-import { GLP1_PROGRAM_CONSULT_USD } from "@/lib/glp1-program-pricing";
+import { GLP1_PROGRAM_CONSULT_USD, GLP1_SQUARE_CLINIC } from "@/lib/glp1-program-pricing";
 import type { ConsultEducationPack } from "@/lib/consults/types";
 
 const mechanismById = (id: string) => GLP1_SCIENCE_MECHANISMS.find((m) => m.id === id);
@@ -138,7 +138,7 @@ export const WEIGHT_LOSS_CONSULT_PACK: ConsultEducationPack = {
       eyebrow: "Safety",
       title: "When we say no (or pause for provider review)",
       body:
-        "Hard stops in our screening: Type 1 diabetes; pregnancy / trying / breastfeeding; personal or family history of MTC or MEN 2. Provider-review flags: pancreatitis history; already on a GLP-1. We protect patients and our pharmacy partners by documenting this before any proposal.",
+        "Hard stops in our screening: Type 1 diabetes; pregnancy / trying to conceive; personal or family history of MTC or MEN 2; serious GLP-1 allergy. Provider-review flags: breastfeeding; pancreatitis; gallbladder; gastroparesis; eating-disorder history; already on a GLP-1; BMI below typical indication. We protect patients and our pharmacy partners by documenting this before any proposal.",
       bullets: [
         "Hard stop → mark consult disqualified or staff-override with written clinical rationale",
         "Provider flags → continue education, but note NP must clear before Rx",
@@ -174,6 +174,12 @@ export const WEIGHT_LOSS_CONSULT_PACK: ConsultEducationPack = {
     },
   ],
   paths: [
+    {
+      id: "tirz-10week",
+      label: "10-week tirzepatide program",
+      summary: `Square $${GLP1_SQUARE_CLINIC.tenWeekProgramUsd} program — starts at 2.5. Add the $${GLP1_SQUARE_CLINIC.tenWeekUpgradeTo5mlUsd} 5 mL upgrade at week 5 if the dose steps up.`,
+      serviceIds: ["glp1-tirz-10week"],
+    },
     {
       id: "consult-only",
       label: "Consult first",

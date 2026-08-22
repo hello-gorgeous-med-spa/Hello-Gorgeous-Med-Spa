@@ -3,7 +3,7 @@ import {
   GLP1_SEMAGLUTIDE_DOSE_TIERS,
   GLP1_TIRZEPATIDE_DOSE_TIERS,
 } from "@/lib/glp1-dose-tiers";
-import { GLP1_PROGRAM, GLP1_PROGRAM_CONSULT_USD } from "@/lib/glp1-program-pricing";
+import { GLP1_PROGRAM, GLP1_PROGRAM_CONSULT_USD, GLP1_SQUARE_CLINIC } from "@/lib/glp1-program-pricing";
 import { PEPTIDE_RETAIL_MENU } from "@/lib/peptide-retail-pricing";
 import {
   FORMULATION_COLD_SHIP_USD,
@@ -27,6 +27,72 @@ export type SeedService = {
 };
 
 const WEIGHT_LOSS_SERVICES: SeedService[] = [
+  {
+    id: "glp1-tirz-10week",
+    name: "Tirzepatide 10-Week Program",
+    category: "Weight Loss Programs",
+    price: GLP1_SQUARE_CLINIC.tenWeekProgramUsd,
+    unit: "per 10 weeks",
+    description:
+      "Square clinic SKU — starts at 2.5. Consult, 10-week supply, injection training, and check-ins.",
+  },
+  {
+    id: "glp1-tirz-10week-5ml",
+    name: "Upgrade to 5 mL (week 5+)",
+    category: "Weight Loss Programs",
+    price: GLP1_SQUARE_CLINIC.tenWeekUpgradeTo5mlUsd,
+    unit: "add-on",
+    description:
+      "Add to the 10-week program if the provider steps up to 5.0 / 5 mL at week 5. Square extra $100.",
+  },
+  {
+    id: "glp1-tirz-consult-first",
+    name: "Tirzepatide — Initial Consult + First Injection",
+    category: "Weight Loss Programs",
+    price: GLP1_SQUARE_CLINIC.tirzConsultFirstUsd,
+    unit: "one-time",
+    description: "Square clinic price — new-patient visit, medical review, and first injection / starter supply.",
+  },
+  {
+    id: "glp1-tirz-monthly",
+    name: "Tirzepatide — Monthly Maintenance",
+    category: "Weight Loss Programs",
+    price: GLP1_SQUARE_CLINIC.tirzMonthlyMaintenanceUsd,
+    unit: "per month",
+    description: "Square clinic price — established-patient maintenance refill (low / maintenance volume).",
+  },
+  {
+    id: "glp1-tirz-4week",
+    name: "4-Week Tirzepatide Program",
+    category: "Weight Loss Programs",
+    price: GLP1_SQUARE_CLINIC.fourWeekTirzUsd,
+    unit: "per 4 weeks",
+    description: "Square clinic price — structured 4-week program visit with medication for that cycle.",
+  },
+  {
+    id: "glp1-sema-consult-first",
+    name: "Semaglutide — Initial Consult + First Injection",
+    category: "Weight Loss Programs",
+    price: GLP1_SQUARE_CLINIC.semaConsultFirstUsd,
+    unit: "one-time",
+    description: "Square clinic price — new-patient visit, medical review, and first injection / starter supply.",
+  },
+  {
+    id: "glp1-sema-monthly",
+    name: "Semaglutide — Monthly Maintenance",
+    category: "Weight Loss Programs",
+    price: GLP1_SQUARE_CLINIC.semaMonthlyMaintenanceUsd,
+    unit: "per month",
+    description: "Square clinic price — established-patient maintenance refill.",
+  },
+  {
+    id: "glp1-medical-weight-mgmt",
+    name: "Medical Weight Management Program",
+    category: "Weight Loss Programs",
+    price: GLP1_SQUARE_CLINIC.medicalWeightManagementUsd,
+    unit: "per program",
+    description: "Square clinic price — naltrexone + sermorelin + Lipo-Trim SL program.",
+  },
   {
     id: "glp1-consult",
     name: "GLP-1 Medical Weight Loss Consult",
