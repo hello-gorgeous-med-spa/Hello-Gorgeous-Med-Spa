@@ -8,24 +8,14 @@ import { NextRequest, NextResponse } from 'next/server';
 import path from 'path';
 import fs from 'fs/promises';
 
-const ALLOWED_SLUGS = [
-  '00-README',
-  '01-botox-complication-protocol',
-  '02-vascular-occlusion-emergency-protocol',
-  '03-hyaluronidase-emergency-protocol',
-  '04-laser-safety-protocol',
-  '05-patient-consent-requirements',
-  '06-standing-orders-injectables',
-  '07-chart-audit-checklist',
-  '08-illinois-idfpr-inspection-readiness',
-];
+import { BINDER_MD_SLUGS } from '@/lib/compliance-binder-catalog';
 
 export async function GET(
   request: NextRequest,
   { params }: { params: Promise<{ slug: string }> }
 ) {
   const { slug } = await params;
-  if (!slug || !ALLOWED_SLUGS.includes(slug)) {
+  if (!slug || !BINDER_MD_SLUGS.includes(slug)) {
     return NextResponse.json({ error: 'Not found' }, { status: 404 });
   }
 

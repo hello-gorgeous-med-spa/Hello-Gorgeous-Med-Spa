@@ -5,20 +5,11 @@
 
 import { NextResponse } from 'next/server';
 import { createAdminSupabaseClient } from '@/lib/hgos/supabase';
+import { BINDER_MD_DOCS } from '@/lib/compliance-binder-catalog';
 
 export const dynamic = 'force-dynamic';
 
-const BINDER_SLUGS = [
-  { slug: '00-README', title: 'Binder index' },
-  { slug: '01-botox-complication-protocol', title: 'Botox Complication Protocol' },
-  { slug: '02-vascular-occlusion-emergency-protocol', title: 'Vascular Occlusion Emergency' },
-  { slug: '03-hyaluronidase-emergency-protocol', title: 'Hyaluronidase Emergency' },
-  { slug: '04-laser-safety-protocol', title: 'Laser Safety' },
-  { slug: '05-patient-consent-requirements', title: 'Patient Consent Requirements' },
-  { slug: '06-standing-orders-injectables', title: 'Standing Orders Injectables' },
-  { slug: '07-chart-audit-checklist', title: 'Chart Audit Checklist' },
-  { slug: '08-illinois-idfpr-inspection-readiness', title: 'Illinois IDFPR Inspection Readiness' },
-];
+const BINDER_SLUGS = BINDER_MD_DOCS.map((d) => ({ slug: d.slug, title: d.title }));
 
 export async function GET() {
   const supabase = createAdminSupabaseClient();

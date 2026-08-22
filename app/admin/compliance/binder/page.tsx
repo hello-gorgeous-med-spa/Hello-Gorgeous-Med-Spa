@@ -1,59 +1,72 @@
-// ============================================================
-// Compliance Binder — List of documents to view, print, or download
-// ============================================================
+"use client";
 
-'use client';
+import Link from "next/link";
 
-import Link from 'next/link';
-
-const DOCUMENTS = [
-  { slug: '00-README', title: 'Binder index (README)', description: 'Contents and how to use this binder.' },
-  { slug: '01-botox-complication-protocol', title: 'Botox Complication Protocol', description: 'Recognition and management of botulinum toxin complications.' },
-  { slug: '02-vascular-occlusion-emergency-protocol', title: 'Vascular Occlusion Emergency Protocol', description: 'Immediate response to suspected vascular occlusion from filler.' },
-  { slug: '03-hyaluronidase-emergency-protocol', title: 'Hyaluronidase Emergency Protocol', description: 'Safe use of hyaluronidase for HA reversal.' },
-  { slug: '04-laser-safety-protocol', title: 'Laser Safety Protocol', description: 'Laser/IPL safety, eye protection, training.' },
-  { slug: '05-patient-consent-requirements', title: 'Patient Consent Requirements', description: 'When and how to obtain informed consent.' },
-  { slug: '06-standing-orders-injectables', title: 'Standing Orders for Injectables', description: 'Physician-signed standing orders template.' },
-  { slug: '07-chart-audit-checklist', title: 'Chart Audit Checklist', description: 'Periodic chart review checklist.' },
-  { slug: '08-illinois-idfpr-inspection-readiness', title: 'Illinois IDFPR Inspection Readiness Checklist', description: 'License, supervision, protocols, inspection-day readiness.' },
-];
-
-// PDFs in public/compliance-binder/ — add ryan_2026_medical_director_agreement.pdf (export from .docx in Word)
-const PDF_DOCUMENTS = [
-  { file: 'ryan_2026_medical_director_agreement.pdf', title: 'Medical Director Agreement (Ryan 2026)', description: 'Medical director agreement for inspections and binder.' },
-];
+import {
+  BINDER_MD_DOCS,
+  BINDER_OPTIONAL_PDFS,
+  BINDER_PDF_KITS,
+  BINDER_PRINT_PATH,
+} from "@/lib/compliance-binder-catalog";
 
 export default function ComplianceBinderPage() {
   return (
-    <div className="max-w-3xl mx-auto p-6">
+    <div className="mx-auto max-w-3xl p-6">
       <div className="mb-8">
         <h1 className="text-2xl font-bold text-black">Compliance Binder</h1>
-        <p className="text-black mt-1">
-          Core documents for inspections and legal protection. View and print to PDF, or download the file for your binder.
+        <p className="mt-1 text-black">
+          IDFPR inspection packet for Hello Gorgeous — Oswego. Print for Dr. Arora to sign, then
+          keep the signed original at the front desk. Reprint from this page anytime.
         </p>
       </div>
 
+      <div className="mb-8 rounded-2xl border-4 border-black bg-[#FFF0F7] p-5 shadow-[6px_6px_0_0_rgba(230,0,126,0.35)]">
+        <p className="text-xs font-bold uppercase tracking-widest text-[#E6007E]">
+          Hand off to Dr. Arora
+        </p>
+        <h2 className="mt-1 text-xl font-black text-black">Print the full packet</h2>
+        <p className="mt-2 text-sm text-black/75">
+          One print job for the adoption/sign-off page plus core protocols 01–12. Then print the
+          three complete SOP kits. After he signs, hole-punch and store at the front desk.
+        </p>
+        <div className="mt-4 flex flex-wrap gap-2">
+          <Link
+            href={BINDER_PRINT_PATH}
+            className="inline-flex rounded-lg bg-[#E6007E] px-5 py-2.5 text-sm font-semibold text-white hover:bg-[#c4006b]"
+          >
+            Print packet for Dr. Arora
+          </Link>
+          <Link
+            href={BINDER_PRINT_PATH}
+            className="inline-flex rounded-lg border-2 border-black bg-white px-5 py-2.5 text-sm font-semibold text-black hover:bg-gray-50"
+          >
+            Front desk reprint
+          </Link>
+        </div>
+      </div>
+
+      <h2 className="mb-3 text-lg font-semibold text-black">Core documents</h2>
       <ul className="space-y-4">
-        {DOCUMENTS.map((doc) => (
+        {BINDER_MD_DOCS.map((doc) => (
           <li
             key={doc.slug}
-            className="flex flex-wrap items-center gap-3 p-4 rounded-xl border border-gray-200 bg-white"
+            className="flex flex-wrap items-center gap-3 rounded-xl border border-gray-200 bg-white p-4"
           >
-            <div className="flex-1 min-w-0">
-              <h2 className="font-semibold text-black">{doc.title}</h2>
-              <p className="text-sm text-gray-600 mt-0.5">{doc.description}</p>
+            <div className="min-w-0 flex-1">
+              <h3 className="font-semibold text-black">{doc.title}</h3>
+              <p className="mt-0.5 text-sm text-gray-600">{doc.description}</p>
             </div>
             <div className="flex items-center gap-2">
               <Link
                 href={`/admin/compliance/binder/${doc.slug}`}
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-[#2D63A4] text-white text-sm font-medium hover:bg-[#002168]"
+                className="inline-flex items-center gap-2 rounded-lg bg-[#2D63A4] px-4 py-2 text-sm font-medium text-white hover:bg-[#002168]"
               >
-                View &amp; print / Save as PDF
+                View &amp; print
               </Link>
               <a
                 href={`/api/compliance-binder/${doc.slug}?download=1`}
                 download
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-gray-300 text-black text-sm font-medium hover:bg-gray-50"
+                className="inline-flex items-center gap-2 rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-black hover:bg-gray-50"
               >
                 Download .md
               </a>
@@ -62,47 +75,84 @@ export default function ComplianceBinderPage() {
         ))}
       </ul>
 
-      {PDF_DOCUMENTS.length > 0 && (
-        <>
-          <h2 className="text-lg font-semibold text-black mt-10 mb-3">Additional documents (PDFs)</h2>
-          <p className="text-sm text-gray-600 mb-4">
-            Add the PDF to your project at <code className="bg-gray-100 px-1 rounded">public/compliance-binder/</code> (e.g. export your .docx to PDF in Word, then save it there with the filename below).
-          </p>
-          <ul className="space-y-4">
-            {PDF_DOCUMENTS.map((doc) => (
-              <li
-                key={doc.file}
-                className="flex flex-wrap items-center gap-3 p-4 rounded-xl border border-gray-200 bg-white"
+      <h2 className="mt-10 mb-2 text-lg font-semibold text-black">SOP kits (print the complete PDF)</h2>
+      <p className="mb-4 text-sm text-gray-600">
+        These are the protocol kits from your Downloads folders. Print each <strong>complete</strong>{" "}
+        kit for the binder tabs. Individual SOPs are there if you only need one page.
+      </p>
+      <ul className="space-y-6">
+        {BINDER_PDF_KITS.map((kit) => (
+          <li key={kit.id} className="rounded-xl border border-gray-200 bg-white p-4">
+            <h3 className="font-semibold text-black">{kit.title}</h3>
+            <p className="mt-0.5 text-sm text-gray-600">{kit.description}</p>
+            <div className="mt-3 flex flex-wrap gap-2">
+              <a
+                href={`/compliance-binder/${kit.complete.file}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex rounded-lg bg-[#2D63A4] px-4 py-2 text-sm font-medium text-white hover:bg-[#002168]"
               >
-                <div className="flex-1 min-w-0">
-                  <h3 className="font-semibold text-black">{doc.title}</h3>
-                  <p className="text-sm text-gray-600 mt-0.5">{doc.description}</p>
-                </div>
-                <div className="flex items-center gap-2">
-                  <a
-                    href={`/compliance-binder/${doc.file}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-[#2D63A4] text-white text-sm font-medium hover:bg-[#002168]"
-                  >
-                    Open to print / Save as PDF
-                  </a>
-                  <a
-                    href={`/compliance-binder/${doc.file}`}
-                    download={doc.file}
-                    className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-gray-300 text-black text-sm font-medium hover:bg-gray-50"
-                  >
-                    Download PDF
-                  </a>
-                </div>
-              </li>
-            ))}
-          </ul>
-        </>
-      )}
+                Print complete kit
+              </a>
+              <a
+                href={`/compliance-binder/${kit.complete.file}`}
+                download
+                className="inline-flex rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-black hover:bg-gray-50"
+              >
+                Download complete kit
+              </a>
+            </div>
+            <details className="mt-3">
+              <summary className="cursor-pointer text-sm font-medium text-[#2D63A4]">
+                Individual SOPs
+              </summary>
+              <ul className="mt-2 space-y-1">
+                {kit.items.map((item) => (
+                  <li key={item.file}>
+                    <a
+                      href={`/compliance-binder/${item.file}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-sm text-black underline hover:text-[#E6007E]"
+                    >
+                      {item.title}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </details>
+          </li>
+        ))}
+      </ul>
+
+      <h2 className="mt-10 mb-3 text-lg font-semibold text-black">Signed agreement (add when you have it)</h2>
+      <ul className="space-y-4">
+        {BINDER_OPTIONAL_PDFS.map((doc) => (
+          <li
+            key={doc.file}
+            className="flex flex-wrap items-center gap-3 rounded-xl border border-gray-200 bg-white p-4"
+          >
+            <div className="min-w-0 flex-1">
+              <h3 className="font-semibold text-black">{doc.title}</h3>
+              <p className="mt-0.5 text-sm text-gray-600">{doc.description}</p>
+            </div>
+            <div className="flex items-center gap-2">
+              <a
+                href={`/compliance-binder/${doc.file}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex rounded-lg bg-[#2D63A4] px-4 py-2 text-sm font-medium text-white hover:bg-[#002168]"
+              >
+                Open
+              </a>
+            </div>
+          </li>
+        ))}
+      </ul>
 
       <p className="mt-8 text-sm text-gray-600">
-        <strong>Tip:</strong> Use &quot;View &amp; print&quot; then your browser&apos;s Print → &quot;Save as PDF&quot; to create PDFs for your binder. Or download the .md files and convert with Word or an online converter.
+        Templates only — not legal advice. Dr. Arora and counsel should review before you rely on
+        this packet in an IDFPR visit.
       </p>
     </div>
   );

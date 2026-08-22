@@ -8,29 +8,11 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import ReactMarkdown from 'react-markdown';
 
-const ALLOWED_SLUGS = [
-  '00-README',
-  '01-botox-complication-protocol',
-  '02-vascular-occlusion-emergency-protocol',
-  '03-hyaluronidase-emergency-protocol',
-  '04-laser-safety-protocol',
-  '05-patient-consent-requirements',
-  '06-standing-orders-injectables',
-  '07-chart-audit-checklist',
-  '08-illinois-idfpr-inspection-readiness',
-];
+import { BINDER_MD_DOCS, BINDER_MD_SLUGS } from '@/lib/compliance-binder-catalog';
 
-const SLUG_TITLES: Record<string, string> = {
-  '00-README': 'Compliance Binder — Index',
-  '01-botox-complication-protocol': 'Botox Complication Protocol',
-  '02-vascular-occlusion-emergency-protocol': 'Vascular Occlusion Emergency Protocol',
-  '03-hyaluronidase-emergency-protocol': 'Hyaluronidase Emergency Protocol',
-  '04-laser-safety-protocol': 'Laser Safety Protocol',
-  '05-patient-consent-requirements': 'Patient Consent Requirements',
-  '06-standing-orders-injectables': 'Standing Orders for Injectables',
-  '07-chart-audit-checklist': 'Chart Audit Checklist',
-  '08-illinois-idfpr-inspection-readiness': 'Illinois IDFPR Inspection Readiness Checklist',
-};
+const SLUG_TITLES: Record<string, string> = Object.fromEntries(
+  BINDER_MD_DOCS.map((d) => [d.slug, d.title]),
+);
 
 export default function BinderDocumentPage({ params }: { params: Promise<{ slug: string }> }) {
   const [slug, setSlug] = useState<string | null>(null);
@@ -43,7 +25,7 @@ export default function BinderDocumentPage({ params }: { params: Promise<{ slug:
     (async () => {
       const resolved = await params;
       const s = resolved?.slug;
-      if (!s || !ALLOWED_SLUGS.includes(s)) {
+      if (!s || !BINDER_MD_SLUGS.includes(s)) {
         setError('Document not found');
         setLoading(false);
         return;

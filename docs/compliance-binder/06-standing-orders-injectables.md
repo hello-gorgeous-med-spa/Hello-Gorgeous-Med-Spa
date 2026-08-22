@@ -85,7 +85,7 @@ Under these standing orders, the following may be performed by **authorized, tra
 
 I approve these standing orders for the injectable treatments and emergency measures described above, within the scope of my supervision and Illinois law.
 
-**Physician name (print):** _______________________  
+**Physician name (print):** Mukesh Arora, MD  
 **License number:** _______________________  
 **Signature:** _______________________  
 **Date:** _____________
