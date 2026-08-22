@@ -12,11 +12,10 @@ type CatalogItem = {
   category: string;
 };
 
-const PIN_KEY = "hg_kiosk_staff";
+const COVER_KEY = "hg_kiosk_cover";
 
 export default function KioskHubPage() {
-  const [unlocked, setUnlocked] = useState(false);
-  const [pin, setPin] = useState("");
+  const [covered, setCovered] = useState(false);
   const [forms, setForms] = useState<CatalogItem[]>([]);
   const [coreIds, setCoreIds] = useState<string[]>([]);
   const [selected, setSelected] = useState<Set<string>>(new Set());
@@ -30,11 +29,7 @@ export default function KioskHubPage() {
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      const saved = sessionStorage.getItem(PIN_KEY);
-      if (saved) {
-        setPin(saved);
-        setUnlocked(true);
-      }
+      setCovered(sessionStorage.getItem(COVER_KEY) === "1");
     }
     fetch("/api/kiosk/forms")
       .then((r) => r.json())
@@ -67,17 +62,15 @@ export default function KioskHubPage() {
     });
   }
 
-  function lock() {
-    sessionStorage.removeItem(PIN_KEY);
-    setUnlocked(false);
-    setPin("");
+  function coverDesk() {
+    sessionStorage.setItem(COVER_KEY, "1");
+    setCovered(true);
   }
 
-  async function unlock(e: React.FormEvent) {
-    e.preventDefault();
+  function showDesk() {
+    sessionStorage.removeItem(COVER_KEY);
+    setCovered(false);
     setErr(null);
-    sessionStorage.setItem(PIN_KEY, pin.trim());
-    setUnlocked(true);
   }
 
   async function startVisit() {
@@ -89,7 +82,6 @@ export default function KioskHubPage() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          pin,
           phone: phone.trim(),
           formIds: [...selected],
           firstName: firstName.trim(),
@@ -97,11 +89,6 @@ export default function KioskHubPage() {
         }),
       });
       const data = await res.json().catch(() => ({}));
-      if (res.status === 401) {
-        setErr("Wrong staff PIN. Unlock again.");
-        lock();
-        return;
-      }
       if (res.status === 404 && /first and last name/i.test(String(data.error || ""))) {
         setNeedName(true);
         setErr(data.error);
@@ -122,32 +109,20 @@ export default function KioskHubPage() {
     }
   }
 
-  if (!unlocked) {
+  if (covered) {
     return (
       <div className="min-h-screen bg-[#1a1a1a] text-white flex flex-col items-center justify-center px-6 py-16">
         <div className="max-w-md w-full text-center">
           <p className="text-[#FF1493] text-xs tracking-[0.2em] uppercase mb-3">Hello Gorgeous Med Spa</p>
           <h1 className="font-serif text-3xl font-light mb-2">Consent iPad</h1>
-          <p className="text-white/60 text-sm mb-8">Staff unlock — then pick the forms for this client.</p>
-          <form onSubmit={unlock} className="space-y-4 text-left">
-            <label className="block text-xs uppercase tracking-wider text-white/50">Staff PIN</label>
-            <input
-              type="password"
-              inputMode="numeric"
-              autoComplete="off"
-              value={pin}
-              onChange={(e) => setPin(e.target.value)}
-              placeholder="Desk PIN"
-              className="w-full rounded-lg border border-white/20 bg-white/5 px-4 py-3 text-white outline-none focus:border-[#FF1493]"
-            />
-            <button
-              type="submit"
-              className="w-full rounded-lg bg-[#FF1493] text-white py-3 font-medium"
-            >
-              Unlock desk
-            </button>
-          </form>
-          {err && <p className="mt-6 text-sm text-red-300">{err}</p>}
+          <p className="text-white/60 text-sm mb-8">Hand this back to the desk when you are done signing.</p>
+          <button
+            type="button"
+            onClick={showDesk}
+            className="w-full rounded-lg bg-[#FF1493] text-white py-3 font-medium"
+          >
+            Open desk
+          </button>
         </div>
       </div>
     );
@@ -164,11 +139,11 @@ export default function KioskHubPage() {
               Pick the forms for this visit, enter their cell, then hand them the iPad to sign.
             </p>
             <p className="text-white/40 text-xs mt-2">
-              Library lives at Admin → Founder Control → Consents &amp; Legal. This iPad assigns them — not Hub.
+              This iPad assigns forms — not Hub. Signed copies land on the client chart.
             </p>
           </div>
-          <button type="button" onClick={lock} className="text-xs text-white/40 underline shrink-0 mt-2">
-            Lock
+          <button type="button" onClick={coverDesk} className="text-xs text-white/40 underline shrink-0 mt-2">
+            Cover
           </button>
         </div>
 

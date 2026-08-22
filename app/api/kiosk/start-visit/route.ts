@@ -2,20 +2,17 @@ import { NextRequest, NextResponse } from "next/server";
 
 import { getSupabaseAdminClient } from "@/lib/hgos/supabase-admin";
 import { startKioskVisit } from "@/lib/kiosk/start-visit";
-import { getStaffPortalPin, pinMatches } from "@/lib/staff-session";
 import { originFromRequest } from "@/lib/url/request-origin";
 
 export const dynamic = "force-dynamic";
 
 export async function POST(request: NextRequest) {
-  const expectedPin = getStaffPortalPin();
   const supabase = getSupabaseAdminClient();
   if (!supabase) {
     return NextResponse.json({ error: "Database not configured" }, { status: 503 });
   }
 
   let body: {
-    pin?: string;
     phone?: string;
     formIds?: string[];
     firstName?: string;
@@ -26,10 +23,6 @@ export async function POST(request: NextRequest) {
     body = await request.json();
   } catch {
     return NextResponse.json({ error: "Invalid JSON" }, { status: 400 });
-  }
-
-  if (expectedPin && !pinMatches(String(body.pin || ""), expectedPin)) {
-    return NextResponse.json({ error: "Wrong staff PIN." }, { status: 401 });
   }
 
   const result = await startKioskVisit(supabase, {
