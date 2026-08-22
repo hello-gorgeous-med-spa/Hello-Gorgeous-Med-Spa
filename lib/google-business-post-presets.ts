@@ -18,6 +18,23 @@ export type GbpPostPreset = {
 
 export const GBP_POST_PRESETS: GbpPostPreset[] = [
   {
+    id: "botox-side-effects-blog",
+    label: "Botox side effects — what's normal (blog)",
+    message: `What's normal after Botox — and what isn't.
+
+Droopy lid? Heavy brow? One side moving more than the other?
+
+At Hello Gorgeous in Oswego, almost everything that looks "off" in the first week is still settling. Day 14 is the first fair look. Here's what to wait for, what we can adjust, and the symptoms that mean call us today.
+
+Ryan Kent, FNP-BC on site · 74 W Washington St
+(630) 636-6193
+
+Read the guide:`,
+    linkPath:
+      "/blog/botox-side-effects-what-to-expect?utm_source=google&utm_medium=gbp_post&utm_campaign=botox_side_effects_2026",
+    imagePath: "/images/homepage-services/botox-cosmetic-authentic-vial.png",
+  },
+  {
     id: "fall-into-facials-2026",
     label: "Fall into Facials — Glow $129 · Trifecta $199",
     message: FALL_FACIALS_GBP,

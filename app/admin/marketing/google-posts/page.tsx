@@ -237,6 +237,16 @@ Mention "Glow Event" when you book. Oswego, IL — serving Naperville, Aurora, P
     ctaUrl: BOOKING_URL,
   },
   {
+    id: 'botox-side-effects-blog',
+    title: "What's Normal After Botox — Blog",
+    type: 'Update',
+    headline: "What's Normal After Botox — and What Isn't",
+    description:
+      'Droopy lid, heavy brow, or uneven results? Day 14 is the first fair look. What to wait for, what we can adjust in Oswego, and when to call (630) 636-6193. Read the guide.',
+    ctaText: 'Read guide',
+    ctaUrl: 'https://www.hellogorgeousmedspa.com/blog/botox-side-effects-what-to-expect',
+  },
+  {
     id: 'botox-faq-blog',
     title: 'Botox vs Dysport vs Jeuveau — FAQ Blog',
     type: 'Update',
