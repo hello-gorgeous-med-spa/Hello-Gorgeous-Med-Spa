@@ -10,6 +10,8 @@ SOP kits:
 
 Credentials on file:
 - dr-arora-idfpr-licenses-exp-2029.pdf  (Physician & Surgeon 036.097343 + CS 336.057947, exp 7/31/2029)
+- hello-gorgeous-arora-management-agreement-2026-draft.pdf  (FINAL DRAFT + BAA, unsigned)
 
 Still needed:
-- Signed medical director / collaborative agreement → ryan_2026_medical_director_agreement.pdf
+- Signed management agreement (swap in after both sign)
+- Signed medical director agreement → ryan_2026_medical_director_agreement.pdf

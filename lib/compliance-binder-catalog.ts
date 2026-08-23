@@ -158,6 +158,12 @@ export const BINDER_ON_FILE_PDFS: BinderPdfDoc[] = [
     description:
       "Illinois Licensed Physician and Surgeon 036.097343 and Physician Controlled Substance 336.057947 (schedules II–V). Print for the credentials tab.",
   },
+  {
+    file: "hello-gorgeous-arora-management-agreement-2026-draft.pdf",
+    title: "Hello Gorgeous P.C. + Dr. Arora — management agreement (FINAL DRAFT, Aug 1 2026)",
+    description:
+      "19-page management agreement, exhibits, and BAA. Signature lines are still blank — print for him to sign, then swap in the signed original.",
+  },
 ];
 
 export const BINDER_OPTIONAL_PDFS: BinderPdfDoc[] = [
@@ -165,7 +171,7 @@ export const BINDER_OPTIONAL_PDFS: BinderPdfDoc[] = [
     file: "ryan_2026_medical_director_agreement.pdf",
     title: "Medical Director / collaborative agreement (signed PDF)",
     description:
-      "Add the signed agreement as public/compliance-binder/ryan_2026_medical_director_agreement.pdf when you have it.",
+      "This packet’s management agreement mentions a separate Medical Director Agreement. Add the signed MDA here when you have it.",
   },
 ];
 

@@ -58,12 +58,18 @@ These documents are **practice templates**. They are not a substitute for the Me
 
 Each kit PDF already includes a medical-director authorization block. Sign those kit pages **or** initial below that the complete kits are adopted with this cover.
 
+### C. Credentials tab (print the PDFs)
+
+- Dr. Arora IDFPR licenses (physician + controlled substance, exp 7/31/2029)  
+- Hello Gorgeous P.C. + Dr. Arora management agreement + BAA *(FINAL DRAFT — replace with signed original)*  
+- Separate Medical Director Agreement *(still needed — referenced in the management agreement)*
+
 ---
 
 ## How the front desk uses this after signature
 
-1. Hole-punch the signed cover, sections 01–12, standing orders, and the three kit PDFs.  
-2. Tabs: **Sign-off · Emergency · Injectables · Laser · Consents · GLP-1 · IDFPR · Kits**.  
+1. Hole-punch the signed cover, sections 01–12, standing orders, the three kit PDFs, and the credentials tab.  
+2. Tabs: **Sign-off · Emergency · Injectables · Laser · Consents · GLP-1 · IDFPR · Kits · Credentials**.  
 3. Store at the front desk. Do not take the original off site.  
 4. To reprint after wear or a lost page: Admin → Clinical Guidance → **Compliance Binder** → **Print packet**.  
 5. Re-sign at least **annually**, or when a molecule, device, or supervising physician changes.
