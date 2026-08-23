@@ -4,6 +4,7 @@ import Link from "next/link";
 
 import {
   BINDER_MD_DOCS,
+  BINDER_ON_FILE_PDFS,
   BINDER_OPTIONAL_PDFS,
   BINDER_PDF_KITS,
   BINDER_PRINT_PATH,
@@ -125,7 +126,39 @@ export default function ComplianceBinderPage() {
         ))}
       </ul>
 
-      <h2 className="mt-10 mb-3 text-lg font-semibold text-black">Signed agreement (add when you have it)</h2>
+      <h2 className="mt-10 mb-3 text-lg font-semibold text-black">Credentials on file</h2>
+      <ul className="space-y-4">
+        {BINDER_ON_FILE_PDFS.map((doc) => (
+          <li
+            key={doc.file}
+            className="flex flex-wrap items-center gap-3 rounded-xl border border-gray-200 bg-white p-4"
+          >
+            <div className="min-w-0 flex-1">
+              <h3 className="font-semibold text-black">{doc.title}</h3>
+              <p className="mt-0.5 text-sm text-gray-600">{doc.description}</p>
+            </div>
+            <div className="flex items-center gap-2">
+              <a
+                href={`/compliance-binder/${doc.file}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex rounded-lg bg-[#2D63A4] px-4 py-2 text-sm font-medium text-white hover:bg-[#002168]"
+              >
+                Open / print
+              </a>
+              <a
+                href={`/compliance-binder/${doc.file}`}
+                download
+                className="inline-flex rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-black hover:bg-gray-50"
+              >
+                Download
+              </a>
+            </div>
+          </li>
+        ))}
+      </ul>
+
+      <h2 className="mt-10 mb-3 text-lg font-semibold text-black">Still needed</h2>
       <ul className="space-y-4">
         {BINDER_OPTIONAL_PDFS.map((doc) => (
           <li

@@ -150,6 +150,16 @@ export const BINDER_PDF_KITS: BinderPdfKit[] = [
   },
 ];
 
+/** Credentials already in the front-desk binder. */
+export const BINDER_ON_FILE_PDFS: BinderPdfDoc[] = [
+  {
+    file: "dr-arora-ismie-certificate-2026-2027.pdf",
+    title: "Dr. Arora — malpractice certificate (ISMIE, 9/1/2026–9/1/2027)",
+    description:
+      "Certificate of Insurance on file. $1M / $3M. Internal Medicine. Print a copy for the credentials tab.",
+  },
+];
+
 export const BINDER_OPTIONAL_PDFS: BinderPdfDoc[] = [
   {
     file: "ryan_2026_medical_director_agreement.pdf",
