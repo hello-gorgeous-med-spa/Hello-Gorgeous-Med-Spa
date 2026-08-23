@@ -9,8 +9,7 @@ SOP kits:
 - protocols/skin-laser/   Skin & laser (SKN-001–009)
 
 Credentials on file:
-- dr-arora-ismie-certificate-2026-2027.pdf  (malpractice COI, 9/1/2026–9/1/2027)
+- dr-arora-idfpr-licenses-exp-2029.pdf  (Physician & Surgeon 036.097343 + CS 336.057947, exp 7/31/2029)
 
 Still needed:
 - Signed medical director / collaborative agreement → ryan_2026_medical_director_agreement.pdf
-- IDFPR wallet / medical license printout (this folder’s COI is insurance, not the state license)

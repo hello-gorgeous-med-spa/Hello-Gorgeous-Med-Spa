@@ -153,10 +153,10 @@ export const BINDER_PDF_KITS: BinderPdfKit[] = [
 /** Credentials already in the front-desk binder. */
 export const BINDER_ON_FILE_PDFS: BinderPdfDoc[] = [
   {
-    file: "dr-arora-ismie-certificate-2026-2027.pdf",
-    title: "Dr. Arora — malpractice certificate (ISMIE, 9/1/2026–9/1/2027)",
+    file: "dr-arora-idfpr-licenses-exp-2029.pdf",
+    title: "Dr. Arora — IDFPR licenses (physician + controlled substance, exp 7/31/2029)",
     description:
-      "Certificate of Insurance on file. $1M / $3M. Internal Medicine. Print a copy for the credentials tab.",
+      "Illinois Licensed Physician and Surgeon 036.097343 and Physician Controlled Substance 336.057947 (schedules II–V). Print for the credentials tab.",
   },
 ];
 

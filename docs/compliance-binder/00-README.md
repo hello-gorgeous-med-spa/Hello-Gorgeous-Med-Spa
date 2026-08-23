@@ -24,7 +24,7 @@
 | 12 | [Practice Readiness Audit](./12-practice-readiness-audit.md) | 35-point Yes/No/Not sure audit mapped to this binder; score, roadmap, 30-day sprint. |
 | 13 | [Medical Director Adoption & Sign-Off](./13-medical-director-adoption.md) | Cover sheet for Dr. Mukesh Arora, MD — sign, then file the original at the front desk. |
 | — | **SOP kits (PDF)** | Operations (OPS-001–005), Weight loss (WL-001–010), Skin & laser (SKN-001–009) in `public/compliance-binder/protocols/`. Print the three COMPLETE kit PDFs. |
-| — | **Dr. Arora malpractice certificate** (PDF) | ISMIE COI on file: `dr-arora-ismie-certificate-2026-2027.pdf` (policy 9/1/2026–9/1/2027). |
+| — | **Dr. Arora IDFPR licenses** (PDF) | Physician & Surgeon 036.097343 and Controlled Substance 336.057947, exp 7/31/2029: `dr-arora-idfpr-licenses-exp-2029.pdf`. |
 | — | **Medical Director Agreement** (PDF) | Add the signed agreement as `ryan_2026_medical_director_agreement.pdf` in `public/compliance-binder/`. |
 
 ---
