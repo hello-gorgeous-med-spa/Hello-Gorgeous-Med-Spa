@@ -249,8 +249,9 @@ export default function AdminLayoutClient({ children }: { children: React.ReactN
   const isCommandCenter =
     pathname === '/admin/command-center' || pathname.startsWith('/admin/command-center/');
   const isOwnerHome = pathname === '/admin/owner' || pathname === '/admin/owner/';
-  
-  if (isCommandCenter || isOwnerHome) {
+  const isConsentPrint = pathname.startsWith('/admin/owner/consents/print');
+
+  if (isCommandCenter || isOwnerHome || isConsentPrint) {
     return (
       <ToastProvider>
         <KeyboardShortcutsProvider>{children}</KeyboardShortcutsProvider>

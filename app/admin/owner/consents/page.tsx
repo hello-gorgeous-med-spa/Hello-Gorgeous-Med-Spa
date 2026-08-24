@@ -5,7 +5,7 @@
 // Consent forms, versioning, enforcement, print, download, send
 // ============================================================
 
-import { useState, useRef, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import OwnerLayout from '../layout-wrapper';
 import { CONSENT_FORMS, type ConsentForm as ConsentFormType } from '@/lib/hgos/consent-forms';
 
@@ -56,7 +56,6 @@ export default function ConsentsPage() {
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [categoryFilter, setCategoryFilter] = useState<string>('all');
-  const printRef = useRef<HTMLDivElement>(null);
   
   // Client search state
   const [clientSearch, setClientSearch] = useState('');
@@ -161,109 +160,19 @@ export default function ConsentsPage() {
     return matchesSearch && matchesCategory;
   });
 
-  // Print function
-  const handlePrint = (form: ConsentFormType) => {
-    const printWindow = window.open('', '_blank');
-    if (!printWindow) {
-      alert('Please allow popups to print');
-      return;
-    }
-
-    const printContent = `
-      <!DOCTYPE html>
-      <html>
-      <head>
-        <title>${form.name} - Hello Gorgeous Med Spa</title>
-        <style>
-          body { 
-            font-family: 'Times New Roman', serif; 
-            font-size: 12pt; 
-            line-height: 1.6; 
-            max-width: 8.5in;
-            margin: 0.75in auto;
-            padding: 0 0.5in;
-          }
-          h2 { text-align: center; margin-bottom: 20px; font-size: 16pt; }
-          h3 { margin-top: 20px; margin-bottom: 10px; font-size: 13pt; }
-          .clinic-name { text-align: center; margin-bottom: 30px; }
-          .important-notice { background: #fff3cd; padding: 15px; border: 1px solid #ffc107; margin: 20px 0; }
-          .warning-box { background: #f8d7da; padding: 15px; border: 1px solid #f5c6cb; margin: 20px 0; }
-          .signature-block { margin-top: 40px; padding-top: 20px; border-top: 1px solid #ccc; }
-          ul { margin-left: 20px; }
-          li { margin-bottom: 5px; }
-          .footer { margin-top: 60px; }
-          .signature-line { border-bottom: 1px solid #000; width: 300px; display: inline-block; margin: 5px 0; }
-          .date-line { border-bottom: 1px solid #000; width: 150px; display: inline-block; margin: 5px 0; }
-          @media print {
-            body { margin: 0.5in; }
-          }
-        </style>
-      </head>
-      <body>
-        ${form.content}
-        <div class="footer">
-          <p><strong>Patient Signature:</strong> <span class="signature-line"></span></p>
-          <p><strong>Printed Name:</strong> <span class="signature-line"></span></p>
-          <p><strong>Date:</strong> <span class="date-line"></span></p>
-          <br>
-          <p style="font-size: 10pt; color: #666;">Form Version: ${form.version} | Last Updated: ${form.lastUpdated}</p>
-        </div>
-      </body>
-      </html>
-    `;
-
-    printWindow.document.write(printContent);
-    printWindow.document.close();
-    printWindow.onload = () => {
-      printWindow.print();
-    };
+  const openPrintPage = (form: ConsentFormType, autoprint: boolean) => {
+    const url = `/admin/owner/consents/print/${form.id}${autoprint ? "?autoprint=1" : ""}`;
+    window.open(url, "_blank", "noopener,noreferrer");
   };
 
-  // Download PDF function
-  const handleDownloadPDF = async (form: ConsentFormType) => {
-    // Create a blob with HTML content that can be converted to PDF
-    const htmlContent = `
-      <!DOCTYPE html>
-      <html>
-      <head>
-        <title>${form.name}</title>
-        <style>
-          body { font-family: 'Times New Roman', serif; font-size: 12pt; line-height: 1.6; padding: 40px; }
-          h2 { text-align: center; margin-bottom: 20px; }
-          h3 { margin-top: 20px; margin-bottom: 10px; }
-          .clinic-name { text-align: center; margin-bottom: 30px; }
-          .important-notice { background: #fff3cd; padding: 15px; border: 1px solid #ffc107; margin: 20px 0; }
-          .warning-box { background: #f8d7da; padding: 15px; border: 1px solid #f5c6cb; margin: 20px 0; }
-          .signature-block { margin-top: 40px; padding-top: 20px; border-top: 1px solid #ccc; }
-          ul { margin-left: 20px; }
-          li { margin-bottom: 5px; }
-          .signature-line { border-bottom: 1px solid #000; width: 300px; display: inline-block; }
-        </style>
-      </head>
-      <body>
-        ${form.content}
-        <div style="margin-top: 60px;">
-          <p><strong>Patient Signature:</strong> <span class="signature-line"></span></p>
-          <p><strong>Printed Name:</strong> <span class="signature-line"></span></p>
-          <p><strong>Date:</strong> _______________</p>
-          <p style="margin-top: 20px; font-size: 10pt; color: #666;">Form Version: ${form.version} | Last Updated: ${form.lastUpdated}</p>
-        </div>
-      </body>
-      </html>
-    `;
+  const handlePrint = (form: ConsentFormType) => openPrintPage(form, true);
 
-    // Create blob and download
-    const blob = new Blob([htmlContent], { type: 'text/html' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `${form.id}-consent-form-v${form.version}.html`;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-
-    setMessage({ type: 'success', text: `Downloaded ${form.shortName} consent form. Open in browser and print to PDF for best results.` });
+  const handleDownloadPDF = (form: ConsentFormType) => {
+    openPrintPage(form, false);
+    setMessage({
+      type: "success",
+      text: `Opened ${form.shortName}. Use Print → Save as PDF.`,
+    });
     setTimeout(() => setMessage(null), 5000);
   };
 
@@ -515,8 +424,8 @@ export default function ConsentsPage() {
         <div className="bg-blue-50 border border-blue-200 rounded-xl p-4">
           <h3 className="font-medium text-blue-800">📋 Consent Form Management</h3>
           <ul className="text-sm text-blue-700 mt-2 space-y-1">
-            <li>• <strong>Print:</strong> Opens form in new window for printing</li>
-            <li>• <strong>Download:</strong> Downloads HTML file - open in browser and use "Print to PDF"</li>
+            <li>• <strong>Print:</strong> Opens a clean form page (sidebar hidden) — print or Save as PDF</li>
+            <li>• <strong>Download:</strong> Opens the same clean form — use Print → Save as PDF</li>
             <li>• <strong>Send:</strong> Emails or texts consent link to client for digital signature</li>
             <li>• All forms are HIPAA-compliant with arbitration and liability clauses</li>
             <li>• Version control ensures legal compliance - previous versions are preserved</li>
@@ -575,9 +484,8 @@ export default function ConsentsPage() {
                 </button>
               </div>
             </div>
-            <div 
+            <div
               className="p-6 overflow-y-auto max-h-[calc(90vh-80px)] prose prose-sm max-w-none"
-              ref={printRef}
               dangerouslySetInnerHTML={{ __html: selectedForm.content }}
             />
           </div>
