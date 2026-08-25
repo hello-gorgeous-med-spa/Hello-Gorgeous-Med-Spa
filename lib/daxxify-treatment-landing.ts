@@ -83,7 +83,7 @@ export const DAXXIFY_TREATMENT_LANDING: InModeTreatmentLandingContent = {
       href: "/xeomin-oswego",
       eyebrow: "Neurotoxin",
       title: "Xeomin",
-      blurb: "Purified option — priced at consult.",
+      blurb: "Purified “naked” toxin — $12/unit.",
     },
     {
       href: "/services/injectables",

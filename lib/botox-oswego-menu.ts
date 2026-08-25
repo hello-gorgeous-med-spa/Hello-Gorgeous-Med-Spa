@@ -37,7 +37,7 @@ export const BOTOX_OSWEGO_MENU: ServiceMenuConfig = {
         { label: "Botox", price: "As low as $9/unit", href: BOTOX_OSWEGO_PATH },
         { label: "Jeuveau", price: "$11/unit", href: "/jeuveau-oswego" },
         { label: "Dysport", price: "$14/unit", href: "/dysport-oswego", note: "Often 2–3× Botox units" },
-        { label: "Xeomin", price: "Consult", href: "/xeomin-oswego-il" },
+        { label: "Xeomin", price: "$12/unit", href: "/xeomin-oswego" },
         { label: "Daxxify — 6-month neurotoxin", price: "Consult", href: "/daxxify-oswego-il" },
         { label: "Lip flip", price: "From $99", href: "/lip-flip-oswego-il", note: "~4 units" },
       ],

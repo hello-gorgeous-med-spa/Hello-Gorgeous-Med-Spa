@@ -353,6 +353,7 @@ const nextConfig = {
     { source: "/botox%2C-dysport-%26-jeuveau", destination: "/services/injectables", permanent: true },
     { source: "/botox-dysport", destination: "/services/injectables", permanent: true },
     { source: "/botox-oswego-il", destination: "/botox-oswego", permanent: true },
+    { source: "/xeomin", destination: "/xeomin-oswego", permanent: true },
     { source: "/xeomin-oswego-il", destination: "/xeomin-oswego", permanent: true },
     { source: "/daxxify-oswego-il", destination: "/daxxify-oswego", permanent: true },
     // peptide-therapy-oswego-il is a live Phase 9 GBP lander (SEO-001) — do not redirect

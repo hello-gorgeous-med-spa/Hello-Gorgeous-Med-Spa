@@ -283,7 +283,7 @@ export function NeurotoxinComparisonContent() {
           <Prod
             name="Xeomin"
             gen="incobotulinumtoxinA · Merz"
-            href="/xeomin-oswego-il"
+            href="/xeomin-oswego"
             body='The "naked" toxin — purified, with the accessory proteins stripped out. The theory is that fewer proteins means less for the immune system to react to, which matters for the small number of long-term patients who find results fading over years. Worth knowing the evidence here is more nuanced than the marketing.'
             consider="You've used toxin for years and feel it works less well"
             elsewhere="You want the longest duration"

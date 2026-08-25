@@ -487,7 +487,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     'jeuveau-oswego-il',
     'jeuveau-naperville-il',
     'jeuveau-aurora-il',
-    'xeomin-oswego-il',
+    'xeomin-oswego',
     'xeomin-naperville-il',
   ].map((slug) => ({
     url: `${baseUrl}/${slug}`,
@@ -1298,6 +1298,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const REDIRECTING_PATHS = new Set<string>([
     '/services/botox-dysport-jeuveau', // → /botox-oswego
     '/botox-oswego-il',                // → /botox-oswego
+    '/xeomin',                         // → /xeomin-oswego
+    '/xeomin-oswego-il',               // → /xeomin-oswego
     '/services/morpheus8',             // → /morpheus8-burst-oswego
     '/services/quantum-rf',            // → /quantum-rf-oswego
     '/services/solaria-co2',           // → /solaria-co2-oswego
@@ -1315,6 +1317,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/build-your-proposal',
     '/book',
     '/botox-oswego',
+    '/xeomin-oswego',
     '/dysport-oswego',
     '/jeuveau-oswego',
     '/dermal-fillers-oswego',

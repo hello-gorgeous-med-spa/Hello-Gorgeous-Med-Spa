@@ -143,6 +143,12 @@ const NAV = {
         sub: "Botox $10 · Lip filler · Morpheus8 · Solaria · Trifecta",
       },
       {
+        label: "Xeomin — Now Available",
+        href: "/xeomin-oswego",
+        sub: "Purified “naked” toxin · $12/unit · NP-administered",
+        badge: "NEW",
+      },
+      {
         label: "Daxxify — Now Available",
         href: "/daxxify-oswego-il",
         sub: "6-month neurotoxin · only Fox Valley provider with all 5 brands",

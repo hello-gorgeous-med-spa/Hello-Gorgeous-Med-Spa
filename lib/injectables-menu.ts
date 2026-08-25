@@ -32,7 +32,7 @@ export const INJECTABLES_MENU: ServiceMenuConfig = {
         { label: "Botox", price: "$10/unit", href: "/botox-oswego" },
         { label: "Jeuveau", price: "$11/unit", href: "/jeuveau-oswego" },
         { label: "Dysport", price: "$14/unit", href: "/dysport-oswego", note: "Typically 2–3× Botox units" },
-        { label: "Xeomin", price: "Consult", href: "/xeomin-oswego" },
+        { label: "Xeomin", price: "$12/unit", href: "/xeomin-oswego" },
         { label: "Daxxify — 6-month neurotoxin", price: "Consult", href: "/daxxify-oswego", note: "Longest-lasting option" },
         { label: "Lip flip", price: "From $99", href: "/lip-flip-oswego-il" },
       ],

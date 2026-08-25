@@ -27,6 +27,9 @@ export const SQUARE_RX_TELEHEALTH_SERVICE_VARIATION_ID = "ZLCRRG4BM6W2DCLWDWIDVB
  */
 export const SQUARE_RX_PEPTIDE_CONSULT_SERVICE_VARIATION_ID = "7QOZ5JWUYXB2622D5XZWJ6FR";
 
+/** Square Appointments — Xeomin $12/unit, 30 min, Ryan only. */
+export const SQUARE_XEOMIN_SERVICE_VARIATION_ID = "3MQB3NQLQW4RFFYVMOADH3SN";
+
 /**
  * Square Appointments — "Vitamin Injection Bar — Choose Your Shot" ($25, 10 min).
  * The in-clinic shot a nurse gives, as opposed to the pharmacy-shipped vials on
@@ -75,6 +78,11 @@ export const SQUARE_RX_TELEHEALTH_BOOKING_URL =
 export const SQUARE_RX_PEPTIDE_CONSULT_BOOKING_URL =
   process.env.NEXT_PUBLIC_SQUARE_RX_PEPTIDE_CONSULT_URL?.trim() ||
   `https://book.squareup.com/appointments/${SQUARE_RX_BOOKING_SITE_ID}/location/${SQUARE_RX_LOCATION_ID}/services/${SQUARE_RX_PEPTIDE_CONSULT_SERVICE_VARIATION_ID}`;
+
+/** Xeomin — Square Appointments deep link. */
+export const SQUARE_XEOMIN_BOOKING_URL =
+  process.env.NEXT_PUBLIC_SQUARE_XEOMIN_URL?.trim() ||
+  `https://book.squareup.com/appointments/${SQUARE_RX_BOOKING_SITE_ID}/location/${SQUARE_RX_LOCATION_ID}/services/${SQUARE_XEOMIN_SERVICE_VARIATION_ID}`;
 
 /**
  * In-clinic vitamin shot ($25) — Square Appointments deep link. Override with

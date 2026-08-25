@@ -17,8 +17,8 @@ export const XEOMIN_TREATMENT_LANDING: InModeTreatmentLandingContent = {
     "Smooth, glowing skin — Xeomin aesthetic results at Hello Gorgeous Med Spa Oswego IL",
   heroObjectPosition: "object-[center_35%]",
   heroPortraitFocus: true,
-  priceLine: "Priced at consult",
-  priceNote: "Custom units mapped to your goals — you approve dosing before we inject.",
+  priceLine: "$12/unit",
+  priceNote: "Units mapped at your visit — you approve dosing before we inject.",
   trustItems: [...NEUROTOXIN_TRUST],
   whatTitle: "About Xeomin at Hello Gorgeous",
   whatBody: [
@@ -60,7 +60,7 @@ export const XEOMIN_TREATMENT_LANDING: InModeTreatmentLandingContent = {
     },
     {
       q: "How much does Xeomin cost?",
-      a: "Priced at consult after we map units to your face. We publish Botox, Dysport, and Jeuveau unit prices on our menu; Xeomin is quoted honestly before treatment.",
+      a: "$12 per unit. Ryan maps the number of units to your face at the visit, and you approve the total before we inject.",
     },
     {
       q: "Will I look frozen?",
@@ -73,7 +73,7 @@ export const XEOMIN_TREATMENT_LANDING: InModeTreatmentLandingContent = {
   ],
   consultTitle: "Is Xeomin right for you?",
   consultBody:
-    "Book a free consultation. We’ll compare Xeomin with Botox, Dysport, Jeuveau, and Daxxify — and recommend the best fit for your face.",
+    "Book Xeomin with Ryan — $12/unit, mapped at the visit. We’ll also tell you if Botox, Dysport, Jeuveau, or Daxxify is a better fit.",
   related: [
     {
       href: "/botox-oswego",

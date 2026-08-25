@@ -189,7 +189,7 @@ export default function DaxxifyOswegoPage() {
               <Link href="/book" className="inline-flex items-center justify-center px-8 py-4 bg-[#FF2D8E] text-white font-semibold rounded-xl hover:bg-[#e0267d] transition-all text-lg">Book Daxxify Consultation</Link>
               <a href={`tel:${SITE.phone}`} className="inline-flex items-center justify-center px-8 py-4 border-2 border-white text-white font-semibold rounded-xl hover:bg-white hover:text-black transition-all text-lg">Call {SITE.phone}</a>
             </div>
-            <p className="text-gray-500 text-sm mt-6">Also offering: <Link href="/botox-oswego-il" className="text-gray-400 underline">Botox</Link> · <Link href="/dysport-oswego-il" className="text-gray-400 underline">Dysport</Link> · <Link href="/jeuveau-oswego-il" className="text-gray-400 underline">Jeuveau</Link> · <Link href="/xeomin-oswego-il" className="text-gray-400 underline">Xeomin</Link></p>
+            <p className="text-gray-500 text-sm mt-6">Also offering: <Link href="/botox-oswego-il" className="text-gray-400 underline">Botox</Link> · <Link href="/dysport-oswego-il" className="text-gray-400 underline">Dysport</Link> · <Link href="/jeuveau-oswego-il" className="text-gray-400 underline">Jeuveau</Link> · <Link href="/xeomin-oswego" className="text-gray-400 underline">Xeomin</Link></p>
           </div>
         </section>
       </main>
