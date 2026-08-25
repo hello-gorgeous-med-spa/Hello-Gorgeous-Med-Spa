@@ -19,6 +19,7 @@ import { tirzepatideProgramLetterPost } from "./blog-post-tirzepatide-program-le
 import { hgIdentityBlogPost } from "./blog-post-hg-identity";
 import { maleFemalePractitionersPost } from "./blog-post-male-female-practitioners";
 import { neurotoxinComparisonPost } from "./blog-post-neurotoxin-comparison";
+import { neurotoxinSixComparisonPost } from "./blog-post-neurotoxin-six-comparison";
 import { aestheticInjectablesAnteagePearlPost } from "./blog-post-aesthetic-injectables-anteage-pearl";
 import { peptideTherapyBlogPost } from "./blog-post-peptide-therapy-article";
 import { topPeptides49ConsultBlogPost } from "./blog-post-top-peptides-49-consult";
@@ -44,6 +45,7 @@ import type { BlogPost } from "./blog-types";
 export type { BlogPost } from "./blog-types";
 
 const coreBlogPosts: BlogPost[] = [
+  neurotoxinSixComparisonPost,
   botoxSideEffectsPost,
   retatrutideFdaFiling2027Post,
   regenLaunchOswegoPost,

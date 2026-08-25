@@ -240,6 +240,25 @@ Read why our male + female provider team is a real advantage 👇`,
     link: `${SITE_URL}/blog/male-female-practitioners-med-spa-advantage-oswego-il`,
     imagePath: "/images/providers/ryan-kent-clinic.jpg",
   },
+  "neurotoxin-comparison": {
+    label: "Six wrinkle relaxers compared",
+    channels: ["facebook", "google"],
+    message: `💉 NEW: All 6 wrinkle relaxers compared — Botox, Dysport, Xeomin, Jeuveau, Daxxify & Letybo
+
+The trap: a “unit” is not the same between brands. Always ask for the price of YOUR area — not the price per unit.
+
+We carry 5 in downtown Oswego:
+Botox · Dysport · Xeomin · Jeuveau · Daxxify
+
+Ryan Kent, FNP-BC on site 6 days a week
+Medical Director Dr. Mukesh Arora, MD
+74 W. Washington St., Oswego IL
+
+Read the full comparison 👇
+Individual results vary. Not medical advice.`,
+    link: `${SITE_URL}/blog/neurotoxin-comparison`,
+    imagePath: "/images/homepage-services/botox-cosmetic-authentic-vial.png",
+  },
   "botox-vs-dysport-vs-jeuveau-faq-oswego": {
     label: "Botox vs Dysport vs Jeuveau guide",
     message: `💉 NEW: Choose Your Glow — Botox vs Dysport vs Jeuveau at Hello Gorgeous Med Spa, Oswego IL

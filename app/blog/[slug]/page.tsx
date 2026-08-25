@@ -7,7 +7,9 @@ import { blogPostNeedsMedicalReviewer, medicalWebPageJsonLd } from "@/lib/founde
 import { SITE, breadcrumbJsonLd, faqJsonLd } from "@/lib/seo";
 
 export async function generateStaticParams() {
-  return getAllSlugs().map((slug) => ({ slug }));
+  return getAllSlugs()
+    .filter((slug) => slug !== "neurotoxin-comparison")
+    .map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
