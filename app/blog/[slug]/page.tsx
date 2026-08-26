@@ -8,7 +8,7 @@ import { SITE, breadcrumbJsonLd, faqJsonLd } from "@/lib/seo";
 
 export async function generateStaticParams() {
   return getAllSlugs()
-    .filter((slug) => slug !== "neurotoxin-comparison")
+    .filter((slug) => slug !== "neurotoxin-comparison" && slug !== "microdosing-fillers-oswego-il")
     .map((slug) => ({ slug }));
 }
 
