@@ -125,6 +125,10 @@ export function catalogClientSupplyUsd(
   return boomrxConsumerMonthlyUsd(monthlyWholesale);
 }
 
+function catalogClientMonthlyAmount(product: CatalogProduct): number {
+  return catalogClientMonthlyUsd(product) ?? price30(product, product.variants[0]);
+}
+
 /**
  * The price shown on client cards and product pages. Always a starting point —
  * the NP sets the final price at consult, so every surface reads "from $X".
@@ -133,4 +137,9 @@ export function catalogClientPriceText(product: CatalogProduct): string {
   const monthly = catalogClientMonthlyUsd(product);
   if (monthly === null) return listingPriceText(product);
   return `from $${formatMoney(monthly)}`;
+}
+
+/** AgelessRx-style shelf quote. Same number as `catalogClientPriceText`. */
+export function catalogClientStartingAtText(product: CatalogProduct): string {
+  return `Starting at $${formatMoney(catalogClientMonthlyAmount(product))} / mo`;
 }

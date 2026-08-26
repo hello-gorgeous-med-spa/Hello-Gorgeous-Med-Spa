@@ -104,6 +104,47 @@ const ALL_PRODUCTS = PRODUCTS as CatalogProduct[];
 export const CLIENT_VISIBLE_PRODUCTS: CatalogProduct[] =
   ALL_PRODUCTS.filter(isClientVisibleProduct);
 
+/**
+ * Compounds that stay client-visible for protocol pages / intake, but are not
+ * shopping cards. AgelessRx merchandises treatments — not aromatase inhibitors,
+ * anabolics, HGH, or slipped peptides.
+ */
+const TREATMENTS_SHOP_HIDDEN_DRUG_KEYS = new Set([
+  "anastrozole",
+  "exemestane",
+  "tamoxifen",
+  "cabergoline",
+  "nandrolone",
+  "oxandrolone",
+  "stanozolol",
+  "hgh",
+  "kisspeptin",
+  "igflr3",
+  "melanotan",
+]);
+
+export function isTreatmentsShopProduct(product: CatalogProduct): boolean {
+  return isClientVisibleProduct(product) && !TREATMENTS_SHOP_HIDDEN_DRUG_KEYS.has(product.drugKey);
+}
+
+/** One card per compound, injectable SKU preferred so the photo matches the shot. */
+export function treatmentsShopProducts(
+  products: readonly CatalogProduct[] = CLIENT_VISIBLE_PRODUCTS,
+): CatalogProduct[] {
+  const byKey = new Map<string, CatalogProduct[]>();
+  for (const product of products) {
+    if (!isTreatmentsShopProduct(product)) continue;
+    const list = byKey.get(product.drugKey) ?? [];
+    list.push(product);
+    byKey.set(product.drugKey, list);
+  }
+  const out: CatalogProduct[] = [];
+  for (const list of byKey.values()) {
+    out.push(list.find((p) => /inject/i.test(p.form ?? "")) ?? list[0]);
+  }
+  return out;
+}
+
 export const CLIENT_HIDDEN_PRODUCTS: CatalogProduct[] = ALL_PRODUCTS.filter(
   (product) => !isClientVisibleProduct(product),
 );

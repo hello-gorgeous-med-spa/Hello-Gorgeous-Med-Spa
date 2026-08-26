@@ -14,6 +14,8 @@ const HUB_TO_STOREFRONT_CAT: Partial<Record<RxCategoryHubId, string>> = {
 
 /** `?cat=` values (from hubs + legacy iframe) → catalog goal id */
 const CAT_TO_GOAL: Record<string, string> = {
+  "glp-1s": "GLP-1s",
+  glp1: "GLP-1s",
   "weight-loss": "Lose Weight",
   "lose-weight": "Lose Weight",
   "peptide-therapy": "Recovery & Performance",

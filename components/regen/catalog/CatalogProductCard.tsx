@@ -13,11 +13,10 @@ import {
   type CatalogProduct,
 } from "@/lib/regen/catalog";
 import { catalogLineId, listingPriceText, price30 } from "@/lib/regen/catalog/pricing";
-import { catalogClientPriceText } from "@/lib/regen/catalog/client-price";
+import { catalogClientPriceText, catalogClientStartingAtText } from "@/lib/regen/catalog/client-price";
 import { catalogConsultRoute } from "@/lib/regen/catalog/consult-route";
 import { getMonograph } from "@/lib/regen/catalog/index";
 import { isPublishedProtocolDrugKey, protocolPath } from "@/lib/regen/catalog/protocol-pages";
-import { STORE_AISLE_LABEL } from "@/lib/regen-shop-nav";
 
 const STAGE_BG = "/images/regen/brand/regen-stage-cinematic-plum.jpg";
 
@@ -69,63 +68,54 @@ export function ProductCard({ product, href, onOpen, consultMode }: ProductCardP
     const protocolHref = isPublishedProtocolDrugKey(product.drugKey)
       ? protocolPath(product.drugKey)
       : null;
-    const body = (
-      <>
-        <div className="relative aspect-square overflow-hidden bg-[#FFF0F7]">
-          {img ? (
-            <Image
-              src={img}
-              alt=""
-              fill
-              className="object-contain p-6 transition duration-300 group-hover:scale-105"
-              sizes="(max-width: 640px) 100vw, 25vw"
-            />
-          ) : (
-            <div className="flex h-full items-center justify-center font-serif text-3xl font-black text-[#E6007E]">
-              {productInitials(product.name)}
-            </div>
-          )}
-        </div>
-        <div className="flex flex-1 flex-col p-4">
-          <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#E6007E]">
-            {STORE_AISLE_LABEL[product.goal] ?? product.goal}
-          </p>
-          <h3 className="mt-1 font-serif text-xl font-black leading-tight text-black">{displayName}</h3>
-          {mono.tagline ? (
-            <p className="mt-1 line-clamp-2 text-sm font-medium text-black/55">{mono.tagline}</p>
-          ) : null}
-          <p className="mt-2 text-lg font-black text-[#FF2D8E]">
-            {priceLabel.charAt(0).toUpperCase() + priceLabel.slice(1)}
-          </p>
-        </div>
-      </>
-    );
+    const learnHref = protocolHref ?? productHref;
+    const blurb = (mono.what || mono.tagline || "").trim();
     return (
       <article className="group flex h-full flex-col overflow-hidden rounded-3xl border-4 border-black bg-white shadow-[8px_8px_0_0_rgba(230,0,126,0.35)] transition hover:-translate-y-0.5">
-        {onOpen ? (
-          <button type="button" onClick={() => onOpen(product.id)} className="flex flex-1 flex-col text-left">
-            {body}
-          </button>
-        ) : (
-          <Link href={productHref} className="flex flex-1 flex-col text-left">
-            {body}
+        <Link href={learnHref} className="flex flex-1 flex-col text-left">
+          <div className="px-5 pt-5">
+            <h3 className="font-serif text-2xl font-black leading-tight text-black">{displayName}</h3>
+          </div>
+          <div className="relative mx-auto aspect-square w-[78%] overflow-hidden bg-white">
+            {img ? (
+              <Image
+                src={img}
+                alt=""
+                fill
+                className="object-contain p-4 transition duration-300 group-hover:scale-105"
+                sizes="(max-width: 640px) 80vw, 28vw"
+              />
+            ) : (
+              <div className="flex h-full items-center justify-center font-serif text-3xl font-black text-[#E6007E]">
+                {productInitials(product.name)}
+              </div>
+            )}
+          </div>
+          {blurb ? (
+            <p className="line-clamp-3 px-5 text-sm font-medium leading-relaxed text-black/65">
+              {blurb}
+            </p>
+          ) : null}
+          <p className="mt-auto px-5 pt-4 text-[15px] font-medium text-black">
+            Starting at{" "}
+            <strong className="font-black text-[#E6007E]">
+              {catalogClientStartingAtText(product).replace(/^Starting at /, "")}
+            </strong>
+          </p>
+        </Link>
+        <div className="flex gap-2 p-4">
+          <Link
+            href={learnHref}
+            className="flex-1 rounded-full border-2 border-black bg-white py-2.5 text-center text-sm font-black text-black transition hover:bg-[#FFF0F7]"
+          >
+            Learn more
           </Link>
-        )}
-        <div className="border-t-2 border-black p-3">
           <Link
             href={consult.href}
-            className="block w-full rounded-xl bg-gradient-to-r from-[#FF2D8E] to-[#E6007E] py-2.5 text-center text-sm font-black text-white"
+            className="flex-1 rounded-full border-2 border-black bg-gradient-to-r from-[#FF2D8E] to-[#E6007E] py-2.5 text-center text-sm font-black text-white"
           >
-            Start intake →
+            Start intake
           </Link>
-          {protocolHref ? (
-            <Link
-              href={protocolHref}
-              className="mt-2 block text-center text-xs font-semibold text-black/50 hover:text-[#E6007E]"
-            >
-              How it works
-            </Link>
-          ) : null}
         </div>
       </article>
     );

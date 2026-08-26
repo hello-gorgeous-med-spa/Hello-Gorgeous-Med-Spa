@@ -142,7 +142,33 @@ export const HERO_DRUG_KEYS = [
   "nad",
 ] as const;
 
+/** Featured shelf order — GLP-1s and core HRT first, then wellness. */
+export const FEATURED_DRUG_KEYS = [
+  "tirzepatide",
+  "semaglutide",
+  "testosterone",
+  "oral-testosterone",
+  "biest",
+  "estradiol",
+  "progesterone",
+  "thyroid",
+  "enclomiphene",
+  "b12",
+  "vitamind",
+  "lipotropic",
+  "metformin",
+  "phentermine",
+  "topiramate",
+  "dhea",
+  "pregnenolone",
+  "estriol",
+  "clomiphene",
+  "hcg",
+  "gonadorelin",
+] as const;
+
 export function goalSlug(goal: string): string {
+  if (goal === "GLP-1s") return "glp-1s";
   return goal
     .toLowerCase()
     .replace(/&/g, "and")
@@ -152,6 +178,8 @@ export function goalSlug(goal: string): string {
 
 export function goalFromSlug(slug: string): string | null {
   const map: Record<string, string> = {
+    "glp-1s": "GLP-1s",
+    glp1: "GLP-1s",
     "lose-weight": "Lose Weight",
     "recovery-and-performance": "Recovery & Performance",
     intimacy: "Intimacy",
@@ -163,7 +191,7 @@ export function goalFromSlug(slug: string): string | null {
   return map[slug] ?? null;
 }
 
-export type CatalogSort = "featured" | "price-asc" | "price-desc" | "name";
+export type CatalogSort = "featured" | "price-asc" | "price-desc" | "name" | "name-desc";
 
 export type CatalogPriceFilter = "all" | "under-100" | "100-250" | "250-500" | "over-500";
 
@@ -176,13 +204,20 @@ export function sortCatalogProducts(
   if (sort === "name") {
     return list.sort((a, b) => a.name.localeCompare(b.name));
   }
+  if (sort === "name-desc") {
+    return list.sort((a, b) => b.name.localeCompare(a.name));
+  }
   if (sort === "price-asc") {
     return list.sort((a, b) => priceOf(a) - priceOf(b));
   }
   if (sort === "price-desc") {
     return list.sort((a, b) => priceOf(b) - priceOf(a));
   }
-  return list;
+  const rank = (p: CatalogProduct) => {
+    const i = (FEATURED_DRUG_KEYS as readonly string[]).indexOf(p.drugKey);
+    return i === -1 ? FEATURED_DRUG_KEYS.length : i;
+  };
+  return list.sort((a, b) => rank(a) - rank(b) || a.name.localeCompare(b.name));
 }
 
 export function filterCatalogByPrice(

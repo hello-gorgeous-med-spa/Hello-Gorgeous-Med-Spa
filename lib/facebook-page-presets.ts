@@ -744,6 +744,29 @@ Hello Gorgeous Med Spa · NP on site 6 days a week · Free consults 👇`,
   defaultChannels: ["facebook", "google"],
 };
 
+export const FACEBOOK_PAGE_PRESET_MICRODOSING_FILLERS: FacebookPagePreset = {
+  id: "microdosing-fillers-blog",
+  label: "Blog — microdosing fillers",
+  blurb: "Education post — conservative filler technique; link to Oswego article.",
+  message: `💉 NEW: Microdosing fillers — why less can look more like YOU
+
+At Hello Gorgeous Med Spa in Oswego, we place smaller amounts of dermal filler — often 0.1 to 0.3 mL per site — in careful layers instead of one large-volume session.
+
+Why clients ask for it:
+✨ Subtle refresh, not “done”
+✨ Typically less swelling than a big session
+✨ Room to fine-tune at a follow-up
+
+Lips · cheeks · under-eyes · fine lines
+NP-directed · Ryan Kent, FNP-BC on site
+Free consult · 74 W Washington St
+
+Individual results vary. Read the full article 👇`,
+  linkPath: withUtm("/blog/microdosing-fillers-oswego-il"),
+  imagePath: "/images/injectables/education/first-time-filler.png",
+  defaultChannels: ["facebook", "google"],
+};
+
 export const FACEBOOK_PAGE_PRESET_SKIN_BOOSTERS_BLOG: FacebookPagePreset = {
   id: "skin-boosters-prp-prf-pdrn",
   label: "Blog — PRP vs PRF vs PDRN skin boosters",
@@ -781,6 +804,7 @@ export const FACEBOOK_PAGE_PRESETS: FacebookPagePreset[] = [
   FACEBOOK_PAGE_PRESET_MONTHLY_MEMBERSHIPS,
   FACEBOOK_PAGE_PRESET_NON_SURGICAL_FACELIFT,
   FACEBOOK_PAGE_PRESET_SKIN_101,
+  FACEBOOK_PAGE_PRESET_MICRODOSING_FILLERS,
   FACEBOOK_PAGE_PRESET_SKIN_BOOSTERS_BLOG,
   FACEBOOK_PAGE_PRESET_BOTOX_AI,
   FACEBOOK_PAGE_PRESET_BOTOX_NATURAL,
