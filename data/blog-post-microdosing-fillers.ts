@@ -23,7 +23,7 @@ export const microdosingFillersPost: BlogPost = {
     "Hello Gorgeous Med Spa fillers",
     "conservative filler Oswego",
   ],
-  featuredImage: "/images/injectables/education/first-time-filler.png",
+  featuredImage: "/images/blog/microdosing-fillers-hero.webp",
   structuredDataFaqs: [
     {
       question: "Does microdosing filler hurt?",
@@ -49,6 +49,16 @@ export const microdosingFillersPost: BlogPost = {
       question: "Where can I get microdosing filler in Oswego?",
       answer:
         "Hello Gorgeous Med Spa at 74 W. Washington Street, Oswego, IL offers NP-directed dermal filler, including conservative and layered placement for lips, cheeks, under-eye hollows, and fine lines. Free consultation. Serving Naperville, Aurora, Plainfield, Yorkville, and Montgomery.",
+    },
+    {
+      question: "What areas can you microdose?",
+      answer:
+        "Lips, cheeks, under-eye hollows, and fine lines are common — only after we assess anatomy and whether filler is the right tool. Under-eyes in particular need a careful consult; not every hollow is a filler problem.",
+    },
+    {
+      question: "Is this the same as baby filler or a half syringe?",
+      answer:
+        "Related idea, different framing. A half syringe is a volume. Microdosing is a placement style — small aliquots, checked in the mirror, often built across visits. You might use part of a syringe in one session and save the rest of the plan for later.",
     },
   ],
   content: `# Microdosing Fillers: Why Less Is More for Natural Results | Oswego, IL
