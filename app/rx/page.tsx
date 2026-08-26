@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Suspense } from "react";
 
-import { PeptideTherapyPageContent } from "@/components/peptides/PeptideTherapyPageContent";
 import { RegenCatalogClient } from "@/components/regen/catalog/RegenCatalogClient";
 import { CLIENT_SHOP_GOALS, goalSlug } from "@/lib/regen/catalog";
 import { REGEN_CATEGORY_HUBS } from "@/lib/rx-category-hubs";
@@ -102,29 +101,7 @@ const catalogJsonLd = {
   })),
 };
 
-function firstParam(value: string | string[] | undefined): string | undefined {
-  if (Array.isArray(value)) return value[0];
-  return value;
-}
-
-function isRxShopView(params: Record<string, string | string[] | undefined>): boolean {
-  return Boolean(
-    firstParam(params.browse) ||
-      firstParam(params.goal) ||
-      firstParam(params.q)?.trim() ||
-      firstParam(params.cat) ||
-      firstParam(params.product),
-  );
-}
-
-export default async function RxShopPage({
-  searchParams,
-}: {
-  searchParams: Promise<Record<string, string | string[] | undefined>>;
-}) {
-  const params = await searchParams;
-  const showShop = isRxShopView(params);
-
+export default async function RxShopPage() {
   return (
     <>
       <script
@@ -152,19 +129,15 @@ export default async function RxShopPage({
         dangerouslySetInnerHTML={{ __html: JSON.stringify(medicalWebPage) }}
       />
 
-      {showShop ? (
-        <Suspense
-          fallback={
-            <div className="flex min-h-[100dvh] items-center justify-center bg-[#FFF9FB] text-black/50">
-              Loading RE GEN shop…
-            </div>
-          }
-        >
-          <RegenCatalogClient />
-        </Suspense>
-      ) : (
-        <PeptideTherapyPageContent />
-      )}
+      <Suspense
+        fallback={
+          <div className="flex min-h-[100dvh] items-center justify-center bg-[#FFF9FB] text-black/50">
+            Loading RE GEN shop…
+          </div>
+        }
+      >
+        <RegenCatalogClient />
+      </Suspense>
 
       <section className="sr-only" aria-label="About Hello Gorgeous RX and frequently asked questions">
         <div>
@@ -185,9 +158,7 @@ export default async function RxShopPage({
 
       <nav
         aria-label="RE GEN goals and categories"
-        className={
-          showShop ? "border-t border-black/10 bg-white px-6 py-8" : "sr-only"
-        }
+        className="border-t border-black/10 bg-white px-6 py-8"
       >
         <ul className="mx-auto flex max-w-[1200px] flex-wrap gap-x-4 gap-y-2 text-xs font-medium text-black/50">
           <li>

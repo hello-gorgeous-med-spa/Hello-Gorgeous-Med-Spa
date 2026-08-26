@@ -8,6 +8,26 @@
 const SITE_URL = (process.env.SITE_URL || "https://www.hellogorgeousmedspa.com").replace(/\/$/, "");
 
 const POSTS = {
+  "microdosing-fillers-oswego-il": {
+    label: "Microdosing fillers — Facebook + Google",
+    channels: ["facebook", "google"],
+    message: `💉 NEW: Microdosing fillers — why less can look more like YOU
+
+At Hello Gorgeous Med Spa in Oswego, we place smaller amounts of dermal filler — often 0.1 to 0.3 mL per site — in careful layers instead of one large-volume session.
+
+Why clients ask for it:
+✨ Subtle refresh, not “done”
+✨ Typically less swelling than a big session
+✨ Room to fine-tune at a follow-up
+
+Lips · cheeks · under-eyes · fine lines
+NP-directed · Ryan Kent, FNP-BC on site
+Free consult · 74 W Washington St
+
+Individual results vary. Book or read more 👇`,
+    link: `${SITE_URL}/dermal-fillers-oswego-il`,
+    imagePath: "/images/injectables/education/first-time-filler.png",
+  },
   "retatrutide-fda-filing-early-2027-oswego-il": {
     label: "Retatrutide FDA filing 2027 — Facebook + Google",
     channels: ["facebook", "google"],

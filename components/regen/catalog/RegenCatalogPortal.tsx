@@ -9,7 +9,6 @@ import {
   CATALOG_BUNDLES,
   CATALOG_GOALS,
   CATALOG_PRODUCTS,
-  CLIENT_VISIBLE_PRODUCTS,
   HERO_DRUG_KEYS,
   bundlePrice,
   filterCatalogByPrice,
@@ -25,6 +24,7 @@ import {
   isKitComponentProduct,
   price30,
   sortCatalogProducts,
+  treatmentsShopProducts,
   type CatalogPriceFilter,
   type CatalogProduct,
   type CatalogSort,
@@ -42,7 +42,7 @@ import { RegenGoalTheater } from "@/components/regen/catalog/RegenGoalTheater";
 import { RegenHowItWorksTheater } from "@/components/regen/catalog/RegenHowItWorksTheater";
 import { RegenScienceTheater } from "@/components/regen/catalog/RegenScienceTheater";
 import { RegenStacksTheater } from "@/components/regen/catalog/RegenStacksTheater";
-import { RegenStoreHome } from "@/components/regen/catalog/RegenStoreHome";
+import { RegenTreatmentsShop } from "@/components/regen/catalog/RegenTreatmentsShop";
 import { RegenShopStickyNav } from "@/components/regen/catalog/RegenShopStickyNav";
 import { CLIENT_SHOP_GOALS } from "@/lib/regen/catalog/client-visibility";
 import { RxLegalDisclaimer } from "@/components/rx/RxLegalDisclaimer";
@@ -118,10 +118,10 @@ export function RegenCatalogPortal({
   const isPublicShop = basePath === "/rx";
 
   /**
-   * The public shop lists the BoomRx sheet peptides, weight loss, and hormones; staff
-   * portals keep every SKU so they can still ring up a derm cream or an ED tablet.
+   * Public /rx is the AgelessRx-style treatments shelf (one card per compound).
+   * Staff portals keep every SKU so they can still ring up a derm cream or ED tablet.
    */
-  const catalogPool = isPublicShop ? CLIENT_VISIBLE_PRODUCTS : CATALOG_PRODUCTS;
+  const catalogPool = isPublicShop ? treatmentsShopProducts() : CATALOG_PRODUCTS;
 
   const navigate = useCallback(
     (next: { goal?: string | null; browse?: string | null; q?: string | null }) => {
@@ -131,9 +131,14 @@ export function RegenCatalogPortal({
       else if (next.goal) params.set("goal", goalSlug(next.goal));
 
       const qs = params.toString();
-      router.push(qs ? `${basePath}?${qs}` : basePath, { scroll: true });
+      router.push(qs ? `${basePath}?${qs}` : basePath, { scroll: !isPublicShop });
+      if (isPublicShop) {
+        requestAnimationFrame(() => {
+          document.getElementById("treatments")?.scrollIntoView({ behavior: "smooth", block: "start" });
+        });
+      }
     },
-    [router, basePath],
+    [router, basePath, isPublicShop],
   );
 
   const onSearchChange = (value: string) => {
@@ -185,11 +190,14 @@ export function RegenCatalogPortal({
   const filteredProducts = useMemo(() => {
     let list: CatalogProduct[] = [];
     if (view === "goal" && activeGoal) {
-      list = catalogPool.filter((p) => p.goal === activeGoal);
+      list =
+        activeGoal === "GLP-1s"
+          ? catalogPool.filter((p) => p.drugKey === "semaglutide" || p.drugKey === "tirzepatide")
+          : catalogPool.filter((p) => p.goal === activeGoal);
       if (formFilter !== "All") {
         list = list.filter((p) => formGroup(p.form) === formFilter);
       }
-    } else if (view === "all") {
+    } else if (view === "all" || view === "home") {
       list = [...catalogPool];
       if (formFilter !== "All") {
         list = list.filter((p) => formGroup(p.form) === formFilter);
@@ -234,20 +242,26 @@ export function RegenCatalogPortal({
     [isPublicShop],
   );
 
-  /** One SKU per compound so the shelf is a store, not a duplicate catalog dump. */
-  const storeShelf = useMemo(() => {
+  const uniqueClientCatalog = useMemo(() => {
+    if (isPublicShop) return catalogPool;
     const seen = new Set<string>();
-    const out: CatalogProduct[] = [];
-    for (const p of sortCatalogProducts([...catalogPool], "featured", priceOf)) {
-      if (seen.has(p.drugKey)) continue;
+    return catalogPool.filter((p) => {
+      if (seen.has(p.drugKey)) return false;
       seen.add(p.drugKey);
-      out.push(p);
-      if (out.length >= 12) break;
-    }
-    return out;
-  }, [catalogPool, priceOf]);
+      return true;
+    });
+  }, [catalogPool, isPublicShop]);
 
-  const popularProducts = isPublicShop ? storeShelf : bestSellers;
+  const shopFilterGoals = useMemo(() => {
+    const present = new Set(uniqueClientCatalog.map((p) => p.goal));
+    const ordered: string[] = [...CLIENT_SHOP_GOALS];
+    for (const goal of present) {
+      if (goal !== "Supplies" && !ordered.includes(goal)) ordered.push(goal);
+    }
+    return ordered.filter((goal) => present.has(goal));
+  }, [uniqueClientCatalog]);
+
+  const popularProducts = bestSellers;
 
   const bundles = useMemo(
     () => {
@@ -363,7 +377,8 @@ export function RegenCatalogPortal({
     >
       <RegenShopStickyNav
         basePath={basePath}
-        items={isPublicShop ? regenClientShopNav(CLIENT_SHOP_GOALS) : REGEN_SHOP_NAV}
+        items={isPublicShop ? regenClientShopNav(shopFilterGoals) : REGEN_SHOP_NAV}
+        showSearch={!isPublicShop}
         onGoHome={() => {
           if (view === "home") {
             window.scrollTo({ top: 0, behavior: "smooth" });
@@ -373,19 +388,30 @@ export function RegenCatalogPortal({
         }}
         searchValue={query}
         onSearchChange={onSearchChange}
-        searchPlaceholder={isPublicShop ? "Search the shop…" : undefined}
+        searchPlaceholder={isPublicShop ? "Search treatments..." : undefined}
       />
 
       <RxLegalDisclaimer />
 
-      {view === "home" ? (
-        isPublicShop ? (
+      {isPublicShop ? (
           <>
-            <RegenStoreHome
-              goals={CLIENT_SHOP_GOALS}
-              products={storeShelf}
-              onSelectGoal={(goal) => navigate({ goal })}
-              onShopAll={() => navigate({ browse: "all" })}
+            <RegenTreatmentsShop
+              products={filteredProducts}
+              catalog={uniqueClientCatalog}
+              goals={shopFilterGoals}
+              activeGoal={activeGoal}
+              sort={sort}
+              searchValue={query}
+              onSearchChange={onSearchChange}
+              onSelectGoal={(goal) => {
+                setQuery("");
+                navigate({ goal });
+              }}
+              onShopAll={() => {
+                setQuery("");
+                navigate({});
+              }}
+              onSortChange={setSort}
             />
             <section id="faq" className={`${SECTION_SCROLL} bg-transparent px-6 py-16 lg:py-20`}>
               <div className="mx-auto max-w-[1200px]">
@@ -418,7 +444,7 @@ export function RegenCatalogPortal({
               </div>
             </section>
           </>
-        ) : (
+        ) : view === "home" ? (
         <>
           <div id="top" className={SECTION_SCROLL}>
             <RxScienceHomeHero
@@ -513,7 +539,6 @@ export function RegenCatalogPortal({
             </div>
           </section>
         </>
-        )
       ) : (
         <section className="bg-transparent px-6 py-10">
           <div className="mx-auto max-w-[1200px]">
@@ -568,9 +593,10 @@ export function RegenCatalogPortal({
                   className="rounded-lg border-2 border-black/15 bg-white px-3 py-2 text-sm font-semibold normal-case tracking-normal text-black"
                 >
                   <option value="featured">Featured</option>
+                  <option value="name">A–Z</option>
+                  <option value="name-desc">Z–A</option>
                   <option value="price-asc">Price: low → high</option>
                   <option value="price-desc">Price: high → low</option>
-                  <option value="name">Name A–Z</option>
                 </select>
               </label>
               <div className="flex flex-wrap gap-2">

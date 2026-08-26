@@ -40,11 +40,13 @@ import { buildYourIvBagAppLaunchPost } from "./blog-post-build-your-iv-bag-app-l
 import { regenLaunchOswegoPost } from "./blog-post-regen-launch-oswego";
 import { retatrutideFdaFiling2027Post } from "./blog-post-retatrutide-fda-filing-2027";
 import { botoxSideEffectsPost } from "./blog-post-botox-side-effects";
+import { microdosingFillersPost } from "./blog-post-microdosing-fillers";
 import type { BlogPost } from "./blog-types";
 
 export type { BlogPost } from "./blog-types";
 
 const coreBlogPosts: BlogPost[] = [
+  microdosingFillersPost,
   neurotoxinSixComparisonPost,
   botoxSideEffectsPost,
   retatrutideFdaFiling2027Post,

@@ -30,6 +30,7 @@ export const REGEN_SHOP_NAV: RegenNavItem[] = [
 
 /** Short aisle names for the public shop — store departments, not catalog goals. */
 export const STORE_AISLE_LABEL: Record<string, string> = {
+  "GLP-1s": "GLP-1s",
   "Lose Weight": "Weight Loss",
   "Recovery & Performance": "Recovery",
   Intimacy: "Intimacy",
@@ -41,11 +42,17 @@ export const STORE_AISLE_LABEL: Record<string, string> = {
 /** Department chips + Shop all. Built from the goals the public shop actually lists. */
 export function regenClientShopNav(goals: readonly string[]): RegenNavItem[] {
   return [
-    ...goals.map((goal) => ({
-      href: `/rx?goal=${goalSlug(goal)}`,
-      label: STORE_AISLE_LABEL[goal] ?? goal,
-    })),
-    { href: "/rx/request", label: "Start intake" },
+    { href: "#treatments", label: "Treatments" },
+    {
+      href: "#by-need",
+      label: "By need",
+      dropdown: goals.map((goal) => ({
+        href: `/rx?goal=${goalSlug(goal)}`,
+        label: STORE_AISLE_LABEL[goal] ?? goal,
+      })),
+    },
+    { href: "#how-it-works", label: "How we work" },
+    { href: "/rx/learn", label: "Learn", dropdown: REGEN_SCIENCE_DROPDOWN },
   ];
 }
 

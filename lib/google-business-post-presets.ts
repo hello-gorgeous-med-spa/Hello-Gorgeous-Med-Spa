@@ -37,6 +37,28 @@ export const GBP_POST_PRESETS: GbpPostPreset[] = [
     imagePath: BOTOX_BASH_CAMPAIGN.studioImagePath,
   },
   {
+    id: "microdosing-fillers-blog",
+    label: "Microdosing fillers — less is more (blog)",
+    message: `Microdosing fillers: less can still look like you.
+
+At Hello Gorgeous in Oswego, we place smaller amounts of dermal filler — often 0.1 to 0.3 mL per site — in careful layers instead of filling all at once.
+
+Why clients ask for it:
+• Subtle refresh, not an obvious change
+• Typically less swelling than a large-volume session
+• Room to fine-tune at a follow-up
+
+Lips, cheeks, under-eyes, and fine lines — mapped to your face at a free consult.
+
+Ryan Kent, FNP-BC on site · 74 W Washington St
+(630) 636-6193
+
+Individual results vary. Read more:`,
+    linkPath:
+      "/blog/microdosing-fillers-oswego-il?utm_source=google&utm_medium=gbp_post&utm_campaign=microdosing_fillers_2026",
+    imagePath: "/images/injectables/education/first-time-filler.png",
+  },
+  {
     id: "botox-side-effects-blog",
     label: "Botox side effects — what's normal (blog)",
     message: `What's normal after Botox — and what isn't.
