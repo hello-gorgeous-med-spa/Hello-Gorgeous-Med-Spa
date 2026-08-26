@@ -5,6 +5,14 @@ export const SPECIALS_PATH = "/specials";
 /** Top conversion picks — shown above the full menu. */
 export const SPECIALS_FEATURED = [
   {
+    title: "Weekend Botox Bash",
+    accentLine: "$9/unit · Fri 8/28 & Sat 8/29",
+    description:
+      "See the new downtown studio. Girls Night Out Friday 5–9 PM. Authentic Botox Cosmetic $9/unit + tax · event ½ syringe $399 · double vitamin shot $50.",
+    href: "/botox-bash",
+    badge: "This weekend",
+  },
+  {
     title: "HydraFacial Glow Special",
     accentLine: "$129 · Hydra + dermaplaning",
     description:
@@ -43,6 +51,12 @@ export const SPECIALS_JUMP_LINKS = [
 ] as const;
 
 export const MORE_SPECIALS_LINKS = [
+  {
+    label: "Weekend Botox Bash + new spa",
+    href: "/botox-bash",
+    sub: "Fri 8/28 Girls Night 5–9 · Sat 8/29 · Botox $9/unit + tax",
+    badge: "NOW",
+  },
   {
     label: "Oswego Specials Hub",
     href: "/oswego-specials",

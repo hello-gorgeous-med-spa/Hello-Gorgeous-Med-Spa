@@ -5,6 +5,11 @@
 
 import { MEMBERSHIPS_SHOWCASE_GBP_MESSAGE } from "@/lib/monthly-memberships-marketing";
 import { OSWEGO_SPECIALS_GBP_MESSAGE } from "@/lib/oswego-specials";
+import {
+  BOTOX_BASH_CAMPAIGN,
+  BOTOX_BASH_GBP,
+  NEW_STUDIO_GBP,
+} from "@/lib/campaigns/botox-bash-aug-2026";
 import { FALL_FACIALS_CAMPAIGN, FALL_FACIALS_GBP } from "@/lib/campaigns/fall-into-facials-2026";
 
 export type GbpPostPreset = {
@@ -17,6 +22,20 @@ export type GbpPostPreset = {
 };
 
 export const GBP_POST_PRESETS: GbpPostPreset[] = [
+  {
+    id: "botox-bash-aug-2026",
+    label: "Weekend Botox Bash — $9/unit Aug 28–29",
+    message: BOTOX_BASH_GBP,
+    linkPath: BOTOX_BASH_CAMPAIGN.gbpPath,
+    imagePath: BOTOX_BASH_CAMPAIGN.imagePath,
+  },
+  {
+    id: "new-studio-oswego",
+    label: "New downtown studio — come see it",
+    message: NEW_STUDIO_GBP,
+    linkPath: BOTOX_BASH_CAMPAIGN.gbpPath,
+    imagePath: BOTOX_BASH_CAMPAIGN.studioImagePath,
+  },
   {
     id: "botox-side-effects-blog",
     label: "Botox side effects — what's normal (blog)",

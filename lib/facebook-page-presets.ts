@@ -4,6 +4,11 @@
  */
 
 import { MEMBERSHIPS_SHOWCASE_FACEBOOK_MESSAGE } from "@/lib/monthly-memberships-marketing";
+import {
+  BOTOX_BASH_CAMPAIGN,
+  BOTOX_BASH_FACEBOOK,
+  NEW_STUDIO_FACEBOOK,
+} from "@/lib/campaigns/botox-bash-aug-2026";
 import { FALL_FACIALS_CAMPAIGN, FALL_FACIALS_FACEBOOK } from "@/lib/campaigns/fall-into-facials-2026";
 
 export type FacebookPagePreset = {
@@ -672,6 +677,26 @@ Oswego · Naperville · Aurora · Plainfield`,
   defaultChannels: ["facebook", "instagram"],
 };
 
+export const FACEBOOK_PAGE_PRESET_BOTOX_BASH: FacebookPagePreset = {
+  id: "botox-bash-aug-2026",
+  label: "Weekend Botox Bash — $9/unit Aug 28–29",
+  blurb: "Event blast — Facebook, Instagram, and Google Business via our social API.",
+  message: BOTOX_BASH_FACEBOOK,
+  linkPath: withUtm(BOTOX_BASH_CAMPAIGN.path),
+  imagePath: BOTOX_BASH_CAMPAIGN.imagePath,
+  defaultChannels: ["facebook", "instagram", "google"],
+};
+
+export const FACEBOOK_PAGE_PRESET_NEW_STUDIO: FacebookPagePreset = {
+  id: "new-studio-oswego",
+  label: "New downtown studio — come see it",
+  blurb: "Studio reveal — Facebook, Instagram, and Google Business via our social API.",
+  message: NEW_STUDIO_FACEBOOK,
+  linkPath: withUtm(BOTOX_BASH_CAMPAIGN.path),
+  imagePath: BOTOX_BASH_CAMPAIGN.studioImagePath,
+  defaultChannels: ["facebook", "instagram", "google"],
+};
+
 export const FACEBOOK_PAGE_PRESET_FALL_FACIALS: FacebookPagePreset = {
   id: "fall-into-facials-2026",
   label: "Fall into Facials — Glow $129 · Trifecta $199",
@@ -741,6 +766,8 @@ Read the full guide (free consult link inside) 👇`,
 };
 
 export const FACEBOOK_PAGE_PRESETS: FacebookPagePreset[] = [
+  FACEBOOK_PAGE_PRESET_BOTOX_BASH,
+  FACEBOOK_PAGE_PRESET_NEW_STUDIO,
   FACEBOOK_PAGE_PRESET_FALL_FACIALS,
   FACEBOOK_PAGE_PRESET_BLAST_MEMBERSHIPS,
   FACEBOOK_PAGE_PRESET_BLAST_GLP1,

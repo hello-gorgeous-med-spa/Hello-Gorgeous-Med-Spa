@@ -5,9 +5,9 @@ import { SITE } from "@/lib/seo";
 
 /** Public-facing GBP highlights — synced with admin post presets. */
 export const GBP_PUBLIC_SPOTLIGHT_IDS = [
+  "botox-bash-aug-2026",
+  "new-studio-oswego",
   "blast-glp1",
-  "botox-10-unit",
-  "blast-memberships",
 ] as const;
 
 export function getGbpPublicSpotlights(): GbpPostPreset[] {

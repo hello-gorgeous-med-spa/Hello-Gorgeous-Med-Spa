@@ -57,6 +57,13 @@ const additionalImages = [
   
   // Events
   { src: "/images/events/botox-party.png", title: "Botox Party", caption: "Host a Botox party at Hello Gorgeous Med Spa" },
+  { src: "/images/events/botox-bash-2026/weekend-flyer.png", title: "Weekend Botox Bash Aug 28–29", caption: "Botox $9 per unit plus tax — Friday August 28 and Saturday August 29 at Hello Gorgeous Med Spa Oswego" },
+  { src: "/images/events/botox-bash-2026/friday-girls-night.png", title: "Girls Night Out Botox Bash", caption: "Friday August 28 5–9 PM Girls Night Out — Botox $9 per unit at Hello Gorgeous Med Spa" },
+  { src: "/images/studio/reception.png", title: "Hello Gorgeous reception desk", caption: "New downtown Oswego Hello Gorgeous Med Spa reception" },
+  { src: "/images/studio/retail-wall.png", title: "Hello Gorgeous retail wall", caption: "Medical-grade skincare retail at Hello Gorgeous Med Spa Oswego" },
+  { src: "/images/studio/lobby-window.png", title: "Hello Gorgeous lobby", caption: "New Hello Gorgeous Med Spa lobby — 74 W Washington Street Oswego" },
+  { src: "/images/studio/lobby-lounge.png", title: "Hello Gorgeous waiting lounge", caption: "Waiting lounge in the new downtown Oswego medical spa" },
+  { src: "/images/studio/waiting-chairs.png", title: "Hello Gorgeous waiting room", caption: "Client waiting chairs at Hello Gorgeous Med Spa Oswego" },
   {
     src: "/images/events/signature-services-solaria-co2.png",
     title: "Signature services — Solaria and CO2 laser",
@@ -81,7 +88,8 @@ export async function GET() {
       img.src.includes("logo") || 
       img.src.includes("consultation") ||
       img.src.includes("vip") ||
-      img.src.includes("team")
+      img.src.includes("team") ||
+      img.src.includes("/studio/")
     ),
     "/services/botox-dysport-jeuveau": allImages.filter(img => 
       img.src.toLowerCase().includes("botox") || 
@@ -148,6 +156,9 @@ export async function GET() {
     ),
     "/meet-the-team": allImages.filter(img =>
       img.src.includes("team")
+    ),
+    "/botox-bash": allImages.filter(img =>
+      img.src.includes("/studio/") || img.src.includes("botox-bash-2026")
     ),
     ...buildInModePageImageMap(allImages),
   };

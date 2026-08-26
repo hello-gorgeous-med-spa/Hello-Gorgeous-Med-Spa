@@ -248,6 +248,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.85,
     },
     {
+      url: `${baseUrl}/botox-bash`,
+      lastModified: currentDate,
+      changeFrequency: 'daily',
+      priority: 0.97,
+    },
+    {
       url: `${baseUrl}/oswego-specials`,
       lastModified: currentDate,
       changeFrequency: 'daily',

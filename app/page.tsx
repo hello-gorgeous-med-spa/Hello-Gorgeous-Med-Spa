@@ -1,4 +1,6 @@
 import { Metadata } from "next";
+import { NewStudioRevealBand } from "@/components/marketing/NewStudioRevealBand";
+import { STUDIO_PHOTOS } from "@/lib/campaigns/botox-bash-aug-2026";
 import { MdOversightWelcomeBand } from "@/components/MdOversightWelcomeBand";
 import {
   BuildYourProposalHomeInvite,
@@ -147,8 +149,25 @@ export default function HomePage() {
         }}
       />
 
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            imageGalleryJsonLd(
+              STUDIO_PHOTOS.map((photo) => ({
+                src: photo.src,
+                alt: photo.alt,
+                title: `Hello Gorgeous Med Spa — ${photo.caption}`,
+              })),
+              "New Hello Gorgeous Med Spa studio — downtown Oswego",
+            ),
+          ),
+        }}
+      />
+
       <main>
         <HeroV3 />
+        <NewStudioRevealBand />
         <MdOversightWelcomeBand />
         <BuildYourProposalHomeInvite />
         <HomepageLookbookPageContent />

@@ -22,6 +22,7 @@ export const dynamic = "force-dynamic";
 export const maxDuration = 60;
 
 const PRIORITY_SERVICE_URLS = [
+  "/botox-bash",
   "/oswego-specials",
   "/hydrafacial-oswego-il",
   "/book",

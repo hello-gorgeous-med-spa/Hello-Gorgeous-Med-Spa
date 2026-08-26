@@ -15,6 +15,14 @@ type Slide = {
 
 const SLIDES: Slide[] = [
   {
+    id: "botox-bash",
+    badge: "This weekend",
+    line:
+      "New spa is ready. Weekend Botox Bash Fri Aug 28 (Girls Night 5–9) & Sat Aug 29 — $9/unit + tax.",
+    primary: { label: "See the new spa", href: "/botox-bash" },
+    secondary: { label: "Book now", href: "/book?ref=botox_bash_2026" },
+  },
+  {
     id: "oswego-specials",
     badge: "Oswego specials",
     line:
