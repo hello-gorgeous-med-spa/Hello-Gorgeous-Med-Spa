@@ -3,8 +3,8 @@
  */
 
 import {
-  ABOUT_DANI_IMAGE,
   DANI_FULL_NAME,
+  DANI_IMAGE,
   RYAN_FULL_NAME,
   RYAN_IMAGE,
   TEAM_FOUNDERS_IMAGE,
@@ -41,7 +41,7 @@ export type TeamMember = {
 };
 
 export const MEET_THE_TEAM_SEO_DESCRIPTION =
-  "Meet the Hello Gorgeous Med Spa team in Oswego, IL — Michelle Colby (office manager, laser hair tech & certified InMode instructor), Laura Witt (client relations & wellness sales), Jen Vokoun (permanent makeup & brow artist), plus founders Danielle Alcala-Glazier and Ryan Kent, FNP-BC.";
+  "Meet the Hello Gorgeous Med Spa team in Oswego, IL — Michelle Colby (office manager, laser hair & IPL tech & certified InMode instructor), Laura Witt (client relations & wellness sales), Jen Vokoun (permanent makeup & brow artist), plus founders Danielle Alcala-Glazier and Ryan Kent, FNP-BC.";
 
 export const TEAM_MEMBERS: TeamMember[] = [
   {
@@ -49,7 +49,7 @@ export const TEAM_MEMBERS: TeamMember[] = [
     slug: "michelle-colby",
     fullName: "Michelle Colby",
     badge: "Office · Laser · InMode",
-    title: "Office Manager · Laser Hair Tech & Certified InMode Instructor",
+    title: "Office Manager · Laser Hair & IPL Tech · Certified InMode Instructor",
     image: {
       src: "/images/team/michelle-colby-2026.jpg",
       alt: "Michelle Colby, Office Manager, Laser Hair Tech and Certified InMode Instructor at Hello Gorgeous Med Spa in Oswego, IL",
@@ -57,13 +57,14 @@ export const TEAM_MEMBERS: TeamMember[] = [
     quote:
       "Great results start with the right technology — and a tech who takes the time to do it right.",
     bioParagraphs: [
-      "Michelle Colby is Hello Gorgeous Med Spa’s office manager, laser hair technician, and a certified InMode instructor. She keeps the floor running smoothly and brings a calm, detail-first approach to every appointment — whether you’re booking laser hair removal or an advanced InMode treatment on Morpheus8, Solaria CO₂, Quantum RF, or Luxora.",
+      "Michelle Colby is Hello Gorgeous Med Spa’s office manager, laser hair and IPL technician, and a certified InMode instructor. She keeps the floor running smoothly and brings a calm, detail-first approach to every appointment — whether you’re booking laser hair removal, an IPL photofacial, or an advanced InMode treatment on Morpheus8, Solaria CO₂, Quantum RF, or Luxora.",
       "As a certified InMode instructor, Michelle trains to manufacturer standards and helps clients understand candidacy, comfort, downtime, and realistic timelines. Her office-manager background means clear communication, strong follow-through, and a treatment plan tailored to your goals — without pressure.",
       "When she’s not in the treatment room or at the front desk, you’ll often find Michelle at the gym, in her flower gardens, trying a new recipe, or spending time with her family. She believes looking and feeling your best should feel supportive, balanced, and achievable.",
     ],
     specialties: [
       "Office management",
       "Laser hair removal",
+      "IPL photofacials",
       "InMode instructor (certified)",
       "Morpheus8 Burst",
       "Solaria CO₂",
@@ -139,7 +140,7 @@ export const LEADERSHIP_TEAM: TeamMember[] = [
     profileHref: "/about#dani",
     profileLabel: "Full profile →",
     image: {
-      src: ABOUT_DANI_IMAGE,
+      src: DANI_IMAGE,
       alt: `${DANI_FULL_NAME}, founder of Hello Gorgeous Med Spa in Oswego, IL`,
     },
     quote: "Family-owned, hands-on every day — this is my life's work, not a franchise.",

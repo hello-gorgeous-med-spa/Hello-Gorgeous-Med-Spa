@@ -52,7 +52,7 @@ export function HydraFacialHomeBand() {
 
           <p className="mt-5 max-w-xl text-base leading-relaxed text-white/80 sm:text-lg">
             Full Rejuva Fresh HydraFacial, dermaplaning, hydrogen-oxygen spray, and your choice of any
-            2 premium machine add-ons — with our esthetics team. Also: lashes $89 · laser $59 · IPL $79.
+            2 premium machine add-ons — with our esthetics team. Also: lashes $89 · laser from $69 · IPL $79.
           </p>
 
           <div className="mt-8 rounded-3xl border-4 border-black bg-white p-5 text-black shadow-[8px_8px_0_0_rgba(230,0,126,0.35)] sm:p-6">

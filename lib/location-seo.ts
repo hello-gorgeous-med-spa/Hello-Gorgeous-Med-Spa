@@ -149,7 +149,7 @@ export const TOP_SERVICES: ServiceConfig[] = [
     slug: 'laser-hair-removal',
     name: 'Laser Hair Removal',
     shortName: 'Laser Hair',
-    priceDisplay: 'From $75',
+    priceDisplay: 'From $69',
     description: 'Say goodbye to shaving and waxing with professional laser hair removal for smooth, hair-free skin.',
     heroImage: '/images/laser-hair-removal/duocratus-pro-device.png',
     keywords: ['laser hair removal', 'permanent hair removal', 'hair removal', 'laser hair', 'bikini laser', 'underarm laser', 'leg laser', 'facial hair removal'],

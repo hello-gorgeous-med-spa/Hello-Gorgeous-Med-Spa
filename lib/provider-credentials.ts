@@ -6,3 +6,6 @@ export const DANIELLE_CREDENTIALS =
   "Owner & Founder · RN-S · CNA · CMAA · Licensed Phlebotomist · Licensed Esthetician";
 
 export const RYAN_CREDENTIALS = "FNP-BC · On-Site Nurse Practitioner · Full prescriptive authority";
+
+export const MICHELLE_CREDENTIALS =
+  "Laser Hair & IPL Tech · Certified InMode Instructor · Office Manager";

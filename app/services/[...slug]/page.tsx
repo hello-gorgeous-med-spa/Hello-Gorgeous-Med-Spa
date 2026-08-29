@@ -1775,13 +1775,13 @@ function ServiceDetailPage({ serviceSlug }: { serviceSlug: string }) {
           {/* Spring Special Banner */}
           <FadeUp>
             <div className="mb-10 p-6 rounded-2xl bg-gradient-to-r from-[#FF2D8E] to-[#E91E8C] text-white text-center">
-              <p className="font-bold text-lg mb-2">🌸 Spring Special — No Packages</p>
-              <p className="text-white/90 text-sm mb-4">Underarms $79 • Lip & Chin $59 • Bikini $129. Results in 2–3 sessions.</p>
+              <p className="font-bold text-lg mb-2">Pay per session — no packages</p>
+              <p className="text-white/90 text-sm mb-4">Chin or lip $69 · underarms, upper/lower legs, bikini $89 · Brazilian, back, full legs $129.</p>
               <Link
-                href="/spring-special-laser-hair"
+                href="/book?ref=laser_hair_menu"
                 className="inline-flex items-center gap-2 px-6 py-2.5 bg-white text-[#FF2D8E] font-bold rounded-lg hover:bg-gray-100 transition"
               >
-                Claim Offer →
+                Book laser →
               </Link>
             </div>
           </FadeUp>

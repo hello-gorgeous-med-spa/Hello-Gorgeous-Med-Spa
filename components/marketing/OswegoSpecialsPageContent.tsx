@@ -19,7 +19,6 @@ import {
   IPL_79_SPECIAL,
   LASER_59_AREAS,
   LASER_59_SPECIAL,
-  LASER_59_VALID_THROUGH,
   LASH_89_STARTS,
   LASH_FULL_SET_SPECIAL,
   OSWEGO_SPECIALS_FLYER_IMAGE,
@@ -94,8 +93,8 @@ export function OswegoSpecialsPageContent() {
             <span className="text-[#FF2D8E]">specials</span>
           </h1>
           <p className="mx-auto mt-5 max-w-2xl text-lg leading-relaxed text-white/80">
-            Full-set lashes $89 beginning {LASH_89_STARTS} · laser hair any listed area $59 through{" "}
-            {LASER_59_VALID_THROUGH} · plus dermaplaning &amp; Hydra Spa Infusion. Book at Hello Gorgeous Med Spa.
+            Full-set lashes $89 beginning {LASH_89_STARTS} · laser hair chin or lip $69, medium areas $89,
+            Brazilian / back / full legs $129 · plus dermaplaning &amp; Hydra Spa Infusion. Book at Hello Gorgeous Med Spa.
           </p>
           <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
             <JourneyPinkBtn href={OSWEGO_SPECIALS_BOOK_HREF}>Book now</JourneyPinkBtn>
@@ -113,13 +112,13 @@ export function OswegoSpecialsPageContent() {
             eyebrow="Hello Gorgeous · Licensed esthetics team"
             title="The flyer"
             titleAccent="you’re seeing"
-            description="Lashes $89 · laser $59 · dermaplaning & Hydra Spa Infusion — book at Hello Gorgeous Med Spa Oswego."
+            description="Lashes $89 · laser from $69 · dermaplaning & Hydra Spa Infusion — book at Hello Gorgeous Med Spa Oswego."
             center
           />
           <div className="relative mt-8 aspect-[4/5] overflow-hidden rounded-3xl border-2 border-[#FF2D8E] shadow-[8px_8px_0_0_rgba(230,0,126,0.35)]">
             <Image
               src={OSWEGO_SPECIALS_FLYER_IMAGE}
-              alt="Oswego specials flyer — eyelash extensions $89, laser hair $59, dermaplaning & Hydra Spa Infusion at Hello Gorgeous Med Spa Oswego"
+              alt="Oswego specials flyer — eyelash extensions $89, laser hair from $69, dermaplaning & Hydra Spa Infusion at Hello Gorgeous Med Spa Oswego"
               fill
               className="object-cover object-top"
               sizes="(max-width: 720px) 100vw, 720px"
@@ -138,7 +137,7 @@ export function OswegoSpecialsPageContent() {
           {[
             { href: "#hydrafacial", price: "$129", label: "HydraFacial + Dermaplaning", sub: "Glow special" },
             { href: "#lashes", price: "$89", label: "Full-set lashes", sub: `From ${LASH_89_STARTS}` },
-            { href: "#laser", price: "$59", label: "Laser hair (listed areas)", sub: `Thru ${LASER_59_VALID_THROUGH}` },
+            { href: "#laser", price: "$69+", label: "Laser hair by area", sub: "Chin/lip $69 · medium $89 · large $129" },
             { href: "#ipl", price: "$79", label: "IPL photofacial", sub: "Zemits DuoCratus" },
           ].map((c) => (
             <a
@@ -224,8 +223,8 @@ export function OswegoSpecialsPageContent() {
           <JourneySectionHead
             eyebrow={laser.badge}
             title="Laser hair"
-            titleAccent={`${laser.price} / area`}
-            description={`${laser.device}. Any listed area only ${laser.price} through ${LASER_59_VALID_THROUGH}.`}
+            titleAccent="by area"
+            description={`${laser.device}. ${laser.note}`}
             center
           />
           <div className="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
@@ -235,7 +234,9 @@ export function OswegoSpecialsPageContent() {
                 className="flex items-center justify-between rounded-[20px] border border-white/14 bg-[#0a0206] px-5 py-4"
               >
                 <span className="font-bold text-white">{area.label}</span>
-                <span className="font-serif text-2xl font-bold text-[#FF2D8E]">{laser.price}</span>
+                <span className="font-serif text-2xl font-bold text-[#FF2D8E]">
+                  {"price" in area ? area.price : laser.price}
+                </span>
               </div>
             ))}
           </div>
@@ -323,7 +324,7 @@ export function OswegoSpecialsPageContent() {
           Book Hello Gorgeous Med Spa — Oswego
         </h2>
         <p className="mx-auto mt-3 max-w-xl text-white/90">
-          Lashes $89 from Aug 1 · laser $59 through end of month · Hydra Spa Infusion & dermaplaning.
+          Lashes $89 · laser from $69 · Hydra Spa Infusion & dermaplaning.
         </p>
         <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
           <JourneyPinkBtn

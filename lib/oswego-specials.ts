@@ -4,6 +4,13 @@
 
 import { PRIMARY_BOOKING_CTA } from "@/lib/primary-cta";
 import { HYDRAFACIAL_PATH, HYDRAFACIAL_GLOW_SPECIAL } from "@/lib/hydrafacial-marketing";
+import {
+  LASER_HAIR_AREAS,
+  LASER_HAIR_MENU_BLURB,
+  LASER_HAIR_PERFORMERS,
+  LASER_HAIR_TIERS,
+  laserHairPriceLabel,
+} from "@/lib/laser-hair-pricing";
 
 export const OSWEGO_SPECIALS_PATH = "/oswego-specials" as const;
 export const OSWEGO_SPECIALS_FLYER_IMAGE = "/images/marketing/marissa-new-services-flyer.jpg" as const;
@@ -24,7 +31,7 @@ export const OSWEGO_SPECIALS_BOOK_HREF = `${PRIMARY_BOOKING_CTA.href}${
 export const OSWEGO_SPECIALS_NAV = [
   { href: "#flyer", label: "Flyer" },
   { href: "#lashes", label: "Lashes $89" },
-  { href: "#laser", label: "Laser $59" },
+  { href: "#laser", label: "Laser $69+" },
   { href: "#hydrafacial", label: "HydraFacial" },
   { href: "#ipl", label: "IPL $79" },
   { href: "#faq", label: "FAQ" },
@@ -49,29 +56,24 @@ export const LASH_FULL_SET_SPECIAL = {
   detailsHref: `${OSWEGO_SPECIALS_PATH}#lashes`,
 } as const;
 
-/** Laser hair — $59 any listed area through end of month (flyer) */
-export const LASER_59_AREAS = [
-  { id: "face", label: "Face" },
-  { id: "neck-chin", label: "Neck / chin" },
-  { id: "underarms", label: "Underarm" },
-  { id: "upper-legs", label: "Upper legs" },
-  { id: "lower-legs", label: "Lower legs" },
-  { id: "back", label: "Back" },
-  { id: "bikini", label: "Bikini" },
-  { id: "brazilian", label: "Brazilian" },
-] as const;
+/** Laser hair — current Square menu (small $69 / medium $89 / large $129) */
+export const LASER_59_AREAS = LASER_HAIR_AREAS.map((a) => ({
+  id: a.id,
+  label: a.label,
+  price: laserHairPriceLabel(a.price),
+}));
 
 export const LASER_59_SPECIAL = {
-  id: "laser-59",
-  badge: "Now through end of the month",
-  title: "Laser Hair Removal — Any Area",
-  price: "$59",
-  priceNote: "per session · listed areas",
+  id: "laser-menu",
+  badge: `Performed by ${LASER_HAIR_PERFORMERS}`,
+  title: "Laser Hair Removal",
+  price: `${LASER_HAIR_TIERS.small.priceLabel}–${LASER_HAIR_TIERS.large.priceLabel}`,
+  priceNote: "per session · by area",
   validThrough: LASER_59_VALID_THROUGH,
-  device: "Zemits DuoCratus medical-grade platform",
-  includes: LASER_59_AREAS.map((a) => a.label),
-  note: `Any listed area only $59 through ${LASER_59_VALID_THROUGH}. Book at Hello Gorgeous Med Spa, Oswego.`,
-  bookHref: `${PRIMARY_BOOKING_CTA.href}?ref=laser_59`,
+  device: `Zemits DuoCratus medical-grade platform · ${LASER_HAIR_PERFORMERS}`,
+  includes: LASER_HAIR_AREAS.map((a) => `${a.label} ${laserHairPriceLabel(a.price)}`),
+  note: LASER_HAIR_MENU_BLURB,
+  bookHref: `${PRIMARY_BOOKING_CTA.href}?ref=laser_hair_menu`,
   detailsHref: `${OSWEGO_SPECIALS_PATH}#laser`,
 } as const;
 
@@ -86,7 +88,7 @@ export const IPL_79_SPECIAL = {
   priceNote: "photofacial special",
   duration: "30–45 min",
   validThrough: LASER_59_VALID_THROUGH,
-  device: "Zemits DuoCratus IPL / SHR platform",
+  device: "Zemits DuoCratus IPL / SHR platform · performed by Michelle Colby",
   guideNote:
     "Protocol reference: Zemits DuoCratus IPL filter guide — practitioners select cut-off filters (e.g. ~480–590 nm range for rejuvenation, pigment, and vascular tone) with sapphire contact cooling for comfort.",
   treats: [
@@ -125,7 +127,7 @@ export const OSWEGO_SPECIALS_FEATURED = [
     ...LASER_59_SPECIAL,
     sectionId: "laser",
     href: LASER_59_SPECIAL.detailsHref,
-    seoLabel: "Laser hair removal $59 any area Oswego July",
+    seoLabel: "Laser hair removal $69 $89 $129 Oswego",
   },
   {
     ...IPL_79_SPECIAL,
@@ -138,15 +140,15 @@ export const OSWEGO_SPECIALS_FEATURED = [
 export const OSWEGO_SPECIALS_FAQS = [
   {
     question: "What Oswego specials does Hello Gorgeous Med Spa offer?",
-    answer: `Full-set eyelash extensions $89 beginning ${LASH_89_STARTS}, laser hair removal any listed area $59 through ${LASER_59_VALID_THROUGH}, plus dermaplaning and Hydra Spa Infusion / HydraFacial. Book at hellogorgeousmedspa.com/oswego-specials.`,
+    answer: `Full-set eyelash extensions $89 beginning ${LASH_89_STARTS}, laser hair ${LASER_HAIR_MENU_BLURB} Plus dermaplaning and Hydra Spa Infusion / HydraFacial. Book at hellogorgeousmedspa.com/oswego-specials.`,
   },
   {
     question: "When does the $89 full-set lash special start?",
     answer: `Beginning ${LASH_89_STARTS}. You can book ahead now.`,
   },
   {
-    question: "Which laser hair areas are $59?",
-    answer: `Face, neck/chin, underarm, upper legs, lower legs, back, bikini, and Brazilian — $59 per session through ${LASER_59_VALID_THROUGH}.`,
+    question: "How much is laser hair removal?",
+    answer: LASER_HAIR_MENU_BLURB,
   },
   {
     question: "Do you offer HydraFacial and dermaplaning?",
@@ -161,12 +163,12 @@ export const OSWEGO_SPECIALS_FAQS = [
 ] as const;
 
 export const OSWEGO_SPECIALS_SEO = {
-  title: "Oswego Specials — Lashes $89, Laser $59 | Hello Gorgeous Med Spa",
-  description: `Hello Gorgeous Med Spa Oswego: full-set lashes $89 from ${LASH_89_STARTS}, laser hair any listed area $59 through ${LASER_59_VALID_THROUGH}, plus dermaplaning & Hydra Spa Infusion.`,
+  title: "Oswego Specials — Lashes $89, Laser from $69 | Hello Gorgeous Med Spa",
+  description: `Hello Gorgeous Med Spa Oswego: full-set lashes $89 from ${LASH_89_STARTS}, laser hair ${LASER_HAIR_MENU_BLURB} Plus dermaplaning & Hydra Spa Infusion.`,
   keywords: [
     "Hello Gorgeous Oswego specials",
     "eyelash extensions Oswego $89",
-    "laser hair removal Oswego $59",
+    "laser hair removal Oswego $69",
     "Hello Gorgeous Med Spa Oswego",
     "Hydra Spa Infusion Oswego",
     "dermaplaning Oswego",
@@ -180,9 +182,8 @@ export const OSWEGO_SPECIALS_GBP_MESSAGE = `✨ Oswego Specials — Hello Gorgeo
 👁 Full set eyelash extensions — ONLY $89
 Beginning August 1st — book ahead now
 
-⚡ Laser hair removal — ANY listed area ONLY $59
-Now through the end of the month
-Face · Neck/Chin · Underarm · Upper legs · Lower legs · Back · Bikini · Brazilian
+⚡ Laser hair removal — chin or lip $69 · underarms, upper/lower legs, bikini $89 · Brazilian, back, full legs $129
+Performed by Danielle, Ryan, and Michelle
 
 Also featuring dermaplaning & Hydra Spa Infusion
 

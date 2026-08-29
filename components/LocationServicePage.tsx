@@ -94,13 +94,13 @@ export function LocationServicePage({
           <section className="bg-gradient-to-r from-[#FF2D8E] to-[#E91E8C] py-3 px-4">
             <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-center gap-3 text-center sm:text-left">
               <p className="text-white font-bold text-sm md:text-base">
-                🌸 Spring Special: Underarms $79 • Lip & Chin $59 • Bikini $129 — No packages. Results in 2–3 sessions.
+                Laser hair: chin or lip $69 · underarms, upper/lower legs, bikini $89 · Brazilian, back, full legs $129. Danielle, Ryan & Michelle.
               </p>
               <Link
-                href="/spring-special-laser-hair"
+                href="/services/laser-hair-removal"
                 className="shrink-0 px-4 py-2 bg-white text-[#FF2D8E] font-semibold rounded-lg hover:bg-white/90 transition text-sm"
               >
-                Claim Offer →
+                See prices →
               </Link>
             </div>
           </section>

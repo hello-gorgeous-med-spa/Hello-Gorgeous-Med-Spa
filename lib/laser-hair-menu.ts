@@ -1,66 +1,65 @@
 import { LASER_HAIR_MEMBERSHIPS } from "@/data/laser-hair-memberships";
 import type { ServiceMenuConfig } from "@/lib/service-menu-types";
-import { LASER_59_VALID_THROUGH } from "@/lib/oswego-specials";
+import {
+  LASER_HAIR_AREAS,
+  LASER_HAIR_MENU_BLURB,
+  LASER_HAIR_PERFORMERS,
+  LASER_HAIR_TIERS,
+  laserHairPriceLabel,
+} from "@/lib/laser-hair-pricing";
 
 export const LASER_HAIR_MENU_PATH = "/services/laser-hair-removal" as const;
 
 export const LASER_HAIR_MENU: ServiceMenuConfig = {
   path: LASER_HAIR_MENU_PATH,
-  metaTitle: "Laser Hair Removal Menu | $59 Any Listed Area | Hello Gorgeous Oswego",
-  metaDescription: `Laser hair removal in Oswego — $59 any listed area through ${LASER_59_VALID_THROUGH}: face, neck/chin, underarm, upper/lower legs, back, bikini, Brazilian. Hello Gorgeous Med Spa.`,
+  metaTitle: "Laser Hair Removal | Chin & Lip $69 · Medium $89 · Large $129 | Hello Gorgeous Oswego",
+  metaDescription: `Laser hair removal in Oswego — ${LASER_HAIR_MENU_BLURB} Medical-grade Zemits DuoCratus at Hello Gorgeous Med Spa.`,
   hero: {
     eyebrow: "Oswego, IL · All skin types",
     titleAccent: "Laser Hair Removal",
-    subtitle: `Medical-grade Zemits DuoCratus laser with Michelle Colby, laser hair tech. Any listed area only $59 — through ${LASER_59_VALID_THROUGH}.`,
-    secondaryCta: { label: "$59 laser specials", href: "/oswego-specials#laser" },
+    subtitle: `Medical-grade Zemits DuoCratus. ${LASER_HAIR_MENU_BLURB}`,
+    secondaryCta: { label: "Book laser", href: "/book?ref=laser_hair_menu" },
   },
   sections: [
     {
       id: "pay-per-session",
       number: "01",
-      title: "$59 Any Listed Area",
-      description: `Now through ${LASER_59_VALID_THROUGH} — $59 per session on every listed area. No package required. Book online.`,
+      title: "Pay Per Session",
+      description: `No package required. ${LASER_HAIR_PERFORMERS} perform every listed area on Zemits DuoCratus.`,
       highlights: [
-        "Face · neck / chin · underarm",
-        "Upper legs · lower legs · back",
-        "Bikini · Brazilian",
+        `Small — chin or lip ${LASER_HAIR_TIERS.small.priceLabel}`,
+        `Medium — underarms, upper or lower legs, bikini ${LASER_HAIR_TIERS.medium.priceLabel}`,
+        `Large — Brazilian, back, full legs ${LASER_HAIR_TIERS.large.priceLabel}`,
         "Zemits DuoCratus medical-grade platform",
         "Series recommended for lasting reduction",
       ],
-      pricing: [
-        { label: "Face", price: "$59", href: "/oswego-specials#laser", note: `Thru ${LASER_59_VALID_THROUGH}` },
-        { label: "Neck / chin", price: "$59", href: "/oswego-specials#laser", note: `Thru ${LASER_59_VALID_THROUGH}` },
-        { label: "Underarm", price: "$59", href: "/oswego-specials#laser", note: `Thru ${LASER_59_VALID_THROUGH}` },
-        { label: "Upper legs", price: "$59", href: "/oswego-specials#laser", note: `Thru ${LASER_59_VALID_THROUGH}` },
-        { label: "Lower legs", price: "$59", href: "/oswego-specials#laser", note: `Thru ${LASER_59_VALID_THROUGH}` },
-        { label: "Back", price: "$59", href: "/oswego-specials#laser", note: `Thru ${LASER_59_VALID_THROUGH}` },
-        { label: "Bikini", price: "$59", href: "/oswego-specials#laser", note: `Thru ${LASER_59_VALID_THROUGH}` },
-        { label: "Brazilian", price: "$59", href: "/oswego-specials#laser", note: `Thru ${LASER_59_VALID_THROUGH}` },
-      ],
-      learnMoreHref: "/oswego-specials#laser",
-      badge: "July",
+      pricing: LASER_HAIR_AREAS.map((area) => ({
+        label: area.label,
+        price: laserHairPriceLabel(area.price),
+        href: "/book?ref=laser_hair_menu",
+        note: `${area.tier === "small" ? "Small" : area.tier === "medium" ? "Medium" : "Large"} area`,
+      })),
+      learnMoreHref: "/book?ref=laser_hair_menu",
     },
     {
-      id: "spring-special",
+      id: "packages",
       number: "02",
-      title: "Packages & Standard Pricing",
-      description: "Seasonal Brazilian packages and standard pricing for areas outside the $59 list.",
+      title: "Packages",
+      description: "Seasonal Brazilian packages when offered — otherwise book the area you want, per session.",
       highlights: [
         "Brazilian 3-month package when offered",
-        "Full arms / custom large areas quoted",
+        "Custom large areas quoted in clinic",
         "Memberships for long-term savings",
       ],
       pricing: [
-        { label: "Listed areas — July special", price: "$59", href: "/oswego-specials#laser" },
         {
           label: "Laser Brazilian — 3-Month Package",
           price: "$499",
           href: "/spring-special-laser-hair",
           note: "Book in Square · follow-ups as Prepaid Package Visit $0",
         },
-        { label: "Full legs or arms (standard)", price: "$149", href: "/laser-hair-removal-oswego-il" },
       ],
-      learnMoreHref: "/oswego-specials#laser",
+      learnMoreHref: "/laser-hair-memberships",
     },
     {
       id: "memberships",
@@ -99,8 +98,12 @@ export const LASER_HAIR_MENU: ServiceMenuConfig = {
   ],
   faqs: [
     {
-      question: `Which areas are $59 through ${LASER_59_VALID_THROUGH}?`,
-      answer: `Face, neck/chin, underarm, upper legs, lower legs, back, bikini, and Brazilian — $59 per session per area at Hello Gorgeous Med Spa in Oswego through ${LASER_59_VALID_THROUGH}.`,
+      question: "How much is laser hair removal at Hello Gorgeous?",
+      answer: LASER_HAIR_MENU_BLURB,
+    },
+    {
+      question: "Who performs laser hair removal?",
+      answer: `${LASER_HAIR_PERFORMERS} perform laser hair removal at Hello Gorgeous Med Spa in Oswego.`,
     },
     {
       question: "How many sessions do I need?",

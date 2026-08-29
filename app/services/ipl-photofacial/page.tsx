@@ -173,7 +173,8 @@ export default function IPLPhotofacialPage() {
               </p>
               <p className="text-base md:text-lg text-white/80 max-w-xl mb-8">
                 InMode Lumecca-class intense pulsed light treats sun spots, age spots, broken capillaries,
-                and uneven tone in 20–45 minutes. Most clients see visible clearing
+                and uneven tone in 20–45 minutes. Michelle Colby, our laser hair and IPL tech, performs
+                photofacials on the Zemits DuoCratus platform. Most clients see visible clearing
                 within 7–10 days of a single session. From{" "}
                 <span className="font-bold text-white">$250</span>.
               </p>

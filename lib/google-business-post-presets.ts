@@ -84,7 +84,7 @@ Read the guide:`,
   },
   {
     id: "oswego-specials",
-    label: "Oswego Specials — lashes $89 · laser $59",
+    label: "Oswego Specials — lashes $89 · laser from $69",
     message: OSWEGO_SPECIALS_GBP_MESSAGE,
     linkPath: "/oswego-specials?utm_source=google&utm_medium=gbp_post&utm_campaign=oswego_specials_2026",
     imagePath: "/images/marketing/marissa-new-services-flyer.jpg",

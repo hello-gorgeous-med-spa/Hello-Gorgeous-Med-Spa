@@ -11,6 +11,7 @@ export const metadata: Metadata = pageMetadata({
   keywords: [
     "Hello Gorgeous Med Spa team",
     "Michelle Colby laser hair Oswego",
+    "Michelle Colby IPL photofacial Oswego",
     "InMode instructor Hello Gorgeous",
     "Laura Witt Hello Gorgeous",
     "Jen Vokoun permanent makeup Oswego",

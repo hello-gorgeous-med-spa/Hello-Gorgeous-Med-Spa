@@ -9,10 +9,10 @@ import { NextRequest, NextResponse } from 'next/server';
 // Force dynamic rendering - this route uses request.url
 export const dynamic = 'force-dynamic';
 import { createServerSupabaseClient } from '@/lib/hgos/supabase';
-import { DANIELLE_CREDENTIALS, RYAN_CREDENTIALS } from '@/lib/provider-credentials';
+import { DANIELLE_CREDENTIALS, MICHELLE_CREDENTIALS, RYAN_CREDENTIALS } from '@/lib/provider-credentials';
 
 // ============================================================
-// ONLY THESE TWO PROVIDERS - Ryan Kent and Danielle Alcala
+// Bookable providers — Ryan, Danielle, Michelle (laser / IPL)
 // NO HARDCODED SCHEDULES - Always fetch from database
 // ============================================================
 const PROVIDER_METADATA = [
@@ -30,6 +30,13 @@ const PROVIDER_METADATA = [
     color: '#ec4899',
     serviceKeywords: ['lash', 'brow', 'facial', 'dermaplanning', 'hydra', 'peel', 'lamination', 'wax', 'extension', 'lift', 'tint', 'glow', 'geneo', 'frequency', 'botox', 'filler', 'lip', 'consult', 'laser', 'hair', 'body', 'brazilian', 'anteage', 'skin', 'spa', 'micro', 'vampire'],
   },
+  {
+    id: 'michelle-colby',
+    name: 'Michelle Colby',
+    title: MICHELLE_CREDENTIALS,
+    color: '#0ea5e9',
+    serviceKeywords: ['ipl', 'photofacial', 'laser-hair', 'hair-removal', 'duocratus'],
+  },
 ];
 
 // Helper to check if a provider name is allowed
@@ -37,7 +44,8 @@ function isAllowedProvider(name: string): boolean {
   const n = name.toLowerCase();
   return (
     (n.includes('ryan') && n.includes('kent')) ||
-    (n.includes('danielle') && (n.includes('alcala') || n.includes('glazier')))
+    (n.includes('danielle') && (n.includes('alcala') || n.includes('glazier'))) ||
+    (n.includes('michelle') && n.includes('colby'))
   );
 }
 

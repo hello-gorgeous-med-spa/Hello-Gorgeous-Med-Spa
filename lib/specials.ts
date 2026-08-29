@@ -22,9 +22,9 @@ export const SPECIALS_FEATURED = [
   },
   {
     title: "Oswego specials",
-    accentLine: "Lashes $89 · Laser $59 · IPL $79",
+    accentLine: "Lashes $89 · Laser from $69 · IPL $79",
     description:
-      "Full-set lashes $89 from Aug 1 · laser any listed area $59 through July 31 · dermaplaning & HydraFacial.",
+      "Full-set lashes $89 · laser chin/lip $69, medium $89, Brazilian/back/full legs $129 · dermaplaning & HydraFacial.",
     href: "/oswego-specials",
     badge: "Hot",
   },
@@ -60,7 +60,7 @@ export const MORE_SPECIALS_LINKS = [
   {
     label: "Oswego Specials Hub",
     href: "/oswego-specials",
-    sub: "Lashes $89 (Aug 1) · Laser $59 (thru July 31) · HydraFacial $129 · IPL $79",
+    sub: "Lashes $89 · Laser from $69 · HydraFacial $129 · IPL $79",
     badge: "SEO",
   },
   {

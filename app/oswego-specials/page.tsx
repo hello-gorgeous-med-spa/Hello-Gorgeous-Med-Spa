@@ -8,7 +8,6 @@ import {
   OSWEGO_SPECIALS_FAQS,
   OSWEGO_SPECIALS_PATH,
   OSWEGO_SPECIALS_SEO,
-  OSWEGO_SPECIALS_VALID_THROUGH,
 } from "@/lib/oswego-specials";
 import {
   SITE,
@@ -46,7 +45,7 @@ export default function OswegoSpecialsPage() {
   const offersSchema = {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    name: `Oswego specials at Hello Gorgeous Med Spa — laser through ${OSWEGO_SPECIALS_VALID_THROUGH}`,
+    name: "Oswego specials at Hello Gorgeous Med Spa — lashes, laser, HydraFacial, IPL",
     itemListElement: [
       {
         "@type": "Offer",
@@ -73,11 +72,11 @@ export default function OswegoSpecialsPage() {
       {
         "@type": "Offer",
         position: 3,
-        name: "Laser Hair Removal — Any Listed Area",
-        price: "59",
+        name: "Laser Hair Removal — By Area",
+        price: "69",
         priceCurrency: "USD",
         description:
-          "Face, neck/chin, underarm, upper legs, lower legs, back, bikini, Brazilian — $59 per session",
+          "Chin or lip $69 · underarms, upper or lower legs, bikini $89 · Brazilian, back, full legs $129",
         url: `${SITE.url}${OSWEGO_SPECIALS_PATH}#laser`,
         availability: "https://schema.org/InStock",
         priceValidUntil: LASER_59_VALID_UNTIL_ISO,

@@ -6,8 +6,9 @@
  *   Ryan     — medical, botox, fillers, weight loss, BHRT, peptides, laser, microneedling,
  *              InMode, PRP, trigger point
  *   Danielle — spa (lash, brow, skin, IV, vitamins, body contouring) — everything EXCEPT botox & fillers;
- *              also InMode coverage with Ryan + Michelle
- *   Michelle — laser hair tech; certified InMode instructor (Morpheus8 / Solaria / Quantum / Luxora);
+ *              also laser hair + InMode coverage with Ryan + Michelle
+ *   Michelle — laser hair tech + IPL photofacials; certified InMode instructor
+ *              (Morpheus8 / Solaria / Quantum / Luxora);
  *              FlowWave / Shockwave / Recovery Stack (sole bookable for FlowWave)
  *   Jen      — Microblading only (regular, hybrid/combo, color refresher, Meet Jen specials)
  *
@@ -94,7 +95,7 @@ function resolveStaff(serviceName, categoryNames) {
 
   // ── Botox / neuromodulators → Ryan only ──
   if (
-    /\bbotox\b|jeuveau|dysport|neuromodulator|lip flip/.test(hay) ||
+    /\bbotox\b|jeuveau|dysport|xeomin|daxxify|neuromodulator|lip flip/.test(hay) ||
     cats.includes("botox")
   ) {
     // Baby Tox + microneedling is a combo — Ryan + Danielle (Danielle does MN)
@@ -162,7 +163,7 @@ function resolveStaff(serviceName, categoryNames) {
 
   // ── Medical consult / trigger point → Ryan only ──
   if (
-    /medical visit|trigger point|consultation with ryan/.test(hay) ||
+    /medical visit|wellness physical|physical exam|trigger point|consultation with ryan/.test(hay) ||
     cats.includes("medical consultations") ||
     cats.includes("trigger point injections")
   ) {
@@ -187,11 +188,19 @@ function resolveStaff(serviceName, categoryNames) {
     };
   }
 
-  // ── Laser hair / DuoCratus LHR → Michelle (laser tech) + Ryan ──
+  // ── Laser hair / DuoCratus LHR → Danielle + Ryan + Michelle ──
   if (/laser hair|brazilian laser|duocratus/.test(hay) && !/ipl|photofacial|solaria|morpheus|quantum/.test(hay)) {
     return {
+      ids: [TEAM.danielle, TEAM.ryan, TEAM.michelle],
+      rule: "Laser hair removal → Danielle + Ryan + Michelle",
+    };
+  }
+
+  // ── IPL / photofacial (same DuoCratus light platform) → Michelle + Ryan ──
+  if (/\bipl\b|photofacial|photo facial|lumecca/.test(hay)) {
+    return {
       ids: [TEAM.michelle, TEAM.ryan],
-      rule: "Laser hair removal → Michelle + Ryan",
+      rule: "IPL photofacial → Michelle + Ryan",
     };
   }
 
@@ -482,7 +491,7 @@ async function main() {
   console.log(`\n✅ Done — updated ${ok}, failed ${failed}`);
   if (!bookable.has(TEAM.michelle)) {
     console.log(
-      "\n⚠ Michelle is assigned to laser / InMode / FlowWave but is NOT enabled for online booking yet.",
+      "\n⚠ Michelle is assigned to laser / IPL / InMode / FlowWave but is NOT enabled for online booking yet.",
     );
     console.log("  Square Dashboard → Team → Michelle Colby → enable Appointments / Bookable.");
   }
