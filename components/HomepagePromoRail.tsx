@@ -23,6 +23,14 @@ const SLIDES: Slide[] = [
     secondary: { label: "Book now", href: "/book?ref=botox_bash_2026" },
   },
   {
+    id: "fall-makeover",
+    badge: "Fall Makeover",
+    line:
+      "Launch savings: Repair $100 off + gift card · Prevent $200 off · Lose $150 off. Consult to lock your package.",
+    primary: { label: "See packages", href: "/fall-makeover" },
+    secondary: { label: "Book consult", href: "/book?ref=fall_makeover_2026" },
+  },
+  {
     id: "oswego-specials",
     badge: "Oswego specials",
     line:

@@ -11,6 +11,7 @@ import {
   NEW_STUDIO_GBP,
 } from "@/lib/campaigns/botox-bash-aug-2026";
 import { FALL_FACIALS_CAMPAIGN, FALL_FACIALS_GBP } from "@/lib/campaigns/fall-into-facials-2026";
+import { FALL_MAKEOVER_CAMPAIGN, FALL_MAKEOVER_GBP } from "@/lib/campaigns/fall-makeover-2026";
 
 export type GbpPostPreset = {
   id: string;
@@ -74,6 +75,13 @@ Read the guide:`,
     linkPath:
       "/blog/botox-side-effects-what-to-expect?utm_source=google&utm_medium=gbp_post&utm_campaign=botox_side_effects_2026",
     imagePath: "/images/homepage-services/botox-cosmetic-authentic-vial.png",
+  },
+  {
+    id: "fall-makeover-2026",
+    label: "Fall Makeover — Repair · Prevent · Lose",
+    message: FALL_MAKEOVER_GBP,
+    linkPath: FALL_MAKEOVER_CAMPAIGN.gbpPath,
+    imagePath: FALL_MAKEOVER_CAMPAIGN.gbpImagePath,
   },
   {
     id: "fall-into-facials-2026",

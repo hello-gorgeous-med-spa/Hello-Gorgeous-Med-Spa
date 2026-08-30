@@ -10,6 +10,7 @@ import {
   NEW_STUDIO_FACEBOOK,
 } from "@/lib/campaigns/botox-bash-aug-2026";
 import { FALL_FACIALS_CAMPAIGN, FALL_FACIALS_FACEBOOK } from "@/lib/campaigns/fall-into-facials-2026";
+import { FALL_MAKEOVER_CAMPAIGN, FALL_MAKEOVER_FACEBOOK } from "@/lib/campaigns/fall-makeover-2026";
 
 export type FacebookPagePreset = {
   id: string;
@@ -707,6 +708,16 @@ export const FACEBOOK_PAGE_PRESET_FALL_FACIALS: FacebookPagePreset = {
   defaultChannels: ["facebook", "instagram", "google"],
 };
 
+export const FACEBOOK_PAGE_PRESET_FALL_MAKEOVER: FacebookPagePreset = {
+  id: "fall-makeover-2026",
+  label: "Fall Makeover — Repair · Prevent · Lose",
+  blurb: "Inside + out packages — Facebook, Instagram, Google.",
+  message: FALL_MAKEOVER_FACEBOOK,
+  linkPath: withUtm(FALL_MAKEOVER_CAMPAIGN.path),
+  imagePath: FALL_MAKEOVER_CAMPAIGN.imagePath,
+  defaultChannels: ["facebook", "instagram", "google"],
+};
+
 export const FACEBOOK_PAGE_PRESET_CHEMICAL_PEELS: FacebookPagePreset = {
   id: "chemical-peels-dermalogica",
   label: "Chemical peels — Dermalogica PRO",
@@ -791,6 +802,7 @@ Read the full guide (free consult link inside) 👇`,
 export const FACEBOOK_PAGE_PRESETS: FacebookPagePreset[] = [
   FACEBOOK_PAGE_PRESET_BOTOX_BASH,
   FACEBOOK_PAGE_PRESET_NEW_STUDIO,
+  FACEBOOK_PAGE_PRESET_FALL_MAKEOVER,
   FACEBOOK_PAGE_PRESET_FALL_FACIALS,
   FACEBOOK_PAGE_PRESET_BLAST_MEMBERSHIPS,
   FACEBOOK_PAGE_PRESET_BLAST_GLP1,

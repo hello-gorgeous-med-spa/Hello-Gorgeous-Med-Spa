@@ -5,6 +5,14 @@ export const SPECIALS_PATH = "/specials";
 /** Top conversion picks — shown above the full menu. */
 export const SPECIALS_FEATURED = [
   {
+    title: "Fall Makeover",
+    accentLine: "$100 · $200 · $150 off",
+    description:
+      "Inside + out for fall. Repair $100 off + complimentary gift card. Prevent (Morpheus8) $200 off. Lose $150 off. Consult to lock your plan.",
+    href: "/fall-makeover",
+    badge: "Fall",
+  },
+  {
     title: "Weekend Botox Bash",
     accentLine: "$9/unit · Fri 8/28 & Sat 8/29",
     description:
@@ -51,6 +59,12 @@ export const SPECIALS_JUMP_LINKS = [
 ] as const;
 
 export const MORE_SPECIALS_LINKS = [
+  {
+    label: "Fall Makeover — Repair · Prevent · Lose",
+    href: "/fall-makeover",
+    sub: "$100 off Repair + gift card · $200 off Prevent · $150 off Lose",
+    badge: "FALL",
+  },
   {
     label: "Weekend Botox Bash + new spa",
     href: "/botox-bash",

@@ -248,6 +248,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.85,
     },
     {
+      url: `${baseUrl}/fall-makeover`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.96,
+    },
+    {
       url: `${baseUrl}/botox-bash`,
       lastModified: currentDate,
       changeFrequency: 'daily',

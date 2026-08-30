@@ -51,6 +51,7 @@ const STANDALONE_APP_ROUTES = [
   "/sermorelin",
   "/services/flowwave",
   "/microblading-brow-pmu-oswego-il",
+  "/fall-makeover",
   /** Ageless-style ad LP — sticky mini-nav only */
   "/see-your-results",
 ];
