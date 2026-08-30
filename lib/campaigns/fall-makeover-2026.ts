@@ -28,7 +28,7 @@ export const FALL_MAKEOVER_CAMPAIGN = {
   name: "HG Fall Makeover — 2026",
   seasonLabel: "Fall Makeover",
   path: FALL_MAKEOVER_PATH,
-  imagePath: "/images/marketing/fall-makeover/social.png" as const,
+  imagePath: "/images/marketing/fall-makeover/social-v2.png" as const,
   ogImagePath: "/images/marketing/fall-makeover/og.png" as const,
   storyImagePath: "/images/marketing/fall-makeover/story.png" as const,
   gbpImagePath: "/images/marketing/fall-makeover/og.png" as const,
@@ -107,6 +107,9 @@ export const FALL_MAKEOVER_EVENT_PHOTOS = [
   },
 ] as const;
 
+/** Four lifestyle frames for the homepage — skip the tight clinical close-ups. */
+export const HOME_THIS_IS_US_PHOTOS = FALL_MAKEOVER_EVENT_PHOTOS.slice(0, 4);
+
 export type FallMakeoverLane = "inside" | "outside";
 
 export type FallMakeoverLine = {
@@ -147,7 +150,7 @@ export const FALL_MAKEOVER_PACKAGES: FallMakeoverPackage[] = [
     concern: "Hyperpigmentation",
     tagline: "Fade what’s already there — light, laser, and a 90-day peptide.",
     why: "Sun, heat, and leftover summer pigment show up in fall. Repair hits the mark from the surface and from the inside so the fade has something to hold.",
-    image: "/images/marketing/fall-makeover/repair.png",
+    image: "/images/marketing/fall-makeover/repair-v2.png",
     imageAlt: "Fall Makeover Repair — pigment package at Hello Gorgeous Med Spa",
     bookHref: bookPkg("repair"),
     savingsUsd: 100,
@@ -190,7 +193,7 @@ export const FALL_MAKEOVER_PACKAGES: FallMakeoverPackage[] = [
     concern: "Anti-aging",
     tagline: "Keep fall from etching summer into next year.",
     why: "Prevent is not another pigment protocol. K-Glow plus a retinoid work inside; Xeomin, one Morpheus8, and two Glow facials hold the surface through the season.",
-    image: "/images/marketing/fall-makeover/prevent.png",
+    image: "/images/marketing/fall-makeover/prevent-v2.png",
     imageAlt: "Fall Makeover Prevent — anti-aging package at Hello Gorgeous Med Spa",
     bookHref: bookPkg("prevent"),
     savingsUsd: 200,
@@ -240,7 +243,7 @@ export const FALL_MAKEOVER_PACKAGES: FallMakeoverPackage[] = [
     concern: "Weight + tightening",
     tagline: "Drop the weight. Keep the skin in the conversation.",
     why: "GLP-1 changes the body. Morpheus8 keeps pace where skin is loosening. Monthly MIC + B12 and one Glow facial so the face doesn’t lag the scale.",
-    image: "/images/marketing/fall-makeover/lose.png",
+    image: "/images/marketing/fall-makeover/lose-v2.png",
     imageAlt: "Fall Makeover Lose — GLP-1 and tightening package at Hello Gorgeous Med Spa",
     bookHref: bookPkg("lose"),
     savingsUsd: 150,

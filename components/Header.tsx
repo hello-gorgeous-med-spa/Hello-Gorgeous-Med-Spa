@@ -132,9 +132,9 @@ const NAV = {
     href: SPECIALS_PATH,
     links: [
       {
-        label: "Weekend Botox Bash + new spa",
-        href: "/botox-bash",
-        sub: "Fri 8/28 Girls Night 5–9 · Sat 8/29 · $9/unit + tax",
+        label: "Fall Makeover — Repair · Prevent · Lose",
+        href: "/fall-makeover",
+        sub: "$100 off Repair + gift card · $200 off Prevent · $150 off Lose",
         badge: "NOW",
       },
       {

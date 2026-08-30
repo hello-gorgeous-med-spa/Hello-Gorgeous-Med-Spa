@@ -15,12 +15,12 @@ type Slide = {
 
 const SLIDES: Slide[] = [
   {
-    id: "botox-bash",
-    badge: "This weekend",
+    id: "this-is-us",
+    badge: "This is us",
     line:
-      "New spa is ready. Weekend Botox Bash Fri Aug 28 (Girls Night 5–9) & Sat Aug 29 — $9/unit + tax.",
-    primary: { label: "See the new spa", href: "/botox-bash" },
-    secondary: { label: "Book now", href: "/book?ref=botox_bash_2026" },
+      "Real night in the new downtown studio — friends, treatments, and the room we built. Not a stock set.",
+    primary: { label: "See who we are", href: "/#this-is-us" },
+    secondary: { label: "Full gallery", href: "/fall-makeover#who-we-are" },
   },
   {
     id: "fall-makeover",

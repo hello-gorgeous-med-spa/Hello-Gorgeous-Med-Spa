@@ -3,125 +3,127 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import { CTA } from "@/components/CTA";
+import { RoseGoldFrame } from "@/components/marketing/RoseGoldFrame";
 import { FadeUp } from "@/components/Section";
 import {
-  BOTOX_BASH_CAMPAIGN,
-  BOTOX_BASH_PATH,
-  STUDIO_PHOTOS,
-} from "@/lib/campaigns/botox-bash-aug-2026";
+  FALL_MAKEOVER_CAMPAIGN,
+  FALL_MAKEOVER_CONTACT,
+  FALL_MAKEOVER_PACKAGES,
+  FALL_MAKEOVER_PATH,
+  HOME_THIS_IS_US_PHOTOS,
+} from "@/lib/campaigns/fall-makeover-2026";
 
-const OFFERS = [
-  { label: "Botox Cosmetic", value: BOTOX_BASH_CAMPAIGN.botoxPrice },
-  { label: "Lip filler · event ½ syringe", value: BOTOX_BASH_CAMPAIGN.lipHalfPrice },
-  { label: "Double vitamin shot", value: BOTOX_BASH_CAMPAIGN.doubleShotPrice },
-] as const;
-
-/** Homepage reveal — new downtown studio photos + this weekend’s Botox Bash. */
+/** Homepage — This is us gallery + Fall Makeover. Replaces the expired Botox Bash flyer. */
 export function NewStudioRevealBand() {
+  const { bookHref } = FALL_MAKEOVER_CONTACT;
+
   return (
     <section
-      className="border-b-4 border-black bg-gradient-to-br from-[#0a0a0a] via-[#1a0a14] to-[#2d1020]"
-      aria-labelledby="new-studio-heading"
+      id="this-is-us"
+      className="scroll-mt-24 border-b border-white/10 bg-[radial-gradient(85%_95%_at_78%_8%,#1a0510,#000_62%)]"
+      aria-labelledby="this-is-us-heading"
     >
-      <div className="mx-auto max-w-6xl px-4 py-10 sm:py-12 md:px-6 md:py-16">
+      <div className="mx-auto max-w-[1200px] px-4 py-14 sm:px-6 sm:py-16 lg:py-20">
         <FadeUp>
-          <div className="text-center">
-            <p className="inline-flex items-center gap-2 rounded-full border-2 border-white/20 bg-white/10 px-4 py-1.5 text-[10px] font-bold uppercase tracking-[0.28em] text-white backdrop-blur">
-              <span className="inline-block h-2 w-2 animate-pulse rounded-full bg-[#E6007E]" aria-hidden />
-              New downtown studio · this weekend only
+          <div className="mx-auto max-w-2xl text-center">
+            <p className="text-[12px] font-extrabold uppercase tracking-[0.3em] text-[#FF2D8E]">
+              Hello Gorgeous · downtown Oswego
             </p>
             <h2
-              id="new-studio-heading"
-              className="mt-5 font-black text-3xl leading-tight text-white sm:text-5xl"
+              id="this-is-us-heading"
+              className="mt-3 font-serif text-[34px] font-bold leading-[1.05] text-white sm:text-[46px]"
             >
-              Come see what we’ve been{" "}
-              <span
-                className="bg-gradient-to-r from-[#FFB8DC] via-[#FF2D8E] to-[#E6007E] bg-clip-text text-transparent"
-                style={{ WebkitBackgroundClip: "text" }}
-              >
-                working for
-              </span>
+              This is <span className="text-[#FF2D8E]">who we are</span>
             </h2>
-            <p className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-white/80 sm:text-lg">
-              {`Hello Gorgeous is home on Washington Street. Walk the new lobby, then book Weekend Botox Bash — ${BOTOX_BASH_CAMPAIGN.fridayLabel} Girls Night ${BOTOX_BASH_CAMPAIGN.fridayWindow}, plus ${BOTOX_BASH_CAMPAIGN.saturdayLabel}.`}
+            <p className="mt-4 text-base leading-relaxed text-white/70 sm:text-lg">
+              Real night in the new Washington Street studio — friends, treatments, and the room we
+              built. Not a stock set. Come sit with us.
             </p>
           </div>
         </FadeUp>
 
-        <div className="mt-8 grid grid-cols-2 gap-3 md:grid-cols-5">
-          {STUDIO_PHOTOS.map((photo, i) => (
+        <div className="mt-10 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4 lg:gap-5">
+          {HOME_THIS_IS_US_PHOTOS.map((photo, i) => (
             <FadeUp key={photo.src} delayMs={i * 40}>
-              <Link
-                href={BOTOX_BASH_PATH}
-                className="group relative block overflow-hidden rounded-2xl border-4 border-black bg-white shadow-[6px_6px_0_0_rgba(230,0,126,0.35)]"
-              >
-                <div className="relative aspect-[3/4]">
-                  <Image
-                    src={photo.src}
-                    alt={photo.alt}
-                    fill
-                    className="object-cover transition duration-500 group-hover:scale-[1.03]"
-                    sizes="(max-width: 768px) 50vw, 20vw"
-                    priority={i < 2}
-                  />
-                </div>
-                <span className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent px-3 py-2 text-xs font-bold uppercase tracking-wide text-white">
-                  {photo.caption}
-                </span>
+              <Link href={`${FALL_MAKEOVER_PATH}#who-we-are`} className="block">
+                <RoseGoldFrame caption={photo.caption}>
+                  <div className="relative aspect-[3/4] w-full">
+                    <Image
+                      src={photo.src}
+                      alt={photo.alt}
+                      fill
+                      className="object-cover transition duration-700 group-hover:scale-[1.03]"
+                      style={{ objectPosition: photo.focus }}
+                      sizes="(max-width: 1024px) 50vw, 25vw"
+                      priority={i < 2}
+                    />
+                  </div>
+                </RoseGoldFrame>
               </Link>
             </FadeUp>
           ))}
         </div>
 
         <FadeUp delayMs={80}>
-          <div className="mt-8 overflow-hidden rounded-3xl border-4 border-black bg-white shadow-[8px_8px_0_0_rgba(230,0,126,0.35)]">
-            <div className="grid md:grid-cols-[1.1fr_0.9fr]">
-              <div className="border-b-4 border-black p-6 md:border-b-0 md:border-r-4 md:p-8">
-                <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-[#E6007E]">
-                  Weekend Botox Bash
-                </p>
-                <h3 className="mt-2 font-black text-2xl text-black sm:text-3xl">
-                  {BOTOX_BASH_CAMPAIGN.fridayLabel} & {BOTOX_BASH_CAMPAIGN.saturdayLabel}
-                </h3>
-                <p className="mt-2 text-sm font-semibold text-black/70">
-                  Friday {BOTOX_BASH_CAMPAIGN.fridayWindow} · {BOTOX_BASH_CAMPAIGN.girlsNightTitle} · Saturday
-                  clinic hours
-                </p>
-                <ul className="mt-5 space-y-3">
-                  {OFFERS.map((offer) => (
-                    <li
-                      key={offer.label}
-                      className="flex items-baseline justify-between gap-4 border-b border-black/10 pb-2 last:border-0"
-                    >
-                      <span className="font-bold text-[#E6007E]">▸ {offer.label}</span>
-                      <span className="text-right font-black text-black">{offer.value}</span>
-                    </li>
-                  ))}
-                </ul>
-                <p className="mt-4 text-xs leading-relaxed text-black/60">
-                  Authentic Botox Cosmetic. Units are mapped at your visit. Event pricing this weekend
-                  only. Champagne service is 21+.
-                </p>
-                <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-                  <CTA href={BOTOX_BASH_CAMPAIGN.bookPath} variant="gradient">
-                    Book the Bash
-                  </CTA>
-                  <CTA href={BOTOX_BASH_PATH} variant="outline">
-                    See the new spa
-                  </CTA>
-                </div>
-              </div>
-              <Link href={BOTOX_BASH_PATH} className="relative min-h-[260px] bg-[#FFF0F7]">
-                <Image
-                  src={BOTOX_BASH_CAMPAIGN.flyerWeekend}
-                  alt="Weekend Botox Bash flyer — $9 per unit Botox, Friday August 28 and Saturday August 29"
-                  fill
-                  className="object-cover object-top"
-                  sizes="(max-width: 768px) 100vw, 40vw"
-                />
+          <div className="mt-16 border-t border-white/10 pt-14">
+            <div className="mx-auto max-w-2xl text-center">
+              <p className="text-[12px] font-extrabold uppercase tracking-[0.3em] text-[#E8C4B8]">
+                Fall promotions
+              </p>
+              <h3 className="mt-3 font-serif text-[30px] font-bold leading-[1.05] text-white sm:text-[40px]">
+                Repair. Prevent. <span className="text-[#FF2D8E]">Lose.</span>
+              </h3>
+              <p className="mt-4 text-base leading-relaxed text-white/70 sm:text-lg">
+                Three inside + out lanes for the season. Launch savings apply at consult after Ryan
+                Kent, FNP-BC maps candidacy — not a checkout coupon.
+              </p>
+            </div>
+
+            <div className="mt-10 grid gap-5 lg:grid-cols-3">
+              {FALL_MAKEOVER_PACKAGES.map((pkg) => (
+                <Link
+                  key={pkg.id}
+                  href={`${FALL_MAKEOVER_PATH}#packages`}
+                  className="group overflow-hidden rounded-[22px] border border-[#C9A227]/35 bg-gradient-to-b from-[#140109] to-[#0a0206] transition duration-500 hover:-translate-y-1 hover:border-[#E8C4B8]/70"
+                >
+                  <div className="relative aspect-[4/3] overflow-hidden">
+                    <Image
+                      src={pkg.image}
+                      alt={pkg.imageAlt}
+                      fill
+                      className="object-cover transition duration-700 group-hover:scale-[1.03]"
+                      sizes="(max-width: 1024px) 100vw, 33vw"
+                    />
+                  </div>
+                  <div className="p-6">
+                    <p className="text-[11px] font-extrabold uppercase tracking-[0.22em] text-[#E8C4B8]">
+                      {pkg.concern}
+                    </p>
+                    <h4 className="mt-1 font-serif text-[28px] font-bold text-white">{pkg.name}</h4>
+                    <p className="mt-2 text-sm font-extrabold text-[#FF2D8E]">{pkg.savingsLabel}</p>
+                    <p className="mt-2 text-sm leading-relaxed text-white/70">{pkg.tagline}</p>
+                  </div>
+                </Link>
+              ))}
+            </div>
+
+            <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
+              <Link
+                href={FALL_MAKEOVER_PATH}
+                className="inline-flex items-center justify-center rounded-full bg-[#FF2D8E] px-8 py-3.5 text-base font-extrabold text-black transition hover:-translate-y-0.5 hover:bg-white"
+              >
+                See Fall Makeover
+              </Link>
+              <Link
+                href={bookHref}
+                className="inline-flex items-center justify-center rounded-full border border-white/45 px-8 py-3.5 text-base font-bold text-white transition hover:-translate-y-0.5 hover:border-[#FF2D8E] hover:text-[#FF2D8E]"
+              >
+                Book a consult
               </Link>
             </div>
+            <p className="mt-4 text-center text-xs text-white/45">
+              {FALL_MAKEOVER_CAMPAIGN.seasonLabel} · savings lock at consult · one lane per client
+            </p>
           </div>
         </FadeUp>
       </div>

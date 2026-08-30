@@ -13,12 +13,12 @@ export const SPECIALS_FEATURED = [
     badge: "Fall",
   },
   {
-    title: "Weekend Botox Bash",
-    accentLine: "$9/unit · Fri 8/28 & Sat 8/29",
+    title: "This is us",
+    accentLine: "New downtown studio",
     description:
-      "See the new downtown studio. Girls Night Out Friday 5–9 PM. Authentic Botox Cosmetic $9/unit + tax · event ½ syringe $399 · double vitamin shot $50.",
-    href: "/botox-bash",
-    badge: "This weekend",
+      "Real night in the Washington Street studio — friends, treatments, and the room we built. Not a stock set.",
+    href: "/#this-is-us",
+    badge: "Studio",
   },
   {
     title: "HydraFacial Glow Special",
@@ -66,10 +66,10 @@ export const MORE_SPECIALS_LINKS = [
     badge: "FALL",
   },
   {
-    label: "Weekend Botox Bash + new spa",
-    href: "/botox-bash",
-    sub: "Fri 8/28 Girls Night 5–9 · Sat 8/29 · Botox $9/unit + tax",
-    badge: "NOW",
+    label: "This is us — new downtown studio",
+    href: "/#this-is-us",
+    sub: "Event-night photos from Washington Street",
+    badge: "STUDIO",
   },
   {
     label: "Oswego Specials Hub",

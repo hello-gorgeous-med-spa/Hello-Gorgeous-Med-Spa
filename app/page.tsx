@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import { NewStudioRevealBand } from "@/components/marketing/NewStudioRevealBand";
-import { STUDIO_PHOTOS } from "@/lib/campaigns/botox-bash-aug-2026";
+import { HOME_THIS_IS_US_PHOTOS } from "@/lib/campaigns/fall-makeover-2026";
 import { MdOversightWelcomeBand } from "@/components/MdOversightWelcomeBand";
 import {
   BuildYourProposalHomeInvite,
@@ -154,12 +154,12 @@ export default function HomePage() {
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(
             imageGalleryJsonLd(
-              STUDIO_PHOTOS.map((photo) => ({
+              HOME_THIS_IS_US_PHOTOS.map((photo) => ({
                 src: photo.src,
                 alt: photo.alt,
                 title: `Hello Gorgeous Med Spa — ${photo.caption}`,
               })),
-              "New Hello Gorgeous Med Spa studio — downtown Oswego",
+              "This is us — Hello Gorgeous Med Spa downtown Oswego",
             ),
           ),
         }}
