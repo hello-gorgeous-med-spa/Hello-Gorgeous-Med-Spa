@@ -7,6 +7,7 @@ import { useState } from "react";
 import {
   FALL_MAKEOVER_CAMPAIGN,
   FALL_MAKEOVER_CONTACT,
+  FALL_MAKEOVER_EVENT_PHOTOS,
   FALL_MAKEOVER_FAQS,
   FALL_MAKEOVER_NAV,
   FALL_MAKEOVER_PACKAGES,
@@ -99,6 +100,48 @@ function CheckItem({ children }: { children: React.ReactNode }) {
       <span className="shrink-0 font-black text-[#FF2D8E]">✓</span>
       <span>{children}</span>
     </li>
+  );
+}
+
+function RoseGoldFrame({
+  children,
+  caption,
+  className = "",
+}: {
+  children: React.ReactNode;
+  caption?: string;
+  className?: string;
+}) {
+  return (
+    <figure className={`group ${className}`}>
+      <div
+        className="relative p-[6px] transition duration-500 group-hover:-translate-y-1"
+        style={{
+          background:
+            "linear-gradient(145deg, #F8E6C9 0%, #E8B86D 12%, #C9A227 28%, #B76E79 50%, #E8C4B8 72%, #D4A574 88%, #F7E7CE 100%)",
+          borderRadius: 24,
+          boxShadow:
+            "0 0 0 1px rgba(247,231,206,0.4), 0 18px 48px rgba(183,110,121,0.3), 0 0 36px rgba(201,162,39,0.14)",
+        }}
+      >
+        <div
+          className="p-[3px]"
+          style={{
+            background: "linear-gradient(180deg, #241018 0%, #0a0206 100%)",
+            borderRadius: 19,
+          }}
+        >
+          <div className="relative overflow-hidden rounded-[16px] bg-black">{children}</div>
+        </div>
+      </div>
+      {caption ? (
+        <figcaption className="mt-3.5 flex items-center justify-center gap-3 text-[11px] font-extrabold uppercase tracking-[0.22em] text-[#E8C4B8]">
+          <span className="h-px w-6 bg-gradient-to-r from-transparent to-[#C9A227]/75" aria-hidden />
+          {caption}
+          <span className="h-px w-6 bg-gradient-to-l from-transparent to-[#C9A227]/75" aria-hidden />
+        </figcaption>
+      ) : null}
+    </figure>
   );
 }
 
@@ -281,6 +324,64 @@ export function FallMakeoverPageContent() {
         <span className="hidden sm:inline">·</span>
         <span>Full-authority NP on site</span>
       </div>
+
+      <section
+        id="who-we-are"
+        className="scroll-mt-24 bg-[radial-gradient(85%_95%_at_78%_10%,#1a0510,#000_62%)] px-6 py-16 lg:py-24"
+      >
+        <div className="mx-auto max-w-[1200px]">
+          <SectionHead
+            center
+            eyebrow="Hello Gorgeous · downtown Oswego"
+            title="This is"
+            titleAccent="who we are"
+            description="Real night in the new studio — friends, treatments, and the room we built. Not a stock set. Come sit with us."
+          />
+          <div className="mt-11 grid grid-cols-2 gap-4 lg:grid-cols-12 lg:gap-5">
+            {FALL_MAKEOVER_EVENT_PHOTOS.map((photo) => {
+              const wide = photo.span === "wide";
+              const tall = photo.span === "tall";
+              const half = photo.span === "half";
+              return (
+                <RoseGoldFrame
+                  key={photo.src}
+                  caption={photo.caption}
+                  className={
+                    wide
+                      ? "col-span-2 lg:col-span-7"
+                      : tall
+                        ? "col-span-2 lg:col-span-5"
+                        : half
+                          ? "col-span-1 lg:col-span-6"
+                          : "col-span-2 lg:col-span-5"
+                  }
+                >
+                  <div
+                    className={`relative w-full ${
+                      wide ? "aspect-[4/3]" : tall || half ? "aspect-[3/4]" : "aspect-[4/3]"
+                    }`}
+                  >
+                    <Image
+                      src={photo.src}
+                      alt={photo.alt}
+                      fill
+                      className="object-cover transition duration-700 group-hover:scale-[1.03]"
+                      style={{ objectPosition: photo.focus }}
+                      sizes={
+                        wide
+                          ? "(max-width: 1024px) 100vw, 60vw"
+                          : tall
+                            ? "(max-width: 1024px) 100vw, 40vw"
+                            : "(max-width: 1024px) 50vw, 40vw"
+                      }
+                    />
+                  </div>
+                </RoseGoldFrame>
+              );
+            })}
+          </div>
+        </div>
+      </section>
 
       <section id="packages" className="scroll-mt-24 px-6 py-16 lg:py-24">
         <div className="mx-auto max-w-[1200px]">

@@ -52,11 +52,59 @@ export const FALL_MAKEOVER_CONTACT = {
 } as const;
 
 export const FALL_MAKEOVER_NAV = [
+  { href: "#who-we-are", label: "This is us" },
   { href: "#packages", label: "Packages" },
   { href: "#gift-card", label: "Gift card" },
   { href: "#squares", label: "Squares" },
   { href: "#pricing", label: "Pricing" },
   { href: "#faq", label: "FAQ" },
+] as const;
+
+const EVENT = "/images/studio/event-party";
+
+export const FALL_MAKEOVER_EVENT_PHOTOS = [
+  {
+    src: `${EVENT}/party-01.jpg`,
+    alt: "Danielle celebrating in the downtown Oswego studio with a rose-gold balloon",
+    caption: "This is us",
+    span: "wide" as const,
+    focus: "center 38%",
+  },
+  {
+    src: `${EVENT}/party-portrait-01.jpg`,
+    alt: "Ryan Kent, FNP-BC treating a guest at a Hello Gorgeous studio event",
+    caption: "Ryan, FNP-BC",
+    span: "tall" as const,
+    focus: "center 22%",
+  },
+  {
+    src: `${EVENT}/party-05.jpg`,
+    alt: "Guests together on the lounge sofa at a Hello Gorgeous event night",
+    caption: "Our people",
+    span: "square" as const,
+    focus: "center 40%",
+  },
+  {
+    src: `${EVENT}/party-04.jpg`,
+    alt: "Event night in the new Washington Street studio — lounge, treatment chair, and friends",
+    caption: "Event night",
+    span: "wide" as const,
+    focus: "center 48%",
+  },
+  {
+    src: `${EVENT}/party-portrait-02.jpg`,
+    alt: "Close-up of a guest during a treatment at Hello Gorgeous Med Spa",
+    caption: "In the chair",
+    span: "half" as const,
+    focus: "center 22%",
+  },
+  {
+    src: `${EVENT}/party-portrait-04.jpg`,
+    alt: "Ryan Kent reviewing a treatment with a guest in the studio chair",
+    caption: "Mapped in real time",
+    span: "half" as const,
+    focus: "center 28%",
+  },
 ] as const;
 
 export type FallMakeoverLane = "inside" | "outside";
