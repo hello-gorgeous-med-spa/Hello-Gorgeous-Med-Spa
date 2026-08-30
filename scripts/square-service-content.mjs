@@ -34,19 +34,19 @@ export const SERVICE_CONTENT = {
     cat: "Medical Consultations",
   },
   "Fall Makeover Consult": {
-    d: "Fall Makeover consult with Ryan Kent, FNP-BC in Oswego. Pick Repair, Prevent, or Lose. He maps candidacy and your real number. Savings apply at the visit.",
+    d: "Fall Makeover consult with Ryan Kent, FNP-BC and Danielle Alcala in Oswego. Pick Repair, Prevent, or Lose. We map candidacy and your real number. Savings apply at the visit.",
     cat: "Fall Makeover",
   },
   "Fall Makeover — Repair": {
-    d: "Fall Makeover Repair in Oswego — fade leftover pigment inside and out. IPL, Solaria CO₂, lightener, and GHK-Cu when prescribed. Ryan maps the plan at consult.",
+    d: "Fall Makeover Repair in Oswego — fade leftover pigment inside and out. IPL, Solaria CO₂, lightener, and GHK-Cu when prescribed. Ryan and Danielle map the plan at consult.",
     cat: "Fall Makeover",
   },
   "Fall Makeover — Prevent": {
-    d: "Fall Makeover Prevent in Oswego — hold the line on aging. K-Glow, retinoid, Xeomin, Morpheus8, Glow facials. Ryan maps the plan at consult.",
+    d: "Fall Makeover Prevent in Oswego — hold the line on aging. K-Glow, retinoid, Xeomin, Morpheus8, Glow facials. Ryan and Danielle map the plan at consult.",
     cat: "Fall Makeover",
   },
   "Fall Makeover — Lose": {
-    d: "Fall Makeover Lose in Oswego — medical weight loss plus tightening. GLP-1, MIC + B12, Morpheus8, Glow facial. Ryan maps the plan at consult.",
+    d: "Fall Makeover Lose in Oswego — medical weight loss plus tightening. GLP-1, MIC + B12, Morpheus8, Glow facial. Ryan and Danielle map the plan at consult.",
     cat: "Fall Makeover",
   },
   "HydraFacial": {

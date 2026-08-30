@@ -2,7 +2,7 @@
 /**
  * Square Appointments — Fall Makeover packages (no published price).
  *
- * Category + 4 bookable consults, VARIABLE_PRICING. Ryan maps the plan.
+ * Category + 4 bookable consults, VARIABLE_PRICING. Ryan + Danielle.
  *
  *   node --env-file=.env.local scripts/square-upsert-fall-makeover.mjs --dry-run
  *   node --env-file=.env.local scripts/square-upsert-fall-makeover.mjs --apply
@@ -24,6 +24,8 @@ const SQUARE_VERSION = "2025-04-16";
 const LOCATION_ID = process.env.SQUARE_LOCATION_ID || "L3QDRS4DX9ZE4";
 const BOOKING_SITE = "pf2o75yphk7vw6";
 const RYAN = "TM1IptWCrgxkY4p7";
+const DANIELLE = "TMqnS9cNU-3s3lUR";
+const STAFF = [RYAN, DANIELLE];
 
 const CATEGORY_NAME = "Fall Makeover";
 const LABEL_COLOR = "FF2D8E";
@@ -36,7 +38,7 @@ const SERVICES = [
     aliases: ["Fall Makeover", "Fall Makeover — Consult"],
     image: "public/images/marketing/fall-makeover/social-v2.png",
     description:
-      "Fall Makeover consult with Ryan Kent, FNP-BC at Hello Gorgeous Med Spa, Oswego. Pick Repair, Prevent, or Lose. He maps candidacy, downtime, and your real number. Prescription pieces need clearance. Savings apply at consult — not a checkout coupon. Not billed to insurance.",
+      "Fall Makeover consult with Ryan Kent, FNP-BC and Danielle Alcala at Hello Gorgeous Med Spa, Oswego. Pick Repair, Prevent, or Lose. We map candidacy, downtime, and your real number. Prescription pieces need NP clearance. Savings apply at consult — not a checkout coupon. Not billed to insurance.",
   },
   {
     key: "repair",
@@ -44,7 +46,7 @@ const SERVICES = [
     aliases: ["Repair Fall Makeover", "Fall Makeover Repair"],
     image: "public/images/marketing/fall-makeover/repair-v2.png",
     description:
-      "Fall Makeover Repair — fade leftover pigment from the inside and the outside. IPL series, Solaria CO₂, medical-grade lightener, and GHK-Cu when prescribed. Ryan Kent, FNP-BC maps the plan at consult. Hello Gorgeous Med Spa, Oswego. Not billed to insurance.",
+      "Fall Makeover Repair — fade leftover pigment from the inside and the outside. IPL series, Solaria CO₂, medical-grade lightener, and GHK-Cu when prescribed. Ryan Kent, FNP-BC and Danielle Alcala map the plan at consult. Hello Gorgeous Med Spa, Oswego. Not billed to insurance.",
   },
   {
     key: "prevent",
@@ -52,7 +54,7 @@ const SERVICES = [
     aliases: ["Prevent Fall Makeover", "Fall Makeover Prevent"],
     image: "public/images/marketing/fall-makeover/prevent-v2.png",
     description:
-      "Fall Makeover Prevent — hold the line on aging this season. K-Glow peptide, retinoid cream, Xeomin, one Morpheus8, and Glow facials. Ryan Kent, FNP-BC maps the plan at consult. Hello Gorgeous Med Spa, Oswego. Not billed to insurance.",
+      "Fall Makeover Prevent — hold the line on aging this season. K-Glow peptide, retinoid cream, Xeomin, one Morpheus8, and Glow facials. Ryan Kent, FNP-BC and Danielle Alcala map the plan at consult. Hello Gorgeous Med Spa, Oswego. Not billed to insurance.",
   },
   {
     key: "lose",
@@ -60,7 +62,7 @@ const SERVICES = [
     aliases: ["Lose Fall Makeover", "Fall Makeover Lose"],
     image: "public/images/marketing/fall-makeover/lose-v2.png",
     description:
-      "Fall Makeover Lose — medical weight loss plus tightening so skin stays in the conversation. GLP-1 program, MIC + B12, Morpheus8, and a Glow facial. Ryan Kent, FNP-BC maps the plan at consult. Hello Gorgeous Med Spa, Oswego. Not billed to insurance.",
+      "Fall Makeover Lose — medical weight loss plus tightening so skin stays in the conversation. GLP-1 program, MIC + B12, Morpheus8, and a Glow facial. Ryan Kent, FNP-BC and Danielle Alcala map the plan at consult. Hello Gorgeous Med Spa, Oswego. Not billed to insurance.",
   },
 ];
 
@@ -201,7 +203,7 @@ async function upsertService(spec, categoryId, items) {
             service_duration: MIN(DURATION_MIN),
             available_for_booking: true,
             sellable: true,
-            team_member_ids: [RYAN],
+            team_member_ids: STAFF,
           },
         },
       ],
@@ -209,7 +211,7 @@ async function upsertService(spec, categoryId, items) {
   };
 
   if (!APPLY) {
-    console.log(`  ${DURATION_MIN} min · Ryan · no price`);
+    console.log(`  ${DURATION_MIN} min · Ryan + Danielle · no price`);
     return { key: spec.key, name: spec.name };
   }
 
