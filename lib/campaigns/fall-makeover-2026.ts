@@ -7,7 +7,7 @@
 import { GLP1_PROGRAM } from "@/lib/glp1-program-pricing";
 import { HYDRAFACIAL_GLOW_SPECIAL } from "@/lib/hydrafacial-marketing";
 import { IPL_79_SPECIAL } from "@/lib/oswego-specials";
-import { PRIMARY_BOOKING_CTA } from "@/lib/primary-cta";
+import { SQUARE_FALL_MAKEOVER_VARIATIONS, squareAppointmentServiceUrl } from "@/lib/flows";
 import { SITE } from "@/lib/seo";
 import {
   FORMULATION_COLD_SHIP_USD,
@@ -33,7 +33,7 @@ export const FALL_MAKEOVER_CAMPAIGN = {
   storyImagePath: "/images/marketing/fall-makeover/story.png" as const,
   gbpImagePath: "/images/marketing/fall-makeover/og.png" as const,
   giftCardImagePath: "/images/marketing/fall-makeover/gift-card.png" as const,
-  bookPath: `${PRIMARY_BOOKING_CTA.href}?ref=fall_makeover_2026`,
+  bookPath: squareAppointmentServiceUrl(SQUARE_FALL_MAKEOVER_VARIATIONS.consult),
   socialPath: `${FALL_MAKEOVER_PATH}?utm_source=social&utm_medium=page_post&utm_campaign=fall_makeover_2026`,
   gbpPath: `${FALL_MAKEOVER_PATH}?utm_source=google&utm_medium=gbp_post&utm_campaign=fall_makeover_2026` as const,
   squareAudience: "HG All Opt-In",
@@ -139,7 +139,7 @@ export type FallMakeoverPackage = {
 };
 
 function bookPkg(id: FallMakeoverPackageId): string {
-  return `${PRIMARY_BOOKING_CTA.href}?ref=fall_makeover_${id}`;
+  return squareAppointmentServiceUrl(SQUARE_FALL_MAKEOVER_VARIATIONS[id]);
 }
 
 export const FALL_MAKEOVER_PACKAGES: FallMakeoverPackage[] = [

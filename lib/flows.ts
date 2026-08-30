@@ -31,6 +31,23 @@ export const SQUARE_RX_PEPTIDE_CONSULT_SERVICE_VARIATION_ID = "7QOZ5JWUYXB2622D5
 export const SQUARE_XEOMIN_SERVICE_VARIATION_ID = "3MQB3NQLQW4RFFYVMOADH3SN";
 
 /**
+ * Square Appointments — Fall Makeover consults (no published price).
+ * Ryan Kent, FNP-BC maps the lane. Savings apply at the visit.
+ */
+export const SQUARE_FALL_MAKEOVER_VARIATIONS = {
+  consult: "NTKQLWTN5IYYQXV34OCOECDN",
+  repair: "TEMTQVFF7SPNQM7CKND3R6H6",
+  prevent: "67RFCTTSTLXGL773LVCKLJGN",
+  lose: "PZ7IC35JP3VIRZJ3XOOWYNQV",
+} as const;
+
+/**
+ * Square Appointments — Wellness Physical ($149, 30 min, Ryan only, in-person).
+ * Hands-on exam; not the $49 / 15 min Medical Visit consult.
+ */
+export const SQUARE_RX_PHYSICAL_SERVICE_VARIATION_ID = "DOLCYP22JIP2KKS2LDKCHXH4";
+
+/**
  * Square Appointments — "Vitamin Injection Bar — Choose Your Shot" ($25, 10 min).
  * The in-clinic shot a nurse gives, as opposed to the pharmacy-shipped vials on
  * `/rx/wellness`. Every vitamin shot on the menu is this one flat price.
@@ -79,10 +96,18 @@ export const SQUARE_RX_PEPTIDE_CONSULT_BOOKING_URL =
   process.env.NEXT_PUBLIC_SQUARE_RX_PEPTIDE_CONSULT_URL?.trim() ||
   `https://book.squareup.com/appointments/${SQUARE_RX_BOOKING_SITE_ID}/location/${SQUARE_RX_LOCATION_ID}/services/${SQUARE_RX_PEPTIDE_CONSULT_SERVICE_VARIATION_ID}`;
 
+/** In-person wellness physical — Square Appointments deep link. */
+export const SQUARE_RX_PHYSICAL_BOOKING_URL =
+  process.env.NEXT_PUBLIC_SQUARE_RX_PHYSICAL_URL?.trim() ||
+  `https://book.squareup.com/appointments/${SQUARE_RX_BOOKING_SITE_ID}/location/${SQUARE_RX_LOCATION_ID}/services/${SQUARE_RX_PHYSICAL_SERVICE_VARIATION_ID}`;
+
 /** Xeomin — Square Appointments deep link. */
 export const SQUARE_XEOMIN_BOOKING_URL =
   process.env.NEXT_PUBLIC_SQUARE_XEOMIN_URL?.trim() ||
   `https://book.squareup.com/appointments/${SQUARE_RX_BOOKING_SITE_ID}/location/${SQUARE_RX_LOCATION_ID}/services/${SQUARE_XEOMIN_SERVICE_VARIATION_ID}`;
+
+/** Fall Makeover consult — Square Appointments deep link (no price). */
+export const SQUARE_FALL_MAKEOVER_BOOKING_URL = `https://book.squareup.com/appointments/${SQUARE_RX_BOOKING_SITE_ID}/location/${SQUARE_RX_LOCATION_ID}/services/${SQUARE_FALL_MAKEOVER_VARIATIONS.consult}`;
 
 /**
  * In-clinic vitamin shot ($25) — Square Appointments deep link. Override with

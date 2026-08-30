@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
 
+import { FALL_MAKEOVER_CONTACT, FALL_MAKEOVER_PATH } from "@/lib/campaigns/fall-makeover-2026";
+
 const INTERVAL_MS = 8000;
 
 type Slide = {
@@ -27,8 +29,8 @@ const SLIDES: Slide[] = [
     badge: "Fall Makeover",
     line:
       "Launch savings: Repair $100 off + gift card · Prevent $200 off · Lose $150 off. Consult to lock your package.",
-    primary: { label: "See packages", href: "/fall-makeover" },
-    secondary: { label: "Book consult", href: "/book?ref=fall_makeover_2026" },
+    primary: { label: "See packages", href: FALL_MAKEOVER_PATH },
+    secondary: { label: "Book consult", href: FALL_MAKEOVER_CONTACT.bookHref },
   },
   {
     id: "oswego-specials",

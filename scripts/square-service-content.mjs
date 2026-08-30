@@ -21,9 +21,33 @@ export const SERVICE_CONTENT = {
     d: "NP peptide consult with Ryan Kent, FNP-BC in Oswego. Intake first; he sets the protocol. Pickup or Illinois shipping after approval.",
     cat: "RE GEN Peptide Therapy",
   },
+  "Xeomin — $12/unit": {
+    d: "Xeomin by Merz in Oswego — purified neurotoxin, $12/unit. Units mapped at visit with Ryan Kent, FNP-BC. Hello Gorgeous Med Spa.",
+    cat: "Botox",
+  },
   "Medical Visit with Ryan Kent, FNP-BC": {
     d: "NP medical visit with Ryan Kent, FNP-BC — GLP-1, hormones, and peptide consults. $49 visit; medication billed only after he approves a plan.",
     cat: "Medical Consultations",
+  },
+  "Wellness Physical — Ryan Kent, FNP-BC": {
+    d: "In-person NP physical in Oswego — history, vitals, and a focused exam with Ryan Kent, FNP-BC. $149 / 30 min. Labs and medication billed separately after he approves a plan.",
+    cat: "Medical Consultations",
+  },
+  "Fall Makeover Consult": {
+    d: "Fall Makeover consult with Ryan Kent, FNP-BC in Oswego. Pick Repair, Prevent, or Lose. He maps candidacy and your real number. Savings apply at the visit.",
+    cat: "Fall Makeover",
+  },
+  "Fall Makeover — Repair": {
+    d: "Fall Makeover Repair in Oswego — fade leftover pigment inside and out. IPL, Solaria CO₂, lightener, and GHK-Cu when prescribed. Ryan maps the plan at consult.",
+    cat: "Fall Makeover",
+  },
+  "Fall Makeover — Prevent": {
+    d: "Fall Makeover Prevent in Oswego — hold the line on aging. K-Glow, retinoid, Xeomin, Morpheus8, Glow facials. Ryan maps the plan at consult.",
+    cat: "Fall Makeover",
+  },
+  "Fall Makeover — Lose": {
+    d: "Fall Makeover Lose in Oswego — medical weight loss plus tightening. GLP-1, MIC + B12, Morpheus8, Glow facial. Ryan maps the plan at consult.",
+    cat: "Fall Makeover",
   },
   "HydraFacial": {
     d: "HydraFacial in Oswego — cleanse, extract, hydrate. Add dermaplaning on the Glow Special. Hello Gorgeous Med Spa.",
