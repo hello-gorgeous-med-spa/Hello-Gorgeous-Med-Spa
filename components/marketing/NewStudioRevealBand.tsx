@@ -8,8 +8,8 @@ import { FadeUp } from "@/components/Section";
 import {
   FALL_MAKEOVER_CAMPAIGN,
   FALL_MAKEOVER_CONTACT,
-  FALL_MAKEOVER_PACKAGES,
   FALL_MAKEOVER_PATH,
+  HOME_FALL_SQUARES,
   HOME_THIS_IS_US_PHOTOS,
 } from "@/lib/campaigns/fall-makeover-2026";
 
@@ -23,7 +23,7 @@ export function NewStudioRevealBand() {
       className="scroll-mt-24 border-b border-white/10 bg-[radial-gradient(85%_95%_at_78%_8%,#1a0510,#000_62%)]"
       aria-labelledby="this-is-us-heading"
     >
-      <div className="mx-auto max-w-[1200px] px-4 py-14 sm:px-6 sm:py-16 lg:py-20">
+      <div className="mx-auto max-w-[1440px] px-4 py-14 sm:px-6 sm:py-16 lg:py-20">
         <FadeUp>
           <div className="mx-auto max-w-2xl text-center">
             <p className="text-[12px] font-extrabold uppercase tracking-[0.3em] text-[#FF2D8E]">
@@ -79,30 +79,25 @@ export function NewStudioRevealBand() {
               </p>
             </div>
 
-            <div className="mt-10 grid gap-5 lg:grid-cols-3">
-              {FALL_MAKEOVER_PACKAGES.map((pkg) => (
+            <div className="-mx-4 mt-10 flex snap-x snap-mandatory gap-3 overflow-x-auto px-4 pb-2 sm:-mx-0 sm:grid sm:grid-cols-2 sm:overflow-visible sm:px-0 lg:grid-cols-5 lg:gap-4">
+              {HOME_FALL_SQUARES.map((square, i) => (
                 <Link
-                  key={pkg.id}
-                  href={`${FALL_MAKEOVER_PATH}#packages`}
-                  className="group overflow-hidden rounded-[22px] border border-[#C9A227]/35 bg-gradient-to-b from-[#140109] to-[#0a0206] transition duration-500 hover:-translate-y-1 hover:border-[#E8C4B8]/70"
+                  key={square.src}
+                  href={square.href}
+                  className="w-[78vw] shrink-0 snap-start sm:w-auto"
                 >
-                  <div className="relative aspect-[4/3] overflow-hidden">
-                    <Image
-                      src={pkg.image}
-                      alt={pkg.imageAlt}
-                      fill
-                      className="object-cover transition duration-700 group-hover:scale-[1.03]"
-                      sizes="(max-width: 1024px) 100vw, 33vw"
-                    />
-                  </div>
-                  <div className="p-6">
-                    <p className="text-[11px] font-extrabold uppercase tracking-[0.22em] text-[#E8C4B8]">
-                      {pkg.concern}
-                    </p>
-                    <h4 className="mt-1 font-serif text-[28px] font-bold text-white">{pkg.name}</h4>
-                    <p className="mt-2 text-sm font-extrabold text-[#FF2D8E]">{pkg.savingsLabel}</p>
-                    <p className="mt-2 text-sm leading-relaxed text-white/70">{pkg.tagline}</p>
-                  </div>
+                  <RoseGoldFrame caption={square.caption}>
+                    <div className="relative aspect-square w-full bg-black">
+                      <Image
+                        src={square.src}
+                        alt={square.alt}
+                        fill
+                        className="object-contain transition duration-700 group-hover:scale-[1.02]"
+                        sizes="(max-width: 640px) 78vw, (max-width: 1024px) 50vw, 20vw"
+                        priority={i < 2}
+                      />
+                    </div>
+                  </RoseGoldFrame>
                 </Link>
               ))}
             </div>

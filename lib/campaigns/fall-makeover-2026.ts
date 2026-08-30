@@ -281,6 +281,28 @@ export const FALL_MAKEOVER_PACKAGES: FallMakeoverPackage[] = [
   },
 ];
 
+/** Homepage launch row — cover, gift card, Repair, Prevent, Lose. */
+export const HOME_FALL_SQUARES = [
+  {
+    src: FALL_MAKEOVER_CAMPAIGN.imagePath,
+    alt: "Fall Makeover cover — Repair, Prevent, Lose",
+    caption: "Cover",
+    href: FALL_MAKEOVER_PATH,
+  },
+  {
+    src: FALL_MAKEOVER_CAMPAIGN.giftCardImagePath,
+    alt: "Complimentary $100 Fall Makeover gift card",
+    caption: "$100 gift card",
+    href: `${FALL_MAKEOVER_PATH}#gift-card`,
+  },
+  ...FALL_MAKEOVER_PACKAGES.map((pkg) => ({
+    src: pkg.image,
+    alt: pkg.imageAlt,
+    caption: `${pkg.name} · $${pkg.savingsUsd} off`,
+    href: `${FALL_MAKEOVER_PATH}#packages`,
+  })),
+] as const;
+
 export const FALL_MAKEOVER_FAQS: { question: string; answer: string }[] = [
   {
     question: "Do I pick one package or mix them?",
