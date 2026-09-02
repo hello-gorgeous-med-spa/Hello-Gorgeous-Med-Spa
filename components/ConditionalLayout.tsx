@@ -54,6 +54,8 @@ const STANDALONE_APP_ROUTES = [
   "/fall-makeover",
   /** Ageless-style ad LP — sticky mini-nav only */
   "/see-your-results",
+  /** RE GEN telehealth platform — completely standalone brand */
+  "/regen",
 ];
 
 export function ConditionalLayout({
