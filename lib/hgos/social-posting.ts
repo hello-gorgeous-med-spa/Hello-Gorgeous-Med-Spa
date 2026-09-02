@@ -24,14 +24,26 @@ export interface SocialPostOptions {
   metaBrand?: SocialMetaBrand;
 }
 
+type MetaAccount = {
+  id?: string;
+  name?: string;
+  access_token?: string;
+  instagram_business_account?: { id?: string };
+};
+
 function metaEnvForBrand(brand: SocialMetaBrand): {
   pageId?: string;
+  candidatePageIds: string[];
   pageToken?: string;
   igAccountId?: string;
 } {
+  const uniqueIds = (...ids: Array<string | undefined>) =>
+    [...new Set(ids.map((id) => id?.trim()).filter((id): id is string => Boolean(id)))];
+
   if (brand === "regen") {
     return {
       pageId: process.env.META_REGEN_PAGE_ID,
+      candidatePageIds: uniqueIds(process.env.META_REGEN_PAGE_ID),
       pageToken:
         process.env.META_REGEN_PAGE_ACCESS_TOKEN ||
         process.env.META_PAGE_ACCESS_TOKEN ||
@@ -42,9 +54,12 @@ function metaEnvForBrand(brand: SocialMetaBrand): {
     };
   }
   return {
-    pageId: process.env.META_PAGE_ID || process.env.FACEBOOK_PAGE_ID,
+    // FACEBOOK_PAGE_ID is the Hello Gorgeous Med Spa Page Danielle maintains.
+    // META_PAGE_ID can be a stale Graph/profile id and must not win by accident.
+    pageId: process.env.FACEBOOK_PAGE_ID || process.env.META_PAGE_ID,
+    candidatePageIds: uniqueIds(process.env.FACEBOOK_PAGE_ID, process.env.META_PAGE_ID),
     pageToken:
-      process.env.META_PAGE_ACCESS_TOKEN || process.env.FACEBOOK_PAGE_ACCESS_TOKEN,
+      process.env.FACEBOOK_PAGE_ACCESS_TOKEN || process.env.META_PAGE_ACCESS_TOKEN,
     igAccountId:
       process.env.META_INSTAGRAM_BUSINESS_ACCOUNT_ID ||
       process.env.META_IG_ACCOUNT_ID ||
@@ -52,27 +67,44 @@ function metaEnvForBrand(brand: SocialMetaBrand): {
   };
 }
 
+function accountMatchesBrand(account: MetaAccount, brand: SocialMetaBrand): boolean {
+  const name = (account.name || "").trim();
+  const isRegen = /\bre\s*-?\s*gen\b/i.test(name);
+  if (brand === "regen") return isRegen;
+  return /hello gorgeous/i.test(name) && !isRegen;
+}
+
+function pickAccountForBrand(
+  accounts: MetaAccount[],
+  candidatePageIds: string[],
+  brand: SocialMetaBrand
+): MetaAccount | undefined {
+  for (const id of candidatePageIds) {
+    const hit = accounts.find((account) => account.id === id);
+    if (hit && accountMatchesBrand(hit, brand)) return hit;
+  }
+  return accounts.find((account) => accountMatchesBrand(account, brand));
+}
+
 export interface ChannelResult {
   ok: boolean;
   id?: string;
   error?: string;
+  pageName?: string;
 }
 
-type MetaAccount = {
-  id?: string;
-  name?: string;
-  access_token?: string;
-  instagram_business_account?: { id?: string };
-};
-
 async function resolveMetaPostingContext(
+  brand: SocialMetaBrand,
   pageId: string | undefined,
+  candidatePageIds: string[],
   token: string | undefined,
   igBusinessAccountId: string | undefined
 ): Promise<{
   pageId?: string;
   pageToken?: string;
   igBusinessAccountId?: string;
+  pageName?: string;
+  error?: string;
 }> {
   if (!token) {
     return { pageId, pageToken: token, igBusinessAccountId };
@@ -91,23 +123,58 @@ async function resolveMetaPostingContext(
       return { pageId, pageToken: token, igBusinessAccountId };
     }
 
-    const matched =
-      payload.data.find((account) => account.id === pageId) ||
-      payload.data.find((account) => typeof account.id === "string");
+    const matched = pickAccountForBrand(payload.data, candidatePageIds, brand);
 
     if (!matched?.id) {
-      return { pageId, pageToken: token, igBusinessAccountId };
+      const available = payload.data
+        .map((account) => account.name?.trim())
+        .filter(Boolean)
+        .join(", ");
+      const wanted = brand === "regen" ? "Re Gen RX" : "Hello Gorgeous Med Spa";
+      return {
+        pageId,
+        pageToken: token,
+        igBusinessAccountId,
+        error: `Facebook token can post to ${available || "no Pages"}, but none matched ${wanted}.`,
+      };
     }
 
     return {
       pageId: matched.id,
       pageToken: matched.access_token || token,
       igBusinessAccountId: igBusinessAccountId || matched.instagram_business_account?.id,
+      pageName: matched.name?.trim(),
     };
   } catch {
     // Fall back to existing env vars if Meta lookup fails.
     return { pageId, pageToken: token, igBusinessAccountId };
   }
+}
+
+/** Which Facebook Page a post would hit. Does not publish. */
+export async function inspectMetaPostingTarget(brand: SocialMetaBrand = "default"): Promise<{
+  brand: SocialMetaBrand;
+  pageName?: string;
+  ok: boolean;
+  error?: string;
+}> {
+  const env = metaEnvForBrand(brand);
+  const meta = await resolveMetaPostingContext(
+    brand,
+    env.pageId,
+    env.candidatePageIds,
+    env.pageToken,
+    env.igAccountId
+  );
+  if (meta.error) {
+    return { brand, pageName: meta.pageName, ok: false, error: meta.error };
+  }
+  return {
+    brand,
+    pageName: meta.pageName,
+    ok: Boolean(meta.pageId && meta.pageToken),
+    error: meta.pageId && meta.pageToken ? undefined : "Facebook Page ID or access token missing.",
+  };
 }
 
 /** Post to Facebook Page (feed or photo). */
@@ -276,12 +343,18 @@ export async function postToChannels(
 ): Promise<Record<SocialChannel, ChannelResult | undefined>> {
   const results: Record<string, ChannelResult | undefined> = {};
   const brand = options?.metaBrand ?? "default";
-  const { pageId: configuredPageId, pageToken: configuredPageToken, igAccountId: configuredIgAccountId } =
-    metaEnvForBrand(brand);
+  const {
+    pageId: configuredPageId,
+    candidatePageIds,
+    pageToken: configuredPageToken,
+    igAccountId: configuredIgAccountId,
+  } = metaEnvForBrand(brand);
   const googleAccountId = process.env.GOOGLE_BUSINESS_ACCOUNT_ID;
   const googleLocationId = process.env.GOOGLE_BUSINESS_LOCATION_ID;
   const meta = await resolveMetaPostingContext(
+    brand,
     configuredPageId,
+    candidatePageIds,
     configuredPageToken,
     configuredIgAccountId
   );
@@ -290,21 +363,27 @@ export async function postToChannels(
   const igAccountId = meta.igBusinessAccountId || configuredIgAccountId;
 
   if (channels.includes("facebook")) {
-    if (pageId && pageToken) {
+    if (meta.error) {
+      results.facebook = { ok: false, error: meta.error, pageName: meta.pageName };
+    } else if (pageId && pageToken) {
       results.facebook = await postToFacebook(pageId, pageToken, input);
+      results.facebook.pageName = meta.pageName;
     } else {
       results.facebook = {
         ok: false,
         error:
           brand === "regen"
             ? "META_REGEN_PAGE_ID and a Page access token required (META_REGEN_PAGE_ACCESS_TOKEN or META_PAGE_ACCESS_TOKEN)."
-            : "META_PAGE_ID (or FACEBOOK_PAGE_ID) and META_PAGE_ACCESS_TOKEN (or FACEBOOK_PAGE_ACCESS_TOKEN) required.",
+            : "FACEBOOK_PAGE_ID (or META_PAGE_ID) and FACEBOOK_PAGE_ACCESS_TOKEN (or META_PAGE_ACCESS_TOKEN) required.",
       };
     }
   }
   if (channels.includes("instagram")) {
-    if (igAccountId && pageToken) {
+    if (meta.error) {
+      results.instagram = { ok: false, error: meta.error, pageName: meta.pageName };
+    } else if (igAccountId && pageToken) {
       results.instagram = await postToInstagram(igAccountId, pageToken, input);
+      results.instagram.pageName = meta.pageName;
     } else {
       results.instagram = {
         ok: false,

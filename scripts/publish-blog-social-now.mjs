@@ -492,8 +492,10 @@ async function main() {
     process.exit(1);
   }
   const fb = data.results?.facebook;
+  const ig = data.results?.instagram;
   const g = data.results?.google;
-  console.log("Facebook:", fb?.ok ? `✓ ${fb.id || "posted"}` : `✗ ${fb?.error || "skipped"}`);
+  console.log("Facebook:", fb?.ok ? `✓ ${fb.id || "posted"} ${fb.pageName || ""}` : `✗ ${fb?.error || "skipped"}`);
+  console.log("Instagram:", ig?.ok ? `✓ ${ig.id || "posted"}` : `✗ ${ig?.error || "skipped"}`);
   console.log("Google:  ", g?.ok ? `✓ ${g.id || "posted"}` : `✗ ${g?.error || "skipped"}`);
 }
 
