@@ -18,15 +18,21 @@ export async function POST(request: NextRequest) {
     }
 
     const body = await request.json();
-    const { patient, items, memo, dueInDays = 7 } = body;
+    const { patient, email, name, items, memo, dueInDays = 7, autoSend = true } = body;
+
+    // Normalize patient info (accept either patient object or direct email/name)
+    const patientInfo = patient || { email, name };
 
     // Validate required fields
-    if (!patient?.email || !patient?.name) {
+    if (!patientInfo?.email) {
       return NextResponse.json(
-        { error: 'Patient email and name are required' },
+        { error: 'Patient email is required' },
         { status: 400 }
       );
     }
+    
+    // Use email as name if name not provided
+    const patientName = patientInfo.name || patientInfo.email.split('@')[0];
 
     if (!items || !Array.isArray(items) || items.length === 0) {
       return NextResponse.json(
@@ -47,12 +53,12 @@ export async function POST(request: NextRequest) {
 
     // Get or create customer
     const customer = await getOrCreateRegenCustomer({
-      email: patient.email,
-      name: patient.name,
-      phone: patient.phone,
+      email: patientInfo.email,
+      name: patientName,
+      phone: patientInfo.phone,
       metadata: {
-        patientId: patient.id,
-        program: patient.program,
+        patientId: patientInfo.id,
+        program: patientInfo.program,
       },
     });
 
@@ -68,11 +74,11 @@ export async function POST(request: NextRequest) {
       })),
       dueDate,
       memo: memo || `Re Gen RX - Thank you for choosing Hello Gorgeous`,
-      autoSend: true,
+      autoSend,
       metadata: {
-        patientEmail: patient.email,
-        patientName: patient.name,
-        program: patient.program || 'general',
+        patientEmail: patientInfo.email,
+        patientName: patientName,
+        program: patientInfo.program || 'general',
       },
     });
 
@@ -98,7 +104,7 @@ export async function POST(request: NextRequest) {
         id: customer.id,
         email: customer.email,
       },
-      message: `Invoice sent to ${patient.email}`,
+      message: `Invoice sent to ${patientInfo.email}`,
     });
   } catch (error) {
     console.error('Re Gen invoice error:', error);
