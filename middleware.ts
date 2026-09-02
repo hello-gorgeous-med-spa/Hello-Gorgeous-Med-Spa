@@ -104,6 +104,7 @@ export async function middleware(request: NextRequest) {
   const pathname = url.pathname;
   const hostname = request.headers.get('host') || '';
   const isHubHost = hostname.startsWith('hub.');
+  const isRegenHost = hostname.includes('tryregenrx.com');
   // On hub subdomain, "/" is the classic Command Center — must run auth before rewrite.
   const pathForHubGate =
     isHubHost && (pathname === '/' || pathname === '') ? '/hub/classic' : pathname;
@@ -111,6 +112,38 @@ export async function middleware(request: NextRequest) {
   // .well-known (Apple Pay, etc.) — never redirect, never auth
   if (pathname.startsWith('/.well-known/')) {
     return NextResponse.next();
+  }
+
+  // ============================================================
+  // RE GEN (tryregenrx.com) — dedicated telehealth portal
+  // ============================================================
+  if (isRegenHost) {
+    // Allow static assets, API routes, and _next
+    if (
+      pathname.startsWith('/_next') ||
+      pathname.startsWith('/api/') ||
+      pathname.includes('.')
+    ) {
+      return NextResponse.next();
+    }
+    // Root → RE GEN landing page
+    if (pathname === '/' || pathname === '') {
+      url.pathname = '/regen';
+      return NextResponse.rewrite(url);
+    }
+    // /start → RE GEN intake flow
+    if (pathname === '/start' || pathname.startsWith('/start/')) {
+      url.pathname = '/regen/start' + pathname.slice('/start'.length);
+      return NextResponse.rewrite(url);
+    }
+    // /account, /orders, /prescriptions → RE GEN patient portal
+    if (pathname === '/account' || pathname.startsWith('/account/')) {
+      url.pathname = '/regen/account' + pathname.slice('/account'.length);
+      return NextResponse.rewrite(url);
+    }
+    // All other paths under tryregenrx.com → prefix with /regen
+    url.pathname = '/regen' + pathname;
+    return NextResponse.rewrite(url);
   }
 
   // Intake form lives at /intake only — not /hub/intake (no such page; staff shared wrong link)
