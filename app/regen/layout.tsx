@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import { RegenAuthProvider } from '@/components/regen/RegenAuthProvider';
 
 export const metadata: Metadata = {
   title: {
@@ -18,5 +19,9 @@ export default function RegenLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return children;
+  return (
+    <RegenAuthProvider>
+      {children}
+    </RegenAuthProvider>
+  );
 }

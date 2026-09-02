@@ -1,8 +1,10 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+import { useRegenAuth } from '@/components/regen/RegenAuthProvider';
 
 const BRAND = {
   teal: '#0D9488',
@@ -15,6 +17,9 @@ const BRAND = {
 };
 
 export default function SignupPage() {
+  const router = useRouter();
+  const { user, loading: authLoading, signUp } = useRegenAuth();
+  
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -25,18 +30,75 @@ export default function SignupPage() {
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [success, setSuccess] = useState(false);
+
+  // Redirect if already logged in
+  useEffect(() => {
+    if (user && !authLoading) {
+      router.push('/account');
+    }
+  }, [user, authLoading, router]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setError('');
     
-    // TODO: Implement actual registration
-    setTimeout(() => {
-      setError('Registration coming soon. Start a visit at /start to begin your journey.');
+    const result = await signUp({
+      email: formData.email,
+      password: formData.password,
+      firstName: formData.firstName,
+      lastName: formData.lastName,
+      phone: formData.phone,
+    });
+    
+    if (result.error) {
+      setError(result.error);
       setLoading(false);
-    }, 1000);
+    } else {
+      setSuccess(true);
+      setLoading(false);
+    }
   };
+
+  // Show loading while checking auth
+  if (authLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center" style={{ backgroundColor: BRAND.dark }}>
+        <div className="w-8 h-8 border-4 border-t-transparent rounded-full animate-spin" style={{ borderColor: `${BRAND.pink} transparent transparent transparent` }} />
+      </div>
+    );
+  }
+
+  // Show success message
+  if (success) {
+    return (
+      <div className="min-h-screen flex items-center justify-center p-6" style={{ backgroundColor: BRAND.dark }}>
+        <div className="max-w-md text-center">
+          <div 
+            className="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6"
+            style={{ backgroundColor: `${BRAND.teal}20` }}
+          >
+            <svg className="w-10 h-10" style={{ color: BRAND.teal }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+            </svg>
+          </div>
+          <h1 className="text-3xl font-bold mb-4" style={{ color: BRAND.cream }}>Check your email</h1>
+          <p className="mb-8" style={{ color: BRAND.gray }}>
+            We&apos;ve sent a confirmation link to <strong style={{ color: BRAND.cream }}>{formData.email}</strong>. 
+            Click the link to verify your account and sign in.
+          </p>
+          <Link
+            href="/login"
+            className="inline-flex px-8 py-4 rounded-xl font-bold transition-all hover:scale-105"
+            style={{ backgroundColor: BRAND.pink, color: 'white' }}
+          >
+            Go to Sign In
+          </Link>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen flex" style={{ backgroundColor: BRAND.dark }}>

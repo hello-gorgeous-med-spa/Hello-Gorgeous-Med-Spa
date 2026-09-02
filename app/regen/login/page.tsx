@@ -1,8 +1,10 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+import { useRegenAuth } from '@/components/regen/RegenAuthProvider';
 
 const BRAND = {
   teal: '#0D9488',
@@ -15,22 +17,44 @@ const BRAND = {
 };
 
 export default function LoginPage() {
+  const router = useRouter();
+  const { user, loading: authLoading, signIn } = useRegenAuth();
+  
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+
+  // Redirect if already logged in
+  useEffect(() => {
+    if (user && !authLoading) {
+      router.push('/account');
+    }
+  }, [user, authLoading, router]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setError('');
     
-    // TODO: Implement actual auth
-    setTimeout(() => {
-      setError('Sign in coming soon. Contact us at (630) 636-6193.');
+    const result = await signIn(email, password);
+    
+    if (result.error) {
+      setError(result.error);
       setLoading(false);
-    }, 1000);
+    } else {
+      router.push('/account');
+    }
   };
+
+  // Show loading while checking auth
+  if (authLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center" style={{ backgroundColor: BRAND.dark }}>
+        <div className="w-8 h-8 border-4 border-t-transparent rounded-full animate-spin" style={{ borderColor: `${BRAND.pink} transparent transparent transparent` }} />
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen flex" style={{ backgroundColor: BRAND.dark }}>

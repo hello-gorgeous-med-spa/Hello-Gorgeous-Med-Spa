@@ -2,7 +2,8 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
+import { useRegenAuth } from '@/components/regen/RegenAuthProvider';
 
 const BRAND = {
   teal: '#0D9488',
@@ -50,15 +51,48 @@ function NavIcon({ name, className }: { name: string; className?: string }) {
         <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
       </svg>
     ),
+    logout: (
+      <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75" />
+      </svg>
+    ),
   };
   return icons[name] || null;
 }
 
 export default function AccountLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
+  const router = useRouter();
+  const { user, patient, loading, signOut } = useRegenAuth();
   
   // Normalize pathname for comparison (handle both /account and /regen/account)
   const normalizedPath = pathname.replace('/regen', '');
+
+  const handleSignOut = async () => {
+    await signOut();
+    router.push('/');
+  };
+
+  // Get user display info
+  const displayName = patient 
+    ? `${patient.first_name || ''} ${patient.last_name || ''}`.trim() || 'Patient'
+    : user?.user_metadata?.first_name 
+      ? `${user.user_metadata.first_name} ${user.user_metadata.last_name || ''}`.trim()
+      : 'Guest User';
+  
+  const displayEmail = patient?.email || user?.email || 'Not signed in';
+  const initials = displayName !== 'Guest User' 
+    ? displayName.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2)
+    : '?';
+
+  // Show loading state
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center" style={{ backgroundColor: BRAND.dark }}>
+        <div className="w-8 h-8 border-4 border-t-transparent rounded-full animate-spin" style={{ borderColor: `${BRAND.pink} transparent transparent transparent` }} />
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen flex" style={{ backgroundColor: BRAND.dark }}>
@@ -100,23 +134,35 @@ export default function AccountLayout({ children }: { children: React.ReactNode 
         <div className="p-4 border-t" style={{ borderColor: `${BRAND.teal}20` }}>
           <div className="flex items-center gap-3 px-4 py-3">
             <div 
-              className="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold"
-              style={{ backgroundColor: BRAND.pink }}
+              className="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold text-sm"
+              style={{ backgroundColor: user ? BRAND.teal : BRAND.pink }}
             >
-              ?
+              {initials}
             </div>
             <div className="flex-1 min-w-0">
-              <p className="text-sm font-medium truncate" style={{ color: BRAND.cream }}>Guest User</p>
-              <p className="text-xs truncate" style={{ color: BRAND.gray }}>Not signed in</p>
+              <p className="text-sm font-medium truncate" style={{ color: BRAND.cream }}>{displayName}</p>
+              <p className="text-xs truncate" style={{ color: BRAND.gray }}>{displayEmail}</p>
             </div>
           </div>
-          <Link
-            href="/login"
-            className="mt-2 w-full flex items-center justify-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all"
-            style={{ backgroundColor: BRAND.pink, color: 'white' }}
-          >
-            Sign In
-          </Link>
+          
+          {user ? (
+            <button
+              onClick={handleSignOut}
+              className="mt-2 w-full flex items-center justify-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all hover:opacity-80"
+              style={{ backgroundColor: `${BRAND.gray}20`, color: BRAND.gray }}
+            >
+              <NavIcon name="logout" className="w-4 h-4" />
+              Sign Out
+            </button>
+          ) : (
+            <Link
+              href="/login"
+              className="mt-2 w-full flex items-center justify-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all"
+              style={{ backgroundColor: BRAND.pink, color: 'white' }}
+            >
+              Sign In
+            </Link>
+          )}
         </div>
       </aside>
 
@@ -126,13 +172,23 @@ export default function AccountLayout({ children }: { children: React.ReactNode 
           <Link href="/">
             <Image src="/images/regen/logo-full.png" alt="REGEN RX" width={100} height={35} className="h-7 w-auto" />
           </Link>
-          <Link
-            href="/login"
-            className="px-4 py-2 rounded-lg text-sm font-medium"
-            style={{ backgroundColor: BRAND.pink, color: 'white' }}
-          >
-            Sign In
-          </Link>
+          {user ? (
+            <button
+              onClick={handleSignOut}
+              className="px-4 py-2 rounded-lg text-sm font-medium"
+              style={{ backgroundColor: `${BRAND.gray}20`, color: BRAND.gray }}
+            >
+              Sign Out
+            </button>
+          ) : (
+            <Link
+              href="/login"
+              className="px-4 py-2 rounded-lg text-sm font-medium"
+              style={{ backgroundColor: BRAND.pink, color: 'white' }}
+            >
+              Sign In
+            </Link>
+          )}
         </div>
         {/* Mobile nav */}
         <div className="flex overflow-x-auto px-4 pb-3 gap-2">

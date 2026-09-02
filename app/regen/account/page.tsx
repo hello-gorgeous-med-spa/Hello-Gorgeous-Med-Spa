@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { useRegenAuth } from '@/components/regen/RegenAuthProvider';
 
 const BRAND = {
   teal: '#0D9488',
@@ -42,35 +43,35 @@ const STATUS_CARDS = [
   },
 ];
 
-function Icon({ name, className }: { name: string; className?: string }) {
+function Icon({ name, className, style }: { name: string; className?: string; style?: React.CSSProperties }) {
   const icons: Record<string, JSX.Element> = {
     plus: (
-      <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+      <svg className={className} style={style} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
         <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
       </svg>
     ),
     package: (
-      <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+      <svg className={className} style={style} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
         <path strokeLinecap="round" strokeLinejoin="round" d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z" />
       </svg>
     ),
     message: (
-      <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+      <svg className={className} style={style} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
         <path strokeLinecap="round" strokeLinejoin="round" d="M8.625 12a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 01-2.555-.337A5.972 5.972 0 015.41 20.97a5.969 5.969 0 01-.474-.065 4.48 4.48 0 00.978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25z" />
       </svg>
     ),
     pill: (
-      <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+      <svg className={className} style={style} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
         <path strokeLinecap="round" strokeLinejoin="round" d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.393A9.065 9.065 0 0112 15a9.065 9.065 0 00-6.23.693L5 14.5m14.8.8l1.402 1.402c1.232 1.232.65 3.318-1.067 3.611A48.309 48.309 0 0112 21c-2.773 0-5.491-.235-8.135-.687-1.718-.293-2.3-2.379-1.067-3.61L5 14.5" />
       </svg>
     ),
     clock: (
-      <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+      <svg className={className} style={style} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
         <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
       </svg>
     ),
     arrow: (
-      <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+      <svg className={className} style={style} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
         <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
       </svg>
     ),
@@ -79,52 +80,90 @@ function Icon({ name, className }: { name: string; className?: string }) {
 }
 
 export default function AccountDashboard() {
+  const { user, patient } = useRegenAuth();
+  
+  const displayName = patient 
+    ? patient.first_name || 'there'
+    : user?.user_metadata?.first_name || 'there';
+
   return (
     <div className="space-y-8">
       {/* Header */}
       <div>
-        <h1 className="text-3xl font-bold" style={{ color: BRAND.cream }}>Welcome back</h1>
+        <h1 className="text-3xl font-bold" style={{ color: BRAND.cream }}>
+          Welcome back{user ? `, ${displayName}` : ''}
+        </h1>
         <p style={{ color: BRAND.gray }}>Manage your prescriptions, orders, and account settings.</p>
       </div>
 
-      {/* CTA Banner - Not signed in */}
-      <div 
-        className="rounded-2xl p-6 md:p-8 relative overflow-hidden"
-        style={{ 
-          background: `linear-gradient(135deg, ${BRAND.pink}20 0%, ${BRAND.teal}20 100%)`,
-          border: `1px solid ${BRAND.pink}30`,
-        }}
-      >
-        <div className="relative z-10">
-          <h2 className="text-xl font-bold mb-2" style={{ color: BRAND.cream }}>
-            Create your account
-          </h2>
-          <p className="mb-4 max-w-md" style={{ color: BRAND.gray }}>
-            Sign up to track your orders, manage prescriptions, and message your provider directly.
-          </p>
-          <div className="flex flex-wrap gap-3">
+      {/* CTA Banner - Different based on auth state */}
+      {!user ? (
+        <div 
+          className="rounded-2xl p-6 md:p-8 relative overflow-hidden"
+          style={{ 
+            background: `linear-gradient(135deg, ${BRAND.pink}20 0%, ${BRAND.teal}20 100%)`,
+            border: `1px solid ${BRAND.pink}30`,
+          }}
+        >
+          <div className="relative z-10">
+            <h2 className="text-xl font-bold mb-2" style={{ color: BRAND.cream }}>
+              Create your account
+            </h2>
+            <p className="mb-4 max-w-md" style={{ color: BRAND.gray }}>
+              Sign up to track your orders, manage prescriptions, and message your provider directly.
+            </p>
+            <div className="flex flex-wrap gap-3">
+              <Link
+                href="/signup"
+                className="px-6 py-3 rounded-lg font-semibold transition-all hover:scale-105"
+                style={{ backgroundColor: BRAND.pink, color: 'white' }}
+              >
+                Create Account
+              </Link>
+              <Link
+                href="/login"
+                className="px-6 py-3 rounded-lg font-semibold transition-all hover:scale-105"
+                style={{ backgroundColor: `${BRAND.teal}20`, color: BRAND.teal, border: `1px solid ${BRAND.teal}40` }}
+              >
+                Sign In
+              </Link>
+            </div>
+          </div>
+          <div 
+            className="absolute -right-10 -bottom-10 w-40 h-40 rounded-full opacity-20"
+            style={{ backgroundColor: BRAND.pink }}
+          />
+        </div>
+      ) : (
+        <div 
+          className="rounded-2xl p-6 md:p-8 relative overflow-hidden"
+          style={{ 
+            background: `linear-gradient(135deg, ${BRAND.teal}20 0%, ${BRAND.pink}10 100%)`,
+            border: `1px solid ${BRAND.teal}30`,
+          }}
+        >
+          <div className="relative z-10">
+            <h2 className="text-xl font-bold mb-2" style={{ color: BRAND.cream }}>
+              Ready to start a new program?
+            </h2>
+            <p className="mb-4 max-w-md" style={{ color: BRAND.gray }}>
+              Complete an online visit in minutes. Our providers review within 24-48 hours.
+            </p>
             <Link
-              href="/signup"
-              className="px-6 py-3 rounded-lg font-semibold transition-all hover:scale-105"
+              href="/start"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-lg font-semibold transition-all hover:scale-105"
               style={{ backgroundColor: BRAND.pink, color: 'white' }}
             >
-              Create Account
-            </Link>
-            <Link
-              href="/login"
-              className="px-6 py-3 rounded-lg font-semibold transition-all hover:scale-105"
-              style={{ backgroundColor: `${BRAND.teal}20`, color: BRAND.teal, border: `1px solid ${BRAND.teal}40` }}
-            >
-              Sign In
+              Start Your Visit
+              <Icon name="arrow" className="w-4 h-4" />
             </Link>
           </div>
+          <div 
+            className="absolute -right-10 -bottom-10 w-40 h-40 rounded-full opacity-20"
+            style={{ backgroundColor: BRAND.teal }}
+          />
         </div>
-        {/* Decorative element */}
-        <div 
-          className="absolute -right-10 -bottom-10 w-40 h-40 rounded-full opacity-20"
-          style={{ backgroundColor: BRAND.pink }}
-        />
-      </div>
+      )}
 
       {/* Quick Actions */}
       <div>
