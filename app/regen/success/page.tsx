@@ -65,7 +65,7 @@ export default function RegenSuccessPage() {
               Back to Home
             </Link>
             <a
-              href="tel:+16302342473"
+              href="tel:+16306366193"
               className="px-6 py-3 border-2 font-semibold rounded-lg transition-colors"
               style={{ borderColor: BRAND.teal, color: BRAND.teal }}
             >
@@ -75,7 +75,7 @@ export default function RegenSuccessPage() {
         </div>
 
         <p className="mt-8 text-sm" style={{ color: BRAND.gray }}>
-          Questions? Email <a href="mailto:hello@tryregenrx.com" className="hover:underline" style={{ color: BRAND.teal }}>hello@tryregenrx.com</a> or call <a href="tel:+16302342473" className="hover:underline" style={{ color: BRAND.teal }}>(630) 234-2473</a>
+          Questions? Email <a href="mailto:hello@tryregenrx.com" className="hover:underline" style={{ color: BRAND.teal }}>hello@tryregenrx.com</a> or call <a href="tel:+16306366193" className="hover:underline" style={{ color: BRAND.teal }}>(630) 636-6193</a>
         </p>
       </main>
     </div>

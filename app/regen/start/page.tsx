@@ -377,7 +377,7 @@ function RegenStartContent() {
       {/* Footer */}
       <footer className="py-8" style={{ backgroundColor: BRAND.darkAlt, borderTop: `1px solid ${BRAND.teal}20` }}>
         <div className="max-w-3xl mx-auto px-6 text-center text-sm" style={{ color: BRAND.gray }}>
-          <p>Need help? Call <a href="tel:+16302342473" className="hover:underline" style={{ color: BRAND.teal }}>(630) 234-2473</a></p>
+          <p>Need help? Call <a href="tel:+16306366193" className="hover:underline" style={{ color: BRAND.teal }}>(630) 636-6193</a></p>
           <p className="mt-2">REGEN RX by Hello Gorgeous Med Spa LLC</p>
         </div>
       </footer>

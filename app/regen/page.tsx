@@ -433,7 +433,7 @@ export default function RegenLandingPage() {
               <Link href="/privacy" className="hover:text-white transition-colors" style={{ color: BRAND.gray }}>Privacy</Link>
               <Link href="/terms" className="hover:text-white transition-colors" style={{ color: BRAND.gray }}>Terms</Link>
               <Link href="/contact" className="hover:text-white transition-colors" style={{ color: BRAND.gray }}>Contact</Link>
-              <a href="tel:+16302342473" className="hover:text-white transition-colors" style={{ color: BRAND.gray }}>(630) 234-2473</a>
+              <a href="tel:+16306366193" className="hover:text-white transition-colors" style={{ color: BRAND.gray }}>(630) 636-6193</a>
             </div>
           </div>
           <div className="mt-12 pt-8 text-xs" style={{ borderTop: `1px solid ${BRAND.teal}15`, color: BRAND.gray }}>
