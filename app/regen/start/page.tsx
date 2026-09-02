@@ -91,6 +91,10 @@ function RegenStartContent() {
     
     // Create checkout session
     try {
+      const baseUrl = typeof window !== 'undefined' 
+        ? `${window.location.protocol}//${window.location.host}` 
+        : 'https://tryregenrx.com';
+      
       const res = await fetch('/api/regen/checkout', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -103,7 +107,9 @@ function RegenStartContent() {
             amount: currentProgram?.price || 299,
             quantity: 1,
           }],
-          mode: 'payment', // Could be 'subscription' for recurring
+          mode: 'payment',
+          successUrl: `${baseUrl}/success?session_id={CHECKOUT_SESSION_ID}`,
+          cancelUrl: `${baseUrl}/start?goal=${selectedGoal}`,
           metadata: {
             program: selectedProgram,
             goal: selectedGoal,
