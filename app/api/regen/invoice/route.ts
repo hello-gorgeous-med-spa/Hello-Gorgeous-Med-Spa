@@ -41,15 +41,38 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Validate items have description and amount
+    // Validate and normalize items - ensure amounts are valid numbers
+    const normalizedItems = [];
     for (const item of items) {
-      if (!item.description || typeof item.amount !== 'number' || item.amount <= 0) {
+      const amount = typeof item.amount === 'string' ? parseFloat(item.amount) : item.amount;
+      
+      if (!item.description || item.description.trim() === '') {
         return NextResponse.json(
-          { error: 'Each item must have a description and positive amount' },
+          { error: 'Each item must have a description' },
           { status: 400 }
         );
       }
+      
+      if (isNaN(amount) || amount <= 0) {
+        return NextResponse.json(
+          { error: `Invalid amount for "${item.description}". Please enter a valid dollar amount.` },
+          { status: 400 }
+        );
+      }
+      
+      normalizedItems.push({
+        description: item.description.trim(),
+        amount: amount,
+        quantity: item.quantity || 1,
+      });
     }
+    
+    // Log for debugging
+    console.log('[regen-invoice] Creating invoice:', {
+      email: patientInfo.email,
+      itemCount: normalizedItems.length,
+      total: normalizedItems.reduce((sum, i) => sum + i.amount * i.quantity, 0),
+    });
 
     // Get or create customer
     const customer = await getOrCreateRegenCustomer({
@@ -67,11 +90,7 @@ export async function POST(request: NextRequest) {
     
     const invoice = await createRegenInvoice({
       customerId: customer.id,
-      items: items.map((item: { description: string; amount: number; quantity?: number }) => ({
-        description: item.description,
-        amount: item.amount,
-        quantity: item.quantity || 1,
-      })),
+      items: normalizedItems,
       dueDate,
       memo: memo || `Re Gen RX - Thank you for choosing Hello Gorgeous`,
       autoSend,
@@ -83,9 +102,8 @@ export async function POST(request: NextRequest) {
     });
 
     // Calculate total
-    const total = items.reduce(
-      (sum: number, item: { amount: number; quantity?: number }) => 
-        sum + item.amount * (item.quantity || 1),
+    const total = normalizedItems.reduce(
+      (sum, item) => sum + item.amount * item.quantity,
       0
     );
 

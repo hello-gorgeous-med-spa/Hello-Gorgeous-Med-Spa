@@ -366,12 +366,24 @@ export function RegenPayHub() {
               />
             </div>
 
+            {/* Total Preview */}
+            {invoiceItems.some(i => i.amount && parseFloat(i.amount) > 0) && (
+              <div className="p-4 bg-green-50 border-2 border-green-200 rounded-xl">
+                <div className="flex justify-between items-center">
+                  <span className="font-semibold text-green-800">Invoice Total:</span>
+                  <span className="text-2xl font-bold text-green-700">
+                    ${invoiceItems.reduce((sum, i) => sum + (parseFloat(i.amount) || 0), 0).toFixed(2)}
+                  </span>
+                </div>
+              </div>
+            )}
+
             <button
               onClick={sendInvoice}
-              disabled={loading}
-              className="w-full py-4 bg-gradient-to-r from-pink-500 to-pink-600 hover:from-pink-600 hover:to-pink-700 text-white font-bold rounded-xl shadow-lg hover:shadow-xl transition-all disabled:opacity-50"
+              disabled={loading || !invoiceItems.some(i => i.description && i.amount && parseFloat(i.amount) > 0)}
+              className="w-full py-4 bg-gradient-to-r from-pink-500 to-pink-600 hover:from-pink-600 hover:to-pink-700 text-white font-bold rounded-xl shadow-lg hover:shadow-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {loading ? "Sending..." : "Send Invoice"}
+              {loading ? "Sending..." : `Send Invoice${invoiceItems.some(i => parseFloat(i.amount) > 0) ? ` — $${invoiceItems.reduce((sum, i) => sum + (parseFloat(i.amount) || 0), 0).toFixed(2)}` : ""}`}
             </button>
           </div>
         </div>
