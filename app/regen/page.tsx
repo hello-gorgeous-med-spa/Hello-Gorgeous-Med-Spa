@@ -1,16 +1,7 @@
-import { Metadata } from 'next';
+'use client';
+
 import Link from 'next/link';
 import Image from 'next/image';
-
-export const metadata: Metadata = {
-  title: 'REGEN RX | Prescription Wellness, Delivered',
-  description: 'Doctor-guided weight loss, hormone therapy, and peptides. Illinois telehealth with licensed providers. Get started in minutes.',
-  openGraph: {
-    title: 'REGEN RX | Prescription Wellness, Delivered',
-    description: 'Doctor-guided weight loss, hormone therapy, and peptides. Illinois telehealth with licensed providers.',
-    type: 'website',
-  },
-};
 
 const BRAND = {
   teal: '#0D9488',      // Bright teal (molecules)
