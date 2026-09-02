@@ -3,7 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 
 export const metadata: Metadata = {
-  title: 'REGEN RX | Renew. Rebalance. Regenerate.',
+  title: 'REGEN RX | Prescription Wellness, Delivered',
   description: 'Doctor-guided weight loss, hormone therapy, and peptides. Illinois telehealth with licensed providers. Get started in minutes.',
   openGraph: {
     title: 'REGEN RX | Prescription Wellness, Delivered',
