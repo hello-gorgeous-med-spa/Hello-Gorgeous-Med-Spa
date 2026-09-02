@@ -124,26 +124,36 @@ export async function middleware(request: NextRequest) {
       pathname.startsWith('/api/') ||
       pathname.includes('.')
     ) {
-      return NextResponse.next();
+      const res = NextResponse.next();
+      res.headers.set('x-regen-host', '1');
+      return res;
     }
     // Root → RE GEN landing page
     if (pathname === '/' || pathname === '') {
       url.pathname = '/regen';
-      return NextResponse.rewrite(url);
+      const res = NextResponse.rewrite(url);
+      res.headers.set('x-regen-host', '1');
+      return res;
     }
     // /start → RE GEN intake flow
     if (pathname === '/start' || pathname.startsWith('/start/')) {
       url.pathname = '/regen/start' + pathname.slice('/start'.length);
-      return NextResponse.rewrite(url);
+      const res = NextResponse.rewrite(url);
+      res.headers.set('x-regen-host', '1');
+      return res;
     }
     // /account, /orders, /prescriptions → RE GEN patient portal
     if (pathname === '/account' || pathname.startsWith('/account/')) {
       url.pathname = '/regen/account' + pathname.slice('/account'.length);
-      return NextResponse.rewrite(url);
+      const res = NextResponse.rewrite(url);
+      res.headers.set('x-regen-host', '1');
+      return res;
     }
     // All other paths under tryregenrx.com → prefix with /regen
     url.pathname = '/regen' + pathname;
-    return NextResponse.rewrite(url);
+    const res = NextResponse.rewrite(url);
+    res.headers.set('x-regen-host', '1');
+    return res;
   }
 
   // Intake form lives at /intake only — not /hub/intake (no such page; staff shared wrong link)

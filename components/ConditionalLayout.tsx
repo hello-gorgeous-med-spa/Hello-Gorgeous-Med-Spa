@@ -7,10 +7,6 @@
 // ============================================================
 
 import { usePathname } from 'next/navigation';
-import { useEffect, useState } from 'react';
-
-/** Hostnames that should render standalone (no HG chrome) */
-const STANDALONE_HOSTS = ['tryregenrx.com', 'www.tryregenrx.com'];
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { StickyMobileCTA } from "@/components/StickyMobileCTA";
@@ -66,21 +62,14 @@ export function ConditionalLayout({
   children,
   siteSettings,
   livePlace,
+  isRegenHost = false,
 }: {
   children: React.ReactNode;
   siteSettings?: SiteSettings | null;
   livePlace?: GooglePlace | null;
+  isRegenHost?: boolean;
 }) {
   const pathname = usePathname();
-  const [isStandaloneHost, setIsStandaloneHost] = useState(false);
-  
-  // Check hostname on client side for standalone domains (e.g., tryregenrx.com)
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const hostname = window.location.hostname;
-      setIsStandaloneHost(STANDALONE_HOSTS.some(h => hostname.includes(h)));
-    }
-  }, []);
   
   // Check if current path is an admin/internal route
   const isAdminRoute = ADMIN_ROUTES.some(route => pathname?.startsWith(route));
@@ -91,8 +80,8 @@ export function ConditionalLayout({
     (route) => pathname === route || pathname?.startsWith(`${route}/`),
   );
 
-  // Admin/auth routes OR standalone hosts - no website chrome, just the content
-  if (isAdminRoute || isStandaloneForm || isStandaloneApp || isStandaloneHost) {
+  // Admin/auth routes OR RE GEN host - no website chrome, just the content
+  if (isAdminRoute || isStandaloneForm || isStandaloneApp || isRegenHost) {
     return (
       <div className="min-h-screen min-h-[100dvh]">
         {children}

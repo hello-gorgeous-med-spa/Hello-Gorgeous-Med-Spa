@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, Playfair_Display } from "next/font/google";
 import { Suspense } from "react";
+import { headers } from "next/headers";
 import "./globals.css";
 
 import { organizationJsonLd, siteJsonLd, SITE, SITE_OG_IMAGE, SITE_OG_IMAGE_ALT, websiteJsonLd } from "@/lib/seo";
@@ -113,6 +114,10 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     // CMS/Supabase unavailable — render site with defaults so live site never goes fully down
   }
 
+  // Check if this is a RE GEN host (set by middleware)
+  const headersList = await headers();
+  const isRegenHost = headersList.get('x-regen-host') === '1';
+
   // Live Google rating for AggregateRating schema. Falls back to SITE static
   // values silently if the Places API is unreachable so we never break a render.
   // The Places API call is cached for 24h (one fetch per region per day).
@@ -171,7 +176,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           <GetAppPopup />
           <CookieConsentBanner />
           <AuthWrapper>
-            <ConditionalLayout siteSettings={siteSettings ?? undefined} livePlace={livePlace}>
+            <ConditionalLayout siteSettings={siteSettings ?? undefined} livePlace={livePlace} isRegenHost={isRegenHost}>
               {children}
             </ConditionalLayout>
           </AuthWrapper>
