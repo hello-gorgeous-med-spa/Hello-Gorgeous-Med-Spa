@@ -19,7 +19,10 @@ export async function POST(request: NextRequest) {
     }
 
     const body = await request.json();
-    const { productKey, custom, patientName, patientEmail, program } = body;
+    const { productKey, custom, name, amount, description, patientName, patientEmail, program } = body;
+
+    // Normalize: accept either custom object or direct name/amount
+    const customProduct = custom || (name && amount ? { name, amount, description } : null);
 
     let result: { url: string; id: string };
 
@@ -33,19 +36,19 @@ export async function POST(request: NextRequest) {
           program: program || '',
         }
       );
-    } else if (custom) {
+    } else if (customProduct) {
       // Custom payment link
-      if (!custom.name || typeof custom.amount !== 'number' || custom.amount <= 0) {
+      if (!customProduct.name || typeof customProduct.amount !== 'number' || customProduct.amount <= 0) {
         return NextResponse.json(
-          { error: 'Custom link requires name and positive amount' },
+          { error: 'Payment link requires name and positive amount' },
           { status: 400 }
         );
       }
 
       result = await createRegenPaymentLink({
-        name: custom.name,
-        amount: custom.amount,
-        description: custom.description,
+        name: customProduct.name,
+        amount: customProduct.amount,
+        description: customProduct.description,
         collectPhone: true,
         metadata: {
           patientName: patientName || '',
@@ -55,13 +58,15 @@ export async function POST(request: NextRequest) {
       });
     } else {
       return NextResponse.json(
-        { error: 'Provide productKey or custom product details' },
+        { error: 'Provide name and amount for payment link' },
         { status: 400 }
       );
     }
 
     return NextResponse.json({
       success: true,
+      url: result.url,
+      id: result.id,
       paymentLink: {
         id: result.id,
         url: result.url,
