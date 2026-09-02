@@ -11,6 +11,16 @@ export const metadata: Metadata = {
   },
 };
 
+// Brand colors
+const BRAND = {
+  teal: '#0D5C63',      // Deep ocean teal - primary
+  tealLight: '#0E7490', // Lighter teal for hover states
+  gold: '#F59E0B',      // Golden amber - accent
+  goldLight: '#FBBF24', // Lighter gold
+  cream: '#FFFBF5',     // Warm white background
+  charcoal: '#1F2937',  // Text color
+};
+
 const PROGRAMS = [
   {
     id: 'weight-loss',
@@ -75,12 +85,12 @@ const TRUST_POINTS = [
 
 export default function RegenLandingPage() {
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen" style={{ backgroundColor: BRAND.cream }}>
       {/* Navigation */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-lg border-b border-gray-100">
+      <nav className="fixed top-0 left-0 right-0 z-50 backdrop-blur-lg border-b border-gray-100" style={{ backgroundColor: 'rgba(255,251,245,0.9)' }}>
         <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-          <Link href="/" className="text-2xl font-bold tracking-tight text-gray-900">
-            RE<span className="text-emerald-600">GEN</span>
+          <Link href="/" className="text-2xl font-bold tracking-tight" style={{ color: BRAND.charcoal }}>
+            RE<span style={{ color: BRAND.teal }}>GEN</span>
           </Link>
           <div className="flex items-center gap-6">
             <Link href="/start" className="text-sm font-medium text-gray-600 hover:text-gray-900">
@@ -91,7 +101,8 @@ export default function RegenLandingPage() {
             </Link>
             <Link
               href="/start"
-              className="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-semibold rounded-full transition-colors"
+              className="px-5 py-2.5 text-white text-sm font-semibold rounded-full transition-all hover:scale-105"
+              style={{ backgroundColor: BRAND.teal }}
             >
               Start Now
             </Link>
@@ -102,14 +113,17 @@ export default function RegenLandingPage() {
       {/* Hero */}
       <section className="pt-32 pb-20 px-6">
         <div className="max-w-4xl mx-auto text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-emerald-50 text-emerald-700 rounded-full text-sm font-medium mb-8">
-            <span className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse" />
+          <div 
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium mb-8"
+            style={{ backgroundColor: `${BRAND.teal}15`, color: BRAND.teal }}
+          >
+            <span className="w-2 h-2 rounded-full animate-pulse" style={{ backgroundColor: BRAND.gold }} />
             Illinois Telehealth — No appointment needed
           </div>
-          <h1 className="text-5xl md:text-6xl font-bold text-gray-900 tracking-tight mb-6">
+          <h1 className="text-5xl md:text-6xl font-bold tracking-tight mb-6" style={{ color: BRAND.charcoal }}>
             Prescription wellness,
             <br />
-            <span className="text-emerald-600">delivered to your door</span>
+            <span style={{ color: BRAND.teal }}>delivered to your door</span>
           </h1>
           <p className="text-xl text-gray-600 mb-10 max-w-2xl mx-auto">
             Doctor-guided weight loss, hormone therapy, and peptides. 
@@ -119,13 +133,15 @@ export default function RegenLandingPage() {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link
               href="/start"
-              className="w-full sm:w-auto px-8 py-4 bg-emerald-600 hover:bg-emerald-700 text-white text-lg font-semibold rounded-full transition-colors shadow-lg shadow-emerald-200"
+              className="w-full sm:w-auto px-8 py-4 text-white text-lg font-semibold rounded-full transition-all hover:scale-105 shadow-lg"
+              style={{ backgroundColor: BRAND.gold }}
             >
               Get Started — It&apos;s Free
             </Link>
             <Link
               href="#programs"
-              className="w-full sm:w-auto px-8 py-4 bg-gray-100 hover:bg-gray-200 text-gray-900 text-lg font-semibold rounded-full transition-colors"
+              className="w-full sm:w-auto px-8 py-4 text-lg font-semibold rounded-full transition-colors border-2"
+              style={{ borderColor: BRAND.teal, color: BRAND.teal }}
             >
               View Programs
             </Link>
@@ -134,13 +150,13 @@ export default function RegenLandingPage() {
       </section>
 
       {/* Trust Bar */}
-      <section className="py-8 border-y border-gray-100 bg-gray-50">
+      <section className="py-8 border-y" style={{ borderColor: `${BRAND.teal}20`, backgroundColor: `${BRAND.teal}08` }}>
         <div className="max-w-6xl mx-auto px-6">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {TRUST_POINTS.map((point) => (
               <div key={point.label} className="flex items-center justify-center gap-3">
                 <span className="text-2xl">{point.icon}</span>
-                <span className="text-sm font-medium text-gray-700">{point.label}</span>
+                <span className="text-sm font-medium" style={{ color: BRAND.charcoal }}>{point.label}</span>
               </div>
             ))}
           </div>
@@ -151,7 +167,7 @@ export default function RegenLandingPage() {
       <section id="programs" className="py-20 px-6">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4" style={{ color: BRAND.charcoal }}>
               Choose your program
             </h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
@@ -164,18 +180,22 @@ export default function RegenLandingPage() {
               <Link
                 key={program.id}
                 href={program.href}
-                className="group p-8 bg-white border-2 border-gray-100 hover:border-emerald-200 rounded-2xl transition-all hover:shadow-xl hover:shadow-emerald-100"
+                className="group p-8 bg-white border-2 border-gray-100 rounded-2xl transition-all hover:shadow-xl"
+                style={{ ['--hover-border' as string]: BRAND.teal }}
               >
                 <div className="flex items-start justify-between mb-6">
-                  <div className="p-3 bg-emerald-50 text-emerald-600 rounded-xl group-hover:bg-emerald-100 transition-colors">
+                  <div 
+                    className="p-3 rounded-xl transition-colors"
+                    style={{ backgroundColor: `${BRAND.teal}10`, color: BRAND.teal }}
+                  >
                     {program.icon}
                   </div>
-                  <span className="text-emerald-600 font-bold">{program.price}</span>
+                  <span className="font-bold" style={{ color: BRAND.gold }}>{program.price}</span>
                 </div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-2">{program.title}</h3>
-                <p className="text-sm font-medium text-emerald-600 mb-3">{program.subtitle}</p>
+                <h3 className="text-2xl font-bold mb-2" style={{ color: BRAND.charcoal }}>{program.title}</h3>
+                <p className="text-sm font-medium mb-3" style={{ color: BRAND.teal }}>{program.subtitle}</p>
                 <p className="text-gray-600 mb-6">{program.description}</p>
-                <div className="flex items-center gap-2 text-emerald-600 font-semibold">
+                <div className="flex items-center gap-2 font-semibold" style={{ color: BRAND.teal }}>
                   Get started
                   <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
@@ -188,10 +208,10 @@ export default function RegenLandingPage() {
       </section>
 
       {/* How It Works */}
-      <section className="py-20 px-6 bg-gray-50">
+      <section className="py-20 px-6" style={{ backgroundColor: `${BRAND.teal}08` }}>
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4" style={{ color: BRAND.charcoal }}>
               How it works
             </h2>
             <p className="text-lg text-gray-600">
@@ -217,10 +237,13 @@ export default function RegenLandingPage() {
               },
             ].map((item) => (
               <div key={item.step} className="text-center">
-                <div className="w-16 h-16 bg-emerald-600 text-white text-2xl font-bold rounded-full flex items-center justify-center mx-auto mb-6">
+                <div 
+                  className="w-16 h-16 text-white text-2xl font-bold rounded-full flex items-center justify-center mx-auto mb-6"
+                  style={{ backgroundColor: BRAND.teal }}
+                >
                   {item.step}
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">{item.title}</h3>
+                <h3 className="text-xl font-bold mb-3" style={{ color: BRAND.charcoal }}>{item.title}</h3>
                 <p className="text-gray-600">{item.description}</p>
               </div>
             ))}
@@ -231,9 +254,15 @@ export default function RegenLandingPage() {
       {/* Medical Trust Section */}
       <section className="py-20 px-6">
         <div className="max-w-4xl mx-auto">
-          <div className="bg-gradient-to-br from-emerald-50 to-teal-50 rounded-3xl p-10 md:p-16 text-center">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-              Real doctors. Real prescriptions.
+          <div 
+            className="rounded-3xl p-10 md:p-16 text-center"
+            style={{ 
+              background: `linear-gradient(135deg, ${BRAND.teal}15 0%, ${BRAND.gold}10 100%)`,
+              border: `1px solid ${BRAND.teal}20`
+            }}
+          >
+            <h2 className="text-3xl md:text-4xl font-bold mb-6" style={{ color: BRAND.charcoal }}>
+              Real providers. Real prescriptions.
             </h2>
             <p className="text-lg text-gray-700 mb-8 max-w-2xl mx-auto">
               RE GEN is powered by licensed Illinois healthcare providers with Full Practice Authority. 
@@ -242,19 +271,19 @@ export default function RegenLandingPage() {
             </p>
             <div className="flex flex-wrap items-center justify-center gap-6 text-sm text-gray-600">
               <span className="flex items-center gap-2">
-                <svg className="w-5 h-5 text-emerald-600" fill="currentColor" viewBox="0 0 20 20">
+                <svg className="w-5 h-5" style={{ color: BRAND.teal }} fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                 </svg>
                 HIPAA Compliant
               </span>
               <span className="flex items-center gap-2">
-                <svg className="w-5 h-5 text-emerald-600" fill="currentColor" viewBox="0 0 20 20">
+                <svg className="w-5 h-5" style={{ color: BRAND.teal }} fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                 </svg>
                 Illinois Licensed
               </span>
               <span className="flex items-center gap-2">
-                <svg className="w-5 h-5 text-emerald-600" fill="currentColor" viewBox="0 0 20 20">
+                <svg className="w-5 h-5" style={{ color: BRAND.teal }} fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                 </svg>
                 503A Pharmacy Partners
@@ -265,17 +294,18 @@ export default function RegenLandingPage() {
       </section>
 
       {/* CTA */}
-      <section className="py-20 px-6 bg-emerald-600">
+      <section className="py-20 px-6" style={{ backgroundColor: BRAND.teal }}>
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
             Ready to feel your best?
           </h2>
-          <p className="text-xl text-emerald-100 mb-10">
+          <p className="text-xl mb-10" style={{ color: 'rgba(255,255,255,0.8)' }}>
             Start your free online visit today. No commitment required.
           </p>
           <Link
             href="/start"
-            className="inline-block px-10 py-5 bg-white hover:bg-gray-100 text-emerald-600 text-lg font-bold rounded-full transition-colors shadow-xl"
+            className="inline-block px-10 py-5 text-lg font-bold rounded-full transition-all hover:scale-105 shadow-xl"
+            style={{ backgroundColor: BRAND.gold, color: BRAND.charcoal }}
           >
             Get Started Now
           </Link>
@@ -283,12 +313,12 @@ export default function RegenLandingPage() {
       </section>
 
       {/* Footer */}
-      <footer className="py-12 px-6 bg-gray-900 text-gray-400">
+      <footer className="py-12 px-6 text-gray-400" style={{ backgroundColor: BRAND.charcoal }}>
         <div className="max-w-6xl mx-auto">
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
             <div>
               <span className="text-xl font-bold text-white">
-                RE<span className="text-emerald-500">GEN</span>
+                RE<span style={{ color: BRAND.gold }}>GEN</span>
               </span>
               <p className="text-sm mt-2">Prescription wellness, delivered.</p>
             </div>
@@ -299,7 +329,7 @@ export default function RegenLandingPage() {
               <a href="tel:+16302342473" className="hover:text-white transition-colors">(630) 234-2473</a>
             </div>
           </div>
-          <div className="mt-8 pt-8 border-t border-gray-800 text-xs text-gray-500">
+          <div className="mt-8 pt-8 border-t border-gray-700 text-xs text-gray-500">
             <p>
               RE GEN is a telehealth platform operated by Hello Gorgeous Med Spa LLC. 
               Medical services provided by licensed Illinois healthcare providers. 
