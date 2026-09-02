@@ -358,6 +358,201 @@ export async function createRegenCheckoutSession(
 }
 
 // ============================================================
+// PAYMENT LINKS (Shareable URLs)
+// ============================================================
+
+export interface CreatePaymentLinkParams {
+  name: string;
+  amount: number; // dollars
+  description?: string;
+  quantity?: number;
+  allowQuantityAdjust?: boolean;
+  collectPhone?: boolean;
+  collectAddress?: boolean;
+  metadata?: Record<string, string>;
+}
+
+export async function createRegenPaymentLink(
+  params: CreatePaymentLinkParams
+): Promise<{ url: string; id: string }> {
+  const stripe = getRegenStripe();
+
+  // Create a product and price on the fly
+  const product = await stripe.products.create({
+    name: params.name,
+    description: params.description,
+    metadata: {
+      source: 'regen',
+      ...params.metadata,
+    },
+  });
+
+  const price = await stripe.prices.create({
+    product: product.id,
+    unit_amount: Math.round(params.amount * 100),
+    currency: 'usd',
+  });
+
+  // Create the payment link
+  const paymentLink = await stripe.paymentLinks.create({
+    line_items: [
+      {
+        price: price.id,
+        quantity: params.quantity || 1,
+        adjustable_quantity: params.allowQuantityAdjust
+          ? { enabled: true, minimum: 1, maximum: 10 }
+          : undefined,
+      },
+    ],
+    phone_number_collection: {
+      enabled: params.collectPhone ?? true,
+    },
+    metadata: {
+      source: 'regen',
+      productName: params.name,
+      ...params.metadata,
+    },
+  });
+
+  return {
+    url: paymentLink.url,
+    id: paymentLink.id,
+  };
+}
+
+// Create a payment link for a predefined Re Gen product
+export async function createQuickPaymentLink(
+  productKey: keyof typeof REGEN_QUICK_PRODUCTS,
+  metadata?: Record<string, string>
+): Promise<{ url: string; id: string }> {
+  const product = REGEN_QUICK_PRODUCTS[productKey];
+  return createRegenPaymentLink({
+    ...product,
+    metadata,
+  });
+}
+
+// Predefined Re Gen products for quick link generation
+export const REGEN_QUICK_PRODUCTS = {
+  // Consults
+  telehealth_consult: {
+    name: 'NP Telehealth Consultation',
+    amount: 49,
+    description: 'Required consultation with Ryan Kent, FNP-BC',
+  },
+
+  // GLP-1 Programs
+  semaglutide_maint: {
+    name: 'Semaglutide Maintenance - 1 Month',
+    amount: 195,
+    description: 'GLP-1 weight loss program - maintenance dose',
+  },
+  semaglutide_titration: {
+    name: 'Semaglutide Titration - 1 Month',
+    amount: 245,
+    description: 'GLP-1 weight loss program - titration phase',
+  },
+  tirzepatide_maint: {
+    name: 'Tirzepatide Maintenance - 1 Month',
+    amount: 295,
+    description: 'GLP-1 weight loss program - maintenance dose',
+  },
+  tirzepatide_max: {
+    name: 'Tirzepatide 15mg - 1 Month',
+    amount: 395,
+    description: 'GLP-1 weight loss program - maximum dose',
+  },
+
+  // Peptides
+  bpc157: {
+    name: 'BPC-157 Injectable - 1 Month',
+    amount: 169,
+    description: 'Recovery peptide protocol',
+  },
+  sermorelin: {
+    name: 'Sermorelin Injectable - 1 Month',
+    amount: 149,
+    description: 'Growth hormone peptide protocol',
+  },
+  tb500: {
+    name: 'TB-500 Injectable - 1 Month',
+    amount: 169,
+    description: 'Recovery peptide protocol',
+  },
+  nad_injection: {
+    name: 'NAD+ Injectable Protocol - 1 Month',
+    amount: 169,
+    description: 'Longevity and energy protocol',
+  },
+  pt141: {
+    name: 'PT-141 Injectable - 1 Month',
+    amount: 209,
+    description: 'Intimacy peptide protocol',
+  },
+
+  // HRT
+  hrt_women: {
+    name: "Women's HRT Compounded - 1 Month",
+    amount: 150,
+    description: 'Bioidentical hormone therapy for women',
+  },
+  trt_men: {
+    name: "Men's TRT Injectable - 1 Month",
+    amount: 200,
+    description: 'Testosterone replacement therapy',
+  },
+
+  // Labs
+  labs_peak: {
+    name: 'Peak Performance Lab Panel',
+    amount: 199,
+    description: 'Comprehensive wellness labs',
+  },
+  labs_hrt: {
+    name: 'HRT Baseline Lab Panel',
+    amount: 299,
+    description: 'Hormone therapy baseline labs',
+  },
+  labs_metabolic: {
+    name: 'GLP-1 Metabolic Lab Panel',
+    amount: 249,
+    description: 'Weight loss program labs',
+  },
+
+  // Shipping
+  shipping: {
+    name: 'Pharmacy Shipping',
+    amount: 35,
+    description: 'Standard shipping for compounded medications',
+  },
+} as const;
+
+// List all active payment links
+export async function listRegenPaymentLinks(
+  limit = 20
+): Promise<Array<{ id: string; url: string; active: boolean; metadata: Record<string, string> }>> {
+  const stripe = getRegenStripe();
+
+  const links = await stripe.paymentLinks.list({
+    limit,
+    active: true,
+  });
+
+  return links.data.map((link) => ({
+    id: link.id,
+    url: link.url,
+    active: link.active,
+    metadata: (link.metadata as Record<string, string>) || {},
+  }));
+}
+
+// Deactivate a payment link
+export async function deactivatePaymentLink(paymentLinkId: string): Promise<void> {
+  const stripe = getRegenStripe();
+  await stripe.paymentLinks.update(paymentLinkId, { active: false });
+}
+
+// ============================================================
 // UTILITIES
 // ============================================================
 
