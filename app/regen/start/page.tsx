@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from 'react';
+import { useState, Suspense } from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 
@@ -50,7 +50,7 @@ const GOALS = [
 
 type Step = 'goal' | 'program' | 'info' | 'checkout';
 
-export default function RegenStartPage() {
+function RegenStartContent() {
   const searchParams = useSearchParams();
   const initialGoal = searchParams.get('goal') || '';
   
@@ -356,5 +356,20 @@ export default function RegenStartPage() {
         </div>
       </footer>
     </div>
+  );
+}
+
+export default function RegenStartPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="w-8 h-8 border-4 border-emerald-600 border-t-transparent rounded-full animate-spin mx-auto mb-4" />
+          <p className="text-gray-600">Loading...</p>
+        </div>
+      </div>
+    }>
+      <RegenStartContent />
+    </Suspense>
   );
 }
