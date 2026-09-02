@@ -120,12 +120,14 @@ export async function createRegenInvoice(
 
   // Add invoice items
   for (const item of params.items) {
+    const quantity = item.quantity || 1;
     await stripe.invoiceItems.create({
       customer: params.customerId,
-      amount: Math.round(item.amount * 100), // cents
+      // Use unit_amount with quantity, or just amount for single items
+      unit_amount: Math.round(item.amount * 100), // cents per unit
       currency: 'usd',
       description: item.description,
-      quantity: item.quantity || 1,
+      quantity,
     });
   }
 
