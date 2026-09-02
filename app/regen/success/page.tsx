@@ -1,60 +1,61 @@
 import Link from 'next/link';
+import { CheckCircleIcon } from '@heroicons/react/24/solid';
 
 export const metadata = {
-  title: 'Welcome to RE GEN',
+  title: 'Welcome to REGEN RX',
   description: 'Your prescription wellness journey begins now.',
 };
 
 const BRAND = {
-  teal: '#0D5C63',
-  gold: '#F59E0B',
-  cream: '#FFFBF5',
-  charcoal: '#1F2937',
+  teal: '#0D9488',
+  pink: '#E91E8C',
+  dark: '#0A0A0A',
+  darkAlt: '#111111',
+  cream: '#FAF9F6',
+  gray: '#9CA3AF',
 };
 
 export default function RegenSuccessPage() {
   return (
-    <div className="min-h-screen" style={{ background: `linear-gradient(to bottom, ${BRAND.teal}10, ${BRAND.cream})` }}>
-      <header className="bg-white border-b border-gray-200">
+    <div className="min-h-screen" style={{ backgroundColor: BRAND.dark }}>
+      <header style={{ backgroundColor: BRAND.darkAlt, borderBottom: `1px solid ${BRAND.teal}20` }}>
         <div className="max-w-3xl mx-auto px-6 py-4">
-          <Link href="/" className="text-xl font-bold" style={{ color: BRAND.charcoal }}>
-            RE<span style={{ color: BRAND.teal }}>GEN</span>
+          <Link href="/" className="text-xl font-bold text-white">
+            REGEN<span style={{ color: BRAND.pink }}>RX</span>
           </Link>
         </div>
       </header>
 
       <main className="max-w-2xl mx-auto px-6 py-16 text-center">
-        <div className="bg-white rounded-2xl shadow-lg p-8 md:p-12">
-          <svg className="w-20 h-20 mx-auto mb-6" style={{ color: BRAND.teal }} fill="currentColor" viewBox="0 0 24 24">
-            <path fillRule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clipRule="evenodd" />
-          </svg>
+        <div className="rounded-2xl p-8 md:p-12" style={{ backgroundColor: BRAND.darkAlt, border: `1px solid ${BRAND.teal}30` }}>
+          <CheckCircleIcon className="w-20 h-20 mx-auto mb-6" style={{ color: BRAND.teal }} />
           
-          <h1 className="text-3xl font-bold mb-4" style={{ color: BRAND.charcoal }}>
+          <h1 className="text-3xl font-bold mb-4" style={{ color: BRAND.cream }}>
             You&apos;re In!
           </h1>
           
-          <p className="text-lg text-gray-600 mb-8">
-            Thank you for starting your wellness journey with RE GEN.
+          <p className="text-lg mb-8" style={{ color: BRAND.gray }}>
+            Thank you for starting your wellness journey with REGEN RX.
           </p>
 
-          <div className="rounded-xl p-6 mb-8 text-left" style={{ backgroundColor: `${BRAND.teal}10` }}>
-            <h2 className="font-semibold mb-4" style={{ color: BRAND.charcoal }}>What happens next:</h2>
-            <ol className="space-y-3 text-gray-700">
+          <div className="rounded-xl p-6 mb-8 text-left" style={{ backgroundColor: BRAND.dark, border: `1px solid ${BRAND.teal}20` }}>
+            <h2 className="font-semibold mb-4" style={{ color: BRAND.cream }}>What happens next:</h2>
+            <ol className="space-y-3" style={{ color: BRAND.gray }}>
               <li className="flex gap-3">
                 <span className="flex-shrink-0 w-6 h-6 text-white rounded-full flex items-center justify-center text-sm font-bold" style={{ backgroundColor: BRAND.teal }}>1</span>
-                <span><strong>Check your email</strong> — You&apos;ll receive a confirmation and intake form link within minutes.</span>
+                <span><strong style={{ color: BRAND.cream }}>Check your email</strong> — You&apos;ll receive a confirmation and intake form link within minutes.</span>
               </li>
               <li className="flex gap-3">
                 <span className="flex-shrink-0 w-6 h-6 text-white rounded-full flex items-center justify-center text-sm font-bold" style={{ backgroundColor: BRAND.teal }}>2</span>
-                <span><strong>Complete your health history</strong> — Our secure form takes about 5 minutes.</span>
+                <span><strong style={{ color: BRAND.cream }}>Complete your health history</strong> — Our secure form takes about 5 minutes.</span>
               </li>
               <li className="flex gap-3">
-                <span className="flex-shrink-0 w-6 h-6 text-white rounded-full flex items-center justify-center text-sm font-bold" style={{ backgroundColor: BRAND.teal }}>3</span>
-                <span><strong>Provider review</strong> — A licensed provider will review your information within 24-48 hours.</span>
+                <span className="flex-shrink-0 w-6 h-6 text-white rounded-full flex items-center justify-center text-sm font-bold" style={{ backgroundColor: BRAND.pink }}>3</span>
+                <span><strong style={{ color: BRAND.cream }}>Provider review</strong> — A licensed provider will review your information within 24-48 hours.</span>
               </li>
               <li className="flex gap-3">
-                <span className="flex-shrink-0 w-6 h-6 text-white rounded-full flex items-center justify-center text-sm font-bold" style={{ backgroundColor: BRAND.teal }}>4</span>
-                <span><strong>Prescription shipped</strong> — If approved, your medication ships directly to your door.</span>
+                <span className="flex-shrink-0 w-6 h-6 text-white rounded-full flex items-center justify-center text-sm font-bold" style={{ backgroundColor: BRAND.pink }}>4</span>
+                <span><strong style={{ color: BRAND.cream }}>Prescription shipped</strong> — If approved, your medication ships directly to your door.</span>
               </li>
             </ol>
           </div>
@@ -63,7 +64,7 @@ export default function RegenSuccessPage() {
             <Link
               href="/"
               className="px-6 py-3 text-white font-semibold rounded-lg transition-all hover:scale-105"
-              style={{ backgroundColor: BRAND.teal }}
+              style={{ backgroundColor: BRAND.pink }}
             >
               Back to Home
             </Link>
@@ -77,7 +78,7 @@ export default function RegenSuccessPage() {
           </div>
         </div>
 
-        <p className="mt-8 text-sm text-gray-500">
+        <p className="mt-8 text-sm" style={{ color: BRAND.gray }}>
           Questions? Email <a href="mailto:hello@tryregenrx.com" className="hover:underline" style={{ color: BRAND.teal }}>hello@tryregenrx.com</a> or call <a href="tel:+16302342473" className="hover:underline" style={{ color: BRAND.teal }}>(630) 234-2473</a>
         </p>
       </main>

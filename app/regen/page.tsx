@@ -3,39 +3,32 @@ import Link from 'next/link';
 import Image from 'next/image';
 
 export const metadata: Metadata = {
-  title: 'RE GEN | Prescription Wellness, Delivered',
+  title: 'REGEN RX | Renew. Rebalance. Regenerate.',
   description: 'Doctor-guided weight loss, hormone therapy, and peptides. Illinois telehealth with licensed providers. Get started in minutes.',
   openGraph: {
-    title: 'RE GEN | Prescription Wellness, Delivered',
+    title: 'REGEN RX | Prescription Wellness, Delivered',
     description: 'Doctor-guided weight loss, hormone therapy, and peptides. Illinois telehealth with licensed providers.',
     type: 'website',
   },
 };
 
 const BRAND = {
-  teal: '#0D5C63',
-  tealLight: '#0E7490',
-  gold: '#F59E0B',
-  goldLight: '#FBBF24',
-  cream: '#FFFBF5',
-  charcoal: '#1F2937',
+  teal: '#0D9488',      // Bright teal (molecules)
+  tealDark: '#0D5C63',  // Deep teal
+  pink: '#E91E8C',      // Hot pink accent (RX)
+  pinkLight: '#FF4DA6', // Lighter pink
+  dark: '#0A0A0A',      // Near black background
+  darkAlt: '#111111',   // Slightly lighter dark
+  cream: '#FAF9F6',     // Off-white text
+  gray: '#9CA3AF',      // Muted text
 };
-
-const HERO_IMAGES = [
-  { src: '/images/regen/woman-stretching.png', alt: 'Woman stretching before workout' },
-  { src: '/images/regen/man-professional.png', alt: 'Professional man feeling confident' },
-  { src: '/images/regen/woman-bedroom.png', alt: 'Woman feeling refreshed and balanced' },
-  { src: '/images/regen/couple-couch.png', alt: 'Happy couple enjoying time together' },
-  { src: '/images/regen/man-stretching.png', alt: 'Man staying active and healthy' },
-  { src: '/images/regen/woman-laptop.png', alt: 'Woman using telehealth from home' },
-];
 
 const PROGRAMS = [
   {
     id: 'weight-loss',
     title: 'Weight Loss',
     subtitle: 'GLP-1 Medications',
-    description: 'Semaglutide & Tirzepatide',
+    description: 'Semaglutide & Tirzepatide — same active ingredients as Ozempic® and Mounjaro®',
     price: '$299',
     href: '/start?goal=weight-loss',
     image: '/images/regen/woman-stretching.png',
@@ -44,7 +37,7 @@ const PROGRAMS = [
     id: 'hormones',
     title: 'Hormone Therapy',
     subtitle: 'HRT for Women & Men',
-    description: 'Restore energy & vitality',
+    description: 'Restore energy, mood, and vitality with bioidentical hormone optimization',
     price: '$149',
     href: '/start?goal=hormones',
     image: '/images/regen/couple-couch.png',
@@ -53,7 +46,7 @@ const PROGRAMS = [
     id: 'peptides',
     title: 'Peptide Therapy',
     subtitle: 'Recovery & Performance',
-    description: 'BPC-157, Sermorelin, NAD+',
+    description: 'BPC-157, Sermorelin, NAD+ and more for healing, energy, and longevity',
     price: '$199',
     href: '/start?goal=peptides',
     image: '/images/regen/man-stretching.png',
@@ -62,7 +55,7 @@ const PROGRAMS = [
     id: 'sexual-health',
     title: 'Sexual Wellness',
     subtitle: 'Intimacy & Performance',
-    description: 'Discreet, effective solutions',
+    description: 'Discreet, effective solutions for desire, performance, and confidence',
     price: '$49',
     href: '/start?goal=sexual-health',
     image: '/images/regen/man-professional.png',
@@ -75,17 +68,9 @@ const STEPS = [
   { num: '03', title: 'Medication delivered', desc: 'Ships from FDA-registered pharmacy. Free delivery.' },
 ];
 
-function SpacedText({ children, className = '' }: { children: string; className?: string }) {
-  return (
-    <span className={`tracking-[0.3em] uppercase text-sm font-medium ${className}`}>
-      {children.split('').join(' ')}
-    </span>
-  );
-}
-
 export default function RegenLandingPage() {
   return (
-    <div className="min-h-screen" style={{ backgroundColor: BRAND.cream }}>
+    <div className="min-h-screen" style={{ backgroundColor: BRAND.dark }}>
       {/* CSS Animations */}
       <style jsx global>{`
         @keyframes fadeInUp {
@@ -95,14 +80,6 @@ export default function RegenLandingPage() {
         @keyframes fadeIn {
           from { opacity: 0; }
           to { opacity: 1; }
-        }
-        @keyframes slideInLeft {
-          from { opacity: 0; transform: translateX(-50px); }
-          to { opacity: 1; transform: translateX(0); }
-        }
-        @keyframes slideInRight {
-          from { opacity: 0; transform: translateX(50px); }
-          to { opacity: 1; transform: translateX(0); }
         }
         @keyframes scaleIn {
           from { opacity: 0; transform: scale(0.95); }
@@ -116,38 +93,40 @@ export default function RegenLandingPage() {
           0% { transform: translateX(0); }
           100% { transform: translateX(-50%); }
         }
+        @keyframes pulse-glow {
+          0%, 100% { box-shadow: 0 0 20px ${BRAND.teal}40; }
+          50% { box-shadow: 0 0 40px ${BRAND.teal}60; }
+        }
         .animate-fade-in-up { animation: fadeInUp 0.8s ease-out forwards; }
         .animate-fade-in { animation: fadeIn 1s ease-out forwards; }
-        .animate-slide-left { animation: slideInLeft 0.8s ease-out forwards; }
-        .animate-slide-right { animation: slideInRight 0.8s ease-out forwards; }
         .animate-scale-in { animation: scaleIn 0.6s ease-out forwards; }
         .animate-float { animation: float 3s ease-in-out infinite; }
         .animate-marquee { animation: marquee 30s linear infinite; }
+        .animate-pulse-glow { animation: pulse-glow 2s ease-in-out infinite; }
         .delay-100 { animation-delay: 0.1s; opacity: 0; }
         .delay-200 { animation-delay: 0.2s; opacity: 0; }
         .delay-300 { animation-delay: 0.3s; opacity: 0; }
         .delay-400 { animation-delay: 0.4s; opacity: 0; }
         .delay-500 { animation-delay: 0.5s; opacity: 0; }
-        .delay-600 { animation-delay: 0.6s; opacity: 0; }
       `}</style>
 
       {/* Navigation */}
-      <nav className="fixed top-0 left-0 right-0 z-50 backdrop-blur-lg border-b" style={{ backgroundColor: 'rgba(255,251,245,0.95)', borderColor: `${BRAND.teal}15` }}>
-        <div className="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
-          <Link href="/" className="text-2xl font-black tracking-tight" style={{ color: BRAND.charcoal }}>
-            RE<span style={{ color: BRAND.teal }}>GEN</span>
+      <nav className="fixed top-0 left-0 right-0 z-50 backdrop-blur-xl border-b" style={{ backgroundColor: 'rgba(10,10,10,0.9)', borderColor: `${BRAND.teal}30` }}>
+        <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+          <Link href="/" className="flex items-center">
+            <Image src="/images/regen/logo-full.png" alt="REGEN RX" width={140} height={50} className="h-10 w-auto" />
           </Link>
           <div className="flex items-center gap-8">
-            <Link href="#programs" className="text-sm font-medium text-gray-600 hover:text-gray-900 hidden md:block">
+            <Link href="#programs" className="text-sm font-medium text-gray-400 hover:text-white transition-colors hidden md:block">
               Programs
             </Link>
-            <Link href="#how-it-works" className="text-sm font-medium text-gray-600 hover:text-gray-900 hidden md:block">
+            <Link href="#how-it-works" className="text-sm font-medium text-gray-400 hover:text-white transition-colors hidden md:block">
               How It Works
             </Link>
             <Link
               href="/start"
-              className="px-6 py-3 text-white text-sm font-bold rounded-full transition-all hover:scale-105 shadow-lg"
-              style={{ backgroundColor: BRAND.gold }}
+              className="px-6 py-3 text-white text-sm font-bold rounded-full transition-all hover:scale-105"
+              style={{ backgroundColor: BRAND.pink }}
             >
               Get Started
             </Link>
@@ -155,27 +134,35 @@ export default function RegenLandingPage() {
         </div>
       </nav>
 
-      {/* Hero Section - Bold & Alive */}
-      <section className="pt-28 pb-12 md:pt-36 md:pb-20 px-6 overflow-hidden">
-        <div className="max-w-7xl mx-auto">
+      {/* Hero Section - Dark & Bold */}
+      <section className="pt-28 pb-16 md:pt-40 md:pb-24 px-6 relative overflow-hidden">
+        {/* Background molecular pattern */}
+        <div className="absolute inset-0 opacity-20" style={{
+          backgroundImage: `radial-gradient(circle at 20% 50%, ${BRAND.teal}40 0%, transparent 50%), radial-gradient(circle at 80% 50%, ${BRAND.pink}30 0%, transparent 50%)`,
+        }} />
+        
+        <div className="max-w-7xl mx-auto relative">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             {/* Left: Text */}
             <div className="space-y-8">
               <div className="animate-fade-in-up">
-                <SpacedText className="block mb-6" style={{ color: BRAND.teal }}>
+                <span 
+                  className="inline-block px-4 py-2 rounded-full text-xs font-bold tracking-widest uppercase"
+                  style={{ backgroundColor: `${BRAND.teal}20`, color: BRAND.teal, border: `1px solid ${BRAND.teal}40` }}
+                >
                   Illinois Telehealth
-                </SpacedText>
+                </span>
               </div>
               
-              <h1 className="text-5xl md:text-6xl lg:text-7xl font-black leading-[1.1] animate-fade-in-up delay-100" style={{ color: BRAND.charcoal }}>
-                Feel like
+              <h1 className="text-5xl md:text-6xl lg:text-7xl font-black leading-[1.05] animate-fade-in-up delay-100" style={{ color: BRAND.cream }}>
+                Renew.
                 <br />
-                <span style={{ color: BRAND.teal }}>yourself</span>
+                <span style={{ color: BRAND.teal }}>Rebalance.</span>
                 <br />
-                again.
+                <span style={{ color: BRAND.pink }}>Regenerate.</span>
               </h1>
               
-              <p className="text-xl text-gray-600 max-w-lg animate-fade-in-up delay-200">
+              <p className="text-xl max-w-lg animate-fade-in-up delay-200" style={{ color: BRAND.gray }}>
                 Doctor-guided weight loss, hormone optimization, and peptide therapy — 
                 delivered to your door. No appointments. No waiting rooms.
               </p>
@@ -183,8 +170,8 @@ export default function RegenLandingPage() {
               <div className="flex flex-col sm:flex-row gap-4 animate-fade-in-up delay-300">
                 <Link
                   href="/start"
-                  className="px-8 py-4 text-lg font-bold rounded-full transition-all hover:scale-105 shadow-xl text-center"
-                  style={{ backgroundColor: BRAND.gold, color: BRAND.charcoal }}
+                  className="px-8 py-4 text-lg font-bold rounded-full transition-all hover:scale-105 shadow-xl text-center text-white"
+                  style={{ backgroundColor: BRAND.pink }}
                 >
                   Start Your Visit — Free
                 </Link>
@@ -202,13 +189,13 @@ export default function RegenLandingPage() {
                   <svg className="w-5 h-5" style={{ color: BRAND.teal }} fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                   </svg>
-                  <span className="text-sm font-medium text-gray-600">Licensed Illinois Providers</span>
+                  <span className="text-sm font-medium" style={{ color: BRAND.gray }}>Licensed Providers</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <svg className="w-5 h-5" style={{ color: BRAND.teal }} fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                   </svg>
-                  <span className="text-sm font-medium text-gray-600">Free Shipping</span>
+                  <span className="text-sm font-medium" style={{ color: BRAND.gray }}>Free Shipping</span>
                 </div>
               </div>
             </div>
@@ -217,26 +204,26 @@ export default function RegenLandingPage() {
             <div className="relative hidden lg:block">
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-4">
-                  <div className="rounded-2xl overflow-hidden shadow-2xl animate-scale-in delay-200 hover:scale-105 transition-transform duration-500">
+                  <div className="rounded-2xl overflow-hidden animate-scale-in delay-200 hover:scale-105 transition-transform duration-500" style={{ boxShadow: `0 0 30px ${BRAND.teal}30` }}>
                     <Image src="/images/regen/woman-stretching.png" alt="Woman staying active" width={400} height={500} className="w-full h-64 object-cover" />
                   </div>
-                  <div className="rounded-2xl overflow-hidden shadow-2xl animate-scale-in delay-400 hover:scale-105 transition-transform duration-500">
+                  <div className="rounded-2xl overflow-hidden animate-scale-in delay-400 hover:scale-105 transition-transform duration-500" style={{ boxShadow: `0 0 30px ${BRAND.pink}20` }}>
                     <Image src="/images/regen/man-professional.png" alt="Professional man confident" width={400} height={400} className="w-full h-48 object-cover" />
                   </div>
                 </div>
                 <div className="space-y-4 pt-8">
-                  <div className="rounded-2xl overflow-hidden shadow-2xl animate-scale-in delay-300 hover:scale-105 transition-transform duration-500">
+                  <div className="rounded-2xl overflow-hidden animate-scale-in delay-300 hover:scale-105 transition-transform duration-500" style={{ boxShadow: `0 0 30px ${BRAND.teal}30` }}>
                     <Image src="/images/regen/woman-bedroom.png" alt="Woman feeling balanced" width={400} height={400} className="w-full h-48 object-cover" />
                   </div>
-                  <div className="rounded-2xl overflow-hidden shadow-2xl animate-scale-in delay-500 hover:scale-105 transition-transform duration-500">
+                  <div className="rounded-2xl overflow-hidden animate-scale-in delay-500 hover:scale-105 transition-transform duration-500" style={{ boxShadow: `0 0 30px ${BRAND.pink}20` }}>
                     <Image src="/images/regen/couple-couch.png" alt="Couple enjoying life together" width={400} height={500} className="w-full h-64 object-cover" />
                   </div>
                 </div>
               </div>
-              {/* Floating accent */}
+              {/* Floating molecular accent */}
               <div 
-                className="absolute -bottom-6 -left-6 w-24 h-24 rounded-full animate-float" 
-                style={{ backgroundColor: `${BRAND.gold}30` }}
+                className="absolute -bottom-6 -left-6 w-24 h-24 rounded-full animate-pulse-glow" 
+                style={{ backgroundColor: `${BRAND.teal}20`, border: `1px solid ${BRAND.teal}40` }}
               />
             </div>
           </div>
@@ -244,35 +231,36 @@ export default function RegenLandingPage() {
       </section>
 
       {/* Scrolling Trust Strip */}
-      <section className="py-6 overflow-hidden" style={{ backgroundColor: BRAND.teal }}>
+      <section className="py-5 overflow-hidden border-y" style={{ backgroundColor: BRAND.darkAlt, borderColor: `${BRAND.teal}20` }}>
         <div className="animate-marquee whitespace-nowrap flex">
           {[...Array(2)].map((_, i) => (
-            <div key={i} className="flex items-center gap-16 px-8">
-              <span className="text-white/90 font-medium">Licensed Illinois Providers</span>
-              <span className="text-white/40">●</span>
-              <span className="text-white/90 font-medium">FDA-Registered Pharmacies</span>
-              <span className="text-white/40">●</span>
-              <span className="text-white/90 font-medium">Free Shipping</span>
-              <span className="text-white/40">●</span>
-              <span className="text-white/90 font-medium">HIPAA Compliant</span>
-              <span className="text-white/40">●</span>
-              <span className="text-white/90 font-medium">No Appointments Needed</span>
-              <span className="text-white/40">●</span>
-              <span className="text-white/90 font-medium">Ongoing Support</span>
-              <span className="text-white/40">●</span>
+            <div key={i} className="flex items-center gap-12 px-6">
+              <span style={{ color: BRAND.teal }} className="font-semibold">Licensed Illinois Providers</span>
+              <span style={{ color: BRAND.pink }}>◆</span>
+              <span style={{ color: BRAND.teal }} className="font-semibold">FDA-Registered Pharmacies</span>
+              <span style={{ color: BRAND.pink }}>◆</span>
+              <span style={{ color: BRAND.teal }} className="font-semibold">Free Shipping</span>
+              <span style={{ color: BRAND.pink }}>◆</span>
+              <span style={{ color: BRAND.teal }} className="font-semibold">HIPAA Compliant</span>
+              <span style={{ color: BRAND.pink }}>◆</span>
+              <span style={{ color: BRAND.teal }} className="font-semibold">No Appointments Needed</span>
+              <span style={{ color: BRAND.pink }}>◆</span>
             </div>
           ))}
         </div>
       </section>
 
       {/* Programs Section */}
-      <section id="programs" className="py-24 px-6">
+      <section id="programs" className="py-24 px-6" style={{ backgroundColor: BRAND.dark }}>
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <SpacedText className="block mb-4" style={{ color: BRAND.gold }}>
+            <span 
+              className="inline-block px-4 py-2 rounded-full text-xs font-bold tracking-widest uppercase mb-4"
+              style={{ backgroundColor: `${BRAND.pink}20`, color: BRAND.pink, border: `1px solid ${BRAND.pink}40` }}
+            >
               Programs
-            </SpacedText>
-            <h2 className="text-4xl md:text-5xl font-black" style={{ color: BRAND.charcoal }}>
+            </span>
+            <h2 className="text-4xl md:text-5xl font-black" style={{ color: BRAND.cream }}>
               Choose your path.
             </h2>
           </div>
@@ -282,8 +270,11 @@ export default function RegenLandingPage() {
               <Link
                 key={program.id}
                 href={program.href}
-                className="group relative bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2"
-                style={{ animationDelay: `${idx * 0.1}s` }}
+                className="group relative rounded-2xl overflow-hidden transition-all duration-500 hover:-translate-y-2"
+                style={{ 
+                  backgroundColor: BRAND.darkAlt,
+                  border: `1px solid ${BRAND.teal}20`,
+                }}
               >
                 <div className="aspect-[4/3] relative overflow-hidden">
                   <Image 
@@ -292,17 +283,17 @@ export default function RegenLandingPage() {
                     fill
                     className="object-cover group-hover:scale-110 transition-transform duration-700"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
                   <div className="absolute bottom-4 left-4 right-4">
-                    <p className="text-white/80 text-sm font-medium">{program.subtitle}</p>
-                    <h3 className="text-white text-2xl font-bold">{program.title}</h3>
+                    <p className="text-sm font-medium" style={{ color: BRAND.teal }}>{program.subtitle}</p>
+                    <h3 className="text-2xl font-bold text-white">{program.title}</h3>
                   </div>
                 </div>
-                <div className="p-6">
-                  <p className="text-gray-600 text-sm mb-4">{program.description}</p>
+                <div className="p-5">
+                  <p className="text-sm mb-4" style={{ color: BRAND.gray }}>{program.description}</p>
                   <div className="flex items-center justify-between">
-                    <span className="text-2xl font-black" style={{ color: BRAND.gold }}>
-                      {program.price}<span className="text-sm font-normal text-gray-500">/mo</span>
+                    <span className="text-2xl font-black" style={{ color: BRAND.pink }}>
+                      {program.price}<span className="text-sm font-normal" style={{ color: BRAND.gray }}>/mo</span>
                     </span>
                     <span className="text-sm font-semibold flex items-center gap-1" style={{ color: BRAND.teal }}>
                       Start
@@ -319,19 +310,22 @@ export default function RegenLandingPage() {
       </section>
 
       {/* How It Works */}
-      <section id="how-it-works" className="py-24 px-6" style={{ backgroundColor: `${BRAND.teal}08` }}>
+      <section id="how-it-works" className="py-24 px-6" style={{ backgroundColor: BRAND.darkAlt }}>
         <div className="max-w-7xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <div>
-              <SpacedText className="block mb-4" style={{ color: BRAND.gold }}>
+              <span 
+                className="inline-block px-4 py-2 rounded-full text-xs font-bold tracking-widest uppercase mb-4"
+                style={{ backgroundColor: `${BRAND.teal}20`, color: BRAND.teal, border: `1px solid ${BRAND.teal}40` }}
+              >
                 How It Works
-              </SpacedText>
-              <h2 className="text-4xl md:text-5xl font-black mb-6" style={{ color: BRAND.charcoal }}>
+              </span>
+              <h2 className="text-4xl md:text-5xl font-black mb-6" style={{ color: BRAND.cream }}>
                 Simple process.
                 <br />
-                <span style={{ color: BRAND.teal }}>Big results.</span>
+                <span style={{ color: BRAND.pink }}>Big results.</span>
               </h2>
-              <p className="text-xl text-gray-600 mb-12">
+              <p className="text-xl mb-12" style={{ color: BRAND.gray }}>
                 No video calls. No waiting rooms. Just real care, delivered.
               </p>
               
@@ -339,14 +333,17 @@ export default function RegenLandingPage() {
                 {STEPS.map((step, idx) => (
                   <div key={step.num} className="flex gap-6 items-start group">
                     <div 
-                      className="flex-shrink-0 w-16 h-16 rounded-2xl flex items-center justify-center text-white font-black text-xl transition-transform group-hover:scale-110"
-                      style={{ backgroundColor: BRAND.teal }}
+                      className="flex-shrink-0 w-16 h-16 rounded-xl flex items-center justify-center text-white font-black text-xl transition-all group-hover:scale-110"
+                      style={{ 
+                        backgroundColor: idx === 2 ? BRAND.pink : BRAND.teal,
+                        boxShadow: `0 0 20px ${idx === 2 ? BRAND.pink : BRAND.teal}40`
+                      }}
                     >
                       {step.num}
                     </div>
                     <div>
-                      <h3 className="text-xl font-bold mb-1" style={{ color: BRAND.charcoal }}>{step.title}</h3>
-                      <p className="text-gray-600">{step.desc}</p>
+                      <h3 className="text-xl font-bold mb-1" style={{ color: BRAND.cream }}>{step.title}</h3>
+                      <p style={{ color: BRAND.gray }}>{step.desc}</p>
                     </div>
                   </div>
                 ))}
@@ -354,7 +351,7 @@ export default function RegenLandingPage() {
             </div>
             
             <div className="relative hidden lg:block">
-              <div className="rounded-3xl overflow-hidden shadow-2xl">
+              <div className="rounded-2xl overflow-hidden" style={{ boxShadow: `0 0 60px ${BRAND.teal}30` }}>
                 <Image 
                   src="/images/regen/woman-laptop.png" 
                   alt="Woman completing telehealth visit from home" 
@@ -365,7 +362,7 @@ export default function RegenLandingPage() {
               </div>
               <div 
                 className="absolute -top-6 -right-6 w-32 h-32 rounded-full animate-float" 
-                style={{ backgroundColor: `${BRAND.teal}20`, animationDelay: '1s' }}
+                style={{ backgroundColor: `${BRAND.pink}15`, border: `1px solid ${BRAND.pink}30` }}
               />
             </div>
           </div>
@@ -373,31 +370,38 @@ export default function RegenLandingPage() {
       </section>
 
       {/* Trust Section */}
-      <section className="py-24 px-6">
+      <section className="py-24 px-6" style={{ backgroundColor: BRAND.dark }}>
         <div className="max-w-4xl mx-auto text-center">
-          <SpacedText className="block mb-4" style={{ color: BRAND.gold }}>
+          <span 
+            className="inline-block px-4 py-2 rounded-full text-xs font-bold tracking-widest uppercase mb-4"
+            style={{ backgroundColor: `${BRAND.pink}20`, color: BRAND.pink, border: `1px solid ${BRAND.pink}40` }}
+          >
             Real Care
-          </SpacedText>
-          <h2 className="text-4xl md:text-5xl font-black mb-8" style={{ color: BRAND.charcoal }}>
+          </span>
+          <h2 className="text-4xl md:text-5xl font-black mb-8" style={{ color: BRAND.cream }}>
             Real providers.
             <br />
             <span style={{ color: BRAND.teal }}>Real prescriptions.</span>
           </h2>
-          <p className="text-xl text-gray-600 mb-12 max-w-2xl mx-auto">
-            RE GEN is powered by licensed Illinois healthcare providers with Full Practice Authority. 
-            Your care is overseen by board-certified physicians with decades of experience.
+          <p className="text-xl mb-12 max-w-2xl mx-auto" style={{ color: BRAND.gray }}>
+            REGEN RX is powered by licensed Illinois healthcare providers with Full Practice Authority. 
+            Your care is overseen by board-certified physicians.
           </p>
           
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-3 gap-6">
             {[
               { icon: '🏥', label: 'Illinois Licensed', desc: 'Full Practice Authority NP' },
               { icon: '💊', label: 'FDA Pharmacies', desc: '503A compounding partners' },
               { icon: '🔒', label: 'HIPAA Compliant', desc: 'Your data is protected' },
             ].map((item) => (
-              <div key={item.label} className="p-6 rounded-2xl bg-white shadow-lg hover:shadow-xl transition-shadow">
+              <div 
+                key={item.label} 
+                className="p-6 rounded-2xl transition-all hover:scale-105"
+                style={{ backgroundColor: BRAND.darkAlt, border: `1px solid ${BRAND.teal}20` }}
+              >
                 <span className="text-4xl mb-4 block">{item.icon}</span>
-                <h3 className="font-bold text-lg mb-1" style={{ color: BRAND.charcoal }}>{item.label}</h3>
-                <p className="text-gray-600 text-sm">{item.desc}</p>
+                <h3 className="font-bold text-lg mb-1" style={{ color: BRAND.cream }}>{item.label}</h3>
+                <p className="text-sm" style={{ color: BRAND.gray }}>{item.desc}</p>
               </div>
             ))}
           </div>
@@ -405,18 +409,21 @@ export default function RegenLandingPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-24 px-6" style={{ backgroundColor: BRAND.teal }}>
-        <div className="max-w-4xl mx-auto text-center">
+      <section className="py-24 px-6 relative overflow-hidden" style={{ backgroundColor: BRAND.teal }}>
+        <div className="absolute inset-0 opacity-30" style={{
+          backgroundImage: `radial-gradient(circle at 30% 50%, ${BRAND.pink}50 0%, transparent 50%)`,
+        }} />
+        <div className="max-w-4xl mx-auto text-center relative">
           <h2 className="text-4xl md:text-5xl font-black text-white mb-6">
             Ready to feel your best?
           </h2>
-          <p className="text-xl mb-10" style={{ color: 'rgba(255,255,255,0.8)' }}>
+          <p className="text-xl mb-10 text-white/80">
             Start your free online visit today. No commitment.
           </p>
           <Link
             href="/start"
             className="inline-block px-12 py-5 text-xl font-black rounded-full transition-all hover:scale-105 shadow-2xl"
-            style={{ backgroundColor: BRAND.gold, color: BRAND.charcoal }}
+            style={{ backgroundColor: BRAND.pink, color: 'white' }}
           >
             Get Started Now
           </Link>
@@ -424,25 +431,23 @@ export default function RegenLandingPage() {
       </section>
 
       {/* Footer */}
-      <footer className="py-16 px-6" style={{ backgroundColor: BRAND.charcoal }}>
+      <footer className="py-16 px-6" style={{ backgroundColor: BRAND.dark, borderTop: `1px solid ${BRAND.teal}20` }}>
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col md:flex-row items-center justify-between gap-8">
-            <div>
-              <span className="text-2xl font-black text-white">
-                RE<span style={{ color: BRAND.gold }}>GEN</span>
-              </span>
-              <p className="text-gray-400 mt-2">Prescription wellness, delivered.</p>
+            <div className="flex items-center gap-4">
+              <Image src="/images/regen/logo-full.png" alt="REGEN RX" width={120} height={40} className="h-8 w-auto" />
+              <p style={{ color: BRAND.gray }}>Renew. Rebalance. Regenerate.</p>
             </div>
             <div className="flex flex-wrap items-center gap-8 text-sm">
-              <Link href="/privacy" className="text-gray-400 hover:text-white transition-colors">Privacy</Link>
-              <Link href="/terms" className="text-gray-400 hover:text-white transition-colors">Terms</Link>
-              <Link href="/contact" className="text-gray-400 hover:text-white transition-colors">Contact</Link>
-              <a href="tel:+16302342473" className="text-gray-400 hover:text-white transition-colors">(630) 234-2473</a>
+              <Link href="/privacy" className="hover:text-white transition-colors" style={{ color: BRAND.gray }}>Privacy</Link>
+              <Link href="/terms" className="hover:text-white transition-colors" style={{ color: BRAND.gray }}>Terms</Link>
+              <Link href="/contact" className="hover:text-white transition-colors" style={{ color: BRAND.gray }}>Contact</Link>
+              <a href="tel:+16302342473" className="hover:text-white transition-colors" style={{ color: BRAND.gray }}>(630) 234-2473</a>
             </div>
           </div>
-          <div className="mt-12 pt-8 border-t border-gray-700 text-xs text-gray-500">
+          <div className="mt-12 pt-8 text-xs" style={{ borderTop: `1px solid ${BRAND.teal}15`, color: BRAND.gray }}>
             <p>
-              RE GEN is a telehealth platform operated by Hello Gorgeous Med Spa LLC. 
+              REGEN RX is a telehealth platform operated by Hello Gorgeous Med Spa LLC. 
               Medical services provided by licensed Illinois healthcare providers. 
               Prescription products require a valid prescription. Not all patients will qualify.
             </p>

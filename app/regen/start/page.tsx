@@ -4,14 +4,15 @@ import { useState, Suspense } from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 
-// Brand colors
+// Brand colors - REGEN RX
 const BRAND = {
-  teal: '#0D5C63',
-  tealLight: '#0E7490',
-  gold: '#F59E0B',
-  goldLight: '#FBBF24',
-  cream: '#FFFBF5',
-  charcoal: '#1F2937',
+  teal: '#0D9488',
+  tealDark: '#0D5C63',
+  pink: '#E91E8C',
+  dark: '#0A0A0A',
+  darkAlt: '#111111',
+  cream: '#FAF9F6',
+  gray: '#9CA3AF',
 };
 
 const GOALS = [
@@ -141,14 +142,14 @@ function RegenStartContent() {
   };
 
   return (
-    <div className="min-h-screen" style={{ backgroundColor: BRAND.cream }}>
+    <div className="min-h-screen" style={{ backgroundColor: BRAND.dark }}>
       {/* Header */}
-      <header className="bg-white border-b border-gray-200">
+      <header style={{ backgroundColor: BRAND.darkAlt, borderBottom: `1px solid ${BRAND.teal}20` }}>
         <div className="max-w-3xl mx-auto px-6 py-4 flex items-center justify-between">
-          <Link href="/" className="text-xl font-bold" style={{ color: BRAND.charcoal }}>
-            RE<span style={{ color: BRAND.teal }}>GEN</span>
+          <Link href="/" className="text-xl font-bold text-white">
+            REGEN<span style={{ color: BRAND.pink }}>RX</span>
           </Link>
-          <div className="flex items-center gap-2 text-sm text-gray-500">
+          <div className="flex items-center gap-2 text-sm" style={{ color: BRAND.gray }}>
             <svg className="w-4 h-4" style={{ color: BRAND.teal }} fill="currentColor" viewBox="0 0 20 20">
               <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd" />
             </svg>
@@ -158,7 +159,7 @@ function RegenStartContent() {
       </header>
 
       {/* Progress */}
-      <div className="bg-white border-b border-gray-200">
+      <div style={{ backgroundColor: BRAND.darkAlt, borderBottom: `1px solid ${BRAND.teal}20` }}>
         <div className="max-w-3xl mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
             {['Goal', 'Program', 'Your Info', 'Checkout'].map((label, idx) => {
@@ -170,21 +171,20 @@ function RegenStartContent() {
                   <div 
                     className="w-8 h-8 rounded-full flex items-center justify-center text-sm font-semibold"
                     style={{
-                      backgroundColor: isCurrent ? BRAND.teal : isActive ? `${BRAND.teal}20` : '#f3f4f6',
-                      color: isCurrent ? 'white' : isActive ? BRAND.teal : '#9ca3af'
+                      backgroundColor: isCurrent ? BRAND.pink : isActive ? `${BRAND.teal}30` : BRAND.dark,
+                      color: isCurrent ? 'white' : isActive ? BRAND.teal : BRAND.gray,
+                      border: `1px solid ${isCurrent ? BRAND.pink : isActive ? BRAND.teal : BRAND.gray}40`
                     }}
                   >
                     {idx + 1}
                   </div>
-                  <span className={`ml-2 text-sm font-medium hidden sm:block ${
-                    isActive ? 'text-gray-900' : 'text-gray-400'
-                  }`}>
+                  <span className="ml-2 text-sm font-medium hidden sm:block" style={{ color: isActive ? BRAND.cream : BRAND.gray }}>
                     {label}
                   </span>
                   {idx < 3 && (
                     <div 
                       className="w-12 sm:w-20 h-0.5 mx-3"
-                      style={{ backgroundColor: isActive ? `${BRAND.teal}30` : '#e5e7eb' }}
+                      style={{ backgroundColor: isActive ? BRAND.teal : `${BRAND.gray}30` }}
                     />
                   )}
                 </div>
@@ -198,25 +198,25 @@ function RegenStartContent() {
         {/* Step 1: Goal Selection */}
         {step === 'goal' && (
           <div>
-            <h1 className="text-3xl font-bold mb-2" style={{ color: BRAND.charcoal }}>What&apos;s your health goal?</h1>
-            <p className="text-gray-600 mb-8">Select the area you&apos;d like to focus on.</p>
+            <h1 className="text-3xl font-bold mb-2" style={{ color: BRAND.cream }}>What&apos;s your health goal?</h1>
+            <p className="mb-8" style={{ color: BRAND.gray }}>Select the area you&apos;d like to focus on.</p>
             <div className="grid gap-4">
               {GOALS.map((goal) => (
                 <button
                   key={goal.id}
                   onClick={() => handleGoalSelect(goal.id)}
-                  className="w-full p-6 bg-white border-2 border-gray-200 rounded-xl text-left transition-all hover:shadow-lg group"
-                  style={{ ['--hover-border' as string]: BRAND.teal }}
+                  className="w-full p-6 rounded-xl text-left transition-all hover:scale-[1.02] group"
+                  style={{ backgroundColor: BRAND.darkAlt, border: `1px solid ${BRAND.teal}30` }}
                 >
                   <div className="flex items-center gap-4">
                     <span className="text-4xl">{goal.icon}</span>
                     <div className="flex-1">
-                      <h3 className="text-xl font-bold transition-colors" style={{ color: BRAND.charcoal }}>
+                      <h3 className="text-xl font-bold transition-colors" style={{ color: BRAND.cream }}>
                         {goal.title}
                       </h3>
-                      <p className="text-gray-600">{goal.description}</p>
+                      <p style={{ color: BRAND.gray }}>{goal.description}</p>
                     </div>
-                    <svg className="w-6 h-6 text-gray-300 group-hover:translate-x-1 transition-all" style={{ ['--hover-color' as string]: BRAND.teal }} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <svg className="w-6 h-6 group-hover:translate-x-1 transition-all" style={{ color: BRAND.teal }} fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                     </svg>
                   </div>
@@ -229,28 +229,29 @@ function RegenStartContent() {
         {/* Step 2: Program Selection */}
         {step === 'program' && currentGoal && (
           <div>
-            <button onClick={() => setStep('goal')} className="flex items-center gap-2 text-gray-500 hover:text-gray-700 mb-6">
+            <button onClick={() => setStep('goal')} className="flex items-center gap-2 mb-6 hover:opacity-80" style={{ color: BRAND.gray }}>
               <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
               </svg>
               Back
             </button>
-            <h1 className="text-3xl font-bold mb-2" style={{ color: BRAND.charcoal }}>Choose your program</h1>
-            <p className="text-gray-600 mb-8">{currentGoal.title} programs available for you.</p>
+            <h1 className="text-3xl font-bold mb-2" style={{ color: BRAND.cream }}>Choose your program</h1>
+            <p className="mb-8" style={{ color: BRAND.gray }}>{currentGoal.title} programs available for you.</p>
             <div className="grid gap-4">
               {currentGoal.programs.map((program) => (
                 <button
                   key={program.id}
                   onClick={() => handleProgramSelect(program.id)}
-                  className="w-full p-6 bg-white border-2 border-gray-200 rounded-xl text-left transition-all hover:shadow-lg group"
+                  className="w-full p-6 rounded-xl text-left transition-all hover:scale-[1.02] group"
+                  style={{ backgroundColor: BRAND.darkAlt, border: `1px solid ${BRAND.teal}30` }}
                 >
                   <div className="flex items-center justify-between mb-3">
-                    <h3 className="text-xl font-bold transition-colors" style={{ color: BRAND.charcoal }}>
+                    <h3 className="text-xl font-bold transition-colors" style={{ color: BRAND.cream }}>
                       {program.name}
                     </h3>
-                    <span className="text-2xl font-bold" style={{ color: BRAND.gold }}>${program.price}<span className="text-sm font-normal text-gray-500">/mo</span></span>
+                    <span className="text-2xl font-bold" style={{ color: BRAND.pink }}>${program.price}<span className="text-sm font-normal" style={{ color: BRAND.gray }}>/mo</span></span>
                   </div>
-                  <p className="text-gray-600">{program.description}</p>
+                  <p style={{ color: BRAND.gray }}>{program.description}</p>
                 </button>
               ))}
             </div>
@@ -260,22 +261,22 @@ function RegenStartContent() {
         {/* Step 3: Patient Info */}
         {step === 'info' && currentProgram && (
           <div>
-            <button onClick={() => setStep('program')} className="flex items-center gap-2 text-gray-500 hover:text-gray-700 mb-6">
+            <button onClick={() => setStep('program')} className="flex items-center gap-2 mb-6 hover:opacity-80" style={{ color: BRAND.gray }}>
               <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
               </svg>
               Back
             </button>
-            <h1 className="text-3xl font-bold mb-2" style={{ color: BRAND.charcoal }}>Your information</h1>
-            <p className="text-gray-600 mb-8">We&apos;ll need a few details to get started.</p>
+            <h1 className="text-3xl font-bold mb-2" style={{ color: BRAND.cream }}>Your information</h1>
+            <p className="mb-8" style={{ color: BRAND.gray }}>We&apos;ll need a few details to get started.</p>
             
-            <div className="rounded-xl p-4 mb-8" style={{ backgroundColor: `${BRAND.teal}10`, border: `1px solid ${BRAND.teal}30` }}>
+            <div className="rounded-xl p-4 mb-8" style={{ backgroundColor: BRAND.darkAlt, border: `1px solid ${BRAND.teal}40` }}>
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="font-semibold" style={{ color: BRAND.charcoal }}>{currentProgram.name}</p>
+                  <p className="font-semibold" style={{ color: BRAND.cream }}>{currentProgram.name}</p>
                   <p className="text-sm" style={{ color: BRAND.teal }}>{currentProgram.description}</p>
                 </div>
-                <span className="text-2xl font-bold" style={{ color: BRAND.gold }}>${currentProgram.price}</span>
+                <span className="text-2xl font-bold" style={{ color: BRAND.pink }}>${currentProgram.price}</span>
               </div>
             </div>
 
@@ -349,10 +350,10 @@ function RegenStartContent() {
                   id="terms"
                   checked={formData.agreeTerms}
                   onChange={(e) => setFormData({ ...formData, agreeTerms: e.target.checked })}
-                  className="mt-1 w-4 h-4 border-gray-300 rounded"
-                  style={{ accentColor: BRAND.teal }}
+                  className="mt-1 w-4 h-4 rounded"
+                  style={{ accentColor: BRAND.pink }}
                 />
-                <label htmlFor="terms" className="text-sm text-gray-600">
+                <label htmlFor="terms" className="text-sm" style={{ color: BRAND.gray }}>
                   I agree to the{' '}
                   <Link href="/terms" className="hover:underline" style={{ color: BRAND.teal }}>Terms of Service</Link>
                   {' '}and{' '}
@@ -364,7 +365,7 @@ function RegenStartContent() {
                 type="submit"
                 disabled={loading}
                 className="w-full py-4 text-white font-bold rounded-lg transition-all hover:scale-[1.02] disabled:opacity-50"
-                style={{ backgroundColor: BRAND.gold }}
+                style={{ backgroundColor: BRAND.pink }}
               >
                 {loading ? 'Processing...' : `Continue to Payment — $${currentProgram.price}`}
               </button>
@@ -374,10 +375,10 @@ function RegenStartContent() {
       </main>
 
       {/* Footer */}
-      <footer className="py-8 border-t border-gray-200 bg-white">
-        <div className="max-w-3xl mx-auto px-6 text-center text-sm text-gray-500">
+      <footer className="py-8" style={{ backgroundColor: BRAND.darkAlt, borderTop: `1px solid ${BRAND.teal}20` }}>
+        <div className="max-w-3xl mx-auto px-6 text-center text-sm" style={{ color: BRAND.gray }}>
           <p>Need help? Call <a href="tel:+16302342473" className="hover:underline" style={{ color: BRAND.teal }}>(630) 234-2473</a></p>
-          <p className="mt-2">RE GEN by Hello Gorgeous Med Spa LLC</p>
+          <p className="mt-2">REGEN RX by Hello Gorgeous Med Spa LLC</p>
         </div>
       </footer>
     </div>
@@ -387,10 +388,10 @@ function RegenStartContent() {
 export default function RegenStartPage() {
   return (
     <Suspense fallback={
-      <div className="min-h-screen flex items-center justify-center" style={{ backgroundColor: BRAND.cream }}>
+      <div className="min-h-screen flex items-center justify-center" style={{ backgroundColor: BRAND.dark }}>
         <div className="text-center">
-          <div className="w-8 h-8 border-4 border-t-transparent rounded-full animate-spin mx-auto mb-4" style={{ borderColor: `${BRAND.teal} transparent transparent transparent` }} />
-          <p className="text-gray-600">Loading...</p>
+          <div className="w-8 h-8 border-4 border-t-transparent rounded-full animate-spin mx-auto mb-4" style={{ borderColor: `${BRAND.pink} transparent transparent transparent` }} />
+          <p style={{ color: BRAND.gray }}>Loading...</p>
         </div>
       </div>
     }>
