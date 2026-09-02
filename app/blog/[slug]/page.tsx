@@ -5,6 +5,7 @@ import { ArticleByline } from "@/components/ArticleByline";
 import { blogPosts, getPostBySlug, getAllSlugs } from "@/data/blog-posts";
 import { blogPostNeedsMedicalReviewer, medicalWebPageJsonLd } from "@/lib/founder-credentials";
 import { SITE, breadcrumbJsonLd, faqJsonLd } from "@/lib/seo";
+import { SOLARIA_SEPTEMBER_BLOG_PATH, solariaSeptemberOfferJsonLd } from "@/lib/solaria-marketing";
 
 export async function generateStaticParams() {
   return getAllSlugs()
@@ -232,6 +233,14 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify(faqJsonLd(post.structuredDataFaqs, postUrl)),
+          }}
+        />
+      ) : null}
+      {post.slug === SOLARIA_SEPTEMBER_BLOG_PATH.replace("/blog/", "") ? (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(solariaSeptemberOfferJsonLd(SOLARIA_SEPTEMBER_BLOG_PATH)),
           }}
         />
       ) : null}

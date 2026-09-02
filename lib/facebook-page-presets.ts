@@ -48,15 +48,42 @@ Call (630) 636-6193 or book online — link below.`,
 
 export const FACEBOOK_PAGE_PRESET_SOLARIA: FacebookPagePreset = {
   id: "solaria-899",
-  label: "Solaria CO₂ — $899 full face",
-  blurb: "Fractional laser resurfacing + launch special.",
-  message: `✨ InMode Solaria CO₂ fractional laser — gold-standard skin resurfacing for texture, fine lines, sun damage, and acne scarring.
+  label: "Solaria CO₂ — $799 September sale",
+  blurb: "September CO₂ sale — face/neck/chin, chest, under eyes.",
+  message: `I sat in the chair. I am a believer. I am finally secure to wear no makeup.
 
-Launch special: $899 full face (consult required). Real results — not hype.
+— Danielle, founder, Hello Gorgeous · Oswego
 
-Oswego · serving Naperville, Aurora, Plainfield & the Fox Valley.`,
-  linkPath: withUtm("/services/solaria-co2"),
-  imagePath: "/images/solaria/solaria-co2-full-face-before-after.png",
+September Solaria sale:
+• Full face, neck & chin $799 ($100 off) — 23/7 numbing cream included
+• Neck, chin & chest $400
+• Under eyes only $299
+
+Less sun. Real downtime. Heal before the holidays.
+
+My result is mine. Yours will be yours. Consult required.
+74 W Washington · 630-636-6193`,
+  linkPath: withUtm("/blog/solaria-co2-september-sale-oswego-il"),
+  imagePath: "/images/solaria/danielle-solaria-co2-before-during-after.png",
+  defaultChannels: ["facebook", "instagram"],
+};
+
+export const FACEBOOK_PAGE_PRESET_SOLARIA_SEPTEMBER: FacebookPagePreset = {
+  id: "solaria-september-2026",
+  label: "Solaria September sale — $799 / $400 / $299",
+  blurb: "September CO₂ prices + what to expect.",
+  message: `I sat in the chair. I am a believer. I am finally secure to wear no makeup.
+
+— Danielle, founder, Hello Gorgeous Med Spa, Oswego
+
+September Solaria sale:
+• Full face, neck & chin $799 ($100 off, 23/7 numbing included)
+• Neck, chin & chest $400
+• Under eyes $299
+
+My result is mine. Yours will be yours. Consult required.`,
+  linkPath: withUtm("/blog/solaria-co2-september-sale-oswego-il"),
+  imagePath: "/images/solaria/danielle-solaria-co2-before-during-after.png",
   defaultChannels: ["facebook", "instagram"],
 };
 
@@ -119,7 +146,7 @@ export const FACEBOOK_PAGE_PRESET_SIGNATURE_MENU: FacebookPagePreset = {
   blurb: "Full menu poster — Botox, filler, InMode Trifecta.",
   message: `✨ Our Signature Treatment Menu is live at Hello Gorgeous Oswego.
 
-Botox as low as $9/unit (first-time) · Lip filler $450 · Morpheus8 Burst 3×$1,999 · Solaria CO₂ $899 · Quantum RF · Trifecta package with FREE CO₂.
+Botox as low as $9/unit (first-time) · Lip filler $450 · Morpheus8 Burst 3×$1,999 · Solaria CO₂ $799 September · Quantum RF · Trifecta package with FREE CO₂.
 
 NP on site 6 days a week. Book online 👇`,
   linkPath: withUtm("/specials"),
@@ -170,6 +197,31 @@ export const FACEBOOK_PAGE_PRESET_PEPTIDE_BPC157: FacebookPagePreset = {
 Clients ask for it after workouts, injuries, or when they want support healing from the inside out. Prescribed by Ryan Kent, FNP-BC — not sold over the counter.
 
 Learn how it works + book your $49 peptide consult (Oswego, IL).`,
+  linkPath: withUtm("/peptides/bpc-157"),
+  imagePath: "/images/homepage-services/peptide-therapy-active-lifestyle.png",
+  defaultChannels: ["facebook", "instagram", "google"],
+};
+
+export const FACEBOOK_PAGE_PRESET_BPC157_RESEARCH: FacebookPagePreset = {
+  id: "bpc157-research-blog",
+  label: "BPC-157 research — tendon & muscle (blog)",
+  blurb: "Education post — what lab models actually show.",
+  message: `🩹 BPC-157: what the research actually says (and what it doesn't)
+
+Tendons and ligaments don't have much blood flow — that's why a stubborn Achilles or biceps can stall. Researchers study BPC-157 because lab models look at three bottlenecks:
+
+🩸 new blood-vessel signaling
+🧬 how repair cells move into injured tissue
+🧵 how collagen organizes while it remodels
+
+That's preclinical science (cells + animals) — not a guarantee for your tendon. BPC-157 is not an FDA-approved healing drug.
+
+At Hello Gorgeous Med Spa in Oswego, we still get this question every week from Naperville, Aurora & the Fox Valley. Hello Gorgeous RX™ means Ryan Kent, FNP-BC evaluates you — licensed compounding partners, not a gray-market vial.
+
+$49 peptide consult · medication priced separately if prescribed
+74 W. Washington St. · 630-636-6193
+
+Education only. Individual results vary. Read more + book 👇`,
   linkPath: withUtm("/peptides/bpc-157"),
   imagePath: "/images/homepage-services/peptide-therapy-active-lifestyle.png",
   defaultChannels: ["facebook", "instagram", "google"],
@@ -827,12 +879,14 @@ export const FACEBOOK_PAGE_PRESETS: FacebookPagePreset[] = [
   FACEBOOK_PAGE_PRESET_FIND_YOUR_PEPTIDE,
   FACEBOOK_PAGE_PRESET_INJECTION_MENU,
   FACEBOOK_PAGE_PRESET_PEPTIDE_BPC157,
+  FACEBOOK_PAGE_PRESET_BPC157_RESEARCH,
   FACEBOOK_PAGE_PRESET_PEPTIDE_SERMORELIN,
   FACEBOOK_PAGE_PRESET_PEPTIDE_NAPERVILLE,
   FACEBOOK_PAGE_PRESET_PEPTIDE_BLOG,
   FACEBOOK_PAGE_PRESET_SIGNATURE_MENU,
   FACEBOOK_PAGE_PRESET_OUR_PROMISE,
   FACEBOOK_PAGE_PRESET_SOLARIA,
+  FACEBOOK_PAGE_PRESET_SOLARIA_SEPTEMBER,
   FACEBOOK_PAGE_PRESET_QUANTUM,
   FACEBOOK_PAGE_PRESET_MORPHEUS8,
   FACEBOOK_PAGE_PRESET_IPL,

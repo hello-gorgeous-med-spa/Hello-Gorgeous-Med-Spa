@@ -2,8 +2,30 @@
 
 export const SPECIALS_PATH = "/specials";
 
+export const SPECIALS_SEO = {
+  title: "Solaria CO₂ $799 September Special & Menu | Oswego IL",
+  description:
+    "September specials at Hello Gorgeous Med Spa in Oswego: Solaria CO₂ face, neck & chin $799, neck/chin/chest $400, under eyes $299. Botox $10/unit, Morpheus8, Quantum RF. Book this month.",
+  keywords: [
+    "Solaria CO2 special Oswego",
+    "CO2 laser sale September Oswego IL",
+    "CO2 laser $799 Oswego",
+    "med spa specials Oswego",
+    "Solaria sale Naperville Aurora",
+    "Hello Gorgeous specials",
+  ],
+} as const;
+
 /** Top conversion picks — shown above the full menu. */
 export const SPECIALS_FEATURED = [
+  {
+    title: "Solaria CO₂ September sale",
+    accentLine: "$799 · $400 · $299",
+    description:
+      "$100 off full face, neck & chin — $799 includes 23/7 numbing cream. Neck, chin & chest $400. Under eyes $299. Book in September.",
+    href: "/blog/solaria-co2-september-sale-oswego-il",
+    badge: "Sept",
+  },
   {
     title: "Fall Makeover",
     accentLine: "$100 · $200 · $150 off",
@@ -59,6 +81,12 @@ export const SPECIALS_JUMP_LINKS = [
 ] as const;
 
 export const MORE_SPECIALS_LINKS = [
+  {
+    label: "Solaria CO₂ September sale",
+    href: "/blog/solaria-co2-september-sale-oswego-il",
+    sub: "Face/neck/chin $799 · neck/chin/chest $400 · under eyes $299",
+    badge: "SEPT",
+  },
   {
     label: "Fall Makeover — Repair · Prevent · Lose",
     href: "/fall-makeover",

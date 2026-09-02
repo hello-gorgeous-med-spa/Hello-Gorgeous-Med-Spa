@@ -247,8 +247,8 @@ export const TOP_SERVICES: ServiceConfig[] = [
     slug: 'co2-laser',
     name: 'Solaria CO₂ Fractional Laser',
     shortName: 'CO₂ Laser',
-    priceDisplay: '$899 Full Face — Launch Special',
-    description: 'InMode Solaria CO₂ fractional laser in Oswego, IL — full face for $899 (launch special, regularly $1,500+). Dramatically improve wrinkles, acne scars, sun damage, and skin texture in one treatment.',
+    priceDisplay: '$799 Face, Neck & Chin — September',
+    description: 'InMode Solaria CO₂ fractional laser in Oswego, IL — September sale: full face, neck & chin $799, neck/chin/chest $400, under eyes $299. Texture, wrinkles, acne scars, and sun damage. Consult required.',
     heroImage: '/images/solaria/solaria-inmode-machine.jpg',
     keywords: ['co2 laser', 'fractional co2', 'co2 laser resurfacing', 'skin resurfacing', 'laser skin treatment', 'wrinkle treatment', 'scar treatment', 'solaria laser', 'inmode solaria'],
     treatmentAreas: [
@@ -266,7 +266,7 @@ export const TOP_SERVICES: ServiceConfig[] = [
       { icon: '✨', title: 'Collagen Remodel', desc: 'Continues improving for months' },
     ],
     faqs: [
-      { question: 'How much does Solaria CO₂ cost?', answer: 'We\'re running a launch special: $899 for a full face Solaria CO₂ treatment (typically $1,500+ at plastic surgery offices). Other areas (neck, eyes, hands) are priced separately. Free consultation required.' },
+      { question: 'How much does Solaria CO₂ cost?', answer: 'September 2026: full face, neck and chin is $799 ($100 off, includes 23/7 numbing cream). Neck, chin and chest is $400. Under eyes only is $299. Free consultation required. Sale ends September 30, 2026.' },
       { question: 'What is CO₂ fractional laser?', answer: 'CO₂ laser creates tiny columns of treatment in the skin, triggering dramatic collagen remodeling. It\'s the most effective treatment for deep wrinkles, scars, and significant sun damage.' },
       { question: 'What\'s the downtime?', answer: 'Plan for 5-7 days of downtime. Your skin will be red and may peel as it heals. Most clients take a week off work. The results are worth it!' },
       { question: 'How many treatments do I need?', answer: 'Many clients see dramatic results from just 1-2 treatments. For severe scarring or damage, 2-3 sessions may be recommended.' },

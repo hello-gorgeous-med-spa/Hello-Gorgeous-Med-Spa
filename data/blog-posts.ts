@@ -41,11 +41,15 @@ import { regenLaunchOswegoPost } from "./blog-post-regen-launch-oswego";
 import { retatrutideFdaFiling2027Post } from "./blog-post-retatrutide-fda-filing-2027";
 import { botoxSideEffectsPost } from "./blog-post-botox-side-effects";
 import { microdosingFillersPost } from "./blog-post-microdosing-fillers";
+import { bpc157MusculoskeletalResearchPost } from "./blog-post-bpc157-musculoskeletal-research";
+import { solariaSeptemberSalePost } from "./blog-post-solaria-september-sale";
 import type { BlogPost } from "./blog-types";
 
 export type { BlogPost } from "./blog-types";
 
 const coreBlogPosts: BlogPost[] = [
+  solariaSeptemberSalePost,
+  bpc157MusculoskeletalResearchPost,
   microdosingFillersPost,
   neurotoxinSixComparisonPost,
   botoxSideEffectsPost,

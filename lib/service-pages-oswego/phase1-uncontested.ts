@@ -20,20 +20,20 @@ export const PHASE1_UNCONTESTED_PAGES: ServicePageData[] = [
     serviceName: "Solaria CO2",
     fullServiceName: "Solaria CO2 Laser Resurfacing",
     targetKeyword: "solaria co2 oswego",
-    metaTitle: "Solaria CO₂ in Oswego, IL — $899 + Half-Off Second Area",
+    metaTitle: "Solaria CO₂ in Oswego, IL — $799 Face Neck Chin September",
     metaDescription:
-      "Solaria CO₂ fractional laser in Oswego, IL — gold-standard resurfacing for $899 with buy-one-area-get-one-half-off. NP-directed. Free consult — serving Naperville, Aurora & Fox Valley.",
+      "Solaria CO₂ fractional laser in Oswego, IL — September sale: face, neck & chin $799, neck/chin/chest $400, under eyes $299. NP-directed. Free consult — serving Naperville, Aurora & Fox Valley.",
     h1: "Solaria CO₂ in Oswego. Gold-Standard Resurfacing.",
-    valueProp: "The ultimate gold-standard Solaria CO₂ fractional laser — $899 with buy one area, get one half off.",
+    valueProp: "InMode Solaria CO₂ fractional laser — September: face, neck & chin $799, neck/chin/chest $400, under eyes $299.",
     bookingUrl: bookingUrlFor(),
     procedureType: "Laser",
     bodyLocation: "Face, neck, décolleté, hands",
     inModeBadge: "solaria",
     tier: "uncontested",
     heroContent:
-      "Solaria CO₂ is InMode's flagship fractional CO₂ laser — the gold standard for resurfacing sun damage, deep lines, scars, and tone. At Hello Gorgeous in Oswego it's $899, and we're running buy-one-area-get-one-half-off. We're the practice between Aurora, Naperville, and Plainfield offering it.",
+      "Solaria CO₂ is InMode's flagship fractional CO₂ laser — the gold standard for resurfacing sun damage, deep lines, scars, and tone. September at Hello Gorgeous in Oswego: full face, neck and chin $799, neck/chin/chest $400, under eyes $299. We're the practice between Aurora, Naperville, and Plainfield offering it.",
     whyBullets: [
-      "Gold-standard Solaria CO₂ fractional laser — $899 + half-off second area",
+      "Gold-standard Solaria CO₂ — $799 face/neck/chin this September",
       "The only Solaria CO₂ in Oswego, Naperville, Aurora, or Plainfield",
       "Performed in-office by our medical team with Ryan Kent, FNP-BC overseeing every protocol",
       "Customizable from gentle glow settings to deep resurfacing",
@@ -51,7 +51,7 @@ export const PHASE1_UNCONTESTED_PAGES: ServicePageData[] = [
       "Follow-up: a complimentary check-in around day 14, with continued improvement visible for 3–6 months as collagen rebuilds.",
     ],
     pricing:
-      "Solaria CO₂ — the gold-standard fractional laser — is $899, with buy one area, get a second area half off. Exact areas and depth are confirmed at your free consultation. Most clients see strong results from a single session; more aggressive plans may use a series.",
+      "September 2026: full face, neck and chin is $799 ($100 off, includes 23/7 numbing cream). Neck, chin and chest is $400. Under eyes only is $299. Exact areas and depth are confirmed at your free consultation. Most clients see strong results from a single session; more aggressive plans may use a series.",
     faqs: [
       {
         q: "What does Solaria CO2 actually treat?",
@@ -59,7 +59,7 @@ export const PHASE1_UNCONTESTED_PAGES: ServicePageData[] = [
       },
       {
         q: "How much does Solaria CO₂ cost in Oswego?",
-        a: "Solaria CO₂ fractional laser treatments are $899, and we're running buy one area, get a second area half off. Your provider confirms candidacy, areas, and depth at consult.",
+        a: "September 2026: full face, neck and chin is $799 ($100 off, includes 23/7 numbing cream). Neck, chin and chest is $400. Under eyes only is $299. Your provider confirms candidacy, areas, and depth at consult.",
       },
       {
         q: "How is Solaria CO2 different from Morpheus8 Burst?",

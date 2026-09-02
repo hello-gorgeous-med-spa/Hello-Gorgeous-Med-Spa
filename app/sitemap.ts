@@ -1075,6 +1075,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   // Blog articles — featured posts get higher crawl priority
   const featuredBlogSlugs = new Set([
+    'solaria-co2-september-sale-oswego-il',
     'retatrutide-fda-filing-early-2027-oswego-il',
     'best-med-spa-near-aurora-il-botox-weight-loss-morpheus8',
     'best-med-spa-near-naperville-il-botox-weight-loss-morpheus8',

@@ -290,6 +290,39 @@ $49 peptide consult — book below.`,
     imagePath: "/images/homepage-services/peptide-therapy-active-lifestyle.png",
   },
   {
+    id: "solaria-september-sale-2026",
+    label: "Solaria September sale — $799 / $400 / $299",
+    message: `I sat in the chair. I am a believer. I am finally secure to wear no makeup.
+
+— Danielle, founder, Hello Gorgeous Med Spa, Oswego
+
+September Solaria:
+Full face, neck & chin $799 ($100 off · 23/7 numbing included)
+Neck, chin & chest $400
+Under eyes only $299
+
+Her photos are her result. Yours will vary. Consult required.
+74 W Washington St · (630) 636-6193
+
+Read the guide:`,
+    linkPath:
+      "/blog/solaria-co2-september-sale-oswego-il?utm_source=google&utm_medium=gbp_post&utm_campaign=solaria_september_2026",
+    imagePath: "/images/solaria/danielle-solaria-co2-before-during-after.png",
+  },
+  {
+    id: "bpc157-research-blog",
+    label: "BPC-157 research — tendon, ligament & muscle",
+    message: `BPC-157 research, in plain English — Hello Gorgeous Med Spa, Oswego IL
+
+Lab models study blood-vessel signaling, repair-cell movement, and collagen remodeling in tendons, ligaments, and muscle. That's preclinical science — not a promise your injury will heal a certain way. Not FDA-approved as a tendon drug.
+
+Hello Gorgeous RX™ · Ryan Kent, FNP-BC · $49 peptide consult.
+
+Education only. Individual results vary.`,
+    linkPath: "/peptides/bpc-157?utm_source=google&utm_medium=gbp_post&utm_campaign=bpc157_research",
+    imagePath: "/images/homepage-services/peptide-therapy-active-lifestyle.png",
+  },
+  {
     id: "quantum-rf-launch",
     label: "Quantum RF launch — neck & abdomen packages",
     message: `⚡ NEW — InMode Quantum RF body contouring at Hello Gorgeous Med Spa, Oswego IL

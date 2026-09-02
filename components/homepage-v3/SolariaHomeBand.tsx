@@ -17,7 +17,7 @@ export function SolariaHomeBand() {
             <span className="text-[#E6007E]">fractional laser resurfacing</span>
           </h2>
           <p className="mt-4 max-w-xl text-black/75">{SOLARIA_MARKETING.subhead}</p>
-          <p className="mt-6 text-2xl font-black text-[#E6007E]">{SOLARIA_LAUNCH_SPECIAL.priceLabel} <span className="text-sm font-semibold text-black/55">full face launch</span></p>
+          <p className="mt-6 text-2xl font-black text-[#E6007E]">{SOLARIA_LAUNCH_SPECIAL.priceLabel} <span className="text-sm font-semibold text-black/55">face, neck &amp; chin · September</span></p>
           <div className="mt-6 flex flex-wrap gap-3">
             <Link href={SOLARIA_CO2_PATH} className="rounded-full bg-gradient-to-r from-[#FF2D8E] to-[#E6007E] px-6 py-3 text-sm font-extrabold text-white">Explore Solaria CO₂</Link>
             <Link href={SOLARIA_MARKETING.bookHref} className="rounded-full border-2 border-black px-6 py-3 text-sm font-bold">Book consult</Link>

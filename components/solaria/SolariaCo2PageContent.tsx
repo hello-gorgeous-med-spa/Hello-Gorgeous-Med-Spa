@@ -15,6 +15,7 @@ import {
   SOLARIA_INMODE_STORY,
   SOLARIA_LAUNCH_SPECIAL,
   SOLARIA_MARKETING,
+  SOLARIA_SEPTEMBER_SPECIAL,
   SOLARIA_NAV,
   SOLARIA_PACKAGES,
   SOLARIA_RECOVERY,
@@ -174,7 +175,7 @@ export function SolariaCo2PageContent() {
               <GhostBtn href={textTel}>Text {textDisplay}</GhostBtn>
             </div>
             <div className="mt-6 flex flex-wrap gap-2.5">
-              {["InMode verified", "Fractional CO₂", "Custom depth", "$899 launch"].map((chip) => (
+              {["InMode verified", "Fractional CO₂", "Custom depth", "$799 September"].map((chip) => (
                 <span
                   key={chip}
                   className="rounded-full border border-white/30 px-4 py-1.5 text-[13px] font-semibold"
@@ -218,8 +219,18 @@ export function SolariaCo2PageContent() {
               <p className="text-sm text-white/55">{SOLARIA_LAUNCH_SPECIAL.priceNote}</p>
             </div>
           </div>
-          <div className="mt-6">
+          <div className="mt-6 grid gap-3 sm:grid-cols-3">
+            {SOLARIA_SEPTEMBER_SPECIAL.offers.map((offer) => (
+              <div key={offer.id} className="rounded-2xl border border-white/14 bg-black/40 px-4 py-3">
+                <p className="text-xs font-bold uppercase tracking-wide text-white/55">{offer.name}</p>
+                <p className="mt-1 font-serif text-2xl font-bold text-[#FF2D8E]">{offer.price}</p>
+                <p className="text-xs text-white/60">{offer.note}</p>
+              </div>
+            ))}
+          </div>
+          <div className="mt-6 flex flex-wrap gap-3">
             <PinkBtn href={bookHref}>{SOLARIA_LAUNCH_SPECIAL.ctaLabel}</PinkBtn>
+            <GhostBtn href="/blog/solaria-co2-september-sale-oswego-il">Read the September guide</GhostBtn>
           </div>
         </div>
       </section>
@@ -308,6 +319,20 @@ export function SolariaCo2PageContent() {
             </div>
           </div>
         </div>
+        <figure className="mx-auto mt-10 max-w-[1200px] overflow-hidden rounded-[20px] border border-[#FF2D8E]/35 shadow-[0_16px_40px_rgba(255,45,142,0.18)]">
+          <div className="relative aspect-[16/7] w-full sm:aspect-[2.4/1]">
+            <Image
+              src={images.danielleBa}
+              alt="Danielle Alcala-Glazier Solaria CO₂ before, during, and after — founder of Hello Gorgeous Med Spa, Oswego IL"
+              fill
+              className="object-cover object-center"
+              sizes="(max-width: 1200px) 100vw, 1200px"
+            />
+          </div>
+          <figcaption className="bg-[#0a0206] px-5 py-3 text-center text-sm text-white/70">
+            Danielle · before, during, and after · I am finally secure to wear no makeup. Individual results vary.
+          </figcaption>
+        </figure>
       </section>
 
       <section className="px-6 py-16 lg:py-24">
@@ -465,7 +490,7 @@ export function SolariaCo2PageContent() {
 
       <section id="pricing" className="scroll-mt-24 px-6 py-16 lg:py-24">
         <div className="mx-auto max-w-[1200px]">
-          <SectionHead eyebrow="Pricing" title="$899 launch ·" titleAccent="depth quoted at consult" />
+          <SectionHead eyebrow="Pricing" title="$799 September ·" titleAccent="depth quoted at consult" />
           <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {SOLARIA_PACKAGES.map((pkg) => (
               <article
@@ -567,7 +592,7 @@ export function SolariaCo2PageContent() {
             Ready for smoother, clearer skin?
           </h2>
           <p className="mt-4 text-lg leading-relaxed text-black/80">
-            Free consult · InMode Solaria · Oswego IL · $899 launch
+            Free consult · InMode Solaria · Oswego IL · $799 September sale
           </p>
           <div className="mt-8 flex flex-col flex-wrap items-center justify-center gap-4 sm:flex-row">
             <Link

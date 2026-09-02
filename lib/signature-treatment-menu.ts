@@ -4,7 +4,7 @@ import { SITE } from "@/lib/seo";
 
 export const SIGNATURE_MENU_POSTER = {
   src: "/images/promo/signature-treatment-menu-poster.png",
-  alt: "Hello Gorgeous Med Spa Signature Treatment Menu — Botox as low as $9/unit, lip filler, Morpheus8 Burst from $799, Quantum RF, Solaria CO2 $899 BOGO, Trifecta package — Oswego IL",
+  alt: "Hello Gorgeous Med Spa Signature Treatment Menu — Botox as low as $9/unit, lip filler, Morpheus8 Burst from $799, Quantum RF, Solaria CO2 $799 September, Trifecta package — Oswego IL",
 } as const;
 
 import { SPECIALS_PATH } from "@/lib/specials";
@@ -95,11 +95,11 @@ export const SIGNATURE_MENU_SECTIONS: {
     items: [
       {
         title: "Solaria CO₂ resurfacing",
-        price: "$899",
+        price: "$799",
         details: [
-          "Buy one get one free area",
+          "Face, neck & chin · Sept · 23/7 numbing",
+          "Neck, chin & chest $400 · under eyes $299",
           "Texture · wrinkles · sun damage",
-          "Pores · tone · radiance",
         ],
         href: "/solaria-co2-oswego",
       },
@@ -127,7 +127,7 @@ export const SIGNATURE_MENU_SOCIAL = {
 💋 Half syringe $300 · filler $599 (buy 2 save $100)
 ⚡ Quantum RF — neck $2,499 · abdomen $3,999 · FREE Morpheus8 Burst
 🔥 Morpheus8 Burst — from $799 · 3 for $1,999
-✨ Solaria CO₂ — $899 with buy-one-get-one-free area
+✨ Solaria CO₂ — September $799 face/neck/chin · chest $400 · under eyes $299
 👑 Trifecta: Morpheus8 + Quantum RF + FREE Solaria CO₂
 
 Family-owned · NP on site 6 days a week.

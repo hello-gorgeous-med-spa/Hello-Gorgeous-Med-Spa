@@ -6,6 +6,7 @@ import {
   SOLARIA_FAQS,
   SOLARIA_MARKETING,
   SOLARIA_SEO,
+  solariaSeptemberOfferJsonLd,
 } from "@/lib/solaria-marketing";
 import {
   SITE,
@@ -25,6 +26,8 @@ const baseMeta = pageMetadata({
   path: SOLARIA_CO2_PATH,
   keywords: [
     "Solaria CO2 Oswego IL",
+    "Solaria September sale Oswego",
+    "CO2 laser $799 Oswego",
     "CO2 laser resurfacing Naperville",
     "fractional laser Aurora IL",
     "acne scar laser Oswego",
@@ -37,9 +40,9 @@ export const metadata: Metadata = {
   alternates: { canonical: `${SITE.url}${SOLARIA_CO2_PATH}` },
   openGraph: {
     ...baseMeta.openGraph,
-    images: [{ url: `${SITE.url}${SOLARIA_MARKETING.images.hero}`, width: 1200, height: 630, alt: SOLARIA_SEO.ogAlt }],
+    images: [{ url: `${SITE.url}${SOLARIA_MARKETING.images.danielleBa}`, width: 1200, height: 630, alt: SOLARIA_SEO.ogAlt }],
   },
-  twitter: { ...baseMeta.twitter, images: [`${SITE.url}${SOLARIA_MARKETING.images.hero}`] },
+  twitter: { ...baseMeta.twitter, images: [`${SITE.url}${SOLARIA_MARKETING.images.danielleBa}`] },
 };
 
 export default function SolariaCo2ServicePage() {
@@ -67,6 +70,10 @@ export default function SolariaCo2ServicePage() {
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(faqJsonLd(SOLARIA_FAQS.map((f) => ({ question: f.q, answer: f.a })), `${SITE.url}${SOLARIA_CO2_PATH}`)),
         }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(solariaSeptemberOfferJsonLd(SOLARIA_CO2_PATH)) }}
       />
       <SolariaCo2PageContent />
     </>

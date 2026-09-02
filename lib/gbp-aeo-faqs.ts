@@ -70,7 +70,7 @@ const TREATMENT_FAQ_TEMPLATES: Record<
   "solaria-co2": {
     howLong:
       "Solaria CO₂ downtime and remodeling timelines vary by depth. Hello Gorgeous maps expectations honestly before you book.",
-    cost: "Solaria CO₂ fractional laser is $899, with a buy-one-get-one-free area special. Settings and areas are confirmed at your Oswego consult.",
+    cost: "September 2026 Solaria pricing in Oswego: full face, neck and chin $799, neck/chin/chest $400, under eyes $299. Settings and areas are confirmed at consult.",
     isSafe:
       "Fractional CO₂ is medical-grade. Not every skin type is a candidate for every setting — Hello Gorgeous screens carefully.",
   },

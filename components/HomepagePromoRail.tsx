@@ -17,6 +17,14 @@ type Slide = {
 
 const SLIDES: Slide[] = [
   {
+    id: "solaria-september",
+    badge: "Sept sale",
+    line:
+      "Solaria CO₂ September — face, neck & chin $799 · neck/chin/chest $400 · under eyes $299. Danielle sat in the chair.",
+    primary: { label: "Read the sale", href: "/blog/solaria-co2-september-sale-oswego-il" },
+    secondary: { label: "Book consult", href: "/book" },
+  },
+  {
     id: "this-is-us",
     badge: "This is us",
     line:
@@ -92,7 +100,7 @@ const SLIDES: Slide[] = [
     id: "signature-menu",
     badge: "Signature menu",
     line:
-      "Botox as low as $9/unit · Lip filler $450 · Morpheus8 from $799 · Solaria CO₂ $899 BOGO area · Trifecta with FREE CO₂.",
+      "Botox as low as $9/unit · Lip filler $450 · Morpheus8 from $799 · Solaria CO₂ $799 September · Trifecta with FREE CO₂.",
     primary: { label: "View all specials", href: "/specials" },
     secondary: { label: "Book online", href: "/book" },
   },

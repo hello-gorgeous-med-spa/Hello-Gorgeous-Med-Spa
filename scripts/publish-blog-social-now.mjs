@@ -8,6 +8,48 @@
 const SITE_URL = (process.env.SITE_URL || "https://www.hellogorgeousmedspa.com").replace(/\/$/, "");
 
 const POSTS = {
+  "solaria-co2-september-sale-oswego-il": {
+    label: "Solaria September sale — Facebook + Instagram + Google",
+    channels: ["facebook", "instagram", "google"],
+    message: `I sat in the chair. I am a believer. I am finally secure to wear no makeup.
+
+— Danielle, founder, Hello Gorgeous Med Spa, Oswego
+
+September Solaria sale:
+• Full face, neck & chin $799 ($100 off) — 23/7 numbing cream included
+• Neck, chin & chest $400
+• Under eyes only $299
+
+My result is mine. Yours will be yours. Consult required.
+74 W. Washington St. · 630-636-6193
+
+https://www.hellogorgeousmedspa.com/blog/solaria-co2-september-sale-oswego-il`,
+    link: `${SITE_URL}/blog/solaria-co2-september-sale-oswego-il`,
+    imagePath: "/images/solaria/danielle-solaria-co2-before-during-after.png",
+  },
+  "bpc-157-musculoskeletal-recovery-research-oswego-il": {
+    label: "BPC-157 research explainer — Facebook + Instagram + Google",
+    channels: ["facebook", "instagram", "google"],
+    message: `🩹 BPC-157: what the research actually says (and what it doesn't)
+
+Tendons and ligaments don't have much blood flow — that's why a stubborn Achilles or biceps can stall. Researchers study BPC-157 because lab models look at three bottlenecks:
+
+🩸 new blood-vessel signaling
+🧬 how repair cells move into injured tissue
+🧵 how collagen organizes while it remodels
+
+That's preclinical science (cells + animals) — not a guarantee for your tendon. BPC-157 is not an FDA-approved healing drug.
+
+At Hello Gorgeous Med Spa in Oswego, we still get this question every week from Naperville, Aurora & the Fox Valley. Hello Gorgeous RX™ means Ryan Kent, FNP-BC evaluates you — licensed compounding partners, not a gray-market vial.
+
+$49 peptide consult · medication priced separately if prescribed
+74 W. Washington St. · 630-636-6193
+
+Education only. Individual results vary.
+https://www.hellogorgeousmedspa.com/peptides/bpc-157`,
+    link: `${SITE_URL}/peptides/bpc-157`,
+    imagePath: "/images/homepage-services/peptide-therapy-active-lifestyle.png",
+  },
   "microdosing-fillers-oswego-il": {
     label: "Microdosing fillers — Facebook + Google",
     channels: ["facebook", "google"],

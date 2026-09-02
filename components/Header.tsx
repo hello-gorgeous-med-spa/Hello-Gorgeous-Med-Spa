@@ -885,7 +885,7 @@ export function Header() {
             >
               <span className="flex flex-col items-start gap-0.5">
                 <span>Solaria Journey</span>
-                <span className="text-xs font-semibold text-[#FFB8DC]">InMode CO₂ · $899 + BOGO area</span>
+                <span className="text-xs font-semibold text-[#FFB8DC]">InMode CO₂ · $799 September</span>
               </span>
             </Link>
 

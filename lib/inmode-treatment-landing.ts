@@ -93,13 +93,13 @@ const SHARED_RELATED = {
     href: "/services/solaria-co2",
     eyebrow: "Flagship",
     title: "Solaria Journey",
-    blurb: "Full InMode CO₂ story, recovery guide, before/afters & $899 launch — start here.",
+    blurb: "Full InMode CO₂ story, recovery guide, before/afters & $799 September sale — start here.",
   },
   solariaLander: {
     href: "/solaria-co2-oswego",
     eyebrow: "Resurfacing",
     title: "Solaria CO₂ Oswego",
-    blurb: "Fractional CO₂ for tone, sun damage, scars, and texture — from $899.",
+    blurb: "Fractional CO₂ for tone, sun damage, scars, and texture — from $299 this September.",
   },
   burst: {
     href: "/morpheus8-burst-oswego",
@@ -130,9 +130,9 @@ const SHARED_RELATED = {
 export const SOLARIA_TREATMENT_LANDING: InModeTreatmentLandingContent = {
   slug: "solaria-co2-oswego",
   path: "/solaria-co2-oswego",
-  metaTitle: "Solaria CO₂ in Oswego, IL — $899 + Half-Off Second Area",
+  metaTitle: "Solaria CO₂ in Oswego, IL — $799 Face Neck Chin September",
   metaDescription:
-    "Solaria CO₂ fractional laser in Oswego, IL — $899 with buy-one-area-get-one-half-off. NP-directed resurfacing. Free consult — Naperville, Aurora & Fox Valley.",
+    "Solaria CO₂ fractional laser in Oswego, IL — September sale: face, neck & chin $799, neck/chin/chest $400, under eyes $299. NP-directed. Free consult — Naperville, Aurora & Fox Valley.",
   breadcrumbName: "Solaria CO₂ Oswego",
   locality: "CO₂ Fractional Resurfacing in Oswego, Illinois",
   productName: "Solaria CO₂ Laser",
@@ -140,8 +140,8 @@ export const SOLARIA_TREATMENT_LANDING: InModeTreatmentLandingContent = {
     "Reveal smoother, brighter, younger-looking skin with advanced fractional CO₂ — without the downtime of traditional full-field lasers.",
   heroImage: SOLARIA_TREATMENT_IMAGE,
   heroImageAlt: "Solaria CO₂ fractional laser treatment at Hello Gorgeous Med Spa in Oswego, IL",
-  priceLine: "$899",
-  priceNote: "Buy one area, get a second area half off",
+  priceLine: "$799",
+  priceNote: "Face, neck & chin · September · 23/7 numbing included",
   whatTitle: "What is Solaria CO₂ fractional resurfacing?",
   whatBody: [
     "Solaria CO₂ fractional skin resurfacing uses precise, microscopic beams of energy to target damaged or aging skin. These controlled micro-injuries remove dull, uneven surface layers while stimulating deep collagen remodeling — for firmer, smoother, more radiant skin over time.",
@@ -185,7 +185,7 @@ export const SOLARIA_TREATMENT_LANDING: InModeTreatmentLandingContent = {
     },
     {
       q: "How much does Solaria CO₂ cost?",
-      a: "Treatments are $899. Buy one area, get a second area half off. Exact areas and depth are confirmed at your free consultation.",
+      a: "September 2026: full face, neck and chin is $799 ($100 off, includes 23/7 numbing cream). Neck, chin and chest is $400. Under eyes only is $299. Exact areas and depth are confirmed at your free consultation.",
     },
     {
       q: "How many treatments will I need?",
